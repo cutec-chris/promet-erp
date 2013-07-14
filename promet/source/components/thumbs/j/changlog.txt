@@ -1,2 +1,0 @@
-Added Property AutoSort 
-Moved ScrollIntoView to the public section

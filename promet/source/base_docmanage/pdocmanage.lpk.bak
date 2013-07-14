@@ -14,7 +14,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="2">
+    <Files Count="3">
       <Item1>
         <Filename Value="umanagedocframe.lfm"/>
         <Type Value="LFM"/>
@@ -23,6 +23,10 @@
         <Filename Value="umanagedocframe.pas"/>
         <UnitName Value="umanagedocframe"/>
       </Item2>
+      <Item3>
+        <Filename Value="uimportimages.pas"/>
+        <UnitName Value="uimportimages"/>
+      </Item3>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="4">
