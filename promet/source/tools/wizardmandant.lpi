@@ -46,6 +46,7 @@
       </Item4>
       <Item5>
         <PackageName Value="pVisualPrometApp"/>
+        <DefaultFilename Value="../base/pvisualprometapp.lpk"/>
       </Item5>
       <Item6>
         <PackageName Value="LCL"/>
@@ -79,9 +80,8 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uWizardNewMandant"/>
         <IsVisibleTab Value="True"/>
-        <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="699"/>
+        <TopLine Value="697"/>
         <CursorPos X="55" Y="721"/>
         <UsageCount Value="136"/>
         <Loaded Value="True"/>
@@ -114,32 +114,26 @@
       <Unit6>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="3"/>
         <CursorPos X="27" Y="15"/>
         <UsageCount Value="59"/>
-        <Loaded Value="True"/>
       </Unit6>
       <Unit7>
         <Filename Value="../base/dbintfs/ubaseerpdbclasses.pas"/>
         <UnitName Value="uBaseERPDBClasses"/>
-        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="254"/>
         <CursorPos X="31" Y="281"/>
         <UsageCount Value="61"/>
-        <Loaded Value="True"/>
       </Unit7>
       <Unit8>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="952"/>
         <CursorPos X="1" Y="1819"/>
         <UsageCount Value="60"/>
-        <Loaded Value="True"/>
       </Unit8>
       <Unit9>
         <Filename Value="../base/dbintfs/ubasedbdataset.pas"/>
@@ -160,12 +154,10 @@
       <Unit11>
         <Filename Value="../base/dbintfs/uimpcsv.pas"/>
         <UnitName Value="uImpCSV"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="52"/>
         <CursorPos X="107" Y="86"/>
         <UsageCount Value="57"/>
-        <Loaded Value="True"/>
       </Unit11>
       <Unit12>
         <Filename Value="../../../LKomponenten/zeos/src/dbc/ZDbcSqLiteUtils.pas"/>
@@ -178,12 +170,10 @@
       <Unit13>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1508"/>
         <CursorPos X="6" Y="1517"/>
         <UsageCount Value="59"/>
-        <Loaded Value="True"/>
       </Unit13>
       <Unit14>
         <Filename Value="../base/old_units/uzeosdm.pas"/>
@@ -233,12 +223,10 @@
       <Unit20>
         <Filename Value="../base/dbintfs/udocuments.pas"/>
         <UnitName Value="uDocuments"/>
-        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="25" Y="17"/>
         <UsageCount Value="54"/>
-        <Loaded Value="True"/>
       </Unit20>
       <Unit21>
         <Filename Value="../import/udataimport.pas"/>
@@ -633,22 +621,18 @@
       <Unit68>
         <Filename Value="../base/dbintfs/ubaseapplication.pas"/>
         <UnitName Value="uBaseApplication"/>
-        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="10"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="58"/>
-        <Loaded Value="True"/>
       </Unit68>
       <Unit69>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="102"/>
         <CursorPos X="49" Y="112"/>
         <UsageCount Value="58"/>
-        <Loaded Value="True"/>
       </Unit69>
       <Unit70>
         <Filename Value="../base/usysmonitor.pas"/>
@@ -796,12 +780,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMandantOptions"/>
-        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="73"/>
         <CursorPos X="1" Y="143"/>
         <UsageCount Value="55"/>
-        <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit86>
       <Unit87>
@@ -881,12 +863,10 @@
       </Unit95>
       <Unit96>
         <Filename Value="../base/changes.txt"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="44" Y="13"/>
         <UsageCount Value="53"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit96>
       <Unit97>
@@ -895,12 +875,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uSelectReport"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="88" Y="6"/>
         <UsageCount Value="53"/>
-        <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit97>
       <Unit98>
@@ -953,12 +931,10 @@
       <Unit104>
         <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
         <UnitName Value="uProcessManagement"/>
-        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="140"/>
         <CursorPos X="43" Y="174"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit104>
       <Unit105>
         <Filename Value="../../../../lazarus/lcl/include/treeview.inc"/>
