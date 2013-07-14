@@ -24,6 +24,9 @@
     </MacroValues>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>
+      <SharedMatrixOptions Count="1">
+        <Item1 ID="969648350618" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="nogui"/>
+      </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
@@ -43,6 +46,7 @@
       </Item1>
       <Item2>
         <PackageName Value="pcmdprometapp"/>
+        <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="DBFLaz"/>
@@ -82,7 +86,6 @@
 -dSTATISTICS"/>
       <CompilerPath Value="$(CompPath)"/>
     </Other>
-    <LCLWidgetType Value="nogui"/>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="3">
@@ -97,4 +100,4 @@
       </Item3>
     </Exceptions>
   </Debugging>
-</CONFIG>
+</CONFIG>

@@ -30,13 +30,12 @@
       <local>
         <FormatVersion Value="1"/>
         <CommandLineParams Value="--mandant=Test"/>
-        <LaunchingApplication PathPlusParams="\usr\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
     <RequiredPackages Count="4">
       <Item1>
         <PackageName Value="pcmdprometapp"/>
-        <DefaultFilename Value="..\..\..\..\..\..\..\..\..\..\..\..\..\base\pcmdprometapp.lpk" Prefer="True"/>
+        <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="pPrometDBIntfs"/>

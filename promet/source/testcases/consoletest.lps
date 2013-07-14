@@ -20,7 +20,7 @@
       <Unit1>
         <Filename Value="tlogout.pas"/>
         <UnitName Value="tlogout"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="81" Y="24"/>
@@ -35,7 +35,7 @@
       <Unit3>
         <Filename Value="tdbtests.pas"/>
         <UnitName Value="tdbtests"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="38" Y="24"/>
@@ -45,7 +45,7 @@
       <Unit4>
         <Filename Value="uvisualtests.pas"/>
         <UnitName Value="uvisualtests"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="76"/>
         <CursorPos X="7" Y="95"/>
@@ -200,7 +200,7 @@
       <Unit24>
         <Filename Value="tlogin.pas"/>
         <UnitName Value="tLogin"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="10" Y="26"/>
@@ -226,7 +226,7 @@
       <Unit27>
         <Filename Value="..\base\dbintfs\ubaseapplication.pas"/>
         <UnitName Value="uBaseApplication"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="16"/>
         <CursorPos X="18" Y="47"/>
@@ -244,12 +244,10 @@
       <Unit29>
         <Filename Value="..\..\..\..\fpc\2.6_fixes\packages\fcl-fpcunit\src\fpcunit.pp"/>
         <UnitName Value="fpcunit"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="146"/>
         <CursorPos X="3" Y="164"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit29>
       <Unit30>
         <Filename Value="..\..\..\..\fpc\2.6_fixes\packages\fcl-fpcunit\src\testregistry.pp"/>
@@ -262,7 +260,7 @@
       <Unit31>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1271"/>
         <CursorPos X="1" Y="1289"/>
@@ -272,7 +270,7 @@
       <Unit32>
         <Filename Value="tcreatedatabase.pas"/>
         <UnitName Value="tCreateDatabase"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="25"/>
         <CursorPos X="68" Y="55"/>
@@ -282,7 +280,7 @@
       <Unit33>
         <Filename Value="utfulllogout.pas"/>
         <UnitName Value="utfulllogout"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="12" Y="22"/>
@@ -292,7 +290,7 @@
       <Unit34>
         <Filename Value="utransaction.pas"/>
         <UnitName Value="utransaction"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="8"/>
         <CursorPos X="31" Y="16"/>
@@ -302,7 +300,7 @@
       <Unit35>
         <Filename Value="ulinkcheck.pas"/>
         <UnitName Value="ulinkcheck"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="10"/>
         <CursorPos X="1" Y="1"/>
@@ -312,7 +310,7 @@
       <Unit36>
         <Filename Value="udocumentmanagement.pas"/>
         <UnitName Value="udocumentmanagement"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="118"/>
         <CursorPos X="1" Y="154"/>
@@ -322,12 +320,10 @@
       <Unit37>
         <Filename Value="..\..\..\..\fpc\2.6_fixes\packages\fcl-fpcunit\src\consoletestrunner.pas"/>
         <UnitName Value="consoletestrunner"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="128"/>
         <CursorPos X="1" Y="85"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit37>
     </Units>
     <General>

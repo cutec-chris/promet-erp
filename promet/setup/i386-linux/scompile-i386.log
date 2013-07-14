@@ -4221,3 +4221,30 @@ Linking /media/source/promet/output/i386-linux/helpviewer
 1 warning(s) issued
 3 hint(s) issued
 1 note(s) issued
+invalid Package Link: file "/media/source/promet/source/base/pcmdprometapp.lpk" does not exist.
+invalid Package Link: file "/media/source/promet/source/base/dbintfs/pprometdbintfs.lpk" does not exist.
+invalid Package Link: file "/media/source/promet/source/components/dexif/dexif_package.lpk" does not exist.
+invalid Package Link: file "/media/source/promet/source/components/zeos/packages/lazarus/zcomponent.lpk" does not exist.
+invalid Package Link: file "/media/source/promet/source/components/zeos/packages/lazarus/zplain.lpk" does not exist.
+invalid Package Link: file "/media/source/promet/source/components/zeos/packages/lazarus/zcore.lpk" does not exist.
+invalid Package Link: file "/media/source/promet/source/components/zeos/packages/lazarus/zparsesql.lpk" does not exist.
+invalid Package Link: file "/media/source/promet/source/components/zeos/packages/lazarus/zdbc.lpk" does not exist.
+invalid Package Link: file "/media/source/lkomponenten/lnet/lazaruspackage/lnetbase.lpk" does not exist.
+invalid Package Link: file "/media/source/promet/source/base_wiki/wiki2html_pkg.lpk" does not exist.
+invalid Package Link: file "/media/source/general/general_nogui.lpk" does not exist.
+ERROR: Broken dependency: pcmdprometapp 0.0>pcmdprometapp 0.0>pcmdprometapp 0.0
+invalid Package Link: file "/media/source/general/general.lpk" does not exist.
+invalid Package Link: file "/media/source/lkomponenten/richmemo/richmemopackage.lpk" does not exist.
+invalid Package Link: file "/media/source/promet/source/base/pvisualprometapp.lpk" does not exist.
+invalid Package Link: file "/media/source/promet/source/components/zeos/packages/lazarus/zcomponent.lpk" does not exist.
+invalid Package Link: file "/media/source/lkomponenten/tvplanit/packages/v103_lazarus.lpk" does not exist.
+invalid Package Link: file "/media/source/lkomponenten/ZVDateTimeCtrls/zvdatetimectrls.lpk" does not exist.
+invalid Package Link: file "/media/source/promet/source/import/pimportexport.lpk" does not exist.
+invalid Package Link: file "/media/source/general/general_nogui.lpk" does not exist.
+invalid Package Link: file "/media/source/lkomponenten/powerpdf/pack_powerpdf.lpk" does not exist.
+invalid Package Link: file "/media/source/promet/source/components/scanning/laz_twain.lpk" does not exist.
+invalid Package Link: file "/media/source/promet/source/components/scanning/sanetools.lpk" does not exist.
+invalid Package Link: file "/media/source/promet/source/base/dbintfs/pprometdbintfs.lpk" does not exist.
+invalid Package Link: file "/media/source/promet/source/components/dexif/dexif_package.lpk" does not exist.
+invalid Package Link: file "/media/source/promet/source/components/zeos/packages/lazarus/zplain.lpk" does not exist.
+invalid Package Link: file "/media/source/promet/source/components/zeos/packages/lazarus/zcore.

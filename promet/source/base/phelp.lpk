@@ -5,7 +5,7 @@
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
-        <OtherUnitFiles Value="/media/Daten/Source/prometheus/source/tools/"/>
+        <OtherUnitFiles Value="/media/Daten/Source/prometheus/source/tools"/>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
       </SearchPaths>
       <Other>
@@ -54,6 +54,7 @@
     <RequiredPkgs Count="7">
       <Item1>
         <PackageName Value="pDocuments"/>
+        <DefaultFilename Value="../base_documents/pdocuments.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="FCL"/>

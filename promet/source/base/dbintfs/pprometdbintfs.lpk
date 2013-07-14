@@ -185,6 +185,7 @@
       </Item3>
       <Item4>
         <PackageName Value="lnetbase"/>
+        <DefaultFilename Value="..\..\components\lnet\lazaruspackage\lnetbase.lpk"/>
       </Item4>
       <Item5>
         <PackageName Value="wiki2html_pkg"/>
