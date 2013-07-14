@@ -12,9 +12,6 @@
       </SearchPaths>
       <CodeGeneration>
         <SmartLinkUnit Value="True"/>
-        <Optimizations>
-          <VariablesInRegisters Value="True"/>
-        </Optimizations>
       </CodeGeneration>
       <Other>
         <CompilerMessages>
@@ -177,7 +174,7 @@
     <RequiredPkgs Count="9">
       <Item1>
         <PackageName Value="dexif_package"/>
-        <DefaultFilename Value="..\..\components\dexif\dexif_package.lpk" Prefer="True"/>
+        <DefaultFilename Value="..\..\components\dexif\dexif_package.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="laz_synapse"/>

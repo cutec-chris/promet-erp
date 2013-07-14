@@ -66,6 +66,7 @@
     <RequiredPkgs Count="4">
       <Item1>
         <PackageName Value="laz_fpspreadsheet"/>
+        <DefaultFilename Value="../components/fpspreadsheet/laz_fpspreadsheet.lpk" Prefer="True"/>
       </Item1>
       <Item2>
         <PackageName Value="general_nogui"/>

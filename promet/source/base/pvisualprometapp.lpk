@@ -354,6 +354,7 @@
       </Item3>
       <Item4>
         <PackageName Value="v103_lazarus"/>
+        <DefaultFilename Value="..\components\tvplanit\packages\v103_lazarus.lpk"/>
       </Item4>
       <Item5>
         <PackageName Value="ZVDateTimeCtrls"/>

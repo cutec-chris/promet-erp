@@ -174,37 +174,41 @@
       </Item37>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="8">
+    <RequiredPkgs Count="9">
       <Item1>
-        <PackageName Value="laz_synapse"/>
+        <PackageName Value="dexif_package"/>
+        <DefaultFilename Value="..\..\components\dexif\dexif_package.lpk" Prefer="True"/>
       </Item1>
       <Item2>
-        <PackageName Value="zcomponent"/>
-        <DefaultFilename Value="..\..\components\zeos\packages\lazarus\zcomponent.lpk"/>
+        <PackageName Value="laz_synapse"/>
       </Item2>
       <Item3>
-        <PackageName Value="lnetbase"/>
+        <PackageName Value="zcomponent"/>
+        <DefaultFilename Value="..\..\components\zeos\packages\lazarus\zcomponent.lpk"/>
       </Item3>
       <Item4>
-        <PackageName Value="wiki2html_pkg"/>
-        <DefaultFilename Value="..\wiki2html_pkg.lpk"/>
+        <PackageName Value="lnetbase"/>
       </Item4>
       <Item5>
-        <PackageName Value="zdbc"/>
-        <DefaultFilename Value="..\..\components\zeos\packages\lazarus\zdbc.lpk"/>
+        <PackageName Value="wiki2html_pkg"/>
+        <DefaultFilename Value="..\wiki2html_pkg.lpk"/>
       </Item5>
       <Item6>
-        <PackageName Value="general_nogui"/>
-        <DefaultFilename Value="..\..\..\..\general\general_nogui.lpk"/>
+        <PackageName Value="zdbc"/>
+        <DefaultFilename Value="..\..\components\zeos\packages\lazarus\zdbc.lpk"/>
       </Item6>
       <Item7>
-        <PackageName Value="zcore"/>
-        <DefaultFilename Value="..\..\components\zeos\packages\lazarus\zcore.lpk"/>
+        <PackageName Value="general_nogui"/>
+        <DefaultFilename Value="..\..\..\..\general\general_nogui.lpk"/>
       </Item7>
       <Item8>
+        <PackageName Value="zcore"/>
+        <DefaultFilename Value="..\..\components\zeos\packages\lazarus\zcore.lpk"/>
+      </Item8>
+      <Item9>
         <PackageName Value="FCL"/>
         <MinVersion Major="1" Valid="True"/>
-      </Item8>
+      </Item9>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

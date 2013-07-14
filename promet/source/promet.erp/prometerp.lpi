@@ -213,6 +213,7 @@
       </Item18>
       <Item19>
         <PackageName Value="richmemopackage"/>
+        <DefaultFilename Value="../components/richmemo/richmemopackage.lpk"/>
       </Item19>
       <Item20>
         <PackageName Value="pVisualPrometApp"/>
