@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <Package Version="4">
+    <Name Value="pcalendar"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <SearchPaths>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+      </SearchPaths>
+      <Other>
+        <CompilerMessages>
+          <MsgFileName Value=""/>
+        </CompilerMessages>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
+    </CompilerOptions>
+    <Files Count="4">
+      <Item1>
+        <Filename Value="ucalendarframe.lfm"/>
+        <Type Value="LFM"/>
+      </Item1>
+      <Item2>
+        <Filename Value="ucalendarframe.pas"/>
+        <UnitName Value="uCalendarFrame"/>
+      </Item2>
+      <Item3>
+        <Filename Value="ueventedit.lfm"/>
+        <Type Value="LFM"/>
+      </Item3>
+      <Item4>
+        <Filename Value="ueventedit.pas"/>
+        <UnitName Value="uEventEdit"/>
+      </Item4>
+    </Files>
+    <Type Value="RunAndDesignTime"/>
+    <RequiredPkgs Count="4">
+      <Item1>
+        <PackageName Value="pDocuments"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="pVisualPrometApp"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="LCL"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="FCL"/>
+      </Item4>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

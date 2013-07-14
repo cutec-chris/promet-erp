@@ -1,0 +1,31 @@
+object fMain: TfMain
+  Left = 553
+  Height = 438
+  Top = 244
+  Width = 411
+  Caption = 'Prometheus'
+  ClientHeight = 438
+  ClientWidth = 411
+  OnCreate = FormCreate
+  Position = poScreenCenter
+  LCLVersion = '1.1'
+  object ipHTML: TIpHtmlPanel
+    Left = 0
+    Height = 438
+    Top = 0
+    Width = 411
+    Align = alClient
+    AllowTextSelect = False
+    FixedTypeface = 'Courier New'
+    DefaultTypeFace = 'default'
+    DefaultFontSize = 10
+    FlagErrors = False
+    PrintSettings.MarginLeft = 0.5
+    PrintSettings.MarginTop = 0.5
+    PrintSettings.MarginRight = 0.5
+    PrintSettings.MarginBottom = 0.5
+    ShowHints = False
+    TabOrder = 0
+    OnHotClick = ipHTMLHotClick
+  end
+end

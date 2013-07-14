@@ -1,0 +1,488 @@
+program pop3receiver;
+
+{$mode objfpc}{$H+}
+
+uses
+  {$IFDEF UNIX}
+  cthreads,
+  {$ENDIF}
+  Classes, SysUtils, CustApp, uBaseCustomApplication, mimemess, pop3send,
+  mimepart, uData, uBaseDBInterface, Utils, uMessages, uBaseDBClasses,
+  uPerson, synautil, uIntfStrConsts, FileUtil, db, uDocuments,ssl_openssl,
+  blcksock
+  { you can add units after this };
+
+type
+
+  { TPOP3Receiver }
+
+  TPOP3Receiver = class(TBaseCustomApplication)
+  private
+    TextThere : Boolean;
+    HtmlThere : Boolean;
+    aSender: String;
+    aSubject: String;
+    MList: TStringList;
+    messageidx: LongInt;
+    msg: TMimeMess;
+    fullmsg: TMimeMess;
+    mailaccounts : string;
+    omailaccounts : string;
+    NewMessages,
+    NewUnknownMessages : Integer;
+    pop: TPOP3Send;
+  protected
+    MessageIndex : TMessageList;
+    DeletedItems : TDeletedItems;
+    Message : TMessage;
+    aConnection: TComponent;
+    procedure DoRun; override;
+    procedure WriteMessage(s : string);
+    function AskForBigMail: Boolean;
+    function DoGetStartValue : Integer;
+    function DoInsertMessageIndex : Boolean;
+    procedure DoInsertMessage;
+    procedure DoReplaceMailAccounts;
+    procedure msgWalkPart(const Sender: TMimePart);
+  public
+    constructor Create(TheOwner: TComponent); override;
+    destructor Destroy; override;
+  end;
+
+resourcestring
+  strReceivingMailsFrom         = 'empfange mails von %s';
+  strMailLoginFailed            = 'Anmeldung fehlgeschlagen, server antwortet nicht !';
+  strLoginComplete              = 'Anmeldung erfolgreich ...';
+  strRecivingMessageXofX        = 'Empfange Nachricht %d von %d';
+  strMessageToBig               = 'Die e-Mail Nachricht von "%s" mit Betreff "%s" ist grösser als 10MB, soll Sie wirklich heruntergeladen werden ?';
+
+{ TPOP3Receiver }
+
+procedure TPOP3Receiver.DoRun;
+var
+  ErrorMsg: String;
+  ReplaceOmailaccounts: Boolean;
+  atmp: String;
+  start: LongInt;
+  i: Integer;
+  MID: LongInt;
+  DoDownload: Boolean;
+begin
+  MessageIndex := TMessageList.Create(Self,Data,aConnection);
+  DeletedItems := TDeletedItems.Create(Self,Data,aConnection);
+  Message := TMessage.Create(Self,Data,aConnection);
+  Data.Users.DataSet.First;
+  while not Data.Users.DataSet.EOF do
+    begin
+      mailaccounts := '';
+      with Self as IBaseDbInterface do
+        mailaccounts := DBConfig.ReadString('MAILACCOUNTS','');
+      ReplaceOmailaccounts := false;
+      while pos('|',mailaccounts) > 0 do
+        begin  //Servertype;Server;Username;Password;Active
+          if copy(mailaccounts,0,pos(';',mailaccounts)-1) = 'POP3' then
+            begin
+              mailaccounts := copy(mailaccounts,pos(';',mailaccounts)+1,length(mailaccounts));
+              pop := TPOP3Send.Create;
+              pop.TargetHost := copy(mailaccounts,0,pos(';',mailaccounts)-1);
+              writemessage(Format(strReceivingMailsFrom,[copy(mailaccounts,0,pos(';',mailaccounts)-1)]));
+              mailaccounts := copy(mailaccounts,pos(';',mailaccounts)+1,length(mailaccounts));
+              pop.UserName := copy(mailaccounts,0,pos(';',mailaccounts)-1);
+              mailaccounts := copy(mailaccounts,pos(';',mailaccounts)+1,length(mailaccounts));
+              pop.Password := copy(mailaccounts,0,pos(';',mailaccounts)-1);
+              mailaccounts := copy(mailaccounts,pos(';',mailaccounts)+1,length(mailaccounts));
+              pop.AuthType:=POP3AuthAll;
+              pop.AutoTLS:=True;
+              omailaccounts := omailaccounts+'POP3;'+pop.TargetHost+';'+pop.UserName+';'+pop.Password+';'+copy(mailaccounts,0,pos(';',mailaccounts)-1)+';L:;';
+              ReplaceOmailaccounts := false;
+              if copy(mailaccounts,0,pos(';',mailaccounts)-1) = 'YES' then
+                if pop.Login then
+                  begin
+                    writemessage(strLoginComplete);
+                    pop.Uidl(0);
+                    MList := TStringList.Create;
+                    MList.Assign(pop.FullResult);
+                    if MList.Count > 0 then
+                      omailaccounts := copy(omailaccounts,0,length(omailaccounts)-1)+MList[Mlist.Count-1]+';';
+                    ReplaceOmailaccounts := True;
+                    mailaccounts := copy(mailaccounts,pos(';',mailaccounts)+1,length(mailaccounts));
+                    if copy(mailaccounts,0,2) = 'L:' then
+                      begin
+                        atmp := copy(mailaccounts,3,length(mailaccounts));
+                        start := MList.IndexOf(copy(atmp,0,pos(';',atmp)-1));
+                      end
+                    else
+                      Start := -1;
+                    if Start = -1 then
+                      begin
+                        Start := DoGetStartValue;
+                      end;
+                    for i := start+1 to MList.Count-1 do
+                      begin
+                        try
+                        messageidx := i;
+                        MID := StrToInt(copy(MList[messageidx],0,pos(' ',MList[i])-1));
+                        DoDownload := True;
+                        pop.List(MID);
+                        atmp := pop.ResultString;
+                        if StrToIntDef(copy(atmp,rpos(' ',atmp)+1,length(atmp)),0) > 10*(1024*1024) then
+                          begin
+                            pop.Top(MID,0); //Header holen
+                            msg := TMimeMess.Create;
+                            msg.Lines.Text:=pop.FullResult.Text;
+                            msg.DecodeMessage;
+                            aSender := msg.Header.From;
+                            if AnsiToUTF8(aSender) <> '' then
+                              aSender := AnsiToUTF8(aSender);
+                            aSubject := msg.Header.Subject;
+                            if AnsiToUTF8(aSubject) <> '' then
+                              aSubject := AnsiToUTF8(aSubject);
+                            DoDownload := AskForBigMail;
+                            msg.Free;
+                          end;
+                        if DoDownload then
+                          begin
+                            writemessage(Format(strRecivingMessageXofX,[i,MList.Count]));
+                            pop.Top(MID,0); //Header holen
+                            msg := TMimeMess.Create;
+                            msg.Lines.Text:=pop.FullResult.Text;
+                            msg.DecodeMessage;
+                            Data.StartTransaction(aConnection);
+                            try
+                              if DoInsertMessageIndex then
+                                begin
+                                  fullmsg := TMimeMess.Create;
+                                  pop.Retr(MID); //Naricht holen
+                                  fullmsg.Lines.Text:=pop.FullResult.Text;
+                                  fullmsg.DecodeMessage;
+                                  DoInsertMessage;
+                                  fullmsg.Free;
+                                end;
+                              Data.Commit(aConnection);
+                              MessageHandler.SendCommand('prometerp','Message.refresh');
+                            except
+                              Data.Rollback(aConnection);
+                            end;
+                            msg.Free;
+                          end;
+                        except
+                        end;
+                      end;
+                    MList.Free;
+                   end
+                 else
+                   begin
+                     if pop.ResultString = '' then
+                       writemessage(strMailLoginFailed)
+                     else
+                       writemessage(pop.ResultString);
+                   end;
+                 pop.Free;
+                 omailaccounts := omailaccounts+'|';
+               end
+             else
+               omailaccounts := omailaccounts+copy(mailaccounts,0,pos('|',mailaccounts));
+             mailaccounts := copy(mailaccounts,pos('|',mailaccounts)+1,length(mailaccounts));
+           end;
+      if ReplaceOmailaccounts then
+        DoReplaceMailAccounts;
+      Data.Users.DataSet.Next;
+    end;
+  // stop program loop
+  Terminate;
+end;
+
+procedure TPOP3Receiver.WriteMessage(s: string);
+begin
+  writeln(s);
+end;
+
+function TPOP3Receiver.AskForBigMail: Boolean;
+begin
+  Result := True;//MessageDlg(streMail,Format(strMessageToBig,[asender,asubject]),mtInformation,[mbYes,mbNo],0) = mrYes;
+end;
+
+function TPOP3Receiver.DoGetStartValue: Integer;
+var
+  b: Integer;
+  OldFilter: String;
+  Messages: TMessageList;
+begin
+  Result := -1;
+  Messages := TMessageList.Create(Self,Data,nil);
+  for b := MList.Count-1 downto 0 do
+    begin
+      Data.SetFilter(Messages,'"ID"='''+trim(copy(MList[b],pos(' ',MList[b])+1,length(MList[b])))+'''');
+      Data.SetFilter(DeletedItems,'"LINK"=''MESSAGEIDX@'+copy(MList[b],pos(' ',MList[b])+1,length(MList[b]))+'''');
+      if (Messages.Count > 0)
+      or (DeletedItems.Count > 0) then
+        begin
+          Result := b;
+          break;
+        end;
+    end;
+  Messages.Free;
+end;
+
+function TPOP3Receiver.DoInsertMessageIndex: Boolean;
+var
+  atmp: String;
+  SpamPoints: real;
+  a: Integer;
+  rec: String;
+  aTreeEntry: Integer;
+  BMID: Int64;
+  Customers: TPerson;
+  CustomerCont: TPersonContactData;
+begin
+  Data.SetFilter(MessageIndex,'"ID"='''+copy(MList[messageidx],pos(' ',MList[messageidx])+1,length(MList[messageidx]))+'''');
+  Data.SetFilter(DeletedItems,'"LINK"=''MESSAGEIDX@'+copy(MList[messageidx],pos(' ',MList[messageidx])+1,length(MList[messageidx]))+'''');
+  Result := False;
+  if (not MessageIndex.DataSet.Locate('ID',copy(MList[messageidx],pos(' ',MList[messageidx])+1,length(MList[messageidx])),[]))
+  and (not DeletedItems.DataSet.Locate('LINK','MESSAGEIDX@'+copy(MList[messageidx],pos(' ',MList[messageidx])+1,length(MList[messageidx])),[])) then
+    begin
+      BMID := Data.GetUniID(nil);
+      SpamPoints := 0;
+      with MessageIndex.DataSet do
+        begin //Messagenot there
+          atmp := msg.Header.From;
+          if (AnsiToUTF8(atmp) <> '') and (mailaccounts <> AnsiToUTF8(atmp)) then
+            atmp := AnsiToUTF8(atmp);
+          atmp:=getemailaddr(msg.Header.From);
+          CustomerCont := TPersonContactData.Create(Self,Data);
+          if Data.IsSQLDb then
+            Data.SetFilter(CustomerCont,'UPPER("DATA")=UPPER('''+atmp+''')')
+          else
+            Data.SetFilter(CustomerCont,'"DATA"='''+atmp+'''');
+          Customers := TPerson.Create(Self,Data);
+          Data.SetFilter(Customers,'"ACCOUNTNO"='+Data.QuoteValue(CustomerCont.DataSet.FieldByName('ACCOUNTNO').AsString));
+          CustomerCont.Free;
+          if Customers.Count > 0 then
+            begin
+              Customers.History.Open;
+              Customers.History.DataSet.Append;
+              Customers.History.DataSet.FieldByName('REF_ID').AsInteger := Customers.DataSet.FieldByName('SQL_ID').AsInteger;
+              Customers.History.DataSet.FieldByName('LINK').AsString := 'MESSAGEIDX@'+copy(MList[messageidx],pos(' ',MList[messageidx])+1,length(MList[messageidx]));
+              atmp := msg.Header.Subject;
+              if (AnsiToUTF8(atmp) <> '') and (mailaccounts <> AnsiToUTF8(atmp)) then
+                atmp := AnsiToUTF8(atmp);
+              Customers.History.DataSet.FieldByName('ACTIONICON').AsInteger := ACICON_MAILNEW;
+              Customers.History.DataSet.FieldByName('ACTION').AsString := Format(strActionMessageReceived,[atmp]);
+              Customers.History.DataSet.FieldByName('REFERENCE').AsString := atmp;
+              Customers.History.DataSet.FieldByName('CHANGEDBY').AsString := Data.Users.Dataset.FieldByName('IDCODE').AsString;
+              Customers.History.DataSet.FieldByName('TIMESTAMPD').AsDateTime := Now();
+              Customers.History.DataSet.Post;
+              aTreeEntry := TREE_ID_MESSAGES;
+              inc(NewMessages);
+            end
+          else
+            begin
+              aTreeEntry := TREE_ID_UNKNOWN_MESSAGES;
+              inc(NewUnknownMessages);
+            end;
+          Customers.Free;
+          if getemailaddr(trim(msg.Header.ToList[0])) = getemailaddr(trim(msg.Header.From)) then
+            begin
+              aTreeEntry := TREE_ID_SPAM_MESSAGES;
+            end;
+          atmp := SysToUTF8(msg.Header.From);
+          if atmp = '' then exit;
+          Insert;
+          FieldByName('USER').AsString := Data.Users.DataSet.FieldByName('ACCOUNTNO').AsString;
+          FieldByName('ID').AsString := copy(MList[messageidx],pos(' ',MList[messageidx])+1,length(MList[messageidx]));
+          FieldByName('MSG_ID').AsInteger:=BMID;
+          FieldByName('TYPE').AsString := 'EMAIL';
+          FieldByName('READ').AsString := 'N';
+          FieldByName('SENDER').AsString := atmp;
+          FieldByName('REPLYTO').AsString := SysToUTF8(msg.Header.ReplyTo);
+          FieldByName('SENDDATE').AsDateTime := msg.Header.Date;
+          if FieldDefs.IndexOf('SENDTIME') <> -1 then
+            FieldByName('SENDTIME').AsFloat := Frac(msg.Header.Date);
+          atmp := msg.Header.Subject;
+          if (AnsiToUTF8(atmp) <> '') and (mailaccounts <> AnsiToUTF8(atmp)) then
+          atmp := AnsiToUTF8(atmp);
+          FieldbyName('SUBJECT').AsString := atmp;
+          FieldByName('TREEENTRY').AsInteger := aTreeEntry;
+          Post;
+          Edit;
+          if FieldByName('TREEENTRY').AsInteger = TREE_ID_UNKNOWN_MESSAGES then
+            begin //Filter Spam
+              SpamPoints := 0;
+              a := 0;
+              if msg.Header.FindHeader('X-Spam-Flag') = 'YES' then
+                SpamPoints := SpamPoints+4;
+              if  (msg.Header.FindHeader('X-GMX-Antispam') <> '') then
+                begin
+                  if TryStrToInt(trim(copy(trim(msg.Header.FindHeader('X-GMX-Antispam')),0,pos(' ',trim(msg.Header.FindHeader('X-GMX-Antispam')))-1)),a) then
+                    if a > 0 then
+                      SpamPoints := SpamPoints+4;
+                end;
+              atmp := trim(msg.Header.From);
+              if (pos('>',atmp) > 0) and (pos('<',atmp) > 0) then
+                atmp := getemailaddr(atmp)
+              else if atmp = '' then
+                SpamPoints := SpamPoints+4   //Kein Absender
+              else
+                SpamPoints := SpamPoints+1; //Kein Realname
+              //Mails mit großer Empfängeranzahl
+              SpamPoints := SpamPoints+msg.Header.ToList.Count*0.5;
+              //Regular expressions
+              {$IFDEF WINDOWS}
+              {
+                                              if ExecRegExpr('.*[\$Ss]pecia[l1]\W[Oo0]ffer.*',msg.Header.Subject) then SpamPoints := SpamPoints+3;
+                                              if ExecRegExpr('.*[Vv][Ii1]agr.*',msg.Header.Subject) then SpamPoints := SpamPoints+3;
+                                              if ExecRegExpr('.*[Oo0][Ee][Mm].*',msg.Header.Subject) then SpamPoints := SpamPoints+3;
+                                              if ExecRegExpr('.*\$AVE|\$ave.*',msg.Header.Subject) then SpamPoints := SpamPoints+3;
+                                              if ExecRegExpr('.*[Pp]re[Ss\$]cr[iI1]pt.*',msg.Header.Subject) then SpamPoints := SpamPoints+3;
+                                              if ExecRegExpr('.*[Pp]en[Ii1][\$s].*',msg.Header.Subject) then SpamPoints := SpamPoints+3;
+                                              if ExecRegExpr('(?i)(pharmacy)|((p(.{1,3})?h(.{1,3})?a(.{1,3})?r(.{1,3)?m(.{1,3})?a(.{1,3})?c(.{1,3})?y))',msg.Header.Subject) then SpamPoints := SpamPoints+3;
+                                              if ExecRegExpr('[v,V,(\\/)](\W|)[i,I,1,l,L](\W|)[a,A,@,(\/\\)](\W|)[g,G](\W|)[r,R](\W|)[a,A,@,(\/\\))]',msg.Header.Subject) then SpamPoints := SpamPoints+3;
+                                              if ExecRegExpr('(?i)[v\\]+/?.?[i:1!\|]+.?[a@/]+\\?.?[gq]+.?r+.?[a@/]+\\?',msg.Header.Subject) then SpamPoints := SpamPoints+3;
+                                              if ExecRegExpr('(?i)\banal\b',msg.Header.Subject) then SpamPoints := SpamPoints+3;
+                                              if ExecRegExpr('(?i)\b[b8].?[uv].?[li17\|].?[gq].?[a@/][\\]?r.?[yi1!:\|]?',msg.Header.Subject) then SpamPoints := SpamPoints+3;
+                                              if ExecRegExpr('(?i)cheapest\spills',msg.Header.Subject) then SpamPoints := SpamPoints+3;
+                                              if ExecRegExpr('(?i)\bc.?[i1!:\|].?[a@/][\\]?.?[li17\|].?[i1!:\|].?[s235$]',msg.Header.Subject) then SpamPoints := SpamPoints+3;
+                                              if ExecRegExpr('(?i)\bd.?[i1!:\|].?[s235$].?c.?[oQ0].?[uv].?n.?[t\+]?',msg.Header.Subject) then SpamPoints := SpamPoints+3;
+                                              if ExecRegExpr('(?i)ejaculation',msg.Header.Subject) then SpamPoints := SpamPoints+3;
+                                              if ExecRegExpr('(?i)enlargement',msg.Header.Subject) then SpamPoints := SpamPoints+3;
+                                              if ExecRegExpr('\b[LlIi17\|].?[Ee3].?[Vv\\][/]?.?[Ii1!:\|].?[Tt\+].?[Rr].?[Aa@/]?[\\]?',msg.Header.Subject) then SpamPoints := SpamPoints+3;
+                                              if ExecRegExpr('(?i)\bp.?[oQ0].?r.?n.?[oQ0]?',msg.Header.Subject) then SpamPoints := SpamPoints+3;
+                                              } }
+                                              {$ENDIF}
+         {                                    case mailcheck(atmp) of
+                                              6,7:SpamPoints := SpamPoints+4; //Absender nicht erreichbar oder ungültige Adresse
+                                              end;}
+            end;
+          if SpamPoints > 3 then
+            begin
+              FieldByName('TREEENTRY').AsInteger := TREE_ID_SPAM_MESSAGES;
+              FieldByName('READ').AsString := 'Y';
+            end;
+          Post;
+          Result := True;
+        end;
+    end;
+end;
+
+procedure TPOP3Receiver.DoInsertMessage;
+begin
+  if MessageIndex.DataSet.Locate('ID',copy(MList[messageidx],pos(' ',MList[messageidx])+1,length(MList[messageidx])),[loCaseInsensitive]) then
+    begin
+      Data.SetFilter(Message,'ID='+Data.QuoteValue(copy(MList[messageidx],pos(' ',MList[messageidx])+1,length(MList[messageidx]))));
+      if Message.Count > 0 then
+        begin
+          Message.Content.Open;
+          with Message.Content.DataSet do
+            begin
+              Insert;
+              FieldByName('ID').AsString := copy(MList[messageidx],pos(' ',MList[messageidx])+1,length(MList[messageidx]));
+              FieldByName('SQL_ID').AsInteger:=MessageIndex.DataSet.FieldByName('MSG_ID').AsInteger;
+              FieldbyName('REPLYTO').AsString := msg.Header.ReplyTo;
+              FieldbyName('RECEIVERS').AsString := msg.Header.ToList.text;
+              FieldbyName('CC').AsString := msg.Header.CcList.text;
+              FieldByName('TIMESTAMPD').AsDateTime := Now();
+              if FieldDefs.IndexOf('TIMESTAMPT') <> -1 then
+                FieldByName('TIMESTAMPT').AsFloat := Frac(Now());
+              Post;
+              Message.Open(Message.Id.AsInteger);
+              Edit;
+              fullmsg.MessagePart.OnWalkPart:=@msgWalkPart;
+              TextThere := False;
+              HtmlThere := False;
+              fullmsg.MessagePart.WalkPart;
+              FieldbyName('HEADER').AsString := pop.FullResult.Text;
+              if Message.Content.CanEdit then
+                Message.Content.DataSet.Post;
+            end;
+      end;
+    end;
+end;
+
+procedure TPOP3Receiver.DoReplaceMailAccounts;
+begin
+  with Self as IBaseDbInterface do
+    DBConfig.WriteString('MAILACCOUNTS',omailaccounts);
+end;
+
+procedure TPOP3Receiver.msgWalkPart(const Sender: TMimePart);
+var
+  s: String;
+  ss : TStringStream;
+  Document: TDocument;
+begin
+  Sender.DecodePart;
+  if Sender.PrimaryCode = MP_TEXT then
+    begin
+      if ((UpperCase(Sender.Secondary) = 'PLAIN') or (UpperCase(Sender.Secondary) = 'HTML')) and ((not TextThere) or (not HtmlThere)) then
+        begin
+          s := ReadStrFromStream(Sender.DecodedLines,Sender.DecodedLines.Size);
+          if (AnsiToUTF8(s) <> '') and (s <> AnsiToUTF8(s)) then
+            s := AnsiToUTF8(s);
+          ss := TStringStream.Create('');
+          Data.BlobFieldToStream(Message.Content.DataSet,'DATA',ss);
+          if (UpperCase(Sender.Secondary) = 'PLAIN') then
+            s := ss.DataString+lineending+s;
+          ss.Free;
+          ss := TStringStream.Create(s);
+          if Message.Content.DataSet.FieldByName('DATATYP').AsString = '' then
+            Message.Content.DataSet.FieldByName('DATATYP').AsString := Uppercase(Sender.Secondary);
+          if Message.Content.DataSet.FieldByName('DATATYP').AsString = Uppercase(Sender.Secondary) then
+            begin
+              Data.StreamToBlobField(ss,Message.Content.DataSet,'DATA');
+              TextThere := True;
+            end
+          else if Sender.Secondary = 'HTML' then
+            begin //Use HTML if PLAIN+HTML are avalible
+              Message.Content.DataSet.FieldByName('DATATYP').AsString := Uppercase(Sender.Secondary);
+              Data.StreamToBlobField(ss,Message.Content.DataSet,'DATA');
+              HtmlThere := True;
+            end;
+          ss.Free;
+       end;
+    end
+  else if (Sender.PrimaryCode = MP_BINARY) or (TextThere and HtmlThere) then
+    begin
+      if copy(ExtractFileName(Sender.Filename),0,rpos('.',ExtractFileName(Sender.FileName))-1) = '' then exit;
+      Document := TDocument.Create(Self,Data);
+      Document.Ref_ID := Message.Id.AsInteger;
+      Document.BaseTyp := 'N';
+      Document.BaseID := Message.DataSet.FieldByName('ID').AsString;
+      Document.BaseVersion := Null;
+      Document.BaseLanguage := Null;
+      Document.Open(Message.Documents.Id.AsInteger);
+      Document.AddFromStream(copy(ExtractFileName(Sender.Filename),0,rpos('.',ExtractFileName(Sender.FileName))-1),
+                             copy(ExtractFileExt(Sender.FileName),2,length(ExtractFileExt(Sender.FileName))),
+                             Sender.DecodedLines,
+                             Sender.ContentID,
+                             Now());
+      Document.Free;
+    end;
+end;
+
+constructor TPOP3Receiver.Create(TheOwner: TComponent);
+begin
+  inherited Create(TheOwner);
+  StopOnException:=True;
+  aConnection := Data.GetNewConnection;
+end;
+
+destructor TPOP3Receiver.Destroy;
+begin
+  MessageIndex.Free;
+  DeletedItems.Free;
+  Message.Free;
+  aConnection.Free;
+  inherited Destroy;
+end;
+
+var
+  Application: TPOP3Receiver;
+
+{$R *.res}
+
+begin
+  Application:=TPOP3Receiver.Create(nil);
+  Application.Run;
+  Application.Free;
+end.
+

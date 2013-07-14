@@ -1,0 +1,830 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="9"/>
+    <General>
+      <Flags>
+        <MainUnitHasCreateFormStatements Value="False"/>
+      </Flags>
+      <MainUnit Value="0"/>
+      <ResourceType Value="res"/>
+      <UseXPManifest Value="True"/>
+      <ActiveWindowIndexAtStart Value="0"/>
+    </General>
+    <i18n>
+      <EnableI18N LFM="False"/>
+    </i18n>
+    <VersionInfo>
+      <StringTable ProductVersion=""/>
+    </VersionInfo>
+    <MacroValues Count="1">
+      <Macro1 Name="LCLWidgetType" Value="nogui"/>
+    </MacroValues>
+    <BuildModes Count="1" Active="Default">
+      <Item1 Name="Default" Default="True"/>
+    </BuildModes>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
+      <ExcludeFileFilter Value="*.(bak|ppu|o|so);*~;backup"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+        <CommandLineParams Value="--mandant=Stora"/>
+        <LaunchingApplication PathPlusParams="/usr/bin/xterm -T 'Lazarus Run Output' -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
+      </local>
+    </RunParams>
+    <RequiredPackages Count="1">
+      <Item1>
+        <PackageName Value="pcmdprometapp"/>
+        <DefaultFilename Value="../base/pcmdprometapp.lpk"/>
+      </Item1>
+    </RequiredPackages>
+    <Units Count="75">
+      <Unit0>
+        <Filename Value="processmanager.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="processmanager"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="7"/>
+        <CursorPos X="1" Y="236"/>
+        <UsageCount Value="44"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="../base/ubasecustomapplication.pas"/>
+        <UnitName Value="uBaseCustomApplication"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="201"/>
+        <CursorPos X="1" Y="209"/>
+        <UsageCount Value="12"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="../base/ubaseapplication.pas"/>
+        <UnitName Value="uBaseApplication"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="37" Y="8"/>
+        <UsageCount Value="10"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="../../../lazarus/lcl/propertystorage.pas"/>
+        <UnitName Value="PropertyStorage"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="265"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="../base/ubasedbinterface.pas"/>
+        <UnitName Value="uBaseDBInterface"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="109"/>
+        <CursorPos X="1" Y="121"/>
+        <UsageCount Value="11"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="../base/ubasedbclasses.pas"/>
+        <UnitName Value="uBaseDbClasses"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="910"/>
+        <CursorPos X="1" Y="928"/>
+        <UsageCount Value="11"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="../base/uzeosdbdm.pas"/>
+        <UnitName Value="uZeosDBDM"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="6"/>
+        <CursorPos X="22" Y="24"/>
+        <UsageCount Value="11"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="../components/zeos/src/component/ZConnection.pas"/>
+        <UnitName Value="ZConnection"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="502"/>
+        <CursorPos X="1" Y="521"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="../components/zeos/src/dbc/ZDbcIntfs.pas"/>
+        <UnitName Value="ZDbcIntfs"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="976"/>
+        <CursorPos X="1" Y="992"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="../components/zeos/src/dbc/ZDbcSqLite.pas"/>
+        <UnitName Value="ZDbcSqLite"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="172"/>
+        <CursorPos X="1" Y="183"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="../components/zeos/src/plain/ZPlainSqLiteDriver.pas"/>
+        <UnitName Value="ZPlainSqLiteDriver"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="867"/>
+        <CursorPos X="1" Y="882"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="../components/zeos/src/plain/ZPlainDriver.pas"/>
+        <UnitName Value="ZPlainDriver"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="181"/>
+        <CursorPos X="1" Y="195"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="../components/zeos/src/plain/ZPlainLoader.pas"/>
+        <UnitName Value="ZPlainLoader"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="164"/>
+        <CursorPos X="1" Y="175"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="../components/zeos/src/core/ZCompatibility.pas"/>
+        <UnitName Value="ZCompatibility"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="131"/>
+        <CursorPos X="1" Y="143"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="../../../LKomponenten/zeos/src/plain/ZPlainLoader.pas"/>
+        <UnitName Value="ZPlainLoader"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="185"/>
+        <CursorPos X="36" Y="205"/>
+        <UsageCount Value="10"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="../../../Programme/lazarus/fpc/2.4.3/source/packages/fcl-base/src/custapp.pp"/>
+        <UnitName Value="CustApp"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="24"/>
+        <CursorPos X="15" Y="42"/>
+        <UsageCount Value="10"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="../../../Programme/lazarus/fpc/2.4.3/source/rtl/inc/objpash.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="167"/>
+        <CursorPos X="23" Y="185"/>
+        <UsageCount Value="10"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="../../../Programme/lazarus/fpc/2.4.3/source/rtl/objpas/classes/classesh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="499"/>
+        <CursorPos X="5" Y="517"/>
+        <UsageCount Value="10"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="../../../lazarus/fpc/packages/fcl-db/src/base/db.pas"/>
+        <UnitName Value="db"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1061"/>
+        <CursorPos X="3" Y="1072"/>
+        <UsageCount Value="10"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="../../../lazarus/fpc/rtl/objpas/sysutils/filutilh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="43"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="../../../lazarus/fpc/packages/fcl-process/src/process.pp"/>
+        <UnitName Value="process"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="20"/>
+        <CursorPos X="34" Y="26"/>
+        <UsageCount Value="10"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="../../../lazarus/lcl/utf8process.pp"/>
+        <UnitName Value="UTF8Process"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="33"/>
+        <CursorPos X="27" Y="36"/>
+        <UsageCount Value="10"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="../../../lazarus/fpc/packages/fcl-base/src/custapp.pp"/>
+        <UnitName Value="CustApp"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="53"/>
+        <CursorPos X="14" Y="72"/>
+        <UsageCount Value="10"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <UnitName Value="uBaseVisualApplication"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="424"/>
+        <CursorPos X="1" Y="440"/>
+        <UsageCount Value="13"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="../base/uprocessmanager.pas"/>
+        <UnitName Value="uProcessManager"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="25"/>
+        <CursorPos X="18" Y="58"/>
+        <UsageCount Value="27"/>
+      </Unit24>
+      <Unit25>
+        <Filename Value="/home/chris/lazarus/fpc_trunk/packages/fcl-process/src/process.pp"/>
+        <UnitName Value="process"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="6"/>
+        <CursorPos X="36" Y="24"/>
+        <UsageCount Value="10"/>
+      </Unit25>
+      <Unit26>
+        <Filename Value="../base/wikitohtml.pas"/>
+        <UnitName Value="wikitohtml"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="16"/>
+        <CursorPos X="58" Y="8"/>
+        <UsageCount Value="13"/>
+      </Unit26>
+      <Unit27>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <UnitName Value="uBaseDBInterface"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1172"/>
+        <CursorPos X="1" Y="1190"/>
+        <UsageCount Value="15"/>
+      </Unit27>
+      <Unit28>
+        <Filename Value="../base/dbintfs/usystemmessage.pas"/>
+        <UnitName Value="uSystemMessage"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="40"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="13"/>
+      </Unit28>
+      <Unit29>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <UnitName Value="uBaseDbClasses"/>
+        <EditorIndex Value="5"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1516"/>
+        <CursorPos X="1" Y="1533"/>
+        <UsageCount Value="14"/>
+        <Loaded Value="True"/>
+      </Unit29>
+      <Unit30>
+        <Filename Value="../../../Programme/lazarus/fpc/2.4.4/source/rtl/inc/objpash.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="256"/>
+        <CursorPos X="36" Y="274"/>
+        <UsageCount Value="10"/>
+      </Unit30>
+      <Unit31>
+        <Filename Value="../../../Programme/lazarus/fpc/2.4.4/source/rtl/win32/system.pp"/>
+        <UnitName Value="System"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="16"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit31>
+      <Unit32>
+        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
+        <UnitName Value="uZeosDBDM"/>
+        <EditorIndex Value="7"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2"/>
+        <CursorPos X="43" Y="14"/>
+        <UsageCount Value="16"/>
+        <Loaded Value="True"/>
+      </Unit32>
+      <Unit33>
+        <Filename Value="../base/upowerstate.pas"/>
+        <UnitName Value="uPowerState"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="59"/>
+        <CursorPos X="1" Y="94"/>
+        <UsageCount Value="22"/>
+      </Unit33>
+      <Unit34>
+        <Filename Value="../base/uskype.pas"/>
+        <UnitName Value="uSkype"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="151"/>
+        <CursorPos X="15" Y="49"/>
+        <UsageCount Value="12"/>
+      </Unit34>
+      <Unit35>
+        <Filename Value="/home/chris/lazarus/fpc/packages/dbus/src/dbus-connection.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="141"/>
+        <CursorPos X="10" Y="159"/>
+        <UsageCount Value="11"/>
+      </Unit35>
+      <Unit36>
+        <Filename Value="/home/chris/lazarus/lcl/utf8process.pp"/>
+        <UnitName Value="UTF8Process"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="24"/>
+        <CursorPos X="3" Y="36"/>
+        <UsageCount Value="10"/>
+      </Unit36>
+      <Unit37>
+        <Filename Value="/home/chris/lazarus/lcl/asyncprocess.pp"/>
+        <UnitName Value="AsyncProcess"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="85"/>
+        <CursorPos X="8" Y="110"/>
+        <UsageCount Value="10"/>
+      </Unit37>
+      <Unit38>
+        <Filename Value="/home/chris/lazarus/fpc/packages/fcl-process/src/process.pp"/>
+        <UnitName Value="process"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="7"/>
+        <CursorPos X="58" Y="28"/>
+        <UsageCount Value="10"/>
+      </Unit38>
+      <Unit39>
+        <Filename Value="../base/dbintfs/uwiki.pas"/>
+        <UnitName Value="uWiki"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="84"/>
+        <CursorPos X="33" Y="30"/>
+        <UsageCount Value="12"/>
+      </Unit39>
+      <Unit40>
+        <Filename Value="/home/chris/lazarus/fpc/packages/dbus/src/dbus-types.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="10"/>
+        <CursorPos X="90" Y="16"/>
+        <UsageCount Value="11"/>
+      </Unit40>
+      <Unit41>
+        <Filename Value="/home/chris/lazarus/fpc/packages/dbus/src/dbus-bus.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="16"/>
+        <CursorPos X="11" Y="46"/>
+        <UsageCount Value="10"/>
+      </Unit41>
+      <Unit42>
+        <Filename Value="/home/chris/lazarus/fpc/packages/dbus/src/dbus-shared.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="26"/>
+        <CursorPos X="20" Y="38"/>
+        <UsageCount Value="10"/>
+      </Unit42>
+      <Unit43>
+        <Filename Value="../base/dbintfs/ubaseapplication.pas"/>
+        <UnitName Value="uBaseApplication"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="9"/>
+        <CursorPos X="14" Y="27"/>
+        <UsageCount Value="11"/>
+      </Unit43>
+      <Unit44>
+        <Filename Value="/home/chris/lazarus/fpc/packages/dbus/src/dbus-errors.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="11" Y="48"/>
+        <UsageCount Value="10"/>
+      </Unit44>
+      <Unit45>
+        <Filename Value="/home/chris/lazarus/fpc/packages/dbus/src/dbus.pas"/>
+        <UnitName Value="dbus"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="57"/>
+        <CursorPos X="20" Y="70"/>
+        <UsageCount Value="10"/>
+      </Unit45>
+      <Unit46>
+        <Filename Value="/home/chris/lazarus/fpc/packages/dbus/src/dbus-server.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="28"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit46>
+      <Unit47>
+        <Filename Value="/home/chris/lazarus/fpc/packages/dbus/src/dbus-message.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit47>
+      <Unit48>
+        <Filename Value="/home/chris/lazarus/fpc/packages/dbus/src/dbus-memory.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="6"/>
+        <CursorPos X="3" Y="38"/>
+        <UsageCount Value="10"/>
+      </Unit48>
+      <Unit49>
+        <Filename Value="../../../general/src/Utils.pas"/>
+        <UnitName Value="Utils"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="514"/>
+        <CursorPos X="3" Y="526"/>
+        <UsageCount Value="10"/>
+      </Unit49>
+      <Unit50>
+        <Filename Value="../../../general/src/fuzzysearch.pas"/>
+        <UnitName Value="fuzzysearch"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit50>
+      <Unit51>
+        <Filename Value="../../../general/src/ugeneralstrconsts.pas"/>
+        <UnitName Value="uGeneralStrConsts"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit51>
+      <Unit52>
+        <Filename Value="../../../general/src/secureutils.pas"/>
+        <UnitName Value="SecureUtils"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit52>
+      <Unit53>
+        <Filename Value="../../../general/src/processutils.pas"/>
+        <UnitName Value="ProcessUtils"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit53>
+      <Unit54>
+        <Filename Value="../../../general/src/umashineid.pas"/>
+        <UnitName Value="umashineid"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit54>
+      <Unit55>
+        <Filename Value="../../../general/src/htmlconvert.pas"/>
+        <UnitName Value="htmlconvert"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="14"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit55>
+      <Unit56>
+        <Filename Value="processmanager.lpi"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="595"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="XML"/>
+      </Unit56>
+      <Unit57>
+        <Filename Value="../base/pvisualprometapp.pas"/>
+        <UnitName Value="pVisualPrometApp"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="14" Y="10"/>
+        <UsageCount Value="10"/>
+      </Unit57>
+      <Unit58>
+        <Filename Value="../base/dbintfs/uimpvcard.pas"/>
+        <UnitName Value="uImpVCard"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2"/>
+        <CursorPos X="41" Y="14"/>
+        <UsageCount Value="10"/>
+      </Unit58>
+      <Unit59>
+        <Filename Value="../base/dbintfs/udocumentprocess.pas"/>
+        <UnitName Value="uDocumentProcess"/>
+        <EditorIndex Value="6"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="34"/>
+        <CursorPos X="28" Y="38"/>
+        <UsageCount Value="14"/>
+        <Loaded Value="True"/>
+      </Unit59>
+      <Unit60>
+        <Filename Value="../../../general/general.pas"/>
+        <UnitName Value="general"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="3" Y="10"/>
+        <UsageCount Value="10"/>
+      </Unit60>
+      <Unit61>
+        <Filename Value="../base/pcmdprometapp.pas"/>
+        <UnitName Value="pcmdprometapp"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit61>
+      <Unit62>
+        <Filename Value="../../../lazarus/fpc/rtl/objpas/sysutils/datih.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="17"/>
+        <CursorPos X="4" Y="33"/>
+        <UsageCount Value="10"/>
+      </Unit62>
+      <Unit63>
+        <Filename Value="../base/dbintfs/uprocessmanager.pas"/>
+        <UnitName Value="uProcessManager"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="12"/>
+        <CursorPos X="23" Y="19"/>
+        <UsageCount Value="14"/>
+        <Loaded Value="True"/>
+      </Unit63>
+      <Unit64>
+        <Filename Value="../../../fpc/2.6_fixes/rtl/objpas/math.pp"/>
+        <UnitName Value="math"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="118"/>
+        <CursorPos X="14" Y="135"/>
+        <UsageCount Value="12"/>
+      </Unit64>
+      <Unit65>
+        <Filename Value="../../../fpc/2.6_fixes/packages/fcl-base/src/custapp.pp"/>
+        <UnitName Value="CustApp"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="41"/>
+        <CursorPos X="15" Y="71"/>
+        <UsageCount Value="10"/>
+      </Unit65>
+      <Unit66>
+        <Filename Value="../../../fpc/2.6_fixes/rtl/objpas/sysutils/osutilsh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="29"/>
+        <CursorPos X="26" Y="57"/>
+        <UsageCount Value="12"/>
+      </Unit66>
+      <Unit67>
+        <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
+        <UnitName Value="uProcessManagement"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="28" Y="58"/>
+        <UsageCount Value="22"/>
+        <Loaded Value="True"/>
+      </Unit67>
+      <Unit68>
+        <Filename Value="../base/dbintfs/umasterdata.pas"/>
+        <UnitName Value="uMasterdata"/>
+        <EditorIndex Value="4"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="382"/>
+        <CursorPos X="60" Y="396"/>
+        <UsageCount Value="12"/>
+        <Loaded Value="True"/>
+      </Unit68>
+      <Unit69>
+        <Filename Value="../components/zeos/src/dbc/ZDbcPostgreSqlUtils.pas"/>
+        <UnitName Value="ZDbcPostgreSqlUtils"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="711"/>
+        <CursorPos X="1" Y="729"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit69>
+      <Unit70>
+        <Filename Value="../../../fpc/2.6_fixes/packages/fcl-process/src/process.pp"/>
+        <UnitName Value="process"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="97"/>
+        <CursorPos X="15" Y="115"/>
+        <UsageCount Value="10"/>
+      </Unit70>
+      <Unit71>
+        <Filename Value="../../../fpc/2.6_fixes/packages/fcl-process/src/unix/process.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="389"/>
+        <CursorPos X="3" Y="422"/>
+        <UsageCount Value="10"/>
+      </Unit71>
+      <Unit72>
+        <Filename Value="../../../../fpc/2.6_fixes/packages/fcl-base/src/eventlog.pp"/>
+        <UnitName Value="eventlog"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="8"/>
+        <CursorPos X="3" Y="26"/>
+        <UsageCount Value="10"/>
+      </Unit72>
+      <Unit73>
+        <Filename Value="../base/dbintfs/udata.pas"/>
+        <UnitName Value="uData"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="56" Y="14"/>
+        <UsageCount Value="10"/>
+      </Unit73>
+      <Unit74>
+        <Filename Value="../base/dbintfs/uintfstrconsts.pas"/>
+        <UnitName Value="uIntfStrConsts"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="6"/>
+        <CursorPos X="33" Y="22"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit74>
+    </Units>
+    <Build>
+      <CleanOutputFileMask Value="*.ppu;*.ppl;*.o;*.or"/>
+    </Build>
+    <JumpHistory Count="29" HistoryIndex="28">
+      <Position1>
+        <Filename Value="processmanager.lpr"/>
+        <Caret Line="247" Column="1" TopLine="226"/>
+      </Position1>
+      <Position2>
+        <Filename Value="processmanager.lpr"/>
+        <Caret Line="248" Column="1" TopLine="226"/>
+      </Position2>
+      <Position3>
+        <Filename Value="processmanager.lpr"/>
+        <Caret Line="249" Column="1" TopLine="226"/>
+      </Position3>
+      <Position4>
+        <Filename Value="processmanager.lpr"/>
+        <Caret Line="250" Column="1" TopLine="226"/>
+      </Position4>
+      <Position5>
+        <Filename Value="processmanager.lpr"/>
+        <Caret Line="251" Column="1" TopLine="226"/>
+      </Position5>
+      <Position6>
+        <Filename Value="processmanager.lpr"/>
+        <Caret Line="252" Column="1" TopLine="226"/>
+      </Position6>
+      <Position7>
+        <Filename Value="processmanager.lpr"/>
+        <Caret Line="253" Column="1" TopLine="226"/>
+      </Position7>
+      <Position8>
+        <Filename Value="processmanager.lpr"/>
+        <Caret Line="254" Column="1" TopLine="226"/>
+      </Position8>
+      <Position9>
+        <Filename Value="processmanager.lpr"/>
+        <Caret Line="255" Column="1" TopLine="226"/>
+      </Position9>
+      <Position10>
+        <Filename Value="processmanager.lpr"/>
+        <Caret Line="256" Column="1" TopLine="227"/>
+      </Position10>
+      <Position11>
+        <Filename Value="processmanager.lpr"/>
+        <Caret Line="257" Column="1" TopLine="228"/>
+      </Position11>
+      <Position12>
+        <Filename Value="processmanager.lpr"/>
+        <Caret Line="258" Column="1" TopLine="229"/>
+      </Position12>
+      <Position13>
+        <Filename Value="processmanager.lpr"/>
+        <Caret Line="259" Column="1" TopLine="230"/>
+      </Position13>
+      <Position14>
+        <Filename Value="processmanager.lpr"/>
+        <Caret Line="263" Column="1" TopLine="234"/>
+      </Position14>
+      <Position15>
+        <Filename Value="processmanager.lpr"/>
+        <Caret Line="205" Column="1" TopLine="187"/>
+      </Position15>
+      <Position16>
+        <Filename Value="processmanager.lpr"/>
+        <Caret Line="207" Column="1" TopLine="187"/>
+      </Position16>
+      <Position17>
+        <Filename Value="processmanager.lpr"/>
+        <Caret Line="208" Column="1" TopLine="187"/>
+      </Position17>
+      <Position18>
+        <Filename Value="processmanager.lpr"/>
+        <Caret Line="262" Column="1" TopLine="244"/>
+      </Position18>
+      <Position19>
+        <Filename Value="processmanager.lpr"/>
+        <Caret Line="263" Column="1" TopLine="244"/>
+      </Position19>
+      <Position20>
+        <Filename Value="processmanager.lpr"/>
+        <Caret Line="205" Column="1" TopLine="187"/>
+      </Position20>
+      <Position21>
+        <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
+        <Caret Line="40" Column="36" TopLine="6"/>
+      </Position21>
+      <Position22>
+        <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
+        <Caret Line="92" Column="21" TopLine="65"/>
+      </Position22>
+      <Position23>
+        <Filename Value="processmanager.lpr"/>
+        <Caret Line="20" Column="1" TopLine="1"/>
+      </Position23>
+      <Position24>
+        <Filename Value="processmanager.lpr"/>
+        <Caret Line="62" Column="39" TopLine="44"/>
+      </Position24>
+      <Position25>
+        <Filename Value="processmanager.lpr"/>
+        <Caret Line="10" Column="53" TopLine="1"/>
+      </Position25>
+      <Position26>
+        <Filename Value="processmanager.lpr"/>
+        <Caret Line="62" Column="41" TopLine="44"/>
+      </Position26>
+      <Position27>
+        <Filename Value="processmanager.lpr"/>
+        <Caret Line="60" Column="20" TopLine="44"/>
+      </Position27>
+      <Position28>
+        <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
+        <Caret Line="96" Column="1" TopLine="61"/>
+      </Position28>
+      <Position29>
+        <Filename Value="processmanager.lpr"/>
+        <Caret Line="10" Column="59" TopLine="1"/>
+      </Position29>
+    </JumpHistory>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="11"/>
+    <Target>
+      <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/tools/processmanager"/>
+    </Target>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir)"/>
+      <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+    </SearchPaths>
+    <CodeGeneration>
+      <Optimizations>
+        <VariablesInRegisters Value="True"/>
+      </Optimizations>
+    </CodeGeneration>
+    <Linking>
+      <Debugging>
+        <UseExternalDbgSyms Value="True"/>
+      </Debugging>
+      <Options>
+        <Win32>
+          <GraphicApplication Value="True"/>
+        </Win32>
+      </Options>
+    </Linking>
+    <Other>
+      <CompilerMessages>
+        <UseMsgFile Value="True"/>
+      </CompilerMessages>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
+    <LCLWidgetType Value="nogui"/>
+  </CompilerOptions>
+  <Debugging>
+    <Watches Count="1">
+      <Item1>
+        <Expression Value="aProcess"/>
+      </Item1>
+    </Watches>
+    <Exceptions Count="3">
+      <Item1>
+        <Name Value="EAbort"/>
+      </Item1>
+      <Item2>
+        <Name Value="ECodetoolError"/>
+      </Item2>
+      <Item3>
+        <Name Value="EFOpenError"/>
+      </Item3>
+    </Exceptions>
+  </Debugging>
+  <EditorMacros Count="0"/>
+</CONFIG>

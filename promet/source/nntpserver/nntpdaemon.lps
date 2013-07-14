@@ -1,0 +1,244 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="9"/>
+    <BuildModes Active="Default"/>
+    <Units Count="11">
+      <Unit0>
+        <Filename Value="nntpdaemon.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="nntpdaemon"/>
+        <EditorIndex Value="4"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="18" Y="12"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="unntpdaemonmapper.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="NNTPDaemonMapper"/>
+        <HasResources Value="True"/>
+        <UnitName Value="unntpdaemonmapper"/>
+        <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="98" Y="32"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="unntpdaemon.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="TNNTPDaemon"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="unntpdaemon"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="40"/>
+        <CursorPos X="36" Y="58"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="ulnntp.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uLNNTP"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="121"/>
+        <CursorPos X="36" Y="147"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="C:\daemonlog.txt"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="C:\Programme\lazarus\fpc\2.6.1\source\packages\fcl-extra\src\daemonapp.pp"/>
+        <UnitName Value="daemonapp"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="9"/>
+        <CursorPos X="18" Y="101"/>
+        <UsageCount Value="10"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="C:\Programme\lazarus\fpc\2.6.1\source\rtl\objpas\classes\classesh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1834"/>
+        <CursorPos X="3" Y="1854"/>
+        <UsageCount Value="10"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="..\base\ubasedaemonapplication.pas"/>
+        <UnitName Value="ubasedaemonapplication"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="8"/>
+        <UsageCount Value="10"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="C:\Programme\lazarus\fpc\2.6.1\source\packages\fcl-extra\src\win\daemonapp.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="578"/>
+        <CursorPos X="50" Y="598"/>
+        <UsageCount Value="10"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="..\base\dbintfs\ubaseapplication.pas"/>
+        <UnitName Value="uBaseApplication"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="..\base\ubasecustomapplication.pas"/>
+        <UnitName Value="uBaseCustomApplication"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="197"/>
+        <CursorPos X="19" Y="313"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit10>
+    </Units>
+    <General>
+      <ActiveWindowIndexAtStart Value="0"/>
+    </General>
+    <JumpHistory Count="30" HistoryIndex="29">
+      <Position1>
+        <Filename Value="nntpdaemon.lpr"/>
+        <Caret Line="14" Column="1" TopLine="1"/>
+      </Position1>
+      <Position2>
+        <Filename Value="unntpdaemon.pas"/>
+        <Caret Line="33" Column="6" TopLine="19"/>
+      </Position2>
+      <Position3>
+        <Filename Value="unntpdaemon.pas"/>
+        <Caret Line="34" Column="9" TopLine="19"/>
+      </Position3>
+      <Position4>
+        <Filename Value="unntpdaemon.pas"/>
+        <Caret Line="8" Column="57" TopLine="1"/>
+      </Position4>
+      <Position5>
+        <Filename Value="unntpdaemon.pas"/>
+        <Caret Line="34" Column="9" TopLine="16"/>
+      </Position5>
+      <Position6>
+        <Filename Value="nntpdaemon.lpr"/>
+        <Caret Line="10" Column="23" TopLine="1"/>
+      </Position6>
+      <Position7>
+        <Filename Value="nntpdaemon.lpr"/>
+        <Caret Line="15" Column="1" TopLine="1"/>
+      </Position7>
+      <Position8>
+        <Filename Value="nntpdaemon.lpr"/>
+        <Caret Line="15" Column="1" TopLine="1"/>
+      </Position8>
+      <Position9>
+        <Filename Value="unntpdaemon.pas"/>
+        <Caret Line="28" Column="15" TopLine="19"/>
+      </Position9>
+      <Position10>
+        <Filename Value="nntpdaemon.lpr"/>
+        <Caret Line="1" Column="53" TopLine="1"/>
+      </Position10>
+      <Position11>
+        <Filename Value="nntpdaemon.lpr"/>
+        <Caret Line="13" Column="1" TopLine="1"/>
+      </Position11>
+      <Position12>
+        <Filename Value="nntpdaemon.lpr"/>
+        <Caret Line="14" Column="1" TopLine="1"/>
+      </Position12>
+      <Position13>
+        <Filename Value="nntpdaemon.lpr"/>
+        <Caret Line="15" Column="1" TopLine="1"/>
+      </Position13>
+      <Position14>
+        <Filename Value="nntpdaemon.lpr"/>
+        <Caret Line="16" Column="1" TopLine="1"/>
+      </Position14>
+      <Position15>
+        <Filename Value="nntpdaemon.lpr"/>
+        <Caret Line="13" Column="39" TopLine="1"/>
+      </Position15>
+      <Position16>
+        <Filename Value="nntpdaemon.lpr"/>
+        <Caret Line="13" Column="14" TopLine="1"/>
+      </Position16>
+      <Position17>
+        <Filename Value="unntpdaemon.pas"/>
+        <Caret Line="33" Column="37" TopLine="19"/>
+      </Position17>
+      <Position18>
+        <Filename Value="..\base\ubasecustomapplication.pas"/>
+        <Caret Line="72" Column="40" TopLine="42"/>
+      </Position18>
+      <Position19>
+        <Filename Value="unntpdaemon.pas"/>
+        <Caret Line="46" Column="1" TopLine="19"/>
+      </Position19>
+      <Position20>
+        <Filename Value="unntpdaemon.pas"/>
+        <Caret Line="9" Column="3" TopLine="1"/>
+      </Position20>
+      <Position21>
+        <Filename Value="nntpdaemon.lpr"/>
+        <Caret Line="13" Column="1" TopLine="1"/>
+      </Position21>
+      <Position22>
+        <Filename Value="unntpdaemon.pas"/>
+        <Caret Line="35" Column="19" TopLine="7"/>
+      </Position22>
+      <Position23>
+        <Filename Value="unntpdaemon.pas"/>
+        <Caret Line="9" Column="28" TopLine="4"/>
+      </Position23>
+      <Position24>
+        <Filename Value="unntpdaemon.pas"/>
+        <Caret Line="12" Column="28" TopLine="2"/>
+      </Position24>
+      <Position25>
+        <Filename Value="unntpdaemon.pas"/>
+        <Caret Line="13" Column="33" TopLine="2"/>
+      </Position25>
+      <Position26>
+        <Filename Value="unntpdaemon.pas"/>
+        <Caret Line="16" Column="24" TopLine="7"/>
+      </Position26>
+      <Position27>
+        <Filename Value="unntpdaemon.pas"/>
+        <Caret Line="17" Column="24" TopLine="1"/>
+      </Position27>
+      <Position28>
+        <Filename Value="unntpdaemon.pas"/>
+        <Caret Line="51" Column="28" TopLine="33"/>
+      </Position28>
+      <Position29>
+        <Filename Value="unntpdaemon.pas"/>
+        <Caret Line="18" Column="21" TopLine="1"/>
+      </Position29>
+      <Position30>
+        <Filename Value="unntpdaemon.pas"/>
+        <Caret Line="53" Column="31" TopLine="30"/>
+      </Position30>
+    </JumpHistory>
+  </ProjectSession>
+  <EditorMacros Count="0"/>
+</CONFIG>

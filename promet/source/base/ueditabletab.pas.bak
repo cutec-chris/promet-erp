@@ -1,0 +1,37 @@
+{*******************************************************************************
+Dieser Sourcecode darf nicht ohne gültige Geheimhaltungsvereinbarung benutzt werden
+und ohne gültigen Vertriebspartnervertrag weitergegeben werden.
+You have no permission to use this Source without valid NDA
+and copy it without valid distribution partner agreement
+Christian Ulrich
+info@cu-tec.de
+Created 18.03.2013
+*******************************************************************************}
+unit uEditableTab;
+{$mode objfpc}{$H+}
+interface
+uses
+  Classes, SysUtils, FileUtil, Forms, Controls, ComCtrls, JvDesignSurface;
+
+type
+  TEditableFrame = class(TFrame)
+    ButtonButton: TToolButton;
+    ImageButton: TToolButton;
+    ImageList1: TImageList;
+    JvDesignPanel: TJvDesignPanel;
+    LabelButton: TToolButton;
+    PanelButton: TToolButton;
+    SelectButton: TToolButton;
+    ToolBar1: TToolBar;
+  private
+    { private declarations }
+  public
+    { public declarations }
+  end;
+
+implementation
+
+{$R *.lfm}
+
+end.
+

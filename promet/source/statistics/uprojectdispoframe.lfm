@@ -1,0 +1,82 @@
+inherited fProjectDispoFrame: TfProjectDispoFrame
+  Height = 548
+  Width = 699
+  ClientHeight = 548
+  ClientWidth = 699
+  DesignLeft = 385
+  DesignTop = 240
+  object Panel1: TPanel[0]
+    Left = 0
+    Height = 72
+    Top = 0
+    Width = 699
+    Align = alTop
+    BevelOuter = bvNone
+    ClientHeight = 72
+    ClientWidth = 699
+    TabOrder = 0
+    object seProjects: TSpinEdit
+      Left = 8
+      Height = 27
+      Top = 40
+      Width = 50
+      MaxValue = 2000
+      TabOrder = 0
+      Value = 20
+    end
+    object Label1: TLabel
+      Left = 8
+      Height = 17
+      Top = 16
+      Width = 45
+      Caption = 'Label1'
+      ParentColor = False
+    end
+    object BitBtn1: TBitBtn
+      Left = 128
+      Height = 30
+      Top = 34
+      Width = 75
+      Action = acRefresh
+      TabOrder = 1
+    end
+  end
+  object ScrollBar1: TScrollBar[1]
+    Left = 150
+    Height = 13
+    Top = 535
+    Width = 534
+    Align = alBottom
+    BorderSpacing.Left = 150
+    BorderSpacing.Right = 15
+    Max = 1
+    PageSize = 0
+    TabOrder = 1
+  end
+  object ScrollBar2: TScrollBar[2]
+    Left = 686
+    Height = 463
+    Top = 72
+    Width = 13
+    Align = alRight
+    Kind = sbVertical
+    Max = 20
+    PageSize = 0
+    TabOrder = 2
+  end
+  object PaintBox1: TPaintBox[3]
+    Left = 0
+    Height = 463
+    Top = 72
+    Width = 686
+    Align = alClient
+  end
+  object ActionList1: TActionList[4]
+    left = 88
+    top = 37
+    object acRefresh: TAction
+      Caption = 'acRefresh'
+      OnExecute = acRefreshExecute
+    end
+  end
+end

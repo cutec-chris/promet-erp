@@ -1,0 +1,37 @@
+==Installationen==
+Alle untenstehenden Installationen sind Version VERSION erstellt CREATEDDATE.<br>
+Änderungen finden Sie in der [[Promet-ERP/changes|Änderungsliste]].
+===Windows===
+[[Bild:setup.png|left]]Der Windows Installer enthält das Grundprogramm und als zuwählbare Komponenten: Administrations Tools, Statistik Tool, Synchromisations Tools.<br>
+[http://www.free-erp.de/downloads/promet-erp_VERSION_i386-win32.exe Promet-ERP Setup für Windows (32 bit) WIN_SIZE]<br>
+[http://www.free-erp.de/downloads/promet-erp-timeregistering_VERSION_i386-win32.exe Promet-ERP Zeiterfassung Setup für Windows (32 bit) WIN_TR_SIZE]<br>
+====Datenbank Zusätze====
+[http://www.free-erp.de/downloads/db_setup_postgres.exe Setup für Postgres Client Bibliotheken (32 bit) WIN_PDB_SIZE]<br>
+===Linux===
+====Debian Pakete====
+[[Bild:deb.png|left]]Grundprogramm Komponenten<br>
+[http://www.free-erp.de/downloads/promet-erp_VERSION_amd64-gtk2.deb Promet-ERP Debian Package für Ubuntu,Debian Linux (64 bit) DEB64_SIZE]<br>
+[http://www.free-erp.de/downloads/promet-erp_VERSION_i386-gtk2.deb Promet-ERP Debian Package für Ubuntu,Debian Linux (32 bit) DEB32_SIZE]<br>
+[[Bild:deb.png|left]]Zeiterfassung<br>
+[http://www.free-erp.de/downloads/promet-erp-timeregsitering_VERSION_amd64-gtk2.deb Zeiterfassung Debian Package für Ubuntu,Debian Linux (64 bit) TIMEREGISTERINGD64_SIZE]<br>
+[http://www.free-erp.de/downloads/promet-erp-timeregistering_VERSION_i386-gtk2.deb Zeiterfassung Debian Package für Ubuntu,Debian Linux (32 bit) TIMEREGISTERINGD32_SIZE]<br>
+[[Bild:deb.png|left]]Statistics<br>
+[http://www.free-erp.de/downloads/promet-erp-statistics_VERSION_amd64-gtk2.deb Statistics Debian Package für Ubuntu,Debian Linux (64 bit) STATISTICSD64_SIZE]<br>
+[http://www.free-erp.de/downloads/promet-erp-statistics_VERSION_i386-gtk2.deb Statistics Debian Package für Ubuntu,Debian Linux (32 bit) STATISTICSD32_SIZE]<br>
+[[Bild:deb.png|left]]Admin Tools<br>
+[http://www.free-erp.de/downloads/promet-erp-tools_VERSION_amd64-gtk2.deb Admin Tools Debian Package für Ubuntu,Debian Linux (64 bit) TOOLSD64_SIZE]<br>
+[http://www.free-erp.de/downloads/promet-erp-tools_VERSION_i386-gtk2.deb Admin Tools Debian Package für Ubuntu,Debian Linux (32 bit) TOOLSD32_SIZE]<br>
+====RPM Pakete====
+[[Bild:rpm.png|left]]Grundprogramm Komponenten<br>
+[http://www.free-erp.de/downloads/promet-erp-VERSION-2.x86_64.rpm Promet-ERP RPM Package für Suse,Redhat Linux (64 bit) RPM64_SIZE]<br>
+[http://www.free-erp.de/downloads/promet-erp-VERSION-2.i386.rpm Promet-ERP RPM Package für Suse,Redhat Linux (32 bit) RPM32_SIZE]<br>
+[[Bild:rpm.png|left]]Zeiterfassung<br>
+[http://www.free-erp.de/downloads/promet-erp-timeregistering-VERSION-2.x86_64.rpm Zeiterfassung RPM Package für Suse,Redhat Linux (64 bit) TIMEREGISTERINGR64_SIZE]<br>
+[http://www.free-erp.de/downloads/promet-erp-timeregistering-VERSION-2.i386.rpm Zeiterfassung RPM Package für Suse,Redhat Linux (32 bit) TIMEREGISTERINGR32_SIZE]<br>
+[[Bild:rpm.png|left]]Statistics<br>
+[http://www.free-erp.de/downloads/promet-erp-statistics-VERSION-2.x86_64.rpm Statistics RPM Package für Suse,Redhat Linux (64 bit) STATISTICSR64_SIZE]<br>
+[http://www.free-erp.de/downloads/promet-erp-statistics-VERSION-2.i386.rpm Statistics RPM Package für Suse,Redhat Linux (32 bit) STATISTICSR32_SIZE]<br>
+[[Bild:rpm.png|left]]Admin Tools<br>
+[http://www.free-erp.de/downloads/promet-erp-tools-VERSION-2.x86_64.rpm Admin Tools RPM Package für Suse,Redhat Linux (64 bit) TOOLSR64_SIZE]<br>
+[http://www.free-erp.de/downloads/promet-erp-tools-VERSION-2.i386.rpm Admin Tools RPM Package für Suse,Redhat Linux (32 bit) TOOLSR32_SIZE]<br>
+

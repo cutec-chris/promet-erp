@@ -1,0 +1,10 @@
+object fMain: TfMain
+  Left = 403
+  Height = 504
+  Top = 236
+  Width = 638
+  Caption = 'Hilfeansicht'
+  OnClose = FormClose
+  OnShow = FormShow
+  LCLVersion = '1.1'
+end

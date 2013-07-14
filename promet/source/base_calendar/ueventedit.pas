@@ -1,0 +1,364 @@
+{*******************************************************************************
+Dieser Sourcecode darf nicht ohne gültige Geheimhaltungsvereinbarung benutzt werden
+und ohne gültigen Vertriebspartnervertrag weitergegeben werden.
+You have no permission to use this Source without valid NDA
+and copy it without valid distribution partner agreement
+CU-TEC Christian Ulrich
+info@cu-tec.de
+*******************************************************************************}
+unit uEventEdit;
+interface
+uses
+  LMessages, LCLProc, LCLType, LCLIntf, LResources, SysUtils, Classes, Graphics,
+  Controls, Forms, Dialogs, StdCtrls, ExtCtrls, VpData, VpEdPop, VpDateEdit,
+  ComCtrls, VpBase, VpClock, VpBaseDS, VpDlg, VpConst, ZVDateTimePicker,
+  uExtControls, Buttons, EditBtn, ButtonPanel, Spin, LR_DBSet, LR_Class,
+  uIntfStrConsts, uCalendar, db, uBaseDbClasses;
+type
+
+  { TfEventEdit }
+
+  TfEventEdit = class(TForm)
+    AdvanceUpDown: TUpDown;
+    AlarmAdvance: TEdit;
+    AlarmSet: TCheckBox;
+    Bevel4: TBevel;
+    Bevel5: TBevel;
+    Bevel6: TBevel;
+    Bevel7: TBevel;
+    AlarmAdvType: TComboBox;
+    Bevel8: TBevel;
+    bExecute: TSpeedButton;
+    CBAllDay: TCheckBox;
+    cbPlanrel: TCheckBox;
+    Datasource: TDatasource;
+    DescriptionEdit: TEdit;
+    eLocation: TEdit;
+    EndDate: TZVDateTimePicker;
+    EndTimeLbl: TLabel;
+    History: TDatasource;
+    pcPages: TExtMenuPageControl;
+    Image1: TImage;
+    Image2: TImage;
+    Label2: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    lHour: TLabel;
+    NotesMemo: TMemo;
+    Panel1: TPanel;
+    Panel4: TPanel;
+    Panel6: TPanel;
+    Panel7: TPanel;
+    lMessage: TLabel;
+    FileDialog: TOpenDialog;
+    Panel8: TPanel;
+    Panel9: TPanel;
+    pgEvent: TPageControl;
+    PHistory: TfrDBDataSet;
+    PList: TfrDBDataSet;
+    pNav1: TPanel;
+    PUsers: TfrDBDataSet;
+    RecurrenceEndsLbl: TLabel;
+    RecurringType: TComboBox;
+    RepeatUntil: TZVDateTimePicker;
+    Report: TfrReport;
+    seDuration: TFloatSpinEdit;
+    StartDate: TZVDateTimePicker;
+    StartTimeLbl: TLabel;
+    tabEvent: TTabSheet;
+    ToolButton1: TBitBtn;
+    ToolButton2: TBitBtn;
+    tsNotes: TTabSheet;
+    ToolBar1: TPanel;
+    ToolBar2: TPanel;
+    Users: TDatasource;
+    procedure bExecuteClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure AlarmAdvanceChange(Sender: TObject);
+    procedure AdvanceUpDownClick(Sender: TObject; Button: TUDBtnType);
+    procedure RecurringTypeChange(Sender: TObject);
+    procedure AlarmSetClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure seDurationChange(Sender: TObject);
+    procedure StartDateExit(Sender: TObject);
+    procedure ToolButton1Click(Sender: TObject);
+  private { Private declarations }
+    AAVerifying: Boolean;
+    CIVerifying: Boolean;
+    FDataSet : TEvent;
+    FEditable : Boolean;
+    procedure PopLists;
+    procedure DoOpen;
+    procedure AddDocuments(Sender: TObject);
+    procedure AddLinks(Sender: TObject);
+  public { Public declarations }
+    Event: TVpEvent;
+    CatColorMap: TVpCategoryColorMap;
+    Resource: TVpResource;
+    Conflicts : Integer;
+    TimeFormat: TVpTimeFormat;
+    AlarmWavPath: string;
+    FLastEndTime : TDateTime;                                            
+    procedure PopulateDialog;
+    procedure DePopulateDialog;
+    function Execute(aEvent : TVpEvent;aResource : TVpResource;aDir : Variant) : Boolean;
+  end;
+implementation
+uses
+  VpSR,uDocuments,uDocumentFrame,uData,uLinkFrame,uprometframesinplace,
+  uSelectReport,uBaseDBInterface;
+resourcestring
+  strEventinPast                = 'Das Ereignis liegt in der Vergangenheit';
+procedure TfEventEdit.FormCreate(Sender: TObject);
+begin
+  PopLists;
+end;
+
+procedure TfEventEdit.bExecuteClick(Sender: TObject);
+var
+  Hist : IBaseHistory;
+begin
+  fSelectReport.Report := Report;
+  fSelectReport.SetLanguage;
+  //MandantDetails.DataSet := Data.MandantDetails.DataSet;
+  //Data.MandantDetails.Open;
+  if Supports(FDataSet, IBaseHistory, Hist) then
+    History.DataSet := Hist.GetHistory.DataSet;
+  DataSource.DataSet := FDataSet.DataSet;
+  PList.DataSet := FDataSet.DataSet;
+  Users.DataSet := Data.Users.DataSet;
+  with FDataSet.DataSet as IBaseManageDB do
+    begin
+      fSelectReport.ReportType := 'EVT';
+    end;
+  fSelectReport.Showmodal;
+end;
+
+procedure TfEventEdit.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_ESCAPE then
+    begin
+      Key := 0;
+      Close;
+    end;
+end;
+procedure TfEventEdit.PopulateDialog;
+var
+  I: Integer;
+begin
+  { Events }
+  StartDate.DateTime := Event.StartTime;
+  EndDate.DateTime := Event.EndTime;
+  seDuration.Value := (Event.EndTime-Event.StartTime)*24;
+  RepeatUntil.Date := Event.RepeatRangeEnd;
+
+  CBAllDay.Checked := Event.AllDayEvent;
+  cbPlanrel.Checked:= Event.Category = 8;
+  AlarmWavPath := Event.AlarmWavPath;
+
+  DescriptionEdit.Text := Event.Description;
+  DescriptionEdit.SelectAll;
+  NotesMemo.Text := Event.Note;
+  AlarmSet.Checked := Event.AlarmSet;
+  AlarmSetClick(Self);
+  if not Event.AlarmSet then
+    AlarmAdvance.Text := '15'
+  else
+    AlarmAdvance.Text := IntToStr(Event.AlarmAdv);
+  AlarmAdvType.ItemIndex := Ord(Event.AlarmAdvType);
+  RecurringType.ItemIndex := Ord(Event.RepeatCode);
+  RecurringTypeChange(Self);
+  FLastEndTime := Event.EndTime;
+  eLocation.Text:= Event.Location;
+  DoOpen;
+end;
+procedure TfEventEdit.DePopulateDialog;
+begin
+  { Events }
+  Event.StartTime := StartDate.DateTime;
+  Event.EndTime := EndDate.DateTime;
+  Event.RepeatRangeEnd := RepeatUntil.Date;
+  Event.Description := DescriptionEdit.Text;
+  Event.Note := NotesMemo.Text;
+  Event.AlarmSet := AlarmSet.Checked;
+  Event.AlarmAdv := StrToIntDef(AlarmAdvance.Text, 0);
+  Event.AlarmAdvType := TVpAlarmAdvType(AlarmAdvType.ItemIndex);
+  Event.RepeatCode := TVpRepeatType(RecurringType.ItemIndex);
+  Event.AllDayEvent := CBAllDay.Checked;
+  if cbPlanrel.Checked then
+    Event.Category := 8;
+  Event.AlarmWavPath := AlarmWavPath;
+  Event.Location:=eLocation.Text;
+end;
+procedure TfEventEdit.PopLists;
+var
+  I, Hour, Minute: Integer;
+  MinStr, AMPMStr: string;
+begin
+  { RecurringList }
+  RecurringType.Items.Add(RSNone);
+  RecurringType.Items.Add(RSDaily);
+  RecurringType.Items.Add(RSWeekly);
+  RecurringType.Items.Add(RSMonthlyByDay);
+  RecurringType.Items.Add(RSMonthlyByDate);
+  RecurringType.Items.Add(RSYearlyByDay);
+  RecurringType.Items.Add(RSYearlyByDate);
+  RecurringType.Items.Add(RSCustom);
+  RecurringType.ItemIndex := 0;
+
+  { Alarm Advance Type }
+  AlarmAdvType.Items.Add(RSMinutes);
+  AlarmAdvType.Items.Add(RSHours);
+  AlarmAdvType.Items.Add(RSDays);
+  AlarmAdvType.ItemIndex := 0;
+end;
+procedure TfEventEdit.DoOpen;
+var
+  aDocuments: TDocuments;
+  aDocFrame: TfDocumentFrame;
+begin
+  pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
+  if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
+    begin
+      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments.CreateTable;
+      aDocuments.Select(FDataSet.Id.AsInteger,'T',0);
+      aDocuments.Open;
+      if aDocuments.Count = 0 then
+        aDocuments.Free
+      else
+        begin
+          aDocFrame := TfDocumentFrame.Create(Self);
+          pcPages.AddTab(aDocFrame,False);
+          aDocFrame.DataSet := aDocuments;
+        end;
+    end;
+  pcPages.AddTabClass(TfLinkFrame,strLinks,@AddLinks);
+  TEvent(FDataSet).Links.Open;
+  if TEvent(FDataSet).Links.Count > 0 then
+    pcPages.AddTab(TfLinkFrame.Create(Self),False);
+end;
+procedure TfEventEdit.AddDocuments(Sender: TObject);
+var
+  aDocuments: TDocuments;
+begin
+  if not Assigned(TfDocumentFrame(Sender).DataSet) then
+    begin
+      aDocuments := TDocuments.Create(Self,Data);
+      TfDocumentFrame(Sender).DataSet := aDocuments;
+      TfDocumentFrame(Sender).Refresh(FDataSet.Id.AsInteger,'T',0);
+    end;
+  TPrometInplaceFrame(Sender).SetRights(FEditable);
+end;
+procedure TfEventEdit.AddLinks(Sender: TObject);
+begin
+  TfLinkFrame(Sender).BaseName:='E';
+  TfLinkFrame(Sender).DataSet := TEvent(FDataSet).Links;
+  TPrometInplaceFrame(Sender).SetRights(FEditable);
+end;
+function TfEventEdit.Execute(aEvent: TVpEvent;aResource : TVpResource;aDir : Variant): Boolean;
+var
+  ActControl: TWinControl;
+begin
+  FEditable := True;
+  Event := aEvent;
+  FDataSet := TEvent.Create(nil,Data);
+  FDataSet.SelectById(aEvent.RecordID);
+  FDataSet.Open;
+  if FDataSet.Count=0 then
+    begin
+      FDataSet.Insert;
+      FDataSet.FieldByName('ID').AsVariant:=aEvent.RecordID;
+      FDataSet.FieldByName('REF_ID_ID').AsVariant:=aDir;
+    end;
+  Resource := aResource;
+  PopulateDialog;
+  ActControl := Screen.ActiveControl;
+  Show;
+  while Visible do
+    Application.ProcessMessages;
+  Result := ModalResult = mrOk;
+  if ModalResult = mrNone then
+    if (MessageDlg(strItem+' '+FDataSet.FieldByName('SUMMARY').AsString,strItemnotSaved,mtInformation,[mbYes,mbNo],0) = mrYes) then
+      Result := True;
+  try
+    if Assigned(ActControl) and ActControl.CanFocus then ActControl.SetFocus;
+  except
+  end;
+  if Result then
+    begin
+      DePopulateDialog;
+      if FDataSet.CanEdit then
+        FDataSet.Post;
+    end;
+  FDataSet.Free;
+end;
+procedure TfEventEdit.AlarmAdvanceChange(Sender: TObject);
+var
+  I: Integer;
+  Str: string;
+begin
+  if AAVerifying then exit;
+  AAVerifying := true;
+  { Don't allow non numeric values. }
+  Str := AlarmAdvance.Text;
+  I := Length(Str);
+  if (Str[I] > #57) or (Str[I] < #48) then
+    Delete(Str, I, 1);
+  AlarmAdvance.Text := Str;
+  AAVerifying := false;
+
+  if Str <> '' then
+    AdvanceUpDown.Position := StrToInt(Str);
+end;
+procedure TfEventEdit.AdvanceUpDownClick(Sender: TObject; Button: TUDBtnType);
+begin
+  { Inc or Dec AlarmAdvance according to which button was pressed }
+{  case Button of
+    btNext:
+      AlarmAdvance.Text := IntToStr(StrToIntDef(AlarmAdvance.Text, 0) + 1);
+    btPrev:
+      AlarmAdvance.Text := IntToStr(StrToIntDef(AlarmAdvance.Text, 0) - 1);
+  end;}
+  AlarmAdvance.Text := IntToStr(AdvanceUpDown.Position);
+end;
+procedure TfEventEdit.RecurringTypeChange(Sender: TObject);
+begin
+  if (RecurringType.ItemIndex > 0)
+  and (RepeatUntil.Date <= StartDate.Date)
+  then
+    RepeatUntil.Date := StartDate.Date + 365;
+
+  RecurrenceEndsLbl.Enabled := (RecurringType.ItemIndex > 0);
+  RepeatUntil.Enabled := RecurrenceEndsLbl.Enabled;
+end;
+procedure TfEventEdit.AlarmSetClick(Sender: TObject);
+begin
+  AlarmAdvance.Enabled  := AlarmSet.Checked;
+  AlarmAdvType.Enabled  := AlarmSet.Checked;
+  AdvanceUpDown.Enabled := AlarmSet.Checked;
+  Event.SnoozeTime := 0.0;
+end;
+procedure TfEventEdit.FormShow(Sender: TObject);
+begin
+  DescriptionEdit.SetFocus;
+end;
+procedure TfEventEdit.seDurationChange(Sender: TObject);
+begin
+  EndDate.DateTime := StartDate.DateTime+(seDuration.Value/24);
+end;
+procedure TfEventEdit.StartDateExit(Sender: TObject);
+begin
+  EndDate.DateTime := StartDate.DateTime+(seDuration.Value/24);
+end;
+procedure TfEventEdit.ToolButton1Click(Sender: TObject);
+begin
+  Close;
+end;
+initialization
+{$R *.lfm}
+end.
+ 

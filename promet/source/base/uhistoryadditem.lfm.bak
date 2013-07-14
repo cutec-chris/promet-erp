@@ -1,0 +1,63 @@
+object fHistoryAddItem: TfHistoryAddItem
+  Left = 434
+  Height = 198
+  Top = 251
+  Width = 320
+  ActiveControl = eAction
+  Caption = 'Neuer Verlaufseintrag'
+  ClientHeight = 198
+  ClientWidth = 320
+  OnCreate = FormCreate
+  OnShow = FormShow
+  LCLVersion = '1.1'
+  object ButtonPanel1: TButtonPanel
+    Left = 6
+    Height = 37
+    Top = 155
+    Width = 308
+    OKButton.Name = 'OKButton'
+    OKButton.DefaultCaption = True
+    HelpButton.Name = 'HelpButton'
+    HelpButton.DefaultCaption = True
+    CloseButton.Name = 'CloseButton'
+    CloseButton.DefaultCaption = True
+    CancelButton.Name = 'CancelButton'
+    CancelButton.DefaultCaption = True
+    TabOrder = 2
+    ShowButtons = [pbOK, pbCancel]
+  end
+  object lAction: TLabel
+    Left = 8
+    Height = 17
+    Top = 8
+    Width = 45
+    Caption = 'Aktion'
+    ParentColor = False
+  end
+  object lReference: TLabel
+    Left = 8
+    Height = 17
+    Top = 97
+    Width = 61
+    Anchors = [akLeft, akRight, akBottom]
+    Caption = 'Referenz'
+    ParentColor = False
+  end
+  object eReference: TEdit
+    Left = 8
+    Height = 27
+    Top = 112
+    Width = 304
+    Anchors = [akLeft, akRight, akBottom]
+    TabOrder = 1
+    Text = 'eReference'
+  end
+  object eAction: TMemo
+    Left = 8
+    Height = 64
+    Top = 24
+    Width = 304
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    TabOrder = 0
+  end
+end

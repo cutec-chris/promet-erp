@@ -1,0 +1,6 @@
+inherited PrometMainFrame: TPrometMainFrame
+  Height = 238
+  Width = 322
+  ParentShowHint = False
+  ShowHint = True
+end

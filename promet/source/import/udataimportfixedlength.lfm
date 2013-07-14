@@ -1,0 +1,143 @@
+object fFixedOptions: TfFixedOptions
+  Left = 388
+  Height = 305
+  Top = 186
+  Width = 400
+  Caption = 'Textdatei Einstellungen'
+  ClientHeight = 305
+  ClientWidth = 400
+  OnCreate = FormCreate
+  Position = poScreenCenter
+  LCLVersion = '0.9.31'
+  object feFile: TFileNameEdit
+    Left = 16
+    Height = 24
+    Top = 24
+    Width = 352
+    OnAcceptFileName = feFileAcceptFileName
+    DialogOptions = []
+    Filter = 'Alle unterstützten Formate|*.txt;*.csv|Textdatei (*.txt)|*.txt|Trenzeichengetrennte Datei (*.csv)|*.csv'
+    FilterIndex = 0
+    HideDirectories = False
+    ButtonWidth = 23
+    NumGlyphs = 0
+    Anchors = [akTop, akLeft, akRight]
+    MaxLength = 0
+    TabOrder = 0
+  end
+  object lFile: TLabel
+    Left = 16
+    Height = 17
+    Top = 6
+    Width = 62
+    Caption = 'Dateiname'
+    ParentColor = False
+  end
+  object ButtonPanel1: TButtonPanel
+    Left = 6
+    Height = 34
+    Top = 265
+    Width = 388
+    OKButton.Name = 'OKButton'
+    OKButton.Caption = '&Ok'
+    HelpButton.Name = 'HelpButton'
+    HelpButton.Caption = '&Hilfe'
+    HelpButton.Enabled = False
+    CloseButton.Name = 'CloseButton'
+    CloseButton.Caption = '&Schließen'
+    CloseButton.Enabled = False
+    CancelButton.Name = 'CancelButton'
+    CancelButton.Caption = 'Abbrechen'
+    TabOrder = 1
+    ShowButtons = [pbOK, pbCancel]
+  end
+  object TreeView1: TTreeView
+    Left = 8
+    Height = 18
+    Top = 56
+    Width = 16
+    BackgroundColor = clBtnFace
+    BorderStyle = bsNone
+    DefaultItemHeight = 18
+    ScrollBars = ssNone
+    ShowLines = False
+    TabOrder = 2
+    OnCollapsing = TreeView1Collapsing
+    OnExpanding = TreeView1Expanding
+    Options = [tvoAutoItemHeight, tvoHideSelection, tvoKeepCollapsedNodes, tvoShowButtons, tvoShowRoot, tvoToolTips, tvoThemedDraw]
+    Items.Data = {
+      F9FFFFFF020001000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF010000000000
+      0000010800000045696E7472616730FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00
+      00000000000000000800000045696E7472616731
+    }
+  end
+  object lOptions: TLabel
+    Left = 24
+    Height = 17
+    Top = 56
+    Width = 52
+    Caption = 'Optionen'
+    ParentColor = False
+  end
+  object pptions: TPanel
+    Left = 24
+    Height = 187
+    Top = 72
+    Width = 370
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    BevelOuter = bvNone
+    ClientHeight = 187
+    ClientWidth = 370
+    TabOrder = 3
+    object mRows: TMemo
+      Left = 0
+      Height = 115
+      Top = 72
+      Width = 368
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      ScrollBars = ssAutoVertical
+      TabOrder = 0
+    end
+    object Label1: TLabel
+      Left = 0
+      Height = 17
+      Top = 56
+      Width = 44
+      Caption = 'Spalten'
+      ParentColor = False
+    end
+    object eComment: TLabeledEdit
+      Left = 0
+      Height = 24
+      Top = 24
+      Width = 80
+      EditLabel.AnchorSideLeft.Control = eComment
+      EditLabel.AnchorSideBottom.Control = eComment
+      EditLabel.Left = 0
+      EditLabel.Height = 17
+      EditLabel.Top = 7
+      EditLabel.Width = 110
+      EditLabel.Caption = 'Kommentarzeichen'
+      EditLabel.ParentColor = False
+      LabelSpacing = 0
+      TabOrder = 1
+      Text = '*'
+      OnChange = eCommentChange
+    end
+    object Bevel1: TBevel
+      Left = 0
+      Height = 10
+      Top = 0
+      Width = 370
+      Align = alTop
+      Shape = bsTopLine
+    end
+  end
+  object FLDataSet: TFixedFormatDataSet
+    FileMustExist = True
+    ReadOnly = False
+    FieldDefs = <>
+    left = 240
+    top = 56
+  end
+end

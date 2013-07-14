@@ -1,0 +1,1935 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="9"/>
+    <PathDelim Value="\"/>
+    <General>
+      <Flags>
+        <MainUnitHasCreateFormStatements Value="False"/>
+      </Flags>
+      <MainUnit Value="0"/>
+      <ResourceType Value="res"/>
+      <UseXPManifest Value="True"/>
+      <Icon Value="0"/>
+      <ActiveWindowIndexAtStart Value="0"/>
+    </General>
+    <i18n>
+      <EnableI18N LFM="False"/>
+    </i18n>
+    <VersionInfo>
+      <StringTable ProductVersion=""/>
+    </VersionInfo>
+    <MacroValues Count="1">
+      <Macro1 Name="LCLWidgetType" Value="nogui"/>
+    </MacroValues>
+    <BuildModes Count="1">
+      <Item1 Name="default" Default="True"/>
+      <SharedMatrixOptions Count="1">
+        <Item1 ID="004250616870" Modes="default" Type="IDEMacro" MacroName="LCLWidgetType" Value="nogui"/>
+      </SharedMatrixOptions>
+    </BuildModes>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
+      <ExcludeFileFilter Value="*.(bak|ppu|ppw|o|so);*~;backup"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+        <CommandLineParams Value="--mandant=&quot;Stora&quot;"/>
+      </local>
+    </RunParams>
+    <RequiredPackages Count="5">
+      <Item1>
+        <PackageName Value="pfcgiprometapp"/>
+        <DefaultFilename Value="..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\base\pfcgiprometapp.lpk"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="laz_synapse"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="WebLaz"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="LCL"/>
+      </Item4>
+      <Item5>
+        <PackageName Value="FCL"/>
+      </Item5>
+    </RequiredPackages>
+    <Units Count="208">
+      <Unit0>
+        <Filename Value="webwiki.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="webwiki"/>
+        <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="18" Y="28"/>
+        <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="uwebwiki.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmWikiPage"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="uWebWiki"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="198"/>
+        <CursorPos X="36" Y="354"/>
+        <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="C:\FPC\2.4.0\source\fpcsrc\packages\fcl-web\src\fpfcgi.pp"/>
+        <UnitName Value="fpfcgi"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="36"/>
+        <CursorPos X="1" Y="57"/>
+        <UsageCount Value="10"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="..\..\output\i386-win32\cgi-bin\maintemplate.html"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="48"/>
+        <CursorPos X="26" Y="63"/>
+        <UsageCount Value="9"/>
+        <DefaultSyntaxHighlighter Value="HTML"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="C:\lazarus\fpc\2.2.4\source\packages\fcl-web\fptemplate.txt"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="31"/>
+        <CursorPos X="11" Y="139"/>
+        <UsageCount Value="16"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="..\base\uzeosdm.pas"/>
+        <UnitName Value="uZeOSDM"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="312"/>
+        <CursorPos X="27" Y="4"/>
+        <UsageCount Value="9"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="C:\lazarus\lcl\interfaces\nogui\interfaces.pp"/>
+        <UnitName Value="Interfaces"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="19"/>
+        <CursorPos X="3" Y="32"/>
+        <UsageCount Value="4"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="..\components\zeos\src\component\ZPropertyEditor.pas"/>
+        <UnitName Value="ZPropertyEditor"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="418"/>
+        <CursorPos X="63" Y="429"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="..\base\udata.pas"/>
+        <ComponentName Value="Data"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="uData"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1171"/>
+        <CursorPos X="11" Y="1184"/>
+        <UsageCount Value="2"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="C:\FPC\2.4.0\source\fpcsrc\rtl\objpas\classes\classesh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1701"/>
+        <CursorPos X="3" Y="1712"/>
+        <UsageCount Value="10"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="..\base\udata.lrs"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="17" Y="3"/>
+        <UsageCount Value="10"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="C:\FPC\2.4.0\source\fpcsrc\rtl\inc\objpash.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="159"/>
+        <CursorPos X="8" Y="170"/>
+        <UsageCount Value="10"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="C:\lazarus\components\fpweb\reglazwebextra.pp"/>
+        <UnitName Value="reglazwebextra"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="22" Y="8"/>
+        <UsageCount Value="10"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="..\components\zeos\src\component\ZComponentReg.pas"/>
+        <UnitName Value="ZComponentReg"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="86"/>
+        <CursorPos X="13" Y="94"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="..\components\zeos\src\component\ZConnection.pas"/>
+        <UnitName Value="ZConnection"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="992"/>
+        <CursorPos X="1" Y="1021"/>
+        <UsageCount Value="5"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="C:\lazarus\fpc\2.4.3\source\packages\fcl-web\src\websession.pp"/>
+        <UnitName Value="websession"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="38"/>
+        <CursorPos X="30" Y="50"/>
+        <UsageCount Value="4"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="..\base\ubasedatamodule.pas"/>
+        <UnitName Value="uBaseDataModule"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2512"/>
+        <CursorPos X="19" Y="2534"/>
+        <UsageCount Value="15"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="D:\general\src\Utils.pas"/>
+        <UnitName Value="Utils"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="3"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="C:\lazarus\lcl\fileutil.pas"/>
+        <UnitName Value="FileUtil"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="172"/>
+        <CursorPos X="14" Y="188"/>
+        <UsageCount Value="10"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="..\base\udbasedm.pas"/>
+        <UnitName Value="udbasedm"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1133"/>
+        <CursorPos X="3" Y="1144"/>
+        <UsageCount Value="10"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="C:\lazarus\fpc\2.4.3\source\rtl\objpas\dateutils.pp"/>
+        <UnitName Value="dateutils"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="C:\lazarus\lcl\lcltype.pp"/>
+        <UnitName Value="LCLType"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="78"/>
+        <CursorPos X="1" Y="78"/>
+        <UsageCount Value="10"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="C:\lazarus\lcl\menus.pp"/>
+        <UnitName Value="Menus"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="442"/>
+        <CursorPos X="1" Y="453"/>
+        <UsageCount Value="10"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="C:\lazarus\lcl\widgetset\wsproc.pp"/>
+        <UnitName Value="WSProc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="21"/>
+        <CursorPos X="24" Y="32"/>
+        <UsageCount Value="10"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="C:\lazarus\lcl\controls.pp"/>
+        <UnitName Value="Controls"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit24>
+      <Unit25>
+        <Filename Value="C:\lazarus\lcl\include\winfileutil.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="80" Y="3"/>
+        <UsageCount Value="10"/>
+      </Unit25>
+      <Unit26>
+        <Filename Value="C:\lazarus\lcl\include\fileutil.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="20"/>
+        <CursorPos X="1" Y="37"/>
+        <UsageCount Value="10"/>
+      </Unit26>
+      <Unit27>
+        <Filename Value="..\base\uappconsts.pas"/>
+        <UnitName Value="uAppconsts"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit27>
+      <Unit28>
+        <Filename Value="C:\lazarus\fpc\2.4.3\source\rtl\win32\classes.pp"/>
+        <UnitName Value="Classes"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit28>
+      <Unit29>
+        <Filename Value="C:\lazarus\fpc\2.4.3\source\rtl\win\sysutils.pp"/>
+        <UnitName Value="sysutils"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1071"/>
+        <CursorPos X="40" Y="1074"/>
+        <UsageCount Value="10"/>
+      </Unit29>
+      <Unit30>
+        <Filename Value="C:\lazarus\fpc\2.4.3\source\packages\fcl-db\src\base\db.pas"/>
+        <UnitName Value="db"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit30>
+      <Unit31>
+        <Filename Value="C:\lazarus\fpc\2.4.3\source\rtl\inc\variants.pp"/>
+        <UnitName Value="variants"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit31>
+      <Unit32>
+        <Filename Value="..\base\uintfstrconsts.pas"/>
+        <UnitName Value="uIntfStrConsts"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="60"/>
+        <CursorPos X="19" Y="71"/>
+        <UsageCount Value="10"/>
+      </Unit32>
+      <Unit33>
+        <Filename Value="C:\lazarus\fpc\2.4.3\source\packages\fcl-xml\src\dom.pp"/>
+        <UnitName Value="DOM"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit33>
+      <Unit34>
+        <Filename Value="C:\lazarus\fpc\2.4.3\source\packages\fcl-xml\src\xmlread.pp"/>
+        <UnitName Value="XMLRead"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit34>
+      <Unit35>
+        <Filename Value="C:\lazarus\lcl\lclproc.pas"/>
+        <UnitName Value="LCLProc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit35>
+      <Unit36>
+        <Filename Value="C:\lazarus\fpc\2.4.3\source\rtl\objpas\sysutils\osutilsh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="27"/>
+        <CursorPos X="10" Y="38"/>
+        <UsageCount Value="10"/>
+      </Unit36>
+      <Unit37>
+        <Filename Value="C:\lazarus\fpc\2.4.3\source\rtl\objpas\sysutils\osutil.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="101"/>
+        <CursorPos X="48" Y="112"/>
+        <UsageCount Value="10"/>
+      </Unit37>
+      <Unit38>
+        <Filename Value="C:\lazarus\components\fpweb\demo\fptemplate\listrecords\cgi\webmodule.pas"/>
+        <UnitName Value="webmodule"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2"/>
+        <CursorPos X="8" Y="93"/>
+        <UsageCount Value="7"/>
+      </Unit38>
+      <Unit39>
+        <Filename Value="C:\lazarus\fpc\2.4.3\source\packages\fcl-web\src\README.txt"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="133"/>
+        <CursorPos X="26" Y="141"/>
+        <UsageCount Value="3"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit39>
+      <Unit40>
+        <Filename Value="C:\lazarus\components\fpweb\demo\session\wmsession.pp"/>
+        <ComponentName Value="SessionModule"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="wmsession"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="141"/>
+        <CursorPos X="3" Y="68"/>
+        <UsageCount Value="10"/>
+      </Unit40>
+      <Unit41>
+        <Filename Value="C:\lazarus\fpc\2.4.3\source\packages\fcl-web\src\httpdefs.pp"/>
+        <UnitName Value="HTTPDefs"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="339"/>
+        <CursorPos X="13" Y="351"/>
+        <UsageCount Value="5"/>
+      </Unit41>
+      <Unit42>
+        <Filename Value="D:\wikihelp\src\wikitohtml.pas"/>
+        <UnitName Value="wikitohtml"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="24" Y="8"/>
+        <UsageCount Value="5"/>
+      </Unit42>
+      <Unit43>
+        <Filename Value="..\..\output\i386-win32\htdocs\templates\default.css"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="110"/>
+        <CursorPos X="17" Y="124"/>
+        <UsageCount Value="3"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit43>
+      <Unit44>
+        <Filename Value="..\..\output\x86_64-linux\web\templates\ajaxlogintemplate.html"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="24" Y="18"/>
+        <UsageCount Value="40"/>
+        <DefaultSyntaxHighlighter Value="HTML"/>
+      </Unit44>
+      <Unit45>
+        <Filename Value="D:\home\chris\lazarus\fpc\packages\fcl-web\src\fpcgi.pp"/>
+        <UnitName Value="fpcgi"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="31"/>
+        <UsageCount Value="3"/>
+      </Unit45>
+      <Unit46>
+        <Filename Value="D:\home\chris\lazarus\fpc\packages\fcl-web\src\fpfcgi.pp"/>
+        <UnitName Value="fpfcgi"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="22"/>
+        <CursorPos X="11" Y="34"/>
+        <UsageCount Value="3"/>
+      </Unit46>
+      <Unit47>
+        <Filename Value="D:\home\chris\lazarus\fpc\packages\fcl-web\src\custweb.pp"/>
+        <UnitName Value="custweb"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="338"/>
+        <CursorPos X="3" Y="79"/>
+        <UsageCount Value="3"/>
+      </Unit47>
+      <Unit48>
+        <Filename Value="..\base\dbintfs\ubaseapplication.pas"/>
+        <UnitName Value="uBaseApplication"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="23"/>
+        <CursorPos X="19" Y="41"/>
+        <UsageCount Value="13"/>
+        <Loaded Value="True"/>
+      </Unit48>
+      <Unit49>
+        <Filename Value="D:\home\chris\lazarus\fpc\packages\fcl-web\src\custcgi.pp"/>
+        <UnitName Value="custcgi"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="45"/>
+        <CursorPos X="24" Y="64"/>
+        <UsageCount Value="3"/>
+      </Unit49>
+      <Unit50>
+        <Filename Value="..\base\ubasefcgiapplication.pas"/>
+        <UnitName Value="ubasefcgiapplication"/>
+        <EditorIndex Value="4"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="498"/>
+        <CursorPos X="3" Y="502"/>
+        <UsageCount Value="100"/>
+        <Loaded Value="True"/>
+      </Unit50>
+      <Unit51>
+        <Filename Value="..\base\ubasedaemonapplication.pas"/>
+        <UnitName Value="ubasedaemonapplication"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="33"/>
+        <UsageCount Value="3"/>
+      </Unit51>
+      <Unit52>
+        <Filename Value="..\base\dbintfs\uwiki.pas"/>
+        <UnitName Value="uWiki"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="15" Y="14"/>
+        <UsageCount Value="74"/>
+      </Unit52>
+      <Unit53>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <UnitName Value="uBaseDbClasses"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1771"/>
+        <CursorPos X="1" Y="1790"/>
+        <UsageCount Value="100"/>
+      </Unit53>
+      <Unit54>
+        <Filename Value="D:\home\chris\lazarus\lcl\xmlpropstorage.pas"/>
+        <UnitName Value="XMLPropStorage"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="159"/>
+        <CursorPos X="20" Y="179"/>
+        <UsageCount Value="9"/>
+      </Unit54>
+      <Unit55>
+        <Filename Value="..\base\ubasevisualapplication.pas"/>
+        <UnitName Value="uBaseVisualApplication"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="263"/>
+        <CursorPos X="3" Y="257"/>
+        <UsageCount Value="3"/>
+      </Unit55>
+      <Unit56>
+        <Filename Value="..\base\dbintfs\uappconsts.pas"/>
+        <UnitName Value="uAppconsts"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="3" Y="17"/>
+        <UsageCount Value="3"/>
+      </Unit56>
+      <Unit57>
+        <Filename Value="..\base\ubasecustomapplication.pas"/>
+        <UnitName Value="uBaseCustomApplication"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="84"/>
+        <UsageCount Value="12"/>
+      </Unit57>
+      <Unit58>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <UnitName Value="uBaseDBInterface"/>
+        <EditorIndex Value="7"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="126"/>
+        <CursorPos X="15" Y="141"/>
+        <UsageCount Value="77"/>
+        <Loaded Value="True"/>
+      </Unit58>
+      <Unit59>
+        <Filename Value="D:\home\chris\lazarus\fpc\packages\fcl-web\src\custfcgi.pp"/>
+        <UnitName Value="custfcgi"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="390"/>
+        <CursorPos X="3" Y="419"/>
+        <UsageCount Value="4"/>
+      </Unit59>
+      <Unit60>
+        <Filename Value="D:\home\chris\.prometerp\webshopconfig.xml"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="5"/>
+        <UsageCount Value="63"/>
+        <DefaultSyntaxHighlighter Value="XML"/>
+      </Unit60>
+      <Unit61>
+        <Filename Value="D:\home\chris\lazarus\lcl\propertystorage.pas"/>
+        <UnitName Value="PropertyStorage"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="664"/>
+        <CursorPos X="1" Y="689"/>
+        <UsageCount Value="22"/>
+      </Unit61>
+      <Unit62>
+        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
+        <UnitName Value="uZeosDBDM"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="157"/>
+        <CursorPos X="1" Y="180"/>
+        <UsageCount Value="72"/>
+      </Unit62>
+      <Unit63>
+        <Filename Value="D:\home\chris\lazarus\fpc\packages\fcl-web\src\websession.pp"/>
+        <UnitName Value="websession"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="36" Y="27"/>
+        <UsageCount Value="5"/>
+      </Unit63>
+      <Unit64>
+        <Filename Value="..\promet.erp\uwikiframe.pas"/>
+        <ComponentName Value="fWikiFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uWikiFrame"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="111"/>
+        <CursorPos X="37" Y="121"/>
+        <UsageCount Value="4"/>
+      </Unit64>
+      <Unit65>
+        <Filename Value="..\base\dbintfs\udocuments.pas"/>
+        <UnitName Value="uDocuments"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit65>
+      <Unit66>
+        <Filename Value="..\components\zeos\src\component\zabstractrodataset.pas"/>
+        <UnitName Value="ZAbstractRODataset"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1403"/>
+        <CursorPos X="1" Y="1421"/>
+        <UsageCount Value="5"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit66>
+      <Unit67>
+        <Filename Value="D:\home\chris\lazarus\packager\registration\registerfcl.pas"/>
+        <UnitName Value="RegisterFCL"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="27"/>
+        <CursorPos X="3" Y="45"/>
+        <UsageCount Value="7"/>
+      </Unit67>
+      <Unit68>
+        <Filename Value="D:\home\chris\lazarus\fpc_trunk\packages\fcl-base\src\fptemplate.pp"/>
+        <UnitName Value="fpTemplate"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="23"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit68>
+      <Unit69>
+        <Filename Value="D:\home\chris\lazarus\fpc_trunk\packages\fcl-web\src\base\fpweb.pp"/>
+        <UnitName Value="fpWeb"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="61" Y="19"/>
+        <UsageCount Value="15"/>
+      </Unit69>
+      <Unit70>
+        <Filename Value="D:\home\chris\lazarus\fpc_trunk\packages\fcl-web\src\base\fphttp.pp"/>
+        <UnitName Value="fphttp"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="518"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="15"/>
+      </Unit70>
+      <Unit71>
+        <Filename Value="D:\home\chris\lazarus\lcl\include\interfacebase.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="30"/>
+        <UsageCount Value="3"/>
+      </Unit71>
+      <Unit72>
+        <Filename Value="..\..\output\x86_64-linux\web\templates\searchresultstemplate.html"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="64" Y="42"/>
+        <UsageCount Value="36"/>
+        <DefaultSyntaxHighlighter Value="HTML"/>
+      </Unit72>
+      <Unit73>
+        <Filename Value="..\..\output\x86_64-linux\web\templates\default.css"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="31"/>
+        <CursorPos X="1" Y="66"/>
+        <UsageCount Value="100"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit73>
+      <Unit74>
+        <Filename Value="..\..\output\x86_64-linux\web\templates\old\default.css"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="34"/>
+        <CursorPos X="57" Y="18"/>
+        <UsageCount Value="6"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit74>
+      <Unit75>
+        <Filename Value="D:\home\chris\lazarus\fpc_trunk\packages\fcl-web\src\base\custfcgi.pp"/>
+        <UnitName Value="custfcgi"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="28"/>
+        <CursorPos X="82" Y="46"/>
+        <UsageCount Value="14"/>
+      </Unit75>
+      <Unit76>
+        <Filename Value="D:\home\chris\lazarus\components\turbopower_ipro\iphtml.pas"/>
+        <UnitName Value="IpHtml"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="860"/>
+        <CursorPos X="8" Y="890"/>
+        <UsageCount Value="5"/>
+      </Unit76>
+      <Unit77>
+        <Filename Value="D:\home\chris\lazarus\components\turbopower_ipro\ipcss.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="5"/>
+      </Unit77>
+      <Unit78>
+        <Filename Value="..\components\zeos\src\dbc\ZDbcCache.pas"/>
+        <UnitName Value="ZDbcCache"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="206"/>
+        <CursorPos X="1" Y="224"/>
+        <UsageCount Value="5"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit78>
+      <Unit79>
+        <Filename Value="D:\home\chris\lazarus\fpc_trunk\packages\fcl-web\src\base\httpdefs.pp"/>
+        <UnitName Value="HTTPDefs"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="386"/>
+        <CursorPos X="20" Y="402"/>
+        <UsageCount Value="26"/>
+      </Unit79>
+      <Unit80>
+        <Filename Value="..\base\dbintfs\umasterdata.pas"/>
+        <UnitName Value="uMasterdata"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="573"/>
+        <CursorPos X="70" Y="591"/>
+        <UsageCount Value="70"/>
+      </Unit80>
+      <Unit81>
+        <Filename Value="..\base\dbintfs\ubasesearch.pas"/>
+        <UnitName Value="uBaseSearch"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="10"/>
+        <CursorPos X="15" Y="45"/>
+        <UsageCount Value="37"/>
+        <Loaded Value="True"/>
+      </Unit81>
+      <Unit82>
+        <Filename Value="..\..\output\x86_64-linux\web\templates\mainforumtemplate.html"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="29" Y="29"/>
+        <UsageCount Value="97"/>
+        <DefaultSyntaxHighlighter Value="HTML"/>
+      </Unit82>
+      <Unit83>
+        <Filename Value="..\base\dbintfs\uintfstrconsts.pas"/>
+        <UnitName Value="uIntfStrConsts"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="42" Y="23"/>
+        <UsageCount Value="30"/>
+      </Unit83>
+      <Unit84>
+        <Filename Value="uerror.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmError"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="uerror"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="6"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="47"/>
+        <CursorPos X="36" Y="91"/>
+        <UsageCount Value="201"/>
+        <Loaded Value="True"/>
+      </Unit84>
+      <Unit85>
+        <Filename Value="D:\home\chris\lazarus\fpc_trunk\packages\fcl-web\src\base\custweb.pp"/>
+        <UnitName Value="custweb"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="475"/>
+        <CursorPos X="17" Y="486"/>
+        <UsageCount Value="13"/>
+      </Unit85>
+      <Unit86>
+        <Filename Value="D:\home\chris\lazarus\fpc_trunk\rtl\objpas\sysutils\sysutilh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="275"/>
+        <CursorPos X="12" Y="293"/>
+        <UsageCount Value="5"/>
+      </Unit86>
+      <Unit87>
+        <Filename Value="GeoIP.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="GeoIP"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="122"/>
+        <CursorPos X="102" Y="141"/>
+        <UsageCount Value="200"/>
+      </Unit87>
+      <Unit88>
+        <Filename Value="D:\lkomponenten\synapse\synaip.pas"/>
+        <UnitName Value="synaip"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="386"/>
+        <CursorPos X="19" Y="387"/>
+        <UsageCount Value="5"/>
+      </Unit88>
+      <Unit89>
+        <Filename Value="Sample.pas"/>
+        <UnitName Value="Sample"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="9" Y="26"/>
+        <UsageCount Value="5"/>
+      </Unit89>
+      <Unit90>
+        <Filename Value="D:\lkomponenten\synapse\blcksock.pas"/>
+        <UnitName Value="blcksock"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2637"/>
+        <CursorPos X="1" Y="2659"/>
+        <UsageCount Value="5"/>
+      </Unit90>
+      <Unit91>
+        <Filename Value="D:\home\chris\lazarus\fpc_trunk\packages\fcl-web\src\base\custcgi.pp"/>
+        <UnitName Value="custcgi"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="57"/>
+        <CursorPos X="15" Y="77"/>
+        <UsageCount Value="13"/>
+      </Unit91>
+      <Unit92>
+        <Filename Value="D:\home\chris\lazarus\fpc_trunk\packages\fastcgi\src\fastcgi.pp"/>
+        <UnitName Value="fastcgi"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="7"/>
+        <CursorPos X="14" Y="25"/>
+        <UsageCount Value="13"/>
+      </Unit92>
+      <Unit93>
+        <Filename Value="D:\home\chris\lazarus\lcl\fileutil.pas"/>
+        <UnitName Value="FileUtil"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="177"/>
+        <CursorPos X="6" Y="201"/>
+        <UsageCount Value="8"/>
+      </Unit93>
+      <Unit94>
+        <Filename Value="D:\home\chris\lazarus\lcl\include\fileutil.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="24"/>
+        <CursorPos X="1" Y="45"/>
+        <UsageCount Value="8"/>
+      </Unit94>
+      <Unit95>
+        <Filename Value="D:\home\chris\lazarus\fpc_trunk\rtl\objpas\sysutils\filutilh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="69"/>
+        <CursorPos X="21" Y="99"/>
+        <UsageCount Value="8"/>
+      </Unit95>
+      <Unit96>
+        <Filename Value="D:\home\chris\lazarus\fpc_trunk\packages\fcl-web\src\base\iniwebsession.pp"/>
+        <UnitName Value="iniwebsession"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="146"/>
+        <CursorPos X="39" Y="181"/>
+        <UsageCount Value="9"/>
+      </Unit96>
+      <Unit97>
+        <Filename Value="D:\home\chris\Arbeitsfläche\lightbox\index.htm"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="83" Y="24"/>
+        <UsageCount Value="2"/>
+        <DefaultSyntaxHighlighter Value="HTML"/>
+      </Unit97>
+      <Unit98>
+        <Filename Value="D:\home\chris\lazarus\lcl\include\unixfileutil.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="279"/>
+        <CursorPos X="1" Y="297"/>
+        <UsageCount Value="9"/>
+      </Unit98>
+      <Unit99>
+        <Filename Value="D:\home\chris\lazarus\fpc_trunk\rtl\objpas\sysutils\sysstrh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="206"/>
+        <CursorPos X="10" Y="224"/>
+        <UsageCount Value="9"/>
+      </Unit99>
+      <Unit100>
+        <Filename Value="D:\home\chris\lazarus\fpc_trunk\rtl\inc\ustringh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="93"/>
+        <CursorPos X="10" Y="114"/>
+        <UsageCount Value="9"/>
+      </Unit100>
+      <Unit101>
+        <Filename Value="D:\home\chris\lazarus\fpc_trunk\rtl\inc\ustrings.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2317"/>
+        <CursorPos X="10" Y="2344"/>
+        <UsageCount Value="9"/>
+      </Unit101>
+      <Unit102>
+        <Filename Value="..\base\dbintfs\umessages.pas"/>
+        <UnitName Value="uMessages"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="286"/>
+        <CursorPos X="1" Y="292"/>
+        <UsageCount Value="26"/>
+      </Unit102>
+      <Unit103>
+        <Filename Value="D:\home\chris\lazarus\fpc_trunk\packages\hash\src\md5.pp"/>
+        <UnitName Value="md5"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="137"/>
+        <CursorPos X="10" Y="133"/>
+        <UsageCount Value="10"/>
+      </Unit103>
+      <Unit104>
+        <Filename Value="..\components\zeos\src\dbc\ZDbcSqLiteUtils.pas"/>
+        <UnitName Value="ZDbcSqLiteUtils"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="218"/>
+        <CursorPos X="26" Y="234"/>
+        <UsageCount Value="8"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit104>
+      <Unit105>
+        <Filename Value="..\base\dbintfs\uorder.pas"/>
+        <UnitName Value="uOrder"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="61"/>
+        <CursorPos X="14" Y="77"/>
+        <UsageCount Value="17"/>
+      </Unit105>
+      <Unit106>
+        <Filename Value="D:\home\chris\lazarus\fpc_trunk\packages\fcl-base\src\custapp.pp"/>
+        <UnitName Value="CustApp"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="53"/>
+        <CursorPos X="33" Y="71"/>
+        <UsageCount Value="10"/>
+      </Unit106>
+      <Unit107>
+        <Filename Value="D:\home\chris\lazarus\fpc_trunk\rtl\objpas\sysutils\osutilsh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="29"/>
+        <CursorPos X="50" Y="56"/>
+        <UsageCount Value="10"/>
+      </Unit107>
+      <Unit108>
+        <Filename Value="..\components\zeos\src\dbc\ZDbcPostgreSqlUtils.pas"/>
+        <UnitName Value="ZDbcPostgreSqlUtils"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="703"/>
+        <CursorPos X="1" Y="729"/>
+        <UsageCount Value="7"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit108>
+      <Unit109>
+        <Filename Value="..\components\zeos\src\component\zabstractdataset.pas"/>
+        <UnitName Value="ZAbstractDataset"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="402"/>
+        <CursorPos X="1" Y="420"/>
+        <UsageCount Value="4"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit109>
+      <Unit110>
+        <Filename Value="D:\home\chris\lazarus\fpc_trunk\packages\fcl-db\src\base\db.pas"/>
+        <UnitName Value="db"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1243"/>
+        <CursorPos X="39" Y="1261"/>
+        <UsageCount Value="2"/>
+      </Unit110>
+      <Unit111>
+        <Filename Value="..\base\dbintfs\usessiondbclasses.pas"/>
+        <UnitName Value="uSessionDBClasses"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="98"/>
+        <CursorPos X="23" Y="102"/>
+        <UsageCount Value="18"/>
+      </Unit111>
+      <Unit112>
+        <Filename Value="D:\general\src\htmlconvert.pas"/>
+        <UnitName Value="htmlconvert"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="4"/>
+      </Unit112>
+      <Unit113>
+        <Filename Value="D:\lkomponenten\wst\object_serializer.pas"/>
+        <UnitName Value="object_serializer"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="270"/>
+        <CursorPos X="6" Y="1179"/>
+        <UsageCount Value="10"/>
+      </Unit113>
+      <Unit114>
+        <Filename Value="D:\home\chris\lazarus\fpc\packages\fcl-web\src\httpdefs.pp"/>
+        <UnitName Value="HTTPDefs"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="338"/>
+        <CursorPos X="14" Y="356"/>
+        <UsageCount Value="4"/>
+      </Unit114>
+      <Unit115>
+        <Filename Value="D:\lkomponenten\synapse\pingsend.pas"/>
+        <UnitName Value="pingsend"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="661"/>
+        <CursorPos X="3" Y="666"/>
+        <UsageCount Value="10"/>
+      </Unit115>
+      <Unit116>
+        <Filename Value="D:\home\chris\lazarus\components\codetools\eventcodetool.pas"/>
+        <UnitName Value="EventCodeTool"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="994"/>
+        <CursorPos X="23" Y="1012"/>
+        <UsageCount Value="10"/>
+      </Unit116>
+      <Unit117>
+        <Filename Value="D:\lkomponenten\synapse\asn1util.pas"/>
+        <UnitName Value="asn1util"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="442"/>
+        <CursorPos X="32" Y="460"/>
+        <UsageCount Value="10"/>
+      </Unit117>
+      <Unit118>
+        <Filename Value="D:\home\chris\lazarus\lcl\graphics.pp"/>
+        <UnitName Value="Graphics"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="932"/>
+        <CursorPos X="14" Y="950"/>
+        <UsageCount Value="2"/>
+      </Unit118>
+      <Unit119>
+        <Filename Value="udownloads.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmDownloads"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="udownloads"/>
+        <EditorIndex Value="5"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="78" Y="52"/>
+        <UsageCount Value="201"/>
+        <Loaded Value="True"/>
+      </Unit119>
+      <Unit120>
+        <Filename Value="..\..\output\x86_64-linux\web\cgi-bin\redirects.list"/>
+        <IsPartOfProject Value="True"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="43" Y="2"/>
+        <UsageCount Value="200"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit120>
+      <Unit121>
+        <Filename Value="ushop.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmShop"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="ushop"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="337"/>
+        <CursorPos X="36" Y="338"/>
+        <UsageCount Value="200"/>
+      </Unit121>
+      <Unit122>
+        <Filename Value="uuseragents.pas"/>
+        <UnitName Value="uUserAgents"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="34" Y="21"/>
+        <UsageCount Value="11"/>
+      </Unit122>
+      <Unit123>
+        <Filename Value="..\base\uuseragents.pas"/>
+        <UnitName Value="uUserAgents"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="4" Y="23"/>
+        <UsageCount Value="4"/>
+      </Unit123>
+      <Unit124>
+        <Filename Value="D:\home\chris\.prometerp\webconfig.xml"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="19" Y="5"/>
+        <UsageCount Value="57"/>
+        <DefaultSyntaxHighlighter Value="XML"/>
+      </Unit124>
+      <Unit125>
+        <Filename Value="D:\home\chris\lazarus\lcl\include\picture.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="687"/>
+        <CursorPos X="50" Y="710"/>
+        <UsageCount Value="3"/>
+      </Unit125>
+      <Unit126>
+        <Filename Value="D:\home\chris\lazarus\lcl\include\rasterimage.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="499"/>
+        <CursorPos X="1" Y="521"/>
+        <UsageCount Value="3"/>
+      </Unit126>
+      <Unit127>
+        <Filename Value="D:\home\chris\lazarus\fpc_trunk\packages\fcl-image\src\fpimage.pp"/>
+        <UnitName Value="FPimage"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="195"/>
+        <CursorPos X="3" Y="213"/>
+        <UsageCount Value="3"/>
+      </Unit127>
+      <Unit128>
+        <Filename Value="D:\home\chris\lazarus\fpc_trunk\packages\fcl-image\src\fpwritejpeg.pas"/>
+        <UnitName Value="FPWriteJPEG"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="45" Y="24"/>
+        <UsageCount Value="2"/>
+      </Unit128>
+      <Unit129>
+        <Filename Value="D:\home\chris\lazarus\fpc_trunk\packages\fcl-image\src\fpreadjpeg.pas"/>
+        <UnitName Value="FPReadJPEG"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="45"/>
+        <CursorPos X="3" Y="45"/>
+        <UsageCount Value="2"/>
+      </Unit129>
+      <Unit130>
+        <Filename Value="D:\home\chris\lazarus\fpc_trunk\packages\fcl-image\examples\imgconv.pp"/>
+        <UnitName Value="ImgConv"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="110"/>
+        <CursorPos X="37" Y="42"/>
+        <UsageCount Value="2"/>
+      </Unit130>
+      <Unit131>
+        <Filename Value="D:\home\chris\lazarus\fpc_trunk\packages\fcl-image\examples\drawing.pp"/>
+        <UnitName Value="Drawing"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="2"/>
+      </Unit131>
+      <Unit132>
+        <Filename Value="D:\home\chris\lazarus\lcl\include\custombitmap.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="473"/>
+        <CursorPos X="1" Y="502"/>
+        <UsageCount Value="3"/>
+      </Unit132>
+      <Unit133>
+        <Filename Value="D:\home\chris\lazarus\lcl\include\fpimagebitmap.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="8"/>
+        <CursorPos X="1" Y="162"/>
+        <UsageCount Value="3"/>
+      </Unit133>
+      <Unit134>
+        <Filename Value="D:\home\chris\lazarus\lcl\include\jpegimage.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="41"/>
+        <CursorPos X="1" Y="51"/>
+        <UsageCount Value="3"/>
+      </Unit134>
+      <Unit135>
+        <Filename Value="D:\home\chris\lazarus\lcl\intfgraphics.pas"/>
+        <UnitName Value="IntfGraphics"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="806"/>
+        <CursorPos X="1" Y="823"/>
+        <UsageCount Value="3"/>
+      </Unit135>
+      <Unit136>
+        <Filename Value="D:\home\chris\lazarus\lcl\graphtype.pp"/>
+        <UnitName Value="GraphType"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="551"/>
+        <CursorPos X="1" Y="570"/>
+        <UsageCount Value="3"/>
+      </Unit136>
+      <Unit137>
+        <Filename Value="D:\home\chris\lazarus\lcl\include\lclintf.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="162"/>
+        <CursorPos X="1" Y="184"/>
+        <UsageCount Value="3"/>
+      </Unit137>
+      <Unit138>
+        <Filename Value="D:\home\chris\lazarus\lcl\include\intfbaselcl.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="311"/>
+        <CursorPos X="1" Y="329"/>
+        <UsageCount Value="3"/>
+      </Unit138>
+      <Unit139>
+        <Filename Value="D:\lkomponenten\lazpaint\bgrabitmap\bgrabitmap.pas"/>
+        <UnitName Value="BGRABitmap"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="62"/>
+        <CursorPos X="23" Y="80"/>
+        <UsageCount Value="2"/>
+      </Unit139>
+      <Unit140>
+        <Filename Value="D:\lkomponenten\lazpaint\bgrabitmap\bgradefaultbitmap.pas"/>
+        <UnitName Value="BGRADefaultBitmap"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="428"/>
+        <CursorPos X="8" Y="446"/>
+        <UsageCount Value="2"/>
+      </Unit140>
+      <Unit141>
+        <Filename Value="D:\lkomponenten\lazpaint\bgrabitmap\bgratext.pas"/>
+        <UnitName Value="BGRAText"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="25"/>
+        <CursorPos X="1" Y="43"/>
+        <UsageCount Value="2"/>
+      </Unit141>
+      <Unit142>
+        <Filename Value="D:\lkomponenten\lazpaint\bgrabitmap\bgrabitmaptypes.pas"/>
+        <UnitName Value="BGRABitmapTypes"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="807"/>
+        <CursorPos X="24" Y="818"/>
+        <UsageCount Value="2"/>
+      </Unit142>
+      <Unit143>
+        <Filename Value="D:\home\chris\lazarus\fpc_trunk\packages\fcl-image\src\fpimage.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="58"/>
+        <CursorPos X="27" Y="80"/>
+        <UsageCount Value="2"/>
+      </Unit143>
+      <Unit144>
+        <Filename Value="D:\home\chris\lazarus\fpc_trunk\packages\fcl-image\src\fphandler.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="239"/>
+        <CursorPos X="20" Y="248"/>
+        <UsageCount Value="2"/>
+      </Unit144>
+      <Unit145>
+        <Filename Value="D:\home\chris\lazarus\lcl\include\graphic.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="252"/>
+        <CursorPos X="3" Y="258"/>
+        <UsageCount Value="2"/>
+      </Unit145>
+      <Unit146>
+        <Filename Value="D:\lkomponenten\lazpaint\bgrabitmap\bgraresample.pas"/>
+        <UnitName Value="BGRAResample"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="89"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="2"/>
+      </Unit146>
+      <Unit147>
+        <Filename Value="D:\home\chris\lazarus\fpc_trunk\packages\fcl-image\src\fpinterpolation.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="229"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="2"/>
+      </Unit147>
+      <Unit148>
+        <Filename Value="D:\home\chris\lazarus\fpc_trunk\packages\fcl-image\src\fpcanvas.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="630"/>
+        <CursorPos X="3" Y="706"/>
+        <UsageCount Value="2"/>
+      </Unit148>
+      <Unit149>
+        <Filename Value="D:\home\chris\lazarus\fpc_trunk\packages\fcl-image\src\fpcanvas.pp"/>
+        <UnitName Value="FPCanvas"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="297"/>
+        <CursorPos X="15" Y="315"/>
+        <UsageCount Value="2"/>
+      </Unit149>
+      <Unit150>
+        <Filename Value="D:\home\chris\Arbeitsfläche\1.html"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="31"/>
+        <FoldState Value=" TB#vlo?PF TWC#q{ix}M6 TgD[C7e TigE[D7sJ"/>
+        <UsageCount Value="2"/>
+        <DefaultSyntaxHighlighter Value="HTML"/>
+      </Unit150>
+      <Unit151>
+        <Filename Value="..\base\dbintfs\udata.pas"/>
+        <UnitName Value="uData"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="18" Y="20"/>
+        <UsageCount Value="4"/>
+      </Unit151>
+      <Unit152>
+        <Filename Value="D:\home\chris\lazarus\fpc\rtl\objpas\sysutils\sysstrh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="107"/>
+        <CursorPos X="10" Y="125"/>
+        <UsageCount Value="3"/>
+      </Unit152>
+      <Unit153>
+        <Filename Value="D:\prometheus_old\source\promet-erp\uwebshop.pas"/>
+        <UnitName Value="uWebshop"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="287"/>
+        <CursorPos X="308" Y="303"/>
+        <UsageCount Value="4"/>
+      </Unit153>
+      <Unit154>
+        <Filename Value="..\base\wikitohtml.pas"/>
+        <UnitName Value="wikitohtml"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="68"/>
+        <CursorPos X="41" Y="103"/>
+        <UsageCount Value="6"/>
+      </Unit154>
+      <Unit155>
+        <Filename Value="..\base\dbintfs\uperson.pas"/>
+        <UnitName Value="uPerson"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="208"/>
+        <CursorPos X="23" Y="218"/>
+        <UsageCount Value="16"/>
+      </Unit155>
+      <Unit156>
+        <Filename Value="D:\home\chris\lazarus\fpc\packages\fcl-db\src\base\db.pas"/>
+        <UnitName Value="db"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="94"/>
+        <CursorPos X="37" Y="112"/>
+        <UsageCount Value="4"/>
+      </Unit156>
+      <Unit157>
+        <Filename Value="..\base\dbintfs\ubaseerpdbclasses.pas"/>
+        <UnitName Value="uBaseERPDBClasses"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="63"/>
+        <CursorPos X="1" Y="90"/>
+        <UsageCount Value="41"/>
+      </Unit157>
+      <Unit158>
+        <Filename Value="D:\home\chris\lazarus\fpc\packages\fcl-web\src\fpweb.pp"/>
+        <HasResources Value="True"/>
+        <UnitName Value="fpWeb"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="79"/>
+        <CursorPos X="39" Y="97"/>
+        <UsageCount Value="5"/>
+      </Unit158>
+      <Unit159>
+        <Filename Value="D:\home\chris\lazarus\fpc\packages\fcl-base\src\eventlog.pp"/>
+        <UnitName Value="eventlog"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="67"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="4"/>
+      </Unit159>
+      <Unit160>
+        <Filename Value="D:\home\chris\lazarus\fpc\packages\fcl-web\src\fphttp.pp"/>
+        <UnitName Value="fphttp"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="85"/>
+        <CursorPos X="33" Y="103"/>
+        <UsageCount Value="4"/>
+      </Unit160>
+      <Unit161>
+        <Filename Value="D:\home\chris\lazarus\components\lazutils\fileutil.pas"/>
+        <UnitName Value="FileUtil"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="56"/>
+        <CursorPos X="19" Y="89"/>
+        <UsageCount Value="4"/>
+      </Unit161>
+      <Unit162>
+        <Filename Value="D:\lazarus\lcl\propertystorage.pas"/>
+        <UnitName Value="PropertyStorage"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="720"/>
+        <CursorPos X="1" Y="736"/>
+        <UsageCount Value="7"/>
+      </Unit162>
+      <Unit163>
+        <Filename Value="D:\lazarus\fpc\packages\fcl-web\src\custfcgi.pp"/>
+        <UnitName Value="custfcgi"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="72"/>
+        <CursorPos X="89" Y="80"/>
+        <UsageCount Value="5"/>
+      </Unit163>
+      <Unit164>
+        <Filename Value="D:\lazarus\fpc\packages\fcl-web\src\custweb.pp"/>
+        <UnitName Value="custweb"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="90"/>
+        <CursorPos X="15" Y="118"/>
+        <UsageCount Value="4"/>
+      </Unit164>
+      <Unit165>
+        <Filename Value="D:\lazarus\fpc\rtl\linux\unxsockh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="56"/>
+        <CursorPos X="11" Y="88"/>
+        <UsageCount Value="4"/>
+      </Unit165>
+      <Unit166>
+        <Filename Value="D:\lazarus\fpc\rtl\inc\socketsh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="152"/>
+        <CursorPos X="11" Y="168"/>
+        <UsageCount Value="4"/>
+      </Unit166>
+      <Unit167>
+        <Filename Value="D:\lazarus\fpc\rtl\linux\unixsock.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="190"/>
+        <CursorPos X="3" Y="193"/>
+        <UsageCount Value="4"/>
+      </Unit167>
+      <Unit168>
+        <Filename Value="..\components\zeos\src\component\ZDatasetUtils.pas"/>
+        <UnitName Value="ZDatasetUtils"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="949"/>
+        <CursorPos X="1" Y="968"/>
+        <UsageCount Value="4"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit168>
+      <Unit169>
+        <Filename Value="uwebwiki.lfm"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="4"/>
+        <DefaultSyntaxHighlighter Value="LFM"/>
+      </Unit169>
+      <Unit170>
+        <Filename Value="D:\lazarus\fpc\packages\fcl-web\src\fpweb.pp"/>
+        <UnitName Value="fpWeb"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="136"/>
+        <CursorPos X="19" Y="152"/>
+        <UsageCount Value="4"/>
+      </Unit170>
+      <Unit171>
+        <Filename Value="D:\lazarus\fpc\packages\fcl-web\src\websession.pp"/>
+        <UnitName Value="websession"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="27"/>
+        <CursorPos X="38" Y="43"/>
+        <UsageCount Value="4"/>
+      </Unit171>
+      <Unit172>
+        <Filename Value="uforum.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmForum"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="uforum"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="90" Y="316"/>
+        <UsageCount Value="129"/>
+      </Unit172>
+      <Unit173>
+        <Filename Value="D:\lazarus\fpc\packages\fcl-base\src\fptemplate.pp"/>
+        <UnitName Value="fpTemplate"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="108"/>
+        <CursorPos X="3" Y="124"/>
+        <UsageCount Value="4"/>
+      </Unit173>
+      <Unit174>
+        <Filename Value="D:\lazarus\components\lazutils\fileutil.pas"/>
+        <UnitName Value="FileUtil"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="186"/>
+        <CursorPos X="10" Y="202"/>
+        <UsageCount Value="4"/>
+      </Unit174>
+      <Unit175>
+        <Filename Value="D:\home\chris\Downloads\new\new.html"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="5"/>
+        <UsageCount Value="4"/>
+        <DefaultSyntaxHighlighter Value="HTML"/>
+      </Unit175>
+      <Unit176>
+        <Filename Value="D:\home\chris\Arbeitsfläche\forum_test\threads_template.html"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="62" Y="6"/>
+        <UsageCount Value="5"/>
+        <DefaultSyntaxHighlighter Value="HTML"/>
+      </Unit176>
+      <Unit177>
+        <Filename Value="D:\home\chris\Arbeitsfläche\forum_test\forums_template.html"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="41" Y="10"/>
+        <UsageCount Value="29"/>
+        <DefaultSyntaxHighlighter Value="HTML"/>
+      </Unit177>
+      <Unit178>
+        <Filename Value="..\..\output\x86_64-linux\web\templates\forum.css"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="27"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit178>
+      <Unit179>
+        <Filename Value="..\..\output\x86_64-linux\web\templates\maintemplate.html"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="37"/>
+        <CursorPos X="15" Y="57"/>
+        <UsageCount Value="33"/>
+        <DefaultSyntaxHighlighter Value="HTML"/>
+      </Unit179>
+      <Unit180>
+        <Filename Value="..\..\output\x86_64-linux\web\templates\ajaxtemplate.html"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="148"/>
+        <CursorPos X="54" Y="182"/>
+        <UsageCount Value="39"/>
+        <DefaultSyntaxHighlighter Value="HTML"/>
+      </Unit180>
+      <Unit181>
+        <Filename Value="D:\home\chris\Arbeitsfläche\forum_test\thread_template.html"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="24"/>
+        <CursorPos X="52" Y="8"/>
+        <UsageCount Value="6"/>
+        <DefaultSyntaxHighlighter Value="HTML"/>
+      </Unit181>
+      <Unit182>
+        <Filename Value="..\..\output\x86_64-linux\web\templates\jquery.cleditor.min.js"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="30" Y="26"/>
+        <UsageCount Value="11"/>
+        <DefaultSyntaxHighlighter Value="JScript"/>
+      </Unit182>
+      <Unit183>
+        <Filename Value="D:\home\chris\Arbeitsfläche\forum_test\jquery.cleditor.js"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="760"/>
+        <CursorPos X="57" Y="787"/>
+        <UsageCount Value="5"/>
+        <DefaultSyntaxHighlighter Value="JScript"/>
+      </Unit183>
+      <Unit184>
+        <Filename Value="..\..\output\x86_64-linux\web\templates\jquery.cleditor.css"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="41" Y="1"/>
+        <UsageCount Value="6"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit184>
+      <Unit185>
+        <Filename Value="ulogin.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmLogin"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="ulogin"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="17"/>
+        <UsageCount Value="86"/>
+      </Unit185>
+      <Unit186>
+        <Filename Value="D:\lazarus\fpc\packages\hash\src\sha1.pp"/>
+        <UnitName Value="sha1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="61"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="7"/>
+      </Unit186>
+      <Unit187>
+        <Filename Value="D:\lazarus\lcl\xmlpropstorage.pas"/>
+        <UnitName Value="XMLPropStorage"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="114"/>
+        <CursorPos X="1" Y="139"/>
+        <UsageCount Value="7"/>
+      </Unit187>
+      <Unit188>
+        <Filename Value="D:\fpc\2.6_fixes\packages\fcl-base\src\fptemplate.pp"/>
+        <UnitName Value="fpTemplate"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="182"/>
+        <CursorPos X="29" Y="137"/>
+        <UsageCount Value="7"/>
+      </Unit188>
+      <Unit189>
+        <Filename Value="ushop.lfm"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="35"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="LFM"/>
+      </Unit189>
+      <Unit190>
+        <Filename Value="..\..\..\..\..\..\home\chris\.prometerp\webconfig.xml"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="15" Y="9"/>
+        <UsageCount Value="32"/>
+        <DefaultSyntaxHighlighter Value="XML"/>
+      </Unit190>
+      <Unit191>
+        <Filename Value="..\base_messaging\uviewmessage.pas"/>
+        <UnitName Value="uViewMessage"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="238"/>
+        <CursorPos X="20" Y="20"/>
+        <UsageCount Value="7"/>
+      </Unit191>
+      <Unit192>
+        <Filename Value="..\base_wiki\wiki2html.pas"/>
+        <UnitName Value="wiki2html"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="7"/>
+      </Unit192>
+      <Unit193>
+        <Filename Value="..\base_wiki\wikitohtml.pas"/>
+        <UnitName Value="wikitohtml"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="3" Y="16"/>
+        <UsageCount Value="32"/>
+      </Unit193>
+      <Unit194>
+        <Filename Value="..\..\..\general\src\Utils.pas"/>
+        <UnitName Value="Utils"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="34"/>
+        <CursorPos X="10" Y="51"/>
+        <UsageCount Value="10"/>
+      </Unit194>
+      <Unit195>
+        <Filename Value="..\..\output\x86_64-linux\web\templates\jquery.js"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="7"/>
+        <DefaultSyntaxHighlighter Value="JScript"/>
+      </Unit195>
+      <Unit196>
+        <Filename Value="..\..\output\x86_64-linux\web\templates\socialshareprivacy\socialshareprivacy.css"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="17" Y="9"/>
+        <UsageCount Value="8"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit196>
+      <Unit197>
+        <Filename Value="..\..\output\x86_64-linux\web\templates\jquery.socialshareprivacy.min.js"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="7"/>
+        <DefaultSyntaxHighlighter Value="JScript"/>
+      </Unit197>
+      <Unit198>
+        <Filename Value="..\..\..\..\fpc\2.6_fixes\packages\fcl-image\src\fpimage.pp"/>
+        <UnitName Value="FPimage"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="118"/>
+        <CursorPos X="17" Y="135"/>
+        <UsageCount Value="8"/>
+      </Unit198>
+      <Unit199>
+        <Filename Value="..\..\..\..\fpc\2.6_fixes\packages\fcl-image\src\fpimage.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="87"/>
+        <CursorPos X="3" Y="101"/>
+        <UsageCount Value="8"/>
+      </Unit199>
+      <Unit200>
+        <Filename Value="..\..\..\lkomponenten\synapse\synautil.pas"/>
+        <UnitName Value="synautil"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="69"/>
+        <CursorPos X="25" Y="103"/>
+        <UsageCount Value="8"/>
+      </Unit200>
+      <Unit201>
+        <Filename Value="..\..\..\..\fpc\2.6_fixes\packages\fcl-web\src\base\fphttp.pp"/>
+        <UnitName Value="fphttp"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="582"/>
+        <CursorPos X="3" Y="585"/>
+        <UsageCount Value="8"/>
+      </Unit201>
+      <Unit202>
+        <Filename Value="..\..\..\..\..\..\home\chris\Arbeitsfläche\Stuff\cutec\index.html"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="243"/>
+        <CursorPos X="16" Y="396"/>
+        <UsageCount Value="20"/>
+        <DefaultSyntaxHighlighter Value="HTML"/>
+      </Unit202>
+      <Unit203>
+        <Filename Value="..\..\output\x86_64-linux\web\templates\css\own.css"/>
+        <IsPartOfProject Value="True"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="62"/>
+        <CursorPos X="12" Y="82"/>
+        <UsageCount Value="50"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit203>
+      <Unit204>
+        <Filename Value="..\..\..\..\fpc\2.6_fixes\rtl\objpas\sysutils\filutilh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="45"/>
+        <CursorPos X="18" Y="67"/>
+        <UsageCount Value="9"/>
+      </Unit204>
+      <Unit205>
+        <Filename Value="..\base\dbintfs\ubasedocpages.pas"/>
+        <UnitName Value="uBaseDocPages"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="69"/>
+        <CursorPos X="2" Y="69"/>
+        <UsageCount Value="15"/>
+      </Unit205>
+      <Unit206>
+        <Filename Value="..\base\dbintfs\fpreadjpegintfd.pas"/>
+        <UnitName Value="FPReadJPEGintfd"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="94"/>
+        <CursorPos X="25" Y="111"/>
+        <UsageCount Value="10"/>
+      </Unit206>
+      <Unit207>
+        <Filename Value="..\base\pfcgiprometapp.pas"/>
+        <UnitName Value="pfcgiprometapp"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="13" Y="10"/>
+        <UsageCount Value="10"/>
+      </Unit207>
+    </Units>
+    <JumpHistory Count="30" HistoryIndex="29">
+      <Position1>
+        <Filename Value="..\base\ubasefcgiapplication.pas"/>
+        <Caret Line="556" Column="54" TopLine="536"/>
+      </Position1>
+      <Position2>
+        <Filename Value="..\base\ubasefcgiapplication.pas"/>
+        <Caret Line="577" Column="1" TopLine="548"/>
+      </Position2>
+      <Position3>
+        <Filename Value="..\base\ubasefcgiapplication.pas"/>
+        <Caret Line="396" Column="1" TopLine="379"/>
+      </Position3>
+      <Position4>
+        <Filename Value="..\base\ubasefcgiapplication.pas"/>
+        <Caret Line="421" Column="1" TopLine="405"/>
+      </Position4>
+      <Position5>
+        <Filename Value="..\base\ubasefcgiapplication.pas"/>
+        <Caret Line="396" Column="1" TopLine="378"/>
+      </Position5>
+      <Position6>
+        <Filename Value="..\base\ubasefcgiapplication.pas"/>
+        <Caret Line="397" Column="1" TopLine="378"/>
+      </Position6>
+      <Position7>
+        <Filename Value="..\base\ubasefcgiapplication.pas"/>
+        <Caret Line="398" Column="1" TopLine="378"/>
+      </Position7>
+      <Position8>
+        <Filename Value="..\base\ubasefcgiapplication.pas"/>
+        <Caret Line="4" Column="72" TopLine="1"/>
+      </Position8>
+      <Position9>
+        <Filename Value="..\base\ubasefcgiapplication.pas"/>
+        <Caret Line="500" Column="35" TopLine="472"/>
+      </Position9>
+      <Position10>
+        <Filename Value="..\base\ubasefcgiapplication.pas"/>
+        <Caret Line="513" Column="35" TopLine="485"/>
+      </Position10>
+      <Position11>
+        <Filename Value="..\base\ubasefcgiapplication.pas"/>
+        <Caret Line="542" Column="34" TopLine="514"/>
+      </Position11>
+      <Position12>
+        <Filename Value="..\base\ubasefcgiapplication.pas"/>
+        <Caret Line="6" Column="78" TopLine="1"/>
+      </Position12>
+      <Position13>
+        <Filename Value="..\base\ubasefcgiapplication.pas"/>
+        <Caret Line="502" Column="10" TopLine="474"/>
+      </Position13>
+      <Position14>
+        <Filename Value="..\base\ubasefcgiapplication.pas"/>
+        <Caret Line="515" Column="4" TopLine="501"/>
+      </Position14>
+      <Position15>
+        <Filename Value="..\base\ubasefcgiapplication.pas"/>
+        <Caret Line="418" Column="38" TopLine="393"/>
+      </Position15>
+      <Position16>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="16" Column="48" TopLine="6"/>
+      </Position16>
+      <Position17>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="20" Column="22" TopLine="3"/>
+      </Position17>
+      <Position18>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="26" Column="21" TopLine="22"/>
+      </Position18>
+      <Position19>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="629" Column="13" TopLine="615"/>
+      </Position19>
+      <Position20>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="8" Column="74" TopLine="1"/>
+      </Position20>
+      <Position21>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="133" Column="1" TopLine="105"/>
+      </Position21>
+      <Position22>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="156" Column="1" TopLine="130"/>
+      </Position22>
+      <Position23>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="160" Column="1" TopLine="132"/>
+      </Position23>
+      <Position24>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="164" Column="1" TopLine="136"/>
+      </Position24>
+      <Position25>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="204" Column="23" TopLine="195"/>
+      </Position25>
+      <Position26>
+        <Filename Value="..\base\ubasefcgiapplication.pas"/>
+        <Caret Line="569" Column="1" TopLine="535"/>
+      </Position26>
+      <Position27>
+        <Filename Value="..\base\ubasefcgiapplication.pas"/>
+        <Caret Line="72" Column="5" TopLine="59"/>
+      </Position27>
+      <Position28>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="4" Column="84" TopLine="1"/>
+      </Position28>
+      <Position29>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="354" Column="36" TopLine="326"/>
+      </Position29>
+      <Position30>
+        <Filename Value="uerror.pas"/>
+        <Caret Line="109" Column="52" TopLine="99"/>
+      </Position30>
+    </JumpHistory>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="11"/>
+    <PathDelim Value="\"/>
+    <Target>
+      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\web\cgi-bin\promet.cgi"/>
+    </Target>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir)"/>
+      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+    </SearchPaths>
+    <CodeGeneration>
+      <SmartLinkUnit Value="True"/>
+    </CodeGeneration>
+    <Linking>
+      <Debugging>
+        <UseExternalDbgSyms Value="True"/>
+      </Debugging>
+      <LinkSmart Value="True"/>
+    </Linking>
+    <Other>
+      <CompilerMessages>
+        <UseMsgFile Value="True"/>
+      </CompilerMessages>
+      <CustomOptions Value="-dCOMMANDLINE"/>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
+  </CompilerOptions>
+  <Debugging>
+    <Watches Count="1">
+      <Item1>
+        <Expression Value="LinkValue"/>
+      </Item1>
+    </Watches>
+    <Exceptions Count="6">
+      <Item1>
+        <Name Value="ECodetoolError"/>
+        <Enabled Value="False"/>
+      </Item1>
+      <Item2>
+        <Name Value="Exception"/>
+      </Item2>
+      <Item3>
+        <Name Value="HTTPError"/>
+      </Item3>
+      <Item4>
+        <Name Value="EFPWebError"/>
+      </Item4>
+      <Item5>
+        <Name Value="EAccessViolation"/>
+      </Item5>
+      <Item6>
+        <Name Value="FPImageException"/>
+      </Item6>
+    </Exceptions>
+  </Debugging>
+  <EditorMacros Count="0"/>
+</CONFIG>

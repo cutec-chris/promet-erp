@@ -1,0 +1,58 @@
+object fOfficeOptions: TfOfficeOptions
+  Left = 422
+  Height = 108
+  Top = 222
+  Width = 400
+  Caption = 'Office Datei Einstellungen'
+  ClientHeight = 108
+  ClientWidth = 400
+  Position = poScreenCenter
+  LCLVersion = '0.9.31'
+  object feFile: TFileNameEdit
+    Left = 16
+    Height = 24
+    Top = 24
+    Width = 352
+    OnAcceptFileName = feFileAcceptFileName
+    DialogOptions = []
+    Filter = 'Excel 2.0 Datei (*.xls)|*.xls|Excel 3.0 Datei (*.xls)|*.xls|Excel 4.0 Datei (*.xls)|*.xls|Excel 5.0 Datei (*.xls)|*.xls|Excel 2007-2009 (*.xls)|*.xls|Open Office XML (*.xlsx)|*.xlsx|Open Document Format (*.ods)|*.ods'
+    FilterIndex = 4
+    HideDirectories = False
+    ButtonWidth = 23
+    NumGlyphs = 0
+    Anchors = [akTop, akLeft, akRight]
+    MaxLength = 0
+    TabOrder = 0
+  end
+  object lFile: TLabel
+    Left = 16
+    Height = 17
+    Top = 6
+    Width = 62
+    Caption = 'Dateiname'
+    ParentColor = False
+  end
+  object ButtonPanel1: TButtonPanel
+    Left = 6
+    Height = 34
+    Top = 68
+    Width = 388
+    OKButton.Name = 'OKButton'
+    OKButton.Caption = '&Ok'
+    HelpButton.Name = 'HelpButton'
+    HelpButton.Caption = '&Hilfe'
+    HelpButton.Enabled = False
+    CloseButton.Name = 'CloseButton'
+    CloseButton.Caption = '&Schließen'
+    CloseButton.Enabled = False
+    CancelButton.Name = 'CancelButton'
+    CancelButton.Caption = 'Abbrechen'
+    TabOrder = 1
+    ShowButtons = [pbOK, pbCancel]
+  end
+  object MemDataset1: TMemDataset
+    FieldDefs = <>
+    left = 24
+    top = 52
+  end
+end

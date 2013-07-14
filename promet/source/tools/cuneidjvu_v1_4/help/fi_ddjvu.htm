@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+
+<head>
+<title>fi_ddjvu v1.4</title>
+</head>
+
+<body>
+
+<p><a href="index_rus.htm">Return to index</a></p>
+
+<hr>
+
+<h2 align="center">fi_ddjvu</h2>
+
+<h3 align="center">Version: 1.4</h3>
+
+<h3 align="center">DjVu decompression utility</h3>
+
+<h3>Usage:</h3>
+
+<p>fi_ddjvu -format=FMT [options] &lt;djvufile&gt; &lt;outputfolder&gt;</p>
+
+<h4>or:</h4>
+
+<p>fi_ddjvu -format=FMT [options] &lt;djvufile&gt; &lt;output_multypage_file&gt;</p>
+
+<h4>Options:</h4>
+
+<p><strong>-verbose</strong> Prints various informational messages.<br>
+<strong>-format</strong>=FMT Selects output format:
+pbm,pgm,ppm,pnm,tiff,tif,jpg,png,bmp,rle (multypage:tif,tiff,rle).<br>
+<strong>-scale</strong>=N Selects display scale.<br>
+<strong>-size</strong>=WxH Selects size of rendered image.<br>
+<strong>-subsample</strong>=N Selects direct subsampling factor.<br>
+<strong>-aspect</strong>=no|yes Authorizes aspect ratio changes<br>
+<strong>-segment</strong>=WxH+X+Y Selects which segment of the rendered image<br>
+<strong>-mode</strong>=black Renders a meaningful bitonal image.<br>
+<strong>-mode</strong>=mask Only renders the mask layer.<br>
+<strong>-mode</strong>=foreground Only renders the foreground layer.<br>
+<strong>-mode</strong>=background Only renders the background layer.<br>
+<strong>-page</strong>=PAGESPEC Selects page(s) to be decoded.<br>
+<strong>-showpage</strong> Prints the currently decoded page (in real time) (good for
+displaying the decoding progress in a GUI).</p>
+</body>
+</html>

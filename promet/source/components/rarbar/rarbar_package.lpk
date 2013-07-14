@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <Package Version="4">
+    <Name Value="RarBar_package"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <SearchPaths>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)/"/>
+      </SearchPaths>
+      <Other>
+        <CompilerMessages>
+          <MsgFileName Value=""/>
+        </CompilerMessages>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
+    </CompilerOptions>
+    <Files Count="1">
+      <Item1>
+        <Filename Value="RarBar.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="RarBar"/>
+      </Item1>
+    </Files>
+    <Type Value="RunAndDesignTime"/>
+    <RequiredPkgs Count="2">
+      <Item1>
+        <PackageName Value="lcl"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="FCL"/>
+      </Item2>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<title>hocr2djvuxml</title>
+</head>
+
+<body>
+
+<h3 align="center">hocr2djvuxml</h3>
+
+<p>This utility converts the hOCR files produced by CuneiForm to the DjVu XML format.</p>
+
+<p>The resulting XML files can be directly processed with djvuxmlparser in order to insert
+the hOCR content into a DjVu-file.</p>
+
+<p>This utility is quite basic yet. It recognizes currently only the hOCR files produced
+by CuneiForm.</p>
+
+<p>It also currently supports only the single-page hOCR files.</p>
+
+<p>It is written on STL C++ and relies on the <a href="http://pugixml.org/">pugixml.org</a>
+library.</p>
+
+<p>It is the fully crossplatform utility.</p>
+
+<h3>Usage:</h3>
+
+<h4>hocr2djvuxml [-char] &lt;hOCR_path&gt; &lt;DjVuXML_path&gt; [&lt;DjVu_page_name&gt;]</h4>
+
+<p><strong>-char</strong> - output the CHARACTER-detalized OCR information. By default the
+program produces the WORD-detalized output.</p>
+
+<p><strong>&lt;DjVu_page_name&gt;</strong> - the internal name of a DjVu page in a
+multypage DjVu file. This option is needed only for the multypage DjVu files.</p>
+
+<hr>
+
+<p><a href="mailto:monday2000@yandex.ru">monday2000@yandex.ru</a> </p>
+
+<p><a href="http://www.djvu-soft.narod.ru/">http://www.djvu-soft.narod.ru/</a></p>
+</body>
+</html>

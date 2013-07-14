@@ -1,0 +1,22 @@
+{ This is an automatically generated lazarus resource file }
+
+LazarusResources.Add('TfDocumentOptions','FORMDATA',[
+  'TPF0'#241#17'TfDocumentOptions'#16'fDocumentOptions'#6'Height'#3'^'#1#5'Widt'
+  +'h'#3#210#1#12'ClientHeight'#3'^'#1#11'ClientWidth'#3#210#1#8'TabOrder'#2#0
+  +#10'DesignLeft'#3#178#1#9'DesignTop'#3#212#0#0#242#2#0#14'TDirectoryEdit'#14
+  +'eTempDirectory'#4'Left'#2#12#6'Height'#2#27#3'Top'#2'0'#5'Width'#3#151#1#10
+  +'ShowHidden'#8#11'ButtonWidth'#2#23#9'NumGlyphs'#2#1#7'Anchors'#11#5'akTop'#6
+  +'akLeft'#7'akRight'#0#9'MaxLength'#2#0#8'TabOrder'#2#0#0#0#242#2#1#6'TLabel'
+  +#14'ltempDirectory'#4'Left'#2#12#6'Height'#2#18#3'Top'#2#24#5'Width'#3#161#0
+  +#7'Caption'#6#23'Tempor'#195#164'res Verzeichnis'#11'ParentColor'#8#0#0#242#2
+  +#2#12'TRadioButton'#14'rbDeleteNormal'#4'Left'#2'$'#6'Height'#2#24#3'Top'#2
+  +'p'#5'Width'#3#128#0#7'Caption'#6#15'normal l'#195#182'schen'#7'Checked'#9#8
+  +'TabOrder'#2#1#7'TabStop'#9#0#0#242#2#3#12'TRadioButton'#10'rbOverride'#4'Le'
+  +'ft'#2'$'#6'Height'#2#24#3'Top'#3#141#0#5'Width'#3#141#0#7'Caption'#6#17'1x '
+  +#195#188'berschreiben'#8'TabOrder'#2#2#0#0#242#2#4#12'TRadioButton'#17'rbDel'
+  +'eteDoD522022'#4'Left'#2'$'#6'Height'#2#24#3'Top'#3#170#0#5'Width'#3#127#1#7
+  +'Caption'#6'3nach DoD522022 methode l'#195#182'schen (7x '#195#188'berschrei'
+  +'ben)'#8'TabOrder'#2#3#0#0#242#2#5#12'TRadioButton'#14'rbDeleteSecure'#4'Lef'
+  +'t'#2'$'#6'Height'#2#24#3'Top'#3#199#0#5'Width'#3#1#1#7'Caption'#6'$Sicher l'
+  +#195#182'schen (35x '#195#188'berschreiben)'#8'TabOrder'#2#4#0#0#0
+]);

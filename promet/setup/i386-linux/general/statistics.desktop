@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=Promet-ERP Statistics
+Comment=Promet-ERP Statistics
+Exec=promet-erp-statistics
+Terminal=false
+Type=Application
+Icon=prometerp-statistics.png
+Categories=Application;Office;
+GenericName[de_DE]=

@@ -1,0 +1,1152 @@
+inherited fOrderFrame: TfOrderFrame
+  Height = 491
+  Width = 898
+  ClientHeight = 491
+  ClientWidth = 898
+  DesignLeft = 370
+  DesignTop = 158
+  object pPreviewT: TPanel[0]
+    Left = 673
+    Height = 447
+    Top = 44
+    Width = 225
+    Align = alRight
+    BevelOuter = bvNone
+    TabOrder = 3
+    Visible = False
+  end
+  object spPreview: TSplitter[1]
+    Left = 668
+    Height = 447
+    Top = 44
+    Width = 5
+    Align = alRight
+    OnMoved = spPreviewMoved
+    ResizeAnchor = akRight
+    ResizeStyle = rsLine
+    Visible = False
+  end
+  object pMain: TPanel[2]
+    Left = 0
+    Height = 447
+    Top = 44
+    Width = 668
+    Align = alClient
+    BevelOuter = bvNone
+    ClientHeight = 447
+    ClientWidth = 668
+    TabOrder = 1
+    object Splitter2: TSplitter
+      Cursor = crVSplit
+      Left = 0
+      Height = 5
+      Top = 127
+      Width = 668
+      Align = alTop
+      ResizeAnchor = akTop
+      ResizeStyle = rsLine
+    end
+    object pBottom: TPanel
+      Left = 0
+      Height = 54
+      Top = 393
+      Width = 668
+      Align = alBottom
+      BevelOuter = bvNone
+      ClientHeight = 54
+      ClientWidth = 668
+      TabOrder = 3
+      object lPaymentTarget: TLabel
+        Left = 8
+        Height = 14
+        Top = 5
+        Width = 295
+        Anchors = [akTop, akLeft, akRight]
+        AutoSize = False
+        Caption = 'Zahlungsziel'
+        ParentColor = False
+      end
+      object lCurrency: TLabel
+        Left = 581
+        Height = 14
+        Top = 5
+        Width = 72
+        Anchors = [akTop, akRight]
+        AutoSize = False
+        Caption = 'Währung'
+        ParentColor = False
+      end
+      object cbPaymentTarget: TComboBox
+        Left = 7
+        Height = 27
+        Top = 21
+        Width = 296
+        Anchors = [akTop, akLeft, akRight]
+        ItemHeight = 0
+        OnSelect = cbPaymentTargetSelect
+        TabOrder = 0
+      end
+      object cbCurrency: TDBComboBox
+        Left = 581
+        Height = 27
+        Top = 21
+        Width = 72
+        Anchors = [akTop, akRight]
+        DataField = 'CURRENCY'
+        DataSource = Orders
+        ItemHeight = 0
+        MaxLength = 0
+        TabOrder = 4
+      end
+      object eGross: TDBEdit
+        Left = 508
+        Height = 24
+        Top = 21
+        Width = 64
+        DataField = 'GROSSPRICE'
+        DataSource = Orders
+        Anchors = [akTop, akRight]
+        CharCase = ecNormal
+        MaxLength = 0
+        TabOrder = 3
+      end
+      object eVAT: TDBEdit
+        Left = 392
+        Height = 24
+        Top = 21
+        Width = 52
+        DataField = 'VATH'
+        DataSource = Orders
+        Anchors = [akTop, akRight]
+        CharCase = ecNormal
+        MaxLength = 0
+        TabOrder = 2
+      end
+      object eNet: TDBEdit
+        Left = 308
+        Height = 24
+        Top = 21
+        Width = 76
+        DataField = 'NETPRICE'
+        DataSource = Orders
+        Anchors = [akTop, akRight]
+        CharCase = ecNormal
+        MaxLength = 0
+        TabOrder = 1
+      end
+      object lCurrency1: TLabel
+        Left = 308
+        Height = 14
+        Top = 5
+        Width = 72
+        Anchors = [akTop, akRight]
+        AutoSize = False
+        Caption = 'Netto'
+        ParentColor = False
+      end
+      object lCurrency2: TLabel
+        Left = 392
+        Height = 14
+        Top = 5
+        Width = 50
+        Anchors = [akTop, akRight]
+        AutoSize = False
+        Caption = 'MwSt 1'
+        ParentColor = False
+      end
+      object lCurrency3: TLabel
+        Left = 508
+        Height = 14
+        Top = 5
+        Width = 64
+        Anchors = [akTop, akRight]
+        AutoSize = False
+        Caption = 'Brutto'
+        ParentColor = False
+      end
+      object lCurrency4: TLabel
+        Left = 448
+        Height = 14
+        Top = 5
+        Width = 50
+        Anchors = [akTop, akRight]
+        AutoSize = False
+        Caption = 'MwSt 2'
+        ParentColor = False
+      end
+      object eVAT1: TDBEdit
+        Left = 448
+        Height = 24
+        Top = 21
+        Width = 52
+        DataField = 'VATF'
+        DataSource = Orders
+        Anchors = [akTop, akRight]
+        CharCase = ecNormal
+        MaxLength = 0
+        TabOrder = 5
+      end
+    end
+    object pTop: TPanel
+      Left = 0
+      Height = 127
+      Top = 0
+      Width = 668
+      Align = alTop
+      BevelOuter = bvNone
+      ClientHeight = 127
+      ClientWidth = 668
+      TabOrder = 0
+      object pcHeader: TExtMenuPageControl
+        Left = 0
+        Height = 127
+        Top = 0
+        Width = 668
+        ActivePage = tsCommon
+        Align = alClient
+        TabIndex = 0
+        TabOrder = 0
+        NewTabImageIndex = 59
+        object tsCommon: TTabSheet
+          Caption = 'Adressen/Texte'
+          ClientHeight = 91
+          ClientWidth = 660
+          ImageIndex = 7
+          object pAddress: TPanel
+            Left = 0
+            Height = 91
+            Top = 0
+            Width = 660
+            Align = alClient
+            BevelOuter = bvNone
+            ClientHeight = 91
+            ClientWidth = 660
+            TabOrder = 0
+            object tsFooter1: TPageControl
+              Left = 208
+              Height = 91
+              Top = 0
+              Width = 452
+              TabStop = False
+              ActivePage = tsNote1
+              Align = alClient
+              TabIndex = 0
+              TabOrder = 0
+              object tsNote1: TTabSheet
+                Caption = 'Notizen'
+                ClientHeight = 55
+                ClientWidth = 444
+                object mOrderNote3: TDBMemo
+                  Left = 0
+                  Height = 55
+                  Top = 0
+                  Width = 444
+                  Align = alClient
+                  DataField = 'NOTE'
+                  DataSource = Orders
+                  Font.Style = [fsBold]
+                  ParentFont = False
+                  TabOrder = 0
+                  Tabstop = False
+                end
+              end
+              object tsHeader1: TTabSheet
+                Caption = 'Kopftext'
+                ClientHeight = 55
+                ClientWidth = 444
+                object mOrderNote4: TDBMemo
+                  Left = 0
+                  Height = 67
+                  Top = 0
+                  Width = 192
+                  Align = alClient
+                  DataField = 'HEADERTEXT'
+                  DataSource = Orders
+                  Font.Style = [fsBold]
+                  ParentFont = False
+                  TabOrder = 0
+                  Tabstop = False
+                end
+              end
+              object TabSheet3: TTabSheet
+                Caption = 'Nachtext'
+                ClientHeight = 55
+                ClientWidth = 444
+                object mOrderNote5: TDBMemo
+                  Left = 0
+                  Height = 67
+                  Top = 0
+                  Width = 192
+                  Align = alClient
+                  DataField = 'FOOTERTEXT'
+                  DataSource = Orders
+                  Font.Style = [fsBold]
+                  ParentFont = False
+                  TabOrder = 0
+                  Tabstop = False
+                end
+              end
+            end
+            object Panel1: TPanel
+              Left = 0
+              Height = 91
+              Top = 0
+              Width = 38
+              Align = alLeft
+              BevelOuter = bvNone
+              ClientHeight = 91
+              ClientWidth = 38
+              TabOrder = 1
+              object Panel3: TPanel
+                Left = 0
+                Height = 72
+                Top = 17
+                Width = 38
+                Align = alTop
+                Anchors = [akTop, akLeft, akRight, akBottom]
+                BorderSpacing.Top = 17
+                BevelOuter = bvNone
+                ClientHeight = 72
+                ClientWidth = 38
+                TabOrder = 0
+                object Bevel1: TBevel
+                  Left = 4
+                  Height = 4
+                  Top = 0
+                  Width = 30
+                  Align = alTop
+                  BorderSpacing.Left = 4
+                  BorderSpacing.Right = 4
+                  Shape = bsTopLine
+                end
+                object ExtRotatedLabel1: TExtRotatedLabel
+                  Left = 0
+                  Height = 68
+                  Top = 4
+                  Width = 14
+                  Align = alLeft
+                  AutoSize = False
+                  Caption = 'Adresse'
+                  Font.Color = clMedGray
+                  Font.Height = 11
+                  Font.Orientation = -900
+                  ParentColor = False
+                  ParentFont = False
+                end
+                object bAddressDelete1: TSpeedButton
+                  Left = 14
+                  Height = 22
+                  Top = 4
+                  Width = 24
+                  Action = acAddAddress
+                  Glyph.Data = {
+                    36040000424D3604000000000000360000002800000010000000100000000100
+                    2000000000000004000064000000640000000000000000000000000000000000
+                    0000000000000000000000000000000000000000000000000000000000000000
+                    0000000000000000000000000000000000000000000000000000000000000000
+                    0000000000000000000000000000000000000000000000000000000000000000
+                    0000000000000000000000000000000000000000000000000000000000000000
+                    000000000000000000000000000000000000A46534CCA46534FFA46534FFA465
+                    34CC000000000000000000000000000000000000000000000000000000000000
+                    000000000000000000000000000000000000A46534FFE6CEB7FFE6CEB7FFA465
+                    34FF000000000000000000000000000000000000000000000000000000000000
+                    000000000000000000000000000000000000A46534FFE6CEB7FFD9AD86FFA465
+                    34FF000000000000000000000000000000000000000000000000000000000000
+                    000000000000000000000000000000000000A46534FFE6CEB7FFD9AD86FFA465
+                    34FF000000000000000000000000000000000000000000000000000000000000
+                    0000A46534CCA46534FFA46534FFA46534FFA46534FFD9AD86FFD9AD86FFA465
+                    34FFA46534FFA46534FFA46534FFA46534CC0000000000000000000000000000
+                    0000A46534FFE5CCB4FFDBB795FFDBB694FFDAB492FFDAB390FFD9AD86FFD8AA
+                    83FFD7A87FFFD7A67DFFE0BE9FFFA46534FF0000000000000000000000000000
+                    0000A46534FFE8D3C0FFE7D1BBFFE7D1BCFFE6CEB7FFE6CEB7FFE6CEB7FFE6CE
+                    B7FFE6CDB6FFE6CCB5FFE6CCB6FFA46534FF0000000000000000000000000000
+                    0000A46534CCA46534FFA46534FFA46534FFA46534FFE6CEB7FFE6CEB7FFA465
+                    34FFA46534FFA46534FFA46534FFA46534CC0000000000000000000000000000
+                    000000000000000000000000000000000000A46534FFE6CEB7FFE6CEB7FFA465
+                    34FF000000000000000000000000000000000000000000000000000000000000
+                    000000000000000000000000000000000000A46534FFE6CEB7FFE6CEB7FFA465
+                    34FF000000000000000000000000000000000000000000000000000000000000
+                    000000000000000000000000000000000000A46534FFE6CEB7FFE6CEB7FFA465
+                    34FF000000000000000000000000000000000000000000000000000000000000
+                    000000000000000000000000000000000000A46534CCA46534FFA46534FFA465
+                    34CC000000000000000000000000000000000000000000000000000000000000
+                    0000000000000000000000000000000000000000000000000000000000000000
+                    0000000000000000000000000000000000000000000000000000000000000000
+                    0000000000000000000000000000000000000000000000000000000000000000
+                    0000000000000000000000000000000000000000000000000000
+                  }
+                  Layout = blGlyphTop
+                  ShowCaption = False
+                end
+              end
+            end
+            object pAddresses: TPanel
+              Left = 38
+              Height = 91
+              Top = 0
+              Width = 170
+              Align = alLeft
+              BevelOuter = bvNone
+              TabOrder = 2
+            end
+          end
+        end
+      end
+    end
+    object pPosition: TPanel
+      Left = 0
+      Height = 261
+      Top = 132
+      Width = 668
+      Align = alClient
+      BevelOuter = bvNone
+      TabOrder = 2
+    end
+  end
+  object ToolBar1: TPanel[3]
+    Left = 0
+    Height = 44
+    Top = 0
+    Width = 898
+    Align = alTop
+    BevelOuter = bvNone
+    ClientHeight = 44
+    ClientWidth = 898
+    TabOrder = 0
+    object Panel4: TPanel
+      Left = 44
+      Height = 44
+      Top = 0
+      Width = 68
+      Align = alLeft
+      BorderSpacing.Left = 44
+      BevelOuter = bvNone
+      ClientHeight = 44
+      ClientWidth = 68
+      TabOrder = 0
+      object Label2: TLabel
+        Left = 4
+        Height = 15
+        Top = 0
+        Width = 60
+        Alignment = taCenter
+        Anchors = [akLeft, akRight, akBottom]
+        AutoSize = False
+        BorderSpacing.Left = 5
+        Caption = 'Eintrag'
+        Font.Color = clMedGray
+        Font.Height = 11
+        ParentColor = False
+        ParentFont = False
+      end
+      object Bevel2: TBevel
+        Left = 0
+        Height = 36
+        Top = 4
+        Width = 8
+        Align = alLeft
+        BorderSpacing.Top = 4
+        BorderSpacing.Bottom = 4
+        Shape = bsLeftLine
+      end
+      object ToolButton1: TSpeedButton
+        Left = 4
+        Height = 28
+        Top = 12
+        Width = 28
+        Action = acSave
+        Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00317A360A2D753207FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF003985400A37833DFF317B37FB2E763307FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF004292490A408E47FF54A35CFF4F9F57FF327C38FE2E773408FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF004B9E530A499A51FF5BAC64FF77CA82FF74C87EFF51A059FF337D39FE2F78
+          3508FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0053A9
+          5C0A51A65AFF63B56DFF7ECE89FF7BCC87FF76CA81FF76C981FF52A25AFF347E
+          3AFE30793508FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF005AB4650959B0
+          63FF6BBD76FF84D290FF7AC985FF60B26AFF63B46DFF78C983FF78CB82FF53A3
+          5CFF347F3AFD317A3608FFFFFF00FFFFFF00FFFFFF00FFFFFF005EB969465BB5
+          66E479C986FF80CE8DFF51A65AFC4DA1566F499C518B5CAD67FF7CCC86FF79CB
+          85FF54A45DFF35803BFC317B3708FFFFFF00FFFFFF00FFFFFF00FFFFFF005FBA
+          6A3C5CB666E66DC079FF55AC5F6FFFFFFF00FFFFFF004A9D52915EAE68FF7DCD
+          89FF7CCD87FF56A55FFF36813CFC327C3808FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF005FBB6A435CB76765FFFFFF00FFFFFF00FFFFFF00FFFFFF004B9E53915FAF
+          69FF7FCE8AFF7ECE89FF57A660FF37823DFC337D3908FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF004B9F
+          549160B06AFF81CF8DFF7FCF8BFF58A761FF398540FF347E3A08FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF004CA0559162B26CFF82D18FFF7AC885FF57A660FF38843F7BFFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF004DA1569163B36DFF5FAF69FF41914979FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF004EA257914A9D527FFFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+        }
+        ShowCaption = False
+      end
+      object ToolButton2: TSpeedButton
+        Left = 32
+        Height = 28
+        Top = 12
+        Width = 32
+        Action = acCancel
+        Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF003F3DED413B38EB08FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00211FE3081E1CE241FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF004A47F0414F4CF2FF403EEDFD3C39EB08FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF002725E5082422E4FC312FEAFF1F1DE241FFFFFF00FFFFFF00FFFFFF005451
+          F3415856F5FF6361FAFF5855F6FF413FEDFC3D3AEC08FFFFFF00FFFFFF00302D
+          E7082C2AE6FC413FF1FF4C4AF6FF312FEAFF1F1DE241FFFFFF00FFFFFF005956
+          F52B5B58F6FF6562FAFF7170FFFF5956F6FF4240EEFC3E3BEC083937EB083532
+          E9FC4745F2FF6362FFFF4A48F4FF2F2DE9FF2220E32BFFFFFF00FFFFFF00FFFF
+          FF005A57F52B5B59F6FF6663FAFF7471FFFF5A58F6FF4341EEFC3E3CECFD504D
+          F4FF6867FFFF504EF5FF3634EBFF2A27E52BFFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF005B58F62B5C5AF6FF6764FAFF7472FFFF7370FFFF706EFFFF6E6C
+          FFFF5755F7FF3F3DEEFF3230E82BFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF005C59F62B5D5BF7FF7976FFFF5956FFFF5754FFFF7270
+          FFFF4846F0FF3C39EB2BFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00615EF8085D5AF6FD7D79FFFF5E5BFFFF5B58FFFF7674
+          FFFF4643EFFD413FED08FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF006967FB086663F9FC706DFBFF807EFFFF7E7BFFFF7C79FFFF7977
+          FFFF5E5CF7FF4744EFFC4240EE08FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00716EFD086E6BFCFC7774FDFF8682FFFF7673FCFF6462F8FF605DF7FF6D6A
+          FAFF7B79FFFF605DF7FF4845EFFC4341EE08FFFFFF00FFFFFF00FFFFFF007673
+          FF087471FEFD7D7AFEFF8A87FFFF7C79FDFF6C69FBFF6361F92B5F5CF72B615E
+          F8FF6E6CFAFF7D7AFFFF615FF7FF4946F0FC4441EE05FFFFFF00FFFFFF007774
+          FF1F7A77FFFF817EFFFF817EFEFF7471FDFF6C69FB2BFFFFFF00FFFFFF00605D
+          F72B625FF8FF6F6DFBFF7E7CFFFF625FF8FF4A47F06F4542EE02FFFFFF00FFFF
+          FF007774FF1F7A77FFFF7976FEFF726FFD2BFFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00615EF82B6461F8FF6A68F9FF5451F3A84F4DF229FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF007774FF1F7774FF2BFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00625FF82B5D5BF76F5956F53EFFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF006360F80AFFFFFF00FFFFFF00FFFFFF00
+        }
+        ShowCaption = False
+      end
+    end
+    object ToolButton4: TSpeedButton
+      Left = 3
+      Height = 37
+      Top = 3
+      Width = 37
+      Action = acPrint
+      Glyph.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+        FF00FFFFFF00C89561FDCA9865FFCA9765FFCA9765FFCA9765FFCA9764FFC997
+        64FFC99764FFCA9865FFC89461FDFFFFFF00FFFFFF00FFFFFF00636363995D5D
+        5DD2585858FFC79561FFF9F7F6FFF9F1ECFFF9F1EBFFF8F0E9FFF7EDE6FFF4EA
+        E1FFF2E8DEFFFAF8F6FFC79461FF242424FF232323D12323237A6A6A6AFDA7A7
+        A7FFB5B5B5FF818181FFAFACAAFFC5C0BDFFC5C0BDFFC5C0BDFFC5C0BDFFC5C0
+        BDFFC5C0BDFFADAAA8FF2C2C2CFFB5B5B5FF9B9B9BFF232323FF707070FFB5B5
+        B5FFB5B5B5FF959595FF818181FF818181FF797979FF6E6E6EFF616161FF5252
+        52FF434343FF424242FF6E6E6EFFB5B5B5FFB5B5B5FF252525FF757575FFBBBB
+        BBFFBBBBBBFF8D8D8DFFD4D4D4FFB9B9B9FFB9B9B9FFB9B9B9FFB9B9B9FFB9B9
+        B9FFB9B9B9FFD3D3D3FF838383FFBBBBBBFFBBBBBBFF2A2A2AFF7A7A7AFFD7D7
+        D7FFD7D7D7FF979797FFD8D8D8FFBFBFBFFFBFBFBFFFBFBFBFFFBFBFBFFFBFBF
+        BFFFBFBFBFFFD7D7D7FF8E8E8EFFD7D7D7FFD7D7D7FF3F3F3FFF7E7E7EFFF9F9
+        F9FFF9F9F9FFABABABFFDFDFDFFFCBCBCBFFCBCBCBFFCBCBCBFFCBCBCBFFCBCB
+        CBFFCBCBCBFFDFDFDFFFA3A3A3FFF9F9F9FFF9F9F9FF616161FF818181F9FCFC
+        FCFFFCFCFCFFCBCBCBFFF2F2F2FFF2F2F2FFF2F2F2FFF2F2F2FFF2F2F2FFF2F2
+        F2FFF2F2F2FFF2F2F2FFC6C6C6FFFCFCFCFFFCFCFCFF707070FE818181D2D2D2
+        D2FFE8E8E8FF7D7D7DFF7D7D7DFF7D7D7DFF7D7D7DFF7D7D7DFF7D7D7DFF7D7D
+        7DFF7D7D7DFF7D7D7DFF7D7D7DFFE8E8E8FFC4C4C4FF565656DC818181459A9A
+        9AFFCCCCCCFFC78B4EFFF9F4EDFFFEE8D8FFFEE8D7FFFDE5D3FFFCE4D1FFFAE0
+        C7FFF9DDC3FFFAF4EDFFC7854AFFC3C3C3FF747474FF47474745FFFFFF008181
+        8163818181F3C5894CFFF9F4EFFFFEE7D7FFFDE7D5FFFCE6D2FFFBE1CCFFF8DC
+        C2FFF6DABDFFFAF4EFFFC48348FF595959F353535363FFFFFF00FFFFFF00FFFF
+        FF0081818109C5894BF9F9F4F0FFFCE6D3FFFDE7D3FFFBE3CDFFFAE0C8FFF5D6
+        BBFFF3D4B5FFF8F4F0FFC38246F960606009FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00C6894BF7F9F5F1FFFCE3CFFFFCE4CFFFFAE1CAFFF9DDC4FFF4E9
+        DFFFF7F2ECFFF5EFE9FFC27E45FBFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00C6894CF6F9F5F1FFFCE3CDFFFBE3CDFFF9E0C8FFF8DCC2FFFDFB
+        F8FFFCE6CDFFE2B684FFBF7942A6FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00C48649FAF7F2ECFFF8F4EEFFF8F3EDFFF8F3EDFFF8F2ECFFF2E6
+        D7FFE2B27DFFDA9163F6B46B3E07FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00C17D4460C88B4DBBC88C4FFEC88C4FFFC88D4FF7C98C4FF7C589
+        4CFEC4763B94FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+      }
+      ShowCaption = False
+    end
+    object Panel6: TPanel
+      Left = 112
+      Height = 44
+      Top = 0
+      Width = 56
+      Align = alLeft
+      BevelOuter = bvNone
+      ClientHeight = 44
+      ClientWidth = 56
+      TabOrder = 1
+      object Label3: TLabel
+        Left = 4
+        Height = 15
+        Top = 0
+        Width = 48
+        Alignment = taCenter
+        Anchors = [akLeft, akRight, akBottom]
+        AutoSize = False
+        BorderSpacing.Left = 5
+        Caption = 'Erweitert'
+        Font.Color = clMedGray
+        Font.Height = 11
+        ParentColor = False
+        ParentFont = False
+      end
+      object Bevel3: TBevel
+        Left = 0
+        Height = 36
+        Top = 4
+        Width = 8
+        Align = alLeft
+        BorderSpacing.Top = 4
+        BorderSpacing.Bottom = 4
+        Shape = bsLeftLine
+      end
+      object sbMenue: TSpeedButton
+        Left = 4
+        Height = 28
+        Hint = 'zusätzliche Optionen'#10'(Menü)'
+        Top = 12
+        Width = 32
+        Glyph.Data = {
+          36090000424D3609000000000000360000002800000018000000180000000100
+          2000000000000009000064000000640000000000000000000000FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000001
+          01FF000202FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00030809FFFFFF
+          FFFFFFFFFFFF010304FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF000E0508FFFFFFFF00FFFFFF00FFFFFF00000001FFFFFF
+          FFFFFFFFFFFF030002FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00090000FF050000FFFFFFFF000A0808FFFFFFFFFFFFFF
+          FFFF060404FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00BBB9B9FFBBB9B9FFBBB9B9FFBBB9B9FFBBB9
+          B9FFBBB9B9FFBBB9B9FF0E0607FFFFFFFFFF040000FF020000FFFFFFFFFFFFFF
+          FFFF040000FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00927777FF927777FF927777FF927777FF927777FF9277
+          77FF927777FF927777FF0E0607FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0200
+          00FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00927777FFCDC9D1FFD2D0D8FFE4E3EEFFE9E9F4FFF7F7FBFFFFFF
+          FFFFFFFFFFFFFFFFFFFF040000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0B0B
+          0BFF020000FF040000FF080203FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00927777FFCDC9D1FF4B494BFF333131FF333131FF333131FF3331
+          31FF919090FFFFFFFFFF020000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFF020000FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00927777FFCDC9D1FFD2D0D8FFE4E3EEFFE9E9F4FFF7F7FBFFFFFF
+          FFFFFFFFFFFFFFFFFFFF000100FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFF000100FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00927777FF927777FF927777FF927777FF927777FF927777FF9277
+          77FF927777FF927777FF080907FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0002
+          00FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00927777FFCDC9D1FFD2D0D8FFE4E3EEFFE9E9F4FFF7F7FBFFFFFF
+          FFFFFFFFFFFFFFFFFFFF0A0502FFFFFFFFFFFFFFFFFFFFFFFFFF000200FFFFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00927777FFCDC9D1FF4B494BFF333131FF333131FF333131FF3331
+          31FF919090FFFFFFFFFF100000FFFFFFFFFFFFFFFFFF090000FFFFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00927777FFBBB9B9FFBBB9B9FFBBB9B9FFBBB9B9FFBBB9B9FFBBB9
+          B9FFBBB9B9FFBBB9B9FF2F0C0CFFFFFFFFFF1E0000FFC0BEBEFFFFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00927777FFBBB9B9FF4B494BFF333131FF333131FFBBB9B9FFBBB9
+          B9FFBBB9B9FFBBB9B9FF2D0000FF310000FF988181FFC0BEBEFFFFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00927777FFBBB9B9FFBBB9B9FFBBB9B9FFBBB9B9FFBBB9B9FFBBB9
+          B9FFBBB9B9FFBBB9B9FFBBB9B9FFBBB9B9FF988181FFC0BEBEFFFFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00927777FFCDC9D1FF4B494BFF333131FF333131FF333131FF3331
+          31FF919090FFFFFFFFFFFFFFFFFFE6E0E0FF988181FFC0BEBEFFFFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00927777FFCDC9D1FFD2D0D8FFE4E3EEFFE9E9F4FFF7F7FBFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFE6E0E0FF988181FFC0BEBEFFFFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00927777FFCDC9D1FF4B494BFF333131FF333131FF333131FFA1A0
+          A0FFFFFFFFFFFFFFFFFFFFFFFFFFE6E0E0FF988181FFC0BEBEFFFFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00927777FFCDC9D1FFD2D0D8FFE4E3EEFFE9E9F4FFF7F7FBFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFE6E0E0FF988181FFFFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00927777FF927777FF927777FF927777FF927777FF927777FF9277
+          77FF927777FF927777FF927777FF927777FF927777FFFFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FEFEFE00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+        }
+        OnClick = sbMenueClick
+        PopupMenu = pmAction
+      end
+    end
+    object Panel7: TPanel
+      Left = 168
+      Height = 44
+      Top = 0
+      Width = 280
+      Align = alLeft
+      BevelOuter = bvNone
+      ClientHeight = 44
+      ClientWidth = 280
+      TabOrder = 2
+      object Label4: TLabel
+        Left = 4
+        Height = 15
+        Top = 0
+        Width = 272
+        Anchors = [akLeft, akRight, akBottom]
+        AutoSize = False
+        BorderSpacing.Left = 8
+        Caption = 'Status'
+        Font.Color = clMedGray
+        Font.Height = 11
+        ParentColor = False
+        ParentFont = False
+      end
+      object Bevel4: TBevel
+        Left = 0
+        Height = 36
+        Top = 4
+        Width = 8
+        Align = alLeft
+        BorderSpacing.Top = 4
+        BorderSpacing.Bottom = 4
+        Shape = bsLeftLine
+      end
+      object cbStatus: TComboBox
+        Left = 4
+        Height = 28
+        Hint = 'hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu überführen'
+        Top = 12
+        Width = 268
+        ItemHeight = 0
+        OnSelect = cbStatusSelect
+        Style = csDropDownList
+        TabOrder = 0
+      end
+    end
+    object Panel8: TPanel
+      Left = 448
+      Height = 44
+      Top = 0
+      Width = 296
+      Align = alLeft
+      BevelOuter = bvNone
+      ClientHeight = 44
+      ClientWidth = 296
+      TabOrder = 3
+      object Label5: TLabel
+        Left = 4
+        Height = 15
+        Top = 0
+        Width = 288
+        Anchors = [akLeft, akRight, akBottom]
+        AutoSize = False
+        BorderSpacing.Left = 8
+        Caption = 'Daten'
+        Font.Color = clMedGray
+        Font.Height = 11
+        ParentColor = False
+        ParentFont = False
+      end
+      object Bevel5: TBevel
+        Left = 0
+        Height = 36
+        Top = 4
+        Width = 8
+        Align = alLeft
+        BorderSpacing.Top = 4
+        BorderSpacing.Bottom = 4
+        Shape = bsLeftLine
+      end
+      object lOrdernumber1: TLabel
+        AnchorSideLeft.Side = asrBottom
+        Left = 4
+        Height = 14
+        Top = 13
+        Width = 117
+        AutoSize = False
+        BorderSpacing.Left = 20
+        Caption = 'Vorgangsnummer'
+        ParentColor = False
+      end
+      object lNumber1: TLabel
+        AnchorSideLeft.Side = asrBottom
+        Left = 208
+        Height = 14
+        Top = 12
+        Width = 50
+        BorderSpacing.Left = 20
+        Caption = 'Nummer'
+        ParentColor = False
+      end
+      object lDate1: TLabel
+        Left = 136
+        Height = 14
+        Top = 13
+        Width = 38
+        Caption = 'Datum'
+        ParentColor = False
+      end
+      object dlOrdernumber1: TDBText
+        AnchorSideLeft.Side = asrBottom
+        Left = 4
+        Height = 13
+        Hint = 'Die automatisch vergebene eindeutige Vorgangsnummer'
+        Top = 27
+        Width = 132
+        AutoSize = False
+        BorderSpacing.Left = 4
+        DataField = 'ORDERNO'
+        DataSource = Orders
+        Font.Height = -13
+        ParentColor = False
+        ParentFont = False
+      end
+      object deDate1: TDBText
+        Left = 136
+        Height = 13
+        Hint = 'das Buchungsdatum'
+        Top = 27
+        Width = 64
+        AutoSize = False
+        Constraints.MinWidth = 50
+        DataField = 'DATE'
+        DataSource = Orders
+        Font.Height = -13
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object deNumber1: TDBText
+        AnchorSideLeft.Side = asrBottom
+        Left = 208
+        Height = 13
+        Hint = 'Die Buchungsnummer'
+        Top = 27
+        Width = 82
+        AutoSize = False
+        BorderSpacing.Left = 20
+        Constraints.MinWidth = 50
+        DataField = 'NUMBER'
+        DataSource = Orders
+        Font.Height = -13
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+    end
+  end
+  object pSearch: TPanel[4]
+    Left = 46
+    Height = 120
+    Top = 96
+    Width = 240
+    Anchors = [akTop, akRight]
+    BevelOuter = bvNone
+    ClientHeight = 120
+    ClientWidth = 240
+    TabOrder = 4
+    Visible = False
+    object lbResults: TListBox
+      Left = 0
+      Height = 120
+      Top = 0
+      Width = 240
+      Align = alClient
+      ItemHeight = 0
+      OnDblClick = lbResultsDblClick
+      ScrollWidth = 238
+      TabOrder = 0
+      TabStop = False
+      TopIndex = -1
+    end
+  end
+  object ActionList: TActionList[5]
+    left = 840
+    top = 96
+    object acSave: TAction
+      Caption = 'Speichern'
+      Hint = 'Speichert alle Änderungen in die Datenbank'
+      ImageIndex = 74
+      OnExecute = acSaveExecute
+      ShortCut = 16467
+    end
+    object acCancel: TAction
+      Caption = 'Abbrechen'
+      Hint = 'verwirft alle Änderungen'
+      ImageIndex = 75
+      OnExecute = acCancelExecute
+    end
+    object acClose: TAction
+      Caption = 'acClose'
+      OnExecute = acCloseExecute
+      ShortCut = 27
+    end
+    object acStartTimeRegistering: TAction
+      Caption = 'Zeiterfassung beginnen'
+      Hint = 'Zeiterfassung auf disen Eintrag beginnen'
+    end
+    object acCopy: TAction
+      Caption = 'Kopieren'
+      Hint = 'In die Zwischenablage kopieren'
+    end
+    object acPaste: TAction
+      Caption = 'Einfügen'
+      Hint = 'Aus der zwischenablage Einfügen'
+    end
+    object acDelete: TAction
+      Caption = 'Löschen'
+      Hint = 'löscht den Vorgang'
+      ImageIndex = 60
+      OnExecute = acDeleteExecute
+    end
+    object acPrint: TAction
+      Caption = 'acPrint'
+      Hint = 'Zeigt die Druckbelegliste'
+      ImageIndex = 76
+      OnExecute = acPrintExecute
+      ShortCut = 16464
+    end
+    object acMarkasDone: TAction
+      Caption = 'als Fertig markieren'
+      Hint = 'markiert den Vorgang als fertig'
+      ImageIndex = 74
+      OnExecute = acMarkasDoneExecute
+    end
+    object acCreateTransfer: TAction
+      Caption = 'Überweisung erstellen'
+      ImageIndex = 38
+      OnExecute = acCreateTransferExecute
+      Visible = False
+    end
+    object acAddAddress: TAction
+      Caption = 'acAddAddress'
+      Hint = 'neue Adresse einfügen'
+      ImageIndex = 59
+      OnExecute = acAddAddressExecute
+    end
+    object acRights: TAction
+      Caption = 'Rechte'
+      ImageIndex = 100
+      OnExecute = acRightsExecute
+    end
+  end
+  object Orders: TDatasource[6]
+    OnStateChange = OrdersStateChange
+    left = 680
+    top = 40
+  end
+  object OrderAddress: TDatasource[7]
+    left = 680
+    top = 96
+  end
+  object pmAction: TPopupMenu[8]
+    left = 840
+    top = 152
+    object miStartTimeregistering: TMenuItem
+      Action = acStartTimeRegistering
+    end
+    object MenuItem1: TMenuItem
+      Caption = '-'
+    end
+    object miCopy: TMenuItem
+      Action = acCopy
+    end
+    object miPaste: TMenuItem
+      Action = acPaste
+    end
+    object MenuItem2: TMenuItem
+      Caption = '-'
+    end
+    object miDelete: TMenuItem
+      Action = acDelete
+      Bitmap.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000064000000640000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000A46534CCA46534FFA46534FFA46534FFA46534FFA46534FFA46534FFA465
+        34FFA46534FFA46534FFA46534FFA46534CC0000000000000000000000000000
+        0000A46534FFE5CCB4FFDBB795FFDBB694FFDAB492FFDAB390FFD9AD86FFD8AA
+        83FFD7A87FFFD7A67DFFE0BE9FFFA46534FF0000000000000000000000000000
+        0000A46534FFE8D3C0FFE7D1BBFFE7D1BCFFE6CEB7FFE6CEB7FFE6CEB7FFE6CE
+        B7FFE6CDB6FFE6CCB5FFE6CCB6FFA46534FF0000000000000000000000000000
+        0000A46534CCA46534FFA46534FFA46534FFA46534FFA46534FFA46534FFA465
+        34FFA46534FFA46534FFA46534FFA46534CC0000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000
+      }
+    end
+    object MenuItem4: TMenuItem
+      Action = acCreateTransfer
+    end
+    object MenuItem3: TMenuItem
+      Action = acMarkasDone
+      Bitmap.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00317A360A2D753207FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF003985400A37833DFF317B37FB2E763307FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF004292490A408E47FF54A35CFF4F9F57FF327C38FE2E773408FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF004B9E530A499A51FF5BAC64FF77CA82FF74C87EFF51A059FF337D39FE2F78
+        3508FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0053A9
+        5C0A51A65AFF63B56DFF7ECE89FF7BCC87FF76CA81FF76C981FF52A25AFF347E
+        3AFE30793508FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF005AB4650959B0
+        63FF6BBD76FF84D290FF7AC985FF60B26AFF63B46DFF78C983FF78CB82FF53A3
+        5CFF347F3AFD317A3608FFFFFF00FFFFFF00FFFFFF00FFFFFF005EB969465BB5
+        66E479C986FF80CE8DFF51A65AFC4DA1566F499C518B5CAD67FF7CCC86FF79CB
+        85FF54A45DFF35803BFC317B3708FFFFFF00FFFFFF00FFFFFF00FFFFFF005FBA
+        6A3C5CB666E66DC079FF55AC5F6FFFFFFF00FFFFFF004A9D52915EAE68FF7DCD
+        89FF7CCD87FF56A55FFF36813CFC327C3808FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF005FBB6A435CB76765FFFFFF00FFFFFF00FFFFFF00FFFFFF004B9E53915FAF
+        69FF7FCE8AFF7ECE89FF57A660FF37823DFC337D3908FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF004B9F
+        549160B06AFF81CF8DFF7FCF8BFF58A761FF398540FF347E3A08FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF004CA0559162B26CFF82D18FFF7AC885FF57A660FF38843F7BFFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF004DA1569163B36DFF5FAF69FF41914979FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF004EA257914A9D527FFFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+      }
+    end
+    object MenuItem6: TMenuItem
+      Caption = '-'
+    end
+    object MenuItem5: TMenuItem
+      Action = acRights
+    end
+  end
+  object OrderPos: TDatasource[9]
+    left = 680
+    top = 152
+  end
+  object OrderRepair: TDatasource[10]
+    left = 680
+    top = 224
+  end
+  object OrderRepairDetail: TDatasource[11]
+    left = 680
+    top = 256
+  end
+  object OrderImages: TDatasource[12]
+    left = 680
+    top = 288
+  end
+  object frReport: TfrReport[13]
+    DefaultCopies = 0
+    InitialZoom = pzDefault
+    Options = []
+    PreviewButtons = [pbZoom, pbLoad, pbSave, pbPrint, pbFind, pbHelp, pbExit]
+    ShowProgress = False
+    DataType = dtDataSource
+    left = 840
+    top = 224
+  end
+  object POrders: TfrDBDataSet[14]
+    DataSource = Orders
+    left = 752
+    top = 40
+  end
+  object POrderAddress: TfrDBDataSet[15]
+    DataSource = OrderAddress
+    left = 752
+    top = 96
+  end
+  object POrderPos: TfrDBDataSet[16]
+    DataSource = OrderPos
+    left = 752
+    top = 152
+  end
+  object POrderRepair: TfrDBDataSet[17]
+    DataSource = OrderRepair
+    left = 752
+    top = 224
+  end
+  object pOrderRepairDetail: TfrDBDataSet[18]
+    DataSource = OrderRepairDetail
+    left = 752
+    top = 256
+  end
+  object POrderImages: TfrDBDataSet[19]
+    DataSource = OrderImages
+    left = 752
+    top = 288
+  end
+  object MandantDetails: TDatasource[20]
+    left = 840
+    top = 40
+  end
+  object Users: TDatasource[21]
+    left = 680
+    top = 320
+  end
+  object PUsers: TfrDBDataSet[22]
+    DataSource = Users
+    left = 752
+    top = 320
+  end
+  object PaymentTargets: TDatasource[23]
+    left = 680
+    top = 352
+  end
+  object PPaymentTargets: TfrDBDataSet[24]
+    DataSource = PaymentTargets
+    left = 752
+    top = 352
+  end
+end

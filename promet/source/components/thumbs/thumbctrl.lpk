@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <Package Version="4">
+    <Name Value="thumbctrl"/>
+    <AddToProjectUsesSection Value="True"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <SearchPaths>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+      <Other>
+        <CustomOptions Value="-dUseCThreads"/>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
+    </CompilerOptions>
+    <Files Count="6">
+      <Item1>
+        <Filename Value="../../base/dbintfs/fpthumbresize.pas"/>
+        <UnitName Value="fpthumbresize"/>
+      </Item1>
+      <Item2>
+        <Filename Value="scrollingcontrol.pas"/>
+        <UnitName Value="scrollingcontrol"/>
+      </Item2>
+      <Item3>
+        <Filename Value="threadedimageloader.pas"/>
+        <UnitName Value="threadedimageLoader"/>
+      </Item3>
+      <Item4>
+        <Filename Value="thumbcontrol.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="thumbcontrol"/>
+      </Item4>
+      <Item5>
+        <Filename Value="thumbctrl.lrs"/>
+        <Type Value="LRS"/>
+      </Item5>
+      <Item6>
+        <Filename Value="images.lrs"/>
+        <Type Value="LRS"/>
+      </Item6>
+    </Files>
+    <Type Value="RunAndDesignTime"/>
+    <RequiredPkgs Count="3">
+      <Item1>
+        <PackageName Value="pPrometDBIntfs"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="LCL"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="FCL"/>
+        <MinVersion Major="1" Valid="True"/>
+      </Item3>
+    </RequiredPkgs>
+    <UsageOptions>
+      <CustomOptions Value="-dUseCThreads"/>
+      <UnitPath Value="$(PkgOutDir)/"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IgnoreBinaries Value="False"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

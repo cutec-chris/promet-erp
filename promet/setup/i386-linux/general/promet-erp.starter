@@ -1,0 +1,4 @@
+#!/bin/sh
+export LIBOVERLAY_SCROLLBAR=0
+bash /usr/lib/promet-erp/add-systray-icon.sh messagemanager &
+/usr/lib/promet-erp/prometerp $*

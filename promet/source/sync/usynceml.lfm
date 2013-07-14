@@ -1,0 +1,25 @@
+object fMailImport: TfMailImport
+  Left = 476
+  Height = 158
+  Top = 352
+  Width = 240
+  AllowDropFiles = True
+  Caption = 'Mailimport'
+  ClientHeight = 158
+  ClientWidth = 240
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnDropFiles = FormDropFiles
+  LCLVersion = '0.9.31'
+  object Panel1: TPanel
+    Left = 8
+    Height = 142
+    Top = 8
+    Width = 224
+    Align = alClient
+    BorderSpacing.Around = 8
+    BevelOuter = bvLowered
+    Caption = 'Drag .eml Files here'
+    TabOrder = 0
+  end
+end

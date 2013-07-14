@@ -1,0 +1,1308 @@
+#: vpsr:rsnonestr
+msgid "(None)"
+msgstr ""
+
+#: vpsr:rsyes
+msgid "Y"
+msgstr ""
+
+#: vpsr:rsno
+msgid "N"
+msgstr ""
+
+#: vpsr:rstrue
+msgid "T"
+msgstr ""
+
+#: vpsr:rsfalse
+msgid "F"
+msgstr ""
+
+#: vpsr:rstallshortchars
+msgid "Wy"
+msgstr ""
+
+#: vpsr:rsdelete
+msgid "Delete"
+msgstr ""
+
+#: vpsr:rsnotdoneyet
+msgid "This feature is not implemented at this time."
+msgstr ""
+
+#: vpsr:rsnotimersavail
+msgid "No Window's timers are available."
+msgstr ""
+
+#: vpsr:rsbadtriggerhandle
+msgid "Invalid trigger handle."
+msgstr ""
+
+#: vpsr:rseditingitems
+msgid "Folder Items Editor."
+msgstr ""
+
+#: vpsr:rseditingfolders
+msgid "Folder Editor."
+msgstr ""
+
+#: vpsr:rsexclusiveeventconflict
+msgid "Conflicts with another exclusive event."
+msgstr ""
+
+#: vpsr:rsbackwardtimeserror
+msgid "The end time cannot precede the start time."
+msgstr ""
+
+#: vpsr:rsdbposterror
+msgid "Error posting data to the database."
+msgstr ""
+
+#: vpsr:rsmonthconverterror
+msgid "Error converting the month number."
+msgstr ""
+
+#: vpsr:rsinvalidday
+msgid "Error: Invalid Day."
+msgstr ""
+
+#: vpsr:rsinvaliddate
+msgid "Error: Invalid Date."
+msgstr ""
+
+#: vpsr:rsinvalidmonth
+msgid "Error: Invalid Month."
+msgstr ""
+
+#: vpsr:rsinvalidmonthname
+msgid "Error: Invalid Month Name."
+msgstr ""
+
+#: vpsr:rsinvalidyear
+msgid "Error: Invalid Year."
+msgstr ""
+
+#: vpsr:rsdayisrequired
+msgid "Error: Day is required."
+msgstr ""
+
+#: vpsr:rsmonthisrequired
+msgid "Error: Month Is Required."
+msgstr ""
+
+#: vpsr:rsyearisrequired
+msgid "Error: Year is required."
+msgstr ""
+
+#: vpsr:rsnameisrequired
+msgid "Error: Name cannot be empty."
+msgstr ""
+
+#: vpsr:rsfailtocreatetask
+msgid "Error: Failure while creating Task."
+msgstr ""
+
+#: vpsr:rsfailtocreateevent
+msgid "Error: Failure while creating Event."
+msgstr ""
+
+#: vpsr:rsfailtocreatecontact
+msgid "Error: Failure while creating Contact."
+msgstr ""
+
+#: vpsr:rsfailtocreateresource
+msgid "Error: Failure while creating Resource."
+msgstr ""
+
+#: vpsr:rsduplicateresource
+msgid "Error: Duplicate Resource."
+msgstr ""
+
+#: vpsr:rsinvalidtablespecified
+msgid "Error: Invalid table specified."
+msgstr ""
+
+#: vpsr:rsunabletoopen
+msgid "Error: Unable to open "
+msgstr ""
+
+#: vpsr:rssqlupdateerror
+msgid "Error: Unable to update "
+msgstr ""
+
+#: vpsr:rsphonetypelabel1
+msgid "Assistant"
+msgstr ""
+
+#: vpsr:rsphonetypelabel2
+msgid "Callback"
+msgstr ""
+
+#: vpsr:rsphonetypelabel3
+msgid "Car"
+msgstr ""
+
+#: vpsr:rsphonetypelabel4
+msgid "Company"
+msgstr ""
+
+#: vpsr:rsphonetypelabel5
+msgid "Home"
+msgstr ""
+
+#: vpsr:rsphonetypelabel6
+msgid "Home Fax"
+msgstr ""
+
+#: vpsr:rsphonetypelabel7
+msgid "ISDN"
+msgstr ""
+
+#: vpsr:rsphonetypelabel8
+msgid "Mobile"
+msgstr ""
+
+#: vpsr:rsphonetypelabel9
+msgid "Other"
+msgstr ""
+
+#: vpsr:rsphonetypelabel10
+msgid "Other Fax"
+msgstr ""
+
+#: vpsr:rsphonetypelabel11
+msgid "Pager"
+msgstr ""
+
+#: vpsr:rsphonetypelabel12
+msgid "Primary"
+msgstr ""
+
+#: vpsr:rsphonetypelabel13
+msgid "Radio"
+msgstr ""
+
+#: vpsr:rsphonetypelabel14
+msgid "Telex"
+msgstr ""
+
+#: vpsr:rsphonetypelabel15
+msgid "TTY/TDD"
+msgstr ""
+
+#: vpsr:rsphonetypelabel16
+msgid "Work"
+msgstr ""
+
+#: vpsr:rsphonetypelabel17
+msgid "Work Fax"
+msgstr ""
+
+#: vpsr:rscategorylabel1
+msgid "Business"
+msgstr ""
+
+#: vpsr:rscategorylabel2
+msgid "Clients"
+msgstr ""
+
+#: vpsr:rscategorylabel3
+msgid "Family"
+msgstr ""
+
+#: vpsr:rscategorylabel4
+msgid "Personal"
+msgstr ""
+
+#: vpsr:rscategorylabel5
+msgid "Other"
+msgstr ""
+
+#: vpsr:rsweekof
+msgid "Week of"
+msgstr ""
+
+#: vpsr:rsthrough
+msgid "Through"
+msgstr ""
+
+#: vpsr:rssunday
+msgid "Sunday"
+msgstr ""
+
+#: vpsr:rsmonday
+msgid "Monday"
+msgstr ""
+
+#: vpsr:rstuesday
+msgid "Tuesday"
+msgstr ""
+
+#: vpsr:rswednesday
+msgid "Wednesday"
+msgstr ""
+
+#: vpsr:rsthursday
+msgid "Thursday"
+msgstr ""
+
+#: vpsr:rsfriday
+msgid "Friday"
+msgstr ""
+
+#: vpsr:rssaturday
+msgid "Saturday"
+msgstr ""
+
+#: vpsr:rsasunday
+msgid "Sun"
+msgstr ""
+
+#: vpsr:rsamonday
+msgid "Mon"
+msgstr ""
+
+#: vpsr:rsatuesday
+msgid "Tue"
+msgstr ""
+
+#: vpsr:rsawednesday
+msgid "Wed"
+msgstr ""
+
+#: vpsr:rsathursday
+msgid "Thu"
+msgstr ""
+
+#: vpsr:rsafriday
+msgid "Fri"
+msgstr ""
+
+#: vpsr:rsasaturday
+msgid "Sat"
+msgstr ""
+
+#: vpsr:rslsunday
+msgid "S"
+msgstr ""
+
+#: vpsr:rslmonday
+msgid "M"
+msgstr ""
+
+#: vpsr:rsltuesday
+msgid "T"
+msgstr ""
+
+#: vpsr:rslwednesday
+msgid "W"
+msgstr ""
+
+#: vpsr:rslthursday
+msgid "T"
+msgstr ""
+
+#: vpsr:rslfriday
+msgid "F"
+msgstr ""
+
+#: vpsr:rslsaturday
+msgid "S"
+msgstr ""
+
+#: vpsr:rsnone
+msgid "None"
+msgstr ""
+
+#: vpsr:rsdaily
+msgid "Daily"
+msgstr ""
+
+#: vpsr:rsweekly
+msgid "Weekly"
+msgstr ""
+
+#: vpsr:rsmonthlybyday
+msgid "Monthly By Day"
+msgstr ""
+
+#: vpsr:rsmonthlybydate
+msgid "Monthly By Date"
+msgstr ""
+
+#: vpsr:rsyearlybyday
+msgid "Yearly By Day"
+msgstr ""
+
+#: vpsr:rsyearlybydate
+msgid "Yearly By Date"
+msgstr ""
+
+#: vpsr:rscustom
+msgid "Custom"
+msgstr ""
+
+#: vpsr:rsminutes
+msgid "Minutes"
+msgstr ""
+
+#: vpsr:rshours
+msgid "Hours"
+msgstr ""
+
+#: vpsr:rsdays
+msgid "Days"
+msgstr ""
+
+#: vpsr:rspermanent
+msgid "This operation cannot be undone!"
+msgstr ""
+
+#: vpsr:rsfromcontactlist
+msgid "from your list of contacts?"
+msgstr ""
+
+#: vpsr:rscontactpopupadd
+msgid "Add Contact..."
+msgstr ""
+
+#: vpsr:rscontactpopupedit
+msgid "Edit Contact..."
+msgstr ""
+
+#: vpsr:rscontactpopupdelete
+msgid "Delete Contact..."
+msgstr ""
+
+#: vpsr:rsfromschedule
+msgid "from your schedule?"
+msgstr ""
+
+#: vpsr:rsfromtasklist
+msgid "from your task list?"
+msgstr ""
+
+#: vpsr:rstaskpopupadd
+msgid "Add Task..."
+msgstr ""
+
+#: vpsr:rstaskpopupedit
+msgid "Edit Task..."
+msgstr ""
+
+#: vpsr:rstaskpopupdelete
+msgid "Delete Task..."
+msgstr ""
+
+#: vpsr:rstasktitleresource
+msgid "Task List - "
+msgstr ""
+
+#: vpsr:rstasktitlenoresource
+msgid "Task List"
+msgstr ""
+
+#: vpsr:rsmonthpopuptoday
+msgid "Today"
+msgstr ""
+
+#: vpsr:rsmonthpopupnextmonth
+msgid "Next Month"
+msgstr ""
+
+#: vpsr:rsmonthpopupprevmonth
+msgid "Previous Month"
+msgstr ""
+
+#: vpsr:rsmonthpopupnextyear
+msgid "Next Year"
+msgstr ""
+
+#: vpsr:rsmonthpopupprevyear
+msgid "Previous Year"
+msgstr ""
+
+#: vpsr:rsweekpopupadd
+msgid "Add Event..."
+msgstr ""
+
+#: vpsr:rsweekpopupedit
+msgid "Edit Event..."
+msgstr ""
+
+#: vpsr:rsweekpopupdelete
+msgid "&Delete Event..."
+msgstr ""
+
+#: vpsr:rsweekpopupnav
+msgid "Change Date"
+msgstr ""
+
+#: vpsr:rsweekpopupnavtoday
+msgid "Today"
+msgstr ""
+
+#: vpsr:rsweekpopupnavnextweek
+msgid "Next Week"
+msgstr ""
+
+#: vpsr:rsweekpopupnavprevweek
+msgid "Previous Week"
+msgstr ""
+
+#: vpsr:rsweekpopupnavnextmonth
+msgid "Next Month"
+msgstr ""
+
+#: vpsr:rsweekpopupnavprevmonth
+msgid "Previous Month"
+msgstr ""
+
+#: vpsr:rsweekpopupnavnextyear
+msgid "Next Year"
+msgstr ""
+
+#: vpsr:rsweekpopupnavprevyear
+msgid "Previous Year"
+msgstr ""
+
+#: vpsr:rsprintprvprevpage
+msgid "Previous Page"
+msgstr ""
+
+#: vpsr:rsprintprvnextpage
+msgid "Next Page"
+msgstr ""
+
+#: vpsr:rsprintprvfirstpage
+msgid "First Page"
+msgstr ""
+
+#: vpsr:rsprintprvlastpage
+msgid "Last Page"
+msgstr ""
+
+#: vpsr:rsdaypopupadd
+msgid "Add Event..."
+msgstr ""
+
+#: vpsr:rsdaypopupedit
+msgid "Edit Event..."
+msgstr ""
+
+#: vpsr:rsdaypopupdelete
+msgid "Delete Event..."
+msgstr ""
+
+#: vpsr:rsdaypopupnav
+msgid "Change Date"
+msgstr ""
+
+#: vpsr:rsdaypopupnavtoday
+msgid "Today"
+msgstr ""
+
+#: vpsr:rsdaypopupnavtomorrow
+msgid "Tomorrow"
+msgstr ""
+
+#: vpsr:rsdaypopupnavyesterday
+msgid "Yesterday"
+msgstr ""
+
+#: vpsr:rsdaypopupnavnextday
+msgid "Next Day"
+msgstr ""
+
+#: vpsr:rsdaypopupnavprevday
+msgid "Previous Day"
+msgstr ""
+
+#: vpsr:rsdaypopupnavnextweek
+msgid "Next Week"
+msgstr ""
+
+#: vpsr:rsdaypopupnavprevweek
+msgid "Previous Week"
+msgstr ""
+
+#: vpsr:rsdaypopupnavnextmonth
+msgid "Next Month"
+msgstr ""
+
+#: vpsr:rsdaypopupnavprevmonth
+msgid "Previous Month"
+msgstr ""
+
+#: vpsr:rsdaypopupnavnextyear
+msgid "Next Year"
+msgstr ""
+
+#: vpsr:rsdaypopupnavprevyear
+msgid "Previous Year"
+msgstr ""
+
+#: vpsr:rshinttoday
+msgid "Today"
+msgstr ""
+
+#: vpsr:rshinttomorrow
+msgid "Tomorrow"
+msgstr ""
+
+#: vpsr:rshintyesterday
+msgid "Yesterday"
+msgstr ""
+
+#: vpsr:rshintnextweek
+msgid "Next Week"
+msgstr ""
+
+#: vpsr:rshintprevweek
+msgid "Previous Week"
+msgstr ""
+
+#: vpsr:rsposition
+msgid "Position"
+msgstr ""
+
+#: vpsr:rscompany
+msgid "Company"
+msgstr ""
+
+#: vpsr:rstitle
+msgid "Title"
+msgstr ""
+
+#: vpsr:rsemail
+msgid "E-Mail"
+msgstr ""
+
+#: vpsr:rscountry
+msgid "Country"
+msgstr ""
+
+#: vpsr:rscategory
+msgid "Category"
+msgstr ""
+
+#: vpsr:rsnotes
+msgid "Notes"
+msgstr ""
+
+#: vpsr:rscustom1
+msgid "Custom 1"
+msgstr ""
+
+#: vpsr:rscustom2
+msgid "Custom 2"
+msgstr ""
+
+#: vpsr:rscustom3
+msgid "Custom 3"
+msgstr ""
+
+#: vpsr:rscustom4
+msgid "Custom 4"
+msgstr ""
+
+#: vpsr:rsokbtn
+msgid "OK"
+msgstr ""
+
+#: vpsr:rscancelbtn
+msgid "Cancel"
+msgstr ""
+
+#: vpsr:rsclosebtn
+msgid "&Close"
+msgstr ""
+
+#: vpsr:rsprintbtn
+msgid "&Print"
+msgstr ""
+
+#: vpsr:rsuntitled
+msgid "Untitled"
+msgstr ""
+
+#: vpsr:rsselectasound
+msgid "Select A Sound"
+msgstr ""
+
+#: vpsr:rssoundfinder
+msgid "Sound Finder"
+msgstr ""
+
+#: vpsr:rsdefaultsound
+msgid "Use the default sound"
+msgstr ""
+
+#: vpsr:rsdlgeventedit
+msgid "Event"
+msgstr ""
+
+#: vpsr:rsappointmentgroupbox
+msgid "Appointment"
+msgstr ""
+
+#: vpsr:rsdescriptionlbl
+msgid "Subject:"
+msgstr ""
+
+#: vpsr:rscategorylbl
+msgid "Category:"
+msgstr ""
+
+#: vpsr:rsstarttimelbl
+msgid "Start Time:"
+msgstr ""
+
+#: vpsr:rsendtimelbl
+msgid "End Time:"
+msgstr ""
+
+#: vpsr:rsalarmset
+msgid "&Reminder"
+msgstr ""
+
+#: vpsr:rsrecurringlbl
+msgid "Appointment Recurrence:"
+msgstr ""
+
+#: vpsr:rsintervallbl
+msgid "Interval (days):"
+msgstr ""
+
+#: vpsr:rsrecurrenceendslbl
+msgid "Repeat Until:"
+msgstr ""
+
+#: vpsr:rsalldayevent
+msgid "&All Day Event"
+msgstr ""
+
+#: vpsr:rsnoteslbl
+msgid "Notes:"
+msgstr ""
+
+#: vpsr:rsdlgcontactedit
+msgid "Contact"
+msgstr ""
+
+#: vpsr:rsnamelbl
+msgid "Name:"
+msgstr ""
+
+#: vpsr:rstitlelbl
+msgid "Title:"
+msgstr ""
+
+#: vpsr:rsaddresslbl
+msgid "Address:"
+msgstr ""
+
+#: vpsr:rscitylbl
+msgid "City:"
+msgstr ""
+
+#: vpsr:rsstatelbl
+msgid "State:"
+msgstr ""
+
+#: vpsr:rscountrylbl
+msgid "Country:"
+msgstr ""
+
+#: vpsr:rszipcodelbl
+msgid "Zip Code:"
+msgstr ""
+
+#: vpsr:rscompanylbl
+msgid "Company:"
+msgstr ""
+
+#: vpsr:rspositionlbl
+msgid "Position:"
+msgstr ""
+
+#: vpsr:rsdlgprintpreview
+msgid "Print Preview"
+msgstr ""
+
+#: vpsr:rsdlgtaskedit
+msgid "Task"
+msgstr ""
+
+#: vpsr:rsduedate
+msgid "Due Date:"
+msgstr ""
+
+#: vpsr:rsdetails
+msgid "Details:"
+msgstr ""
+
+#: vpsr:rscomplete
+msgid "Task complete"
+msgstr ""
+
+#: vpsr:rsdaysoverdue
+msgid " Days overdue"
+msgstr ""
+
+#: vpsr:rscreatedon
+msgid "Created on"
+msgstr ""
+
+#: vpsr:rscompletedon
+msgid "Completed on"
+msgstr ""
+
+#: vpsr:rsreminder
+msgid "Reminder"
+msgstr ""
+
+#: vpsr:rsoverdue
+msgid "OVERDUE!"
+msgstr ""
+
+#: vpsr:rssnoozecaption
+msgid "Click &Snooze to be reminded again in:"
+msgstr ""
+
+#: vpsr:rssubjectcaption
+msgid "Subject:"
+msgstr ""
+
+#: vpsr:rsnotescaption
+msgid "Notes:"
+msgstr ""
+
+#: vpsr:rsdismissbtn
+msgid "&Dismiss"
+msgstr ""
+
+#: vpsr:rssnoozebtn
+msgid "&Snooze"
+msgstr ""
+
+#: vpsr:rsopenitembtn
+msgid "&Open Item"
+msgstr ""
+
+#: vpsr:rs5minutes
+msgid "5 Minutes"
+msgstr ""
+
+#: vpsr:rs10minutes
+msgid "10 Minutes"
+msgstr ""
+
+#: vpsr:rs15minutes
+msgid "15 Minutes"
+msgstr ""
+
+#: vpsr:rs30minutes
+msgid "30 Minutes"
+msgstr ""
+
+#: vpsr:rs45minutes
+msgid "45 Minutes"
+msgstr ""
+
+#: vpsr:rs1hour
+msgid "1 Hour"
+msgstr ""
+
+#: vpsr:rs2hours
+msgid "2 Hours"
+msgstr ""
+
+#: vpsr:rs3hours
+msgid "3 Hours"
+msgstr ""
+
+#: vpsr:rs4hours
+msgid "4 Hours"
+msgstr ""
+
+#: vpsr:rs5hours
+msgid "5 Hours"
+msgstr ""
+
+#: vpsr:rs6hours
+msgid "6 Hours"
+msgstr ""
+
+#: vpsr:rs7hours
+msgid "7 Hours"
+msgstr ""
+
+#: vpsr:rs8hours
+msgid "8 Hours"
+msgstr ""
+
+#: vpsr:rs1days
+msgid "1 Day"
+msgstr ""
+
+#: vpsr:rs2days
+msgid "2 Days"
+msgstr ""
+
+#: vpsr:rs3days
+msgid "3 Days"
+msgstr ""
+
+#: vpsr:rs4days
+msgid "4 Days"
+msgstr ""
+
+#: vpsr:rs5days
+msgid "5 Days"
+msgstr ""
+
+#: vpsr:rs6days
+msgid "6 Days"
+msgstr ""
+
+#: vpsr:rs1week
+msgid "1 Week"
+msgstr ""
+
+#: vpsr:rscalendarprevmonth
+msgid "Previous Month"
+msgstr ""
+
+#: vpsr:rscalendarnextmonth
+msgid "Next Month"
+msgstr ""
+
+#: vpsr:rscalendarprevyear
+msgid "Previous Year"
+msgstr ""
+
+#: vpsr:rscalendarnextyear
+msgid "Next Year"
+msgstr ""
+
+#: vpsr:rscalendartoday
+msgid "Today"
+msgstr ""
+
+#: vpsr:rscalendarrevert
+msgid "Revert"
+msgstr ""
+
+#: vpsr:rscalendarpopuptoday
+msgid "Today"
+msgstr ""
+
+#: vpsr:rscalendarpopupnextmonth
+msgid "Next Month"
+msgstr ""
+
+#: vpsr:rscalendarpopupprevmonth
+msgid "Previous Month"
+msgstr ""
+
+#: vpsr:rscalendarpopupnextyear
+msgid "Next Year"
+msgstr ""
+
+#: vpsr:rscalendarpopupprevyear
+msgid "Previous Year"
+msgstr ""
+
+#: vpsr:rscalendarpopuprevert
+msgid "Revert"
+msgstr ""
+
+#: vpsr:sienotinstalled
+msgid "Cannot open WININET, Microsoft IE required"
+msgstr ""
+
+#: vpsr:sopenfilefailed
+msgid "Unable to open file "
+msgstr ""
+
+#: vpsr:sfilenotfound
+msgid "File %s could not be found"
+msgstr ""
+
+#: vpsr:sallocsrcmemfailed
+msgid "Unable to allocate memory for XML source"
+msgstr ""
+
+#: vpsr:shttpreadreqfailed
+msgid "Http read request failed"
+msgstr ""
+
+#: vpsr:shttpdatanotavail
+msgid "Http data not available"
+msgstr ""
+
+#: vpsr:shttpreqsendfailed
+msgid "Unable to send http request"
+msgstr ""
+
+#: vpsr:shttpreqopenfailed
+msgid "Unable to open http request"
+msgstr ""
+
+#: vpsr:sinetconnectfailed
+msgid "Unable to make Internet connection"
+msgstr ""
+
+#: vpsr:sinetopenfailed
+msgid "Unable to open Internet"
+msgstr ""
+
+#: vpsr:sinvalidftploc
+msgid "Invalid ftp location"
+msgstr ""
+
+#: vpsr:sinvalidftpdir
+msgid "Invalid ftp directory"
+msgstr ""
+
+#: vpsr:sftpreadreqfailed
+msgid "Ftp read request failed"
+msgstr ""
+
+#: vpsr:sftpdatanotavail
+msgid "Ftp data not available"
+msgstr ""
+
+#: vpsr:sftpopenfilefailed
+msgid "Unable to open ftp file"
+msgstr ""
+
+#: vpsr:sftpputfilefailed
+msgid "Could not save file via ftp to %s"
+msgstr ""
+
+#: vpsr:ssrcloadfailed
+msgid "Unable to load source "
+msgstr ""
+
+#: vpsr:sinvalidmemptr
+msgid "Invalid memory Pointer"
+msgstr ""
+
+#: vpsr:sfmterrormsg
+msgid "Line: %d Col: %d Error: %s"
+msgstr ""
+
+#: vpsr:sindexoutofbounds
+msgid "ERROR INDEX OUT OF BOUNDS"
+msgstr ""
+
+#: vpsr:sexpmarkupdecl
+msgid "Expected markup declaration, but found: "
+msgstr ""
+
+#: vpsr:sillattrtype
+msgid "Illegal attribute type: "
+msgstr ""
+
+#: vpsr:sillattrdefkeyw
+msgid "Illegal keyword for attribute default value: "
+msgstr ""
+
+#: vpsr:ssysidmissing
+msgid "System identifier missing "
+msgstr ""
+
+#: vpsr:sextmodifmissing
+msgid "External modifier missing: "
+msgstr ""
+
+#: vpsr:sillcondsectstart
+msgid "Conditional section must begin with INCLUDE or IGNORE"
+msgstr ""
+
+#: vpsr:sbadsepinmodel
+msgid "Bad separator in content model: "
+msgstr ""
+
+#: vpsr:sexpcommentorcdata
+msgid "Expected comment or CDATA section "
+msgstr ""
+
+#: vpsr:sunexpectedeof
+msgid "Unexpected end of file "
+msgstr ""
+
+#: vpsr:smismatchendtag
+msgid "Mismatched end tag: "
+msgstr ""
+
+#: vpsr:sillcharinref
+msgid "Illegal character in reference"
+msgstr ""
+
+#: vpsr:sundeclaredentity
+msgid "Reference to undeclared entity: "
+msgstr ""
+
+#: vpsr:sexpectedstring
+msgid "Expected String: "
+msgstr ""
+
+#: vpsr:sspaceexpectedat
+msgid "Whitespace expected at byte "
+msgstr ""
+
+#: vpsr:sunexpendofinput
+msgid "End of input while looking for delimiter: "
+msgstr ""
+
+#: vpsr:squoteexpected
+msgid "Expected \" or '"
+msgstr ""
+
+#: vpsr:sinvalidxmlversion
+msgid "XMLPartner does not support XML specification greater than %s"
+msgstr ""
+
+#: vpsr:sunablecreatestr
+msgid "Unable to create stream for input."
+msgstr ""
+
+#: vpsr:sinvalidname
+msgid "Invalid XML name: "
+msgstr ""
+
+#: vpsr:sinvalidcommenttext
+msgid "Invalid comment text"
+msgstr ""
+
+#: vpsr:scommentbeforexmldecl
+msgid "Document cannot start with a comment if it also contains an XML declaration"
+msgstr ""
+
+#: vpsr:sinvalidcdatasection
+msgid "Invalid characters in CDATA section"
+msgstr ""
+
+#: vpsr:sredefinedattr
+msgid "Attributes cannot be redefined in a start tag"
+msgstr ""
+
+#: vpsr:scircularentref
+msgid "Circular reference to: "
+msgstr ""
+
+#: vpsr:sinvattrchar
+msgid "Invalid character in attribute value: "
+msgstr ""
+
+#: vpsr:sinvpcdata
+msgid "Invalid characters in element's character data: "
+msgstr ""
+
+#: vpsr:sdataaftervaldoc
+msgid "There is invalid data after valid XML document"
+msgstr ""
+
+#: vpsr:snointconditional
+msgid "Conditional sections not allowed in internal subset of document type declaration"
+msgstr ""
+
+#: vpsr:snotationnotdeclared
+msgid "Notation not declared: "
+msgstr ""
+
+#: vpsr:sinvpubidchar
+msgid "Invalid PublicID character: "
+msgstr ""
+
+#: vpsr:snondatainpedecl
+msgid "NDATA not allowed in parameter entity declaration"
+msgstr ""
+
+#: vpsr:sinvstandaloneval
+msgid "Standalone value must equal 'yes' or 'no'"
+msgstr ""
+
+#: vpsr:sinvencname
+msgid "Invalid encoding declaration: "
+msgstr ""
+
+#: vpsr:sinvvernum
+msgid "Invalid XML version number: "
+msgstr ""
+
+#: vpsr:sinventityvalue
+msgid "Invalid character in entity value: "
+msgstr ""
+
+#: vpsr:snocommentinmarkup
+msgid "Comments can not be placed within other markup"
+msgstr ""
+
+#: vpsr:snopeinintdtd
+msgid "Parameter entities not allowed in DTD internal subset"
+msgstr ""
+
+#: vpsr:sxmldecnotatbeg
+msgid "The XML declaration must appear before the first element"
+msgstr ""
+
+#: vpsr:sinvalidelementname
+msgid "Invalid element name: "
+msgstr ""
+
+#: vpsr:sbadparamentnesting
+msgid "Parameter-entity text must be properly nested: "
+msgstr ""
+
+#: vpsr:sinvalidcharencoding
+msgid "Invalid character encoding specified."
+msgstr ""
+
+#: vpsr:sattrnotnum
+msgid "Attribute %s of element %s does not have an integer value."
+msgstr ""
+
+#: vpsr:sunknownaxis
+msgid "Unknown axis specifier: %s"
+msgstr ""
+
+#: vpsr:sinvalidxmlchar
+msgid "Invalid XML Character found"
+msgstr ""
+
+#: vpsr:sinvalidbechar
+msgid "Invalid (big-endian) UTF-16 character encoding"
+msgstr ""
+
+#: vpsr:sinvalidlechar
+msgid "Invalid (little-endian) UTF-16 character encoding"
+msgstr ""
+
+#: vpsr:sbadutf8char
+msgid "Badly formed UTF-8 character in stream"
+msgstr ""
+
+#: vpsr:serrendofdocument
+msgid "Unexpected end of document stream"
+msgstr ""
+
+#: vpsr:sucs_isoconverterr
+msgid "Cannot convert UCS-4 character to ISO-8859-1"
+msgstr ""
+
+#: vpsr:sucs_u16converterr
+msgid "Cannot convert UCS-4 character to UTF-16"
+msgstr ""
+
+#: vpsr:sucs_u8convererr
+msgid "Cannot convert UCS-4 character to UTF-8"
+msgstr ""
+
+#: vpsr:rsoutofrange
+msgid "Out of range"
+msgstr ""
+
+#: vpsr:rsnotsupported
+msgid "not supported"
+msgstr ""
+
+#: vpsr:rsneedelementname
+msgid "Please supply an Element Name"
+msgstr ""
+
+#: vpsr:rsneedformatname
+msgid "FormatName cannot be blank"
+msgstr ""
+
+#: vpsr:rsprtcontrolowner
+msgid "Print controller is not owned by a TVpControlLink!"
+msgstr ""
+
+#: vpsr:rsbadprintformat
+msgid "Invalid print format "
+msgstr ""
+
+#: vpsr:rsbaditemtype
+msgid "Invalid item type "
+msgstr ""
+
+#: vpsr:rsbadmeasurement
+msgid "Invalid measurement"
+msgstr ""
+
+#: vpsr:rsownernotwinctrl
+msgid "Owner must be a TWinControl descendent"
+msgstr ""
+
+#: vpsr:rsnocontrollink
+msgid "Component must be linked to a TVpControlLink"
+msgstr ""
+
+#: vpsr:rsnoprintformats
+msgid "No print formats have been defined"
+msgstr ""
+
+#: vpsr:rsnocanvas
+msgid "TCanvas not assigned"
+msgstr ""
+
+#: vpsr:rsnolocalizationfile
+msgid "Localization file not found."
+msgstr ""
+
+#: vpsr:rscategorydesc0
+msgid "Category 0"
+msgstr ""
+
+#: vpsr:rscategorydesc1
+msgid "Category 1"
+msgstr ""
+
+#: vpsr:rscategorydesc2
+msgid "Category 2"
+msgstr ""
+
+#: vpsr:rscategorydesc3
+msgid "Category 3"
+msgstr ""
+
+#: vpsr:rscategorydesc4
+msgid "Category 4"
+msgstr ""
+
+#: vpsr:rscategorydesc5
+msgid "Category 5"
+msgstr ""
+
+#: vpsr:rscategorydesc6
+msgid "Category 6"
+msgstr ""
+
+#: vpsr:rscategorydesc7
+msgid "Category 7"
+msgstr ""
+
+#: vpsr:rscategorydesc8
+msgid "Category 8"
+msgstr ""
+
+#: vpsr:rscategorydesc9
+msgid "Category 9"
+msgstr ""
+
+#: vpsr:rseditprintformat
+msgid "Edit Print Formats..."
+msgstr ""
+
+#: vpsr:rsaddnewresource
+msgid "No resources have been defined. Would you like to add one now?"
+msgstr ""
+
+#: vpsr:rsselectresource
+msgid "No resource has been selected. Would you like to select one now?"
+msgstr ""
+

@@ -1,0 +1,402 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD><TITLE>DJVUXML</TITLE>
+<style type="text/css">
+<!--
+  OL,UL,P,BODY,TD,TR,TH,FORM { 
+    font-family: verdana,arial,helvetica,sans-serif; font-size:small; 
+    color: #000000; }
+  H1 { font-size: x-large; font-family: verdana,arial,helvetica,sans-serif; }
+  H2 { font-size: large; font-family: verdana,arial,helvetica,sans-serif; }
+  H3 { font-size: medium; font-family: verdana,arial,helvetica,sans-serif; }
+  H4 { font-size: small; font-family: verdana,arial,helvetica,sans-serif; }
+  H5 { font-size: x-small; font-family: verdana,arial,helvetica,sans-serif; }
+  H6 { font-size: xx-small; font-family: verdana,arial,helvetica,sans-serif; }
+--></style>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<table width=100% bgcolor="#C0C0E0" border=0 cellspacing=0 cellpadding=0>
+<tr><td valign=middle align=center><h1>DJVUXML</h1></td></tr>
+</table>
+<p>
+<div style="margin-left: 2cm">
+<H1>DJVUXML</H1>
+Section: DjVuLibre XML Tools (1)<BR>Updated: 11/15/2002<BR><A HREF="#index">Index</A>
+<A HREF="/cgi-bin/man/man2html">Return to Main Contents</A><HR>
+
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+djvutoxml, djvuxmlparser - DjVuLibre XML Tools.
+<P>
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<B>djvutoxml [</B><I>options</I><B>] </B><I>inputdjvufile</I><B> [</B><I>outputxmlfile</I><B>]</B>
+
+<BR>
+
+<B>djvuxmlparser [ -o </B><I>djvufile</I><B> ] </B><I>inputxmlfile</I>
+
+<P>
+<P>
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+The DjVuLibre XML Tools provide for editing the
+metadata, hyperlinks and hidden text 
+associated with DjVu files.  Unlike 
+<B><A HREF="/cgi-bin/man/man2html?1+djvused">djvused</A></B>(1)
+
+the DjVuLibre XML Tools rely on the XML technology
+and can take advantage of XML editors and verifiers.
+<P>
+<A NAME="lbAE">&nbsp;</A>
+<H2>DJVUTOXML</H2>
+
+Program
+<B>djvutoxml</B>
+
+creates a XML file
+<I>outputxmlfile</I>
+
+containing a reference to the original DjVu document
+<I>inputdjvufile</I>
+
+as well as tags describing the metadata,
+hyperlinks, and hidden text associated with the DjVu file.
+<P>
+The following options are supported:
+<DL COMPACT>
+<DT><B>--page </B><I>pagenum</I>
+
+<DD>
+Select a page in a multi-page document.
+Without this option, 
+<B>djvutoxml</B>
+
+outputs the XML 
+corresponding to all pages of the document.
+<DT><B>--with-text</B>
+
+<DD>
+Specifies the 
+<B>HIDDENTEXT </B>
+
+element for each page should be included in the output.  
+If specified without the
+<B>--with-anno</B>
+
+flag then the
+<B>--without-anno </B>
+
+is implied.  If none of the  
+<B>--with-text, </B>
+
+<B>--without-text, </B>
+
+<B>--with-anno, </B>
+
+or
+<B>--without-anno, </B>
+
+flags are specified, then the  
+<B>--with-text </B>
+
+and 
+<B>--with-anno </B>
+
+flags are implied.
+<DT><B>--without-text</B>
+
+<DD>
+Specifies not to output the 
+<B>HIDDENTEXT </B>
+
+element for each page.  If specified without the 
+<B>--without-anno </B>
+
+flag then the 
+<B>--with-anno </B>
+
+flag is implied.
+<DT><B>--with-anno</B>
+
+<DD>
+Specifies the area 
+<B>MAP </B>
+
+element for each page should be included in the output.  
+If specified without the
+<B>--with-text </B>
+
+flag then the
+<B>--without-text </B>
+
+flag is implied.
+<DT><B>--without-anno</B>
+
+<DD>
+Specifies the area 
+<B>MAP </B>
+
+element for each page should not be included in the output.  
+If specified without the
+<B>--without-text </B>
+
+flag then the
+<B>--with-text </B>
+
+flag is implied.
+<P>
+<P>
+</DL>
+<A NAME="lbAF">&nbsp;</A>
+<H2>DJVUXMLPARSER</H2>
+
+<P>
+Files produced by 
+<B>djvutoxml</B>
+
+can then be modified using 
+either a text editor or a XML editor.
+Program
+<B>djvuxmlparser</B>
+
+parses the XML file 
+<I>inputxmlfile</I>
+
+in order to modify the metadata of the corresponding DjVu file.
+<DL COMPACT>
+<DT><B>-o </B><I>djvufile</I>
+
+<DD>
+In principle the target DjVu file is the file 
+referenced by the
+<I>OBJECT </I>
+
+element of the XML file. 
+This option provides the means to override the filename
+specified in the 
+<I>OBJECT</I>
+
+element.
+<P>
+</DL>
+<A NAME="lbAG">&nbsp;</A>
+<H2>DJVUXML DOCUMENT TYPE DEFINITION</H2>
+
+The document type definition file (DTD)
+<DL COMPACT>
+<DT><DD>
+<B>/usr/local/share/djvu/pubtext/DjVuXML-s.dtd</B>
+
+</DL>
+<P>
+
+defines the input and output of the DjVu XML tools.
+<P>
+The DjVuXML-s DTD is a simplification of the HTML DTD:
+<DL COMPACT>
+<DT><DD>
+<B><A HREF="http://www.w3c.org/TR/1998/REC-html40-19980424/sgml/dtd.html">http://www.w3c.org/TR/1998/REC-html40-19980424/sgml/dtd.html</A></B>
+
+</DL>
+<P>
+
+with a few new attributes added specific to DjVu.  Each of the 
+specified pages of a DjVu document are represented as 
+<B>OBJECT </B>
+
+elements within the 
+<B>BODY </B>
+
+element of the XML file. 
+Each 
+<B>OBJECT</B>
+
+element may contain multiple 
+<B>PARAM </B>
+
+elements to specify attributes like page name,
+resolution,
+and gamma factor.
+Each 
+<B>OBJECT</B>
+
+element may also contain one
+<B>HIDDENTTEXT</B>
+
+element to specify the hidden text (usually generated with an OCR engine) 
+within the DjVu page.  In addition each 
+<B>OBJECT</B>
+
+element may reference a single area 
+<B>MAP</B>
+
+element which contains multiple
+<B>AREA</B>
+
+elements to represent all the hyperlink and highlight areas within 
+the DjVu document.
+<P>
+
+<A NAME="lbAH">&nbsp;</A>
+<H2>&nbsp;&nbsp;&nbsp;PARAM Elements</H2>
+
+
+Legal 
+<B>PARAM </B>
+
+elements of a DjVu 
+<B>OBJECT </B>
+
+include but are not limited to
+<B>PAGE</B>
+
+for specifying the page-name,
+<B>GAMMA</B>
+
+for specifying the gamma correction factor (normally 2.2), and
+<B>DPI</B>
+
+for specifying the page resolution.
+<P>
+
+<A NAME="lbAI">&nbsp;</A>
+<H2>&nbsp;&nbsp;&nbsp;HIDDENTEXT Elements</H2>
+
+
+The 
+<B>HIDDENTEXT</B>
+
+elements consists of nested elements of 
+<B>PAGECOLUMNS,</B>
+
+<B>REGION,</B>
+
+<B>PARAGRAPH,</B>
+
+<B>LINE,</B>
+
+and
+<B>WORD.</B>
+
+The most deeply nested element specified, should specify the bounding 
+coordinates of the element in top-down orientation.  The body of the 
+most deeply nested element should contain the text.  Most DjVu 
+documents use either 
+<B>LINE </B>
+
+or 
+<B>WORD </B>
+
+as the lowest level element, but any element is legal as the lowest 
+level element.  A white space is always added between 
+<B>WORD</B>
+
+elements and a line feed is always added between
+<B>LINE</B>
+
+elements.  Since languages such as Japanese do not use spaces between 
+words, it is quite common for Asian OCR engines to use
+<B>WORD</B>
+
+as characters instead.
+<P>
+
+<A NAME="lbAJ">&nbsp;</A>
+<H2>&nbsp;&nbsp;&nbsp;MAP Elements</H2>
+
+
+The body of the 
+<B>MAP</B>
+
+elements consist of 
+<B>AREA</B>
+
+elements.  In addition to the attributes listed in
+<DL COMPACT>
+<DT><DD>
+<B><A HREF="http://www.w3.org/TR/1998/REC-html40-19980424/struct/objects.html#edef-AREA">http://www.w3.org/TR/1998/REC-html40-19980424/struct/objects.html#edef-AREA</A></B>,
+
+</DL>
+<P>
+
+the attributes
+<B>bordertype</B>,
+
+<B>bordercolor</B>,
+
+<B>border</B>,
+
+and 
+<B>highlight</B>
+
+have been added to specify border type, border color, border width, and 
+highlight colors respectively.  Legal values for each of these attributes 
+are listed in the DjVuXML-s DTD.
+In addition, the shape
+<B>oval</B>
+
+has been added to the legal list of shapes.  An oval uses a rectangular 
+bounding box.
+<P>
+<A NAME="lbAK">&nbsp;</A>
+<H2>BUGS</H2>
+
+Perhaps it would have been better to use CC2 style sheets 
+with standard HTML elements instead of defining the 
+<B>HIDDENTEXT </B>
+
+element.
+<P>
+<A NAME="lbAL">&nbsp;</A>
+<H2>CREDITS</H2>
+
+The DjVu XML tools and DTD were written
+by Bill C. Riemers &lt;<A HREF="mailto:docbill@sourceforge.net">docbill@sourceforge.net</A>&gt; 
+and Fred Crary.
+<P>
+<A NAME="lbAM">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<B><A HREF="/cgi-bin/man/man2html?1+djvu">djvu</A></B>(1),
+
+<B><A HREF="/cgi-bin/man/man2html?1+djvused">djvused</A></B>(1),
+
+and
+<B><A HREF="/cgi-bin/man/man2html?7+utf8">utf8</A></B>(7).
+
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">DJVUTOXML</A><DD>
+<DT><A HREF="#lbAF">DJVUXMLPARSER</A><DD>
+<DT><A HREF="#lbAG">DJVUXML DOCUMENT TYPE DEFINITION</A><DD>
+<DT><A HREF="#lbAH">&nbsp;&nbsp;&nbsp;PARAM Elements</A><DD>
+<DT><A HREF="#lbAI">&nbsp;&nbsp;&nbsp;HIDDENTEXT Elements</A><DD>
+<DT><A HREF="#lbAJ">&nbsp;&nbsp;&nbsp;MAP Elements</A><DD>
+<DT><A HREF="#lbAK">BUGS</A><DD>
+<DT><A HREF="#lbAL">CREDITS</A><DD>
+<DT><A HREF="#lbAM">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="/cgi-bin/man/man2html">man2html</A>,
+using the manual pages.<BR>
+Time: 01:56:22 GMT, November 21, 2010
+
+
+</div>
+<p>
+<table width=100% bgcolor="#C0C0E0" border=0 cellspacing=0 cellpadding=3>
+<tr><td valign=middle align=center><h1>DJVUXML</h1></td></tr>
+</table>
+</BODY>
+</HTML>

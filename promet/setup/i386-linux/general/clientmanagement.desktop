@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=Promet-ERP Clientmanagement
+Comment=Clientmanagement for Promet-ERP
+Exec=promet-erp-clientmanagement
+Terminal=false
+Type=Application
+Icon=promet-erp.png
+Categories=Application;Office;
+GenericName[de_DE]=

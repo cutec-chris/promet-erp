@@ -1,0 +1,13 @@
+Source: promet-erp-timeregistering
+Package: promet-erp-timeregistering
+Version: VERSION
+Section: office
+Priority: optional
+Maintainer: Christian Ulrich <info@free-erp.de>
+Architecture: ARCH
+Installed-Size: DEBSIZE
+Depends: libc6,libgtk2.0-dev (>=2.6.0),promet-erp
+Description: Timeregistering for Promet-ERP
+ Installed is: An timeregistering application
+ .
+

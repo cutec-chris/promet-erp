@@ -1,0 +1,197 @@
+object fMain: TfMain
+  Left = 405
+  Height = 353
+  Top = 208
+  Width = 887
+  Caption = 'Clientmanagement'
+  ClientHeight = 353
+  ClientWidth = 887
+  Color = clWindow
+  Menu = MainMenu
+  OnClose = FormClose
+  OnShow = FormShow
+  Position = poScreenCenter
+  LCLVersion = '0.9.31'
+  object gUsers: TDBGrid
+    Left = 0
+    Height = 353
+    Top = 0
+    Width = 672
+    Align = alClient
+    Color = clWindow
+    Columns = <    
+      item
+        ReadOnly = True
+        Title.Caption = 'NAME'
+        Width = 150
+        FieldName = 'NAME'
+      end    
+      item
+        ReadOnly = True
+        Title.Caption = 'CLIENT'
+        Width = 100
+        FieldName = 'CLIENT'
+      end    
+      item
+        ReadOnly = True
+        Title.Caption = 'VERSION'
+        Width = 150
+        FieldName = 'VERSION'
+      end    
+      item
+        ReadOnly = True
+        Title.Caption = 'TIMESTAMPD'
+        Width = 140
+        FieldName = 'TIMESTAMPD'
+      end    
+      item
+        ReadOnly = True
+        Title.Caption = 'HOST'
+        Width = 100
+        FieldName = 'HOST'
+      end>
+    DataSource = ActiveUsers
+    TabOrder = 0
+    TitleStyle = tsNative
+  end
+  object Splitter1: TSplitter
+    Left = 672
+    Height = 353
+    Top = 0
+    Width = 5
+    Align = alRight
+    ResizeAnchor = akRight
+  end
+  object Panel1: TPanel
+    Left = 677
+    Height = 353
+    Top = 0
+    Width = 210
+    Align = alRight
+    BevelOuter = bvNone
+    Caption = 'Panel1'
+    ClientHeight = 353
+    ClientWidth = 210
+    TabOrder = 2
+    object DBGrid1: TDBGrid
+      Left = 0
+      Height = 306
+      Top = 47
+      Width = 210
+      Align = alClient
+      Color = clWindow
+      Columns = <      
+        item
+          Title.Caption = 'COMMAND'
+          Width = 170
+          FieldName = 'COMMAND'
+        end>
+      DataSource = Commands
+      TabOrder = 0
+      TitleStyle = tsNative
+      OnDrawColumnCell = DBGrid1DrawColumnCell
+    end
+    object cbCommand: TComboBox
+      Left = 0
+      Height = 29
+      Top = 18
+      Width = 210
+      Align = alTop
+      ItemHeight = 0
+      Items.Strings = (
+        'Shutdown'
+        'Ping'
+      )
+      OnExit = cbCommandSelect
+      OnSelect = cbCommandSelect
+      TabOrder = 1
+    end
+    object Label1: TLabel
+      Left = 0
+      Height = 18
+      Top = 0
+      Width = 210
+      Align = alTop
+      Caption = 'Befehl'
+      ParentColor = False
+    end
+  end
+  object Properties: TXMLPropStorage
+    StoredValues = <    
+      item
+        Name = 'HEIGHT'
+      end    
+      item
+        Name = 'WIDTH'
+      end    
+      item
+        Name = 'LEFT'
+      end    
+      item
+        Name = 'TOP'
+      end    
+      item
+        Name = 'LANGUAGE'
+      end    
+      item
+        Name = 'LOGINMANDANT'
+      end    
+      item
+        Name = 'LOGINUSER'
+      end    
+      item
+        Name = 'AUTOMATICLOGIN'
+      end>
+    left = 16
+    top = 64
+  end
+  object ActionList1: TActionList
+    left = 16
+    top = 120
+    object acLogin: TAction
+      Caption = 'Anmelden'
+      OnExecute = acLoginExecute
+    end
+    object acLogout: TAction
+      Caption = 'Abmelden'
+      Enabled = False
+      OnExecute = acLogoutExecute
+    end
+  end
+  object MainMenu: TMainMenu
+    left = 88
+    top = 64
+    object miMandant: TMenuItem
+      Caption = 'Mandant'
+      object MenuItem4: TMenuItem
+        Action = acLogin
+        OnClick = acLoginExecute
+      end
+      object MenuItem3: TMenuItem
+        Action = acLogout
+        OnClick = acLogoutExecute
+      end
+    end
+    object miOptions: TMenuItem
+      Caption = 'Optionen'
+      object miLanguage: TMenuItem
+        Caption = 'Sprache'
+      end
+    end
+  end
+  object IdleTimer1: TIdleTimer
+    Enabled = False
+    Interval = 2000
+    OnTimer = IdleTimer1Timer
+    left = 88
+    top = 120
+  end
+  object ActiveUsers: TDatasource
+    left = 160
+    top = 120
+  end
+  object Commands: TDatasource
+    left = 160
+    top = 184
+  end
+end

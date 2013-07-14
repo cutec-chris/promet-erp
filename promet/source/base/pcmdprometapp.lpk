@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <Package Version="4">
+    <Name Value="pcmdprometapp"/>
+    <AddToProjectUsesSection Value="True"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <SearchPaths>
+        <UnitOutputDirectory Value="lib/cmd/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+      </SearchPaths>
+      <Other>
+        <CompilerMessages>
+          <UseMsgFile Value="True"/>
+        </CompilerMessages>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
+    </CompilerOptions>
+    <Files Count="2">
+      <Item1>
+        <Filename Value="ubasecustomapplication.pas"/>
+        <UnitName Value="uBaseCustomApplication"/>
+      </Item1>
+      <Item2>
+        <Filename Value="upowerstate.pas"/>
+        <UnitName Value="uPowerState"/>
+      </Item2>
+    </Files>
+    <Type Value="RunAndDesignTime"/>
+    <RequiredPkgs Count="2">
+      <Item1>
+        <PackageName Value="pPrometDBIntfs"/>
+        <DefaultFilename Value="dbintfs/pprometdbintfs.lpk"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="FCL"/>
+        <MinVersion Major="1" Valid="True"/>
+      </Item2>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

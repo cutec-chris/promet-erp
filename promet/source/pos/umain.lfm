@@ -1,0 +1,486 @@
+object fMain: TfMain
+  Left = 332
+  Height = 510
+  Top = 110
+  Width = 699
+  Caption = 'Point of Sale'
+  ClientHeight = 490
+  ClientWidth = 699
+  Color = clWindow
+  Menu = MainMenu
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnShow = FormShow
+  Position = poScreenCenter
+  LCLVersion = '0.9.29'
+  object pList: TPanel
+    Left = 0
+    Height = 490
+    Top = 0
+    Width = 699
+    Align = alClient
+    BevelOuter = bvNone
+    ClientHeight = 490
+    ClientWidth = 699
+    TabOrder = 0
+    object bViewDetails: TBitBtn
+      Left = 8
+      Height = 40
+      Top = 0
+      Width = 46
+      Action = acViewDetails
+      BorderSpacing.InnerBorder = 2
+      Glyph.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000064000000640000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        000000000000000000000000000000000000000000000000000000000000D69E
+        73FFD79D6FFFD7966BFFCE9663FFCF8E5EFFCF8E5BFFC78756FFC78452FFC784
+        52FFC78452FFC78452FFC78452FFC78452FFBF7742FF0000000000000000D7A5
+        77FFFFF7EFFFF7F7EFFFF7EFE7FFF7EFE7FFF7E7DEFFF7E7DFFFF7E7DEFFF7E7
+        DEFFF7E7DEFFF7E7DEFFF7E7DEFFF7E7DEFFC78E5FFF0000000000000000DFA5
+        7BFFFFF7EFFFEFD6BFFFFFFFFFFFEFD7BFFFFFFFFFFFFFFFFFFFFFFFFFFFEFC7
+        ADFFFFFFFFFFFFFFFFFFFFFFFFFFF7E7DEFFC68C5FFF0000000000000000DFAD
+        7FFFFFF7EFFFEFD6BFFFEFD6BFFFEFD6BFFFEFD6BFFFEFD6BFFFEFD7BDFFEFCF
+        B5FFEFCFB5FFEFCFB5FFEFCFB5FFF7E7DEFFC68E5EFF0000000000000000DFAF
+        86FFFFF7EFFFEFCEB7FFFFFFFFFFEFD6BFFFFFFFFFFFFFFFFFFFFFFFFFFFEFCF
+        BFFFFFF7F7FFFFFFFFFFFFFFFFFFF7E7DEFFCE8D5FFF0000000000000000E7AF
+        87FFFFF7F7FFEFCFB7FFEFCEB7FFEFCEB7FFEFCEB7FFEFCEB7FFEFCEB7FFEFC7
+        ADFFEFC7ADFFEFCEB5FFEFCEAFFFF7E7DEFFC68656FF0000000000000000E7B5
+        8CFFFFF7F7FFEFCFAFFFFFFFFFFFEFCFB5FFFFFFFFFFFFFFFFFFFFFFFFFFEFC7
+        ADFFFFFFFFFFFFFFFFFFFFFFFFFFF7E7DFFFC68657FF0000000000000000E7B5
+        8FFFFFF7F7FFEFC6AFFFEFC6ADFFEFC7ADFFEFC7ADFFEFCFAFFFEFCFB5FFEFC7
+        ADFFEFCFB5FFEFCEB5FFEFCEB5FFF7E7DEFFCE8E5BFF0000000000000000E7B7
+        94FFFFF7F7FFEFC7A7FFFFFFFFFFEFC6ADFFFFFFFFFFFFFFFFFFFFFFFFFFEFC7
+        ADFFFFFFFFFFFFFFFFFFFFFFFFFFF7F7EFFFCF8F5FFF0000000000000000EFBF
+        9CFFFFF7F7FFEFC7A7FFEFC7A7FFEFC7A7FFEFC7A7FFEFC7A7FFEFC7A7FFEFC7
+        A7FFEFC7A7FFEFC7A7FFEFC7A7FFFFF7F7FFCE9767FF0000000000000000EFBD
+        9FFFFFF7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7F7FFD7976BFF0000000000000000EFBF
+        9EFFFFF7F7FF9CD7A5FF9CD7A5FF94D69DFF94CE9CFF8FCF97FF87CF8EFF86C6
+        8DFF7FC784FF7BC784FF77BF7FFFFFF7F7FFD69F6FFF0000000000000000EFC7
+        A5FFFFF7F7FFFFF7F7FFFFF7F7FFFFF7F7FFFFF7F7FFFFF7F7FFFFF7F7FFFFF7
+        F7FFFFF7F7FFFFF7F7FFFFF7F7FFFFF7F7FFD7A577FF00000000000000000000
+        0000EFC7A7FFEFC69FFFEFBF9DFFEFBD9EFFEFBF96FFE7B797FFE7B594FFE7B7
+        8CFFE7AF8CFFE7AD84FFDFAD84FFDEA57FFFDEA77BFF00000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000
+      }
+      Layout = blGlyphTop
+      NumGlyphs = 0
+      TabOrder = 0
+    end
+    object gList: TDBGrid
+      Left = 0
+      Height = 438
+      Top = 52
+      Width = 699
+      Align = alBottom
+      AlternateColor = 16770790
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      BorderStyle = bsNone
+      Columns = <      
+        item
+          Width = 50
+          FieldName = 'STATUS'
+        end      
+        item
+          Width = 100
+          FieldName = 'NUMBER'
+        end>
+      DefaultRowHeight = 21
+      Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
+      TabOrder = 1
+      TitleStyle = tsNative
+    end
+  end
+  object pDetails: TPanel
+    Left = 0
+    Height = 490
+    Top = 0
+    Width = 699
+    Align = alClient
+    BevelOuter = bvNone
+    ClientHeight = 490
+    ClientWidth = 699
+    TabOrder = 1
+    OnClick = pDetailsClick
+    object lStatus: TLabel
+      Left = 642
+      Height = 22
+      Top = 0
+      Width = 48
+      Anchors = [akTop, akRight]
+      Caption = 'lStatus'
+      Font.Height = 22
+      ParentColor = False
+      ParentFont = False
+    end
+    object lSum: TLabel
+      Left = 446
+      Height = 22
+      Top = 282
+      Width = 37
+      Anchors = [akRight, akBottom]
+      Caption = 'lSum'
+      Font.Height = 22
+      ParentColor = False
+      ParentFont = False
+    end
+    object dgBon: TDBGrid
+      Left = 8
+      Height = 215
+      Top = 52
+      Width = 475
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      Columns = <      
+        item
+          Width = 60
+          FieldName = 'IDENT'
+        end      
+        item
+          Width = 200
+          FieldName = 'SHORTTEXT'
+        end      
+        item
+          Width = 60
+          FieldName = 'PRICE'
+        end      
+        item
+          Width = 40
+          FieldName = 'QUANTITY'
+        end      
+        item
+          Width = 80
+          FieldName = 'WPRICE'
+        end>
+      DefaultRowHeight = 21
+      Enabled = False
+      TabOrder = 0
+      TitleStyle = tsNative
+    end
+    object bPrintBon: TBitBtn
+      Left = 491
+      Height = 62
+      Top = 420
+      Width = 199
+      Anchors = [akRight, akBottom]
+      Caption = 'bPrintBon'
+      Enabled = False
+      NumGlyphs = 0
+      TabOrder = 1
+    end
+    object bClear: TBitBtn
+      Left = 491
+      Height = 50
+      Top = 52
+      Width = 199
+      Anchors = [akTop, akRight]
+      Caption = 'bClear'
+      Enabled = False
+      NumGlyphs = 0
+      TabOrder = 2
+    end
+    object bQuantity: TBitBtn
+      Left = 491
+      Height = 54
+      Top = 120
+      Width = 61
+      Anchors = [akTop, akRight]
+      Caption = 'bQuantity'
+      Enabled = False
+      NumGlyphs = 0
+      TabOrder = 3
+    end
+    object bPosStorno: TBitBtn
+      Left = 560
+      Height = 54
+      Top = 120
+      Width = 61
+      Anchors = [akTop, akRight]
+      Caption = 'bQuantity'
+      Enabled = False
+      NumGlyphs = 0
+      TabOrder = 4
+    end
+    object bBonStorno: TBitBtn
+      Left = 629
+      Height = 54
+      Top = 120
+      Width = 61
+      Anchors = [akTop, akRight]
+      Caption = 'bQuantity'
+      Enabled = False
+      NumGlyphs = 0
+      TabOrder = 5
+    end
+    object cbPaymentType: TComboBox
+      Left = 491
+      Height = 23
+      Top = 384
+      Width = 199
+      Anchors = [akRight, akBottom]
+      Enabled = False
+      ItemHeight = 15
+      TabOrder = 6
+      Text = 'cbPaymenttype'
+    end
+    object pcButtons: TPageControl
+      Left = 12
+      Height = 174
+      Top = 308
+      Width = 471
+      Anchors = [akLeft, akRight, akBottom]
+      TabOrder = 7
+    end
+    object bViewList: TBitBtn
+      Left = 8
+      Height = 40
+      Top = 8
+      Width = 46
+      Action = acViewList
+      BorderSpacing.InnerBorder = 2
+      Glyph.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000064000000640000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        000000000000000000000000000000000000000000000000000000000000D69E
+        73FFD79D6FFFD7966BFFCE9663FFCF8E5EFFCF8E5BFFC78756FFC78452FFC784
+        52FFC78452FFC78452FFC78452FFC78452FFBF7742FF0000000000000000D7A5
+        77FFFFF7EFFFF7F7EFFFF7EFE7FFF7EFE7FFF7E7DEFFF7E7DFFFF7E7DEFFF7E7
+        DEFFF7E7DEFFF7E7DEFFF7E7DEFFF7E7DEFFC78E5FFF0000000000000000DFA5
+        7BFFFFF7EFFFEFD6BFFFFFFFFFFFEFD7BFFFFFFFFFFFFFFFFFFFFFFFFFFFEFC7
+        ADFFFFFFFFFFFFFFFFFFFFFFFFFFF7E7DEFFC68C5FFF0000000000000000DFAD
+        7FFFFFF7EFFFEFD6BFFFEFD6BFFFEFD6BFFFEFD6BFFFEFD6BFFFEFD7BDFFEFCF
+        B5FFEFCFB5FFEFCFB5FFEFCFB5FFF7E7DEFFC68E5EFF0000000000000000DFAF
+        86FFFFF7EFFFEFCEB7FFFFFFFFFFEFD6BFFFFFFFFFFFFFFFFFFFFFFFFFFFEFCF
+        BFFFFFF7F7FFFFFFFFFFFFFFFFFFF7E7DEFFCE8D5FFF0000000000000000E7AF
+        87FFFFF7F7FFEFCFB7FFEFCEB7FFEFCEB7FFEFCEB7FFEFCEB7FFEFCEB7FFEFC7
+        ADFFEFC7ADFFEFCEB5FFEFCEAFFFF7E7DEFFC68656FF0000000000000000E7B5
+        8CFFFFF7F7FFEFCFAFFFFFFFFFFFEFCFB5FFFFFFFFFFFFFFFFFFFFFFFFFFEFC7
+        ADFFFFFFFFFFFFFFFFFFFFFFFFFFF7E7DFFFC68657FF0000000000000000E7B5
+        8FFFFFF7F7FFEFC6AFFFEFC6ADFFEFC7ADFFEFC7ADFFEFCFAFFFEFCFB5FFEFC7
+        ADFFEFCFB5FFEFCEB5FFEFCEB5FFF7E7DEFFCE8E5BFF0000000000000000E7B7
+        94FFFFF7F7FFEFC7A7FFFFFFFFFFEFC6ADFFFFFFFFFFFFFFFFFFFFFFFFFFEFC7
+        ADFFFFFFFFFFFFFFFFFFFFFFFFFFF7F7EFFFCF8F5FFF0000000000000000EFBF
+        9CFFFFF7F7FFEFC7A7FFEFC7A7FFEFC7A7FFEFC7A7FFEFC7A7FFEFC7A7FFEFC7
+        A7FFEFC7A7FFEFC7A7FFEFC7A7FFFFF7F7FFCE9767FF0000000000000000EFBD
+        9FFFFFF7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7F7FFD7976BFF0000000000000000EFBF
+        9EFFFFF7F7FF9CD7A5FF9CD7A5FF94D69DFF94CE9CFF8FCF97FF87CF8EFF86C6
+        8DFF7FC784FF7BC784FF77BF7FFFFFF7F7FFD69F6FFF0000000000000000EFC7
+        A5FFFFF7F7FFFFF7F7FFFFF7F7FFFFF7F7FFFFF7F7FFFFF7F7FFFFF7F7FFFFF7
+        F7FFFFF7F7FFFFF7F7FFFFF7F7FFFFF7F7FFD7A577FF00000000000000000000
+        0000EFC7A7FFEFC69FFFEFBF9DFFEFBD9EFFEFBF96FFE7B797FFE7B594FFE7B7
+        8CFFE7AF8CFFE7AD84FFDFAD84FFDEA57FFFDEA77BFF00000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000
+      }
+      Layout = blGlyphTop
+      NumGlyphs = 0
+      TabOrder = 8
+    end
+    object bNew: TBitBtn
+      Left = 56
+      Height = 40
+      Top = 8
+      Width = 46
+      Action = acNew
+      BorderSpacing.InnerBorder = 2
+      Glyph.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000064000000640000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        000000000000000000000000000000000000A46534CCA46534FFA46534FFA465
+        34CC000000000000000000000000000000000000000000000000000000000000
+        000000000000000000000000000000000000A46534FFE6CEB7FFE6CEB7FFA465
+        34FF000000000000000000000000000000000000000000000000000000000000
+        000000000000000000000000000000000000A46534FFE6CEB7FFD9AD86FFA465
+        34FF000000000000000000000000000000000000000000000000000000000000
+        000000000000000000000000000000000000A46534FFE6CEB7FFD9AD86FFA465
+        34FF000000000000000000000000000000000000000000000000000000000000
+        0000A46534CCA46534FFA46534FFA46534FFA46534FFD9AD86FFD9AD86FFA465
+        34FFA46534FFA46534FFA46534FFA46534CC0000000000000000000000000000
+        0000A46534FFE5CCB4FFDBB795FFDBB694FFDAB492FFDAB390FFD9AD86FFD8AA
+        83FFD7A87FFFD7A67DFFE0BE9FFFA46534FF0000000000000000000000000000
+        0000A46534FFE8D3C0FFE7D1BBFFE7D1BCFFE6CEB7FFE6CEB7FFE6CEB7FFE6CE
+        B7FFE6CDB6FFE6CCB5FFE6CCB6FFA46534FF0000000000000000000000000000
+        0000A46534CCA46534FFA46534FFA46534FFA46534FFE6CEB7FFE6CEB7FFA465
+        34FFA46534FFA46534FFA46534FFA46534CC0000000000000000000000000000
+        000000000000000000000000000000000000A46534FFE6CEB7FFE6CEB7FFA465
+        34FF000000000000000000000000000000000000000000000000000000000000
+        000000000000000000000000000000000000A46534FFE6CEB7FFE6CEB7FFA465
+        34FF000000000000000000000000000000000000000000000000000000000000
+        000000000000000000000000000000000000A46534FFE6CEB7FFE6CEB7FFA465
+        34FF000000000000000000000000000000000000000000000000000000000000
+        000000000000000000000000000000000000A46534CCA46534FFA46534FFA465
+        34CC000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000
+      }
+      Layout = blGlyphTop
+      NumGlyphs = 0
+      TabOrder = 9
+    end
+  end
+  object dbMandant: TDbf
+    IndexDefs = <>
+    TableName = 'mandant.dbf'
+    TableLevel = 7
+    FilterOptions = []
+    left = 44
+    top = 92
+  end
+  object ActionList: TActionList
+    left = 112
+    top = 144
+    object acInfo: TAction
+      Caption = 'acInfo'
+    end
+    object acBugtracker: TAction
+      Caption = 'acBugtracker'
+    end
+    object acShowHide: TAction
+      Caption = 'acShowHide'
+    end
+    object acQuit: TAction
+      Caption = 'acQuit'
+    end
+    object acLogin: TAction
+      Caption = 'acLogin'
+      OnExecute = acLoginExecute
+    end
+    object acLogout: TAction
+      Caption = 'acLogout'
+      Enabled = False
+      OnExecute = acLogoutExecute
+    end
+    object acNew: TAction
+      OnExecute = acNewExecute
+    end
+    object acViewList: TAction
+      OnExecute = acViewListExecute
+    end
+    object acViewDetails: TAction
+      OnExecute = acViewDetailsExecute
+    end
+    object acPrint: TAction
+      Caption = 'acPrint'
+      OnExecute = acPrintExecute
+    end
+    object acClear: TAction
+      Caption = 'acClear'
+    end
+  end
+  object Properties: TXMLPropStorage
+    StoredValues = <    
+      item
+        Name = 'HEIGHT'
+      end    
+      item
+        Name = 'WIDTH'
+      end    
+      item
+        Name = 'LEFT'
+      end    
+      item
+        Name = 'TOP'
+      end    
+      item
+        Name = 'LANGUAGE'
+      end    
+      item
+        Name = 'SCANNERRES'
+      end    
+      item
+        Name = 'TEMPPATH'
+      end    
+      item
+        Name = 'DELETEMETHOD'
+      end    
+      item
+        Name = 'DOUPDATE'
+      end    
+      item
+        Name = 'UPDATEPATHS'
+      end    
+      item
+        Name = 'AUTOMATICLOGIN'
+      end    
+      item
+        Name = 'HIDDENLOGIN'
+      end    
+      item
+        Name = 'LOGINUSER'
+      end    
+      item
+        Name = 'LOGINMANDANT'
+      end    
+      item
+        Name = 'PHONELINES'
+      end    
+      item
+        Name = 'MAILCHECKTIME'
+      end    
+      item
+        Name = 'MAILDIVIDER'
+      end    
+      item
+        Name = 'HDIVIDER'
+      end    
+      item
+        Name = 'PVLEFT'
+      end    
+      item
+        Name = 'PVTOP'
+      end    
+      item
+        Name = 'PVWIDTH'
+      end    
+      item
+        Name = 'PVHEIGHT'
+      end>
+    left = 44
+    top = 144
+  end
+  object MainMenu: TMainMenu
+    left = 112
+    top = 92
+    object miMandant: TMenuItem
+      Caption = 'miMandant'
+      object MenuItem4: TMenuItem
+        Action = acLogin
+        OnClick = acLoginExecute
+      end
+      object MenuItem3: TMenuItem
+        Action = acLogout
+        OnClick = acLogoutExecute
+      end
+    end
+    object miOptions: TMenuItem
+      Caption = 'miOptions'
+      object miLanguage: TMenuItem
+        Caption = 'miLanguage'
+      end
+      object MenuItem6: TMenuItem
+        Caption = '-'
+      end
+      object miPersonalOptions: TMenuItem
+      end
+    end
+    object miHelp: TMenuItem
+      Caption = 'miHelp'
+      object miHelpindex: TMenuItem
+        Action = acBugtracker
+      end
+      object miInfo: TMenuItem
+        Action = acInfo
+      end
+    end
+  end
+end

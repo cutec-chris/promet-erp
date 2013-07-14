@@ -1,0 +1,32 @@
+object fScreenshot: TfScreenshot
+  Left = 571
+  Height = 240
+  Top = 318
+  Width = 320
+  BorderStyle = bsNone
+  Caption = 'fScreenshot'
+  ClientHeight = 240
+  ClientWidth = 320
+  FormStyle = fsSystemStayOnTop
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnKeyUp = FormKeyUp
+  ShowInTaskBar = stNever
+  LCLVersion = '1.1'
+  WindowState = wsFullScreen
+  object Scr: TImage
+    Left = 0
+    Height = 240
+    Top = 0
+    Width = 320
+    Align = alClient
+    OnDblClick = ScrDblClick
+    OnMouseDown = ScrMouseDown
+    OnMouseMove = ScrMouseMove
+    OnMouseUp = ScrMouseUp
+  end
+  object SavePictureDialog1: TSavePictureDialog
+    left = 48
+    top = 24
+  end
+end

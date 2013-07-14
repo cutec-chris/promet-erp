@@ -1,0 +1,270 @@
+object fDetailPositionFrame: TfDetailPositionFrame
+  Left = 0
+  Height = 260
+  Top = 0
+  Width = 790
+  ClientHeight = 260
+  ClientWidth = 790
+  Color = clWindow
+  OnEnter = FrameEnter
+  ParentColor = False
+  TabOrder = 0
+  DesignLeft = 447
+  DesignTop = 251
+  object lTenderPos: TLabel
+    Left = 3
+    Height = 18
+    Top = 4
+    Width = 59
+    Caption = 'Aus.Pos.'
+    ParentColor = False
+  end
+  object lShortText: TLabel
+    Left = 63
+    Height = 18
+    Top = 4
+    Width = 59
+    Caption = 'Kurztext'
+    ParentColor = False
+  end
+  object lLongtext: TLabel
+    Left = 64
+    Height = 18
+    Top = 58
+    Width = 61
+    Caption = 'Langtext'
+    ParentColor = False
+  end
+  object lPQuantity: TLabel
+    Left = 564
+    Height = 14
+    Top = 2
+    Width = 54
+    Anchors = [akTop, akRight]
+    AutoSize = False
+    Caption = 'Menge'
+    ParentColor = False
+  end
+  object lTexttype: TLabel
+    Left = 4
+    Height = 18
+    Top = 58
+    Width = 52
+    Caption = 'Texttyp'
+    ParentColor = False
+  end
+  object lQuantityUnit: TLabel
+    Left = 633
+    Height = 14
+    Top = 2
+    Width = 64
+    Anchors = [akTop, akRight]
+    AutoSize = False
+    Caption = 'Einheit'
+    ParentColor = False
+  end
+  object lDQuantity: TLabel
+    Left = 561
+    Height = 18
+    Top = 59
+    Width = 59
+    Anchors = [akTop, akRight]
+    Caption = 'geliefert'
+    ParentColor = False
+  end
+  object lPDiscont: TLabel
+    Left = 705
+    Height = 14
+    Top = 59
+    Width = 80
+    Anchors = [akTop, akRight]
+    AutoSize = False
+    Caption = 'Rabatt'
+    ParentColor = False
+  end
+  object lPWholeprice: TLabel
+    Left = 698
+    Height = 18
+    Top = 98
+    Width = 87
+    Anchors = [akTop, akRight]
+    Caption = 'Gesamtpreis'
+    ParentColor = False
+  end
+  object lSerial: TLabel
+    Left = 565
+    Height = 14
+    Top = 98
+    Width = 54
+    Anchors = [akTop, akRight]
+    AutoSize = False
+    Caption = 'Serienn.'
+    ParentColor = False
+  end
+  object lVersion: TLabel
+    Left = 634
+    Height = 14
+    Top = 97
+    Width = 65
+    Anchors = [akTop, akRight]
+    AutoSize = False
+    Caption = 'Version'
+    ParentColor = False
+  end
+  object lPSellprice: TLabel
+    Left = 689
+    Height = 18
+    Top = 2
+    Width = 95
+    Anchors = [akTop, akRight]
+    Caption = 'Verkaufspreis'
+    ParentColor = False
+  end
+  object eTenderPos: TDBEdit
+    Left = 3
+    Height = 27
+    Top = 18
+    Width = 54
+    DataField = 'TPOSNO'
+    DataSource = Position
+    CharCase = ecNormal
+    MaxLength = 0
+    TabOrder = 0
+  end
+  object mLongText: TDBMemo
+    Left = 64
+    Height = 182
+    Top = 73
+    Width = 497
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    DataField = 'TEXT'
+    DataSource = Position
+    ScrollBars = ssAutoBoth
+    TabOrder = 1
+  end
+  object ePQuantity: TDBEdit
+    Left = 564
+    Height = 27
+    Top = 18
+    Width = 56
+    DataField = 'QUANTITY'
+    DataSource = Position
+    Anchors = [akTop, akRight]
+    CharCase = ecNormal
+    MaxLength = 0
+    TabOrder = 3
+  end
+  object cbTexttyp: TDBComboBox
+    Left = 4
+    Height = 29
+    Top = 73
+    Width = 54
+    DataField = 'TEXTTYPE'
+    DataSource = Position
+    ItemHeight = 0
+    MaxLength = 0
+    TabOrder = 2
+    TabStop = False
+  end
+  object cbPQuantityU: TDBComboBox
+    Left = 633
+    Height = 29
+    Top = 18
+    Width = 64
+    Anchors = [akTop, akRight]
+    DataField = 'QUANTITYU'
+    DataSource = Position
+    ItemHeight = 0
+    MaxLength = 0
+    TabOrder = 4
+  end
+  object eDQuantity: TDBEdit
+    Left = 565
+    Height = 27
+    Top = 73
+    Width = 56
+    DataSource = Position
+    Anchors = [akTop, akRight]
+    CharCase = ecNormal
+    MaxLength = 0
+    TabOrder = 5
+    TabStop = False
+  end
+  object ePPosprice: TDBEdit
+    Left = 704
+    Height = 27
+    Top = 18
+    Width = 82
+    DataField = 'SELLPRICE'
+    DataSource = Position
+    ReadOnly = True
+    Anchors = [akTop, akRight]
+    CharCase = ecNormal
+    MaxLength = 0
+    TabOrder = 6
+  end
+  object ePDiscont: TDBEdit
+    Left = 705
+    Height = 27
+    Top = 73
+    Width = 82
+    DataField = 'DISCOUNT'
+    DataSource = Position
+    Anchors = [akTop, akRight]
+    CharCase = ecNormal
+    MaxLength = 0
+    TabOrder = 7
+  end
+  object ePWholeprice: TDBEdit
+    Left = 705
+    Height = 27
+    Top = 113
+    Width = 82
+    DataField = 'GROSSPRICE'
+    DataSource = Position
+    ReadOnly = True
+    Anchors = [akTop, akRight]
+    CharCase = ecNormal
+    MaxLength = 0
+    TabOrder = 8
+  end
+  object eSerial: TDBEdit
+    Left = 565
+    Height = 27
+    Top = 112
+    Width = 56
+    DataField = 'SERIAL'
+    DataSource = Position
+    Anchors = [akTop, akRight]
+    CharCase = ecNormal
+    MaxLength = 0
+    TabOrder = 9
+  end
+  object cbVersion: TDBComboBox
+    Left = 634
+    Height = 29
+    Top = 113
+    Width = 64
+    Anchors = [akTop, akRight]
+    DataField = 'VERSION'
+    DataSource = Position
+    ItemHeight = 0
+    MaxLength = 0
+    TabOrder = 10
+  end
+  object eShortText: TDBMemo
+    Left = 63
+    Height = 40
+    Top = 18
+    Width = 497
+    Anchors = [akTop, akLeft, akRight]
+    DataField = 'SHORTTEXT'
+    DataSource = Position
+    ScrollBars = ssAutoBoth
+    TabOrder = 11
+  end
+  object Position: TDatasource
+    left = 31
+    top = 119
+  end
+end

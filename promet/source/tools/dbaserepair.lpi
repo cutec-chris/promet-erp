@@ -1,0 +1,270 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectOptions>
+    <PathDelim Value="\"/>
+    <Version Value="7"/>
+    <General>
+      <Flags>
+        <AlwaysBuild Value="False"/>
+        <LRSInOutputDirectory Value="False"/>
+      </Flags>
+      <MainUnit Value="0"/>
+      <TargetFileExt Value=".exe"/>
+      <UseXPManifest Value="True"/>
+      <Icon Value="0"/>
+      <ActiveWindowIndexAtStart Value="0"/>
+    </General>
+    <VersionInfo>
+      <StringTable Comments="" CompanyName="" FileDescription="" FileVersion="0.0.0.0" InternalName="" LegalCopyright="" LegalTrademarks="" OriginalFilename="" ProductName="" ProductVersion=""/>
+    </VersionInfo>
+    <PublishOptions>
+      <Version Value="2"/>
+      <DestinationDirectory Value="$(TestDir)\publishedproject\"/>
+      <IgnoreBinaries Value="False"/>
+      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
+      <ExcludeFileFilter Value="*.(bak|ppu|ppw|o|so);*~;backup"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+        <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
+      </local>
+    </RunParams>
+    <RequiredPackages Count="2">
+      <Item1>
+        <PackageName Value="DBFLaz"/>
+        <MinVersion Minor="1" Release="1" Valid="True"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="LCL"/>
+      </Item2>
+    </RequiredPackages>
+    <Units Count="9">
+      <Unit0>
+        <Filename Value="dbaserepair.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="dbaserepair"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="13"/>
+        <UsageCount Value="24"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="udbaserepair.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Form1"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="udbaserepair"/>
+        <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="50"/>
+        <CursorPos X="31" Y="73"/>
+        <UsageCount Value="24"/>
+        <Loaded Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="..\..\lazarus\fpc\2.2.0\source\packages\fcl-db\src\dbase\dbf.pas"/>
+        <UnitName Value="dbf"/>
+        <TopLine Value="323"/>
+        <CursorPos X="15" Y="372"/>
+        <UsageCount Value="10"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="..\..\Programme\lazarus\fpc\2.2.0\source\packages\fcl-db\src\dbase\dbf.pas"/>
+        <UnitName Value="dbf"/>
+        <TopLine Value="1512"/>
+        <CursorPos X="14" Y="1516"/>
+        <UsageCount Value="10"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="..\..\Programme\lazarus\fpc\2.2.0\source\packages\fcl-db\src\dbase\dbf_dbffile.pas"/>
+        <UnitName Value="dbf_dbffile"/>
+        <TopLine Value="765"/>
+        <CursorPos X="3" Y="767"/>
+        <UsageCount Value="10"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="..\..\Programme\lazarus\fpc\2.2.1\source\rtl\objpas\sysutils\filutilh.inc"/>
+        <TopLine Value="32"/>
+        <CursorPos X="3" Y="51"/>
+        <UsageCount Value="10"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="..\..\lazarus\ide\lazarus.pp"/>
+        <UnitName Value="Lazarus"/>
+        <TopLine Value="88"/>
+        <CursorPos X="1" Y="114"/>
+        <UsageCount Value="10"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="udbasedm.pas"/>
+        <UnitName Value="udbasedm"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1196"/>
+        <CursorPos X="1" Y="1238"/>
+        <UsageCount Value="11"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="..\..\lazarus\fpc\2.2.1\source\packages\fcl-db\src\dbase\dbf_pgfile.pas"/>
+        <UnitName Value="dbf_pgfile"/>
+        <TopLine Value="73"/>
+        <CursorPos X="48" Y="239"/>
+        <UsageCount Value="10"/>
+      </Unit8>
+    </Units>
+    <JumpHistory Count="30" HistoryIndex="29">
+      <Position1>
+        <Filename Value="udbaserepair.pas"/>
+        <Caret Line="73" Column="1" TopLine="48"/>
+      </Position1>
+      <Position2>
+        <Filename Value="udbaserepair.pas"/>
+        <Caret Line="74" Column="1" TopLine="49"/>
+      </Position2>
+      <Position3>
+        <Filename Value="udbaserepair.pas"/>
+        <Caret Line="73" Column="1" TopLine="48"/>
+      </Position3>
+      <Position4>
+        <Filename Value="udbaserepair.pas"/>
+        <Caret Line="74" Column="1" TopLine="49"/>
+      </Position4>
+      <Position5>
+        <Filename Value="udbaserepair.pas"/>
+        <Caret Line="75" Column="1" TopLine="50"/>
+      </Position5>
+      <Position6>
+        <Filename Value="udbaserepair.pas"/>
+        <Caret Line="76" Column="1" TopLine="51"/>
+      </Position6>
+      <Position7>
+        <Filename Value="udbaserepair.pas"/>
+        <Caret Line="71" Column="1" TopLine="46"/>
+      </Position7>
+      <Position8>
+        <Filename Value="udbaserepair.pas"/>
+        <Caret Line="72" Column="1" TopLine="47"/>
+      </Position8>
+      <Position9>
+        <Filename Value="udbaserepair.pas"/>
+        <Caret Line="73" Column="1" TopLine="48"/>
+      </Position9>
+      <Position10>
+        <Filename Value="udbaserepair.pas"/>
+        <Caret Line="74" Column="1" TopLine="49"/>
+      </Position10>
+      <Position11>
+        <Filename Value="udbaserepair.pas"/>
+        <Caret Line="73" Column="1" TopLine="48"/>
+      </Position11>
+      <Position12>
+        <Filename Value="udbaserepair.pas"/>
+        <Caret Line="74" Column="1" TopLine="49"/>
+      </Position12>
+      <Position13>
+        <Filename Value="udbaserepair.pas"/>
+        <Caret Line="73" Column="1" TopLine="48"/>
+      </Position13>
+      <Position14>
+        <Filename Value="udbaserepair.pas"/>
+        <Caret Line="74" Column="1" TopLine="49"/>
+      </Position14>
+      <Position15>
+        <Filename Value="udbaserepair.pas"/>
+        <Caret Line="73" Column="1" TopLine="48"/>
+      </Position15>
+      <Position16>
+        <Filename Value="udbaserepair.pas"/>
+        <Caret Line="74" Column="1" TopLine="49"/>
+      </Position16>
+      <Position17>
+        <Filename Value="udbaserepair.pas"/>
+        <Caret Line="73" Column="1" TopLine="48"/>
+      </Position17>
+      <Position18>
+        <Filename Value="udbaserepair.pas"/>
+        <Caret Line="74" Column="1" TopLine="49"/>
+      </Position18>
+      <Position19>
+        <Filename Value="udbaserepair.pas"/>
+        <Caret Line="73" Column="1" TopLine="48"/>
+      </Position19>
+      <Position20>
+        <Filename Value="udbaserepair.pas"/>
+        <Caret Line="74" Column="1" TopLine="49"/>
+      </Position20>
+      <Position21>
+        <Filename Value="udbaserepair.pas"/>
+        <Caret Line="73" Column="1" TopLine="48"/>
+      </Position21>
+      <Position22>
+        <Filename Value="udbaserepair.pas"/>
+        <Caret Line="74" Column="1" TopLine="49"/>
+      </Position22>
+      <Position23>
+        <Filename Value="udbaserepair.pas"/>
+        <Caret Line="73" Column="1" TopLine="48"/>
+      </Position23>
+      <Position24>
+        <Filename Value="udbaserepair.pas"/>
+        <Caret Line="74" Column="1" TopLine="49"/>
+      </Position24>
+      <Position25>
+        <Filename Value="udbaserepair.pas"/>
+        <Caret Line="73" Column="1" TopLine="48"/>
+      </Position25>
+      <Position26>
+        <Filename Value="udbaserepair.pas"/>
+        <Caret Line="74" Column="1" TopLine="49"/>
+      </Position26>
+      <Position27>
+        <Filename Value="udbaserepair.pas"/>
+        <Caret Line="75" Column="1" TopLine="50"/>
+      </Position27>
+      <Position28>
+        <Filename Value="udbaserepair.pas"/>
+        <Caret Line="74" Column="1" TopLine="49"/>
+      </Position28>
+      <Position29>
+        <Filename Value="udbaserepair.pas"/>
+        <Caret Line="73" Column="1" TopLine="48"/>
+      </Position29>
+      <Position30>
+        <Filename Value="dbaserepair.lpr"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position30>
+    </JumpHistory>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="8"/>
+    <PathDelim Value="\"/>
+    <SearchPaths>
+      <OtherUnitFiles Value="..\base\"/>
+      <UnitOutputDirectory Value="..\..\output\$(TargetCPU)-$(TargetOS)"/>
+    </SearchPaths>
+    <Linking>
+      <Options>
+        <Win32>
+          <GraphicApplication Value="True"/>
+        </Win32>
+      </Options>
+    </Linking>
+    <Other>
+      <CompilerMessages>
+        <UseMsgFile Value="True"/>
+      </CompilerMessages>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
+  </CompilerOptions>
+  <Debugging>
+    <BreakPoints Count="1">
+      <Item1>
+        <Source Value="..\..\lkomponenten\tvplanit\source\vpbaseds.pas"/>
+        <Line Value="626"/>
+      </Item1>
+    </BreakPoints>
+  </Debugging>
+</CONFIG>

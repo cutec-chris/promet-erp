@@ -1,0 +1,5 @@
+select strftime('%Y-%m',ORDERS.DATE) as Month,Count(*) as Anzahl from ORDERS
+where ORDERS.STATUS='RB'
+group by Month
+order by Month desc
+

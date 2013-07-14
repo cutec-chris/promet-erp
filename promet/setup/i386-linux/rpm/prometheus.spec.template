@@ -1,0 +1,57 @@
+Name:           prometheus
+Version:        VERSION
+Release:        1
+Summary:        ERP with Document- and Taskmanagement
+
+Group:          Applications/Databases
+License:        commercial
+URL:            http://www.ullihome.de/
+Packager:       Christian Ulrich
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
+
+#BuildRequires:  
+Requires:       gtk2
+# NOTE: without the symlink trick for gtk1, it requires the devel packages.
+Requires(post): desktop-file-utils
+Requires(postun): desktop-file-utils
+
+%description
+Prometheus is an ERP System for small business. 
+It is an Multimandant-Multiuser-Multiplatform System with
+an integrated Documentmanagement System and Taskmanagement.
+
+%prep
+%install
+[ %{buildroot} != "/" ] && ( rm -rf %{buildroot} )
+mkdir -p %{buildroot}%{_datadir}/%{name}
+mkdir -p %{buildroot}%{_datadir}/%{name}/help
+mkdir -p %{buildroot}%{_datadir}/%{name}/languages
+mkdir -p %{buildroot}%{_bindir}
+mkdir -p %{buildroot}%{_datadir}/pixmaps
+mkdir -p %{buildroot}%{_datadir}/applications
+cp -a /tmp/software_build/* %{buildroot}%{_datadir}/%{name}/
+install -m 644 /tmp/software_build/icon_64.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
+install -m 644 /tmp/software_build/%{name}.desktop %{buildroot}%{_datadir}/applications/%{name}.desktop
+cp /tmp/software_build/%{name}.starter %{buildroot}%{_datadir}/%{name}
+ln -s %{_datadir}/%{name}/%{name}.starter %{buildroot}%{_bindir}/%{name}
+cp /tmp/software_build/languages/*.po %{buildroot}%{_datadir}/%{name}/languages
+cp /tmp/software_build/languages/*.txt %{buildroot}%{_datadir}/%{name}/languages
+cp /tmp/software_build/help/* %{buildroot}%{_datadir}/%{name}/help
+
+%clean
+[ %{buildroot} != "/" ] && ( rm -rf %{buildroot} )
+
+%post
+%postun
+update-desktop-database &> /dev/null ||:
+
+%files
+%defattr(-,root,root,-)
+%{_datadir}/%{name}/*
+%{_datadir}/%{name}/help/*
+%{_datadir}/%{name}/languages/*
+%{_datadir}/%{name}/importdata/*
+%{_bindir}/*
+  %{_datadir}/pixmaps/%{name}.png
+  %{_datadir}/applications/%{name}.desktop
+

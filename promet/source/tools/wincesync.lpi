@@ -1,0 +1,348 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectOptions>
+    <PathDelim Value="\"/>
+    <Version Value="7"/>
+    <General>
+      <MainUnit Value="0"/>
+      <TargetFileExt Value=".exe"/>
+      <Title Value="wincesync"/>
+      <Icon Value="0"/>
+      <UseXPManifest Value="True"/>
+      <ActiveEditorIndexAtStart Value="0"/>
+    </General>
+    <VersionInfo>
+      <ProjectVersion Value=""/>
+      <Language Value=""/>
+      <CharSet Value=""/>
+    </VersionInfo>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IgnoreBinaries Value="False"/>
+      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
+      <ExcludeFileFilter Value="*.(bak|ppu|ppw|o|so);*~;backup"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+        <LaunchingApplication PathPlusParams="/usr/X11R6/bin/xterm -T 'Lazarus Run Output' -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
+      </local>
+    </RunParams>
+    <RequiredPackages Count="1">
+      <Item1>
+        <PackageName Value="FCL"/>
+      </Item1>
+    </RequiredPackages>
+    <Units Count="22">
+      <Unit0>
+        <Filename Value="wincesync.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="wincesync"/>
+        <CursorPos X="37" Y="50"/>
+        <TopLine Value="31"/>
+        <EditorIndex Value="0"/>
+        <UsageCount Value="24"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="C:\Programme\lazarus\fpc\2.2.5\source\packages\winceunits\src\cesync.pp"/>
+        <UnitName Value="cesync"/>
+        <CursorPos X="16" Y="237"/>
+        <TopLine Value="232"/>
+        <UsageCount Value="10"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="C:\Programme\lazarus\fpc\2.2.5\source\packages\winceunits\src\gpsapi.pp"/>
+        <UnitName Value="GPSApi"/>
+        <CursorPos X="1" Y="1"/>
+        <TopLine Value="149"/>
+        <UsageCount Value="10"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="C:\Programme\lazarus\fpc\2.2.5\source\packages\winceunits\src\phone.pp"/>
+        <UnitName Value="phone"/>
+        <CursorPos X="25" Y="38"/>
+        <TopLine Value="302"/>
+        <UsageCount Value="11"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="C:\Programme\lazarus\fpc\2.2.5\source\rtl\wince\wininc\coredll.inc"/>
+        <CursorPos X="69" Y="2031"/>
+        <TopLine Value="2019"/>
+        <EditorIndex Value="1"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="C:\Programme\lazarus\fpc\2.2.5\source\rtl\wince\wininc\errors.inc"/>
+        <CursorPos X="10" Y="797"/>
+        <TopLine Value="786"/>
+        <UsageCount Value="11"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="C:\Programme\lazarus\fpc\2.2.5\source\rtl\wince\wininc\struct.inc"/>
+        <CursorPos X="6" Y="481"/>
+        <TopLine Value="469"/>
+        <UsageCount Value="10"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="C:\Programme\lazarus\fpc\2.2.5\source\packages\winceunits\src\sms.pp"/>
+        <UnitName Value="sms"/>
+        <CursorPos X="16" Y="245"/>
+        <TopLine Value="234"/>
+        <EditorIndex Value="2"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="C:\Programme\lazarus\fpc\2.2.5\source\packages\winceunits\src\sip.pp"/>
+        <UnitName Value="sip"/>
+        <CursorPos X="1" Y="1"/>
+        <TopLine Value="58"/>
+        <UsageCount Value="10"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="C:\Programme\lazarus\fpc\2.2.5\source\packages\winceunits\src\todaycmn.pp"/>
+        <UnitName Value="TodayCmn"/>
+        <CursorPos X="1" Y="1"/>
+        <TopLine Value="103"/>
+        <UsageCount Value="10"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="C:\Programme\lazarus\fpc\2.2.5\source\packages\winceunits\src\sipapi.pp"/>
+        <UnitName Value="SIPApi"/>
+        <CursorPos X="1" Y="1"/>
+        <TopLine Value="84"/>
+        <UsageCount Value="10"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="C:\Programme\lazarus\fpc\2.2.5\source\packages\winceunits\src\connmgr.pp"/>
+        <UnitName Value="connmgr"/>
+        <CursorPos X="1" Y="1"/>
+        <TopLine Value="10"/>
+        <UsageCount Value="10"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="C:\Programme\lazarus\fpc\2.2.5\source\packages\winceunits\src\cpl.pp"/>
+        <UnitName Value="cpl"/>
+        <CursorPos X="1" Y="1"/>
+        <TopLine Value="16"/>
+        <UsageCount Value="10"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="C:\Programme\lazarus\fpc\2.2.5\source\packages\winceunits\src\gx.pp"/>
+        <UnitName Value="gx"/>
+        <CursorPos X="7" Y="16"/>
+        <TopLine Value="73"/>
+        <UsageCount Value="10"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="C:\Programme\lazarus\fpc\2.2.5\source\packages\winceunits\src\iphlpapi.pp"/>
+        <UnitName Value="iphlpapi"/>
+        <CursorPos X="1" Y="1"/>
+        <TopLine Value="46"/>
+        <UsageCount Value="10"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="C:\Programme\lazarus\fpc\2.2.5\source\packages\winceunits\src\msacm.pp"/>
+        <UnitName Value="msacm"/>
+        <CursorPos X="1" Y="1"/>
+        <TopLine Value="1"/>
+        <UsageCount Value="10"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="C:\Programme\lazarus\fpc\2.2.5\source\packages\winceunits\src\pm.pp"/>
+        <UnitName Value="PM"/>
+        <CursorPos X="1" Y="1"/>
+        <TopLine Value="7"/>
+        <UsageCount Value="10"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="C:\Programme\lazarus\fpc\2.2.5\source\packages\winceunits\src\power.pp"/>
+        <UnitName Value="power"/>
+        <CursorPos X="1" Y="1"/>
+        <TopLine Value="58"/>
+        <UsageCount Value="10"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="C:\Programme\lazarus\fpc\2.2.5\source\packages\winceunits\src\ras.pp"/>
+        <UnitName Value="RAS"/>
+        <CursorPos X="1" Y="1"/>
+        <TopLine Value="13"/>
+        <UsageCount Value="10"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="C:\Programme\lazarus\fpc\2.2.5\source\packages\winceunits\src\ril.pp"/>
+        <UnitName Value="RIL"/>
+        <CursorPos X="1" Y="1"/>
+        <TopLine Value="7624"/>
+        <UsageCount Value="10"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="C:\Programme\lazarus\fpc\2.2.5\source\packages\winceunits\src\simmgr.pp"/>
+        <UnitName Value="simmgr"/>
+        <CursorPos X="1" Y="1"/>
+        <TopLine Value="509"/>
+        <UsageCount Value="10"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="C:\Programme\lazarus\fpc\2.2.5\source\packages\winceunits\src\wap.pp"/>
+        <UnitName Value="wap"/>
+        <CursorPos X="1" Y="1"/>
+        <TopLine Value="216"/>
+        <UsageCount Value="10"/>
+      </Unit21>
+    </Units>
+    <JumpHistory Count="30" HistoryIndex="29">
+      <Position1>
+        <Filename Value="wincesync.lpr"/>
+        <Caret Line="14" Column="27" TopLine="1"/>
+      </Position1>
+      <Position2>
+        <Filename Value="wincesync.lpr"/>
+        <Caret Line="20" Column="29" TopLine="1"/>
+      </Position2>
+      <Position3>
+        <Filename Value="wincesync.lpr"/>
+        <Caret Line="21" Column="1" TopLine="2"/>
+      </Position3>
+      <Position4>
+        <Filename Value="wincesync.lpr"/>
+        <Caret Line="26" Column="1" TopLine="4"/>
+      </Position4>
+      <Position5>
+        <Filename Value="wincesync.lpr"/>
+        <Caret Line="22" Column="1" TopLine="5"/>
+      </Position5>
+      <Position6>
+        <Filename Value="wincesync.lpr"/>
+        <Caret Line="23" Column="1" TopLine="5"/>
+      </Position6>
+      <Position7>
+        <Filename Value="wincesync.lpr"/>
+        <Caret Line="24" Column="1" TopLine="5"/>
+      </Position7>
+      <Position8>
+        <Filename Value="wincesync.lpr"/>
+        <Caret Line="25" Column="1" TopLine="5"/>
+      </Position8>
+      <Position9>
+        <Filename Value="wincesync.lpr"/>
+        <Caret Line="26" Column="15" TopLine="6"/>
+      </Position9>
+      <Position10>
+        <Filename Value="wincesync.lpr"/>
+        <Caret Line="27" Column="26" TopLine="7"/>
+      </Position10>
+      <Position11>
+        <Filename Value="wincesync.lpr"/>
+        <Caret Line="20" Column="16" TopLine="6"/>
+      </Position11>
+      <Position12>
+        <Filename Value="wincesync.lpr"/>
+        <Caret Line="29" Column="21" TopLine="10"/>
+      </Position12>
+      <Position13>
+        <Filename Value="wincesync.lpr"/>
+        <Caret Line="27" Column="15" TopLine="6"/>
+      </Position13>
+      <Position14>
+        <Filename Value="wincesync.lpr"/>
+        <Caret Line="25" Column="1" TopLine="7"/>
+      </Position14>
+      <Position15>
+        <Filename Value="wincesync.lpr"/>
+        <Caret Line="26" Column="15" TopLine="7"/>
+      </Position15>
+      <Position16>
+        <Filename Value="wincesync.lpr"/>
+        <Caret Line="28" Column="29" TopLine="7"/>
+      </Position16>
+      <Position17>
+        <Filename Value="wincesync.lpr"/>
+        <Caret Line="19" Column="19" TopLine="9"/>
+      </Position17>
+      <Position18>
+        <Filename Value="wincesync.lpr"/>
+        <Caret Line="27" Column="41" TopLine="11"/>
+      </Position18>
+      <Position19>
+        <Filename Value="wincesync.lpr"/>
+        <Caret Line="31" Column="153" TopLine="15"/>
+      </Position19>
+      <Position20>
+        <Filename Value="wincesync.lpr"/>
+        <Caret Line="29" Column="48" TopLine="15"/>
+      </Position20>
+      <Position21>
+        <Filename Value="wincesync.lpr"/>
+        <Caret Line="11" Column="12" TopLine="4"/>
+      </Position21>
+      <Position22>
+        <Filename Value="wincesync.lpr"/>
+        <Caret Line="33" Column="14" TopLine="16"/>
+      </Position22>
+      <Position23>
+        <Filename Value="wincesync.lpr"/>
+        <Caret Line="41" Column="27" TopLine="25"/>
+      </Position23>
+      <Position24>
+        <Filename Value="wincesync.lpr"/>
+        <Caret Line="21" Column="9" TopLine="13"/>
+      </Position24>
+      <Position25>
+        <Filename Value="wincesync.lpr"/>
+        <Caret Line="22" Column="20" TopLine="22"/>
+      </Position25>
+      <Position26>
+        <Filename Value="wincesync.lpr"/>
+        <Caret Line="14" Column="6" TopLine="8"/>
+      </Position26>
+      <Position27>
+        <Filename Value="wincesync.lpr"/>
+        <Caret Line="49" Column="10" TopLine="29"/>
+      </Position27>
+      <Position28>
+        <Filename Value="wincesync.lpr"/>
+        <Caret Line="50" Column="13" TopLine="29"/>
+      </Position28>
+      <Position29>
+        <Filename Value="C:\Programme\lazarus\fpc\2.2.5\source\packages\winceunits\src\sms.pp"/>
+        <Caret Line="521" Column="34" TopLine="507"/>
+      </Position29>
+      <Position30>
+        <Filename Value="wincesync.lpr"/>
+        <Caret Line="52" Column="61" TopLine="31"/>
+      </Position30>
+    </JumpHistory>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="8"/>
+    <PathDelim Value="\"/>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir)\"/>
+      <UnitOutputDirectory Value="..\output\$(TargetCPU)-$(TargetOS)"/>
+      <LCLWidgetType Value="wince"/>
+    </SearchPaths>
+    <CodeGeneration>
+      <TargetCPU Value="arm"/>
+      <TargetOS Value="WinCE"/>
+    </CodeGeneration>
+    <Other>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
+  </CompilerOptions>
+  <Debugging>
+    <Exceptions Count="3">
+      <Item1>
+        <Name Value="EAbort"/>
+      </Item1>
+      <Item2>
+        <Name Value="ECodetoolError"/>
+      </Item2>
+      <Item3>
+        <Name Value="EFOpenError"/>
+      </Item3>
+    </Exceptions>
+  </Debugging>
+</CONFIG>

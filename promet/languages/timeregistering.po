@@ -1,0 +1,116 @@
+msgid "persönlichen Aufgabenliste (Dropdownliste)persönlichen Aufgabenliste (Dropdownliste)persönlichen Aufgabenliste (Dropdownliste)persönlichen Aufgabenliste (Dropdownliste)"
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: tfmain.acchangepasswort.caption
+msgid "Passwort ändern"
+msgstr ""
+
+#: tfmain.achelp.caption
+msgid "Index"
+msgstr ""
+
+#: tfmain.acinfo.caption
+msgctxt "tfmain.acinfo.caption"
+msgid "Information"
+msgstr ""
+
+#: tfmain.aclogin.caption
+msgid "Anmelden"
+msgstr ""
+
+#: tfmain.aclogout.caption
+msgid "Abmelden"
+msgstr ""
+
+#: tfmain.acoptions.caption
+msgctxt "tfmain.acoptions.caption"
+msgid "Optionen"
+msgstr ""
+
+#: tfmain.caption
+msgid "Zeiterfassung"
+msgstr ""
+
+#: tfmain.mihelp.caption
+msgid "Hilfe"
+msgstr ""
+
+#: tfmain.milanguage.caption
+msgid "Sprache"
+msgstr ""
+
+#: tfmain.mimandant.caption
+msgid "Mandant"
+msgstr ""
+
+#: tfmain.mioptions.caption
+msgctxt "TFMAIN.MIOPTIONS.CAPTION"
+msgid "Optionen"
+msgstr ""
+
+#: tftimeoptions.baddjob.hint
+msgid "Fügt den aktuellen Text zur persönlichen "
+msgstr ""
+
+#: tftimeoptions.bdeletejob.hint
+msgid "Löscht den ausgewählten Eintrag aus der "
+msgstr ""
+
+#: tftimeoptions.cbminimizeonstarttime.caption
+msgid "Minimieren beim Beginnen"
+msgstr ""
+
+#: tftimeoptions.cbminimizeonstarttime.hint
+msgid "beim beginnen eines neuen"
+msgstr ""
+
+#: tftimeoptions.cbstartwithstandart.caption
+msgid "mit Standarteintrag starten"
+msgstr ""
+
+#: tftimeoptions.cbworktimemessage.caption
+msgid "Meldung bei Arbeitszeitüberschreitung"
+msgstr ""
+
+#: tftimeoptions.elink.hint
+msgctxt "TFTIMEOPTIONS.ELINK.HINT"
+msgid "Suchen Sie mithilfe des Buttons einen passenden Eintrag"
+msgstr ""
+
+#: tftimeoptions.eproject.hint
+msgctxt "tftimeoptions.eproject.hint"
+msgid "Suchen Sie mithilfe des Buttons einen passenden Eintrag"
+msgstr ""
+
+#: tftimeoptions.ilink.hint
+msgid "Zeigt an ob eine gültige verknüpfung "
+msgstr ""
+
+#: tftimeoptions.label1.caption
+msgid "Kategorie"
+msgstr ""
+
+#: tftimeoptions.lactiveentry.caption
+msgid "Standarteintrag"
+msgstr ""
+
+#: tftimeoptions.lentry.caption
+msgid "Eintrag"
+msgstr ""
+
+#: tftimeoptions.ljob1.caption
+msgid "Aufgabe"
+msgstr ""
+
+#: tftimeoptions.lnotes.caption
+msgid "Notizen"
+msgstr ""
+
+#: tftimeoptions.lproject.caption
+msgid "Projekt"
+msgstr ""
+
+#: umain.strnotloggedin
+msgid "Sie sind nicht angemeldet, melden Sie sich an um Zeiten erfassen zu können !"
+msgstr ""
+

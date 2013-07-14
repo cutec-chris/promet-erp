@@ -1,0 +1,3 @@
+#!/bin/sh
+export LIBOVERLAY_SCROLLBAR=0
+/usr/lib/promet-erp/clientmanagement $*

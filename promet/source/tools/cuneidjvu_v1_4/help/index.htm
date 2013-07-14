@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<title>CuneiDjVu</title>
+</head>
+
+<body>
+
+<h2 align="center">CuneiDjVu</h2>
+
+<h3 align="center">Reference manual</h3>
+
+<p><strong>CuneiDjVu</strong> is an experimental program to create an OCR text layer in
+DjVu files using CuneiForm (Russian open-source OCR program).</p>
+
+<p><strong>CuneiDjVu</strong> is licensed under &quot;GPL 2 and later&quot; and comes
+totally open-sourced.</p>
+
+<p>The program works both under Win98 and Win2000/XP.</p>
+
+<p><strong>CuneiDjVu</strong> uses the free raster image program library <a
+href="http://freeimage.sourceforge.net/">FreeImage</a> (licensed under &quot;GPL 2 and
+later&quot;).</p>
+
+<hr>
+
+<h2><font color="#FF0000">WARNING:</font></h2>
+
+<p><strong>CuneiDjVu</strong> is simply a GUI for the console program <strong>СuneiForm-Linux
+v1.1</strong> (built under Windows). That is why it is HIGHLY recommended NOT (!!!) to use
+<strong>CuneiDjVu</strong> for the real DjVu OCR creation purposes (due to the low OCR
+quality level). For the real DjVu OCR use the commercial OCR products.</p>
+
+<p><strong>CuneiDjVu</strong> is yet simply a &quot;toy&quot;- not more than that.</p>
+
+<hr>
+
+<p><strong>Usage:</strong></p>
+
+<p>1. Launch the file <strong>CuneiDjVu.exe</strong>.</p>
+
+<p>2. Looking through the program's window (from up to down) fill all the necessary input
+fields.</p>
+
+<p>Main options:</p>
+<strong>
+
+<p>OCR Language</strong> - the OCR recognition language (the language to be recognized).
+The default value: <strong>Russian-English</strong> (a mixed Russian-English text). The
+correct choice of the OCR language determines the rightful OCR layer creation.</p>
+
+<p><strong>OCR Detalization</strong> - the level of the coordinate data detalization in
+the created OCR layer. The default value: <strong>Word</strong>. The alternative value: <strong>Character</strong>.</p>
+
+<p><strong>Recognition mode</strong> - the text layout mode on the recognized page. The
+possible values: <strong>Single column</strong>, <strong>Dot matrix</strong>, <strong>Fax</strong>.
+You can set more than one value at once.</p>
+
+<p>3. Press the <strong>Process</strong> button - it will start the recognition process of
+the chosen DjVu file. Wait until this process is finished.</p>
+
+<p>In case of the successful recognition of the chosen DjVu file its OCRed copy will be
+automatically placed into the destined output folder. The output OCRed DjVu file will be
+named by default &quot;<strong>CuneiDjVu Result</strong>&quot; (its name can be set in the
+input field <strong>Output OCRed DjVu filename:</strong> in the <strong>Options</strong>
+window).</p>
+
+<hr>
+
+<h4>Details:</h4>
+
+<p>The file <strong>CuneiDjVu.exe</strong> is simply a GUI (the visual wrapping)
+controlling the corresponding console utilities. The program package contains the
+following working console utilities:</p>
+
+<p>- <strong>djvudumpm.exe</strong> - the console utility for getting the information
+about the internal DjVu file structure. Version: 1.2. It is actually a <strong>djvudump.exe</strong>
+utility <a href="http://djvu.sourceforge.net/">http://djvu.sourceforge.net/</a> with the
+added feature of the text file output export.</p>
+
+<p>- <strong>fi_ddjvu.exe</strong> - the console utility for decoding DjVu files. Version:
+1.4. It is actually a <strong>ddjvu</strong> <a href="http://djvu.sourceforge.net/">http://djvu.sourceforge.net/</a>
+utility with the added <a href="http://freeimage.sourceforge.net/">FreeImage</a> support.</p>
+
+<p>- <strong>cuneiform.exe</strong> - the console program <strong>СuneiForm-Linux v1.1</strong>
+(compiled under Windows in MS VC++ 6.0).</p>
+
+<p>- <strong>hocr2djvuxml.exe</strong> - the console utility for the conversion of the
+CuneiForm-hOCR files to the DjVu XML format.</p>
+
+<p>- <strong>djvuxmlparser.exe</strong> - the standart DjVuLibre console utility for
+inserting the OCR-layer (prepared as a DjVu XML file) into DjVu.</p>
+
+<p>The folder <strong>cuneiform</strong> contains the console program <strong>СuneiForm-Linux
+v1.1</strong> (compiled under Windows in MS VC++ 6.0) with all the necessary (for its
+work) dependant files. The content of the <strong>cuneiform</strong> folder can be used
+totally independently from <strong>CuneiDjVu</strong> - for whatever OCR tasks (only 1-bit
+BMP is supported as the input format).</p>
+
+<hr>
+
+<h4>Options</h4>
+
+<p><strong>Output OCRed DjVu filename:</strong> - the name for the resulting OCR DjVu
+file.</p>
+
+<p><strong>Output to Desktop</strong> - choose automatically <strong>Desktop</strong> as
+the output folder when inputing a DjVu file.</p>
+
+<p><strong>Open OCRed DjVu file after processing</strong> - open the OCRed DjVu file
+(right after the creation) in a DjVu associated viewer.</p>
+
+<p><strong>Language</strong> - the interface language switch.</p>
+
+<hr>
+
+<h4>Notes</h4>
+
+<p>1. <strong>CuneiDjVu</strong> is an absolutely free and legal program - in any senses
+(that is its main advantage). It license status is &quot;a freeware open-sourced
+program&quot;.</p>
+
+<p>2. The interface language is determined automatically at the very first program launch.</p>
+
+<hr>
+
+<h4>Additional help files</h4>
+
+<h5>Working utilities:</h5>
+
+<p><a href="djvudumpm.htm">djvudumpm</a>&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ( <a href="txt/djvudumpm.txt">Textual
+version</a> )</p>
+
+<p><a href="fi_ddjvu.htm">fi_ddjvu</a>&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ( <a
+href="txt/fi_ddjvu.txt">Textual version</a> )</p>
+
+<p><a href="hocr2djvuxml.htm">hocr2djvuxml</a>&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ( <a href="txt/hocr2djvuxml.txt">Textual version</a> )</p>
+
+<p><a href="cuneiform_readme.txt">cuneiform_readme</a>&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp; <a href="cuneiform_options.txt">cuneiform_options</a></p>
+
+<h5>DjVuLibre:</h5>
+
+<p><a href="djvudump.htm">djvudump</a></p>
+
+<p><a href="ddjvu.htm">ddjvu</a></p>
+
+<p><a href="djvuxml.htm">djvuxmlparser</a></p>
+
+<hr>
+
+<p><strong>monday2000</strong>.</p>
+
+<p>15.12.2010.</p>
+
+<p><a href="http://www.djvu-soft.narod.ru/">http://www.djvu-soft.narod.ru/</a></p>
+</body>
+</html>

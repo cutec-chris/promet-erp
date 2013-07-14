@@ -1,0 +1,43 @@
+object fAddSerial: TfAddSerial
+  Left = 346
+  Height = 128
+  Top = 229
+  Width = 299
+  Caption = 'Serienummer hinzufügen'
+  ClientHeight = 128
+  ClientWidth = 299
+  Color = clWindow
+  KeyPreview = True
+  OnKeyDown = FormKeyDown
+  OnShow = FormShow
+  Position = poMainFormCenter
+  LCLVersion = '0.9.29'
+  object lArticle: TLabel
+    Left = 0
+    Height = 16
+    Top = 0
+    Width = 299
+    Align = alTop
+    Caption = 'lArticle'
+    ParentColor = False
+    WordWrap = True
+  end
+  object cbSerial: TComboBox
+    Left = 8
+    Height = 23
+    Top = 44
+    Width = 279
+    Anchors = [akTop, akLeft, akRight]
+    ItemHeight = 15
+    TabOrder = 0
+    Text = 'cbSerial'
+  end
+  object ButtonPanel1: TButtonPanel
+    Left = 6
+    Height = 34
+    Top = 88
+    Width = 287
+    TabOrder = 1
+    ShowButtons = [pbOK, pbCancel]
+  end
+end

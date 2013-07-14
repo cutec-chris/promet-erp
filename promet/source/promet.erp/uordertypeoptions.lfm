@@ -1,0 +1,451 @@
+inherited forderTypeOptions: TforderTypeOptions
+  Height = 437
+  Width = 523
+  ClientHeight = 437
+  ClientWidth = 523
+  TabOrder = 0
+  DesignLeft = 417
+  DesignTop = 154
+  object lType: TLabel[0]
+    Left = 185
+    Height = 18
+    Top = 2
+    Width = 25
+    Caption = 'Typ'
+    ParentColor = False
+  end
+  object lDerivates: TLabel[1]
+    Left = 184
+    Height = 18
+    Top = 73
+    Width = 80
+    Caption = 'Ableitbar in'
+    ParentColor = False
+  end
+  object lNumberset: TLabel[2]
+    Left = 364
+    Height = 18
+    Top = 71
+    Width = 101
+    Anchors = [akTop, akRight]
+    Caption = 'Nummernkreis'
+    ParentColor = False
+  end
+  object lDefaultPosTyp: TLabel[3]
+    Left = 367
+    Height = 18
+    Top = 58
+    Width = 148
+    Anchors = [akTop, akRight]
+    Caption = 'Standard Positionstyp'
+    ParentColor = False
+  end
+  object gOrderStatus: TDBGrid[4]
+    Left = 8
+    Height = 379
+    Top = 46
+    Width = 168
+    Anchors = [akTop, akLeft, akBottom]
+    BorderStyle = bsNone
+    Color = clWindow
+    Columns = <    
+      item
+        Title.Caption = 'STATUS'
+        Title.PrefixOption = poNone
+        Width = 40
+        FieldName = 'STATUS'
+      end    
+      item
+        Title.Caption = 'STATUSNAME'
+        Title.PrefixOption = poNone
+        Width = 100
+        FieldName = 'STATUSNAME'
+      end>
+    DataSource = OrderTypeDS
+    Scrollbars = ssAutoBoth
+    TabOrder = 0
+    TitleStyle = tsNative
+  end
+  object eOrderType: TDBComboBox[5]
+    Left = 185
+    Height = 29
+    Top = 18
+    Width = 326
+    Anchors = [akTop, akLeft, akRight]
+    DataField = 'TYPE'
+    DataSource = OrderTypeDS
+    ItemHeight = 0
+    Items.Strings = (
+      '0 Offer'
+      '1 Order'
+      '2 Bill of delivery'
+      '3 Invoice'
+      '4 Monition'
+      '5 Storno'
+      '6 Bon'
+      '7 Production order'
+      '8 Order to supplier'
+    )
+    MaxLength = 0
+    TabOrder = 1
+  end
+  object eDerivates: TDBEdit[6]
+    Left = 184
+    Height = 27
+    Top = 89
+    Width = 176
+    DataField = 'DERIVATIVE'
+    DataSource = OrderTypeDS
+    Anchors = [akTop, akLeft, akRight]
+    CharCase = ecNormal
+    MaxLength = 0
+    TabOrder = 2
+  end
+  object gbVisibility: TGroupBox[7]
+    Left = 184
+    Height = 88
+    Top = 136
+    Width = 331
+    Anchors = [akTop, akLeft, akRight]
+    Caption = 'Sichtbarkeit'
+    ChildSizing.HorizontalSpacing = 3
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.EnlargeVertical = crsHomogenousChildResize
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 2
+    ClientHeight = 69
+    ClientWidth = 327
+    TabOrder = 3
+    object cbSIOrder: TDBCheckBox
+      Left = 0
+      Height = 24
+      Top = 0
+      Width = 161
+      Caption = 'Vorgang'
+      DataField = 'SI_ORDER'
+      DataSource = OrderTypeDS
+      TabOrder = 0
+      ValueChecked = 'Y'
+      ValueUnchecked = 'N'
+    end
+    object cbSIPos: TDBCheckBox
+      Left = 164
+      Height = 24
+      Top = 0
+      Width = 163
+      AutoSize = True
+      Caption = 'Kasse'
+      DataField = 'SI_POS'
+      DataSource = OrderTypeDS
+      TabOrder = 1
+      ValueChecked = 'Y'
+      ValueUnchecked = 'N'
+    end
+    object cbSIProd: TDBCheckBox
+      Left = 0
+      Height = 24
+      Top = 24
+      Width = 161
+      AutoSize = True
+      Caption = 'Produktion'
+      DataField = 'SI_PROD'
+      DataSource = OrderTypeDS
+      TabOrder = 2
+      ValueChecked = 'Y'
+      ValueUnchecked = 'N'
+    end
+    object cbSIAcc: TDBCheckBox
+      Left = 164
+      Height = 24
+      Top = 24
+      Width = 163
+      AutoSize = True
+      Caption = 'Buchhaltung'
+      DataField = 'SI_ACC'
+      DataSource = OrderTypeDS
+      TabOrder = 3
+      ValueChecked = 'Y'
+      ValueUnchecked = 'N'
+    end
+    object cbSIINVR: TDBCheckBox
+      Left = 0
+      Height = 24
+      Top = 48
+      Width = 161
+      AutoSize = True
+      Caption = 'Rechnungseingang'
+      DataField = 'SI_INVR'
+      DataSource = OrderTypeDS
+      TabOrder = 4
+      ValueChecked = 'Y'
+      ValueUnchecked = 'N'
+    end
+    object cbSIINVO: TDBCheckBox
+      Left = 164
+      Height = 24
+      Top = 48
+      Width = 163
+      AutoSize = True
+      Caption = 'Rechnungsausgang'
+      DataField = 'SI_INVO'
+      DataSource = OrderTypeDS
+      TabOrder = 5
+      ValueChecked = 'Y'
+      ValueUnchecked = 'N'
+    end
+  end
+  object rgAddStorage: TDBRadioGroup[8]
+    Left = 185
+    Height = 40
+    Top = 272
+    Width = 136
+    Caption = 'im Lager buchen'
+    Columns = 3
+    DataField = 'B_STORAGE'
+    DataSource = OrderTypeDS
+    Items.Strings = (
+      '+'
+      '0'
+      '-'
+    )
+    TabOrder = 4
+    Values.Strings = (
+      '+'
+      '0'
+      '-'
+    )
+  end
+  object rgAddJournal: TDBRadioGroup[9]
+    Left = 368
+    Height = 43
+    Top = 311
+    Width = 143
+    Caption = 'Belegjournal'
+    Columns = 3
+    DataField = 'B_JOURNAL'
+    DataSource = OrderTypeDS
+    Items.Strings = (
+      '+'
+      '0'
+      '-'
+    )
+    TabOrder = 5
+    Values.Strings = (
+      '+'
+      '0'
+      '-'
+    )
+  end
+  object rgAddSerials: TDBRadioGroup[10]
+    Left = 184
+    Height = 43
+    Top = 311
+    Width = 176
+    Caption = 'Serienummern buchen'
+    Columns = 3
+    DataField = 'B_SERIALS'
+    DataSource = OrderTypeDS
+    Items.Strings = (
+      '+'
+      '0'
+      '-'
+    )
+    TabOrder = 6
+    Values.Strings = (
+      '+'
+      '0'
+      '-'
+    )
+  end
+  object rgAddINVR: TDBRadioGroup[11]
+    Left = 351
+    Height = 40
+    Top = 352
+    Width = 160
+    Caption = 'Rechnungseingang'
+    Columns = 3
+    DataField = 'B_INVR'
+    DataSource = OrderTypeDS
+    Items.Strings = (
+      '+'
+      '0'
+      '-'
+    )
+    TabOrder = 7
+    Values.Strings = (
+      '+'
+      '0'
+      '-'
+    )
+  end
+  object rgAddINVO: TDBRadioGroup[12]
+    Left = 184
+    Height = 40
+    Top = 351
+    Width = 161
+    Caption = 'Rechnungsausgang'
+    Columns = 3
+    DataField = 'B_INVO'
+    DataSource = OrderTypeDS
+    Items.Strings = (
+      '+'
+      '0'
+      '-'
+    )
+    TabOrder = 8
+    Values.Strings = (
+      '+'
+      '0'
+      '-'
+    )
+  end
+  object rgAddDunning: TDBRadioGroup[13]
+    Left = 383
+    Height = 40
+    Top = 229
+    Width = 128
+    Caption = 'Mahnwesen'
+    Columns = 3
+    DataField = 'B_DUNNING'
+    DataSource = OrderTypeDS
+    Items.Strings = (
+      '+'
+      '0'
+      '-'
+    )
+    TabOrder = 9
+    Values.Strings = (
+      '+'
+      '0'
+      '-'
+    )
+  end
+  object rgAddCHist: TDBRadioGroup[14]
+    Left = 184
+    Height = 40
+    Top = 391
+    Width = 129
+    Caption = 'Kundenhistorie'
+    Columns = 3
+    DataField = 'B_CHIST'
+    DataSource = OrderTypeDS
+    Items.Strings = (
+      '+'
+      '0'
+    )
+    TabOrder = 10
+    Values.Strings = (
+      '+'
+      '0'
+    )
+  end
+  object eNumberset: TDBEdit[15]
+    Left = 364
+    Height = 27
+    Top = 89
+    Width = 101
+    DataField = 'NUMBERSET'
+    DataSource = OrderTypeDS
+    Anchors = [akTop, akRight]
+    CharCase = ecNormal
+    MaxLength = 0
+    TabOrder = 11
+  end
+  object eDefaultPosTyp: TDBEdit[16]
+    Left = 473
+    Height = 27
+    Top = 89
+    Width = 38
+    DataField = 'DEFPOSTYP'
+    DataSource = OrderTypeDS
+    Anchors = [akTop, akRight]
+    CharCase = ecNormal
+    MaxLength = 0
+    TabOrder = 12
+  end
+  object cbIsDerivate: TDBCheckBox[17]
+    Left = 185
+    Height = 19
+    Top = 48
+    Width = 145
+    Caption = 'ist Untervorgang'
+    DataField = 'ISDERIVATE'
+    DataSource = OrderTypeDS
+    TabOrder = 13
+    ValueChecked = 'Y'
+    ValueUnchecked = 'N'
+  end
+  object rgAddreserved: TDBRadioGroup[18]
+    Left = 327
+    Height = 40
+    Top = 271
+    Width = 184
+    Caption = 'als reserviert buchen'
+    Columns = 3
+    DataField = 'B_RESERVED'
+    DataSource = OrderTypeDS
+    Items.Strings = (
+      '+'
+      '0'
+      '-'
+    )
+    TabOrder = 14
+    Values.Strings = (
+      '+'
+      '0'
+      '-'
+    )
+  end
+  object rgAddToMainorder: TDBRadioGroup[19]
+    Left = 185
+    Height = 40
+    Top = 229
+    Width = 191
+    Caption = 'Lagereintrag im Vorgang'
+    Columns = 3
+    DataField = 'B_STORDER'
+    DataSource = OrderTypeDS
+    Items.Strings = (
+      '+'
+      '0'
+      '-'
+    )
+    TabOrder = 15
+    Values.Strings = (
+      '+'
+      '0'
+      '-'
+    )
+  end
+  object DBNavigator1: TDBNavigator[20]
+    Left = 8
+    Height = 25
+    Top = 8
+    Width = 158
+    BevelOuter = bvNone
+    ChildSizing.EnlargeHorizontal = crsScaleChilds
+    ChildSizing.EnlargeVertical = crsScaleChilds
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 100
+    ClientHeight = 21
+    ClientWidth = 154
+    DataSource = OrderTypeDS
+    TabOrder = 16
+    VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel]
+  end
+  object cbTextTyp: TComboBox[21]
+    Left = 320
+    Height = 29
+    Top = 400
+    Width = 191
+    ItemHeight = 0
+    OnChange = cbTextTypChange
+    TabOrder = 17
+  end
+  object OrderTypeDS: TDatasource[22]
+    left = 421
+    top = 176
+  end
+end

@@ -1,0 +1,24 @@
+object fTextFrame: TfTextFrame
+  Left = 0
+  Height = 240
+  Top = 0
+  Width = 320
+  ClientHeight = 240
+  ClientWidth = 320
+  TabOrder = 0
+  DesignLeft = 319
+  DesignTop = 228
+  object mText: TDBMemo
+    Left = 0
+    Height = 240
+    Top = 0
+    Width = 320
+    Align = alClient
+    DataSource = Datasource
+    TabOrder = 0
+  end
+  object Datasource: TDatasource
+    left = 40
+    top = 24
+  end
+end

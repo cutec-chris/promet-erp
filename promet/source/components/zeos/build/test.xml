@@ -1,0 +1,345 @@
+<?xml version="1.0"?>
+
+<!--
+  Project: Zeos Database Objects.
+  Module: Build & Test Environment.
+  Copyrights: (c) Zeos Development Group 1999-2003
+-->
+
+<project name="compile" default="main" basedir=".">
+
+  <property file="build.properties" />
+
+  <property name="root.dir" value="${project.home}"/>
+  <property name="packages.dir" value="${root.dir}/packages"/>
+  <property name="src.dir" value="${root.dir}/src"/>
+  <property name="test.dir" value="${root.dir}/build/testenv/binaries"/>
+  <property name="examples.dir" value="${root.dir}/examples"/>
+
+  <property name="logs.dir" value="${root.dir}/build/logs"/>
+
+  <target name="prepare">
+    <mkdir dir="${logs.dir}" />
+    <mkdir dir="${test.dir}" />
+
+    <tstamp>
+      <format property="tstamp" pattern="yyyyMMdd" />
+    </tstamp>
+
+    <property name="log.file" value="${logs.dir}/test-${tstamp}.log"/>
+  </target>
+
+
+  <target name="main" depends="prepare">
+
+    <echo message="Testing Zeos DBO Project..."
+      file="${log.file}" append="true" />
+
+    <condition property="core.run">
+      <istrue value="${test.core}"/>
+    </condition>
+
+    <condition property="parsesql.run">
+      <istrue value="${test.parsesql}"/>
+    </condition>
+
+    <condition property="dbc.run">
+      <istrue value="${test.dbc}"/>
+    </condition>
+
+    <condition property="component.run">
+      <istrue value="${test.component}"/>
+    </condition>
+
+    <condition property="bugreport.run">
+      <istrue value="${test.bugreport}"/>
+    </condition>
+
+    <condition property="performance.run">
+      <istrue value="${test.performance}"/>
+    </condition>
+
+   <condition property="delphi7.run">
+      <istrue value="${delphi7.active}"/>
+    </condition>
+    <antcall target="delphi7_run"/>
+
+    <condition property="delphi9.run">
+      <istrue value="${delphi9.active}"/>
+    </condition>
+    <antcall target="delphi9_run"/>
+
+    <condition property="delphi2005.run">
+      <istrue value="${delphi2005.active}"/>
+    </condition>
+    <antcall target="delphi2005_run"/>
+
+    <condition property="delphi2007.run">
+      <istrue value="${delphi2007.active}"/>
+    </condition>
+    <antcall target="delphi2007_run"/>
+
+    <condition property="delphi2009.run">
+      <istrue value="${delphi2009.active}"/>
+    </condition>
+    <antcall target="delphi2009_run"/>
+
+    <condition property="delphi2010.run">
+      <istrue value="${delphi2010.active}"/>
+    </condition>
+    <antcall target="delphi2010_run"/>
+
+    <condition property="delphiXE.run">
+      <istrue value="${delphiXE.active}"/>
+    </condition>
+    <antcall target="delphiXE_run"/>
+
+    <condition property="lazarus.run">
+      <istrue value="${lazarus.active}"/>
+    </condition>
+    <antcall target="lazarus_run"/>
+
+  </target>
+
+  <target name="delphi7_run" if="delphi7.run">
+    <property name="runparams" value=""/>
+    <antcall target="test_run_all">
+      <param name="compiler" value="delphi7"/>
+      <param name="compiler.dir" value="${delphi7.home}"/>
+    </antcall>
+  </target>
+
+  <target name="delphi9_run" if="delphi9.run">
+    <property name="runparams" value=""/>
+    <antcall target="test_run_all">
+      <param name="compiler" value="delphi9"/>
+      <param name="compiler.dir" value="${delphi9.home}"/>
+    </antcall>
+  </target>
+
+  <target name="delphi2005_run" if="delphi2005.run">
+    <property name="runparams" value=""/>
+    <antcall target="test_run_all">
+      <param name="compiler" value="delphi2005"/>
+      <param name="compiler.dir" value="${delphi2005.home}"/>
+    </antcall>
+  </target>
+
+  <target name="delphi2007_run" if="delphi2007.run">
+    <property name="runparams" value=""/>
+    <antcall target="test_run_all">
+      <param name="compiler" value="delphi2007"/>
+      <param name="compiler.dir" value="${delphi2007.home}"/>
+    </antcall>
+  </target>
+
+  <target name="delphi2009_run" if="delphi2009.run">
+    <property name="runparams" value=""/>
+    <antcall target="test_run_all">
+      <param name="compiler" value="delphi2009"/>
+      <param name="compiler.dir" value="${delphi2009.home}"/>
+    </antcall>
+  </target>
+
+  <target name="delphi2010_run" if="delphi2010.run">
+    <property name="runparams" value=""/>
+    <antcall target="test_run_all">
+      <param name="compiler" value="delphi2010"/>
+      <param name="compiler.dir" value="${delphi2010.home}"/>
+    </antcall>
+  </target>
+
+  <target name="delphiXE_run" if="delphiXE.run">
+    <property name="runparams" value=""/>
+    <antcall target="test_run_all">
+      <param name="compiler" value="delphiXE"/>
+      <param name="compiler.dir" value="${delphiXE.home}"/>
+    </antcall>
+  </target>
+
+  <target name="lazarus_run" if="lazarus.run">
+    <antcall target="test_run_all_laz">
+      <param name="compiler" value="lazarus"/>
+      <param name="compiler.dir" value="${lazarus.home}"/>
+    </antcall>
+  </target>
+
+  <target name="test_run_none">
+
+    <echo message="Testing packages for ${compiler}..."
+      file="${log.file}" append="true" />
+    <echo message="There are no Testing packages for ${compiler}..."
+      file="${log.file}" append="true" />
+
+    <echo/>
+    <echo message="Testing packages for ${compiler} "/>
+    <echo message="There are no Testing packages for ${compiler} "/>
+    <echo/>
+  </target>
+
+  <target name="test_run_all">
+    <echo message="Testing packages for ${compiler}..."
+      file="${log.file}" append="true" />
+
+    <echo/>
+    <echo message="Testing packages for ${compiler} "/>
+    <echo/>
+
+    <property name="package.dir" value="${packages.dir}/${compiler}"/>
+    <property name="build.dir" value="${package.dir}/build"/>
+
+      <delete>
+       <fileset dir="${test.dir}" includes="ZTest*"/>
+      </delete>
+
+    <copy todir="${test.dir}">
+      <fileset dir="${build.dir}">
+        <include name="ZTest*"/>
+        <exclude name="ZTest*.dcu"/>
+        <exclude name="ZTest*.ppu"/>
+        <exclude name="ZTest*.o"/>
+      </fileset>
+    </copy>
+
+    <antcall target="test_core_run" inheritAll="true"/>
+    <antcall target="test_parsesql_run" inheritAll="true"/>
+    <antcall target="test_dbc_run" inheritAll="true"/>
+    <antcall target="test_component_run" inheritAll="true"/>
+    <antcall target="test_bugreport_run" inheritAll="true"/>
+    <antcall target="test_performance_run" inheritAll="true"/>
+    <echo/>
+
+      <delete>
+       <fileset dir="${test.dir}" includes="ZTest*"/>
+      </delete>
+
+  </target>
+
+  <target name="test_core_run" if="core.run">
+    <antcall target="test_element_run" inheritAll="true">
+      <param name="test.exec" value="ZTestCoreAll"/>
+    </antcall>
+  </target>
+
+  <target name="test_parsesql_run" if="parsesql.run">
+    <antcall target="test_element_run" inheritAll="true">
+      <param name="test.exec" value="ZTestParseSqlAll"/>
+    </antcall>
+  </target>
+
+  <target name="test_dbc_run" if="dbc.run">
+    <antcall target="test_element_run" inheritAll="true">
+      <param name="test.exec" value="ZTestDbcAll"/>
+    </antcall>
+  </target>
+
+  <target name="test_component_run" if="component.run">
+    <antcall target="test_element_run" inheritAll="true">
+      <param name="test.exec" value="ZTestComponentAll"/>
+    </antcall>
+  </target>
+
+  <target name="test_bugreport_run" if="bugreport.run">
+    <antcall target="test_element_run" inheritAll="true">
+      <param name="test.exec" value="ZTestBugReport"/>
+    </antcall>
+  </target>
+
+  <target name="test_performance_run" if="performance.run">
+    <antcall target="test_element_run" inheritAll="true">
+      <param name="test.exec" value="ZTestPerformance"/>
+    </antcall>
+  </target>
+
+  <target name="test_element_run">
+	<property environment="env"/>
+    <echo/>
+    <echo message="Testing ... ${test.exec} ..."/>
+    <exec dir="${test.dir}" executable="${test.dir}/${test.exec}"
+       output="${log.file}" append="true">
+       <!--
+       BCB5 needs CC3250MT.DLL + some of the BPL's (which must be in path)
+       Other compilers may need similar things
+       Note : The environment variable's name ('Path/PATH') may be case sensitive
+	<env key="Path" path="${compiler.dir}/bin;${package.dir};${root.dir}/lib/mysql;${root.dir}/lib/postgresql"/>
+	<env key="PATH" path="${compiler.dir}/bin;${package.dir};${root.dir}/lib/mysql;${root.dir}/lib/postgresql"/>
+       -->
+	<env key="Path" path="${env.Path};${compiler.dir}/bin;${package.dir}"/>
+   <arg line="${runparams}"/>
+    </exec>
+  </target>
+
+<target name="test_run_all_laz">
+    <echo message="Testing packages for ${compiler}..."
+      file="${log.file}" append="true" />
+
+    <echo/>
+    <echo message="Testing packages for ${compiler} "/>
+    <echo/>
+
+    <property name="package.dir" value="${packages.dir}/${compiler}"/>
+    <property name="build.dir" value="${package.dir}/build"/>
+
+      <delete>
+       <fileset dir="${test.dir}" includes="ZTest*"/>
+      </delete>
+
+    <copy todir="${test.dir}">
+      <fileset dir="${build.dir}">
+        <include name="ztestall.exe*"/>
+        <include name="ztestall*"/>
+      </fileset>
+    </copy>
+    <chmod dir="${test.dir}" perm="ugo+rx" includes="ztestall.exe"/>
+
+    <antcall target="test_core_run_laz" inheritAll="true"/>
+    <antcall target="test_parsesql_run_laz" inheritAll="true"/>
+    <antcall target="test_dbc_run_laz" inheritAll="true"/>
+    <antcall target="test_component_run_laz" inheritAll="true"/>
+    <antcall target="test_bugreport_run_laz" inheritAll="true"/>
+    <echo/>
+
+      <delete>
+       <fileset dir="${test.dir}" includes="ZTestAll*"/>
+      </delete>
+  </target>
+
+  <target name="test_core_run_laz" if="core.run">
+    <antcall target="test_element_run_laz" inheritAll="true">
+      <param name="test.suite" value="core"/>
+    </antcall>
+  </target>
+
+  <target name="test_parsesql_run_laz" if="parsesql.run">
+    <antcall target="test_element_run_laz" inheritAll="true">
+      <param name="test.suite" value="parsesql"/>
+    </antcall>
+  </target>
+
+  <target name="test_dbc_run_laz" if="dbc.run">
+    <antcall target="test_element_run_laz" inheritAll="true">
+      <param name="test.suite" value="dbc"/>
+    </antcall>
+  </target>
+
+  <target name="test_component_run_laz" if="component.run">
+    <antcall target="test_element_run_laz" inheritAll="true">
+      <param name="test.suite" value="component"/>
+    </antcall>
+  </target>
+
+  <target name="test_bugreport_run_laz" if="bugreport.run">
+    <antcall target="test_element_run_laz" inheritAll="true">
+      <param name="test.suite" value="bugreport"/>
+    </antcall>
+  </target>
+
+ <target name="test_element_run_laz">
+    <echo message="Testing ... ${test.suite} ..."/>
+    <exec dir="${test.dir}" executable="${test.dir}/ztestall.exe"
+       output="${log.file}" append="true">
+   <arg line="--batch -p --format=plain --suite=${test.suite}"/>
+    </exec>
+  </target>
+
+  </project>

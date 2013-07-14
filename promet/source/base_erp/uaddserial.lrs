@@ -1,0 +1,16 @@
+{ This is an automatically generated lazarus resource file }
+
+LazarusResources.Add('TfAddSerial','FORMDATA',[
+  'TPF0'#11'TfAddSerial'#10'fAddSerial'#4'Left'#3'Z'#1#6'Height'#3#128#0#3'Top'
+  +#3#229#0#5'Width'#3'+'#1#7'Caption'#6#23'Serienummer hinzuf'#195#188'gen'#12
+  +'ClientHeight'#3#128#0#11'ClientWidth'#3'+'#1#5'Color'#7#8'clWindow'#10'KeyP'
+  +'review'#9#9'OnKeyDown'#7#11'FormKeyDown'#6'OnShow'#7#8'FormShow'#8'Position'
+  +#7#16'poMainFormCenter'#10'LCLVersion'#6#6'0.9.29'#0#6'TLabel'#8'lArticle'#4
+  +'Left'#2#0#6'Height'#2#16#3'Top'#2#0#5'Width'#3'+'#1#5'Align'#7#5'alTop'#7'C'
+  +'aption'#6#8'lArticle'#11'ParentColor'#8#8'WordWrap'#9#0#0#9'TComboBox'#8'cb'
+  +'Serial'#4'Left'#2#8#6'Height'#2#23#3'Top'#2','#5'Width'#3#23#1#7'Anchors'#11
+  +#5'akTop'#6'akLeft'#7'akRight'#0#10'ItemHeight'#2#15#8'TabOrder'#2#0#4'Text'
+  +#6#8'cbSerial'#0#0#12'TButtonPanel'#12'ButtonPanel1'#4'Left'#2#6#6'Height'#2
+  +'"'#3'Top'#2'X'#5'Width'#3#31#1#8'TabOrder'#2#1#11'ShowButtons'#11#4'pbOK'#8
+  +'pbCancel'#0#0#0#0
+]);

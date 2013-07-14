@@ -1,0 +1,23 @@
+LazarusResources.Add('TfCopyArticleData','FORMDATA',[
+  'TPF0'#17'TfCopyArticleData'#16'fCopyArticleData'#4'Left'#3#177#1#6'Height'#3
+  +#227#0#3'Top'#3')'#1#5'Width'#3#24#1#13'ActiveControl'#7#12'cbCopyPrices'#7
+  +'Caption'#6#16'fCopyArticleData'#12'ClientHeight'#3#227#0#11'ClientWidth'#3
+  +#24#1#10'KeyPreview'#9#8'Position'#7#16'poMainFormCenter'#10'LCLVersion'#6#6
+  +'0.9.31'#0#6'TLabel'#29'lFeaturesforNewArticleversion'#4'Left'#2#0#6'Height'
+  +#2'&'#3'Top'#2#0#5'Width'#3#24#1#5'Align'#7#5'alTop'#7'Caption'#6'BDaten die'
+  +' in den neuen Artikel / Artikelversion '#195#188'bernommen werden'#10'Font.'
+  +'Style'#11#6'fsBold'#0#11'ParentColor'#8#10'ParentFont'#8#8'WordWrap'#9#0#0#9
+  +'TCheckBox'#12'cbCopyPrices'#4'Left'#2#16#6'Height'#2#24#3'Top'#2'|'#5'Width'
+  +#2'D'#7'Caption'#6#6'Preise'#8'TabOrder'#2#0#0#0#9'TCheckBox'#16'cbCopyPrope'
+  +'rties'#4'Left'#2#16#6'Height'#2#24#3'Top'#2'b'#5'Width'#2'x'#7'Caption'#6#13
+  +'Eigenschaften'#8'TabOrder'#2#1#0#0#9'TCheckBox'#11'cbCopyTexts'#4'Left'#2#16
+  +#6'Height'#2#24#3'Top'#2'H'#5'Width'#2'?'#7'Caption'#6#5'Texte'#8'TabOrder'#2
+  +#2#0#0#9'TCheckBox'#14'cbCopySupplier'#4'Left'#2#16#6'Height'#2#24#3'Top'#3
+  +#150#0#5'Width'#2'h'#7'Caption'#6#11'Lieferanten'#8'TabOrder'#2#3#0#0#12'TBu'
+  +'ttonPanel'#12'ButtonPanel1'#4'Left'#2#6#6'Height'#2'%'#3'Top'#3#184#0#5'Wid'
+  +'th'#3#12#1#13'OKButton.Name'#6#8'OKButton'#23'OKButton.DefaultCaption'#9#15
+  +'HelpButton.Name'#6#10'HelpButton'#25'HelpButton.DefaultCaption'#9#16'CloseB'
+  +'utton.Name'#6#11'CloseButton'#26'CloseButton.DefaultCaption'#9#17'CancelBut'
+  +'ton.Name'#6#12'CancelButton'#27'CancelButton.DefaultCaption'#9#8'TabOrder'#2
+  +#4#11'ShowButtons'#11#4'pbOK'#8'pbCancel'#0#0#0#0
+]);

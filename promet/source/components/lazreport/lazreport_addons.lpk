@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <Package Version="4">
+    <Name Value="lazreport_addons"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <SearchPaths>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+      <Other>
+        <CompilerMessages>
+          <MsgFileName Value=""/>
+        </CompilerMessages>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
+    </CompilerOptions>
+    <Files Count="3">
+      <Item1>
+        <Filename Value="lr_richview.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="lr_richview"/>
+      </Item1>
+      <Item2>
+        <Filename Value="lr_tachart.lfm"/>
+        <Type Value="LFM"/>
+      </Item2>
+      <Item3>
+        <Filename Value="lr_tachart.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="lr_tachart"/>
+      </Item3>
+    </Files>
+    <Type Value="RunAndDesignTime"/>
+    <RequiredPkgs Count="4">
+      <Item1>
+        <PackageName Value="TAChartLazarusPkg"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="TurboPowerIPro"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="lazreport"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="FCL"/>
+      </Item4>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <Package Version="4">
+    <Name Value="pProjectbase"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <SearchPaths>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+      <Other>
+        <CompilerMessages>
+          <MsgFileName Value=""/>
+        </CompilerMessages>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
+    </CompilerOptions>
+    <Files Count="20">
+      <Item1>
+        <Filename Value="uprojectimport.pas"/>
+        <UnitName Value="uprojectimport"/>
+      </Item1>
+      <Item2>
+        <Filename Value="utaskedit.lfm"/>
+        <Type Value="LFM"/>
+      </Item2>
+      <Item3>
+        <Filename Value="utaskedit.pas"/>
+        <UnitName Value="uTaskEdit"/>
+      </Item3>
+      <Item4>
+        <Filename Value="utasks.lfm"/>
+        <Type Value="LFM"/>
+      </Item4>
+      <Item5>
+        <Filename Value="utasks.lrs"/>
+        <Type Value="LRS"/>
+      </Item5>
+      <Item6>
+        <Filename Value="utasks.pas"/>
+        <UnitName Value="utasks"/>
+      </Item6>
+      <Item7>
+        <Filename Value="umaintasks.lfm"/>
+        <Type Value="LFM"/>
+      </Item7>
+      <Item8>
+        <Filename Value="umaintasks.pas"/>
+        <UnitName Value="umaintasks"/>
+      </Item8>
+      <Item9>
+        <Filename Value="uprojectpositions.lfm"/>
+        <Type Value="LFM"/>
+      </Item9>
+      <Item10>
+        <Filename Value="uprojectpositions.pas"/>
+        <UnitName Value="uprojectpositions"/>
+      </Item10>
+      <Item11>
+        <Filename Value="umeetingframe.lfm"/>
+        <Type Value="LFM"/>
+      </Item11>
+      <Item12>
+        <Filename Value="umeetingframe.pas"/>
+        <UnitName Value="uMeetingFrame"/>
+      </Item12>
+      <Item13>
+        <Filename Value="umeetingusers.pas"/>
+        <UnitName Value="umeetingusers"/>
+      </Item13>
+      <Item14>
+        <Filename Value="gsGantt.res"/>
+        <Type Value="Binary"/>
+      </Item14>
+      <Item15>
+        <Filename Value="gsGanttCalendar.pas"/>
+        <UnitName Value="gsGanttCalendar"/>
+      </Item15>
+      <Item16>
+        <Filename Value="utaskplan.lfm"/>
+        <Type Value="LFM"/>
+      </Item16>
+      <Item17>
+        <Filename Value="utaskplan.pas"/>
+        <UnitName Value="uTaskPlan"/>
+      </Item17>
+      <Item18>
+        <Filename Value="uganttview.pas"/>
+        <UnitName Value="uGanttView"/>
+      </Item18>
+      <Item19>
+        <Filename Value="utaskplanoptions.pas"/>
+        <UnitName Value="uTaskPlanOptions"/>
+      </Item19>
+      <Item20>
+        <Filename Value="uprojectflow.pas"/>
+        <UnitName Value="uProjectFlow"/>
+      </Item20>
+    </Files>
+    <Type Value="RunAndDesignTime"/>
+    <RequiredPkgs Count="6">
+      <Item1>
+        <PackageName Value="pcalendar"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="perp"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="pDocuments"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="pVisualPrometApp"/>
+      </Item4>
+      <Item5>
+        <PackageName Value="LCL"/>
+      </Item5>
+      <Item6>
+        <PackageName Value="FCL"/>
+      </Item6>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

@@ -1,0 +1,7 @@
+TYPE;SYMBOL;NAME;
+"1";"ABP";"Durchschnittlicher Einkaufspreis";
+"2";"MIBP";"Minimaler Einkaufspreis";
+"3";"MABP";"Maximaler Einkaufspreis";
+"4";"SAP";"Verkaufspreis";
+"5";"SHP";"Versandkosten";
+"6";"PP";"Vorbereitungspreis";

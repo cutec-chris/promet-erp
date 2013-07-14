@@ -1,0 +1,20 @@
+{ This is an automatically generated lazarus resource file }
+
+LazarusResources.Add('TfMain','FORMDATA',[
+  'TPF0'#6'TfMain'#5'fMain'#4'Left'#3#156#1#6'Height'#3' '#1#3'Top'#3#31#1#5'Wi'
+  +'dth'#3#138#1#13'ActiveControl'#7#10'lbMandants'#7'Caption'#6#15'Update data'
+  +'base'#12'ClientHeight'#3' '#1#11'ClientWidth'#3#138#1#8'OnCreate'#7#10'Form'
+  +'Create'#6'OnShow'#7#8'FormShow'#10'LCLVersion'#6#6'0.9.29'#0#8'TListBox'#10
+  +'lbMandants'#4'Left'#2#9#6'Height'#3#16#1#3'Top'#2#8#5'Width'#3#164#0#7'Anch'
+  +'ors'#11#5'akTop'#6'akLeft'#8'akBottom'#0#10'ItemHeight'#2#0#17'OnSelectionC'
+  +'hange'#7#25'lbMandantsSelectionChange'#8'TabOrder'#2#0#0#0#7'TButton'#6'bCh'
+  +'eck'#4'Left'#3#180#0#6'Height'#2#25#3'Top'#2#8#5'Width'#3#206#0#7'Anchors'
+  +#11#5'akTop'#6'akLeft'#7'akRight'#0#25'BorderSpacing.InnerBorder'#2#4#7'Capt'
+  +'ion'#6#5'Check'#7'Enabled'#8#7'OnClick'#7#11'bCheckClick'#8'TabOrder'#2#1#0
+  +#0#8'TListBox'#6'lbInfo'#4'Left'#3#180#0#6'Height'#3#216#0#3'Top'#2'$'#5'Wid'
+  +'th'#3#206#0#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#8'akBottom'#0#10'It'
+  +'emHeight'#2#0#8'TabOrder'#2#2#0#0#7'TButton'#7'bUpdate'#4'Left'#3#180#0#6'H'
+  +'eight'#2#25#3'Top'#3#255#0#5'Width'#3#206#0#7'Anchors'#11#6'akLeft'#7'akRig'
+  +'ht'#8'akBottom'#0#25'BorderSpacing.InnerBorder'#2#4#7'Caption'#6#6'Update'#7
+  +'Enabled'#8#7'OnClick'#7#12'bUpdateClick'#8'TabOrder'#2#3#0#0#0
+]);

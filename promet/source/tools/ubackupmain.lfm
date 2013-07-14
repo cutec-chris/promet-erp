@@ -1,0 +1,142 @@
+object Form1: TForm1
+  Left = 406
+  Height = 367
+  Top = 229
+  Width = 461
+  HorzScrollBar.Page = 460
+  VertScrollBar.Page = 366
+  Caption = 'Form1'
+  ClientHeight = 367
+  ClientWidth = 461
+  OnClose = FormClose
+  OnCreate = FormCreate
+  LCLVersion = '0.9.25'
+  object lSourceDirectory: TLabel
+    Left = 16
+    Height = 14
+    Top = 6
+    Width = 80
+    Caption = 'lSourceDirectory'
+    ParentColor = False
+  end
+  object lTargetDirectory: TLabel
+    Left = 16
+    Height = 14
+    Top = 56
+    Width = 79
+    Caption = 'lTargetDirectory'
+    ParentColor = False
+  end
+  object lStatus: TLabel
+    Left = 16
+    Height = 14
+    Top = 139
+    Width = 34
+    Caption = 'lStatus'
+    ParentColor = False
+  end
+  object lFileStatus: TLabel
+    Left = 396
+    Height = 14
+    Top = 176
+    Width = 50
+    Anchors = [akTop, akRight]
+    Caption = 'lFileStatus'
+    ParentColor = False
+  end
+  object lFile: TLabel
+    Left = 18
+    Height = 14
+    Top = 176
+    Width = 19
+    Caption = 'lFile'
+    ParentColor = False
+  end
+  object lLastBackupDir: TLabel
+    Left = 16
+    Height = 14
+    Top = 96
+    Width = 70
+    Caption = 'lLastBackupDir'
+    ParentColor = False
+  end
+  object deSource: TDirectoryEdit
+    Left = 16
+    Height = 23
+    Top = 24
+    Width = 408
+    ButtonWidth = 23
+    Anchors = [akTop, akLeft, akRight]
+    ParentColor = False
+    TabOrder = 0
+  end
+  object deTarget: TDirectoryEdit
+    Left = 16
+    Height = 23
+    Top = 72
+    Width = 408
+    ButtonWidth = 23
+    Anchors = [akTop, akLeft, akRight]
+    ParentColor = False
+    TabOrder = 1
+    OnChange = deTargetChange
+  end
+  object bSync: TButton
+    Left = 336
+    Height = 25
+    Top = 128
+    Width = 110
+    Anchors = [akTop, akRight]
+    Caption = 'bSync'
+    OnClick = bSyncClick
+    TabOrder = 2
+  end
+  object pbOverall: TProgressBar
+    Left = 16
+    Height = 12
+    Top = 160
+    Width = 430
+    Anchors = [akTop, akLeft, akRight]
+    Max = 100
+    TabOrder = 3
+  end
+  object pbFile: TProgressBar
+    Left = 16
+    Height = 12
+    Top = 192
+    Width = 430
+    Anchors = [akTop, akLeft, akRight]
+    Max = 100
+    TabOrder = 4
+  end
+  object mOutput: TMemo
+    Left = 16
+    Height = 144
+    Top = 216
+    Width = 430
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Lines.Strings = (
+      'Memo1'
+    )
+    TabOrder = 5
+  end
+  object cbFullBackup: TCheckBox
+    Left = 16
+    Height = 19
+    Top = 112
+    Width = 91
+    Caption = 'cbFullBackup'
+    TabOrder = 6
+  end
+  object Properties: TXMLPropStorage
+    StoredValues = <    
+      item
+        Name = 'SOURCEDIR'
+      end    
+      item
+        Name = 'TARGETDIR'
+      end>
+    left = 16
+    top = 8
+  end
+end

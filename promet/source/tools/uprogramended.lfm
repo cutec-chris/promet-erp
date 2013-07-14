@@ -1,0 +1,50 @@
+object fProgramEnded: TfProgramEnded
+  Left = 387
+  Height = 139
+  Top = 318
+  Width = 497
+  HorzScrollBar.Page = 421
+  VertScrollBar.Page = 138
+  Caption = 'Programm beendet'
+  ClientHeight = 139
+  ClientWidth = 497
+  OnCreate = FormCreate
+  LCLVersion = '0.9.31'
+  object lMessage: TLabel
+    Left = 4
+    Height = 106
+    Top = 4
+    Width = 375
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    AutoSize = False
+    Caption = 'lMessage'
+    ParentColor = False
+    WordWrap = True
+  end
+  object cbDontShowthisDialogAgain: TCheckBox
+    Left = 4
+    Height = 24
+    Top = 113
+    Width = 367
+    Anchors = [akLeft, akBottom]
+    Caption = 'diese Meldung für diesen Typ nicht wieder anzeigen'
+    TabOrder = 0
+  end
+  object bpButtons: TButtonPanel
+    Left = 408
+    Height = 127
+    Top = 6
+    Width = 83
+    Align = alRight
+    OKButton.Name = 'OKButton'
+    OKButton.Caption = '&Ok'
+    HelpButton.Name = 'HelpButton'
+    HelpButton.Caption = '&Hilfe'
+    CloseButton.Name = 'CloseButton'
+    CloseButton.Caption = '&Schließen'
+    CancelButton.Name = 'CancelButton'
+    CancelButton.Caption = 'Abbrechen'
+    TabOrder = 1
+    ShowButtons = [pbOK]
+  end
+end

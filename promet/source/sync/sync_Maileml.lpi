@@ -1,0 +1,361 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="9"/>
+    <PathDelim Value="\"/>
+    <General>
+      <MainUnit Value="0"/>
+      <ResourceType Value="res"/>
+      <UseXPManifest Value="True"/>
+      <Icon Value="0"/>
+      <ActiveWindowIndexAtStart Value="0"/>
+    </General>
+    <i18n>
+      <EnableI18N LFM="False"/>
+    </i18n>
+    <VersionInfo>
+      <StringTable ProductVersion=""/>
+    </VersionInfo>
+    <BuildModes Count="1" Active="Default">
+      <Item1 Name="Default" Default="True"/>
+    </BuildModes>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
+      <ExcludeFileFilter Value="*.(bak|ppu|o|so);*~;backup"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+        <LaunchingApplication PathPlusParams="\usr\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
+      </local>
+    </RunParams>
+    <RequiredPackages Count="6">
+      <Item1>
+        <PackageName Value="laz_synapse"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="pmimemessages"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="richmemopackage"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="pVisualPrometApp"/>
+      </Item4>
+      <Item5>
+        <PackageName Value="LCLBase"/>
+        <MinVersion Major="1" Release="1" Valid="True"/>
+      </Item5>
+      <Item6>
+        <PackageName Value="LCL"/>
+      </Item6>
+    </RequiredPackages>
+    <Units Count="20">
+      <Unit0>
+        <Filename Value="sync_Maileml.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="sync_Maileml"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="19"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="usynceml.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fMailImport"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="usynceml"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="13"/>
+        <CursorPos X="1" Y="33"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="..\base\dbintfs\ubaseapplication.pas"/>
+        <UnitName Value="uBaseApplication"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="14" Y="15"/>
+        <UsageCount Value="10"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="..\..\..\LKomponenten\synapse\mimemess.pas"/>
+        <UnitName Value="mimemess"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="550"/>
+        <CursorPos X="1" Y="822"/>
+        <UsageCount Value="10"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="..\base\umimemessages.pas"/>
+        <UnitName Value="uMimeMessages"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="229"/>
+        <CursorPos X="20" Y="249"/>
+        <UsageCount Value="10"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <UnitName Value="uBaseDbClasses"/>
+        <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="874"/>
+        <CursorPos X="22" Y="980"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="..\..\..\LKomponenten\zeos\src\component\ZAbstractRODataset.pas"/>
+        <UnitName Value="ZAbstractRODataset"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2284"/>
+        <CursorPos X="30" Y="2302"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="..\..\..\LKomponenten\zeos\src\component\ZAbstractDataset.pas"/>
+        <UnitName Value="ZAbstractDataset"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="401"/>
+        <CursorPos X="38" Y="417"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="..\base\dbintfs\umessages.pas"/>
+        <UnitName Value="uMessages"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="130"/>
+        <CursorPos X="34" Y="151"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <UnitName Value="uBaseDBInterface"/>
+        <EditorIndex Value="5"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="954"/>
+        <CursorPos X="1" Y="983"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="..\base\dbintfs\backup\umessages.pas.bak"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="13"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="..\..\..\LKomponenten\zeos\src\dbc\ZDbcSqLiteUtils.pas"/>
+        <UnitName Value="ZDbcSqLiteUtils"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="217"/>
+        <CursorPos X="15" Y="233"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="..\..\..\LKomponenten\zeos\src\plain\ZPlainSqLiteDriver.pas"/>
+        <UnitName Value="ZPlainSqLiteDriver"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="56"/>
+        <CursorPos X="3" Y="75"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="..\..\..\LKomponenten\synapse\mimepart.pas"/>
+        <UnitName Value="mimepart"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="731"/>
+        <CursorPos X="1" Y="762"/>
+        <UsageCount Value="10"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="..\..\..\LKomponenten\synapse\synacode.pas"/>
+        <UnitName Value="synacode"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="718"/>
+        <CursorPos X="1" Y="749"/>
+        <UsageCount Value="10"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="..\base\dbintfs\udocuments.pas"/>
+        <UnitName Value="uDocuments"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="88"/>
+        <CursorPos X="1" Y="107"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="..\..\..\LKomponenten\synapse\synachar.pas"/>
+        <UnitName Value="synachar"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1279"/>
+        <CursorPos X="1" Y="1292"/>
+        <UsageCount Value="10"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="..\..\..\LKomponenten\synapse\synautil.pas"/>
+        <UnitName Value="synautil"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1705"/>
+        <CursorPos X="1" Y="1731"/>
+        <UsageCount Value="10"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="C:\Programme\lazarus\lcl\include\customform.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2406"/>
+        <CursorPos X="1" Y="2425"/>
+        <UsageCount Value="10"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="..\base\ubasevisualapplication.pas"/>
+        <UnitName Value="uBaseVisualApplication"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="218"/>
+        <UsageCount Value="10"/>
+      </Unit19>
+    </Units>
+    <JumpHistory Count="19" HistoryIndex="18">
+      <Position1>
+        <Filename Value="usynceml.pas"/>
+        <Caret Line="67" Column="1" TopLine="37"/>
+      </Position1>
+      <Position2>
+        <Filename Value="usynceml.pas"/>
+        <Caret Line="68" Column="1" TopLine="37"/>
+      </Position2>
+      <Position3>
+        <Filename Value="usynceml.pas"/>
+        <Caret Line="70" Column="1" TopLine="39"/>
+      </Position3>
+      <Position4>
+        <Filename Value="usynceml.pas"/>
+        <Caret Line="52" Column="10" TopLine="13"/>
+      </Position4>
+      <Position5>
+        <Filename Value="usynceml.pas"/>
+        <Caret Line="33" Column="1" TopLine="13"/>
+      </Position5>
+      <Position6>
+        <Filename Value="usynceml.pas"/>
+        <Caret Line="34" Column="1" TopLine="13"/>
+      </Position6>
+      <Position7>
+        <Filename Value="usynceml.pas"/>
+        <Caret Line="35" Column="1" TopLine="13"/>
+      </Position7>
+      <Position8>
+        <Filename Value="usynceml.pas"/>
+        <Caret Line="36" Column="1" TopLine="13"/>
+      </Position8>
+      <Position9>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="973" Column="1" TopLine="954"/>
+      </Position9>
+      <Position10>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="974" Column="1" TopLine="954"/>
+      </Position10>
+      <Position11>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="975" Column="1" TopLine="954"/>
+      </Position11>
+      <Position12>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="976" Column="1" TopLine="954"/>
+      </Position12>
+      <Position13>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="977" Column="1" TopLine="954"/>
+      </Position13>
+      <Position14>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="978" Column="1" TopLine="954"/>
+      </Position14>
+      <Position15>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="980" Column="1" TopLine="954"/>
+      </Position15>
+      <Position16>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="981" Column="1" TopLine="954"/>
+      </Position16>
+      <Position17>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="982" Column="1" TopLine="954"/>
+      </Position17>
+      <Position18>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="983" Column="1" TopLine="954"/>
+      </Position18>
+      <Position19>
+        <Filename Value="usynceml.pas"/>
+        <Caret Line="33" Column="1" TopLine="13"/>
+      </Position19>
+    </JumpHistory>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="11"/>
+    <PathDelim Value="\"/>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir)"/>
+      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+    </SearchPaths>
+    <Parsing>
+      <SyntaxOptions>
+        <CStyleOperator Value="False"/>
+      </SyntaxOptions>
+    </Parsing>
+    <Linking>
+      <Debugging>
+        <UseExternalDbgSyms Value="True"/>
+      </Debugging>
+      <Options>
+        <Win32>
+          <GraphicApplication Value="True"/>
+        </Win32>
+      </Options>
+    </Linking>
+    <Other>
+      <CompilerMessages>
+        <IgnoredMessages idx5024="True"/>
+        <UseMsgFile Value="True"/>
+      </CompilerMessages>
+      <CustomOptions Value="-dHASREPORTS
+-dSTATISTICS"/>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
+  </CompilerOptions>
+  <Debugging>
+    <Exceptions Count="3">
+      <Item1>
+        <Name Value="EAbort"/>
+      </Item1>
+      <Item2>
+        <Name Value="ECodetoolError"/>
+      </Item2>
+      <Item3>
+        <Name Value="EFOpenError"/>
+      </Item3>
+    </Exceptions>
+  </Debugging>
+  <EditorMacros Count="0"/>
+</CONFIG>

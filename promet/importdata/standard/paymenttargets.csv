@@ -1,0 +1,6 @@
+ID;NAME;TEXT;FACCOUNTS;CASHDISC;CASHDISCD;DAYS;DEFAULTPT
+1;BAR;Barzahlung bei Abholung;;0;0;0;N
+2;2PCNT;5 Tage 2% 14 Tage;;2;5;14;N
+3;5PCNT;2 Tage 5% 14 Tage;;5;2;14;N
+4;NACHN;Nachnahme;;0;0;10;N
+5;VOR;Vorkasse;;0;0;0;Y

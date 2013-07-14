@@ -1,0 +1,1 @@
+ant -Drelease.dir="X:/" -Dtemp.dir="X:/TEMP1" -buildfile release_svn.xml buildTesting

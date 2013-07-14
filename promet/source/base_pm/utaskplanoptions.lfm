@@ -1,0 +1,68 @@
+object fUserPlanOptions: TfUserPlanOptions
+  Left = 363
+  Height = 182
+  Top = 209
+  Width = 357
+  Caption = 'Planungseinstellungen für Nutzer'
+  ClientHeight = 182
+  ClientWidth = 357
+  LCLVersion = '1.1'
+  object Label1: TLabel
+    Left = 16
+    Height = 15
+    Top = 16
+    Width = 182
+    Caption = 'Arbeitszeit pro Tag in Stunden'
+    ParentColor = False
+  end
+  object eWorkTime: TDBEdit
+    Left = 248
+    Height = 25
+    Top = 15
+    Width = 80
+    DataField = 'WORKTIME'
+    DataSource = Datasource1
+    CharCase = ecNormal
+    MaxLength = 0
+    TabOrder = 0
+  end
+  object Label2: TLabel
+    Left = 16
+    Height = 15
+    Top = 72
+    Width = 156
+    Caption = 'mögliche Auslastung in %'
+    ParentColor = False
+  end
+  object eUsage: TDBEdit
+    Left = 248
+    Height = 25
+    Top = 72
+    Width = 80
+    DataField = 'USEWORKTIME'
+    DataSource = Datasource1
+    CharCase = ecNormal
+    MaxLength = 0
+    TabOrder = 1
+  end
+  object ButtonPanel1: TButtonPanel
+    Left = 6
+    Height = 36
+    Top = 140
+    Width = 345
+    OKButton.Name = 'OKButton'
+    OKButton.DefaultCaption = True
+    HelpButton.Name = 'HelpButton'
+    HelpButton.DefaultCaption = True
+    CloseButton.Name = 'CloseButton'
+    CloseButton.DefaultCaption = True
+    CancelButton.Name = 'CancelButton'
+    CancelButton.DefaultCaption = True
+    TabOrder = 2
+    ShowButtons = [pbOK, pbCancel]
+  end
+  object Datasource1: TDatasource
+    left = 72
+    top = 48
+  end
+end

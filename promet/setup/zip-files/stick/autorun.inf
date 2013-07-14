@@ -1,0 +1,6 @@
+[autorun]
+label=Prometheus ERP
+icon=prometheus\prometheus.exe
+
+action=Prometheus ERP
+open=start_windows.exe

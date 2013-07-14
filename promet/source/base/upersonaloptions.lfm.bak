@@ -1,0 +1,573 @@
+object fPersonalOptions: TfPersonalOptions
+  Left = 458
+  Height = 381
+  Top = 192
+  Width = 447
+  ActiveControl = pcTabs
+  Caption = 'Persönliche Einstellungen'
+  ClientHeight = 381
+  ClientWidth = 447
+  Color = clForm
+  KeyPreview = True
+  OnKeyDown = FormKeyDown
+  OnShow = FormShow
+  Position = poMainFormCenter
+  ShowHint = True
+  LCLVersion = '0.9.31'
+  object pcTabs: TPageControl
+    Left = 0
+    Height = 329
+    Top = 0
+    Width = 447
+    ActivePage = tsDocumentmanagement
+    Align = alTop
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Images = ImageList1
+    MultiLine = True
+    TabIndex = 2
+    TabOrder = 0
+    Options = [nboMultiLine]
+    object tsMail: TTabSheet
+      Caption = 'Narichten'
+      ClientHeight = 298
+      ClientWidth = 443
+      object lCheckForMailevery: TLabel
+        Left = 8
+        Height = 16
+        Top = 141
+        Width = 197
+        Anchors = [akLeft, akBottom]
+        Caption = 'alle x Minuten nach Narichten prüfen'
+        ParentColor = False
+      end
+      object clbMailAccounts: TCheckListBox
+        Left = 8
+        Height = 123
+        Top = 6
+        Width = 314
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        ItemHeight = 0
+        OnDblClick = clbMailAccountsDblClick
+        TabOrder = 0
+        TopIndex = -1
+      end
+      object seMailCheckTime: TSpinEdit
+        Left = 298
+        Height = 23
+        Top = 139
+        Width = 54
+        Anchors = [akRight, akBottom]
+        TabOrder = 1
+        Value = 7
+      end
+      object bAdd: TBitBtn
+        Left = 328
+        Height = 32
+        Top = 6
+        Width = 107
+        Anchors = [akTop, akRight]
+        Caption = 'Neu'
+        Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00196B3788196B37F2196B37FF196B37F2196B3788FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00196B
+          3784288C53FF64BA8DFF95D2B2FF64BA8DFF288C53FF196B378CFFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF001B6C
+          39F762BA8BFF60BA87FFFFFFFFFF60B987FF67BC8FFF196B37F78E512BBFB063
+          31EFBB7038FABE773CFBC17B40FBC27E42FBC28045FBC38247FBC38649FB317B
+          4CFF9CD4B6FFFFFFFFFFFFFFFFFFFFFFFFFF95D2B2FF196B37FFA35D31DEF8F3
+          EEFDF5ECE4FEFBF5F0FFFBF7F1FFFBF7F3FFFBF8F4FFFCF9F5FFFCF9F5FF4A8B
+          62FF90D3B1FF92D6B1FFFFFFFFFF65BC8CFF67BC8FFF1D6B37FEBE6F3CFEFCF9
+          F5FFECD0BCFFF9E4D6FFFEECDFFFFEEBDFFFFEEBDEFFFEEBDBFFFEEBDCFFA7BC
+          A2FF61AB81FF95D4B4FFBAE6D0FF6ABB8FFF2D8F57FF677942FFC27646FFFDFB
+          F8FFF9E3D2FFECCFB9FFF8E1D0FFFDE7D6FFF4D5BDFFE9BFA0FFE9BFA2FFF4D3
+          BDFFADBEA3FF609873FF4F8E66FF49885EFF96B79DFFC98C50FFC57D50FFFDFB
+          F9FFFDE9D8FFF9E1D0FFEBCAB3FFECC5A7FFE3B698FFF7E7DDFFF7E8DEFFE3B6
+          97FFECC3A4FFEAC5A9FFF8DAC2FFFCDFC6FFF8F3EDFFC88D50FFC9865BFFFDFB
+          F9FFFDE8D7FFFDE6D4FFEDC6ABFFDCAA89FFF9ECE3FFFFFBF9FFFFFCFAFFF9EE
+          E6FFDCA887FFEDBF9CFFFCDBC0FFFCDBC0FFF8F3EDFFC88C50FFCC8E66FFFDFB
+          F9FFFDE5D3FFF1CCB2FFE3B596FFF9EAE0FFFFF9F5FFFEF3EAFFFEF4EDFFFFFB
+          F9FFF9EDE5FFE3B08DFFF0C19EFFFCD7B7FFF8F3EDFFC88C50FFD09670FFFDFB
+          F9FFF1CDB1FFE3B596FFF9E9DEFFFEF7F1FFFDEDE1FFFEEFE4FFFEF1E7FFFEF3
+          EAFFFFFAF7FFF9ECE3FFE2AE8AFFF0BC95FFF8F4ECFFC88C50FFD39D7BFEFBF6
+          F2FFE3B496FFF9E8DCFFFEF5EEFFFDE9DAFFFDEADCFFFDECDEFFFDEDE1FFFEEF
+          E4FFFEF1E7FFFFFAF6FFF9EAE0FFE2AA85FFF1E4D9FFC88C50FED7AB91DCFDFA
+          F8FEFCF5F1FFFFFCF9FFFFFCF9FFFFFCF9FFFFFCF9FFFFFCFAFFFFFCFAFFFFFC
+          FAFFFFFCFBFFFFFDFBFFFFFDFCFFFBF6F3FFF8EFEAFDAB7743DBC89A7CBFD5A4
+          84F0D09770FBCC8F64FDCC8E62FDCB8E60FDCA8C5DFDC98B5BFDC88A58FDC788
+          56FDC68653FDC58450FDC4824DFCC1834DF7B27948E38E512BBFFFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+        }
+        OnClick = bAddClick
+        TabOrder = 2
+      end
+      object bDelete: TBitBtn
+        Left = 328
+        Height = 32
+        Top = 40
+        Width = 107
+        Anchors = [akTop, akRight]
+        Caption = 'löschen'
+        Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF001D57C4780345B9DF0442BCFE0345B9E30345B87AFFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF001A57
+          C3802564C9FB2177E6FF0579EAFF0164DDFF044DBDFC0345B87AFFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000345
+          B9E3639DF4FF187FFFFF0076F8FF0076EEFF0368E1FF0345B9E48E512BBFB063
+          31EFBB7038FABE773CFBC17B40FBC27E42FBC28045FBC38247FBC38649FB0542
+          BCFFAECDFEFFFFFFFFFFFFFFFFFFFFFFFFFF187FEFFF0542BBFFA35D31DEF8F3
+          EEFDF5ECE4FEFBF5F0FFFBF7F1FFFBF7F3FFFBF8F4FFFCF9F5FFFCF9F5FF245C
+          C1FF8DB5F6FF4D92FFFF1177FFFF2186FFFF408AEBFF164AABFBBE6F3CFEFCF9
+          F5FFECD0BCFFF9E4D6FFFEECDFFFFEEBDFFFFEEBDEFFFEEBDBFFFEEBDCFF95A5
+          D1FF3D76D1FF8DB5F7FFB8D6FEFF72A8F5FF2F6DCBFF746C7DFEC27646FFFDFB
+          F8FFF9E3D2FFECCFB9FFF8E1D0FFFDE7D6FFF4D5BDFFE9BFA0FFE9BFA2FFF4D3
+          BDFF94A3CCFF295EC1FF0543BCFF1F56BAFF85A1D4FFC98C50FFC57D50FFFDFB
+          F9FFFDE9D8FFF9E1D0FFEBCAB3FFECC5A7FFE3B698FFF7E7DDFFF7E8DEFFE3B6
+          97FFECC3A4FFEAC5A9FFF8DAC2FFFCDFC6FFF8F3EDFFC88D50FFC9865BFFFDFB
+          F9FFFDE8D7FFFDE6D4FFEDC6ABFFDCAA89FFF9ECE3FFFFFBF9FFFFFCFAFFF9EE
+          E6FFDCA887FFEDBF9CFFFCDBC0FFFCDBC0FFF8F3EDFFC88C50FFCC8E66FFFDFB
+          F9FFFDE5D3FFF1CCB2FFE3B596FFF9EAE0FFFFF9F5FFFEF3EAFFFEF4EDFFFFFB
+          F9FFF9EDE5FFE3B08DFFF0C19EFFFCD7B7FFF8F3EDFFC88C50FFD09670FFFDFB
+          F9FFF1CDB1FFE3B596FFF9E9DEFFFEF7F1FFFDEDE1FFFEEFE4FFFEF1E7FFFEF3
+          EAFFFFFAF7FFF9ECE3FFE2AE8AFFF0BC95FFF8F4ECFFC88C50FFD39D7BFEFBF6
+          F2FFE3B496FFF9E8DCFFFEF5EEFFFDE9DAFFFDEADCFFFDECDEFFFDEDE1FFFEEF
+          E4FFFEF1E7FFFFFAF6FFF9EAE0FFE2AA85FFF1E4D9FFC88C50FED7AB91DCFDFA
+          F8FEFCF5F1FFFFFCF9FFFFFCF9FFFFFCF9FFFFFCF9FFFFFCFAFFFFFCFAFFFFFC
+          FAFFFFFCFBFFFFFDFBFFFFFDFCFFFBF6F3FFF8EFEAFDAB7743DBC89A7CBFD5A4
+          84F0D09770FBCC8F64FDCC8E62FDCB8E60FDCA8C5DFDC98B5BFDC88A58FDC788
+          56FDC68653FDC58450FDC4824DFCC1834DF7B27948E38E512BBFFFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+        }
+        OnClick = bDeleteClick
+        TabOrder = 3
+      end
+      object lSignature: TLabel
+        Left = 8
+        Height = 16
+        Top = 176
+        Width = 45
+        Caption = 'Signatur'
+        ParentColor = False
+      end
+      inline fSignature: TfRichFrame
+        Height = 109
+        Top = 172
+        Width = 439
+        Align = alBottom
+        ClientHeight = 109
+        ClientWidth = 439
+        Color = clForm
+        ParentColor = False
+        TabOrder = 4
+        inherited rmText: TRichMemo
+          Height = 63
+          Width = 431
+        end
+        inherited seFontSize: TSpinEdit
+          Height = 23
+        end
+      end
+    end
+    object tsColors: TTabSheet
+      Caption = 'Farben'
+      ClientHeight = 298
+      ClientWidth = 443
+      ImageIndex = 3
+      object pgColorTabs: TPageControl
+        Left = 0
+        Height = 298
+        Top = 0
+        Width = 443
+        ActivePage = tsCommon
+        Align = alClient
+        TabIndex = 0
+        TabOrder = 0
+        object tsCommon: TTabSheet
+          Caption = 'Allgemein'
+          ClientHeight = 294
+          ClientWidth = 439
+          inline fAlternativeRowColor: TfColorFrame
+            Left = 4
+            Height = 88
+            Top = 118
+            Width = 332
+            ClientHeight = 88
+            ClientWidth = 332
+            Color = clForm
+            ParentColor = False
+            inherited cbInfoColor: TColorBox
+              Width = 269
+            end
+            inherited bInfoColor: TColorButton
+              Left = 289
+            end
+            inherited lSelectColor: TLabel
+              Left = 194
+            end
+          end
+          inline fInfoColor: TfColorFrame
+            Left = 4
+            Height = 86
+            Top = 16
+            Width = 332
+            ClientHeight = 86
+            ClientWidth = 332
+            Color = clForm
+            ParentColor = False
+            TabOrder = 1
+            inherited cbInfoColor: TColorBox
+              Width = 269
+            end
+            inherited bInfoColor: TColorButton
+              Left = 289
+            end
+            inherited lSelectColor: TLabel
+              Left = 194
+            end
+          end
+        end
+        object tsForms: TTabSheet
+          Caption = 'Formulare'
+          ClientHeight = 294
+          ClientWidth = 439
+          inline fOrderBackground: TfColorFrame
+            Left = 6
+            Height = 88
+            Top = 14
+            Width = 206
+            ClientHeight = 88
+            ClientWidth = 206
+            Color = clForm
+            ParentColor = False
+            inherited cbInfoColor: TColorBox
+              Width = 143
+            end
+            inherited bInfoColor: TColorButton
+              Left = 163
+            end
+            inherited lSelectColor: TLabel
+              Left = 117
+            end
+          end
+          inline fMasterdataBackground: TfColorFrame
+            Left = 6
+            Height = 88
+            Top = 118
+            Width = 206
+            ClientHeight = 88
+            ClientWidth = 206
+            Color = clForm
+            ParentColor = False
+            TabOrder = 1
+            inherited cbInfoColor: TColorBox
+              Width = 143
+            end
+            inherited bInfoColor: TColorButton
+              Left = 163
+            end
+            inherited lSelectColor: TLabel
+              Left = 112
+            end
+          end
+          inline fCustomerBackground: TfColorFrame
+            Left = 220
+            Height = 88
+            Top = 14
+            Width = 216
+            ClientHeight = 88
+            ClientWidth = 216
+            Color = clForm
+            ParentColor = False
+            TabOrder = 2
+            inherited cbInfoColor: TColorBox
+              Width = 153
+            end
+            inherited bInfoColor: TColorButton
+              Left = 173
+            end
+            inherited lSelectColor: TLabel
+              Left = 122
+            end
+          end
+          inline fMessageBackground: TfColorFrame
+            Left = 220
+            Height = 88
+            Top = 118
+            Width = 216
+            ClientHeight = 88
+            ClientWidth = 216
+            Color = clForm
+            ParentColor = False
+            TabOrder = 3
+            inherited cbInfoColor: TColorBox
+              Width = 153
+            end
+            inherited bInfoColor: TColorButton
+              Left = 173
+            end
+            inherited lSelectColor: TLabel
+              Left = 125
+            end
+          end
+        end
+      end
+    end
+    object tsDocumentmanagement: TTabSheet
+      Caption = 'Dokumentenmanagement'
+      ClientHeight = 298
+      ClientWidth = 443
+      ImageIndex = 1
+      object ltempDirectory: TLabel
+        Left = 12
+        Height = 18
+        Top = 24
+        Width = 161
+        Caption = 'Temporäres Verzeichnis'
+        ParentColor = False
+      end
+      object eTempDirectory: TDirectoryEdit
+        Left = 12
+        Height = 27
+        Top = 48
+        Width = 393
+        ShowHidden = False
+        ButtonWidth = 23
+        NumGlyphs = 1
+        Anchors = [akTop, akLeft, akRight]
+        MaxLength = 0
+        TabOrder = 0
+      end
+      object rbDeleteNormal: TRadioButton
+        Left = 36
+        Height = 24
+        Top = 112
+        Width = 128
+        Caption = 'normal löschen'
+        Checked = True
+        TabOrder = 1
+        TabStop = True
+      end
+      object rbDeleteSecure: TRadioButton
+        Left = 36
+        Height = 24
+        Top = 199
+        Width = 257
+        Caption = 'Sicher löschen (35x überschreiben)'
+        TabOrder = 2
+      end
+      object rbDeleteDoD522022: TRadioButton
+        Left = 36
+        Height = 24
+        Top = 170
+        Width = 383
+        Caption = 'nach DoD522022 methode löschen (7x überschreiben)'
+        TabOrder = 3
+      end
+      object rbOverride: TRadioButton
+        Left = 36
+        Height = 24
+        Top = 141
+        Width = 141
+        Caption = '1x überschreiben'
+        TabOrder = 4
+      end
+    end
+    object tsTelephonie: TTabSheet
+      Caption = 'Telefon'
+      ClientHeight = 298
+      ClientWidth = 443
+      ImageIndex = 2
+      object lAllowedPhoneLines: TLabel
+        Left = 12
+        Height = 18
+        Top = 6
+        Width = 167
+        Caption = 'erlaubte Telefonleitungen'
+        ParentColor = False
+      end
+      object clbAllowedPhoneLines: TCheckListBox
+        Left = 12
+        Height = 246
+        Top = 32
+        Width = 414
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        ItemHeight = 0
+        OnClick = clbAllowedPhoneLinesClick
+        TabOrder = 0
+        TopIndex = -1
+      end
+    end
+    object tsTimeregistering: TTabSheet
+      Caption = 'Zeiterfassung'
+      ClientHeight = 298
+      ClientWidth = 443
+      ImageIndex = 4
+      object cbMinimizeonStartTime: TCheckBox
+        Left = 11
+        Height = 24
+        Hint = 'beim beginnen eines neuen'#13#10'Zeiteintrages, wird die Anwendung minimiert'
+        Top = 8
+        Width = 203
+        Caption = 'Minimieren beim Beginnen'
+        Checked = True
+        State = cbChecked
+        TabOrder = 0
+      end
+      object cbStartwithStandart: TCheckBox
+        Left = 11
+        Height = 24
+        Top = 40
+        Width = 214
+        Caption = 'mit Standardeintrag starten'
+        Checked = True
+        State = cbChecked
+        TabOrder = 1
+      end
+      object lActiveEntry: TLabel
+        Left = 4
+        Height = 18
+        Top = 68
+        Width = 116
+        Caption = 'Standardeintrag'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object GroupBox1: TGroupBox
+        Left = 6
+        Height = 214
+        Top = 84
+        Width = 437
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        BorderSpacing.InnerBorder = 2
+        ClientHeight = 210
+        ClientWidth = 433
+        TabOrder = 2
+        object Panel1: TPanel
+          Left = 0
+          Height = 26
+          Top = 0
+          Width = 433
+          Align = alTop
+          BevelOuter = bvNone
+          ClientHeight = 26
+          ClientWidth = 433
+          TabOrder = 0
+          object lProject: TLabel
+            Left = 4
+            Height = 18
+            Top = 3
+            Width = 51
+            Caption = 'Projekt'
+            ParentColor = False
+          end
+          object eProject: TEditButton
+            Left = 80
+            Height = 27
+            Hint = 'Suchen Sie mithilfe des Buttons einen passenden Eintrag'#13#10'oder geben Sie einen freien Text ein'
+            Top = 0
+            Width = 325
+            Anchors = [akTop, akLeft, akRight]
+            ButtonWidth = 23
+            CharCase = ecNormal
+            Glyph.Data = {
+              36040000424D3604000000000000360000002800000010000000100000000100
+              2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00145D9503105A921AFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF0022669E061B629AAD22679DFF115B9387FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF003272
+              AA062B6DA5AD558DBCFF89B5DDFF185F97FFFFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00447FB7063C79
+              B1AD6497C5FF9DC1E4FF6699C7FF1F659DEBFFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00DDB28F02D9AE8A97D6A985E3D3A57FFDD0A07BFDCD9C76E4A2938ADE75A2
+              CCFFABCBE8FF76A4CEFF3070A8EB286BA327FFFFFF00FFFFFF00FFFFFF00E4BD
+              9B02E1B896C0E8C9AEFFF5E1CDFFF7E5D3FFF7E5D1FFF3DDC8FFDFBA9CFFC7A8
+              91FF86AED5FF417DB5EB3977AF27FFFFFF00FFFFFF00FFFFFF00FFFFFF00E8C3
+              A297EDD0B7FFF8E8D9FFF5DEC8FFF3D8BDFFF3D6BBFFF4DBC2FFF7E4D2FFDFBB
+              9DFF9D9492F74B84BC27FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00ECC8
+              A8E3F7E7D7FFF6E1CCFFF4DBC2FFF4DAC0FFF3D8BDFFF3D7BBFFF4DBC2FFF3DE
+              C9FFCD9F7BE7FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00F0CE
+              AEFDF9ECDFFFF5DFC8FFF5DDC6FFF4DCC3FFF4DAC1FFF3D9BEFFF3D7BDFFF8E6
+              D3FFD3A57FFDFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00F4D3
+              B4FDF9EDE1FFF6E1CCFFF5DFC9FFF5DEC7FFF4DCC4FFF4DBC2FFF4DAC0FFF8E7
+              D6FFD7AA86FDFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00F7D7
+              B9E3F9EBDEFFF7E7D6FFF6E1CCFFF5E0CAFFF5DEC8FFF5DDC5FFF6E1CBFFF5E2
+              D0FFDBB08CE3FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FADB
+              BD97F8E2CCFFFAEEE3FFF7E7D6FFF6E2CEFFF6E1CBFFF6E3D0FFF9EADDFFECCF
+              B5FFDFB69397FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FCDE
+              C002FADBBEC0F9E2CDFFFAECDEFFF9EEE2FFF9EDE2FFF8E9DAFFF0D5BDFFE7C0
+              9FC0E3BC9A02FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FCDEC102FADCBF97F9D9BBE3F6D6B8FDF4D3B4FDF1CFAFE3EECBAB97EBC6
+              A602FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+            }
+            MaxLength = 0
+            NumGlyphs = 1
+            OnButtonClick = eProjectButtonClick
+            OnEditingDone = eProjectEditingDone
+            TabOrder = 0
+          end
+        end
+        object Panel2: TPanel
+          Left = 0
+          Height = 28
+          Top = 26
+          Width = 433
+          Align = alTop
+          BevelOuter = bvNone
+          ClientHeight = 28
+          ClientWidth = 433
+          TabOrder = 1
+          object eLink: TEditButton
+            Left = 80
+            Height = 27
+            Hint = 'Suchen Sie mithilfe des Buttons einen passenden Eintrag'#13#10'oder geben Sie einen freien Text ein'
+            Top = 0
+            Width = 325
+            Anchors = [akTop, akLeft, akRight]
+            ButtonWidth = 23
+            CharCase = ecNormal
+            Glyph.Data = {
+              36040000424D3604000000000000360000002800000010000000100000000100
+              2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00145D9503105A921AFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF0022669E061B629AAD22679DFF115B9387FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF003272
+              AA062B6DA5AD558DBCFF89B5DDFF185F97FFFFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00447FB7063C79
+              B1AD6497C5FF9DC1E4FF6699C7FF1F659DEBFFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00DDB28F02D9AE8A97D6A985E3D3A57FFDD0A07BFDCD9C76E4A2938ADE75A2
+              CCFFABCBE8FF76A4CEFF3070A8EB286BA327FFFFFF00FFFFFF00FFFFFF00E4BD
+              9B02E1B896C0E8C9AEFFF5E1CDFFF7E5D3FFF7E5D1FFF3DDC8FFDFBA9CFFC7A8
+              91FF86AED5FF417DB5EB3977AF27FFFFFF00FFFFFF00FFFFFF00FFFFFF00E8C3
+              A297EDD0B7FFF8E8D9FFF5DEC8FFF3D8BDFFF3D6BBFFF4DBC2FFF7E4D2FFDFBB
+              9DFF9D9492F74B84BC27FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00ECC8
+              A8E3F7E7D7FFF6E1CCFFF4DBC2FFF4DAC0FFF3D8BDFFF3D7BBFFF4DBC2FFF3DE
+              C9FFCD9F7BE7FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00F0CE
+              AEFDF9ECDFFFF5DFC8FFF5DDC6FFF4DCC3FFF4DAC1FFF3D9BEFFF3D7BDFFF8E6
+              D3FFD3A57FFDFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00F4D3
+              B4FDF9EDE1FFF6E1CCFFF5DFC9FFF5DEC7FFF4DCC4FFF4DBC2FFF4DAC0FFF8E7
+              D6FFD7AA86FDFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00F7D7
+              B9E3F9EBDEFFF7E7D6FFF6E1CCFFF5E0CAFFF5DEC8FFF5DDC5FFF6E1CBFFF5E2
+              D0FFDBB08CE3FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FADB
+              BD97F8E2CCFFF

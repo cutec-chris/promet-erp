@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <Package Version="4">
+    <Name Value="laz_tapi"/>
+    <AddToProjectUsesSection Value="True"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <SearchPaths>
+        <OtherUnitFiles Value="C:/Prometheus/TCS/prometheus/src/tapi"/>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+      <Parsing>
+        <SyntaxOptions>
+          <CStyleOperator Value="False"/>
+          <UseAnsiStrings Value="False"/>
+        </SyntaxOptions>
+      </Parsing>
+      <Other>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
+    </CompilerOptions>
+    <Files Count="25">
+      <Item1>
+        <Filename Value="tapi.pas"/>
+        <UnitName Value="Tapi"/>
+      </Item1>
+      <Item2>
+        <Filename Value="TAPIServices.pas"/>
+        <UnitName Value="TAPIServices"/>
+      </Item2>
+      <Item3>
+        <Filename Value="TAPIAddress.pas"/>
+        <UnitName Value="TAPIAddress"/>
+      </Item3>
+      <Item4>
+        <Filename Value="TAPIDevices.pas"/>
+        <UnitName Value="TAPIDevices"/>
+      </Item4>
+      <Item5>
+        <Filename Value="TAPITrans.pas"/>
+        <UnitName Value="TAPITrans"/>
+      </Item5>
+      <Item6>
+        <Filename Value="AssistedTAPI.pas"/>
+        <UnitName Value="AssistedTAPI"/>
+      </Item6>
+      <Item7>
+        <Filename Value="CallList.pas"/>
+        <UnitName Value="CallList"/>
+      </Item7>
+      <Item8>
+        <Filename Value="DevConf.pas"/>
+        <UnitName Value="DevConf"/>
+      </Item8>
+      <Item9>
+        <Filename Value="TAPICall.pas"/>
+        <UnitName Value="TAPICall"/>
+      </Item9>
+      <Item10>
+        <Filename Value="TAPICallBack.pas"/>
+        <UnitName Value="TAPICallBack"/>
+      </Item10>
+      <Item11>
+        <Filename Value="TAPIConference.pas"/>
+        <UnitName Value="TAPIConference"/>
+      </Item11>
+      <Item12>
+        <Filename Value="TAPICurVer.pas"/>
+        <UnitName Value="TAPICurVer"/>
+      </Item12>
+      <Item13>
+        <Filename Value="tapierr.pas"/>
+        <UnitName Value="TAPIErr"/>
+      </Item13>
+      <Item14>
+        <Filename Value="TAPIForward.pas"/>
+        <UnitName Value="TAPIForward"/>
+      </Item14>
+      <Item15>
+        <Filename Value="TAPIHelpfunc.pas"/>
+        <UnitName Value="TAPIHelpFunc"/>
+      </Item15>
+      <Item16>
+        <Filename Value="TAPILines.pas"/>
+        <UnitName Value="TAPILines"/>
+      </Item16>
+      <Item17>
+        <Filename Value="TAPILists.pas"/>
+        <UnitName Value="TAPILists"/>
+      </Item17>
+      <Item18>
+        <Filename Value="TAPIMediaCtl.pas"/>
+        <UnitName Value="TAPIMediaCtl"/>
+      </Item18>
+      <Item19>
+        <Filename Value="TAPIObj.pas"/>
+        <UnitName Value="TAPIObj"/>
+      </Item19>
+      <Item20>
+        <Filename Value="TAPIPhone.pas"/>
+        <UnitName Value="TAPIPhone"/>
+      </Item20>
+      <Item21>
+        <Filename Value="TAPIProv.pas"/>
+        <UnitName Value="TAPIProv"/>
+      </Item21>
+      <Item22>
+        <Filename Value="TAPIRedirect.pas"/>
+        <UnitName Value="TAPIRedirect"/>
+      </Item22>
+      <Item23>
+        <Filename Value="TAPISystem.pas"/>
+        <UnitName Value="TAPISystem"/>
+      </Item23>
+      <Item24>
+        <Filename Value="TAPIThread.pas"/>
+        <UnitName Value="TAPIThread"/>
+      </Item24>
+      <Item25>
+        <Filename Value="TAPITon.pas"/>
+        <UnitName Value="TAPITon"/>
+      </Item25>
+    </Files>
+    <Type Value="RunAndDesignTime"/>
+    <RequiredPkgs Count="2">
+      <Item1>
+        <PackageName Value="LCL"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="FCL"/>
+        <MinVersion Major="1" Valid="True"/>
+      </Item2>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IgnoreBinaries Value="False"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

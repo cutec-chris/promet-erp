@@ -1,0 +1,15 @@
+object main: Tmain
+  OldCreateOrder = False
+  Actions = <  
+    item
+      Name = 'getstatistic'
+      Default = True
+      OnRequest = getstatisticRequest
+      Template.AllowTagParams = False
+    end>
+  CreateSession = True
+  Height = 328
+  HorizontalOffset = 328
+  VerticalOffset = 364
+  Width = 393
+end

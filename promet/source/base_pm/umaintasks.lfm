@@ -1,0 +1,6 @@
+inherited fMainTaskFrame: TfMainTaskFrame
+  Height = 492
+  Width = 693
+  DesignLeft = 498
+  DesignTop = 222
+end

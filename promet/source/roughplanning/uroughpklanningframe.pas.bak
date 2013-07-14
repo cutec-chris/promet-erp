@@ -1,0 +1,545 @@
+{*******************************************************************************
+Dieser Sourcecode darf nicht ohne gültige Geheimhaltungsvereinbarung benutzt werden
+und ohne gültigen Vertriebspartnervertrag weitergegeben werden.
+You have no permission to use this Source without valid NDA
+and copy it without valid distribution partner agreement
+Christian Ulrich
+info@cu-tec.de
+Created 25.06.2013
+*******************************************************************************}
+unit uroughpklanningframe;
+{$mode objfpc}{$H+}
+interface
+uses
+  Classes, SysUtils, FileUtil, SynMemo, SynHighlighterSQL, TAGraph, LR_DBSet,
+  LR_Class, LR_View, Forms, Controls, ComCtrls, Buttons, ActnList, Menus,
+  ExtCtrls, DbCtrls, StdCtrls, uExtControls, DBZVDateTimePicker, db,
+  uPrometFrames, uPrometFramesInplace, uBaseDBClasses, Dialogs, Spin, EditBtn,
+  DBGrids, variants,uStatistic,SynCompletion,md5,LCLType,
+  TASeries, TACustomSeries,fpsqlparser,Clipbrd,gsGanttCalendar,uProjects,Grids,
+  uIntfStrConsts,Graphics;
+type
+  TFillingThread = class;
+  TIntDepartment = class
+  public
+    Name : string;
+    Accountno : string;
+    Time : Real;
+    FullTime : real;
+    constructor Create;
+  end;
+  TProjectInterval = class(TInterval)
+  private
+    FList : TList;
+    function getDepartment(aDepartment : Integer): TIntDepartment;
+    function GetDeptCount: Integer;
+  public
+    property Departments[aDepartment : Integer] : TIntDepartment read getDepartment;
+    procedure AddTime(aAccountNo,aDept : string;aTime : Real);
+    property DepartmentCount : Integer read GetDeptCount;
+    constructor Create(AGantt: TgsGantt);override;
+    destructor Destroy;override;
+  end;
+  TfRoughPlanningFrame = class(TPrometMainFrame)
+    acCancel: TAction;
+    acClose: TAction;
+    acDelete: TAction;
+    acOpen: TAction;
+    acSave: TAction;
+    acExport: TAction;
+    acImport: TAction;
+    acPrint: TAction;
+    acRights: TAction;
+    acRestart: TAction;
+    acGotoParent: TAction;
+    acExecute: TAction;
+    acShowInProjectGantt: TAction;
+    acShowProject: TAction;
+    ActionList1: TActionList;
+    acUse: TAction;
+    bDayView: TSpeedButton;
+    Bevel5: TBevel;
+    Bevel7: TBevel;
+    bMonthView: TSpeedButton;
+    bRefresh: TSpeedButton;
+    bToday: TSpeedButton;
+    bWeekView: TSpeedButton;
+    Label3: TLabel;
+    Label5: TLabel;
+    Label7: TLabel;
+    lDate: TLabel;
+    miCopy: TMenuItem;
+    MenuItem6: TMenuItem;
+    MenuItem3: TMenuItem;
+    MenuItem4: TMenuItem;
+    N1: TMenuItem;
+    N1001: TMenuItem;
+    N101: TMenuItem;
+    N1501: TMenuItem;
+    N2: TMenuItem;
+    N2001: TMenuItem;
+    N251: TMenuItem;
+    N3: TMenuItem;
+    N4: TMenuItem;
+    N5: TMenuItem;
+    N501: TMenuItem;
+    N6: TMenuItem;
+    N7: TMenuItem;
+    N751: TMenuItem;
+    miDelete: TMenuItem;
+    Panel4: TPanel;
+    Panel7: TPanel;
+    Panel9: TPanel;
+    tbTop: TPanel;
+    ToolButton1: TSpeedButton;
+    ToolButton2: TSpeedButton;
+    procedure bDayViewClick(Sender: TObject);
+    procedure bMonthViewClick(Sender: TObject);
+    procedure bTodayClick(Sender: TObject);
+    procedure bWeekViewClick(Sender: TObject);
+    procedure FRoughTreeAfterUpdateCommonSettings(Sender: TObject);
+    procedure aIntDrawBackground(Sender: TObject; aCanvas: TCanvas;
+      aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
+  private
+    { private declarations }
+    FEditable : Boolean;
+    FRough: TgsGantt;
+  protected
+    aThread: TFillingThread;
+    function SetRights : Boolean;
+  public
+    { public declarations }
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy;override;
+    procedure SetLanguage;override;
+    procedure ShowFrame; override;
+    procedure StartFilling;
+    function GetAvalibeTimeInRange(asUser : string; aStart,
+  aEnd: TDateTime): Real;
+    function GetProjectTimes(aAccountno : string;aStart,aEnd : TDateTime) : real;
+  end;
+  TFillingThread = class(TThread)
+  private
+    FFrame: TfRoughPlanningFrame;
+    aInt: TProjectInterval;
+    procedure AddInterval;
+  public
+    procedure Execute;override;
+    constructor Create(aFrame : TfRoughPlanningFrame);
+  end;
+
+procedure AddToMainTree(aAction : TAction);
+var
+  MainNode : TTreeNode;
+
+implementation
+uses uData,uBaseDBInterface,uBaseERPDBClasses,uCalendar;
+{$R *.lfm}
+procedure AddToMainTree(aAction : TAction);
+begin
+end;
+
+constructor TIntDepartment.Create;
+begin
+  FullTime:=-1;
+end;
+
+function TProjectInterval.getDepartment(aDepartment : Integer): TIntDepartment;
+begin
+  Result := TIntDepartment(FList[aDepartment]);
+end;
+
+function TProjectInterval.GetDeptCount: Integer;
+begin
+  result := FList.Count;
+end;
+
+procedure TProjectInterval.AddTime(aAccountNo,aDept: string; aTime: Real);
+var
+  Found: Boolean = False;
+  i: Integer;
+begin
+  for i := 0 to FList.Count-1 do
+    if TIntDepartment(FList[i]).Name=aDept then
+      begin
+        TIntDepartment(FList[i]).Time:=TIntDepartment(FList[i]).Time+aTime;
+        Found := True;
+      end;
+  if not Found then
+    begin
+      FList.Add(TIntDepartment.Create);
+      TIntDepartment(FList[Flist.Count-1]).Name:=aDept;
+      TIntDepartment(FList[Flist.Count-1]).Accountno:=aAccountNo;
+      TIntDepartment(FList[Flist.Count-1]).Time:=aTime;
+      TIntDepartment(FList[Flist.Count-1]).FullTime:=-1;
+    end;
+end;
+
+constructor TProjectInterval.Create(AGantt: TgsGantt);
+begin
+  FList := TList.Create;
+  inherited Create(AGantt);
+end;
+
+destructor TProjectInterval.Destroy;
+begin
+  FList.Free;
+  inherited Destroy;
+end;
+
+procedure TFillingThread.AddInterval;
+begin
+  FFrame.FRough.AddInterval(aInt);
+end;
+
+procedure TFillingThread.Execute;
+var
+  aConn: TComponent;
+  aProjects: TProjectList;
+  aProject: TProject;
+  aSubInt: TInterval = NIL;
+  aOldSubInt: TInterval;
+  aState: TStates;
+  aDept: TDataSet;
+  aUsers: TUser;
+begin
+  aConn := Data.GetNewConnection;
+  aProjects :=  TProjectList.Create(nil,Data,aConn);
+  with aProjects.DataSet as IBaseDbFilter do
+    Data.SetFilter(aProjects,ProcessTerm(Data.QuoteField('GPRIORITY')+'<>'+Data.QuoteValue('0')),0,'GPRIORITY','ASC');
+  aState := TStates.Create(nil,Data,aConn);
+  aState.Open;
+  aUsers := TUser.Create(nil,Data,aConn);
+  aUsers.Open;
+  while (not aProjects.EOF) and (not Terminated) do
+    begin
+      if aState.DataSet.Locate('STATUS;TYPE',VarArrayOf([trim(aProjects.FieldByName('STATUS').AsString),'P']),[]) then
+        if aState.DataSet.FieldByName('ACTIVE').AsString<>'N' then
+          begin
+            aInt := TProjectInterval.Create(FFrame.FRough);
+            aInt.Task:=aProjects.Text.AsString;
+            aInt.OnDrawBackground:=@FFrame.aIntDrawBackground;
+            aInt.Style:=isNone;
+            aInt.Visible:=True;
+            aProject := TProject.Create(nil,Data,aConn);
+            aProject.Select(aProjects.Id.AsVariant);
+            aProject.Open;
+            Data.SetFilter(aProject.Tasks,Data.QuoteField('CLASS')+'='+Data.QuoteValue('M'),0,'DUEDATE','ASC');
+            aSubInt := nil;
+            while not aProject.Tasks.EOF do
+              begin
+                if (aProject.Tasks.FieldByName('CLASS').AsString='M') and (aProject.Tasks.FieldByName('DUEDATE').AsString<>'') and (aProject.Tasks.FieldByName('ACTIVE').AsString<>'N') and (aProject.Tasks.FieldByName('COMPLETED').AsString<>'Y') then
+                  begin
+                    aOldSubInt := aSubInt;
+                    aSubInt := TInterval.Create(FFrame.FRough);
+                    aSubInt.Task:=aProject.Tasks.FieldByName('SUMMARY').AsString;
+                    aSubInt.StartDate:=aProject.Tasks.FieldByName('STARTDATE').AsDateTime;
+                    if (aSubInt.StartDate=0) and Assigned(aOldSubInt) then
+                      aSubInt.StartDate:=aOldSubInt.FinishDate;
+                    if (aSubInt.StartDate=0) then
+                      aSubInt.StartDate:=Now();
+                    aSubInt.FinishDate:=aProject.Tasks.FieldByName('DUEDATE').AsDateTime;
+                    if aSubInt.StartDate>aSubInt.FinishDate then
+                      aSubInt.StartDate:=aSubInt.FinishDate;
+                    if Assigned(aOldSubInt) then
+                        aOldSubInt.AddConnection(aSubInt,False);
+                    aInt.AddInterval(aSubInt);
+                    if Data.IsSQLDB then
+                      begin
+                        aDept := Data.GetNewDataSet('select sum('+Data.QuoteField('PLANTIME')+') as '+Data.QuoteField('TIME')+','+Data.QuoteField('USER')+' from '+Data.QuoteField('TASKS')+' where '+Data.QuoteField('PROJECTID')+'='+Data.QuoteValue(aProject.Id.AsString)+' and '+Data.QuoteField('WORKSTATUS')+'='+Data.QuoteValue(aProject.Tasks.FieldByName('WORKSTATUS').AsString)+' group by '+Data.QuoteField('USER'));
+                        aDept.Open;
+                        while not aDept.EOF do
+                          begin
+                            if aUsers.DataSet.Locate('ACCOUNTNO',aDept.FieldByName('USER').AsString,[]) then
+                              begin
+                                if (aUsers.FieldByName('PARENT').IsNull) or (aUsers.FieldByName('TYPE').AsString='G') then
+                                  aInt.AddTime(aUsers.FieldByName('ACCOUNTNO').AsString,aUsers.FieldByName('NAME').AsString,aDept.FieldByName('TIME').AsFloat)
+                                else
+                                  begin
+                                    aUsers.DataSet.Locate('SQL_ID',aUsers.FieldByName('PARENT').AsString,[]);
+                                    aInt.AddTime(aUsers.FieldByName('ACCOUNTNO').AsString,aUsers.FieldByName('NAME').AsString,aDept.FieldByName('TIME').AsFloat);
+                                  end;
+                              end;
+                            aDept.Next;
+                          end;
+                        aDept.Free;
+                      end;
+                  end;
+                aProject.Tasks.Next;
+              end;
+            aProject.Free;
+            Synchronize(@AddInterval);
+          end;
+      aProjects.Next;
+    end;
+  aProjects.Free;
+  aState.Free;
+  aUsers.Free;
+  aConn.Free;
+  FFrame.aThread:=nil;
+end;
+
+constructor TFillingThread.Create(aFrame: TfRoughPlanningFrame);
+begin
+  FFrame := aFrame;
+  Priority:=tpHighest;
+  Execute;
+  Free;
+  //inherited Create(False)
+end;
+
+procedure TfRoughPlanningFrame.aIntDrawBackground(Sender: TObject; aCanvas: TCanvas;
+  aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
+var
+  Style : TTextStyle;
+  i: Integer;
+  aDRect: TRect;
+  aAddTop : Integer = 0;
+  aInt: TProjectInterval;
+  aDeptWidth: Integer;
+  a: Integer;
+  aDerect: TRect;
+  aDrawTime: Real;
+  aTop: Int64;
+  aDepartment: TIntDepartment;
+begin
+  FillChar(Style, SizeOf(TTextStyle), 0);
+  Style.SystemFont := True;
+  Style.Alignment:=taCenter;
+  Style.Layout:=tlCenter;
+  Style.Clipping:=True;
+  aInt := TProjectInterval(Sender);
+  if aInt.IntervalCount=0 then
+    begin
+      aCanvas.TextRect(aRect,aRect.Left,aRect.Top,'keine Plandaten vorhanden',Style);
+    end
+  else
+    begin
+      for i := 0 to aInt.IntervalCount-1 do
+        begin
+          aDRect:=Rect(round((aInt.Interval[i].StartDate-aStart)*aDayWidth)+1,(aRect.Top)+aAddTop,round((aInt.Interval[i].FinishDate-aStart)*aDayWidth)-1,(aRect.Bottom)+aAddTop);
+          aCanvas.Pen.Style:=psSolid;
+          aCanvas.Pen.Color:=clRed;
+          aCanvas.Brush.Color:=clWindow;
+          aCanvas.Rectangle(aDRect);
+          if aInt.DepartmentCount>0 then
+            begin
+              aDeptWidth := (adRect.Right-aDRect.Left) div aInt.DepartmentCount;
+              for a := 0 to aInt.DepartmentCount-1 do
+                begin
+                  aDepartment := aInt.Departments[i];
+                  if aDepartment.FullTime=-1 then
+                    aDepartment.FullTime := GetAvalibeTimeInRange(aDepartment.Accountno,aInt.Interval[i].StartDate,aInt.Interval[i].FinishDate);
+                  aDrawTime := aDepartment.FullTime;
+                  aDrawTime -= GetProjectTimes(aInt.Departments[a].Accountno,aInt.Interval[i].StartDate,aInt.Interval[i].FinishDate);
+                  if aDrawTime<0 then aDrawTime := 0;
+                  aCanvas.Pen.Style:=psClear;
+                  aCanvas.Brush.Color:=clGreen;
+                  aDerect := Rect(round((aInt.Interval[i].StartDate-aStart)*aDayWidth)+(aDeptWidth*a),(aRect.Top)+aAddTop,round((aInt.Interval[i].StartDate-aStart)*aDayWidth)+(aDeptWidth*(a+1)),(aRect.Bottom)+aAddTop);
+                  if aDepartment.FullTime>0 then
+                    begin
+                      aTop := round(((aDerect.Bottom-aDerect.Top)*(aDrawTime/aDepartment.FullTime)));
+                      aTop := aDerect.Bottom-aTop;
+                    end
+                  else aTop := aDerect.Bottom;
+                  aDerect.Top:=aTop;
+                  aCanvas.Rectangle(aDeRect);
+                end;
+            end;
+        end;
+    end;
+end;
+
+procedure TfRoughPlanningFrame.bDayViewClick(Sender: TObject);
+begin
+  FRough.MinorScale:=tsDay;
+  FRough.MajorScale:=tsWeekNum;
+  FRough.Calendar.StartDate:=FRough.Calendar.StartDate;
+end;
+
+procedure TfRoughPlanningFrame.bMonthViewClick(Sender: TObject);
+begin
+  FRough.MinorScale:=tsDay;
+  FRough.MajorScale:=tsQuarter;
+  FRough.MinorScale:=tsMonth;
+  FRough.Calendar.StartDate:=FRough.Calendar.StartDate;
+end;
+
+procedure TfRoughPlanningFrame.bTodayClick(Sender: TObject);
+begin
+  FRough.StartDate:=Now();
+end;
+
+procedure TfRoughPlanningFrame.bWeekViewClick(Sender: TObject);
+begin
+  FRough.MinorScale:=tsDay;
+  FRough.MajorScale:=tsMonth;
+  FRough.MinorScale:=tsWeekNumPlain;
+  FRough.Calendar.StartDate:=FRough.Calendar.StartDate;
+end;
+
+procedure TfRoughPlanningFrame.FRoughTreeAfterUpdateCommonSettings(
+  Sender: TObject);
+begin
+  FRough.Tree.ColWidths[0]:=0;
+  FRough.Tree.ColWidths[1]:=0;
+  FRough.Tree.ColWidths[2]:=300;
+  FRough.Tree.Cells[2,0]:=strProject;
+  FRough.Tree.ColWidths[3]:=0;
+  FRough.Tree.ColWidths[4]:=0;
+  FRough.Tree.ColWidths[5]:=0;
+  FRough.Tree.ColWidths[6]:=0;
+  FRough.Tree.ColWidths[7]:=0;
+  FRough.Tree.Width:=310;
+end;
+
+function TfRoughPlanningFrame.SetRights: Boolean;
+begin
+
+end;
+
+constructor TfRoughPlanningFrame.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  FRough := TgsGantt.Create(Self);
+  FRough.Parent := Self;
+  FRough.Align:=alClient;
+  FRough.Tree.AfterUpdateCommonSettings:=@FRoughTreeAfterUpdateCommonSettings;
+  FRough.Tree.Options:=FRough.Tree.Options-[goEditing];
+end;
+
+destructor TfRoughPlanningFrame.Destroy;
+begin
+  if Assigned(aThread) then
+    begin
+      aThread.Terminate;
+      aThread.WaitFor;
+    end;
+  FRough.Free;
+  inherited Destroy;
+end;
+
+procedure TfRoughPlanningFrame.SetLanguage;
+begin
+end;
+
+procedure TfRoughPlanningFrame.ShowFrame;
+begin
+  inherited ShowFrame;
+end;
+
+procedure TfRoughPlanningFrame.StartFilling;
+begin
+  aThread := TFillingThread.Create(Self);
+end;
+
+function TfRoughPlanningFrame.GetAvalibeTimeInRange(asUser : string; aStart,
+  aEnd: TDateTime): Real;
+var
+  aUser: TUser;
+  aUsers: TUser;
+  aCalendar: TCalendar;
+  aDayT: Real;
+  bStart: TDateTime;
+  bEnd: TDateTime;
+begin
+  Result := 0;
+  aUser := TUser.Create(nil,Data);
+  aUser.SelectByAccountno(asUser);
+  aUser.Open;
+  if aUser.FieldByName('TYPE').AsString='G' then
+    begin
+      aUsers := TUser.Create(nil,Data);
+      with aUsers.DataSet as IBaseDbFilter do
+        Filter := Data.QuoteField('PARENT')+'='+Data.QuoteValue(aUser.Id.AsString);
+      aUsers.Open;
+      while not aUsers.EOF do
+        begin
+          Result := Result+GetAvalibeTimeInRange(aUsers.FieldByName('ACCOUNTNO').AsString,aStart,aEnd);
+          aUsers.Next;
+        end;
+      aUsers.Free;
+    end
+  else
+    begin
+      //verfügbare Zeit
+      aDayT := 1;
+      if not aUser.FieldByName('WORKTIME').IsNull then
+        aDayT := (8*100)/aUser.FieldByName('WORKTIME').AsInteger;
+      Result := aDayT*(aEnd-aStart);
+      //Abzüge
+      aCalendar := TCalendar.Create(nil,Data);
+      aCalendar.SelectPlanedByUserAndTime(asUser,aStart,aEnd);
+      aCalendar.Open;
+      with aCalendar.DataSet do
+        begin
+          First;
+          while not EOF do
+            begin
+              bStart:=aCalendar.FieldByName('STARTDATE').AsDateTime;
+              bEnd:=aCalendar.FieldByName('ENDDATE').AsDateTime;
+              if aCalendar.FieldByName('ALLDAY').AsString = 'Y' then
+                begin
+                  bStart := trunc(bStart);
+                  bEnd :=   trunc(bEnd+1);
+                end;
+              Result := Result-((bEnd-bStart)*aDayT);
+              Next;
+            end;
+        end;
+      aCalendar.Free;
+    end;
+  aUser.Free;
+end;
+
+function TfRoughPlanningFrame.GetProjectTimes(aAccountno : string;aStart, aEnd: TDateTime): real;
+var
+  a: Integer;
+  i: Integer;
+  b: Integer;
+  aDept: TIntDepartment;
+  aInt: TInterval;
+  aIEnd: TDateTime;
+  aIStart: TDateTime;
+  DontSet: Boolean;
+begin
+  Result := 0;
+  if aEnd-aStart<=0 then exit;
+  for i := 0 to FRough.IntervalCount-1 do
+    begin
+      with TProjectInterval(FRough.Interval[i]) do
+        begin
+          if DepartmentCount=0 then continue;
+          for b := 0 to DepartmentCount-1 do
+            if Departments[b].Accountno=aAccountno then
+              break;
+          if Departments[b].Accountno<>aAccountno then continue;
+          aDept := Departments[b];
+          aIEnd := aEnd;
+          aIStart := aStart;
+          for a := 0 to IntervalCount-1 do
+            begin
+              DontSet := False;
+              aInt := Interval[a];
+              if (aInt.StartDate<aStart) and (aInt.FinishDate>aEnd) then //Vollzeit
+              else if (aInt.StartDate>aStart) and (aInt.FinishDate>aEnd) then
+                aIStart := aInt.StartDate
+              else if (aInt.StartDate<aStart) and (aInt.FinishDate<aEnd) then
+                aIEnd := aInt.FinishDate
+              else if (aInt.StartDate>aStart) and (aInt.FinishDate<aEnd) then
+                begin
+                  aIStart := aInt.StartDate;
+                  aIEnd := aInt.FinishDate;
+                end
+              else DontSet := True;
+              if not DontSet then
+                Result := Result+aDept.Time*( (aIEnd-aIStart)/(aEnd-aStart));
+            end;
+        end;
+    end;
+  if Result<0 then
+    Result := 0;
+end;
+
+end.
+

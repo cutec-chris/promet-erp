@@ -1,0 +1,179 @@
+object fCSVOptions: TfCSVOptions
+  Left = 421
+  Height = 314
+  Top = 323
+  Width = 400
+  Caption = 'Textdatei Einstellungen'
+  ClientHeight = 314
+  ClientWidth = 400
+  OnCreate = FormCreate
+  Position = poScreenCenter
+  LCLVersion = '0.9.31'
+  object lOptions: TLabel
+    Left = 24
+    Height = 17
+    Top = 56
+    Width = 52
+    Caption = 'Optionen'
+    ParentColor = False
+  end
+  object ButtonPanel1: TButtonPanel
+    Left = 6
+    Height = 34
+    Top = 274
+    Width = 388
+    OKButton.Name = 'OKButton'
+    OKButton.Caption = '&Ok'
+    HelpButton.Name = 'HelpButton'
+    HelpButton.Caption = '&Hilfe'
+    HelpButton.Enabled = False
+    CloseButton.Name = 'CloseButton'
+    CloseButton.Caption = '&Schließen'
+    CloseButton.Enabled = False
+    CancelButton.Name = 'CancelButton'
+    CancelButton.Caption = 'Abbrechen'
+    TabOrder = 0
+    ShowButtons = [pbOK, pbCancel]
+  end
+  object feFile: TFileNameEdit
+    Left = 16
+    Height = 24
+    Top = 24
+    Width = 352
+    OnAcceptFileName = feFileAcceptFileName
+    DialogOptions = []
+    Filter = 'Alle unterstützten Formate|*.txt;*.csv|Textdatei (*.txt)|*.txt|Trenzeichengetrennte Datei (*.csv)|*.csv'
+    FilterIndex = 0
+    HideDirectories = False
+    ButtonWidth = 23
+    NumGlyphs = 0
+    Anchors = [akTop, akLeft, akRight]
+    MaxLength = 0
+    TabOrder = 1
+  end
+  object lFile: TLabel
+    Left = 16
+    Height = 17
+    Top = 6
+    Width = 62
+    Caption = 'Dateiname'
+    ParentColor = False
+  end
+  object TreeView1: TTreeView
+    Left = 8
+    Height = 18
+    Top = 56
+    Width = 16
+    BackgroundColor = clBtnFace
+    BorderStyle = bsNone
+    DefaultItemHeight = 18
+    ScrollBars = ssNone
+    ShowLines = False
+    TabOrder = 2
+    OnCollapsing = TreeView1Collapsing
+    OnExpanding = TreeView1Expanding
+    Options = [tvoAutoItemHeight, tvoHideSelection, tvoKeepCollapsedNodes, tvoShowButtons, tvoShowRoot, tvoToolTips, tvoThemedDraw]
+    Items.Data = {
+      F9FFFFFF020001000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF010000000000
+      0000010800000045696E7472616730FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00
+      00000000000000000800000045696E7472616731
+    }
+  end
+  object pOptions: TPanel
+    Left = 24
+    Height = 196
+    Top = 72
+    Width = 368
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    BevelOuter = bvNone
+    ClientHeight = 196
+    ClientWidth = 368
+    TabOrder = 3
+    object eDelemiter: TLabeledEdit
+      Left = 8
+      Height = 24
+      Top = 40
+      Width = 80
+      EditLabel.AnchorSideLeft.Control = eDelemiter
+      EditLabel.AnchorSideBottom.Control = eDelemiter
+      EditLabel.Left = 8
+      EditLabel.Height = 17
+      EditLabel.Top = 23
+      EditLabel.Width = 78
+      EditLabel.Caption = 'Trennzeichen'
+      EditLabel.ParentColor = False
+      LabelSpacing = 0
+      TabOrder = 0
+      Text = ';'
+      OnChange = eDelemiterChange
+    end
+    object eComment: TLabeledEdit
+      Left = 120
+      Height = 24
+      Top = 40
+      Width = 40
+      EditLabel.AnchorSideLeft.Control = eComment
+      EditLabel.AnchorSideBottom.Control = eComment
+      EditLabel.Left = 120
+      EditLabel.Height = 33
+      EditLabel.Top = 7
+      EditLabel.Width = 67
+      EditLabel.Caption = 'Kommentar'#13#10'zeichen'
+      EditLabel.ParentColor = False
+      LabelSpacing = 0
+      TabOrder = 1
+      Text = '*'
+    end
+    object cbFirstLineasShema: TCheckBox
+      Left = 8
+      Height = 20
+      Top = 72
+      Width = 145
+      Caption = 'erste Zeile ist Schema'
+      Checked = True
+      OnChange = cbFirstLineasShemaChange
+      State = cbChecked
+      TabOrder = 2
+    end
+    object Label1: TLabel
+      Left = 8
+      Height = 17
+      Top = 96
+      Width = 44
+      Caption = 'Spalten'
+      ParentColor = False
+    end
+    object mRows: TMemo
+      Left = 8
+      Height = 84
+      Top = 112
+      Width = 350
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      ScrollBars = ssAutoVertical
+      TabOrder = 3
+    end
+    object Bevel1: TBevel
+      Left = 0
+      Height = 18
+      Top = 0
+      Width = 368
+      Align = alTop
+      Shape = bsTopLine
+    end
+  end
+  object SDFDataSet: TSdfDataSet
+    FileMustExist = True
+    ReadOnly = True
+    Schema.Strings = (
+      '1'
+      '2'
+      '3'
+    )
+    FieldDefs = <>
+    AutoCalcFields = False
+    Delimiter = ';'
+    FirstLineAsSchema = True
+    left = 256
+    top = 72
+  end
+end

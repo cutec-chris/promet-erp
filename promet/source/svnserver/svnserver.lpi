@@ -1,0 +1,1305 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="9"/>
+    <PathDelim Value="\"/>
+    <General>
+      <Flags>
+        <MainUnitHasCreateFormStatements Value="False"/>
+      </Flags>
+      <MainUnit Value="0"/>
+      <ResourceType Value="res"/>
+      <UseXPManifest Value="True"/>
+      <ActiveWindowIndexAtStart Value="0"/>
+    </General>
+    <i18n>
+      <EnableI18N LFM="False"/>
+    </i18n>
+    <VersionInfo>
+      <StringTable ProductVersion=""/>
+    </VersionInfo>
+    <MacroValues Count="1">
+      <Macro1 Name="LCLWidgetType" Value="nogui"/>
+    </MacroValues>
+    <BuildModes Count="1" Active="Default">
+      <Item1 Name="Default" Default="True"/>
+    </BuildModes>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
+      <ExcludeFileFilter Value="*.(bak|ppu|o|so);*~;backup"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+        <CommandLineParams Value="--mandant=&quot;Stora&quot;"/>
+        <LaunchingApplication PathPlusParams="\usr\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
+      </local>
+    </RunParams>
+    <RequiredPackages Count="4">
+      <Item1>
+        <PackageName Value="LCL"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="pmimemessages"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="lnetbase"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="pcmdprometapp"/>
+      </Item4>
+    </RequiredPackages>
+    <Units Count="130">
+      <Unit0>
+        <Filename Value="svnserver.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="svnserver"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="83"/>
+        <CursorPos X="1" Y="173"/>
+        <UsageCount Value="168"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="..\base\ubasecustomapplication.pas"/>
+        <UnitName Value="uBaseCustomApplication"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="125"/>
+        <CursorPos X="1" Y="143"/>
+        <UsageCount Value="35"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="..\base\pcmdprometapp.pas"/>
+        <UnitName Value="pcmdprometapp"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="21"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="C:\Programme\lazarus\lcl\propertystorage.pas"/>
+        <UnitName Value="PropertyStorage"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="16"/>
+        <CursorPos X="33" Y="14"/>
+        <UsageCount Value="8"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="..\..\..\general\src\Utils.pas"/>
+        <UnitName Value="Utils"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="948"/>
+        <CursorPos X="1" Y="996"/>
+        <UsageCount Value="13"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="C:\Programme\lazarus\lcl\fileutil.pas"/>
+        <UnitName Value="FileUtil"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="48" Y="30"/>
+        <UsageCount Value="8"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="C:\Programme\lazarus\lcl\masks.pas"/>
+        <UnitName Value="Masks"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="8"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="C:\Programme\lazarus\lcl\dbctrls.pp"/>
+        <UnitName Value="DbCtrls"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="13"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="8"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="..\base\dbintfs\uintfstrconsts.pas"/>
+        <UnitName Value="uIntfStrConsts"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="616"/>
+        <CursorPos X="6" Y="635"/>
+        <UsageCount Value="20"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <UnitName Value="uBaseDBInterface"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1097"/>
+        <CursorPos X="1" Y="1117"/>
+        <UsageCount Value="32"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="..\..\..\LKomponenten\lnet\lib\lnet.pp"/>
+        <UnitName Value="lNet"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="61" Y="4"/>
+        <UsageCount Value="32"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.3\source\rtl\inc\socketsh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="60"/>
+        <CursorPos X="28" Y="79"/>
+        <UsageCount Value="17"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="..\..\..\LKomponenten\lnet\lib\levents.pp"/>
+        <UnitName Value="lEvents"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="574"/>
+        <CursorPos X="1" Y="601"/>
+        <UsageCount Value="34"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="C:\Dokumente und Einstellungen\ulrich\Eigene Dateien\Hamster\cServerNNTP.pas"/>
+        <UnitName Value="cServerNNTP"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2202"/>
+        <CursorPos X="1" Y="2224"/>
+        <UsageCount Value="28"/>
+        <Bookmarks Count="1">
+          <Item0 X="10" Y="2911" ID="0"/>
+        </Bookmarks>
+      </Unit13>
+      <Unit14>
+        <Filename Value="C:\Dokumente und Einstellungen\ulrich\Eigene Dateien\Hamster\cServerBase.pas"/>
+        <UnitName Value="cServerBase"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="148"/>
+        <CursorPos X="41" Y="169"/>
+        <UsageCount Value="24"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="..\..\..\LKomponenten\lnet\lib\lhttp.pp"/>
+        <UnitName Value="lhttp"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="74" Y="6"/>
+        <UsageCount Value="25"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="ulnntp.pas"/>
+        <UnitName Value="uLNNTP"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="121"/>
+        <CursorPos X="1" Y="133"/>
+        <FoldState Value=" T4301 T5j1[747VG52 T872]F9 T3j4048 T1j503]86k001G"/>
+        <UsageCount Value="85"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="..\..\..\LKomponenten\lnet\examples\console\lhttp\fphttpd.pp"/>
+        <UnitName Value="fphttpd"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="35"/>
+        <CursorPos X="61" Y="45"/>
+        <UsageCount Value="15"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="..\..\..\LKomponenten\lnet\lib\sys\osunits.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="8"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="..\base\dbintfs\udata.pas"/>
+        <UnitName Value="uData"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="16" Y="41"/>
+        <UsageCount Value="10"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="..\..\..\LKomponenten\zeos\src\component\ZDatasetUtils.pas"/>
+        <UnitName Value="ZDatasetUtils"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="583"/>
+        <CursorPos X="23" Y="605"/>
+        <UsageCount Value="12"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <UnitName Value="uBaseDbClasses"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="708"/>
+        <CursorPos X="3" Y="711"/>
+        <UsageCount Value="31"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="..\base\ubasevisualapplication.pas"/>
+        <UnitName Value="uBaseVisualApplication"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="564"/>
+        <CursorPos X="101" Y="589"/>
+        <UsageCount Value="10"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
+        <UnitName Value="uZeosDBDM"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1092"/>
+        <CursorPos X="1" Y="1122"/>
+        <UsageCount Value="33"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="..\..\output\i386-win32\web\debug.txt"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="8"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit24>
+      <Unit25>
+        <Filename Value="..\base\dbintfs\uorder.pas"/>
+        <UnitName Value="uOrder"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="65" Y="15"/>
+        <UsageCount Value="8"/>
+      </Unit25>
+      <Unit26>
+        <Filename Value="C:\Dokumente und Einstellungen\ulrich\Eigene Dateien\Hamster\cArticle.pas"/>
+        <UnitName Value="cArticle"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="130"/>
+        <CursorPos X="37" Y="19"/>
+        <UsageCount Value="8"/>
+      </Unit26>
+      <Unit27>
+        <Filename Value="C:\Dokumente und Einstellungen\ulrich\Eigene Dateien\Hamster\cArticleFile.pas"/>
+        <UnitName Value="cArticleFile"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="394"/>
+        <CursorPos X="18" Y="443"/>
+        <UsageCount Value="10"/>
+      </Unit27>
+      <Unit28>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.3\source\rtl\objpas\classes\classesh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="284"/>
+        <CursorPos X="14" Y="303"/>
+        <UsageCount Value="9"/>
+      </Unit28>
+      <Unit29>
+        <Filename Value="..\..\..\LKomponenten\lnet\lib\lmimestreams.pp"/>
+        <UnitName Value="lMimeStreams"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="151"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="8"/>
+      </Unit29>
+      <Unit30>
+        <Filename Value="..\..\..\LKomponenten\lnet\lib\lsmtp.pp"/>
+        <UnitName Value="lsmtp"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="75"/>
+        <CursorPos X="24" Y="91"/>
+        <UsageCount Value="9"/>
+      </Unit30>
+      <Unit31>
+        <Filename Value="..\..\..\LKomponenten\lnet\lib\lmimewrapper.pp"/>
+        <UnitName Value="lMimeWrapper"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="169"/>
+        <CursorPos X="14" Y="190"/>
+        <UsageCount Value="10"/>
+      </Unit31>
+      <Unit32>
+        <Filename Value="C:\Dokumente und Einstellungen\ulrich\Desktop\LT-Spice.eml"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="73"/>
+        <CursorPos X="30" Y="8"/>
+        <UsageCount Value="8"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit32>
+      <Unit33>
+        <Filename Value="C:\Dokumente und Einstellungen\ulrich\Desktop\Re  TARGET V15 vs. Altium Designer.eml"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="8" Y="11"/>
+        <UsageCount Value="12"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit33>
+      <Unit34>
+        <Filename Value="..\..\..\LKomponenten\synapse\mimemess.pas"/>
+        <UnitName Value="mimemess"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="634"/>
+        <CursorPos X="57" Y="635"/>
+        <UsageCount Value="17"/>
+      </Unit34>
+      <Unit35>
+        <Filename Value="..\base\dbintfs\umessages.pas"/>
+        <UnitName Value="uMessages"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="29" Y="12"/>
+        <UsageCount Value="25"/>
+      </Unit35>
+      <Unit36>
+        <Filename Value="..\..\..\LKomponenten\zeos\src\plain\ZPlainDbLibDriver.pas"/>
+        <UnitName Value="ZPlainDbLibDriver"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1193"/>
+        <CursorPos X="28" Y="1209"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit36>
+      <Unit37>
+        <Filename Value="..\base\umimemessages.pas"/>
+        <UnitName Value="uMimeMessages"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="133"/>
+        <CursorPos X="24" Y="182"/>
+        <UsageCount Value="44"/>
+      </Unit37>
+      <Unit38>
+        <Filename Value="..\base\dbintfs\ubasesearch.pas"/>
+        <UnitName Value="uBaseSearch"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="38" Y="17"/>
+        <UsageCount Value="8"/>
+      </Unit38>
+      <Unit39>
+        <Filename Value="..\..\..\general\src\htmlconvert.pas"/>
+        <UnitName Value="htmlconvert"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="8"/>
+      </Unit39>
+      <Unit40>
+        <Filename Value="..\..\..\LKomponenten\zeos\src\dbc\ZDbcSqLiteUtils.pas"/>
+        <UnitName Value="ZDbcSqLiteUtils"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="217"/>
+        <CursorPos X="42" Y="233"/>
+        <UsageCount Value="8"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit40>
+      <Unit41>
+        <Filename Value="C:\Dokumente und Einstellungen\ulrich\Desktop\Re  LT-Spice.eml"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="49" Y="8"/>
+        <UsageCount Value="8"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit41>
+      <Unit42>
+        <Filename Value="..\..\..\LKomponenten\zeos\src\component\ZAbstractRODataset.pas"/>
+        <UnitName Value="ZAbstractRODataset"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2656"/>
+        <CursorPos X="44" Y="2675"/>
+        <UsageCount Value="13"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit42>
+      <Unit43>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.3\source\packages\fcl-db\src\base\db.pas"/>
+        <UnitName Value="db"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1281"/>
+        <CursorPos X="14" Y="1324"/>
+        <UsageCount Value="8"/>
+      </Unit43>
+      <Unit44>
+        <Filename Value="..\..\..\LKomponenten\synapse\mimepart.pas"/>
+        <UnitName Value="mimepart"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="495"/>
+        <CursorPos X="1" Y="513"/>
+        <UsageCount Value="14"/>
+      </Unit44>
+      <Unit45>
+        <Filename Value="..\..\..\LKomponenten\synapse\synacode.pas"/>
+        <UnitName Value="synacode"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="720"/>
+        <CursorPos X="3" Y="726"/>
+        <UsageCount Value="10"/>
+      </Unit45>
+      <Unit46>
+        <Filename Value="..\..\..\LKomponenten\lnet\lib\lwebserver.pp"/>
+        <UnitName Value="lwebserver"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="686"/>
+        <CursorPos X="27" Y="716"/>
+        <UsageCount Value="23"/>
+      </Unit46>
+      <Unit47>
+        <Filename Value="C:\Dokumente und Einstellungen\ulrich\Eigene Dateien\Hamster\cClientNNTP.pas"/>
+        <UnitName Value="cClientNNTP"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="131"/>
+        <CursorPos X="1" Y="129"/>
+        <UsageCount Value="10"/>
+      </Unit47>
+      <Unit48>
+        <Filename Value="C:\Dokumente und Einstellungen\ulrich\Eigene Dateien\Hamster\cClientBase.pas"/>
+        <UnitName Value="cClientBase"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="49"/>
+        <CursorPos X="31" Y="51"/>
+        <UsageCount Value="9"/>
+      </Unit48>
+      <Unit49>
+        <Filename Value="..\..\..\LKomponenten\synapse\synautil.pas"/>
+        <UnitName Value="synautil"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1346"/>
+        <CursorPos X="1" Y="1366"/>
+        <UsageCount Value="9"/>
+      </Unit49>
+      <Unit50>
+        <Filename Value="..\base\dbintfs\udocuments.pas"/>
+        <UnitName Value="uDocuments"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="584"/>
+        <CursorPos X="1" Y="604"/>
+        <UsageCount Value="35"/>
+        <Loaded Value="True"/>
+      </Unit50>
+      <Unit51>
+        <Filename Value="..\base\dbintfs\ubaseapplicationtools.pas"/>
+        <UnitName Value="ubaseapplicationtools"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="21"/>
+        <UsageCount Value="14"/>
+      </Unit51>
+      <Unit52>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.3\source\packages\chm\src\chmfiftimain.pas"/>
+        <UnitName Value="chmFiftiMain"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="6"/>
+        <CursorPos X="32" Y="18"/>
+        <UsageCount Value="9"/>
+      </Unit52>
+      <Unit53>
+        <Filename Value="uprometnntp.pas"/>
+        <UnitName Value="uprometnntp"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="37"/>
+        <CursorPos X="46" Y="52"/>
+        <UsageCount Value="33"/>
+      </Unit53>
+      <Unit54>
+        <Filename Value="..\..\..\LKomponenten\zeos\src\dbc\ZDbcPostgreSqlUtils.pas"/>
+        <UnitName Value="ZDbcPostgreSqlUtils"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="789"/>
+        <CursorPos X="26" Y="807"/>
+        <UsageCount Value="9"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit54>
+      <Unit55>
+        <Filename Value="..\base\dbintfs\ubaseapplication.pas"/>
+        <UnitName Value="uBaseApplication"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="3" Y="8"/>
+        <UsageCount Value="15"/>
+      </Unit55>
+      <Unit56>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\packages\fcl-db\src\base\db.pas"/>
+        <UnitName Value="db"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="23"/>
+        <CursorPos X="3" Y="41"/>
+        <UsageCount Value="10"/>
+      </Unit56>
+      <Unit57>
+        <Filename Value="..\..\..\LKomponenten\synapse\synachar.pas"/>
+        <UnitName Value="synachar"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="74"/>
+        <CursorPos X="65" Y="92"/>
+        <UsageCount Value="12"/>
+      </Unit57>
+      <Unit58>
+        <Filename Value="C:\Programme\lazarus\components\lazutils\winfileutil.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="140"/>
+        <CursorPos X="1" Y="163"/>
+        <UsageCount Value="9"/>
+      </Unit58>
+      <Unit59>
+        <Filename Value="C:\Programme\lazarus\components\lazutils\lconvencoding.pas"/>
+        <UnitName Value="LConvEncoding"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="194"/>
+        <CursorPos X="1" Y="216"/>
+        <UsageCount Value="9"/>
+      </Unit59>
+      <Unit60>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\rtl\win\wininc\func.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="920"/>
+        <CursorPos X="10" Y="938"/>
+        <UsageCount Value="9"/>
+      </Unit60>
+      <Unit61>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\rtl\win32\windows.pp"/>
+        <UnitName Value="windows"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="9"/>
+      </Unit61>
+      <Unit62>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\rtl\win\dos.pp"/>
+        <UnitName Value="dos"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="58"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="9"/>
+      </Unit62>
+      <Unit63>
+        <Filename Value="..\..\..\LKomponenten\lnet\lib\lftp.pp"/>
+        <UnitName Value="lFTP"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="50"/>
+        <CursorPos X="36" Y="64"/>
+        <UsageCount Value="9"/>
+      </Unit63>
+      <Unit64>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\rtl\inc\socketsh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="179"/>
+        <CursorPos X="3" Y="32"/>
+        <UsageCount Value="9"/>
+      </Unit64>
+      <Unit65>
+        <Filename Value="C:\Programme\lazarus\components\lazutils\fileutil.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="278"/>
+        <CursorPos X="1" Y="300"/>
+        <UsageCount Value="10"/>
+      </Unit65>
+      <Unit66>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\packages\fcl-base\src\custapp.pp"/>
+        <UnitName Value="CustApp"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="278"/>
+        <CursorPos X="21" Y="281"/>
+        <UsageCount Value="9"/>
+      </Unit66>
+      <Unit67>
+        <Filename Value="..\base\dbintfs\usessiondbclasses.pas"/>
+        <UnitName Value="uSessionDBClasses"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="94"/>
+        <CursorPos X="3" Y="96"/>
+        <UsageCount Value="9"/>
+      </Unit67>
+      <Unit68>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\rtl\objpas\sysutils\sysutilh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="255"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit68>
+      <Unit69>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\rtl\win\sysutils.pp"/>
+        <UnitName Value="sysutils"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="19"/>
+        <CursorPos X="10" Y="35"/>
+        <UsageCount Value="10"/>
+      </Unit69>
+      <Unit70>
+        <Filename Value="..\..\..\general\src\uerror.pas"/>
+        <UnitName Value="uError"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="111"/>
+        <CursorPos X="41" Y="127"/>
+        <UsageCount Value="9"/>
+      </Unit70>
+      <Unit71>
+        <Filename Value="..\..\..\general\src\ugeneralstrconsts.pas"/>
+        <UnitName Value="uGeneralStrConsts"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="22"/>
+        <UsageCount Value="9"/>
+      </Unit71>
+      <Unit72>
+        <Filename Value="svnserver.lpi"/>
+        <UsageCount Value="19"/>
+        <DefaultSyntaxHighlighter Value="XML"/>
+      </Unit72>
+      <Unit73>
+        <Filename Value="ulsvnserver.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ulsvnserver"/>
+        <EditorIndex Value="13"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="25"/>
+        <UsageCount Value="99"/>
+        <Loaded Value="True"/>
+      </Unit73>
+      <Unit74>
+        <Filename Value="ulwebdavserver.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ulwebdavserver"/>
+        <EditorIndex Value="7"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="458"/>
+        <CursorPos X="1" Y="488"/>
+        <UsageCount Value="99"/>
+        <Loaded Value="True"/>
+      </Unit74>
+      <Unit75>
+        <Filename Value="lexthttp.pp"/>
+        <UnitName Value="lexthttp"/>
+        <EditorIndex Value="8"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1908"/>
+        <CursorPos X="1" Y="1928"/>
+        <UsageCount Value="36"/>
+        <Loaded Value="True"/>
+      </Unit75>
+      <Unit76>
+        <Filename Value="..\..\..\LKomponenten\lnet\lib\lnetssl.pp"/>
+        <UnitName Value="lNetSSL"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="13"/>
+        <CursorPos X="150" Y="33"/>
+        <UsageCount Value="15"/>
+      </Unit76>
+      <Unit77>
+        <Filename Value="..\..\..\LKomponenten\lnet\lib\lhttputil.pp"/>
+        <UnitName Value="lHTTPUtil"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="40" Y="11"/>
+        <UsageCount Value="16"/>
+      </Unit77>
+      <Unit78>
+        <Filename Value="..\..\..\LKomponenten\lnet\lib\lstrbuffer.pp"/>
+        <UnitName Value="lStrBuffer"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="23"/>
+        <CursorPos X="11" Y="41"/>
+        <UsageCount Value="18"/>
+      </Unit78>
+      <Unit79>
+        <Filename Value="C:\Dokumente und Einstellungen\ulrich\Desktop\kserver.pas"/>
+        <UnitName Value="kserver"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="25"/>
+        <CursorPos X="17" Y="43"/>
+        <UsageCount Value="11"/>
+      </Unit79>
+      <Unit80>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\packages\libxml\src\xml2.pas"/>
+        <UnitName Value="xml2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="187"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="9"/>
+      </Unit80>
+      <Unit81>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\rtl\inc\ctypes.pp"/>
+        <UnitName Value="ctypes"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="32"/>
+        <CursorPos X="3" Y="50"/>
+        <UsageCount Value="9"/>
+      </Unit81>
+      <Unit82>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\packages\libxml\src\tree.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="644"/>
+        <CursorPos X="1" Y="776"/>
+        <UsageCount Value="9"/>
+      </Unit82>
+      <Unit83>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\packages\libxml\src\globals.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="344"/>
+        <CursorPos X="3" Y="162"/>
+        <UsageCount Value="9"/>
+      </Unit83>
+      <Unit84>
+        <Filename Value="C:\Projekte\mytrainer\modules\kmlserver\kserver.pas"/>
+        <UnitName Value="kserver"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="67"/>
+        <CursorPos X="32" Y="27"/>
+        <UsageCount Value="9"/>
+      </Unit84>
+      <Unit85>
+        <Filename Value="C:\Projekte\mytrainer\modules\kml\kml.pas"/>
+        <UnitName Value="kml"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="217"/>
+        <CursorPos X="46" Y="237"/>
+        <UsageCount Value="14"/>
+      </Unit85>
+      <Unit86>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\packages\fcl-xml\src\xmlread.pp"/>
+        <UnitName Value="XMLRead"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="34"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="13"/>
+      </Unit86>
+      <Unit87>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\packages\fcl-xml\src\xmlwrite.pp"/>
+        <UnitName Value="XMLWrite"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="118"/>
+        <CursorPos X="31" Y="136"/>
+        <UsageCount Value="11"/>
+      </Unit87>
+      <Unit88>
+        <Filename Value="..\..\..\LKomponenten\lnet\lib\lprocess.pp"/>
+        <UnitName Value="lProcess"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="131"/>
+        <CursorPos X="21" Y="72"/>
+        <UsageCount Value="14"/>
+      </Unit88>
+      <Unit89>
+        <Filename Value="..\..\..\LKomponenten\lnet\lib\lfastcgi.pp"/>
+        <UnitName Value="lfastcgi"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="637"/>
+        <CursorPos X="14" Y="92"/>
+        <UsageCount Value="10"/>
+      </Unit89>
+      <Unit90>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\packages\fcl-xml\src\dom.pp"/>
+        <UnitName Value="DOM"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="239"/>
+        <CursorPos X="20" Y="257"/>
+        <UsageCount Value="15"/>
+      </Unit90>
+      <Unit91>
+        <Filename Value="C:\home\chris\lazarus\fpc\packages\fcl-xml\src\dom.pp"/>
+        <UnitName Value="DOM"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2425"/>
+        <CursorPos X="21" Y="2433"/>
+        <ExtraEditorCount Value="1"/>
+        <ExtraEditor1>
+          <WindowIndex Value="0"/>
+          <TopLine Value="464"/>
+          <CursorPos X="14" Y="482"/>
+        </ExtraEditor1>
+        <UsageCount Value="10"/>
+      </Unit91>
+      <Unit92>
+        <Filename Value="C:\home\chris\lazarus\fpc\packages\fcl-xml\src\xmlutils.pp"/>
+        <UnitName Value="xmlutils"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="22"/>
+        <CursorPos X="10" Y="35"/>
+        <UsageCount Value="10"/>
+      </Unit92>
+      <Unit93>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\rtl\inc\objpash.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="174"/>
+        <CursorPos X="8" Y="180"/>
+        <UsageCount Value="10"/>
+      </Unit93>
+      <Unit94>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\rtl\objpas\classes\classesh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="268"/>
+        <CursorPos X="24" Y="281"/>
+        <UsageCount Value="10"/>
+      </Unit94>
+      <Unit95>
+        <Filename Value="..\..\..\LKomponenten\lnet\examples\visual\http\main.pas"/>
+        <ComponentName Value="MainForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="main"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="105"/>
+        <CursorPos X="30" Y="78"/>
+        <UsageCount Value="10"/>
+      </Unit95>
+      <Unit96>
+        <Filename Value="..\..\..\LKomponenten\lnet\examples\console\lhttp\fpget.pp"/>
+        <UnitName Value="fpget"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="86"/>
+        <CursorPos X="24" Y="107"/>
+        <UsageCount Value="10"/>
+      </Unit96>
+      <Unit97>
+        <Filename Value="..\..\..\LKomponenten\lnet\lazaruspackage\lnetcomponents.pas"/>
+        <UnitName Value="lNetComponents"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="120"/>
+        <CursorPos X="29" Y="138"/>
+        <UsageCount Value="10"/>
+      </Unit97>
+      <Unit98>
+        <Filename Value="..\..\..\LKomponenten\lnet\lib\lmimetypes.pp"/>
+        <UnitName Value="lMimeTypes"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="15"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit98>
+      <Unit99>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\packages\fcl-db\src\base\dataset.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1413"/>
+        <CursorPos X="3" Y="1416"/>
+        <UsageCount Value="10"/>
+      </Unit99>
+      <Unit100>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\rtl\inc\systemh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="842"/>
+        <CursorPos X="11" Y="860"/>
+        <UsageCount Value="10"/>
+      </Unit100>
+      <Unit101>
+        <Filename Value="rfc2518.txt"/>
+        <EditorIndex Value="6"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1478"/>
+        <CursorPos X="39" Y="1508"/>
+        <UsageCount Value="24"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit101>
+      <Unit102>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\rtl\objpas\sysutils\finah.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="6"/>
+        <CursorPos X="10" Y="24"/>
+        <UsageCount Value="10"/>
+      </Unit102>
+      <Unit103>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\rtl\objpas\sysutils\fina.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="37"/>
+        <CursorPos X="25" Y="43"/>
+        <UsageCount Value="10"/>
+      </Unit103>
+      <Unit104>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\rtl\win32\system.pp"/>
+        <UnitName Value="System"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="23"/>
+        <CursorPos X="2" Y="41"/>
+        <UsageCount Value="10"/>
+      </Unit104>
+      <Unit105>
+        <Filename Value="C:\Programme\lazarus\lcl\include\lclintf.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="80"/>
+        <CursorPos X="43" Y="97"/>
+        <UsageCount Value="10"/>
+      </Unit105>
+      <Unit106>
+        <Filename Value="C:\Programme\lazarus\lcl\lclintf.pas"/>
+        <UnitName Value="LCLIntf"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="163"/>
+        <CursorPos X="61" Y="178"/>
+        <UsageCount Value="10"/>
+      </Unit106>
+      <Unit107>
+        <Filename Value="..\..\..\general\src\processutils.pas"/>
+        <UnitName Value="ProcessUtils"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="147"/>
+        <CursorPos X="3" Y="165"/>
+        <UsageCount Value="10"/>
+      </Unit107>
+      <Unit108>
+        <Filename Value="iso8601.pas"/>
+        <UnitName Value="Iso8601"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="36"/>
+        <CursorPos X="26" Y="40"/>
+        <UsageCount Value="21"/>
+      </Unit108>
+      <Unit109>
+        <Filename Value="YclDateTimes.pas"/>
+        <UnitName Value="YclDateTimes"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="9"/>
+        <CursorPos X="133" Y="10"/>
+        <UsageCount Value="10"/>
+      </Unit109>
+      <Unit110>
+        <Filename Value="YclTextDatas.pas"/>
+        <UnitName Value="YclTextDatas"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="79"/>
+        <CursorPos X="80" Y="7"/>
+        <UsageCount Value="11"/>
+      </Unit110>
+      <Unit111>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\rtl\objpas\dateutils.pp"/>
+        <UnitName Value="dateutils"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="9" Y="1"/>
+        <UsageCount Value="11"/>
+      </Unit111>
+      <Unit112>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\rtl\objpas\dateutil.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="10"/>
+        <CursorPos X="7" Y="24"/>
+        <UsageCount Value="10"/>
+      </Unit112>
+      <Unit113>
+        <Filename Value="..\..\..\LKomponenten\lnet\lib\lcommon.pp"/>
+        <UnitName Value="lCommon"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="181"/>
+        <CursorPos X="68" Y="7"/>
+        <UsageCount Value="10"/>
+      </Unit113>
+      <Unit114>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\rtl\win\wininc\struct.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="6366"/>
+        <CursorPos X="6" Y="6384"/>
+        <UsageCount Value="10"/>
+      </Unit114>
+      <Unit115>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\rtl\objpas\sysutils\datih.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="127"/>
+        <CursorPos X="10" Y="145"/>
+        <UsageCount Value="10"/>
+      </Unit115>
+      <Unit116>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\rtl\objpas\sysutils\sysinth.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="45"/>
+        <CursorPos X="1" Y="80"/>
+        <UsageCount Value="10"/>
+      </Unit116>
+      <Unit117>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\packages\fcl-base\src\base64.pp"/>
+        <UnitName Value="base64"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="64"/>
+        <CursorPos X="28" Y="91"/>
+        <UsageCount Value="10"/>
+      </Unit117>
+      <Unit118>
+        <Filename Value="..\base\upassword.pas"/>
+        <UnitName Value="uPassword"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="24"/>
+        <CursorPos X="32" Y="33"/>
+        <UsageCount Value="10"/>
+      </Unit118>
+      <Unit119>
+        <Filename Value="http-protocol-v2.txt"/>
+        <EditorIndex Value="11"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="18"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit119>
+      <Unit120>
+        <Filename Value="..\base\dbintfs\uimpvcal.pas"/>
+        <UnitName Value="uimpvcal"/>
+        <EditorIndex Value="4"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="37"/>
+        <CursorPos X="10" Y="16"/>
+        <UsageCount Value="18"/>
+        <Loaded Value="True"/>
+      </Unit120>
+      <Unit121>
+        <Filename Value="..\base\dbintfs\ucalendar.pas"/>
+        <UnitName Value="uCalendar"/>
+        <EditorIndex Value="5"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="19"/>
+        <CursorPos X="24" Y="54"/>
+        <UsageCount Value="18"/>
+        <Loaded Value="True"/>
+      </Unit121>
+      <Unit122>
+        <Filename Value="rfc4791.txt"/>
+        <EditorIndex Value="12"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="116"/>
+        <CursorPos X="12" Y="116"/>
+        <UsageCount Value="16"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit122>
+      <Unit123>
+        <Filename Value="..\..\..\..\fpc\2.6_fixes\packages\fcl-xml\src\dom.pp"/>
+        <UnitName Value="DOM"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2140"/>
+        <CursorPos X="37" Y="2156"/>
+        <UsageCount Value="10"/>
+      </Unit123>
+      <Unit124>
+        <Filename Value="..\..\..\lkomponenten\graphics32\Source\GR32.pas"/>
+        <UnitName Value="GR32"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="286"/>
+        <CursorPos X="13" Y="5716"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit124>
+      <Unit125>
+        <Filename Value="..\..\..\lkomponenten\lnet\lib\lhttputil.pp"/>
+        <UnitName Value="lHTTPUtil"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="134"/>
+        <CursorPos X="52" Y="154"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit125>
+      <Unit126>
+        <Filename Value="..\..\..\lkomponenten\synapse\synautil.pas"/>
+        <UnitName Value="synautil"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="48"/>
+        <CursorPos X="40" Y="410"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit126>
+      <Unit127>
+        <Filename Value="..\..\..\..\fpc\2.6_fixes\rtl\objpas\sysutils\sysstrh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="106"/>
+        <CursorPos X="10" Y="124"/>
+        <UsageCount Value="10"/>
+      </Unit127>
+      <Unit128>
+        <Filename Value="..\..\..\lkomponenten\lnet\lib\lnet.pp"/>
+        <UnitName Value="lNet"/>
+        <EditorIndex Value="9"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1532"/>
+        <CursorPos X="1" Y="1557"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit128>
+      <Unit129>
+        <Filename Value="..\..\..\lkomponenten\lnet\lib\sys\lepolleventer.inc"/>
+        <EditorIndex Value="10"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="166"/>
+        <CursorPos X="16" Y="186"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit129>
+    </Units>
+    <JumpHistory Count="30" HistoryIndex="29">
+      <Position1>
+        <Filename Value="ulwebdavserver.pas"/>
+        <Caret Line="444" Column="1" TopLine="421"/>
+      </Position1>
+      <Position2>
+        <Filename Value="ulwebdavserver.pas"/>
+        <Caret Line="443" Column="1" TopLine="421"/>
+      </Position2>
+      <Position3>
+        <Filename Value="ulwebdavserver.pas"/>
+        <Caret Line="444" Column="1" TopLine="421"/>
+      </Position3>
+      <Position4>
+        <Filename Value="ulwebdavserver.pas"/>
+        <Caret Line="443" Column="1" TopLine="421"/>
+      </Position4>
+      <Position5>
+        <Filename Value="ulwebdavserver.pas"/>
+        <Caret Line="444" Column="1" TopLine="421"/>
+      </Position5>
+      <Position6>
+        <Filename Value="ulwebdavserver.pas"/>
+        <Caret Line="443" Column="1" TopLine="421"/>
+      </Position6>
+      <Position7>
+        <Filename Value="ulwebdavserver.pas"/>
+        <Caret Line="444" Column="1" TopLine="421"/>
+      </Position7>
+      <Position8>
+        <Filename Value="ulwebdavserver.pas"/>
+        <Caret Line="443" Column="1" TopLine="421"/>
+      </Position8>
+      <Position9>
+        <Filename Value="ulwebdavserver.pas"/>
+        <Caret Line="446" Column="1" TopLine="421"/>
+      </Position9>
+      <Position10>
+        <Filename Value="ulwebdavserver.pas"/>
+        <Caret Line="447" Column="1" TopLine="421"/>
+      </Position10>
+      <Position11>
+        <Filename Value="ulwebdavserver.pas"/>
+        <Caret Line="453" Column="1" TopLine="424"/>
+      </Position11>
+      <Position12>
+        <Filename Value="ulwebdavserver.pas"/>
+        <Caret Line="454" Column="1" TopLine="425"/>
+      </Position12>
+      <Position13>
+        <Filename Value="ulwebdavserver.pas"/>
+        <Caret Line="475" Column="1" TopLine="456"/>
+      </Position13>
+      <Position14>
+        <Filename Value="ulwebdavserver.pas"/>
+        <Caret Line="476" Column="1" TopLine="456"/>
+      </Position14>
+      <Position15>
+        <Filename Value="ulwebdavserver.pas"/>
+        <Caret Line="477" Column="1" TopLine="456"/>
+      </Position15>
+      <Position16>
+        <Filename Value="ulwebdavserver.pas"/>
+        <Caret Line="478" Column="1" TopLine="456"/>
+      </Position16>
+      <Position17>
+        <Filename Value="ulwebdavserver.pas"/>
+        <Caret Line="479" Column="1" TopLine="456"/>
+      </Position17>
+      <Position18>
+        <Filename Value="ulwebdavserver.pas"/>
+        <Caret Line="488" Column="1" TopLine="458"/>
+      </Position18>
+      <Position19>
+        <Filename Value="lexthttp.pp"/>
+        <Caret Line="1346" Column="1" TopLine="1319"/>
+      </Position19>
+      <Position20>
+        <Filename Value="lexthttp.pp"/>
+        <Caret Line="1347" Column="1" TopLine="1319"/>
+      </Position20>
+      <Position21>
+        <Filename Value="lexthttp.pp"/>
+        <Caret Line="1128" Column="1" TopLine="1111"/>
+      </Position21>
+      <Position22>
+        <Filename Value="lexthttp.pp"/>
+        <Caret Line="1129" Column="1" TopLine="1111"/>
+      </Position22>
+      <Position23>
+        <Filename Value="lexthttp.pp"/>
+        <Caret Line="1130" Column="1" TopLine="1111"/>
+      </Position23>
+      <Position24>
+        <Filename Value="lexthttp.pp"/>
+        <Caret Line="1927" Column="1" TopLine="1908"/>
+      </Position24>
+      <Position25>
+        <Filename Value="lexthttp.pp"/>
+        <Caret Line="1928" Column="1" TopLine="1908"/>
+      </Position25>
+      <Position26>
+        <Filename Value="..\..\..\lkomponenten\lnet\lib\lnet.pp"/>
+        <Caret Line="1551" Column="1" TopLine="1532"/>
+      </Position26>
+      <Position27>
+        <Filename Value="..\..\..\lkomponenten\lnet\lib\lnet.pp"/>
+        <Caret Line="1557" Column="1" TopLine="1532"/>
+      </Position27>
+      <Position28>
+        <Filename Value="..\..\..\lkomponenten\lnet\lib\sys\lepolleventer.inc"/>
+        <Caret Line="176" Column="1" TopLine="158"/>
+      </Position28>
+      <Position29>
+        <Filename Value="..\..\..\lkomponenten\lnet\lib\sys\lepolleventer.inc"/>
+        <Caret Line="180" Column="1" TopLine="158"/>
+      </Position29>
+      <Position30>
+        <Filename Value="..\..\..\lkomponenten\lnet\lib\sys\lepolleventer.inc"/>
+        <Caret Line="152" Column="1" TopLine="134"/>
+      </Position30>
+    </JumpHistory>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="11"/>
+    <PathDelim Value="\"/>
+    <Target>
+      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\web\svnserver"/>
+    </Target>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir)"/>
+      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+    </SearchPaths>
+    <Parsing>
+      <SyntaxOptions>
+        <CStyleOperator Value="False"/>
+      </SyntaxOptions>
+    </Parsing>
+    <CodeGeneration>
+      <Optimizations>
+        <OptimizationLevel Value="0"/>
+      </Optimizations>
+    </CodeGeneration>
+    <Linking>
+      <Debugging>
+        <UseExternalDbgSyms Value="True"/>
+      </Debugging>
+    </Linking>
+    <Other>
+      <CompilerMessages>
+        <IgnoredMessages idx5024="True"/>
+        <UseMsgFile Value="True"/>
+      </CompilerMessages>
+      <CustomOptions Value="-dHASREPORTS
+-dSTATISTICS"/>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
+    <LCLWidgetType Value="nogui"/>
+  </CompilerOptions>
+  <Debugging>
+    <BreakPoints Count="1">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="svnserver.lpr"/>
+        <Line Value="117"/>
+      </Item1>
+    </BreakPoints>
+    <Exceptions Count="4">
+      <Item1>
+        <Name Value="EAbort"/>
+      </Item1>
+      <Item2>
+        <Name Value="ECodetoolError"/>
+      </Item2>
+      <Item3>
+        <Name Value="EFOpenError"/>
+      </Item3>
+      <Item4>
+        <Name Value="EZSQLException"/>
+      </Item4>
+    </Exceptions>
+  </Debugging>
+  <EditorMacros Count="0"/>
+</CONFIG>

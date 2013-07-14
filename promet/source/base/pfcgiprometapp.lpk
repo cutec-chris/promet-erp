@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <Package Version="4">
+    <Name Value="pfcgiprometapp"/>
+    <AddToProjectUsesSection Value="True"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <SearchPaths>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+      <CodeGeneration>
+        <SmartLinkUnit Value="True"/>
+        <Optimizations>
+          <OptimizationLevel Value="3"/>
+        </Optimizations>
+      </CodeGeneration>
+      <Other>
+        <CompilerMessages>
+          <UseMsgFile Value="True"/>
+        </CompilerMessages>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
+    </CompilerOptions>
+    <Files Count="2">
+      <Item1>
+        <Filename Value="ubasefcgiapplication.pas"/>
+        <UnitName Value="ubasefcgiapplication"/>
+      </Item1>
+      <Item2>
+        <Filename Value="uuseragents.pas"/>
+        <UnitName Value="uUserAgents"/>
+      </Item2>
+    </Files>
+    <Type Value="RunAndDesignTime"/>
+    <RequiredPkgs Count="2">
+      <Item1>
+        <PackageName Value="pPrometDBIntfs"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="FCL"/>
+        <MinVersion Valid="True"/>
+      </Item2>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

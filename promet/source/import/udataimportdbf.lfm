@@ -1,0 +1,60 @@
+object fDbfOptions: TfDbfOptions
+  Left = 388
+  Height = 102
+  Top = 186
+  Width = 400
+  Caption = 'DBase Datei Einstellungen'
+  ClientHeight = 102
+  ClientWidth = 400
+  Position = poScreenCenter
+  LCLVersion = '0.9.31'
+  object feFile: TFileNameEdit
+    Left = 16
+    Height = 24
+    Top = 24
+    Width = 352
+    OnAcceptFileName = feFileAcceptFileName
+    DialogOptions = []
+    Filter = 'Alle unterstützten Formate|*.dbf|DBase Datei (*.dbf)|*.dbf'
+    FilterIndex = 0
+    HideDirectories = False
+    ButtonWidth = 23
+    NumGlyphs = 0
+    Anchors = [akTop, akLeft, akRight]
+    MaxLength = 0
+    TabOrder = 0
+  end
+  object lFile: TLabel
+    Left = 16
+    Height = 17
+    Top = 6
+    Width = 62
+    Caption = 'Dateiname'
+    ParentColor = False
+  end
+  object ButtonPanel1: TButtonPanel
+    Left = 6
+    Height = 34
+    Top = 62
+    Width = 388
+    OKButton.Name = 'OKButton'
+    OKButton.Caption = '&Ok'
+    HelpButton.Name = 'HelpButton'
+    HelpButton.Caption = '&Hilfe'
+    HelpButton.Enabled = False
+    CloseButton.Name = 'CloseButton'
+    CloseButton.Caption = '&Schließen'
+    CloseButton.Enabled = False
+    CancelButton.Name = 'CancelButton'
+    CancelButton.Caption = 'Abbrechen'
+    TabOrder = 1
+    ShowButtons = [pbOK, pbCancel]
+  end
+  object Dbf1: TDbf
+    IndexDefs = <>
+    TableLevel = 7
+    FilterOptions = []
+    left = 32
+    top = 56
+  end
+end

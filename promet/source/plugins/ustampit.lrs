@@ -1,0 +1,5 @@
+LazarusResources.Add('TDataModule1','FORMDATA',[
+  'TPF0'#12'TDataModule1'#11'DataModule1'#8'OnCreate'#7#16'DataModuleCreate'#6
+  +'Height'#3#191#0#16'HorizontalOffset'#3#15#2#14'VerticalOffset'#3#224#0#5'Wi'
+  +'dth'#3'Y'#1#0#0
+]);

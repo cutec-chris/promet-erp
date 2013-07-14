@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <Package Version="4">
+    <Name Value="base_inet"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <SearchPaths>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+      </SearchPaths>
+      <Other>
+        <CompilerMessages>
+          <MsgFileName Value=""/>
+        </CompilerMessages>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
+    </CompilerOptions>
+    <Files Count="3">
+      <Item1>
+        <Filename Value="ufavoritesie.pas"/>
+        <UnitName Value="ufavoritesie"/>
+      </Item1>
+      <Item2>
+        <Filename Value="ufavoriteschrome.pas"/>
+        <UnitName Value="ufavoriteschrome"/>
+      </Item2>
+      <Item3>
+        <Filename Value="ufavorites.pas"/>
+        <UnitName Value="ufavorites"/>
+      </Item3>
+    </Files>
+    <Type Value="RunAndDesignTime"/>
+    <RequiredPkgs Count="2">
+      <Item1>
+        <PackageName Value="lcl"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="FCL"/>
+      </Item2>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

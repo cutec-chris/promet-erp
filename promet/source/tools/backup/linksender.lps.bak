@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectSession>
+    <Version Value="9"/>
+    <BuildModes Active="Default"/>
+    <Units Count="4">
+      <Unit0>
+        <Filename Value="linksender.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="linksender"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="19"/>
+        <CursorPos X="1" Y="49"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="../base/dbintfs/uprometipc.pas"/>
+        <UnitName Value="uprometipc"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="33"/>
+        <CursorPos X="11" Y="53"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="../base/dbintfs/uprocessmanager.pas"/>
+        <UnitName Value="uProcessManager"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="75"/>
+        <CursorPos X="56" Y="107"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="../../../general/src/processutils.pas"/>
+        <UnitName Value="ProcessUtils"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="134"/>
+        <CursorPos X="23" Y="142"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit3>
+    </Units>
+    <General>
+      <ActiveWindowIndexAtStart Value="0"/>
+    </General>
+    <JumpHistory Count="5" HistoryIndex="4">
+      <Position1>
+        <Filename Value="../base/dbintfs/uprometipc.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position1>
+      <Position2>
+        <Filename Value="linksender.lpr"/>
+        <Caret Line="9" Column="14" TopLine="1"/>
+      </Position2>
+      <Position3>
+        <Filename Value="linksender.lpr"/>
+        <Caret Line="29" Column="1" TopLine="1"/>
+      </Position3>
+      <Position4>
+        <Filename Value="linksender.lpr"/>
+        <Caret Line="36" Column="36" TopLine="13"/>
+      </Position4>
+      <Position5>
+        <Filename Value="linksender.lpr"/>
+        <Caret Line="29" Column="1" TopLine="13"/>
+      </Position5>
+    </JumpHistory>
+  </ProjectSession>
+  <EditorMacros Count="0"/>
+</CONFIG>

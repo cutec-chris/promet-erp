@@ -1,0 +1,12 @@
+#!/bin/bash
+mediaDir=$(echo $0|sed 's/autorun//')
+txtProgName="Prometheus ERP"
+if [ "`pidof kwin`" != "" ]; then 			# KDE
+	wm="kde"
+elif [ "`pidof gnome-settings-daemon`" != "" ]; then	# Gnome
+	wm="gnome"
+else							# Shell
+	wm="shell"
+fi
+Arch = uname -m
+./start_linux.$Arch

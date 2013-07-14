@@ -1,0 +1,293 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="9"/>
+    <PathDelim Value="\"/>
+    <General>
+      <Flags>
+        <LRSInOutputDirectory Value="False"/>
+      </Flags>
+      <MainUnit Value="0"/>
+      <UseXPManifest Value="True"/>
+      <Icon Value="0"/>
+      <ActiveWindowIndexAtStart Value="0"/>
+    </General>
+    <VersionInfo>
+      <StringTable ProductVersion=""/>
+    </VersionInfo>
+    <BuildModes Count="1">
+      <Item1 Name="default" Default="True"/>
+    </BuildModes>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IgnoreBinaries Value="False"/>
+      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
+      <ExcludeFileFilter Value="*.(bak|ppu|ppw|o|so);*~;backup"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+        <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
+      </local>
+    </RunParams>
+    <RequiredPackages Count="3">
+      <Item1>
+        <PackageName Value="general"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="TurboPowerIPro"/>
+        <MinVersion Major="1" Valid="True"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="LCL"/>
+      </Item3>
+    </RequiredPackages>
+    <Units Count="12">
+      <Unit0>
+        <Filename Value="cdmenue.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="cdmenue"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="13"/>
+        <UsageCount Value="24"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="ucdmenuemain.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fMain"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uCDMenueMain"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="100"/>
+        <CursorPos X="21" Y="128"/>
+        <UsageCount Value="24"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="..\..\Programme\lazarus\examples\turbopower_ipro\mainunit.pas"/>
+        <UnitName Value="MainUnit"/>
+        <TopLine Value="60"/>
+        <CursorPos X="1" Y="70"/>
+        <UsageCount Value="11"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="..\output\i386-win32\prometheus\cdmenue.win32.html"/>
+        <TopLine Value="1"/>
+        <CursorPos X="14" Y="13"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="HTML"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="..\..\Programme\lazarus\fpc\2.2.3\source\rtl\i386\i386.inc"/>
+        <TopLine Value="1306"/>
+        <CursorPos X="1" Y="1327"/>
+        <UsageCount Value="10"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="..\..\Programme\lazarus\lcl\include\customform.inc"/>
+        <TopLine Value="591"/>
+        <CursorPos X="1" Y="612"/>
+        <UsageCount Value="10"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="..\..\Programme\lazarus\fpc\2.2.3\source\rtl\objpas\classes\streams.inc"/>
+        <TopLine Value="437"/>
+        <CursorPos X="48" Y="463"/>
+        <UsageCount Value="10"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="..\..\Programme\lazarus\fpc\2.2.3\source\rtl\inc\except.inc"/>
+        <TopLine Value="172"/>
+        <CursorPos X="40" Y="197"/>
+        <UsageCount Value="10"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="..\..\general\src\processutils.pas"/>
+        <UnitName Value="ProcessUtils"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="40"/>
+        <CursorPos X="11" Y="56"/>
+        <UsageCount Value="10"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="..\output\i386-linux\prometheus\cdmenue.linux.html"/>
+        <TopLine Value="1"/>
+        <CursorPos X="48" Y="7"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="HTML"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="..\..\general\src\Utils.pas"/>
+        <UnitName Value="Utils"/>
+        <TopLine Value="353"/>
+        <CursorPos X="14" Y="368"/>
+        <UsageCount Value="10"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="..\..\usr\share\fpcsrc\packages\fcl-process\src\process.pp"/>
+        <UnitName Value="process"/>
+        <TopLine Value="14"/>
+        <CursorPos X="21" Y="26"/>
+        <UsageCount Value="10"/>
+      </Unit11>
+    </Units>
+    <JumpHistory Count="29" HistoryIndex="28">
+      <Position1>
+        <Filename Value="ucdmenuemain.pas"/>
+        <Caret Line="70" Column="1" TopLine="49"/>
+      </Position1>
+      <Position2>
+        <Filename Value="ucdmenuemain.pas"/>
+        <Caret Line="77" Column="54" TopLine="56"/>
+      </Position2>
+      <Position3>
+        <Filename Value="ucdmenuemain.pas"/>
+        <Caret Line="85" Column="9" TopLine="56"/>
+      </Position3>
+      <Position4>
+        <Filename Value="ucdmenuemain.pas"/>
+        <Caret Line="83" Column="7" TopLine="56"/>
+      </Position4>
+      <Position5>
+        <Filename Value="ucdmenuemain.pas"/>
+        <Caret Line="50" Column="44" TopLine="40"/>
+      </Position5>
+      <Position6>
+        <Filename Value="ucdmenuemain.pas"/>
+        <Caret Line="43" Column="38" TopLine="31"/>
+      </Position6>
+      <Position7>
+        <Filename Value="ucdmenuemain.pas"/>
+        <Caret Line="25" Column="50" TopLine="25"/>
+      </Position7>
+      <Position8>
+        <Filename Value="ucdmenuemain.pas"/>
+        <Caret Line="47" Column="16" TopLine="26"/>
+      </Position8>
+      <Position9>
+        <Filename Value="ucdmenuemain.pas"/>
+        <Caret Line="49" Column="29" TopLine="33"/>
+      </Position9>
+      <Position10>
+        <Filename Value="ucdmenuemain.pas"/>
+        <Caret Line="9" Column="26" TopLine="1"/>
+      </Position10>
+      <Position11>
+        <Filename Value="ucdmenuemain.pas"/>
+        <Caret Line="79" Column="14" TopLine="66"/>
+      </Position11>
+      <Position12>
+        <Filename Value="ucdmenuemain.pas"/>
+        <Caret Line="78" Column="42" TopLine="69"/>
+      </Position12>
+      <Position13>
+        <Filename Value="ucdmenuemain.pas"/>
+        <Caret Line="71" Column="76" TopLine="65"/>
+      </Position13>
+      <Position14>
+        <Filename Value="ucdmenuemain.pas"/>
+        <Caret Line="78" Column="18" TopLine="66"/>
+      </Position14>
+      <Position15>
+        <Filename Value="ucdmenuemain.pas"/>
+        <Caret Line="79" Column="1" TopLine="66"/>
+      </Position15>
+      <Position16>
+        <Filename Value="ucdmenuemain.pas"/>
+        <Caret Line="77" Column="5" TopLine="65"/>
+      </Position16>
+      <Position17>
+        <Filename Value="ucdmenuemain.pas"/>
+        <Caret Line="78" Column="26" TopLine="59"/>
+      </Position17>
+      <Position18>
+        <Filename Value="ucdmenuemain.pas"/>
+        <Caret Line="79" Column="27" TopLine="66"/>
+      </Position18>
+      <Position19>
+        <Filename Value="ucdmenuemain.pas"/>
+        <Caret Line="9" Column="38" TopLine="1"/>
+      </Position19>
+      <Position20>
+        <Filename Value="ucdmenuemain.pas"/>
+        <Caret Line="82" Column="26" TopLine="64"/>
+      </Position20>
+      <Position21>
+        <Filename Value="ucdmenuemain.pas"/>
+        <Caret Line="76" Column="11" TopLine="67"/>
+      </Position21>
+      <Position22>
+        <Filename Value="ucdmenuemain.pas"/>
+        <Caret Line="82" Column="1" TopLine="70"/>
+      </Position22>
+      <Position23>
+        <Filename Value="ucdmenuemain.pas"/>
+        <Caret Line="80" Column="24" TopLine="62"/>
+      </Position23>
+      <Position24>
+        <Filename Value="ucdmenuemain.pas"/>
+        <Caret Line="87" Column="32" TopLine="65"/>
+      </Position24>
+      <Position25>
+        <Filename Value="ucdmenuemain.pas"/>
+        <Caret Line="73" Column="15" TopLine="65"/>
+      </Position25>
+      <Position26>
+        <Filename Value="ucdmenuemain.pas"/>
+        <Caret Line="85" Column="26" TopLine="65"/>
+      </Position26>
+      <Position27>
+        <Filename Value="ucdmenuemain.pas"/>
+        <Caret Line="82" Column="20" TopLine="65"/>
+      </Position27>
+      <Position28>
+        <Filename Value="ucdmenuemain.pas"/>
+        <Caret Line="75" Column="12" TopLine="66"/>
+      </Position28>
+      <Position29>
+        <Filename Value="cdmenue.lpr"/>
+        <Caret Line="11" Column="74" TopLine="1"/>
+      </Position29>
+    </JumpHistory>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="11"/>
+    <PathDelim Value="\"/>
+    <SearchPaths>
+      <UnitOutputDirectory Value="..\..\output\$(TargetCPU)-$(TargetOS)"/>
+    </SearchPaths>
+    <Parsing>
+      <SyntaxOptions>
+        <CStyleOperator Value="False"/>
+        <UseAnsiStrings Value="False"/>
+      </SyntaxOptions>
+    </Parsing>
+    <Linking>
+      <Debugging>
+        <GenerateDebugInfo Value="False"/>
+        <UseLineInfoUnit Value="False"/>
+        <StripSymbols Value="True"/>
+      </Debugging>
+      <Options>
+        <Win32>
+          <GraphicApplication Value="True"/>
+        </Win32>
+      </Options>
+    </Linking>
+    <Other>
+      <CompilerMessages>
+        <UseMsgFile Value="True"/>
+      </CompilerMessages>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
+  </CompilerOptions>
+  <EditorMacros Count="0"/>
+</CONFIG>

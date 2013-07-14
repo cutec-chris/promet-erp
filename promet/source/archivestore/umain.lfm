@@ -1,0 +1,135 @@
+object fMain: TfMain
+  Left = 468
+  Height = 140
+  Top = 321
+  Width = 340
+  Caption = 'Archivestore'
+  ClientHeight = 140
+  ClientWidth = 340
+  Color = clWindow
+  Menu = MainMenu
+  OnClose = FormClose
+  OnShow = FormShow
+  Position = poScreenCenter
+  LCLVersion = '1.1'
+  object ZVDateTimePicker1: TZVDateTimePicker
+    Left = 16
+    Height = 25
+    Top = 32
+    Width = 97
+    CenturyFrom = 1941
+    MaxDate = 2958465
+    MinDate = -53780
+    TabOrder = 0
+    TrailingSeparator = False
+    TextForNullDate = 'NULL'
+    LeadingZeros = True
+    Kind = dtkDate
+    TimeFormat = tf24
+    TimeDisplay = tdHMS
+    DateMode = dmComboBox
+    Date = 41148
+    Time = 0.781060185181559
+    UseDefaultSeparators = True
+  end
+  object Label1: TLabel
+    Left = 16
+    Height = 17
+    Top = 8
+    Width = 26
+    Caption = 'Von'
+    ParentColor = False
+  end
+  object Label2: TLabel
+    Left = 16
+    Height = 17
+    Top = 72
+    Width = 20
+    Caption = 'Bis'
+    ParentColor = False
+  end
+  object ZVDateTimePicker2: TZVDateTimePicker
+    Left = 16
+    Height = 25
+    Top = 96
+    Width = 97
+    CenturyFrom = 1941
+    MaxDate = 2958465
+    MinDate = -53780
+    TabOrder = 1
+    TrailingSeparator = False
+    TextForNullDate = 'NULL'
+    LeadingZeros = True
+    Kind = dtkDate
+    TimeFormat = tf24
+    TimeDisplay = tdHMS
+    DateMode = dmComboBox
+    Date = 41148
+    Time = 0.781060185181559
+    UseDefaultSeparators = True
+  end
+  object Button1: TButton
+    Left = 144
+    Height = 33
+    Top = 48
+    Width = 184
+    Caption = 'Speichern'
+    OnClick = Button1Click
+    TabOrder = 2
+  end
+  object Button2: TButton
+    Left = 144
+    Height = 33
+    Top = 88
+    Width = 184
+    Caption = 'Schliessen'
+    OnClick = Button2Click
+    TabOrder = 3
+  end
+  object ActionList1: TActionList
+    left = 128
+    top = 8
+    object acLogin: TAction
+      Caption = 'Anmelden'
+      OnExecute = acLoginExecute
+    end
+    object acLogout: TAction
+      Caption = 'Abmelden'
+      Enabled = False
+      OnExecute = acLogoutExecute
+    end
+  end
+  object MainMenu: TMainMenu
+    left = 192
+    top = 8
+    object miMandant: TMenuItem
+      Caption = 'Mandant'
+      object MenuItem4: TMenuItem
+        Action = acLogin
+        OnClick = acLoginExecute
+      end
+      object MenuItem3: TMenuItem
+        Action = acLogout
+        OnClick = acLogoutExecute
+      end
+    end
+    object miOptions: TMenuItem
+      Caption = 'Optionen'
+      object miLanguage: TMenuItem
+        Caption = 'Sprache'
+      end
+    end
+  end
+  object ActiveUsers: TDatasource
+    left = 248
+    top = 8
+  end
+  object Commands: TDatasource
+    left = 296
+    top = 8
+  end
+  object SelectDirectoryDialog1: TSelectDirectoryDialog
+    left = 128
+    top = 48
+  end
+end

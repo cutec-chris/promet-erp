@@ -1,0 +1,10 @@
+object fmDownloads: TfmDownloads
+  OldCreateOrder = False
+  Actions = <>
+  OnRequest = DataModuleRequest
+  CreateSession = False
+  Height = 50
+  HorizontalOffset = 306
+  VerticalOffset = 346
+  Width = 50
+end

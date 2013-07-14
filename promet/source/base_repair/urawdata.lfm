@@ -1,0 +1,24 @@
+object fRawdata: TfRawdata
+  Left = 551
+  Height = 378
+  Top = 233
+  Width = 458
+  Caption = 'Rawdaten'
+  ClientHeight = 378
+  ClientWidth = 458
+  Position = poMainFormCenter
+  LCLVersion = '0.9.29'
+  object Memo1: TMemo
+    Left = 0
+    Height = 378
+    Top = 0
+    Width = 458
+    Align = alClient
+    Lines.Strings = (
+      'Memo1'
+    )
+    ScrollBars = ssAutoBoth
+    TabOrder = 0
+    WordWrap = False
+  end
+end

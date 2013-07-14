@@ -1,0 +1,470 @@
+﻿Build 249
+      - sync_db ignoriert active, wenn letzte synchronisation länger als 6h her ist (absturz des hosts o.ä.)
+      - Vorgabeeinstellungen fürs befüllen der DB überarbeitet
+      - Gridview überarbeitet, Zeileninformationen (Einrückungslevel,Vorfahr...) werden nun in extra Objekt gespeichert
+        dadurch werden einige unschönheiten vermiedne und das Grid wirkt insgesamt rbuster
+        einige kleine Macken sind dadurch behoben
+Build 248
+      - Baumansicht nicht mehr editierbar (führte zu oft zu ungewollten Editiervorgängen->Rechtsklick umbenennen)
+      - Aufgaben können sowohl in persönlicher Aufgabenliste als auch im Projekt verschoben werden und behalten ihre Position
+Build 247
+      - div kleine probleme beim Sortieren und einfügen von Positionen im GridView behoben
+      - Lazarus versionen auf SVN Stand geupdated (SVN Rev. 42051)
+      - Schnellhilfe wird erzeugt nach dem Anzwigen des letzten Tipps nun keine AV mehr
+Build 246
+      - Zeiterfassung hat die letzten 2 Revisionen das fenster in den Vordergrund gelegt
+      - Schnellhilfe passt fensterhöhe dynamisch nach Weiter drücken an
+      - Schnellhilfe blendet sich nach ausblenden für den Rest der Sitzung aus
+Build 245
+      - Schnellhilfe (Schritt für Schritt Anleitung im oberen Bereich der Ansichten implementiert)
+        derzeit nur Inhalte für Auftragsbearbeitung vorhanden
+Build 244
+      - Dokumentenverwaltung erzeugt Verlaufseintrag in Eintragsverlauf wenn Kommentar angegeben wurde
+      - Einrücken und ausrücken rückt unter und unterunteraufgaben korrekt ein/aus
+      - Fehler bei Eingabe über mehrfachauswahl behoben
+      - Zeiterfassung (reintigrierte) aktualisiert Zeiten automatisch
+      - Wenn frühester Termin für Aufgaben angegeben wurde Endzeit u.U. nicht benutzt
+      - Entf in Aufgaben löst nun Positionslöschung aus (mit Abfrage)
+Build 243
+      - Bei Statusänderung des Projektes zu einem inaktiven Status wird gefagt ob die
+        verbleibenden Aufgaben deaktiviert werden sollen
+      - wenn Position länger als eine Seite, wird bekommt Positionseditor eine eigene Scrollbar
+Build 242
+      - Integration der Zeiterfassung
+      - Drucken in Belegwauswahl in Ausgabe umbenannt da für e-Mails,PDF & Co verwirrend
+      - Wenn In Auftrag Kundendaten bereits eingegeben sind und aus dem Auftrag ein
+        Kunde erstellt werden soll, wird der neue Kunde mit den eingegebenen Daten
+        vorbelegt
+      - nur Leiter sehn ungeplante Aufgaben in Aufgabenplan
+      - Aufgaben die bei Planungsrelevant N gesetzt haben (explizit abgehakt)
+        erscheinen in Ungeplante Aufgaben nicht mehr
+Build 241
+      - Einige Tabellen werdne nun auch von smtpsender und pop3recheiver erstellt
+      - Windows Setup befüllt Standartdatenbank automatisch mit aktuellen Daten
+Build 240
+      - Kategorie für Artikel
+      - Beide Mwst Arten werden im Auftrag angezeigt (Gesamtsummen)
+      - Halbe und Volle MwSt werden gesondert gespeichert
+      - Fehler beim ersten erstellender Aufgabentabelle (hoffentlich) behoben
+      - Fehler beim speichern von Statistiken behoben
+Build 239
+      - Gesamtpreistypen im Vorgang bezeichnet
+      - Artikelpreise werden richtig angezeigt (Nachkommastellen wurden falsch angezeigt)
+      - Kassenbuch (Zahlungsliste) wird automatisch erstellt (führte zu crash wenn die Zahlungsliste vor dem ersten Buchen aufgerufen wurde)
+      - Kategorieoptionen erzeugten beim ertsen öffnen Fehler->behoben
+Build 238
+      - Status haben Farbe
+      - Projektübersicht zeigt einzelne Projektabschnitte in einer Kalenderansicht
+      - Fehler beim Drucken (in sehr seltenen Fällen Access Violation) beseitigt
+      - keline Korrekturen für sync_db (sollte jetzt noch etwas schneller sein)
+      - Buttons in Nachrichtenverwaltung deaktiviert wenn keine Nachrichten vorhanden
+Build 237
+      - Fehler bei mehrfach editieren beseitigt (trat u.U. bei Benutzerzuweisung in Projekten auf)
+      - weiteren Fehler im GridView beseitigt
+      - zu Projekt gehn für Aufgabenplan-Aufgabenliste
+Build 236
+      - Beim löschen von Artikeln,Kontakten,Projekten werden auch ohne Ref.Intigrietät
+        der DB Positionen,Anhänge,Aufgaben u.s.w. mit gelöscht
+      - Abfrage nach namen beim Prozess duplizieren bricht das duplizieren ab
+        wenn selber Name vergeben
+      - Prozess duplizieren hat u.U. Vorgänger nicht richtig dupliziert,
+        behoben
+      - 2 weitere kleine Fehler in den Grids behoben
+Build 235
+      - Aufgabenplan wird nun in Threads aktualisiert (schrittweise aufgebaut)
+      - Erste Installation schaltet für Administrator Account Autologin ein
+Build 234
+      - kleine Fehler bei Mehrfach-editierung in Positions/Aufgabeneditor behoben
+      - Nummern werden in Baum nur angezeigt wenn Sie nicht die SQL_ID sind
+      - Drag&Drop von aus Baum in Meetings (Themen)
+      - Meetingeinträge können in Themen gewandelt werden und umgekehrt
+      - umbenennen von Aufgaben erzeugt einen Verlaufseintrag in deren Verlauf
+      - Verlaufseinträge aus Meetings erzeugen Verknüpfung auf Meeting
+      - Tabs von neuen Einträgen bekommen namen "neuer Eintrag"
+      - Meeting hat 2 Buttons um Eintrag einzufügen, einen zum einfügen ud einen
+        zum "darunter einfügen" (intuitiver)
+      - Positionseditor fügt standardmäßig "darunter ein"
+      - Aufgabeneditor fügt standardmäßig "darunter ein"
+      - nicht zugewiesene oder unterminierte Aufgaben werden im Aufgabenplan
+        in einer Liste angezeigt
+      - Ereignis kann gedruckt werden
+      - Baumeinträge werden nun nach Anlagedatum und nicht nach Änderung sortiert
+        dadurch verschieben sie sich nicht mehr
+      - Sync_db markiert eine DB nun als in Arbeit wärend der Sync, das vermeidet probleme wenn
+        die DB von 2 stellen gleichzeitig synchronisiert wird
+      - In den Prozessmanager Optionen wird nun ein Log der letzten Prozesssitzung angezeigt
+Build 233
+      - Schnellsuche nun in Ident (Nummer) und Text in Positionen möglich
+Build 232
+      - Fehlermeldungspfad kann nun auch Umlaute u. Sonderzeichen enthalten, bei mehrzeilige Fehlermeldungen werden zum Vergleich die Umbrüche entfernt
+      - automatisches anlegen der Mandanteneinstellungen korrigiert
+Build 231
+      - Positionen können automatisch neu nummeriert werden
+      - verschieben von Positionen korrigiert
+Build 230
+      - Hints ergänzt
+      - In Verlaufsansicht werden Knopfkonfigurationen gespeichert (welche Verlaufstypen werden angezeigt)
+        gespeichert wird pro Eintragstyp Projekte haben also eine andere Verlaufsansicht wie Artikel oder Kunden u.s.w.
+      - Abfrage vor löschen von Meeting Einträgen
+      - Doppelklick in Zelle in Besprechungstool geht in Editiermodus
+      - Kategorien definierbar und in Aufgaben und Projekten setzbar (weitere Elemente bekommen auf Zuruf eine Kategorie)
+      - Artikel,Kontakt,Projektnummer in Übersichten und Baumansicht eingeklammert sichtbar
+      - Projektkosten (Sachkosten) werden beim speichern errechnet Felder für Gesamtkosten für Eingaben gesperrt
+      - Fehlermeldungen (z.b. vom SQL Server) können nun durch mehr verständliche Varianten erstzt werden wenn nötig
+      - einige kleine Fehler beim erstellen von Statistiken beseitigt
+      - Wizardandant an einigen Stellen etwas bequemer gestaltet
+Build 229
+      - Einige Menüeinträge wurden in dne letzten Revisionen doppelt ausgeführt
+      - Positionseditor/Gitteransichten weiter überarbeitet
+Build 228
+      - Bug im Grid Editor der einzelne Zeilen u.U. überschreiben konnte behoben
+      - Besprechungstool zeigt in Reports Nutzer richtig die "=" in der Accountno haben
+Build 227
+      - Neues Ereignis Knopf funktionierte im Kalendar unter Umständen nicht
+      - Doppelklick auf Ereignis öffnet dieses nun auch in der Monatsansicht
+      - Doppelklick auf leeren Bereich in Monatsansicht springt in Wochenansicht
+Build 226
+      - Hinweistext in Aufgabenplan zeigt Aufgaben mit unerfüllten Abhängigkeiten durch x
+      - div Korrekturen für Positionseditor die sich in den letzten Revisionen eingeschlichen haben
+Build 225
+      - Abbruch für Endlosschleife wenn Nutzer sich selbst als Parent gesetzt hat
+      - Beim öffnen mancher Gantt Ansichten konnte es zu einem Variant Fehler kommen
+      - Mehr als 11 Aufgaben gleichzeitig in der Gantt Ansicht/Aufgabenplan editierbar
+      - Wenn Kalendar oder Benutzerkalender geöffnet wird wird vorher geschaut ob er bereits offen ist und hingespungen
+      - Wenn Aufgaben oder Benutzeraufgaben geöffnet wird wird vorher geschaut ob er bereits offen ist und hingespungen
+      - Datumseditoren zeigen nichts statt NULL wenn Feld leer ist
+Build 224
+      - Hinweisdarstellung in Aufgabenplan geändert so das Gesamtauslastung angezeigt wird
+        und mehr Aufgaben sichtbar sein können
+      - Aufgaben in Aufgabenplan direkt verschiebbar/bearbeitbar
+Build 223
+      - Mausrad Scrollen beschleunigt für Thumbnail Ansicht
+      - weniger Felder in der Vorbelegung im Auftrag um Einsteigern behilflich zu sein
+      - Felder in Gridansichten werden sofort aktualisiert
+      - Ident wird in Standardansicht in Aufträgen nicht mehr angezeigt
+      - Schnellsuche (wärend Tippen) im Auftrag in text nicht in Ident
+      - Editormodus bleibt in Positions und Aufgabeneditor erhalten wenn einmal aktiviert
+      - Comboboxen werden automatisch aufgeklappt in Aufgabeneditor und Positionseditor
+Build 222
+      - Beim benutzen des + Knopfes in Aufgabenlsiten oder Positionslisten konnte es zu Problemen kommen
+      - Layout des Kundenadress Frames überarbeitet hoffentlich wird jetzt besser erkennbar das der Kunde
+        mehrere Adresse haben kann
+      - Mouserad scrollen in Dokumenten/Bilder nun auch in Windows
+Build 221
+      - SQL Filter in Aufgabenliste möglich
+Build 220
+      - Kalendereinträge und Wochenenden werden bei der Auslastungsanzeige berücksichtigt
+      - Auslastungsanzeige für Teams/Abteilungen in Aufgabenplan
+      - Auslastung und Arbeitszeit aus Aufgabenplan pro Benutzer einstellbar
+Build 219
+      - Resourcenansicht zeigt unter Windows Temporär Überlappungen nicht mehr schraffiert an
+      - Hints für Knöpfe in Aufgabenplan und Gantt Ansicht
+      - Termine in Baumansicht werden nicht mehr doppelt angezeigt
+Build 218
+      - Gantt Ansicht die aus Aufgabenplan aufgerufen wurde ist nun richtig herum sortiert
+      - Inaktive Nutzer werden nun auch nicht mehr in der Planansicht angezeigt
+Build 217
+      - Aus Aufgabenplan kann man direkt in entsprechende Gantt Ansicht des Projektes springen
+        die aktuelle Aufgabe wird dann gleich markiert und zentriert dargestellt
+      - Aus Aufgabenplan kann direkt ins Projekt der Aufgabe gesprungen werden
+      - in Gantt Ansicht können Aufgaben zentriert werden (Aufgabe markierten>Rechtsklick->Aufgabe zentrieren)
+      - Aufgabenabschnitte werden bei Überschneidungen die mehr als 100% der Zeit der Ressource in Anspruch nehmen
+        rot dargestellt
+      - Planungsrelevante Aufgaben und organisatorische Aufgaben werden unterschieden
+      - wenn eine einzelne .perml Datei im Programmpfad liegt, und kein Mandant angelegt ist
+        wird mit dieser automatisch ein Mandant angelegt. In größeren Installationen
+        ist das Programm somit automatisch nach dem ersten Start eingerichtet.
+      - Anti Alaising der gestreckten Bilder in Wiki/Hilfe unter Windows
+      - In Wochenansicht Wochennummern statt Startdatum des Monats in Gantt Ansicht
+      - Leiter können Kalender ihrer Team/Abteilungsmitglieder einsehen / bearbeiten
+      - Termine die als Plaungsrelevant gekennzeichnet sind werden in der Aufgabenansicht angezeigt
+      x In Planungsansicht kann pro Benutzer eingestellt werden
+        zu wie viel Prozent er verplant werden darf, wie seine Arbeitszeiten sind
+
+      x grafische Projektübersicht in Projekt
+      x Statistiken können verlinkt werden incl Parametern
+      x Aufgabensortierung für persönliche Ansicht angepasst
+Build 216
+      - Konfigurationspfad wird einheitlicher über alle promet basierten Applikationen hinweg verwaltet
+      - Überlappende Aufgaben werden in Gantt Ansichten schraffiert dargestellt
+      - History in Hilfe verhält sich mehr ie Browser Historys
+Build 215
+      - Aufgabenplantafel zeigt nun auch Teams in beliebig vielen unter ebenen
+      - Limit für Benutzer auf unendlich gesetzt (einige Funktionen waren mit mehr als 100 Nutzern nicht möglich)
+      - Gantt "Anfasser" um Aufgaben zu verlängern/verkürzen sind nun nicht mehr fest 8px breit sondern 10% der Aufgabe
+        auch sehr kurze Aufgaben können so besser angefasst werden
+      - Meilensteintermine werden von der Gantt Speicherfunktion nicht mehr automatisch gesetzt
+        Meilensteintermine werden damit nicht mehr errechnet sondern müssen manuell gesetzt werden.
+      - letzter Verlaufseintrag kann vom erstellenden Nutzer editiert werden
+Build 214
+      - Aufgabenplantafel
+      - Gantt Export überarbeitet
+      - Gantt Ansicht zeigt nun nach Scrollen auch korrektes aktuelles Datum an
+      - Hits für Gantt Ansichten funktionieren nun auch außerhalb des Scrollbereichs
+Build 213
+      - Editierfehler in Gridview behoben
+Build 212
+      - wenn über 100 Nutzer angelegt sind wurden einige Aufgabennutzer bei den Teamleitern nicht angezeigt
+Build 211
+      - Gantt Ansicht zeigt Wochenenden an
+      - Gantt Ansicht zeigt Aufgaben aus anderen Projekten im Hintergrund an
+      - Gantt Project Export
+Build 210
+      - Gantt Ansicht rechnet Termine (Verschieben von ganzen Aufgabenbäumen)
+Build 209
+      - Gantt Ansicht für Projekte
+      - GAN Import importiert duration nicht mehr. im Promet ist die Dauer eine Nettozeit, im Gantt roject Brutto
+Build 208
+      - Aufgabeneditor zeigt nun auch die Plan-zeit ggf in Stunden an
+      - Wochennummern werden in den Gridview Datumseditoren angezeigt (derzeit nur Windows)
+      - Es wird automatisch ein neuer Datensatz eingefügt wenn ein Bild im "Bilder" Tab
+        eingefügt wird
+      - Ident wurde unter bestimmten Umständen in Vorgängen nicht ersetzt (Suchwort blieb stehen)
+      - Bufferzeit für Aufgaben wird bei Berechnung berücksichtigt
+Build 207
+      - Besprechungstermin wird mit jetziger Zeit vor gefüllt
+      - Feld "Erstellt von" für Besprechungen
+      - Teilnehmerliste wird bei neu erstellten Meetings automatisch aktiviert
+Build 206
+      - Planzeiten für aufgaben können nun ohne Einheit als Tage eingegeben werden
+        und mit h für Stunden. Zeiten, die kürzer als ein Tag sind werden in h dargestellt
+Build 205
+      - Formular hinzufügen wurde teilweise nicht richtig erkannt wenn Checkboxen darauf waren
+      - Fehler beim Buchen von Meetings beseitigt (in Build 200 eingeführt)
+Build 204
+      - Thumbnail erneuern funktioniert nun, wenn ein Bild bearbeitet wird,
+        wird automatisch das Thumbnail neu erzeugt. Sie können auch übers Menü
+        das neu erzeugen anstoßen
+Build 203
+      - Dialog mit dem Dateien die per Drag&Drop in die Dokumentenverwaltung gezogen wurden
+        gleich tags hinzugefügt werden können, und ggf gleich gelöscht werden können.
+      - Drag&Drop von Virtuell eingebundenen Dateisystemen in Gnome Umgebungen
+        damit ist Drag&Drop diekt vom Nautilus und z.b. eingebundenen Digitalkameras möglich
+Build 202
+      - Aufgabentermine werden automatisch geschoben, wenn unplausibel
+Build 201
+      - Fehlermeldung beim Projekt/Prozess duplizieren behoben
+      - geändert von und erstellt von Felder werden automatisch befüllt
+        diese felder auf 4 Zeichen geändert, in einigen Tabellen hinzugefügt
+      - Notizen und Verlauf auf der ersten Seite "Allgemein" im Aufgabeneditor
+Build 200
+      - linksender kann nun nicht nur Linkdateien öffnen sondern auch Links als Text
+        also Promet-erp/tools/linksender(.exe) meinlink.plink
+        oder Promet-erp/tools/linksender(.exe) PROJECTS@12345
+      - Buchen von Besprechungen trägt auch eine Verknüpfung zu den Aufgabne ein
+      - Doppelklick auf Besprechungseintrag öffnet den Link der angefügt ist (Projekte sind immer verlinkt,
+        Aufgaben sind nach dem Buchen verlinkt)
+      - Datumseditor und Checkbox für benutzerdefinierte Formulare
+      - Benutzerdefinierte Tabs werden nun auch automatisch beim öffnen eines Eintrags hinzugefügt wenn Inhalt vorhanden ist
+Build 199
+      - bessere Suche für Dokumenten/Bilderansicht nun können Tags durch komma getrennt gesucht werden
+        die dann in beliebiger Reihenfolge gesucht werden
+      - Thumbnails in Dokumenten/Bilderansicht werden nach editieren von Bildern neu gebaut
+      - Tags können nun für mehrere Bilder durch einfaches anklicken gesetzt werden
+        dazu findet sich ein Button im Menü der sich aktivieren/deaktivieren lässt
+Build 198
+      - Bessere Dokumentenvorschau
+Build 197
+      - Fehler im Form Editor unter Windows behoben
+      - Fehler beim Suchen in Dokumenten/Seiten/Bildverwaltung beseitigt
+Build 196
+      - Tableedit überarbeitet
+      - erste Version der App Base (html5 Applikationen auf Promet-ERP Datenbankbasis)
+Build 195
+      - Fehler aus Version 193 gefixt das sich die Dokumentenverwaltung unter Windows u.U. in eine Endlosschleife verfängt
+Build 194
+      - Status Dialog wäred des speichern von Dateien aus der Dokumentenverwaltung
+      - Thumbnail wird zuerst in Vorschau dargestellt und danach mit dem Hochauflösenden Bild ersetzt
+      - Suche nach Tags und Volltext in Dokumenten/Bildverwaltung
+Build 193
+      - Preview Frame für Dokumenten/Seiten/Bildverwaltung
+Build 192
+      - Erste Version der Dokumenten/Seiten/Bildverwaltung
+Build 191
+      - Form Editor
+      - Statusänderungen speichern Eintrag und aktualisieren Statusliste bei Kunden,Artikel,Projekten
+      - Besprechungsthemen werden Fett gezeichnet
+      - Personen (nicht nur Benutzer) können Meeting Teilnehmer sein
+      - in Besprechungen ist auch Verantwortlicher per Drop Down Liste auswählbar
+      - Parameter Eingabe in Prozess Optionen funktioniert nun
+Build 190
+      - WebDAV Server greift jetzt auf richtigen Dateiordner zu (unverknüpfte Dateien)
+      - Dateiframe hat Refresh Knopf
+      - Doppelklick auf Abhängigkeit öffnet die
+      - einige kleine Fehlerbehebungen am GridView
+Build 189 (15.03.2013)
+      - erste funktionsfähige Version des IMAP Servers
+      - e-Mail Feld für Benutzer
+      - Dokumententitel bei Druck in e-Mail entspricht nun dem Report Titel wenn dieser gesetzt ist
+Build 188
+      - Meeting neue Position wird Angehängt, nicht eingefügt
+Build 187
+      - Meeting Teilnehmer separat geführt
+Build 186
+      - Reports mit externem Mail Programm verschicken
+Build 185
+      - Sync_db gibt keine Warnung aus wenn nicht existierende Tabelle nicht aktiv ist
+      - IMAP Server implementiert
+Build 184
+      - Besprechungsprotokoll druckbar
+      - erste Version vom Besprechungsprotokolltool voll nutzbar
+Build 183
+      - neuer Objekttyp: Besprechungsprotokoll
+      - Separate Applikation für Besprechungsprotokolle
+      - Filterauswahl nur noch beim editieren des Filters editierbar
+Build 182
+      - Kategorie für Artikel, Kunden und Projekten
+      - Drucken für Artikel, Kunden
+      - Strg+C funktioniert im Statistik Frame
+      - Gridview stellt nach Einfügen Eintrag im richtigen Level dar
+Build 181
+      - weiterer Versuch einen seltenen Gridview Fehler zu beseitigen
+      - Fehler des Positionseditors behoben (beim ersten Wechsel der Position wurde die neu selektierte Position mit falschen Werten angezeigt)
+Build 180
+      - versuch einen seltenen Gridview Fehler zu beseitigen
+Build 179
+      - Statistik Absturz behoben
+      x Statistiken auf Report Bändern
+Build 178
+      - kleinere Korrekturen für das öffnen über Dateien Promet-ERP wird z.b. auch gestartet wenn es noch nicht offen ist
+      - doppeltes Öffnen von Einträgen aus Messagemanager abgestellt
+      - Problem mit Entnahme von Nachrichten aus PMS System behoben
+Build 177
+      - öffnen von Links über Dateien (.plink)
+Build 176
+      - alle Status haben definierte Angabe wohin sie Wandelbar sind
+      - Status kann aktiv oder inaktiv sein
+      - im Filterframe kann ohne * vor und hinter dem Suchbegriff gefiltert werden
+      - aktive Status werden in der Suche bevorzugt
+      - Favoriten Löschbar
+Build 175
+      - Splitter zeichnen nun Linie statt direkt zu vergrößern/kleinern
+      - Dokumente global in Dateien umbenannt (vorbereitung für Dokumentenverwaltung)
+      - Zeilen erden im Filterframe vollständig markiert wenn dieses nur gelesen werden darf
+      - an vielen Stellen Hinweise (Tooltips) korrigiert
+      - Tableedit neu im Setup (Admin Tool um Datenbanktabellen direkt zu bearbeiten)
+      - Tabellen und Feldbeschreibung in Hilfe
+      - In Reports sind erstmalig Diagramme möglich
+Build 174
+      - Fortschrittsanzeige beim endgültigen löschen von Nachrichten
+      - Favoriten löschen
+      - Messagemanager einträge werden bei Doppelklick als gelesen markiert
+      - sync_db --db overrides Active=N
+Build 173
+      - Objektinspektor und Tools Palette im Report Designer standardmäßig sichtbar
+      - Objektinspektor ist so hoch wie der Designer
+      - SQL Verbindungstimeout auf 2 Sek
+      - sync_db schlägt nicht fehl wenn aus Deleteditems item kann nicht gelöscht werden
+      - sync_db kann mit --db=dbname ein einzelnes Syncprofil synchronisieren statt allen
+Build 172
+      - Linux Pakete für die Zeiterfassung
+Build 171
+      - Import von .perml Dateien (Mandanten Dateien werden vom Wizardmandant erstellt und enthalten die Datenbankeinstellungen)
+        vom Mandanten Assistenten
+Build 170
+      - Persönlichen Verlauf in Nachrichtenzentrale umbenannt
+      - Wenn kein Promet basiertes Programm ein Menü in dr Nachrichtenzentrale registriert hat
+        besitzt diese einen beenden Button
+Build 169
+      - TaskEdits are not closed automatically when Taskframe is closed
+      - CALENDAR.ID muss Bigint sein
+      - WORKTIME,WEEKWORKTIME und USEWORKTIME Felder in Users
+      - Vorfahrprojekt (PARENT) von Prozess wird beim duplizieren zurückgesetzt
+Build 168
+      - Statistik Ergebnisse lassen sich nun sortieren
+      - Felder von Statistik Ergebnissen lassen sich in die Zwischenablage kopieren
+      - Messagemanager zeigt bei RefObject und Objekt nun die Werte richtig an
+      - History Einträge von Aufgaben setzen nun Objekt wie RefObjekt
+Build 167
+      - begonnen die Änderungshistorie ins Deutsche zu übersetzen
+      - Messagemanager qutoes werden korrekt korrigiert (Nutzernamen mit Leerzeichen werden nun korrekt übergeben)
+      - Messagemanager ignoriert falschen Nutzernamen nun und sucht bei Loginfehler 2. mal nach Auto Login Daten
+      - Benutzergruppen sind nun beliebig tief verschachtelbar
+      - Wenn Serververbindung verloren wird, wird nun ein Hinweis über das gesamte Hauptfenster der Anwendung angezeigt
+        wird automatisch wieder entfernt wenn Verbindung wieder besteht
+Build 166
+      - Kommunikation zwischen Zeiterfassung und Messagemanager funktioniert nun sauber (3 verschiedene IPC Arten haben probleme gemacht)
+      - WMSize Loops werden ignoriert (LCL Fehler)
+Build 165
+      - Actions werden nun im Statistikframe nicht mehr deaktiviert (div Probleme das Buttons manchmal nicht auf Klicks reagiert haben)
+      - InvalidatePreferredSize Fehler ignorieren (LCL Fehler)
+      - Artikel kopieren funktioniert nun wieder (andere Version oder Sprache)
+      - Statistiken löschen
+      - Referenz Objekt Feld in Verlauf (z.b. Projekt von Aufgabe)
+Build 164
+      - Statistik startet nun auch wenn Nutzer kein Recht hat Statistiken zu bearbeiten (es wird im Baum einfach nichts angezeigt)
+      - Messagemanager wird nun in Ubuntu richtig gewhitelistet damit das Icon auch in Ubuntu in der Taskbar zu sehn ist
+Build 163
+      - Nachricht kann nun per Drag&Drop zur Aufgaben gemacht werden
+Build 162
+      - Statistiken sind nun auch direkt ins Promet-ERP intrigiert (selbe Ansichten wie im Statistik Tool)
+      - Statistiken in separaten Tabs
+      - sqlite.dll wird auch im Tools Verzeichnis Platziert (Fehler unter Windows div Meldungen das sqlite.dll nicht gefunden wurde)
+Build 161
+      - Doppelklick in Persönlichem Verlauf antwortet auf Eintrag
+      - Interface mit Tabs für Statistik begonnen
+Build 160
+      - Zeiterfassung klinkt sich ins Menü des Messagemanagers ein nur noch ein Tray Icon für Promet basierte Anwendungen
+Build 159
+      - Persönlicher Verlauf kann mit Esc geschlossen werden
+      - Messagemanager Icon wird unter Windows nicht mehr aktualisiert (flickerte)
+Build 158
+      - in Persönlichem Verlauf kann mit "task @user subject" eine Aufgabe an Nutzer user delegiert werden
+                                    oder "task@user subject"
+Build 157
+      - Nachrichten an Listen schicken an diversen Stellen optimiert
+      - Button um Listen zurückzusetzen
+      - Doppelklick auf Listeneintrag öffnet ihn
+Build 156
+      - Linkframe ging manchmal beim Doppelklick in den Editiermodus
+      - Drag&Drop von Favoriten zu Linkframe
+      - Obere Iconbar etwas reorganisiert um nicht den Eindruck zu vermitteln das sie nicht zum Promet-ERP gehört bei maximiertem Fenster
+Build 155
+      - Alle Promet basierten Programme warten nun auf eine Neuverbindung wenn Verbindung zum Server verloren wird
+      - Weiterentwicklung Messagemanager, zeigt nun Verlaufseinträge des persönlichen Verlaufs des Benutzers an
+      - Erkennung von Fehlerhaften Serververbindungen funktioniert nun auch für MSSQL
+      - Obere Iconbar wird nun in Buttonfarbe Angezeigt und Icon für die Suche wurde hinzugefügt
+      - Filteransichten zeigen nun echte Anzahl Datensätze wenn sich diese von der angezeigten unterschiedet (Limit)
+Build 154
+      - Messagemanager bekam neue Icons mit mehr Kontrast und rotierenden Farbigen Globus der Neuigkeiten anzeigt
+Build 153
+      - Versuch fehlerhafte Verbindungen zu erkennen, Programm sollte nun solange einfrieren
+      - SQL Quoting verbessert
+Build 152
+      - Messagemanager zeigt graues Icon wenn nichts neues und farbiges wenn neues vorliegt
+Build 151
+      - Kommunikationsprotokoll mit der Bank wird beim Onlinebanking nicht geschlossen damit Nutzer es kontrollieren kann
+Build 150
+      - erste Version des Messagemanagers
+      - Verlaufseintrag in persönlichem Verlauf des Verantwortlichen wenn Aufgabe fertiggestellt wird
+      - Verlaufseintrag in persönlichem Verlauf des Bearbeiters wenn Aufgabe geprüft wird
+      - diverse Fehlerbereinigungen zu Filtern
+      - Problembehebung beim setzen eines Eintrages in der Zeiterfassung
+Build 149
+      - Statistik AV behoben
+      - Statistiken können nun Variablen in Detail und Subdetail Abfragen haben
+Build 148
+      - API für Trigger
+Build 147
+      - Jeder kann eigene Favoriten Verzeichnisse hinzufügen,ändern und löschen
+Build 146
+      - Druckerindex war in einigen Fällen falsch
+      - Druckdialog überarbeitet
+      - Projektübersicht hinzugefügt (für Unterprojekte und Prozesse)
+Build 145
+      - list index out of bounds beim Multiselect behoben
+      - Error Dialog überarbeitet
+      - Aufgabenvorfahr wird korrekt zugeordnet wenn aufgaben per Drag&Drop verschoben werden
+      - Rechtsklickmenü in Aufgaben "als gesehen markieren" hinzugefügt
+Build 144
+      - mehr Möglichkeiten per Drag&Drop zu arbeiten (Drag von Filteransicht, Baumintern...)
+      - Übergeordnetes Projekt zuweisen und zu diesem per Knopf gehen im Projektdialog
+      - Suche nach Beschreibungsinhalten von Aufgabeeditor aus
+      - Prozesse können nun dupliziert werden (Aufgaben und Abhängigkeiten werden kopiert, zurückgesetzt und aktiv gemacht)
+      - Problem das bei neueren Postgres Datenbanken (>9.0) das buchen manchmal fehlschlägt behoben
+Build 143
+      - Drag & Drop um Unterprojekte/Prozesse im Baum zuzuweisen
+      - Separates Icon für Prozesse
+      - Icon wird in Spalte "Typ" bei der Projektliste gezeichnet
+... Umstellung changes.txt in Deutsch, für ältere Einträge schauen Sie in changes.en.txt
+Version 7.0...

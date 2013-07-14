@@ -1,0 +1,599 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="9"/>
+    <PathDelim Value="\"/>
+    <General>
+      <MainUnit Value="0"/>
+      <ResourceType Value="res"/>
+      <UseXPManifest Value="True"/>
+      <Icon Value="0"/>
+      <ActiveWindowIndexAtStart Value="0"/>
+    </General>
+    <i18n>
+      <EnableI18N LFM="False"/>
+    </i18n>
+    <VersionInfo>
+      <StringTable ProductVersion=""/>
+    </VersionInfo>
+    <BuildModes Count="1" Active="Default">
+      <Item1 Name="Default" Default="True"/>
+    </BuildModes>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
+      <ExcludeFileFilter Value="*.(bak|ppu|o|so);*~;backup"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+        <CommandLineParams Value="--mandant=&quot;TCS&quot; --database=&quot;C:\Prometheus\Update\DBS&quot;"/>
+        <LaunchingApplication PathPlusParams="\usr\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
+      </local>
+    </RunParams>
+    <RequiredPackages Count="3">
+      <Item1>
+        <PackageName Value="richmemopackage"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="pVisualPrometApp"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="LCL"/>
+      </Item3>
+    </RequiredPackages>
+    <Units Count="45">
+      <Unit0>
+        <Filename Value="sync_goldmine.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="sync_goldmine"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="17"/>
+        <UsageCount Value="27"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="udbfdata.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="aData"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="udbfdata"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="157"/>
+        <CursorPos X="33" Y="16"/>
+        <UsageCount Value="27"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="..\base\ubasevisualapplication.pas"/>
+        <UnitName Value="uBaseVisualApplication"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="7"/>
+        <CursorPos X="25" Y="17"/>
+        <UsageCount Value="13"/>
+        <Loaded Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="..\base\ubasedbinterface.pas"/>
+        <UnitName Value="uBaseDBInterface"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="92"/>
+        <CursorPos X="3" Y="110"/>
+        <UsageCount Value="12"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="udbfdata.lrs"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="8"/>
+        <UsageCount Value="10"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.3\source\packages\fcl-db\src\dbase\dbf.pas"/>
+        <UnitName Value="dbf"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="145"/>
+        <CursorPos X="17" Y="155"/>
+        <UsageCount Value="10"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.3\source\packages\fcl-db\src\dbase\dbf_parser.pas"/>
+        <UnitName Value="dbf_parser"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="9"/>
+        <CursorPos X="3" Y="27"/>
+        <UsageCount Value="10"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="..\base\uperson.pas"/>
+        <UnitName Value="uPerson"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="140"/>
+        <CursorPos X="26" Y="159"/>
+        <UsageCount Value="12"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="..\base\ubasedbclasses.pas"/>
+        <UnitName Value="uBaseDbClasses"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="43"/>
+        <CursorPos X="14" Y="61"/>
+        <UsageCount Value="10"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="..\base\uorder.pas"/>
+        <UnitName Value="uOrder"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="45"/>
+        <CursorPos X="1" Y="63"/>
+        <UsageCount Value="12"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="..\base\old_units\udata.pas"/>
+        <UnitName Value="uData"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="43" Y="799"/>
+        <UsageCount Value="13"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="..\..\..\LKomponenten\zeos\src\component\ZAbstractRODataset.pas"/>
+        <UnitName Value="ZAbstractRODataset"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1472"/>
+        <CursorPos X="77" Y="1470"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="..\base\old_units\ubasedatamodule.pas"/>
+        <UnitName Value="uBaseDataModule"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="64"/>
+        <CursorPos X="1" Y="46"/>
+        <UsageCount Value="13"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="..\base\udata.pas"/>
+        <UnitName Value="uData"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="..\base\uzeosdbdm.pas"/>
+        <UnitName Value="uZeosDBDM"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="693"/>
+        <CursorPos X="1" Y="711"/>
+        <UsageCount Value="12"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.3\source\rtl\inc\ustringh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="83"/>
+        <CursorPos X="19" Y="106"/>
+        <UsageCount Value="10"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="C:\Programme\lazarus\lcl\fileutil.pas"/>
+        <UnitName Value="FileUtil"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="171"/>
+        <CursorPos X="18" Y="180"/>
+        <UsageCount Value="10"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="C:\Programme\lazarus\lcl\include\winfileutil.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="119"/>
+        <CursorPos X="3" Y="126"/>
+        <UsageCount Value="10"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.3\source\rtl\win\wininc\ascdef.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="191"/>
+        <CursorPos X="10" Y="209"/>
+        <UsageCount Value="10"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="C:\Programme\lazarus\lcl\lconvencoding.pas"/>
+        <UnitName Value="LConvEncoding"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="6387"/>
+        <CursorPos X="3" Y="203"/>
+        <UsageCount Value="11"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="C:\Programme\lazarus\lcl\dbctrls.pp"/>
+        <UnitName Value="DbCtrls"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="181"/>
+        <CursorPos X="21" Y="191"/>
+        <UsageCount Value="10"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="C:\Programme\lazarus\lcl\include\dbedit.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="56"/>
+        <CursorPos X="29" Y="80"/>
+        <UsageCount Value="10"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="C:\Programme\lazarus\lcl\maskedit.pp"/>
+        <UnitName Value="MaskEdit"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1234"/>
+        <CursorPos X="3" Y="1255"/>
+        <UsageCount Value="10"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="C:\Programme\lazarus\lcl\controls.pp"/>
+        <UnitName Value="Controls"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="141"/>
+        <CursorPos X="26" Y="129"/>
+        <UsageCount Value="10"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="C:\Programme\lazarus\lcl\lcltype.pp"/>
+        <UnitName Value="LCLType"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="65"/>
+        <CursorPos X="3" Y="83"/>
+        <UsageCount Value="10"/>
+      </Unit24>
+      <Unit25>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\rtl\win\wininc\func.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="920"/>
+        <CursorPos X="10" Y="938"/>
+        <UsageCount Value="10"/>
+      </Unit25>
+      <Unit26>
+        <Filename Value="C:\Programme\lazarus\lcl\include\fileutil.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="25"/>
+        <CursorPos X="1" Y="53"/>
+        <UsageCount Value="10"/>
+      </Unit26>
+      <Unit27>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <UnitName Value="uBaseDBInterface"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="798"/>
+        <CursorPos X="64" Y="1022"/>
+        <UsageCount Value="11"/>
+      </Unit27>
+      <Unit28>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\packages\fcl-db\src\base\db.pas"/>
+        <UnitName Value="db"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="342"/>
+        <CursorPos X="15" Y="360"/>
+        <UsageCount Value="10"/>
+      </Unit28>
+      <Unit29>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\packages\fcl-db\src\base\fields.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="802"/>
+        <CursorPos X="3" Y="805"/>
+        <UsageCount Value="10"/>
+      </Unit29>
+      <Unit30>
+        <Filename Value="..\..\..\LKomponenten\zeos\src\dbc\ZDbcDbLib.pas"/>
+        <UnitName Value="ZDbcDbLib"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="115"/>
+        <CursorPos X="14" Y="124"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit30>
+      <Unit31>
+        <Filename Value="..\..\..\LKomponenten\zeos\src\core\ZMatchPattern.pas"/>
+        <UnitName Value="ZMatchPattern"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="256"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit31>
+      <Unit32>
+        <Filename Value="..\..\..\LKomponenten\zeos\src\core\ZFunctions.pas"/>
+        <UnitName Value="ZFunctions"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="223"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit32>
+      <Unit33>
+        <Filename Value="..\..\..\LKomponenten\zeos\src\core\ZSysUtils.pas"/>
+        <UnitName Value="ZSysUtils"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="389"/>
+        <CursorPos X="10" Y="425"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit33>
+      <Unit34>
+        <Filename Value="..\..\..\LKomponenten\zeos\src\core\ZCompatibility.pas"/>
+        <UnitName Value="ZCompatibility"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="167"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit34>
+      <Unit35>
+        <Filename Value="..\..\..\LKomponenten\zeos\src\core\ZClasses.pas"/>
+        <UnitName Value="ZClasses"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="181"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit35>
+      <Unit36>
+        <Filename Value="..\..\..\LKomponenten\zeos\src\core\ZURL.pas"/>
+        <UnitName Value="ZURL"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="320"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit36>
+      <Unit37>
+        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
+        <UnitName Value="uZeosDBDM"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="46"/>
+        <CursorPos X="68" Y="50"/>
+        <UsageCount Value="11"/>
+      </Unit37>
+      <Unit38>
+        <Filename Value="..\..\..\LKomponenten\zeos\src\component\ZDataset.pas"/>
+        <UnitName Value="ZDataset"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="76"/>
+        <CursorPos X="26" Y="85"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit38>
+      <Unit39>
+        <Filename Value="..\..\..\LKomponenten\zeos\src\component\ZAbstractDataset.pas"/>
+        <UnitName Value="ZAbstractDataset"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="70"/>
+        <CursorPos X="33" Y="88"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit39>
+      <Unit40>
+        <Filename Value="C:\home\chris\lazarus\lcl\lconvencoding.pas"/>
+        <UnitName Value="LConvEncoding"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="10" Y="41"/>
+        <UsageCount Value="10"/>
+      </Unit40>
+      <Unit41>
+        <Filename Value="..\..\..\general\src\htmlconvert.pas"/>
+        <UnitName Value="htmlconvert"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="43" Y="26"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit41>
+      <Unit42>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\packages\chm\src\fasthtmlparser.pas"/>
+        <UnitName Value="FastHTMLParser"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="147"/>
+        <CursorPos X="3" Y="165"/>
+        <UsageCount Value="10"/>
+      </Unit42>
+      <Unit43>
+        <Filename Value="..\..\..\LKomponenten\zeos\src\plain\ZPlainDbLibDriver.pas"/>
+        <UnitName Value="ZPlainDbLibDriver"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1194"/>
+        <CursorPos X="40" Y="1207"/>
+        <UsageCount Value="11"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit43>
+      <Unit44>
+        <Filename Value="..\..\..\LKomponenten\zeos\src\dbc\ZDbcUtils.pas"/>
+        <UnitName Value="ZDbcUtils"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="358"/>
+        <CursorPos X="1" Y="376"/>
+        <UsageCount Value="11"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit44>
+    </Units>
+    <JumpHistory Count="27" HistoryIndex="26">
+      <Position1>
+        <Filename Value="udbfdata.pas"/>
+        <Caret Line="79" Column="1" TopLine="67"/>
+      </Position1>
+      <Position2>
+        <Filename Value="udbfdata.pas"/>
+        <Caret Line="96" Column="1" TopLine="67"/>
+      </Position2>
+      <Position3>
+        <Filename Value="udbfdata.pas"/>
+        <Caret Line="48" Column="1" TopLine="30"/>
+      </Position3>
+      <Position4>
+        <Filename Value="udbfdata.pas"/>
+        <Caret Line="49" Column="1" TopLine="30"/>
+      </Position4>
+      <Position5>
+        <Filename Value="udbfdata.pas"/>
+        <Caret Line="50" Column="1" TopLine="30"/>
+      </Position5>
+      <Position6>
+        <Filename Value="udbfdata.pas"/>
+        <Caret Line="79" Column="1" TopLine="61"/>
+      </Position6>
+      <Position7>
+        <Filename Value="udbfdata.pas"/>
+        <Caret Line="93" Column="50" TopLine="66"/>
+      </Position7>
+      <Position8>
+        <Filename Value="udbfdata.pas"/>
+        <Caret Line="96" Column="1" TopLine="60"/>
+      </Position8>
+      <Position9>
+        <Filename Value="udbfdata.pas"/>
+        <Caret Line="176" Column="44" TopLine="149"/>
+      </Position9>
+      <Position10>
+        <Filename Value="udbfdata.pas"/>
+        <Caret Line="104" Column="1" TopLine="74"/>
+      </Position10>
+      <Position11>
+        <Filename Value="udbfdata.pas"/>
+        <Caret Line="78" Column="1" TopLine="70"/>
+      </Position11>
+      <Position12>
+        <Filename Value="udbfdata.pas"/>
+        <Caret Line="77" Column="59" TopLine="77"/>
+      </Position12>
+      <Position13>
+        <Filename Value="udbfdata.pas"/>
+        <Caret Line="78" Column="15" TopLine="59"/>
+      </Position13>
+      <Position14>
+        <Filename Value="udbfdata.pas"/>
+        <Caret Line="79" Column="74" TopLine="61"/>
+      </Position14>
+      <Position15>
+        <Filename Value="udbfdata.pas"/>
+        <Caret Line="128" Column="1" TopLine="104"/>
+      </Position15>
+      <Position16>
+        <Filename Value="udbfdata.pas"/>
+        <Caret Line="127" Column="1" TopLine="104"/>
+      </Position16>
+      <Position17>
+        <Filename Value="udbfdata.pas"/>
+        <Caret Line="49" Column="1" TopLine="31"/>
+      </Position17>
+      <Position18>
+        <Filename Value="udbfdata.pas"/>
+        <Caret Line="50" Column="1" TopLine="31"/>
+      </Position18>
+      <Position19>
+        <Filename Value="udbfdata.pas"/>
+        <Caret Line="51" Column="1" TopLine="31"/>
+      </Position19>
+      <Position20>
+        <Filename Value="udbfdata.pas"/>
+        <Caret Line="52" Column="1" TopLine="31"/>
+      </Position20>
+      <Position21>
+        <Filename Value="udbfdata.pas"/>
+        <Caret Line="128" Column="1" TopLine="110"/>
+      </Position21>
+      <Position22>
+        <Filename Value="udbfdata.pas"/>
+        <Caret Line="131" Column="1" TopLine="110"/>
+      </Position22>
+      <Position23>
+        <Filename Value="udbfdata.pas"/>
+        <Caret Line="127" Column="1" TopLine="110"/>
+      </Position23>
+      <Position24>
+        <Filename Value="udbfdata.pas"/>
+        <Caret Line="49" Column="1" TopLine="31"/>
+      </Position24>
+      <Position25>
+        <Filename Value="udbfdata.pas"/>
+        <Caret Line="50" Column="1" TopLine="31"/>
+      </Position25>
+      <Position26>
+        <Filename Value="udbfdata.pas"/>
+        <Caret Line="51" Column="1" TopLine="31"/>
+      </Position26>
+      <Position27>
+        <Filename Value="udbfdata.pas"/>
+        <Caret Line="52" Column="1" TopLine="31"/>
+      </Position27>
+    </JumpHistory>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="11"/>
+    <PathDelim Value="\"/>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="..\..\..\general\src;..\base"/>
+      <UnitOutputDirectory Value="..\..\output\$(TargetCPU)-$(TargetOS)"/>
+    </SearchPaths>
+    <Parsing>
+      <SyntaxOptions>
+        <CStyleOperator Value="False"/>
+      </SyntaxOptions>
+    </Parsing>
+    <Linking>
+      <Debugging>
+        <UseExternalDbgSyms Value="True"/>
+      </Debugging>
+      <Options>
+        <Win32>
+          <GraphicApplication Value="True"/>
+        </Win32>
+      </Options>
+    </Linking>
+    <Other>
+      <CompilerMessages>
+        <IgnoredMessages idx5024="True"/>
+        <UseMsgFile Value="True"/>
+      </CompilerMessages>
+      <CustomOptions Value="-dHASREPORTS
+-dSTATISTICS"/>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
+  </CompilerOptions>
+  <Debugging>
+    <Watches Count="1">
+      <Item1>
+        <Expression Value="result"/>
+        <DisplayStyle Value="wdfString"/>
+      </Item1>
+    </Watches>
+    <Exceptions Count="6">
+      <Item1>
+        <Name Value="EAbort"/>
+      </Item1>
+      <Item2>
+        <Name Value="ECodetoolError"/>
+      </Item2>
+      <Item3>
+        <Name Value="EFOpenError"/>
+      </Item3>
+      <Item4>
+        <Name Value="EZDatabaseError"/>
+      </Item4>
+      <Item5>
+        <Name Value="Exception"/>
+      </Item5>
+      <Item6>
+        <Name Value="EZSQLException"/>
+      </Item6>
+    </Exceptions>
+  </Debugging>
+  <EditorMacros Count="0"/>
+</CONFIG>

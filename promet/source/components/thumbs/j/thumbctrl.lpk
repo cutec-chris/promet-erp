@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <Package Version="3">
+    <Name Value="thumbctrl"/>
+    <CompilerOptions>
+      <Version Value="8"/>
+      <SearchPaths>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+      <Parsing>
+        <SyntaxOptions>
+          <UseAnsiStrings Value="True"/>
+        </SyntaxOptions>
+      </Parsing>
+      <Other>
+        <CustomOptions Value="-dUseCThreads"/>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
+    </CompilerOptions>
+    <Files Count="7">
+      <Item1>
+        <Filename Value="fpreadjpegthumb.pas"/>
+        <UnitName Value="FPReadJPEGthumb"/>
+      </Item1>
+      <Item2>
+        <Filename Value="fpthumbresize.pas"/>
+        <UnitName Value="fpthumbresize"/>
+      </Item2>
+      <Item3>
+        <Filename Value="scrollingcontrol.pas"/>
+        <UnitName Value="scrollingcontrol"/>
+      </Item3>
+      <Item4>
+        <Filename Value="threadedimageloader.pas"/>
+        <UnitName Value="threadedimageloader"/>
+      </Item4>
+      <Item5>
+        <Filename Value="thumbcontrol.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="thumbcontrol"/>
+      </Item5>
+      <Item6>
+        <Filename Value="thumbctrl.lrs"/>
+        <Type Value="LRS"/>
+      </Item6>
+      <Item7>
+        <Filename Value="images.lrs"/>
+        <Type Value="LRS"/>
+      </Item7>
+    </Files>
+    <Type Value="RunAndDesignTime"/>
+    <RequiredPkgs Count="2">
+      <Item1>
+        <PackageName Value="LCL"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="FCL"/>
+        <MinVersion Major="1" Valid="True"/>
+      </Item2>
+    </RequiredPkgs>
+    <UsageOptions>
+      <CustomOptions Value="-dUseCThreads"/>
+      <UnitPath Value="$(PkgOutDir)/"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IgnoreBinaries Value="False"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

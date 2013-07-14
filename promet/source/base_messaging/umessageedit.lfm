@@ -1,0 +1,422 @@
+object fMessageEdit: TfMessageEdit
+  Left = 432
+  Height = 425
+  Top = 191
+  Width = 669
+  ActiveControl = cbTo
+  AllowDropFiles = True
+  Caption = 'Nachrichteneditor'
+  ClientHeight = 425
+  ClientWidth = 669
+  Color = clWindow
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnKeyDown = FormKeyDown
+  ShowInTaskBar = stAlways
+  LCLVersion = '1.1'
+  object pMain: TPanel
+    Left = 0
+    Height = 348
+    Top = 77
+    Width = 669
+    Align = alClient
+    BevelOuter = bvNone
+    Caption = 'pMain'
+    ClientHeight = 348
+    ClientWidth = 669
+    TabOrder = 1
+    object sbStatus: TStatusBar
+      Left = 0
+      Height = 21
+      Top = 327
+      Width = 669
+      Panels = <>
+    end
+    object lCC: TLabel
+      Left = 174
+      Height = 17
+      Top = 51
+      Width = 18
+      Caption = 'CC'
+      ParentColor = False
+    end
+    object pcTabs: TExtMenuPageControl
+      Left = 0
+      Height = 239
+      Top = 88
+      Width = 669
+      ActivePage = tsContent
+      Align = alClient
+      TabIndex = 0
+      TabOrder = 2
+      NewTabImageIndex = 59
+      object tsContent: TTabSheet
+        Caption = 'Inhalt'
+        ImageIndex = 5
+      end
+    end
+    object Panel4: TPanel
+      Left = 0
+      Height = 44
+      Top = 44
+      Width = 669
+      Align = alTop
+      BevelOuter = bvNone
+      ClientHeight = 44
+      ClientWidth = 669
+      TabOrder = 1
+      object Label2: TLabel
+        Left = 6
+        Height = 15
+        Top = 0
+        Width = 58
+        Anchors = [akLeft, akBottom]
+        AutoSize = False
+        BorderSpacing.Left = 5
+        Caption = 'Betreff'
+        Font.Color = clMedGray
+        Font.Height = 11
+        ParentColor = False
+        ParentFont = False
+      end
+      object eSubject: TEdit
+        Left = 6
+        Height = 27
+        Top = 13
+        Width = 660
+        Anchors = [akTop, akLeft, akRight]
+        OnChange = eSubjectChange
+        TabOrder = 0
+        Text = 'eSubject'
+      end
+    end
+    object pTos: TPanel
+      Left = 0
+      Height = 44
+      Top = 0
+      Width = 669
+      Align = alTop
+      BevelOuter = bvNone
+      BidiMode = bdRightToLeftReadingOnly
+      ClientHeight = 44
+      ClientWidth = 669
+      ParentBidiMode = False
+      TabOrder = 0
+      object Panel7: TPanel
+        Left = 0
+        Height = 44
+        Top = 0
+        Width = 360
+        Align = alClient
+        BevelOuter = bvNone
+        ClientHeight = 44
+        ClientWidth = 360
+        ParentBidiMode = False
+        TabOrder = 0
+        object Label5: TLabel
+          Left = 8
+          Height = 15
+          Top = 0
+          Width = 28
+          Anchors = [akLeft, akBottom]
+          AutoSize = False
+          BorderSpacing.Left = 5
+          Caption = 'An'
+          Font.Color = clMedGray
+          Font.Height = 11
+          ParentColor = False
+          ParentFont = False
+        end
+        object cbTo: TComboBox
+          Left = 8
+          Height = 29
+          Top = 13
+          Width = 317
+          Anchors = [akTop, akLeft, akRight]
+          AutoCompleteText = []
+          AutoSelect = False
+          ItemHeight = 0
+          OnEnter = cbToEnter
+          OnExit = cbToExit
+          OnKeyDown = cbToKeyDown
+          OnKeyPress = cbToKeyPress
+          TabOrder = 0
+          Text = 'cbTo'
+        end
+        object SpeedButton1: TSpeedButton
+          Left = 328
+          Height = 27
+          Top = 13
+          Width = 26
+          Anchors = [akTop, akRight]
+        end
+      end
+      object Panel8: TPanel
+        Left = 360
+        Height = 44
+        Top = 0
+        Width = 309
+        Align = alRight
+        BevelOuter = bvNone
+        ClientHeight = 44
+        ClientWidth = 309
+        ParentBidiMode = False
+        TabOrder = 1
+        object Label6: TLabel
+          Left = 8
+          Height = 15
+          Top = 0
+          Width = 76
+          Anchors = [akLeft, akBottom]
+          AutoSize = False
+          BorderSpacing.Left = 5
+          Caption = 'Kopie an (CC)'
+          Font.Color = clMedGray
+          Font.Height = 11
+          ParentColor = False
+          ParentFont = False
+        end
+        object Bevel6: TBevel
+          Left = 0
+          Height = 36
+          Top = 4
+          Width = 8
+          Align = alLeft
+          BorderSpacing.Top = 4
+          BorderSpacing.Bottom = 4
+          Shape = bsLeftLine
+        end
+        object eCC: TComboBox
+          Left = 8
+          Height = 29
+          Top = 13
+          Width = 256
+          Anchors = [akTop, akLeft, akRight]
+          AutoSelect = False
+          ItemHeight = 0
+          OnEnter = cbToEnter
+          OnExit = cbToExit
+          OnKeyDown = cbToKeyDown
+          OnKeyPress = cbToKeyPress
+          TabOrder = 0
+        end
+        object SpeedButton2: TSpeedButton
+          Left = 272
+          Height = 27
+          Top = 13
+          Width = 26
+          Anchors = [akTop, akRight]
+        end
+      end
+    end
+  end
+  object lMessage: TLabel
+    Left = 8
+    Height = 17
+    Top = 8
+    Width = 653
+    Align = alTop
+    BorderSpacing.Around = 8
+    Caption = 'lMessage'
+    Color = clInfoBk
+    Font.Color = clInfoText
+    ParentColor = False
+    ParentFont = False
+    Transparent = False
+    Visible = False
+    WordWrap = True
+  end
+  object ToolBar1: TPanel
+    Left = 0
+    Height = 44
+    Top = 33
+    Width = 669
+    Align = alTop
+    BevelOuter = bvNone
+    ClientHeight = 44
+    ClientWidth = 669
+    TabOrder = 0
+    object bSend: TSpeedButton
+      Left = 4
+      Height = 37
+      Top = 6
+      Width = 84
+      Caption = 'Senden'
+      Glyph.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00007D21EB037B1EFF00791504FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF0001832BEB43A15FFF007B1FCC00791906FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00219751FD1B9149FD158F43FD0F8B
+        3BFD3A9F5EFF80C196FF46A362FF007D1FD100791907FFFFFF008E512BBFB063
+        31EFBB7038FABE773CFBC17B40FBC27E42FB299B5BFF90CAA9FF8DC8A5FF8AC6
+        A1FF88C59EFF6AB685FF82C297FF48A566FF187C25FA87532AC1A35D31DEF8F3
+        EEFDF5ECE4FEFBF5F0FFFBF7F1FFFBF7F3FF319F63FF94CDADFF6FBA8EFF6BB8
+        89FF66B685FF61B380FF67B582FF83C298FF3CA05CFF037F26FEBE6F3CFEFCF9
+        F5FFECD0BCFFF9E4D6FFFEECDFFFFEEBDFFF37A36BFF96CEB0FF94CDADFF91CB
+        AAFF90CBA8FF74BC90FF8AC7A1FF46A568FF0B8938FFC68B50FEC27646FFFDFB
+        F8FFF9E3D2FFECCFB9FFF8E1D0FFFDE7D6FF3DA56FFF3AA36EFF36A168FF329E
+        62FF55AF7CFF91CBAAFF4FAB74FF1B9047FFF7F2EBFFC98C50FFC57D50FFFDFB
+        F9FFFDE9D8FFF9E1D0FFEBCAB3FFECC5A7FFE3B698FFF7E7DDFFF7E8DEFFE3B6
+        97FF40A268FF5AB381FF289857FFFCDFC6FFF8F3EDFFC88D50FFC9865BFFFDFB
+        F9FFFDE8D7FFFDE6D4FFEDC6ABFFDCAA89FFF9ECE3FFFFFBF9FFFFFCFAFFF9EE
+        E6FF44A36DFF319F65FFFCDBC0FFFCDBC0FFF8F3EDFFC88C50FFCC8E66FFFDFB
+        F9FFFDE5D3FFF1CCB2FFE3B596FFF9EAE0FFFFF9F5FFFEF3EAFFFEF4EDFFFFFB
+        F9FFF9EDE5FFE3B08DFFF0C19EFFFCD7B7FFF8F3EDFFC88C50FFD09670FFFDFB
+        F9FFF1CDB1FFE3B596FFF9E9DEFFFEF7F1FFFDEDE1FFFEEFE4FFFEF1E7FFFEF3
+        EAFFFFFAF7FFF9ECE3FFE2AE8AFFF0BC95FFF8F4ECFFC88C50FFD39D7BFEFBF6
+        F2FFE3B496FFF9E8DCFFFEF5EEFFFDE9DAFFFDEADCFFFDECDEFFFDEDE1FFFEEF
+        E4FFFEF1E7FFFFFAF6FFF9EAE0FFE2AA85FFF1E4D9FFC88C50FED7AB91DCFDFA
+        F8FEFCF5F1FFFFFCF9FFFFFCF9FFFFFCF9FFFFFCF9FFFFFCFAFFFFFCFAFFFFFC
+        FAFFFFFCFBFFFFFDFBFFFFFDFCFFFBF6F3FFF8EFEAFDAB7743DBC89A7CBFD5A4
+        84F0D09770FBCC8F64FDCC8E62FDCB8E60FDCA8C5DFDC98B5BFDC88A58FDC788
+        56FDC68653FDC58450FDC4824DFCC1834DF7B27948E38E512BBFFFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+      }
+      OnClick = bSendClick
+    end
+    object Panel5: TPanel
+      Left = 536
+      Height = 44
+      Top = 0
+      Width = 128
+      Align = alLeft
+      BevelOuter = bvNone
+      ClientHeight = 44
+      ClientWidth = 128
+      TabOrder = 1
+      object Label3: TLabel
+        Left = 4
+        Height = 15
+        Top = 0
+        Width = 50
+        Anchors = [akLeft, akBottom]
+        AutoSize = False
+        BorderSpacing.Left = 5
+        Caption = 'Format'
+        Font.Color = clMedGray
+        Font.Height = 11
+        ParentColor = False
+        ParentFont = False
+      end
+      object Bevel3: TBevel
+        Left = 0
+        Height = 36
+        Top = 4
+        Width = 8
+        Align = alLeft
+        BorderSpacing.Top = 4
+        BorderSpacing.Bottom = 4
+        Shape = bsLeftLine
+      end
+      object cbType: TComboBox
+        Left = 4
+        Height = 29
+        Top = 13
+        Width = 116
+        ItemHeight = 0
+        ItemIndex = 1
+        Items.Strings = (
+          'HTML'
+          'TEXT'
+        )
+        TabOrder = 0
+        TabStop = False
+        Text = 'TEXT'
+      end
+    end
+    object Panel6: TPanel
+      Left = 90
+      Height = 44
+      Top = 0
+      Width = 446
+      Align = alLeft
+      BorderSpacing.Left = 90
+      BevelOuter = bvNone
+      ClientHeight = 44
+      ClientWidth = 446
+      TabOrder = 0
+      object Label4: TLabel
+        Left = 4
+        Height = 15
+        Top = 0
+        Width = 34
+        Anchors = [akLeft, akBottom]
+        AutoSize = False
+        BorderSpacing.Left = 5
+        Caption = 'Von'
+        Font.Color = clMedGray
+        Font.Height = 11
+        ParentColor = False
+        ParentFont = False
+      end
+      object Bevel4: TBevel
+        Left = 0
+        Height = 36
+        Top = 4
+        Width = 8
+        Align = alLeft
+        BorderSpacing.Top = 4
+        BorderSpacing.Bottom = 4
+        Shape = bsLeftLine
+      end
+      object cbAccount: TComboBox
+        Left = 4
+        Height = 29
+        Top = 13
+        Width = 434
+        Anchors = [akTop, akLeft, akRight]
+        ItemHeight = 0
+        TabOrder = 0
+      end
+    end
+  end
+  object pSearch: TPanel
+    Left = 16
+    Height = 72
+    Top = 118
+    Width = 280
+    Anchors = [akTop, akRight]
+    BevelOuter = bvNone
+    Caption = 'pSearch'
+    ClientHeight = 72
+    ClientWidth = 280
+    TabOrder = 2
+    Visible = False
+    object lbResults: TListBox
+      Left = 0
+      Height = 72
+      Top = 0
+      Width = 280
+      Align = alClient
+      ItemHeight = 0
+      OnDblClick = lbResultsDblClick
+      ScrollWidth = 278
+      TabOrder = 0
+      TabStop = False
+      TopIndex = -1
+    end
+  end
+  object ActionList1: TActionList
+    left = 91
+    top = 89
+    object acClose: TAction
+      Caption = 'Schliessen'
+      OnExecute = acCloseExecute
+      ShortCut = 27
+    end
+    object Action1: TAction
+      Caption = 'Action1'
+    end
+  end
+  object PopupMenu1: TPopupMenu
+    left = 220
+    top = 182
+  end
+end

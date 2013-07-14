@@ -1,0 +1,40 @@
+{ This is an automatically generated lazarus resource file }
+
+LazarusResources.Add('TfMain','FORMDATA',[
+  'TPF0'#6'TfMain'#5'fMain'#4'Left'#3#212#1#6'Height'#3#140#0#3'Top'#3'A'#1#5'W'
+  +'idth'#3'T'#1#7'Caption'#6#12'Archivestore'#12'ClientHeight'#3#140#0#11'Clie'
+  +'ntWidth'#3'T'#1#5'Color'#7#8'clWindow'#4'Menu'#7#8'MainMenu'#7'OnClose'#7#9
+  +'FormClose'#6'OnShow'#7#8'FormShow'#8'Position'#7#14'poScreenCenter'#10'LCLV'
+  +'ersion'#6#3'1.1'#0#17'TZVDateTimePicker'#17'ZVDateTimePicker1'#4'Left'#2#16
+  +#6'Height'#2#25#3'Top'#2' '#5'Width'#2'a'#11'CenturyFrom'#3#149#7#7'MaxDate'
+  +#5#0#0#0#0#0#4#146#180#20'@'#7'MinDate'#5#0#0#0#0#0#0#20#210#14#192#8'TabOrd'
+  +'er'#2#0#17'TrailingSeparator'#8#15'TextForNullDate'#6#4'NULL'#12'LeadingZer'
+  +'os'#9#4'Kind'#7#7'dtkDate'#10'TimeFormat'#7#4'tf24'#11'TimeDisplay'#7#5'tdH'
+  +'MS'#8'DateMode'#7#10'dmComboBox'#4'Date'#5#0#0#0#0#0#0#188#160#14'@'#4'Time'
+  +#5#0#0#0#144'o'#143#243#199#254'?'#20'UseDefaultSeparators'#9#0#0#6'TLabel'#6
+  +'Label1'#4'Left'#2#16#6'Height'#2#17#3'Top'#2#8#5'Width'#2#26#7'Caption'#6#3
+  +'Von'#11'ParentColor'#8#0#0#6'TLabel'#6'Label2'#4'Left'#2#16#6'Height'#2#17#3
+  +'Top'#2'H'#5'Width'#2#20#7'Caption'#6#3'Bis'#11'ParentColor'#8#0#0#17'TZVDat'
+  +'eTimePicker'#17'ZVDateTimePicker2'#4'Left'#2#16#6'Height'#2#25#3'Top'#2'`'#5
+  +'Width'#2'a'#11'CenturyFrom'#3#149#7#7'MaxDate'#5#0#0#0#0#0#4#146#180#20'@'#7
+  +'MinDate'#5#0#0#0#0#0#0#20#210#14#192#8'TabOrder'#2#1#17'TrailingSeparator'#8
+  +#15'TextForNullDate'#6#4'NULL'#12'LeadingZeros'#9#4'Kind'#7#7'dtkDate'#10'Ti'
+  +'meFormat'#7#4'tf24'#11'TimeDisplay'#7#5'tdHMS'#8'DateMode'#7#10'dmComboBox'
+  +#4'Date'#5#0#0#0#0#0#0#188#160#14'@'#4'Time'#5#0#0#0#144'o'#143#243#199#254
+  +'?'#20'UseDefaultSeparators'#9#0#0#7'TButton'#7'Button1'#4'Left'#3#144#0#6'H'
+  +'eight'#2'!'#3'Top'#2'0'#5'Width'#3#184#0#7'Caption'#6#9'Speichern'#7'OnClic'
+  +'k'#7#12'Button1Click'#8'TabOrder'#2#2#0#0#7'TButton'#7'Button2'#4'Left'#3
+  +#144#0#6'Height'#2'!'#3'Top'#2'X'#5'Width'#3#184#0#7'Caption'#6#10'Schliesse'
+  +'n'#7'OnClick'#7#12'Button2Click'#8'TabOrder'#2#3#0#0#11'TActionList'#11'Act'
+  +'ionList1'#4'left'#3#128#0#3'top'#2#8#0#7'TAction'#7'acLogin'#7'Caption'#6#8
+  +'Anmelden'#9'OnExecute'#7#14'acLoginExecute'#0#0#7'TAction'#8'acLogout'#7'Ca'
+  +'ption'#6#8'Abmelden'#7'Enabled'#8#9'OnExecute'#7#15'acLogoutExecute'#0#0#0#9
+  +'TMainMenu'#8'MainMenu'#4'left'#3#192#0#3'top'#2#8#0#9'TMenuItem'#9'miMandan'
+  +'t'#7'Caption'#6#7'Mandant'#0#9'TMenuItem'#9'MenuItem4'#6'Action'#7#7'acLogi'
+  +'n'#7'OnClick'#7#14'acLoginExecute'#0#0#9'TMenuItem'#9'MenuItem3'#6'Action'#7
+  +#8'acLogout'#7'OnClick'#7#15'acLogoutExecute'#0#0#0#9'TMenuItem'#9'miOptions'
+  +#7'Caption'#6#8'Optionen'#0#9'TMenuItem'#10'miLanguage'#7'Caption'#6#7'Sprac'
+  +'he'#0#0#0#0#11'TDatasource'#11'ActiveUsers'#4'left'#3#248#0#3'top'#2#8#0#0
+  +#11'TDatasource'#8'Commands'#4'left'#3'('#1#3'top'#2#8#0#0#22'TSelectDirecto'
+  +'ryDialog'#22'SelectDirectoryDialog1'#4'left'#3#128#0#3'top'#2'0'#0#0#0
+]);

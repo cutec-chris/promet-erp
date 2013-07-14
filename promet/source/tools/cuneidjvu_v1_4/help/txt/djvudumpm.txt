@@ -1,0 +1,6 @@
+
+		djvudumpm
+
+Describes DjVu and IFF85 files
+
+Usage: djvudumpm <iff_filenames> <dump_file_path>

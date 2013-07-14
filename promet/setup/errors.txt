@@ -1,0 +1,2 @@
+SQL Error: ERROR:  current transaction is aborted, commands ignored until end of transaction block=Die aktuelle Transaktion wurde vom Datenbankserver abgebrochen bitte schliessen Sie den aktuellen Eintrag.
+SQL Error: ERROR:  duplicate key value violates unique constraint "CUSTOMERS_ACCOUNTNO"@@DETAIL:  Key ("@KEY@")=(@KEYVALUE@) already exists.=Ein Eintrag mit der Nummer @KEYVALUE@ existiert bereits ! Sie können keinen doppelten Eintrag speichern !

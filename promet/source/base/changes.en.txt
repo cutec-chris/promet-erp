@@ -1,0 +1,1444 @@
+Build 167
+      - quoting Messagemanager arguments correct
+Build 166
+      - Timeregistering can cmmunicate with messagemanager now correct
+      - ignore WMSize Loops
+Build 165
+      - fixed Statistic Actions are ome times not reactivated
+      - ignore InvalidatePreferredSize Errors
+      - fixed Copy Article (change Version or Language)
+      - Delete Statistic
+      - Reference Object Field in History
+Build 164
+      - fix Statistic is starting even when no right to see Statistics
+      - fixed installer messagemanager icon is whitelisted now correct in ubuntu
+Build 163
+      - Drag&Drop Mail to Tasks
+Build 162
+      - Integrating Statistics
+      - Tabbed interface for Statistics ready
+      - fixed sqlite issue on Windows installer
+Build 161
+      - DBLClick in Personal History (message manager answers to entry)
+      - begon Tabbed Interface for Statistics
+Build 160
+      - Timeregistering use messagemanager for right klick menue
+Build 159
+      - Esc to close Personal Timeline
+      - Dont refresh messagemanager Icon on Windows (icon dont flickers)
+      - Trial to fix the Document Preview Lock Bug
+Build 158
+      - messagemanager can create tasks with "task @user subject"
+                                        or   "task@user subject"
+Build 157
+      - optimised Send Mail To Lists
+      - Button to Reset all List entrys
+      - DblClick on List Entry opens it
+Build 156
+      - fixed Linkframe goes sometimes in Editmode on DblClick
+      - Drag&Drop from Favourites to Links in Entrys
+      - Reorganized to Bar a bit
+Build 155
+      - all Promet based programms just waits if connection to dbserver is lost
+        no error messages then
+      - further developed messagemanager, informing user when new Message/History Entry arrives
+        works now
+      - detecting errornous conection works now also for mssql servers
+      - Top bar is shown in Btn color and icon for search is added
+      - Filter views shows real recordcount and shown recordcount when they differs
+Build 154
+      - added to messagemanager icons more contrast, rotating globe to indicate
+        changes
+Build 153
+      - try to detect errornous connections better programms should freeze until
+        the connection is restored
+      - added to messagemanager icons more contrast
+      - fixed quoting single quotes in Values correct
+Build 152
+      - messagemanager shows gray icon if nothing new
+        and colorized icon if an new timeline entry occoured in meantime
+Build 151
+      - Banking Log is not closed after Transfer
+Build 150
+      - first version of message manager
+      - add History Item in owners personal History when Task is completed
+      - add History Item in users personal History when Task is checked
+      - several Filter fixes
+      - some fixes with setting items in the timeregistering
+Build 149
+      - fixed statistics av
+      - statistics now can have also variables on detail and subdetail datasets
+Build 148
+      - api for triggers
+Build 147
+      - everyone can change,add,delete Favourite Directories
+Build 146
+      - fixing Printer Index in Select Printer Dialog
+      - Reworked Select Report Dialog
+      - Project overview (for Processes and Sub Projects)
+Build 145
+      - fixed list index out of bounds when deleting during multiselect
+      - reworked error dialog a bit
+      - set childs correct when dragging tasks around
+      - Tasks - right mouse menue - add mark as seen
+Build 144
+      - More Drag&Drop around Projects (Drag from Filterviews,Tree intern...)
+      - Edit and Goto Parent Project from project Dialog
+      - Search for Description Contents from Tasks Editor
+      - Dublicate Processes
+      - fixed Problem with newer Postgres Databases (>9.0) Booking sometimes fails
+Build 143
+      - Drag & Drop to Create subprojects in Tree
+      - Separate Icon for Processes
+      - Icon is drawn if Row Type is added in Project List
+Build 142
+      - fixed handling some title formats for address (decoding address correct)
+      - fixed creating document from template
+Build 141
+      - fixing History Entry for Duedate of milestone changed
+      - separate History type for Date changes
+Build 140
+      - asking befor deleting an Task
+      - moving the Delete Button for Tasks
+Build 139
+      - fix Bug with Task drawing introduced in rev 138
+      - Unseen tasks are makrd bold now
+      - Task with startdate > now are marked italic now
+      - Tasks with duedate-plantime > now are marked in dark orange
+      - Set selected User when you are in special View of Tasks
+Build 138
+      - Filterframe shows showed Recordcount
+      - History is now saved and restored
+      - Splash dilog added and fastened startup a bit (for me (on slow db) now 2 sec before 4 sec)
+      - Import Links from Chrome,Chromium and IE if folder Browser-Favourites is in Favourites
+      - Drag&Drop of Favourite Links
+      - Renaming of Favourite Links
+      - Tasks add Entry in Projecthistory when they are Milestones and DueDate is changed
+      - Show unseen Tasks as Italic
+Build 137 (21.11.2012)
+      - fixing Gridview saving (has broken Creating new Orders) introduced in rev 136
+      - Project Positions are saved with project
+      - fixing Document management use Full files to save now both is possible
+        diffed files and full files
+      - Calculating Real Costs for Projects
+      - PosCalc is created in an different way maybe it has to be rebuild on existing databases
+Build 136
+      - fixing Add Document from Template broken since rev 133
+      - changed default Visible Rows in Task Views
+      - fixing wrong Printer is selected when Fax is in Printers List
+      - Sorting Task Users
+      - saving GridView Content on leaving GridView
+      - History now have refresh Button
+Build 135
+      - fixing importing full Documents (bug introduced in rev 133)
+Build 134
+      - fixing Document Action
+      - fixing Document Frame Drag&Drop
+Build 133
+      - some corrections for GridView
+      - changed Width of Date Inplace Editor so that the Button is in the Cell
+      - checkin always full files until we have a better logic for that
+      - sort Revisions in preview Frame oposite (latest revisions stands up)
+      - Document Action works with Database intern table
+      - changed some Field sizes
+      - User Data(set) useable in Task Reports
+      - Inplace Date Editor now shows Week numbers (if supported by system)
+      - Global search (right top Corner of Main window) searchs in Description Field also
+Build 132 (16.11.2012)
+      - reworked the Mime Type Edit Dialog (what Mimetype will be opened with what Executble)
+      - moved Document Actions and MimeTypes to Database
+      - Fixed sorting of Tasks
+      - Action Edit has the Focus on Show of Add History Item Dialog
+Build 131 (15.11.2012)
+      - Inplace Date Editor for Gridviews
+      - fixing Document Path handling with unicode chars in Path
+      - fixing adding more than one Document at one time
+      - fixing History Entrys separat selectable
+      - Document Properties
+      - prior Document revisions can be selected in preview
+Build 130
+      - History entrys separat selectable
+      - separate History Entry for new Task
+Build 129
+      - used older zeos version
+      - fixed Inplace Combobox Bug in GridView
+Build 128
+      - fixing Focus Problem of Taskeditor (introduced in rev 122)
+      - Tasklist shows per default just Tasks that have startdate null or < 14 days in the future button to show all tasks
+      - fixed can not focus invisible Control in tasklist Filters introduced in Build 119
+Build 127
+Build 126
+Build 125
+      - fixing just own Tasks are shown in Project Tasks (introduced in Build 123)
+      - Adding Task Categories
+Build 124
+      x Project Parents
+      - Projecttypes
+      x Processes
+Build 123
+      - Process Clients have now an Description Field
+      - Fixed rights for Admin in Setup (add Rights that are added in meantime)
+      - fixing Rowheights was always 1 Row heigher than they should (changes from Widgetset in meantime)
+      - Enabled PaymentTragets in Reports and Orders
+      - Task Views for every Department User
+Build 122
+      - Deleting Items on Subdataset changes Parent DataSet (fixes some issues where Deleting at example History Items dont changes Master Item)
+      - Hide Edit stuff on Wiki Pages when Rights < Write
+      - Helpviewer is read only per default only with --edit commandlineswitch it becomes editable
+Build 121
+      - Favourites
+Build 120
+      - Absoulute help Path, so syncing works from any location
+Build 119
+      - Filters can handle complete SQL to build custom Lists with real custom Data [[Promet-ERP-Help/features/119-sqlfilters|Description]]
+      - handling errors during opening datasets more savely
+      - fixed Filtering with Wildgards in Filter Form Fields (seems to be broken since 7.x.x)
+      - make StackTrace only when --debug is commandline switch (shows Exceptions fast)
+Build 118
+      - fixing default Rows in Position Frame
+      - Default Rowheight in Position Editor is dynamic
+Build 117
+      - next trial to fix import help on creating first mandant
+      - small visual gliches in address frame fixed
+Build 116
+      - fixing some small setup problems
+Build 115
+      - fixing processmanager cant write log in Windows > Vista
+      - fixing Wizardmandant calls sync_db from tools dir
+Build 114
+      x Orderoverview Table
+      - fixed processmanager hangs on usernames with spaces
+      - Filter button only visible if Input Fields are nessesary
+      - no filter text visible per default
+Build 113
+      - (hopefully) fixed Workstatus setting on firebird and mssql
+      - dont start Statistics (with report) automatically (sometimes they can need a long time to build)
+      - dont allow to rename or move Sttaistics if no right is assigned for that
+      - fix Table has no focus after executing statistics without report
+      - Projectpositions has Workstatus
+      - wizardmandant adds standard processes for actual mashine
+      - fixes linux installer make correct links for wizardmandant
+      - fixes windows installer moving sync_db,*receivers to tools
+Build 112
+      - 2 small fixes for processmanager
+      - Search dropdown is not closed in some cases in Tasks
+Build 111
+      - Setting Workstatus for Child Tasks
+Build 110
+      - Message when Endtime is not set in last Entry at Timeregistering
+      - Filterframe stores Sorting in Filters, also stores/restores Base Filter Sorting
+      - Documents can be exchanged with files
+      - Task has Workstatus and Type
+      - gantt project import imports milestones as milestones
+      - Owner of Task search/editable
+      x Calculating on time for tasks (from timeregistering)
+      - duration is now stored as float
+      - Wizardmandant starts calling program again
+      - reworked processmanagement [[Admin-Book/System/tools/processmanager|Description]]
+Build 109
+      - Search has found items double sometimes, fixed
+      - Renaming Masterdata to Article
+Build 108
+      - Wizardmandant shows wich table actual is imported
+      - fixing deleting Mandants on Systems that has old mandant file format stored
+      - Task default Rows changed
+Build 107
+      - Realprices for project positions
+      - more fixes for position grids to hold there grid sizes (not just after entering them)
+      - trial to fix Focusing issue in GridView when Identfield is not there
+Build 106
+      - Project positions
+      - Planned costs, real costs for Project
+      p Calculating Project Times and Costs
+      x Paygroups for users
+Build 105
+      - some fixes to Task handling and also importing Gnatt Files
+Build 104
+      - Tasklist can open Project for selected Task
+      - Strg+F for Search in Task Editor (seems to not work in linux)
+      - Icon for delegated Tasks changed
+      - Dont allow ? in Users ACCOUNTNOs
+      - PK added to GEN_SQL_ID to avoid problems
+      - replaced goto Article Image in Position Editor
+Build 103
+      - History can add User Item with Link from Clipboard [[Promet-ERP-Help/features/103-historyaddwithlink|Description]]
+      - Wiki can convert also https Links, mailto Links
+      - fixed Sorting for Tasklist
+      - Personal Tasklist shows per default just tasks that are assigned to you, new tasks gets you as user per default
+Build 102
+      - wizardmandant syncs Help during Creating DB [[Promet-ERP-Help/features/102-importhelpinwizard|Description]]
+Build 101
+      - some fixes to Calendar components
+      - editing already imported Tasks instead creating new on Import of GAN files
+      - calculating DUE Date during importing GANTT Files
+      - import Users only first Time during import GANTT Files
+Build 100
+      - fixed Mandant Wizard Problem "to complex querry" introduced in Build. 98
+      - updated Reports to use Picture from in Mandantdetails
+Build 99
+      - fixed Opening Items from Tree (bug introduced in Build. 98)
+      - deleting Tasks in Project Edits Project
+      - Help in wizardmandant
+Build 98
+      - Rights (Permissions per Item) for
+        Projects,Orders,Documents,Masterdata,Persons,Folders
+      - more complete Diagram control
+      - sorted Users List in Rights Dialog
+      - dont show Users having leaved set in Rights Dialog
+      - fix adding Bord Folder
+      - fix deleting Folders
+      - Special Wiki Messages can be send to Board Dirs
+      - Message Dirs can be included in Wiki Pages (also the number of messages can be set)
+      - Wiki Pages can be included in other Wiki Pages
+      - Statistic shows report if avalible
+Build 97
+      - fixed Report Designer and Preview default Positions and Position saving (hopefully)
+      - added HTML handling Memo Control for Report Designer
+      - added Diagram drawing Control for Report Designer (not jet functional)
+Build 96
+      - Dataimport/export saves profiles in Configdir and not Application dir
+      - enabled Export in Filter Views
+      - fixing closing Project on delete
+      - added numberset for Projects (so Projects have default an Projectnumber)
+      - fixed Drag&Drop sometimes dont work to Documents
+Build 95 (12.9.2012)
+      - fixed Problem during first start (SQL error)
+      - fixing 32bit Linux Build (only setup files was broken)
+Build 94
+      - Processmanager was startet without mandant (introduced in 93)
+      - Login Dialog not anymore fully resizeable
+      - fixed Mandantwizard Mandantsettings first call
+Build 93
+      - fixed Building same pckages for statistics,tools,sync for linux
+      - changed the Mandant handling (one .perml file per mandant)
+Build 92
+      - Basic Options from Mandant Wizard settable
+      - Image in Mandantoptions
+      - fixed Problem Inserting Article sometimes dont change ident
+Build 91 (6.9.2012)
+      - fixed Statistic Tree handling
+      - fixed some small things on Rights Dialog
+      - fixed setting HasChilds on deleting last Child Task
+      - fixed quoting exectable on opening document
+      - fixed Wizardmandant creating sync entrys for help
+Build 90 (5.9.2012)
+      - fixed unix starter (moved share to lib)
+      - created checkout utility to get files from documentmanagement
+      - added checkin utility
+Build 89
+      - Added installed-Size to all debs to prevent bad package Warning in Ubuntu
+      - Fixed paths for Linux Packages (moved program from /usr/share to /usr/lib)
+      - Fixed some things to debian Packages now they can be checked with lintian without errors
+      - fixed checking in Files without extension
+      - fixed Inserting row in clean dataset in gridview has eaten those row in some cases
+        until the next refresh was done.
+Build 88
+      - fixed some small problems of sync_db
+      - added ability to wizardmandant to setup help sync
+      - changed Treeentry / Tree Handling (Database change nessesary)
+Build 87
+      - fixed setting Child in GridView in some cases
+      - implemented Setting Childs/unsettings Childs in GridView for more than one row
+      - fixed Inserting in gridview with Ins Key
+Build 86
+      - fixed using SQL from reports
+      - fixed some Tasks are not added since 85 (GridView issues)
+      - fixed painting issues on Gridview
+Build 85
+      - (hopefully) fixed GridView Parent issues
+Build 84
+      - [timeregistering] Info Dialog added
+      - [timeregistering] fixed Starting Standardentry after an break
+      - [timeregistering] fixed text becomes "(memo)" on editing Note field
+      - [timeregistering] added Change Passwort possibility
+      - [timeregistering] Set End time on logout
+Build 83
+      - trial to fix that processmanager not starts last process
+      - Refresh Message Tab after Drag&Drop Entry to Folder
+      - Archivestore export program
+      - Mandantdetails for Taskframe
+Build 82
+      - processmanager writes always log for active session
+      - sync_db sets syncstamps only when sync was successfully
+Build 81
+      - Select ID for very big IDś corrected
+      - Correct div. hepviewer problems no User was selected
+      - fix Statistics handle big IDś
+Build 80
+      - next trial to fix task arrangement
+      - sync_db logs first changeed dataset per table
+        and also syncs with that
+      - included helpviewer and help.db in setup packages
+      - wikiframe is able to make screenshots now and include them directly
+        into documents/wiki
+Build 79
+      - Fix Task arrangement sometimes wrong
+      - Enter in Gridview Identfield calls DblClick
+        Opend Task Editor in Tasks on Enter on Summary
+      - Taks Editor Strg+S Shortcut for saving
+      - fixed setting properties with multiselect
+      - fixed inserting Tasks in unsaved project
+      - fixed deleting to much entrys from activeusers
+Build 78 (17.08.2012)
+      - fix Order Status changing (wrong sort order)
+Build 77
+      - fix inster Bug in Tasks when Rowcount=0
+      - fix Text Editing Issue in Positions
+      - add UseBaseSorting to IBaseDBFilter
+      - Sort tasks breaks off Folding tasks together (but fixes sorting)
+      - Timeout timings for SQLite set (was removed with actual Zeos SVN)
+Build 76 (16.08.2012)
+      - fixed bold drawing of Task with overdone startdate
+      - nex trial to fix the Drawing bug of TaskEditor
+Build 75 (15.08.2012)
+      - next trial to fix the Drawing and Foreground Bug of Task editor
+      - Filter for Tasks
+      - with --startuptype=Name program can be started with defined Tree Selection
+Build 74 (14.08.2012)
+      - Historylinks for Tasks
+      - ability to Global open Task
+      - Cashed Task highligted drawing
+      - fix Task Document handling
+Build 73 (13.08.2012)
+      - fixed Bug when inserting DONE field in Taskeditor
+      - fixed compiling with fpc 2.6_fixes, fpc 2.7.1
+      - RowEditor Show in Task Bar
+      - Task Editor Show in Task Bar
+      - Row Editor can handle Drag&Drop of Items within the Boxes aswell within Source and Dest
+      - Report Export to txt
+      - Report Export to html
+      - Report Export to csv
+      - Shapes in Reports
+      - SQL in Reports
+Build 72 (10.08.2012)
+      - Dont refresh gridview when dataset is in insert state
+Build 71 (09.08.2012)
+      - SelectReport Dialog sometimes has selected Printer Options for Report wrong
+      - sync_db when row is not deletable show only warning instead error
+      - History is refreshed on Enter
+Build 70 (08.08.2012)
+      - ignore more rows in Generator Tables
+      - Task Editor correct Tarnsaction Handling
+      - GridView Toprow is restored after refresh
+      - fixed Clicking issue (sometimes very rarely 3 clicks was nessesary to edit an row)
+      - Editor Preview now should work in Windows (Size Loop)
+      - Position frame refreshes Documents when Position changed and Documents viewed
+Build 69 (07.08.2012)
+      - fixed Grid changing of Checkboxes 2 or more times
+      - fixing Project tasks are not editable after first Open of Project
+      - clicking in Grids on free Spaces does nothing
+Build 68 (06.08.2012)
+      - different Typ in Accountingjournal dont creates an separate Entry in Accountingjournal
+        at example Invoice + and - overrides existing Entrys
+      - dont clear Odate on changing Invoice in to something
+      - Close Button for Frames
+      - LinkFrame can alo copy the selected Link to Clipboard
+      - Refresk For Tasks works like for any other List
+      - TaskList have Context Menue
+      - Deleting last Dependency sets DepDone
+      - Drag&Drop from Lists to TreeFolders for Articles,Persons,Projects
+      - better refresh for Message Frame
+      - better Autofilters (FilterRow) now
+        supports Float Values, ! operator, fixed Date Filter for Postgres
+      - reworked Searchtype handling, search now sont orders results (DB often orders it more intuitive)
+        so search should get better results.
+      - commandline processes detects if the entry in activeusers is actual (checks if such process is real started on this mashine)
+      - processmanager gives clearer information about started and quitted processes
+      - Target Date from Project and Duedate from task makes History Entry
+      - Orderposition fix GridSizes on Open Order
+      - Fix Ordersorting (now sorted to posno always)
+      - New Passwort handling (SHA1 Salts, complex generated Salt > 100 byte Passwort encrypted with Salt (not just appended))
+      - Possibility to change passwort from User
+      - switched to zeos Trunk
+      - DBs are created automatically for PostgresSQL,Firebird,SQLite from wizardmandant
+      - Config Export (Mandant Options) exports ordertypes
+      - div Importconfix changes
+      - fixed PositionEditor sometimes dont divides Shorttext and Longtext correct
+      - Grossprice can also be used to calculate the position price
+      - changed sqlite to version 3.7.13 in windows setup
+      - Display only active Tasks in Task Lists
+Build 67
+      - HistoryFrame not Editable
+      - better Sizing for Login Dialog
+      - History Add Dialog, Action default Edit, better resizing
+Build 66
+      - Goto Documents for Projects
+      - Mark overdune Projects red
+Build 65
+      - small resizing fixes for Password dialog
+      - Positions are always sorted by Posno
+      - bevore Posting Order is Saved
+Build 64
+      - fixed not Quoting Fields in Building Autofilters in some cases
+      - Open linked Documents across (at time) Customers and Articles
+Build 63
+      - fixed Filtering Name in Accounting Find Transaction
+      - Singleline/Multiline View in Accounting
+Build 62
+      - Sorting fixed (Resting Sort Direction or Field in grids)
+Build 61
+      - div. Fixes around Projectmanagement and Taskeditor
+Build 60
+      - hopefully fixed MSSQL DateTime Convert Bug in tasks
+      - Set/Unset Child saves bevor acting
+      - Project saves Tasks bevore saving (Dataset was saved before but View not)
+      - MimeMessages convert Filename Encodings to UTF8
+      - Coloring overdue tasks
+Build 59
+      - corrected Syncoption Tables
+      - Document management behaves a bit correcter with Postgres (Rows with same Revision (last 2) have in some situations wrong sorting)
+      - fixed Drag&Drop from Search to Position (na matter when its broken, seen first time)
+      - Supplier for Article
+      - Price and Pricetype had no Combobox
+      - Inventorys (started implementation)
+Build 58 (05.07.2012)
+      - fixed Tree Font in Themed Windows 7
+      - fixed Setting Task as Child (introduced in Build 57)
+Build 57 (04.07.2012)
+      - fixed Field "" not found bug in History
+      - fixed printing User and Owner Variables
+      - fixing Delegated not Checked view
+      - Project printing has now access to Project Tasks
+      - fixed Order Position order (hopefully)
+Build 56 (03.07.2012)
+      - New Multiline Histry View
+      - Filter Rows fixed (2 Times Click nessesary to get in Edit mode after Build 55)
+      - Variables User and Owner in TaskList Reports
+      - History Entrys deletable
+Build 55 (02.07.2012)
+      - fixed Bug in Search Hint with PostgresSQL
+      - div Task management fixes (partially introduced from Build 54)
+      - Task management seems to work finally as expected
+Build 54 (28.06.2012)
+      - further Task Editor improvements
+      - processmanager not longer shows its Window (introduced nearly Build 30)
+      - fixed project Gantt import (hopefully)
+      - Printing for Tasks and Project
+Build 53 (27.06.2012)
+      - further Task Editor improvements
+Build 52 (26.06.2012)
+      - div fixes for GridView
+      - sync_db mark only rows from tables that are synchronized as error when not found during delete
+      - sync_db ignores activeusers
+      - sync_db replaces DOCUMENTS.ID with DOCUMENTS (Linkformat)
+Build 51
+      - started Filtering Tasks (and GridView)
+      - deleting Tasks is only possible if your Owner
+      - when user exists on new selected mandant in passwort dialog,
+        its autoselected
+      - Sync_db fixed deleting rows
+Build 50
+      - Fix Project import in Transaction
+      - import all Project dependencies
+Build 49
+      - SyncDB: Sync Log
+      - more complete Gantt Project import
+      - Multiselect edit in Task Editor
+Build 48
+      - processmanager now sets times back when something fails
+      - Ole Drag&Drop to Desktop now works
+Build 47
+      - fixed Reference ID finding in pop3receiver
+      - Board Folders shows Messages from all users to all users
+      - Drag&Drop from Tree Dir to Tree Dir (with same Type)
+      - Drag&Drop for Project Frames to Tree (Masterdata,Customers was already possible)
+      - trial to fix Ole Drag&Drop to Windows Explorer
+Build 46
+      - GridView Fixed showing correct Subposition after Editing
+      - fixed Hanging when setting Dependencies in Project Editor
+Build 45
+      - actualized PowerPDF, fpspreadshet, synapse, lnet
+      - start processmanager also from current directory not just from program path
+      - languages/translations
+Build 44
+      - Automatic calculating dispatch type
+      - Create,Rename,Delete Mail Folders
+      - Create Bulletin Board Folders
+      - Drag&Drop for Mails and Mailfolders possible
+Build 43
+      - Zeos updated to rev 1228
+      - sending Mails to Lists
+Build 42
+      - more complete Lists implementation
+Build 41
+      - Printersettings was not saved since rev. 38
+      - Wizardmandant notices about Connection problems and jump back to the Settings Page
+      - Wizardmandant Shows finished message also on deleting Connection
+      - initial Lists implementation
+Build 40 (04.05.2012)
+      - Checkbox Columns for Tasks are not drawed if no change possible
+      - Actualizing haschilds correct
+Build 39 (03.05.2012)
+      - Fixed preview Windows size issue
+      - Tasks are not painted
+Build 38 (02.05.2012)
+      - Colred task status
+      - reorganized base structure
+Build 37 (27.04.2012)
+      - View for delegated completed Tasks
+      - zeos Testing https://zeoslib.svn.sourceforge.net/svnroot/zeoslib/branches/testing-egonhugeist
+Build 36 (26.04.2012)
+      - inplace Project search in Tasks
+      - inplace User search in Task
+Build 35 (25.04.2012)
+      - Address Editor should be shown on new Order
+      - Task dependencies
+Build 34 (24.04.2012)
+      - fixed Order problems introduced in Build 33
+      - Read Only Order without Address dont shows Address Editor
+Build 33 (23.04.2012)
+      - MessageID for Mime Messages should be generated with @
+      - Address editor dont resets first Address when you create second and delte it
+      - deleting inserted not saved Address hasnt worked for Order Address Editor
+      - Insert Task adds Project
+Build 32
+      - fixed Message Attatchments was not saved/send correctly
+      - fixed Address disapears when not saved and order booked in order address editor
+      - Adding Address from Order dont jumps back to Order
+      - fied double adding Task added to Project History
+Build 31 (18.04.2012)
+      - fixed Adding clean Task during Project save (History Entry on every CascadicPost nut just when Edited)
+Build 30 (17.04.2012)
+      - Fixed Commission Field is resetted on Save (intruduced rev 28)
+      - Fixed Owner History Entrys dont Change Parent Entry (introduced in rev 28)
+      - Fixed History Entrys could ignored when USER,REFERENCE changed
+Build 29 (16.04.2012)
+      - Gantt Import for Projects
+Build 28 (12.04.2012)
+      - Refreshing Address when creating Order from Document (Person Documentmanagement)
+      - fixed Tree Font cutting (introduced in latest revisions)
+      - Chengedby is displayed as createdby in History
+      - dont display Checkboxes on Master Tasks
+      - corrected Drawing of Gridview Checkbox Column
+      - History entrys in project for changed and created Tasks
+      - Tab in last Row of Gridview appends new Row
+      - History Entry in Task on Edit it
+      - Visibility for Project and User Tasks fixed
+      - dont build invalid Links (TABLENAME@)
+      - fixed Dbl Click AV in Tasks
+Build 27 (11.04.2012)
+      - Sync_mso fixed Widgetset type
+      - Hints for Filter Frames fixed and reactivated
+      - more fixes for Address Editor
+Build 26 (10.04.2012)
+      - Fixed some small bugs around the new Order Address Editor
+Build 25 (09.04.2012)
+      - Customeraddress added from Order has crashed Promet on Windows (Matchcode)
+      - Person and Masterdata Tabs can be dropped to Dirs
+      - DragDrop saves automatically
+      - Contectmenue of Tabs (Close) is displayed only on Tabs
+      - Sometimes a wrong Calender Entry was displayed on edit
+      - Replaced Order Adress Editor
+      - fixed importing Ballances in accounting (sometimes no new Accounting data was imported becouse ballance Data coudnt be found)
+      - Automated Serach in Order Address Editor
+      - active and Refreshable Tab (Filterframe,Tasks) is refreshed automatically every 60 sec
+      - Positioneditor handles focus correct
+      - Gridviews (Position Editors, Taskview) resizes Columns on Resize
+      - Row Editor fixed Bottom Anchor for avalible Rows
+      - Wishdate always editable
+      - rearranged Order Date View
+      - Process Options
+      - Show Tasks in Main Tree
+      - Show/Hide delegated Items in Tasks
+      - Order Additional Frame rearranged (changed Height)
+      - Historyentrys for Created and edited
+      - Search from MainForm Top reacts equal to Search Window
+      - Hints for Taskview
+Build 24
+      - fixed smtp sending when Address contains ","
+      - Task Setting User direct after insert fixed
+Build 23
+      - Fixed Task view on some DBś
+      - Gridview Rows became correct Parent after Append
+Build 22
+      - moved OrderHistory to TOrderList (History printable in FilterViews)
+      - Calculating Percent Values for Parent Tasks works
+      - Saving Tasks with Task Editor fixed
+Build 21
+      - fixed Message Document handling for new DB Structure
+      - Timeregistering added Icons for Linked Project and Task
+      - Checking Task automatically posts it
+      - Timeregistering can be remote controlled from Promet
+Build 20
+      - next trial to fix Editing in some Windows installations (Rev 30575 of lazarus possibly breaks it)
+Build 19
+      - Fixed Table save problem (forgotten Debug stuff)
+Build 18
+      - Fixed showing Tasks
+Build 17
+      - actual zeos version (breaks SQLite Blob Support)
+      - next trial to fix Editing in some Windows installations
+      - fix Posting Articles
+Build 16
+      - trial to fix Editing in some Windows installations
+Build 15
+      - Gridview Fixed Font Style when selected
+      - Calendar uses just STARTDATE and ENDDATE and not anymore the TIME Fields
+Build 14
+      - Task dependencies
+      - Editing dependencies
+Build 13
+      - Some Task additions
+Build 12
+      - Gridview fixed some issues
+Build 11
+      - pop3,rss receivers fixed (they could select the wrong users)
+      - Caption is set to Mandantname (good if you have more than one Mandant)
+      - all Historys in use just one Table
+      - Insert with INS Key in Gridview
+      - Append uses Parent in GridView
+Build 10
+      - Tasks have History
+      - Assign User/Group to Task
+      - Some correction to grid editor
+Build 9
+      - Next trial to fix the Task and Eventeditor Font Sizes in Windows
+      - Fixed editing in GridView with { or - or + in Rows wich is not the Ident Row
+      - Fixed Standard Value for TASKS.CHECKED
+      - DragDrop from Search to LinkFrame
+      - Deleting project from Task Resets ProjectID
+      - Refreshing Tasks resfreshs Dataset first
+      - Changing Tab to tasks refreshing Tasks
+Build 8
+      - Fixed Font Sizes in Event Editor
+      - Info Dialog
+      - Events can have Documents and Links
+Build 7
+      - Fixed Autobuild for Linux-amd64,Linux-i386,Win32-i386
+      - Documents ignores files where no MD5 Sum is Buildable on Checkin (Not accessable)
+      - Fixed a lot of Package standard Paths (easyer installing)
+      - Task Editor
+Build 1
+      - New Class Structure (real big change)
+      - All classes packaged (not all used jet)
+      - Rewrite of All Apps
+Version 7.0
+
+
+Build 174
+      - fixed focusing Orderpos after Search is called
+      - small cosmetic Changes in Customer / Address
+      - fixed adding Images
+Build 173
+      - fixed "List Index Out of Bounds (*)" in ListViews
+Build 172
+      - Fixed GTK2 Answer Messages
+      - Fixed opening Message Dir dont Show Message Details until first scroll
+      - Event Edit layout fixes
+      - Customer Edit layout fixes
+      - Call Dialog layout fixes
+      - reworked Printing System
+      - Orders can now show an Image from Links to transfer it to an Order
+Build 171
+      - Hints for Filterviews with details to every Entry
+      - Hints for Search with details for every entry
+      - fixed Search searches again on open
+Build 170
+      - restructured Search Function
+      - fixed some small Search relevant Bugs
+Build 169
+      - Image Support for Wiki
+      - navigator for Wiki
+      - Caption for Wiki pages
+      - Fixed Firebird support (MdPosition Viewer Bug)
+      - Maked Errormessages a bit more easyer
+      - fiyxed some small Calendar Bugs introduced by the LCL
+      - Linux layout fixes
+      - Filter In in Filter Views
+      - rearranged Search Window
+      - reworked Filter Views
+      - Dbl Click Automatic Row Sizing for Filter Views
+Build 168
+      - Timeregistering shows actual entry in Tree
+      - fixed Drag&Drop in several situations
+      - fixed insertig Supplier
+      - Timeregistering has Options Dialog/Page in Personaloptions now
+      - Timeregistering has Option to Hide Dialog on start Time
+      - Fixed Statistic printing
+      - Fixed updating Postgres DB TIMESTAMP Fields
+      - Fixed appending Order from Customer uses old Customer in some cases
+      - Fixed saving Customer before creating new order for it
+      - fixed opening order that contains Serial from Search
+      - Transfer Form is shown in taskbar
+Build 167
+      - some cosmetical Changes to Timeregistering
+      - Show Dialog Time is reset on Hide Dialog in Timeregistering
+      - Hints for Timeregister Navigator
+      - fixed Scrolling in Filter Views (Top Filter Bar was not scrolled)
+Build 166
+      - fixes the Grid Drawing since Lazarus changes
+      - some Timeregistering fixes
+Build 165
+      - some Timeregistering fixes
+Build 164
+      - Document preview is not closed after new Selection
+      - Order Detailview is after printing reactivated
+      - some small Timeregistering Changes
+      - Statistics saves integer and float fields in Excel as Number now
+Build 163
+      - Some small error corrections for timeregistering
+Build 162
+      - Office Format Import
+Build 161
+      - when not find Article (Ident,Version) for Repairparts promet searches also for (Ident)
+Build 160
+      - more complex Timeregistering
+      - Permissions for Statistics
+Build 159
+      - Description for Projects
+Build 158
+      - fix an small Problem with Position Editor introduced in 157
+Build 157
+      - RichText Signature and RichText message Editor (mails will be send at this time only in plain Text)
+      - new Position Editor for Masterdata
+      - Document preview works cleaner, added support for GIF Images
+      - fixed changing Orderposition sets order in some cases not in Edit state
+Build 156
+      - QM Test first steps
+Build 155
+      - reworked some Calendar Colors and Font Sizes
+      - added Permission Table
+Build 154
+      - Filter Frames resize ther Grids correct now
+      - all (?) Grids has new Configuration Button for now
+      - fixed changing Vat during order Edit
+Build 153
+      - several Corrections to Timeregistering
+      - Grids now resize there Columns on Resize automatically
+      - moved Configure Columns button to left top corner of the grids (only in Filter View at time)
+Build 152
+      - Klick on Icon in Timeregistering goes to Item
+      - goto item in Timelist Context Menue
+      - Quantityunit in Order Details is filled Now
+      - fixed Order copy
+Build 151
+      - fixed Positiondetails are not shown when Order is in Insert State
+      - some small Changes for Timeregistering
+Build 150
+      - some small Changes for Timeregistering
+Build 149
+      - Changesd Accountingjournal Booking
+      - new Field ID in Projects
+Build 148
+      - Error dialog shows up faster and has an separate Button for Backtraces
+      - Orders are copied correct now on older databases
+      - better alignment of Mail overview
+      - fixed alignment of Customer Finances
+      - new Timeregistering
+Build 147
+      - Ordercopy copies now also orderprices and vat
+      - More than one Order with Ordertype 0 are added correct to tree now (introduced in Build 144)
+      - fixed Order delete is disabled sometimes when it should be enabled
+Build 146
+      - Orders are always copied now (not just changed on status change)
+        all booked Versions of any order are avalible
+Build 145
+      - corrected some Tab workflows
+      - faster PDF rendering in Documents Preview
+      - render just first Page of PDF in Preview
+      - icons for different Search types in Preview
+Build 144
+      - reworked tasks
+      - Treeview shows Shortcuts
+      - smoother startup progressbar
+      - all detail datasets brings parent in edit mode
+Build 143
+      - some bugfixes
+Build 142
+      - fixes Data in some Grids is not transfered in dataset on leave edit mode
+      - dont update Avalible on Insert Position
+Build 141
+      - fixes Saving Document preview on Post
+Build 140
+      - All Booked orders are Stared as Document in his Documentmanagement
+      - Preview for Booked Orders
+      - better usage of Orderpos Editing
+      - some optimizations (less SQL statements must be send to server)
+      - System Monitor can be called with cmdln sw --sysmonitor
+Build 139
+      - New Preview in Documentmanagement
+      - dbsync Encoding fix
+      - fixed Adding some HTML Parts to textmails in some cases
+Build 138
+      - some MSSQL trial to solve MSSQL2000 problems with primary key constraints
+      - Search searches only for complete ORDERNO´s
+Build 137
+      - more PostgreSQL changes
+Build 136
+      - Accounting Booking reworked
+      - some PostgreSQL changes
+Build 135
+      - repair parts gets filled again
+      - added original Voucher number
+      - rounds to 4 places instead just 2
+Build 134
+      - some changes to OrderCopy
+      - Add Invoice from Document
+Build 133
+      - Manual Accounts
+      - Links for Projects
+      - Links for Masterdata
+      - Links for Orders
+      - Links for Customers
+      - faster Ordercopy
+      - Optimized Search Speed
+Build 132
+      - Ability to print the Accountexchange Data
+Build 131
+      - fixed position lost focus when no data found
+      - when no printer is selected the Documentstandardprinter (or previous selected) is used
+      - When moving an Treeentry via Drag&Drop promet askes if the active Open should be saved
+      - calendar gets Focus on Show
+      - orderimages are useable when order is readonly
+      - orderrepair items use the version when add to orderrepair
+Build 130
+      - Timeline in FilterViews
+      - Search sont sends Return to grid if Serach Button is Visible
+      - fixed "ORDERREPAIR.WARRENTY" may not be NULL
+      - fixed adding Address from Order when not searching Customer without Search Window
+      - rearranged Address Tab
+Build 129
+      - matchcodes are build automatically
+      - fixed some bugs with new Database Structure (Add entry to Customer History)
+      - Article Status can be filled 2 Times under some conditions
+Build 128
+      - better Search handling
+      - fixed Tree Drag&Drop assignment to an Dir
+Build 127
+      - fixed Partlist Editor for new database structure
+      - Active Field for Piecelist Entrys
+      - Active Field for Order Positions
+      - Acvtive Field for Customer Contactdetails
+      - Active Field for Addresses
+      - fixed DeletedItems on new database structure
+      - fixed Database structure check
+      - dont add Item to history if it is the last added historyitem
+      - fixed moving Cols in filter and historyviews
+Build 126
+      - fixed Wizard mandant
+      - fixed some spelling
+      - fixed bug that Grids dont accept data sometimes
+      - fixed Creating new Mandant
+Build 125
+      - fixed pStarter OK Button
+      - fixed some spelling
+Build 124
+      - more hints and tarnslation
+      - fixed some small errors
+Build 123
+      - mandants are not opened during startup (faster startup when > 1 mandants)
+      - fixed showing embedded images in mails
+      - reworked the translation system
+      - much hints for buttons and edit fields
+      - sandbox mode (must right must >= write)
+Build 122
+      - dont View Lists on open Search Item
+      - update Position tab on first open of Order
+      - search in order case insensitive for articles and customers on all db´s
+      - filter case insensitive on all db´s
+      - search options saved
+Build 121
+      - fixed some small bugs
+Build 120
+      - more mssql changes
+      - faster scrolling in position
+      - faster copy of order
+      - multidelete in positions
+      - contactdetail grid sizes stored
+Build 119
+      - more mssql changes
+      - fixed view of company in customer
+Build 118
+      - more mssql changes
+      - corrected Limit handling
+Build 117
+      - mssql changes
+      - Version,Host in ActiveUsers
+Build 116
+      - Active User List
+Build 115
+      - multiselect in userrightsrights possible to change more rights at once
+      - usergroups
+      - fixed Displaying Message Images that are embedded in the e-mail (hopefully)
+Build 114
+      - fixed Userediting (bug at Startup introduced by 113)
+Build 113
+      - Roweditor resizes correct now
+      - Usermanagement reworked to have Usergroups *
+      - Translation for Accounting details
+      - Hints for Accounting Stuff
+Build 112
+      - fixed just 1 Repair Problems is showed
+      - Hint in Search is showed now on Top always
+Build 111
+      - fixed just 1 Position Type is showed
+      - fixed just 1 Numberset is showed
+      - Row Editor has resizable middle
+      - Combobox Dropdown Width is automatically computed in Grids
+Build 110
+      - Databaseupdate fixed, it hasnt checked real all tables
+      - reworked Article Form a bit
+Build 109
+      - fixed Showing Events for Firebird DB´s
+      - Added Functionality to New Event Button in Calendar
+Build 108
+      - limit record cout of mamy Tables on Startup (startup should be much faster)
+      - Help is Hidden/Shown with F1
+      - Systemwide Personal colors
+Build 107
+      - info hints are showed on several automatic actions
+      - Deleting Bank Accounts possible
+      - fixed Creating new Article and Showing Articles from Tree
+Build 106
+      - AccohuntNo and Sortcode Fields length corrected
+Build 105
+      - Customers,Orders,Masterdata,Projects MainItems in Tree dont show Overview
+        but the last opened Items or Overview when it was visible
+      - rewordes some parts of the Account Wizard
+      - Better finding of Subsembly FinTS Tools Path
+Build 104
+      - Transfers for Subsembly FinTS Tools implemented
+Build 103
+      - Account creation Wizard finished
+      - Fixed opening order when have no rights to access the Customers
+      - Fixed HTML Views dont show UTF8
+Build 102
+      - more Hints
+      - MacOS(X) correct grid Drawing, consistent Button Styles
+      - fixed copy WARRENTY Field of Repairdata
+      - more Hints
+Build 101
+      - All Tabviews become Vertical Navigatorbuttons to have an more consistent layout
+      - History Views get navigator buttons
+      - Info Dialog gets Sizeable
+      - Hints on navigation Elements are translated now
+Build 100
+      - History Views get Sortable
+      - fixed small bug when adding columns to History or Filter Views
+      - Fixed order Goto menue
+      - fixed Search tab Order, implemented Popupmenue in Searchresults + Keyboardopen (Default Strg+O)
+      - fixed Tab Order in Select Report Dialog
+      - Fixed Drag&Drop from Tree
+      - Fixed several SQL Errors with Firebird DB
+      - Fixed Field ACCOUNTNO not found on Firebird DB
+      - Language Setting in mandant wizard changes the program language setting now
+      - Firebird Search gets case insensitive
+Build 99
+      - more Key Handling
+      - reworked Serial Number Search, much faster now
+      - Set moore Controls in Customer and Masterdata masks read only when
+        user has only read rights
+      - Enchanced (not fully ready jet) Project Editor
+      - fixed Bug that wrong Columns are displayed when grod sizes are not saved
+Build 98
+      - more Key Handling
+Build 97
+      - Customer Adress reworked
+Build 96
+      - Background Drawing for Auto Filter fields
+Build 95
+      - Sone small Translation changes
+      - Dbl Click on Supplier opens them in Customers
+      - Timelist reworked with AutoFilter
+Build 94
+      - Customer,Order,Masterdata history with Autofilter
+      - Small problem with Option saving on old Databases fixed
+Build 93
+      - Address Field in order is also selected on creating new order from Tree
+      - Autofilter
+      - Menu View to jump simply to the most importand Forms
+      - First kenhandling patches, its now possible to close almost all diaglos with Esc
+        and After Dialog Show the Control get the Focus that have before
+Build 92
+      - fixed bug in Mail receivement with attatchments
+      - fixed REF_ID not found problem with old Databases
+      - fixed Masterdata prices are showed in wrong format
+Build 91
+      - fixed Fulltext search
+      - fixed Commission search
+      - Search for Contact Elements or postal Code finds now also all other
+        selected Elements
+      - find Customer on Call now works again
+Build 90
+      - fixed copying SubDetail Datasets over Clipboard in Orders
+Build 89
+      - Fixed some small problems with old databases
+      - nice Keyboardinteraction in Filterviews
+Build 88
+      - Tab Datasets are refreshed on several Actions should display mostly just actual data
+      - Sellprice in order is direct changeable without looking in order Calculation
+        Promet searches automatically for the right price from order Calculation and changes it
+      - some grids are now not longer allowed to delete columns directly
+      - reworked Statistic Tool, now supports Reports and Printing
+Build 87
+      - fixed some small bugs in repairmanagement introduced by foreign key changes
+Build 86
+      - fixed Repair Problem with "ORDERREPAIRDETAILS.ORDERNO" may not be NULL on old Databases
+      - intruduced foreign keys for new databases
+      - fixed some small firebird related bugs
+Build 85
+      - Fixed accountexchange View
+Build 84
+      - Fixed Statistics Login and dont Open all tables for Statistics
+      - Fixed History Sorting
+      - Fixed Customer Insert Problem
+Build 83
+      - Hidden repair Tab in Masterdata is shown now
+      - Database structure changed (first rework on the way to foreign keys)
+        Updatedatabase must be executed in every case
+      - Multiselect in Filter views possible
+Build 82
+      - Program is known for now as Promet-ERP
+      - Commercial private and trial Editions are merged
+        to an Single Free Edition
+      - Row Editor gets translates Row names
+      - Commission is an extra Search type
+      - Order Copy is done in an Transaction
+      - Images and nicer shown Names in Contact Grid
+      - reopen same Mandant in one Session is now possible
+      - Introduced new Grids that automatically cutting Values to field Sizes
+        they also hiding Inplace Editors on lost focus, this has
+        shown some very ugly effects (cursor jumps to other controls)
+      - Added  Default field for Languages, Language settings in Customer are
+        for now automatically done with default language
+      - Pricetype dropdown is introduced in Orderpos Calculation
+Build 81
+      - Fixed some small Bugs
+      - Reworked the Standard importdata
+      - Fixed Mail receivment of some HTML Mails
+      - Program Feature Search
+      - Search program functions first try
+      - Position delete was not disabled in some cases
+Build 80
+      - Change Customer Number fixed
+      - Change Masterdata ID fixed
+      - Items opend with Search are added to History
+      - Link to Firm in Customers Account
+      - First OCR added to Scan interface
+      - First working Firebird/Interbase connection possible
+Build 79
+      - History has an dropdown for last entrys
+      - History saved and restored
+      - selected Edit Field is shown in info Background Color
+Build 78
+      - Filter Views can have Tabs
+      - Dont show Clear () on Headers
+      - Order Positions are sortable
+Build 77
+      - Enter Orderadress ident on new order
+      - Select Orderadress ident and Position Ident on Open Order
+      - Typ Dropdown in Orderadress is filled again
+      - Fixed Search Windows dont closes sometimes
+      - some wrong arrangement in Options Dialog
+Build 76
+      - Fixed filter Views when filter is corrupt
+Build 75
+      - Filter View for Mails
+      - fixed small Bug in repair Mode
+Build 74
+      - More Details in filter Views
+Build 73
+      - New Filter Views in Masterdata,Orders,Accounts,Customers
+Build 72
+      - receiver for RSS and ATOM Feeds
+      - several optimizations on MacOS(X)
+      - Select Treeentry opens Lists
+Build 71
+      - Copy & Paste for Customers over the System Clipboard
+      - Copy & Paste for Masterdata over the System Clipboard
+      - Treeview messages in Form Captions
+      - Hints for Mail form
+      - no Hints for HTML Viewers
+Build 70
+      - Indexes restructured a bit
+      - reworked Aquire Dialog
+      - fixed some small bugs with Repairmanagement
+Build 69
+      - Personal options offer Mail Account editing now
+      - New Mandant Wizard differs beside new and existing db
+      - Barcode search in Search and Order
+      - reworked Options
+      - added States for Masterdata and Customers
+      - reworked Calendar, should be much faster,
+        new Edit/Add Event Dialog
+      - Messages/Events can modify Treeview on the fly on new Messages/Events and so on
+      - Statistic Module, that can evaluate every SQL Query and Print,Show,Export the
+        Results in an Grid or Chart
+      - Treeview reminders are actualized on Item modifications
+      - Events over more Days are possible
+      - New header drawing for Formcontrol
+      - Images on every Formcontrol Page to see on the first
+        view where you are
+Build 68
+      - Translations fot Table headers
+      - Images implementations in Masterdata,persons and orders synchronized
+      - Fixed 2 small bugs with opening customer in some special cases
+      - Drag&Drop in tree (Drag Customers, Masterdata in Dirs)
+      - Image preview in Masterdata
+      - Some rearranging of controls in order and masterdata
+      - fixed Translations in tasks
+Build 67
+      - fixed repair handling
+Build 66
+      - fixes some bugs introduced by 65
+Build 65
+      - introduced separate Datsets for Lists for Masterdata,Orders and Customers
+Build 63+64
+      - some bugfixes
+Build 62
+      - Fixed some Bugs introduced in 61.
+Build 61
+      - Just 50 Rows are fetched from base Datasets fastens large DB´s
+Build 60
+      - Rows are fetched from Database on demand
+      - Fixed Row Editor since Build 58
+Build 59
+      - A lot of Tables are leaved close after start and only on real use opened
+        a lot faster
+Build 58
+      - Preview Image for Persons
+Build 57
+      - Change Article number
+      - Change Customer Number
+Build 56
+      - Disposition Module begon
+      - Fixed History (back and next Buttons on top)
+      - Storagechart
+      - You can Filter the StorageJournal now
+      - Images for Persons
+      - Imagepreview in Document management
+      - New Search Dialog, Search enchanced
+      - Change customer number
+      - Outlook Contact import
+Build 55
+      - Articleimages
+      - Copy Article to HTML
+      - again colored Titlebars (was white in Build 54)
+      - Fixed Adding whole Directory to Documents
+      - Fixed some wired looking Forms in Linux
+      - BoM Lists have an Type now
+      - Inventory
+      - Basic Production
+      - Signature for Mails
+      - Webshop Storage Sync (osCommerce)
+      - Webshop upload for Article (osComerce)
+      - Imaged Orders overview
+Build 54
+      - HTML Mails are loaded threaded (sometimes hangs on spam mails)
+      - Scanning with Feeder Scanners works correct now in Window
+      - faster Window painting on Linux
+      - Fixed UF8 showing in Calendar
+      - Weeknumbers in Weekview
+Build 53
+      - fixed adding Order to wrong Customerhistory on Status Change
+      - fixed search for Contact Element
+Build 52
+      - Version for Documents corrected (maybe with older versions append Files are invisible Set version Field in DB to NULL)
+      - Revision seems to work now correct
+Build 51
+      - optimized database access
+Build 50
+      - fixed some problems with Repair field Editor
+      - Employees become the Tel number and Mail Domain from Firm
+      - better History
+Build 49
+      - fixed Exception showing
+      - localisation
+Build 48
+      - fixed Pasting from Clipboard
+      - fixed Creating new Mandant
+      - fixed duplicate Filters in SalesList and Account
+Build 47
+      - Dont get messages when message Editor is Open
+      - Open Office Document Placeholders can be replaced by Database Field Contents
+      - Filters are turned off when Link is invalid [0000202]
+      - Display Hourglass Cursor on open Elements
+Build 46
+      - fixed TAPI Phone capture
+      - Order print to PDF Mail Added
+      - separat Info print/export added
+      - fixed [0000148 ]
+Build 45
+      - Fixed getting revision number
+      - Saving printer options per ordertype
+      - Positions with Quantity 0 are not booked into Storage
+      - Shippment export serves an better adress
+      - fixed [198]
+      - fixed [0000168]
+      - fixed [0000178]
+Build 44
+      - Disabled Create Order from Customer in private Edition and when no Right to Edit Order
+      - Mails with attatchments possible
+      - Corrected some mail relevant code
+Build 43
+      - Added Filter to Accounting
+      - Added Filter to Saleslist
+      - fixed [189] Textfarbe im markierten Baum ist schlecht lesbar
+      - fixed [193] Pin wird nicht pro konto abgefragt
+      - fixed [188] Users werden in Optionen nicht angezeigt
+      - fixed [184] Featurequests/Bugreports werden nicht übersetzt
+      - fixed [187] Umbenannte Dokumente werden versucht mit original dateinamen auszuchecken
+      - fixed [185] Options->tsCurrency not translated
+      - Parts Lists
+      - fixed bug that deletes the Customer name in some very special cases when an order address is deleted
+      - fixed wrong filename checkout after renaming
+Build 42
+      - fixed Bugtracker
+      - fixed [161]
+      - fixed [163]
+      - removed dbus depency
+      - removed sqlite depency (dynamic loading when sqlite is used)
+      - added notes field to orders
+      - piecelists
+      - german translation for calendar
+      - fixed [171] Dokumentenansicht wird bei neueanlage Artikel nicht aktualisiert
+      - fixed [170] Kommission wird nicht schreibgeschützt
+      - fixed [169] Hilfeindex aufrufen
+      - Commercial Edition and private Edition
+      - fixed [172] Dokeumentenverwaltung im Vorgang nicht übersetzt
+      - more Unicode Fixes in Windows
+      - Drag&Drop for Person Employee
+      - Drag&Drop for Supplier
+      - Order Notes editable also for Posted orders
+      - Historys are better readable, icons and separate columns
+      - Orderpos Deatils can be made invisible
+      - Reworked all Dialogs to be centered on the Main Window
+      - Main Window minimum Size is now 540 px sp promet can be
+        used nicely on small sized notebooks
+      - Online banking able to work with FinTS Tools from Subsembly in Windows
+      - Bigger icons in tree
+      - Quick view for all Big Items on Tree
+Build 41
+      - Some fixes for order calculation
+      - -c or --config-path sets an custom configuration path
+Build 40
+      - Fixes for UTF8-Filenames
+      - Help system reworked
+      - Translations work better
+      - Unicode corrections
+      - better Serialmanagement
+      - DBEntrys in insert state are not aborted from the Search
+Build 39
+      - Commission Field
+      - lot of small fixes
+Build 38
+      - Fixes that splashscreen sometimes not hide
+      - Fix for not searching for masterdata in changed orders
+Build 37
+      - Storages selectable during post
+Build 35
+      - Changes to make promet work in GTK Linux, first more stable linux version ;)
+Build 34
+Build 33
+      - Preview Form position is stored
+      - Titles are added depend on customer language
+      - New Documentmanagement Interface
+      - Logout is smoother
+      - Cleaned source
+      - Mail Attatchments
+Build 32
+      - Added Postal Code search
+      - Added Contact Element Search
+      - Next try to fix order copy
+      - Some repair enchancements
+Build 31
+      - Small error corrections
+Build 30
+      - Colored Forms
+      - Next try to fix order copy
+      - Some grid Component fixes
+Build 29
+      - better importdata
+      - maked sql database layer standard
+      - better csv import
+      - Row Layout in OrderPositions is stored on every not stored Layout when you have changed one Layout
+      - Fixed Copying an Order (hopefully)
+Build 28
+      - Problem with printing Detail and Subdetail Bands.
+      - new SQL Database Layer
+Build 27
+      - more SQL Layer implementations
+      - Numbersets are refreshed bevore number is get (Multiuser problems)
+Build 26
+      - small error corrections
+Build 25
+      - Order ask for save
+      - Orders without Report are "printed" correect
+Build 24
+      - Addressnumber write protected
+      - PDF Output
+Build 22
+      - corrections to the SQLite DB Layer
+      - begon SQL db Layer
+Build 20
+      - Shipping export
+      - some small bug corrections
+Build 19
+      - POS
+      - Documentdefault printer standard
+Build 18
+      - Cleaner Primary Key in SQLite Datasets
+      - Wiki
+      - Projektverwaltung
+Build 17
+      - Some small error corrections
+      - Multiselect/Delete in positions
+Build 13
+      - Outbound Skype Interface
+      - Inbound Skype Interface
+      - Inbound TAPI Interface
+      - Messages
+      - POP3 Message import
+      - SMTP Message support
+      - First try of SQL Database Layer Support
+      - First try of SQLite Database Layer Support
+Build 12
+      - Automatic and Hidden Login
+      - Outbound TAPI Interface
+Build 11
+      - Links implemented (Double Click on an History entry goes to teh related entry)
+      - Order post reworked
+      - Calendar
+Build 10
+      - reworked Taskhandling (Usability)
+      - some Artwork
+      - reworked Import from Clipboard
+      - Contact can be created from Order
+      - Form Editor completed
+      - Unicode aware
+Build 9
+      - Preview Version
+Build 8
+      - Task Management
+      - Checkin/Out in Documentmanagement
+      - Corrected Time Displays
+      - Importprofiles
+      - Global Search
+      - Online Banking
+      - Document Drag&Drop with filemanager
+Build 7
+      - Form Editors
+      - Table Row Editors
+Build 6
+      - Alternate color and Flat Style for Grids
+      - Fixed online Help search
+Build 5
+      - new online update
+      - orders can be derivated [0000124]
+      - automatically add orderrepiar entry when entering the repair form [0000125]
+Build 4
+      - Caption of Reportselect Dialog added
+      - Field Createby added to Order [0000121]
+      - Default positiontype configurable [0000120]
+      - Field Warrenty in Repair [0000122]
+Build 3
+      - Registerdialog is closed after Register
+      - Database checks are after open done !	
+Build 2
+      - Hints for most importand buttons [0000115]
+      - all Ordertypes are shown in tree [0000116]
+      - Orderchangelist is actiualized after change [0000114]
+      - New customer and customerlist works [0000112]
+      - Online update call corrected
+Build 1
+Version 6.0

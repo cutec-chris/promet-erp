@@ -1,0 +1,156 @@
+unit ucreatetable;
+{$mode objfpc}{$H+}
+interface
+uses
+  Classes, SysUtils, fpcunit, testutils, testregistry, uData, uBaseDbClasses,db,
+  uBaseDBInterface,Forms;
+type
+  TSubTable = class(TBaseDBDataSet)
+    procedure DefineFields(aDataSet : TDataSet);override;
+  end;
+  TTable = class(TBaseDBDataSet)
+  private
+    FSubTable: TSubTable;
+  published
+    procedure DefineFields(aDataSet : TDataSet);override;
+    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    destructor Destroy;override;
+    property SubTable : TSubTable read FSubTable;
+  end;
+
+  TableCreate= class(TTestCase)
+  private //not executed tests
+    procedure OpenTableInTransaction;
+    procedure OpenSubTableInTransaction;
+    procedure CloseSubTableInTransaction;
+  published
+    procedure CheckForTable;
+    procedure CreateTable;
+    procedure OpenTable;
+    procedure CloseTable;
+    procedure DeleteTable;
+
+    procedure OpenTransaction;
+    procedure CreateTableInTransaction;
+    procedure DeleteTableInTransaction;
+    procedure CloseTableInTransaction;
+    procedure CloseTransaction;
+  end;
+
+implementation
+var
+  aTable : TTable;
+  aTransaction : TComponent;
+
+procedure TSubTable.DefineFields(aDataSet: TDataSet);
+begin
+  with aDataSet as IBaseManageDB do
+    begin
+      TableName := 'TESTSUBTABLE';
+      if Assigned(ManagedFieldDefs) then
+        with ManagedFieldDefs do
+          begin
+            Add('TESTFIELD',ftString,25,True);
+          end;
+    end;
+end;
+procedure TTable.DefineFields(aDataSet: TDataSet);
+begin
+  with aDataSet as IBaseManageDB do
+    begin
+      TableName := 'TESTTABLE';
+      if Assigned(ManagedFieldDefs) then
+        with ManagedFieldDefs do
+          begin
+            Add('TESTFIELD',ftString,25,True);
+          end;
+    end;
+end;
+constructor TTable.Create(aOwner: TComponent; DM: TComponent;
+  aConnection: TComponent; aMasterdata: TDataSet);
+begin
+  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  FSubTable := TSubTable.Create(aOwner, DM, aConnection, DataSet);
+end;
+destructor TTable.Destroy;
+begin
+  FSubTable.Destroy;
+  inherited Destroy;
+end;
+procedure TableCreate.CheckForTable;
+begin
+  Check(Data.TableExists('TESTTABLE') = False,'Table already exists !');
+end;
+procedure TableCreate.CreateTable;
+begin
+  aTable := TTable.Create(nil,Data);
+  aTable.CreateTable;
+end;
+procedure TableCreate.OpenTable;
+begin
+  aTable.Open;
+  with aTable.DataSet do
+    begin
+      Append;
+      FieldByName('TESTFIELD').AsString := 'test';
+      Post;
+    end;
+end;
+procedure TableCreate.CloseTable;
+begin
+  aTable.Destroy;
+end;
+procedure TableCreate.DeleteTable;
+begin
+  AssertFalse(Data.TableExists('TESTSUBTABLE'));
+  AssertTrue(Data.DropTable('TESTTABLE'));
+  AssertFalse('TableExists',Data.TableExists('TESTTABLE'));
+end;
+procedure TableCreate.OpenTransaction;
+begin
+  aTransaction := Data.GetNewConnection;
+  Data.StartTransaction(aTransaction,True);
+  AssertFalse('TableExists in Transaction',Data.TableExists('TESTTABLE',aTransaction));
+end;
+procedure TableCreate.CreateTableInTransaction;
+begin
+  aTable := TTable.Create(nil,Data,aTransaction);
+  aTable.CreateTable;
+  aTable.SubTable.CreateTable;
+end;
+procedure TableCreate.OpenTableInTransaction;
+begin
+  aTable.Select(0);
+  aTable.Open;
+  with aTable.DataSet do
+    begin
+      Append;
+      FieldByName('TESTFIELD').AsString := 'test';
+      Post;
+    end;
+end;
+procedure TableCreate.OpenSubTableInTransaction;
+begin
+  aTable.SubTable.Open;
+end;
+procedure TableCreate.CloseSubTableInTransaction;
+begin
+end;
+procedure TableCreate.CloseTableInTransaction;
+begin
+  aTable.Destroy;
+end;
+procedure TableCreate.CloseTransaction;
+begin
+  Data.Rollback(aTransaction);
+  aTransaction.Destroy;
+end;
+procedure TableCreate.DeleteTableInTransaction;
+begin
+  Data.DropTable('TESTSUBTABLE');
+  Data.DropTable('TESTTABLE');
+end;
+initialization
+  RegisterTest(TableCreate);
+end.
+

@@ -1,0 +1,13 @@
+
+Cuneiform for Linux 1.0.0
+Supported languages: eng ger fra rus swe spa ita ruseng ukr srp hrv pol dan por dut cze rum hun bul slo lav lit est tur.
+
+
+Cuneiform for Linux 1.0.0
+Supported formats:
+    html         HTML format
+    hocr         hOCR HTML format
+    native       Cuneiform 2000 format
+    rtf          RTF format
+    smarttext    plain text with TeX paragraphs
+    text         plain text

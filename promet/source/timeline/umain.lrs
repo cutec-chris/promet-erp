@@ -1,0 +1,28 @@
+{ This is an automatically generated lazarus resource file }
+
+LazarusResources.Add('TfMain','FORMDATA',[
+  'TPF0'#6'TfMain'#5'fMain'#4'Left'#3'f'#2#6'Height'#3#209#1#3'Top'#3'e'#1#5'Wi'
+  +'dth'#3'&'#2#7'Caption'#6#8'Timeline'#12'ClientHeight'#3#209#1#11'ClientWidt'
+  +'h'#3'&'#2#5'Color'#7#8'clWindow'#4'Menu'#7#8'MainMenu'#7'OnClose'#7#9'FormC'
+  +'lose'#6'OnShow'#7#8'FormShow'#8'Position'#7#14'poScreenCenter'#10'LCLVersio'
+  +'n'#6#3'1.1'#0#5'TMemo'#6'mEntry'#4'Left'#2#8#6'Height'#2'Z'#3'Top'#3'o'#1#5
+  +'Width'#3#22#2#5'Align'#7#8'alBottom'#20'BorderSpacing.Around'#2#8#8'TabOrde'
+  +'r'#2#0#0#0#6'TPanel'#6'Panel1'#4'Left'#3't'#1#6'Height'#3'g'#1#3'Top'#2#0#5
+  +'Width'#3#178#0#5'Align'#7#7'alRight'#10'BevelOuter'#7#6'bvNone'#8'TabOrder'
+  +#2#1#0#0#9'TSplitter'#9'Splitter1'#4'Left'#3'o'#1#6'Height'#3'g'#1#3'Top'#2#0
+  +#5'Width'#2#5#5'Align'#7#7'alRight'#12'ResizeAnchor'#7#7'akRight'#11'ResizeS'
+  +'tyle'#7#6'rsLine'#0#0#6'TPanel'#6'Panel2'#4'Left'#2#0#6'Height'#3'g'#1#3'To'
+  +'p'#2#0#5'Width'#3'o'#1#5'Align'#7#8'alClient'#10'BevelOuter'#7#6'bvNone'#8
+  +'TabOrder'#2#3#0#0#11'TActionList'#11'ActionList1'#4'left'#3#128#0#3'top'#2#8
+  +#0#7'TAction'#7'acLogin'#7'Caption'#6#8'Anmelden'#9'OnExecute'#7#14'acLoginE'
+  +'xecute'#0#0#7'TAction'#8'acLogout'#7'Caption'#6#8'Abmelden'#7'Enabled'#8#9
+  +'OnExecute'#7#15'acLogoutExecute'#0#0#0#9'TMainMenu'#8'MainMenu'#4'left'#3
+  +#192#0#3'top'#2#8#0#9'TMenuItem'#9'miMandant'#7'Caption'#6#7'Mandant'#0#9'TM'
+  +'enuItem'#9'MenuItem4'#6'Action'#7#7'acLogin'#7'OnClick'#7#14'acLoginExecute'
+  +#0#0#9'TMenuItem'#9'MenuItem3'#6'Action'#7#8'acLogout'#7'OnClick'#7#15'acLog'
+  +'outExecute'#0#0#0#9'TMenuItem'#9'miOptions'#7'Caption'#6#8'Optionen'#0#9'TM'
+  +'enuItem'#10'miLanguage'#7'Caption'#6#7'Sprache'#0#0#0#0#11'TDatasource'#11
+  +'ActiveUsers'#4'left'#3#248#0#3'top'#2#8#0#0#11'TDatasource'#8'Commands'#4'l'
+  +'eft'#3'('#1#3'top'#2#8#0#0#22'TSelectDirectoryDialog'#22'SelectDirectoryDia'
+  +'log1'#4'left'#3#128#0#3'top'#2'0'#0#0#0
+]);

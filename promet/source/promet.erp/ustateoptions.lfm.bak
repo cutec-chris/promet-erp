@@ -1,0 +1,55 @@
+inherited fStateOptions: TfStateOptions
+  Height = 492
+  Width = 550
+  ClientHeight = 492
+  ClientWidth = 550
+  TabOrder = 0
+  DesignLeft = 418
+  DesignTop = 178
+  object gStates: TDBGrid[0]
+    Left = 8
+    Height = 476
+    Top = 8
+    Width = 534
+    Align = alClient
+    BorderSpacing.Around = 8
+    Color = clWindow
+    Columns = <    
+      item
+        Title.Caption = 'Typ'
+        Width = 40
+        FieldName = 'TYPE'
+      end    
+      item
+        Title.Caption = 'Status'
+        Width = 50
+        FieldName = 'STATUS'
+      end    
+      item
+        Title.Caption = 'Name'
+        Width = 150
+        FieldName = 'STATUSNAME'
+      end    
+      item
+        Title.Caption = 'wandelbar in'
+        Width = 180
+        FieldName = 'DERIVATIVE'
+      end    
+      item
+        ButtonStyle = cbsCheckboxColumn
+        Title.Caption = 'Aktiv'
+        Width = 50
+        ValueChecked = 'Y'
+        ValueUnchecked = 'N'
+        FieldName = 'ACTIVE'
+      end>
+    DataSource = StatesDS
+    Scrollbars = ssAutoBoth
+    TabOrder = 0
+    TitleStyle = tsNative
+  end
+  object StatesDS: TDatasource[1]
+    left = 444
+    top = 412
+  end
+end

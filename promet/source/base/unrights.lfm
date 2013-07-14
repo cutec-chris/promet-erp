@@ -1,0 +1,121 @@
+object fNRights: TfNRights
+  Left = 518
+  Height = 246
+  Top = 314
+  Width = 362
+  Caption = 'Rechte'
+  ClientHeight = 246
+  ClientWidth = 362
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  LCLVersion = '1.1'
+  object Label1: TLabel
+    Left = 8
+    Height = 17
+    Top = 24
+    Width = 60
+    Caption = 'Benutzer'
+    ParentColor = False
+  end
+  object ButtonPanel1: TButtonPanel
+    Left = 6
+    Height = 37
+    Top = 203
+    Width = 350
+    OKButton.Name = 'OKButton'
+    OKButton.DefaultCaption = True
+    HelpButton.Name = 'HelpButton'
+    HelpButton.DefaultCaption = True
+    HelpButton.Enabled = False
+    CloseButton.Name = 'CloseButton'
+    CloseButton.DefaultCaption = True
+    CloseButton.Enabled = False
+    CancelButton.Name = 'CancelButton'
+    CancelButton.DefaultCaption = True
+    TabOrder = 0
+    ShowButtons = [pbOK, pbCancel]
+  end
+  object cbUser: TComboBox
+    Left = 85
+    Height = 29
+    Top = 78
+    Width = 100
+    ItemHeight = 0
+    OnSelect = cbUserSelect
+    Sorted = True
+    TabOrder = 1
+    Text = 'cbUser'
+    Visible = False
+  end
+  object cbRight: TComboBox
+    Left = 231
+    Height = 29
+    Top = 78
+    Width = 100
+    ItemHeight = 0
+    Items.Strings = (
+      'keins'
+      'lesen'
+      'lesen/schreiben'
+      'löschen'
+      'Rechte ändern'
+    )
+    OnSelect = cbRightSelect
+    TabOrder = 2
+    Text = 'cbRight'
+    Visible = False
+  end
+  object dnStandart: TDBNavigator
+    Left = 231
+    Height = 24
+    Top = 8
+    Width = 125
+    Anchors = [akTop, akRight]
+    BevelOuter = bvNone
+    ChildSizing.EnlargeHorizontal = crsScaleChilds
+    ChildSizing.EnlargeVertical = crsScaleChilds
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 100
+    ClientHeight = 24
+    ClientWidth = 125
+    DataSource = Permissions
+    Options = []
+    TabOrder = 3
+    VisibleButtons = [nbInsert, nbDelete, nbPost, nbCancel, nbRefresh]
+  end
+  object dgRights: TExtDBGrid
+    Left = 8
+    Height = 160
+    Top = 40
+    Width = 348
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Color = clWindow
+    Columns = <    
+      item
+        ButtonStyle = cbsPickList
+        Title.Caption = 'USER'
+        Width = 220
+        FieldName = 'USER'
+      end    
+      item
+        Title.Caption = 'RIGHT'
+        Width = 90
+        FieldName = 'RIGHT'
+      end>
+    DataSource = Permissions
+    DefaultRowHeight = 24
+    Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+    TabOrder = 4
+    TitleStyle = tsNative
+    OnDrawColumnCell = dgRightsDrawColumnCell
+    OnSelectEditor = dgRightsSelectEditor
+    WantReturns = False
+    CachedEditing = True
+  end
+  object Permissions: TDatasource
+    left = 40
+    top = 112
+  end
+end

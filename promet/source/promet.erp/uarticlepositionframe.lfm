@@ -1,0 +1,43 @@
+object fArticlePositionFrame: TfArticlePositionFrame
+  Left = 0
+  Height = 240
+  Top = 0
+  Width = 446
+  ClientHeight = 240
+  ClientWidth = 446
+  TabOrder = 0
+  DesignLeft = 310
+  DesignTop = 164
+  object Panel1: TPanel
+    Left = 0
+    Height = 38
+    Top = 0
+    Width = 446
+    Align = alTop
+    BevelOuter = bvNone
+    Caption = 'Panel1'
+    ClientHeight = 38
+    ClientWidth = 446
+    TabOrder = 0
+    object lType: TLabel
+      Left = 8
+      Height = 17
+      Top = 8
+      Width = 24
+      Caption = 'Typ'
+      ParentColor = False
+    end
+    object cbPLType: TExtDBCombobox
+      Left = 40
+      Height = 28
+      Top = 4
+      Width = 368
+      Anchors = [akTop, akLeft, akRight]
+      DataField = 'PTYPE'
+      ItemHeight = 0
+      MaxLength = 0
+      Sorted = True
+      TabOrder = 0
+    end
+  end
+end

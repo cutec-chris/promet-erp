@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=Wizardmandant
+Comment=Mandant Wizard for promet-ERP
+Exec=promet-erp-wizardmandant
+Terminal=false
+Type=Application
+Icon=promet-erp.png
+Categories=Application;Office;
+GenericName[de_DE]=

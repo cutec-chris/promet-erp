@@ -1,0 +1,4 @@
+NAME;QUERRY;STATFIELD;STATNFIELD;CHARTTYPE;
+"Rechnungen nach Monat";"STATISTICS_QUERRY0.dat";"";"";"";
+"Reparaturen nach Monat";"STATISTICS_QUERRY1.dat";"";"";"";
+"offene Aufträge nach Monat";"STATISTICS_QUERRY2.dat";"";"";

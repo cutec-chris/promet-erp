@@ -1,0 +1,57 @@
+object fMain: TfMain
+  Left = 340
+  Height = 714
+  Top = 106
+  Width = 993
+  Caption = 'Projektmanagement'
+  ClientHeight = 714
+  ClientWidth = 993
+  Color = clWindow
+  Menu = MainMenu
+  OnClose = FormClose
+  OnShow = FormShow
+  Position = poScreenCenter
+  LCLVersion = '0.9.31'
+  object Splitter1: TSplitter
+    Left = 988
+    Height = 714
+    Top = 0
+    Width = 5
+    Align = alRight
+    ResizeAnchor = akRight
+  end
+  object ActionList1: TActionList
+    left = 16
+    top = 120
+    object acLogin: TAction
+      Caption = 'Anmelden'
+      OnExecute = acLoginExecute
+    end
+    object acLogout: TAction
+      Caption = 'Abmelden'
+      Enabled = False
+      OnExecute = acLogoutExecute
+    end
+  end
+  object MainMenu: TMainMenu
+    left = 16
+    top = 72
+    object miMandant: TMenuItem
+      Caption = 'Mandant'
+      object MenuItem4: TMenuItem
+        Action = acLogin
+        OnClick = acLoginExecute
+      end
+      object MenuItem3: TMenuItem
+        Action = acLogout
+        OnClick = acLogoutExecute
+      end
+    end
+    object miOptions: TMenuItem
+      Caption = 'Optionen'
+      object miLanguage: TMenuItem
+        Caption = 'Sprache'
+      end
+    end
+  end
+end

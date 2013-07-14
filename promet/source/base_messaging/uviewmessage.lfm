@@ -1,0 +1,80 @@
+object fViewMessage: TfViewMessage
+  Left = 0
+  Height = 310
+  Top = 0
+  Width = 569
+  ClientHeight = 310
+  ClientWidth = 569
+  Color = clWindow
+  OnResize = FrameResize
+  ParentColor = False
+  TabOrder = 0
+  DesignLeft = 429
+  DesignTop = 260
+  object mContent: TMemo
+    Left = 0
+    Height = 310
+    Top = 0
+    Width = 569
+    Align = alClient
+    Font.Height = -12
+    Font.Name = 'Courier New'
+    Font.Pitch = fpFixed
+    Lines.Strings = (
+      'Memo1'
+    )
+    ParentFont = False
+    ReadOnly = True
+    ScrollBars = ssAutoBoth
+    TabOrder = 0
+    Visible = False
+  end
+  object ipHTMLContent: TIpHtmlPanel
+    Left = 0
+    Height = 310
+    Top = 0
+    Width = 569
+    Align = alClient
+    FixedTypeface = 'Courier New'
+    DefaultTypeFace = 'default'
+    DefaultFontSize = 12
+    FlagErrors = False
+    PopupMenu = pmCopy
+    PrintSettings.MarginLeft = 0.5
+    PrintSettings.MarginTop = 0.5
+    PrintSettings.MarginRight = 0.5
+    PrintSettings.MarginBottom = 0.5
+    TabOrder = 1
+    Visible = False
+    OnHotClick = ipHTMLContentHotClick
+  end
+  object iContent: TScrollBox
+    Left = 0
+    Height = 310
+    Top = 0
+    Width = 569
+    HorzScrollBar.Page = 567
+    VertScrollBar.Page = 308
+    Align = alClient
+    ClientHeight = 308
+    ClientWidth = 567
+    PopupMenu = pmCopy
+    TabOrder = 2
+    Visible = False
+    object iiContent: TImage
+      Left = 0
+      Height = 306
+      Top = 0
+      Width = 567
+      Align = alTop
+    end
+  end
+  object pmCopy: TPopupMenu
+    left = 24
+    top = 24
+    object moCopy: TMenuItem
+      Caption = 'In Zwischenablage kopieren'
+      OnClick = moCopyClick
+    end
+  end
+end

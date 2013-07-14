@@ -1,0 +1,13 @@
+Index: lcl/interfaces/win32/win32callback.inc
+===================================================================
+--- lcl/interfaces/win32/win32callback.inc	(revision 39268)
++++ lcl/interfaces/win32/win32callback.inc	(working copy)
+@@ -2547,7 +2547,7 @@
+         // we cannot tell for sure windows didn't want the key
+         // for WM_CHAR check WM_GETDLGCODE/DLGC_WANTCHARS
+         // winapi too inconsistent about return value
+-        if (lWinControl <> nil) and (PLMsg^.Result = 0) and (LMKey.CharCode<>0) then
++        if (lWinControl <> nil) and (PLMsg^.Result = 0) then
+           DeliverMessage(lWinControl, PLMsg^);
+ 
+         // handle Ctrl-A for edit controls

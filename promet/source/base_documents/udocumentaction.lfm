@@ -1,0 +1,178 @@
+object fDocumentAction: TfDocumentAction
+  Left = 407
+  Height = 374
+  Top = 210
+  Width = 387
+  ActiveControl = cbDontUseStarter
+  Caption = 'Dateiaktionen'
+  ClientHeight = 374
+  ClientWidth = 387
+  KeyPreview = True
+  OnKeyDown = FormKeyDown
+  Position = poMainFormCenter
+  LCLVersion = '1.1'
+  object lStandartActions: TLabel
+    Left = 6
+    Height = 17
+    Top = 216
+    Width = 123
+    Caption = 'Standard Aktionen'
+    ParentColor = False
+  end
+  object lActionCommand: TLabel
+    Left = 40
+    Height = 17
+    Top = 136
+    Width = 43
+    Caption = 'Befehl'
+    ParentColor = False
+  end
+  object dgStandartActions: TDBGrid
+    Left = 40
+    Height = 87
+    Top = 240
+    Width = 336
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    BorderStyle = bsNone
+    Color = clWindow
+    Columns = <    
+      item
+        Title.Caption = 'MIME'
+        Width = 100
+        FieldName = 'MIME'
+      end    
+      item
+        Title.Caption = 'DESC'
+        Width = 100
+        FieldName = 'DESC'
+      end    
+      item
+        Title.Caption = 'EXTENSIONS'
+        Width = 120
+        FieldName = 'EXTENSIONS'
+      end>
+    DataSource = MimeTypesDS
+    TabOrder = 0
+    TitleStyle = tsNative
+  end
+  object cbCheckoutCompleteDir: TDBCheckBox
+    Left = 16
+    Height = 24
+    Top = 26
+    Width = 263
+    AutoSize = True
+    Caption = 'komplettes Verzeichnis auschecken'
+    DataField = 'CODIR'
+    DataSource = DocumentActionDS
+    OnChange = cbCheckoutCompleteDirChange
+    TabOrder = 1
+    ValueChecked = 'Y'
+    ValueUnchecked = 'N'
+  end
+  object cbCheckInAlsoNewFiles: TDBCheckBox
+    Left = 16
+    Height = 24
+    Top = 48
+    Width = 224
+    AutoSize = True
+    Caption = 'auch neue Dateien einchekcen'
+    DataField = 'ADDFILES'
+    DataSource = DocumentActionDS
+    TabOrder = 2
+    ValueChecked = 'Y'
+    ValueUnchecked = 'N'
+  end
+  object rbUseSpecialAction: TRadioButton
+    Left = 16
+    Height = 24
+    Top = 88
+    Width = 193
+    Caption = 'Spezialaktion verwenden'
+    Checked = True
+    OnChange = rbUseSpecialActionChange
+    OnClick = rbUseSpecialActionClick
+    TabOrder = 3
+    TabStop = True
+  end
+  object rbUseStandardAction: TRadioButton
+    Left = 16
+    Height = 24
+    Top = 112
+    Width = 204
+    Caption = 'Standardaktion verwenden'
+    OnChange = rbUseSpecialActionChange
+    OnClick = rbUseStandardActionClick
+    TabOrder = 4
+  end
+  object mActionCommand: TDBMemo
+    Left = 40
+    Height = 58
+    Top = 152
+    Width = 336
+    Anchors = [akTop, akLeft, akRight]
+    DataField = 'ACTIONCMD'
+    DataSource = DocumentActionDS
+    TabOrder = 5
+    WordWrap = False
+  end
+  object cbDontUseStarter: TDBCheckBox
+    Left = 16
+    Height = 18
+    Top = 4
+    Width = 215
+    AllowGrayed = True
+    Caption = 'Startprogramm nicht benutzen'
+    DataField = 'USESTARTER'
+    DataSource = DocumentActionDS
+    TabOrder = 6
+    ValueChecked = 'Y'
+    ValueUnchecked = 'N'
+  end
+  object ButtonPanel1: TButtonPanel
+    Left = 6
+    Height = 37
+    Top = 331
+    Width = 375
+    OKButton.Name = 'OKButton'
+    OKButton.DefaultCaption = True
+    HelpButton.Name = 'HelpButton'
+    HelpButton.DefaultCaption = True
+    HelpButton.Enabled = False
+    CloseButton.Name = 'CloseButton'
+    CloseButton.DefaultCaption = True
+    CloseButton.Enabled = False
+    CancelButton.Name = 'CancelButton'
+    CancelButton.DefaultCaption = True
+    CancelButton.Enabled = False
+    TabOrder = 7
+    ShowButtons = [pbOK]
+  end
+  object DBNavigator1: TDBNavigator
+    Left = 6
+    Height = 56
+    Top = 264
+    Width = 24
+    BevelOuter = bvNone
+    ChildSizing.EnlargeHorizontal = crsScaleChilds
+    ChildSizing.EnlargeVertical = crsScaleChilds
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclTopToBottomThenLeftToRight
+    ChildSizing.ControlsPerLine = 100
+    ClientHeight = 56
+    ClientWidth = 24
+    DataSource = MimeTypesDS
+    Direction = nbdVertical
+    Options = []
+    TabOrder = 8
+    VisibleButtons = [nbDelete, nbPost, nbRefresh]
+  end
+  object DocumentActionDS: TDatasource
+    left = 309
+    top = 25
+  end
+  object MimeTypesDS: TDatasource
+    left = 309
+    top = 80
+  end
+end

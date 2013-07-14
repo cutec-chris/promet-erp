@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <Package Version="4">
+    <Name Value="projectmanagement"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <SearchPaths>
+        <OtherUnitFiles Value="../base"/>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+      </SearchPaths>
+      <Other>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
+    </CompilerOptions>
+    <Files Count="5">
+      <Item1>
+        <Filename Value="uprojectframe.lfm"/>
+        <Type Value="LFM"/>
+      </Item1>
+      <Item2>
+        <Filename Value="uprojectframe.pas"/>
+        <UnitName Value="uProjectFrame"/>
+      </Item2>
+      <Item3>
+        <Filename Value="uprojectoverview.pas"/>
+        <UnitName Value="uprojectoverview"/>
+      </Item3>
+      <Item4>
+        <Filename Value="uminuteframe.pas"/>
+        <UnitName Value="uminuteframe"/>
+      </Item4>
+      <Item5>
+        <Filename Value="uganttview.pas"/>
+        <UnitName Value="uganttview"/>
+      </Item5>
+    </Files>
+    <Type Value="RunAndDesignTime"/>
+    <RequiredPkgs Count="5">
+      <Item1>
+        <PackageName Value="pProjectbase"/>
+        <DefaultFilename Value="../base_pm/pprojectbase.lpk"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="general"/>
+        <DefaultFilename Value="../../../general/general.lpk"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="pVisualPrometApp"/>
+        <DefaultFilename Value="../base/pvisualprometapp.lpk"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="lcl"/>
+      </Item4>
+      <Item5>
+        <PackageName Value="FCL"/>
+      </Item5>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

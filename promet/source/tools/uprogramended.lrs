@@ -1,0 +1,19 @@
+LazarusResources.Add('TfProgramEnded','FORMDATA',[
+  'TPF0'#14'TfProgramEnded'#13'fProgramEnded'#4'Left'#3#131#1#6'Height'#3#139#0
+  +#3'Top'#3'>'#1#5'Width'#3#241#1#18'HorzScrollBar.Page'#3#165#1#18'VertScroll'
+  +'Bar.Page'#3#138#0#7'Caption'#6#16'Programm beendet'#12'ClientHeight'#3#139#0
+  +#11'ClientWidth'#3#241#1#8'OnCreate'#7#10'FormCreate'#10'LCLVersion'#6#6'0.9'
+  +'.31'#0#6'TLabel'#8'lMessage'#4'Left'#2#4#6'Height'#2'j'#3'Top'#2#4#5'Width'
+  +#3'w'#1#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#8'akBottom'#0#8'AutoSize'
+  +#8#7'Caption'#6#8'lMessage'#11'ParentColor'#8#8'WordWrap'#9#0#0#9'TCheckBox'
+  +#25'cbDontShowthisDialogAgain'#4'Left'#2#4#6'Height'#2#24#3'Top'#2'q'#5'Widt'
+  +'h'#3'o'#1#7'Anchors'#11#6'akLeft'#8'akBottom'#0#7'Caption'#6'3diese Meldung'
+  +' f'#195#188'r diesen Typ nicht wieder anzeigen'#8'TabOrder'#2#0#0#0#12'TBut'
+  +'tonPanel'#9'bpButtons'#4'Left'#3#152#1#6'Height'#2#127#3'Top'#2#6#5'Width'#2
+  +'S'#5'Align'#7#7'alRight'#13'OKButton.Name'#6#8'OKButton'#16'OKButton.Captio'
+  +'n'#6#3'&Ok'#15'HelpButton.Name'#6#10'HelpButton'#18'HelpButton.Caption'#6#6
+  +'&Hilfe'#16'CloseButton.Name'#6#11'CloseButton'#19'CloseButton.Caption'#6#11
+  +'&Schlie'#195#159'en'#17'CancelButton.Name'#6#12'CancelButton'#20'CancelButt'
+  +'on.Caption'#6#9'Abbrechen'#8'TabOrder'#2#1#11'ShowButtons'#11#4'pbOK'#0#0#0
+  +#0
+]);

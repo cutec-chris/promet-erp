@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectSession>
+    <Version Value="9"/>
+    <BuildModes Active="Default"/>
+    <Units Count="2">
+      <Unit0>
+        <Filename Value="processdaemon.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="processdaemon"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="13" Y="8"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="../../../../fpc/2.6_fixes/rtl/inc/cmem.pp"/>
+        <UnitName Value="cmem"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit1>
+    </Units>
+    <General>
+      <ActiveWindowIndexAtStart Value="0"/>
+    </General>
+    <JumpHistory Count="2" HistoryIndex="1">
+      <Position1>
+        <Filename Value="processdaemon.lpr"/>
+        <Caret Line="197" Column="5" TopLine="161"/>
+      </Position1>
+      <Position2>
+        <Filename Value="processdaemon.lpr"/>
+        <Caret Line="8" Column="13" TopLine="1"/>
+      </Position2>
+    </JumpHistory>
+  </ProjectSession>
+  <EditorMacros Count="0"/>
+</CONFIG>
