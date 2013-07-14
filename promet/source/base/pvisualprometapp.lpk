@@ -337,7 +337,7 @@
       </Item80>
       <Item81>
         <Filename Value="uquickhelpframe.pas"/>
-        <UnitName Value="uquickhelpframe"/>
+        <UnitName Value="uQuickHelpFrame"/>
       </Item81>
     </Files>
     <Type Value="RunAndDesignTime"/>
@@ -358,6 +358,7 @@
       </Item4>
       <Item5>
         <PackageName Value="ZVDateTimeCtrls"/>
+        <DefaultFilename Value="..\components\ZVDateTimeCtrls\zvdatetimectrls.lpk"/>
       </Item5>
       <Item6>
         <PackageName Value="SynEdit"/>
