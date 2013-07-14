@@ -261,6 +261,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="uBaseVisualControls"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -313,7 +314,6 @@
         <TopLine Value="124"/>
         <CursorPos X="21" Y="168"/>
         <UsageCount Value="59"/>
-        <LoadedDesigner Value="True"/>
       </Unit7>
       <Unit8>
         <Filename Value="uaddressframe.pas"/>
@@ -809,7 +809,6 @@
         <TopLine Value="248"/>
         <CursorPos X="1" Y="264"/>
         <UsageCount Value="38"/>
-        <LoadedDesigner Value="True"/>
       </Unit52>
       <Unit53>
         <Filename Value="uarticletext.pas"/>
@@ -920,7 +919,6 @@
         <TopLine Value="99"/>
         <CursorPos X="55" Y="126"/>
         <UsageCount Value="103"/>
-        <LoadedDesigner Value="True"/>
       </Unit63>
       <Unit64>
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
@@ -963,7 +961,6 @@
         <TopLine Value="1089"/>
         <CursorPos X="1" Y="1111"/>
         <UsageCount Value="108"/>
-        <LoadedDesigner Value="True"/>
       </Unit67>
       <Unit68>
         <Filename Value="../base/dbintfs/utask.pas"/>
@@ -1061,7 +1058,6 @@
         <TopLine Value="309"/>
         <CursorPos X="1" Y="329"/>
         <UsageCount Value="165"/>
-        <LoadedDesigner Value="True"/>
       </Unit76>
       <Unit77>
         <Filename Value="../base/dbintfs/uprocessmanager.pas"/>
@@ -1284,7 +1280,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="umanagedocframe"/>
-        <IsVisibleTab Value="True"/>
         <WindowIndex Value="0"/>
         <TopLine Value="357"/>
         <CursorPos X="114" Y="362"/>
