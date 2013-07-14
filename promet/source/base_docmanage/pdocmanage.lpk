@@ -25,7 +25,7 @@
       </Item2>
       <Item3>
         <Filename Value="uimportimages.pas"/>
-        <UnitName Value="uimportimages"/>
+        <UnitName Value="uImportImages"/>
       </Item3>
     </Files>
     <Type Value="RunAndDesignTime"/>
