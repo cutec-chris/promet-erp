@@ -1,0 +1,286 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectOptions>
+    <PathDelim Value="\"/>
+    <Version Value="7"/>
+    <General>
+      <MainUnit Value="0"/>
+      <TargetFileExt Value=".exe"/>
+      <Title Value="fpsgrid"/>
+      <UseXPManifest Value="True"/>
+      <Icon Value="0"/>
+      <ActiveWindowIndexAtStart Value="0"/>
+    </General>
+    <VersionInfo>
+      <Language Value=""/>
+      <CharSet Value=""/>
+      <StringTable Comments="" CompanyName="" FileDescription="" FileVersion="0.0.0.0" InternalName="" LegalCopyright="" LegalTrademarks="" OriginalFilename="" ProductName="" ProductVersion=""/>
+    </VersionInfo>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IgnoreBinaries Value="False"/>
+      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
+      <ExcludeFileFilter Value="*.(bak|ppu|ppw|o|so);*~;backup"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+        <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
+      </local>
+    </RunParams>
+    <RequiredPackages Count="2">
+      <Item1>
+        <PackageName Value="laz_fpspreadsheet_visual"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="LCL"/>
+      </Item2>
+    </RequiredPackages>
+    <Units Count="9">
+      <Unit0>
+        <Filename Value="fpsgrid.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="fpsgrid"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="16" Y="9"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="mainform.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Form1"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="mainform"/>
+        <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="25"/>
+        <CursorPos X="20" Y="38"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="..\..\fpspreadsheet.pas"/>
+        <UnitName Value="fpspreadsheet"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="108"/>
+        <CursorPos X="15" Y="120"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="..\..\fpspreadsheetgrid.pas"/>
+        <UnitName Value="fpspreadsheetgrid"/>
+        <EditorIndex Value="4"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="129"/>
+        <CursorPos X="14" Y="142"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="..\..\fpolestorage.pas"/>
+        <UnitName Value="fpolestorage"/>
+        <EditorIndex Value="6"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="25"/>
+        <CursorPos X="4" Y="44"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="..\..\..\..\..\lazarus27\fpc\2.2.4\source\packages\winunits-base\src\activex.pp"/>
+        <UnitName Value="ActiveX"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="49"/>
+        <CursorPos X="10" Y="24"/>
+        <UsageCount Value="10"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="..\..\..\..\..\lazarus27\fpc\2.2.4\source\packages\fcl-base\src\avl_tree.pp"/>
+        <UnitName Value="AVL_Tree"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="37"/>
+        <CursorPos X="14" Y="83"/>
+        <UsageCount Value="10"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="..\..\..\..\..\lazarus\lcl\grids.pas"/>
+        <UnitName Value="Grids"/>
+        <EditorIndex Value="5"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1517"/>
+        <CursorPos X="28" Y="1534"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="..\..\..\..\..\lazarus\lcl\include\customform.inc"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2021"/>
+        <CursorPos X="1" Y="2041"/>
+        <SyntaxHighlighter Value="FreePascal"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Text"/>
+      </Unit8>
+    </Units>
+    <JumpHistory Count="30" HistoryIndex="29">
+      <Position1>
+        <Filename Value="..\..\fpspreadsheet.pas"/>
+        <Caret Line="880" Column="21" TopLine="861"/>
+      </Position1>
+      <Position2>
+        <Filename Value="..\..\fpspreadsheet.pas"/>
+        <Caret Line="883" Column="32" TopLine="861"/>
+      </Position2>
+      <Position3>
+        <Filename Value="..\..\fpspreadsheet.pas"/>
+        <Caret Line="885" Column="75" TopLine="861"/>
+      </Position3>
+      <Position4>
+        <Filename Value="..\..\fpspreadsheet.pas"/>
+        <Caret Line="889" Column="20" TopLine="861"/>
+      </Position4>
+      <Position5>
+        <Filename Value="..\..\fpspreadsheet.pas"/>
+        <Caret Line="352" Column="14" TopLine="338"/>
+      </Position5>
+      <Position6>
+        <Filename Value="..\..\fpspreadsheet.pas"/>
+        <Caret Line="101" Column="15" TopLine="82"/>
+      </Position6>
+      <Position7>
+        <Filename Value="mainform.pas"/>
+        <Caret Line="34" Column="21" TopLine="12"/>
+      </Position7>
+      <Position8>
+        <Filename Value="..\..\fpspreadsheet.pas"/>
+        <Caret Line="99" Column="3" TopLine="83"/>
+      </Position8>
+      <Position9>
+        <Filename Value="..\..\fpspreadsheet.pas"/>
+        <Caret Line="352" Column="23" TopLine="333"/>
+      </Position9>
+      <Position10>
+        <Filename Value="mainform.pas"/>
+        <Caret Line="37" Column="27" TopLine="12"/>
+      </Position10>
+      <Position11>
+        <Filename Value="mainform.pas"/>
+        <Caret Line="36" Column="1" TopLine="12"/>
+      </Position11>
+      <Position12>
+        <Filename Value="mainform.pas"/>
+        <Caret Line="37" Column="1" TopLine="12"/>
+      </Position12>
+      <Position13>
+        <Filename Value="mainform.pas"/>
+        <Caret Line="38" Column="1" TopLine="12"/>
+      </Position13>
+      <Position14>
+        <Filename Value="mainform.pas"/>
+        <Caret Line="39" Column="1" TopLine="12"/>
+      </Position14>
+      <Position15>
+        <Filename Value="..\..\fpspreadsheetgrid.pas"/>
+        <Caret Line="46" Column="1" TopLine="27"/>
+      </Position15>
+      <Position16>
+        <Filename Value="..\..\fpspreadsheetgrid.pas"/>
+        <Caret Line="48" Column="1" TopLine="29"/>
+      </Position16>
+      <Position17>
+        <Filename Value="mainform.pas"/>
+        <Caret Line="38" Column="3" TopLine="12"/>
+      </Position17>
+      <Position18>
+        <Filename Value="..\..\fpspreadsheetgrid.pas"/>
+        <Caret Line="48" Column="19" TopLine="35"/>
+      </Position18>
+      <Position19>
+        <Filename Value="..\..\fpspreadsheetgrid.pas"/>
+        <Caret Line="15" Column="41" TopLine="4"/>
+      </Position19>
+      <Position20>
+        <Filename Value="..\..\..\..\..\lazarus\lcl\grids.pas"/>
+        <Caret Line="1444" Column="33" TopLine="1425"/>
+      </Position20>
+      <Position21>
+        <Filename Value="..\..\fpspreadsheetgrid.pas"/>
+        <Caret Line="25" Column="19" TopLine="4"/>
+      </Position21>
+      <Position22>
+        <Filename Value="..\..\fpspreadsheetgrid.pas"/>
+        <Caret Line="17" Column="41" TopLine="7"/>
+      </Position22>
+      <Position23>
+        <Filename Value="mainform.pas"/>
+        <Caret Line="38" Column="20" TopLine="12"/>
+      </Position23>
+      <Position24>
+        <Filename Value="..\..\fpspreadsheetgrid.pas"/>
+        <Caret Line="29" Column="17" TopLine="7"/>
+      </Position24>
+      <Position25>
+        <Filename Value="..\..\fpspreadsheetgrid.pas"/>
+        <Caret Line="199" Column="18" TopLine="173"/>
+      </Position25>
+      <Position26>
+        <Filename Value="fpsgrid.lpr"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position26>
+      <Position27>
+        <Filename Value="fpsgrid.lpr"/>
+        <Caret Line="16" Column="4" TopLine="1"/>
+      </Position27>
+      <Position28>
+        <Filename Value="mainform.pas"/>
+        <Caret Line="34" Column="22" TopLine="25"/>
+      </Position28>
+      <Position29>
+        <Filename Value="mainform.pas"/>
+        <Caret Line="38" Column="20" TopLine="25"/>
+      </Position29>
+      <Position30>
+        <Filename Value="..\..\fpspreadsheet.pas"/>
+        <Caret Line="120" Column="15" TopLine="108"/>
+      </Position30>
+    </JumpHistory>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="8"/>
+    <PathDelim Value="\"/>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir)\"/>
+    </SearchPaths>
+    <Linking>
+      <Options>
+        <Win32>
+          <GraphicApplication Value="True"/>
+        </Win32>
+      </Options>
+    </Linking>
+    <Other>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
+  </CompilerOptions>
+  <Debugging>
+    <Exceptions Count="3">
+      <Item1>
+        <Name Value="EAbort"/>
+      </Item1>
+      <Item2>
+        <Name Value="ECodetoolError"/>
+      </Item2>
+      <Item3>
+        <Name Value="EFOpenError"/>
+      </Item3>
+    </Exceptions>
+  </Debugging>
+</CONFIG>

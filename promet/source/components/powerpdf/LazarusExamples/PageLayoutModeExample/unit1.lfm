@@ -1,0 +1,630 @@
+object Form1: TForm1
+  Caption = 'Form1'
+  ClientHeight = 188
+  ClientWidth = 299
+  Font.CharSet = ANSI_CHARSET
+  Font.Height = -12
+  Font.Name = 'Arial'
+  PixelsPerInch = 96
+  HorzScrollBar.Page = 298
+  VertScrollBar.Page = 187
+  Left = 200
+  Height = 188
+  Top = 107
+  Width = 299
+  object PRPage1: TPRPage
+    MarginTop = 20
+    MarginLeft = 5
+    MarginRight = 5
+    MarginBottom = 20
+    Visible = False
+    Left = 12
+    Height = 600
+    Top = 157
+    Width = 600
+    object PRLayoutPanel1: TPRLayoutPanel
+      Align = alClient
+      Left = 6
+      Height = 558
+      Top = 21
+      Width = 588
+      object PRLabel1: TPRLabel
+        Caption = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        FontName = fnArial
+        FontSize = 30
+        CharSpace = 1
+        Left = 22
+        Height = 30
+        Width = 557
+      end
+      object PRLabel2: TPRLabel
+        Caption = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        FontColor = 2228224
+        FontName = fnArial
+        FontSize = 30
+        CharSpace = 1
+        Left = 23
+        Height = 30
+        Top = 48
+        Width = 557
+      end
+      object PRLabel3: TPRLabel
+        Caption = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        FontColor = 3342336
+        FontName = fnArial
+        FontSize = 30
+        CharSpace = 1
+        Left = 23
+        Height = 30
+        Top = 96
+        Width = 557
+      end
+      object PRLabel4: TPRLabel
+        Caption = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        FontColor = 4456448
+        FontName = fnArial
+        FontSize = 30
+        CharSpace = 1
+        Left = 23
+        Height = 30
+        Top = 144
+        Width = 557
+      end
+      object PRLabel5: TPRLabel
+        Caption = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        FontColor = 5570560
+        FontName = fnArial
+        FontSize = 30
+        CharSpace = 1
+        Left = 23
+        Height = 30
+        Top = 192
+        Width = 557
+      end
+      object PRLabel6: TPRLabel
+        Caption = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        FontColor = 6684672
+        FontName = fnArial
+        FontSize = 30
+        CharSpace = 1
+        Left = 23
+        Height = 30
+        Top = 240
+        Width = 557
+      end
+      object PRLabel7: TPRLabel
+        Caption = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        FontColor = 7798784
+        FontName = fnArial
+        FontSize = 30
+        CharSpace = 1
+        Left = 23
+        Height = 30
+        Top = 288
+        Width = 557
+      end
+      object PRLabel8: TPRLabel
+        Caption = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        FontColor = 8912896
+        FontName = fnArial
+        FontSize = 30
+        CharSpace = 1
+        Left = 23
+        Height = 30
+        Top = 336
+        Width = 557
+      end
+      object PRLabel9: TPRLabel
+        Caption = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        FontColor = 10027008
+        FontName = fnArial
+        FontSize = 30
+        CharSpace = 1
+        Left = 23
+        Height = 30
+        Top = 384
+        Width = 557
+      end
+      object PRLabel10: TPRLabel
+        Caption = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        FontColor = 11141120
+        FontName = fnArial
+        FontSize = 30
+        CharSpace = 1
+        Left = 23
+        Height = 30
+        Top = 432
+        Width = 557
+      end
+      object PRLabel11: TPRLabel
+        Caption = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        FontColor = 13369344
+        FontName = fnArial
+        FontSize = 30
+        CharSpace = 1
+        Left = 23
+        Height = 30
+        Top = 480
+        Width = 557
+      end
+      object PRLabel12: TPRLabel
+        Caption = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        FontColor = clBlue
+        FontName = fnArial
+        FontSize = 30
+        CharSpace = 1
+        Left = 25
+        Height = 30
+        Top = 528
+        Width = 557
+      end
+      object PRLabel13: TPRLabel
+        Caption = '1'
+        FontName = fnArial
+        FontSize = 8
+        Left = 6
+        Height = 30
+        Top = 12
+        Width = 13
+      end
+      object PRLabel14: TPRLabel
+        Caption = '2'
+        FontName = fnArial
+        FontSize = 8
+        Left = 6
+        Height = 30
+        Top = 50
+        Width = 13
+      end
+      object PRLabel15: TPRLabel
+        Caption = '3'
+        FontName = fnArial
+        FontSize = 8
+        Left = 6
+        Height = 30
+        Top = 88
+        Width = 13
+      end
+      object PRLabel16: TPRLabel
+        Caption = '4'
+        FontName = fnArial
+        FontSize = 8
+        Left = 6
+        Height = 30
+        Top = 126
+        Width = 13
+      end
+      object PRLabel17: TPRLabel
+        Caption = '5'
+        FontName = fnArial
+        FontSize = 8
+        Left = 6
+        Height = 30
+        Top = 163
+        Width = 13
+      end
+      object PRLabel18: TPRLabel
+        Caption = '6'
+        FontName = fnArial
+        FontSize = 8
+        Left = 4
+        Height = 33
+        Top = 201
+        Width = 13
+      end
+      object PRLabel19: TPRLabel
+        Caption = '7'
+        FontName = fnArial
+        FontSize = 8
+        Left = 4
+        Height = 33
+        Top = 239
+        Width = 13
+      end
+      object PRLabel20: TPRLabel
+        Caption = '8'
+        FontName = fnArial
+        FontSize = 8
+        Left = 4
+        Height = 33
+        Top = 277
+        Width = 13
+      end
+      object PRLabel21: TPRLabel
+        Caption = '9'
+        FontName = fnArial
+        FontSize = 8
+        Left = 4
+        Height = 33
+        Top = 315
+        Width = 13
+      end
+      object PRLabel22: TPRLabel
+        Caption = '10'
+        FontName = fnArial
+        FontSize = 8
+        Left = 2
+        Height = 33
+        Top = 353
+        Width = 15
+      end
+      object PRLabel23: TPRLabel
+        Caption = '11'
+        FontName = fnArial
+        FontSize = 8
+        Left = 2
+        Height = 33
+        Top = 391
+        Width = 15
+      end
+      object PRLabel24: TPRLabel
+        Caption = '12'
+        FontName = fnArial
+        FontSize = 8
+        Left = 2
+        Height = 33
+        Top = 428
+        Width = 15
+      end
+      object PRLabel25: TPRLabel
+        Caption = '13'
+        FontName = fnArial
+        FontSize = 8
+        Left = 2
+        Height = 33
+        Top = 466
+        Width = 15
+      end
+      object PRLabel26: TPRLabel
+        Caption = '14'
+        FontName = fnArial
+        FontSize = 8
+        Left = 2
+        Height = 33
+        Top = 504
+        Width = 15
+      end
+      object PRLabel27: TPRLabel
+        Caption = '15'
+        FontName = fnArial
+        FontSize = 8
+        Left = 2
+        Height = 17
+        Top = 542
+        Width = 15
+      end
+    end
+  end
+  object Button1: TButton
+    BorderSpacing.OnChange = nil
+    Caption = 'CreatePdf'
+    OnClick = Button1Click
+    TabOrder = 1
+    Left = 8
+    Height = 25
+    Top = 8
+    Width = 75
+  end
+  object RadioGroup1: TRadioGroup
+    BorderSpacing.OnChange = nil
+    Caption = 'PageLayout'
+    ItemIndex = 0
+    Items.Strings = (
+      'plSinglePage'
+      'plOneColumn'
+      'plTwoColumnLeft'
+      'plTwoColumnRight'
+    )
+    ParentColor = True
+    Left = 8
+    Height = 103
+    Top = 42
+    Width = 123
+  end
+  object RadioGroup2: TRadioGroup
+    BorderSpacing.OnChange = nil
+    Caption = 'PageMode'
+    ItemIndex = 0
+    Items.Strings = (
+      'pmUseNone'
+      'pmUseOutlines'
+      'pmUseThumbs'
+      'pmFullScreen'
+    )
+    ParentColor = True
+    Left = 142
+    Height = 103
+    Top = 42
+    Width = 123
+  end
+  object PRPage2: TPRPage
+    MarginTop = 20
+    MarginLeft = 5
+    MarginRight = 5
+    MarginBottom = 20
+    Visible = False
+    Left = 30
+    Height = 600
+    Top = 172
+    Width = 600
+    object PRLayoutPanel2: TPRLayoutPanel
+      Align = alClient
+      Left = 6
+      Height = 558
+      Top = 21
+      Width = 588
+      object PRLabel28: TPRLabel
+        Caption = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        FontName = fnArial
+        FontSize = 30
+        CharSpace = 1
+        Left = 22
+        Height = 30
+        Width = 557
+      end
+      object PRLabel29: TPRLabel
+        Caption = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        FontColor = 34
+        FontName = fnArial
+        FontSize = 30
+        CharSpace = 1
+        Left = 23
+        Height = 30
+        Top = 48
+        Width = 557
+      end
+      object PRLabel30: TPRLabel
+        Caption = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        FontColor = 51
+        FontName = fnArial
+        FontSize = 30
+        CharSpace = 1
+        Left = 23
+        Height = 30
+        Top = 96
+        Width = 557
+      end
+      object PRLabel31: TPRLabel
+        Caption = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        FontColor = 68
+        FontName = fnArial
+        FontSize = 30
+        CharSpace = 1
+        Left = 23
+        Height = 30
+        Top = 144
+        Width = 557
+      end
+      object PRLabel32: TPRLabel
+        Caption = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        FontColor = 85
+        FontName = fnArial
+        FontSize = 30
+        CharSpace = 1
+        Left = 23
+        Height = 30
+        Top = 192
+        Width = 557
+      end
+      object PRLabel33: TPRLabel
+        Caption = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        FontColor = 102
+        FontName = fnArial
+        FontSize = 30
+        CharSpace = 1
+        Left = 23
+        Height = 30
+        Top = 240
+        Width = 557
+      end
+      object PRLabel34: TPRLabel
+        Caption = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        FontColor = 119
+        FontName = fnArial
+        FontSize = 30
+        CharSpace = 1
+        Left = 23
+        Height = 30
+        Top = 288
+        Width = 557
+      end
+      object PRLabel35: TPRLabel
+        Caption = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        FontColor = 136
+        FontName = fnArial
+        FontSize = 30
+        CharSpace = 1
+        Left = 23
+        Height = 30
+        Top = 336
+        Width = 557
+      end
+      object PRLabel36: TPRLabel
+        Caption = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        FontColor = 153
+        FontName = fnArial
+        FontSize = 30
+        CharSpace = 1
+        Left = 23
+        Height = 30
+        Top = 384
+        Width = 557
+      end
+      object PRLabel37: TPRLabel
+        Caption = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        FontColor = 170
+        FontName = fnArial
+        FontSize = 30
+        CharSpace = 1
+        Left = 23
+        Height = 30
+        Top = 432
+        Width = 557
+      end
+      object PRLabel38: TPRLabel
+        Caption = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        FontColor = 204
+        FontName = fnArial
+        FontSize = 30
+        CharSpace = 1
+        Left = 23
+        Height = 30
+        Top = 480
+        Width = 557
+      end
+      object PRLabel39: TPRLabel
+        Caption = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        FontColor = clRed
+        FontName = fnArial
+        FontSize = 30
+        CharSpace = 1
+        Left = 25
+        Height = 30
+        Top = 528
+        Width = 557
+      end
+      object PRLabel40: TPRLabel
+        Caption = '1'
+        FontName = fnArial
+        FontSize = 8
+        Left = 6
+        Height = 30
+        Top = 12
+        Width = 13
+      end
+      object PRLabel41: TPRLabel
+        Caption = '2'
+        FontName = fnArial
+        FontSize = 8
+        Left = 6
+        Height = 30
+        Top = 50
+        Width = 13
+      end
+      object PRLabel42: TPRLabel
+        Caption = '3'
+        FontName = fnArial
+        FontSize = 8
+        Left = 6
+        Height = 30
+        Top = 88
+        Width = 13
+      end
+      object PRLabel43: TPRLabel
+        Caption = '4'
+        FontName = fnArial
+        FontSize = 8
+        Left = 6
+        Height = 30
+        Top = 126
+        Width = 13
+      end
+      object PRLabel44: TPRLabel
+        Caption = '5'
+        FontName = fnArial
+        FontSize = 8
+        Left = 6
+        Height = 30
+        Top = 163
+        Width = 13
+      end
+      object PRLabel45: TPRLabel
+        Caption = '6'
+        FontName = fnArial
+        FontSize = 8
+        Left = 4
+        Height = 33
+        Top = 201
+        Width = 13
+      end
+      object PRLabel46: TPRLabel
+        Caption = '7'
+        FontName = fnArial
+        FontSize = 8
+        Left = 4
+        Height = 33
+        Top = 239
+        Width = 13
+      end
+      object PRLabel47: TPRLabel
+        Caption = '8'
+        FontName = fnArial
+        FontSize = 8
+        Left = 4
+        Height = 33
+        Top = 277
+        Width = 13
+      end
+      object PRLabel48: TPRLabel
+        Caption = '9'
+        FontName = fnArial
+        FontSize = 8
+        Left = 4
+        Height = 33
+        Top = 315
+        Width = 13
+      end
+      object PRLabel49: TPRLabel
+        Caption = '10'
+        FontName = fnArial
+        FontSize = 8
+        Left = 2
+        Height = 33
+        Top = 353
+        Width = 15
+      end
+      object PRLabel50: TPRLabel
+        Caption = '11'
+        FontName = fnArial
+        FontSize = 8
+        Left = 2
+        Height = 33
+        Top = 391
+        Width = 15
+      end
+      object PRLabel51: TPRLabel
+        Caption = '12'
+        FontName = fnArial
+        FontSize = 8
+        Left = 2
+        Height = 33
+        Top = 428
+        Width = 15
+      end
+      object PRLabel52: TPRLabel
+        Caption = '13'
+        FontName = fnArial
+        FontSize = 8
+        Left = 2
+        Height = 33
+        Top = 466
+        Width = 15
+      end
+      object PRLabel53: TPRLabel
+        Caption = '14'
+        FontName = fnArial
+        FontSize = 8
+        Left = 2
+        Height = 33
+        Top = 504
+        Width = 15
+      end
+      object PRLabel54: TPRLabel
+        Caption = '15'
+        FontName = fnArial
+        FontSize = 8
+        Left = 2
+        Height = 17
+        Top = 542
+        Width = 15
+      end
+    end
+  end
+  object PReport1: TPReport
+    FileName = 'default.pdf'
+    CreationDate = 37145.935954594897
+    PageLayout = plOneColumn
+    left = 96
+    top = 4
+  end
+end

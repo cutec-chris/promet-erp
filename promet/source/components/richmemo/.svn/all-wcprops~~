@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/lazarus-ccr/!svn/ver/1247/components/richmemo
+END
+wsrichmemo.pas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/lazarus-ccr/!svn/ver/1210/components/richmemo/wsrichmemo.pas
+END
+richmemopackage.pas
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/lazarus-ccr/!svn/ver/964/components/richmemo/richmemopackage.pas
+END
+richmemortf.pas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/lazarus-ccr/!svn/ver/1228/components/richmemo/richmemortf.pas
+END
+richmemopackage.lpk
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/lazarus-ccr/!svn/ver/1226/components/richmemo/richmemopackage.lpk
+END
+richmemo.pas
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/lazarus-ccr/!svn/ver/1226/components/richmemo/richmemo.pas
+END
+richmemoregister.pas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/lazarus-ccr/!svn/ver/820/components/richmemo/richmemoregister.pas
+END
+rtfparspre211.pp
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/lazarus-ccr/!svn/ver/1226/components/richmemo/rtfparspre211.pp
+END
+richmemofactory.pas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/lazarus-ccr/!svn/ver/1228/components/richmemo/richmemofactory.pas
+END
+rtfdata.inc
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/lazarus-ccr/!svn/ver/1226/components/richmemo/rtfdata.inc
+END
+richmemopackage.lrs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/lazarus-ccr/!svn/ver/820/components/richmemo/richmemopackage.lrs
+END

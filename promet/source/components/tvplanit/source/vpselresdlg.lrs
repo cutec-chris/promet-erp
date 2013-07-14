@@ -1,0 +1,25 @@
+{ Das ist eine automatisch erzeugte Lazarus-Ressourcendatei }
+
+LazarusResources.Add('TfrmSelectResource','FORMDATA',[
+  'TPF0'#18'TfrmSelectResource'#17'frmSelectResource'#4'Left'#3'/'#1#6'Height'#3
+  +#162#0#3'Top'#3#202#0#5'Width'#3#18#1#18'HorzScrollBar.Page'#3#17#1#18'VertS'
+  +'crollBar.Page'#3#161#0#7'Caption'#6#17'Select a Resource'#12'ClientHeight'#3
+  +#162#0#11'ClientWidth'#3#18#1#11'Font.Height'#2#245#9'Font.Name'#6#13'MS San'
+  +'s Serif'#8'Position'#7#15'poDesktopCenter'#0#6'TBevel'#6'Bevel1'#4'Left'#2#8
+  +#6'Height'#2'i'#3'Top'#2#8#5'Width'#3#1#1#0#0#6'TLabel'#17'lblSelectResource'
+  +#4'Left'#2#16#6'Height'#2#14#3'Top'#2#16#5'Width'#2'W'#7'Caption'#6#17'Selec'
+  +'t a Resource'#11'ParentColor'#8#0#0#16'TVpResourceCombo'#16'VpResourceCombo'
+  +'1'#4'Left'#2#16#6'Height'#2#21#3'Top'#2'('#5'Width'#3#217#0#5'Style'#7#14'c'
+  +'sDropDownList'#0#0#7'TButton'#5'btnOK'#4'Left'#2'p'#6'Height'#2#25#3'Top'#3
+  +#128#0#5'Width'#2'K'#7'Caption'#6#2'OK'#7'Default'#9#11'ModalResult'#2#1#8'T'
+  +'abOrder'#2#1#0#0#7'TButton'#9'btnCancel'#4'Left'#3#192#0#6'Height'#2#25#3'T'
+  +'op'#3#128#0#5'Width'#2'K'#6'Cancel'#9#7'Caption'#6#6'Cancel'#11'ModalResult'
+  +#2#2#8'TabOrder'#2#2#0#0#7'TButton'#9'btnAddNew'#4'Left'#2#16#6'Height'#2#25
+  +#3'Top'#2'H'#5'Width'#2'q'#7'Caption'#6#16'Add New Resource'#7'OnClick'#7#14
+  +'btnAddNewClick'#8'TabOrder'#2#3#0#0#7'TButton'#7'btnEdit'#4'Left'#3#136#0#6
+  +'Height'#2#25#3'Top'#2'H'#5'Width'#2'q'#7'Caption'#6#18'Edit This Resource'#7
+  +'OnClick'#7#12'btnEditClick'#8'TabOrder'#2#4#0#0#21'TVpResourceEditDialog'#21
+  +'VpResourceEditDialog1'#7'Version'#6#5'v1.03'#13'Placement.Top'#2#10#14'Plac'
+  +'ement.Left'#2#10#16'Placement.Height'#3#250#0#15'Placement.Width'#3#144#1#4
+  +'left'#3#232#0#3'top'#2#24#0#0#0
+]);

@@ -1,0 +1,6758 @@
+object Form1: TForm1
+  ActiveControl = TabSheet2
+  Caption = 'Form1'
+  ClientHeight = 529
+  ClientWidth = 630
+  Font.CharSet = ANSI_CHARSET
+  Font.Height = -12
+  Font.Name = 'Arial'
+  Menu = MainMenu1
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  PixelsPerInch = 96
+  HorzScrollBar.Page = 629
+  VertScrollBar.Page = 528
+  Left = 190
+  Height = 548
+  Top = 87
+  Width = 630
+  object Panel1: TPanel
+    Align = alClient
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    Caption = 'Panel1'
+    ClientHeight = 525
+    ClientWidth = 626
+    FullRepaint = False
+    TabOrder = 0
+    Height = 529
+    Width = 630
+    object PageControl1: TPageControl
+      ActivePage = TabSheet3
+      Align = alClient
+      TabIndex = 2
+      TabOrder = 0
+      OnChange = PageControl1Change
+      Height = 525
+      Width = 626
+      object TabSheet1: TTabSheet
+        Caption = 'Cover'
+        ClientHeight = 499
+        ClientWidth = 618
+        Height = 499
+        Width = 618
+        object CoverPage: TPRPage
+          OnPrintPage = CoverPagePrintPage
+          MarginTop = 24
+          MarginLeft = 32
+          MarginRight = 32
+          MarginBottom = 32
+          Left = 10
+          Height = 670
+          Top = 10
+          Width = 540
+          object PRLayoutPanel1: TPRLayoutPanel
+            Align = alClient
+            BeforePrint = PRLayoutPanel2BeforePrint
+            AfterPrint = PRLayoutPanel2AfterPrint
+            Left = 33
+            Height = 612
+            Top = 25
+            Width = 474
+            object PRText2: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Veision 0.9(beta)'
+              )
+              FontName = fnArial
+              FontSize = 15
+              Left = 134
+              Height = 22
+              Top = 155
+              Width = 315
+            end
+            object PRLabel1: TPRLabel
+              Caption = 'copyright (c) 1999-2001 takeshi kanno'
+              Alignment = taRightJustify
+              FontName = fnArial
+              FontSize = 8
+              Align = alBottom
+              Height = 13
+              Top = 599
+              Width = 474
+            end
+            object PRLayoutPanel2: TPRLayoutPanel
+              BeforePrint = PRLayoutPanel2BeforePrint
+              Left = 62
+              Height = 49
+              Top = 107
+              Width = 400
+              object PRText1: TPRText
+                Leading = 14
+                Lines.Strings = (
+                  'PowerPdf Reference'
+                )
+                FontName = fnArial
+                FontSize = 48
+                FontBold = True
+                CharSpace = -1
+                Left = 8
+                Height = 49
+                Width = 390
+                Tag = 1
+              end
+            end
+          end
+        end
+      end
+      object TabSheet2: TTabSheet
+        Caption = 'Contents'
+        ClientHeight = 499
+        ClientWidth = 618
+        Height = 499
+        Width = 618
+        object ContentsPage: TPRPage
+          MarginTop = 24
+          MarginLeft = 32
+          MarginRight = 32
+          MarginBottom = 32
+          Left = 10
+          Height = 670
+          Top = 10
+          Width = 540
+          object PRLayoutPanel4: TPRLayoutPanel
+            Align = alClient
+            BeforePrint = PRLayoutPanelBeforePrint
+            Left = 33
+            Height = 612
+            Top = 25
+            Width = 474
+            object PRRect6: TPRRect
+              Left = 420
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect7: TPRRect
+              Left = 61
+              Height = 1
+              Top = 23
+              Width = 360
+            end
+            object PRRect8: TPRRect
+              Left = 61
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect10: TPRRect
+              Left = 240
+              Height = 12
+              Top = 15
+              Width = 1
+            end
+            object PRText1Contents: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Contents'
+              )
+              FontName = fnArial
+              FontSize = 24
+              FontBold = True
+              Left = 188
+              Height = 30
+              Top = 60
+              Width = 105
+              Tag = 2
+            end
+            object PRLabel22: TPRLabel
+              Caption = 'copyright (c) 1999-2001 takeshi kanno'
+              Alignment = taRightJustify
+              FontName = fnArial
+              FontSize = 8
+              Align = alBottom
+              Height = 13
+              Top = 599
+              Width = 474
+            end
+            object PRGridPanel1: TPRGridPanel
+              ColCount = 1
+              RowCount = 30
+              BeforePrintChild = PRGridPanel1BeforePrintChild
+              Left = 60
+              Height = 400
+              Top = 124
+              Width = 361
+              object lblSectionNo: TPRLabel
+                Caption = 'lblSectionNo'
+                Alignment = taRightJustify
+                FontName = fnArial
+                FontSize = 12
+                Height = 15
+                Width = 49
+              end
+              object lblSectionName: TPRLabel
+                Caption = 'lblSectionName'
+                FontName = fnArial
+                FontSize = 12
+                Left = 56
+                Height = 18
+                Width = 305
+              end
+            end
+          end
+        end
+      end
+      object TabSheet3: TTabSheet
+        Caption = 'Introduction'
+        ClientHeight = 499
+        ClientWidth = 618
+        Height = 499
+        Width = 618
+        object PRPage3: TPRPage
+          MarginTop = 24
+          MarginLeft = 32
+          MarginRight = 32
+          MarginBottom = 32
+          Left = 10
+          Height = 670
+          Top = 10
+          Width = 540
+          object PRLayoutPanel3: TPRLayoutPanel
+            Align = alClient
+            BeforePrint = PRLayoutPanelBeforePrint
+            Left = 33
+            Height = 612
+            Top = 25
+            Width = 474
+            object PRRect1: TPRRect
+              Left = 420
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect2: TPRRect
+              Left = 61
+              Height = 1
+              Top = 23
+              Width = 360
+            end
+            object PRRect3: TPRRect
+              Left = 61
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRText6: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'CHAPTER 1'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 208
+              Height = 15
+              Top = 74
+              Width = 74
+            end
+            object PRRect4: TPRRect
+              Left = 208
+              Height = 1
+              Top = 88
+              Width = 67
+            end
+            object PRTextIntro: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Introduction'
+              )
+              FontName = fnArial
+              FontSize = 24
+              FontBold = True
+              Left = 171
+              Height = 30
+              Top = 108
+              Width = 151
+              Tag = 2
+            end
+            object PRRect5: TPRRect
+              Left = 240
+              Height = 12
+              Top = 15
+              Width = 1
+            end
+            object PRText1_1: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '1.1   What Is PowerPdf'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 37
+              Height = 15
+              Top = 179
+              Width = 384
+              Tag = 3
+            end
+            object PRText9: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'PowerPdf is  a VCL to create PDF docment visually. Like QuickReport, you can '
+                'design PDF document easily on Delphi IDE. '
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 62
+              Height = 33
+              Top = 196
+              Width = 359
+            end
+            object PRText1_2: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '1.2   Requires'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 37
+              Height = 15
+              Top = 227
+              Width = 384
+              Tag = 3
+            end
+            object PRText259: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'Delphi3.0 or later.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 62
+              Height = 17
+              Top = 244
+              Width = 359
+            end
+            object PRText1_3: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '1.3   Installation'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 35
+              Height = 15
+              Top = 285
+              Width = 384
+              Tag = 3
+            end
+            object PRText261: TPRText
+              Leading = 12
+              Lines.Strings = (
+                '1.Extracts the files from powerpdf.zip. '
+                '2.Choose Component|Install Component, and install PowerPdf.pas.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 60
+              Height = 29
+              Top = 302
+              Width = 359
+            end
+            object PRText262: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'NOTE'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 60
+              Height = 15
+              Top = 333
+              Width = 361
+            end
+            object PRText263: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'If you want to use FlateDecode/Zlib compression, copy zlib.pas and *.obj files (these are included in Delphi''s CD-ROM) to your librally path.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 60
+              Height = 29
+              Top = 348
+              Width = 361
+            end
+            object PRLabel23: TPRLabel
+              Caption = 'copyright (c) 1999-2001 takeshi kanno'
+              Alignment = taRightJustify
+              FontName = fnArial
+              FontSize = 8
+              Align = alBottom
+              Height = 13
+              Top = 599
+              Width = 474
+            end
+            object PRText93: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'Lazarus 0.9.9 or later (NEW)'
+              )
+              FontColor = clRed
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 63
+              Height = 17
+              Top = 261
+              Width = 359
+            end
+          end
+        end
+      end
+      object TabSheet4: TTabSheet
+        Caption = 'TPReport'
+        ClientHeight = 499
+        ClientWidth = 618
+        Height = 499
+        Width = 618
+        object PRPage4: TPRPage
+          MarginTop = 24
+          MarginLeft = 32
+          MarginRight = 32
+          MarginBottom = 32
+          Left = 16
+          Height = 670
+          Top = 16
+          Width = 540
+          object PRLayoutPanel5: TPRLayoutPanel
+            Align = alClient
+            BeforePrint = PRLayoutPanelBeforePrint
+            Left = 33
+            Height = 612
+            Top = 25
+            Width = 474
+            object PRRect9: TPRRect
+              Left = 420
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect11: TPRRect
+              Left = 61
+              Height = 1
+              Top = 23
+              Width = 360
+            end
+            object PRRect12: TPRRect
+              Left = 61
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect13: TPRRect
+              Left = 240
+              Height = 12
+              Top = 15
+              Width = 1
+            end
+            object PRText21: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'CHAPTER 2'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 208
+              Height = 15
+              Top = 74
+              Width = 74
+            end
+            object PRRect14: TPRRect
+              Left = 208
+              Height = 1
+              Top = 88
+              Width = 70
+            end
+            object PRTextCompRef: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Component Reference'
+              )
+              FontName = fnArial
+              FontSize = 24
+              FontBold = True
+              Left = 104
+              Height = 30
+              Top = 108
+              Width = 273
+              Tag = 2
+            end
+            object PRText2_1: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '2.1   TPReport'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 52
+              Height = 15
+              Top = 179
+              Width = 367
+              Tag = 3
+            end
+            object PRText24: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'TPReport encapsulates the mechanism for creating pdf document.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 15
+              Top = 195
+              Width = 339
+            end
+            object PRText2_1_1: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '2.1.1   TPReport properties'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 44
+              Height = 15
+              Top = 329
+              Width = 377
+              Tag = 4
+            end
+            object PRText26: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Unit'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 215
+              Width = 339
+            end
+            object PRText27: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'PReport'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 15
+              Top = 232
+              Width = 339
+            end
+            object PRText28: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Description'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 251
+              Width = 337
+            end
+            object PRText29: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'Use TPReport to create pdf document. Like TPrinter. To start print job, call the BeginDoc method.To print page, call the Print method. And call the EndDoc method to terminate print job.If you want to terminate print job unless saving document, call the Abort method.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 48
+              Top = 267
+              Width = 369
+            end
+            object PRText30: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'FileName: string;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 347
+              Width = 279
+            end
+            object PRText31: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 347
+              Width = 53
+            end
+            object PRText32: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Set FileName to specify the file name to save document.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 361
+              Width = 339
+            end
+            object PRText36: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Author: string;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 377
+              Width = 279
+            end
+            object PRText37: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 377
+              Width = 53
+            end
+            object PRText38: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Set Author to specify the author of the document.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 391
+              Width = 339
+            end
+            object PRText39: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 407
+              Width = 53
+            end
+            object PRText40: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'CreationDate: TDateTime;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 407
+              Width = 279
+            end
+            object PRText41: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Set CreationDate to specify the date and time when the document was created.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 421
+              Width = 339
+            end
+            object PRText42: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 437
+              Width = 53
+            end
+            object PRText43: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Creator string;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 437
+              Width = 279
+            end
+            object PRText44: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Set Creator to specify the creator of the document.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 451
+              Width = 339
+            end
+            object PRText45: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 467
+              Width = 53
+            end
+            object PRText46: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Keywords string;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 467
+              Width = 279
+            end
+            object PRText47: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Set Keywords to specify keywords of the document.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 481
+              Width = 339
+            end
+            object PRText48: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 497
+              Width = 53
+            end
+            object PRText49: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'ModDate: TDateTime;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 497
+              Width = 279
+            end
+            object PRText50: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Set Keywords to specify the date and time when the document was last modified.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 511
+              Width = 339
+            end
+            object PRText33: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 527
+              Width = 53
+            end
+            object PRText34: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Subject: string;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 527
+              Width = 279
+            end
+            object PRText35: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Set Subject to specify the subject of the document.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 541
+              Width = 339
+            end
+            object PRText83: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 557
+              Width = 53
+            end
+            object PRText84: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Title: string;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 557
+              Width = 279
+            end
+            object PRText85: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Set Title to specify the title of the document.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 571
+              Width = 339
+            end
+            object PRLabel24: TPRLabel
+              Caption = 'copyright (c) 1999-2001 takeshi kanno'
+              Alignment = taRightJustify
+              FontName = fnArial
+              FontSize = 8
+              Align = alBottom
+              Height = 13
+              Top = 599
+              Width = 474
+            end
+          end
+        end
+      end
+      object TabSheet5: TTabSheet
+        Caption = 'TPReport(2)'
+        ClientHeight = 499
+        ClientWidth = 618
+        Height = 499
+        Width = 618
+        object PRPage5: TPRPage
+          MarginTop = 24
+          MarginLeft = 32
+          MarginRight = 32
+          MarginBottom = 32
+          Left = 8
+          Height = 670
+          Top = 12
+          Width = 540
+          object PRLayoutPanel6: TPRLayoutPanel
+            Align = alClient
+            BeforePrint = PRLayoutPanelBeforePrint
+            Left = 33
+            Height = 612
+            Top = 25
+            Width = 474
+            object PRRect15: TPRRect
+              Left = 420
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect16: TPRRect
+              Left = 61
+              Height = 1
+              Top = 23
+              Width = 360
+            end
+            object PRRect17: TPRRect
+              Left = 61
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect18: TPRRect
+              Left = 240
+              Height = 12
+              Top = 15
+              Width = 1
+            end
+            object PRText62: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'PageMode: TPdfPageMode;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 69
+              Width = 279
+            end
+            object PRText63: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 69
+              Width = 53
+            end
+            object PRText64: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'PageMode property specifies how the document should be displayed when opened.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 83
+              Width = 339
+            end
+            object PRText53: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'pmUseNone'
+                'pmUseOutlines'
+                'pmUseThumbs'
+                'pmFullScreen'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 100
+              Height = 56
+              Top = 121
+              Width = 71
+            end
+            object PRText54: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'TPdfPageMode = (pmUseNone, pmUseOutlines, pmUseThumbs, pmFullScreen);'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 105
+              Width = 371
+            end
+            object PRText55: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'Both of outline and thumbnail images invisible'
+                'Document outline visible'
+                'Thumbnail images visible'
+                'Full-screen mode, with no menu bar.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 170
+              Height = 56
+              Top = 121
+              Width = 247
+            end
+            object PRText56: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 277
+              Width = 53
+            end
+            object PRText58: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'CompressionMethod: TPdfCompressionMethod;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 277
+              Width = 279
+            end
+            object PRText59: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Cmpression property specifies the filter to compress contents and images. '
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 291
+              Width = 339
+            end
+            object PRText60: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'TPdfCompressionMethod = (cmNone, cmFlateDecode);'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 313
+              Width = 371
+            end
+            object PRText61: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'cmNone'
+                'cmFlateDecode'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 98
+              Height = 32
+              Top = 329
+              Width = 71
+            end
+            object PRText65: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'No compression method is used'
+                'Compresses data using the zlib/deflate compression method'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 164
+              Height = 32
+              Top = 329
+              Width = 285
+            end
+            object PRText66: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'If you want to use FlateDecode, you must do following operations.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              FontItalic = True
+              Left = 108
+              Height = 16
+              Top = 359
+              Width = 341
+            end
+            object PRText67: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Note:'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              FontBold = True
+              FontItalic = True
+              Left = 80
+              Height = 15
+              Top = 359
+              Width = 35
+            end
+            object PRText86: TPRText
+              Leading = 9
+              Lines.Strings = (
+                '1. Add zlib unit and *.obj files(these are included in Delphi''s CD-ROM) in your library'
+                '     path.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              FontItalic = True
+              Left = 80
+              Height = 26
+              Top = 373
+              Width = 361
+            end
+            object PRText87: TPRText
+              Leading = 11
+              Lines.Strings = (
+                '3. Rebuiled the package.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              FontItalic = True
+              Left = 80
+              Height = 13
+              Top = 408
+              Width = 361
+            end
+            object PRText88: TPRText
+              Leading = 11
+              Lines.Strings = (
+                '2. Commentout compile option "{$DEFINE NOZLIB}" in PdfDoc.pas and PdfTypes.pas.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              FontItalic = True
+              Left = 80
+              Height = 14
+              Top = 395
+              Width = 361
+            end
+            object PRText77: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'PageNumber contains the current page number being printed.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 441
+              Width = 339
+            end
+            object PRText78: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 427
+              Width = 53
+            end
+            object PRText79: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'PageNumber: integer;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 427
+              Width = 279
+            end
+            object PRLabel25: TPRLabel
+              Caption = 'copyright (c) 1999-2001 takeshi kanno'
+              Alignment = taRightJustify
+              FontName = fnArial
+              FontSize = 8
+              Align = alBottom
+              Height = 13
+              Top = 599
+              Width = 474
+            end
+            object PRText5: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 177
+              Width = 53
+            end
+            object PRText7: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'PageLayout specifies the layout for the page when the document is opened.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 191
+              Width = 339
+            end
+            object PRText8: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'plSinglePage'
+                'plOneColumn'
+                'plTwoColumnLeft'
+                'plTwoColumnRight'
+                ' '
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 100
+              Height = 56
+              Top = 221
+              Width = 85
+            end
+            object PRText10: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'TPRPageLayout = (plSinglePage, plOneColumn, plTwoColumnLeft, plTwoColumnRight);'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 205
+              Width = 371
+            end
+            object PRText11: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'Display the pages one page at a time.'
+                'Display the pages in one column.'
+                'Display the pages in two columns, with odd-numbered pages on the left.'
+                'Display the pages in two columns, with odd-numbered pages on the right.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 184
+              Height = 56
+              Top = 221
+              Width = 229
+            end
+            object PRLabel13: TPRLabel
+              Caption = 'PageLayout: TPdfPageLayout;'
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 13
+              Top = 177
+              Width = 281
+            end
+            object PRLabel14: TPRLabel
+              Caption = 'New!'
+              FontColor = 33023
+              FontName = fnTimesRoman
+              FontSize = 8
+              Left = 268
+              Height = 17
+              Top = 179
+              Width = 25
+            end
+            object PRText4: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 455
+              Width = 53
+            end
+            object PRText13: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'OpenAction determins the location of the display window and zoom level when the first page appears. If null, the top of the first page appears with default zoom level.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 32
+              Top = 469
+              Width = 369
+            end
+            object PRLabel16: TPRLabel
+              Caption = 'OpenAction: TPRDestination;'
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 13
+              Top = 457
+              Width = 281
+            end
+            object PRLabel17: TPRLabel
+              Caption = 'New!'
+              FontColor = 33023
+              FontName = fnTimesRoman
+              FontSize = 8
+              Left = 264
+              Height = 17
+              Top = 459
+              Width = 25
+            end
+            object PRText12: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 499
+              Width = 53
+            end
+            object PRText17: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'OutlineRoot returns the root of the outline-entries. '
+                'If UseOutline property set to false, OutlineRoot peoperty returns null. '
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 28
+              Top = 513
+              Width = 369
+            end
+            object PRLabel20: TPRLabel
+              Caption = 'OutlineRoot: TPROutlineRoot;'
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 13
+              Top = 501
+              Width = 281
+            end
+            object PRLabel37: TPRLabel
+              Caption = 'New!'
+              FontColor = 33023
+              FontName = fnTimesRoman
+              FontSize = 8
+              Left = 264
+              Height = 17
+              Top = 503
+              Width = 25
+            end
+          end
+        end
+      end
+      object TabSheet18: TTabSheet
+        Caption = 'TPRReport(3)'
+        ClientHeight = 499
+        ClientWidth = 618
+        Height = 499
+        Width = 618
+        object PRPage6: TPRPage
+          MarginTop = 24
+          MarginLeft = 32
+          MarginRight = 32
+          MarginBottom = 32
+          Left = 8
+          Height = 670
+          Top = 10
+          Width = 540
+          object PRLayoutPanel19: TPRLayoutPanel
+            Align = alClient
+            BeforePrint = PRLayoutPanelBeforePrint
+            Left = 33
+            Height = 612
+            Top = 25
+            Width = 474
+            object PRRect77: TPRRect
+              Left = 420
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect78: TPRRect
+              Left = 61
+              Height = 1
+              Top = 23
+              Width = 360
+            end
+            object PRRect79: TPRRect
+              Left = 61
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect80: TPRRect
+              Left = 240
+              Height = 12
+              Top = 15
+              Width = 1
+            end
+            object PRText94: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '2.1.2   TPReport methods'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 42
+              Height = 15
+              Top = 261
+              Width = 377
+              Tag = 4
+            end
+            object PRText95: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'procedure'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 279
+              Width = 53
+            end
+            object PRText98: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'BeginDoc;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 136
+              Height = 15
+              Top = 279
+              Width = 279
+            end
+            object PRText99: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'BeginDoc starts to create PDF document.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 293
+              Width = 339
+            end
+            object PRText128: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'procedure'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 309
+              Width = 53
+            end
+            object PRText129: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Print(APage: TPRPage);'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 136
+              Height = 15
+              Top = 309
+              Width = 279
+            end
+            object PRText130: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Print add the page that specified APage parameter to the PDF document.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 323
+              Width = 339
+            end
+            object PRText131: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'procedure'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 339
+              Width = 53
+            end
+            object PRText132: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'EndDoc;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 136
+              Height = 15
+              Top = 339
+              Width = 279
+            end
+            object PRText138: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'EndDoc ends the current print job and outputs PDF document to the file.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 353
+              Width = 339
+            end
+            object PRText176: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'procedure'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 369
+              Width = 53
+            end
+            object PRText177: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Abort;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 136
+              Height = 15
+              Top = 369
+              Width = 279
+            end
+            object PRText178: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Abort terminates the current print job, dropping all data.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 383
+              Width = 339
+            end
+            object PRLabel12: TPRLabel
+              Caption = 'copyright (c) 1999-2001 takeshi kanno'
+              Alignment = taRightJustify
+              FontName = fnArial
+              FontSize = 8
+              Align = alBottom
+              Height = 13
+              Top = 599
+              Width = 474
+            end
+            object PRText188: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 67
+              Width = 53
+            end
+            object PRText189: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'UseOutline determins whether using outlines or not. This property can be set only before BeginDoc method called. '
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 28
+              Top = 81
+              Width = 369
+            end
+            object PRLabel38: TPRLabel
+              Caption = 'UseOutlines: boolean;'
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 13
+              Top = 69
+              Width = 281
+            end
+            object PRLabel39: TPRLabel
+              Caption = 'New!'
+              FontColor = 33023
+              FontName = fnTimesRoman
+              FontSize = 8
+              Left = 228
+              Height = 17
+              Top = 71
+              Width = 25
+            end
+            object PRText76: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 109
+              Width = 53
+            end
+            object PRText80: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Specifies the style when the document is opened.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 123
+              Width = 339
+            end
+            object PRText81: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'vpHideToolbar'
+                'vpHideMenubar'
+                'vpHideWindowUI'
+                'vpFitWindow'
+                'vpCenterWindow'
+                ' '
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 100
+              Height = 92
+              Top = 169
+              Width = 85
+            end
+            object PRText82: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'TPdfViewerPreference = (vpHideToolbar, vpHideMenubar, vpHideWindowUI,'
+                '                          vpFitWindow, vpCenterWindow);'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 80
+              Height = 31
+              Top = 138
+              Width = 373
+            end
+            object PRText89: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'Specifies that the toolbar should be hidden.'
+                'Specifies that the menubar should be hidden.'
+                'Specifies that the interfeces of the document window should be hidden.'
+                'Specifies that the viewer should resize the document-window to the size of the first displayed page of the document.'
+                'Specifies that the viewer-window positioned in the center of the screen.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 184
+              Height = 92
+              Top = 169
+              Width = 255
+            end
+            object PRLabel70: TPRLabel
+              Caption = 'ViewerPreference: TPdfViewerPreferences;'
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 13
+              Top = 109
+              Width = 281
+            end
+            object PRLabel71: TPRLabel
+              Caption = 'New!'
+              FontColor = 33023
+              FontName = fnTimesRoman
+              FontSize = 8
+              Left = 322
+              Height = 17
+              Top = 112
+              Width = 25
+            end
+          end
+        end
+      end
+      object TabSheet6: TTabSheet
+        Caption = 'TPRPage'
+        ClientHeight = 499
+        ClientWidth = 618
+        Height = 499
+        Width = 618
+        object PRPage7: TPRPage
+          MarginTop = 24
+          MarginLeft = 32
+          MarginRight = 32
+          MarginBottom = 32
+          Left = 12
+          Height = 670
+          Top = 13
+          Width = 540
+          object PRLayoutPanel7: TPRLayoutPanel
+            Align = alClient
+            BeforePrint = PRLayoutPanelBeforePrint
+            Left = 33
+            Height = 612
+            Top = 25
+            Width = 474
+            object PRRect19: TPRRect
+              Left = 420
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect20: TPRRect
+              Left = 61
+              Height = 1
+              Top = 23
+              Width = 360
+            end
+            object PRRect21: TPRRect
+              Left = 61
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect22: TPRRect
+              Left = 240
+              Height = 12
+              Top = 15
+              Width = 1
+            end
+            object PRText2_2_1: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '2.2.1   TPRPage properties'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 44
+              Height = 15
+              Top = 201
+              Width = 377
+              Tag = 4
+            end
+            object PRText102: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Description'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 141
+              Width = 337
+            end
+            object PRText103: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'Use TPRPage to create a page to print. To create a page, To print a page, call print method of TPReport with TPRPage object.'
+                'Use Width and Height property to determine the physical size of the page. '
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 40
+              Top = 155
+              Width = 369
+            end
+            object PRText104: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'MarginTop: integer;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 219
+              Width = 279
+            end
+            object PRText105: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 219
+              Width = 53
+            end
+            object PRText106: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Set MarginTop to specify the top margin of the document.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 233
+              Width = 339
+            end
+            object PRText107: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'MarginLeft: integer;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 249
+              Width = 279
+            end
+            object PRText108: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 249
+              Width = 53
+            end
+            object PRText109: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Set MarginLeft to specify the left margin of the document.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 263
+              Width = 339
+            end
+            object PRText110: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 279
+              Width = 53
+            end
+            object PRText111: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'MarginRight: integer;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 279
+              Width = 279
+            end
+            object PRText112: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Set MarginLeft to specify the left margin of the document.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 293
+              Width = 339
+            end
+            object PRText113: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 309
+              Width = 53
+            end
+            object PRText114: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'MarginBottom: integer;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 309
+              Width = 279
+            end
+            object PRText115: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Set MarginBottom to specify the bottom margin of the document.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 323
+              Width = 339
+            end
+            object PRText2_2_2: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '2.2.2   TPRPage events'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 42
+              Height = 15
+              Top = 405
+              Width = 377
+              Tag = 4
+            end
+            object PRText96: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 423
+              Width = 53
+            end
+            object PRText97: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'OnPrintPage is called when a page is printed. You can use it to initialize any local variables.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 26
+              Top = 437
+              Width = 339
+            end
+            object PRText119: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'OnPrintPage: TPRPrintPageEvent;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 423
+              Width = 279
+            end
+            object PRText120: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 339
+              Width = 53
+            end
+            object PRText121: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Height: integer;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 339
+              Width = 279
+            end
+            object PRText122: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Set Height to specify the height of the page.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 353
+              Width = 339
+            end
+            object PRText123: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 369
+              Width = 53
+            end
+            object PRText124: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Width: integer;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 369
+              Width = 279
+            end
+            object PRText125: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Set Width to specify the width of the page.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 383
+              Width = 339
+            end
+            object PRText2_2: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '2.2   TPRPage'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 52
+              Height = 15
+              Top = 69
+              Width = 367
+              Tag = 3
+            end
+            object PRText90: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'TPRPage represents a page to print.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 15
+              Top = 85
+              Width = 339
+            end
+            object PRText91: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Unit'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 105
+              Width = 339
+            end
+            object PRText92: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'PReport'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 15
+              Top = 122
+              Width = 339
+            end
+            object PRLabel26: TPRLabel
+              Caption = 'copyright (c) 1999-2001 takeshi kanno'
+              Alignment = taRightJustify
+              FontName = fnArial
+              FontSize = 8
+              Align = alBottom
+              Height = 13
+              Top = 599
+              Width = 474
+            end
+          end
+        end
+      end
+      object TabSheet7: TTabSheet
+        Caption = 'TPRLayoutPanel'
+        ClientHeight = 499
+        ClientWidth = 618
+        Height = 499
+        Width = 618
+        object PRPage8: TPRPage
+          MarginTop = 24
+          MarginLeft = 32
+          MarginRight = 32
+          MarginBottom = 32
+          Left = 12
+          Height = 670
+          Top = 7
+          Width = 540
+          object PRLayoutPanel8: TPRLayoutPanel
+            Align = alClient
+            BeforePrint = PRLayoutPanelBeforePrint
+            Left = 33
+            Height = 612
+            Top = 25
+            Width = 474
+            object PRRect23: TPRRect
+              Left = 420
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect24: TPRRect
+              Left = 61
+              Height = 1
+              Top = 23
+              Width = 360
+            end
+            object PRRect25: TPRRect
+              Left = 61
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect26: TPRRect
+              Left = 240
+              Height = 12
+              Top = 15
+              Width = 1
+            end
+            object PRText2_3: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '2.3   TPRLayoutPanel'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 52
+              Height = 15
+              Top = 69
+              Width = 367
+              Tag = 3
+            end
+            object PRText152: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'TPRLayoutPanel is main building block of a page.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 14
+              Top = 85
+              Width = 339
+            end
+            object PRText153: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Unit'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 103
+              Width = 339
+            end
+            object PRText154: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'PReport'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 15
+              Top = 120
+              Width = 339
+            end
+            object PRText155: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Description'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 139
+              Width = 337
+            end
+            object PRText156: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'To make a page, put TPRPanel on the TPRPage component and put Item component (TPRItem, TPRImage and so on) on the TPRPanel. '
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 30
+              Top = 153
+              Width = 369
+            end
+            object PRText2_3_1: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '2.3.1   TPRLayoutPanel properties'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 44
+              Height = 15
+              Top = 191
+              Width = 377
+              Tag = 4
+            end
+            object PRText164: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Align: TAlign;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 209
+              Width = 279
+            end
+            object PRText165: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 209
+              Width = 53
+            end
+            object PRText166: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Align determines how the TPRLayoutPanel aligns within TPRPage (or TPRPanel).'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 223
+              Width = 339
+            end
+            object PRText2_3_2: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '2.3.2   TPRLayoutPanel events'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 42
+              Height = 15
+              Top = 247
+              Width = 377
+              Tag = 4
+            end
+            object PRText100: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 265
+              Width = 53
+            end
+            object PRText101: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'BeforePrint is called before a page is about to be printed. Typical use of this event is to set any variables(TPRText, TPRImage).'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 26
+              Top = 279
+              Width = 339
+            end
+            object PRText116: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'BeforePrint: TPRPrintPanelEvent;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 265
+              Width = 279
+            end
+            object PRText117: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 347
+              Width = 53
+            end
+            object PRText118: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'AfterPrint: TPRPrintPanelEvent;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 347
+              Width = 279
+            end
+            object PRText126: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'AfterPrint is called after a page was printed.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 361
+              Width = 339
+            end
+            object PRText127: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'TPRPrintPanelEvent = procedure(Sender: TObject; ACanvas: TPdfCanvas;'
+                '                              Rect: TRect) of object;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 80
+              Height = 30
+              Top = 311
+              Width = 351
+            end
+            object PRLabel27: TPRLabel
+              Caption = 'copyright (c) 1999-2001 takeshi kanno'
+              Alignment = taRightJustify
+              FontName = fnArial
+              FontSize = 8
+              Align = alBottom
+              Height = 13
+              Top = 599
+              Width = 474
+            end
+          end
+        end
+      end
+      object TabSheet8: TTabSheet
+        Caption = 'TPRGridPanel'
+        ClientHeight = 499
+        ClientWidth = 618
+        Height = 499
+        Width = 618
+        object PRPage9: TPRPage
+          MarginTop = 24
+          MarginLeft = 32
+          MarginRight = 32
+          MarginBottom = 32
+          Left = 12
+          Height = 670
+          Top = 7
+          Width = 540
+          object PRLayoutPanel9: TPRLayoutPanel
+            Align = alClient
+            BeforePrint = PRLayoutPanelBeforePrint
+            Left = 33
+            Height = 612
+            Top = 25
+            Width = 474
+            object PRRect27: TPRRect
+              Left = 420
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect28: TPRRect
+              Left = 61
+              Height = 1
+              Top = 23
+              Width = 360
+            end
+            object PRRect29: TPRRect
+              Left = 61
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect30: TPRRect
+              Left = 240
+              Height = 12
+              Top = 15
+              Width = 1
+            end
+            object PRText2_4: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '2.4   TPRGridPanel'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 52
+              Height = 15
+              Top = 69
+              Width = 367
+              Tag = 3
+            end
+            object PRText133: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'TPRGridPanel is used to print a table. '
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 14
+              Top = 83
+              Width = 339
+            end
+            object PRText134: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Unit'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 103
+              Width = 339
+            end
+            object PRText135: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'PReport'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 15
+              Top = 120
+              Width = 339
+            end
+            object PRText136: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Description'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 139
+              Width = 337
+            end
+            object PRText137: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'A typical use of TPRGrid is to print a table(like a database data). set RowCount and ColCount property to define row count and column count. '
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 30
+              Top = 153
+              Width = 369
+            end
+            object PRText2_4_1: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '2.4.1   TPRGridPanel properties'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 44
+              Height = 15
+              Top = 191
+              Width = 377
+              Tag = 4
+            end
+            object PRText139: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Align: TAlign;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 209
+              Width = 279
+            end
+            object PRText140: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 209
+              Width = 53
+            end
+            object PRText141: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Align determines how the TPRGridPanel aligns within TPRPage (or TPRPanel).'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 223
+              Width = 339
+            end
+            object PRText2_4_2: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '2.4.2   TPRGridPanel events'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 42
+              Height = 15
+              Top = 331
+              Width = 377
+              Tag = 4
+            end
+            object PRText143: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 349
+              Width = 53
+            end
+            object PRText144: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'BeforePrint is called before a page is about to be printed. Typical use of this event is to set any variables(TPRText, TPRImage).'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 26
+              Top = 363
+              Width = 339
+            end
+            object PRText145: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'BeforePrint: TPRPrintPanelEvent;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 349
+              Width = 279
+            end
+            object PRText146: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 429
+              Width = 53
+            end
+            object PRText147: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'AfterPrint: TPRPrintPanelEvent;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 429
+              Width = 279
+            end
+            object PRText148: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'AfterPrint is called after a page was printed.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 443
+              Width = 339
+            end
+            object PRText149: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'TPRPrintPanelEvent = procedure(Sender: TObject; ACanvas: TPdfCanvas;'
+                '                              Rect: TRect) of object;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 80
+              Height = 30
+              Top = 393
+              Width = 351
+            end
+            object PRText150: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'ColCount: integer;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 237
+              Width = 279
+            end
+            object PRText157: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 237
+              Width = 53
+            end
+            object PRText158: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'ColCount determines how many numbers of columns in this panel.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 251
+              Width = 339
+            end
+            object PRText159: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 267
+              Width = 53
+            end
+            object PRText160: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'RowCount: integer;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 267
+              Width = 279
+            end
+            object PRText161: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'RowCount determines how many numbers of rows in this panel.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 281
+              Width = 339
+            end
+            object PRText162: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 295
+              Width = 53
+            end
+            object PRText167: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'PrintDirection: TPrintDirection;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 295
+              Width = 279
+            end
+            object PRText168: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'PrintDirection determins the direction of printing grid.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 309
+              Width = 339
+            end
+            object PRText169: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 459
+              Width = 53
+            end
+            object PRText170: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'BeforePrintChild is called every before child panels are about to be printed. Typical use of this event is to set any variables(TPRText, TPRImage).'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 26
+              Top = 473
+              Width = 339
+            end
+            object PRText171: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'BeforePrintChild: TPRPrintChildPanelEvent;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 459
+              Width = 279
+            end
+            object PRText172: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 539
+              Width = 53
+            end
+            object PRText173: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'AfterPrintChild: TPRPrintChildPanelEvent;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 539
+              Width = 279
+            end
+            object PRText174: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'AfterPrint is called every after panels were printed.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 553
+              Width = 339
+            end
+            object PRText175: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'TPRPrintChildPanelEvent = procedure(Sender: TObject; ACanvas: TPdfCanvas;'
+                '                              ACol, ARow: integer; Rect: TRect) of object;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 80
+              Height = 30
+              Top = 503
+              Width = 373
+            end
+            object PRLabel28: TPRLabel
+              Caption = 'copyright (c) 1999-2001 takeshi kanno'
+              Alignment = taRightJustify
+              FontName = fnArial
+              FontSize = 8
+              Align = alBottom
+              Height = 13
+              Top = 599
+              Width = 474
+            end
+          end
+        end
+      end
+      object TabSheet9: TTabSheet
+        Caption = 'TPRLabel'
+        ClientHeight = 499
+        ClientWidth = 618
+        Height = 499
+        Width = 618
+        object PRPage10: TPRPage
+          MarginTop = 24
+          MarginLeft = 32
+          MarginRight = 32
+          MarginBottom = 32
+          Left = 10
+          Height = 670
+          Top = 7
+          Width = 540
+          object PRLayoutPanel17: TPRLayoutPanel
+            Align = alClient
+            BeforePrint = PRLayoutPanelBeforePrint
+            Left = 33
+            Height = 612
+            Top = 25
+            Width = 474
+            object PRRect71: TPRRect
+              Left = 80
+              Height = 155
+              Top = 306
+              Width = 341
+            end
+            object PRRect67: TPRRect
+              Left = 420
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect68: TPRRect
+              Left = 61
+              Height = 1
+              Top = 23
+              Width = 360
+            end
+            object PRRect69: TPRRect
+              Left = 61
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect70: TPRRect
+              Left = 240
+              Height = 12
+              Top = 15
+              Width = 1
+            end
+            object PRText2_5: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '2.5   TPRLabel'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 52
+              Height = 15
+              Top = 69
+              Width = 367
+              Tag = 3
+            end
+            object PRText281: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'TPRLabel is used to print a single line text. '
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 14
+              Top = 85
+              Width = 339
+            end
+            object PRText287: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Unit'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 103
+              Width = 339
+            end
+            object PRText319: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'PReport'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 15
+              Top = 120
+              Width = 339
+            end
+            object PRText320: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Description'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 139
+              Width = 337
+            end
+            object PRText321: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'Use TPRLabel to print single line text. '
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 153
+              Width = 369
+            end
+            object PRText2_5_1: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '2.5.1   TPRLabel properties'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 44
+              Height = 15
+              Top = 175
+              Width = 377
+              Tag = 4
+            end
+            object PRText323: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Align: TAlign;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 193
+              Width = 279
+            end
+            object PRText324: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 193
+              Width = 53
+            end
+            object PRText325: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Determines how the control aligns within its container (or parent control).'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 207
+              Width = 339
+            end
+            object PRText326: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Printable: boolean;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 479
+              Width = 279
+            end
+            object PRText327: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 479
+              Width = 53
+            end
+            object PRText328: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Determines whether the control will be printed or not.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 493
+              Width = 339
+            end
+            object PRText329: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 509
+              Width = 53
+            end
+            object PRText330: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'FontColor: TColor;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 509
+              Width = 279
+            end
+            object PRText331: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Specifies the color of the text.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 523
+              Width = 339
+            end
+            object PRText348: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'AlignJustified: Boolean;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 223
+              Width = 279
+            end
+            object PRText349: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 223
+              Width = 53
+            end
+            object PRText350: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Determines whether adjustment the char width to fit the text to full-justified.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 237
+              Width = 339
+            end
+            object PRText354: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Alignment: TAlignment;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 253
+              Width = 279
+            end
+            object PRText355: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 253
+              Width = 53
+            end
+            object PRText356: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Controls the horizontal placement of the text within the label.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 267
+              Width = 339
+            end
+            object PRLabel3: TPRLabel
+              Caption = 'Alignment taLeftJustify'
+              FontName = fnTimesRoman
+              FontSize = 10
+              FontItalic = True
+              Left = 87
+              Height = 15
+              Top = 312
+              Width = 215
+            end
+            object PRLabel4: TPRLabel
+              Caption = 'The quick brown fox ate the lazy mouse'
+              FontColor = clGreen
+              FontName = fnArial
+              FontSize = 14
+              Left = 95
+              Height = 19
+              Top = 328
+              Width = 320
+            end
+            object PRLabel6: TPRLabel
+              Caption = 'Alignment taRightJustify'
+              FontName = fnTimesRoman
+              FontSize = 10
+              FontItalic = True
+              Left = 87
+              Height = 15
+              Top = 348
+              Width = 215
+            end
+            object PRLabel7: TPRLabel
+              Caption = 'Alignment taCenter'
+              FontName = fnTimesRoman
+              FontSize = 10
+              FontItalic = True
+              Left = 87
+              Height = 15
+              Top = 384
+              Width = 215
+            end
+            object PRLabel9: TPRLabel
+              Caption = 'AlignJustified'
+              FontName = fnTimesRoman
+              FontSize = 10
+              FontItalic = True
+              Left = 87
+              Height = 15
+              Top = 420
+              Width = 215
+            end
+            object PRLabel5: TPRLabel
+              Caption = 'The quick brown fox ate the lazy mouse'
+              Alignment = taRightJustify
+              FontColor = clGreen
+              FontName = fnArial
+              FontSize = 14
+              Left = 95
+              Height = 19
+              Top = 364
+              Width = 320
+            end
+            object PRLabel8: TPRLabel
+              Caption = 'The quick brown fox ate the lazy mouse'
+              Alignment = taCenter
+              FontColor = clGreen
+              FontName = fnArial
+              FontSize = 14
+              Left = 95
+              Height = 19
+              Top = 400
+              Width = 320
+            end
+            object PRLabel10: TPRLabel
+              Caption = 'The quick brown fox ate the lazy mouse'
+              AlignJustified = True
+              FontColor = clGreen
+              FontName = fnArial
+              FontSize = 14
+              Left = 95
+              Height = 19
+              Top = 436
+              Width = 320
+            end
+            object PRLabel11: TPRLabel
+              Caption = 'The samples of the alignment '
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 81
+              Height = 15
+              Top = 290
+              Width = 215
+            end
+            object PRLabel29: TPRLabel
+              Caption = 'copyright (c) 1999-2001 takeshi kanno'
+              Alignment = taRightJustify
+              FontName = fnArial
+              FontSize = 8
+              Align = alBottom
+              Height = 13
+              Top = 599
+              Width = 474
+            end
+            object PRLabel15: TPRLabel
+              Caption = 'New!'
+              FontColor = 33023
+              FontName = fnTimesRoman
+              FontSize = 8
+              Left = 236
+              Height = 17
+              Top = 225
+              Width = 25
+            end
+          end
+        end
+      end
+      object TabSheet17: TTabSheet
+        Caption = 'TPRLabel(2)'
+        ClientHeight = 499
+        ClientWidth = 618
+        Height = 499
+        Width = 618
+        object PRPage11: TPRPage
+          MarginTop = 24
+          MarginLeft = 32
+          MarginRight = 32
+          MarginBottom = 32
+          Left = 10
+          Height = 670
+          Top = 7
+          Width = 540
+          object PRLayoutPanel14: TPRLayoutPanel
+            Align = alClient
+            BeforePrint = PRLayoutPanelBeforePrint
+            Left = 33
+            Height = 612
+            Top = 25
+            Width = 474
+            object PRRect54: TPRRect
+              Left = 420
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect55: TPRRect
+              Left = 61
+              Height = 1
+              Top = 23
+              Width = 360
+            end
+            object PRRect56: TPRRect
+              Left = 61
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect58: TPRRect
+              Left = 240
+              Height = 12
+              Top = 15
+              Width = 1
+            end
+            object PRText380: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 69
+              Width = 53
+            end
+            object PRText381: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'FontName: TPRFontName;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 69
+              Width = 279
+            end
+            object PRText382: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'TPRFontName = (fnFixedWidth, fnArial, fnTimesRoman);'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 99
+              Width = 339
+            end
+            object PRText383: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Identifies the typeface of the font.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 83
+              Width = 339
+            end
+            object PRText384: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Arial'
+              )
+              FontName = fnArial
+              FontSize = 9
+              Left = 91
+              Height = 14
+              Top = 122
+              Width = 157
+            end
+            object PRText385: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'ABCDEFGabcdefg12345'
+              )
+              FontName = fnArial
+              FontSize = 14
+              Left = 91
+              Height = 21
+              Top = 134
+              Width = 174
+            end
+            object PRText386: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'TimesRoman'
+              )
+              FontName = fnArial
+              FontSize = 9
+              Left = 91
+              Height = 14
+              Top = 152
+              Width = 157
+            end
+            object PRText387: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'ABCDEFGabcdefg12345'
+              )
+              FontName = fnTimesRoman
+              FontSize = 14
+              Left = 91
+              Height = 21
+              Top = 164
+              Width = 174
+            end
+            object PRText388: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'FixedWidth'
+              )
+              FontName = fnArial
+              FontSize = 9
+              Left = 91
+              Height = 14
+              Top = 182
+              Width = 157
+            end
+            object PRText389: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'ABCDEFGabcdefg12345'
+              )
+              FontName = fnArial
+              FontSize = 14
+              Left = 91
+              Height = 21
+              Top = 194
+              Width = 174
+            end
+            object PRRect76: TPRRect
+              Left = 84
+              Height = 95
+              Top = 118
+              Width = 181
+            end
+            object PRText390: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 221
+              Width = 53
+            end
+            object PRText391: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'FontSize: Single;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 221
+              Width = 279
+            end
+            object PRText392: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Specifies the height of the font in points.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 235
+              Width = 339
+            end
+            object PRText393: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 249
+              Width = 53
+            end
+            object PRText394: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'FontBold: boolean;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 249
+              Width = 279
+            end
+            object PRText395: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Specifies whether the font is boldfaced or not.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 263
+              Width = 339
+            end
+            object PRLabel30: TPRLabel
+              Caption = 'copyright (c) 1999-2001 takeshi kanno'
+              Alignment = taRightJustify
+              FontName = fnArial
+              FontSize = 8
+              Align = alBottom
+              Height = 13
+              Top = 599
+              Width = 474
+            end
+          end
+        end
+      end
+      object TabSheet10: TTabSheet
+        Caption = 'TPRText'
+        ClientHeight = 499
+        ClientWidth = 618
+        Height = 499
+        Width = 618
+        object PRPage12: TPRPage
+          MarginTop = 24
+          MarginLeft = 32
+          MarginRight = 32
+          MarginBottom = 32
+          Left = 12
+          Height = 670
+          Top = 7
+          Width = 540
+          object PRLayoutPanel10: TPRLayoutPanel
+            Align = alClient
+            BeforePrint = PRLayoutPanelBeforePrint
+            Left = 33
+            Height = 612
+            Top = 25
+            Width = 474
+            object PRRect31: TPRRect
+              Left = 420
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect32: TPRRect
+              Left = 61
+              Height = 1
+              Top = 23
+              Width = 360
+            end
+            object PRRect33: TPRRect
+              Left = 61
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect34: TPRRect
+              Left = 240
+              Height = 12
+              Top = 15
+              Width = 1
+            end
+            object PRText2_6: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '2.6   TPRText'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 52
+              Height = 15
+              Top = 69
+              Width = 367
+              Tag = 3
+            end
+            object PRText179: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'TPRText is used to print a text. '
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 14
+              Top = 85
+              Width = 339
+            end
+            object PRText180: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Unit'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 103
+              Width = 339
+            end
+            object PRText181: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'PReport'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 15
+              Top = 120
+              Width = 339
+            end
+            object PRText182: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Description'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 139
+              Width = 337
+            end
+            object PRText183: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'Use TPRText to print text. '
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 153
+              Width = 369
+            end
+            object PRText2_6_1: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '2.6.1   TPRText properties'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 44
+              Height = 15
+              Top = 175
+              Width = 377
+              Tag = 4
+            end
+            object PRText185: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Align: TAlign;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 193
+              Width = 279
+            end
+            object PRText186: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 193
+              Width = 53
+            end
+            object PRText187: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Determines how the control aligns within its container (or parent control).'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 207
+              Width = 339
+            end
+            object PRText196: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Printable: boolean;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 221
+              Width = 279
+            end
+            object PRText197: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 221
+              Width = 53
+            end
+            object PRText198: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Determines whether the control will be printed or not.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 235
+              Width = 339
+            end
+            object PRText199: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 251
+              Width = 53
+            end
+            object PRText200: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'FontColor: TColor;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 251
+              Width = 279
+            end
+            object PRText201: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Specifies the color of the text.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 265
+              Width = 339
+            end
+            object PRText202: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 279
+              Width = 53
+            end
+            object PRText203: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'FontName: TPRFontName;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 279
+              Width = 279
+            end
+            object PRText239: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'Identifies the typeface of the font.'
+                'See TPRLabel.FontName.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 28
+              Top = 293
+              Width = 339
+            end
+            object PRText295: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 321
+              Width = 53
+            end
+            object PRText296: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'FontSize: Single;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 321
+              Width = 279
+            end
+            object PRText297: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Specifies the height of the font in points.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 335
+              Width = 339
+            end
+            object PRText298: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 349
+              Width = 53
+            end
+            object PRText299: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'FontBold: boolean;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 349
+              Width = 279
+            end
+            object PRText300: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Specifies whether the font is boldfaced or not.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 363
+              Width = 339
+            end
+            object PRText301: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 379
+              Width = 53
+            end
+            object PRText302: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Leading: Single;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 379
+              Width = 279
+            end
+            object PRText303: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Specifies the text leading.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 393
+              Width = 339
+            end
+            object PRText304: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 409
+              Width = 53
+            end
+            object PRText305: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Lines: TStrings;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 409
+              Width = 279
+            end
+            object PRText306: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Contains the individual lines of text.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 423
+              Width = 339
+            end
+            object PRText307: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 439
+              Width = 53
+            end
+            object PRText308: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'WordSpace: Single;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 439
+              Width = 279
+            end
+            object PRText309: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Specifies the word spacing of the text.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 453
+              Width = 339
+            end
+            object PRText310: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 467
+              Width = 53
+            end
+            object PRText311: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'WordWrap: boolean;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 467
+              Width = 279
+            end
+            object PRText312: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'Determines whether the text inserts soft carriage returns so text wraps at the right margin.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 28
+              Top = 481
+              Width = 339
+            end
+            object PRLabel31: TPRLabel
+              Caption = 'copyright (c) 1999-2001 takeshi kanno'
+              Alignment = taRightJustify
+              FontName = fnArial
+              FontSize = 8
+              Align = alBottom
+              Height = 13
+              Top = 599
+              Width = 474
+            end
+          end
+        end
+      end
+      object TabSheet11: TTabSheet
+        Caption = 'TPRImage'
+        ClientHeight = 499
+        ClientWidth = 618
+        Height = 499
+        Width = 618
+        object PRPage13: TPRPage
+          MarginTop = 24
+          MarginLeft = 32
+          MarginRight = 32
+          MarginBottom = 32
+          Left = 12
+          Height = 670
+          Top = 7
+          Width = 540
+          object PRLayoutPanel11: TPRLayoutPanel
+            Align = alClient
+            BeforePrint = PRLayoutPanelBeforePrint
+            Left = 33
+            Height = 612
+            Top = 25
+            Width = 474
+            object PRRect35: TPRRect
+              Left = 420
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect36: TPRRect
+              Left = 61
+              Height = 1
+              Top = 23
+              Width = 360
+            end
+            object PRRect37: TPRRect
+              Left = 61
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect38: TPRRect
+              Left = 240
+              Height = 12
+              Top = 15
+              Width = 1
+            end
+            object PRText2_7: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '2.7   TPRImage'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 52
+              Height = 15
+              Top = 69
+              Width = 367
+              Tag = 3
+            end
+            object PRText191: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'TPRImage is uses to print a image. '
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 14
+              Top = 85
+              Width = 339
+            end
+            object PRText192: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Unit'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 103
+              Width = 339
+            end
+            object PRText193: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'PReport'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 15
+              Top = 120
+              Width = 339
+            end
+            object PRText194: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Description'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 139
+              Width = 337
+            end
+            object PRText195: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'Use of TPRImage to print a image. TPRImage only support 24bit bitmap image yet. If program is compiled to use Zlib compression, the image is automatically compressed with Flate-Decode.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 40
+              Top = 153
+              Width = 369
+            end
+            object PRText2_7_1: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '2.7.1   TPRImage properties'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 44
+              Height = 15
+              Top = 197
+              Width = 377
+              Tag = 4
+            end
+            object PRText206: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Align: TAlign;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 215
+              Width = 279
+            end
+            object PRText207: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 215
+              Width = 53
+            end
+            object PRText208: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Determines how the control aligns within its container (or parent control).'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 229
+              Width = 339
+            end
+            object PRText209: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Printable: boolean;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 243
+              Width = 279
+            end
+            object PRText210: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 243
+              Width = 53
+            end
+            object PRText211: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Determines whether the control will be printed or not.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 257
+              Width = 339
+            end
+            object PRText212: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 273
+              Width = 53
+            end
+            object PRText213: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Picture: TPicture;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 273
+              Width = 279
+            end
+            object PRText214: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Specifies the image that appears on the control.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 287
+              Width = 339
+            end
+            object PRText215: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 345
+              Width = 53
+            end
+            object PRText216: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'SharedImage: boolean;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 345
+              Width = 279
+            end
+            object PRText217: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'Determines whether the image data will be shared in the document or not.'
+                'if this property is set true, the PDF file has only one image, This means disk capacity can be saved.'
+                'But if the image of each page is different, SharedImage property must be set false.'
+                'See DBImageExample(not shared image)'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 64
+              Top = 359
+              Width = 357
+            end
+            object PRText3: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 303
+              Width = 53
+            end
+            object PRText204: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Stretch: boolean;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 303
+              Width = 279
+            end
+            object PRText240: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'Determines whether resizing the height and width of the image to fit to the client area or not.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 28
+              Top = 317
+              Width = 357
+            end
+            object PRLabel32: TPRLabel
+              Caption = 'copyright (c) 1999-2001 takeshi kanno'
+              Alignment = taRightJustify
+              FontName = fnArial
+              FontSize = 8
+              Align = alBottom
+              Height = 13
+              Top = 599
+              Width = 474
+            end
+          end
+        end
+      end
+      object TabSheet12: TTabSheet
+        Caption = 'TPRJpegImage'
+        ClientHeight = 499
+        ClientWidth = 618
+        Height = 499
+        Width = 618
+        object PRPage14: TPRPage
+          MarginTop = 24
+          MarginLeft = 32
+          MarginRight = 32
+          MarginBottom = 32
+          Left = 12
+          Height = 670
+          Top = 7
+          Width = 540
+          object PRLayoutPanel12: TPRLayoutPanel
+            Align = alClient
+            BeforePrint = PRLayoutPanelBeforePrint
+            Left = 33
+            Height = 612
+            Top = 25
+            Width = 474
+            object PRRect39: TPRRect
+              Left = 420
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect40: TPRRect
+              Left = 61
+              Height = 1
+              Top = 23
+              Width = 360
+            end
+            object PRRect41: TPRRect
+              Left = 61
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect42: TPRRect
+              Left = 240
+              Height = 12
+              Top = 15
+              Width = 1
+            end
+            object PRText2_8: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '2.8   TPRJpegImage'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 52
+              Height = 15
+              Top = 69
+              Width = 367
+              Tag = 3
+            end
+            object PRText246: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'TPRImage is uses to print a TJpegImage. '
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 14
+              Top = 85
+              Width = 339
+            end
+            object PRText247: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Unit'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 103
+              Width = 339
+            end
+            object PRText248: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'PRJpegImage'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 15
+              Top = 120
+              Width = 339
+            end
+            object PRText249: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Description'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 139
+              Width = 337
+            end
+            object PRText250: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'Use of TPRJpegImage to print a image with JPEG encoding.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 153
+              Width = 341
+            end
+            object PRText2_8_1: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '2.8.1   TPRJpegImage properties'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 44
+              Height = 15
+              Top = 175
+              Width = 377
+              Tag = 4
+            end
+            object PRText252: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Align: TAlign;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 193
+              Width = 279
+            end
+            object PRText253: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 193
+              Width = 53
+            end
+            object PRText254: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Determines how the control aligns within its container (or parent control).'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 207
+              Width = 339
+            end
+            object PRText255: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Printable: boolean;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 221
+              Width = 279
+            end
+            object PRText256: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 221
+              Width = 53
+            end
+            object PRText257: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Determines whether the control will be printed or not.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 235
+              Width = 339
+            end
+            object PRText258: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 251
+              Width = 53
+            end
+            object PRText260: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Picture: TPicture;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 251
+              Width = 279
+            end
+            object PRText264: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Specifies the image that appears on the control. Only TJpegImage is allowed.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 265
+              Width = 339
+            end
+            object PRText265: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 279
+              Width = 53
+            end
+            object PRText273: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'SharedImage: boolean;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 279
+              Width = 279
+            end
+            object PRText274: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'Determines whether the image data will be shared in the document or not.'
+                'if this property is set true, the PDF file has only one image, This means disk capacity can be saved.'
+                'But if the image of each page is different, SharedImage property must be set false.'
+                'See DBImageExample(not shared image)'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 64
+              Top = 293
+              Width = 349
+            end
+            object PRLabel33: TPRLabel
+              Caption = 'copyright (c) 1999-2001 takeshi kanno'
+              Alignment = taRightJustify
+              FontName = fnArial
+              FontSize = 8
+              Align = alBottom
+              Height = 13
+              Top = 599
+              Width = 474
+            end
+          end
+        end
+      end
+      object TabSheet13: TTabSheet
+        Caption = 'TPRRect'
+        ClientHeight = 499
+        ClientWidth = 618
+        Height = 499
+        Width = 618
+        object PRPage15: TPRPage
+          MarginTop = 24
+          MarginLeft = 32
+          MarginRight = 32
+          MarginBottom = 32
+          Left = 12
+          Height = 670
+          Top = 7
+          Width = 540
+          object PRLayoutPanel13: TPRLayoutPanel
+            Align = alClient
+            BeforePrint = PRLayoutPanelBeforePrint
+            Left = 33
+            Height = 612
+            Top = 25
+            Width = 474
+            object PRRect43: TPRRect
+              Left = 420
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect44: TPRRect
+              Left = 61
+              Height = 1
+              Top = 23
+              Width = 360
+            end
+            object PRRect45: TPRRect
+              Left = 61
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect46: TPRRect
+              Left = 240
+              Height = 12
+              Top = 15
+              Width = 1
+            end
+            object PRText2_9: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '2.9   TPRRect'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 52
+              Height = 15
+              Top = 69
+              Width = 367
+              Tag = 3
+            end
+            object PRText221: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'TPRRect is used to draw rectangles and lines on a report.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 14
+              Top = 85
+              Width = 339
+            end
+            object PRText222: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Unit'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 103
+              Width = 339
+            end
+            object PRText223: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'PReport'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 15
+              Top = 120
+              Width = 339
+            end
+            object PRText2_9_1: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '2.9.1   TPRRect properties'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 44
+              Height = 15
+              Top = 141
+              Width = 377
+              Tag = 4
+            end
+            object PRText227: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Align: TAlign;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 159
+              Width = 279
+            end
+            object PRText228: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 159
+              Width = 53
+            end
+            object PRText229: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Align determines how the control aligns within container (or parent control).'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 173
+              Width = 339
+            end
+            object PRText230: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'FillColor: TColor;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 187
+              Width = 279
+            end
+            object PRText231: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 187
+              Width = 53
+            end
+            object PRText232: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'FillColor determines fill style for the Rectangle.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 201
+              Width = 339
+            end
+            object PRText233: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 217
+              Width = 53
+            end
+            object PRText234: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'LineColor: TColor;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 217
+              Width = 279
+            end
+            object PRText235: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'LineColor determines color of the lines for the Rectangle.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 231
+              Width = 339
+            end
+            object PRText236: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 245
+              Width = 53
+            end
+            object PRText237: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'LineStyle: TPenStyle;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 245
+              Width = 279
+            end
+            object PRText238: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'LineStyle determines the style in which the pen draws lines.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 259
+              Width = 339
+            end
+            object PRRect47: TPRRect
+              LineWidth = 1
+              Left = 161
+              Height = 1
+              Top = 321
+              Width = 100
+            end
+            object PRText224: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'psSolid'
+              )
+              FontName = fnArial
+              FontSize = 9
+              Left = 87
+              Height = 14
+              Top = 314
+              Width = 80
+            end
+            object PRText225: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'psDash'
+              )
+              FontName = fnArial
+              FontSize = 9
+              Left = 87
+              Height = 14
+              Top = 328
+              Width = 80
+            end
+            object PRRect48: TPRRect
+              LineWidth = 1
+              LineStyle = psDash
+              Left = 161
+              Height = 1
+              Top = 335
+              Width = 100
+            end
+            object PRText266: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'psDashDot'
+              )
+              FontName = fnArial
+              FontSize = 9
+              Left = 87
+              Height = 14
+              Top = 342
+              Width = 80
+            end
+            object PRRect49: TPRRect
+              LineWidth = 1
+              LineStyle = psDashDot
+              Left = 161
+              Height = 1
+              Top = 349
+              Width = 100
+            end
+            object PRRect50: TPRRect
+              LineWidth = 1
+              LineStyle = psDashDotDot
+              Left = 161
+              Height = 1
+              Top = 362
+              Width = 100
+            end
+            object PRText267: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'psDashDotDot'
+              )
+              FontName = fnArial
+              FontSize = 9
+              Left = 87
+              Height = 14
+              Top = 357
+              Width = 80
+            end
+            object PRText268: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'psDot'
+              )
+              FontName = fnArial
+              FontSize = 9
+              Left = 87
+              Height = 14
+              Top = 371
+              Width = 80
+            end
+            object PRRect51: TPRRect
+              LineWidth = 1
+              LineStyle = psDot
+              Left = 161
+              Height = 1
+              Top = 376
+              Width = 100
+            end
+            object PRRect52: TPRRect
+              LineWidth = 1
+              LineStyle = psClear
+              Left = 83
+              Height = 1
+              Top = 396
+              Width = 209
+            end
+            object PRText269: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'psClear(Invisible)'
+              )
+              FontName = fnArial
+              FontSize = 9
+              Left = 87
+              Height = 14
+              Top = 385
+              Width = 80
+            end
+            object PRText270: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'TPenStyle = (psSolid, psDash, psDot, psDashDot, '
+                '                                        psDashDotDot, psClear, psInsideFrame);'
+              )
+              WordWrap = True
+              FontName = fnArial
+              FontSize = 10
+              Left = 80
+              Height = 27
+              Top = 278
+              Width = 341
+            end
+            object PRRect57: TPRRect
+              Left = 80
+              Height = 93
+              Top = 308
+              Width = 195
+            end
+            object PRLabel34: TPRLabel
+              Caption = 'copyright (c) 1999-2001 takeshi kanno'
+              Alignment = taRightJustify
+              FontName = fnArial
+              FontSize = 8
+              Align = alBottom
+              Height = 13
+              Top = 599
+              Width = 474
+            end
+          end
+        end
+      end
+      object TabSheet14: TTabSheet
+        Caption = 'TPREllipse'
+        ClientHeight = 499
+        ClientWidth = 618
+        Height = 499
+        Width = 618
+        object PRPage16: TPRPage
+          MarginTop = 24
+          MarginLeft = 32
+          MarginRight = 32
+          MarginBottom = 32
+          Left = 12
+          Height = 670
+          Top = 7
+          Width = 540
+          object PRLayoutPanel18: TPRLayoutPanel
+            Align = alClient
+            BeforePrint = PRLayoutPanelBeforePrint
+            Left = 33
+            Height = 612
+            Top = 25
+            Width = 474
+            object PRRect72: TPRRect
+              Left = 420
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect73: TPRRect
+              Left = 61
+              Height = 1
+              Top = 23
+              Width = 360
+            end
+            object PRRect74: TPRRect
+              Left = 61
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect75: TPRRect
+              Left = 240
+              Height = 12
+              Top = 15
+              Width = 1
+            end
+            object PRText2_10: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '2.10 TPREllipse'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 52
+              Height = 15
+              Top = 69
+              Width = 367
+              Tag = 3
+            end
+            object PRText357: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'TPRShape is used to draw ellipse on a report.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 14
+              Top = 85
+              Width = 339
+            end
+            object PRText358: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Unit'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 103
+              Width = 339
+            end
+            object PRText359: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'PReport'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 15
+              Top = 120
+              Width = 339
+            end
+            object PRText2_10_1: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '2.10.1 TPREllipse properties'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 44
+              Height = 15
+              Top = 141
+              Width = 377
+              Tag = 4
+            end
+            object PRText361: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Align: TAlign;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 159
+              Width = 279
+            end
+            object PRText362: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 159
+              Width = 53
+            end
+            object PRText363: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Align determines how the control aligns within container (or parent control).'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 173
+              Width = 339
+            end
+            object PRText364: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'FillColor: TColor;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 187
+              Width = 279
+            end
+            object PRText365: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 187
+              Width = 53
+            end
+            object PRText366: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'FillColor determines fill style for the ellipse.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 201
+              Width = 339
+            end
+            object PRText367: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 217
+              Width = 53
+            end
+            object PRText368: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'LineColor: TColor;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 217
+              Width = 279
+            end
+            object PRText369: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'LineColor determines color of the lines for the ellipse.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 231
+              Width = 339
+            end
+            object PRText370: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 245
+              Width = 53
+            end
+            object PRText371: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'LineStyle: TPenStyle;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 245
+              Width = 279
+            end
+            object PRText372: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'LineStyle determines the style in which the pen draws lines.'
+                'See TPRRect.LineStyle.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 28
+              Top = 259
+              Width = 339
+            end
+            object PRLabel2: TPRLabel
+              Caption = 'The samples of the TPREllipse'
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 78
+              Height = 15
+              Top = 300
+              Width = 343
+            end
+            object PRRect53: TPRRect
+              Left = 78
+              Height = 159
+              Top = 314
+              Width = 343
+            end
+            object PREllipse1: TPREllipse
+              Left = 96
+              Height = 30
+              Top = 334
+              Width = 90
+            end
+            object PREllipse2: TPREllipse
+              LineStyle = psDash
+              Left = 94
+              Height = 80
+              Top = 380
+              Width = 90
+            end
+            object PREllipse3: TPREllipse
+              LineColor = clNone
+              LineStyle = psClear
+              FillColor = clYellow
+              Left = 208
+              Height = 30
+              Top = 334
+              Width = 90
+            end
+            object PREllipse4: TPREllipse
+              LineColor = clNone
+              LineStyle = psClear
+              FillColor = 16777088
+              Left = 206
+              Height = 80
+              Top = 380
+              Width = 90
+            end
+            object PREllipse5: TPREllipse
+              LineWidth = 1
+              LineStyle = psDashDot
+              FillColor = 4227072
+              Left = 318
+              Height = 30
+              Top = 334
+              Width = 90
+            end
+            object PREllipse6: TPREllipse
+              LineWidth = 2
+              LineColor = clRed
+              Left = 316
+              Height = 80
+              Top = 380
+              Width = 90
+            end
+            object PRLabel35: TPRLabel
+              Caption = 'copyright (c) 1999-2001 takeshi kanno'
+              Alignment = taRightJustify
+              FontName = fnArial
+              FontSize = 8
+              Align = alBottom
+              Height = 13
+              Top = 599
+              Width = 474
+            end
+          end
+        end
+      end
+      object TabSheet15: TTabSheet
+        Caption = 'TPRAnnotation'
+        ClientHeight = 499
+        ClientWidth = 618
+        Height = 499
+        Width = 618
+        object PRPage17: TPRPage
+          MarginTop = 24
+          MarginLeft = 32
+          MarginRight = 32
+          MarginBottom = 32
+          Left = 12
+          Height = 670
+          Top = 7
+          Width = 540
+          object PRLayoutPanel16: TPRLayoutPanel
+            Align = alClient
+            BeforePrint = PRLayoutPanelBeforePrint
+            Left = 33
+            Height = 612
+            Top = 25
+            Width = 474
+            object PRRect63: TPRRect
+              Left = 420
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect64: TPRRect
+              Left = 61
+              Height = 1
+              Top = 23
+              Width = 360
+            end
+            object PRRect65: TPRRect
+              Left = 61
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect66: TPRRect
+              Left = 240
+              Height = 12
+              Top = 15
+              Width = 1
+            end
+            object PRText2_11: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '2.11 TPRAnnotation'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 52
+              Height = 15
+              Top = 69
+              Width = 367
+              Tag = 3
+            end
+            object PRText282: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'TPRAnnotation is used to add annotations to a page'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 14
+              Top = 85
+              Width = 339
+            end
+            object PRText283: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Unit'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 103
+              Width = 339
+            end
+            object PRText284: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'PRAnnotation'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 15
+              Top = 120
+              Width = 339
+            end
+            object PRText2_11_1: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '2.11.1 TPRAnnotation properties'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 44
+              Height = 15
+              Top = 141
+              Width = 377
+              Tag = 4
+            end
+            object PRText291: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Caption: string;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 157
+              Width = 279
+            end
+            object PRText292: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 157
+              Width = 53
+            end
+            object PRText293: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Caption determines the title of annotation window.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 171
+              Width = 339
+            end
+            object PRText294: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 187
+              Width = 53
+            end
+            object PRText313: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Lines: TStrings;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 187
+              Width = 279
+            end
+            object PRText314: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Lines and Text determines the text to be displayed in a pop-up window.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 215
+              Width = 339
+            end
+            object PRText315: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 201
+              Width = 53
+            end
+            object PRText316: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Text: string;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 201
+              Width = 279
+            end
+            object PRAnnotation1: TPRAnnotation
+              Caption = 'PRAnnotation1'
+              Lines.Strings = (
+                'The quick brown fox ate the lazy mouse'
+              )
+              Opened = True
+              Left = 80
+              Height = 89
+              Top = 300
+              Width = 129
+            end
+            object PRAnnotation2: TPRAnnotation
+              Caption = 'PRAnnotation1'
+              Lines.Strings = (
+                'The quick brown fox ate the lazy mouse'
+              )
+              Left = 226
+              Height = 89
+              Top = 300
+              Width = 129
+            end
+            object PRText288: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'property'
+              )
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 231
+              Width = 53
+            end
+            object PRText289: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Opened: boolean;'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 126
+              Height = 15
+              Top = 231
+              Width = 279
+            end
+            object PRText290: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Lines and Text determines the text to be displayed in a pop-up window.'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 245
+              Width = 339
+            end
+            object PRText317: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'TPRAnnotation with Open property set to true.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 32
+              Top = 271
+              Width = 131
+            end
+            object PRText318: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'TPRAnnotation with Open property set to false.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 226
+              Height = 32
+              Top = 271
+              Width = 131
+            end
+            object PRLabel36: TPRLabel
+              Caption = 'copyright (c) 1999-2001 takeshi kanno'
+              Alignment = taRightJustify
+              FontName = fnArial
+              FontSize = 8
+              Align = alBottom
+              Height = 13
+              Top = 599
+              Width = 474
+            end
+          end
+        end
+      end
+      object TabSheet19: TTabSheet
+        Caption = 'TPROutlineEntry'
+        ClientHeight = 499
+        ClientWidth = 618
+        Height = 499
+        Width = 618
+        object PRPage18: TPRPage
+          MarginTop = 24
+          MarginLeft = 32
+          MarginRight = 32
+          MarginBottom = 32
+          Left = 12
+          Height = 670
+          Top = 7
+          Width = 540
+          object PRLayoutPanel20: TPRLayoutPanel
+            Align = alClient
+            BeforePrint = PRLayoutPanelBeforePrint
+            Left = 33
+            Height = 612
+            Top = 25
+            Width = 474
+            object PRRect81: TPRRect
+              Left = 420
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect82: TPRRect
+              Left = 61
+              Height = 1
+              Top = 23
+              Width = 360
+            end
+            object PRRect83: TPRRect
+              Left = 61
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect84: TPRRect
+              Left = 240
+              Height = 12
+              Top = 15
+              Width = 1
+            end
+            object PRLabel18: TPRLabel
+              Caption = 'copyright (c) 1999-2001 takeshi kanno'
+              Alignment = taRightJustify
+              FontName = fnArial
+              FontSize = 8
+              Align = alBottom
+              Height = 13
+              Top = 599
+              Width = 474
+            end
+            object PRText2_12: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '2.12 TPROutlineEntry'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 52
+              Height = 15
+              Top = 69
+              Width = 367
+              Tag = 3
+            end
+            object PRText14: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'TPRAnnotation is used to make outline tree of the document.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 16
+              Top = 85
+              Width = 339
+            end
+            object PRText15: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Unit'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 103
+              Width = 339
+            end
+            object PRText16: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'PReport'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 15
+              Top = 120
+              Width = 339
+            end
+            object PRText2_12_2: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '2.12.1 TPROutlineEntry properties'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 44
+              Height = 15
+              Top = 141
+              Width = 377
+              Tag = 4
+            end
+            object PRText190: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '2.12.2 TPROutlineEntry methods'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 44
+              Height = 15
+              Top = 465
+              Width = 377
+              Tag = 4
+            end
+            object PRText219: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'AddChild function add a new outline-entry at the last sibling of the entry and return the new outline-entry.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 33
+              Top = 496
+              Width = 339
+            end
+            object PRLabel40: TPRLabel
+              Caption = 'function'
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 13
+              Top = 481
+              Width = 65
+            end
+            object PRLabel41: TPRLabel
+              Caption = 'AddChild: TPROutlineEntry;'
+              FontName = fnArial
+              FontSize = 10
+              Left = 124
+              Height = 13
+              Top = 481
+              Width = 293
+            end
+            object PRLabel42: TPRLabel
+              Caption = 'property'
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 13
+              Top = 157
+              Width = 49
+            end
+            object PRLabel43: TPRLabel
+              Caption = 'Parent: TPROutlineEntry;'
+              FontName = fnArial
+              FontSize = 10
+              Left = 128
+              Height = 13
+              Top = 157
+              Width = 293
+            end
+            object PRText18: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'Indicates the parent entry of this entry. '
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 17
+              Top = 172
+              Width = 339
+            end
+            object PRLabel44: TPRLabel
+              Caption = 'property'
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 13
+              Top = 189
+              Width = 49
+            end
+            object PRLabel45: TPRLabel
+              Caption = 'Next: TPROutlineEntry;'
+              FontName = fnArial
+              FontSize = 10
+              Left = 128
+              Height = 13
+              Top = 189
+              Width = 293
+            end
+            object PRText19: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'Indicates the next sibiling entry of this entry. '
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 17
+              Top = 204
+              Width = 339
+            end
+            object PRLabel46: TPRLabel
+              Caption = 'property'
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 13
+              Top = 221
+              Width = 49
+            end
+            object PRLabel47: TPRLabel
+              Caption = 'Prev: TPROutlineEntry;'
+              FontName = fnArial
+              FontSize = 10
+              Left = 128
+              Height = 13
+              Top = 221
+              Width = 293
+            end
+            object PRText20: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'Indicates the previous sibiling entry of this entry. '
+                'If the entry has no previous entry, Prev property indicates null.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 29
+              Top = 236
+              Width = 339
+            end
+            object PRLabel48: TPRLabel
+              Caption = 'property'
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 13
+              Top = 265
+              Width = 49
+            end
+            object PRLabel49: TPRLabel
+              Caption = 'First: TPROutlineEntry;'
+              FontName = fnArial
+              FontSize = 10
+              Left = 128
+              Height = 13
+              Top = 265
+              Width = 293
+            end
+            object PRText22: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'Indicates the first entry of the children. '
+                'If the entry has no child entry, First property indicates null.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 29
+              Top = 280
+              Width = 339
+            end
+            object PRLabel50: TPRLabel
+              Caption = 'property'
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 13
+              Top = 309
+              Width = 49
+            end
+            object PRLabel51: TPRLabel
+              Caption = 'Last TPROutlineEntry;'
+              FontName = fnArial
+              FontSize = 10
+              Left = 128
+              Height = 13
+              Top = 309
+              Width = 293
+            end
+            object PRText23: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'Indicates the last entry of the children. '
+                'If the entry has no child entry, First property indicates null.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 29
+              Top = 324
+              Width = 339
+            end
+            object PRLabel52: TPRLabel
+              Caption = 'property'
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 13
+              Top = 353
+              Width = 49
+            end
+            object PRLabel53: TPRLabel
+              Caption = 'Dest: TPRDestination;'
+              FontName = fnArial
+              FontSize = 10
+              Left = 128
+              Height = 13
+              Top = 353
+              Width = 293
+            end
+            object PRText25: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'Dest property is a TPRDestination object which linkes to the entry.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 17
+              Top = 368
+              Width = 339
+            end
+            object PRLabel54: TPRLabel
+              Caption = 'property'
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 13
+              Top = 385
+              Width = 49
+            end
+            object PRLabel55: TPRLabel
+              Caption = 'Title string;'
+              FontName = fnArial
+              FontSize = 10
+              Left = 128
+              Height = 13
+              Top = 385
+              Width = 293
+            end
+            object PRText51: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'Use the Title property to modify the name of this entry.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 17
+              Top = 400
+              Width = 339
+            end
+            object PRLabel56: TPRLabel
+              Caption = 'property'
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 13
+              Top = 417
+              Width = 49
+            end
+            object PRLabel57: TPRLabel
+              Caption = 'Opened boolean;'
+              FontName = fnArial
+              FontSize = 10
+              Left = 128
+              Height = 13
+              Top = 417
+              Width = 293
+            end
+            object PRText52: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'Use the Opened property to set whether the entry is opened or not when the document is displaied.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 29
+              Top = 432
+              Width = 339
+            end
+          end
+        end
+      end
+      object TabSheet20: TTabSheet
+        Caption = 'TPRDestination'
+        ClientHeight = 499
+        ClientWidth = 618
+        Height = 499
+        Width = 618
+        object PRPage19: TPRPage
+          MarginTop = 24
+          MarginLeft = 32
+          MarginRight = 32
+          MarginBottom = 32
+          Left = 12
+          Height = 670
+          Top = 7
+          Width = 540
+          object PRLayoutPanel21: TPRLayoutPanel
+            Align = alClient
+            BeforePrint = PRLayoutPanelBeforePrint
+            Left = 33
+            Height = 612
+            Top = 25
+            Width = 474
+            object PRRect85: TPRRect
+              Left = 420
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect86: TPRRect
+              Left = 61
+              Height = 1
+              Top = 23
+              Width = 360
+            end
+            object PRRect87: TPRRect
+              Left = 61
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect88: TPRRect
+              Left = 240
+              Height = 12
+              Top = 15
+              Width = 1
+            end
+            object PRLabel19: TPRLabel
+              Caption = 'copyright (c) 1999-2001 takeshi kanno'
+              Alignment = taRightJustify
+              FontName = fnArial
+              FontSize = 8
+              Align = alBottom
+              Height = 13
+              Top = 599
+              Width = 474
+            end
+            object PRText70: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '2.13 TPRDestination'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 52
+              Height = 15
+              Top = 69
+              Width = 367
+              Tag = 3
+            end
+            object PRText71: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'Use the TPRDestination class to set the location of the display window on that page, and the zoom level.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 28
+              Top = 85
+              Width = 339
+            end
+            object PRText72: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Unit'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 80
+              Height = 15
+              Top = 115
+              Width = 339
+            end
+            object PRText73: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'PReport'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 15
+              Top = 132
+              Width = 339
+            end
+            object PRText74: TPRText
+              Leading = 14
+              Lines.Strings = (
+                '2.13.1 TPRDestination properties'
+              )
+              FontName = fnArial
+              FontSize = 12
+              FontBold = True
+              Left = 44
+              Height = 15
+              Top = 153
+              Width = 377
+              Tag = 4
+            end
+            object PRText57: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'The DestinationType property determines the type of destination.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 80
+              Height = 17
+              Top = 184
+              Width = 339
+            end
+            object PRLabel58: TPRLabel
+              Caption = 'property'
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 13
+              Top = 169
+              Width = 65
+            end
+            object PRLabel59: TPRLabel
+              Caption = 'DestinationType: TPRDestinationType;'
+              FontName = fnArial
+              FontSize = 10
+              Left = 128
+              Height = 13
+              Top = 169
+              Width = 293
+            end
+            object PRText68: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'TPdfDestinationType = (dtXYZ, dtFit, dtFitH, dtFitV, dtFitR, dtFitB, '
+                '                dtFitBH, dtFitBV);'
+              )
+              FontName = fnArial
+              FontSize = 10
+              Left = 80
+              Height = 32
+              Top = 201
+              Width = 345
+            end
+            object PRText69: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'dtXYZ'
+                'dtFit'
+                'dtFitH'
+                'dtFitV'
+                'dtFitR'
+                'dtFitB'
+                'dtFitBH'
+                'dtFitBV'
+              )
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 100
+              Height = 140
+              Top = 233
+              Width = 49
+            end
+            object PRText75: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'Display the page with position and size indicated by Left,Top and Zoom properties.'
+                'Fit the page to the window.'
+                'Fit the width of the page to the window. Only the Top property is used to determine the top position. '
+                'Fit the height of the page to the window. Only the Left property is used to determine the position of the left edge of the window. '
+                'Fit the rectangle specified by Left Top, Right,Bottom properties.'
+                'Fit the pagefs bounding box to the window.'
+                'Fit the width of the pagefs bounding box to the window.'
+                'Fit the height of the pagefs bounding box to the window.'
+              )
+              WordWrap = True
+              FontName = fnTimesRoman
+              FontSize = 10
+              Left = 148
+              Height = 140
+              Top = 233
+              Width = 269
+            end
+            object PRLabel60: TPRLabel
+              Caption = 'property'
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 13
+              Top = 377
+              Width = 49
+            end
+            object PRLabel61: TPRLabel
+              Caption = 'Left: Integer;'
+              FontName = fnArial
+              FontSize = 10
+              Left = 128
+              Height = 13
+              Top = 377
+              Width = 293
+            end
+            object PRLabel62: TPRLabel
+              Caption = 'property'
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 13
+              Top = 393
+              Width = 49
+            end
+            object PRLabel63: TPRLabel
+              Caption = 'Top: Integer;'
+              FontName = fnArial
+              FontSize = 10
+              Left = 128
+              Height = 13
+              Top = 393
+              Width = 293
+            end
+            object PRLabel64: TPRLabel
+              Caption = 'property'
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 13
+              Top = 409
+              Width = 49
+            end
+            object PRLabel65: TPRLabel
+              Caption = 'Right: Integer;'
+              FontName = fnArial
+              FontSize = 10
+              Left = 128
+              Height = 13
+              Top = 409
+              Width = 293
+            end
+            object PRLabel66: TPRLabel
+              Caption = 'property'
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 13
+              Top = 425
+              Width = 49
+            end
+            object PRLabel67: TPRLabel
+              Caption = 'Bottom: Integer;'
+              FontName = fnArial
+              FontSize = 10
+              Left = 128
+              Height = 13
+              Top = 425
+              Width = 293
+            end
+            object PRLabel68: TPRLabel
+              Caption = 'property'
+              FontName = fnArial
+              FontSize = 10
+              FontBold = True
+              Left = 80
+              Height = 13
+              Top = 441
+              Width = 49
+            end
+            object PRLabel69: TPRLabel
+              Caption = 'Zoom: Single;'
+              FontName = fnArial
+              FontSize = 10
+              Left = 128
+              Height = 13
+              Top = 441
+              Width = 293
+            end
+          end
+        end
+      end
+      object TabSheet16: TTabSheet
+        Caption = 'Copyright'
+        ClientHeight = 499
+        ClientWidth = 618
+        Height = 499
+        Width = 618
+        object PRPage20: TPRPage
+          MarginTop = 24
+          MarginLeft = 32
+          MarginRight = 32
+          MarginBottom = 32
+          Left = 12
+          Height = 670
+          Top = 7
+          Width = 540
+          object PRLayoutPanel15: TPRLayoutPanel
+            Align = alClient
+            BeforePrint = PRLayoutPanelBeforePrint
+            Left = 33
+            Height = 612
+            Top = 25
+            Width = 474
+            object PRRect59: TPRRect
+              Left = 420
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect60: TPRRect
+              Left = 61
+              Height = 1
+              Top = 23
+              Width = 360
+            end
+            object PRRect61: TPRRect
+              Left = 61
+              Height = 16
+              Top = 11
+              Width = 1
+            end
+            object PRRect62: TPRRect
+              Left = 240
+              Height = 12
+              Top = 15
+              Width = 1
+            end
+            object PRText220: TPRText
+              Leading = 12
+              Lines.Strings = (
+                'Copyright (C) 1999-2001 Takeshi Kanno'
+                'This library is free software; you can redistribute it and/or modify it under the terms of the GNU Library General Public License as published by the Free Software Foundation; either version 2 of the License, or any later version.'
+                'This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Library general Public License for more details.'
+              )
+              WordWrap = True
+              FontName = fnArial
+              FontSize = 10
+              Left = 60
+              Height = 145
+              Top = 106
+              Width = 361
+            end
+            object PRTextCopyright: TPRText
+              Leading = 14
+              Lines.Strings = (
+                'Copyright'
+              )
+              FontName = fnArial
+              FontSize = 24
+              FontBold = True
+              Left = 176
+              Height = 30
+              Top = 60
+              Width = 137
+              Tag = 2
+            end
+            object PRLabel21: TPRLabel
+              Caption = 'copyright (c) 1999-2001 takeshi kanno'
+              Alignment = taRightJustify
+              FontName = fnArial
+              FontSize = 8
+              Align = alBottom
+              Height = 13
+              Top = 599
+              Width = 474
+            end
+          end
+        end
+      end
+    end
+  end
+  object MainMenu1: TMainMenu
+    left = 156
+    top = 30
+    object File1: TMenuItem
+      Caption = '&File'
+      object CreatePDF1: TMenuItem
+        Caption = 'Create PDF'
+        OnClick = CreatePDF1Click
+      end
+      object N1: TMenuItem
+        Caption = '-'
+      end
+      object Exit1: TMenuItem
+        Caption = 'Exit'
+        OnClick = Exit1Click
+      end
+    end
+    object Help1: TMenuItem
+      Caption = '&Help'
+      object About1: TMenuItem
+        Caption = '&About'
+        OnClick = About1Click
+      end
+    end
+  end
+  object PReport1: TPReport
+    FileName = 'default.pdf'
+    CreationDate = 37030.844032696761
+    PageLayout = plOneColumn
+    PageMode = pmUseOutlines
+    UseOutlines = True
+    left = 186
+    top = 30
+  end
+  object SaveDialog1: TSaveDialog
+    Title = 'Save file as'
+    DefaultExt = '.pdf'
+    FileName = 'PowerPdfRef.pdf'
+    Filter = 'PDF Files|*.pdf|All Files|*.*'
+    FilterIndex = 0
+    Title = 'Save file as'
+    left = 216
+    top = 30
+  end
+end

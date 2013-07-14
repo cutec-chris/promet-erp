@@ -1,0 +1,521 @@
+%PDF-1.2 
+1 0 obj
+<<
+/Type /Catalog
+/Outlines 2 0 R
+/Pages 4 0 R
+/PageMode /UseNone
+>>
+endobj
+2 0 obj
+<<
+/Count 0
+>>
+endobj
+3 0 obj
+<<
+/Producer <FEFF001B6A61001B0050006F007700650072005000640066002000760065007200730069006F006E00200030002E003803B2>
+/Author ()
+/CreationDate (D:20010610164331)
+/Creator ()
+/Keywords ()
+/Subject ()
+/Title (PowerPdf Line Demo)
+/ModDate (D:20010610164331)
+>>
+endobj
+4 0 obj
+<<
+/Type /Pages
+/Kids [5 0 R ]
+/Count 1
+>>
+endobj
+5 0 obj
+<<
+/Type /Page
+/Parent 4 0 R
+/MediaBox [0 0 600 700 ]
+/Resources <<
+/Font <<
+/F0 7 0 R
+/F1 8 0 R
+>>
+/XObject <<
+>>
+/ProcSet [/PDF /Text /ImageC ]
+>>
+/Contents 6 0 R
+>>
+endobj
+6 0 obj
+<<
+/Length 4225
+/Filter []
+>>
+stream
+/F0 10 Tf
+/F1 24 Tf
+0 0 0 rg
+14 TL
+BT
+165 648 Td
+(PowerPdf Line Example) Tj
+ET
+/F0 9 Tf
+0 0 0 rg
+14 TL
+BT
+409 40 Td
+(copyright \(c\) 1999-2001 takeshi kanno) Tj
+ET
+[] 0 d
+56 606 m
+264 606 l
+0 0 0 RG
+0 w
+S
+n
+0 0 0 rg
+14 TL
+BT
+56 611 Td
+(LineWidth 0, LineStyle psSolid) Tj
+ET
+0 0 0 rg
+14 TL
+BT
+56 587 Td
+(LineWidth 0, LineStyle psDash) Tj
+ET
+[16 8 ] 0 d
+56 582 m
+264 582 l
+0 0 0 RG
+0 w
+S
+n
+0 0 0 rg
+14 TL
+BT
+56 563 Td
+(LineWidth 0, LineStyle psDashDot) Tj
+ET
+[8 7 2 7 ] 0 d
+56 558 m
+264 558 l
+0 0 0 RG
+0 w
+S
+n
+[8 4 2 4 2 4 ] 0 d
+56 535 m
+264 535 l
+0 0 0 RG
+0 w
+S
+n
+0 0 0 rg
+14 TL
+BT
+56 540 Td
+(LineWidth 0, LineStyle psDashDotDot) Tj
+ET
+0 0 0 rg
+14 TL
+BT
+56 516 Td
+(LineWidth 0, LineStyle psDot) Tj
+ET
+[3 ] 0 d
+56 511 m
+264 511 l
+0 0 0 RG
+0 w
+S
+n
+0 0 0 rg
+14 TL
+BT
+56 492 Td
+(LineWidth 0, LineStyle psClear\(Invisible\)) Tj
+ET
+[] 0 d
+302 606 m
+510 606 l
+0 0 0 RG
+1 w
+S
+n
+0 0 0 rg
+14 TL
+BT
+302 611 Td
+(LineWidth 1, LineStyle psSolid) Tj
+ET
+0 0 0 rg
+14 TL
+BT
+302 587 Td
+(LineWidth 1, LineStyle psDash) Tj
+ET
+[16 8 ] 0 d
+302 582 m
+510 582 l
+0 0 0 RG
+1 w
+S
+n
+0 0 0 rg
+14 TL
+BT
+302 563 Td
+(LineWidth 1, LineStyle psDashDot) Tj
+ET
+[8 7 2 7 ] 0 d
+302 558 m
+510 558 l
+0 0 0 RG
+1 w
+S
+n
+[8 4 2 4 2 4 ] 0 d
+302 535 m
+510 535 l
+0 0 0 RG
+1 w
+S
+n
+0 0 0 rg
+14 TL
+BT
+302 540 Td
+(LineWidth 1, LineStyle psDashDotDot) Tj
+ET
+0 0 0 rg
+14 TL
+BT
+302 516 Td
+(LineWidth 1, LineStyle psDot) Tj
+ET
+[3 ] 0 d
+302 511 m
+510 511 l
+0 0 0 RG
+1 w
+S
+n
+0 0 0 rg
+14 TL
+BT
+302 492 Td
+(LineWidth 1, LineStyle psClear\(Invisible\)) Tj
+ET
+[] 0 d
+56 455 m
+264 455 l
+0 0 1 RG
+1.5 w
+S
+n
+0 0 0 rg
+14 TL
+BT
+56 460 Td
+(LineWidth 1.5, LineStyle psSolid, LineColor clBlue) Tj
+ET
+0 0 0 rg
+14 TL
+BT
+56 436 Td
+(LineWidth 1.5, LineStyle psDash, LineColor clBlue) Tj
+ET
+[16 8 ] 0 d
+56 431 m
+264 431 l
+0 0 1 RG
+1.5 w
+S
+n
+0 0 0 rg
+14 TL
+BT
+56 412 Td
+(LineWidth 1.5, LineStyle psDashDot, LineColor clBl) Tj
+ET
+[8 7 2 7 ] 0 d
+56 407 m
+264 407 l
+0 0 1 RG
+1.5 w
+S
+n
+[8 4 2 4 2 4 ] 0 d
+56 384 m
+264 384 l
+0 0 1 RG
+1.5 w
+S
+n
+0 0 0 rg
+14 TL
+BT
+56 389 Td
+(LineWidth 1.5, LineStyle psDashDotDot, LineColor ) Tj
+ET
+0 0 0 rg
+14 TL
+BT
+56 365 Td
+(LineWidth 1.5, LineStyle psDot, LineColor clBlue) Tj
+ET
+[3 ] 0 d
+56 360 m
+264 360 l
+0 0 1 RG
+1.5 w
+S
+n
+[] 0 d
+302 455 m
+510 455 l
+0 0 0 RG
+2 w
+S
+n
+0 0 0 rg
+14 TL
+BT
+302 460 Td
+(LineWidth 2, LineStyle psSolid) Tj
+ET
+0 0 0 rg
+14 TL
+BT
+302 436 Td
+(LineWidth 2, LineStyle psDash) Tj
+ET
+[16 8 ] 0 d
+302 431 m
+510 431 l
+0 0 0 RG
+2 w
+S
+n
+0 0 0 rg
+14 TL
+BT
+302 412 Td
+(LineWidth 2, LineStyle psDashDot) Tj
+ET
+[8 7 2 7 ] 0 d
+302 407 m
+510 407 l
+0 0 0 RG
+2 w
+S
+n
+[8 4 2 4 2 4 ] 0 d
+302 384 m
+510 384 l
+0 0 0 RG
+2 w
+S
+n
+0 0 0 rg
+14 TL
+BT
+302 389 Td
+(LineWidth 2, LineStyle psDashDotDot) Tj
+ET
+0 0 0 rg
+14 TL
+BT
+302 365 Td
+(LineWidth 2, LineStyle psDot) Tj
+ET
+[3 ] 0 d
+302 360 m
+510 360 l
+0 0 0 RG
+2 w
+S
+n
+[] 0 d
+56 334 m
+264 334 l
+264 296 l
+56 296 l
+0 0 0 RG
+1 w
+s
+0 0 0 rg
+12 TL
+BT
+63 319 Td
+(LineWidth 1, LineStyle psSolid) Tj
+T*
+(LineColor clBlack, FillColor clWhite) Tj
+ET
+[] 0 d
+55 284 m
+263 284 l
+263 246 l
+55 246 l
+1 1 0 rg
+0 0 0.5 RG
+1 w
+b
+0 0 0 rg
+12 TL
+BT
+62 269 Td
+(LineWidth 1, LineStyle psSolid) Tj
+T*
+(LineColor clNavy, FillColor clYellow) Tj
+ET
+[3 ] 0 d
+302 334 m
+510 334 l
+510 296 l
+302 296 l
+0 1 0 rg
+0 0 0 RG
+1 w
+b
+0 0 0 rg
+12 TL
+BT
+309 319 Td
+(LineWidth 1, LineStyle psDot) Tj
+T*
+(LineColor clBlack, FillColor clLime) Tj
+ET
+[] 0 d
+301 284 m
+509 284 l
+509 246 l
+301 246 l
+0 1 1 rg
+h
+f
+0 0 0 rg
+12 TL
+BT
+308 269 Td
+(LineWidth 1, LineStyle psSolid) Tj
+T*
+(LineColor clNone, FillColor clAqua) Tj
+ET
+[] 0 d
+56 228 m
+264 228 l
+264 190 l
+56 190 l
+0 0 0.5 RG
+1.5 w
+s
+0 0 0 rg
+12 TL
+BT
+63 213 Td
+(LineWidth 1.5, LineStyle psSolid) Tj
+T*
+(LineColor clNavy, FillColor clWhite) Tj
+ET
+[8 7 2 7 ] 0 d
+55 178 m
+263 178 l
+263 140 l
+55 140 l
+1 1 0 rg
+1 0 0 RG
+1.5 w
+b
+0 0 0 rg
+12 TL
+BT
+62 163 Td
+(LineWidth 1.5, LineStyle psDashDot) Tj
+T*
+(LineColor clRed, FillColor clYellow) Tj
+ET
+[3 ] 0 d
+302 228 m
+510 228 l
+510 190 l
+302 190 l
+0 1 0 rg
+0 0 1 RG
+1.5 w
+b
+0 0 0 rg
+12 TL
+BT
+309 213 Td
+(LineWidth 1.5, LineStyle psDot) Tj
+T*
+(LineColor clBlue, FillColor clLime) Tj
+ET
+[] 0 d
+301 178 m
+509 178 l
+509 140 l
+301 140 l
+0 1 1 rg
+0.5 0 0.5 RG
+2 w
+b
+0 0 0 rg
+12 TL
+BT
+308 163 Td
+(LineWidth 2, LineStyle psSolid) Tj
+T*
+(LineColor clPurple, FillColor clAqua) Tj
+ET
+
+endstream
+endobj
+7 0 obj
+<<
+/Type /Font
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+/BaseFont /Helvetica
+/Name /F0
+>>
+endobj
+8 0 obj
+<<
+/Type /Font
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+/BaseFont /Helvetica-Bold
+/Name /F1
+>>
+endobj
+xref
+0 9
+0000000000 65535 f
+0000000011 00000 n
+0000000103 00000 n
+0000000138 00000 n
+0000000421 00000 n
+0000000486 00000 n
+0000000686 00000 n
+0000004982 00000 n
+0000005128 00000 n
+trailer
+<<
+/Size 9
+/Root 1 0 R
+/Info 3 0 R
+>>
+startxref
+5279
+%%EOF

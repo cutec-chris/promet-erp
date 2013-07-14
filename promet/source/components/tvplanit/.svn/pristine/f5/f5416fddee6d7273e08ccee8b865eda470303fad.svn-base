@@ -1,0 +1,283 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <Package Version="3">
+    <Name Value="v103_lazarus"/>
+    <CompilerOptions>
+      <Version Value="5"/>
+      <SearchPaths>
+        <IncludeFiles Value="../source/"/>
+        <OtherUnitFiles Value="../source/"/>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+      <CodeGeneration>
+        <Generate Value="Faster"/>
+      </CodeGeneration>
+      <Other>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
+    </CompilerOptions>
+    <Files Count="60">
+      <Item1>
+        <Filename Value="../source/vpabout.pas"/>
+        <UnitName Value="VpAbout"/>
+      </Item1>
+      <Item2>
+        <Filename Value="../source/vpalarmdlg.lfm"/>
+        <Type Value="LFM"/>
+      </Item2>
+      <Item3>
+        <Filename Value="../source/vpalarmdlg.pas"/>
+        <UnitName Value="VpAlarmDlg"/>
+      </Item3>
+      <Item4>
+        <Filename Value="../source/vpbase.pas"/>
+        <UnitName Value="VpBase"/>
+      </Item4>
+      <Item5>
+        <Filename Value="../source/vpbaseds.pas"/>
+        <UnitName Value="VpBaseDS"/>
+      </Item5>
+      <Item6>
+        <Filename Value="../source/vpcalendar.pas"/>
+        <UnitName Value="VpCalendar"/>
+      </Item6>
+      <Item7>
+        <Filename Value="../source/vpcanvasutils.pas"/>
+        <UnitName Value="VpCanvasUtils"/>
+      </Item7>
+      <Item8>
+        <Filename Value="../source/vpconst.pas"/>
+        <UnitName Value="VpConst"/>
+      </Item8>
+      <Item9>
+        <Filename Value="../source/vpcontactbuttons.pas"/>
+        <UnitName Value="VpContactButtons"/>
+      </Item9>
+      <Item10>
+        <Filename Value="../source/vpcontacteditdlg.lfm"/>
+        <Type Value="LFM"/>
+      </Item10>
+      <Item11>
+        <Filename Value="../source/vpcontacteditdlg.pas"/>
+        <UnitName Value="VpContactEditDlg"/>
+      </Item11>
+      <Item12>
+        <Filename Value="../source/vpcontactgrid.pas"/>
+        <UnitName Value="VpContactGrid"/>
+      </Item12>
+      <Item13>
+        <Filename Value="../source/vpdata.pas"/>
+        <UnitName Value="VpData"/>
+      </Item13>
+      <Item14>
+        <Filename Value="../source/vpdateedit.pas"/>
+        <UnitName Value="VpDateEdit"/>
+      </Item14>
+      <Item15>
+        <Filename Value="../source/vpdatepropedit.lfm"/>
+        <Type Value="LFM"/>
+      </Item15>
+      <Item16>
+        <Filename Value="../source/vpdatepropedit.pas"/>
+        <UnitName Value="VpDatePropEdit"/>
+      </Item16>
+      <Item17>
+        <Filename Value="../source/vpdayview.pas"/>
+        <UnitName Value="VpDayView"/>
+      </Item17>
+      <Item18>
+        <Filename Value="../source/vpdbds.pas"/>
+        <UnitName Value="VpDBDS"/>
+      </Item18>
+      <Item19>
+        <Filename Value="../source/vpdlg.pas"/>
+        <UnitName Value="VpDlg"/>
+      </Item19>
+      <Item20>
+        <Filename Value="../source/vpedelem.lfm"/>
+        <Type Value="LFM"/>
+      </Item20>
+      <Item21>
+        <Filename Value="../source/vpedelem.pas"/>
+        <UnitName Value="VpEdElem"/>
+      </Item21>
+      <Item22>
+        <Filename Value="../source/vpedfmt.lfm"/>
+        <Type Value="LFM"/>
+      </Item22>
+      <Item23>
+        <Filename Value="../source/vpedfmt.pas"/>
+        <UnitName Value="VpEdFmt"/>
+      </Item23>
+      <Item24>
+        <Filename Value="../source/vpedpop.pas"/>
+        <UnitName Value="VpEdPop"/>
+      </Item24>
+      <Item25>
+        <Filename Value="../source/vpedshape.lfm"/>
+        <Type Value="LFM"/>
+      </Item25>
+      <Item26>
+        <Filename Value="../source/vpedshape.pas"/>
+        <UnitName Value="VpEdShape"/>
+      </Item26>
+      <Item27>
+        <Filename Value="../source/vpevnteditdlg.lfm"/>
+        <Type Value="LFM"/>
+      </Item27>
+      <Item28>
+        <Filename Value="../source/vpevnteditdlg.pas"/>
+        <UnitName Value="VpEvntEditDlg"/>
+      </Item28>
+      <Item29>
+        <Filename Value="../source/vpexception.pas"/>
+        <UnitName Value="VpException"/>
+      </Item29>
+      <Item30>
+        <Filename Value="../source/vpledlabel.pas"/>
+        <UnitName Value="VpLEDLabel"/>
+      </Item30>
+      <Item31>
+        <Filename Value="../source/vplocalize.pas"/>
+        <UnitName Value="VpLocalize"/>
+      </Item31>
+      <Item32>
+        <Filename Value="../source/vpmisc.pas"/>
+        <UnitName Value="VpMisc"/>
+      </Item32>
+      <Item33>
+        <Filename Value="../source/vpmonthview.pas"/>
+        <UnitName Value="VpMonthView"/>
+      </Item33>
+      <Item34>
+        <Filename Value="../source/vpnabed.lfm"/>
+        <Type Value="LFM"/>
+      </Item34>
+      <Item35>
+        <Filename Value="../source/vpnabed.pas"/>
+        <UnitName Value="VpNabEd"/>
+      </Item35>
+      <Item36>
+        <Filename Value="../source/vpnavbar.pas"/>
+        <UnitName Value="VpNavBar"/>
+      </Item36>
+      <Item37>
+        <Filename Value="../source/vpprtfmt.pas"/>
+        <UnitName Value="VpPrtFmt"/>
+      </Item37>
+      <Item38>
+        <Filename Value="../source/vpprtfmtcbox.pas"/>
+        <UnitName Value="VpPrtFmtCBox"/>
+      </Item38>
+      <Item39>
+        <Filename Value="../source/vpprtfmtdlg.pas"/>
+        <UnitName Value="VpPrtFmtDlg"/>
+      </Item39>
+      <Item40>
+        <Filename Value="../source/vpprtfmted.pas"/>
+        <UnitName Value="VpPrtFmtEd"/>
+      </Item40>
+      <Item41>
+        <Filename Value="../source/vpprtprv.pas"/>
+        <UnitName Value="VpPrtPrv"/>
+      </Item41>
+      <Item42>
+        <Filename Value="../source/vpprtprvdlg.lfm"/>
+        <Type Value="LFM"/>
+      </Item42>
+      <Item43>
+        <Filename Value="../source/vpprtprvdlg.pas"/>
+        <UnitName Value="VpPrtPrvDlg"/>
+      </Item43>
+      <Item44>
+        <Filename Value="../source/vpreg.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="VpReg"/>
+      </Item44>
+      <Item45>
+        <Filename Value="../source/vpreseditdlg.lfm"/>
+        <Type Value="LFM"/>
+      </Item45>
+      <Item46>
+        <Filename Value="../source/vpreseditdlg.pas"/>
+        <UnitName Value="VpResEditDlg"/>
+      </Item46>
+      <Item47>
+        <Filename Value="../source/vpselresdlg.lfm"/>
+        <Type Value="LFM"/>
+      </Item47>
+      <Item48>
+        <Filename Value="../source/vpselresdlg.pas"/>
+        <UnitName Value="VpSelResDlg"/>
+      </Item48>
+      <Item49>
+        <Filename Value="../source/vpsr.pas"/>
+        <UnitName Value="VpSR"/>
+      </Item49>
+      <Item50>
+        <Filename Value="../source/vptaskeditdlg.lfm"/>
+        <Type Value="LFM"/>
+      </Item50>
+      <Item51>
+        <Filename Value="../source/vptaskeditdlg.pas"/>
+        <UnitName Value="VpTaskEditDlg"/>
+      </Item51>
+      <Item52>
+        <Filename Value="../source/vptasklist.pas"/>
+        <UnitName Value="VpTaskList"/>
+      </Item52>
+      <Item53>
+        <Filename Value="../source/vptimerpool.pas"/>
+        <UnitName Value="VpTimerPool"/>
+      </Item53>
+      <Item54>
+        <Filename Value="../source/vpwavdlg.lfm"/>
+        <Type Value="LFM"/>
+      </Item54>
+      <Item55>
+        <Filename Value="../source/vpwavdlg.pas"/>
+        <UnitName Value="VpWavDlg"/>
+      </Item55>
+      <Item56>
+        <Filename Value="../source/vpwavpe.pas"/>
+        <UnitName Value="VpWavPE"/>
+      </Item56>
+      <Item57>
+        <Filename Value="../source/vpweekview.pas"/>
+        <UnitName Value="VpWeekView"/>
+      </Item57>
+      <Item58>
+        <Filename Value="../source/vpxbase.pas"/>
+        <UnitName Value="VpXBase"/>
+      </Item58>
+      <Item59>
+        <Filename Value="../source/vpxchrflt.pas"/>
+        <UnitName Value="VpXChrFlt"/>
+      </Item59>
+      <Item60>
+        <Filename Value="../source/vpxparsr.pas"/>
+        <UnitName Value="VpXParsr"/>
+      </Item60>
+    </Files>
+    <Type Value="RunAndDesignTime"/>
+    <RequiredPkgs Count="3">
+      <Item1>
+        <PackageName Value="FCL"/>
+        <MinVersion Major="1" Valid="True"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="LCL"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="IDEIntf"/>
+      </Item3>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IgnoreBinaries Value="False"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

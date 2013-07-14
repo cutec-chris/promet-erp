@@ -1,0 +1,158 @@
+object frmFieldMapper: TfrmFieldMapper
+  Left = 281
+  Height = 537
+  Top = 112
+  Width = 409
+  HorzScrollBar.Page = 408
+  VertScrollBar.Page = 536
+  BorderStyle = bsToolWindow
+  Caption = 'FlexDataStore Field Mapping Designer'
+  ClientHeight = 537
+  ClientWidth = 409
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  OnClose = FormClose
+  OnShow = FormShow
+  Position = poScreenCenter
+  object Panel1: TPanel
+    Height = 57
+    Top = 480
+    Width = 409
+    Align = alBottom
+    ClientHeight = 57
+    ClientWidth = 409
+    TabOrder = 0
+    object Button2: TButton
+      Left = 325
+      Height = 25
+      Top = 16
+      Width = 75
+      Caption = 'Close'
+      OnClick = Button2Click
+      TabOrder = 0
+    end
+  end
+  object PageControl1: TPageControl
+    Height = 480
+    Width = 409
+    ActivePage = TabSheet1
+    Align = alClient
+    TabIndex = 0
+    TabOrder = 1
+    object TabSheet1: TTabSheet
+      Caption = 'Field Mapping Designer'
+      ClientHeight = 454
+      ClientWidth = 401
+      object Bevel1: TBevel
+        Left = 5
+        Height = 315
+        Top = 4
+        Width = 390
+      end
+      object Label2: TLabel
+        Left = 10
+        Height = 13
+        Top = 36
+        Width = 116
+        Caption = 'Available Dataset Fields:'
+        ParentColor = False
+      end
+      object Label5: TLabel
+        Left = 35
+        Height = 13
+        Top = 329
+        Width = 74
+        Caption = 'Field Mappings:'
+        ParentColor = False
+      end
+      object Label6: TLabel
+        Left = 242
+        Height = 13
+        Top = 36
+        Width = 137
+        Caption = 'Available Visual PlanIt Fields:'
+        ParentColor = False
+      end
+      object Label1: TLabel
+        Left = 12
+        Height = 13
+        Top = 13
+        Width = 40
+        Caption = 'Dataset:'
+        ParentColor = False
+      end
+      object DatasetFieldLB: TListBox
+        Left = 11
+        Height = 255
+        Top = 56
+        Width = 145
+        ItemHeight = 13
+        OnClick = DBFieldSelected
+        OnKeyPress = DatasetFieldLBKeyPress
+        TabOrder = 0
+      end
+      object VPFieldLB: TListBox
+        Left = 243
+        Height = 255
+        Top = 56
+        Width = 145
+        ItemHeight = 13
+        OnClick = VpFieldSelected
+        OnKeyPress = VPFieldLBKeyPress
+        TabOrder = 1
+      end
+      object FieldMappingsLB: TListBox
+        Left = 35
+        Height = 100
+        Top = 349
+        Width = 217
+        ItemHeight = 13
+        OnClick = FieldMappingsLBClick
+        OnKeyPress = FieldMappingsLBKeyPress
+        TabOrder = 2
+      end
+      object btnDeleteMapping: TButton
+        Left = 259
+        Height = 25
+        Top = 349
+        Width = 97
+        Caption = 'Delete Mapping'
+        Enabled = False
+        OnClick = btnDeleteMappingClick
+        TabOrder = 3
+      end
+      object DatasetCombo: TComboBox
+        Left = 56
+        Height = 21
+        Top = 10
+        Width = 145
+        AutoCompleteText = [cbactEndOfLineComplete, cbactSearchAscending]
+        ItemHeight = 13
+        OnChange = DatasetComboChange
+        TabOrder = 4
+        Text = 'DatasetCombo'
+      end
+      object btnAddMapping: TBitBtn
+        Left = 166
+        Height = 49
+        Top = 136
+        Width = 69
+        Caption = 'Add Field Mapping'
+        Enabled = False
+        NumGlyphs = 0
+        OnClick = btnAddMappingClick
+        TabOrder = 5
+      end
+      object btnClearMappings: TButton
+        Left = 259
+        Height = 25
+        Top = 381
+        Width = 97
+        Caption = 'Clear All '
+        Enabled = False
+        OnClick = btnClearMappingsClick
+        TabOrder = 6
+      end
+    end
+  end
+end

@@ -1,0 +1,939 @@
+object Form1: TForm1
+  Left = 154
+  Height = 585
+  Top = 53
+  Width = 641
+  HorzScrollBar.Page = 640
+  VertScrollBar.Page = 565
+  ActiveControl = PRPage1
+  Caption = 'Form1'
+  ClientHeight = 564
+  ClientWidth = 641
+  Font.CharSet = ANSI_CHARSET
+  Font.Height = -12
+  Font.Name = 'Arial'
+  Menu = MainMenu1
+  LCLVersion = '0.9.29'
+  object StatusBar1: TStatusBar
+    Left = 0
+    Height = 19
+    Top = 545
+    Width = 641
+    Panels = <    
+      item
+        Width = 50
+      end>
+    SimplePanel = False
+  end
+  object ScrollBox1: TScrollBox
+    Left = 0
+    Height = 545
+    Top = 0
+    Width = 641
+    Align = alClient
+    ClientHeight = 541
+    ClientWidth = 622
+    TabOrder = 0
+    object PRPage1: TPRPage
+      Left = 14
+      Height = 700
+      Top = 11
+      Width = 600
+      MarginTop = 32
+      MarginLeft = 32
+      MarginRight = 32
+      MarginBottom = 32
+      object PRLayoutPanel1: TPRLayoutPanel
+        Left = 33
+        Height = 634
+        Top = 33
+        Width = 534
+        Align = alClient
+        object PRRect1: TPRRect
+          Left = 0
+          Height = 441
+          Top = 40
+          Width = 261
+          LineWidth = 0
+          LineStyle = psSolid
+        end
+        object PRText3: TPRText
+          Left = 9
+          Height = 14
+          Top = 48
+          Width = 157
+          FontName = fnArial
+          FontSize = 9
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'Arial'
+          )
+        end
+        object PRText4: TPRText
+          Left = 9
+          Height = 14
+          Top = 84
+          Width = 157
+          FontName = fnArial
+          FontSize = 9
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'TimesRoman'
+          )
+        end
+        object PRText5: TPRText
+          Left = 9
+          Height = 21
+          Top = 60
+          Width = 216
+          FontName = fnArial
+          FontSize = 16
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'ABCDEFGabcdefg12345'
+          )
+        end
+        object PRText6: TPRText
+          Left = 9
+          Height = 21
+          Top = 96
+          Width = 216
+          FontName = fnTimesRoman
+          FontSize = 16
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'ABCDEFGabcdefg12345'
+          )
+        end
+        object PRText7: TPRText
+          Left = 9
+          Height = 14
+          Top = 120
+          Width = 157
+          FontName = fnArial
+          FontSize = 9
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'FixedWidth'
+          )
+        end
+        object PRText8: TPRText
+          Left = 9
+          Height = 21
+          Top = 132
+          Width = 216
+          FontName = fnArial
+          FontSize = 16
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'ABCDEFGabcdefg12345'
+          )
+        end
+        object PRText9: TPRText
+          Left = 9
+          Height = 14
+          Top = 156
+          Width = 157
+          FontName = fnArial
+          FontSize = 9
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'Arial-Bold'
+          )
+        end
+        object PRText10: TPRText
+          Left = 9
+          Height = 21
+          Top = 168
+          Width = 216
+          FontName = fnArial
+          FontSize = 16
+          FontBold = True
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'ABCDEFGabcdefg12345'
+          )
+        end
+        object PRText11: TPRText
+          Left = 9
+          Height = 14
+          Top = 192
+          Width = 157
+          FontName = fnArial
+          FontSize = 9
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'Times-Bold'
+          )
+        end
+        object PRText12: TPRText
+          Left = 9
+          Height = 21
+          Top = 204
+          Width = 216
+          FontName = fnTimesRoman
+          FontSize = 16
+          FontBold = True
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'ABCDEFGabcdefg12345'
+          )
+        end
+        object PRText13: TPRText
+          Left = 9
+          Height = 14
+          Top = 228
+          Width = 157
+          FontName = fnArial
+          FontSize = 9
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'FixedWidth-Bold'
+          )
+        end
+        object PRText14: TPRText
+          Left = 9
+          Height = 21
+          Top = 254
+          Width = 216
+          FontName = fnArial
+          FontSize = 16
+          FontBold = True
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'ABCDEFGabcdefg12345'
+          )
+        end
+        object PRText15: TPRText
+          Left = 9
+          Height = 14
+          Top = 242
+          Width = 157
+          FontName = fnArial
+          FontSize = 9
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'Arial-Italic'
+          )
+        end
+        object PRText16: TPRText
+          Left = 9
+          Height = 21
+          Top = 276
+          Width = 216
+          FontName = fnArial
+          FontSize = 16
+          FontItalic = True
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'ABCDEFGabcdefg12345'
+          )
+        end
+        object PRText17: TPRText
+          Left = 9
+          Height = 14
+          Top = 300
+          Width = 157
+          FontName = fnArial
+          FontSize = 9
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'Times-Italic'
+          )
+        end
+        object PRText18: TPRText
+          Left = 9
+          Height = 21
+          Top = 312
+          Width = 216
+          FontName = fnTimesRoman
+          FontSize = 16
+          FontItalic = True
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'ABCDEFGabcdefg12345'
+          )
+        end
+        object PRText19: TPRText
+          Left = 9
+          Height = 14
+          Top = 336
+          Width = 157
+          FontName = fnArial
+          FontSize = 9
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'FixedWidth-Italic'
+          )
+        end
+        object PRText20: TPRText
+          Left = 9
+          Height = 21
+          Top = 348
+          Width = 216
+          FontName = fnArial
+          FontSize = 16
+          FontItalic = True
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'ABCDEFGabcdefg12345'
+          )
+        end
+        object PRText21: TPRText
+          Left = 9
+          Height = 14
+          Top = 372
+          Width = 157
+          FontName = fnArial
+          FontSize = 9
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'Arial-BoldItalic'
+          )
+        end
+        object PRText22: TPRText
+          Left = 9
+          Height = 21
+          Top = 384
+          Width = 216
+          FontName = fnArial
+          FontSize = 16
+          FontBold = True
+          FontItalic = True
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'ABCDEFGabcdefg12345'
+          )
+        end
+        object PRText23: TPRText
+          Left = 9
+          Height = 14
+          Top = 408
+          Width = 157
+          FontName = fnArial
+          FontSize = 9
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'Times-BoldItalic'
+          )
+        end
+        object PRText24: TPRText
+          Left = 9
+          Height = 21
+          Top = 420
+          Width = 216
+          FontName = fnTimesRoman
+          FontSize = 16
+          FontBold = True
+          FontItalic = True
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'ABCDEFGabcdefg12345'
+          )
+        end
+        object PRText25: TPRText
+          Left = 9
+          Height = 14
+          Top = 444
+          Width = 157
+          FontName = fnArial
+          FontSize = 9
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'FixedWidth-BoldItalic'
+          )
+        end
+        object PRText26: TPRText
+          Left = 9
+          Height = 21
+          Top = 456
+          Width = 216
+          FontName = fnArial
+          FontSize = 16
+          FontBold = True
+          FontItalic = True
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'ABCDEFGabcdefg12345'
+          )
+        end
+        object PRRect2: TPRRect
+          Left = 272
+          Height = 441
+          Top = 40
+          Width = 261
+          LineWidth = 0
+          LineStyle = psSolid
+        end
+        object PRText27: TPRText
+          Left = 281
+          Height = 14
+          Top = 48
+          Width = 157
+          FontName = fnArial
+          FontSize = 9
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'FontSize 8'
+          )
+        end
+        object PRText28: TPRText
+          Left = 281
+          Height = 13
+          Top = 60
+          Width = 216
+          FontName = fnArial
+          FontSize = 8
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'ABCDEFGabcdefg12345'
+          )
+        end
+        object PRText29: TPRText
+          Left = 281
+          Height = 14
+          Top = 76
+          Width = 157
+          FontName = fnArial
+          FontSize = 9
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'FontSize 10'
+          )
+        end
+        object PRText30: TPRText
+          Left = 281
+          Height = 17
+          Top = 88
+          Width = 216
+          FontName = fnArial
+          FontSize = 10
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'ABCDEFGabcdefg12345'
+          )
+        end
+        object PRText31: TPRText
+          Left = 281
+          Height = 14
+          Top = 108
+          Width = 157
+          FontName = fnArial
+          FontSize = 9
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'FontSize 14'
+          )
+        end
+        object PRText32: TPRText
+          Left = 281
+          Height = 21
+          Top = 120
+          Width = 216
+          FontName = fnArial
+          FontSize = 14
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'ABCDEFGabcdefg12345'
+          )
+        end
+        object PRText33: TPRText
+          Left = 281
+          Height = 14
+          Top = 144
+          Width = 157
+          FontName = fnArial
+          FontSize = 9
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'FontSize 18'
+          )
+        end
+        object PRText34: TPRText
+          Left = 281
+          Height = 25
+          Top = 156
+          Width = 216
+          FontName = fnArial
+          FontSize = 18
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'ABCDEFGabcdefg12345'
+          )
+        end
+        object PRText35: TPRText
+          Left = 281
+          Height = 14
+          Top = 184
+          Width = 157
+          FontName = fnArial
+          FontSize = 9
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'FontSize 24'
+          )
+        end
+        object PRText36: TPRText
+          Left = 281
+          Height = 25
+          Top = 196
+          Width = 244
+          FontName = fnArial
+          FontSize = 24
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'ABCDEFGabcdefg12345'
+          )
+        end
+        object PRText37: TPRText
+          Left = 281
+          Height = 14
+          Top = 232
+          Width = 157
+          FontName = fnArial
+          FontSize = 9
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'FontColor Red'
+          )
+        end
+        object PRText38: TPRText
+          Left = 281
+          Height = 25
+          Top = 244
+          Width = 216
+          FontColor = clRed
+          FontName = fnArial
+          FontSize = 18
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'ABCDEFGabcdefg12345'
+          )
+        end
+        object PRText39: TPRText
+          Left = 281
+          Height = 14
+          Top = 272
+          Width = 157
+          FontName = fnArial
+          FontSize = 9
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'FontColor Blue'
+          )
+        end
+        object PRText40: TPRText
+          Left = 281
+          Height = 25
+          Top = 284
+          Width = 216
+          FontColor = clBlue
+          FontName = fnArial
+          FontSize = 18
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'ABCDEFGabcdefg12345'
+          )
+        end
+        object PRRect3: TPRRect
+          Left = -4
+          Height = 121
+          Top = 492
+          Width = 533
+          LineWidth = 0
+          LineStyle = psSolid
+        end
+        object PRText41: TPRText
+          Left = 9
+          Height = 14
+          Top = 504
+          Width = 256
+          FontName = fnArial
+          FontSize = 9
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'WordWrap Text (Leading 12)'
+          )
+        end
+        object PRText42: TPRText
+          Left = 9
+          Height = 33
+          Top = 516
+          Width = 260
+          FontColor = 33023
+          FontName = fnArial
+          FontSize = 11
+          FontBold = True
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 12
+          Lines.Strings = (
+            'Sunday Monday Tuesday Wednesday Thursday Friday Saturday '
+          )
+          WordWrap = True
+        end
+        object PRText43: TPRText
+          Left = 9
+          Height = 14
+          Top = 552
+          Width = 256
+          FontName = fnArial
+          FontSize = 9
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'WordWrap Text (Leading 12, WordSpace 10)'
+          )
+        end
+        object PRText44: TPRText
+          Left = 9
+          Height = 33
+          Top = 564
+          Width = 260
+          FontColor = 33023
+          FontName = fnArial
+          FontSize = 11
+          FontBold = True
+          CharSpace = 0
+          WordSpace = 10
+          Leading = 16
+          Lines.Strings = (
+            'Sunday Monday Tuesday Wednesday Thursday Friday Saturday '
+          )
+          WordWrap = True
+        end
+        object PRText45: TPRText
+          Left = 281
+          Height = 14
+          Top = 504
+          Width = 157
+          FontName = fnArial
+          FontSize = 9
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'CharSpace=-1 '
+          )
+        end
+        object PRText46: TPRText
+          Left = 281
+          Height = 21
+          Top = 516
+          Width = 240
+          FontName = fnArial
+          FontSize = 16
+          CharSpace = -1
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'ABCDEFGabcdefg12345'
+          )
+        end
+        object PRText47: TPRText
+          Left = 281
+          Height = 14
+          Top = 540
+          Width = 157
+          FontName = fnArial
+          FontSize = 9
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'CharSpace=0(default)'
+          )
+        end
+        object PRText48: TPRText
+          Left = 281
+          Height = 21
+          Top = 552
+          Width = 240
+          FontName = fnArial
+          FontSize = 16
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'ABCDEFGabcdefg12345'
+          )
+        end
+        object PRText49: TPRText
+          Left = 281
+          Height = 14
+          Top = 576
+          Width = 157
+          FontName = fnArial
+          FontSize = 9
+          CharSpace = 0
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'CharSpace=2'
+          )
+        end
+        object PRText50: TPRText
+          Left = 281
+          Height = 21
+          Top = 588
+          Width = 240
+          FontName = fnArial
+          FontSize = 16
+          CharSpace = 2
+          WordSpace = 0
+          Leading = 14
+          Lines.Strings = (
+            'ABCDEFGabcdefg12345'
+          )
+        end
+        object PRLabel1: TPRLabel
+          Left = 0
+          Height = 30
+          Top = 0
+          Width = 534
+          FontName = fnArial
+          FontSize = 24
+          FontBold = True
+          CharSpace = 0
+          WordSpace = 0
+          Caption = 'PowerPdf Font Example'
+          Alignment = taCenter
+        end
+        object PRLabel3: TPRLabel
+          Left = 0
+          Height = 14
+          Top = 620
+          Width = 534
+          Align = alBottom
+          FontName = fnArial
+          FontSize = 9
+          CharSpace = 0
+          WordSpace = 0
+          Caption = 'copyright (c) 1999-2001 takeshi kanno'
+          Alignment = taRightJustify
+        end
+        object PRLabel2: TPRLabel
+          Left = 282
+          Height = 15
+          Top = 318
+          Width = 215
+          FontName = fnArial
+          FontSize = 9
+          CharSpace = 0
+          WordSpace = 0
+          Caption = 'Alignment taLeftJustify'
+        end
+        object PRLabel4: TPRLabel
+          Left = 282
+          Height = 15
+          Top = 330
+          Width = 239
+          FontColor = clGreen
+          FontName = fnTimesRoman
+          FontSize = 12
+          FontBold = True
+          CharSpace = 0
+          WordSpace = 0
+          Caption = 'The quick brown fox ate the lazy mouse'
+        end
+        object PRLabel5: TPRLabel
+          Left = 282
+          Height = 15
+          Top = 364
+          Width = 239
+          FontColor = clGreen
+          FontName = fnTimesRoman
+          FontSize = 12
+          FontBold = True
+          CharSpace = 0
+          WordSpace = 0
+          Caption = 'The quick brown fox ate the lazy mouse'
+          Alignment = taRightJustify
+        end
+        object PRLabel6: TPRLabel
+          Left = 282
+          Height = 15
+          Top = 352
+          Width = 215
+          FontName = fnArial
+          FontSize = 9
+          CharSpace = 0
+          WordSpace = 0
+          Caption = 'Alignment taRightJustify'
+        end
+        object PRLabel7: TPRLabel
+          Left = 282
+          Height = 15
+          Top = 384
+          Width = 215
+          FontName = fnArial
+          FontSize = 9
+          CharSpace = 0
+          WordSpace = 0
+          Caption = 'Alignment taCenter'
+        end
+        object PRLabel8: TPRLabel
+          Left = 284
+          Height = 15
+          Top = 394
+          Width = 239
+          FontColor = clGreen
+          FontName = fnTimesRoman
+          FontSize = 12
+          FontBold = True
+          CharSpace = 0
+          WordSpace = 0
+          Caption = 'The quick brown fox ate the lazy mouse'
+          Alignment = taCenter
+        end
+        object PRLabel9: TPRLabel
+          Left = 282
+          Height = 15
+          Top = 414
+          Width = 215
+          FontName = fnArial
+          FontSize = 9
+          CharSpace = 0
+          WordSpace = 0
+          Caption = 'AlignJustified'
+        end
+        object PRLabel10: TPRLabel
+          Left = 284
+          Height = 15
+          Top = 424
+          Width = 239
+          FontColor = clGreen
+          FontName = fnTimesRoman
+          FontSize = 12
+          FontBold = True
+          CharSpace = 0
+          WordSpace = 0
+          Caption = 'The quick brown fox ate the lazy mouse'
+          Alignment = taCenter
+          AlignJustified = True
+        end
+      end
+    end
+  end
+  object MainMenu1: TMainMenu
+    left = 68
+    top = 10
+    object File1: TMenuItem
+      Caption = '&File'
+      object CreatePDF1: TMenuItem
+        Caption = 'Create PDF'
+        OnClick = CreatePDF1Click
+      end
+      object N1: TMenuItem
+        Caption = '-'
+      end
+      object Exit1: TMenuItem
+        Caption = 'Exit'
+        OnClick = Exit1Click
+      end
+    end
+    object Help1: TMenuItem
+      Caption = '&Help'
+      object About1: TMenuItem
+        Caption = '&About'
+        OnClick = About1Click
+      end
+    end
+  end
+  object PReport1: TPReport
+    FileName = 'default.pdf'
+    CreationDate = 37030.8440326967
+    ModDate = 0
+    UseOutlines = False
+    ViewerPreference = []
+    left = 102
+    top = 10
+  end
+  object SaveDialog1: TSaveDialog
+    Title = 'Save file as'
+    FileName = 'FontExample.pdf'
+    Filter = 'PDF Files|*.pdf|All Files|*.*'
+    FilterIndex = 0
+    left = 138
+    top = 10
+  end
+end

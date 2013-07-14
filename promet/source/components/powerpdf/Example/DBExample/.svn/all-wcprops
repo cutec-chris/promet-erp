@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/lazarus-ccr/!svn/ver/585/components/powerpdf/Example/DBExample
+END
+DBExample.dsk
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/lazarus-ccr/!svn/ver/585/components/powerpdf/Example/DBExample/DBExample.dsk
+END
+DBExample.dpr
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/lazarus-ccr/!svn/ver/585/components/powerpdf/Example/DBExample/DBExample.dpr
+END
+UDBExample.pas
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/lazarus-ccr/!svn/ver/585/components/powerpdf/Example/DBExample/UDBExample.pas
+END
+DBExample.res
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/lazarus-ccr/!svn/ver/585/components/powerpdf/Example/DBExample/DBExample.res
+END
+UDBExample.dfm
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/lazarus-ccr/!svn/ver/585/components/powerpdf/Example/DBExample/UDBExample.dfm
+END

@@ -1,0 +1,1575 @@
+LazarusResources.Add('TForm1','FORMDATA',[
+  'TPF0'#6'TForm1'#5'Form1'#13'ActiveControl'#7#9'TabSheet2'#7'Caption'#6#5'For'
+  +'m1'#12'ClientHeight'#3#17#2#11'ClientWidth'#3'v'#2#12'Font.CharSet'#7#12'AN'
+  +'SI_CHARSET'#11'Font.Height'#2#244#9'Font.Name'#6#5'Arial'#4'Menu'#7#9'MainM'
+  +'enu1'#8'OnCreate'#7#10'FormCreate'#9'OnDestroy'#7#11'FormDestroy'#13'Pixels'
+  +'PerInch'#2'`'#18'HorzScrollBar.Page'#3'u'#2#18'VertScrollBar.Page'#3#16#2#4
+  +'Left'#3#190#0#6'Height'#3'$'#2#3'Top'#2'W'#5'Width'#3'v'#2#0#6'TPanel'#6'Pa'
+  +'nel1'#5'Align'#7#8'alClient'#10'BevelOuter'#7#6'bvNone'#11'BorderStyle'#7#8
+  +'bsSingle'#7'Caption'#6#6'Panel1'#12'ClientHeight'#3#13#2#11'ClientWidth'#3
+  +'r'#2#11'FullRepaint'#8#8'TabOrder'#2#0#6'Height'#3#17#2#5'Width'#3'v'#2#0#12
+  +'TPageControl'#12'PageControl1'#10'ActivePage'#7#9'TabSheet3'#5'Align'#7#8'a'
+  +'lClient'#8'TabIndex'#2#2#8'TabOrder'#2#0#8'OnChange'#7#18'PageControl1Chang'
+  +'e'#6'Height'#3#13#2#5'Width'#3'r'#2#0#9'TTabSheet'#9'TabSheet1'#7'Caption'#6
+  +#5'Cover'#12'ClientHeight'#3#243#1#11'ClientWidth'#3'j'#2#6'Height'#3#243#1#5
+  +'Width'#3'j'#2#0#7'TPRPage'#9'CoverPage'#11'OnPrintPage'#7#18'CoverPagePrint'
+  +'Page'#9'MarginTop'#2#24#10'MarginLeft'#2' '#11'MarginRight'#2' '#12'MarginB'
+  +'ottom'#2' '#4'Left'#2#10#6'Height'#3#158#2#3'Top'#2#10#5'Width'#3#28#2#0#14
+  +'TPRLayoutPanel'#14'PRLayoutPanel1'#5'Align'#7#8'alClient'#11'BeforePrint'#7
+  +#25'PRLayoutPanel2BeforePrint'#10'AfterPrint'#7#24'PRLayoutPanel2AfterPrint'
+  +#4'Left'#2'!'#6'Height'#3'd'#2#3'Top'#2#25#5'Width'#3#218#1#0#7'TPRText'#7'P'
+  +'RText2'#7'Leading'#2#14#13'Lines.Strings'#1#6#17'Veision 0.9(beta)'#0#8'Fon'
+  +'tName'#7#7'fnArial'#8'FontSize'#2#15#4'Left'#3#134#0#6'Height'#2#22#3'Top'#3
+  +#155#0#5'Width'#3';'#1#0#0#8'TPRLabel'#8'PRLabel1'#7'Caption'#6'%copyright ('
+  +'c) 1999-2001 takeshi kanno'#9'Alignment'#7#14'taRightJustify'#8'FontName'#7
+  +#7'fnArial'#8'FontSize'#2#8#5'Align'#7#8'alBottom'#6'Height'#2#13#3'Top'#3'W'
+  +#2#5'Width'#3#218#1#0#0#14'TPRLayoutPanel'#14'PRLayoutPanel2'#11'BeforePrint'
+  +#7#25'PRLayoutPanel2BeforePrint'#4'Left'#2'>'#6'Height'#2'1'#3'Top'#2'k'#5'W'
+  +'idth'#3#144#1#0#7'TPRText'#7'PRText1'#7'Leading'#2#14#13'Lines.Strings'#1#6
+  +#18'PowerPdf Reference'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2'0'#8'FontBo'
+  +'ld'#9#9'CharSpace'#2#255#4'Left'#2#8#6'Height'#2'1'#5'Width'#3#134#1#3'Tag'
+  +#2#1#0#0#0#0#0#0#9'TTabSheet'#9'TabSheet2'#7'Caption'#6#8'Contents'#12'Clien'
+  +'tHeight'#3#243#1#11'ClientWidth'#3'j'#2#6'Height'#3#243#1#5'Width'#3'j'#2#0
+  +#7'TPRPage'#12'ContentsPage'#9'MarginTop'#2#24#10'MarginLeft'#2' '#11'Margin'
+  +'Right'#2' '#12'MarginBottom'#2' '#4'Left'#2#10#6'Height'#3#158#2#3'Top'#2#10
+  +#5'Width'#3#28#2#0#14'TPRLayoutPanel'#14'PRLayoutPanel4'#5'Align'#7#8'alClie'
+  +'nt'#11'BeforePrint'#7#24'PRLayoutPanelBeforePrint'#4'Left'#2'!'#6'Height'#3
+  +'d'#2#3'Top'#2#25#5'Width'#3#218#1#0#7'TPRRect'#7'PRRect6'#4'Left'#3#164#1#6
+  +'Height'#2#16#3'Top'#2#11#5'Width'#2#1#0#0#7'TPRRect'#7'PRRect7'#4'Left'#2'='
+  +#6'Height'#2#1#3'Top'#2#23#5'Width'#3'h'#1#0#0#7'TPRRect'#7'PRRect8'#4'Left'
+  +#2'='#6'Height'#2#16#3'Top'#2#11#5'Width'#2#1#0#0#7'TPRRect'#8'PRRect10'#4'L'
+  +'eft'#3#240#0#6'Height'#2#12#3'Top'#2#15#5'Width'#2#1#0#0#7'TPRText'#15'PRTe'
+  +'xt1Contents'#7'Leading'#2#14#13'Lines.Strings'#1#6#8'Contents'#0#8'FontName'
+  +#7#7'fnArial'#8'FontSize'#2#24#8'FontBold'#9#4'Left'#3#188#0#6'Height'#2#30#3
+  +'Top'#2'<'#5'Width'#2'i'#3'Tag'#2#2#0#0#8'TPRLabel'#9'PRLabel22'#7'Caption'#6
+  +'%copyright (c) 1999-2001 takeshi kanno'#9'Alignment'#7#14'taRightJustify'#8
+  +'FontName'#7#7'fnArial'#8'FontSize'#2#8#5'Align'#7#8'alBottom'#6'Height'#2#13
+  +#3'Top'#3'W'#2#5'Width'#3#218#1#0#0#12'TPRGridPanel'#12'PRGridPanel1'#8'ColC'
+  +'ount'#2#1#8'RowCount'#2#30#16'BeforePrintChild'#7#28'PRGridPanel1BeforePrin'
+  +'tChild'#4'Left'#2'<'#6'Height'#3#144#1#3'Top'#2'|'#5'Width'#3'i'#1#0#8'TPRL'
+  +'abel'#12'lblSectionNo'#7'Caption'#6#12'lblSectionNo'#9'Alignment'#7#14'taRi'
+  +'ghtJustify'#8'FontName'#7#7'fnArial'#8'FontSize'#2#12#6'Height'#2#15#5'Widt'
+  +'h'#2'1'#0#0#8'TPRLabel'#14'lblSectionName'#7'Caption'#6#14'lblSectionName'#8
+  +'FontName'#7#7'fnArial'#8'FontSize'#2#12#4'Left'#2'8'#6'Height'#2#18#5'Width'
+  +#3'1'#1#0#0#0#0#0#0#9'TTabSheet'#9'TabSheet3'#7'Caption'#6#12'Introduction'
+  +#12'ClientHeight'#3#243#1#11'ClientWidth'#3'j'#2#6'Height'#3#243#1#5'Width'#3
+  +'j'#2#0#7'TPRPage'#7'PRPage3'#9'MarginTop'#2#24#10'MarginLeft'#2' '#11'Margi'
+  +'nRight'#2' '#12'MarginBottom'#2' '#4'Left'#2#10#6'Height'#3#158#2#3'Top'#2
+  +#10#5'Width'#3#28#2#0#14'TPRLayoutPanel'#14'PRLayoutPanel3'#5'Align'#7#8'alC'
+  +'lient'#11'BeforePrint'#7#24'PRLayoutPanelBeforePrint'#4'Left'#2'!'#6'Height'
+  +#3'd'#2#3'Top'#2#25#5'Width'#3#218#1#0#7'TPRRect'#7'PRRect1'#4'Left'#3#164#1
+  +#6'Height'#2#16#3'Top'#2#11#5'Width'#2#1#0#0#7'TPRRect'#7'PRRect2'#4'Left'#2
+  +'='#6'Height'#2#1#3'Top'#2#23#5'Width'#3'h'#1#0#0#7'TPRRect'#7'PRRect3'#4'Le'
+  +'ft'#2'='#6'Height'#2#16#3'Top'#2#11#5'Width'#2#1#0#0#7'TPRText'#7'PRText6'#7
+  +'Leading'#2#14#13'Lines.Strings'#1#6#9'CHAPTER 1'#0#8'FontName'#7#7'fnArial'
+  +#8'FontSize'#2#12#8'FontBold'#9#4'Left'#3#208#0#6'Height'#2#15#3'Top'#2'J'#5
+  ,'Width'#2'J'#0#0#7'TPRRect'#7'PRRect4'#4'Left'#3#208#0#6'Height'#2#1#3'Top'#2
+  +'X'#5'Width'#2'C'#0#0#7'TPRText'#11'PRTextIntro'#7'Leading'#2#14#13'Lines.St'
+  +'rings'#1#6#12'Introduction'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#24#8'F'
+  +'ontBold'#9#4'Left'#3#171#0#6'Height'#2#30#3'Top'#2'l'#5'Width'#3#151#0#3'Ta'
+  +'g'#2#2#0#0#7'TPRRect'#7'PRRect5'#4'Left'#3#240#0#6'Height'#2#12#3'Top'#2#15
+  +#5'Width'#2#1#0#0#7'TPRText'#9'PRText1_1'#7'Leading'#2#14#13'Lines.Strings'#1
+  +#6#22'1.1   What Is PowerPdf'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#12#8
+  +'FontBold'#9#4'Left'#2'%'#6'Height'#2#15#3'Top'#3#179#0#5'Width'#3#128#1#3'T'
+  +'ag'#2#3#0#0#7'TPRText'#7'PRText9'#7'Leading'#2#12#13'Lines.Strings'#1#6'MPo'
+  +'werPdf is  a VCL to create PDF docment visually. Like QuickReport, you can '
+  +#6'*design PDF document easily on Delphi IDE. '#0#8'FontName'#7#12'fnTimesRo'
+  +'man'#8'FontSize'#2#10#4'Left'#2'>'#6'Height'#2'!'#3'Top'#3#196#0#5'Width'#3
+  +'g'#1#0#0#7'TPRText'#9'PRText1_2'#7'Leading'#2#14#13'Lines.Strings'#1#6#14'1'
+  +'.2   Requires'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#12#8'FontBold'#9#4
+  +'Left'#2'%'#6'Height'#2#15#3'Top'#3#227#0#5'Width'#3#128#1#3'Tag'#2#3#0#0#7
+  +'TPRText'#9'PRText259'#7'Leading'#2#12#13'Lines.Strings'#1#6#19'Delphi3.0 or'
+  +' later.'#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'>'#6'H'
+  +'eight'#2#17#3'Top'#3#244#0#5'Width'#3'g'#1#0#0#7'TPRText'#9'PRText1_3'#7'Le'
+  +'ading'#2#14#13'Lines.Strings'#1#6#18'1.3   Installation'#0#8'FontName'#7#7
+  +'fnArial'#8'FontSize'#2#12#8'FontBold'#9#4'Left'#2'#'#6'Height'#2#15#3'Top'#3
+  +#29#1#5'Width'#3#128#1#3'Tag'#2#3#0#0#7'TPRText'#9'PRText261'#7'Leading'#2#12
+  +#13'Lines.Strings'#1#6'(1.Extracts the files from powerpdf.zip. '#6'?2.Choos'
+  +'e Component|Install Component, and install PowerPdf.pas.'#0#8'FontName'#7#12
+  +'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'<'#6'Height'#2#29#3'Top'#3'.'#1#5
+  +'Width'#3'g'#1#0#0#7'TPRText'#9'PRText262'#7'Leading'#2#14#13'Lines.Strings'
+  +#1#6#4'NOTE'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Lef'
+  +'t'#2'<'#6'Height'#2#15#3'Top'#3'M'#1#5'Width'#3'i'#1#0#0#7'TPRText'#9'PRTex'
+  +'t263'#7'Leading'#2#12#13'Lines.Strings'#1#6#141'If you want to use FlateDec'
+  +'ode/Zlib compression, copy zlib.pas and *.obj files (these are included in '
+  +'Delphi''s CD-ROM) to your librally path.'#0#8'WordWrap'#9#8'FontName'#7#12
+  +'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'<'#6'Height'#2#29#3'Top'#3'\'#1#5
+  +'Width'#3'i'#1#0#0#8'TPRLabel'#9'PRLabel23'#7'Caption'#6'%copyright (c) 1999'
+  +'-2001 takeshi kanno'#9'Alignment'#7#14'taRightJustify'#8'FontName'#7#7'fnAr'
+  +'ial'#8'FontSize'#2#8#5'Align'#7#8'alBottom'#6'Height'#2#13#3'Top'#3'W'#2#5
+  +'Width'#3#218#1#0#0#7'TPRText'#8'PRText93'#7'Leading'#2#12#13'Lines.Strings'
+  +#1#6#28'Lazarus 0.9.9 or later (NEW)'#0#9'FontColor'#7#5'clRed'#8'FontName'#7
+  +#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'?'#6'Height'#2#17#3'Top'#3#5#1#5
+  +'Width'#3'g'#1#0#0#0#0#0#9'TTabSheet'#9'TabSheet4'#7'Caption'#6#8'TPReport'
+  +#12'ClientHeight'#3#243#1#11'ClientWidth'#3'j'#2#6'Height'#3#243#1#5'Width'#3
+  +'j'#2#0#7'TPRPage'#7'PRPage4'#9'MarginTop'#2#24#10'MarginLeft'#2' '#11'Margi'
+  +'nRight'#2' '#12'MarginBottom'#2' '#4'Left'#2#16#6'Height'#3#158#2#3'Top'#2
+  +#16#5'Width'#3#28#2#0#14'TPRLayoutPanel'#14'PRLayoutPanel5'#5'Align'#7#8'alC'
+  +'lient'#11'BeforePrint'#7#24'PRLayoutPanelBeforePrint'#4'Left'#2'!'#6'Height'
+  +#3'd'#2#3'Top'#2#25#5'Width'#3#218#1#0#7'TPRRect'#7'PRRect9'#4'Left'#3#164#1
+  +#6'Height'#2#16#3'Top'#2#11#5'Width'#2#1#0#0#7'TPRRect'#8'PRRect11'#4'Left'#2
+  +'='#6'Height'#2#1#3'Top'#2#23#5'Width'#3'h'#1#0#0#7'TPRRect'#8'PRRect12'#4'L'
+  +'eft'#2'='#6'Height'#2#16#3'Top'#2#11#5'Width'#2#1#0#0#7'TPRRect'#8'PRRect13'
+  +#4'Left'#3#240#0#6'Height'#2#12#3'Top'#2#15#5'Width'#2#1#0#0#7'TPRText'#8'PR'
+  +'Text21'#7'Leading'#2#14#13'Lines.Strings'#1#6#9'CHAPTER 2'#0#8'FontName'#7#7
+  +'fnArial'#8'FontSize'#2#12#8'FontBold'#9#4'Left'#3#208#0#6'Height'#2#15#3'To'
+  +'p'#2'J'#5'Width'#2'J'#0#0#7'TPRRect'#8'PRRect14'#4'Left'#3#208#0#6'Height'#2
+  +#1#3'Top'#2'X'#5'Width'#2'F'#0#0#7'TPRText'#13'PRTextCompRef'#7'Leading'#2#14
+  +#13'Lines.Strings'#1#6#19'Component Reference'#0#8'FontName'#7#7'fnArial'#8
+  +'FontSize'#2#24#8'FontBold'#9#4'Left'#2'h'#6'Height'#2#30#3'Top'#2'l'#5'Widt'
+  +'h'#3#17#1#3'Tag'#2#2#0#0#7'TPRText'#9'PRText2_1'#7'Leading'#2#14#13'Lines.S'
+  +'trings'#1#6#14'2.1   TPReport'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#12#8
+  +'FontBold'#9#4'Left'#2'4'#6'Height'#2#15#3'Top'#3#179#0#5'Width'#3'o'#1#3'Ta'
+  +'g'#2#3#0#0#7'TPRText'#8'PRText24'#7'Leading'#2#14#13'Lines.Strings'#1#6'>TP'
+  +'Report encapsulates the mechanism for creating pdf document.'#0#8'FontName'
+  +#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#195
+  +#0#5'Width'#3'S'#1#0#0#7'TPRText'#11'PRText2_1_1'#7'Leading'#2#14#13'Lines.S'
+  +'trings'#1#6#27'2.1.1   TPReport properties'#0#8'FontName'#7#7'fnArial'#8'Fo'
+  +'ntSize'#2#12#8'FontBold'#9#4'Left'#2','#6'Height'#2#15#3'Top'#3'I'#1#5'Widt'
+  +'h'#3'y'#1#3'Tag'#2#4#0#0#7'TPRText'#8'PRText26'#7'Leading'#2#14#13'Lines.St'
+  ,'rings'#1#6#4'Unit'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#12#8'FontBold'#9
+  +#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#215#0#5'Width'#3'S'#1#0#0#7'TPRText'#8
+  +'PRText27'#7'Leading'#2#14#13'Lines.Strings'#1#6#7'PReport'#0#8'FontName'#7
+  +#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#232#0
+  +#5'Width'#3'S'#1#0#0#7'TPRText'#8'PRText28'#7'Leading'#2#14#13'Lines.Strings'
+  +#1#6#11'Description'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#12#8'FontBold'
+  +#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#251#0#5'Width'#3'Q'#1#0#0#7'TPRText'
+  +#8'PRText29'#7'Leading'#2#12#13'Lines.Strings'#1#12#10#1#0#0'Use TPReport to'
+  +' create pdf document. Like TPrinter. To start print job, call the BeginDoc '
+  +'method.To print page, call the Print method. And call the EndDoc method to '
+  +'terminate print job.If you want to terminate print job unless saving docume'
+  +'nt, call the Abort method.'#0#8'WordWrap'#9#8'FontName'#7#12'fnTimesRoman'#8
+  +'FontSize'#2#10#4'Left'#2'P'#6'Height'#2'0'#3'Top'#3#11#1#5'Width'#3'q'#1#0#0
+  +#7'TPRText'#8'PRText30'#7'Leading'#2#14#13'Lines.Strings'#1#6#17'FileName: s'
+  +'tring;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2
+  +#15#3'Top'#3'['#1#5'Width'#3#23#1#0#0#7'TPRText'#8'PRText31'#7'Leading'#2#14
+  +#13'Lines.Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2
+  +#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3'['#1#5'Width'#2'5'#0#0
+  +#7'TPRText'#8'PRText32'#7'Leading'#2#14#13'Lines.Strings'#1#6'7Set FileName '
+  +'to specify the file name to save document.'#0#8'FontName'#7#12'fnTimesRoman'
+  +#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3'i'#1#5'Width'#3'S'#1#0
+  +#0#7'TPRText'#8'PRText36'#7'Leading'#2#14#13'Lines.Strings'#1#6#15'Author: s'
+  +'tring;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2
+  +#15#3'Top'#3'y'#1#5'Width'#3#23#1#0#0#7'TPRText'#8'PRText37'#7'Leading'#2#14
+  +#13'Lines.Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2
+  +#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3'y'#1#5'Width'#2'5'#0#0
+  +#7'TPRText'#8'PRText38'#7'Leading'#2#14#13'Lines.Strings'#1#6'1Set Author to'
+  +' specify the author of the document.'#0#8'FontName'#7#12'fnTimesRoman'#8'Fo'
+  +'ntSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3#135#1#5'Width'#3'S'#1#0#0
+  +#7'TPRText'#8'PRText39'#7'Leading'#2#14#13'Lines.Strings'#1#6#8'property'#0#8
+  +'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'
+  +#2#15#3'Top'#3#151#1#5'Width'#2'5'#0#0#7'TPRText'#8'PRText40'#7'Leading'#2#14
+  +#13'Lines.Strings'#1#6#24'CreationDate: TDateTime;'#0#8'FontName'#7#7'fnAria'
+  +'l'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3#151#1#5'Width'#3#23
+  +#1#0#0#7'TPRText'#8'PRText41'#7'Leading'#2#14#13'Lines.Strings'#1#6'LSet Cre'
+  +'ationDate to specify the date and time when the document was created.'#0#8
+  +'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3
+  +'Top'#3#165#1#5'Width'#3'S'#1#0#0#7'TPRText'#8'PRText42'#7'Leading'#2#14#13
+  +'Lines.Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8
+  +'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#181#1#5'Width'#2'5'#0#0#7
+  +'TPRText'#8'PRText43'#7'Leading'#2#14#13'Lines.Strings'#1#6#15'Creator strin'
+  +'g;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15
+  +#3'Top'#3#181#1#5'Width'#3#23#1#0#0#7'TPRText'#8'PRText44'#7'Leading'#2#14#13
+  +'Lines.Strings'#1#6'3Set Creator to specify the creator of the document.'#0#8
+  +'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3
+  +'Top'#3#195#1#5'Width'#3'S'#1#0#0#7'TPRText'#8'PRText45'#7'Leading'#2#14#13
+  +'Lines.Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8
+  +'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#211#1#5'Width'#2'5'#0#0#7
+  +'TPRText'#8'PRText46'#7'Leading'#2#14#13'Lines.Strings'#1#6#16'Keywords stri'
+  +'ng;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15
+  +#3'Top'#3#211#1#5'Width'#3#23#1#0#0#7'TPRText'#8'PRText47'#7'Leading'#2#14#13
+  +'Lines.Strings'#1#6'1Set Keywords to specify keywords of the document.'#0#8
+  +'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3
+  +'Top'#3#225#1#5'Width'#3'S'#1#0#0#7'TPRText'#8'PRText48'#7'Leading'#2#14#13
+  +'Lines.Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8
+  +'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#241#1#5'Width'#2'5'#0#0#7
+  +'TPRText'#8'PRText49'#7'Leading'#2#14#13'Lines.Strings'#1#6#19'ModDate: TDat'
+  +'eTime;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2
+  +#15#3'Top'#3#241#1#5'Width'#3#23#1#0#0#7'TPRText'#8'PRText50'#7'Leading'#2#14
+  +#13'Lines.Strings'#1#6'NSet Keywords to specify the date and time when the d'
+  +'ocument was last modified.'#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2
+  +#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3#255#1#5'Width'#3'S'#1#0#0#7'TPRText'
+  +#8'PRText33'#7'Leading'#2#14#13'Lines.Strings'#1#6#8'property'#0#8'FontName'
+  +#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'T'
+  ,'op'#3#15#2#5'Width'#2'5'#0#0#7'TPRText'#8'PRText34'#7'Leading'#2#14#13'Line'
+  +'s.Strings'#1#6#16'Subject: string;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2
+  +#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3#15#2#5'Width'#3#23#1#0#0#7'TPRText'
+  +#8'PRText35'#7'Leading'#2#14#13'Lines.Strings'#1#6'3Set Subject to specify t'
+  +'he subject of the document.'#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2
+  +#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3#29#2#5'Width'#3'S'#1#0#0#7'TPRText'
+  +#8'PRText83'#7'Leading'#2#14#13'Lines.Strings'#1#6#8'property'#0#8'FontName'
+  +#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'T'
+  +'op'#3'-'#2#5'Width'#2'5'#0#0#7'TPRText'#8'PRText84'#7'Leading'#2#14#13'Line'
+  +'s.Strings'#1#6#14'Title: string;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2
+  +#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3'-'#2#5'Width'#3#23#1#0#0#7'TPRText'
+  +#8'PRText85'#7'Leading'#2#14#13'Lines.Strings'#1#6'/Set Title to specify the'
+  +' title of the document.'#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4
+  +'Left'#2'P'#6'Height'#2#16#3'Top'#3';'#2#5'Width'#3'S'#1#0#0#8'TPRLabel'#9'P'
+  +'RLabel24'#7'Caption'#6'%copyright (c) 1999-2001 takeshi kanno'#9'Alignment'
+  +#7#14'taRightJustify'#8'FontName'#7#7'fnArial'#8'FontSize'#2#8#5'Align'#7#8
+  +'alBottom'#6'Height'#2#13#3'Top'#3'W'#2#5'Width'#3#218#1#0#0#0#0#0#9'TTabShe'
+  +'et'#9'TabSheet5'#7'Caption'#6#11'TPReport(2)'#12'ClientHeight'#3#243#1#11'C'
+  +'lientWidth'#3'j'#2#6'Height'#3#243#1#5'Width'#3'j'#2#0#7'TPRPage'#7'PRPage5'
+  +#9'MarginTop'#2#24#10'MarginLeft'#2' '#11'MarginRight'#2' '#12'MarginBottom'
+  +#2' '#4'Left'#2#8#6'Height'#3#158#2#3'Top'#2#12#5'Width'#3#28#2#0#14'TPRLayo'
+  +'utPanel'#14'PRLayoutPanel6'#5'Align'#7#8'alClient'#11'BeforePrint'#7#24'PRL'
+  +'ayoutPanelBeforePrint'#4'Left'#2'!'#6'Height'#3'd'#2#3'Top'#2#25#5'Width'#3
+  +#218#1#0#7'TPRRect'#8'PRRect15'#4'Left'#3#164#1#6'Height'#2#16#3'Top'#2#11#5
+  +'Width'#2#1#0#0#7'TPRRect'#8'PRRect16'#4'Left'#2'='#6'Height'#2#1#3'Top'#2#23
+  +#5'Width'#3'h'#1#0#0#7'TPRRect'#8'PRRect17'#4'Left'#2'='#6'Height'#2#16#3'To'
+  +'p'#2#11#5'Width'#2#1#0#0#7'TPRRect'#8'PRRect18'#4'Left'#3#240#0#6'Height'#2
+  +#12#3'Top'#2#15#5'Width'#2#1#0#0#7'TPRText'#8'PRText62'#7'Leading'#2#14#13'L'
+  +'ines.Strings'#1#6#23'PageMode: TPdfPageMode;'#0#8'FontName'#7#7'fnArial'#8
+  +'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#2'E'#5'Width'#3#23#1#0#0#7
+  +'TPRText'#8'PRText63'#7'Leading'#2#14#13'Lines.Strings'#1#6#8'property'#0#8
+  +'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'
+  +#2#15#3'Top'#2'E'#5'Width'#2'5'#0#0#7'TPRText'#8'PRText64'#7'Leading'#2#14#13
+  +'Lines.Strings'#1#6'MPageMode property specifies how the document should be '
+  +'displayed when opened.'#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4
+  +'Left'#2'P'#6'Height'#2#16#3'Top'#2'S'#5'Width'#3'S'#1#0#0#7'TPRText'#8'PRTe'
+  +'xt53'#7'Leading'#2#12#13'Lines.Strings'#1#6#9'pmUseNone'#6#13'pmUseOutlines'
+  +#6#11'pmUseThumbs'#6#12'pmFullScreen'#0#8'FontName'#7#12'fnTimesRoman'#8'Fon'
+  +'tSize'#2#10#4'Left'#2'd'#6'Height'#2'8'#3'Top'#2'y'#5'Width'#2'G'#0#0#7'TPR'
+  +'Text'#8'PRText54'#7'Leading'#2#14#13'Lines.Strings'#1#6'ETPdfPageMode = (pm'
+  +'UseNone, pmUseOutlines, pmUseThumbs, pmFullScreen);'#0#8'FontName'#7#7'fnAr'
+  +'ial'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#2'i'#5'Width'#3's'
+  +#1#0#0#7'TPRText'#8'PRText55'#7'Leading'#2#12#13'Lines.Strings'#1#6'.Both of'
+  +' outline and thumbnail images invisible'#6#24'Document outline visible'#6#24
+  +'Thumbnail images visible'#6'#Full-screen mode, with no menu bar.'#0#8'FontN'
+  +'ame'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#3#170#0#6'Height'#2'8'#3'T'
+  +'op'#2'y'#5'Width'#3#247#0#0#0#7'TPRText'#8'PRText56'#7'Leading'#2#14#13'Lin'
+  +'es.Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'F'
+  +'ontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#21#1#5'Width'#2'5'#0#0#7'TP'
+  +'RText'#8'PRText58'#7'Leading'#2#14#13'Lines.Strings'#1#6')CompressionMethod'
+  +': TPdfCompressionMethod;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Lef'
+  +'t'#2'~'#6'Height'#2#15#3'Top'#3#21#1#5'Width'#3#23#1#0#0#7'TPRText'#8'PRTex'
+  +'t59'#7'Leading'#2#14#13'Lines.Strings'#1#6'JCmpression property specifies t'
+  +'he filter to compress contents and images. '#0#8'WordWrap'#9#8'FontName'#7
+  +#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3'#'#1
+  +#5'Width'#3'S'#1#0#0#7'TPRText'#8'PRText60'#7'Leading'#2#14#13'Lines.Strings'
+  +#1#6'0TPdfCompressionMethod = (cmNone, cmFlateDecode);'#0#8'FontName'#7#7'fn'
+  +'Arial'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3'9'#1#5'Width'#3
+  +'s'#1#0#0#7'TPRText'#8'PRText61'#7'Leading'#2#12#13'Lines.Strings'#1#6#6'cmN'
+  +'one'#6#13'cmFlateDecode'#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4
+  +'Left'#2'b'#6'Height'#2' '#3'Top'#3'I'#1#5'Width'#2'G'#0#0#7'TPRText'#8'PRTe'
+  +'xt65'#7'Leading'#2#12#13'Lines.Strings'#1#6#29'No compression method is use'
+  +'d'#6'9Compresses data using the zlib/deflate compression method'#0#8'WordWr'
+  +'ap'#9#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#3#164#0#6'Hei'
+  ,'ght'#2' '#3'Top'#3'I'#1#5'Width'#3#29#1#0#0#7'TPRText'#8'PRText66'#7'Leadin'
+  +'g'#2#12#13'Lines.Strings'#1#6'AIf you want to use FlateDecode, you must do '
+  +'following operations.'#0#8'WordWrap'#9#8'FontName'#7#12'fnTimesRoman'#8'Fon'
+  +'tSize'#2#10#10'FontItalic'#9#4'Left'#2'l'#6'Height'#2#16#3'Top'#3'g'#1#5'Wi'
+  +'dth'#3'U'#1#0#0#7'TPRText'#8'PRText67'#7'Leading'#2#14#13'Lines.Strings'#1#6
+  +#5'Note:'#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#8'FontBold'#9#10
+  +'FontItalic'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3'g'#1#5'Width'#2'#'#0#0#7
+  +'TPRText'#8'PRText86'#7'Leading'#2#9#13'Lines.Strings'#1#6'W1. Add zlib unit'
+  +' and *.obj files(these are included in Delphi''s CD-ROM) in your library'#6
+  +#10'     path.'#0#8'WordWrap'#9#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2
+  +#10#10'FontItalic'#9#4'Left'#2'P'#6'Height'#2#26#3'Top'#3'u'#1#5'Width'#3'i'
+  +#1#0#0#7'TPRText'#8'PRText87'#7'Leading'#2#11#13'Lines.Strings'#1#6#24'3. Re'
+  +'builed the package.'#0#8'WordWrap'#9#8'FontName'#7#12'fnTimesRoman'#8'FontS'
+  +'ize'#2#10#10'FontItalic'#9#4'Left'#2'P'#6'Height'#2#13#3'Top'#3#152#1#5'Wid'
+  +'th'#3'i'#1#0#0#7'TPRText'#8'PRText88'#7'Leading'#2#11#13'Lines.Strings'#1#6
+  +'O2. Commentout compile option "{$DEFINE NOZLIB}" in PdfDoc.pas and PdfTypes'
+  +'.pas.'#0#8'WordWrap'#9#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#10'F'
+  +'ontItalic'#9#4'Left'#2'P'#6'Height'#2#14#3'Top'#3#139#1#5'Width'#3'i'#1#0#0
+  +#7'TPRText'#8'PRText77'#7'Leading'#2#14#13'Lines.Strings'#1#6':PageNumber co'
+  +'ntains the current page number being printed.'#0#8'WordWrap'#9#8'FontName'#7
+  +#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3#185#1
+  +#5'Width'#3'S'#1#0#0#7'TPRText'#8'PRText78'#7'Leading'#2#14#13'Lines.Strings'
+  +#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4
+  +'Left'#2'P'#6'Height'#2#15#3'Top'#3#171#1#5'Width'#2'5'#0#0#7'TPRText'#8'PRT'
+  +'ext79'#7'Leading'#2#14#13'Lines.Strings'#1#6#20'PageNumber: integer;'#0#8'F'
+  +'ontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3
+  +#171#1#5'Width'#3#23#1#0#0#8'TPRLabel'#9'PRLabel25'#7'Caption'#6'%copyright '
+  +'(c) 1999-2001 takeshi kanno'#9'Alignment'#7#14'taRightJustify'#8'FontName'#7
+  +#7'fnArial'#8'FontSize'#2#8#5'Align'#7#8'alBottom'#6'Height'#2#13#3'Top'#3'W'
+  +#2#5'Width'#3#218#1#0#0#7'TPRText'#7'PRText5'#7'Leading'#2#14#13'Lines.Strin'
+  +'gs'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'
+  +#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#177#0#5'Width'#2'5'#0#0#7'TPRText'#7
+  +'PRText7'#7'Leading'#2#14#13'Lines.Strings'#1#6'IPageLayout specifies the la'
+  +'yout for the page when the document is opened.'#0#8'FontName'#7#12'fnTimesR'
+  +'oman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3#191#0#5'Width'#3
+  +'S'#1#0#0#7'TPRText'#7'PRText8'#7'Leading'#2#12#13'Lines.Strings'#1#6#12'plS'
+  +'inglePage'#6#11'plOneColumn'#6#15'plTwoColumnLeft'#6#16'plTwoColumnRight'#6
+  +#1' '#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'd'#6'Heigh'
+  +'t'#2'8'#3'Top'#3#221#0#5'Width'#2'U'#0#0#7'TPRText'#8'PRText10'#7'Leading'#2
+  +#14#13'Lines.Strings'#1#6'OTPRPageLayout = (plSinglePage, plOneColumn, plTwo'
+  +'ColumnLeft, plTwoColumnRight);'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10
+  +#4'Left'#2'P'#6'Height'#2#16#3'Top'#3#205#0#5'Width'#3's'#1#0#0#7'TPRText'#8
+  +'PRText11'#7'Leading'#2#12#13'Lines.Strings'#1#6'%Display the pages one page'
+  +' at a time.'#6' Display the pages in one column.'#6'FDisplay the pages in t'
+  +'wo columns, with odd-numbered pages on the left.'#6'GDisplay the pages in t'
+  +'wo columns, with odd-numbered pages on the right.'#0#8'FontName'#7#12'fnTim'
+  +'esRoman'#8'FontSize'#2#10#4'Left'#3#184#0#6'Height'#2'8'#3'Top'#3#221#0#5'W'
+  +'idth'#3#229#0#0#0#8'TPRLabel'#9'PRLabel13'#7'Caption'#6#27'PageLayout: TPdf'
+  +'PageLayout;'#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Heigh'
+  +'t'#2#13#3'Top'#3#177#0#5'Width'#3#25#1#0#0#8'TPRLabel'#9'PRLabel14'#7'Capti'
+  +'on'#6#4'New!'#9'FontColor'#4#255#128#0#0#8'FontName'#7#12'fnTimesRoman'#8'F'
+  +'ontSize'#2#8#4'Left'#3#12#1#6'Height'#2#17#3'Top'#3#179#0#5'Width'#2#25#0#0
+  +#7'TPRText'#7'PRText4'#7'Leading'#2#14#13'Lines.Strings'#1#6#8'property'#0#8
+  +'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'
+  +#2#15#3'Top'#3#199#1#5'Width'#2'5'#0#0#7'TPRText'#8'PRText13'#7'Leading'#2#12
+  +#13'Lines.Strings'#1#6#167'OpenAction determins the location of the display '
+  +'window and zoom level when the first page appears. If null, the top of the '
+  +'first page appears with default zoom level.'#0#8'WordWrap'#9#8'FontName'#7
+  +#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2' '#3'Top'#3#213#1
+  +#5'Width'#3'q'#1#0#0#8'TPRLabel'#9'PRLabel16'#7'Caption'#6#27'OpenAction: TP'
+  +'RDestination;'#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Hei'
+  +'ght'#2#13#3'Top'#3#201#1#5'Width'#3#25#1#0#0#8'TPRLabel'#9'PRLabel17'#7'Cap'
+  +'tion'#6#4'New!'#9'FontColor'#4#255#128#0#0#8'FontName'#7#12'fnTimesRoman'#8
+  +'FontSize'#2#8#4'Left'#3#8#1#6'Height'#2#17#3'Top'#3#203#1#5'Width'#2#25#0#0
+  ,#7'TPRText'#8'PRText12'#7'Leading'#2#14#13'Lines.Strings'#1#6#8'property'#0#8
+  +'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'
+  +#2#15#3'Top'#3#243#1#5'Width'#2'5'#0#0#7'TPRText'#8'PRText17'#7'Leading'#2#12
+  +#13'Lines.Strings'#1#6'5OutlineRoot returns the root of the outline-entries.'
+  +' '#6'HIf UseOutline property set to false, OutlineRoot peoperty returns nul'
+  +'l. '#0#8'WordWrap'#9#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'
+  +#2'P'#6'Height'#2#28#3'Top'#3#1#2#5'Width'#3'q'#1#0#0#8'TPRLabel'#9'PRLabel2'
+  +'0'#7'Caption'#6#28'OutlineRoot: TPROutlineRoot;'#8'FontName'#7#7'fnArial'#8
+  +'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#13#3'Top'#3#245#1#5'Width'#3#25#1#0
+  +#0#8'TPRLabel'#9'PRLabel37'#7'Caption'#6#4'New!'#9'FontColor'#4#255#128#0#0#8
+  +'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#8#4'Left'#3#8#1#6'Height'#2#17#3
+  +'Top'#3#247#1#5'Width'#2#25#0#0#0#0#0#9'TTabSheet'#10'TabSheet18'#7'Caption'
+  +#6#12'TPRReport(3)'#12'ClientHeight'#3#243#1#11'ClientWidth'#3'j'#2#6'Height'
+  +#3#243#1#5'Width'#3'j'#2#0#7'TPRPage'#7'PRPage6'#9'MarginTop'#2#24#10'Margin'
+  +'Left'#2' '#11'MarginRight'#2' '#12'MarginBottom'#2' '#4'Left'#2#8#6'Height'
+  +#3#158#2#3'Top'#2#10#5'Width'#3#28#2#0#14'TPRLayoutPanel'#15'PRLayoutPanel19'
+  +#5'Align'#7#8'alClient'#11'BeforePrint'#7#24'PRLayoutPanelBeforePrint'#4'Lef'
+  +'t'#2'!'#6'Height'#3'd'#2#3'Top'#2#25#5'Width'#3#218#1#0#7'TPRRect'#8'PRRect'
+  +'77'#4'Left'#3#164#1#6'Height'#2#16#3'Top'#2#11#5'Width'#2#1#0#0#7'TPRRect'#8
+  +'PRRect78'#4'Left'#2'='#6'Height'#2#1#3'Top'#2#23#5'Width'#3'h'#1#0#0#7'TPRR'
+  +'ect'#8'PRRect79'#4'Left'#2'='#6'Height'#2#16#3'Top'#2#11#5'Width'#2#1#0#0#7
+  +'TPRRect'#8'PRRect80'#4'Left'#3#240#0#6'Height'#2#12#3'Top'#2#15#5'Width'#2#1
+  +#0#0#7'TPRText'#8'PRText94'#7'Leading'#2#14#13'Lines.Strings'#1#6#24'2.1.2  '
+  +' TPReport methods'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#12#8'FontBold'#9
+  +#4'Left'#2'*'#6'Height'#2#15#3'Top'#3#5#1#5'Width'#3'y'#1#3'Tag'#2#4#0#0#7'T'
+  +'PRText'#8'PRText95'#7'Leading'#2#14#13'Lines.Strings'#1#6#9'procedure'#0#8
+  +'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'
+  +#2#15#3'Top'#3#23#1#5'Width'#2'5'#0#0#7'TPRText'#8'PRText98'#7'Leading'#2#14
+  +#13'Lines.Strings'#1#6#9'BeginDoc;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2
+  +#10#4'Left'#3#136#0#6'Height'#2#15#3'Top'#3#23#1#5'Width'#3#23#1#0#0#7'TPRTe'
+  +'xt'#8'PRText99'#7'Leading'#2#14#13'Lines.Strings'#1#6'''BeginDoc starts to '
+  +'create PDF document.'#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'L'
+  +'eft'#2'P'#6'Height'#2#16#3'Top'#3'%'#1#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRT'
+  +'ext128'#7'Leading'#2#14#13'Lines.Strings'#1#6#9'procedure'#0#8'FontName'#7#7
+  +'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3
+  +'5'#1#5'Width'#2'5'#0#0#7'TPRText'#9'PRText129'#7'Leading'#2#14#13'Lines.Str'
+  +'ings'#1#6#22'Print(APage: TPRPage);'#0#8'FontName'#7#7'fnArial'#8'FontSize'
+  +#2#10#4'Left'#3#136#0#6'Height'#2#15#3'Top'#3'5'#1#5'Width'#3#23#1#0#0#7'TPR'
+  +'Text'#9'PRText130'#7'Leading'#2#14#13'Lines.Strings'#1#6'FPrint add the pag'
+  +'e that specified APage parameter to the PDF document.'#0#8'FontName'#7#12'f'
+  +'nTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3'C'#1#5'W'
+  +'idth'#3'S'#1#0#0#7'TPRText'#9'PRText131'#7'Leading'#2#14#13'Lines.Strings'#1
+  +#6#9'procedure'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4
+  +'Left'#2'P'#6'Height'#2#15#3'Top'#3'S'#1#5'Width'#2'5'#0#0#7'TPRText'#9'PRTe'
+  +'xt132'#7'Leading'#2#14#13'Lines.Strings'#1#6#7'EndDoc;'#0#8'FontName'#7#7'f'
+  +'nArial'#8'FontSize'#2#10#4'Left'#3#136#0#6'Height'#2#15#3'Top'#3'S'#1#5'Wid'
+  +'th'#3#23#1#0#0#7'TPRText'#9'PRText138'#7'Leading'#2#14#13'Lines.Strings'#1#6
+  +'GEndDoc ends the current print job and outputs PDF document to the file.'#0
+  +#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16
+  +#3'Top'#3'a'#1#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRText176'#7'Leading'#2#14#13
+  +'Lines.Strings'#1#6#9'procedure'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10
+  +#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3'q'#1#5'Width'#2'5'#0#0#7
+  +'TPRText'#9'PRText177'#7'Leading'#2#14#13'Lines.Strings'#1#6#6'Abort;'#0#8'F'
+  +'ontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#3#136#0#6'Height'#2#15#3'Top'
+  +#3'q'#1#5'Width'#3#23#1#0#0#7'TPRText'#9'PRText178'#7'Leading'#2#14#13'Lines'
+  +'.Strings'#1#6':Abort terminates the current print job, dropping all data.'#0
+  +#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16
+  +#3'Top'#3''#1#5'Width'#3'S'#1#0#0#8'TPRLabel'#9'PRLabel12'#7'Caption'#6'%co'
+  +'pyright (c) 1999-2001 takeshi kanno'#9'Alignment'#7#14'taRightJustify'#8'Fo'
+  +'ntName'#7#7'fnArial'#8'FontSize'#2#8#5'Align'#7#8'alBottom'#6'Height'#2#13#3
+  +'Top'#3'W'#2#5'Width'#3#218#1#0#0#7'TPRText'#9'PRText188'#7'Leading'#2#14#13
+  +'Lines.Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8
+  +'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#2'C'#5'Width'#2'5'#0#0#7'TPR'
+  +'Text'#9'PRText189'#7'Leading'#2#12#13'Lines.Strings'#1#6'qUseOutline determ'
+  ,'ins whether using outlines or not. This property can be set only before Beg'
+  +'inDoc method called. '#0#8'WordWrap'#9#8'FontName'#7#12'fnTimesRoman'#8'Fon'
+  +'tSize'#2#10#4'Left'#2'P'#6'Height'#2#28#3'Top'#2'Q'#5'Width'#3'q'#1#0#0#8'T'
+  +'PRLabel'#9'PRLabel38'#7'Caption'#6#21'UseOutlines: boolean;'#8'FontName'#7#7
+  +'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#13#3'Top'#2'E'#5'Width'#3
+  +#25#1#0#0#8'TPRLabel'#9'PRLabel39'#7'Caption'#6#4'New!'#9'FontColor'#4#255
+  +#128#0#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#8#4'Left'#3#228#0#6'He'
+  +'ight'#2#17#3'Top'#2'G'#5'Width'#2#25#0#0#7'TPRText'#8'PRText76'#7'Leading'#2
+  +#14#13'Lines.Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'
+  +#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#2'm'#5'Width'#2'5'#0#0
+  +#7'TPRText'#8'PRText80'#7'Leading'#2#14#13'Lines.Strings'#1#6'0Specifies the'
+  +' style when the document is opened.'#0#8'FontName'#7#12'fnTimesRoman'#8'Fon'
+  +'tSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#2'{'#5'Width'#3'S'#1#0#0#7'T'
+  +'PRText'#8'PRText81'#7'Leading'#2#12#13'Lines.Strings'#1#6#13'vpHideToolbar'
+  +#6#13'vpHideMenubar'#6#14'vpHideWindowUI'#6#11'vpFitWindow'#6#14'vpCenterWin'
+  +'dow'#6#1' '#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'd'#6
+  +'Height'#2'\'#3'Top'#3#169#0#5'Width'#2'U'#0#0#7'TPRText'#8'PRText82'#7'Lead'
+  +'ing'#2#14#13'Lines.Strings'#1#6'ETPdfViewerPreference = (vpHideToolbar, vpH'
+  +'ideMenubar, vpHideWindowUI,'#6'7                          vpFitWindow, vpCe'
+  +'nterWindow);'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'P'#6'He'
+  +'ight'#2#31#3'Top'#3#138#0#5'Width'#3'u'#1#0#0#7'TPRText'#8'PRText89'#7'Lead'
+  +'ing'#2#12#13'Lines.Strings'#1#6',Specifies that the toolbar should be hidde'
+  +'n.'#6',Specifies that the menubar should be hidden.'#6'FSpecifies that the '
+  +'interfeces of the document window should be hidden.'#6'tSpecifies that the '
+  +'viewer should resize the document-window to the size of the first displayed'
+  +' page of the document.'#6'HSpecifies that the viewer-window positioned in t'
+  +'he center of the screen.'#0#8'WordWrap'#9#8'FontName'#7#12'fnTimesRoman'#8
+  +'FontSize'#2#10#4'Left'#3#184#0#6'Height'#2'\'#3'Top'#3#169#0#5'Width'#3#255
+  +#0#0#0#8'TPRLabel'#9'PRLabel70'#7'Caption'#6'(ViewerPreference: TPdfViewerPr'
+  +'eferences;'#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'
+  +#2#13#3'Top'#2'm'#5'Width'#3#25#1#0#0#8'TPRLabel'#9'PRLabel71'#7'Caption'#6#4
+  +'New!'#9'FontColor'#4#255#128#0#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'
+  +#2#8#4'Left'#3'B'#1#6'Height'#2#17#3'Top'#2'p'#5'Width'#2#25#0#0#0#0#0#9'TTa'
+  +'bSheet'#9'TabSheet6'#7'Caption'#6#7'TPRPage'#12'ClientHeight'#3#243#1#11'Cl'
+  +'ientWidth'#3'j'#2#6'Height'#3#243#1#5'Width'#3'j'#2#0#7'TPRPage'#7'PRPage7'
+  +#9'MarginTop'#2#24#10'MarginLeft'#2' '#11'MarginRight'#2' '#12'MarginBottom'
+  +#2' '#4'Left'#2#12#6'Height'#3#158#2#3'Top'#2#13#5'Width'#3#28#2#0#14'TPRLay'
+  +'outPanel'#14'PRLayoutPanel7'#5'Align'#7#8'alClient'#11'BeforePrint'#7#24'PR'
+  +'LayoutPanelBeforePrint'#4'Left'#2'!'#6'Height'#3'd'#2#3'Top'#2#25#5'Width'#3
+  +#218#1#0#7'TPRRect'#8'PRRect19'#4'Left'#3#164#1#6'Height'#2#16#3'Top'#2#11#5
+  +'Width'#2#1#0#0#7'TPRRect'#8'PRRect20'#4'Left'#2'='#6'Height'#2#1#3'Top'#2#23
+  +#5'Width'#3'h'#1#0#0#7'TPRRect'#8'PRRect21'#4'Left'#2'='#6'Height'#2#16#3'To'
+  +'p'#2#11#5'Width'#2#1#0#0#7'TPRRect'#8'PRRect22'#4'Left'#3#240#0#6'Height'#2
+  +#12#3'Top'#2#15#5'Width'#2#1#0#0#7'TPRText'#11'PRText2_2_1'#7'Leading'#2#14
+  +#13'Lines.Strings'#1#6#26'2.2.1   TPRPage properties'#0#8'FontName'#7#7'fnAr'
+  +'ial'#8'FontSize'#2#12#8'FontBold'#9#4'Left'#2','#6'Height'#2#15#3'Top'#3#201
+  +#0#5'Width'#3'y'#1#3'Tag'#2#4#0#0#7'TPRText'#9'PRText102'#7'Leading'#2#14#13
+  +'Lines.Strings'#1#6#11'Description'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2
+  +#12#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#141#0#5'Width'#3'Q'#1
+  +#0#0#7'TPRText'#9'PRText103'#7'Leading'#2#12#13'Lines.Strings'#1#6'|Use TPRP'
+  +'age to create a page to print. To create a page, To print a page, call prin'
+  +'t method of TPReport with TPRPage object.'#6'JUse Width and Height property'
+  +' to determine the physical size of the page. '#0#8'WordWrap'#9#8'FontName'#7
+  +#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2'('#3'Top'#3#155#0
+  +#5'Width'#3'q'#1#0#0#7'TPRText'#9'PRText104'#7'Leading'#2#14#13'Lines.String'
+  +'s'#1#6#19'MarginTop: integer;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4
+  +'Left'#2'~'#6'Height'#2#15#3'Top'#3#219#0#5'Width'#3#23#1#0#0#7'TPRText'#9'P'
+  +'RText105'#7'Leading'#2#14#13'Lines.Strings'#1#6#8'property'#0#8'FontName'#7
+  +#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'
+  +#3#219#0#5'Width'#2'5'#0#0#7'TPRText'#9'PRText106'#7'Leading'#2#14#13'Lines.'
+  +'Strings'#1#6'8Set MarginTop to specify the top margin of the document.'#0#8
+  +'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3
+  +'Top'#3#233#0#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRText107'#7'Leading'#2#14#13
+  +'Lines.Strings'#1#6#20'MarginLeft: integer;'#0#8'FontName'#7#7'fnArial'#8'Fo'
+  ,'ntSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3#249#0#5'Width'#3#23#1#0#0
+  +#7'TPRText'#9'PRText108'#7'Leading'#2#14#13'Lines.Strings'#1#6#8'property'#0
+  +#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Heig'
+  +'ht'#2#15#3'Top'#3#249#0#5'Width'#2'5'#0#0#7'TPRText'#9'PRText109'#7'Leading'
+  +#2#14#13'Lines.Strings'#1#6':Set MarginLeft to specify the left margin of th'
+  +'e document.'#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'
+  +#6'Height'#2#16#3'Top'#3#7#1#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRText110'#7'L'
+  +'eading'#2#14#13'Lines.Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8
+  +'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#23#1#5'Wi'
+  +'dth'#2'5'#0#0#7'TPRText'#9'PRText111'#7'Leading'#2#14#13'Lines.Strings'#1#6
+  +#21'MarginRight: integer;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Lef'
+  +'t'#2'~'#6'Height'#2#15#3'Top'#3#23#1#5'Width'#3#23#1#0#0#7'TPRText'#9'PRTex'
+  +'t112'#7'Leading'#2#14#13'Lines.Strings'#1#6':Set MarginLeft to specify the '
+  +'left margin of the document.'#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2
+  +#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3'%'#1#5'Width'#3'S'#1#0#0#7'TPRText'
+  +#9'PRText113'#7'Leading'#2#14#13'Lines.Strings'#1#6#8'property'#0#8'FontName'
+  +#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'T'
+  +'op'#3'5'#1#5'Width'#2'5'#0#0#7'TPRText'#9'PRText114'#7'Leading'#2#14#13'Lin'
+  +'es.Strings'#1#6#22'MarginBottom: integer;'#0#8'FontName'#7#7'fnArial'#8'Fon'
+  +'tSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3'5'#1#5'Width'#3#23#1#0#0#7
+  +'TPRText'#9'PRText115'#7'Leading'#2#14#13'Lines.Strings'#1#6'>Set MarginBott'
+  +'om to specify the bottom margin of the document.'#0#8'FontName'#7#12'fnTime'
+  +'sRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3'C'#1#5'Width'
+  +#3'S'#1#0#0#7'TPRText'#11'PRText2_2_2'#7'Leading'#2#14#13'Lines.Strings'#1#6
+  +#22'2.2.2   TPRPage events'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#12#8'Fo'
+  +'ntBold'#9#4'Left'#2'*'#6'Height'#2#15#3'Top'#3#149#1#5'Width'#3'y'#1#3'Tag'
+  +#2#4#0#0#7'TPRText'#8'PRText96'#7'Leading'#2#14#13'Lines.Strings'#1#6#8'prop'
+  +'erty'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'
+  +#6'Height'#2#15#3'Top'#3#167#1#5'Width'#2'5'#0#0#7'TPRText'#8'PRText97'#7'Le'
+  +'ading'#2#12#13'Lines.Strings'#1#6'_OnPrintPage is called when a page is pri'
+  +'nted. You can use it to initialize any local variables.'#0#8'WordWrap'#9#8
+  +'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#26#3
+  +'Top'#3#181#1#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRText119'#7'Leading'#2#14#13
+  +'Lines.Strings'#1#6#31'OnPrintPage: TPRPrintPageEvent;'#0#8'FontName'#7#7'fn'
+  +'Arial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3#167#1#5'Width'
+  +#3#23#1#0#0#7'TPRText'#9'PRText120'#7'Leading'#2#14#13'Lines.Strings'#1#6#8
+  +'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'
+  +#2'P'#6'Height'#2#15#3'Top'#3'S'#1#5'Width'#2'5'#0#0#7'TPRText'#9'PRText121'
+  +#7'Leading'#2#14#13'Lines.Strings'#1#6#16'Height: integer;'#0#8'FontName'#7#7
+  +'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3'S'#1#5'Width'
+  +#3#23#1#0#0#7'TPRText'#9'PRText122'#7'Leading'#2#14#13'Lines.Strings'#1#6'-S'
+  +'et Height to specify the height of the page.'#0#8'FontName'#7#12'fnTimesRom'
+  +'an'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3'a'#1#5'Width'#3'S'
+  +#1#0#0#7'TPRText'#9'PRText123'#7'Leading'#2#14#13'Lines.Strings'#1#6#8'prope'
+  +'rty'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'
+  +#6'Height'#2#15#3'Top'#3'q'#1#5'Width'#2'5'#0#0#7'TPRText'#9'PRText124'#7'Le'
+  +'ading'#2#14#13'Lines.Strings'#1#6#15'Width: integer;'#0#8'FontName'#7#7'fnA'
+  +'rial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3'q'#1#5'Width'#3
+  +#23#1#0#0#7'TPRText'#9'PRText125'#7'Leading'#2#14#13'Lines.Strings'#1#6'+Set'
+  +' Width to specify the width of the page.'#0#8'FontName'#7#12'fnTimesRoman'#8
+  +'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3''#1#5'Width'#3'S'#1#0#0
+  +#7'TPRText'#9'PRText2_2'#7'Leading'#2#14#13'Lines.Strings'#1#6#13'2.2   TPRP'
+  +'age'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#12#8'FontBold'#9#4'Left'#2'4'
+  +#6'Height'#2#15#3'Top'#2'E'#5'Width'#3'o'#1#3'Tag'#2#3#0#0#7'TPRText'#8'PRTe'
+  +'xt90'#7'Leading'#2#14#13'Lines.Strings'#1#6'#TPRPage represents a page to p'
+  +'rint.'#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Hei'
+  +'ght'#2#15#3'Top'#2'U'#5'Width'#3'S'#1#0#0#7'TPRText'#8'PRText91'#7'Leading'
+  +#2#14#13'Lines.Strings'#1#6#4'Unit'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2
+  +#12#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#2'i'#5'Width'#3'S'#1#0#0
+  +#7'TPRText'#8'PRText92'#7'Leading'#2#14#13'Lines.Strings'#1#6#7'PReport'#0#8
+  +'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#15#3
+  +'Top'#2'z'#5'Width'#3'S'#1#0#0#8'TPRLabel'#9'PRLabel26'#7'Caption'#6'%copyri'
+  +'ght (c) 1999-2001 takeshi kanno'#9'Alignment'#7#14'taRightJustify'#8'FontNa'
+  +'me'#7#7'fnArial'#8'FontSize'#2#8#5'Align'#7#8'alBottom'#6'Height'#2#13#3'To'
+  ,'p'#3'W'#2#5'Width'#3#218#1#0#0#0#0#0#9'TTabSheet'#9'TabSheet7'#7'Caption'#6
+  +#14'TPRLayoutPanel'#12'ClientHeight'#3#243#1#11'ClientWidth'#3'j'#2#6'Height'
+  +#3#243#1#5'Width'#3'j'#2#0#7'TPRPage'#7'PRPage8'#9'MarginTop'#2#24#10'Margin'
+  +'Left'#2' '#11'MarginRight'#2' '#12'MarginBottom'#2' '#4'Left'#2#12#6'Height'
+  +#3#158#2#3'Top'#2#7#5'Width'#3#28#2#0#14'TPRLayoutPanel'#14'PRLayoutPanel8'#5
+  +'Align'#7#8'alClient'#11'BeforePrint'#7#24'PRLayoutPanelBeforePrint'#4'Left'
+  +#2'!'#6'Height'#3'd'#2#3'Top'#2#25#5'Width'#3#218#1#0#7'TPRRect'#8'PRRect23'
+  +#4'Left'#3#164#1#6'Height'#2#16#3'Top'#2#11#5'Width'#2#1#0#0#7'TPRRect'#8'PR'
+  +'Rect24'#4'Left'#2'='#6'Height'#2#1#3'Top'#2#23#5'Width'#3'h'#1#0#0#7'TPRRec'
+  +'t'#8'PRRect25'#4'Left'#2'='#6'Height'#2#16#3'Top'#2#11#5'Width'#2#1#0#0#7'T'
+  +'PRRect'#8'PRRect26'#4'Left'#3#240#0#6'Height'#2#12#3'Top'#2#15#5'Width'#2#1
+  +#0#0#7'TPRText'#9'PRText2_3'#7'Leading'#2#14#13'Lines.Strings'#1#6#20'2.3   '
+  +'TPRLayoutPanel'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#12#8'FontBold'#9#4
+  +'Left'#2'4'#6'Height'#2#15#3'Top'#2'E'#5'Width'#3'o'#1#3'Tag'#2#3#0#0#7'TPRT'
+  +'ext'#9'PRText152'#7'Leading'#2#12#13'Lines.Strings'#1#6'0TPRLayoutPanel is '
+  +'main building block of a page.'#0#8'WordWrap'#9#8'FontName'#7#12'fnTimesRom'
+  +'an'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#14#3'Top'#2'U'#5'Width'#3'S'#1
+  +#0#0#7'TPRText'#9'PRText153'#7'Leading'#2#14#13'Lines.Strings'#1#6#4'Unit'#0
+  +#8'FontName'#7#7'fnArial'#8'FontSize'#2#12#8'FontBold'#9#4'Left'#2'P'#6'Heig'
+  +'ht'#2#15#3'Top'#2'g'#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRText154'#7'Leading'
+  +#2#14#13'Lines.Strings'#1#6#7'PReport'#0#8'FontName'#7#12'fnTimesRoman'#8'Fo'
+  +'ntSize'#2#10#4'Left'#2'P'#6'Height'#2#15#3'Top'#2'x'#5'Width'#3'S'#1#0#0#7
+  +'TPRText'#9'PRText155'#7'Leading'#2#14#13'Lines.Strings'#1#6#11'Description'
+  +#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#12#8'FontBold'#9#4'Left'#2'P'#6'He'
+  +'ight'#2#15#3'Top'#3#139#0#5'Width'#3'Q'#1#0#0#7'TPRText'#9'PRText156'#7'Lea'
+  +'ding'#2#12#13'Lines.Strings'#1#6'|To make a page, put TPRPanel on the TPRPa'
+  +'ge component and put Item component (TPRItem, TPRImage and so on) on the TP'
+  +'RPanel. '#0#8'WordWrap'#9#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4
+  +'Left'#2'P'#6'Height'#2#30#3'Top'#3#153#0#5'Width'#3'q'#1#0#0#7'TPRText'#11
+  +'PRText2_3_1'#7'Leading'#2#14#13'Lines.Strings'#1#6'!2.3.1   TPRLayoutPanel '
+  +'properties'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#12#8'FontBold'#9#4'Lef'
+  +'t'#2','#6'Height'#2#15#3'Top'#3#191#0#5'Width'#3'y'#1#3'Tag'#2#4#0#0#7'TPRT'
+  +'ext'#9'PRText164'#7'Leading'#2#14#13'Lines.Strings'#1#6#14'Align: TAlign;'#0
+  +#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'
+  +#3#209#0#5'Width'#3#23#1#0#0#7'TPRText'#9'PRText165'#7'Leading'#2#14#13'Line'
+  +'s.Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'Fo'
+  +'ntBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#209#0#5'Width'#2'5'#0#0#7'TP'
+  +'RText'#9'PRText166'#7'Leading'#2#14#13'Lines.Strings'#1#6'LAlign determines'
+  +' how the TPRLayoutPanel aligns within TPRPage (or TPRPanel).'#0#8'FontName'
+  +#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3#223
+  +#0#5'Width'#3'S'#1#0#0#7'TPRText'#11'PRText2_3_2'#7'Leading'#2#14#13'Lines.S'
+  +'trings'#1#6#29'2.3.2   TPRLayoutPanel events'#0#8'FontName'#7#7'fnArial'#8
+  +'FontSize'#2#12#8'FontBold'#9#4'Left'#2'*'#6'Height'#2#15#3'Top'#3#247#0#5'W'
+  +'idth'#3'y'#1#3'Tag'#2#4#0#0#7'TPRText'#9'PRText100'#7'Leading'#2#14#13'Line'
+  +'s.Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'Fo'
+  +'ntBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#9#1#5'Width'#2'5'#0#0#7'TPRT'
+  +'ext'#9'PRText101'#7'Leading'#2#12#13'Lines.Strings'#1#6#129'BeforePrint is '
+  +'called before a page is about to be printed. Typical use of this event is t'
+  +'o set any variables(TPRText, TPRImage).'#0#8'WordWrap'#9#8'FontName'#7#12'f'
+  +'nTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#26#3'Top'#3#23#1#5'W'
+  +'idth'#3'S'#1#0#0#7'TPRText'#9'PRText116'#7'Leading'#2#14#13'Lines.Strings'#1
+  +#6' BeforePrint: TPRPrintPanelEvent;'#0#8'FontName'#7#7'fnArial'#8'FontSize'
+  +#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3#9#1#5'Width'#3#23#1#0#0#7'TPRText'
+  +#9'PRText117'#7'Leading'#2#14#13'Lines.Strings'#1#6#8'property'#0#8'FontName'
+  +#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'T'
+  +'op'#3'['#1#5'Width'#2'5'#0#0#7'TPRText'#9'PRText118'#7'Leading'#2#14#13'Lin'
+  +'es.Strings'#1#6#31'AfterPrint: TPRPrintPanelEvent;'#0#8'FontName'#7#7'fnAri'
+  +'al'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3'['#1#5'Width'#3#23
+  +#1#0#0#7'TPRText'#9'PRText126'#7'Leading'#2#12#13'Lines.Strings'#1#6'.AfterP'
+  +'rint is called after a page was printed.'#0#8'WordWrap'#9#8'FontName'#7#12
+  +'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3'i'#1#5
+  +'Width'#3'S'#1#0#0#7'TPRText'#9'PRText127'#7'Leading'#2#12#13'Lines.Strings'
+  +#1#6'DTPRPrintPanelEvent = procedure(Sender: TObject; ACanvas: TPdfCanvas;'#6
+  +'5                              Rect: TRect) of object;'#0#8'FontName'#7#7'f'
+  ,'nArial'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#30#3'Top'#3'7'#1#5'Width'
+  +#3'_'#1#0#0#8'TPRLabel'#9'PRLabel27'#7'Caption'#6'%copyright (c) 1999-2001 t'
+  +'akeshi kanno'#9'Alignment'#7#14'taRightJustify'#8'FontName'#7#7'fnArial'#8
+  +'FontSize'#2#8#5'Align'#7#8'alBottom'#6'Height'#2#13#3'Top'#3'W'#2#5'Width'#3
+  +#218#1#0#0#0#0#0#9'TTabSheet'#9'TabSheet8'#7'Caption'#6#12'TPRGridPanel'#12
+  +'ClientHeight'#3#243#1#11'ClientWidth'#3'j'#2#6'Height'#3#243#1#5'Width'#3'j'
+  +#2#0#7'TPRPage'#7'PRPage9'#9'MarginTop'#2#24#10'MarginLeft'#2' '#11'MarginRi'
+  +'ght'#2' '#12'MarginBottom'#2' '#4'Left'#2#12#6'Height'#3#158#2#3'Top'#2#7#5
+  +'Width'#3#28#2#0#14'TPRLayoutPanel'#14'PRLayoutPanel9'#5'Align'#7#8'alClient'
+  +#11'BeforePrint'#7#24'PRLayoutPanelBeforePrint'#4'Left'#2'!'#6'Height'#3'd'#2
+  +#3'Top'#2#25#5'Width'#3#218#1#0#7'TPRRect'#8'PRRect27'#4'Left'#3#164#1#6'Hei'
+  +'ght'#2#16#3'Top'#2#11#5'Width'#2#1#0#0#7'TPRRect'#8'PRRect28'#4'Left'#2'='#6
+  +'Height'#2#1#3'Top'#2#23#5'Width'#3'h'#1#0#0#7'TPRRect'#8'PRRect29'#4'Left'#2
+  +'='#6'Height'#2#16#3'Top'#2#11#5'Width'#2#1#0#0#7'TPRRect'#8'PRRect30'#4'Lef'
+  +'t'#3#240#0#6'Height'#2#12#3'Top'#2#15#5'Width'#2#1#0#0#7'TPRText'#9'PRText2'
+  +'_4'#7'Leading'#2#14#13'Lines.Strings'#1#6#18'2.4   TPRGridPanel'#0#8'FontNa'
+  +'me'#7#7'fnArial'#8'FontSize'#2#12#8'FontBold'#9#4'Left'#2'4'#6'Height'#2#15
+  +#3'Top'#2'E'#5'Width'#3'o'#1#3'Tag'#2#3#0#0#7'TPRText'#9'PRText133'#7'Leadin'
+  +'g'#2#12#13'Lines.Strings'#1#6'''TPRGridPanel is used to print a table. '#0#8
+  +'WordWrap'#9#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6
+  +'Height'#2#14#3'Top'#2'S'#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRText134'#7'Lead'
+  +'ing'#2#14#13'Lines.Strings'#1#6#4'Unit'#0#8'FontName'#7#7'fnArial'#8'FontSi'
+  +'ze'#2#12#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#2'g'#5'Width'#3'S'
+  +#1#0#0#7'TPRText'#9'PRText135'#7'Leading'#2#14#13'Lines.Strings'#1#6#7'PRepo'
+  +'rt'#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'
+  +#2#15#3'Top'#2'x'#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRText136'#7'Leading'#2#14
+  +#13'Lines.Strings'#1#6#11'Description'#0#8'FontName'#7#7'fnArial'#8'FontSize'
+  +#2#12#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#139#0#5'Width'#3'Q'
+  +#1#0#0#7'TPRText'#9'PRText137'#7'Leading'#2#12#13'Lines.Strings'#1#6#141'A t'
+  +'ypical use of TPRGrid is to print a table(like a database data). set RowCou'
+  +'nt and ColCount property to define row count and column count. '#0#8'WordWr'
+  +'ap'#9#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'
+  +#2#30#3'Top'#3#153#0#5'Width'#3'q'#1#0#0#7'TPRText'#11'PRText2_4_1'#7'Leadin'
+  +'g'#2#14#13'Lines.Strings'#1#6#31'2.4.1   TPRGridPanel properties'#0#8'FontN'
+  +'ame'#7#7'fnArial'#8'FontSize'#2#12#8'FontBold'#9#4'Left'#2','#6'Height'#2#15
+  +#3'Top'#3#191#0#5'Width'#3'y'#1#3'Tag'#2#4#0#0#7'TPRText'#9'PRText139'#7'Lea'
+  +'ding'#2#14#13'Lines.Strings'#1#6#14'Align: TAlign;'#0#8'FontName'#7#7'fnAri'
+  +'al'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3#209#0#5'Width'#3
+  +#23#1#0#0#7'TPRText'#9'PRText140'#7'Leading'#2#14#13'Lines.Strings'#1#6#8'pr'
+  +'operty'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2
+  +'P'#6'Height'#2#15#3'Top'#3#209#0#5'Width'#2'5'#0#0#7'TPRText'#9'PRText141'#7
+  +'Leading'#2#14#13'Lines.Strings'#1#6'JAlign determines how the TPRGridPanel '
+  +'aligns within TPRPage (or TPRPanel).'#0#8'FontName'#7#12'fnTimesRoman'#8'Fo'
+  +'ntSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3#223#0#5'Width'#3'S'#1#0#0
+  +#7'TPRText'#11'PRText2_4_2'#7'Leading'#2#14#13'Lines.Strings'#1#6#27'2.4.2  '
+  +' TPRGridPanel events'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#12#8'FontBol'
+  +'d'#9#4'Left'#2'*'#6'Height'#2#15#3'Top'#3'K'#1#5'Width'#3'y'#1#3'Tag'#2#4#0
+  +#0#7'TPRText'#9'PRText143'#7'Leading'#2#14#13'Lines.Strings'#1#6#8'property'
+  +#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'He'
+  +'ight'#2#15#3'Top'#3']'#1#5'Width'#2'5'#0#0#7'TPRText'#9'PRText144'#7'Leadin'
+  +'g'#2#12#13'Lines.Strings'#1#6#129'BeforePrint is called before a page is ab'
+  +'out to be printed. Typical use of this event is to set any variables(TPRTex'
+  +'t, TPRImage).'#0#8'WordWrap'#9#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2
+  +#10#4'Left'#2'P'#6'Height'#2#26#3'Top'#3'k'#1#5'Width'#3'S'#1#0#0#7'TPRText'
+  +#9'PRText145'#7'Leading'#2#14#13'Lines.Strings'#1#6' BeforePrint: TPRPrintPa'
+  +'nelEvent;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Heigh'
+  +'t'#2#15#3'Top'#3']'#1#5'Width'#3#23#1#0#0#7'TPRText'#9'PRText146'#7'Leading'
+  +#2#14#13'Lines.Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSiz'
+  +'e'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#173#1#5'Width'#2
+  +'5'#0#0#7'TPRText'#9'PRText147'#7'Leading'#2#14#13'Lines.Strings'#1#6#31'Aft'
+  +'erPrint: TPRPrintPanelEvent;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4
+  +'Left'#2'~'#6'Height'#2#15#3'Top'#3#173#1#5'Width'#3#23#1#0#0#7'TPRText'#9'P'
+  +'RText148'#7'Leading'#2#12#13'Lines.Strings'#1#6'.AfterPrint is called after'
+  +' a page was printed.'#0#8'WordWrap'#9#8'FontName'#7#12'fnTimesRoman'#8'Font'
+  ,'Size'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3#187#1#5'Width'#3'S'#1#0#0#7
+  +'TPRText'#9'PRText149'#7'Leading'#2#12#13'Lines.Strings'#1#6'DTPRPrintPanelE'
+  +'vent = procedure(Sender: TObject; ACanvas: TPdfCanvas;'#6'5                '
+  +'              Rect: TRect) of object;'#0#8'FontName'#7#7'fnArial'#8'FontSiz'
+  +'e'#2#10#4'Left'#2'P'#6'Height'#2#30#3'Top'#3#137#1#5'Width'#3'_'#1#0#0#7'TP'
+  +'RText'#9'PRText150'#7'Leading'#2#14#13'Lines.Strings'#1#6#18'ColCount: inte'
+  +'ger;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2
+  +#15#3'Top'#3#237#0#5'Width'#3#23#1#0#0#7'TPRText'#9'PRText157'#7'Leading'#2
+  +#14#13'Lines.Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'
+  +#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#237#0#5'Width'#2'5'
+  +#0#0#7'TPRText'#9'PRText158'#7'Leading'#2#14#13'Lines.Strings'#1#6'>ColCount'
+  +' determines how many numbers of columns in this panel.'#0#8'FontName'#7#12
+  +'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3#251#0#5
+  +'Width'#3'S'#1#0#0#7'TPRText'#9'PRText159'#7'Leading'#2#14#13'Lines.Strings'
+  +#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4
+  +'Left'#2'P'#6'Height'#2#15#3'Top'#3#11#1#5'Width'#2'5'#0#0#7'TPRText'#9'PRTe'
+  +'xt160'#7'Leading'#2#14#13'Lines.Strings'#1#6#18'RowCount: integer;'#0#8'Fon'
+  +'tName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3#11
+  +#1#5'Width'#3#23#1#0#0#7'TPRText'#9'PRText161'#7'Leading'#2#14#13'Lines.Stri'
+  +'ngs'#1#6';RowCount determines how many numbers of rows in this panel.'#0#8
+  +'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3
+  +'Top'#3#25#1#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRText162'#7'Leading'#2#14#13
+  +'Lines.Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8
+  +'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3''''#1#5'Width'#2'5'#0#0#7
+  +'TPRText'#9'PRText167'#7'Leading'#2#14#13'Lines.Strings'#1#6' PrintDirection'
+  +': TPrintDirection;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'
+  +#6'Height'#2#15#3'Top'#3''''#1#5'Width'#3#23#1#0#0#7'TPRText'#9'PRText168'#7
+  +'Leading'#2#14#13'Lines.Strings'#1#6'8PrintDirection determins the direction'
+  +' of printing grid.'#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Lef'
+  +'t'#2'P'#6'Height'#2#16#3'Top'#3'5'#1#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRTex'
+  +'t169'#7'Leading'#2#14#13'Lines.Strings'#1#6#8'property'#0#8'FontName'#7#7'f'
+  +'nArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3
+  +#203#1#5'Width'#2'5'#0#0#7'TPRText'#9'PRText170'#7'Leading'#2#12#13'Lines.St'
+  +'rings'#1#6#147'BeforePrintChild is called every before child panels are abo'
+  +'ut to be printed. Typical use of this event is to set any variables(TPRText'
+  +', TPRImage).'#0#8'WordWrap'#9#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2
+  +#10#4'Left'#2'P'#6'Height'#2#26#3'Top'#3#217#1#5'Width'#3'S'#1#0#0#7'TPRText'
+  +#9'PRText171'#7'Leading'#2#14#13'Lines.Strings'#1#6'*BeforePrintChild: TPRPr'
+  +'intChildPanelEvent;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2
+  +'~'#6'Height'#2#15#3'Top'#3#203#1#5'Width'#3#23#1#0#0#7'TPRText'#9'PRText172'
+  +#7'Leading'#2#14#13'Lines.Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'
+  +#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#27#2#5
+  +'Width'#2'5'#0#0#7'TPRText'#9'PRText173'#7'Leading'#2#14#13'Lines.Strings'#1
+  +#6')AfterPrintChild: TPRPrintChildPanelEvent;'#0#8'FontName'#7#7'fnArial'#8
+  +'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3#27#2#5'Width'#3#23#1#0#0
+  +#7'TPRText'#9'PRText174'#7'Leading'#2#12#13'Lines.Strings'#1#6'5AfterPrint i'
+  +'s called every after panels were printed.'#0#8'WordWrap'#9#8'FontName'#7#12
+  +'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3')'#2#5
+  +'Width'#3'S'#1#0#0#7'TPRText'#9'PRText175'#7'Leading'#2#12#13'Lines.Strings'
+  +#1#6'ITPRPrintChildPanelEvent = procedure(Sender: TObject; ACanvas: TPdfCanv'
+  +'as;'#6'J                              ACol, ARow: integer; Rect: TRect) of '
+  +'object;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'
+  +#2#30#3'Top'#3#247#1#5'Width'#3'u'#1#0#0#8'TPRLabel'#9'PRLabel28'#7'Caption'
+  +#6'%copyright (c) 1999-2001 takeshi kanno'#9'Alignment'#7#14'taRightJustify'
+  +#8'FontName'#7#7'fnArial'#8'FontSize'#2#8#5'Align'#7#8'alBottom'#6'Height'#2
+  +#13#3'Top'#3'W'#2#5'Width'#3#218#1#0#0#0#0#0#9'TTabSheet'#9'TabSheet9'#7'Cap'
+  +'tion'#6#8'TPRLabel'#12'ClientHeight'#3#243#1#11'ClientWidth'#3'j'#2#6'Heigh'
+  +'t'#3#243#1#5'Width'#3'j'#2#0#7'TPRPage'#8'PRPage10'#9'MarginTop'#2#24#10'Ma'
+  +'rginLeft'#2' '#11'MarginRight'#2' '#12'MarginBottom'#2' '#4'Left'#2#10#6'He'
+  +'ight'#3#158#2#3'Top'#2#7#5'Width'#3#28#2#0#14'TPRLayoutPanel'#15'PRLayoutPa'
+  +'nel17'#5'Align'#7#8'alClient'#11'BeforePrint'#7#24'PRLayoutPanelBeforePrint'
+  +#4'Left'#2'!'#6'Height'#3'd'#2#3'Top'#2#25#5'Width'#3#218#1#0#7'TPRRect'#8'P'
+  +'RRect71'#4'Left'#2'P'#6'Height'#3#155#0#3'Top'#3'2'#1#5'Width'#3'U'#1#0#0#7
+  +'TPRRect'#8'PRRect67'#4'Left'#3#164#1#6'Height'#2#16#3'Top'#2#11#5'Width'#2#1
+  ,#0#0#7'TPRRect'#8'PRRect68'#4'Left'#2'='#6'Height'#2#1#3'Top'#2#23#5'Width'#3
+  +'h'#1#0#0#7'TPRRect'#8'PRRect69'#4'Left'#2'='#6'Height'#2#16#3'Top'#2#11#5'W'
+  +'idth'#2#1#0#0#7'TPRRect'#8'PRRect70'#4'Left'#3#240#0#6'Height'#2#12#3'Top'#2
+  +#15#5'Width'#2#1#0#0#7'TPRText'#9'PRText2_5'#7'Leading'#2#14#13'Lines.String'
+  +'s'#1#6#14'2.5   TPRLabel'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#12#8'Fon'
+  +'tBold'#9#4'Left'#2'4'#6'Height'#2#15#3'Top'#2'E'#5'Width'#3'o'#1#3'Tag'#2#3
+  +#0#0#7'TPRText'#9'PRText281'#7'Leading'#2#12#13'Lines.Strings'#1#6'.TPRLabel'
+  +' is used to print a single line text. '#0#8'WordWrap'#9#8'FontName'#7#12'fn'
+  +'TimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#14#3'Top'#2'U'#5'Widt'
+  +'h'#3'S'#1#0#0#7'TPRText'#9'PRText287'#7'Leading'#2#14#13'Lines.Strings'#1#6
+  +#4'Unit'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#12#8'FontBold'#9#4'Left'#2
+  +'P'#6'Height'#2#15#3'Top'#2'g'#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRText319'#7
+  +'Leading'#2#14#13'Lines.Strings'#1#6#7'PReport'#0#8'FontName'#7#12'fnTimesRo'
+  +'man'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#15#3'Top'#2'x'#5'Width'#3'S'
+  +#1#0#0#7'TPRText'#9'PRText320'#7'Leading'#2#14#13'Lines.Strings'#1#6#11'Desc'
+  +'ription'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#12#8'FontBold'#9#4'Left'#2
+  +'P'#6'Height'#2#15#3'Top'#3#139#0#5'Width'#3'Q'#1#0#0#7'TPRText'#9'PRText321'
+  +#7'Leading'#2#12#13'Lines.Strings'#1#6'(Use TPRLabel to print single line te'
+  +'xt. '#0#8'WordWrap'#9#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Lef'
+  +'t'#2'P'#6'Height'#2#16#3'Top'#3#153#0#5'Width'#3'q'#1#0#0#7'TPRText'#11'PRT'
+  +'ext2_5_1'#7'Leading'#2#14#13'Lines.Strings'#1#6#27'2.5.1   TPRLabel propert'
+  +'ies'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#12#8'FontBold'#9#4'Left'#2','
+  +#6'Height'#2#15#3'Top'#3#175#0#5'Width'#3'y'#1#3'Tag'#2#4#0#0#7'TPRText'#9'P'
+  +'RText323'#7'Leading'#2#14#13'Lines.Strings'#1#6#14'Align: TAlign;'#0#8'Font'
+  +'Name'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3#193
+  +#0#5'Width'#3#23#1#0#0#7'TPRText'#9'PRText324'#7'Leading'#2#14#13'Lines.Stri'
+  +'ngs'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'
+  +#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#193#0#5'Width'#2'5'#0#0#7'TPRText'#9
+  +'PRText325'#7'Leading'#2#14#13'Lines.Strings'#1#6'KDetermines how the contro'
+  +'l aligns within its container (or parent control).'#0#8'FontName'#7#12'fnTi'
+  +'mesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3#207#0#5'Wid'
+  +'th'#3'S'#1#0#0#7'TPRText'#9'PRText326'#7'Leading'#2#14#13'Lines.Strings'#1#6
+  +#19'Printable: boolean;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'
+  +#2'~'#6'Height'#2#15#3'Top'#3#223#1#5'Width'#3#23#1#0#0#7'TPRText'#9'PRText3'
+  +'27'#7'Leading'#2#14#13'Lines.Strings'#1#6#8'property'#0#8'FontName'#7#7'fnA'
+  +'rial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3
+  +#223#1#5'Width'#2'5'#0#0#7'TPRText'#9'PRText328'#7'Leading'#2#14#13'Lines.St'
+  +'rings'#1#6'6Determines whether the control will be printed or not.'#0#8'Fon'
+  +'tName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'To'
+  +'p'#3#237#1#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRText329'#7'Leading'#2#14#13'L'
+  +'ines.Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8
+  +'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#253#1#5'Width'#2'5'#0#0#7
+  +'TPRText'#9'PRText330'#7'Leading'#2#14#13'Lines.Strings'#1#6#18'FontColor: T'
+  +'Color;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2
+  +#15#3'Top'#3#253#1#5'Width'#3#23#1#0#0#7'TPRText'#9'PRText331'#7'Leading'#2
+  +#14#13'Lines.Strings'#1#6' Specifies the color of the text.'#0#8'FontName'#7
+  +#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3#11#2
+  +#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRText348'#7'Leading'#2#14#13'Lines.String'
+  +'s'#1#6#24'AlignJustified: Boolean;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2
+  +#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3#223#0#5'Width'#3#23#1#0#0#7'TPRText'
+  +#9'PRText349'#7'Leading'#2#14#13'Lines.Strings'#1#6#8'property'#0#8'FontName'
+  +#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'T'
+  +'op'#3#223#0#5'Width'#2'5'#0#0#7'TPRText'#9'PRText350'#7'Leading'#2#14#13'Li'
+  +'nes.Strings'#1#6'ODetermines whether adjustment the char width to fit the t'
+  +'ext to full-justified.'#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4
+  +'Left'#2'P'#6'Height'#2#16#3'Top'#3#237#0#5'Width'#3'S'#1#0#0#7'TPRText'#9'P'
+  +'RText354'#7'Leading'#2#14#13'Lines.Strings'#1#6#22'Alignment: TAlignment;'#0
+  +#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'
+  +#3#253#0#5'Width'#3#23#1#0#0#7'TPRText'#9'PRText355'#7'Leading'#2#14#13'Line'
+  +'s.Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'Fo'
+  +'ntBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#253#0#5'Width'#2'5'#0#0#7'TP'
+  +'RText'#9'PRText356'#7'Leading'#2#14#13'Lines.Strings'#1#6'?Controls the hor'
+  +'izontal placement of the text within the label.'#0#8'FontName'#7#12'fnTimes'
+  +'Roman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3#11#1#5'Width'#3
+  ,'S'#1#0#0#8'TPRLabel'#8'PRLabel3'#7'Caption'#6#23'Alignment taLeftJustify'#8
+  +'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#10'FontItalic'#9#4'Left'#2'W'
+  +#6'Height'#2#15#3'Top'#3'8'#1#5'Width'#3#215#0#0#0#8'TPRLabel'#8'PRLabel4'#7
+  +'Caption'#6'&The quick brown fox ate the lazy mouse'#9'FontColor'#7#7'clGree'
+  +'n'#8'FontName'#7#7'fnArial'#8'FontSize'#2#14#4'Left'#2'_'#6'Height'#2#19#3
+  +'Top'#3'H'#1#5'Width'#3'@'#1#0#0#8'TPRLabel'#8'PRLabel6'#7'Caption'#6#24'Ali'
+  +'gnment taRightJustify'#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#10'F'
+  +'ontItalic'#9#4'Left'#2'W'#6'Height'#2#15#3'Top'#3'\'#1#5'Width'#3#215#0#0#0
+  +#8'TPRLabel'#8'PRLabel7'#7'Caption'#6#18'Alignment taCenter'#8'FontName'#7#12
+  +'fnTimesRoman'#8'FontSize'#2#10#10'FontItalic'#9#4'Left'#2'W'#6'Height'#2#15
+  +#3'Top'#3#128#1#5'Width'#3#215#0#0#0#8'TPRLabel'#8'PRLabel9'#7'Caption'#6#14
+  +'AlignJustified'#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#10'FontItal'
+  +'ic'#9#4'Left'#2'W'#6'Height'#2#15#3'Top'#3#164#1#5'Width'#3#215#0#0#0#8'TPR'
+  +'Label'#8'PRLabel5'#7'Caption'#6'&The quick brown fox ate the lazy mouse'#9
+  +'Alignment'#7#14'taRightJustify'#9'FontColor'#7#7'clGreen'#8'FontName'#7#7'f'
+  +'nArial'#8'FontSize'#2#14#4'Left'#2'_'#6'Height'#2#19#3'Top'#3'l'#1#5'Width'
+  +#3'@'#1#0#0#8'TPRLabel'#8'PRLabel8'#7'Caption'#6'&The quick brown fox ate th'
+  +'e lazy mouse'#9'Alignment'#7#8'taCenter'#9'FontColor'#7#7'clGreen'#8'FontNa'
+  +'me'#7#7'fnArial'#8'FontSize'#2#14#4'Left'#2'_'#6'Height'#2#19#3'Top'#3#144#1
+  +#5'Width'#3'@'#1#0#0#8'TPRLabel'#9'PRLabel10'#7'Caption'#6'&The quick brown '
+  +'fox ate the lazy mouse'#14'AlignJustified'#9#9'FontColor'#7#7'clGreen'#8'Fo'
+  +'ntName'#7#7'fnArial'#8'FontSize'#2#14#4'Left'#2'_'#6'Height'#2#19#3'Top'#3
+  +#180#1#5'Width'#3'@'#1#0#0#8'TPRLabel'#9'PRLabel11'#7'Caption'#6#29'The samp'
+  +'les of the alignment '#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Le'
+  +'ft'#2'Q'#6'Height'#2#15#3'Top'#3'"'#1#5'Width'#3#215#0#0#0#8'TPRLabel'#9'PR'
+  +'Label29'#7'Caption'#6'%copyright (c) 1999-2001 takeshi kanno'#9'Alignment'#7
+  +#14'taRightJustify'#8'FontName'#7#7'fnArial'#8'FontSize'#2#8#5'Align'#7#8'al'
+  +'Bottom'#6'Height'#2#13#3'Top'#3'W'#2#5'Width'#3#218#1#0#0#8'TPRLabel'#9'PRL'
+  +'abel15'#7'Caption'#6#4'New!'#9'FontColor'#4#255#128#0#0#8'FontName'#7#12'fn'
+  +'TimesRoman'#8'FontSize'#2#8#4'Left'#3#236#0#6'Height'#2#17#3'Top'#3#225#0#5
+  +'Width'#2#25#0#0#0#0#0#9'TTabSheet'#10'TabSheet17'#7'Caption'#6#11'TPRLabel('
+  +'2)'#12'ClientHeight'#3#243#1#11'ClientWidth'#3'j'#2#6'Height'#3#243#1#5'Wid'
+  +'th'#3'j'#2#0#7'TPRPage'#8'PRPage11'#9'MarginTop'#2#24#10'MarginLeft'#2' '#11
+  +'MarginRight'#2' '#12'MarginBottom'#2' '#4'Left'#2#10#6'Height'#3#158#2#3'To'
+  +'p'#2#7#5'Width'#3#28#2#0#14'TPRLayoutPanel'#15'PRLayoutPanel14'#5'Align'#7#8
+  +'alClient'#11'BeforePrint'#7#24'PRLayoutPanelBeforePrint'#4'Left'#2'!'#6'Hei'
+  +'ght'#3'd'#2#3'Top'#2#25#5'Width'#3#218#1#0#7'TPRRect'#8'PRRect54'#4'Left'#3
+  +#164#1#6'Height'#2#16#3'Top'#2#11#5'Width'#2#1#0#0#7'TPRRect'#8'PRRect55'#4
+  +'Left'#2'='#6'Height'#2#1#3'Top'#2#23#5'Width'#3'h'#1#0#0#7'TPRRect'#8'PRRec'
+  +'t56'#4'Left'#2'='#6'Height'#2#16#3'Top'#2#11#5'Width'#2#1#0#0#7'TPRRect'#8
+  +'PRRect58'#4'Left'#3#240#0#6'Height'#2#12#3'Top'#2#15#5'Width'#2#1#0#0#7'TPR'
+  +'Text'#9'PRText380'#7'Leading'#2#14#13'Lines.Strings'#1#6#8'property'#0#8'Fo'
+  +'ntName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2
+  +#15#3'Top'#2'E'#5'Width'#2'5'#0#0#7'TPRText'#9'PRText381'#7'Leading'#2#14#13
+  +'Lines.Strings'#1#6#22'FontName: TPRFontName;'#0#8'FontName'#7#7'fnArial'#8
+  +'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#2'E'#5'Width'#3#23#1#0#0#7
+  +'TPRText'#9'PRText382'#7'Leading'#2#14#13'Lines.Strings'#1#6'4TPRFontName = '
+  +'(fnFixedWidth, fnArial, fnTimesRoman);'#0#8'FontName'#7#12'fnTimesRoman'#8
+  +'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#2'c'#5'Width'#3'S'#1#0#0#7
+  +'TPRText'#9'PRText383'#7'Leading'#2#14#13'Lines.Strings'#1#6'$Identifies the'
+  +' typeface of the font.'#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4
+  +'Left'#2'P'#6'Height'#2#16#3'Top'#2'S'#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRTe'
+  +'xt384'#7'Leading'#2#14#13'Lines.Strings'#1#6#5'Arial'#0#8'FontName'#7#7'fnA'
+  +'rial'#8'FontSize'#2#9#4'Left'#2'['#6'Height'#2#14#3'Top'#2'z'#5'Width'#3#157
+  +#0#0#0#7'TPRText'#9'PRText385'#7'Leading'#2#14#13'Lines.Strings'#1#6#19'ABCD'
+  +'EFGabcdefg12345'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#14#4'Left'#2'['#6
+  +'Height'#2#21#3'Top'#3#134#0#5'Width'#3#174#0#0#0#7'TPRText'#9'PRText386'#7
+  +'Leading'#2#14#13'Lines.Strings'#1#6#10'TimesRoman'#0#8'FontName'#7#7'fnAria'
+  +'l'#8'FontSize'#2#9#4'Left'#2'['#6'Height'#2#14#3'Top'#3#152#0#5'Width'#3#157
+  +#0#0#0#7'TPRText'#9'PRText387'#7'Leading'#2#14#13'Lines.Strings'#1#6#19'ABCD'
+  +'EFGabcdefg12345'#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#14#4'Left'#2
+  +'['#6'Height'#2#21#3'Top'#3#164#0#5'Width'#3#174#0#0#0#7'TPRText'#9'PRText38'
+  +'8'#7'Leading'#2#14#13'Lines.Strings'#1#6#10'FixedWidth'#0#8'FontName'#7#7'f'
+  +'nArial'#8'FontSize'#2#9#4'Left'#2'['#6'Height'#2#14#3'Top'#3#182#0#5'Width'
+  ,#3#157#0#0#0#7'TPRText'#9'PRText389'#7'Leading'#2#14#13'Lines.Strings'#1#6#19
+  +'ABCDEFGabcdefg12345'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#14#4'Left'#2
+  +'['#6'Height'#2#21#3'Top'#3#194#0#5'Width'#3#174#0#0#0#7'TPRRect'#8'PRRect76'
+  +#4'Left'#2'T'#6'Height'#2'_'#3'Top'#2'v'#5'Width'#3#181#0#0#0#7'TPRText'#9'P'
+  +'RText390'#7'Leading'#2#14#13'Lines.Strings'#1#6#8'property'#0#8'FontName'#7
+  +#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'
+  +#3#221#0#5'Width'#2'5'#0#0#7'TPRText'#9'PRText391'#7'Leading'#2#14#13'Lines.'
+  +'Strings'#1#6#17'FontSize: Single;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2
+  +#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3#221#0#5'Width'#3#23#1#0#0#7'TPRText'
+  +#9'PRText392'#7'Leading'#2#14#13'Lines.Strings'#1#6'+Specifies the height of'
+  +' the font in points.'#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'L'
+  +'eft'#2'P'#6'Height'#2#16#3'Top'#3#235#0#5'Width'#3'S'#1#0#0#7'TPRText'#9'PR'
+  +'Text393'#7'Leading'#2#14#13'Lines.Strings'#1#6#8'property'#0#8'FontName'#7#7
+  +'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3
+  +#249#0#5'Width'#2'5'#0#0#7'TPRText'#9'PRText394'#7'Leading'#2#14#13'Lines.St'
+  +'rings'#1#6#18'FontBold: boolean;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2
+  +#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3#249#0#5'Width'#3#23#1#0#0#7'TPRText'
+  +#9'PRText395'#7'Leading'#2#14#13'Lines.Strings'#1#6'/Specifies whether the f'
+  +'ont is boldfaced or not.'#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10
+  +#4'Left'#2'P'#6'Height'#2#16#3'Top'#3#7#1#5'Width'#3'S'#1#0#0#8'TPRLabel'#9
+  +'PRLabel30'#7'Caption'#6'%copyright (c) 1999-2001 takeshi kanno'#9'Alignment'
+  +#7#14'taRightJustify'#8'FontName'#7#7'fnArial'#8'FontSize'#2#8#5'Align'#7#8
+  +'alBottom'#6'Height'#2#13#3'Top'#3'W'#2#5'Width'#3#218#1#0#0#0#0#0#9'TTabShe'
+  +'et'#10'TabSheet10'#7'Caption'#6#7'TPRText'#12'ClientHeight'#3#243#1#11'Clie'
+  +'ntWidth'#3'j'#2#6'Height'#3#243#1#5'Width'#3'j'#2#0#7'TPRPage'#8'PRPage12'#9
+  +'MarginTop'#2#24#10'MarginLeft'#2' '#11'MarginRight'#2' '#12'MarginBottom'#2
+  +' '#4'Left'#2#12#6'Height'#3#158#2#3'Top'#2#7#5'Width'#3#28#2#0#14'TPRLayout'
+  +'Panel'#15'PRLayoutPanel10'#5'Align'#7#8'alClient'#11'BeforePrint'#7#24'PRLa'
+  +'youtPanelBeforePrint'#4'Left'#2'!'#6'Height'#3'd'#2#3'Top'#2#25#5'Width'#3
+  +#218#1#0#7'TPRRect'#8'PRRect31'#4'Left'#3#164#1#6'Height'#2#16#3'Top'#2#11#5
+  +'Width'#2#1#0#0#7'TPRRect'#8'PRRect32'#4'Left'#2'='#6'Height'#2#1#3'Top'#2#23
+  +#5'Width'#3'h'#1#0#0#7'TPRRect'#8'PRRect33'#4'Left'#2'='#6'Height'#2#16#3'To'
+  +'p'#2#11#5'Width'#2#1#0#0#7'TPRRect'#8'PRRect34'#4'Left'#3#240#0#6'Height'#2
+  +#12#3'Top'#2#15#5'Width'#2#1#0#0#7'TPRText'#9'PRText2_6'#7'Leading'#2#14#13
+  +'Lines.Strings'#1#6#13'2.6   TPRText'#0#8'FontName'#7#7'fnArial'#8'FontSize'
+  +#2#12#8'FontBold'#9#4'Left'#2'4'#6'Height'#2#15#3'Top'#2'E'#5'Width'#3'o'#1#3
+  +'Tag'#2#3#0#0#7'TPRText'#9'PRText179'#7'Leading'#2#12#13'Lines.Strings'#1#6
+  +'!TPRText is used to print a text. '#0#8'WordWrap'#9#8'FontName'#7#12'fnTime'
+  +'sRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#14#3'Top'#2'U'#5'Width'#3
+  +'S'#1#0#0#7'TPRText'#9'PRText180'#7'Leading'#2#14#13'Lines.Strings'#1#6#4'Un'
+  +'it'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#12#8'FontBold'#9#4'Left'#2'P'#6
+  +'Height'#2#15#3'Top'#2'g'#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRText181'#7'Lead'
+  +'ing'#2#14#13'Lines.Strings'#1#6#7'PReport'#0#8'FontName'#7#12'fnTimesRoman'
+  +#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#15#3'Top'#2'x'#5'Width'#3'S'#1#0#0
+  +#7'TPRText'#9'PRText182'#7'Leading'#2#14#13'Lines.Strings'#1#6#11'Descriptio'
+  +'n'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#12#8'FontBold'#9#4'Left'#2'P'#6
+  +'Height'#2#15#3'Top'#3#139#0#5'Width'#3'Q'#1#0#0#7'TPRText'#9'PRText183'#7'L'
+  +'eading'#2#12#13'Lines.Strings'#1#6#27'Use TPRText to print text. '#0#8'Word'
+  +'Wrap'#9#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Heig'
+  +'ht'#2#16#3'Top'#3#153#0#5'Width'#3'q'#1#0#0#7'TPRText'#11'PRText2_6_1'#7'Le'
+  +'ading'#2#14#13'Lines.Strings'#1#6#26'2.6.1   TPRText properties'#0#8'FontNa'
+  +'me'#7#7'fnArial'#8'FontSize'#2#12#8'FontBold'#9#4'Left'#2','#6'Height'#2#15
+  +#3'Top'#3#175#0#5'Width'#3'y'#1#3'Tag'#2#4#0#0#7'TPRText'#9'PRText185'#7'Lea'
+  +'ding'#2#14#13'Lines.Strings'#1#6#14'Align: TAlign;'#0#8'FontName'#7#7'fnAri'
+  +'al'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3#193#0#5'Width'#3
+  +#23#1#0#0#7'TPRText'#9'PRText186'#7'Leading'#2#14#13'Lines.Strings'#1#6#8'pr'
+  +'operty'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2
+  +'P'#6'Height'#2#15#3'Top'#3#193#0#5'Width'#2'5'#0#0#7'TPRText'#9'PRText187'#7
+  +'Leading'#2#14#13'Lines.Strings'#1#6'KDetermines how the control aligns with'
+  +'in its container (or parent control).'#0#8'FontName'#7#12'fnTimesRoman'#8'F'
+  +'ontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3#207#0#5'Width'#3'S'#1#0#0
+  +#7'TPRText'#9'PRText196'#7'Leading'#2#14#13'Lines.Strings'#1#6#19'Printable:'
+  +' boolean;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Heigh'
+  +'t'#2#15#3'Top'#3#221#0#5'Width'#3#23#1#0#0#7'TPRText'#9'PRText197'#7'Leadin'
+  ,'g'#2#14#13'Lines.Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'Font'
+  +'Size'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#221#0#5'Width'
+  +#2'5'#0#0#7'TPRText'#9'PRText198'#7'Leading'#2#14#13'Lines.Strings'#1#6'6Det'
+  +'ermines whether the control will be printed or not.'#0#8'FontName'#7#12'fnT'
+  +'imesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3#235#0#5'Wi'
+  +'dth'#3'S'#1#0#0#7'TPRText'#9'PRText199'#7'Leading'#2#14#13'Lines.Strings'#1
+  +#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'L'
+  +'eft'#2'P'#6'Height'#2#15#3'Top'#3#251#0#5'Width'#2'5'#0#0#7'TPRText'#9'PRTe'
+  +'xt200'#7'Leading'#2#14#13'Lines.Strings'#1#6#18'FontColor: TColor;'#0#8'Fon'
+  +'tName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3
+  +#251#0#5'Width'#3#23#1#0#0#7'TPRText'#9'PRText201'#7'Leading'#2#14#13'Lines.'
+  +'Strings'#1#6' Specifies the color of the text.'#0#8'FontName'#7#12'fnTimesR'
+  +'oman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3#9#1#5'Width'#3
+  +'S'#1#0#0#7'TPRText'#9'PRText202'#7'Leading'#2#14#13'Lines.Strings'#1#6#8'pr'
+  +'operty'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2
+  +'P'#6'Height'#2#15#3'Top'#3#23#1#5'Width'#2'5'#0#0#7'TPRText'#9'PRText203'#7
+  +'Leading'#2#14#13'Lines.Strings'#1#6#22'FontName: TPRFontName;'#0#8'FontName'
+  +#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3#23#1#5'W'
+  +'idth'#3#23#1#0#0#7'TPRText'#9'PRText239'#7'Leading'#2#12#13'Lines.Strings'#1
+  +#6'$Identifies the typeface of the font.'#6#22'See TPRLabel.FontName.'#0#8'F'
+  +'ontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#28#3
+  +'Top'#3'%'#1#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRText295'#7'Leading'#2#14#13
+  +'Lines.Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8
+  +'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3'A'#1#5'Width'#2'5'#0#0#7'T'
+  +'PRText'#9'PRText296'#7'Leading'#2#14#13'Lines.Strings'#1#6#17'FontSize: Sin'
+  +'gle;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2
+  +#15#3'Top'#3'A'#1#5'Width'#3#23#1#0#0#7'TPRText'#9'PRText297'#7'Leading'#2#14
+  +#13'Lines.Strings'#1#6'+Specifies the height of the font in points.'#0#8'Fon'
+  +'tName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'To'
+  +'p'#3'O'#1#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRText298'#7'Leading'#2#14#13'Li'
+  +'nes.Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8
+  +'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3']'#1#5'Width'#2'5'#0#0#7'T'
+  +'PRText'#9'PRText299'#7'Leading'#2#14#13'Lines.Strings'#1#6#18'FontBold: boo'
+  +'lean;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2
+  +#15#3'Top'#3']'#1#5'Width'#3#23#1#0#0#7'TPRText'#9'PRText300'#7'Leading'#2#14
+  +#13'Lines.Strings'#1#6'/Specifies whether the font is boldfaced or not.'#0#8
+  +'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3
+  +'Top'#3'k'#1#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRText301'#7'Leading'#2#14#13
+  +'Lines.Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8
+  +'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3'{'#1#5'Width'#2'5'#0#0#7'T'
+  +'PRText'#9'PRText302'#7'Leading'#2#14#13'Lines.Strings'#1#6#16'Leading: Sing'
+  +'le;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15
+  +#3'Top'#3'{'#1#5'Width'#3#23#1#0#0#7'TPRText'#9'PRText303'#7'Leading'#2#14#13
+  +'Lines.Strings'#1#6#27'Specifies the text leading.'#0#8'FontName'#7#12'fnTim'
+  +'esRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3#137#1#5'Widt'
+  +'h'#3'S'#1#0#0#7'TPRText'#9'PRText304'#7'Leading'#2#14#13'Lines.Strings'#1#6
+  +#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Lef'
+  +'t'#2'P'#6'Height'#2#15#3'Top'#3#153#1#5'Width'#2'5'#0#0#7'TPRText'#9'PRText'
+  +'305'#7'Leading'#2#14#13'Lines.Strings'#1#6#16'Lines: TStrings;'#0#8'FontNam'
+  +'e'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3#153#1
+  +#5'Width'#3#23#1#0#0#7'TPRText'#9'PRText306'#7'Leading'#2#14#13'Lines.String'
+  +'s'#1#6'&Contains the individual lines of text.'#0#8'FontName'#7#12'fnTimesR'
+  +'oman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3#167#1#5'Width'#3
+  +'S'#1#0#0#7'TPRText'#9'PRText307'#7'Leading'#2#14#13'Lines.Strings'#1#6#8'pr'
+  +'operty'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2
+  +'P'#6'Height'#2#15#3'Top'#3#183#1#5'Width'#2'5'#0#0#7'TPRText'#9'PRText308'#7
+  +'Leading'#2#14#13'Lines.Strings'#1#6#18'WordSpace: Single;'#0#8'FontName'#7#7
+  +'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3#183#1#5'Widt'
+  +'h'#3#23#1#0#0#7'TPRText'#9'PRText309'#7'Leading'#2#14#13'Lines.Strings'#1#6
+  +'''Specifies the word spacing of the text.'#0#8'FontName'#7#12'fnTimesRoman'
+  +#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3#197#1#5'Width'#3'S'#1
+  +#0#0#7'TPRText'#9'PRText310'#7'Leading'#2#14#13'Lines.Strings'#1#6#8'propert'
+  +'y'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6
+  +'Height'#2#15#3'Top'#3#211#1#5'Width'#2'5'#0#0#7'TPRText'#9'PRText311'#7'Lea'
+  ,'ding'#2#14#13'Lines.Strings'#1#6#18'WordWrap: boolean;'#0#8'FontName'#7#7'f'
+  +'nArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3#211#1#5'Width'
+  +#3#23#1#0#0#7'TPRText'#9'PRText312'#7'Leading'#2#12#13'Lines.Strings'#1#6'\D'
+  +'etermines whether the text inserts soft carriage returns so text wraps at t'
+  +'he right margin.'#0#8'WordWrap'#9#8'FontName'#7#12'fnTimesRoman'#8'FontSize'
+  +#2#10#4'Left'#2'P'#6'Height'#2#28#3'Top'#3#225#1#5'Width'#3'S'#1#0#0#8'TPRLa'
+  +'bel'#9'PRLabel31'#7'Caption'#6'%copyright (c) 1999-2001 takeshi kanno'#9'Al'
+  +'ignment'#7#14'taRightJustify'#8'FontName'#7#7'fnArial'#8'FontSize'#2#8#5'Al'
+  +'ign'#7#8'alBottom'#6'Height'#2#13#3'Top'#3'W'#2#5'Width'#3#218#1#0#0#0#0#0#9
+  +'TTabSheet'#10'TabSheet11'#7'Caption'#6#8'TPRImage'#12'ClientHeight'#3#243#1
+  +#11'ClientWidth'#3'j'#2#6'Height'#3#243#1#5'Width'#3'j'#2#0#7'TPRPage'#8'PRP'
+  +'age13'#9'MarginTop'#2#24#10'MarginLeft'#2' '#11'MarginRight'#2' '#12'Margin'
+  +'Bottom'#2' '#4'Left'#2#12#6'Height'#3#158#2#3'Top'#2#7#5'Width'#3#28#2#0#14
+  +'TPRLayoutPanel'#15'PRLayoutPanel11'#5'Align'#7#8'alClient'#11'BeforePrint'#7
+  +#24'PRLayoutPanelBeforePrint'#4'Left'#2'!'#6'Height'#3'd'#2#3'Top'#2#25#5'Wi'
+  +'dth'#3#218#1#0#7'TPRRect'#8'PRRect35'#4'Left'#3#164#1#6'Height'#2#16#3'Top'
+  +#2#11#5'Width'#2#1#0#0#7'TPRRect'#8'PRRect36'#4'Left'#2'='#6'Height'#2#1#3'T'
+  +'op'#2#23#5'Width'#3'h'#1#0#0#7'TPRRect'#8'PRRect37'#4'Left'#2'='#6'Height'#2
+  +#16#3'Top'#2#11#5'Width'#2#1#0#0#7'TPRRect'#8'PRRect38'#4'Left'#3#240#0#6'He'
+  +'ight'#2#12#3'Top'#2#15#5'Width'#2#1#0#0#7'TPRText'#9'PRText2_7'#7'Leading'#2
+  +#14#13'Lines.Strings'#1#6#14'2.7   TPRImage'#0#8'FontName'#7#7'fnArial'#8'Fo'
+  +'ntSize'#2#12#8'FontBold'#9#4'Left'#2'4'#6'Height'#2#15#3'Top'#2'E'#5'Width'
+  +#3'o'#1#3'Tag'#2#3#0#0#7'TPRText'#9'PRText191'#7'Leading'#2#12#13'Lines.Stri'
+  +'ngs'#1#6'#TPRImage is uses to print a image. '#0#8'WordWrap'#9#8'FontName'#7
+  +#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#14#3'Top'#2'U'#5
+  +'Width'#3'S'#1#0#0#7'TPRText'#9'PRText192'#7'Leading'#2#14#13'Lines.Strings'
+  +#1#6#4'Unit'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#12#8'FontBold'#9#4'Lef'
+  +'t'#2'P'#6'Height'#2#15#3'Top'#2'g'#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRText1'
+  +'93'#7'Leading'#2#14#13'Lines.Strings'#1#6#7'PReport'#0#8'FontName'#7#12'fnT'
+  +'imesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#15#3'Top'#2'x'#5'Width'
+  +#3'S'#1#0#0#7'TPRText'#9'PRText194'#7'Leading'#2#14#13'Lines.Strings'#1#6#11
+  +'Description'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#12#8'FontBold'#9#4'Le'
+  +'ft'#2'P'#6'Height'#2#15#3'Top'#3#139#0#5'Width'#3'Q'#1#0#0#7'TPRText'#9'PRT'
+  +'ext195'#7'Leading'#2#12#13'Lines.Strings'#1#6#184'Use of TPRImage to print '
+  +'a image. TPRImage only support 24bit bitmap image yet. If program is compil'
+  +'ed to use Zlib compression, the image is automatically compressed with Flat'
+  +'e-Decode.'#0#8'WordWrap'#9#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4
+  +'Left'#2'P'#6'Height'#2'('#3'Top'#3#153#0#5'Width'#3'q'#1#0#0#7'TPRText'#11
+  +'PRText2_7_1'#7'Leading'#2#14#13'Lines.Strings'#1#6#27'2.7.1   TPRImage prop'
+  +'erties'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#12#8'FontBold'#9#4'Left'#2
+  +','#6'Height'#2#15#3'Top'#3#197#0#5'Width'#3'y'#1#3'Tag'#2#4#0#0#7'TPRText'#9
+  +'PRText206'#7'Leading'#2#14#13'Lines.Strings'#1#6#14'Align: TAlign;'#0#8'Fon'
+  +'tName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3
+  +#215#0#5'Width'#3#23#1#0#0#7'TPRText'#9'PRText207'#7'Leading'#2#14#13'Lines.'
+  +'Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'Font'
+  +'Bold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#215#0#5'Width'#2'5'#0#0#7'TPRT'
+  +'ext'#9'PRText208'#7'Leading'#2#14#13'Lines.Strings'#1#6'KDetermines how the'
+  +' control aligns within its container (or parent control).'#0#8'FontName'#7
+  +#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3#229#0
+  +#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRText209'#7'Leading'#2#14#13'Lines.String'
+  +'s'#1#6#19'Printable: boolean;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4
+  +'Left'#2'~'#6'Height'#2#15#3'Top'#3#243#0#5'Width'#3#23#1#0#0#7'TPRText'#9'P'
+  +'RText210'#7'Leading'#2#14#13'Lines.Strings'#1#6#8'property'#0#8'FontName'#7
+  +#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'
+  +#3#243#0#5'Width'#2'5'#0#0#7'TPRText'#9'PRText211'#7'Leading'#2#14#13'Lines.'
+  +'Strings'#1#6'6Determines whether the control will be printed or not.'#0#8'F'
+  +'ontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3
+  +'Top'#3#1#1#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRText212'#7'Leading'#2#14#13'L'
+  +'ines.Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8
+  +'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#17#1#5'Width'#2'5'#0#0#7'T'
+  +'PRText'#9'PRText213'#7'Leading'#2#14#13'Lines.Strings'#1#6#18'Picture: TPic'
+  +'ture;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2
+  +#15#3'Top'#3#17#1#5'Width'#3#23#1#0#0#7'TPRText'#9'PRText214'#7'Leading'#2#14
+  +#13'Lines.Strings'#1#6'0Specifies the image that appears on the control.'#0#8
+  ,'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3
+  +'Top'#3#31#1#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRText215'#7'Leading'#2#14#13
+  +'Lines.Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8
+  +'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3'Y'#1#5'Width'#2'5'#0#0#7'T'
+  +'PRText'#9'PRText216'#7'Leading'#2#14#13'Lines.Strings'#1#6#21'SharedImage: '
+  +'boolean;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'
+  +#2#15#3'Top'#3'Y'#1#5'Width'#3#23#1#0#0#7'TPRText'#9'PRText217'#7'Leading'#2
+  +#12#13'Lines.Strings'#1#6'HDetermines whether the image data will be shared '
+  +'in the document or not.'#6'eif this property is set true, the PDF file has '
+  +'only one image, This means disk capacity can be saved.'#6'SBut if the image'
+  +' of each page is different, SharedImage property must be set false.'#6'$See'
+  +' DBImageExample(not shared image)'#0#8'WordWrap'#9#8'FontName'#7#12'fnTimes'
+  +'Roman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2'@'#3'Top'#3'g'#1#5'Width'#3
+  +'e'#1#0#0#7'TPRText'#7'PRText3'#7'Leading'#2#14#13'Lines.Strings'#1#6#8'prop'
+  +'erty'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'
+  +#6'Height'#2#15#3'Top'#3'/'#1#5'Width'#2'5'#0#0#7'TPRText'#9'PRText204'#7'Le'
+  +'ading'#2#14#13'Lines.Strings'#1#6#17'Stretch: boolean;'#0#8'FontName'#7#7'f'
+  +'nArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3'/'#1#5'Width'
+  +#3#23#1#0#0#7'TPRText'#9'PRText240'#7'Leading'#2#12#13'Lines.Strings'#1#6'_D'
+  +'etermines whether resizing the height and width of the image to fit to the '
+  +'client area or not.'#0#8'WordWrap'#9#8'FontName'#7#12'fnTimesRoman'#8'FontS'
+  +'ize'#2#10#4'Left'#2'P'#6'Height'#2#28#3'Top'#3'='#1#5'Width'#3'e'#1#0#0#8'T'
+  +'PRLabel'#9'PRLabel32'#7'Caption'#6'%copyright (c) 1999-2001 takeshi kanno'#9
+  +'Alignment'#7#14'taRightJustify'#8'FontName'#7#7'fnArial'#8'FontSize'#2#8#5
+  +'Align'#7#8'alBottom'#6'Height'#2#13#3'Top'#3'W'#2#5'Width'#3#218#1#0#0#0#0#0
+  +#9'TTabSheet'#10'TabSheet12'#7'Caption'#6#12'TPRJpegImage'#12'ClientHeight'#3
+  +#243#1#11'ClientWidth'#3'j'#2#6'Height'#3#243#1#5'Width'#3'j'#2#0#7'TPRPage'
+  +#8'PRPage14'#9'MarginTop'#2#24#10'MarginLeft'#2' '#11'MarginRight'#2' '#12'M'
+  +'arginBottom'#2' '#4'Left'#2#12#6'Height'#3#158#2#3'Top'#2#7#5'Width'#3#28#2
+  +#0#14'TPRLayoutPanel'#15'PRLayoutPanel12'#5'Align'#7#8'alClient'#11'BeforePr'
+  +'int'#7#24'PRLayoutPanelBeforePrint'#4'Left'#2'!'#6'Height'#3'd'#2#3'Top'#2
+  +#25#5'Width'#3#218#1#0#7'TPRRect'#8'PRRect39'#4'Left'#3#164#1#6'Height'#2#16
+  +#3'Top'#2#11#5'Width'#2#1#0#0#7'TPRRect'#8'PRRect40'#4'Left'#2'='#6'Height'#2
+  +#1#3'Top'#2#23#5'Width'#3'h'#1#0#0#7'TPRRect'#8'PRRect41'#4'Left'#2'='#6'Hei'
+  +'ght'#2#16#3'Top'#2#11#5'Width'#2#1#0#0#7'TPRRect'#8'PRRect42'#4'Left'#3#240
+  +#0#6'Height'#2#12#3'Top'#2#15#5'Width'#2#1#0#0#7'TPRText'#9'PRText2_8'#7'Lea'
+  +'ding'#2#14#13'Lines.Strings'#1#6#18'2.8   TPRJpegImage'#0#8'FontName'#7#7'f'
+  +'nArial'#8'FontSize'#2#12#8'FontBold'#9#4'Left'#2'4'#6'Height'#2#15#3'Top'#2
+  +'E'#5'Width'#3'o'#1#3'Tag'#2#3#0#0#7'TPRText'#9'PRText246'#7'Leading'#2#12#13
+  +'Lines.Strings'#1#6'(TPRImage is uses to print a TJpegImage. '#0#8'WordWrap'
+  +#9#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2
+  +#14#3'Top'#2'U'#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRText247'#7'Leading'#2#14
+  +#13'Lines.Strings'#1#6#4'Unit'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#12#8
+  +'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#2'g'#5'Width'#3'S'#1#0#0#7'T'
+  +'PRText'#9'PRText248'#7'Leading'#2#14#13'Lines.Strings'#1#6#11'PRJpegImage'#0
+  +#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#15
+  +#3'Top'#2'x'#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRText249'#7'Leading'#2#14#13
+  +'Lines.Strings'#1#6#11'Description'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2
+  +#12#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#139#0#5'Width'#3'Q'#1
+  +#0#0#7'TPRText'#9'PRText250'#7'Leading'#2#12#13'Lines.Strings'#1#6'8Use of T'
+  +'PRJpegImage to print a image with JPEG encoding.'#0#8'WordWrap'#9#8'FontNam'
+  +'e'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3
+  +#153#0#5'Width'#3'U'#1#0#0#7'TPRText'#11'PRText2_8_1'#7'Leading'#2#14#13'Lin'
+  +'es.Strings'#1#6#31'2.8.1   TPRJpegImage properties'#0#8'FontName'#7#7'fnAri'
+  +'al'#8'FontSize'#2#12#8'FontBold'#9#4'Left'#2','#6'Height'#2#15#3'Top'#3#175
+  +#0#5'Width'#3'y'#1#3'Tag'#2#4#0#0#7'TPRText'#9'PRText252'#7'Leading'#2#14#13
+  +'Lines.Strings'#1#6#14'Align: TAlign;'#0#8'FontName'#7#7'fnArial'#8'FontSize'
+  +#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3#193#0#5'Width'#3#23#1#0#0#7'TPRTe'
+  +'xt'#9'PRText253'#7'Leading'#2#14#13'Lines.Strings'#1#6#8'property'#0#8'Font'
+  +'Name'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2
+  +#15#3'Top'#3#193#0#5'Width'#2'5'#0#0#7'TPRText'#9'PRText254'#7'Leading'#2#14
+  +#13'Lines.Strings'#1#6'KDetermines how the control aligns within its contain'
+  +'er (or parent control).'#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4
+  +'Left'#2'P'#6'Height'#2#16#3'Top'#3#207#0#5'Width'#3'S'#1#0#0#7'TPRText'#9'P'
+  ,'RText255'#7'Leading'#2#14#13'Lines.Strings'#1#6#19'Printable: boolean;'#0#8
+  +'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3
+  +#221#0#5'Width'#3#23#1#0#0#7'TPRText'#9'PRText256'#7'Leading'#2#14#13'Lines.'
+  +'Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'Font'
+  +'Bold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#221#0#5'Width'#2'5'#0#0#7'TPRT'
+  +'ext'#9'PRText257'#7'Leading'#2#14#13'Lines.Strings'#1#6'6Determines whether'
+  +' the control will be printed or not.'#0#8'FontName'#7#12'fnTimesRoman'#8'Fo'
+  +'ntSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3#235#0#5'Width'#3'S'#1#0#0
+  +#7'TPRText'#9'PRText258'#7'Leading'#2#14#13'Lines.Strings'#1#6#8'property'#0
+  +#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Heig'
+  +'ht'#2#15#3'Top'#3#251#0#5'Width'#2'5'#0#0#7'TPRText'#9'PRText260'#7'Leading'
+  +#2#14#13'Lines.Strings'#1#6#18'Picture: TPicture;'#0#8'FontName'#7#7'fnArial'
+  +#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3#251#0#5'Width'#3#23#1
+  +#0#0#7'TPRText'#9'PRText264'#7'Leading'#2#14#13'Lines.Strings'#1#6'LSpecifie'
+  +'s the image that appears on the control. Only TJpegImage is allowed.'#0#8'F'
+  +'ontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3
+  +'Top'#3#9#1#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRText265'#7'Leading'#2#14#13'L'
+  +'ines.Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8
+  +'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#23#1#5'Width'#2'5'#0#0#7'T'
+  +'PRText'#9'PRText273'#7'Leading'#2#14#13'Lines.Strings'#1#6#21'SharedImage: '
+  +'boolean;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'
+  +#2#15#3'Top'#3#23#1#5'Width'#3#23#1#0#0#7'TPRText'#9'PRText274'#7'Leading'#2
+  +#12#13'Lines.Strings'#1#6'HDetermines whether the image data will be shared '
+  +'in the document or not.'#6'eif this property is set true, the PDF file has '
+  +'only one image, This means disk capacity can be saved.'#6'SBut if the image'
+  +' of each page is different, SharedImage property must be set false.'#6'$See'
+  +' DBImageExample(not shared image)'#0#8'WordWrap'#9#8'FontName'#7#12'fnTimes'
+  +'Roman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2'@'#3'Top'#3'%'#1#5'Width'#3
+  +']'#1#0#0#8'TPRLabel'#9'PRLabel33'#7'Caption'#6'%copyright (c) 1999-2001 tak'
+  +'eshi kanno'#9'Alignment'#7#14'taRightJustify'#8'FontName'#7#7'fnArial'#8'Fo'
+  +'ntSize'#2#8#5'Align'#7#8'alBottom'#6'Height'#2#13#3'Top'#3'W'#2#5'Width'#3
+  +#218#1#0#0#0#0#0#9'TTabSheet'#10'TabSheet13'#7'Caption'#6#7'TPRRect'#12'Clie'
+  +'ntHeight'#3#243#1#11'ClientWidth'#3'j'#2#6'Height'#3#243#1#5'Width'#3'j'#2#0
+  +#7'TPRPage'#8'PRPage15'#9'MarginTop'#2#24#10'MarginLeft'#2' '#11'MarginRight'
+  +#2' '#12'MarginBottom'#2' '#4'Left'#2#12#6'Height'#3#158#2#3'Top'#2#7#5'Widt'
+  +'h'#3#28#2#0#14'TPRLayoutPanel'#15'PRLayoutPanel13'#5'Align'#7#8'alClient'#11
+  +'BeforePrint'#7#24'PRLayoutPanelBeforePrint'#4'Left'#2'!'#6'Height'#3'd'#2#3
+  +'Top'#2#25#5'Width'#3#218#1#0#7'TPRRect'#8'PRRect43'#4'Left'#3#164#1#6'Heigh'
+  +'t'#2#16#3'Top'#2#11#5'Width'#2#1#0#0#7'TPRRect'#8'PRRect44'#4'Left'#2'='#6
+  +'Height'#2#1#3'Top'#2#23#5'Width'#3'h'#1#0#0#7'TPRRect'#8'PRRect45'#4'Left'#2
+  +'='#6'Height'#2#16#3'Top'#2#11#5'Width'#2#1#0#0#7'TPRRect'#8'PRRect46'#4'Lef'
+  +'t'#3#240#0#6'Height'#2#12#3'Top'#2#15#5'Width'#2#1#0#0#7'TPRText'#9'PRText2'
+  +'_9'#7'Leading'#2#14#13'Lines.Strings'#1#6#13'2.9   TPRRect'#0#8'FontName'#7
+  +#7'fnArial'#8'FontSize'#2#12#8'FontBold'#9#4'Left'#2'4'#6'Height'#2#15#3'Top'
+  +#2'E'#5'Width'#3'o'#1#3'Tag'#2#3#0#0#7'TPRText'#9'PRText221'#7'Leading'#2#12
+  +#13'Lines.Strings'#1#6'9TPRRect is used to draw rectangles and lines on a re'
+  +'port.'#0#8'WordWrap'#9#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Le'
+  +'ft'#2'P'#6'Height'#2#14#3'Top'#2'U'#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRText'
+  +'222'#7'Leading'#2#14#13'Lines.Strings'#1#6#4'Unit'#0#8'FontName'#7#7'fnAria'
+  +'l'#8'FontSize'#2#12#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#2'g'#5
+  +'Width'#3'S'#1#0#0#7'TPRText'#9'PRText223'#7'Leading'#2#14#13'Lines.Strings'
+  +#1#6#7'PReport'#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2
+  +'P'#6'Height'#2#15#3'Top'#2'x'#5'Width'#3'S'#1#0#0#7'TPRText'#11'PRText2_9_1'
+  +#7'Leading'#2#14#13'Lines.Strings'#1#6#26'2.9.1   TPRRect properties'#0#8'Fo'
+  +'ntName'#7#7'fnArial'#8'FontSize'#2#12#8'FontBold'#9#4'Left'#2','#6'Height'#2
+  +#15#3'Top'#3#141#0#5'Width'#3'y'#1#3'Tag'#2#4#0#0#7'TPRText'#9'PRText227'#7
+  +'Leading'#2#14#13'Lines.Strings'#1#6#14'Align: TAlign;'#0#8'FontName'#7#7'fn'
+  +'Arial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3#159#0#5'Width'
+  +#3#23#1#0#0#7'TPRText'#9'PRText228'#7'Leading'#2#14#13'Lines.Strings'#1#6#8
+  +'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'
+  +#2'P'#6'Height'#2#15#3'Top'#3#159#0#5'Width'#2'5'#0#0#7'TPRText'#9'PRText229'
+  +#7'Leading'#2#14#13'Lines.Strings'#1#6'MAlign determines how the control ali'
+  +'gns within container (or parent control).'#0#8'FontName'#7#12'fnTimesRoman'
+  +#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3#173#0#5'Width'#3'S'#1
+  ,#0#0#7'TPRText'#9'PRText230'#7'Leading'#2#14#13'Lines.Strings'#1#6#18'FillCo'
+  +'lor: TColor;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'He'
+  +'ight'#2#15#3'Top'#3#187#0#5'Width'#3#23#1#0#0#7'TPRText'#9'PRText231'#7'Lea'
+  +'ding'#2#14#13'Lines.Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'F'
+  +'ontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#187#0#5'Wi'
+  +'dth'#2'5'#0#0#7'TPRText'#9'PRText232'#7'Leading'#2#14#13'Lines.Strings'#1#6
+  +'2FillColor determines fill style for the Rectangle.'#0#8'FontName'#7#12'fnT'
+  +'imesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3#201#0#5'Wi'
+  +'dth'#3'S'#1#0#0#7'TPRText'#9'PRText233'#7'Leading'#2#14#13'Lines.Strings'#1
+  +#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'L'
+  +'eft'#2'P'#6'Height'#2#15#3'Top'#3#217#0#5'Width'#2'5'#0#0#7'TPRText'#9'PRTe'
+  +'xt234'#7'Leading'#2#14#13'Lines.Strings'#1#6#18'LineColor: TColor;'#0#8'Fon'
+  +'tName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3
+  +#217#0#5'Width'#3#23#1#0#0#7'TPRText'#9'PRText235'#7'Leading'#2#14#13'Lines.'
+  +'Strings'#1#6':LineColor determines color of the lines for the Rectangle.'#0
+  +#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16
+  +#3'Top'#3#231#0#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRText236'#7'Leading'#2#14
+  +#13'Lines.Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2
+  +#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#245#0#5'Width'#2'5'#0
+  +#0#7'TPRText'#9'PRText237'#7'Leading'#2#14#13'Lines.Strings'#1#6#21'LineStyl'
+  +'e: TPenStyle;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'H'
+  +'eight'#2#15#3'Top'#3#245#0#5'Width'#3#23#1#0#0#7'TPRText'#9'PRText238'#7'Le'
+  +'ading'#2#14#13'Lines.Strings'#1#6'<LineStyle determines the style in which '
+  +'the pen draws lines.'#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'L'
+  +'eft'#2'P'#6'Height'#2#16#3'Top'#3#3#1#5'Width'#3'S'#1#0#0#7'TPRRect'#8'PRRe'
+  +'ct47'#9'LineWidth'#2#1#4'Left'#3#161#0#6'Height'#2#1#3'Top'#3'A'#1#5'Width'
+  +#2'd'#0#0#7'TPRText'#9'PRText224'#7'Leading'#2#14#13'Lines.Strings'#1#6#7'ps'
+  +'Solid'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#9#4'Left'#2'W'#6'Height'#2
+  +#14#3'Top'#3':'#1#5'Width'#2'P'#0#0#7'TPRText'#9'PRText225'#7'Leading'#2#14
+  +#13'Lines.Strings'#1#6#6'psDash'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#9#4
+  +'Left'#2'W'#6'Height'#2#14#3'Top'#3'H'#1#5'Width'#2'P'#0#0#7'TPRRect'#8'PRRe'
+  +'ct48'#9'LineWidth'#2#1#9'LineStyle'#7#6'psDash'#4'Left'#3#161#0#6'Height'#2
+  +#1#3'Top'#3'O'#1#5'Width'#2'd'#0#0#7'TPRText'#9'PRText266'#7'Leading'#2#14#13
+  +'Lines.Strings'#1#6#9'psDashDot'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#9#4
+  +'Left'#2'W'#6'Height'#2#14#3'Top'#3'V'#1#5'Width'#2'P'#0#0#7'TPRRect'#8'PRRe'
+  +'ct49'#9'LineWidth'#2#1#9'LineStyle'#7#9'psDashDot'#4'Left'#3#161#0#6'Height'
+  +#2#1#3'Top'#3']'#1#5'Width'#2'd'#0#0#7'TPRRect'#8'PRRect50'#9'LineWidth'#2#1
+  +#9'LineStyle'#7#12'psDashDotDot'#4'Left'#3#161#0#6'Height'#2#1#3'Top'#3'j'#1
+  +#5'Width'#2'd'#0#0#7'TPRText'#9'PRText267'#7'Leading'#2#14#13'Lines.Strings'
+  +#1#6#12'psDashDotDot'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#9#4'Left'#2'W'
+  +#6'Height'#2#14#3'Top'#3'e'#1#5'Width'#2'P'#0#0#7'TPRText'#9'PRText268'#7'Le'
+  +'ading'#2#14#13'Lines.Strings'#1#6#5'psDot'#0#8'FontName'#7#7'fnArial'#8'Fon'
+  +'tSize'#2#9#4'Left'#2'W'#6'Height'#2#14#3'Top'#3's'#1#5'Width'#2'P'#0#0#7'TP'
+  +'RRect'#8'PRRect51'#9'LineWidth'#2#1#9'LineStyle'#7#5'psDot'#4'Left'#3#161#0
+  +#6'Height'#2#1#3'Top'#3'x'#1#5'Width'#2'd'#0#0#7'TPRRect'#8'PRRect52'#9'Line'
+  +'Width'#2#1#9'LineStyle'#7#7'psClear'#4'Left'#2'S'#6'Height'#2#1#3'Top'#3#140
+  +#1#5'Width'#3#209#0#0#0#7'TPRText'#9'PRText269'#7'Leading'#2#14#13'Lines.Str'
+  +'ings'#1#6#18'psClear(Invisible)'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#9
+  +#4'Left'#2'W'#6'Height'#2#14#3'Top'#3#129#1#5'Width'#2'P'#0#0#7'TPRText'#9'P'
+  +'RText270'#7'Leading'#2#12#13'Lines.Strings'#1#6'0TPenStyle = (psSolid, psDa'
+  +'sh, psDot, psDashDot, '#6'N                                        psDashDo'
+  +'tDot, psClear, psInsideFrame);'#0#8'WordWrap'#9#8'FontName'#7#7'fnArial'#8
+  +'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#27#3'Top'#3#22#1#5'Width'#3'U'#1#0#0
+  +#7'TPRRect'#8'PRRect57'#4'Left'#2'P'#6'Height'#2']'#3'Top'#3'4'#1#5'Width'#3
+  +#195#0#0#0#8'TPRLabel'#9'PRLabel34'#7'Caption'#6'%copyright (c) 1999-2001 ta'
+  +'keshi kanno'#9'Alignment'#7#14'taRightJustify'#8'FontName'#7#7'fnArial'#8'F'
+  +'ontSize'#2#8#5'Align'#7#8'alBottom'#6'Height'#2#13#3'Top'#3'W'#2#5'Width'#3
+  +#218#1#0#0#0#0#0#9'TTabSheet'#10'TabSheet14'#7'Caption'#6#10'TPREllipse'#12
+  +'ClientHeight'#3#243#1#11'ClientWidth'#3'j'#2#6'Height'#3#243#1#5'Width'#3'j'
+  +#2#0#7'TPRPage'#8'PRPage16'#9'MarginTop'#2#24#10'MarginLeft'#2' '#11'MarginR'
+  +'ight'#2' '#12'MarginBottom'#2' '#4'Left'#2#12#6'Height'#3#158#2#3'Top'#2#7#5
+  +'Width'#3#28#2#0#14'TPRLayoutPanel'#15'PRLayoutPanel18'#5'Align'#7#8'alClien'
+  +'t'#11'BeforePrint'#7#24'PRLayoutPanelBeforePrint'#4'Left'#2'!'#6'Height'#3
+  +'d'#2#3'Top'#2#25#5'Width'#3#218#1#0#7'TPRRect'#8'PRRect72'#4'Left'#3#164#1#6
+  ,'Height'#2#16#3'Top'#2#11#5'Width'#2#1#0#0#7'TPRRect'#8'PRRect73'#4'Left'#2
+  +'='#6'Height'#2#1#3'Top'#2#23#5'Width'#3'h'#1#0#0#7'TPRRect'#8'PRRect74'#4'L'
+  +'eft'#2'='#6'Height'#2#16#3'Top'#2#11#5'Width'#2#1#0#0#7'TPRRect'#8'PRRect75'
+  +#4'Left'#3#240#0#6'Height'#2#12#3'Top'#2#15#5'Width'#2#1#0#0#7'TPRText'#10'P'
+  +'RText2_10'#7'Leading'#2#14#13'Lines.Strings'#1#6#15'2.10 TPREllipse'#0#8'Fo'
+  +'ntName'#7#7'fnArial'#8'FontSize'#2#12#8'FontBold'#9#4'Left'#2'4'#6'Height'#2
+  +#15#3'Top'#2'E'#5'Width'#3'o'#1#3'Tag'#2#3#0#0#7'TPRText'#9'PRText357'#7'Lea'
+  +'ding'#2#12#13'Lines.Strings'#1#6'-TPRShape is used to draw ellipse on a rep'
+  +'ort.'#0#8'WordWrap'#9#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Lef'
+  +'t'#2'P'#6'Height'#2#14#3'Top'#2'U'#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRText3'
+  +'58'#7'Leading'#2#14#13'Lines.Strings'#1#6#4'Unit'#0#8'FontName'#7#7'fnArial'
+  +#8'FontSize'#2#12#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#2'g'#5'Wi'
+  +'dth'#3'S'#1#0#0#7'TPRText'#9'PRText359'#7'Leading'#2#14#13'Lines.Strings'#1
+  +#6#7'PReport'#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'
+  +#6'Height'#2#15#3'Top'#2'x'#5'Width'#3'S'#1#0#0#7'TPRText'#12'PRText2_10_1'#7
+  +'Leading'#2#14#13'Lines.Strings'#1#6#28'2.10.1 TPREllipse properties'#0#8'Fo'
+  +'ntName'#7#7'fnArial'#8'FontSize'#2#12#8'FontBold'#9#4'Left'#2','#6'Height'#2
+  +#15#3'Top'#3#141#0#5'Width'#3'y'#1#3'Tag'#2#4#0#0#7'TPRText'#9'PRText361'#7
+  +'Leading'#2#14#13'Lines.Strings'#1#6#14'Align: TAlign;'#0#8'FontName'#7#7'fn'
+  +'Arial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3#159#0#5'Width'
+  +#3#23#1#0#0#7'TPRText'#9'PRText362'#7'Leading'#2#14#13'Lines.Strings'#1#6#8
+  +'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'
+  +#2'P'#6'Height'#2#15#3'Top'#3#159#0#5'Width'#2'5'#0#0#7'TPRText'#9'PRText363'
+  +#7'Leading'#2#14#13'Lines.Strings'#1#6'MAlign determines how the control ali'
+  +'gns within container (or parent control).'#0#8'FontName'#7#12'fnTimesRoman'
+  +#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3#173#0#5'Width'#3'S'#1
+  +#0#0#7'TPRText'#9'PRText364'#7'Leading'#2#14#13'Lines.Strings'#1#6#18'FillCo'
+  +'lor: TColor;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'He'
+  +'ight'#2#15#3'Top'#3#187#0#5'Width'#3#23#1#0#0#7'TPRText'#9'PRText365'#7'Lea'
+  +'ding'#2#14#13'Lines.Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'F'
+  +'ontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#187#0#5'Wi'
+  +'dth'#2'5'#0#0#7'TPRText'#9'PRText366'#7'Leading'#2#14#13'Lines.Strings'#1#6
+  +'0FillColor determines fill style for the ellipse.'#0#8'FontName'#7#12'fnTim'
+  +'esRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3#201#0#5'Widt'
+  +'h'#3'S'#1#0#0#7'TPRText'#9'PRText367'#7'Leading'#2#14#13'Lines.Strings'#1#6
+  +#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Lef'
+  +'t'#2'P'#6'Height'#2#15#3'Top'#3#217#0#5'Width'#2'5'#0#0#7'TPRText'#9'PRText'
+  +'368'#7'Leading'#2#14#13'Lines.Strings'#1#6#18'LineColor: TColor;'#0#8'FontN'
+  +'ame'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3#217
+  +#0#5'Width'#3#23#1#0#0#7'TPRText'#9'PRText369'#7'Leading'#2#14#13'Lines.Stri'
+  +'ngs'#1#6'8LineColor determines color of the lines for the ellipse.'#0#8'Fon'
+  +'tName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#16#3'To'
+  +'p'#3#231#0#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRText370'#7'Leading'#2#14#13'L'
+  +'ines.Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8
+  +'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#245#0#5'Width'#2'5'#0#0#7
+  +'TPRText'#9'PRText371'#7'Leading'#2#14#13'Lines.Strings'#1#6#21'LineStyle: T'
+  +'PenStyle;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Heigh'
+  +'t'#2#15#3'Top'#3#245#0#5'Width'#3#23#1#0#0#7'TPRText'#9'PRText372'#7'Leadin'
+  +'g'#2#12#13'Lines.Strings'#1#6'<LineStyle determines the style in which the '
+  +'pen draws lines.'#6#22'See TPRRect.LineStyle.'#0#8'FontName'#7#12'fnTimesRo'
+  +'man'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#28#3'Top'#3#3#1#5'Width'#3'S'
+  +#1#0#0#8'TPRLabel'#8'PRLabel2'#7'Caption'#6#29'The samples of the TPREllipse'
+  +#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'N'#6'Height'#2#15
+  +#3'Top'#3','#1#5'Width'#3'W'#1#0#0#7'TPRRect'#8'PRRect53'#4'Left'#2'N'#6'Hei'
+  +'ght'#3#159#0#3'Top'#3':'#1#5'Width'#3'W'#1#0#0#10'TPREllipse'#10'PREllipse1'
+  +#4'Left'#2'`'#6'Height'#2#30#3'Top'#3'N'#1#5'Width'#2'Z'#0#0#10'TPREllipse'
+  +#10'PREllipse2'#9'LineStyle'#7#6'psDash'#4'Left'#2'^'#6'Height'#2'P'#3'Top'#3
+  +'|'#1#5'Width'#2'Z'#0#0#10'TPREllipse'#10'PREllipse3'#9'LineColor'#7#6'clNon'
+  +'e'#9'LineStyle'#7#7'psClear'#9'FillColor'#7#8'clYellow'#4'Left'#3#208#0#6'H'
+  +'eight'#2#30#3'Top'#3'N'#1#5'Width'#2'Z'#0#0#10'TPREllipse'#10'PREllipse4'#9
+  +'LineColor'#7#6'clNone'#9'LineStyle'#7#7'psClear'#9'FillColor'#4#128#255#255
+  +#0#4'Left'#3#206#0#6'Height'#2'P'#3'Top'#3'|'#1#5'Width'#2'Z'#0#0#10'TPRElli'
+  +'pse'#10'PREllipse5'#9'LineWidth'#2#1#9'LineStyle'#7#9'psDashDot'#9'FillColo'
+  +'r'#4#0#128'@'#0#4'Left'#3'>'#1#6'Height'#2#30#3'Top'#3'N'#1#5'Width'#2'Z'#0
+  ,#0#10'TPREllipse'#10'PREllipse6'#9'LineWidth'#2#2#9'LineColor'#7#5'clRed'#4
+  +'Left'#3'<'#1#6'Height'#2'P'#3'Top'#3'|'#1#5'Width'#2'Z'#0#0#8'TPRLabel'#9'P'
+  +'RLabel35'#7'Caption'#6'%copyright (c) 1999-2001 takeshi kanno'#9'Alignment'
+  +#7#14'taRightJustify'#8'FontName'#7#7'fnArial'#8'FontSize'#2#8#5'Align'#7#8
+  +'alBottom'#6'Height'#2#13#3'Top'#3'W'#2#5'Width'#3#218#1#0#0#0#0#0#9'TTabShe'
+  +'et'#10'TabSheet15'#7'Caption'#6#13'TPRAnnotation'#12'ClientHeight'#3#243#1
+  +#11'ClientWidth'#3'j'#2#6'Height'#3#243#1#5'Width'#3'j'#2#0#7'TPRPage'#8'PRP'
+  +'age17'#9'MarginTop'#2#24#10'MarginLeft'#2' '#11'MarginRight'#2' '#12'Margin'
+  +'Bottom'#2' '#4'Left'#2#12#6'Height'#3#158#2#3'Top'#2#7#5'Width'#3#28#2#0#14
+  +'TPRLayoutPanel'#15'PRLayoutPanel16'#5'Align'#7#8'alClient'#11'BeforePrint'#7
+  +#24'PRLayoutPanelBeforePrint'#4'Left'#2'!'#6'Height'#3'd'#2#3'Top'#2#25#5'Wi'
+  +'dth'#3#218#1#0#7'TPRRect'#8'PRRect63'#4'Left'#3#164#1#6'Height'#2#16#3'Top'
+  +#2#11#5'Width'#2#1#0#0#7'TPRRect'#8'PRRect64'#4'Left'#2'='#6'Height'#2#1#3'T'
+  +'op'#2#23#5'Width'#3'h'#1#0#0#7'TPRRect'#8'PRRect65'#4'Left'#2'='#6'Height'#2
+  +#16#3'Top'#2#11#5'Width'#2#1#0#0#7'TPRRect'#8'PRRect66'#4'Left'#3#240#0#6'He'
+  +'ight'#2#12#3'Top'#2#15#5'Width'#2#1#0#0#7'TPRText'#10'PRText2_11'#7'Leading'
+  +#2#14#13'Lines.Strings'#1#6#18'2.11 TPRAnnotation'#0#8'FontName'#7#7'fnArial'
+  +#8'FontSize'#2#12#8'FontBold'#9#4'Left'#2'4'#6'Height'#2#15#3'Top'#2'E'#5'Wi'
+  +'dth'#3'o'#1#3'Tag'#2#3#0#0#7'TPRText'#9'PRText282'#7'Leading'#2#12#13'Lines'
+  +'.Strings'#1#6'2TPRAnnotation is used to add annotations to a page'#0#8'Word'
+  +'Wrap'#9#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Heig'
+  +'ht'#2#14#3'Top'#2'U'#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRText283'#7'Leading'
+  +#2#14#13'Lines.Strings'#1#6#4'Unit'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2
+  +#12#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#2'g'#5'Width'#3'S'#1#0#0
+  +#7'TPRText'#9'PRText284'#7'Leading'#2#14#13'Lines.Strings'#1#6#12'PRAnnotati'
+  +'on'#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'
+  +#2#15#3'Top'#2'x'#5'Width'#3'S'#1#0#0#7'TPRText'#12'PRText2_11_1'#7'Leading'
+  +#2#14#13'Lines.Strings'#1#6#31'2.11.1 TPRAnnotation properties'#0#8'FontName'
+  +#7#7'fnArial'#8'FontSize'#2#12#8'FontBold'#9#4'Left'#2','#6'Height'#2#15#3'T'
+  +'op'#3#141#0#5'Width'#3'y'#1#3'Tag'#2#4#0#0#7'TPRText'#9'PRText291'#7'Leadin'
+  +'g'#2#14#13'Lines.Strings'#1#6#16'Caption: string;'#0#8'FontName'#7#7'fnAria'
+  +'l'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3#157#0#5'Width'#3#23
+  +#1#0#0#7'TPRText'#9'PRText292'#7'Leading'#2#14#13'Lines.Strings'#1#6#8'prope'
+  +'rty'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'
+  +#6'Height'#2#15#3'Top'#3#157#0#5'Width'#2'5'#0#0#7'TPRText'#9'PRText293'#7'L'
+  +'eading'#2#14#13'Lines.Strings'#1#6'2Caption determines the title of annotat'
+  +'ion window.'#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'
+  +#6'Height'#2#16#3'Top'#3#171#0#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRText294'#7
+  +'Leading'#2#14#13'Lines.Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8
+  +'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#187#0#5'W'
+  +'idth'#2'5'#0#0#7'TPRText'#9'PRText313'#7'Leading'#2#14#13'Lines.Strings'#1#6
+  +#16'Lines: TStrings;'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2
+  +'~'#6'Height'#2#15#3'Top'#3#187#0#5'Width'#3#23#1#0#0#7'TPRText'#9'PRText314'
+  +#7'Leading'#2#14#13'Lines.Strings'#1#6'FLines and Text determines the text t'
+  +'o be displayed in a pop-up window.'#0#8'FontName'#7#12'fnTimesRoman'#8'Font'
+  +'Size'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#3#215#0#5'Width'#3'S'#1#0#0#7
+  +'TPRText'#9'PRText315'#7'Leading'#2#14#13'Lines.Strings'#1#6#8'property'#0#8
+  +'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'
+  +#2#15#3'Top'#3#201#0#5'Width'#2'5'#0#0#7'TPRText'#9'PRText316'#7'Leading'#2
+  +#14#13'Lines.Strings'#1#6#13'Text: string;'#0#8'FontName'#7#7'fnArial'#8'Fon'
+  +'tSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'Top'#3#201#0#5'Width'#3#23#1#0#0
+  +#13'TPRAnnotation'#13'PRAnnotation1'#7'Caption'#6#13'PRAnnotation1'#13'Lines'
+  +'.Strings'#1#6'&The quick brown fox ate the lazy mouse'#0#6'Opened'#9#4'Left'
+  +#2'P'#6'Height'#2'Y'#3'Top'#3','#1#5'Width'#3#129#0#0#0#13'TPRAnnotation'#13
+  +'PRAnnotation2'#7'Caption'#6#13'PRAnnotation1'#13'Lines.Strings'#1#6'&The qu'
+  +'ick brown fox ate the lazy mouse'#0#4'Left'#3#226#0#6'Height'#2'Y'#3'Top'#3
+  +','#1#5'Width'#3#129#0#0#0#7'TPRText'#9'PRText288'#7'Leading'#2#14#13'Lines.'
+  +'Strings'#1#6#8'property'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'Font'
+  +'Bold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#3#231#0#5'Width'#2'5'#0#0#7'TPRT'
+  +'ext'#9'PRText289'#7'Leading'#2#14#13'Lines.Strings'#1#6#16'Opened: boolean;'
+  +#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'~'#6'Height'#2#15#3'T'
+  +'op'#3#231#0#5'Width'#3#23#1#0#0#7'TPRText'#9'PRText290'#7'Leading'#2#14#13
+  +'Lines.Strings'#1#6'FLines and Text determines the text to be displayed in a'
+  +' pop-up window.'#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2
+  ,'P'#6'Height'#2#16#3'Top'#3#245#0#5'Width'#3'S'#1#0#0#7'TPRText'#9'PRText317'
+  +#7'Leading'#2#12#13'Lines.Strings'#1#6'-TPRAnnotation with Open property set'
+  +' to true.'#0#8'WordWrap'#9#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4
+  +'Left'#2'P'#6'Height'#2' '#3'Top'#3#15#1#5'Width'#3#131#0#0#0#7'TPRText'#9'P'
+  +'RText318'#7'Leading'#2#12#13'Lines.Strings'#1#6'.TPRAnnotation with Open pr'
+  +'operty set to false.'#0#8'WordWrap'#9#8'FontName'#7#12'fnTimesRoman'#8'Font'
+  +'Size'#2#10#4'Left'#3#226#0#6'Height'#2' '#3'Top'#3#15#1#5'Width'#3#131#0#0#0
+  +#8'TPRLabel'#9'PRLabel36'#7'Caption'#6'%copyright (c) 1999-2001 takeshi kann'
+  +'o'#9'Alignment'#7#14'taRightJustify'#8'FontName'#7#7'fnArial'#8'FontSize'#2
+  +#8#5'Align'#7#8'alBottom'#6'Height'#2#13#3'Top'#3'W'#2#5'Width'#3#218#1#0#0#0
+  +#0#0#9'TTabSheet'#10'TabSheet19'#7'Caption'#6#15'TPROutlineEntry'#12'ClientH'
+  +'eight'#3#243#1#11'ClientWidth'#3'j'#2#6'Height'#3#243#1#5'Width'#3'j'#2#0#7
+  +'TPRPage'#8'PRPage18'#9'MarginTop'#2#24#10'MarginLeft'#2' '#11'MarginRight'#2
+  +' '#12'MarginBottom'#2' '#4'Left'#2#12#6'Height'#3#158#2#3'Top'#2#7#5'Width'
+  +#3#28#2#0#14'TPRLayoutPanel'#15'PRLayoutPanel20'#5'Align'#7#8'alClient'#11'B'
+  +'eforePrint'#7#24'PRLayoutPanelBeforePrint'#4'Left'#2'!'#6'Height'#3'd'#2#3
+  +'Top'#2#25#5'Width'#3#218#1#0#7'TPRRect'#8'PRRect81'#4'Left'#3#164#1#6'Heigh'
+  +'t'#2#16#3'Top'#2#11#5'Width'#2#1#0#0#7'TPRRect'#8'PRRect82'#4'Left'#2'='#6
+  +'Height'#2#1#3'Top'#2#23#5'Width'#3'h'#1#0#0#7'TPRRect'#8'PRRect83'#4'Left'#2
+  +'='#6'Height'#2#16#3'Top'#2#11#5'Width'#2#1#0#0#7'TPRRect'#8'PRRect84'#4'Lef'
+  +'t'#3#240#0#6'Height'#2#12#3'Top'#2#15#5'Width'#2#1#0#0#8'TPRLabel'#9'PRLabe'
+  +'l18'#7'Caption'#6'%copyright (c) 1999-2001 takeshi kanno'#9'Alignment'#7#14
+  +'taRightJustify'#8'FontName'#7#7'fnArial'#8'FontSize'#2#8#5'Align'#7#8'alBot'
+  +'tom'#6'Height'#2#13#3'Top'#3'W'#2#5'Width'#3#218#1#0#0#7'TPRText'#10'PRText'
+  +'2_12'#7'Leading'#2#14#13'Lines.Strings'#1#6#20'2.12 TPROutlineEntry'#0#8'Fo'
+  +'ntName'#7#7'fnArial'#8'FontSize'#2#12#8'FontBold'#9#4'Left'#2'4'#6'Height'#2
+  +#15#3'Top'#2'E'#5'Width'#3'o'#1#3'Tag'#2#3#0#0#7'TPRText'#8'PRText14'#7'Lead'
+  +'ing'#2#12#13'Lines.Strings'#1#6';TPRAnnotation is used to make outline tree'
+  +' of the document.'#0#8'WordWrap'#9#8'FontName'#7#12'fnTimesRoman'#8'FontSiz'
+  +'e'#2#10#4'Left'#2'P'#6'Height'#2#16#3'Top'#2'U'#5'Width'#3'S'#1#0#0#7'TPRTe'
+  +'xt'#8'PRText15'#7'Leading'#2#14#13'Lines.Strings'#1#6#4'Unit'#0#8'FontName'
+  +#7#7'fnArial'#8'FontSize'#2#12#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'T'
+  +'op'#2'g'#5'Width'#3'S'#1#0#0#7'TPRText'#8'PRText16'#7'Leading'#2#14#13'Line'
+  +'s.Strings'#1#6#7'PReport'#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10
+  +#4'Left'#2'P'#6'Height'#2#15#3'Top'#2'x'#5'Width'#3'S'#1#0#0#7'TPRText'#12'P'
+  +'RText2_12_2'#7'Leading'#2#14#13'Lines.Strings'#1#6'!2.12.1 TPROutlineEntry '
+  +'properties'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#12#8'FontBold'#9#4'Lef'
+  +'t'#2','#6'Height'#2#15#3'Top'#3#141#0#5'Width'#3'y'#1#3'Tag'#2#4#0#0#7'TPRT'
+  +'ext'#9'PRText190'#7'Leading'#2#14#13'Lines.Strings'#1#6#30'2.12.2 TPROutlin'
+  +'eEntry methods'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#12#8'FontBold'#9#4
+  +'Left'#2','#6'Height'#2#15#3'Top'#3#209#1#5'Width'#3'y'#1#3'Tag'#2#4#0#0#7'T'
+  +'PRText'#9'PRText219'#7'Leading'#2#12#13'Lines.Strings'#1#6'lAddChild functi'
+  +'on add a new outline-entry at the last sibling of the entry and return the '
+  +'new outline-entry.'#0#8'WordWrap'#9#8'FontName'#7#12'fnTimesRoman'#8'FontSi'
+  +'ze'#2#10#4'Left'#2'P'#6'Height'#2'!'#3'Top'#3#240#1#5'Width'#3'S'#1#0#0#8'T'
+  +'PRLabel'#9'PRLabel40'#7'Caption'#6#8'function'#8'FontName'#7#7'fnArial'#8'F'
+  +'ontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#13#3'Top'#3#225#1#5'Wi'
+  +'dth'#2'A'#0#0#8'TPRLabel'#9'PRLabel41'#7'Caption'#6#26'AddChild: TPROutline'
+  +'Entry;'#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'|'#6'Height'#2
+  +#13#3'Top'#3#225#1#5'Width'#3'%'#1#0#0#8'TPRLabel'#9'PRLabel42'#7'Caption'#6
+  +#8'property'#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'
+  +#2'P'#6'Height'#2#13#3'Top'#3#157#0#5'Width'#2'1'#0#0#8'TPRLabel'#9'PRLabel4'
+  +'3'#7'Caption'#6#24'Parent: TPROutlineEntry;'#8'FontName'#7#7'fnArial'#8'Fon'
+  +'tSize'#2#10#4'Left'#3#128#0#6'Height'#2#13#3'Top'#3#157#0#5'Width'#3'%'#1#0
+  +#0#7'TPRText'#8'PRText18'#7'Leading'#2#12#13'Lines.Strings'#1#6'*Indicates t'
+  +'he parent entry of this entry. '#0#8'WordWrap'#9#8'FontName'#7#12'fnTimesRo'
+  +'man'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#17#3'Top'#3#172#0#5'Width'#3
+  +'S'#1#0#0#8'TPRLabel'#9'PRLabel44'#7'Caption'#6#8'property'#8'FontName'#7#7
+  +'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#13#3'Top'#3
+  +#189#0#5'Width'#2'1'#0#0#8'TPRLabel'#9'PRLabel45'#7'Caption'#6#22'Next: TPRO'
+  +'utlineEntry;'#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#3#128#0#6'H'
+  +'eight'#2#13#3'Top'#3#189#0#5'Width'#3'%'#1#0#0#7'TPRText'#8'PRText19'#7'Lea'
+  +'ding'#2#12#13'Lines.Strings'#1#6'1Indicates the next sibiling entry of this'
+  +' entry. '#0#8'WordWrap'#9#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4
+  ,'Left'#2'P'#6'Height'#2#17#3'Top'#3#204#0#5'Width'#3'S'#1#0#0#8'TPRLabel'#9
+  +'PRLabel46'#7'Caption'#6#8'property'#8'FontName'#7#7'fnArial'#8'FontSize'#2
+  +#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#13#3'Top'#3#221#0#5'Width'#2'1'#0
+  +#0#8'TPRLabel'#9'PRLabel47'#7'Caption'#6#22'Prev: TPROutlineEntry;'#8'FontNa'
+  +'me'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#3#128#0#6'Height'#2#13#3'Top'#3
+  +#221#0#5'Width'#3'%'#1#0#0#7'TPRText'#8'PRText20'#7'Leading'#2#12#13'Lines.S'
+  +'trings'#1#6'5Indicates the previous sibiling entry of this entry. '#6'AIf t'
+  +'he entry has no previous entry, Prev property indicates null.'#0#8'WordWrap'
+  +#9#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2
+  +#29#3'Top'#3#236#0#5'Width'#3'S'#1#0#0#8'TPRLabel'#9'PRLabel48'#7'Caption'#6
+  +#8'property'#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'
+  +#2'P'#6'Height'#2#13#3'Top'#3#9#1#5'Width'#2'1'#0#0#8'TPRLabel'#9'PRLabel49'
+  +#7'Caption'#6#23'First: TPROutlineEntry;'#8'FontName'#7#7'fnArial'#8'FontSiz'
+  +'e'#2#10#4'Left'#3#128#0#6'Height'#2#13#3'Top'#3#9#1#5'Width'#3'%'#1#0#0#7'T'
+  +'PRText'#8'PRText22'#7'Leading'#2#12#13'Lines.Strings'#1#6'+Indicates the fi'
+  +'rst entry of the children. '#6'?If the entry has no child entry, First prop'
+  +'erty indicates null.'#0#8'WordWrap'#9#8'FontName'#7#12'fnTimesRoman'#8'Font'
+  +'Size'#2#10#4'Left'#2'P'#6'Height'#2#29#3'Top'#3#24#1#5'Width'#3'S'#1#0#0#8
+  +'TPRLabel'#9'PRLabel50'#7'Caption'#6#8'property'#8'FontName'#7#7'fnArial'#8
+  +'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#13#3'Top'#3'5'#1#5'Wi'
+  +'dth'#2'1'#0#0#8'TPRLabel'#9'PRLabel51'#7'Caption'#6#21'Last TPROutlineEntry'
+  +';'#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#3#128#0#6'Height'#2#13
+  +#3'Top'#3'5'#1#5'Width'#3'%'#1#0#0#7'TPRText'#8'PRText23'#7'Leading'#2#12#13
+  +'Lines.Strings'#1#6'*Indicates the last entry of the children. '#6'?If the e'
+  +'ntry has no child entry, First property indicates null.'#0#8'WordWrap'#9#8
+  +'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#29#3
+  +'Top'#3'D'#1#5'Width'#3'S'#1#0#0#8'TPRLabel'#9'PRLabel52'#7'Caption'#6#8'pro'
+  +'perty'#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'
+  +#6'Height'#2#13#3'Top'#3'a'#1#5'Width'#2'1'#0#0#8'TPRLabel'#9'PRLabel53'#7'C'
+  +'aption'#6#21'Dest: TPRDestination;'#8'FontName'#7#7'fnArial'#8'FontSize'#2
+  +#10#4'Left'#3#128#0#6'Height'#2#13#3'Top'#3'a'#1#5'Width'#3'%'#1#0#0#7'TPRTe'
+  +'xt'#8'PRText25'#7'Leading'#2#12#13'Lines.Strings'#1#6'CDest property is a T'
+  +'PRDestination object which linkes to the entry.'#0#8'WordWrap'#9#8'FontName'
+  +#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#17#3'Top'#3'p'
+  +#1#5'Width'#3'S'#1#0#0#8'TPRLabel'#9'PRLabel54'#7'Caption'#6#8'property'#8'F'
+  +'ontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'
+  +#2#13#3'Top'#3#129#1#5'Width'#2'1'#0#0#8'TPRLabel'#9'PRLabel55'#7'Caption'#6
+  +#13'Title string;'#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#3#128#0
+  +#6'Height'#2#13#3'Top'#3#129#1#5'Width'#3'%'#1#0#0#7'TPRText'#8'PRText51'#7
+  +'Leading'#2#12#13'Lines.Strings'#1#6'8Use the Title property to modify the n'
+  +'ame of this entry.'#0#8'WordWrap'#9#8'FontName'#7#12'fnTimesRoman'#8'FontSi'
+  +'ze'#2#10#4'Left'#2'P'#6'Height'#2#17#3'Top'#3#144#1#5'Width'#3'S'#1#0#0#8'T'
+  +'PRLabel'#9'PRLabel56'#7'Caption'#6#8'property'#8'FontName'#7#7'fnArial'#8'F'
+  +'ontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#13#3'Top'#3#161#1#5'Wi'
+  +'dth'#2'1'#0#0#8'TPRLabel'#9'PRLabel57'#7'Caption'#6#15'Opened boolean;'#8'F'
+  +'ontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#3#128#0#6'Height'#2#13#3'Top'
+  +#3#161#1#5'Width'#3'%'#1#0#0#7'TPRText'#8'PRText52'#7'Leading'#2#12#13'Lines'
+  +'.Strings'#1#6'aUse the Opened property to set whether the entry is opened o'
+  +'r not when the document is displaied.'#0#8'WordWrap'#9#8'FontName'#7#12'fnT'
+  +'imesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2#29#3'Top'#3#176#1#5'Wi'
+  +'dth'#3'S'#1#0#0#0#0#0#9'TTabSheet'#10'TabSheet20'#7'Caption'#6#14'TPRDestin'
+  +'ation'#12'ClientHeight'#3#243#1#11'ClientWidth'#3'j'#2#6'Height'#3#243#1#5
+  +'Width'#3'j'#2#0#7'TPRPage'#8'PRPage19'#9'MarginTop'#2#24#10'MarginLeft'#2' '
+  +#11'MarginRight'#2' '#12'MarginBottom'#2' '#4'Left'#2#12#6'Height'#3#158#2#3
+  +'Top'#2#7#5'Width'#3#28#2#0#14'TPRLayoutPanel'#15'PRLayoutPanel21'#5'Align'#7
+  +#8'alClient'#11'BeforePrint'#7#24'PRLayoutPanelBeforePrint'#4'Left'#2'!'#6'H'
+  +'eight'#3'd'#2#3'Top'#2#25#5'Width'#3#218#1#0#7'TPRRect'#8'PRRect85'#4'Left'
+  +#3#164#1#6'Height'#2#16#3'Top'#2#11#5'Width'#2#1#0#0#7'TPRRect'#8'PRRect86'#4
+  +'Left'#2'='#6'Height'#2#1#3'Top'#2#23#5'Width'#3'h'#1#0#0#7'TPRRect'#8'PRRec'
+  +'t87'#4'Left'#2'='#6'Height'#2#16#3'Top'#2#11#5'Width'#2#1#0#0#7'TPRRect'#8
+  +'PRRect88'#4'Left'#3#240#0#6'Height'#2#12#3'Top'#2#15#5'Width'#2#1#0#0#8'TPR'
+  +'Label'#9'PRLabel19'#7'Caption'#6'%copyright (c) 1999-2001 takeshi kanno'#9
+  +'Alignment'#7#14'taRightJustify'#8'FontName'#7#7'fnArial'#8'FontSize'#2#8#5
+  +'Align'#7#8'alBottom'#6'Height'#2#13#3'Top'#3'W'#2#5'Width'#3#218#1#0#0#7'TP'
+  ,'RText'#8'PRText70'#7'Leading'#2#14#13'Lines.Strings'#1#6#19'2.13 TPRDestina'
+  +'tion'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2#12#8'FontBold'#9#4'Left'#2'4'
+  +#6'Height'#2#15#3'Top'#2'E'#5'Width'#3'o'#1#3'Tag'#2#3#0#0#7'TPRText'#8'PRTe'
+  +'xt71'#7'Leading'#2#12#13'Lines.Strings'#1#6'hUse the TPRDestination class t'
+  +'o set the location of the display window on that page, and the zoom level.'
+  +#0#8'WordWrap'#9#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'
+  +#6'Height'#2#28#3'Top'#2'U'#5'Width'#3'S'#1#0#0#7'TPRText'#8'PRText72'#7'Lea'
+  +'ding'#2#14#13'Lines.Strings'#1#6#4'Unit'#0#8'FontName'#7#7'fnArial'#8'FontS'
+  +'ize'#2#12#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#15#3'Top'#2's'#5'Width'#3
+  +'S'#1#0#0#7'TPRText'#8'PRText73'#7'Leading'#2#14#13'Lines.Strings'#1#6#7'PRe'
+  +'port'#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#2'P'#6'Heig'
+  +'ht'#2#15#3'Top'#3#132#0#5'Width'#3'S'#1#0#0#7'TPRText'#8'PRText74'#7'Leadin'
+  +'g'#2#14#13'Lines.Strings'#1#6' 2.13.1 TPRDestination properties'#0#8'FontNa'
+  +'me'#7#7'fnArial'#8'FontSize'#2#12#8'FontBold'#9#4'Left'#2','#6'Height'#2#15
+  +#3'Top'#3#153#0#5'Width'#3'y'#1#3'Tag'#2#4#0#0#7'TPRText'#8'PRText57'#7'Lead'
+  +'ing'#2#12#13'Lines.Strings'#1#6'@The DestinationType property determines th'
+  +'e type of destination.'#0#8'WordWrap'#9#8'FontName'#7#12'fnTimesRoman'#8'Fo'
+  +'ntSize'#2#10#4'Left'#2'P'#6'Height'#2#17#3'Top'#3#184#0#5'Width'#3'S'#1#0#0
+  +#8'TPRLabel'#9'PRLabel58'#7'Caption'#6#8'property'#8'FontName'#7#7'fnArial'#8
+  +'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#13#3'Top'#3#169#0#5'W'
+  +'idth'#2'A'#0#0#8'TPRLabel'#9'PRLabel59'#7'Caption'#6'$DestinationType: TPRD'
+  +'estinationType;'#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#3#128#0#6
+  +'Height'#2#13#3'Top'#3#169#0#5'Width'#3'%'#1#0#0#7'TPRText'#8'PRText68'#7'Le'
+  +'ading'#2#14#13'Lines.Strings'#1#6'ETPdfDestinationType = (dtXYZ, dtFit, dtF'
+  +'itH, dtFitV, dtFitR, dtFitB, '#6'"                dtFitBH, dtFitBV);'#0#8'F'
+  +'ontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'P'#6'Height'#2' '#3'Top'#3
+  +#201#0#5'Width'#3'Y'#1#0#0#7'TPRText'#8'PRText69'#7'Leading'#2#12#13'Lines.S'
+  +'trings'#1#6#5'dtXYZ'#6#5'dtFit'#6#6'dtFitH'#6#6'dtFitV'#6#6'dtFitR'#6#6'dtF'
+  +'itB'#6#7'dtFitBH'#6#7'dtFitBV'#0#8'FontName'#7#12'fnTimesRoman'#8'FontSize'
+  +#2#10#4'Left'#2'd'#6'Height'#3#140#0#3'Top'#3#233#0#5'Width'#2'1'#0#0#7'TPRT'
+  +'ext'#8'PRText75'#7'Leading'#2#12#13'Lines.Strings'#1#6'RDisplay the page wi'
+  +'th position and size indicated by Left,Top and Zoom properties.'#6#27'Fit t'
+  +'he page to the window.'#6'fFit the width of the page to the window. Only th'
+  +'e Top property is used to determine the top position. '#6#131'Fit the heigh'
+  +'t of the page to the window. Only the Left property is used to determine th'
+  +'e position of the left edge of the window. '#6'AFit the rectangle specified'
+  +' by Left Top, Right,Bottom properties.'#6'*Fit the pagefs bounding box to t'
+  +'he window.'#6'7Fit the width of the pagefs bounding box to the window.'#6'8'
+  +'Fit the height of the pagefs bounding box to the window.'#0#8'WordWrap'#9#8
+  +'FontName'#7#12'fnTimesRoman'#8'FontSize'#2#10#4'Left'#3#148#0#6'Height'#3
+  +#140#0#3'Top'#3#233#0#5'Width'#3#13#1#0#0#8'TPRLabel'#9'PRLabel60'#7'Caption'
+  +#6#8'property'#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Lef'
+  +'t'#2'P'#6'Height'#2#13#3'Top'#3'y'#1#5'Width'#2'1'#0#0#8'TPRLabel'#9'PRLabe'
+  +'l61'#7'Caption'#6#14'Left: Integer;'#8'FontName'#7#7'fnArial'#8'FontSize'#2
+  +#10#4'Left'#3#128#0#6'Height'#2#13#3'Top'#3'y'#1#5'Width'#3'%'#1#0#0#8'TPRLa'
+  +'bel'#9'PRLabel62'#7'Caption'#6#8'property'#8'FontName'#7#7'fnArial'#8'FontS'
+  +'ize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#13#3'Top'#3#137#1#5'Width'
+  +#2'1'#0#0#8'TPRLabel'#9'PRLabel63'#7'Caption'#6#13'Top: Integer;'#8'FontName'
+  +#7#7'fnArial'#8'FontSize'#2#10#4'Left'#3#128#0#6'Height'#2#13#3'Top'#3#137#1
+  +#5'Width'#3'%'#1#0#0#8'TPRLabel'#9'PRLabel64'#7'Caption'#6#8'property'#8'Fon'
+  +'tName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2
+  +#13#3'Top'#3#153#1#5'Width'#2'1'#0#0#8'TPRLabel'#9'PRLabel65'#7'Caption'#6#15
+  +'Right: Integer;'#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#3#128#0#6
+  +'Height'#2#13#3'Top'#3#153#1#5'Width'#3'%'#1#0#0#8'TPRLabel'#9'PRLabel66'#7
+  +'Caption'#6#8'property'#8'FontName'#7#7'fnArial'#8'FontSize'#2#10#8'FontBold'
+  +#9#4'Left'#2'P'#6'Height'#2#13#3'Top'#3#169#1#5'Width'#2'1'#0#0#8'TPRLabel'#9
+  +'PRLabel67'#7'Caption'#6#16'Bottom: Integer;'#8'FontName'#7#7'fnArial'#8'Fon'
+  +'tSize'#2#10#4'Left'#3#128#0#6'Height'#2#13#3'Top'#3#169#1#5'Width'#3'%'#1#0
+  +#0#8'TPRLabel'#9'PRLabel68'#7'Caption'#6#8'property'#8'FontName'#7#7'fnArial'
+  +#8'FontSize'#2#10#8'FontBold'#9#4'Left'#2'P'#6'Height'#2#13#3'Top'#3#185#1#5
+  +'Width'#2'1'#0#0#8'TPRLabel'#9'PRLabel69'#7'Caption'#6#13'Zoom: Single;'#8'F'
+  +'ontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#3#128#0#6'Height'#2#13#3'Top'
+  +#3#185#1#5'Width'#3'%'#1#0#0#0#0#0#9'TTabSheet'#10'TabSheet16'#7'Caption'#6#9
+  +'Copyright'#12'ClientHeight'#3#243#1#11'ClientWidth'#3'j'#2#6'Height'#3#243#1
+  ,#5'Width'#3'j'#2#0#7'TPRPage'#8'PRPage20'#9'MarginTop'#2#24#10'MarginLeft'#2
+  +' '#11'MarginRight'#2' '#12'MarginBottom'#2' '#4'Left'#2#12#6'Height'#3#158#2
+  +#3'Top'#2#7#5'Width'#3#28#2#0#14'TPRLayoutPanel'#15'PRLayoutPanel15'#5'Align'
+  +#7#8'alClient'#11'BeforePrint'#7#24'PRLayoutPanelBeforePrint'#4'Left'#2'!'#6
+  +'Height'#3'd'#2#3'Top'#2#25#5'Width'#3#218#1#0#7'TPRRect'#8'PRRect59'#4'Left'
+  +#3#164#1#6'Height'#2#16#3'Top'#2#11#5'Width'#2#1#0#0#7'TPRRect'#8'PRRect60'#4
+  +'Left'#2'='#6'Height'#2#1#3'Top'#2#23#5'Width'#3'h'#1#0#0#7'TPRRect'#8'PRRec'
+  +'t61'#4'Left'#2'='#6'Height'#2#16#3'Top'#2#11#5'Width'#2#1#0#0#7'TPRRect'#8
+  +'PRRect62'#4'Left'#3#240#0#6'Height'#2#12#3'Top'#2#15#5'Width'#2#1#0#0#7'TPR'
+  +'Text'#9'PRText220'#7'Leading'#2#12#13'Lines.Strings'#1#6'%Copyright (C) 199'
+  +'9-2001 Takeshi Kanno'#6#230'This library is free software; you can redistri'
+  +'bute it and/or modify it under the terms of the GNU Library General Public '
+  +'License as published by the Free Software Foundation; either version 2 of t'
+  +'he License, or any later version.'#6#240'This library is distributed in the'
+  +' hope that it will be useful, but WITHOUT ANY WARRANTY; without even the im'
+  +'plied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See '
+  +'the GNU Library general Public License for more details.'#0#8'WordWrap'#9#8
+  +'FontName'#7#7'fnArial'#8'FontSize'#2#10#4'Left'#2'<'#6'Height'#3#145#0#3'To'
+  +'p'#2'j'#5'Width'#3'i'#1#0#0#7'TPRText'#15'PRTextCopyright'#7'Leading'#2#14
+  +#13'Lines.Strings'#1#6#9'Copyright'#0#8'FontName'#7#7'fnArial'#8'FontSize'#2
+  +#24#8'FontBold'#9#4'Left'#3#176#0#6'Height'#2#30#3'Top'#2'<'#5'Width'#3#137#0
+  +#3'Tag'#2#2#0#0#8'TPRLabel'#9'PRLabel21'#7'Caption'#6'%copyright (c) 1999-20'
+  +'01 takeshi kanno'#9'Alignment'#7#14'taRightJustify'#8'FontName'#7#7'fnArial'
+  +#8'FontSize'#2#8#5'Align'#7#8'alBottom'#6'Height'#2#13#3'Top'#3'W'#2#5'Width'
+  +#3#218#1#0#0#0#0#0#0#0#9'TMainMenu'#9'MainMenu1'#4'left'#3#156#0#3'top'#2#30
+  +#0#9'TMenuItem'#5'File1'#7'Caption'#6#5'&File'#0#9'TMenuItem'#10'CreatePDF1'
+  +#7'Caption'#6#10'Create PDF'#7'OnClick'#7#15'CreatePDF1Click'#0#0#9'TMenuIte'
+  +'m'#2'N1'#7'Caption'#6#1'-'#0#0#9'TMenuItem'#5'Exit1'#7'Caption'#6#4'Exit'#7
+  +'OnClick'#7#10'Exit1Click'#0#0#0#9'TMenuItem'#5'Help1'#7'Caption'#6#5'&Help'
+  +#0#9'TMenuItem'#6'About1'#7'Caption'#6#6'&About'#7'OnClick'#7#11'About1Click'
+  +#0#0#0#0#8'TPReport'#8'PReport1'#8'FileName'#6#11'default.pdf'#12'CreationDa'
+  +'te'#5#0'X'#221#134#18#216#166#144#14'@'#10'PageLayout'#7#11'plOneColumn'#8
+  +'PageMode'#7#13'pmUseOutlines'#11'UseOutlines'#9#4'left'#3#186#0#3'top'#2#30
+  +#0#0#11'TSaveDialog'#11'SaveDialog1'#5'Title'#6#12'Save file as'#10'DefaultE'
+  +'xt'#6#4'.pdf'#8'FileName'#6#15'PowerPdfRef.pdf'#6'Filter'#6#29'PDF Files|*.'
+  +'pdf|All Files|*.*'#11'FilterIndex'#2#0#5'Title'#6#12'Save file as'#4'left'#3
+  +#216#0#3'top'#2#30#0#0#0
+]);
