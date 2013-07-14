@@ -1,0 +1,10 @@
+object ExtControlFrame: TExtControlFrame
+  Left = 0
+  Height = 240
+  Top = 0
+  Width = 320
+  LCLVersion = '1.1'
+  TabOrder = 0
+  DesignLeft = 671
+  DesignTop = 294
+end

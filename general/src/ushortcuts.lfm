@@ -1,0 +1,105 @@
+object fShortcuts: TfShortcuts
+  Left = 407
+  Height = 321
+  Top = 254
+  Width = 372
+  HorzScrollBar.Page = 371
+  VertScrollBar.Page = 320
+  ActiveControl = tvMain
+  Caption = 'fShortcuts'
+  ClientHeight = 321
+  ClientWidth = 372
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnKeyUp = FormKeyUp
+  OnShow = FormShow
+  object Bevel1: TBevel
+    Left = 8
+    Height = 3
+    Top = 280
+    Width = 356
+    Anchors = [akLeft, akRight, akBottom]
+    Shape = bsTopLine
+  end
+  object tvMain: TVirtualStringTree
+    Left = 8
+    Height = 248
+    Top = 24
+    Width = 356
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Header.MainColumn = -1
+    Header.Options = [hoColumnResize, hoDrag]
+    TabOrder = 0
+    OnGetText = VirtualStringTree1GetText
+    OnResize = Splitter1Moved
+    Columns = <>
+  end
+  object pHeader: TPanel
+    Left = 8
+    Height = 18
+    Top = 8
+    Width = 356
+    Anchors = [akTop, akLeft, akRight]
+    BevelOuter = bvNone
+    Caption = 'pHeader'
+    ClientHeight = 18
+    ClientWidth = 356
+    TabOrder = 1
+    object pFunction: TPanel
+      Height = 18
+      Width = 189
+      Align = alClient
+      Caption = 'pFunction'
+      TabOrder = 0
+    end
+    object pShortcut: TPanel
+      Left = 194
+      Height = 18
+      Width = 162
+      Align = alRight
+      Caption = 'pShortcut'
+      TabOrder = 1
+    end
+    object Splitter1: TSplitter
+      Left = 189
+      Height = 18
+      Width = 5
+      Align = alRight
+      OnMoved = Splitter1Moved
+      ResizeAnchor = akRight
+    end
+  end
+  object bOK: TButton
+    Left = 268
+    Height = 25
+    Top = 288
+    Width = 96
+    Anchors = [akRight, akBottom]
+    BorderSpacing.InnerBorder = 4
+    Caption = 'bOK'
+    OnClick = bOKClick
+    TabOrder = 2
+  end
+  object bGetKey: TButton
+    Left = 8
+    Height = 25
+    Top = 288
+    Width = 131
+    Anchors = [akLeft, akBottom]
+    BorderSpacing.InnerBorder = 4
+    Caption = 'bGetKey'
+    OnClick = bGetKeyClick
+    TabOrder = 3
+  end
+  object bDeleteKey: TButton
+    Left = 144
+    Height = 25
+    Top = 288
+    Width = 120
+    Anchors = [akLeft, akBottom]
+    BorderSpacing.InnerBorder = 4
+    Caption = 'bDeleteKey'
+    OnClick = bDeleteKeyClick
+    TabOrder = 4
+  end
+end

@@ -1,0 +1,62 @@
+object fError: TfError
+  Left = 396
+  Height = 151
+  Top = 350
+  Width = 525
+  Caption = 'fError'
+  ClientHeight = 151
+  ClientWidth = 525
+  KeyPreview = True
+  OnKeyDown = FormKeyDown
+  Position = poScreenCenter
+  LCLVersion = '1.1'
+  object mError: TMemo
+    Left = 8
+    Height = 134
+    Top = 8
+    Width = 320
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Font.Color = clRed
+    Lines.Strings = (
+      'Memo1'
+    )
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 0
+  end
+  object bOK: TBitBtn
+    Left = 338
+    Height = 40
+    Top = 8
+    Width = 180
+    Anchors = [akTop, akRight]
+    BorderSpacing.InnerBorder = 4
+    Caption = '&Ok'
+    Default = True
+    Kind = bkOK
+    ModalResult = 1
+    OnClick = bOKClick
+    TabOrder = 1
+  end
+  object bBacktrace: TBitBtn
+    Left = 338
+    Height = 30
+    Top = 80
+    Width = 180
+    Anchors = [akRight, akBottom]
+    Caption = 'bBacktrace'
+    OnClick = bBacktraceClick
+    TabOrder = 2
+  end
+  object bSendToAdmin: TBitBtn
+    Left = 338
+    Height = 29
+    Top = 112
+    Width = 180
+    Anchors = [akRight, akBottom]
+    Caption = 'an Administrator melden'
+    Enabled = False
+    OnClick = bBacktraceClick
+    TabOrder = 3
+  end
+end

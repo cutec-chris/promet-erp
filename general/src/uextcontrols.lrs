@@ -1,0 +1,7 @@
+{ This is an automatically generated lazarus resource file }
+
+LazarusResources.Add('TExtControlFrame','FORMDATA',[
+  'TPF0'#16'TExtControlFrame'#15'ExtControlFrame'#4'Left'#2#0#6'Height'#3#240#0
+  +#3'Top'#2#0#5'Width'#3'@'#1#10'LCLVersion'#6#3'1.1'#8'TabOrder'#2#0#10'Desig'
+  +'nLeft'#3#159#2#9'DesignTop'#3'&'#1#0#0
+]);

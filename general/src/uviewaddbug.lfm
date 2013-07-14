@@ -1,0 +1,215 @@
+object fViewAddBug: TfViewAddBug
+  Left = 432
+  Height = 391
+  Top = 201
+  Width = 472
+  HorzScrollBar.Page = 471
+  HorzScrollBar.Range = 454
+  VertScrollBar.Page = 486
+  VertScrollBar.Range = 366
+  AutoScroll = False
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsDialog
+  Caption = 'fViewAddBug'
+  ClientHeight = 391
+  ClientWidth = 472
+  OnCreate = FormCreate
+  Position = poScreenCenter
+  LCLVersion = '0.9.27'
+  object lReplicable: TLabel
+    Left = 250
+    Height = 16
+    Top = 12
+    Width = 58
+    Caption = 'lReplicable'
+    ParentColor = False
+  end
+  object lSeverity: TLabel
+    Left = 250
+    Height = 16
+    Top = 32
+    Width = 45
+    Caption = 'lSeverity'
+    ParentColor = False
+  end
+  object lSummary: TLabel
+    Left = 4
+    Height = 16
+    Top = 64
+    Width = 55
+    Caption = 'lSummary'
+    ParentColor = False
+  end
+  object lDescription: TLabel
+    Left = 4
+    Height = 16
+    Top = 96
+    Width = 64
+    Caption = 'lDescription'
+    ParentColor = False
+  end
+  object lAdditionalInfos: TLabel
+    Left = 4
+    Height = 16
+    Top = 168
+    Width = 85
+    Caption = 'lAdditionalInfos'
+    ParentColor = False
+  end
+  object lHistory: TLabel
+    Left = 8
+    Height = 16
+    Top = 256
+    Width = 42
+    Caption = 'lHistory'
+    ParentColor = False
+  end
+  object Bevel1: TBevel
+    Left = 8
+    Height = 10
+    Top = 352
+    Width = 447
+    Shape = bsTopLine
+  end
+  object lIDLabel: TLabel
+    Left = 8
+    Height = 14
+    Top = 358
+    Width = 43
+    AutoSize = False
+    Caption = 'lIDLabel'
+    ParentColor = False
+  end
+  object lID: TLabel
+    Left = 63
+    Height = 14
+    Top = 358
+    Width = 22
+    AutoSize = False
+    Caption = 'lID'
+    ParentColor = False
+  end
+  object lYourname: TLabel
+    Left = 4
+    Height = 16
+    Top = 8
+    Width = 59
+    Caption = 'lYourname'
+    ParentColor = False
+  end
+  object lYourmail: TLabel
+    Left = 4
+    Height = 16
+    Top = 32
+    Width = 52
+    Caption = 'lYourmail'
+    ParentColor = False
+  end
+  object cbReplicable: TComboBox
+    Left = 328
+    Height = 21
+    Top = 7
+    Width = 129
+    ItemHeight = 13
+    Style = csDropDownList
+    TabOrder = 2
+  end
+  object cbSeverity: TComboBox
+    Left = 328
+    Height = 21
+    Top = 32
+    Width = 129
+    ItemHeight = 13
+    Style = csDropDownList
+    TabOrder = 3
+  end
+  object eSummary: TEdit
+    Left = 80
+    Height = 23
+    Top = 64
+    Width = 375
+    ReadOnly = True
+    TabOrder = 4
+    Text = 'eSummary'
+  end
+  object mDescription: TMemo
+    Left = 136
+    Height = 65
+    Top = 96
+    Width = 321
+    Lines.Strings = (
+      'Memo1'
+    )
+    ReadOnly = True
+    TabOrder = 5
+  end
+  object mAdditionalInfos: TMemo
+    Left = 136
+    Height = 51
+    Top = 168
+    Width = 321
+    Lines.Strings = (
+      'Memo2'
+    )
+    ReadOnly = True
+    TabOrder = 6
+  end
+  object bClose: TButton
+    Left = 354
+    Height = 25
+    Top = 360
+    Width = 103
+    Caption = 'bClose'
+    OnClick = cCloseClick
+    TabOrder = 8
+  end
+  object bAdd: TButton
+    Left = 316
+    Height = 25
+    Top = 224
+    Width = 141
+    Caption = 'bAdd'
+    OnClick = bAddClick
+    TabOrder = 9
+  end
+  object eName: TEdit
+    Left = 80
+    Height = 23
+    Top = 5
+    Width = 160
+    ReadOnly = True
+    TabOrder = 0
+    Text = 'eName'
+  end
+  object eMail: TEdit
+    Left = 80
+    Height = 23
+    Top = 32
+    Width = 160
+    ReadOnly = True
+    TabOrder = 1
+    Text = 'eMail'
+  end
+  object sgHistory: TStringGrid
+    Left = 80
+    Height = 90
+    Top = 256
+    Width = 377
+    BorderStyle = bsNone
+    ColCount = 2
+    Columns = <    
+      item
+        Title.Caption = 'Date'
+        Width = 100
+      end    
+      item
+        Title.Caption = 'Change'
+        Width = 250
+      end>
+    FixedCols = 0
+    GridLineWidth = 0
+    RowCount = 1
+    TabOrder = 7
+    TitleStyle = tsNative
+  end
+end

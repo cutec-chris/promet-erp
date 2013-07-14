@@ -1,0 +1,67 @@
+{ This is an automatically generated lazarus resource file }
+
+LazarusResources.Add('TfInfo','FORMDATA',[
+  'TPF0'#6'TfInfo'#5'fInfo'#4'Left'#3#148#1#6'Height'#3#8#1#3'Top'#3#229#0#5'Wi'
+  +'dth'#3#13#2#13'ActiveControl'#7#12'PageControl1'#7'Caption'#6#4'Info'#12'Cl'
+  +'ientHeight'#3#8#1#11'ClientWidth'#3#13#2#8'OnCreate'#7#10'FormCreate'#8'Pos'
+  +'ition'#7#14'poScreenCenter'#10'LCLVersion'#6#3'1.1'#0#6'TLabel'#5'lName'#4
+  +'Left'#2#0#6'Height'#2#29#3'Top'#2#0#5'Width'#3#13#2#5'Align'#7#5'alTop'#7'C'
+  +'aption'#6#11'programname'#11'Font.Height'#2#231#10'Font.Style'#11#6'fsBold'
+  +#0#11'ParentColor'#8#10'ParentFont'#8#0#0#6'TLabel'#10'lCopyright'#4'Left'#2
+  +#4#6'Height'#2#17#3'Top'#3#243#0#5'Width'#3#192#0#7'Anchors'#11#6'akLeft'#8
+  +'akBottom'#0#7'Caption'#6#28'Copyright 2004-2012 C.Ulrich'#11'ParentColor'#8
+  +#0#0#6'TLabel'#8'lTimeout'#4'Left'#2#4#6'Height'#2#17#3'Top'#3#227#0#5'Width'
+  +#2'Y'#7'Anchors'#11#6'akLeft'#8'akBottom'#0#7'Caption'#6#11'Ablaufdatum'#11
+  +'ParentColor'#8#0#0#6'TLabel'#8'lVersion'#4'Left'#2#0#6'Height'#2#23#3'Top'#2
+  +#29#5'Width'#3#13#2#5'Align'#7#5'alTop'#7'Caption'#6#13'V1.1 Build 10'#11'Fo'
+  +'nt.Height'#2#236#11'ParentColor'#8#10'ParentFont'#8#0#0#12'TPageControl'#12
+  +'PageControl1'#4'Left'#2#8#6'Height'#3#160#0#3'Top'#2'@'#5'Width'#3#253#1#10
+  +'ActivePage'#7#9'tsLicense'#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#8'ak'
+  +'Bottom'#0#8'TabIndex'#2#0#8'TabOrder'#2#0#0#9'TTabSheet'#9'tsLicense'#7'Cap'
+  +'tion'#6#9'tsLicense'#12'ClientHeight'#3#129#0#11'ClientWidth'#3#249#1#0#5'T'
+  +'Memo'#5'mInfo'#4'Left'#2#0#6'Height'#3#129#0#3'Top'#2#0#5'Width'#3#249#1#5
+  +'Align'#7#8'alClient'#10'ScrollBars'#7#10'ssAutoBoth'#8'TabOrder'#2#0#8'Word'
+  +'Wrap'#8#0#0#0#9'TTabSheet'#9'tsChanges'#7'Caption'#6#9'tsChanges'#12'Client'
+  +'Height'#3#129#0#11'ClientWidth'#3#249#1#0#5'TMemo'#8'mChanges'#4'Left'#2#0#6
+  +'Height'#3#132#0#3'Top'#2#0#5'Width'#3#212#1#5'Align'#7#8'alClient'#10'Scrol'
+  +'lBars'#7#10'ssAutoBoth'#8'TabOrder'#2#0#8'WordWrap'#8#0#0#0#9'TTabSheet'#8
+  +'tsSystem'#7'Caption'#6#8'tsSystem'#12'ClientHeight'#3#129#0#11'ClientWidth'
+  +#3#249#1#0#6'TLabel'#16'lOperatingSystem'#4'Left'#2#4#6'Height'#2#17#3'Top'#2
+  +#26#5'Width'#2'y'#7'Caption'#6#16'lOperatingSystem'#11'ParentColor'#8#0#0#6
+  +'TLabel'#21'lOperatingSystemValue'#4'Left'#3#156#0#6'Height'#2#17#3'Top'#2#26
+  +#5'Width'#3#159#0#7'Caption'#6#21'lOperatingSystemValue'#11'ParentColor'#8#0
+  +#0#6'TLabel'#4'lCPU'#4'Left'#2#4#6'Height'#2#17#3'Top'#2'*'#5'Width'#2' '#7
+  +'Caption'#6#4'lCPU'#11'ParentColor'#8#0#0#6'TLabel'#9'lCPUValue'#4'Left'#3
+  +#156#0#6'Height'#2#17#3'Top'#2'*'#5'Width'#2'F'#7'Caption'#6#9'lCPUValue'#11
+  +'ParentColor'#8#0#0#6'TLabel'#7'lMemory'#4'Left'#2#4#6'Height'#2#17#3'Top'#2
+  +':'#5'Width'#2'<'#7'Caption'#6#7'lMemory'#11'ParentColor'#8#0#0#6'TLabel'#12
+  +'lMemoryValue'#4'Left'#3#156#0#6'Height'#2#17#3'Top'#2':'#5'Width'#2'b'#7'Ca'
+  +'ption'#6#12'lMemoryValue'#11'ParentColor'#8#0#0#6'TLabel'#9'lLanguage'#4'Le'
+  +'ft'#2#4#6'Height'#2#17#3'Top'#2'Z'#5'Width'#2'D'#7'Caption'#6#9'lLanguage'
+  +#11'ParentColor'#8#0#0#6'TLabel'#14'lLanguageValue'#4'Left'#3#156#0#6'Height'
+  +#2#17#3'Top'#2'Z'#5'Width'#2'j'#7'Caption'#6#14'lLanguageValue'#11'ParentCol'
+  +'or'#8#0#0#6'TLabel'#9'lHarddisk'#4'Left'#2#4#6'Height'#2#17#3'Top'#2'J'#5'W'
+  +'idth'#2'A'#7'Caption'#6#9'lHarddisk'#11'ParentColor'#8#0#0#6'TLabel'#14'lHa'
+  +'rddiskValue'#4'Left'#3#156#0#6'Height'#2#1#3'Top'#2'J'#5'Width'#2#1#11'Pare'
+  +'ntColor'#8#0#0#6'TLabel'#6'lValue'#4'Left'#3#156#0#6'Height'#2#17#3'Top'#2#2
+  +#5'Width'#2'*'#7'Caption'#6#6'lValue'#11'ParentColor'#8#0#0#6'TLabel'#7'lRat'
+  +'ing'#4'Left'#3'S'#1#6'Height'#2#16#3'Top'#2#2#5'Width'#3#179#4#7'Anchors'#11
+  +#5'akTop'#7'akRight'#0#8'AutoSize'#8#7'Caption'#6#7'lRating'#11'ParentColor'
+  +#8#0#0#6'TLabel'#10'lCPURating'#4'Left'#3'S'#1#6'Height'#2#16#3'Top'#2'*'#5
+  +'Width'#3#179#4#7'Anchors'#11#5'akTop'#7'akRight'#0#8'AutoSize'#8#7'Caption'
+  +#6#10'lCPURating'#11'ParentColor'#8#0#0#6'TLabel'#13'lMemoryRating'#4'Left'#3
+  +'S'#1#6'Height'#2#16#3'Top'#2':'#5'Width'#3#179#4#7'Anchors'#11#5'akTop'#7'a'
+  +'kRight'#0#8'AutoSize'#8#7'Caption'#6#13'lMemoryRating'#11'ParentColor'#8#0#0
+  +#6'TLabel'#15'lHarddiskrating'#4'Left'#3'S'#1#6'Height'#2#16#3'Top'#2'J'#5'W'
+  +'idth'#3#179#4#7'Anchors'#11#5'akTop'#7'akRight'#0#8'AutoSize'#8#7'Caption'#6
+  +#15'lHarddiskrating'#11'ParentColor'#8#0#0#6'TBevel'#6'Bevel1'#4'Left'#2#3#6
+  +'Height'#2#10#3'Top'#2#21#5'Width'#3#241#1#7'Anchors'#11#5'akTop'#6'akLeft'#7
+  +'akRight'#0#5'Shape'#7#9'bsTopLine'#0#0#7'TButton'#10'bBenchmark'#4'Left'#3
+  +'S'#1#6'Height'#2#26#3'Top'#2'd'#5'Width'#2'z'#7'Anchors'#11#7'akRight'#8'ak'
+  +'Bottom'#0#25'BorderSpacing.InnerBorder'#2#4#7'Caption'#6#10'bBenchmark'#7'O'
+  +'nClick'#7#15'bBenchmarkClick'#8'TabOrder'#2#0#0#0#0#0#7'TBitBtn'#6'bClose'#4
+  +'Left'#3#153#1#6'Height'#2#30#3'Top'#3#230#0#5'Width'#2'l'#7'Anchors'#11#7'a'
+  +'kRight'#8'akBottom'#0#25'BorderSpacing.InnerBorder'#2#4#7'Caption'#6#11'&Sc'
+  +'hlie'#195#159'en'#4'Kind'#7#7'bkClose'#7'OnClick'#7#11'bCloseClick'#8'TabOr'
+  +'der'#2#1#0#0#0
+]);

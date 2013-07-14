@@ -1,0 +1,32 @@
+LazarusResources.Add('TfShortcuts','FORMDATA',[
+  'TPF0'#11'TfShortcuts'#10'fShortcuts'#4'Left'#3#151#1#6'Height'#3'A'#1#3'Top'
+  +#3#254#0#5'Width'#3't'#1#18'HorzScrollBar.Page'#3's'#1#18'VertScrollBar.Page'
+  +#3'@'#1#13'ActiveControl'#7#6'tvMain'#7'Caption'#6#10'fShortcuts'#12'ClientH'
+  +'eight'#3'A'#1#11'ClientWidth'#3't'#1#8'OnCreate'#7#10'FormCreate'#9'OnDestr'
+  +'oy'#7#11'FormDestroy'#7'OnKeyUp'#7#9'FormKeyUp'#6'OnShow'#7#8'FormShow'#0#6
+  +'TBevel'#6'Bevel1'#4'Left'#2#8#6'Height'#2#3#3'Top'#3#24#1#5'Width'#3'd'#1#7
+  +'Anchors'#11#6'akLeft'#7'akRight'#8'akBottom'#0#5'Shape'#7#9'bsTopLine'#0#0
+  +#18'TVirtualStringTree'#6'tvMain'#4'Left'#2#8#6'Height'#3#248#0#3'Top'#2#24#5
+  +'Width'#3'd'#1#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#8'akBottom'#0#17
+  +'Header.MainColumn'#2#255#14'Header.Options'#11#14'hoColumnResize'#6'hoDrag'
+  +#0#8'TabOrder'#2#0#9'OnGetText'#7#25'VirtualStringTree1GetText'#8'OnResize'#7
+  +#14'Splitter1Moved'#7'Columns'#14#0#0#0#6'TPanel'#7'pHeader'#4'Left'#2#8#6'H'
+  +'eight'#2#18#3'Top'#2#8#5'Width'#3'd'#1#7'Anchors'#11#5'akTop'#6'akLeft'#7'a'
+  +'kRight'#0#10'BevelOuter'#7#6'bvNone'#7'Caption'#6#7'pHeader'#12'ClientHeigh'
+  +'t'#2#18#11'ClientWidth'#3'd'#1#8'TabOrder'#2#1#0#6'TPanel'#9'pFunction'#6'H'
+  +'eight'#2#18#5'Width'#3#189#0#5'Align'#7#8'alClient'#7'Caption'#6#9'pFunctio'
+  +'n'#8'TabOrder'#2#0#0#0#6'TPanel'#9'pShortcut'#4'Left'#3#194#0#6'Height'#2#18
+  +#5'Width'#3#162#0#5'Align'#7#7'alRight'#7'Caption'#6#9'pShortcut'#8'TabOrder'
+  +#2#1#0#0#9'TSplitter'#9'Splitter1'#4'Left'#3#189#0#6'Height'#2#18#5'Width'#2
+  +#5#5'Align'#7#7'alRight'#7'OnMoved'#7#14'Splitter1Moved'#12'ResizeAnchor'#7#7
+  +'akRight'#0#0#0#7'TButton'#3'bOK'#4'Left'#3#12#1#6'Height'#2#25#3'Top'#3' '#1
+  +#5'Width'#2'`'#7'Anchors'#11#7'akRight'#8'akBottom'#0#25'BorderSpacing.Inner'
+  +'Border'#2#4#7'Caption'#6#3'bOK'#7'OnClick'#7#8'bOKClick'#8'TabOrder'#2#2#0#0
+  +#7'TButton'#7'bGetKey'#4'Left'#2#8#6'Height'#2#25#3'Top'#3' '#1#5'Width'#3
+  +#131#0#7'Anchors'#11#6'akLeft'#8'akBottom'#0#25'BorderSpacing.InnerBorder'#2
+  +#4#7'Caption'#6#7'bGetKey'#7'OnClick'#7#12'bGetKeyClick'#8'TabOrder'#2#3#0#0
+  +#7'TButton'#10'bDeleteKey'#4'Left'#3#144#0#6'Height'#2#25#3'Top'#3' '#1#5'Wi'
+  +'dth'#2'x'#7'Anchors'#11#6'akLeft'#8'akBottom'#0#25'BorderSpacing.InnerBorde'
+  +'r'#2#4#7'Caption'#6#10'bDeleteKey'#7'OnClick'#7#15'bDeleteKeyClick'#8'TabOr'
+  +'der'#2#4#0#0#0
+]);

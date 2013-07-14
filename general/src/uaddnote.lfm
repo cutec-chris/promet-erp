@@ -1,0 +1,41 @@
+object fAddNote: TfAddNote
+  Left = 356
+  Height = 162
+  Top = 194
+  Width = 372
+  HorzScrollBar.Page = 371
+  VertScrollBar.Page = 161
+  ActiveControl = mNote
+  Caption = 'fAddNote'
+  ClientHeight = 162
+  ClientWidth = 372
+  object bAbort: TButton
+    Left = 268
+    Height = 25
+    Top = 133
+    Width = 99
+    Anchors = [akRight, akBottom]
+    Caption = 'bAbort'
+    OnClick = bAbortClick
+    TabOrder = 2
+  end
+  object bSubmit: TButton
+    Left = 164
+    Height = 25
+    Top = 133
+    Width = 99
+    Anchors = [akRight, akBottom]
+    Caption = 'bSubmit'
+    Default = True
+    OnClick = bSubmitClick
+    TabOrder = 1
+  end
+  object mNote: TMemo
+    Left = 8
+    Height = 117
+    Top = 8
+    Width = 356
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    TabOrder = 0
+  end
+end

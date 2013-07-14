@@ -1,0 +1,257 @@
+object fInfo: TfInfo
+  Left = 404
+  Height = 264
+  Top = 229
+  Width = 525
+  ActiveControl = PageControl1
+  Caption = 'Info'
+  ClientHeight = 264
+  ClientWidth = 525
+  OnCreate = FormCreate
+  Position = poScreenCenter
+  LCLVersion = '1.1'
+  object lName: TLabel
+    Left = 0
+    Height = 29
+    Top = 0
+    Width = 525
+    Align = alTop
+    Caption = 'programname'
+    Font.Height = -25
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object lCopyright: TLabel
+    Left = 4
+    Height = 17
+    Top = 243
+    Width = 192
+    Anchors = [akLeft, akBottom]
+    Caption = 'Copyright 2004-2012 C.Ulrich'
+    ParentColor = False
+  end
+  object lTimeout: TLabel
+    Left = 4
+    Height = 17
+    Top = 227
+    Width = 89
+    Anchors = [akLeft, akBottom]
+    Caption = 'Ablaufdatum'
+    ParentColor = False
+  end
+  object lVersion: TLabel
+    Left = 0
+    Height = 23
+    Top = 29
+    Width = 525
+    Align = alTop
+    Caption = 'V1.1 Build 10'
+    Font.Height = -20
+    ParentColor = False
+    ParentFont = False
+  end
+  object PageControl1: TPageControl
+    Left = 8
+    Height = 160
+    Top = 64
+    Width = 509
+    ActivePage = tsLicense
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    TabIndex = 0
+    TabOrder = 0
+    object tsLicense: TTabSheet
+      Caption = 'tsLicense'
+      ClientHeight = 129
+      ClientWidth = 505
+      object mInfo: TMemo
+        Left = 0
+        Height = 129
+        Top = 0
+        Width = 505
+        Align = alClient
+        ScrollBars = ssAutoBoth
+        TabOrder = 0
+        WordWrap = False
+      end
+    end
+    object tsChanges: TTabSheet
+      Caption = 'tsChanges'
+      ClientHeight = 129
+      ClientWidth = 505
+      object mChanges: TMemo
+        Left = 0
+        Height = 132
+        Top = 0
+        Width = 468
+        Align = alClient
+        ScrollBars = ssAutoBoth
+        TabOrder = 0
+        WordWrap = False
+      end
+    end
+    object tsSystem: TTabSheet
+      Caption = 'tsSystem'
+      ClientHeight = 129
+      ClientWidth = 505
+      object lOperatingSystem: TLabel
+        Left = 4
+        Height = 17
+        Top = 26
+        Width = 121
+        Caption = 'lOperatingSystem'
+        ParentColor = False
+      end
+      object lOperatingSystemValue: TLabel
+        Left = 156
+        Height = 17
+        Top = 26
+        Width = 159
+        Caption = 'lOperatingSystemValue'
+        ParentColor = False
+      end
+      object lCPU: TLabel
+        Left = 4
+        Height = 17
+        Top = 42
+        Width = 32
+        Caption = 'lCPU'
+        ParentColor = False
+      end
+      object lCPUValue: TLabel
+        Left = 156
+        Height = 17
+        Top = 42
+        Width = 70
+        Caption = 'lCPUValue'
+        ParentColor = False
+      end
+      object lMemory: TLabel
+        Left = 4
+        Height = 17
+        Top = 58
+        Width = 60
+        Caption = 'lMemory'
+        ParentColor = False
+      end
+      object lMemoryValue: TLabel
+        Left = 156
+        Height = 17
+        Top = 58
+        Width = 98
+        Caption = 'lMemoryValue'
+        ParentColor = False
+      end
+      object lLanguage: TLabel
+        Left = 4
+        Height = 17
+        Top = 90
+        Width = 68
+        Caption = 'lLanguage'
+        ParentColor = False
+      end
+      object lLanguageValue: TLabel
+        Left = 156
+        Height = 17
+        Top = 90
+        Width = 106
+        Caption = 'lLanguageValue'
+        ParentColor = False
+      end
+      object lHarddisk: TLabel
+        Left = 4
+        Height = 17
+        Top = 74
+        Width = 65
+        Caption = 'lHarddisk'
+        ParentColor = False
+      end
+      object lHarddiskValue: TLabel
+        Left = 156
+        Height = 1
+        Top = 74
+        Width = 1
+        ParentColor = False
+      end
+      object lValue: TLabel
+        Left = 156
+        Height = 17
+        Top = 2
+        Width = 42
+        Caption = 'lValue'
+        ParentColor = False
+      end
+      object lRating: TLabel
+        Left = 339
+        Height = 16
+        Top = 2
+        Width = 1203
+        Anchors = [akTop, akRight]
+        AutoSize = False
+        Caption = 'lRating'
+        ParentColor = False
+      end
+      object lCPURating: TLabel
+        Left = 339
+        Height = 16
+        Top = 42
+        Width = 1203
+        Anchors = [akTop, akRight]
+        AutoSize = False
+        Caption = 'lCPURating'
+        ParentColor = False
+      end
+      object lMemoryRating: TLabel
+        Left = 339
+        Height = 16
+        Top = 58
+        Width = 1203
+        Anchors = [akTop, akRight]
+        AutoSize = False
+        Caption = 'lMemoryRating'
+        ParentColor = False
+      end
+      object lHarddiskrating: TLabel
+        Left = 339
+        Height = 16
+        Top = 74
+        Width = 1203
+        Anchors = [akTop, akRight]
+        AutoSize = False
+        Caption = 'lHarddiskrating'
+        ParentColor = False
+      end
+      object Bevel1: TBevel
+        Left = 3
+        Height = 10
+        Top = 21
+        Width = 497
+        Anchors = [akTop, akLeft, akRight]
+        Shape = bsTopLine
+      end
+      object bBenchmark: TButton
+        Left = 339
+        Height = 26
+        Top = 100
+        Width = 122
+        Anchors = [akRight, akBottom]
+        BorderSpacing.InnerBorder = 4
+        Caption = 'bBenchmark'
+        OnClick = bBenchmarkClick
+        TabOrder = 0
+      end
+    end
+  end
+  object bClose: TBitBtn
+    Left = 409
+    Height = 30
+    Top = 230
+    Width = 108
+    Anchors = [akRight, akBottom]
+    BorderSpacing.InnerBorder = 4
+    Caption = '&Schließen'
+    Kind = bkClose
+    OnClick = bCloseClick
+    TabOrder = 1
+  end
+end

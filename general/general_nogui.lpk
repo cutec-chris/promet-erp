@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <Package Version="4">
+    <PathDelim Value="\"/>
+    <Name Value="general_nogui"/>
+    <AddToProjectUsesSection Value="True"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <PathDelim Value="\"/>
+      <SearchPaths>
+        <IncludeFiles Value="src"/>
+        <OtherUnitFiles Value="src"/>
+        <UnitOutputDirectory Value="lib\nogui\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+      </SearchPaths>
+      <BuildMacros>
+        <Count Value="1"/>
+        <Item1>
+          <Identifier Value="general_nogui_macro1"/>
+        </Item1>
+      </BuildMacros>
+      <Other>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
+    </CompilerOptions>
+    <Files Count="9">
+      <Item1>
+        <Filename Value="src\Utils.pas"/>
+        <UnitName Value="Utils"/>
+      </Item1>
+      <Item2>
+        <Filename Value="src\fuzzysearch.pas"/>
+        <UnitName Value="fuzzysearch"/>
+      </Item2>
+      <Item3>
+        <Filename Value="src\ugeneralstrconsts.pas"/>
+        <UnitName Value="uGeneralStrConsts"/>
+      </Item3>
+      <Item4>
+        <Filename Value="src\secureutils.pas"/>
+        <UnitName Value="SecureUtils"/>
+      </Item4>
+      <Item5>
+        <Filename Value="src\processutils.pas"/>
+        <UnitName Value="ProcessUtils"/>
+      </Item5>
+      <Item6>
+        <Filename Value="src\umashineid.pas"/>
+        <UnitName Value="umashineid"/>
+      </Item6>
+      <Item7>
+        <Filename Value="src\htmlconvert.pas"/>
+        <UnitName Value="htmlconvert"/>
+      </Item7>
+      <Item8>
+        <Filename Value="src\umodifiedds.pas"/>
+        <UnitName Value="umodifiedds"/>
+      </Item8>
+      <Item9>
+        <Filename Value="src\ucolors.pas"/>
+        <UnitName Value="uColors"/>
+      </Item9>
+    </Files>
+    <Type Value="RunAndDesignTime"/>
+    <RequiredPkgs Count="2">
+      <Item1>
+        <PackageName Value="lcl"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="FCL"/>
+        <MinVersion Major="1" Valid="True"/>
+      </Item2>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>
