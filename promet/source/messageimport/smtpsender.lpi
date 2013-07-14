@@ -23,6 +23,9 @@
     </MacroValues>
     <BuildModes Count="1" Active="Default">
       <Item1 Name="Default" Default="True"/>
+      <SharedMatrixOptions Count="1">
+        <Item1 ID="371882554416" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="nogui"/>
+      </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
@@ -33,7 +36,6 @@
       <local>
         <FormatVersion Value="1"/>
         <CommandLineParams Value="--mandant=Stora --onerun"/>
-        <LaunchingApplication PathPlusParams="/usr/bin/xterm -T 'Lazarus Run Output' -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
     <RequiredPackages Count="4">
@@ -42,14 +44,14 @@
       </Item1>
       <Item2>
         <PackageName Value="pmimemessages"/>
-        <DefaultFilename Value="../../../../../../../../../../../../../base_messaging/pmimemessages.lpk"/>
+        <DefaultFilename Value="../base_messaging/pmimemessages.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="LCL"/>
       </Item3>
       <Item4>
         <PackageName Value="pcmdprometapp"/>
-        <DefaultFilename Value="../../../../../../../../../../../../../base/pcmdprometapp.lpk"/>
+        <DefaultFilename Value="../base/pcmdprometapp.lpk"/>
       </Item4>
     </RequiredPackages>
     <Units Count="40">
@@ -206,12 +208,10 @@
       <Unit18>
         <Filename Value="../../../lkomponenten/synapse/smtpsend.pas"/>
         <UnitName Value="smtpsend"/>
-        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="482"/>
         <CursorPos X="1" Y="510"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit18>
       <Unit19>
         <Filename Value="../../../lkomponenten/synapse/blcksock.pas"/>
@@ -248,7 +248,7 @@
       <Unit23>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="72"/>
         <CursorPos X="15" Y="91"/>
@@ -267,7 +267,7 @@
         <Filename Value="../base/dbintfs/umessages.pas"/>
         <UnitName Value="uMessages"/>
         <IsVisibleTab Value="True"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="19"/>
         <CursorPos X="14" Y="37"/>
@@ -304,17 +304,15 @@
       <Unit29>
         <Filename Value="../../../lkomponenten/synapse/mimemess.pas"/>
         <UnitName Value="mimemess"/>
-        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="576"/>
         <CursorPos X="1" Y="600"/>
         <UsageCount Value="23"/>
-        <Loaded Value="True"/>
       </Unit29>
       <Unit30>
         <Filename Value="../base/dbintfs/udocuments.pas"/>
         <UnitName Value="uDocuments"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="682"/>
         <CursorPos X="1" Y="710"/>
@@ -324,7 +322,7 @@
       <Unit31>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="320"/>
         <CursorPos X="22" Y="339"/>
@@ -342,7 +340,7 @@
       <Unit33>
         <Filename Value="../base/ubasecustomapplication.pas"/>
         <UnitName Value="uBaseCustomApplication"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="265"/>
         <CursorPos X="17" Y="275"/>
@@ -352,7 +350,7 @@
       <Unit34>
         <Filename Value="../base/dbintfs/ubaseapplication.pas"/>
         <UnitName Value="uBaseApplication"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="3" Y="24"/>
@@ -362,7 +360,7 @@
       <Unit35>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1092"/>
         <CursorPos X="1" Y="1121"/>
@@ -372,27 +370,23 @@
       <Unit36>
         <Filename Value="../../../lkomponenten/synapse/mimepart.pas"/>
         <UnitName Value="mimepart"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="973"/>
         <CursorPos X="3" Y="994"/>
         <UsageCount Value="23"/>
-        <Loaded Value="True"/>
       </Unit36>
       <Unit37>
         <Filename Value="../../../lkomponenten/synapse/synautil.pas"/>
         <UnitName Value="synautil"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1115"/>
         <CursorPos X="1" Y="1137"/>
         <UsageCount Value="23"/>
-        <Loaded Value="True"/>
       </Unit37>
       <Unit38>
         <Filename Value="../base/dbintfs/uperson.pas"/>
         <UnitName Value="uPerson"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="8"/>
         <CursorPos X="147" Y="29"/>
@@ -402,7 +396,7 @@
       <Unit39>
         <Filename Value="../base_messaging/umimemessages.pas"/>
         <UnitName Value="uMimeMessages"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="99"/>
         <CursorPos X="23" Y="250"/>
@@ -553,7 +547,6 @@
       </CompilerMessages>
       <CompilerPath Value="$(CompPath)"/>
     </Other>
-    <LCLWidgetType Value="nogui"/>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="3">

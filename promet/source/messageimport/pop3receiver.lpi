@@ -19,6 +19,9 @@
     </MacroValues>
     <BuildModes Count="1">
       <Item1 Name="default" Default="True"/>
+      <SharedMatrixOptions Count="1">
+        <Item1 ID="569496866080" Modes="default" Type="IDEMacro" MacroName="LCLWidgetType" Value="nogui"/>
+      </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
@@ -39,11 +42,11 @@
       </Item1>
       <Item2>
         <PackageName Value="pmimemessages"/>
-        <DefaultFilename Value="..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\base_messaging\pmimemessages.lpk"/>
+        <DefaultFilename Value="..\base_messaging\pmimemessages.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="pcmdprometapp"/>
-        <DefaultFilename Value="..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\..\base\pcmdprometapp.lpk"/>
+        <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
       </Item3>
     </RequiredPackages>
     <Units Count="111">
@@ -54,7 +57,7 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="502"/>
+        <TopLine Value="501"/>
         <CursorPos X="37" Y="532"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
@@ -493,7 +496,7 @@
       <Unit56>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
         <UnitName Value="uBaseCustomApplication"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="276"/>
         <CursorPos X="32" Y="295"/>
@@ -895,22 +898,18 @@
       <Unit105>
         <Filename Value="..\..\..\..\lazarus\components\lazutils\lconvencoding.pas"/>
         <UnitName Value="LConvEncoding"/>
-        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="20"/>
         <CursorPos X="10" Y="38"/>
         <UsageCount Value="13"/>
-        <Loaded Value="True"/>
       </Unit105>
       <Unit106>
         <Filename Value="..\..\..\lkomponenten\synapse\pop3send.pas"/>
         <UnitName Value="pop3send"/>
-        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="293"/>
         <CursorPos X="1" Y="311"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit106>
       <Unit107>
         <Filename Value="..\..\..\lkomponenten\synapse\blcksock.pas"/>
@@ -923,32 +922,26 @@
       <Unit108>
         <Filename Value="..\..\..\lkomponenten\synapse\ssl_openssl.pas"/>
         <UnitName Value="ssl_openssl"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="778"/>
         <CursorPos X="1" Y="825"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit108>
       <Unit109>
         <Filename Value="..\..\..\lkomponenten\synapse\ssl_openssl_lib.pas"/>
         <UnitName Value="ssl_openssl_lib"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="100"/>
         <CursorPos X="45" Y="119"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit109>
       <Unit110>
         <Filename Value="..\..\..\lkomponenten\synapse\synafpc.pas"/>
         <UnitName Value="synafpc"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="84"/>
         <CursorPos X="1" Y="103"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit110>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
@@ -1099,7 +1092,6 @@
       </CompilerMessages>
       <CompilerPath Value="$(CompPath)"/>
     </Other>
-    <LCLWidgetType Value="nogui"/>
   </CompilerOptions>
   <Debugging>
     <BreakPoints Count="4">
