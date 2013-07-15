@@ -2575,7 +2575,10 @@ begin
     FreeAndNil(fHelpContainer);
   if Assigned(tsHelp) and (tsHelp.ControlCount > 0) then
     tsHelp.Controls[0].Destroy;
-  pcPages.CloseAll;
+  try
+    pcPages.CloseAll;
+  except
+  end;
   with Application as IBaseApplication do
     begin
       SaveConfig;

@@ -56,6 +56,7 @@ type
     cbCategory: TExtDBCombobox;
     DBZVDateTimePicker4: TDBZVDateTimePicker;
     eParent: TEditButton;
+    iProject: TImage;
     Label10: TLabel;
     Label12: TLabel;
     Label8: TLabel;
@@ -66,6 +67,7 @@ type
     Panel11: TPanel;
     pNav2: TPanel;
     pNav3: TPanel;
+    pPreviewImage: TPanel;
     pStatus: TPanel;
     PTasks: TfrDBDataSet;
     dExport: TSaveDialog;
@@ -90,7 +92,6 @@ type
     mInfo: TDBMemo;
     eName: TDBMemo;
     gbTree: TGroupBox;
-    iProject: TImage;
     lname: TLabel;
     Panel4: TPanel;
     Panel6: TPanel;
@@ -100,7 +101,6 @@ type
     PHistory: TfrDBDataSet;
     PList: TfrDBDataSet;
     pNav1: TPanel;
-    pPreviewImage: TPanel;
     Projects: TDatasource;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
@@ -133,8 +133,6 @@ type
     procedure eNameChange(Sender: TObject);
     procedure eParentButtonClick(Sender: TObject);
     procedure eParentExit(Sender: TObject);
-    procedure FrameEnter(Sender: TObject);
-    procedure FrameExit(Sender: TObject);
     function fSearchOpenItem(aLink: string): Boolean;
     procedure pcPagesChange(Sender: TObject);
     procedure ProjectsStateChange(Sender: TObject);
@@ -651,15 +649,6 @@ begin
       DataSet.FieldByName('PARENT').Clear;
     end;
 end;
-
-procedure TfProjectFrame.FrameEnter(Sender: TObject);
-begin
-  ActionList1.State:=asNormal;
-end;
-procedure TfProjectFrame.FrameExit(Sender: TObject);
-begin
-  ActionList1.State:=asSuspended;
-end;
 function TfProjectFrame.fSearchOpenItem(aLink: string): Boolean;
 var
   aParent: TProject;
@@ -861,10 +850,13 @@ end;
 constructor TfProjectFrame.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
+  {
   FProjectFlow := TProjectFlow.Create(Self);
   FprojectFlow.Parent:=pStatus;
   FProjectFlow.Align:=alClient;
   FProjectFlow.Font.Height:=8;
+  }
+  FProjectFlow := nil;
 end;
 destructor TfProjectFrame.Destroy;
 begin
@@ -875,7 +867,7 @@ begin
       DataSet := nil;
       FreeAndNil(FConnection);
     end;
-  FProjectFlow.Free;
+  FreeAndNil(FProjectFlow);
   inherited Destroy;
 end;
 function TfProjectFrame.OpenFromLink(aLink: string) : Boolean;

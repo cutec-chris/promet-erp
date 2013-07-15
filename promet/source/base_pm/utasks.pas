@@ -261,6 +261,7 @@ begin
   FDataSet.DataSet.Close;
   FGridView.DataSet := AValue;
   Datasource.DataSet := FDataSet.DataSet;
+  aUsers := TUser.Create(nil,Data);
   aUsers.Select(FUserID);
   aUsers.Open;
   if not FIgnoreUser then
@@ -1386,14 +1387,16 @@ begin
   aItem.Action:=acMarkSeen;
   FGridView.pmPopup.Items.Add(aItem);
   pFilterOptions.Height:=0;
-  aUsers := TUser.Create(Self,Data);
 end;
 destructor TfTaskFrame.Destroy;
 begin
+  try
+    FreeAndNil(aUsers);
+  except
+  end;
   FOwners.Free;
   FUsers.Free;
   FGridView.Destroy;
-  aUsers.Free;
   inherited Destroy;
 end;
 procedure TfTaskFrame.SetRights(Editable: Boolean);

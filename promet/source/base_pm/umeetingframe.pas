@@ -706,8 +706,8 @@ begin
       Screen.Cursor := crHourglass;
       DataSet.DataSet.Delete;
       FDataSet.CascadicCancel;
-      Data.Commit(FConnection);
-      Data.StartTransaction(FConnection);
+      //Data.Commit(FConnection);
+      //Data.StartTransaction(FConnection);
       acClose.Execute;
       Screen.Cursor := crDefault;
     end;
@@ -744,8 +744,8 @@ begin
       if Assigned(FConnection) then
         begin
           FDataSet.CascadicPost;
-          Data.Commit(FConnection);
-          Data.StartTransaction(FConnection);
+          //Data.Commit(FConnection);
+          //Data.StartTransaction(FConnection);
         end;
       SetRights;
     end;
@@ -927,7 +927,7 @@ begin
   CloseConnection;
   if not Assigned(FConnection) then
     FConnection := Data.GetNewConnection;
-  Data.StartTransaction(FConnection);
+  //Data.StartTransaction(FConnection);
   DataSet := TMeetings.Create(Self,Data,FConnection);
   DataSet.OnChange:=@DataSetChange;
   Data.SetFilter(FDataSet,Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink))),1);

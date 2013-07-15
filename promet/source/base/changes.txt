@@ -1,4 +1,6 @@
-﻿Build 249
+﻿Build 250
+      -
+Build 249
       - sync_db ignoriert active, wenn letzte synchronisation länger als 6h her ist (absturz des hosts o.ä.)
       - Vorgabeeinstellungen fürs befüllen der DB überarbeitet
       - Gridview überarbeitet, Zeileninformationen (Einrückungslevel,Vorfahr...) werden nun in extra Objekt gespeichert

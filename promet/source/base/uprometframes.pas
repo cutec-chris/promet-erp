@@ -79,6 +79,10 @@ begin
 end;
 destructor TPrometMainFrame.Destroy;
 begin
+  try
+    FreeAndNil(FQuickHelpFrame)
+  except
+  end;
   if Assigned(FConnection) then
     begin
       CloseConnection;
@@ -183,7 +187,7 @@ begin
   with BaseApplication as IBaseApplication do
   if aWiki.FindWikiPage(Appname+'-Help/workflows/'+lowercase(ClassName)) then
     begin
-      FQuickHelpFrame := TfQuickHelpFrame.Create(Self);
+      FQuickHelpFrame := TfQuickHelpFrame.Create(nil);
       if not FQuickHelpFrame.OpenWikiPage(aWiki) then
         FreeAndNil(FQuickHelpFrame)
       else
