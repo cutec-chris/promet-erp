@@ -72,6 +72,7 @@ type
     Seen : string;
     ShouldStart : TDateTime;
     property StringRec : string read GetStringRec;
+    constructor Create;
   end;
 
   TCellChangedEvent = procedure(Sender : TObject;NewCell,OldCell : TPoint) of object;
@@ -351,6 +352,12 @@ uses uRowEditor,LCLType,LCLProc,LCLIntf,Themes,uIntfStrConsts,
 function TRowObject.GetStringRec: string;
 begin
   Result := IntToStr(Rec);
+end;
+
+constructor TRowObject.Create;
+begin
+  Rec := 0;
+  Childs:=' ';
 end;
 
 procedure TInplaceDateEdit.Change;
@@ -1033,9 +1040,9 @@ begin
       if (aCol = 0) then
         begin
           gList.DefaultDrawCell(aCol,aRow,aRect,aState);
-          Canvas.Brush.Color:=FixedColor;
-          Canvas.Pen.Color:=FixedColor;
-          Canvas.Rectangle(aRect.Left+2,aRect.Top+2,aRect.Right-2,aRect.Bottom-2);
+          //Canvas.Brush.Color:=FixedColor;
+          //Canvas.Pen.Color:=FixedColor;
+          //Canvas.Rectangle(aRect.Left+2,aRect.Top+2,aRect.Right-2,aRect.Bottom-2);
           if (TStringGrid(Sender).Row = aRow) then
             DrawIndicator(TStringGrid(Sender).Canvas,aRect,FDataSource.State,False);
           exit;
