@@ -391,7 +391,7 @@ begin
         NewText := FOwners.Values[aUser]
       else
         begin
-          if FGridView.GotoRow(TRowObject(FGridView.gList.Cells[0,aRow]).Rec) then
+          if FGridView.GotoRow(TRowObject(FGridView.gList.Objects[0,aRow]).Rec) then
             begin
               FOwners.Values[aUser] := TMeetings(FDataSet).Entrys.UserName;
               if trim(FOwners.Values[aUser]) <> '' then
