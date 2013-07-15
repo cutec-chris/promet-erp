@@ -537,7 +537,7 @@ begin
       FGridView.gList.EditorMode:=False;
       FGridView.SetEdited;
     end;
-  aUSer.Free;
+  aUser.Free;
 end;
 
 function TfMeetingFrame.fSearchOpenProjectItem(aLink: string): Boolean;
@@ -581,7 +581,7 @@ begin
       FGridView.gList.EditorMode:=False;
       FGridView.SetEdited;
     end;
-  aUSer.Free;
+  aUser.Free;
 end;
 
 procedure TfMeetingFrame.lbResultsDblClick(Sender: TObject);

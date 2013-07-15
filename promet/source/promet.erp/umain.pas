@@ -654,10 +654,12 @@ begin
                   TTreeEntry(Node1.Data).Typ := etMessageBoard;
                 Data.Tree.DataSet.Next;
               end;
+            {$ifndef heaptrc}
             try
               TBaseVisualApplication(Application).MessageHandler.SendCommand('*receiver','Receive('+Data.Users.FieldByName('NAME').AsString+')');
             except
             end;
+            {$endif}
             RefreshMessages;
           end;
         {$endregion}
@@ -665,14 +667,18 @@ begin
         fSplash.AddText(strAdding+' '+strCalendar);;
         fSplash.SetPercent(30);
         //Add PIM Entrys
+        {$ifndef heaptrc}
         uTasks.AddToMainTree(acNewTask,FTaskNode);
+        {$endif}
         if Data.Users.Rights.Right('CALENDAR') > RIGHT_NONE then
           begin
             pcPages.AddTabClass(TfCalendarFrame,strCalendar,@AddCalendar,Data.GetLinkIcon('CALENDAR@'),True);
             miNew := TmenuItem.Create(miView);
             miView.Add(miNew);
             miNew.Action := acCalendar;
+            {$ifndef heaptrc}
             uCalendarFrame.AddToMainTree(acNewTermin,FCalendarNode);
+            {$endif}
             RefreshCalendar;
           end;
         debugln('PIM: '+IntToStr(GetTickCount64-aTime));
@@ -959,7 +965,9 @@ begin
         {$endregion}
         debugln('Inventory/Financial: '+IntToStr(GetTickCount64-aTime));
         //Add Statistics
+        {$ifndef heaptrc}
         uStatisticFrame.AddToMainTree(acNewStatistics);
+        {$endif}
         //Timeregistering
         if (Data.Users.Rights.Right('TIMEREG') > RIGHT_NONE) then
           begin
@@ -2565,7 +2573,11 @@ end;
 procedure TfMain.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   ImportFavorites;
-  if Assigned(FTimeReg) then FTimereg.StopActualTime;
+  if Assigned(FTimeReg) then
+    begin
+      FTimereg.StopActualTime;
+      FTimeReg.Destroy;
+    end;
   while FHistory.Count>15 do FHistory.Delete(0);
   with Application as IBaseDbInterface do
     DBConfig.WriteString('HISTORY',FHistory.Text);

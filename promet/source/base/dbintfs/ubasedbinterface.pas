@@ -1301,6 +1301,7 @@ begin
     begin
       exit;
     end;
+  mSettings.Free;
   FDB.Users.CreateTable;
   FDB.Numbers.CreateTable;
   FDB.ActiveUsers.CreateTable;

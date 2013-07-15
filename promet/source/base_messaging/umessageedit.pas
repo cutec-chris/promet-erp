@@ -391,7 +391,9 @@ begin
       with Application as IBaseDbInterface do
         Data.Commit(FConnection);
       FreeAndNil(aLists);
+      {$ifndef heaptrc}
       TBaseVisualApplication(Application).MessageHandler.SendCommand('smtpsender','Send('+Data.Users.FieldByName('NAME').AsString+')');
+      {$endif}
       IsModified := False;
       Self.Close;
     end;

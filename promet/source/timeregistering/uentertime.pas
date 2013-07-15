@@ -393,6 +393,7 @@ destructor TfEnterTime.Destroy;
 begin
   if Assigned(FList) then
     begin
+      if Assigned(FList.DataSet) then FList.DataSet.Destroy;
       FList.DataSet := nil;
       FList.Destroy;
     end;

@@ -157,8 +157,7 @@ inherited fTaskFrame: TfTaskFrame
         Caption = 'Aufgabe'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
@@ -373,8 +372,7 @@ inherited fTaskFrame: TfTaskFrame
         Caption = 'Zeit'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
@@ -454,8 +452,7 @@ inherited fTaskFrame: TfTaskFrame
         Caption = 'Ansicht'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
@@ -744,8 +741,7 @@ inherited fTaskFrame: TfTaskFrame
         Caption = 'zusätzlich'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
