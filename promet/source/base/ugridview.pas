@@ -813,7 +813,7 @@ begin
           //Set Parent
           gList.Row := sIndex;
           aLevelOld := GetLevel(aCol,gList.Row);
-          aParent := FDataSet.FieldByName('PARENT').AsVariant;
+          aParent := FDataSet.FieldByName(TreeField).AsVariant;
           if FDataSet.DataSet.FieldDefs.IndexOf(TreeField) = -1 then exit;
           if FDataSet.CanEdit then
             FDataSet.DataSet.Post;
@@ -822,7 +822,7 @@ begin
             begin
               OneRowAheadID := TRowObject(gList.Objects[0,gList.Row-1]).Rec;
               GotoRowNumber(gList.Row-1);
-              aAheadParent := FDataSet.FieldByName('PARENT').AsVariant;
+              aAheadParent := FDataSet.FieldByName(TreeField).AsVariant;
             end;
           aLevel := GetLevel(aCol,gList.Row);
           if aLevel = 0 then
@@ -2072,7 +2072,7 @@ var
   aLevel: Integer;
   aRec: LargeInt;
   Bookmark: LargeInt;
-  NewParentID: LargeInt = 0;
+  NewParentID: variant;
   aStrlevel: String;
   aRow: LongInt;
   aTop: Integer;
@@ -2115,7 +2115,7 @@ begin
                       {$endif}
                       if OwnParentID <> FDataSet.FieldByName(TreeField).AsString then
                         begin
-                          NewParentID := FDataSet.FieldByName(TreeField).AsLargeInt;
+                          NewParentID := FDataSet.FieldByName(TreeField).AsVariant;
                           aLevel := GetLevel(aCol,gList.Row-1);
                         end
                       else
