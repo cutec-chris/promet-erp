@@ -19,6 +19,7 @@ var
   PlainName: String;
   FindRec: TSearchRec;
   NewName: TFilename;
+  aProcess: TProcess;
 begin
   Application.Free;
   PlainName := copy(Application.Exename,0,length(Application.Exename)-length(ExtractFileExt(Application.Exename)));
@@ -26,14 +27,19 @@ begin
     REPEAT
       IF ((FindRec.Name <> '.') AND (FindRec.Name <> '..')) THEN
         begin
-          if NewName <> ExtractFileName(Application.ExeName) then
+          if FindRec.Name <> ExtractFileName(Application.ExeName) then
             NewName := FindRec.Name;
         end;
     UNTIL FindNextUTF8(FindRec) <> 0;
   FindCloseUTF8(FindRec);
   if (NewName <> ExtractFileName(Application.ExeName)) and (NewName<>'') then
     begin
-      ExecuteProcess(NewName,[]);
+      aProcess := Tprocess.Create(nil);
+      aProcess.Options:=[];
+      aProcess.CommandLine:=AppendPathDelim(Application.Location)+NewName;
+      aProcess.Execute;
+      aProcess.Free;
+      halt(0);
       exit;
     end;
   Application := TBaseVisualApplication.Create(nil);
