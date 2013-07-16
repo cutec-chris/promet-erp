@@ -2,6 +2,8 @@
       - Fehler auf einigen Datenbanken beim verschieben von Aufgaben behoben (invalid conversation Largeint to Variant)
       - Promet sucht nun nach gleichnamigen executables mit höchster Nummer im Namen (promet.1.exe) und startet die höchste Variante
         kann genutzt werden um Updates im laufenden Betrieb z.b. auf Netzwerk shares durchzuführen
+      x Vorschauframe repariert
+      x
 Build 249
       - sync_db ignoriert active, wenn letzte synchronisation länger als 6h her ist (absturz des hosts o.ä.)
       - Vorgabeeinstellungen fürs befüllen der DB überarbeitet

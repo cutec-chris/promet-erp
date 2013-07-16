@@ -27,13 +27,13 @@ type
       iPreview: TImage;
       Label1: TLabel;
       mText: TMemo;
-      pImageControls: TPanel;
       pfrPreview: TPanel;
+      pImageControls: TPanel;
       pcPages: TPageControl;
       sbImage: TScrollBox;
       ToolBar2: TToolBar;
-      tsText: TTabSheet;
       tsImage: TTabSheet;
+      tsText: TTabSheet;
       procedure bZoomInClick(Sender: TObject);
       procedure bZoomOutClick(Sender: TObject);
       procedure cbRevisionSelect(Sender: TObject);
@@ -409,6 +409,8 @@ begin
         Result := True;
         iPreview.Left:=0;
         iPreview.Top:=0;
+        tsImage.TabVisible:=True;
+        tsText.TabVisible:=False;
       except
         sbImage.Visible:=False;
       end;
@@ -460,6 +462,8 @@ begin
           FScale := Width/iPreview.Picture.Width
         else
           FScale := Height/iPreview.Picture.Height;
+        tsImage.TabVisible:=True;
+        tsText.TabVisible:=False;
       except
         SysUtils.DeleteFile(aFileName);
         SysUtils.DeleteFile(aFileName+'.bmp');
@@ -479,6 +483,8 @@ begin
         end
       else
         FEditor.Hide;
+      tsImage.TabVisible:=True;
+      tsText.TabVisible:=False;
     end
   else //Try to Use Imagemagick to determinate the file typ and render it
     begin
@@ -510,6 +516,8 @@ begin
           FScale := Width/iPreview.Picture.Width
         else
           FScale := Height/iPreview.Picture.Height;
+        tsImage.TabVisible:=True;
+        tsText.TabVisible:=False;
         Result := True;
       except
         SysUtils.DeleteFile(aFileName);

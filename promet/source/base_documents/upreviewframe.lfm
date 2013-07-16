@@ -14,7 +14,7 @@ inherited fPreview: TfPreview
     Caption = 'ToolBar2'
     TabOrder = 1
     object cbRevision: TComboBox
-      Left = 128
+      Left = 120
       Height = 25
       Top = 2
       Width = 245
@@ -27,7 +27,7 @@ inherited fPreview: TfPreview
       Left = 72
       Height = 25
       Top = 2
-      Width = 56
+      Width = 48
       Align = alLeft
       Caption = 'Revision'
       ParentColor = False
@@ -174,21 +174,21 @@ inherited fPreview: TfPreview
     Height = 263
     Top = 27
     Width = 434
-    ActivePage = tsText
+    ActivePage = tsImage
     Align = alClient
     ShowTabs = False
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     object tsText: TTabSheet
       Caption = 'Text'
-      ClientHeight = 259
-      ClientWidth = 430
+      ClientHeight = 255
+      ClientWidth = 426
       TabVisible = False
       object mText: TMemo
         Left = 0
-        Height = 259
+        Height = 255
         Top = 0
-        Width = 430
+        Width = 426
         Align = alClient
         Lines.Strings = (
           'mText'
@@ -198,20 +198,20 @@ inherited fPreview: TfPreview
     end
     object tsImage: TTabSheet
       Caption = 'Inhalt'
-      ClientHeight = 259
-      ClientWidth = 430
+      ClientHeight = 255
+      ClientWidth = 426
       OnShow = tsImageShow
       object sbImage: TScrollBox
         Left = 0
-        Height = 259
+        Height = 255
         Top = 0
-        Width = 430
-        HorzScrollBar.Page = 427
-        VertScrollBar.Page = 259
+        Width = 426
+        HorzScrollBar.Page = 410
+        VertScrollBar.Page = 255
         Align = alClient
         BorderStyle = bsNone
-        ClientHeight = 259
-        ClientWidth = 427
+        ClientHeight = 255
+        ClientWidth = 410
         TabOrder = 0
         object iPreview: TImage
           Cursor = crHandPoint
@@ -229,21 +229,21 @@ inherited fPreview: TfPreview
       end
       object pfrPreview: TPanel
         Left = 0
-        Height = 259
+        Height = 255
         Top = 0
-        Width = 430
+        Width = 426
         Align = alClient
         BevelOuter = bvNone
         Caption = 'pfrPreview'
-        ClientHeight = 259
-        ClientWidth = 430
+        ClientHeight = 255
+        ClientWidth = 426
         TabOrder = 1
         Visible = False
         object frPreview: TfrPreview
           Left = 0
-          Height = 259
+          Height = 255
           Top = 0
-          Width = 430
+          Width = 426
           Align = alClient
           BevelOuter = bvNone
           Caption = 'keine Vorschau'
@@ -254,16 +254,13 @@ inherited fPreview: TfPreview
     end
   end
   object frReport: TfrReport[2]
+    DefaultCopies = 0
     InitialZoom = pzDefault
     Options = []
-    Preview = frPreview
     PreviewButtons = [pbZoom, pbLoad, pbSave, pbPrint, pbFind, pbHelp, pbExit]
     ShowProgress = False
     DataType = dtDataSource
     left = 39
     top = 78
-    ReportForm = {
-      19000000
-    }
   end
 end
