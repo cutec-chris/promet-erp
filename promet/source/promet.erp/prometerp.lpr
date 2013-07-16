@@ -33,13 +33,14 @@ begin
         end;
     UNTIL FindNextUTF8(FindRec) <> 0;
   FindCloseUTF8(FindRec);
-  if (NewName <> ExtractFileName(Application.ExeName)) and (NewName<>'') then
+  if (NewName <> ExtractFileName(Application.ExeName)) and (NewName<>'') and (pos('_',NewName)=0) then
     begin
       aProcess := Tprocess.Create(nil);
       aProcess.Options:=[];
       aProcess.CommandLine:=AppendPathDelim(Application.Location)+NewName;
       aProcess.Execute;
       aProcess.Free;
+      Application.Terminate;
       exit;
     end;
   Application.Title:='Promet-ERP';

@@ -85,6 +85,7 @@ type
     FBP: TPaitBackgroundEvent;
     FBuffer: TDateTime;
     FChanged: Boolean;
+    FColor: TColor;
     FDepDone: Boolean;
     FDontChange: Boolean;
     FGantt: TgsGantt;
@@ -116,6 +117,7 @@ type
     function GetStartDate: TDateTime;
     function GetFinishDate: TDateTime;
     procedure SetBuffer(AValue: TDateTime);
+    procedure SetColor(AValue: TColor);
     procedure SetId(AValue: Variant);
 
     function GetDuration: TDateTime;
@@ -232,6 +234,7 @@ type
     property Resource : string read FRes write FRes;
     property OnChanged : TNotifyEvent read FOnChanged write FOnChanged;
     property OnDrawBackground : TPaitBackgroundEvent read FPB write FBP;
+    property Color : TColor read FColor write SetColor;
     property Gantt : TgsGantt read FGantt;
   end;
   TMouseOverInterval = procedure(Sender : TObject;aInterval : TInterval;X,Y : Integer) of object;
@@ -1190,6 +1193,7 @@ begin
   FVisible := False;
   FParent := nil;
   FPointer:=nil;
+  FColor:=clBlue;
 
   FIntervals := TList.Create;
   FConnections := Tlist.Create;
@@ -1437,6 +1441,12 @@ procedure TInterval.SetBuffer(AValue: TDateTime);
 begin
   if FBuffer=AValue then Exit;
   FBuffer:=AValue;
+end;
+
+procedure TInterval.SetColor(AValue: TColor);
+begin
+  if FColor=AValue then Exit;
+  FColor:=AValue;
 end;
 
 procedure TInterval.SetId(AValue: Variant);
@@ -1869,9 +1879,10 @@ var
   List: TList;
   CurrInterval: TInterval;
   I, K: Integer;
-  BMP: TBitmap;
+  BMP : array of TBitmap;
   DoneRect: TRect;
   aTop: Integer;
+  bri: Integer;
 begin
   aTop := FGantt.Tree.TopRow-1;
   ClipRgn := CreateRectRgn
@@ -1883,14 +1894,6 @@ begin
   );
 
   List := TList.Create;
-
-  BMP := TBitmap.Create;
-  BMP.Width := 2;
-  BMP.Height := 2;
-  BMP.Canvas.Pixels[0, 0] := clBlue;
-  BMP.Canvas.Pixels[1, 1] := clBlue;
-  BMP.Canvas.Pixels[0, 1] := Color;
-  BMP.Canvas.Pixels[1, 0] := Color;
 
   try
     SelectClipRgn(Canvas.Handle, ClipRgn);
@@ -1951,7 +1954,7 @@ begin
             CurrInterval.Left := CurrInterval.Left - PixelsPerLine div 4;
             CurrInterval.Right := CurrInterval.Right + PixelsPerLine div 4;
 
-            Brush.Color := clBlue;
+            Brush.Color := CurrInterval.Color;
 
             with CurrInterval.DrawRect do
               Polygon
@@ -1965,7 +1968,7 @@ begin
                 ]
               );
 
-            Brush.Color := clBlue;
+            Brush.Color := CurrInterval.Color;
             Brush.Style := bsClear;
 
             Pen.Color := clBlack;
@@ -2022,12 +2025,27 @@ begin
             CurrInterval.Top := (I-aTop) * PixelsPerLine + StartDrawIntervals + IntervalHeight div 4;
             CurrInterval.Bottom := ((I-aTop) + 1) * PixelsPerLine + StartDrawIntervals - IntervalHeight div 4;
 
-            Brush.Color := clBlue;
-            Brush.Bitmap := BMP;
+            Brush.Bitmap := nil;
+            Brush.Color := CurrInterval.Color;
+            for bri := low(BMP) to high(BMP) do
+              if BMP[bri].Canvas.Pixels[0,0] = CurrInterval.Color then
+                Brush.Bitmap := BMP[bri];
+            if not Assigned(Brush.Bitmap) then
+              begin
+                Setlength(BMP,length(BMP)+1);
+                BMP[high(BMP)] := TBitmap.Create;
+                BMP[high(BMP)].Width := 2;
+                BMP[high(BMP)].Height := 2;
+                BMP[high(BMP)].Canvas.Pixels[0, 1] := Color;
+                BMP[high(BMP)].Canvas.Pixels[1, 0] := Color;
+                BMP[high(BMP)].Canvas.Pixels[0, 0] := CurrInterval.Color;
+                BMP[high(BMP)].Canvas.Pixels[1, 1] := CurrInterval.Color;
+                Brush.Bitmap := BMP[high(BMP)];
+              end;
             FillRect(CurrInterval.DrawRect);
 
             Brush.Bitmap := nil;
-            Brush.Color := clBlue;
+            Brush.Color := CurrInterval.Color;
             Brush.Style := bsSolid;
             FrameRect(CurrInterval.DrawRect);
 
@@ -2052,7 +2070,9 @@ begin
   end;
 
   finally
-    BMP.Free;
+    for bri := low(BMP) to high(BMP) do
+      BMP[bri].Free;
+    Setlength(BMP,0);
     List.Free;
     SelectClipRgn(Canvas.Handle, 0);
     DeleteObject(ClipRgn);

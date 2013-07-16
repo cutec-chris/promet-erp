@@ -18,6 +18,9 @@ uses
   StdCtrls, Buttons, Menus, ActnList, gsGanttCalendar, uTask,Math;
 
 type
+
+  { TfGanttView }
+
   TfGanttView = class(TForm)
     acCenterTask: TAction;
     acOpen: TAction;
@@ -81,6 +84,7 @@ type
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
     procedure Populate(aTasks : TTaskList);
+    procedure FindCriticalPath;
     procedure FillInterval(aInterval : TInterval;aTasks : TTaskList);
     procedure GotoTask(aLink : string);
     function Execute(aTasks : TTaskList;aLink : string = '') : Boolean;
@@ -506,7 +510,37 @@ begin
   FGantt.EndUpdate;
   FGantt.Tree.TopRow:=1;
   FGantt.StartDate:=Now();
+  FindCriticalPath;
 end;
+
+procedure TfGanttView.FindCriticalPath;
+var
+  y: Integer;
+  aLastDate : TDateTime;
+  function DoPath(aInterval : TInterval) : Boolean;
+  var
+    i: Integer;
+  begin
+    Result := False;
+    for i := 0 to aInterval.IntervalCount-1 do
+      Result := Result
+      or (DoPath(aInterval.Interval[i]) and (aInterval.Interval[i].StartDate<=aInterval.FinishDate));
+    if (aInterval.IntervalCount = 0) and (aInterval.FinishDate>=aLastDate) then Result := True;
+    if Result then
+      aInterval.Color:=clRed
+    else
+      aInterval.Color:=clBlue;
+  end;
+begin
+  aLastDate := 0;
+  for y := 0 to fGantt.IntervalCount-1 do
+    if FGantt.Interval[y].FinishDate>aLastDate then
+      aLastDate := FGantt.Interval[y].FinishDate;
+  for y := 0 to fGantt.IntervalCount-1 do
+    DoPath(FGantt.Interval[y]);
+  FGantt.Calendar.Invalidate;
+end;
+
 procedure TfGanttView.FillInterval(aInterval : TInterval; aTasks: TTaskList);
 var
   aUser: TUser;
