@@ -1472,14 +1472,6 @@ var
 begin
   if (Data.Users.Rights.Right('TASKS') > RIGHT_NONE) then
     begin
-      aDataSet := TTask.Create(nil,Data);
-      aDataSet.CreateTable;
-      try
-        aDataSet.Open;
-        aDataSet.DataSet.Close;
-      except
-      end;
-      aDataSet.Destroy;
       Data.RegisterLinkHandler('TASKS',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
 //      AddSearchAbleDataSet(TTaskList);
       Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);

@@ -46,5 +46,6 @@ begin
   Application.Title:='Promet-ERP';
   Application.Initialize;
   Application.CreateForm(TfMain, fMain);
+  fMain.DoCreate;
   Application.Run;
 end.

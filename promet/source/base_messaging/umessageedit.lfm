@@ -17,33 +17,33 @@ object fMessageEdit: TfMessageEdit
   LCLVersion = '1.1'
   object pMain: TPanel
     Left = 0
-    Height = 348
-    Top = 77
+    Height = 352
+    Top = 73
     Width = 669
     Align = alClient
     BevelOuter = bvNone
     Caption = 'pMain'
-    ClientHeight = 348
+    ClientHeight = 352
     ClientWidth = 669
     TabOrder = 1
     object sbStatus: TStatusBar
       Left = 0
-      Height = 21
-      Top = 327
+      Height = 20
+      Top = 332
       Width = 669
       Panels = <>
     end
     object lCC: TLabel
       Left = 174
-      Height = 17
+      Height = 13
       Top = 51
-      Width = 18
+      Width = 14
       Caption = 'CC'
       ParentColor = False
     end
     object pcTabs: TExtMenuPageControl
       Left = 0
-      Height = 239
+      Height = 244
       Top = 88
       Width = 669
       ActivePage = tsContent
@@ -82,7 +82,7 @@ object fMessageEdit: TfMessageEdit
       end
       object eSubject: TEdit
         Left = 6
-        Height = 27
+        Height = 21
         Top = 13
         Width = 660
         Anchors = [akTop, akLeft, akRight]
@@ -130,13 +130,13 @@ object fMessageEdit: TfMessageEdit
         end
         object cbTo: TComboBox
           Left = 8
-          Height = 29
+          Height = 21
           Top = 13
           Width = 317
           Anchors = [akTop, akLeft, akRight]
           AutoCompleteText = []
           AutoSelect = False
-          ItemHeight = 0
+          ItemHeight = 13
           OnEnter = cbToEnter
           OnExit = cbToExit
           OnKeyDown = cbToKeyDown
@@ -189,12 +189,12 @@ object fMessageEdit: TfMessageEdit
         end
         object eCC: TComboBox
           Left = 8
-          Height = 29
+          Height = 21
           Top = 13
           Width = 256
           Anchors = [akTop, akLeft, akRight]
           AutoSelect = False
-          ItemHeight = 0
+          ItemHeight = 13
           OnEnter = cbToEnter
           OnExit = cbToExit
           OnKeyDown = cbToKeyDown
@@ -213,7 +213,7 @@ object fMessageEdit: TfMessageEdit
   end
   object lMessage: TLabel
     Left = 8
-    Height = 17
+    Height = 13
     Top = 8
     Width = 653
     Align = alTop
@@ -230,7 +230,7 @@ object fMessageEdit: TfMessageEdit
   object ToolBar1: TPanel
     Left = 0
     Height = 44
-    Top = 33
+    Top = 29
     Width = 669
     Align = alTop
     BevelOuter = bvNone
@@ -282,7 +282,7 @@ object fMessageEdit: TfMessageEdit
       OnClick = bSendClick
     end
     object Panel5: TPanel
-      Left = 536
+      Left = 0
       Height = 44
       Top = 0
       Width = 128
@@ -317,10 +317,10 @@ object fMessageEdit: TfMessageEdit
       end
       object cbType: TComboBox
         Left = 4
-        Height = 29
+        Height = 21
         Top = 13
         Width = 116
-        ItemHeight = 0
+        ItemHeight = 13
         ItemIndex = 1
         Items.Strings = (
           'HTML'
@@ -332,7 +332,7 @@ object fMessageEdit: TfMessageEdit
       end
     end
     object Panel6: TPanel
-      Left = 90
+      Left = 218
       Height = 44
       Top = 0
       Width = 446
@@ -368,11 +368,11 @@ object fMessageEdit: TfMessageEdit
       end
       object cbAccount: TComboBox
         Left = 4
-        Height = 29
+        Height = 21
         Top = 13
         Width = 434
         Anchors = [akTop, akLeft, akRight]
-        ItemHeight = 0
+        ItemHeight = 13
         TabOrder = 0
       end
     end
@@ -400,7 +400,6 @@ object fMessageEdit: TfMessageEdit
       ScrollWidth = 278
       TabOrder = 0
       TabStop = False
-      TopIndex = -1
     end
   end
   object ActionList1: TActionList
@@ -419,4 +418,4 @@ object fMessageEdit: TfMessageEdit
     left = 220
     top = 182
   end
-end
+end

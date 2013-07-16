@@ -1450,7 +1450,7 @@ var
 
   procedure RecursiveGetRight(aRec : Integer = 0);
   begin
-    if aRec>100 then
+    if aRec>10 then
       begin
         Result := -1;
         exit;
@@ -1474,21 +1474,25 @@ var
       end;
   end;
 begin
-  if (FCachedRights.Values[Element] <> '') and UseCache then
-    Result := StrToInt(FCachedRights.Values[Element])
-  else
-    begin
-      with BaseApplication as IBaseDBInterface do
-        begin
-          aUser := UserTable.GetBookmark;
-          with Self.DataSet as IBaseDBFilter do
-            Filter := Data.QuoteField('RIGHTNAME')+'='+Data.QuoteValue(UpperCase(Element));
-          Open;
-          RecursiveGetRight;
-          UserTable.GotoBookmark(aUser);
-        end;
-      FCachedRights.Values[Element] := IntToStr(Result);
-    end;
+  try
+    if (FCachedRights.Values[Element] <> '') and UseCache then
+      Result := StrToInt(FCachedRights.Values[Element])
+    else
+      begin
+        with BaseApplication as IBaseDBInterface do
+          begin
+            aUser := UserTable.GetBookmark;
+            with Self.DataSet as IBaseDBFilter do
+              Filter := Data.QuoteField('RIGHTNAME')+'='+Data.QuoteValue(UpperCase(Element));
+            Open;
+            RecursiveGetRight;
+            UserTable.GotoBookmark(aUser);
+          end;
+        FCachedRights.Values[Element] := IntToStr(Result);
+      end;
+  except
+    Result := -1;
+  end;
 end;
 procedure TMandantDetails.DefineFields(aDataSet : TDataSet);
 begin

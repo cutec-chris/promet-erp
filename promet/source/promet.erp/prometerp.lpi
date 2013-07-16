@@ -223,15 +223,17 @@
         <PackageName Value="LCL"/>
       </Item21>
     </RequiredPackages>
-    <Units Count="260">
+    <Units Count="262">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="prometerp"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="15"/>
-        <CursorPos X="97" Y="36"/>
+        <TopLine Value="16"/>
+        <CursorPos X="30" Y="34"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="umain.pas"/>
@@ -240,10 +242,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <EditorIndex Value="14"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="97"/>
-        <CursorPos X="1" Y="671"/>
+        <TopLine Value="2657"/>
+        <CursorPos X="1" Y="2683"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -253,8 +256,8 @@
         <UnitName Value="uBaseVisualApplication"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="803"/>
-        <CursorPos X="22" Y="819"/>
+        <TopLine Value="336"/>
+        <CursorPos X="3" Y="342"/>
         <UsageCount Value="114"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -456,8 +459,8 @@
         <UnitName Value="uBaseDbClasses"/>
         <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1850"/>
-        <CursorPos X="1" Y="1874"/>
+        <TopLine Value="1473"/>
+        <CursorPos X="1" Y="1478"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
       </Unit20>
@@ -810,10 +813,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uWikiFrame"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="248"/>
-        <CursorPos X="1" Y="264"/>
+        <TopLine Value="522"/>
+        <CursorPos X="1" Y="542"/>
         <UsageCount Value="38"/>
+        <Loaded Value="True"/>
       </Unit52>
       <Unit53>
         <Filename Value="uarticletext.pas"/>
@@ -940,8 +945,8 @@
         <Filename Value="../base/dbintfs/ubaseapplication.pas"/>
         <UnitName Value="uBaseApplication"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="19"/>
-        <CursorPos X="14" Y="36"/>
+        <TopLine Value="17"/>
+        <CursorPos X="15" Y="34"/>
         <UsageCount Value="11"/>
       </Unit65>
       <Unit66>
@@ -970,7 +975,7 @@
       <Unit68>
         <Filename Value="../base/dbintfs/utask.pas"/>
         <UnitName Value="utask"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="657"/>
         <CursorPos X="27" Y="672"/>
@@ -1014,12 +1019,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="utasks"/>
-        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1418"/>
-        <CursorPos X="1" Y="1436"/>
+        <TopLine Value="1466"/>
+        <CursorPos X="1" Y="1488"/>
         <UsageCount Value="100"/>
-        <Loaded Value="True"/>
       </Unit72>
       <Unit73>
         <Filename Value="../base_documents/udocumentframe.pas"/>
@@ -1125,7 +1128,7 @@
       <Unit83>
         <Filename Value="../base/dbintfs/uwiki.pas"/>
         <UnitName Value="uWiki"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="27"/>
         <CursorPos X="33" Y="44"/>
@@ -1138,10 +1141,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uCalendarFrame"/>
+        <EditorIndex Value="19"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="234"/>
-        <CursorPos X="1" Y="251"/>
+        <TopLine Value="76"/>
+        <CursorPos X="11" Y="94"/>
         <UsageCount Value="89"/>
+        <Loaded Value="True"/>
       </Unit84>
       <Unit85>
         <Filename Value="../base/uwikimessage.pas"/>
@@ -1291,7 +1296,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="umanagedocframe"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="93" Y="30"/>
@@ -1309,7 +1314,7 @@
       <Unit103>
         <Filename Value="../base/dbintfs/ubasedocpages.pas"/>
         <UnitName Value="uBaseDocPages"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="20"/>
         <CursorPos X="29" Y="37"/>
@@ -1597,7 +1602,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uGanttView"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="515"/>
@@ -1958,7 +1962,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMessageEdit"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="20"/>
         <WindowIndex Value="0"/>
         <TopLine Value="377"/>
         <CursorPos X="14" Y="396"/>
@@ -2074,7 +2078,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
-        <UsageCount Value="125"/>
+        <UsageCount Value="126"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit191>
       <Unit192>
@@ -2292,8 +2296,8 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uEnterTime"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="665"/>
-        <CursorPos X="1" Y="683"/>
+        <TopLine Value="378"/>
+        <CursorPos X="3" Y="397"/>
         <UsageCount Value="21"/>
       </Unit217>
       <Unit218>
@@ -2303,11 +2307,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uTimeFrame"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="22"/>
         <WindowIndex Value="0"/>
         <TopLine Value="5"/>
         <CursorPos X="3" Y="36"/>
-        <UsageCount Value="62"/>
+        <UsageCount Value="63"/>
         <Loaded Value="True"/>
       </Unit218>
       <Unit219>
@@ -2576,7 +2580,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uExtControls"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="21"/>
         <WindowIndex Value="0"/>
         <TopLine Value="643"/>
         <CursorPos X="1" Y="670"/>
@@ -2645,128 +2649,144 @@
         <CursorPos X="14" Y="733"/>
         <UsageCount Value="10"/>
       </Unit259>
+      <Unit260>
+        <Filename Value="../base_phone/uskypephone.pas"/>
+        <UnitName Value="uSkypePhone"/>
+        <EditorIndex Value="17"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="115"/>
+        <CursorPos X="35" Y="139"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit260>
+      <Unit261>
+        <Filename Value="../base_phone/uskype.pas"/>
+        <UnitName Value="uSkype"/>
+        <EditorIndex Value="18"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="126"/>
+        <CursorPos X="39" Y="148"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit261>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="537" Column="1" TopLine="515"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1481" Column="1" TopLine="1470"/>
       </Position1>
       <Position2>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="536" Column="1" TopLine="515"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1483" Column="1" TopLine="1470"/>
       </Position2>
       <Position3>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="537" Column="1" TopLine="515"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1484" Column="1" TopLine="1470"/>
       </Position3>
       <Position4>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="536" Column="1" TopLine="515"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1485" Column="1" TopLine="1470"/>
       </Position4>
       <Position5>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="537" Column="1" TopLine="515"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1486" Column="1" TopLine="1470"/>
       </Position5>
       <Position6>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="536" Column="1" TopLine="515"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1487" Column="1" TopLine="1470"/>
       </Position6>
       <Position7>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="537" Column="1" TopLine="515"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1488" Column="1" TopLine="1470"/>
       </Position7>
       <Position8>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="536" Column="1" TopLine="515"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1490" Column="1" TopLine="1470"/>
       </Position8>
       <Position9>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="537" Column="1" TopLine="515"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="594" Column="36" TopLine="592"/>
       </Position9>
       <Position10>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="536" Column="1" TopLine="515"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="671" Column="22" TopLine="650"/>
       </Position10>
       <Position11>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="537" Column="1" TopLine="515"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="680" Column="34" TopLine="656"/>
       </Position11>
       <Position12>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="536" Column="1" TopLine="515"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="1" Column="34" TopLine="1"/>
       </Position12>
       <Position13>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="537" Column="1" TopLine="515"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="24" Column="12" TopLine="1"/>
       </Position13>
       <Position14>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="538" Column="1" TopLine="515"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="133" Column="22" TopLine="105"/>
       </Position14>
       <Position15>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="536" Column="1" TopLine="515"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="532" Column="25" TopLine="503"/>
       </Position15>
       <Position16>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="537" Column="1" TopLine="515"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="569" Column="16" TopLine="540"/>
       </Position16>
       <Position17>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="536" Column="1" TopLine="515"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="2670" Column="1" TopLine="2641"/>
       </Position17>
       <Position18>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="537" Column="1" TopLine="515"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="984" Column="111" TopLine="974"/>
       </Position18>
       <Position19>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="536" Column="1" TopLine="515"/>
+        <Filename Value="../base_phone/uskypephone.pas"/>
+        <Caret Line="132" Column="36" TopLine="115"/>
       </Position19>
       <Position20>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="539" Column="1" TopLine="515"/>
+        <Filename Value="../base_phone/uskype.pas"/>
+        <Caret Line="143" Column="24" TopLine="126"/>
       </Position20>
       <Position21>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="540" Column="1" TopLine="515"/>
+        <Filename Value="../base_phone/uskype.pas"/>
+        <Caret Line="144" Column="1" TopLine="126"/>
       </Position21>
       <Position22>
-        <Filename Value="../base_pm/gsGanttCalendar.pas"/>
-        <Caret Line="3952" Column="1" TopLine="3934"/>
+        <Filename Value="../base_phone/uskype.pas"/>
+        <Caret Line="145" Column="1" TopLine="126"/>
       </Position22>
       <Position23>
-        <Filename Value="../base_pm/gsGanttCalendar.pas"/>
-        <Caret Line="3953" Column="1" TopLine="3934"/>
+        <Filename Value="../base_phone/uskype.pas"/>
+        <Caret Line="148" Column="1" TopLine="126"/>
       </Position23>
       <Position24>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="524" Column="1" TopLine="515"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="245" Column="24" TopLine="234"/>
       </Position24>
       <Position25>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="525" Column="1" TopLine="515"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="185" Column="82" TopLine="176"/>
       </Position25>
       <Position26>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="526" Column="1" TopLine="515"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="245" Column="24" TopLine="227"/>
       </Position26>
       <Position27>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="525" Column="1" TopLine="515"/>
+        <Filename Value="prometerp.lpr"/>
+        <Caret Line="48" Column="22" TopLine="16"/>
       </Position27>
       <Position28>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="528" Column="1" TopLine="515"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="9" Column="68" TopLine="1"/>
       </Position28>
       <Position29>
-        <Filename Value="../base_pm/gsGanttCalendar.pas"/>
-        <Caret Line="1896" Column="1" TopLine="1878"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="2685" Column="12" TopLine="2657"/>
       </Position29>
-      <Position30>
-        <Filename Value="../base_pm/gsGanttCalendar.pas"/>
-        <Caret Line="2074" Column="22" TopLine="2050"/>
-      </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>

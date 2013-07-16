@@ -242,6 +242,7 @@ type
   public
     { public declarations }
     property TimeReg : TfEnterTime read FTimeReg;
+    procedure DoCreate;
   end;
 var
   fMain: TfMain;
@@ -356,6 +357,10 @@ begin
         end;
       aList.Free;
     end;
+end;
+procedure TfMain.DoCreate;
+begin
+  acLogin.Execute;
 end;
 function TfMain.CommandReceived(Sender: TObject; aCommand: string): Boolean;
 begin
@@ -2675,10 +2680,8 @@ begin
 end;
 procedure TfMain.FormShow(Sender: TObject);
 begin
-  if not acLogin.Enabled then exit;
   with Application as IBaseApplication do
     RestoreConfig; //Must be called when Mainform is Visible
-  acLogin.Execute;
 end;
 
 procedure TfMain.IPCTimerTimer(Sender: TObject);
