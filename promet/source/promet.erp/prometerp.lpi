@@ -231,8 +231,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="11"/>
-        <CursorPos X="15" Y="42"/>
+        <TopLine Value="15"/>
+        <CursorPos X="1" Y="43"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit0>

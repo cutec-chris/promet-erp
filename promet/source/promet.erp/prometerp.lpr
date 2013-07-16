@@ -22,6 +22,7 @@ var
   aProcess: TProcess;
 begin
   Application.Free;
+  Application := TBaseVisualApplication.Create(nil);
   PlainName := copy(Application.Exename,0,length(Application.Exename)-length(ExtractFileExt(Application.Exename)));
   IF FindFirstUTF8(PlainName+'*'+ExtractFileExt(Application.Exename), faDirectory, FindRec) = 0 THEN
     REPEAT
@@ -39,10 +40,8 @@ begin
       aProcess.CommandLine:=AppendPathDelim(Application.Location)+NewName;
       aProcess.Execute;
       aProcess.Free;
-      halt(0);
       exit;
     end;
-  Application := TBaseVisualApplication.Create(nil);
   Application.Title:='Promet-ERP';
   Application.Initialize;
   Application.CreateForm(TfMain, fMain);
