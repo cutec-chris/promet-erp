@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<CONFIG>
-  <Compiler Value="F:\lazarus\fpc\2.4.3\bin\i386-win32\fpc.exe" Date="1042423437"/>
-  <Params Value=" -MObjFPC -Scghi -O1 -gl -WG -vewnhi -l -FiF:\lazarus\components\jvdesign\example\lib\i386-win32 -FuF:\lazarus\components\jvdesign\lib\i386-win32 -FuF:\lazarus\lcl\units\i386-win32 -FuF:\lazarus\lcl\units\i386-win32\win32 -FuF:\lazarus\packager\units\i386-win32 -FuF:\lazarus\components\jvdesign\example\ -Fu. -FUF:\lazarus\components\jvdesign\example\lib\i386-win32\ -ojvDesignerDemo.exe -dLCL -dLCLwin32 jvDesignerDemo.lpr"/>
-</CONFIG>
