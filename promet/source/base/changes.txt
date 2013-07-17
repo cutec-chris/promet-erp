@@ -1,5 +1,8 @@
 ﻿Build 251
-      -
+      - Aufträge haben nun Aktiv Flag, das ist nur für den Auftrag im Vorgang gesetzt der der letzte Hauptvorgang ist
+        in derVorgangsliste werden nur noch aktive Vorgänge angezeigt, so sieht man auf einen Blick in welchem Status
+        der Vorgang ist
+      - Tabellen mit gesetztem Filter wurden u.U. nicht gealtert (erweitert)
 Build 250
       - Fehler auf einigen Datenbanken beim verschieben von Aufgaben behoben (invalid conversation Largeint to Variant)
       - Promet sucht nun nach gleichnamigen executables mit höchster Nummer im Namen (promet.1.exe) und startet die höchste Variante

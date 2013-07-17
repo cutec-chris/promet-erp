@@ -30,7 +30,6 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <LaunchingApplication PathPlusParams="\usr\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
     <RequiredPackages Count="6">
@@ -373,7 +372,7 @@
         <Filename Value="utransaction.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="utransaction"/>
-        <EditorIndex Value="20"/>
+        <EditorIndex Value="19"/>
         <WindowIndex Value="0"/>
         <TopLine Value="12"/>
         <CursorPos X="46" Y="55"/>
@@ -455,7 +454,7 @@
         <Filename Value="ucreatetable.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ucreatetable"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="96"/>
         <CursorPos X="30" Y="65"/>
@@ -1001,7 +1000,7 @@
         <Filename Value="ulinkcheck.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ulinkcheck"/>
-        <EditorIndex Value="19"/>
+        <EditorIndex Value="18"/>
         <WindowIndex Value="0"/>
         <TopLine Value="13"/>
         <CursorPos X="21" Y="38"/>
@@ -1141,12 +1140,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="GuiTestRunner"/>
-        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="25"/>
         <CursorPos X="46" Y="40"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit126>
       <Unit127>
@@ -1160,7 +1157,7 @@
       <Unit128>
         <Filename Value="..\base\dbintfs\ubasesearch.pas"/>
         <UnitName Value="uBaseSearch"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="131"/>
         <CursorPos X="26" Y="142"/>

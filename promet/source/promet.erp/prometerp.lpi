@@ -247,7 +247,7 @@
       <Unit2>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="151"/>
         <CursorPos X="52" Y="167"/>
@@ -274,7 +274,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uFilterFrame"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="723"/>
         <CursorPos X="26" Y="1148"/>
@@ -310,7 +310,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPrometFrames"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="170"/>
         <CursorPos X="4" Y="173"/>
@@ -436,7 +436,7 @@
       <Unit18>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="19"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="455"/>
         <CursorPos X="25" Y="483"/>
@@ -591,7 +591,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOrderFrame"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="631"/>
@@ -679,7 +678,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uRepairPositionFrame"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="147"/>
         <CursorPos X="1" Y="165"/>
@@ -877,12 +876,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uExtControls"/>
-        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1050"/>
         <CursorPos X="1" Y="1062"/>
         <UsageCount Value="79"/>
-        <Loaded Value="True"/>
       </Unit58>
       <Unit59>
         <Filename Value="../base/dbintfs/umessages.pas"/>
@@ -949,7 +946,7 @@
       <Unit65>
         <Filename Value="../base/dbintfs/ubaseapplication.pas"/>
         <UnitName Value="uBaseApplication"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="20"/>
         <CursorPos X="3" Y="20"/>
@@ -974,13 +971,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ugridview"/>
-        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="603"/>
         <CursorPos X="52" Y="618"/>
         <UsageCount Value="108"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit67>
       <Unit68>
         <Filename Value="../base/dbintfs/utask.pas"/>
@@ -992,10 +986,10 @@
       </Unit68>
       <Unit69>
         <Filename Value="../base/revision.inc"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
+        <CursorPos X="4" Y="1"/>
         <UsageCount Value="101"/>
         <Loaded Value="True"/>
       </Unit69>
@@ -1004,7 +998,7 @@
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="9" Y="2"/>
+        <CursorPos X="1" Y="5"/>
         <UsageCount Value="103"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
@@ -1072,13 +1066,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPreviewFrame"/>
-        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="365"/>
         <CursorPos X="1" Y="383"/>
         <UsageCount Value="165"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit76>
       <Unit77>
         <Filename Value="../base/dbintfs/uprocessmanager.pas"/>
@@ -1094,12 +1085,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPositionFrame"/>
-        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="182"/>
         <CursorPos X="1" Y="228"/>
         <UsageCount Value="99"/>
-        <Loaded Value="True"/>
       </Unit78>
       <Unit79>
         <Filename Value="../components/zeos/src/component/ZAbstractRODataset.pas"/>
@@ -1270,7 +1259,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMeetingFrame"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="498"/>
         <CursorPos X="84" Y="513"/>
@@ -1497,7 +1486,7 @@
       <Unit124>
         <Filename Value="../base_pm/gsGanttCalendar.pas"/>
         <UnitName Value="gsGanttCalendar"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2013"/>
         <CursorPos X="17" Y="2030"/>
@@ -1607,7 +1596,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uGanttView"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="515"/>
         <CursorPos X="31" Y="529"/>
@@ -1766,7 +1755,7 @@
       <Unit155>
         <Filename Value="../base/uwizardnewmandant.pas"/>
         <UnitName Value="uWizardNewMandant"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="310"/>
         <CursorPos X="1" Y="342"/>
@@ -1967,10 +1956,14 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMessageEdit"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="377"/>
         <CursorPos X="14" Y="396"/>
         <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit179>
       <Unit180>
         <Filename Value="../../../../10709 2.gan"/>
@@ -2309,7 +2302,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uTimeFrame"/>
-        <EditorIndex Value="20"/>
+        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="5"/>
         <CursorPos X="3" Y="36"/>
