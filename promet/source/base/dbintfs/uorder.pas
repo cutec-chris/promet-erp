@@ -31,6 +31,9 @@ type
     procedure DefineFields(aDataSet : TDataSet);override;
     property History : TBaseHistory read FHistory;
   end;
+
+  { TOrderList }
+
   TOrderList = class(TBaseERPList,IBaseHistory)
   private
     FHistory : TBaseHistory;
@@ -45,6 +48,7 @@ type
     constructor Create(aOwner: TComponent; DM: TComponent; aConnection: TComponent=nil;
       aMasterdata: TDataSet=nil); override;
     destructor Destroy; override;
+    procedure Open; override;
     procedure DefineFields(aDataSet : TDataSet);override;
     property History : TBaseHistory read FHistory;
   end;
@@ -132,9 +136,6 @@ type
   end;
   TOnGetStorageEvent = function(Sender : TOrder;aStorage : TStorage) : Boolean of object;
   TOnGetSerialEvent = function(Sender : TOrder;aMasterdata : TMasterdata) : Boolean of object;
-
-  { TOrder }
-
   TOrder = class(TOrderList,IPostableDataSet,IShipableDataSet)
   private
     FLinks: TOrderLinks;
@@ -151,6 +152,7 @@ type
     procedure FillDefaults(aDataSet : TDataSet);override;
     procedure Select(aID : string);overload;
     procedure Open;override;
+    procedure RefreshActive;
     procedure CascadicPost;override;
     procedure CascadicCancel;override;
     property Address : TOrderAddress read FOrderAddress;
@@ -571,8 +573,8 @@ begin
       Data.PaymentTargets.Open;
       if Data.PaymentTargets.DataSet.Locate('DEFAULTPT', 'Y', []) then
         FieldByName('PAYMENTTAR').AsString := Data.PaymentTargets.FieldByName('ID').AsString;
+      FieldByName('ACTIVE').AsString := 'Y';
       FieldByName('DOAFQ').AsDateTime := Now();
-      FieldByName('DWISH').AsDateTime := Now();
       FieldByName('VATH').AsFloat     := 0;
       FieldByName('VATF').AsFloat     := 0;
       FieldByName('NETPRICE').AsFloat := 0;
@@ -609,7 +611,49 @@ begin
   DataSet.Locate('ORDERNO',FOrigID,[]);
   OrderType.Open;
   OrderType.DataSet.Locate('STATUS',DataSet.FieldByName('STATUS').AsString,[]);
+  if FieldByName('ACTIVE').IsNull then
+    RefreshActive;
 end;
+
+procedure TOrder.RefreshActive;
+var
+  aRec: TBookmark;
+  Found: Boolean = False;
+begin
+  if not DataSet.Active then exit;
+  aRec := DataSet.GetBookmark;
+  DataSet.Last;
+  OrderType.Open;
+  while not DataSet.BOF do
+    begin
+      OrderType.DataSet.Locate('STATUS',DataSet.FieldByName('STATUS').AsString,[]);
+      if (OrderType.FieldByName('ISDERIVATE').AsString<>'Y')
+      and not Found then
+        begin
+          if DataSet.FieldByName('ACTIVE').AsString<>'Y' then
+            begin
+              if not CanEdit then DataSet.Edit;
+              DataSet.FieldByName('ACTIVE').AsString := 'Y';
+              DataSet.Post;
+            end;
+          Found := True;
+        end
+      else
+        begin
+          if DataSet.FieldByName('ACTIVE').AsString<>'N' then
+            begin
+              if not CanEdit then DataSet.Edit;
+              DataSet.FieldByName('ACTIVE').AsString := 'N';
+              DataSet.Post;
+            end;
+        end;
+      DataSet.Prior;
+    end;
+  DataSet.GotoBookmark(aRec);
+  DataSet.FreeBookmark(aRec);
+  OrderType.DataSet.Locate('STATUS',DataSet.FieldByName('STATUS').AsString,[]);
+end;
+
 procedure TOrder.CascadicPost;
 begin
   Recalculate;
@@ -1026,6 +1070,7 @@ begin
           DataSet.FieldByName('DONE').AsString := 'N';
           DataSet.Post;
         end;
+      RefreshActive;
     end;
 end;
 procedure TOrder.ShippingOutput;
@@ -1553,6 +1598,17 @@ begin
   FHistory.Destroy;
   inherited Destroy;
 end;
+
+procedure TOrderList.Open;
+begin
+  with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
+    begin
+      if Filter='' then
+        Filter := QuoteField('ACTIVE')+'='+QuoteValue('Y')+' or '+ProcessTerm(QuoteField('ACTIVE')+'='+QuoteValue(''));;
+    end;
+  inherited Open;
+end;
+
 procedure TOrderList.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do
@@ -1564,6 +1620,7 @@ begin
         with ManagedFieldDefs do
           begin
             Add('ORDERNO',ftInteger,0,True);
+            Add('ACTIVE',ftString,1,False);
             Add('STATUS',ftString,4,True);
             Add('LANGUAGE',ftString,3,False);
             Add('DATE',ftDate,0,False);

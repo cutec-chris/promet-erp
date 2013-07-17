@@ -132,7 +132,7 @@ type
     function GetErrorNum(e : EDatabaseError) : Integer;virtual;
     function RecordCount(aDataSet : TBaseDbDataSet) : Integer;
     function DeleteItem(aDataSet : TBaseDbDataSet) : Boolean;
-    function ShouldCheckTable(aTableName : string) : Boolean;
+    function ShouldCheckTable(aTableName : string;SetChecked : Boolean = True) : Boolean;
     function RemoveCheckTable(aTableName : string) : Boolean;
     function TableExists(aTableName : string;aConnection : TComponent = nil;AllowLowercase: Boolean = False) : Boolean;virtual;abstract;
     function TriggerExists(aTriggerName : string;aConnection : TComponent = nil;AllowLowercase: Boolean = False) : Boolean;virtual;
@@ -1076,10 +1076,10 @@ begin
       DeletedItems.DataSet.Close;
     end;
 end;
-function TBaseDBModule.ShouldCheckTable(aTableName : string): Boolean;
+function TBaseDBModule.ShouldCheckTable(aTableName : string;SetChecked : Boolean = True): Boolean;
 begin
   Result := FCheckedTables.IndexOf(aTableName) = -1;
-  if Result then
+  if Result and SetChecked then
     FCheckedTables.Add(aTableName);
 end;
 function TBaseDBModule.RemoveCheckTable(aTableName: string): Boolean;

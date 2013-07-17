@@ -1885,6 +1885,7 @@ procedure TBaseDBDataset.Open;
 var
   Retry: Boolean = False;
   aCreated: Boolean = False;
+  aOldFilter: String = '';
 begin
   if not Assigned(FDataSet) then exit;
   if FDataSet.Active then
@@ -1893,18 +1894,29 @@ begin
       exit;
     end;
   try
-    FDataSet.DisableControls;
-    FDataSet.Open;
-    with FDataSet as IBaseManageDB do
+    with DataSet as IBaseManageDB do
       begin
-        if aCreated or CheckTable then
+        if (not Assigned(Data)) or (not Data.ShouldCheckTable(TableName,False)) then
+          FDataSet.Open
+        else
           begin
-            FDataSet.Close;
-            AlterTable;
+            with DataSet as IBaseDbFilter do
+              begin
+                aOldFilter := Filter;
+                Filter := '';
+              end;
             FDataSet.Open;
+            FDataSet.DisableControls;
+            FDataSet.Close;
+            if CheckTable then
+              AlterTable;
+            if aOldFilter<>'' then
+              with DataSet as IBaseDbFilter do
+                Filter := aOldFilter;
+            FDataSet.Open;
+            FDataSet.EnableControls;
           end;
       end;
-    FDataSet.EnableControls;
   except
     Retry := True;
   end;
@@ -2198,4 +2210,4 @@ begin
 end;
 initialization
 end.
-
+
