@@ -165,11 +165,11 @@ var
 begin
   fError := TfError.Create(Self);
   fError.SetLanguage;
-  if E is EDatabaseError then
-    fError.ShowWarning(e.Message)
-  else if E is EDivByZero then
-    fError.ShowWarning(e.Message)
-  else
+//  if E is EDatabaseError then
+//    fError.ShowWarning(e.Message)
+//  else if E is EDivByZero then
+//    fError.ShowWarning(e.Message)
+//  else
     fError.ShowError(e.Message);
   fError.Free;
 end;

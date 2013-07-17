@@ -654,7 +654,6 @@ begin
             VK_DOWN,VK_UP,VK_ESCAPE:Key := bKey;
             end;
           end;
-
       end;
     end;
   if (Key = VK_RETURN)
@@ -688,6 +687,17 @@ begin
   else if (Key = VK_ESCAPE) then
     begin
       TUnprotectedGrid(gList).KeyDown(Key,Shift);
+    end
+  else if Key <> 0 then
+    begin
+      if Assigned(FSearchKey) then
+        begin
+          FSearchKeyRect := gList.CellRect(gList.Col,gList.Row);
+          FSearchKeyCol := dgFake.Columns[gList.Col-1];
+          FSearchKeyKey := Key;
+          FSearchKeyVal := gList.Cells[gList.Col,gList.Row]+chr(key);
+          SearchKeyTimer.Enabled := True;
+        end;
     end;
   if aLeave then
     begin
@@ -1657,15 +1667,11 @@ begin
               FInpStringList.Delete(0);
             end
           else if DataSet.FieldByName(ShortTextField).AsString<>'' then
-            DataSet.FieldByName(ShortTextField).Clear;
-        end;
-      if Assigned(FSearchKey) then
-        begin
-          FSearchKeyRect := gList.CellRect(gList.Col,gList.Row);
-          FSearchKeyCol := dgFake.Columns[aCol-1];
-          FSearchKeyKey := aKey;
-          FSearchKeyVal := tmp;
-          SearchKeyTimer.Enabled := True;
+            begin                   ;
+              if (FDataSource.State <> dsEdit) and (FDataSource.State <> dsInsert) then
+                FDataSource.DataSet.Edit;
+              DataSet.FieldByName(ShortTextField).Clear;
+            end
         end;
       tmp :=FInpStringList.Text;
       if Assigned(DataSet.FieldByName(TextField)) then
@@ -2980,6 +2986,7 @@ begin
       gList.Objects[0,gList.RowCount-1] := TRowObject.Create;
     end;
   OldRow := gList.Row;
+  SyncDataSource;
 end;
 procedure TfGridView.First;
 var
