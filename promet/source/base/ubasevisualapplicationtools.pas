@@ -78,9 +78,9 @@ function BuildAutofilter(List : TDBGrid;Header : TStringGrid;aEvent : TFilterCel
                 with Field.DataSet as IBaseDbFilter do
                   begin
                     if (Field.DataType = ftMemo) or (Field.DataType = ftWideMemo) then
-                      Result := ProcessTerm('UPPER(cast('+Data.QuoteField(Field.FieldName)+' as varchar(100)))=UPPER('+Data.QuoteValue('*'+aValue+'*')+')')
+                      Result := ProcessTerm('UPPER(cast('+Data.QuoteField(Field.FieldName)+' as varchar(100)))=UPPER('+Data.QuoteValue(aValue)+')')
                     else
-                      Result := ProcessTerm('UPPER('+Data.QuoteField(Field.FieldName)+')=UPPER('+Data.QuoteValue('*'+aValue+'*')+')');
+                      Result := ProcessTerm('UPPER('+Data.QuoteField(Field.FieldName)+')=UPPER('+Data.QuoteValue(aValue)+')');
                   end;
               end;
           end;

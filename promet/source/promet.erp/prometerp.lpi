@@ -222,7 +222,7 @@
         <PackageName Value="LCL"/>
       </Item21>
     </RequiredPackages>
-    <Units Count="265">
+    <Units Count="266">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -247,7 +247,7 @@
       <Unit2>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="151"/>
         <CursorPos X="52" Y="167"/>
@@ -276,10 +276,11 @@
         <UnitName Value="uFilterFrame"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="723"/>
-        <CursorPos X="26" Y="1148"/>
+        <TopLine Value="423"/>
+        <CursorPos X="38" Y="451"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit4>
       <Unit5>
         <Filename Value="upersonframe.pas"/>
@@ -310,7 +311,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPrometFrames"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="170"/>
         <CursorPos X="4" Y="173"/>
@@ -436,7 +437,7 @@
       <Unit18>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="455"/>
         <CursorPos X="25" Y="483"/>
@@ -678,7 +679,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uRepairPositionFrame"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="147"/>
         <CursorPos X="1" Y="165"/>
@@ -946,7 +947,7 @@
       <Unit65>
         <Filename Value="../base/dbintfs/ubaseapplication.pas"/>
         <UnitName Value="uBaseApplication"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="20"/>
         <CursorPos X="3" Y="20"/>
@@ -986,7 +987,7 @@
       </Unit68>
       <Unit69>
         <Filename Value="../base/revision.inc"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
@@ -1259,7 +1260,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMeetingFrame"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="498"/>
         <CursorPos X="84" Y="513"/>
@@ -1486,7 +1487,7 @@
       <Unit124>
         <Filename Value="../base_pm/gsGanttCalendar.pas"/>
         <UnitName Value="gsGanttCalendar"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2013"/>
         <CursorPos X="17" Y="2030"/>
@@ -1596,7 +1597,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uGanttView"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="515"/>
         <CursorPos X="31" Y="529"/>
@@ -1755,7 +1756,7 @@
       <Unit155>
         <Filename Value="../base/uwizardnewmandant.pas"/>
         <UnitName Value="uWizardNewMandant"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="310"/>
         <CursorPos X="1" Y="342"/>
@@ -1956,8 +1957,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMessageEdit"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="377"/>
         <CursorPos X="14" Y="396"/>
@@ -2302,7 +2302,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uTimeFrame"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="18"/>
         <WindowIndex Value="0"/>
         <TopLine Value="5"/>
         <CursorPos X="3" Y="36"/>
@@ -2682,127 +2682,138 @@
         <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit264>
+      <Unit265>
+        <Filename Value="../base/ubasevisualapplicationtools.pas"/>
+        <UnitName Value="ubasevisualapplicationtools"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="6"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="46"/>
+        <CursorPos X="1" Y="81"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit265>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="uorderframe.pas"/>
-        <Caret Line="653" Column="1" TopLine="635"/>
+        <Caret Line="659" Column="1" TopLine="635"/>
       </Position1>
       <Position2>
         <Filename Value="uorderframe.pas"/>
-        <Caret Line="654" Column="1" TopLine="635"/>
+        <Caret Line="661" Column="1" TopLine="635"/>
       </Position2>
       <Position3>
         <Filename Value="uorderframe.pas"/>
-        <Caret Line="655" Column="1" TopLine="635"/>
+        <Caret Line="662" Column="1" TopLine="635"/>
       </Position3>
       <Position4>
         <Filename Value="uorderframe.pas"/>
-        <Caret Line="657" Column="1" TopLine="635"/>
+        <Caret Line="663" Column="1" TopLine="635"/>
       </Position4>
       <Position5>
         <Filename Value="uorderframe.pas"/>
-        <Caret Line="658" Column="1" TopLine="635"/>
+        <Caret Line="664" Column="1" TopLine="636"/>
       </Position5>
       <Position6>
         <Filename Value="uorderframe.pas"/>
-        <Caret Line="659" Column="1" TopLine="635"/>
+        <Caret Line="665" Column="1" TopLine="637"/>
       </Position6>
       <Position7>
         <Filename Value="uorderframe.pas"/>
-        <Caret Line="661" Column="1" TopLine="635"/>
+        <Caret Line="666" Column="1" TopLine="638"/>
       </Position7>
       <Position8>
         <Filename Value="uorderframe.pas"/>
-        <Caret Line="662" Column="1" TopLine="635"/>
+        <Caret Line="667" Column="1" TopLine="639"/>
       </Position8>
       <Position9>
         <Filename Value="uorderframe.pas"/>
-        <Caret Line="663" Column="1" TopLine="635"/>
+        <Caret Line="668" Column="1" TopLine="640"/>
       </Position9>
       <Position10>
         <Filename Value="uorderframe.pas"/>
-        <Caret Line="664" Column="1" TopLine="636"/>
+        <Caret Line="669" Column="1" TopLine="641"/>
       </Position10>
       <Position11>
         <Filename Value="uorderframe.pas"/>
-        <Caret Line="665" Column="1" TopLine="637"/>
+        <Caret Line="670" Column="1" TopLine="642"/>
       </Position11>
       <Position12>
         <Filename Value="uorderframe.pas"/>
-        <Caret Line="666" Column="1" TopLine="638"/>
+        <Caret Line="671" Column="1" TopLine="643"/>
       </Position12>
       <Position13>
         <Filename Value="uorderframe.pas"/>
-        <Caret Line="667" Column="1" TopLine="639"/>
+        <Caret Line="659" Column="1" TopLine="643"/>
       </Position13>
       <Position14>
         <Filename Value="uorderframe.pas"/>
-        <Caret Line="668" Column="1" TopLine="640"/>
+        <Caret Line="674" Column="1" TopLine="646"/>
       </Position14>
       <Position15>
         <Filename Value="uorderframe.pas"/>
-        <Caret Line="669" Column="1" TopLine="641"/>
+        <Caret Line="675" Column="1" TopLine="647"/>
       </Position15>
       <Position16>
         <Filename Value="uorderframe.pas"/>
-        <Caret Line="670" Column="1" TopLine="642"/>
+        <Caret Line="676" Column="1" TopLine="648"/>
       </Position16>
       <Position17>
         <Filename Value="uorderframe.pas"/>
-        <Caret Line="671" Column="1" TopLine="643"/>
+        <Caret Line="677" Column="1" TopLine="649"/>
       </Position17>
       <Position18>
         <Filename Value="uorderframe.pas"/>
-        <Caret Line="659" Column="1" TopLine="643"/>
+        <Caret Line="682" Column="1" TopLine="654"/>
       </Position18>
       <Position19>
         <Filename Value="uorderframe.pas"/>
-        <Caret Line="674" Column="1" TopLine="646"/>
+        <Caret Line="683" Column="1" TopLine="655"/>
       </Position19>
       <Position20>
         <Filename Value="uorderframe.pas"/>
-        <Caret Line="675" Column="1" TopLine="647"/>
+        <Caret Line="684" Column="1" TopLine="656"/>
       </Position20>
       <Position21>
         <Filename Value="uorderframe.pas"/>
-        <Caret Line="676" Column="1" TopLine="648"/>
+        <Caret Line="685" Column="1" TopLine="657"/>
       </Position21>
       <Position22>
         <Filename Value="uorderframe.pas"/>
-        <Caret Line="677" Column="1" TopLine="649"/>
+        <Caret Line="686" Column="1" TopLine="658"/>
       </Position22>
       <Position23>
         <Filename Value="uorderframe.pas"/>
-        <Caret Line="682" Column="1" TopLine="654"/>
+        <Caret Line="687" Column="1" TopLine="659"/>
       </Position23>
       <Position24>
         <Filename Value="uorderframe.pas"/>
-        <Caret Line="683" Column="1" TopLine="655"/>
+        <Caret Line="688" Column="1" TopLine="660"/>
       </Position24>
       <Position25>
         <Filename Value="uorderframe.pas"/>
-        <Caret Line="684" Column="1" TopLine="656"/>
+        <Caret Line="924" Column="8" TopLine="906"/>
       </Position25>
       <Position26>
-        <Filename Value="uorderframe.pas"/>
-        <Caret Line="685" Column="1" TopLine="657"/>
+        <Filename Value="../base/ufilterframe.pas"/>
+        <Caret Line="1148" Column="26" TopLine="1096"/>
       </Position26>
       <Position27>
-        <Filename Value="uorderframe.pas"/>
-        <Caret Line="686" Column="1" TopLine="658"/>
+        <Filename Value="../base/ufilterframe.pas"/>
+        <Caret Line="562" Column="3" TopLine="559"/>
       </Position27>
       <Position28>
-        <Filename Value="uorderframe.pas"/>
-        <Caret Line="687" Column="1" TopLine="659"/>
+        <Filename Value="../base/ufilterframe.pas"/>
+        <Caret Line="109" Column="15" TopLine="92"/>
       </Position28>
       <Position29>
-        <Filename Value="uorderframe.pas"/>
-        <Caret Line="688" Column="1" TopLine="660"/>
+        <Filename Value="../base/ufilterframe.pas"/>
+        <Caret Line="451" Column="38" TopLine="423"/>
       </Position29>
       <Position30>
-        <Filename Value="uorderframe.pas"/>
-        <Caret Line="924" Column="8" TopLine="906"/>
+        <Filename Value="../base/ubasevisualapplicationtools.pas"/>
+        <Caret Line="99" Column="44" TopLine="69"/>
       </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">
