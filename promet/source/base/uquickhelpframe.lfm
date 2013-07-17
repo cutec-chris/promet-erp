@@ -11,10 +11,10 @@ object fQuickHelpFrame: TfQuickHelpFrame
   DesignLeft = 325
   DesignTop = 225
   object ipHTML: TIpHtmlPanel
-    Left = 0
+    Left = 128
     Height = 96
     Top = 0
-    Width = 749
+    Width = 712
     Anchors = [akTop, akLeft, akRight, akBottom]
     FixedTypeface = 'Courier New'
     DefaultTypeFace = 'verdana'
@@ -28,24 +28,24 @@ object fQuickHelpFrame: TfQuickHelpFrame
     OnHotClick = ipHTMLHotClick
   end
   object Button1: TButton
-    Left = 778
+    Left = 8
     Height = 34
     Top = 54
-    Width = 56
+    Width = 112
     Anchors = [akRight, akBottom]
     BorderSpacing.InnerBorder = 4
-    Caption = 'Weiter'
+    Caption = 'nächster Tipp'
     OnClick = Button1Click
     TabOrder = 0
   end
   object Button2: TButton
-    Left = 757
+    Left = 8
     Height = 26
     Top = 8
-    Width = 77
+    Width = 112
     HelpType = htKeyword
     Anchors = [akTop, akRight]
-    Caption = 'ausblenden'
+    Caption = 'Tipps ausblenden'
     OnClick = Button2Click
     TabOrder = 1
   end
