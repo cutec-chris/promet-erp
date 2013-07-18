@@ -32,7 +32,7 @@ object fQuickHelpFrame: TfQuickHelpFrame
     Height = 34
     Top = 54
     Width = 112
-    Anchors = [akRight, akBottom]
+    Anchors = [akLeft, akBottom]
     BorderSpacing.InnerBorder = 4
     Caption = 'nächster Tipp'
     OnClick = Button1Click
@@ -44,7 +44,6 @@ object fQuickHelpFrame: TfQuickHelpFrame
     Top = 8
     Width = 112
     HelpType = htKeyword
-    Anchors = [akTop, akRight]
     Caption = 'Tipps ausblenden'
     OnClick = Button2Click
     TabOrder = 1

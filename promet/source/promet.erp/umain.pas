@@ -63,6 +63,7 @@ type
     acTaskPlan: TAction;
     acPauseTime: TAction;
     acStandartTime: TAction;
+    acRefreshOrderList: TAction;
     acWiki: TAction;
     ActionList1: TActionList;
     ApplicationProperties1: TApplicationProperties;
@@ -149,6 +150,7 @@ type
     procedure acOrdersExecute(Sender: TObject);
     procedure acPauseTimeExecute(Sender: TObject);
     procedure acProjectsExecute(Sender: TObject);
+    procedure acRefreshOrderListExecute(Sender: TObject);
     procedure acRenameDirectoryExecute(Sender: TObject);
     procedure acSalesListExecute(Sender: TObject);
     procedure acSalesListPayExecute(Sender: TObject);
@@ -410,6 +412,8 @@ begin
       gList.OnDrawColumnCell:=@fOrderFrame.gListDrawColumnCell;
       if Data.Users.Rights.Right('ORDERS') > RIGHT_READ then
         AddToolbarAction(acNewOrder);
+      if Data.Users.Rights.Right('ORDERS') >= RIGHT_PERMIT then
+        AddToolbarAction(acRefreshOrderList);
     end;
 end;
 procedure TfMain.AddListsList(Sender: TObject);
@@ -1524,6 +1528,25 @@ begin
       aFrame.Open;
     end;
 end;
+
+procedure TfMain.acRefreshOrderListExecute(Sender: TObject);
+var
+  aOrders: TOrderList;
+  aOrder: TOrder;
+begin
+  aOrders := TOrderList.Create(nil,Data);
+  Data.SetFilter(aOrders,Data.ProcessTerm(Data.QuoteField('ACTIVE')+'='+Data.QuoteValue('')),0);
+  while not aOrders.EOF do
+    begin
+      aOrder:=TOrder.Create(nil,Data);
+      aOrder.Select(aOrders.FieldByName('ORDERNO').AsString);
+      aOrder.Open;
+      aOrder.Free;
+      aOrders.DataSet.Refresh;
+    end;
+  aOrders.Free;
+end;
+
 procedure TfMain.acRenameDirectoryExecute(Sender: TObject);
 begin
 

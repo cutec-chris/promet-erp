@@ -349,6 +349,7 @@ object fMain: TfMain
       object bPauseTime: TSpeedButton
         Left = 4
         Height = 29
+        Hint = 'Zeiterfassung pausieren/'#10'wieder starten'
         Top = 15
         Width = 29
         AllowAllUp = True
@@ -580,6 +581,7 @@ object fMain: TfMain
     end
   end
   object ActionList1: TActionList
+    Images = fVisualControls.Images
     left = 32
     top = 88
     object acLogin: TAction
@@ -803,13 +805,21 @@ object fMain: TfMain
     end
     object acPauseTime: TAction
       Caption = 'acPauseTime'
+      Hint = 'Zeiterfassung pausieren /'#10'wieder starten'
       ImageIndex = 63
       OnExecute = acPauseTimeExecute
     end
     object acStandartTime: TAction
       Caption = 'acStandartTime'
+      Hint = 'Standardeintrag starten'
       ImageIndex = 65
       OnExecute = acStandartTimeExecute
+    end
+    object acRefreshOrderList: TAction
+      Caption = 'Neu aufbauen'
+      Hint = 'Auftragsliste neu aufbauen'
+      ImageIndex = 22
+      OnExecute = acRefreshOrderListExecute
     end
   end
   object ApplicationProperties1: TApplicationProperties

@@ -1,5 +1,7 @@
 ﻿Build 252
-      -
+      - Hinweistexte für Zeiterfassungs Buttons
+      - Fehler der Nachichtenzentrale behoben
+      - Einige Speicherleaks behoben
 Build 251
       - Aufträge haben nun Aktiv Flag, das ist nur für den Auftrag im Vorgang gesetzt der der letzte Hauptvorgang ist
         in derVorgangsliste werden nur noch aktive Vorgänge angezeigt, so sieht man auf einen Blick in welchem Status
