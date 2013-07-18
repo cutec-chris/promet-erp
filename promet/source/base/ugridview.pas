@@ -2250,7 +2250,9 @@ begin
 end;
 function TfGridView.GotoActiveRow: Boolean;
 begin
-  Result := ((TRowObject(gList.Objects[0,gList.Row]).Rec = 0) or (DataSet.State = dsInsert) or ((DataSet.State = dsEdit) and (not DataSet.Changed)) or ((TRowObject(gList.Objects[0,gList.Row]).Rec <> 0) and (DataSet.GotoBookmark(TRowObject(gList.Objects[0,gList.Row]).Rec))))
+  Result := (gList.RowCount>gList.Row)
+       and Assigned(gList.Objects[0,gList.Row])
+       and ((TRowObject(gList.Objects[0,gList.Row]).Rec = 0) or (DataSet.State = dsInsert) or ((DataSet.State = dsEdit) and (not DataSet.Changed)) or ((TRowObject(gList.Objects[0,gList.Row]).Rec <> 0) and (DataSet.GotoBookmark(TRowObject(gList.Objects[0,gList.Row]).Rec))))
 end;
 function TfGridView.GotoRow(aBookmark: LargeInt): Boolean;
 begin
