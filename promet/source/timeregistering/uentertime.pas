@@ -165,6 +165,7 @@ type
     procedure RemoveEditors;
   public
     { public declarations }
+    constructor Create(TheOwner: TComponent); override;
     destructor Destroy;override;
     procedure SetupDB;
     procedure SetRights;
@@ -389,16 +390,30 @@ begin
         end;
     end;
 end;
+
+constructor TfEnterTime.Create(TheOwner: TComponent);
+begin
+  inherited Create(TheOwner);
+  FList := TfFilter.Create(Self);
+  FList.Parent := pTimeList;
+end;
+
 destructor TfEnterTime.Destroy;
 begin
   if Assigned(FList) then
     begin
       try
+        if Assigned(FTimes) then
+          begin
+            FTimes.Destroy;
+            FIntTimes.Destroy;
+          end;
         if Assigned(FList.DataSet) then FList.DataSet.Destroy;
       except
       end;
       FList.DataSet := nil;
       FList.Destroy;
+      FList := nil;
     end;
   inherited Destroy;
 end;
@@ -770,8 +785,6 @@ begin
       FTimes.DataSet.AfterPost:=@FTimesAfterPost;
 //      FTimes.DataSet.BeforeEdit:=@FTimesBeforeEdit;
 //      FTimes.DataSet.BeforeInsert:=@FTimesBeforeEdit;
-      FList := TfFilter.Create(Self);
-      FList.Parent := pTimeList;
       FList.DefaultRows:='GLOBALWIDTH:565;START:100;END:60;LINK:100;PROJECT:100;JOB:150;ISPAUSE:30;';
       FList.FilterType:='T';
       FList.Editable:=True;
