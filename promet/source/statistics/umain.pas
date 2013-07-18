@@ -96,7 +96,8 @@ begin
   aDocuments.Destroy;
   //Projects
   ustatisticframe.AddToMainTree(acNewStatistic);
-  fMainTreeFrame.tvMain.Items[0].Expanded:=True;
+  if fMainTreeFrame.tvMain.Items.Count>0 then
+    fMainTreeFrame.tvMain.Items[0].Expanded:=True;
 //  pcPages.AddTabClass(TfFilter,strProjectList,@AddProjectList,Data.GetLinkIcon('PROJECTS@'),True);
 //  aFrame := TfProjectDispoFrame.Create(Self);
 //  pcPages.AddTab(aFrame);

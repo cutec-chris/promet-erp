@@ -867,7 +867,7 @@ begin
       DataSet := nil;
       FreeAndNil(FConnection);
     end;
-  FreeAndNil(FProjectFlow);
+  //FreeAndNil(FProjectFlow);
   inherited Destroy;
 end;
 function TfProjectFrame.OpenFromLink(aLink: string) : Boolean;

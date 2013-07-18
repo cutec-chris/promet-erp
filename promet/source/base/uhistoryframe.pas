@@ -119,7 +119,7 @@ var
   s: String;
 begin
   with DataSet.DataSet as IBaseDbFilter do
-    aFilter := ProcessTerm(Data.QuoteField('ACTIONICON')+'='+Data.QuoteValue(''));
+    aFilter := Data.ProcessTerm(Data.QuoteField('ACTIONICON')+'='+Data.QuoteValue(''));
   for i := 0 to pButtons.ComponentCount-1 do
     if TSpeedButton(pButtons.Components[i]).Down then
     aFilter += ' OR '+Data.QuoteField('ACTIONICON')+'='+Data.QuoteValue(IntToStr(TSpeedButton(pButtons.Components[i]).Tag));

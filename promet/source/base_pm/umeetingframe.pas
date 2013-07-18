@@ -969,8 +969,11 @@ begin
       DataSet := nil;
       FreeAndNil(FConnection);
     end;
-  FGridView.Destroy;
   FOwners.Free;
+  try
+    FGridView.Destroy;
+  except
+  end;
   inherited Destroy;
 end;
 

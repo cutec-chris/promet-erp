@@ -314,7 +314,7 @@ begin
     with Data.Filters.DataSet do
       begin
         with Data.Filters.DataSet as IBaseDBFilter do
-          Data.SetFilter(Data.Filters,ProcessTerm(Data.QuoteField('TYPE')+'='+Data.QuoteValue(FFilterType))+' and ('+ProcessTerm(Data.QuoteField('USER')+'='+Data.QuoteValue(aUsers.FieldByName('ACCOUNTNO').AsString))+' or '+ProcessTerm(Data.Quotefield('USER')+'='+Data.QuoteValue(''))+')');
+          Data.SetFilter(Data.Filters,Data.ProcessTerm(Data.QuoteField('TYPE')+'='+Data.QuoteValue(FFilterType))+' and ('+Data.ProcessTerm(Data.QuoteField('USER')+'='+Data.QuoteValue(aUsers.FieldByName('ACCOUNTNO').AsString))+' or '+Data.ProcessTerm(Data.Quotefield('USER')+'='+Data.QuoteValue(''))+')');
         First;
         while not EOF do
           begin
@@ -564,7 +564,7 @@ begin
       if aBaseFilter <> '' then
         aBaseFilter += ' AND ';
       with DataSet.DataSet as IBaseDbFilter do
-        aBaseFilter += '(('+ProcessTerm(Data.QuoteField('USER')+'='+Data.QuoteValue(aUsers.FieldByName('ACCOUNTNO').AsString))+'))';
+        aBaseFilter += '(('+Data.ProcessTerm(Data.QuoteField('USER')+'='+Data.QuoteValue(aUsers.FieldByName('ACCOUNTNO').AsString))+'))';
     end;
   if (not bDependencies.Down) and (not bDependencies1.Down) and (pos('DEPDONE',FFilter) = 0) then
     begin
@@ -579,7 +579,7 @@ begin
         aBaseFilter += ' AND ';
       with DataSet.DataSet as IBaseDbFilter do
         with Data.Filters.DataSet as IBaseDBFilter do
-          aBaseFilter += '(('+Data.QuoteField('STARTDATE')+'<'+Data.DateTimeToFilter(Now()+14)+') or ('+ProcessTerm(Data.QuoteField('STARTDATE')+'='+Data.QuoteValue(''))+'))';
+          aBaseFilter += '(('+Data.QuoteField('STARTDATE')+'<'+Data.DateTimeToFilter(Now()+14)+') or ('+Data.ProcessTerm(Data.QuoteField('STARTDATE')+'='+Data.QuoteValue(''))+'))';
     end;
   if (FBaseFilter <> '') and (aBaseFilter <> '') then
     aBaseFilter+=' AND ('+FBaseFilter+')'
@@ -640,7 +640,7 @@ begin
   else
     begin
       with DataSet.DataSet as IBaseDBFilter do
-        aFilter := ProcessTerm(aFilter+tmp);
+        aFilter := Data.ProcessTerm(aFilter+tmp);
       if pos('$',aFilter) > 0 then
         begin
           aFilter := StringReplace(aFilter,'$NOW()',Data.DateTimeToFilter(Now()),[rfReplaceAll,rfIgnoreCase]);

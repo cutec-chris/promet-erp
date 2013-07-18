@@ -779,7 +779,7 @@ var
         with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
           begin
             with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
-              Filter := Filter+' or (('+QuoteField('USER')+'='+QuoteValue(bUsers.FieldByName('ACCOUNTNO').AsString)+') and (('+ProcessTerm(QuoteField('DUEDATE')+'='+QuoteValue(''))+') or ('+ProcessTerm(QuoteField('PLANTIME')+'='+QuoteValue(''))+')))';
+              Filter := Filter+' or (('+QuoteField('USER')+'='+QuoteValue(bUsers.FieldByName('ACCOUNTNO').AsString)+') and (('+Data.ProcessTerm(QuoteField('DUEDATE')+'='+QuoteValue(''))+') or ('+Data.ProcessTerm(QuoteField('PLANTIME')+'='+QuoteValue(''))+')))';
           end;
         bUsers.Next;
       end;
@@ -793,7 +793,7 @@ begin
   with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
     begin
       Filter := '('+QuoteField('COMPLETED')+'<>'+QuoteValue('Y')+')';
-      Filter := Filter+' and ('+QuoteField('PLANTASK')+'='+ProcessTerm(QuoteValue('Y')+' or '+QuoteField('PLANTASK')+'='+Data.QuoteValue(''))+')';
+      Filter := Filter+' and ('+QuoteField('PLANTASK')+'='+Data.ProcessTerm(QuoteValue('Y')+' or '+QuoteField('PLANTASK')+'='+Data.QuoteValue(''))+')';
       Filter := Filter+' and ('+QuoteField('ACTIVE')+'<>'+QuoteValue('N')+') and (';
       Filter := Filter+'('+QuoteField('USER')+'='+QuoteValue(aUsers.FieldByName('ACCOUNTNO').AsString)+')';
     end;

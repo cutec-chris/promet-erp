@@ -5,7 +5,7 @@ object fMain: TfMain
   Width = 800
   ActiveControl = Panel1
   Caption = 'Promet-ERP'
-  ClientHeight = 581
+  ClientHeight = 578
   ClientWidth = 800
   Constraints.MinHeight = 600
   Constraints.MinWidth = 800
@@ -20,7 +20,7 @@ object fMain: TfMain
   LCLVersion = '1.1'
   object spTree: TSplitter
     Left = 291
-    Height = 531
+    Height = 528
     Top = 50
     Width = 5
     Color = clBtnFace
@@ -29,7 +29,7 @@ object fMain: TfMain
   end
   object pcPages: TExtMenuPageControl
     Left = 296
-    Height = 531
+    Height = 528
     Top = 50
     Width = 504
     ActivePage = tsHelp
@@ -113,7 +113,6 @@ object fMain: TfMain
         Color = clBtnFace
         EdgeBorders = []
         Flat = False
-        Images = fVisualControls.Images
         ParentColor = False
         TabOrder = 0
         object tbMenue: TToolButton
@@ -174,7 +173,6 @@ object fMain: TfMain
         Color = clBtnFace
         EdgeBorders = []
         Flat = False
-        Images = fVisualControls.Images
         ParentColor = False
         TabOrder = 0
         object ToolButton2: TToolButton
@@ -268,7 +266,7 @@ object fMain: TfMain
       end
       object eContains: TEdit
         Left = 28
-        Height = 21
+        Height = 24
         Top = 15
         Width = 328
         Anchors = [akTop, akRight]
@@ -501,7 +499,7 @@ object fMain: TfMain
   end
   object tvMain: TPanel
     Left = 0
-    Height = 531
+    Height = 528
     Top = 50
     Width = 291
     Align = alLeft
@@ -536,10 +534,10 @@ object fMain: TfMain
       Style = lbOwnerDrawFixed
       TabOrder = 0
       TabStop = False
+      TopIndex = -1
     end
   end
   object MainMenu1: TMainMenu
-    Images = fVisualControls.Images
     left = 32
     top = 40
     object miMandant: TMenuItem
@@ -580,7 +578,6 @@ object fMain: TfMain
     end
   end
   object ActionList1: TActionList
-    Images = fVisualControls.Images
     left = 32
     top = 88
     object acLogin: TAction

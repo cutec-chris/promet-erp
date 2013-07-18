@@ -1,4 +1,6 @@
-﻿Build 251
+﻿Build 252
+      -
+Build 251
       - Aufträge haben nun Aktiv Flag, das ist nur für den Auftrag im Vorgang gesetzt der der letzte Hauptvorgang ist
         in derVorgangsliste werden nur noch aktive Vorgänge angezeigt, so sieht man auf einen Blick in welchem Status
         der Vorgang ist

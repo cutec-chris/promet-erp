@@ -303,7 +303,6 @@ inherited fFilter: TfFilter
           EdgeInner = esNone
           EdgeOuter = esNone
           Flat = False
-          Images = fVisualControls.Images
           TabOrder = 0
           object tbMenue1: TToolButton
             Left = 1
@@ -1041,12 +1040,14 @@ inherited fFilter: TfFilter
           end>
         MouseActions = <>
         MouseSelActions = <>
+        SelectedColor.FrameEdges = sfeAround
         SelectedColor.BackPriority = 50
         SelectedColor.ForePriority = 50
         SelectedColor.FramePriority = 50
         SelectedColor.BoldPriority = 50
         SelectedColor.ItalicPriority = 50
         SelectedColor.UnderlinePriority = 50
+        SelectedColor.StrikeOutPriority = 50
         OnChange = eFilterEditChange
         inline SynLeftGutterPartList1: TSynGutterPartList
           object SynGutterMarks1: TSynGutterMarks
@@ -1058,6 +1059,7 @@ inherited fFilter: TfFilter
             MouseActions = <>
             MarkupInfo.Background = clBtnFace
             MarkupInfo.Foreground = clNone
+            MarkupInfo.FrameEdges = sfeAround
             DigitCount = 2
             ShowOnlyLineNumbersMultiplesOf = 1
             ZeroStart = False
@@ -1074,11 +1076,13 @@ inherited fFilter: TfFilter
             MouseActions = <>
             MarkupInfo.Background = clWhite
             MarkupInfo.Foreground = clGray
+            MarkupInfo.FrameEdges = sfeAround
           end
           object SynGutterCodeFolding1: TSynGutterCodeFolding
             MouseActions = <>
             MarkupInfo.Background = clNone
             MarkupInfo.Foreground = clGray
+            MarkupInfo.FrameEdges = sfeAround
             MouseActionsExpanded = <>
             MouseActionsCollapsed = <>
           end
@@ -1504,7 +1508,6 @@ inherited fFilter: TfFilter
     }
   end
   object pmPopup: TPopupMenu[6]
-    Images = fVisualControls.Images
     left = 83
     top = 56
     object miOpen: TMenuItem
@@ -1626,7 +1629,6 @@ inherited fFilter: TfFilter
     end
   end
   object ActionList: TActionList[7]
-    Images = fVisualControls.Images
     left = 32
     top = 55
     object acSaveFilter: TAction
@@ -1697,7 +1699,6 @@ inherited fFilter: TfFilter
     top = 214
   end
   object pmAction: TPopupMenu[9]
-    Images = fVisualControls.Images
     left = 32
     top = 144
     object miExport: TMenuItem

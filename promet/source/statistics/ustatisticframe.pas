@@ -221,11 +221,6 @@ var
 begin
   if (Data.Users.Rights.Right('STATISTICS') > RIGHT_NONE) then
     begin
-      aDataSet := TStatistic.Create(nil,Data);
-      aDataSet.CreateTable;
-      aDataSet.Select(0);
-      aDataSet.Open;//Alter it to sure add GPRIORITY
-      aDataSet.Destroy;
       Data.RegisterLinkHandler('STATISTICS',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
       MainNode := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
       MainNode.Height := 34;
@@ -246,15 +241,17 @@ begin
           Data.Tree.DataSet.Next;
         end;
       aList := TStatistic.Create(nil,Data);
-      with aList.DataSet as IBaseDBFilter do
-        Data.SetFilter(aList,ProcessTerm(Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue('')),0,'','ASC',False,True,True);
-      aList.DataSet.First;
-      while not aList.DataSet.EOF do
-        begin
-          AddEntry('','S',etStatistic,aList);
-          aList.DataSet.Next;
-        end;
-      aList.Free;
+      try
+        Data.SetFilter(aList,Data.ProcessTerm(Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue('')),0,'','ASC',False,True,True);
+        aList.DataSet.First;
+        while not aList.DataSet.EOF do
+          begin
+            AddEntry('','S',etStatistic,aList);
+            aList.DataSet.Next;
+          end;
+      finally
+        aList.Destroy;
+      end;
     end;
 end;
 procedure TfStatisticFrame.ProjectsStateChange(Sender: TObject);

@@ -128,7 +128,7 @@ end;
 
 destructor TMeetingEntrys.Destroy;
 begin
-  FreeAndNil(FTempUsers);
+  FTempUsers.Destroy;
   inherited Destroy;
 end;
 

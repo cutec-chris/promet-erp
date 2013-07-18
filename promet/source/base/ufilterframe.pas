@@ -779,7 +779,7 @@ begin
   else
     begin
       with DataSet.DataSet as IBaseDBFilter do
-        aFilter := ProcessTerm(aFilter);
+        aFilter := Data.ProcessTerm(aFilter);
       if pos('$',aFilter) > 0 then
         begin
           aFilter := StringReplace(aFilter,'$NOW()',Data.DateTimeToFilter(Now()),[rfReplaceAll,rfIgnoreCase]);
@@ -952,7 +952,7 @@ begin
       with Data.Filters.DataSet do
         begin
           with Data.Filters.DataSet as IBaseDBFilter,Data.Filters.DataSet as IbaseManageDB do
-            Data.SetFilter(Data.Filters,ProcessTerm(Data.QuoteField('TYPE')+'='+Data.QuoteValue(FFilterType)),0,'','ASC',False,True,True);
+            Data.SetFilter(Data.Filters,Data.ProcessTerm(Data.QuoteField('TYPE')+'='+Data.QuoteValue(FFilterType)),0,'','ASC',False,True,True);
           First;
           while not EOF do
             begin

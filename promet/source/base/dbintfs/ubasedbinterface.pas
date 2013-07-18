@@ -106,6 +106,7 @@ type
     function SetProperties(aProp : string;Connection : TComponent = nil) : Boolean;virtual;
     function CreateDBFromProperties(aProp : string) : Boolean;virtual;
     function IsSQLDB : Boolean;virtual;abstract;
+    function ProcessTerm(aTerm : string) : string;
     function GetUniID(aConnection : TComponent = nil;Generator : string = 'GEN_SQL_ID';AutoInc : Boolean = True) : Variant;virtual;abstract;
     function GetNewDataSet(aTable : TBaseDbDataSet;aConnection : TComponent = nil;MasterData : TDataSet = nil;aTables : string = '') : TDataSet;virtual;abstract;
     function GetNewDataSet(aSQL : string;aConnection : TComponent = nil;MasterData : TDataSet = nil;aOrigtable : TBaseDBDataSet = nil) : TDataSet;virtual;
@@ -245,7 +246,6 @@ type
     procedure SetUsePermisions(const AValue: Boolean);
     function GetDistinct: Boolean;
     procedure SetDistinct(const AValue: Boolean);
-    function ProcessTerm(aTerm : string) : string;
 
     property FullSQL : string read GetSQL write SetSQL;
     property Filter : string read GetFilter write SetFilter;
@@ -434,6 +434,21 @@ end;
 function TBaseDBModule.CreateDBFromProperties(aProp: string): Boolean;
 begin
   Result := False;
+end;
+function TBaseDBModule.ProcessTerm(aTerm: string): string;
+var
+  UseLike: Boolean;
+  aFilter: String;
+begin
+  aFilter := aTerm;
+  UseLike := (pos('*',aFilter) > 0) or (pos('?',aFilter) > 0);
+  aFilter := StringReplace(aFilter,'*','%',[rfReplaceAll]);
+  aFilter := StringReplace(aFilter,'?','_',[rfReplaceAll]);
+  aFilter := StringReplace(aFilter,'= ''''','=''''',[rfReplaceAll]);
+  aFilter := StringReplace(aFilter,'=''''',' is NULL',[rfReplaceAll]);
+  if UseLike then
+    aFilter := StringReplace(aFilter,'=',' like ',[rfReplaceAll]);
+  Result := aFilter;
 end;
 constructor TBaseDBModule.Create(AOwner: TComponent);
 begin

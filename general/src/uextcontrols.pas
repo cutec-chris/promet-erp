@@ -662,8 +662,13 @@ begin
   i := 1;
   while i < Self.PageCount-1 do
     begin
-      if Pages[i].ControlCount > 0 then
-        Pages[i].Controls[0].Free;
+      try
+        if Pages[i].ControlCount > 0 then
+          Pages[i].Controls[0].Free;
+      except
+        on e : exception do
+          debugln('Error during Page.Close: '+e.Message);
+      end;
       aPage := Pages[i];
       aPage.Free;
     end;

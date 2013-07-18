@@ -1297,6 +1297,9 @@ begin
           gList.DeleteColRow(False,gList.Row);
           if gList.RowCount = gList.FixedRows then
             begin
+              for i := 0 to gList.RowCount-1 do
+                if Assigned(gList.Objects[0,i]) then
+                  gList.Objects[0,i].Free;
               gList.RowCount:=gList.FixedRows+1;
               gList.Objects[0,gList.RowCount-1] := TRowObject.Create;
             end;
@@ -2395,6 +2398,7 @@ begin
 end;
 destructor TfGridView.Destroy;
 begin
+  SearchKeyTimer.Enabled:=False;
   SearchKeyTimer.Free;
   FInpStringList.Destroy;
   inherited Destroy;
@@ -2614,6 +2618,9 @@ begin
     begin
       DisableControls;
       try
+        for i := 0 to gList.RowCount-1 do
+          if Assigned(gList.Objects[0,i]) then
+            gList.Objects[0,i].Free;
         gList.RowCount:=gList.FixedRows;
         AllDone := True;
         First;
@@ -2713,6 +2720,9 @@ begin
     aBm :=0;
     if (gList.RowCount = gList.FixedRows+1) and (TRowObject(gList.Objects[0,gList.FixedRows]).Rec = 0) then
       begin
+        for i := 0 to gList.RowCount-1 do
+          if Assigned(gList.Objects[0,i]) then
+            gList.Objects[0,i].Free;
         gList.RowCount:=gList.FixedRows;
       end
     else
@@ -2826,6 +2836,9 @@ begin
     gList.EditorMode:=False;
     if (gList.RowCount = gList.FixedRows+1) and (TRowObject(gList.Objects[0,gList.FixedRows]).Rec = 0) then
       begin
+  //      for i := 0 to gList.RowCount-1 do
+  //        if Assigned(gList.Objects[0,i]) then
+  //          FreeAndNil(gList.Objects[0,i]);
   //      gList.RowCount:=gList.FixedRows;
       end
     else
@@ -2902,6 +2915,9 @@ begin
   gList.EditorMode:=False;
   if (gList.RowCount = gList.FixedRows+1) and (TRowObject(gList.Objects[0,gList.FixedRows]).Rec = 0) then
     begin
+//      for i := 0 to gList.RowCount-1 do
+//        if Assigned(gList.Objects[0,i]) then
+//          FreeAndNil(gList.Objects[0,i]);
 //      gList.RowCount:=gList.FixedRows;
     end
   else

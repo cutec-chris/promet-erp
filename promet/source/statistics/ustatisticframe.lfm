@@ -507,12 +507,12 @@ inherited fStatisticFrame: TfStatisticFrame
       TabOrder = 0
       object tsMaster: TTabSheet
         Caption = 'Master'
-        ClientHeight = 163
+        ClientHeight = 164
         ClientWidth = 868
         inline smQuerry: TSynMemo
           Cursor = crIBeam
           Left = 0
-          Height = 106
+          Height = 107
           Top = 0
           Width = 868
           Align = alClient
@@ -1024,12 +1024,14 @@ inherited fStatisticFrame: TfStatisticFrame
               ClickDir = cdDown
               Command = emcStartDragMove
             end>
+          SelectedColor.FrameEdges = sfeAround
           SelectedColor.BackPriority = 50
           SelectedColor.ForePriority = 50
           SelectedColor.FramePriority = 50
           SelectedColor.BoldPriority = 50
           SelectedColor.ItalicPriority = 50
           SelectedColor.UnderlinePriority = 50
+          SelectedColor.StrikeOutPriority = 50
           OnChange = smQuerryChange
           inline SynLeftGutterPartList1: TSynGutterPartList
             object SynGutterMarks1: TSynGutterMarks
@@ -1041,6 +1043,7 @@ inherited fStatisticFrame: TfStatisticFrame
               MouseActions = <>
               MarkupInfo.Background = clBtnFace
               MarkupInfo.Foreground = clNone
+              MarkupInfo.FrameEdges = sfeAround
               DigitCount = 2
               ShowOnlyLineNumbersMultiplesOf = 1
               ZeroStart = False
@@ -1057,6 +1060,7 @@ inherited fStatisticFrame: TfStatisticFrame
               MouseActions = <>
               MarkupInfo.Background = clWhite
               MarkupInfo.Foreground = clGray
+              MarkupInfo.FrameEdges = sfeAround
             end
             object SynGutterCodeFolding1: TSynGutterCodeFolding
               MouseActions = <              
@@ -1087,6 +1091,7 @@ inherited fStatisticFrame: TfStatisticFrame
                 end>
               MarkupInfo.Background = clNone
               MarkupInfo.Foreground = clGray
+              MarkupInfo.FrameEdges = sfeAround
               MouseActionsExpanded = <              
                 item
                   ClickCount = ccAny
@@ -1114,7 +1119,7 @@ inherited fStatisticFrame: TfStatisticFrame
         object lbErrors: TListBox
           Left = 0
           Height = 52
-          Top = 111
+          Top = 112
           Width = 868
           Align = alBottom
           ItemHeight = 0
@@ -1127,7 +1132,7 @@ inherited fStatisticFrame: TfStatisticFrame
           Cursor = crVSplit
           Left = 0
           Height = 5
-          Top = 106
+          Top = 107
           Width = 868
           Align = alBottom
           ResizeAnchor = akBottom
@@ -1136,7 +1141,7 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object tsDetail: TTabSheet
         Caption = 'Detail'
-        ClientHeight = 163
+        ClientHeight = 164
         ClientWidth = 868
         inline smQuerry1: TSynMemo
           Cursor = crIBeam
@@ -1653,12 +1658,14 @@ inherited fStatisticFrame: TfStatisticFrame
               ClickDir = cdDown
               Command = emcStartDragMove
             end>
+          SelectedColor.FrameEdges = sfeAround
           SelectedColor.BackPriority = 50
           SelectedColor.ForePriority = 50
           SelectedColor.FramePriority = 50
           SelectedColor.BoldPriority = 50
           SelectedColor.ItalicPriority = 50
           SelectedColor.UnderlinePriority = 50
+          SelectedColor.StrikeOutPriority = 50
           OnChange = smQuerryChange
           inline SynLeftGutterPartList1: TSynGutterPartList
             object SynGutterMarks1: TSynGutterMarks
@@ -1670,6 +1677,7 @@ inherited fStatisticFrame: TfStatisticFrame
               MouseActions = <>
               MarkupInfo.Background = clBtnFace
               MarkupInfo.Foreground = clNone
+              MarkupInfo.FrameEdges = sfeAround
               DigitCount = 2
               ShowOnlyLineNumbersMultiplesOf = 1
               ZeroStart = False
@@ -1686,6 +1694,7 @@ inherited fStatisticFrame: TfStatisticFrame
               MouseActions = <>
               MarkupInfo.Background = clWhite
               MarkupInfo.Foreground = clGray
+              MarkupInfo.FrameEdges = sfeAround
             end
             object SynGutterCodeFolding1: TSynGutterCodeFolding
               MouseActions = <              
@@ -1716,6 +1725,7 @@ inherited fStatisticFrame: TfStatisticFrame
                 end>
               MarkupInfo.Background = clNone
               MarkupInfo.Foreground = clGray
+              MarkupInfo.FrameEdges = sfeAround
               MouseActionsExpanded = <              
                 item
                   ClickCount = ccAny
@@ -1743,7 +1753,7 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object tsSubDetail: TTabSheet
         Caption = 'Sub Detail'
-        ClientHeight = 163
+        ClientHeight = 164
         ClientWidth = 868
         inline smQuerry2: TSynMemo
           Cursor = crIBeam
@@ -2260,12 +2270,14 @@ inherited fStatisticFrame: TfStatisticFrame
               ClickDir = cdDown
               Command = emcStartDragMove
             end>
+          SelectedColor.FrameEdges = sfeAround
           SelectedColor.BackPriority = 50
           SelectedColor.ForePriority = 50
           SelectedColor.FramePriority = 50
           SelectedColor.BoldPriority = 50
           SelectedColor.ItalicPriority = 50
           SelectedColor.UnderlinePriority = 50
+          SelectedColor.StrikeOutPriority = 50
           OnChange = smQuerryChange
           inline SynLeftGutterPartList1: TSynGutterPartList
             object SynGutterMarks1: TSynGutterMarks
@@ -2277,6 +2289,7 @@ inherited fStatisticFrame: TfStatisticFrame
               MouseActions = <>
               MarkupInfo.Background = clBtnFace
               MarkupInfo.Foreground = clNone
+              MarkupInfo.FrameEdges = sfeAround
               DigitCount = 2
               ShowOnlyLineNumbersMultiplesOf = 1
               ZeroStart = False
@@ -2293,6 +2306,7 @@ inherited fStatisticFrame: TfStatisticFrame
               MouseActions = <>
               MarkupInfo.Background = clWhite
               MarkupInfo.Foreground = clGray
+              MarkupInfo.FrameEdges = sfeAround
             end
             object SynGutterCodeFolding1: TSynGutterCodeFolding
               MouseActions = <              
@@ -2323,6 +2337,7 @@ inherited fStatisticFrame: TfStatisticFrame
                 end>
               MarkupInfo.Background = clNone
               MarkupInfo.Foreground = clGray
+              MarkupInfo.FrameEdges = sfeAround
               MouseActionsExpanded = <              
                 item
                   ClickCount = ccAny
@@ -2373,7 +2388,7 @@ inherited fStatisticFrame: TfStatisticFrame
     TabOrder = 3
     object tsReport: TTabSheet
       Caption = 'Report'
-      ClientHeight = 395
+      ClientHeight = 396
       ClientWidth = 852
       object Panel2: TPanel
         Left = 0
@@ -2542,23 +2557,23 @@ inherited fStatisticFrame: TfStatisticFrame
     end
     object tsResults: TTabSheet
       Caption = 'Ergebnisliste'
-      ClientHeight = 395
+      ClientHeight = 396
       ClientWidth = 852
       object Panel1: TPanel
         Left = 0
-        Height = 364
+        Height = 366
         Top = 0
         Width = 852
         Align = alClient
         BevelOuter = bvNone
         Caption = 'Panel1'
-        ClientHeight = 364
+        ClientHeight = 366
         ClientWidth = 852
         TabOrder = 0
         object gList: TDBGrid
           Left = 4
-          Height = 58
-          Top = 23
+          Height = 61
+          Top = 22
           Width = 844
           Align = alClient
           BorderSpacing.Around = 4
@@ -2575,7 +2590,7 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object Label1: TLabel
           Left = 4
-          Height = 15
+          Height = 14
           Top = 4
           Width = 844
           Align = alTop
@@ -2588,7 +2603,7 @@ inherited fStatisticFrame: TfStatisticFrame
         object pDetails: TPanel
           Left = 0
           Height = 274
-          Top = 90
+          Top = 92
           Width = 852
           Align = alBottom
           BevelOuter = bvNone
@@ -2608,7 +2623,7 @@ inherited fStatisticFrame: TfStatisticFrame
             TabOrder = 0
             object Label5: TLabel
               Left = 4
-              Height = 15
+              Height = 14
               Top = 4
               Width = 844
               Align = alTop
@@ -2620,8 +2635,8 @@ inherited fStatisticFrame: TfStatisticFrame
             end
             object gSubDetail: TDBGrid
               Left = 4
-              Height = 143
-              Top = 23
+              Height = 144
+              Top = 22
               Width = 844
               Align = alClient
               BorderSpacing.Around = 4
@@ -2646,7 +2661,7 @@ inherited fStatisticFrame: TfStatisticFrame
           end
           object Label2: TLabel
             Left = 4
-            Height = 15
+            Height = 14
             Top = 4
             Width = 844
             Align = alTop
@@ -2658,8 +2673,8 @@ inherited fStatisticFrame: TfStatisticFrame
           end
           object gDetail: TDBGrid
             Left = 4
-            Height = 72
-            Top = 23
+            Height = 73
+            Top = 22
             Width = 844
             Align = alClient
             BorderSpacing.Around = 4
@@ -2676,7 +2691,7 @@ inherited fStatisticFrame: TfStatisticFrame
           Cursor = crVSplit
           Left = 0
           Height = 5
-          Top = 85
+          Top = 87
           Width = 852
           Align = alBottom
           ResizeAnchor = akBottom
@@ -2686,8 +2701,8 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object lStatus: TLabel
         Left = 8
-        Height = 15
-        Top = 372
+        Height = 14
+        Top = 374
         Width = 836
         Align = alBottom
         BorderSpacing.Around = 8

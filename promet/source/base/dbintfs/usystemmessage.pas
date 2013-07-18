@@ -208,7 +208,7 @@ begin
   SysCmd := TSystemCommands.Create(nil,Data);
   try
     with Procs.DataSet as IBaseDbFilter do
-      Data.SetFilter(Procs,ProcessTerm(Data.QuoteField('CLIENT')+'='+Data.QuoteValue(Target)));
+      Data.SetFilter(Procs,Data.ProcessTerm(Data.QuoteField('CLIENT')+'='+Data.QuoteValue(Target)));
     Data.SetFilter(SysCmd,'');
     Procs.DataSet.First;
     while not Procs.DataSet.EOF do

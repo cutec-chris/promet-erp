@@ -4,7 +4,7 @@ object fMain: TfMain
   Top = 119
   Width = 970
   Caption = 'Statistics'
-  ClientHeight = 714
+  ClientHeight = 692
   ClientWidth = 970
   Color = clWindow
   Menu = MainMenu
@@ -16,7 +16,7 @@ object fMain: TfMain
   LCLVersion = '1.1'
   object tvMain: TPanel
     Left = 0
-    Height = 714
+    Height = 692
     Top = 0
     Width = 328
     Align = alLeft
@@ -25,14 +25,14 @@ object fMain: TfMain
   end
   object Splitter2: TSplitter
     Left = 328
-    Height = 714
+    Height = 692
     Top = 0
     Width = 5
     ResizeStyle = rsLine
   end
   object pcPages: TExtMenuPageControl
     Left = 333
-    Height = 714
+    Height = 692
     Top = 0
     Width = 637
     ActivePage = tsHelp

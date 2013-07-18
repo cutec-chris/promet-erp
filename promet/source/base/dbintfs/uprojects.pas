@@ -523,7 +523,7 @@ begin
         begin
           with DataSet as IBaseDBFilter do
             begin
-              Filter := ProcessTerm(Data.QuoteField('ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink))));
+              Filter := Data.ProcessTerm(Data.QuoteField('ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink))));
             end;
         end;
     end

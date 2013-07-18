@@ -335,7 +335,7 @@ begin
   with BaseApplication as IBaseDBInterface do
     with DataSet as IBaseDBFilter do
       begin
-        Filter := ProcessTerm(Data.QuoteField('ID')+'='+Data.QuoteValue(aID));
+        Filter := Data.ProcessTerm(Data.QuoteField('ID')+'='+Data.QuoteValue(aID));
       end;
 end;
 procedure TMessageList.SelectByDir(aDir: Variant);
@@ -343,7 +343,7 @@ begin
   with BaseApplication as IBaseDBInterface do
     with DataSet as IBaseDBFilter do
       begin
-        Filter := Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(VarToStr(aDir))+' AND '+ProcessTerm(Data.QuoteField('PARENT')+'='+Data.QuoteValue(''));
+        Filter := Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(VarToStr(aDir))+' AND '+Data.ProcessTerm(Data.QuoteField('PARENT')+'='+Data.QuoteValue(''));
       end;
 end;
 procedure TMessageList.SelectByMsgID(aID: Int64);

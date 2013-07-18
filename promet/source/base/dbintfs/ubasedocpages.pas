@@ -82,7 +82,7 @@ begin
         begin
           with Self.DataSet as IBaseDBFilter,Self.DataSet as IBaseManageDB do
             begin
-              Filter := ProcessTerm(Data.QuoteField(TableName)+'.'+Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(''));
+              Filter := Data.ProcessTerm(Data.QuoteField(TableName)+'.'+Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(''));
               Fields := '';
               aOldLimit := Limit;
               Limit := 1;

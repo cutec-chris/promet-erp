@@ -573,7 +573,7 @@ begin
   if (not Result) and Unsharp then
     begin
       with DataSet as IBaseDbFilter,BaseApplication as IBaseDbInterface do
-        Filter := '('+ProcessTerm(Data.QuoteField(GetNumberFieldName)+'='+Data.QuoteValue(aIdent+'*'))+') OR ('+ProcessTerm(Data.QuoteField('MATCHCODE')+'='+Data.QuoteValue(aIdent+'*'))+')';
+        Filter := '('+Data.ProcessTerm(Data.QuoteField(GetNumberFieldName)+'='+Data.QuoteValue(aIdent+'*'))+') OR ('+Data.ProcessTerm(Data.QuoteField('MATCHCODE')+'='+Data.QuoteValue(aIdent+'*'))+')';
       Open;
       Result := Count > 0;
     end;
@@ -694,7 +694,7 @@ begin
     begin
       with DataSet as IBaseDBFilter do
         begin
-          Filter := ProcessTerm(Data.QuoteField('ID')+'='+Data.QuoteValue(aID));
+          Filter := Data.ProcessTerm(Data.QuoteField('ID')+'='+Data.QuoteValue(aID));
         end;
     end;
 end;
@@ -706,9 +706,9 @@ begin
       with DataSet as IBaseDBFilter do
         begin
           Filter := '('
-                   +ProcessTerm(Data.QuoteField('ID')+'='+Data.QuoteValue(aID))+' and '
-                   +ProcessTerm(Data.QuoteField('VERSION')+'='+VarToStr(aVersion))+' and '
-                   +ProcessTerm(Data.QuoteField('LANGUAGE')+'='+VarToStr(aLanguage))+')';
+                   +Data.ProcessTerm(Data.QuoteField('ID')+'='+Data.QuoteValue(aID))+' and '
+                   +Data.ProcessTerm(Data.QuoteField('VERSION')+'='+VarToStr(aVersion))+' and '
+                   +Data.ProcessTerm(Data.QuoteField('LANGUAGE')+'='+VarToStr(aLanguage))+')';
         end;
     end;
 end;

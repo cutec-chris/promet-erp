@@ -521,7 +521,7 @@ begin
   if (not Result) and Unsharp then
     begin
       with DataSet as IBaseDbFilter,BaseApplication as IBaseDbInterface do
-        Filter := '('+ProcessTerm(Data.QuoteField(GetNumberFieldName)+'='+Data.QuoteValue(aIdent+'*'))+') OR ('+ProcessTerm(Data.QuoteField(GetTextFieldName)+'='+Data.QuoteValue(aIdent+'*'))+')';
+        Filter := '('+Data.ProcessTerm(Data.QuoteField(GetNumberFieldName)+'='+Data.QuoteValue(aIdent+'*'))+') OR ('+Data.ProcessTerm(Data.QuoteField(GetTextFieldName)+'='+Data.QuoteValue(aIdent+'*'))+')';
       Open;
       Result := Count > 0;
     end;
@@ -644,7 +644,7 @@ begin
     begin
       with DataSet as IBaseDBFilter do
         begin
-          Filter := ProcessTerm(Data.QuoteField('ACCOUNTNO')+'='+Data.QuoteValue(aAccountNo));
+          Filter := Data.ProcessTerm(Data.QuoteField('ACCOUNTNO')+'='+Data.QuoteValue(aAccountNo));
         end;
     end;
 end;

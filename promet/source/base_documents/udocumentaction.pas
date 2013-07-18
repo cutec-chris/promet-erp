@@ -153,7 +153,7 @@ begin
     end;
   ID := FDocuments.FieldByName('NUMBER').AsString;
   with FDocuments.DataSet as IBaseDBFilter do
-    Data.SetFilter(FDocuments.DocumentActions,ProcessTerm(Data.QuoteField('NUMBER')+'='+Data.QuoteValue(ID)));
+    Data.SetFilter(FDocuments.DocumentActions,Data.ProcessTerm(Data.QuoteField('NUMBER')+'='+Data.QuoteValue(ID)));
   FDocuments.DocumentActions.DataSet.First;
   if FDocuments.DocumentActions.DataSet.RecordCount = 0 then
     begin

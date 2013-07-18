@@ -135,7 +135,6 @@ type
     procedure SetFilterTables(const AValue: string);
     function GetUsePermissions: Boolean;
     procedure SetUsePermisions(const AValue: Boolean);
-    function ProcessTerm(aTerm : string) : string;
     function GetDistinct: Boolean;
     procedure SetDistinct(const AValue: Boolean);
     function GetBaseSorting: string;
@@ -833,21 +832,6 @@ begin
   FUsePermissions := AValue;
   Close;
   SQL.text := BuildSQL;
-end;
-function TZeosDBDataSet.ProcessTerm(aTerm: string): string;
-var
-  UseLike: Boolean;
-  aFilter: String;
-begin
-  aFilter := aTerm;
-  UseLike := (pos('*',aFilter) > 0) or (pos('?',aFilter) > 0);
-  aFilter := StringReplace(aFilter,'*','%',[rfReplaceAll]);
-  aFilter := StringReplace(aFilter,'?','_',[rfReplaceAll]);
-  aFilter := StringReplace(aFilter,'= ''''','=''''',[rfReplaceAll]);
-  aFilter := StringReplace(aFilter,'=''''',' is NULL',[rfReplaceAll]);
-  if UseLike then
-    aFilter := StringReplace(aFilter,'=',' like ',[rfReplaceAll]);
-  Result := aFilter;
 end;
 function TZeosDBDataSet.GetDistinct: Boolean;
 begin

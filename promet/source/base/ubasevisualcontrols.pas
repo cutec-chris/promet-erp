@@ -13,8 +13,12 @@ interface
 uses
   Classes, Controls;
 type
+
+  { TfVisualControls }
+
   TfVisualControls = class(TDataModule)
     HistoryImages: TImageList;
+    StatusImages: TImageList;
     ImageListBig: TImageList;
     Images: TImageList;
   private

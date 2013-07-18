@@ -177,21 +177,21 @@ begin
                       break;
                     end;
                   if (aType = fsMatchcode) and (fsMatchcode in FSearchTypes) and (Lists[i].GetMatchcodeFieldName <> '') then
-                    aFilter += ' OR ('+ProcessTerm(EncodeField(Data,Lists[i].GetMatchcodeFieldName)+' = '+EncodeValue(Data,SearchText))+')';
+                    aFilter += ' OR ('+Data.ProcessTerm(EncodeField(Data,Lists[i].GetMatchcodeFieldName)+' = '+EncodeValue(Data,SearchText))+')';
                   if (aType = fsShortnames) and (aType = fsShortnames) and (fsShortnames in FSearchTypes) then
-                    aFilter += ' OR ('+ProcessTerm(CastText(Data,Lists[i].GetTextFieldName)+' = '+EncodeValue(Data,SearchText))+')';
+                    aFilter += ' OR ('+Data.ProcessTerm(CastText(Data,Lists[i].GetTextFieldName)+' = '+EncodeValue(Data,SearchText))+')';
                   if (aType = fsIdents) and (fsIdents in FSearchTypes) then
                     begin
-                      aFilter += ' OR ('+ProcessTerm(CastText(Data,Lists[i].GetNumberFieldName)+' = '+EncodeValue(Data,SearchText))+')';
+                      aFilter += ' OR ('+Data.ProcessTerm(CastText(Data,Lists[i].GetNumberFieldName)+' = '+EncodeValue(Data,SearchText))+')';
                       if Lists[i].GetBookNumberFieldName <> '' then
-                        aFilter += ' OR ('+ProcessTerm(CastText(Data,Lists[i].GetBookNumberFieldName)+' = '+EncodeValue(Data,SearchText))+')';
+                        aFilter += ' OR ('+Data.ProcessTerm(CastText(Data,Lists[i].GetBookNumberFieldName)+' = '+EncodeValue(Data,SearchText))+')';
                     end;
                   if (aType = fsBarcode) and (fsBarcode in FSearchTypes) and (Lists[i].GetBarcodeFieldName <> '') then
-                    aFilter += ' OR ('+ProcessTerm(CastText(Data,Lists[i].GetBarcodeFieldName)+' = '+EncodeValue(Data,SearchText))+')';
+                    aFilter += ' OR ('+Data.ProcessTerm(CastText(Data,Lists[i].GetBarcodeFieldName)+' = '+EncodeValue(Data,SearchText))+')';
                   if (aType = fsCommission) and (fsCommission in FSearchTypes) and (Lists[i].GetCommissionFieldName <> '') then
-                    aFilter += ' OR ('+ProcessTerm(EncodeField(Data,Lists[i].GetCommissionFieldName)+' = '+EncodeValue(Data,SearchText))+')';
+                    aFilter += ' OR ('+Data.ProcessTerm(EncodeField(Data,Lists[i].GetCommissionFieldName)+' = '+EncodeValue(Data,SearchText))+')';
                   if (aType = fsDescription) and (fsDescription in FSearchTypes) and (Lists[i].GetDescriptionFieldName <> '') then
-                    aFilter += ' OR ('+ProcessTerm(CastText(Data,Lists[i].GetDescriptionFieldName)+' = '+EncodeValue(Data,SearchText))+')';
+                    aFilter += ' OR ('+Data.ProcessTerm(CastText(Data,Lists[i].GetDescriptionFieldName)+' = '+EncodeValue(Data,SearchText))+')';
                   aFilter := copy(aFilter,4,length(aFilter));
                   if aFilter <> '' then
                     begin

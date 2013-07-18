@@ -1140,7 +1140,7 @@ begin
         begin
           aOrderNo := DataSet.FieldByName('ORDERNO').AsString;
           with aAccounting.DataSet as IBaseDBFilter do
-            aFilter := ProcessTerm('ORDERNO='+Data.QuoteValue(copy(aOrderNo,0,length(aOrderNo)-2)+'??'));
+            aFilter := Data.ProcessTerm('ORDERNO='+Data.QuoteValue(copy(aOrderNo,0,length(aOrderNo)-2)+'??'));
           Data.SetFilter(aAccounting,aFilter);
 //          aAccounting.DataSet.Last;
           aAccounting.DataSet.Next;

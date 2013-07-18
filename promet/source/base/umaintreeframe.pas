@@ -1545,7 +1545,7 @@ begin
           aList := TProjectList.Create(Self,Data);
           aTyp := etProject;
           with aList.DataSet as IBaseDBFilter do
-            Data.SetFilter(aList,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(ID)+' AND '+ProcessTerm(Data.QuoteField('PARENT')+'='+Data.QuoteValue('')),0,'','ASC',False,True,True);
+            Data.SetFilter(aList,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(ID)+' AND '+Data.ProcessTerm(Data.QuoteField('PARENT')+'='+Data.QuoteValue('')),0,'','ASC',False,True,True);
           aList.DataSet.First;
           while not aList.DataSet.EOF do
             begin

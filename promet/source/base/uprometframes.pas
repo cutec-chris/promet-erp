@@ -79,22 +79,16 @@ begin
 end;
 destructor TPrometMainFrame.Destroy;
 begin
-  try
-    FreeAndNil(FQuickHelpFrame)
-  except
-  end;
   if Assigned(FConnection) then
     begin
       CloseConnection;
       FreeAndNil(FConnection);
     end;
-  {
   if Assigned(FDataSet) then
     begin
       raise Exception.Create('DataSet Assigned !'+Self.ClassName);
       FreeAndNil(FDataSet);
     end;
-  }
   inherited Destroy;
 end;
 procedure TPrometMainFrame.New;

@@ -67,7 +67,7 @@ begin
     begin
       with DataSet as IBaseDBFilter do
         begin
-          Filter := ProcessTerm(Data.QuoteField('NAME')+'='+Data.QuoteValue(aName));
+          Filter := Data.ProcessTerm(Data.QuoteField('NAME')+'='+Data.QuoteValue(aName));
           Limit := 1;
         end;
     end;
@@ -127,7 +127,7 @@ begin
     begin
       with DataSet as IBaseDBFilter do
         begin
-          Filter := ProcessTerm(Data.QuoteField('SID')+'='+Data.QuoteValue(SID))+' and '+ProcessTerm(Data.QuoteField('ISACTIVE')+'='+Data.QuoteValue(''));
+          Filter := Data.ProcessTerm(Data.QuoteField('SID')+'='+Data.QuoteValue(SID))+' and '+Data.ProcessTerm(Data.QuoteField('ISACTIVE')+'='+Data.QuoteValue(''));
           Limit := 1;
         end;
     end;
@@ -138,7 +138,7 @@ begin
     begin
       with DataSet as IBaseDBFilter do
         begin
-          Filter := ProcessTerm(Data.QuoteField('HOST')+'='+Data.QuoteValue(IP))+' and '+ProcessTerm(Data.QuoteField('CLIENT')+'='+Data.QuoteValue(MD5Print(MD5String(UserAgent))))+' and '+ProcessTerm(Data.QuoteField('ISACTIVE')+'='+Data.QuoteValue(''));
+          Filter := Data.ProcessTerm(Data.QuoteField('HOST')+'='+Data.QuoteValue(IP))+' and '+Data.ProcessTerm(Data.QuoteField('CLIENT')+'='+Data.QuoteValue(MD5Print(MD5String(UserAgent))))+' and '+Data.ProcessTerm(Data.QuoteField('ISACTIVE')+'='+Data.QuoteValue(''));
           Limit := 1;
         end;
     end;

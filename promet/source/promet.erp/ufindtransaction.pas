@@ -54,9 +54,9 @@ begin
   aName := UpperCase(copy(aName,rpos(' ',aName)+1,length(aName)));
   with FAccountExchange.DataSet as IBaseDBFilter do
     begin
-      aFilter := ProcessTerm(Data.QuoteField('PAYEDON')+'=''''');
+      aFilter := Data.ProcessTerm(Data.QuoteField('PAYEDON')+'=''''');
       if cbName.Checked then
-        aFilter := aFilter+' and ('+ProcessTerm(Data.QuoteField('CUSTNAME')+'='+Data.QuoteValue('*'+aName+'*'))+' or '+ProcessTerm(Data.QuoteField('CUSTNAME')+'='+Data.QuoteValue('*'+aName1+'*'))+')';
+        aFilter := aFilter+' and ('+Data.ProcessTerm(Data.QuoteField('CUSTNAME')+'='+Data.QuoteValue('*'+aName+'*'))+' or '+Data.ProcessTerm(Data.QuoteField('CUSTNAME')+'='+Data.QuoteValue('*'+aName1+'*'))+')';
       if cbAmount.Checked then
         aFilter := aFilter+' and ('+Data.QuoteField('GROSSPRICE')+'>='''+FloatToSQL(abs(FAccountExchange.FieldByName('VALUE').AsFloat*0.9))+''' and '+Data.QuoteField('GROSSPRICE')+'<='''+FloatToSQL(abs(FAccountExchange.FieldByName('VALUE').AsFloat*1.1))+''')';
       if cbDate.Checked then

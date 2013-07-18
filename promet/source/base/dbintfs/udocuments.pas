@@ -319,10 +319,10 @@ begin
           if pos(Data.QuoteField('ID'),tmpfields) > 0 then
             begin
               Filter := '((('+Data.QuoteField(TableName)+'.'+Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(IntToStr(aID))+') or ('
-                       +ProcessTerm(Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType))+' and '
-                       +ProcessTerm(Data.QuoteField('ID')+'='+Data.QuoteValue(aTID))+' and '
+                       +Data.ProcessTerm(Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType))+' and '
+                       +Data.ProcessTerm(Data.QuoteField('ID')+'='+Data.QuoteValue(aTID))+' and '
                        +{ProcessTerm(}Data.QuoteField('VERSION')+'='+VarToStr(aVersion){)}+' and '
-                       +ProcessTerm(Data.QuoteField('LANGUAGE')+'='+VarToStr(aLanguage))+')) and '
+                       +Data.ProcessTerm(Data.QuoteField('LANGUAGE')+'='+VarToStr(aLanguage))+')) and '
                        +Data.QuoteField('PARENT')+'='+Data.QuoteValue(IntToStr(aParent))+')';
             end
           else
@@ -665,7 +665,7 @@ begin
         begin
           with Self.DataSet as IBaseDBFilter,Self.DataSet as IBaseManageDB do
             begin
-              Filter := ProcessTerm(Data.QuoteField(TableName)+'.'+Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(''));
+              Filter := Data.ProcessTerm(Data.QuoteField(TableName)+'.'+Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(''));
               Fields := '';
               aOldLimit := Limit;
               Limit := 1;
@@ -769,10 +769,10 @@ begin
               if pos(Data.QuoteField('ID'),tmpfields) > 0 then
                 begin
                   Filter := '('
-                           +ProcessTerm(Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType))+' and '
-                           +ProcessTerm(Data.QuoteField('ID')+'='+Data.QuoteValue(aTID))+' and '
+                           +Data.ProcessTerm(Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType))+' and '
+                           +Data.ProcessTerm(Data.QuoteField('ID')+'='+Data.QuoteValue(aTID))+' and '
 //                           +{ProcessTerm(}Data.QuoteField('VERSION')+'='+VarToStr(aVersion){)}+' and '
-                           +ProcessTerm(Data.QuoteField('NUMBER')+'='+Data.QuoteValue(aNumber))+')';
+                           +Data.ProcessTerm(Data.QuoteField('NUMBER')+'='+Data.QuoteValue(aNumber))+')';
                 end
               else
                 begin
@@ -876,10 +876,10 @@ begin
           if pos(Data.QuoteField('ID'),tmp) > 0 then
             begin
               Filter := '((('+Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(IntToStr(aID))+') or ('
-                       +ProcessTerm(Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType))+' and '
-                       +ProcessTerm(Data.QuoteField('ID')+'='+Data.QuoteValue(aTID))+' and '
-                       +ProcessTerm(Data.QuoteField('VERSION')+'='+Data.QuoteValue(VarToStr(aVersion)))+' and '
-                       +ProcessTerm(Data.QuoteField('LANGUAGE')+'='+Data.QuoteValue(VarToStr(aLanguage)))+')) and '
+                       +Data.ProcessTerm(Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType))+' and '
+                       +Data.ProcessTerm(Data.QuoteField('ID')+'='+Data.QuoteValue(aTID))+' and '
+                       +Data.ProcessTerm(Data.QuoteField('VERSION')+'='+Data.QuoteValue(VarToStr(aVersion)))+' and '
+                       +Data.ProcessTerm(Data.QuoteField('LANGUAGE')+'='+Data.QuoteValue(VarToStr(aLanguage)))+')) and '
                        +Data.QuoteField('PARENT')+'='+Data.QuoteValue(IntToStr(aParent))+') and '
                        +Data.QuoteField('REVISION')+'='+Data.QuoteValue('0');
             end

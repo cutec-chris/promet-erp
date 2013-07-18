@@ -296,8 +296,8 @@ var
         if aFilter <> '' then
           aFilter := aFilter+' OR ';
         with DataSet.DataSet as IBaseDbFilter do
-          aFilter := aFilter+ProcessTerm(Data.QuoteField('TAGS')+'='+Data.QuoteValue('*'+atmp+'*'))+' OR '+
-                     ProcessTerm(Data.QuoteField('FULLTEXT')+'='+Data.QuoteValue('*'+atmp+'*'));
+          aFilter := aFilter+Data.ProcessTerm(Data.QuoteField('TAGS')+'='+Data.QuoteValue('*'+atmp+'*'))+' OR '+
+                     Data.ProcessTerm(Data.QuoteField('FULLTEXT')+'='+Data.QuoteValue('*'+atmp+'*'));
       end;
   end;
 

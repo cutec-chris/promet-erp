@@ -778,9 +778,9 @@ begin
         with Accountingjournal.DataSet as IBaseDBFilter do
           begin
             Data.SetFilter(Accountingjournal,
-            ProcessTerm(Data.QuoteField('ORDERNO')+'>='+Data.QuoteValue(copy(DataSet.FieldByName('ORDERNO').AsString,0,length(DataSet.FieldByName('ORDERNO').AsString)-2)+'00'))
+            Data.ProcessTerm(Data.QuoteField('ORDERNO')+'>='+Data.QuoteValue(copy(DataSet.FieldByName('ORDERNO').AsString,0,length(DataSet.FieldByName('ORDERNO').AsString)-2)+'00'))
             +' AND '+
-            ProcessTerm(Data.QuoteField('ORDERNO')+'<='+Data.QuoteValue(copy(DataSet.FieldByName('ORDERNO').AsString,0,length(DataSet.FieldByName('ORDERNO').AsString)-2)+'99'))
+            Data.ProcessTerm(Data.QuoteField('ORDERNO')+'<='+Data.QuoteValue(copy(DataSet.FieldByName('ORDERNO').AsString,0,length(DataSet.FieldByName('ORDERNO').AsString)-2)+'99'))
             );
           end;
         while Accountingjournal.Count > 1 do
@@ -1604,7 +1604,7 @@ begin
   with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
     begin
       if Filter='' then
-        Filter := QuoteField('ACTIVE')+'='+QuoteValue('Y')+' or '+ProcessTerm(QuoteField('ACTIVE')+'='+QuoteValue(''));;
+        Filter := QuoteField('ACTIVE')+'='+QuoteValue('Y')+' or '+Data.ProcessTerm(QuoteField('ACTIVE')+'='+QuoteValue(''));;
     end;
   inherited Open;
 end;
