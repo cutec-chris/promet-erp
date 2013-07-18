@@ -267,6 +267,7 @@ type
     procedure UpdateTitle;
     procedure DoSetEdit(Data : PtrInt);
     procedure DoSetEditDD(Data : PtrInt);
+    procedure CleanList(AddRows : Integer);
     property FEditPrefix : string read FFEditPrefix write SetEditPrefix;
   public
     { public declarations }
@@ -1257,8 +1258,7 @@ begin
                 gList.DeleteColRow(False,gList.Row);
                 if gList.RowCount = gList.FixedRows then
                   begin
-                    gList.RowCount:=gList.FixedRows+1;
-                    gList.Objects[0,gList.RowCount-1] := TRowObject.Create;
+                    CleanList(1);
                   end;
                 FDataSource.DataSet.Cancel;
                 Key := 0;
@@ -1297,11 +1297,7 @@ begin
           gList.DeleteColRow(False,gList.Row);
           if gList.RowCount = gList.FixedRows then
             begin
-              for i := 0 to gList.RowCount-1 do
-                if Assigned(gList.Objects[0,i]) then
-                  gList.Objects[0,i].Free;
-              gList.RowCount:=gList.FixedRows+1;
-              gList.Objects[0,gList.RowCount-1] := TRowObject.Create;
+              CleanList(1);
             end;
           FDataSource.DataSet.Cancel;
           Key := 0;
@@ -1464,6 +1460,7 @@ begin
     begin
       if (FDataSource.DataSet.State = dsInsert) and (not FDataSet.Changed) then
         begin
+          gList.Objects[0,gList.RowCount-1].Free;
           gList.RowCount:=gList.RowCount-1;
           FDataSource.DataSet.Cancel;
         end;
@@ -2358,6 +2355,18 @@ begin
     TComboBox(gList.Editor).DroppedDown:=True;
 end;
 
+procedure TfGridView.CleanList(AddRows: Integer);
+var
+  i: Integer;
+begin
+  for i := 0 to gList.RowCount-1 do
+    if Assigned(gList.Objects[0,i]) then
+      gList.Objects[0,i].Free;
+  gList.RowCount:=gList.FixedRows+AddRows;
+  for i := gList.FixedRows to gList.RowCount-1 do
+    gList.Objects[0,i] := TRowObject.Create;
+end;
+
 constructor TfGridView.Create(AOwner: TComponent);
 var
   Details: TThemedElementDetails;
@@ -2398,6 +2407,7 @@ begin
 end;
 destructor TfGridView.Destroy;
 begin
+  CleanList(0);
   SearchKeyTimer.Enabled:=False;
   SearchKeyTimer.Free;
   FInpStringList.Destroy;
@@ -2618,10 +2628,7 @@ begin
     begin
       DisableControls;
       try
-        for i := 0 to gList.RowCount-1 do
-          if Assigned(gList.Objects[0,i]) then
-            gList.Objects[0,i].Free;
-        gList.RowCount:=gList.FixedRows;
+        CleanList(0);
         AllDone := True;
         First;
         while not EOF do
@@ -2836,10 +2843,7 @@ begin
     gList.EditorMode:=False;
     if (gList.RowCount = gList.FixedRows+1) and (TRowObject(gList.Objects[0,gList.FixedRows]).Rec = 0) then
       begin
-  //      for i := 0 to gList.RowCount-1 do
-  //        if Assigned(gList.Objects[0,i]) then
-  //          FreeAndNil(gList.Objects[0,i]);
-  //      gList.RowCount:=gList.FixedRows;
+        //CleanList(0);
       end
     else
       begin
@@ -2915,10 +2919,7 @@ begin
   gList.EditorMode:=False;
   if (gList.RowCount = gList.FixedRows+1) and (TRowObject(gList.Objects[0,gList.FixedRows]).Rec = 0) then
     begin
-//      for i := 0 to gList.RowCount-1 do
-//        if Assigned(gList.Objects[0,i]) then
-//          FreeAndNil(gList.Objects[0,i]);
-//      gList.RowCount:=gList.FixedRows;
+      //CleanList(0);
     end
   else
     begin
@@ -2998,8 +2999,7 @@ begin
   gList.DeleteColRow(False,gList.Row);
   if gList.RowCount = gList.FixedRows then
     begin
-      gList.RowCount:=gList.FixedRows+1;
-      gList.Objects[0,gList.RowCount-1] := TRowObject.Create;
+      CleanList(1);
     end;
   OldRow := gList.Row;
   SyncDataSource;
