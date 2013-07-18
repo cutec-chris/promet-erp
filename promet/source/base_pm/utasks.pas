@@ -1389,11 +1389,13 @@ begin
   pFilterOptions.Height:=0;
 end;
 destructor TfTaskFrame.Destroy;
+var
+  i: Integer;
 begin
-  try
-    FreeAndNil(aUsers);
-  except
-  end;
+  for i := 0 to lbResults.Items.Count-1 do
+    lbResults.Items.Objects[i].Free;
+  if Assigned(ActiveSearch) then ActiveSearch.Free;
+  FreeAndNil(aUsers);
   FOwners.Free;
   FUsers.Free;
   FGridView.Destroy;

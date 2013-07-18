@@ -1285,6 +1285,7 @@ begin
     begin
       if (FDataSource.DataSet.State = dsInsert) and (not FDataSet.Changed) then
         begin
+          gList.Objects[0,gList.Row].Free;
           gList.DeleteColRow(False,gList.Row);
           if gList.RowCount = gList.FixedRows then
             begin
@@ -2349,10 +2350,21 @@ end;
 procedure TfGridView.CleanList(AddRows: Integer);
 var
   i: Integer;
+  aCol: Integer = -1;
 begin
   for i := 0 to gList.RowCount-1 do
     if Assigned(gList.Objects[0,i]) then
       gList.Objects[0,i].Free;
+  for i := 0 to dgFake.Columns.Count-1 do
+    if dgFake.Columns[i].FieldName = IdentField then
+      begin
+        aCol := i+1;
+        break;
+      end;
+  if aCol>-1 then
+    for i := 0 to gList.RowCount-1 do
+      if Assigned(gList.Objects[aCol,i]) then
+        gList.Objects[aCol,i].Free;
   gList.RowCount:=gList.FixedRows+AddRows;
   for i := gList.FixedRows to gList.RowCount-1 do
     gList.Objects[0,i] := TRowObject.Create;

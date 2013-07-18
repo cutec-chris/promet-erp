@@ -236,6 +236,8 @@ begin
           SearchTypes := SearchTypes+[fsIdents];
           SetLength(SearchLocations,length(SearchLocations)+1);
           SearchLocations[length(SearchLocations)-1] := strMasterdata;
+          for i := 0 to lbResults.Items.Count-1 do
+            lbResults.Items.Objects[i].Free;
           lbResults.Items.Clear;
           if not Assigned(ActiveSearch) then
             ActiveSearch := TSearch.Create(SearchTypes,SearchLocations,True,5);
@@ -774,7 +776,12 @@ begin
   FGridView.UseDefaultRowHeight := False;
 end;
 destructor TfPosition.Destroy;
+var
+  i: Integer;
 begin
+  for i := 0 to lbResults.Items.Count-1 do
+    lbResults.Items.Objects[i].Free;
+  if Assigned(ActiveSearch) then ActiveSearch.Free;
   FGridView.Free;
   inherited Destroy;
 end;
