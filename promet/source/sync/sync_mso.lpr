@@ -539,8 +539,7 @@ begin
                 tmp1 := StringReplace(EncodingIn(aItem.PropertiesDirect[(PT_TSTRING) or ($802B shl 16),ptString]),' ','*',[rfreplaceAll]);
                 if tmp1 = '' then
                   tmp1 := aItem.Subject;
-                with aContact.DataSet as IBaseDbFilter do
-                  Data.SetFilter(aContact,ProcessTerm('NAME='+Data.QuoteValue(tmp))+' OR '+ProcessTerm('NAME='+Data.QuoteValue(tmp1)));
+                Data.SetFilter(aContact,Data.ProcessTerm('NAME='+Data.QuoteValue(tmp))+' OR '+Data.ProcessTerm('NAME='+Data.QuoteValue(tmp1)));
                 aContact.DataSet.First;
                 if tmp <> '' then
                   while not aContact.DataSet.EOF do

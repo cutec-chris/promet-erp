@@ -193,8 +193,7 @@ begin
                           tmp := StringReplace(trim(aTitleNode.FirstChild.NodeValue),lineending,'',[rfReplaceAll]);
                         MID := MD5Print(MD5String(tmp));
                         Data.SetFilter(MessageIndex,'"ID"='''+MID+'''');
-                        with Data.DeletedItems.DataSet as IBaseDbFilter do
-                          Data.SetFilter(Data.DeletedItems,Processterm('"LINK"=''MESSAGEIDX@'+MID+'*'''));
+                        Data.SetFilter(Data.DeletedItems,Data.Processterm('"LINK"=''MESSAGEIDX@'+MID+'*'''));
                         aMessageNode := aNode.FindNode('description');
                         if not Assigned(aMessageNode) then
                           aMessageNode := aNode.FindNode('content');
