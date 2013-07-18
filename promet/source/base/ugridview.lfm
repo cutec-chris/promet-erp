@@ -42,7 +42,6 @@ object fGridView: TfGridView
       TitleStyle = tsNative
       OnCheckboxToggled = gListCheckboxToggled
       OnClick = gListClick
-      OnColRowDeleted = gListColRowDeleted
       OnColRowMoved = gListColRowMoved
       OnDblClick = gListDblClick
       OnDrawCell = gListDrawCell
@@ -409,4 +408,4 @@ object fGridView: TfGridView
     left = 108
     top = 36
   end
-end
+end

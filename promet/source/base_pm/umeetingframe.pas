@@ -970,10 +970,8 @@ begin
       FreeAndNil(FConnection);
     end;
   FOwners.Free;
-  try
+  if Assigned(FGridView) then
     FGridView.Destroy;
-  except
-  end;
   inherited Destroy;
 end;
 

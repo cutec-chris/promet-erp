@@ -145,8 +145,6 @@ type
     procedure gListCheckboxToggled(sender: TObject; aCol, aRow: Integer;
       aState: TCheckboxState);
     procedure gListClick(Sender: TObject);
-    procedure gListColRowDeleted(Sender: TObject; IsColumn: Boolean;
-      sIndex, tIndex: Integer);
     procedure gListColRowMoved(Sender: TObject; IsColumn: Boolean;
       sIndex, tIndex: Integer);
     procedure gListDblClick(Sender: TObject);
@@ -784,13 +782,6 @@ begin
   if gList.Col>1 then
     if Assigned(FSearchKey) then
       FSearchKey(Self,aRect.Left,aRect.Bottom,dgFake.Columns[gList.Col-1],aKey,[],'');
-end;
-procedure TfGridView.gListColRowDeleted(Sender: TObject;
-  IsColumn: Boolean; sIndex, tIndex: Integer);
-begin
-  if IsColumn then exit;
-  if sIndex >= gList.RowCount then exit;
-  gList.Objects[0,sIndex].Free;
 end;
 procedure TfGridView.gListColRowMoved(Sender: TObject; IsColumn: Boolean;
   sIndex, tIndex: Integer);
@@ -2996,6 +2987,8 @@ begin
   if (FDataSource.DataSet.State <> dsInsert) and ((TRowObject(gList.Objects[0,gList.Row]).Rec = 0) or (not FDataSet.GotoBookmark(TRowObject(gList.Objects[0,gList.Row]).Rec))) then
       exit;
   FDataSet.Delete;
+  if Assigned(gList.Objects[0,gList.Row]) then
+    gList.Objects[0,gList.Row].Free;
   gList.DeleteColRow(False,gList.Row);
   if gList.RowCount = gList.FixedRows then
     begin
