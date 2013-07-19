@@ -1,4 +1,6 @@
-﻿Build 252
+﻿Build 253
+      -
+Build 252
       - Hinweistexte für Zeiterfassungs Buttons
       - Fehler der Nachichtenzentrale behoben
       - Einige Speicherleaks behoben

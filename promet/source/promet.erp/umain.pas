@@ -2600,6 +2600,8 @@ begin
 end;
 procedure TfMain.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
+  IPCTimer.Enabled:=False;
+  RefreshTimer.Enabled:=False;
   ImportFavorites;
   if Assigned(FTimeReg) then
     begin

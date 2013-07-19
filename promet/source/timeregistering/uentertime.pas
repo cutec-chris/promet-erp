@@ -396,10 +396,13 @@ begin
   inherited Create(TheOwner);
   FList := TfFilter.Create(Self);
   FList.Parent := pTimeList;
+  FTimes := nil;
 end;
 
 destructor TfEnterTime.Destroy;
 begin
+  Timer.Enabled:=False;
+  tmShowDialog.Enabled := False;
   if Assigned(FList) then
     begin
       try
@@ -408,7 +411,7 @@ begin
             FTimes.Destroy;
             FIntTimes.Destroy;
           end;
-        if Assigned(FList.DataSet) then FList.DataSet.Destroy;
+        //if Assigned(FList.DataSet) then FList.DataSet.Destroy;
       except
       end;
       FList.DataSet := nil;
@@ -779,7 +782,7 @@ begin
 end;
 procedure TfEnterTime.SetupDB;
 begin
-  if not Assigned(FList) then
+  if FList.FilterType<>'T' then
     begin
       FTimes.DataSet.BeforeScroll:=@DataSourceBeforeScroll;
       FTimes.DataSet.AfterPost:=@FTimesAfterPost;
@@ -933,6 +936,7 @@ end;
 
 procedure TfEnterTime.StopActualTime;
 begin
+  Timer.Enabled:=False;
   if Assigned(Times.DataSet) and (Times.dataSet.Active) then
     begin
       Times.DataSet.Refresh;
@@ -1095,4 +1099,4 @@ end;
 initialization
   {$I uentertime.lrs}
 end.
-
+

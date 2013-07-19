@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -136,6 +136,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <CommandLineParams Value="--config-path=/home/chris/.promet-erp-devel"/>
       </local>
     </RunParams>
     <RequiredPackages Count="21">
@@ -239,10 +240,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <EditorIndex Value="19"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1518"/>
-        <CursorPos X="1" Y="1544"/>
+        <TopLine Value="2589"/>
+        <CursorPos X="22" Y="2608"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -250,7 +251,7 @@
       <Unit2>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="268"/>
         <CursorPos X="28" Y="278"/>
@@ -314,7 +315,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPrometFrames"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="80"/>
         <CursorPos X="107" Y="84"/>
@@ -339,12 +340,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uHistoryFrame"/>
-        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="104"/>
         <CursorPos X="21" Y="122"/>
         <UsageCount Value="80"/>
-        <Loaded Value="True"/>
       </Unit9>
       <Unit10>
         <Filename Value="../base/uimageframe.pas"/>
@@ -449,7 +448,7 @@
       <Unit19>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="20"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1127"/>
         <CursorPos X="1" Y="1155"/>
@@ -459,9 +458,9 @@
       <Unit20>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="22"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="945"/>
+        <TopLine Value="969"/>
         <CursorPos X="1" Y="967"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
@@ -469,7 +468,7 @@
       <Unit21>
         <Filename Value="../base/dbintfs/uorder.pas"/>
         <UnitName Value="uOrder"/>
-        <EditorIndex Value="21"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="577"/>
         <CursorPos X="1" Y="605"/>
@@ -930,8 +929,8 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMainTreeFrame"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1531"/>
-        <CursorPos X="100" Y="1548"/>
+        <TopLine Value="297"/>
+        <CursorPos X="10" Y="314"/>
         <UsageCount Value="103"/>
       </Unit63>
       <Unit64>
@@ -979,16 +978,14 @@
       <Unit68>
         <Filename Value="../base/dbintfs/utask.pas"/>
         <UnitName Value="utask"/>
-        <EditorIndex Value="18"/>
         <WindowIndex Value="0"/>
         <TopLine Value="780"/>
         <CursorPos X="65" Y="796"/>
         <UsageCount Value="100"/>
-        <Loaded Value="True"/>
       </Unit68>
       <Unit69>
         <Filename Value="../base/revision.inc"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
@@ -1000,7 +997,7 @@
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="48" Y="2"/>
+        <CursorPos X="9" Y="2"/>
         <UsageCount Value="103"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
@@ -1094,7 +1091,6 @@
         <TopLine Value="770"/>
         <CursorPos X="1" Y="785"/>
         <UsageCount Value="100"/>
-        <LoadedDesigner Value="True"/>
       </Unit78>
       <Unit79>
         <Filename Value="../components/zeos/src/component/ZAbstractRODataset.pas"/>
@@ -1756,7 +1752,7 @@
       <Unit155>
         <Filename Value="../base/uwizardnewmandant.pas"/>
         <UnitName Value="uWizardNewMandant"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="310"/>
         <CursorPos X="1" Y="342"/>
@@ -1923,13 +1919,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uSelectReport"/>
-        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="19" Y="21"/>
         <UsageCount Value="27"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit175>
       <Unit176>
         <Filename Value="../../../../lazarus/lcl/interfaces/gtk2/gtk2memostrings.inc"/>
@@ -2290,12 +2283,14 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uEnterTime"/>
-        <EditorIndex Value="23"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="400"/>
-        <CursorPos X="1" Y="410"/>
+        <TopLine Value="393"/>
+        <CursorPos X="17" Y="399"/>
         <UsageCount Value="25"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit217>
       <Unit218>
         <Filename Value="utimeframe.pas"/>
@@ -2756,7 +2751,7 @@
       <Unit274>
         <Filename Value="../base_documents/udocumentaction.pas"/>
         <UnitName Value="uDocumentAction"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="133"/>
         <CursorPos X="52" Y="156"/>
@@ -2773,43 +2768,34 @@
       <Unit276>
         <Filename Value="../../../../../lazarus/components/lazreport/source/addons/pdfexport/lr_e_pdf.pas"/>
         <UnitName Value="lr_e_pdf"/>
-        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="11"/>
         <CursorPos X="59" Y="23"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit276>
       <Unit277>
         <Filename Value="../components/powerpdf/PdfDoc.pas"/>
         <UnitName Value="PdfDoc"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="322"/>
+        <TopLine Value="321"/>
         <CursorPos X="14" Y="326"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit277>
       <Unit278>
         <Filename Value="../../../../../zugferd/Beispielrechnung_ZUGFeRD_RC_COMFORT-1.pdf"/>
-        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="548"/>
         <CursorPos X="41" Y="565"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit278>
       <Unit279>
         <Filename Value="../../../../../zugferd/ZUGFeRD-invoice-1.xml"/>
-        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="XML"/>
       </Unit279>
       <Unit280>
@@ -2823,12 +2809,10 @@
       <Unit281>
         <Filename Value="../components/powerpdf/PdfTypes.pas"/>
         <UnitName Value="PdfTypes"/>
-        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="751"/>
+        <TopLine Value="117"/>
         <CursorPos X="10" Y="117"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit281>
       <Unit282>
@@ -2841,127 +2825,55 @@
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit282>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="12" HistoryIndex="11">
       <Position1>
-        <Filename Value="../base/dbintfs/uorder.pas"/>
-        <Caret Line="603" Column="1" TopLine="576"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="990" Column="1" TopLine="970"/>
       </Position1>
       <Position2>
-        <Filename Value="../base/dbintfs/uorder.pas"/>
-        <Caret Line="605" Column="1" TopLine="577"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="991" Column="1" TopLine="970"/>
       </Position2>
       <Position3>
         <Filename Value="umain.pas"/>
-        <Caret Line="1543" Column="1" TopLine="1518"/>
+        <Caret Line="992" Column="1" TopLine="970"/>
       </Position3>
       <Position4>
         <Filename Value="umain.pas"/>
-        <Caret Line="1544" Column="1" TopLine="1518"/>
+        <Caret Line="993" Column="1" TopLine="970"/>
       </Position4>
       <Position5>
         <Filename Value="umain.pas"/>
-        <Caret Line="1545" Column="1" TopLine="1518"/>
+        <Caret Line="1001" Column="19" TopLine="970"/>
       </Position5>
       <Position6>
         <Filename Value="umain.pas"/>
-        <Caret Line="1539" Column="1" TopLine="1518"/>
+        <Caret Line="2607" Column="1" TopLine="2589"/>
       </Position6>
       <Position7>
         <Filename Value="umain.pas"/>
-        <Caret Line="1541" Column="1" TopLine="1518"/>
+        <Caret Line="2608" Column="22" TopLine="2589"/>
       </Position7>
       <Position8>
-        <Filename Value="umain.pas"/>
-        <Caret Line="1542" Column="1" TopLine="1518"/>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <Caret Line="173" Column="15" TopLine="157"/>
       </Position8>
       <Position9>
-        <Filename Value="umain.pas"/>
-        <Caret Line="1543" Column="1" TopLine="1518"/>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <Caret Line="950" Column="34" TopLine="933"/>
       </Position9>
       <Position10>
-        <Filename Value="umain.pas"/>
-        <Caret Line="1544" Column="1" TopLine="1518"/>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <Caret Line="413" Column="11" TopLine="396"/>
       </Position10>
       <Position11>
-        <Filename Value="umain.pas"/>
-        <Caret Line="1545" Column="1" TopLine="1518"/>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <Caret Line="696" Column="34" TopLine="689"/>
       </Position11>
       <Position12>
-        <Filename Value="umain.pas"/>
-        <Caret Line="1539" Column="1" TopLine="1518"/>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <Caret Line="169" Column="16" TopLine="153"/>
       </Position12>
-      <Position13>
-        <Filename Value="umain.pas"/>
-        <Caret Line="1541" Column="1" TopLine="1518"/>
-      </Position13>
-      <Position14>
-        <Filename Value="umain.pas"/>
-        <Caret Line="1542" Column="1" TopLine="1518"/>
-      </Position14>
-      <Position15>
-        <Filename Value="umain.pas"/>
-        <Caret Line="1543" Column="1" TopLine="1518"/>
-      </Position15>
-      <Position16>
-        <Filename Value="umain.pas"/>
-        <Caret Line="1544" Column="1" TopLine="1518"/>
-      </Position16>
-      <Position17>
-        <Filename Value="umain.pas"/>
-        <Caret Line="1545" Column="1" TopLine="1518"/>
-      </Position17>
-      <Position18>
-        <Filename Value="umain.pas"/>
-        <Caret Line="1539" Column="1" TopLine="1518"/>
-      </Position18>
-      <Position19>
-        <Filename Value="umain.pas"/>
-        <Caret Line="1541" Column="1" TopLine="1518"/>
-      </Position19>
-      <Position20>
-        <Filename Value="umain.pas"/>
-        <Caret Line="1542" Column="1" TopLine="1518"/>
-      </Position20>
-      <Position21>
-        <Filename Value="umain.pas"/>
-        <Caret Line="1543" Column="1" TopLine="1518"/>
-      </Position21>
-      <Position22>
-        <Filename Value="../base/uselectreport.pas"/>
-        <Caret Line="21" Column="19" TopLine="1"/>
-      </Position22>
-      <Position23>
-        <Filename Value="../../../../../lazarus/components/lazreport/source/addons/pdfexport/lr_e_pdf.pas"/>
-        <Caret Line="23" Column="18" TopLine="8"/>
-      </Position23>
-      <Position24>
-        <Filename Value="../components/powerpdf/PdfDoc.pas"/>
-        <Caret Line="1231" Column="21" TopLine="1200"/>
-      </Position24>
-      <Position25>
-        <Filename Value="../components/powerpdf/PdfDoc.pas"/>
-        <Caret Line="134" Column="70" TopLine="115"/>
-      </Position25>
-      <Position26>
-        <Filename Value="../components/powerpdf/PdfDoc.pas"/>
-        <Caret Line="123" Column="28" TopLine="115"/>
-      </Position26>
-      <Position27>
-        <Filename Value="../components/powerpdf/PdfDoc.pas"/>
-        <Caret Line="1074" Column="18" TopLine="1060"/>
-      </Position27>
-      <Position28>
-        <Filename Value="../components/powerpdf/PdfDoc.pas"/>
-        <Caret Line="682" Column="72" TopLine="674"/>
-      </Position28>
-      <Position29>
-        <Filename Value="../components/powerpdf/PdfDoc.pas"/>
-        <Caret Line="886" Column="13" TopLine="879"/>
-      </Position29>
-      <Position30>
-        <Filename Value="../../../../../lazarus/components/lazreport/source/addons/pdfexport/lr_e_pdf.pas"/>
-        <Caret Line="23" Column="59" TopLine="11"/>
-      </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>
