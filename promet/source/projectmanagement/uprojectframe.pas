@@ -909,6 +909,8 @@ begin
   DataSet.Open;
   DataSet.DataSet.Insert;
   DoOpen;
+  TProject(DataSet).Tasks.Open;
+  pcPages.AddTab(TfTaskFrame.Create(Self),True);
   acSave.Enabled := False;
   acCancel.Enabled:= False;
 end;

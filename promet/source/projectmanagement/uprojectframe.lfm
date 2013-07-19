@@ -28,9 +28,9 @@ inherited fprojectFrame: TfprojectFrame
     end
     object lname: TLabel
       Left = 9
-      Height = 13
+      Height = 14
       Top = -4
-      Width = 27
+      Width = 34
       Caption = 'Name'
       ParentColor = False
     end
@@ -41,7 +41,7 @@ inherited fprojectFrame: TfprojectFrame
       Width = 65
       Anchors = [akTop, akRight]
       Caption = 'Baum'
-      ClientHeight = 30
+      ClientHeight = 32
       ClientWidth = 61
       TabOrder = 1
       object bAssignTree: TSpeedButton
@@ -135,12 +135,12 @@ inherited fprojectFrame: TfprojectFrame
     NewTabImageIndex = 59
     object tsInfo: TTabSheet
       Caption = 'Allgemein'
-      ClientHeight = 327
+      ClientHeight = 317
       ClientWidth = 726
       ImageIndex = 62
       object mInfo: TDBMemo
         Left = 8
-        Height = 224
+        Height = 214
         Top = 95
         Width = 710
         Align = alBottom
@@ -152,10 +152,10 @@ inherited fprojectFrame: TfprojectFrame
       end
       object DBZVDateTimePicker1: TDBZVDateTimePicker
         Left = 350
-        Height = 21
+        Height = 22
         Hint = 'Drücken Sie N um das Datum zu löschen'
         Top = 17
-        Width = 81
+        Width = 89
         DataField = 'END'
         DataSource = Projects
         ReadOnly = False
@@ -174,27 +174,27 @@ inherited fprojectFrame: TfprojectFrame
       end
       object Label1: TLabel
         Left = 8
-        Height = 13
+        Height = 14
         Top = -1
-        Width = 123
+        Width = 148
         Caption = 'Ziel /Fertigstellungsdatum'
         ParentColor = False
         WordWrap = True
       end
       object Label2: TLabel
         Left = 200
-        Height = 13
+        Height = 14
         Top = -1
-        Width = 54
+        Width = 63
         Caption = 'Startdatum'
         ParentColor = False
       end
       object DBZVDateTimePicker2: TDBZVDateTimePicker
         Left = 200
-        Height = 21
+        Height = 22
         Hint = 'Drücken Sie N um das Datum zu löschen'
         Top = 17
-        Width = 81
+        Width = 89
         DataField = 'START'
         DataSource = Projects
         ReadOnly = False
@@ -213,18 +213,18 @@ inherited fprojectFrame: TfprojectFrame
       end
       object Label7: TLabel
         Left = 350
-        Height = 13
+        Height = 14
         Top = -1
-        Width = 48
+        Width = 57
         Caption = 'Enddatum'
         ParentColor = False
       end
       object DBZVDateTimePicker3: TDBZVDateTimePicker
         Left = 10
-        Height = 21
+        Height = 22
         Hint = 'Drücken Sie N um das Datum zu löschen'
         Top = 17
-        Width = 81
+        Width = 89
         DataField = 'TARGET'
         DataSource = Projects
         ReadOnly = False
@@ -243,19 +243,19 @@ inherited fprojectFrame: TfprojectFrame
       end
       object Label8: TLabel
         Left = 8
-        Height = 13
+        Height = 14
         Top = 47
-        Width = 50
+        Width = 60
         Caption = 'Plandatum'
         ParentColor = False
         WordWrap = True
       end
       object DBZVDateTimePicker4: TDBZVDateTimePicker
         Left = 10
-        Height = 21
+        Height = 22
         Hint = 'Drücken Sie N um das Datum zu löschen'
         Top = 65
-        Width = 81
+        Width = 89
         DataField = 'PLANTARGET'
         DataSource = Projects
         ReadOnly = False
@@ -274,7 +274,7 @@ inherited fprojectFrame: TfprojectFrame
       end
       object sePriority: TSpinEdit
         Left = 200
-        Height = 21
+        Height = 24
         Top = 65
         Width = 97
         Increment = 10
@@ -286,9 +286,9 @@ inherited fprojectFrame: TfprojectFrame
       end
       object Label9: TLabel
         Left = 200
-        Height = 13
+        Height = 14
         Top = 47
-        Width = 38
+        Width = 45
         Caption = 'Priorität'
         ParentColor = False
       end
@@ -303,12 +303,12 @@ inherited fprojectFrame: TfprojectFrame
       end
       object cbCategory: TExtDBCombobox
         Left = 350
-        Height = 21
+        Height = 27
         Top = 65
         Width = 343
         DataField = 'CATEGORY'
         DataSource = Projects
-        ItemHeight = 13
+        ItemHeight = 0
         MaxLength = 0
         Sorted = True
         TabOrder = 6
@@ -596,7 +596,7 @@ inherited fprojectFrame: TfprojectFrame
       end
       object eNumber: TDBEdit
         Left = 4
-        Height = 21
+        Height = 24
         Hint = 'Die Projektnummer'
         Top = 12
         Width = 110
@@ -644,11 +644,11 @@ inherited fprojectFrame: TfprojectFrame
       end
       object cbStatus: TComboBox
         Left = 1
-        Height = 21
+        Height = 28
         Hint = 'hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu überführen'
         Top = 12
         Width = 143
-        ItemHeight = 13
+        ItemHeight = 0
         OnSelect = cbStatusSelect
         Style = csDropDownList
         TabOrder = 0
@@ -754,13 +754,13 @@ inherited fprojectFrame: TfprojectFrame
       end
       object cbType: TExtDBCombobox
         Left = 4
-        Height = 21
+        Height = 27
         Top = 12
         Width = 69
         Anchors = [akTop, akLeft, akRight]
         DataField = 'TYPE'
         DataSource = Projects
-        ItemHeight = 13
+        ItemHeight = 0
         Items.Strings = (
           'C Prozess'
           'P Projekt'
@@ -872,7 +872,7 @@ inherited fprojectFrame: TfprojectFrame
       end
       object eParent: TEditButton
         Left = 4
-        Height = 21
+        Height = 24
         Hint = 'der Vohrfahr des Projektes/Prozesses'
         Top = 14
         Width = 117
@@ -1051,15 +1051,15 @@ inherited fprojectFrame: TfprojectFrame
     BevelOuter = bvNone
     BorderStyle = bsSingle
     Caption = 'kein Bild'
-    ClientHeight = 64
-    ClientWidth = 80
+    ClientHeight = 66
+    ClientWidth = 82
     TabOrder = 4
     Visible = False
     object iProject: TImage
       Left = 0
-      Height = 64
+      Height = 66
       Top = 0
-      Width = 80
+      Width = 82
       Align = alClient
       AutoSize = True
       Proportional = True

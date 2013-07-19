@@ -22,17 +22,17 @@ object fGanttView: TfGanttView
       Left = 168
       Height = 42
       Top = 0
-      Width = 168
+      Width = 176
       Align = alLeft
       BevelOuter = bvNone
       ClientHeight = 42
-      ClientWidth = 168
+      ClientWidth = 176
       TabOrder = 0
       object Label5: TLabel
         Left = 4
         Height = 15
         Top = -2
-        Width = 160
+        Width = 168
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
         AutoSize = False
@@ -55,9 +55,9 @@ object fGanttView: TfGanttView
       end
       object bRefresh: TSpeedButton
         Left = 104
-        Height = 24
+        Height = 25
         Hint = 'aktualisieren/zurücksetzen'
-        Top = 15
+        Top = 14
         Width = 24
         AllowAllUp = True
         Glyph.Data = {
@@ -299,10 +299,10 @@ object fGanttView: TfGanttView
         ShowCaption = False
       end
       object bShowTasks: TSpeedButton
-        Left = 126
+        Left = 129
         Height = 25
         Hint = 'Aufgaben aus anderen Projekten zeigen'#10'zeigt die Auslastung der zugewiesenen Resource'
-        Top = 15
+        Top = 14
         Width = 25
         AllowAllUp = True
         BorderSpacing.InnerBorder = 2
@@ -623,5 +623,12 @@ object fGanttView: TfGanttView
       Caption = 'Öffnen'
       OnExecute = acOpenExecute
     end
+  end
+  object RecalcTimer: TTimer
+    Enabled = False
+    Interval = 500
+    OnTimer = RecalcTimerTimer
+    left = 120
+    top = 56
   end
 end

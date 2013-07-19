@@ -1,5 +1,6 @@
 ﻿Build 253
-      -
+      - Bei neuen Projekten ist die Aufgabenliste standardmässig offen
+      - Die Zeiterfassung hat Promet auf Windows 7 am schliessen gehindert
 Build 252
       - Hinweistexte für Zeiterfassungs Buttons
       - Fehler der Nachichtenzentrale behoben

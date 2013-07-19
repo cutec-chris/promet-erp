@@ -2027,10 +2027,11 @@ begin
 
             Brush.Bitmap := nil;
             Brush.Color := CurrInterval.Color;
+            {$IFDEF WINDOWS}
             for bri := low(BMP) to high(BMP) do
               if BMP[bri].Canvas.Pixels[0,0] = CurrInterval.Color then
                 Brush.Bitmap := BMP[bri];
-            if not Assigned(Brush.Bitmap) then
+            if (not Assigned(Brush.Bitmap)) then
               begin
                 Setlength(BMP,length(BMP)+1);
                 BMP[high(BMP)] := TBitmap.Create;
@@ -2042,6 +2043,7 @@ begin
                 BMP[high(BMP)].Canvas.Pixels[1, 1] := CurrInterval.Color;
                 Brush.Bitmap := BMP[high(BMP)];
               end;
+            {$ENDIF}
             FillRect(CurrInterval.DrawRect);
 
             Brush.Bitmap := nil;

@@ -48,6 +48,7 @@ type
     Panel7: TPanel;
     PopupMenu1: TPopupMenu;
     tbTop: TPanel;
+    RecalcTimer: TTimer;
     ToolButton1: TSpeedButton;
     ToolButton2: TSpeedButton;
     procedure acCenterTaskExecute(Sender: TObject);
@@ -57,6 +58,7 @@ type
       aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
     procedure bDayViewClick(Sender: TObject);
     procedure bMonthViewClick(Sender: TObject);
+    procedure bRefresh1Click(Sender: TObject);
     procedure bRefreshClick(Sender: TObject);
     procedure bShowTasksClick(Sender: TObject);
     procedure bTodayClick(Sender: TObject);
@@ -68,6 +70,7 @@ type
       aInterval: TInterval; X, Y: Integer);
     procedure FGanttCalendarShowHint(Sender: TObject; HintInfo: PHintInfo);
     procedure FGanttTreeAfterUpdateCommonSettings(Sender: TObject);
+    procedure RecalcTimerTimer(Sender: TObject);
     procedure ToolButton1Click(Sender: TObject);
     procedure ToolButton2Click(Sender: TObject);
   private
@@ -108,6 +111,13 @@ begin
   FGantt.Tree.Width:=390;
 end;
 
+procedure TfGanttView.RecalcTimerTimer(Sender: TObject);
+begin
+  RecalcTimer.Enabled:=False;
+  FindCriticalPath;
+  FGantt.Calendar.Invalidate;
+end;
+
 procedure TfGanttView.ToolButton1Click(Sender: TObject);
 begin
   ModalResult := mrOK;
@@ -135,6 +145,7 @@ var
 begin
   with TInterval(Sender) do
     begin
+      RecalcTimer.Enabled := True;
       if bCalculate.Down then
         begin
           if FinishDate<(StartDate+Duration) then
@@ -229,6 +240,13 @@ begin
   FGantt.MinorScale:=tsMonth;
   FGantt.Calendar.StartDate:=FGantt.Calendar.StartDate;
 end;
+
+procedure TfGanttView.bRefresh1Click(Sender: TObject);
+begin
+  FindCriticalPath;
+  FGantt.Calendar.Invalidate;
+end;
+
 procedure TfGanttView.bRefreshClick(Sender: TObject);
 begin
   Populate(FTasks);
@@ -522,10 +540,10 @@ var
     i: Integer;
   begin
     Result := False;
-    for i := 0 to aInterval.IntervalCount-1 do
+    for i := 0 to aInterval.ConnectionCount-1 do
       Result := Result
-      or (DoPath(aInterval.Interval[i]) and (aInterval.Interval[i].StartDate<=aInterval.FinishDate));
-    if (aInterval.IntervalCount = 0) and (aInterval.FinishDate>=aLastDate) then Result := True;
+      or (DoPath(aInterval.Connection[i]) and (aInterval.Connection[i].StartDate<=aInterval.FinishDate));
+    if (aInterval.ConnectionCount = 0) and (aInterval.FinishDate>=aLastDate) then Result := True;
     if Result then
       aInterval.Color:=clRed
     else
@@ -537,7 +555,8 @@ begin
     if FGantt.Interval[y].FinishDate>aLastDate then
       aLastDate := FGantt.Interval[y].FinishDate;
   for y := 0 to fGantt.IntervalCount-1 do
-    DoPath(FGantt.Interval[y]);
+    if not Assigned(FGantt.Interval[y].Parent) then
+      DoPath(FGantt.Interval[y]);
   FGantt.Calendar.Invalidate;
 end;
 
