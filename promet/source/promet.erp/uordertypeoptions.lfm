@@ -4,38 +4,38 @@ inherited forderTypeOptions: TforderTypeOptions
   ClientHeight = 437
   ClientWidth = 523
   TabOrder = 0
-  DesignLeft = 417
-  DesignTop = 154
+  DesignLeft = 322
+  DesignTop = 173
   object lType: TLabel[0]
-    Left = 185
-    Height = 18
+    Left = 241
+    Height = 14
     Top = 2
-    Width = 25
+    Width = 20
     Caption = 'Typ'
     ParentColor = False
   end
   object lDerivates: TLabel[1]
-    Left = 184
-    Height = 18
+    Left = 240
+    Height = 14
     Top = 73
-    Width = 80
+    Width = 65
     Caption = 'Ableitbar in'
     ParentColor = False
   end
   object lNumberset: TLabel[2]
-    Left = 364
-    Height = 18
-    Top = 71
-    Width = 101
+    Left = 376
+    Height = 14
+    Top = 73
+    Width = 85
     Anchors = [akTop, akRight]
     Caption = 'Nummernkreis'
     ParentColor = False
   end
   object lDefaultPosTyp: TLabel[3]
-    Left = 367
-    Height = 18
-    Top = 58
-    Width = 148
+    Left = 395
+    Height = 14
+    Top = 53
+    Width = 123
     Anchors = [akTop, akRight]
     Caption = 'Standard Positionstyp'
     ParentColor = False
@@ -44,22 +44,24 @@ inherited forderTypeOptions: TforderTypeOptions
     Left = 8
     Height = 379
     Top = 46
-    Width = 168
+    Width = 160
     Anchors = [akTop, akLeft, akBottom]
     BorderStyle = bsNone
     Color = clWindow
     Columns = <    
       item
         Title.Caption = 'STATUS'
-        Title.PrefixOption = poNone
-        Width = 40
+        Width = 30
         FieldName = 'STATUS'
       end    
       item
         Title.Caption = 'STATUSNAME'
-        Title.PrefixOption = poNone
-        Width = 100
+        Width = 80
         FieldName = 'STATUSNAME'
+      end    
+      item
+        Title.Caption = 'ICON'
+        FieldName = 'ICON'
       end>
     DataSource = OrderTypeDS
     Scrollbars = ssAutoBoth
@@ -67,10 +69,10 @@ inherited forderTypeOptions: TforderTypeOptions
     TitleStyle = tsNative
   end
   object eOrderType: TDBComboBox[5]
-    Left = 185
-    Height = 29
+    Left = 241
+    Height = 27
     Top = 18
-    Width = 326
+    Width = 277
     Anchors = [akTop, akLeft, akRight]
     DataField = 'TYPE'
     DataSource = OrderTypeDS
@@ -90,10 +92,10 @@ inherited forderTypeOptions: TforderTypeOptions
     TabOrder = 1
   end
   object eDerivates: TDBEdit[6]
-    Left = 184
-    Height = 27
+    Left = 240
+    Height = 24
     Top = 89
-    Width = 176
+    Width = 129
     DataField = 'DERIVATIVE'
     DataSource = OrderTypeDS
     Anchors = [akTop, akLeft, akRight]
@@ -102,10 +104,10 @@ inherited forderTypeOptions: TforderTypeOptions
     TabOrder = 2
   end
   object gbVisibility: TGroupBox[7]
-    Left = 184
-    Height = 88
-    Top = 136
-    Width = 331
+    Left = 176
+    Height = 104
+    Top = 120
+    Width = 342
     Anchors = [akTop, akLeft, akRight]
     Caption = 'Sichtbarkeit'
     ChildSizing.HorizontalSpacing = 3
@@ -113,14 +115,14 @@ inherited forderTypeOptions: TforderTypeOptions
     ChildSizing.EnlargeVertical = crsHomogenousChildResize
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 2
-    ClientHeight = 69
-    ClientWidth = 327
+    ClientHeight = 88
+    ClientWidth = 338
     TabOrder = 3
     object cbSIOrder: TDBCheckBox
       Left = 0
-      Height = 24
+      Height = 30
       Top = 0
-      Width = 161
+      Width = 166
       Caption = 'Vorgang'
       DataField = 'SI_ORDER'
       DataSource = OrderTypeDS
@@ -129,10 +131,10 @@ inherited forderTypeOptions: TforderTypeOptions
       ValueUnchecked = 'N'
     end
     object cbSIPos: TDBCheckBox
-      Left = 164
-      Height = 24
+      Left = 169
+      Height = 30
       Top = 0
-      Width = 163
+      Width = 169
       AutoSize = True
       Caption = 'Kasse'
       DataField = 'SI_POS'
@@ -143,9 +145,9 @@ inherited forderTypeOptions: TforderTypeOptions
     end
     object cbSIProd: TDBCheckBox
       Left = 0
-      Height = 24
-      Top = 24
-      Width = 161
+      Height = 30
+      Top = 30
+      Width = 166
       AutoSize = True
       Caption = 'Produktion'
       DataField = 'SI_PROD'
@@ -155,10 +157,10 @@ inherited forderTypeOptions: TforderTypeOptions
       ValueUnchecked = 'N'
     end
     object cbSIAcc: TDBCheckBox
-      Left = 164
-      Height = 24
-      Top = 24
-      Width = 163
+      Left = 169
+      Height = 30
+      Top = 30
+      Width = 169
       AutoSize = True
       Caption = 'Buchhaltung'
       DataField = 'SI_ACC'
@@ -169,9 +171,9 @@ inherited forderTypeOptions: TforderTypeOptions
     end
     object cbSIINVR: TDBCheckBox
       Left = 0
-      Height = 24
-      Top = 48
-      Width = 161
+      Height = 28
+      Top = 60
+      Width = 166
       AutoSize = True
       Caption = 'Rechnungseingang'
       DataField = 'SI_INVR'
@@ -181,10 +183,10 @@ inherited forderTypeOptions: TforderTypeOptions
       ValueUnchecked = 'N'
     end
     object cbSIINVO: TDBCheckBox
-      Left = 164
-      Height = 24
-      Top = 48
-      Width = 163
+      Left = 169
+      Height = 28
+      Top = 60
+      Width = 169
       AutoSize = True
       Caption = 'Rechnungsausgang'
       DataField = 'SI_INVO'
@@ -195,7 +197,7 @@ inherited forderTypeOptions: TforderTypeOptions
     end
   end
   object rgAddStorage: TDBRadioGroup[8]
-    Left = 185
+    Left = 176
     Height = 40
     Top = 272
     Width = 136
@@ -237,7 +239,7 @@ inherited forderTypeOptions: TforderTypeOptions
     )
   end
   object rgAddSerials: TDBRadioGroup[10]
-    Left = 184
+    Left = 176
     Height = 43
     Top = 311
     Width = 176
@@ -279,7 +281,7 @@ inherited forderTypeOptions: TforderTypeOptions
     )
   end
   object rgAddINVO: TDBRadioGroup[12]
-    Left = 184
+    Left = 176
     Height = 40
     Top = 351
     Width = 161
@@ -321,7 +323,7 @@ inherited forderTypeOptions: TforderTypeOptions
     )
   end
   object rgAddCHist: TDBRadioGroup[14]
-    Left = 184
+    Left = 176
     Height = 40
     Top = 391
     Width = 129
@@ -340,8 +342,8 @@ inherited forderTypeOptions: TforderTypeOptions
     )
   end
   object eNumberset: TDBEdit[15]
-    Left = 364
-    Height = 27
+    Left = 376
+    Height = 24
     Top = 89
     Width = 101
     DataField = 'NUMBERSET'
@@ -352,8 +354,8 @@ inherited forderTypeOptions: TforderTypeOptions
     TabOrder = 11
   end
   object eDefaultPosTyp: TDBEdit[16]
-    Left = 473
-    Height = 27
+    Left = 480
+    Height = 24
     Top = 89
     Width = 38
     DataField = 'DEFPOSTYP'
@@ -364,7 +366,7 @@ inherited forderTypeOptions: TforderTypeOptions
     TabOrder = 12
   end
   object cbIsDerivate: TDBCheckBox[17]
-    Left = 185
+    Left = 241
     Height = 19
     Top = 48
     Width = 145
@@ -397,7 +399,7 @@ inherited forderTypeOptions: TforderTypeOptions
     )
   end
   object rgAddToMainorder: TDBRadioGroup[19]
-    Left = 185
+    Left = 176
     Height = 40
     Top = 229
     Width = 191
@@ -429,23 +431,38 @@ inherited forderTypeOptions: TforderTypeOptions
     ChildSizing.ShrinkVertical = crsScaleChilds
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 100
-    ClientHeight = 21
-    ClientWidth = 154
+    ClientHeight = 25
+    ClientWidth = 158
     DataSource = OrderTypeDS
+    Options = []
     TabOrder = 16
     VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel]
   end
   object cbTextTyp: TComboBox[21]
     Left = 320
-    Height = 29
+    Height = 27
     Top = 400
     Width = 191
     ItemHeight = 0
     OnChange = cbTextTypChange
     TabOrder = 17
   end
-  object OrderTypeDS: TDatasource[22]
-    left = 421
+  object lvImages: TListView[22]
+    Left = 176
+    Height = 95
+    Top = 18
+    Width = 63
+    Columns = <>
+    Font.Height = -1
+    ParentFont = False
+    ReadOnly = True
+    ShowColumnHeaders = False
+    SmallImages = fVisualControls.StatusImages
+    TabOrder = 18
+    ViewStyle = vsSmallIcon
+  end
+  object OrderTypeDS: TDatasource[23]
+    left = 408
     top = 176
   end
 end

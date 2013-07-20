@@ -1,22 +1,22 @@
 { This is an automatically generated lazarus resource file }
 
 LazarusResources.Add('TfMain','FORMDATA',[
-  'TPF0'#6'TfMain'#5'fMain'#4'Left'#3#212#1#6'Height'#3#140#0#3'Top'#3'A'#1#5'W'
-  +'idth'#3'T'#1#7'Caption'#6#12'Archivestore'#12'ClientHeight'#3#140#0#11'Clie'
+  'TPF0'#6'TfMain'#5'fMain'#4'Left'#3#212#1#6'Height'#3#152#0#3'Top'#3'A'#1#5'W'
+  +'idth'#3'T'#1#7'Caption'#6#12'Archivestore'#12'ClientHeight'#3#130#0#11'Clie'
   +'ntWidth'#3'T'#1#5'Color'#7#8'clWindow'#4'Menu'#7#8'MainMenu'#7'OnClose'#7#9
   +'FormClose'#6'OnShow'#7#8'FormShow'#8'Position'#7#14'poScreenCenter'#10'LCLV'
   +'ersion'#6#3'1.1'#0#17'TZVDateTimePicker'#17'ZVDateTimePicker1'#4'Left'#2#16
-  +#6'Height'#2#25#3'Top'#2' '#5'Width'#2'a'#11'CenturyFrom'#3#149#7#7'MaxDate'
+  +#6'Height'#2#22#3'Top'#2' '#5'Width'#2'Y'#11'CenturyFrom'#3#149#7#7'MaxDate'
   +#5#0#0#0#0#0#4#146#180#20'@'#7'MinDate'#5#0#0#0#0#0#0#20#210#14#192#8'TabOrd'
   +'er'#2#0#17'TrailingSeparator'#8#15'TextForNullDate'#6#4'NULL'#12'LeadingZer'
   +'os'#9#4'Kind'#7#7'dtkDate'#10'TimeFormat'#7#4'tf24'#11'TimeDisplay'#7#5'tdH'
   +'MS'#8'DateMode'#7#10'dmComboBox'#4'Date'#5#0#0#0#0#0#0#188#160#14'@'#4'Time'
   +#5#0#0#0#144'o'#143#243#199#254'?'#20'UseDefaultSeparators'#9#0#0#6'TLabel'#6
-  +'Label1'#4'Left'#2#16#6'Height'#2#17#3'Top'#2#8#5'Width'#2#26#7'Caption'#6#3
-  +'Von'#11'ParentColor'#8#0#0#6'TLabel'#6'Label2'#4'Left'#2#16#6'Height'#2#17#3
-  +'Top'#2'H'#5'Width'#2#20#7'Caption'#6#3'Bis'#11'ParentColor'#8#0#0#17'TZVDat'
-  +'eTimePicker'#17'ZVDateTimePicker2'#4'Left'#2#16#6'Height'#2#25#3'Top'#2'`'#5
-  +'Width'#2'a'#11'CenturyFrom'#3#149#7#7'MaxDate'#5#0#0#0#0#0#4#146#180#20'@'#7
+  +'Label1'#4'Left'#2#16#6'Height'#2#14#3'Top'#2#8#5'Width'#2#22#7'Caption'#6#3
+  +'Von'#11'ParentColor'#8#0#0#6'TLabel'#6'Label2'#4'Left'#2#16#6'Height'#2#14#3
+  +'Top'#2'H'#5'Width'#2#17#7'Caption'#6#3'Bis'#11'ParentColor'#8#0#0#17'TZVDat'
+  +'eTimePicker'#17'ZVDateTimePicker2'#4'Left'#2#16#6'Height'#2#22#3'Top'#2'`'#5
+  +'Width'#2'Y'#11'CenturyFrom'#3#149#7#7'MaxDate'#5#0#0#0#0#0#4#146#180#20'@'#7
   +'MinDate'#5#0#0#0#0#0#0#20#210#14#192#8'TabOrder'#2#1#17'TrailingSeparator'#8
   +#15'TextForNullDate'#6#4'NULL'#12'LeadingZeros'#9#4'Kind'#7#7'dtkDate'#10'Ti'
   +'meFormat'#7#4'tf24'#11'TimeDisplay'#7#5'tdHMS'#8'DateMode'#7#10'dmComboBox'

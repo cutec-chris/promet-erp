@@ -1886,6 +1886,7 @@ var
   Retry: Boolean = False;
   aCreated: Boolean = False;
   aOldFilter: String = '';
+  aOldLimit: Integer;
 begin
   if not Assigned(FDataSet) then exit;
   if FDataSet.Active then
@@ -1904,6 +1905,8 @@ begin
               begin
                 aOldFilter := Filter;
                 Filter := '';
+                aOldLimit := Limit;
+                Limit := 1;
               end;
             FDataSet.Open;
             FDataSet.DisableControls;
@@ -1912,7 +1915,11 @@ begin
               AlterTable;
             if aOldFilter<>'' then
               with DataSet as IBaseDbFilter do
-                Filter := aOldFilter;
+                begin
+                  Filter := aOldFilter;
+                end;
+            with DataSet as IBaseDbFilter do
+              Limit := aOldLimit;
             FDataSet.Open;
             FDataSet.EnableControls;
           end;
@@ -1945,8 +1952,11 @@ begin
   with aDataSet as IBaseManageDB do
     begin
       if Assigned(ManagedIndexdefs) then
-        if (ManagedFieldDefs.IndexOf('REF_ID') > -1) or HasMasterSource then
-          ManagedIndexDefs.Add('REF_ID','REF_ID',[]);
+        begin
+          if (ManagedFieldDefs.IndexOf('REF_ID') > -1) or HasMasterSource then
+            ManagedIndexDefs.Add('REF_ID','REF_ID',[]);
+          ManagedIndexDefs.Add('TIMESTAMPD','TIMESTAMPD',[]);
+        end;
     end;
 end;
 procedure TBaseDBDataset.DefineUserFields(aDataSet: TDataSet);

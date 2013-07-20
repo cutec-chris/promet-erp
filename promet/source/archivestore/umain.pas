@@ -125,6 +125,8 @@ begin
   acLogin.Execute;
   if Assigned(Data) then
     ActiveUsers.DataSet := Data.ActiveUsers.DataSet;
+  ZVDateTimePicker1.Date:=Now()-1;
+  ZVDateTimePicker2.Date:=Now();
 end;
 
 initialization

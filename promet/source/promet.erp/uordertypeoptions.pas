@@ -3,8 +3,12 @@ unit uOrderTypeOptions;
 interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, DBGrids, Buttons,
-  DbCtrls, db, uBaseDBClasses, uBaseERPDBClasses, uOptionsFrame, uOrder;
+  DbCtrls, ExtCtrls, ComCtrls, db, uBaseDBClasses, uBaseERPDBClasses,
+  uOptionsFrame, uOrder;
 type
+
+  { TforderTypeOptions }
+
   TforderTypeOptions = class(TOptionsFrame)
     cbIsDerivate: TDBCheckBox;
     cbSIAcc: TDBCheckBox;
@@ -23,6 +27,7 @@ type
     gOrderStatus: TDBGrid;
     lDefaultPosTyp: TLabel;
     lDerivates: TLabel;
+    lvImages: TListView;
     lNumberset: TLabel;
     lType: TLabel;
     OrderTypeDS: TDatasource;
@@ -51,7 +56,7 @@ type
 
 implementation
 {$R *.lfm}
-uses uData;
+uses uData,uBaseVisualControls;
 procedure TforderTypeOptions.cbTextTypChange(Sender: TObject);
 begin
   if not aStates.CanEdit then aStates.DataSet.Edit;
@@ -60,6 +65,9 @@ begin
     aStates.FieldByName('TEXTTYP').Clear;
 end;
 constructor TforderTypeOptions.Create(TheOwner: TComponent);
+var
+  aItem: TListItem;
+  i: Integer;
 begin
   inherited Create(TheOwner);
   aConnection := Data.GetNewConnection;
@@ -72,6 +80,15 @@ begin
     begin
       cbTextTyp.Items.Add(Data.TextTyp.FieldByName('NAME').AsString);
       Data.TextTyp.DataSet.Next;
+    end;
+  with fVisualControls.StatusImages do
+    begin
+      for i := 0 to fVisualControls.StatusImages.Count-1 do
+        begin
+          aItem := lvImages.Items.Add;
+          aItem.Caption:='';
+          aItem.ImageIndex:=i;
+        end;
     end;
 end;
 destructor TforderTypeOptions.Destroy;

@@ -450,6 +450,7 @@ begin
             Add('STATUS',ftString,4,True);
             Add('STATUSNAME',ftString,30,True);
             Add('TYPE',ftString,1,false);
+            Add('ICON',ftInteger,0,false);
             Add('ISDERIVATE',ftString,1,false);
             Add('DERIVATIVE',ftString,30,false);
             Add('NUMBERSET',ftString,30,false);

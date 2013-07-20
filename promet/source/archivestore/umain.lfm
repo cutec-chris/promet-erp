@@ -1,10 +1,10 @@
 object fMain: TfMain
   Left = 468
-  Height = 140
+  Height = 152
   Top = 321
   Width = 340
   Caption = 'Archivestore'
-  ClientHeight = 140
+  ClientHeight = 130
   ClientWidth = 340
   Color = clWindow
   Menu = MainMenu
@@ -14,9 +14,9 @@ object fMain: TfMain
   LCLVersion = '1.1'
   object ZVDateTimePicker1: TZVDateTimePicker
     Left = 16
-    Height = 25
+    Height = 22
     Top = 32
-    Width = 97
+    Width = 89
     CenturyFrom = 1941
     MaxDate = 2958465
     MinDate = -53780
@@ -29,30 +29,30 @@ object fMain: TfMain
     TimeDisplay = tdHMS
     DateMode = dmComboBox
     Date = 41148
-    Time = 0.781060185181559
+    Time = 0.78106018518156
     UseDefaultSeparators = True
   end
   object Label1: TLabel
     Left = 16
-    Height = 17
+    Height = 14
     Top = 8
-    Width = 26
+    Width = 22
     Caption = 'Von'
     ParentColor = False
   end
   object Label2: TLabel
     Left = 16
-    Height = 17
+    Height = 14
     Top = 72
-    Width = 20
+    Width = 17
     Caption = 'Bis'
     ParentColor = False
   end
   object ZVDateTimePicker2: TZVDateTimePicker
     Left = 16
-    Height = 25
+    Height = 22
     Top = 96
-    Width = 97
+    Width = 89
     CenturyFrom = 1941
     MaxDate = 2958465
     MinDate = -53780
@@ -65,7 +65,7 @@ object fMain: TfMain
     TimeDisplay = tdHMS
     DateMode = dmComboBox
     Date = 41148
-    Time = 0.781060185181559
+    Time = 0.78106018518156
     UseDefaultSeparators = True
   end
   object Button1: TButton

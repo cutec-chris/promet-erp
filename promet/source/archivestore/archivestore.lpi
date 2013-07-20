@@ -24,6 +24,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <CommandLineParams Value="--debug"/>
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
@@ -49,7 +50,7 @@
         <PackageName Value="pVisualPrometApp"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="141">
+    <Units Count="142">
       <Unit0>
         <Filename Value="archivestore.lpr"/>
         <UnitName Value="archivestore"/>
@@ -70,7 +71,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="71"/>
         <CursorPos X="1" Y="96"/>
-        <UsageCount Value="136"/>
+        <UsageCount Value="137"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -880,7 +881,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="113"/>
         <CursorPos X="71" Y="129"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="26"/>
       </Unit112>
       <Unit113>
         <Filename Value="..\base\uaddserial.pas"/>
@@ -1026,10 +1027,12 @@
       <Unit128>
         <Filename Value="..\base\ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="188"/>
-        <CursorPos X="25" Y="199"/>
+        <TopLine Value="884"/>
+        <CursorPos X="1" Y="901"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit128>
       <Unit129>
         <Filename Value="C:\Programme\lazarus\lcl\include\customaction.inc"/>
@@ -1074,26 +1077,32 @@
       <Unit134>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="68"/>
-        <CursorPos X="14" Y="87"/>
+        <TopLine Value="1127"/>
+        <CursorPos X="1" Y="1155"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit134>
       <Unit135>
         <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1085"/>
-        <CursorPos X="1" Y="1055"/>
+        <TopLine Value="1357"/>
+        <CursorPos X="1" Y="1379"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit135>
       <Unit136>
         <Filename Value="..\base\dbintfs\usystemmessage.pas"/>
         <UnitName Value="uSystemMessage"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="103"/>
+        <TopLine Value="103"/>
+        <CursorPos X="1" Y="125"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit136>
       <Unit137>
         <Filename Value="..\..\..\LKomponenten\zeos\src\plain\ZPlainDbLibDriver.pas"/>
@@ -1117,102 +1126,112 @@
         <UnitName Value="uMessages"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="74"/>
-        <CursorPos X="20" Y="84"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="79"/>
+        <CursorPos X="22" Y="81"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit139>
       <Unit140>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="26"/>
-        <CursorPos X="15" Y="44"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="1895"/>
+        <CursorPos X="1" Y="1930"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit140>
+      <Unit141>
+        <Filename Value="..\components\ZVDateTimeCtrls\zvdatetimepicker.pas"/>
+        <UnitName Value="ZVDateTimePicker"/>
+        <EditorIndex Value="5"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2652"/>
+        <CursorPos X="1" Y="2674"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit141>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="umain.pas"/>
-        <Caret Line="100" Column="1" TopLine="74"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1906" Column="1" TopLine="1878"/>
       </Position1>
       <Position2>
-        <Filename Value="umain.pas"/>
-        <Caret Line="40" Column="1" TopLine="22"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1907" Column="1" TopLine="1879"/>
       </Position2>
       <Position3>
-        <Filename Value="umain.pas"/>
-        <Caret Line="43" Column="1" TopLine="24"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1908" Column="1" TopLine="1880"/>
       </Position3>
       <Position4>
-        <Filename Value="umain.pas"/>
-        <Caret Line="92" Column="9" TopLine="77"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1909" Column="1" TopLine="1881"/>
       </Position4>
       <Position5>
-        <Filename Value="umain.pas"/>
-        <Caret Line="88" Column="26" TopLine="70"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1911" Column="1" TopLine="1883"/>
       </Position5>
       <Position6>
-        <Filename Value="..\base\dbintfs\umessages.pas"/>
-        <Caret Line="70" Column="25" TopLine="50"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1912" Column="1" TopLine="1884"/>
       </Position6>
       <Position7>
-        <Filename Value="umain.pas"/>
-        <Caret Line="98" Column="50" TopLine="70"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1913" Column="1" TopLine="1886"/>
       </Position7>
       <Position8>
-        <Filename Value="umain.pas"/>
-        <Caret Line="94" Column="14" TopLine="70"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1914" Column="1" TopLine="1886"/>
       </Position8>
       <Position9>
-        <Filename Value="umain.pas"/>
-        <Caret Line="98" Column="105" TopLine="71"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1915" Column="1" TopLine="1887"/>
       </Position9>
       <Position10>
-        <Filename Value="umain.pas"/>
-        <Caret Line="92" Column="1" TopLine="71"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1916" Column="1" TopLine="1888"/>
       </Position10>
       <Position11>
-        <Filename Value="umain.pas"/>
-        <Caret Line="93" Column="1" TopLine="71"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1917" Column="1" TopLine="1889"/>
       </Position11>
       <Position12>
-        <Filename Value="umain.pas"/>
-        <Caret Line="95" Column="1" TopLine="71"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1919" Column="1" TopLine="1891"/>
       </Position12>
       <Position13>
-        <Filename Value="umain.pas"/>
-        <Caret Line="96" Column="1" TopLine="71"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1921" Column="1" TopLine="1893"/>
       </Position13>
       <Position14>
-        <Filename Value="umain.pas"/>
-        <Caret Line="98" Column="1" TopLine="71"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1922" Column="1" TopLine="1894"/>
       </Position14>
       <Position15>
-        <Filename Value="umain.pas"/>
-        <Caret Line="99" Column="1" TopLine="71"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1923" Column="1" TopLine="1895"/>
       </Position15>
       <Position16>
-        <Filename Value="umain.pas"/>
-        <Caret Line="96" Column="1" TopLine="71"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1924" Column="1" TopLine="1896"/>
       </Position16>
       <Position17>
-        <Filename Value="umain.pas"/>
-        <Caret Line="98" Column="1" TopLine="71"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1930" Column="1" TopLine="1895"/>
       </Position17>
       <Position18>
         <Filename Value="umain.pas"/>
-        <Caret Line="99" Column="1" TopLine="71"/>
+        <Caret Line="95" Column="1" TopLine="68"/>
       </Position18>
       <Position19>
         <Filename Value="umain.pas"/>
-        <Caret Line="96" Column="1" TopLine="71"/>
+        <Caret Line="96" Column="1" TopLine="68"/>
       </Position19>
       <Position20>
         <Filename Value="umain.pas"/>
-        <Caret Line="98" Column="1" TopLine="71"/>
+        <Caret Line="98" Column="1" TopLine="70"/>
       </Position20>
       <Position21>
         <Filename Value="umain.pas"/>
