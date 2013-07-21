@@ -789,7 +789,7 @@ procedure TfGridView.gListColRowMoved(Sender: TObject; IsColumn: Boolean;
 var
   i: Integer;
   aParent,aAheadParent : Variant;
-  OneRowAheadID: Int64 = 0;
+  OneRowBelowID: Int64 = 0;
   aCol: Integer;
   aLevel: Integer;
   aLevelOld: Integer;
@@ -821,21 +821,25 @@ begin
           if FDataSet.CanEdit then
             FDataSet.DataSet.Post;
           gList.Row:=tIndex;
+          {
           if gList.Row > gList.FixedRows then
             begin
-              OneRowAheadID := TRowObject(gList.Objects[0,gList.Row-1]).Rec;
+              OneRowBelowID := TRowObject(gList.Objects[0,gList.Row+1]).Rec;
               GotoRowNumber(gList.Row-1);
-              aAheadParent := FDataSet.FieldByName(TreeField).AsVariant;
+              aBelowParent := FDataSet.FieldByName(TreeField).AsVariant;
             end;
           aLevel := GetLevel(aCol,gList.Row);
           if aLevel = 0 then
             aLevel := 1;
-          if (OneRowAheadID <> 0)
-          and (aAheadParent <> aParent)
-          and (OneRowAheadID <> aParent) then
+          if (OneRowBelowID <> 0)
+          and (aBelowParent <> aParent)
+          and (OneRowBelowID <> aParent) then
             begin
-              SetChild(False);
+              //SetChild(False);
+
+              aBelowParent := FDataSet.FieldByName(TreeField).AsVariant;
             end;
+          }
           //Renumber rows
           aIndex := tIndex;
           if sIndex < aIndex then

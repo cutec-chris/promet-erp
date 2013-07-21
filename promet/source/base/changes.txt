@@ -1,4 +1,6 @@
-﻿Build 253
+﻿Build 254
+      -
+Build 253
       - Bei neuen Projekten ist die Aufgabenliste standardmässig offen
       - Die Zeiterfassung hat Promet auf Windows 7 am schliessen gehindert
 Build 252
@@ -19,7 +21,7 @@ Build 249
       - sync_db ignoriert active, wenn letzte synchronisation länger als 6h her ist (absturz des hosts o.ä.)
       - Vorgabeeinstellungen fürs befüllen der DB überarbeitet
       - Gridview überarbeitet, Zeileninformationen (Einrückungslevel,Vorfahr...) werden nun in extra Objekt gespeichert
-        dadurch werden einige unschönheiten vermiedne und das Grid wirkt insgesamt rbuster
+        dadurch werden einige unschönheiten vermieden und das Grid ist insgesamt rbuster
         einige kleine Macken sind dadurch behoben
 Build 248
       - Baumansicht nicht mehr editierbar (führte zu oft zu ungewollten Editiervorgängen->Rechtsklick umbenennen)

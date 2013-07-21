@@ -413,7 +413,7 @@ begin
       if Data.Users.Rights.Right('ORDERS') > RIGHT_READ then
         AddToolbarAction(acNewOrder);
       if Data.Users.Rights.Right('ORDERS') >= RIGHT_PERMIT then
-        AddToolbarAction(acRefreshOrderList);
+        AddContextAction(acRefreshOrderList);
     end;
 end;
 procedure TfMain.AddListsList(Sender: TObject);
