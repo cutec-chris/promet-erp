@@ -32,6 +32,7 @@
     <RequiredPackages Count="12">
       <Item1>
         <PackageName Value="pProjectbase"/>
+        <DefaultFilename Value="..\base_pm\pprojectbase.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="laz_fpspreadsheet"/>
@@ -47,9 +48,11 @@
       </Item5>
       <Item6>
         <PackageName Value="phelp"/>
+        <DefaultFilename Value="..\base\phelp.lpk"/>
       </Item6>
       <Item7>
         <PackageName Value="general"/>
+        <DefaultFilename Value="..\..\..\general\general.lpk"/>
       </Item7>
       <Item8>
         <PackageName Value="LCL"/>

@@ -36,9 +36,11 @@
     <RequiredPkgs Count="4">
       <Item1>
         <PackageName Value="pDocuments"/>
+        <DefaultFilename Value="../base_documents/pdocuments.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="pVisualPrometApp"/>
+        <DefaultFilename Value="../base/pvisualprometapp.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="LCL"/>

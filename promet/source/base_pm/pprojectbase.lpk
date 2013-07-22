@@ -100,15 +100,19 @@
     <RequiredPkgs Count="6">
       <Item1>
         <PackageName Value="pcalendar"/>
+        <DefaultFilename Value="../base_calendar/pcalendar.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="perp"/>
+        <DefaultFilename Value="../base_erp/perp.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="pDocuments"/>
+        <DefaultFilename Value="../base_documents/pdocuments.lpk"/>
       </Item3>
       <Item4>
         <PackageName Value="pVisualPrometApp"/>
+        <DefaultFilename Value="../base/pvisualprometapp.lpk"/>
       </Item4>
       <Item5>
         <PackageName Value="LCL"/>
