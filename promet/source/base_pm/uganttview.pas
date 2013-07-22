@@ -142,12 +142,59 @@ var
   i: Integer;
   oD: TDateTime;
   a: Integer;
+  function DoMoveBack(aInterval,aConn : TInterval;aTime : TDateTime) : TDateTime;
+  var
+    b: Integer;
+    aTmp: TDateTime;
+    c: Integer;
+    aDur: TDateTime;
+    bInt: TInterval;
+  begin
+    Result := 0;
+    if Assigned(aInterval.Parent) and (aInterval.Parent=aConn.Parent) then
+      begin
+        for b := 0 to aInterval.Parent.IntervalCount-1 do
+          for c := 0 to aInterval.Parent.Interval[b].ConnectionCount-1 do
+            if aInterval.Parent.Interval[b].Connection[c] = aConn then
+              begin
+                bInt := aInterval.Parent.Interval[b];
+                aTmp := bInt.FinishDate-aConn.StartDate;
+                if (aTmp < result) or (Result=0) then Result := aTmp;
+                if Result>0 then
+                  begin
+                    aDur := bInt.Duration;
+                    bInt.StartDate:=bInt.StartDate-Result;
+                    bInt.Duration:=aDur;
+                  end;
+              end;
+      end
+    else if (aConn.Parent=nil) then
+      begin
+        for b := 0 to aInterval.Gantt.IntervalCount-1 do
+          for c := 0 to aInterval.Gantt.Interval[b].ConnectionCount-1 do
+            if aInterval.Gantt.Interval[b].Connection[c] = aConn then
+              begin
+                bInt := aInterval.Gantt.Interval[b];
+                aTmp := bInt.FinishDate-aConn.StartDate;
+                if (aTmp < result) or (Result=0) then Result := aTmp;
+                if Result>0 then
+                  begin
+                    aDur := bInt.Duration;
+                    bInt.StartDate:=bInt.StartDate-Result;
+                    bInt.Duration:=aDur;
+                  end;
+              end;
+
+      end;
+  end;
+
 begin
   with TInterval(Sender) do
     begin
       RecalcTimer.Enabled := True;
       if bCalculate.Down then
         begin
+          //Move Forward
           if FinishDate<(StartDate+Duration) then
             FinishDate := (StartDate+Duration);
           IntervalDone:=StartDate;
@@ -160,6 +207,8 @@ begin
                 Connection[i].FinishDate:=Connection[i].StartDate+oD;
               Connection[i].IntervalDone:=Connection[i].StartDate;
             end;
+          //Move back
+          DoMoveBack(TInterval(Sender),TInterval(Sender),TInterval(Sender).FinishDate);
         end;
       for i := 0 to FRessources.Count-1 do
         for a := 0 to TRessource(FRessources[i]).IntervalCount-1 do
