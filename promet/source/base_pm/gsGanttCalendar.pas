@@ -2026,6 +2026,7 @@ begin
             CurrInterval.Bottom := ((I-aTop) + 1) * PixelsPerLine + StartDrawIntervals - IntervalHeight div 4;
 
             Brush.Bitmap := nil;
+            Brush.Style := bsSolid;
             Brush.Color := CurrInterval.Color;
             {$IFDEF WINDOWS}
             for bri := low(BMP) to high(BMP) do

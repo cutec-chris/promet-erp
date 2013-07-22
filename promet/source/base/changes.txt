@@ -1,5 +1,7 @@
 ﻿Build 254
-      -
+      - zurück Verschieben von aufgaben im Gantt Chart verschiebt nun alle abhängigen Aufgaben
+        ebenfalls zurück wenn berechnung eingeschaltet ist
+      - Kritischer Pfad wurde nur angezeigt wenn keine Unteraufgaben zugewiesen waren
 Build 253
       - Bei neuen Projekten ist die Aufgabenliste standardmässig offen
       - Die Zeiterfassung hat Promet auf Windows 7 am schliessen gehindert

@@ -592,11 +592,15 @@ var
     for i := 0 to aInterval.ConnectionCount-1 do
       Result := Result
       or (DoPath(aInterval.Connection[i]) and (aInterval.Connection[i].StartDate<=aInterval.FinishDate));
-    if (aInterval.ConnectionCount = 0) and (aInterval.FinishDate>=aLastDate) then Result := True;
+    if (aInterval.ConnectionCount = 0) and (aInterval.IntervalCount = 0) and (aInterval.FinishDate>=aLastDate) then Result := True;
+    if (aInterval.ConnectionCount = 0) and (aInterval.IntervalCount > 0) then
+      for i := 0 to aInterval.IntervalCount-1 do
+        Result := Result or DoPath(aInterval.Interval[i]);
     if Result then
       aInterval.Color:=clRed
     else
       aInterval.Color:=clBlue;
+
   end;
 begin
   aLastDate := 0;
