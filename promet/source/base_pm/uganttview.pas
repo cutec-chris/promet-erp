@@ -113,6 +113,7 @@ end;
 
 procedure TfGanttView.RecalcTimerTimer(Sender: TObject);
 begin
+  if FGantt.Calendar.IsDragging then exit;
   RecalcTimer.Enabled:=False;
   FindCriticalPath;
   FGantt.Calendar.Invalidate;
@@ -149,8 +150,10 @@ var
     c: Integer;
     aDur: TDateTime;
     bInt: TInterval;
+    bDur: TDateTime;
+    IsMoved: Boolean = False;
   begin
-    debugln('domoveback:'+aInterval.Task);
+    bDur := aConn.Duration;
     Result := 0;
     if Assigned(aInterval.Parent) and (aInterval.Parent=aConn.Parent) then
       begin
@@ -160,12 +163,13 @@ var
               begin
                 bInt := aInterval.Parent.Interval[b];
                 aTmp := bInt.FinishDate-aConn.StartDate;
-                if (aTmp < result) or (Result=0) then Result := aTmp;
-                if Result>0 then
+                if (aTmp > Result) or (Result=0) then Result := aTmp;
+                if aTmp>0 then
                   begin
                     aDur := bInt.Duration;
-                    bInt.StartDate:=bInt.StartDate-Result;
+                    bInt.StartDate:=bInt.StartDate-aTmp;
                     bInt.Duration:=aDur;
+                    IsMoved := True;
                   end;
               end;
       end
@@ -178,15 +182,18 @@ var
                 bInt := aInterval.Gantt.Interval[b];
                 aTmp := bInt.FinishDate-aConn.StartDate;
                 if (aTmp < result) or (Result=0) then Result := aTmp;
-                if Result>0 then
+                if aTmp>0 then
                   begin
                     aDur := bInt.Duration;
-                    bInt.StartDate:=bInt.StartDate-Result;
+                    bInt.StartDate:=bInt.StartDate-aTmp;
                     bInt.Duration:=aDur;
+                    IsMoved := True;
                   end;
               end;
 
       end;
+    if IsMoved then
+      aConn.Duration:=bDur;
   end;
 
 begin

@@ -238,6 +238,9 @@ type
     property Gantt : TgsGantt read FGantt;
   end;
   TMouseOverInterval = procedure(Sender : TObject;aInterval : TInterval;X,Y : Integer) of object;
+
+  { TGanttCalendar }
+
   TGanttCalendar = class(TCustomControl)
   private
     FOverInterval: TMouseOverInterval;
@@ -346,6 +349,7 @@ type
     procedure InsertInterval(AnIndex: Integer; AnInterval: TInterval);
     procedure DeleteInterval(AnIndex: Integer);
     procedure RemoveInterval(AnInterval: TInterval);
+    function IsDragging : Boolean;
 
     property Seconds: Integer read GetSeconds;
     property Minutes: Integer read GetMinutes;
@@ -1864,6 +1868,11 @@ end;
 procedure TGanttCalendar.RemoveInterval(AnInterval: TInterval);
 begin
   FGantt.RemoveInterval(AnInterval);
+end;
+
+function TGanttCalendar.IsDragging: Boolean;
+begin
+  Result := FMoveStarted or FDragStarted;
 end;
 
 {
