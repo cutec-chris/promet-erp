@@ -152,10 +152,12 @@ var
     bInt: TInterval;
     bDur: TDateTime;
     IsMoved: Boolean = False;
+    aParent: TInterval;
   begin
     bDur := aConn.Duration;
     Result := 0;
-    if Assigned(aInterval.Parent) and (aInterval.Parent=aConn.Parent) then
+    aParent := aInterval.Parent;
+    while Assigned(aParent) do
       begin
         for b := 0 to aInterval.Parent.IntervalCount-1 do
           for c := 0 to aInterval.Parent.Interval[b].ConnectionCount-1 do
@@ -167,31 +169,28 @@ var
                 if aTmp>0 then
                   begin
                     aDur := bInt.Duration;
-                    bInt.StartDate:=bInt.StartDate-aTmp;
-                    bInt.Duration:=aDur;
+                    bInt.FinishDate:=aConn.StartDate;//bInt.StartDate-aTmp;
+                    bInt.StartDate:=bInt.FinishDate-aDur;
                     IsMoved := True;
                   end;
               end;
-      end
-    else if (aConn.Parent=nil) then
-      begin
-        for b := 0 to aInterval.Gantt.IntervalCount-1 do
-          for c := 0 to aInterval.Gantt.Interval[b].ConnectionCount-1 do
-            if aInterval.Gantt.Interval[b].Connection[c] = aConn then
-              begin
-                bInt := aInterval.Gantt.Interval[b];
-                aTmp := bInt.FinishDate-aConn.StartDate;
-                if (aTmp < result) or (Result=0) then Result := aTmp;
-                if aTmp>0 then
-                  begin
-                    aDur := bInt.Duration;
-                    bInt.StartDate:=bInt.StartDate-aTmp;
-                    bInt.Duration:=aDur;
-                    IsMoved := True;
-                  end;
-              end;
-
+        aParent := aParent.Parent;
       end;
+    for b := 0 to aInterval.Gantt.IntervalCount-1 do
+      for c := 0 to aInterval.Gantt.Interval[b].ConnectionCount-1 do
+        if aInterval.Gantt.Interval[b].Connection[c] = aConn then
+          begin
+            bInt := aInterval.Gantt.Interval[b];
+            aTmp := bInt.FinishDate-aConn.StartDate;
+            if (aTmp < result) or (Result=0) then Result := aTmp;
+            if aTmp>0 then
+              begin
+                aDur := bInt.Duration;
+                bInt.FinishDate:=aConn.StartDate;//bInt.StartDate-aTmp;
+                bInt.StartDate:=bInt.FinishDate-aDur;
+                IsMoved := True;
+              end;
+          end;
     if IsMoved then
       aConn.Duration:=bDur;
   end;
