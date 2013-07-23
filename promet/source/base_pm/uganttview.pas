@@ -150,6 +150,7 @@ var
     aDur: TDateTime;
     bInt: TInterval;
   begin
+    debugln('domoveback:'+aInterval.Task);
     Result := 0;
     if Assigned(aInterval.Parent) and (aInterval.Parent=aConn.Parent) then
       begin

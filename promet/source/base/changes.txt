@@ -1,4 +1,6 @@
-﻿Build 254
+﻿Build 255
+      - verschieben des Gantt Views aus dem Control heraus (per Drag&Drop) möglich
+Build 254
       - zurück Verschieben von aufgaben im Gantt Chart verschiebt nun alle abhängigen Aufgaben
         ebenfalls zurück wenn berechnung eingeschaltet ist
       - Kritischer Pfad wurde nur angezeigt wenn keine Unteraufgaben zugewiesen waren

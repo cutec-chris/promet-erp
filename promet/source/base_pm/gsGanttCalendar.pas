@@ -267,6 +267,7 @@ type
     FDragInterval: TInterval;
     FConnectInterval: TInterval;
     FDragStarted: Boolean;
+    FMoveStarted: Boolean;
     FFromDragPoint: Integer;
     FConnectFromPoint: TPoint;
     FConnectToPoint: TPoint;
@@ -2725,6 +2726,7 @@ end;
 
 procedure TGanttCalendar.CMMouseLeave(var Message: TLMessage);
 begin
+  FMoveStarted:=False;
   inherited;
 end;
 
@@ -2738,6 +2740,7 @@ var
   aIdx : Integer = 0;
   R: TRect;
   NewDate: TDateTime;
+  aDiff: Int64;
 begin
   List := TList.Create;
   try
@@ -2794,6 +2797,8 @@ begin
         end;
       end;
 
+      if (Message.Keys and MK_LBUTTON)=MK_LBUTTON then
+        FMoveStarted := True;
       if not Found then
       begin
         if Assigned(FOverInterval) then
@@ -2973,11 +2978,22 @@ begin
   finally
     List.Free;
   end;
+  if FMoveStarted then
+    begin
+      aDiff := round((FConnectFromPoint.X-Message.XPos)/(Width/GetMinorVisibleUnitsCount));
+      FVisibleStart := IncTime(FVisibleStart, MinorScale, aDiff);//ClearToPeriodStart(MinorScale, IncTime(FVisibleStart, MinorScale, aDiff));
+      if round((FConnectFromPoint.Y-Message.YPos)/FGantt.Tree.DefaultRowHeight) <> 0 then
+        FGantt.Tree.TopRow:=FGantt.Tree.TopRow+round((FConnectFromPoint.Y-Message.YPos)/FGantt.Tree.DefaultRowHeight);
+      Invalidate;
+      FConnectFromPoint := Point(Message.XPos, Message.YPos);
+    end;
   inherited;
 end;
 
 procedure TGanttCalendar.WMLButtonDown(var Message: TLMLButtonDown);
 begin
+  FConnectFromPoint := Point(Message.XPos, Message.YPos);
+  FMoveStarted := False;
   if Assigned(FDragInterval) and (FDragType <> ditNone) and not FDragStarted then
   begin
     FDragStarted := True;
@@ -3002,6 +3018,7 @@ var
   R: TRect;
   I: Integer;
 begin
+  FMoveStarted:=False;
   if Assigned(FDragInterval) and (FDragType <> ditNone) and FDragStarted then
   begin
     Canvas.Brush.Color := clWhite;
