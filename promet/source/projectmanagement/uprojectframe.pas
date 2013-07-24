@@ -142,6 +142,7 @@ type
   private
     { private declarations }
     FEditable : Boolean;
+    FOnStartTime: TOnStartTime;
     FProjectFlow: TProjectFlow;
     procedure AddHistory(Sender: TObject);
     procedure AddPositions(Sender: TObject);
@@ -164,6 +165,7 @@ type
     procedure SetLanguage;override;
     procedure ShowFrame; override;
     procedure GotoTask(aLink : string);
+    property OnStartTime : TOnStartTime read FOnStartTime write FOnStartTime;
   end;
 var
   aNewProjectName: String;
@@ -313,6 +315,7 @@ begin
   TfTaskFrame(Sender).IgnoreUser := True;
   TfTaskFrame(Sender).GridView.SortField:='GPRIORITY';
   TfTaskFrame(Sender).DataSet := TProject(FDataSet).Tasks;
+  TfTaskFrame(Sender).OnStartTime:=FOnStartTime;
   TPrometInplaceFrame(Sender).SetRights(FEditable);
 end;
 procedure TfProjectFrame.acCloseExecute(Sender: TObject);
