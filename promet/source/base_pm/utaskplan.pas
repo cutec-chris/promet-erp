@@ -150,6 +150,7 @@ type
     procedure Populate(aParent : Variant;aUser : Variant);
     procedure CollectResources(aResource : TRessource;asUser : string;aConnection : TComponent = nil);
     function GetIntervalFromCoordinates(Gantt: TgsGantt; X, Y, Index: Integer): TInterval;
+    function GetTaskIntervalFromCoordinates(Gantt: TgsGantt; X, Y, Index: Integer): TInterval;
     function GetTaskFromCoordinates(Gantt : TgsGantt;X,Y,Index : Integer) : string;
     function FillInterval(bTasks : TTaskList;cInterval : TPInterval = nil) : TPInterval;
   end;
@@ -467,7 +468,7 @@ function TfTaskPlan.GetTaskFromCoordinates(Gantt: TgsGantt; X, Y,Index: Integer
 var
   aInt: gsGanttCalendar.TInterval;
 begin
-    aInt := GetIntervalFromCoordinates(Gantt,X,Y,Index);
+  aInt := GetTaskIntervalFromCoordinates(Gantt,X,Y,Index);
   if Assigned(aInt) then
     if aInt.Id <> Null then
       begin
@@ -1410,6 +1411,34 @@ begin
                   inc(aIdx);
                 end;
         end;
+    end;
+  List.Free;
+end;
+
+function TfTaskPlan.GetTaskIntervalFromCoordinates(Gantt: TgsGantt; X, Y,
+  Index: Integer): TInterval;
+var
+  List: TList;
+  aId : Variant;
+  ay: Integer;
+  i: Integer;
+  aIdx : Integer = 0;
+  function IsInRect(aX, aY: Integer; R: TRect): Boolean;
+  begin
+    Result := (aX >= R.Left) and (aX <= R.Right);
+  end;
+begin
+  Result := nil;
+  aId := Null;
+  List := TList.Create;
+  Gantt.MakeIntervalList(List);
+  ay := Y-Gantt.Calendar.StartDrawIntervals;
+  ay := ay div max(Gantt.Calendar.PixelsPerLine,1);
+  ay := ay+(Gantt.Tree.TopRow-1);
+  if (ay<List.Count) and (ay>-1) then
+    begin
+      if IsInRect(X,Y,TInterval(List[ay]).DrawRect) then
+        Result := TInterval(List[ay]);
     end;
   List.Free;
 end;
