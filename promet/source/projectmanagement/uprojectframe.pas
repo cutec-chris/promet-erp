@@ -14,7 +14,7 @@ uses
   Classes, SysUtils, FileUtil, LR_DBSet, LR_Class, Forms, Controls, ComCtrls,
   Buttons, ActnList, Menus, ExtCtrls, DbCtrls, StdCtrls, uExtControls,
   DBZVDateTimePicker, db, uPrometFrames, uPrometFramesInplace, uBaseDBClasses,
-  Dialogs, Spin, EditBtn,variants,uProjectFlow,Graphics;
+  Dialogs, Spin, EditBtn,variants,uProjectFlow,uTasks,Graphics;
 type
 
   { TfProjectFrame }
@@ -173,7 +173,7 @@ procedure AddToMainTree(aAction : TAction);
 implementation
 uses uData,uProjects,uHistoryFrame,uLinkFrame,uImageFrame,uDocuments,
   uDocumentFrame,uIntfStrConsts,uMainTreeFrame,uBaseDBInterface,
-  uFilterFrame,uTasks,uBaseSearch,Utils,uprojectimport,uBaseERPDBClasses,uSelectReport,
+  uFilterFrame,uBaseSearch,Utils,uprojectimport,uBaseERPDBClasses,uSelectReport,
   uNRights,uprojectpositions,uSearch,LCLProc,utask,uprojectoverview,uBaseVisualApplication,
   uGanttView;
 {$R *.lfm}
@@ -183,6 +183,7 @@ resourcestring
   strEnterProcessName             = 'geben Sie einen neuen Namen für den Prozess an';
   strProcessName                  = 'Prozessname';
   strInactiveStatus               = 'Der gewähte Status ist kein aktiver Status, sollen alle aktiven Aufgaben deaktiviert werden ?';
+  strActiveStatus                 = 'Der gewähte Status ist ein aktiver Status, sollen alle aktiven Aufgaben aktiviert werden ?';
   strNewProject                   = 'neues Projekt';
 procedure AddToMainTree(aAction : TAction);
 var
@@ -243,28 +244,53 @@ var
   bProject: TProject;
 begin
   if Data.States.DataSet.Locate('TYPE;STATUS',VarArrayOf(['P',DataSet.FieldByName('STATUS').AsString]),[loCaseInsensitive]) then
-    if Data.States.DataSet.FieldByName('ACTIVE').AsString='N' then
-      if MessageDlg(strInactiveStatus,mtInformation,[mbYes,mbNo],0) = mrYes then
+    begin
+      bProject := Tproject.Create(nil,Data);
+      bProject.Select(TProject(DataSet).Id.AsVariant);
+      bproject.Open;
+      bProject.Tasks.Open;
+      if (Data.States.DataSet.FieldByName('ACTIVE').AsString='N') then
         begin
-          bProject := Tproject.Create(nil,Data);
-          bProject.Select(TProject(DataSet).Id.AsVariant);
-          bproject.Open;
-          bProject.Tasks.Open;
-          bProject.Tasks.First;
-          while not bProject.Tasks.EOF do
-            begin
-              if bProject.Tasks.FieldByName('ACTIVE').AsString<>'N' then
-                begin
-                  if not bProject.Tasks.CanEdit then
-                    bProject.Tasks.DataSet.Edit;
-                  bProject.Tasks.DataSet.FieldByName('ACTIVE').AsString:='N';
-                  if bProject.Tasks.CanEdit then
-                    bProject.Tasks.Post;
-                end;
-              bProject.Tasks.Next;
-            end;
-          bProject.Free;
+          if not bProject.Tasks.DataSet.Locate('ACTIVE','N',[]) then
+            if MessageDlg(strInactiveStatus,mtInformation,[mbYes,mbNo],0) = mrYes then
+              begin
+                bProject.Tasks.First;
+                while not bProject.Tasks.EOF do
+                  begin
+                    if bProject.Tasks.FieldByName('ACTIVE').AsString<>'N' then
+                      begin
+                        if not bProject.Tasks.CanEdit then
+                          bProject.Tasks.DataSet.Edit;
+                        bProject.Tasks.DataSet.FieldByName('ACTIVE').AsString:='N';
+                        if bProject.Tasks.CanEdit then
+                          bProject.Tasks.Post;
+                      end;
+                    bProject.Tasks.Next;
+                  end;
+              end;
+        end
+      else
+        begin
+          if bProject.Tasks.DataSet.Locate('ACTIVE','N',[]) then
+            if MessageDlg(strActiveStatus,mtInformation,[mbYes,mbNo],0) = mrYes then
+              begin
+                bProject.Tasks.First;
+                while not bProject.Tasks.EOF do
+                  begin
+                    if bProject.Tasks.FieldByName('ACTIVE').AsString<>'Y' then
+                      begin
+                        if not bProject.Tasks.CanEdit then
+                          bProject.Tasks.DataSet.Edit;
+                        bProject.Tasks.DataSet.FieldByName('ACTIVE').AsString:='Y';
+                        if bProject.Tasks.CanEdit then
+                          bProject.Tasks.Post;
+                      end;
+                    bProject.Tasks.Next;
+                  end;
+              end;
         end;
+      bProject.Free;
+    end;
 end;
 
 procedure TfProjectFrame.AddHistory(Sender: TObject);

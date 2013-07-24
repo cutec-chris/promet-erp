@@ -2253,7 +2253,7 @@ begin
     begin
       aFrame := TfProjectFrame.Create(Self);
       aFrame.SetLanguage;
-      aFrame.OnStartTime:=@SenderTfMainTaskFrameControlsSenderTfMainTaskFrameTfTaskFrameStartTime;
+      TfProjectFrame(aFrame).OnStartTime:=@SenderTfMainTaskFrameControlsSenderTfMainTaskFrameTfTaskFrameStartTime;
       if aFrame.OpenFromLink(aLink) then
         begin
           pcPages.AddTab(aFrame);
@@ -2364,7 +2364,7 @@ begin
             begin
               aFrame := TfProjectFrame.Create(Self);
               aFrame.SetLanguage;
-              aFrame.OnStartTime:=@SenderTfMainTaskFrameControlsSenderTfMainTaskFrameTfTaskFrameStartTime;
+              TfProjectFrame(aFrame).OnStartTime:=@SenderTfMainTaskFrameControlsSenderTfMainTaskFrameTfTaskFrameStartTime;
               if aFrame.OpenFromLink('PROJECTS.ID@'+aDoc.FieldByName('REF_ID_ID').AsString) then
                 begin
                   pcPages.AddTab(aFrame);

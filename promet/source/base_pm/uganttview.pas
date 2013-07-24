@@ -24,7 +24,11 @@ type
   TfGanttView = class(TForm)
     acCenterTask: TAction;
     acOpen: TAction;
+    acMakePossible: TAction;
+    acAddSubProjects: TAction;
     ActionList1: TActionList;
+    bCalculate1: TSpeedButton;
+    bCalculate2: TSpeedButton;
     bDayView: TSpeedButton;
     Bevel5: TBevel;
     Bevel6: TBevel;
@@ -113,7 +117,7 @@ end;
 
 procedure TfGanttView.RecalcTimerTimer(Sender: TObject);
 begin
-  //if FGantt.Calendar.IsDragging then exit;
+  if FGantt.Calendar.IsDragging then exit;
   RecalcTimer.Enabled:=False;
   FindCriticalPath;
   FGantt.Calendar.Invalidate;
@@ -143,6 +147,7 @@ var
   i: Integer;
   oD: TDateTime;
   a: Integer;
+  aDur: TDateTime;
   function DoMoveBack(aInterval,aConn : TInterval;aTime : TDateTime) : TDateTime;
   var
     b: Integer;
@@ -179,8 +184,11 @@ begin
       if bCalculate.Down then
         begin
           //Move Forward
-          if FinishDate<(StartDate+Duration) then
-            FinishDate := (StartDate+Duration);
+          aDur := Duration;
+          if TInterval(Sender).StartDate<TInterval(Sender).Earliest then
+            TInterval(Sender).StartDate:=TInterval(Sender).Earliest;
+          if FinishDate<(StartDate+aDur) then
+            FinishDate := (StartDate+aDur);
           IntervalDone:=StartDate;
           for i := 0 to ConnectionCount-1 do
             begin
@@ -657,6 +665,8 @@ begin
   aUser.Free;
   aInterval.FinishDate:=aDue;
   aInterval.StartDate:=aStart;
+  if not aTasks.FieldByName('EARLIEST').IsNull then
+    aInterval.Earliest := aTasks.FieldByName('EARLIEST').AsDateTime;
   if not (aTasks.FieldByName('BUFFERTIME').AsString = '') then
     aInterval.Buffer:=aTasks.FieldByName('BUFFERTIME').AsFloat;
   aInterval.Changed:=aChanged;

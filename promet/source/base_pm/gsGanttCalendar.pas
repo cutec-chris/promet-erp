@@ -107,6 +107,7 @@ type
     FDrawRect: TRect;
     FVisible: Boolean;
     FIntervalDone: TDateTime;
+    FEarliestDate: TDateTime;
 
     FIntervals: TList;
 
@@ -114,10 +115,12 @@ type
     FCanUpdate: Boolean;
 
     // property procedures and functions
+    function GetEarliestDate: TDateTime;
     function GetStartDate: TDateTime;
     function GetFinishDate: TDateTime;
     procedure SetBuffer(AValue: TDateTime);
     procedure SetColor(AValue: TColor);
+    procedure SetEarliestDate(AValue: TDateTime);
     procedure SetId(AValue: Variant);
 
     function GetDuration: TDateTime;
@@ -192,6 +195,7 @@ type
 
     property StartDate: TDateTime read GetStartDate write SetStartDate;
     property FinishDate: TDateTime read GetFinishDate write SetFinishDate;
+    property Earliest: TDateTime read GetEarliestDate write SetEarliestDate;
     property Duration: TDateTime read GetDuration write SetDuration;
     property NetTime: TDateTime read FNetTime write SetNetTime;
     property Buffer: TDateTime read FBuffer write SetBuffer;
@@ -1430,6 +1434,11 @@ begin
   Result := CountStartDate;
 end;
 
+function TInterval.GetEarliestDate: TDateTime;
+begin
+  Result := FEarliestDate;
+end;
+
 function TInterval.GetFinishDate: TDateTime;
 begin
   Result := CountFinishDate;
@@ -1454,6 +1463,11 @@ begin
   FColor:=AValue;
 end;
 
+procedure TInterval.SetEarliestDate(AValue: TDateTime);
+begin
+  FEarliestDate := AValue;
+end;
+
 procedure TInterval.SetId(AValue: Variant);
 begin
   if Fid=AValue then Exit;
@@ -1464,7 +1478,6 @@ end;
 procedure TInterval.SetStartDate(const Value: TDateTime);
 begin
   FStartDate := Value;
-  
   if FIntervalDone < FStartDate then
     FIntervalDone := FStartDate;
   FChanged := True;
