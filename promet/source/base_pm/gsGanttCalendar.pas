@@ -101,6 +101,7 @@ type
 
     FStartDate: TDateTime;
     FFinishDate: TDateTime;
+    FStarted: Boolean;
     FTask: String;
     FParent: TInterval;
 
@@ -202,6 +203,7 @@ type
     property StampDuration: TTimeStamp read GetStampDuration;
     property Task: String read FTask write SetTask;
     property Project: String read FProject write Fproject;
+    property Started: Boolean read FStarted write FStarted;
     property Parent: TInterval read FParent write FParent;
     property PercentUsage : Extended read GetUsage;
     property DepDone : Boolean read FDepDone write FDepDone;

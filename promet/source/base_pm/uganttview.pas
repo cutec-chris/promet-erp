@@ -15,7 +15,7 @@ interface
 
 uses
   Classes, SysUtils, db, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, Buttons, Menus, ActnList, gsGanttCalendar, uTask,Math;
+  StdCtrls, Buttons, Menus, ActnList, gsGanttCalendar, uTask,Math,uProjects;
 
 type
 
@@ -56,6 +56,7 @@ type
     ToolButton1: TSpeedButton;
     ToolButton2: TSpeedButton;
     procedure acCenterTaskExecute(Sender: TObject);
+    procedure acMakePossibleExecute(Sender: TObject);
     procedure acOpenExecute(Sender: TObject);
     procedure aIntervalChanged(Sender: TObject);
     procedure aIntervalDrawBackground(Sender: TObject; aCanvas: TCanvas;
@@ -80,6 +81,7 @@ type
   private
     { private declarations }
     FGantt: TgsGantt;
+    Fproject : TProject;
     FTasks : TTaskList;
     FRessources : TList;
     FHintRect : TRect;
@@ -94,14 +96,14 @@ type
     procedure FindCriticalPath;
     procedure FillInterval(aInterval : TInterval;aTasks : TTaskList);
     procedure GotoTask(aLink : string);
-    function Execute(aTasks : TTaskList;aLink : string = '') : Boolean;
+    function Execute(aProject : TProject;aLink : string = '') : Boolean;
   end;
 
 var
   fGanttView: TfGanttView;
 
 implementation
-uses uData,LCLIntf,uBaseDbClasses,uProjects,uTaskEdit,variants,LCLProc,uTaskPlan,
+uses uData,LCLIntf,uBaseDbClasses,uTaskEdit,variants,LCLProc,uTaskPlan,
   uIntfStrConsts,uColors;
 {$R *.lfm}
 
@@ -247,6 +249,30 @@ begin
         end;
     end;
 end;
+
+procedure TfGanttView.acMakePossibleExecute(Sender: TObject);
+  function DoMove(aInterval : TInterval) : Boolean;
+  var
+    b: Integer;
+    aDur: TDateTime;
+  begin
+    Result := False;
+    if (aInterval.StartDate<Now()) and (not aInterval.Started) then
+      begin
+        aDur := aInterval.Duration;
+        aInterval.FinishDate:=Now()+aDur;
+        aInterval.StartDate:=Now();
+      end;
+    for b := 0 to aInterval.IntervalCount-1 do
+      Result := DoMove(aInterval.Interval[b]);
+  end;
+var
+  i: Integer;
+begin
+  for i := 0 to FGantt.IntervalCount-1 do
+    DoMove(FGantt.Interval[i]);
+end;
+
 procedure TfGanttView.acOpenExecute(Sender: TObject);
 var
   aLink: String;
@@ -423,6 +449,13 @@ begin
   inherited Destroy;
 end;
 procedure TfGanttView.Populate(aTasks: TTaskList);
+var
+  aNewInterval: TInterval;
+  aTask: TTask;
+  aInterval: TInterval;
+  aDep: TInterval;
+  i: Integer;
+  aRoot: TInterval;
   function FindInterval(aParent : TInterval;aId : Variant) : TInterval;
   var
     i: Integer;
@@ -478,7 +511,7 @@ procedure TfGanttView.Populate(aTasks: TTaskList);
     TaskPlan : TfTaskPlan;
   begin
     Result := nil;
-    if aTasks.FieldByName('PARENT').AsString <> '' then
+    if (aTasks.FieldByName('PARENT').AsString <> '') then
       begin
         aIParent := IntervalById(aTasks.FieldByName('PARENT').AsVariant);
         if not Assigned(aIParent) then
@@ -501,7 +534,7 @@ procedure TfGanttView.Populate(aTasks: TTaskList);
         aIParent.AddInterval(aInterval);
       end
     else
-      FGantt.AddInterval(aInterval);
+      aRoot.AddInterval(aInterval);
     Result := aInterval;
     aInterval.Pointer := nil;
     if aTasks.FieldByName('USER').AsString <> '' then
@@ -521,12 +554,6 @@ procedure TfGanttView.Populate(aTasks: TTaskList);
       end;
   end;
 
-var
-  aNewInterval: TInterval;
-  aTask: TTask;
-  aInterval: TInterval;
-  aDep: TInterval;
-  i: Integer;
 begin
   FGantt.BeginUpdate;
   while FGantt.IntervalCount>0 do
@@ -534,12 +561,16 @@ begin
   for i := 0 to FRessources.Count-1 do TRessource(FRessources[i]).Free;
   FRessources.Clear;
   aTasks.First;
+  aRoot := TInterval.Create(FGantt);
+  FGantt.AddInterval(aRoot);
+  aRoot.Task:=Fproject.Text.AsString;
+  aRoot.Visible:=True;
   while not aTasks.EOF do
     begin
       if aTasks.FieldByName('ACTIVE').AsString<>'N' then
         if IntervalById(aTasks.Id.AsVariant)=nil then
           begin
-            aInterval := AddTask;
+            aInterval := AddTask(True);
           end;
       aTasks.Next;
     end;
@@ -606,43 +637,6 @@ begin
   FGantt.Calendar.Invalidate;
 end;
 
-{
-function TfTaskPlan.FillInterval(bTasks: TTaskList;cInterval : TPInterval = nil): TPInterval;
-var
-  bInterval: TPInterval;
-  aDue: System.TDateTime;
-  aStart: System.TDateTime;
-begin
-  Result := nil;
-  if Assigned(cInterval) then
-    bInterval := cInterval
-  else
-    bInterval := TPInterval.Create(nil);
-  bInterval.Task:=bTasks.FieldByName('SUMMARY').AsString;
-  bInterval.Project:=bTasks.FieldByName('PROJECT').AsString;
-  bInterval.Id:=bTasks.Id.AsVariant;
-  aDue := bTasks.FieldByName('DUEDATE').AsDateTime;
-  aStart := bTasks.FieldByName('STARTDATE').AsDateTime;
-  if (aDue=0) and (aStart=0) then
-  else if aStart = 0 then
-    aStart := aDue-StrToFloatDef(bTasks.FieldByName('PLANTIME').AsString,1)
-  else if aDue=0 then
-    aStart := 0;
-  bInterval.StartDate:=aStart;
-  bInterval.FinishDate:=aDue;
-  bInterval.DepDone := bTasks.FieldByName('DEPDONE').AsString <> 'N';
-  if not bTasks.FieldByName('PLANTIME').IsNull then
-    bInterval.NetTime:=bTasks.FieldByName('PLANTIME').AsFloat;
-  if ((aDue=0) and (aStart=0)) or (bTasks.FieldByName('PLANTASK').AsString='N') then
-    begin
-      bInterval.Free
-    end
-  else
-    Result := bInterval;
-end;
-
-}
-
 procedure TfGanttView.FillInterval(aInterval : TInterval; aTasks: TTaskList);
 var
   aUser: TUser;
@@ -653,6 +647,7 @@ begin
   aChanged := aTasks.CalcDates(aStart,aDue);
   aInterval.Task:=aTasks.FieldByName('SUMMARY').AsString;
   aInterval.Project:=aTasks.FieldByName('PROJECT').AsString;
+  aInterval.Started:=not aTasks.FieldByName('STARTEDAT').IsNull;
   aInterval.Id:=aTasks.Id.AsVariant;
   aInterval.DepDone := aTasks.FieldByName('DEPDONE').AsString <> 'N';
   if not aTasks.FieldByName('PLANTIME').IsNull then
@@ -706,7 +701,7 @@ begin
     end;
   aTask.Free;
 end;
-function TfGanttView.Execute(aTasks: TTaskList;aLink : string = ''): Boolean;
+function TfGanttView.Execute(aProject: TProject; aLink: string): Boolean;
   procedure RecoursiveChange(aParent : TInterval);
   var
     i: Integer;
@@ -715,12 +710,12 @@ function TfGanttView.Execute(aTasks: TTaskList;aLink : string = ''): Boolean;
       begin
         if aParent.Interval[i].Changed then
           begin
-            ChangeTask(aTasks,aParent.Interval[i]);
+            ChangeTask(aProject.Tasks,aParent.Interval[i]);
           end;
         RecoursiveChange(aParent.Interval[i]);
       end;
     if aParent.Changed then
-      ChangeTask(aTasks,aParent);
+      ChangeTask(aProject.Tasks,aParent);
   end;
 var
   i: Integer;
@@ -730,12 +725,13 @@ begin
       Application.CreateForm(TfGanttView,fGanttView);
       Self := fGanttView;
     end;
-  FTasks := aTasks;
-  Populate(aTasks);
+  FProject := aproject;
+  FTasks := aProject.Tasks;
+  Populate(FTasks);
   ModalResult := mrNone;
   if aLink <> '' then
     GotoTask(aLink);
-  Caption := strGanttView+' - '+aTasks.Parent.FieldByName('NAME').AsString;
+  Caption := strGanttView+' - '+FTasks.Parent.FieldByName('NAME').AsString;
   Show;
   while Visible do
     Application.ProcessMessages;

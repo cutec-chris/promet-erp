@@ -880,7 +880,7 @@ begin
         begin
           aProject.Tasks.SelectActive;
           aProject.Tasks.Open;
-          fGanttView.Execute(aProject.Tasks,aLink);
+          fGanttView.Execute(aProject,aLink);
         end;
       aProject.Free;
     end;
