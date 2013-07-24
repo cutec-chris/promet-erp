@@ -590,7 +590,6 @@ object fGanttView: TfGanttView
           E1FFA9A8A9FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1
           E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FF
         }
-        GroupIndex = 5
         Layout = blGlyphTop
         ShowCaption = False
       end

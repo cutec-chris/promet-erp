@@ -584,52 +584,56 @@ var
 
 begin
   FGantt.BeginUpdate;
-  if DoClean then
-    begin
-      while FGantt.IntervalCount>0 do
-        FGantt.DeleteInterval(0);
-      for i := 0 to FRessources.Count-1 do TRessource(FRessources[i]).Free;
-      FRessources.Clear;
-    end;
-  aTasks.First;
-  aRoot := TInterval.Create(FGantt);
-  FGantt.AddInterval(aRoot);
-  aRoot.Task:=Fproject.Text.AsString;
-  aRoot.Visible:=True;
-  while not aTasks.EOF do
-    begin
-      if aTasks.FieldByName('ACTIVE').AsString<>'N' then
-        if IntervalById(aTasks.Id.AsVariant)=nil then
-          begin
-            aInterval := AddTask(True);
-          end;
-      aTasks.Next;
-    end;
-  aTasks.First;
-  while not aTasks.EOF do
-    begin
-      if aTasks.FieldByName('ACTIVE').AsString<>'N' then
-        begin
-          aTask := TTask.Create(nil,Data);
-          aTask.Select(aTasks.Id.AsVariant);
-          aTask.Open;
-          aTask.Dependencies.Open;
-          aTask.Dependencies.First;
-          while not aTask.Dependencies.DataSet.EOF do
+  try
+    if DoClean then
+      begin
+        while FGantt.IntervalCount>0 do
+          FGantt.DeleteInterval(0);
+        for i := 0 to FRessources.Count-1 do TRessource(FRessources[i]).Free;
+        FRessources.Clear;
+      end;
+    aTasks.First;
+    aRoot := TInterval.Create(FGantt);
+    FGantt.AddInterval(aRoot);
+    aRoot.Task:=Fproject.Text.AsString;
+    while not aTasks.EOF do
+      begin
+        if aTasks.FieldByName('ACTIVE').AsString<>'N' then
+          if IntervalById(aTasks.Id.AsVariant)=nil then
             begin
-              aDep := IntervalById(aTask.Dependencies.FieldByName('REF_ID_ID').AsVariant);
-              if Assigned(aDep) then
-                begin
-                  aInterval := IntervalById(aTasks.Id.AsVariant);
-                  aDep.AddConnection(aInterval,aTask.FieldByName('STARTDATE').IsNull and aTask.FieldByName('DUEDATE').IsNull);
-                end;
-              aTask.Dependencies.Next;
+              aInterval := AddTask(True);
             end;
-          aTask.Free;
-        end;
-      aTasks.Next;
-    end;
-  FGantt.EndUpdate;
+        aTasks.Next;
+      end;
+    aTasks.First;
+    while not aTasks.EOF do
+      begin
+        if aTasks.FieldByName('ACTIVE').AsString<>'N' then
+          begin
+            aTask := TTask.Create(nil,Data);
+            aTask.Select(aTasks.Id.AsVariant);
+            aTask.Open;
+            aTask.Dependencies.Open;
+            aTask.Dependencies.First;
+            while not aTask.Dependencies.DataSet.EOF do
+              begin
+                aDep := IntervalById(aTask.Dependencies.FieldByName('REF_ID_ID').AsVariant);
+                if Assigned(aDep) then
+                  begin
+                    aInterval := IntervalById(aTasks.Id.AsVariant);
+                    aDep.AddConnection(aInterval,aTask.FieldByName('STARTDATE').IsNull and aTask.FieldByName('DUEDATE').IsNull);
+                  end;
+                aTask.Dependencies.Next;
+              end;
+            aTask.Free;
+          end;
+        aTasks.Next;
+      end;
+    if aRoot.IntervalCount>0 then
+      aRoot.Visible:=True;
+  finally
+    FGantt.EndUpdate;
+  end;
   FGantt.Tree.TopRow:=1;
   FGantt.StartDate:=Now();
   FindCriticalPath;
