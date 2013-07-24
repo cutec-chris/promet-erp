@@ -113,7 +113,7 @@ end;
 
 procedure TfGanttView.RecalcTimerTimer(Sender: TObject);
 begin
-  if FGantt.Calendar.IsDragging then exit;
+  //if FGantt.Calendar.IsDragging then exit;
   RecalcTimer.Enabled:=False;
   FindCriticalPath;
   FGantt.Calendar.Invalidate;
@@ -150,49 +150,26 @@ var
     c: Integer;
     aDur: TDateTime;
     bInt: TInterval;
-    bDur: TDateTime;
     IsMoved: Boolean = False;
     aParent: TInterval;
   begin
-    bDur := aConn.Duration;
     Result := 0;
-    aParent := aInterval.Parent;
-    while Assigned(aParent) do
-      begin
-        for b := 0 to aInterval.Parent.IntervalCount-1 do
-          for c := 0 to aInterval.Parent.Interval[b].ConnectionCount-1 do
-            if aInterval.Parent.Interval[b].Connection[c] = aConn then
-              begin
-                bInt := aInterval.Parent.Interval[b];
-                aTmp := bInt.FinishDate-aConn.StartDate;
-                if (aTmp > Result) or (Result=0) then Result := aTmp;
-                if aTmp>0 then
-                  begin
-                    aDur := bInt.Duration;
-                    bInt.FinishDate:=aConn.StartDate;//bInt.StartDate-aTmp;
-                    bInt.StartDate:=bInt.FinishDate-aDur;
-                    IsMoved := True;
-                  end;
-              end;
-        aParent := aParent.Parent;
-      end;
-    for b := 0 to aInterval.Gantt.IntervalCount-1 do
-      for c := 0 to aInterval.Gantt.Interval[b].ConnectionCount-1 do
-        if aInterval.Gantt.Interval[b].Connection[c] = aConn then
-          begin
-            bInt := aInterval.Gantt.Interval[b];
-            aTmp := bInt.FinishDate-aConn.StartDate;
-            if (aTmp < result) or (Result=0) then Result := aTmp;
-            if aTmp>0 then
-              begin
-                aDur := bInt.Duration;
-                bInt.FinishDate:=aConn.StartDate;//bInt.StartDate-aTmp;
-                bInt.StartDate:=bInt.FinishDate-aDur;
-                IsMoved := True;
-              end;
-          end;
-    if IsMoved then
-      aConn.Duration:=bDur;
+    for c := 0 to aInterval.ConnectionCount-1 do
+      if aInterval.Connection[c] = aConn then
+        begin
+          bInt := aInterval;
+          aTmp := bInt.FinishDate-aConn.StartDate;
+          if (aTmp > Result) or (Result=0) then Result := aTmp;
+          if aTmp>0 then
+            begin
+              aDur := bInt.Duration;
+              bInt.FinishDate:=aConn.StartDate;
+              bInt.StartDate:=bInt.FinishDate-aDur;
+              IsMoved := True;
+            end;
+        end;
+    for b := 0 to aInterval.IntervalCount-1 do
+      Result := DoMoveBack(aInterval.Interval[b],aConn,aTime);
   end;
 
 begin
@@ -215,7 +192,8 @@ begin
               Connection[i].IntervalDone:=Connection[i].StartDate;
             end;
           //Move back
-          DoMoveBack(TInterval(Sender),TInterval(Sender),TInterval(Sender).FinishDate);
+          for i := 0 to TInterval(Sender).Gantt.IntervalCount-1 do
+            DoMoveBack(TInterval(Sender).Gantt.Interval[i],TInterval(Sender),TInterval(Sender).FinishDate);
         end;
       for i := 0 to FRessources.Count-1 do
         for a := 0 to TRessource(FRessources[i]).IntervalCount-1 do

@@ -1,6 +1,8 @@
-﻿Build 255
+﻿Build 256
+      -
+Build 255
       - verschieben des Gantt Views aus dem Control heraus (per Drag&Drop) möglich
-      - verschieben von Aufgabne vorwärts wie rückwärts (zusammenschieben des Projektes) korrigiert
+      - verschieben von Aufgaben vorwärts wie rückwärts (zusammenschieben des Projektes) korrigiert
 Build 254
       - zurück Verschieben von aufgaben im Gantt Chart verschiebt nun alle abhängigen Aufgaben
         ebenfalls zurück wenn berechnung eingeschaltet ist
