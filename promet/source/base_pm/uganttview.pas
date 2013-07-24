@@ -158,12 +158,12 @@ var
       if aInterval.Connection[c] = aConn then
         begin
           bInt := aInterval;
-          aTmp := bInt.FinishDate-aConn.StartDate;
+          aTmp := (bInt.FinishDate+bInt.Buffer)-aConn.StartDate;
           if (aTmp > Result) or (Result=0) then Result := aTmp;
           if aTmp>0 then
             begin
               aDur := bInt.Duration;
-              bInt.FinishDate:=aConn.StartDate;
+              bInt.FinishDate:=aConn.StartDate-bInt.Buffer;
               bInt.StartDate:=bInt.FinishDate-aDur;
               IsMoved := True;
             end;
@@ -253,13 +253,13 @@ begin
       aEdit :=TfTaskEdit.Create(nil);
       if aEdit.Execute(aLink) then
         begin
-          aInt := TP.GetIntervalFromCoordinates(FGantt,aClickPoint.X,aClickPoint.Y,aSelInterval);
+          aInt := TP.GetTaskIntervalFromCoordinates(FGantt,aClickPoint.X,aClickPoint.Y,aSelInterval);
           if Assigned(aInt) then
             begin
               aTask := TTask.Create(nil,Data);
               aTask.SelectFromLink(aLink);
               aTask.Open;
-              TP.FillInterval(aTask,TPInterval(aInt));
+              FillInterval(TPInterval(aInt),aTask);
               aTask.Free;
               FGantt.Calendar.Invalidate;
             end;
@@ -598,14 +598,57 @@ begin
   FGantt.Calendar.Invalidate;
 end;
 
+{
+function TfTaskPlan.FillInterval(bTasks: TTaskList;cInterval : TPInterval = nil): TPInterval;
+var
+  bInterval: TPInterval;
+  aDue: System.TDateTime;
+  aStart: System.TDateTime;
+begin
+  Result := nil;
+  if Assigned(cInterval) then
+    bInterval := cInterval
+  else
+    bInterval := TPInterval.Create(nil);
+  bInterval.Task:=bTasks.FieldByName('SUMMARY').AsString;
+  bInterval.Project:=bTasks.FieldByName('PROJECT').AsString;
+  bInterval.Id:=bTasks.Id.AsVariant;
+  aDue := bTasks.FieldByName('DUEDATE').AsDateTime;
+  aStart := bTasks.FieldByName('STARTDATE').AsDateTime;
+  if (aDue=0) and (aStart=0) then
+  else if aStart = 0 then
+    aStart := aDue-StrToFloatDef(bTasks.FieldByName('PLANTIME').AsString,1)
+  else if aDue=0 then
+    aStart := 0;
+  bInterval.StartDate:=aStart;
+  bInterval.FinishDate:=aDue;
+  bInterval.DepDone := bTasks.FieldByName('DEPDONE').AsString <> 'N';
+  if not bTasks.FieldByName('PLANTIME').IsNull then
+    bInterval.NetTime:=bTasks.FieldByName('PLANTIME').AsFloat;
+  if ((aDue=0) and (aStart=0)) or (bTasks.FieldByName('PLANTASK').AsString='N') then
+    begin
+      bInterval.Free
+    end
+  else
+    Result := bInterval;
+end;
+
+}
+
 procedure TfGanttView.FillInterval(aInterval : TInterval; aTasks: TTaskList);
 var
   aUser: TUser;
   aStart: TDateTime;
   aDue: TDateTime;
+  aChanged: Boolean;
 begin
-  aTasks.CalcDates(aStart,aDue);
+  aChanged := aTasks.CalcDates(aStart,aDue);
   aInterval.Task:=aTasks.FieldByName('SUMMARY').AsString;
+  aInterval.Project:=aTasks.FieldByName('PROJECT').AsString;
+  aInterval.Id:=aTasks.Id.AsVariant;
+  aInterval.DepDone := aTasks.FieldByName('DEPDONE').AsString <> 'N';
+  if not aTasks.FieldByName('PLANTIME').IsNull then
+    aInterval.NetTime:=aTasks.FieldByName('PLANTIME').AsFloat;
   aUser := TUser.Create(nil,Data);
   aUser.SelectByAccountno(aTasks.FieldByName('USER').AsString);
   aUser.Open;
@@ -616,6 +659,7 @@ begin
   aInterval.StartDate:=aStart;
   if not (aTasks.FieldByName('BUFFERTIME').AsString = '') then
     aInterval.Buffer:=aTasks.FieldByName('BUFFERTIME').AsFloat;
+  aInterval.Changed:=aChanged;
 end;
 procedure TfGanttView.GotoTask(aLink: string);
 var

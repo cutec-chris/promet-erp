@@ -152,7 +152,6 @@ type
     function GetIntervalFromCoordinates(Gantt: TgsGantt; X, Y, Index: Integer): TInterval;
     function GetTaskIntervalFromCoordinates(Gantt: TgsGantt; X, Y, Index: Integer): TInterval;
     function GetTaskFromCoordinates(Gantt : TgsGantt;X,Y,Index : Integer) : string;
-    function FillInterval(bTasks : TTaskList;cInterval : TPInterval = nil) : TPInterval;
   end;
 
   { TCollectThread }
@@ -469,45 +468,13 @@ var
   aInt: gsGanttCalendar.TInterval;
 begin
   aInt := GetTaskIntervalFromCoordinates(Gantt,X,Y,Index);
+  if aInt = nil then
+    aInt := GetIntervalFromCoordinates(Gantt,X,Y,Index);
   if Assigned(aInt) then
     if aInt.Id <> Null then
       begin
         Result := 'TASKS@'+VarToStr(aInt.Id);
       end;
-end;
-
-function TfTaskPlan.FillInterval(bTasks: TTaskList;cInterval : TPInterval = nil): TPInterval;
-var
-  bInterval: TPInterval;
-  aDue: System.TDateTime;
-  aStart: System.TDateTime;
-begin
-  Result := nil;
-  if Assigned(cInterval) then
-    bInterval := cInterval
-  else
-    bInterval := TPInterval.Create(nil);
-  bInterval.Task:=bTasks.FieldByName('SUMMARY').AsString;
-  bInterval.Project:=bTasks.FieldByName('PROJECT').AsString;
-  bInterval.Id:=bTasks.Id.AsVariant;
-  aDue := bTasks.FieldByName('DUEDATE').AsDateTime;
-  aStart := bTasks.FieldByName('STARTDATE').AsDateTime;
-  if (aDue=0) and (aStart=0) then
-  else if aStart = 0 then
-    aStart := aDue-StrToFloatDef(bTasks.FieldByName('PLANTIME').AsString,1)
-  else if aDue=0 then
-    aStart := 0;
-  bInterval.StartDate:=aStart;
-  bInterval.FinishDate:=aDue;
-  bInterval.DepDone := bTasks.FieldByName('DEPDONE').AsString <> 'N';
-  if not bTasks.FieldByName('PLANTIME').IsNull then
-    bInterval.NetTime:=bTasks.FieldByName('PLANTIME').AsFloat;
-  if ((aDue=0) and (aStart=0)) or (bTasks.FieldByName('PLANTASK').AsString='N') then
-    begin
-      bInterval.Free
-    end
-  else
-    Result := bInterval;
 end;
 
 procedure TfTaskPlan.bDayViewClick(Sender: TObject);
@@ -926,6 +893,7 @@ var
   aEdit: TfTaskEdit;
   aInt: gsGanttCalendar.TInterval;
   aTask: TTask;
+  gView : TfGanttView;
 begin
   aLink := GetTaskFromCoordinates(FGantt,aClickPoint.X,aClickPoint.Y,TMenuItem(Sender).Tag);
   if aLink <> '' then
@@ -939,7 +907,7 @@ begin
               aTask := TTask.Create(nil,Data);
               aTask.SelectFromLink(aLink);
               aTask.Open;
-              FillInterval(aTask,TPInterval(aInt));
+              gView.FillInterval(TPInterval(aInt),aTask);
               aTask.Free;
               FGantt.Calendar.Invalidate;
             end;
@@ -1321,6 +1289,7 @@ var
   aDue: System.TDateTime;
   aStart: System.TDateTime;
   aCalendar: TCalendar;
+  gView : TfGanttView;
 begin
   aUser := TUser.Create(nil,Data,aConnection);
   aUser.SelectByAccountno(asUser);
@@ -1335,7 +1304,13 @@ begin
     begin
       while not EOF do
         begin
-          bInterval := FillInterval(bTasks);
+          bInterval := TPInterval.Create(nil);
+          gView.FillInterval(bInterval,bTasks);
+          if ((bInterval.FinishDate=0) and (bInterval.StartDate=0)) or (bTasks.FieldByName('PLANTASK').AsString='N') then
+            begin
+              bInterval.Free;
+              bInterval := nil;
+            end;
           if Assigned(bInterval) then
             begin
               bInterval.SetUser(asUser,aConnection);

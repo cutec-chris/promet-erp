@@ -51,7 +51,7 @@ type
     procedure CheckDependTasks;
     procedure MoveDependTasks;
     procedure Open; override;
-    procedure CalcDates(var aStart,aDue : TDateTime);
+    function CalcDates(var aStart, aDue: TDateTime): Boolean;
     procedure DisableDS;
     property OwnerName : string read GetownerName;
     property UserName : string read GetUserName;
@@ -213,23 +213,21 @@ var
   aCompCount : Double = 0;
   AllCompleted : String = 'Y';
   aPercentage: Extended;
+  aTime: TDateTime;
 begin
   if not Dependencies.DataSet.Active then
     Dependencies.Open;
-  with Dependencies.DataSet do
+  Dependencies.DataSet.First;
+  while not Dependencies.DataSet.EOF do
     begin
-      First;
-      while not EOF do
-        begin
-          aTask := TTask.Create(Self,DataModule,Connection);
-          aTask.SelectFromLink(Dependencies.FieldByName('LINK').AsString);
-          aTask.Open;
-          aTask.CheckDependencies;
-          aCompCount:=aCompCount+(aTask.FieldByName('PERCENT').AsInteger/100);
-          if aTask.FieldByName('COMPLETED').AsString <> 'Y' then AllCompleted:='N';
-          aTask.Free;
-          Next;
-        end;
+      aTask := TTask.Create(Self,DataModule,Connection);
+      aTask.SelectFromLink(Dependencies.FieldByName('LINK').AsString);
+      aTask.Open;
+      aTask.CheckDependencies;
+      aCompCount:=aCompCount+(aTask.FieldByName('PERCENT').AsInteger/100);
+      if aTask.FieldByName('COMPLETED').AsString <> 'Y' then AllCompleted:='N';
+      aTask.Free;
+      Dependencies.DataSet.Next;
     end;
   if not CanEdit then
     DataSet.Edit;
@@ -280,25 +278,36 @@ var
   aDeps: TDependencies;
   aTask: TTask;
   AllCompleted: Char = 'Y';
+  HasTrigger: Boolean;
+  aTime: TDateTime;
 begin
-  if Data.TriggerExists('TASKS_INS_DEPEND') then exit;
+  HasTrigger := Data.TriggerExists('TASKS_INS_DEPEND');
   aDeps := TDependencies.Create(Self,DataModule,Connection);
   aDeps.SelectByLink(Data.BuildLink(DataSet));
   aDeps.Open;
-  with aDeps.DataSet do
+  aDeps.DataSet.First;
+  while not aDeps.DataSet.EOF do
     begin
-      First;
-      while not EOF do
+      aTask := TTask.Create(Self,DataModule,Connection);
+      aTask.Select(aDeps.FieldByName('REF_ID').AsVariant);
+      aTask.Open;
+      if (FieldByName('COMPLETED').AsString='Y') and (FieldByName('BUFFERTIME').AsFloat>0) then
+        begin  //set Earlyes begin when Buffertime was > 0
+          if FieldByName('COMPLETEDAT').IsNull then
+            aTime := Now()
+          else
+            aTime := FieldByName('COMPLETEDAT').AsDateTime;
+          if not aTask.CanEdit then aTask.DataSet.Edit;
+          aTask.FieldByName('EARLIEST').AsDateTime := aTime+FieldByName('BUFFERTIME').AsFloat;
+          aTask.Post;
+        end;
+      if (not HasTrigger) then
         begin
-          aTask := TTask.Create(Self,DataModule,Connection);
-          aTask.Select(aDeps.FieldByName('REF_ID').AsVariant);
-          aTask.Open;
           aTask.CheckDependencies;
           if aTask.FieldByName('DEPDONE').AsString <> 'Y' then AllCompleted:='N';
-          aTask.Free;
-          Next;
         end;
-
+      aTask.Free;
+      aDeps.DataSet.Next;
     end;
   aDeps.Free;
 end;
@@ -337,25 +346,27 @@ begin
   inherited Open;
 end;
 
-procedure TTaskList.CalcDates(var aStart, aDue: TDateTime);
+function TTaskList.CalcDates(var aStart, aDue: TDateTime) : Boolean;
+var
+  MinimalTaskLength: Extended;
+  aDur: Extended;
 begin
+  Result := False;//Changed
   aDue := FieldByName('DUEDATE').AsDateTime;
   aStart := FieldByName('STARTDATE').AsDateTime;
+  aDur := aDue-aStart;
   if aStart < FieldByName('EARLIEST').AsDateTime then
     begin
       aStart := FieldByName('EARLIEST').AsDateTime;
-      if aStart > aDue then
-        aDue := aStart+StrToFloatDef(FieldByName('PLANTIME').AsString,1);
+      Result := True;
     end;
   if FieldByName('COMPLETED').AsString = 'Y' then
     begin
       if FieldByName('STARTEDAT').AsDAteTime > 0 then
-        aStart := FieldByName('STARTEDAT').AsDAteTime;
+        aStart := FieldByName('STARTEDAT').AsDateTime;
       if FieldByName('COMPLETEDAT').AsDAteTime > 0 then
         aDue := FieldByName('COMPLETEDAT').AsDAteTime;
     end;
-  if aStart < FieldByName('EARLIEST').AsDateTime then
-    aStart := FieldByName('EARLIEST').AsDateTime;
   if (aDue=0) and (aStart=0) then
     begin
       aStart := Now();
@@ -365,6 +376,13 @@ begin
     aStart := aDue-StrToFloatDef(FieldByName('PLANTIME').AsString,1)
   else if aDue=0 then
     aDue := aStart+StrToFloatDef(FieldByName('PLANTIME').AsString,1);
+  MinimalTaskLength := StrToFloatDef(FieldByName('PLANTIME').AsString,1);
+  if aDur>MinimalTaskLength then MinimalTaskLength:=aDur;
+  if aDue<aStart+MinimalTaskLength then
+    begin
+      aDue := aStart+MinimalTaskLength;
+      result := True;
+    end;
 end;
 
 procedure TTaskList.DisableDS;

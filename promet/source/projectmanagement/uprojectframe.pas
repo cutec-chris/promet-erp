@@ -352,11 +352,16 @@ end;
 
 procedure TfProjectFrame.acGanttExecute(Sender: TObject);
 begin
+  if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
+    begin
+      TfTaskFrame(pcPages.ActivePage.Controls[0]).DataSet.CascadicCancel;
+      TfTaskFrame(pcPages.ActivePage.Controls[0]).acRefresh.Execute;
+    end;
   fGanttView.Execute(TProject(DataSet).Tasks);
   if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
     begin
       TfTaskFrame(pcPages.ActivePage.Controls[0]).DataSet.CascadicCancel;
-      TfTaskFrame(pcPages.ActivePage.Controls[0]).DoRefresh;
+      TfTaskFrame(pcPages.ActivePage.Controls[0]).acRefresh.Execute;
     end;
 end;
 procedure TfProjectFrame.acGotoParentExecute(Sender: TObject);

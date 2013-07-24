@@ -71,7 +71,6 @@ type
     bExecute: TSpeedButton;
     bFilter: TBitBtn;
     bOldTasks1: TSpeedButton;
-    bEnterTime4: TSpeedButton;
     bDelegated1: TSpeedButton;
     bDependencies: TSpeedButton;
     bRefresh: TSpeedButton;
@@ -786,7 +785,7 @@ begin
 end;
 procedure TfTaskFrame.acRefreshExecute(Sender: TObject);
 begin
-  FGridView.Refresh;
+  FGridView.Refresh(True);
   RefreshTasks(FTaskNode);
   pBottom.Caption:=Format(strRecordCount,[DataSet.Count]);
 end;

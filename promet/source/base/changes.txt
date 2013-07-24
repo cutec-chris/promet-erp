@@ -1,5 +1,6 @@
 ﻿Build 256
-      -
+      - Bufferzeiten werden in ganttview (und auch beim verschieben) korrekt berücksichtigt
+      - fertigstellen von Aufgaben mit Bufferzeit setzt bei Folgeaufgaben frühest möglichen Termin
 Build 255
       - verschieben des Gantt Views aus dem Control heraus (per Drag&Drop) möglich
       - verschieben von Aufgaben vorwärts wie rückwärts (zusammenschieben des Projektes) korrigiert

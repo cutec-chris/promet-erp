@@ -1222,7 +1222,7 @@ begin
     if ConnectionExists(AConnection) then Exit;
 
     if (AConnection.StartDate < FinishDate) and DoUpdateIntervalStart then
-      AConnection.UpdateIntervalStart(FinishDate - AConnection.StartDate);
+      AConnection.UpdateIntervalStart((FinishDate + Buffer) - AConnection.StartDate);
 
     FConnections.Add(AConnection);
     FGantt.UpdateInterval;
