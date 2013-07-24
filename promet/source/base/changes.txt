@@ -4,6 +4,9 @@
       - Zeiteinträge können nun (auch wieder) aus dem Projekt gestartet werden
       - Bei Statusänderung wird nun auch beim aktiv setzen von projekten gefragt ob die inaktiven Aufgaben
         aktiviert werden sollen (fürs inaktiv setzen war das schon implementiert)
+      - Gantt Ansicht hat einen Knopf um alle Aufgaben die in der Vergangenheit starten sollten und
+        noch nicht gestartet wurden auf jetzt zu schieben
+      - Projekte werden in der Ganttansicht in separatem Baumeintrag angezeigt (Vorbereitung um Unterprojekte in der Ganttansicht mitverwalten zu können)
 Build 255
       - verschieben des Gantt Views aus dem Control heraus (per Drag&Drop) möglich
       - verschieben von Aufgaben vorwärts wie rückwärts (zusammenschieben des Projektes) korrigiert

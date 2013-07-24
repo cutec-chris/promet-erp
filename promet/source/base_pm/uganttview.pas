@@ -55,6 +55,7 @@ type
     RecalcTimer: TTimer;
     ToolButton1: TSpeedButton;
     ToolButton2: TSpeedButton;
+    procedure acAddSubProjectsExecute(Sender: TObject);
     procedure acCenterTaskExecute(Sender: TObject);
     procedure acMakePossibleExecute(Sender: TObject);
     procedure acOpenExecute(Sender: TObject);
@@ -92,7 +93,7 @@ type
     { public declarations }
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
-    procedure Populate(aTasks : TTaskList);
+    procedure Populate(aTasks: TTaskList; DoClean: Boolean=True);
     procedure FindCriticalPath;
     procedure FillInterval(aInterval : TInterval;aTasks : TTaskList);
     procedure GotoTask(aLink : string);
@@ -104,7 +105,7 @@ var
 
 implementation
 uses uData,LCLIntf,uBaseDbClasses,uTaskEdit,variants,LCLProc,uTaskPlan,
-  uIntfStrConsts,uColors;
+  uIntfStrConsts,uColors,uBaseDBInterface;
 {$R *.lfm}
 
 procedure TfGanttView.FGanttTreeAfterUpdateCommonSettings(Sender: TObject);
@@ -248,6 +249,32 @@ begin
           aTask.Free;
         end;
     end;
+end;
+
+procedure TfGanttView.acAddSubProjectsExecute(Sender: TObject);
+var
+  aProjects: TProjectList;
+  aProject: TProject;
+begin
+  aProjects := TProjectList.Create(nil,Data);
+  aProjects.SelectFromParent(Fproject.Id.AsVariant);
+  aProjects.Open;
+  while not aProjects.EOF do
+    begin
+      aProject := TProject.Create(nil,Data);
+      aProject.Select(aProjects.Id.AsVariant);
+      aProject.Open;
+      with aProject.Tasks.DataSet as IBaseDBFilter do
+        begin
+          SortFields:='GPRIORITY';
+          SortDirection:=sdAscending;
+        end;
+      aProject.Tasks.Open;
+      Populate(aProject.Tasks,False);
+      aProject.Free;
+      aProjects.Next;
+    end;
+  aProjects.Free;
 end;
 
 procedure TfGanttView.acMakePossibleExecute(Sender: TObject);
@@ -448,7 +475,7 @@ begin
   FRessources.Free;
   inherited Destroy;
 end;
-procedure TfGanttView.Populate(aTasks: TTaskList);
+procedure TfGanttView.Populate(aTasks: TTaskList;DoClean : Boolean = True);
 var
   aNewInterval: TInterval;
   aTask: TTask;
@@ -518,8 +545,9 @@ var
           begin
             aRec := aTasks.GetBookmark;
             aParent := aTasks.FieldByName('PARENT').AsVariant;
-            if aTasks.DataSet.Locate('SQL_ID',aParent,[]) then
-              aIParent := AddTask(True);
+            if not (aParent=aTasks.Id.AsVariant) then
+              if aTasks.DataSet.Locate('SQL_ID',aParent,[]) then
+                aIParent := AddTask(True);
             aTasks.GotoBookmark(aRec);
           end;
       end;
@@ -556,10 +584,13 @@ var
 
 begin
   FGantt.BeginUpdate;
-  while FGantt.IntervalCount>0 do
-    FGantt.DeleteInterval(0);
-  for i := 0 to FRessources.Count-1 do TRessource(FRessources[i]).Free;
-  FRessources.Clear;
+  if DoClean then
+    begin
+      while FGantt.IntervalCount>0 do
+        FGantt.DeleteInterval(0);
+      for i := 0 to FRessources.Count-1 do TRessource(FRessources[i]).Free;
+      FRessources.Clear;
+    end;
   aTasks.First;
   aRoot := TInterval.Create(FGantt);
   FGantt.AddInterval(aRoot);

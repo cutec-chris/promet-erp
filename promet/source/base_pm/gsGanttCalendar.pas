@@ -3009,6 +3009,7 @@ begin
       if round((FConnectFromPoint.Y-Message.YPos)/FGantt.Tree.DefaultRowHeight) <> 0 then
         FGantt.Tree.TopRow:=FGantt.Tree.TopRow+round((FConnectFromPoint.Y-Message.YPos)/FGantt.Tree.DefaultRowHeight);
       Invalidate;
+      FGantt.Tree.Invalidate;
       FConnectFromPoint := Point(Message.XPos, Message.YPos);
     end;
   inherited;

@@ -727,6 +727,7 @@ object fGanttView: TfGanttView
       Caption = 'acAddSubProjects'
       Hint = 'Unterprojekte hinzufügen'
       ImageIndex = 101
+      OnExecute = acAddSubProjectsExecute
     end
   end
   object RecalcTimer: TTimer
