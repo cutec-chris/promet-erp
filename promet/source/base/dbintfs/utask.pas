@@ -351,10 +351,14 @@ var
   MinimalTaskLength: Extended;
   aDur: Extended;
 begin
+  debugln(FieldByName('SUMMARY').AsString);
   Result := False;//Changed
   aDue := FieldByName('DUEDATE').AsDateTime;
   aStart := FieldByName('STARTDATE').AsDateTime;
-  aDur := aDue-aStart;
+  MinimalTaskLength := StrToFloatDef(FieldByName('PLANTIME').AsString,1);
+  if (aStart>0) and (aDue>0) then
+    aDur := aDue-aStart
+  else aDur := MinimalTaskLength;
   if aStart < FieldByName('EARLIEST').AsDateTime then
     begin
       aStart := FieldByName('EARLIEST').AsDateTime;
@@ -376,7 +380,6 @@ begin
     aStart := aDue-StrToFloatDef(FieldByName('PLANTIME').AsString,1)
   else if aDue=0 then
     aDue := aStart+StrToFloatDef(FieldByName('PLANTIME').AsString,1);
-  MinimalTaskLength := StrToFloatDef(FieldByName('PLANTIME').AsString,1);
   if aDur>MinimalTaskLength then MinimalTaskLength:=aDur;
   if aDue<aStart+MinimalTaskLength then
     begin
