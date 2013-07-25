@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, LCLType,
-  StdCtrls
+  StdCtrls, ExtCtrls
   {$IFDEF WINDOWS}
   ,Windows
   {$ENDIF}
