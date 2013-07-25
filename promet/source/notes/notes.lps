@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="9"/>
+    <BuildModes Active="Default"/>
+    <Units Count="3">
+      <Unit0>
+        <Filename Value="notes.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="notes"/>
+        <UsageCount Value="20"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="unotesmain.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Form1"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="unotesmain"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="48"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="C:\Programme\lazarus\fpc\2.6.1\source\rtl\win\wininc\defines.inc"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="705"/>
+        <CursorPos X="6" Y="697"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit2>
+    </Units>
+    <General>
+      <ActiveWindowIndexAtStart Value="0"/>
+    </General>
+    <JumpHistory Count="3" HistoryIndex="2">
+      <Position1>
+        <Filename Value="unotesmain.pas"/>
+        <Caret Line="42" Column="3" TopLine="1"/>
+      </Position1>
+      <Position2>
+        <Filename Value="unotesmain.pas"/>
+        <Caret Line="41" Column="3" TopLine="4"/>
+      </Position2>
+      <Position3>
+        <Filename Value="unotesmain.pas"/>
+        <Caret Line="40" Column="3" TopLine="4"/>
+      </Position3>
+    </JumpHistory>
+  </ProjectSession>
+  <EditorMacros Count="0"/>
+</CONFIG>

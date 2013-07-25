@@ -1,0 +1,11 @@
+object Form1: TForm1
+  Left = 396
+  Height = 392
+  Top = 220
+  Width = 552
+  BorderStyle = bsSizeToolWin
+  Caption = 'Form1'
+  OnCreate = FormCreate
+  ShowInTaskBar = stNever
+  LCLVersion = '1.1'
+end
