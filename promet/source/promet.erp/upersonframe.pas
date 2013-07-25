@@ -429,8 +429,11 @@ begin
   if Assigned(FConnection) then
     begin
       FDataSet.CascadicPost;
-      Data.Commit(FConnection);
-      Data.StartTransaction(FConnection);
+      if UseTransactions then
+        begin
+          Data.CommitTransaction(FConnection);
+          Data.StartTransaction(FConnection);
+        end;
       if FEmployeeOf <> '' then
         begin
           if (TTabSheet(Self.Parent).PageIndex-1 > -1)
@@ -519,8 +522,11 @@ begin
   if Assigned(FConnection) then
     begin
       FDataSet.CascadicCancel;
-      Data.Rollback(FConnection);
-      Data.StartTransaction(FConnection);
+      if UseTransactions then
+        begin
+          Data.RollbackTransaction(FConnection);
+          Data.StartTransaction(FConnection);
+        end;
     end;
 end;
 procedure TfPersonFrame.acAddAsOrderExecute(Sender: TObject);
@@ -573,8 +579,11 @@ begin
       Application.ProcessMessages;
       DataSet.Delete;
       FDataSet.CascadicCancel;
-      Data.Commit(FConnection);
-      Data.StartTransaction(FConnection);
+      if UseTransactions then
+        begin
+          Data.CommitTransaction(FConnection);
+          Data.StartTransaction(FConnection);
+        end;
       acClose.Execute;
       Screen.Cursor := crDefault;
     end;
@@ -695,7 +704,8 @@ begin
   CloseConnection;
   if not Assigned(FConnection) then
     FConnection := Data.GetNewConnection;
-  Data.StartTransaction(FConnection);
+  if UseTransactions then
+    Data.StartTransaction(FConnection);
   DataSet := TPerson.Create(Self,Data,FConnection);
   DataSet.OnChange:=@CustomersStateChange;
   TPerson(DataSet).SelectFromLink(aLink);
@@ -712,7 +722,8 @@ begin
   CloseConnection;
   if not Assigned(FConnection) then
     FConnection := Data.GetNewConnection;
-  Data.StartTransaction(FConnection);
+  if UseTransactions then
+    Data.StartTransaction(FConnection);
   DataSet := TPerson.Create(Self,Data,FConnection);
   DataSet.OnChange:=@CustomersStateChange;
   DataSet.Select(0);

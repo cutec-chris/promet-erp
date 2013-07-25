@@ -181,12 +181,12 @@ begin
 end;
 procedure TfSyncOptions.CommitTransaction;
 begin
-  Data.Commit(aConnection);
+  Data.CommitTransaction(aConnection);
   inherited CommitTransaction;
 end;
 procedure TfSyncOptions.RollbackTransaction;
 begin
-  Data.Rollback(aConnection);
+  Data.RollbackTransaction(aConnection);
   inherited RollbackTransaction;
 end;
 end.

@@ -351,7 +351,6 @@ var
   MinimalTaskLength: Extended;
   aDur: Extended;
 begin
-  debugln(FieldByName('SUMMARY').AsString);
   Result := False;//Changed
   aDue := FieldByName('DUEDATE').AsDateTime;
   aStart := FieldByName('STARTDATE').AsDateTime;

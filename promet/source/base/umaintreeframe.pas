@@ -941,8 +941,11 @@ begin
                             if Assigned(Connection) then
                               begin
                                 DataSet.CascadicPost;
-                                Data.Commit(Connection);
-                                Data.StartTransaction(Connection);
+                                if UseTransactions then
+                                  begin
+                                    Data.CommitTransaction(Connection);
+                                    Data.StartTransaction(Connection);
+                                  end;
                               end;
                           end;
                         tvMain.Selected.Delete;
@@ -1019,8 +1022,11 @@ begin
                         if Assigned(Connection) then
                           begin
                             DataSet.CascadicPost;
-                            Data.Commit(Connection);
-                            Data.StartTransaction(Connection);
+                            if UseTransactions then
+                              begin
+                                Data.CommitTransaction(Connection);
+                                Data.StartTransaction(Connection);
+                              end;
                           end;
                       end;
                     if Assigned(tvMain.Selected) then
@@ -1096,8 +1102,11 @@ begin
                             if Assigned(Connection) then
                               begin
                                 DataSet.CascadicPost;
-                                Data.Commit(Connection);
-                                Data.StartTransaction(Connection);
+                                if UseTransactions then
+                                  begin
+                                    Data.CommitTransaction(Connection);
+                                    Data.StartTransaction(Connection);
+                                  end;
                               end;
                           end;
                         tvMain.BeginUpdate;

@@ -330,8 +330,11 @@ begin
       Application.ProcessMessages;
       DataSet.Delete;
       FDataSet.CascadicCancel;
-      Data.Commit(FConnection);
-      Data.StartTransaction(FConnection);
+      if UseTransactions then
+        begin
+          Data.CommitTransaction(FConnection);
+          Data.StartTransaction(FConnection);
+        end;
       acClose.Execute;
       Screen.Cursor := crDefault;
     end;
@@ -373,12 +376,18 @@ begin
   PaymentTargets.DataSet := Data.PaymentTargets.DataSet;
   fSelectReport.DataSet := DataSet;
   DataSet.CascadicPost;
-  with Application as IBaseDbInterface do
-    Data.Commit(Connection);
+  if UseTransactions then
+    begin
+      with Application as IBaseDbInterface do
+        Data.CommitTransaction(Connection);
+    end;
   fSelectReport.Execute;
   fSelectReport.OnSendMessage:=nil;
-  with Application as IBaseDbInterface do
-    Data.StartTransaction(Connection);
+  if UseTransactions then
+    begin
+      with Application as IBaseDbInterface do
+        Data.StartTransaction(Connection);
+    end;
   if fSelectReport.Booked then
     if acSave.Enabled then
       acSave.Execute;
@@ -399,8 +408,11 @@ begin
   if Assigned(FConnection) then
     begin
       FDataSet.CascadicCancel;
-      Data.Rollback(FConnection);
-      Data.StartTransaction(FConnection);
+      if UseTransactions then
+        begin
+          Data.RollbackTransaction(FConnection);
+          Data.StartTransaction(FConnection);
+        end;
     end;
 end;
 procedure TfOrderFrame.acAddAddressExecute(Sender: TObject);
@@ -430,8 +442,11 @@ begin
   if Assigned(FConnection) then
     begin
       FDataSet.CascadicPost;
-      Data.Commit(FConnection);
-      Data.StartTransaction(FConnection);
+      if UseTransactions then
+        begin
+          Data.CommitTransaction(FConnection);
+          Data.StartTransaction(FConnection);
+        end;
     end;
 end;
 procedure TfOrderFrame.ActiveSearchEndItemSearch(Sender: TObject);
@@ -493,11 +508,17 @@ begin
         begin
           pcHeader.CloseAll;
           DataSet.CascadicPost;
-          with Application as IBaseDbInterface do
-            Data.Commit(Connection);
+          if UseTransactions then
+            begin
+              with Application as IBaseDbInterface do
+                Data.CommitTransaction(Connection);
+            end;
           TOrder(DataSet).ChangeStatus(tmp);
-          with Application as IBaseDbInterface do
-            Data.StartTransaction(Connection);
+          if UseTransactions then
+            begin
+              with Application as IBaseDbInterface do
+                Data.StartTransaction(Connection);
+            end;
           DoOpen;
         end
       else
@@ -916,7 +937,8 @@ begin
   FreeAndNil(FConnection);
   if not Assigned(FConnection) then
     FConnection := Data.GetNewConnection;
-  Data.StartTransaction(FConnection);
+  if UseTransactions then
+    Data.StartTransaction(FConnection);
   FreeAndNil(FDataSet);
   DataSet := TOrder.Create(Self,Data,FConnection);
   DataSet.OnChange:=@OrdersStateChange;
@@ -933,7 +955,8 @@ begin
   CloseConnection;
   if not Assigned(FConnection) then
     FConnection := Data.GetNewConnection;
-  Data.StartTransaction(FConnection);
+  if UseTransactions then
+    Data.StartTransaction(FConnection);
   FreeAndNil(FDataSet);
   DataSet := TOrder.Create(Self,Data,FConnection);
   DataSet.OnChange:=@OrdersStateChange;

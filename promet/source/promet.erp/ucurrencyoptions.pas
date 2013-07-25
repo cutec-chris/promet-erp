@@ -53,13 +53,13 @@ end;
 
 procedure TfCurrencyOptions.CommitTransaction;
 begin
-  Data.Commit(aConnection);
+  Data.CommitTransaction(aConnection);
   inherited CommitTransaction;
 end;
 
 procedure TfCurrencyOptions.RollbackTransaction;
 begin
-  Data.Rollback(aConnection);
+  Data.RollbackTransaction(aConnection);
   inherited RollbackTransaction;
 end;
 

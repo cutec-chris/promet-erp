@@ -168,8 +168,11 @@ begin
   if Assigned(FConnection) then
     begin
       FDataSet.CascadicPost;
-      Data.Commit(FConnection);
-      Data.StartTransaction(FConnection);
+      if UseTransactions then
+        begin
+          Data.CommitTransaction(FConnection);
+          Data.StartTransaction(FConnection);
+        end;
     end;
 end;
 procedure TfArticleFrame.acSetTreeDirExecute(Sender: TObject);
@@ -240,7 +243,8 @@ begin
   CloseConnection;
   Screen.Cursor:=crHourglass;
   application.ProcessMessages;
-  Data.StartTransaction(FConnection);
+  if UseTransactions then
+    Data.StartTransaction(FConnection);
   TMasterdata(DataSet).Select(aId,cbVersion.Text,aLanguage);
   DataSet.DataSet.DisableControls;
   DataSet.Open;
@@ -333,8 +337,11 @@ begin
   if Assigned(FConnection) then
     begin
       FDataSet.CascadicCancel;
-      Data.Rollback(FConnection);
-      Data.StartTransaction(FConnection);
+      if UseTransactions then
+        begin
+          Data.RollbackTransaction(FConnection);
+          Data.StartTransaction(FConnection);
+        end;
     end;
 end;
 procedure TfArticleFrame.acCloseExecute(Sender: TObject);
@@ -349,8 +356,11 @@ begin
       Application.ProcessMessages;
       DataSet.Delete;
       FDataSet.CascadicCancel;
-      Data.Commit(FConnection);
-      Data.StartTransaction(FConnection);
+      if UseTransactions then
+        begin
+          Data.CommitTransaction(FConnection);
+          Data.StartTransaction(FConnection);
+        end;
       acClose.Execute;
       Screen.Cursor := crDefault;
     end;
@@ -720,7 +730,8 @@ begin
   CloseConnection;
   if not Assigned(FConnection) then
     FConnection := Data.GetNewConnection;
-  Data.StartTransaction(FConnection);
+  if UseTransactions then
+    Data.StartTransaction(FConnection);
   DataSet := TMasterdata.Create(Self,Data,FConnection);
   DataSet.OnChange:=@MasterdataStateChange;
   TBaseDbList(DataSet).SelectFromLink(aLink);
@@ -734,7 +745,8 @@ begin
   if not Assigned(FConnection) then
     FConnection := Data.GetNewConnection;
   TabCaption := strNewArticle;
-  Data.StartTransaction(FConnection);
+  if UseTransactions then
+    Data.StartTransaction(FConnection);
   DataSet := TMasterdata.Create(Self,Data,FConnection);
   DataSet.OnChange:=@MasterdataStateChange;
   DataSet.Select(0);

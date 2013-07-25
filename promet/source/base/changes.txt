@@ -1,4 +1,8 @@
-﻿Build 256
+﻿Build 257
+      - Endzeiten wurden für Aufgaben mit Startzeit 0 falsch berechnet (in Ganttview)
+      - Transaktionen für alle Frames ausgeschaltet (nur in Optionen und Interner Login und Editoren in separatem Fenster an)
+        Benutzer sind damit das in der DB sofort alles gespeichert ist zufriedener als mit einem Dtaeiähnlichem speicherverhalten (über Transaktionen)
+Build 256
       - Bufferzeiten werden in ganttview (und auch beim verschieben) korrekt berücksichtigt
       - fertigstellen von Aufgaben mit Bufferzeit setzt bei Folgeaufgaben frühest möglichen Termin
       - Zeiteinträge können nun (auch wieder) aus dem Projekt gestartet werden

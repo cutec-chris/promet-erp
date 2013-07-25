@@ -389,7 +389,7 @@ begin
           fLogWaitForm.bAbort.Kind:=bkClose;
         end;
       with Application as IBaseDbInterface do
-        Data.Commit(FConnection);
+        Data.CommitTransaction(FConnection);
       FreeAndNil(aLists);
       {$ifndef heaptrc}
       TBaseVisualApplication(Application).MessageHandler.SendCommand('smtpsender','Send('+Data.Users.FieldByName('NAME').AsString+')');
@@ -571,7 +571,7 @@ begin
     begin
       DataSet.CascadicCancel;
       with Application as IBaseDbInterface do
-        Data.Rollback(FConnection);
+        Data.RollbackTransaction(FConnection);
     end;
   CloseAction := caFree;
 end;

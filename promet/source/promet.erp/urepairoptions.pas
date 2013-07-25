@@ -53,13 +53,13 @@ end;
 
 procedure TfRepairOptions.CommitTransaction;
 begin
-  Data.Commit(aConnection);
+  Data.CommitTransaction(aConnection);
   inherited CommitTransaction;
 end;
 
 procedure TfRepairOptions.RollbackTransaction;
 begin
-  Data.Rollback(aConnection);
+  Data.RollbackTransaction(aConnection);
   inherited RollbackTransaction;
 end;
 

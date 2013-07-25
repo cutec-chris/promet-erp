@@ -294,12 +294,12 @@ begin
 end;
 procedure TfUserOptions.CommitTransaction;
 begin
-  Data.Commit(aConnection);
+  Data.CommitTransaction(aConnection);
   inherited;
 end;
 procedure TfUserOptions.RollbackTransaction;
 begin
-  Data.Rollback(aConnection);
+  Data.RollbackTransaction(aConnection);
   inherited;
 end;
 end.

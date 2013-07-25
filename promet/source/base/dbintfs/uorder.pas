@@ -955,13 +955,13 @@ begin
         History.Open;
         History.AddItem(Self.DataSet,strOrderPosted,'',DataSet.FieldByName('STATUS').AsString+' '+DataSet.FieldByName('NUMBER').AsString,nil,ACICON_ORDERPOSTED);
         //Auftragsansicht Neuprüfen
-        Data.Commit(Connection);
+        Data.CommitTransaction(Connection);
         Result := prSuccess;
       except
         on e : Exception do
           begin
             Result := prFailed;
-            Data.Rollback(Connection);
+            Data.RollbackTransaction(Connection);
             debugln(e.Message);
           end;
       end;

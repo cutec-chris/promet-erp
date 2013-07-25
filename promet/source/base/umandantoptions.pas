@@ -156,13 +156,13 @@ end;
 procedure TfMandantOptions.CommitTransaction;
 begin
   if aMandant.CanEdit then aMandant.DataSet.Post;
-  Data.Commit(aConnection);
+  Data.CommitTransaction(aConnection);
   inherited CommitTransaction;
 end;
 
 procedure TfMandantOptions.RollbackTransaction;
 begin
-  Data.Rollback(aConnection);
+  Data.RollbackTransaction(aConnection);
   inherited RollbackTransaction;
 end;
 

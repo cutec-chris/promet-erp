@@ -54,12 +54,12 @@ end;
 procedure TfCategoryOptions.CommitTransaction;
 begin
   inherited CommitTransaction;
-  Data.Commit(aConnection);
+  Data.CommitTransaction(aConnection);
 end;
 
 procedure TfCategoryOptions.RollbackTransaction;
 begin
-  Data.Rollback(aConnection);
+  Data.RollbackTransaction(aConnection);
   inherited RollbackTransaction;
 end;
 

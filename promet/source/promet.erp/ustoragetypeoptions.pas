@@ -54,13 +54,13 @@ end;
 
 procedure TfStorageTypeOptions.CommitTransaction;
 begin
-  Data.Commit(aConnection);
+  Data.CommitTransaction(aConnection);
   inherited CommitTransaction;
 end;
 
 procedure TfStorageTypeOptions.RollbackTransaction;
 begin
-  Data.Rollback(aConnection);
+  Data.RollbackTransaction(aConnection);
   inherited RollbackTransaction;
 end;
 

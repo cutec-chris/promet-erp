@@ -1121,45 +1121,48 @@ begin
   if WasEditing or gList.EditorMode then
     begin
       BeginUpdate;
-      Value := gList.Cells[gList.Col,gList.Row];
-      if (gList.Selection.Bottom-gList.Selection.Top = 1) or (dgFake.Columns[gList.Col-1].Field.FieldName<>IdentField) then
-        for aRow := gList.Selection.Bottom downto gList.Selection.Top do
-          begin
-            if GotoRowNumber(aRow) then
-              begin
-                if Value <> '' then
-                  begin
-                    if dgFake.Columns[gList.Col-1].Field.DataType = ftDateTime then
-                      begin
-                        if TryStrToDateTime(Value,oDate) and (dgFake.Columns[gList.Col-1].Field.AsDateTime<>oDate) then
-                          begin
-                            if not ((dgFake.DataSource.DataSet.State = dsEdit) or (dgFake.DataSource.DataSet.State = dsInsert)) then
-                              dgFake.DataSource.DataSet.Edit;
-                            dgFake.Columns[gList.Col-1].Field.AsDateTime:=oDate;
-                          end
-                      end
-                    else if (dgFake.Columns[gList.Col-1].Field.FieldName <> TextField) and (dgFake.Columns[gList.Col-1].Field.AsString<>Value) then
-                      begin
-                        if not ((dgFake.DataSource.DataSet.State = dsEdit) or (dgFake.DataSource.DataSet.State = dsInsert)) then
-                          dgFake.DataSource.DataSet.Edit;
-                        if Assigned(FSetCText) then
-                          FSetCText(Sender,dgFake.Columns[gList.Col-1],aRow,Value);
-                        dgFake.Columns[gList.Col-1].Field.AsString:=Value
-                      end;
-                  end
-                else if (not dgFake.Columns[gList.Col-1].Field.IsNull) then
-                  begin
-                    if (not ((dgFake.DataSource.DataSet.State = dsEdit) or (dgFake.DataSource.DataSet.State = dsInsert))) then
-                      dgFake.DataSource.DataSet.Edit;
-                    dgFake.Columns[gList.Col-1].Field.Clear;
-                  end;
-                if Assigned(FSetCText) then
-                  FSetCText(Sender,dgFake.Columns[gList.Col-1],aRow,Value);
-                gList.Cells[gList.Col,aRow] := ct+Value;
-              end;
-          end;
-      aRect := gList.Selection;
-      EndUpdate;
+      try
+        Value := gList.Cells[gList.Col,gList.Row];
+        if (gList.Selection.Bottom-gList.Selection.Top = 1) or (dgFake.Columns[gList.Col-1].Field.FieldName<>IdentField) then
+          for aRow := gList.Selection.Bottom downto gList.Selection.Top do
+            begin
+              if GotoRowNumber(aRow) then
+                begin
+                  if Value <> '' then
+                    begin
+                      if dgFake.Columns[gList.Col-1].Field.DataType = ftDateTime then
+                        begin
+                          if TryStrToDateTime(Value,oDate) and (dgFake.Columns[gList.Col-1].Field.AsDateTime<>oDate) then
+                            begin
+                              if not ((dgFake.DataSource.DataSet.State = dsEdit) or (dgFake.DataSource.DataSet.State = dsInsert)) then
+                                dgFake.DataSource.DataSet.Edit;
+                              dgFake.Columns[gList.Col-1].Field.AsDateTime:=oDate;
+                            end
+                        end
+                      else if (dgFake.Columns[gList.Col-1].Field.FieldName <> TextField) and (dgFake.Columns[gList.Col-1].Field.AsString<>Value) then
+                        begin
+                          if not ((dgFake.DataSource.DataSet.State = dsEdit) or (dgFake.DataSource.DataSet.State = dsInsert)) then
+                            dgFake.DataSource.DataSet.Edit;
+                          if Assigned(FSetCText) then
+                            FSetCText(Sender,dgFake.Columns[gList.Col-1],aRow,Value);
+                          dgFake.Columns[gList.Col-1].Field.AsString:=Value
+                        end;
+                    end
+                  else if (not dgFake.Columns[gList.Col-1].Field.IsNull) then
+                    begin
+                      if (not ((dgFake.DataSource.DataSet.State = dsEdit) or (dgFake.DataSource.DataSet.State = dsInsert))) then
+                        dgFake.DataSource.DataSet.Edit;
+                      dgFake.Columns[gList.Col-1].Field.Clear;
+                    end;
+                  if Assigned(FSetCText) then
+                    FSetCText(Sender,dgFake.Columns[gList.Col-1],aRow,Value);
+                  gList.Cells[gList.Col,aRow] := ct+Value;
+                end;
+            end;
+        aRect := gList.Selection;
+      finally
+        EndUpdate;
+      end;
       gList.Col:=aRect.Left;
       gList.Row:=aRect.Bottom;
       aRect.Top := arect.Bottom;

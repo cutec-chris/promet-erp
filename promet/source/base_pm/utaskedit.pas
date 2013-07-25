@@ -410,13 +410,13 @@ begin
             begin
               FDataSet.CascadicPost;
               if not OwnConnection then
-                Data.Commit(aConnection)
+                Data.CommitTransaction(aConnection)
             end
           else
             begin
               FDataSet.CascadicCancel;
               if not OwnConnection then
-                Data.Rollback(aConnection);
+                Data.RollbackTransaction(aConnection);
             end;
         end;
     end;

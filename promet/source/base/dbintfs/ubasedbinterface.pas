@@ -99,8 +99,8 @@ type
     function GetNewConnection: TComponent;virtual;abstract;
     procedure Disconnect(aConnection : TComponent);virtual;abstract;
     function StartTransaction(aConnection : TComponent;ForceTransaction : Boolean = False): Boolean;virtual;abstract;
-    function Commit(aConnection : TComponent): Boolean;virtual;abstract;
-    function Rollback(aConnection : TComponent): Boolean;virtual;abstract;
+    function CommitTransaction(aConnection : TComponent): Boolean;virtual;abstract;
+    function RollbackTransaction(aConnection : TComponent): Boolean;virtual;abstract;
 //    function IsTransactionActive(aConnection : TComponent): Boolean;virtual;abstract;
     procedure DeleteExpiredSessions;virtual;
     function SetProperties(aProp : string;Connection : TComponent = nil) : Boolean;virtual;

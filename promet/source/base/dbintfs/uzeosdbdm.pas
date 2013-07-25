@@ -53,8 +53,8 @@ type
     function GetNewConnection: TComponent;override;
     procedure Disconnect(aConnection : TComponent);override;
     function StartTransaction(aConnection : TComponent;ForceTransaction : Boolean = False): Boolean;override;
-    function Commit(aConnection : TComponent): Boolean;override;
-    function Rollback(aConnection : TComponent): Boolean;override;
+    function CommitTransaction(aConnection : TComponent): Boolean;override;
+    function RollbackTransaction(aConnection : TComponent): Boolean;override;
     function TableExists(aTableName : string;aConnection : TComponent = nil;AllowLowercase: Boolean = False) : Boolean;override;
     function TriggerExists(aTriggerName: string; aConnection: TComponent=nil;
        AllowLowercase: Boolean=False): Boolean; override;
@@ -458,7 +458,7 @@ begin
                   GeneralQuery.ExecSQL;
                   if bConnection.InTransaction then
                     begin
-                      TZeosDBDM(Self.Owner).Commit(bConnection);
+                      TZeosDBDM(Self.Owner).CommitTransaction(bConnection);
                       TZeosDBDM(Self.Owner).StartTransaction(bConnection);
                     end;
                 except
@@ -1508,14 +1508,14 @@ begin
     TZConnection(aConnection).TransactIsolationLevel:=tiReadUnCommitted;
   TZConnection(aConnection).StartTransaction;
 end;
-function TZeosDBDM.Commit(aConnection: TComponent): Boolean;
+function TZeosDBDM.CommitTransaction(aConnection: TComponent): Boolean;
 begin
   if not TZConnection(aConnection).AutoCommit then
     TZConnection(aConnection).Commit;
   if TZTransactIsolationLevel(TZConnection(aConnection).Tag) <> TZConnection(aConnection).TransactIsolationLevel then
     TZConnection(aConnection).TransactIsolationLevel := TZTransactIsolationLevel(TZConnection(aConnection).Tag);
 end;
-function TZeosDBDM.Rollback(aConnection: TComponent): Boolean;
+function TZeosDBDM.RollbackTransaction(aConnection: TComponent): Boolean;
 begin
   if not TZConnection(aConnection).AutoCommit then
     TZConnection(aConnection).Rollback;

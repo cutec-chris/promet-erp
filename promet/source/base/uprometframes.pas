@@ -20,6 +20,7 @@ type
   TPrometMainFrame = class(TExtControlFrame)
   private
     FLink: string;
+    FUseTransactions: Boolean;
   protected
     FDataSet: TBaseDBDataSet;
     FConnection: TComponent;
@@ -44,6 +45,7 @@ type
     function HasHelp : Boolean;
     procedure AddHelp(aWindow : TWinControl);
     property HelpView : TfQuickHelpFrame read FQuickHelpFrame write FQuickHelpFrame;
+    property UseTransactions : Boolean read FUseTransactions write FUseTransactions;
   end;
 implementation
 uses ComCtrls, uIntfStrConsts,LCLType,LCLIntf,uWiki,uData,uBaseApplication;
@@ -76,6 +78,7 @@ begin
   inherited Create(AOwner);
   FConnection := nil;
   FQuickHelpFrame:=nil;
+  FUseTransactions:=False;
 end;
 destructor TPrometMainFrame.Destroy;
 begin
@@ -111,7 +114,8 @@ begin
           DataSet.CascadicPost;
           with Application as IBaseDbInterface do
             begin
-              Data.Commit(FConnection);
+              if FUseTransactions then
+                Data.CommitTransaction(FConnection);
             end;
         end
       else
@@ -119,14 +123,16 @@ begin
           DataSet.CascadicCancel;
           with Application as IBaseDbInterface do
             begin
-              Data.Rollback(FConnection);
+              if FUseTransactions then
+                Data.RollbackTransaction(FConnection);
             end;
         end;
     end
   else
     begin
       with Application as IBaseDbInterface do
-        Data.Rollback(FConnection);
+        if FUseTransactions then
+          Data.RollbackTransaction(FConnection);
     end;
   with Application as IBaseDbInterface do
     Data.Disconnect(FConnection);

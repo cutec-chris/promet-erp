@@ -73,11 +73,11 @@ end;
 procedure TfSystemOptions.CommitTransaction;
 begin
   inherited CommitTransaction;
-  Data.Commit(aConnection);
+  Data.CommitTransaction(aConnection);
 end;
 procedure TfSystemOptions.RollbackTransaction;
 begin
-  Data.Rollback(aConnection);
+  Data.RollbackTransaction(aConnection);
   inherited RollbackTransaction;
 end;
 end.

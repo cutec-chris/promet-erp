@@ -54,12 +54,12 @@ end;
 procedure TfStateOptions.CommitTransaction;
 begin
   inherited CommitTransaction;
-  Data.Commit(aConnection);
+  Data.CommitTransaction(aConnection);
 end;
 
 procedure TfStateOptions.RollbackTransaction;
 begin
-  Data.Rollback(aConnection);
+  Data.RollbackTransaction(aConnection);
   inherited RollbackTransaction;
 end;
 

@@ -63,8 +63,9 @@ procedure TfWikiMessage.bSendClick(Sender: TObject);
 begin
   FDataSet.CascadicPost;
   FDataSet.Content.CascadicPost;
-  with Application as IBaseDbInterface do
-    Data.Commit(FConnection);
+  {with Application as IBaseDbInterface do
+    if UseTransactions then
+      Data.CommitTransaction(FConnection);}
   Self.Close;
 end;
 
@@ -74,8 +75,9 @@ begin
   if DataSet.CanEdit then
     begin
       DataSet.CascadicCancel;
-      with Application as IBaseDbInterface do
-        Data.Rollback(FConnection);
+      {with Application as IBaseDbInterface do
+        if UseTransactions then
+          Data.Rollback(FConnection);}
     end;
   CloseAction := caFree;
 end;
@@ -97,7 +99,8 @@ begin
 end;
 procedure TfWikiMessage.New(aDir : Variant);
 begin
-  Data.StartTransaction(FConnection);
+  {if UseTransactions then
+    Data.StartTransaction(FConnection);}
   FDataSet.Insert;
   with DataSet.DataSet do
     begin

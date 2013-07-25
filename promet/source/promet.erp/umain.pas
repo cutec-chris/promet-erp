@@ -1236,7 +1236,7 @@ begin
         end;
 }     fWaitForm.Hide;
       aMessages.Free;
-      Data.Commit(aConn);
+      Data.CommitTransaction(aConn);
       aConn.Free;
       RefreshMessages;
     end;

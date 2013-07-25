@@ -106,13 +106,13 @@ end;
 procedure TforderTypeOptions.CommitTransaction;
 begin
   aStates.CascadicPost;
-  Data.Commit(aConnection);
+  Data.CommitTransaction(aConnection);
   inherited CommitTransaction;
 end;
 procedure TforderTypeOptions.RollbackTransaction;
 begin
   aStates.CascadicCancel;
-  Data.Rollback(aConnection);
+  Data.RollbackTransaction(aConnection);
   inherited RollbackTransaction;
 end;
 end.
