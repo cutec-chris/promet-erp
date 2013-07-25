@@ -1363,6 +1363,7 @@ begin
   FGridView.IdentField := 'SUMMARY';
   FGridView.HasChildsField:='HASCHILDS';
   FGridView.ExpandedField:='EXPANDED';
+  FGridView.WorkStatusField:='WORKSTATUS';
   FGridView.OnSetupPosition:=@FGridViewSetupPosition;
   FGridView.OnCellButtonClick:=@FGridViewCellButtonClick;
   FgridView.OnDblClick:=@FGridViewDblClick;

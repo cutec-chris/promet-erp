@@ -183,6 +183,7 @@ type
     FDelete: TNotifyEvent;
     FFilterCell: TFilterCellTextEvent;
     FOnGetFontCell: TCellFontEvent;
+    FWorkStatus: string;
     WasEditing: Boolean;
     { private declarations }
     FEntered : Boolean;
@@ -319,6 +320,7 @@ type
     property HasChildsField : string read FHCField write SetHCField;
     property ExpandedField : string read FExpField write SetExpField;
     property IdentField : string read FIdentField write SetIdentField;
+    property WorkStatusField : string read FWorkStatus write FWorkStatus;
 
     property DataSet : TBaseDBDataSet read FDataSet write SetDataSet;
     property OnCellChanging : TNotifyEvent read FCellChanging write FCellChanging;
@@ -2083,6 +2085,7 @@ var
   aRow: LongInt;
   aTop: Integer;
   SourceLevel: objpas.Integer;
+  NewWorkStatus: String='';
 begin
   for i := 0 to dgFake.Columns.Count-1 do
     if dgFake.Columns[i].FieldName = IdentField then
@@ -2128,6 +2131,8 @@ begin
                         begin
                           inc(aLevel);
                         end;
+                      if WorkStatusField<>'' then
+                        NewWorkStatus := FDataSet.FieldByName(WorkStatusField).AsString;
                     end;
                   if DataSet.GetBookmark = NewParentID then
                     begin
@@ -2144,6 +2149,8 @@ begin
                   if not FDataSet.CanEdit then
                     FDataSet.DataSet.Edit;
                   FDataSet.FieldByName(TreeField).AsVariant:=NewParentID;
+                  if NewWorkStatus<>'' then
+                    FDataSet.FieldByName(WorkStatusField).AsString:=NewWorkStatus;
                   Bookmark := aRec;
                   FDataSet.DataSet.Refresh;
                   DataSet.FreeBookmark(aRec);
