@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -40,11 +40,6 @@
             <Debugging>
               <UseExternalDbgSyms Value="True"/>
             </Debugging>
-            <Options>
-              <Win32>
-                <GraphicApplication Value="True"/>
-              </Win32>
-            </Options>
           </Linking>
           <Other>
             <CompilerMessages>
@@ -87,6 +82,7 @@
             </CompilerMessages>
             <CompilerPath Value="$(CompPath)"/>
           </Other>
+          <LCLWidgetType Value="win32"/>
         </CompilerOptions>
       </Item3>
       <Item4 Name="Win64">
@@ -122,6 +118,7 @@
             </CompilerMessages>
             <CompilerPath Value="$(CompPath)"/>
           </Other>
+          <LCLWidgetType Value="win32"/>
         </CompilerOptions>
       </Item4>
       <SharedMatrixOptions Count="1">
@@ -136,7 +133,6 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--config-path=/home/chris/.promet-erp-devel"/>
       </local>
     </RunParams>
     <RequiredPackages Count="21">
@@ -223,15 +219,17 @@
         <PackageName Value="LCL"/>
       </Item21>
     </RequiredPackages>
-    <Units Count="295">
+    <Units Count="298">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="prometerp"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="16"/>
-        <CursorPos X="30" Y="34"/>
+        <TopLine Value="14"/>
+        <CursorPos X="26" Y="27"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="umain.pas"/>
@@ -716,7 +714,6 @@
         <TopLine Value="85"/>
         <CursorPos X="27" Y="115"/>
         <UsageCount Value="263"/>
-        <LoadedDesigner Value="True"/>
       </Unit44>
       <Unit45>
         <Filename Value="ustoragetypeoptions.pas"/>
@@ -959,11 +956,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ugridview"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="2117"/>
-        <CursorPos X="1" Y="2136"/>
+        <TopLine Value="2102"/>
+        <CursorPos X="22" Y="2129"/>
         <UsageCount Value="108"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -1013,7 +1009,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="utasks"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1350"/>
         <CursorPos X="41" Y="1366"/>
@@ -1378,7 +1374,7 @@
         <UsageCount Value="8"/>
       </Unit112>
       <Unit113>
-        <Filename Value="C:/lazarus/lcl/comctrls.pp"/>
+        <Filename Value="../../../../../../lazarus/lcl/comctrls.pp"/>
         <UnitName Value="ComCtrls"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1449"/>
@@ -1386,7 +1382,7 @@
         <UsageCount Value="3"/>
       </Unit113>
       <Unit114>
-        <Filename Value="C:/lazarus/lcl/include/customlistview.inc"/>
+        <Filename Value="../../../../../../lazarus/lcl/include/customlistview.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1000"/>
         <CursorPos X="3" Y="1010"/>
@@ -1409,7 +1405,7 @@
         <UsageCount Value="3"/>
       </Unit116>
       <Unit117>
-        <Filename Value="C:/lazarus/lcl/include/control.inc"/>
+        <Filename Value="../../../../../../lazarus/lcl/include/control.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="3248"/>
         <CursorPos X="1" Y="3264"/>
@@ -1478,10 +1474,12 @@
       <Unit124>
         <Filename Value="../base_pm/gsGanttCalendar.pas"/>
         <UnitName Value="gsGanttCalendar"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="3989"/>
-        <CursorPos X="1" Y="4008"/>
+        <TopLine Value="50"/>
+        <CursorPos X="30" Y="58"/>
         <UsageCount Value="101"/>
+        <Loaded Value="True"/>
       </Unit124>
       <Unit125>
         <Filename Value="../base_pm/uprojectimport.pas"/>
@@ -1516,10 +1514,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uTaskPlan"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="863"/>
-        <CursorPos X="38" Y="883"/>
+        <TopLine Value="278"/>
+        <CursorPos X="1" Y="304"/>
         <UsageCount Value="101"/>
+        <Loaded Value="True"/>
       </Unit128>
       <Unit129>
         <Filename Value="../../../../lazarus/lcl/actnlist.pas"/>
@@ -1586,10 +1586,14 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uGanttView"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="610"/>
-        <CursorPos X="12" Y="617"/>
+        <TopLine Value="213"/>
+        <CursorPos X="1" Y="230"/>
         <UsageCount Value="100"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit136>
       <Unit137>
         <Filename Value="../../../../lazarus/lcl/include/mouse.inc"/>
@@ -1755,9 +1759,9 @@
         <UnitName Value="uMandantOptions"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="136"/>
+        <TopLine Value="133"/>
         <CursorPos X="27" Y="165"/>
-        <UsageCount Value="28"/>
+        <UsageCount Value="31"/>
         <Loaded Value="True"/>
       </Unit156>
       <Unit157>
@@ -1788,7 +1792,7 @@
         <UsageCount Value="8"/>
       </Unit159>
       <Unit160>
-        <Filename Value="C:/lazarus/lcl/lcltype.pp"/>
+        <Filename Value="../../../../../../lazarus/lcl/lcltype.pp"/>
         <UnitName Value="LCLType"/>
         <WindowIndex Value="0"/>
         <TopLine Value="889"/>
@@ -1796,7 +1800,7 @@
         <UsageCount Value="8"/>
       </Unit160>
       <Unit161>
-        <Filename Value="C:/lazarus/lcl/controls.pp"/>
+        <Filename Value="../../../../../../lazarus/lcl/controls.pp"/>
         <UnitName Value="Controls"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1353"/>
@@ -1804,21 +1808,21 @@
         <UsageCount Value="8"/>
       </Unit161>
       <Unit162>
-        <Filename Value="C:/lazarus/lcl/include/customcontrol.inc"/>
+        <Filename Value="../../../../../../lazarus/lcl/include/customcontrol.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="21"/>
         <CursorPos X="3" Y="30"/>
         <UsageCount Value="8"/>
       </Unit162>
       <Unit163>
-        <Filename Value="C:/lazarus/lcl/include/wincontrol.inc"/>
+        <Filename Value="../../../../../../lazarus/lcl/include/wincontrol.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="6383"/>
         <CursorPos X="54" Y="6390"/>
         <UsageCount Value="8"/>
       </Unit163>
       <Unit164>
-        <Filename Value="C:/lazarus/lcl/stdctrls.pp"/>
+        <Filename Value="../../../../../../lazarus/lcl/stdctrls.pp"/>
         <UnitName Value="StdCtrls"/>
         <WindowIndex Value="0"/>
         <TopLine Value="922"/>
@@ -1826,14 +1830,14 @@
         <UsageCount Value="8"/>
       </Unit164>
       <Unit165>
-        <Filename Value="C:/lazarus/lcl/include/scrollbar.inc"/>
+        <Filename Value="../../../../../../lazarus/lcl/include/scrollbar.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="93" Y="6"/>
         <UsageCount Value="8"/>
       </Unit165>
       <Unit166>
-        <Filename Value="C:/lazarus/fpc/2.6.1/source/rtl/win/messages.pp"/>
+        <Filename Value="../../../../../../lazarus/fpc/2.6.1/source/rtl/win/messages.pp"/>
         <UnitName Value="messages"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -2056,7 +2060,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
-        <UsageCount Value="174"/>
+        <UsageCount Value="179"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit191>
       <Unit192>
@@ -2288,7 +2292,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="5"/>
         <CursorPos X="3" Y="36"/>
-        <UsageCount Value="111"/>
+        <UsageCount Value="116"/>
       </Unit218>
       <Unit219>
         <Filename Value="../../../../lazarus/lcl/include/customframe.inc"/>
@@ -2470,7 +2474,7 @@
         <UsageCount Value="8"/>
       </Unit240>
       <Unit241>
-        <Filename Value="C:/lazarus/lcl/interfaces/win32/win32wsstdctrls.pp"/>
+        <Filename Value="../../../../../../lazarus/lcl/interfaces/win32/win32wsstdctrls.pp"/>
         <UnitName Value="Win32WSStdCtrls"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1514"/>
@@ -2478,7 +2482,7 @@
         <UsageCount Value="8"/>
       </Unit241>
       <Unit242>
-        <Filename Value="C:/lazarus/lcl/extctrls.pp"/>
+        <Filename Value="../../../../../../lazarus/lcl/extctrls.pp"/>
         <UnitName Value="ExtCtrls"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -2486,7 +2490,7 @@
         <UsageCount Value="8"/>
       </Unit242>
       <Unit243>
-        <Filename Value="C:/lazarus/lcl/include/treeview.inc"/>
+        <Filename Value="../../../../../../lazarus/lcl/include/treeview.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="4798"/>
         <CursorPos X="1" Y="4822"/>
@@ -2512,7 +2516,7 @@
         <UsageCount Value="8"/>
       </Unit245>
       <Unit246>
-        <Filename Value="C:/lazarus/lcl/include/customaction.inc"/>
+        <Filename Value="../../../../../../lazarus/lcl/include/customaction.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="224"/>
         <CursorPos X="1" Y="241"/>
@@ -2527,7 +2531,7 @@
         <UsageCount Value="8"/>
       </Unit247>
       <Unit248>
-        <Filename Value="C:/lazarus/components/lazreport/source/addons/ZeosDB/lr_db_zeos.pas"/>
+        <Filename Value="../../../../../../lazarus/components/lazreport/source/addons/ZeosDB/lr_db_zeos.pas"/>
         <UnitName Value="LR_DB_Zeos"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -2562,7 +2566,7 @@
         <UsageCount Value="10"/>
       </Unit251>
       <Unit252>
-        <Filename Value="C:/lazarus/lcl/propertystorage.pas"/>
+        <Filename Value="../../../../../../lazarus/lcl/propertystorage.pas"/>
         <UnitName Value="PropertyStorage"/>
         <WindowIndex Value="0"/>
         <TopLine Value="746"/>
@@ -2683,7 +2687,7 @@
         <UsageCount Value="8"/>
       </Unit266>
       <Unit267>
-        <Filename Value="C:/lazarus/lcl/forms.pp"/>
+        <Filename Value="../../../../../../lazarus/lcl/forms.pp"/>
         <UnitName Value="Forms"/>
         <WindowIndex Value="0"/>
         <TopLine Value="160"/>
@@ -2691,28 +2695,28 @@
         <UsageCount Value="8"/>
       </Unit267>
       <Unit268>
-        <Filename Value="C:/lazarus/lcl/include/scrollingwincontrol.inc"/>
+        <Filename Value="../../../../../../lazarus/lcl/include/scrollingwincontrol.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="224"/>
         <CursorPos X="1" Y="255"/>
         <UsageCount Value="8"/>
       </Unit268>
       <Unit269>
-        <Filename Value="C:/lazarus/lcl/include/menuitem.inc"/>
+        <Filename Value="../../../../../../lazarus/lcl/include/menuitem.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="192"/>
         <CursorPos X="1" Y="208"/>
         <UsageCount Value="8"/>
       </Unit269>
       <Unit270>
-        <Filename Value="C:/lazarus/components/printers/win32/winprinters.inc"/>
+        <Filename Value="../../../../../../lazarus/components/printers/win32/winprinters.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="480"/>
         <CursorPos X="36" Y="493"/>
         <UsageCount Value="8"/>
       </Unit270>
       <Unit271>
-        <Filename Value="C:/lazarus/lcl/include/application.inc"/>
+        <Filename Value="../../../../../../lazarus/lcl/include/application.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="536"/>
         <CursorPos X="95" Y="547"/>
@@ -2902,127 +2906,151 @@
         <CursorPos X="27" Y="62"/>
         <UsageCount Value="10"/>
       </Unit294>
+      <Unit295>
+        <Filename Value="../../../../LKomponenten/jvdesign/tp_register.pas"/>
+        <UnitName Value="tp_register"/>
+        <EditorIndex Value="7"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="39" Y="16"/>
+        <UsageCount Value="13"/>
+        <Loaded Value="True"/>
+      </Unit295>
+      <Unit296>
+        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.1/source/rtl/objpas/classes/classesh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="280"/>
+        <CursorPos X="15" Y="299"/>
+        <UsageCount Value="10"/>
+      </Unit296>
+      <Unit297>
+        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.1/source/rtl/objpas/classes/lists.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="677"/>
+        <CursorPos X="3" Y="683"/>
+        <UsageCount Value="10"/>
+      </Unit297>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2113" Column="1" TopLine="2099"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="656" Column="12" TopLine="645"/>
       </Position1>
       <Position2>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2115" Column="1" TopLine="2099"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="655" Column="1" TopLine="645"/>
       </Position2>
       <Position3>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2117" Column="1" TopLine="2099"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="661" Column="34" TopLine="645"/>
       </Position3>
       <Position4>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2118" Column="1" TopLine="2099"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="656" Column="1" TopLine="645"/>
       </Position4>
       <Position5>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2119" Column="1" TopLine="2099"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="655" Column="1" TopLine="645"/>
       </Position5>
       <Position6>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2120" Column="1" TopLine="2099"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="657" Column="10" TopLine="645"/>
       </Position6>
       <Position7>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2137" Column="1" TopLine="2120"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="655" Column="1" TopLine="645"/>
       </Position7>
       <Position8>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2139" Column="1" TopLine="2120"/>
+        <Filename Value="../base_pm/gsGanttCalendar.pas"/>
+        <Caret Line="4026" Column="1" TopLine="4007"/>
       </Position8>
       <Position9>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2129" Column="48" TopLine="2111"/>
+        <Filename Value="../base_pm/gsGanttCalendar.pas"/>
+        <Caret Line="4027" Column="1" TopLine="4007"/>
       </Position9>
       <Position10>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2142" Column="1" TopLine="2114"/>
+        <Filename Value="../base_pm/gsGanttCalendar.pas"/>
+        <Caret Line="4031" Column="1" TopLine="4007"/>
       </Position10>
       <Position11>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2143" Column="1" TopLine="2115"/>
+        <Filename Value="../base_pm/gsGanttCalendar.pas"/>
+        <Caret Line="4032" Column="1" TopLine="4007"/>
       </Position11>
       <Position12>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2144" Column="1" TopLine="2116"/>
+        <Filename Value="../base_pm/gsGanttCalendar.pas"/>
+        <Caret Line="4026" Column="1" TopLine="4007"/>
       </Position12>
       <Position13>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2145" Column="1" TopLine="2117"/>
+        <Filename Value="../base_pm/gsGanttCalendar.pas"/>
+        <Caret Line="4027" Column="1" TopLine="4007"/>
       </Position13>
       <Position14>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2148" Column="1" TopLine="2120"/>
+        <Filename Value="../base_pm/gsGanttCalendar.pas"/>
+        <Caret Line="4031" Column="1" TopLine="4007"/>
       </Position14>
       <Position15>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2149" Column="1" TopLine="2121"/>
+        <Filename Value="../base_pm/gsGanttCalendar.pas"/>
+        <Caret Line="4032" Column="1" TopLine="4007"/>
       </Position15>
       <Position16>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2150" Column="1" TopLine="2122"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="101" Column="14" TopLine="187"/>
       </Position16>
       <Position17>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2151" Column="1" TopLine="2123"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="203" Column="57" TopLine="186"/>
       </Position17>
       <Position18>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2152" Column="1" TopLine="2124"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="190" Column="79" TopLine="185"/>
       </Position18>
       <Position19>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2154" Column="1" TopLine="2126"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="632" Column="44" TopLine="618"/>
       </Position19>
       <Position20>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2108" Column="1" TopLine="2091"/>
+        <Filename Value="../base_pm/gsGanttCalendar.pas"/>
+        <Caret Line="212" Column="52" TopLine="196"/>
       </Position20>
       <Position21>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2110" Column="1" TopLine="2091"/>
+        <Filename Value="../base_pm/gsGanttCalendar.pas"/>
+        <Caret Line="1550" Column="20" TopLine="1543"/>
       </Position21>
       <Position22>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2111" Column="1" TopLine="2091"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="215" Column="61" TopLine="191"/>
       </Position22>
       <Position23>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2112" Column="1" TopLine="2091"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="209" Column="23" TopLine="190"/>
       </Position23>
       <Position24>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2113" Column="1" TopLine="2091"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="213" Column="25" TopLine="194"/>
       </Position24>
       <Position25>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2115" Column="1" TopLine="2091"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="223" Column="75" TopLine="198"/>
       </Position25>
       <Position26>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2117" Column="1" TopLine="2091"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="14" Column="95" TopLine="10"/>
       </Position26>
       <Position27>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2118" Column="1" TopLine="2091"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="56" Column="14" TopLine="24"/>
       </Position27>
       <Position28>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2119" Column="1" TopLine="2091"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="80" Column="24" TopLine="49"/>
       </Position28>
       <Position29>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2120" Column="1" TopLine="2092"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="123" Column="32" TopLine="91"/>
       </Position29>
       <Position30>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2125" Column="1" TopLine="2097"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="126" Column="12" TopLine="94"/>
       </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">
@@ -3066,19 +3094,13 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="1">
-      <Item1>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="../base/ugridview.pas"/>
-        <Line Value="2108"/>
-      </Item1>
-    </BreakPoints>
-    <Watches Count="1">
+    <Watches Count="2">
       <Item1>
         <Expression Value="bInt.Task"/>
       </Item1>
+      <Item2>
+        <Expression Value="FUpdating"/>
+      </Item2>
     </Watches>
     <Exceptions Count="17">
       <Item1>

@@ -94,6 +94,7 @@ type
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
     procedure Populate(aTasks: TTaskList; DoClean: Boolean=True);
+    procedure CleanIntervals;
     procedure FindCriticalPath;
     procedure FillInterval(aInterval : TInterval;aTasks : TTaskList);
     procedure GotoTask(aLink : string);
@@ -151,6 +152,8 @@ var
   oD: TDateTime;
   a: Integer;
   aDur: TDateTime;
+  c: Integer;
+  oD2: TDateTime;
   function DoMoveBack(aInterval,aConn : TInterval;aTime : TDateTime) : TDateTime;
   var
     b: Integer;
@@ -162,6 +165,7 @@ var
     aParent: TInterval;
   begin
     Result := 0;
+    if not assigned(aInterval) then exit;
     for c := 0 to aInterval.ConnectionCount-1 do
       if aInterval.Connection[c] = aConn then
         begin
@@ -170,10 +174,12 @@ var
           if (aTmp > Result) or (Result=0) then Result := aTmp;
           if aTmp>0 then
             begin
+              bInt.BeginUpdate;
               aDur := bInt.Duration;
               bInt.FinishDate:=aConn.StartDate-bInt.Buffer;
               bInt.StartDate:=bInt.FinishDate-aDur;
               IsMoved := True;
+              bInt.EndUpdate;
             end;
         end;
     for b := 0 to aInterval.IntervalCount-1 do
@@ -183,9 +189,10 @@ var
 begin
   with TInterval(Sender) do
     begin
-      RecalcTimer.Enabled := True;
       if bCalculate.Down then
         begin
+          debugln('IntervalChanged('+TInterval(Sender).Task+')');
+          TInterval(Sender).BeginUpdate;
           //Move Forward
           aDur := Duration;
           if TInterval(Sender).StartDate<TInterval(Sender).Earliest then
@@ -195,23 +202,40 @@ begin
           IntervalDone:=StartDate;
           for i := 0 to ConnectionCount-1 do
             begin
+              Connection[i].BeginUpdate;
               oD := Connection[i].Duration;
               if Connection[i].StartDate<FinishDate+Buffer then
-                Connection[i].StartDate:=FinishDate+Buffer;
+                begin
+                  for c := 0 to Connection[i].IntervalCount-1 do
+                    if Connection[i].Interval[c].StartDate<FinishDate+Buffer then
+                      begin
+                        oD2 := Connection[i].Interval[c].Duration;
+                        Connection[i].Interval[c].BeginUpdate;
+                        Connection[i].Interval[c].StartDate:=FinishDate+Buffer;
+                        Connection[i].Interval[c].FinishDate:=FinishDate+Buffer+oD2;
+                        Connection[i].Interval[c].EndUpdate;
+                      end;
+                  Connection[i].StartDate:=FinishDate+Buffer;
+                end;
               if Connection[i].FinishDate<Connection[i].StartDate+oD then
                 Connection[i].FinishDate:=Connection[i].StartDate+oD;
               Connection[i].IntervalDone:=Connection[i].StartDate;
+              Connection[i].EndUpdate;
             end;
           //Move back
           for i := 0 to TInterval(Sender).Gantt.IntervalCount-1 do
             DoMoveBack(TInterval(Sender).Gantt.Interval[i],TInterval(Sender),TInterval(Sender).FinishDate);
+          TInterval(Sender).Endupdate;
+          RecalcTimer.Enabled := True;
         end;
       for i := 0 to FRessources.Count-1 do
         for a := 0 to TRessource(FRessources[i]).IntervalCount-1 do
           if TRessource(FRessources[i]).Interval[a].Id = TInterval(Sender).Id then
             begin
+              TRessource(FRessources[i]).BeginUpdate;
               TRessource(FRessources[i]).Interval[a].StartDate:=TInterval(Sender).StartDate;
               TRessource(FRessources[i]).Interval[a].FinishDate:=TInterval(Sender).FinishDate;
+              TRessource(FRessources[i]).EndUpdate;
             end;
     end;
 end;
@@ -471,7 +495,7 @@ begin
 end;
 destructor TfGanttView.Destroy;
 begin
-  FRessources.Clear;
+  CleanIntervals;
   FRessources.Free;
   inherited Destroy;
 end;
@@ -587,10 +611,7 @@ begin
   try
     if DoClean then
       begin
-        while FGantt.IntervalCount>0 do
-          FGantt.DeleteInterval(0);
-        for i := 0 to FRessources.Count-1 do TRessource(FRessources[i]).Free;
-        FRessources.Clear;
+        CleanIntervals;
       end;
     aTasks.First;
     aRoot := TInterval.Create(FGantt);
@@ -618,10 +639,11 @@ begin
             while not aTask.Dependencies.DataSet.EOF do
               begin
                 aDep := IntervalById(aTask.Dependencies.FieldByName('REF_ID_ID').AsVariant);
-                if Assigned(aDep) then
+                if Assigned(aDep) {and (aDep.IntervalCount=0)} then
                   begin
                     aInterval := IntervalById(aTasks.Id.AsVariant);
-                    aDep.AddConnection(aInterval,aTask.FieldByName('STARTDATE').IsNull and aTask.FieldByName('DUEDATE').IsNull);
+                    //if (aInterval.IntervalCount=0) then
+                      aDep.AddConnection(aInterval,aTask.FieldByName('STARTDATE').IsNull and aTask.FieldByName('DUEDATE').IsNull);
                   end;
                 aTask.Dependencies.Next;
               end;
@@ -637,6 +659,21 @@ begin
   FGantt.Tree.TopRow:=1;
   FGantt.StartDate:=Now();
   FindCriticalPath;
+end;
+
+procedure TfGanttView.CleanIntervals;
+var
+  i: Integer;
+begin
+  FGantt.BeginUpdate;
+  while FGantt.IntervalCount>0 do
+    begin
+      FGantt.Interval[0].Free;
+      FGantt.DeleteInterval(0);
+    end;
+  for i := 0 to FRessources.Count-1 do TRessource(FRessources[i]).Free;
+  FRessources.Clear;
+  FGantt.EndUpdate;
 end;
 
 procedure TfGanttView.FindCriticalPath;
@@ -776,6 +813,7 @@ begin
       for i := 0 to FGantt.IntervalCount-1 do
         RecoursiveChange(FGantt.Interval[i]);
     end;
+  CleanIntervals;
 end;
 
 end.
