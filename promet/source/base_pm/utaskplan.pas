@@ -1304,12 +1304,14 @@ begin
     begin
       while not EOF do
         begin
-          bInterval := TPInterval.Create(nil);
-          gView.FillInterval(bInterval,bTasks);
-          if ((bInterval.FinishDate=0) and (bInterval.StartDate=0)) or (bTasks.FieldByName('PLANTASK').AsString='N') then
+          bInterval := nil;
+          if  (not bTasks.FieldByName('DUEDATE').IsNull)
+          and (not bTasks.FieldByName('PLANTIME').IsNull)
+          and (not (bTasks.FieldByName('PLANTASK').AsString='N'))
+          then
             begin
-              bInterval.Free;
-              bInterval := nil;
+              bInterval := TPInterval.Create(nil);
+              gView.FillInterval(bInterval,bTasks);
             end;
           if Assigned(bInterval) then
             begin

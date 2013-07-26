@@ -288,13 +288,16 @@ begin
       aProject := TProject.Create(nil,Data);
       aProject.Select(aProjects.Id.AsVariant);
       aProject.Open;
-      with aProject.Tasks.DataSet as IBaseDBFilter do
+      if aProject.Count>0 then
         begin
-          SortFields:='GPRIORITY';
-          SortDirection:=sdAscending;
+          with aProject.Tasks.DataSet as IBaseDBFilter do
+            begin
+              SortFields:='GPRIORITY';
+              SortDirection:=sdAscending;
+            end;
+          aProject.Tasks.Open;
+          Populate(aProject.Tasks,False);
         end;
-      aProject.Tasks.Open;
-      Populate(aProject.Tasks,False);
       aProject.Free;
       aProjects.Next;
     end;
