@@ -290,11 +290,7 @@ begin
       aProject.Open;
       if aProject.Count>0 then
         begin
-          with aProject.Tasks.DataSet as IBaseDBFilter do
-            begin
-              SortFields:='GPRIORITY';
-              SortDirection:=sdAscending;
-            end;
+          aProject.Tasks.SelectActive;
           aProject.Tasks.Open;
           Populate(aProject.Tasks,False);
         end;
@@ -619,7 +615,7 @@ begin
     aTasks.First;
     aRoot := TInterval.Create(FGantt);
     FGantt.AddInterval(aRoot);
-    aRoot.Task:=Fproject.Text.AsString;
+    aRoot.Task:=TProjectList(aTasks.Parent).Text.AsString;
     while not aTasks.EOF do
       begin
         if aTasks.FieldByName('ACTIVE').AsString<>'N' then
@@ -642,11 +638,10 @@ begin
             while not aTask.Dependencies.DataSet.EOF do
               begin
                 aDep := IntervalById(aTask.Dependencies.FieldByName('REF_ID_ID').AsVariant);
-                if Assigned(aDep) {and (aDep.IntervalCount=0)} then
+                if Assigned(aDep) then
                   begin
                     aInterval := IntervalById(aTasks.Id.AsVariant);
-                    //if (aInterval.IntervalCount=0) then
-                      aDep.AddConnection(aInterval,aTask.FieldByName('STARTDATE').IsNull and aTask.FieldByName('DUEDATE').IsNull);
+                    aDep.AddConnection(aInterval,aTask.FieldByName('STARTDATE').IsNull and aTask.FieldByName('DUEDATE').IsNull);
                   end;
                 aTask.Dependencies.Next;
               end;

@@ -243,6 +243,8 @@ begin
               else
                 Filter := Data.QuoteField('PROJECTID')+'= 0';
               end;
+            SortFields:='GPRIORITY';
+            SortDirection:=sdAscending;
           end;
         end;
     end;
