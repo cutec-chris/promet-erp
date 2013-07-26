@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectSession>
     <PathDelim Value="\"/>
@@ -21,20 +21,18 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="15"/>
-        <CursorPos X="66" Y="18"/>
+        <TopLine Value="18"/>
+        <CursorPos X="22" Y="49"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="C:\Programme\lazarus\fpc\2.6.1\source\rtl\win\wininc\defines.inc"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="705"/>
         <CursorPos X="6" Y="697"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit2>
     </Units>
     <General>

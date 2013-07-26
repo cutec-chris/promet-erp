@@ -45,6 +45,8 @@ begin
   Params.WndParent:=GetDesktopWindow;
   Params.Style := Params.Style or WS_CHILD;
   Params.ExStyle := Params.ExStyle OR WS_EX_TRANSPARENT;
+  {$else}
+  Params.WndParent:=0;
   {$ENDIF}
 end;
 

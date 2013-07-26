@@ -181,39 +181,42 @@ var
   end;
 
 begin
-  with TInterval(Sender) do
-    begin
-      RecalcTimer.Enabled := True;
-      if bCalculate.Down then
-        begin
-          //Move Forward
-          aDur := Duration;
-          if TInterval(Sender).StartDate<TInterval(Sender).Earliest then
-            TInterval(Sender).StartDate:=TInterval(Sender).Earliest;
-          if FinishDate<(StartDate+aDur) then
-            FinishDate := (StartDate+aDur);
-          IntervalDone:=StartDate;
-          for i := 0 to ConnectionCount-1 do
-            begin
-              oD := Connection[i].Duration;
-              if Connection[i].StartDate<FinishDate+Buffer then
-                Connection[i].StartDate:=FinishDate+Buffer;
-              if Connection[i].FinishDate<Connection[i].StartDate+oD then
-                Connection[i].FinishDate:=Connection[i].StartDate+oD;
-              Connection[i].IntervalDone:=Connection[i].StartDate;
-            end;
-          //Move back
-          for i := 0 to TInterval(Sender).Gantt.IntervalCount-1 do
-            DoMoveBack(TInterval(Sender).Gantt.Interval[i],TInterval(Sender),TInterval(Sender).FinishDate);
-        end;
-      for i := 0 to FRessources.Count-1 do
-        for a := 0 to TRessource(FRessources[i]).IntervalCount-1 do
-          if TRessource(FRessources[i]).Interval[a].Id = TInterval(Sender).Id then
-            begin
-              TRessource(FRessources[i]).Interval[a].StartDate:=TInterval(Sender).StartDate;
-              TRessource(FRessources[i]).Interval[a].FinishDate:=TInterval(Sender).FinishDate;
-            end;
-    end;
+  if not Assigned(Sender) then exit;
+  try
+    if not (Sender is TInterval) then exit;
+    if bCalculate.Down then
+      begin
+        //Move Forward
+        aDur := TInterval(Sender).Duration;
+        if TInterval(Sender).StartDate<TInterval(Sender).Earliest then
+          TInterval(Sender).StartDate:=TInterval(Sender).Earliest;
+        if TInterval(Sender).FinishDate<(TInterval(Sender).StartDate+aDur) then
+          TInterval(Sender).FinishDate := (TInterval(Sender).StartDate+aDur);
+        TInterval(Sender).IntervalDone:=TInterval(Sender).StartDate;
+        for i := 0 to TInterval(Sender).ConnectionCount-1 do
+          begin
+            oD := TInterval(Sender).Connection[i].Duration;
+            if TInterval(Sender).Connection[i].StartDate<TInterval(Sender).FinishDate+TInterval(Sender).Buffer then
+              TInterval(Sender).Connection[i].StartDate:=TInterval(Sender).FinishDate+TInterval(Sender).Buffer;
+            if TInterval(Sender).Connection[i].FinishDate<TInterval(Sender).Connection[i].StartDate+oD then
+              TInterval(Sender).Connection[i].FinishDate:=TInterval(Sender).Connection[i].StartDate+oD;
+            TInterval(Sender).Connection[i].IntervalDone:=TInterval(Sender).Connection[i].StartDate;
+          end;
+        //Move back
+        for i := 0 to TInterval(Sender).Gantt.IntervalCount-1 do
+          DoMoveBack(TInterval(Sender).Gantt.Interval[i],TInterval(Sender),TInterval(Sender).FinishDate);
+      end;
+    for i := 0 to FRessources.Count-1 do
+      for a := 0 to TRessource(FRessources[i]).IntervalCount-1 do
+        if TRessource(FRessources[i]).Interval[a].Id = TInterval(Sender).Id then
+          begin
+            TRessource(FRessources[i]).Interval[a].StartDate:=TInterval(Sender).StartDate;
+            TRessource(FRessources[i]).Interval[a].FinishDate:=TInterval(Sender).FinishDate;
+          end;
+    RecalcTimer.Enabled := True;
+  except
+    exit;
+  end;
 end;
 
 procedure TfGanttView.aIntervalDrawBackground(Sender: TObject; aCanvas: TCanvas;
@@ -595,7 +598,7 @@ begin
     aTasks.First;
     aRoot := TInterval.Create(FGantt);
     FGantt.AddInterval(aRoot);
-    aRoot.Task:=Fproject.Text.AsString;
+    aRoot.Task:=aTasks.Parent.FieldByName('NAME').AsString;
     while not aTasks.EOF do
       begin
         if aTasks.FieldByName('ACTIVE').AsString<>'N' then
