@@ -114,6 +114,8 @@ type
 
     FConnections: TList;
     FCanUpdate: Boolean;
+    FUpdating : Integer;
+    FUpdateCount : Integer;
 
     // property procedures and functions
     function GetEarliestDate: TDateTime;
@@ -162,7 +164,6 @@ type
     function CountStartDate: TDateTime;
     function CountFinishDate: TDateTime;
 
-    procedure Change;
   protected
     procedure SetStartDate(const Value: TDateTime);virtual;
     procedure SetFinishDate(const Value: TDateTime);virtual;
@@ -235,6 +236,9 @@ type
     property Id : Variant read Fid write SetId;
     property Changed : Boolean read FChanged write FChanged;
     property DontChange : Boolean read FDontChange write FDontChange;
+    procedure Change;
+    procedure BeginUpdate;
+    procedure EndUpdate;
     property Pointer : Pointer read FPointer write FPointer;
     property Pointer2 : Pointer read FPointer2 write FPointer2;
     property Resource : string read FRes write FRes;
@@ -1205,6 +1209,7 @@ begin
   FParent := nil;
   FPointer:=nil;
   FColor:=clBlue;
+  FUpdating:=0;
 
   FIntervals := TList.Create;
   FConnections := Tlist.Create;
@@ -1776,10 +1781,29 @@ end;
 
 procedure TInterval.Change;
 begin
-  if FDontChange then exit;
+  inc(FUpdateCount);
+  if FDontChange or (FUpdating>0) then exit;
   FChanged := True;
   if Assigned(FOnChanged) then
     FOnChanged(Self);
+end;
+
+procedure TInterval.BeginUpdate;
+begin
+  if FUpdating=0 then
+    FUpdateCount:=0;
+  inc(FUpdating);
+end;
+
+procedure TInterval.EndUpdate;
+begin
+  dec(FUpdating);
+  if FUpdating>0 then exit;
+  if FUpdateCount>0 then
+    begin
+      Change;
+      FUpdateCount:=0;
+    end;
 end;
 
 
@@ -4156,4 +4180,4 @@ finalization
   DrawBitmap.Free;
 
 end.
-
+
