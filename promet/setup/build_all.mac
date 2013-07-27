@@ -23,7 +23,7 @@ export MACOSX_DEPLOYMENT_TARGET=10.5
 cd $BUILD_DC_TMP_DIR
 
 # Build all components of Double Commander
-darwin/build_all_executables.sh i386
+darwin/build_all_executables.sh $lcl $CPU_TARGET
 
 # Create *.dmg package
 mkdir -p $BUILD_PACK_DIR
