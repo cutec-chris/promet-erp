@@ -460,6 +460,7 @@ inherited forderTypeOptions: TforderTypeOptions
     SmallImages = fVisualControls.StatusImages
     TabOrder = 18
     ViewStyle = vsSmallIcon
+    OnSelectItem = lvImagesSelectItem
   end
   object OrderTypeDS: TDatasource[23]
     left = 408

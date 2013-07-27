@@ -103,6 +103,9 @@ type
     property History : TBaseHistory read GetHistory;
   end;
   TReplaceFieldFunc = procedure(aField : TField;aOldValue : string;var aNewValue : string);
+
+  { TBaseDbList }
+
   TBaseDbList = class(TBaseDBDataSet)
   private
     function GetBookNumber: TField;
@@ -113,8 +116,12 @@ type
     function GetStatus: TField;
     function GetText: TField;
     function GetNumber : TField;
+  protected
+    FStatusCache: TStringList;
   public
     constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    destructor Destroy; override;
+    function GetStatusIcon : Integer;virtual;
     function GetTyp: string;virtual;
     function GetMatchcodeFieldName: string;virtual;
     function GetBarcodeFieldName: string;virtual;
@@ -664,6 +671,35 @@ begin
           SortFields := 'TIMESTAMPD';
           SortDirection := sdDescending;
         end;
+    end;
+  FStatusCache := TStringList.Create;
+end;
+
+destructor TBaseDbList.Destroy;
+begin
+  FStatusCache.Free;
+  inherited Destroy;
+end;
+
+function TBaseDbList.GetStatusIcon: Integer;
+var
+  aStat: String;
+begin
+  Result := -1;
+  if GetStatusFieldName='' then exit;
+  aStat := FStatusCache.Values[FieldByName(GetStatusFieldName).AsString];
+  if aStat <> '' then Result := StrToIntDef(aStat,-1)
+  else
+    begin
+      if Data.States.DataSet.Locate('TYPE;STATUS',VarArrayOf([GetTyp,FieldByName(GetStatusFieldName).AsString]),[]) then
+        Result := StrToIntDef(Data.States.DataSet.FieldByName('ICON').AsString,-1)
+      else
+        begin
+          Data.SetFilter(Data.States,Data.QuoteField('TYPE')+'='+Data.QuoteValue(GetTyp));
+          if Data.States.DataSet.Locate('TYPE;STATUS',VarArrayOf([GetTyp,FieldByName(GetStatusFieldName).AsString]),[]) then
+            Result := StrToIntDef(Data.States.DataSet.FieldByName('ICON').AsString,-1)
+        end;
+      FStatusCache.Values[FieldByName(GetStatusFieldName).AsString] := IntToStr(Result);
     end;
 end;
 

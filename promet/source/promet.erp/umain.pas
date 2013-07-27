@@ -381,7 +381,7 @@ begin
       FilterType:='C';
       DefaultRows:='GLOBALWIDTH:680;ACCOUNTNO:100;NAME:400;MATCHCODE:200;';
       Dataset := TPersonList.Create(nil,Data);
-      gList.OnDrawColumnCell:=nil;
+      //gList.OnDrawColumnCell:=nil;
       if Data.Users.Rights.Right('CUSTOMERS') > RIGHT_READ then
         AddToolbarAction(acNewContact);
     end;
@@ -394,7 +394,7 @@ begin
       FilterType:='M';
       DefaultRows:='GLOBALWIDTH:910;ID:150;VERSION:100;LANGUAGE:60;MATCHCODE:200;SHORTTEXT:400;';
       Dataset := TMasterdataList.Create(nil,Data);
-      gList.OnDrawColumnCell:=nil;
+      //gList.OnDrawColumnCell:=nil;
       if (Data.Users.Rights.Right('MASTERDATA') > RIGHT_READ) or (Data.Users.Rights.Right('ARTICLES') > RIGHT_READ) or (Data.Users.Rights.Right('BENEFITS') > RIGHT_READ) or (Data.Users.Rights.Right('PARTSLIST') > RIGHT_READ) then
         AddToolbarAction(acNewMasterdata);
     end;
@@ -409,7 +409,7 @@ begin
       FilterType:='O';
       DefaultRows:='GLOBALWIDTH:659;STATUS:50;NUMBER:100;CUSTNO:100;CUSTNAME:300;PAYEDON:28;DELIVERED:28;DONE:28;';
       Dataset := TOrderList.Create(nil,Data);
-      gList.OnDrawColumnCell:=@fOrderFrame.gListDrawColumnCell;
+      OnDrawColumnCell:=@fOrderFrame.gListDrawColumnCell;
       if Data.Users.Rights.Right('ORDERS') > RIGHT_READ then
         AddToolbarAction(acNewOrder);
       if Data.Users.Rights.Right('ORDERS') >= RIGHT_PERMIT then
@@ -424,7 +424,7 @@ begin
       FilterType:='L';
       DefaultRows:='GLOBALWIDTH:100;NAME:100;';
       Dataset := TLists.Create(nil,Data);
-      gList.OnDrawColumnCell:=nil;
+      //gList.OnDrawColumnCell:=nil;
       Editable:=True;
       AddToolbarAction(acNewList);
     end;
@@ -449,7 +449,7 @@ begin
       FilterType:='INV';
       DefaultRows:='GLOBALWIDTH:240;INVNO:40;DESC:100;DATE:70;CREATEDBY:30;';
       Dataset := TInventorys.Create(nil,Data);
-      gList.OnDrawColumnCell:=nil;
+      //gList.OnDrawColumnCell:=nil;
       Editable:=True;
       AddToolbarAction(acNewInventory);
     end;
@@ -466,7 +466,7 @@ begin
       ads := TAccountingJournal.Create(nil,Data);
       ads.CreateTable;
       Dataset := ads;
-      gList.OnDrawColumnCell:=nil;
+      //gList.OnDrawColumnCell:=nil;
       AddToolbarAction(acSalesListPay);
       OnViewDetails :=@SenderTfFilterViewDetails;
 //      AddToolbarAction(acCombineSaleItems);
@@ -490,7 +490,7 @@ begin
       FilterType:='P';
       DefaultRows:='GLOBALWIDTH:280;TYPE:30;ID:70;NAME:100;STATUS:60;';
       Dataset := TProjectList.Create(nil,Data);
-      gList.OnDrawColumnCell:=@SenderTfFiltergListDrawColumnCell;
+      OnDrawColumnCell:=@SenderTfFiltergListDrawColumnCell;
       if Data.Users.Rights.Right('PROJECTS') > RIGHT_READ then
         AddToolbarAction(acNewProject);
     end;
@@ -524,7 +524,7 @@ begin
       FilterType:='E';
       DefaultRows:='GLOBALWIDTH:180;NAME:100;STATUS:60;';
       Dataset := TMeetings.Create(nil,Data);
-      gList.OnDrawColumnCell:=nil;
+      //gList.OnDrawColumnCell:=nil;
       AddToolbarAction(acNewMeeting);
     end;
 end;
@@ -2776,7 +2776,7 @@ begin
       if Assigned(Data) and (Data.Users.Rights.Right('OPTIONS') > RIGHT_READ) then
         begin
           fOptions.RegisterOptionsFrame(TfMandantOptions.Create(fOptions),strMandant,strGeneralOptions);
-          fOptions.RegisterOptionsFrame(TfProcessOptions.Create(fOptions),strProcesses,strPersonalOptions);
+          fOptions.RegisterOptionsFrame(TfProcessOptions.Create(fOptions),strProcesses,strGeneralOptions);
           fOptions.RegisterOptionsFrame(TfSystemOptions.Create(fOptions),strSystem,strGeneralOptions);
           fOptions.RegisterOptionsFrame(TfSyncOptions.Create(fOptions),strSync,strGeneralOptions);
           fOptions.RegisterOptionsFrame(TfStateOptions.Create(fOptions),strStates,strGeneralOptions);

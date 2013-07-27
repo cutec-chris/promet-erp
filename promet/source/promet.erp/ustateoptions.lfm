@@ -32,7 +32,7 @@ inherited fStateOptions: TfStateOptions
       end    
       item
         Title.Caption = 'wandelbar in'
-        Width = 150
+        Width = 120
         FieldName = 'DERIVATIVE'
       end    
       item
@@ -46,6 +46,11 @@ inherited fStateOptions: TfStateOptions
       item
         Title.Caption = 'Farbe'
         FieldName = 'COLOR'
+      end    
+      item
+        Title.Caption = 'Bildindex'
+        Width = 30
+        FieldName = 'ICON'
       end>
     DataSource = StatesDS
     Scrollbars = ssAutoBoth

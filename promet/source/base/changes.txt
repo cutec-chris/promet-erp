@@ -1,4 +1,6 @@
-﻿Build 257
+﻿Build 258
+      - Status können nun Icons haben
+Build 257
       - Endzeiten wurden für Aufgaben mit Startzeit 0 falsch berechnet (in Ganttview)
       - Transaktionen für alle Frames ausgeschaltet (nur in Optionen und Interner Login und Editoren in separatem Fenster an)
         Benutzer sind damit das in der DB sofort alles gespeichert ist zufriedener als mit einem Dtaeiähnlichem speicherverhalten (über Transaktionen)

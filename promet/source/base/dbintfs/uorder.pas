@@ -14,29 +14,14 @@ uses
   Classes, SysUtils, uBaseDbClasses, db, uBaseApplication,
   uBaseERPDBClasses, uMasterdata, uPerson, Variants, uAccounting;
 type
-  TOrderOverview = class(TBaseERPList,IBaseHistory)
-  private
-    FHistory : TBaseHistory;
-    function GetHistory: TBaseHistory;
-  protected
-    function GetTextFieldName: string;override;
-    function GetNumberFieldName : string;override;
-    function GetBookNumberFieldName : string;override;
-    function GetStatusFieldName : string;override;
-    function GetCommissionFieldName: string;override;
+  TOrderTyp = class(TBaseDBDataSet)
   public
-    constructor Create(aOwner: TComponent; DM: TComponent; aConnection: TComponent=nil;
-      aMasterdata: TDataSet=nil); override;
-    destructor Destroy; override;
     procedure DefineFields(aDataSet : TDataSet);override;
-    property History : TBaseHistory read FHistory;
   end;
-
-  { TOrderList }
-
   TOrderList = class(TBaseERPList,IBaseHistory)
   private
     FHistory : TBaseHistory;
+    FOrderTyp: TOrdertyp;
     function GetHistory: TBaseHistory;
   protected
     function GetTextFieldName: string;override;
@@ -48,9 +33,11 @@ type
     constructor Create(aOwner: TComponent; DM: TComponent; aConnection: TComponent=nil;
       aMasterdata: TDataSet=nil); override;
     destructor Destroy; override;
+    function GetStatusIcon: Integer; override;
     procedure Open; override;
     procedure DefineFields(aDataSet : TDataSet);override;
     property History : TBaseHistory read FHistory;
+    property OrderType : TOrdertyp read FOrderTyp;
   end;
   TOrderQMTestDetails = class(TBaseDBDataSet)
   public
@@ -114,10 +101,6 @@ type
     procedure Assign(Source: TPersistent); override;
     property Order : TOrder read FOrder write FOrder;
   end;
-  TOrderTyp = class(TBaseDBDataSet)
-  public
-    procedure DefineFields(aDataSet : TDataSet);override;
-  end;
   TOrderPosTyp = class(TBaseDBDataSet)
   public
     procedure DefineFields(aDataSet : TDataSet);override;
@@ -143,7 +126,6 @@ type
     FOnGetStorage: TOnGetStorageEvent;
     FOrderAddress: TOrderAddress;
     FOrderPos: TOrderPos;
-    FOrderTyp: TOrdertyp;
     fOrigId : string;
   public
     constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
@@ -157,7 +139,6 @@ type
     procedure CascadicCancel;override;
     property Address : TOrderAddress read FOrderAddress;
     property Positions : TOrderPos read FOrderPos;
-    property OrderType : TOrdertyp read FOrderTyp;
     property Links : TOrderLinks read FLinks;
     property OnGetStorage : TOnGetStorageEvent read FOnGetStorage write FOnGetStorage;
     property OnGetSerial : TOnGetSerialEvent read FOnGetSerial write FOnGetSerial;
@@ -182,97 +163,6 @@ resourcestring
   strOrders                     = 'Aufträge';
   strAlreadyPosted              = 'Der Vorgang ist bereits gebucht !';
   strDispatchTypenotfound       = 'Die gewählte Versandart existiert nicht !';
-
-function TOrderOverview.GetHistory: TBaseHistory;
-begin
-
-end;
-
-function TOrderOverview.GetTextFieldName: string;
-begin
-
-end;
-
-function TOrderOverview.GetNumberFieldName: string;
-begin
-
-end;
-
-function TOrderOverview.GetBookNumberFieldName: string;
-begin
-  Result:=inherited GetBookNumberFieldName;
-end;
-
-function TOrderOverview.GetStatusFieldName: string;
-begin
-  Result:=inherited GetStatusFieldName;
-end;
-
-function TOrderOverview.GetCommissionFieldName: string;
-begin
-  Result:=inherited GetCommissionFieldName;
-end;
-
-constructor TOrderOverview.Create(aOwner: TComponent; DM: TComponent;
-  aConnection: TComponent; aMasterdata: TDataSet);
-begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FHistory := TBaseHistory.Create(Self,DM,aConnection,DataSet);
-  with BaseApplication as IBaseDbInterface do
-    begin
-      with DataSet as IBaseDBFilter do
-        begin
-          UsePermissions:=True;
-        end;
-    end;
-end;
-
-destructor TOrderOverview.Destroy;
-begin
-  FHistory.Destroy;
-  inherited Destroy;
-end;
-
-procedure TOrderOverview.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'ORDEROVERVIEW';
-      TableCaption := strOrders;
-      UpdateFloatFields:=True;
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            Add('ORDERNO',ftInteger,0,True);
-            Add('STATUS',ftString,4,True);
-            Add('CUSTNO',ftString,20,False);
-            Add('CUSTNAME',ftString,200,False);
-            Add('DOAFQ',ftDate,0,False);                    //Anfragedatum
-            Add('DWISH',ftDate,0,False);                    //Wunschdatum
-            Add('DAPPR',ftDate,0,False);                    //Bestätigt (Approved)
-            Add('ODATE',ftDate,0,False);                    //Original Date
-            Add('NETPRICE',ftFloat,0,False);                //Nettopreis
-            Add('DISCPRICE',ftFloat,0,False);              //Skontopreis
-            Add('DISCOUNT',ftFloat,0,False);                //Rabatt
-            Add('GROSSPRICE',ftFloat,0,False);              //Bruttoprice
-            Add('DONE',ftString,1,False);
-            Add('DELIVERED',ftString,1,False);
-            Add('PAYEDON',ftDate,0,False);
-            Add('DELIVEREDON',ftDate,0,False);
-            Add('COMMISSION',ftString,30,False);
-            Add('CREATEDBY',ftString,4,False);
-          end;
-      if Assigned(ManagedIndexdefs) then
-        with ManagedIndexDefs do
-          begin
-            Add('ORDERNO','ORDERNO',[ixUnique]);
-            Add('STATUS','STATUS',[]);
-            Add('CUSTNO','CUSTNO',[]);
-            Add('CUSTNAME','CUSTNAME',[]);
-          end;
-      DefineUserFields(aDataSet);
-    end;
-end;
 
 procedure TOrderRepairDetail.DefineFields(aDataSet: TDataSet);
 begin
@@ -543,14 +433,12 @@ begin
   FOrderAddress.Order := Self;
   FOrderPos := TOrderPos.Create(Self,DM,aConnection,DataSet);
   FOrderPos.Order:=Self;
-  FOrderTyp := TOrderTyp.Create(Self,DM,aConnection);
   FLinks := TOrderLinks.Create(Self,DM,aConnection);
 end;
 destructor TOrder.Destroy;
 begin
   FOrderAddress.Destroy;
   FOrderPos.Destroy;
-  FOrderTyp.Destroy;
   FreeAndnil(FLinks);
   inherited Destroy;
 end;
@@ -1586,6 +1474,7 @@ constructor TOrderList.Create(aOwner: TComponent; DM: TComponent;
 begin
   inherited Create(aOwner, DM, aConnection, aMasterdata);
   FHistory := TBaseHistory.Create(Self,DM,aConnection,DataSet);
+  FOrderTyp := TOrderTyp.Create(Self,DM,aConnection);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -1597,7 +1486,24 @@ end;
 destructor TOrderList.Destroy;
 begin
   FHistory.Destroy;
+  FOrderTyp.Destroy;
   inherited Destroy;
+end;
+
+function TOrderList.GetStatusIcon: Integer;
+var
+  aStat: String;
+begin
+  Result := -1;
+  aStat := FStatusCache.Values[FieldByName(GetStatusFieldName).AsString];
+  if aStat <> '' then Result := StrToIntDef(aStat,-1)
+  else
+    begin
+      OrderType.Open;
+      if OrderType.DataSet.Locate('STATUS',DataSet.FieldByName('STATUS').AsString,[]) then
+        Result := StrToIntDef(OrderType.DataSet.FieldByName('ICON').AsString,-1);
+      FStatusCache.Values[FieldByName(GetStatusFieldName).AsString] := IntToStr(Result);
+    end;
 end;
 
 procedure TOrderList.Open;

@@ -41,6 +41,8 @@ type
     rgAddStorage: TDBRadioGroup;
     rgAddToMainorder: TDBRadioGroup;
     procedure cbTextTypChange(Sender: TObject);
+    procedure lvImagesSelectItem(Sender: TObject; Item: TListItem;
+      Selected: Boolean);
   private
     { private declarations }
     aConnection: TComponent;
@@ -64,6 +66,16 @@ begin
   if cbTextTyp.ItemIndex = -1 then
     aStates.FieldByName('TEXTTYP').Clear;
 end;
+
+procedure TforderTypeOptions.lvImagesSelectItem(Sender: TObject;
+  Item: TListItem; Selected: Boolean);
+begin
+  if not Selected then exit;
+  if not (OrderTypeDS.DataSet.State=dsEdit) then
+    OrderTypeDS.DataSet.Edit;
+  OrderTypeDS.DataSet.FieldByName('ICON').AsInteger:=lvImages.Selected.ImageIndex;
+end;
+
 constructor TforderTypeOptions.Create(TheOwner: TComponent);
 var
   aItem: TListItem;

@@ -422,6 +422,7 @@ begin
             Add('DERIVATIVE',ftString,30,false);
             Add('ACTIVE',ftString,1,false);
             Add('COLOR',ftString,8,false);
+            Add('ICON',ftInteger,0,false);
           end;
     end;
 end;

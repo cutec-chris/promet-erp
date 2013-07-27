@@ -308,8 +308,11 @@ begin
           if Assigned(FOnDrawColumnCell) then
             FOnDrawColumnCell(Sender,Rect,DataCol,Column,State)
           else
+            Canvas.TextOut(Rect.Left+2, Rect.Top+2, s);
+          if (DataSet is TBaseERPList) and (TBaseERPList(DataSet).GetStatusFieldName=Column.FieldName) and (TBaseERPList(DataSet).GetStatusIcon>-1) then
             begin
-              Canvas.TextOut(Rect.Left+2, Rect.Top+2, s);
+              Canvas.FillRect(Rect);
+              uBaseVisualControls.fVisualControls.StatusImages.Draw(Canvas,Rect.Left,Rect.Top,TBaseERPList(DataSet).GetStatusIcon);
             end;
           if DataCol = ColumnWidthHelper.Index then
             if Assigned(Column.Field) then
