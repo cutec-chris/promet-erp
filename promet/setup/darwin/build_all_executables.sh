@@ -1,4 +1,5 @@
 #!/bin/bash
+cd darwin
 echo "compiling for $1..."
 echo "compiling processmanager..."
 lazbuild -q -B ../../source/tools/processmanager.lpi  >> scompile-$2.log
