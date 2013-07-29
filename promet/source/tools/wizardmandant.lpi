@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -7,7 +7,6 @@
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
       <Icon Value="0"/>
-      <ActiveWindowIndexAtStart Value="0"/>
     </General>
     <i18n>
       <EnableI18N LFM="False"/>
@@ -26,6 +25,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <CommandLineParams Value="--config-path=/home/chris/.promet-erp-devel"/>
       </local>
     </RunParams>
     <RequiredPackages Count="6">
@@ -79,8 +79,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uWizardNewMandant"/>
-        <IsVisibleTab Value="True"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="697"/>
         <CursorPos X="55" Y="721"/>
         <UsageCount Value="136"/>
@@ -784,7 +782,6 @@
         <TopLine Value="73"/>
         <CursorPos X="1" Y="143"/>
         <UsageCount Value="55"/>
-        <LoadedDesigner Value="True"/>
       </Unit86>
       <Unit87>
         <Filename Value="../base/uoptions.pas"/>
@@ -879,7 +876,6 @@
         <TopLine Value="1"/>
         <CursorPos X="88" Y="6"/>
         <UsageCount Value="53"/>
-        <LoadedDesigner Value="True"/>
       </Unit97>
       <Unit98>
         <Filename Value="/usr/share/fpcsrc/2.6.0/rtl/objpas/sysutils/osutilsh.inc"/>
@@ -944,128 +940,7 @@
         <UsageCount Value="10"/>
       </Unit105>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
-      <Position1>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="340" Column="1" TopLine="321"/>
-      </Position1>
-      <Position2>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="341" Column="1" TopLine="321"/>
-      </Position2>
-      <Position3>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="342" Column="1" TopLine="321"/>
-      </Position3>
-      <Position4>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="335" Column="1" TopLine="321"/>
-      </Position4>
-      <Position5>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="340" Column="1" TopLine="321"/>
-      </Position5>
-      <Position6>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="330" Column="1" TopLine="321"/>
-      </Position6>
-      <Position7>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="342" Column="1" TopLine="321"/>
-      </Position7>
-      <Position8>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="335" Column="1" TopLine="321"/>
-      </Position8>
-      <Position9>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="342" Column="1" TopLine="321"/>
-      </Position9>
-      <Position10>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="719" Column="67" TopLine="703"/>
-      </Position10>
-      <Position11>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="342" Column="1" TopLine="325"/>
-      </Position11>
-      <Position12>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="335" Column="1" TopLine="325"/>
-      </Position12>
-      <Position13>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="342" Column="1" TopLine="325"/>
-      </Position13>
-      <Position14>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="335" Column="1" TopLine="325"/>
-      </Position14>
-      <Position15>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="342" Column="1" TopLine="325"/>
-      </Position15>
-      <Position16>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="335" Column="1" TopLine="325"/>
-      </Position16>
-      <Position17>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="342" Column="1" TopLine="325"/>
-      </Position17>
-      <Position18>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="335" Column="1" TopLine="325"/>
-      </Position18>
-      <Position19>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="342" Column="1" TopLine="325"/>
-      </Position19>
-      <Position20>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="335" Column="1" TopLine="325"/>
-      </Position20>
-      <Position21>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="342" Column="1" TopLine="325"/>
-      </Position21>
-      <Position22>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="335" Column="1" TopLine="325"/>
-      </Position22>
-      <Position23>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="342" Column="1" TopLine="325"/>
-      </Position23>
-      <Position24>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="719" Column="1" TopLine="701"/>
-      </Position24>
-      <Position25>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="720" Column="1" TopLine="701"/>
-      </Position25>
-      <Position26>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="721" Column="1" TopLine="701"/>
-      </Position26>
-      <Position27>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="722" Column="1" TopLine="701"/>
-      </Position27>
-      <Position28>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="723" Column="1" TopLine="701"/>
-      </Position28>
-      <Position29>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="724" Column="1" TopLine="701"/>
-      </Position29>
-      <Position30>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="140" Column="57" TopLine="121"/>
-      </Position30>
-    </JumpHistory>
+    <JumpHistory Count="0" HistoryIndex="-1"/>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>

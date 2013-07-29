@@ -1502,6 +1502,7 @@ begin
     TTreeEntry(FNode.Data).SubText.Free;
   TTreeEntry(FNode.Data).SubText := TStringlist.Create;
   aDataSet := TTaskList.Create(nil,Data);
+  aDataSet.CreateTable;
   aDataSet.SelectActiveByUser(Data.Users.FieldByName('ACCOUNTNO').AsString);
   aDataSet.Open;
   if (aDataSet.Count > 0) and (aDataSet.Count < 251) then

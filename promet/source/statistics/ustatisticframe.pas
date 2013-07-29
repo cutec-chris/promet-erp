@@ -241,6 +241,7 @@ begin
           Data.Tree.DataSet.Next;
         end;
       aList := TStatistic.Create(nil,Data);
+      aList.CreateTable;
       try
         Data.SetFilter(aList,Data.ProcessTerm(Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue('')),0,'','ASC',False,True,True);
         aList.DataSet.First;

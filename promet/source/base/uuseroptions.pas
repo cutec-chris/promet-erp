@@ -200,7 +200,7 @@ begin
   Accept := False;
   SourceNode := TTreeView(Sender).Selected;
   DestNode := tvUsers.GetNodeAt(X,Y);
-  if Assigned(DestNode) then
+  if Assigned(DestNode) and Assigned(SourceNode) then
     begin
       if ((SourceNode.ImageIndex = 21) or (SourceNode.ImageIndex = 18)) and (DestNode.ImageIndex = 18) then
         Accept := True;
