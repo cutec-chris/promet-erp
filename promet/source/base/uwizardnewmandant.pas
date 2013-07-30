@@ -314,10 +314,7 @@ begin
   SilentTimer.Enabled:=False;
   Application.ProcessMessages;
   eMandantname.Text:=strPersonal;
-  if DoSave then
-    begin
-      Close;
-    end;
+  DoSave;
 end;
 
 procedure TfWizardNewMandant.CollectProfiles(Node: TTreeNode);
@@ -472,6 +469,11 @@ begin
                 Res := False;
               end;
           end;
+        end
+      else if Application.HasOption('silent') then //Db existiert schon und silent installation
+        begin
+          Application.Terminate;
+          exit;
         end;
       if Res then
         uData.Data := Data;

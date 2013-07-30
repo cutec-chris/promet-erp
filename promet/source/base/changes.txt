@@ -1,4 +1,6 @@
-﻿Build 258
+﻿Build 259
+      - wenn Wizardmandant mit --silent ausgeführt wird wird die DB nicht befüllt wenn sie schon existiert
+Build 258
       - Status können nun Icons haben
 Build 257
       - Endzeiten wurden für Aufgaben mit Startzeit 0 falsch berechnet (in Ganttview)
