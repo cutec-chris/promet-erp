@@ -244,7 +244,6 @@
         <TopLine Value="2725"/>
         <CursorPos X="41" Y="2787"/>
         <UsageCount Value="200"/>
-        <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="../base/ubasevisualapplication.pas"/>
@@ -278,7 +277,6 @@
         <TopLine Value="1"/>
         <CursorPos X="1" Y="4"/>
         <UsageCount Value="100"/>
-        <LoadedDesigner Value="True"/>
       </Unit4>
       <Unit5>
         <Filename Value="upersonframe.pas"/>
@@ -450,8 +448,8 @@
         <UnitName Value="uBaseDbClasses"/>
         <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="322"/>
-        <CursorPos X="1" Y="1814"/>
+        <TopLine Value="1890"/>
+        <CursorPos X="1" Y="1908"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
       </Unit20>
@@ -960,8 +958,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="3114"/>
-        <CursorPos X="3" Y="3102"/>
+        <TopLine Value="1"/>
+        <CursorPos X="3" Y="13"/>
         <UsageCount Value="108"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -1586,7 +1584,6 @@
         <TopLine Value="571"/>
         <CursorPos X="59" Y="601"/>
         <UsageCount Value="100"/>
-        <LoadedDesigner Value="True"/>
       </Unit136>
       <Unit137>
         <Filename Value="../../../../lazarus/lcl/include/mouse.inc"/>
@@ -2980,7 +2977,7 @@
         <Loaded Value="True"/>
       </Unit303>
     </Units>
-    <JumpHistory Count="26" HistoryIndex="25">
+    <JumpHistory Count="27" HistoryIndex="26">
       <Position1>
         <Filename Value="../base/ugridview.pas"/>
         <Caret Line="3132" Column="1" TopLine="3113"/>
@@ -3085,6 +3082,10 @@
         <Filename Value="../base/ugridview.pas"/>
         <Caret Line="854" Column="16" TopLine="840"/>
       </Position26>
+      <Position27>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3102" Column="3" TopLine="3102"/>
+      </Position27>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>
