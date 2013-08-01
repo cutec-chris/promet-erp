@@ -365,6 +365,7 @@ begin
         end;
       aTasks.DataSet.EnableControls;
     end;
+  aTask.Changed:=False;
 end;
 procedure TfTaskPlan.FGanttTreeAfterUpdateCommonSettings(Sender: TObject);
 begin

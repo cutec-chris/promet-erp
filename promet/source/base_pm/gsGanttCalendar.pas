@@ -1484,6 +1484,7 @@ end;
 
 procedure TInterval.SetStartDate(const Value: TDateTime);
 begin
+  if FStartDate=Value then exit;
   FStartDate := Value;
   if FIntervalDone < FStartDate then
     FIntervalDone := FStartDate;
@@ -1493,6 +1494,7 @@ end;
 
 procedure TInterval.SetFinishDate(const Value: TDateTime);
 begin
+  if FFinishDate=Value then exit;
   FFinishDate := Value;
   if FIntervalDone > FFinishDate then
     FIntervalDone := FFinishDate;
@@ -4180,4 +4182,4 @@ finalization
   DrawBitmap.Free;
 
 end.
-
+

@@ -94,6 +94,7 @@ type
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
     procedure Populate(aTasks: TTaskList; DoClean: Boolean=True);
+    procedure DoSave;
     procedure CleanIntervals;
     procedure FindCriticalPath;
     procedure FillInterval(aInterval : TInterval;aTasks : TTaskList);
@@ -108,7 +109,8 @@ implementation
 uses uData,LCLIntf,uBaseDbClasses,uTaskEdit,variants,LCLProc,uTaskPlan,
   uIntfStrConsts,uColors,uBaseDBInterface;
 {$R *.lfm}
-
+resourcestring
+  strSaveChanges                          = 'Um die Aufgabe zu bearbeiten müssen alle Änderungen gespeichert werden, Sollen alle Änderungen gespeichert werden ?';
 procedure TfGanttView.FGanttTreeAfterUpdateCommonSettings(Sender: TObject);
 begin
   fgantt.Tree.ColWidths[0]:=0;
@@ -324,6 +326,21 @@ begin
 end;
 
 procedure TfGanttView.acOpenExecute(Sender: TObject);
+  function MustChange(aParent : TInterval) : Boolean;
+  var
+    i: Integer;
+  begin
+    Result := False;
+    for i := 0 to aParent.IntervalCount-1 do
+      begin
+        if aParent.Interval[i].Changed then
+          Result := True;
+        Result := Result or MustChange(aParent.Interval[i]);
+        if Result then break;
+      end;
+    if aParent.Changed then
+      Result := True;
+  end;
 var
   aLink: String;
   aEdit: TfTaskEdit;
@@ -335,17 +352,21 @@ begin
   if aLink <> '' then
     begin
       aEdit :=TfTaskEdit.Create(nil);
-      if aEdit.Execute(aLink) then
+      if (not MustChange(TP.GetTaskIntervalFromCoordinates(FGantt,aClickPoint.X,aClickPoint.Y,aSelInterval))) or (MessageDlg(strSaveChanges,mtInformation,[mbYes,mbNo],0) = mrYes) then
         begin
-          aInt := TP.GetTaskIntervalFromCoordinates(FGantt,aClickPoint.X,aClickPoint.Y,aSelInterval);
-          if Assigned(aInt) then
+          DoSave;
+          if aEdit.Execute(aLink) then
             begin
-              aTask := TTask.Create(nil,Data);
-              aTask.SelectFromLink(aLink);
-              aTask.Open;
-              FillInterval(TPInterval(aInt),aTask);
-              aTask.Free;
-              FGantt.Calendar.Invalidate;
+              aInt := TP.GetTaskIntervalFromCoordinates(FGantt,aClickPoint.X,aClickPoint.Y,aSelInterval);
+              if Assigned(aInt) then
+                begin
+                  aTask := TTask.Create(nil,Data);
+                  aTask.SelectFromLink(aLink);
+                  aTask.Open;
+                  FillInterval(TPInterval(aInt),aTask);
+                  aTask.Free;
+                  FGantt.Calendar.Invalidate;
+                end;
             end;
         end;
       aEdit.Free;
@@ -659,6 +680,29 @@ begin
   FindCriticalPath;
 end;
 
+procedure TfGanttView.DoSave;
+  procedure RecoursiveChange(aParent : TInterval);
+  var
+    i: Integer;
+  begin
+    for i := 0 to aParent.IntervalCount-1 do
+      begin
+        if aParent.Interval[i].Changed then
+          begin
+            ChangeTask(FProject.Tasks,aParent.Interval[i]);
+          end;
+        RecoursiveChange(aParent.Interval[i]);
+      end;
+    if aParent.Changed then
+      ChangeTask(FProject.Tasks,aParent);
+  end;
+var
+  i: Integer;
+begin
+  for i := 0 to FGantt.IntervalCount-1 do
+    RecoursiveChange(FGantt.Interval[i]);
+end;
+
 procedure TfGanttView.CleanIntervals;
 var
   i: Integer;
@@ -772,23 +816,6 @@ begin
   aTask.Free;
 end;
 function TfGanttView.Execute(aProject: TProject; aLink: string): Boolean;
-  procedure RecoursiveChange(aParent : TInterval);
-  var
-    i: Integer;
-  begin
-    for i := 0 to aParent.IntervalCount-1 do
-      begin
-        if aParent.Interval[i].Changed then
-          begin
-            ChangeTask(aProject.Tasks,aParent.Interval[i]);
-          end;
-        RecoursiveChange(aParent.Interval[i]);
-      end;
-    if aParent.Changed then
-      ChangeTask(aProject.Tasks,aParent);
-  end;
-var
-  i: Integer;
 begin
   if not Assigned(Self) then
     begin
@@ -808,8 +835,7 @@ begin
   Result := ModalResult = mrOK;
   if Result then
     begin
-      for i := 0 to FGantt.IntervalCount-1 do
-        RecoursiveChange(FGantt.Interval[i]);
+      DoSave;
     end;
   CleanIntervals;
 end;
