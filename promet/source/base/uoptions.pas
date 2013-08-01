@@ -38,9 +38,9 @@ type
     procedure tvMainSelectionChanged(Sender: TObject);
   private
     { private declarations }
-    FormsList: TList;
   public
     { public declarations }
+    FormsList: TList;
     procedure RegisterOptionsFrame(aFrame : TOptionsFrame;aName : string;aCategory : string = '');
     destructor Destroy;override;
     procedure SetLanguage;

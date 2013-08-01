@@ -2443,10 +2443,13 @@ begin
 end;
 destructor TfGridView.Destroy;
 begin
-  CleanList(0);
-  SearchKeyTimer.Enabled:=False;
-  SearchKeyTimer.Free;
-  FInpStringList.Destroy;
+  try
+    CleanList(0);
+    SearchKeyTimer.Enabled:=False;
+    SearchKeyTimer.Free;
+    FInpStringList.Destroy;
+  except
+  end;
   inherited Destroy;
 end;
 function TfGridView.FindRow(aTreeBM: LargeInt): Integer;

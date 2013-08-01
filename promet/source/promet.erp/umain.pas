@@ -202,6 +202,7 @@ type
     procedure miOptionsClick(Sender: TObject);
     procedure miSettingsClick(Sender: TObject);
     function OpenAction(aLink: string; Sender: TObject): Boolean;
+    function OpenOption(aLink: string; Sender: TObject): Boolean;
     procedure pmHistoryPopup(Sender: TObject);
     procedure DoRefreshActiveTab(Sender: TObject);
     procedure SearchTimerTimer(Sender: TObject);
@@ -261,7 +262,8 @@ uses uBaseDBInterface,uIntfStrConsts,uSearch,uFilterFrame,uPerson,uData,
   uTask,uDocumentProcess,uDocumentFrame,uPrometFramesInplaceDB,uInfo,
   uProcessOptions,Utils,uBaseERPDBClasses,umaintasks,utasks,uTaskEdit,LCLProc,
   usplash,ufavorites,uBaseVisualControls,uStatisticFrame,uwait,uprometipc,uMeetingFrame,
-  umeeting,uEditableTab,umanagedocframe,uBaseDocPages,uTaskPlan,uTimeFrame,uTimeOptions
+  umeeting,uEditableTab,umanagedocframe,uBaseDocPages,uTaskPlan,uTimeFrame,uTimeOptions,
+  uOptionsFrame
   {$ifdef WINDOWS}
   {$ifdef CPU32}
   ,uTAPIPhone
@@ -606,6 +608,8 @@ begin
         {$endregion}
         //Actions
         Data.RegisterLinkHandler('ACTION',@OpenAction);
+        //Options
+        Data.RegisterLinkHandler('OPTION',@OpenOption);
         //Favorites
         {$region}
         Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
@@ -2807,6 +2811,28 @@ begin
       Result := True;
     end;
 end;
+
+function TfMain.OpenOption(aLink: string; Sender: TObject): Boolean;
+var
+  i: Integer;
+  aNode: TTreeNode;
+begin
+  Result := False;
+  for i := 0 to fOptions.FormsList.Count-1 do
+    if UpperCase(TOptionsFrame(fOptions.FormsList.Items[i]).ClassName)=UpperCase(copy(aLink,pos('@',aLink)+1,length(aLink))) then
+      begin
+        aNode := fOptions.tvMain.Items[0];
+        while Assigned(aNode) and (aNode.Text<>TOptionsFrame(fOptions.FormsList.Items[i]).Caption) do
+          aNode := aNode.GetNext;
+        if Assigned(aNode) and (aNode.Text=TOptionsFrame(fOptions.FormsList.Items[i]).Caption) then
+          begin
+            fOptions.tvMain.Selected:=aNode;
+            fOptions.ShowModal;
+            Result := True;
+          end;
+      end;
+end;
+
 procedure TfMain.pmHistoryPopup(Sender: TObject);
 var
   aItem: TMenuItem;
