@@ -1,3 +1,12 @@
+{*******************************************************************************
+Dieser Sourcecode darf nicht ohne gültige Geheimhaltungsvereinbarung benutzt werden
+und ohne gültigen Vertriebspartnervertrag weitergegeben oder kommerziell verwertet werden.
+You have no permission to use this Source without valid NDA
+and copy it without valid distribution partner agreement
+Christian Ulrich
+info@cu-tec.de
+Created 01.06.2006
+*******************************************************************************}
 unit ubasefcgiapplication;
 {$mode objfpc}{$H+}
 interface
@@ -126,7 +135,7 @@ begin
   aFilter := Data.DateTimeToFilter(Now()-(DefaultTimeOutMinutes/(24*60)));
   aFilter := Data.QuoteField('LASTACCESS')+' < '+aFilter;
   with aSessions.DataSet as IBaseDbFilter do
-    aFilter := aFilter+' and '+ProcessTerm(Data.QuoteField('ISACTIVE')+'='+Data.QuoteValue(''));
+    aFilter := aFilter+' and '+Data.ProcessTerm(Data.QuoteField('ISACTIVE')+'='+Data.QuoteValue(''));
   Data.SetFilter(aSessions,aFilter);
   with aSessions.DataSet do
     begin

@@ -1,8 +1,17 @@
+{*******************************************************************************
+Dieser Sourcecode darf nicht ohne gültige Geheimhaltungsvereinbarung benutzt werden
+und ohne gültigen Vertriebspartnervertrag weitergegeben oder kommerziell verwertet werden.
+You have no permission to use this Source without valid NDA
+and copy it without valid distribution partner agreement
+Christian Ulrich
+info@cu-tec.de
+Created 01.06.2006
+*******************************************************************************}
 unit udownloads;
 {$mode objfpc}{$H+}
 interface
 uses
-  SysUtils, Classes, httpdefs, fpHTTP, fpWeb, FileUtil;
+  SysUtils, Classes, httpdefs, fpHTTP, fpWeb, FileUtil,LCLProc;
 type
   TfmDownloads = class(TFPWebModule)
     procedure DataModuleRequest(Sender: TObject; ARequest: TRequest;
@@ -33,6 +42,8 @@ begin
       aPath := CleanAndExpandDirectory(Config.ReadString('DOCROOTPATH','')+aPath);
       if copy(aPath,length(aPath),1) = '/' then
         aPath := copy(aPath,0,length(aPath)-1);
+      if pos('?',aPath) > 0 then
+        aPath := copy(aPath,0,pos('?',aPath)-1);
       aExt := ExtractFileExt(aPath);
     end;
   if not FileExists(aPath) then
@@ -60,6 +71,7 @@ begin
     end
   else
     begin
+      debugln('File not found:'+aPath);
       AResponse.Code := 404;
       AResponse.CodeText := 'Not found';
     end;

@@ -1,3 +1,12 @@
+{*******************************************************************************
+Dieser Sourcecode darf nicht ohne gültige Geheimhaltungsvereinbarung benutzt werden
+und ohne gültigen Vertriebspartnervertrag weitergegeben oder kommerziell verwertet werden.
+You have no permission to use this Source without valid NDA
+and copy it without valid distribution partner agreement
+Christian Ulrich
+info@cu-tec.de
+Created 01.06.2006
+*******************************************************************************}
 unit uerror;
 {$mode objfpc}{$H+}
 interface
@@ -63,7 +72,12 @@ begin
       aPath := ARequest.PathInfo;
       if copy(aPath,0,1) = '/' then
         aPath := copy(aPath,2,length(aPath));
-      aPath := Config.ReadString('DOCROOTPATH','')+aPath;
+      aPath := CleanAndExpandDirectory(Config.ReadString('DOCROOTPATH','')+aPath);
+      if copy(aPath,length(aPath),1) = '/' then
+        aPath := copy(aPath,0,length(aPath)-1);
+      if pos('?',aPath) > 0 then
+        aPath := copy(aPath,0,pos('?',aPath)-1);
+      aExt := ExtractFileExt(aPath);
     end;
   aExt := lowercase(ExtractFileExt(aPath));
   if FileExists(aPath)
@@ -107,7 +121,7 @@ begin
   else if lowercase(ARequest.PathInfo) = '/favicon.ico' then
     begin
       AResponse.Code := 404;
-      AResponse.CodeText := 'Not found';
+      AResponse.CodeText := 'Not found '+aPath;
     end
   else if Redirects.Values[ARequest.PathInfo] <> '' then
     begin
@@ -115,6 +129,17 @@ begin
       AResponse.Location := Redirects.Values[ARequest.PathInfo];
       AResponse.Code := 301;
       AResponse.CodeText := 'Moved Permanently';
+    end
+  else if FileExistsUTF8(aPath) and not DirectoryExistsUTF8(aPath) then
+    begin
+      aFile := TFileStream.Create(UTF8ToSys(aPath),fmOpenRead,fmShareDenyNone);
+      AResponse.ContentType := 'application/'+copy(aExt,2,length(aExt));
+      AResponse.Code := 200;
+      AResponse.ContentStream := aFile;
+      Aresponse.ContentLength := aFile.Size;
+      AResponse.Expires := HTTPDate(Now()+31);
+      AResponse.SendContent;
+      aFile.Free;
     end
   else
     begin
