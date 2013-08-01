@@ -1,6 +1,6 @@
 {*******************************************************************************
 Dieser Sourcecode darf nicht ohne gültige Geheimhaltungsvereinbarung benutzt werden
-und ohne gültigen Vertriebspartnervertrag weitergegeben werden.
+und ohne gültigen Vertriebspartnervertrag weitergegeben oder kommerziell verwertet werden.
 You have no permission to use this Source without valid NDA
 and copy it without valid distribution partner agreement
 Christian Ulrich
