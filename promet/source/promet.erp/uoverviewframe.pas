@@ -35,7 +35,7 @@ procedure TfOrderOverviewFrame.FrameEnter(Sender: TObject);
 var
   Rec: TBookmark;
   Node: TTreeNode = nil;
-  aParent: TTreeNode;
+  aParent: TTreeNode=nil;
   aLastNode: TTreeNode = nil;
   OrderType: TDataSet;
   oRec: TBookmark;
@@ -54,11 +54,15 @@ begin
       oRec := OrderType.GetBookmark;
       while not EOF do
         begin
-          aParent := nil;
+          Node := nil;
           if OrderType.Locate('STATUS',FieldByName('STATUS').AsString, [loCaseInsensitive]) then
             if OrderType.FieldByName('ISDERIVATE').AsString = 'Y' then
+              Node := tvOrderView.Items.AddChild(aParent,FieldByName('STATUS').AsString+' '+FieldByName('ORDERNO').AsString);
+          if not Assigned(Node) then
+            begin
+              Node := tvOrderView.Items.AddChild(nil,FieldByName('STATUS').AsString+' '+FieldByName('ORDERNO').AsString);
               aParent := Node;
-          Node := tvOrderView.Items.AddChild(aParent,FieldByName('STATUS').AsString+' '+FieldByName('ORDERNO').AsString);
+            end;
           Node.ImageIndex:=25;
           Node.Selectedindex := Node.ImageIndex;
           if not (FieldByName('DATE').IsNull or (OrderType.FieldByName('ISDERIVATE').AsString = 'Y')) then

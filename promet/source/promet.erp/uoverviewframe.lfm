@@ -1,4 +1,4 @@
-object fOrderOverviewFrame: TfOrderOverviewFrame
+inherited fOrderOverviewFrame: TfOrderOverviewFrame
   Left = 0
   Height = 240
   Top = 0
@@ -6,10 +6,9 @@ object fOrderOverviewFrame: TfOrderOverviewFrame
   ClientHeight = 240
   ClientWidth = 320
   OnEnter = FrameEnter
-  TabOrder = 0
   DesignLeft = 326
   DesignTop = 319
-  object tvOrderView: TTreeView
+  object tvOrderView: TTreeView[0]
     Left = 0
     Height = 240
     Hint = 'Eine Übersicht über die Auftragsstruktur'#13#10'incl Unteraufträge'
@@ -17,13 +16,14 @@ object fOrderOverviewFrame: TfOrderOverviewFrame
     Width = 320
     Align = alClient
     BorderStyle = bsNone
+    DefaultItemHeight = 16
     Images = fVisualControls.Images
     ReadOnly = True
     TabOrder = 0
     OnDblClick = tvOrderViewDblClick
     Options = [tvoAutoItemHeight, tvoHideSelection, tvoKeepCollapsedNodes, tvoReadOnly, tvoShowButtons, tvoShowLines, tvoShowRoot, tvoToolTips]
   end
-  object Order: TDatasource
+  object Order: TDatasource[1]
     left = 16
     top = 20
   end
