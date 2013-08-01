@@ -448,10 +448,12 @@
       <Unit20>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1920"/>
-        <CursorPos X="22" Y="1929"/>
+        <TopLine Value="322"/>
+        <CursorPos X="1" Y="1814"/>
         <UsageCount Value="100"/>
+        <Loaded Value="True"/>
       </Unit20>
       <Unit21>
         <Filename Value="../base/dbintfs/uorder.pas"/>
@@ -955,10 +957,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ugridview"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="24" Y="2"/>
+        <TopLine Value="3114"/>
+        <CursorPos X="3" Y="3102"/>
         <UsageCount Value="108"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -983,7 +986,7 @@
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="52" Y="1"/>
+        <CursorPos X="92" Y="12"/>
         <UsageCount Value="103"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
@@ -1489,7 +1492,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="91" Y="3"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit126>
       <Unit127>
@@ -1951,11 +1954,11 @@
       <Unit181>
         <Filename Value="../base/uroweditor.pas"/>
         <UnitName Value="uRowEditor"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="91" Y="3"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit181>
       <Unit182>
@@ -2050,7 +2053,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
-        <UsageCount Value="183"/>
+        <UsageCount Value="184"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit191>
       <Unit192>
@@ -2282,7 +2285,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="5"/>
         <CursorPos X="3" Y="36"/>
-        <UsageCount Value="120"/>
+        <UsageCount Value="121"/>
       </Unit218>
       <Unit219>
         <Filename Value="../../../../lazarus/lcl/include/customframe.inc"/>
@@ -2540,8 +2543,8 @@
         <Filename Value="../../../../../lazarus/lcl/grids.pas"/>
         <UnitName Value="Grids"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="102"/>
-        <CursorPos X="3" Y="119"/>
+        <TopLine Value="9844"/>
+        <CursorPos X="1" Y="9865"/>
         <UsageCount Value="10"/>
       </Unit250>
       <Unit251>
@@ -2664,7 +2667,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="91" Y="3"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit265>
       <Unit266>
@@ -2963,50 +2966,125 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="91" Y="3"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit302>
       <Unit303>
         <Filename Value="../base_wiki/uwikiframe.pas"/>
         <UnitName Value="uWikiFrame"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="1" Y="3"/>
-        <UsageCount Value="10"/>
+        <CursorPos X="104" Y="3"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit303>
     </Units>
-    <JumpHistory Count="7" HistoryIndex="6">
+    <JumpHistory Count="26" HistoryIndex="25">
       <Position1>
         <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2448" Column="1" TopLine="2429"/>
+        <Caret Line="3132" Column="1" TopLine="3113"/>
       </Position1>
       <Position2>
-        <Filename Value="../base/uroweditor.pas"/>
-        <Caret Line="254" Column="1" TopLine="228"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3134" Column="1" TopLine="3113"/>
       </Position2>
       <Position3>
-        <Filename Value="../base/ubasevisualcontrols.pas"/>
-        <Caret Line="22" Column="16" TopLine="2"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3135" Column="1" TopLine="3113"/>
       </Position3>
       <Position4>
-        <Filename Value="../base/upersonaloptions.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3136" Column="1" TopLine="3113"/>
       </Position4>
       <Position5>
-        <Filename Value="../base/ubasevisualapplicationtools.pas"/>
-        <Caret Line="83" Column="38" TopLine="65"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3137" Column="1" TopLine="3113"/>
       </Position5>
       <Position6>
-        <Filename Value="../base/usearch.pas"/>
-        <Caret Line="366" Column="1" TopLine="354"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3138" Column="1" TopLine="3113"/>
       </Position6>
       <Position7>
-        <Filename Value="../base_wiki/uwikiframe.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3139" Column="1" TopLine="3113"/>
       </Position7>
+      <Position8>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3140" Column="1" TopLine="3113"/>
+      </Position8>
+      <Position9>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3141" Column="1" TopLine="3113"/>
+      </Position9>
+      <Position10>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3132" Column="1" TopLine="3113"/>
+      </Position10>
+      <Position11>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3134" Column="1" TopLine="3113"/>
+      </Position11>
+      <Position12>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3135" Column="1" TopLine="3113"/>
+      </Position12>
+      <Position13>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3136" Column="1" TopLine="3113"/>
+      </Position13>
+      <Position14>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3137" Column="1" TopLine="3113"/>
+      </Position14>
+      <Position15>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3138" Column="1" TopLine="3113"/>
+      </Position15>
+      <Position16>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3139" Column="1" TopLine="3113"/>
+      </Position16>
+      <Position17>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3140" Column="1" TopLine="3113"/>
+      </Position17>
+      <Position18>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3141" Column="1" TopLine="3113"/>
+      </Position18>
+      <Position19>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3132" Column="1" TopLine="3113"/>
+      </Position19>
+      <Position20>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="13" Column="2" TopLine="7"/>
+      </Position20>
+      <Position21>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="856" Column="18" TopLine="829"/>
+      </Position21>
+      <Position22>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="814" Column="16" TopLine="797"/>
+      </Position22>
+      <Position23>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="815" Column="46" TopLine="798"/>
+      </Position23>
+      <Position24>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="814" Column="1" TopLine="798"/>
+      </Position24>
+      <Position25>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="815" Column="1" TopLine="798"/>
+      </Position25>
+      <Position26>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="854" Column="16" TopLine="840"/>
+      </Position26>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>

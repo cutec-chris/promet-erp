@@ -10,7 +10,7 @@ Created 03.12.2011
 unit ugridview;
 {$mode objfpc}{$H+}
 
-{.$define gridvisible}
+{$define gridvisible}
 {.$define slowdebug}
 {.$define debug}
 
@@ -807,6 +807,11 @@ begin
     end
   else if (sIndex <> tIndex) then
     begin
+      if DataSet.CanEdit and gList.EditorMode then
+        begin
+          if DataSet.Changed then
+            Post;
+        end;
       for i := 0 to dgFake.Columns.Count-1 do
         if dgFake.Columns[i].FieldName = IdentField then
           begin
