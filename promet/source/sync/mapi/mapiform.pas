@@ -20,7 +20,13 @@
 
 unit MapiForm;
 
-{$A+}
+{$IFDEF CPU64}
+  //64 bit - align at 8 bytes
+  {$A8}
+{$ELSE}
+  //32 bit
+  {$A+}
+{$ENDIF }
 {$MINENUMSIZE 4}
 
 interface
@@ -38,6 +44,25 @@ uses
  *  Copyright 1986-1996 Microsoft Corporation. All Rights Reserved.
  *)
 
+ (*
+ *  V e r b s
+ *)
+
+
+const
+  // Interpersonal messaging verbs
+  EXCHIVERB_OPEN               = 0;
+  EXCHIVERB_RESERVED_COMPOSE   = 100;
+  EXCHIVERB_RESERVED_OPEN      = 101;
+  EXCHIVERB_REPLYTOSENDER      = 102;
+  EXCHIVERB_REPLYTOALL         = 103;
+  EXCHIVERB_FORWARD            = 104;
+  EXCHIVERB_PRINT              = 105;
+  EXCHIVERB_SAVEAS             = 106;
+  EXCHIVERB_RESERVED_DELIVERY  = 107;
+  EXCHIVERB_REPLYTOFOLDER      = 108;
+
+
 type
   PCRECT = ^TRECT;
 
@@ -52,9 +77,18 @@ const
   HFRMREG_LOCAL = 1;
   HFRMREG_PERSONAL = 2;
   HFRMREG_FOLDER = 3;
+  HFRMREG_ENTERPRISE = 4;
+
+  MAPIFORM_EXACTMATCH = $0020;
+
+MAPIFORM_SELECT_ALL_REGISTRIES           = 0;
+MAPIFORM_SELECT_FOLDER_REGISTRY_ONLY     = 1;
+MAPIFORM_SELECT_NON_FOLDER_REGISTRY_ONLY = 2;
+
+
 
 type
-  PPCSTR = ^PChar;
+  PPCSTR = ^PAnsiChar;
 
   TSAVEOPTS =
     (
@@ -109,6 +143,10 @@ const
   VCDIR_DELETE = VCSTATUS_DELETE;
   VCDIR_MOVE = VCSTATUS_MOVE;
 
+  //Steve G.
+  VCSTATUS_UNREAD       = $00000020;
+  VCSTATUS_CATEGORY      = $00000040;
+
 { MAPI Form property descriptor }
 
 (*
@@ -134,11 +172,16 @@ const
   MAPIFORM_CPU_AXP = 3;
   MAPIFORM_CPU_PPC = 4;
   MAPIFORM_CPU_M68 = 5;
+  MAPIFORM_CPU_X64 = 6;
+
   MAPIFORM_OS_WIN_31 = 1;
   MAPIFORM_OS_WINNT_35 = 2;
   MAPIFORM_OS_WIN_95 = 3;
   MAPIFORM_OS_MAC_7x = 4;
   MAPIFORM_OS_WINNT_40 = 5;
+  MAPIFORM_OS_WINNT_50 = 6;
+  MAPIFORM_OS_WINNT_60 = 7;
+
 
 {  Flags for IMAPIFormMgr::CalcFormPropSet }
 
@@ -171,7 +214,7 @@ type
 
   TSMAPIFormPropEnumVal =
     record                             { fpev }
-      pszDisplayName : PChar;          { carries the display string }
+      pszDisplayName : PAnsiChar;          { carries the display AnsiString }
       nVal : ULONG;                    { the value for the above enumeration }
     end;
 
@@ -182,7 +225,7 @@ type
       ulFlags : ULONG;                 { Contains MAPI_UNICODE if strings are UNICODE }
       nPropType : ULONG;               { type of the property, hiword is 0 }
       nmid : TMAPINAMEID;              { id of the property }
-      pszDisplayName : PChar;
+      pszDisplayName : PAnsiChar;
       nSpecialType : TFORMPROPSPECIALTYPE;
                                        { tag for the following union }
       u :
@@ -190,7 +233,7 @@ type
           case Integer of
             1 :
               (
-                s1 : { Property String/Number association Enumeration }
+                s1 : { Property AnsiString/Number association Enumeration }
                   record
                     nmidIdx : TMAPINAMEID;
                     cfpevAvailable : ULONG; { # of enums }
@@ -218,7 +261,7 @@ type
   TSMAPIVerb =
     record
       lVerb : Longint;
-      szVerbname : PChar;
+      szVerbname : PAnsiChar;
       fuFlags : DWORD;
       grfAttribs : DWORD;
       ulFlags : ULONG;                 { Either 0 or MAPI_UNICODE }
@@ -315,10 +358,10 @@ type
         out ppViewContext : IMAPIViewContext) : HResult; stdcall;
       function ShutdownForm (ulSaveOptions : ULONG) : HResult; stdcall;
       function DoVerb (iVerb : Longint; lpViewContext : IMAPIViewContext; { can be null }
-        hwndParent : ULONG; lprcPosRect : PCRECT) : HResult; stdcall;
+        hwndParent : ULONG_PTR; lprcPosRect : PCRECT) : HResult; stdcall;
       function Advise (pAdvise : IMAPIViewAdviseSink;
-        var pdwStatus : ULONG) : HResult; stdcall;
-      function Unadvise (ulConnection : ULONG) : HResult; stdcall;
+        out pdwStatus : ULONG_PTR) : HResult; stdcall;
+      function Unadvise (ulConnection : ULONG_PTR) : HResult; stdcall;
     end;
 
   IMAPIViewContext =
@@ -380,7 +423,7 @@ type
         var ppMAPIVerbArray : PMAPIVERBARRAY) : HResult; stdcall;
       function MakeIconFromBinary (nPropID : ULONG;
         var phicon : HICON) : HResult; stdcall;
-      function SaveForm (szFileName : PChar) : HResult; stdcall;
+      function SaveForm (szFileName : PAnsiChar) : HResult; stdcall;
       function OpenFormContainer (
         out ppformcontainer : IMAPIFormContainer) : HResult; stdcall;
     end;
@@ -393,7 +436,7 @@ type
     [strIID_IMAPIFormMgr]
       function GetLastError (hResult : HResult; ulFlags : ULONG;
         var lppMAPIError : PMAPIERROR) : HResult; stdcall;
-      function LoadForm (ulUIParam : ULONG; ulFlags : ULONG;
+      function LoadForm (ulUIParam : ULONG_PTR; ulFlags : ULONG;
         lpszMessageClass : LPCSTR; ulMessageStatus : ULONG; ulMessageFlags : ULONG;
         pFolderFocus : IMAPIFolder; pMessageSite : IMAPIMessageSite;
         pmsg : IMessage; pViewContext : IMAPIViewContext; riid : PIID;
@@ -406,20 +449,20 @@ type
       var pfrminfoarray : PSMAPIFORMINFOARRAY) : HResult; stdcall;
       function CalcFormPropSet (pfrminfoarray : PSMAPIFORMINFOARRAY; ulFlags : ULONG;
         var ppResults : PMAPIFORMPROPARRAY) : HResult; stdcall;
-      function CreateForm (ulUIParam : ULONG; ulFlags : ULONG;
+      function CreateForm (ulUIParam : ULONG_PTR; ulFlags : ULONG;
         pfrminfoToActivate : IMAPIFormInfo; refiidToAsk : PIID;
         out ppvObj : IUnknown) : HResult; stdcall;
-      function SelectForm (ulUIParam : ULONG; ulFlags : ULONG;
-        pszTitle : PChar; pfld : IMAPIFolder;
+      function SelectForm (ulUIParam : ULONG_PTR; ulFlags : ULONG;
+        pszTitle : PAnsiChar; pfld : IMAPIFolder;
         out ppfrminfoReturned : IMAPIFormInfo) : HResult; stdcall;
-      function SelectMultipleForms (ulUIParam : ULONG; ulFlags : ULONG;
-        pszTitle : PChar; pfld : IMAPIFolder; pfrminfoarray : PSMAPIFORMINFOARRAY;
+      function SelectMultipleForms (ulUIParam : ULONG_PTR; ulFlags : ULONG;
+        pszTitle : PAnsiChar; pfld : IMAPIFolder; pfrminfoarray : PSMAPIFORMINFOARRAY;
         var ppfrminfoarray : PSMAPIFORMINFOARRAY) : HResult; stdcall;
-      function SelectFormContainer (ulUIParam : ULONG; ulFlags : ULONG; 
+      function SelectFormContainer (ulUIParam : ULONG_PTR; ulFlags : ULONG;
         out lppfcnt : IMAPIFormContainer) : HResult; stdcall;
       function OpenFormContainer (hfrmreg : THFRMREG; lpunk : IUnknown; 
         out lppfcnt : IMAPIFormContainer) : HResult; stdcall;
-      function PrepareForm (ulUIParam : ULONG; ulFlags : ULONG; 
+      function PrepareForm (ulUIParam : ULONG_PTR; ulFlags : ULONG;
         pfrminfo : IMAPIFormInfo) : HResult; stdcall;
       function IsInConflict (ulMessageFlags : ULONG; ulMessageStatus : ULONG; 
         szMessageClass : LPCSTR; pFolderFocus : IMAPIFolder) : HResult; stdcall;
@@ -430,8 +473,8 @@ type
     [strIID_IMAPIFormContainer]
       function GetLastError (hResult : HResult; ulFlags : ULONG;
         var lppMAPIError : PMAPIERROR) : HResult; stdcall;
-      function InstallForm (ulUIParam : ULONG; ulFlags : ULONG;
-        szCfgPathName : PChar) : HResult; stdcall;
+      function InstallForm (ulUIParam : ULONG_PTR; ulFlags : ULONG;
+        szCfgPathName : PAnsiChar) : HResult; stdcall;
       function RemoveForm (szMessageClass : LPCSTR) : HResult; stdcall;
       function ResolveMessageClass (szMessageClass : LPCSTR; ulFlags : ULONG; 
         var pforminfo : IMAPIFormInfo) : HResult; stdcall;
@@ -441,7 +484,7 @@ type
       function CalcFormPropSet (ulFlags : ULONG;
         var ppResults : PMAPIFORMPROPARRAY) : HResult; stdcall;
       function GetDisplay (ulFlags : ULONG;
-        var pszDisplayName : PChar) : HResult; stdcall;
+        var pszDisplayName : PAnsiChar) : HResult; stdcall;
     end;
 
   IMAPIFormFactory =
@@ -453,20 +496,20 @@ type
         ulFlags : ULONG; out lppClassFactory : IClassFactory) : HResult; stdcall;
       function LockServer (ulFlags : ULONG; fLockServer : ULONG) : HResult; stdcall;
     end;
-
+{
 function MAPIOpenFormMgr (pSession : IMAPISession;
   out ppmgr : IMAPIFormMgr) : HResult; stdcall;
 
 function MAPIOpenLocalFormContainer (
   out ppfcnt : IMAPIFormContainer) : HResult; stdcall;
-
+}
 implementation
-
+{
 const
   Mapi32Dll = 'mapi32.dll';
 
 function MAPIOpenFormMgr; external Mapi32Dll name 'MAPIOpenFormMgr';
 function MAPIOpenLocalFormContainer; external Mapi32Dll name 'MAPIOpenLocalFormContainer';
-
+}
 end.
 

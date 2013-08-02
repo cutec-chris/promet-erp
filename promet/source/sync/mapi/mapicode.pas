@@ -108,7 +108,7 @@ uses
  *  
  *      C - reserved portion of the facility code, corresponds to NT's
  *          C field.
- *  
+ *
  *      N - reserved portion of the facility code. Used to indicate a
  *          mapped NT status value.
  *  
@@ -157,180 +157,182 @@ const SUCCESS_SUCCESS      = 0;
 { General errors (used by more than one MAPI object) }
 
 const MAPI_E_CALL_FAILED                               = {!! htrans: Warning[2] - Constant value not verifiable }
-  E_FAIL;
+  HResult(E_FAIL);
 const MAPI_E_NOT_ENOUGH_MEMORY                         = {!! htrans: Warning[2] - Constant value not verifiable }
-  E_OUTOFMEMORY;
+ HResult(E_OUTOFMEMORY);
 const MAPI_E_INVALID_PARAMETER                         = {!! htrans: Warning[2] - Constant value not verifiable }
-  E_INVALIDARG;
+  HResult(E_INVALIDARG);
 const MAPI_E_INTERFACE_NOT_SUPPORTED                   = {!! htrans: Warning[2] - Constant value not verifiable }
-  E_NOINTERFACE;
+  HResult(E_NOINTERFACE);
 const MAPI_E_NO_ACCESS                                 = {!! htrans: Warning[2] - Constant value not verifiable }
-  E_ACCESSDENIED;
+  HResult(E_ACCESSDENIED);
 
 const MAPI_E_NO_SUPPORT                                = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($102 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($102 ));
 const MAPI_E_BAD_CHARWIDTH                             = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($103 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($103 ));
 const MAPI_E_STRING_TOO_LONG                           = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($105 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($105 ));
 const MAPI_E_UNKNOWN_FLAGS                             = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($106 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($106 ));
 const MAPI_E_INVALID_ENTRYID                           = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($107 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($107 ));
 const MAPI_E_INVALID_OBJECT                            = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($108 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($108 ));
 const MAPI_E_OBJECT_CHANGED                            = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($109 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($109 ));
 const MAPI_E_OBJECT_DELETED                            = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($10A );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($10A ));
 const MAPI_E_BUSY                                      = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($10 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($10B ));
 const MAPI_E_NOT_ENOUGH_DISK                           = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($10D );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($10D ));
 const MAPI_E_NOT_ENOUGH_RESOURCES                      = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($10E );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($10E ));
 const MAPI_E_NOT_FOUND                                 = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($10F );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($10F ));
 const MAPI_E_VERSION                                   = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($110 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($110 ));
 const MAPI_E_LOGON_FAILED                              = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($111 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($111 ));
 const MAPI_E_SESSION_LIMIT                             = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($112 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($112 ));
 const MAPI_E_USER_CANCEL                               = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($113 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($113 ));
 const MAPI_E_UNABLE_TO_ABORT                           = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($114 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($114 ));
 const MAPI_E_NETWORK_ERROR                             = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($115 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($115 ));
 const MAPI_E_DISK_ERROR                                = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($116 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($116 ));
 const MAPI_E_TOO_COMPLEX                               = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($117 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($117 ));
 const MAPI_E_BAD_COLUMN                                = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($118 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($118 ));
 const MAPI_E_EXTENDED_ERROR                            = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($119 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($119 ));
 const MAPI_E_COMPUTED                                  = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($11A );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($11A ));
 const MAPI_E_CORRUPT_DATA                              = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($11 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($11B ));
 const MAPI_E_UNCONFIGURED                              = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($11C );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($11C ));
 const MAPI_E_FAILONEPROVIDER                           = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($11D );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($11D ));
 const MAPI_E_UNKNOWN_CPID                              = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($11E );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($11E ));
 const MAPI_E_UNKNOWN_LCID                              = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($11F );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($11F ));
 
 { Flavors of E_ACCESSDENIED, used at logon }
 
 const MAPI_E_PASSWORD_CHANGE_REQUIRED                  = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($120 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($120 ));
 const MAPI_E_PASSWORD_EXPIRED                          = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($121 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($121 ));
 const MAPI_E_INVALID_WORKSTATION_ACCOUNT               = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($122 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($122 ));
 const MAPI_E_INVALID_ACCESS_TIME                       = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($123 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($123 ));
 const MAPI_E_ACCOUNT_DISABLED                          = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($124 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($124 ));
 
 { MAPI base function and status object specific errors and warnings }
 
 const MAPI_E_END_OF_SESSION                            = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($200 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($200 ));
 const MAPI_E_UNKNOWN_ENTRYID                           = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($201 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($201 ));
 const MAPI_E_MISSING_REQUIRED_COLUMN                   = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($202 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($202 ));
 const MAPI_W_NO_SERVICE                                = {!! htrans: [MAPI MAKE_MAPI_S macro] }
-   (FACILITY_ITF shl 16) or ($203 );
+   HResult((FACILITY_ITF shl 16) or ($203 ));
 
 { Property specific errors and warnings }
 
 const MAPI_E_BAD_VALUE                                 = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($301 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($301 ));
 const MAPI_E_INVALID_TYPE                              = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($302 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($302 ));
 const MAPI_E_TYPE_NO_SUPPORT                           = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($303 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($303 ));
 const MAPI_E_UNEXPECTED_TYPE                           = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($304 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($304 ));
 const MAPI_E_TOO_BIG                                   = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($305 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($305 ));
 const MAPI_E_DECLINE_COPY                              = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($306 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($306 ));
 const MAPI_E_UNEXPECTED_ID                             = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($307 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($307 ));
 
 const MAPI_W_ERRORS_RETURNED                           = {!! htrans: [MAPI MAKE_MAPI_S macro] }
-   (FACILITY_ITF shl 16) or ($380 );
+   HResult((FACILITY_ITF shl 16) or ($380 ));
 
 { Table specific errors and warnings }
 
 const MAPI_E_UNABLE_TO_COMPLETE                        = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($400 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($400 ));
 const MAPI_E_TIMEOUT                                   = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($401 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($401 ));
 const MAPI_E_TABLE_EMPTY                               = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($402 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($402 ));
 const MAPI_E_TABLE_TOO_BIG                             = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($403 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($403 ));
 
 const MAPI_E_INVALID_BOOKMARK                          = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($405 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($405 ));
 
 const MAPI_W_POSITION_CHANGED                          = {!! htrans: [MAPI MAKE_MAPI_S macro] }
-   (FACILITY_ITF shl 16) or ($481 );
+   HResult((FACILITY_ITF shl 16) or ($481 ));
 const MAPI_W_APPROX_COUNT                              = {!! htrans: [MAPI MAKE_MAPI_S macro] }
-   (FACILITY_ITF shl 16) or ($482 );
+   HResult((FACILITY_ITF shl 16) or ($482 ));
 
 { Transport specific errors and warnings }
 
 const MAPI_E_WAIT                                      = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($500 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($500 ));
 const MAPI_E_CANCEL                                    = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($501 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($501 ));
 const MAPI_E_NOT_ME                                    = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($502 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($502 ));
 
 const MAPI_W_CANCEL_MESSAGE                            = {!! htrans: [MAPI MAKE_MAPI_S macro] }
-   (FACILITY_ITF shl 16) or ($580 );
+   HResult((FACILITY_ITF shl 16) or ($580 ));
 
 { Message Store, Folder, and Message specific errors and warnings }
 
 const MAPI_E_CORRUPT_STORE                             = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($600 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($600 ));
 const MAPI_E_NOT_IN_QUEUE                              = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($601 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($601 ));
 const MAPI_E_NO_SUPPRESS                               = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($602 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($602 ));
 const MAPI_E_COLLISION                                 = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($604 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($604 ));
 const MAPI_E_NOT_INITIALIZED                           = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($605 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($605 ));
 const MAPI_E_NON_STANDARD                              = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($606 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($606 ));
 const MAPI_E_NO_RECIPIENTS                             = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($607 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($607 ));
 const MAPI_E_SUBMITTED                                 = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($608 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($608 ));
 const MAPI_E_HAS_FOLDERS                               = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($609 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($609 ));
 const MAPI_E_HAS_MESSAGES                              = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($60A );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($60A ));
 const MAPI_E_FOLDER_CYCLE                              = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($60 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($60B ));
 
 const MAPI_W_PARTIAL_COMPLETION                        = {!! htrans: [MAPI MAKE_MAPI_S macro] }
-   (FACILITY_ITF shl 16) or ($680 );
+   HResult((FACILITY_ITF shl 16) or ($680 ));
 
 { Address Book specific errors and warnings }
 
 const MAPI_E_AMBIGUOUS_RECIP                           = {!! htrans: [MAPI MAKE_MAPI_E macro] }
-   (1 shl 31) or (FACILITY_ITF shl 16) or ($700 );
+   HResult((1 shl 31) or (FACILITY_ITF shl 16) or ($700 ));
+
+const MAPI_E_STORE_FULL = HResult($8004060c);
 
 { The range 0x0800 to 0x08FF is reserved }
 
@@ -358,6 +360,12 @@ const MAPI_E_AMBIGUOUS_RECIP                           = {!! htrans: [MAPI MAKE_
 {$ENDIF}  {} 
 
 {!! htrans: Translated header file ends here }
+
+const
+
+MAPI_E_LOCKID_LIMIT = HResult($8004060D);
+MAPI_E_NAMED_PROP_QUOTA_EXCEEDED = HResult($80040900);
+MAPI_E_PROFILE_DELETED = HResult($80040204);
 
 implementation
 

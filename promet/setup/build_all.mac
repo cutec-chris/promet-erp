@@ -1,6 +1,10 @@
 #!/bin/sh
-Version=$(sed 's/\r//g' ../source/base/version.inc).$(sed 's/\r//g' ../source/base/revision.inc)
-
+MajVersion=$(cat ../source/base/version.inc)
+MajVersion=$(echo $MajVersion | sed -e s/[^a-zA-z0-9 !§$%&/()=?+*#.,;:ö]//g)
+MinVersion=$(cat ../source/base/revision.inc)
+MinVersion=$(echo $MinVersion | sed -e s/[^a-zA-z0-9 !§$%&/()=?+*#.,;:ö]//g)
+Version=$MajVersion.$MinVersion
+echo Version:$Version
 # The new package will be saved here
 PACK_DIR=output
 
@@ -20,16 +24,13 @@ export lcl=carbon
 # Set minimal Mac OS X target version
 export MACOSX_DEPLOYMENT_TARGET=10.5
 
-cd $BUILD_DC_TMP_DIR
-
 # Build all components of Double Commander
-darwin/build_all_executables.sh $lcl $CPU_TARGET
+#darwin/build_all_executables.sh $lcl $CPU_TARGET
 
 # Create *.dmg package
 mkdir -p $BUILD_PACK_DIR
-darwin/install.sh $BUILD_PACK_DIR
-cd $BUILD_PACK_DIR
-hdiutil create -anyowners -volname "Double Commander" -imagekey zlib-level=9 -format UDZO -srcfolder 'Double Commander.app' $PACK_DIR/doublecmd-$Version.$lcl.$CPU_TARGET.dmg
+sh darwin/install.sh $BUILD_PACK_DIR
+echo hdiutil create -anyowners -volname "Promet-ERP" -imagekey zlib-level=9 -srcfolder ../output/$CPU_TARGET-darwin/prometerp.app $PACK_DIR/prometerp-$Version.$CPU_TARGET.dmg
 
 # Clean DC build dir
 rm -rf $BUILD_DC_TMP_DIR

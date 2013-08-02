@@ -18,16 +18,20 @@
 
 --}
 
-{$IFDEF FPC}
-{$MODE DELPHI}
-{$ENDIF}
-
 unit MapiX;
 
 interface
 
+{$IFDEF CPU64}
+  //64 bit - align at 8 bytes
+  {$A8}
+{$ELSE}
+  //32 bit
+  {$A+}
+{$ENDIF }
+
 uses
-  Windows, SysUtils, ActiveX,
+  Windows, ActiveX, SysUtils,
   MapiGuid, MapiDefs;
 
 (*
@@ -64,6 +68,8 @@ const
   ;
   MAPI_NO_MAIL = $00008000             { Do not activate transports       }
   ;
+
+  MAPI_BG_SESSION  = $00200000;  
 
 { #define MAPI_NT_SERVICE          0x00010000  Allow logon from an NT service  }
 
@@ -205,43 +211,43 @@ type
     interface(IUnknown)
     [strIID_IMAPISession]
       function GetLastError (hResult : HResult; ulFlags : ULONG;
-        var lppMAPIError : PMAPIERROR) : HResult; stdcall;
+        out lppMAPIError : PMAPIERROR) : HResult; stdcall;
       function GetMsgStoresTable (ulFlags : ULONG;
         out lppTable : IMAPITable) : HResult; stdcall;
-      function OpenMsgStore (ulUIParam : ULONG; cbEntryID : ULONG;
+      function OpenMsgStore (ulUIParam : ULONG_PTR; cbEntryID : ULONG;
         lpEntryID : PENTRYID; const lpInterface : TIID; ulFlags : ULONG;
         out lppMDB : IMsgStore) : HResult; stdcall;
-      function OpenAddressBook (ulUIParam : ULONG; const lpInterface : TIID;
+      function OpenAddressBook (ulUIParam : ULONG_PTR; const lpInterface : TIID;
         ulFlags : ULONG; out lppAdrBook : IAddrBook) : HResult; stdcall;
       function OpenProfileSection (lpUID : PMAPIUID; const lpInterface : TIID;
         ulFlags : ULONG; out lppProfSect : IProfSect) : HResult; stdcall;
       function GetStatusTable (ulFlags : ULONG;
         out lppTable : IMAPITable) : HResult; stdcall;
       function OpenEntry (cbEntryID : ULONG; lpEntryID : PENTRYID;
-        const lpInterface : TIID; ulFlags : ULONG; var lpulObjType : ULONG;
+        const lpInterface : TIID; ulFlags : ULONG; out lpulObjType : ULONG;
         out lppUnk : IUnknown) : HResult; stdcall;
       function CompareEntryIDs (cbEntryID1 : ULONG; lpEntryID1 : PENTRYID;
         cbEntryID2 : ULONG; lpEntryID2 : PENTRYID; ulFlags : ULONG;
-        var lpulResult : ULONG) : HResult; stdcall;
+        out lpulResult : ULONG) : HResult; stdcall;
       function Advise (cbEntryID : ULONG; lpEntryID : PENTRYID;
         ulEventMask : ULONG; lpAdviseSink : IMAPIAdviseSink;
-        var lpulConnection : ULONG) : HResult; stdcall;
+        out lpulConnection : ULONG) : HResult; stdcall;
       function Unadvise (ulConnection : ULONG) : HResult; stdcall;
-      function MessageOptions (ulUIParam : ULONG; ulFlags : ULONG;
-        lpszAdrType : PChar; lpMessage : IMessage) : HResult; stdcall;
-      function QueryDefaultMessageOpt (lpszAdrType : PChar; ulFlags : ULONG;
-        var lpcValues : ULONG; var lppOptions : PSPropValue) : HResult; stdcall;
-      function EnumAdrTypes (ulFlags : ULONG; var lpcAdrTypes : ULONG;
-        var lpppszAdrTypes : PChar) : HResult; stdcall;
-      function QueryIdentity (var lpcbEntryID : ULONG;
-        var lppEntryID : PENTRYID) : HResult; stdcall;
-      function Logoff (ulUIParam : ULONG; ulFlags : ULONG;
+      function MessageOptions (ulUIParam : ULONG_PTR; ulFlags : ULONG;
+        lpszAdrType : PAnsiChar; lpMessage : IMessage) : HResult; stdcall;
+      function QueryDefaultMessageOpt (lpszAdrType : PAnsiChar; ulFlags : ULONG;
+        out lpcValues : ULONG; out lppOptions : PSPropValue) : HResult; stdcall;
+      function EnumAdrTypes (ulFlags : ULONG; out lpcAdrTypes : ULONG;
+        out lpppszAdrTypes : PAnsiChar) : HResult; stdcall;
+      function QueryIdentity (out lpcbEntryID : ULONG;
+        out lppEntryID : PENTRYID) : HResult; stdcall;
+      function Logoff (ulUIParam : ULONG_PTR; ulFlags : ULONG;
         ulReserved : ULONG) : HResult; stdcall;
       function SetDefaultStore (ulFlags : ULONG; cbEntryID : ULONG;
         lpEntryID : PENTRYID) : HResult; stdcall;
       function AdminServices (ulFlags : ULONG;
         out lppServiceAdmin : IMsgServiceAdmin) : HResult; stdcall;
-      function ShowForm (ulUIParam : ULONG; lpMsgStore : IMsgStore;
+      function ShowForm (ulUIParam : ULONG_PTR; lpMsgStore : IMsgStore;
         lpParentFolder : IMAPIFolder; const lpInterface : TIID;
         ulMessageToken : ULONG; lpMessageSent : IMessage; ulFlags : ULONG;
         ulMessageStatus : ULONG; ulMessageFlags : ULONG; ulAccess : ULONG;
@@ -254,38 +260,38 @@ type
     interface(IMAPIProp)
     [strIID_IAddrBook]  
       function OpenEntry (cbEntryID : ULONG; lpEntryID : PENTRYID; const lpInterface : TIID;
-        ulFlags : ULONG; var lpulObjType : ULONG; out lppUnk : IUnknown) : HResult; stdcall;
+        ulFlags : ULONG; out lpulObjType : ULONG; out lppUnk : IUnknown) : HResult; stdcall;
       function CompareEntryIDs (cbEntryID1 : ULONG; lpEntryID1 : PENTRYID; 
         cbEntryID2 : ULONG; lpEntryID2 : PENTRYID; ulFlags : ULONG; 
-        var lpulResult : ULONG) : HResult; stdcall;
+        out lpulResult : ULONG) : HResult; stdcall;
       function Advise (cbEntryID : ULONG; lpEntryID : PENTRYID; ulEventMask : ULONG; 
-        lpAdviseSink : IMAPIAdviseSink; var lpulConnection : ULONG) : HResult; stdcall;
+        lpAdviseSink : IMAPIAdviseSink; out lpulConnection : ULONG) : HResult; stdcall;
       function Unadvise (ulConnection : ULONG) : HResult; stdcall;
-      function CreateOneOff (lpszName : PChar; lpszAdrType : PChar;
-        lpszAddress : PChar; ulFlags : ULONG; var lpcbEntryID : ULONG;
-        var lppEntryID : PENTRYID) : HResult; stdcall;
-      function NewEntry (ulUIParam : ULONG; ulFlags : ULONG; cbEIDContainer : ULONG; 
+      function CreateOneOff (lpszName : PAnsiChar; lpszAdrType : PAnsiChar;
+        lpszAddress : PAnsiChar; ulFlags : ULONG; out lpcbEntryID : ULONG;
+        out lppEntryID : PENTRYID) : HResult; stdcall;
+      function NewEntry (ulUIParam : ULONG_PTR; ulFlags : ULONG; cbEIDContainer : ULONG;
         lpEIDContainer : PENTRYID; cbEIDNewEntryTpl : ULONG; 
-        lpEIDNewEntryTpl : PENTRYID; var lpcbEIDNewEntry : ULONG; 
-        var lppEIDNewEntry : PENTRYID) : HResult; stdcall;
-      function ResolveName (ulUIParam : ULONG; ulFlags : ULONG;
-        lpszNewEntryTitle : PChar; lpAdrList : PADRLIST) : HResult; stdcall;
-      function Address (var lpulUIParam : ULONG; lpAdrParms : PADRPARM; 
+        lpEIDNewEntryTpl : PENTRYID; out lpcbEIDNewEntry : ULONG;
+        out lppEIDNewEntry : PENTRYID) : HResult; stdcall;
+      function ResolveName (ulUIParam : ULONG_PTR; ulFlags : ULONG;
+        lpszNewEntryTitle : PAnsiChar; lpAdrList : PADRLIST) : HResult; stdcall;
+      function Address (var lpulUIParam : HWND; lpAdrParms : PADRPARM;
         var lppAdrList : PADRLIST) : HResult; stdcall;
-      function Details (var lpulUIParam : ULONG; lpfnDismiss : PFNDISMISS; 
+      function Details (var lpulUIParam : HWND; lpfnDismiss : PFNDISMISS;
         lpvDismissContext : Pointer; cbEntryID : ULONG; lpEntryID : PENTRYID; 
-        lpfButtonCallback : PFNBUTTON; lpvButtonContext : Pointer; 
-        lpszButtonText : PChar; ulFlags : ULONG) : HResult; stdcall;
-      function RecipOptions (ulUIParam : ULONG; ulFlags : ULONG;
+        lpfButtonCallback : PFNBUTTON; lpvButtonContext : Pointer;
+        lpszButtonText : PAnsiChar; ulFlags : ULONG) : HResult; stdcall;
+      function RecipOptions (ulUIParam : ULONG_PTR; ulFlags : ULONG;
         lpRecip : PADRENTRY) : HResult; stdcall;
-      function QueryDefaultRecipOpt (lpszAdrType : PChar; ulFlags : ULONG;
+      function QueryDefaultRecipOpt (lpszAdrType : PAnsiChar; ulFlags : ULONG;
         var lpcValues : ULONG; var lppOptions : PSPropValue) : HResult; stdcall;
-      function GetPAB (var lpcbEntryID : ULONG;
-        var lppEntryID : PENTRYID) : HResult; stdcall;
+      function GetPAB (out lpcbEntryID : ULONG;
+        out lppEntryID : PENTRYID) : HResult; stdcall;
       function SetPAB (cbEntryID : ULONG;
         lpEntryID : PENTRYID) : HResult; stdcall;
-      function GetDefaultDir (var lpcbEntryID : ULONG;
-        var lppEntryID : PENTRYID) : HResult; stdcall;
+      function GetDefaultDir (out lpcbEntryID : ULONG;
+        out lppEntryID : PENTRYID) : HResult; stdcall;
       function SetDefaultDir (cbEntryID : ULONG;
         lpEntryID : PENTRYID) : HResult; stdcall;
       function GetSearchPath (ulFlags : ULONG;
@@ -302,18 +308,18 @@ type
       function GetLastError (hResult : HResult; ulFlags : ULONG;
         var lppMAPIError : PMAPIERROR) : HResult; stdcall;
       function GetProfileTable (ulFlags : ULONG; out lppTable : IMAPITable) : HResult; stdcall;
-      function CreateProfile (lpszProfileName : PChar; lpszPassword : PChar; 
-        ulUIParam : ULONG; ulFlags : ULONG) : HResult; stdcall;
-      function DeleteProfile (lpszProfileName : PChar; ulFlags : ULONG) : HResult; stdcall;
-      function ChangeProfilePassword (lpszProfileName : PChar; 
-        lpszOldPassword : PChar; lpszNewPassword : PChar; ulFlags : ULONG) : HResult; stdcall;
-      function CopyProfile (lpszOldProfileName : PChar; lpszOldPassword : PChar; 
-        lpszNewProfileName : PChar; ulUIParam : ULONG; ulFlags : ULONG) : HResult; stdcall;
-      function RenameProfile (lpszOldProfileName : PChar; lpszOldPassword : PChar; 
-        lpszNewProfileName : PChar; ulUIParam : ULONG; ulFlags : ULONG) : HResult; stdcall;
-      function SetDefaultProfile (lpszProfileName : PChar; ulFlags : ULONG) : HResult; stdcall;
-      function AdminServices (lpszProfileName : PChar; lpszPassword : PChar; 
-        ulUIParam : ULONG; ulFlags : ULONG; out lppServiceAdmin : IMsgServiceAdmin) : HResult; stdcall;
+      function CreateProfile (lpszProfileName : PAnsiChar; lpszPassword : PAnsiChar; 
+        ulUIParam : ULONG_PTR; ulFlags : ULONG) : HResult; stdcall;
+      function DeleteProfile (lpszProfileName : PAnsiChar; ulFlags : ULONG) : HResult; stdcall;
+      function ChangeProfilePassword (lpszProfileName : PAnsiChar; 
+        lpszOldPassword : PAnsiChar; lpszNewPassword : PAnsiChar; ulFlags : ULONG) : HResult; stdcall;
+      function CopyProfile (lpszOldProfileName : PAnsiChar; lpszOldPassword : PAnsiChar; 
+        lpszNewProfileName : PAnsiChar; ulUIParam : ULONG_PTR; ulFlags : ULONG) : HResult; stdcall;
+      function RenameProfile (lpszOldProfileName : PAnsiChar; lpszOldPassword : PAnsiChar; 
+        lpszNewProfileName : PAnsiChar; ulUIParam : ULONG_PTR; ulFlags : ULONG) : HResult; stdcall;
+      function SetDefaultProfile (lpszProfileName : PAnsiChar; ulFlags : ULONG) : HResult; stdcall;
+      function AdminServices (lpszProfileName : PAnsiChar; lpszPassword : PAnsiChar; 
+        ulUIParam : ULONG_PTR; ulFlags : ULONG; out lppServiceAdmin : IMsgServiceAdmin) : HResult; stdcall;
     end;
 
   IMsgServiceAdmin =
@@ -322,16 +328,16 @@ type
       function GetLastError (hResult : HResult; ulFlags : ULONG;
         var lppMAPIError : PMAPIERROR) : HResult; stdcall;
       function GetMsgServiceTable (ulFlags : ULONG; out lppTable : IMAPITable) : HResult; stdcall;
-      function CreateMsgService (lpszService : PChar; lpszDisplayName : PChar; 
-        ulUIParam : ULONG; ulFlags : ULONG) : HResult; stdcall;
+      function CreateMsgService (lpszService : PAnsiChar; lpszDisplayName : PAnsiChar; 
+        ulUIParam : ULONG_PTR; ulFlags : ULONG) : HResult; stdcall;
       function DeleteMsgService (lpUID : PMAPIUID) : HResult; stdcall;
-      function CopyMsgService (lpUID : PMAPIUID; lpszDisplayName : PChar; 
+      function CopyMsgService (lpUID : PMAPIUID; lpszDisplayName : PAnsiChar; 
         const lpInterfaceToCopy : TIID; const lpInterfaceDst : TIID;
-        lpObjectDst : Pointer; ulUIParam : ULONG;
+        lpObjectDst : Pointer; ulUIParam : ULONG_PTR;
         ulFlags : ULONG) : HResult; stdcall;
       function RenameMsgService (lpUID : PMAPIUID; ulFlags : ULONG; 
-        lpszDisplayName : PChar) : HResult; stdcall;
-      function ConfigureMsgService (lpUID : PMAPIUID; ulUIParam : ULONG; 
+        lpszDisplayName : PAnsiChar) : HResult; stdcall;
+      function ConfigureMsgService (lpUID : PMAPIUID; ulUIParam : ULONG_PTR;
         ulFlags : ULONG; cValues : ULONG; lpProps : PSPropValue) : HResult; stdcall;
       function OpenProfileSection (lpUID : PMAPIUID; const lpInterface : TIID;
         ulFlags : ULONG; out lppProfSect : IProfSect) : HResult; stdcall;
@@ -343,6 +349,8 @@ type
       function GetProviderTable (ulFlags : ULONG; out lppTable : IMAPITable) : HResult; stdcall;
     end;
 
+(*
+
 {!! These functions have been converted from being dynamically bound variables
   to statically bound externals }
 
@@ -353,8 +361,8 @@ procedure MAPIUninitialize; stdcall;
 
 {  Extended MAPI Logon function }
 
-function MAPILogonEx (ulUIParam : ULONG; lpszProfileName : PChar;
-  lpszPassword : PChar; ulFlags : ULONG; {  ulFlags takes all that SimpleMAPI does + MAPI_UNICODE }
+function MAPILogonEx (ulUIParam : ULONG; lpszProfileName : PAnsiChar;
+  lpszPassword : PAnsiChar; ulFlags : ULONG; {  ulFlags takes all that SimpleMAPI does + MAPI_UNICODE }
   out lppSession : IMAPISession) : HResult; stdcall;
 
 function MAPIAllocateBuffer (cbSize : ULONG;
@@ -381,5 +389,10 @@ function MAPIAllocateMore; external Mapi32Dll;
 function MAPIFreeBuffer; external Mapi32Dll;
 function MAPIAdminProfiles; external Mapi32Dll;
 
+*)
+
+implementation
+
 end.
+
 
