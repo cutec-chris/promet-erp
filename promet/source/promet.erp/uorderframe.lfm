@@ -833,7 +833,8 @@ inherited fOrderFrame: TfOrderFrame
         Height = 17
         Hint = 'das Buchungsdatum'
         Top = 27
-        Width = 62
+        Width = 86
+        AutoSize = False
         Constraints.MinWidth = 50
         DataField = 'DATE'
         DataSource = Orders

@@ -313,6 +313,7 @@ begin
             begin
               Canvas.FillRect(Rect);
               uBaseVisualControls.fVisualControls.StatusImages.Draw(Canvas,Rect.Left,Rect.Top,TBaseERPList(DataSet).GetStatusIcon);
+              Canvas.TextOut(Rect.Left+2+uBaseVisualControls.fVisualControls.StatusImages.Width, Rect.Top+2, s);
             end;
           if DataCol = ColumnWidthHelper.Index then
             if Assigned(Column.Field) then

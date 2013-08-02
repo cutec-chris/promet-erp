@@ -605,6 +605,8 @@ var
   tmp4: String;
   Desc: String = '';
   aTable: TDataSet;
+  aTmp: String;
+  aTmp1: String;
 begin
   if (pos('@',aLink) = 0) and (pos('://',aLink) = 0) then
     begin
@@ -661,7 +663,20 @@ begin
     end
   else if copy(aLink, 0, pos('@', aLink) - 1) = 'ORDERS' then
     begin
-      Result := strOrder+' '+copy(aLink, pos('@', aLink) + 1, length(aLink));
+      if IsSQLDB then
+        begin
+          aTable := GetNewDataSet('select "SQL_ID","STATUS" from "ORDERS" where "ORDERNO"='+QuoteValue(copy(aLink, pos('@', aLink) + 1, length(aLink))));
+          aTable.Open;
+          aTmp := aTable.FieldByName('SQL_ID').AsString;
+          aTmp1 := aTable.FieldByName('STATUS').AsString;
+          FreeAndNil(aTable);
+          aTable := GetNewDataSet('select "STATUSNAME" from "ORDERTYPE" where "STATUS"='+QuoteValue(aTmp1));
+          aTable.Open;
+          Result := aTable.FieldByName('STATUSNAME').AsString+' '+copy(aLink, pos('@', aLink) + 1, length(aLink));
+          FreeAndNil(aTable);
+        end
+      else
+        Result := strOrder+' '+copy(aLink, pos('@', aLink) + 1, length(aLink));
     end
   else if copy(aLink, 0, pos('@', aLink) - 1) = 'CALLS' then
     begin
@@ -702,6 +717,7 @@ var
   aTmp: String;
   aWiki: TWikiList;
   aID: String;
+  aTmp1: String;
 begin
   Result := '';
   with BaseApplication as IBaseDbInterface do
@@ -753,9 +769,10 @@ begin
       else if copy(aLink, 0, pos('@', aLink) - 1) = 'DOCUMENTS' then
       else if copy(aLink, 0, pos('@', aLink) - 1) = 'ORDERS' then
         begin
-          aTable := Data.GetNewDataSet('select "SQL_ID" from "ORDERS" where "ORDERNO"='+Data.QuoteValue(copy(aLink, pos('@', aLink) + 1, length(aLink))));
+          aTable := Data.GetNewDataSet('select "SQL_ID","STATUS" from "ORDERS" where "ORDERNO"='+Data.QuoteValue(copy(aLink, pos('@', aLink) + 1, length(aLink))));
           aTable.Open;
           aTmp := aTable.FieldByName('SQL_ID').AsString;
+          aTmp1 := aTable.FieldByName('STATUS').AsString;
           FreeAndNil(aTable);
           aTable := Data.GetNewDataSet('select "NAME","ADDRESS","ZIP","CITY" from "ORDERADDR" where "REF_ID"='+Data.QuoteValue(aTmp));
           aTable.Open;
