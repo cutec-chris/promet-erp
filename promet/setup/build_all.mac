@@ -12,6 +12,7 @@ PACK_DIR=output
 BUILD_PACK_DIR=/var/tmp/build-$(date +%y.%m.%d)
 # Create temp dir for building
 BUILD_TMP_DIR=/var/tmp/build-$Version
+mkdir $PACK_DIR
 
 # Set processor architecture
 if [ -z $CPU_TARGET ]; then
@@ -30,7 +31,7 @@ export MACOSX_DEPLOYMENT_TARGET=10.5
 # Create *.dmg package
 mkdir -p $BUILD_PACK_DIR
 sh darwin/install.sh $BUILD_PACK_DIR
-echo hdiutil create -anyowners -volname "Promet-ERP" -imagekey zlib-level=9 -srcfolder ../output/$CPU_TARGET-darwin/prometerp.app $PACK_DIR/prometerp-$Version.$CPU_TARGET.dmg
+hdiutil create -anyowners -volname "Promet-ERP" -imagekey zlib-level=9 -srcfolder ../output/$CPU_TARGET-darwin/prometerp.app $PACK_DIR/prometerp-$Version.$CPU_TARGET.dmg
 
 # Clean DC build dir
 rm -rf $BUILD_DC_TMP_DIR
