@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -43,16 +43,16 @@
         <PackageName Value="pVisualPrometApp"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="140">
+    <Units Count="141">
       <Unit0>
         <Filename Value="webstat.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="webstat"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="11" Y="8"/>
-        <UsageCount Value="136"/>
+        <UsageCount Value="145"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit0>
@@ -60,14 +60,14 @@
         <Filename Value="umain.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fMain"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="umain"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="71"/>
         <CursorPos X="40" Y="87"/>
-        <UsageCount Value="136"/>
+        <UsageCount Value="145"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -79,7 +79,7 @@
         <UnitName Value="uOrders"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit2>
       <Unit3>
         <Filename Value="upassword.pas"/>
@@ -89,7 +89,7 @@
         <UnitName Value="uPassword"/>
         <TopLine Value="12"/>
         <CursorPos X="3" Y="117"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="19"/>
       </Unit3>
       <Unit4>
         <Filename Value="uoptions.pas"/>
@@ -99,20 +99,20 @@
         <UnitName Value="uoptions"/>
         <TopLine Value="446"/>
         <CursorPos X="20" Y="458"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="3"/>
       </Unit4>
       <Unit5>
         <Filename Value="uintfstrconsts.pas"/>
         <UnitName Value="uIntfStrConsts"/>
         <TopLine Value="1"/>
         <CursorPos X="51" Y="8"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="3"/>
       </Unit5>
       <Unit6>
         <Filename Value="todo.txt"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="5"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="3"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit6>
       <Unit7>
@@ -120,7 +120,7 @@
         <UnitName Value="uBaseDataModule"/>
         <TopLine Value="591"/>
         <CursorPos X="42" Y="559"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="3"/>
       </Unit7>
       <Unit8>
         <Filename Value="udata.pas"/>
@@ -130,28 +130,28 @@
         <UnitName Value="uData"/>
         <TopLine Value="1864"/>
         <CursorPos X="24" Y="1885"/>
-        <UsageCount Value="18"/>
+        <UsageCount Value="17"/>
       </Unit8>
       <Unit9>
         <Filename Value="..\..\Programme\lazarus\lcl\dbgrids.pas"/>
         <UnitName Value="DBGrids"/>
         <TopLine Value="219"/>
         <CursorPos X="10" Y="201"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="3"/>
       </Unit9>
       <Unit10>
         <Filename Value="..\..\Programme\lazarus\lcl\grids.pas"/>
         <UnitName Value="Grids"/>
         <TopLine Value="480"/>
         <CursorPos X="3" Y="502"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit10>
       <Unit11>
         <Filename Value="..\..\Programme\lazarus\fpc\2.2.3\source\packages\fcl-db\src\base\db.pas"/>
         <UnitName Value="db"/>
         <TopLine Value="1272"/>
         <CursorPos X="15" Y="1294"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit11>
       <Unit12>
         <Filename Value="uarticle.pas"/>
@@ -161,14 +161,14 @@
         <UnitName Value="uArticle"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit12>
       <Unit13>
         <Filename Value="usqlitedm.pas"/>
         <UnitName Value="uSQLiteDM"/>
         <TopLine Value="1138"/>
         <CursorPos X="35" Y="1162"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit13>
       <Unit14>
         <Filename Value="..\..\general\src\uerror.pas"/>
@@ -178,7 +178,7 @@
         <UnitName Value="uError"/>
         <TopLine Value="96"/>
         <CursorPos X="30" Y="24"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="13"/>
       </Unit14>
       <Unit15>
         <Filename Value="..\..\general\src\ubugtracker.pas"/>
@@ -188,84 +188,84 @@
         <UnitName Value="uBugtracker"/>
         <TopLine Value="220"/>
         <CursorPos X="44" Y="245"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit15>
       <Unit16>
         <Filename Value="customsqliteds.pas"/>
         <UnitName Value="customsqliteds"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit16>
       <Unit17>
         <Filename Value="uzeosdm.pas"/>
         <UnitName Value="uZeOSDM"/>
         <TopLine Value="162"/>
         <CursorPos X="13" Y="184"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit17>
       <Unit18>
         <Filename Value="uregister.pas"/>
         <UnitName Value="uRegister"/>
         <TopLine Value="1"/>
         <CursorPos X="33" Y="1"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit18>
       <Unit19>
         <Filename Value="uappconsts.pas"/>
         <UnitName Value="uAppconsts"/>
         <TopLine Value="20"/>
         <CursorPos X="23" Y="18"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="13"/>
       </Unit19>
       <Unit20>
         <Filename Value="D:\Programme\lazarus\lcl\include\customform.inc"/>
         <TopLine Value="1662"/>
         <CursorPos X="1" Y="1682"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit20>
       <Unit21>
         <Filename Value="D:\Programme\lazarus\lcl\include\control.inc"/>
         <TopLine Value="2755"/>
         <CursorPos X="1" Y="2775"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit21>
       <Unit22>
         <Filename Value="D:\Programme\lazarus\lcl\include\buttoncontrol.inc"/>
         <TopLine Value="2"/>
         <CursorPos X="1" Y="22"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit22>
       <Unit23>
         <Filename Value="D:\Programme\lazarus\lcl\include\buttons.inc"/>
         <TopLine Value="296"/>
         <CursorPos X="1" Y="332"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit23>
       <Unit24>
         <Filename Value="D:\Programme\lazarus\lcl\include\wincontrol.inc"/>
         <TopLine Value="5066"/>
         <CursorPos X="1" Y="5086"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit24>
       <Unit25>
         <Filename Value="D:\Programme\lazarus\lcl\lclmessageglue.pas"/>
         <UnitName Value="LCLMessageGlue"/>
         <TopLine Value="101"/>
         <CursorPos X="1" Y="121"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit25>
       <Unit26>
         <Filename Value="D:\Programme\lazarus\lcl\interfaces\win32\win32callback.inc"/>
         <TopLine Value="185"/>
         <CursorPos X="34" Y="198"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit26>
       <Unit27>
         <Filename Value="D:\Programme\lazarus\lcl\include\customcombobox.inc"/>
         <TopLine Value="191"/>
         <CursorPos X="1" Y="211"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit27>
       <Unit28>
         <Filename Value="..\..\udata.pas"/>
@@ -276,7 +276,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="2070"/>
         <CursorPos X="17" Y="2091"/>
-        <UsageCount Value="124"/>
+        <UsageCount Value="123"/>
       </Unit28>
       <Unit29>
         <Filename Value="D:\general\src\uerror.pas"/>
@@ -286,7 +286,7 @@
         <UnitName Value="uError"/>
         <TopLine Value="89"/>
         <CursorPos X="13" Y="92"/>
-        <UsageCount Value="124"/>
+        <UsageCount Value="123"/>
       </Unit29>
       <Unit30>
         <Filename Value="D:\general\src\uaddbug.pas"/>
@@ -296,7 +296,7 @@
         <UnitName Value="uAddBug"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit30>
       <Unit31>
         <Filename Value="..\..\udocumentframe.pas"/>
@@ -307,7 +307,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="24" Y="5"/>
-        <UsageCount Value="32"/>
+        <UsageCount Value="31"/>
       </Unit31>
       <Unit32>
         <Filename Value="..\..\upassword.pas"/>
@@ -317,7 +317,7 @@
         <UnitName Value="uPassword"/>
         <TopLine Value="131"/>
         <CursorPos X="26" Y="134"/>
-        <UsageCount Value="124"/>
+        <UsageCount Value="123"/>
       </Unit32>
       <Unit33>
         <Filename Value="..\..\ubasedatamodule.pas"/>
@@ -325,7 +325,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="595"/>
         <CursorPos X="3" Y="572"/>
-        <UsageCount Value="59"/>
+        <UsageCount Value="58"/>
       </Unit33>
       <Unit34>
         <Filename Value="..\..\uzeosdm.pas"/>
@@ -333,39 +333,39 @@
         <WindowIndex Value="0"/>
         <TopLine Value="910"/>
         <CursorPos X="31" Y="915"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="14"/>
       </Unit34>
       <Unit35>
         <Filename Value="..\..\ucustomer.pas"/>
         <UnitName Value="uCustomer"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="4"/>
       </Unit35>
       <Unit36>
         <Filename Value="D:\lazarus\fpc\2.2.4\source\rtl\inc\systemh.inc"/>
         <TopLine Value="834"/>
         <CursorPos X="3" Y="846"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit36>
       <Unit37>
         <Filename Value="D:\lazarus\lcl\grids.pas"/>
         <UnitName Value="Grids"/>
         <TopLine Value="7467"/>
         <CursorPos X="1" Y="7479"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit37>
       <Unit38>
         <Filename Value="D:\lazarus\lcl\include\wincontrol.inc"/>
         <TopLine Value="3505"/>
         <CursorPos X="1" Y="3517"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit38>
       <Unit39>
         <Filename Value="..\..\..\output\i386-win32\packanger\PPA05.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="36" Y="11"/>
-        <UsageCount Value="111"/>
+        <UsageCount Value="110"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit39>
       <Unit40>
@@ -373,20 +373,20 @@
         <UnitName Value="Forms"/>
         <TopLine Value="1088"/>
         <CursorPos X="36" Y="1095"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="3"/>
       </Unit40>
       <Unit41>
         <Filename Value="D:\lazarus\fpc\2.2.4\source\packages\fcl-base\src\custapp.pp"/>
         <UnitName Value="CustApp"/>
         <TopLine Value="131"/>
         <CursorPos X="3" Y="136"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit41>
       <Unit42>
         <Filename Value="..\..\..\output\i386-win32\packanger\PPA01.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="20" Y="10"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit42>
       <Unit43>
@@ -394,20 +394,20 @@
         <UnitName Value="IniFiles"/>
         <TopLine Value="115"/>
         <CursorPos X="18" Y="133"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit43>
       <Unit44>
         <Filename Value="D:\lazarus\lcl\include\customform.inc"/>
         <TopLine Value="1419"/>
         <CursorPos X="45" Y="1429"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit44>
       <Unit45>
         <Filename Value="uusb.pas"/>
         <UnitName Value="uUsb"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="31"/>
+        <UsageCount Value="30"/>
       </Unit45>
       <Unit46>
         <Filename Value="ulibusbdevice.pas"/>
@@ -415,286 +415,286 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="24" Y="89"/>
-        <UsageCount Value="21"/>
+        <UsageCount Value="20"/>
       </Unit46>
       <Unit47>
         <Filename Value="C:\Programme\lazarus\components\lazreport\source\lr_shape.pas"/>
         <UnitName Value="LR_Shape"/>
         <TopLine Value="214"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit47>
       <Unit48>
         <Filename Value="C:\Programme\lazarus\components\lazreport\source\lr_barc.pas"/>
         <UnitName Value="LR_BarC"/>
         <TopLine Value="592"/>
         <CursorPos X="5" Y="612"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit48>
       <Unit49>
         <Filename Value="ui2cdevice.pas"/>
         <UnitName Value="uI2CDevice"/>
         <TopLine Value="68"/>
         <CursorPos X="1" Y="88"/>
-        <UsageCount Value="105"/>
+        <UsageCount Value="104"/>
       </Unit49>
       <Unit50>
         <Filename Value="C:\Programme\lazarus\lcl\forms.pp"/>
         <UnitName Value="Forms"/>
         <TopLine Value="793"/>
         <CursorPos X="13" Y="807"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="3"/>
       </Unit50>
       <Unit51>
         <Filename Value="..\..\..\output\i386-win32\packanger\PPA02.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="24" Y="11"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit51>
       <Unit52>
         <Filename Value="..\..\..\output\i386-win32\packanger\PZF5000.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="19" Y="7"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit52>
       <Unit53>
         <Filename Value="..\..\..\output\i386-win32\packanger\PPA03.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="28" Y="11"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit53>
       <Unit54>
         <Filename Value="..\..\..\output\i386-win32\packanger\PPA04.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="32" Y="11"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit54>
       <Unit55>
         <Filename Value="..\..\..\output\i386-win32\packanger\PPA06.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="40" Y="11"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit55>
       <Unit56>
         <Filename Value="..\..\..\output\i386-win32\packanger\PPA07.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="44" Y="11"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit56>
       <Unit57>
         <Filename Value="..\..\..\output\i386-win32\packanger\PPA08.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="48" Y="11"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit57>
       <Unit58>
         <Filename Value="..\..\..\output\i386-win32\packanger\PPAF01.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="20" Y="11"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit58>
       <Unit59>
         <Filename Value="..\..\..\output\i386-win32\packanger\PPAF02.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="24" Y="11"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit59>
       <Unit60>
         <Filename Value="..\..\..\output\i386-win32\packanger\PPAF03.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="28" Y="11"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit60>
       <Unit61>
         <Filename Value="..\..\..\output\i386-win32\packanger\PPAF04.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="32" Y="11"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit61>
       <Unit62>
         <Filename Value="..\..\..\output\i386-win32\packanger\PPAF05.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="36" Y="11"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit62>
       <Unit63>
         <Filename Value="..\..\..\output\i386-win32\packanger\PPAF06.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="40" Y="11"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit63>
       <Unit64>
         <Filename Value="..\..\..\output\i386-win32\packanger\PPAF07.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="44" Y="11"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit64>
       <Unit65>
         <Filename Value="..\..\..\output\i386-win32\packanger\PPAF08.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="48" Y="11"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit65>
       <Unit66>
         <Filename Value="..\..\..\output\i386-win32\packanger\PPU01.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="20" Y="11"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit66>
       <Unit67>
         <Filename Value="..\..\..\output\i386-win32\packanger\PPU02.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="24" Y="11"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit67>
       <Unit68>
         <Filename Value="..\..\..\output\i386-win32\packanger\PPU03.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="28" Y="11"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit68>
       <Unit69>
         <Filename Value="..\..\..\output\i386-win32\packanger\PPU04.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="32" Y="11"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit69>
       <Unit70>
         <Filename Value="..\..\..\output\i386-win32\packanger\PPU05.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="36" Y="11"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit70>
       <Unit71>
         <Filename Value="..\..\..\output\i386-win32\packanger\PPU06.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="40" Y="11"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit71>
       <Unit72>
         <Filename Value="..\..\..\output\i386-win32\packanger\PPU07.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="44" Y="11"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit72>
       <Unit73>
         <Filename Value="..\..\..\output\i386-win32\packanger\PPU08.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="48" Y="11"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit73>
       <Unit74>
         <Filename Value="..\..\..\output\i386-win32\packanger\PSC2010.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="20" Y="11"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit74>
       <Unit75>
         <Filename Value="..\..\..\output\i386-win32\packanger\PSC2020.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="24" Y="11"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit75>
       <Unit76>
         <Filename Value="..\..\..\output\i386-win32\packanger\PVE1110.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit76>
       <Unit77>
         <Filename Value="..\..\..\output\i386-win32\packanger\PVE1120.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit77>
       <Unit78>
         <Filename Value="..\..\..\output\i386-win32\packanger\PVE1210.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit78>
       <Unit79>
         <Filename Value="..\..\..\output\i386-win32\packanger\PVE1410.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit79>
       <Unit80>
         <Filename Value="..\..\..\output\i386-win32\packanger\PVE1420.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit80>
       <Unit81>
         <Filename Value="..\..\..\output\i386-win32\packanger\PVE1430.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit81>
       <Unit82>
         <Filename Value="..\..\..\output\i386-win32\packanger\PVE1440.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit82>
       <Unit83>
         <Filename Value="..\..\..\output\i386-win32\packanger\PVU1410.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="20" Y="11"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit83>
       <Unit84>
         <Filename Value="..\..\..\output\i386-win32\packanger\PVU1420.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="24" Y="11"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit84>
       <Unit85>
         <Filename Value="..\..\..\output\i386-win32\packanger\PVU1430.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="28" Y="11"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit85>
       <Unit86>
         <Filename Value="..\..\..\output\i386-win32\packanger\PVU1440.ini"/>
         <TopLine Value="1"/>
         <CursorPos X="32" Y="11"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit86>
       <Unit87>
@@ -702,52 +702,52 @@
         <UnitName Value="uI2CEeprom"/>
         <TopLine Value="21"/>
         <CursorPos X="32" Y="32"/>
-        <UsageCount Value="30"/>
+        <UsageCount Value="29"/>
       </Unit87>
       <Unit88>
         <Filename Value="C:\lazarus\lcl\dbgrids.pas"/>
         <UnitName Value="DBGrids"/>
         <TopLine Value="2293"/>
         <CursorPos X="3" Y="2295"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit88>
       <Unit89>
         <Filename Value="C:\lazarus\lcl\grids.pas"/>
         <UnitName Value="Grids"/>
         <TopLine Value="2282"/>
         <CursorPos X="30" Y="2288"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit89>
       <Unit90>
         <Filename Value="C:\lazarus\lcl\interfaces\win32\win32wsbuttons.pp"/>
         <UnitName Value="Win32WSButtons"/>
         <TopLine Value="488"/>
         <CursorPos X="37" Y="501"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit90>
       <Unit91>
         <Filename Value="C:\lazarus\lcl\include\control.inc"/>
         <TopLine Value="1650"/>
         <CursorPos X="1" Y="1661"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit91>
       <Unit92>
         <Filename Value="C:\lazarus\lcl\include\buttoncontrol.inc"/>
         <TopLine Value="10"/>
         <CursorPos X="1" Y="22"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit92>
       <Unit93>
         <Filename Value="C:\lazarus\lcl\include\buttons.inc"/>
         <TopLine Value="138"/>
         <CursorPos X="1" Y="165"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit93>
       <Unit94>
         <Filename Value="C:\lazarus\lcl\include\bitbtn.inc"/>
         <TopLine Value="46"/>
         <CursorPos X="1" Y="58"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit94>
       <Unit95>
         <Filename Value="uprogress.pas"/>
@@ -756,27 +756,27 @@
         <UnitName Value="uProgress"/>
         <TopLine Value="1"/>
         <CursorPos X="25" Y="3"/>
-        <UsageCount Value="41"/>
+        <UsageCount Value="40"/>
       </Unit95>
       <Unit96>
         <Filename Value="C:\lazarus\components\lazreport\source\lr_class.pas"/>
         <UnitName Value="LR_Class"/>
         <TopLine Value="8563"/>
         <CursorPos X="3" Y="8481"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit96>
       <Unit97>
         <Filename Value="C:\lazarus\lcl\forms.pp"/>
         <UnitName Value="Forms"/>
         <TopLine Value="559"/>
         <CursorPos X="14" Y="570"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit97>
       <Unit98>
         <Filename Value="C:\Users\chris\AppData\Local\prometerp\tcs_packagner.xml"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="XML"/>
       </Unit98>
       <Unit99>
@@ -784,72 +784,72 @@
         <UnitName Value="umashineid"/>
         <TopLine Value="4"/>
         <CursorPos X="10" Y="15"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit99>
       <Unit100>
         <Filename Value="C:\lazarus\lcl\include\customform.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1697"/>
         <CursorPos X="37" Y="1708"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="11"/>
       </Unit100>
       <Unit101>
         <Filename Value="..\..\uappconsts.pas"/>
         <UnitName Value="uAppconsts"/>
         <TopLine Value="6"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit101>
       <Unit102>
         <Filename Value="..\..\unewstorage.pas"/>
         <HasResources Value="True"/>
         <UnitName Value="unewstorage"/>
-        <UsageCount Value="31"/>
+        <UsageCount Value="30"/>
       </Unit102>
       <Unit103>
         <Filename Value="..\..\uaddserial.pas"/>
         <HasResources Value="True"/>
         <UnitName Value="uaddserial"/>
-        <UsageCount Value="31"/>
+        <UsageCount Value="30"/>
       </Unit103>
       <Unit104>
         <Filename Value="..\..\components\zeos\src\dbc\ZDbcSqLiteUtils.pas"/>
         <UnitName Value="ZDbcSqLiteUtils"/>
         <TopLine Value="225"/>
         <CursorPos X="38" Y="234"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
       </Unit104>
       <Unit105>
         <Filename Value="C:\lazarus\lcl\include\containedaction.inc"/>
         <TopLine Value="93"/>
         <CursorPos X="1" Y="104"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit105>
       <Unit106>
         <Filename Value="C:\lazarus\lcl\include\wincontrol.inc"/>
         <TopLine Value="5094"/>
         <CursorPos X="1" Y="5105"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit106>
       <Unit107>
         <Filename Value="C:\lazarus\lcl\lclmessageglue.pas"/>
         <UnitName Value="LCLMessageGlue"/>
         <TopLine Value="110"/>
         <CursorPos X="1" Y="121"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit107>
       <Unit108>
         <Filename Value="C:\lazarus\lcl\interfaces\win32\win32callback.inc"/>
         <TopLine Value="2550"/>
         <CursorPos X="44" Y="2559"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit108>
       <Unit109>
         <Filename Value="..\..\uorders.pas"/>
         <UnitName Value="uOrders"/>
         <TopLine Value="1852"/>
         <CursorPos X="1" Y="1871"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit109>
       <Unit110>
         <Filename Value="..\..\uacquire.pas"/>
@@ -857,7 +857,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="10"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
       </Unit110>
       <Unit111>
         <Filename Value="C:\FPC\2.4.0\source\fpcsrc\packages\fcl-db\src\base\db.pas"/>
@@ -865,7 +865,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1110"/>
         <CursorPos X="28" Y="1131"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit111>
       <Unit112>
         <Filename Value="..\base\upassword.pas"/>
@@ -874,11 +874,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uPassword"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="113"/>
         <CursorPos X="71" Y="129"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="34"/>
         <Loaded Value="True"/>
       </Unit112>
       <Unit113>
@@ -890,7 +890,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="3"/>
         <CursorPos X="1" Y="10"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="22"/>
       </Unit113>
       <Unit114>
         <Filename Value="..\base\udata.pas"/>
@@ -902,7 +902,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="20" Y="37"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="34"/>
       </Unit114>
       <Unit115>
         <Filename Value="..\tcs_packanger\umain.pas"/>
@@ -913,7 +913,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="316"/>
         <CursorPos X="1" Y="321"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit115>
       <Unit116>
         <Filename Value="utimelist.pas"/>
@@ -924,7 +924,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="112"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit116>
       <Unit117>
         <Filename Value="uentertime.pas"/>
@@ -935,7 +935,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="21"/>
         <CursorPos X="35" Y="72"/>
-        <UsageCount Value="22"/>
+        <UsageCount Value="21"/>
       </Unit117>
       <Unit118>
         <Filename Value="..\base\ubasedatamodule.pas"/>
@@ -943,7 +943,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1501"/>
         <CursorPos X="1" Y="1525"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
       </Unit118>
       <Unit119>
         <Filename Value="utasks.pas"/>
@@ -951,7 +951,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="10"/>
         <CursorPos X="66" Y="10"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit119>
       <Unit120>
         <Filename Value="..\base\usearch.pas"/>
@@ -962,7 +962,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="601"/>
         <CursorPos X="15" Y="617"/>
-        <UsageCount Value="22"/>
+        <UsageCount Value="21"/>
       </Unit120>
       <Unit121>
         <Filename Value="C:\Programme\lazarus\packager\packagesystem.pas"/>
@@ -970,7 +970,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="14" Y="54"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit121>
       <Unit122>
         <Filename Value="..\base\uroweditor.pas"/>
@@ -981,7 +981,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="118"/>
         <CursorPos X="6" Y="139"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit122>
       <Unit123>
         <Filename Value="..\..\..\LKomponenten\zeos\src\dbc\ZDbcSqLiteUtils.pas"/>
@@ -989,7 +989,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="216"/>
         <CursorPos X="36" Y="235"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit123>
       <Unit124>
         <Filename Value="..\base\uzeosdm.pas"/>
@@ -997,7 +997,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="867"/>
         <CursorPos X="1" Y="884"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit124>
       <Unit125>
         <Filename Value="..\..\..\LKomponenten\zeos\src\dbc\ZDbcUtils.pas"/>
@@ -1005,7 +1005,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="352"/>
         <CursorPos X="30" Y="363"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit125>
       <Unit126>
         <Filename Value="C:\Programme\lazarus\lcl\propertystorage.pas"/>
@@ -1013,7 +1013,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="742"/>
         <CursorPos X="1" Y="804"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit126>
       <Unit127>
         <Filename Value="..\..\..\LKomponenten\zeos\src\component\ZAbstractRODataset.pas"/>
@@ -1021,16 +1021,16 @@
         <WindowIndex Value="0"/>
         <TopLine Value="2655"/>
         <CursorPos X="1" Y="2674"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit127>
       <Unit128>
         <Filename Value="..\base\ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="228"/>
         <CursorPos X="1" Y="247"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="15"/>
         <Loaded Value="True"/>
       </Unit128>
       <Unit129>
@@ -1038,7 +1038,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="229"/>
         <CursorPos X="1" Y="252"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit129>
       <Unit130>
         <Filename Value="..\base\ubasedbinterface.pas"/>
@@ -1046,14 +1046,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="91"/>
         <CursorPos X="15" Y="109"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit130>
       <Unit131>
         <Filename Value="C:\Programme\lazarus\lcl\interfaces\win32\win32callback.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2630"/>
         <CursorPos X="29" Y="2665"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit131>
       <Unit132>
         <Filename Value="..\..\..\general\src\uerror.pas"/>
@@ -1061,26 +1061,26 @@
         <WindowIndex Value="0"/>
         <TopLine Value="3"/>
         <CursorPos X="1" Y="38"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit132>
       <Unit133>
         <Filename Value="..\base\dbintfs\usessiondbclasses.pas"/>
         <UnitName Value="uSessionDBClasses"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="53"/>
         <CursorPos X="1" Y="81"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="15"/>
         <Loaded Value="True"/>
       </Unit133>
       <Unit134>
         <Filename Value="..\base\dbintfs\usystemmessage.pas"/>
         <UnitName Value="uSystemMessage"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="91"/>
         <CursorPos X="27" Y="103"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="15"/>
         <Loaded Value="True"/>
       </Unit134>
       <Unit135>
@@ -1089,7 +1089,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="400"/>
         <CursorPos X="21" Y="427"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit135>
       <Unit136>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
@@ -1097,7 +1097,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="187"/>
         <CursorPos X="79" Y="205"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit136>
       <Unit137>
         <Filename Value="..\base\uocr.pas"/>
@@ -1105,16 +1105,16 @@
         <WindowIndex Value="0"/>
         <TopLine Value="342"/>
         <CursorPos X="40" Y="367"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit137>
       <Unit138>
         <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="473"/>
         <CursorPos X="1" Y="491"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="15"/>
         <Loaded Value="True"/>
       </Unit138>
       <Unit139>
@@ -1123,11 +1123,23 @@
         <WindowIndex Value="0"/>
         <TopLine Value="618"/>
         <CursorPos X="1" Y="637"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit139>
+      <Unit140>
+        <Filename Value="..\components\zeos\src\dbc\ZDbcPostgreSqlUtils.pas"/>
+        <UnitName Value="ZDbcPostgreSqlUtils"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="712"/>
+        <CursorPos X="1" Y="729"/>
+        <UsageCount Value="15"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit140>
     </Units>
-    <JumpHistory Count="29" HistoryIndex="28">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="umain.pas"/>
         <Caret Line="115" Column="1" TopLine="92"/>
@@ -1244,10 +1256,14 @@
         <Filename Value="..\base\dbintfs\usessiondbclasses.pas"/>
         <Caret Line="81" Column="1" TopLine="53"/>
       </Position29>
+      <Position30>
+        <Filename Value="umain.pas"/>
+        <Caret Line="87" Column="40" TopLine="71"/>
+      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
-    <Version Value="10"/>
+    <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
       <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\webstat"/>
@@ -1290,4 +1306,5 @@
       </Item1>
     </Exceptions>
   </Debugging>
+  <EditorMacros Count="0"/>
 </CONFIG>

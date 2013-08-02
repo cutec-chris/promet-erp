@@ -1,6 +1,7 @@
 ﻿Build 260
       - Optonen können aus Hilfe oder Wiki aufgerufen werden
       - Unteraufträge wurden in Auftragsübersicht kaskadiert dargestellt
+      - größe Datumsfeld in Vorgang angepasst
 Build 259
       - wenn Wizardmandant mit --silent ausgeführt wird wird die DB nicht befüllt wenn sie schon existiert
 Build 258
