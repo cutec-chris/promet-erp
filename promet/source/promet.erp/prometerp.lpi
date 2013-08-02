@@ -273,12 +273,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uFilterFrame"/>
-        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1494"/>
         <CursorPos X="43" Y="1508"/>
         <UsageCount Value="100"/>
-        <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit4>
       <Unit5>
@@ -441,7 +439,7 @@
       <Unit19>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="656"/>
         <CursorPos X="90" Y="673"/>
@@ -462,12 +460,10 @@
       <Unit21>
         <Filename Value="../base/dbintfs/uorder.pas"/>
         <UnitName Value="uOrder"/>
-        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="332"/>
         <CursorPos X="30" Y="336"/>
         <UsageCount Value="77"/>
-        <Loaded Value="True"/>
       </Unit21>
       <Unit22>
         <Filename Value="../base/dbintfs/uperson.pas"/>
@@ -534,7 +530,7 @@
       <Unit28>
         <Filename Value="../base/dbintfs/ubaseerpdbclasses.pas"/>
         <UnitName Value="uBaseERPDBClasses"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="117"/>
         <CursorPos X="15" Y="134"/>
@@ -591,6 +587,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOrderFrame"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="450"/>
@@ -853,7 +850,7 @@
       <Unit56>
         <Filename Value="../base/dbintfs/uprojects.pas"/>
         <UnitName Value="uProjects"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="23"/>
         <CursorPos X="29" Y="40"/>
@@ -970,7 +967,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ugridview"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1115"/>
         <CursorPos X="30" Y="1133"/>
@@ -980,7 +977,7 @@
       <Unit68>
         <Filename Value="../base/dbintfs/utask.pas"/>
         <UnitName Value="utask"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="676"/>
         <CursorPos X="5" Y="691"/>
@@ -1293,7 +1290,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="umanagedocframe"/>
-        <EditorIndex Value="19"/>
+        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="620"/>
         <CursorPos X="3" Y="634"/>
@@ -1487,7 +1484,7 @@
       <Unit124>
         <Filename Value="../base_pm/gsGanttCalendar.pas"/>
         <UnitName Value="gsGanttCalendar"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1769"/>
         <CursorPos X="1" Y="1786"/>
@@ -1527,7 +1524,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uTaskPlan"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="337"/>
         <CursorPos X="23" Y="368"/>
@@ -1599,7 +1596,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uGanttView"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="339"/>
         <CursorPos X="30" Y="354"/>
@@ -1912,8 +1909,7 @@
       <Unit174>
         <Filename Value="../base/dbintfs/umeeting.pas"/>
         <UnitName Value="umeeting"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="262"/>
         <CursorPos X="3" Y="281"/>
@@ -1998,7 +1994,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ustatisticframe"/>
-        <EditorIndex Value="20"/>
+        <EditorIndex Value="18"/>
         <WindowIndex Value="0"/>
         <TopLine Value="633"/>
         <CursorPos X="1" Y="653"/>
@@ -2292,7 +2288,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uEnterTime"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="393"/>
         <CursorPos X="1" Y="412"/>
@@ -3004,7 +3000,7 @@
         <Loaded Value="True"/>
       </Unit303>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="28" HistoryIndex="27">
       <Position1>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <Caret Line="767" Column="1" TopLine="735"/>
@@ -3074,57 +3070,49 @@
         <Caret Line="478" Column="25" TopLine="450"/>
       </Position17>
       <Position18>
-        <Filename Value="../base/dbintfs/uorder.pas"/>
-        <Caret Line="40" Column="31" TopLine="24"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="762" Column="76" TopLine="735"/>
       </Position18>
       <Position19>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="762" Column="76" TopLine="735"/>
+        <Caret Line="766" Column="1" TopLine="735"/>
       </Position19>
       <Position20>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="766" Column="1" TopLine="735"/>
+        <Caret Line="664" Column="15" TopLine="650"/>
       </Position20>
       <Position21>
-        <Filename Value="../base/ufilterframe.pas"/>
-        <Caret Line="1508" Column="43" TopLine="1494"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="666" Column="11" TopLine="647"/>
       </Position21>
       <Position22>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="664" Column="15" TopLine="650"/>
+        <Caret Line="675" Column="63" TopLine="649"/>
       </Position22>
       <Position23>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="666" Column="11" TopLine="647"/>
+        <Caret Line="673" Column="21" TopLine="651"/>
       </Position23>
       <Position24>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="675" Column="63" TopLine="649"/>
+        <Caret Line="668" Column="153" TopLine="651"/>
       </Position24>
       <Position25>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="673" Column="21" TopLine="651"/>
-      </Position25>
-      <Position26>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="668" Column="153" TopLine="651"/>
-      </Position26>
-      <Position27>
         <Filename Value="../base/dbintfs/umeeting.pas"/>
         <Caret Line="131" Column="21" TopLine="113"/>
-      </Position27>
-      <Position28>
+      </Position25>
+      <Position26>
         <Filename Value="../base/dbintfs/umeeting.pas"/>
         <Caret Line="277" Column="38" TopLine="262"/>
-      </Position28>
-      <Position29>
+      </Position26>
+      <Position27>
         <Filename Value="../base/dbintfs/uprojects.pas"/>
         <Caret Line="98" Column="28" TopLine="82"/>
-      </Position29>
-      <Position30>
+      </Position27>
+      <Position28>
         <Filename Value="../base/dbintfs/uprojects.pas"/>
         <Caret Line="40" Column="29" TopLine="23"/>
-      </Position30>
+      </Position28>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>

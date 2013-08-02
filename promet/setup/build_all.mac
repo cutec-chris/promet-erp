@@ -1,8 +1,8 @@
 #!/bin/sh
 MajVersion=$(cat ../source/base/version.inc)
-MajVersion=$(echo $MajVersion | sed -e s/[^a-zA-z0-9 !§$%&/()=?+*#.,;:ö]//g)
+MajVersion=$(echo $MajVersion | sed -e 's/[^-A-Za-z0-9 !"§$%&/()=?+*#.,;:öäüÖÄÜ<>]\{1,\}//g')
 MinVersion=$(cat ../source/base/revision.inc)
-MinVersion=$(echo $MinVersion | sed -e s/[^a-zA-z0-9 !§$%&/()=?+*#.,;:ö]//g)
+MinVersion=$(echo $MinVersion | sed -e 's/[^-A-Za-z0-9 !"§$%&/()=?+*#.,;:öäüÖÄÜ<>]\{1,\}//g')
 Version=$MajVersion.$MinVersion
 echo Version:$Version
 # The new package will be saved here
