@@ -274,8 +274,11 @@ begin
                       asl.Text:=FieldByName('DESC').AsString;
                       if asl.Count>0 then
                         begin
-                          aProject.Tasks.FieldByName('SUMMARY').AsString:=asl[0];
-                          asl.Delete(0);
+                          aProject.Tasks.FieldByName('SUMMARY').AsString:=copy(asl[0],0,220);
+                          if length(asl[0])>220 then
+                            asl[0] := copy(asl[0],221,length(asl[0]))
+                          else
+                            asl.Delete(0);
                         end;
                       aProject.Tasks.FieldByName('DESC').AsString:=asl.Text;
                       asl.Free;
@@ -376,7 +379,7 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
-            Add('NAME',ftString,40,False);
+            Add('NAME',ftString,200,False);
             Add('STATUS',ftString,4,True);
             Add('DESC',ftMemo,0,False);
             Add('DATE',ftDateTime,0,False);
