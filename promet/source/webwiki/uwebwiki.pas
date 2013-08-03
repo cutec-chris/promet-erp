@@ -452,6 +452,7 @@ begin
   try
     with BaseApplication as IBaseApplication do
       ImageFile := AppendPathDelim(AppendPathDelim(Config.ReadString('DOCROOTPATH',''))+'images')+ValidateFileName(Image);
+    OutFile := '/images/'+ValidateFileName(Image);
     if not FileExists(ImageFile) or ((aWidth <> '') and (not Fileexists(copy(ImageFile,0,rpos('.',ImageFile)-1)+'_'+aWidth+'px.jpg'))) then
       begin
         Data.SetFilter(Documents,'"TYPE"=''W'' and "NAME"='+Data.QuoteValue(copy(ExtractFileName(Image),0,rpos('.',ExtractFileName(Image))-1)),1);
@@ -478,7 +479,6 @@ begin
               end;
           end;
       end;
-    OutFile := '/images/'+ValidateFileName(Image);
     if aWidth <> '' then
       begin
         aHref := OutFile;

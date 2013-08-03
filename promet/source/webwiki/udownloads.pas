@@ -71,7 +71,7 @@ begin
     end
   else
     begin
-      debugln('File not found:'+aPath);
+      writeln('udownloads:File not found:'+aPath);
       AResponse.Code := 404;
       AResponse.CodeText := 'Not found';
     end;

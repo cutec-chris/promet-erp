@@ -74,7 +74,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="10" Y="10"/>
-        <UsageCount Value="182"/>
+        <UsageCount Value="183"/>
       </Unit0>
       <Unit1>
         <Filename Value="umain.pas"/>
@@ -83,12 +83,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="umain"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="164"/>
         <CursorPos X="1" Y="192"/>
-        <UsageCount Value="182"/>
+        <UsageCount Value="183"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -1435,11 +1434,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ustatisticframe"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1173"/>
-        <CursorPos X="1" Y="1191"/>
-        <UsageCount Value="51"/>
+        <TopLine Value="1155"/>
+        <CursorPos X="1" Y="1173"/>
+        <UsageCount Value="52"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit170>
@@ -1498,7 +1498,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="18"/>
         <CursorPos X="26" Y="54"/>
-        <UsageCount Value="36"/>
+        <UsageCount Value="37"/>
       </Unit176>
       <Unit177>
         <Filename Value="..\..\..\..\lazarus\lcl\include\tabsheet.inc"/>
@@ -1753,123 +1753,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="ustatisticframe.pas"/>
-        <Caret Line="1179" Column="1" TopLine="1165"/>
+        <Caret Line="1180" Column="1" TopLine="1165"/>
       </Position1>
       <Position2>
         <Filename Value="ustatisticframe.pas"/>
-        <Caret Line="1180" Column="1" TopLine="1165"/>
+        <Caret Line="1181" Column="1" TopLine="1165"/>
       </Position2>
       <Position3>
         <Filename Value="ustatisticframe.pas"/>
-        <Caret Line="1181" Column="1" TopLine="1165"/>
+        <Caret Line="1183" Column="1" TopLine="1165"/>
       </Position3>
       <Position4>
         <Filename Value="ustatisticframe.pas"/>
-        <Caret Line="1183" Column="1" TopLine="1165"/>
+        <Caret Line="1184" Column="1" TopLine="1165"/>
       </Position4>
       <Position5>
         <Filename Value="ustatisticframe.pas"/>
-        <Caret Line="1184" Column="1" TopLine="1165"/>
+        <Caret Line="1185" Column="1" TopLine="1165"/>
       </Position5>
       <Position6>
         <Filename Value="ustatisticframe.pas"/>
-        <Caret Line="1185" Column="1" TopLine="1165"/>
+        <Caret Line="1187" Column="1" TopLine="1165"/>
       </Position6>
       <Position7>
         <Filename Value="ustatisticframe.pas"/>
-        <Caret Line="1187" Column="1" TopLine="1165"/>
+        <Caret Line="1188" Column="1" TopLine="1165"/>
       </Position7>
       <Position8>
         <Filename Value="ustatisticframe.pas"/>
-        <Caret Line="1188" Column="1" TopLine="1165"/>
+        <Caret Line="1107" Column="1" TopLine="1090"/>
       </Position8>
       <Position9>
         <Filename Value="ustatisticframe.pas"/>
-        <Caret Line="1107" Column="1" TopLine="1090"/>
+        <Caret Line="1108" Column="1" TopLine="1090"/>
       </Position9>
       <Position10>
         <Filename Value="ustatisticframe.pas"/>
-        <Caret Line="1108" Column="1" TopLine="1090"/>
+        <Caret Line="1109" Column="1" TopLine="1090"/>
       </Position10>
       <Position11>
         <Filename Value="ustatisticframe.pas"/>
-        <Caret Line="1109" Column="1" TopLine="1090"/>
+        <Caret Line="1110" Column="1" TopLine="1090"/>
       </Position11>
       <Position12>
         <Filename Value="ustatisticframe.pas"/>
-        <Caret Line="1110" Column="1" TopLine="1090"/>
+        <Caret Line="1111" Column="1" TopLine="1090"/>
       </Position12>
       <Position13>
         <Filename Value="ustatisticframe.pas"/>
-        <Caret Line="1111" Column="1" TopLine="1090"/>
+        <Caret Line="1112" Column="1" TopLine="1090"/>
       </Position13>
       <Position14>
         <Filename Value="ustatisticframe.pas"/>
-        <Caret Line="1112" Column="1" TopLine="1090"/>
+        <Caret Line="1113" Column="1" TopLine="1090"/>
       </Position14>
       <Position15>
         <Filename Value="ustatisticframe.pas"/>
-        <Caret Line="1113" Column="1" TopLine="1090"/>
+        <Caret Line="1114" Column="1" TopLine="1090"/>
       </Position15>
       <Position16>
         <Filename Value="ustatisticframe.pas"/>
-        <Caret Line="1114" Column="1" TopLine="1090"/>
+        <Caret Line="1115" Column="1" TopLine="1090"/>
       </Position16>
       <Position17>
         <Filename Value="ustatisticframe.pas"/>
-        <Caret Line="1115" Column="1" TopLine="1090"/>
+        <Caret Line="1116" Column="1" TopLine="1090"/>
       </Position17>
       <Position18>
         <Filename Value="ustatisticframe.pas"/>
-        <Caret Line="1116" Column="1" TopLine="1090"/>
+        <Caret Line="1119" Column="1" TopLine="1091"/>
       </Position18>
       <Position19>
         <Filename Value="ustatisticframe.pas"/>
-        <Caret Line="1119" Column="1" TopLine="1091"/>
+        <Caret Line="1124" Column="1" TopLine="1096"/>
       </Position19>
       <Position20>
         <Filename Value="ustatisticframe.pas"/>
-        <Caret Line="1124" Column="1" TopLine="1096"/>
+        <Caret Line="1125" Column="1" TopLine="1097"/>
       </Position20>
       <Position21>
         <Filename Value="ustatisticframe.pas"/>
-        <Caret Line="1125" Column="1" TopLine="1097"/>
+        <Caret Line="1189" Column="1" TopLine="1173"/>
       </Position21>
       <Position22>
         <Filename Value="ustatisticframe.pas"/>
-        <Caret Line="1189" Column="1" TopLine="1173"/>
+        <Caret Line="1191" Column="1" TopLine="1173"/>
       </Position22>
       <Position23>
-        <Filename Value="ustatisticframe.pas"/>
-        <Caret Line="1191" Column="1" TopLine="1173"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="231" Column="1" TopLine="214"/>
       </Position23>
       <Position24>
         <Filename Value="umain.pas"/>
-        <Caret Line="231" Column="1" TopLine="214"/>
+        <Caret Line="232" Column="1" TopLine="214"/>
       </Position24>
       <Position25>
         <Filename Value="umain.pas"/>
-        <Caret Line="232" Column="1" TopLine="214"/>
+        <Caret Line="233" Column="1" TopLine="214"/>
       </Position25>
       <Position26>
         <Filename Value="umain.pas"/>
-        <Caret Line="233" Column="1" TopLine="214"/>
+        <Caret Line="236" Column="1" TopLine="214"/>
       </Position26>
       <Position27>
         <Filename Value="umain.pas"/>
-        <Caret Line="236" Column="1" TopLine="214"/>
+        <Caret Line="237" Column="1" TopLine="214"/>
       </Position27>
       <Position28>
-        <Filename Value="umain.pas"/>
-        <Caret Line="237" Column="1" TopLine="214"/>
-      </Position28>
-      <Position29>
         <Filename Value="..\base\umaintreeframe.pas"/>
         <Caret Line="287" Column="1" TopLine="269"/>
+      </Position28>
+      <Position29>
+        <Filename Value="umain.pas"/>
+        <Caret Line="179" Column="1" TopLine="162"/>
       </Position29>
       <Position30>
         <Filename Value="umain.pas"/>
-        <Caret Line="179" Column="1" TopLine="162"/>
+        <Caret Line="192" Column="1" TopLine="164"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -1901,15 +1901,6 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="1">
-      <Item1>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="ustatisticframe.pas"/>
-        <Line Value="1173"/>
-      </Item1>
-    </BreakPoints>
     <Exceptions Count="6">
       <Item1>
         <Name Value="EConvertError"/>
