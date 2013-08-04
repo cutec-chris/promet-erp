@@ -2,19 +2,20 @@
   This source is only used to compile and install the package.
  }
 
-unit pfcgiprometapp; 
+unit pfcgiprometapp;
 
 interface
 
 uses
-  ubasefcgiapplication, uUserAgents, LazarusPackageIntf;
+  ubasefcgiapplication, uUserAgents, ubasehttpapplication, uBaseWebSession, 
+  LazarusPackageIntf;
 
 implementation
 
-procedure Register; 
+procedure Register;
 begin
-end; 
+end;
 
 initialization
-  RegisterPackage('pfcgiprometapp', @Register); 
+  RegisterPackage('pfcgiprometapp', @Register);
 end.

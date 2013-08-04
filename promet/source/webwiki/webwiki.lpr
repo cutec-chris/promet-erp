@@ -1,11 +1,15 @@
 program webwiki;
-
 {$mode objfpc}{$H+}
-
 uses
   {$IFDEF UNIX}cthreads,{$ENDIF}
   cwstring,
-  uBaseFCGIApplication, pfcgiprometapp, uWebWiki,
+  {$IFDEF HTTPAPP}
+  ubasehttpapplication,
+  {$ELSE}
+  uBaseFCGIApplication,
+  {$ENDIF}
+  pfcgiprometapp,
+  uWebWiki,
   Interfaces, uerror, GeoIP, uBaseApplication, udownloads,
   ushop, uforum, ulogin, laz_synapse;
 {$R *.res}

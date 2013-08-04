@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Package Version="4">
     <Name Value="pfcgiprometapp"/>
@@ -21,7 +21,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="2">
+    <Files Count="4">
       <Item1>
         <Filename Value="ubasefcgiapplication.pas"/>
         <UnitName Value="ubasefcgiapplication"/>
@@ -30,6 +30,14 @@
         <Filename Value="uuseragents.pas"/>
         <UnitName Value="uUserAgents"/>
       </Item2>
+      <Item3>
+        <Filename Value="ubasehttpapplication.pas"/>
+        <UnitName Value="ubasehttpapplication"/>
+      </Item3>
+      <Item4>
+        <Filename Value="ubasewebsession.pas"/>
+        <UnitName Value="ubasewebsession"/>
+      </Item4>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="2">
