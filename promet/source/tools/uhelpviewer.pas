@@ -65,11 +65,11 @@ begin
   Result := fWikiFrame.OpenWikiPage(bLink);
 end;
 procedure TfMain.DoCreate;
+var
+  IA : IBaseApplication;
 begin
-  with Application as IBaseApplication do
-    begin
-      SetConfigName('HelpViewer');
-    end;
+  if Supports(Application,IBaseApplication,IA) then
+    IA.SetConfigName('HelpViewer');
   with Application as IBaseDbInterface do
     LoadMandants;
 end;

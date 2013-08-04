@@ -296,7 +296,7 @@ begin
       begin
         LinkBase := Config.ReadString('WebsiteCompleteURL','');
       end;
-    LinkBase := LinkBase+'/';
+    LinkBase := LinkBase+'/wiki/';
     RootNode.ChildNodes.Item[0].AppendChild(parentNode);
     parentNode := Doc.CreateElement('link');
     nofilho := Doc.CreateTextNode(LinkBase);

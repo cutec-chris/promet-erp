@@ -5,7 +5,7 @@
 interface
 
 uses
-  Classes, SysUtils, Utils, FileUtil;
+  Classes, SysUtils, Utils, FileUtil,RegExpr;
 
 function WikiText2HTML(input: string;LinkOffset : string = '';RemoveLinkOffset : string = '';IproChanges : Boolean = False): string;
 
@@ -415,13 +415,6 @@ begin
       if (pos('|',istr) > 0) and (pos('|',istr) < pos(']]',istr)) then
         begin
           linkcontent := copy(istr,0,pos('|',istr)-1);
-{          if (cbAddLinkedPages.Checked and (lbFoundPages.Items.IndexOf(linkcontent) = -1)) then
-            begin
-              lbFoundPages.Items.Add(linkcontent);
-              pbProgress.Max := pbProgress.Max+1;
-            end;}
-//          if (lbFoundPages.Items.IndexOf(linkcontent) > -1) or (FileExists(AppendPathDelim(OutputDir)+lowercase(linkcontent)+'.html')) then
-//            begin
               aLink := linkoffset+UTF8ToSys(HTMLDecode(linkcontent));
               if copy(aLink,0,length(RemoveLinkOffset)) = RemoveLinkOffset then
                 aLink := copy(aLink,length(RemoveLinkOffset),length(aLink));
@@ -432,24 +425,10 @@ begin
               istr := copy(istr,pos('|',istr)+1,length(istr));
               ostr := ostr+copy(istr,0,pos(']]',istr)-1)+'</a>';
               istr := copy(istr,pos(']]',istr)+2,length(istr));
-{            end
-          else
-            begin
-              istr := copy(istr,pos('|',istr)+1,length(istr));
-              ostr := ostr+copy(istr,0,pos(']]',istr)-1);
-              istr := copy(istr,pos(']]',istr)+2,length(istr));
-            end;}
         end
       else
         begin
           linkcontent := copy(istr,0,pos(']]',istr)-1);
-{          if (cbAddLinkedPages.Checked and (lbFoundPages.Items.IndexOf(linkcontent) = -1)) then
-            begin
-              lbFoundPages.Items.Add(linkcontent);
-              pbProgress.Max := pbProgress.Max+1;
-            end;
-          if lbFoundPages.Items.IndexOf(linkcontent) > -1 then
-            begin}
               aLink := linkoffset+lowercase(linkcontent);
               if copy(aLink,0,length(RemoveLinkOffset)) = RemoveLinkOffset then
                 aLink := copy(aLink,length(RemoveLinkOffset),length(aLink));
@@ -458,12 +437,6 @@ begin
               else
                 ostr := ostr+'<a href="'+aLink+'">'+copy(istr,0,pos(']]',istr)-1)+'</a>';
               istr := copy(istr,pos(']]',istr)+2,length(istr));
-{            end
-          else
-            begin
-              ostr := ostr+copy(istr,0,pos(']]',istr)-1);
-              istr := copy(istr,pos(']]',istr)+2,length(istr));
-            end;}
         end;
     end;
   ostr := ostr+istr;
@@ -483,19 +456,19 @@ begin
   istr := ostr;
   ostr := '';
   //Replace Bold Text
-  DoReplace(istr,ostr,'''''''','b',True);
+  istr := ReplaceRegExpr('''''''(.*?)''''''',istr,'<b>$1</b>',True);
   //Replace Italic Text
-  DoReplace(istr,ostr,'''''','i',True);
+  istr := ReplaceRegExpr('''''(.*?)''''',istr,'<i>$1</i>',True);
   //Replace Header Level 5
-  DoReplace(istr,ostr,'=====','h6',True);
+  istr := ReplaceRegExpr('=====(.*?)=====',istr,'<h6>$1</h6>',True);
   //Replace Header Level 4
-  DoReplace(istr,ostr,'====','h5',True);
+  istr := ReplaceRegExpr('====(.*?)====',istr,'<h5>$1</h5>',True);
   //Replace Header Level 3
-  DoReplace(istr,ostr,'===','h4',True);
+  istr := ReplaceRegExpr('===(.*?)===',istr,'<h4>$1</h4>',True);
   //Replace Header Level 2
-  DoReplace(istr,ostr,'==','h3',True);
+  istr := ReplaceRegExpr('==(.*?)==',istr,'<h3>$1</h3>',True);
   //Replace Header Level 1
-//  DoReplace(istr,ostr,'=','h2',True); //Too many problems at time TODO: check if we are in an html tag bevore replace
+  //istr := ReplaceRegExpr('=(.*?)=',istr,'<h2>$1</h2>',True);
   //Process unformated stuff
   while pos(#10+' ',istr) > 0 do
     begin

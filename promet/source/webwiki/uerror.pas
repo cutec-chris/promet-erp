@@ -34,7 +34,7 @@ var
 function HTTPDate(aDate : TDateTime) : string;
 implementation
 {$R *.lfm}
-uses uBaseApplication,Fileutil;
+uses uBaseApplication,Fileutil,uWiki,uData,RegExpr;
 function HTTPDate(aDate : TDateTime) : string;
 var
   Y: word;
@@ -61,6 +61,68 @@ begin
 end;
 procedure TfmError.DataModuleRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
+  function BuildSitemap : string;
+  var
+    aWiki: TWikiList;
+    aOut : string = '';
+    WasHere : TStringList;
+    procedure DoSites(aName,aText : string;aLevel : Integer = 0);
+    var
+      aReg: TRegExpr;
+      LinkBase: String;
+      LinkValue: String;
+      aPrio: Extended;
+      procedure DoExecuted;
+      begin
+        if aReg.Substitute('$1')='' then
+          begin
+            if aWiki.FindWikiPage(aReg.Substitute('$2')) then
+              DoSites(aReg.Substitute('$2'),aWiki.Description.AsString,aLevel+1);
+          end
+        else if aWiki.FindWikiPage(StringReplace(aReg.Substitute('$1'),'|','',[rfReplaceAll])) then
+          DoSites(StringReplace(aReg.Substitute('$1'),'|','',[rfReplaceAll]),aWiki.Description.AsString,aLevel+1);
+      end;
+    begin
+      with BaseApplication as IBaseApplication do
+        LinkBase := Config.ReadString('WebsiteCompleteURL','');
+      LinkBase := LinkBase+'/wiki/';
+      LinkValue := Data.BuildLink(aWiki.DataSet);
+      LinkValue := copy(LinkValue,pos('@',LinkValue)+1,length(LinkValue));
+      if pos('{',LinkValue)>0 then
+        LinkValue := copy(LinkValue,0,pos('{',LinkValue)-1);
+      if WasHere.IndexOf(lowercase(LinkBase+LinkValue))>-1 then exit;
+      WasHere.Add(lowercase(LinkBase+LinkValue));
+      aPrio := 1-(aLevel*0.1);
+      if aPrio<0.2 then
+        aPrio:=0.2;
+      aOut := aOut+'<url><loc>'+LinkBase+LinkValue+'</loc><changefreq>weekly</changefreq><priority>'+StringReplace(FormatFloat('0.00',aPrio),',','.',[rfReplaceAll])+'</priority></url>';
+      aReg := TRegExpr.Create;
+      aReg.Expression:='\[\[([^\|\]]+\|)?([^\]]+)\]\]';
+      if aReg.Exec(aText) then
+        begin
+          DoExecuted;
+          while aReg.ExecNext do
+            DoExecuted;
+        end;
+      aReg.Free;
+    end;
+
+  begin
+    aOut := '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">';
+    WasHere := TStringList.Create;
+    aWiki := TWikiList.Create(nil,Data);
+    aWiki.Open;
+    with BaseApplication as IBaseApplication do
+      begin
+        if aWiki.FindWikiPage(Config.ReadString('INDEX','INDEX')) then
+          DoSites(Config.ReadString('INDEX','INDEX'),aWiki.Description.AsString);
+      end;
+    aWiki.Free;
+    WasHere.Free;
+    aOut := aOut+'</urlset>';
+    Result := aOut;
+  end;
+
 var
   aPath: String;
   aExt: String;
@@ -123,6 +185,13 @@ begin
       AResponse.Code := 404;
       AResponse.CodeText := 'Not found '+aPath;
       writeln('uerror:file not found'+aPath)
+    end
+  else if lowercase(ARequest.PathInfo) = '/sitemap.xml' then
+    begin
+      AResponse.ContentType := 'text/xml';
+      AResponse.Code := 200;
+      AResponse.Content:=BuildSitemap;
+      AResponse.Expires := HTTPDate(Now()+2);
     end
   else if Redirects.Values[ARequest.PathInfo] <> '' then
     begin
