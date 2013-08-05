@@ -47,6 +47,7 @@ type
   private
     { private declarations }
     Path: String;
+    actTagParams: TStringList;
     FSearch: TSearch;
     FSearchResult : TStringList;
     FTemplate : TStringList;
@@ -200,6 +201,7 @@ var
   aMessage: TMessage;
   ss: TStringStream;
   FDataSet: TWikiList;
+  aRow: String;
 begin
   if Uppercase(copy(Inp,0,6)) = 'BOARD(' then
     begin
@@ -207,6 +209,8 @@ begin
       Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
       if Data.Tree.DataSet.Locate('NAME',copy(Inp,0,pos(',',Inp)-1),[loCaseInsensitive]) then
         begin
+          Outp := actTagParams.Values['BOARDHEADER'];
+          aRow := actTagParams.Values['BOARDONEROW'];
           Inp := copy(Inp,pos(',',Inp)+1,length(Inp));
           Inp := copy(Inp,0,pos(')',Inp)-1);
           if not  TryStrToInt(Inp,aCount) then aCount := 30;
@@ -220,13 +224,16 @@ begin
               aMessage.Open;
               if aMessage.Count > 0 then
                 begin
-                  Outp := Outp+'<b>'+aMessage.FieldByName('SUBJECT').AsString+'</b>';
                   aMessage.Content.Open;
                   if aMessage.Content.Count > 0 then
                     begin
                       ss := TStringStream.Create('');
                       Data.BlobFieldToStream(aMessage.Content.DataSet,'DATA',ss);
-                      Outp := Outp+'<br><div class="news_entry">'+WikiText2HTML(ss.DataString,'','')+'<p style="text-align:right;">'+DateTimeToStr(aMessage.FieldByName('SENDDATE').AsDateTime)+'</div><br>';
+                      Outp := Outp+StringReplace(
+                                   StringReplace(
+                                   StringReplace(aRow,'~Subject',aMessage.FieldByName('SUBJECT').AsString,[rfReplaceAll])
+                                                     ,'~Date',DateTimeToStr(aMessage.FieldByName('SENDDATE').AsDateTime),[rfReplaceAll])
+                                                     ,'~Content',WikiText2HTML(ss.DataString,'',''),[rfReplaceAll]);
                       ss.Free;
                     end;
                 end;
@@ -234,6 +241,7 @@ begin
               aList.DataSet.Next;
             end;
           aList.Free;
+          Outp := Outp+actTagParams.Values['BOARDFOOTER'];
         end;
     end
   else
@@ -509,6 +517,7 @@ procedure TfmWikiPage.ReplaceMainTags(Sender: TObject; const TagString: String;
 var
   aKeyWords: String;
 begin
+  actTagParams := TagParams;
   if AnsiCompareText(TagString, 'CONTENT') = 0 then
     begin
       ReplaceText := TagParams.Values['CHEADER'];
