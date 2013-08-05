@@ -244,7 +244,10 @@ begin
     if (aSession.Variables['City'] = '') then
       begin
         with BaseApplication as IBaseApplication do
-          aGeoIP := TGeoIP.Create(Config.ReadString('DOCROOTPATH','')+'GeoLiteCity.dat');
+          begin
+            if not FileExists(Config.ReadString('DOCROOTPATH','')+'GeoLiteCity.dat') then exit;
+            aGeoIP := TGeoIP.Create(Config.ReadString('DOCROOTPATH','')+'GeoLiteCity.dat');
+          end;
         if aGeoIP.GetCity(Arequest.RemoteAddress, GeoIPCity) = GEOIP_SUCCESS then
           begin
             aSession.Variables['City'] := AnsiToUTF8(GeoIPCity.City);

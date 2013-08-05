@@ -65,6 +65,7 @@ type
     function IgnorePage(LinkValue : string) : Boolean;
     procedure SettemplateParams(aTemplate : TFPTemplate);
     procedure ReplaceStdTags(Sender: TObject; const TagString: String;TagParams: TStringList; out ReplaceText: String);
+    constructor Create(AOwner: TComponent); override;
   end;
 var
   fmWikiPage: TfmWikiPage;
@@ -400,6 +401,13 @@ begin
       ReplaceText := TagParams.Values['SEARCHFORM'];
     end;
 end;
+
+constructor TfmWikiPage.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  WikitoHTML.OnWikiInclude:=@fmWikiPageWikiInclude;
+end;
+
 function TfmWikiPage.CreateAllowed: Boolean;
 begin
   Result := False;
@@ -451,7 +459,10 @@ var
 begin
   try
     with BaseApplication as IBaseApplication do
-      ImageFile := AppendPathDelim(AppendPathDelim(Config.ReadString('DOCROOTPATH',''))+'images')+ValidateFileName(Image);
+      begin
+        ImageFile := AppendPathDelim(AppendPathDelim(Config.ReadString('DOCROOTPATH',''))+'images')+ValidateFileName(Image);
+        ForceDirectoriesUTF8(AppendPathDelim(Config.ReadString('DOCROOTPATH',''))+'images');
+      end;
     OutFile := '/images/'+ValidateFileName(Image);
     if not FileExists(ImageFile) or ((aWidth <> '') and (not Fileexists(copy(ImageFile,0,rpos('.',ImageFile)-1)+'_'+aWidth+'px.jpg'))) then
       begin
@@ -508,7 +519,6 @@ begin
     end
   else if AnsiCompareText(TagString, 'DESCRIPTION') = 0 then
     begin
-      WikitoHTML.OnWikiInclude:=@fmWikiPageWikiInclude;
       ReplaceText := HTMLEncode(copy(HTMLToTXT(WikiText2HTML(Wiki.FieldByName('DATA').AsString)),0,200));
       if rpos('.',ReplaceText) > 100 then
         ReplaceText := copy(ReplaceText,0,rpos('.',ReplaceText))
@@ -545,8 +555,8 @@ begin
     end;
   ReplaceText := UTF8ToSys(ReplaceText);
 end;
-procedure TfmWikiPage.SearchTagReplace(Sender: TObject; const TagString: String;
-  TagParams: TStringList; out ReplaceText: String);
+procedure TfmWikiPage.SearchTagreplace(Sender: TObject;
+  const TagString: String; TagParams: TStringList; out ReplaceText: String);
 var
   aRow: string;
   i: Integer;

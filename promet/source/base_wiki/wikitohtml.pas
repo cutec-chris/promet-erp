@@ -1,4 +1,4 @@
-﻿unit wikitohtml;
+unit wikitohtml;
 
 {$mode objfpc}{$H+}
 
@@ -19,27 +19,6 @@ var
 implementation
 
 function WikiText2HTML(input: string;LinkOffset : string;RemoveLinkOffset : string = '';IproChanges : Boolean = False): string;
-
-procedure DoReplace(var InStr,OutStr : string;ReplaceTag,NewTag : string;MustbeInOneLine : Boolean = False);
-var
-  NewLine: String;
-begin
-  while pos(ReplaceTag,instr) > 0 do
-    begin
-      NewLine := copy(instr,pos(ReplaceTag,instr)+length(ReplaceTag),length(instr));
-      if MustBeInOneLine
-      and ((pos(#10,NewLine) < pos(ReplaceTag,NewLine))) and (not (length(NewLine) = pos(ReplaceTag,NewLine)+length(ReplaceTag)-1)) then
-        break;
-      outstr := outstr+copy(instr,0,pos(ReplaceTag,instr)-1);
-      instr := copy(instr,pos(replaceTag,instr)+length(ReplaceTag),length(instr));
-      outstr := outstr+'<'+NewTag+'>'+copy(instr,0,pos(ReplaceTag,instr)-1)+'</'+NewTag+'>';
-      instr := copy(instr,pos(ReplaceTag,instr)+length(ReplaceTag),length(instr));
-    end;
-  outstr := outstr+instr;
-  instr := outstr;
-  outstr := '';
-end;
-
 var
   output : string;
   istr: String;
@@ -51,7 +30,25 @@ var
   intd: Boolean;
   linkcontent: String;
   aLink: String;
-
+  procedure DoReplace(var InStr,OutStr : string;ReplaceTag,NewTag : string;MustbeInOneLine : Boolean = False);
+  var
+    NewLine: String;
+  begin
+    while pos(ReplaceTag,instr) > 0 do
+      begin
+        NewLine := copy(instr,pos(ReplaceTag,instr)+length(ReplaceTag),length(instr));
+        if MustBeInOneLine
+        and ((pos(#10,NewLine) < pos(ReplaceTag,NewLine))) and (not (length(NewLine) = pos(ReplaceTag,NewLine)+length(ReplaceTag)-1)) then
+          break;
+        outstr := outstr+copy(instr,0,pos(ReplaceTag,instr)-1);
+        instr := copy(instr,pos(replaceTag,instr)+length(ReplaceTag),length(instr));
+        outstr := outstr+'<'+NewTag+'>'+copy(instr,0,pos(ReplaceTag,instr)-1)+'</'+NewTag+'>';
+        instr := copy(instr,pos(ReplaceTag,instr)+length(ReplaceTag),length(instr));
+      end;
+    outstr := outstr+instr;
+    instr := outstr;
+    outstr := '';
+  end;
   procedure ReplaceImages(ImageTagName : string);
   var
     ImageFile: String;
@@ -214,12 +211,14 @@ var
           end;
       end;
   end;
-
 begin
-  istr := input;
+  istr := SysToUTF8(input);
   ostr := '';
   open_uls := 0;
   act_uls := 0;
+  //all newlines to \n
+  ostr := StringReplace(ostr,#13#10,#10,[rfReplaceAll]);
+  ostr := StringReplace(ostr,#10#13,#10,[rfReplaceAll]);
   //Remove NOTOC
   istr := StringReplace(istr,'__NOTOC__','',[rfReplaceAll]);
   //Remove TOC
@@ -459,16 +458,24 @@ begin
   istr := ReplaceRegExpr('''''''(.*?)''''''',istr,'<b>$1</b>',True);
   //Replace Italic Text
   istr := ReplaceRegExpr('''''(.*?)''''',istr,'<i>$1</i>',True);
-  //Replace Header Level 5
-  istr := ReplaceRegExpr('=====(.*?)=====',istr,'<h6>$1</h6>',True);
-  //Replace Header Level 4
-  istr := ReplaceRegExpr('====(.*?)====',istr,'<h5>$1</h5>',True);
-  //Replace Header Level 3
-  istr := ReplaceRegExpr('===(.*?)===',istr,'<h4>$1</h4>',True);
-  //Replace Header Level 2
-  istr := ReplaceRegExpr('==(.*?)==',istr,'<h3>$1</h3>',True);
-  //Replace Header Level 1
-  //istr := ReplaceRegExpr('=(.*?)=',istr,'<h2>$1</h2>',True);
+  if IproChanges then
+    begin
+      istr := ReplaceRegExpr('======(.*?)======',istr,'<h5>$1</h5>',True);
+      istr := ReplaceRegExpr('=====(.*?)=====',istr,'<h5>$1</h5>',True);
+      istr := ReplaceRegExpr('====(.*?)====',istr,'<h4>$1</h4>',True);
+      istr := ReplaceRegExpr('===(.*?)===',istr,'<h3>$1</h3>',True);
+      istr := ReplaceRegExpr('==(.*?)==',istr,'<h2>$1</h2>',True);
+      //istr := ReplaceRegExpr('\n=(.*?)=',istr,'<h1>$1</h1>',True);
+    end
+  else
+    begin
+      istr := ReplaceRegExpr('======(.*?)======',istr,'<h5>$1</h5>',True);
+      istr := ReplaceRegExpr('=====(.*?)=====',istr,'<h4>$1</h4>',True);
+      istr := ReplaceRegExpr('====(.*?)====',istr,'<h3>$1</h3>',True);
+      istr := ReplaceRegExpr('===(.*?)===',istr,'<h2>$1</h2>',True);
+      istr := ReplaceRegExpr('==(.*?)==',istr,'<h1>$1</h1>',True);
+      //istr := ReplaceRegExpr('\n=(.*?)=',istr,'<h1>$1</h1>',True);
+    end;
   //Process unformated stuff
   while pos(#10+' ',istr) > 0 do
     begin
