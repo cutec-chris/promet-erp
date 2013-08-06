@@ -128,6 +128,7 @@ type
       aInterval: TInterval; X, Y: Integer);
     procedure FGanttCalendarShowHint(Sender: TObject; HintInfo: PHintInfo);
     procedure FGanttTreeAfterUpdateCommonSettings(Sender: TObject);
+    procedure FGanttTreeResize(Sender: TObject);
     procedure miUserOptionsClick(Sender: TObject);
     procedure pmActionPopup(Sender: TObject);
     procedure TIntervalChanged(Sender: TObject);
@@ -379,6 +380,20 @@ begin
   fgantt.Tree.ColWidths[6]:=0;
   fgantt.Tree.ColWidths[7]:=0;
   FGantt.Tree.Width:=190;
+  FGantt.Tree.OnResize:=@FGanttTreeResize;
+  FGantt.Tree.ShowHint:=True;
+  FGantt.Tree.Options:=FGantt.Tree.Options+[goCellHints];
+  FGantt.Tree.Options:=FGantt.Tree.Options-[goHorzLine];
+  FGantt.Tree.AlternateColor:=$00FFE6E6;
+end;
+
+procedure TfTaskPlan.FGanttTreeResize(Sender: TObject);
+begin
+  fgantt.Tree.ColWidths[0]:=0;
+  fgantt.Tree.ColWidths[1]:=0;
+  fgantt.Tree.ColWidths[2]:=FGantt.Tree.Width-FGantt.Tree.ColWidths[3]-FGantt.Tree.ColWidths[4]-FGantt.Tree.ColWidths[5];
+  fgantt.Tree.ColWidths[6]:=0;
+  fgantt.Tree.ColWidths[7]:=0;
 end;
 
 procedure TfTaskPlan.miUserOptionsClick(Sender: TObject);
@@ -853,6 +868,7 @@ begin
         else aUsage := 0;
         aCanvas.FillRect(round(b*aDayWidth),aRect.Bottom-round(aUsage*(aRect.Bottom-aRect.Top)),round((b*aDayWidth)+aDayWidth),aRect.Bottom);
       end;
+  {
   if Assigned(TInterval(Sender).Gantt) then
     aCanvas.Pen.Color:=TInterval(Sender).Gantt.Tree.GridLineColor
   else
@@ -860,6 +876,7 @@ begin
   aCanvas.Pen.Style:=psSolid;
   aCanvas.MoveTo(aRect.Left,aRect.Top);
   aCanvas.LineTo(aRect.Right,aRect.Top);
+  }
 end;
 
 procedure TfTaskPlan.acShowInProjectGanttExecute(Sender: TObject);

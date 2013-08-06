@@ -69,6 +69,7 @@ type
     procedure bShowTasksClick(Sender: TObject);
     procedure bTodayClick(Sender: TObject);
     procedure bWeekViewClick(Sender: TObject);
+    procedure FGanttCalendarClick(Sender: TObject);
     procedure FGanttCalendarDblClick(Sender: TObject);
     procedure FGanttCalendarMouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
@@ -76,6 +77,7 @@ type
       aInterval: TInterval; X, Y: Integer);
     procedure FGanttCalendarShowHint(Sender: TObject; HintInfo: PHintInfo);
     procedure FGanttTreeAfterUpdateCommonSettings(Sender: TObject);
+    procedure FGanttTreeResize(Sender: TObject);
     procedure RecalcTimerTimer(Sender: TObject);
     procedure ToolButton1Click(Sender: TObject);
     procedure ToolButton2Click(Sender: TObject);
@@ -107,7 +109,7 @@ var
 
 implementation
 uses uData,LCLIntf,uBaseDbClasses,uTaskEdit,variants,LCLProc,uTaskPlan,
-  uIntfStrConsts,uColors,uBaseDBInterface;
+  uIntfStrConsts,uColors,uBaseDBInterface,Grids;
 {$R *.lfm}
 resourcestring
   strSaveChanges                          = 'Um die Aufgabe zu bearbeiten müssen alle Änderungen gespeichert werden, Sollen alle Änderungen gespeichert werden ?';
@@ -115,10 +117,26 @@ procedure TfGanttView.FGanttTreeAfterUpdateCommonSettings(Sender: TObject);
 begin
   fgantt.Tree.ColWidths[0]:=0;
   fgantt.Tree.ColWidths[1]:=0;
-  fgantt.Tree.ColWidths[2]:=180;
+  fgantt.Tree.ColWidths[2]:=160;
+  fgantt.Tree.ColWidths[4]:=80;
+  fgantt.Tree.ColWidths[5]:=80;
   fgantt.Tree.ColWidths[6]:=0;
   fgantt.Tree.ColWidths[7]:=0;
   FGantt.Tree.Width:=390;
+  FGantt.Tree.OnResize:=@FGanttTreeResize;
+  FGantt.Tree.ShowHint:=True;
+  FGantt.Tree.Options:=FGantt.Tree.Options+[goCellHints];
+  FGantt.Tree.Options:=FGantt.Tree.Options-[goHorzLine];
+  FGantt.Tree.AlternateColor:=$00FFE6E6;
+end;
+
+procedure TfGanttView.FGanttTreeResize(Sender: TObject);
+begin
+  fgantt.Tree.ColWidths[0]:=0;
+  fgantt.Tree.ColWidths[1]:=0;
+  fgantt.Tree.ColWidths[2]:=FGantt.Tree.Width-FGantt.Tree.ColWidths[3]-FGantt.Tree.ColWidths[4]-FGantt.Tree.ColWidths[5];
+  fgantt.Tree.ColWidths[6]:=0;
+  fgantt.Tree.ColWidths[7]:=0;
 end;
 
 procedure TfGanttView.RecalcTimerTimer(Sender: TObject);
@@ -331,6 +349,7 @@ procedure TfGanttView.acOpenExecute(Sender: TObject);
     i: Integer;
   begin
     Result := False;
+    if not Assigned(aParent) then exit;
     for i := 0 to aParent.IntervalCount-1 do
       begin
         if aParent.Interval[i].Changed then
@@ -405,6 +424,20 @@ begin
   FGantt.MinorScale:=tsWeekNumPlain;
   FGantt.Calendar.StartDate:=FGantt.Calendar.StartDate;
 end;
+
+procedure TfGanttView.FGanttCalendarClick(Sender: TObject);
+var
+  TP : TfTaskPlan;
+  aInt: TInterval;
+  ay: Integer;
+begin
+  aClickPoint := FGantt.Calendar.ScreenToClient(Mouse.CursorPos);
+  ay := aClickPoint.Y-FGantt.Calendar.StartDrawIntervals;
+  ay := ay div max(FGantt.Calendar.PixelsPerLine,1);
+  ay := ay+(FGantt.Tree.TopRow-1);
+  FGantt.Tree.Row:=ay+1;
+end;
+
 procedure TfGanttView.FGanttCalendarDblClick(Sender: TObject);
 begin
   aClickPoint := FGantt.Calendar.ScreenToClient(Mouse.CursorPos);
@@ -509,6 +542,7 @@ begin
   FGantt.Calendar.OnShowHint:=@FGanttCalendarShowHint;
   FGantt.Calendar.OnMouseMove:=@FGanttCalendarMouseMove;
   FGantt.Calendar.OnDblClick:=@FGanttCalendarDblClick;
+  FGantt.Calendar.OnClick:=@FGanttCalendarClick;
   FGantt.Tree.PopupMenu:=PopupMenu1;
   bDayViewClick(nil);
   FGantt.Calendar.ShowHint:=True;

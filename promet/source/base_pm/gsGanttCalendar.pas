@@ -1129,9 +1129,9 @@ procedure WriteText(ACanvas: TCanvas; ARect: TRect; DX, DY: Integer;
   const Text: string; Alignment: TAlignment; ARightToLeft: Boolean);
 const
   AlignFlags : array [TAlignment] of Integer =
-    ( DT_LEFT or DT_WORDBREAK or DT_EXPANDTABS or DT_NOPREFIX,
-      DT_RIGHT or DT_WORDBREAK or DT_EXPANDTABS or DT_NOPREFIX,
-      DT_CENTER or DT_WORDBREAK or DT_EXPANDTABS or DT_NOPREFIX );
+    ( DT_LEFT or DT_EXPANDTABS or DT_NOPREFIX,
+      DT_RIGHT or DT_EXPANDTABS or DT_NOPREFIX,
+      DT_CENTER or DT_EXPANDTABS or DT_NOPREFIX );
   RTL: array [Boolean] of Integer = (0, DT_RTLREADING);
 var
   B, R: TRect;
@@ -3297,6 +3297,7 @@ var
   DeltaX: Integer;
   Stamp: TTimeStamp;
   S: String;
+  aColor: TColor;
 begin
   inherited DrawCell(ACol, ARow, ARect, AState);
   if csDesigning in ComponentState then Exit;
@@ -3311,7 +3312,16 @@ begin
         Cells[ACol, ARow], taCenter, True);
 
     end else begin
-      Brush.Color := Color;
+      aColor := Color;
+      if (AltColorStartNormal and Odd(ARow-FixedRows)) {(1)} or
+         (not AltColorStartNormal and Odd(ARow)) {(2)} then
+        AColor := AlternateColor;
+      if (gdSelected in AState) then
+        begin
+          aColor := SelectedColor;
+          Canvas.Font.Color:=clHighlightText;
+        end;
+      Brush.Color := aColor;
       CurrInterval := TInterval(Objects[0, ARow]);
 
       if (CurrInterval <> nil) and CurrInterval.IsCollection then
@@ -3523,7 +3533,7 @@ begin
   RowHeights[0] :=
     FGantt.Calendar.MajorScaleHeight
       +
-    FGantt.Calendar.MajorScaleHeight;
+    FGantt.Calendar.MajorScaleHeight+1;
 
   Cells[0, 0] := strNum;
   ColWidths[0] := 28;

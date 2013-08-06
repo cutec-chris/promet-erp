@@ -2,6 +2,9 @@
       - Optonen können aus Hilfe oder Wiki aufgerufen werden
       - Unteraufträge wurden in Auftragsübersicht kaskadiert dargestellt
       - größe Datumsfeld in Vorgang angepasst
+      - Darstellung von Zellen in Gantt Ansicht angepasst (Zeilen alternierend, keine Zeilentrenner)
+      - Größe con Zellen in Gantt Ansicht wird automatisch angepasst
+      - Klick in Gantt Ansicht markiert entsprechende Zeile
 Build 259
       - wenn Wizardmandant mit --silent ausgeführt wird wird die DB nicht befüllt wenn sie schon existiert
 Build 258
