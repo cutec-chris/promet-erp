@@ -25,7 +25,7 @@ var
   fmDownloads: TfmDownloads;
 implementation
 {$R *.lfm}
-uses uBaseApplication,uData,uDocuments,Utils,uError;
+uses uBaseApplication,uData,uDocuments,Utils,uError,uBaseWebSession;
 procedure TfmDownloads.DataModuleRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 var
@@ -75,6 +75,7 @@ begin
       AResponse.Code := 404;
       AResponse.CodeText := 'Not found';
     end;
+  TBaseWebSession(Session).AddHistoryUrl(ARequest.PathInfo);
   Handled := True;
 end;
 initialization

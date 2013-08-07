@@ -16,6 +16,9 @@ interface
 uses
   Classes, SysUtils, fpWeb,uSessionDBClasses,HTTPDefs,fpHTTP,BlckSock;
 type
+
+  { TBaseWebSession }
+
   TBaseWebSession = class(TCustomSession)
   private
     SID : String;
@@ -34,6 +37,7 @@ type
     Procedure InitSession(ARequest : TRequest; OnNewSession, OnExpired: TNotifyEvent); override;
     Procedure InitResponse(AResponse : TResponse); override;
     Procedure RemoveVariable(VariableName : String); override;
+    procedure AddHistoryUrl(aUrl : string);
   end;
   TBaseSessionFactory = Class(TSessionFactory)
   private
@@ -260,23 +264,6 @@ begin
     begin
       Self.Variables['Forwarded'] := AnsiToUTF8(ARequest.GetFieldByName('HTTP_X_FORWARDED_FOR'));
     end;
-  if ARequest.PathInfo <> '' then
-    begin
-      FSession.History.Select(0);
-      FSession.History.Open;
-      with FSession.History.DataSet do
-        begin
-          try
-            if FSession.History.CanEdit then
-              Cancel;
-            Insert;
-            FieldByName('URL').AsString := ARequest.PathInfo;
-            Post;
-          except
-            Cancel;
-          end;
-        end;
-    end;
 end;
 procedure TBaseWebSession.InitResponse(AResponse: TResponse);
 Var
@@ -307,6 +294,27 @@ begin
   FSession.Variables.Open;
   if FSession.Variables.Count > 0 then
     FSession.Variables.DataSet.Delete;
+end;
+
+procedure TBaseWebSession.AddHistoryUrl(aUrl: string);
+begin
+  if not FSession.History.DataSet.Active then
+    begin
+      FSession.History.Select(0);
+      FSession.History.Open;
+    end;
+  with FSession.History.DataSet do
+    begin
+      try
+        if FSession.History.CanEdit then
+          Cancel;
+        Insert;
+        FieldByName('URL').AsString := aUrl;
+        Post;
+      except
+        Cancel;
+      end;
+    end;
 end;
 
 end.

@@ -73,7 +73,7 @@ var
 implementation
 uses WikitoHTML, uBaseApplication,uBaseDbInterface,Variants,
   uBaseFCGIApplication, htmlconvert, uError, fpImage, FPReadJPEGintfd,
-  fpCanvas,fpImgCanv,ushop,uMessages,DOM,XMLWrite,synautil;
+  fpCanvas,fpImgCanv,ushop,uMessages,DOM,XMLWrite,synautil,uBaseWebSession;
 resourcestring
   strLastChanges                     = 'Letzte Änderungen';
   strLastChangesDesc                 = 'Letzte Änderungen der Website';
@@ -183,6 +183,7 @@ begin
           Result := 'create';
         end;
     end;
+  TBaseWebSession(Session).AddHistoryUrl(ARequest.PathInfo);
   ActionName := Result;
 end;
 procedure TfmWikiPage.exitRequest(Sender: TObject; ARequest: TRequest;

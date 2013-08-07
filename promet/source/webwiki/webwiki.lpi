@@ -95,10 +95,11 @@
         <Filename Value="webwiki.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="webwiki"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="106" Y="7"/>
+        <CursorPos X="1" Y="33"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -111,8 +112,8 @@
         <UnitName Value="uWebWiki"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="509"/>
-        <CursorPos X="47" Y="523"/>
+        <TopLine Value="170"/>
+        <CursorPos X="1" Y="187"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -526,7 +527,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="141"/>
         <CursorPos X="14" Y="35"/>
-        <UsageCount Value="81"/>
+        <UsageCount Value="82"/>
         <Loaded Value="True"/>
       </Unit52>
       <Unit53>
@@ -576,7 +577,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="88"/>
         <CursorPos X="15" Y="141"/>
-        <UsageCount Value="88"/>
+        <UsageCount Value="89"/>
         <Loaded Value="True"/>
       </Unit58>
       <Unit59>
@@ -765,7 +766,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="11"/>
         <CursorPos X="15" Y="45"/>
-        <UsageCount Value="48"/>
+        <UsageCount Value="49"/>
         <Loaded Value="True"/>
       </Unit81>
       <Unit82>
@@ -793,8 +794,8 @@
         <UnitName Value="uerror"/>
         <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="237"/>
-        <CursorPos X="87" Y="259"/>
+        <TopLine Value="113"/>
+        <CursorPos X="34" Y="267"/>
         <UsageCount Value="201"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -1008,9 +1009,9 @@
         <UnitName Value="uSessionDBClasses"/>
         <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="105"/>
-        <CursorPos X="3" Y="108"/>
-        <UsageCount Value="20"/>
+        <TopLine Value="10"/>
+        <CursorPos X="21" Y="34"/>
+        <UsageCount Value="21"/>
         <Loaded Value="True"/>
       </Unit111>
       <Unit112>
@@ -1079,7 +1080,7 @@
         <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="35" Y="14"/>
+        <CursorPos X="68" Y="28"/>
         <UsageCount Value="201"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -1505,7 +1506,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="90" Y="316"/>
-        <UsageCount Value="150"/>
+        <UsageCount Value="152"/>
       </Unit172>
       <Unit173>
         <Filename Value="D:\lazarus\fpc\packages\fcl-base\src\fptemplate.pp"/>
@@ -1613,7 +1614,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="17"/>
-        <UsageCount Value="107"/>
+        <UsageCount Value="109"/>
       </Unit185>
       <Unit186>
         <Filename Value="D:\lazarus\fpc\packages\hash\src\sha1.pp"/>
@@ -1643,7 +1644,7 @@
         <Filename Value="ushop.lfm"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="46"/>
+        <UsageCount Value="47"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit189>
@@ -1678,7 +1679,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="453"/>
         <CursorPos X="1" Y="481"/>
-        <UsageCount Value="42"/>
+        <UsageCount Value="43"/>
         <Loaded Value="True"/>
       </Unit193>
       <Unit194>
@@ -1758,7 +1759,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="62"/>
         <CursorPos X="12" Y="82"/>
-        <UsageCount Value="71"/>
+        <UsageCount Value="73"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit203>
       <Unit204>
@@ -1823,7 +1824,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1604"/>
         <CursorPos X="3" Y="1606"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="16"/>
         <Loaded Value="True"/>
       </Unit211>
       <Unit212>
@@ -1863,9 +1864,9 @@
         <UnitName Value="ubasehttpapplication"/>
         <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="145"/>
-        <CursorPos X="1" Y="153"/>
-        <UsageCount Value="13"/>
+        <TopLine Value="44"/>
+        <CursorPos X="60" Y="71"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit216>
       <Unit217>
@@ -1897,9 +1898,9 @@
         <UnitName Value="uBaseWebSession"/>
         <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="278"/>
-        <CursorPos X="1" Y="311"/>
-        <UsageCount Value="13"/>
+        <TopLine Value="284"/>
+        <CursorPos X="44" Y="312"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit220>
       <Unit221>
@@ -1909,7 +1910,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="13"/>
         <CursorPos X="13" Y="34"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit221>
       <Unit222>
@@ -1918,18 +1919,17 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="44" Y="15"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="HTML"/>
       </Unit222>
       <Unit223>
         <Filename Value="..\..\..\..\promet_website\site\ajaxtemplate.html"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="25"/>
+        <TopLine Value="1"/>
         <CursorPos X="11" Y="52"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="HTML"/>
       </Unit223>
@@ -1939,131 +1939,131 @@
         <WindowIndex Value="0"/>
         <TopLine Value="190"/>
         <CursorPos X="69" Y="202"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="HTML"/>
       </Unit224>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="uwebwiki.pas"/>
-        <Caret Line="15" Column="99" TopLine="10"/>
+        <Filename Value="..\..\..\..\promet_website\site\maintemplate.html"/>
+        <Caret Line="1" Column="41" TopLine="1"/>
       </Position1>
       <Position2>
-        <Filename Value="uwebwiki.pas"/>
-        <Caret Line="68" Column="54" TopLine="35"/>
+        <Filename Value="..\..\..\..\promet_website\site\maintemplate.html"/>
+        <Caret Line="15" Column="44" TopLine="1"/>
       </Position2>
       <Position3>
         <Filename Value="uwebwiki.pas"/>
-        <Caret Line="409" Column="1" TopLine="404"/>
+        <Caret Line="210" Column="45" TopLine="190"/>
       </Position3>
       <Position4>
-        <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="406" Column="16" TopLine="384"/>
-      </Position4>
-      <Position5>
-        <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="175" Column="13" TopLine="174"/>
-      </Position5>
-      <Position6>
-        <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="194" Column="28" TopLine="174"/>
-      </Position6>
-      <Position7>
-        <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="191" Column="1" TopLine="174"/>
-      </Position7>
-      <Position8>
-        <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="192" Column="1" TopLine="174"/>
-      </Position8>
-      <Position9>
-        <Filename Value="uwebwiki.pas"/>
-        <Caret Line="203" Column="1" TopLine="186"/>
-      </Position9>
-      <Position10>
-        <Filename Value="uwebwiki.pas"/>
-        <Caret Line="204" Column="1" TopLine="186"/>
-      </Position10>
-      <Position11>
-        <Filename Value="uwebwiki.pas"/>
-        <Caret Line="206" Column="1" TopLine="186"/>
-      </Position11>
-      <Position12>
-        <Filename Value="uwebwiki.pas"/>
-        <Caret Line="207" Column="1" TopLine="186"/>
-      </Position12>
-      <Position13>
-        <Filename Value="uwebwiki.pas"/>
-        <Caret Line="208" Column="11" TopLine="198"/>
-      </Position13>
-      <Position14>
-        <Filename Value="uwebwiki.pas"/>
-        <Caret Line="215" Column="54" TopLine="198"/>
-      </Position14>
-      <Position15>
-        <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="472" Column="66" TopLine="450"/>
-      </Position15>
-      <Position16>
-        <Filename Value="uwebwiki.pas"/>
-        <Caret Line="236" Column="86" TopLine="233"/>
-      </Position16>
-      <Position17>
-        <Filename Value="uwebwiki.pas"/>
-        <Caret Line="767" Column="34" TopLine="738"/>
-      </Position17>
-      <Position18>
-        <Filename Value="..\..\..\..\promet_website\site\ajaxtemplate.html"/>
-        <Caret Line="3" Column="24" TopLine="1"/>
-      </Position18>
-      <Position19>
-        <Filename Value="uwebwiki.pas"/>
-        <Caret Line="208" Column="7" TopLine="196"/>
-      </Position19>
-      <Position20>
-        <Filename Value="uwebwiki.pas"/>
-        <Caret Line="244" Column="34" TopLine="218"/>
-      </Position20>
-      <Position21>
-        <Filename Value="uwebwiki.pas"/>
-        <Caret Line="209" Column="7" TopLine="191"/>
-      </Position21>
-      <Position22>
-        <Filename Value="uwebwiki.pas"/>
-        <Caret Line="236" Column="1" TopLine="203"/>
-      </Position22>
-      <Position23>
-        <Filename Value="uwebwiki.pas"/>
-        <Caret Line="208" Column="1" TopLine="202"/>
-      </Position23>
-      <Position24>
-        <Filename Value="uwebwiki.pas"/>
-        <Caret Line="209" Column="1" TopLine="202"/>
-      </Position24>
-      <Position25>
-        <Filename Value="uwebwiki.pas"/>
-        <Caret Line="245" Column="1" TopLine="193"/>
-      </Position25>
-      <Position26>
-        <Filename Value="uwebwiki.pas"/>
-        <Caret Line="212" Column="34" TopLine="193"/>
-      </Position26>
-      <Position27>
-        <Filename Value="..\..\..\..\promet_website\site\maintemplate.html"/>
-        <Caret Line="1" Column="41" TopLine="1"/>
-      </Position27>
-      <Position28>
-        <Filename Value="..\..\..\..\promet_website\site\maintemplate.html"/>
-        <Caret Line="15" Column="44" TopLine="1"/>
-      </Position28>
-      <Position29>
-        <Filename Value="uwebwiki.pas"/>
-        <Caret Line="210" Column="45" TopLine="190"/>
-      </Position29>
-      <Position30>
         <Filename Value="..\..\..\..\promet_website\site\ajaxtemplate.html"/>
         <Caret Line="2" Column="65" TopLine="1"/>
+      </Position4>
+      <Position5>
+        <Filename Value="uerror.pas"/>
+        <Caret Line="4" Column="89" TopLine="1"/>
+      </Position5>
+      <Position6>
+        <Filename Value="uerror.pas"/>
+        <Caret Line="22" Column="35" TopLine="1"/>
+      </Position6>
+      <Position7>
+        <Filename Value="uerror.pas"/>
+        <Caret Line="30" Column="51" TopLine="17"/>
+      </Position7>
+      <Position8>
+        <Filename Value="uerror.pas"/>
+        <Caret Line="58" Column="40" TopLine="30"/>
+      </Position8>
+      <Position9>
+        <Filename Value="uerror.pas"/>
+        <Caret Line="60" Column="12" TopLine="41"/>
+      </Position9>
+      <Position10>
+        <Filename Value="uerror.pas"/>
+        <Caret Line="216" Column="70" TopLine="200"/>
+      </Position10>
+      <Position11>
+        <Filename Value="uerror.pas"/>
+        <Caret Line="218" Column="72" TopLine="200"/>
+      </Position11>
+      <Position12>
+        <Filename Value="uerror.pas"/>
+        <Caret Line="220" Column="72" TopLine="200"/>
+      </Position12>
+      <Position13>
+        <Filename Value="uerror.pas"/>
+        <Caret Line="221" Column="25" TopLine="200"/>
+      </Position13>
+      <Position14>
+        <Filename Value="uerror.pas"/>
+        <Caret Line="222" Column="17" TopLine="200"/>
+      </Position14>
+      <Position15>
+        <Filename Value="uerror.pas"/>
+        <Caret Line="225" Column="18" TopLine="212"/>
+      </Position15>
+      <Position16>
+        <Filename Value="uerror.pas"/>
+        <Caret Line="228" Column="17" TopLine="212"/>
+      </Position16>
+      <Position17>
+        <Filename Value="uerror.pas"/>
+        <Caret Line="229" Column="16" TopLine="212"/>
+      </Position17>
+      <Position18>
+        <Filename Value="uerror.pas"/>
+        <Caret Line="237" Column="56" TopLine="220"/>
+      </Position18>
+      <Position19>
+        <Filename Value="..\base\ubasehttpapplication.pas"/>
+        <Caret Line="8" Column="69" TopLine="1"/>
+      </Position19>
+      <Position20>
+        <Filename Value="..\base\ubasehttpapplication.pas"/>
+        <Caret Line="16" Column="33" TopLine="1"/>
+      </Position20>
+      <Position21>
+        <Filename Value="..\base\ubasehttpapplication.pas"/>
+        <Caret Line="71" Column="67" TopLine="52"/>
+      </Position21>
+      <Position22>
+        <Filename Value="..\base\ubasehttpapplication.pas"/>
+        <Caret Line="279" Column="32" TopLine="257"/>
+      </Position22>
+      <Position23>
+        <Filename Value="..\base\ubasehttpapplication.pas"/>
+        <Caret Line="71" Column="60" TopLine="44"/>
+      </Position23>
+      <Position24>
+        <Filename Value="..\base\ubasewebsession.pas"/>
+        <Caret Line="35" Column="15" TopLine="18"/>
+      </Position24>
+      <Position25>
+        <Filename Value="..\base\ubasewebsession.pas"/>
+        <Caret Line="272" Column="15" TopLine="246"/>
+      </Position25>
+      <Position26>
+        <Filename Value="..\base\ubasewebsession.pas"/>
+        <Caret Line="167" Column="3" TopLine="149"/>
+      </Position26>
+      <Position27>
+        <Filename Value="..\base\ubasewebsession.pas"/>
+        <Caret Line="40" Column="44" TopLine="16"/>
+      </Position27>
+      <Position28>
+        <Filename Value="udownloads.pas"/>
+        <Caret Line="78" Column="48" TopLine="49"/>
+      </Position28>
+      <Position29>
+        <Filename Value="udownloads.pas"/>
+        <Caret Line="29" Column="59" TopLine="12"/>
+      </Position29>
+      <Position30>
+        <Filename Value="udownloads.pas"/>
+        <Caret Line="28" Column="68" TopLine="1"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -2095,15 +2095,6 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="1">
-      <Item1>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="uwebwiki.pas"/>
-        <Line Value="208"/>
-      </Item1>
-    </BreakPoints>
     <Watches Count="1">
       <Item1>
         <Expression Value="LinkValue"/>
