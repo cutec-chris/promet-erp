@@ -199,7 +199,6 @@ begin
    begin
      if Uppercase(Messages.Content.FieldByName('DATATYP').AsString) = 'PLAIN' then
        begin
-         try
          ipHTMLContent.Visible:=false;
          ss := TStringStream.Create('');
          Data.BlobFieldToStream(Messages.Content.DataSet,'DATA',ss);
@@ -210,8 +209,6 @@ begin
          sl.Free;
          ss.Free;
          mContent.Visible:=True;
-         except
-         end;
        end
      else if UpperCase(Messages.Content.FieldByName('DATATYP').AsString) = 'HTML' then
        begin
@@ -226,13 +223,6 @@ begin
              tmp := char($EF)+char($BB)+char($BF)+SysToUTF8(ConvertEncoding(tmp,aEncoding,EncodingUTF8));
            ss.Free;
            ss:=TStringStream.Create(tmp);
-{
-           sl := TStringList.Create;
-           sl.Text:=tmp;
-           sl.SaveToFile(GetTempDir+'amessage.html');
-           sl.Free;
-           exit;
-}
            NewHTML:=TSimpleIpHtml.Create; // Beware:Will be freed automatically by IpHtmlPanel1
            proc := TLoadHTMLProcess.Create(Self,NewHTML,ss);
            for i := 0 to 1000 do
@@ -242,6 +232,10 @@ begin
                if Assigned(proc.FatalException) then
                  begin
                    Proc.Terminate;
+                   sl := TStringList.Create;
+                   sl.Text:=tmp;
+                   sl.SaveToFile(GetTempDir+'aerror.html');
+                   sl.Free;
                    FreeAndNil(NewHTML);
                    break;
                  end;
@@ -258,17 +252,26 @@ begin
            ss.Free;
            try
              ipHTMLContent.SetHtml(NewHTML);
+             ipHTMLContent.Visible:=true;
+             Application.ProcessMessages;
            except
              FreeAndNil(NewHTML);
              try
                ipHTMLContent.SetHtml(nil);
              except
+               sl := TStringList.Create;
+               sl.Text:=tmp;
+               sl.SaveToFile(GetTempDir+'aerror.html');
+               sl.Free;
              end;
            end;
          except
+           sl := TStringList.Create;
+           sl.Text:=tmp;
+           sl.SaveToFile(GetTempDir+'aerror.html');
+           sl.Free;
            ss.Free;
          end;
-         ipHTMLContent.Visible:=true;
        end
      else if UpperCase(Messages.FieldByName('TYPE').AsString) = 'WIKI' then
        begin

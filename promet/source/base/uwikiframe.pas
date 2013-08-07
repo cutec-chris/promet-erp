@@ -496,6 +496,7 @@ begin
     begin
       aNewList := TWikiList.Create(Self,Data);
       if pos('|',Inp) > 0 then Inp := copy(Inp,0,pos('|',Inp)-1);
+      Inp := StringReplace(Inp,'%username%',Data.Users.Text.AsString,[]);
       if aNewList.FindWikiPage(Inp) then
         begin
           Outp := Outp+WikiText2HTML(aNewList.FieldByName('DATA').AsString,'','',True);
@@ -563,8 +564,8 @@ begin
       if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
         begin
           aDocuments := TDocuments.Create(Self,Data);
-          aDocuments.CreateTable;
-          aDocuments.Select(DataSet.Id.AsVariant ,'W',DataSet.FieldByName('NAME').AsString,Null,Null);
+//          aDocuments.CreateTable;
+          aDocuments.Select(DataSet.Id.AsVariant,'W',DataSet.FieldByName('NAME').AsString,Null,Null);
           aDocuments.Open;
           if aDocuments.Count = 0 then
             aDocuments.Free
