@@ -121,6 +121,7 @@ type
     procedure EnableCalculation;
     procedure SyncDataSource;
     procedure ResetEditor;
+    procedure Post;
     procedure SetRights(Editable : Boolean);
     procedure AutoInsert;
     procedure SetFocus;override;
@@ -801,5 +802,11 @@ procedure TfPosition.ResetEditor;
 begin
   FgridView.ResetEditor;
 end;
+
+procedure TfPosition.Post;
+begin
+  FGridView.Post;
+end;
+
 end.
 

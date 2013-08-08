@@ -22,7 +22,7 @@
     <MacroValues Count="1">
       <Macro1 Name="LCLWidgetType" Value="nogui"/>
     </MacroValues>
-    <BuildModes Count="2" Active="FastCGI">
+    <BuildModes Count="2" Active="HTTPServer">
       <Item1 Name="FastCGI" Default="True"/>
       <Item2 Name="HTTPServer">
         <MacroValues Count="1">
@@ -95,11 +95,10 @@
         <Filename Value="webwiki.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="webwiki"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="1" Y="33"/>
+        <CursorPos X="96" Y="17"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -112,8 +111,8 @@
         <UnitName Value="uWebWiki"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="170"/>
-        <CursorPos X="1" Y="187"/>
+        <TopLine Value="62"/>
+        <CursorPos X="1" Y="151"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -525,8 +524,8 @@
         <UnitName Value="uWiki"/>
         <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="141"/>
-        <CursorPos X="14" Y="35"/>
+        <TopLine Value="187"/>
+        <CursorPos X="113" Y="193"/>
         <UsageCount Value="82"/>
         <Loaded Value="True"/>
       </Unit52>
@@ -794,7 +793,7 @@
         <UnitName Value="uerror"/>
         <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="113"/>
+        <TopLine Value="112"/>
         <CursorPos X="34" Y="267"/>
         <UsageCount Value="201"/>
         <Loaded Value="True"/>
@@ -1077,10 +1076,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="udownloads"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="68" Y="28"/>
+        <TopLine Value="33"/>
+        <CursorPos X="41" Y="49"/>
         <UsageCount Value="201"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -1946,124 +1946,124 @@
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="..\..\..\..\promet_website\site\maintemplate.html"/>
-        <Caret Line="1" Column="41" TopLine="1"/>
-      </Position1>
-      <Position2>
-        <Filename Value="..\..\..\..\promet_website\site\maintemplate.html"/>
-        <Caret Line="15" Column="44" TopLine="1"/>
-      </Position2>
-      <Position3>
-        <Filename Value="uwebwiki.pas"/>
-        <Caret Line="210" Column="45" TopLine="190"/>
-      </Position3>
-      <Position4>
-        <Filename Value="..\..\..\..\promet_website\site\ajaxtemplate.html"/>
-        <Caret Line="2" Column="65" TopLine="1"/>
-      </Position4>
-      <Position5>
-        <Filename Value="uerror.pas"/>
-        <Caret Line="4" Column="89" TopLine="1"/>
-      </Position5>
-      <Position6>
-        <Filename Value="uerror.pas"/>
-        <Caret Line="22" Column="35" TopLine="1"/>
-      </Position6>
-      <Position7>
-        <Filename Value="uerror.pas"/>
-        <Caret Line="30" Column="51" TopLine="17"/>
-      </Position7>
-      <Position8>
-        <Filename Value="uerror.pas"/>
-        <Caret Line="58" Column="40" TopLine="30"/>
-      </Position8>
-      <Position9>
-        <Filename Value="uerror.pas"/>
-        <Caret Line="60" Column="12" TopLine="41"/>
-      </Position9>
-      <Position10>
-        <Filename Value="uerror.pas"/>
-        <Caret Line="216" Column="70" TopLine="200"/>
-      </Position10>
-      <Position11>
-        <Filename Value="uerror.pas"/>
-        <Caret Line="218" Column="72" TopLine="200"/>
-      </Position11>
-      <Position12>
-        <Filename Value="uerror.pas"/>
-        <Caret Line="220" Column="72" TopLine="200"/>
-      </Position12>
-      <Position13>
-        <Filename Value="uerror.pas"/>
-        <Caret Line="221" Column="25" TopLine="200"/>
-      </Position13>
-      <Position14>
-        <Filename Value="uerror.pas"/>
-        <Caret Line="222" Column="17" TopLine="200"/>
-      </Position14>
-      <Position15>
-        <Filename Value="uerror.pas"/>
-        <Caret Line="225" Column="18" TopLine="212"/>
-      </Position15>
-      <Position16>
-        <Filename Value="uerror.pas"/>
-        <Caret Line="228" Column="17" TopLine="212"/>
-      </Position16>
-      <Position17>
-        <Filename Value="uerror.pas"/>
-        <Caret Line="229" Column="16" TopLine="212"/>
-      </Position17>
-      <Position18>
-        <Filename Value="uerror.pas"/>
-        <Caret Line="237" Column="56" TopLine="220"/>
-      </Position18>
-      <Position19>
-        <Filename Value="..\base\ubasehttpapplication.pas"/>
-        <Caret Line="8" Column="69" TopLine="1"/>
-      </Position19>
-      <Position20>
-        <Filename Value="..\base\ubasehttpapplication.pas"/>
-        <Caret Line="16" Column="33" TopLine="1"/>
-      </Position20>
-      <Position21>
-        <Filename Value="..\base\ubasehttpapplication.pas"/>
-        <Caret Line="71" Column="67" TopLine="52"/>
-      </Position21>
-      <Position22>
-        <Filename Value="..\base\ubasehttpapplication.pas"/>
-        <Caret Line="279" Column="32" TopLine="257"/>
-      </Position22>
-      <Position23>
-        <Filename Value="..\base\ubasehttpapplication.pas"/>
-        <Caret Line="71" Column="60" TopLine="44"/>
-      </Position23>
-      <Position24>
-        <Filename Value="..\base\ubasewebsession.pas"/>
-        <Caret Line="35" Column="15" TopLine="18"/>
-      </Position24>
-      <Position25>
-        <Filename Value="..\base\ubasewebsession.pas"/>
-        <Caret Line="272" Column="15" TopLine="246"/>
-      </Position25>
-      <Position26>
         <Filename Value="..\base\ubasewebsession.pas"/>
         <Caret Line="167" Column="3" TopLine="149"/>
-      </Position26>
-      <Position27>
+      </Position1>
+      <Position2>
         <Filename Value="..\base\ubasewebsession.pas"/>
         <Caret Line="40" Column="44" TopLine="16"/>
-      </Position27>
-      <Position28>
+      </Position2>
+      <Position3>
         <Filename Value="udownloads.pas"/>
         <Caret Line="78" Column="48" TopLine="49"/>
-      </Position28>
-      <Position29>
+      </Position3>
+      <Position4>
         <Filename Value="udownloads.pas"/>
         <Caret Line="29" Column="59" TopLine="12"/>
-      </Position29>
-      <Position30>
+      </Position4>
+      <Position5>
         <Filename Value="udownloads.pas"/>
         <Caret Line="28" Column="68" TopLine="1"/>
+      </Position5>
+      <Position6>
+        <Filename Value="webwiki.lpr"/>
+        <Caret Line="17" Column="96" TopLine="1"/>
+      </Position6>
+      <Position7>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="116" Column="1" TopLine="108"/>
+      </Position7>
+      <Position8>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="117" Column="1" TopLine="108"/>
+      </Position8>
+      <Position9>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="118" Column="1" TopLine="108"/>
+      </Position9>
+      <Position10>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="120" Column="1" TopLine="108"/>
+      </Position10>
+      <Position11>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="122" Column="1" TopLine="108"/>
+      </Position11>
+      <Position12>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="123" Column="1" TopLine="108"/>
+      </Position12>
+      <Position13>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="125" Column="1" TopLine="108"/>
+      </Position13>
+      <Position14>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="126" Column="1" TopLine="108"/>
+      </Position14>
+      <Position15>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="127" Column="1" TopLine="108"/>
+      </Position15>
+      <Position16>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="128" Column="1" TopLine="108"/>
+      </Position16>
+      <Position17>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="130" Column="1" TopLine="108"/>
+      </Position17>
+      <Position18>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="131" Column="1" TopLine="108"/>
+      </Position18>
+      <Position19>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="132" Column="1" TopLine="108"/>
+      </Position19>
+      <Position20>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="133" Column="1" TopLine="108"/>
+      </Position20>
+      <Position21>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="135" Column="1" TopLine="108"/>
+      </Position21>
+      <Position22>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="136" Column="1" TopLine="108"/>
+      </Position22>
+      <Position23>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="137" Column="1" TopLine="110"/>
+      </Position23>
+      <Position24>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="139" Column="1" TopLine="111"/>
+      </Position24>
+      <Position25>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="141" Column="1" TopLine="113"/>
+      </Position25>
+      <Position26>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="142" Column="1" TopLine="114"/>
+      </Position26>
+      <Position27>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="144" Column="1" TopLine="116"/>
+      </Position27>
+      <Position28>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="146" Column="1" TopLine="118"/>
+      </Position28>
+      <Position29>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="147" Column="1" TopLine="119"/>
+      </Position29>
+      <Position30>
+        <Filename Value="uwebwiki.pas"/>
+        <Caret Line="150" Column="1" TopLine="122"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -2095,6 +2095,15 @@
     </Other>
   </CompilerOptions>
   <Debugging>
+    <BreakPoints Count="1">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="uerror.pas"/>
+        <Line Value="132"/>
+      </Item1>
+    </BreakPoints>
     <Watches Count="1">
       <Item1>
         <Expression Value="LinkValue"/>

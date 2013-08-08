@@ -136,7 +136,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--debug"/>
+        <CommandLineParams Value="--config-path=/home/chris/.promet-erp-devel"/>
       </local>
     </RunParams>
     <RequiredPackages Count="21">
@@ -223,7 +223,7 @@
         <PackageName Value="LCL"/>
       </Item21>
     </RequiredPackages>
-    <Units Count="310">
+    <Units Count="312">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -240,7 +240,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="578"/>
         <CursorPos X="26" Y="595"/>
@@ -440,7 +440,7 @@
       <Unit19>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="656"/>
         <CursorPos X="97" Y="662"/>
@@ -450,20 +450,20 @@
       <Unit20>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1890"/>
+        <TopLine Value="1"/>
         <CursorPos X="1" Y="1914"/>
         <UsageCount Value="100"/>
-        <Loaded Value="True"/>
       </Unit20>
       <Unit21>
         <Filename Value="../base/dbintfs/uorder.pas"/>
         <UnitName Value="uOrder"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="332"/>
-        <CursorPos X="30" Y="336"/>
+        <TopLine Value="1452"/>
+        <CursorPos X="3" Y="1454"/>
         <UsageCount Value="77"/>
+        <Loaded Value="True"/>
       </Unit21>
       <Unit22>
         <Filename Value="../base/dbintfs/uperson.pas"/>
@@ -499,8 +499,7 @@
       <Unit25>
         <Filename Value="../base/dbintfs/udocuments.pas"/>
         <UnitName Value="uDocuments"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="862"/>
         <CursorPos X="3" Y="869"/>
@@ -535,7 +534,7 @@
         <UnitName Value="uBaseERPDBClasses"/>
         <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="117"/>
+        <TopLine Value="55"/>
         <CursorPos X="15" Y="134"/>
         <UsageCount Value="71"/>
         <Loaded Value="True"/>
@@ -590,10 +589,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOrderFrame"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="450"/>
-        <CursorPos X="25" Y="478"/>
+        <TopLine Value="437"/>
+        <CursorPos X="1" Y="445"/>
         <UsageCount Value="202"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -815,12 +814,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uWikiFrame"/>
-        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="478"/>
         <CursorPos X="1" Y="506"/>
         <UsageCount Value="37"/>
-        <Loaded Value="True"/>
       </Unit52>
       <Unit53>
         <Filename Value="uarticletext.pas"/>
@@ -969,13 +966,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ugridview"/>
-        <EditorIndex Value="16"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1010"/>
-        <CursorPos X="50" Y="1028"/>
+        <TopLine Value="1116"/>
+        <CursorPos X="1" Y="1133"/>
         <UsageCount Value="108"/>
         <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit67>
       <Unit68>
         <Filename Value="../base/dbintfs/utask.pas"/>
@@ -994,10 +991,10 @@
       </Unit69>
       <Unit70>
         <Filename Value="../base/changes.txt"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="100" Y="5"/>
+        <CursorPos X="61" Y="7"/>
         <UsageCount Value="103"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
@@ -1084,10 +1081,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPositionFrame"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="770"/>
-        <CursorPos X="1" Y="785"/>
+        <TopLine Value="778"/>
+        <CursorPos X="1" Y="809"/>
         <UsageCount Value="98"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit78>
       <Unit79>
         <Filename Value="../components/zeos/src/component/ZAbstractRODataset.pas"/>
@@ -1291,12 +1291,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="umanagedocframe"/>
-        <EditorIndex Value="18"/>
         <WindowIndex Value="0"/>
         <TopLine Value="620"/>
         <CursorPos X="3" Y="634"/>
         <UsageCount Value="100"/>
-        <Loaded Value="True"/>
       </Unit101>
       <Unit102>
         <Filename Value="../components/thumbs/thumbcontrol.pas"/>
@@ -1523,13 +1521,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uTaskPlan"/>
-        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1408"/>
+        <TopLine Value="1407"/>
         <CursorPos X="1" Y="1433"/>
         <UsageCount Value="101"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit128>
       <Unit129>
         <Filename Value="../../../../lazarus/lcl/actnlist.pas"/>
@@ -1596,12 +1591,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uGanttView"/>
-        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="418"/>
         <CursorPos X="1" Y="439"/>
         <UsageCount Value="100"/>
-        <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit136>
       <Unit137>
@@ -1994,7 +1987,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ustatisticframe"/>
-        <EditorIndex Value="19"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="633"/>
         <CursorPos X="1" Y="653"/>
@@ -2071,7 +2064,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
-        <UsageCount Value="191"/>
+        <UsageCount Value="192"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit191>
       <Unit192>
@@ -2303,7 +2296,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="5"/>
         <CursorPos X="3" Y="36"/>
-        <UsageCount Value="128"/>
+        <UsageCount Value="129"/>
       </Unit218>
       <Unit219>
         <Filename Value="../../../../lazarus/lcl/include/customframe.inc"/>
@@ -2681,7 +2674,7 @@
       <Unit265>
         <Filename Value="../base/ubasevisualapplicationtools.pas"/>
         <UnitName Value="ubasevisualapplicationtools"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="91" Y="3"/>
@@ -2980,27 +2973,23 @@
       <Unit302>
         <Filename Value="../base/upersonaloptions.pas"/>
         <UnitName Value="uPersonalOptions"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="91" Y="3"/>
         <UsageCount Value="16"/>
-        <Loaded Value="True"/>
       </Unit302>
       <Unit303>
         <Filename Value="../base_wiki/uwikiframe.pas"/>
         <UnitName Value="uWikiFrame"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="104" Y="3"/>
         <UsageCount Value="16"/>
-        <Loaded Value="True"/>
       </Unit303>
       <Unit304>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
         <UnitName Value="wikitohtml"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="37" Y="4"/>
@@ -3038,12 +3027,10 @@
       <Unit308>
         <Filename Value="../components/lazreport/lr_tachart.pas"/>
         <UnitName Value="lr_tachart"/>
-        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="24"/>
         <CursorPos X="27" Y="42"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit308>
       <Unit309>
         <Filename Value="../../../../../lazarus/components/tachart/tadbsource.pas"/>
@@ -3053,127 +3040,142 @@
         <CursorPos X="3" Y="22"/>
         <UsageCount Value="10"/>
       </Unit309>
+      <Unit310>
+        <Filename Value="../../../../../lazarus/lcl/include/control.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="554"/>
+        <CursorPos X="1" Y="572"/>
+        <UsageCount Value="10"/>
+      </Unit310>
+      <Unit311>
+        <Filename Value="../../../../../lazarus/lcl/actnlist.pas"/>
+        <UnitName Value="ActnList"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="181"/>
+        <CursorPos X="14" Y="197"/>
+        <UsageCount Value="10"/>
+      </Unit311>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="418" Column="1" TopLine="390"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="1171" Column="1" TopLine="1153"/>
       </Position1>
       <Position2>
-        <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="419" Column="1" TopLine="391"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="1173" Column="1" TopLine="1153"/>
       </Position2>
       <Position3>
-        <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="420" Column="1" TopLine="392"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="1174" Column="1" TopLine="1153"/>
       </Position3>
       <Position4>
-        <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="423" Column="1" TopLine="395"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="1175" Column="1" TopLine="1153"/>
       </Position4>
       <Position5>
-        <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="424" Column="1" TopLine="396"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="1176" Column="1" TopLine="1153"/>
       </Position5>
       <Position6>
-        <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="425" Column="1" TopLine="397"/>
+        <Filename Value="uorderframe.pas"/>
+        <Caret Line="444" Column="1" TopLine="437"/>
       </Position6>
       <Position7>
-        <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="426" Column="1" TopLine="398"/>
+        <Filename Value="../base_erp/upositionframe.pas"/>
+        <Caret Line="808" Column="1" TopLine="778"/>
       </Position7>
       <Position8>
-        <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="410" Column="1" TopLine="398"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3058" Column="1" TopLine="3040"/>
       </Position8>
       <Position9>
-        <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="412" Column="1" TopLine="398"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3060" Column="1" TopLine="3040"/>
       </Position9>
       <Position10>
-        <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="413" Column="1" TopLine="398"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3061" Column="1" TopLine="3040"/>
       </Position10>
       <Position11>
-        <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="414" Column="1" TopLine="398"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="2817" Column="1" TopLine="2800"/>
       </Position11>
       <Position12>
-        <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="416" Column="1" TopLine="398"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="2818" Column="1" TopLine="2800"/>
       </Position12>
       <Position13>
-        <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="417" Column="1" TopLine="398"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="2820" Column="1" TopLine="2800"/>
       </Position13>
       <Position14>
-        <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="458" Column="1" TopLine="440"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="1130" Column="1" TopLine="1113"/>
       </Position14>
       <Position15>
-        <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="460" Column="1" TopLine="440"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="1131" Column="1" TopLine="1113"/>
       </Position15>
       <Position16>
-        <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="461" Column="1" TopLine="440"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="1132" Column="1" TopLine="1113"/>
       </Position16>
       <Position17>
-        <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="463" Column="1" TopLine="440"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="1133" Column="1" TopLine="1113"/>
       </Position17>
       <Position18>
-        <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="464" Column="1" TopLine="440"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="1169" Column="1" TopLine="1153"/>
       </Position18>
       <Position19>
-        <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="465" Column="1" TopLine="440"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="1171" Column="1" TopLine="1153"/>
       </Position19>
       <Position20>
-        <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="466" Column="1" TopLine="440"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3061" Column="14" TopLine="3054"/>
       </Position20>
       <Position21>
-        <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="467" Column="1" TopLine="440"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="2820" Column="26" TopLine="2814"/>
       </Position21>
       <Position22>
-        <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="480" Column="1" TopLine="463"/>
+        <Filename Value="uorderframe.pas"/>
+        <Caret Line="444" Column="1" TopLine="437"/>
       </Position22>
       <Position23>
-        <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="497" Column="1" TopLine="480"/>
+        <Filename Value="../base_erp/upositionframe.pas"/>
+        <Caret Line="808" Column="1" TopLine="778"/>
       </Position23>
       <Position24>
-        <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="498" Column="1" TopLine="480"/>
+        <Filename Value="../base_erp/upositionframe.pas"/>
+        <Caret Line="809" Column="1" TopLine="778"/>
       </Position24>
       <Position25>
-        <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="499" Column="1" TopLine="480"/>
+        <Filename Value="uorderframe.pas"/>
+        <Caret Line="445" Column="1" TopLine="437"/>
       </Position25>
       <Position26>
-        <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="501" Column="1" TopLine="480"/>
+        <Filename Value="uorderframe.pas"/>
+        <Caret Line="446" Column="1" TopLine="437"/>
       </Position26>
       <Position27>
-        <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="503" Column="1" TopLine="480"/>
+        <Filename Value="uorderframe.pas"/>
+        <Caret Line="444" Column="1" TopLine="437"/>
       </Position27>
       <Position28>
-        <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="504" Column="1" TopLine="480"/>
+        <Filename Value="../base_erp/upositionframe.pas"/>
+        <Caret Line="808" Column="1" TopLine="778"/>
       </Position28>
       <Position29>
-        <Filename Value="../components/lazreport/lr_tachart.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Filename Value="../base_erp/upositionframe.pas"/>
+        <Caret Line="809" Column="1" TopLine="778"/>
       </Position29>
       <Position30>
-        <Filename Value="../components/lazreport/lr_tachart.pas"/>
-        <Caret Line="42" Column="27" TopLine="24"/>
+        <Filename Value="uorderframe.pas"/>
+        <Caret Line="445" Column="1" TopLine="437"/>
       </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">

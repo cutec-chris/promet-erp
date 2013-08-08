@@ -34,6 +34,7 @@ var
   Documents : TDocument;
   aExt: String;
 begin
+  TBaseWebSession(Session).AddHistoryUrl(ARequest.PathInfo);
   with BaseApplication as IBaseApplication do
     begin
       aPath := ARequest.PathInfo;
@@ -75,7 +76,6 @@ begin
       AResponse.Code := 404;
       AResponse.CodeText := 'Not found';
     end;
-  TBaseWebSession(Session).AddHistoryUrl(ARequest.PathInfo);
   Handled := True;
 end;
 initialization

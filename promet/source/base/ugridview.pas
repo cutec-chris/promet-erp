@@ -2817,6 +2817,7 @@ begin
   inherited EditingDone;
   if Assigned(FDataSet) and (gList.Row > 0) and Assigned(gList.Objects[0,gList.Row]) and (DataSet.GetBookmark=TRowObject(gList.Objects[0,gList.Row]).Rec) then
     SyncActiveRow(DataSet.GetBookmark,False,True,True);
+  gList.EditorMode:=False;
 end;
 procedure TfGridView.Insert(SetCol : Boolean);
 var

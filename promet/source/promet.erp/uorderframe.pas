@@ -441,6 +441,7 @@ procedure TfOrderFrame.acSaveExecute(Sender: TObject);
 begin
   if Assigned(FConnection) then
     begin
+      FPosFrame.Post;
       FDataSet.CascadicPost;
       if UseTransactions then
         begin
