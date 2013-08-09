@@ -93,12 +93,19 @@ type
     property Order : TOrder read FOrder write FOrder;
     property Repair : TOrderRepair read FOrderRepair;
   end;
+
+  { TOrderAddress }
+
   TOrderAddress = class(TBaseDBAddress)
+    procedure DataSetBeforePost(aDataSet: TDataSet);
   private
     FOrder: TOrder;
   public
+    constructor Create(aOwner: TComponent; DM: TComponent;
+       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure Assign(Source: TPersistent); override;
+    procedure Post; override;
     property Order : TOrder read FOrder write FOrder;
   end;
   TOrderPosTyp = class(TBaseDBDataSet)
@@ -236,6 +243,32 @@ begin
   inherited FillDefaults(aDataSet);
   aDataSet.FieldByName('RREF_ID').AsVariant:=(Parent as TOrder).Id.AsVariant;
 end;
+
+procedure TOrderAddress.DataSetBeforePost(aDataSet: TDataSet);
+begin
+  Order.DataSet.DisableControls;
+  if Order.FieldByName('CUSTNO').AsString<>FieldByName('ACCOUNTNO').AsString then
+    begin
+      if not Order.CanEdit then
+        Order.DataSet.Edit;
+      Order.FieldByName('CUSTNO').AsString := FieldByName('ACCOUNTNO').AsString;
+    end;
+  if Order.FieldByName('CUSTNAME').AsString<>FieldByName('NAME').AsString then
+    begin
+      if not Order.CanEdit then
+        Order.DataSet.Edit;
+      Order.FieldByName('CUSTNAME').AsString := FieldByName('NAME').AsString;
+    end;
+  Order.DataSet.EnableControls;
+end;
+
+constructor TOrderAddress.Create(aOwner: TComponent; DM: TComponent;
+  aConnection: TComponent; aMasterdata: TDataSet);
+begin
+  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  DataSet.BeforePost:=@DataSetBeforePost;
+end;
+
 procedure TOrderAddress.DefineFields(aDataSet: TDataSet);
 begin
   inherited DefineFields(aDataSet);
@@ -270,6 +303,12 @@ begin
       Order.FieldByName('CUSTNO').AsString := Person.FieldByName('ACCOUNTNO').AsString;
     end;
 end;
+
+procedure TOrderAddress.Post;
+begin
+  inherited Post;
+end;
+
 procedure TRepairProblems.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do

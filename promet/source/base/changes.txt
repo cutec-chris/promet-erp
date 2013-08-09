@@ -1,4 +1,7 @@
-﻿Build 260
+﻿Build 261
+      - Kundenname wird auch bei direkteingabe in den Auftrag übernommen
+      - wandeln von UTF8 bei Hilfe unterbunden
+Build 260
       - Optonen können aus Hilfe oder Wiki aufgerufen werden
       - Unteraufträge wurden in Auftragsübersicht kaskadiert dargestellt
       - größe Datumsfeld in Vorgang angepasst

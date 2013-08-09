@@ -2239,8 +2239,8 @@ end;
 procedure TBaseDBDataset.CascadicPost;
 begin
 //  FDataSet.DisableControls;
-  if (FDataSet.State = dsEdit) or (FDataSet.State = dsInsert) then
-    FDataSet.Post;
+  if CanEdit then
+    Post;
 //  FDataSet.EnableControls;
   FChanged := False;
   if Assigned(FOnChanged) then

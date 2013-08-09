@@ -506,9 +506,10 @@ begin
       ostr := StringReplace(ostr,'</h4><br>','</h4>',[rfReplaceAll]);
       ostr := StringReplace(ostr,'</h5><br>','</h5>',[rfReplaceAll]);
       ostr := StringReplace(ostr,'</h6><br>','</h6>',[rfReplaceAll]);
-    end;
-
-  Result := ostr;
+      Result := UTF8ToSys(ostr);
+    end
+  else
+    Result := ostr;
 end;
 
 
