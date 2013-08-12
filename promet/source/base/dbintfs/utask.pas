@@ -358,6 +358,8 @@ begin
   if (aStart>0) and (aDue>0) then
     aDur := aDue-aStart
   else aDur := MinimalTaskLength;
+  if (aStart < Now()) and (aDue=0) then
+    aStart := Now();
   if aStart < FieldByName('EARLIEST').AsDateTime then
     begin
       aStart := FieldByName('EARLIEST').AsDateTime;
