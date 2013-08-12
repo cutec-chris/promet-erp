@@ -4,7 +4,8 @@ program local_appbase;
 
 uses
   {$IFDEF UNIX}cwstring,cthreads,{$ENDIF}
-  uBaseHTMLApplication, pfcgiprometapp,
+  pfcgiprometapp,
+  ubasehttpapplication,
   Interfaces,uBaseApplication,umain;
 begin
   Application.DefaultModule:='main';

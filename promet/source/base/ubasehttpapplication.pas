@@ -104,7 +104,8 @@ begin
     MI:=ModuleFactory.FindModule(S);
   if (MI=Nil) then
     MI:=ModuleFactory.FindModule('error');
-  ModuleClass := MI.ModuleClass;
+  if Assigned(MI) then
+    ModuleClass := MI.ModuleClass;
 end;
 constructor TBaseHTTPApplication.Create(AOwner: TComponent);
 begin

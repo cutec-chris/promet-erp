@@ -45,6 +45,7 @@
       </Item2>
       <Item3>
         <PackageName Value="pfcgiprometapp"/>
+        <DefaultFilename Value="../base/pfcgiprometapp.lpk"/>
       </Item3>
       <Item4>
         <PackageName Value="WebLaz"/>
@@ -72,7 +73,7 @@
   <CompilerOptions>
     <Version Value="11"/>
     <Target>
-      <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/web/cgi-bin/local_appbase"/>
+      <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/tools/local_appbase"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>

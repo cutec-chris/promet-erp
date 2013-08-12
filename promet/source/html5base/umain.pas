@@ -27,7 +27,6 @@ var
 implementation
 uses uStatistic,uData;
 {$R *.lfm}
-
 procedure Tmain.getstatisticRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 var
@@ -124,7 +123,6 @@ begin
   aStatistic.Free;
   Handled:=True;
 end;
-
 procedure Tmain.FieldsToJSON(AFields: TFields; AJSON: TJSONObject;
   const ADateAsString: Boolean);
 var
@@ -151,7 +149,6 @@ begin
       AJSON.Add(VFieldName, VField.AsInteger);
   end;
 end;
-
 procedure Tmain.DataSetToJSON(ADataSet: TDataSet; AJSON: TJSONArray;
   const ADateAsString: Boolean);
 var
@@ -166,7 +163,6 @@ begin
     ADataSet.Next;
   end;
 end;
-
 procedure Tmain.JSONToFields(AJSON: TJSONObject; AFields: TFields;
   const ADateAsString: Boolean);
 var

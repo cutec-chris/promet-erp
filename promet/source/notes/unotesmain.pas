@@ -32,15 +32,18 @@ implementation
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
+  {
   {$IFDEF WINDOWS}
   Brush.Style := bsClear;
   BorderStyle := bsNone;
   {$ENDIF}
+  }
 end;
 
 procedure TForm1.CreateParams(var Params: TCreateParams);
 begin
   inherited CreateParams(Params);
+  {
   {$IFDEF WINDOWS}
   Params.WndParent:=GetDesktopWindow;
   Params.Style := Params.Style or WS_CHILD;
@@ -48,6 +51,7 @@ begin
   {$else}
   Params.WndParent:=0;
   {$ENDIF}
+  }
 end;
 
 end.
