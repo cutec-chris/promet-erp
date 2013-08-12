@@ -31,6 +31,7 @@ type
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
+    procedure Initialize; override;
 
     function GetOurConfigDir: string;
     function GetAppName: string;
@@ -77,7 +78,6 @@ procedure TBaseHTTPApplication.BaseHTTPApplicationException(Sender: TObject;
 begin
   writeln('Error:'+e.Message);
   FLogger.Error(e.Message);
-  Application.Terminate;
 end;
 procedure TBaseHTTPApplication.BaseHTTPApplicationGetModule(Sender: TObject;
   ARequest: TRequest; var ModuleClass: TCustomHTTPModuleClass);
@@ -148,6 +148,13 @@ begin
   FLogger.Free;
   inherited Destroy;
 end;
+
+procedure TBaseHTTPApplication.Initialize;
+begin
+  inherited Initialize;
+  //StopOnException:=False;
+end;
+
 function TBaseHTTPApplication.GetOurConfigDir: string;
 begin
   Result := GetConfigDir(StringReplace(lowercase(GetAppname),'-','',[rfReplaceAll]));
