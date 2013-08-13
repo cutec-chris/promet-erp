@@ -136,7 +136,6 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--config-path=/home/chris/.promet-erp-devel"/>
       </local>
     </RunParams>
     <RequiredPackages Count="21">
@@ -223,13 +222,12 @@
         <PackageName Value="LCL"/>
       </Item21>
     </RequiredPackages>
-    <Units Count="313">
+    <Units Count="314">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="prometerp"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="17"/>
         <CursorPos X="3" Y="50"/>
@@ -243,7 +241,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="364"/>
         <CursorPos X="17" Y="368"/>
@@ -444,7 +442,7 @@
       <Unit19>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="656"/>
         <CursorPos X="97" Y="662"/>
@@ -454,7 +452,7 @@
       <Unit20>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2223"/>
         <CursorPos X="1" Y="2241"/>
@@ -464,7 +462,7 @@
       <Unit21>
         <Filename Value="../base/dbintfs/uorder.pas"/>
         <UnitName Value="uOrder"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="267"/>
         <CursorPos X="1" Y="283"/>
@@ -505,7 +503,7 @@
       <Unit25>
         <Filename Value="../base/dbintfs/udocuments.pas"/>
         <UnitName Value="uDocuments"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="18"/>
         <WindowIndex Value="0"/>
         <TopLine Value="862"/>
         <CursorPos X="3" Y="869"/>
@@ -538,7 +536,7 @@
       <Unit28>
         <Filename Value="../base/dbintfs/ubaseerpdbclasses.pas"/>
         <UnitName Value="uBaseERPDBClasses"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="55"/>
         <CursorPos X="15" Y="134"/>
@@ -595,7 +593,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOrderFrame"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="462"/>
         <CursorPos X="9" Y="479"/>
@@ -820,10 +818,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uWikiFrame"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="478"/>
-        <CursorPos X="1" Y="506"/>
+        <CursorPos X="1" Y="500"/>
         <UsageCount Value="37"/>
+        <Loaded Value="True"/>
       </Unit52>
       <Unit53>
         <Filename Value="uarticletext.pas"/>
@@ -972,7 +972,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ugridview"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1122"/>
         <CursorPos X="18" Y="1127"/>
@@ -1002,7 +1002,7 @@
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="47" Y="3"/>
+        <CursorPos X="96" Y="3"/>
         <UsageCount Value="103"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
@@ -1089,7 +1089,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPositionFrame"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="777"/>
         <CursorPos X="1" Y="809"/>
@@ -1909,7 +1909,7 @@
       <Unit174>
         <Filename Value="../base/dbintfs/umeeting.pas"/>
         <UnitName Value="umeeting"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="262"/>
         <CursorPos X="3" Y="281"/>
@@ -1994,7 +1994,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ustatisticframe"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="19"/>
         <WindowIndex Value="0"/>
         <TopLine Value="633"/>
         <CursorPos X="1" Y="653"/>
@@ -2071,7 +2071,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
-        <UsageCount Value="194"/>
+        <UsageCount Value="195"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit191>
       <Unit192>
@@ -2303,7 +2303,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="5"/>
         <CursorPos X="3" Y="36"/>
-        <UsageCount Value="131"/>
+        <UsageCount Value="132"/>
       </Unit218>
       <Unit219>
         <Filename Value="../../../../lazarus/lcl/include/customframe.inc"/>
@@ -3014,10 +3014,13 @@
       <Unit306>
         <Filename Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
         <UnitName Value="IpHtml"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="16855"/>
-        <CursorPos X="1" Y="16872"/>
+        <TopLine Value="64"/>
+        <CursorPos X="1" Y="75"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit306>
       <Unit307>
         <Filename Value="../base_messaging/uviewmessage.pas"/>
@@ -3064,134 +3067,143 @@
       <Unit312>
         <Filename Value="../../../../general/src/ugeneralstrconsts.pas"/>
         <UnitName Value="uGeneralStrConsts"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit312>
+      <Unit313>
+        <Filename Value="../../../../../lazarus/lcl/include/custombitmap.inc"/>
+        <EditorIndex Value="5"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="163"/>
+        <CursorPos X="40" Y="179"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit313>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../base/dbintfs/uorder.pas"/>
-        <Caret Line="257" Column="1" TopLine="242"/>
+        <Filename Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
+        <Caret Line="5273" Column="18" TopLine="5255"/>
       </Position1>
       <Position2>
-        <Filename Value="../base/dbintfs/uorder.pas"/>
-        <Caret Line="258" Column="1" TopLine="242"/>
+        <Filename Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
+        <Caret Line="5272" Column="1" TopLine="5255"/>
       </Position2>
       <Position3>
-        <Filename Value="../base/dbintfs/uorder.pas"/>
-        <Caret Line="249" Column="1" TopLine="242"/>
+        <Filename Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
+        <Caret Line="5269" Column="1" TopLine="5255"/>
       </Position3>
       <Position4>
-        <Filename Value="../base/dbintfs/uorder.pas"/>
-        <Caret Line="255" Column="1" TopLine="242"/>
+        <Filename Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
+        <Caret Line="5270" Column="1" TopLine="5255"/>
       </Position4>
       <Position5>
-        <Filename Value="../base/dbintfs/uorder.pas"/>
-        <Caret Line="257" Column="1" TopLine="242"/>
+        <Filename Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
+        <Caret Line="5271" Column="1" TopLine="5255"/>
       </Position5>
       <Position6>
-        <Filename Value="../base/dbintfs/uorder.pas"/>
-        <Caret Line="258" Column="1" TopLine="242"/>
+        <Filename Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
+        <Caret Line="5272" Column="1" TopLine="5255"/>
       </Position6>
       <Position7>
-        <Filename Value="../base/dbintfs/uorder.pas"/>
-        <Caret Line="262" Column="31" TopLine="242"/>
+        <Filename Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
+        <Caret Line="5269" Column="1" TopLine="5255"/>
       </Position7>
       <Position8>
-        <Filename Value="../base/dbintfs/uorder.pas"/>
-        <Caret Line="249" Column="1" TopLine="242"/>
+        <Filename Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
+        <Caret Line="5270" Column="1" TopLine="5255"/>
       </Position8>
       <Position9>
-        <Filename Value="../base/dbintfs/uorder.pas"/>
-        <Caret Line="250" Column="1" TopLine="242"/>
+        <Filename Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
+        <Caret Line="5271" Column="1" TopLine="5255"/>
       </Position9>
       <Position10>
-        <Filename Value="../base/dbintfs/uorder.pas"/>
-        <Caret Line="256" Column="1" TopLine="242"/>
+        <Filename Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
+        <Caret Line="5272" Column="1" TopLine="5255"/>
       </Position10>
       <Position11>
-        <Filename Value="../base/dbintfs/uorder.pas"/>
-        <Caret Line="258" Column="1" TopLine="242"/>
+        <Filename Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
+        <Caret Line="5269" Column="1" TopLine="5255"/>
       </Position11>
       <Position12>
-        <Filename Value="../base/dbintfs/uorder.pas"/>
-        <Caret Line="259" Column="1" TopLine="242"/>
+        <Filename Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
+        <Caret Line="5270" Column="1" TopLine="5255"/>
       </Position12>
       <Position13>
-        <Filename Value="../base/dbintfs/uorder.pas"/>
-        <Caret Line="260" Column="1" TopLine="242"/>
+        <Filename Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
+        <Caret Line="5271" Column="1" TopLine="5255"/>
       </Position13>
       <Position14>
-        <Filename Value="../base/dbintfs/uorder.pas"/>
-        <Caret Line="262" Column="1" TopLine="242"/>
+        <Filename Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
+        <Caret Line="5272" Column="1" TopLine="5255"/>
       </Position14>
       <Position15>
-        <Filename Value="../base/dbintfs/udocuments.pas"/>
-        <Caret Line="869" Column="3" TopLine="862"/>
+        <Filename Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
+        <Caret Line="5269" Column="1" TopLine="5255"/>
       </Position15>
       <Position16>
-        <Filename Value="../base/dbintfs/uorder.pas"/>
-        <Caret Line="247" Column="1" TopLine="239"/>
+        <Filename Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
+        <Caret Line="5270" Column="1" TopLine="5255"/>
       </Position16>
       <Position17>
-        <Filename Value="../base/dbintfs/uorder.pas"/>
-        <Caret Line="569" Column="22" TopLine="566"/>
+        <Filename Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
+        <Caret Line="5271" Column="1" TopLine="5255"/>
       </Position17>
       <Position18>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="2255" Column="1" TopLine="2223"/>
+        <Filename Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
+        <Caret Line="5272" Column="1" TopLine="5255"/>
       </Position18>
       <Position19>
-        <Filename Value="../base/dbintfs/uorder.pas"/>
-        <Caret Line="106" Column="38" TopLine="86"/>
+        <Filename Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
+        <Caret Line="5269" Column="1" TopLine="5255"/>
       </Position19>
       <Position20>
-        <Filename Value="../base/dbintfs/uorder.pas"/>
-        <Caret Line="283" Column="1" TopLine="267"/>
+        <Filename Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
+        <Caret Line="5270" Column="1" TopLine="5255"/>
       </Position20>
       <Position21>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="3062" Column="14" TopLine="3055"/>
+        <Filename Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
+        <Caret Line="5275" Column="41" TopLine="5255"/>
       </Position21>
       <Position22>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="3059" Column="1" TopLine="3052"/>
+        <Filename Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
+        <Caret Line="5211" Column="51" TopLine="5253"/>
       </Position22>
       <Position23>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="3065" Column="1" TopLine="3052"/>
+        <Filename Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
+        <Caret Line="5276" Column="25" TopLine="5255"/>
       </Position23>
       <Position24>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="1133" Column="72" TopLine="1116"/>
+        <Filename Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
+        <Caret Line="5271" Column="1" TopLine="5255"/>
       </Position24>
       <Position25>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="1179" Column="30" TopLine="1116"/>
+        <Filename Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
+        <Caret Line="5272" Column="1" TopLine="5255"/>
       </Position25>
       <Position26>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="1134" Column="1" TopLine="1116"/>
+        <Filename Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
+        <Caret Line="5273" Column="1" TopLine="5255"/>
       </Position26>
       <Position27>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="1131" Column="23" TopLine="1122"/>
+        <Filename Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
+        <Caret Line="5270" Column="1" TopLine="5255"/>
       </Position27>
       <Position28>
-        <Filename Value="prometerp.lpr"/>
-        <Caret Line="49" Column="14" TopLine="17"/>
+        <Filename Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
+        <Caret Line="5271" Column="1" TopLine="5255"/>
       </Position28>
       <Position29>
-        <Filename Value="umain.pas"/>
-        <Caret Line="367" Column="3" TopLine="364"/>
+        <Filename Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
+        <Caret Line="5272" Column="1" TopLine="5255"/>
       </Position29>
       <Position30>
-        <Filename Value="umain.pas"/>
-        <Caret Line="248" Column="32" TopLine="225"/>
+        <Filename Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
+        <Caret Line="5273" Column="1" TopLine="5255"/>
       </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">
@@ -3235,7 +3247,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="2">
+    <BreakPoints Count="1">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
@@ -3243,13 +3255,6 @@
         <Source Value="../base/uwikiframe.pas"/>
         <Line Value="466"/>
       </Item1>
-      <Item2>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="../base/uwikiframe.pas"/>
-        <Line Value="500"/>
-      </Item2>
     </BreakPoints>
     <Watches Count="1">
       <Item1 ClassAutoCast="True">
