@@ -27,15 +27,14 @@ type
       var Picture: TPicture);
   private
     { private declarations }
-    aFullText: TStringList;
-    aName: String;
     UseID: String;
     nHeight: Integer;
+    FRootPage : Variant;
     aLines : Integer;
     FCache: TFileCache;
     FActNode: TIpHtmlNode;
     function Wiki2HTML(input: string): TIPHtml;
-    function FindFirstSection : String;
+    function FindFirstSection(aName : string;aFullText : TStrings) : String;
   protected
     procedure UpdateShowing; override;
     procedure ShowControl(AControl: TControl); override;
@@ -114,22 +113,20 @@ var
   aSec: String;
   result: Boolean;
   aParent: Controls.TWinControl;
+  aWiki: TWikiList;
 begin
   with Application as IBaseDbInterface do
     DBConfig.WriteString(UseID,'NO');
-  aSec := FindFirstSection;
-  result := aSec<>'';
-  if Result then
-    begin
-      ipHTML.SetHtml(Wiki2HTML(aSec));
-      Timer1.Enabled:=True;
-    end
+  aWiki := TWikiList.Create(nil,Data);
+  aWiki.Select(FRootPage);
+  aWiki.Open;
+  if OpenWikiPage(aWiki) then
+    UpdateShowing
   else
     begin
-      Timer1.Enabled:=False;
-      aParent := Self.Parent;
       Height := 1;
     end;
+  aWiki.Free;
 end;
 
 procedure TfQuickHelpFrame.Button2Click(Sender: TObject);
@@ -233,16 +230,35 @@ begin
   end;
 end;
 
-function TfQuickHelpFrame.FindFirstSection: String;
+function TfQuickHelpFrame.FindFirstSection(aName: string; aFullText: TStrings
+  ): String;
 var
   UseThis: Boolean = False;
   i: Integer;
+  aWiki: TWikiList;
+  PageName: String;
 begin
   aLines := 0;
   Result := '';
   for i := 0 to aFullText.Count-1 do
     begin
-      if copy(trim(aFullText[i]),0,3)='===' then
+      if copy(trim(aFullText[i]),0,5)='===[[' then
+        begin
+          PageName := copy(trim(aFullText[i]),6,length(trim(aFullText[i])));
+          PageName:=copy(PageName,0,pos(']]',PageName)-1);
+          if pos('|',PageName)>0 then
+            PageName:=copy(PageName,0,pos('|',PageName)-1);
+          aWiki := TWikiList.Create(nil,Data);
+          if aWiki.FindWikiPage(PageName) then
+            if OpenWikiPage(aWiki) then
+              begin
+                aWiki.Free;
+                result := 'OK';
+                exit;
+              end;
+          aWiki.Free;
+        end
+      else if copy(trim(aFullText[i]),0,3)='===' then
         begin
           if UseThis then
             begin
@@ -285,8 +301,9 @@ end;
 function TfQuickHelpFrame.OpenWikiPage(aWiki : TWikiList): Boolean;
 var
   aSec: String;
+  aName: String;
+  aFullText: TStringList;
 begin
-  FreeAndNil(aFullText);
   with Application as IBaseDbInterface do
     if DBConfig.ReadString('QUICKHELP','YES') = 'NO'  then
       begin
@@ -301,13 +318,16 @@ begin
       end;
   aFullText := TStringList.Create;
   aName := aWiki.FieldByName('NAME').AsString;
+  if FRootPage=0 then
+    FRootPage:=aWiki.Id.AsVariant;
   aFullText.Text := aWiki.FieldByName('DATA').AsString;
-  aSec := FindFirstSection;
+  aSec := FindFirstSection(aName,aFullText);
   result := aSec<>'';
-  if Result then
+  if Result and (aSec<>'OK') then
     begin
       ipHTML.SetHtml(Wiki2HTML(aSec));
     end;
+  FreeAndNil(aFullText);
 end;
 
 constructor TfQuickHelpFrame.Create(TheOwner: TComponent);
@@ -316,6 +336,7 @@ begin
   FCache := TFileCache.Create(30);
   FCache.OnGetFile:=@FCacheGetFile;
   Name := '';
+  FRootPage:=0;
 end;
 
 destructor TfQuickHelpFrame.Destroy;

@@ -2,7 +2,7 @@ unit umaintasks;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, uPrometFrames,uTasks;
+  Classes, SysUtils, FileUtil, Forms, Controls, uPrometFrames,uTasks,uBaseDbClasses;
 type
   { TfMainTaskFrame }
   TfMainTaskFrame = class(TPrometMainFrame)
@@ -11,6 +11,7 @@ type
     FTasks : TfTaskFrame;
   public
     { public declarations }
+    procedure SetDataSet(const AValue: TBaseDBDataset); override;
     property Tasks : TfTaskFrame read FTasks;
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -19,6 +20,13 @@ type
 
 implementation
 {$R *.lfm}
+
+procedure TfMainTaskFrame.SetDataSet(const AValue: TBaseDBDataset);
+begin
+  inherited SetDataSet(AValue);
+  DoOpen;
+end;
+
 { TfMainTaskFrame }
 constructor TfMainTaskFrame.Create(AOwner: TComponent);
 begin
