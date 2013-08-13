@@ -245,7 +245,7 @@ type
   public
     { public declarations }
     property TimeReg : TfEnterTime read FTimeReg;
-    procedure DoCreate;
+    function DoCreate : Boolean;
   end;
 var
   fMain: TfMain;
@@ -362,9 +362,10 @@ begin
       aList.Free;
     end;
 end;
-procedure TfMain.DoCreate;
+function TfMain.DoCreate : Boolean;
 begin
   acLogin.Execute;
+  Result := not acLogin.Enabled;
 end;
 function TfMain.CommandReceived(Sender: TObject; aCommand: string): Boolean;
 begin
@@ -561,6 +562,7 @@ var
   aHist: TBaseHistory;
   aCategory: TCategory;
 begin
+  fMain.Hide;
   aTime := GetTickCount64;
   with Application as IBaseApplication do
     if not Login then
@@ -1035,6 +1037,7 @@ begin
     debugln('LoginTime: '+IntToStr(GetTickCount64-aTime));
   finally
     fSplash.Hide;
+    fMain.Visible:=True;
   end;
   IPCTimer.Enabled:=True;
 end;
