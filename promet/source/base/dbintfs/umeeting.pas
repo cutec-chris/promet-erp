@@ -154,7 +154,7 @@ begin
         with ManagedFieldDefs do
           begin
             Add('POSNO',ftInteger,0,True);
-            Add('DESC',ftMemo,0,True);
+            Add('DESC',ftMemo,0,False);
             Add('LINK',ftString,200,False);
             Add('OWNER',ftString,20,False);
             Add('USER',ftString,20,False);
