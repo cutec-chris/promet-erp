@@ -2238,10 +2238,8 @@ begin
 end;
 procedure TBaseDBDataset.CascadicPost;
 begin
-//  FDataSet.DisableControls;
   if CanEdit then
     Post;
-//  FDataSet.EnableControls;
   FChanged := False;
   if Assigned(FOnChanged) then
     FOnChanged(Self);
