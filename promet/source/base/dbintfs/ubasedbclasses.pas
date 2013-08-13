@@ -11,7 +11,7 @@ unit uBaseDbClasses;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, db, uBaseDbDataSet, Variants, uIntfStrConsts, DOM,
+  Classes, windows, SysUtils, db, uBaseDbDataSet, Variants, uIntfStrConsts, DOM,
   Contnrs;
 type
   TBaseDBDataset = class(TComponent)
@@ -184,7 +184,9 @@ type
     property Rights : TRights read FRights;
     property Options : TOptions read FOptions;
     procedure SetPasswort(aPasswort : string);
+    function GetRandomSalt : string;
     function CheckPasswort(aPasswort : string) : Boolean;
+    function CheckSHA1Passwort(aPasswort,aSalt : string) : Boolean;
     procedure SelectByAccountno(aAccountno : string);virtual;
     property History : TBaseHistory read FHistory;
     property WorkTime : Extended read GetWorktime;
@@ -1772,7 +1774,17 @@ var
 begin
   if not CanEdit then
     DataSet.Edit;
-  //Passwort.AsString:=md5print(MD5String(fPassword.ePasswort.text));
+  Salt.AsString:=GetRandomSalt;
+  aRes := '$'+SHA1Print(SHA1String(SHA1Print(SHA1String(MergeSalt(aPasswort,Salt.AsString)))));
+  Passwort.AsString:=aRes;
+  DataSet.Post;
+end;
+
+function TUser.GetRandomSalt: string;
+var
+  aSalt: String;
+  aGUID: TGUID;
+begin
   CreateGUID(aGUID);
   aSalt := md5Print(md5String(GUIDToString(aGUID)+UserName.AsString));
   CreateGUID(aGUID);
@@ -1780,11 +1792,9 @@ begin
   CreateGUID(aGUID);
   aSalt += md5Print(md5String(GUIDToString(aGUID)));
   aSalt :=copy(aSalt,0,104);
-  Salt.AsString:=aSalt;
-  aRes := '$'+SHA1Print(SHA1String(SHA1Print(SHA1String(MergeSalt(aPasswort,Salt.AsString)))));
-  Passwort.AsString:=aRes;
-  DataSet.Post;
+  Result := aSalt;
 end;
+
 function TUser.CheckPasswort(aPasswort: string): Boolean;
 var
   aRes: String;
@@ -1799,6 +1809,16 @@ begin
       Result := (copy(aRes,0,length(Passwort.AsString)) = Passwort.AsString) and (length(Passwort.AsString) > 30);
     end;
 end;
+
+function TUser.CheckSHA1Passwort(aPasswort, aSalt: string): Boolean;
+var
+  aRes: String;
+begin
+  aSalt := Salt.AsString;
+  aRes := '$'+SHA1Print(SHA1String(aPasswort));
+  Result := (copy(aRes,0,length(Passwort.AsString)) = Passwort.AsString) and (length(Passwort.AsString) > 30);
+end;
+
 procedure TUser.SelectByAccountno(aAccountno: string);
 var
   aField: String = '';
@@ -2254,4 +2274,4 @@ begin
 end;
 initialization
 end.
-
+

@@ -1,0 +1,35 @@
+<html>
+<body>
+<form id="loginform">
+<fieldset>
+	<label for="user">User :</label>
+	<input type="text" name="user" id="user"/>
+	<label for="pass">Password :</label>
+	<input type="password" name="user" id="pass"/>
+	<input type="submit" value="login"/>
+</fieldset>
+</form>
+<script type="text/javascript" src="jxs.js"></script>
+<script>
+document.getElementById('loginform').onsubmit = function(){
+  return sl(document.getElementById('user').value, document.getElementById('pass').value);
+}
+function sl(usr, passw){
+  user = usr;
+  password = passw;
+  jx.load('http://localhost:8086/login', sl_post, 'text', 'get');
+  return false;
+}
+function sl_post(seed){
+  // hash of the pass
+  password = hex_md5(password);
+  // hash with the challenge
+  password = hex_md5(seed + password);
+  // send
+  var url = 'securelogin.php?user='+user+'&pass='+password;
+  jx.load(url, function (data) { location.reload(); }, 'text', 'post');
+  // reload the page (we should be logged
+}
+</script
+</body>
+</html>

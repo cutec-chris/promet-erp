@@ -9,8 +9,10 @@ uses
   LCLproc;
 
 type
-  Tmain = class(TFPWebModule)
+  TMain = class(TFPWebModule)
     procedure getstatisticRequest(Sender: TObject; ARequest: TRequest;
+      AResponse: TResponse; var Handled: Boolean);
+    procedure loginRequest(Sender: TObject; ARequest: TRequest;
       AResponse: TResponse; var Handled: Boolean);
   private
     { private declarations }
@@ -123,6 +125,26 @@ begin
   aStatistic.Free;
   Handled:=True;
 end;
+
+procedure Tmain.loginRequest(Sender: TObject; ARequest: TRequest;
+  AResponse: TResponse; var Handled: Boolean);
+begin
+  if (Data.Users.DataSet.Locate('NAME',ARequest.QueryFields.Values['name'],[loCaseInsensitive]))
+  or (Data.Users.DataSet.Locate('LOGINNAME',ARequest.QueryFields.Values['name'],[loCaseInsensitive]))
+  then
+    begin
+      AResponse.Code:=200;
+      AResponse.ContentType:='text/javascript;charset=utf-8';
+      AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
+      Response.Contents.Text := Data.Users.Salt.AsString;
+    end
+  else
+    begin
+      AResponse.Code:=500;
+      AResponse.CodeText:='error';
+    end;
+end;
+
 procedure Tmain.FieldsToJSON(AFields: TFields; AJSON: TJSONObject;
   const ADateAsString: Boolean);
 var

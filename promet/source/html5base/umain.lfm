@@ -6,6 +6,12 @@ object main: Tmain
       Default = True
       OnRequest = getstatisticRequest
       Template.AllowTagParams = False
+    end  
+    item
+      Name = 'login'
+      Default = False
+      OnRequest = loginRequest
+      Template.AllowTagParams = False
     end>
   CreateSession = True
   Height = 328
