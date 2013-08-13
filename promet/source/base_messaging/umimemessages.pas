@@ -284,8 +284,8 @@ begin
         end;
       if FieldByName('ID').IsNull then
         FieldByName('ID').AsString := msg.Header.MessageID;
-      FieldByName('SENDER').AsString := atmp;
-      FieldByName('REPLYTO').AsString := SysToUTF8(msg.Header.ReplyTo);
+      FieldByName('SENDER').AsString := ConvertEncoding(atmp,GuessEncoding(atmp),EncodingUTF8);;
+      FieldByName('REPLYTO').AsString := ConvertEncoding(msg.Header.ReplyTo,GuessEncoding(msg.Header.ReplyTo),EncodingUTF8);;
       FieldByName('SENDDATE').AsDateTime := msg.Header.Date;
       if FieldDefs.IndexOf('SENDTIME') <> -1 then
         FieldByName('SENDTIME').AsFloat := Frac(msg.Header.Date);
