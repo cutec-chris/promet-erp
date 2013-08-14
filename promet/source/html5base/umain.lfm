@@ -1,9 +1,9 @@
-object main: Tmain
+object appbase: Tappbase
   OldCreateOrder = False
   Actions = <  
     item
       Name = 'getstatistic'
-      Default = True
+      Default = False
       OnRequest = getstatisticRequest
       Template.AllowTagParams = False
     end  
@@ -13,6 +13,8 @@ object main: Tmain
       OnRequest = loginRequest
       Template.AllowTagParams = False
     end>
+  ActionVar = 'action'
+  DefActionWhenUnknown = False
   CreateSession = True
   Height = 328
   HorizontalOffset = 328

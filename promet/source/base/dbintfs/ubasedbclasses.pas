@@ -186,7 +186,7 @@ type
     procedure SetPasswort(aPasswort : string);
     function GetRandomSalt : string;
     function CheckPasswort(aPasswort : string) : Boolean;
-    function CheckSHA1Passwort(aPasswort,aSalt : string) : Boolean;
+    function CheckSHA1Passwort(aPasswort : string) : Boolean;
     procedure SelectByAccountno(aAccountno : string);virtual;
     property History : TBaseHistory read FHistory;
     property WorkTime : Extended read GetWorktime;
@@ -1810,11 +1810,10 @@ begin
     end;
 end;
 
-function TUser.CheckSHA1Passwort(aPasswort, aSalt: string): Boolean;
+function TUser.CheckSHA1Passwort(aPasswort : string): Boolean;
 var
   aRes: String;
 begin
-  aSalt := Salt.AsString;
   aRes := '$'+SHA1Print(SHA1String(aPasswort));
   Result := (copy(aRes,0,length(Passwort.AsString)) = Passwort.AsString) and (length(Passwort.AsString) > 30);
 end;

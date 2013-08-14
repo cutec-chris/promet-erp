@@ -63,7 +63,7 @@
       <Unit1>
         <Filename Value="umain.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="main"/>
+        <ComponentName Value="appbase"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="umain"/>

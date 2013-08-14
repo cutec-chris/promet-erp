@@ -9,26 +9,58 @@
 	<input type="submit" value="login"/>
 </fieldset>
 </form>
-<script type="text/javascript" src="jxs.js"></script>
-<script>
+<script type="text/javascript" src="core-min.js"></script>
+<script type="text/javascript" src="sha1-min.js"></script>
+<script language="javascript">
 document.getElementById('loginform').onsubmit = function(){
-  return sl(document.getElementById('user').value, document.getElementById('pass').value);
+  return LoginStep1(document.getElementById('user').value, document.getElementById('pass').value);
 }
-function sl(usr, passw){
+function DoGet(aurl){
+  var scripts = document.getElementsByTagName("script");
+  for (i=0; i<scripts.length; i++) {
+    var url = scripts[i].getAttribute("src");
+    if(!url) continue;
+    if(url.indexOf("appbase")>=0) {
+      scripts[i].parentNode.removeChild(scripts[i]);
+    }
+  }
+  // Anlegen und Einfügen des neuen Skripts
+  var script = document.createElement("script");
+  script.setAttribute("src", aurl);
+  script.setAttribute("type", "text/javascript");
+  document.body.appendChild(script);
+}
+function LoginStep1(usr, passw){
   user = usr;
   password = passw;
-  jx.load('http://localhost:8086/login', sl_post, 'text', 'get');
+  document.getElementById('loginform').elements["pass"].value="";
+  DoGet("http://localhost:8086/appbase?action=login&step=1&name="+encodeURIComponent(usr)+"&random="+encodeURIComponent(Math.random()));
+  LoginTimer = window.setTimeout("LoginTimeout()", 500);
   return false;
 }
-function sl_post(seed){
-  // hash of the pass
-  password = hex_md5(password);
-  // hash with the challenge
-  password = hex_md5(seed + password);
-  // send
-  var url = 'securelogin.php?user='+user+'&pass='+password;
-  jx.load(url, function (data) { location.reload(); }, 'text', 'post');
-  // reload the page (we should be logged
+function LoginTimeout(){
+  window.clearTimeout(LoginTimer);
+  document.getElementById('loginform').elements["pass"].focus();
+  alert("Login fehlgeschlagen !");
+}
+function LoginStep2(salt){
+  window.clearTimeout(LoginTimer);
+  var Result="";
+  var apw = password;
+  for(i=0;i<password.length;i++)
+    {
+      Result += salt.substring(0,5);
+      salt = salt.substring(5,salt.length);
+      Result += apw.substring(0,1);
+      apw = apw.substring(1,apw.length);
+    }
+  password=CryptoJS.SHA1(Result);
+  DoGet("http://localhost:8086/appbase?action=login&step=2&p="+encodeURIComponent(password)+"&random="+encodeURIComponent(Math.random()));
+  LoginTimer = window.setTimeout("LoginTimeout()", 500);
+}
+function LoginComplete(){
+  window.clearTimeout(LoginTimer);
+  alert("Login ok !");
 }
 </script
 </body>

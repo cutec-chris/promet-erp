@@ -9,7 +9,7 @@ uses
   LCLproc;
 
 type
-  TMain = class(TFPWebModule)
+  Tappbase = class(TFPWebModule)
     procedure getstatisticRequest(Sender: TObject; ARequest: TRequest;
       AResponse: TResponse; var Handled: Boolean);
     procedure loginRequest(Sender: TObject; ARequest: TRequest;
@@ -24,12 +24,12 @@ type
   end;
 
 var
-  main: Tmain;
+  appbase: Tappbase;
 
 implementation
 uses uStatistic,uData;
 {$R *.lfm}
-procedure Tmain.getstatisticRequest(Sender: TObject; ARequest: TRequest;
+procedure Tappbase.getstatisticRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 var
   aStatistic: TStatistic;
@@ -125,27 +125,51 @@ begin
   aStatistic.Free;
   Handled:=True;
 end;
-
-procedure Tmain.loginRequest(Sender: TObject; ARequest: TRequest;
+procedure Tappbase.loginRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 begin
-  if (Data.Users.DataSet.Locate('NAME',ARequest.QueryFields.Values['name'],[loCaseInsensitive]))
-  or (Data.Users.DataSet.Locate('LOGINNAME',ARequest.QueryFields.Values['name'],[loCaseInsensitive]))
-  then
+  Data.Users.First;
+  if ARequest.QueryFields.Values['step']='1' then
     begin
-      AResponse.Code:=200;
-      AResponse.ContentType:='text/javascript;charset=utf-8';
-      AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
-      Response.Contents.Text := Data.Users.Salt.AsString;
+      if (Data.Users.DataSet.Locate('NAME',ARequest.QueryFields.Values['name'],[loCaseInsensitive]))
+      or (Data.Users.DataSet.Locate('LOGINNAME',ARequest.QueryFields.Values['name'],[loCaseInsensitive]))
+      then
+        begin
+          AResponse.Code:=200;
+          AResponse.ContentType:='text/javascript;charset=utf-8';
+          AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
+          Response.Contents.Text := 'LoginStep2("'+Data.Users.Salt.AsString+'");';
+          Session.Variables['LOGIN']:=ARequest.QueryFields.Values['name'];
+        end
+      else
+        begin
+          Session.RemoveVariable('LOGIN');
+          AResponse.Code:=500;
+          AResponse.CodeText:='error';
+        end;
     end
-  else
+  else if ARequest.QueryFields.Values['step']='2' then
     begin
-      AResponse.Code:=500;
-      AResponse.CodeText:='error';
+      if ((Data.Users.DataSet.Locate('NAME',Session.Variables['LOGIN'],[loCaseInsensitive]))
+      or (Data.Users.DataSet.Locate('LOGINNAME',Session.Variables['LOGIN'],[loCaseInsensitive])))
+      and (Data.Users.CheckSHA1Passwort(ARequest.QueryFields.Values['p'])) then
+        begin
+          AResponse.Code:=200;
+          AResponse.ContentType:='text/javascript;charset=utf-8';
+          AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
+          Response.Contents.Text := 'LoginComplete();';
+        end
+      else
+        begin
+          Session.RemoveVariable('LOGIN');
+          AResponse.Code:=500;
+          AResponse.CodeText:='error';
+        end;
     end;
+  Handled:=True;
 end;
 
-procedure Tmain.FieldsToJSON(AFields: TFields; AJSON: TJSONObject;
+procedure Tappbase.FieldsToJSON(AFields: TFields; AJSON: TJSONObject;
   const ADateAsString: Boolean);
 var
   I: Integer;
@@ -171,7 +195,7 @@ begin
       AJSON.Add(VFieldName, VField.AsInteger);
   end;
 end;
-procedure Tmain.DataSetToJSON(ADataSet: TDataSet; AJSON: TJSONArray;
+procedure Tappbase.DataSetToJSON(ADataSet: TDataSet; AJSON: TJSONArray;
   const ADateAsString: Boolean);
 var
   VJSON: TJSONObject;
@@ -185,7 +209,7 @@ begin
     ADataSet.Next;
   end;
 end;
-procedure Tmain.JSONToFields(AJSON: TJSONObject; AFields: TFields;
+procedure Tappbase.JSONToFields(AJSON: TJSONObject; AFields: TFields;
   const ADateAsString: Boolean);
 var
   I: Integer;
@@ -222,6 +246,6 @@ begin
 end;
 
 initialization
-  RegisterHTTPModule('main', Tmain);
+  RegisterHTTPModule('main', Tappbase);
 end.
 
