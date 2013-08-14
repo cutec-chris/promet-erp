@@ -63,7 +63,7 @@ Var
 begin
   L:=aSession.FieldByName('LASTACCESS').AsDateTime;
   T:=aSession.FieldByName('TIMEOUT').AsInteger;
-  Result:=((Now-L)>(T/(24*60)))
+  Result:=((Now-L)>(T/(24*60)));
 end;
 function TBaseSessionFactory.DoCreateSession(ARequest: TRequest
   ): TCustomSession;
@@ -95,6 +95,10 @@ begin
                 aSessions.DataSet.Edit;
               aSessions.FieldByName('ISACTIVE').AsString := 'N';
               aSessions.DataSet.Post;
+              aSessions.Variables.Select('LOGIN');
+              aSessions.Variables.Open;
+              while aSessions.Variables.Count>0 do
+                aSessions.Variables.Delete;
             end;
           Next;
         end;
@@ -361,6 +365,13 @@ begin
           AResponse.Code:=500;
           AResponse.CodeText:='error';
         end;
+    end
+  else if CheckLogin(ARequest,AResponse) then
+    begin
+      AResponse.Code:=200;
+      AResponse.ContentType:='text/javascript;charset=utf-8';
+      AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
+      AResponse.Contents.Text := 'LoginComplete();';
     end;
 end;
 function TBaseWebSession.CheckLogin(ARequest : TRequest;AResponse : TResponse;aRedirect: Boolean): Boolean;
@@ -368,7 +379,7 @@ begin
   Result := Variables['LOGIN'] <> '';
   if (not Result) and aRedirect then
     begin
-      AResponse.Code:=301;
+      AResponse.SendRedirect('login.html');
     end;
 end;
 
