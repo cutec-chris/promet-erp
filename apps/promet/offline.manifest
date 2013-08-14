@@ -1,0 +1,17 @@
+CACHE MANIFEST
+
+CACHE
+index.html
+tasks.html
+timeregistering.html
+history.html
+framework.js
+standart.css
+phone.css
+vendor/zepto.min.js
+themes/android/theme.css
+themes/android/img/activeButton.png
+themes/android/img/androidButton.png
+themes/android/img/androidButtonActive.png
+themes/android/img/back_button.png
+themes/android/img/back_button_clicked.png

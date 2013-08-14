@@ -1,0 +1,76 @@
+<html>
+<body>
+<body>
+  <div id="not-supported" style="display:none;background-color:#cc3333;color:white; padding:5px;font-weight:bold;">
+    Ihr Ger&auml;t unterst&auml;tzt das speichern der Daten nicht !
+  </div>
+  <div class="toolbar">
+    <h1>Aufgaben</h1>
+  </div>
+  <div class="content">
+    <form class="section" id="submitForm">
+    neu:
+      <input id="task-name" name="task-name" type="text" style="width: 85%" />
+      <input type="submit" class="toolbutton" value="+" />
+    </form>
+
+    <div class="section">
+      <ul id="task-list">
+      </ul>
+    </div>
+    <script type="text/javascript">
+    // In memory tasks store
+    tasks = [];
+    // This will change the view if localStorage isn't available. It
+    // returns true or false
+    function verifyLocalStorage()
+    {
+      if (!window.localStorage)
+      {
+        document.querySelector('.section').fadeOut();
+        document.querySelector('#not-supported').show();
+        return false;
+      }
+      return true;
+    }
+    // This adds a task
+    function addTask(task)
+    {
+      // To the view
+      var nli=document.createElement("li");
+      var list = document.querySelector('#task-list')
+      list.appendChild(nli);
+      var ndiv = document.createElement("div");
+      nli.appendChild(ndiv);
+      ndiv.setAttribute('id',task.number);
+      ndiv.innerHTML = '<input type="checkbox" style="width:auto;display:inline;"><label style="margin-left:5px;">'+task.name+'</label>';
+
+      // To memory
+      tasks[tasks.length] = task;
+      // In storage
+      localStorage['tasks'] = JSON.stringify(tasks);
+    }
+    // Set it all up
+    // Notify the user if local storage isn't supported
+    if (verifyLocalStorage() === false)
+      return;
+    // Get the last stored tasks and restore them to the UI.
+    // Default to an empty array
+    var oldTasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+    for (var i=0;i<=oldTasks.length-1;i++)
+      addTask(oldTasks[i]);
+    // Set up a handler for submission
+    document.querySelector('#submitForm').onsubmit=function(){
+      // Add the new task
+      var aTaskName = document.querySelector('#task-name');
+      var newTask = { 'name' : aTaskName.value };
+      addTask(newTask);
+      // Clear the input
+      document.querySelector('#task-name').value = '';
+      // Don't post
+      return false;
+    };
+    </script>
+  </div>
+</body>
+</html>
