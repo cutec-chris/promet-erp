@@ -1,0 +1,648 @@
+body {
+    background: #000;
+    color: #ddd;
+}
+> * {
+    background: #000;
+}
+h1, h2 {
+    font: 18px "Helvetica Neue", Helvetica;
+    text-shadow: rgba(255,255,255,.2) 0 1px 1px;
+    color: #000;
+    margin: 10px 20px 5px;
+}
+#progress {
+    -webkit-border-radius: 10px;
+    background-color: rgba(ff,ff,ff,.7);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    height: 80px;
+    left: 60px;
+    line-height: 80px;
+    margin: 0 auto;
+    position: absolute;
+    text-align: center;
+    top: 120px;
+    width: 200px;
+}
+/* @group Toolbar */
+.toolbar {
+    -webkit-box-sizing: border-box;
+    /*border-bottom: 1px solid #000;*/
+    background: #000000;
+    position: relative;
+    padding: 2px;
+    height: 45px;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#666), to(#333));
+}
+.black-translucent .toolbar {
+    margin-top: 20px;
+}
+.toolbar > h1 {
+    position: absolute;
+    overflow: hidden;
+    left: 50%;
+    top: 10px;
+    line-height: 1em;
+    margin: 1px 0 0 -75px;
+    height: 40px;
+    font-size: 20px;
+    width: 150px;
+    font-weight: bold;
+    text-shadow: rgba(0,0,0,1) 0 -1px 1px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #fff;
+}
+.toolbar > p {
+    /*position: absolute;*/
+    overflow: hidden;
+    /*left: 50%;*/
+    /*top: 5px;*/
+    line-height: 1em;
+    padding: 2px;
+    height: 15px;
+    font-size: 14px;
+	font-weight: bold;
+    width: 150px;
+    /*text-shadow: rgba(0,0,0,1) 0 -1px 1px;*/
+    /*text-align: center;*/
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #fff;
+	width: 100%;
+	padding: 3px;
+	margin: 0;
+}
+.landscape .toolbar > h1 {
+    margin-left: -125px;
+    width: 250px;
+}
+.toolbutton, .back, .cancel, .add {
+    position: absolute;
+    overflow: hidden;
+    top: 8px;
+    right: 10px;
+    margin: 0;
+    border-width: 0 5px;
+    padding: 0 3px;
+    width: auto;
+    height: 30px;
+    line-height: 30px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: rgba(0, 0, 0, 0.5) 0px -1px 0;
+    text-overflow: ellipsis;
+    text-decoration: none;
+    white-space: nowrap;
+    background: none;
+    -webkit-border-image: url(img/button.png) 0 5 0 5;
+}
+.button.active, .cancel.active, .add.active {
+    -webkit-border-image: url(img/button_clicked.png) 0 5 0 5;
+}
+.blueButton {
+    -webkit-border-image: url(img/blueButton.png) 0 5 0 5;
+    border-width: 0 5px;
+}
+.back {
+    left: 6px;
+    right: auto;
+    padding: 0;
+    max-width: 55px;
+    border-width: 0 8px 0 14px;
+    -webkit-border-image: url(img/back_button.png) 0 8 0 14;
+}
+.back.active {
+    -webkit-border-image: url(img/back_button_clicked.png) 0 8 0 14;
+}
+.leftButton, .cancel {
+    left: 6px;
+    right: auto;
+}
+.add {
+    font-size: 24px;
+    line-height: 24px;
+    font-weight: bold;
+}
+.button,
+.whiteButton,
+.grayButton, .redButton, .blueButton, .greenButton {
+    border-width: 0 12px;
+    color: #000000;
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+    text-decoration: inherit;
+    text-shadow: rgba(255, 255, 255, 0.7) 0 1px 0;
+}
+
+.button,
+.whiteButton.active, .grayButton.active, .redButton.active, .blueButton.active, .greenButton.active,
+.whiteButton:active, .grayButton:active, .redButton:active, .blueButton:active, .greenButton:active {
+    -webkit-border-image: url(img/activeButton.png) 0 12 0 12;
+    color: #666 !important;
+}
+.button,
+.whiteButton {
+	color: #000;
+    -webkit-border-image: url(img/androidButton.png) 0 12 0 12;
+}
+.button.active, .button:active {
+	color: #333 !important;
+    -webkit-border-image: url(img/androidButtonActive.png) 0 9 0 8;
+}
+.button {
+	border-width: 0 12px;
+    color: #000000;
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+    text-decoration: inherit;
+    text-shadow: rgba(255, 255, 255, 0.7) 0 1px 0;
+    -webkit-border-image: url(img/androidButton.png) 0 9 0 8;
+}
+.grayButton {
+    -webkit-border-image: url(img/grayButton.png) 0 12 0 12;
+    color: #FFFFFF;
+}
+
+.redButton {
+    -webkit-border-image: url(img/redButton.png) 0 12 0 12;
+}
+
+.greenButton {
+    -webkit-border-image: url(img/greenButton.png) 0 12 0 12;
+}
+
+
+/* @end */
+/* @group Lists */
+h1 + ul, #jqt h2 + ul, #jqt h3 + ul, #jqt h4 + ul, #jqt h5 + ul, #jqt h6 + ul {
+    margin-top: 0;
+}
+ul {
+    color: #aaa;
+    border: 1px solid #333333;
+    background: #fff;
+    font:  22px "Helvetica Neue", Helvetica;
+    padding: 0;
+    margin: 15px 10px 17px 10px;
+    -webkit-border-radius: 8px;
+    -webkit-box-shadow: rgba(0,0,0,.3) 1px 1px 3px;
+}
+ul li:first-child, ul li:first-child a {
+    color: #666;
+    border-top: 0;
+    -webkit-border-top-left-radius: 8px;
+    -webkit-border-top-right-radius: 8px;
+}
+ul.rounded li:last-child, ul li:last-child a {
+    color: #666;
+    -webkit-border-bottom-left-radius: 8px;
+    -webkit-border-bottom-right-radius: 8px;
+}
+ul li {
+    color: #666;
+    border-top: 1px solid #333;
+    border-bottom: #555858;
+    list-style-type: none;
+    padding: 10px 10px 10px 10px;
+    overflow: hidden;
+}
+ul li.arrow {
+    background-color: #000 !important;
+    background-image: url(img/chevron.png);
+    background-position: right center !important;
+    background-repeat: no-repeat !important;
+}
+
+ul li.arrow a {
+    padding: 12px 22px 12px 10px;
+}
+
+ul li.forward {
+    background-image: url(img/chevron_circle.png);
+    background-position: right center;
+    background-repeat: no-repeat;
+}
+ul.edgetoedge li.forward {
+    background-image: url(img/chevron_circle.png);
+    background-position: right center;
+    background-repeat: no-repeat;
+}
+/* universal links on list */
+ul li a, li.img a + a {
+    color: #666;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+    padding: 14px 10px 14px 10px;
+    margin: -10px;
+/*text-shadow: rgba(0,0,0,.2) 0 1px 1px;*/
+}
+ul li a.active, #jqt ul li a.button {
+    background-color: #4a4b4d;
+    color: #fff;
+}
+ul li a.active.loading {
+    background-image: url(img/loading.gif);
+    background-position: 95% center;
+    background-repeat: no-repeat;
+}
+ul li.arrow a.active {
+    background-image: url(img/chevron.png);
+    background-position: right center;
+    background-repeat: no-repeat;
+}
+ul li.forward a.active {
+    background-image: url(img/chevron_circle.png);
+    background-position: right center;
+    background-repeat: no-repeat;
+}
+ul li.img a + a {
+    margin: -10px 10px -20px -5px;
+    font-size: 17px;
+    font-weight: bold;
+}
+ul li.img a + a + a {
+    font-size: 14px;
+    font-weight: normal;
+    margin-left: -10px;
+    margin-bottom: -10px;
+    margin-top: 0;
+}
+ul li.img a + small + a {
+    margin-left: -5px;
+}
+ul li.img a + small + a + a {
+    margin-left: -10px;
+    margin-top: -20px;
+    margin-bottom: -10px;
+    font-size: 14px;
+    font-weight: normal;
+}
+ul li.img a + small + a + a + a {
+    margin-left: 0px !important;
+    margin-bottom: 0;
+}
+ul li a + a {
+    color: #000;
+    font: 14px "Helvetica Neue", Helvetica;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+ul li a + a + a, #jqt ul li.img a + a + a + a, #jqt ul li.img a + small + a + a + a {
+    color: #666;
+    font: 13px "Helvetica Neue", Helvetica;
+    margin: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+    padding: 0;
+}
+/*
+@end */
+/* @group Forms */
+ul.form li {
+    padding: 7px 10px;
+}
+ul.form li.error {
+    border: 2px solid red;
+}
+ul.form li.error + li.error {
+    border-top: 0;
+}
+ul li input[type="text"],
+ul li input[type="password"],
+ul li input[type="tel"],
+ul li input[type="number"],
+ul li input[type="search"],
+ul li input[type="email"],
+ul li input[type="url"],
+ul li textarea,
+ul li select {
+    color: #777;
+    background: transparent url('data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==');
+    border: 0;
+    font: normal 17px "Helvetica Neue", Helvetica;
+    padding: 0;
+    display: inline-block;
+    margin-left: 0px;
+    width: 100%;
+    -webkit-appearance: textarea;
+}
+ul li textarea {
+    height: 120px;
+    padding: 0;
+    text-indent: -2px;
+}
+ul li select {
+    text-indent: 0px;
+    background: transparent url(img/chevron.png) no-repeat right center;
+    -webkit-appearance: textfield;
+    margin-left: -6px;
+    width: 104%;
+}
+ul li input[type="checkbox"], #jqt ul li input[type="radio"] {
+    margin: 0;
+    padding: 10px 10px;
+}
+ul li input[type="checkbox"]:after, #jqt ul li input[type="radio"]:after {
+    content: attr(title);
+    font: 17px "Helvetica Neue", Helvetica;
+    display: block;
+    width: 246px;
+    color: #777;
+    margin: -12px 0 0 17px;
+}
+.android ul li input[type="checkbox"]:after, #jqt.android ul li input[type="radio"]:after {
+    margin: 3px 0 0 24px;
+}
+/* @end */
+/* @group Mini Label */
+ul li small {
+    color: #ccc;
+    font: 17px "Helvetica Neue", Helvetica;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+    width: 75%;
+    /*float: left;*/
+    padding: 0;
+}
+ul li small.evensmaller {
+	font-size: 0.7em;
+}
+ul li.arrow small {
+    padding: 0 15px;
+}
+ul li small.counter {
+    font-size: 17px;
+    line-height: 13px;
+    font-weight: bold;
+    background: rgba(0,0,0,.15);
+    color: #fff;
+    -webkit-border-radius: 11px;
+    padding: 4px 10px 5px 10px;
+    display: block;
+    width: auto;
+    margin-top: -22px;
+    -webkit-box-shadow: rgba(255,255,255,.1) 0 1px 0;
+}
+ul li.arrow small.counter {
+    margin-right: 15px;
+}
+/* @end */
+/* @group Individual */
+ul.individual {
+    border: 0;
+    background: none;
+    clear: both;
+    overflow: hidden;
+    padding-bottom: 3px;
+    -webkit-box-shadow: none;
+}
+ul.individual li {
+    background: #4c4d4e;
+    border: 1px solid #333;
+    font-size: 14px;
+    text-align: center;
+    -webkit-border-radius: 8px;
+    -webkit-box-sizing: border-box;
+    width: 48%;
+    float: left;
+    display: block;
+    padding: 11px 10px 14px 10px;
+    -webkit-box-shadow: rgba(0,0,0,.2) 1px 1px 3px;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4c4d4e), to(#404142));
+}
+ul.individual li + li {
+    float: right;
+}
+ul.individual li a {
+    color: #fff;
+    line-height: 16px;
+    margin: -11px -10px -14px -10px;
+    padding: 11px 10px 14px 10px;
+    -webkit-border-radius: 8px;
+}
+/* @end */
+/* @group Toggle */
+.toggle {
+    width: 27px;
+    /*position: relative;*/
+    height: 27px;
+    display: block;
+    overflow: hidden;
+    float: right;
+}
+.toggle input[type="checkbox"]:checked {
+    background-position: 0 0;
+	background: #fff url(img/toggleAndroidOn.png) 0 0 no-repeat;
+}
+.toggle input[type="checkbox"] {
+    -webkit-appearance: textarea;
+    -webkit-border-radius: 5px;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    /*-webkit-transition: background-position .15s;*/
+    background-color: transparent;
+    background: #fff url(img/toggleAndroidOff.png) 0 0 no-repeat;
+    border: 0;
+    height: 27px;
+    margin: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 27px;
+}
+/* @end */
+/* @group Info */
+.info {
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccc), to(#aaa), color-stop(.6,#CCCCCC));
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+    text-shadow: rgba(255,255,255,.8) 0 1px 0;
+    color: #444;
+    padding: 15px;
+    border-top: 1px solid rgba(255,255,255,.2);
+    font-weight: bold;
+}
+/* @end */
+/* @group Edge to edge */
+ul.edgetoedge {
+    border-width: 1px 0;
+    margin: 0;
+    padding: 0;
+}
+ul.edgetoedge li {
+    background: #000;
+    border-bottom: 1px solid #000;
+    border-top: 1px solid #4a4b4d;
+    font-size: 24px;
+    margin-bottom: -1px;
+}
+ul.edgetoedge li:last-child {
+	border-bottom: 1px solid #4a4b4d;
+}
+ul.edgetoedge li.arrow {
+    background-color: #000 !important;
+    background-image: url(img/chevron.png);
+    background-position: right center;
+    background-repeat: no-repeat;
+}
+ul.edgetoedge li.sep {
+    /*background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(0,0,0,0)), to(rgba(0,0,0,.5)));*/
+	background-color: #333;
+    border-bottom: 1px solid #111113;
+    border-top: 0px solid #666;
+    color: #ddd;
+    font-size: 16px;
+	font-weight: bold;
+    margin: 1px 0 0 0;
+    padding: 2px 10px;
+/*text-shadow: #000 0 1px 0;*/
+}
+ul.edgetoedge li em {
+    font-weight: normal;
+    font-style: normal;
+}
+ul.listIndex li {
+	color: #ccc;
+}
+
+/* @end */
+/* @group Plastic */
+#plastic {
+    background: #17181a;
+}
+ul.plastic {
+    background: #17181a;
+    color: #aaa;
+    font: bold 18px "Helvetica Neue", Helvetica;
+    margin: 0;
+    padding: 0;
+    border-width: 0 0 1px 0;
+}
+ul.plastic li {
+    border-width: 1px 0;
+    border-style: solid;
+    border-top-color: #222;
+    border-bottom-color: #000;
+    color: #666;
+    list-style-type: none;
+    overflow: hidden;
+    padding: 10px 10px 10px 10px;
+}
+ul.plastic li a.active.loading {
+    background-image: url(img/loading.gif);
+    background-position: 95% center;
+    background-repeat: no-repeat;
+}
+ul.plastic li small {
+    color: #888;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 24px;
+    text-transform: uppercase;
+}
+ul.plastic li:nth-child(odd) {
+    background-color: #1c1c1f;
+}
+ul.plastic li.arrow {
+    background-image: url(img/chevron.png);
+    background-position: right center;
+    background-repeat: no-repeat;
+}
+ul.plastic li.arrow a.active {
+    background-image: url(img/chevron.png);
+    background-position: right center;
+    background-repeat: no-repeat;
+}
+ul.plastic li.forward {
+    background-image: url(img/chevron_circle.png);
+    background-position: right center;
+    background-repeat: no-repeat;
+}
+ul.plastic li.forward a.active {
+    background-image: url(img/chevron_circle.png);
+    background-position: right center;
+    background-repeat: no-repeat;
+}
+/* @group Metal */
+ul.metal {
+    border-bottom: 0;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    margin: 0;
+}
+ul.metal li {
+    background-image: none;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #666;
+    font-size: 26px;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(238,238,238,1)), to(rgba(156,158,160,1)));
+}
+ul.metal li a {
+    line-height: 26px;
+    margin: 0;
+    text-shadow: #fff 0 1px 0;
+    padding: 13px 0;
+}
+ul.metal li a em {
+    display: block;
+    font-size: 14px;
+    font-style: normal;
+    color: #444;
+    width: 50%;
+    line-height: 14px;
+}
+ul.metal li a.active {
+    color: rgb(0,0,0);
+}
+ul.metal li small {
+    float: right;
+    position: relative;
+    margin-top: 10px;
+    font-weight: bold;
+}
+ul.metal li.arrow {
+    background-image: url(img/chevron.png);
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-image: url(img/chevron.png), -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(238,238,238,1)), to(rgba(156,158,160,1)));
+    background-repeat: no-repeat;
+    background-position: right center;
+}
+ul.metal li.arrow a small {
+    padding-right: 15px;
+    line-height: 17px;
+}
+/* @end */
+input[type='submit'] {
+    -webkit-border-radius: 4px;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(238,238,238,1)), to(rgba(156,158,160,1)));
+    border: 1px outset black;
+    display: block;
+    font-size: inherit;
+    font-weight: inherit;
+    padding: 10px;
+}

@@ -387,6 +387,7 @@ begin
   acDelete.Enabled:=FList.DataSet.Count>0;
   acArchive.Enabled:=FList.DataSet.Count>0;
   acMarkasRead.Enabled:=FList.DataSet.Count>0;
+  DoOpen;
 end;
 procedure TfMessageFrame.Dorefresh;
 begin

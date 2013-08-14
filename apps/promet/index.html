@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<!--<html manifest="cache.manifest">-->
+<head>
+  <title>Promet-App</title>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta http-equiv="pragma" content="no-cache" />
+  <link rel="stylesheet" type="text/css" href="phone.css" media="only screen and (max-width:480px)">
+  <link rel="stylesheet" type="text/css" href="standard.css" media="screen and (min-width:481px)"><body>
+  <script src="vendor/zepto.min.js"></script>
+  <script src="framework.js"></script>
+</head>
+<nav>
+  <div class="toolbar">
+    <h1>Promet-App</h1>
+    <script type="text/javascript">
+    var online = (navigator.onLine) ? 'yes' : 'no';
+    if (online)
+      {
+      }
+    </script>
+  </div>
+  <div class="content">
+  <ul>
+    <li><a href="#tasks">Aufgaben</a></li>
+    <li><a href="#timeregistering">Zeiterfassung</a></li>
+    <li><a href="#history">Verlauf</a></li>
+  </ul>
+  </div>
+</nav>
+<div id="main">
+  <div class="toolbar">
+  </div>
+  <div class="content">
+  </div>
+</div>
+</body>
+</html>

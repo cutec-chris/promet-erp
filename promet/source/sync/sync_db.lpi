@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -27,7 +27,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=Stora"/>
+        <CommandLineParams Value="--config-path=\home\chris\.promet-erp-devel --mandant=newtest"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">
@@ -51,7 +51,6 @@
         <WindowIndex Value="0"/>
         <TopLine Value="396"/>
         <CursorPos X="1" Y="412"/>
-        <FoldState Value=" T3i30{k011i"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
       </Unit0>
