@@ -27,7 +27,7 @@ var
   appbase: Tappbase;
 
 implementation
-uses uStatistic,uData;
+uses uStatistic,uData,uBaseWebSession;
 {$R *.lfm}
 procedure Tappbase.getstatisticRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
@@ -47,6 +47,8 @@ const
   ST_NAME = 2;
   ST_TYPE=3;
 begin
+  Handled:=True;
+  if not TBaseWebSession(Session).CheckLogin(ARequest,AResponse) then exit;
   aStatistic := TStatistic.Create(nil,Data);
   aStatistic.Open;
   i :=  ARequest.QueryFields.Count;
@@ -123,52 +125,13 @@ begin
       AResponse.CodeText:='Document not found';
     end;
   aStatistic.Free;
-  Handled:=True;
 end;
 procedure Tappbase.loginRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 begin
-  Data.Users.First;
-  if ARequest.QueryFields.Values['step']='1' then
-    begin
-      if (Data.Users.DataSet.Locate('NAME',ARequest.QueryFields.Values['name'],[loCaseInsensitive]))
-      or (Data.Users.DataSet.Locate('LOGINNAME',ARequest.QueryFields.Values['name'],[loCaseInsensitive]))
-      then
-        begin
-          AResponse.Code:=200;
-          AResponse.ContentType:='text/javascript;charset=utf-8';
-          AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
-          Response.Contents.Text := 'LoginStep2("'+Data.Users.Salt.AsString+'");';
-          Session.Variables['LOGIN']:=ARequest.QueryFields.Values['name'];
-        end
-      else
-        begin
-          Session.RemoveVariable('LOGIN');
-          AResponse.Code:=500;
-          AResponse.CodeText:='error';
-        end;
-    end
-  else if ARequest.QueryFields.Values['step']='2' then
-    begin
-      if ((Data.Users.DataSet.Locate('NAME',Session.Variables['LOGIN'],[loCaseInsensitive]))
-      or (Data.Users.DataSet.Locate('LOGINNAME',Session.Variables['LOGIN'],[loCaseInsensitive])))
-      and (Data.Users.CheckSHA1Passwort(ARequest.QueryFields.Values['p'])) then
-        begin
-          AResponse.Code:=200;
-          AResponse.ContentType:='text/javascript;charset=utf-8';
-          AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
-          Response.Contents.Text := 'LoginComplete();';
-        end
-      else
-        begin
-          Session.RemoveVariable('LOGIN');
-          AResponse.Code:=500;
-          AResponse.CodeText:='error';
-        end;
-    end;
+  TBaseWebSession(Session).DoLogin(Arequest,AResponse);
   Handled:=True;
 end;
-
 procedure Tappbase.FieldsToJSON(AFields: TFields; AJSON: TJSONObject;
   const ADateAsString: Boolean);
 var

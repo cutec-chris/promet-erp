@@ -60,7 +60,12 @@ function LoginStep2(salt){
 }
 function LoginComplete(){
   window.clearTimeout(LoginTimer);
-  alert("Login ok !");
+  if (document.referrer != "") {
+     var referringURL = document.referrer;
+     location.href = referringURL;
+  }
+  else alert("Login ok !");
+
 }
 </script
 </body>

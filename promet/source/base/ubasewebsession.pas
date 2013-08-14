@@ -38,6 +38,8 @@ type
     Procedure InitResponse(AResponse : TResponse); override;
     Procedure RemoveVariable(VariableName : String); override;
     procedure AddHistoryUrl(aUrl : string);
+    procedure DoLogin(ARequest : TRequest;AResponse : TResponse);
+    function CheckLogin(ARequest : TRequest;AResponse : TResponse;aRedirect : Boolean = True) : Boolean;
   end;
   TBaseSessionFactory = Class(TSessionFactory)
   private
@@ -49,7 +51,7 @@ type
   end;
 
 implementation
-uses uData,uBaseDBInterface,md5,uUserAgents;
+uses uData,uBaseDBInterface,md5,uUserAgents,db;
 procedure TBaseSessionFactory.DoDoneSession(var ASession: TCustomSession);
 begin
   FreeAndNil(ASession);
@@ -184,6 +186,8 @@ begin
           If Assigned(OnExpired) then
             OnExpired(Self);
           S:='';
+          Variables['LASTLOGIN'] :=  Variables['LOGIN'];
+          RemoveVariable('LOGIN');
           FExpired := True;
         end
       else if (FSession.Count > 0) then
@@ -210,6 +214,8 @@ begin
               // Expire session.
               If Assigned(OnExpired) then
                 OnExpired(Self);
+              Variables['LASTLOGIN'] :=  Variables['LOGIN'];
+              RemoveVariable('LOGIN');
               S:='';
               FExpired := True;
             end
@@ -314,6 +320,55 @@ begin
       except
         Cancel;
       end;
+    end;
+end;
+
+procedure TBaseWebSession.DoLogin(ARequest: TRequest; AResponse: TResponse);
+begin
+  if ARequest.QueryFields.Values['step']='1' then
+    begin
+      if (Data.Users.DataSet.Locate('NAME',ARequest.QueryFields.Values['name'],[loCaseInsensitive]))
+      or (Data.Users.DataSet.Locate('LOGINNAME',ARequest.QueryFields.Values['name'],[loCaseInsensitive]))
+      then
+        begin
+          AResponse.Code:=200;
+          AResponse.ContentType:='text/javascript;charset=utf-8';
+          AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
+          AResponse.Contents.Text := 'LoginStep2("'+Data.Users.Salt.AsString+'");';
+          Variables['LOGIN']:=ARequest.QueryFields.Values['name'];
+        end
+      else
+        begin
+          RemoveVariable('LOGIN');
+          AResponse.Code:=500;
+          AResponse.CodeText:='error';
+        end;
+    end
+  else if ARequest.QueryFields.Values['step']='2' then
+    begin
+      if ((Data.Users.DataSet.Locate('NAME',Variables['LOGIN'],[loCaseInsensitive]))
+      or (Data.Users.DataSet.Locate('LOGINNAME',Variables['LOGIN'],[loCaseInsensitive])))
+      and (Data.Users.CheckSHA1Passwort(ARequest.QueryFields.Values['p'])) then
+        begin
+          AResponse.Code:=200;
+          AResponse.ContentType:='text/javascript;charset=utf-8';
+          AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
+          AResponse.Contents.Text := 'LoginComplete();';
+        end
+      else
+        begin
+          RemoveVariable('LOGIN');
+          AResponse.Code:=500;
+          AResponse.CodeText:='error';
+        end;
+    end;
+end;
+function TBaseWebSession.CheckLogin(ARequest : TRequest;AResponse : TResponse;aRedirect: Boolean): Boolean;
+begin
+  Result := Variables['LOGIN'] <> '';
+  if (not Result) and aRedirect then
+    begin
+      AResponse.Code:=301;
     end;
 end;
 
