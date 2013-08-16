@@ -529,7 +529,7 @@ end;
 
 procedure TfPosition.Datasource1StateChange(Sender: TObject);
 begin
-  if (bDetailsVisible.Down) and (not DataSet.DataSet.ControlsDisabled) and (not DataSet.CanEdit) then
+  if (bDetailsVisible.Down) and (not DataSet.DataSet.ControlsDisabled) then
     TabTimer.Enabled:=True;
 end;
 
