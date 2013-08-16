@@ -1,4 +1,6 @@
-﻿Build 262
+﻿Build 263
+      - Fehler das die erste Position die Detailansicht nicht aktualisiert hatte behoben siehe Mantis 25,26
+Build 262
       - Fehler in Auftragsbearbeitung der in 261 eingeführt wurde behoben
       - Hauptformular wird bei falschanmeldung oder abbruch nicht angezeigt (flackerte kurz auf)
       - Schnellhilfe kann mit Includes umgehn

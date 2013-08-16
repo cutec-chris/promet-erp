@@ -6,9 +6,10 @@ object fMessageEdit: TfMessageEdit
   ActiveControl = cbTo
   AllowDropFiles = True
   Caption = 'Nachrichteneditor'
-  ClientHeight = 425
+  ClientHeight = 403
   ClientWidth = 669
   Color = clWindow
+  Menu = MainMenu1
   OnClose = FormClose
   OnCreate = FormCreate
   OnDestroy = FormDestroy
@@ -17,19 +18,19 @@ object fMessageEdit: TfMessageEdit
   LCLVersion = '1.1'
   object pMain: TPanel
     Left = 0
-    Height = 351
+    Height = 329
     Top = 74
     Width = 669
     Align = alClient
     BevelOuter = bvNone
     Caption = 'pMain'
-    ClientHeight = 351
+    ClientHeight = 329
     ClientWidth = 669
     TabOrder = 1
     object sbStatus: TStatusBar
       Left = 0
       Height = 21
-      Top = 330
+      Top = 308
       Width = 669
       Panels = <>
     end
@@ -43,7 +44,7 @@ object fMessageEdit: TfMessageEdit
     end
     object pcTabs: TExtMenuPageControl
       Left = 0
-      Height = 242
+      Height = 220
       Top = 88
       Width = 669
       ActivePage = tsContent
@@ -411,12 +412,23 @@ object fMessageEdit: TfMessageEdit
       OnExecute = acCloseExecute
       ShortCut = 27
     end
-    object Action1: TAction
-      Caption = 'Action1'
+    object acShowHeader: TAction
+      Caption = 'Header anzeigen'
+      OnExecute = acShowHeaderExecute
     end
   end
   object PopupMenu1: TPopupMenu
-    left = 220
-    top = 182
+    left = 152
+    top = 88
+  end
+  object MainMenu1: TMainMenu
+    left = 208
+    top = 89
+    object MenuItem1: TMenuItem
+      Caption = 'Eigenschaften'
+      object MenuItem2: TMenuItem
+        Action = acShowHeader
+      end
+    end
   end
 end

@@ -17,9 +17,12 @@ uses
   uMessages, uDocumentFrame,uBaseSearch,uBaseDbClasses;
 type
   THackComboBox = class(TComboBox);
+
+  { TfMessageEdit }
+
   TfMessageEdit = class(TForm)
     acClose: TAction;
-    Action1: TAction;
+    acShowHeader: TAction;
     ActionList1: TActionList;
     Bevel3: TBevel;
     Bevel4: TBevel;
@@ -38,6 +41,9 @@ type
     lbResults: TListBox;
     lMessage: TLabel;
     lCC: TLabel;
+    MainMenu1: TMainMenu;
+    MenuItem1: TMenuItem;
+    MenuItem2: TMenuItem;
     pSearch: TPanel;
     pTos: TPanel;
     Panel4: TPanel;
@@ -55,6 +61,7 @@ type
     tsContent: TTabSheet;
     procedure acAddAsOrderExecute(Sender: TObject);
     procedure acCloseExecute(Sender: TObject);
+    procedure acShowHeaderExecute(Sender: TObject);
     procedure bSendClick(Sender: TObject);
     procedure cbToEnter(Sender: TObject);
     procedure cbToExit(Sender: TObject);
@@ -100,7 +107,7 @@ type
   end;
 implementation
 uses uLogWait,uData,uBaseDbInterface,uBaseVisualApplication,
-  uDocuments, lconvencoding, uOrder,uPrometFrames,uPerson,lMessages;
+  uDocuments, lconvencoding, uOrder,uPrometFrames,uPerson,lMessages,uEditText;
 resourcestring
   strLoggingIn                  = 'Logging In...';
   strLoggingOut                 = 'Logging out...';
@@ -479,6 +486,14 @@ procedure TfMessageEdit.acCloseExecute(Sender: TObject);
 begin
   Close;
 end;
+
+procedure TfMessageEdit.acShowHeaderExecute(Sender: TObject);
+begin
+  fEditText.SetLanguage;
+  fEditText.mText.Lines.Text:=FDataSet.Content.FieldByName('HEADER').AsString;
+  fEditText.ShowModal;
+end;
+
 procedure TfMessageEdit.acAddAsOrderExecute(Sender: TObject);
 var
   aOrderType: TOrderTyp;
