@@ -20,7 +20,7 @@ uses
   Classes, SysUtils, CustApp, uBaseCustomApplication, pmimemessages, mimemess,
   pop3send, mimepart, uData, uBaseDBInterface, Utils, uMessages, uBaseDBClasses,
   uPerson, synautil, uIntfStrConsts, FileUtil, db, uDocuments, ssl_openssl,
-  uMimeMessages,synaip, laz_synapse,uBaseApplication,LConvEncoding;
+  uMimeMessages,synaip, laz_synapse,uBaseApplication,LConvEncoding,RegExpr;
 
 type
   TPOP3Receiver = class(TBaseCustomApplication)
@@ -146,6 +146,7 @@ var
   DoDelete : Boolean = False;
   ss: TStringStream;
   tmp: String;
+  lSP: Integer;
 
   function DoGetStartValue: Integer;
   var
@@ -348,47 +349,59 @@ begin
                                   inc(NewUnknownMessages);
                                 end;
                               Customers.Free;
-                              if msg.Header.ToList.Count > 0 then
-                                if getemailaddr(trim(msg.Header.ToList[0])) = getemailaddr(trim(msg.Header.From)) then
-                                  aTreeEntry := TREE_ID_SPAM_MESSAGES;
-                              if aTreeEntry = TREE_ID_UNKNOWN_MESSAGES then
-                                begin //Filter Spam
-                                  SpamPoints := 0;
-                                  b := 0;
-                                  for a := 0 to msg.Header.CustomHeaders.Count-1 do
-                                    begin
-                                      atmp := msg.Header.CustomHeaders[a];
-                                      if copy(atmp,0,14) = 'Received: from' then
-                                        begin
-                                          inc(b);
-                                          atmp := copy(atmp,16,length(atmp));
-                                          atmp := trim(copy(atmp,0,pos('by',lowercase(atmp))-1));
-                                          if copy(atmp,0,1) = '[' then
-                                            SpamPoints := SpamPoints+2;
-                                        end;
-                                    end;
-                                  a := 0;
-                                  if msg.Header.FindHeader('X-Spam-Flag') = 'YES' then
-                                    SpamPoints := SpamPoints+4;
-                                  if  (msg.Header.FindHeader('X-GMX-Antispam') <> '') then
-                                    begin
-                                      if TryStrToInt(trim(copy(trim(msg.Header.FindHeader('X-GMX-Antispam')),0,pos(' ',trim(msg.Header.FindHeader('X-GMX-Antispam')))-1)),a) then
-                                        if a > 0 then
-                                          SpamPoints := SpamPoints+4;
-                                    end;
-                                  atmp := trim(msg.Header.From);
-                                  if (pos('>',atmp) > 0) and (pos('<',atmp) > 0) then
-                                    atmp := getemailaddr(atmp)
-                                  else if atmp = '' then
-                                    SpamPoints := SpamPoints+4   //Kein Absender
-                                  else
-                                    SpamPoints := SpamPoints+1; //Kein Realname
-                                  //Mails mit großer Empfängeranzahl
-                                  SpamPoints := SpamPoints+msg.Header.ToList.Count*0.5;
-                                end;
-                              if SpamPoints > 3 then
+                              if aTreeEntry <> TREE_ID_MESSAGES then
                                 begin
-                                  aTreeEntry := TREE_ID_SPAM_MESSAGES;
+                                  if msg.Header.ToList.Count > 0 then
+                                    if getemailaddr(trim(msg.Header.ToList[0])) = getemailaddr(trim(msg.Header.From)) then
+                                      aTreeEntry := TREE_ID_SPAM_MESSAGES;
+                                  if aTreeEntry = TREE_ID_UNKNOWN_MESSAGES then
+                                    begin //Filter Spam
+                                      SpamPoints := 0;
+                                      b := 0;
+                                      for a := 0 to msg.Header.CustomHeaders.Count-1 do
+                                        begin
+                                          atmp := msg.Header.CustomHeaders[a];
+                                          if copy(atmp,0,14) = 'Received: from' then
+                                            begin
+                                              inc(b);
+                                              lSP := 2;
+                                              atmp := copy(atmp,16,length(atmp));
+                                              atmp := trim(copy(atmp,0,pos('by',lowercase(atmp))-1));
+                                              if (pos('with esmtps',lowercase(atmp))>0)//verschlüsselte Verbindung
+                                              or (pos('with local',lowercase(atmp))>0)//lokal
+                                              then
+                                                lSP := 0;
+
+                                              if copy(atmp,0,1) = '[' then
+                                                lSP := lSP+2;//kein DNS
+                                            end;
+                                        end;
+                                      a := 0;
+                                      if msg.Header.FindHeader('X-Spam-Flag') = 'YES' then
+                                        SpamPoints := SpamPoints+4;
+                                      if  (msg.Header.FindHeader('X-GMX-Antispam') <> '') then
+                                        begin
+                                          if TryStrToInt(trim(copy(trim(msg.Header.FindHeader('X-GMX-Antispam')),0,pos(' ',trim(msg.Header.FindHeader('X-GMX-Antispam')))-1)),a) then
+                                            if a > 0 then
+                                              SpamPoints := SpamPoints+4;
+                                        end;
+                                      atmp := trim(msg.Header.From);
+                                      if (pos('>',atmp) > 0) and (pos('<',atmp) > 0) then
+                                        atmp := getemailaddr(atmp)
+                                      else if atmp = '' then
+                                        SpamPoints := SpamPoints+4   //Kein Absender
+                                      else
+                                        SpamPoints := SpamPoints+1; //Kein Realname
+                                      //Mails mit großer Empfängeranzahl
+                                      SpamPoints := SpamPoints+msg.Header.ToList.Count*0.5;
+                                    end;
+                                  if ExecRegExpr('([0-9]{1,3}(\-|\.)[0-9]{1,3}(\-|\.)[0-9]{1,3}(\-|\.)[0-9]{1,3}.+[a-z0-9]+\.[a-z0-9]{2,6})',msg.Header.CustomHeaders.Text) then
+                                    SpamPoints+=2;//dynamische IP
+
+                                  if SpamPoints > 3 then
+                                    begin
+                                      aTreeEntry := TREE_ID_SPAM_MESSAGES;
+                                    end;
                                 end;
                               if pop.Retr(MID) then //Naricht holen
                                 begin

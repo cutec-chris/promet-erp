@@ -54,10 +54,11 @@
         <Filename Value="pop3receiver.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="pop3receiver"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="457"/>
-        <CursorPos X="37" Y="532"/>
+        <TopLine Value="355"/>
+        <CursorPos X="56" Y="367"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <WindowIndex Value="0"/>
@@ -837,10 +838,9 @@
       <Unit98>
         <Filename Value="..\base_messaging\umimemessages.pas"/>
         <UnitName Value="uMimeMessages"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="265"/>
+        <TopLine Value="250"/>
         <CursorPos X="80" Y="287"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
@@ -946,7 +946,7 @@
         <UsageCount Value="10"/>
       </Unit110>
     </Units>
-    <JumpHistory Count="28" HistoryIndex="27">
+    <JumpHistory Count="27" HistoryIndex="26">
       <Position1>
         <Filename Value="pop3receiver.lpr"/>
         <Caret Line="214" Column="1" TopLine="186"/>
@@ -1053,12 +1053,8 @@
       </Position26>
       <Position27>
         <Filename Value="..\base_messaging\umimemessages.pas"/>
-        <Caret Line="288" Column="1" TopLine="322"/>
-      </Position27>
-      <Position28>
-        <Filename Value="..\base_messaging\umimemessages.pas"/>
         <Caret Line="287" Column="80" TopLine="265"/>
-      </Position28>
+      </Position27>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -1088,7 +1084,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="4">
+    <BreakPoints Count="3">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsGlobal"/>
@@ -1110,13 +1106,6 @@
         <Source Value="umessages.pas"/>
         <Line Value="921"/>
       </Item3>
-      <Item4>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="pop3receiver.lpr"/>
-        <Line Value="192"/>
-      </Item4>
     </BreakPoints>
   </Debugging>
   <EditorMacros Count="0"/>
