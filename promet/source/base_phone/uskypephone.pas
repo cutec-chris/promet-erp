@@ -31,19 +31,22 @@ procedure RegisterPhoneLines;
 
 implementation
 
-//uses uMain;
+uses uBaseApplication;
 
 procedure RegisterPhoneLines;
 var
   aLine: TSkypePhoneLine;
+  aLines: String;
 begin
   aLine := TSkypePhoneLine.Create;
-  if not aLine.Connect then
+  Phones.Add(aLine);
+  with Application as IBaseApplication do
+    aLines := Config.ReadString('PHONELINES','');
+  if (pos(aLine.Name,aLines)=0) or (not aLine.Connect) then
     begin
       aLine.Free;
       exit;
     end;
-  Phones.Add(aLine);
 end;
 
 { TSkypePhoneLine }

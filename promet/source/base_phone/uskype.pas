@@ -45,12 +45,14 @@ type
    vTable: DBusObjectPathVTable;
    {$ENDIF}
    FParent : TWinControl;
+   FConnected: Boolean;
  public
    destructor Destroy; override;
    function Initiate : Boolean;
    procedure Command(cmd : string);
  published
    constructor Create (AOwner : TWinControl);
+   procedure Connect;
    property OnAPIAttach : TAttachEvent read fOnAPIAttach write fOnAPIAttach;
    property OnAnswer : TAnswerEvent read fOnAnswer write fOnAnswer;
  end;
@@ -113,6 +115,12 @@ constructor TSkypeMessageHandler.Create (AOwner : TWinControl);
 begin
   inherited Create (AOwner);
   FParent := AOwner;
+  aSkype := Self;
+  FConnected := False;
+end;
+
+procedure TSkypeMessageHandler.Connect;
+begin
 {$IFDEF WINDOWS}
   Try
     WM_SkypeControlAPIDiscover := RegisterWindowMessage('SkypeControlAPIDiscover');
@@ -121,8 +129,8 @@ begin
     WM_SkypeControlAPIDiscover := 0;
     WM_SkypeControlAPIAttach:= 0;
   End;
+  FConnected := True;
 {$ENDIF}
-  aSkype := Self;
 end;
 
 destructor TSkypeMessageHandler.Destroy;
@@ -139,6 +147,7 @@ var
   dwBSMRecipients: DWORD;
 begin
  aSkype := Self;
+ if not FConnected then Connect;
 {$IFDEF WINDOWS}
  dwBSMRecipients := BSM_APPLICATIONS;
  Try

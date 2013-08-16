@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Package Version="4">
     <Name Value="pPhones"/>
@@ -35,18 +35,21 @@
       </Item5>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="3">
+    <RequiredPkgs Count="4">
       <Item1>
-        <PackageName Value="laz_tapi"/>
-        <DefaultFilename Value="../components/tapi/laz_tapi.lpk"/>
+        <PackageName Value="pVisualPrometApp"/>
       </Item1>
       <Item2>
-        <PackageName Value="general_nogui"/>
+        <PackageName Value="laz_tapi"/>
+        <DefaultFilename Value="../components/tapi/laz_tapi.lpk"/>
       </Item2>
       <Item3>
+        <PackageName Value="general_nogui"/>
+      </Item3>
+      <Item4>
         <PackageName Value="FCL"/>
         <MinVersion Major="1" Valid="True"/>
-      </Item3>
+      </Item4>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>
