@@ -11,7 +11,7 @@ unit uBaseDbClasses;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, windows, SysUtils, db, uBaseDbDataSet, Variants, uIntfStrConsts, DOM,
+  Classes, SysUtils, db, uBaseDbDataSet, Variants, uIntfStrConsts, DOM,
   Contnrs;
 type
   TBaseDBDataset = class(TComponent)
@@ -2273,4 +2273,4 @@ begin
 end;
 initialization
 end.
-
+

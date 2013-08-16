@@ -1510,7 +1510,8 @@ begin
               if FDataSet.CanEdit then
                 FDataSet.DataSet.Post;
               aBm := DataSet.GetBookmark;
-              TRowObject(gList.Objects[0,OldRow]).Rec:=aBm;
+              if Assigned(gList.Objects[0,OldRow]) then
+                TRowObject(gList.Objects[0,OldRow]).Rec:=aBm;
               if WasInsert then
                 gListColRowMoved(gList,False,OldRow,OldRow);
             end
