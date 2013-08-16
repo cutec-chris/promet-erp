@@ -10,6 +10,8 @@ uses
 
 type
   Tappbase = class(TFPWebModule)
+    procedure connectionavalibeRequest(Sender: TObject; ARequest: TRequest;
+      AResponse: TResponse; var Handled: Boolean);
     procedure getstatisticRequest(Sender: TObject; ARequest: TRequest;
       AResponse: TResponse; var Handled: Boolean);
     procedure loginRequest(Sender: TObject; ARequest: TRequest;
@@ -29,6 +31,14 @@ var
 implementation
 uses uStatistic,uData,uBaseWebSession;
 {$R *.lfm}
+
+procedure Tappbase.connectionavalibeRequest(Sender: TObject;
+  ARequest: TRequest; AResponse: TResponse; var Handled: Boolean);
+begin
+  TBaseWebSession(Session).ConnectionAvalible(ARequest,AResponse);
+  Handled:=True;
+end;
+
 procedure Tappbase.getstatisticRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 var

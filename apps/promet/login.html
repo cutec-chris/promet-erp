@@ -20,7 +20,7 @@ function LoginStep1(usr, passw){
   user = usr;
   password = passw;
   document.getElementById('loginform').elements["pass"].value="";
-  DoGet("http://localhost:8086/appbase?action=login&step=1&name="+encodeURIComponent(usr)+"&random="+encodeURIComponent(Math.random()));
+  DoGet("http://"+Params.Server+"/?action=login&step=1&name="+encodeURIComponent(usr)+"&random="+encodeURIComponent(Math.random()));
   LoginTimer = window.setTimeout("LoginTimeout()", 500);
   return false;
 }
@@ -41,7 +41,7 @@ function LoginStep2(salt){
       apw = apw.substring(1,apw.length);
     }
   password=CryptoJS.SHA1(Result);
-  DoGet("http://localhost:8086/appbase?action=login&step=2&p="+encodeURIComponent(password)+"&random="+encodeURIComponent(Math.random()));
+  DoGet("http://"+Params.Server+"/?action=login&step=2&p="+encodeURIComponent(password)+"&random="+encodeURIComponent(Math.random()));
   LoginTimer = window.setTimeout("LoginTimeout()", 500);
 }
 function LoginComplete(){

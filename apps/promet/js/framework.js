@@ -1,41 +1,54 @@
-$(function(){
+document.onreadystatechange = function() {
+  if (document.readyState === 'complete'){
+  var Params = {
+    Server: "localhost:8086"
+    }
+  function appendSheet(href){
+    link=document.createElement('link');
+    link.href=href;
+    link.rel="stylesheet";
+    link.type="text/css";
+    document.getElementsByTagName('head')[0].appendChild(link);
+  }
+  if (getCookie("prometServer")!="")
+    Params.Server = getCookie("prometServer");
   if (navigator.userAgent.match(/webOS/i) ||
       navigator.userAgent.match(/Windows Phone/i) ||
       navigator.userAgent.match(/BlackBerry/) ||
       navigator.userAgent.match(/ZuneWP7/i)
      )
     {
-      $('head').append('<link rel="stylesheet" type="text/css" href="themes/jqt/theme.css">');
+      appendSheet("themes/jqt/theme.css");
     }
   else if (
       navigator.userAgent.match(/Android/i)
       )
     {
-      $('head').append('<link rel="stylesheet" type="text/css" href="themes/android/theme.css">');
+      appendSheet("themes/android/theme.css");
     }
   else if (
       navigator.userAgent.match(/iPhone/i) ||
       navigator.userAgent.match(/iPod/i)
       )
     {
-      $('head').append('<link rel="stylesheet" type="text/css" href="themes/apple/theme.css">');
+      appendSheet("themes/apple/theme.css");
     }
   else if (
       navigator.userAgent.match(/iPhone/i) ||
       navigator.userAgent.match(/iPod/i)
       )
     {
-      $('head').append('<link rel="stylesheet" type="text/css" href="themes/apple/theme.css">');
+      appendSheet("themes/apple/theme.css");
     }
   else if (
       navigator.userAgent.match(/iPad/i)
       )
     {
-      $('head').append('<link rel="stylesheet" type="text/css" href="themes/apple/theme.css">');
+      appendSheet("themes/apple/theme.css");
     }
   else
     {
-      $('head').append('<link rel="stylesheet" type="text/css" href="themes/windowsphone/theme.css">');
+      appendSheet("themes/windowsphone/theme.css");
     }
   function hideAddressBar(){
     if(document.documentElement.scrollHeight<window.outerHeight/window.devicePixelRatio)
@@ -106,4 +119,5 @@ $(function(){
       }
     hideAddressBar();
   };
-});
+}
+};
