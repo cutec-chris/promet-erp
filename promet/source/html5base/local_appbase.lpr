@@ -22,7 +22,7 @@ begin
     end;
   Application.Initialize;
   Application.Port:=8086;
-  Application.DefaultModule:='main';
+  Application.DefaultModule:='appbase';
   Application.Run;
   Application.DoExit;
 end.

@@ -39,7 +39,8 @@ type
     Procedure RemoveVariable(VariableName : String); override;
     procedure AddHistoryUrl(aUrl : string);
     procedure DoLogin(ARequest : TRequest;AResponse : TResponse);
-    function CheckLogin(ARequest : TRequest;AResponse : TResponse;aRedirect : Boolean = True) : Boolean;
+    procedure ConnectionAvalible(ARequest : TRequest;AResponse : TResponse);
+    function CheckLogin(ARequest : TRequest;AResponse : TResponse;JSRequest : Boolean = false;aRedirect : Boolean = True) : Boolean;
   end;
   TBaseSessionFactory = Class(TSessionFactory)
   private
@@ -374,12 +375,30 @@ begin
       AResponse.Contents.Text := 'LoginComplete();';
     end;
 end;
-function TBaseWebSession.CheckLogin(ARequest : TRequest;AResponse : TResponse;aRedirect: Boolean): Boolean;
+
+procedure TBaseWebSession.ConnectionAvalible(ARequest: TRequest;
+  AResponse: TResponse);
+begin
+  AResponse.Code:=200;
+  AResponse.ContentType:='text/javascript;charset=utf-8';
+  AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
+  AResponse.Contents.Text := 'ConnectionOK();';
+end;
+
+function TBaseWebSession.CheckLogin(ARequest : TRequest;AResponse : TResponse;JSRequest : Boolean = false;aRedirect: Boolean = True): Boolean;
 begin
   Result := Variables['LOGIN'] <> '';
   if (not Result) and aRedirect then
     begin
-      AResponse.SendRedirect('login.html');
+      if JSRequest then
+        begin
+          AResponse.Code:=200;
+          AResponse.ContentType:='text/javascript;charset=utf-8';
+          AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
+          AResponse.Contents.Text := 'goTo("login.html");';
+        end
+      else
+        AResponse.SendRedirect('login.html');
     end;
 end;
 

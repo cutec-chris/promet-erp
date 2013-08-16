@@ -54,7 +54,7 @@
         <PackageName Value="FCL"/>
       </Item5>
     </RequiredPackages>
-    <Units Count="2">
+    <Units Count="3">
       <Unit0>
         <Filename Value="local_appbase.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -68,6 +68,10 @@
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="umain"/>
       </Unit1>
+      <Unit2>
+        <Filename Value="../../../apps/promet/library.js"/>
+        <IsPartOfProject Value="True"/>
+      </Unit2>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

@@ -2,7 +2,7 @@ object appbase: Tappbase
   OldCreateOrder = False
   Actions = <  
     item
-      Name = 'getstatistic'
+      Name = 'statistic'
       Default = False
       OnRequest = getstatisticRequest
       Template.AllowTagParams = False
@@ -11,6 +11,12 @@ object appbase: Tappbase
       Name = 'login'
       Default = False
       OnRequest = loginRequest
+      Template.AllowTagParams = False
+    end  
+    item
+      Name = 'connectionavalibe'
+      Default = False
+      OnRequest = connectionavalibeRequest
       Template.AllowTagParams = False
     end>
   ActionVar = 'action'

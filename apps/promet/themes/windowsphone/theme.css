@@ -55,6 +55,7 @@ body.landscape .toolbar > h1 {
     display: block;
     text-align: center;
     cursor: pointer;
+    height: 16px;
     position: relative;
     margin: .5em 0px;
     padding: 0;
@@ -69,7 +70,8 @@ body.landscape .toolbar > h1 {
 .toolbutton, .back, .cancel, .add {
     position: absolute;
     overflow: hidden;
-    top: 8px;
+    top: 1px;
+    height: 30px;
     right: 10px;
     margin: 0;
     padding: 0 3px;
@@ -269,6 +271,7 @@ textarea[disabled="disabled"]{
 input[type="text"], input[type="password"], textarea, ul li select {
     border-radius: .6em;
     background-color: #BFBFBF;
+    height: 16px;
     border-radius: 0;
     border: 1px solid #BFBFBF;
     color: #3e3e3e;

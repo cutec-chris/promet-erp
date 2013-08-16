@@ -1,0 +1,67 @@
+#curtain {
+  position: fixed;
+  _position: absolute;
+  z-index: 99;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  _height: expression(document.body.offsetHeight + "px");
+  opacity: 0.4;
+  filter: alpha(opacity = 40);
+  background:#000;
+  display: table-cell;
+  vertical-align: middle;
+}
+#loadingtext {
+  display: block;
+  z-index:98;
+  text-align: center;
+  margin-top:20%;
+  color:#fff;
+}
+body { font-family: verdana; margin:0;}
+DIV.scroll { _position:absolute;position:fixed; z-index:1; WIDTH: 500px;background-color:ffffff;padding-left:0; padding-right:0;padding-top:0;padding-bottom:0;}
+DIV.scroll2 { margin:0 auto; padding-left:500px;}
+.lefttable {width:500px;}
+.gantt { font-family: arial; font-size: 12px;display:block;}
+.headerrow {font-family: arial; font-size: 12px;}
+.gdatehead { BORDER-TOP: #efefef 1px solid; BORDER-LEFT: #efefef 1px solid; HEIGHT: 20px;FONT-SIZE:12px;}
+.ghead { BORDER-TOP: #efefef 1px solid; BORDER-LEFT: #efefef 1px solid; WIDTH: 24px; HEIGHT: 20px }
+.gname { BORDER-TOP: #efefef 1px solid; FONT-SIZE: 12px; cursor:pointer;HEIGHT:20px;}
+..ghead A { FONT-SIZE: 10px; COLOR: #000000; TEXT-DECORATION: none }
+..gheadwkend A { FONT-SIZE: 10px; COLOR: #000000; TEXT-DECORATION: none }
+..gheadwkend { BORDER-TOP: #efefef 1px solid; BORDER-LEFT: #efefef 1px solid; WIDTH: 24px; HEIGHT: 20px; background-color: #cfcfcf }
+..gfiller { BORDER-TOP: #efefef 1px solid; BORDER-LEFT: #efefef 1px solid; WIDTH: 18px; HEIGHT: 18px }
+..gfillerwkend { BORDER-LEFT: #efefef 1px solid; WIDTH: 18px; HEIGHT: 18px; BACKGROUND-COLOR: #cfcfcf }
+..gitem { BORDER-TOP: #cccccc 1px solid; WIDTH: 18px; HEIGHT: 18px }
+..gitemwkend { BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; WIDTH: 18px; HEIGHT: 18px }
+..gmilestone {	BORDER-TOP: #efefef 1px solid; FONT-SIZE: 12px; OVERFLOW: hidden; BORDER-LEFT: #efefef 1px solid; WIDTH: 18px; HEIGHT: 18px}
+..gmilestonewkend {	BORDER-TOP: #efefef 1px solid; BORDER-LEFT: #cccccc 1px solid; WIDTH: 18px; HEIGHT: 18px}
+..btn { BORDER-RIGHT: #ffffff; BORDER-TOP: #ffffff; FONT-WEIGHT: bold; FONT-SIZE: 10px; BORDER-LEFT: #ffffff; WIDTH: 12px; COLOR: #cccccc; BORDER-BOTTOM: #ffffff; BACKGROUND-COLOR: #ffffff }
+..hrcomplete { BORDER-RIGHT: #000000 2px solid; PADDING-RIGHT: 0px; BORDER-TOP: #000000 2px solid; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; BORDER-LEFT: #000000 2px solid; WIDTH: 20px; COLOR: #000000; PADDING-TOP: 0px; BORDER-BOTTOM: #000000 2px solid; HEIGHT: 4px }
+..hrhalfcomplete { BORDER-RIGHT: #000000 2px solid; BORDER-TOP: #000000 2px solid; BORDER-LEFT: #000000 2px solid; WIDTH: 9px; COLOR: #000000; BORDER-BOTTOM: #000000 2px solid; HEIGHT: 4px }
+..gweekend { font-family:tahoma, arial, verdana; font-size:11px; background-color:#EEEEEE; text-align:center; }
+.gparent {
+  cursor:pointer;
+  background-image: -webkit-linear-gradient(white 0%, transparent 100%);
+  background-image: -moz-linear-gradient(white 0%, transparent 100%);
+  background-image: -o-linear-gradient(white 0%, transparent 100%);
+  background-image: linear-gradient(white 0%, transparent 100%);
+}
+.gtask {
+  font-family:tahoma, arial, verdana;
+  font-size:11px;
+  text-align:center;
+  cursor:pointer;
+  background-image: -webkit-linear-gradient(white 0%, transparent 100%);
+  background-image: -moz-linear-gradient(white 0%, transparent 100%);
+  background-image: -o-linear-gradient(white 0%, transparent 100%);
+  background-image: linear-gradient(white 0%, transparent 100%);
+  border-style:solid;
+  border-width: 1px;
+  border-color: gray;
+  height: 11px;
+}
+..gday { font-family:tahoma, arial, verdana; font-size:11px; text-align:center; }
+..gcomplete { background-color:black; height:5px; overflow: auto; margin-top:4px; }

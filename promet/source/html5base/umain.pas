@@ -10,6 +10,8 @@ uses
 
 type
   Tappbase = class(TFPWebModule)
+    procedure connectionavalibeRequest(Sender: TObject; ARequest: TRequest;
+      AResponse: TResponse; var Handled: Boolean);
     procedure getstatisticRequest(Sender: TObject; ARequest: TRequest;
       AResponse: TResponse; var Handled: Boolean);
     procedure loginRequest(Sender: TObject; ARequest: TRequest;
@@ -29,6 +31,14 @@ var
 implementation
 uses uStatistic,uData,uBaseWebSession;
 {$R *.lfm}
+
+procedure Tappbase.connectionavalibeRequest(Sender: TObject;
+  ARequest: TRequest; AResponse: TResponse; var Handled: Boolean);
+begin
+  TBaseWebSession(Session).ConnectionAvalible(ARequest,AResponse);
+  Handled:=True;
+end;
+
 procedure Tappbase.getstatisticRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 var
@@ -48,7 +58,7 @@ const
   ST_TYPE=3;
 begin
   Handled:=True;
-  if not TBaseWebSession(Session).CheckLogin(ARequest,AResponse) then exit;
+  if not TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True) then exit;
   aStatistic := TStatistic.Create(nil,Data);
   aStatistic.Open;
   i :=  ARequest.QueryFields.Count;
