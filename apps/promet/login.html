@@ -9,26 +9,12 @@
 	<input type="submit" value="login"/>
 </fieldset>
 </form>
-<script type="text/javascript" src="core-min.js"></script>
-<script type="text/javascript" src="sha1-min.js"></script>
+<script type="text/javascript" src="js/core-min.js"></script>
+<script type="text/javascript" src="js/sha1-min.js"></script>
+<script type="text/javascript" src="library.js"></script>
 <script language="javascript">
 document.getElementById('loginform').onsubmit = function(){
   return LoginStep1(document.getElementById('user').value, document.getElementById('pass').value);
-}
-function DoGet(aurl){
-  var scripts = document.getElementsByTagName("script");
-  for (i=0; i<scripts.length; i++) {
-    var url = scripts[i].getAttribute("src");
-    if(!url) continue;
-    if(url.indexOf("appbase")>=0) {
-      scripts[i].parentNode.removeChild(scripts[i]);
-    }
-  }
-  // Anlegen und Einfügen des neuen Skripts
-  var script = document.createElement("script");
-  script.setAttribute("src", aurl);
-  script.setAttribute("type", "text/javascript");
-  document.body.appendChild(script);
 }
 function LoginStep1(usr, passw){
   user = usr;

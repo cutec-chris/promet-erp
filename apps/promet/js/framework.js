@@ -47,7 +47,6 @@ $(function(){
     else
       setTimeout(window.scrollTo(1,1),0);
   }
-
   window.addEventListener("resize",function(){hideAddressBar();});
   window.addEventListener("load",function(){hideAddressBar();});
   window.addEventListener("orientationchange",function(){hideAddressBar();});

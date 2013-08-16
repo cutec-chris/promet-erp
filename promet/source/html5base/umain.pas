@@ -48,7 +48,7 @@ const
   ST_TYPE=3;
 begin
   Handled:=True;
-  if not TBaseWebSession(Session).CheckLogin(ARequest,AResponse) then exit;
+  if not TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True) then exit;
   aStatistic := TStatistic.Create(nil,Data);
   aStatistic.Open;
   i :=  ARequest.QueryFields.Count;
