@@ -374,7 +374,10 @@ begin
 
                                               if copy(atmp,0,1) = '[' then
                                                 lSP := lSP+2;//kein DNS
-                                            end;
+                                            end
+                                          else if copy(atmp,0,18)='List-Unsubscribe:' then
+                                            lSP := lSP+2;//Alle Spammer versuchen sich als Mailingliste auszugeben
+                                                         //und pber den List-Unsubscribe nen Button einzublenden "zum abbestellen"
                                         end;
                                       a := 0;
                                       if msg.Header.FindHeader('X-Spam-Flag') = 'YES' then

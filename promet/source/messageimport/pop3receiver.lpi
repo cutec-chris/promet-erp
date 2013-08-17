@@ -54,10 +54,11 @@
         <Filename Value="pop3receiver.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="pop3receiver"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="410"/>
-        <CursorPos X="56" Y="422"/>
+        <TopLine Value="353"/>
+        <CursorPos X="131" Y="380"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <WindowIndex Value="0"/>
@@ -839,10 +840,9 @@
       <Unit98>
         <Filename Value="..\base_messaging\umimemessages.pas"/>
         <UnitName Value="uMimeMessages"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="119"/>
+        <TopLine Value="101"/>
         <CursorPos X="1" Y="142"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
