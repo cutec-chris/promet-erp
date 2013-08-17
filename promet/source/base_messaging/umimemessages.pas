@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, MimeMess, mimepart, uMessages, htmlconvert,
-  uDocuments, uBaseDbClasses, Variants, db, synacode, synachar, LConvEncoding;
+  uDocuments, uBaseDbClasses, Variants, db, synacode, synachar, LConvEncoding,
+  zipper;
 type
   TMimeMessage = class(TMessage)
     procedure DataSetContentDataSetDataSetmsgMessagePartWalkPart(

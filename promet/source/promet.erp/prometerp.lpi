@@ -240,7 +240,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="993"/>
         <CursorPos X="29" Y="1006"/>
@@ -310,7 +310,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPrometFrames"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="55"/>
         <CursorPos X="1" Y="73"/>
@@ -443,7 +443,7 @@
       <Unit19>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="656"/>
         <CursorPos X="97" Y="662"/>
@@ -531,7 +531,7 @@
       <Unit28>
         <Filename Value="../base/dbintfs/ubaseerpdbclasses.pas"/>
         <UnitName Value="uBaseERPDBClasses"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="55"/>
         <CursorPos X="15" Y="134"/>
@@ -588,7 +588,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOrderFrame"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="157"/>
         <CursorPos X="66" Y="5"/>
@@ -779,7 +779,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPhoneOptions"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="18"/>
         <WindowIndex Value="0"/>
         <TopLine Value="28"/>
         <CursorPos X="1" Y="56"/>
@@ -815,7 +815,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uWikiFrame"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="473"/>
         <CursorPos X="24" Y="506"/>
@@ -884,10 +884,12 @@
       <Unit59>
         <Filename Value="../base/dbintfs/umessages.pas"/>
         <UnitName Value="uMessages"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="329"/>
-        <CursorPos X="97" Y="346"/>
+        <TopLine Value="60"/>
+        <CursorPos X="3" Y="47"/>
         <UsageCount Value="232"/>
+        <Loaded Value="True"/>
       </Unit59>
       <Unit60>
         <Filename Value="../base/dbintfs/uintfstrconsts.pas"/>
@@ -984,7 +986,7 @@
       </Unit68>
       <Unit69>
         <Filename Value="../base/revision.inc"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
@@ -1083,7 +1085,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPositionFrame"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="526"/>
         <CursorPos X="71" Y="532"/>
@@ -1103,7 +1105,7 @@
       <Unit80>
         <Filename Value="../base_pm/umaintasks.pas"/>
         <UnitName Value="umaintasks"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="84" Y="5"/>
@@ -1905,7 +1907,7 @@
       <Unit174>
         <Filename Value="../base/dbintfs/umeeting.pas"/>
         <UnitName Value="umeeting"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="262"/>
         <CursorPos X="3" Y="281"/>
@@ -1955,8 +1957,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="473"/>
-        <CursorPos X="22" Y="494"/>
+        <TopLine Value="482"/>
+        <CursorPos X="28" Y="503"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -1994,7 +1996,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ustatisticframe"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="19"/>
         <WindowIndex Value="0"/>
         <TopLine Value="633"/>
         <CursorPos X="1" Y="653"/>
@@ -2357,7 +2359,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uQuickHelpFrame"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="300"/>
         <CursorPos X="1" Y="307"/>
@@ -3067,7 +3069,7 @@
       <Unit312>
         <Filename Value="../../../../general/src/ugeneralstrconsts.pas"/>
         <UnitName Value="uGeneralStrConsts"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
@@ -3099,7 +3101,7 @@
       <Unit316>
         <Filename Value="../base/uedittext.pas"/>
         <UnitName Value="uEditText"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="13"/>
         <CursorPos X="3" Y="32"/>
@@ -3107,103 +3109,127 @@
         <Loaded Value="True"/>
       </Unit316>
     </Units>
-    <JumpHistory Count="24" HistoryIndex="23">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="../base_erp/upositionframe.pas"/>
-        <Caret Line="357" Column="14" TopLine="328"/>
+        <Caret Line="494" Column="10" TopLine="466"/>
       </Position1>
       <Position2>
         <Filename Value="../base_erp/upositionframe.pas"/>
-        <Caret Line="359" Column="10" TopLine="330"/>
+        <Caret Line="497" Column="27" TopLine="469"/>
       </Position2>
       <Position3>
         <Filename Value="../base_erp/upositionframe.pas"/>
-        <Caret Line="492" Column="29" TopLine="464"/>
+        <Caret Line="498" Column="29" TopLine="470"/>
       </Position3>
       <Position4>
         <Filename Value="../base_erp/upositionframe.pas"/>
-        <Caret Line="494" Column="10" TopLine="466"/>
+        <Caret Line="499" Column="14" TopLine="471"/>
       </Position4>
       <Position5>
         <Filename Value="../base_erp/upositionframe.pas"/>
-        <Caret Line="497" Column="27" TopLine="469"/>
+        <Caret Line="501" Column="29" TopLine="473"/>
       </Position5>
       <Position6>
         <Filename Value="../base_erp/upositionframe.pas"/>
-        <Caret Line="498" Column="29" TopLine="470"/>
+        <Caret Line="507" Column="18" TopLine="478"/>
       </Position6>
       <Position7>
         <Filename Value="../base_erp/upositionframe.pas"/>
-        <Caret Line="499" Column="14" TopLine="471"/>
+        <Caret Line="532" Column="3" TopLine="530"/>
       </Position7>
       <Position8>
-        <Filename Value="../base_erp/upositionframe.pas"/>
-        <Caret Line="501" Column="29" TopLine="473"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="10" Column="63" TopLine="1"/>
       </Position8>
       <Position9>
-        <Filename Value="../base_erp/upositionframe.pas"/>
-        <Caret Line="507" Column="18" TopLine="478"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="262" Column="53" TopLine="233"/>
       </Position9>
       <Position10>
-        <Filename Value="../base_erp/upositionframe.pas"/>
-        <Caret Line="532" Column="3" TopLine="530"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="1006" Column="32" TopLine="978"/>
       </Position10>
       <Position11>
         <Filename Value="umain.pas"/>
-        <Caret Line="10" Column="63" TopLine="1"/>
+        <Caret Line="1006" Column="29" TopLine="993"/>
       </Position11>
       <Position12>
-        <Filename Value="umain.pas"/>
-        <Caret Line="262" Column="53" TopLine="233"/>
+        <Filename Value="../base_messaging/umessageedit.pas"/>
+        <Caret Line="574" Column="33" TopLine="557"/>
       </Position12>
       <Position13>
-        <Filename Value="umain.pas"/>
-        <Caret Line="1006" Column="32" TopLine="978"/>
+        <Filename Value="../base_messaging/umessageedit.pas"/>
+        <Caret Line="578" Column="33" TopLine="561"/>
       </Position13>
       <Position14>
-        <Filename Value="umain.pas"/>
-        <Caret Line="1006" Column="29" TopLine="993"/>
+        <Filename Value="../base_messaging/umessageedit.pas"/>
+        <Caret Line="579" Column="33" TopLine="562"/>
       </Position14>
       <Position15>
         <Filename Value="../base_messaging/umessageedit.pas"/>
-        <Caret Line="574" Column="33" TopLine="557"/>
+        <Caret Line="580" Column="33" TopLine="563"/>
       </Position15>
       <Position16>
         <Filename Value="../base_messaging/umessageedit.pas"/>
-        <Caret Line="578" Column="33" TopLine="561"/>
+        <Caret Line="581" Column="33" TopLine="564"/>
       </Position16>
       <Position17>
         <Filename Value="../base_messaging/umessageedit.pas"/>
-        <Caret Line="579" Column="33" TopLine="562"/>
+        <Caret Line="582" Column="33" TopLine="565"/>
       </Position17>
       <Position18>
         <Filename Value="../base_messaging/umessageedit.pas"/>
-        <Caret Line="580" Column="33" TopLine="563"/>
+        <Caret Line="581" Column="33" TopLine="564"/>
       </Position18>
       <Position19>
         <Filename Value="../base_messaging/umessageedit.pas"/>
-        <Caret Line="581" Column="33" TopLine="564"/>
+        <Caret Line="580" Column="33" TopLine="563"/>
       </Position19>
       <Position20>
         <Filename Value="../base_messaging/umessageedit.pas"/>
-        <Caret Line="582" Column="33" TopLine="565"/>
+        <Caret Line="587" Column="33" TopLine="570"/>
       </Position20>
       <Position21>
         <Filename Value="../base_messaging/umessageedit.pas"/>
-        <Caret Line="581" Column="33" TopLine="564"/>
+        <Caret Line="492" Column="9" TopLine="473"/>
       </Position21>
       <Position22>
         <Filename Value="../base_messaging/umessageedit.pas"/>
-        <Caret Line="580" Column="33" TopLine="563"/>
+        <Caret Line="501" Column="22" TopLine="480"/>
       </Position22>
       <Position23>
         <Filename Value="../base_messaging/umessageedit.pas"/>
-        <Caret Line="587" Column="33" TopLine="570"/>
+        <Caret Line="494" Column="22" TopLine="460"/>
       </Position23>
       <Position24>
         <Filename Value="../base_messaging/umessageedit.pas"/>
-        <Caret Line="492" Column="9" TopLine="473"/>
+        <Caret Line="495" Column="22" TopLine="461"/>
       </Position24>
+      <Position25>
+        <Filename Value="../base_messaging/umessageedit.pas"/>
+        <Caret Line="496" Column="22" TopLine="462"/>
+      </Position25>
+      <Position26>
+        <Filename Value="../base_messaging/umessageedit.pas"/>
+        <Caret Line="503" Column="22" TopLine="469"/>
+      </Position26>
+      <Position27>
+        <Filename Value="../base_messaging/umessageedit.pas"/>
+        <Caret Line="496" Column="3" TopLine="494"/>
+      </Position27>
+      <Position28>
+        <Filename Value="../base_messaging/umessageedit.pas"/>
+        <Caret Line="498" Column="11" TopLine="495"/>
+      </Position28>
+      <Position29>
+        <Filename Value="../base_messaging/umessageedit.pas"/>
+        <Caret Line="104" Column="27" TopLine="123"/>
+      </Position29>
+      <Position30>
+        <Filename Value="../base_messaging/umessageedit.pas"/>
+        <Caret Line="116" Column="16" TopLine="107"/>
+      </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>

@@ -11,10 +11,10 @@ unit uMessageEdit;
 interface
 uses
   Classes, SysUtils, LResources, Forms, Controls, Dialogs, Buttons, StdCtrls,
-  ExtCtrls, ComCtrls, Utils, db, uIntfStrConsts, md5, mimepart, Variants,
-  htmlconvert, uExtControls, uViewMessage, FileUtil, LCLType, ActnList,
-  uRichFrame, RichMemo, LCLProc, ClipBrd, Menus, DbCtrls, EditBtn, htmltortf,
-  uMessages, uDocumentFrame,uBaseSearch,uBaseDbClasses;
+  ExtCtrls, ComCtrls, Utils, db, uIntfStrConsts, md5, mimepart, mimemess,
+  Variants, htmlconvert, uExtControls, uViewMessage, FileUtil, LCLType,
+  ActnList, uRichFrame, RichMemo, LCLProc, ClipBrd, Menus, DbCtrls, EditBtn,
+  htmltortf, uMessages, uDocumentFrame, uBaseSearch, uBaseDbClasses;
 type
   THackComboBox = class(TComboBox);
 
@@ -23,6 +23,7 @@ type
   TfMessageEdit = class(TForm)
     acClose: TAction;
     acShowHeader: TAction;
+    acSaveAs: TAction;
     ActionList1: TActionList;
     Bevel3: TBevel;
     Bevel4: TBevel;
@@ -44,6 +45,8 @@ type
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
+    MenuItem3: TMenuItem;
+    MenuItem4: TMenuItem;
     pSearch: TPanel;
     pTos: TPanel;
     Panel4: TPanel;
@@ -54,6 +57,7 @@ type
     pcTabs: TExtMenuPageControl;
     pMain: TPanel;
     PopupMenu1: TPopupMenu;
+    SaveDialog1: TSaveDialog;
     sbStatus: TStatusBar;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
@@ -61,6 +65,7 @@ type
     tsContent: TTabSheet;
     procedure acAddAsOrderExecute(Sender: TObject);
     procedure acCloseExecute(Sender: TObject);
+    procedure acSaveAsExecute(Sender: TObject);
     procedure acShowHeaderExecute(Sender: TObject);
     procedure bSendClick(Sender: TObject);
     procedure cbToEnter(Sender: TObject);
@@ -107,7 +112,8 @@ type
   end;
 implementation
 uses uLogWait,uData,uBaseDbInterface,uBaseVisualApplication,
-  uDocuments, lconvencoding, uOrder,uPrometFrames,uPerson,lMessages,uEditText;
+  uDocuments, lconvencoding, uOrder,uPrometFrames,uPerson,lMessages,uEditText,
+  uMimeMessages;
 resourcestring
   strLoggingIn                  = 'Logging In...';
   strLoggingOut                 = 'Logging out...';
@@ -485,6 +491,21 @@ end;
 procedure TfMessageEdit.acCloseExecute(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TfMessageEdit.acSaveAsExecute(Sender: TObject);
+var
+  msg: TMimeMess;
+  aFN: String;
+begin
+  if SaveDialog1.Execute then
+    begin
+      msg := TMimeMessage(DataSet).EncodeMessage;
+      aFN := SaveDialog1.FileName;
+      if Pos('.',aFN)=0 then
+        aFN := aFN+'.msg';
+      msg.Lines.SaveToFile(aFN);
+    end;
 end;
 
 procedure TfMessageEdit.acShowHeaderExecute(Sender: TObject);

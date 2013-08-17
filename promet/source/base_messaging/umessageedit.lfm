@@ -416,6 +416,10 @@ object fMessageEdit: TfMessageEdit
       Caption = 'Header anzeigen'
       OnExecute = acShowHeaderExecute
     end
+    object acSaveAs: TAction
+      Caption = 'Speichern als'
+      OnExecute = acSaveAsExecute
+    end
   end
   object PopupMenu1: TPopupMenu
     left = 152
@@ -424,11 +428,22 @@ object fMessageEdit: TfMessageEdit
   object MainMenu1: TMainMenu
     left = 208
     top = 89
+    object MenuItem3: TMenuItem
+      Caption = 'Datei'
+      object MenuItem4: TMenuItem
+        Action = acSaveAs
+      end
+    end
     object MenuItem1: TMenuItem
       Caption = 'Eigenschaften'
       object MenuItem2: TMenuItem
         Action = acShowHeader
       end
     end
+  end
+  object SaveDialog1: TSaveDialog
+    Filter = 'Narichtendatei (*.msg)|*.msg'
+    left = 46
+    top = 148
   end
 end

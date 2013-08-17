@@ -54,11 +54,10 @@
         <Filename Value="pop3receiver.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="pop3receiver"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="355"/>
-        <CursorPos X="56" Y="367"/>
+        <TopLine Value="410"/>
+        <CursorPos X="56" Y="422"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <WindowIndex Value="0"/>
@@ -496,7 +495,7 @@
       <Unit56>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
         <UnitName Value="uBaseCustomApplication"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="276"/>
         <CursorPos X="32" Y="295"/>
@@ -807,10 +806,12 @@
       <Unit94>
         <Filename Value="..\base\dbintfs\uintfstrconsts.pas"/>
         <UnitName Value="uIntfStrConsts"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="76"/>
-        <CursorPos X="3" Y="94"/>
+        <TopLine Value="84"/>
+        <CursorPos X="38" Y="101"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit94>
       <Unit95>
         <Filename Value="..\base\dbintfs\uperson.pas"/>
@@ -838,10 +839,11 @@
       <Unit98>
         <Filename Value="..\base_messaging\umimemessages.pas"/>
         <UnitName Value="uMimeMessages"/>
-        <EditorIndex Value="1"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="250"/>
-        <CursorPos X="80" Y="287"/>
+        <TopLine Value="119"/>
+        <CursorPos X="1" Y="142"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit98>
@@ -946,115 +948,127 @@
         <UsageCount Value="10"/>
       </Unit110>
     </Units>
-    <JumpHistory Count="27" HistoryIndex="26">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="214" Column="1" TopLine="186"/>
+        <Caret Line="234" Column="1" TopLine="210"/>
       </Position1>
       <Position2>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="216" Column="1" TopLine="188"/>
+        <Caret Line="235" Column="1" TopLine="210"/>
       </Position2>
       <Position3>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="218" Column="1" TopLine="190"/>
+        <Caret Line="236" Column="1" TopLine="210"/>
       </Position3>
       <Position4>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="219" Column="1" TopLine="191"/>
+        <Caret Line="158" Column="34" TopLine="155"/>
       </Position4>
       <Position5>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="227" Column="1" TopLine="210"/>
+        <Caret Line="96" Column="1" TopLine="79"/>
       </Position5>
       <Position6>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="228" Column="1" TopLine="210"/>
+        <Caret Line="93" Column="1" TopLine="79"/>
       </Position6>
       <Position7>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="230" Column="1" TopLine="210"/>
+        <Caret Line="95" Column="1" TopLine="79"/>
       </Position7>
       <Position8>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="231" Column="1" TopLine="210"/>
+        <Caret Line="74" Column="21" TopLine="57"/>
       </Position8>
       <Position9>
-        <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="232" Column="1" TopLine="210"/>
+        <Filename Value="..\base\ubasecustomapplication.pas"/>
+        <Caret Line="295" Column="32" TopLine="276"/>
       </Position9>
       <Position10>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="234" Column="1" TopLine="210"/>
+        <Caret Line="78" Column="22" TopLine="57"/>
       </Position10>
       <Position11>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="235" Column="1" TopLine="210"/>
+        <Caret Line="178" Column="1" TopLine="174"/>
       </Position11>
       <Position12>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="236" Column="1" TopLine="210"/>
+        <Caret Line="326" Column="59" TopLine="309"/>
       </Position12>
       <Position13>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="158" Column="34" TopLine="155"/>
+        <Caret Line="425" Column="58" TopLine="403"/>
       </Position13>
       <Position14>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="96" Column="1" TopLine="79"/>
+        <Caret Line="449" Column="49" TopLine="429"/>
       </Position14>
       <Position15>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="93" Column="1" TopLine="79"/>
+        <Caret Line="458" Column="62" TopLine="435"/>
       </Position15>
       <Position16>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="95" Column="1" TopLine="79"/>
+        <Caret Line="506" Column="34" TopLine="484"/>
       </Position16>
       <Position17>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="74" Column="21" TopLine="57"/>
+        <Caret Line="532" Column="37" TopLine="457"/>
       </Position17>
       <Position18>
-        <Filename Value="..\base\ubasecustomapplication.pas"/>
-        <Caret Line="295" Column="32" TopLine="276"/>
+        <Filename Value="..\base_messaging\umimemessages.pas"/>
+        <Caret Line="287" Column="80" TopLine="265"/>
       </Position18>
       <Position19>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="78" Column="22" TopLine="57"/>
+        <Caret Line="5" Column="65" TopLine="1"/>
       </Position19>
       <Position20>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="178" Column="1" TopLine="174"/>
+        <Caret Line="44" Column="29" TopLine="15"/>
       </Position20>
       <Position21>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="326" Column="59" TopLine="309"/>
+        <Caret Line="76" Column="57" TopLine="47"/>
       </Position21>
       <Position22>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="425" Column="58" TopLine="403"/>
+        <Caret Line="333" Column="100" TopLine="305"/>
       </Position22>
       <Position23>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="449" Column="49" TopLine="429"/>
+        <Caret Line="334" Column="86" TopLine="323"/>
       </Position23>
       <Position24>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="458" Column="62" TopLine="435"/>
+        <Caret Line="340" Column="122" TopLine="323"/>
       </Position24>
       <Position25>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="506" Column="34" TopLine="484"/>
+        <Caret Line="364" Column="73" TopLine="348"/>
       </Position25>
       <Position26>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="532" Column="37" TopLine="457"/>
+        <Caret Line="523" Column="39" TopLine="495"/>
       </Position26>
       <Position27>
-        <Filename Value="..\base_messaging\umimemessages.pas"/>
-        <Caret Line="287" Column="80" TopLine="265"/>
+        <Filename Value="pop3receiver.lpr"/>
+        <Caret Line="43" Column="29" TopLine="26"/>
       </Position27>
+      <Position28>
+        <Filename Value="pop3receiver.lpr"/>
+        <Caret Line="75" Column="57" TopLine="47"/>
+      </Position28>
+      <Position29>
+        <Filename Value="pop3receiver.lpr"/>
+        <Caret Line="422" Column="56" TopLine="410"/>
+      </Position29>
+      <Position30>
+        <Filename Value="..\base_messaging\umimemessages.pas"/>
+        <Caret Line="347" Column="46" TopLine="320"/>
+      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

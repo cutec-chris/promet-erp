@@ -147,8 +147,12 @@ LazarusResources.Add('TfMessageEdit','FORMDATA',[
   +'ActionList1'#4'left'#2'['#3'top'#2'Y'#0#7'TAction'#7'acClose'#7'Caption'#6
   +#10'Schliessen'#9'OnExecute'#7#14'acCloseExecute'#8'ShortCut'#2#27#0#0#7'TAc'
   +'tion'#12'acShowHeader'#7'Caption'#6#15'Header anzeigen'#9'OnExecute'#7#19'a'
-  +'cShowHeaderExecute'#0#0#0#10'TPopupMenu'#10'PopupMenu1'#4'left'#3#152#0#3't'
-  +'op'#2'X'#0#0#9'TMainMenu'#9'MainMenu1'#4'left'#3#208#0#3'top'#2'Y'#0#9'TMen'
-  +'uItem'#9'MenuItem1'#7'Caption'#6#13'Eigenschaften'#0#9'TMenuItem'#9'MenuIte'
-  +'m2'#6'Action'#7#12'acShowHeader'#0#0#0#0#0
+  +'cShowHeaderExecute'#0#0#7'TAction'#8'acSaveAs'#7'Caption'#6#13'Speichern al'
+  +'s'#9'OnExecute'#7#15'acSaveAsExecute'#0#0#0#10'TPopupMenu'#10'PopupMenu1'#4
+  +'left'#3#152#0#3'top'#2'X'#0#0#9'TMainMenu'#9'MainMenu1'#4'left'#3#208#0#3't'
+  +'op'#2'Y'#0#9'TMenuItem'#9'MenuItem3'#7'Caption'#6#5'Datei'#0#9'TMenuItem'#9
+  +'MenuItem4'#6'Action'#7#8'acSaveAs'#0#0#0#9'TMenuItem'#9'MenuItem1'#7'Captio'
+  +'n'#6#13'Eigenschaften'#0#9'TMenuItem'#9'MenuItem2'#6'Action'#7#12'acShowHea'
+  +'der'#0#0#0#0#11'TSaveDialog'#11'SaveDialog1'#6'Filter'#6#28'Narichtendatei '
+  +'(*.msg)|*.msg'#4'left'#2'.'#3'top'#3#148#0#0#0#0
 ]);
