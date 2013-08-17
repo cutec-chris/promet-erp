@@ -366,11 +366,15 @@ end;
 procedure TfProjectFrame.acExportExecute(Sender: TObject);
 var
   aStream: TFileStream;
+  aFN: String;
 begin
   Screen.Cursor:=crHourGlass;
   if dExport.Execute then
     begin
-      aStream := TFileStream.Create(dExport.FileName,fmCreate);
+      aFN := dExport.FileName;
+      if Pos('.',aFN)=0 then
+        aFN := aFN+'.gan';
+      aStream := TFileStream.Create(aFN,fmCreate);
       case dExport.FilterIndex of
       1:ExportGAN(aStream,TProject(DataSet));
       end;

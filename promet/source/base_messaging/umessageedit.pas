@@ -487,12 +487,10 @@ begin
       while ActiveSearch.Active do Application.ProcessMessages;
     end;
 end;
-
 procedure TfMessageEdit.acCloseExecute(Sender: TObject);
 begin
   Close;
 end;
-
 procedure TfMessageEdit.acSaveAsExecute(Sender: TObject);
 var
   msg: TMimeMess;
@@ -507,14 +505,12 @@ begin
       msg.Lines.SaveToFile(aFN);
     end;
 end;
-
 procedure TfMessageEdit.acShowHeaderExecute(Sender: TObject);
 begin
   fEditText.SetLanguage;
   fEditText.mText.Lines.Text:=FDataSet.Content.FieldByName('HEADER').AsString;
   fEditText.ShowModal;
 end;
-
 procedure TfMessageEdit.acAddAsOrderExecute(Sender: TObject);
 var
   aOrderType: TOrderTyp;
@@ -831,7 +827,6 @@ begin
 //    frDocuments.Refresh(tmpMID,'N',Data.MessageIDX.FieldByName('ID').AsString,Null,Null);
   IsModified := False;
 end;
-
 function TfMessageEdit.ForwardMail(AnswerMessage: TMessage): Boolean;
 begin
   Result := AnswerMail(AnswerMessage);
@@ -839,7 +834,6 @@ begin
   cbTo.Clear;
 
 end;
-
 procedure TfMessageEdit.SendMailTo(receiver: string);
 var
   i: Integer;

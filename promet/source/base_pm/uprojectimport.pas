@@ -12,7 +12,7 @@ unit uprojectimport;
 interface
 uses
   Classes, SysUtils, uProjects,XMLRead,XMLWrite,DOM,LConvEncoding,uData,uTask,db,
-  Utils,Math,FileUtil;
+  Utils,Math,FileUtil,uBaseDBInterface;
 //function ImportMPX(aFile : TStream;aProject : TProject) : Boolean; //MS Project ASCII
 function ImportMSPDI(aFile : TStream;aProject : TProject) : Boolean; //MS Project XML
 function ImportGAN(aFile : TStream;aProject : TProject) : Boolean; //Gantt Project
@@ -286,6 +286,12 @@ var
 begin
   aProject := TProject.Create(nil,Data);
   aProject.Select(bProject.Id.AsVariant);
+  with aProject.DataSet as IBaseDBFilter do
+    begin
+      SortFields := 'GPRIORITY';
+      BaseSortFields:='GPRIORITY';
+      SortDirection := sdAscending;
+    end;
   aProject.Open;
   aDoc := TXMLDocument.Create;
   aProjectNode := aDoc.CreateElement('project');
