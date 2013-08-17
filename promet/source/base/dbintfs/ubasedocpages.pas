@@ -296,7 +296,7 @@ var
   r: Integer;
   s: String;
   d: TIHData;
-  h: TFPCustomImageReaderClass;
+  h: TFPCustomImageReaderClass = nil;
   reader: TFPCustomImageReader;
   Msg: String;
   iOut: TFPMemoryImage;
