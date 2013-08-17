@@ -314,7 +314,7 @@ begin
   SilentTimer.Enabled:=False;
   Application.ProcessMessages;
   eMandantname.Text:=strPersonal;
-  DoSave;
+  bNext0Click(bNext0);
 end;
 
 procedure TfWizardNewMandant.CollectProfiles(Node: TTreeNode);
@@ -690,6 +690,8 @@ begin
           cbDatabasetype.ItemIndex := 0;
           Result := DoExecStep(2);
         end;
+      if Application.HasOption('silent') then
+        Result := 5;
     end;
   2:
     begin

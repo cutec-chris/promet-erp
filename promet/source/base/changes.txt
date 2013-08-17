@@ -1,4 +1,7 @@
-﻿Build 263
+﻿Build 264
+      - Profil bei Installation (unter Windows) auswählbar
+      - Autologin für Administrator direkt nach Installation an
+Build 263
       - Fehler das die erste Position die Detailansicht nicht aktualisiert hatte behoben siehe Mantis 25,26
       - eMail Header anzeigbar
       - eMails als msg Datei speicherbar (war vorher schon über die Archivfunktion möglich nun direkt aus der Mail heraus)

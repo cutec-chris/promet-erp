@@ -814,7 +814,7 @@ begin
         begin
           aID := CreateUserID;
           if ((Config.ReadInteger('AUTOMATICLOGIN',0)=aID) and (aID <> 0))
-          or ((Config.ReadString('LOGINMANDANT','')='Standart') and (Config.ReadString('LOGINUSER','')='Administrator') and (Config.ReadString('AUTOMATICLOGIN','T')='')) then
+          or ((Config.ReadString('LOGINMANDANT','')='Standard') and (Config.ReadString('LOGINUSER','')='Administrator') and (Config.ReadString('AUTOMATICLOGIN','T')='')) then
             with Self as IBaseDBInterface do
               if DBLogin(Config.ReadString('LOGINMANDANT',''),Config.ReadString('LOGINUSER',''),True) then
                 begin
