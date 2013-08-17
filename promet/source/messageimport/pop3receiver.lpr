@@ -367,15 +367,14 @@ begin
                                               lSP := 2;
                                               atmp := copy(atmp,16,length(atmp));
                                               atmp := trim(copy(atmp,0,pos('by',lowercase(atmp))-1));
-                                              if (pos('with esmtps',lowercase(atmp))>0)//verschlüsselte Verbindung
-                                              or (pos('with local',lowercase(atmp))>0)//lokal
-                                              then
-                                                lSP := 0;
-
                                               if copy(atmp,0,1) = '[' then
                                                 lSP := lSP+2;//kein DNS
+                                              if (pos('with esmtps',lowercase(msg.Header.CustomHeaders[a]))>0)//verschlüsselte Verbindung
+                                              or (pos('with local',lowercase(msg.Header.CustomHeaders[a]))>0)//lokal
+                                              then
+                                                lSP := 0;
                                             end
-                                          else if copy(atmp,0,18)='List-Unsubscribe:' then
+                                          else if copy(atmp,0,17)='List-Unsubscribe:' then
                                             lSP := lSP+2;//Alle Spammer versuchen sich als Mailingliste auszugeben
                                                          //und pber den List-Unsubscribe nen Button einzublenden "zum abbestellen"
                                         end;
