@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Package Version="4">
     <PathDelim Value="\"/>
@@ -14,11 +14,15 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="1">
+    <Files Count="2">
       <Item1>
         <Filename Value="umimemessages.pas"/>
         <UnitName Value="uMimeMessages"/>
       </Item1>
+      <Item2>
+        <Filename Value="mailchck.pas"/>
+        <UnitName Value="mailchck"/>
+      </Item2>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="3">

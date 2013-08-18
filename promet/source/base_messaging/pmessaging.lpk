@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Package Version="4">
     <Name Value="pmessaging"/>
@@ -14,51 +14,47 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="11">
+    <Files Count="10">
       <Item1>
-        <Filename Value="mailchck.pas"/>
-        <UnitName Value="mailchck"/>
-      </Item1>
-      <Item2>
         <Filename Value="pmimemessages.pas"/>
         <UnitName Value="pmimemessages"/>
-      </Item2>
-      <Item3>
+      </Item1>
+      <Item2>
         <Filename Value="umessageedit.lfm"/>
         <Type Value="LFM"/>
-      </Item3>
-      <Item4>
+      </Item2>
+      <Item3>
         <Filename Value="umessageedit.lrs"/>
         <Type Value="LRS"/>
-      </Item4>
-      <Item5>
+      </Item3>
+      <Item4>
         <Filename Value="umessageedit.pas"/>
         <UnitName Value="uMessageEdit"/>
-      </Item5>
-      <Item6>
+      </Item4>
+      <Item5>
         <Filename Value="umessageframe.lfm"/>
         <Type Value="LFM"/>
-      </Item6>
-      <Item7>
+      </Item5>
+      <Item6>
         <Filename Value="umessageframe.pas"/>
         <UnitName Value="uMessageFrame"/>
-      </Item7>
-      <Item8>
+      </Item6>
+      <Item7>
         <Filename Value="umimemessages.pas"/>
         <UnitName Value="uMimeMessages"/>
-      </Item8>
-      <Item9>
+      </Item7>
+      <Item8>
         <Filename Value="uviewmessage.lfm"/>
         <Type Value="LFM"/>
-      </Item9>
-      <Item10>
+      </Item8>
+      <Item9>
         <Filename Value="uviewmessage.lrs"/>
         <Type Value="LRS"/>
-      </Item10>
-      <Item11>
+      </Item9>
+      <Item10>
         <Filename Value="uviewmessage.pas"/>
         <UnitName Value="uViewMessage"/>
-      </Item11>
+      </Item10>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="4">

@@ -222,7 +222,7 @@
         <PackageName Value="LCL"/>
       </Item21>
     </RequiredPackages>
-    <Units Count="319">
+    <Units Count="320">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -239,9 +239,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <EditorIndex Value="14"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="993"/>
+        <TopLine Value="1006"/>
         <CursorPos X="29" Y="1006"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -250,7 +251,7 @@
       <Unit2>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="797"/>
         <CursorPos X="62" Y="817"/>
@@ -442,7 +443,7 @@
       <Unit19>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="77" Y="8"/>
@@ -499,12 +500,10 @@
       <Unit25>
         <Filename Value="../base/dbintfs/udocuments.pas"/>
         <UnitName Value="uDocuments"/>
-        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="555"/>
         <CursorPos X="1" Y="581"/>
         <UsageCount Value="88"/>
-        <Loaded Value="True"/>
       </Unit25>
       <Unit26>
         <Filename Value="uarticlestorageframe.pas"/>
@@ -532,9 +531,9 @@
       <Unit28>
         <Filename Value="../base/dbintfs/ubaseerpdbclasses.pas"/>
         <UnitName Value="uBaseERPDBClasses"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="55"/>
+        <TopLine Value="100"/>
         <CursorPos X="15" Y="134"/>
         <UsageCount Value="76"/>
         <Loaded Value="True"/>
@@ -591,7 +590,7 @@
         <UnitName Value="uOrderFrame"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="5"/>
+        <TopLine Value="1"/>
         <CursorPos X="66" Y="5"/>
         <UsageCount Value="202"/>
         <Loaded Value="True"/>
@@ -780,12 +779,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPhoneOptions"/>
-        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="28"/>
         <CursorPos X="1" Y="56"/>
         <UsageCount Value="259"/>
-        <Loaded Value="True"/>
       </Unit49>
       <Unit50>
         <Filename Value="umailoptions.pas"/>
@@ -937,13 +934,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uProjectFrame"/>
-        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="356"/>
         <CursorPos X="108" Y="370"/>
         <UsageCount Value="100"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit64>
       <Unit65>
         <Filename Value="../base/dbintfs/ubaseapplication.pas"/>
@@ -995,7 +989,6 @@
       </Unit69>
       <Unit70>
         <Filename Value="../base/changes.txt"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -1086,13 +1079,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPositionFrame"/>
-        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="526"/>
         <CursorPos X="71" Y="532"/>
         <UsageCount Value="100"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit78>
       <Unit79>
         <Filename Value="../components/zeos/src/component/ZAbstractRODataset.pas"/>
@@ -1296,13 +1286,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="umanagedocframe"/>
-        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="414"/>
+        <TopLine Value="402"/>
         <CursorPos X="27" Y="420"/>
         <UsageCount Value="100"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit101>
       <Unit102>
         <Filename Value="../components/thumbs/thumbcontrol.pas"/>
@@ -1909,12 +1896,10 @@
       <Unit174>
         <Filename Value="../base/dbintfs/umeeting.pas"/>
         <UnitName Value="umeeting"/>
-        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="262"/>
+        <TopLine Value="268"/>
         <CursorPos X="3" Y="281"/>
         <UsageCount Value="46"/>
-        <Loaded Value="True"/>
       </Unit174>
       <Unit175>
         <Filename Value="../base/uselectreport.pas"/>
@@ -1958,7 +1943,7 @@
         <UnitName Value="uMessageEdit"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="132"/>
+        <TopLine Value="471"/>
         <CursorPos X="1" Y="505"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
@@ -1997,12 +1982,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ustatisticframe"/>
-        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="633"/>
+        <TopLine Value="399"/>
         <CursorPos X="1" Y="653"/>
         <UsageCount Value="23"/>
-        <Loaded Value="True"/>
       </Unit183>
       <Unit184>
         <Filename Value="../projectmanagement/uprojectoverview.pas"/>
@@ -3065,7 +3048,7 @@
       <Unit312>
         <Filename Value="../../../../general/src/ugeneralstrconsts.pas"/>
         <UnitName Value="uGeneralStrConsts"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
@@ -3118,6 +3101,14 @@
         <CursorPos X="1" Y="175"/>
         <UsageCount Value="10"/>
       </Unit318>
+      <Unit319>
+        <Filename Value="../base_messaging/mailchck.pas"/>
+        <UnitName Value="mailchck"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="17" Y="40"/>
+        <UsageCount Value="10"/>
+      </Unit319>
     </Units>
     <JumpHistory Count="1" HistoryIndex="0">
       <Position1>

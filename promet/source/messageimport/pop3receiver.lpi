@@ -49,7 +49,7 @@
         <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="111">
+    <Units Count="112">
       <Unit0>
         <Filename Value="pop3receiver.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -57,8 +57,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="350"/>
-        <CursorPos X="131" Y="380"/>
+        <TopLine Value="391"/>
+        <CursorPos X="55" Y="408"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <WindowIndex Value="0"/>
@@ -496,7 +496,7 @@
       <Unit56>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
         <UnitName Value="uBaseCustomApplication"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="276"/>
         <CursorPos X="22" Y="290"/>
@@ -807,7 +807,7 @@
       <Unit94>
         <Filename Value="..\base\dbintfs\uintfstrconsts.pas"/>
         <UnitName Value="uIntfStrConsts"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="84"/>
         <CursorPos X="38" Y="101"/>
@@ -840,7 +840,7 @@
       <Unit98>
         <Filename Value="..\base_messaging\umimemessages.pas"/>
         <UnitName Value="uMimeMessages"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="101"/>
         <CursorPos X="1" Y="142"/>
@@ -947,127 +947,137 @@
         <CursorPos X="1" Y="103"/>
         <UsageCount Value="10"/>
       </Unit110>
+      <Unit111>
+        <Filename Value="..\base_messaging\mailchck.pas"/>
+        <UnitName Value="mailchck"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="74"/>
+        <CursorPos X="1" Y="105"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit111>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="235" Column="1" TopLine="210"/>
+        <Filename Value="..\base_messaging\mailchck.pas"/>
+        <Caret Line="46" Column="1" TopLine="18"/>
       </Position1>
       <Position2>
-        <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="236" Column="1" TopLine="210"/>
+        <Filename Value="..\base_messaging\mailchck.pas"/>
+        <Caret Line="47" Column="1" TopLine="19"/>
       </Position2>
       <Position3>
-        <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="158" Column="34" TopLine="155"/>
+        <Filename Value="..\base_messaging\mailchck.pas"/>
+        <Caret Line="48" Column="1" TopLine="20"/>
       </Position3>
       <Position4>
-        <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="96" Column="1" TopLine="79"/>
+        <Filename Value="..\base_messaging\mailchck.pas"/>
+        <Caret Line="49" Column="1" TopLine="21"/>
       </Position4>
       <Position5>
-        <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="93" Column="1" TopLine="79"/>
+        <Filename Value="..\base_messaging\mailchck.pas"/>
+        <Caret Line="51" Column="1" TopLine="23"/>
       </Position5>
       <Position6>
-        <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="95" Column="1" TopLine="79"/>
+        <Filename Value="..\base_messaging\mailchck.pas"/>
+        <Caret Line="52" Column="1" TopLine="25"/>
       </Position6>
       <Position7>
-        <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="74" Column="21" TopLine="57"/>
+        <Filename Value="..\base_messaging\mailchck.pas"/>
+        <Caret Line="53" Column="1" TopLine="25"/>
       </Position7>
       <Position8>
-        <Filename Value="..\base\ubasecustomapplication.pas"/>
-        <Caret Line="295" Column="32" TopLine="276"/>
+        <Filename Value="..\base_messaging\mailchck.pas"/>
+        <Caret Line="54" Column="1" TopLine="26"/>
       </Position8>
       <Position9>
-        <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="78" Column="22" TopLine="57"/>
+        <Filename Value="..\base_messaging\mailchck.pas"/>
+        <Caret Line="56" Column="1" TopLine="28"/>
       </Position9>
       <Position10>
-        <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="178" Column="1" TopLine="174"/>
+        <Filename Value="..\base_messaging\mailchck.pas"/>
+        <Caret Line="57" Column="1" TopLine="29"/>
       </Position10>
       <Position11>
-        <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="326" Column="59" TopLine="309"/>
+        <Filename Value="..\base_messaging\mailchck.pas"/>
+        <Caret Line="59" Column="1" TopLine="31"/>
       </Position11>
       <Position12>
-        <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="425" Column="58" TopLine="403"/>
+        <Filename Value="..\base_messaging\mailchck.pas"/>
+        <Caret Line="61" Column="1" TopLine="33"/>
       </Position12>
       <Position13>
-        <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="449" Column="49" TopLine="429"/>
+        <Filename Value="..\base_messaging\mailchck.pas"/>
+        <Caret Line="62" Column="1" TopLine="34"/>
       </Position13>
       <Position14>
-        <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="458" Column="62" TopLine="435"/>
+        <Filename Value="..\base_messaging\mailchck.pas"/>
+        <Caret Line="64" Column="1" TopLine="36"/>
       </Position14>
       <Position15>
-        <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="506" Column="34" TopLine="484"/>
+        <Filename Value="..\base_messaging\mailchck.pas"/>
+        <Caret Line="65" Column="1" TopLine="37"/>
       </Position15>
       <Position16>
-        <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="532" Column="37" TopLine="457"/>
+        <Filename Value="..\base_messaging\mailchck.pas"/>
+        <Caret Line="67" Column="1" TopLine="39"/>
       </Position16>
       <Position17>
-        <Filename Value="..\base_messaging\umimemessages.pas"/>
-        <Caret Line="287" Column="80" TopLine="265"/>
+        <Filename Value="..\base_messaging\mailchck.pas"/>
+        <Caret Line="68" Column="1" TopLine="40"/>
       </Position17>
       <Position18>
-        <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="5" Column="65" TopLine="1"/>
+        <Filename Value="..\base_messaging\mailchck.pas"/>
+        <Caret Line="70" Column="1" TopLine="42"/>
       </Position18>
       <Position19>
-        <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="44" Column="29" TopLine="15"/>
+        <Filename Value="..\base_messaging\mailchck.pas"/>
+        <Caret Line="71" Column="1" TopLine="43"/>
       </Position19>
       <Position20>
-        <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="76" Column="57" TopLine="47"/>
+        <Filename Value="..\base_messaging\mailchck.pas"/>
+        <Caret Line="73" Column="1" TopLine="45"/>
       </Position20>
       <Position21>
-        <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="333" Column="100" TopLine="305"/>
+        <Filename Value="..\base_messaging\mailchck.pas"/>
+        <Caret Line="85" Column="1" TopLine="68"/>
       </Position21>
       <Position22>
-        <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="334" Column="86" TopLine="323"/>
+        <Filename Value="..\base_messaging\mailchck.pas"/>
+        <Caret Line="87" Column="1" TopLine="68"/>
       </Position22>
       <Position23>
-        <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="340" Column="122" TopLine="323"/>
+        <Filename Value="..\base_messaging\mailchck.pas"/>
+        <Caret Line="94" Column="1" TopLine="68"/>
       </Position23>
       <Position24>
-        <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="364" Column="73" TopLine="348"/>
+        <Filename Value="..\base_messaging\mailchck.pas"/>
+        <Caret Line="95" Column="1" TopLine="68"/>
       </Position24>
       <Position25>
-        <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="523" Column="39" TopLine="495"/>
+        <Filename Value="..\base_messaging\mailchck.pas"/>
+        <Caret Line="98" Column="1" TopLine="70"/>
       </Position25>
       <Position26>
-        <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="43" Column="29" TopLine="26"/>
+        <Filename Value="..\base_messaging\mailchck.pas"/>
+        <Caret Line="101" Column="1" TopLine="73"/>
       </Position26>
       <Position27>
-        <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="75" Column="57" TopLine="47"/>
+        <Filename Value="..\base_messaging\mailchck.pas"/>
+        <Caret Line="102" Column="1" TopLine="74"/>
       </Position27>
       <Position28>
-        <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="422" Column="56" TopLine="410"/>
+        <Filename Value="..\base_messaging\mailchck.pas"/>
+        <Caret Line="103" Column="1" TopLine="74"/>
       </Position28>
       <Position29>
-        <Filename Value="..\base_messaging\umimemessages.pas"/>
-        <Caret Line="347" Column="46" TopLine="320"/>
+        <Filename Value="..\base_messaging\mailchck.pas"/>
+        <Caret Line="105" Column="1" TopLine="74"/>
       </Position29>
       <Position30>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="380" Column="131" TopLine="353"/>
+        <Caret Line="407" Column="1" TopLine="391"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -1125,7 +1135,7 @@
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
         <Source Value="pop3receiver.lpr"/>
-        <Line Value="359"/>
+        <Line Value="406"/>
       </Item4>
     </BreakPoints>
   </Debugging>

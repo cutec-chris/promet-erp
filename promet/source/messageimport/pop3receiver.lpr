@@ -20,7 +20,7 @@ uses
   Classes, SysUtils, CustApp, uBaseCustomApplication, pmimemessages, mimemess,
   pop3send, mimepart, uData, uBaseDBInterface, Utils, uMessages, uBaseDBClasses,
   uPerson, synautil, uIntfStrConsts, FileUtil, db, uDocuments, ssl_openssl,
-  uMimeMessages,synaip, laz_synapse,uBaseApplication,LConvEncoding,RegExpr;
+  uMimeMessages,synaip, laz_synapse,uBaseApplication,LConvEncoding,RegExpr,mailchck;
 
 type
   TPOP3Receiver = class(TBaseCustomApplication)
@@ -147,6 +147,7 @@ var
   ss: TStringStream;
   tmp: String;
   lSP: Integer;
+  aChk: Integer;
 
   function DoGetStartValue: Integer;
   var
@@ -399,7 +400,14 @@ begin
                                     end;
                                   if ExecRegExpr('([0-9]{1,3}(\-|\.)[0-9]{1,3}(\-|\.)[0-9]{1,3}(\-|\.)[0-9]{1,3}.+[a-z0-9]+\.[a-z0-9]{2,6})',msg.Header.CustomHeaders.Text) then
                                     SpamPoints+=2;//dynamische IP
-
+                                  atmp := trim(msg.Header.From);
+                                  if (pos('>',atmp) > 0) and (pos('<',atmp) > 0) then
+                                    atmp := getemailaddr(atmp);
+                                  aChk := mailcheck(atmp);
+                                  case aChk of
+                                  1,2,3,4: aChk := 0;
+                                  end;
+                                  SpamPoints+=aChk;
                                   if SpamPoints > 3 then
                                     begin
                                       aTreeEntry := TREE_ID_SPAM_MESSAGES;

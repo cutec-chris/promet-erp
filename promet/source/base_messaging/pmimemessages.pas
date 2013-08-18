@@ -2,19 +2,19 @@
   This source is only used to compile and install the package.
  }
 
-unit pmimemessages; 
+unit pmimemessages;
 
 interface
 
 uses
-  uMimeMessages, LazarusPackageIntf;
+  uMimeMessages, mailchck, LazarusPackageIntf;
 
 implementation
 
-procedure Register; 
+procedure Register;
 begin
-end; 
+end;
 
 initialization
-  RegisterPackage('pmimemessages', @Register); 
+  RegisterPackage('pmimemessages', @Register);
 end.
