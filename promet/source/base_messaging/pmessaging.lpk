@@ -14,7 +14,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="10">
+    <Files Count="11">
       <Item1>
         <Filename Value="pmimemessages.pas"/>
         <UnitName Value="pmimemessages"/>
@@ -55,22 +55,29 @@
         <Filename Value="uviewmessage.pas"/>
         <UnitName Value="uViewMessage"/>
       </Item10>
+      <Item11>
+        <Filename Value="umessageroute.pas"/>
+        <UnitName Value="umessageroute"/>
+      </Item11>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="4">
+    <RequiredPkgs Count="5">
       <Item1>
-        <PackageName Value="phelp"/>
-        <DefaultFilename Value="../base/phelp.lpk"/>
+        <PackageName Value="MemDSLaz"/>
       </Item1>
       <Item2>
-        <PackageName Value="pdocuments"/>
+        <PackageName Value="phelp"/>
+        <DefaultFilename Value="../base/phelp.lpk"/>
       </Item2>
       <Item3>
-        <PackageName Value="pVisualPrometApp"/>
+        <PackageName Value="pdocuments"/>
       </Item3>
       <Item4>
-        <PackageName Value="FCL"/>
+        <PackageName Value="pVisualPrometApp"/>
       </Item4>
+      <Item5>
+        <PackageName Value="FCL"/>
+      </Item5>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

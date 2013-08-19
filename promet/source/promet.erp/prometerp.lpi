@@ -222,7 +222,7 @@
         <PackageName Value="LCL"/>
       </Item21>
     </RequiredPackages>
-    <Units Count="320">
+    <Units Count="321">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -239,10 +239,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1006"/>
+        <TopLine Value="994"/>
         <CursorPos X="29" Y="1006"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -251,7 +250,7 @@
       <Unit2>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="797"/>
         <CursorPos X="62" Y="817"/>
@@ -290,10 +289,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPersonFrame"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="567"/>
-        <CursorPos X="33" Y="584"/>
+        <TopLine Value="871"/>
+        <CursorPos X="1" Y="903"/>
         <UsageCount Value="202"/>
+        <Loaded Value="True"/>
       </Unit5>
       <Unit6>
         <Filename Value="../base/umessageframe.pas"/>
@@ -335,10 +336,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uHistoryFrame"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="1" Y="4"/>
+        <CursorPos X="47" Y="21"/>
         <UsageCount Value="78"/>
+        <Loaded Value="True"/>
       </Unit9>
       <Unit10>
         <Filename Value="../base/uimageframe.pas"/>
@@ -443,7 +446,7 @@
       <Unit19>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="77" Y="8"/>
@@ -469,10 +472,12 @@
       <Unit22>
         <Filename Value="../base/dbintfs/uperson.pas"/>
         <UnitName Value="uPerson"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="8"/>
-        <CursorPos X="17" Y="25"/>
+        <TopLine Value="68"/>
+        <CursorPos X="1" Y="83"/>
         <UsageCount Value="16"/>
+        <Loaded Value="True"/>
       </Unit22>
       <Unit23>
         <Filename Value="ubankingdialog.pas"/>
@@ -531,7 +536,7 @@
       <Unit28>
         <Filename Value="../base/dbintfs/ubaseerpdbclasses.pas"/>
         <UnitName Value="uBaseERPDBClasses"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="100"/>
         <CursorPos X="15" Y="134"/>
@@ -588,7 +593,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOrderFrame"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="66" Y="5"/>
@@ -880,10 +885,12 @@
       <Unit59>
         <Filename Value="../base/dbintfs/umessages.pas"/>
         <UnitName Value="uMessages"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="60"/>
-        <CursorPos X="3" Y="47"/>
+        <TopLine Value="192"/>
+        <CursorPos X="21" Y="194"/>
         <UsageCount Value="232"/>
+        <Loaded Value="True"/>
       </Unit59>
       <Unit60>
         <Filename Value="../base/dbintfs/uintfstrconsts.pas"/>
@@ -980,7 +987,7 @@
       </Unit68>
       <Unit69>
         <Filename Value="../base/revision.inc"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
@@ -1943,8 +1950,8 @@
         <UnitName Value="uMessageEdit"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="471"/>
-        <CursorPos X="1" Y="505"/>
+        <TopLine Value="855"/>
+        <CursorPos X="41" Y="875"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -3048,7 +3055,7 @@
       <Unit312>
         <Filename Value="../../../../general/src/ugeneralstrconsts.pas"/>
         <UnitName Value="uGeneralStrConsts"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
@@ -3109,12 +3116,94 @@
         <CursorPos X="17" Y="40"/>
         <UsageCount Value="10"/>
       </Unit319>
+      <Unit320>
+        <Filename Value="../base_messaging/umessageroute.pas"/>
+        <ComponentName Value="fMessageRoute"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uMessageRoute"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="40" Y="15"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit320>
     </Units>
-    <JumpHistory Count="1" HistoryIndex="0">
+    <JumpHistory Count="18" HistoryIndex="17">
       <Position1>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <Caret Line="81" Column="56" TopLine="59"/>
       </Position1>
+      <Position2>
+        <Filename Value="upersonframe.pas"/>
+        <Caret Line="12" Column="42" TopLine="1"/>
+      </Position2>
+      <Position3>
+        <Filename Value="upersonframe.pas"/>
+        <Caret Line="61" Column="12" TopLine="32"/>
+      </Position3>
+      <Position4>
+        <Filename Value="upersonframe.pas"/>
+        <Caret Line="94" Column="13" TopLine="65"/>
+      </Position4>
+      <Position5>
+        <Filename Value="../base_messaging/umessageedit.pas"/>
+        <Caret Line="99" Column="5" TopLine="92"/>
+      </Position5>
+      <Position6>
+        <Filename Value="../base_messaging/umessageedit.pas"/>
+        <Caret Line="1095" Column="49" TopLine="1066"/>
+      </Position6>
+      <Position7>
+        <Filename Value="upersonframe.pas"/>
+        <Caret Line="746" Column="60" TopLine="742"/>
+      </Position7>
+      <Position8>
+        <Filename Value="../base/dbintfs/uperson.pas"/>
+        <Caret Line="94" Column="31" TopLine="68"/>
+      </Position8>
+      <Position9>
+        <Filename Value="../base_messaging/umessageedit.pas"/>
+        <Caret Line="1095" Column="42" TopLine="1068"/>
+      </Position9>
+      <Position10>
+        <Filename Value="../base_messaging/umessageedit.pas"/>
+        <Caret Line="105" Column="29" TopLine="89"/>
+      </Position10>
+      <Position11>
+        <Filename Value="../base/dbintfs/umessages.pas"/>
+        <Caret Line="203" Column="1" TopLine="190"/>
+      </Position11>
+      <Position12>
+        <Filename Value="../base/dbintfs/umessages.pas"/>
+        <Caret Line="54" Column="5" TopLine="36"/>
+      </Position12>
+      <Position13>
+        <Filename Value="upersonframe.pas"/>
+        <Caret Line="5" Column="72" TopLine="1"/>
+      </Position13>
+      <Position14>
+        <Filename Value="upersonframe.pas"/>
+        <Caret Line="141" Column="22" TopLine="113"/>
+      </Position14>
+      <Position15>
+        <Filename Value="upersonframe.pas"/>
+        <Caret Line="743" Column="32" TopLine="715"/>
+      </Position15>
+      <Position16>
+        <Filename Value="../base_messaging/umessageedit.pas"/>
+        <Caret Line="975" Column="13" TopLine="960"/>
+      </Position16>
+      <Position17>
+        <Filename Value="../base_messaging/umessageedit.pas"/>
+        <Caret Line="756" Column="11" TopLine="736"/>
+      </Position17>
+      <Position18>
+        <Filename Value="../base_messaging/umessageedit.pas"/>
+        <Caret Line="117" Column="51" TopLine="101"/>
+      </Position18>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>

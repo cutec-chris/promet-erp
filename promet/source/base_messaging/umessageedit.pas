@@ -96,6 +96,7 @@ type
     procedure MarkReadWrite;
     procedure AddDocuments(Sender: TObject);
     procedure EnterCB(Data: PtrInt);
+    procedure AddHistory(Sender: TObject);
   public
     { public declarations }
     Successfulsended : Boolean;
@@ -113,7 +114,7 @@ type
 implementation
 uses uLogWait,uData,uBaseDbInterface,uBaseVisualApplication,
   uDocuments, lconvencoding, uOrder,uPrometFrames,uPerson,lMessages,uEditText,
-  uMimeMessages;
+  uMimeMessages,uHistoryFrame,uprometframesinplace;
 resourcestring
   strLoggingIn                  = 'Logging In...';
   strLoggingOut                 = 'Logging out...';
@@ -749,6 +750,10 @@ begin
         end;
     end
   else aDocuments.Free;
+  pcTabs.AddTabClass(TfHistoryFrame,strHistory,@AddHistory);
+  DataSet.History.Open;
+  if DataSet.History.Count > 0 then
+    pcTabs.AddTab(TfHistoryFrame.Create(Self),False);
 
   Show;
 end;
@@ -861,7 +866,8 @@ begin
     eSubject.SetFocus
   else cbTo.SetFocus;
 end;
-procedure TfMessageEdit.SendMailToWithDoc(receiver: string;Subject : string;Msg : string;Document: string;DeleteFile : Boolean);
+procedure TfMessageEdit.SendMailToWithDoc(Receiver: string; Subject: string;
+  Msg: string; Document: string; DeleteFile: Boolean);
 var
   i: Integer;
   aDocument : TDocument;
@@ -985,7 +991,7 @@ begin
   sbStatus.SimpleText:='';
   lMessage.Visible:=False;
 end;
-procedure TfMessageEdit.MarkreadWrite;
+procedure TfMessageEdit.MarkReadWrite;
 var
   tmp: String;
   tmp1: String;
@@ -1086,6 +1092,14 @@ begin
   TCombobox(Data).SelLength:=0;
   TCombobox(Data).SelStart:=length(TCombobox(Data).Text);
 end;
+
+procedure TfMessageEdit.AddHistory(Sender: TObject);
+begin
+  TfHistoryFrame(Sender).BaseName:='MESSAGE';
+  TfHistoryFrame(Sender).DataSet := DataSet.History;
+  TPrometInplaceFrame(Sender).SetRights(True);
+end;
+
 initialization
   {$I umessageedit.lrs}
 end.

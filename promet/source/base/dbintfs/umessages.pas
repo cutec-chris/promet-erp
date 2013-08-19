@@ -44,12 +44,14 @@ type
     property Message : TMessageList read FMessage write FMessage;
     property AsString : string read GetText;
   end;
-  TMessage = class(TMessageList)
+  TMessage = class(TMessageList,IBaseHistory)
   private
     FDocuments: TDocuments;
+    FHistory: TBaseHistory;
     FMessageContent: TMessageContent;
     FSubMessages : TMessageList;
     function GetSubMessages: TMessageList;
+    function GetHistory: TBaseHistory;
   public
     constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
@@ -63,6 +65,7 @@ type
     property Documents : TDocuments read FDocuments;
     property SubMessages : TMessageList read GetSubMessages;
     procedure SelectFromLink(aLink: string); override;
+    property History : TBaseHistory read FHistory;
     procedure Next; override;
     procedure Prior; override;
   end;
@@ -185,10 +188,17 @@ begin
     end;
   Result := FSubMessages;
 end;
+
+function TMessage.GetHistory: TBaseHistory;
+begin
+  Result := FHistory;
+end;
+
 constructor TMessage.Create(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
   inherited Create(aOwner, DM, aConnection, aMasterdata);
+  FHistory := TBaseHistory.Create(Self,DM,aConnection,DataSet);
   FMessageContent := TMessageContent.Create(Owner,DM,aConnection);
   FMessageContent.Message := Self;
   FDocuments := TDocuments.Create(Owner,DM,aConnection);
@@ -196,6 +206,7 @@ begin
 end;
 destructor TMessage.Destroy;
 begin
+  FreeAndNil(FHistory);
   FreeAndNil(FSubMessages);
   FDocuments.Free;
   FMessageContent.Free;

@@ -313,6 +313,12 @@ begin
                           aMID := copy(MList[messageidx],pos(' ',MList[messageidx])+1,length(MList[messageidx]));
                           Data.SetFilter(MessageIndex,'"ID"='''+aMID+'''');
                           Data.SetFilter(DeletedItems,'"LINK"=''MESSAGEIDX@'+aMID+'''');
+                          Message.History.Open;
+                          Message.History.AddItem(Message.DataSet,Format(strActionMessageReceived,[DateTimeToStr(Now())]),
+                                                    'MESSAGEIDX@'+aMID+'{'+aSubject+'}',
+                                                    '',
+                                                    nil,
+                                                    ACICON_MAILNEW);
                           if (not MessageIndex.DataSet.Locate('ID',aMID,[]))
                           and (not DeletedItems.DataSet.Locate('LINK','MESSAGEIDX@'+aMID,[])) then
                             begin
@@ -362,7 +368,7 @@ begin
                                       for a := 0 to msg.Header.CustomHeaders.Count-1 do
                                         begin
                                           atmp := msg.Header.CustomHeaders[a];
-                                          if copy(atmp,0,14) = 'Received: from' then
+                                          if copy(atmp,0,9) = 'Received:' then
                                             begin
                                               inc(b);
                                               lSP := 2;

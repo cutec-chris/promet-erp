@@ -7,8 +7,8 @@ unit pmessaging;
 interface
 
 uses
-  mailchck, pmimemessages, uMessageEdit, uMessageFrame, uMimeMessages, 
-  uViewMessage, LazarusPackageIntf;
+  pmimemessages, uMessageEdit, uMessageFrame, uMimeMessages, uViewMessage, 
+  uMessageRoute, LazarusPackageIntf;
 
 implementation
 
