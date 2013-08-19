@@ -1,9 +1,10 @@
 document.onreadystatechange = function() {
   if (document.readyState === 'complete'){
   var Params = {
-    Server: "localhost:8086"
+    Server: "localhost:8086",
+    Theme:""
     }
-  if (getCookie("prometServer")!="")
+  if (getCookie("prometServer")!=null)
     Params.Server = getCookie("prometServer");
   function appendSheet(href){
     link=document.createElement('link');
@@ -12,6 +13,11 @@ document.onreadystatechange = function() {
     link.type="text/css";
     document.getElementsByTagName('head')[0].appendChild(link);
   }
+  if (getCookie("prometTheme")!=null) {
+    Params.Theme = getCookie("prometTheme");
+    appendSheet("themes/"+Params.Theme+"/theme.css");
+  }
+  else {
   if (navigator.userAgent.match(/webOS/i) ||
       navigator.userAgent.match(/Windows Phone/i) ||
       navigator.userAgent.match(/BlackBerry/) ||
@@ -31,16 +37,17 @@ document.onreadystatechange = function() {
   else if (
       navigator.userAgent.match(/iPad/i)
       ){ appendSheet("themes/apple/theme.css"); }
-  else { appendSheet("themes/jqt/theme.css"); }
+  else { appendSheet("themes/android/theme.css"); }
+  }
   function hideAddressBar(){
     if(document.documentElement.scrollHeight<window.innerHeight/window.devicePixelRatio)
       document.documentElement.style.height=(window.innerHeight/window.devicePixelRatio)+'px';
     if(navigator.userAgent.match(/Android/i))
       {
-      setTimeout(window.scrollTo(0,1),0);
+      setTimeout(function(){window.scrollTo(0,1)},0);
       }
     else
-      setTimeout(window.scrollTo(1,1),0);
+      setTimeout(function(){window.scrollTo(1,1)},0);
   }
   window.addEventListener("resize",function(){hideAddressBar();});
   window.addEventListener("load",function(){hideAddressBar();});

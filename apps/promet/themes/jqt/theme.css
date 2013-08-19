@@ -61,9 +61,11 @@ body.landscape .toolbar > h1 {
     white-space: nowrap;
     background: none;
     -webkit-border-image: url(img/button.png) 0 5 0 5;
+    -moz-border-image: url(img/button.png) fill 0 5 0 5;
 }
 .blueButton {
     -webkit-border-image: url(img/blueButton.png) 0 5 0 5;
+    -moz-border-image: url(img/blueButton.png) fill 0 5 0 5;
     border-width: 0 5px;
 }
 .back {
@@ -73,9 +75,11 @@ body.landscape .toolbar > h1 {
     max-width: 55px;
     border-width: 0 8px 0 14px;
     -webkit-border-image: url(img/back_button.png) 0 8 0 14;
+    -moz-border-image: url(img/back_button.png) fill 0 8 0 14;
 }
 .back.active {
     -webkit-border-image: url(img/back_button_clicked.png) 0 8 0 14;
+    -moz-border-image: url(img/back_button_clicked.png) fill 0 8 0 14;
     color: #aaa;
 }
 .leftButton, .cancel {
@@ -102,10 +106,12 @@ body.landscape .toolbar > h1 {
 .button,
 .whiteButton {
     -webkit-border-image: url(img/whiteButton.png) 0 12 0 12;
+    -moz-border-image:  url(img/whiteButton.png) fill 0 12 0 12;
     text-shadow: rgba(255, 255, 255, 0.7) 0 1px 0;
 }
 .grayButton {
     -webkit-border-image: url(img/grayButton.png) 0 12 0 12;
+    -moz-border-image: url(img/grayButton.png) fill 0 12 0 12;
     color: #FFFFFF;
 }
 /* @end */

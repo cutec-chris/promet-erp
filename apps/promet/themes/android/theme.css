@@ -101,12 +101,14 @@ h1, h2 {
     white-space: nowrap;
     background: none;
     -webkit-border-image: url(img/button.png) 0 5 0 5;
+    -moz-border-image: url(img/button.png) fill 0 5 0 5;
 }
 .button.active, .cancel.active, .add.active {
     -webkit-border-image: url(img/button_clicked.png) 0 5 0 5;
 }
 .blueButton {
     -webkit-border-image: url(img/blueButton.png) 0 5 0 5;
+    -moz-border-image: url(img/blueButton.png) fill 0 5 0 5;
     border-width: 0 5px;
 }
 .back {
@@ -116,9 +118,11 @@ h1, h2 {
     max-width: 55px;
     border-width: 0 8px 0 14px;
     -webkit-border-image: url(img/back_button.png) 0 8 0 14;
+    -moz-border-image: url(img/back_button.png) fill 0 8 0 14;
 }
 .back.active {
     -webkit-border-image: url(img/back_button_clicked.png) 0 8 0 14;
+    -moz-border-image: url(img/back_button_clicked.png) fill 0 8 0 14;
 }
 .leftButton, .cancel {
     left: 6px;
@@ -147,16 +151,19 @@ h1, h2 {
 .whiteButton.active, .grayButton.active, .redButton.active, .blueButton.active, .greenButton.active,
 .whiteButton:active, .grayButton:active, .redButton:active, .blueButton:active, .greenButton:active {
     -webkit-border-image: url(img/activeButton.png) 0 12 0 12;
+    -moz-border-image: url(img/activeButton.png) fill 0 12 0 12;
     color: #666 !important;
 }
 .button,
 .whiteButton {
 	color: #000;
     -webkit-border-image: url(img/androidButton.png) 0 12 0 12;
+    -moz-border-image: url(img/androidButton.png) fill 0 12 0 12;
 }
 .button.active, .button:active {
 	color: #333 !important;
     -webkit-border-image: url(img/androidButtonActive.png) 0 9 0 8;
+    -moz-border-image: url(img/androidButtonActive.png) fill 0 9 0 8;
 }
 .button {
 	border-width: 0 12px;
@@ -169,18 +176,22 @@ h1, h2 {
     text-decoration: inherit;
     text-shadow: rgba(255, 255, 255, 0.7) 0 1px 0;
     -webkit-border-image: url(img/androidButton.png) 0 9 0 8;
+    -moz-border-image: url(img/androidButton.png) fill 0 9 0 8;
 }
 .grayButton {
     -webkit-border-image: url(img/grayButton.png) 0 12 0 12;
+    -moz-border-image: url(img/grayButton.png) fill 0 12 0 12;
     color: #FFFFFF;
 }
 
 .redButton {
     -webkit-border-image: url(img/redButton.png) 0 12 0 12;
+    -moz-border-image: url(img/redButton.png) fill 0 12 0 12;
 }
 
 .greenButton {
     -webkit-border-image: url(img/greenButton.png) 0 12 0 12;
+    -moz-border-image: url(img/greenButton.png) fill 0 12 0 12;
 }
 
 
@@ -640,7 +651,6 @@ ul.metal li.arrow a small {
 input[type='submit'] {
     -webkit-border-radius: 4px;
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(238,238,238,1)), to(rgba(156,158,160,1)));
-    border: 1px outset black;
     display: block;
     font-size: inherit;
     font-weight: inherit;
