@@ -114,7 +114,7 @@ type
 implementation
 uses uLogWait,uData,uBaseDbInterface,uBaseVisualApplication,
   uDocuments, lconvencoding, uOrder,uPrometFrames,uPerson,lMessages,uEditText,
-  uMimeMessages,uHistoryFrame,uprometframesinplace;
+  uMimeMessages,uHistoryFrame,uprometframesinplace,uMessageRoute;
 resourcestring
   strLoggingIn                  = 'Logging In...';
   strLoggingOut                 = 'Logging out...';
@@ -754,7 +754,8 @@ begin
   DataSet.History.Open;
   if DataSet.History.Count > 0 then
     pcTabs.AddTab(TfHistoryFrame.Create(Self),False);
-
+  if FDataSet.Content.FieldByName('HEADER').AsString<>'' then
+    pcTabs.AddTab(TfMessageRoute.Create(Self),False);
   Show;
 end;
 function TfMessageEdit.AnswerMail(AnswerMessage : TMessage) : Boolean;
