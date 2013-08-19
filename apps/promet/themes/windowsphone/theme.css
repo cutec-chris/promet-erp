@@ -24,7 +24,6 @@ h1, h2, h3, h4, h5, h6
  }
 /* @group Toolbar */
 .toolbar {
-    position: absolute;
     overflow: hidden;
     border-left-width: 0;
     border-right-width: 0;
@@ -68,7 +67,6 @@ body.landscape .toolbar > h1 {
     text-decoration: none;
 }
 .toolbutton, .back, .cancel, .add {
-    position: absolute;
     overflow: hidden;
     top: 1px;
     height: 30px;

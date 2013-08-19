@@ -3,6 +3,8 @@ document.onreadystatechange = function() {
   var Params = {
     Server: "localhost:8086"
     }
+  if (getCookie("prometServer")!="")
+    Params.Server = getCookie("prometServer");
   function appendSheet(href){
     link=document.createElement('link');
     link.href=href;
@@ -10,49 +12,29 @@ document.onreadystatechange = function() {
     link.type="text/css";
     document.getElementsByTagName('head')[0].appendChild(link);
   }
-  if (getCookie("prometServer")!="")
-    Params.Server = getCookie("prometServer");
   if (navigator.userAgent.match(/webOS/i) ||
       navigator.userAgent.match(/Windows Phone/i) ||
       navigator.userAgent.match(/BlackBerry/) ||
       navigator.userAgent.match(/ZuneWP7/i)
-     )
-    {
-      appendSheet("themes/jqt/theme.css");
-    }
+     ){ appendSheet("themes/jqt/theme.css");}
   else if (
       navigator.userAgent.match(/Android/i)
-      )
-    {
-      appendSheet("themes/android/theme.css");
-    }
+      ) {appendSheet("themes/android/theme.css");}
   else if (
       navigator.userAgent.match(/iPhone/i) ||
       navigator.userAgent.match(/iPod/i)
-      )
-    {
-      appendSheet("themes/apple/theme.css");
-    }
+      ){appendSheet("themes/apple/theme.css");}
   else if (
       navigator.userAgent.match(/iPhone/i) ||
       navigator.userAgent.match(/iPod/i)
-      )
-    {
-      appendSheet("themes/apple/theme.css");
-    }
+      ){ appendSheet("themes/apple/theme.css");}
   else if (
       navigator.userAgent.match(/iPad/i)
-      )
-    {
-      appendSheet("themes/apple/theme.css");
-    }
-  else
-    {
-      appendSheet("themes/windowsphone/theme.css");
-    }
+      ){ appendSheet("themes/apple/theme.css"); }
+  else { appendSheet("themes/jqt/theme.css"); }
   function hideAddressBar(){
-    if(document.documentElement.scrollHeight<window.outerHeight/window.devicePixelRatio)
-      document.documentElement.style.height=(window.outerHeight/window.devicePixelRatio)+'px';
+    if(document.documentElement.scrollHeight<window.innerHeight/window.devicePixelRatio)
+      document.documentElement.style.height=(window.innerHeight/window.devicePixelRatio)+'px';
     if(navigator.userAgent.match(/Android/i))
       {
       setTimeout(window.scrollTo(0,1),0);
@@ -68,20 +50,23 @@ document.onreadystatechange = function() {
     var sharp = String(url).indexOf("#")+1;
     loadPage(String(url).substr(sharp,String(url).length)+'.html');
   };
-  $('a').click(function(e){
-    var link = $(this).attr("href");
-    if (link != "#")
-      {
-        e.preventDefault();
-        loadPage(link.substr(1,link.length)+'.html');
-      }
+  function LinkClicked(e){
+    var link = this.getAttribute("href");
+    if (link != "#"){
+      e.preventDefault();
+      loadPage(link.substr(1,link.length)+'.html');
+    }
     history.pushState(null, null, link);
-    });
+  }
+  var links = document.getElementsByTagName('a');
+  for (var i=0; i < links.length; i++){
+    links[i].addEventListener('click',LinkClicked);
+  }
   function loadPage(link){
     if (link == "index.html")
       {
-        $('nav').show();
-        $('#main').hide();
+        document.getElementsByTagName('nav')[0].style.display="block";
+        document.getElementById('main').style.display="none";
         //$('#main > .toolbar > a').detach()
       }
     else
@@ -93,11 +78,11 @@ document.onreadystatechange = function() {
               {
                 var mainDiv = document.getElementById('main');
                 mainDiv.innerHTML = request.response;
+                hideLoading();
                 var ob = mainDiv.getElementsByTagName("script");
                 for(var i=0; i<ob.length; i++){
                   if(ob[i].text!=null) eval(ob[i].text);
                 }
-                hideLoading();
               }
             else
               console.log('failed to fetch Page '+link+' '+request.status);
@@ -109,13 +94,17 @@ document.onreadystatechange = function() {
   }
   //hide loading bar
   function hideLoading(){
-    var windowWidth = window.screen.width < window.outerWidth ?
-                      window.screen.width : window.outerWidth;
-    $('#main').show();
+    var windowWidth = window.innerWidth;
+    document.getElementById('main').style.display="block";
     if (windowWidth < 481)
       {
-        $('nav').hide();
-        $('#main > .toolbar').append('<a href="#index" class="back">zur&uuml;ck</a>')
+        document.getElementsByTagName('nav')[0].style.display="none";
+        link=document.createElement('a');
+        link.href="#index";
+        link.className="back";
+        link.text="zurück";
+        link.addEventListener('click',LinkClicked);
+        document.getElementsByClassName('toolbar')[1].appendChild(link);
       }
     hideAddressBar();
   };
