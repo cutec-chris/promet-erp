@@ -154,5 +154,5 @@ LazarusResources.Add('TfMessageEdit','FORMDATA',[
   +'MenuItem4'#6'Action'#7#8'acSaveAs'#0#0#0#9'TMenuItem'#9'MenuItem1'#7'Captio'
   +'n'#6#13'Eigenschaften'#0#9'TMenuItem'#9'MenuItem2'#6'Action'#7#12'acShowHea'
   +'der'#0#0#0#0#11'TSaveDialog'#11'SaveDialog1'#6'Filter'#6#28'Narichtendatei '
-  +'(*.msg)|*.msg'#4'left'#2'.'#3'top'#3#148#0#0#0#0
+  +'(*.eml)|*.eml'#4'left'#2'.'#3'top'#3#148#0#0#0#0
 ]);

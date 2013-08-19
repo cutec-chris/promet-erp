@@ -1,10 +1,13 @@
-﻿Build 264
+﻿Build 265
+      - Nachrichtenroute (den weg den eine e-Mail genommen hat) wird im Nachrichteneditor dargestllt
+      - bessere Qulität für Screenshots aus Wiki die im Jpeg Format aufgenommen werden
+Build 264
       - Profil bei Installation (unter Windows) auswählbar
       - Autologin für Administrator direkt nach Installation an
 Build 263
       - Fehler das die erste Position die Detailansicht nicht aktualisiert hatte behoben siehe Mantis 25,26
       - eMail Header anzeigbar
-      - eMails als msg Datei speicherbar (war vorher schon über die Archivfunktion möglich nun direkt aus der Mail heraus)
+      - eMails als eml Datei speicherbar (war vorher schon über die Archivfunktion möglich nun direkt aus der Mail heraus)
 Build 262
       - Fehler in Auftragsbearbeitung der in 261 eingeführt wurde behoben
       - Hauptformular wird bei falschanmeldung oder abbruch nicht angezeigt (flackerte kurz auf)
@@ -17,7 +20,7 @@ Build 260
       - Unteraufträge wurden in Auftragsübersicht kaskadiert dargestellt
       - größe Datumsfeld in Vorgang angepasst
       - Darstellung von Zellen in Gantt Ansicht angepasst (Zeilen alternierend, keine Zeilentrenner)
-      - Größe con Zellen in Gantt Ansicht wird automatisch angepasst
+      - Größe von Zellen in Gantt Ansicht wird automatisch angepasst
       - Klick in Gantt Ansicht markiert entsprechende Zeile
 Build 259
       - wenn Wizardmandant mit --silent ausgeführt wird wird die DB nicht befüllt wenn sie schon existiert

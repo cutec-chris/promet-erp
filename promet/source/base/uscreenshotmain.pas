@@ -77,6 +77,7 @@ begin
      FBitmap.Width := FSelRect.Right-FSelRect.Left-2;
      FBitmap.Canvas.CopyRect(Rect(-1,-1,FBitmap.Width+1,FBitmap.Height+1),Scr.Picture.Bitmap.Canvas,FSelRect);
      Scr.Picture.Assign(FBitmap);
+     Scr.Picture.Jpeg.CompressionQuality:=90;
      Scr.Picture.SaveToFile(FSaveTo);
      FBitmap.Free;
    end

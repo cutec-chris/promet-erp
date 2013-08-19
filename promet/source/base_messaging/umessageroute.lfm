@@ -1,0 +1,64 @@
+inherited fMessageRoute: TfMessageRoute
+  Left = 0
+  Height = 215
+  Top = 0
+  Width = 787
+  ClientHeight = 215
+  ClientWidth = 787
+  DesignLeft = 358
+  DesignTop = 292
+  object DBGrid1: TDBGrid[0]
+    Left = 0
+    Height = 215
+    Top = 0
+    Width = 787
+    Align = alClient
+    AutoFillColumns = True
+    Color = clWindow
+    Columns = <>
+    DataSource = Datasource1
+    TabOrder = 0
+    TitleStyle = tsNative
+  end
+  object MemDataset1: TMemDataset[1]
+    Active = True
+    FieldDefs = <    
+      item
+        Name = 'From'
+        DataType = ftString
+        Precision = 0
+        Size = 100
+      end    
+      item
+        Name = 'By'
+        DataType = ftString
+        Precision = 0
+        Size = 100
+      end    
+      item
+        Name = 'For'
+        DataType = ftString
+        Precision = 0
+        Size = 100
+      end    
+      item
+        Name = 'Connection'
+        DataType = ftString
+        Precision = 0
+        Size = 100
+      end    
+      item
+        Name = 'Time'
+        DataType = ftDateTime
+        Precision = 0
+        Size = 0
+      end>
+    left = 32
+    top = 14
+  end
+  object Datasource1: TDatasource[2]
+    DataSet = MemDataset1
+    left = 120
+    top = 14
+  end
+end

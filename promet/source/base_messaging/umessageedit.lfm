@@ -442,7 +442,7 @@ object fMessageEdit: TfMessageEdit
     end
   end
   object SaveDialog1: TSaveDialog
-    Filter = 'Narichtendatei (*.msg)|*.msg'
+    Filter = 'Narichtendatei (*.eml)|*.eml'
     left = 46
     top = 148
   end

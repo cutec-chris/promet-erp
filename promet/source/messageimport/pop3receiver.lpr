@@ -313,12 +313,6 @@ begin
                           aMID := copy(MList[messageidx],pos(' ',MList[messageidx])+1,length(MList[messageidx]));
                           Data.SetFilter(MessageIndex,'"ID"='''+aMID+'''');
                           Data.SetFilter(DeletedItems,'"LINK"=''MESSAGEIDX@'+aMID+'''');
-                          Message.History.Open;
-                          Message.History.AddItem(Message.DataSet,Format(strActionMessageReceived,[DateTimeToStr(Now())]),
-                                                    'MESSAGEIDX@'+aMID+'{'+aSubject+'}',
-                                                    '',
-                                                    nil,
-                                                    ACICON_MAILNEW);
                           if (not MessageIndex.DataSet.Locate('ID',aMID,[]))
                           and (not DeletedItems.DataSet.Locate('LINK','MESSAGEIDX@'+aMID,[])) then
                             begin
@@ -402,10 +396,8 @@ begin
                                       else
                                         SpamPoints := SpamPoints+1; //Kein Realname
                                       //Mails mit großer Empfängeranzahl
-                                      SpamPoints := SpamPoints+msg.Header.ToList.Count*0.5;
+                                      SpamPoints := SpamPoints+((msg.Header.ToList.Count*0.5)-0.5);
                                     end;
-                                  if ExecRegExpr('([0-9]{1,3}(\-|\.)[0-9]{1,3}(\-|\.)[0-9]{1,3}(\-|\.)[0-9]{1,3}.+[a-z0-9]+\.[a-z0-9]{2,6})',msg.Header.CustomHeaders.Text) then
-                                    SpamPoints+=2;//dynamische IP
                                   atmp := trim(msg.Header.From);
                                   if (SpamPoints>0) and (Spampoints<=3) then
                                     begin
@@ -445,6 +437,12 @@ begin
                                         FieldByName('READ').AsString := 'Y';
                                       Post;
                                       MessageHandler.SendCommand('prometerp','Message.refresh');
+                                      Message.History.Open;
+                                      Message.History.AddItem(Message.DataSet,Format(strActionMessageReceived,[DateTimeToStr(Now())]),
+                                                                'MESSAGEIDX@'+aMID+'{'+aSubject+'}',
+                                                                '',
+                                                                nil,
+                                                                ACICON_MAILNEW);
                                     end;
                                   if DoArchive and Assigned(pop.FullResult) then
                                     begin

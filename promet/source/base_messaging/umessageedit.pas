@@ -502,7 +502,7 @@ begin
       msg := TMimeMessage(DataSet).EncodeMessage;
       aFN := SaveDialog1.FileName;
       if Pos('.',aFN)=0 then
-        aFN := aFN+'.msg';
+        aFN := aFN+'.eml';
       msg.Lines.SaveToFile(aFN);
     end;
 end;
