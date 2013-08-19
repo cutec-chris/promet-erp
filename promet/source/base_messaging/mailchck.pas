@@ -41,6 +41,7 @@ begin
   if (domain = '') or (user = '') then
     exit;  //invalid address format
   smtp:=tsmtpsend.create;
+  smtp.Timeout:=1000;
   mailservers:=tstringlist.create;
   dnsservers:=tstringlist.create;
   try
@@ -104,4 +105,4 @@ begin
   end;
 end;
 
-end.
+end.

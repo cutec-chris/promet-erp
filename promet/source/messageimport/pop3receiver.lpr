@@ -401,13 +401,13 @@ begin
                                   if ExecRegExpr('([0-9]{1,3}(\-|\.)[0-9]{1,3}(\-|\.)[0-9]{1,3}(\-|\.)[0-9]{1,3}.+[a-z0-9]+\.[a-z0-9]{2,6})',msg.Header.CustomHeaders.Text) then
                                     SpamPoints+=2;//dynamische IP
                                   atmp := trim(msg.Header.From);
-                                  if SpamPoints>0 then
+                                  if (SpamPoints>0) and (Spampoints<=3) then
                                     begin
                                       if (pos('>',atmp) > 0) and (pos('<',atmp) > 0) then
                                         atmp := getemailaddr(atmp);
                                       aChk := mailcheck(atmp);
                                       case aChk of
-                                      1,2,3,4: aChk := 0;
+                                      1,2,3: aChk := 0;
                                       end;
                                       SpamPoints+=aChk;
                                     end;
