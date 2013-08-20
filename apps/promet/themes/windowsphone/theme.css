@@ -57,6 +57,7 @@ body.landscape .toolbar > h1 {
     position: relative;
     margin: .5em 0px;
     padding: 0;
+    top: -1px;
     box-shadow: none !important;
     border-color: black /*{b-bup-border}*/;
     background: white /*{b-bup-background-color}*/;

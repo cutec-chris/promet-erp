@@ -33,9 +33,9 @@
     }
     function TaskDone(e){
       if (e.checked)
-        tasks[e.parentElement.parentElement.id].completed='Y';
+        tasks[e.parentElement.id].completed='Y';
       else
-        tasks[e.parentElement.parentElement.id].completed='N';
+        tasks[e.parentElement.id].completed='N';
       localStorage['tasks'] = JSON.stringify(tasks);
     }
     // This adds a task
@@ -48,7 +48,7 @@
       nli.appendChild(ndiv);
       ndiv.setAttribute('id',task.lpriority);
       ndiv.innerHTML = '<input type="checkbox" onClick="TaskDone(this);" style="width:auto;display:inline;"><label style="margin-left:5px;">'+task.subject+'</label>';
-      ndiv.firstElementChild.checked = task.completed='Y';
+      ndiv.firstElementChild.checked = (task.completed=="Y");
       // To memory
       tasks[tasks.length] = task;
       // In storage
@@ -60,8 +60,10 @@
         // Get the last stored tasks and restore them to the UI.
         // Default to an empty array
         var oldTasks = JSON.parse(localStorage.getItem('tasks') || '[]');
-        for (var i=0;i<=oldTasks.length-1;i++)
+        for (var i=0;i<=oldTasks.length-1;i++){
+          oldTasks[i].lpriority = i;
           addTask(oldTasks[i]);
+        }
         // Set up a handler for submission
         document.querySelector('#submitForm').onsubmit=function(){
           // Add the new task
@@ -69,8 +71,9 @@
           var newTask = { 'subject' : aTaskName.value,
                           'sql_id' : undefined,
                           'completed' : 'N',
-                          'lpriority' : i
+                          'lpriority' : 0
                         };
+          newTask.lpriority = tasks.length;
           addTask(newTask);
           // Clear the input
           document.querySelector('#task-name').value = '';
