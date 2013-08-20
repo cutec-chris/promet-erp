@@ -23,28 +23,32 @@
     tasks = [];
     // This will change the view if localStorage isn't available. It
     // returns true or false
-    function verifyLocalStorage()
-    {
-      if (!window.localStorage)
-      {
+    function verifyLocalStorage() {
+      if (!window.localStorage) {
         document.querySelector('.section').style.display="none";
         document.querySelector('#not-supported').style.display="block";
         return false;
       }
       return true;
     }
+    function TaskDone(e){
+      if (e.checked)
+        tasks[e.parentElement.parentElement.id].completed='Y';
+      else
+        tasks[e.parentElement.parentElement.id].completed='N';
+      localStorage['tasks'] = JSON.stringify(tasks);
+    }
     // This adds a task
-    function addTask(task)
-    {
+    function addTask(task){
       // To the view
       var nli=document.createElement("li");
-      var list = document.querySelector('#task-list')
+      var list = document.querySelector('#task-list');
       list.appendChild(nli);
       var ndiv = document.createElement("div");
       nli.appendChild(ndiv);
-      ndiv.setAttribute('id',task.number);
-      ndiv.innerHTML = '<input type="checkbox" style="width:auto;display:inline;"><label style="margin-left:5px;">'+task.name+'</label>';
-
+      ndiv.setAttribute('id',task.lpriority);
+      ndiv.innerHTML = '<input type="checkbox" onClick="TaskDone(this);" style="width:auto;display:inline;"><label style="margin-left:5px;">'+task.subject+'</label>';
+      ndiv.firstElementChild.checked = task.completed='Y';
       // To memory
       tasks[tasks.length] = task;
       // In storage
@@ -62,7 +66,11 @@
         document.querySelector('#submitForm').onsubmit=function(){
           // Add the new task
           var aTaskName = document.querySelector('#task-name');
-          var newTask = { 'name' : aTaskName.value };
+          var newTask = { 'subject' : aTaskName.value,
+                          'sql_id' : undefined,
+                          'completed' : 'N',
+                          'lpriority' : i
+                        };
           addTask(newTask);
           // Clear the input
           document.querySelector('#task-name').value = '';
