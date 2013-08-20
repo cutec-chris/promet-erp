@@ -42,6 +42,7 @@ type
     Panel1: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
+    Splitter1: TSplitter;
     procedure bCopyToClipboardClick(Sender: TObject);
     procedure bPasteFromClipboardClick(Sender: TObject);
     procedure cbTitleEnter(Sender: TObject);
