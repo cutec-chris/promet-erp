@@ -10,7 +10,6 @@ h1, h2 {
 }
 /* @group Toolbar */
 .toolbar {
-    -webkit-box-sizing: border-box;
     border-bottom: 1px solid #000;
     padding: 10px;
     height: 22px;

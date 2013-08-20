@@ -34,9 +34,9 @@ h1, h2, h3, h4, h5, h6
 .toolbar > h1 {
     min-height: 1.1em;
     text-align: left;
-    font-size: 32pt;
+    font-size: 26pt;
     display: block;
-    margin: 17pt 0 0 0pt;
+    margin: 10pt 0 0 0pt;
     padding: 0;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -51,7 +51,6 @@ body.landscape .toolbar > h1 {
 }
 .toolbutton,.button,.back,.cancel,.add {
     background: none;
-    display: block;
     text-align: center;
     cursor: pointer;
     height: 16px;
@@ -68,7 +67,6 @@ body.landscape .toolbar > h1 {
 }
 .toolbutton, .back, .cancel, .add {
     overflow: hidden;
-    top: 1px;
     height: 30px;
     right: 10px;
     margin: 0;
@@ -251,7 +249,6 @@ ul.form li.error + li.error {
 
 input, textarea {
     background-image: none;
-    display: block;
     width: 100%;
 }
 textarea { height: 50px; transition: height 200ms linear; }

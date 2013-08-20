@@ -81,7 +81,6 @@ h1, h2 {
     width: 250px;
 }
 .toolbutton, .back, .cancel, .add {
-    position: absolute;
     overflow: hidden;
     top: 8px;
     right: 10px;
@@ -650,9 +649,8 @@ ul.metal li.arrow a small {
 /* @end */
 input[type='submit'] {
     -webkit-border-radius: 4px;
+    border-radius: 4px;
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(238,238,238,1)), to(rgba(156,158,160,1)));
-    display: block;
     font-size: inherit;
     font-weight: inherit;
-    padding: 10px;
 }

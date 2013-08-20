@@ -27,8 +27,8 @@
     {
       if (!window.localStorage)
       {
-        document.querySelector('.section').fadeOut();
-        document.querySelector('#not-supported').show();
+        document.querySelector('.section').style.display="none";
+        document.querySelector('#not-supported').style.display="block";
         return false;
       }
       return true;
@@ -52,24 +52,24 @@
     }
     // Set it all up
     // Notify the user if local storage isn't supported
-    if (verifyLocalStorage() === false)
-      return;
-    // Get the last stored tasks and restore them to the UI.
-    // Default to an empty array
-    var oldTasks = JSON.parse(localStorage.getItem('tasks') || '[]');
-    for (var i=0;i<=oldTasks.length-1;i++)
-      addTask(oldTasks[i]);
-    // Set up a handler for submission
-    document.querySelector('#submitForm').onsubmit=function(){
-      // Add the new task
-      var aTaskName = document.querySelector('#task-name');
-      var newTask = { 'name' : aTaskName.value };
-      addTask(newTask);
-      // Clear the input
-      document.querySelector('#task-name').value = '';
-      // Don't post
-      return false;
-    };
+    if (verifyLocalStorage() == true) {
+        // Get the last stored tasks and restore them to the UI.
+        // Default to an empty array
+        var oldTasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+        for (var i=0;i<=oldTasks.length-1;i++)
+          addTask(oldTasks[i]);
+        // Set up a handler for submission
+        document.querySelector('#submitForm').onsubmit=function(){
+          // Add the new task
+          var aTaskName = document.querySelector('#task-name');
+          var newTask = { 'name' : aTaskName.value };
+          addTask(newTask);
+          // Clear the input
+          document.querySelector('#task-name').value = '';
+          // Don't post
+          return false;
+      }
+    }
     </script>
   </div>
 </body>
