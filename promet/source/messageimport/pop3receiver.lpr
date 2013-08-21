@@ -361,11 +361,12 @@ begin
                                       b := 0;
                                       for a := 0 to msg.Header.CustomHeaders.Count-1 do
                                         begin
+                                          lSP := 0;
                                           atmp := msg.Header.CustomHeaders[a];
                                           if copy(atmp,0,9) = 'Received:' then
                                             begin
                                               inc(b);
-                                              lSP := 2;
+                                              lSP := 1;
                                               atmp := copy(atmp,16,length(atmp));
                                               atmp := trim(copy(atmp,0,pos('by',lowercase(atmp))-1));
                                               if copy(atmp,0,1) = '[' then
@@ -378,6 +379,7 @@ begin
                                           else if copy(atmp,0,17)='List-Unsubscribe:' then
                                             lSP := lSP+2;//Alle Spammer versuchen sich als Mailingliste auszugeben
                                                          //und pber den List-Unsubscribe nen Button einzublenden "zum abbestellen"
+                                          SpamPoints+=lSP;
                                         end;
                                       a := 0;
                                       if msg.Header.FindHeader('X-Spam-Flag') = 'YES' then
@@ -409,7 +411,7 @@ begin
                                       end;
                                       SpamPoints+=aChk;
                                     end;
-                                  if SpamPoints > 3 then
+                                  if SpamPoints > 5 then
                                     begin
                                       aTreeEntry := TREE_ID_SPAM_MESSAGES;
                                     end;
@@ -443,6 +445,12 @@ begin
                                                                 '',
                                                                 nil,
                                                                 ACICON_MAILNEW);
+                                      if SpamPoints>0 then
+                                        Message.History.AddItem(Message.DataSet,strMessageSpamPoints+' '+FloatToStr(SpamPoints),
+                                                                  'MESSAGEIDX@'+aMID+'{'+aSubject+'}',
+                                                                  '',
+                                                                  nil,
+                                                                  ACICON_MAILNEW);
                                     end;
                                   if DoArchive and Assigned(pop.FullResult) then
                                     begin

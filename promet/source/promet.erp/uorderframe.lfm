@@ -818,7 +818,7 @@ inherited fOrderFrame: TfOrderFrame
         Left = 4
         Height = 13
         Hint = 'Die automatisch vergebene eindeutige Vorgangsnummer'
-        Top = 27
+        Top = 25
         Width = 132
         AutoSize = False
         BorderSpacing.Left = 4
@@ -832,7 +832,7 @@ inherited fOrderFrame: TfOrderFrame
         Left = 136
         Height = 17
         Hint = 'das Buchungsdatum'
-        Top = 27
+        Top = 25
         Width = 86
         AutoSize = False
         Constraints.MinWidth = 50
@@ -849,7 +849,7 @@ inherited fOrderFrame: TfOrderFrame
         Left = 222
         Height = 17
         Hint = 'Die Buchungsnummer'
-        Top = 27
+        Top = 25
         Width = 85
         BorderSpacing.Left = 48
         Constraints.MinWidth = 50

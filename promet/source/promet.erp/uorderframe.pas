@@ -780,6 +780,7 @@ begin
   with Application as TBaseVisualApplication do
     AddTabs(pcHeader);
   pMain.Visible:=True;
+  inherited DoOpen;
   if Dataset.State = dsInsert then
     begin
       if pAddresses.ControlCount > 0 then
@@ -789,7 +790,6 @@ begin
   //All what not depends on new order
   if TOrder(DataSet).Address.Count > 0 then
     TOrder(DataSet).Address.DataSet.Locate('TYPE','DAD',[loPartialKey]);
-  inherited DoOpen;
 end;
 function TfOrderFrame.SetRights : Boolean;
 var

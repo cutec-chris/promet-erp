@@ -1,5 +1,6 @@
 ﻿Build 266
       - Adressframe leicht umgestaltet
+      - kleine Schönheitskorrekturen für Vorgangseditor
 Build 265
       - Nachrichtenroute (den weg den eine e-Mail genommen hat) wird im Nachrichteneditor dargestellt
       - bessere Qulität für Screenshots aus Wiki die im Jpeg Format aufgenommen werden

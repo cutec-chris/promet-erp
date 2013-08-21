@@ -99,6 +99,7 @@ resourcestring
   strNoDirectorySelected        = 'Sie müssen ein Verzeichnis auswählen,'+lineending+'bevor Sie den Eintrag zu einem diesem zuordnen können.';
   strGotoFeed                   = 'vollen Artikel anzeigen';
   strActionMessageReceived      = '%s - empfangen';
+  strMessageSpamPoints          = 'Spampunkte: ';
   strWrongPassword              = 'Das eingegebene Passwort stimmt nicht mit dem von Ihnen erstellten überein';
   strCustomers                  = 'Kontakte';
   strAdresses                   = 'Adressen';

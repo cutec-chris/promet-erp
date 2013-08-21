@@ -314,10 +314,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPrometFrames"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="55"/>
+        <TopLine Value="70"/>
         <CursorPos X="1" Y="73"/>
         <UsageCount Value="83"/>
+        <Loaded Value="True"/>
       </Unit7>
       <Unit8>
         <Filename Value="uaddressframe.pas"/>
@@ -597,13 +599,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOrderFrame"/>
-        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="66" Y="5"/>
+        <TopLine Value="728"/>
+        <CursorPos X="1" Y="784"/>
         <UsageCount Value="202"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit33>
       <Unit34>
         <Filename Value="uorderadditionalframe.pas"/>
@@ -991,6 +990,7 @@
       </Unit68>
       <Unit69>
         <Filename Value="../base/revision.inc"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -1000,11 +1000,10 @@
       </Unit69>
       <Unit70>
         <Filename Value="../base/changes.txt"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="39" Y="2"/>
+        <CursorPos X="56" Y="3"/>
         <UsageCount Value="103"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
