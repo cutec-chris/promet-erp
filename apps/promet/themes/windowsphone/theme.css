@@ -74,9 +74,6 @@ body.landscape .toolbar > h1 {
     padding: 0 3px;
     width: auto;
 }
-.blueButton {
-    border-width: 0 5px;
-}
 .back {
     left: 6px;
     right: auto;
@@ -98,14 +95,12 @@ body.landscape .toolbar > h1 {
 }
 .button,
 .whiteButton,
-.grayButton {
+.grayButton,
+.blueButton {
     display: block;
     padding: 10px;
     text-align: center;
     font-size: 20px;
-    font-weight: bold;
-    text-decoration: inherit;
-    color: inherit;
 }
 .button,
 .whiteButton {
@@ -114,6 +109,10 @@ body.landscape .toolbar > h1 {
 .grayButton {
     color: #FFFFFF;
 }
+.blueButton {
+    background-color: #7777FF;
+}
+
 /* @end */
 /* @group Lists */
 h1 + ul, h2 + ul, h3 + ul, h4 + ul, h5 + ul, h6 + ul {
