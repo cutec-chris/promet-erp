@@ -14,9 +14,14 @@ object appbase: Tappbase
       Template.AllowTagParams = False
     end  
     item
-      Name = 'connectionavalibe'
+      Name = 'connectionavail'
       Default = False
       OnRequest = connectionavalibeRequest
+      Template.AllowTagParams = False
+    end  
+    item
+      Name = 'logout'
+      Default = False
       Template.AllowTagParams = False
     end>
   ActionVar = 'action'

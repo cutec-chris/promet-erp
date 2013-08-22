@@ -22,6 +22,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="umain"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="22"/>
@@ -319,11 +320,10 @@
       </Unit36>
       <Unit37>
         <Filename Value="../../../apps/promet/js/framework.js"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="103"/>
-        <CursorPos X="45" Y="122"/>
+        <CursorPos X="45" Y="123"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="JScript"/>

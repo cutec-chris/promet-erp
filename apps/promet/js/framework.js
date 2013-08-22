@@ -120,7 +120,7 @@ document.onreadystatechange = function() {
   };
   function ConnectionAvalibe(){
     var FConnectionOK=false;
-    DoGet("http://"+Params.Server+"/?action=connectionavalible&random="+encodeURIComponent(Math.random()));
+    DoGet("http://"+Params.Server+"/?action=connectionavail&random="+encodeURIComponent(Math.random()));
     ConnTestTimer = window.setTimeout("ConnectionTimeout()", 100);
   }
   if (navigator.onLine) {
