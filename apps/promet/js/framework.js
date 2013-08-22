@@ -1,9 +1,9 @@
+var Params = {
+  Server: "localhost:8086",
+  Theme:""
+  }
 document.onreadystatechange = function() {
   if (document.readyState === 'complete'){
-  var Params = {
-    Server: "localhost:8086",
-    Theme:""
-    }
   if (getCookie("prometServer")!=null)
     Params.Server = getCookie("prometServer");
   function appendSheet(href){
@@ -118,5 +118,23 @@ document.onreadystatechange = function() {
       }
     hideAddressBar();
   };
+  function ConnectionAvalibe(){
+    var FConnectionOK=false;
+    DoGet("http://"+Params.Server+"/?action=connectionavalible&random="+encodeURIComponent(Math.random()));
+    ConnTestTimer = window.setTimeout("ConnectionTimeout()", 100);
+  }
+  if (navigator.onLine) {
+      ConnectionAvalibe();
+  }
 }
 };
+function ConnectionTimeout(){
+  window.clearTimeout(ConnTestTimer);
+  OnDisconnected();
+}
+function ConnectionOK(){
+  window.clearTimeout(ConnTestTimer);
+  FConnectionOK = true;
+  OnConnected();
+}
+

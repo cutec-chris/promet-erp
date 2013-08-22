@@ -15,12 +15,6 @@
 <nav>
   <div class="toolbar">
     <h1>Promet-App</h1>
-    <script type="text/javascript">
-    var online = (navigator.onLine) ? 'yes' : 'no';
-    if (online)
-      {
-      }
-    </script>
   </div>
   <div class="content">
   <ul>
@@ -36,5 +30,14 @@
   <div class="content">
   </div>
 </div>
+<script type="text/javascript">
+function OnConnected() {
+    console.log("were connected");
+  }
+function OnDisconnected() {
+    console.log("were disconnected");
+    document.OnConnected
+  }
+</script>
 </body>
 </html>

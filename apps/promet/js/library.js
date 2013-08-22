@@ -49,6 +49,3 @@ function getCookie(Name){
   }
   return c_value;
 }
-function ConnectionAvalibe(){
-  DoGet()
-}
