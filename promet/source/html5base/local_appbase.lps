@@ -8,11 +8,11 @@
         <Filename Value="local_appbase.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="local_appbase"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="49" Y="22"/>
-        <UsageCount Value="56"/>
+        <UsageCount Value="58"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -22,12 +22,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="umain"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="22"/>
-        <CursorPos X="32" Y="38"/>
-        <UsageCount Value="56"/>
+        <TopLine Value="35"/>
+        <CursorPos X="37" Y="38"/>
+        <UsageCount Value="58"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -37,7 +36,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="2" Y="26"/>
-        <UsageCount Value="29"/>
+        <UsageCount Value="31"/>
         <DefaultSyntaxHighlighter Value="JScript"/>
       </Unit2>
       <Unit3>
@@ -181,11 +180,11 @@
       <Unit20>
         <Filename Value="../base/ubasehttpapplication.pas"/>
         <UnitName Value="ubasehttpapplication"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="93"/>
         <CursorPos X="90" Y="117"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit20>
       <Unit21>
@@ -279,10 +278,12 @@
       <Unit32>
         <Filename Value="../base/ubasewebsession.pas"/>
         <UnitName Value="uBaseWebSession"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="369"/>
-        <CursorPos X="43" Y="385"/>
-        <UsageCount Value="19"/>
+        <CursorPos X="42" Y="383"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
       </Unit32>
       <Unit33>
         <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-web/src/base/httpdefs.pp"/>
@@ -310,31 +311,31 @@
       </Unit35>
       <Unit36>
         <Filename Value="../../../apps/promet/login.html"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="9"/>
         <CursorPos X="55" Y="24"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="HTML"/>
       </Unit36>
       <Unit37>
         <Filename Value="../../../apps/promet/js/framework.js"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="103"/>
         <CursorPos X="45" Y="123"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="JScript"/>
       </Unit37>
       <Unit38>
         <Filename Value="../../../apps/promet/js/library.js"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="14"/>
         <CursorPos X="2" Y="51"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="JScript"/>
       </Unit38>
@@ -356,21 +357,22 @@
       </Unit40>
       <Unit41>
         <Filename Value="../../../apps/promet/index.html"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="6"/>
         <CursorPos X="37" Y="34"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="HTML"/>
       </Unit41>
       <Unit42>
         <Filename Value="../../../apps/promet/tasks.html"/>
-        <EditorIndex Value="5"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="4"/>
-        <CursorPos X="63" Y="30"/>
-        <UsageCount Value="10"/>
+        <CursorPos X="101" Y="35"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="HTML"/>
       </Unit42>
@@ -477,7 +479,7 @@
       </Position24>
       <Position25>
         <Filename Value="umain.pas"/>
-        <Caret Line="38" Column="32" TopLine="22"/>
+        <Caret Line="38" Column="37" TopLine="35"/>
       </Position25>
     </JumpHistory>
   </ProjectSession>

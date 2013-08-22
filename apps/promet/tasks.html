@@ -60,7 +60,8 @@
     if (verifyLocalStorage() == true) {
         // Get the last stored tasks and restore them to the UI.
         // Default to an empty array
-        var oldTasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+        var jsoncode = localStorage.getItem('tasks');
+        var oldTasks = JSON.parse(jsoncode || '[]');
         for (var i=0;i<=oldTasks.length-1;i++){
           oldTasks[i].lpriority = i;
           addTask(oldTasks[i]);
