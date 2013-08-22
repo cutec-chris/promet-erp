@@ -57,8 +57,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="345"/>
-        <CursorPos X="61" Y="348"/>
+        <TopLine Value="391"/>
+        <CursorPos X="1" Y="414"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <WindowIndex Value="0"/>
@@ -1004,123 +1004,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="403" Column="1" TopLine="379"/>
+        <Caret Line="408" Column="1" TopLine="391"/>
       </Position1>
       <Position2>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="404" Column="1" TopLine="379"/>
+        <Caret Line="409" Column="1" TopLine="391"/>
       </Position2>
       <Position3>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="406" Column="1" TopLine="379"/>
+        <Caret Line="412" Column="1" TopLine="391"/>
       </Position3>
       <Position4>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="407" Column="1" TopLine="379"/>
+        <Caret Line="414" Column="1" TopLine="391"/>
       </Position4>
       <Position5>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="408" Column="1" TopLine="380"/>
+        <Caret Line="419" Column="1" TopLine="391"/>
       </Position5>
       <Position6>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="409" Column="1" TopLine="381"/>
+        <Caret Line="404" Column="1" TopLine="391"/>
       </Position6>
       <Position7>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="412" Column="1" TopLine="384"/>
+        <Caret Line="406" Column="1" TopLine="391"/>
       </Position7>
       <Position8>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="414" Column="1" TopLine="386"/>
+        <Caret Line="408" Column="1" TopLine="391"/>
       </Position8>
       <Position9>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="416" Column="1" TopLine="388"/>
+        <Caret Line="409" Column="1" TopLine="391"/>
       </Position9>
       <Position10>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="384" Column="1" TopLine="367"/>
+        <Caret Line="412" Column="1" TopLine="391"/>
       </Position10>
       <Position11>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="385" Column="1" TopLine="367"/>
+        <Caret Line="414" Column="1" TopLine="391"/>
       </Position11>
       <Position12>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="387" Column="1" TopLine="367"/>
+        <Caret Line="404" Column="1" TopLine="391"/>
       </Position12>
       <Position13>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="389" Column="1" TopLine="367"/>
+        <Caret Line="414" Column="1" TopLine="391"/>
       </Position13>
       <Position14>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="390" Column="1" TopLine="367"/>
+        <Caret Line="416" Column="1" TopLine="391"/>
       </Position14>
       <Position15>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="393" Column="1" TopLine="367"/>
+        <Caret Line="404" Column="1" TopLine="391"/>
       </Position15>
       <Position16>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="394" Column="1" TopLine="367"/>
+        <Caret Line="414" Column="1" TopLine="391"/>
       </Position16>
       <Position17>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="395" Column="1" TopLine="367"/>
+        <Caret Line="419" Column="1" TopLine="391"/>
       </Position17>
       <Position18>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="401" Column="1" TopLine="384"/>
+        <Caret Line="404" Column="1" TopLine="391"/>
       </Position18>
       <Position19>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="403" Column="1" TopLine="384"/>
+        <Caret Line="406" Column="1" TopLine="391"/>
       </Position19>
       <Position20>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="404" Column="1" TopLine="384"/>
+        <Caret Line="407" Column="1" TopLine="391"/>
       </Position20>
       <Position21>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="406" Column="1" TopLine="384"/>
+        <Caret Line="408" Column="1" TopLine="391"/>
       </Position21>
       <Position22>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="407" Column="1" TopLine="384"/>
+        <Caret Line="409" Column="1" TopLine="391"/>
       </Position22>
       <Position23>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="408" Column="1" TopLine="384"/>
+        <Caret Line="412" Column="1" TopLine="391"/>
       </Position23>
       <Position24>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="409" Column="1" TopLine="384"/>
+        <Caret Line="404" Column="1" TopLine="391"/>
       </Position24>
       <Position25>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="410" Column="1" TopLine="384"/>
+        <Caret Line="406" Column="1" TopLine="391"/>
       </Position25>
       <Position26>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="412" Column="1" TopLine="384"/>
+        <Caret Line="407" Column="1" TopLine="391"/>
       </Position26>
       <Position27>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="414" Column="1" TopLine="386"/>
+        <Caret Line="408" Column="1" TopLine="391"/>
       </Position27>
       <Position28>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="443" Column="104" TopLine="424"/>
+        <Caret Line="409" Column="1" TopLine="391"/>
       </Position28>
       <Position29>
-        <Filename Value="..\base\dbintfs\uintfstrconsts.pas"/>
-        <Caret Line="102" Column="52" TopLine="84"/>
+        <Filename Value="pop3receiver.lpr"/>
+        <Caret Line="410" Column="1" TopLine="391"/>
       </Position29>
       <Position30>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="449" Column="126" TopLine="432"/>
+        <Caret Line="412" Column="1" TopLine="391"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>

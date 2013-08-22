@@ -1578,7 +1578,7 @@ begin
       InEdit := False;
       exit;
     end;
-  if (FDataSource.State <> dsInsert) and (TRowObject(gList.Objects[0,aRow]).Rec <> 0) and (not DataSet.GotoBookmark(TRowObject(gList.Objects[0,aRow]).Rec)) then
+  if (FDataSource.State <> dsInsert) and  Assigned(gList.Objects[0,aRow]) and (TRowObject(gList.Objects[0,aRow]).Rec <> 0) and (not DataSet.GotoBookmark(TRowObject(gList.Objects[0,aRow]).Rec)) then
     begin
       tmp := gList.Cells[aCol,aRow];
       aBm := DataSet.GetBookmark;
@@ -1794,6 +1794,7 @@ begin
   if aField = nil then exit;
   if FDontUpdate > 0 then exit;
   if gList.Row>gList.RowCount-1 then exit;
+  if not Assigned(gList.Objects[0,gList.Row]) then exit;
   if (TRowObject(gList.Objects[0,gList.Row]).Rec <> DataSet.GetBookmark)
   and ((DataSet.State <> dsInsert)
   and (TRowObject(gList.Objects[0,gList.Row]).Rec <> 0)
