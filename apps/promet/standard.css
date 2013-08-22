@@ -32,3 +32,13 @@ nav>.content {
   height: auto;
   z-index: 10;
 }
+
+#systray {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  height: 40px;
+  width: 100px;
+  border: 10px;
+  background: none;
+}

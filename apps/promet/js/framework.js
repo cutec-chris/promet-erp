@@ -37,7 +37,7 @@ document.onreadystatechange = function() {
   else if (
       navigator.userAgent.match(/iPad/i)
       ){ appendSheet("themes/apple/theme.css"); }
-  else { appendSheet("themes/android/theme.css"); }
+  else { appendSheet("themes/apple/theme.css"); }
   }
   function hideAddressBar(){
     if(document.documentElement.scrollHeight<window.innerHeight/window.devicePixelRatio)
