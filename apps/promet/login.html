@@ -1,17 +1,19 @@
 <html>
 <body>
-<form id="loginform">
-<fieldset>
-	<label for="user">User :</label>
+  <div class="toolbar">
+    <h1>Anmeldung</h1>
+  </div>
+  <div class="content">
+    <form id="loginform">
+    <fieldset>
+    	<label for="user">User :</label>
 	<input type="text" name="user" id="user"/>
 	<label for="pass">Password :</label>
 	<input type="password" name="user" id="pass"/>
 	<input type="submit" value="login"/>
-</fieldset>
-</form>
-<script type="text/javascript" src="js/vendor/core-min.js"></script>
-<script type="text/javascript" src="js/vendor/sha1-min.js"></script>
-<script type="text/javascript" src="js/library.js"></script>
+    </fieldset>
+    </form>
+  </div>
 <script language="javascript">
 document.getElementById('loginform').onsubmit = function(){
   return LoginStep1(document.getElementById('user').value, document.getElementById('pass').value);

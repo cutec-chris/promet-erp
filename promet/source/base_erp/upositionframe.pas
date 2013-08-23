@@ -539,7 +539,7 @@ end;
 
 procedure TfPosition.Datasource1StateChange(Sender: TObject);
 begin
-  if (bDetailsVisible.Down) and (not DataSet.DataSet.ControlsDisabled) then
+  if (bDetailsVisible.Down) and (not DataSet.DataSet.ControlsDisabled) and (FDataset.State=dsInsert) then
     TabTimer.Enabled:=True;
 end;
 
@@ -624,6 +624,10 @@ begin
               InplaceFrames[PosTyp].Align:=alClient;
               TUnprotectedFrame(InplaceFrames[GetPosTyp]).DoEnter;
               NewVisible:=True;
+            end
+          else if (Postyp <> -1) and Assigned(InplaceFrames[PosTyp]) then
+            begin
+              TUnprotectedFrame(InplaceFrames[GetPosTyp]).DoEnter;
             end
           else NewVisible:=False;
         end
@@ -821,4 +825,4 @@ begin
 end;
 
 end.
-
+
