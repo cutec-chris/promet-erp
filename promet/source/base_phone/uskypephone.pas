@@ -42,9 +42,8 @@ begin
   Phones.Add(aLine);
   with Application as IBaseApplication do
     aLines := Config.ReadString('PHONELINES','');
-  if (pos(aLine.Name,aLines)=0) or (not aLine.Connect) then
+  if (pos(aLine.Name,aLines)>0) or (not aLine.Connect) then
     begin
-      aLine.Free;
       exit;
     end;
 end;
@@ -149,4 +148,4 @@ begin
 end;
 
 end.
-
+

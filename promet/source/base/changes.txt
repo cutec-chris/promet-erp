@@ -1,5 +1,7 @@
 ﻿Build 268
-      -
+      - Reparaturtabs beim öffnen eines Untervorgangs nicht mehr bedienbar [0000031] (mit 267 eingeführt)
+      - Skype interface wird nicht gestartet wenn Haken in den Telefonieoptionen nicht gesetzt [0000026]
+      - noch ein Versuch [0000029] zu beheben
 Build 267
       - Reparaturdetail hat unter umständen Focus verloren [0000029]
 Build 266
