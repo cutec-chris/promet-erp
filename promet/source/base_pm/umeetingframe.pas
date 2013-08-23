@@ -543,11 +543,13 @@ end;
 function TfMeetingFrame.fSearchOpenProjectItem(aLink: string): Boolean;
 begin
   Result := True;
-  FGridView.Append;
+  if FGridView.DataSet.State<>dsInsert then
+    FGridView.Append;
   FGridView.DataSet.FieldByName('DESC').AsString:=Data.GetLinkDesc(aLink);
   FGridView.DataSet.FieldByName('LINK').AsString:=aLink;
   FGridView.Post;
   FGridView.SyncActiveRow(FGridView.DataSet.Id.AsVariant,False,True);
+  FGridView.SetFocus;
 end;
 
 function TfMeetingFrame.fSearchOpenUserItem(aLink: string): Boolean;
