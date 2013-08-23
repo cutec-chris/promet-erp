@@ -1,0 +1,9 @@
+inherited fProjectOverviewFrame: TfProjectOverviewFrame
+  Left = 0
+  Height = 460
+  Top = 0
+  Width = 730
+  OnEnter = FrameEnter
+  DesignLeft = 397
+  DesignTop = 245
+end

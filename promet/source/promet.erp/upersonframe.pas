@@ -1,0 +1,1034 @@
+{*******************************************************************************
+Dieser Sourcecode darf nicht ohne gültige Geheimhaltungsvereinbarung benutzt werden
+und ohne gültigen Vertriebspartnervertrag weitergegeben oder kommerziell verwertet werden.
+You have no permission to use this Source without valid NDA
+and copy it without valid distribution partner agreement
+Christian Ulrich
+info@cu-tec.de
+Created 01.06.2006
+*******************************************************************************}
+unit uPersonFrame;
+{$mode objfpc}{$H+}
+interface
+uses
+  Classes, SysUtils, FileUtil, LR_DBSet, LR_Class, Forms, Controls, ComCtrls,
+  ExtCtrls, StdCtrls, DbCtrls, Buttons, db, uPrometFrames, uExtControls,
+  uFilterFrame, DBGrids, Grids, Graphics, ActnList, uIntfstrconsts,
+  uBaseDBClasses, Dialogs, Menus, StdActns, Utils, uDocumentFrame, variants;
+type
+
+  { TfPersonFrame }
+
+  TfPersonFrame = class(TPrometMainFrame)
+    acSave: TAction;
+    acCancel: TAction;
+    acSetTreeDir: TAction;
+    acShowTreeDir: TAction;
+    acClose: TAction;
+    acStartTimeRegistering: TAction;
+    acCopy: TAction;
+    acPaste: TAction;
+    acDelete: TAction;
+    acNewOrder: TAction;
+    acAddAsOrder: TAction;
+    acExport: TAction;
+    acImport: TAction;
+    acRights: TAction;
+    acPrint: TAction;
+    ActionList1: TActionList;
+    bAssignTree: TSpeedButton;
+    bChangeNumber: TButton;
+    Bevel1: TBevel;
+    Bevel3: TBevel;
+    Bevel4: TBevel;
+    Bevel5: TBevel;
+    Bevel6: TBevel;
+    Bevel7: TBevel;
+    bExecute: TSpeedButton;
+    bShowTree: TSpeedButton;
+    cbLanguage: TExtDBCombobox;
+    cbStatus: TComboBox;
+    cbSupplier: TDBCheckBox;
+    Customers: TDatasource;
+    dnNavigator: TDBNavigator;
+    eCustomerName: TDBMemo;
+    eCustomerNumber: TDBEdit;
+    eMatchCode: TExtDBEdit;
+    ExportDialog: TSaveDialog;
+    ExtRotatedLabel1: TExtRotatedLabel;
+    gbTree: TGroupBox;
+    History: TDatasource;
+    Image1: TImage;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    lCustomerName: TLabel;
+    lCustomerof: TLabel;
+    lFirmName: TLabel;
+    lMatchCode: TLabel;
+    MenuItem1: TMenuItem;
+    MenuItem2: TMenuItem;
+    MenuItem3: TMenuItem;
+    MenuItem4: TMenuItem;
+    MenuItem5: TMenuItem;
+    MenuItem6: TMenuItem;
+    miCopy: TMenuItem;
+    miDelete: TMenuItem;
+    miPaste: TMenuItem;
+    miStartTimeregistering: TMenuItem;
+    ImportDialog: TOpenDialog;
+    Panel1: TPanel;
+    Panel2: TPanel;
+    Panel4: TPanel;
+    Panel6: TPanel;
+    Panel7: TPanel;
+    Panel8: TPanel;
+    Panel9: TPanel;
+    pComponents: TPanel;
+    pcPages: TExtMenuPageControl;
+    iPerson: TImage;
+    pCont: TPanel;
+    PHistory: TfrDBDataSet;
+    PList: TfrDBDataSet;
+    pmAction: TPopupMenu;
+    pNav1: TPanel;
+    pPreviewImage: TPanel;
+    Report: TfrReport;
+    sbMenue: TSpeedButton;
+    sbMenue1: TSpeedButton;
+    ToolBar1: TPanel;
+    ToolButton1: TSpeedButton;
+    ToolButton2: TSpeedButton;
+    tsCustomerCont: TTabSheet;
+    procedure acAddAsOrderExecute(Sender: TObject);
+    procedure acCancelExecute(Sender: TObject);
+    procedure acCloseExecute(Sender: TObject);
+    procedure acDeleteExecute(Sender: TObject);
+    procedure acExportExecute(Sender: TObject);
+    procedure acImportExecute(Sender: TObject);
+    procedure acNewOrderExecute(Sender: TObject);
+    procedure acPrintExecute(Sender: TObject);
+    procedure acRightsExecute(Sender: TObject);
+    procedure acSaveExecute(Sender: TObject);
+    procedure acSetTreeDirExecute(Sender: TObject);
+    procedure AddNewEmployee(Sender: TObject);
+    procedure bChangeNumberClick(Sender: TObject);
+    procedure cbStatusSelect(Sender: TObject);
+    procedure CustomersDataChange(Sender: TObject; Field: TField);
+    procedure CustomersStateChange(Sender: TObject);
+    procedure eCustomerNameChange(Sender: TObject);
+    procedure eCustomerNameExit(Sender: TObject);
+    procedure FContListDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure FContListgListEditButtonClick(Sender: TObject);
+    procedure lFirmNameClick(Sender: TObject);
+    procedure sbMenueClick(Sender: TObject);
+    procedure TfListFrameFListDragDrop(Sender, Source: TObject; X, Y: Integer);
+    procedure TfListFrameFListDragOver(Sender, Source: TObject; X, Y: Integer;
+      State: TDragState; var Accept: Boolean);
+    procedure TfListFrameFListViewDetails(Sender: TObject);
+    procedure TPersonCustomerContDataSetAfterPost(aDataSet: TDataSet);
+  private
+    { private declarations }
+    FContList : TfFilter;
+    FCustomerOf: string;
+    FEmployeeOf: string;
+    FEditable : Boolean;
+    FDocumentFrame: TfDocumentFrame;
+    procedure AddAddress(Sender: TObject);
+    procedure AddFinance(Sender: TObject);
+    procedure AddHistory(Sender: TObject);
+    procedure AddImages(Sender: TObject);
+    procedure AddLinks(Sender: TObject);
+    procedure AddText(Sender: TObject);
+    procedure AddDocuments(Sender: TObject);
+    procedure AddList(Sender: TObject);
+  protected
+    procedure SetDataSet(const AValue: TBaseDBDataset);override;
+    procedure DoOpen;override;
+    function SetRights : Boolean;
+  public
+    { public declarations }
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy;override;
+    function OpenFromLink(aLink : string) : Boolean;override;
+    procedure New;override;
+    procedure SetLanguage;override;
+    procedure AddAddress;
+    property EmployeeOf : string read FEmployeeOf write FEmployeeOf;
+    property CustomerOf : string read FCustomerOf write FCustomerOf;
+  end;
+implementation
+uses uData, uPerson, uBaseVisualControls, uBaseDBInterface, uAddressFrame,
+  uHistoryFrame, uImageFrame, uPersonFinance, uLinkFrame, uMessageEdit,
+  LCLIntf,uDocuments,uListFrame,uTextFrame,uMainTreeFrame,uSearch,
+  uOrderFrame,uOrder,VpData,uCalendarFrame, uImpVCard,uPrometFramesInplace,
+  uNRights,uSelectReport,uBaseVisualApplication;
+{$R *.lfm}
+resourcestring
+  strAddress                    = 'Adresse';
+  strChangeCustomerNumer        = 'Kundennumer ändern';
+  strEmployees                  = 'Mitarbeiter/Mitglieder';
+  strInfo                       = 'Info';
+  strInsertEventForBirthday     = 'Möchten Sie für diesen Geburtstag einen Eintrag in Ihren Kalendar erzeugen ?';
+  strBirthdayFrom               = 'Geburtstag von %s';
+  strNewPerson                  = 'neue Person';
+
+  scTelephone                   = 'TEL  Telefon';
+  scBusinessPhone               = 'TELB Telefon Geschäftlich';
+  scPrivatePhone                = 'TELP Telefon Privat';
+  scMobilephone                 = 'CEL  Mobiltelefon';
+  scBusinessMobilephone         = 'CELB Mobiltelefon Geschäftlich';
+  scPrivateMobilephone          = 'CELP Mobiltelefon Privat';
+  scSkype                       = 'SKP  Skype';
+  scFax                         = 'FAX  Fax';
+  scMail                        = 'MAIL e-Mail';
+  scBusinessMail                = 'MLB  e-Mail Geschäftlich';
+  scPrivateMail                 = 'MLP  e-Mail Privat';
+  scInternet                    = 'INT  Homepage';
+  scBirthday                    = 'BIR  Geburtstag';
+
+procedure TfPersonFrame.FContListDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+var
+  tmp: string;
+  i: Integer;
+  Found: Boolean;
+  aRect: TRect;
+begin
+  inherited;
+  with (Sender as TDBGrid), Canvas do
+    begin
+      Canvas.FillRect(Rect);
+      if gdSelected in State then
+        Canvas.Font.Color:=clHighlightText
+      else
+        Canvas.Font.Color:=clWindowText;
+      if Column.FieldName = 'TYPE' then
+        begin
+          if (copy(Column.Field.AsString,0,4) = 'MAIL')
+          or (copy(Column.Field.AsString,0,3) = 'MLB')
+          then
+            fVisualControls.Images.Draw(TDBGrid(Sender).Canvas,Rect.Left+1,Rect.Top+1,IMAGE_MESSAGE)
+          else
+          if (copy(Column.Field.AsString,0,3) = 'CEL')
+          or (copy(Column.Field.AsString,0,3) = 'TEL')
+          or (copy(Column.Field.AsString,0,3) = 'TLB')
+          then
+            fVisualControls.Images.Draw(TDBGrid(Sender).Canvas,Rect.Left+1,Rect.Top+1,IMAGE_CALLS)
+          ;
+          aRect := Rect;
+          aRect.Left:=aRect.Left+19;
+          Found := False;
+          if Column.Field.AsString <> '' then
+          for i := 0 to Column.PickList.Count-1 do
+            if trim(copy(Column.PickList[i],0,pos(' ',Column.PickList[i])-1)) = trim(Column.Field.AsString) then
+              begin
+                tmp := Column.PickList[i];
+                tmp := copy(tmp,pos(' ',tmp)+1,length(tmp))+' ('+copy(tmp,0,pos(' ',tmp)-1)+')';
+                Canvas.TextRect(aRect,aRect.Left,0,tmp);
+                Found := True;
+              end;
+          if not Found then
+            Canvas.TextRect(Rect,Rect.Left,0,Column.Field.AsString);
+        end
+      else
+        DefaultDrawColumnCell(Rect, DataCol, Column, State);
+      end;
+end;
+procedure TfPersonFrame.FContListgListEditButtonClick(Sender: TObject);
+var
+  fEditMail: TfMessageEdit;
+begin
+  if not Assigned(FContList.gList.SelectedField) then exit;
+  if (copy(TPerson(DataSet).CustomerCont.FieldByName('TYPE').AsString,0,3) = 'TEL')
+  or (copy(TPerson(DataSet).CustomerCont.FieldByName('TYPE').AsString,0,3) = 'CEL') then
+    begin
+//      CallPhone(TPerson(DataSet).CustomerCont.FieldByName('DATA').AsString);
+    end
+  else if (copy(TPerson(DataSet).CustomerCont.FieldByName('TYPE').AsString,0,3) = 'INT') then
+    begin
+      OpenURL(TPerson(DataSet).CustomerCont.FieldByName('DATA').AsString);
+    end
+  else if (copy(TPerson(DataSet).CustomerCont.FieldByName('TYPE').AsString,0,4) = 'MAIL')
+       or (copy(TPerson(DataSet).CustomerCont.FieldByName('TYPE').AsString,0,2) = 'ML') then
+       begin
+         fEditMail := TfMessageEdit.Create(Self);
+         fEditMail.SendMailTo('"'+TPerson(DataSet).FieldByName('NAME').AsString+'" <'+TPerson(DataSet).CustomerCont.FieldByName('DATA').AsString+'>');
+       end;
+end;
+procedure TfPersonFrame.lFirmNameClick(Sender: TObject);
+var
+  aPerson: TPerson;
+begin
+  aPerson := TPerson.Create(Self,Data);
+  Data.SetFilter(aPerson,Data.QuoteField('ACCOUNTNO')+'='+Data.QuoteValue(copy(lFirmName.Caption,pos(' (',lFirmName.Caption)+2,length(lFirmName.Caption)-(pos(' (',lFirmName.Caption))-2)));
+  if aPerson.Count > 0 then
+    Data.GotoLink(Data.BuildLink(aPerson.DataSet));
+  aPerson.Free;
+end;
+procedure TfPersonFrame.sbMenueClick(Sender: TObject);
+begin
+  TSpeedButton(Sender).PopupMenu.PopUp(TSpeedButton(Sender).ClientOrigin.x,TSpeedButton(Sender).ClientOrigin.y+TSpeedButton(Sender).Height);
+end;
+procedure TfPersonFrame.TfListFrameFListDragDrop(Sender, Source: TObject; X,
+  Y: Integer);
+var
+  nData: TTreeEntry;
+  aEmployee,aName : string;
+  aRec: String;
+  OldFilter: String;
+  aPersons: TPersonList;
+begin
+  if (Source = fMainTreeFrame.tvMain) then
+    begin
+      nData := TTreeEntry(fMainTreeFrame.tvMain.Selected.Data);
+      aPersons := TPersonList.Create(Self,Data);
+      Data.SetFilter(aPersons,nData.Filter);
+      aEmployee := aPersons.FieldByName('ACCOUNTNO').AsString;
+      aName := aPersons.FieldByName('NAME').AsString;
+      aPersons.free;
+    end
+  else if (Source = fSearch.sgResults) then
+    begin
+      aPersons := TPersonList.Create(Self,Data);
+      Data.SetFilter(aPersons,Data.QuoteField('ACCOUNTNO')+'='+Data.QuoteValue(fSearch.sgResults.Cells[1,fSearch.sgResults.Row]));
+      if aPersons.DataSet.Locate('ACCOUNTNO',fSearch.sgResults.Cells[1,fSearch.sgResults.Row],[loCaseInsensitive,loPartialKey]) then
+        begin
+          aEmployee := aPersons.FieldByName('ACCOUNTNO').AsString;
+          aName := aPersons.FieldByName('NAME').AsString;
+        end;
+      aPersons.Free;
+    end
+  else exit;
+  TPerson(DataSet).Employees.DataSet.Append;
+  TPerson(DataSet).Employees.FieldByName('EMPLOYEE').AsString := aEmployee;
+  TPerson(DataSet).Employees.FieldByName('NAME').AsString := aName;
+  TPerson(DataSet).Employees.DataSet.Post;
+end;
+procedure TfPersonFrame.TfListFrameFListDragOver(Sender, Source: TObject; X,
+  Y: Integer; State: TDragState; var Accept: Boolean);
+begin
+  Accept := False;
+  if (Source = fMainTreeFrame.tvMain)
+  and ((TTreeEntry(fMainTreeFrame.tvMain.Selected.Data).Typ = etCustomer)
+  or (TTreeEntry(fMainTreeFrame.tvMain.Selected.Data).Typ = etSupplier)) then
+    Accept := True;
+  if Assigned(fSearch) and (Source = fSearch.sgResults) then
+    begin
+      with fSearch.sgResults do
+        if Data.GetLinkIcon(fSearch.sgResults.Cells[4,fSearch.sgResults.Row])= IMAGE_PERSON then
+          Accept := True;
+    end;
+end;
+procedure TfPersonFrame.TfListFrameFListViewDetails(Sender: TObject);
+var
+  aPersonList: TPersonList;
+begin
+  aPersonList := TPersonList.Create(Self,Data);
+  Data.SetFilter(aPersonList,'"ACCOUNTNO"='+Data.QuoteValue(TPerson(DataSet).Employees.FieldByName('EMPLOYEE').AsString));
+  fMainTreeFrame.OpenLink(Data.BuildLink(aPersonList.DataSet),Self);
+  aPersonList.Free;
+end;
+procedure TfPersonFrame.TPersonCustomerContDataSetAfterPost(aDataSet: TDataSet);
+var
+  aDate: TDateTime;
+  Event: TVpEvent;
+  tmp: String;
+  fCalendar: TfCalendarFrame;
+begin
+  if aDataSet.ControlsDisabled then exit;
+  if uppercase(trim(aDataSet.FieldByName('TYPE').AsString)) = 'BIR' then
+    begin
+      if not TryStrToDate(aDataSet.FieldByName('DATA').AsString,aDate) then exit;
+      tmp := aDataSet.FieldByName('LINK').AsString;
+      fCalendar := TfCalendarFrame.Create(Self);
+      fCalendar.OpenDir(Data.Users.Id.AsInteger);
+      Data.SetFilter(fCalendar.DataSet,Data.QuoteField('ID')+'='+Data.QuoteValue(copy(tmp,pos('@',tmp)+1,length(tmp))));
+      if Data.RecordCount(fCalendar.DataSet) > 0 then
+        fCalendar.DataSet.DataSet.Delete
+      else if MessageDlg(strInsertEventForBirthday,mtConfirmation,[mbYes,mbNo],0) = mrNo then exit;
+      aDataSet.DisableControls;
+      aDataSet.Edit;
+      Event := fCalendar.DataStore.Resource.Schedule.AddEvent (fCalendar.DataStore.GetNextID(''),Int(aDate), Int(aDate)+0.9999999);
+      Event.AllDayEvent    :=True;                   // Ganztägig
+      Event.Category       :=8;                       // ist Geburtstag
+      Event.Description    :=Format(strBirthdayFrom,[DataSet.FieldByName('NAME').AsString]);
+      Event.RepeatCode     :=rtYearlyByDate;
+      Event.RepeatRangeEnd :=IncMonth(aDate,12*120);
+
+      Event.AlarmSet :=True;
+      Event.AlarmAdvType :=atDays;
+      Event.AlarmAdv :=5;
+      aDataSet.FieldByName('LINK').Asstring := 'CALENDAR@'+IntToStr(Event.RecordID);
+      aDataSet.Post;
+      fCalendar.DataStore.PostEvents;
+      aDataSet.EnableControls;
+      fCalendar.Free;
+    end;
+end;
+procedure TfPersonFrame.bChangeNumberClick(Sender: TObject);
+var
+  str: String;
+begin
+  str := DataSet.FieldByName('ACCOUNTNO').AsString;
+  if InputQuery(strChangeCustomerNumer,strnewNumber,str) and (str <> DataSet.FieldByName('ACCOUNTNO').AsString) then
+    begin
+      with DataSet.DataSet do
+        begin
+          Edit;
+          FieldbyName('ACCOUNTNO').AsString:=str;
+        end;
+    end;
+end;
+procedure TfPersonFrame.cbStatusSelect(Sender: TObject);
+var
+  tmp: String;
+begin
+  tmp := copy(cbStatus.text,pos('(',cbStatus.text)+1,length(cbStatus.text));
+  tmp := copy(tmp,0,pos(')',tmp)-1);
+  if not FDataSet.CanEdit then FDataSet.DataSet.Edit;
+  FDataSet.FieldByName('STATUS').AsString:=tmp;
+  acSave.Execute;
+  DoOpen;
+end;
+procedure TfPersonFrame.CustomersDataChange(Sender: TObject; Field: TField);
+begin
+  if not Assigned(Field) then exit;
+  if Field.FieldName = 'NAME' then
+    TabCaption := Field.AsString;
+end;
+procedure TfPersonFrame.CustomersStateChange(Sender: TObject);
+begin
+  acSave.Enabled := DataSet.CanEdit or DataSet.Changed;
+  acCancel.Enabled:= DataSet.CanEdit or DataSet.Changed;
+end;
+procedure TfPersonFrame.eCustomerNameChange(Sender: TObject);
+var
+  tmp: String;
+begin
+  TabCaption := eCustomerName.Text;
+  tmp := StringReplace(UpperCase(StringReplace(ValidateFileName(eCustomerName.Text),'_','',[rfReplaceAll])),' ','',[rfReplaceAll]);
+  tmp := StringReplace(tmp,'-','',[rfReplaceAll]);
+  if DataSet.CanEdit and DataSet.Changed then
+    begin
+      if (copy(tmp,0,length(eMatchCode.Text)) = eMatchCode.Text)
+      or ((length(tmp) < length(eMatchCode.text)) and (copy(eMatchCode.Text,0,length(tmp)) = tmp)) then
+        eMatchCode.Text := copy(tmp,0,eMatchCode.Field.Size);
+    end;
+  acSave.Enabled := DataSet.CanEdit or DataSet.Changed;
+  acCancel.Enabled:= DataSet.CanEdit or DataSet.Changed;
+end;
+procedure TfPersonFrame.eCustomerNameExit(Sender: TObject);
+begin
+  if pcPages.CanFocus then
+    pcPages.SetFocus;
+end;
+procedure TfPersonFrame.acSaveExecute(Sender: TObject);
+begin
+  if Assigned(FConnection) then
+    begin
+      FDataSet.CascadicPost;
+      if UseTransactions then
+        begin
+          Data.CommitTransaction(FConnection);
+          Data.StartTransaction(FConnection);
+        end;
+      if FEmployeeOf <> '' then
+        begin
+          if (TTabSheet(Self.Parent).PageIndex-1 > -1)
+          and (TTabSheet(Self.Parent).PageControl.Pages[TTabSheet(Self.Parent).PageIndex-1].ControlCount > 0)
+          and (TTabSheet(Self.Parent).PageControl.Pages[TTabSheet(Self.Parent).PageIndex-1].Controls[0] is TfPersonFrame) then
+            begin
+              with TPerson(TfPersonFrame(TTabSheet(Self.Parent).PageControl.Pages[TTabSheet(Self.Parent).PageIndex-1].Controls[0]).DataSet).Employees.DataSet do
+                begin
+                  Append;
+                  FieldByName('EMPLOYEE').AsString := DataSet.FieldByName('ACCOUNTNO').AsString;
+                  FieldByName('NAME').AsString := DataSet.FieldByName('NAME').AsString;
+                  Post;
+                end;
+            end;
+          CloseFrame;
+        end;
+      if FCustomerOf <> '' then
+        begin
+          if (TTabSheet(Self.Parent).PageIndex-1 > -1)
+          and (TTabSheet(Self.Parent).PageControl.Pages[TTabSheet(Self.Parent).PageIndex-1].ControlCount > 0)
+          and (TTabSheet(Self.Parent).PageControl.Pages[TTabSheet(Self.Parent).PageIndex-1].Controls[0] is TfOrderFrame) then
+            begin
+              with TOrder(TfOrderFrame(TTabSheet(Self.Parent).PageControl.Pages[TTabSheet(Self.Parent).PageIndex-1].Controls[0]).DataSet) do
+                begin
+                  if Address.CanEdit then
+                    Address.DataSet.Cancel;
+                  if not CanEdit then Dataset.Edit;
+                  Address.DataSet.Append;
+                  Address.Assign(TPerson(Self.DataSet));
+                  TfOrderFrame(TTabSheet(Self.Parent).PageControl.Pages[TTabSheet(Self.Parent).PageIndex-1].Controls[0]).GotoPosition;
+                  TfOrderFrame(TTabSheet(Self.Parent).PageControl.Pages[TTabSheet(Self.Parent).PageIndex-1].Controls[0]).RefreshAddress;
+                end;
+            end;
+          CloseFrame;
+        end;
+    end;
+end;
+procedure TfPersonFrame.acSetTreeDirExecute(Sender: TObject);
+begin
+  if fMainTreeFrame.GetTreeEntry = -1 then exit;
+  with DataSet.DataSet do
+    begin
+      Edit;
+      FieldbyName('TREEENTRY').AsVariant:=fMainTreeFrame.GetTreeEntry;
+      fMainTreeFrame.tvMain.Selected.Collapse(true);
+    end;
+end;
+procedure TfPersonFrame.AddNewEmployee(Sender: TObject);
+var
+  aCust : string;
+  Tel: String = '';
+  Mail: String;
+  aFrame: TfPersonFrame;
+begin
+  aCust := DataSet.FieldByName('ACCOUNTNO').AsString;
+  if TPerson(DataSet).CustomerCont.DataSet.Locate('TYPE','TEL',[loCaseInsensitive, loPartialKey]) then
+    Tel := TPerson(DataSet).CustomerCont.FieldByName('DATA').AsString;
+  if rpos('-',Tel) > 0 then
+    Tel := copy(Tel,0,rpos('-',Tel));
+  if TPerson(DataSet).CustomerCont.DataSet.Locate('TYPE','MAIL',[loCaseInsensitive, loPartialKey]) then
+    Mail := TPerson(DataSet).CustomerCont.FieldByName('DATA').AsString;
+  Mail := copy(Mail,rpos('@',Mail),length(Mail));
+  Application.ProcessMessages;
+  aFrame := TfPersonFrame.Create(Self);
+  fMainTreeFRame.pcPages.AddTab(aFrame);
+  aFrame.SetLanguage;
+  aFrame.New;
+  if Tel <> '' then
+    begin
+      TPerson(aFrame.DataSet).CustomerCont.DataSet.Append;
+      TPerson(aFrame.DataSet).CustomerCont.FieldByName('TYPE').AsString:='TEL';
+      TPerson(aFrame.DataSet).CustomerCont.FieldByName('DATA').AsString:=Tel;
+    end;
+  if Mail <> '' then
+    begin
+      TPerson(aFrame.DataSet).CustomerCont.DataSet.Append;
+      TPerson(aFrame.DataSet).CustomerCont.FieldByName('TYPE').AsString:='MAIL';
+      TPerson(aFrame.DataSet).CustomerCont.FieldByName('DATA').AsString:=Mail;
+    end;
+  aFrame.eCustomerName.SetFocus;
+  aFrame.pcPages.PageIndex:=0;
+  aFrame.EmployeeOf := aCust;
+end;
+procedure TfPersonFrame.acCancelExecute(Sender: TObject);
+begin
+  if Assigned(FConnection) then
+    begin
+      FDataSet.CascadicCancel;
+      if UseTransactions then
+        begin
+          Data.RollbackTransaction(FConnection);
+          Data.StartTransaction(FConnection);
+        end;
+    end;
+end;
+procedure TfPersonFrame.acAddAsOrderExecute(Sender: TObject);
+var
+  aOrderType: TOrderTyp;
+  aFrame: TfOrderFrame;
+  aLinkFrame: TfLinkFrame = nil;
+  aLinkIndex: Integer;
+  i: Integer;
+begin
+  Application.ProcessMessages;
+  aOrderType := TOrderTyp.Create(Self,Data);
+  Data.SetFilter(aOrderType,Data.QuoteField('STATUSNAME')+'='+Data.QuoteValue(copy(TMenuItem(Sender).Caption,length(strNewOrder)+1,length(TMenuItem(Sender).Caption))));
+  if (aOrderType.Count > 0) and Assigned(FDocumentFrame) then
+    begin
+      Application.ProcessMessages;
+      aFrame := TfOrderFrame.Create(Self);
+      fMainTreeFrame.pcPages.AddTab(aFrame);
+      Application.ProcessMessages;
+      aFrame.SetLanguage;
+      aFrame.New(aOrderType.FieldByName('STATUS').AsString);
+      TOrder(aFrame.DataSet).Address.DataSet.Insert;
+      TOrder(aFrame.DataSet).Address.Assign(DataSet);
+      aFrame.RefreshAddress;
+      Application.ProcessMessages;
+      aFrame.ShowPreview(FDocumentFrame.DataSet.Id.AsInteger);
+      Application.ProcessMessages;
+      if FDocumentFrame.acCopyAsLink.Execute then
+        begin
+          aFrame.pcHeader.AddTab(TfLinkFrame.Create(aFrame),False);
+          for i := 0 to aFrame.pcHeader.PageCount-2 do
+            if aFrame.pcHeader.Pages[i].ControlCount = 1 then
+              if aFrame.pcHeader.Pages[i].Controls[0] is TfLinkFrame then
+                aLinkFrame := TfLinkFrame(aFrame.pcHeader.Pages[i].Controls[0]);
+          if Assigned(aLinkFrame) then
+            aLinkFrame.acPasteLinks.Execute;
+        end;
+    end;
+  aOrderType.Destroy;
+end;
+procedure TfPersonFrame.acCloseExecute(Sender: TObject);
+begin
+  CloseFrame;
+end;
+procedure TfPersonFrame.acDeleteExecute(Sender: TObject);
+begin
+  if MessageDlg(strRealdelete,mtInformation,[mbYes,mbNo],0) = mrYes then
+    begin
+      Screen.Cursor := crHourglass;
+      Application.ProcessMessages;
+      DataSet.Delete;
+      FDataSet.CascadicCancel;
+      if UseTransactions then
+        begin
+          Data.CommitTransaction(FConnection);
+          Data.StartTransaction(FConnection);
+        end;
+      acClose.Execute;
+      Screen.Cursor := crDefault;
+    end;
+end;
+procedure TfPersonFrame.acExportExecute(Sender: TObject);
+var
+  sl: TStringList;
+begin
+  ExportDialog.FileName:=ExtractFileDir(ExportDialog.FileName)+TPerson(DataSet).Text.AsString;
+  if ExportDialog.Execute then
+    begin
+      if ExtractFileExt(ExportDialog.Filename) = '' then
+        ExportDialog.Filename := ExportDialog.Filename+'.vcf';
+      sl := TStringList.Create;
+      VCardExport(TPerson(DataSet),sl);
+      sl.SaveToFile(ExportDialog.Filename);
+      sl.Free;
+    end;
+end;
+procedure TfPersonFrame.acImportExecute(Sender: TObject);
+var
+  sl: TStringList;
+begin
+  if ImportDialog.Execute then
+    begin
+      sl := TStringList.Create;
+      sl.LoadFromFile(ImportDialog.FileName);
+      VCardImport(TPerson(DataSet),sl);
+      sl.Free;
+    end;
+end;
+procedure TfPersonFrame.acNewOrderExecute(Sender: TObject);
+var
+  aFrame: TfOrderFrame;
+begin
+  aFrame := TfOrderFrame.Create(Self);
+  fMainTreeFrame.pcPages.AddTab(aFrame);
+  aFrame.SetLanguage;
+  aFrame.New;
+  TOrder(aFrame.DataSet).Address.DataSet.Insert;
+  TOrder(aFrame.DataSet).Address.Assign(DataSet);
+  aFrame.RefreshAddress;
+  aFrame.GotoPosition;
+end;
+
+procedure TfPersonFrame.acPrintExecute(Sender: TObject);
+var
+  Hist : IBaseHistory;
+begin
+  fSelectReport.Report := Report;
+  fSelectReport.SetLanguage;
+  if Supports(FDataSet, IBaseHistory, Hist) then
+    History.DataSet := Hist.GetHistory.DataSet;
+  PList.DataSet := DataSet.DataSet;
+  with FDataSet.DataSet as IBaseManageDB do
+    begin
+      fSelectReport.ReportType := 'CUS';
+    end;
+  fSelectReport.Showmodal;
+end;
+
+procedure TfPersonFrame.acRightsExecute(Sender: TObject);
+begin
+  fNRights.Execute(DataSet.Id.AsVariant);
+end;
+constructor TfPersonFrame.Create(AOwner: TComponent);
+var
+  i: Integer;
+begin
+  inherited Create(AOwner);
+  FContList := TfFilter.Create(Self);
+  with FContList do
+    begin
+      FilterType:='CL';
+      PTop.Visible := False;
+      DefaultRows:='GLOBALWIDTH:474;TYPE:141;DATA:141;DESCR:142;ACTIVE:25;';
+      Parent := pCont;
+      Align := alClient;
+      Show;
+      gList.PopupMenu:=nil;
+      gList.OnEditButtonClick:=@FContListgListEditButtonClick;
+    end;
+  FContList.OnDrawColumnCell:=@FContListDrawColumnCell;
+  cbLanguage.Items.Clear;
+  Data.Languages.Open;
+  with Data.Languages.DataSet do
+    begin
+      First;
+      while not eof do
+        begin
+          cbLanguage.Items.Add(Format('%-4s%s',[FieldByName('ISO6391').AsString,FieldByName('LANGUAGE').AsString]));
+          next;
+        end;
+    end;
+end;
+destructor TfPersonFrame.Destroy;
+begin
+  FContList.Hide;
+  FContList.DataSet := nil;
+  FContList.Parent := nil;
+  FContList.Free;
+  if Assigned(FConnection) then
+    begin
+      CloseConnection(acSave.Enabled);
+      if Assigned(DataSet) then
+        begin
+          DataSet.Destroy;
+          DataSet := nil;
+        end;
+      FreeAndNil(FConnection);
+    end;
+  inherited Destroy;
+end;
+function TfPersonFrame.OpenFromLink(aLink: string) : Boolean;
+begin
+  inherited;
+  Result := False;
+  CloseConnection;
+  if not Assigned(FConnection) then
+    FConnection := Data.GetNewConnection;
+  if UseTransactions then
+    Data.StartTransaction(FConnection);
+  DataSet := TPerson.Create(Self,Data,FConnection);
+  DataSet.OnChange:=@CustomersStateChange;
+  TPerson(DataSet).SelectFromLink(aLink);
+  DataSet.Open;
+  if FDataSet.Count > 0 then
+    begin
+      TabCaption := TPerson(FDataSet).Text.AsString;
+      DoOpen;
+      Result := True;
+    end;
+end;
+procedure TfPersonFrame.New;
+begin
+  CloseConnection;
+  if not Assigned(FConnection) then
+    FConnection := Data.GetNewConnection;
+  if UseTransactions then
+    Data.StartTransaction(FConnection);
+  DataSet := TPerson.Create(Self,Data,FConnection);
+  DataSet.OnChange:=@CustomersStateChange;
+  DataSet.Select(0);
+  DataSet.Open;
+  DataSet.DataSet.Insert;
+  DoOpen;
+  acSave.Enabled := False;
+  acCancel.Enabled:= False;
+  TabCaption := strNewPerson;
+end;
+procedure TfPersonFrame.AddAddress(Sender : TObject);
+begin
+  TfAddressFrame(Sender).DataSet := TPerson(FDataSet).Address;
+  TfAddressFrame(Sender).Person := TPerson(FDataSet);
+  TPrometInplaceFrame(Sender).SetRights(FEditable);
+end;
+procedure TfPersonFrame.AddHistory(Sender: TObject);
+begin
+  TfHistoryFrame(Sender).BaseName:='PERSON';
+  TfHistoryFrame(Sender).DataSet := TPerson(FDataSet).History;
+  TPrometInplaceFrame(Sender).SetRights(FEditable);
+end;
+procedure TfPersonFrame.AddImages(Sender: TObject);
+begin
+  TfImageFrame(Sender).DataSet := TPerson(FDataSet).Images;
+  TPerson(FDataSet).Images.Open;
+  TPrometInplaceFrame(Sender).SetRights(FEditable);
+end;
+procedure TfPersonFrame.AddLinks(Sender: TObject);
+begin
+  TfLinkFrame(Sender).BaseName:='PERSON';
+  TfLinkFrame(Sender).DataSet := TPerson(FDataSet).Links;
+  TPrometInplaceFrame(Sender).SetRights(FEditable);
+end;
+procedure TfPersonFrame.AddText(Sender: TObject);
+begin
+  TfTextFrame(Sender).DataSource.DataSet := TPerson(FDataSet).DataSet;
+  TfTextFrame(Sender).mText.DataField := 'INFO';
+  TPrometInplaceFrame(Sender).SetRights(FEditable);
+end;
+procedure TfPersonFrame.AddDocuments(Sender: TObject);
+var
+  aDocuments: TDocuments;
+  aItem: TMenuItem;
+  aOrderType: TOrderTyp;
+  bItem: TMenuItem;
+begin
+  if not Assigned(TfDocumentFrame(Sender).DataSet) then
+    begin
+      aDocuments := TDocuments.Create(Self,Data);
+      TfDocumentFrame(Sender).DataSet := aDocuments;
+      TfDocumentFrame(Sender).Refresh(DataSet.Id.AsInteger,'C',DataSet.FieldByName('ACCOUNTNO').AsString,Null,Null);
+    end;
+  FDocumentFrame := TfDocumentFrame(Sender);
+  aItem := TMenuItem.Create(nil);
+  aItem.Caption:=strVoucher;
+  TfDocumentFrame(Sender).pmDocumentAction.Items.Add(aItem);
+  aOrderType := TOrderTyp.Create(Self,Data);
+  aOrderType.Open;
+  Data.SetFilter(aOrderType,'('+Data.QuoteField('SI_ORDER')+' = ''Y'')');
+  aOrderType.DataSet.First;
+  while not aOrderType.DataSet.EOF do
+    begin
+      bItem := TMenuItem.Create(nil);
+      bItem.Caption:=strNewOrder+aOrderType.FieldByName('STATUSNAME').AsString;
+      bItem.OnClick:=@acAddAsOrderExecute;
+      aItem.Add(bItem);
+      aOrderType.DataSet.Next;
+    end;
+  TfDocumentFrame(Sender).BaseElement := FDataSet;
+  aOrderType.Free;
+  TPrometInplaceFrame(Sender).SetRights(FEditable);
+end;
+procedure TfPersonFrame.SetDataSet(const AValue: TBaseDBDataset);
+begin
+  inherited SetDataSet(AValue);
+  acSave.Enabled:=False;
+  acCancel.Enabled:=False;
+  if not Assigned(AValue) then exit;
+  Customers.DataSet := AValue.DataSet;
+end;
+procedure TfPersonFrame.DoOpen;
+var
+  aDS: TDataSet;
+  s: TStream;
+  GraphExt: String;
+  i,a: Integer;
+  aDocuments: TDocuments;
+  aDocFrame: TfDocumentFrame;
+  aType: Char;
+  tmp: String;
+  aFound: Boolean;
+begin
+  FContList.pTop.Hide;
+  FContList.Editable:=True;
+  FContList.DataSet := TPerson(FDataSet).CustomerCont;
+  dnNavigator.DataSource := FContList.List;
+  SetRights;
+  cbStatus.Items.Clear;
+  cbStatus.Text := '';
+  aType := 'C';
+  if not Data.States.DataSet.Locate('TYPE;STATUS',VarArrayOf([aType,FDataSet.FieldByName('STATUS').AsString]),[loCaseInsensitive]) then
+    begin
+      Data.SetFilter(Data.States,'');
+      aFound := Data.States.DataSet.Locate('TYPE;STATUS',VarArrayOf([aType,FDataSet.FieldByName('STATUS').AsString]),[loCaseInsensitive]);
+    end
+  else aFound := True;
+  if aFound then
+    begin
+  cbStatus.Items.Add(Data.States.FieldByName('STATUSNAME').AsString+' ('+Data.States.FieldByName('STATUS').AsString+')');
+  cbStatus.Text := Data.States.FieldByName('STATUSNAME').AsString+' ('+Data.States.FieldByName('STATUS').AsString+')';
+    end
+  else cbStatus.Text:=FDataSet.FieldByName('STATUS').AsString;
+  tmp := trim(Data.States.FieldByName('DERIVATIVE').AsString);
+  if (length(tmp) = 0) or (tmp[length(tmp)] <> ';') then
+    tmp := tmp+';';
+  if tmp <> ';' then
+    begin
+      while pos(';',tmp) > 0 do
+        begin
+          if Data.States.DataSet.Locate('TYPE;STATUS',VarArrayOf([aType,copy(tmp,0,pos(';',tmp)-1)]),[loCaseInsensitive]) then
+            cbStatus.Items.Add(Data.States.FieldByName('STATUSNAME').AsString+' ('+Data.States.FieldByName('STATUS').AsString+')');
+          tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
+        end;
+    end
+  else
+    begin
+      Data.SetFilter(Data.States,Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType));
+      with Data.States.DataSet do
+        begin
+          First;
+          while not eof do
+            begin
+              if cbStatus.Items.IndexOf(Data.States.FieldByName('STATUSNAME').AsString+' ('+Data.States.FieldByName('STATUS').AsString+')') = -1 then
+                cbStatus.Items.Add(Data.States.FieldByName('STATUSNAME').AsString+' ('+Data.States.FieldByName('STATUS').AsString+')');
+              Next;
+            end;
+        end;
+    end;
+
+  //TODO:-Bug changes Column.MaxSize to Column-1.MaxSize
+  for i := 0 to FContList.gList.Columns.Count-1 do
+    if FContList.gList.Columns[i].FieldName = 'DATA' then
+      begin
+        FContList.gList.Columns[i].ButtonStyle:=cbsEllipsis;
+      end;
+  with FContList.gList do
+    begin
+      Columns[0].Picklist.Clear;
+      Columns[0].PickList.Add(scTelephone);
+      Columns[0].PickList.Add(scBusinessphone);
+      Columns[0].PickList.Add(scPrivatephone);
+      Columns[0].PickList.Add(scMobilephone);
+      Columns[0].PickList.Add(scBusinessMobilephone);
+      Columns[0].PickList.Add(scPrivateMobilephone);
+      Columns[0].PickList.Add(scSkype);
+      Columns[0].PickList.Add(scMail);
+      Columns[0].PickList.Add(scBusinessMail);
+      Columns[0].PickList.Add(scPrivateMail);
+      Columns[0].PickList.Add(scFax);
+      Columns[0].PickList.Add(scInternet);
+      Columns[0].PickList.Add(scBirthday);
+    end;
+  TPerson(FDataSet).CustomerCont.DataSet.AfterPost:=@TPersonCustomerContDataSetAfterPost;
+  TranslateNavigator(dnNavigator);
+  pcPages.AddTabClass(TfAddressFrame,strAddress,@AddAddress);
+  TPerson(DataSet).Address.Open;
+  if (TPerson(DataSet).Address.Count > 0) or (DataSet.State = dsInsert) then
+    pcPages.AddTab(TfAddressFrame.Create(Self),False);
+  pcPages.AddTabClass(TfTextFrame,strInfo,@Addtext);
+  if not TPerson(DataSet).FieldByName('INFO').IsNull then
+    pcPages.AddTab(TfTextFrame.Create(Self),False);
+  pcPages.AddTabClass(TfHistoryFrame,strHistory,@AddHistory);
+  TPerson(DataSet).History.Open;
+  if TPerson(DataSet).History.Count > 0 then
+    pcPages.AddTab(TfHistoryFrame.Create(Self),False);
+  pcPages.AddTabClass(TfImageFrame,strImages,@AddImages);
+  if not TPerson(DataSet).Images.DataSet.Active then
+    TPerson(DataSet).Images.DataSet.Open;
+  s := TPerson(DataSet).Images.DataSet.CreateBlobStream(TPerson(DataSet).Images.FieldByName('IMAGE'),bmRead);
+  if (S=Nil) or (s.Size = 0) then
+    begin
+      iPerson.Picture.Clear;
+    end
+  else
+    begin
+      GraphExt :=  s.ReadAnsiString;
+      iPerson.Picture.LoadFromStreamWithFileExt(s,GraphExt);
+    end;
+  s.Free;
+  if TPerson(DataSet).Images.Count > 0 then
+    pcPages.AddTab(TfImageFrame.Create(Self),False);
+  TPerson(DataSet).Images.DataSet.Close;
+  pcPages.AddTabClass(TfPersonFinance,strFinance,@AddFinance);
+  TPerson(DataSet).Banking.Open;
+  if TPerson(DataSet).Banking.Count > 0 then
+    pcPages.AddTab(TfPersonFinance.Create(Self),False);
+  pcPages.AddTabClass(TfLinkFrame,strLinks,@AddLinks);
+  TPerson(DataSet).Links.Open;
+  if TPerson(DataSet).Links.Count > 0 then
+    pcPages.AddTab(TfLinkFrame.Create(Self),False);
+  pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
+  if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
+    begin
+      aDocuments := TDocuments.Create(Self,Data,DataSet.Connection);
+      aDocuments.CreateTable;
+      aDocuments.Select(DataSet.Id.AsInteger,'C',DataSet.FieldByName('ACCOUNTNO').AsString,Null,Null);
+      aDocuments.Open;
+      if aDocuments.Count = 0 then
+        aDocuments.Free
+      else
+        begin
+          aDocFrame := TfDocumentFrame.Create(Self);
+          aDocFrame.DataSet := aDocuments;
+          pcPages.AddTab(aDocFrame,False);
+        end;
+    end;
+  pcPages.AddTabClass(TfListFrame,strEmployees,@AddList);
+  TPerson(DataSet).Employees.Open;
+  if TPerson(DataSet).Employees.Count > 0 then
+    pcPages.AddTab(TfListFrame.Create(Self),False);
+  if Data.IsSQLDb then
+    begin
+      aDS := Data.GetNewDataSet('select '+Data.QuoteField('CUSTOMERS')+'.'+Data.QuoteField('ACCOUNTNO')+','+Data.QuoteField('CUSTOMERS')+'.'+Data.QuoteField('NAME')+' from '+Data.QuoteField('EMPLOYEES')+' inner join '+Data.QuoteField('CUSTOMERS')+' on '+Data.QuoteField('EMPLOYEES')+'.'+Data.QuoteField('REF_ID')+'='+Data.QuoteField('CUSTOMERS')+'.'+Data.QuoteField('SQL_ID')+' where '+Data.QuoteField('EMPLOYEES')+'.'+Data.QuoteField('EMPLOYEE')+'='+Data.QuoteValue(Customers.DataSet.FieldByName('ACCOUNTNO').AsString),DataSet.Connection);
+      aDS.Open;
+      if aDS.RecordCount > 0 then
+        begin
+          lCustomerOf.Visible:=True;
+          lFirmName.Visible:=True;
+          lFirmName.Caption:=aDS.FieldByName('NAME').AsString+' ('+aDS.FieldByName('ACCOUNTNO').AsString+')';
+        end;
+      aDS.Close;
+      aDS.Free;
+    end;
+  with Application as TBaseVisualApplication do
+    AddTabClasses('PER',pcPages);
+  with Application as TBaseVisualApplication do
+    AddTabs(pcPages);
+
+  acNewOrder.Visible:=Data.Users.Rights.Right('ORDERS') > RIGHT_READ;
+  if FDataSet.State = dsInsert then
+    pcPages.PageIndex:=1
+  else
+    pcPages.PageIndex:=0;
+  eCustomerName.SetFocus;
+  inherited DoOpen;
+end;
+function TfPersonFrame.SetRights: Boolean;
+begin
+  FEditable := ((Data.Users.Rights.Right('CUSTOMERS') > RIGHT_READ));
+  Result := FEditable;
+  acDelete.Enabled:=FEditable and (Data.Users.Rights.Right('CUSTOMERS') > RIGHT_WRITE);
+  acPaste.Enabled:=FEditable;
+  acRights.Enabled:=Data.Users.Rights.Right('CUSTOMERS') >= RIGHT_PERMIT;
+
+  pComponents.Enabled := FEditable;
+  FContList.Editable := FEditable;
+  dnNavigator.Enabled:=Feditable;
+end;
+procedure TfPersonFrame.AddList(Sender: TObject);
+var
+  aButton: TSpeedButton;
+  aBitmap: TBitmap;
+begin
+  with TfListFrame(Sender) do
+    begin
+      FList.FilterType:='EMPLOYEES';
+      FList.DefaultRows:='GLOBALWIDTH:425;NAME:200;DEPARTMENT:100;POSITION:100;';
+      FList.pTop.Visible:=False;
+      FList.DataSet := TPerson(DataSet).Employees;
+      DataSource.DataSet := TPerson(DataSet).Employees.DataSet;
+      FList.gList.OnDragOver:=@TfListFrameFListDragOver;
+      FList.gList.OnDragDrop:=@TfListFrameFListDragDrop;
+      FList.gList.DragMode:=dmAutomatic;
+      FList.OnViewDetails:=@TfListFrameFListViewDetails;
+      dnNavigator.VisibleButtons:=[nbDelete,nbEdit,nbPost,nbCancel,nbRefresh];
+      dnNavigator.Top := dnNavigator.Top+22;
+      dnNavigator.Height := dnNavigator.Height-22;
+      aButton := TSpeedButton.Create(TfListFrame(Sender));
+      aButton.Top:=dnNavigator.Top-22;
+      aButton.Left := dnNavigator.Left;
+      aButton.Height := 22;
+      aButton.Width := dnNavigator.Width;
+      aButton.Parent := dnNavigator.Parent;
+      aBitmap := TBitmap.Create;
+      fVisualControls.Images.GetBitmap(73,aBitmap);
+      aButton.Glyph.Assign(aBitmap);
+      aBitmap.Free;
+      aButton.OnClick:=@AddNewEmployee;
+      FList.DestroyDataSet:=False;
+    end;
+  TPrometInplaceFrame(Sender).SetRights(FEditable);
+end;
+procedure TfPersonFrame.AddFinance(Sender: TObject);
+begin
+  TfPersonFinance(Sender).DataSet := FDataSet;
+  TPrometInplaceFrame(Sender).SetRights(FEditable);
+end;
+procedure TfPersonFrame.SetLanguage;
+begin
+end;
+procedure TfPersonFrame.AddAddress;
+begin
+  pcPages.AddTab(TfAddressFrame.Create(Self));
+end;
+
+end.
+

@@ -14,7 +14,7 @@ function DoGet(aurl){
   for (i=0; i<scripts.length; i++) {
     var url = scripts[i].getAttribute("src");
     if(!url) continue;
-    if(scripts[i].getAttribute("class")=="ownscript") {
+    if(url.indexOf("appbase")>=0) {
       scripts[i].parentNode.removeChild(scripts[i]);
     }
   }
@@ -22,7 +22,6 @@ function DoGet(aurl){
   var script = document.createElement("script");
   script.setAttribute("src", aurl);
   script.setAttribute("type", "text/javascript");
-  script.setAttribute("class", "ownscript");
   document.body.appendChild(script);
 }
 function setCookie(Name,Value,ExpirationDays){

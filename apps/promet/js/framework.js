@@ -24,20 +24,7 @@ var Params = {
                 for(var i=0; i<ob.length; i++){
                   if(ob[i].text!=null){
                     var ascript = ob[i].text;
-                    var scripts = document.getElementsByTagName("script");
-                    for (i=0; i<scripts.length; i++) {
-                      var url = scripts[i].getAttribute("src");
-                      if(!url) continue;
-                      if(scripts[i].getAttribute("class")=="ownscript"){
-                      scripts[i].parentNode.removeChild(scripts[i]);
-                      }
-                    }
-                  // Anlegen und Einfügen des neuen Skripts
-                  var script = document.createElement("script");
-                  script.text=ascript;
-                  script.setAttribute("type", "text/javascript");
-                  script.setAttribute("class", "ownscript");
-                  document.body.appendChild(script);
+                    eval(ascript);
                   }
                 }
               }

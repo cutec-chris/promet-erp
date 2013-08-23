@@ -1,0 +1,204 @@
+inherited fSystemOptions: TfSystemOptions
+  Height = 415
+  Width = 594
+  ClientHeight = 415
+  ClientWidth = 594
+  TabOrder = 0
+  DesignLeft = 440
+  DesignTop = 177
+  object lNumbers: TLabel[0]
+    Left = 4
+    Height = 18
+    Top = 8
+    Width = 115
+    Caption = 'Nummernkreise'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object lVAT: TLabel[1]
+    Left = 4
+    Height = 18
+    Top = 160
+    Width = 119
+    Caption = 'Mehrwertsteuer'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object lPaymentTargets: TLabel[2]
+    Left = 4
+    Height = 18
+    Top = 272
+    Width = 100
+    Anchors = [akLeft, akBottom]
+    Caption = 'Zahlungsziele'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object gNumbers: TDBGrid[3]
+    Left = 4
+    Height = 126
+    Top = 26
+    Width = 582
+    Anchors = [akTop, akLeft, akRight]
+    BorderStyle = bsNone
+    Color = clWindow
+    Columns = <    
+      item
+        Title.Caption = 'TABLENAME'
+        Width = 120
+        FieldName = 'TABLENAME'
+      end    
+      item
+        PickList.Strings = (
+          'A Alpha'
+          'N Numeric'
+        )
+        Title.Caption = 'TYPE'
+        FieldName = 'TYPE'
+      end    
+      item
+        Title.Caption = 'INCR'
+        FieldName = 'INCR'
+      end    
+      item
+        Title.Caption = 'ACTUAL'
+        FieldName = 'ACTUAL'
+      end    
+      item
+        Title.Caption = 'STOP'
+        FieldName = 'STOP'
+      end>
+    DataSource = NumbersDS
+    Scrollbars = ssAutoBoth
+    TabOrder = 0
+    TitleStyle = tsNative
+  end
+  object gVat: TDBGrid[4]
+    Left = 4
+    Height = 88
+    Top = 176
+    Width = 373
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Color = clWindow
+    Columns = <    
+      item
+        Title.Caption = 'ID'
+        FieldName = 'ID'
+      end    
+      item
+        Title.Caption = 'VALUE'
+        FieldName = 'VALUE'
+      end    
+      item
+        Title.Caption = 'NAME'
+        FieldName = 'NAME'
+      end    
+      item
+        Title.Caption = 'FKEY'
+        FieldName = 'FKEY'
+      end>
+    DataSource = VatDS
+    Scrollbars = ssAutoBoth
+    TabOrder = 1
+    TitleStyle = tsNative
+  end
+  object gPaymentTargets: TDBGrid[5]
+    Left = 4
+    Height = 116
+    Top = 288
+    Width = 582
+    Anchors = [akLeft, akRight, akBottom]
+    Color = clWindow
+    Columns = <    
+      item
+        Title.Caption = 'ID'
+        Width = 50
+        FieldName = 'ID'
+      end    
+      item
+        Title.Caption = 'NAME'
+        Width = 100
+        FieldName = 'NAME'
+      end    
+      item
+        Title.Caption = 'TEXT'
+        Width = 150
+        FieldName = 'TEXT'
+      end    
+      item
+        Title.Caption = 'CASHDISC'
+        Width = 70
+        FieldName = 'CASHDISC'
+      end    
+      item
+        Title.Caption = 'CASHDISCD'
+        Width = 70
+        FieldName = 'CASHDISCD'
+      end    
+      item
+        Title.Caption = 'DAYS'
+        Width = 70
+        FieldName = 'DAYS'
+      end    
+      item
+        ButtonStyle = cbsCheckboxColumn
+        Title.Caption = 'DEFAULTPT'
+        ValueChecked = 'Y'
+        ValueUnchecked = 'N'
+        FieldName = 'DEFAULTPT'
+      end>
+    DataSource = PaymentTargetsDS
+    Scrollbars = ssAutoBoth
+    TabOrder = 2
+    TitleStyle = tsNative
+  end
+  object lUnits: TLabel[6]
+    Left = 385
+    Height = 16
+    Top = 160
+    Width = 200
+    Anchors = [akTop, akRight]
+    AutoSize = False
+    Caption = 'Mengeneinheiten'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object gUnits: TDBGrid[7]
+    Left = 386
+    Height = 88
+    Top = 176
+    Width = 200
+    Anchors = [akTop, akRight, akBottom]
+    Color = clWindow
+    Columns = <    
+      item
+        Title.Caption = 'NAME'
+        Width = 150
+        FieldName = 'NAME'
+      end>
+    DataSource = UnitsDS
+    Scrollbars = ssAutoBoth
+    TabOrder = 3
+    TitleStyle = tsNative
+  end
+  object NumbersDS: TDatasource[8]
+    left = 260
+    top = 228
+  end
+  object UnitsDS: TDatasource[9]
+    left = 356
+    top = 228
+  end
+  object PaymentTargetsDS: TDatasource[10]
+    left = 460
+    top = 228
+  end
+  object VatDS: TDatasource[11]
+    left = 112
+    top = 228
+  end
+end

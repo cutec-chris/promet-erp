@@ -1,0 +1,46 @@
+inherited fAccountingFrame: TfAccountingFrame
+  Height = 450
+  Width = 636
+  DesignLeft = 471
+  DesignTop = 222
+  object ActionList1: TActionList[0]
+    Images = fVisualControls.Images
+    left = 32
+    top = 24
+    object acOnlineUpdate: TAction
+      Caption = 'Online Update'
+      ImageIndex = 81
+      OnExecute = acOnlineUpdateExecute
+    end
+    object acFindTransaction: TAction
+      Caption = 'acFindTransaction'
+      ImageIndex = 82
+      OnExecute = acFindTransactionExecute
+    end
+    object acSalesListPay: TAction
+      Caption = 'Bezahlen'
+      Hint = 'Zahlung buchen'
+      ImageIndex = 82
+    end
+    object acCombineItems: TAction
+      Caption = 'Einträge kombinieren'
+      ImageIndex = 8
+    end
+    object acGotoVoucher: TAction
+      Caption = 'zu Beleg gehen'
+      OnExecute = acGotoVoucherExecute
+    end
+    object acPasteLinkasVoucher: TAction
+      Caption = 'Verweis als Beleg einfügen'
+      OnExecute = acPasteLinkasVoucherExecute
+    end
+    object acSingleLineView: TAction
+      AutoCheck = True
+      Caption = 'acSingleLineView'
+      GroupIndex = 10
+      Hint = 'Ein/mehrzeilige Ansicht umschalten'
+      ImageIndex = 24
+      OnExecute = acSingleLineViewExecute
+    end
+  end
+end

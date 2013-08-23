@@ -1,0 +1,164 @@
+inherited fOrderDateFrame: TfOrderDateFrame
+  Left = 0
+  Height = 163
+  Top = 0
+  Width = 914
+  ClientHeight = 163
+  ClientWidth = 914
+  DesignLeft = 383
+  DesignTop = 212
+  object lWishDate: TLabel[0]
+    Left = 16
+    Height = 15
+    Top = 14
+    Width = 89
+    Caption = 'Wunschdatum'
+    ParentColor = False
+  end
+  object lApproved: TLabel[1]
+    Left = 280
+    Height = 15
+    Top = 14
+    Width = 54
+    Caption = 'bestätigt'
+    ParentColor = False
+  end
+  object lRequest: TLabel[2]
+    Left = 520
+    Height = 15
+    Top = 14
+    Width = 87
+    Caption = 'Anfragedatum'
+    ParentColor = False
+  end
+  object lDelivered: TLabel[3]
+    Left = 280
+    Height = 15
+    Top = 48
+    Width = 49
+    Caption = 'geliefert'
+    ParentColor = False
+  end
+  object dblDelivered: TDBText[4]
+    Left = 385
+    Height = 15
+    Top = 48
+    Width = 75
+    DataField = 'DELIVEREDON'
+    DataSource = Orders
+    ParentColor = False
+  end
+  object lPayed: TLabel[5]
+    Left = 520
+    Height = 15
+    Top = 48
+    Width = 44
+    Caption = 'bezahlt'
+    ParentColor = False
+  end
+  object dblPayed: TDBText[6]
+    Left = 640
+    Height = 15
+    Top = 48
+    Width = 54
+    DataField = 'PAYEDON'
+    DataSource = Orders
+    ParentColor = False
+  end
+  object lOrigDate: TLabel[7]
+    Left = 16
+    Height = 15
+    Top = 51
+    Width = 104
+    Caption = 'orig. Belegdatum'
+    ParentColor = False
+  end
+  object deRequest: TDBZVDateTimePicker[8]
+    Left = 640
+    Height = 23
+    Top = 14
+    Width = 97
+    DataField = 'DOAFQ'
+    DataSource = Orders
+    ReadOnly = False
+    CenturyFrom = 1941
+    MaxDate = 2958465
+    MinDate = -53780
+    TabOrder = 0
+    TrailingSeparator = False
+    TextForNullDate = ' '
+    LeadingZeros = True
+    Kind = dtkDate
+    TimeFormat = tf24
+    TimeDisplay = tdHMS
+    DateMode = dmComboBox
+    UseDefaultSeparators = True
+  end
+  object deWishDate: TDBZVDateTimePicker[9]
+    Left = 136
+    Height = 23
+    Top = 14
+    Width = 97
+    DataField = 'DWISH'
+    DataSource = Orders
+    ReadOnly = False
+    CenturyFrom = 1941
+    MaxDate = 2958465
+    MinDate = -53780
+    TabOrder = 1
+    TrailingSeparator = False
+    TextForNullDate = ' '
+    LeadingZeros = True
+    Kind = dtkDate
+    TimeFormat = tf24
+    TimeDisplay = tdHMS
+    DateMode = dmComboBox
+    UseDefaultSeparators = True
+  end
+  object deOrigDate: TDBZVDateTimePicker[10]
+    Left = 136
+    Height = 23
+    Top = 47
+    Width = 97
+    DataField = 'ODATE'
+    DataSource = Orders
+    ReadOnly = False
+    CenturyFrom = 1941
+    MaxDate = 2958465
+    MinDate = -53780
+    TabOrder = 2
+    TrailingSeparator = False
+    TextForNullDate = ' '
+    LeadingZeros = True
+    Kind = dtkDate
+    TimeFormat = tf24
+    TimeDisplay = tdHMS
+    DateMode = dmComboBox
+    UseDefaultSeparators = True
+  end
+  object deApproved: TDBZVDateTimePicker[11]
+    Left = 384
+    Height = 23
+    Top = 14
+    Width = 97
+    DataField = 'DAPPR'
+    DataSource = Orders
+    ReadOnly = False
+    CenturyFrom = 1941
+    MaxDate = 2958465
+    MinDate = -53780
+    TabOrder = 3
+    TrailingSeparator = False
+    TextForNullDate = ' '
+    LeadingZeros = True
+    Kind = dtkDate
+    TimeFormat = tf24
+    TimeDisplay = tdHMS
+    DateMode = dmComboBox
+    UseDefaultSeparators = True
+  end
+  object Orders: TDatasource[12]
+    left = 696
+    top = 36
+  end
+end

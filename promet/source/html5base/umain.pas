@@ -38,6 +38,7 @@ begin
   TBaseWebSession(Session).ConnectionAvalible(ARequest,AResponse);
   Handled:=True;
 end;
+
 procedure Tappbase.getstatisticRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 var

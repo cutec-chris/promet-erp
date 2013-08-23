@@ -1,0 +1,7 @@
+object fTimeFrame: TfTimeFrame
+  Left = 470
+  Height = 240
+  Top = 326
+  Width = 320
+  LCLVersion = '1.1'
+end
