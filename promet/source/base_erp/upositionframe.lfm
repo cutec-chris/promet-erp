@@ -141,7 +141,8 @@ object fPosition: TfPosition
         Caption = 'Position'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = -900
+        Font.Orientation = 900
+        Layout = tlBottom
         ParentColor = False
         ParentFont = False
       end
@@ -401,7 +402,8 @@ object fPosition: TfPosition
         Caption = 'Zusätzlich'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = -900
+        Font.Orientation = 900
+        Layout = tlBottom
         ParentColor = False
         ParentFont = False
       end
@@ -436,7 +438,8 @@ object fPosition: TfPosition
         Caption = 'Ansicht'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = -900
+        Font.Orientation = 900
+        Layout = tlBottom
         ParentColor = False
         ParentFont = False
       end
@@ -606,13 +609,13 @@ object fPosition: TfPosition
       NewTabImageIndex = 59
       object tsDetails: TTabSheet
         Caption = 'Details'
-        ClientHeight = 232
+        ClientHeight = 243
         ClientWidth = 698
         ImageIndex = 40
         ParentFont = False
         object Panel1: TPanel
           Left = 0
-          Height = 232
+          Height = 243
           Top = 0
           Width = 698
           Align = alClient
@@ -658,7 +661,6 @@ object fPosition: TfPosition
       ScrollWidth = 450
       TabOrder = 0
       TabStop = False
-      TopIndex = -1
     end
   end
   object ActionList1: TActionList
@@ -734,4 +736,4 @@ object fPosition: TfPosition
     left = 260
     top = 62
   end
-end
+end
