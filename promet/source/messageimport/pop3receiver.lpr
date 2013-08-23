@@ -401,7 +401,7 @@ begin
                                       SpamPoints := SpamPoints+((msg.Header.ToList.Count*0.5)-0.5);
                                     end;
                                   atmp := trim(msg.Header.From);
-                                  if (SpamPoints>0) and (Spampoints<=3) then
+                                  if (SpamPoints>0) and (Spampoints<=5) then
                                     begin
                                       if (pos('>',atmp) > 0) and (pos('<',atmp) > 0) then
                                         atmp := getemailaddr(atmp);

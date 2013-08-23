@@ -730,6 +730,7 @@ object fPosition: TfPosition
   end
   object Datasource1: TDatasource
     OnStateChange = Datasource1StateChange
+    OnDataChange = Datasource1DataChange
     left = 260
     top = 62
   end

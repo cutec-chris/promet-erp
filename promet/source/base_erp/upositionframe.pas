@@ -76,6 +76,7 @@ type
     procedure acUnMakeSebPosExecute(Sender: TObject);
     procedure bDetailsVisibleClick(Sender: TObject);
     procedure bRowDetailsClick(Sender: TObject);
+    procedure Datasource1DataChange(Sender: TObject; Field: TField);
     procedure Datasource1StateChange(Sender: TObject);
     procedure FDataSourceStateChange(Sender: TObject);
     procedure FGridViewCellButtonClick(Sender: TObject; Cell: TPoint;
@@ -95,6 +96,7 @@ type
   private
     { private declarations }
     FFound : Boolean;
+    FPosTyp : Integer;
     FBaseName: string;
     FDataset: TBaseDBDataset;
     FFormName: string;
@@ -527,6 +529,14 @@ begin
   bRowDetails.Enabled:=True;
 end;
 
+procedure TfPosition.Datasource1DataChange(Sender: TObject; Field: TField);
+begin
+  if not Assigned(Field) then exit;
+  if Field.FieldName='POSTYP' then
+    if (bDetailsVisible.Down) and (not DataSet.DataSet.ControlsDisabled) then
+      TabTimer.Enabled:=True;
+end;
+
 procedure TfPosition.Datasource1StateChange(Sender: TObject);
 begin
   if (bDetailsVisible.Down) and (not DataSet.DataSet.ControlsDisabled) then
@@ -605,8 +615,9 @@ begin
       if FGridView.GotoActiveRow then
         begin
           PosTyp := GetPosTyp;
-          if (Postyp <> -1) and Assigned(InplaceFrames[PosTyp]) then
+          if (Postyp <> -1) and Assigned(InplaceFrames[PosTyp]) and (FPosTyp<>PosTyp) then
             begin
+              FPosTyp:=PosTyp;
               if tsDetails.ControlCount > 0 then
                 tsDetails.RemoveControl(tsDetails.Controls[0]);
               InplaceFrames[PosTyp].Parent := tsDetails;
@@ -756,6 +767,7 @@ begin
   inherited Create(TheOwner);
   for i := 0 to high(InplaceFrames) do
     InplaceFrames[i] := nil;
+  FPosTyp:=-1;
   pcTabs.AddTabClass(TfDocumentFrame,strFiles,@AddDocumentsTab);
   FGridView := TfGridView.Create(Self);
   FGridView.OnCellChanging:=@FGridViewCellChanging;

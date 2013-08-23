@@ -1,4 +1,6 @@
-﻿Build 266
+﻿Build 267
+      - Reparaturdetail hat unter umständen Focus verloren [0000029]
+Build 266
       - Adressframe leicht umgestaltet
       - kleine Schönheitskorrekturen für Vorgangseditor
 Build 265
