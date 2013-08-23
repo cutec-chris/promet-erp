@@ -36,12 +36,23 @@
 <script type="text/javascript">
 function OnConnected() {
     console.log("were connected");
-
+    link=document.createElement('a');
+    link.className="toolbutton";
+    link.id="loginButton";
+    link.text="login";
+    function DoLogin() {
+      loadPage("login.html");
+    }
+    link.addEventListener('click',DoLogin);
+    document.getElementById('systray').appendChild(link);
   }
 function OnDisconnected() {
     console.log("were disconnected");
-    document.OnConnected
-  }
+    link = document.getElementById('loginButton');
+    if (link) {
+      link.parentNode.removeChild(link);
+    }
+}
 </script>
 </body>
 </html>
