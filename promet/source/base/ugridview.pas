@@ -2528,7 +2528,8 @@ begin
         end
       else if gList.Row < gList.RowCount then
         begin
-          TRowObject(gList.Objects[0,gList.Row]).Rec := Bookmark;
+          if Assigned(gList.Objects[0,gList.Row]) then
+            TRowObject(gList.Objects[0,gList.Row]).Rec := Bookmark;
           {$ifdef debug}
           debugln('Sync Bookmark=',strBookmark);
           {$endif}
