@@ -283,27 +283,36 @@ begin
                 end
               else
                 begin
-                  aMessage := TMimeMessage.Create(nil,Data);
-                  aMessage.Insert;
-                  aMessage.FieldByName('TYPE').AsString := 'EMAIL';
-                  aMessage.FieldByName('READ').AsString := 'N';
-                  aMessage.FieldByName('USER').AsString := '*';
-                  aMessage.FieldByName('TREEENTRY').AsVariant:=Data.Tree.Id.AsVariant;
-                  aMessage.DecodeMessage(msg);
-                  if not Data.Numbers.HasNumberSet('NG.'+aMessage.FieldByName('TREEENTRY').AsString) then
+                  if Data.IsSQLDb then
+                    Data.SetFilter(Subscribers,'UPPER("EMAIL")=UPPER('''+GetEmailAddr(msg.Header.From)+''')')
+                  else
+                    Data.SetFilter(Subscribers,'"EMAIL"='''+GetEmailAddr(msg.Header.From)+'''');
+                  if Subscribers.Count=0 then
+                    aRes := False
+                  else
                     begin
-                      Data.Numbers.Insert;
-                      Data.Numbers.FieldByName('TABLENAME').AsString:='NG.'+aMessage.FieldByName('TREEENTRY').AsString;
-                      Data.Numbers.FieldByName('TYPE').AsString:='N';
-                      Data.Numbers.FieldByName('INCR').AsInteger:=1;
-                      Data.Numbers.FieldByName('ACTUAL').AsVariant:=1;
-                      Data.Numbers.FieldByName('STOP').AsVariant:=9999999999;
-                      Data.Numbers.DataSet.Post;
+                      aMessage := TMimeMessage.Create(nil,Data);
+                      aMessage.Insert;
+                      aMessage.FieldByName('TYPE').AsString := 'EMAIL';
+                      aMessage.FieldByName('READ').AsString := 'N';
+                      aMessage.FieldByName('USER').AsString := '*';
+                      aMessage.FieldByName('TREEENTRY').AsVariant:=Data.Tree.Id.AsVariant;
+                      aMessage.DecodeMessage(msg);
+                      if not Data.Numbers.HasNumberSet('NG.'+aMessage.FieldByName('TREEENTRY').AsString) then
+                        begin
+                          Data.Numbers.Insert;
+                          Data.Numbers.FieldByName('TABLENAME').AsString:='NG.'+aMessage.FieldByName('TREEENTRY').AsString;
+                          Data.Numbers.FieldByName('TYPE').AsString:='N';
+                          Data.Numbers.FieldByName('INCR').AsInteger:=1;
+                          Data.Numbers.FieldByName('ACTUAL').AsVariant:=1;
+                          Data.Numbers.FieldByName('STOP').AsVariant:=9999999999;
+                          Data.Numbers.DataSet.Post;
+                        end;
+                      if not aMessage.CanEdit then aMessage.DataSet.Edit;
+                      aMessage.FieldByName('GRP_ID').AsString:=Data.Numbers.GetNewNumber('NG.'+aMessage.FieldByName('TREEENTRY').AsString);
+                      aMessage.Post;
+                      aMessage.Free;
                     end;
-                  if not aMessage.CanEdit then aMessage.DataSet.Edit;
-                  aMessage.FieldByName('GRP_ID').AsString:=Data.Numbers.GetNewNumber('NG.'+aMessage.FieldByName('TREEENTRY').AsString);
-                  aMessage.Post;
-                  aMessage.Free;
                 end;
               msg.Free;
               break;
@@ -584,4 +593,4 @@ begin
   Application:=TPMTAServer.Create(nil);
   Application.Run;
   Application.Free;
-end.
+end.

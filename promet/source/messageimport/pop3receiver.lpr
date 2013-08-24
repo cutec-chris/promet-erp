@@ -148,6 +148,10 @@ var
   tmp: String;
   lSP: Integer;
   aChk: Integer;
+  aSendDate: TDateTime;
+  aReceivedDate: TDateTime;
+  aTransmitTime: Integer;
+  aDate: TDateTime;
 
   function DoGetStartValue: Integer;
   var
@@ -355,6 +359,8 @@ begin
                                   if msg.Header.ToList.Count > 0 then
                                     if getemailaddr(trim(msg.Header.ToList[0])) = getemailaddr(trim(msg.Header.From)) then
                                       aTreeEntry := TREE_ID_SPAM_MESSAGES;
+                                  aSendDate := Now();
+                                  aReceivedDate := 0;
                                   if aTreeEntry = TREE_ID_UNKNOWN_MESSAGES then
                                     begin //Filter Spam
                                       SpamPoints := 0;
@@ -368,6 +374,9 @@ begin
                                               inc(b);
                                               lSP := 1;
                                               atmp := copy(atmp,16,length(atmp));
+                                              aDate := DecodeRfcDateTime(copy(atmp,pos(';',atmp)+1,length(atmp)));
+                                              if aDate > aReceivedDate then aReceivedDate:=aDate;
+                                              if aDate < aSendDate then aSendDate:=aDate;
                                               atmp := trim(copy(atmp,0,pos('by',lowercase(atmp))-1));
                                               if copy(atmp,0,1) = '[' then
                                                 lSP := lSP+2;//kein DNS
@@ -377,10 +386,13 @@ begin
                                                 lSP := 0;
                                             end
                                           else if copy(atmp,0,17)='List-Unsubscribe:' then
-                                            lSP := lSP+2;//Alle Spammer versuchen sich als Mailingliste auszugeben
+                                            lSP := lSP+5;//Alle Spammer versuchen sich als Mailingliste auszugeben
                                                          //und pber den List-Unsubscribe nen Button einzublenden "zum abbestellen"
                                           SpamPoints+=lSP;
                                         end;
+                                      aTransmitTime := trunc((aReceivedDate-aSendDate)*MinsPerDay);
+                                      if aTransmitTime < 3 then aTransmitTime:=0;
+                                      SpamPoints+=aTransmitTime;
                                       a := 0;
                                       if msg.Header.FindHeader('X-Spam-Flag') = 'YES' then
                                         SpamPoints := SpamPoints+4;
