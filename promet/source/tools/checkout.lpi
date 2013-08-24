@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -44,6 +44,7 @@
       </Item2>
       <Item3>
         <PackageName Value="pcmdprometapp"/>
+        <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
       </Item3>
     </RequiredPackages>
     <Units Count="2">

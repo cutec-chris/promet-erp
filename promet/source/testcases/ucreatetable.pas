@@ -142,7 +142,7 @@ begin
 end;
 procedure TableCreate.CloseTransaction;
 begin
-  Data.Rollback(aTransaction);
+  Data.RollbackTransaction(aTransaction);
   aTransaction.Destroy;
 end;
 procedure TableCreate.DeleteTableInTransaction;

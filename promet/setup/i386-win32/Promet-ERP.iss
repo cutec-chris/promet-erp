@@ -131,6 +131,15 @@ begin
   SaveStringToFile(InstallPath+'\prometerp\Standart.perml','SQL'+#13#10+'sqlite-3;localhost;'+InstallPath+'\promet-erp.db;;x',False);
 end;
 
+function InitializeSetup : Boolean;
+var
+ErrorCode: Integer;
+begin
+  ShellExec('open',  'taskkill.exe', '/f /im messagemanager.exe','',SW_HIDE,ewNoWait,ErrorCode);
+  ShellExec('open',  'taskkill.exe', '/f /im pop3receiver.exe','',SW_HIDE,ewNoWait,ErrorCode);
+  ShellExec('open',  'taskkill.exe', '/f /im smtpsender.exe','',SW_HIDE,ewNoWait,ErrorCode);
+end;
+
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
 begin
 if CurUninstallStep = usUninstall then

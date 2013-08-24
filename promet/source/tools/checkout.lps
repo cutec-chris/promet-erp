@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectSession>
     <PathDelim Value="\"/>
@@ -45,7 +45,7 @@
       <Unit4>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1329"/>
         <CursorPos X="14" Y="1269"/>
@@ -111,7 +111,7 @@
       <Unit12>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
         <UnitName Value="uDocuments"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="883"/>
         <CursorPos X="1" Y="845"/>
@@ -121,7 +121,7 @@
       <Unit13>
         <Filename Value="..\base\dbintfs\uwiki.pas"/>
         <UnitName Value="uWiki"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="19"/>
         <CursorPos X="23" Y="46"/>
@@ -178,21 +178,17 @@
       <Unit20>
         <Filename Value="..\checkout\checkout.lpr"/>
         <UnitName Value="checkout"/>
-        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit20>
       <Unit21>
         <Filename Value="..\..\..\..\lazarus\components\lazutils\fileutil.inc"/>
-        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="298"/>
         <CursorPos X="1" Y="321"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit21>
       <Unit22>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
@@ -207,18 +203,16 @@
       <Unit23>
         <Filename Value="..\..\..\..\lazarus\components\lazutils\fileutil.pas"/>
         <UnitName Value="FileUtil"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="66"/>
         <CursorPos X="10" Y="85"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit23>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="27" HistoryIndex="26">
       <Position1>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
         <Caret Line="865" Column="1" TopLine="835"/>
@@ -228,129 +222,106 @@
         <Caret Line="866" Column="1" TopLine="836"/>
       </Position2>
       <Position3>
-        <Filename Value="..\..\..\..\lazarus\components\lazutils\fileutil.inc"/>
-        <Caret Line="317" Column="1" TopLine="298"/>
+        <Filename Value="..\base\dbintfs\udocuments.pas"/>
+        <Caret Line="851" Column="1" TopLine="836"/>
       </Position3>
       <Position4>
-        <Filename Value="..\..\..\..\lazarus\components\lazutils\fileutil.inc"/>
-        <Caret Line="318" Column="1" TopLine="298"/>
+        <Filename Value="..\base\dbintfs\udocuments.pas"/>
+        <Caret Line="852" Column="1" TopLine="836"/>
       </Position4>
       <Position5>
-        <Filename Value="..\..\..\..\lazarus\components\lazutils\fileutil.inc"/>
-        <Caret Line="321" Column="1" TopLine="298"/>
+        <Filename Value="..\base\dbintfs\udocuments.pas"/>
+        <Caret Line="897" Column="1" TopLine="879"/>
       </Position5>
       <Position6>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
-        <Caret Line="851" Column="1" TopLine="836"/>
+        <Caret Line="898" Column="1" TopLine="879"/>
       </Position6>
       <Position7>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
-        <Caret Line="852" Column="1" TopLine="836"/>
+        <Caret Line="899" Column="1" TopLine="879"/>
       </Position7>
       <Position8>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
-        <Caret Line="897" Column="1" TopLine="879"/>
+        <Caret Line="902" Column="1" TopLine="879"/>
       </Position8>
       <Position9>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
-        <Caret Line="898" Column="1" TopLine="879"/>
+        <Caret Line="922" Column="1" TopLine="904"/>
       </Position9>
       <Position10>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
-        <Caret Line="899" Column="1" TopLine="879"/>
+        <Caret Line="923" Column="1" TopLine="904"/>
       </Position10>
       <Position11>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
-        <Caret Line="902" Column="1" TopLine="879"/>
+        <Caret Line="934" Column="1" TopLine="904"/>
       </Position11>
       <Position12>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
-        <Caret Line="922" Column="1" TopLine="904"/>
+        <Caret Line="925" Column="1" TopLine="904"/>
       </Position12>
       <Position13>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
-        <Caret Line="923" Column="1" TopLine="904"/>
+        <Caret Line="927" Column="1" TopLine="904"/>
       </Position13>
       <Position14>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
-        <Caret Line="934" Column="1" TopLine="904"/>
+        <Caret Line="928" Column="1" TopLine="904"/>
       </Position14>
       <Position15>
-        <Filename Value="..\base\dbintfs\udocuments.pas"/>
-        <Caret Line="925" Column="1" TopLine="904"/>
+        <Filename Value="checkout.lpr"/>
+        <Caret Line="74" Column="1" TopLine="49"/>
       </Position15>
       <Position16>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
-        <Caret Line="927" Column="1" TopLine="904"/>
+        <Caret Line="925" Column="1" TopLine="904"/>
       </Position16>
       <Position17>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
-        <Caret Line="928" Column="1" TopLine="904"/>
+        <Caret Line="927" Column="1" TopLine="904"/>
       </Position17>
       <Position18>
-        <Filename Value="checkout.lpr"/>
-        <Caret Line="74" Column="1" TopLine="49"/>
+        <Filename Value="..\base\dbintfs\udocuments.pas"/>
+        <Caret Line="928" Column="1" TopLine="904"/>
       </Position18>
       <Position19>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
-        <Caret Line="925" Column="1" TopLine="904"/>
+        <Caret Line="929" Column="1" TopLine="904"/>
       </Position19>
       <Position20>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
-        <Caret Line="927" Column="1" TopLine="904"/>
+        <Caret Line="930" Column="1" TopLine="904"/>
       </Position20>
       <Position21>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
-        <Caret Line="928" Column="1" TopLine="904"/>
+        <Caret Line="934" Column="1" TopLine="904"/>
       </Position21>
       <Position22>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
-        <Caret Line="929" Column="1" TopLine="904"/>
+        <Caret Line="925" Column="1" TopLine="904"/>
       </Position22>
       <Position23>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
-        <Caret Line="930" Column="1" TopLine="904"/>
+        <Caret Line="927" Column="1" TopLine="904"/>
       </Position23>
       <Position24>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
-        <Caret Line="934" Column="1" TopLine="904"/>
+        <Caret Line="928" Column="1" TopLine="904"/>
       </Position24>
       <Position25>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
-        <Caret Line="925" Column="1" TopLine="904"/>
+        <Caret Line="929" Column="1" TopLine="904"/>
       </Position25>
       <Position26>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
-        <Caret Line="927" Column="1" TopLine="904"/>
+        <Caret Line="930" Column="1" TopLine="904"/>
       </Position26>
       <Position27>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
-        <Caret Line="928" Column="1" TopLine="904"/>
-      </Position27>
-      <Position28>
-        <Filename Value="..\base\dbintfs\udocuments.pas"/>
-        <Caret Line="929" Column="1" TopLine="904"/>
-      </Position28>
-      <Position29>
-        <Filename Value="..\base\dbintfs\udocuments.pas"/>
-        <Caret Line="930" Column="1" TopLine="904"/>
-      </Position29>
-      <Position30>
-        <Filename Value="..\base\dbintfs\udocuments.pas"/>
         <Caret Line="934" Column="1" TopLine="904"/>
-      </Position30>
+      </Position27>
     </JumpHistory>
   </ProjectSession>
-  <Debugging>
-    <BreakPoints Count="1">
-      <Item1>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="checkout.lpr"/>
-        <Line Value="74"/>
-      </Item1>
-    </BreakPoints>
-  </Debugging>
   <EditorMacros Count="0"/>
 </CONFIG>

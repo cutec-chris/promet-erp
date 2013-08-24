@@ -80,8 +80,8 @@ end;
 
 procedure TTransactionTest.Rollback;
 begin
-  Data.Rollback(aTransaction);
-  Data.Rollback(bTransaction);
+  Data.RollbackTransaction(aTransaction);
+  Data.RollbackTransaction(bTransaction);
 end;
 
 procedure TTransactionTest.FreeOrders;

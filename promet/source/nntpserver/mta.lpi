@@ -63,7 +63,6 @@
         <Filename Value="mta.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="nntpserver"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="287"/>
@@ -888,10 +887,11 @@
         <Filename Value="ulsmtpsrv.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ulsmtpsrv"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="54"/>
-        <CursorPos X="33" Y="70"/>
+        <TopLine Value="225"/>
+        <CursorPos X="1" Y="248"/>
         <UsageCount Value="62"/>
         <Loaded Value="True"/>
       </Unit100>
@@ -1019,123 +1019,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="mta.lpr"/>
-        <Caret Line="346" Column="1" TopLine="326"/>
+        <Caret Line="374" Column="1" TopLine="356"/>
       </Position1>
       <Position2>
         <Filename Value="mta.lpr"/>
-        <Caret Line="374" Column="1" TopLine="356"/>
+        <Caret Line="351" Column="30" TopLine="323"/>
       </Position2>
       <Position3>
         <Filename Value="mta.lpr"/>
-        <Caret Line="351" Column="30" TopLine="323"/>
+        <Caret Line="342" Column="1" TopLine="323"/>
       </Position3>
       <Position4>
         <Filename Value="mta.lpr"/>
-        <Caret Line="342" Column="1" TopLine="323"/>
+        <Caret Line="345" Column="1" TopLine="323"/>
       </Position4>
       <Position5>
         <Filename Value="mta.lpr"/>
-        <Caret Line="345" Column="1" TopLine="323"/>
+        <Caret Line="346" Column="1" TopLine="323"/>
       </Position5>
       <Position6>
         <Filename Value="mta.lpr"/>
-        <Caret Line="346" Column="1" TopLine="323"/>
+        <Caret Line="341" Column="1" TopLine="323"/>
       </Position6>
       <Position7>
         <Filename Value="mta.lpr"/>
-        <Caret Line="341" Column="1" TopLine="323"/>
+        <Caret Line="342" Column="1" TopLine="323"/>
       </Position7>
       <Position8>
         <Filename Value="mta.lpr"/>
-        <Caret Line="342" Column="1" TopLine="323"/>
+        <Caret Line="345" Column="1" TopLine="323"/>
       </Position8>
       <Position9>
         <Filename Value="mta.lpr"/>
-        <Caret Line="345" Column="1" TopLine="323"/>
+        <Caret Line="346" Column="1" TopLine="323"/>
       </Position9>
       <Position10>
         <Filename Value="mta.lpr"/>
-        <Caret Line="346" Column="1" TopLine="323"/>
+        <Caret Line="341" Column="1" TopLine="323"/>
       </Position10>
       <Position11>
         <Filename Value="mta.lpr"/>
-        <Caret Line="341" Column="1" TopLine="323"/>
+        <Caret Line="342" Column="1" TopLine="323"/>
       </Position11>
       <Position12>
         <Filename Value="mta.lpr"/>
-        <Caret Line="342" Column="1" TopLine="323"/>
+        <Caret Line="345" Column="1" TopLine="323"/>
       </Position12>
       <Position13>
         <Filename Value="mta.lpr"/>
-        <Caret Line="345" Column="1" TopLine="323"/>
+        <Caret Line="346" Column="1" TopLine="323"/>
       </Position13>
       <Position14>
         <Filename Value="mta.lpr"/>
-        <Caret Line="346" Column="1" TopLine="323"/>
+        <Caret Line="341" Column="1" TopLine="323"/>
       </Position14>
       <Position15>
         <Filename Value="mta.lpr"/>
-        <Caret Line="341" Column="1" TopLine="323"/>
+        <Caret Line="342" Column="1" TopLine="323"/>
       </Position15>
       <Position16>
         <Filename Value="mta.lpr"/>
-        <Caret Line="342" Column="1" TopLine="323"/>
+        <Caret Line="345" Column="1" TopLine="323"/>
       </Position16>
       <Position17>
         <Filename Value="mta.lpr"/>
-        <Caret Line="345" Column="1" TopLine="323"/>
+        <Caret Line="346" Column="1" TopLine="323"/>
       </Position17>
       <Position18>
         <Filename Value="mta.lpr"/>
-        <Caret Line="346" Column="1" TopLine="323"/>
+        <Caret Line="374" Column="1" TopLine="356"/>
       </Position18>
       <Position19>
         <Filename Value="mta.lpr"/>
-        <Caret Line="374" Column="1" TopLine="356"/>
+        <Caret Line="341" Column="1" TopLine="323"/>
       </Position19>
       <Position20>
         <Filename Value="mta.lpr"/>
-        <Caret Line="341" Column="1" TopLine="323"/>
+        <Caret Line="342" Column="1" TopLine="323"/>
       </Position20>
       <Position21>
         <Filename Value="mta.lpr"/>
-        <Caret Line="342" Column="1" TopLine="323"/>
+        <Caret Line="345" Column="1" TopLine="323"/>
       </Position21>
       <Position22>
         <Filename Value="mta.lpr"/>
-        <Caret Line="345" Column="1" TopLine="323"/>
+        <Caret Line="346" Column="1" TopLine="323"/>
       </Position22>
       <Position23>
         <Filename Value="mta.lpr"/>
-        <Caret Line="346" Column="1" TopLine="323"/>
+        <Caret Line="374" Column="1" TopLine="356"/>
       </Position23>
       <Position24>
         <Filename Value="mta.lpr"/>
-        <Caret Line="374" Column="1" TopLine="356"/>
+        <Caret Line="341" Column="1" TopLine="323"/>
       </Position24>
       <Position25>
         <Filename Value="mta.lpr"/>
-        <Caret Line="341" Column="1" TopLine="323"/>
+        <Caret Line="342" Column="1" TopLine="323"/>
       </Position25>
       <Position26>
         <Filename Value="mta.lpr"/>
-        <Caret Line="342" Column="1" TopLine="323"/>
+        <Caret Line="345" Column="1" TopLine="323"/>
       </Position26>
       <Position27>
         <Filename Value="mta.lpr"/>
-        <Caret Line="345" Column="1" TopLine="323"/>
+        <Caret Line="346" Column="1" TopLine="323"/>
       </Position27>
       <Position28>
         <Filename Value="mta.lpr"/>
-        <Caret Line="346" Column="1" TopLine="323"/>
+        <Caret Line="374" Column="1" TopLine="356"/>
       </Position28>
       <Position29>
         <Filename Value="mta.lpr"/>
-        <Caret Line="374" Column="1" TopLine="356"/>
+        <Caret Line="341" Column="1" TopLine="323"/>
       </Position29>
       <Position30>
         <Filename Value="mta.lpr"/>
-        <Caret Line="341" Column="1" TopLine="323"/>
+        <Caret Line="291" Column="34" TopLine="287"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
