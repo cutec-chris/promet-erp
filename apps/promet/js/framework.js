@@ -79,7 +79,8 @@ var Params = {
         link.className="back";
         link.text="zurück";
         link.addEventListener('click',LinkClicked);
-        document.getElementsByClassName('toolbar')[1].appendChild(link);
+        if (document.getElementsByClassName('toolbar')[1] != null)
+          document.getElementsByClassName('toolbar')[1].appendChild(link);
       }
     hideAddressBar();
   };
@@ -151,6 +152,12 @@ function ConnectionTimeout(){
 function ConnectionOK(){
   window.clearTimeout(ConnTestTimer);
   FConnectionOK = true;
+  OnConnected();
+  DoGet("http://"+Params.Server+"/?action=checklogin&random="+encodeURIComponent(Math.random()));
+}
+function DoLogout(){
+  DoGet("http://"+Params.Server+"/?action=logout&random="+encodeURIComponent(Math.random()));
+  OnDisconnected();
   OnConnected();
 }
 

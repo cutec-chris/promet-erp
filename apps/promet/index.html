@@ -54,6 +54,23 @@ function OnDisconnected() {
     if (link) {
       link.parentNode.removeChild(link);
     }
+    link = document.getElementById('logoutButton');
+    if (link) {
+      link.parentNode.removeChild(link);
+    }
+}
+function OnLoggedIn() {
+    console.log("were logged in");
+    link = document.getElementById('loginButton');
+    if (link) {
+      link.parentNode.removeChild(link);
+    }
+    link=document.createElement('a');
+    link.className="toolbutton";
+    link.id="logoutButton";
+    link.text="logout";
+    link.addEventListener('click',DoLogout);
+    document.getElementById('systray').appendChild(link);
 }
 </script>
 </body>

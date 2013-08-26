@@ -17,6 +17,8 @@ type
     acSend: TAction;
     ActionList1: TActionList;
     bSend: TBitBtn;
+    PageControl1: TPageControl;
+    tsHistory: TTabSheet;
     ToolButton2: TSpeedButton;
     IdleTimer1: TIdleTimer;
     mEntry: TMemo;
@@ -35,7 +37,7 @@ type
     procedure acRefreshExecute(Sender: TObject);
     procedure acSendExecute(Sender: TObject);
     procedure bSendClick(Sender: TObject);
-    function FContListDrawColumnCell(Sender: TObject; const Rect: TRect;
+    function FContListDrawColumnCell(Sender: TObject; const aRect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState): Boolean;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormDestroy(Sender: TObject);
@@ -87,6 +89,8 @@ begin
       fTimeline.DataSet := TBaseHistory.Create(Self,Data);
       fTimeline.gList.OnKeyDown:=@fTimelinegListKeyDown;
       fTimeline.gList.OnDblClick:=@fTimelinegListDblClick;
+      fTimeline.gList.Options:=fTimeline.gList.Options-[goVertLine];
+      fTimeline.gHeader.Options:=fTimeline.gList.Options-[goVertLine];
       Data.SetFilter(fTimeline.DataSet,fMain.Filter,500);
       with Application as IBaseApplication do
         Config.ReadRect('TIMELINERECT',aBoundsRect,BoundsRect);
@@ -123,7 +127,7 @@ begin
   FTimeLine.Refresh(True);
 end;
 
-function TfmTimeline.FContListDrawColumnCell(Sender: TObject; const Rect: TRect;
+function TfmTimeline.FContListDrawColumnCell(Sender: TObject; const aRect: TRect;
   DataCol: Integer; Column: TColumn; State: TGridDrawState): Boolean;
 var
   aColor: TColor;
@@ -138,19 +142,34 @@ var
                              Opaque:True;
                              SystemFont:False;
                              RightToLeft:False);
+  aHeight: Integer;
+  aRRect: TRect;
+  aMiddle: Integer;
 begin
   with (Sender as TCustomGrid), Canvas do
     begin
       Result := True;
-      Canvas.FillRect(Rect);
+      Canvas.FillRect(aRect);
       if gdSelected in State then
         Canvas.Font.Color:=clHighlightText
       else
         Canvas.Font.Color:=clWindowText;
       if (Column.FieldName = 'ACTIONICON') then
         begin
+//          Canvas.Brush.Color:=aColor;
+//          Canvas.FillRect(aRect);
+          Canvas.Pen.Color:=clGray;
+          aMiddle :=((aRect.Right-aRect.Left) div 2);
+          Canvas.MoveTo(aRect.Left+aMiddle,aRect.Top);
+          Canvas.LineTo(aRect.Left+aMiddle,aRect.Bottom);
+          aHeight := 14;
+          aRRect := Rect(aRect.left+(aMiddle-(aHeight div 2)),
+                         aRect.Top+((aRect.Bottom-aRect.Top) div 2)-(aHeight div 2),
+                         aRect.left+(aMiddle+(aHeight div 2)),
+                         aRect.Top+((aRect.Bottom-aRect.Top) div 2)+(aHeight div 2));
+          Canvas.Ellipse(aRRect);
           if not (TExtStringGrid(Sender).Cells[Column.Index+1,DataCol] = '') then
-            aHistoryFrame.HistoryImages.Draw(Canvas,Rect.Left,Rect.Top,StrToIntDef(TExtStringGrid(Sender).Cells[Column.Index+1,DataCol],-1));
+            aHistoryFrame.HistoryImages.StretchDraw(Canvas,StrToIntDef(TExtStringGrid(Sender).Cells[Column.Index+1,DataCol],-1),aRRect);// Draw(Canvas,Rect.Left,Rect.Top,);
         end
       else if (Column.FieldName = 'REFOBJECT') or (Column.FieldName = 'OBJECT') then
         begin
@@ -171,10 +190,10 @@ begin
           with TStringGrid(Sender).Canvas do
             begin
               TStringGrid(Sender).Canvas.Brush.Color:=aColor;
-              FillRect(Rect);
+              FillRect(aRect);
             end;
           TStringGrid(Sender).Canvas.Brush.Style:=bsClear;
-          TextRect(Rect,Rect.Left+3,Rect.Top,aText,aTextStyle);
+          TextRect(aRect,aRect.Left+3,aRect.Top,aText,aTextStyle);
           Result := True;
         end
       else
