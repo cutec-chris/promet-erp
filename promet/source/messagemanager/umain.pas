@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, simpleipc, FileUtil, ExtCtrls, Menus, Controls, ActnList,
   uProcessManagement,process, XMLConf,uSystemMessage,uBaseDbClasses,uBaseERPDBClasses,
-  Graphics, LCLType,umashineid;
+  Graphics, LCLType,umashineid,uBaseVisualApplication;
 
 type
   TfMain = class(TDataModule)
@@ -26,6 +26,7 @@ type
     procedure acExitExecute(Sender: TObject);
     procedure acHistoryExecute(Sender: TObject);
     procedure aItemClick(Sender: TObject);
+    procedure ApplicationEndSession(Sender: TObject);
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
     procedure IdleTimer1Timer(Sender: TObject);
@@ -42,6 +43,7 @@ type
     function CommandReceived(Sender : TObject;aCommand : string) : Boolean;
     procedure SetFilter(AValue: string);
     procedure SwitchAnimationOff;
+    procedure DoExit;
   public
     { public declarations }
     property History : TBaseHistory read FHistory;
@@ -340,6 +342,16 @@ begin
     end;
 end;
 
+procedure TfMain.DoExit;
+begin
+  if Data.ProcessClient.DataSet.Locate('NAME',GetSystemName,[]) then
+    begin
+      Data.ProcessClient.DataSet.Edit;
+      Data.ProcessClient.FieldByName('STATUS').AsString:='N';
+      Data.ProcessClient.DataSet.Post;
+    end;
+end;
+
 procedure TfMain.DataModuleCreate(Sender: TObject);
 var
   XMLConfig: TXMLPropStorage;
@@ -372,6 +384,7 @@ var
 begin
   TrayIcon.AnimateInterval:=200;
   aRefresh:=0;
+  Application.OnEndSession:=@ApplicationEndSession;
   with Application as IBaseApplication do
     begin
       with Application as IBaseApplication do
@@ -471,6 +484,7 @@ end;
 
 procedure TfMain.acExitExecute(Sender: TObject);
 begin
+  DoExit;
   FreeAndNil(FHistory);
   Application.Terminate;
 end;
@@ -493,16 +507,15 @@ begin
   SendIPCMessage('OnClick('+tmp+')');
 end;
 
+procedure TfMain.ApplicationEndSession(Sender: TObject);
+begin
+  DoExit;
+end;
+
 procedure TfMain.DataModuleDestroy(Sender: TObject);
 var
   i: Integer;
 begin
-  if Data.ProcessClient.DataSet.Locate('NAME',GetSystemName,[]) then
-    begin
-      Data.ProcessClient.DataSet.Edit;
-      Data.ProcessClient.FieldByName('STATUS').AsString:='N';
-      Data.ProcessClient.DataSet.Post;
-    end;
   fmTimeline.Free;
   for i := 0 to length(Processes)-1 do
     Processes[i].Free;
