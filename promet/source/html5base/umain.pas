@@ -10,11 +10,15 @@ uses
 
 type
   Tappbase = class(TFPWebModule)
+    procedure checkloginRequest(Sender: TObject; ARequest: TRequest;
+      AResponse: TResponse; var Handled: Boolean);
     procedure connectionavalibeRequest(Sender: TObject; ARequest: TRequest;
       AResponse: TResponse; var Handled: Boolean);
     procedure getstatisticRequest(Sender: TObject; ARequest: TRequest;
       AResponse: TResponse; var Handled: Boolean);
     procedure loginRequest(Sender: TObject; ARequest: TRequest;
+      AResponse: TResponse; var Handled: Boolean);
+    procedure logoutRequest(Sender: TObject; ARequest: TRequest;
       AResponse: TResponse; var Handled: Boolean);
   private
     { private declarations }
@@ -32,13 +36,31 @@ implementation
 uses uStatistic,uData,uBaseWebSession;
 {$R *.lfm}
 
+procedure Tappbase.checkloginRequest(Sender: TObject; ARequest: TRequest;
+  AResponse: TResponse; var Handled: Boolean);
+begin
+  Handled:=True;
+  if TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True,False) then
+    begin
+      AResponse.Code:=200;
+      AResponse.ContentType:='text/javascript;charset=utf-8';
+      AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
+      AResponse.Contents.Text := 'OnLoggedIn();';
+    end
+  else
+    begin
+      AResponse.Code:=200;
+      AResponse.ContentType:='text/javascript;charset=utf-8';
+      AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
+      AResponse.Contents.Text := '';
+    end;
+end;
 procedure Tappbase.connectionavalibeRequest(Sender: TObject;
   ARequest: TRequest; AResponse: TResponse; var Handled: Boolean);
 begin
   TBaseWebSession(Session).ConnectionAvalible(ARequest,AResponse);
   Handled:=True;
 end;
-
 procedure Tappbase.getstatisticRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 var
@@ -141,6 +163,12 @@ procedure Tappbase.loginRequest(Sender: TObject; ARequest: TRequest;
 begin
   TBaseWebSession(Session).DoLogin(Arequest,AResponse);
   Handled:=True;
+end;
+procedure Tappbase.logoutRequest(Sender: TObject; ARequest: TRequest;
+  AResponse: TResponse; var Handled: Boolean);
+begin
+  Handled:=True;
+  TBaseWebSession(Session).DoLogout(ARequest,AResponse);
 end;
 procedure Tappbase.FieldsToJSON(AFields: TFields; AJSON: TJSONObject;
   const ADateAsString: Boolean);

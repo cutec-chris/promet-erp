@@ -48,12 +48,14 @@ function LoginStep2(salt){
 }
 function LoginComplete(){
   window.clearTimeout(LoginTimer);
-  if (document.referrer != "") {
-     var referringURL = document.referrer;
-     location.href = referringURL;
+  if (OnLoggedIn != null)
+    OnLoggedIn();
+  link = document.getElementsByClassName('back')[0];
+  if (link) {
+    link.click();
+  } else {
+    loadPage('#');
   }
-  else alert("Login ok !");
-
 }
 </script
 </body>

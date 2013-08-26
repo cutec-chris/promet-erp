@@ -39,6 +39,7 @@ type
     Procedure RemoveVariable(VariableName : String); override;
     procedure AddHistoryUrl(aUrl : string);
     procedure DoLogin(ARequest : TRequest;AResponse : TResponse);
+    procedure DoLogout(ARequest: TRequest; AResponse: TResponse);
     procedure ConnectionAvalible(ARequest : TRequest;AResponse : TResponse);
     function CheckLogin(ARequest : TRequest;AResponse : TResponse;JSRequest : Boolean = false;aRedirect : Boolean = True) : Boolean;
   end;
@@ -374,6 +375,15 @@ begin
       AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
       AResponse.Contents.Text := 'LoginComplete();';
     end;
+end;
+
+procedure TBaseWebSession.DoLogout(ARequest: TRequest; AResponse: TResponse);
+begin
+  Variables['LOGIN'] := '';
+  AResponse.Code:=200;
+  AResponse.ContentType:='text/javascript;charset=utf-8';
+  AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
+  AResponse.Contents.Text := '';
 end;
 
 procedure TBaseWebSession.ConnectionAvalible(ARequest: TRequest;

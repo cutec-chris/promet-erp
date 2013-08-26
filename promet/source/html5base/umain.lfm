@@ -22,6 +22,13 @@ object appbase: Tappbase
     item
       Name = 'logout'
       Default = False
+      OnRequest = logoutRequest
+      Template.AllowTagParams = False
+    end  
+    item
+      Name = 'checklogin'
+      Default = False
+      OnRequest = checkloginRequest
       Template.AllowTagParams = False
     end>
   ActionVar = 'action'
