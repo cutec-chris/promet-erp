@@ -36,6 +36,7 @@ type
     ActionList1: TActionList;
     bEditFilter: TSpeedButton;
     Bevel3: TBevel;
+    Bevel4: TBevel;
     Bevel7: TBevel;
     Bevel8: TBevel;
     bExecute: TSpeedButton;
@@ -44,6 +45,7 @@ type
     BtZoomIn: TBitBtn;
     BtZoomOut: TBitBtn;
     Datasource: TDatasource;
+    eName: TDBEdit;
     Detail: TDatasource;
     frPreview: TfrPreview;
     frReport: TfrReport;
@@ -56,6 +58,7 @@ type
     Label1: TLabel;
     Label2: TLabel;
     Label5: TLabel;
+    Label6: TLabel;
     lbErrors: TListBox;
     lStatus: TLabel;
     miCopy: TMenuItem;
@@ -83,6 +86,7 @@ type
     Panel2: TPanel;
     Panel4: TPanel;
     Panel6: TPanel;
+    Panel7: TPanel;
     pcTabs: TPageControl;
     PDetail: TfrDBDataSet;
     pDetails: TPanel;
@@ -1129,7 +1133,8 @@ begin
   Result := FEditable;
   acDelete.Enabled:=FEditable and (Data.Users.Rights.Right('STATISTICS') > RIGHT_WRITE);
   acRights.Enabled:=Data.Users.Rights.Right('STATISTICS') >= RIGHT_PERMIT;
-  bEditFilter.Enabled:=FEditable;
+  bEditFilter.Visible:=FEditable;
+  eName.Enabled := FEditable;
 end;
 
 constructor TfStatisticFrame.Create(AOwner: TComponent);
