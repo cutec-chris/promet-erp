@@ -5,7 +5,7 @@
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
-        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)/"/>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
       <Other>
         <CompilerMessages>
@@ -15,46 +15,50 @@
       </Other>
     </CompilerOptions>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="10">
+    <RequiredPkgs Count="11">
       <Item1>
-        <PackageName Value="ptimes"/>
-        <DefaultFilename Value="../timeregistering/ptimes.lpk"/>
+        <PackageName Value="jvRuntimeDesign"/>
+        <DefaultFilename Value="jvdesign/jvRuntimeDesign.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="projectmanagement"/>
-        <DefaultFilename Value="../projectmanagement/projectmanagement.lpk"/>
+        <PackageName Value="ptimes"/>
+        <DefaultFilename Value="../timeregistering/ptimes.lpk"/>
       </Item2>
       <Item3>
-        <PackageName Value="pProjectbase"/>
-        <DefaultFilename Value="../base_pm/pprojectbase.lpk"/>
+        <PackageName Value="projectmanagement"/>
+        <DefaultFilename Value="../projectmanagement/projectmanagement.lpk"/>
       </Item3>
       <Item4>
-        <PackageName Value="perp"/>
-        <DefaultFilename Value="../base_erp/perp.lpk"/>
+        <PackageName Value="pProjectbase"/>
+        <DefaultFilename Value="../base_pm/pprojectbase.lpk"/>
       </Item4>
       <Item5>
-        <PackageName Value="pDocManage"/>
-        <DefaultFilename Value="../base_docmanage/pdocmanage.lpk"/>
+        <PackageName Value="perp"/>
+        <DefaultFilename Value="../base_erp/perp.lpk"/>
       </Item5>
       <Item6>
-        <PackageName Value="pmessaging"/>
-        <DefaultFilename Value="../base_messaging/pmessaging.lpk"/>
+        <PackageName Value="pDocManage"/>
+        <DefaultFilename Value="../base_docmanage/pdocmanage.lpk"/>
       </Item6>
       <Item7>
-        <PackageName Value="pPhones"/>
-        <DefaultFilename Value="../base_phone/pphones.lpk"/>
+        <PackageName Value="pmessaging"/>
+        <DefaultFilename Value="../base_messaging/pmessaging.lpk"/>
       </Item7>
       <Item8>
-        <PackageName Value="pcmdprometapp"/>
-        <DefaultFilename Value="../base/pcmdprometapp.lpk"/>
+        <PackageName Value="pPhones"/>
+        <DefaultFilename Value="../base_phone/pphones.lpk"/>
       </Item8>
       <Item9>
-        <PackageName Value="pVisualPrometApp"/>
-        <DefaultFilename Value="../base/pvisualprometapp.lpk"/>
+        <PackageName Value="pcmdprometapp"/>
+        <DefaultFilename Value="../base/pcmdprometapp.lpk"/>
       </Item9>
       <Item10>
-        <PackageName Value="FCL"/>
+        <PackageName Value="pVisualPrometApp"/>
+        <DefaultFilename Value="../base/pvisualprometapp.lpk"/>
       </Item10>
+      <Item11>
+        <PackageName Value="FCL"/>
+      </Item11>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>
