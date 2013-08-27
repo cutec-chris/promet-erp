@@ -8,7 +8,6 @@ var Params = {
       {
         document.getElementsByTagName('nav')[0].style.display="block";
         document.getElementById('main').style.display="none";
-        //$('#main > .toolbar > a').detach()
       }
     else
       {
@@ -20,6 +19,7 @@ var Params = {
                 var mainDiv = document.getElementById('main');
                 mainDiv.innerHTML = request.response;
                 hideLoading();
+                mainDiv.style.display="block";
                 var ob = mainDiv.getElementsByTagName("script");
                 for(var i=0; i<ob.length; i++){
                   if(ob[i].text!=null){
@@ -70,18 +70,27 @@ var Params = {
   //hide loading bar
   function hideLoading(){
     var windowWidth = window.innerWidth;
-    document.getElementById('main').style.display="block";
-    if (windowWidth < 481)
-      {
-        document.getElementsByTagName('nav')[0].style.display="none";
+    if (windowWidth < 481) {
+      anav = document.getElementsByTagName('nav')[0];
+      anav.style.display="none";
+      link = document.getElementsByClassName("back")[0];
+      if (!link)
         link=document.createElement('a');
-        link.href="#index";
-        link.className="back";
-        link.text="zurück";
-        link.addEventListener('click',LinkClicked);
-        if (document.getElementsByClassName('toolbar')[1] != null)
-          document.getElementsByClassName('toolbar')[1].appendChild(link);
-      }
+      link.href="#index";
+      link.className="back";
+      link.text="zurück";
+      link.addEventListener('click',LinkClicked);
+      link.style.display="inline";
+      if (document.getElementsByClassName('toolbar')[1] != null)
+        document.getElementsByClassName('toolbar')[1].appendChild(link);
+      document.getElementById('main').style.display="block";
+    } else {
+      document.getElementById('main').style.display="block";
+      anav = document.getElementsByTagName('nav')[0];
+      anav.style.display="block";
+      link = document.getElementsByClassName("back")[0];
+      if (link) link.style.display="none";
+    }
     hideAddressBar();
   };
 
@@ -112,20 +121,14 @@ document.onreadystatechange = function() {
       ) {appendSheet("themes/android/theme.css");}
   else if (
       navigator.userAgent.match(/iPhone/i) ||
-      navigator.userAgent.match(/iPod/i)
-      ){appendSheet("themes/apple/theme.css");}
-  else if (
-      navigator.userAgent.match(/iPhone/i) ||
-      navigator.userAgent.match(/iPod/i)
-      ){ appendSheet("themes/apple/theme.css");}
-  else if (
+      navigator.userAgent.match(/iPod/i) ||
       navigator.userAgent.match(/iPad/i)
-      ){ appendSheet("themes/apple/theme.css"); }
-  else { appendSheet("themes/apple/theme.css"); }
+      ){appendSheet("themes/apple/theme.css");}
+  else { appendSheet("themes/jqt/theme.css"); }
   }
-  window.addEventListener("resize",function(){hideAddressBar();});
+  window.addEventListener("resize",function(){hideLoading();});
   window.addEventListener("load",function(){hideAddressBar();});
-  window.addEventListener("orientationchange",function(){hideAddressBar();});
+  window.addEventListener("orientationchange",function(){hideLoading();});
   window.onpopstate = function(event) {
     var url = document.location;
     var sharp = String(url).indexOf("#")+1;
