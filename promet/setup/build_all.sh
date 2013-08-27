@@ -14,7 +14,7 @@ if [ "$?" -ne "0" ]; then
 fi
 sudo ./clean_all.sh
 virsh start Autobuild_lin
-sh build_win_wine_i386.sh &
+sh build_win_wine_i386.sh
 State=$(virsh domstate Autobuild_lin)
 while [ "$State" = laufend ] ; do
   sleep 5

@@ -447,8 +447,8 @@
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="12" Y="14"/>
+        <TopLine Value="28"/>
+        <CursorPos X="15" Y="44"/>
         <UsageCount Value="100"/>
       </Unit20>
       <Unit21>
@@ -953,21 +953,23 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ugridview"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2515"/>
         <CursorPos X="3" Y="2532"/>
         <UsageCount Value="108"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit67>
       <Unit68>
         <Filename Value="../base/dbintfs/utask.pas"/>
         <UnitName Value="utask"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="676"/>
-        <CursorPos X="5" Y="691"/>
+        <TopLine Value="191"/>
+        <CursorPos X="3" Y="194"/>
         <UsageCount Value="101"/>
+        <Loaded Value="True"/>
       </Unit68>
       <Unit69>
         <Filename Value="../base/revision.inc"/>
@@ -978,10 +980,11 @@
       </Unit69>
       <Unit70>
         <Filename Value="../base/changes.txt"/>
-        <EditorIndex Value="2"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="56" Y="2"/>
+        <CursorPos X="115" Y="2"/>
         <UsageCount Value="103"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
@@ -1575,10 +1578,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uGanttView"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="418"/>
-        <CursorPos X="1" Y="439"/>
+        <TopLine Value="647"/>
+        <CursorPos X="22" Y="693"/>
         <UsageCount Value="100"/>
+        <Loaded Value="True"/>
       </Unit136>
       <Unit137>
         <Filename Value="../../../../lazarus/lcl/include/mouse.inc"/>
@@ -3137,11 +3142,23 @@
         <UsageCount Value="10"/>
       </Unit323>
     </Units>
-    <JumpHistory Count="1" HistoryIndex="0">
+    <JumpHistory Count="4" HistoryIndex="3">
       <Position1>
         <Filename Value="../base/ubasevisualcontrols.pas"/>
         <Caret Line="3" Column="92" TopLine="1"/>
       </Position1>
+      <Position2>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="437" Column="24" TopLine="418"/>
+      </Position2>
+      <Position3>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="691" Column="34" TopLine="674"/>
+      </Position3>
+      <Position4>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="688" Column="24" TopLine="674"/>
+      </Position4>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>

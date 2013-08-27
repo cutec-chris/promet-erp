@@ -686,6 +686,7 @@ begin
         if aTasks.FieldByName('ACTIVE').AsString<>'N' then
           begin
             aTask := TTask.Create(nil,Data);
+            aTask.CreateTable;
             aTask.Select(aTasks.Id.AsVariant);
             aTask.Open;
             aTask.Dependencies.Open;
