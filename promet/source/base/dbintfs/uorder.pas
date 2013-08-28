@@ -267,17 +267,20 @@ end;
 procedure TOrderAddress.CascadicPost;
 begin
   Order.DataSet.DisableControls;
-  if Order.FieldByName('CUSTNO').AsString<>FieldByName('ACCOUNTNO').AsString then
+  if Order.Address.DataSet.Active and (Order.Address.Count>0) then
     begin
-      if not Order.CanEdit then
-        Order.DataSet.Edit;
-      Order.FieldByName('CUSTNO').AsString := FieldByName('ACCOUNTNO').AsString;
-    end;
-  if Order.FieldByName('CUSTNAME').AsString<>FieldByName('NAME').AsString then
-    begin
-      if not Order.CanEdit then
-        Order.DataSet.Edit;
-      Order.FieldByName('CUSTNAME').AsString := FieldByName('NAME').AsString;
+      if Order.FieldByName('CUSTNO').AsString<>FieldByName('ACCOUNTNO').AsString then
+        begin
+          if not Order.CanEdit then
+            Order.DataSet.Edit;
+          Order.FieldByName('CUSTNO').AsString := FieldByName('ACCOUNTNO').AsString;
+        end;
+      if Order.FieldByName('CUSTNAME').AsString<>FieldByName('NAME').AsString then
+        begin
+          if not Order.CanEdit then
+            Order.DataSet.Edit;
+          Order.FieldByName('CUSTNAME').AsString := FieldByName('NAME').AsString;
+        end;
     end;
   Order.DataSet.EnableControls;
   inherited CascadicPost;
@@ -1618,4 +1621,4 @@ begin
 end;
 initialization
 end.
-
+
