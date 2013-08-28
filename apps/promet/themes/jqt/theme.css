@@ -68,10 +68,12 @@ body.landscape .toolbar > h1 {
     border-width: 0 5px;
 }
 .back {
+    position:absolute;
+    overflow:visible;
+    padding-left:5px;
     left: 6px;
     right: auto;
-    padding: 0;
-    max-width: 55px;
+    max-width: 60px;
     border-width: 0 8px 0 14px;
     -webkit-border-image: url(img/back_button.png) 0 8 0 14;
     -moz-border-image: url(img/back_button.png) fill 0 8 0 14;

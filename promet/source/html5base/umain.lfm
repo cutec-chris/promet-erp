@@ -30,6 +30,17 @@ object appbase: Tappbase
       Default = False
       OnRequest = checkloginRequest
       Template.AllowTagParams = False
+    end  
+    item
+      Name = 'list'
+      Default = False
+      OnRequest = listRequest
+      Template.AllowTagParams = False
+    end  
+    item
+      Name = 'object'
+      Default = False
+      Template.AllowTagParams = False
     end>
   ActionVar = 'action'
   DefActionWhenUnknown = False

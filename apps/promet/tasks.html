@@ -18,7 +18,7 @@
       <ul id="task-list">
       </ul>
     </div>
-    <a id="deletetasks" class="blueButton">erledigte Aufgaben löschen</a>
+    <a id="deletetasks" class="blueButton" onclick="DeleteDoneTasks();">erledigte Aufgaben löschen</a>
     <script type="text/javascript">
     // In memory tasks store
     tasks = [];
@@ -31,6 +31,20 @@
         return false;
       }
       return true;
+    }
+    function DeleteDoneTasks(){
+      var i = 0;
+      var aTask = tasks[i];
+      while (aTask) {
+        var bTask = tasks[i+1];
+        if (aTask.completed=='Y'){
+          tasks.Delete(aTask);
+        } else {
+          i++;
+        }
+
+        aTask = bTask;
+      }
     }
     function TaskDone(event){
       e = event.target;

@@ -70,7 +70,7 @@ var Params = {
   //hide loading bar
   function hideLoading(){
     var windowWidth = window.innerWidth;
-    if (windowWidth < 481) {
+    if (windowWidth < 485) {
       anav = document.getElementsByTagName('nav')[0];
       anav.style.display="none";
       link = document.getElementsByClassName("back")[0];
@@ -78,9 +78,9 @@ var Params = {
         link=document.createElement('a');
       link.href="#index";
       link.className="back";
-      link.text="zurück";
+      link.innerHTML="zurück";
       link.addEventListener('click',LinkClicked);
-      link.style.display="inline";
+      link.style.display="block";
       if (document.getElementsByClassName('toolbar')[1] != null)
         document.getElementsByClassName('toolbar')[1].appendChild(link);
       document.getElementById('main').style.display="block";

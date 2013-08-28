@@ -6,7 +6,7 @@ interface
 
 uses
   SysUtils, Classes, LR_Class, httpdefs, fpHTTP, fpWeb, fpdatasetform, db,fpjson,
-  LCLproc;
+  LCLproc,uBaseDBInterface;
 
 type
   Tappbase = class(TFPWebModule)
@@ -15,6 +15,8 @@ type
     procedure connectionavalibeRequest(Sender: TObject; ARequest: TRequest;
       AResponse: TResponse; var Handled: Boolean);
     procedure getstatisticRequest(Sender: TObject; ARequest: TRequest;
+      AResponse: TResponse; var Handled: Boolean);
+    procedure listRequest(Sender: TObject; ARequest: TRequest;
       AResponse: TResponse; var Handled: Boolean);
     procedure loginRequest(Sender: TObject; ARequest: TRequest;
       AResponse: TResponse; var Handled: Boolean);
@@ -33,7 +35,8 @@ var
   appbase: Tappbase;
 
 implementation
-uses uStatistic,uData,uBaseWebSession;
+uses uStatistic,uData,uBaseWebSession,uPerson,uOrder,uMasterdata,utask,uProjects,
+  uBaseDbClasses,uBaseDbDataSet;
 {$R *.lfm}
 
 procedure Tappbase.checkloginRequest(Sender: TObject; ARequest: TRequest;
@@ -157,6 +160,45 @@ begin
       AResponse.CodeText:='Document not found';
     end;
   aStatistic.Free;
+end;
+procedure Tappbase.listRequest(Sender: TObject; ARequest: TRequest;
+  AResponse: TResponse; var Handled: Boolean);
+var
+  aList: String;
+  aRight: String;
+  Json: TJSONArray;
+  aDs: TBaseDbList;
+begin
+  Handled:=True;
+  if not TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True) then exit;
+  aList := ARequest.QueryFields.Values['name'];
+  aRight := UpperCase(aList);
+  case lowercase(aList) of
+  'contacts','customers':
+     begin
+       aRight := 'CUSTOMERS';
+       aList := 'CUSTOMERS';
+       aDs := TPersonList.Create(nil,Data);
+     end;
+  'masterdata':aDs := TMasterdataList.Create(nil,Data);
+  'tasks':aDs := TTaskList.Create(nil,Data);
+  'projects':aDs := TTaskList.Create(nil,Data);
+  'orders':aDs := TTaskList.Create(nil,Data);
+  end;
+  if data.Users.Rights.Right(aRight)>RIGHT_READ then
+    begin
+      aDs.Open;
+      Json := TJSONArray.Create;
+      DataSetToJSON(aDs.DataSet,Json,True);
+      Response.Contents.Text := 'handleData('+Json.AsJSON+');';
+      Json.Free;
+      aDS.Free;
+      AResponse.Code:=200;
+      AResponse.ContentType:='text/javascript;charset=utf-8';
+      AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
+    end
+  else
+    AResponse.Code:=403;
 end;
 procedure Tappbase.loginRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
