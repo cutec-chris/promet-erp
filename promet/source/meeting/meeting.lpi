@@ -71,7 +71,7 @@
         <PackageName Value="pVisualPrometApp"/>
       </Item12>
     </RequiredPackages>
-    <Units Count="247">
+    <Units Count="248">
       <Unit0>
         <Filename Value="meeting.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -1106,10 +1106,13 @@
       <Unit135>
         <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="737"/>
-        <CursorPos X="28" Y="771"/>
+        <TopLine Value="583"/>
+        <CursorPos X="1" Y="602"/>
         <UsageCount Value="31"/>
+        <Loaded Value="True"/>
       </Unit135>
       <Unit136>
         <Filename Value="..\base\dbintfs\usystemmessage.pas"/>
@@ -1185,7 +1188,7 @@
       <Unit143>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2121"/>
         <CursorPos X="1" Y="2145"/>
@@ -1257,7 +1260,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMainTreeFrame"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="287"/>
         <CursorPos X="38" Y="293"/>
@@ -1902,11 +1905,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMeetingFrame"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="941"/>
-        <CursorPos X="3" Y="957"/>
+        <CursorPos X="36" Y="958"/>
         <UsageCount Value="16"/>
         <Loaded Value="True"/>
       </Unit224>
@@ -1938,7 +1940,7 @@
       <Unit228>
         <Filename Value="C:\Programme\lazarus\lcl\grids.pas"/>
         <UnitName Value="Grids"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="9842"/>
         <CursorPos X="1" Y="9864"/>
@@ -2096,11 +2098,21 @@
         <CursorPos X="3" Y="80"/>
         <UsageCount Value="10"/>
       </Unit246>
+      <Unit247>
+        <Filename Value="..\base\dbintfs\uwiki.pas"/>
+        <UnitName Value="uWiki"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="185"/>
+        <CursorPos X="26" Y="210"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit247>
     </Units>
     <Build>
       <CleanOutputFileMask Value="*.ppu;*.ppl;*.o;*.or"/>
     </Build>
-    <JumpHistory Count="11" HistoryIndex="10">
+    <JumpHistory Count="14" HistoryIndex="13">
       <Position1>
         <Filename Value="..\base\ubasevisualcontrols.pas"/>
         <Caret Line="4" Column="89" TopLine="1"/>
@@ -2145,6 +2157,18 @@
         <Filename Value="umain.pas"/>
         <Caret Line="62" Column="48" TopLine="35"/>
       </Position11>
+      <Position12>
+        <Filename Value="..\base_pm\umeetingframe.pas"/>
+        <Caret Line="958" Column="36" TopLine="941"/>
+      </Position12>
+      <Position13>
+        <Filename Value="..\base\dbintfs\uwiki.pas"/>
+        <Caret Line="210" Column="26" TopLine="185"/>
+      </Position13>
+      <Position14>
+        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
+        <Caret Line="552" Column="18" TopLine="545"/>
+      </Position14>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -2175,15 +2199,6 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="1">
-      <Item1>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="..\base_pm\umeetingframe.pas"/>
-        <Line Value="960"/>
-      </Item1>
-    </BreakPoints>
     <Exceptions Count="7">
       <Item1>
         <Name Value="EConvertError"/>

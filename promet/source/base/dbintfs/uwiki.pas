@@ -207,7 +207,7 @@ end;
 destructor TWikiList.Destroy;
 begin
   if Assigned(FKeywords) then
-    Fkeywords.Free;
+    FreeAndNil(FKeywords);
   inherited Destroy;
 end;
 

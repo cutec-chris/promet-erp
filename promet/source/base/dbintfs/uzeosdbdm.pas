@@ -598,12 +598,15 @@ begin
     inherited InternalRefresh;
   except
     InternalClose;
-    if TZeosDBDM(Owner).Ping(Connection) then
-      InternalOpen
-    else
+    if not Active then
       begin
-        WaitForLostConnection;
-        InternalOpen;
+        if TZeosDBDM(Owner).Ping(Connection) then
+          InternalOpen
+        else
+          begin
+            WaitForLostConnection;
+            InternalOpen;
+          end;
       end;
   end;
 end;
@@ -1790,4 +1793,4 @@ begin
 end;
 
 end.
-
+
