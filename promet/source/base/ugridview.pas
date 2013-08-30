@@ -10,9 +10,9 @@ Created 03.12.2011
 unit ugridview;
 {$mode objfpc}{$H+}
 
-{.$define gridvisible}
+{$define gridvisible}
 {.$define slowdebug}
-{.$define debug}
+{$define debug}
 
 interface
 uses
@@ -119,6 +119,7 @@ type
       Shift: TShiftState);
     procedure dgFakeTitleClick(Column: TColumn);
     procedure FDataSourceDataChange(Sender: TObject; Field: TField);
+    procedure FDataSourceStateChange(Sender: TObject);
     procedure fGridViewEnter(Sender: TObject);
     procedure FrameResize(Sender: TObject);
     procedure gHeaderColRowMoved(Sender: TObject; IsColumn: Boolean; sIndex,
@@ -353,7 +354,8 @@ uses uRowEditor,LCLType,LCLProc,LCLIntf,Themes,uIntfStrConsts,
 
 function TRowObject.GetStringRec: string;
 begin
-  Result := IntToStr(Rec);
+  if Assigned(Self) then
+    Result := IntToStr(Rec);
 end;
 
 constructor TRowObject.Create;
@@ -503,6 +505,12 @@ procedure TfGridView.FDataSourceDataChange(Sender: TObject; Field: TField);
 begin
   FieldModified(Field);
 end;
+
+procedure TfGridView.FDataSourceStateChange(Sender: TObject);
+begin
+
+end;
+
 procedure TfGridView.fGridViewEnter(Sender: TObject);
 begin
   if FEntered then exit;
@@ -776,7 +784,7 @@ var
   aKey : Word = VK_ESCAPE;
   aRect: Classes.TRect;
 begin
-  if (not Focused) and CanFocus and (not FirstFocused) and Visible then
+  if (not Focused) and CanFocus {and (not FirstFocused)} and Visible then
     begin
       SetFocus;
       FirstFocused := True;
@@ -1106,6 +1114,10 @@ begin
               if Assigned(FGetCText) then
                 FGetCText(Self,dgFake.Columns[aCol-1],aRow,aText,Canvas.Font);
               TStringGrid(Sender).Canvas.Brush.Style:=bsClear;
+              {$ifdef DEBUG}
+              if Assigned(TRowObject(gList.Objects[0,aRow])) then
+                aText := '['+IntToStr(TRowObject(gList.Objects[0,aRow]).Rec)+'] '+aText;
+              {$endif}
               TextRect(bRect,bRect.Left+3,bRect.Top,aText,aTextStyle);
               dec(aRect.Right,1);
               dec(aRect.Bottom,1);
@@ -1124,15 +1136,24 @@ var
   aRow: Integer;
   oDate: TDateTime;
   aRect: TGridRect;
+  aStart: LongInt;
+  aStop: LongInt;
 begin
   if WasEditing or gList.EditorMode then
     begin
       BeginUpdate;
       try
         try
+          aStart := gList.Selection.Top;
+          aStop := gList.Selection.Bottom;
+          if aStart>aStop then
+            begin
+              aStart := gList.Selection.Bottom;
+              aStop := gList.Selection.Top;
+            end;
           Value := gList.Cells[gList.Col,gList.Row];
           if (gList.Selection.Bottom-gList.Selection.Top = 1) or (dgFake.Columns[gList.Col-1].Field.FieldName<>IdentField) then
-            for aRow := gList.Selection.Bottom downto gList.Selection.Top do
+            for aRow := aStop downto aStart do
               begin
                 if GotoRowNumber(aRow) then
                   begin
@@ -1165,7 +1186,8 @@ begin
                     if Assigned(FSetCText) then
                       FSetCText(Sender,dgFake.Columns[gList.Col-1],aRow,Value);
                     gList.Cells[gList.Col,aRow] := ct+Value;
-                  end;
+                  end
+                else debugln('gotorownumber failed');
               end;
           aRect := gList.Selection;
         finally
@@ -1426,7 +1448,9 @@ begin
           if TRowObject(gList.Objects[0,i]).Rec = aBm then
             break;
       gList.EditorMode:=False;
-      SyncActiveRow(aBm,DoInsert,DoSync);
+      if i=gList.Row then
+        SyncActiveRow(aBm,DoInsert,DoSync)
+      else GotoActiveRow;
       if gList.CanFocus then
         gList.SetFocus;
     end;
@@ -1494,7 +1518,7 @@ begin
   if (OldRow <> aRow)  then
     begin
       {$ifdef debug}
-      debugln('RowChanged '+IntToStr(Oldrow)+' '+IntToStr(aRow)+' '+TRowObject(gList.Objects[0,aRow]).StringRec);
+      debugln('RowChanged '+IntToStr(Oldrow)+'->'+IntToStr(aRow)+' '+TRowObject(gList.Objects[0,aRow]).StringRec);
       {$endif}
       if Assigned(OnCellChanging) then
         OnCellChanging(Self);
@@ -1510,10 +1534,11 @@ begin
               if FDataSet.CanEdit then
                 FDataSet.DataSet.Post;
               aBm := DataSet.GetBookmark;
-              if Assigned(gList.Objects[0,OldRow]) then
+              if Assigned(gList.Objects[0,OldRow]) and (TRowObject(gList.Objects[0,OldRow]).Rec<>aBm) and (TRowObject(gList.Objects[0,OldRow]).Rec=0) then
                 TRowObject(gList.Objects[0,OldRow]).Rec:=aBm;
               if WasInsert then
                 gListColRowMoved(gList,False,OldRow,OldRow);
+              GotoRow(TRowObject(gList.Objects[0,aRow]).Rec);
             end
         end;
       OldRow := aRow;
@@ -1818,7 +1843,9 @@ begin
               tmp := aField.AsString;
               //if not (gList.Editormode) then
               gList.Cells[i+1,gList.Row] := tmp;
-//              debugln('FieldModified:'+tmp);
+              {$IFDEF DEBUG}
+              debugln('FieldModified:'+tmp);
+              {$ENDIF}
             end;
           break;
         end;
@@ -2495,6 +2522,9 @@ begin
   {$ifdef slowdebug}
   Application.ProcessMessages;
   {$endif}
+  {$ifdef debug}
+  debugln('SyncActiveRow '+IntToStr(Bookmark));
+  {$endif}
   gList.OnSelectCell:=nil;
   aCol := aIdentField;
   if aCol = -1 then
@@ -2531,7 +2561,7 @@ begin
           if Assigned(gList.Objects[0,gList.Row]) then
             TRowObject(gList.Objects[0,gList.Row]).Rec := Bookmark;
           {$ifdef debug}
-          debugln('Sync Bookmark=',strBookmark);
+          debugln('Sync Bookmark=',IntToStr(Bookmark));
           {$endif}
         end;
       Result := True;
@@ -2821,9 +2851,9 @@ end;
 procedure TfGridView.EditingDone;
 begin
   inherited EditingDone;
-  if Assigned(FDataSet) and (gList.Row > 0) and Assigned(gList.Objects[0,gList.Row]) and (DataSet.GetBookmark=TRowObject(gList.Objects[0,gList.Row]).Rec) then
-    SyncActiveRow(DataSet.GetBookmark,False,True,True);
-  gList.EditorMode:=False;
+//  if Assigned(FDataSet) and (gList.Row > 0) and Assigned(gList.Objects[0,gList.Row]) and (DataSet.GetBookmark=TRowObject(gList.Objects[0,gList.Row]).Rec) then
+//    SyncActiveRow(DataSet.GetBookmark,False,True,True);
+//  gList.EditorMode:=False;
 end;
 procedure TfGridView.Insert(SetCol : Boolean);
 var

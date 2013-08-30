@@ -404,8 +404,9 @@ object fGridView: TfGridView
     end
   end
   object FDataSource: TDatasource
+    OnStateChange = FDataSourceStateChange
     OnDataChange = FDataSourceDataChange
     left = 108
     top = 36
   end
-end
+end
