@@ -30,7 +30,7 @@ AppContact=http://www.ullihome.de
 [Files]
 Source: ..\executables\{#BaseAppVersion}\{#TargetCPU}\messagemanager.exe; DestDir: {app}\tools; Components: main
 Source: ..\executables\{#BaseAppVersion}\{#TargetCPU}\wizardmandant.exe; DestDir: {app}; Components: main
-Source: ..\..\output\i386-win32\timeregistering.exe; DestDir: {app}; Components: main
+Source: ..\executables\{#BaseAppVersion}\{#TargetCPU}\timeregistering.exe; DestDir: {app}; Components: main
 Source: ..\..\importdata\*.*; DestDir: {app}\importdata; Components: main; Flags: recursesubdirs
 Source: ..\help\help.db; DestDir: {app}; Components: help
 Source: ..\..\source\base\changes.txt; DestDir: {app}; Components: main

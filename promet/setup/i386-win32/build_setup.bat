@@ -5,6 +5,7 @@ SET FULLTARGET=%TARGETCPU%-%TARGETOS%
 SET BASEVERSION=%3
 set VERSION=%BASEVERSION%
 iscc %PROGNAME%.iss
+iscc %PROGNAME%-tools.iss
 If errorlevel 1 goto end
 goto realend
 :end

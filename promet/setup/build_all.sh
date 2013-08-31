@@ -12,17 +12,17 @@ if [ "$?" -ne "0" ]; then
   echo "Testcases failed exitting"
   exit 1
 fi
-sudo ./clean_all.sh
-virsh start Autobuild_lin
-sh build_win_wine_i386.sh
-State=$(virsh domstate Autobuild_lin)
+sudo -S ./clean_all.sh
+virsh start Autobuild_lin3
+sh build_win_wine_i386.sh &
+State=$(virsh domstate Autobuild_lin3)
 while [ "$State" = laufend ] ; do
   sleep 5
-  State=$(virsh domstate Autobuild_lin)
+  State=$(virsh domstate Autobuild_lin3)
 done
 while [ "$State" = running ] ; do
   sleep 5
-  State=$(virsh domstate Autobuild_lin)
+  State=$(virsh domstate Autobuild_lin3)
 done
 echo $State
 sh upload_lin.sh i386 i386 &

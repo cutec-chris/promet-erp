@@ -48,6 +48,7 @@ cat debian/control_tools | \
       -e "s/ARCH/$Arch/g" \
       -e "s/DEBSIZE/$DebSize/g" \
   > $BuildDir/DEBIAN/control
+chmod 755 $BuildDir/DEBIAN
 echo "building package..."
 sudo -S dpkg-deb --build $BuildDir
 cp $TmpDir/software_build.deb ../output/${Program}-tools_${Version}_${Arch}-$Widgetset.deb

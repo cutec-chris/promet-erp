@@ -13,3 +13,4 @@ WINEPREFIX=$FULL_NAME/../../../lazarus_wine/ wineconsole "$WIN_DIR\build_tr_setu
 WINEPREFIX=$FULL_NAME/../../../lazarus_wine/ wineconsole "$WIN_DIR\build_db_setup.bat" win32 i386 $Version
 cd ..
 ./upload_win.sh i386
+chmod 644 output/*.exe

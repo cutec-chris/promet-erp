@@ -5,7 +5,7 @@ if [ "x$Widgetset" = "x" ]; then
   Widgetset=gtk2
 fi
 Arch=`dpkg --print-architecture`
-echo "Arch is $Arch"
+sudo -S echo "Arch is $Arch"
 Archfpc=$(fpc -h | grep 'Compiler version' | sed 's/.*for \([^ ]\+\)$/\1/')
 echo "Archfpc is $Archfpc"
 Year=`date +%y`
@@ -22,9 +22,8 @@ if [ x$BuildDir = x/ ]; then
   exit
 fi
 
-sudo -S echo
 export PATH=$PATH:/home/chris/lazarus:/media/2DF0E8714D527894/lazarus
-./build_all_executables.sh $Widgetset $Archfpc
+#./build_all_executables.sh $Widgetset $Archfpc
 echo build_deb.sh $Widgetset $Program $Version $Arch $Archfpc $Date $BuildDir $TmpDir
 sh build_deb.sh $Widgetset $Program $Version $Arch $Archfpc $Date $BuildDir $TmpDir
 if [ ! -f ../../output/$Archfpc-linux/cdmenue ];

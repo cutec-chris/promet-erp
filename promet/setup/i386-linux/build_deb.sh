@@ -59,6 +59,7 @@ cat debian/control | \
       -e "s/ARCH/$Arch/g" \
       -e "s/DEBSIZE/$DebSize/g" \
   > $BuildDir/DEBIAN/control
+chmod 755 $BuildDir/DEBIAN
 if [ ! -f ../../output/$Archfpc-linux/cdmenue ];
 then
   echo "cdmenue build dont exists (../../output/$Archfpc-linux/cdmenue)..."

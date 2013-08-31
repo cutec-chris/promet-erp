@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "compiling for $1..."
 echo "compiling processmanager..."
-lazbuild --add-package ../../source/components/promet_components.lpk
+#lazbuild --add-package ../../source/components/promet_components.lpk
 lazbuild -q -B ../../source/tools/processmanager.lpi  >> scompile-$2.log
 echo "compiling messagemanager..."
 lazbuild -q -B ../../source/messagemanager/messagemanager.lpi  >> scompile-$2.log

@@ -1,5 +1,9 @@
 ﻿Build 269
-      - Aufgabenabhängigkeitentabelle wurde nicht erzeugt wenn Aufgabne zuerst aus Gantt Ansicht aufgerufen wurden
+      - Aufgabenabhängigkeitentabelle wurde nicht erzeugt wenn Aufgaben zuerst aus Gantt Ansicht aufgerufen wurden
+      - Fehler in Gridansichten behoben, u.U. konnte ein Eintrag durch den nachfolgenden ersetzt werden [0000030]
+      - Vorgänge ohne Kunden konnten beim Buchen Fehler erzeugen
+      - Windows Setup in Hauptprogramm und Administrations Tools aufgeteilt
+      - Spamerkennung in pop3receiver stark verbessert (seit 263 schon eingeflossen)
 Build 268
       - keine neue Zeile einfügen wenn bereits neue zeile in Meeting
       - Reparaturtabs beim öffnen eines Untervorgangs nicht mehr bedienbar [0000031] (mit 267 eingeführt)
