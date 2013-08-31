@@ -23,6 +23,7 @@ var
 begin
   Application.Free;
   Application := TBaseVisualApplication.Create(nil);
+  {$ifdef WINDOWS}
   PlainName := copy(Application.Exename,0,length(Application.Exename)-length(ExtractFileExt(Application.Exename)));
   IF FindFirstUTF8(PlainName+'*'+ExtractFileExt(Application.Exename), faDirectory, FindRec) = 0 THEN
     REPEAT
@@ -43,6 +44,7 @@ begin
       Application.Terminate;
       exit;
     end;
+  {$endif}
   Application.Title:='Promet-ERP';
   Application.Initialize;
   Application.CreateForm(TfMain, fMain);
