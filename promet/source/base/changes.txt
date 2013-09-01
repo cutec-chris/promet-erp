@@ -1,4 +1,6 @@
-﻿Build 269
+﻿Build 270
+      - Windows Setup bereinigt
+Build 269
       - Aufgabenabhängigkeitentabelle wurde nicht erzeugt wenn Aufgaben zuerst aus Gantt Ansicht aufgerufen wurden
       - Fehler in Gridansichten behoben, u.U. konnte ein Eintrag durch den nachfolgenden ersetzt werden [0000030]
       - Vorgänge ohne Kunden konnten beim Buchen Fehler erzeugen

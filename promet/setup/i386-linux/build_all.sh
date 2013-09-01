@@ -23,7 +23,7 @@ if [ x$BuildDir = x/ ]; then
 fi
 
 export PATH=$PATH:/home/chris/lazarus:/media/2DF0E8714D527894/lazarus
-#./build_all_executables.sh $Widgetset $Archfpc
+./build_all_executables.sh $Widgetset $Archfpc
 echo build_deb.sh $Widgetset $Program $Version $Arch $Archfpc $Date $BuildDir $TmpDir
 sh build_deb.sh $Widgetset $Program $Version $Arch $Archfpc $Date $BuildDir $TmpDir
 if [ ! -f ../../output/$Archfpc-linux/cdmenue ];

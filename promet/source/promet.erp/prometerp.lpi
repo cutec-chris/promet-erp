@@ -228,10 +228,9 @@
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="prometerp"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="17"/>
+        <TopLine Value="1"/>
         <CursorPos X="10" Y="47"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -983,10 +982,11 @@
       </Unit69>
       <Unit70>
         <Filename Value="../base/changes.txt"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="55" Y="6"/>
+        <CursorPos X="10" Y="1"/>
         <UsageCount Value="103"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
