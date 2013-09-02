@@ -13,7 +13,7 @@ AppVerName={#AppName} {#AppVersion}
 DefaultDirName={pf}\Promet-ERP
 DefaultGroupName=Promet-ERP
 UninstallDisplayIcon={app}\prometerp.exe
-OutputBaseFilename=promet-erp-tools_{#AppVersion}_{#FullTarget}
+OutputBaseFilename=promet-erp_{#AppVersion}_{#FullTarget}
 OutputDir=../output
 InternalCompressLevel=ultra
 PrivilegesRequired=none
@@ -38,7 +38,6 @@ Source: "sqlite3.dll"; DestDir: "{app}"; Components: main
 Source: "sqlite3.dll"; DestDir: "{app}\tools"; Components: main
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\linksender.exe"; DestDir: "{app}\tools"; Components: main
 Source: "..\..\importdata\*.*"; DestDir: "{app}\importdata"; Flags: recursesubdirs; Components: main
-Source: "PrometERP.xml"; DestDir: "{localappdata}\prometerp"; Components: db;Flags: onlyifdoesntexist
 
 Source: "..\errors.txt"; DestDir: "{app}"; Components: main
 Source: "..\warnings.txt"; DestDir: "{app}"; Components: main
@@ -59,7 +58,7 @@ Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\shipping_*.exe"; DestDir:
 Source: "website.url"; DestDir: "{app}"
 
 [Run]
-Filename: "{app}\wizardmandant.exe"; Parameters: "--silent"; Flags: postinstall shellexec skipifsilent; Description: "Standartdatenbank erstellen"; Components: db
+Filename: "{app}\wizardmandant.exe"; Parameters: "--silent"; Flags: postinstall shellexec skipifsilent; Description: "Standartdatenbank erstellen"; Components: main
 
 [Components]
 Name: "main"; Description: "Main Program Components"; Types: full compact custom; Flags: fixed; Languages: en

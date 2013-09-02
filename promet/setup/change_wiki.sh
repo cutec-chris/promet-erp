@@ -6,6 +6,7 @@ Arch=`dpkg --print-architecture`
 Archfpc=$(fpc -h | grep 'Compiler version' | sed 's/.*for \([^ ]\+\)$/\1/')
 Date=`date`
 WinSize=$(ls -s --block-size=1048576 "output/promet-erp_$(echo $Version)_i386-win32.exe" | cut -d' ' -f1)
+WinToolsSize=$(ls -s --block-size=1048576 "output/promet-erp-tools_$(echo $Version)_i386-win32.exe" | cut -d' ' -f1)
 WinTRSize=$(ls -s --block-size=1048576 "output/promet-erp-timeregistering_$(echo $Version)_i386-win32.exe" | cut -d' ' -f1)
 WinPDBSize=$(ls -s --block-size=1048576 "output/db_setup_postgres.exe" | cut -d' ' -f1)
 WinSizeK=$(ls -s --block-size=1024 "output/promet-erp_$(echo $Version)_i386-win32.exe" | cut -d' ' -f1)
@@ -35,6 +36,7 @@ cat downloads.txt | \
       -e "s/ARCH/$Arch/g" \
       -e "s/ARCHFPC/$Archfpc/g" \
       -e "s/WIN_SIZE/$WinSize Mb/g" \
+      -e "s/WIN_TOOLS_SIZE/$WinToolsSize Mb/g" \
       -e "s/WIN_TR_SIZE/$WinTRSize Mb/g" \
       -e "s/WIN_PDB_SIZE/$WinPDBSize Mb/g" \
       -e "s/RPM64_SIZE/$Rpm64Size Mb/g" \
