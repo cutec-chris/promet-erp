@@ -21,11 +21,15 @@ uses
   uPreviewFrame;
 
 type
+
+  { TfManageDocFrame }
+
   TfManageDocFrame = class(TPrometMainFrame)
     acDelete: TAction;
     acRefresh: TAction;
     acSetTag: TAction;
     acRebuildThumb: TAction;
+    acEdit: TAction;
     ActionList1: TActionList;
     bEditFilter: TSpeedButton;
     Bevel3: TBevel;
@@ -78,6 +82,7 @@ type
     tsDocument: TTabSheet;
     tsFiles: TTabSheet;
     procedure acDeleteExecute(Sender: TObject);
+    procedure acEditExecute(Sender: TObject);
     procedure acRebuildThumbExecute(Sender: TObject);
     procedure acRefreshExecute(Sender: TObject);
     procedure acSetTagExecute(Sender: TObject);
@@ -92,7 +97,6 @@ type
     procedure FrameExit(Sender: TObject);
     procedure FTimeLineSetMarker(Sender: TObject);
     procedure IdleTimer1Timer(Sender: TObject);
-    procedure MenuItem2Click(Sender: TObject);
     procedure pmPopupPopup(Sender: TObject);
     procedure tbMenue1Click(Sender: TObject);
     procedure ThumbControl1DblClick(Sender: TObject);
@@ -201,14 +205,12 @@ begin
       FreeAndNil(FFetchDS);
     end;
 end;
-
 procedure TfManageDocFrame.ThumbControl1ImageLoaderManagerSetItemIndex(
   Sender: TObject);
 begin
   FTimeLine.StartDate:=DataSet.FieldByName('ORIGDATE').AsDateTime+60;
   FTimeLine.MarkerDate:=DataSet.FieldByName('ORIGDATE').AsDateTime;
 end;
-
 procedure TfManageDocFrame.FrameEnter(Sender: TObject);
 var
   aSheet: TTabSheet;
@@ -232,7 +234,6 @@ begin
         end;
     end;
 end;
-
 procedure TfManageDocFrame.FrameExit(Sender: TObject);
 var
   aSheet: TTabSheet;
@@ -256,7 +257,6 @@ begin
         end;
     end;
 end;
-
 procedure TfManageDocFrame.FTimeLineSetMarker(Sender: TObject);
 var
   OldIdx: Integer;
@@ -283,7 +283,6 @@ begin
   ThumbControl1.ImageLoaderManager.OnSetItemIndex:=@ThumbControl1ImageLoaderManagerSetItemIndex;
   ThumbControl1.ScrollIntoView;
 end;
-
 procedure TfManageDocFrame.IdleTimer1Timer(Sender: TObject);
 var
   aOldEntry: UTF8String;
@@ -338,22 +337,14 @@ begin
   ThumbControl1.MultiThreaded:=True;
   IdleTimer1.Tag:=0;
 end;
-
-procedure TfManageDocFrame.MenuItem2Click(Sender: TObject);
-begin
-
-end;
-
 procedure TfManageDocFrame.pmPopupPopup(Sender: TObject);
 begin
   ThumbControl1.Click;
 end;
-
 procedure TfManageDocFrame.tbMenue1Click(Sender: TObject);
 begin
   TSpeedButton(Sender).PopupMenu.PopUp(TSpeedButton(Sender).ClientOrigin.x,TSpeedButton(Sender).ClientOrigin.y+TSpeedButton(Sender).Height);
 end;
-
 procedure TfManageDocFrame.ThumbControl1DblClick(Sender: TObject);
 var
   i: Integer;
@@ -384,7 +375,6 @@ begin
           end;
     end;
 end;
-
 procedure TfManageDocFrame.DoOnDropFiles(Sender: TObject;
   const FileNames: array of String);
 var
@@ -436,17 +426,14 @@ begin
       acRefresh.Execute;
     end;
 end;
-
 procedure TfManageDocFrame.eSearchChange(Sender: TObject);
 begin
   IdleTimer1.Enabled:=True;
 end;
-
 procedure TfManageDocFrame.FDocFrameAftercheckInFiles(Sender: TObject);
 begin
   RebuidThumb;
 end;
-
 procedure TfManageDocFrame.acDeleteExecute(Sender: TObject);
 var
   aItem: TThreadedImage;
@@ -462,12 +449,24 @@ begin
       ThumbControl1.Arrange;
     end;
 end;
-
+procedure TfManageDocFrame.acEditExecute(Sender: TObject);
+var
+  i: Integer;
+begin
+  //FDocFrame.Refresh(copy(Item.URL,0,pos('.',Item.URL)-1),'S');
+  for i := 0 to FDocFrame.lvDocuments.Items.Count-1 do
+    if (copy(FDocFrame.lvDocuments.Items[i].SubItems[0],0,4) = 'jpg ')
+    or (copy(FDocFrame.lvDocuments.Items[i].SubItems[0],0,5) = 'jpeg ')
+    then
+      begin
+        FDocFrame.lvDocuments.ItemIndex:=i;
+        FDocFrame.acViewFile.Execute;
+      end;
+end;
 procedure TfManageDocFrame.acRebuildThumbExecute(Sender: TObject);
 begin
   RebuidThumb;
 end;
-
 procedure TfManageDocFrame.acRefreshExecute(Sender: TObject);
 var
   OldIdx: Integer;
@@ -483,7 +482,6 @@ begin
   ThumbControl1.ImageLoaderManager.ActiveIndex:=OldIdx;
   ThumbControl1.ScrollIntoView;
 end;
-
 procedure TfManageDocFrame.acSetTagExecute(Sender: TObject);
 begin
   if bTag.Down then
@@ -492,7 +490,6 @@ begin
         aTag := ''
     end;
 end;
-
 procedure TfManageDocFrame.bExecute1Click(Sender: TObject);
 begin
   if bExecute1.Down then
@@ -510,7 +507,6 @@ begin
       spPages.Visible:=False;
     end;
 end;
-
 procedure TfManageDocFrame.bTag1Click(Sender: TObject);
 begin
   if bTag1.Down then
@@ -519,21 +515,18 @@ begin
         aDate := ''
     end;
 end;
-
 procedure TfManageDocFrame.bZoomInClick(Sender: TObject);
 begin
   ThumbControl1.ThumbHeight:=ThumbControl1.ThumbHeight+20;
   ThumbControl1.ThumbWidth:=ThumbControl1.ThumbWidth+20;
   acRefresh.Execute;
 end;
-
 procedure TfManageDocFrame.bZoomOutClick(Sender: TObject);
 begin
   ThumbControl1.ThumbHeight:=ThumbControl1.ThumbHeight-20;
   ThumbControl1.ThumbWidth:=ThumbControl1.ThumbWidth-20;
   acRefresh.Execute;
 end;
-
 procedure TfManageDocFrame.FetchNext;
 var
   i: Integer;
@@ -552,7 +545,6 @@ begin
     end;
   ThumbControl1.Arrange;
 end;
-
 procedure TfManageDocFrame.WaitForImage;
 var
   URL: String;
@@ -562,7 +554,6 @@ begin
   while (not FileExists(FtempPath+URL)) do
     Application.ProcessMessages;
 end;
-
 procedure TfManageDocFrame.RebuidThumb;
 var
   aDocument: TDocument;
@@ -601,7 +592,6 @@ begin
     end;
   acRefresh.Execute;
 end;
-
 constructor TfManageDocFrame.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
@@ -626,8 +616,8 @@ begin
   PreviewFrame.Parent := tsDocument;
   PreviewFrame.Align := alClient;
   PreviewFrame.Show;
+  PreviewFrame.AddToolbarAction(acEdit);
 end;
-
 destructor TfManageDocFrame.Destroy;
 begin
   FTimeLine.Free;
@@ -636,7 +626,6 @@ begin
   PreviewFrame.Free;
   inherited Destroy;
 end;
-
 procedure TfManageDocFrame.Open;
 begin
   ThumbControl1.ImageLoaderManager.BeforeStartQueue:=@ThumbControl1ImageLoaderManagerBeforeStartQueue;
@@ -657,7 +646,6 @@ begin
   bExecute1.Down:=False;
   bExecute1Click(nil);
 end;
-
 procedure TfManageDocFrame.DoRefresh;
 begin
 end;

@@ -27,9 +27,10 @@ type
       iPreview: TImage;
       Label1: TLabel;
       mText: TMemo;
-      pfrPreview: TPanel;
-      pImageControls: TPanel;
       pcPages: TPageControl;
+      pfrPreview: TPanel;
+      pToolbar: TToolBar;
+      pImageControls: TPanel;
       sbImage: TScrollBox;
       ToolBar2: TToolBar;
       tsImage: TTabSheet;
@@ -70,6 +71,7 @@ type
       function LoadFromStream(aStream : TStream;aExtension : string) : Boolean;
       procedure Clear;
       function ExtractText(aStream : TStream;aExtension : string) : Boolean;
+      procedure AddToolbarAction(aAction : TAction);
     end;
   TLoadThread = class(TThread)
   private
@@ -579,6 +581,15 @@ begin
         SysUtils.DeleteFile(aFileName+'.txt');
       end;
     end;
+end;
+procedure TfPreview.AddToolbarAction(aAction: TAction);
+var
+  Toolbutton: TToolButton;
+begin
+  pToolbar.Width:=pToolbar.Width+30;
+  Toolbutton :=TToolButton.Create(pToolBar);
+  Toolbutton.Parent  := pToolBar;
+  ToolButton.Action := aAction;
 end;
 
 end.

@@ -1,4 +1,6 @@
-﻿Build 270
+﻿Build 271
+      - Thumbnail Ansicht hat direkten Editierbutton (Aktion aus Dateimanagement)
+Build 270
       - Windows Setup bereinigt
 Build 269
       - Aufgabenabhängigkeitentabelle wurde nicht erzeugt wenn Aufgaben zuerst aus Gantt Ansicht aufgerufen wurden

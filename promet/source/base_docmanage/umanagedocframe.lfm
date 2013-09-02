@@ -50,7 +50,7 @@ inherited fManageDocFrame: TfManageDocFrame
       end
       object eSearch: TEdit
         Left = 6
-        Height = 25
+        Height = 24
         Top = 12
         Width = 146
         OnChange = eSearchChange
@@ -82,7 +82,7 @@ inherited fManageDocFrame: TfManageDocFrame
         Left = 6
         Height = 14
         Top = 0
-        Width = 72
+        Width = 73
         Caption = 'Ansicht/Filter'
         Font.Color = clMedGray
         Font.Height = 11
@@ -93,7 +93,7 @@ inherited fManageDocFrame: TfManageDocFrame
       object cbFilter: TComboBox
         AnchorSideLeft.Side = asrBottom
         Left = 6
-        Height = 29
+        Height = 28
         Hint = 'hier können Sie eine vordefinierte Ansicht wählen'#10'Wenn Sie eine spezielle Ansicht/Sortierung benötigen wenden Sie sich an Ihren Administrator'
         Top = 12
         Width = 409
@@ -565,12 +565,12 @@ inherited fManageDocFrame: TfManageDocFrame
     TabOrder = 2
     object tsDocument: TTabSheet
       Caption = 'Dokument'
-      ClientHeight = 1061
-      ClientWidth = 1222
+      ClientHeight = 531
+      ClientWidth = 611
       object pThumb: TPanel
         Left = 0
         Height = 50
-        Top = 480
+        Top = 481
         Width = 611
         Align = alBottom
         BevelOuter = bvNone
@@ -579,9 +579,9 @@ inherited fManageDocFrame: TfManageDocFrame
         TabOrder = 0
         object DBZVDateTimePicker1: TDBZVDateTimePicker
           Left = 6
-          Height = 23
+          Height = 22
           Top = 24
-          Width = 169
+          Width = 153
           DataField = 'ORIGDATE'
           DataSource = Datasource1
           ReadOnly = False
@@ -600,7 +600,7 @@ inherited fManageDocFrame: TfManageDocFrame
         end
         object DBEdit1: TDBEdit
           Left = 184
-          Height = 25
+          Height = 24
           Top = 24
           Width = 423
           DataField = 'TAGS'
@@ -612,17 +612,17 @@ inherited fManageDocFrame: TfManageDocFrame
         end
         object Label1: TLabel
           Left = 6
-          Height = 15
+          Height = 14
           Top = 5
-          Width = 41
+          Width = 38
           Caption = 'Datum'
           ParentColor = False
         end
         object Label2: TLabel
           Left = 184
-          Height = 15
+          Height = 14
           Top = 5
-          Width = 180
+          Width = 163
           Caption = 'Suchworte (durch , getrennt)'
           ParentColor = False
         end
@@ -630,17 +630,17 @@ inherited fManageDocFrame: TfManageDocFrame
     end
     object tsFiles: TTabSheet
       Caption = 'Dateien'
-      ClientHeight = 1061
-      ClientWidth = 1222
+      ClientHeight = 531
+      ClientWidth = 611
       object pDocFrame: TPanel
         Left = 0
-        Height = 536
+        Height = 531
         Top = 0
-        Width = 615
+        Width = 611
         Align = alClient
         BevelOuter = bvNone
-        ClientHeight = 536
-        ClientWidth = 615
+        ClientHeight = 531
+        ClientWidth = 611
         TabOrder = 0
         object iNoThumbnail: TImage
           Left = 0
@@ -884,6 +884,11 @@ inherited fManageDocFrame: TfManageDocFrame
       Caption = 'Thumbnail erneuern'
       OnExecute = acRebuildThumbExecute
     end
+    object acEdit: TAction
+      Caption = 'acEdit'
+      ImageIndex = 67
+      OnExecute = acEditExecute
+    end
   end
   object pmPopup: TPopupMenu[6]
     Images = fVisualControls.Images
@@ -934,12 +939,12 @@ inherited fManageDocFrame: TfManageDocFrame
     Enabled = False
     Interval = 300
     OnTimer = IdleTimer1Timer
-    left = 248
-    top = 40
+    left = 384
+    top = 24
   end
   object PopupMenu1: TPopupMenu[8]
-    left = 296
-    top = 40
+    left = 424
+    top = 24
     object MenuItem2: TMenuItem
       Action = acRebuildThumb
     end
