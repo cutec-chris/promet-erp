@@ -3,32 +3,32 @@ cd darwin
 echo "compiling for $1..."
 echo "compiling processmanager..."
 lazbuild -q -B ../../source/tools/processmanager.lpi  >> scompile-$2.log
-strip -s ../../output/tools/$2-darwin/processmanager
+strip ../../output/tools/$2-darwin/processmanager
 echo "compiling messagemanager..."
 lazbuild -q -B ../../source/messagemanager/messagemanager.lpi  >> scompile-$2.log
-strip -s ../../output/$2-darwin/tools/messagemanager
+strip ../../output/$2-darwin/tools/messagemanager
 echo "compiling promet..."
 lazbuild -q -B ../../source/promet.erp/prometerp.lpi > scompile-$2.log
-strip -s ../../output/$2-darwin/prometerp
+strip ../../output/$2-darwin/prometerp
 echo "compiling pstarter..."
 lazbuild -q ../../source/tools/pstarter.lpi  >> scompile-$2.log
-strip -s ../../output/$2-darwin/pstarter
+strip ../../output/$2-darwin/pstarter
 echo "compiling sync_db..."
 echo "compiling sync_db..." >> scompile-$2.log
 lazbuild -q ../../source/sync/sync_db.lpi  >> scompile-$2.log
-strip -s ../../output/$2-darwin/tools/sync_db
+strip ../../output/$2-darwin/tools/sync_db
 echo "compiling pop3receiver..."
 echo "compiling pop3receiver..." >> scompile-$2.log
 lazbuild -q ../../source/messageimport/pop3receiver.lpi  >> scompile-$2.log
-strip -s ../../output/$2-darwin/tools/pop3receiver
+strip ../../output/$2-darwin/tools/pop3receiver
 echo "compiling rssreceiver..."
 echo "compiling rssreceiver..." >> scompile-$2.log
 lazbuild -q ../../source/messageimport/rssreceiver.lpi  >> scompile-$2.log
-strip -s ../../output/$2-darwin/tools/rssreceiver
+strip ../../output/$2-darwin/tools/rssreceiver
 echo "compiling smtpsender..."
 echo "compiling smtpsender..." >> scompile-$2.log
 lazbuild -q ../../source/messageimport/smtpsender.lpi  >> scompile-$2.log
-strip -s ../../output/$2-darwin/tools/smtpsender
+strip ../../output/$2-darwin/tools/smtpsender
 echo "compiling statistics..."
 lazbuild -q ../../source/statistics/statistics.lpi  >> scompile-$2.log
 echo "compiling cdmenue..."
