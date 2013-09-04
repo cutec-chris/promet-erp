@@ -409,4 +409,4 @@ object fGridView: TfGridView
     left = 108
     top = 36
   end
-end
+end

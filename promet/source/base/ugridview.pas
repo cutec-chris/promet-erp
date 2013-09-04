@@ -784,11 +784,13 @@ var
   aKey : Word = VK_ESCAPE;
   aRect: Classes.TRect;
 begin
+  {
   if (not Focused) and CanFocus {and (not FirstFocused)} and Visible then
     begin
       SetFocus;
       FirstFocused := True;
     end;
+  }
   aRect := gList.CellRect(gList.Col,gList.Row);
   if gList.Col>1 then
     if Assigned(FSearchKey) then
@@ -1528,7 +1530,7 @@ begin
         if aRow < TStringGrid(Sender).RowCount then
           TStringGrid(Sender).InvalidateCell(0,aRow);
         TStringGrid(Sender).RowHeights[OldRow] := GetRowHeight(OldRow);
-        if Assigned(FDataSet) and (FDataSet.CanEdit) {and (not FDataSet.DataSet.ControlsDisabled)} then
+        if Assigned(FDataSet) and (FDataSet.CanEdit) and (not FDataSet.DataSet.ControlsDisabled) then
           begin
             if FDataSet.Changed then
               begin
@@ -2808,7 +2810,7 @@ begin
     begin
       FBeforeInsert(Self);
     end;
-  //FDataSet.DataSet.DisableControls;
+  FDataSet.DataSet.DisableControls;
   FDataset.DisableChanges;
   try
     FDataSource.DataSet.Append;
@@ -2829,7 +2831,7 @@ begin
     OldRow:=gList.RowCount;
   finally
     FDataSet.EnableChanges;
-    //FDataSet.DataSet.EnableControls;
+    FDataSet.DataSet.EnableControls;
   end;
   if asCol > -1 then
     begin
