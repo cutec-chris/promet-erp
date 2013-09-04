@@ -26,12 +26,15 @@ export lcl=carbon
 export MACOSX_DEPLOYMENT_TARGET=10.5
 
 # Build all components of Double Commander
-#darwin/build_all_executables.sh $lcl $CPU_TARGET
+darwin/build_all_executables.sh $lcl $CPU_TARGET
 
 # Create *.dmg package
 mkdir -p $BUILD_PACK_DIR
-sh darwin/install.sh $BUILD_PACK_DIR
-hdiutil create -anyowners -volname "Promet-ERP" -imagekey zlib-level=9 -srcfolder ../output/$CPU_TARGET-darwin/prometerp.app $PACK_DIR/prometerp-$Version.$CPU_TARGET.dmg
+cd darwin
+sh install.sh $BUILD_PACK_DIR
+cd ..
+rm $PACK_DIR/prometerp-$Version.$CPU_TARGET.dmg
+hdiutil create -anyowners -volname "Promet-ERP" -imagekey zlib-level=9 -srcfolder $BUILD_PACK_DIR $PACK_DIR/prometerp-$Version.$CPU_TARGET.dmg
 
 # Clean DC build dir
 rm -rf $BUILD_DC_TMP_DIR
