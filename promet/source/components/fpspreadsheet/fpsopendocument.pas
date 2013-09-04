@@ -208,18 +208,19 @@ begin
           //select this cell value's type
           ParamValueType:=GetAttrValue(CellNode,'office:value-type');
           ParamFormula:=GetAttrValue(CellNode,'table:formula');
-          for RowsCount:=0 to StrToInt(ParamRowsRepeated)-1 do begin
-            for ColsCount:=0 to StrToInt(ParamColsRepeated)-1 do begin
-              if ParamValueType='string' then
-                ReadLabel(Row+RowsCount,Col+ColsCount,CellNode)
-              else if ParamFormula<>'' then
-                ReadFormula(Row+RowsCount,Col+ColsCount,CellNode)
-              else if ParamValueType='float' then
-                ReadNumber(Row+RowsCount,Col+ColsCount,CellNode)
-              else if ParamValueType='date' then
-                ReadDate(Row+RowsCount,Col+ColsCount,CellNode);
-            end; //for ColsCount
-          end; //for RowsCount
+          if ParamValueType<>'' then
+            for RowsCount:=0 to StrToInt(ParamRowsRepeated)-1 do begin
+              for ColsCount:=0 to StrToInt(ParamColsRepeated)-1 do begin
+                if ParamValueType='string' then
+                  ReadLabel(Row+RowsCount,Col+ColsCount,CellNode)
+                else if ParamFormula<>'' then
+                  ReadFormula(Row+RowsCount,Col+ColsCount,CellNode)
+                else if ParamValueType='float' then
+                  ReadNumber(Row+RowsCount,Col+ColsCount,CellNode)
+                else if ParamValueType='date' then
+                  ReadDate(Row+RowsCount,Col+ColsCount,CellNode);
+              end; //for ColsCount
+            end; //for RowsCount
 
           Inc(Col,ColsCount+1);
           CellNode:=CellNode.NextSibling;
@@ -274,7 +275,13 @@ var
   dt:TDateTime;
 begin
   Value:=GetAttrValue(ACellNode,'office:date-value');
-  dt:=StrToDate(Value,'yyyy-mm-dd','-');
+  if pos('T',value)>0 then
+    begin
+      dt := StrToDate(copy(Value,0,pos('T',Value)-1),'yyyy-mm-dd','-');
+      dt := dt+StrToTime(copy(Value,pos('T',Value)+1,length(Value)),':');
+    end
+  else
+    dt:=StrToDate(Value,'yyyy-mm-dd','-');
   FWorkSheet.WriteDateTime(Arow,ACol,dt);
 end;
 

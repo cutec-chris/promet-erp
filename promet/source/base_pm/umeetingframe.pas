@@ -868,6 +868,7 @@ begin
     pcPages.AddTab(TfLinkFrame.Create(Self),False);
   with Application as TBaseVisualApplication do
     AddTabClasses('MEE',pcPages);
+  Entrys.DataSet := TMeetings(DataSet).Entrys.DataSet;
   inherited DoOpen;
 end;
 

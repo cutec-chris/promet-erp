@@ -1513,53 +1513,56 @@ var
 begin
   if aRow < gList.FixedRows then exit;
   BeginUpdate;
-  WasEditing := gList.EditorMode;
-  if not (OldRow < TStringGrid(Sender).RowCount) then
-    OldRow := TStringGrid(Sender).RowCount-1;
-  if (OldRow <> aRow)  then
-    begin
-      {$ifdef debug}
-      debugln('RowChanged '+IntToStr(Oldrow)+'->'+IntToStr(aRow)+' '+TRowObject(gList.Objects[0,aRow]).StringRec);
-      {$endif}
-      if Assigned(OnCellChanging) then
-        OnCellChanging(Self);
-      TStringGrid(Sender).InvalidateCell(0,OldRow);
-      if aRow < TStringGrid(Sender).RowCount then
-        TStringGrid(Sender).InvalidateCell(0,aRow);
-      TStringGrid(Sender).RowHeights[OldRow] := GetRowHeight(OldRow);
-      if Assigned(FDataSet) and (FDataSet.CanEdit) {and (not FDataSet.DataSet.ControlsDisabled)} then
-        begin
-          if FDataSet.Changed then
-            begin
-              WasInsert := FDataSet.State=dsInsert;
-              if FDataSet.CanEdit then
-                FDataSet.DataSet.Post;
-              aBm := DataSet.GetBookmark;
-              if Assigned(gList.Objects[0,OldRow]) and (TRowObject(gList.Objects[0,OldRow]).Rec<>aBm) and (TRowObject(gList.Objects[0,OldRow]).Rec=0) then
-                TRowObject(gList.Objects[0,OldRow]).Rec:=aBm;
-              if WasInsert then
-                gListColRowMoved(gList,False,OldRow,OldRow);
-              GotoRow(TRowObject(gList.Objects[0,aRow]).Rec);
-            end
-        end;
-      OldRow := aRow;
-      if Assigned(DataSet) and (DataSet.State<>dsInsert) then
-        gList.EditorMode:=False;
-    end
-  else if (OldCol < aCol) then
-    begin
-      if Assigned(FCheckIdent) then FCheckIdent(Self);
-    end;
-  if ((OldCol < aCol) or (OldRow <> aRow)) and Assigned(FSearchKey) then
-    begin
-      aRect := gList.CellRect(gList.Col,gList.Row);
-      if gList.Col>1 then
-        FSearchKey(Self,aRect.Left,aRect.Bottom,dgFake.Columns[gList.Col-1],aKey,[],'');
-    end;
-  if Assigned(OnCellChanged) then
-    OnCellChanged(Self,Point(aCol,aRow),Point(OldCol,OldRow));
-  OldCol := aCol;
-  EndUpdate;
+  try
+    WasEditing := gList.EditorMode;
+    if not (OldRow < TStringGrid(Sender).RowCount) then
+      OldRow := TStringGrid(Sender).RowCount-1;
+    if (OldRow <> aRow)  then
+      begin
+        {$ifdef debug}
+        debugln('RowChanged '+IntToStr(Oldrow)+'->'+IntToStr(aRow)+' '+TRowObject(gList.Objects[0,aRow]).StringRec);
+        {$endif}
+        if Assigned(OnCellChanging) then
+          OnCellChanging(Self);
+        TStringGrid(Sender).InvalidateCell(0,OldRow);
+        if aRow < TStringGrid(Sender).RowCount then
+          TStringGrid(Sender).InvalidateCell(0,aRow);
+        TStringGrid(Sender).RowHeights[OldRow] := GetRowHeight(OldRow);
+        if Assigned(FDataSet) and (FDataSet.CanEdit) {and (not FDataSet.DataSet.ControlsDisabled)} then
+          begin
+            if FDataSet.Changed then
+              begin
+                WasInsert := FDataSet.State=dsInsert;
+                if FDataSet.CanEdit then
+                  FDataSet.DataSet.Post;
+                aBm := DataSet.GetBookmark;
+                if Assigned(gList.Objects[0,OldRow]) and (TRowObject(gList.Objects[0,OldRow]).Rec<>aBm) and (TRowObject(gList.Objects[0,OldRow]).Rec=0) then
+                  TRowObject(gList.Objects[0,OldRow]).Rec:=aBm;
+                if WasInsert then
+                  gListColRowMoved(gList,False,OldRow,OldRow);
+                GotoRow(TRowObject(gList.Objects[0,aRow]).Rec);
+              end
+          end;
+        OldRow := aRow;
+        if Assigned(DataSet) and (DataSet.State<>dsInsert) then
+          gList.EditorMode:=False;
+      end
+    else if (OldCol < aCol) then
+      begin
+        if Assigned(FCheckIdent) then FCheckIdent(Self);
+      end;
+    if ((OldCol < aCol) or (OldRow <> aRow)) and Assigned(FSearchKey) then
+      begin
+        aRect := gList.CellRect(gList.Col,gList.Row);
+        if gList.Col>1 then
+          FSearchKey(Self,aRect.Left,aRect.Bottom,dgFake.Columns[gList.Col-1],aKey,[],'');
+      end;
+    if Assigned(OnCellChanged) then
+      OnCellChanged(Self,Point(aCol,aRow),Point(OldCol,OldRow));
+    OldCol := aCol;
+  finally
+    EndUpdate;
+  end;
 end;
 procedure TfGridView.gListSelectEditor(Sender: TObject; aCol,
   aRow: Integer; var Editor: TWinControl);
@@ -2776,6 +2779,9 @@ var
   aLevel: Integer;
   aHasChilds: Char;
 begin
+  {$ifdef DEBUG}
+  debugln('Append');
+  {$endif}
   if FDataSet.State = dsInsert then
     FDataSet.Post;
   gList.EditorMode:=False;
@@ -2802,7 +2808,7 @@ begin
     begin
       FBeforeInsert(Self);
     end;
-  FDataSet.DataSet.DisableControls;
+  //FDataSet.DataSet.DisableControls;
   FDataset.DisableChanges;
   try
     FDataSource.DataSet.Append;
@@ -2818,14 +2824,12 @@ begin
     SyncActiveRow(aBm,DoInsert,DoSync);
     if Assigned(FAfterInsert) then
       FAfterInsert(Self);
-    gList.Row := gList.RowCount;
     if TreeField <> '' then
-      begin
-        DataSet.FieldByName(TreeField).AsString:=aTree;
-      end;
+      DataSet.FieldByName(TreeField).AsString:=aTree;
+    OldRow:=gList.RowCount;
   finally
     FDataSet.EnableChanges;
-    FDataSet.DataSet.EnableControls;
+    //FDataSet.DataSet.EnableControls;
   end;
   if asCol > -1 then
     begin
