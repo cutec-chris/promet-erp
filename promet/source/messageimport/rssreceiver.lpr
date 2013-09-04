@@ -291,7 +291,7 @@ begin
                                 tmp := '<b>'+DoDecode(aTitleNode.FirstChild.NodeValue)+'</b><br>'+tmp;
                                 tmp := tmp+'<br><a href='''+aLinkValue+'''>'+strGotoFeed+'</a>';
                                 tmp := '<html><body>'+tmp+'</body></html>';
-                                ss := TStringStream.Create(tmp);
+                                ss := TStringStream.Create(DoDecode(tmp));
                                 Data.StreamToBlobField(ss,Message.Content.DataSet,'DATA');
                                 ss.Free;
                                 MessageHandler.SendCommand('prometerp','Message.refresh');

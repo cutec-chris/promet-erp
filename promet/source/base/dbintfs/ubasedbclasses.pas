@@ -647,6 +647,7 @@ function TBaseDbList.GetText: TField;
 var
   aField: String;
 begin
+  if not Assigned(Self) then exit;
   Result := nil;
   aField := GetTextFieldName;
   if aField <> '' then

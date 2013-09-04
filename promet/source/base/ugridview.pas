@@ -1296,7 +1296,8 @@ begin
               end
             else
               begin
-                if FDataSet.CanEdit then DataSet.DataSet.Post;
+                if FDataSet.CanEdit then
+                  DataSet.DataSet.Post;
                 aBm := DataSet.GetBookmark;
                 if TRowObject(gList.Objects[0,gList.Row]).Rec = 0 then
                   TRowObject(gList.Objects[0,gList.Row]).Rec := aBM;
@@ -2775,7 +2776,8 @@ var
   aLevel: Integer;
   aHasChilds: Char;
 begin
-  if FDataSet.State = dsInsert then FDataSet.Post;
+  if FDataSet.State = dsInsert then
+    FDataSet.Post;
   gList.EditorMode:=False;
   if not GotoActiveRow then exit;
   aBm := DataSet.GetBookmark;
@@ -2968,7 +2970,8 @@ var
   aPosNo: Integer;
 begin
   SearchKeyTimer.Enabled:=false;
-  if (DataSet.State=dsInsert) and (DataSet.Changed) then DataSet.Post;
+  if (DataSet.State=dsInsert) and (DataSet.Changed) then
+    DataSet.Post;
   aBm := DataSet.GetBookmark;
   if TRowObject(gList.Objects[0,gList.Row]).Rec = 0 then
     TRowObject(gList.Objects[0,gList.Row]).Rec := aBM;

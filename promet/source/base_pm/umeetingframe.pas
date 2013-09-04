@@ -118,6 +118,7 @@ type
     procedure acUnmakeSubTaskExecute(Sender: TObject);
     procedure cbStatusSelect(Sender: TObject);
     procedure DataSetChange(Sender: TObject);
+    procedure DatasourceStateChange(Sender: TObject);
     procedure eNameChange(Sender: TObject);
     procedure FGridViewCellButtonClick(Sender: TObject; Cell: TPoint;
       Field: TColumn);
@@ -164,7 +165,7 @@ var
 implementation
 uses uMainTreeFrame,Utils,uData,umeeting,uBaseDBInterface,uSearch,
   LCLType,uSelectReport,uDocuments,uDocumentFrame,uLinkFrame,umeetingusers,
-  uBaseVisualApplication,uProjects;
+  uBaseVisualApplication,uProjects,LCLProc;
 resourcestring
   strSearchFromUsers                       = 'Mit Öffnen wird der gewählte Nutzer in die Liste übernommen';
   strSearchFromMeetings                    = 'Mit Öffnen wird das gewählte Projekt in die Liste übernommen';
@@ -233,6 +234,11 @@ procedure TfMeetingFrame.DataSetChange(Sender: TObject);
 begin
   acSave.Enabled := DataSet.CanEdit or DataSet.Changed;
   acCancel.Enabled:= DataSet.CanEdit or DataSet.Changed;
+end;
+
+procedure TfMeetingFrame.DatasourceStateChange(Sender: TObject);
+begin
+  debugln('StateChange');
 end;
 
 procedure TfMeetingFrame.eNameChange(Sender: TObject);
