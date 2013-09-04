@@ -32,7 +32,7 @@ mkdir $appfolder/Contents/Resources
 
 cp ../../output/$CPU_TARGET-darwin/$appfile $macosfolder/$appname
 cp ../../output/$CPU_TARGET-darwin/tools/messagemanager $macosfolder/tools/messagemanager
-cp ../../output/$CPU_TARGET-darwin/tools/wizardmandant $macosfolder/tools/wizardmandant
+cp ../../output/$CPU_TARGET-darwin/wizardmandant $macosfolder/wizardmandant
 
 # Copy the resource files to the correct place
 #  cp *.bmp $appfolder/Contents/Resources
