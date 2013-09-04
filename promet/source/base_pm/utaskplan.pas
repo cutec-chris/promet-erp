@@ -645,6 +645,7 @@ begin
               aResource.Interval[i].DrawRect:=Rect(round((aIStart-aStart)*aDayWidth),(aRect.Top+((aRect.Bottom-aRect.Top) div 4)-1)+aAddTop,round((aIEnd-aStart)*aDayWidth)-1,(aRect.Bottom-((aRect.Bottom-aRect.Top) div 4)-1)+aAddTop);
               PaintRect(aCanvas,aResource.Interval[i].DrawRect,aResource.Interval[i]);
               WholeUsage := aResource.Interval[i].PercentUsage;
+              {
               for a := 0 to i-1 do
                 begin
                   if (not aResource.Interval[a].IsDrawRectClear) and (not (aResource.Interval[a] is TBackInterval)) then
@@ -673,6 +674,7 @@ begin
                         end;
                     end;
                 end;
+              }
             end;
         end;
     end;

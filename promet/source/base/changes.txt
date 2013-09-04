@@ -1,5 +1,6 @@
 ﻿Build 272
       - RSS Receiver konvertiert immer alles nach UTF8 (einige falsch kodierte Streams wurden nicht importiert)
+      - Gridview Fehler behoben
 Build 271
       - Thumbnail Ansicht hat direkten Editierbutton (Aktion aus Dateimanagement)
 Build 270
