@@ -408,8 +408,7 @@ begin
       try
         if Assigned(FTimes) then
           begin
-            FTimes.Destroy;
-            FTimes := nil;
+            FreeAndNil(FTimes);
             FIntTimes.Destroy;
           end;
         //if Assigned(FList.DataSet) then FList.DataSet.Destroy;
@@ -1100,4 +1099,4 @@ end;
 initialization
   {$I uentertime.lrs}
 end.
-
+
