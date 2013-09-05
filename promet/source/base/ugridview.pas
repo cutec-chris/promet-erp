@@ -543,6 +543,7 @@ begin
   if IsColumn then
     begin
       gList.Columns[sIndex-1].Index:=tIndex-1;
+      dgFake.Columns[sIndex-1].Index:=tIndex-1;
       fRowEditor.SetGridSizes(FBaseName,dgFake.DataSource,dgFake,FBaseName);
     end;
 end;
@@ -1120,6 +1121,7 @@ begin
               if Assigned(TRowObject(gList.Objects[0,aRow])) then
                 aText := '['+IntToStr(TRowObject(gList.Objects[0,aRow]).Rec)+'] '+aText;
               {$endif}
+              aTextStyle.Alignment:=dgFake.Columns[aCol-1].Alignment;
               TextRect(bRect,bRect.Left+3,bRect.Top,aText,aTextStyle);
               dec(aRect.Right,1);
               dec(aRect.Bottom,1);

@@ -17,11 +17,8 @@ type
     acSend: TAction;
     ActionList1: TActionList;
     bSend: TBitBtn;
-    PageControl1: TPageControl;
-    tsHistory: TTabSheet;
-    ToolButton2: TSpeedButton;
-    IdleTimer1: TIdleTimer;
     mEntry: TMemo;
+    IdleTimer1: TIdleTimer;
     MenuItem5: TMenuItem;
     MenuItem7: TMenuItem;
     miBugtracker: TMenuItem;
@@ -34,6 +31,8 @@ type
     SelectDirectoryDialog1: TSelectDirectoryDialog;
     ToolBar1: TToolBar;
     ToolButton1: TToolButton;
+    ToolButton2: TSpeedButton;
+    tsHistory: TTabSheet;
     procedure acRefreshExecute(Sender: TObject);
     procedure acSendExecute(Sender: TObject);
     procedure bSendClick(Sender: TObject);
@@ -42,6 +41,7 @@ type
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormDestroy(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure FormShow(Sender: TObject);
     procedure fTimelineGetCellText(Sender: TObject; aCol: TColumn;
       aRow: Integer; var NewText: string; aFont: TFont);
     procedure fTimelinegListDblClick(Sender: TObject);
@@ -54,6 +54,7 @@ type
     { private declarations }
     SysCommands : TSystemCommands;
     fTimeline : TfGridView;
+    FDrawnDate : TDateTime;
     aHistoryFrame: TfHistoryFrame;
   public
     { public declarations }
@@ -77,7 +78,7 @@ begin
       Self := fmTimeline;
       fTimeline.Parent := Panel2;
       fTimeline.Align := alClient;
-      fTimeline.DefaultRows:='GLOBALWIDTH:530;ACTIONICON:30;ACTION:200;REFERENCE:100;OBJECT:100;TIMESTAMPD:100;';
+      fTimeline.DefaultRows:='GLOBALWIDTH:530;TIMESTAMPD:100;ACTIONICON:30;ACTION:200;REFERENCE:100;OBJECT:100;';
       fTimeline.BaseName:='PTLINE';
       fTimeline.SortDirection:=sdDescending;
       fTimeline.SortField:='TIMESTAMPD';
@@ -96,10 +97,7 @@ begin
         Config.ReadRect('TIMELINERECT',aBoundsRect,BoundsRect);
       fTimeline.Show;
       Show;
-      ShowFrame;
-      fTimeline.SetActive;
       BoundsRect := aBoundsRect;
-      fTimeline.gList.TopRow:=0;
     end;
   fTimeline.Show;
   Show;
@@ -107,6 +105,7 @@ begin
   FTimeLine.Refresh(True);
   IdleTimer1.Enabled:=True;
   fTimeline.SetActive;
+  fTimeline.gList.TopRow:=0;
 end;
 
 constructor TfmTimeline.Create(TheOwner: TComponent);
@@ -154,10 +153,22 @@ begin
         Canvas.Font.Color:=clHighlightText
       else
         Canvas.Font.Color:=clWindowText;
+      aColor := Column.Color;
+      if (not (gdFixed in State)) and (TStringGrid(Sender).AlternateColor<>AColor) then
+        begin
+          if (TStringGrid(Sender).AltColorStartNormal and Odd(DataCol-TStringGrid(Sender).FixedRows)) {(1)} or
+             (not TStringGrid(Sender).AltColorStartNormal and Odd(DataCol)) {(2)} then
+            AColor := TStringGrid(Sender).AlternateColor;
+        end;
+      if (gdSelected in State) then
+        begin
+          aColor := TStringGrid(Sender).SelectedColor;
+          TStringGrid(Sender).Canvas.Font.Color:=clHighlightText;
+        end;
       if (Column.FieldName = 'ACTIONICON') then
         begin
-//          Canvas.Brush.Color:=aColor;
-//          Canvas.FillRect(aRect);
+          Canvas.Brush.Color:=aColor;
+          Canvas.FillRect(aRect);
           Canvas.Pen.Color:=clGray;
           aMiddle :=((aRect.Right-aRect.Left) div 2);
           Canvas.MoveTo(aRect.Left+aMiddle,aRect.Top);
@@ -175,24 +186,13 @@ begin
         begin
           with Application as IBaseDbInterface do
             aText := Data.GetLinkDesc(TExtStringGrid(Sender).Cells[Column.Index+1,DataCol]);
-          aColor := Column.Color;
-          if (not (gdFixed in State)) and (TStringGrid(Sender).AlternateColor<>AColor) then
-            begin
-              if (TStringGrid(Sender).AltColorStartNormal and Odd(DataCol-TStringGrid(Sender).FixedRows)) {(1)} or
-                 (not TStringGrid(Sender).AltColorStartNormal and Odd(DataCol)) {(2)} then
-                AColor := TStringGrid(Sender).AlternateColor;
-            end;
-          if (gdSelected in State) then
-            begin
-              aColor := TStringGrid(Sender).SelectedColor;
-              TStringGrid(Sender).Canvas.Font.Color:=clHighlightText;
-            end;
           with TStringGrid(Sender).Canvas do
             begin
               TStringGrid(Sender).Canvas.Brush.Color:=aColor;
               FillRect(aRect);
             end;
           TStringGrid(Sender).Canvas.Brush.Style:=bsClear;
+          aTextStyle.Alignment:=Column.Alignment;
           TextRect(aRect,aRect.Left+3,aRect.Top,aText,aTextStyle);
           Result := True;
         end
@@ -305,13 +305,32 @@ begin
       Close;
     end;
 end;
+
+procedure TfmTimeline.FormShow(Sender: TObject);
+begin
+  ShowFrame;
+end;
+
 procedure TfmTimeline.fTimelineGetCellText(Sender: TObject; aCol: TColumn;
   aRow: Integer; var NewText: string; aFont: TFont);
+var
+  aTime: TDateTime;
 begin
   if aCol.FieldName='LINK' then
     NewText := Data.GetLinkDesc(NewText)
   else if aCol.FieldName='OBJECT' then
-    NewText := Data.GetLinkDesc(NewText);
+    NewText := Data.GetLinkDesc(NewText)
+  else if aCol.FieldName='TIMESTAMPD' then
+    begin
+      if TryStrToDateTime(NewText,aTime) then
+        begin
+          if trunc(aTime) = FDrawnDate then
+            NewText:=TimeToStr(frac(aTime))
+          else
+            FDrawnDate:=trunc(aTime);
+          aCol.Alignment:=taRightJustify;
+        end;
+    end;
 end;
 
 procedure TfmTimeline.fTimelinegListDblClick(Sender: TObject);
