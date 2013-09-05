@@ -1,5 +1,7 @@
 ﻿Build 273
       - Abhängigkeiten im Gantt Project Export korrigiert
+      - erledigte aufgaben werden im gantt View bei Änderung nicht mehr verändert
+      - Aufgabenplan zeigt nun Auslastung Tageweise an
 Build 272
       - RSS Receiver konvertiert immer alles nach UTF8 (einige falsch kodierte Streams wurden nicht importiert)
       - Gridview Fehler behoben

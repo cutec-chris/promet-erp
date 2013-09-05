@@ -347,7 +347,7 @@ begin
             end;
           aTaskI2.Free;
         end;
-      if aTasks.FieldByName('CLASS').AsString<>'M' then
+      if (aTasks.FieldByName('CLASS').AsString<>'M') and (aTasks.FieldByName('COMPLETED').AsString<>'Y') then
         begin
           if not aTasks.CanEdit then
             aTasks.DataSet.Edit;
@@ -630,6 +630,52 @@ begin
       aResource := TRessource(TInterval(Sender).Pointer);
       for i := 0 to aResource.IntervalCount-1 do
         if not (aResource.Interval[i] is TBackInterval) then
+          aResource.Interval[i].ClearDrawRect;
+
+      for i := 0 to round(aEnd-aStart) do
+        begin
+          aDay := aStart+i;
+          if not ((DayOfWeek(aDay) = 1) or (DayOfWeek(aDay) = 7)) then
+            begin
+              WholeUsage := 0;
+              for a := 0 to aResource.IntervalCount-1 do
+                if not (aResource.Interval[a] is TBackInterval) then
+                  begin
+                    if ((aResource.Interval[a].StartDate>aDay) and (aResource.Interval[a].StartDate<(aDay+1)))
+                    or ((aResource.Interval[a].FinishDate>aDay) and (aResource.Interval[a].FinishDate<(aDay+1)))
+                    or ((aResource.Interval[a].StartDate<=aDay) and (aResource.Interval[a].FinishDate>=(aDay+1)))
+                    then
+                      begin
+                        WholeUsage += aResource.Interval[a].PercentUsage;
+                        if aResource.Interval[a].IsDrawRectClear then
+                          begin
+                            aIStart := aResource.Interval[a].StartDate;
+                            if aStart > aIStart then aIStart := aStart;
+                            aIEnd := aResource.Interval[a].FinishDate;
+                            if aEnd < aIEnd then aIEnd := aEnd;
+                            if aIEnd<=aIStart then aIEnd := aIStart+1;
+                            aIStart := trunc(aIStart);
+                            aIEnd:=trunc(aIEnd)+1;
+                            aResource.Interval[a].DrawRect:=Rect(round((aIStart-aStart)*aDayWidth),(aRect.Top+((aRect.Bottom-aRect.Top) div 4)-1)+aAddTop,round((aIEnd-aStart)*aDayWidth)-1,(aRect.Bottom-((aRect.Bottom-aRect.Top) div 4)-1)+aAddTop);
+                          end;
+                      end;
+                  end;
+              if WholeUsage>1 then
+                aCanvas.Brush.Color:=ProbemColor
+              else
+                aCanvas.Brush.Color:=FillColor;
+              cRect := rect(round(i*aDayWidth),aRect.Top+1,round((i*aDayWidth)+aDayWidth),aRect.Bottom);
+              cHeight := cRect.Bottom-cRect.Top;
+              if WholeUsage<1 then
+                cHeight := round(cHeight*WholeUsage);
+              cRect.Top := cRect.Bottom-cHeight;
+              aCanvas.FillRect(crect);
+            end;
+        end;
+
+      {
+      for i := 0 to aResource.IntervalCount-1 do
+        if not (aResource.Interval[i] is TBackInterval) then
         begin
           aResource.Interval[i].ClearDrawRect;
           if ((aResource.Interval[i].StartDate>aStart) and (aResource.Interval[i].StartDate<aEnd))
@@ -677,6 +723,7 @@ begin
               }
             end;
         end;
+       }
     end;
 end;
 
