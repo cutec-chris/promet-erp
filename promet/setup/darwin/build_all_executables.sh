@@ -35,6 +35,7 @@ echo "compiling cdmenue..."
 lazbuild -q ../../source/tools/cdmenue.lpi  >> scompile-$2.log
 echo "compiling wizardmandant..."
 lazbuild -q ../../source/tools/wizardmandant.lpi  >> scompile-$2.log
+strip ../../output/$2-darwin/wizardmandant
 echo "compiling cmdwizardmandant..."
 lazbuild -q ../../source/tools/cmdwizardmandant.lpi  >> scompile-$2.log
 echo "compiling checkin/out..."

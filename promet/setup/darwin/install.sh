@@ -29,10 +29,12 @@ mkdir $appfolder
 mkdir $appfolder/Contents
 mkdir $appfolder/Contents/MacOS
 mkdir $appfolder/Contents/Resources
+mkdir $appfolder/Contents/MacOS/importdata
 
 cp ../../output/$CPU_TARGET-darwin/$appfile $macosfolder/$appname
 cp ../../output/$CPU_TARGET-darwin/tools/messagemanager $macosfolder/tools/messagemanager
 cp ../../output/$CPU_TARGET-darwin/wizardmandant $macosfolder/wizardmandant
+cp -r ../../importdata/* $macosfolder/importdata
 
 # Copy the resource files to the correct place
 #  cp *.bmp $appfolder/Contents/Resources
