@@ -223,6 +223,7 @@ var
     aDue: TDateTime;
     aITask: TTask;
     aDep: TDOMElement;
+    aIDep: TDependencies;
   begin
     if aTask.FieldByName('PARENT').AsString<>'' then
       begin
@@ -252,11 +253,14 @@ var
     if aStart>aDue then aStart := aDue-max(aTask.FieldByName('PLANTIME').AsFloat,1);
     TDOMElement(result).SetAttribute('start',FormatDateTime('YYYY-MM-DD',aStart));
     TDOMElement(result).SetAttribute('duration',IntToStr(trunc(aDue-aStart)));
-    aITask := TTask.Create(nil,data);
-    aITask.Select(aTask.Id.AsVariant);
-    aITask.Open;
-    aITask.Dependencies.Open;
-    with aITask.Dependencies.DataSet do
+    aIDep := TDependencies.Create(nil,Data);
+    aIDep.SelectByLink(Data.BuildLink(aTask.DataSet));
+    aIDep.Open;
+//    aITask := TTask.Create(nil,data);
+//    aITask.Select(aTask.Id.AsVariant);
+//    aITask.Open;
+//    aITask.Dependencies.Open;
+    with aIDep.DataSet do
       begin
         First;
         while not EOF do
@@ -264,7 +268,7 @@ var
             if FieldByName('REF_ID_ID').AsString <> '' then
               begin
                 aDep := aDoc.CreateElement('depend');
-                TDOMElement(aDep).SetAttribute('id',FieldByName('REF_ID_ID').AsString);
+                TDOMElement(aDep).SetAttribute('id',FieldByName('REF_ID').AsString);
                 TDOMElement(aDep).SetAttribute('type','2');
                 TDOMElement(aDep).SetAttribute('hardness','Strong');
                 TDOMElement(aDep).SetAttribute('difference','0');
@@ -273,7 +277,7 @@ var
             Next;
           end;
       end;
-    aItask.Free;
+    aIDep.Free;
     aParent.AppendChild(result);
   end;
 
@@ -393,4 +397,4 @@ begin
 end;
 
 end.
-
+
