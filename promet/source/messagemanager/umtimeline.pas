@@ -17,6 +17,7 @@ type
     acSend: TAction;
     ActionList1: TActionList;
     bSend: TBitBtn;
+    lbResults: TListBox;
     mEntry: TMemo;
     IdleTimer1: TIdleTimer;
     MenuItem5: TMenuItem;
@@ -28,6 +29,7 @@ type
     miRegister: TMenuItem;
     Panel1: TPanel;
     Panel2: TPanel;
+    pSearch: TPanel;
     SelectDirectoryDialog1: TSelectDirectoryDialog;
     ToolBar1: TToolBar;
     ToolButton1: TToolButton;
@@ -49,6 +51,7 @@ type
       Shift: TShiftState);
     procedure IdleTimer1Timer(Sender: TObject);
     procedure mEntryKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure mEntryKeyPress(Sender: TObject; var Key: char);
     procedure ToolButton2Click(Sender: TObject);
   private
     { private declarations }
@@ -387,6 +390,18 @@ begin
       Key := 0;
       if fTimeline.Visible then
         fTimeline.SetActive;
+    end;
+end;
+
+procedure TfmTimeline.mEntryKeyPress(Sender: TObject; var Key: char);
+begin
+  if key = '@' then
+    begin
+      pSearch.Visible:=True;
+    end
+  else if pSearch.Visible then
+    begin
+
     end;
 end;
 

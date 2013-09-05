@@ -3,12 +3,12 @@
   <ProjectSession>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="96">
+    <Units Count="97">
       <Unit0>
         <Filename Value="messagemanager.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="messagemanager"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="22"/>
@@ -22,7 +22,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="umain"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="181"/>
         <CursorPos X="35" Y="514"/>
@@ -40,8 +40,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="82"/>
-        <CursorPos X="28" Y="108"/>
+        <TopLine Value="386"/>
+        <CursorPos X="7" Y="404"/>
         <UsageCount Value="65"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -154,7 +154,7 @@
       <Unit15>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="13"/>
         <CursorPos X="15" Y="32"/>
@@ -288,7 +288,7 @@
       <Unit31>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1833"/>
         <CursorPos X="1" Y="1869"/>
@@ -816,11 +816,25 @@
         <CursorPos X="46" Y="95"/>
         <UsageCount Value="10"/>
       </Unit95>
+      <Unit96>
+        <Filename Value="../base_erp/upositionframe.pas"/>
+        <ComponentName Value="fPosition"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uPositionFrame"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit96>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="11" HistoryIndex="10">
+    <JumpHistory Count="14" HistoryIndex="13">
       <Position1>
         <Filename Value="umtimeline.pas"/>
         <Caret Line="320" Column="48" TopLine="294"/>
@@ -865,6 +879,18 @@
         <Filename Value="umtimeline.pas"/>
         <Caret Line="100" Column="1" TopLine="76"/>
       </Position11>
+      <Position12>
+        <Filename Value="umtimeline.pas"/>
+        <Caret Line="78" Column="18" TopLine="69"/>
+      </Position12>
+      <Position13>
+        <Filename Value="umtimeline.pas"/>
+        <Caret Line="80" Column="18" TopLine="71"/>
+      </Position13>
+      <Position14>
+        <Filename Value="umtimeline.pas"/>
+        <Caret Line="386" Column="6" TopLine="381"/>
+      </Position14>
     </JumpHistory>
   </ProjectSession>
   <EditorMacros Count="0"/>

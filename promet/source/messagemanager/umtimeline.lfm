@@ -96,6 +96,7 @@ object fmTimeline: TfmTimeline
       Align = alClient
       BorderSpacing.Around = 8
       OnKeyDown = mEntryKeyDown
+      OnKeyPress = mEntryKeyPress
       TabOrder = 0
     end
     object bSend: TBitBtn
@@ -155,6 +156,30 @@ object fmTimeline: TfmTimeline
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
+  end
+  object pSearch: TPanel
+    Left = 8
+    Height = 104
+    Top = 56
+    Width = 344
+    Anchors = [akTop, akRight]
+    BevelOuter = bvNone
+    Caption = 'pSearch'
+    ClientHeight = 104
+    ClientWidth = 344
+    TabOrder = 3
+    Visible = False
+    object lbResults: TListBox
+      Left = 0
+      Height = 104
+      Top = 0
+      Width = 344
+      Align = alClient
+      ItemHeight = 0
+      ScrollWidth = 450
+      TabOrder = 0
+      TabStop = False
+    end
   end
   object ActionList1: TActionList
     Images = fVisualControls.Images
