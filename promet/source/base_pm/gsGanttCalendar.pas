@@ -90,6 +90,7 @@ type
     FDontChange: Boolean;
     FGantt: TgsGantt;
     Fid: Variant;
+    FInCriticalPath: Boolean;
     FIntervalStyle: TIntervalStyle;
     FNetTime: TDateTime;
     FOnChanged: TNotifyEvent;
@@ -233,6 +234,7 @@ type
 
     property IsCollection: Boolean read GetIsCollection;
     property IntervalDone: TDateTime read GetIntervalDone write SetIntervalDone;
+    property InCriticalPath : Boolean read FInCriticalPath write FInCriticalPath;
     property Id : Variant read Fid write SetId;
     property Changed : Boolean read FChanged write FChanged;
     property DontChange : Boolean read FDontChange write FDontChange;
@@ -2006,6 +2008,7 @@ begin
             CurrInterval.Right := CurrInterval.Right + PixelsPerLine div 4;
 
             Brush.Color := CurrInterval.Color;
+            if CurrInterval.InCriticalPath then Brush.Color := clRed;
 
             with CurrInterval.DrawRect do
               Polygon
@@ -2020,6 +2023,7 @@ begin
               );
 
             Brush.Color := CurrInterval.Color;
+            if CurrInterval.InCriticalPath then Brush.Color := clRed;
             Brush.Style := bsClear;
 
             Pen.Color := clBlack;
@@ -3335,7 +3339,10 @@ begin
         if CurrInterval <> nil then
         begin
           DeltaX := (CurrInterval.Level - 1) * FIndent + 14;
-
+          if CurrInterval.Color<>clBlue then
+            Canvas.Font.Color:=CurrInterval.Color
+          else
+            Canvas.Font.Color:=clWindowText;
           WriteText
           (
             Canvas,
@@ -4192,4 +4199,4 @@ finalization
   DrawBitmap.Free;
 
 end.
-
+

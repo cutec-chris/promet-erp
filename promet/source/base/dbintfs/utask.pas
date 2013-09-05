@@ -368,7 +368,9 @@ begin
   if FieldByName('COMPLETED').AsString = 'Y' then
     begin
       if FieldByName('STARTEDAT').AsDAteTime > 0 then
-        aStart := FieldByName('STARTEDAT').AsDateTime;
+        aStart := FieldByName('STARTEDAT').AsDateTime
+      else if (FieldByName('COMPLETEDAT').AsDAteTime > 0) then
+        aStart := 0;
       if FieldByName('COMPLETEDAT').AsDAteTime > 0 then
         aDue := FieldByName('COMPLETEDAT').AsDAteTime;
     end;

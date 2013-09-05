@@ -769,11 +769,7 @@ var
     if (aInterval.ConnectionCount = 0) and (aInterval.IntervalCount > 0) then
       for i := 0 to aInterval.IntervalCount-1 do
         Result := Result or DoPath(aInterval.Interval[i]);
-    if Result then
-      aInterval.Color:=clRed
-    else
-      aInterval.Color:=clBlue;
-
+    aInterval.InCriticalPath := Result;
   end;
 begin
   aLastDate := 0;
@@ -797,6 +793,8 @@ begin
   aInterval.Task:=aTasks.FieldByName('SUMMARY').AsString;
   aInterval.Project:=aTasks.FieldByName('PROJECT').AsString;
   aInterval.Started:=not aTasks.FieldByName('STARTEDAT').IsNull;
+  if aTasks.FieldByName('COMPLETED').AsString='Y' then
+    aInterval.Color:=clGray;
   aInterval.Id:=aTasks.Id.AsVariant;
   aInterval.DepDone := aTasks.FieldByName('DEPDONE').AsString <> 'N';
   if not aTasks.FieldByName('PLANTIME').IsNull then

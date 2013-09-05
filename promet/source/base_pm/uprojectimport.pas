@@ -256,10 +256,6 @@ var
     aIDep := TDependencies.Create(nil,Data);
     aIDep.SelectByLink(Data.BuildLink(aTask.DataSet));
     aIDep.Open;
-//    aITask := TTask.Create(nil,data);
-//    aITask.Select(aTask.Id.AsVariant);
-//    aITask.Open;
-//    aITask.Dependencies.Open;
     with aIDep.DataSet do
       begin
         First;
