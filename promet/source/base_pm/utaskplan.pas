@@ -672,58 +672,6 @@ begin
               aCanvas.FillRect(crect);
             end;
         end;
-
-      {
-      for i := 0 to aResource.IntervalCount-1 do
-        if not (aResource.Interval[i] is TBackInterval) then
-        begin
-          aResource.Interval[i].ClearDrawRect;
-          if ((aResource.Interval[i].StartDate>aStart) and (aResource.Interval[i].StartDate<aEnd))
-          or ((aResource.Interval[i].FinishDate>aStart) and (aResource.Interval[i].FinishDate<aEnd))
-          or ((aResource.Interval[i].StartDate<=aStart) and (aResource.Interval[i].FinishDate>=aEnd))
-          then
-            begin
-              aIStart := aResource.Interval[i].StartDate;
-              if aStart > aIStart then aIStart := aStart;
-              aIEnd := aResource.Interval[i].FinishDate;
-              if aEnd < aIEnd then aIEnd := aEnd;
-              if aIEnd<=aIStart then aIEnd := aIStart+1;
-              aResource.Interval[i].DrawRect:=Rect(round((aIStart-aStart)*aDayWidth),(aRect.Top+((aRect.Bottom-aRect.Top) div 4)-1)+aAddTop,round((aIEnd-aStart)*aDayWidth)-1,(aRect.Bottom-((aRect.Bottom-aRect.Top) div 4)-1)+aAddTop);
-              PaintRect(aCanvas,aResource.Interval[i].DrawRect,aResource.Interval[i]);
-              WholeUsage := aResource.Interval[i].PercentUsage;
-              {
-              for a := 0 to i-1 do
-                begin
-                  if (not aResource.Interval[a].IsDrawRectClear) and (not (aResource.Interval[a] is TBackInterval)) then
-                    begin
-                      Rect1 := aResource.Interval[i].DrawRect;
-                      Rect2 := aResource.Interval[a].DrawRect;
-                      if IntersectRect(aDst,Rect1,Rect2) then
-                        begin
-                          WholeUsage := WholeUsage+(aResource.Interval[a]).PercentUsage;
-                          cRect := aDst;
-                          cHeight := cRect.Bottom-cRect.Top;
-                          cHeight := round(cHeight*WholeUsage);
-                          cRect.Top := cRect.Bottom-cHeight;
-                          if cRect.Top<=aDst.Top then
-                            cRect.Top := aDst.Top+1;
-                          cRect.left := aDst.Left+1;
-                          aCanvas.pen.Style:=psClear;
-                          if WholeUsage>1 then
-                            aCanvas.Brush.Color:=ProbemColor
-                          else
-                            aCanvas.Brush.Color:=FillColor;
-                          aCanvas.Rectangle(cRect);
-                          {$IFDEF LINUX}
-                          MarkRect(aCanvas,aDst);
-                          {$ENDIF}
-                        end;
-                    end;
-                end;
-              }
-            end;
-        end;
-       }
     end;
 end;
 
