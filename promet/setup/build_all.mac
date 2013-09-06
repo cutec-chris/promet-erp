@@ -39,3 +39,5 @@ hdiutil create -anyowners -volname "Promet-ERP" -imagekey zlib-level=9 -srcfolde
 # Clean DC build dir
 rm -rf $BUILD_DC_TMP_DIR
 rm -rf $BUILD_PACK_DIR
+
+sh upload_osx.sh
