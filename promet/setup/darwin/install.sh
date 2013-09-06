@@ -35,13 +35,11 @@ cp ../../output/$CPU_TARGET-darwin/$appfile $macosfolder/$appname
 cp ../../output/$CPU_TARGET-darwin/tools/messagemanager $macosfolder/tools/messagemanager
 cp ../../output/$CPU_TARGET-darwin/wizardmandant $macosfolder/wizardmandant
 cp -r ../../importdata/* $macosfolder/importdata
+cp ../../output/$CPU_TARGET-darwin/helpviewer $macosfolder/helpviewer
 
 # Copy the resource files to the correct place
-#  cp *.bmp $appfolder/Contents/Resources
-#  cp icon3.ico $appfolder/Contents/Resources
-#  cp icon3.png $appfolder/Contents/Resources 
 cp ../../resources/world.icns $appfolder/Contents/Resources
-#  cp docs/*.* $appfolder/Contents/Resources
+cp ../help/help.db $appfolder/Contents/MacOS
 #
 # Create PkgInfo file.
 echo $PkgInfoContents >$appfolder/Contents/PkgInfo
