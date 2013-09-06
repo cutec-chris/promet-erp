@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Package Version="4">
     <PathDelim Value="\"/>
@@ -346,11 +346,11 @@
         <PackageName Value="lr_DialogDesign"/>
       </Item1>
       <Item2>
-        <PackageName Value="lazreport_addons"/>
-        <DefaultFilename Value="..\components\lazreport\lazreport_addons.lpk" Prefer="True"/>
+        <PackageName Value="lr_zeosdb"/>
       </Item2>
       <Item3>
-        <PackageName Value="LR_ZeosDB"/>
+        <PackageName Value="lazreport_addons"/>
+        <DefaultFilename Value="..\components\lazreport\lazreport_addons.lpk" Prefer="True"/>
       </Item3>
       <Item4>
         <PackageName Value="v103_lazarus"/>

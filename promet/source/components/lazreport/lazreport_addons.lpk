@@ -40,6 +40,7 @@
       </Item2>
       <Item3>
         <PackageName Value="lazreport"/>
+        <MinVersion Minor="9" Release="9" Valid="True"/>
       </Item3>
       <Item4>
         <PackageName Value="FCL"/>

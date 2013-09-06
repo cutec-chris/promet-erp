@@ -33,8 +33,7 @@ type
     lPassword: TLabel;
     lUser: TLabel;
     lMandant: TLabel;
-    MainMenu1: TMainMenu;
-    MenuItem1: TMenuItem;
+    SpeedButton1: TSpeedButton;
     procedure cbMandantSelect(Sender: TObject);
     procedure cbUserSelect(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -43,6 +42,7 @@ type
     procedure lFirstLoginResize(Sender: TObject);
     procedure MenuItem1Click(Sender: TObject);
     procedure OKButtonClick(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
   private
     { private declarations }
     procedure StartWizardMandant;
@@ -199,6 +199,11 @@ begin
       BaseApplication.Config.WriteString('LOGINMANDANT',cbMandant.Text);
       BaseApplication.Config.WriteString('LOGINUSER',cbUser.Text);
     end;
+end;
+
+procedure TfPassword.SpeedButton1Click(Sender: TObject);
+begin
+  StartWizardMandant;
 end;
 
 procedure TfPassword.StartWizardMandant;

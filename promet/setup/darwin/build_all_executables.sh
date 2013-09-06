@@ -35,16 +35,23 @@ echo "compiling cdmenue..."
 lazbuild -q ../../source/tools/cdmenue.lpi  >> scompile-$2.log
 echo "compiling wizardmandant..."
 lazbuild -q ../../source/tools/wizardmandant.lpi  >> scompile-$2.log
+strip ../../output/$2-darwin/wizardmandant
 echo "compiling cmdwizardmandant..."
 lazbuild -q ../../source/tools/cmdwizardmandant.lpi  >> scompile-$2.log
 echo "compiling checkin/out..."
 lazbuild -q ../../source/tools/checkin.lpi  >> scompile-$2.log
+strip ../../output/$2-darwin/tools/checkin
 lazbuild -q ../../source/tools/checkout.lpi  >> scompile-$2.log
+strip ../../output/$2-darwin/tools/checkout
 lazbuild -q ../../source/tools/tableedit.lpi  >> scompile-$2.log
+strip ../../output/$2-darwin/tools/tableedit
 echo "compiling archivestore..."
 lazbuild -q ../../source/archivestore/archivestore.lpi  >> scompile-$2.log
+strip ../../output/$2-darwin/archivestore
 echo "compiling clientmanagement..."
-lazbuild -q ../../source/clientmanagement/clientmanagement.lpi  >> scompile-$2.log
+lazbuild -q ../../source/clientmanagement/clientmanagement.lpi  >> strip ../../output/$2-darwin/clientmanagement
+scompile-$2.log
 echo "compiling helpviewer..."
 lazbuild -q ../../source/tools/helpviewer.lpi  >> scompile-$2.log
+strip ../../output/$2-darwin/helpviewer
 
