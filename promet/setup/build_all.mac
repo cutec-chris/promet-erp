@@ -1,6 +1,6 @@
 #!/bin/sh
 export PATH=/bin:/usr/local/git/bin:/opt/local/bin:/opt/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/git/bin
-aDir=dirname $0
+aDir=$(dirname $0)
 echo $aDir
 cd $aDir
 git pull origin master
