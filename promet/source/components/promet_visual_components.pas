@@ -2,20 +2,19 @@
   This source is only used to compile and install the package.
  }
 
-unit DateControls;
+unit promet_visual_components;
 
 interface
 
 uses
-  DateControlsReg, DatePicker, DBDatePicker, LazarusPackageIntf;
+  LazarusPackageIntf;
 
 implementation
 
 procedure Register;
 begin
-  RegisterUnit('DateControlsReg', @DateControlsReg.Register);
 end;
 
 initialization
-  RegisterPackage('DateControls', @Register);
+  RegisterPackage('promet_visual_components', @Register);
 end.
