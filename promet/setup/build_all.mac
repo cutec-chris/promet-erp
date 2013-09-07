@@ -1,6 +1,8 @@
 #!/bin/sh
 export PATH=/bin:/usr/local/git/bin:/opt/local/bin:/opt/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/git/bin
-cd dirname $0
+aDir=dirname $0
+echo aDir
+cd aDir
 git pull origin master
 MajVersion=$(cat ../source/base/version.inc)
 MajVersion=$(echo $MajVersion | sed -e 's/[^-A-Za-z0-9 !"§$%&/()=?+*#.,;:öäüÖÄÜ<>]\{1,\}//g')
