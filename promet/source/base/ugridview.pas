@@ -759,7 +759,14 @@ procedure TfGridView.gListButtonClick(Sender: TObject; aCol, aRow: Integer
   );
 begin
   if (dgFake.Columns.Count < aCol) or (aCol = -1) then exit;
-  if Assigned(FButtonClick) then FButtonClick(Self,Point(aCol,aRow),dgFake.Columns[aCol-1])
+  if Assigned(FButtonClick) then
+    begin
+      FButtonClick(Self,Point(aCol,aRow),dgFake.Columns[aCol-1]);
+      if (not Focused) and CanFocus and Visible then
+        begin
+          SetFocus;
+        end;
+    end;
 end;
 procedure TfGridView.gListCheckboxToggled(sender: TObject; aCol,
   aRow: Integer; aState: TCheckboxState);
@@ -785,13 +792,6 @@ var
   aKey : Word = VK_ESCAPE;
   aRect: Classes.TRect;
 begin
-  {
-  if (not Focused) and CanFocus {and (not FirstFocused)} and Visible then
-    begin
-      SetFocus;
-      FirstFocused := True;
-    end;
-  }
   aRect := gList.CellRect(gList.Col,gList.Row);
   if gList.Col>1 then
     if Assigned(FSearchKey) then
