@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -87,6 +87,7 @@
             </CompilerMessages>
             <CompilerPath Value="$(CompPath)"/>
           </Other>
+          <LCLWidgetType Value="win32"/>
         </CompilerOptions>
       </Item3>
       <Item4 Name="Win64">
@@ -122,6 +123,7 @@
             </CompilerMessages>
             <CompilerPath Value="$(CompPath)"/>
           </Other>
+          <LCLWidgetType Value="win32"/>
         </CompilerOptions>
       </Item4>
       <SharedMatrixOptions Count="1">
@@ -222,7 +224,7 @@
         <PackageName Value="LCL"/>
       </Item21>
     </RequiredPackages>
-    <Units Count="327">
+    <Units Count="328">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -260,7 +262,7 @@
         <UnitName Value="uBaseVisualControls"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="14"/>
+        <TopLine Value="1"/>
         <CursorPos X="60" Y="17"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
@@ -952,10 +954,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ugridview"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="82"/>
-        <CursorPos X="141" Y="14"/>
+        <TopLine Value="2859"/>
+        <CursorPos X="19" Y="2945"/>
         <UsageCount Value="108"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit67>
       <Unit68>
         <Filename Value="../base/dbintfs/utask.pas"/>
@@ -998,10 +1003,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="utasks"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="211"/>
-        <CursorPos X="15" Y="219"/>
+        <TopLine Value="66"/>
+        <CursorPos X="90" Y="79"/>
         <UsageCount Value="100"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit72>
       <Unit73>
         <Filename Value="../base_documents/udocumentframe.pas"/>
@@ -1236,10 +1244,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMeetingFrame"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="373"/>
-        <CursorPos X="23" Y="398"/>
-        <UsageCount Value="70"/>
+        <TopLine Value="312"/>
+        <CursorPos X="1" Y="338"/>
+        <UsageCount Value="71"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit97>
@@ -1444,14 +1454,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uPassword"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="204"/>
-        <CursorPos X="22" Y="206"/>
+        <TopLine Value="183"/>
+        <CursorPos X="60" Y="231"/>
         <UsageCount Value="24"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit122>
       <Unit123>
         <Filename Value="../projectmanagement/uganttview.pas"/>
@@ -1933,7 +1939,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="471"/>
         <CursorPos X="25" Y="505"/>
-        <UsageCount Value="21"/>
+        <UsageCount Value="22"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit179>
@@ -1960,9 +1966,9 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uminuteframe"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="5"/>
+        <TopLine Value="2"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="10"/>
       </Unit182>
       <Unit183>
         <Filename Value="../statistics/ustatisticframe.pas"/>
@@ -2277,7 +2283,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="5"/>
         <CursorPos X="3" Y="36"/>
-        <UsageCount Value="162"/>
+        <UsageCount Value="164"/>
       </Unit218>
       <Unit219>
         <Filename Value="../../../../lazarus/lcl/include/customframe.inc"/>
@@ -3159,39 +3165,139 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="26" Y="14"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit326>
+      <Unit327>
+        <Filename Value="../../../../../../Programme/lazarus/lcl/grids.pas"/>
+        <UnitName Value="Grids"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="9735"/>
+        <CursorPos X="1" Y="9754"/>
+        <UsageCount Value="10"/>
+      </Unit327>
     </Units>
-    <JumpHistory Count="7" HistoryIndex="6">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../base/upassword.pas"/>
-        <Caret Line="29" Column="63" TopLine="24"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3034" Column="1" TopLine="3021"/>
       </Position1>
       <Position2>
-        <Filename Value="../base/upassword.pas"/>
-        <Caret Line="30" Column="63" TopLine="24"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3036" Column="1" TopLine="3021"/>
       </Position2>
       <Position3>
-        <Filename Value="../base/upassword.pas"/>
-        <Caret Line="29" Column="63" TopLine="24"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3037" Column="1" TopLine="3027"/>
       </Position3>
       <Position4>
-        <Filename Value="../base/upassword.pas"/>
-        <Caret Line="187" Column="3" TopLine="181"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3038" Column="1" TopLine="3027"/>
       </Position4>
       <Position5>
-        <Filename Value="../base/upassword.pas"/>
-        <Caret Line="186" Column="3" TopLine="180"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3040" Column="1" TopLine="3027"/>
       </Position5>
       <Position6>
-        <Filename Value="../base/upassword.pas"/>
-        <Caret Line="185" Column="3" TopLine="179"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3041" Column="1" TopLine="3027"/>
       </Position6>
       <Position7>
-        <Filename Value="../base/upassword.pas"/>
-        <Caret Line="186" Column="3" TopLine="180"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3042" Column="1" TopLine="3027"/>
       </Position7>
+      <Position8>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3045" Column="1" TopLine="3033"/>
+      </Position8>
+      <Position9>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3046" Column="1" TopLine="3033"/>
+      </Position9>
+      <Position10>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3047" Column="1" TopLine="3033"/>
+      </Position10>
+      <Position11>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3048" Column="1" TopLine="3033"/>
+      </Position11>
+      <Position12>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3050" Column="1" TopLine="3033"/>
+      </Position12>
+      <Position13>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3052" Column="1" TopLine="3033"/>
+      </Position13>
+      <Position14>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3054" Column="1" TopLine="3033"/>
+      </Position14>
+      <Position15>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3056" Column="1" TopLine="3033"/>
+      </Position15>
+      <Position16>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3058" Column="1" TopLine="3033"/>
+      </Position16>
+      <Position17>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3060" Column="1" TopLine="3033"/>
+      </Position17>
+      <Position18>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3061" Column="1" TopLine="3033"/>
+      </Position18>
+      <Position19>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3062" Column="1" TopLine="3048"/>
+      </Position19>
+      <Position20>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="14" Column="38" TopLine="1"/>
+      </Position20>
+      <Position21>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="986" Column="3" TopLine="983"/>
+      </Position21>
+      <Position22>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="1107" Column="78" TopLine="1094"/>
+      </Position22>
+      <Position23>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3038" Column="7" TopLine="3024"/>
+      </Position23>
+      <Position24>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3019" Column="1" TopLine="3001"/>
+      </Position24>
+      <Position25>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3020" Column="1" TopLine="3001"/>
+      </Position25>
+      <Position26>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3028" Column="1" TopLine="3001"/>
+      </Position26>
+      <Position27>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3029" Column="1" TopLine="3001"/>
+      </Position27>
+      <Position28>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="3030" Column="1" TopLine="3001"/>
+      </Position28>
+      <Position29>
+        <Filename Value="../base_pm/umeetingframe.pas"/>
+        <Caret Line="374" Column="14" TopLine="373"/>
+      </Position29>
+      <Position30>
+        <Filename Value="../base_pm/umeetingframe.pas"/>
+        <Caret Line="926" Column="35" TopLine="895"/>
+      </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>

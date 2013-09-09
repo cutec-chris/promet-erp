@@ -2977,6 +2977,7 @@ var
   aHasChilds: Char;
   aPosNo: Integer;
 begin
+  SetFocus;
   SearchKeyTimer.Enabled:=false;
   if (DataSet.State=dsInsert) and (DataSet.Changed) then
     DataSet.Post;

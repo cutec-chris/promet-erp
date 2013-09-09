@@ -335,8 +335,7 @@ begin
   if (Source = fSearch.sgResults) then
     begin
       aLink := fSearch.GetLink;
-      if not (FGridView.DataSet.Canedit) then
-        FGridView.Append;
+      FGridView.Append;
       FGridView.DataSet.FieldByName('DESC').AsString:=Data.GetLinkDesc(aLink);
       FGridView.DataSet.FieldByName('LINK').AsString:=aLink;
       FGridView.Post;
