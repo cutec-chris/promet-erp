@@ -669,6 +669,7 @@ begin
   FContList.OnDrawColumnCell:=@FContListDrawColumnCell;
   cbLanguage.Items.Clear;
   Data.Languages.Open;
+  eCustomerName.WantTabs:=False;
   with Data.Languages.DataSet do
     begin
       First;

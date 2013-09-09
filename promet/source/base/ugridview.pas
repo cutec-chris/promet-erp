@@ -2321,6 +2321,8 @@ begin
 end;
 function TfGridView.GotoRowNumber(aRow: Integer): Boolean;
 begin
+  Result := False;
+  if (aRow<1) or (aRow>=gList.RowCount) then exit;
   if (aRow = gList.Row) then
     Result := GotoActiveRow
   else

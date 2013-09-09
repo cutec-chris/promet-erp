@@ -671,6 +671,7 @@ var
   aType: Char;
 begin
   inherited Create(AOwner);
+  mShortText.WantTabs:=False;
   Data.Units.Open;
   with Data.Units.DataSet do
     begin

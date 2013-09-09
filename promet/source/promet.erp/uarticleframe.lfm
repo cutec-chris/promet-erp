@@ -154,7 +154,7 @@ inherited fArticleFrame: TfArticleFrame
     end
     object eMatchCode: TDBEdit
       Left = 292
-      Height = 25
+      Height = 22
       Hint = 'Hier können Sie einen Suchbegriff angeben, '#13#10'um den Eintrag besser zu finden'
       Top = 21
       Width = 119
@@ -172,8 +172,8 @@ inherited fArticleFrame: TfArticleFrame
       Width = 65
       Anchors = [akTop, akRight]
       Caption = 'Baum'
-      ClientHeight = 31
-      ClientWidth = 61
+      ClientHeight = 26
+      ClientWidth = 57
       TabOrder = 1
       object bAssignTree: TSpeedButton
         Left = 2
@@ -267,7 +267,7 @@ inherited fArticleFrame: TfArticleFrame
     end
     object cbLanguage: TComboBox
       Left = 492
-      Height = 27
+      Height = 21
       Hint = 'wählt den Eintrag in einer anderen Sprache aus'#13#10'oder erstellt eine neue Sprache für den Eintrag'
       Top = 20
       Width = 70
@@ -277,9 +277,9 @@ inherited fArticleFrame: TfArticleFrame
     end
     object lShortText: TLabel
       Left = 56
-      Height = 15
+      Height = 16
       Top = 0
-      Width = 50
+      Width = 54
       Caption = 'Kurztext'
       ParentColor = False
     end
@@ -297,22 +297,22 @@ inherited fArticleFrame: TfArticleFrame
     NewTabImageIndex = 59
     object tsCommon: TTabSheet
       Caption = 'Allgemein'
-      ClientHeight = 323
-      ClientWidth = 671
+      ClientHeight = 322
+      ClientWidth = 673
       ImageIndex = 14
       object pCommon: TPanel
         Left = 0
-        Height = 323
+        Height = 322
         Top = 0
-        Width = 671
+        Width = 673
         Align = alClient
         BevelOuter = bvNone
-        ClientHeight = 323
-        ClientWidth = 671
+        ClientHeight = 322
+        ClientWidth = 673
         TabOrder = 0
         object cbQuantityUnit: TDBComboBox
-          Left = 469
-          Height = 27
+          Left = 471
+          Height = 21
           Top = 33
           Width = 148
           Anchors = [akTop, akRight]
@@ -323,8 +323,8 @@ inherited fArticleFrame: TfArticleFrame
           TabOrder = 2
         end
         object cbVAT: TExtDBCombobox
-          Left = 417
-          Height = 27
+          Left = 419
+          Height = 21
           Top = 94
           Width = 200
           Anchors = [akTop, akRight]
@@ -337,10 +337,10 @@ inherited fArticleFrame: TfArticleFrame
         end
         object cbUseSerial: TDBCheckBox
           Left = 181
-          Height = 24
+          Height = 18
           Hint = 'Bei allen Buchungen werden '#13#10'Serienummern abgefragt'
           Top = 51
-          Width = 155
+          Width = 152
           AutoSize = True
           Caption = 'Serienummernpflicht'
           DataField = 'USESERIAL'
@@ -351,10 +351,10 @@ inherited fArticleFrame: TfArticleFrame
         end
         object cbOwnProduction: TDBCheckBox
           Left = 181
-          Height = 24
+          Height = 18
           Hint = 'wird dieser Eintrag selbst erzeugt ?'
           Top = 22
-          Width = 126
+          Width = 125
           AutoSize = True
           Caption = 'Eigenproduktion'
           DataField = 'OWNPROD'
@@ -365,10 +365,10 @@ inherited fArticleFrame: TfArticleFrame
         end
         object cbNoStorage: TDBCheckBox
           Left = 23
-          Height = 24
+          Height = 18
           Hint = 'Der Eintrag besitzt kein Lager '#13#10'(z.b. eine Leistung)'
           Top = 51
-          Width = 113
+          Width = 110
           AutoSize = True
           Caption = 'hat kein Lager'
           DataField = 'NOSTORAGE'
@@ -379,10 +379,10 @@ inherited fArticleFrame: TfArticleFrame
         end
         object cbSaleItem: TDBCheckBox
           Left = 23
-          Height = 24
+          Height = 18
           Hint = 'Ist dieser Eintrag ein Verkaufsartikel '#13#10'oder ein internes Teil/Erzeugnis'
           Top = 22
-          Width = 114
+          Width = 116
           AutoSize = True
           Caption = 'Verkaufsartikel'
           DataField = 'SALEITEM'
@@ -394,9 +394,9 @@ inherited fArticleFrame: TfArticleFrame
         end
         object eManufacturerNR: TDBEdit
           Left = 22
-          Height = 25
+          Height = 22
           Top = 240
-          Width = 351
+          Width = 353
           DataField = 'MANUFACNR'
           DataSource = Masterdata
           Anchors = [akTop, akLeft, akRight]
@@ -406,9 +406,9 @@ inherited fArticleFrame: TfArticleFrame
         end
         object cbWarrenty: TDBComboBox
           Left = 23
-          Height = 27
+          Height = 21
           Top = 190
-          Width = 351
+          Width = 353
           Anchors = [akTop, akLeft, akRight]
           DataField = 'WARRENTY'
           DataSource = Masterdata
@@ -417,8 +417,8 @@ inherited fArticleFrame: TfArticleFrame
           TabOrder = 7
         end
         object eUnit: TDBEdit
-          Left = 417
-          Height = 25
+          Left = 419
+          Height = 22
           Top = 142
           Width = 200
           DataField = 'UNIT'
@@ -430,9 +430,9 @@ inherited fArticleFrame: TfArticleFrame
         end
         object eBarcode: TDBEdit
           Left = 23
-          Height = 25
+          Height = 22
           Top = 142
-          Width = 351
+          Width = 353
           DataField = 'BARCODE'
           DataSource = Masterdata
           Anchors = [akTop, akLeft, akRight]
@@ -441,7 +441,7 @@ inherited fArticleFrame: TfArticleFrame
           TabOrder = 5
         end
         object lWeight: TLabel
-          Left = 417
+          Left = 419
           Height = 16
           Top = 176
           Width = 126
@@ -452,22 +452,22 @@ inherited fArticleFrame: TfArticleFrame
         end
         object lWarrenty: TLabel
           Left = 23
-          Height = 15
+          Height = 16
           Top = 174
-          Width = 94
+          Width = 98
           Caption = 'Gewährleistung'
           ParentColor = False
         end
         object lManufacturerNr: TLabel
           Left = 23
-          Height = 15
+          Height = 16
           Top = 224
-          Width = 151
+          Width = 160
           Caption = 'Artikelnummer Hersteller'
           ParentColor = False
         end
         object lQuantityUnit: TLabel
-          Left = 469
+          Left = 471
           Height = 14
           Top = 15
           Width = 128
@@ -477,7 +477,7 @@ inherited fArticleFrame: TfArticleFrame
           ParentColor = False
         end
         object lVAT: TLabel
-          Left = 417
+          Left = 419
           Height = 14
           Top = 78
           Width = 128
@@ -487,7 +487,7 @@ inherited fArticleFrame: TfArticleFrame
           ParentColor = False
         end
         object lUnit: TLabel
-          Left = 417
+          Left = 419
           Height = 14
           Top = 126
           Width = 126
@@ -498,15 +498,15 @@ inherited fArticleFrame: TfArticleFrame
         end
         object lBarcode: TLabel
           Left = 23
-          Height = 15
+          Height = 16
           Top = 126
-          Width = 86
+          Width = 91
           Caption = 'Barcode / EAN'
           ParentColor = False
         end
         object eWeight: TExtDBEdit
-          Left = 417
-          Height = 25
+          Left = 419
+          Height = 22
           Top = 192
           Width = 200
           DataField = 'WEIGHT'
@@ -527,9 +527,9 @@ inherited fArticleFrame: TfArticleFrame
         end
         object cbCategory: TExtDBCombobox
           Left = 23
-          Height = 27
+          Height = 21
           Top = 94
-          Width = 350
+          Width = 352
           Anchors = [akTop, akLeft, akRight]
           DataField = 'CATEGORY'
           DataSource = Masterdata
@@ -822,7 +822,7 @@ inherited fArticleFrame: TfArticleFrame
       end
       object eArticleNumber: TDBEdit
         Left = 4
-        Height = 25
+        Height = 22
         Top = 12
         Width = 112
         DataField = 'ID'
@@ -836,7 +836,7 @@ inherited fArticleFrame: TfArticleFrame
       end
       object bChangeNumber: TButton
         Left = 116
-        Height = 24
+        Height = 22
         Top = 12
         Width = 39
         Caption = '...'
@@ -881,7 +881,7 @@ inherited fArticleFrame: TfArticleFrame
       end
       object cbStatus: TComboBox
         Left = 1
-        Height = 29
+        Height = 20
         Hint = 'hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu überführen'
         Top = 12
         Width = 137
@@ -927,7 +927,7 @@ inherited fArticleFrame: TfArticleFrame
       end
       object cbVersion: TComboBox
         Left = 4
-        Height = 27
+        Height = 21
         Hint = 'hier können Sie die zu bearbeitende Artikelversion auswählen.'#13#10'Wenn Sie eine neue version eingeben und das Feld verlassen,'#13#10'wird ein Dialog geöffnet in dem abgefragt wird was vom aktuellen'#13#10'Artikel übernommen werden soll, danach existiert der Atikel auch'#13#10'in der neuen Artikelversion.'
         Top = 12
         Width = 68
@@ -938,11 +938,11 @@ inherited fArticleFrame: TfArticleFrame
         TabStop = False
       end
       object cbActive: TDBCheckBox
-        Left = 79
-        Height = 24
+        Left = 83
+        Height = 18
         Hint = 'markiert diesen Artikel als aktiv'#13#10'(aktive Version)'
         Top = 4
-        Width = 56
+        Width = 52
         Anchors = [akTop, akRight]
         AutoSize = True
         Caption = 'Aktiv'
@@ -1027,14 +1027,14 @@ inherited fArticleFrame: TfArticleFrame
     BevelOuter = bvNone
     BorderStyle = bsSingle
     Caption = 'kein Bild'
-    ClientHeight = 78
-    ClientWidth = 88
+    ClientHeight = 80
+    ClientWidth = 90
     TabOrder = 0
     object iArticle: TImage
       Left = 0
-      Height = 78
+      Height = 80
       Top = 0
-      Width = 88
+      Width = 90
       Align = alClient
       AutoSize = True
       Proportional = True
