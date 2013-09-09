@@ -318,16 +318,27 @@ procedure TfmTimeline.fTimelineGetCellText(Sender: TObject; aCol: TColumn;
   aRow: Integer; var NewText: string; aFont: TFont);
 var
   aTime: TDateTime;
+  fhasObject: Boolean;
+  i: Integer;
 begin
   if aCol.FieldName='LINK' then
     NewText := Data.GetLinkDesc(NewText)
   else if aCol.FieldName='OBJECT' then
     NewText := Data.GetLinkDesc(NewText)
+  else if (aCol.FieldName='ACTION') then
+    begin
+      fHasObject := False;
+      for i := 0 to fTimeline.dgFake.Columns.Count-1 do
+        if fTimeline.dgFake.Columns[i].FieldName='OBJECT' then
+          FHasObject := True;
+      if not fhasObject then
+        NewText += lineending+'Object';
+    end
   else if aCol.FieldName='TIMESTAMPD' then
     begin
       if TryStrToDateTime(NewText,aTime) then
         begin
-          if trunc(aTime) = FDrawnDate then
+          if (trunc(aTime) = FDrawnDate) or (trunc(aTime) = trunc(Now())) then
             NewText:=TimeToStr(frac(aTime))
           else
             FDrawnDate:=trunc(aTime);
