@@ -12,7 +12,7 @@ unit uBaseDbClasses;
 interface
 uses
   Classes, SysUtils, db, uBaseDbDataSet, Variants, uIntfStrConsts, DOM,
-  Contnrs;
+  Contnrs,LCLProc;
 type
   TBaseDBDataset = class(TComponent)
   private
@@ -1924,14 +1924,12 @@ begin
       try
         if FDataSet.Active then
           FDataSet.Close;
-        if Assigned(FDataSet) then
-          FreeAndNil(FDataSet);
       except
         on e : Exception do
           begin
             with BaseApplication as IBaseApplication do
               with FDataSet as IBaseManageDB do
-                Error(Format('Error Destroying Table %s,%s',[TableName,e.Message]));
+                debugln(Format('Error Destroying Table %s,%s',[TableName,e.Message]));
           end;
       end;
     end;
@@ -2274,4 +2272,4 @@ begin
 end;
 initialization
 end.
-
+

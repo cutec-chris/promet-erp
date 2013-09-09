@@ -48,12 +48,10 @@
         <Filename Value="clientmanagement.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="clientmanagement"/>
-        <EditorIndex Value="30"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="11" Y="8"/>
         <UsageCount Value="139"/>
-        <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit0>
       <Unit1>
@@ -874,13 +872,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uPassword"/>
-        <EditorIndex Value="29"/>
         <WindowIndex Value="0"/>
         <TopLine Value="150"/>
         <CursorPos X="16" Y="155"/>
         <UsageCount Value="28"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit112>
       <Unit113>
         <Filename Value="..\base\uaddserial.pas"/>
@@ -1030,12 +1025,10 @@
       <Unit128>
         <Filename Value="..\base\ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="188"/>
         <CursorPos X="25" Y="199"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit128>
       <Unit129>
         <Filename Value="C:\Programme\lazarus\lcl\include\customaction.inc"/>
@@ -1062,24 +1055,20 @@
       <Unit132>
         <Filename Value="..\..\..\general\src\uerror.pas"/>
         <UnitName Value="uError"/>
-        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="38"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit132>
       <Unit133>
         <Filename Value="..\base\ufilterframe.pas"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uFilterFrame"/>
-        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="220"/>
         <CursorPos X="38" Y="254"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit133>
       <Unit134>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
@@ -1094,22 +1083,18 @@
       <Unit135>
         <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="543"/>
         <CursorPos X="1" Y="551"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit135>
       <Unit136>
         <Filename Value="..\base\dbintfs\usystemmessage.pas"/>
         <UnitName Value="uSystemMessage"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="36"/>
         <CursorPos X="26" Y="58"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit136>
       <Unit137>
         <Filename Value="..\..\..\LKomponenten\zeos\src\plain\ZPlainDbLibDriver.pas"/>
@@ -1140,17 +1125,16 @@
       <Unit140>
         <Filename Value="..\components\zeos\src\component\ZAbstractRODataset.pas"/>
         <UnitName Value="ZAbstractRODataset"/>
-        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2251"/>
         <CursorPos X="39" Y="2275"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit140>
       <Unit141>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1927"/>
@@ -1161,347 +1145,185 @@
       <Unit142>
         <Filename Value="..\components\zeos\src\component\ZSqlStrings.pas"/>
         <UnitName Value="ZSqlStrings"/>
-        <EditorIndex Value="27"/>
         <WindowIndex Value="0"/>
         <TopLine Value="251"/>
         <CursorPos X="1" Y="271"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit142>
       <Unit143>
         <Filename Value="..\components\zeos\src\component\ZAbstractDataset.pas"/>
         <UnitName Value="ZAbstractDataset"/>
-        <EditorIndex Value="28"/>
         <WindowIndex Value="0"/>
         <TopLine Value="310"/>
         <CursorPos X="1" Y="328"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit143>
       <Unit144>
         <Filename Value="..\components\zeos\src\dbc\ZDbcStatement.pas"/>
         <UnitName Value="ZDbcStatement"/>
-        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="965"/>
         <CursorPos X="1" Y="986"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit144>
       <Unit145>
         <Filename Value="..\components\zeos\src\dbc\ZDbcDbLibStatement.pas"/>
         <UnitName Value="ZDbcDbLibStatement"/>
-        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="279"/>
         <CursorPos X="1" Y="307"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit145>
       <Unit146>
         <Filename Value="..\components\zeos\src\dbc\ZDbcDbLib.pas"/>
         <UnitName Value="ZDbcDbLib"/>
-        <EditorIndex Value="22"/>
         <WindowIndex Value="0"/>
         <TopLine Value="237"/>
         <CursorPos X="1" Y="258"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit146>
       <Unit147>
         <Filename Value="..\components\zeos\src\plain\ZPlainDbLibDriver.pas"/>
         <UnitName Value="ZPlainDbLibDriver"/>
-        <EditorIndex Value="23"/>
         <WindowIndex Value="0"/>
         <TopLine Value="810"/>
         <CursorPos X="1" Y="825"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit147>
       <Unit148>
         <Filename Value="..\components\zeos\src\dbc\ZDbcIntfs.pas"/>
         <UnitName Value="ZDbcIntfs"/>
-        <EditorIndex Value="25"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1150"/>
         <CursorPos X="1" Y="1173"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit148>
       <Unit149>
         <Filename Value="..\components\zeos\src\core\ZCollections.pas"/>
         <UnitName Value="ZCollections"/>
-        <EditorIndex Value="26"/>
         <WindowIndex Value="0"/>
         <TopLine Value="357"/>
         <CursorPos X="1" Y="383"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit149>
       <Unit150>
         <Filename Value="..\components\zeos\src\dbc\ZDbcResultSet.pas"/>
         <UnitName Value="ZDbcResultSet"/>
-        <EditorIndex Value="19"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1583"/>
         <CursorPos X="1" Y="1604"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit150>
       <Unit151>
         <Filename Value="..\components\zeos\src\dbc\ZDbcDbLibResultSet.pas"/>
         <UnitName Value="ZDbcDbLibResultSet"/>
-        <EditorIndex Value="20"/>
         <WindowIndex Value="0"/>
         <TopLine Value="122"/>
         <CursorPos X="1" Y="141"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit151>
       <Unit152>
         <Filename Value="..\components\zeos\src\dbc\ZDbcCachedResultSet.pas"/>
         <UnitName Value="ZDbcCachedResultSet"/>
-        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="764"/>
         <CursorPos X="1" Y="788"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit152>
       <Unit153>
         <Filename Value="..\components\zeos\src\dbc\ZDbcResultSetMetadata.pas"/>
         <UnitName Value="ZDbcResultSetMetadata"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="621"/>
-        <CursorPos X="1" Y="638"/>
+        <TopLine Value="627"/>
+        <CursorPos X="45" Y="677"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit153>
       <Unit154>
         <Filename Value="..\components\zeos\src\component\ZDatasetUtils.pas"/>
         <UnitName Value="ZDatasetUtils"/>
-        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="301"/>
         <CursorPos X="1" Y="331"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit154>
       <Unit155>
         <Filename Value="..\components\zeos\src\dbc\ZDbcMetadata.pas"/>
         <UnitName Value="ZDbcMetadata"/>
-        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="4061"/>
         <CursorPos X="1" Y="4080"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit155>
       <Unit156>
         <Filename Value="..\components\zeos\src\dbc\ZDbcConnection.pas"/>
         <UnitName Value="ZDbcConnection"/>
-        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="576"/>
         <CursorPos X="1" Y="597"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit156>
       <Unit157>
         <Filename Value="..\components\zeos\src\parsesql\ZGenericSqlAnalyser.pas"/>
         <UnitName Value="ZGenericSqlAnalyser"/>
-        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="717"/>
         <CursorPos X="1" Y="744"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit157>
       <Unit158>
         <Filename Value="..\components\zeos\src\core\ZCompatibility.pas"/>
         <UnitName Value="ZCompatibility"/>
-        <EditorIndex Value="24"/>
         <WindowIndex Value="0"/>
         <TopLine Value="564"/>
         <CursorPos X="1" Y="582"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit158>
       <Unit159>
         <Filename Value="..\components\zeos\src\dbc\ZDbcDbLibUtils.pas"/>
         <UnitName Value="ZDbcDbLibUtils"/>
-        <EditorIndex Value="21"/>
         <WindowIndex Value="0"/>
         <TopLine Value="143"/>
         <CursorPos X="1" Y="170"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit159>
       <Unit160>
         <Filename Value="..\components\zeos\src\parsesql\ZSelectSchema.pas"/>
         <UnitName Value="ZSelectSchema"/>
-        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="574"/>
         <CursorPos X="1" Y="599"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit160>
       <Unit161>
         <Filename Value="..\components\zeos\src\dbc\ZDbcCache.pas"/>
         <UnitName Value="ZDbcCache"/>
-        <EditorIndex Value="18"/>
         <WindowIndex Value="0"/>
         <TopLine Value="880"/>
         <CursorPos X="1" Y="908"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit161>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
-      <Position1>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcResultSetMetadata.pas"/>
-        <Caret Line="627" Column="1" TopLine="621"/>
-      </Position1>
-      <Position2>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcCachedResultSet.pas"/>
-        <Caret Line="749" Column="1" TopLine="730"/>
-      </Position2>
-      <Position3>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcCachedResultSet.pas"/>
-        <Caret Line="753" Column="1" TopLine="730"/>
-      </Position3>
-      <Position4>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcCachedResultSet.pas"/>
-        <Caret Line="754" Column="1" TopLine="730"/>
-      </Position4>
-      <Position5>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcResultSetMetadata.pas"/>
-        <Caret Line="628" Column="1" TopLine="621"/>
-      </Position5>
-      <Position6>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcResultSetMetadata.pas"/>
-        <Caret Line="632" Column="1" TopLine="621"/>
-      </Position6>
-      <Position7>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcCachedResultSet.pas"/>
-        <Caret Line="715" Column="1" TopLine="696"/>
-      </Position7>
-      <Position8>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcCachedResultSet.pas"/>
-        <Caret Line="719" Column="1" TopLine="696"/>
-      </Position8>
-      <Position9>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcCachedResultSet.pas"/>
-        <Caret Line="720" Column="1" TopLine="696"/>
-      </Position9>
-      <Position10>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcResultSetMetadata.pas"/>
-        <Caret Line="634" Column="1" TopLine="621"/>
-      </Position10>
-      <Position11>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcCachedResultSet.pas"/>
-        <Caret Line="715" Column="1" TopLine="696"/>
-      </Position11>
-      <Position12>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcCachedResultSet.pas"/>
-        <Caret Line="719" Column="1" TopLine="696"/>
-      </Position12>
-      <Position13>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcCachedResultSet.pas"/>
-        <Caret Line="720" Column="1" TopLine="696"/>
-      </Position13>
-      <Position14>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcResultSetMetadata.pas"/>
-        <Caret Line="635" Column="1" TopLine="621"/>
-      </Position14>
-      <Position15>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcCachedResultSet.pas"/>
-        <Caret Line="834" Column="1" TopLine="815"/>
-      </Position15>
-      <Position16>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcCachedResultSet.pas"/>
-        <Caret Line="838" Column="1" TopLine="815"/>
-      </Position16>
-      <Position17>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcCachedResultSet.pas"/>
-        <Caret Line="839" Column="1" TopLine="815"/>
-      </Position17>
-      <Position18>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcResultSetMetadata.pas"/>
-        <Caret Line="636" Column="1" TopLine="621"/>
-      </Position18>
-      <Position19>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcCachedResultSet.pas"/>
-        <Caret Line="715" Column="1" TopLine="696"/>
-      </Position19>
-      <Position20>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcCachedResultSet.pas"/>
-        <Caret Line="719" Column="1" TopLine="696"/>
-      </Position20>
-      <Position21>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcCache.pas"/>
-        <Caret Line="899" Column="1" TopLine="880"/>
-      </Position21>
-      <Position22>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcCache.pas"/>
-        <Caret Line="900" Column="1" TopLine="880"/>
-      </Position22>
-      <Position23>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcCache.pas"/>
-        <Caret Line="901" Column="1" TopLine="880"/>
-      </Position23>
-      <Position24>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcCache.pas"/>
-        <Caret Line="902" Column="1" TopLine="880"/>
-      </Position24>
-      <Position25>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcCache.pas"/>
-        <Caret Line="908" Column="1" TopLine="880"/>
-      </Position25>
-      <Position26>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcCachedResultSet.pas"/>
-        <Caret Line="720" Column="1" TopLine="696"/>
-      </Position26>
-      <Position27>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcResultSetMetadata.pas"/>
-        <Caret Line="637" Column="1" TopLine="621"/>
-      </Position27>
-      <Position28>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcCachedResultSet.pas"/>
-        <Caret Line="783" Column="1" TopLine="764"/>
-      </Position28>
-      <Position29>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcCachedResultSet.pas"/>
-        <Caret Line="787" Column="1" TopLine="764"/>
-      </Position29>
-      <Position30>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcCachedResultSet.pas"/>
-        <Caret Line="788" Column="1" TopLine="764"/>
-      </Position30>
-    </JumpHistory>
+    <JumpHistory Count="0" HistoryIndex="-1"/>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
@@ -1541,22 +1363,6 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="2">
-      <Item1>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="..\base\ubasevisualapplication.pas"/>
-        <Line Value="188"/>
-      </Item1>
-      <Item2>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="..\components\zeos\src\dbc\ZDbcResultSetMetadata.pas"/>
-        <Line Value="687"/>
-      </Item2>
-    </BreakPoints>
     <Exceptions Count="2">
       <Item1>
         <Name Value="EConvertError"/>

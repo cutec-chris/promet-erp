@@ -6,7 +6,7 @@ uses
   Buttons, Menus, ActnList, XMLPropStorage, StdCtrls, Utils, ZVDateTimePicker,
   uIntfStrConsts, db, memds, FileUtil, Translations, md5,
   ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage,ugridview,uHistoryFrame,
-  uExtControls,uBaseVisualControls,uBaseDbClasses,uFormAnimate;
+  uExtControls,uBaseVisualControls,uBaseDbClasses,uFormAnimate,uBaseSearch;
 type
 
   { TfmTimeline }
@@ -37,6 +37,9 @@ type
     tsHistory: TTabSheet;
     procedure acRefreshExecute(Sender: TObject);
     procedure acSendExecute(Sender: TObject);
+    procedure ActiveSearchEndItemSearch(Sender: TObject);
+    procedure ActiveSearchItemFound(aIdent: string; aName: string;
+      aStatus: string; aActive: Boolean; aLink: string; aItem: TBaseDBList=nil);
     procedure bSendClick(Sender: TObject);
     function FContListDrawColumnCell(Sender: TObject; const aRect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState): Boolean;
@@ -50,11 +53,14 @@ type
     procedure fTimelinegListKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure IdleTimer1Timer(Sender: TObject);
+    procedure lbResultsDblClick(Sender: TObject);
     procedure mEntryKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure mEntryKeyPress(Sender: TObject; var Key: char);
+    procedure pSearchClick(Sender: TObject);
     procedure ToolButton2Click(Sender: TObject);
   private
     { private declarations }
+    ActiveSearch : TSearch;
     SysCommands : TSystemCommands;
     fTimeline : TfGridView;
     FDrawnDate : TDateTime;
@@ -281,6 +287,27 @@ begin
     end;
 end;
 
+procedure TfmTimeline.ActiveSearchEndItemSearch(Sender: TObject);
+begin
+  if not ActiveSearch.Active then
+    begin
+      if ActiveSearch.Count=0 then
+        pSearch.Visible:=False;
+    end;
+end;
+
+procedure TfmTimeline.ActiveSearchItemFound(aIdent: string; aName: string;
+  aStatus: string; aActive: Boolean; aLink: string; aItem: TBaseDBList=nil);
+begin
+  with pSearch do
+    begin
+      if not Visible then
+        Visible := True;
+    end;
+  if aActive then
+    lbResults.Items.AddObject(aName,TLinkObject.Create(aLink));
+end;
+
 procedure TfmTimeline.bSendClick(Sender: TObject);
 begin
 
@@ -305,6 +332,7 @@ begin
   if Key = VK_ESCAPE then
     begin
       if (Panel1.Visible) and (Panel1.Height>5) then exit;
+      pSearch.Visible:=False;
       Close;
     end;
 end;
@@ -391,29 +419,125 @@ begin
   FTimeLine.Refresh(True);
 end;
 
+procedure TfmTimeline.lbResultsDblClick(Sender: TObject);
+var
+  aUser: TUser;
+  aText: TCaption;
+begin
+  if lbResults.ItemIndex = -1 then exit;
+  aUser := TUser.Create(nil,data);
+  aUser.SelectFromLink(TLinkObject(lbResults.Items.Objects[lbResults.ItemIndex]).Link);
+  aUser.Open;
+  aText := mEntry.Text;
+  if pos(',',atext)>0 then
+    aText := copy(aText,0,rpos(',',aText))
+  else if pos('@',atext)>0 then
+    aText := copy(aText,0,pos('@',aText));
+  atext := atext+aUser.FieldByName('IDCODE').AsString;
+  mEntry.Text:=aText;
+  mEntry.SelStart:=length(atext);
+  pSearch.Visible:=False;
+  aUser.Free;
+end;
+
 procedure TfmTimeline.mEntryKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  if Key = VK_ESCAPE then
+  if pSearch.Visible then
     begin
-      ToolButton2.Down:=false;
-      ToolButton2Click(ToolButton2);
-      Key := 0;
-      if fTimeline.Visible then
-        fTimeline.SetActive;
+      case Key of
+      VK_PRIOR,
+      VK_UP:
+        begin
+          if lbResults.ItemIndex = -1 then
+            begin
+              lbResults.ItemIndex:=0;
+              pSearch.Visible := False;
+            end
+          else
+            begin
+              lbResults.ItemIndex:=lbResults.ItemIndex-1;
+              Key := 0;
+            end;
+        end;
+      VK_NEXT,
+      VK_DOWN:
+        begin
+          if lbResults.ItemIndex = -1 then
+            lbResults.ItemIndex:=0
+          else
+          if lbResults.ItemIndex < lbResults.Count-1 then
+            lbResults.ItemIndex:=lbResults.ItemIndex+1;
+          Key := 0;
+        end;
+      VK_RETURN:
+        begin
+          lbResultsDblClick(nil);
+          Key := 0;
+        end;
+      VK_ESCAPE:
+        begin
+          pSearch.Visible:=False;
+          Key := 0;
+        end;
+      end;
+    end
+  else
+    begin
+      if Key = VK_ESCAPE then
+        begin
+          ToolButton2.Down:=false;
+          ToolButton2Click(ToolButton2);
+          Key := 0;
+          if fTimeline.Visible then
+            fTimeline.SetActive;
+        end;
     end;
 end;
 
 procedure TfmTimeline.mEntryKeyPress(Sender: TObject; var Key: char);
+var
+  SearchTypes : TFullTextSearchTypes = [];
+  SearchLocations : TSearchLocations;
+  i: Integer;
+  aText: TCaption;
 begin
-  if key = '@' then
+  if (key = '@')
+  or ((Key=',') and (pos(' ',mEntry.Text)=0))
+  then
     begin
       pSearch.Visible:=True;
     end
   else if pSearch.Visible then
     begin
-
+      aText := mEntry.text;
+      if pos(',',atext)>0 then
+        aText := copy(aText,rpos(',',aText)+1,length(aText))
+      else if pos('@',atext)>0 then
+        aText := copy(aText,pos('@',aText)+1,length(atext));
+      if trim(atext)='' then exit;
+      if Assigned(ActiveSearch) then
+        ActiveSearch.Abort;
+      SearchTypes := SearchTypes+[fsShortnames];
+      SearchTypes := SearchTypes+[fsIdents];
+      SetLength(SearchLocations,length(SearchLocations)+1);
+      SearchLocations[length(SearchLocations)-1] := strUsers;
+      for i := 0 to lbResults.Items.Count-1 do
+        lbResults.Items.Objects[i].Free;
+      lbResults.Items.Clear;
+      if not Assigned(ActiveSearch) then
+        ActiveSearch := TSearch.Create(SearchTypes,SearchLocations,True,5);
+      ActiveSearch.Sender := TComponent(Sender);
+      ActiveSearch.OnItemFound:=@ActiveSearchItemFound;
+      ActiveSearch.OnEndSearch:=@ActiveSearchEndItemSearch;
+      ActiveSearch.Start(aText+Key);
+      Application.ProcessMessages;
     end;
+end;
+
+procedure TfmTimeline.pSearchClick(Sender: TObject);
+begin
+
 end;
 
 procedure TfmTimeline.ToolButton2Click(Sender: TObject);
@@ -431,11 +555,13 @@ begin
   else
     begin
       aController.AnimateControlHeight(0);
+      pSearch.Visible:=False;
     end;
   aController.Free;
 end;
 
 initialization
   {$I umtimeline.lrs}
+  AddSearchAbleDataSet(TUser);
 
 end.

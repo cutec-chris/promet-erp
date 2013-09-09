@@ -158,17 +158,17 @@ object fmTimeline: TfmTimeline
     TabOrder = 1
   end
   object pSearch: TPanel
-    Left = 8
+    Left = 9
     Height = 104
-    Top = 56
+    Top = 73
     Width = 344
-    Anchors = [akTop, akRight]
     BevelOuter = bvNone
     Caption = 'pSearch'
     ClientHeight = 104
     ClientWidth = 344
     TabOrder = 3
     Visible = False
+    OnClick = pSearchClick
     object lbResults: TListBox
       Left = 0
       Height = 104
@@ -176,6 +176,7 @@ object fmTimeline: TfmTimeline
       Width = 344
       Align = alClient
       ItemHeight = 0
+      OnDblClick = lbResultsDblClick
       ScrollWidth = 450
       TabOrder = 0
       TabStop = False
