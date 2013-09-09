@@ -178,7 +178,7 @@ end;
 
 procedure TfPassword.lFirstLoginResize(Sender: TObject);
 begin
-  Height := ((ePasswort.Height+8)*3)+ButtonPanel1.Height+lFirstLogin.Height+40+20;
+  Height := ((ePasswort.Height+8)*3)+ButtonPanel1.Height+lFirstLogin.Height+35;
 end;
 
 procedure TfPassword.MenuItem1Click(Sender: TObject);
@@ -305,4 +305,4 @@ end;
 initialization
   {$I upassword.lrs}
 end.
-
+

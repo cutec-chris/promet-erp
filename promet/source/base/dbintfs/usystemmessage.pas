@@ -56,7 +56,7 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
-            Add('AUTO_ID',ftAutoInc,0,True);
+            Add('AUTO_ID',ftLargeint,0,True);
             Add('PROCESS_ID',ftLargeInt,0,True);
             Add('COMMAND_ID',ftLargeInt,0,True);
             Add('MESSAGE',ftMemo,0,False);
@@ -71,7 +71,7 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
-            Add('AUTO_ID',ftAutoInc,0,True);
+            Add('AUTO_ID',ftLargeint,0,True);
             Add('PROCESS_ID',ftLargeInt,0,True);
             Add('COMMAND',ftMemo,0,False);
           end;
