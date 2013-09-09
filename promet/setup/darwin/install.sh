@@ -10,7 +10,7 @@ TmpDir=/tmp
 Version=$(sed 's/\r//g' ../../source/base/version.inc).$(sed 's/\r//g' ../../source/base/revision.inc)
 Version=$(echo $Version | sed 's/\n//g');
 export CPU_TARGET=$(fpc -iTP)
-export DC_APP_DIR=$1/prometerp.app
+export DC_APP_DIR=$1/Promet-ERP.app
 export DC_INSTALL_DIR=$DC_APP_DIR/Contents/MacOS
 
 mkdir -p $DC_INSTALL_DIR
