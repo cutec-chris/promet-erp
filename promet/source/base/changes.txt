@@ -1,6 +1,6 @@
 ﻿Build 274
       - erste kleine OSX Anpassungen
-      - OSX Diskimage wird utomatisch mit jeder neuen Version gebaut
+      - OSX Diskimage wird automatisch mit jeder neuen Version gebaut
       - Gridview Fehler behoben
 Build 273
       - Abhängigkeiten im Gantt Project Export korrigiert

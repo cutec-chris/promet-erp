@@ -139,6 +139,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <CommandLineParams Value="--config-path=/home/chris/.promet-erp-devel"/>
       </local>
     </RunParams>
     <RequiredPackages Count="21">
@@ -976,7 +977,7 @@
       </Unit68>
       <Unit69>
         <Filename Value="../base/revision.inc"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
@@ -986,10 +987,10 @@
       <Unit70>
         <Filename Value="../base/changes.txt"/>
         <IsVisibleTab Value="True"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="19" Y="11"/>
+        <CursorPos X="29" Y="3"/>
         <UsageCount Value="103"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
@@ -1012,7 +1013,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="utasks"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="66"/>
         <CursorPos X="90" Y="79"/>
@@ -1253,7 +1254,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMeetingFrame"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="266"/>
         <CursorPos X="54" Y="344"/>
@@ -3185,7 +3186,7 @@
         <UsageCount Value="10"/>
       </Unit327>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
         <Filename Value="../base/ugridview.pas"/>
         <Caret Line="772" Column="48" TopLine="758"/>
@@ -3220,92 +3221,88 @@
       </Position8>
       <Position9>
         <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="841" Column="34" TopLine="861"/>
+        <Caret Line="1304" Column="39" TopLine="1276"/>
       </Position9>
       <Position10>
         <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="1304" Column="39" TopLine="1276"/>
+        <Caret Line="1346" Column="35" TopLine="1318"/>
       </Position10>
       <Position11>
         <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="1346" Column="35" TopLine="1318"/>
+        <Caret Line="1409" Column="41" TopLine="1381"/>
       </Position11>
       <Position12>
         <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="1409" Column="41" TopLine="1381"/>
+        <Caret Line="1541" Column="16" TopLine="1519"/>
       </Position12>
       <Position13>
         <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="1541" Column="16" TopLine="1519"/>
+        <Caret Line="2324" Column="13" TopLine="2309"/>
       </Position13>
       <Position14>
         <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2324" Column="13" TopLine="2309"/>
+        <Caret Line="1" Column="3" TopLine="1"/>
       </Position14>
       <Position15>
         <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="1" Column="3" TopLine="1"/>
+        <Caret Line="3283" Column="1" TopLine="3249"/>
       </Position15>
       <Position16>
         <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="3283" Column="1" TopLine="3249"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position16>
       <Position17>
         <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Caret Line="2324" Column="19" TopLine="2307"/>
       </Position17>
       <Position18>
         <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2324" Column="19" TopLine="2307"/>
+        <Caret Line="3283" Column="1" TopLine="3249"/>
       </Position18>
       <Position19>
         <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="3283" Column="1" TopLine="3249"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position19>
       <Position20>
         <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Caret Line="2324" Column="3" TopLine="2308"/>
       </Position20>
       <Position21>
         <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2324" Column="3" TopLine="2308"/>
+        <Caret Line="3283" Column="1" TopLine="3249"/>
       </Position21>
       <Position22>
         <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="3283" Column="1" TopLine="3249"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position22>
       <Position23>
         <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Caret Line="2325" Column="19" TopLine="2308"/>
       </Position23>
       <Position24>
         <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2325" Column="19" TopLine="2308"/>
+        <Caret Line="3284" Column="1" TopLine="3250"/>
       </Position24>
       <Position25>
         <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="3284" Column="1" TopLine="3250"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position25>
       <Position26>
         <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Caret Line="161" Column="100" TopLine="156"/>
       </Position26>
       <Position27>
         <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="161" Column="100" TopLine="156"/>
+        <Caret Line="1597" Column="3" TopLine="1587"/>
       </Position27>
       <Position28>
         <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="1597" Column="3" TopLine="1587"/>
+        <Caret Line="1606" Column="7" TopLine="1587"/>
       </Position28>
       <Position29>
         <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="1606" Column="7" TopLine="1587"/>
-      </Position29>
-      <Position30>
-        <Filename Value="../base/ugridview.pas"/>
         <Caret Line="18" Column="1" TopLine="18"/>
-      </Position30>
+      </Position29>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>
