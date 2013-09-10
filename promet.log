@@ -1,0 +1,381 @@
+CarbonFontIDToFontName Error: ATSUFindFontName Length failed with result -8905
+CarbonFontIDToFontName Error: ATSUFindFontName Length failed with result -8905
+TLResourceList.Sort 93 DUPLICATE RESOURCE FOUND: tlrbuttonpanel:BMP
+TLResourceList.Sort 146 DUPLICATE RESOURCE FOUND: tlrbuttonpanel:BMP
+TLResourceList.Sort 150 DUPLICATE RESOURCE FOUND: tlrbuttonpanel:BMP
+BaseLogin: 157
+TLResourceList.Sort 153 DUPLICATE RESOURCE FOUND: tlrbuttonpanel:BMP
+Wiki: 234
+Favourites: 238
+Messages: 312
+PIM: 408
+Orders: 519
+Contacts: 546
+Masterdata: 581
+Projects: 645
+Wiki: 675
+Documents: 695
+Lists: 705
+Doc/Lists: 721
+Inventory/Financial: 777
+LoginTime: 988
+RowChanged 0->1 
+SyncDataSource
+Index Out of range Cell[Col=0 Row=1]
+
+Original exception: Index Out of range Cell[Col=0 Row=CarbonFontIDToFontName Error: ATSUFindFontName Length failed with result -8905
+CarbonFontIDToFontName Error: ATSUFindFontName Length failed with result -8905
+TLResourceList.Sort 93 DUPLICATE RESOURCE FOUND: tlrbuttonpanel:BMP
+TLResourceList.Sort 146 DUPLICATE RESOURCE FOUND: tlrbuttonpanel:BMP
+TLResourceList.Sort 150 DUPLICATE RESOURCE FOUND: tlrbuttonpanel:BMP
+BaseLogin: 160
+TLResourceList.Sort 153 DUPLICATE RESOURCE FOUND: tlrbuttonpanel:BMP
+Wiki: 228
+Favourites: 233
+Messages: 308
+PIM: 406
+Orders: 497
+Contacts: 525
+Masterdata: 561
+Projects: 622
+Wiki: 648
+Documents: 667
+Lists: 676
+Doc/Lists: 691
+Inventory/Financial: 749
+LoginTime: 964
+RowChanged 0->1 
+SyncDataSource
+SyncDataSource
+Append
+SyncActiveRow 0
+Sync Bookmark=0
+SyncActiveRow 0
+Append
+SyncActiveRow 0
+Sync Bookmark=0
+SyncActiveRow 0
+Append
+SyncActiveRow 0
+Sync Bookmark=0
+SyncActiveRow 0
+TCarbonTabsControl.SetFocus Error: SetKeyboardFocus  failed with result -30585
+TCarbonTabsControl.SetFocus Error: SetKeyboardFocus  failed with result -30585
+TCarbonWidgetSet.GetSystemMetrics TODO 122
+TCarbonWidgetSet.GetSystemMetrics TODO 121
+TCarbonWidgetSet.GetSystemMetrics TODO 62
+TCarbonWidgetSet.GetSystemMetrics TODO 61
+FindCarbonFontID Error: ATSUFindFontFromName  failed with result -8796
+RowChanged 0->1 
+SyncDataSource
+SyncActiveRow 1329
+SyncActiveRow 1353
+RowChanged 0->1 1329
+RowChanged 1->2 1353
+SyncDataSource
+SyncActiveRow 1329
+SyncActiveRow 1353
+RowChanged 2->1 1329
+SetEditText 2 2 1353 "test22"
+RowChanged 2->1 1329
+TCarbonWidgetSet.GetSystemMetrics TODO 122
+TCarbonWidgetSet.GetSystemMetrics TODO 121
+TCarbonWidgetSet.GetSystemMetrics TODO 62
+TCarbonWidgetSet.GetSystemMetrics TODO 61
+RowChanged 1->2 1353
+Append
+SyncActiveRow 1353
+SyncActiveRow 0
+SetEditText 2 2 1353 "test22"
+Append
+SyncActiveRow 1353
+SetEditText 2 2 1353 "test22"
+SyncActiveRow 0
+SetEditText 2 3 0 "test22"
+SetEditText 2 2 1353 "test22"
+Append
+SyncActiveRow 1353
+SetEditText 2 2 1353 "test22"
+SyncActiveRow 0
+SetEditText 2 3 0 "test22"
+TCarbonTabsControl.SetFocus Error: SetKeyboardFocus  failed with result -30585
+TCarbonTabsControl.SetFocus Error: SetKeyboardFocus  failed with result -30585
+TCarbonTabsControl.SetFocus Error: SetKeyboardFocus  failed with result -30585
+CarbonFontIDToFontName Error: ATSUFindFontName Length failed with result -8905
+CarbonFontIDToFontName Error: ATSUFindFontName Length failed with result -8905
+TLResourceList.Sort 93 DUPLICATE RESOURCE FOUND: tlrbuttonpanel:BMP
+TLResourceList.Sort 146 DUPLICATE RESOURCE FOUND: tlrbuttonpanel:BMP
+TLResourceList.Sort 150 DUPLICATE RESOURCE FOUND: tlrbuttonpanel:BMP
+BaseLogin: 154
+TLResourceList.Sort 153 DUPLICATE RESOURCE FOUND: tlrbuttonpanel:BMP
+Wiki: 230
+Favourites: 235
+Messages: 309
+PIM: 407
+Orders: 498
+Contacts: 526
+Masterdata: 562
+Projects: 627
+Wiki: 650
+Documents: 669
+Lists: 679
+Doc/Lists: 693
+Inventory/Financial: 752
+LoginTime: 966
+RowChanged 0->1 
+SyncDataSource
+TCarbonTabsControl.SetFocus Error: SetKeyboardFocus  failed with result -30585
+TCarbonWidgetSet.GetSystemMetrics TODO 122
+TCarbonWidgetSet.GetSystemMetrics TODO 121
+TCarbonWidgetSet.GetSystemMetrics TODO 62
+TCarbonWidgetSet.GetSystemMetrics TODO 61
+FindCarbonFontID Error: ATSUFindFontFromName  failed with result -8796
+RowChanged 0->1 
+SyncDataSource
+SyncActiveRow 1329
+SyncActiveRow 1353
+RowChanged 0->1 1329
+RowChanged 1->2 1353
+SyncDataSource
+SyncActiveRow 1329
+SyncActiveRow 1353
+RowChanged 2->1 1329
+SetEditText 2 2 1353 "test22"
+Append
+SyncActiveRow 1353
+SetEditText 2 2 1353 "test22"
+SyncActiveRow 0
+RowChanged 3->1 1329
+SetEditText 7 1 1329 "0"
+FieldModified:0
+SetEditText:0
+TCarbonWidgetSet.GetSystemMetrics TODO 122
+TCarbonWidgetSet.GetSystemMetrics TODO 121
+TCarbonWidgetSet.GetSystemMetrics TODO 62
+TCarbonWidgetSet.GetSystemMetrics TODO 61
+SetEditText 7 1 1329 "0"
+gotorownumber failed
+SetEditText 7 1 1329 "0"
+SetEditText 6 1 1329 "1"
+SetEditText 6 1 1329 "1"
+SetEditText 6 1 1329 "1"
+SetEditText 6 1 1329 "1"
+SetEditText 5 1 1329 "0"
+SetEditText 5 1 1329 "0"
+SetEditText 4 1 1329 ""
+SetEditText 4 1 1329 ""
+SetEditText 3 1 1329 "1"
+SetEditText 3 1 1329 "1"
+SetEditText 2 1 1329 "TEST"
+SyncActiveRow 1329
+SetEditText 2 1 1329 "TEST"
+SetEditText 2 1 1329 "TEST"
+RowChanged 1->2 1353
+RowChanged 2->3 0
+RowChanged 0->1 1329
+RowChanged 1->3 0
+SyncDataSource
+SyncActiveRow 1329
+SetEditText 1 1 1329 "1"
+SyncActiveRow 1353
+SetEditText 1 2 1353 "2"
+SyncActiveRow 1445
+SetEditText 1 3 1445 "3"
+RowChanged 3->1 1329
+RowChanged 3->2 1353
+RowChanged 2->3 1445
+RowChanged 3->2 1353
+RowChanged 2->3 1445
+RowChanged 0->1 1329
+RowChanged 1->2 1353
+SyncDataSource
+SyncActiveRow 1329
+SetEditText 1 1 1329 "1"
+SyncActiveRow 1353
+SetEditText 1 2 1353 "2"
+RowChanged 2->1 1329
+Append
+SyncActiveRow 1353
+SetEditText 2 2 1353 "test22"
+SyncActiveRow 0
+Append
+SyncActiveRow 1353
+SetEditText 2 2 1353 "test22"
+SyncActiveRow 0
+Append
+SyncActiveRow 1353
+SetEditText 2 2 1353 "test22"
+SyncActiveRow 0
+Append
+SyncActiveRow 1353
+SetEditText 2 2 1353 "test22"
+SyncActiveRow 0
+Append
+SyncActiveRow 1353
+SetEditText 2 2 1353 "test22"
+SyncActiveRow 0
+Append
+SyncActiveRow 1353
+SetEditText 2 2 1353 "test22"
+SyncActiveRow 0
+Append
+SyncActiveRow 1353
+SetEditText 2 2 1353 "test22"
+SyncActiveRow 0
+Append
+SyncActiveRow 1353
+SetEditText 2 2 1353 "test22"
+SyncActiveRow 0
+TCarbonTabsControl.SetFocus Error: SetKeyboardFocus  failed with result -30585
+TCarbonTabsControl.SetFocus Error: SetKeyboardFocus  failed with result -30585
+TCarbonTabsControl.SetFocus Error: SetKeyboardFocus  failed with result -30585
+CarbonFontIDToFontName Error: ATSUFindFontName Length failed with result -8905
+CarbonFontIDToFontName Error: ATSUFindFontName Length failed with result -8905
+TLResourceList.Sort 93 DUPLICATE RESOURCE FOUND: tlrbuttonpanel:BMP
+TLResourceList.Sort 146 DUPLICATE RESOURCE FOUND: tlrbuttonpanel:BMP
+TLResourceList.Sort 150 DUPLICATE RESOURCE FOUND: tlrbuttonpanel:BMP
+BaseLogin: 153
+TLResourceList.Sort 153 DUPLICATE RESOURCE FOUND: tlrbuttonpanel:BMP
+Wiki: 230
+Favourites: 235
+Messages: 309
+PIM: 406
+Orders: 496
+Contacts: 523
+Masterdata: 559
+Projects: 622
+Wiki: 649
+Documents: 668
+Lists: 677
+Doc/Lists: 691
+Inventory/Financial: 750
+LoginTime: 960
+TCarbonWidgetSet.GetSystemMetrics TODO 122
+TCarbonWidgetSet.GetSystemMetrics TODO 121
+TCarbonWidgetSet.GetSystemMetrics TODO 62
+TCarbonWidgetSet.GetSystemMetrics TODO 61
+FindCarbonFontID Error: ATSUFindFontFromName  failed with result -8796
+RowChanged 0->1 
+SyncDataSource
+SyncActiveRow 1329
+SyncActiveRow 1353
+RowChanged 0->1 1329
+RowChanged 1->2 1353
+SyncDataSource
+SyncActiveRow 1329
+SyncActiveRow 1353
+RowChanged 2->1 1329
+SetEditText 2 2 1353 "test22"
+Append
+SyncActiveRow 1353
+SetEditText 2 2 1353 "test22"
+SyncActiveRow 0
+TCarbonTabsControl.SetFocus Error: SetKeyboardFocus  failed with result -30585
+TCarbonTabsControl.SetFocus CarbonFontIDToFontName Error: ATSUFindFontName Length failed with result -8905
+CarbonFontIDToFontName Error: ATSUFindFontName Length failed with result -8905
+TLResourceList.Sort 93 DUPLICATE RESOURCE FOUND: tlrbuttonpanel:BMP
+TLResourceList.Sort 146 DUPLICATE RESOURCE FOUND: tlrbuttonpanel:BMP
+TLResourceList.Sort 150 DUPLICATE RESOURCE FOUND: tlrbuttonpanel:BMP
+BaseLogin: 146
+TLResourceList.Sort 153 DUPLICATE RESOURCE FOUND: tlrbuttonpanel:BMP
+Wiki: 210
+Favourites: 215
+Messages: 289
+PIM: 379
+Orders: 486
+Contacts: 514
+Masterdata: 551
+Projects: 604
+Wiki: 623
+Documents: 642
+Lists: 652
+Doc/Lists: 666
+Inventory/Financial: 722
+LoginTime: 918
+TCarbonWidgetSet.GetSystemMetrics TODO 122
+TCarbonWidgetSet.GetSystemMetrics TODO 121
+TCarbonWidgetSet.GetSystemMetrics TODO 62
+TCarbonWidgetSet.GetSystemMetrics TODO 61
+FindCarbonFontID Error: ATSUFindFontFromName  failed with result -8796
+RowChanged 0->1 
+SyncDataSource
+SyncActiveRow 1329
+SyncActiveRow 1353
+RowChanged 0->1 1329
+RowChanged 1->2 1353
+SyncDataSource
+SyncActiveRow 1329
+SyncActiveRow 1353
+RowChanged 2->1 1329
+SetEditText 2 2 1353 "test22"
+Append
+SyncActiveRow 1353
+SetEditText 2 2 1353 "test22"
+SyncActiveRow 0
+Append
+SyncActiveRow 1353
+SetEditText 2 2 1353 "test22"
+SyncActiveRow 0
+Append
+SyncActiveRow 1353
+SetEditText 2 2 1353 "test22"
+SyncActiveRow 0
+Append
+SyncActiveRow 1353
+SetEditText 2 2 1353 "test22"
+SyncActiveRow 0
+Append
+SyncActiveRow 1353
+SetEditText 2 2 1353 "test22"
+SyncActiveRow 0
+SetEditText 2 2 1353 "12344"
+SyncActiveRow 1353
+SetEditText 2 2 1353 "12344"
+RowChanged 2->1 1329
+TCarbonWidgetSet.GetSystemMetrics TODO 122
+TCarbonWidgetSet.GetSystemMetrics TODO 121
+TCarbonWidgetSet.GetSystemMetrics TODO 62
+TCarbonWidgetSet.GetSystemMetrics TODO 61
+RowChanged 1->2 1353
+RowChanged 0->1 1329
+RowChanged 1->2 1353
+SyncDataSource
+SyncActiveRow 1329
+SyncActiveRow 1353
+SetEditText 1 2 1353 "2"
+RowChanged 2->1 1329
+RowChanged 0->1 1329
+RowChanged 1->2 1353
+SyncDataSource
+SyncActiveRow 1329
+SetEditText 1 1 1329 "1"
+SyncActiveRow 1353
+SetEditText 1 2 1353 "2"
+RowChanged 2->1 1329
+RowChanged 0->1 1329
+RowChanged 1->2 1353
+SyncDataSource
+SyncActiveRow 1329
+SetEditText 1 1 1329 "1"
+SyncActiveRow 1353
+SetEditText 1 2 1353 "2"
+RowChanged 2->1 1329
+RowChanged 0->1 1329
+RowChanged 1->2 1353
+SyncDataSource
+SyncActiveRow 1329
+SetEditText 1 1 1329 "1"
+SyncActiveRow 1353
+SetEditText 1 2 1353 "2"
+RowChanged 2->1 1329
+RowChanged 0->1 1329
+RowChanged 1->2 1353
+SyncDataSource
+SyncActiveRow 1329
+SetEditText 1 1 1329 "1"
+SyncActiveRow 1353
+SetEditText 1 2 1353 "2"
+RowChanged 2->1 1329
+TCarbonTabsControl.SetFocus Error: SetKeyboardFocus  failed with result -30585
+TCarbonTabsControl.SetFocus Error: SetKeyboardFocus  failed with result -30585
+TCarbonTabsControl.SetFocus Error: SetKeyboardFocus  failed with result -30585

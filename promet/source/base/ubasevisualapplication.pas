@@ -28,6 +28,8 @@ type
   { TBaseVisualApplication }
 
   TBaseVisualApplication = class(TApplication, IBaseApplication, IBaseDbInterface)
+    procedure BaseVisualApplicationDebugLn(Sender: TObject; S: string;
+      var Handled: Boolean);
     procedure BaseVisualApplicationException(Sender: TObject; E: Exception);
     procedure BaseVisualApplicationQueryEndSession(var Cancel: Boolean);
     procedure DataDataConnect(Sender: TObject);
@@ -158,6 +160,13 @@ begin
   Result := False;
 end;
 
+procedure TBaseVisualApplication.BaseVisualApplicationDebugLn(Sender: TObject;
+  S: string; var Handled: Boolean);
+begin
+  if HasOption('syslog') then
+    FLogger.Debug(s);
+end;
+
 procedure TBaseVisualApplication.BaseVisualApplicationException(
   Sender: TObject; E: Exception);
 var
@@ -267,8 +276,13 @@ begin
   if HasOption('l','logfile') then
     begin
       FLogger.FileName := GetOptionValue('l','logfile');
-      FLogger.Active:=True;
+    end
+  else
+    begin
+      FLogger.LogType:=ltSystem;
     end;
+  LazLogger.GetDebugLogger.OnDebugLn:=@BaseVisualApplicationDebugLn;
+  FLogger.Active:=True;
   {.$Warnings Off}
   FDBInterface := TBaseDBInterface.Create;
   FDBInterface.SetOwner(Self);
@@ -958,4 +972,4 @@ initialization
   RegisterClass(TDBComboBox);
   RegisterClass(TPanel);
 end.
-
+

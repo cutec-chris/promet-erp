@@ -12,7 +12,7 @@ unit ugridview;
 
 {.$define gridvisible}
 {.$define slowdebug}
-{.$define debug}
+{$define debug}
 
 interface
 uses
@@ -1515,6 +1515,7 @@ var
   ct: String;
   WasInsert: Boolean;
 begin
+  if aRow>=gList.RowCount then exit;
   if aRow < gList.FixedRows then exit;
   BeginUpdate;
   try
