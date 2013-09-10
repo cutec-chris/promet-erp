@@ -1879,7 +1879,11 @@ begin
       begin
         if not (i < gList.ColCount) then exit;
         if gList.ColCount > i+1 then
-          aText := gList.Cells[i+1,aRow];
+          begin
+            aText := gList.Cells[i+1,aRow];
+            if Assigned(FGetCText) then
+              FGetCText(Self,dgFake.Columns[i],aRow,atext,nil);
+          end;
         break;
       end;
   if copy(aText,length(aText),1) = #10 then
@@ -2447,7 +2451,7 @@ begin
     gList.Objects[0,aRow].Free;
   for i := 1 to gList.ColCount-1 do
     if Assigned(gList.Objects[i,aRow]) then
-      gList.Objects[aIdentCol,aRow].Free;
+      gList.Objects[i,aRow].Free;
 end;
 
 constructor TfGridView.Create(AOwner: TComponent);

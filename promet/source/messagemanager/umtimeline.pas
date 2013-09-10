@@ -8,8 +8,10 @@ uses
   ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage,ugridview,uHistoryFrame,
   uExtControls,uBaseVisualControls,uBaseDbClasses,uFormAnimate,uBaseSearch;
 type
-
-  { TfmTimeline }
+  TMGridObject = class(TObject)
+  public
+    Caption : string;
+  end;
 
   TfmTimeline = class(TForm)
     acFollow: TAction;
@@ -77,6 +79,8 @@ var
 implementation
 uses uBaseApplication, uData, uBaseDbInterface, uOrder,uMessages,uBaseERPDBClasses,
   uMain,LCLType,utask,uProcessManager,uprometipc,ProcessUtils;
+resourcestring
+  strTo                                  = 'an ';
 procedure TfmTimeline.Execute;
 var
   aBoundsRect: TRect;
@@ -153,6 +157,8 @@ var
   aHeight: Integer;
   aRRect: TRect;
   aMiddle: Integer;
+  aObj: TObject;
+  bRect: TRect;
 begin
   with (Sender as TCustomGrid), Canvas do
     begin
@@ -190,6 +196,8 @@ begin
           Canvas.Ellipse(aRRect);
           if not (TExtStringGrid(Sender).Cells[Column.Index+1,DataCol] = '') then
             aHistoryFrame.HistoryImages.StretchDraw(Canvas,StrToIntDef(TExtStringGrid(Sender).Cells[Column.Index+1,DataCol],-1),aRRect);// Draw(Canvas,Rect.Left,Rect.Top,);
+          if (gdSelected in State) and TStringGrid(Sender).Focused then
+            TStringGrid(Sender).Canvas.DrawFocusRect(arect);
         end
       else if (Column.FieldName = 'REFOBJECT') or (Column.FieldName = 'OBJECT') then
         begin
@@ -204,6 +212,27 @@ begin
           aTextStyle.Alignment:=Column.Alignment;
           TextRect(aRect,aRect.Left+3,aRect.Top,aText,aTextStyle);
           Result := True;
+        end
+      else if (Column.FieldName='ACTION') then
+        begin
+          aObj := fTimeline.gList.Objects[Column.Index+1,DataCol];
+          if Assigned(aObj) then
+            begin
+              result := True;
+              atext := TExtStringGrid(Sender).Cells[Column.Index+1,DataCol];
+              TStringGrid(Sender).Canvas.Brush.Color:=aColor;
+              TStringGrid(Sender).Canvas.FillRect(aRect);
+              bRect := aRect;
+              brect.Top := bRect.Top+TStringGrid(Sender).Canvas.TextExtent('A').cy;
+              TStringGrid(Sender).Canvas.TextRect(bRect,aRect.Left+3,bRect.Top,aText,aTextStyle);
+              TStringGrid(Sender).Canvas.Font.Color:=clGray;
+              bRect := aRect;
+              brect.Bottom := aRect.Top+Canvas.TextExtent('A').cy;
+              TStringGrid(Sender).canvas.TextOut(arect.Left+3,aRect.Top,TMGridObject(aObj).Caption);
+              if (gdSelected in State) and TStringGrid(Sender).Focused then
+                TStringGrid(Sender).Canvas.DrawFocusRect(arect);
+            end
+          else result := False;
         end
       else
         Result := False;
@@ -348,6 +377,8 @@ var
   aTime: TDateTime;
   fhasObject: Boolean;
   i: Integer;
+  aObj: TObject;
+  arec: LargeInt;
 begin
   if aCol.FieldName='LINK' then
     NewText := Data.GetLinkDesc(NewText)
@@ -359,8 +390,26 @@ begin
       for i := 0 to fTimeline.dgFake.Columns.Count-1 do
         if fTimeline.dgFake.Columns[i].FieldName='OBJECT' then
           FHasObject := True;
-      if not fhasObject then
-        NewText += lineending+'Object';
+      if (not fHasObject) and (aRow>0) then
+        begin
+          aObj := fTimeline.gList.Objects[aCol.Index+1,aRow];
+          if not Assigned(aObj) then
+            begin
+              fTimeline.gList.Objects[aCol.Index+1,aRow] := TMGridObject.Create;
+              arec := fTimeline.DataSet.GetBookmark;
+              aObj := fTimeline.gList.Objects[aCol.Index+1,aRow];
+              if fTimeline.GotoRowNumber(aRow) then
+                begin
+                  if copy(fTimeline.dgFake.DataSource.DataSet.FieldByName('OBJECT').AsString,0,6) = 'USERS@' then
+                    TMGridObject(aObj).Caption := strTo+Data.GetLinkDesc(fTimeline.dgFake.DataSource.DataSet.FieldByName('OBJECT').AsString)
+                  else
+                    TMGridObject(aObj).Caption := Data.GetLinkDesc(fTimeline.dgFake.DataSource.DataSet.FieldByName('OBJECT').AsString);
+                end;
+              fTimeline.DataSet.GotoBookmark(aRec);
+              fTimeline.gList.RowHeights[aRow] := fTimeline.gList.RowHeights[aRow]+12;
+            end;
+          NewText := TMGridObject(aObj).Caption+lineending+NewText;
+        end;
     end
   else if aCol.FieldName='TIMESTAMPD' then
     begin
