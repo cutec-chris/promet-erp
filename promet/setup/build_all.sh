@@ -15,7 +15,7 @@ fi
 sudo -S ./clean_all.sh
 virsh start Autobuild_lin3
 sh build_win_wine_i386.sh &
-ssh chris@minimac 'sh dobuild.sh'
+ssh chris@minimac 'sh promet/promet/setup/build_all.mac'
 State=$(virsh domstate Autobuild_lin3)
 while [ "$State" = laufend ] ; do
   sleep 5
