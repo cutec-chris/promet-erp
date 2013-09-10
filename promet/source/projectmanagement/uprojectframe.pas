@@ -172,7 +172,7 @@ var
 procedure AddToMainTree(aAction : TAction);
 implementation
 uses uData,uProjects,uHistoryFrame,uLinkFrame,uImageFrame,uDocuments,
-  uDocumentFrame,uIntfStrConsts,uMainTreeFrame,uBaseDBInterface,
+  uDocumentFrame,uIntfStrConsts,uMainTreeFrame,uBaseDBInterface,uEditableTab,
   uFilterFrame,uBaseSearch,Utils,uprojectimport,uBaseERPDBClasses,uSelectReport,
   uNRights,uprojectpositions,uSearch,LCLProc,utask,uprojectoverview,uBaseVisualApplication,
   uGanttView;

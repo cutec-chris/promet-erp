@@ -581,9 +581,10 @@ var
       end;
   end;
 
-  function IntervalById(Id : Variant) : TInterval;
+  function IntervalById(Id : Variant;Root : TInterval = nil) : TInterval;
   var
     i: Integer;
+    ares: TInterval;
   begin
     Result := nil;
     for i := 0 to FGantt.IntervalCount-1 do
@@ -599,8 +600,16 @@ var
             if Assigned(Result) then break;
           end;
       end;
+    if Assigned(Result) and Assigned(Root) then
+      begin
+        ares := result;
+        while Assigned(aRes.Parent) do
+          ares := ares.Parent;
+        if aRes<>Root then
+          Result := nil;
+      end;
   end;
-  function AddTask(AddParents : Boolean = True) : TInterval;
+  function AddTask(AddParents : Boolean = True;Root : TInterval = nil) : TInterval;
   var
     aInterval: TInterval;
     aIParent: TInterval = nil;
@@ -618,14 +627,14 @@ var
     Result := nil;
     if (aTasks.FieldByName('PARENT').AsString <> '') then
       begin
-        aIParent := IntervalById(aTasks.FieldByName('PARENT').AsVariant);
+        aIParent := IntervalById(aTasks.FieldByName('PARENT').AsVariant,Root);
         if not Assigned(aIParent) then
           begin
             aRec := aTasks.GetBookmark;
             aParent := aTasks.FieldByName('PARENT').AsVariant;
             if not (aParent=aTasks.Id.AsVariant) then
               if aTasks.DataSet.Locate('SQL_ID',aParent,[]) then
-                aIParent := AddTask(True);
+                aIParent := AddTask(True,Root);
             aTasks.GotoBookmark(aRec);
           end;
       end;
@@ -676,7 +685,7 @@ begin
         if aTasks.FieldByName('ACTIVE').AsString<>'N' then
           if IntervalById(aTasks.Id.AsVariant)=nil then
             begin
-              aInterval := AddTask(True);
+              aInterval := AddTask(True,aRoot);
             end;
         aTasks.Next;
       end;

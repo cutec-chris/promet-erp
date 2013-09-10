@@ -31,25 +31,28 @@
       </Item4>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="5">
+    <RequiredPkgs Count="6">
       <Item1>
-        <PackageName Value="pProjectbase"/>
-        <DefaultFilename Value="../base_pm/pprojectbase.lpk"/>
+        <PackageName Value="tabeditor"/>
       </Item1>
       <Item2>
-        <PackageName Value="general"/>
-        <DefaultFilename Value="../../../general/general.lpk"/>
+        <PackageName Value="pProjectbase"/>
+        <DefaultFilename Value="../base_pm/pprojectbase.lpk"/>
       </Item2>
       <Item3>
-        <PackageName Value="pVisualPrometApp"/>
-        <DefaultFilename Value="../base/pvisualprometapp.lpk"/>
+        <PackageName Value="general"/>
+        <DefaultFilename Value="../../../general/general.lpk"/>
       </Item3>
       <Item4>
-        <PackageName Value="lcl"/>
+        <PackageName Value="pVisualPrometApp"/>
+        <DefaultFilename Value="../base/pvisualprometapp.lpk"/>
       </Item4>
       <Item5>
-        <PackageName Value="FCL"/>
+        <PackageName Value="lcl"/>
       </Item5>
+      <Item6>
+        <PackageName Value="FCL"/>
+      </Item6>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>
