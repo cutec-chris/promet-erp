@@ -351,7 +351,6 @@ begin
         begin
           if not aTasks.CanEdit then
             aTasks.DataSet.Edit;
-          aTasks.DataSet.DisableControls;
           if aTasks.FieldByName('SUMMARY').AsString <> aTask.Task then
             aTasks.FieldByName('SUMMARY').AsString := aTask.Task;
           if not aTasks.CanEdit then
@@ -364,7 +363,6 @@ begin
           if aTasks.CanEdit then
             aTasks.DataSet.Post;
         end;
-      aTasks.DataSet.EnableControls;
     end;
   aTask.Changed:=False;
 end;
