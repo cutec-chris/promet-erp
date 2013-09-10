@@ -1,4 +1,8 @@
-﻿Build 274
+﻿Build 275
+      - In Gantt Ansicht werden bei Unterprojekten falsche vorfahren ignoriert (kann passierne wenn man Aufgaben von einem projekt in ein anderes schiebt)
+      - Neues Design Nachrichtenverlauf fertig
+      - wenn man in Nachrichtenzentrage @ tippt, wird Benutzersuche aufgeklappt und wärend des Tippens vervollständigt
+Build 274
       - erste kleine OSX Anpassungen
       - OSX Diskimage wird automatisch mit jeder neuen Version gebaut
       - Gridview Fehler behoben
