@@ -290,17 +290,20 @@ begin
       for i := 0 to FSnapshots.IntervalCount-1 do
         if FSnapshots.Interval[i].Id = TInterval(Sender).Id then
           begin
-            aInterval := FSnapshots.Interval[i];
-            if ((aInterval.StartDate>aStart) and (aInterval.StartDate<(aEnd)))
-            or ((aInterval.FinishDate>aStart) and (aInterval.FinishDate<(aEnd)))
-            or ((aInterval.StartDate<=aStart) and (aInterval.FinishDate>=(aEnd)))
-            then
+            if TInterval(Sender).IntervalCount=0 then
               begin
-                aIStart := aInterval.StartDate;
-                aIEnd := aInterval.FinishDate;
-                aCanvas.Brush.Color:=clYellow;
-                aDrawRect:=Rect(round((aIStart-aStart)*aDayWidth),(aRect.Top+((aRect.Bottom-aRect.Top) div 4)-1)+aAddTop,round((aIEnd-aStart)*aDayWidth)-1,(aRect.Bottom-((aRect.Bottom-aRect.Top) div 4)-1)+aAddTop);
-                aCanvas.Rectangle(aDrawRect);
+                aInterval := FSnapshots.Interval[i];
+                if ((aInterval.StartDate>aStart) and (aInterval.StartDate<(aEnd)))
+                or ((aInterval.FinishDate>aStart) and (aInterval.FinishDate<(aEnd)))
+                or ((aInterval.StartDate<=aStart) and (aInterval.FinishDate>=(aEnd)))
+                then
+                  begin
+                    aIStart := aInterval.StartDate;
+                    aIEnd := aInterval.FinishDate;
+                    aCanvas.Brush.Color:=clYellow;
+                    aDrawRect:=Rect(round((aIStart-aStart)*aDayWidth),(aRect.Top+((aRect.Bottom-aRect.Top) div 4)-1)+aAddTop,round((aIEnd-aStart)*aDayWidth)-1,(aRect.Bottom-((aRect.Bottom-aRect.Top) div 4)-1)+aAddTop);
+                    aCanvas.Rectangle(aDrawRect);
+                  end;
               end;
             break;
           end;
@@ -485,21 +488,23 @@ var
   aInt: TInterval;
 begin
   FreeAndNil(FSnapshots);
-  if cbSnapshot.Items[cbSnapshot.ItemIndex] = strNoSnapshot then exit;
-  FSnapshots := TInterval.Create(nil);
-  FTasks.First;
-  FTasks.Snapshots.Open;
-  while not FTasks.EOF do
+  if (cbSnapshot.Items[cbSnapshot.ItemIndex] <> strNoSnapshot) then
     begin
-      if FTasks.Snapshots.DataSet.Locate('NAME',cbSnapshot.Text,[]) then
+      FSnapshots := TInterval.Create(nil);
+      FTasks.First;
+      FTasks.Snapshots.Open;
+      while not FTasks.EOF do
         begin
-          aInt := TInterval.Create(nil);
-          aInt.StartDate:=FTasks.Snapshots.FieldByName('STARTDATE').AsDateTime;
-          aInt.FinishDate:=FTasks.Snapshots.FieldByName('ENDDATE').AsDateTime;
-          aInt.Id:=FTasks.Id.AsVariant;
-          FSnapshots.AddInterval(aInt);
+          if FTasks.Snapshots.DataSet.Locate('NAME',cbSnapshot.Text,[]) then
+            begin
+              aInt := TInterval.Create(nil);
+              aInt.StartDate:=FTasks.Snapshots.FieldByName('STARTDATE').AsDateTime;
+              aInt.FinishDate:=FTasks.Snapshots.FieldByName('ENDDATE').AsDateTime;
+              aInt.Id:=FTasks.Id.AsVariant;
+              FSnapshots.AddInterval(aInt);
+            end;
+          FTasks.Next;
         end;
-      FTasks.Next;
     end;
   FGantt.Calendar.Invalidate;
 end;
