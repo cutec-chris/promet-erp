@@ -26,6 +26,7 @@ type
     acOpen: TAction;
     acMakePossible: TAction;
     acAddSubProjects: TAction;
+    acAddSnapshot: TAction;
     ActionList1: TActionList;
     bCalculate1: TSpeedButton;
     bCalculate2: TSpeedButton;
@@ -33,18 +34,23 @@ type
     Bevel5: TBevel;
     Bevel6: TBevel;
     Bevel7: TBevel;
+    Bevel8: TBevel;
     bMonthView: TSpeedButton;
     bShowTasks: TSpeedButton;
     bCalculate: TSpeedButton;
     bRefresh: TSpeedButton;
+    bShowTasks1: TSpeedButton;
     bToday: TSpeedButton;
     bWeekView: TSpeedButton;
+    cbSnapshot: TComboBox;
+    Label8: TLabel;
     lDate: TLabel;
     Label3: TLabel;
     Label5: TLabel;
     Label6: TLabel;
     Label7: TLabel;
     MenuItem1: TMenuItem;
+    Panel10: TPanel;
     Panel4: TPanel;
     Panel8: TPanel;
     Panel9: TPanel;
@@ -310,7 +316,8 @@ begin
       aProject.Open;
       if aProject.Count>0 then
         begin
-          aProject.Tasks.SelectActive;
+          if not FTasks.DataSet.Locate('COMOPLETED','N',[]) then
+            aProject.Tasks.SelectActive;
           aProject.Tasks.Open;
           Populate(aProject.Tasks,False);
         end;
