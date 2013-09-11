@@ -765,7 +765,6 @@ object fGanttView: TfGanttView
           0000000000000000000000000000000000000000000000000000000000000000
           0000000000000000000000000000000000000000000000000000
         }
-        GroupIndex = 4
         Layout = blGlyphTop
         OnClick = bShowTasksClick
         ShowCaption = False
@@ -776,8 +775,9 @@ object fGanttView: TfGanttView
         Top = 14
         Width = 140
         ItemHeight = 14
+        OnSelect = cbSnapshotSelect
+        Style = csDropDownList
         TabOrder = 0
-        Text = '<keiner>'
       end
     end
   end
@@ -824,6 +824,7 @@ object fGanttView: TfGanttView
     object acAddSnapshot: TAction
       Caption = 'acAddSnapshot'
       ImageIndex = 59
+      OnExecute = acAddSnapshotExecute
     end
   end
   object RecalcTimer: TTimer

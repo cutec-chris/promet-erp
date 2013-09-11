@@ -61,6 +61,7 @@ type
     RecalcTimer: TTimer;
     ToolButton1: TSpeedButton;
     ToolButton2: TSpeedButton;
+    procedure acAddSnapshotExecute(Sender: TObject);
     procedure acAddSubProjectsExecute(Sender: TObject);
     procedure acCenterTaskExecute(Sender: TObject);
     procedure acMakePossibleExecute(Sender: TObject);
@@ -75,6 +76,7 @@ type
     procedure bShowTasksClick(Sender: TObject);
     procedure bTodayClick(Sender: TObject);
     procedure bWeekViewClick(Sender: TObject);
+    procedure cbSnapshotSelect(Sender: TObject);
     procedure FGanttCalendarClick(Sender: TObject);
     procedure FGanttCalendarDblClick(Sender: TObject);
     procedure FGanttCalendarMouseMove(Sender: TObject; Shift: TShiftState; X,
@@ -97,6 +99,7 @@ type
     FRow : Integer;
     aClickPoint: TPoint;
     aSelInterval : Integer;
+    FSnapshots : TInterval;
   public
     { public declarations }
     constructor Create(TheOwner: TComponent); override;
@@ -119,6 +122,8 @@ uses uData,LCLIntf,uBaseDbClasses,uTaskEdit,variants,LCLProc,uTaskPlan,
 {$R *.lfm}
 resourcestring
   strSaveChanges                          = 'Um die Aufgabe zu bearbeiten müssen alle Änderungen gespeichert werden, Sollen alle Änderungen gespeichert werden ?';
+  strSnapshot                             = 'Snapshot';
+  strNoSnapshot                           = '<keiner>';
 procedure TfGanttView.FGanttTreeAfterUpdateCommonSettings(Sender: TObject);
 begin
   fgantt.Tree.ColWidths[0]:=0;
@@ -270,10 +275,36 @@ procedure TfGanttView.aIntervalDrawBackground(Sender: TObject; aCanvas: TCanvas;
   aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
 var
   TaskPlan : TfTaskPlan;
+  i: Integer;
+  aInterval: TInterval;
+  aIStart: TDateTime;
+  aIEnd: TDateTime;
+  aAddTop : Integer = 0;
+  aDrawRect: TRect;
 begin
   Taskplan.aIDrawBackgroundWeekends(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth);
   if bShowTasks.Down then
     Taskplan.aIDrawBackground(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth,Ligthen(clBlue,5),Ligthen(clLime,0.8),Ligthen(clRed,0.8));
+  if Assigned(FSnapshots) then
+    begin
+      for i := 0 to FSnapshots.IntervalCount-1 do
+        if FSnapshots.Interval[i].Id = TInterval(Sender).Id then
+          begin
+            aInterval := FSnapshots.Interval[i];
+            if ((aInterval.StartDate>aStart) and (aInterval.StartDate<(aEnd)))
+            or ((aInterval.FinishDate>aStart) and (aInterval.FinishDate<(aEnd)))
+            or ((aInterval.StartDate<=aStart) and (aInterval.FinishDate>=(aEnd)))
+            then
+              begin
+                aIStart := aInterval.StartDate;
+                aIEnd := aInterval.FinishDate;
+                aCanvas.Brush.Color:=clYellow;
+                aDrawRect:=Rect(round((aIStart-aStart)*aDayWidth),(aRect.Top+((aRect.Bottom-aRect.Top) div 4)-1)+aAddTop,round((aIEnd-aStart)*aDayWidth)-1,(aRect.Bottom-((aRect.Bottom-aRect.Top) div 4)-1)+aAddTop);
+                aCanvas.Rectangle(aDrawRect);
+              end;
+            break;
+          end;
+    end;
 end;
 
 procedure TfGanttView.acCenterTaskExecute(Sender: TObject);
@@ -325,6 +356,23 @@ begin
       aProjects.Next;
     end;
   aProjects.Free;
+end;
+
+procedure TfGanttView.acAddSnapshotExecute(Sender: TObject);
+var
+  aName: String;
+begin
+  aName := strSnapshot+' '+IntToStr(cbSnapshot.Items.Count);
+  if InputQuery(strSnapshot,strName,aName) then
+    begin
+      FTasks.First;
+      while not FTasks.EOF do
+        begin
+          FTasks.MakeSnapshot(aName);
+          FTasks.Next;
+        end;
+      cbSnapshot.Items.Add(aName);
+    end;
 end;
 
 procedure TfGanttView.acMakePossibleExecute(Sender: TObject);
@@ -430,6 +478,30 @@ begin
   FGantt.MajorScale:=tsMonth;
   FGantt.MinorScale:=tsWeekNumPlain;
   FGantt.Calendar.StartDate:=FGantt.Calendar.StartDate;
+end;
+
+procedure TfGanttView.cbSnapshotSelect(Sender: TObject);
+var
+  aInt: TInterval;
+begin
+  FreeAndNil(FSnapshots);
+  if cbSnapshot.Items[cbSnapshot.ItemIndex] = strNoSnapshot then exit;
+  FSnapshots := TInterval.Create(nil);
+  FTasks.First;
+  FTasks.Snapshots.Open;
+  while not FTasks.EOF do
+    begin
+      if FTasks.Snapshots.DataSet.Locate('NAME',cbSnapshot.Text,[]) then
+        begin
+          aInt := TInterval.Create(nil);
+          aInt.StartDate:=FTasks.Snapshots.FieldByName('STARTDATE').AsDateTime;
+          aInt.FinishDate:=FTasks.Snapshots.FieldByName('ENDDATE').AsDateTime;
+          aInt.Id:=FTasks.Id.AsVariant;
+          FSnapshots.AddInterval(aInt);
+        end;
+      FTasks.Next;
+    end;
+  FGantt.Calendar.Invalidate;
 end;
 
 procedure TfGanttView.FGanttCalendarClick(Sender: TObject);
@@ -553,6 +625,7 @@ begin
   FGantt.Tree.PopupMenu:=PopupMenu1;
   bDayViewClick(nil);
   FGantt.Calendar.ShowHint:=True;
+  FSnapshots := nil;
 end;
 destructor TfGanttView.Destroy;
 begin
@@ -587,7 +660,6 @@ var
           end;
       end;
   end;
-
   function IntervalById(Id : Variant;Root : TInterval = nil) : TInterval;
   var
     i: Integer;
@@ -675,7 +747,6 @@ var
           end;
       end;
   end;
-
 begin
   FGantt.BeginUpdate;
   try
@@ -687,12 +758,22 @@ begin
     aRoot := TInterval.Create(FGantt);
     FGantt.AddInterval(aRoot);
     aRoot.Task:=TProjectList(aTasks.Parent).Text.AsString;
+    cbSnapshot.Items.Clear;
+    cbSnapshot.Items.Add(strNoSnapshot);
     while not aTasks.EOF do
       begin
         if aTasks.FieldByName('ACTIVE').AsString<>'N' then
           if IntervalById(aTasks.Id.AsVariant)=nil then
             begin
               aInterval := AddTask(True,aRoot);
+              if not aTasks.Snapshots.DataSet.Active then aTasks.Snapshots.Open;
+              aTasks.Snapshots.First;
+              while not aTasks.Snapshots.EOF do
+                begin
+                  if cbSnapshot.Items.IndexOf(aTasks.Snapshots.FieldByName('NAME').AsString)=-1 then
+                    cbSnapshot.Items.Add(aTasks.Snapshots.FieldByName('NAME').AsString);
+                  aTasks.Snapshots.Next;
+                end;
             end;
         aTasks.Next;
       end;

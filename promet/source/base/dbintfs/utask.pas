@@ -13,9 +13,9 @@ interface
 uses
   Classes, SysUtils, uBaseDbClasses, uBaseDbInterface, db, uBaseERPDBClasses,Math;
 type
-
-  { TTaskList }
-
+  TTaskSnapshots = class(TBaseDbDataSet)
+    procedure DefineFields(aDataSet : TDataSet);override;
+  end;
   TTaskList = class(TBaseERPList,IBaseHistory)
     procedure DataSetAfterPost(aDataSet: TDataSet);
     procedure DataSetBeforeDelete(aDataSet: TDataSet);
@@ -23,6 +23,7 @@ type
   private
     FAddProjectOnPost : Boolean;
     FHistory: TBaseHistory;
+    FSnapshots: TTaskSnapshots;
     FTempUsers : TUser;
     FDS: TDataSource;
     DoCheckTask : Boolean;
@@ -52,11 +53,13 @@ type
     procedure MoveDependTasks;
     procedure Open; override;
     function CalcDates(var aStart, aDue: TDateTime): Boolean;
+    procedure MakeSnapshot(aName : string);
     procedure DisableDS;
     property OwnerName : string read GetownerName;
     property UserName : string read GetUserName;
     property History : TBaseHistory read FHistory;
     property UserID : String read FUserID write FUserID;
+    property Snapshots : TTaskSnapshots read FSnapshots;
   end;
 
   { TTaskLinks }
@@ -121,6 +124,22 @@ resourcestring
   strPercentDone            = '% erledigt';
   strWorkstatus             = 'Bearbeitungsstatus';
   strRenamed                = 'umbenannt in "%s"';
+
+procedure TTaskSnapshots.DefineFields(aDataSet: TDataSet);
+begin
+  with aDataSet as IBaseManageDB do
+    begin
+      TableName := 'TASKSNAPSHOTS';
+      if Assigned(ManagedFieldDefs) then
+        with ManagedFieldDefs do
+          begin
+            Add('NAME',ftString,100,True);
+            Add('STARTDATE',ftDateTime,0,True);
+            Add('ENDDATE',ftDateTime,0,True);
+          end;
+    end;
+end;
+
 procedure TDependencies.DataSetAfterDelete(aDataSet: TDataSet);
 begin
   if DataSet.RecordCount = 0 then
@@ -234,6 +253,20 @@ begin
   DataSet.FieldByName('DEPDONE').AsString := AllCompleted;
   DataSet.Post;
 end;
+
+procedure TTaskList.MakeSnapshot(aName: string);
+var
+  aStart: TDateTime;
+  aEnd: TDateTime;
+begin
+  CalcDates(aStart,aEnd);
+  Snapshots.Append;
+  Snapshots.FieldByName('NAME').AsString:=aName;
+  Snapshots.FieldByName('STARTDATE').AsDateTime:=aStart;
+  Snapshots.FieldByName('ENDDATE').AsDateTime:=aEnd;
+  Snapshots.Post;
+end;
+
 procedure TTaskList.CheckChilds;
 var
   aTasks: TTaskList;
@@ -867,10 +900,12 @@ begin
     end;
   FTempUsers := TUser.Create(aOwner,DM);
   FHistory := TBaseHistory.Create(Self,DM,aConnection,DataSet);
+  FSnapshots := TTaskSnapshots.Create(Self,DM,aConnection,DataSet);
 end;
 
 destructor TTaskList.Destroy;
 begin
+  FSnapshots.Free;
   FDS.Free;
   FHistory.Free;
   FTempUsers.Free;
@@ -896,6 +931,7 @@ function TTaskList.CreateTable : Boolean;
 begin
   Result := inherited CreateTable;
   FHistory.CreateTable;
+  FSnapshots.CreateTable;
   try
     if Data.ShouldCheckTable('TASKS') then
       begin
