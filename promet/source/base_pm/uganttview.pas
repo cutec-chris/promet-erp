@@ -350,8 +350,8 @@ begin
       aProject.Open;
       if aProject.Count>0 then
         begin
-          if not FTasks.DataSet.Locate('COMPLETED','N',[]) then
-            aProject.Tasks.SelectActive;
+          //if not FTasks.DataSet.Locate('COMPLETED','N',[]) then
+          aProject.Tasks.SelectActive;
           aProject.Tasks.Open;
           Populate(aProject.Tasks,False);
         end;
