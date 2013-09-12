@@ -295,7 +295,7 @@ begin
   Self.OnQueryEndSession:=@BaseVisualApplicationQueryEndSession;
   Self.OnException:=@BaseVisualApplicationException;
   {$IFDEF WINDOWS}
-  Self.MainFormOnTaskBar:=True;
+  //Self.MainFormOnTaskBar:=True;
   {$ENDIF}
   {$IFDEF DARWIN}
   GetOSXDateStyles;
@@ -972,4 +972,4 @@ initialization
   RegisterClass(TDBComboBox);
   RegisterClass(TPanel);
 end.
-
+

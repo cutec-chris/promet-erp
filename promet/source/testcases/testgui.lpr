@@ -10,6 +10,7 @@ uses
   tdbtests,
   ucreatetable,
   utransaction,
+  utgridview,
   udocumentmanagement,
   tmemoryleak,
   utfulllogout,
@@ -19,8 +20,7 @@ uses
   uprojecttest,
   uordertest,
 
-  tLogout
-  ;
+  tLogout;
 
 {$R *.res}
 
@@ -31,4 +31,4 @@ begin
   Application.CreateForm(TGuiTestRunner, TestRunner);
   Application.Run;
 end.
-
+
