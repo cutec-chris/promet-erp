@@ -19,7 +19,7 @@ uses
   uBaseVisualControls, uData, UTF8Process, Controls, Process, ProcessUtils,
   uSystemMessage, uProcessManager, uExtControls, db, typinfo, eventlog,menus,
   Dialogs,uIntfStrConsts,DBZVDateTimePicker
-  {$IFDEF DARWIN}
+  {$IFDEF LCLCARBON}
   ,MacOSAll,CarbonProc
   {$ENDIF}
   ;
@@ -62,7 +62,7 @@ type
     procedure StartProcessManager;
     procedure UserTabAdded(Sender : TObject);
     function HandleSystemCommand(Sender : TObject;aCommand : string) : Boolean;
-    {$IFDEF DARWIN}
+    {$IFDEF LCLCARBON}
     procedure GetOSXDateStyles;
     {$ENDIF}
   protected
@@ -223,7 +223,7 @@ procedure TBaseVisualApplication.MessageHandlerExit(Sender: TObject);
 begin
   FMessageHandler := nil;
 end;
-{$IFDEF DARWIN}
+{$IFDEF LCLCARBON}
 procedure TBaseVisualApplication.GetOSXDateStyles;
 var
   currentLocale: CFLocaleRef;
@@ -298,7 +298,7 @@ begin
   if Self.MainFormHandle<>0 then
     Self.MainFormOnTaskBar:=True;
   {$ENDIF}
-  {$IFDEF DARWIN}
+  {$IFDEF LCLCARBON}
   GetOSXDateStyles;
   {$ENDIF}
 end;
@@ -973,4 +973,4 @@ initialization
   RegisterClass(TDBComboBox);
   RegisterClass(TPanel);
 end.
-
+
