@@ -368,10 +368,13 @@ var
 begin
   if aCol.FieldName = 'DESC' then
     begin
-      if pos('('+strProjectProcess,NewText)>0 then
-        aFont.Style := [fsBold]
-      else
-        aFont.Style := [];
+      if Assigned(aFont) then
+        begin
+          if pos('('+strProjectProcess,NewText)>0 then
+            aFont.Style := [fsBold]
+          else
+            aFont.Style := [];
+        end;
     end
   else if aCol.FieldName = 'OWNER' then
     begin
