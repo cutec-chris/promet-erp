@@ -7,7 +7,7 @@ unit general;
 interface
 
 uses
-  uInfo, uHelp, uError, ubenchmark, uExtControls, ucomport, LazarusPackageIntf;
+  uInfo, uError, ubenchmark, uExtControls, ucomport, LazarusPackageIntf;
 
 implementation
 

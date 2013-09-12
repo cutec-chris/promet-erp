@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Package Version="4">
     <PathDelim Value="\"/>
@@ -22,43 +22,39 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="9">
+    <Files Count="8">
       <Item1>
         <Filename Value="src\Utils.pas"/>
         <UnitName Value="Utils"/>
       </Item1>
       <Item2>
-        <Filename Value="src\fuzzysearch.pas"/>
-        <UnitName Value="fuzzysearch"/>
-      </Item2>
-      <Item3>
         <Filename Value="src\ugeneralstrconsts.pas"/>
         <UnitName Value="uGeneralStrConsts"/>
-      </Item3>
-      <Item4>
+      </Item2>
+      <Item3>
         <Filename Value="src\secureutils.pas"/>
         <UnitName Value="SecureUtils"/>
-      </Item4>
-      <Item5>
+      </Item3>
+      <Item4>
         <Filename Value="src\processutils.pas"/>
         <UnitName Value="ProcessUtils"/>
-      </Item5>
-      <Item6>
+      </Item4>
+      <Item5>
         <Filename Value="src\umashineid.pas"/>
         <UnitName Value="umashineid"/>
-      </Item6>
-      <Item7>
+      </Item5>
+      <Item6>
         <Filename Value="src\htmlconvert.pas"/>
         <UnitName Value="htmlconvert"/>
+      </Item6>
+      <Item7>
+        <Filename Value="src\umodifiedds.pas"/>
+        <UnitName Value="uModifiedDS"/>
       </Item7>
       <Item8>
-        <Filename Value="src\umodifiedds.pas"/>
-        <UnitName Value="umodifiedds"/>
-      </Item8>
-      <Item9>
         <Filename Value="src\ucolors.pas"/>
         <UnitName Value="uColors"/>
-      </Item9>
+      </Item8>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="2">

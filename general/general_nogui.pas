@@ -7,8 +7,8 @@ unit general_nogui;
 interface
 
 uses
-  Utils, fuzzysearch, uGeneralStrConsts, SecureUtils, ProcessUtils, 
-  umashineid, htmlconvert, uModifiedDS, uColors, LazarusPackageIntf;
+  Utils, uGeneralStrConsts, SecureUtils, ProcessUtils, umashineid, 
+  htmlconvert, uModifiedDS, uColors, LazarusPackageIntf;
 
 implementation
 
