@@ -66,6 +66,9 @@ procedure TGridviewtest.MoveRowTo1; //Move new Added Row to Position 1
 begin
   GV.Post;
   GV.gList.MoveColRow(False,2,1);
+  Check(GV.dgFake.DataSource.DataSet.FieldByName('GPRIORITY').AsInteger=1,'Sortfield1='+IntToStr(GV.dgFake.DataSource.DataSet.FieldByName('GPRIORITY').AsInteger));
+  GV.GotoRowNumber(2);
+  Check(GV.dgFake.DataSource.DataSet.FieldByName('GPRIORITY').AsInteger=2,'Sortfield2='+IntToStr(GV.dgFake.DataSource.DataSet.FieldByName('GPRIORITY').AsInteger));
 end;
 
 procedure TGridviewtest.AddRow2; //Insert Row on Position 2
