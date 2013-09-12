@@ -295,7 +295,8 @@ begin
   Self.OnQueryEndSession:=@BaseVisualApplicationQueryEndSession;
   Self.OnException:=@BaseVisualApplicationException;
   {$IFDEF WINDOWS}
-  //Self.MainFormOnTaskBar:=True;
+  if Self.MainFormHandle<>0 then
+    Self.MainFormOnTaskBar:=True;
   {$ENDIF}
   {$IFDEF DARWIN}
   GetOSXDateStyles;

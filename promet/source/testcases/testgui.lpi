@@ -52,17 +52,16 @@
         <PackageName Value="FCL"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="139">
+    <Units Count="143">
       <Unit0>
         <Filename Value="testgui.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="testgui"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="14" Y="13"/>
-        <UsageCount Value="73"/>
+        <CursorPos X="5" Y="11"/>
+        <UsageCount Value="75"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -72,7 +71,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="10"/>
         <CursorPos X="40" Y="9"/>
-        <UsageCount Value="73"/>
+        <UsageCount Value="75"/>
       </Unit1>
       <Unit2>
         <Filename Value="C:\Programme\lazarus\components\fpcunit\guitestrunner.pas"/>
@@ -210,12 +209,10 @@
         <Filename Value="tlogout.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="tlogout"/>
-        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="3" Y="25"/>
-        <UsageCount Value="71"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="73"/>
       </Unit18>
       <Unit19>
         <Filename Value="D:\LKomponenten\zeos\src\dbc\ZDbcIntfs.pas"/>
@@ -240,7 +237,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="5"/>
         <CursorPos X="1" Y="40"/>
-        <UsageCount Value="68"/>
+        <UsageCount Value="70"/>
       </Unit21>
       <Unit22>
         <Filename Value="C:\Programme\lazarus\fpc\2.4.3\source\rtl\inc\heaph.inc"/>
@@ -322,22 +319,18 @@
       <Unit32>
         <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="29"/>
         <CursorPos X="1" Y="48"/>
         <UsageCount Value="30"/>
-        <Loaded Value="True"/>
       </Unit32>
       <Unit33>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="915"/>
+        <TopLine Value="914"/>
         <CursorPos X="1" Y="836"/>
         <UsageCount Value="28"/>
-        <Loaded Value="True"/>
       </Unit33>
       <Unit34>
         <Filename Value="..\base\pvisualprometapp.pas"/>
@@ -358,12 +351,10 @@
       <Unit36>
         <Filename Value="..\base\ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="264"/>
-        <CursorPos X="48" Y="298"/>
+        <TopLine Value="274"/>
+        <CursorPos X="1" Y="304"/>
         <UsageCount Value="27"/>
-        <Loaded Value="True"/>
       </Unit36>
       <Unit37>
         <Filename Value="C:\Programme\lazarus\fpc\2.4.3\source\packages\fcl-fpcunit\src\fpcunit.pp"/>
@@ -377,12 +368,10 @@
         <Filename Value="utransaction.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="utransaction"/>
-        <EditorIndex Value="22"/>
         <WindowIndex Value="0"/>
         <TopLine Value="12"/>
         <CursorPos X="46" Y="55"/>
-        <UsageCount Value="52"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="54"/>
       </Unit38>
       <Unit39>
         <Filename Value="..\base\dbintfs\usystemmessage.pas"/>
@@ -412,12 +401,10 @@
         <Filename Value="utfulllogout.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="utfulllogout"/>
-        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="24" Y="18"/>
-        <UsageCount Value="62"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="64"/>
       </Unit42>
       <Unit43>
         <Filename Value="..\base\upassword.pas"/>
@@ -440,12 +427,10 @@
       <Unit45>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1052"/>
         <CursorPos X="1" Y="1069"/>
         <UsageCount Value="29"/>
-        <Loaded Value="True"/>
       </Unit45>
       <Unit46>
         <Filename Value="D:\home\chris\lazarus\components\synedit\syneditfoldedview.pp"/>
@@ -459,12 +444,10 @@
         <Filename Value="ucreatetable.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ucreatetable"/>
-        <EditorIndex Value="20"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="96"/>
+        <TopLine Value="95"/>
         <CursorPos X="30" Y="65"/>
-        <UsageCount Value="42"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="44"/>
       </Unit47>
       <Unit48>
         <Filename Value="D:\LKomponenten\zeos\src\component\ZConnection.pas"/>
@@ -525,12 +508,10 @@
       <Unit55>
         <Filename Value="..\base\dbintfs\uorder.pas"/>
         <UnitName Value="uOrder"/>
-        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1528"/>
         <CursorPos X="17" Y="1545"/>
         <UsageCount Value="14"/>
-        <Loaded Value="True"/>
       </Unit55>
       <Unit56>
         <Filename Value="C:\Programme\lazarus\fpc\2.4.3\source\packages\fcl-fpcunit\src\testregistry.pp"/>
@@ -771,22 +752,18 @@
         <Filename Value="udocumentmanagement.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="udocumentmanagement"/>
-        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="126"/>
-        <CursorPos X="92" Y="149"/>
-        <UsageCount Value="32"/>
-        <Loaded Value="True"/>
+        <TopLine Value="69"/>
+        <CursorPos X="5" Y="78"/>
+        <UsageCount Value="34"/>
       </Unit83>
       <Unit84>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
         <UnitName Value="uDocuments"/>
-        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1401"/>
-        <CursorPos X="98" Y="1408"/>
+        <TopLine Value="1352"/>
+        <CursorPos X="1" Y="1370"/>
         <UsageCount Value="13"/>
-        <Loaded Value="True"/>
       </Unit84>
       <Unit85>
         <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\packages\fcl-fpcunit\src\DUnitCompatibleInterface.inc"/>
@@ -1005,12 +982,10 @@
         <Filename Value="ulinkcheck.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ulinkcheck"/>
-        <EditorIndex Value="21"/>
         <WindowIndex Value="0"/>
         <TopLine Value="13"/>
-        <CursorPos X="21" Y="38"/>
-        <UsageCount Value="25"/>
-        <Loaded Value="True"/>
+        <CursorPos X="170" Y="13"/>
+        <UsageCount Value="27"/>
       </Unit111>
       <Unit112>
         <Filename Value="..\base\dbintfs\udata.pas"/>
@@ -1024,22 +999,18 @@
         <Filename Value="upersontest.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="upersontest"/>
-        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="17"/>
         <CursorPos X="18" Y="37"/>
-        <UsageCount Value="23"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="25"/>
       </Unit113>
       <Unit114>
         <Filename Value="..\base\dbintfs\uperson.pas"/>
         <UnitName Value="uPerson"/>
-        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="539"/>
         <CursorPos X="1" Y="557"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit114>
       <Unit115>
         <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\rtl\inc\objpash.inc"/>
@@ -1051,12 +1022,10 @@
       <Unit116>
         <Filename Value="..\base\dbintfs\ubaseerpdbclasses.pas"/>
         <UnitName Value="uBaseERPDBClasses"/>
-        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="278"/>
         <CursorPos X="1" Y="306"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit116>
       <Unit117>
         <Filename Value="umasterdatatest.pas"/>
@@ -1065,7 +1034,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="26"/>
         <CursorPos X="1" Y="48"/>
-        <UsageCount Value="22"/>
+        <UsageCount Value="24"/>
       </Unit117>
       <Unit118>
         <Filename Value="..\base\dbintfs\umasterdata.pas"/>
@@ -1079,22 +1048,18 @@
         <Filename Value="uprojecttest.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uprojecttest"/>
-        <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="19"/>
         <CursorPos X="5" Y="36"/>
-        <UsageCount Value="22"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="24"/>
       </Unit119>
       <Unit120>
         <Filename Value="..\base\dbintfs\uprojects.pas"/>
         <UnitName Value="uProjects"/>
-        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="346"/>
         <CursorPos X="1" Y="365"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit120>
       <Unit121>
         <Filename Value="..\components\zeos\src\dbc\ZDbcStatement.pas"/>
@@ -1160,22 +1125,18 @@
       <Unit128>
         <Filename Value="..\base\dbintfs\ubasesearch.pas"/>
         <UnitName Value="uBaseSearch"/>
-        <EditorIndex Value="19"/>
         <WindowIndex Value="0"/>
         <TopLine Value="131"/>
         <CursorPos X="26" Y="142"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit128>
       <Unit129>
         <Filename Value="tdbtests.pas"/>
         <UnitName Value="tdbtests"/>
-        <EditorIndex Value="18"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="2"/>
+        <TopLine Value="1"/>
         <CursorPos X="21" Y="27"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit129>
       <Unit130>
         <Filename Value="..\..\..\..\fpc\2.6_fixes\rtl\inc\systemh.inc"/>
@@ -1215,22 +1176,18 @@
         <Filename Value="uordertest.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uordertest"/>
-        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="41"/>
         <CursorPos X="15" Y="69"/>
-        <UsageCount Value="21"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="23"/>
       </Unit134>
       <Unit135>
         <Filename Value="..\components\zeos\src\dbc\ZDbcCache.pas"/>
         <UnitName Value="ZDbcCache"/>
-        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="740"/>
         <CursorPos X="33" Y="751"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit135>
       <Unit136>
@@ -1245,138 +1202,112 @@
         <Filename Value="C:\Programme\lazarus\lcl\include\wincontrol.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="7209"/>
-        <CursorPos X="23" Y="7216"/>
+        <CursorPos X="24" Y="7227"/>
         <UsageCount Value="10"/>
       </Unit137>
       <Unit138>
         <Filename Value="utgridview.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="utgridview"/>
-        <EditorIndex Value="3"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="21"/>
-        <UsageCount Value="20"/>
+        <TopLine Value="63"/>
+        <CursorPos X="23" Y="92"/>
+        <UsageCount Value="22"/>
         <Loaded Value="True"/>
       </Unit138>
+      <Unit139>
+        <Filename Value="C:\Programme\lazarus\components\lazutils\utf8process.pp"/>
+        <UnitName Value="UTF8Process"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="156"/>
+        <CursorPos X="33" Y="174"/>
+        <UsageCount Value="10"/>
+      </Unit139>
+      <Unit140>
+        <Filename Value="C:\Programme\lazarus\fpc\2.6.2\source\packages\fcl-fpcunit\src\DUnitCompatibleInterface.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="21" Y="5"/>
+        <UsageCount Value="10"/>
+      </Unit140>
+      <Unit141>
+        <Filename Value="C:\Programme\lazarus\lcl\grids.pas"/>
+        <UnitName Value="Grids"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="8847"/>
+        <CursorPos X="61" Y="8869"/>
+        <UsageCount Value="10"/>
+      </Unit141>
+      <Unit142>
+        <Filename Value="..\base\ugridview.pas"/>
+        <UnitName Value="ugridview"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2023"/>
+        <CursorPos X="1" Y="2034"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit142>
     </Units>
-    <JumpHistory Count="29" HistoryIndex="28">
+    <JumpHistory Count="14" HistoryIndex="13">
       <Position1>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1028" Column="1" TopLine="1011"/>
-      </Position1>
-      <Position2>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1029" Column="1" TopLine="1011"/>
-      </Position2>
-      <Position3>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1031" Column="1" TopLine="1011"/>
-      </Position3>
-      <Position4>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1033" Column="1" TopLine="1011"/>
-      </Position4>
-      <Position5>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1034" Column="1" TopLine="1011"/>
-      </Position5>
-      <Position6>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1035" Column="1" TopLine="1011"/>
-      </Position6>
-      <Position7>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1037" Column="1" TopLine="1011"/>
-      </Position7>
-      <Position8>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1038" Column="1" TopLine="1011"/>
-      </Position8>
-      <Position9>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1039" Column="1" TopLine="1011"/>
-      </Position9>
-      <Position10>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1045" Column="1" TopLine="1017"/>
-      </Position10>
-      <Position11>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1046" Column="1" TopLine="1018"/>
-      </Position11>
-      <Position12>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1048" Column="1" TopLine="1020"/>
-      </Position12>
-      <Position13>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1049" Column="1" TopLine="1021"/>
-      </Position13>
-      <Position14>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1050" Column="1" TopLine="1022"/>
-      </Position14>
-      <Position15>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1051" Column="1" TopLine="1023"/>
-      </Position15>
-      <Position16>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1052" Column="1" TopLine="1024"/>
-      </Position16>
-      <Position17>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1053" Column="1" TopLine="1026"/>
-      </Position17>
-      <Position18>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1058" Column="1" TopLine="1030"/>
-      </Position18>
-      <Position19>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1059" Column="1" TopLine="1031"/>
-      </Position19>
-      <Position20>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1060" Column="1" TopLine="1032"/>
-      </Position20>
-      <Position21>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1061" Column="1" TopLine="1033"/>
-      </Position21>
-      <Position22>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1062" Column="1" TopLine="1034"/>
-      </Position22>
-      <Position23>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1063" Column="1" TopLine="1035"/>
-      </Position23>
-      <Position24>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1069" Column="1" TopLine="1052"/>
-      </Position24>
-      <Position25>
-        <Filename Value="..\base\dbintfs\ubaseerpdbclasses.pas"/>
-        <Caret Line="303" Column="1" TopLine="278"/>
-      </Position25>
-      <Position26>
-        <Filename Value="..\base\dbintfs\ubaseerpdbclasses.pas"/>
-        <Caret Line="305" Column="1" TopLine="278"/>
-      </Position26>
-      <Position27>
-        <Filename Value="..\base\dbintfs\ubaseerpdbclasses.pas"/>
-        <Caret Line="306" Column="1" TopLine="278"/>
-      </Position27>
-      <Position28>
-        <Filename Value="..\base\dbintfs\uperson.pas"/>
-        <Caret Line="557" Column="1" TopLine="539"/>
-      </Position28>
-      <Position29>
         <Filename Value="testgui.lpr"/>
         <Caret Line="20" Column="14" TopLine="1"/>
-      </Position29>
+      </Position1>
+      <Position2>
+        <Filename Value="utgridview.pas"/>
+        <Caret Line="15" Column="23" TopLine="1"/>
+      </Position2>
+      <Position3>
+        <Filename Value="utgridview.pas"/>
+        <Caret Line="29" Column="7" TopLine="10"/>
+      </Position3>
+      <Position4>
+        <Filename Value="utgridview.pas"/>
+        <Caret Line="37" Column="4" TopLine="11"/>
+      </Position4>
+      <Position5>
+        <Filename Value="utgridview.pas"/>
+        <Caret Line="38" Column="55" TopLine="23"/>
+      </Position5>
+      <Position6>
+        <Filename Value="utgridview.pas"/>
+        <Caret Line="48" Column="22" TopLine="26"/>
+      </Position6>
+      <Position7>
+        <Filename Value="utgridview.pas"/>
+        <Caret Line="44" Column="10" TopLine="23"/>
+      </Position7>
+      <Position8>
+        <Filename Value="..\base\ugridview.pas"/>
+        <Caret Line="323" Column="62" TopLine="304"/>
+      </Position8>
+      <Position9>
+        <Filename Value="utgridview.pas"/>
+        <Caret Line="45" Column="13" TopLine="23"/>
+      </Position9>
+      <Position10>
+        <Filename Value="..\base\ugridview.pas"/>
+        <Caret Line="316" Column="59" TopLine="299"/>
+      </Position10>
+      <Position11>
+        <Filename Value="utgridview.pas"/>
+        <Caret Line="16" Column="26" TopLine="5"/>
+      </Position11>
+      <Position12>
+        <Filename Value="utgridview.pas"/>
+        <Caret Line="18" Column="26" TopLine="10"/>
+      </Position12>
+      <Position13>
+        <Filename Value="utgridview.pas"/>
+        <Caret Line="20" Column="5" TopLine="1"/>
+      </Position13>
+      <Position14>
+        <Filename Value="utgridview.pas"/>
+        <Caret Line="22" Column="27" TopLine="15"/>
+      </Position14>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

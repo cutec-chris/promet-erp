@@ -2786,7 +2786,7 @@ var
   aBm: Int64;
   i: Integer;
   aTree: String;
-  asCol: Integer;
+  asCol: Integer = -1;
   aLevel: Integer;
   aHasChilds: Char;
 begin
