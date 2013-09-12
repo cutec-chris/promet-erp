@@ -429,14 +429,15 @@ begin
   if aLink <> '' then
     begin
       aEdit :=TfTaskEdit.Create(nil);
-      if (not MustChange(TP.GetTaskIntervalFromCoordinates(FGantt,aClickPoint.X,aClickPoint.Y,aSelInterval))) or (MessageDlg(strSaveChanges,mtInformation,[mbYes,mbNo],0) = mrYes) then
+      if aEdit.Execute(aLink) then
         begin
-          DoSave;
-          if aEdit.Execute(aLink) then
+          aInt := TP.GetTaskIntervalFromCoordinates(FGantt,aClickPoint.X,aClickPoint.Y,aSelInterval);
+          if Assigned(aInt) then
             begin
-              aInt := TP.GetTaskIntervalFromCoordinates(FGantt,aClickPoint.X,aClickPoint.Y,aSelInterval);
-              if Assigned(aInt) then
+              if (not aInt.Changed) or (MessageDlg(strSaveChanges,mtInformation,[mbYes,mbNo],0) = mrYes) then
                 begin
+                  if aInt.Changed then
+                    ChangeTask(FTasks,aInt);
                   aTask := TTask.Create(nil,Data);
                   aTask.SelectFromLink(aLink);
                   aTask.Open;
