@@ -59,12 +59,12 @@
         <PackageName Value="pVisualPrometApp"/>
       </Item9>
     </RequiredPackages>
-    <Units Count="179">
+    <Units Count="181">
       <Unit0>
         <Filename Value="projectmanagement.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="projectmanagement"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="32" Y="19"/>
@@ -1483,8 +1483,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="419"/>
-        <CursorPos X="3" Y="440"/>
+        <TopLine Value="130"/>
+        <CursorPos X="124" Y="149"/>
         <UsageCount Value="14"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -1492,10 +1492,12 @@
       <Unit177>
         <Filename Value="..\base_pm\gsGanttCalendar.pas"/>
         <UnitName Value="gsGanttCalendar"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1524"/>
-        <CursorPos X="1" Y="1547"/>
-        <UsageCount Value="9"/>
+        <TopLine Value="455"/>
+        <CursorPos X="14" Y="473"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit177>
       <Unit178>
         <Filename Value="..\base_pm\utaskplan.pas"/>
@@ -1503,7 +1505,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uTaskPlan"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="897"/>
         <CursorPos X="26" Y="920"/>
@@ -1511,6 +1513,26 @@
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit178>
+      <Unit179>
+        <Filename Value="C:\Programme\lazarus\lcl\grids.pas"/>
+        <UnitName Value="Grids"/>
+        <EditorIndex Value="13"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1098"/>
+        <CursorPos X="31" Y="1116"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit179>
+      <Unit180>
+        <Filename Value="C:\Programme\lazarus\lcl\stdctrls.pp"/>
+        <UnitName Value="StdCtrls"/>
+        <EditorIndex Value="14"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="22"/>
+        <CursorPos X="128" Y="22"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit180>
     </Units>
     <Build>
       <CleanOutputFileMask Value="*.ppu;*.ppl;*.o;*.or"/>
@@ -1518,123 +1540,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="..\base\dbintfs\utask.pas"/>
-        <Caret Line="392" Column="1" TopLine="378"/>
+        <Caret Line="412" Column="1" TopLine="394"/>
       </Position1>
       <Position2>
         <Filename Value="..\base\dbintfs\utask.pas"/>
-        <Caret Line="393" Column="1" TopLine="378"/>
+        <Caret Line="417" Column="1" TopLine="394"/>
       </Position2>
       <Position3>
         <Filename Value="..\base\dbintfs\utask.pas"/>
-        <Caret Line="395" Column="1" TopLine="378"/>
+        <Caret Line="419" Column="1" TopLine="394"/>
       </Position3>
       <Position4>
         <Filename Value="..\base\dbintfs\utask.pas"/>
-        <Caret Line="396" Column="1" TopLine="378"/>
+        <Caret Line="420" Column="1" TopLine="394"/>
       </Position4>
       <Position5>
         <Filename Value="..\base\dbintfs\utask.pas"/>
-        <Caret Line="397" Column="1" TopLine="378"/>
+        <Caret Line="421" Column="1" TopLine="394"/>
       </Position5>
       <Position6>
         <Filename Value="..\base\dbintfs\utask.pas"/>
-        <Caret Line="398" Column="1" TopLine="378"/>
+        <Caret Line="422" Column="1" TopLine="394"/>
       </Position6>
       <Position7>
-        <Filename Value="..\base\dbintfs\utask.pas"/>
-        <Caret Line="403" Column="1" TopLine="378"/>
+        <Filename Value="..\base_pm\uganttview.pas"/>
+        <Caret Line="342" Column="22" TopLine="332"/>
       </Position7>
       <Position8>
-        <Filename Value="..\base\dbintfs\utask.pas"/>
-        <Caret Line="412" Column="1" TopLine="394"/>
+        <Filename Value="..\base_pm\uganttview.pas"/>
+        <Caret Line="714" Column="26" TopLine="592"/>
       </Position8>
       <Position9>
-        <Filename Value="..\base\dbintfs\utask.pas"/>
-        <Caret Line="417" Column="1" TopLine="394"/>
+        <Filename Value="..\base_pm\uganttview.pas"/>
+        <Caret Line="125" Column="56" TopLine="90"/>
       </Position9>
       <Position10>
-        <Filename Value="..\base\dbintfs\utask.pas"/>
-        <Caret Line="419" Column="1" TopLine="394"/>
+        <Filename Value="..\base_pm\uganttview.pas"/>
+        <Caret Line="461" Column="27" TopLine="457"/>
       </Position10>
       <Position11>
-        <Filename Value="..\base\dbintfs\utask.pas"/>
-        <Caret Line="420" Column="1" TopLine="394"/>
+        <Filename Value="..\base_pm\uganttview.pas"/>
+        <Caret Line="586" Column="20" TopLine="320"/>
       </Position11>
       <Position12>
-        <Filename Value="..\base\dbintfs\utask.pas"/>
-        <Caret Line="421" Column="1" TopLine="394"/>
+        <Filename Value="..\base_pm\uganttview.pas"/>
+        <Caret Line="281" Column="23" TopLine="273"/>
       </Position12>
       <Position13>
-        <Filename Value="..\base\dbintfs\utask.pas"/>
-        <Caret Line="422" Column="1" TopLine="394"/>
+        <Filename Value="..\base_pm\uganttview.pas"/>
+        <Caret Line="283" Column="1" TopLine="271"/>
       </Position13>
       <Position14>
         <Filename Value="..\base_pm\uganttview.pas"/>
-        <Caret Line="342" Column="22" TopLine="332"/>
+        <Caret Line="299" Column="42" TopLine="272"/>
       </Position14>
       <Position15>
         <Filename Value="..\base_pm\uganttview.pas"/>
-        <Caret Line="714" Column="26" TopLine="592"/>
+        <Caret Line="297" Column="37" TopLine="272"/>
       </Position15>
       <Position16>
         <Filename Value="..\base_pm\uganttview.pas"/>
-        <Caret Line="125" Column="56" TopLine="90"/>
+        <Caret Line="497" Column="53" TopLine="483"/>
       </Position16>
       <Position17>
         <Filename Value="..\base_pm\uganttview.pas"/>
-        <Caret Line="461" Column="27" TopLine="457"/>
+        <Caret Line="486" Column="53" TopLine="260"/>
       </Position17>
       <Position18>
-        <Filename Value="..\base_pm\uganttview.pas"/>
-        <Caret Line="586" Column="20" TopLine="320"/>
+        <Filename Value="projectmanagement.lpr"/>
+        <Caret Line="10" Column="10" TopLine="1"/>
       </Position18>
       <Position19>
         <Filename Value="..\base_pm\uganttview.pas"/>
-        <Caret Line="281" Column="23" TopLine="273"/>
+        <Caret Line="353" Column="1" TopLine="338"/>
       </Position19>
       <Position20>
         <Filename Value="..\base_pm\uganttview.pas"/>
-        <Caret Line="283" Column="1" TopLine="271"/>
+        <Caret Line="21" Column="77" TopLine="9"/>
       </Position20>
       <Position21>
         <Filename Value="..\base_pm\uganttview.pas"/>
-        <Caret Line="299" Column="42" TopLine="272"/>
+        <Caret Line="528" Column="13" TopLine="524"/>
       </Position21>
       <Position22>
         <Filename Value="..\base_pm\uganttview.pas"/>
-        <Caret Line="297" Column="37" TopLine="272"/>
+        <Caret Line="828" Column="18" TopLine="818"/>
       </Position22>
       <Position23>
-        <Filename Value="..\base_pm\uganttview.pas"/>
-        <Caret Line="497" Column="53" TopLine="483"/>
+        <Filename Value="..\base_pm\utaskplan.pas"/>
+        <Caret Line="172" Column="22" TopLine="153"/>
       </Position23>
       <Position24>
         <Filename Value="..\base_pm\uganttview.pas"/>
-        <Caret Line="486" Column="53" TopLine="260"/>
+        <Caret Line="624" Column="78" TopLine="616"/>
       </Position24>
       <Position25>
-        <Filename Value="projectmanagement.lpr"/>
-        <Caret Line="10" Column="10" TopLine="1"/>
+        <Filename Value="..\base_pm\uganttview.pas"/>
+        <Caret Line="139" Column="22" TopLine="126"/>
       </Position25>
       <Position26>
-        <Filename Value="..\base_pm\uganttview.pas"/>
-        <Caret Line="353" Column="1" TopLine="338"/>
+        <Filename Value="C:\Programme\lazarus\lcl\grids.pas"/>
+        <Caret Line="1634" Column="18" TopLine="1617"/>
       </Position26>
       <Position27>
-        <Filename Value="..\base_pm\uganttview.pas"/>
-        <Caret Line="21" Column="77" TopLine="9"/>
+        <Filename Value="C:\Programme\lazarus\lcl\grids.pas"/>
+        <Caret Line="1322" Column="19" TopLine="1304"/>
       </Position27>
       <Position28>
-        <Filename Value="..\base_pm\uganttview.pas"/>
-        <Caret Line="528" Column="13" TopLine="524"/>
+        <Filename Value="C:\Programme\lazarus\lcl\grids.pas"/>
+        <Caret Line="1116" Column="31" TopLine="1098"/>
       </Position28>
       <Position29>
         <Filename Value="..\base_pm\uganttview.pas"/>
-        <Caret Line="828" Column="18" TopLine="818"/>
+        <Caret Line="137" Column="34" TopLine="126"/>
       </Position29>
       <Position30>
-        <Filename Value="..\base_pm\utaskplan.pas"/>
-        <Caret Line="172" Column="22" TopLine="153"/>
+        <Filename Value="..\base_pm\uganttview.pas"/>
+        <Caret Line="149" Column="131" TopLine="144"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>

@@ -831,33 +831,10 @@ begin
           end;
       if GotoRowNumber(sIndex) then
         begin
-          //Set Parent
           gList.Row := sIndex;
-          aLevelOld := GetLevel(aCol,gList.Row);
-          aParent := FDataSet.FieldByName(TreeField).AsVariant;
-          if FDataSet.DataSet.FieldDefs.IndexOf(TreeField) = -1 then exit;
           if FDataSet.CanEdit then
             FDataSet.DataSet.Post;
           gList.Row:=tIndex;
-          {
-          if gList.Row > gList.FixedRows then
-            begin
-              OneRowBelowID := TRowObject(gList.Objects[0,gList.Row+1]).Rec;
-              GotoRowNumber(gList.Row-1);
-              aBelowParent := FDataSet.FieldByName(TreeField).AsVariant;
-            end;
-          aLevel := GetLevel(aCol,gList.Row);
-          if aLevel = 0 then
-            aLevel := 1;
-          if (OneRowBelowID <> 0)
-          and (aBelowParent <> aParent)
-          and (OneRowBelowID <> aParent) then
-            begin
-              //SetChild(False);
-
-              aBelowParent := FDataSet.FieldByName(TreeField).AsVariant;
-            end;
-          }
           //Renumber rows
           aIndex := tIndex;
           if sIndex < aIndex then

@@ -36,6 +36,7 @@ begin
   aDs.SelectActiveByUser('NOUSER');
   aDs.Open;
   GV.DataSet:=aDS;
+  GV.SetRights(True);
 end;
 
 procedure TGridviewtest.AddRow3; //Add one Row (later Row 3)

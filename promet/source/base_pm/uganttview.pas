@@ -136,6 +136,7 @@ begin
   FGantt.Tree.Width:=390;
   FGantt.Tree.OnResize:=@FGanttTreeResize;
   FGantt.Tree.ShowHint:=True;
+  FGantt.Tree.ScrollBars:=ssVertical;
   FGantt.Tree.Options:=FGantt.Tree.Options+[goCellHints];
   FGantt.Tree.Options:=FGantt.Tree.Options-[goHorzLine];
   FGantt.Tree.AlternateColor:=$00FFE6E6;
@@ -145,7 +146,7 @@ procedure TfGanttView.FGanttTreeResize(Sender: TObject);
 begin
   fgantt.Tree.ColWidths[0]:=0;
   fgantt.Tree.ColWidths[1]:=0;
-  fgantt.Tree.ColWidths[2]:=FGantt.Tree.Width-FGantt.Tree.ColWidths[3]-FGantt.Tree.ColWidths[4]-FGantt.Tree.ColWidths[5];
+  fgantt.Tree.ColWidths[2]:=FGantt.Tree.Width-FGantt.Tree.ColWidths[3]-FGantt.Tree.ColWidths[4]-FGantt.Tree.ColWidths[5]-20; //20=scrollbarwidth maybe other values on other widgetsets
   fgantt.Tree.ColWidths[6]:=0;
   fgantt.Tree.ColWidths[7]:=0;
 end;
