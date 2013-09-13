@@ -387,7 +387,8 @@ begin
           if FGridView.GotoRow(TRowObject(FGridView.gList.Objects[0,aRow]).Rec) then
             begin
               FOwners.Values[aUser] := TMeetings(FDataSet).Entrys.OwnerName;
-              NewText:=FOwners.Values[aUser];
+              if trim(FOwners.Values[aUser]) <> '' then
+                NewText:=FOwners.Values[aUser];
             end;
         end;
     end

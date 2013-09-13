@@ -292,16 +292,14 @@
         <CursorPos X="18" Y="1290"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="939"/>
-        <CursorPos X="1" Y="944"/>
+        <CursorPos X="35" Y="951"/>
         <UsageCount Value="114"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -1303,10 +1301,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMeetingFrame"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="33" Y="28"/>
+        <TopLine Value="377"/>
+        <CursorPos X="1" Y="392"/>
         <UsageCount Value="75"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -2088,7 +2087,6 @@
         <CursorPos X="26" Y="136"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit188>
       <Unit189>
         <Filename Value="/usr/share/fpcsrc/2.6.0/rtl/objpas/sysutils/sysutilh.inc"/>
