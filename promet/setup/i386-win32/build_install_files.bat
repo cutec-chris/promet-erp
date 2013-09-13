@@ -2,10 +2,10 @@ md ..\..\output
 md ..\..\output\%1
 md ..\..\output\%1\plugins
 lazbuild -q ..\..\source\tools\wizardmandant.lpi
-If errorlevel 1 goto end
-lazbuild -q -B ..\..\source\tools\processmanager.lpi
+If errorlevel 1 lazbuild -q ..\..\source\tools\wizardmandant.lpi
 If errorlevel 1 goto end
 lazbuild -q -B ..\..\source\messagemanager\messagemanager.lpi
+If errorlevel 1 lazbuild -q -B ..\..\source\messagemanager\messagemanager.lpi
 If errorlevel 1 goto end
 lazbuild -q ..\..\source\promet.erp\prometerp.lpi
 If errorlevel 1 goto end
