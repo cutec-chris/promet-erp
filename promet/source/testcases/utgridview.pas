@@ -97,8 +97,8 @@ begin
   Application.ProcessMessages;
   {$endif}
   Check(GV.dgFake.DataSource.DataSet.FieldByName('GPRIORITY').AsInteger=2,'Sortfield1='+IntToStr(GV.dgFake.DataSource.DataSet.FieldByName('GPRIORITY').AsInteger));
-  GV.dgFake.DataSource.DataSet.First;
-  GV.GotoActiveRow;
+  Checktrue(GV.GotoRowNumber(1),'faild to goto Row 1');
+  Check(GV.dgFake.DataSource.DataSet.FieldByName('GPRIORITY').AsInteger=1,'Sortfield1='+IntToStr(GV.dgFake.DataSource.DataSet.FieldByName('GPRIORITY').AsInteger));
   {$ifdef USEFORM}
   Application.ProcessMessages;
   {$endif}

@@ -782,6 +782,7 @@ begin
       FieldByName('PARENT').AsInteger := 0;
       FieldByName('PRIORITY').AsString := '0';
       FieldByName('OWNER').AsString := Data.Users.FieldByName('ACCOUNTNO').AsString;
+      FieldByName('GPRIORITY').AsString := '999999';
       if (not (Self is TProjectTasks)) then
         begin
           if FUserID = Null then

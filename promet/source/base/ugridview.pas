@@ -2304,7 +2304,7 @@ end;
 function TfGridView.GotoRowNumber(aRow: Integer): Boolean;
 begin
   Result := False;
-  if (aRow<1) or (aRow>=gList.RowCount) then exit;
+  if (aRow<gList.FixedRows) or (aRow>=gList.RowCount) then exit;
   if (aRow = gList.Row) then
     Result := GotoActiveRow
   else
@@ -2698,7 +2698,9 @@ begin
       end;
   with FDataSource.DataSet do
     begin
+      {$ifndef debug}
       DisableControls;
+      {$endif}
       try
         CleanList(0);
         AllDone := True;
@@ -2717,7 +2719,9 @@ begin
         if Assigned(OnCellChanging) then
           OnCellChanging(Self);
       finally
+        {$ifndef debug}
         EnableControls;
+        {$endif}
       end;
     end;
   CalculateRowHeights;
@@ -3160,7 +3164,9 @@ begin
             aNumCol := i+1;
             break;
           end;
+      {$ifndef DEBUG}
       FDataSet.DataSet.DisableControls;
+      {$endif}
       try
         for i := aIndex to gList.RowCount-1 do
           begin
@@ -3174,7 +3180,9 @@ begin
             if DataSet.CanEdit then DataSet.DataSet.Post;
           end;
       finally
+        {$ifndef DEBUG}
         FDataSet.DataSet.EnableControls;
+        {$endif}
       end;
     end;
   gList.Row:=aRow;
