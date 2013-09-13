@@ -1,9 +1,6 @@
 #!/bin/bash
 cd darwin
 echo "compiling for $1..."
-echo "compiling processmanager..."
-lazbuild -q -B ../../source/tools/processmanager.lpi  >> scompile-$2.log
-strip ../../output/tools/$2-darwin/processmanager
 echo "compiling messagemanager..."
 lazbuild -q -B ../../source/messagemanager/messagemanager.lpi  >> scompile-$2.log
 strip ../../output/$2-darwin/tools/messagemanager
