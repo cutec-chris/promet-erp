@@ -163,7 +163,7 @@ end;
 procedure TBaseVisualApplication.BaseVisualApplicationDebugLn(Sender: TObject;
   S: string; var Handled: Boolean);
 begin
-  if HasOption('syslog') then
+  if Assigned(uData.Data) and HasOption('syslog') then
     FLogger.Debug(s);
 end;
 
@@ -304,6 +304,7 @@ begin
 end;
 destructor TBaseVisualApplication.Destroy;
 begin
+  LazLogger.GetDebugLogger.OnDebugLn:=nil;
   Properties.Free;
   inherited Destroy;
 end;
@@ -325,6 +326,7 @@ begin
 end;
 procedure TBaseVisualApplication.Terminate;
 begin
+  LazLogger.GetDebugLogger.OnDebugLn:=nil;
   if Assigned(FDBInterface.Data) then
     begin
       with Self as IBaseDbInterface do
@@ -938,6 +940,7 @@ begin
 end;
 procedure TBaseVisualApplication.Logout;
 begin
+  LazLogger.GetDebugLogger.OnDebugLn:=nil;
   uData.Data := nil;
   DoExit;
   with Self as IBaseApplication do
@@ -973,4 +976,4 @@ initialization
   RegisterClass(TDBComboBox);
   RegisterClass(TPanel);
 end.
-
+
