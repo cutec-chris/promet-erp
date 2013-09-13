@@ -665,10 +665,10 @@ begin
     begin
       if not DataSet.FieldByName('DUEDATE').IsNull then
         begin
-          if (DataSet.FieldByName('DUEDATE').AsDateTime-Max(DataSet.FieldByName('PLANTIME').AsFloat+DataSet.FieldByName('BUFFERTIME').AsFloat,1)) < DataSet.FieldByName('STARTDATE').AsDateTime then
+          if ((DataSet.FieldByName('DUEDATE').AsDateTime-Max(StrToFloatDef(DataSet.FieldByName('PLANTIME').AsString,0)+StrToFloatDef(DataSet.FieldByName('BUFFERTIME').AsString,0),1)) < DataSet.FieldByName('STARTDATE').AsDateTime) then
             begin
               if not Canedit then DataSet.Edit;
-                DataSet.FieldByName('DUEDATE').AsDateTime := DataSet.FieldByName('STARTDATE').AsDateTime+Max(DataSet.FieldByName('PLANTIME').AsFloat+DataSet.FieldByName('BUFFERTIME').AsFloat,1);
+                DataSet.FieldByName('DUEDATE').AsDateTime := DataSet.FieldByName('STARTDATE').AsDateTime+Max(StrToFloatDef(DataSet.FieldByName('PLANTIME').AsString,0)+StrToFloatDef(DataSet.FieldByName('BUFFERTIME').AsString,0),1);
             end;
         end;
     end

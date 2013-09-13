@@ -59,9 +59,6 @@ type
   public
     procedure EditingDone; override;
   end;
-
-  { TRowObject }
-
   TRowObject = class
   private
     function GetStringRec: string;
@@ -84,8 +81,6 @@ type
   TSearchKey = function(Sender : TObject;X,Y : Integer;Field : TColumn;var Key : Word;Shift : TShiftState;SearchString : string) : Boolean of object;
   TGridDrawColumnCellEvent = function(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState) : Boolean of object;
   TCellFontEvent = function(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState;var aColor : TColor;var Style : TFontStyles) : Boolean of object;
-  { TfGridView }
-
   TfGridView = class(TFrame)
     acCopyLink: TAction;
     acFilter: TAction;
