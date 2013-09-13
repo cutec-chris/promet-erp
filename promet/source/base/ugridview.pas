@@ -619,7 +619,13 @@ begin
     begin
       if DataSet.Changed then
         Post
-      else DataSet.DataSet.Cancel;
+      else if (FDataSource.DataSet.State = dsInsert) and (not FDataSet.Changed) then
+        begin
+          CleanRow(gList.RowCount-1,-2);
+          gList.RowCount:=gList.RowCount-1;
+          FDataSource.DataSet.Cancel;
+        end
+      else FDataSource.DataSet.Cancel;
     end;
 end;
 
