@@ -239,11 +239,13 @@ var
   Factor : real = 1;
   aConfig: TDataSet;
   i: Integer;
+  ib : IBaseDbInterface;
 begin
   Result := False;
   if not Assigned(DataSource) then exit;
   if not Assigned(DataSource.DataSet) then exit;
   if not Assigned(Grid) then exit;
+  if not Supports(Application,IBaseDBInterface,ib) then exit;
   tmp := aConfigName;
   if Filter <> '' then
     tmp := tmp+','+Filter;

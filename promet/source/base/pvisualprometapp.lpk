@@ -14,7 +14,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="81">
+    <Files Count="74">
       <Item1>
         <Filename Value="htmltortf.pas"/>
         <UnitName Value="htmltortf"/>
@@ -36,377 +36,339 @@
         <Type Value="LFM"/>
       </Item5>
       <Item6>
-        <Filename Value="ufilterframe.pas"/>
-        <UnitName Value="uFilterFrame"/>
+        <Filename Value="ufiltertabs.pas"/>
+        <UnitName Value="uFilterTabs"/>
       </Item6>
       <Item7>
-        <Filename Value="ufilterframe.lfm"/>
+        <Filename Value="ufiltertabs.lfm"/>
         <Type Value="LFM"/>
       </Item7>
       <Item8>
-        <Filename Value="ufilterframe.lrs"/>
+        <Filename Value="ufiltertabs.lrs"/>
         <Type Value="LRS"/>
       </Item8>
       <Item9>
-        <Filename Value="ufiltertabs.pas"/>
-        <UnitName Value="uFilterTabs"/>
-      </Item9>
-      <Item10>
-        <Filename Value="ufiltertabs.lfm"/>
-        <Type Value="LFM"/>
-      </Item10>
-      <Item11>
-        <Filename Value="ufiltertabs.lrs"/>
-        <Type Value="LRS"/>
-      </Item11>
-      <Item12>
         <Filename Value="uformanimate.pas"/>
         <UnitName Value="uFormAnimate"/>
-      </Item12>
-      <Item13>
+      </Item9>
+      <Item10>
         <Filename Value="ulogwait.pas"/>
         <UnitName Value="uLogWait"/>
+      </Item10>
+      <Item11>
+        <Filename Value="ulogwait.lfm"/>
+        <Type Value="LFM"/>
+      </Item11>
+      <Item12>
+        <Filename Value="ulogwait.lrs"/>
+        <Type Value="LRS"/>
+      </Item12>
+      <Item13>
+        <Filename Value="umandantoptions.pas"/>
+        <UnitName Value="uMandantOptions"/>
       </Item13>
       <Item14>
-        <Filename Value="ulogwait.lfm"/>
+        <Filename Value="umandantoptions.lfm"/>
         <Type Value="LFM"/>
       </Item14>
       <Item15>
-        <Filename Value="ulogwait.lrs"/>
-        <Type Value="LRS"/>
-      </Item15>
-      <Item16>
-        <Filename Value="umandantoptions.pas"/>
-        <UnitName Value="uMandantOptions"/>
-      </Item16>
-      <Item17>
-        <Filename Value="umandantoptions.lfm"/>
-        <Type Value="LFM"/>
-      </Item17>
-      <Item18>
         <Filename Value="unrights.pas"/>
         <UnitName Value="uNRights"/>
+      </Item15>
+      <Item16>
+        <Filename Value="unrights.lfm"/>
+        <Type Value="LFM"/>
+      </Item16>
+      <Item17>
+        <Filename Value="unrights.lrs"/>
+        <Type Value="LRS"/>
+      </Item17>
+      <Item18>
+        <Filename Value="uoptions.pas"/>
+        <UnitName Value="uOptions"/>
       </Item18>
       <Item19>
-        <Filename Value="unrights.lfm"/>
+        <Filename Value="uoptions.lfm"/>
         <Type Value="LFM"/>
       </Item19>
       <Item20>
-        <Filename Value="unrights.lrs"/>
-        <Type Value="LRS"/>
+        <Filename Value="uoptionsframe.pas"/>
+        <UnitName Value="uOptionsFrame"/>
       </Item20>
       <Item21>
-        <Filename Value="uoptions.pas"/>
-        <UnitName Value="uOptions"/>
+        <Filename Value="upassword.pas"/>
+        <UnitName Value="uPassword"/>
       </Item21>
       <Item22>
-        <Filename Value="uoptions.lfm"/>
+        <Filename Value="upassword.lfm"/>
         <Type Value="LFM"/>
       </Item22>
       <Item23>
-        <Filename Value="uoptionsframe.pas"/>
-        <UnitName Value="uOptionsFrame"/>
+        <Filename Value="upassword.lrs"/>
+        <Type Value="LRS"/>
       </Item23>
       <Item24>
-        <Filename Value="upassword.pas"/>
-        <UnitName Value="uPassword"/>
+        <Filename Value="upersonaloptions.pas"/>
+        <UnitName Value="uPersonalOptions"/>
       </Item24>
       <Item25>
-        <Filename Value="upassword.lfm"/>
+        <Filename Value="upersonaloptions.lfm"/>
         <Type Value="LFM"/>
       </Item25>
       <Item26>
-        <Filename Value="upassword.lrs"/>
+        <Filename Value="upersonaloptions.lrs"/>
         <Type Value="LRS"/>
       </Item26>
       <Item27>
-        <Filename Value="upersonaloptions.pas"/>
-        <UnitName Value="uPersonalOptions"/>
+        <Filename Value="uprocessoptions.pas"/>
+        <UnitName Value="uProcessOptions"/>
       </Item27>
       <Item28>
-        <Filename Value="upersonaloptions.lfm"/>
+        <Filename Value="uprocessoptions.lfm"/>
         <Type Value="LFM"/>
       </Item28>
       <Item29>
-        <Filename Value="upersonaloptions.lrs"/>
-        <Type Value="LRS"/>
-      </Item29>
-      <Item30>
-        <Filename Value="uprocessoptions.pas"/>
-        <UnitName Value="uProcessOptions"/>
-      </Item30>
-      <Item31>
-        <Filename Value="uprocessoptions.lfm"/>
-        <Type Value="LFM"/>
-      </Item31>
-      <Item32>
         <Filename Value="uprometframes.pas"/>
         <UnitName Value="uPrometFrames"/>
-      </Item32>
-      <Item33>
+      </Item29>
+      <Item30>
         <Filename Value="uprometframes.lfm"/>
         <Type Value="LFM"/>
-      </Item33>
-      <Item34>
+      </Item30>
+      <Item31>
         <Filename Value="urichframe.pas"/>
         <UnitName Value="uRichFrame"/>
-      </Item34>
-      <Item35>
+      </Item31>
+      <Item32>
         <Filename Value="urichframe.lfm"/>
         <Type Value="LFM"/>
-      </Item35>
-      <Item36>
+      </Item32>
+      <Item33>
         <Filename Value="uroweditor.pas"/>
         <UnitName Value="uRowEditor"/>
+      </Item33>
+      <Item34>
+        <Filename Value="uroweditor.lfm"/>
+        <Type Value="LFM"/>
+      </Item34>
+      <Item35>
+        <Filename Value="uroweditor.lrs"/>
+        <Type Value="LRS"/>
+      </Item35>
+      <Item36>
+        <Filename Value="usearch.pas"/>
+        <UnitName Value="uSearch"/>
       </Item36>
       <Item37>
-        <Filename Value="uroweditor.lfm"/>
+        <Filename Value="usearch.lfm"/>
         <Type Value="LFM"/>
       </Item37>
       <Item38>
-        <Filename Value="uroweditor.lrs"/>
+        <Filename Value="usearch.lrs"/>
         <Type Value="LRS"/>
       </Item38>
       <Item39>
-        <Filename Value="usearch.pas"/>
-        <UnitName Value="uSearch"/>
+        <Filename Value="usyncoptions.pas"/>
+        <UnitName Value="uSyncOptions"/>
       </Item39>
       <Item40>
-        <Filename Value="usearch.lfm"/>
+        <Filename Value="usyncoptions.lfm"/>
         <Type Value="LFM"/>
       </Item40>
       <Item41>
-        <Filename Value="usearch.lrs"/>
-        <Type Value="LRS"/>
+        <Filename Value="utimeline.pas"/>
+        <UnitName Value="uTimeLine"/>
       </Item41>
       <Item42>
-        <Filename Value="uselectreport.pas"/>
-        <UnitName Value="uSelectReport"/>
+        <Filename Value="uuserfielddefoptions.pas"/>
+        <UnitName Value="uUserfieldDefOptions"/>
       </Item42>
       <Item43>
-        <Filename Value="uselectreport.lfm"/>
+        <Filename Value="uuserfielddefoptions.lfm"/>
         <Type Value="LFM"/>
       </Item43>
       <Item44>
-        <Filename Value="uselectreport.lrs"/>
-        <Type Value="LRS"/>
+        <Filename Value="uuseroptions.pas"/>
+        <UnitName Value="uuseroptions"/>
       </Item44>
       <Item45>
-        <Filename Value="usyncoptions.pas"/>
-        <UnitName Value="uSyncOptions"/>
+        <Filename Value="uuseroptions.lfm"/>
+        <Type Value="LFM"/>
       </Item45>
       <Item46>
-        <Filename Value="usyncoptions.lfm"/>
-        <Type Value="LFM"/>
+        <Filename Value="uwait.pas"/>
+        <UnitName Value="uwait"/>
       </Item46>
       <Item47>
-        <Filename Value="utimeline.pas"/>
-        <UnitName Value="uTimeLine"/>
+        <Filename Value="uwait.lfm"/>
+        <Type Value="LFM"/>
       </Item47>
       <Item48>
-        <Filename Value="uuserfielddefoptions.pas"/>
-        <UnitName Value="uUserfieldDefOptions"/>
+        <Filename Value="uwait.lrs"/>
+        <Type Value="LRS"/>
       </Item48>
       <Item49>
-        <Filename Value="uuserfielddefoptions.lfm"/>
+        <Filename Value="uhistoryadditem.lfm"/>
         <Type Value="LFM"/>
       </Item49>
       <Item50>
-        <Filename Value="uuseroptions.pas"/>
-        <UnitName Value="uuseroptions"/>
+        <Filename Value="uhistoryadditem.pas"/>
+        <UnitName Value="uhistoryadditem"/>
       </Item50>
       <Item51>
-        <Filename Value="uuseroptions.lfm"/>
+        <Filename Value="uhistoryframe.lfm"/>
         <Type Value="LFM"/>
       </Item51>
       <Item52>
-        <Filename Value="uwait.pas"/>
-        <UnitName Value="uwait"/>
+        <Filename Value="uhistoryframe.pas"/>
+        <UnitName Value="uHistoryFrame"/>
       </Item52>
       <Item53>
-        <Filename Value="uwait.lfm"/>
+        <Filename Value="umaintreeframe.lfm"/>
         <Type Value="LFM"/>
       </Item53>
       <Item54>
-        <Filename Value="uwait.lrs"/>
+        <Filename Value="umaintreeframe.lrs"/>
         <Type Value="LRS"/>
       </Item54>
       <Item55>
-        <Filename Value="ugridview.pas"/>
-        <UnitName Value="ugridview"/>
+        <Filename Value="umaintreeframe.pas"/>
+        <UnitName Value="uMainTreeFrame"/>
       </Item55>
       <Item56>
-        <Filename Value="uhistoryadditem.lfm"/>
+        <Filename Value="ulinkframe.lfm"/>
         <Type Value="LFM"/>
       </Item56>
       <Item57>
-        <Filename Value="uhistoryadditem.pas"/>
-        <UnitName Value="uhistoryadditem"/>
+        <Filename Value="ulinkframe.pas"/>
+        <UnitName Value="uLinkFrame"/>
       </Item57>
       <Item58>
-        <Filename Value="uhistoryframe.lfm"/>
+        <Filename Value="uimageframe.lfm"/>
         <Type Value="LFM"/>
       </Item58>
       <Item59>
-        <Filename Value="uhistoryframe.pas"/>
-        <UnitName Value="uHistoryFrame"/>
+        <Filename Value="uimageframe.pas"/>
+        <UnitName Value="uImageFrame"/>
       </Item59>
       <Item60>
-        <Filename Value="umaintreeframe.lfm"/>
+        <Filename Value="utreeview.lfm"/>
         <Type Value="LFM"/>
       </Item60>
       <Item61>
-        <Filename Value="umaintreeframe.lrs"/>
+        <Filename Value="utreeview.lrs"/>
         <Type Value="LRS"/>
       </Item61>
       <Item62>
-        <Filename Value="umaintreeframe.pas"/>
-        <UnitName Value="uMainTreeFrame"/>
+        <Filename Value="utreeview.pas"/>
+        <UnitName Value="utreeview"/>
       </Item62>
       <Item63>
-        <Filename Value="ulinkframe.lfm"/>
+        <Filename Value="uprometframesinplacedb.lfm"/>
         <Type Value="LFM"/>
       </Item63>
       <Item64>
-        <Filename Value="ulinkframe.pas"/>
-        <UnitName Value="uLinkFrame"/>
+        <Filename Value="uprometframesinplacedb.pas"/>
+        <UnitName Value="uPrometFramesInplaceDB"/>
       </Item64>
       <Item65>
-        <Filename Value="uimageframe.lfm"/>
+        <Filename Value="uprometframesinplace.lfm"/>
         <Type Value="LFM"/>
       </Item65>
       <Item66>
-        <Filename Value="uimageframe.pas"/>
-        <UnitName Value="uImageFrame"/>
-      </Item66>
-      <Item67>
-        <Filename Value="utreeview.lfm"/>
-        <Type Value="LFM"/>
-      </Item67>
-      <Item68>
-        <Filename Value="utreeview.lrs"/>
-        <Type Value="LRS"/>
-      </Item68>
-      <Item69>
-        <Filename Value="utreeview.pas"/>
-        <UnitName Value="utreeview"/>
-      </Item69>
-      <Item70>
-        <Filename Value="uprometframesinplacedb.lfm"/>
-        <Type Value="LFM"/>
-      </Item70>
-      <Item71>
-        <Filename Value="uprometframesinplacedb.pas"/>
-        <UnitName Value="uPrometFramesInplaceDB"/>
-      </Item71>
-      <Item72>
-        <Filename Value="uprometframesinplace.lfm"/>
-        <Type Value="LFM"/>
-      </Item72>
-      <Item73>
         <Filename Value="uprometframesinplace.pas"/>
         <UnitName Value="uprometframesinplace"/>
-      </Item73>
-      <Item74>
+      </Item66>
+      <Item67>
         <Filename Value="version.inc"/>
         <Type Value="Include"/>
-      </Item74>
-      <Item75>
+      </Item67>
+      <Item68>
         <Filename Value="revision.inc"/>
         <Type Value="Include"/>
-      </Item75>
-      <Item76>
+      </Item68>
+      <Item69>
         <Filename Value="ulistframe.lfm"/>
         <Type Value="LFM"/>
-      </Item76>
-      <Item77>
+      </Item69>
+      <Item70>
         <Filename Value="ulistframe.pas"/>
         <UnitName Value="uListFrame"/>
-      </Item77>
-      <Item78>
+      </Item70>
+      <Item71>
         <Filename Value="changes.txt"/>
         <Type Value="Text"/>
-      </Item78>
-      <Item79>
+      </Item71>
+      <Item72>
         <Filename Value="usendmail.pas"/>
         <UnitName Value="uSendMail"/>
-      </Item79>
-      <Item80>
+      </Item72>
+      <Item73>
         <Filename Value="uedittext.pas"/>
         <UnitName Value="uEditText"/>
-      </Item80>
-      <Item81>
+      </Item73>
+      <Item74>
         <Filename Value="uquickhelpframe.pas"/>
         <UnitName Value="uQuickHelpFrame"/>
-      </Item81>
+      </Item74>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="18">
+    <RequiredPkgs Count="15">
       <Item1>
-        <PackageName Value="lr_DialogDesign"/>
+        <PackageName Value="pvisualforms"/>
       </Item1>
       <Item2>
-        <PackageName Value="lr_zeosdb"/>
-      </Item2>
-      <Item3>
-        <PackageName Value="lazreport_addons"/>
-        <DefaultFilename Value="..\components\lazreport\lazreport_addons.lpk" Prefer="True"/>
-      </Item3>
-      <Item4>
         <PackageName Value="v103_lazarus"/>
         <DefaultFilename Value="..\components\tvplanit\packages\v103_lazarus.lpk"/>
-      </Item4>
-      <Item5>
+      </Item2>
+      <Item3>
         <PackageName Value="ZVDateTimeCtrls"/>
         <DefaultFilename Value="..\components\ZVDateTimeCtrls\zvdatetimectrls.lpk"/>
-      </Item5>
-      <Item6>
+      </Item3>
+      <Item4>
         <PackageName Value="SynEdit"/>
-      </Item6>
-      <Item7>
+      </Item4>
+      <Item5>
         <PackageName Value="pImportExport"/>
         <DefaultFilename Value="..\import\pimportexport.lpk"/>
-      </Item7>
-      <Item8>
-        <PackageName Value="lazreportpdfexport"/>
-      </Item8>
-      <Item9>
+      </Item5>
+      <Item6>
         <PackageName Value="laz_twain"/>
         <DefaultFilename Value="..\components\scanning\laz_twain.lpk"/>
-      </Item9>
-      <Item10>
+      </Item6>
+      <Item7>
         <PackageName Value="pack_powerpdf"/>
         <DefaultFilename Value="..\components\powerpdf\pack_powerpdf.lpk"/>
-      </Item10>
-      <Item11>
+      </Item7>
+      <Item8>
         <PackageName Value="sanetools"/>
         <DefaultFilename Value="..\components\scanning\sanetools.lpk"/>
-      </Item11>
-      <Item12>
+      </Item8>
+      <Item9>
         <PackageName Value="LCLBase"/>
-      </Item12>
-      <Item13>
+      </Item9>
+      <Item10>
         <PackageName Value="richmemopackage"/>
         <DefaultFilename Value="..\components\richmemo\richmemopackage.lpk"/>
-      </Item13>
-      <Item14>
+      </Item10>
+      <Item11>
         <PackageName Value="lazreport"/>
-      </Item14>
-      <Item15>
+      </Item11>
+      <Item12>
         <PackageName Value="pPrometDBIntfs"/>
         <DefaultFilename Value="dbintfs\pprometdbintfs.lpk"/>
-      </Item15>
-      <Item16>
+      </Item12>
+      <Item13>
         <PackageName Value="general"/>
         <DefaultFilename Value="..\..\..\general\general.lpk"/>
-      </Item16>
-      <Item17>
+      </Item13>
+      <Item14>
         <PackageName Value="lcl"/>
-      </Item17>
-      <Item18>
+      </Item14>
+      <Item15>
         <PackageName Value="FCL"/>
         <MinVersion Major="1" Valid="True"/>
-      </Item18>
+      </Item15>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

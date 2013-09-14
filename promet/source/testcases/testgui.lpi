@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -52,7 +52,7 @@
         <PackageName Value="FCL"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="146">
+    <Units Count="147">
       <Unit0>
         <Filename Value="testgui.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -60,8 +60,8 @@
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="11" Y="13"/>
-        <UsageCount Value="76"/>
+        <CursorPos X="1" Y="24"/>
+        <UsageCount Value="78"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -71,7 +71,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="10"/>
         <CursorPos X="40" Y="9"/>
-        <UsageCount Value="76"/>
+        <UsageCount Value="78"/>
       </Unit1>
       <Unit2>
         <Filename Value="C:\Programme\lazarus\components\fpcunit\guitestrunner.pas"/>
@@ -79,12 +79,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="GuiTestRunner"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="636"/>
         <CursorPos X="42" Y="181"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="C:\Programme\lazarus\fpc\2.4.0\source\packages\fcl-fpcunit\src\fpcunit.pp"/>
@@ -214,7 +212,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="3" Y="25"/>
-        <UsageCount Value="74"/>
+        <UsageCount Value="76"/>
       </Unit18>
       <Unit19>
         <Filename Value="D:\LKomponenten\zeos\src\dbc\ZDbcIntfs.pas"/>
@@ -239,7 +237,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="5"/>
         <CursorPos X="1" Y="40"/>
-        <UsageCount Value="71"/>
+        <UsageCount Value="73"/>
       </Unit21>
       <Unit22>
         <Filename Value="C:\Programme\lazarus\fpc\2.4.3\source\rtl\inc\heaph.inc"/>
@@ -373,7 +371,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="12"/>
         <CursorPos X="46" Y="55"/>
-        <UsageCount Value="55"/>
+        <UsageCount Value="57"/>
       </Unit38>
       <Unit39>
         <Filename Value="..\base\dbintfs\usystemmessage.pas"/>
@@ -406,7 +404,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="24" Y="18"/>
-        <UsageCount Value="65"/>
+        <UsageCount Value="67"/>
       </Unit42>
       <Unit43>
         <Filename Value="..\base\upassword.pas"/>
@@ -429,11 +427,11 @@
       <Unit45>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="986"/>
         <CursorPos X="1" Y="1005"/>
-        <UsageCount Value="30"/>
+        <UsageCount Value="31"/>
         <Loaded Value="True"/>
       </Unit45>
       <Unit46>
@@ -451,7 +449,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="95"/>
         <CursorPos X="30" Y="65"/>
-        <UsageCount Value="45"/>
+        <UsageCount Value="47"/>
       </Unit47>
       <Unit48>
         <Filename Value="D:\LKomponenten\zeos\src\component\ZConnection.pas"/>
@@ -759,7 +757,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="69"/>
         <CursorPos X="5" Y="78"/>
-        <UsageCount Value="35"/>
+        <UsageCount Value="37"/>
       </Unit83>
       <Unit84>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
@@ -989,7 +987,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="13"/>
         <CursorPos X="170" Y="13"/>
-        <UsageCount Value="28"/>
+        <UsageCount Value="30"/>
       </Unit111>
       <Unit112>
         <Filename Value="..\base\dbintfs\udata.pas"/>
@@ -1006,7 +1004,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="17"/>
         <CursorPos X="18" Y="37"/>
-        <UsageCount Value="26"/>
+        <UsageCount Value="28"/>
       </Unit113>
       <Unit114>
         <Filename Value="..\base\dbintfs\uperson.pas"/>
@@ -1038,7 +1036,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="26"/>
         <CursorPos X="1" Y="48"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="27"/>
       </Unit117>
       <Unit118>
         <Filename Value="..\base\dbintfs\umasterdata.pas"/>
@@ -1055,7 +1053,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="19"/>
         <CursorPos X="5" Y="36"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="27"/>
       </Unit119>
       <Unit120>
         <Filename Value="..\base\dbintfs\uprojects.pas"/>
@@ -1183,7 +1181,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="41"/>
         <CursorPos X="15" Y="69"/>
-        <UsageCount Value="24"/>
+        <UsageCount Value="26"/>
       </Unit134>
       <Unit135>
         <Filename Value="..\components\zeos\src\dbc\ZDbcCache.pas"/>
@@ -1216,9 +1214,9 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="144"/>
-        <CursorPos X="23" Y="160"/>
-        <UsageCount Value="23"/>
+        <TopLine Value="113"/>
+        <CursorPos X="8" Y="102"/>
+        <UsageCount Value="25"/>
         <Loaded Value="True"/>
       </Unit138>
       <Unit139>
@@ -1239,12 +1237,10 @@
       <Unit141>
         <Filename Value="C:\Programme\lazarus\lcl\grids.pas"/>
         <UnitName Value="Grids"/>
-        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="5757"/>
         <CursorPos X="1" Y="5776"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit141>
       <Unit142>
         <Filename Value="..\base\ugridview.pas"/>
@@ -1254,9 +1250,9 @@
         <UnitName Value="ugridview"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="7"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="12"/>
+        <TopLine Value="3180"/>
+        <CursorPos X="75" Y="3102"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit142>
@@ -1283,127 +1279,137 @@
         <CursorPos X="32" Y="1822"/>
         <UsageCount Value="10"/>
       </Unit145>
+      <Unit146>
+        <Filename Value="..\..\..\..\..\lazarus\components\fpcunit\guitestrunner.pas"/>
+        <UnitName Value="GuiTestRunner"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="245"/>
+        <CursorPos X="1" Y="263"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit146>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="utgridview.pas"/>
-        <Caret Line="10" Column="73" TopLine="1"/>
+        <Caret Line="86" Column="1" TopLine="67"/>
       </Position1>
       <Position2>
         <Filename Value="utgridview.pas"/>
-        <Caret Line="7" Column="1" TopLine="1"/>
+        <Caret Line="87" Column="1" TopLine="67"/>
       </Position2>
       <Position3>
         <Filename Value="utgridview.pas"/>
-        <Caret Line="45" Column="21" TopLine="21"/>
+        <Caret Line="89" Column="1" TopLine="67"/>
       </Position3>
       <Position4>
-        <Filename Value="C:\Programme\lazarus\lcl\grids.pas"/>
-        <Caret Line="4849" Column="58" TopLine="4832"/>
+        <Filename Value="utgridview.pas"/>
+        <Caret Line="91" Column="1" TopLine="67"/>
       </Position4>
       <Position5>
-        <Filename Value="C:\Programme\lazarus\lcl\grids.pas"/>
-        <Caret Line="5776" Column="1" TopLine="5757"/>
+        <Filename Value="utgridview.pas"/>
+        <Caret Line="92" Column="1" TopLine="67"/>
       </Position5>
       <Position6>
         <Filename Value="utgridview.pas"/>
-        <Caret Line="95" Column="32" TopLine="76"/>
+        <Caret Line="93" Column="1" TopLine="86"/>
       </Position6>
       <Position7>
-        <Filename Value="C:\Programme\lazarus\lcl\grids.pas"/>
-        <Caret Line="4851" Column="1" TopLine="4832"/>
+        <Filename Value="utgridview.pas"/>
+        <Caret Line="102" Column="1" TopLine="85"/>
       </Position7>
       <Position8>
-        <Filename Value="C:\Programme\lazarus\lcl\grids.pas"/>
-        <Caret Line="5776" Column="1" TopLine="5757"/>
+        <Filename Value="utgridview.pas"/>
+        <Caret Line="106" Column="1" TopLine="85"/>
       </Position8>
       <Position9>
         <Filename Value="utgridview.pas"/>
-        <Caret Line="149" Column="1" TopLine="112"/>
+        <Caret Line="102" Column="1" TopLine="85"/>
       </Position9>
       <Position10>
         <Filename Value="utgridview.pas"/>
-        <Caret Line="142" Column="56" TopLine="113"/>
+        <Caret Line="104" Column="1" TopLine="85"/>
       </Position10>
       <Position11>
         <Filename Value="utgridview.pas"/>
-        <Caret Line="145" Column="1" TopLine="114"/>
+        <Caret Line="106" Column="1" TopLine="85"/>
       </Position11>
       <Position12>
         <Filename Value="utgridview.pas"/>
-        <Caret Line="146" Column="1" TopLine="115"/>
+        <Caret Line="108" Column="1" TopLine="85"/>
       </Position12>
       <Position13>
         <Filename Value="utgridview.pas"/>
-        <Caret Line="150" Column="1" TopLine="119"/>
+        <Caret Line="110" Column="1" TopLine="85"/>
       </Position13>
       <Position14>
         <Filename Value="utgridview.pas"/>
-        <Caret Line="136" Column="40" TopLine="119"/>
+        <Caret Line="102" Column="8" TopLine="85"/>
       </Position14>
       <Position15>
-        <Filename Value="utgridview.pas"/>
-        <Caret Line="145" Column="1" TopLine="119"/>
+        <Filename Value="..\base\ugridview.pas"/>
+        <Caret Line="422" Column="32" TopLine="409"/>
       </Position15>
       <Position16>
-        <Filename Value="utgridview.pas"/>
-        <Caret Line="147" Column="1" TopLine="119"/>
+        <Filename Value="..\base\ugridview.pas"/>
+        <Caret Line="1048" Column="23" TopLine="1020"/>
       </Position16>
       <Position17>
-        <Filename Value="utgridview.pas"/>
-        <Caret Line="149" Column="1" TopLine="119"/>
+        <Filename Value="..\base\ugridview.pas"/>
+        <Caret Line="1100" Column="76" TopLine="1072"/>
       </Position17>
       <Position18>
-        <Filename Value="utgridview.pas"/>
-        <Caret Line="146" Column="22" TopLine="113"/>
+        <Filename Value="..\base\ugridview.pas"/>
+        <Caret Line="13" Column="63" TopLine="1"/>
       </Position18>
       <Position19>
-        <Filename Value="utgridview.pas"/>
-        <Caret Line="140" Column="21" TopLine="114"/>
+        <Filename Value="..\base\ugridview.pas"/>
+        <Caret Line="838" Column="34" TopLine="809"/>
       </Position19>
       <Position20>
-        <Filename Value="utgridview.pas"/>
-        <Caret Line="146" Column="1" TopLine="115"/>
+        <Filename Value="..\base\ugridview.pas"/>
+        <Caret Line="1283" Column="39" TopLine="1254"/>
       </Position20>
       <Position21>
-        <Filename Value="utgridview.pas"/>
-        <Caret Line="148" Column="1" TopLine="117"/>
+        <Filename Value="..\base\ugridview.pas"/>
+        <Caret Line="1325" Column="35" TopLine="1296"/>
       </Position21>
       <Position22>
-        <Filename Value="utgridview.pas"/>
-        <Caret Line="150" Column="1" TopLine="119"/>
+        <Filename Value="..\base\ugridview.pas"/>
+        <Caret Line="1388" Column="41" TopLine="1359"/>
       </Position22>
       <Position23>
-        <Filename Value="utgridview.pas"/>
-        <Caret Line="145" Column="4" TopLine="120"/>
+        <Filename Value="..\base\ugridview.pas"/>
+        <Caret Line="1521" Column="40" TopLine="1493"/>
       </Position23>
       <Position24>
-        <Filename Value="utgridview.pas"/>
-        <Caret Line="34" Column="11" TopLine="15"/>
+        <Filename Value="..\base\ugridview.pas"/>
+        <Caret Line="2134" Column="34" TopLine="2106"/>
       </Position24>
       <Position25>
-        <Filename Value="utgridview.pas"/>
-        <Caret Line="8" Column="59" TopLine="1"/>
+        <Filename Value="..\base\ugridview.pas"/>
+        <Caret Line="2174" Column="49" TopLine="2145"/>
       </Position25>
       <Position26>
-        <Filename Value="utgridview.pas"/>
-        <Caret Line="154" Column="36" TopLine="133"/>
+        <Filename Value="..\base\ugridview.pas"/>
+        <Caret Line="2233" Column="34" TopLine="2205"/>
       </Position26>
       <Position27>
-        <Filename Value="utgridview.pas"/>
-        <Caret Line="97" Column="1" TopLine="90"/>
+        <Filename Value="..\base\ugridview.pas"/>
+        <Caret Line="2265" Column="42" TopLine="2236"/>
       </Position27>
       <Position28>
-        <Filename Value="utgridview.pas"/>
-        <Caret Line="155" Column="19" TopLine="144"/>
+        <Filename Value="..\base\ugridview.pas"/>
+        <Caret Line="2275" Column="49" TopLine="2246"/>
       </Position28>
       <Position29>
-        <Filename Value="utgridview.pas"/>
-        <Caret Line="156" Column="27" TopLine="144"/>
+        <Filename Value="..\base\ugridview.pas"/>
+        <Caret Line="2782" Column="18" TopLine="2753"/>
       </Position29>
       <Position30>
-        <Filename Value="utgridview.pas"/>
-        <Caret Line="160" Column="1" TopLine="144"/>
+        <Filename Value="..\base\ugridview.pas"/>
+        <Caret Line="2975" Column="17" TopLine="2946"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>

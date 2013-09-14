@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -32,20 +32,23 @@
         <CommandLineParams Value="--mandant=Test"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="4">
+    <RequiredPackages Count="5">
       <Item1>
-        <PackageName Value="pcmdprometapp"/>
-        <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
+        <PackageName Value="pvisualforms"/>
       </Item1>
       <Item2>
-        <PackageName Value="pPrometDBIntfs"/>
+        <PackageName Value="pcmdprometapp"/>
+        <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
       </Item2>
       <Item3>
-        <PackageName Value="lazmouseandkeyinput"/>
+        <PackageName Value="pPrometDBIntfs"/>
       </Item3>
       <Item4>
-        <PackageName Value="LCL"/>
+        <PackageName Value="lazmouseandkeyinput"/>
       </Item4>
+      <Item5>
+        <PackageName Value="LCL"/>
+      </Item5>
     </RequiredPackages>
     <Units Count="1">
       <Unit0>

@@ -8,14 +8,13 @@ interface
 
 uses
   htmltortf, uBaseVisualApplication, ubasevisualapplicationtools, 
-  uBaseVisualControls, uFilterFrame, uFilterTabs, uFormAnimate, uLogWait, 
-  uMandantOptions, uNRights, uOptions, uOptionsFrame, uPassword, 
-  uPersonalOptions, uProcessOptions, uPrometFrames, uRichFrame, uRowEditor, 
-  uSearch, uSelectReport, uSyncOptions, uTimeLine, uUserfieldDefOptions, 
-  uuseroptions, uwait, ugridview, uhistoryadditem, uHistoryFrame, 
-  uMainTreeFrame, uLinkFrame, uImageFrame, utreeview, uPrometFramesInplaceDB, 
-  uprometframesinplace, uListFrame, uSendMail, uEditText, uQuickHelpFrame, 
-  LazarusPackageIntf;
+  uBaseVisualControls, uFilterTabs, uFormAnimate, uLogWait, uMandantOptions, 
+  uNRights, uOptions, uOptionsFrame, uPassword, uPersonalOptions, 
+  uProcessOptions, uPrometFrames, uRichFrame, uRowEditor, uSearch, 
+  uSyncOptions, uTimeLine, uUserfieldDefOptions, uuseroptions, uwait, 
+  uhistoryadditem, uHistoryFrame, uMainTreeFrame, uLinkFrame, uImageFrame, 
+  utreeview, uPrometFramesInplaceDB, uprometframesinplace, uListFrame, 
+  uSendMail, uEditText, uQuickHelpFrame, LazarusPackageIntf;
 
 implementation
 

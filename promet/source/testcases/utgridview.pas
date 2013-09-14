@@ -100,6 +100,9 @@ end;
 procedure TGridviewtest.MoveRowTo1; //Move new Added Row to Position 1
 begin
   GV.Post;
+  {$ifdef USEFORM}
+  Application.ProcessMessages;
+  {$endif}
   GV.gList.MoveColRow(False,1,0);
   {$ifdef USEFORM}
   Application.ProcessMessages;
@@ -150,11 +153,8 @@ end;
 procedure TGridviewtest.CheckLostFocusOnInsert;
 begin
   GV.gHeader.SetFocus;
-  GV.gHeader.EditorMode:=true;
-  GV.bRowEditor.OnClick:=@GVbRowEditorClick;
-  RowEdited:=False;
-  while not RowEdited do Application.processmessages;
   {$ifdef USEFORM}
+  GV.gHeader.EditorMode:=true;
   Application.ProcessMessages;
   {$endif}
   Check(GV.dgFake.DataSource.DataSet.State=dsInsert,'State<>dsInsert');

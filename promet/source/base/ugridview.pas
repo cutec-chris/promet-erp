@@ -12,7 +12,7 @@ unit ugridview;
 
 {.$define gridvisible}
 {.$define slowdebug}
-{.$define debug}
+{$define debug}
 
 interface
 uses
@@ -2309,7 +2309,9 @@ begin
   if (aRow = gList.Row) then
     Result := GotoActiveRow
   else
-    Result := (TRowObject(gList.Objects[0,aRow]).Rec <> 0) and ((DataSet.State = dsInsert) or (DataSet.GotoBookmark(TRowObject(gList.Objects[0,aRow]).Rec)));
+    Result := (TRowObject(gList.Objects[0,aRow]).Rec <> 0)
+         and ((DataSet.State = dsInsert)
+           or (DataSet.GotoBookmark(TRowObject(gList.Objects[0,aRow]).Rec)));
 end;
 function TfGridView.GotoDataSetRow: Boolean;
 var
@@ -3096,6 +3098,8 @@ begin
   if Assigned(FDataSet) and FDataSet.CanEdit then
     begin
       FDataSet.DataSet.Post;
+      if TRowObject(gList.Objects[0,gList.Row]).Rec = 0 then
+        TRowObject(gList.Objects[0,gList.Row]).Rec := FDataSet.GetBookmark;
       EditingDone;
     end;
 end;
