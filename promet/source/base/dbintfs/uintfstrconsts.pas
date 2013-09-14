@@ -21,6 +21,7 @@ resourcestring
   strFullPercent                = 'Auslastung:%d%%';
   strGanttView                  = 'Gantt Ansicht';
   strTaskPlan                   = 'Aufgabenplan';
+  strAttPlan                    = 'Anwesenheitsplan';
   strDate                       = 'Datum';
   strWorker                     = 'Bearbeiter';
   strResponsable                = 'Verantwortlicher';

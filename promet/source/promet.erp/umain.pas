@@ -64,6 +64,7 @@ type
     acPauseTime: TAction;
     acStandartTime: TAction;
     acRefreshOrderList: TAction;
+    acAttPlan: TAction;
     acWiki: TAction;
     ActionList1: TActionList;
     ApplicationProperties1: TApplicationProperties;
@@ -117,6 +118,7 @@ type
     ToolButton2: TToolButton;
     tsHelp: TTabSheet;
     tvMain: TPanel;
+    procedure acAttPlanExecute(Sender: TObject);
     procedure acBackExecute(Sender: TObject);
     procedure acBookInventoryExecute(Sender: TObject);
     procedure acCalendarExecute(Sender: TObject);
@@ -262,7 +264,8 @@ uses uBaseDBInterface,uIntfStrConsts,uSearch,uFilterFrame,uPerson,uData,
   uTask,uDocumentProcess,uDocumentFrame,uPrometFramesInplaceDB,uInfo,
   uProcessOptions,Utils,uBaseERPDBClasses,umaintasks,utasks,uTaskEdit,LCLProc,
   usplash,ufavorites,uBaseVisualControls,uStatisticFrame,uwait,uprometipc,uMeetingFrame,
-  umeeting,uEditableTab,umanagedocframe,uBaseDocPages,uTaskPlan,uTimeFrame,uTimeOptions,
+  umeeting,uEditableTab,umanagedocframe,uBaseDocPages,uTaskPlan,uattendanceplan,
+  uTimeFrame,uTimeOptions,
   uOptionsFrame
   {$ifdef WINDOWS}
   {$ifdef CPU32}
@@ -694,6 +697,9 @@ begin
             {$ifndef heaptrc}
             uCalendarFrame.AddToMainTree(acNewTermin,FCalendarNode);
             {$endif}
+            Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(FCalendarNode,'',TTreeEntry.Create);
+            TTreeEntry(Node1.Data).Typ := etAttPlan;
+            TTreeEntry(Node1.Data).Action := acAttPlan;
             RefreshCalendar;
           end;
         debugln('PIM: '+IntToStr(GetTickCount64-aTime));
@@ -1072,6 +1078,16 @@ end;
 procedure TfMain.acBackExecute(Sender: TObject);
 begin
   FHistory.GoBack;
+end;
+
+procedure TfMain.acAttPlanExecute(Sender: TObject);
+var
+  aFrame: TfAttPlan;
+begin
+  aFrame := TfAttPlan.Create(Self);
+  aFrame.TabCaption := strAttPlan;
+  pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('TASKS@'),False);
+  aFrame.Populate(Data.Users.FieldByName('PARENT').AsVariant,Data.Users.Id.AsVariant);
 end;
 
 procedure TfMain.acBookInventoryExecute(Sender: TObject);
@@ -2150,6 +2166,10 @@ begin
   etTaskPlan:
     begin
       acTaskPlan.Execute;
+    end;
+  etAttPlan:
+    begin
+      acAttPlan.Execute;
     end;
   etWikiPage:
     begin

@@ -800,7 +800,8 @@ object fMain: TfMain
       OnExecute = acMeetingsExecute
     end
     object acTaskPlan: TAction
-      Caption = 'acTaskPlan'
+      Caption = 'Aufgabneplan'
+      ImageIndex = 4
       OnExecute = acTaskPlanExecute
     end
     object acPauseTime: TAction
@@ -820,6 +821,11 @@ object fMain: TfMain
       Hint = 'Auftragsliste neu aufbauen'
       ImageIndex = 22
       OnExecute = acRefreshOrderListExecute
+    end
+    object acAttPlan: TAction
+      Caption = 'Anwesenheitsplan'
+      ImageIndex = 4
+      OnExecute = acAttPlanExecute
     end
   end
   object ApplicationProperties1: TApplicationProperties

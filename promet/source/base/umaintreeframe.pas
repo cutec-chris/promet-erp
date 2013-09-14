@@ -31,6 +31,7 @@ type
                  etMyCalendar,
                  etCalendarDepartment,
                  etCalendarUser,
+                 etAttPlan,
                etMessages,etMessageDir,etMessageBoard,
                etTimeRegistering,
                etOrders,
@@ -751,7 +752,7 @@ begin
     etStatistic:aImageIndex := 58;
     etInventory:aImageIndex := 24;
     etMeetings:aImageIndex := 31;
-    etTaskPlan:aImageIndex:=105;
+    etTaskPlan,etAttPlan:aImageIndex:=4;
     end;
   if (aImageIndex <> -1) and (not Assigned(aImageList)) then
     aImageList := fVisualControls.Images;
@@ -1668,6 +1669,7 @@ begin
     etArticleList:Celltext := strArticleList;
     etMyTasks:Celltext := strMyTasks;
     etTaskPlan:CellText:=strTaskPlan;
+    etAttPlan:CellText := strAttPlan;
     etSearch:CellText := strSearch;
     etFinancial:Celltext := strFinancial;
     etBanking:CellText := strBanking;

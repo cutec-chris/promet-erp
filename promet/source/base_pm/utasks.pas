@@ -1475,7 +1475,6 @@ begin
   if (Data.Users.Rights.Right('TASKS') > RIGHT_NONE) then
     begin
       Data.RegisterLinkHandler('TASKS',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
-//      AddSearchAbleDataSet(TTaskList);
       Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
       aNode := Node;
       Node.Height := 34;

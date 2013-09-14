@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Package Version="4">
     <Name Value="pProjectbase"/>
@@ -80,8 +80,8 @@
         <Type Value="LFM"/>
       </Item16>
       <Item17>
-        <Filename Value="utaskplan.pas"/>
-        <UnitName Value="uTaskPlan"/>
+        <Filename Value="uattendanceplan.pas"/>
+        <UnitName Value="uattendanceplan"/>
       </Item17>
       <Item18>
         <Filename Value="uganttview.pas"/>
