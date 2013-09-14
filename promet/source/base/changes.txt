@@ -1,4 +1,6 @@
-﻿Build 276
+﻿Build 277
+      - Abwesenheitsplan
+Build 276
       - Snapshots (kopien der Zeitpläne) können in Gantt Ansicht von projekten erstellt und wieder aufgerufen werden
 Build 275
       - In Gantt Ansicht werden bei Unterprojekten falsche vorfahren ignoriert (kann passierne wenn man Aufgaben von einem projekt in ein anderes schiebt)

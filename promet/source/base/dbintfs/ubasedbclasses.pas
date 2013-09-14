@@ -1757,7 +1757,10 @@ procedure TUser.SelectByParent(aParent: Variant);
 begin
   with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
     begin
-      Filter := '('+QuoteField('PARENT')+'='+QuoteValue(aParent)+')';
+      if aParent=Null then
+        Filter := Data.ProcessTerm('('+QuoteField('PARENT')+'='+Data.QuoteValue('')+')')
+      else
+        Filter := '('+QuoteField('PARENT')+'='+QuoteValue(aParent)+')';
     end;
 end;
 
@@ -2272,4 +2275,4 @@ begin
 end;
 initialization
 end.
-
+

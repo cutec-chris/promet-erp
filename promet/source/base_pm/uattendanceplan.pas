@@ -24,11 +24,6 @@ type
   { TfAttPlan }
 
   TfAttPlan = class(TPrometMainFrame)
-    acShowProject: TAction;
-    acShowInProjectGantt: TAction;
-    acOpen: TAction;
-    acCancel: TAction;
-    acUse: TAction;
     ActionList1: TActionList;
     bDayView: TSpeedButton;
     Bevel5: TBevel;
@@ -37,23 +32,17 @@ type
     bRefresh: TSpeedButton;
     bToday: TSpeedButton;
     bWeekView: TSpeedButton;
-    Label3: TLabel;
     lDate: TLabel;
     Label5: TLabel;
     Label7: TLabel;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
     miUserOptions: TMenuItem;
-    Panel4: TPanel;
     Panel9: TPanel;
     pgantt: TPanel;
     Panel7: TPanel;
     pmAction: TPopupMenu;
-    pmUSer: TPopupMenu;
-    pmTask: TPopupMenu;
     tbTop: TPanel;
-    ToolButton1: TSpeedButton;
-    ToolButton2: TSpeedButton;
     procedure acCancelExecute(Sender: TObject);
     procedure aINewDrawBackground(Sender: TObject; aCanvas: TCanvas;
       aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
@@ -142,7 +131,6 @@ begin
   FUser := asUser;
   FAttatchTo := AttatchTo;
   FreeOnTerminate:=True;
-  //Execute;
   inherited Create(False);
 end;
 
@@ -178,8 +166,6 @@ procedure TfAttPlan.TIntervalChanged(Sender: TObject);
 begin
   TInterval(TInterval(Sender).Pointer2).StartDate:=TInterval(Sender).StartDate;
   TInterval(TInterval(Sender).Pointer2).FinishDate:=TInterval(Sender).FinishDate;
-  acUse.Enabled:=True;
-  acCancel.Enabled:=True;
 end;
 
 procedure TfAttPlan.bDayViewClick(Sender: TObject);
@@ -191,7 +177,11 @@ end;
 
 procedure TfAttPlan.aINewDrawBackground(Sender: TObject; aCanvas: TCanvas;
   aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
+var
+  TaskPlan : TfTaskPlan;
 begin
+  Taskplan.aIDrawBackgroundWeekends(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth);
+  Taskplan.aIDrawBackground(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth,clBlue,clLime,clRed);
 end;
 
 procedure TfAttPlan.acCancelExecute(Sender: TObject);
@@ -319,23 +309,13 @@ begin
                 if IsInRect(HintInfo^.CursorPos.X,HintInfo^.CursorPos.Y,TRessource(TInterval(List[ay]).Pointer).Interval[i].DrawRect) then
                   begin
                     aPercent := aPercent+round(TRessource(TInterval(List[ay]).Pointer).Interval[i].PercentUsage*100);
-                    if not (TRessource(TInterval(List[ay]).Pointer).Interval[i] is TBackInterval) then
-                      begin
-                        if HintInfo^.HintStr <> '' then HintInfo^.HintStr := HintInfo^.HintStr+lineending;
-                        if TRessource(TInterval(List[ay]).Pointer).Interval[i].DepDone then
-                          DD := ' '
-                        else DD := 'x';
-                        HintInfo^.HintStr := HintInfo^.HintStr+IntToStr(round(TRessource(TInterval(List[ay]).Pointer).Interval[i].PercentUsage*100))+'% '+DD+' '+TRessource(TInterval(List[ay]).Pointer).Interval[i].Task+'-'+TRessource(TInterval(List[ay]).Pointer).Interval[i].Project;
-                      end
-                    else
+                    if (TRessource(TInterval(List[ay]).Pointer).Interval[i] is TBackInterval) then
                       begin
                         if HintInfo^.HintStr <> '' then HintInfo^.HintStr := HintInfo^.HintStr+lineending;
                         HintInfo^.HintStr := HintInfo^.HintStr+TRessource(TInterval(List[ay]).Pointer).Interval[i].Task;
                       end;
                   end;
           end;
-      if HintInfo^.HintStr <> '' then
-        HintInfo^.HintStr := TRessource(TInterval(List[ay]).Pointer).Resource+' '+Format(strFullPercent,[aPercent])+LineEnding+HintInfo^.HintStr;
       List.Free;
     end;
 end;
@@ -354,9 +334,11 @@ begin
   FGantt.Calendar.OnShowHint:=@FGanttCalendarShowHint;
   FGantt.Calendar.OnMouseMove:=@FGanttCalendarMouseMove;
   FGantt.Calendar.PopupMenu := pmAction;
-  FGantt.Tree.PopupMenu := pmUSer;
   bDayViewClick(nil);
   FGantt.Calendar.ShowHint:=True;
+  FGantt.MinorScale:=tsDay;
+  FGantt.MajorScale:=tsMonth;
+  FGantt.MinorScale:=tsWeekNumPlain;
 end;
 
 destructor TfAttPlan.Destroy;
@@ -421,7 +403,7 @@ var
             aIParent.AddInterval(aINew);
             CollectUsers(aINew,aUsers.Id.AsVariant);
           end
-        else if not ((aUsers.FieldByName('LEAVED').AsString<>'') and (aUsers.FieldByName('LEAVED').AsDateTime<Now())) and ((aUser = Null) or (aUser = aUsers.id.AsVariant)) then
+        else if not ((aUsers.FieldByName('LEAVED').AsString<>'') and (aUsers.FieldByName('LEAVED').AsDateTime<Now())) then
           begin
             aINew := TPInterval.Create(FGantt);
             aINew.Task:=aUsers.FieldByName('NAME').AsString;
@@ -432,43 +414,34 @@ var
             aIParent.AddInterval(aINew);
             tmpRes := TRessource.Create(nil);
             tmpRes.User:=aINew;
+            TCollectThread.Create(Self,tmpRes,aUsers.FieldByName('ACCOUNTNO').AsString,aINew);
             aINew.OnDrawBackground:=@aINewDrawBackground;
           end;
         aUsers.Next;
       end;
   end;
 begin
-  if Data.Users.FieldByName('PARENT').AsVariant = Null then exit;
-  if Data.Users.FieldByName('POSITION').AsString='LEADER' then
-    begin
-      if not Assigned(FDataSet) then
-        begin
-          FDataSet := TTaskList.Create(nil,Data);
-          TTaskList(FDataSet).SelectByDept(Data.Users.FieldByName('PARENT').AsVariant);
-          FDataSet.Open;
-        end;
-    end;
   while FGantt.IntervalCount>0 do
     FGantt.DeleteInterval(0);
-  aIRoot := TInterval.Create(FGantt);
   aRoot := TUser.Create(nil,Data);
+  aRoot.SelectByParent(Null);
   aRoot.Open;
   FGantt.BeginUpdate;
-  if aRoot.DataSet.Locate('SQL_ID',aParent,[]) then
+  while not aRoot.EOF do
     begin
+      aIRoot := TInterval.Create(FGantt);
       aIRoot.Task:=aRoot.FieldByName('NAME').AsString;
       aIRoot.Visible:=True;
       aIRoot.StartDate:=Now()-1;
       aIRoot.FinishDate:=Now()-1;
       FGantt.AddInterval(aIRoot);
-      CollectUsers(aIRoot,aParent);
+      CollectUsers(aIRoot,aRoot.Id.AsVariant);
+      aRoot.DataSet.Next;
     end;
   aRoot.Free;
   FGantt.EndUpdate;
   FGantt.Tree.TopRow:=1;
   FGantt.StartDate:=Now();
-  acUse.Enabled:=False;
-  acCancel.Enabled:=False;
 end;
 
 procedure TfAttPlan.CollectResources(aResource: TRessource; asUser: string;aConnection : TComponent = nil);
