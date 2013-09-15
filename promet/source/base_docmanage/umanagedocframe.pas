@@ -31,6 +31,7 @@ type
     acRebuildThumb: TAction;
     acEdit: TAction;
     acSaveAll: TAction;
+    acSave: TAction;
     ActionList1: TActionList;
     bEditFilter: TSpeedButton;
     Bevel3: TBevel;
@@ -42,6 +43,7 @@ type
     bExecute1: TSpeedButton;
     bRefresh2: TSpeedButton;
     bRefresh3: TSpeedButton;
+    bRefresh4: TSpeedButton;
     bTag: TSpeedButton;
     bTag1: TSpeedButton;
     bZoomIn: TSpeedButton;
@@ -92,6 +94,7 @@ type
     procedure acRebuildThumbExecute(Sender: TObject);
     procedure acRefreshExecute(Sender: TObject);
     procedure acSaveAllExecute(Sender: TObject);
+    procedure acSaveExecute(Sender: TObject);
     procedure acSetTagExecute(Sender: TObject);
     procedure bExecute1Click(Sender: TObject);
     procedure bTag1Click(Sender: TObject);
@@ -518,6 +521,21 @@ begin
             end;
       end;
   fWaitForm.Hide;
+end;
+
+procedure TfManageDocFrame.acSaveExecute(Sender: TObject);
+var
+  a: Integer;
+begin
+  ThumbControl1SelectItem(ThumbControl1,TThreadedImage(ThumbControl1.ImageLoaderManager.List[ThumbControl1.ImageLoaderManager.ActiveIndex]));
+  for a := 0 to FDocFrame.lvDocuments.Items.Count-1 do
+    if (copy(FDocFrame.lvDocuments.Items[a].SubItems[0],0,4) = 'jpg ')
+    or (copy(FDocFrame.lvDocuments.Items[a].SubItems[0],0,5) = 'jpeg ')
+    then
+      begin
+        FDocFrame.lvDocuments.ItemIndex:=a;
+        FDocFrame.acSaveToFile.Execute;
+      end;
 end;
 
 procedure TfManageDocFrame.acSetTagExecute(Sender: TObject);
