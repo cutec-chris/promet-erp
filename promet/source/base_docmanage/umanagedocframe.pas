@@ -30,6 +30,7 @@ type
     acSetTag: TAction;
     acRebuildThumb: TAction;
     acEdit: TAction;
+    acSaveAll: TAction;
     ActionList1: TActionList;
     bEditFilter: TSpeedButton;
     Bevel3: TBevel;
@@ -37,8 +38,10 @@ type
     Bevel5: TBevel;
     Bevel6: TBevel;
     Bevel7: TBevel;
+    Bevel8: TBevel;
     bExecute1: TSpeedButton;
     bRefresh2: TSpeedButton;
+    bRefresh3: TSpeedButton;
     bTag: TSpeedButton;
     bTag1: TSpeedButton;
     bZoomIn: TSpeedButton;
@@ -53,6 +56,7 @@ type
     ExtRotatedLabel3: TLabel;
     ExtRotatedLabel4: TLabel;
     ExtRotatedLabel5: TLabel;
+    ExtRotatedLabel6: TLabel;
     IdleTimer1: TIdleTimer;
     iNoThumbnail: TImage;
     Label1: TLabel;
@@ -71,10 +75,12 @@ type
     pNav1: TPanel;
     pmPopup: TPopupMenu;
     pNav2: TPanel;
+    pNav3: TPanel;
     PopupMenu1: TPopupMenu;
     pRight: TPanel;
     pThumb: TPanel;
     pToolbar: TPanel;
+    SelectDirectoryDialog1: TSelectDirectoryDialog;
     spPages: TSplitter;
     tbMenue1: TToolButton;
     tbToolBar: TToolBar;
@@ -85,6 +91,7 @@ type
     procedure acEditExecute(Sender: TObject);
     procedure acRebuildThumbExecute(Sender: TObject);
     procedure acRefreshExecute(Sender: TObject);
+    procedure acSaveAllExecute(Sender: TObject);
     procedure acSetTagExecute(Sender: TObject);
     procedure bExecute1Click(Sender: TObject);
     procedure bTag1Click(Sender: TObject);
@@ -482,6 +489,37 @@ begin
   ThumbControl1.ImageLoaderManager.ActiveIndex:=OldIdx;
   ThumbControl1.ScrollIntoView;
 end;
+
+procedure TfManageDocFrame.acSaveAllExecute(Sender: TObject);
+var
+  ARect: TRect;
+  Dum: TRect;
+  i: Integer;
+  a: Integer;
+begin
+  ARect.Left := 0;
+  ARect.Top := 0;
+  ARect.Bottom:=ThumbControl1.Height;
+  Arect.Right:=ThumbControl1.Width;
+  if not SelectDirectoryDialog1.Execute then exit;
+  fWaitForm.ShowInfo(strSave);
+  for i := 0 to ThumbControl1.ImageLoaderManager.List.Count - 1 do
+    if IntersectRect(Dum, ARect, TThreadedImage(ThumbControl1.ImageLoaderManager.List[i]).Rect) then
+      begin
+        ThumbControl1.ImageLoaderManager.ActiveIndex:=i;
+        ThumbControl1SelectItem(ThumbControl1,TThreadedImage(ThumbControl1.ImageLoaderManager.List[i]));
+        for a := 0 to FDocFrame.lvDocuments.Items.Count-1 do
+          if (copy(FDocFrame.lvDocuments.Items[a].SubItems[0],0,4) = 'jpg ')
+          or (copy(FDocFrame.lvDocuments.Items[a].SubItems[0],0,5) = 'jpeg ')
+          then
+            begin
+              FDocFrame.lvDocuments.ItemIndex:=a;
+              FDocFrame.SaveFileToDir(SelectDirectoryDialog1.FileName);
+            end;
+      end;
+  fWaitForm.Hide;
+end;
+
 procedure TfManageDocFrame.acSetTagExecute(Sender: TObject);
 begin
   if bTag.Down then

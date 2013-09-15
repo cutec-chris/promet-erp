@@ -1,8 +1,8 @@
 inherited fManageDocFrame: TfManageDocFrame
   Height = 609
-  Width = 853
+  Width = 874
   ClientHeight = 609
-  ClientWidth = 853
+  ClientWidth = 874
   OnEnter = FrameEnter
   OnExit = FrameExit
   DesignLeft = 312
@@ -11,11 +11,11 @@ inherited fManageDocFrame: TfManageDocFrame
     Left = 0
     Height = 42
     Top = 0
-    Width = 853
+    Width = 874
     Align = alTop
     BevelOuter = bvNone
     ClientHeight = 42
-    ClientWidth = 853
+    ClientWidth = 874
     TabOrder = 0
     object pNav: TPanel
       Left = 232
@@ -58,14 +58,14 @@ inherited fManageDocFrame: TfManageDocFrame
       end
     end
     object Panel5: TPanel
-      Left = 392
+      Left = 464
       Height = 42
       Top = 0
-      Width = 461
+      Width = 410
       Align = alClient
       BevelOuter = bvNone
       ClientHeight = 42
-      ClientWidth = 461
+      ClientWidth = 410
       Constraints.MaxWidth = 700
       TabOrder = 1
       Visible = False
@@ -96,7 +96,7 @@ inherited fManageDocFrame: TfManageDocFrame
         Height = 28
         Hint = 'hier können Sie eine vordefinierte Ansicht wählen'#10'Wenn Sie eine spezielle Ansicht/Sortierung benötigen wenden Sie sich an Ihren Administrator'
         Top = 12
-        Width = 409
+        Width = 358
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Left = 8
         ItemHeight = 0
@@ -104,7 +104,7 @@ inherited fManageDocFrame: TfManageDocFrame
         TabOrder = 0
       end
       object bEditFilter: TSpeedButton
-        Left = 419
+        Left = 368
         Height = 21
         Hint = 'zeigt/verbirgt weitere Einstellungen'#10'zu den Ansichten'
         Top = 12
@@ -553,12 +553,91 @@ inherited fManageDocFrame: TfManageDocFrame
         end
       end
     end
+    object pNav3: TPanel
+      Left = 396
+      Height = 42
+      Top = 0
+      Width = 68
+      Align = alLeft
+      BorderSpacing.Left = 4
+      BevelOuter = bvNone
+      ClientHeight = 42
+      ClientWidth = 68
+      TabOrder = 4
+      object ExtRotatedLabel6: TLabel
+        Left = 6
+        Height = 14
+        Top = 0
+        Width = 56
+        Caption = 'Speichern'
+        Font.Color = clMedGray
+        Font.Height = 11
+        Layout = tlBottom
+        ParentColor = False
+        ParentFont = False
+      end
+      object Bevel8: TBevel
+        Left = 0
+        Height = 34
+        Top = 4
+        Width = 16
+        BorderSpacing.Top = 4
+        BorderSpacing.Bottom = 4
+        Shape = bsLeftLine
+      end
+      object bRefresh3: TSpeedButton
+        Left = 6
+        Height = 24
+        Top = 15
+        Width = 24
+        Action = acSaveAll
+        AllowAllUp = True
+        Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00BA6833C5C38458FFD38B68FFE18F70FFDC8D
+          6CFFDA8B6DFFD78A6EFFCD8B6CFFAB6D44FFA65F2EFFFFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00C68355FFEFCEBAFFDDFFFFFF87EEC7FFA2F4
+          D7FFA2F6D7FF8CEEC7FFE0FFFFFFDDA285FFAB6A3EFFFFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00BA6833ACC38458DEC37F51FFEFB69AFFEAF3E8FF51BF84FF6FC9
+          98FF71C999FF54BF84FFE4F4E9FFDD9C7BFFAA693AFFFFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00C68355DEEFCEBADEC48154FFEAB697FFF3F3EAFFEDF1E6FFEFF1
+          E6FFEFF0E6FFEDF1E5FFF3F5EDFFD59C79FFB07044FFFFFFFF00FFFFFF00BA68
+          339BC38458C9C58053F8EEB296F8C98B61FFE6B592FFE2A781FFE1A781FFDEA3
+          7DFFDCA17BFFDB9F79FFD99E77FFD49A73FFBB7E57FFFFFFFF00FFFFFF00C683
+          55C9EFCEBAC9C78E66F8E0BC9CF8CA8D65FFEAB899FFDDA57EFFDDA680FFDBA3
+          7CFFD9A07AFFD9A079FFD89F78FFD89E78FFBF845DFFFFFFFF00FFFFFF00C37F
+          51C9EFB69AC9CC966FF8D6B691F8C8885DFFEFBFA1FFFDFCFAFFFEFCFBFFFEFD
+          FDFFFEFDFCFFFDFBFAFFFDFCFBFFDDA885FFC17F53FFFFFFFF00FFFFFF00C481
+          54C9EAB697C9CE9873F8EABEA1F8C7865BFFEFC09EFFFFFFFFFFCC936EFFFFFF
+          FFFFFFFFFFFFFFFBF7FFFFF8F1FFE4AF8CFFC78A61FFFFFFFF00FFFFFF00C98B
+          61C9E6B592C9CB8B61F8EEBC9EF8CC8D65FFF3CDB0FFFFFFFFFFE3C7B3FFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFEABFA1FFC98960FFFFFFFF00FFFFFF00CA8D
+          65C9EAB899C9C9895FF8EDBD9BF8D4976EFFD49E7BFFD09871FFD6A482FFCD8E
+          68FFCD9069FFD09A75FFD19973FFC88B62FFAD5A2036FFFFFF00FFFFFF00C888
+          5DC9EFBFA1C9D19975F8F4D2B8F8FFFFFFF8E6CDBBF8FFFFFEF8FFFFFFF8FBF6
+          F2F8F8F1EDF8EABFA1DEC98960DEFFFFFF00FFFFFF00FFFFFF00FFFFFF00C786
+          5BC9EFC09EC9D9A27DF8D39D7AF8D5A380F8DAAE8FF8D29A77F8D29B77F8D29C
+          77F8D09771F8C88B62DEAD5A202FFFFFFF00FFFFFF00FFFFFF00FFFFFF00CC8D
+          65C9F3CDB0C9FFFFFFC9E3C7B3C9FFFFFFC9FFFFFFC9FFFFFFC9FFFFFFC9EABF
+          A1C9C98960C9FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00D497
+          6EC9D49E7BC9D09871C9D6A482C9CD8E68C9CD9069C9D09A75C9D19973C9C88B
+          62C9AD5A202BFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+        }
+        Layout = blGlyphTop
+        ShowCaption = False
+      end
+    end
   end
   object pcPages: TPageControl[1]
     Left = 234
     Height = 567
     Top = 42
-    Width = 619
+    Width = 640
     ActivePage = tsDocument
     Align = alClient
     TabIndex = 0
@@ -566,16 +645,16 @@ inherited fManageDocFrame: TfManageDocFrame
     object tsDocument: TTabSheet
       Caption = 'Dokument'
       ClientHeight = 531
-      ClientWidth = 611
+      ClientWidth = 632
       object pThumb: TPanel
         Left = 0
         Height = 50
         Top = 481
-        Width = 611
+        Width = 632
         Align = alBottom
         BevelOuter = bvNone
         ClientHeight = 50
-        ClientWidth = 611
+        ClientWidth = 632
         TabOrder = 0
         object DBZVDateTimePicker1: TDBZVDateTimePicker
           Left = 6
@@ -602,7 +681,7 @@ inherited fManageDocFrame: TfManageDocFrame
           Left = 184
           Height = 24
           Top = 24
-          Width = 423
+          Width = 444
           DataField = 'TAGS'
           DataSource = Datasource1
           Anchors = [akTop, akLeft, akRight]
@@ -631,7 +710,7 @@ inherited fManageDocFrame: TfManageDocFrame
     object tsFiles: TTabSheet
       Caption = 'Dateien'
       ClientHeight = 531
-      ClientWidth = 611
+      ClientWidth = 632
       object pDocFrame: TPanel
         Left = 0
         Height = 531
@@ -889,6 +968,11 @@ inherited fManageDocFrame: TfManageDocFrame
       ImageIndex = 67
       OnExecute = acEditExecute
     end
+    object acSaveAll: TAction
+      Caption = 'acSave'
+      Hint = 'speichert alle Bilder in der aktuellen Ansicht'
+      OnExecute = acSaveAllExecute
+    end
   end
   object pmPopup: TPopupMenu[6]
     Images = fVisualControls.Images
@@ -948,5 +1032,9 @@ inherited fManageDocFrame: TfManageDocFrame
     object MenuItem2: TMenuItem
       Action = acRebuildThumb
     end
+  end
+  object SelectDirectoryDialog1: TSelectDirectoryDialog[9]
+    left = 21
+    top = 155
   end
 end

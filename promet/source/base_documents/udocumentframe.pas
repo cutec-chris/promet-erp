@@ -212,6 +212,7 @@ TfDocumentFrame = class(TPrometInplaceDBFrame{$IFDEF WINDOWS},IDropSource{$ENDIF
     destructor Destroy;override;
     function OpenFromLink(aLink : string) : Boolean;override;
     procedure SetLanguage;override;
+    function SaveFileToDir(aDir : string) : Boolean;
     procedure Refresh(RefID: Variant;Typ,ID : string;Version : Variant;Language : Variant;aParent : Integer = 0);overload;
     procedure Refresh(RefID : Variant;Typ : string;aParent : Integer = 0);overload;
     property RefID : Variant read FRefID;
@@ -1507,6 +1508,22 @@ end;
 procedure TfDocumentFrame.SetLanguage;
 begin
 end;
+
+function TfDocumentFrame.SaveFileToDir(aDir: string): Boolean;
+var
+  aID: Integer;
+  aDocument: TDocument;
+begin
+  if not GotoSelected then exit;
+  aID := DataSet.FieldByName('NUMBER').AsInteger;
+  aDocument := TDocument.Create(Self,Data);
+  aDocument.SelectByNumber(aId);
+  aDocument.Open;
+  aDocument.OnCheckCheckOutFile:=@aDocumentCheckCheckOutFile;
+  aDocument.DoCheckout(aDir);
+  aDocument.Free;
+end;
+
 procedure TfDocumentFrame.Refresh(RefID: Variant;Typ, ID: string; Version: Variant; Language: Variant;
   aParent: Integer);
 begin

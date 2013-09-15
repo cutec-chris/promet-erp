@@ -186,8 +186,7 @@ inherited fDocumentFrame: TfDocumentFrame
         Caption = 'Neu'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
@@ -310,8 +309,7 @@ inherited fDocumentFrame: TfDocumentFrame
         Caption = 'Datei'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
@@ -393,8 +391,7 @@ inherited fDocumentFrame: TfDocumentFrame
         Caption = 'Ansicht'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
@@ -562,8 +559,7 @@ inherited fDocumentFrame: TfDocumentFrame
         Caption = 'Zusätzlich'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
@@ -3732,4 +3728,4 @@ inherited fDocumentFrame: TfDocumentFrame
     left = 168
     top = 128
   end
-end
+end
