@@ -211,7 +211,11 @@ begin
   aPanel.Name := 'pDisconnected';
   aPanel.caption := strDisconnected;
   aPanel.Parent := Application.MainForm;
-  aPanel.Align := alClient;
+  aPanel.Left := 0;
+  aPanel.Top := 0;
+  aPanel.Height := Application.MainForm.Height;
+  aPanel.Width := Application.MainForm.Width;
+  aPanel.Anchors:=[akTop, akLeft, akRight, akBottom];
 end;
 
 procedure TBaseVisualApplication.DataDataDisconnectKeepAlive(Sender: TObject);
@@ -976,4 +980,4 @@ initialization
   RegisterClass(TDBComboBox);
   RegisterClass(TPanel);
 end.
-
+

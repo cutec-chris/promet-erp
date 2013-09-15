@@ -267,7 +267,7 @@
         <PackageName Value="LCL"/>
       </Item21>
     </RequiredPackages>
-    <Units Count="332">
+    <Units Count="333">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -295,10 +295,11 @@
       <Unit2>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="930"/>
-        <CursorPos X="35" Y="951"/>
+        <TopLine Value="204"/>
+        <CursorPos X="45" Y="217"/>
         <UsageCount Value="114"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -853,7 +854,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uWikiFrame"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="18"/>
         <WindowIndex Value="0"/>
         <TopLine Value="183"/>
         <CursorPos X="13" Y="205"/>
@@ -1009,7 +1010,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ugridview"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="3" Y="15"/>
@@ -1020,7 +1021,7 @@
       <Unit68>
         <Filename Value="../base/dbintfs/utask.pas"/>
         <UnitName Value="utask"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="651"/>
         <CursorPos X="6" Y="657"/>
@@ -1064,7 +1065,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="utasks"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1453"/>
         <CursorPos X="1" Y="1485"/>
@@ -1532,7 +1533,7 @@
       <Unit124>
         <Filename Value="../base_pm/gsGanttCalendar.pas"/>
         <UnitName Value="gsGanttCalendar"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="3950"/>
         <CursorPos X="1" Y="3970"/>
@@ -1572,8 +1573,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uattendanceplan"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="428"/>
         <CursorPos X="1" Y="445"/>
@@ -1646,7 +1646,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uGanttView"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="361"/>
         <CursorPos X="50" Y="300"/>
@@ -2888,10 +2888,12 @@
       <Unit285>
         <Filename Value="../../../../../lazarus/lcl/controls.pp"/>
         <UnitName Value="Controls"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="2559"/>
-        <CursorPos X="3" Y="2576"/>
+        <TopLine Value="143"/>
+        <CursorPos X="50" Y="159"/>
         <UsageCount Value="15"/>
+        <Loaded Value="True"/>
       </Unit285>
       <Unit286>
         <Filename Value="../../../../../lazarus/lcl/include/winapih.inc"/>
@@ -3231,7 +3233,7 @@
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="30" Y="13"/>
+        <CursorPos X="27" Y="10"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit326>
@@ -3270,134 +3272,144 @@
       <Unit331>
         <Filename Value="../base_pm/utaskplan.pas"/>
         <UnitName Value="uTaskPlan"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1216"/>
         <CursorPos X="1" Y="1245"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit331>
+      <Unit332>
+        <Filename Value="../../../../../lazarus/lcl/extctrls.pp"/>
+        <UnitName Value="ExtCtrls"/>
+        <EditorIndex Value="9"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="969"/>
+        <CursorPos X="17" Y="986"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit332>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="../base_pm/uattendanceplan.pas"/>
-        <Caret Line="321" Column="1" TopLine="306"/>
+        <Caret Line="320" Column="1" TopLine="306"/>
       </Position1>
       <Position2>
         <Filename Value="../base_pm/uattendanceplan.pas"/>
-        <Caret Line="320" Column="1" TopLine="306"/>
+        <Caret Line="321" Column="1" TopLine="306"/>
       </Position2>
       <Position3>
         <Filename Value="../base_pm/uattendanceplan.pas"/>
-        <Caret Line="321" Column="1" TopLine="306"/>
+        <Caret Line="320" Column="1" TopLine="306"/>
       </Position3>
       <Position4>
         <Filename Value="../base_pm/uattendanceplan.pas"/>
-        <Caret Line="320" Column="1" TopLine="306"/>
+        <Caret Line="321" Column="1" TopLine="306"/>
       </Position4>
       <Position5>
         <Filename Value="../base_pm/uattendanceplan.pas"/>
-        <Caret Line="321" Column="1" TopLine="306"/>
+        <Caret Line="320" Column="1" TopLine="306"/>
       </Position5>
       <Position6>
         <Filename Value="../base_pm/uattendanceplan.pas"/>
-        <Caret Line="320" Column="1" TopLine="306"/>
+        <Caret Line="321" Column="1" TopLine="306"/>
       </Position6>
       <Position7>
         <Filename Value="../base_pm/uattendanceplan.pas"/>
-        <Caret Line="321" Column="1" TopLine="306"/>
+        <Caret Line="320" Column="1" TopLine="306"/>
       </Position7>
       <Position8>
         <Filename Value="../base_pm/uattendanceplan.pas"/>
-        <Caret Line="320" Column="1" TopLine="306"/>
+        <Caret Line="321" Column="1" TopLine="306"/>
       </Position8>
       <Position9>
         <Filename Value="../base_pm/uattendanceplan.pas"/>
-        <Caret Line="321" Column="1" TopLine="306"/>
+        <Caret Line="320" Column="1" TopLine="306"/>
       </Position9>
       <Position10>
         <Filename Value="../base_pm/uattendanceplan.pas"/>
-        <Caret Line="320" Column="1" TopLine="306"/>
+        <Caret Line="325" Column="24" TopLine="306"/>
       </Position10>
       <Position11>
         <Filename Value="../base_pm/uattendanceplan.pas"/>
-        <Caret Line="321" Column="1" TopLine="306"/>
+        <Caret Line="324" Column="24" TopLine="305"/>
       </Position11>
       <Position12>
         <Filename Value="../base_pm/uattendanceplan.pas"/>
-        <Caret Line="320" Column="1" TopLine="306"/>
+        <Caret Line="323" Column="24" TopLine="304"/>
       </Position12>
       <Position13>
         <Filename Value="../base_pm/uattendanceplan.pas"/>
-        <Caret Line="321" Column="1" TopLine="306"/>
+        <Caret Line="322" Column="24" TopLine="303"/>
       </Position13>
       <Position14>
         <Filename Value="../base_pm/uattendanceplan.pas"/>
-        <Caret Line="320" Column="1" TopLine="306"/>
+        <Caret Line="321" Column="24" TopLine="302"/>
       </Position14>
       <Position15>
         <Filename Value="../base_pm/uattendanceplan.pas"/>
-        <Caret Line="325" Column="24" TopLine="306"/>
+        <Caret Line="320" Column="24" TopLine="301"/>
       </Position15>
       <Position16>
         <Filename Value="../base_pm/uattendanceplan.pas"/>
-        <Caret Line="324" Column="24" TopLine="305"/>
+        <Caret Line="319" Column="24" TopLine="300"/>
       </Position16>
       <Position17>
         <Filename Value="../base_pm/uattendanceplan.pas"/>
-        <Caret Line="323" Column="24" TopLine="304"/>
+        <Caret Line="318" Column="24" TopLine="299"/>
       </Position17>
       <Position18>
         <Filename Value="../base_pm/uattendanceplan.pas"/>
-        <Caret Line="322" Column="24" TopLine="303"/>
+        <Caret Line="173" Column="1" TopLine="156"/>
       </Position18>
       <Position19>
         <Filename Value="../base_pm/uattendanceplan.pas"/>
-        <Caret Line="321" Column="24" TopLine="302"/>
+        <Caret Line="174" Column="1" TopLine="157"/>
       </Position19>
       <Position20>
         <Filename Value="../base_pm/uattendanceplan.pas"/>
-        <Caret Line="320" Column="24" TopLine="301"/>
+        <Caret Line="173" Column="1" TopLine="156"/>
       </Position20>
       <Position21>
         <Filename Value="../base_pm/uattendanceplan.pas"/>
-        <Caret Line="319" Column="24" TopLine="300"/>
+        <Caret Line="172" Column="1" TopLine="155"/>
       </Position21>
       <Position22>
         <Filename Value="../base_pm/uattendanceplan.pas"/>
-        <Caret Line="318" Column="24" TopLine="299"/>
+        <Caret Line="171" Column="1" TopLine="154"/>
       </Position22>
       <Position23>
         <Filename Value="../base_pm/uattendanceplan.pas"/>
-        <Caret Line="173" Column="1" TopLine="156"/>
+        <Caret Line="170" Column="1" TopLine="153"/>
       </Position23>
       <Position24>
         <Filename Value="../base_pm/uattendanceplan.pas"/>
-        <Caret Line="174" Column="1" TopLine="157"/>
+        <Caret Line="169" Column="1" TopLine="152"/>
       </Position24>
       <Position25>
         <Filename Value="../base_pm/uattendanceplan.pas"/>
-        <Caret Line="173" Column="1" TopLine="156"/>
+        <Caret Line="337" Column="1" TopLine="320"/>
       </Position25>
       <Position26>
-        <Filename Value="../base_pm/uattendanceplan.pas"/>
-        <Caret Line="172" Column="1" TopLine="155"/>
+        <Filename Value="../base/pvisualprometapp.pas"/>
+        <Caret Line="10" Column="27" TopLine="1"/>
       </Position26>
       <Position27>
-        <Filename Value="../base_pm/uattendanceplan.pas"/>
-        <Caret Line="171" Column="1" TopLine="154"/>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <Caret Line="29" Column="44" TopLine="13"/>
       </Position27>
       <Position28>
-        <Filename Value="../base_pm/uattendanceplan.pas"/>
-        <Caret Line="170" Column="1" TopLine="153"/>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <Caret Line="214" Column="14" TopLine="204"/>
       </Position28>
       <Position29>
-        <Filename Value="../base_pm/uattendanceplan.pas"/>
-        <Caret Line="169" Column="1" TopLine="152"/>
+        <Filename Value="../../../../../lazarus/lcl/extctrls.pp"/>
+        <Caret Line="986" Column="17" TopLine="969"/>
       </Position29>
       <Position30>
-        <Filename Value="../base_pm/uattendanceplan.pas"/>
-        <Caret Line="337" Column="1" TopLine="320"/>
+        <Filename Value="../../../../../lazarus/lcl/controls.pp"/>
+        <Caret Line="1574" Column="28" TopLine="1558"/>
       </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">
