@@ -675,7 +675,7 @@ procedure TZeosDBDataSet.DoBeforeDelete;
 begin
   inherited DoBeforeDelete;
   try
-    if Assigned(FOrigTable.OnRemove) then FOrigTable.OnRemove(FOrigTable);
+    if Assigned(FOrigTable) and Assigned(FOrigTable.OnRemove) then FOrigTable.OnRemove(FOrigTable);
     if GetUpStdFields = True then
       TZeosDBDM(Owner).DeleteItem(FOrigTable);
   except
