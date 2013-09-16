@@ -23,6 +23,7 @@ type
   TIntDepartment = class
   public
     Name : string;
+    Shortname : string;
     Accountno : string;
     Time : Real;
     FullTime : real;
@@ -35,7 +36,7 @@ type
     function GetDeptCount: Integer;
   public
     property Departments[aDepartment : Integer] : TIntDepartment read getDepartment;
-    procedure AddTime(aAccountNo,aDept : string;aTime : Real);
+    procedure AddTime(aAccountNo, aDept, aShortName: string; aTime: Real);
     property DepartmentCount : Integer read GetDeptCount;
     constructor Create(AGantt: TgsGantt);override;
     destructor Destroy;override;
@@ -169,7 +170,7 @@ begin
   result := FList.Count;
 end;
 
-procedure TProjectInterval.AddTime(aAccountNo,aDept: string; aTime: Real);
+procedure TProjectInterval.AddTime(aAccountNo,aDept,aShortName: string; aTime: Real);
 var
   Found: Boolean = False;
   i: Integer;
@@ -184,6 +185,7 @@ begin
     begin
       FList.Add(TIntDepartment.Create);
       TIntDepartment(FList[Flist.Count-1]).Name:=aDept;
+      TIntDepartment(FList[Flist.Count-1]).ShortName:=aShortName;
       TIntDepartment(FList[Flist.Count-1]).Accountno:=aAccountNo;
       TIntDepartment(FList[Flist.Count-1]).Time:=aTime;
       TIntDepartment(FList[Flist.Count-1]).FullTime:=-1;
@@ -253,7 +255,7 @@ begin
   aConn := Data.GetNewConnection;
   aProjects :=  TProjectList.Create(nil,Data,aConn);
   with aProjects.DataSet as IBaseDbFilter do
-    Data.SetFilter(aProjects,ProcessTerm(Data.QuoteField('GPRIORITY')+'<>'+Data.QuoteValue('0')),0,'GPRIORITY','ASC');
+    Data.SetFilter(aProjects,Data.ProcessTerm(Data.QuoteField('GPRIORITY')+'<>'+Data.QuoteValue('0')),0,'GPRIORITY','ASC');
   aState := TStates.Create(nil,Data,aConn);
   aState.Open;
   aUsers := TUser.Create(nil,Data,aConn);
@@ -315,6 +317,7 @@ var
   aDeptWidth: real;
   a: Integer;
   aDerect: TRect;
+  aRRect : Trect;
   aDrawTime: Real;
   aTop: Int64;
   aDepartment: TIntDepartment;
@@ -352,6 +355,7 @@ begin
           aDRect:=Rect(round((aInt.Interval[i].StartDate-aStart)*aDayWidth)-1,(aRect.Top)+aAddTop,round((aInt.Interval[i].FinishDate-aStart)*aDayWidth)+1,(aRect.Bottom)+aAddTop);
           aInt.Interval[i].DrawRect := aDrect;
           aCanvas.Pen.Style:=psSolid;
+          aCanvas.Pen.Width:=2;
           aCanvas.Pen.Color:=clRed;
           aCanvas.Brush.Color:=clWindow;
           aCanvas.Rectangle(aDRect);
@@ -386,8 +390,13 @@ begin
                   else aTop := aDerect.Bottom;
                   aDerect.Top:=aTop+1;
                   aDerect.Left:=aDerect.Left+1;
+                  aRRect := aDerect;
+                  aRRect.Right:=aDerect.Left+11;
 
-                  aCanvas.Rectangle(aDeRect);
+                  aCanvas.Rectangle(aRRect);
+                  aRRect := aDerect;
+                  aRRect.Left:=aDerect.Left+11;
+                  aCanvas.TextRect(aRRect,aRRect.Left,aRRect.Top,aDepartment.ShortName,Style);
                 end;
             end;
         end;
@@ -761,11 +770,11 @@ begin
                   if aUsers.DataSet.Locate('ACCOUNTNO',aDept.FieldByName('USER').AsString,[]) then
                     begin
                       if (aUsers.FieldByName('PARENT').IsNull) or (aUsers.FieldByName('TYPE').AsString='G') then
-                        aSubInt.AddTime(aUsers.FieldByName('ACCOUNTNO').AsString,aUsers.FieldByName('NAME').AsString,aDept.FieldByName('TIME').AsFloat)
+                        aSubInt.AddTime(aUsers.FieldByName('ACCOUNTNO').AsString,aUsers.FieldByName('NAME').AsString,aUsers.FieldByName('IDCODE').AsString,aDept.FieldByName('TIME').AsFloat)
                       else
                         begin
                           aUsers.DataSet.Locate('SQL_ID',aUsers.FieldByName('PARENT').AsString,[]);
-                          aSubInt.AddTime(aUsers.FieldByName('ACCOUNTNO').AsString,aUsers.FieldByName('NAME').AsString,aDept.FieldByName('TIME').AsFloat);
+                          aSubInt.AddTime(aUsers.FieldByName('ACCOUNTNO').AsString,aUsers.FieldByName('NAME').AsString,aUsers.FieldByName('IDCODE').AsString,aDept.FieldByName('TIME').AsFloat);
                         end;
                     end;
                   aDept.Next;
