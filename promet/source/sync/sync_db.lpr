@@ -485,7 +485,17 @@ begin
                                     end;
                                   DBLogout;
                                 end
-                              else (BaseApplication as IBaseApplication).Error(strLoginFailed);
+                              else
+                                begin
+                                  (BaseApplication as IBaseApplication).Error(strLoginFailed);
+                                  FAddLog := False;
+                                  with SyncDB.DataSet do
+                                    begin
+                                      Edit;
+                                      FieldByName('ACTIVE').AsString := 'N';
+                                      Post;
+                                    end;
+                                end;
                             end;
                         end;
                     if FAddLog then
@@ -555,4 +565,4 @@ begin
   Application.Run;
   Application.Free;
 end.
-
+
