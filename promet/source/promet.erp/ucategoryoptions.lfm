@@ -37,6 +37,11 @@ inherited fCategoryOptions: TfCategoryOptions
         ValueChecked = 'Y'
         ValueUnchecked = 'N'
         FieldName = 'ACTIVE'
+      end    
+      item
+        Title.Caption = 'Farbe'
+        Width = 70
+        FieldName = 'COLOR'
       end>
     DataSource = CategoryDS
     Scrollbars = ssAutoBoth

@@ -12,8 +12,8 @@ uses
   LMessages, LCLProc, LCLType, LCLIntf, LResources, SysUtils, Classes, Graphics,
   Controls, Forms, Dialogs, StdCtrls, ExtCtrls, VpData, VpEdPop, VpDateEdit,
   ComCtrls, VpBase, VpClock, VpBaseDS, VpDlg, VpConst, ZVDateTimePicker,
-  uExtControls, Buttons, EditBtn, ButtonPanel, Spin, LR_DBSet, LR_Class,
-  uIntfStrConsts, uCalendar, db, uBaseDbClasses;
+  uExtControls, Buttons, EditBtn, ButtonPanel, Spin, DbCtrls, LR_DBSet,
+  LR_Class, uIntfStrConsts, uCalendar, db, uBaseDbClasses;
 type
 
   { TfEventEdit }
@@ -28,8 +28,10 @@ type
     Bevel7: TBevel;
     AlarmAdvType: TComboBox;
     Bevel8: TBevel;
+    Bevel9: TBevel;
     bExecute: TSpeedButton;
     CBAllDay: TCheckBox;
+    cbCategory: TDBComboBox;
     cbPlanrel: TCheckBox;
     Datasource: TDatasource;
     DescriptionEdit: TEdit;
@@ -37,6 +39,8 @@ type
     EndDate: TZVDateTimePicker;
     EndTimeLbl: TLabel;
     History: TDatasource;
+    Label7: TLabel;
+    Panel10: TPanel;
     pcPages: TExtMenuPageControl;
     Image1: TImage;
     Image2: TImage;
@@ -148,7 +152,19 @@ end;
 procedure TfEventEdit.PopulateDialog;
 var
   I: Integer;
+  aType: Char;
 begin
+  cbCategory.Items.Clear;
+  aType := 'C';
+  Data.Categories.CreateTable;
+  Data.SetFilter(Data.Categories,Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType));
+  Data.Categories.First;
+  while not Data.Categories.EOF do
+    begin
+      if Data.Categories.FieldByName('ACTIVE').AsString<>'N' then
+        cbCategory.Items.Add(Data.Categories.FieldByName('NAME').AsString);
+      Data.Categories.DataSet.Next;
+    end;
   { Events }
   StartDate.DateTime := Event.StartTime;
   EndDate.DateTime := Event.EndTime;

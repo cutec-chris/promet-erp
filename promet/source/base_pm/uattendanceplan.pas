@@ -32,6 +32,7 @@ type
     bRefresh: TSpeedButton;
     bToday: TSpeedButton;
     bWeekView: TSpeedButton;
+    iHourglass: TImage;
     lDate: TLabel;
     Label5: TLabel;
     Label7: TLabel;
@@ -75,7 +76,7 @@ type
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
     procedure Populate(aParent : Variant;aUser : Variant);
-    procedure CollectResources(aResource : TRessource;asUser : string;aConnection : TComponent = nil);
+    procedure CollectResources(aResource : TRessource;asUser : string;aConnection : TComponent = nil;Colorized : Boolean = False);
     function GetIntervalFromCoordinates(Gantt: TgsGantt; X, Y, Index: Integer): TInterval;
     function GetTaskIntervalFromCoordinates(Gantt: TgsGantt; X, Y, Index: Integer): TInterval;
   end;
@@ -88,16 +89,17 @@ type
     FUser: String;
     FPlan: TfAttPlan;
     FAttatchTo: TInterval;
+    FColorized : Boolean;
     procedure Attatch;
     procedure Plan;
   public
     procedure Execute; override;
-    constructor Create(aPlan : TfAttPlan;aResource : TRessource;asUser : string;AttatchTo : TInterval = nil);
+    constructor Create(aPlan : TfAttPlan;aResource : TRessource;asUser : string;AttatchTo : TInterval = nil;Colorized : Boolean = False);
   end;
 
 implementation
 uses uData,LCLIntf,uBaseDbClasses,uProjects,uTaskEdit,LCLProc,uGanttView,uColors,
-  uCalendar,uTaskPlanOptions;
+  uCalendar,uTaskPlanOptions,uBaseERPDBClasses;
 {$R *.lfm}
 
 { TCollectThread }
@@ -106,6 +108,7 @@ procedure TCollectThread.Attatch;
 begin
   FAttatchTo.Pointer:=FResource;
   FPlan.Invalidate;
+  FPlan.iHourglass.Visible:=False;
   Application.ProcessMessages;
 end;
 
@@ -114,7 +117,7 @@ var
   aConnection: Classes.TComponent;
 begin
   aConnection := Data.GetNewConnection;
-  FPlan.CollectResources(FResource,FUser,aConnection);
+  FPlan.CollectResources(FResource,FUser,aConnection,FColorized);
   aConnection.Free;
 end;
 
@@ -124,13 +127,15 @@ begin
   Synchronize(@Attatch);
 end;
 
-constructor TCollectThread.Create(aPlan : TfAttPlan;aResource: TRessource; asUser: string;AttatchTo : TInterval);
+constructor TCollectThread.Create(aPlan: TfAttPlan; aResource: TRessource;
+  asUser: string; AttatchTo: TInterval; Colorized: Boolean);
 begin
   FPlan := aPlan;
   FResource := aResource;
   FUser := asUser;
   FAttatchTo := AttatchTo;
   FreeOnTerminate:=True;
+  FColorized := Colorized;
   inherited Create(False);
 end;
 
@@ -381,7 +386,7 @@ var
   aRoot: TUser;
   aIRoot: TInterval;
 
-  procedure CollectUsers(aIParent : TInterval;bParent : Variant);
+  procedure CollectUsers(aIParent : TInterval;bParent : Variant;Colorized : Boolean = False);
   var
     aUsers: TUser;
     aINew: TPInterval;
@@ -401,7 +406,7 @@ var
             aINew.Visible:=True;
             aINew.Style:=isNone;
             aIParent.AddInterval(aINew);
-            CollectUsers(aINew,aUsers.Id.AsVariant);
+            CollectUsers(aINew,aUsers.Id.AsVariant,(aUsers.Id.AsVariant=aUser) or Colorized);
           end
         else if not ((aUsers.FieldByName('LEAVED').AsString<>'') and (aUsers.FieldByName('LEAVED').AsDateTime<Now())) then
           begin
@@ -414,7 +419,7 @@ var
             aIParent.AddInterval(aINew);
             tmpRes := TRessource.Create(nil);
             tmpRes.User:=aINew;
-            TCollectThread.Create(Self,tmpRes,aUsers.FieldByName('ACCOUNTNO').AsString,aINew);
+            TCollectThread.Create(Self,tmpRes,aUsers.FieldByName('ACCOUNTNO').AsString,aINew,Colorized);
             aINew.OnDrawBackground:=@aINewDrawBackground;
           end;
         aUsers.Next;
@@ -435,7 +440,7 @@ begin
       aIRoot.StartDate:=Now()-1;
       aIRoot.FinishDate:=Now()-1;
       FGantt.AddInterval(aIRoot);
-      CollectUsers(aIRoot,aRoot.Id.AsVariant);
+      CollectUsers(aIRoot,aRoot.Id.AsVariant,aRoot.Id.AsVariant=aUser);
       aRoot.DataSet.Next;
     end;
   aRoot.Free;
@@ -444,7 +449,8 @@ begin
   FGantt.StartDate:=Now();
 end;
 
-procedure TfAttPlan.CollectResources(aResource: TRessource; asUser: string;aConnection : TComponent = nil);
+procedure TfAttPlan.CollectResources(aResource: TRessource; asUser: string;
+  aConnection: TComponent; Colorized: Boolean);
 var
   aUser: TUser;
   bTasks: TTaskList;
@@ -453,6 +459,7 @@ var
   aStart: System.TDateTime;
   aCalendar: TCalendar;
   gView : TfGanttView;
+  aCat: TCategory;
 begin
   aUser := TUser.Create(nil,Data,aConnection);
   aUser.SelectByAccountno(asUser);
@@ -475,6 +482,14 @@ begin
             begin
               bInterval.StartDate := trunc(bInterval.StartDate);
               bInterval.FinishDate := trunc(bInterval.FinishDate+1);
+            end;
+          if Colorized then
+            begin
+              aCat := TCategory.Create(nil,Data);
+              Data.SetFilter(aCat,Data.QuoteField('TYPE')+'='+Data.QuoteValue('C')+' AND '+Data.QuoteField('NAME')+'='+Data.QuoteValue(aCalendar.FieldByName('CATEGORY').AsString));
+              if aCat.Count>0 then
+                bInterval.Color:=StringToColor(aCat.FieldByName('COLOR').AsString);
+              aCat.Free;
             end;
           bInterval.Task:=aCalendar.FieldByName('SUMMARY').AsString;
           aResource.AddInterval(bInterval);

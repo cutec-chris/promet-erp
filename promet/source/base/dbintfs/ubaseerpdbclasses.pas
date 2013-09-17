@@ -204,6 +204,7 @@ begin
           begin
             Add('TYPE',ftString,1,false);
             Add('NAME',ftString,30,True);
+            Add('COLOR',ftString,30,True);
             Add('ACTIVE',ftString,1,false);
           end;
     end;
@@ -1225,4 +1226,4 @@ begin
 end;
 initialization
 end.
-
+

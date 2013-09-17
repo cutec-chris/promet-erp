@@ -2,10 +2,10 @@ object fEventEdit: TfEventEdit
   Left = 297
   Height = 430
   Top = 160
-  Width = 710
+  Width = 745
   Caption = 'Ereignis bearbeiten'
   ClientHeight = 430
-  ClientWidth = 710
+  ClientWidth = 745
   Color = clWindow
   KeyPreview = True
   OnCreate = FormCreate
@@ -15,9 +15,9 @@ object fEventEdit: TfEventEdit
   LCLVersion = '1.1'
   object lMessage: TLabel
     Left = 8
-    Height = 15
+    Height = 14
     Top = 8
-    Width = 694
+    Width = 729
     Align = alTop
     BorderSpacing.Around = 8
     Caption = 'lMessage'
@@ -31,12 +31,12 @@ object fEventEdit: TfEventEdit
   object ToolBar1: TPanel
     Left = 0
     Height = 44
-    Top = 31
-    Width = 710
+    Top = 30
+    Width = 745
     Align = alTop
     BevelOuter = bvNone
     ClientHeight = 44
-    ClientWidth = 710
+    ClientWidth = 745
     TabOrder = 0
     object Panel6: TPanel
       Left = 111
@@ -74,7 +74,7 @@ object fEventEdit: TfEventEdit
       end
       object DescriptionEdit: TEdit
         Left = 4
-        Height = 25
+        Height = 22
         Top = 13
         Width = 220
         Anchors = [akTop, akLeft, akRight]
@@ -118,7 +118,7 @@ object fEventEdit: TfEventEdit
       end
       object eLocation: TEdit
         Left = 4
-        Height = 25
+        Height = 22
         Top = 13
         Width = 128
         Anchors = [akTop, akLeft, akRight]
@@ -268,9 +268,9 @@ object fEventEdit: TfEventEdit
       end
       object AlarmSet: TCheckBox
         Left = 8
-        Height = 24
+        Height = 17
         Top = -2
-        Width = 88
+        Width = 56
         Caption = 'Erinnerung'
         Font.Color = clMedGray
         Font.Height = 11
@@ -281,7 +281,7 @@ object fEventEdit: TfEventEdit
       end
       object AlarmAdvance: TEdit
         Left = 24
-        Height = 25
+        Height = 20
         Top = 17
         Width = 56
         Font.Height = 12
@@ -305,12 +305,12 @@ object fEventEdit: TfEventEdit
       end
       object AlarmAdvType: TComboBox
         Left = 112
-        Height = 27
+        Height = 18
         Top = 17
         Width = 88
         Font.Height = 11
         Font.Name = 'Default'
-        ItemHeight = 0
+        ItemHeight = 10
         ParentFont = False
         TabOrder = 3
       end
@@ -348,9 +348,9 @@ object fEventEdit: TfEventEdit
       end
       object cbPlanrel: TCheckBox
         Left = 104
-        Height = 24
+        Height = 18
         Top = -2
-        Width = 130
+        Width = 110
         Caption = 'Planungsrelevant'
         Font.Height = -12
         ParentFont = False
@@ -425,22 +425,22 @@ object fEventEdit: TfEventEdit
   object ToolBar2: TPanel
     Left = 0
     Height = 53
-    Top = 75
-    Width = 710
+    Top = 74
+    Width = 745
     Align = alTop
     BevelOuter = bvNone
     ClientHeight = 53
-    ClientWidth = 710
+    ClientWidth = 745
     TabOrder = 1
     object Panel9: TPanel
-      Left = 368
+      Left = 339
       Height = 53
       Top = 0
-      Width = 304
+      Width = 293
       Align = alLeft
       BevelOuter = bvNone
       ClientHeight = 53
-      ClientWidth = 304
+      ClientWidth = 293
       TabOrder = 1
       object Label6: TLabel
         Left = 8
@@ -496,19 +496,19 @@ object fEventEdit: TfEventEdit
       end
       object RecurringType: TComboBox
         Left = 32
-        Height = 29
+        Height = 22
         Top = 21
         Width = 160
-        ItemHeight = 0
+        ItemHeight = 14
         OnChange = RecurringTypeChange
         Style = csDropDownList
         TabOrder = 0
       end
       object RepeatUntil: TZVDateTimePicker
         Left = 200
-        Height = 23
+        Height = 22
         Top = 21
-        Width = 97
+        Width = 89
         CenturyFrom = 1941
         MaxDate = 2958465
         MinDate = -53780
@@ -521,7 +521,7 @@ object fEventEdit: TfEventEdit
         TimeDisplay = tdHMS
         DateMode = dmComboBox
         Date = 40870
-        Time = 0.8378411458325
+        Time = 0.837841145832499
         UseDefaultSeparators = True
       end
       object RecurrenceEndsLbl: TLabel
@@ -542,17 +542,17 @@ object fEventEdit: TfEventEdit
       Left = 0
       Height = 53
       Top = 0
-      Width = 368
+      Width = 339
       Align = alLeft
       BevelOuter = bvNone
       ClientHeight = 53
-      ClientWidth = 368
+      ClientWidth = 339
       TabOrder = 0
       object StartDate: TZVDateTimePicker
         Left = 72
-        Height = 23
+        Height = 22
         Top = 1
-        Width = 169
+        Width = 153
         CenturyFrom = 1941
         MaxDate = 2958465
         MinDate = -53780
@@ -565,15 +565,15 @@ object fEventEdit: TfEventEdit
         TimeDisplay = tdHMS
         DateMode = dmComboBox
         Date = 40870
-        Time = 0.83630188657116
+        Time = 0.836301886571164
         UseDefaultSeparators = True
         OnExit = StartDateExit
       end
       object EndDate: TZVDateTimePicker
         Left = 72
-        Height = 23
+        Height = 22
         Top = 27
-        Width = 169
+        Width = 153
         CenturyFrom = 1941
         MaxDate = 2958465
         MinDate = -53780
@@ -587,22 +587,22 @@ object fEventEdit: TfEventEdit
         TimeDisplay = tdHMS
         DateMode = dmComboBox
         Date = 40870
-        Time = 0.83651868055313
+        Time = 0.836518680553127
         UseDefaultSeparators = True
       end
       object CBAllDay: TCheckBox
-        Left = 264
-        Height = 24
+        Left = 256
+        Height = 18
         Top = 1
-        Width = 87
+        Width = 71
         Caption = 'Ganztägig'
         Font.Height = -12
         ParentFont = False
         TabOrder = 1
       end
       object seDuration: TFloatSpinEdit
-        Left = 264
-        Height = 25
+        Left = 256
+        Height = 22
         Top = 25
         Width = 53
         Increment = 0.5
@@ -613,10 +613,10 @@ object fEventEdit: TfEventEdit
         Value = 0.1
       end
       object lHour: TLabel
-        Left = 320
-        Height = 15
+        Left = 312
+        Height = 14
         Top = 27
-        Width = 8
+        Width = 7
         Caption = 'h'
         ParentColor = False
       end
@@ -647,12 +647,58 @@ object fEventEdit: TfEventEdit
         ParentFont = False
       end
     end
+    object Panel10: TPanel
+      Left = 632
+      Height = 53
+      Top = 0
+      Width = 109
+      Align = alLeft
+      BevelOuter = bvNone
+      ClientHeight = 53
+      ClientWidth = 109
+      TabOrder = 2
+      object Bevel9: TBevel
+        Left = 0
+        Height = 45
+        Top = 4
+        Width = 8
+        Align = alLeft
+        BorderSpacing.Top = 4
+        BorderSpacing.Bottom = 4
+        Shape = bsLeftLine
+      end
+      object Label7: TLabel
+        Left = 4
+        Height = 15
+        Top = 0
+        Width = 90
+        Anchors = [akLeft, akBottom]
+        AutoSize = False
+        BorderSpacing.Left = 5
+        Caption = 'Kategorie'
+        Font.Color = clMedGray
+        Font.Height = 11
+        ParentColor = False
+        ParentFont = False
+      end
+      object cbCategory: TDBComboBox
+        Left = 4
+        Height = 22
+        Top = 21
+        Width = 101
+        DataField = 'CATEGORY'
+        DataSource = Datasource
+        ItemHeight = 14
+        MaxLength = 0
+        TabOrder = 0
+      end
+    end
   end
   object pcPages: TExtMenuPageControl
     Left = 0
-    Height = 302
-    Top = 128
-    Width = 710
+    Height = 303
+    Top = 127
+    Width = 745
     ActivePage = tsNotes
     Align = alClient
     Images = fVisualControls.Images
@@ -661,14 +707,14 @@ object fEventEdit: TfEventEdit
     NewTabImageIndex = 0
     object tsNotes: TTabSheet
       Caption = 'Notizen'
-      ClientHeight = 264
-      ClientWidth = 702
+      ClientHeight = 276
+      ClientWidth = 737
       ImageIndex = 49
       object NotesMemo: TMemo
         Left = 4
-        Height = 256
+        Height = 268
         Top = 4
-        Width = 694
+        Width = 729
         Align = alClient
         BorderSpacing.Around = 4
         ScrollBars = ssVertical
@@ -713,4 +759,4 @@ object fEventEdit: TfEventEdit
     left = 240
     top = 168
   end
-end
+end

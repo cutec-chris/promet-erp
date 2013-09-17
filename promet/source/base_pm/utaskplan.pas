@@ -719,6 +719,10 @@ begin
                 if aIEnd<=aIStart then aIEnd := aIStart+1;
                 bRect :=Rect(round((aIStart-aStart)*aDayWidth),aRect.Top+1,round((aIEnd-aStart)*aDayWidth),aRect.Bottom);
                 aResource.Interval[i].DrawRect:=bRect;
+                if aResource.Interval[i].Color<>clBlue then
+                  aCanvas.Brush.Color:=aResource.Interval[i].Color;
+                else
+                  aCanvas.Brush.Color:=$e0e0e0;
                 aCanvas.FillRect(aResource.Interval[i].DrawRect);
               end;
           end;

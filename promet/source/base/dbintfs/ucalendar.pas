@@ -111,6 +111,7 @@ begin
             Add('LOCATION',ftString,30,False);
             Add('CALENDART',ftString,15,False);
             Add('ICATEGORY',ftInteger,0,False);
+            Add('CATEGORY',ftString,30,False);
             Add('STARTDATE',ftDateTime,0,False);
             Add('ENDDATE',ftDateTime,0,False);
             Add('ALLDAY',ftString,1,false);
