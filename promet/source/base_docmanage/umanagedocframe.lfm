@@ -636,7 +636,7 @@ inherited fManageDocFrame: TfManageDocFrame
         Height = 23
         Top = 15
         Width = 24
-        Action = acSaveAll
+        Action = acSave
         AllowAllUp = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100

@@ -512,8 +512,8 @@ begin
         ThumbControl1.ImageLoaderManager.ActiveIndex:=i;
         ThumbControl1SelectItem(ThumbControl1,TThreadedImage(ThumbControl1.ImageLoaderManager.List[i]));
         for a := 0 to FDocFrame.lvDocuments.Items.Count-1 do
-          if (copy(FDocFrame.lvDocuments.Items[a].SubItems[0],0,4) = 'jpg ')
-          or (copy(FDocFrame.lvDocuments.Items[a].SubItems[0],0,5) = 'jpeg ')
+          if (lowercase(copy(FDocFrame.lvDocuments.Items[a].SubItems[0],0,4)) = 'jpg ')
+          or (lowercase(copy(FDocFrame.lvDocuments.Items[a].SubItems[0],0,5)) = 'jpeg ')
           then
             begin
               FDocFrame.lvDocuments.ItemIndex:=a;
@@ -529,8 +529,8 @@ var
 begin
   ThumbControl1SelectItem(ThumbControl1,TThreadedImage(ThumbControl1.ImageLoaderManager.List[ThumbControl1.ImageLoaderManager.ActiveIndex]));
   for a := 0 to FDocFrame.lvDocuments.Items.Count-1 do
-    if (copy(FDocFrame.lvDocuments.Items[a].SubItems[0],0,4) = 'jpg ')
-    or (copy(FDocFrame.lvDocuments.Items[a].SubItems[0],0,5) = 'jpeg ')
+    if (lowercase(copy(FDocFrame.lvDocuments.Items[a].SubItems[0],0,4)) = 'jpg ')
+    or (lowercase(copy(FDocFrame.lvDocuments.Items[a].SubItems[0],0,5)) = 'jpeg ')
     then
       begin
         FDocFrame.lvDocuments.ItemIndex:=a;
