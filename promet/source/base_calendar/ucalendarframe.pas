@@ -471,6 +471,7 @@ begin
               Event.RepeatRangeEnd := FieldByName('ROTTO').AsDateTime;
               Event.CustInterval := FieldByName('ROTCUS').AsInteger;
               Event.Location:= FieldByName('LOCATION').AsString;
+              Event.StrCategory:= FieldByName('CATEGORY').AsString;
               Event.Loading := false;
             end;
           Next;
@@ -547,6 +548,7 @@ begin
                     FieldByName('ROTTO').AsDateTime := Event.RepeatRangeEnd;
                     FieldByName('ROTCUS').AsInteger := Event.CustInterval;
                     FieldByName('LOCATION').AsString := Event.Location;
+                    FieldByName('CATEGORY').AsString:=Event.StrCategory;
                     Post;
                   except
                     Cancel;

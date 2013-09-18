@@ -382,6 +382,7 @@ begin
   FGantt.Tree.ShowHint:=True;
   FGantt.Tree.Options:=FGantt.Tree.Options+[goCellHints];
   FGantt.Tree.Options:=FGantt.Tree.Options-[goHorzLine];
+  FGantt.Tree.Options:=FGantt.Tree.Options-[goEditing];
   FGantt.Tree.AlternateColor:=$00FFE6E6;
 end;
 

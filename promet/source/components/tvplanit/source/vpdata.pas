@@ -190,6 +190,8 @@ type
   TVpEvent = class
   private
     FLocation: string;
+    FStrCategory: String;
+    procedure SetCategory(AValue: String);
   protected{private}
     FOwner: TVpSchedule;
     FItemIndex: Integer;
@@ -257,6 +259,7 @@ type
     property Description : string read FDescription write SetDescription;
     property Note : string read FNote write SetNote;
     property Category : Integer read FCategory write SetCategory;
+    property StrCategory : String read FStrCategory write SetCategory;
     property AlarmSet : Boolean read FAlarmSet write SetAlarmSet;
     property AlarmAdv : Integer read FAlarmAdv write SetAlarmAdv;
     property Loading : Boolean read FLoading write FLoading;
@@ -904,6 +907,13 @@ begin
   end;
 end;
 {=====}
+
+procedure TVpEvent.SetCategory(AValue: String);
+begin
+  if FStrCategory=AValue then Exit;
+  FStrCategory:=AValue;
+  Changed := true;
+end;
 
 procedure TVpEvent.SetAllDayEvent(Value: Boolean);
 begin

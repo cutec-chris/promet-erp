@@ -681,15 +681,12 @@ object fEventEdit: TfEventEdit
         ParentColor = False
         ParentFont = False
       end
-      object cbCategory: TDBComboBox
+      object cbCategory: TComboBox
         Left = 4
         Height = 22
         Top = 21
         Width = 101
-        DataField = 'CATEGORY'
-        DataSource = Datasource
         ItemHeight = 14
-        MaxLength = 0
         TabOrder = 0
       end
     end
@@ -701,7 +698,6 @@ object fEventEdit: TfEventEdit
     Width = 745
     ActivePage = tsNotes
     Align = alClient
-    Images = fVisualControls.Images
     TabIndex = 0
     TabOrder = 2
     NewTabImageIndex = 0

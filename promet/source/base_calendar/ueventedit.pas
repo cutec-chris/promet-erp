@@ -31,7 +31,7 @@ type
     Bevel9: TBevel;
     bExecute: TSpeedButton;
     CBAllDay: TCheckBox;
-    cbCategory: TDBComboBox;
+    cbCategory: TComboBox;
     cbPlanrel: TCheckBox;
     Datasource: TDatasource;
     DescriptionEdit: TEdit;
@@ -124,6 +124,9 @@ procedure TfEventEdit.bExecuteClick(Sender: TObject);
 var
   Hist : IBaseHistory;
 begin
+  DePopulateDialog;
+  if FDataSet.CanEdit then
+    FDataSet.Post;
   fSelectReport.Report := Report;
   fSelectReport.SetLanguage;
   //MandantDetails.DataSet := Data.MandantDetails.DataSet;
@@ -172,6 +175,7 @@ begin
   RepeatUntil.Date := Event.RepeatRangeEnd;
 
   CBAllDay.Checked := Event.AllDayEvent;
+  cbCategory.Text:= Event.StrCategory;
   cbPlanrel.Checked:= Event.Category = 8;
   AlarmWavPath := Event.AlarmWavPath;
 
@@ -204,6 +208,7 @@ begin
   Event.AlarmAdvType := TVpAlarmAdvType(AlarmAdvType.ItemIndex);
   Event.RepeatCode := TVpRepeatType(RecurringType.ItemIndex);
   Event.AllDayEvent := CBAllDay.Checked;
+  Event.StrCategory := cbCategory.Text;
   if cbPlanrel.Checked then
     Event.Category := 8;
   Event.AlarmWavPath := AlarmWavPath;

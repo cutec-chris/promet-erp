@@ -156,6 +156,7 @@ begin
   FGantt.Tree.ShowHint:=True;
   FGantt.Tree.Options:=FGantt.Tree.Options+[goCellHints];
   FGantt.Tree.Options:=FGantt.Tree.Options-[goHorzLine];
+  FGantt.Tree.Options:=FGantt.Tree.Options-[goEditing];
   FGantt.Tree.AlternateColor:=$00FFE6E6;
 end;
 
@@ -354,7 +355,7 @@ begin
   FGantt.Calendar.OnMoveOverInterval:=@FGanttCalendarMoveOverInterval;
   FGantt.Calendar.OnShowHint:=@FGanttCalendarShowHint;
   FGantt.Calendar.OnMouseMove:=@FGanttCalendarMouseMove;
-  FGantt.Calendar.PopupMenu := pmAction;
+  FGantt.Tree.PopupMenu := pmAction;
   bDayViewClick(nil);
   FGantt.Calendar.ShowHint:=True;
   FGantt.MinorScale:=tsDay;
@@ -402,6 +403,7 @@ var
   aRoot: TUser;
   aIRoot: TInterval;
   ColorUser : Variant;
+  HighestInterval : TInterval;
 
   procedure CollectUsers(aIParent : TInterval;bParent : Variant;Colorized : Boolean = False);
   var
@@ -426,8 +428,17 @@ var
             aINew.Opened:=False;
             aINew.OnOpen:=@aINewOpen;
             if (aUsers.Id.AsVariant=ColorUser) or Colorized then
-              aINew.Color:=clred;
-            CollectUsers(aINew,aUsers.Id.AsVariant,(aUsers.Id.AsVariant=ColorUser) or Colorized);
+              begin
+                aINew.Color:=clred;
+                CollectUsers(aINew,aUsers.Id.AsVariant,(aUsers.Id.AsVariant=ColorUser) or Colorized);
+                //aINew.Opened:=True;
+                HighestInterval := aINew;
+              end
+            else
+              begin
+                CollectUsers(aINew,aUsers.Id.AsVariant,(aUsers.Id.AsVariant=ColorUser) or Colorized);
+                aINew.Visible:=False;
+              end;
           end
         else if not ((aUsers.FieldByName('LEAVED').AsString<>'') and (aUsers.FieldByName('LEAVED').AsDateTime<Now())) then
           begin
@@ -436,9 +447,12 @@ var
             aINew.StartDate:=Now()-(365*10);
             aINew.FinishDate:=Now()-(365*10);
             aINew.SetUser(aUsers.FieldByName('ACCOUNTNO').AsString,nil);
-            if (aUsers.Id.AsVariant=ColorUser) or Colorized then
-              aINew.Color:=clred;
             aIParent.AddInterval(aINew);
+            if (aUsers.Id.AsVariant=ColorUser) or Colorized then
+              begin
+                aINew.Color:=clred;
+                HighestInterval:=aINew;
+              end;
             aINew.OnDrawBackground:=@aINewDrawBackground;
           end;
         aUsers.Next;
@@ -464,6 +478,12 @@ begin
       FGantt.AddInterval(aIRoot);
       CollectUsers(aIRoot,aRoot.Id.AsVariant,aRoot.Id.AsVariant=aUser);
       aRoot.DataSet.Next;
+    end;
+  while Assigned(HighestInterval) do
+    begin
+      HighestInterval.Opened:=False;
+      HighestInterval.Opened:=True;
+      HighestInterval := HighestInterval.Parent;
     end;
   aRoot.Free;
   FGantt.EndUpdate;
