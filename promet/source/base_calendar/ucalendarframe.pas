@@ -193,6 +193,7 @@ procedure AddToMainTree(aAction: TAction; var FCalendarNode: TTreeNode);
 var
   Node: TTreeNode;
   Node1: TTreeNode;
+  aCal: TCalendar;
   procedure CollectUsers(aParent : Variant);
   var
     aUsers: TUser;
@@ -250,6 +251,9 @@ begin
         begin
           CollectUsers(Data.Users.FieldByName('PARENT').AsVariant);
         end;
+      aCal := TCalendar.Create(nil,Data);
+      aCal.CreateTable;
+      acal.Free;
     end;
 end;
 
