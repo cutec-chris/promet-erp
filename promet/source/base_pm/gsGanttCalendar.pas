@@ -94,6 +94,7 @@ type
     FIntervalStyle: TIntervalStyle;
     FNetTime: TDateTime;
     FOnChanged: TNotifyEvent;
+    FOnOpen: TNotifyEvent;
     FPB: TPaitBackgroundEvent;
     FPointer: Pointer;
     FPointer2: Pointer;
@@ -248,6 +249,7 @@ type
     property OnDrawBackground : TPaitBackgroundEvent read FPB write FBP;
     property Color : TColor read FColor write SetColor;
     property Gantt : TgsGantt read FGantt;
+    property OnOpen : TNotifyEvent read FOnOpen write FOnOpen;
   end;
   TMouseOverInterval = procedure(Sender : TObject;aInterval : TInterval;X,Y : Integer) of object;
 
@@ -1733,6 +1735,8 @@ var
 begin
   for I := 0 to IntervalCount - 1 do
     Interval[I].Visible := Value;
+  if Assigned(FOnOpen) then
+    FOnOpen(Self);
 end;
 
 function TInterval.CountStartDate: TDateTime;

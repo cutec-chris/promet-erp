@@ -155,6 +155,11 @@ begin
       with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
         Filter := QuoteField('REF_ID_ID')+'='+QuoteValue('0');
     end;
+  with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
+    begin
+      SortFields:='STARTDATE';
+      SortDirection:=sdDescending;
+    end;
   aUser.Free;
 end;
 

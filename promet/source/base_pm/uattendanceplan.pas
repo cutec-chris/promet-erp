@@ -47,6 +47,7 @@ type
     procedure acCancelExecute(Sender: TObject);
     procedure aINewDrawBackground(Sender: TObject; aCanvas: TCanvas;
       aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
+    procedure aINewOpen(Sender: TObject);
     procedure bDayViewClick(Sender: TObject);
     procedure bMonthViewClick(Sender: TObject);
     procedure bRefreshClick(Sender: TObject);
@@ -189,6 +190,20 @@ begin
   Taskplan.aIDrawBackground(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth,clBlue,clLime,clRed);
 end;
 
+procedure TfAttPlan.aINewOpen(Sender: TObject);
+var
+  i: Integer;
+  tmpRes: TRessource;
+begin
+  for i := 0 to TInterval(Sender).IntervalCount-1 do
+    if TInterval(Sender).Interval[i] is TPInterval then
+      begin
+        tmpRes := TRessource.Create(nil);
+        tmpRes.User:=TPInterval(TInterval(Sender).Interval[i]);
+        TCollectThread.Create(Self,tmpRes,TPInterval(TInterval(Sender).Interval[i]).User,TInterval(Sender).Interval[i],(TInterval(Sender).Interval[i].Color=clRed) or (TInterval(Sender).Color=clred));
+      end;
+end;
+
 procedure TfAttPlan.acCancelExecute(Sender: TObject);
 begin
   bRefreshClick(Sender);
@@ -312,14 +327,15 @@ begin
             for i := 0 to TRessource(TInterval(List[ay]).Pointer).IntervalCount-1 do
               if not TRessource(TInterval(List[ay]).Pointer).Interval[i].IsDrawRectClear then
                 if IsInRect(HintInfo^.CursorPos.X,HintInfo^.CursorPos.Y,TRessource(TInterval(List[ay]).Pointer).Interval[i].DrawRect) then
-                  begin
-                    aPercent := aPercent+round(TRessource(TInterval(List[ay]).Pointer).Interval[i].PercentUsage*100);
-                    if (TRessource(TInterval(List[ay]).Pointer).Interval[i] is TBackInterval) then
-                      begin
-                        if HintInfo^.HintStr <> '' then HintInfo^.HintStr := HintInfo^.HintStr+lineending;
-                        HintInfo^.HintStr := HintInfo^.HintStr+TRessource(TInterval(List[ay]).Pointer).Interval[i].Task;
-                      end;
-                  end;
+                  if TRessource(TInterval(List[ay]).Pointer).Interval[i].Color<>clBlue then
+                    begin
+                      aPercent := aPercent+round(TRessource(TInterval(List[ay]).Pointer).Interval[i].PercentUsage*100);
+                      if (TRessource(TInterval(List[ay]).Pointer).Interval[i] is TBackInterval) then
+                        begin
+                          if HintInfo^.HintStr <> '' then HintInfo^.HintStr := HintInfo^.HintStr+lineending;
+                          HintInfo^.HintStr := HintInfo^.HintStr+TRessource(TInterval(List[ay]).Pointer).Interval[i].Task;
+                        end;
+                    end;
           end;
       List.Free;
     end;
@@ -385,6 +401,7 @@ var
   aUserFilter : string ='';
   aRoot: TUser;
   aIRoot: TInterval;
+  ColorUser : Variant;
 
   procedure CollectUsers(aIParent : TInterval;bParent : Variant;Colorized : Boolean = False);
   var
@@ -406,7 +423,11 @@ var
             aINew.Visible:=True;
             aINew.Style:=isNone;
             aIParent.AddInterval(aINew);
-            CollectUsers(aINew,aUsers.Id.AsVariant,(aUsers.FieldByName('PARENT').AsVariant=aUser) or Colorized);
+            aINew.Opened:=False;
+            aINew.OnOpen:=@aINewOpen;
+            if (aUsers.Id.AsVariant=ColorUser) or Colorized then
+              aINew.Color:=clred;
+            CollectUsers(aINew,aUsers.Id.AsVariant,(aUsers.Id.AsVariant=ColorUser) or Colorized);
           end
         else if not ((aUsers.FieldByName('LEAVED').AsString<>'') and (aUsers.FieldByName('LEAVED').AsDateTime<Now())) then
           begin
@@ -415,17 +436,18 @@ var
             aINew.StartDate:=Now()-(365*10);
             aINew.FinishDate:=Now()-(365*10);
             aINew.SetUser(aUsers.FieldByName('ACCOUNTNO').AsString,nil);
-            aINew.Visible:=True;
+            if (aUsers.Id.AsVariant=ColorUser) or Colorized then
+              aINew.Color:=clred;
             aIParent.AddInterval(aINew);
-            tmpRes := TRessource.Create(nil);
-            tmpRes.User:=aINew;
-            TCollectThread.Create(Self,tmpRes,aUsers.FieldByName('ACCOUNTNO').AsString,aINew,Colorized);
             aINew.OnDrawBackground:=@aINewDrawBackground;
           end;
         aUsers.Next;
       end;
   end;
 begin
+  if Data.Users.FieldByName('POSITION').AsString='LEADER' then
+    ColorUser := Data.Users.FieldByName('PARENT').AsVariant
+  else ColorUser := Data.Users.Id.AsVariant;
   while FGantt.IntervalCount>0 do
     FGantt.DeleteInterval(0);
   aRoot := TUser.Create(nil,Data);
