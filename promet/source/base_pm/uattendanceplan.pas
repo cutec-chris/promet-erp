@@ -406,7 +406,7 @@ var
             aINew.Visible:=True;
             aINew.Style:=isNone;
             aIParent.AddInterval(aINew);
-            CollectUsers(aINew,aUsers.Id.AsVariant,(aUsers.Id.AsVariant=aUser) or Colorized);
+            CollectUsers(aINew,aUsers.Id.AsVariant,(aUsers.FieldByName('PARENT').AsVariant=aUser) or Colorized);
           end
         else if not ((aUsers.FieldByName('LEAVED').AsString<>'') and (aUsers.FieldByName('LEAVED').AsDateTime<Now())) then
           begin

@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -89,7 +89,6 @@
             </CompilerMessages>
             <CompilerPath Value="$(CompPath)"/>
           </Other>
-          <LCLWidgetType Value="win32"/>
         </CompilerOptions>
       </Item3>
       <Item4 Name="Win64">
@@ -125,7 +124,6 @@
             </CompilerMessages>
             <CompilerPath Value="$(CompPath)"/>
           </Other>
-          <LCLWidgetType Value="win32"/>
         </CompilerOptions>
       </Item4>
       <Item5 Name="DebugOSX">
@@ -1565,8 +1563,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="441"/>
-        <CursorPos X="36" Y="445"/>
+        <TopLine Value="423"/>
+        <CursorPos X="52" Y="434"/>
         <UsageCount Value="101"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -3262,8 +3260,8 @@
         <UnitName Value="uTaskPlan"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="789"/>
-        <CursorPos X="30" Y="716"/>
+        <TopLine Value="1349"/>
+        <CursorPos X="1" Y="1248"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit331>
@@ -3292,7 +3290,7 @@
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit334>
     </Units>
-    <JumpHistory Count="19" HistoryIndex="18">
+    <JumpHistory Count="21" HistoryIndex="20">
       <Position1>
         <Filename Value="../base_pm/uattendanceplan.pas"/>
         <Caret Line="438" Column="12" TopLine="413"/>
@@ -3369,6 +3367,14 @@
         <Filename Value="../base_pm/uattendanceplan.pas"/>
         <Caret Line="188" Column="26" TopLine="182"/>
       </Position19>
+      <Position20>
+        <Filename Value="../base_pm/utaskplan.pas"/>
+        <Caret Line="716" Column="30" TopLine="788"/>
+      </Position20>
+      <Position21>
+        <Filename Value="../base_pm/utaskplan.pas"/>
+        <Caret Line="724" Column="17" TopLine="708"/>
+      </Position21>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>

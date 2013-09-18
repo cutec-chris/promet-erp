@@ -720,7 +720,7 @@ begin
                 bRect :=Rect(round((aIStart-aStart)*aDayWidth),aRect.Top+1,round((aIEnd-aStart)*aDayWidth),aRect.Bottom);
                 aResource.Interval[i].DrawRect:=bRect;
                 if aResource.Interval[i].Color<>clBlue then
-                  aCanvas.Brush.Color:=aResource.Interval[i].Color;
+                  aCanvas.Brush.Color:=aResource.Interval[i].Color
                 else
                   aCanvas.Brush.Color:=$e0e0e0;
                 aCanvas.FillRect(aResource.Interval[i].DrawRect);
@@ -1231,7 +1231,7 @@ var
             aINew.Visible:=True;
             aINew.Style:=isNone;
             aIParent.AddInterval(aINew);
-            CollectUsers(aINew,aUsers.Id.AsVariant);
+            CollectUsers(aINew,aUsers.FieldByName('PARENT').AsVariant);
             aINew.OnDrawBackground:=@aIGroupDrawBackground;
           end
         else if not ((aUsers.FieldByName('LEAVED').AsString<>'') and (aUsers.FieldByName('LEAVED').AsDateTime<Now())) and ((aUser = Null) or (aUser = aUsers.id.AsVariant)) then
