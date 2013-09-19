@@ -65,7 +65,6 @@ function OnMessageReceived(aMessage: string): Boolean;
 begin
   Result := fMain.CommandReceived(nil,aMessage);
 end;
-
 procedure TfMain.Timer1Timer(Sender: TObject);
 var
   aProcess: String;
@@ -131,7 +130,7 @@ begin
           Data.ProcessClient.Processes.DataSet.First;
           while not Data.ProcessClient.Processes.DataSet.EOF do
             begin
-              aLog.Text := Data.ProcessClient.Processes.DataSet.FieldByName('LOG').AsString;
+              //aLog.Text := Data.ProcessClient.Processes.DataSet.FieldByName('LOG').AsString;
               aProcess := Data.ProcessClient.Processes.FieldByName('NAME').AsString;
               if FileExistsUTF8(ExpandFileNameUTF8(aProcess+ExtractFileExt(Application.ExeName))) then
                 begin
@@ -344,12 +343,15 @@ end;
 
 procedure TfMain.DoExit;
 begin
-  if Data.ProcessClient.DataSet.Locate('NAME',GetSystemName,[]) then
-    begin
-      Data.ProcessClient.DataSet.Edit;
-      Data.ProcessClient.FieldByName('STATUS').AsString:='N';
-      Data.ProcessClient.DataSet.Post;
-    end;
+  try
+    if Data.ProcessClient.DataSet.Locate('NAME',GetSystemName,[]) then
+      begin
+        Data.ProcessClient.DataSet.Edit;
+        Data.ProcessClient.FieldByName('STATUS').AsString:='N';
+        Data.ProcessClient.DataSet.Post;
+      end;
+  except
+  end;
 end;
 
 procedure TfMain.DataModuleCreate(Sender: TObject);

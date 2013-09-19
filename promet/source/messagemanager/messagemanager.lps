@@ -8,6 +8,7 @@
         <Filename Value="messagemanager.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="messagemanager"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -24,8 +25,9 @@
         <UnitName Value="umain"/>
         <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="52"/>
-        <CursorPos X="3" Y="519"/>
+        <TopLine Value="193"/>
+        <CursorPos X="12" Y="116"/>
+        <FoldState Value=" T5iG03 T3iK0301211 piYn50431312 T1sd0]76iP0AZ"/>
         <UsageCount Value="72"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -287,10 +289,9 @@
       <Unit31>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1912"/>
+        <TopLine Value="1"/>
         <CursorPos X="39" Y="1920"/>
         <UsageCount Value="17"/>
         <Loaded Value="True"/>
@@ -897,7 +898,7 @@
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="4" HistoryIndex="3">
+    <JumpHistory Count="6" HistoryIndex="5">
       <Position1>
         <Filename Value="../base/ugridview.pas"/>
         <Caret Line="1078" Column="1" TopLine="1060"/>
@@ -914,6 +915,14 @@
         <Filename Value="../base/ugridview.pas"/>
         <Caret Line="318" Column="61" TopLine="300"/>
       </Position4>
+      <Position5>
+        <Filename Value="umain.pas"/>
+        <Caret Line="387" Column="42" TopLine="380"/>
+      </Position5>
+      <Position6>
+        <Filename Value="messagemanager.lpr"/>
+        <Caret Line="22" Column="1" TopLine="1"/>
+      </Position6>
     </JumpHistory>
   </ProjectSession>
   <EditorMacros Count="0"/>
