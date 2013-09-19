@@ -138,7 +138,10 @@ begin
     except
       on e : exception do
         begin
-          (BaseApplication as IBaseApplication).Error(Format(strRowSyncFailed,[SyncTbl.FieldByName('SQL_ID').AsString,e.Message,SyncTbl.FieldByName('TIMESTAMPD').AsString]));
+          if SyncDB.Tables.DataSet.FieldByName('NAME').AsString = 'DELETEDITEMS' then //Delete Items from DB
+            (BaseApplication as IBaseApplication).Warning(Format(strRowSyncFailed,[SyncTbl.FieldByName('SQL_ID').AsString,e.Message,SyncTbl.FieldByName('TIMESTAMPD').AsString]))
+          else
+            (BaseApplication as IBaseApplication).Error(Format(strRowSyncFailed,[SyncTbl.FieldByName('SQL_ID').AsString,e.Message,SyncTbl.FieldByName('TIMESTAMPD').AsString]));
           result := False;
         end;
     end;

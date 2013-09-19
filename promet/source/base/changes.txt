@@ -1,4 +1,6 @@
-﻿Build 277
+﻿Build 278
+      -
+Build 277
       - Abwesenheitsplan
 Build 276
       - Snapshots (kopien der Zeitpläne) können in Gantt Ansicht von projekten erstellt und wieder aufgerufen werden

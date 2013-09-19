@@ -287,8 +287,8 @@
         <UnitName Value="uMain"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="303"/>
-        <CursorPos X="24" Y="322"/>
+        <TopLine Value="685"/>
+        <CursorPos X="1" Y="703"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -296,7 +296,7 @@
       <Unit2>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="204"/>
         <CursorPos X="45" Y="217"/>
@@ -477,28 +477,32 @@
       <Unit18>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="582"/>
-        <CursorPos X="21" Y="618"/>
+        <TopLine Value="493"/>
+        <CursorPos X="30" Y="518"/>
         <UsageCount Value="110"/>
+        <Loaded Value="True"/>
       </Unit18>
       <Unit19>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1255"/>
-        <CursorPos X="1" Y="1276"/>
+        <TopLine Value="1140"/>
+        <CursorPos X="1" Y="1171"/>
         <UsageCount Value="105"/>
         <Loaded Value="True"/>
       </Unit19>
       <Unit20>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1755"/>
-        <CursorPos X="89" Y="1761"/>
+        <TopLine Value="1969"/>
+        <CursorPos X="98" Y="2003"/>
         <UsageCount Value="100"/>
+        <Loaded Value="True"/>
       </Unit20>
       <Unit21>
         <Filename Value="../base/dbintfs/uorder.pas"/>
@@ -928,7 +932,7 @@
       <Unit60>
         <Filename Value="../base/dbintfs/uintfstrconsts.pas"/>
         <UnitName Value="uIntfStrConsts"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="6"/>
         <CursorPos X="54" Y="24"/>
@@ -1022,6 +1026,7 @@
       </Unit68>
       <Unit69>
         <Filename Value="../base/revision.inc"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -1034,7 +1039,7 @@
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="27" Y="2"/>
+        <CursorPos X="9" Y="2"/>
         <UsageCount Value="103"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
@@ -1177,11 +1182,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uCalendarFrame"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="112"/>
-        <CursorPos X="9" Y="119"/>
+        <TopLine Value="101"/>
+        <CursorPos X="1" Y="121"/>
         <UsageCount Value="90"/>
         <Loaded Value="True"/>
       </Unit84>
@@ -2336,7 +2340,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="5"/>
         <CursorPos X="3" Y="36"/>
-        <UsageCount Value="191"/>
+        <UsageCount Value="192"/>
       </Unit218>
       <Unit219>
         <Filename Value="../../../../lazarus/lcl/include/customframe.inc"/>
@@ -3298,124 +3302,124 @@
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1276" Column="1" TopLine="1255"/>
+        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
+        <Caret Line="756" Column="1" TopLine="732"/>
       </Position1>
       <Position2>
-        <Filename Value="umain.pas"/>
-        <Caret Line="694" Column="1" TopLine="679"/>
+        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
+        <Caret Line="757" Column="1" TopLine="732"/>
       </Position2>
       <Position3>
-        <Filename Value="umain.pas"/>
-        <Caret Line="695" Column="1" TopLine="679"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1948" Column="3" TopLine="1948"/>
       </Position3>
       <Position4>
-        <Filename Value="umain.pas"/>
-        <Caret Line="696" Column="1" TopLine="679"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1971" Column="1" TopLine="1948"/>
       </Position4>
       <Position5>
-        <Filename Value="umain.pas"/>
-        <Caret Line="698" Column="1" TopLine="679"/>
+        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
+        <Caret Line="477" Column="1" TopLine="458"/>
       </Position5>
       <Position6>
-        <Filename Value="../base_calendar/ucalendarframe.pas"/>
-        <Caret Line="236" Column="1" TopLine="218"/>
+        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
+        <Caret Line="478" Column="1" TopLine="458"/>
       </Position6>
       <Position7>
-        <Filename Value="../base_calendar/ucalendarframe.pas"/>
-        <Caret Line="237" Column="1" TopLine="218"/>
+        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
+        <Caret Line="479" Column="1" TopLine="458"/>
       </Position7>
       <Position8>
-        <Filename Value="../base_calendar/ucalendarframe.pas"/>
-        <Caret Line="239" Column="1" TopLine="218"/>
+        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
+        <Caret Line="481" Column="1" TopLine="467"/>
       </Position8>
       <Position9>
-        <Filename Value="../base_calendar/ucalendarframe.pas"/>
-        <Caret Line="240" Column="1" TopLine="218"/>
+        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
+        <Caret Line="482" Column="1" TopLine="467"/>
       </Position9>
       <Position10>
-        <Filename Value="../base_calendar/ucalendarframe.pas"/>
-        <Caret Line="241" Column="1" TopLine="218"/>
+        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
+        <Caret Line="484" Column="1" TopLine="467"/>
       </Position10>
       <Position11>
-        <Filename Value="../base_calendar/ucalendarframe.pas"/>
-        <Caret Line="242" Column="1" TopLine="218"/>
+        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
+        <Caret Line="485" Column="1" TopLine="467"/>
       </Position11>
       <Position12>
-        <Filename Value="../base_calendar/ucalendarframe.pas"/>
-        <Caret Line="243" Column="1" TopLine="218"/>
+        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
+        <Caret Line="487" Column="1" TopLine="467"/>
       </Position12>
       <Position13>
-        <Filename Value="../base_calendar/ucalendarframe.pas"/>
-        <Caret Line="244" Column="1" TopLine="218"/>
+        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
+        <Caret Line="485" Column="1" TopLine="467"/>
       </Position13>
       <Position14>
-        <Filename Value="../base_calendar/ucalendarframe.pas"/>
-        <Caret Line="245" Column="1" TopLine="218"/>
+        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
+        <Caret Line="497" Column="1" TopLine="467"/>
       </Position14>
       <Position15>
-        <Filename Value="../base_calendar/ucalendarframe.pas"/>
-        <Caret Line="246" Column="1" TopLine="218"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1972" Column="1" TopLine="1948"/>
       </Position15>
       <Position16>
-        <Filename Value="../base_calendar/ucalendarframe.pas"/>
-        <Caret Line="247" Column="1" TopLine="218"/>
+        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
+        <Caret Line="506" Column="1" TopLine="487"/>
       </Position16>
       <Position17>
-        <Filename Value="../base_calendar/ucalendarframe.pas"/>
-        <Caret Line="248" Column="1" TopLine="218"/>
+        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
+        <Caret Line="507" Column="1" TopLine="487"/>
       </Position17>
       <Position18>
-        <Filename Value="../base_calendar/ucalendarframe.pas"/>
-        <Caret Line="249" Column="1" TopLine="219"/>
+        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
+        <Caret Line="508" Column="1" TopLine="487"/>
       </Position18>
       <Position19>
-        <Filename Value="../base_calendar/ucalendarframe.pas"/>
-        <Caret Line="251" Column="1" TopLine="221"/>
+        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
+        <Caret Line="510" Column="1" TopLine="487"/>
       </Position19>
       <Position20>
-        <Filename Value="../base_calendar/ucalendarframe.pas"/>
-        <Caret Line="254" Column="1" TopLine="224"/>
+        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
+        <Caret Line="511" Column="1" TopLine="487"/>
       </Position20>
       <Position21>
-        <Filename Value="umain.pas"/>
-        <Caret Line="700" Column="1" TopLine="679"/>
+        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
+        <Caret Line="513" Column="1" TopLine="487"/>
       </Position21>
       <Position22>
-        <Filename Value="umain.pas"/>
-        <Caret Line="701" Column="1" TopLine="679"/>
+        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
+        <Caret Line="514" Column="1" TopLine="487"/>
       </Position22>
       <Position23>
-        <Filename Value="umain.pas"/>
-        <Caret Line="702" Column="1" TopLine="679"/>
+        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
+        <Caret Line="515" Column="1" TopLine="487"/>
       </Position23>
       <Position24>
-        <Filename Value="umain.pas"/>
-        <Caret Line="698" Column="36" TopLine="679"/>
+        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
+        <Caret Line="516" Column="1" TopLine="487"/>
       </Position24>
       <Position25>
-        <Filename Value="../base_calendar/ucalendarframe.pas"/>
-        <Caret Line="251" Column="18" TopLine="218"/>
+        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
+        <Caret Line="517" Column="1" TopLine="487"/>
       </Position25>
       <Position26>
-        <Filename Value="../base_calendar/ucalendarframe.pas"/>
-        <Caret Line="254" Column="12" TopLine="236"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1988" Column="40" TopLine="1969"/>
       </Position26>
       <Position27>
-        <Filename Value="../base_calendar/ucalendarframe.pas"/>
-        <Caret Line="248" Column="34" TopLine="236"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1986" Column="34" TopLine="1969"/>
       </Position27>
       <Position28>
-        <Filename Value="umain.pas"/>
-        <Caret Line="694" Column="49" TopLine="679"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="119" Column="1" TopLine="101"/>
       </Position28>
       <Position29>
-        <Filename Value="umain.pas"/>
-        <Caret Line="703" Column="1" TopLine="679"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="121" Column="1" TopLine="101"/>
       </Position29>
       <Position30>
-        <Filename Value="umain.pas"/>
-        <Caret Line="322" Column="24" TopLine="303"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="2003" Column="98" TopLine="1969"/>
       </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">
@@ -3460,22 +3464,6 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="2">
-      <Item1>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="umain.pas"/>
-        <Line Value="703"/>
-      </Item1>
-      <Item2>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="../base_calendar/ucalendarframe.pas"/>
-        <Line Value="121"/>
-      </Item2>
-    </BreakPoints>
     <Watches Count="1">
       <Item1>
         <Expression Value="aINew.Task"/>

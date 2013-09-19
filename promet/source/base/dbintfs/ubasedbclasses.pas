@@ -1944,6 +1944,7 @@ var
   aCreated: Boolean = False;
   aOldFilter: String = '';
   aOldLimit: Integer;
+  aErr: String;
 begin
   if not Assigned(FDataSet) then exit;
   if FDataSet.Active then
@@ -1969,7 +1970,8 @@ begin
             FDataSet.DisableControls;
             FDataSet.Close;
             if CheckTable then
-              AlterTable;
+              if not AlterTable then
+                raise Exception.Create('Altering Table failed !');
             if aOldFilter<>'' then
               with DataSet as IBaseDbFilter do
                 begin
@@ -1982,7 +1984,12 @@ begin
           end;
       end;
   except
-    Retry := True;
+    on e : Exception do
+      begin
+        aErr := e.Message;
+        debugln(e.Message);
+        Retry := True;
+      end;
   end;
   if Retry then
     begin
@@ -1991,7 +1998,7 @@ begin
         FDataSet.Open;
       except
         begin
-          raise;
+          raise Exception.Create(aErr);
           exit;
         end;
       end;
@@ -2275,4 +2282,4 @@ begin
 end;
 initialization
 end.
-
+
