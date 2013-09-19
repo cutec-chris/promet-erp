@@ -61,6 +61,7 @@ type
     procedure FGanttCalendarShowHint(Sender: TObject; HintInfo: PHintInfo);
     procedure FGanttTreeAfterUpdateCommonSettings(Sender: TObject);
     procedure FGanttTreeResize(Sender: TObject);
+    procedure MenuItem1Click(Sender: TObject);
     procedure TIntervalChanged(Sender: TObject);
   private
     { private declarations }
@@ -100,7 +101,7 @@ type
 
 implementation
 uses uData,LCLIntf,uBaseDbClasses,uProjects,uTaskEdit,LCLProc,uGanttView,uColors,
-  uCalendar,uTaskPlanOptions,uBaseERPDBClasses;
+  uCalendar,uTaskPlanOptions,uBaseERPDBClasses,uAttStatistic;
 {$R *.lfm}
 
 { TCollectThread }
@@ -167,6 +168,11 @@ begin
   fgantt.Tree.ColWidths[2]:=FGantt.Tree.Width-FGantt.Tree.ColWidths[3]-FGantt.Tree.ColWidths[4]-FGantt.Tree.ColWidths[5];
   fgantt.Tree.ColWidths[6]:=0;
   fgantt.Tree.ColWidths[7]:=0;
+end;
+
+procedure TfAttPlan.MenuItem1Click(Sender: TObject);
+begin
+//  fAttStatistic.Execute(Fgantt.Tree.);
 end;
 
 procedure TfAttPlan.TIntervalChanged(Sender: TObject);

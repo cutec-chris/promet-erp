@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <CONFIG>
   <Package Version="4">
     <Name Value="pProjectbase"/>
@@ -14,7 +14,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="20">
+    <Files Count="21">
       <Item1>
         <Filename Value="uprojectimport.pas"/>
         <UnitName Value="uprojectimport"/>
@@ -95,6 +95,10 @@
         <Filename Value="uprojectflow.pas"/>
         <UnitName Value="uProjectFlow"/>
       </Item20>
+      <Item21>
+        <Filename Value="uattstatistic.pas"/>
+        <UnitName Value="uattstatistic"/>
+      </Item21>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="6">

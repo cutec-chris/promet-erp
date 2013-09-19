@@ -9,7 +9,7 @@ interface
 uses
   uprojectimport, uTaskEdit, utasks, umaintasks, uprojectpositions, 
   uMeetingFrame, umeetingusers, gsGanttCalendar, uattendanceplan, uGanttView, 
-  uTaskPlanOptions, uProjectFlow, LazarusPackageIntf;
+  uTaskPlanOptions, uProjectFlow, uAttStatistic, LazarusPackageIntf;
 
 implementation
 
