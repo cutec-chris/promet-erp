@@ -1674,16 +1674,16 @@ begin
   if (not Found) and Assigned(FTimeReg) then
     begin
       aFrame := TfTimeFrame.Create(Self);
-      pcPages.AddTab(aFrame,True,strTimetools,-1,False);
-      Application.ProcessMessages;
       FTimeReg.BorderStyle:=bsNone;
       fTimeReg.Parent := aFrame;
+      aFrame.FTimeReg := FTimeReg;
       fTimeReg.SetRights;
       FTimeReg.Visible:=True;
       fTimereg.Align:=alClient;
       FTimereg.Timer.Enabled:=True;
       FTimeReg.Calculate;
       aFrame.DoOpen;
+      pcPages.AddTab(aFrame,True,strTimetools,-1,False);
     end;
 end;
 

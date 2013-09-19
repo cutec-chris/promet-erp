@@ -182,6 +182,7 @@ type
     property PauseBtn : TSpeedButton read FPBtn write SetPBtn;
     property Node : TTreeNode read FNode write FNode;
     procedure refreshNode;
+    procedure SetActive;
   end;
 var
   fEnterTime: TfEnterTime;
@@ -1047,6 +1048,11 @@ begin
         end;
       FNode.TreeView.Invalidate;
     end;
+end;
+
+procedure TfEnterTime.SetActive;
+begin
+  FList.SetActive;
 end;
 
 function GetWorkTime(User : string): Integer;

@@ -5,7 +5,8 @@ unit uTimeFrame;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls,uPrometFrames;
+  Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls,uPrometFrames,
+  uEnterTime;
 
 type
 
@@ -16,8 +17,10 @@ type
     { private declarations }
   public
     { public declarations }
+    FTimeReg : TfEnterTime;
     destructor Destroy; override;
     procedure DoOpen;override;
+    procedure ShowFrame; override;
   end;
 
 implementation
@@ -34,6 +37,12 @@ end;
 procedure TfTimeFrame.DoOpen;
 begin
   inherited DoOpen;
+end;
+
+procedure TfTimeFrame.ShowFrame;
+begin
+  inherited ShowFrame;
+  FTimeReg.SetActive;
 end;
 
 end.
