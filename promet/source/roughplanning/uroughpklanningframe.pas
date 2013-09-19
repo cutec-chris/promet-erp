@@ -359,6 +359,7 @@ begin
           aCanvas.Pen.Color:=clRed;
           aCanvas.Brush.Color:=clWindow;
           aCanvas.Rectangle(aDRect);
+          aCanvas.Pen.Width:=1;
           aSubInt := TProjectInterval(aInt.Interval[i]);
           if aSubInt.DepartmentCount>0 then
             begin
@@ -382,21 +383,23 @@ begin
                       aDrawTime := 0;
                       aCanvas.Brush.Color:=clRed;
                     end;
+                  aRRect := aDerect;
                   if aDepartment.FullTime>0 then
                     begin
                       aTop := round(((aDerect.Bottom-aDerect.Top)*(aDrawTime/aDepartment.FullTime)));
                       aTop := aDerect.Top+aTop;
                     end
                   else aTop := aDerect.Bottom;
-                  aDerect.Top:=aTop+1;
-                  aDerect.Left:=aDerect.Left+1;
-                  aRRect := aDerect;
+                  aRrect.Top:=aTop+1;
+                  aRrect.Left:=aDerect.Left+1;
                   aRRect.Right:=aDerect.Left+11;
 
                   aCanvas.Rectangle(aRRect);
                   aRRect := aDerect;
                   aRRect.Left:=aDerect.Left+11;
+                  aCanvas.Font.Size:=8;
                   aCanvas.TextRect(aRRect,aRRect.Left,aRRect.Top,aDepartment.ShortName,Style);
+                  aCanvas.Font.Size:=0;
                 end;
             end;
         end;
