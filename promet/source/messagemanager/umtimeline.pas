@@ -111,10 +111,8 @@ begin
       Show;
       BoundsRect := aBoundsRect;
     end;
-  fTimeline.Show;
   Show;
   fTimeline.acFilter.Execute;
-  FTimeLine.Refresh(True);
   IdleTimer1.Enabled:=True;
   fTimeline.SetActive;
   fTimeline.gList.TopRow:=0;

@@ -51,6 +51,7 @@ object fMain: TfMain
       0000
     }
     Visible = True
+    OnClick = TrayIconClick
     OnDblClick = TrayIconDblClick
     left = 16
     top = 21
@@ -61,6 +62,9 @@ object fMain: TfMain
     object miHistory: TMenuItem
       Action = acHistory
       Caption = 'Nachrichtenzentrale'
+    end
+    object MenuItem1: TMenuItem
+      Action = acMarkRead
     end
     object miExit: TMenuItem
       Action = acExit
@@ -137,10 +141,10 @@ object fMain: TfMain
       CF01000000000000000000000000
     }
   end
-  object Timer1: TTimer
+  object ProgTimer: TTimer
     Enabled = False
     Interval = 10000
-    OnTimer = Timer1Timer
+    OnTimer = ProgTimerTimer
     left = 64
     top = 112
   end
@@ -154,6 +158,10 @@ object fMain: TfMain
     object acExit: TAction
       Caption = 'Nachrichtenzentrale beenden'
       OnExecute = acExitExecute
+    end
+    object acMarkRead: TAction
+      Caption = 'Einträge als geklesen markieren'
+      OnExecute = acMarkReadExecute
     end
   end
   object ImageList2: TImageList
@@ -778,9 +786,9 @@ object fMain: TfMain
       FF01000000000000000000000000
     }
   end
-  object IdleTimer1: TIdleTimer
+  object IPCTimer: TIdleTimer
     Interval = 200
-    OnTimer = IdleTimer1Timer
+    OnTimer = IPCTimerTimer
     left = 152
     top = 112
   end

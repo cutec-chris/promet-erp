@@ -13,24 +13,28 @@ type
   TfMain = class(TDataModule)
     acHistory: TAction;
     acExit: TAction;
+    acMarkRead: TAction;
     ActionList1: TActionList;
-    IdleTimer1: TIdleTimer;
+    IPCTimer: TIdleTimer;
     ImageList1: TImageList;
     ImageList2: TImageList;
     ImageList3: TImageList;
+    MenuItem1: TMenuItem;
     miExit: TMenuItem;
     miHistory: TMenuItem;
     pmTray: TPopupMenu;
-    Timer1: TTimer;
+    ProgTimer: TTimer;
     TrayIcon: TTrayIcon;
     procedure acExitExecute(Sender: TObject);
     procedure acHistoryExecute(Sender: TObject);
+    procedure acMarkReadExecute(Sender: TObject);
     procedure aItemClick(Sender: TObject);
     procedure ApplicationEndSession(Sender: TObject);
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
-    procedure IdleTimer1Timer(Sender: TObject);
-    procedure Timer1Timer(Sender: TObject);
+    procedure IPCTimerTimer(Sender: TObject);
+    procedure ProgTimerTimer(Sender: TObject);
+    procedure TrayIconClick(Sender: TObject);
     procedure TrayIconDblClick(Sender: TObject);
   private
     { private declarations }
@@ -65,7 +69,7 @@ function OnMessageReceived(aMessage: string): Boolean;
 begin
   Result := fMain.CommandReceived(nil,aMessage);
 end;
-procedure TfMain.Timer1Timer(Sender: TObject);
+procedure TfMain.ProgTimerTimer(Sender: TObject);
 var
   aProcess: String;
   Found: Boolean;
@@ -107,7 +111,7 @@ var
   end;
 begin
   if not Data.Ping(Data.MainConnection) then exit;
-  Timer1.Enabled:=False;
+  ProgTimer.Enabled:=False;
   try
   with Application as IBaseApplication do
     begin
@@ -239,12 +243,24 @@ begin
   Trayicon.visible := False;
   TrayIcon.Visible:=True;
   {$ENDIF}
-  Timer1.Enabled:=True;
+  ProgTimer.Enabled:=True;
 end;
+
+procedure TfMain.TrayIconClick(Sender: TObject);
+begin
+  if (not Assigned(fmTimeline)) or (not fmTimeline.Visible) then
+    begin
+      fmTimeline.Execute;
+      SwitchAnimationOff;
+    end
+  else fmTimeline.Close;
+end;
+
 procedure TfMain.TrayIconDblClick(Sender: TObject);
 begin
-  SwitchAnimationOff;
+
 end;
+
 function TfMain.CommandReceived(Sender: TObject; aCommand: string
   ): Boolean;
 var
@@ -475,12 +491,17 @@ begin
       Data.SetFilter(FHistory,'('+FFilter+') AND ('+Data.QuoteField('TIMESTAMPD')+'>'+Data.DateTimeToFilter(InformRecTime)+')',30,'TIMESTAMPD','DESC');
       FHistory.Open;
     end;
-  Timer1.Enabled:=True;
+  ProgTimer.Enabled:=True;
   uprometipc.OnMessageReceived:=@OnMessageReceived;
 end;
 procedure TfMain.acHistoryExecute(Sender: TObject);
 begin
   fmTimeline.Execute;
+  SwitchAnimationOff;
+end;
+
+procedure TfMain.acMarkReadExecute(Sender: TObject);
+begin
   SwitchAnimationOff;
 end;
 
@@ -523,7 +544,7 @@ begin
     Processes[i].Free;
 end;
 
-procedure TfMain.IdleTimer1Timer(Sender: TObject);
+procedure TfMain.IPCTimerTimer(Sender: TObject);
 begin
   PeekIPCMessages;
 end;
