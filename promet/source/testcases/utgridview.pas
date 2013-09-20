@@ -5,13 +5,16 @@ unit utgridview;
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testutils, testregistry,ugridview,utask,db
+  Classes, SysUtils, fpcunit, testutils, testregistry,ugridview,utask,db,
+  MouseAndKeyInput,LCLType,StdCtrls
   {$ifdef USEFORM}
-  ,GuiTestRunner,Forms,Controls,MouseAndKeyInput,LCLType,ComCtrls,StdCtrls //  MouseandKeyInput leaks memory
+  ,GuiTestRunner,Forms,Controls //  MouseandKeyInput leaks memory
   {$endif}
   ;
 
 type
+
+  { TGridviewtest }
 
   TGridviewtest= class(TTestCase)
   published
@@ -28,7 +31,7 @@ type
     procedure CheckInsertAfter;
     procedure CheckFirstLetterSE;
     procedure CheckFirstLetter;
-
+    procedure CheckNextCell;
     procedure CheckSettext;
     procedure Destroy;
   end;
@@ -196,13 +199,26 @@ begin
   KeyInput.Press(VK_E);
   {$ifdef USEFORM}
   Application.ProcessMessages;
-  {$endif}
   Check(TMemo(GV.gList.Editor).Lines.Text='e','EditorValue="'+TMemo(GV.gList.Editor).Lines.Text+'"');
+  {$endif}
+end;
+
+procedure TGridviewtest.CheckNextCell;
+begin
+  KeyInput.Press(VK_TAB);
+  KeyInput.Press(VK_F);
+  {$ifdef USEFORM}
+  Application.ProcessMessages;
+  Check(TEdit(GV.gList.Editor).Text='f','EditorValue="'+TEdit(GV.gList.Editor).Text+'"');
+  {$endif}
 end;
 
 procedure TGridviewtest.CheckSettext;
 begin
-
+  GV.Post;
+  {$ifdef USEFORM}
+  Check(GV.DataSet.FieldByName('PROJECT').AsString='f','Settext Failed');
+  {$endif}
 end;
 
 procedure TGridviewtest.Destroy;
