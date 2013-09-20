@@ -26,6 +26,7 @@ type
     procedure AddRow4;
     procedure CheckLostFocusOnInsert;
     procedure CheckInsertAfter;
+    procedure CheckFirstLetterSE;
     procedure CheckFirstLetter;
 
     procedure CheckSettext;
@@ -179,10 +180,19 @@ begin
   Check(GV.dgFake.DataSource.DataSet.State=dsBrowse,'State<>dsBrowse');
 end;
 
+procedure TGridviewtest.CheckFirstLetterSE;
+begin
+  KeyInput.Press(VK_E);
+  {$ifdef USEFORM}
+  Application.ProcessMessages;
+  {$endif}
+  Check(TEdit(GV.gList.Editor).Text='e','EditorValue="'+TEdit(GV.gList.Editor).Text+'"');
+end;
+
 procedure TGridviewtest.CheckFirstLetter;
 begin
-  GV.InsertAfter(True);
   GV.TextField:='SUMMARY';
+  GV.InsertAfter(True);
   KeyInput.Press(VK_E);
   {$ifdef USEFORM}
   Application.ProcessMessages;
