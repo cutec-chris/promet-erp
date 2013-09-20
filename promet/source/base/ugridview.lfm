@@ -389,6 +389,7 @@ object fGridView: TfGridView
     end
     object acOpen: TAction
       Caption = 'Öffnen'
+      OnExecute = acOpenExecute
       ShortCut = 16463
       Visible = False
     end

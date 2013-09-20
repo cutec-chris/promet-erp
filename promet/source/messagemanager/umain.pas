@@ -210,7 +210,7 @@ begin
       //Show new History Entrys
       if (FHistory.DataSet.EOF) then //all shown, refresh list
         begin
-          Data.SetFilter(FHistory,'('+FFilter+') AND ('+Data.QuoteField('TIMESTAMPD')+'>='+Data.DateTimeToFilter(InformRecTime)+')',30,'TIMESTAMPD','DESC');
+          Data.SetFilter(FHistory,'('+FFilter+') AND ('+Data.QuoteField('TIMESTAMPD')+'>='+Data.DateTimeToFilter(InformRecTime)+')',10,'TIMESTAMPD','DESC');
           History.DataSet.Refresh;
           History.DataSet.First;
         end;

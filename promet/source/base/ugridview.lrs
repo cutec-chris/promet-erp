@@ -270,11 +270,11 @@ LazarusResources.Add('TfGridView','FORMDATA',[
   +#7'Filtern'#4'Hint'#6'zaktiviert den gew'#195#164'hlten Filter, '#13#10'w'
   +#195#164'hlen Sie den ersten Eintrag (leereintrag) '#13#10'und klicken Sie h'
   +'ier um nicht zu filtern'#9'OnExecute'#7#15'acFilterExecute'#8'ShortCut'#3'F'
-  +'@'#0#0#7'TAction'#6'acOpen'#7'Caption'#6#7#195#150'ffnen'#8'ShortCut'#3'O@'
-  +#7'Visible'#8#0#0#7'TAction'#10'acCopyLink'#7'Caption'#6#20'als Verweis kopi'
-  +'eren'#10'ImageIndex'#2#23#9'OnExecute'#7#17'acCopyLinkExecute'#0#0#7'TActio'
-  +'n'#8'acSearch'#7'Caption'#6#8'acSearch'#9'OnExecute'#7#15'acSearchExecute'#8
-  +'ShortCut'#3'F@'#0#0#0#11'TDatasource'#11'FDataSource'#13'OnStateChange'#7#22
-  +'FDataSourceStateChange'#12'OnDataChange'#7#21'FDataSourceDataChange'#4'left'
-  +#2'l'#3'top'#2'$'#0#0#0
+  +'@'#0#0#7'TAction'#6'acOpen'#7'Caption'#6#7#195#150'ffnen'#9'OnExecute'#7#13
+  +'acOpenExecute'#8'ShortCut'#3'O@'#7'Visible'#8#0#0#7'TAction'#10'acCopyLink'
+  +#7'Caption'#6#20'als Verweis kopieren'#10'ImageIndex'#2#23#9'OnExecute'#7#17
+  +'acCopyLinkExecute'#0#0#7'TAction'#8'acSearch'#7'Caption'#6#8'acSearch'#9'On'
+  +'Execute'#7#15'acSearchExecute'#8'ShortCut'#3'F@'#0#0#0#11'TDatasource'#11'F'
+  +'DataSource'#13'OnStateChange'#7#22'FDataSourceStateChange'#12'OnDataChange'
+  +#7#21'FDataSourceDataChange'#4'left'#2'l'#3'top'#2'$'#0#0#0
 ]);

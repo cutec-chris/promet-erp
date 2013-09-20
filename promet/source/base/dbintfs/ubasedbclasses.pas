@@ -1058,6 +1058,14 @@ begin
             Add('COMMISSION',ftString,60,False);
             Add('CHANGEDBY',ftString,4,False);
           end;
+      if Assigned(ManagedIndexdefs) then
+        with ManagedIndexDefs do
+          begin
+            Add('REF_ID','REF_ID',[]);
+            Add('REFERENCE','REFERENCE',[]);
+            Add('LINK','LINK',[]);
+            Add('TIMESTAMPD','TIMESTAMPD',[]);
+          end;
     end;
 end;
 procedure TBaseHistory.Change;

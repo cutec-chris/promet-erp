@@ -107,6 +107,7 @@ type
     gList: TExtStringgrid;
     procedure acCopyLinkExecute(Sender: TObject);
     procedure acFilterExecute(Sender: TObject);
+    procedure acOpenExecute(Sender: TObject);
     procedure acSearchExecute(Sender: TObject);
     procedure bEditRowsClick(Sender: TObject);
     procedure deInplaceEditingDone(Sender: TObject);
@@ -212,6 +213,7 @@ type
     FInpStringList : TStringList;
     FDataSet : TBaseDBDataSet;
     FSTextField: string;
+    aFirstFilter: String;
     FTextField: string;
     FTreeField: string;
     OldRow : Integer;
@@ -478,6 +480,12 @@ procedure TfGridView.acFilterExecute(Sender: TObject);
 begin
   SetBaseFilter(FbaseFilter);
 end;
+
+procedure TfGridView.acOpenExecute(Sender: TObject);
+begin
+
+end;
+
 procedure TfGridView.acSearchExecute(Sender: TObject);
 begin
   if Assigned(OnCellButtonClick) then
@@ -1891,6 +1899,9 @@ begin
     begin
       with FDataSet.DataSet as IBaseDBFilter do
         aFilter := Filter;
+      if aFirstFilter = '' then
+        aFirstFilter := aFilter
+      else aFilter := aFirstFilter;
       if pos(') AND ('+FbaseFilter+')',aFilter) > 0 then
         begin
           System.Delete(aFilter,pos(') AND ('+FbaseFilter+')',aFilter),length(aFilter));
@@ -1911,7 +1922,7 @@ begin
     aFilter := '('+AValue+')';
   if FAutoFilter <> '' then
     begin
-      aFilter := aFilter+' AND ('+FAutoFilter+')';
+      aFilter := '('+aFilter+') AND ('+FAutoFilter+')';
       FActAutoFilter:=FAutoFilter;
     end;
   with FDataSet.DataSet as IBaseDBFilter do

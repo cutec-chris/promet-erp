@@ -104,7 +104,7 @@ begin
       fTimeline.gList.OnDblClick:=@fTimelinegListDblClick;
       fTimeline.gList.Options:=fTimeline.gList.Options-[goVertLine];
       fTimeline.gHeader.Options:=fTimeline.gHeader.Options-[goVertLine];
-      Data.SetFilter(fTimeline.DataSet,fMain.Filter,500);
+      Data.SetFilter(fTimeline.DataSet,fMain.Filter,300);
       with Application as IBaseApplication do
         Config.ReadRect('TIMELINERECT',aBoundsRect,BoundsRect);
       fTimeline.Show;
@@ -114,7 +114,7 @@ begin
     end;
   Show;
   fTimeline.acFilter.Execute;
-  IdleTimer1.Enabled:=True;
+  //IdleTimer1.Enabled:=True;
   fTimeline.SetActive;
   fTimeline.gList.TopRow:=0;
 end;
