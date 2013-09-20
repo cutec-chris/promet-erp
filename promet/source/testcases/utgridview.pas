@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, fpcunit, testutils, testregistry,ugridview,utask,db
   {$ifdef USEFORM}
-  ,GuiTestRunner,Forms,Controls//,MouseAndKeyInput,LCLType
+  ,GuiTestRunner,Forms,Controls,MouseAndKeyInput,LCLType,ComCtrls,StdCtrls //  MouseandKeyInput leaks memory
   {$endif}
   ;
 
@@ -26,6 +26,7 @@ type
     procedure AddRow4;
     procedure CheckLostFocusOnInsert;
     procedure CheckInsertAfter;
+    procedure CheckFirstLetter;
 
     procedure CheckSettext;
     procedure Destroy;
@@ -164,16 +165,29 @@ end;
 
 procedure TGridviewtest.CheckInsertAfter;
 begin
-  GV.InsertAfter;
+  GV.Post;
+  GV.IdentField:='SUMMARY';
+  GV.InsertAfter(true);
   GV.gList.EditorMode:=True;
   {$ifdef USEFORM}
   Application.ProcessMessages;
   {$endif}
-  //KeyInput.Press(VK_ESCAPE);
+  KeyInput.Press(VK_ESCAPE);
   {$ifdef USEFORM}
   Application.ProcessMessages;
   {$endif}
-  //Check(GV.dgFake.DataSource.DataSet.State=dsBrowse,'State<>dsBrowse');
+  Check(GV.dgFake.DataSource.DataSet.State=dsBrowse,'State<>dsBrowse');
+end;
+
+procedure TGridviewtest.CheckFirstLetter;
+begin
+  GV.InsertAfter(True);
+  GV.TextField:='SUMMARY';
+  KeyInput.Press(VK_E);
+  {$ifdef USEFORM}
+  Application.ProcessMessages;
+  {$endif}
+  Check(TMemo(GV.gList.Editor).Lines.Text='e','EditorValue="'+TMemo(GV.gList.Editor).Lines.Text+'"');
 end;
 
 procedure TGridviewtest.CheckSettext;

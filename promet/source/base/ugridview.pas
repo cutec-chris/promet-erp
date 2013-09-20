@@ -3002,69 +3002,71 @@ begin
       aLevel := GetLevel(asCol,gList.Row);
       aHasChilds := HasChilds(asCol,gList.Row);
     end;
-  if (DataSet.State=dsInsert) and (not DataSet.Changed) then exit;
-  if Assigned(FBeforeInsert) then
+  if not ((DataSet.State=dsInsert) and (not DataSet.Changed)) then
     begin
-      FBeforeInsert(Self);
-    end;
-  aBm := DataSet.GetBookmark;
-  gList.EditorMode:=False;
-  if (gList.RowCount = gList.FixedRows+1) and (TRowObject(gList.Objects[0,gList.FixedRows]).Rec = 0) then
-    begin
-      //CleanList(0);
-    end
-  else
-    begin
-      for i := gList.FixedRows to gList.RowCount-1 do
-        if TRowObject(gList.Objects[0,i]).Rec = aBm then
-          break;
-      newIndex := gList.Row+1;
-      if NewIndex < 1 then NewIndex := gList.FixedRows;
-      if NewIndex>gList.RowCount then
+      if Assigned(FBeforeInsert) then
         begin
-          gList.RowCount:=gList.RowCount+1;
-          gList.Objects[0,gList.RowCount-1] := TRowObject.Create;
-          gList.Row:=gList.RowCount;
+          FBeforeInsert(Self);
+        end;
+      aBm := DataSet.GetBookmark;
+      gList.EditorMode:=False;
+      if (gList.RowCount = gList.FixedRows+1) and (TRowObject(gList.Objects[0,gList.FixedRows]).Rec = 0) then
+        begin
+          //CleanList(0);
         end
       else
         begin
-          gList.InsertColRow(False,NewIndex);
-          gList.Objects[0,newIndex]:= TRowObject.Create;
-          gList.Row:=NewIndex;
+          for i := gList.FixedRows to gList.RowCount-1 do
+            if TRowObject(gList.Objects[0,i]).Rec = aBm then
+              break;
+          newIndex := gList.Row+1;
+          if NewIndex < 1 then NewIndex := gList.FixedRows;
+          if NewIndex>gList.RowCount then
+            begin
+              gList.RowCount:=gList.RowCount+1;
+              gList.Objects[0,gList.RowCount-1] := TRowObject.Create;
+              gList.Row:=gList.RowCount;
+            end
+          else
+            begin
+              gList.InsertColRow(False,NewIndex);
+              gList.Objects[0,newIndex]:= TRowObject.Create;
+              gList.Row:=NewIndex;
+            end;
         end;
-    end;
-  aPosNo := -1;
-  if SortField<>'' then
-    begin
-      if not DataSet.CanEdit then DataSet.DataSet.Edit;
-      aPosNo := DataSet.FieldByName(SortField).AsInteger+1;
-      RenumberRows(gList.Row+1,1);
-    end;
-  FDataSet.DisableChanges;
-  try
-    if gList.Row = gList.RowCount-1 then
-      FDataSource.DataSet.Append
-    else
-      FDataSource.DataSet.Insert;
-    if Assigned(FAfterInsert) then
-      FAfterInsert(Self);
-    if TreeField <> '' then
-      begin
-        DataSet.FieldByName(TreeField).AsString:=aTree;
+      aPosNo := -1;
+      if SortField<>'' then
+        begin
+          if not DataSet.CanEdit then DataSet.DataSet.Edit;
+          aPosNo := DataSet.FieldByName(SortField).AsInteger+1;
+          RenumberRows(gList.Row+1,1);
+        end;
+      FDataSet.DisableChanges;
+      try
+        if gList.Row = gList.RowCount-1 then
+          FDataSource.DataSet.Append
+        else
+          FDataSource.DataSet.Insert;
+        if Assigned(FAfterInsert) then
+          FAfterInsert(Self);
+        if TreeField <> '' then
+          begin
+            DataSet.FieldByName(TreeField).AsString:=aTree;
+          end;
+        if (SortField <> '') and (aPosNo>-1) then
+          begin
+            DataSet.FieldByName(SortField).AsInteger:=aPosNo;
+          end;
+        aBm := 0;
+      finally
+        FDataSet.EnableChanges;
       end;
-    if (SortField <> '') and (aPosNo>-1) then
-      begin
-        DataSet.FieldByName(SortField).AsInteger:=aPosNo;
+      FDataSet.DataSet.DisableControls;
+      try
+        SyncActiveRow(aBm,DoInsert,DoSync);
+      finally
+        FDataSet.DataSet.EnableControls;
       end;
-    aBm := 0;
-  finally
-    FDataSet.EnableChanges;
-  end;
-  FDataSet.DataSet.DisableControls;
-  try
-    SyncActiveRow(aBm,DoInsert,DoSync);
-  finally
-    FDataSet.DataSet.EnableControls;
   end;
   if asCol > -1 then
     begin
