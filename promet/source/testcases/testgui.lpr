@@ -5,9 +5,8 @@ program testgui;
 uses
 //  sheaptrc,
   {$IFDEF UNIX}cthreads,{$ENDIF}
-  Interfaces, Forms, GuiTestRunner,general, richmemopackage,pvisualprometapp,uBaseVisualApplication,
-  tLogin,
-  tdbtests,
+  Interfaces, Forms, GuiTestRunner, lazmouseandkeyinput, general,
+  richmemopackage, pvisualprometapp, uBaseVisualApplication, tLogin, tdbtests,
   //ucreatetable,
   //utransaction,
   utgridview,

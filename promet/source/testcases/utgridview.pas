@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, fpcunit, testutils, testregistry,ugridview,utask,db
   {$ifdef USEFORM}
-  ,GuiTestRunner,Forms,Controls
+  ,GuiTestRunner,Forms,Controls//,MouseAndKeyInput,LCLType
   {$endif}
   ;
 
@@ -25,6 +25,8 @@ type
     procedure AddRow5;
     procedure AddRow4;
     procedure CheckLostFocusOnInsert;
+    procedure CheckInsertAfter;
+
     procedure CheckSettext;
     procedure Destroy;
   end;
@@ -153,11 +155,25 @@ end;
 procedure TGridviewtest.CheckLostFocusOnInsert;
 begin
   GV.gHeader.SetFocus;
-  {$ifdef USEFORM}
   GV.gHeader.EditorMode:=true;
+  {$ifdef USEFORM}
   Application.ProcessMessages;
   {$endif}
   Check(GV.dgFake.DataSource.DataSet.State=dsInsert,'State<>dsInsert');
+end;
+
+procedure TGridviewtest.CheckInsertAfter;
+begin
+  GV.InsertAfter;
+  GV.gList.EditorMode:=True;
+  {$ifdef USEFORM}
+  Application.ProcessMessages;
+  {$endif}
+  //KeyInput.Press(VK_ESCAPE);
+  {$ifdef USEFORM}
+  Application.ProcessMessages;
+  {$endif}
+  //Check(GV.dgFake.DataSource.DataSet.State=dsBrowse,'State<>dsBrowse');
 end;
 
 procedure TGridviewtest.CheckSettext;

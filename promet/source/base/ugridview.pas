@@ -10,7 +10,7 @@ Created 03.12.2011
 unit ugridview;
 {$mode objfpc}{$H+}
 
-{.$define gridvisible}
+{$define gridvisible}
 {.$define slowdebug}
 {.$define debug}
 
@@ -1129,6 +1129,7 @@ var
   aStart: LongInt;
   aStop: LongInt;
 begin
+  if (gList.Col<gList.FixedCols) or (gList.Row<gList.FixedRows) or (gList.Col>=gList.ColCount) or (gList.Row>=gList.RowCount) then exit;
   if WasEditing or gList.EditorMode then
     begin
       BeginUpdate;
