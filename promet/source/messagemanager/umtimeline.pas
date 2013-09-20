@@ -103,13 +103,14 @@ begin
       fTimeline.gList.OnKeyDown:=@fTimelinegListKeyDown;
       fTimeline.gList.OnDblClick:=@fTimelinegListDblClick;
       fTimeline.gList.Options:=fTimeline.gList.Options-[goVertLine];
-      fTimeline.gHeader.Options:=fTimeline.gList.Options-[goVertLine];
+      fTimeline.gHeader.Options:=fTimeline.gHeader.Options-[goVertLine];
       Data.SetFilter(fTimeline.DataSet,fMain.Filter,500);
       with Application as IBaseApplication do
         Config.ReadRect('TIMELINERECT',aBoundsRect,BoundsRect);
       fTimeline.Show;
       Show;
       BoundsRect := aBoundsRect;
+      fTimeline.FilterRow:=True;
     end;
   Show;
   fTimeline.acFilter.Execute;
@@ -339,7 +340,6 @@ procedure TfmTimeline.bSendClick(Sender: TObject);
 begin
 
 end;
-
 procedure TfmTimeline.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   IdleTimer1.Enabled:=False;

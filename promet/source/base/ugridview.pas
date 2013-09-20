@@ -1766,7 +1766,6 @@ begin
   pFilter.Visible:=AValue;
   if AValue then gList.FixedRows:=0
   else gList.FixedRows:=1;
-//TRIAL  gHeader.SendToBack;
 end;
 function TfGridView.HasChilds(aCol, aRow : Integer): Char;
 var

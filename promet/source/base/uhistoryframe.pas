@@ -260,7 +260,7 @@ begin
       SortField:='TIMESTAMPD';
       TextField:='ACTION';
       ReadOnly:=True;
-      FilterRow:=True;
+      FGridView.FilterRow:=True;
       Show;
     end;
   FGridView.OnDrawColumnCell:=@FContListDrawColumnCell;
@@ -285,7 +285,6 @@ begin
   if not Assigned(FGridView) then exit;
   FGridView.DataSet := AValue;
   aButtonClick(nil);
-//  FGridView.acFilter.Execute;
 end;
 procedure TfHistoryFrame.SetRights(Editable : Boolean);
 begin
