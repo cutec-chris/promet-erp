@@ -97,7 +97,6 @@ begin
       fTimeline.SortField:='TIMESTAMPD';
       fTimeline.TextField:='ACTION';
       fTimeline.ReadOnly:=True;
-      fTimeline.FilterRow:=True;
       fTimeline.OnDrawColumnCell:=@FContListDrawColumnCell;
       fTimeline.OnGetCellText:=@fTimelineGetCellText;
       fTimeline.DataSet := TBaseHistory.Create(Self,Data);
@@ -222,6 +221,7 @@ begin
               atext := TExtStringGrid(Sender).Cells[Column.Index+1,DataCol];
               TStringGrid(Sender).Canvas.Brush.Color:=aColor;
               TStringGrid(Sender).Canvas.FillRect(aRect);
+              TStringGrid(Sender).Canvas.Brush.Style:=bsClear;
               bRect := aRect;
               brect.Top := bRect.Top+TStringGrid(Sender).Canvas.TextExtent('A').cy;
               TStringGrid(Sender).Canvas.TextRect(bRect,aRect.Left+3,bRect.Top,aText,aTextStyle);

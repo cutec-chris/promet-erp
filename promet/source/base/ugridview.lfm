@@ -34,7 +34,7 @@ object fGridView: TfGridView
       ColCount = 1
       DefaultColWidth = 13
       DefaultDrawing = False
-      Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goRangeSelect, goColSizing, goRowMoving, goColMoving, goEditing, goTabs, goDblClickAutoSize, goSmoothScroll, goTruncCellHints]
+      Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goRangeSelect, goColSizing, goRowMoving, goColMoving, goEditing, goTabs, goThumbTracking, goDblClickAutoSize, goSmoothScroll, goTruncCellHints]
       PopupMenu = pmPopup
       RowCount = 2
       TabOrder = 0
@@ -409,4 +409,4 @@ object fGridView: TfGridView
     left = 108
     top = 36
   end
-end
+end

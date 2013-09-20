@@ -518,7 +518,7 @@ procedure TfMain.DataModuleDestroy(Sender: TObject);
 var
   i: Integer;
 begin
-  fmTimeline.Free;
+  //fmTimeline.Free;
   for i := 0 to length(Processes)-1 do
     Processes[i].Free;
 end;

@@ -260,6 +260,7 @@ begin
       SortField:='TIMESTAMPD';
       TextField:='ACTION';
       ReadOnly:=True;
+      FilterRow:=True;
       Show;
     end;
   FGridView.OnDrawColumnCell:=@FContListDrawColumnCell;
