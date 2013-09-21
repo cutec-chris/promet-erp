@@ -9,8 +9,8 @@ object fAttStatistic: TfAttStatistic
   LCLVersion = '1.1'
   object ButtonPanel1: TButtonPanel
     Left = 6
-    Height = 34
-    Top = 283
+    Height = 36
+    Top = 281
     Width = 521
     OKButton.Name = 'OKButton'
     OKButton.DefaultCaption = True
@@ -30,6 +30,8 @@ object fAttStatistic: TfAttStatistic
     Width = 516
     Anchors = [akTop, akLeft, akRight, akBottom]
     ItemHeight = 0
+    ScrollWidth = 514
     TabOrder = 1
+    TopIndex = -1
   end
 end

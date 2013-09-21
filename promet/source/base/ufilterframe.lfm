@@ -1273,7 +1273,7 @@ inherited fFilter: TfFilter
       DataSource = List
       DefaultRowHeight = 21
       DragMode = dmAutomatic
-      Options = [dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgMultiselect, dgPersistentMultiSelect, dgCellHints, dgTruncCellHints]
+      Options = [dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgMultiselect, dgPersistentMultiSelect, dgCellHints, dgTruncCellHints, dgThumbTracking]
       PopupMenu = pmPopup
       Scrollbars = ssAutoBoth
       TabOrder = 0

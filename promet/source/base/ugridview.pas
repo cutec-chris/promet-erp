@@ -1,18 +1,28 @@
 {*******************************************************************************
-Dieser Sourcecode darf nicht ohne gültige Geheimhaltungsvereinbarung benutzt werden
-und ohne gültigen Vertriebspartnervertrag weitergegeben oder kommerziell verwertet werden.
-You have no permission to use this Source without valid NDA
-and copy it without valid distribution partner agreement
-Christian Ulrich
-info@cu-tec.de
+  Copyright (C) Christian Ulrich info@cu-tec.de
+
+  This source is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 2 of the License, or commercial alternative
+  contact us for more information
+
+  This code is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+  details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+  MA 02111-1307, USA.
 Created 03.12.2011
 *******************************************************************************}
 unit ugridview;
 {$mode objfpc}{$H+}
 
-{.$define gridvisible}
+{$define gridvisible}
 {.$define slowdebug}
-{.$define debug}
+{$define debug}
 
 interface
 uses
@@ -2969,7 +2979,7 @@ end;
 procedure TfGridView.InsertAfter(SetCol: Boolean);
 var
   DoInsert: Boolean = False;
-  DoSync : Boolean = False;
+  DoSync : Boolean = True;
   aBm: Int64;
   i: Integer;
   newIndex: Integer;
@@ -3195,7 +3205,8 @@ begin
             DataSet.FieldByName(SortField).AsInteger := aPosno;
             if aNumCol>-1 then
               gList.Cells[aNumCol,i]:=IntToStr(aPosNo);
-            if DataSet.CanEdit then DataSet.DataSet.Post;
+            if DataSet.CanEdit then
+              DataSet.DataSet.Post;
           end;
       finally
         {$ifndef DEBUG}

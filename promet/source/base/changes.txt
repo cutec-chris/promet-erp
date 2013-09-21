@@ -1,5 +1,5 @@
 ﻿Build 278
-      -
+      - GPLv2 oder Kommerzeille Lizenz verfügbar, zusätzliches hosting auf github
 Build 277
       - Abwesenheitsplan
 Build 276
