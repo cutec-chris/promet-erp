@@ -185,21 +185,29 @@ end;
 
 procedure TGridviewtest.CheckFirstLetterSE;
 begin
-  KeyInput.Press(VK_E);
+  KeyInput.Press('e');
   {$ifdef USEFORM}
   Application.ProcessMessages;
   {$endif}
+  {$ifdef LCLCARBON}
+  Check(TEdit(GV.gList.Editor).Text='5','EditorValue="'+TEdit(GV.gList.Editor).Text+'"');
+  {$else}
   Check(TEdit(GV.gList.Editor).Text='e','EditorValue="'+TEdit(GV.gList.Editor).Text+'"');
+  {$endif}
 end;
 
 procedure TGridviewtest.CheckFirstLetter;
 begin
   GV.TextField:='SUMMARY';
   GV.InsertAfter(True);
-  KeyInput.Press(VK_E);
+  KeyInput.Press('e');
   {$ifdef USEFORM}
   Application.ProcessMessages;
-  Check(TMemo(GV.gList.Editor).Lines.Text='e','EditorValue="'+TMemo(GV.gList.Editor).Lines.Text+'"');
+  {$ifdef LCLCARBON}
+  Check(TEdit(GV.gList.Editor).Text='5','EditorValue="'+TEdit(GV.gList.Editor).Text+'"');
+  {$else}
+  Check(TEdit(GV.gList.Editor).Text='e','EditorValue="'+TEdit(GV.gList.Editor).Text+'"');
+  {$endif}
   {$endif}
 end;
 
@@ -209,7 +217,11 @@ begin
   KeyInput.Press(VK_F);
   {$ifdef USEFORM}
   Application.ProcessMessages;
+  {$ifdef LCLCARBON}
+  Check(TEdit(GV.gList.Editor).Text='a','EditorValue="'+TEdit(GV.gList.Editor).Text+'"');
+  {$else}
   Check(TEdit(GV.gList.Editor).Text='f','EditorValue="'+TEdit(GV.gList.Editor).Text+'"');
+  {$endif}
   {$endif}
 end;
 
@@ -217,7 +229,11 @@ procedure TGridviewtest.CheckSettext;
 begin
   GV.Post;
   {$ifdef USEFORM}
-  Check(GV.DataSet.FieldByName('PROJECT').AsString='f','Settext Failed');
+  {$ifdef LCLCARBON}
+  Check(GV.DataSet.FieldByName('PROJECT').AsString='5','Settext Failed "'+GV.DataSet.FieldByName('PROJECT').AsString+'"');
+  {$else}
+  Check(GV.DataSet.FieldByName('PROJECT').AsString='f','Settext Failed "'+GV.DataSet.FieldByName('PROJECT').AsString+'"');
+  {$endif}
   {$endif}
 end;
 
