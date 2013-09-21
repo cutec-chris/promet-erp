@@ -20,9 +20,9 @@ Created 03.12.2011
 unit ugridview;
 {$mode objfpc}{$H+}
 
-{$define gridvisible}
+{.$define gridvisible}
 {.$define slowdebug}
-{$define debug}
+{.$define debug}
 
 interface
 uses

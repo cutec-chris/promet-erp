@@ -4,7 +4,7 @@ LazarusResources.Add('TfGridView','FORMDATA',[
   'TPF0'#10'TfGridView'#9'fGridView'#4'Left'#2#0#6'Height'#3'b'#1#3'Top'#2#0#5
   +'Width'#3'E'#2#12'ClientHeight'#3'b'#1#11'ClientWidth'#3'E'#2#5'Color'#7#9'c'
   +'lBtnFace'#8'OnResize'#7#11'FrameResize'#11'ParentColor'#8#14'ParentShowHint'
-  +#8#8'ShowHint'#9#8'TabOrder'#2#0#10'DesignLeft'#3#178#1#9'DesignTop'#3#22#1#0
+  +#8#8'ShowHint'#9#8'TabOrder'#2#0#10'DesignLeft'#3#186#1#9'DesignTop'#3'0'#1#0
   +#6'TPanel'#7'sbGrids'#4'Left'#2#0#6'Height'#3#198#0#3'Top'#2'*'#5'Width'#3'E'
   +#2#5'Align'#7#8'alClient'#10'BevelOuter'#7#6'bvNone'#12'ClientHeight'#3#198#0
   +#11'ClientWidth'#3'E'#2#8'TabOrder'#2#0#0#14'TExtStringgrid'#5'gList'#4'Left'

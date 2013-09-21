@@ -11,8 +11,8 @@ object fGridView: TfGridView
   ParentShowHint = False
   ShowHint = True
   TabOrder = 0
-  DesignLeft = 434
-  DesignTop = 278
+  DesignLeft = 442
+  DesignTop = 304
   object sbGrids: TPanel
     Left = 0
     Height = 198
