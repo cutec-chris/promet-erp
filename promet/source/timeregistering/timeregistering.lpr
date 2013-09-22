@@ -10,7 +10,7 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms
   { you can add units after this },
-umain, MemDSLaz, lazcontrols, lazreport, richmemopackage, pvisualprometapp,
+umain, lazcontrols, lazreport, richmemopackage, pvisualprometapp,
 uBaseVisualApplication, ptimes, uTimeOptions;
 
 {$R *.res}
@@ -24,4 +24,4 @@ begin
   fMain.DoCreate;
   Application.Run;
 end.
-
+
