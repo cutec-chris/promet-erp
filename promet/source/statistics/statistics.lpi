@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -44,6 +44,7 @@
       </Item4>
       <Item5>
         <PackageName Value="phelp"/>
+        <DefaultFilename Value="..\base\phelp.lpk"/>
       </Item5>
       <Item6>
         <PackageName Value="general"/>
@@ -64,6 +65,7 @@
       </Item10>
       <Item11>
         <PackageName Value="pVisualPrometApp"/>
+        <DefaultFilename Value="..\base\pvisualprometapp.lpk"/>
       </Item11>
     </RequiredPackages>
     <Units Count="205">

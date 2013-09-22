@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -12,7 +12,6 @@
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
       <Icon Value="0"/>
-      <ActiveWindowIndexAtStart Value="0"/>
     </General>
     <i18n>
       <EnableI18N Value="True"/>
@@ -33,7 +32,7 @@
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="10">
+    <RequiredPackages Count="8">
       <Item1>
         <PackageName Value="phelp"/>
         <DefaultFilename Value="..\base\phelp.lpk"/>
@@ -47,30 +46,22 @@
         <DefaultFilename Value="ptimes.lpk"/>
       </Item3>
       <Item4>
-        <PackageName Value="LazControls"/>
-        <MinVersion Valid="True"/>
-      </Item4>
-      <Item5>
         <PackageName Value="pVisualPrometApp"/>
         <DefaultFilename Value="..\base\pvisualprometapp.lpk" Prefer="True"/>
+      </Item4>
+      <Item5>
+        <PackageName Value="richmemopackage"/>
       </Item5>
       <Item6>
-        <PackageName Value="richmemopackage"/>
-      </Item6>
-      <Item7>
-        <PackageName Value="MemDSLaz"/>
-        <MinVersion Major="1" Minor="2" Release="1" Valid="True"/>
-      </Item7>
-      <Item8>
         <PackageName Value="FCL"/>
         <MinVersion Major="1" Valid="True"/>
-      </Item8>
-      <Item9>
+      </Item6>
+      <Item7>
         <PackageName Value="lazreport"/>
-      </Item9>
-      <Item10>
+      </Item7>
+      <Item8>
         <PackageName Value="LCL"/>
-      </Item10>
+      </Item8>
     </RequiredPackages>
     <Units Count="288">
       <Unit0>
@@ -90,12 +81,10 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="umain"/>
         <IsVisibleTab Value="True"/>
-        <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="194"/>
         <CursorPos X="18" Y="211"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="upassword.pas"/>
@@ -2405,16 +2394,7 @@
         <UsageCount Value="16"/>
       </Unit287>
     </Units>
-    <JumpHistory Count="2" HistoryIndex="1">
-      <Position1>
-        <Filename Value="umain.pas"/>
-        <Caret Line="212" Column="7" TopLine="193"/>
-      </Position1>
-      <Position2>
-        <Filename Value="umain.pas"/>
-        <Caret Line="211" Column="9" TopLine="194"/>
-      </Position2>
-    </JumpHistory>
+    <JumpHistory Count="0" HistoryIndex="-1"/>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>

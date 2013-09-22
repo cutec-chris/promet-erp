@@ -316,6 +316,7 @@
     <RequiredPkgs Count="15">
       <Item1>
         <PackageName Value="pvisualforms"/>
+        <DefaultFilename Value="pvisualforms.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="v103_lazarus"/>
