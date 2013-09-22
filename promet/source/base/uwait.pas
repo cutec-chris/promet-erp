@@ -64,8 +64,8 @@ begin
     begin
       Application.CreateForm(TfWaitForm,fWaitForm);
       Self := fWaitForm;
+      BringToFront;
     end;
-  BringToFront;
   lStep.Caption := info;
   Application.Processmessages;
 end;

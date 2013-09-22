@@ -113,6 +113,7 @@ object fMain: TfMain
         Color = clBtnFace
         EdgeBorders = []
         Flat = False
+        Images = fVisualControls.Images
         ParentColor = False
         TabOrder = 0
         object tbMenue: TToolButton
@@ -173,6 +174,7 @@ object fMain: TfMain
         Color = clBtnFace
         EdgeBorders = []
         Flat = False
+        Images = fVisualControls.Images
         ParentColor = False
         TabOrder = 0
         object ToolButton2: TToolButton
@@ -579,6 +581,7 @@ object fMain: TfMain
     end
   end
   object ActionList1: TActionList
+    Images = fVisualControls.Images
     left = 32
     top = 88
     object acLogin: TAction
