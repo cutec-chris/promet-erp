@@ -2,7 +2,7 @@
 Version=$(sed 's/\r//g' ../source/base/version.inc).$(sed 's/\r//g' ../source/base/revision.inc)
 Version=$(echo $Version | sed 's/\n//g');
 mkdir output/old
-mv output/* output/old
+sudo -S mv output/* output/old
 mkdir executables/$Version
 mkdir executables/$Version/x86_64
 mkdir executables/$Version/i386
