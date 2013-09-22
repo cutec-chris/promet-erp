@@ -284,7 +284,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1234"/>
         <CursorPos X="35" Y="1253"/>
@@ -324,7 +324,6 @@
         <TopLine Value="1433"/>
         <CursorPos X="36" Y="1448"/>
         <UsageCount Value="100"/>
-        <LoadedDesigner Value="True"/>
       </Unit4>
       <Unit5>
         <Filename Value="upersonframe.pas"/>
@@ -1001,10 +1000,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ugridview"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="3" Y="25"/>
+        <TopLine Value="279"/>
+        <CursorPos X="15" Y="295"/>
         <UsageCount Value="108"/>
+        <Loaded Value="True"/>
       </Unit67>
       <Unit68>
         <Filename Value="../base/dbintfs/utask.pas"/>
@@ -1051,10 +1053,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="utasks"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="992"/>
-        <CursorPos X="1" Y="1015"/>
+        <TopLine Value="1321"/>
+        <CursorPos X="22" Y="1323"/>
         <UsageCount Value="100"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit72>
       <Unit73>
         <Filename Value="../base_documents/udocumentframe.pas"/>
@@ -1115,10 +1120,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPositionFrame"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="521"/>
-        <CursorPos X="17" Y="535"/>
+        <TopLine Value="424"/>
+        <CursorPos X="19" Y="427"/>
         <UsageCount Value="100"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit78>
       <Unit79>
         <Filename Value="../components/zeos/src/component/ZAbstractRODataset.pas"/>
@@ -2983,13 +2991,10 @@
       <Unit300>
         <Filename Value="../base/uwait.pas"/>
         <UnitName Value="uwait"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="51"/>
         <CursorPos X="1" Y="68"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit300>
       <Unit301>
         <Filename Value="../base/ulogwait.pas"/>
@@ -3312,7 +3317,7 @@
         <UsageCount Value="10"/>
       </Unit338>
     </Units>
-    <JumpHistory Count="3" HistoryIndex="2">
+    <JumpHistory Count="18" HistoryIndex="17">
       <Position1>
         <Filename Value="umain.pas"/>
         <Caret Line="306" Column="32" TopLine="286"/>
@@ -3325,6 +3330,66 @@
         <Filename Value="umain.pas"/>
         <Caret Line="1253" Column="35" TopLine="1234"/>
       </Position3>
+      <Position4>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="35" Column="41" TopLine="16"/>
+      </Position4>
+      <Position5>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="456" Column="23" TopLine="428"/>
+      </Position5>
+      <Position6>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="631" Column="42" TopLine="612"/>
+      </Position6>
+      <Position7>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="755" Column="1" TopLine="731"/>
+      </Position7>
+      <Position8>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="762" Column="1" TopLine="739"/>
+      </Position8>
+      <Position9>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="830" Column="46" TopLine="802"/>
+      </Position9>
+      <Position10>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="861" Column="26" TopLine="832"/>
+      </Position10>
+      <Position11>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="864" Column="53" TopLine="836"/>
+      </Position11>
+      <Position12>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="1133" Column="36" TopLine="1120"/>
+      </Position12>
+      <Position13>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="1255" Column="31" TopLine="1236"/>
+      </Position13>
+      <Position14>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="1353" Column="40" TopLine="1324"/>
+      </Position14>
+      <Position15>
+        <Filename Value="../base_erp/upositionframe.pas"/>
+        <Caret Line="535" Column="17" TopLine="521"/>
+      </Position15>
+      <Position16>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="1015" Column="1" TopLine="992"/>
+      </Position16>
+      <Position17>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="1324" Column="1" TopLine="1321"/>
+      </Position17>
+      <Position18>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="1323" Column="22" TopLine="1321"/>
+      </Position18>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>
@@ -3374,21 +3439,21 @@
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
         <Source Value="../base/ugridview.pas"/>
-        <Line Value="2802"/>
+        <Line Value="2792"/>
       </Item1>
       <Item2>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
         <Source Value="../base/ugridview.pas"/>
-        <Line Value="2995"/>
+        <Line Value="2985"/>
       </Item2>
       <Item3>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
         <Source Value="../base/ugridview.pas"/>
-        <Line Value="3121"/>
+        <Line Value="3111"/>
       </Item3>
     </BreakPoints>
     <Watches Count="1">

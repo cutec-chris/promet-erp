@@ -1321,7 +1321,6 @@ end;
 procedure TfTaskFrame.acAddPosExecute(Sender: TObject);
 begin
   FGridView.InsertAfter(True);
-  FGridView.gList.EditorMode:=True;
 end;
 procedure TfTaskFrame.acDefaultFilterExecute(Sender: TObject);
 begin

@@ -751,27 +751,17 @@ begin
       if mInplace.ScrollBars<>ssAutoBoth then
         begin
           aCur := mInplace.SelStart;
-          //gList.RowHeights[gList.Row] := aHeight;
-          //TryToMakeEditorVisible;
-          //mInplace.BoundsRect:=gList.CellRect(gList.Col,gList.Row);
-          //mInplace.Width:=mInplace.Width-1;
           mInplace.ScrollBars:=ssAutoVertical;
-          //gList.EditorMode:=True;
           mInplace.SelStart:=aCur;
           mInplace.SetFocus;
         end;
     end
   else
     begin
-      //aCur := mInplace.SelStart;
-      //mInplace.ScrollBars:=ssNone;
       gList.RowHeights[gList.Row] := aHeight;
       TryToMakeEditorVisible;
       mInplace.BoundsRect:=gList.CellRect(gList.Col,gList.Row);
       mInplace.Width:=mInplace.Width-1;
-      //gList.EditorMode:=True;
-      //mInplace.SetFocus;
-      //mInplace.SelStart:=aCur;
     end;
 end;
 procedure TfGridView.gListButtonClick(Sender: TObject; aCol, aRow: Integer
@@ -2395,7 +2385,7 @@ procedure TfGridView.DoSetEdit(Data: PtrInt);
 var
   aKey : Word = VK_ESCAPE;
   aRect: Classes.TRect;
-begin
+begin exit;
   gList.EditorMode:=True;
   aRect := gList.CellRect(gList.Col,gList.Row);
   if gList.Col>1 then
