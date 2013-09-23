@@ -1242,7 +1242,7 @@ var
             aINew.Visible:=True;
             aINew.Style:=isNone;
             aIParent.AddInterval(aINew);
-            CollectUsers(aINew,aUsers.FieldByName('PARENT').AsVariant);
+            CollectUsers(aINew,aUsers.id.AsVariant);
             aINew.OnDrawBackground:=@aIGroupDrawBackground;
           end
         else if not ((aUsers.FieldByName('LEAVED').AsString<>'') and (aUsers.FieldByName('LEAVED').AsDateTime<Now())) and ((aUser = Null) or (aUser = aUsers.id.AsVariant)) then
