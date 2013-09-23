@@ -333,6 +333,8 @@ begin
         aLink := nData.Link;
       if Data.GetLinkDesc(aLink)<>'' then
         begin
+          if (FGridView.DataSet.Changed) then
+            FGridView.Post;
           if not (FGridView.DataSet.Canedit) then
             FGridView.Append;
           FGridView.DataSet.FieldByName('DESC').AsString:=Data.GetLinkDesc(aLink);
@@ -752,6 +754,7 @@ begin
   fSelectReport.Report := Report;
   PList.DataSet := DataSet.DataSet;
   fSelectReport.SetLanguage;
+  acRefresh.Execute;
   Entrys.DataSet := TMeetings(DataSet).Entrys.DataSet;
   Users.DataSet := TMeetings(DataSet).Users.DataSet;
   with FDataSet.DataSet as IBaseManageDB do

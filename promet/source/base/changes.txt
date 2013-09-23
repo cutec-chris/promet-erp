@@ -1,5 +1,7 @@
 ﻿Build 279
       - Aufgabenplan wurde in letzten revisionen nicht korrekt aufgebaut
+      - Differenz zwischen Ansicht und Ausdruck im Besprechungsprotokoll war möglich, behoben
+      - Druckdialog wird nach Ausdruck geschlossen
 Build 278
       - GPLv2 oder Kommerzeille Lizenz verfügbar, zusätzliches hosting auf github
 Build 277
@@ -574,5 +576,4 @@ Build 143
       - Drag & Drop um Unterprojekte/Prozesse im Baum zuzuweisen
       - Separates Icon für Prozesse
       - Icon wird in Spalte "Typ" bei der Projektliste gezeichnet
-... Umstellung changes.txt in Deutsch, für ältere Einträge schauen Sie in changes.en.txt
-Version 7.0...
+... Umstellung changes.txt in Deutsch, für ältere Eintr

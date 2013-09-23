@@ -509,7 +509,8 @@ begin
                   aDocument.Free;
                 end;
             end;
-        end;
+        end
+      else Res := True;
       if (NotPrintable) then
         begin
           fLogWaitForm.Hide;
@@ -897,4 +898,4 @@ initialization
   {$I uselectreport.lrs}
 
 end.
-
+

@@ -400,6 +400,7 @@ begin
   pDayView.Visible := False;
   MonthView.Visible := False;
   WeekView.Visible := True;
+  WeekView.ReadOnly:=True;
   MonthView.OnDblClick:=@MonthViewDblClick;
 end;
 destructor TfCalendarFrame.Destroy;

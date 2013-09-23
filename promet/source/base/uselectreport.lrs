@@ -7,7 +7,7 @@ LazarusResources.Add('TfSelectReport','FORMDATA',[
   +'s.MinWidth'#3#174#1#10'KeyPreview'#9#7'OnClose'#7#9'FormClose'#8'OnCreate'#7
   +#10'FormCreate'#9'OnKeyDown'#7#11'FormKeyDown'#6'OnShow'#7#8'FormShow'#8'Pos'
   +'ition'#7#16'poMainFormCenter'#8'ShowHint'#9#13'ShowInTaskBar'#7#8'stAlways'
-  +#10'LCLVersion'#6#3'1.1'#0#6'TLabel'#8'lPrinter'#4'Left'#2#8#6'Height'#2#14#3
+  +#10'LCLVersion'#6#3'1.3'#0#6'TLabel'#8'lPrinter'#4'Left'#2#8#6'Height'#2#14#3
   +'Top'#3#136#0#5'Width'#3#156#0#8'AutoSize'#8#7'Caption'#6#12'Ausgabe nach'#10
   +'Font.Style'#11#6'fsBold'#0#11'ParentColor'#8#10'ParentFont'#8#0#0#6'TLabel'
   +#6'lPages'#4'Left'#2#8#6'Height'#2#14#3'Top'#3#187#0#5'Width'#2'd'#8'AutoSiz'
@@ -175,25 +175,25 @@ LazarusResources.Add('TfSelectReport','FORMDATA',[
   +#255#255#0#0#0#0#0#0#0#0#0#0#0#0'g'#143#198#255'K{'#191#255')c'#191#255#0#0#0
   +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
   +#0#0#0#7'OnClick'#7#13'bPreviewClick'#14'ParentShowHint'#8#8'ShowHint'#9#8'T'
-  +'abOrder'#2#1#0#0#9'TComboBox'#9'cbPrinter'#4'Left'#2#8#6'Height'#2#29#4'Hin'
+  +'abOrder'#2#1#0#0#9'TComboBox'#9'cbPrinter'#4'Left'#2#8#6'Height'#2#22#4'Hin'
   +'t'#6'zw'#195#164'hlen Sie hier den Drucker auf dem der Beleg gedruckt werde'
   +'n soll'#13#10'Die Einstellung wird abh'#195#164'ngig vom Report gespeichert'
-  +#3'Top'#3#152#0#5'Width'#3#196#0#10'ItemHeight'#2#0#8'OnSelect'#7#15'cbPrint'
-  +'erSelect'#14'ParentShowHint'#8#8'ShowHint'#9#5'Style'#7#14'csDropDownList'#8
-  +'TabOrder'#2#3#0#0#5'TEdit'#6'ePages'#4'Left'#2#9#6'Height'#2#25#4'Hint'#6'o'
-  +'hier k'#195#182'nnen Sie festlegen, welche Seiten gedruckt werden sollen,'
+  +#3'Top'#3#152#0#5'Width'#3#196#0#10'ItemHeight'#2#14#8'OnSelect'#7#15'cbPrin'
+  +'terSelect'#14'ParentShowHint'#8#8'ShowHint'#9#5'Style'#7#14'csDropDownList'
+  +#8'TabOrder'#2#3#0#0#5'TEdit'#6'ePages'#4'Left'#2#9#6'Height'#2#22#4'Hint'#6
+  +'ohier k'#195#182'nnen Sie festlegen, welche Seiten gedruckt werden sollen,'
   +#13#10'dies kann im Format 1-8 oder 1,2,5 erfolgen.'#3'Top'#3#203#0#5'Width'
   +#3#175#0#8'TabOrder'#2#4#0#0#9'TSpinEdit'#7'eCopies'#4'Left'#3#195#0#6'Heigh'
-  +'t'#2#25#4'Hint'#6#128'Stellen Sie hier ein, wie viele Kopien des Reports ge'
+  +'t'#2#22#4'Hint'#6#128'Stellen Sie hier ein, wie viele Kopien des Reports ge'
   +'druckt werden sollen'#13#10'Die Einstellung wird abh'#195#164'ngig vom Repo'
   +'rt gespeichert'#3'Top'#3#204#0#5'Width'#2'3'#7'Anchors'#11#5'akTop'#7'akRig'
   +'ht'#0#8'TabOrder'#2#5#5'Value'#2#1#0#0#9'TComboBox'#6'cbInfo'#4'Left'#2#8#6
-  +'Height'#2#29#4'Hint'#6#181'W'#195#164'hlen Sie hier eine zus'#195#164'tzlic'
+  +'Height'#2#22#4'Hint'#6#181'W'#195#164'hlen Sie hier eine zus'#195#164'tzlic'
   +'he Ausgabe aus, '#13#10'so k'#195#182'nnen Sie z.b. e-Mail Benachrichtigung'
   +'en f'#195#188'r bestimmte Belege erzeugen.'#13#10'Die Einstellung wird abh'
   +#195#164'ngig vom Beleg gespeichert'#3'Top'#3#248#0#5'Width'#3#238#0#7'Ancho'
-  +'rs'#11#5'akTop'#6'akLeft'#7'akRight'#0#10'ItemHeight'#2#0#5'Style'#7#14'csD'
-  ,'ropDownList'#8'TabOrder'#2#6#0#0#7'TBitBtn'#15'bShippingOutput'#4'Left'#3#5
+  +'rs'#11#5'akTop'#6'akLeft'#7'akRight'#0#10'ItemHeight'#2#14#5'Style'#7#14'cs'
+  ,'DropDownList'#8'TabOrder'#2#6#0#0#7'TBitBtn'#15'bShippingOutput'#4'Left'#3#5
   +#1#6'Height'#2#30#4'Hint'#6'Rstartet die Versandausgabe f'#195#188'r die gew'
   +#195#164'hlte Versandart'#13#10'(muss eingerichtet sein)'#3'Top'#2'x'#5'Widt'
   +'h'#3#173#0#7'Anchors'#11#5'akTop'#7'akRight'#0#7'Caption'#6#14'Versandausga'
@@ -422,8 +422,8 @@ LazarusResources.Add('TfSelectReport','FORMDATA',[
   +'rt'#5'Width'#3#150#0#9'FieldName'#6#4'NAME'#0#1#13'Title.Caption'#6#7'Sprac'
   +'he'#5'Width'#2'2'#9'FieldName'#6#8'LANGUAGE'#0#0#10'DataSource'#7#7'Reports'
   +#8'TabOrder'#2#0#7'TabStop'#8#10'TitleStyle'#7#8'tsNative'#11'WantReturns'#8
-  +#13'CachedEditing'#8#0#0#6'TLabel'#6'Label1'#4'Left'#2#8#6'Height'#2#15#3'To'
-  +'p'#2#8#5'Width'#2'['#7'Caption'#6#13'Beleg w'#195#164'hlen'#10'Font.Style'
+  +#13'CachedEditing'#8#0#0#6'TLabel'#6'Label1'#4'Left'#2#8#6'Height'#2#14#3'To'
+  +'p'#2#8#5'Width'#2'Q'#7'Caption'#6#13'Beleg w'#195#164'hlen'#10'Font.Style'
   +#11#6'fsBold'#0#11'ParentColor'#8#10'ParentFont'#8#0#0#11'TSaveDialog'#10'Sa'
   +'veDialog'#11'FilterIndex'#2#0#4'left'#2'@'#3'top'#2'8'#0#0#11'TDatasource'#7
   +'Reports'#4'left'#2' '#3'top'#3#144#0#0#0#11'TfrDesigner'#11'frDesigner1'#4
