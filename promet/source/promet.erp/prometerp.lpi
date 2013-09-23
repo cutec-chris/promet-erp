@@ -328,10 +328,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPersonFrame"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="639"/>
-        <CursorPos X="1" Y="673"/>
+        <TopLine Value="165"/>
+        <CursorPos X="100" Y="184"/>
         <UsageCount Value="202"/>
+        <Loaded Value="True"/>
       </Unit5>
       <Unit6>
         <Filename Value="../base/umessageframe.pas"/>
@@ -954,10 +957,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMainTreeFrame"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="711"/>
-        <CursorPos X="25" Y="755"/>
+        <TopLine Value="606"/>
+        <CursorPos X="48" Y="625"/>
         <UsageCount Value="101"/>
+        <Loaded Value="True"/>
       </Unit63>
       <Unit64>
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
@@ -1025,7 +1030,7 @@
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="55" Y="23"/>
+        <CursorPos X="57" Y="5"/>
         <UsageCount Value="103"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
@@ -1168,10 +1173,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uCalendarFrame"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="372"/>
+        <TopLine Value="17"/>
         <CursorPos X="1" Y="403"/>
         <UsageCount Value="94"/>
         <Loaded Value="True"/>
@@ -1517,7 +1521,7 @@
       <Unit124>
         <Filename Value="../base_pm/gsGanttCalendar.pas"/>
         <UnitName Value="gsGanttCalendar"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="3025"/>
         <CursorPos X="53" Y="3034"/>
@@ -3377,123 +3381,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="../components/tvplanit/source/vpweekview.pas"/>
-        <Caret Line="1774" Column="1" TopLine="1756"/>
+        <Caret Line="1776" Column="1" TopLine="1756"/>
       </Position1>
       <Position2>
         <Filename Value="../components/tvplanit/source/vpweekview.pas"/>
-        <Caret Line="1775" Column="1" TopLine="1756"/>
+        <Caret Line="1787" Column="1" TopLine="1757"/>
       </Position2>
       <Position3>
         <Filename Value="../components/tvplanit/source/vpweekview.pas"/>
-        <Caret Line="1776" Column="1" TopLine="1756"/>
+        <Caret Line="1788" Column="1" TopLine="1758"/>
       </Position3>
       <Position4>
         <Filename Value="../components/tvplanit/source/vpweekview.pas"/>
-        <Caret Line="1787" Column="1" TopLine="1757"/>
+        <Caret Line="1789" Column="1" TopLine="1759"/>
       </Position4>
       <Position5>
         <Filename Value="../components/tvplanit/source/vpweekview.pas"/>
-        <Caret Line="1788" Column="1" TopLine="1758"/>
+        <Caret Line="1790" Column="1" TopLine="1760"/>
       </Position5>
       <Position6>
         <Filename Value="../components/tvplanit/source/vpweekview.pas"/>
-        <Caret Line="1789" Column="1" TopLine="1759"/>
+        <Caret Line="1792" Column="1" TopLine="1762"/>
       </Position6>
       <Position7>
         <Filename Value="../components/tvplanit/source/vpweekview.pas"/>
-        <Caret Line="1790" Column="1" TopLine="1760"/>
+        <Caret Line="1793" Column="1" TopLine="1763"/>
       </Position7>
       <Position8>
         <Filename Value="../components/tvplanit/source/vpweekview.pas"/>
-        <Caret Line="1792" Column="1" TopLine="1762"/>
+        <Caret Line="1794" Column="1" TopLine="1764"/>
       </Position8>
       <Position9>
         <Filename Value="../components/tvplanit/source/vpweekview.pas"/>
-        <Caret Line="1793" Column="1" TopLine="1763"/>
+        <Caret Line="1795" Column="1" TopLine="1765"/>
       </Position9>
       <Position10>
         <Filename Value="../components/tvplanit/source/vpweekview.pas"/>
-        <Caret Line="1794" Column="1" TopLine="1764"/>
+        <Caret Line="1796" Column="1" TopLine="1766"/>
       </Position10>
       <Position11>
         <Filename Value="../components/tvplanit/source/vpweekview.pas"/>
-        <Caret Line="1795" Column="1" TopLine="1765"/>
+        <Caret Line="1809" Column="1" TopLine="1792"/>
       </Position11>
       <Position12>
         <Filename Value="../components/tvplanit/source/vpweekview.pas"/>
-        <Caret Line="1796" Column="1" TopLine="1766"/>
+        <Caret Line="1485" Column="1" TopLine="1466"/>
       </Position12>
       <Position13>
         <Filename Value="../components/tvplanit/source/vpweekview.pas"/>
-        <Caret Line="1809" Column="1" TopLine="1792"/>
+        <Caret Line="214" Column="15" TopLine="197"/>
       </Position13>
       <Position14>
         <Filename Value="../components/tvplanit/source/vpweekview.pas"/>
-        <Caret Line="1485" Column="1" TopLine="1466"/>
+        <Caret Line="1630" Column="21" TopLine="1623"/>
       </Position14>
       <Position15>
         <Filename Value="../components/tvplanit/source/vpweekview.pas"/>
-        <Caret Line="214" Column="15" TopLine="197"/>
+        <Caret Line="1716" Column="14" TopLine="1692"/>
       </Position15>
       <Position16>
         <Filename Value="../components/tvplanit/source/vpweekview.pas"/>
-        <Caret Line="1630" Column="21" TopLine="1623"/>
+        <Caret Line="1733" Column="18" TopLine="1711"/>
       </Position16>
       <Position17>
         <Filename Value="../components/tvplanit/source/vpweekview.pas"/>
-        <Caret Line="1716" Column="14" TopLine="1692"/>
+        <Caret Line="1817" Column="11" TopLine="1794"/>
       </Position17>
       <Position18>
         <Filename Value="../components/tvplanit/source/vpweekview.pas"/>
-        <Caret Line="1733" Column="18" TopLine="1711"/>
+        <Caret Line="150" Column="26" TopLine="130"/>
       </Position18>
       <Position19>
         <Filename Value="../components/tvplanit/source/vpweekview.pas"/>
-        <Caret Line="1817" Column="11" TopLine="1794"/>
+        <Caret Line="431" Column="15" TopLine="400"/>
       </Position19>
       <Position20>
         <Filename Value="../components/tvplanit/source/vpweekview.pas"/>
-        <Caret Line="150" Column="26" TopLine="130"/>
+        <Caret Line="445" Column="15" TopLine="414"/>
       </Position20>
       <Position21>
         <Filename Value="../components/tvplanit/source/vpweekview.pas"/>
-        <Caret Line="431" Column="15" TopLine="400"/>
+        <Caret Line="446" Column="15" TopLine="415"/>
       </Position21>
       <Position22>
         <Filename Value="../components/tvplanit/source/vpweekview.pas"/>
-        <Caret Line="445" Column="15" TopLine="414"/>
+        <Caret Line="447" Column="32" TopLine="416"/>
       </Position22>
       <Position23>
         <Filename Value="../components/tvplanit/source/vpweekview.pas"/>
-        <Caret Line="446" Column="15" TopLine="415"/>
+        <Caret Line="10" Column="94" TopLine="1"/>
       </Position23>
       <Position24>
         <Filename Value="../components/tvplanit/source/vpweekview.pas"/>
-        <Caret Line="447" Column="32" TopLine="416"/>
+        <Caret Line="139" Column="5" TopLine="107"/>
       </Position24>
       <Position25>
         <Filename Value="../components/tvplanit/source/vpweekview.pas"/>
-        <Caret Line="10" Column="94" TopLine="1"/>
+        <Caret Line="475" Column="9" TopLine="458"/>
       </Position25>
       <Position26>
         <Filename Value="../components/tvplanit/source/vpweekview.pas"/>
-        <Caret Line="139" Column="5" TopLine="107"/>
+        <Caret Line="502" Column="14" TopLine="498"/>
       </Position26>
       <Position27>
         <Filename Value="../components/tvplanit/source/vpweekview.pas"/>
-        <Caret Line="475" Column="9" TopLine="458"/>
+        <Caret Line="1499" Column="32" TopLine="1489"/>
       </Position27>
       <Position28>
-        <Filename Value="../components/tvplanit/source/vpweekview.pas"/>
-        <Caret Line="502" Column="14" TopLine="498"/>
-      </Position28>
-      <Position29>
-        <Filename Value="../components/tvplanit/source/vpweekview.pas"/>
-        <Caret Line="1499" Column="32" TopLine="1489"/>
-      </Position29>
-      <Position30>
         <Filename Value="../base_calendar/ucalendarframe.pas"/>
         <Caret Line="48" Column="140" TopLine="45"/>
+      </Position28>
+      <Position29>
+        <Filename Value="../base/umaintreeframe.pas"/>
+        <Caret Line="755" Column="25" TopLine="711"/>
+      </Position29>
+      <Position30>
+        <Filename Value="upersonframe.pas"/>
+        <Caret Line="673" Column="1" TopLine="639"/>
       </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">

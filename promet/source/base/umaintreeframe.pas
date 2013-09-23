@@ -622,7 +622,7 @@ resourcestring
   strNewAccount                 = 'Neues Konto';
   strNewTransfer                = 'Neue Überweisung';
   strAccountingQue              = 'Warteschlange';
-  strMycalendar                 = 'Mein Kalendar';
+  strMycalendar                 = 'Mein Kalender';
 procedure TfMainTree.tvMainAdvancedCustomDrawItem(Sender: TCustomTreeView;
   Node: TTreeNode; State: TCustomDrawState; Stage: TCustomDrawStage;
   var PaintImages, DefaultDraw: Boolean);

@@ -181,7 +181,7 @@ resourcestring
   strChangeCustomerNumer        = 'Kundennumer ändern';
   strEmployees                  = 'Mitarbeiter/Mitglieder';
   strInfo                       = 'Info';
-  strInsertEventForBirthday     = 'Möchten Sie für diesen Geburtstag einen Eintrag in Ihren Kalendar erzeugen ?';
+  strInsertEventForBirthday     = 'Möchten Sie für diesen Geburtstag einen Eintrag in Ihren Kalender erzeugen ?';
   strBirthdayFrom               = 'Geburtstag von %s';
   strNewPerson                  = 'neue Person';
 

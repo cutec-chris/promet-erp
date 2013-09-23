@@ -2,6 +2,7 @@
       - Aufgabenplan wurde in letzten revisionen nicht korrekt aufgebaut
       - Differenz zwischen Ansicht und Ausdruck im Besprechungsprotokoll war möglich, behoben
       - Druckdialog wird nach Ausdruck geschlossen
+      - rechtsklick funktioniert im Kalender nun korrekt
 Build 278
       - GPLv2 oder Kommerzeille Lizenz verfügbar, zusätzliches hosting auf github
 Build 277
