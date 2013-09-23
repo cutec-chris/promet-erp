@@ -576,4 +576,5 @@ Build 143
       - Drag & Drop um Unterprojekte/Prozesse im Baum zuzuweisen
       - Separates Icon für Prozesse
       - Icon wird in Spalte "Typ" bei der Projektliste gezeichnet
-... Umstellung changes.txt in Deutsch, für ältere Eintr
+... Umstellung changes.txt in Deutsch, für ältere Einträge schauen Sie in changes.en.txt
+Version 7.0...

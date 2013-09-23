@@ -211,6 +211,8 @@ type
     //TODO: Bug 0020755 braks this in GTK2...
     procedure WMRButtonDown(var Msg : TLMRButtonDown); message LM_RBUTTONDOWN;
     {$ENDIF}
+    procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer
+       ); override;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -1472,6 +1474,17 @@ begin
         FDefaultPopup.Items[i].Enabled := True;
   end;
 end;
+
+procedure TVpWeekView.MouseDown(Button: TMouseButton; Shift: TShiftState; X,
+  Y: Integer);
+begin
+  if (Y > wvHeaderHeight) then
+  begin
+    EventAtCoord(Point(X, Y));
+  end;
+  inherited MouseDown(Button, Shift, X, Y);
+end;
+
 {=====}
 
 procedure TVpWeekView.InitializeDefaultPopup;
@@ -1928,8 +1941,8 @@ end;
 
 procedure TVpWeekView.EndEdit(Sender: TObject);
 begin
-  if wvInPlaceEditor <> nil then begin
-    if wvInPlaceEditor.Text <> ActiveEvent.Description then begin
+  if (wvInPlaceEditor <> nil) then begin
+    if Assigned(ActiveEvent) and (wvInPlaceEditor.Text <> ActiveEvent.Description) then begin
       ActiveEvent.Description := wvInPlaceEditor.Text;
       ActiveEvent.Changed := true;
       if Assigned(FAfterEdit) then
