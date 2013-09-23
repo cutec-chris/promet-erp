@@ -3039,13 +3039,15 @@ begin
   if FMoveStarted then
     begin
       aDiff := round((FConnectFromPoint.X-Message.XPos)/(Width/GetMinorVisibleUnitsCount));
-      FVisibleStart := IncTime(FVisibleStart, MinorScale, aDiff);//ClearToPeriodStart(MinorScale, IncTime(FVisibleStart, MinorScale, aDiff));
-      if round((FConnectFromPoint.Y-Message.YPos)/FGantt.Tree.DefaultRowHeight) <> 0 then
-        FGantt.Tree.TopRow:=FGantt.Tree.TopRow+round((FConnectFromPoint.Y-Message.YPos)/FGantt.Tree.DefaultRowHeight);
-      Invalidate;
-      FGantt.Tree.Invalidate;
-      if aDiff>0 then
-        FConnectFromPoint := Point(Message.XPos, Message.YPos);
+      if aDiff<>0 then
+        begin
+          FVisibleStart := IncTime(FVisibleStart, MinorScale, aDiff);
+          if round((FConnectFromPoint.Y-Message.YPos)/FGantt.Tree.DefaultRowHeight) <> 0 then
+            FGantt.Tree.TopRow:=FGantt.Tree.TopRow+round((FConnectFromPoint.Y-Message.YPos)/FGantt.Tree.DefaultRowHeight);
+          Invalidate;
+          FGantt.Tree.Invalidate;
+          FConnectFromPoint := Point(Message.XPos, Message.YPos);
+        end;
     end;
   inherited;
 end;
