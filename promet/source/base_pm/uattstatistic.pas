@@ -71,6 +71,7 @@ begin
   DecodeDate(Now(),y,m,d);
   YS := EncodeDate(y,1,1);
   lbItems.Clear;
+  if aInterval.Color<>clRed then exit;
   Caption := aInterval.Task;
   if Assigned(aInterval.Pointer) then
     begin
