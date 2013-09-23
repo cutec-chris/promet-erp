@@ -181,8 +181,13 @@ begin
 end;
 
 procedure TfAttPlan.MenuItem1Click(Sender: TObject);
+var
+  List: TList;
 begin
-//  fAttStatistic.Execute(Fgantt.Tree.);
+  List := TList.Create;
+  FGantt.MakeIntervalList(List);
+  fAttStatistic.Execute(TInterval(List[Fgantt.Tree.Row+1]));
+  List.free;
 end;
 
 procedure TfAttPlan.TIntervalChanged(Sender: TObject);
@@ -550,6 +555,7 @@ begin
               aCat.Free;
             end;
           bInterval.Task:=aCalendar.FieldByName('SUMMARY').AsString;
+          bInterval.Project:=aCalendar.FieldByName('CATEGORY').AsString;
           aResource.AddInterval(bInterval);
           bInterval.Changed:=False;
           Next;

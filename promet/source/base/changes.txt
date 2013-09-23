@@ -1,5 +1,5 @@
 ﻿Build 279
-      -
+      - Aufgabenplan wurde in letzten revisionen nicht korrekt aufgebaut
 Build 278
       - GPLv2 oder Kommerzeille Lizenz verfügbar, zusätzliches hosting auf github
 Build 277

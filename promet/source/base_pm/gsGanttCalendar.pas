@@ -3044,7 +3044,8 @@ begin
         FGantt.Tree.TopRow:=FGantt.Tree.TopRow+round((FConnectFromPoint.Y-Message.YPos)/FGantt.Tree.DefaultRowHeight);
       Invalidate;
       FGantt.Tree.Invalidate;
-      FConnectFromPoint := Point(Message.XPos, Message.YPos);
+      if aDiff>0 then
+        FConnectFromPoint := Point(Message.XPos, Message.YPos);
     end;
   inherited;
 end;
