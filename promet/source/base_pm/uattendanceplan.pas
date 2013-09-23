@@ -424,7 +424,7 @@ var
   aRoot: TUser;
   aIRoot: TInterval;
   ColorUser : Variant;
-  HighestInterval : TInterval;
+  HighestInterval : TInterval = nil;
 
   procedure CollectUsers(aIParent : TInterval;bParent : Variant;Colorized : Boolean = False);
   var

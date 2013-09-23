@@ -687,7 +687,7 @@ end;
 destructor TfManageDocFrame.Destroy;
 begin
   FTimeLine.Free;
-  DataSet.Free;
+  FreeAndNil(FDataSet);
   FDocFrame.Free;
   PreviewFrame.Free;
   inherited Destroy;

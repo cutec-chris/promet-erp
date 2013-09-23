@@ -7292,7 +7292,7 @@ msgid "Info"
 msgstr ""
 
 #: upersonframe.strinserteventforbirthday
-msgid "Möchten Sie für diesen Geburtstag einen Eintrag in Ihren Kalendar erzeugen ?"
+msgid "Möchten Sie für diesen Geburtstag einen Eintrag in Ihren Kalender erzeugen ?"
 msgstr ""
 
 #: upersonframe.strnewperson
