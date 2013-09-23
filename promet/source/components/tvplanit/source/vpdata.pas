@@ -832,6 +832,7 @@ begin
   FChanged := false;
   FItemIndex := -1;
   FSnoozeTime := 0.0;
+  Category:=8;
 end;
 {=====}
 

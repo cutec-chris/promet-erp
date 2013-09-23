@@ -300,7 +300,7 @@ var
   aEventEdit: TfEventEdit;
 begin
   aEventEdit := TfEventEdit.Create(Self);
-  AllowIt := aEventEdit.Execute(Event,Resource,DataStore.FDirectory);
+  AllowIt := aEventEdit.Execute(Event,Resource,DataStore.FDirectory,DataStore);
   aEventEdit.Free;
   RefreshCalendar(FCalendarNode);
 end;
@@ -318,7 +318,7 @@ var
   AllowIt: Boolean;
 begin
   aEventEdit := TfEventEdit.Create(Self);
-  AllowIt := aEventEdit.Execute(Event,DataStore.Resource,DataStore.FDirectory);
+  AllowIt := aEventEdit.Execute(Event,DataStore.Resource,DataStore.FDirectory,DataStore);
   aEventEdit.Free;
   RefreshCalendar(FCalendarNode);
 end;
@@ -364,7 +364,7 @@ begin
   EndTime := StartTime + (30 / MinutesInDay); { StartTime + 30 minutes }
   Event := DataStore.Resource.Schedule.AddEvent(DataStore.GetNextID('Events'), StartTime, EndTime);
   aEventEdit := TfEventEdit.Create(Self);
-  if aEventEdit.Execute(Event,DataStore.Resource,DataStore.FDirectory) then
+  if aEventEdit.Execute(Event,DataStore.Resource,DataStore.FDirectory,DataStore) then
     DataStore.PostEvents;
   aEventEdit.Free;
   DataStoreDateChanged(DataStore,DataStore.Date);

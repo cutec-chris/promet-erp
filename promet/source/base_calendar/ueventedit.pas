@@ -105,6 +105,7 @@ type
     CIVerifying: Boolean;
     FDataSet : TEvent;
     FEditable : Boolean;
+    FDataStore: TVpCustomDataStore;
     procedure PopLists;
     procedure DoOpen;
     procedure AddDocuments(Sender: TObject);
@@ -119,7 +120,7 @@ type
     FLastEndTime : TDateTime;                                            
     procedure PopulateDialog;
     procedure DePopulateDialog;
-    function Execute(aEvent : TVpEvent;aResource : TVpResource;aDir : Variant) : Boolean;
+    function Execute(aEvent : TVpEvent;aResource : TVpResource;aDir : Variant;aDataStore : TVpCustomDataStore) : Boolean;
   end;
 implementation
 uses
@@ -137,8 +138,9 @@ var
   Hist : IBaseHistory;
 begin
   DePopulateDialog;
-  if FDataSet.CanEdit then
-    FDataSet.Post;
+  FDataStore.PostEvents;
+  FDataSet.SelectById(Event.RecordID);
+  FDataSet.Open;
   fSelectReport.Report := Report;
   fSelectReport.SetLanguage;
   //MandantDetails.DataSet := Data.MandantDetails.DataSet;
@@ -292,7 +294,8 @@ begin
   TfLinkFrame(Sender).DataSet := TEvent(FDataSet).Links;
   TPrometInplaceFrame(Sender).SetRights(FEditable);
 end;
-function TfEventEdit.Execute(aEvent: TVpEvent;aResource : TVpResource;aDir : Variant): Boolean;
+function TfEventEdit.Execute(aEvent: TVpEvent; aResource: TVpResource;
+  aDir: Variant; aDataStore: TVpCustomDataStore): Boolean;
 var
   ActControl: TWinControl;
 begin
@@ -301,6 +304,7 @@ begin
   FDataSet := TEvent.Create(nil,Data);
   FDataSet.SelectById(aEvent.RecordID);
   FDataSet.Open;
+  FDataStore := aDataStore;
   if FDataSet.Count=0 then
     begin
       FDataSet.Insert;
@@ -324,6 +328,7 @@ begin
   if Result then
     begin
       DePopulateDialog;
+      aDataStore.PostEvents;
       if FDataSet.CanEdit then
         FDataSet.Post;
     end;

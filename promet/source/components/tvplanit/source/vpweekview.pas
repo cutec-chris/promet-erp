@@ -1477,11 +1477,21 @@ end;
 
 procedure TVpWeekView.MouseDown(Button: TMouseButton; Shift: TShiftState; X,
   Y: Integer);
+var
+  i: Integer;
 begin
   if (Y > wvHeaderHeight) then
   begin
     EventAtCoord(Point(X, Y));
   end;
+  if not Assigned (ActiveEvent) then
+    for i := 0 to FDefaultPopup.Items.Count - 1 do begin
+      if (FDefaultPopup.Items[i].Tag = 1) or (ReadOnly) then
+        FDefaultPopup.Items[i].Enabled := False;
+    end
+  else
+    for i := 0 to FDefaultPopup.Items.Count - 1 do
+      FDefaultPopup.Items[i].Enabled := True;
   inherited MouseDown(Button, Shift, X, Y);
 end;
 
@@ -1949,7 +1959,10 @@ begin
         FAfterEdit(self, ActiveEvent);
       DataStore.PostEvents;
     end;
-    wvInPlaceEditor.Free;
+    try
+      wvInPlaceEditor.Free;
+    except
+    end;
     wvInPlaceEditor := nil;
     Invalidate;
 //    SetFocus;
