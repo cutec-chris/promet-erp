@@ -1,4 +1,6 @@
-﻿Build 279
+﻿Build 280
+      - Kontoeinrichtungs Assistent begonnen (Online Banking)
+Build 279
       - Aufgabenplan wurde in letzten revisionen nicht korrekt aufgebaut
       - Differenz zwischen Ansicht und Ausdruck im Besprechungsprotokoll war möglich, behoben
       - Druckdialog wird nach Ausdruck geschlossen

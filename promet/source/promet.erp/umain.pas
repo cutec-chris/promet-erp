@@ -75,6 +75,7 @@ type
     acStandartTime: TAction;
     acRefreshOrderList: TAction;
     acAttPlan: TAction;
+    acNewAccount: TAction;
     acWiki: TAction;
     ActionList1: TActionList;
     ApplicationProperties1: TApplicationProperties;
@@ -148,6 +149,7 @@ type
     procedure acMasterdataExecute(Sender: TObject);
     procedure acMeetingsExecute(Sender: TObject);
     procedure acMessagesExecute(Sender: TObject);
+    procedure acNewAccountExecute(Sender: TObject);
     procedure acNewContactExecute(Sender: TObject);
     procedure acNewInventoryExecute(Sender: TObject);
     procedure acNewListExecute(Sender: TObject);
@@ -275,7 +277,7 @@ uses uBaseDBInterface,uIntfStrConsts,uSearch,uFilterFrame,uPerson,uData,
   uProcessOptions,Utils,uBaseERPDBClasses,umaintasks,utasks,uTaskEdit,LCLProc,
   usplash,ufavorites,uBaseVisualControls,uStatisticFrame,uwait,uprometipc,uMeetingFrame,
   umeeting,uEditableTab,umanagedocframe,uBaseDocPages,uTaskPlan,uattendanceplan,
-  uTimeFrame,uTimeOptions,
+  uTimeFrame,uTimeOptions,uWizardnewaccount,
   uOptionsFrame
   {$ifdef WINDOWS}
   {$ifdef CPU32}
@@ -1381,6 +1383,14 @@ begin
     end;
   Screen.Cursor:=crDefault;
 end;
+
+procedure TfMain.acNewAccountExecute(Sender: TObject);
+begin
+  fWizardNewAccount.SetLanguage;
+  fWizardNewAccount.InitWizard;
+  fWizardNewAccount.ShowModal;
+end;
+
 procedure TfMain.acNewContactExecute(Sender: TObject);
 var
   aFrame: TfPersonFrame;

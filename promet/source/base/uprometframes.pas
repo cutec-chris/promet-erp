@@ -22,7 +22,7 @@ unit uPrometFrames;
 interface
 uses
   Classes, SysUtils, Forms, uBaseDbInterface, uBaseDbClasses, uExtControls,
-  Dialogs, Controls, ExtCtrls,uQuickHelpFrame;
+  Dialogs, Controls, ExtCtrls,uQuickHelpFrame,LCLProc;
 type
 
   { TPrometMainFrame }
@@ -99,7 +99,7 @@ begin
     end;
   if Assigned(FDataSet) then
     begin
-      raise Exception.Create('DataSet Assigned !'+Self.ClassName);
+      debugln('DataSet Assigned !'+Self.ClassName);
       FreeAndNil(FDataSet);
     end;
   inherited Destroy;

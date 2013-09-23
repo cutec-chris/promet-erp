@@ -17,7 +17,7 @@ object fMain: TfMain
   OnShow = FormShow
   Position = poScreenCenter
   ShowHint = True
-  LCLVersion = '1.1'
+  LCLVersion = '1.3'
   object spTree: TSplitter
     Left = 291
     Height = 528
@@ -826,6 +826,11 @@ object fMain: TfMain
       Caption = 'Anwesenheitsplan'
       ImageIndex = 4
       OnExecute = acAttPlanExecute
+    end
+    object acNewAccount: TAction
+      Caption = 'Neues Konto'
+      ImageIndex = 88
+      OnExecute = acNewAccountExecute
     end
   end
   object ApplicationProperties1: TApplicationProperties
