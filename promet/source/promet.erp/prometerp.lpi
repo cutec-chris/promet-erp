@@ -1509,11 +1509,10 @@
       <Unit124>
         <Filename Value="../base_pm/gsGanttCalendar.pas"/>
         <UnitName Value="gsGanttCalendar"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="3025"/>
-        <CursorPos X="55" Y="3042"/>
+        <CursorPos X="53" Y="3034"/>
         <UsageCount Value="101"/>
         <Loaded Value="True"/>
       </Unit124>
@@ -1552,8 +1551,8 @@
         <UnitName Value="uattendanceplan"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="164"/>
-        <CursorPos X="57" Y="189"/>
+        <TopLine Value="215"/>
+        <CursorPos X="26" Y="191"/>
         <UsageCount Value="101"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -3292,10 +3291,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uAttStatistic"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="51"/>
-        <CursorPos X="42" Y="75"/>
+        <CursorPos X="130" Y="80"/>
         <UsageCount Value="15"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>

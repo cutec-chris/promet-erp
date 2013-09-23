@@ -186,7 +186,7 @@ var
 begin
   List := TList.Create;
   FGantt.MakeIntervalList(List);
-  fAttStatistic.Execute(TInterval(List[Fgantt.Tree.Row+1]));
+  fAttStatistic.Execute(TInterval(List[Fgantt.Tree.Row-1]));
   List.free;
 end;
 

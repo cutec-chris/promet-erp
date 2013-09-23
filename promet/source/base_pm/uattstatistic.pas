@@ -77,7 +77,7 @@ begin
       for i := 0 to TInterval(aInterval.Pointer).IntervalCount-1 do
         with TInterval(aInterval.Pointer).Interval[i] as tBackInterval do
           begin
-            if TInterval(aInterval.Pointer).Interval[i].StartDate>=YS then
+            if (TInterval(aInterval.Pointer).Interval[i].StartDate>=YS) and (TInterval(aInterval.Pointer).Interval[i].Project<>'') then
               lbItems.Items.Values[TInterval(aInterval.Pointer).Interval[i].Project] := FloatToStr(StrToFloatDef(lbItems.Items.Values[TInterval(aInterval.Pointer).Interval[i].Project],0)+(RemoveWeekends(TInterval(aInterval.Pointer).Interval[i].StartDate,TInterval(aInterval.Pointer).Interval[i].FinishDate)));
           end;
     end;
