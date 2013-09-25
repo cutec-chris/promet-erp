@@ -3042,11 +3042,14 @@ begin
       if aDiff<>0 then
         begin
           FVisibleStart := IncTime(FVisibleStart, MinorScale, aDiff);
-          if round((FConnectFromPoint.Y-Message.YPos)/FGantt.Tree.DefaultRowHeight) <> 0 then
-            FGantt.Tree.TopRow:=FGantt.Tree.TopRow+round((FConnectFromPoint.Y-Message.YPos)/FGantt.Tree.DefaultRowHeight);
           Invalidate;
           FGantt.Tree.Invalidate;
           FConnectFromPoint := Point(Message.XPos, Message.YPos);
+        end;
+      if round((FConnectFromPoint.Y-Message.YPos)/FGantt.Tree.DefaultRowHeight) <> 0 then
+        begin
+          FGantt.Tree.TopRow:=FGantt.Tree.TopRow+round((FConnectFromPoint.Y-Message.YPos)/FGantt.Tree.DefaultRowHeight);
+          FGantt.Tree.Invalidate;
         end;
     end;
   inherited;
