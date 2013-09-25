@@ -13,7 +13,7 @@ object fmTimeline: TfmTimeline
   OnKeyDown = FormKeyDown
   OnShow = FormShow
   Position = poDefault
-  LCLVersion = '1.1'
+  LCLVersion = '1.3'
   object ToolBar1: TToolBar
     Left = 0
     Height = 26

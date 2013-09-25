@@ -549,8 +549,10 @@ var
   i: Integer;
   aText: TCaption;
 begin
-  if (key = '@')
+  if (((key = '@')
   or ((Key=',') and (pos(' ',mEntry.Text)=0))
+  or ((Key = #8) and (copy(mEntry.Text,0,1)='@'))
+  ) and (pSearch.Visible=False))
   then
     begin
       pSearch.Visible:=True;
