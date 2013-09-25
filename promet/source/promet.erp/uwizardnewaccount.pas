@@ -152,9 +152,9 @@ begin
     end;
   NextButton.Caption := strFinish;
   //Application depend Language strings
-  lDescription0.Caption := strWoteAccountType;
-  rbImportFinTSToolsAccount.Caption := strImportFinTSToolsAccount;
-  rbImportManualAccounts.Caption := strImportManualAQAccounts;
+  //lDescription0.Caption := strWoteAccountType;
+  //rbImportFinTSToolsAccount.Caption := strImportFinTSToolsAccount;
+  //rbImportManualAccounts.Caption := strImportManualAQAccounts;
   lAccount.Caption := strAccount;
   lName.Caption := strName;
   lDescription1.Caption := strWoteanAccountToImport;
@@ -266,4 +266,4 @@ initialization
   {$I uwizardnewaccount.lrs}
 
 end.
-
+

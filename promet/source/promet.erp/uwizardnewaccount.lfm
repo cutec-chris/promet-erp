@@ -41,7 +41,7 @@ object fWizardNewAccount: TfWizardNewAccount
       Left = 0
       Height = 14
       Top = 120
-      Width = 37
+      Width = 33
       Caption = 'lName'
       ParentColor = False
     end
@@ -97,15 +97,15 @@ object fWizardNewAccount: TfWizardNewAccount
     end
     object cbAccount: TComboBox
       Left = 96
-      Height = 27
+      Height = 22
       Top = 80
       Width = 216
-      ItemHeight = 0
+      ItemHeight = 14
       TabOrder = 1
     end
     object eName: TEdit
       Left = 96
-      Height = 24
+      Height = 22
       Top = 120
       Width = 216
       TabOrder = 2
@@ -143,7 +143,7 @@ object fWizardNewAccount: TfWizardNewAccount
       Left = 0
       Height = 14
       Top = 84
-      Width = 64
+      Width = 63
       Caption = 'lAccountNo'
       ParentColor = False
     end
@@ -151,7 +151,7 @@ object fWizardNewAccount: TfWizardNewAccount
       Left = 0
       Height = 14
       Top = 140
-      Width = 53
+      Width = 52
       Caption = 'lSortcode'
       ParentColor = False
     end
@@ -159,7 +159,7 @@ object fWizardNewAccount: TfWizardNewAccount
       Left = 0
       Height = 14
       Top = 200
-      Width = 65
+      Width = 61
       Caption = 'lFinTsName'
       ParentColor = False
     end
@@ -212,7 +212,7 @@ object fWizardNewAccount: TfWizardNewAccount
     end
     object eAccountname: TEdit
       Left = 0
-      Height = 24
+      Height = 22
       Top = 48
       Width = 220
       TabOrder = 1
@@ -220,7 +220,7 @@ object fWizardNewAccount: TfWizardNewAccount
     end
     object eAccountNo: TEdit
       Left = 0
-      Height = 24
+      Height = 22
       Top = 104
       Width = 220
       TabOrder = 2
@@ -228,7 +228,7 @@ object fWizardNewAccount: TfWizardNewAccount
     end
     object eSortcode: TEdit
       Left = 0
-      Height = 24
+      Height = 22
       Top = 168
       Width = 220
       TabOrder = 3
@@ -236,7 +236,7 @@ object fWizardNewAccount: TfWizardNewAccount
     end
     object eFinTSName: TEdit
       Left = 0
-      Height = 24
+      Height = 22
       Top = 217
       Width = 220
       TabOrder = 4
@@ -315,9 +315,9 @@ object fWizardNewAccount: TfWizardNewAccount
     end
     object rbImportManualAccounts: TRadioButton
       Left = 0
-      Height = 24
+      Height = 18
       Top = 96
-      Width = 167
+      Width = 154
       Caption = 'rbImportManualAccounts'
       Checked = True
       TabOrder = 1
@@ -708,4 +708,4 @@ object fWizardNewAccount: TfWizardNewAccount
       }
     end
   end
-end
+end
