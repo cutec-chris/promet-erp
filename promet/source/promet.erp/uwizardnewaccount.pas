@@ -157,8 +157,8 @@ begin
   //rbImportManualAccounts.Caption := strImportManualAQAccounts;
   lAccount.Caption := strAccount;
   lName.Caption := strName;
-  lDescription1.Caption := strWoteanAccountToImport;
-  Caption := strNewAccount;
+  //lDescription1.Caption := strWoteanAccountToImport;
+  //Caption := strNewAccount;
 end;
 
 procedure TfWizardNewAccount.DoSave;

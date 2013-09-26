@@ -331,7 +331,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPersonFrame"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="688"/>
         <CursorPos X="15" Y="705"/>
@@ -355,7 +355,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPrometFrames"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="47"/>
         <CursorPos X="1" Y="65"/>
@@ -961,7 +961,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMainTreeFrame"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="606"/>
         <CursorPos X="48" Y="625"/>
@@ -1005,7 +1005,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ugridview"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2950"/>
         <CursorPos X="22" Y="2984"/>
@@ -1295,7 +1295,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMeetingFrame"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="731"/>
         <CursorPos X="14" Y="762"/>
@@ -1331,7 +1331,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="umanagedocframe"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="685"/>
         <CursorPos X="19" Y="687"/>
@@ -1525,7 +1525,7 @@
       <Unit124>
         <Filename Value="../base_pm/gsGanttCalendar.pas"/>
         <UnitName Value="gsGanttCalendar"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="3025"/>
         <CursorPos X="29" Y="3042"/>
@@ -1565,7 +1565,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uattendanceplan"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="413"/>
         <CursorPos X="37" Y="426"/>
@@ -1768,7 +1768,7 @@
       <Unit152>
         <Filename Value="../base/dbintfs/ucalendar.pas"/>
         <UnitName Value="uCalendar"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="86"/>
         <CursorPos X="3" Y="88"/>
@@ -2327,7 +2327,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uEnterTime"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="187"/>
         <CursorPos X="84" Y="204"/>
@@ -3265,7 +3265,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uTaskPlan"/>
-        <EditorIndex Value="5"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="20"/>
@@ -3406,17 +3407,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uWizardnewaccount"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="137"/>
-        <CursorPos X="5" Y="157"/>
+        <TopLine Value="143"/>
+        <CursorPos X="5" Y="161"/>
         <UsageCount Value="21"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit348>
     </Units>
-    <JumpHistory Count="23" HistoryIndex="22">
+    <JumpHistory Count="18" HistoryIndex="17">
       <Position1>
         <Filename Value="upersonframe.pas"/>
         <Caret Line="705" Column="15" TopLine="688"/>
@@ -3486,29 +3483,9 @@
         <Caret Line="1389" Column="29" TopLine="1387"/>
       </Position17>
       <Position18>
-        <Filename Value="uwizardnewaccount.pas"/>
-        <Caret Line="251" Column="18" TopLine="231"/>
-      </Position18>
-      <Position19>
-        <Filename Value="uwizardnewaccount.pas"/>
-        <Caret Line="143" Column="1" TopLine="132"/>
-      </Position19>
-      <Position20>
-        <Filename Value="uwizardnewaccount.pas"/>
-        <Caret Line="156" Column="46" TopLine="140"/>
-      </Position20>
-      <Position21>
-        <Filename Value="uwizardnewaccount.pas"/>
-        <Caret Line="155" Column="46" TopLine="139"/>
-      </Position21>
-      <Position22>
         <Filename Value="../timeregistering/uentertime.pas"/>
         <Caret Line="206" Column="50" TopLine="187"/>
-      </Position22>
-      <Position23>
-        <Filename Value="uwizardnewaccount.pas"/>
-        <Caret Line="147" Column="59" TopLine="57"/>
-      </Position23>
+      </Position18>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>
