@@ -160,7 +160,7 @@ object fMain: TfMain
       OnExecute = acExitExecute
     end
     object acMarkRead: TAction
-      Caption = 'Einträge als geklesen markieren'
+      Caption = 'Einträge als gelesen markieren'
       OnExecute = acMarkReadExecute
     end
   end
