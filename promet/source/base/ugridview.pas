@@ -1380,8 +1380,11 @@ begin
               DoSync := True;
             end;
         end;
-      if gList.CanFocus then
-        gList.SetFocus;
+      try
+        if gList.CanFocus and gList.IsControlVisible and gList.Enabled then
+          gList.SetFocus;
+      except //badly sometimes the lcl is not able to detect whenever focus can be set or not (during form hide @ example)
+      end;
       Key := 0;
     end
   else if Key = VK_TAB then
