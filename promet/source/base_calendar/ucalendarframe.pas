@@ -364,8 +364,7 @@ begin
   EndTime := StartTime + (30 / MinutesInDay); { StartTime + 30 minutes }
   Event := DataStore.Resource.Schedule.AddEvent(DataStore.GetNextID('Events'), StartTime, EndTime);
   aEventEdit := TfEventEdit.Create(Self);
-  if aEventEdit.Execute(Event,DataStore.Resource,DataStore.FDirectory,DataStore) then
-    DataStore.PostEvents;
+  aEventEdit.Execute(Event,DataStore.Resource,DataStore.FDirectory,DataStore);
   aEventEdit.Free;
   DataStoreDateChanged(DataStore,DataStore.Date);
 end;

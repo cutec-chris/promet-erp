@@ -331,7 +331,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPersonFrame"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="688"/>
         <CursorPos X="15" Y="705"/>
@@ -355,7 +355,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPrometFrames"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="47"/>
         <CursorPos X="1" Y="65"/>
@@ -480,10 +480,12 @@
       <Unit18>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="493"/>
-        <CursorPos X="30" Y="518"/>
+        <TopLine Value="702"/>
+        <CursorPos X="1" Y="723"/>
         <UsageCount Value="110"/>
+        <Loaded Value="True"/>
       </Unit18>
       <Unit19>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
@@ -961,7 +963,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMainTreeFrame"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="606"/>
         <CursorPos X="48" Y="625"/>
@@ -1177,10 +1179,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uCalendarFrame"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="296"/>
-        <CursorPos X="18" Y="322"/>
+        <TopLine Value="487"/>
+        <CursorPos X="1" Y="506"/>
         <UsageCount Value="95"/>
+        <Loaded Value="True"/>
       </Unit84>
       <Unit85>
         <Filename Value="../base/uwikimessage.pas"/>
@@ -1333,8 +1338,8 @@
         <UnitName Value="umanagedocframe"/>
         <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="685"/>
-        <CursorPos X="19" Y="687"/>
+        <TopLine Value="683"/>
+        <CursorPos X="26" Y="694"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
       </Unit101>
@@ -1525,7 +1530,7 @@
       <Unit124>
         <Filename Value="../base_pm/gsGanttCalendar.pas"/>
         <UnitName Value="gsGanttCalendar"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="3025"/>
         <CursorPos X="29" Y="3042"/>
@@ -1565,11 +1570,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uattendanceplan"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="413"/>
-        <CursorPos X="59" Y="432"/>
+        <CursorPos X="84" Y="416"/>
         <UsageCount Value="101"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -1723,10 +1727,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uEventEdit"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="162"/>
-        <CursorPos X="25" Y="183"/>
+        <TopLine Value="316"/>
+        <CursorPos X="1" Y="331"/>
         <UsageCount Value="11"/>
+        <Loaded Value="True"/>
       </Unit146>
       <Unit147>
         <Filename Value="../../../lkomponenten/tvplanit/source/vpdata.pas"/>
@@ -1771,8 +1777,8 @@
         <UnitName Value="uCalendar"/>
         <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="86"/>
-        <CursorPos X="3" Y="88"/>
+        <TopLine Value="20"/>
+        <CursorPos X="79" Y="114"/>
         <UsageCount Value="32"/>
         <Loaded Value="True"/>
       </Unit152>
@@ -2328,7 +2334,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uEnterTime"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="187"/>
         <CursorPos X="84" Y="204"/>
@@ -3413,79 +3419,127 @@
         <UsageCount Value="21"/>
       </Unit348>
     </Units>
-    <JumpHistory Count="18" HistoryIndex="17">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="upersonframe.pas"/>
-        <Caret Line="705" Column="15" TopLine="688"/>
+        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
+        <Caret Line="722" Column="1" TopLine="702"/>
       </Position1>
       <Position2>
-        <Filename Value="../base/uprometframes.pas"/>
-        <Caret Line="47" Column="65" TopLine="30"/>
+        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
+        <Caret Line="723" Column="1" TopLine="702"/>
       </Position2>
       <Position3>
-        <Filename Value="../base/uprometframes.pas"/>
-        <Caret Line="64" Column="3" TopLine="62"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="509" Column="1" TopLine="495"/>
       </Position3>
       <Position4>
-        <Filename Value="../base/uprometframes.pas"/>
-        <Caret Line="65" Column="1" TopLine="58"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="512" Column="1" TopLine="495"/>
       </Position4>
       <Position5>
-        <Filename Value="../base/uprometframes.pas"/>
-        <Caret Line="66" Column="1" TopLine="58"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="514" Column="1" TopLine="508"/>
       </Position5>
       <Position6>
-        <Filename Value="../base/uprometframes.pas"/>
-        <Caret Line="65" Column="1" TopLine="48"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="517" Column="1" TopLine="508"/>
       </Position6>
       <Position7>
-        <Filename Value="../base/uprometframes.pas"/>
-        <Caret Line="100" Column="1" TopLine="83"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="518" Column="1" TopLine="508"/>
       </Position7>
       <Position8>
-        <Filename Value="../base/uprometframes.pas"/>
-        <Caret Line="105" Column="1" TopLine="83"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="526" Column="1" TopLine="508"/>
       </Position8>
       <Position9>
-        <Filename Value="../base/uprometframes.pas"/>
-        <Caret Line="65" Column="1" TopLine="48"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="514" Column="1" TopLine="507"/>
       </Position9>
       <Position10>
-        <Filename Value="../base/uprometframes.pas"/>
-        <Caret Line="66" Column="1" TopLine="48"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="517" Column="1" TopLine="507"/>
       </Position10>
       <Position11>
-        <Filename Value="../base/uprometframes.pas"/>
-        <Caret Line="100" Column="1" TopLine="83"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="518" Column="1" TopLine="507"/>
       </Position11>
       <Position12>
-        <Filename Value="../base/uprometframes.pas"/>
-        <Caret Line="65" Column="1" TopLine="48"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="526" Column="1" TopLine="507"/>
       </Position12>
       <Position13>
-        <Filename Value="../base/uprometframes.pas"/>
-        <Caret Line="102" Column="7" TopLine="83"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="514" Column="1" TopLine="507"/>
       </Position13>
       <Position14>
-        <Filename Value="umain.pas"/>
-        <Caret Line="1244" Column="2" TopLine="1210"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="517" Column="1" TopLine="507"/>
       </Position14>
       <Position15>
-        <Filename Value="umain.pas"/>
-        <Caret Line="1246" Column="2" TopLine="1212"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="518" Column="1" TopLine="507"/>
       </Position15>
       <Position16>
-        <Filename Value="umain.pas"/>
-        <Caret Line="280" Column="45" TopLine="250"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="526" Column="1" TopLine="507"/>
       </Position16>
       <Position17>
-        <Filename Value="umain.pas"/>
-        <Caret Line="1389" Column="29" TopLine="1387"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="528" Column="1" TopLine="507"/>
       </Position17>
       <Position18>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="206" Column="50" TopLine="187"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="530" Column="1" TopLine="507"/>
       </Position18>
+      <Position19>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="532" Column="1" TopLine="519"/>
+      </Position19>
+      <Position20>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="535" Column="1" TopLine="519"/>
+      </Position20>
+      <Position21>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="538" Column="1" TopLine="534"/>
+      </Position21>
+      <Position22>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="540" Column="1" TopLine="533"/>
+      </Position22>
+      <Position23>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="541" Column="1" TopLine="533"/>
+      </Position23>
+      <Position24>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="543" Column="1" TopLine="533"/>
+      </Position24>
+      <Position25>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="544" Column="1" TopLine="533"/>
+      </Position25>
+      <Position26>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="545" Column="1" TopLine="533"/>
+      </Position26>
+      <Position27>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="546" Column="1" TopLine="533"/>
+      </Position27>
+      <Position28>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="547" Column="1" TopLine="533"/>
+      </Position28>
+      <Position29>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="506" Column="1" TopLine="487"/>
+      </Position29>
+      <Position30>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="530" Column="1" TopLine="512"/>
+      </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>
@@ -3529,7 +3583,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="1">
+    <BreakPoints Count="2">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
@@ -3537,6 +3591,13 @@
         <Source Value="../base/ugridview.pas"/>
         <Line Value="2792"/>
       </Item1>
+      <Item2>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="../base_calendar/ueventedit.pas"/>
+        <Line Value="331"/>
+      </Item2>
     </BreakPoints>
     <Watches Count="1">
       <Item1>
