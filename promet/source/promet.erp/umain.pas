@@ -908,9 +908,7 @@ begin
               Data.RegisterLinkHandler('DOCUMENTS',@fMainTreeFrame.OpenLink);
               Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
               TTreeEntry(Node.Data).Typ := etFiles;
-              Data.RegisterLinkHandler('DOCPAGES',@fMainTreeFrame.OpenLink);
-              Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
-              TTreeEntry(Node.Data).Typ := etDocuments;
+              umanagedocframe.AddToMainTree;
             end;
         except
         end;
@@ -2023,6 +2021,25 @@ begin
                 end;
             end;
         end;
+    end
+  else if (Source is TComponent) and (TComponent(Source).Owner is TfManageDocFrame) then
+    begin
+      aTNode := fMainTreeFrame.tvMain.GetNodeAt(X,Y);
+      if Assigned(aTNode) then
+        begin
+          aTreeEntry := TTreeEntry(aTNode.Data);
+          if (aTreeEntry.Typ = etDocumentDir)
+          then
+            begin
+              if TfManageDocFrame(TComponent(Source).Owner).GotoCurrentItem then
+                begin
+                  if not TfManageDocFrame(TComponent(Source).Owner).DataSet.CanEdit then
+                    TfManageDocFrame(TComponent(Source).Owner).DataSet.DataSet.Edit;
+                  TfManageDocFrame(TComponent(Source).Owner).DataSet.FieldByName('TREEENTRY').AsVariant:=aTreeEntry.Rec;
+                  TfManageDocFrame(TComponent(Source).Owner).DataSet.Post;
+                end;
+            end;
+        end;
     end;
 end;
 procedure TfMain.fMainTreeFrameDragOver(Sender, Source: TObject; X, Y: Integer;
@@ -2063,6 +2080,17 @@ begin
               then
                 Accept := True;
             end;
+        end;
+    end
+  else if (Source is TComponent) and (TComponent(Source).Owner is TfManageDocFrame) then
+    begin
+      aTNode := fMainTreeFrame.tvMain.GetNodeAt(X,Y);
+      if Assigned(aTNode) then
+        begin
+          aTreeEntry := TTreeEntry(aTNode.Data);
+          if (aTreeEntry.Typ = etDocumentDir)
+          then
+            Accept := True;
         end;
     end;
 end;
@@ -2541,6 +2569,33 @@ begin
       if (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfMessageFrame) then
         TfMessageFrame(pcPages.ActivePage.Controls[0]).OpenDir(Data.Tree.Id.AsVariant);
     end;
+  etDocumentDir:
+    begin
+      Application.ProcessMessages;
+      if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfManageDocFrame) then
+        Found := True;
+      if not Found then
+        for i := 0 to pcPages.PageCount-2 do
+          if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfManageDocFrame) then
+            begin
+              pcPages.PageIndex:=i;
+              Found := True;
+            end;
+      if not Found then
+        begin
+          aFrame := TfManageDocFrame.Create(Self);
+          pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('DOCPAGES@'),False);
+          AddDocPages(aFrame);
+        end;
+      if not Data.GotoBookmark(Data.Tree,aEntry.Rec) then
+        begin
+          Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
+          if not Data.GotoBookmark(Data.Tree,aEntry.Rec) then
+            exit;
+        end;
+      if (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfManageDocFrame) then
+        TfManageDocFrame(pcPages.ActivePage.Controls[0]).OpenDir(Data.Tree.Id.AsVariant);
+    end;
   etAccount:
     begin
       Application.ProcessMessages;
@@ -2603,6 +2658,7 @@ begin
           pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('DOCPAGES@'),False);
           AddDocPages(aFrame);
         end;
+      TfManageDocFrame(pcPages.ActivePage.Controls[0]).OpenDir(Null);
     end;
   etLists:
     begin

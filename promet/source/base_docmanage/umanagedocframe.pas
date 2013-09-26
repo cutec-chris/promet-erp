@@ -137,6 +137,8 @@ type
     FDocFrame: TfDocumentFrame;
     FTimeLine: TTimeLine;
     PreviewFrame: TfPreview;
+    SelectedItem: TThreadedImage;
+    FFilter: String;
     procedure FetchNext;
     procedure WaitForImage;
     procedure RebuidThumb;
@@ -146,16 +148,40 @@ type
     destructor Destroy; override;
     procedure Open;
     procedure DoRefresh; override;
+    function GotoCurrentItem: Boolean;
+    procedure OpenDir(aDir : Variant);
   end;
-
+procedure AddToMainTree;
 implementation
 {$R *.lfm}
 uses uData,udocuments,uWait,LCLIntf,Utils,uFormAnimate,uImportImages,
-  ProcessUtils;
+  ProcessUtils,uMainTreeFrame;
 resourcestring
   strTag                   = 'Tag';
   strSetTag                = 'durch Klick setzen';
   strCantAccessFile        = 'Auf die Datei "%s" kann nicht zugegriffen werden,'+lineending+'kopieren Sie diese Datei ggf erst auf Ihren Computer oder mounten Sie die Quelle';
+
+procedure AddToMainTree;
+var
+  Node: TTreeNode;
+  Node1: TTreeNode;
+begin
+  Data.RegisterLinkHandler('DOCPAGES',@fMainTreeFrame.OpenLink);
+  Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
+  TTreeEntry(Node.Data).Typ := etDocuments;
+  Data.SetFilter(Data.Tree,'(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('D')+'))',0,'','ASC',False,True,True);
+  Data.Tree.DataSet.First;
+  while not Data.Tree.dataSet.EOF do
+    begin
+      Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
+      TTreeEntry(Node1.Data).Rec := Data.GetBookmark(Data.Tree);
+      TTreeEntry(Node1.Data).DataSource := Data.Tree;
+      TTreeEntry(Node1.Data).Text[0] := Data.Tree.FieldByName('NAME').AsString;
+      TTreeEntry(Node1.Data).Typ := etDocumentDir;
+      fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'',TTreeEntry.Create);
+      Data.Tree.DataSet.Next;
+    end;
+end;
 procedure TfManageDocFrame.ThumbControl1LoadFile(Sender: TObject; URL: string;
   out Stream: TStream);
 begin
@@ -173,6 +199,7 @@ var
   i: Integer;
   tmp: String;
 begin
+  SelectedItem := Item;
   FDocFrame.Refresh(copy(Item.URL,0,pos('.',Item.URL)-1),'S');
   DataSet.DataSet.Locate('SQL_ID',copy(Item.URL,0,pos('.',Item.URL)-1),[]);
   FTimeLine.StartDate:=DataSet.FieldByName('ORIGDATE').AsDateTime+60;
@@ -335,7 +362,7 @@ begin
       if trim(eSearch.Text)<>'' then
         begin
           tmp := eSearch.Text;
-          aFilter := '';
+          aFilter := FFilter;
           while pos(',',tmp) > 0 do
             begin
               AddFilter(copy(tmp,0,pos(',',tmp)-1));
@@ -661,6 +688,8 @@ end;
 constructor TfManageDocFrame.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
+  FFilter := '';
+  SelectedItem:=nil;
   DataSet := TDocPages.Create(nil,Data);
   FTempPath := GetTempDir+'promet_thumbs';
   ForceDirectoriesUTF8(FtempPath);
@@ -714,6 +743,37 @@ begin
 end;
 procedure TfManageDocFrame.DoRefresh;
 begin
+end;
+
+function TfManageDocFrame.GotoCurrentItem : Boolean;
+begin
+  Result := false;
+  if SelectedItem=nil then exit;
+  Result := DataSet.DataSet.Locate('SQL_ID',copy(SelectedItem.URL,0,pos('.',SelectedItem.URL)-1),[]);
+end;
+
+procedure TfManageDocFrame.OpenDir(aDir: Variant);
+begin
+  if aDir = Null then
+    FFilter := ''
+  else
+    FFilter := Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(aDir);
+  with DataSet.DataSet as IBaseDbFilter do
+    begin
+      SortFields := 'ORIGDATE';
+      SortDirection:=sdDescending;
+      Limit := 0;
+      Filter :=  FFilter;
+    end;
+  DataSet.Open;
+  FLast:='';
+  ThumbControl1.MultiThreaded:=False;
+  ThumbControl1.URLList:='';
+  Datasource1.DataSet := DataSet.DataSet;
+  FetchNext;
+  Application.ProcessMessages;
+  ThumbControl1.MultiThreaded:=True;
+  IdleTimer1.Tag:=0;
 end;
 
 end.

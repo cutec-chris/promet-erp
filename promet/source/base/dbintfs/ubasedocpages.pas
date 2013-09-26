@@ -155,6 +155,7 @@ begin
             Add('ORIGDATE',ftDateTime,0,False);
             Add('CHANGEDBY',ftString,4,False);
             Add('FULLTEXT',ftString,500,False);
+            Add('TREEENTRY',ftLargeint,0,False);
             Add('THUMBNAIL',ftBlob,0,False);
           end;
     end;

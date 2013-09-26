@@ -55,6 +55,7 @@ type
                  etSalesList,
                etFiles,
                etDocuments,
+                 etDocumentDir,
                etLists,
                etStorage,
                  etStoragejournal,
@@ -215,7 +216,10 @@ begin
       or (DataT.Typ = etMessages)
       or (DataT.Typ = etMessageDir)
       or (DataT.Typ = etMessageBoard)
-      or (DataT.Typ = etFavourites))
+      or (DataT.Typ = etFavourites)
+      or (DataT.Typ = etDocuments)
+      or (DataT.Typ = etDocumentDir)
+      )
       then
         begin
           New := TMenuItem.Create(nil);
@@ -236,6 +240,7 @@ begin
       if (DataT.Typ = etDir)
       or (DataT.Typ = etMessageDir)
       or (DataT.Typ = etMessageBoard)
+      or (DataT.Typ = etDocumentDir)
       then
         begin
           New := TMenuItem.Create(nil);
@@ -251,6 +256,7 @@ begin
       or (DataT.Typ = etMessageDir)
       or (DataT.Typ = etMessageBoard)
       or (DataT.Typ = etStatistic)
+      or (DataT.Typ = etDocumentDir)
       then
         begin
           New := TMenuItem.Create(nil);
@@ -337,11 +343,13 @@ begin
   and (DataT.Typ <> etCustomers)
   and (DataT.Typ <> etMessageDir)
   and (DataT.Typ <> etMessageBoard)
+  and (DataT.Typ <> etDocumentDir)
   then exit;
   Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
   if (DataT.Typ = etDir)
   or (DataT.Typ = etMessageDir)
   or (DataT.Typ = etMessageBoard)
+  or (DataT.Typ = etDocumentDir)
   then
     begin
       Data.GotoBookmark(Data.Tree,DataT.Rec);
@@ -366,6 +374,7 @@ begin
   if (DataT.Typ = etDir)
   or (DataT.Typ = etMessageDir)
   or (DataT.Typ = etMessageBoard)
+  or (DataT.Typ = etDocumentDir)
   then
     begin
       Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
@@ -411,6 +420,8 @@ begin
   and (DataT.Typ <> etMessageBoard)
   and (DataT.Typ <> etMessages)
   and (DataT.Typ <> etFavourites)
+  and (DataT.Typ <> etDocuments)
+  and (DataT.Typ <> etDocumentDir)
   then exit;
   Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,False);
   if (DataT.Typ = etDir)
@@ -456,6 +467,13 @@ begin
     begin
       ParentID := '0';
       Typ := 'F';
+    end
+  else if (DataT.Typ = etDocuments)
+       or (DataT.Typ = etDocumentDir)
+       then
+    begin
+      ParentID := '0';
+      Typ := 'D';
     end
   else
     ParentID := '0';
@@ -563,6 +581,7 @@ begin
   if (DataT.Typ <> etDir)
   and (DataT.Typ <> etMessageDir)
   and (DataT.Typ <> etMessageBoard)
+  and (DataT.Typ <> etDocumentDir)
   then exit;
   if MessageDlg(strRealdelete,mtInformation,[mbYes,mbNo],0) = mrYes then
     begin
@@ -732,7 +751,7 @@ begin
   end;
   if aImageIndex = -1 then
     case aData.Typ of
-    etDir:aImageIndex := IMAGE_FOLDER;
+    etDir,etDocumentDir:aImageIndex := IMAGE_FOLDER;
     etCustomers:aImageIndex := IMAGE_PERSON;
     etCustomer,etEmployee:aImageIndex := IMAGE_PERSON;
     etCalendarUser,etMyCalendar:aImageIndex:=105;
@@ -1493,7 +1512,10 @@ begin
           TTreeEntry(Node1.Data).Rec := Data.GetBookmark(Data.Tree);
           TTreeEntry(Node1.Data).DataSource := Data.Tree;
           TTreeEntry(Node1.Data).Text[0] := Data.Tree.FieldByName('NAME').AsString;
-          TTreeEntry(Node1.Data).Typ := etDir;
+          if Typ = 'D' then
+            TTreeEntry(Node1.Data).Typ := etDocumentDir
+          else
+            TTreeEntry(Node1.Data).Typ := etDir;
           tvMain.Items.AddChild(Node1,'');
           Data.Tree.DataSet.Next;
         end;

@@ -966,6 +966,7 @@ inherited fManageDocFrame: TfManageDocFrame
       ScrollBars = ssAutoBoth
       Align = alClient
       Color = clWindow
+      DragMode = dmAutomatic
       Font.Height = -9
       Font.Name = 'Trebuchet MS'
       ParentColor = False
