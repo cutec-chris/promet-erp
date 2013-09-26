@@ -25,7 +25,8 @@ interface
 
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, Buttons, ComCtrls, uIntfStrConsts, ProcessUtils, FileUtil;
+  StdCtrls, Buttons, ComCtrls, uIntfStrConsts, ProcessUtils, FileUtil,uBaseERPDBClasses,
+  uAccounting;
 
 type
 
@@ -165,10 +166,13 @@ procedure TfWizardNewAccount.DoSave;
 var
   TN: TTreeNode;
   tmp: String;
+  aAccounts: TAccounts;
 begin
   //Wizard finished, use the made settings
+  aAccounts := TAccounts.Create(nil,Data);
+  aAccounts.CreateTable;
   if Steps[length(Steps)-2] = 1 then
-    with Data.Accounts.DataSet do
+    with aAccounts.DataSet do
       begin
         Insert;
         FieldByName('TYPE').AsString := 'BNC';
@@ -179,10 +183,12 @@ begin
         FieldByName('ACCOUNTNO').AsString := copy(tmp,0,pos(' ',tmp)-1);
         FieldByName('NAME').AsString := eName.text;
         Post;
+        {
         TN := fMain.tvMain.Items.AddChildObject(fMain.tvMain.Selected.Parent,'',TTreeEntry);
         TTreeEntry(TN.Data).Rec := Data.GetBookmark(Data.Accounts);
         TTreeEntry(TN.Data).Text[0] := eName.text;
         TTreeEntry(TN.Data).Typ := etAccount;
+        }
       end;
 end;
 
@@ -236,10 +242,12 @@ begin
               cbAccount.Items.Add(btmp);
             end;
         end
+      {
       else if rbImportFinTSToolsAccount.Checked then
         begin
           Result := 2;
         end;
+      }
     end;
   1:Result := 3;
   2:Result := 3;
