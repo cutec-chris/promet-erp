@@ -2744,7 +2744,7 @@ begin
   CalculateRowHeights;
   NotDone.Free;
   if not FEditable then
-    gList.Row:=1;
+    gList.Row:=gList.FixedRows;
   OldRow := gList.Row;
   {$ifndef slowdebug}
   gList.EndUpdate;
