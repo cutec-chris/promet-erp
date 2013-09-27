@@ -29,7 +29,7 @@ type
     miNewMandant: TMenuItem;
     miProperties: TMenuItem;
     miRegister: TMenuItem;
-    Panel1: TPanel;
+    pInput: TPanel;
     Panel2: TPanel;
     pSearch: TPanel;
     SelectDirectoryDialog1: TSelectDirectoryDialog;
@@ -96,6 +96,7 @@ begin
       fTimeline.SortDirection:=sdDescending;
       fTimeline.SortField:='TIMESTAMPD';
       fTimeline.TextField:='ACTION';
+      fTimeline.FilterRow:=True;
       fTimeline.ReadOnly:=True;
       fTimeline.OnDrawColumnCell:=@FContListDrawColumnCell;
       fTimeline.OnGetCellText:=@fTimelineGetCellText;
@@ -110,7 +111,6 @@ begin
       fTimeline.Show;
       Show;
       BoundsRect := aBoundsRect;
-      fTimeline.FilterRow:=True;
     end;
   Show;
   fTimeline.acFilter.Execute;
@@ -358,7 +358,7 @@ procedure TfmTimeline.FormKeyDown(Sender: TObject; var Key: Word;
 begin
   if Key = VK_ESCAPE then
     begin
-      if (Panel1.Visible) and (Panel1.Height>5) then exit;
+      if (pInput.Visible) and (pInput.Height>5) then exit;
       pSearch.Visible:=False;
       Close;
     end;
@@ -593,11 +593,11 @@ procedure TfmTimeline.ToolButton2Click(Sender: TObject);
 var
   aController: TAnimationController;
 begin
-  aController := TAnimationController.Create(Panel1);
+  aController := TAnimationController.Create(pInput);
   if ToolButton2.Down then
     begin
-      Panel1.Height := 0;
-      Panel1.Visible:=True;
+      pInput.Height := 0;
+      pInput.Visible:=True;
       aController.AnimateControlHeight(57);
       mEntry.SetFocus;
     end

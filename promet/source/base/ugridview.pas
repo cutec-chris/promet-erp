@@ -108,7 +108,7 @@ type
     miExport: TMenuItem;
     miImport: TMenuItem;
     miOpen: TMenuItem;
-    Panel1: TPanel;
+    pConfig: TPanel;
     pFilter: TPanel;
     Panel2: TPanel;
     bEditRows: TSpeedButton;

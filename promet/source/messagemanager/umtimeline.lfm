@@ -77,13 +77,12 @@ object fmTimeline: TfmTimeline
       OnClick = ToolButton2Click
     end
   end
-  object Panel1: TPanel
+  object pInput: TPanel
     Left = 0
     Height = 57
     Top = 26
     Width = 550
     Align = alTop
-    Caption = 'Panel1'
     ClientHeight = 57
     ClientWidth = 550
     TabOrder = 2

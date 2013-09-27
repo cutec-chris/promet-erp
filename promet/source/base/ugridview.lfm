@@ -202,7 +202,7 @@ object fGridView: TfGridView
       }
     end
   end
-  object Panel1: TPanel
+  object pConfig: TPanel
     Left = 0
     Height = 21
     Top = 1
