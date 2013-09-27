@@ -43,6 +43,7 @@ If errorlevel 1 goto end
 lazbuild -q ..\..\source\tools\helpviewer.lpi
 If errorlevel 1 goto end
 lazbuild -q ..\..\source\archivestore\archivestore.lpi
+If errorlevel 1 lazbuild -q -B ..\..\source\archivestore\archivestore.lpi
 If errorlevel 1 goto end
 lazbuild -q ..\..\source\clientmanagement\clientmanagement.lpi
 If errorlevel 1 goto end
