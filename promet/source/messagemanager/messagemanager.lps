@@ -38,7 +38,7 @@
         <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="442"/>
-        <CursorPos X="1" Y="461"/>
+        <CursorPos X="22" Y="462"/>
         <UsageCount Value="80"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -75,11 +75,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ugridview"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1366"/>
-        <CursorPos X="94" Y="1386"/>
+        <TopLine Value="79"/>
+        <CursorPos X="57" Y="98"/>
         <UsageCount Value="23"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -94,6 +93,7 @@
       <Unit8>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="667"/>
@@ -944,7 +944,7 @@
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="25" HistoryIndex="24">
+    <JumpHistory Count="28" HistoryIndex="27">
       <Position1>
         <Filename Value="../base/ugridview.pas"/>
         <Caret Line="1900" Column="1" TopLine="1880"/>
@@ -1045,6 +1045,18 @@
         <Filename Value="../base/ugridview.pas"/>
         <Caret Line="1362" Column="100" TopLine="1357"/>
       </Position25>
+      <Position26>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="2" Column="117" TopLine="1"/>
+      </Position26>
+      <Position27>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="81" Column="21" TopLine="81"/>
+      </Position27>
+      <Position28>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="101" Column="11" TopLine="79"/>
+      </Position28>
     </JumpHistory>
   </ProjectSession>
   <EditorMacros Count="0"/>

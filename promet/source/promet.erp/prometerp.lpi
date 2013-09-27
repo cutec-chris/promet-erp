@@ -331,12 +331,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPersonFrame"/>
-        <EditorIndex Value="18"/>
         <WindowIndex Value="0"/>
         <TopLine Value="688"/>
         <CursorPos X="15" Y="705"/>
         <UsageCount Value="202"/>
-        <Loaded Value="True"/>
       </Unit5>
       <Unit6>
         <Filename Value="../base/umessageframe.pas"/>
@@ -478,12 +476,10 @@
       <Unit18>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="702"/>
         <CursorPos X="1" Y="723"/>
         <UsageCount Value="110"/>
-        <Loaded Value="True"/>
       </Unit18>
       <Unit19>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
@@ -586,12 +582,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uArticleFrame"/>
-        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="142"/>
         <CursorPos X="12" Y="163"/>
         <UsageCount Value="227"/>
-        <Loaded Value="True"/>
       </Unit29>
       <Unit30>
         <Filename Value="../base/dbintfs/umasterdata.pas"/>
@@ -963,13 +957,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMainTreeFrame"/>
-        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="271"/>
         <CursorPos X="1" Y="284"/>
         <UsageCount Value="101"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit63>
       <Unit64>
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
@@ -977,12 +968,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uProjectFrame"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="198"/>
+        <TopLine Value="129"/>
         <CursorPos X="68" Y="221"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit64>
       <Unit65>
         <Filename Value="../base/dbintfs/ubaseapplication.pas"/>
@@ -1010,10 +1002,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ugridview"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="2950"/>
-        <CursorPos X="22" Y="2984"/>
+        <TopLine Value="2764"/>
+        <CursorPos X="51" Y="2955"/>
         <UsageCount Value="108"/>
         <Loaded Value="True"/>
       </Unit67>
@@ -1182,11 +1174,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uCalendarFrame"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="445"/>
-        <CursorPos X="36" Y="505"/>
-        <UsageCount Value="96"/>
+        <TopLine Value="517"/>
+        <CursorPos X="1" Y="535"/>
+        <UsageCount Value="97"/>
         <Loaded Value="True"/>
       </Unit84>
       <Unit85>
@@ -1302,11 +1294,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMeetingFrame"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="19"/>
         <CursorPos X="14" Y="762"/>
-        <UsageCount Value="81"/>
+        <UsageCount Value="83"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit97>
@@ -1338,34 +1330,26 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="umanagedocframe"/>
-        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="743"/>
         <CursorPos X="1" Y="777"/>
         <UsageCount Value="100"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit101>
       <Unit102>
         <Filename Value="../components/thumbs/thumbcontrol.pas"/>
         <UnitName Value="thumbcontrol"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="264"/>
         <CursorPos X="1" Y="282"/>
         <UsageCount Value="13"/>
-        <Loaded Value="True"/>
       </Unit102>
       <Unit103>
         <Filename Value="../base/dbintfs/ubasedocpages.pas"/>
         <UnitName Value="uBaseDocPages"/>
-        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="111"/>
         <CursorPos X="1" Y="129"/>
         <UsageCount Value="73"/>
-        <Loaded Value="True"/>
       </Unit103>
       <Unit104>
         <Filename Value="../../../../fpc/2.6_fixes/packages/pasjpeg/src/jpeglib.pas"/>
@@ -1538,12 +1522,10 @@
       <Unit124>
         <Filename Value="../base_pm/gsGanttCalendar.pas"/>
         <UnitName Value="gsGanttCalendar"/>
-        <EditorIndex Value="19"/>
         <WindowIndex Value="0"/>
         <TopLine Value="3025"/>
         <CursorPos X="29" Y="3042"/>
         <UsageCount Value="101"/>
-        <Loaded Value="True"/>
       </Unit124>
       <Unit125>
         <Filename Value="../base_pm/uprojectimport.pas"/>
@@ -1578,10 +1560,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uattendanceplan"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="407"/>
-        <CursorPos X="84" Y="416"/>
+        <TopLine Value="257"/>
+        <CursorPos X="40" Y="307"/>
         <UsageCount Value="101"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -1735,11 +1717,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uEventEdit"/>
-        <EditorIndex Value="16"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="316"/>
-        <CursorPos X="1" Y="331"/>
-        <UsageCount Value="12"/>
+        <CursorPos X="1" Y="333"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit146>
       <Unit147>
@@ -2011,7 +1994,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="471"/>
         <CursorPos X="25" Y="505"/>
-        <UsageCount Value="44"/>
+        <UsageCount Value="46"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit179>
@@ -2340,12 +2323,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uEnterTime"/>
-        <EditorIndex Value="20"/>
         <WindowIndex Value="0"/>
         <TopLine Value="187"/>
         <CursorPos X="84" Y="204"/>
         <UsageCount Value="48"/>
-        <Loaded Value="True"/>
       </Unit217>
       <Unit218>
         <Filename Value="utimeframe.pas"/>
@@ -2916,12 +2897,10 @@
       </Unit287>
       <Unit288>
         <Filename Value="../../../../../lazarus/lcl/include/pagecontrol.inc"/>
-        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="28"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit288>
       <Unit289>
         <Filename Value="../../../../../lazarus/lcl/interfaces/gtk2/gtk2winapi.inc"/>
@@ -3280,11 +3259,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uTaskPlan"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="22"/>
         <CursorPos X="39" Y="19"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="25"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit331>
@@ -3315,10 +3294,12 @@
       <Unit335>
         <Filename Value="../components/tvplanit/source/vpdata.pas"/>
         <UnitName Value="VpData"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="824"/>
-        <CursorPos X="11" Y="835"/>
+        <TopLine Value="924"/>
+        <CursorPos X="1" Y="943"/>
         <UsageCount Value="11"/>
+        <Loaded Value="True"/>
       </Unit335>
       <Unit336>
         <Filename Value="../base_pm/uattstatistic.pas"/>
@@ -3424,129 +3405,129 @@
         <WindowIndex Value="0"/>
         <TopLine Value="19"/>
         <CursorPos X="41" Y="243"/>
-        <UsageCount Value="24"/>
+        <UsageCount Value="28"/>
       </Unit348>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="757" Column="1" TopLine="730"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="558" Column="1" TopLine="528"/>
       </Position1>
       <Position2>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="760" Column="1" TopLine="731"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="559" Column="1" TopLine="529"/>
       </Position2>
       <Position3>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="761" Column="1" TopLine="731"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="560" Column="1" TopLine="530"/>
       </Position3>
       <Position4>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="725" Column="1" TopLine="708"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="561" Column="1" TopLine="531"/>
       </Position4>
       <Position5>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="726" Column="1" TopLine="708"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="562" Column="1" TopLine="532"/>
       </Position5>
       <Position6>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="727" Column="1" TopLine="708"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="563" Column="1" TopLine="533"/>
       </Position6>
       <Position7>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="728" Column="1" TopLine="708"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="564" Column="1" TopLine="534"/>
       </Position7>
       <Position8>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="729" Column="1" TopLine="708"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="565" Column="1" TopLine="535"/>
       </Position8>
       <Position9>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="731" Column="1" TopLine="708"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="572" Column="1" TopLine="554"/>
       </Position9>
       <Position10>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="732" Column="1" TopLine="708"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="574" Column="1" TopLine="554"/>
       </Position10>
       <Position11>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="733" Column="1" TopLine="708"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="575" Column="1" TopLine="554"/>
       </Position11>
       <Position12>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="735" Column="1" TopLine="708"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="514" Column="1" TopLine="495"/>
       </Position12>
       <Position13>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="27" Column="76" TopLine="19"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="517" Column="1" TopLine="495"/>
       </Position13>
       <Position14>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="47" Column="16" TopLine="19"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="518" Column="1" TopLine="495"/>
       </Position14>
       <Position15>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="62" Column="13" TopLine="33"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="526" Column="1" TopLine="505"/>
       </Position15>
       <Position16>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="142" Column="12" TopLine="113"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="488" Column="25" TopLine="464"/>
       </Position16>
       <Position17>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="177" Column="30" TopLine="156"/>
+        <Filename Value="../components/tvplanit/source/vpdata.pas"/>
+        <Caret Line="253" Column="55" TopLine="236"/>
       </Position17>
       <Position18>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="766" Column="19" TopLine="738"/>
+        <Filename Value="../components/tvplanit/source/vpdata.pas"/>
+        <Caret Line="940" Column="3" TopLine="936"/>
       </Position18>
       <Position19>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="757" Column="1" TopLine="738"/>
+        <Filename Value="../components/tvplanit/source/vpdata.pas"/>
+        <Caret Line="943" Column="1" TopLine="936"/>
       </Position19>
       <Position20>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="760" Column="1" TopLine="738"/>
+        <Filename Value="../components/tvplanit/source/vpdata.pas"/>
+        <Caret Line="835" Column="7" TopLine="816"/>
       </Position20>
       <Position21>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="761" Column="1" TopLine="738"/>
+        <Filename Value="../components/tvplanit/source/vpdata.pas"/>
+        <Caret Line="205" Column="5" TopLine="186"/>
       </Position21>
       <Position22>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="763" Column="1" TopLine="738"/>
+        <Filename Value="../components/tvplanit/source/vpdata.pas"/>
+        <Caret Line="943" Column="1" TopLine="924"/>
       </Position22>
       <Position23>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="764" Column="1" TopLine="738"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="535" Column="1" TopLine="517"/>
       </Position23>
       <Position24>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="765" Column="1" TopLine="738"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="536" Column="1" TopLine="517"/>
       </Position24>
       <Position25>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="766" Column="1" TopLine="738"/>
+        <Filename Value="../components/tvplanit/source/vpdata.pas"/>
+        <Caret Line="943" Column="1" TopLine="924"/>
       </Position25>
       <Position26>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="768" Column="1" TopLine="738"/>
+        <Filename Value="../components/tvplanit/source/vpdata.pas"/>
+        <Caret Line="944" Column="1" TopLine="924"/>
       </Position26>
       <Position27>
-        <Filename Value="../base/dbintfs/ubasedocpages.pas"/>
-        <Caret Line="128" Column="1" TopLine="111"/>
+        <Filename Value="../components/tvplanit/source/vpdata.pas"/>
+        <Caret Line="943" Column="1" TopLine="924"/>
       </Position27>
       <Position28>
-        <Filename Value="../base/dbintfs/ubasedocpages.pas"/>
-        <Caret Line="129" Column="1" TopLine="111"/>
+        <Filename Value="../components/tvplanit/source/vpdata.pas"/>
+        <Caret Line="944" Column="1" TopLine="924"/>
       </Position28>
       <Position29>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="769" Column="1" TopLine="534"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="533" Column="1" TopLine="517"/>
       </Position29>
       <Position30>
-        <Filename Value="umain.pas"/>
-        <Caret Line="2665" Column="38" TopLine="2636"/>
+        <Filename Value="../base_calendar/ucalendarframe.pas"/>
+        <Caret Line="535" Column="1" TopLine="517"/>
       </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">
@@ -3596,8 +3577,8 @@
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
-        <Source Value="../base/ugridview.pas"/>
-        <Line Value="2792"/>
+        <Source Value="../base_calendar/ucalendarframe.pas"/>
+        <Line Value="535"/>
       </Item1>
       <Item2>
         <Kind Value="bpkSource"/>

@@ -485,6 +485,7 @@ begin
               Event.CustInterval := FieldByName('ROTCUS').AsInteger;
               Event.Location:= FieldByName('LOCATION').AsString;
               Event.StrCategory:= FieldByName('CATEGORY').AsString;
+              Event.Changed:=False;
               Event.Loading := false;
             end;
           Next;

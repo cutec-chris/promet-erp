@@ -328,9 +328,9 @@ begin
   if Result then
     begin
       DePopulateDialog;
-      aDataStore.PostEvents;
       if FDataSet.CanEdit then
         FDataSet.Post;
+      aDataStore.PostEvents;
     end;
   FDataSet.Free;
 end;
