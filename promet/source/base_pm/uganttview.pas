@@ -798,7 +798,7 @@ begin
     aTasks.First;
     while not aTasks.EOF do
       begin
-        if aTasks.FieldByName('ACTIVE').AsString<>'N' then
+        if (aTasks.FieldByName('ACTIVE').AsString<>'N') or AddInactive then
           begin
             aTask := TTask.Create(nil,Data);
             aTask.CreateTable;
