@@ -388,7 +388,7 @@ begin
       for i := 0 to fTimeline.dgFake.Columns.Count-1 do
         if fTimeline.dgFake.Columns[i].FieldName='OBJECT' then
           FHasObject := True;
-      if (not fHasObject) and (aRow>0) then
+      if (not fHasObject) and (aRow>=fTimeLine.gList.FixedRows) then
         begin
           aObj := fTimeline.gList.Objects[aCol.Index+1,aRow];
           if not Assigned(aObj) then
