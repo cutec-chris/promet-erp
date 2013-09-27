@@ -407,6 +407,7 @@ var
   DataT : TTreeEntry;
   Node1: TTreeNode;
   aRights: TPermissions;
+  NewTyp: TEntryTyp = etDir;
 begin
   DataT := TTreeEntry(tvMain.Selected.Data);
   if not Assigned(DataT) then exit;
@@ -474,6 +475,7 @@ begin
     begin
       ParentID := '0';
       Typ := 'D';
+      NewTyp := etDocumentDir;
     end
   else
     ParentID := '0';
@@ -488,7 +490,7 @@ begin
       TTreeEntry(Node1.Data).Rec := Data.GetBookmark(Data.Tree);
       TTreeEntry(Node1.Data).DataSource := Data.Tree;
       TTreeEntry(Node1.Data).Text[0] := Data.Tree.FieldByName('NAME').AsString;
-      TTreeEntry(Node1.Data).Typ := etDir;
+      TTreeEntry(Node1.Data).Typ := newTyp;
       if Typ = 'N' then
         TTreeEntry(Node1.Data).Typ := etMessageDir;
       tvMain.Items.AddChildObject(Node1,'',TTreeEntry.Create);
@@ -941,7 +943,7 @@ begin
       etWikiPage:
         begin
           if Assigned(tvMain.GetNodeAt(X,Y)) and Assigned(tvMain.GetNodeAt(X,Y).Data) then
-            if TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etDir then
+            if (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etDir) or (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ=etDocumentDir) then
               begin
                 case DataT.Typ of
                 etCustomer,
@@ -1078,10 +1080,10 @@ begin
                 aPProject.Free;
               end;
         end;
-      etDir:
+      etDir,etDocumentDir:
         begin
           if Assigned(tvMain.GetNodeAt(X,Y)) and Assigned(tvMain.GetNodeAt(X,Y).Data) then
-            if TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etDir then
+            if (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etDir) or (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etDocumentDir) then
               begin
                 DataT2 := TTreeEntry(tvMain.GetNodeAt(X,Y).Data);
                 Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
@@ -1089,7 +1091,7 @@ begin
                 if Data.Tree.FieldByName('TYPE').AsString <> 'F' then
                   begin
                     aNewParent := Data.Tree.id.AsVariant;
-                    Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
+                    Data.SetFilter(Data.Tree,'',0,'','ASC');
                     Data.Tree.GotoBookmark(DataT.Rec);
                     with Data.Tree.DataSet do
                       begin
@@ -1100,7 +1102,10 @@ begin
                     tvMain.GetNodeAt(X,Y).Collapse(True);
                     tvMain.GetNodeAt(X,Y).HasChildren:=True;
                     tvMain.GetNodeAt(X,Y).Expand(False);
-                    tvMain.Selected.Delete;
+                    try
+                      tvMain.Selected.Delete;
+                    except
+                    end;
                   end;
               end;
         end;
@@ -1316,16 +1321,17 @@ begin
       etProject,
       etProcess,
       etDir,
+      etDocumentDir,
       etLink,
       etWikiPage,
       etStatistic:
         begin
           if Assigned(tvMain.GetNodeAt(X,Y)) and Assigned(tvMain.GetNodeAt(X,Y).Data) then
-            if TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etDir then
+            if (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etDir) or (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etDocumentDir) then
               if DataT.Rec <> TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Rec then
                 begin
-                  if (DataT.Typ = etDir)
-                  and (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etDir) then
+                  if ((DataT.Typ = etDir) or (DataT.Typ = etDocumentDir))
+                  and ((TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etDir) or (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etDocumentDir)) then
                     begin
                       DataT2 := TTreeEntry(tvMain.GetNodeAt(X,Y).Data);
                       Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
@@ -1497,7 +1503,9 @@ begin
     exit;
   tvMain.BeginUpdate;
   Screen.Cursor:=crHourglass;
-  if DataT.Typ = etDir then
+  if (DataT.Typ = etDir)
+  or (DataT.Typ = etDocumentDir)
+  then
     begin
       Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
       Data.Tree.GotoBookmark(DataT.Rec);
