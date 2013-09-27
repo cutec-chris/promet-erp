@@ -988,9 +988,9 @@ inherited fprojectFrame: TfprojectFrame
       end
       object ToolBar2: TToolBar
         Left = 0
-        Height = 34
+        Height = 43
         Top = 4
-        Width = 49
+        Width = 54
         Align = alNone
         ButtonHeight = 35
         ButtonWidth = 36
