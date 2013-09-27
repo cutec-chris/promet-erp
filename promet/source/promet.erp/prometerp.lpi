@@ -967,7 +967,7 @@
         <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1078"/>
-        <CursorPos X="3" Y="1106"/>
+        <CursorPos X="22" Y="1098"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -3418,7 +3418,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="19"/>
         <CursorPos X="41" Y="243"/>
-        <UsageCount Value="31"/>
+        <UsageCount Value="32"/>
       </Unit348>
       <Unit349>
         <Filename Value="../../../../../lazarus/lcl/include/treeview.inc"/>
