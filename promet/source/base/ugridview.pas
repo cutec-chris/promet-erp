@@ -1440,7 +1440,7 @@ begin
         end
       else
         for i := gList.FixedRows to gList.RowCount-1 do
-          if TRowObject(gList.Objects[0,i]).Rec = aBm then
+          if Assigned(gList.Objects[0,i]) and (TRowObject(gList.Objects[0,i]).Rec = aBm) then
             break;
       gList.EditorMode:=False;
       if i=gList.Row then

@@ -561,7 +561,7 @@ inherited fprojectFrame: TfprojectFrame
       end
     end
     object Panel8: TPanel
-      Left = 253
+      Left = 264
       Height = 44
       Top = 0
       Width = 118
@@ -609,7 +609,7 @@ inherited fprojectFrame: TfprojectFrame
       end
     end
     object Panel9: TPanel
-      Left = 371
+      Left = 382
       Height = 44
       Top = 0
       Width = 146
@@ -719,7 +719,7 @@ inherited fprojectFrame: TfprojectFrame
       end
     end
     object Panel10: TPanel
-      Left = 517
+      Left = 528
       Height = 44
       Top = 0
       Width = 77
@@ -837,7 +837,7 @@ inherited fprojectFrame: TfprojectFrame
       end
     end
     object Panel11: TPanel
-      Left = 594
+      Left = 605
       Height = 44
       Top = 0
       Width = 171
@@ -971,11 +971,11 @@ inherited fprojectFrame: TfprojectFrame
       Left = 210
       Height = 44
       Top = 0
-      Width = 43
+      Width = 54
       Align = alLeft
       BevelOuter = bvNone
       ClientHeight = 44
-      ClientWidth = 43
+      ClientWidth = 54
       TabOrder = 8
       object Bevel11: TBevel
         Left = 0
@@ -986,50 +986,30 @@ inherited fprojectFrame: TfprojectFrame
         BorderSpacing.Bottom = 4
         Shape = bsLeftLine
       end
-      object bExecute2: TSpeedButton
-        Left = 4
-        Height = 35
-        Hint = 'Gantt-Ansicht des Projektes zeigen'#10'zeigt eine Planungsansicht in der die '#10'Projektaufgaben zeitlich dargestellt sind'
+      object ToolBar2: TToolBar
+        Left = 0
+        Height = 34
         Top = 4
-        Width = 36
-        Action = acGantt
-        Glyph.Data = {
-          36040000424D3604000000000000360000002800000010000000100000000100
-          2000000000000004000064000000640000000000000000000000FEFDFD00FDFD
-          FDFF676766FFFCFCFCFFFBFBFCFFFAFAFAFFFAFAFAFFFAF9F9FFF9F8F8FFF7F7
-          F7FFF7F7F7FFF5F5F6FFF5F5F5FFF4F4F4FFF3F3F3FFF3F3F3FFFEFEFEFFC7A8
-          12FFC6A212FFC49B13FFC29313FFC08A14FFBF8114FFBC7714FFBA6F15FFB866
-          15FFB65E16FFB55716FFB35216FFF5F5F5FFF4F4F4FFF3F3F3FFFFFFFFFFFEF6
-          01FFFBEC01FFF9E001FFF5D202FFF1C203FFEDB204FFEAA104FFE68F05FFE27F
-          06FFDE7106FFDB6407FFB45316FFF5F6F6FFF5F5F5FFF4F4F4FFE1E1E1FFE1E1
-          E1FF666665FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1
-          E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFFFFFFFFFFFFF
-          FFFF767776FFFEFEFEFFFEFEFDFFFDFDFDFFFDFDFDFFFCFCFCFFFCFCFBFFF8F6
-          EDFFC59E13FFC29313FFC08714FFBD7A15FFBA6F15FFB76215FFFFFFFFFFFFFF
-          FFFF7D7C7DFFFFFFFFFFFEFEFFFFFEFEFDFFFEFDFEFFFDFDFDFFFDFDFDFFFBFC
-          EDFFFAE801FFF5D501FFF1BE03FFEBA704FFE59005FFE07906FFFFFFFFFFFFFF
-          FFFF818181FFFFFFFFFFFFFFFFFFFEFEFEFFFEFEFEFFFEFDFEFFFDFDFDFFFCFC
-          FCFFFCFCFCFF000085FFFAFAFAFFFAFAFAFFFAF9F9FFF9F8F8FFE1E1E1FFE1E1
-          E1FF7B7B7BFFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FF1622
-          A8FF0D159AFF05098DFF000085FFDFDED5FFC59C13FFC18F14FFFFFFFFFFFFFF
-          FFFF8D8D8DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFEFEFFFEFEFEFF1F31
-          B8FFFEFDFD000D1499FFFCFCFCFFFBFCEDFFF9E401FFF4CE02FFFFFFFFFFFFFF
-          FFFF939394FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF2941
-          C9FFFEFEFDFFFDFDFEFFFDFDFDFFFCFCFCFFFCFCFBFFFBFBFBFFFFFFFFFFFFFF
-          FFFF9A9A9AFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF3351
-          D8FFFEFEFEFFFEFEFDFFFDFDFDFFFDFDFDFFFCFCFCFFFBFBFBFFE1E1E1FFE1E1
-          E1FF949394FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FF3D62
-          E5FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFFEFEFFFFFEFE
-          FFFFA5A6A5FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF4670
-          F0FFFFFFFFFFFEFEFEFFFEFEFEFFFEFEFEFFFEFDFD00FDFDFDFFFEFEFEFFC7A6
-          12FFC59C13FFC18F13FFBF8114FFBB7315FFB76415FFB55916FF7AC4FEFF5F98
-          FCFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFEFEFFFEFDFEFFFDFDFDFFFDF5
-          00FFF9E401FFF4CE02FFEEB403FFE89A05FFE28006FFB65C16FFFFFFFFFFFFFF
-          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFEFEFFFEFEFEFFE1E1E1FFE1E1
-          E1FFA9A8A9FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1
-          E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FF
-        }
-        ShowCaption = False
+        Width = 49
+        Align = alNone
+        ButtonHeight = 35
+        ButtonWidth = 36
+        Caption = 'ToolBar2'
+        EdgeBorders = []
+        EdgeInner = esNone
+        EdgeOuter = esNone
+        Flat = False
+        Images = fVisualControls.Images
+        TabOrder = 0
+        Transparent = True
+        object bExecute2: TToolButton
+          Left = 1
+          Top = 0
+          Action = acGantt
+          DropdownMenu = PopupMenu1
+          ShowCaption = False
+          Style = tbsDropDown
+        end
       end
     end
   end
@@ -1067,6 +1047,7 @@ inherited fprojectFrame: TfprojectFrame
     end
   end
   object ActionList1: TActionList[5]
+    Images = fVisualControls.Images
     left = 196
     top = 64
     object acSave: TAction
@@ -1141,9 +1122,14 @@ inherited fprojectFrame: TfprojectFrame
       OnExecute = acGotoParentExecute
     end
     object acGantt: TAction
-      Caption = 'acGantt'
+      Caption = 'Gantt Ansicht'
       ImageIndex = 104
       OnExecute = acGanttExecute
+    end
+    object acInactiveGantt: TAction
+      Caption = 'Gantt Ansicht mit Inaktiven Aufgaben'
+      ImageIndex = 104
+      OnExecute = acInactiveGanttExecute
     end
   end
   object Projects: TDatasource[6]
@@ -1233,5 +1219,16 @@ inherited fprojectFrame: TfprojectFrame
     Filter = 'Gantt Project (*.gan)|*.gan'
     left = 264
     top = 64
+  end
+  object PopupMenu1: TPopupMenu[17]
+    Images = fVisualControls.Images
+    left = 272
+    top = 24
+    object MenuItem7: TMenuItem
+      Action = acGantt
+    end
+    object MenuItem8: TMenuItem
+      Action = acInactiveGantt
+    end
   end
 end

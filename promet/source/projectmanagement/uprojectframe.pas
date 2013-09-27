@@ -46,6 +46,7 @@ type
     acRestart: TAction;
     acGotoParent: TAction;
     acGantt: TAction;
+    acInactiveGantt: TAction;
     ActionList1: TActionList;
     bAssignTree: TSpeedButton;
     bDelegated2: TSpeedButton;
@@ -59,7 +60,7 @@ type
     Bevel9: TBevel;
     bExecute: TSpeedButton;
     bExecute1: TSpeedButton;
-    bExecute2: TSpeedButton;
+    bExecute2: TToolButton;
     bShowTree: TSpeedButton;
     cbStatus: TComboBox;
     cbType: TExtDBCombobox;
@@ -73,10 +74,13 @@ type
     Label9: TLabel;
     lVAT1: TLabel;
     MenuItem6: TMenuItem;
+    MenuItem7: TMenuItem;
+    MenuItem8: TMenuItem;
     Panel10: TPanel;
     Panel11: TPanel;
     pNav2: TPanel;
     pNav3: TPanel;
+    PopupMenu1: TPopupMenu;
     pPreviewImage: TPanel;
     pStatus: TPanel;
     PTasks: TfrDBDataSet;
@@ -123,6 +127,7 @@ type
     Report: TfrReport;
     sbMenue: TSpeedButton;
     ToolBar1: TPanel;
+    ToolBar2: TToolBar;
     ToolButton1: TSpeedButton;
     ToolButton2: TSpeedButton;
     tsInfo: TTabSheet;
@@ -134,6 +139,7 @@ type
     procedure acGanttExecute(Sender: TObject);
     procedure acGotoParentExecute(Sender: TObject);
     procedure acImportExecute(Sender: TObject);
+    procedure acInactiveGanttExecute(Sender: TObject);
     procedure acPrintExecute(Sender: TObject);
     procedure acRestartExecute(Sender: TObject);
     procedure acRightsExecute(Sender: TObject);
@@ -435,6 +441,22 @@ begin
     end;
   Screen.Cursor:=crDefault;
 end;
+
+procedure TfProjectFrame.acInactiveGanttExecute(Sender: TObject);
+begin
+  if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
+    begin
+      TfTaskFrame(pcPages.ActivePage.Controls[0]).DataSet.CascadicCancel;
+      TfTaskFrame(pcPages.ActivePage.Controls[0]).acRefresh.Execute;
+    end;
+  fGanttView.Execute(TProject(DataSet),'',True,True);
+  if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
+    begin
+      TfTaskFrame(pcPages.ActivePage.Controls[0]).DataSet.CascadicCancel;
+      TfTaskFrame(pcPages.ActivePage.Controls[0]).acRefresh.Execute;
+    end;
+end;
+
 procedure TfProjectFrame.acPrintExecute(Sender: TObject);
 var
   Hist : IBaseHistory;

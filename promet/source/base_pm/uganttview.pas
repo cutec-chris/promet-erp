@@ -114,13 +114,13 @@ type
     { public declarations }
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
-    procedure Populate(aTasks: TTaskList; DoClean: Boolean=True);
+    procedure Populate(aTasks: TTaskList; DoClean: Boolean=True;AddInactive : Boolean = False);
     procedure DoSave;
     procedure CleanIntervals;
     procedure FindCriticalPath;
     procedure FillInterval(aInterval : TInterval;aTasks : TTaskList);
     procedure GotoTask(aLink : string);
-    function Execute(aProject : TProject;aLink : string = '') : Boolean;
+    function Execute(aProject : TProject;aLink : string = ''; DoClean: Boolean=True;AddInactive : Boolean = False) : Boolean;
   end;
 
 var
@@ -650,7 +650,8 @@ begin
   FRessources.Free;
   inherited Destroy;
 end;
-procedure TfGanttView.Populate(aTasks: TTaskList;DoClean : Boolean = True);
+procedure TfGanttView.Populate(aTasks: TTaskList; DoClean: Boolean;
+  AddInactive: Boolean);
 var
   aNewInterval: TInterval;
   aTask: TTask;
@@ -779,7 +780,7 @@ begin
     cbSnapshot.Items.Add(strNoSnapshot);
     while not aTasks.EOF do
       begin
-        if aTasks.FieldByName('ACTIVE').AsString<>'N' then
+        if (aTasks.FieldByName('ACTIVE').AsString<>'N') or AddInactive then
           if IntervalById(aTasks.Id.AsVariant)=nil then
             begin
               aInterval := AddTask(True,aRoot);
@@ -962,7 +963,8 @@ begin
     end;
   aTask.Free;
 end;
-function TfGanttView.Execute(aProject: TProject; aLink: string): Boolean;
+function TfGanttView.Execute(aProject: TProject; aLink: string;
+  DoClean: Boolean; AddInactive: Boolean): Boolean;
 begin
   if not Assigned(Self) then
     begin
@@ -971,7 +973,7 @@ begin
     end;
   FProject := aproject;
   FTasks := aProject.Tasks;
-  Populate(FTasks);
+  Populate(FTasks,DoClean,AddInactive);
   ModalResult := mrNone;
   if aLink <> '' then
     GotoTask(aLink);
