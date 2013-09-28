@@ -567,15 +567,26 @@ end;
 procedure TfManageDocFrame.acEditExecute(Sender: TObject);
 var
   i: Integer;
+  a: Integer;
 begin
   //FDocFrame.Refresh(copy(Item.URL,0,pos('.',Item.URL)-1),'S');
   for i := 0 to FDocFrame.lvDocuments.Items.Count-1 do
-    if (copy(FDocFrame.lvDocuments.Items[i].SubItems[0],0,4) = 'jpg ')
-    or (copy(FDocFrame.lvDocuments.Items[i].SubItems[0],0,5) = 'jpeg ')
+    if (lowercase(copy(FDocFrame.lvDocuments.Items[i].SubItems[0],0,4)) = 'jpg ')
+    or (lowercase(copy(FDocFrame.lvDocuments.Items[i].SubItems[0],0,5)) = 'jpeg ')
     then
       begin
         FDocFrame.lvDocuments.ItemIndex:=i;
         FDocFrame.acViewFile.Execute;
+        for a := 0 to FDocFrame.lvDocuments.Items.Count-1 do
+          begin
+            if FDocFrame.GotoEntry(FDocFrame.lvDocuments.Items[a]) then
+              if PreviewFrame.CanHandleType(Uppercase(FDocFrame.DataSet.FieldByName('EXTENSION').AsString)) then
+                begin
+                  PreviewFrame.LoadFromDocuments(TDocuments(FDocFrame.DataSet).Id.AsVariant);
+                  break;
+                end;
+          end;
+        break;
       end;
 end;
 procedure TfManageDocFrame.acRebuildThumbExecute(Sender: TObject);
