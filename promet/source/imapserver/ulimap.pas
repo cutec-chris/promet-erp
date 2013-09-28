@@ -544,6 +544,10 @@ begin
     begin
       Answer('NO not permitted.');
     end
+  else if aCommand = 'EXPUNGE' then
+    begin
+      Answer('NO not permitted.');
+    end
   else if (aCommand = 'FETCH')
        or (aCommand = 'SEARCH')
   then

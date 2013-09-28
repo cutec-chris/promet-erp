@@ -358,8 +358,8 @@ begin
                     Found := True;
                     break;
                   end;
-//              if not Found then
-//                aSL.Add(copy(aFields,0,pos(' ',aFields)-1)+':');
+              if not Found then
+                aSL.Add(copy(aFields,0,pos(' ',aFields)-1)+':');
               aFields := copy(aFields,pos(' ',aFields)+1,length(aFields));
             end;
           if aFields<>'' then
@@ -372,8 +372,8 @@ begin
                     Found := True;
                     break;
                   end;
-//              if not Found then
-//                aSL.Add(aFields+':');
+              if not Found then
+                aSL.Add(aFields+':');
               aFields := copy(aFields,pos(' ',aFields)+1,length(aFields));
             end;
           aLen := 0;
