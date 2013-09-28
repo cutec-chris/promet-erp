@@ -503,18 +503,18 @@ begin
                   or (extn = '.arw')
                   then
                     begin
-                      if FileExists(copy(aFile,0,rpos('.',aFile)-1)+'.jpg') then
+                      if FileExistsUTF8(copy(aFile,0,rpos('.',aFile)-1)+'.jpg') then
                         aSecFile := copy(aFile,0,rpos('.',aFile)-1)+'.jpg'
-                      else if FileExists(copy(aFile,0,rpos('.',aFile)-1)+'.JPG') then
+                      else if FileExistsUTF8(copy(aFile,0,rpos('.',aFile)-1)+'.JPG') then
                         aSecFile := copy(aFile,0,rpos('.',aFile)-1)+'.JPG'
-                      else if FileExists(copy(aFile,0,rpos('.',aFile)-1)+'.Jpg') then
+                      else if FileExistsUTF8(copy(aFile,0,rpos('.',aFile)-1)+'.Jpg') then
                         aSecFile := copy(aFile,0,rpos('.',aFile)-1)+'.Jpg'
                       else aSecFile:='';
                       if aSecFile <> '' then
                         begin
                           {$ifdef linux}
                           try
-                            ExecProcess('gvfs-rm "'+Filenames[i]+'"');
+                            ExecProcess('gvfs-rm "'+aSecFile+'"');
                           except
                             DeleteFileUTF8(aSecFile);
                           end;
@@ -523,6 +523,8 @@ begin
                           {$endif}
                         end;
                     end;
+                  if FileExistsUTF8(copy(NewFileName,0,length(NewFileName)-length(extn))+'.ufraw') then
+                    DeleteFileUTF8(copy(NewFileName,0,length(NewFileName)-length(extn))+'.ufraw');
                   DeleteFileUTF8(NewFileName);
                   if NewFileName<>Filenames[i] then
                     begin

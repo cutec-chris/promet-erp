@@ -1342,8 +1342,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="492"/>
-        <CursorPos X="50" Y="518"/>
+        <TopLine Value="500"/>
+        <CursorPos X="61" Y="517"/>
         <UsageCount Value="99"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -3437,124 +3437,124 @@
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../base/umaintreeframe.pas"/>
-        <Caret Line="1330" Column="74" TopLine="1321"/>
+        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="489" Column="1" TopLine="461"/>
       </Position1>
       <Position2>
-        <Filename Value="../base/umaintreeframe.pas"/>
-        <Caret Line="1327" Column="1" TopLine="1321"/>
+        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="490" Column="1" TopLine="462"/>
       </Position2>
       <Position3>
-        <Filename Value="../base/umaintreeframe.pas"/>
-        <Caret Line="1097" Column="46" TopLine="1078"/>
+        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="491" Column="1" TopLine="463"/>
       </Position3>
       <Position4>
-        <Filename Value="../base/umaintreeframe.pas"/>
-        <Caret Line="1090" Column="1" TopLine="1078"/>
+        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="492" Column="1" TopLine="464"/>
       </Position4>
       <Position5>
-        <Filename Value="../base/umaintreeframe.pas"/>
-        <Caret Line="1091" Column="1" TopLine="1078"/>
+        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="493" Column="1" TopLine="465"/>
       </Position5>
       <Position6>
-        <Filename Value="../base/umaintreeframe.pas"/>
-        <Caret Line="1093" Column="1" TopLine="1078"/>
+        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="494" Column="1" TopLine="466"/>
       </Position6>
       <Position7>
-        <Filename Value="../base/umaintreeframe.pas"/>
-        <Caret Line="1094" Column="1" TopLine="1078"/>
+        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="495" Column="1" TopLine="467"/>
       </Position7>
       <Position8>
-        <Filename Value="../base/umaintreeframe.pas"/>
-        <Caret Line="1095" Column="1" TopLine="1078"/>
+        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="496" Column="1" TopLine="468"/>
       </Position8>
       <Position9>
-        <Filename Value="../base/umaintreeframe.pas"/>
-        <Caret Line="1096" Column="1" TopLine="1078"/>
+        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="497" Column="1" TopLine="469"/>
       </Position9>
       <Position10>
-        <Filename Value="../base/umaintreeframe.pas"/>
-        <Caret Line="1098" Column="1" TopLine="1078"/>
+        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="498" Column="1" TopLine="470"/>
       </Position10>
       <Position11>
-        <Filename Value="../base/umaintreeframe.pas"/>
-        <Caret Line="1099" Column="1" TopLine="1078"/>
+        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="499" Column="1" TopLine="471"/>
       </Position11>
       <Position12>
-        <Filename Value="../base/umaintreeframe.pas"/>
-        <Caret Line="1094" Column="59" TopLine="1078"/>
+        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="500" Column="1" TopLine="472"/>
       </Position12>
       <Position13>
-        <Filename Value="../../../../../lazarus/lcl/include/treeview.inc"/>
-        <Caret Line="1104" Column="30" TopLine="1088"/>
+        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="501" Column="1" TopLine="473"/>
       </Position13>
       <Position14>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="52" Column="62" TopLine="47"/>
+        <Caret Line="502" Column="1" TopLine="474"/>
       </Position14>
       <Position15>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="766" Column="79" TopLine="730"/>
+        <Caret Line="503" Column="1" TopLine="475"/>
       </Position15>
       <Position16>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="6" Column="80" TopLine="1"/>
+        <Caret Line="526" Column="1" TopLine="509"/>
       </Position16>
       <Position17>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="119" Column="30" TopLine="91"/>
+        <Caret Line="528" Column="1" TopLine="509"/>
       </Position17>
       <Position18>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="4" Column="83" TopLine="1"/>
+        <Caret Line="529" Column="1" TopLine="509"/>
       </Position18>
       <Position19>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="72" Column="27" TopLine="44"/>
+        <Caret Line="537" Column="1" TopLine="509"/>
       </Position19>
       <Position20>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="119" Column="24" TopLine="106"/>
+        <Caret Line="476" Column="37" TopLine="453"/>
       </Position20>
       <Position21>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="335" Column="37" TopLine="319"/>
+        <Caret Line="505" Column="24" TopLine="501"/>
       </Position21>
       <Position22>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="353" Column="15" TopLine="341"/>
+        <Caret Line="470" Column="1" TopLine="453"/>
       </Position22>
       <Position23>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="354" Column="12" TopLine="341"/>
+        <Caret Line="472" Column="1" TopLine="453"/>
       </Position23>
       <Position24>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="355" Column="12" TopLine="341"/>
+        <Caret Line="473" Column="1" TopLine="453"/>
       </Position24>
       <Position25>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="387" Column="12" TopLine="368"/>
+        <Caret Line="474" Column="1" TopLine="453"/>
       </Position25>
       <Position26>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="480" Column="12" TopLine="452"/>
+        <Caret Line="506" Column="1" TopLine="489"/>
       </Position26>
       <Position27>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="772" Column="45" TopLine="756"/>
+        <Caret Line="507" Column="1" TopLine="489"/>
       </Position27>
       <Position28>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="14" Column="25" TopLine="1"/>
+        <Caret Line="513" Column="1" TopLine="489"/>
       </Position28>
       <Position29>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="102" Column="12" TopLine="73"/>
+        <Caret Line="516" Column="1" TopLine="489"/>
       </Position29>
       <Position30>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="463" Column="38" TopLine="446"/>
+        <Caret Line="517" Column="1" TopLine="489"/>
       </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">
@@ -3599,6 +3599,15 @@
     </Other>
   </CompilerOptions>
   <Debugging>
+    <BreakPoints Count="1">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="../base_docmanage/umanagedocframe.pas"/>
+        <Line Value="470"/>
+      </Item1>
+    </BreakPoints>
     <Watches Count="1">
       <Item1>
         <Expression Value="aINew.Task"/>
