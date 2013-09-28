@@ -436,6 +436,9 @@ procedure TfManageDocFrame.DoOnDropFiles(Sender: TObject;
 var
   i: Integer;
   NewFileName: String = '';
+  aFile: String;
+  extn: String;
+  aSecFile: String;
 begin
   if fPicImport.Execute then
     begin
@@ -466,6 +469,60 @@ begin
               TDocPages(DataSet).Post;
               if fPicImport.cbDelete.Checked then
                 begin
+                  aFile := NewFileName;
+                  extn :=  AnsiString(AnsiLowerCase(ExtractFileExt(aFile)));
+                  if (extn = '.cr2')
+                  or (extn = '.crw')
+                  or (extn = '.dng')
+                  or (extn = '.raw')
+                  or (extn = '.erf')
+                  or (extn = '.raf')
+                  or (extn = '.3fr')
+                  or (extn = '.fff')
+                  or (extn = '.dcr')
+                  or (extn = '.dcs')
+                  or (extn = '.kdc')
+                  or (extn = '.rwl')
+                  or (extn = '.mef')
+                  or (extn = '.mfw')
+                  or (extn = '.iiq')
+                  or (extn = '.mrw')
+                  or (extn = '.mdc')
+                  or (extn = '.nef')
+                  or (extn = '.nrw')
+                  or (extn = '.orf')
+                  or (extn = '.rw2')
+                  or (extn = '.pef')
+                  or (extn = '.srw')
+                  or (extn = '.x3f')
+                  or (extn = '.cs1')
+                  or (extn = '.cs4')
+                  or (extn = '.cs16')
+                  or (extn = '.srf')
+                  or (extn = '.sr2')
+                  or (extn = '.arw')
+                  then
+                    begin
+                      if FileExists(copy(aFile,0,rpos('.',aFile)-1)+'.jpg') then
+                        aSecFile := copy(aFile,0,rpos('.',aFile)-1)+'.jpg'
+                      else if FileExists(copy(aFile,0,rpos('.',aFile)-1)+'.JPG') then
+                        aSecFile := copy(aFile,0,rpos('.',aFile)-1)+'.JPG'
+                      else if FileExists(copy(aFile,0,rpos('.',aFile)-1)+'.Jpg') then
+                        aSecFile := copy(aFile,0,rpos('.',aFile)-1)+'.Jpg'
+                      else aSecFile:='';
+                      if aSecFile <> '' then
+                        begin
+                          {$ifdef linux}
+                          try
+                            ExecProcess('gvfs-rm "'+Filenames[i]+'"');
+                          except
+                            DeleteFileUTF8(aSecFile);
+                          end;
+                          {$else}
+                          DeleteFileUTF8(aSecFile);
+                          {$endif}
+                        end;
+                    end;
                   DeleteFileUTF8(NewFileName);
                   if NewFileName<>Filenames[i] then
                     begin

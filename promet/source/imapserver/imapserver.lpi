@@ -77,8 +77,8 @@
         <UnitName Value="uBaseCustomApplication"/>
         <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="3"/>
-        <CursorPos X="61" Y="25"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="20"/>
         <UsageCount Value="75"/>
         <Loaded Value="True"/>
       </Unit1>
@@ -246,7 +246,7 @@
         <UnitName Value="uBaseDbClasses"/>
         <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="2002"/>
+        <TopLine Value="1"/>
         <CursorPos X="32" Y="2018"/>
         <UsageCount Value="66"/>
         <Loaded Value="True"/>
@@ -359,10 +359,11 @@
       <Unit35>
         <Filename Value="..\base\dbintfs\umessages.pas"/>
         <UnitName Value="uMessages"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="17"/>
-        <CursorPos X="15" Y="23"/>
+        <TopLine Value="1"/>
+        <CursorPos X="18" Y="8"/>
         <UsageCount Value="75"/>
         <Loaded Value="True"/>
       </Unit35>
@@ -942,7 +943,6 @@
       <Unit106>
         <Filename Value="..\nntpserver\ulnntp.pas"/>
         <UnitName Value="uLNNTP"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -973,8 +973,8 @@
         <UnitName Value="uprometnntp"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="142"/>
-        <CursorPos X="1" Y="41"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="20"/>
         <UsageCount Value="32"/>
         <Loaded Value="True"/>
       </Unit109>
