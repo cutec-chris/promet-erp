@@ -1209,6 +1209,8 @@ var
   aHist : IBaseHistory;
 begin
   Result := fDocumentCheckin.Execute(aFiles,Directory);
+  Application.ProcessMessages;
+  Screen.Cursor:=crHourGlass;
   if Result and Assigned(fDocumentCheckin) then
     begin
       Desc := fDocumentCheckin.mComment.Text;
@@ -1217,6 +1219,7 @@ begin
           if Supports(BaseElement,IBaseHistory,aHist) then
             aHist.History.AddItem(DataSet.DataSet,Desc,'','',nil,ACICON_DOCUMENTADDED);
     end;
+  Screen.Cursor:=crDefault;
 end;
 
 procedure TfDocumentFrame.aDocumentCheckCheckOutFile(aFile: string);
