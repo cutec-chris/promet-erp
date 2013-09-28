@@ -152,6 +152,8 @@ type
     procedure OpenDir(aDir : Variant);
   end;
 procedure AddToMainTree;
+const
+  MAX_IMAGES = 50;
 implementation
 {$R *.lfm}
 uses uData,udocuments,uWait,LCLIntf,Utils,uFormAnimate,uImportImages,
@@ -629,7 +631,7 @@ begin
     DataSet.Next
   else
     DataSet.First;
-  while (not DataSet.EOF) and (i<500) do
+  while (not DataSet.EOF) and (i<MAX_IMAGES) do
     begin
       inc(i);
       FLast := DataSet.Id.AsString+'.jpg';
@@ -774,6 +776,7 @@ begin
   Application.ProcessMessages;
   ThumbControl1.MultiThreaded:=True;
   IdleTimer1.Tag:=0;
+  ThumbControl1.Invalidate;
 end;
 
 end.
