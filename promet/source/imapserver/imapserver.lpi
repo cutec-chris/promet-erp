@@ -67,8 +67,8 @@
         <UnitName Value="imapserver"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="94"/>
-        <CursorPos X="15" Y="113"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="20"/>
         <UsageCount Value="197"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -202,11 +202,10 @@
         <Filename Value="ulimap.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ulimap"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="533"/>
-        <CursorPos X="30" Y="547"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="20"/>
         <UsageCount Value="194"/>
         <Loaded Value="True"/>
       </Unit16>
@@ -265,8 +264,8 @@
         <UnitName Value="uZeosDBDM"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="261"/>
-        <CursorPos X="1" Y="323"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="20"/>
         <UsageCount Value="79"/>
         <Loaded Value="True"/>
       </Unit23>
@@ -512,8 +511,8 @@
         <UnitName Value="uprometimap"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="308"/>
-        <CursorPos X="112" Y="256"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="20"/>
         <UsageCount Value="109"/>
         <Loaded Value="True"/>
       </Unit53>
@@ -943,10 +942,11 @@
       <Unit106>
         <Filename Value="..\nntpserver\ulnntp.pas"/>
         <UnitName Value="uLNNTP"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="15"/>
-        <CursorPos X="32" Y="24"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="20"/>
         <UsageCount Value="32"/>
         <Loaded Value="True"/>
       </Unit106>
