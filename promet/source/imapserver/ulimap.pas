@@ -82,6 +82,9 @@ type
   end;
   TLIMAPLoginEvent = function(aSocket : TLIMAPSocket;aUser,aPasswort : string) : Boolean of object;
   TLIMAPLogEvent = procedure(aSocket : TLIMAPSocket;DirectionIn : Boolean;aMessage : string) of object;
+
+  { TLIMAPServer }
+
   TLIMAPServer = class(TLTcp)
   private
     FGroups: TIMAPFolders;
@@ -95,6 +98,7 @@ type
   public
    constructor Create(aOwner: TComponent); override;
    destructor Destroy; override;
+   procedure Start;
    property OnLogin : TLIMAPLoginEvent read FLogin write FLogin;
    property OnLog : TLIMAPLogEvent read FLog write FLog;
    property Groups : TIMAPFolders read FGroups;
@@ -683,13 +687,18 @@ begin
   FSocketCounter := 0;
   FGroups := TIMAPFolders.Create;
   SocketClass := TLIMAPSocket;
-  if not Listen(Port) then raise Exception.Create('Listen failed');
 end;
 destructor TLIMAPServer.Destroy;
 begin
   FGroups.Destroy;
   inherited Destroy;
 end;
+
+procedure TLIMAPServer.Start;
+begin
+  if not Listen(Port) then raise Exception.Create('Listen failed');
+end;
+
 procedure TLIMAPServer.CallAction;
 begin
   inherited CallAction;

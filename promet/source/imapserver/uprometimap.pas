@@ -59,7 +59,7 @@ begin
   FlastID := 0;
   Data.SetFilter(FMessages,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' and '+Data.QuoteField('READ')+'='+Data.QuoteValue('N'),0);
   FUnreadCount := FMessages.Count;
-  Data.SetFilter(FMessages,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry),0,'ASC');
+  Data.SetFilter(FMessages,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry),0);
   if FMessages.Count > 0 then
     begin
       FFirstID:=FMessages.Id.AsVariant;
@@ -97,7 +97,7 @@ end;
 function TPIMAPFolder.GetMessage(Idx: Integer): TMimeMess;
 begin
   Result := nil;
-  Data.SetFilter(FMessages,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' AND '+Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(IntToStr(Idx)),1,'ASC');
+  Data.SetFilter(FMessages,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' AND '+Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(IntToStr(Idx)),1);
   MessageIdx := -1;
   if FMessages.Count > 0 then
     begin
@@ -225,7 +225,7 @@ begin
     begin
       aFilter := Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry);
       Max := StrToInt(Arg1);
-      Data.SetFilter(FMessages,aFilter,Max,'ASC');
+      Data.SetFilter(FMessages,aFilter,Max);
       FMessages.DataSet.last;
       Arg1 := FMessages.Id.AsString;
     end;
@@ -242,7 +242,7 @@ begin
         Max := 0;
       end;
     end;
-  Data.SetFilter(FMessages,aFilter,Max,'ASC');
+  Data.SetFilter(FMessages,aFilter,Max);
   FMessages.DataSet.First;
   Result := True;
 end;

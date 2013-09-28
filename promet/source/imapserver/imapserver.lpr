@@ -110,6 +110,7 @@ begin
   Server.Port := 143;
   if HasOption('port') then
     Server.Port := StrToInt(GetOptionValue('port'));
+  Server.Start;
 end;
 
 destructor TPIMAPServer.Destroy;
