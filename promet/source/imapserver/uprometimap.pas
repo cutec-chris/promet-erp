@@ -49,7 +49,7 @@ begin
 end;
 procedure TPIMAPFolder.RefreshFirstID;
 begin
-  Data.SetFilter(FMessages,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry),1,'ASC');
+  Data.SetFilter(FMessages,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry),1);
   if FMessages.Count > 0 then
     FFirstID := FMessages.Id.AsVariant;
 end;
@@ -57,7 +57,7 @@ procedure TPIMAPFolder.RefreshCount;
 begin
   FFIrstID := 0;
   FlastID := 0;
-  Data.SetFilter(FMessages,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' and '+Data.QuoteField('READ')+'='+Data.QuoteValue('N'),0,'ASC');
+  Data.SetFilter(FMessages,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' and '+Data.QuoteField('READ')+'='+Data.QuoteValue('N'),0);
   FUnreadCount := FMessages.Count;
   Data.SetFilter(FMessages,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry),0,'ASC');
   if FMessages.Count > 0 then

@@ -963,6 +963,7 @@ inherited fManageDocFrame: TfManageDocFrame
       FreeInvisibleImages = True
       OnSelectItem = ThumbControl1SelectItem
       OnLoadFile = ThumbControl1LoadFile
+      OnScrolled = ThumbControl1Scrolled
       ScrollBars = ssAutoBoth
       Align = alClient
       Color = clWindow

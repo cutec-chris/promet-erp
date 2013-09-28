@@ -124,6 +124,7 @@ type
     procedure ThumbControl1ImageLoaderManagerSetItemIndex(Sender: TObject);
     procedure ThumbControl1LoadFile(Sender: TObject; URL: string; out
       Stream: TStream);
+    procedure ThumbControl1Scrolled(Sender: TObject);
     procedure ThumbControl1SelectItem(Sender: TObject; Item: TThreadedImage);
   private
     { private declarations }
@@ -195,6 +196,12 @@ begin
   else WaitForImage;
   Stream := TfileStream.Create(FtempPath+URL,fmOpenRead);
 end;
+
+procedure TfManageDocFrame.ThumbControl1Scrolled(Sender: TObject);
+begin
+  ThumbControl1.Invalidate;
+end;
+
 procedure TfManageDocFrame.ThumbControl1SelectItem(Sender: TObject;
   Item: TThreadedImage);
 var

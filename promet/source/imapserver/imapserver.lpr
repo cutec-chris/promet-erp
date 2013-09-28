@@ -107,6 +107,9 @@ begin
   inherited Create(TheOwner);
   StopOnException:=True;
   Server := TLIMAPServer.Create(Self);
+  Server.Port := 143;
+  if HasOption('port') then
+    Server.Port := StrToInt(GetOptionValue('port'));
 end;
 
 destructor TPIMAPServer.Destroy;

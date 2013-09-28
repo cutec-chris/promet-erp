@@ -1,4 +1,6 @@
-﻿Build 280
+﻿Build 281
+      - Dokumentframe wird aktualisiert wernn Odner gewählt wird
+Build 280
       - Kontoeinrichtungs Assistent begonnen (Online Banking)
       - Dokuemnte können nun in Ordner organisiert werden
 Build 279

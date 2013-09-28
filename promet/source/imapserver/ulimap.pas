@@ -683,7 +683,7 @@ begin
   FSocketCounter := 0;
   FGroups := TIMAPFolders.Create;
   SocketClass := TLIMAPSocket;
-  if not Listen(1043) then raise Exception.Create('Listen failed');
+  if not Listen(Port) then raise Exception.Create('Listen failed');
 end;
 destructor TLIMAPServer.Destroy;
 begin
