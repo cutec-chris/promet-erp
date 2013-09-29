@@ -2037,6 +2037,7 @@ begin
                     TfManageDocFrame(TComponent(Source).Owner).DataSet.DataSet.Edit;
                   TfManageDocFrame(TComponent(Source).Owner).DataSet.FieldByName('TREEENTRY').AsVariant:=aTreeEntry.Rec;
                   TfManageDocFrame(TComponent(Source).Owner).DataSet.Post;
+                  TfManageDocFrame(TComponent(Source).Owner).acRefresh.Execute;
                 end;
             end;
         end;

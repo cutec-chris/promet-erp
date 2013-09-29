@@ -387,6 +387,7 @@ begin
   FLast:='';
   ThumbControl1.MultiThreaded:=False;
   ThumbControl1.URLList:='';
+  SelectedItem:=nil;
   Datasource1.DataSet := DataSet.DataSet;
   FetchNext;
   Application.ProcessMessages;
@@ -601,6 +602,7 @@ begin
   DataSet.DataSet.Refresh;
   FLast:='';
   ThumbControl1.URLList:='';
+  SelectedItem:=nil;
   Datasource1.DataSet := DataSet.DataSet;
   FetchNext;
   while ThumbControl1.ImageLoaderManager.CountItems<OldIdx do
@@ -702,6 +704,7 @@ end;
 procedure TfManageDocFrame.FetchNext;
 var
   i: Integer;
+  aItem: TThreadedImage;
 begin
   i := 0;
   if DataSet.DataSet.Locate('SQL_ID',copy(FLast,0,pos('.',FLast)-1),[]) then
@@ -712,7 +715,10 @@ begin
     begin
       inc(i);
       FLast := DataSet.Id.AsString+'.jpg';
-      ThumbControl1.ImageLoaderManager.AddImage(FLast).Name:=DataSet.FieldByName('NAME').AsString;
+      aItem := ThumbControl1.ImageLoaderManager.AddImage(FLast);
+      aItem.Name:=DataSet.FieldByName('NAME').AsString;
+      if not Assigned(SelectedItem) then
+        SelectedItem := aItem;
       DataSet.Next;
     end;
   ThumbControl1.Arrange;
@@ -815,6 +821,7 @@ begin
   DataSet.First;
   FTimeLine.StartDate:=DataSet.FieldByName('ORIGDATE').AsDateTime;
   ThumbControl1.URLList:='';
+  SelectedItem:=nil;
   Datasource1.DataSet := DataSet.DataSet;
   FetchNext;
   bExecute1.Down:=False;
@@ -848,6 +855,7 @@ begin
   FLast:='';
   ThumbControl1.MultiThreaded:=False;
   ThumbControl1.URLList:='';
+  SelectedItem:=nil;
   Datasource1.DataSet := DataSet.DataSet;
   FetchNext;
   Application.ProcessMessages;

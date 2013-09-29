@@ -1,4 +1,7 @@
-﻿Build 281
+﻿Build 282
+      - Verschieben von Bildern in Ordner verbessert (Dokumentenframe)
+      - Ordner für Dokumente bekommen nun richtigen Vorfahren beim erstellen
+Build 281
       - Dokumentframe wird aktualisiert wernn Odner gewählt wird
 Build 280
       - Kontoeinrichtungs Assistent begonnen (Online Banking)
