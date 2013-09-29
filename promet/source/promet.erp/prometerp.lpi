@@ -266,7 +266,7 @@
         <PackageName Value="LCL"/>
       </Item21>
     </RequiredPackages>
-    <Units Count="350">
+    <Units Count="351">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -961,10 +961,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMainTreeFrame"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1078"/>
-        <CursorPos X="22" Y="1098"/>
+        <TopLine Value="457"/>
+        <CursorPos X="1" Y="479"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -1337,7 +1338,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="umanagedocframe"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="562"/>
@@ -1359,8 +1359,8 @@
         <UnitName Value="uBaseDocPages"/>
         <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="233"/>
-        <CursorPos X="21" Y="240"/>
+        <TopLine Value="238"/>
+        <CursorPos X="32" Y="264"/>
         <UsageCount Value="73"/>
         <Loaded Value="True"/>
       </Unit103>
@@ -3432,8 +3432,16 @@
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit349>
+      <Unit350>
+        <Filename Value="../../../../../lazarus/components/fpdebug/fpimgreaderelf.pas"/>
+        <UnitName Value="FpImgReaderElf"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="209"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit350>
     </Units>
-    <JumpHistory Count="26" HistoryIndex="25">
+    <JumpHistory Count="27" HistoryIndex="26">
       <Position1>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
         <Caret Line="506" Column="1" TopLine="489"/>
@@ -3538,6 +3546,10 @@
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
         <Caret Line="581" Column="61" TopLine="562"/>
       </Position26>
+      <Position27>
+        <Filename Value="../base/umaintreeframe.pas"/>
+        <Caret Line="1098" Column="22" TopLine="1078"/>
+      </Position27>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>

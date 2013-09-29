@@ -473,7 +473,9 @@ begin
        or (DataT.Typ = etDocumentDir)
        then
     begin
-      ParentID := '0';
+      Data.GotoBookmark(Data.Tree,DataT.Rec);
+      ParentID := Data.Tree.Id.AsString;
+      Typ := Data.Tree.FieldByName('TYPE').AsString;
       Typ := 'D';
       NewTyp := etDocumentDir;
     end
