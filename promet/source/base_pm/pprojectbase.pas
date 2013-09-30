@@ -7,9 +7,9 @@ unit pProjectbase;
 interface
 
 uses
-  uprojectimport, uTaskEdit, utasks, umaintasks, uprojectpositions, 
-  uMeetingFrame, umeetingusers, gsGanttCalendar, uattendanceplan, uGanttView, 
-  uTaskPlanOptions, uProjectFlow, uAttStatistic, LazarusPackageIntf;
+  gsGanttCalendar, uattendanceplan, uAttStatistic, uGanttView, umaintasks, 
+  uMeetingFrame, umeetingusers, uProjectFlow, uprojectimport, 
+  uprojectpositions, uTaskEdit, uTaskPlanOptions, utasks, LazarusPackageIntf;
 
 implementation
 

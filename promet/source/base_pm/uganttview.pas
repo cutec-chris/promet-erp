@@ -79,6 +79,7 @@ type
     procedure aIntervalChanged(Sender: TObject);
     procedure aIntervalDrawBackground(Sender: TObject; aCanvas: TCanvas;
       aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
+    procedure bCalculateClick(Sender: TObject);
     procedure bDayViewClick(Sender: TObject);
     procedure bMonthViewClick(Sender: TObject);
     procedure bRefresh1Click(Sender: TObject);
@@ -205,6 +206,8 @@ var
     bInt: TInterval;
     IsMoved: Boolean = False;
     aParent: TInterval;
+    bDur: TDateTime;
+    d: Integer;
   begin
     Result := 0;
     if not assigned(aInterval) then exit;
@@ -217,9 +220,19 @@ var
           if aTmp>0 then
             begin
               bInt.BeginUpdate;
-              aDur := bInt.Duration;
+              bDur := bInt.Duration;
+              aDur := bInt.NetTime;
+              aDur := aDur/bInt.ResourceTimePerDay;
+              if aDur<1 then aDur:=1;
+              //Add Weekends
+              for d := trunc(bInt.StartDate) to trunc(bInt.StartDate+aDur) do
+                if ((DayOfWeek(d)=1) or (DayOfWeek(d)=7)) then
+                  aDur := aDur+1;
               bInt.FinishDate:=aConn.StartDate-bInt.Buffer;
-              bInt.StartDate:=bInt.FinishDate-aDur;
+              if aDur<bDur then
+                bInt.StartDate:=bInt.FinishDate-aDur
+              else
+                bInt.StartDate:=bInt.FinishDate-bDur;
               IsMoved := True;
               bInt.EndUpdate;
             end;
@@ -236,12 +249,23 @@ begin
           debugln('IntervalChanged('+TInterval(Sender).Task+')');
           TInterval(Sender).BeginUpdate;
           //Move Forward
-          aDur := Duration;
+          aDur := NetTime;
           if TInterval(Sender).StartDate<TInterval(Sender).Earliest then
             TInterval(Sender).StartDate:=TInterval(Sender).Earliest;
-          if FinishDate<(StartDate+aDur) then
-            FinishDate := (StartDate+aDur);
-          IntervalDone:=StartDate;
+          //Set Max Usage
+          aDur := aDur/ResourceTimePerDay;
+          if TInterval(Sender).FinishDate<(TInterval(Sender).StartDate+aDur) then
+            TInterval(Sender).FinishDate := (TInterval(Sender).StartDate+aDur);
+          //Add Weekends
+          for i := trunc(TInterval(Sender).StartDate) to Trunc(TInterval(Sender).StartDate+aDur) do
+            if ((DayOfWeek(i)=1) or (DayOfWeek(i)=7)) then
+              aDur := aDur+1;
+          if aDur<Duration then
+            aDur := Duration;
+          //TODO: Urlaub
+          if TInterval(Sender).FinishDate<(TInterval(Sender).StartDate+aDur) then
+            TInterval(Sender).FinishDate := (TInterval(Sender).StartDate+aDur);
+          IntervalDone:=TInterval(Sender).StartDate;
           for i := 0 to ConnectionCount-1 do
             begin
               Connection[i].BeginUpdate;
@@ -319,6 +343,16 @@ begin
             break;
           end;
     end;
+end;
+
+procedure TfGanttView.bCalculateClick(Sender: TObject);
+var
+  i: Integer;
+begin
+  Application.ProcessMessages;
+  for i := 0 to FGantt.IntervalCount-1 do
+    if Assigned(FGantt.Interval[i].OnChanged) then
+      FGantt.Interval[i].OnChanged(FGantt.Interval[i]);
 end;
 
 procedure TfGanttView.acCenterTaskExecute(Sender: TObject);
@@ -903,6 +937,8 @@ var
   aStart: TDateTime;
   aDue: TDateTime;
   aChanged: Boolean;
+  FUsage: Extended;
+  FWorkTime: Extended;
 begin
   aChanged := aTasks.CalcDates(aStart,aDue);
   aInterval.Task:=aTasks.FieldByName('SUMMARY').AsString;
@@ -918,7 +954,16 @@ begin
   aUser.SelectByAccountno(aTasks.FieldByName('USER').AsString);
   aUser.Open;
   if aUser.Count>0 then
-    aInterval.Resource := aUser.Text.AsString;
+    begin
+      aInterval.Resource := aUser.Text.AsString;
+      FUsage := aUser.FieldByName('USEWORKTIME').AsInteger/100;
+      if FUsage = 0 then FUsage := 1;
+      FWorkTime:=aUser.WorkTime*FUsage;
+      FUsage := FWorkTime/8;
+      aInterval.ResourceTimePerDay:=FUsage;
+    end
+  else
+    aInterval.ResourceTimePerDay := 1;
   aUser.Free;
   aInterval.FinishDate:=aDue;
   aInterval.StartDate:=aStart;

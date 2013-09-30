@@ -7,7 +7,7 @@ object fGanttView: TfGanttView
   ClientHeight = 582
   ClientWidth = 994
   ShowHint = True
-  LCLVersion = '1.1'
+  LCLVersion = '1.3'
   object tbTop: TPanel
     Left = 0
     Height = 42
@@ -545,6 +545,7 @@ object fGanttView: TfGanttView
         }
         GroupIndex = 5
         Layout = blGlyphTop
+        OnClick = bCalculateClick
         ShowCaption = False
       end
       object bCalculate1: TSpeedButton

@@ -100,6 +100,7 @@ type
     FPointer2: Pointer;
     FProject: String;
     FRes: string;
+    FResPerDay: Real;
 
     FStartDate: TDateTime;
     FFinishDate: TDateTime;
@@ -245,6 +246,7 @@ type
     property Pointer : Pointer read FPointer write FPointer;
     property Pointer2 : Pointer read FPointer2 write FPointer2;
     property Resource : string read FRes write FRes;
+    property ResourceTimePerDay : Real read FResPerDay write FResPerDay;
     property OnChanged : TNotifyEvent read FOnChanged write FOnChanged;
     property OnDrawBackground : TPaitBackgroundEvent read FPB write FBP;
     property Color : TColor read FColor write SetColor;
