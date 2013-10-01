@@ -488,8 +488,8 @@
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="640"/>
-        <CursorPos X="1" Y="665"/>
+        <TopLine Value="997"/>
+        <CursorPos X="3" Y="1001"/>
         <UsageCount Value="100"/>
       </Unit20>
       <Unit21>
@@ -497,8 +497,8 @@
         <UnitName Value="uOrder"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="147"/>
-        <CursorPos X="80" Y="172"/>
+        <TopLine Value="887"/>
+        <CursorPos X="1" Y="900"/>
         <UsageCount Value="81"/>
         <Loaded Value="True"/>
       </Unit21>
@@ -1282,11 +1282,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMeetingFrame"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="728"/>
-        <CursorPos X="14" Y="762"/>
+        <TopLine Value="145"/>
+        <CursorPos X="37" Y="176"/>
         <UsageCount Value="88"/>
-        <LoadedDesigner Value="True"/>
+        <Loaded Value="True"/>
       </Unit97>
       <Unit98>
         <Filename Value="../../../../fpc/2.6_fixes/rtl/objpas/classes/streams.inc"/>
@@ -1927,10 +1928,13 @@
       <Unit174>
         <Filename Value="../base/dbintfs/umeeting.pas"/>
         <UnitName Value="umeeting"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="268"/>
-        <CursorPos X="3" Y="281"/>
+        <TopLine Value="350"/>
+        <CursorPos X="1" Y="368"/>
         <UsageCount Value="45"/>
+        <Loaded Value="True"/>
       </Unit174>
       <Unit175>
         <Filename Value="../base/uselectreport.pas"/>
@@ -1938,10 +1942,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uSelectReport"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="416"/>
-        <CursorPos X="3" Y="398"/>
+        <TopLine Value="101"/>
+        <CursorPos X="14" Y="119"/>
         <UsageCount Value="24"/>
+        <Loaded Value="True"/>
       </Unit175>
       <Unit176>
         <Filename Value="../../../../lazarus/lcl/interfaces/gtk2/gtk2memostrings.inc"/>
@@ -2003,8 +2009,8 @@
         <UnitName Value="uminuteframe"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="9"/>
+        <CursorPos X="19" Y="19"/>
+        <UsageCount Value="10"/>
       </Unit182>
       <Unit183>
         <Filename Value="../statistics/ustatisticframe.pas"/>
@@ -3381,7 +3387,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="19"/>
         <CursorPos X="41" Y="243"/>
-        <UsageCount Value="38"/>
+        <UsageCount Value="39"/>
       </Unit348>
       <Unit349>
         <Filename Value="../../../../../lazarus/lcl/include/treeview.inc"/>
@@ -3409,7 +3415,6 @@
       <Unit352>
         <Filename Value="../../../general/src/urtftotxt.pas"/>
         <UnitName Value="uRTFtoTXT"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="102"/>
@@ -3419,7 +3424,7 @@
         <Loaded Value="True"/>
       </Unit352>
     </Units>
-    <JumpHistory Count="3" HistoryIndex="2">
+    <JumpHistory Count="16" HistoryIndex="15">
       <Position1>
         <Filename Value="../base/dbintfs/uorder.pas"/>
         <Caret Line="84" Column="29" TopLine="80"/>
@@ -3432,6 +3437,58 @@
         <Filename Value="../base/dbintfs/uorder.pas"/>
         <Caret Line="172" Column="80" TopLine="147"/>
       </Position3>
+      <Position4>
+        <Filename Value="../base_pm/umeetingframe.pas"/>
+        <Caret Line="766" Column="24" TopLine="743"/>
+      </Position4>
+      <Position5>
+        <Filename Value="../base_pm/umeetingframe.pas"/>
+        <Caret Line="22" Column="35" TopLine="1"/>
+      </Position5>
+      <Position6>
+        <Filename Value="../base_pm/umeetingframe.pas"/>
+        <Caret Line="36" Column="14" TopLine="5"/>
+      </Position6>
+      <Position7>
+        <Filename Value="../base_pm/umeetingframe.pas"/>
+        <Caret Line="38" Column="12" TopLine="7"/>
+      </Position7>
+      <Position8>
+        <Filename Value="../base_pm/umeetingframe.pas"/>
+        <Caret Line="110" Column="14" TopLine="98"/>
+      </Position8>
+      <Position9>
+        <Filename Value="../base_pm/umeetingframe.pas"/>
+        <Caret Line="176" Column="37" TopLine="145"/>
+      </Position9>
+      <Position10>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="21" Column="25" TopLine="1"/>
+      </Position10>
+      <Position11>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="323" Column="15" TopLine="321"/>
+      </Position11>
+      <Position12>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="119" Column="15" TopLine="99"/>
+      </Position12>
+      <Position13>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="156" Column="28" TopLine="124"/>
+      </Position13>
+      <Position14>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="278" Column="38" TopLine="246"/>
+      </Position14>
+      <Position15>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="653" Column="39" TopLine="641"/>
+      </Position15>
+      <Position16>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="357" Column="1" TopLine="338"/>
+      </Position16>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>

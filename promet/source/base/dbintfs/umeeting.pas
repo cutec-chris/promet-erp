@@ -258,101 +258,112 @@ begin
       Result:=prAlreadyPosted;
       exit;
     end;
-  with Entrys.DataSet do
-    begin
-      First;
-      while not EOF do
+  Data.StartTransaction(Connection,True);
+  try
+    with Entrys.DataSet do
+      begin
+        First;
+        while not EOF do
+          begin
+            Added := False;
+            if (copy(FieldByName('LINK').AsString,0,9) = 'PROJECTS@')
+            or (copy(FieldByName('LINK').AsString,0,11) = 'PROJECTS.ID')
+            then
+              ProjectLink := FieldByName('LINK').AsString
+            else if ProjectLink <> '' then
+              begin
+                aProject := TProject.Create(nil,DataModule,Connection);
+                aProject.SelectFromLink(ProjectLink);
+                aProject.Open;
+                if aProject.Count>0 then
+                  begin
+                    if FieldByName('OWNER').AsString <> '' then
+                      begin //Task
+                        aProject.Tasks.Open;
+                        aProject.Tasks.Append;
+                        asl := TStringList.Create;
+                        asl.Text:=FieldByName('DESC').AsString;
+                        if asl.Count>0 then
+                          begin
+                            aProject.Tasks.FieldByName('SUMMARY').AsString:=copy(asl[0],0,220);
+                            if length(asl[0])>220 then
+                              asl[0] := copy(asl[0],221,length(asl[0]))
+                            else
+                              asl.Delete(0);
+                          end;
+                        aProject.Tasks.FieldByName('DESC').AsString:=asl.Text;
+                        asl.Free;
+                        aProject.Tasks.FieldByName('OWNER').AsString:=FieldByName('OWNER').AsString;
+                        aProject.Tasks.FieldByName('USER').AsVariant:=FieldByName('USER').AsVariant;
+                        if FieldByName('USER').IsNull then
+                          aProject.Tasks.FieldByName('USER').AsVariant:=FieldByName('OWNER').AsVariant;
+                        if not FieldByName('DUEDATE').IsNull then
+                          aProject.Tasks.FieldByName('DUEDATE').AsVariant:=FieldByName('DUEDATE').AsVariant;
+                        aProject.Tasks.DataSet.Post;
+                        arec := aProject.Tasks.GetBookmark;
+                        aProject.Tasks.DataSet.Refresh;
+                        aProject.Tasks.GotoBookmark(arec);
+                        if not Entrys.CanEdit then
+                          Entrys.DataSet.Edit;
+                        Entrys.FieldByName('LINK').AsString:=Data.BuildLink(aProject.Tasks.DataSet);
+                        if Entrys.CanEdit then
+                          Entrys.DataSet.Post;
+                        Added := True;
+                      end
+                    else //History
+                      begin
+                        aProject.History.AddItem(Data.Users.DataSet,FieldByName('DESC').AsString,Data.BuildLink(DataSet),Self.DataSet.FieldByName('NAME').AsString,nil,ACICON_USEREDITED,'',True,True);
+                        Added := True;
+                      end;
+                  end;
+                aProject.Free;
+                if (not Added) and (FieldByName('OWNER').AsString <> '') then
+                  begin //Task
+                    aTasks := TTask.Create(nil,Data);
+                    aTasks.Append;
+                    asl := TStringList.Create;
+                    asl.Text:=FieldByName('DESC').AsString;
+                    if asl.Count>0 then
+                      begin
+                        aTasks.FieldByName('SUMMARY').AsString:=asl[0];
+                        asl.Delete(0);
+                      end;
+                    aTasks.FieldByName('DESC').AsString:=asl.Text;
+                    asl.Free;
+                    aTasks.FieldByName('OWNER').AsString:=FieldByName('OWNER').AsString;
+                    aTasks.FieldByName('USER').AsVariant:=FieldByName('USER').AsVariant;
+                    if FieldByName('USER').IsNull then
+                      aTasks.FieldByName('USER').AsVariant:=FieldByName('OWNER').AsVariant;
+                    if not FieldByName('DUEDATE').IsNull then
+                      aTasks.FieldByName('DUEDATE').AsVariant:=FieldByName('DUEDATE').AsVariant;
+                    aTasks.DataSet.Post;
+                    arec := aTasks.GetBookmark;
+                    aTasks.DataSet.Refresh;
+                    aTasks.GotoBookmark(arec);
+                    if not Entrys.CanEdit then
+                      Entrys.DataSet.Edit;
+                    Entrys.FieldByName('LINK').AsString:=Data.BuildLink(aTasks.DataSet);
+                    if Entrys.CanEdit then
+                      Entrys.DataSet.Post;
+                    Added := True;
+                  end
+              end;
+            Next;
+          end;
+        if not Self.CanEdit then
+          Self.DataSet.Edit;
+        Self.DataSet.FieldByName('DATE').AsDateTime:=Now();
+        Self.CascadicPost;
+        Data.CommitTransaction(Connection);
+        Result:=prSuccess;
+      end;
+    except
+      on e : Exception do
         begin
-          Added := False;
-          if (copy(FieldByName('LINK').AsString,0,9) = 'PROJECTS@')
-          or (copy(FieldByName('LINK').AsString,0,11) = 'PROJECTS.ID')
-          then
-            ProjectLink := FieldByName('LINK').AsString
-          else if ProjectLink <> '' then
-            begin
-              aProject := TProject.Create(nil,DataModule,Connection);
-              aProject.SelectFromLink(ProjectLink);
-              aProject.Open;
-              if aProject.Count>0 then
-                begin
-                  if FieldByName('OWNER').AsString <> '' then
-                    begin //Task
-                      aProject.Tasks.Open;
-                      aProject.Tasks.Append;
-                      asl := TStringList.Create;
-                      asl.Text:=FieldByName('DESC').AsString;
-                      if asl.Count>0 then
-                        begin
-                          aProject.Tasks.FieldByName('SUMMARY').AsString:=copy(asl[0],0,220);
-                          if length(asl[0])>220 then
-                            asl[0] := copy(asl[0],221,length(asl[0]))
-                          else
-                            asl.Delete(0);
-                        end;
-                      aProject.Tasks.FieldByName('DESC').AsString:=asl.Text;
-                      asl.Free;
-                      aProject.Tasks.FieldByName('OWNER').AsString:=FieldByName('OWNER').AsString;
-                      aProject.Tasks.FieldByName('USER').AsVariant:=FieldByName('USER').AsVariant;
-                      if FieldByName('USER').IsNull then
-                        aProject.Tasks.FieldByName('USER').AsVariant:=FieldByName('OWNER').AsVariant;
-                      if not FieldByName('DUEDATE').IsNull then
-                        aProject.Tasks.FieldByName('DUEDATE').AsVariant:=FieldByName('DUEDATE').AsVariant;
-                      aProject.Tasks.DataSet.Post;
-                      arec := aProject.Tasks.GetBookmark;
-                      aProject.Tasks.DataSet.Refresh;
-                      aProject.Tasks.GotoBookmark(arec);
-                      if not Entrys.CanEdit then
-                        Entrys.DataSet.Edit;
-                      Entrys.FieldByName('LINK').AsString:=Data.BuildLink(aProject.Tasks.DataSet);
-                      if Entrys.CanEdit then
-                        Entrys.DataSet.Post;
-                      Added := True;
-                    end
-                  else //History
-                    begin
-                      aProject.History.AddItem(Data.Users.DataSet,FieldByName('DESC').AsString,Data.BuildLink(DataSet),Self.DataSet.FieldByName('NAME').AsString,nil,ACICON_USEREDITED,'',True,True);
-                      Added := True;
-                    end;
-                end;
-              aProject.Free;
-              if (not Added) and (FieldByName('OWNER').AsString <> '') then
-                begin //Task
-                  aTasks := TTask.Create(nil,Data);
-                  aTasks.Append;
-                  asl := TStringList.Create;
-                  asl.Text:=FieldByName('DESC').AsString;
-                  if asl.Count>0 then
-                    begin
-                      aTasks.FieldByName('SUMMARY').AsString:=asl[0];
-                      asl.Delete(0);
-                    end;
-                  aTasks.FieldByName('DESC').AsString:=asl.Text;
-                  asl.Free;
-                  aTasks.FieldByName('OWNER').AsString:=FieldByName('OWNER').AsString;
-                  aTasks.FieldByName('USER').AsVariant:=FieldByName('USER').AsVariant;
-                  if FieldByName('USER').IsNull then
-                    aTasks.FieldByName('USER').AsVariant:=FieldByName('OWNER').AsVariant;
-                  if not FieldByName('DUEDATE').IsNull then
-                    aTasks.FieldByName('DUEDATE').AsVariant:=FieldByName('DUEDATE').AsVariant;
-                  aTasks.DataSet.Post;
-                  arec := aTasks.GetBookmark;
-                  aTasks.DataSet.Refresh;
-                  aTasks.GotoBookmark(arec);
-                  if not Entrys.CanEdit then
-                    Entrys.DataSet.Edit;
-                  Entrys.FieldByName('LINK').AsString:=Data.BuildLink(aTasks.DataSet);
-                  if Entrys.CanEdit then
-                    Entrys.DataSet.Post;
-                  Added := True;
-                end
-            end;
-          Next;
+          Result := prFailed;
+          Data.RollbackTransaction(Connection);
+          debugln(e.Message);
         end;
-      if not Self.CanEdit then
-        Self.DataSet.Edit;
-      Self.DataSet.FieldByName('DATE').AsDateTime:=Now();
-      Self.CascadicPost;
-      Result:=prSuccess;
     end;
 end;
 procedure TMeetings.FillDefaults(aDataSet: TDataSet);
