@@ -218,7 +218,7 @@ begin
   {$ifdef USEFORM}
   Application.ProcessMessages;
   {$ifdef LCLCARBON}
-  Check(TEdit(GV.gList.Editor).Text='a','EditorValue="'+TEdit(GV.gList.Editor).Text+'"');
+  Check(TEdit(GV.gList.Editor).Text='5','EditorValue="'+TEdit(GV.gList.Editor).Text+'"');
   {$else}
   Check(TEdit(GV.gList.Editor).Text='f','EditorValue="'+TEdit(GV.gList.Editor).Text+'"');
   {$endif}
