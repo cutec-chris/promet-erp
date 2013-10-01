@@ -2464,7 +2464,7 @@ begin
   FDefaultRowHeight := False;
   mInplace := TInplaceMemo.Create(Self);
   mInplace.ScrollBars:=ssAutoVertical;
-  mInplace.OnEditingDone:=@mInplaceEditingDone;
+  //mInplace.OnEditingDone:=@mInplaceEditingDone;
   mInplace.OnKeyDown:=@mInplaceKeyDown;
   mInplace.BorderStyle:=bsNone;
   mInplace.OnResize:=@mInplaceResize;

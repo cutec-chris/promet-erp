@@ -214,14 +214,9 @@ end;
 procedure TGridviewtest.CheckNextCell;
 begin
   KeyInput.Press(VK_TAB);
-  KeyInput.Press(VK_F);
   {$ifdef USEFORM}
   Application.ProcessMessages;
-  {$ifdef LCLCARBON}
-  Check(TEdit(GV.gList.Editor).Text='5','EditorValue="'+TEdit(GV.gList.Editor).Text+'"');
-  {$else}
-  Check(TEdit(GV.gList.Editor).Text='f','EditorValue="'+TEdit(GV.gList.Editor).Text+'"');
-  {$endif}
+  Check(TEdit(GV.gList.Editor).Text='','EditorValue="'+TEdit(GV.gList.Editor).Text+'"');
   {$endif}
 end;
 
