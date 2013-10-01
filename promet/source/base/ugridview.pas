@@ -2620,7 +2620,7 @@ begin
               Result := Found;
             end;
     end;
-  if Result and (TRowObject(gList.Objects[0,gList.Row]).Rec = 0) then
+  if Result and Assigned(gList.Objects[0,gList.Row]) and (TRowObject(gList.Objects[0,gList.Row]).Rec = 0) then
     TRowObject(gList.Objects[0,gList.Row]).Rec := Bookmark;
   if UpdateData then
     begin

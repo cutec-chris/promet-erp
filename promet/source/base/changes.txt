@@ -1,4 +1,8 @@
-﻿Build 282
+﻿Build 283
+      - In Gantt Ansicht werden Wochenenden und Auslastungen automatisch zu Nettozeiten eingerechnet
+        und Aufgaben entsprechend ausgedehnt wenn die aktuelle Dauer nicht ausreicht
+        entsprechend werden Aufgaben eingekürzt wenn Abhängigkeiten "zurückgeschoben" werden
+Build 282
       - Verschieben von Bildern in Ordner verbessert (Dokumentenframe)
       - Ordner für Dokumente bekommen nun richtigen Vorfahren beim erstellen
 Build 281
