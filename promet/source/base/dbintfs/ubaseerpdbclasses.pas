@@ -191,7 +191,7 @@ const
   ACICON_TASKCLOSED    = 9;
   ACICON_DATECHANGED   = 11;
 implementation
-uses uBaseDBInterface,uMasterdata, uBaseApplication,Math,Variants,RTFPars;
+uses uBaseDBInterface,uMasterdata, uBaseApplication,Math,Variants,uRTFtoTXT;
 resourcestring
   strEdited                        = 'bearbeitet';
   strCreated                       = 'erstellt';
@@ -1063,7 +1063,12 @@ var
     DataSet.FieldByName('VAT').AsString := MasterData.FieldByName('VAT').AsString;
     Masterdata.Texts.Open;
     if Masterdata.Texts.DataSet.Locate('TEXTTYPE',VarArrayOf([0]),[loCaseInsensitive]) then
-      DataSet.FieldByName('TEXT').AsString := Masterdata.Texts.FieldByName('TEXT').AsString;
+      begin
+        if CanHandleRTF then
+          DataSet.FieldByName('TEXT').AsString := Masterdata.Texts.FieldByName('TEXT').AsString
+        else
+          DataSet.FieldByName('TEXT').AsString := RTF2Plain(Masterdata.Texts.FieldByName('TEXT').AsString);
+      end;
     OldPosPrice := 0;
     OldGrossPrice := 0;
     PosCalc.Open;
