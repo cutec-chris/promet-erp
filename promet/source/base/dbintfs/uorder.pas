@@ -169,7 +169,7 @@ type
     function CalcDispatchType : Boolean;
   end;
 implementation
-uses uBaseDBInterface, uBaseSearch, uData, LCLProc, Process, UTF8Process;
+uses uBaseDBInterface, uBaseSearch, uData, LCLProc, Process, UTF8Process,uRTFtoTXT;
 resourcestring
   strStatusnotfound             = 'Statustyp nicht gefunden, bitte wenden Sie sich an Ihren Administrator';
   strMainOrdernotfound          = 'Hauptvorgang nicht gefunden !';
@@ -1457,9 +1457,17 @@ begin
   if aSource is TMasterdata then
     begin
       aMasterdata := aSource as TMasterdata;
+      //Use Text that is setted in Ordertype
+      if (not Order.OrderType.FieldByName('TEXTTYP').IsNull) then
+        DataSet.FieldByName('TEXT').Clear;
       if (not Order.OrderType.FieldByName('TEXTTYP').IsNull) and (Order.OrderType.FieldByName('TEXTTYP').AsInteger > 0) then
         if aMasterdata.Texts.DataSet.Locate('TEXTTYPE',VarArrayOf([Order.OrderType.FieldByName('TEXTTYP').AsInteger]),[loCaseInsensitive]) then
-          DataSet.FieldByName('TEXT').AsString := aMasterdata.Texts.FieldByName('TEXT').AsString;
+          begin
+            if CanHandleRTF then
+              DataSet.FieldByName('TEXT').AsString := aMasterdata.Texts.FieldByName('TEXT').AsString
+            else
+              DataSet.FieldByName('TEXT').AsString := RTF2Plain(aMasterdata.Texts.FieldByName('TEXT').AsString);
+          end;
       tmpPID := Order.FieldByName('PID').AsString;
       tmpPID := StringReplace(tmpPID,'...','',[rfReplaceAll]);
       if pos(aMasterdata.Number.AsString,tmpPID) = 0 then
@@ -1631,4 +1639,4 @@ begin
 end;
 initialization
 end.
-
+

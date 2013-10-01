@@ -82,6 +82,7 @@ type
     FPosTyp : TPositionTyp;
     FIntDataSource : TDataSource;
     FCalculationDisabled : Integer;
+    FUseRTF: Boolean;
     OldPosPrice : real;
     OldGrossPrice : real;
     OldPosWeight : real;
@@ -119,6 +120,7 @@ type
     property PosCalc : TPositionCalc read FPosCalc;
     property Ident : TField read GetIdent;
     property PosFormat : string read FPosFormat write FPosFormat;
+    property CanHandleRTF : Boolean read FUseRTF write FUseRTF;
     procedure DisableCalculation;
     procedure EnableCalculation;
     function IsCalculationDisabled : Boolean;
@@ -189,7 +191,7 @@ const
   ACICON_TASKCLOSED    = 9;
   ACICON_DATECHANGED   = 11;
 implementation
-uses uBaseDBInterface,uMasterdata, uBaseApplication,Math,Variants;
+uses uBaseDBInterface,uMasterdata, uBaseApplication,Math,Variants,RTFPars;
 resourcestring
   strEdited                        = 'bearbeitet';
   strCreated                       = 'erstellt';
@@ -930,6 +932,7 @@ constructor TBaseDBPosition.Create(aOwner: TComponent; DM : TComponent;aConnecti
   aMasterdata: TDataSet);
 begin
   inherited Create(aOwner, DM,aConnection, aMasterdata);
+  FUseRTF:=False;
   UpdateFloatFields:=True;
   FPosFormat := '%d';
   FPosTyp := TPositionTyp.Create(Owner,DM,aConnection);
@@ -1236,4 +1239,4 @@ begin
 end;
 initialization
 end.
-
+
