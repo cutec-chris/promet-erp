@@ -29,7 +29,7 @@ resourcestring
   strFulltext                   = 'Volltext';
 const
   SearchLocations : array[0..7] of string  = (strMatchcode,strIdents,strShortnames,strSerial,strCommission,strBarcode,strDescription,strFulltext);
-  SearchLocDefault: array[0..7] of Boolean = (True        ,True     ,True         ,True     ,True         ,True      ,False         ,False);
+  SearchLocDefault: array[0..7] of Boolean = (True        ,True     ,True         ,True     ,True         ,True      ,True         ,False);
 type
   TSearchLocations = array of string;
   TFullTextSearchType = (fsMatchcode=0,fsIdents=1,fsShortnames=2,fsSerial=3,fsCommission=4,fsBarcode=5,fsDescription=6,fsFulltext=7);
@@ -246,4 +246,4 @@ end;
 finalization
   Setlength(SearchAble,0);
 end.
-
+
