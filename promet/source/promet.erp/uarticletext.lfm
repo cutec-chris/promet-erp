@@ -7,34 +7,24 @@ inherited fArticleTextFrame: TfArticleTextFrame
   ClientWidth = 570
   object cbTextTyp: TComboBox[0]
     Left = 48
-    Height = 29
+    Height = 22
     Top = 24
     Width = 512
     Anchors = [akTop, akLeft, akRight]
-    ItemHeight = 0
+    ItemHeight = 14
     OnSelect = cbTextTypSelect
     TabOrder = 0
     Text = 'cbTextTyp'
   end
   object lTexttyp: TLabel[1]
     Left = 48
-    Height = 18
+    Height = 14
     Top = 3
-    Width = 50
+    Width = 41
     Caption = 'Textart'
     ParentColor = False
   end
-  object mText: TDBMemo[2]
-    Left = 48
-    Height = 336
-    Top = 64
-    Width = 512
-    Anchors = [akTop, akLeft, akRight, akBottom]
-    DataField = 'TEXT'
-    DataSource = Texts
-    TabOrder = 1
-  end
-  object pLeft: TPanel[3]
+  object pLeft: TPanel[2]
     Left = 0
     Height = 413
     Top = 0
@@ -45,7 +35,7 @@ inherited fArticleTextFrame: TfArticleTextFrame
     ClientWidth = 44
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 2
+    TabOrder = 1
     object Panel2: TPanel
       Left = 0
       Height = 78
@@ -77,7 +67,8 @@ inherited fArticleTextFrame: TfArticleTextFrame
         Caption = 'Navigation'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = -900
+        Font.Orientation = 900
+        Layout = tlBottom
         ParentColor = False
         ParentFont = False
       end
@@ -103,11 +94,21 @@ inherited fArticleTextFrame: TfArticleTextFrame
       end
     end
   end
+  object mText: TMemo[3]
+    Left = 48
+    Height = 336
+    Top = 64
+    Width = 512
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    OnChange = mTextChange
+    TabOrder = 2
+  end
   object TextTypes: TDatasource[4]
     left = 89
     top = 41
   end
   object Texts: TDatasource[5]
+    OnStateChange = TextsStateChange
     left = 88
     top = 104
   end

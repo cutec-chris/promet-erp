@@ -28,15 +28,18 @@ type
     cbTextTyp: TComboBox;
     DBNavigator1: TDBNavigator;
     ExtRotatedLabel1: TExtRotatedLabel;
+    mText: TMemo;
     Panel2: TPanel;
     pLeft: TPanel;
     TextTypes: TDatasource;
     Texts: TDatasource;
-    mText: TDBMemo;
     lTexttyp: TLabel;
     procedure cbTextTypSelect(Sender: TObject);
+    procedure mTextChange(Sender: TObject);
+    procedure TextsStateChange(Sender: TObject);
   private
     FMasterdata: TMasterdata;
+    DontUpdate: Boolean;
     FEditable : Boolean;
     procedure SetMasterdata(const AValue: TMasterdata);
     { private declarations }
@@ -49,16 +52,45 @@ type
   end;
 implementation
 {$R *.lfm}
-uses uData;
+uses uData,uRTFtoTXT;
 procedure TfArticleTextFrame.cbTextTypSelect(Sender: TObject);
 begin
+  if DontUpdate then exit;
+  DontUpdate := True;
+  mText.Clear;
+  if not Texts.DataSet.Active then exit;
+  if Texts.DataSet.State=dsInsert then
+    Texts.DataSet.Cancel;
   if not Texts.DataSet.Locate('TEXTTYPE',cbTextTyp.ItemIndex,[]) then
     begin
-      if not FEditable then exit;
+      if not FEditable then
+        begin
+          DontUpDate := False;
+          exit;
+        end;
       Texts.DataSet.Insert;
       Texts.DataSet.FieldByName('TEXTTYPE').AsInteger:=cbTextTyp.ItemIndex;
     end;
+  //TODO:Support RTF
+  mtext.Lines.BeginUpdate;
+  mText.Lines.Text:=RTF2Plain(Texts.DataSet.FieldByName('TEXT').AsString);
+  mText.Lines.EndUpdate;
+  DontUpDate := False;
 end;
+
+procedure TfArticleTextFrame.mTextChange(Sender: TObject);
+begin
+  if DontUpdate then exit;
+  if not ((Texts.DataSet.State=dsEdit) or (Texts.DataSet.State=dsInsert)) then
+    Texts.DataSet.Edit;
+  Texts.DataSet.FieldByName('TEXT').AsString := mText.Lines.Text;
+end;
+
+procedure TfArticleTextFrame.TextsStateChange(Sender: TObject);
+begin
+  cbTextTypSelect(nil);
+end;
+
 procedure TfArticleTextFrame.SetMasterdata(const AValue: TMasterdata);
 begin
   if FMasterdata=AValue then exit;
@@ -93,6 +125,7 @@ begin
   FEditable := Editable;
   mText.ReadOnly:=not Editable;
   DBNavigator1.Enabled:=Editable;
+  cbTextTypSelect(nil);
 end;
 
 end.
