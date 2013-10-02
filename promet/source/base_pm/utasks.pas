@@ -572,7 +572,7 @@ begin
       if aBaseFilter <> '' then
         aBaseFilter += ' AND ';
       with DataSet.DataSet as IBaseDbFilter do
-        aBaseFilter += '(('+Data.ProcessTerm(Data.QuoteField('USER')+'='+Data.QuoteValue(aUsers.FieldByName('ACCOUNTNO').AsString))+'))';
+        aBaseFilter += '(('+Data.QuoteField('USER')+'='+Data.QuoteValue(aUsers.FieldByName('ACCOUNTNO').AsString)+'))';
     end;
   if (not bDependencies.Down) and (not bDependencies1.Down) and (pos('DEPDONE',FFilter) = 0) then
     begin
