@@ -478,6 +478,8 @@ begin
   fSelectReport.Execute;
 end;
 procedure TfEnterTime.acStartExecute(Sender: TObject);
+var
+  aProject: TProject;
 begin
   Times.DataSet.Refresh;
   Times.DataSet.First;
@@ -495,6 +497,12 @@ begin
       Times.DataSet.Insert;
       Times.FieldByName('LINK').AsString := FLink;
       Times.FieldByName('PROJECT').AsString := FProject;
+      aProject := TProject.Create(nil,Data);
+      aProject.SelectFromLink(FProject);
+      aProject.Open;
+      if aProject.Count>0 then
+        Times.FieldByName('PROJECTID').AsVariant := aProject.Id.AsVariant;
+      aProject.Free;
       Times.FieldByName('CATEGORY').AsString := cbCategory.Text;
       Times.FieldByName('JOB').AsString := eJob.Text;
       Times.FieldByName('NOTE').AsString := mNotes.Lines.Text;
@@ -1115,4 +1123,4 @@ end;
 initialization
   {$I uentertime.lrs}
 end.
-
+
