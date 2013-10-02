@@ -68,6 +68,7 @@ type
     function TableExists(aTableName : string;aConnection : TComponent = nil;AllowLowercase: Boolean = False) : Boolean;override;
     function TriggerExists(aTriggerName: string; aConnection: TComponent=nil;
        AllowLowercase: Boolean=False): Boolean; override;
+    function GetDBType: string; override;
     function CreateTrigger(aTriggerName: string; aTableName: string;
       aUpdateOn: string; aSQL: string;aField : string = ''; aConnection: TComponent=nil): Boolean;
       override;
@@ -1631,6 +1632,15 @@ begin
         end;
     end;
 end;
+
+function TZeosDBDM.GetDBType: string;
+begin
+  Result:=TZConnection(MainConnection).Protocol;
+  if copy(Result,0,8)='postgres' then Result := 'postgres';
+  if Result='interbase' then Result := 'firebird';
+  if Result='sqlite3' then Result := 'sqlite';
+end;
+
 function TZeosDBDM.CreateTrigger(aTriggerName: string; aTableName: string;
   aUpdateOn: string; aSQL: string;aField : string = ''; aConnection: TComponent = nil): Boolean;
 var
@@ -1803,4 +1813,4 @@ begin
 end;
 
 end.
-
+

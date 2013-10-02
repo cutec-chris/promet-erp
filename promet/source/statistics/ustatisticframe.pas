@@ -573,6 +573,21 @@ begin
     Result := FormatDateTime('hh:mm:ss.zzz',dt);
 end;
 function TfStatisticFrame.BuildSQL(aIn: string): string;
+function ReplaceFunctions(Str : string) : string;
+begin
+  Result := Str;
+  if Data.GetDBType='postgres' then
+    begin
+      Result := StringReplace(Str,'CHARINDEX(','strpos(',[rfReplaceAll,rfIgnoreCase]);
+
+    end
+  else if Data.GetDBType='sqlite' then
+    begin
+      Result := StringReplace(Str,'CHARINDEX(','instr(',[rfReplaceAll,rfIgnoreCase]);
+
+    end;
+end;
+
 function CheckWildgards(Str : string) : string;
 begin
   Result := Str;
@@ -580,69 +595,69 @@ begin
   result := Stringreplace(Result,'?','_',[rfreplaceAll]);
 end;
 var
-sl: TStringList;
-aFilter,bFilter: String;
-i: Integer;
-tmp: String;
-adata: String;
-aname: String;
-aControl: TControl;
-cFilter: String;
+  sl: TStringList;
+  aFilter,bFilter: String;
+  i: Integer;
+  tmp: String;
+  adata: String;
+  aname: String;
+  aControl: TControl;
+  cFilter: String;
 begin
-Result := '';
-sl := TStringList.Create;
-aFilter := aIn;
-cFilter := aFilter;
-sl.Text:=aFilter;
-with Application as IBaseDBInterface do
-  begin
-    if Data.Users.Rights.Right('STATISTICS') <= RIGHT_DELETE then
-      begin
-        if pos('DELETE',Uppercase(afilter)) > 0 then exit;
-        if pos('INSERT',Uppercase(afilter)) > 0 then exit;
-        if pos('UPDATE',Uppercase(afilter)) > 0 then exit;
-        if pos('DROP',Uppercase(afilter)) > 0 then exit;
-      end;
-    i := 0;
-    while i < sl.Count do
-      begin
-        if copy(trim(sl[i]),0,2) = '--' then
-          sl.Delete(i)
-        else
-          inc(i);
-      end;
-    aFilter := sl.Text;
-    sl.Free;
-    tmp := copy(aFilter,pos('WHERE',UpperCase(aFilter)),length(aFilter));
-    aFilter := copy(aFilter,0,pos('WHERE',UpperCase(aFilter))-2);
-    while pos('@',tmp) > 0 do
-      begin
-        tmp := copy(tmp,pos('@',tmp)+1,length(tmp));
-        adata := copy(tmp,0,pos('@',tmp)-1);
-        if adata = '' then
-          begin
-            break;
-          end;
-        tmp := copy(tmp,pos('@',tmp)+1,length(tmp));
-        aname := copy(adata,0,pos(':',adata)-1);
-        if aname = '' then
-          aname := adata;
-        if (ToolBar.FindChildControl('TBC'+MD5Print(MD5String(aname))) <> nil) then
-          begin
-            aControl := ToolBar.FindChildControl('TBC'+MD5Print(MD5String(aname)));
-            aControl := TWinControl(aControl).FindChildControl('TBE'+MD5Print(MD5String(aname)));
-            if aControl is TEdit then
-              bFilter := CheckWildgards(TEdit(aControl).Text)
-            else if aControl is TDateEdit then
-              bFilter := Data.DateToFilter(TDateEdit(aControl).Date)
-            else if aControl is TComboBox then
-              bFilter := CheckWildgards(TComboBox(aControl).Text);
-            cFilter := StringReplace(cFilter,'@'+adata+'@',bFilter,[]);
-          end;
-      end;
-    cFilter := StringReplace(cFilter,'@USERID@',Data.Users.Id.AsString,[rfReplaceAll]);
-  end;
-Result := cFilter;
+  Result := '';
+  sl := TStringList.Create;
+  aFilter := aIn;
+  cFilter := aFilter;
+  sl.Text:=aFilter;
+  //with Application as IBaseDBInterface do
+    begin
+      if Data.Users.Rights.Right('STATISTICS') <= RIGHT_DELETE then
+        begin
+          if pos('DELETE',Uppercase(afilter)) > 0 then exit;
+          if pos('INSERT',Uppercase(afilter)) > 0 then exit;
+          if pos('UPDATE',Uppercase(afilter)) > 0 then exit;
+          if pos('DROP',Uppercase(afilter)) > 0 then exit;
+        end;
+      i := 0;
+      while i < sl.Count do
+        begin
+          if copy(trim(sl[i]),0,2) = '--' then
+            sl.Delete(i)
+          else
+            inc(i);
+        end;
+      aFilter := sl.Text;
+      sl.Free;
+      tmp := copy(aFilter,pos('WHERE',UpperCase(aFilter)),length(aFilter));
+      aFilter := copy(aFilter,0,pos('WHERE',UpperCase(aFilter))-2);
+      while pos('@',tmp) > 0 do
+        begin
+          tmp := copy(tmp,pos('@',tmp)+1,length(tmp));
+          adata := copy(tmp,0,pos('@',tmp)-1);
+          if adata = '' then
+            begin
+              break;
+            end;
+          tmp := copy(tmp,pos('@',tmp)+1,length(tmp));
+          aname := copy(adata,0,pos(':',adata)-1);
+          if aname = '' then
+            aname := adata;
+          if (ToolBar.FindChildControl('TBC'+MD5Print(MD5String(aname))) <> nil) then
+            begin
+              aControl := ToolBar.FindChildControl('TBC'+MD5Print(MD5String(aname)));
+              aControl := TWinControl(aControl).FindChildControl('TBE'+MD5Print(MD5String(aname)));
+              if aControl is TEdit then
+                bFilter := CheckWildgards(TEdit(aControl).Text)
+              else if aControl is TDateEdit then
+                bFilter := Data.DateToFilter(TDateEdit(aControl).Date)
+              else if aControl is TComboBox then
+                bFilter := CheckWildgards(TComboBox(aControl).Text);
+              cFilter := StringReplace(cFilter,'@'+adata+'@',bFilter,[]);
+            end;
+        end;
+      cFilter := StringReplace(cFilter,'@USERID@',Data.Users.Id.AsString,[rfReplaceAll]);
+    end;
+  Result := ReplaceFunctions(cFilter);
 end;
 
 procedure TfStatisticFrame.acCloseExecute(Sender: TObject);

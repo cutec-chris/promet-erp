@@ -1012,10 +1012,11 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="38"/>
+        <TopLine Value="5"/>
         <CursorPos X="3" Y="1133"/>
         <UsageCount Value="108"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit67>
       <Unit68>
         <Filename Value="../base/dbintfs/utask.pas"/>
@@ -3470,7 +3471,7 @@
         <UsageCount Value="10"/>
       </Unit356>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
         <Filename Value="../base/dbintfs/utask.pas"/>
         <Caret Line="916" Column="1" TopLine="889"/>
@@ -3587,10 +3588,6 @@
         <Filename Value="../base/ugridview.pas"/>
         <Caret Line="1943" Column="1" TopLine="1800"/>
       </Position29>
-      <Position30>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="229" Column="61" TopLine="1119"/>
-      </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>

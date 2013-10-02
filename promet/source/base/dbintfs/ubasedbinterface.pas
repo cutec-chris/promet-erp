@@ -151,6 +151,7 @@ type
     function DropTable(aTableName : string) : Boolean;virtual;abstract;
     function GetColumns(TableName : string) : TStrings;virtual;abstract;
     function CheckForInjection(aFilter : string) : Boolean;
+    function GetDBType : string;virtual;
     procedure SetFilter(DataSet : TbaseDBDataSet;aFilter : string;aLimit : Integer = 0;aOrderBy : string = '';aSortDirection : string = 'ASC';aLocalSorting : Boolean = False;aGlobalFilter : Boolean = True;aUsePermissions : Boolean = False;aFilterIn : string = '');
     procedure AppendUserToActiveList;
     procedure RemoveUserFromActiveList;
@@ -1158,6 +1159,12 @@ begin
       Result := True;
     end;
 end;
+
+function TBaseDBModule.GetDBType: string;
+begin
+  Result := '';
+end;
+
 procedure TBaseDBModule.SetFilter(DataSet: TbaseDBDataSet; aFilter: string;
   aLimit: Integer; aOrderBy: string; aSortDirection: string;
   aLocalSorting: Boolean; aGlobalFilter: Boolean; aUsePermissions: Boolean;
@@ -1499,4 +1506,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+
