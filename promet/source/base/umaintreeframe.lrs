@@ -6,31 +6,30 @@ LazarusResources.Add('TfMainTree','FORMDATA',[
   +#10'DesignLeft'#3#158#1#9'DesignTop'#3#181#0#0#9'TTreeView'#6'tvMain'#4'Left'
   +#2#0#6'Height'#3'1'#2#3'Top'#2#0#5'Width'#3'@'#1#5'Align'#7#8'alClient'#11'B'
   +'orderStyle'#7#6'bsNone'#17'DefaultItemHeight'#2#16#8'DragMode'#7#11'dmAutom'
-  +'atic'#6'Images'#7#22'fVisualControls.Images'#9'PopupMenu'#7#6'pmTree'#8'Rea'
-  +'dOnly'#9#10'ScrollBars'#7#10'ssAutoBoth'#8'TabOrder'#2#0#24'OnAdvancedCusto'
-  +'mDrawItem'#7#28'tvMainAdvancedCustomDrawItem'#7'OnClick'#7#22'tvMainSelecti'
-  +'onChanged'#10'OnDblClick'#7#14'tvMainDblClick'#10'OnDeletion'#7#14'tvMainDe'
-  +'letion'#10'OnDragDrop'#7#14'tvMainDragDrop'#10'OnDragOver'#7#14'tvMainDragO'
-  +'ver'#8'OnEdited'#7#12'tvMainEdited'#9'OnEditing'#7#13'tvMainEditing'#11'OnE'
-  +'xpanding'#7#15'tvMainExpanding'#9'OnKeyDown'#7#13'tvMainKeyDown'#18'OnSelec'
-  +'tionChanged'#7#22'tvMainSelectionChanged'#7'Options'#11#17'tvoAutoItemHeigh'
-  +'t'#16'tvoHideSelection'#21'tvoKeepCollapsedNodes'#11'tvoReadOnly'#14'tvoSho'
-  +'wButtons'#12'tvoShowLines'#11'tvoShowRoot'#11'tvoToolTips'#13'tvoThemedDraw'
-  +#0#0#0#10'TPopupMenu'#6'pmTree'#4'left'#2'X'#3'top'#3#216#0#0#9'TMenuItem'#9
-  +'MenuItem1'#7'Caption'#6#9'New Item1'#0#0#0#11'TActionList'#11'ActionList1'#6
-  +'Images'#7#22'fVisualControls.Images'#4'left'#2'X'#3'top'#3#168#0#0#7'TActio'
-  +'n'#6'acOpen'#7'Caption'#6#7#195#150'ffnen'#9'OnExecute'#7#13'acOpenExecute'
-  +#0#0#7'TAction'#14'acAddDirectory'#7'Caption'#6#16'Ordner erstellen'#9'OnExe'
-  +'cute'#7#21'acAddDirectoryExecute'#0#0#7'TAction'#17'acRenameDirectory'#7'Ca'
-  +'ption'#6#10'umbenennen'#9'OnExecute'#7#24'acRenameDirectoryExecute'#0#0#7'T'
-  +'Action'#17'acDeleteDirectory'#7'Caption'#6#8'l'#195#182'schen'#9'OnExecute'
-  +#7#24'acDeleteDirectoryExecute'#0#0#7'TAction'#8'acSearch'#7'Caption'#6#5'Su'
-  +'che'#10'ImageIndex'#2#8#9'OnExecute'#7#15'acSearchExecute'#8'ShortCut'#4'F'
-  +#192#0#0#0#0#7'TAction'#10'acAddBoard'#7'Caption'#6#22'Forumsordner erstelle'
-  +'n'#9'OnExecute'#7#17'acAddBoardExecute'#0#0#7'TAction'#8'acRights'#7'Captio'
-  +'n'#6#6'Rechte'#10'ImageIndex'#2'd'#9'OnExecute'#7#15'acRightsExecute'#0#0#7
-  +'TAction'#12'acDeleteLink'#7'Caption'#6#8'L'#195#182'schen'#10'ImageIndex'#2
-  +'<'#9'OnExecute'#7#19'acDeleteLinkExecute'#0#0#0#10'TIdleTimer'#13'DblClickT'
-  +'imer'#7'Enabled'#8#8'Interval'#2'd'#7'OnTimer'#7#18'DblClickTimerTimer'#4'l'
-  +'eft'#2'X'#3'top'#3#8#1#0#0#0
+  +'atic'#9'PopupMenu'#7#6'pmTree'#8'ReadOnly'#9#10'ScrollBars'#7#10'ssAutoBoth'
+  +#8'TabOrder'#2#0#24'OnAdvancedCustomDrawItem'#7#28'tvMainAdvancedCustomDrawI'
+  +'tem'#7'OnClick'#7#22'tvMainSelectionChanged'#10'OnDblClick'#7#14'tvMainDblC'
+  +'lick'#10'OnDeletion'#7#14'tvMainDeletion'#10'OnDragDrop'#7#14'tvMainDragDro'
+  +'p'#10'OnDragOver'#7#14'tvMainDragOver'#8'OnEdited'#7#12'tvMainEdited'#9'OnE'
+  +'diting'#7#13'tvMainEditing'#11'OnExpanding'#7#15'tvMainExpanding'#9'OnKeyDo'
+  +'wn'#7#13'tvMainKeyDown'#18'OnSelectionChanged'#7#22'tvMainSelectionChanged'
+  +#7'Options'#11#17'tvoAutoItemHeight'#16'tvoHideSelection'#21'tvoKeepCollapse'
+  +'dNodes'#11'tvoReadOnly'#14'tvoShowButtons'#12'tvoShowLines'#11'tvoShowRoot'
+  +#11'tvoToolTips'#13'tvoThemedDraw'#0#0#0#10'TPopupMenu'#6'pmTree'#4'left'#2
+  +'X'#3'top'#3#216#0#0#9'TMenuItem'#9'MenuItem1'#7'Caption'#6#9'New Item1'#0#0
+  +#0#11'TActionList'#11'ActionList1'#4'left'#2'X'#3'top'#3#168#0#0#7'TAction'#6
+  +'acOpen'#7'Caption'#6#7#195#150'ffnen'#9'OnExecute'#7#13'acOpenExecute'#0#0#7
+  +'TAction'#14'acAddDirectory'#7'Caption'#6#16'Ordner erstellen'#9'OnExecute'#7
+  +#21'acAddDirectoryExecute'#0#0#7'TAction'#17'acRenameDirectory'#7'Caption'#6
+  +#10'umbenennen'#9'OnExecute'#7#24'acRenameDirectoryExecute'#0#0#7'TAction'#17
+  +'acDeleteDirectory'#7'Caption'#6#8'l'#195#182'schen'#9'OnExecute'#7#24'acDel'
+  +'eteDirectoryExecute'#0#0#7'TAction'#8'acSearch'#7'Caption'#6#5'Suche'#10'Im'
+  +'ageIndex'#2#8#9'OnExecute'#7#15'acSearchExecute'#8'ShortCut'#4'F'#192#0#0#0
+  +#0#7'TAction'#10'acAddBoard'#7'Caption'#6#22'Forumsordner erstellen'#9'OnExe'
+  +'cute'#7#17'acAddBoardExecute'#0#0#7'TAction'#8'acRights'#7'Caption'#6#6'Rec'
+  +'hte'#10'ImageIndex'#2'd'#9'OnExecute'#7#15'acRightsExecute'#0#0#7'TAction'
+  +#12'acDeleteLink'#7'Caption'#6#8'L'#195#182'schen'#10'ImageIndex'#2'<'#9'OnE'
+  +'xecute'#7#19'acDeleteLinkExecute'#0#0#0#10'TIdleTimer'#13'DblClickTimer'#7
+  +'Enabled'#8#8'Interval'#2'd'#7'OnTimer'#7#18'DblClickTimerTimer'#4'left'#2'X'
+  +#3'top'#3#8#1#0#0#0
 ]);

@@ -1214,9 +1214,10 @@
         <Filename Value="utgridview.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="utgridview"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="197"/>
+        <TopLine Value="177"/>
         <CursorPos X="1" Y="220"/>
         <UsageCount Value="30"/>
         <Loaded Value="True"/>
@@ -1250,10 +1251,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ugridview"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="2438"/>
+        <TopLine Value="2467"/>
         <CursorPos X="5" Y="2467"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>

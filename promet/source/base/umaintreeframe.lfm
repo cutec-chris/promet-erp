@@ -17,7 +17,6 @@ object fMainTree: TfMainTree
     BorderStyle = bsNone
     DefaultItemHeight = 16
     DragMode = dmAutomatic
-    Images = fVisualControls.Images
     PopupMenu = pmTree
     ReadOnly = True
     ScrollBars = ssAutoBoth
@@ -43,7 +42,6 @@ object fMainTree: TfMainTree
     end
   end
   object ActionList1: TActionList
-    Images = fVisualControls.Images
     left = 88
     top = 168
     object acOpen: TAction

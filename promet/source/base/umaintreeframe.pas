@@ -663,6 +663,7 @@ var
   aNodeRect: TRect;
   Details: TThemedElementDetails;
   BKDrawn: Boolean;
+  bgRect: TRect;
 begin
   if Stage = cdPrePaint then
     begin
@@ -679,7 +680,32 @@ begin
   aData := TTreeEntry(Node.Data);
   if not Assigned(aData) then exit;
   NodeRect := Node.DisplayRect(True);
-  //NodeRect.Left -=15;
+  //Background
+  BKDrawn := False;
+  if (cdsSelected in State) then
+    begin
+      if tvoThemedDraw in tvMain.Options then
+        begin
+          bgRect := NodeRect;
+          bgRect.Right:=tvMain.Width;
+          if Focused then
+            Details := ThemeServices.GetElementDetails(ttItemSelected)
+          else
+            Details := ThemeServices.GetElementDetails(ttItemSelectedNotFocus);
+          if ThemeServices.HasTransparentParts(Details) then
+          begin
+            tvMain.Canvas.Brush.Color := tvMain.BackgroundColor;
+            tvMain.Canvas.FillRect(bgRect);
+          end;
+          ThemeServices.DrawElement(tvMain.Canvas.Handle, Details, bgRect, nil);
+          BKDrawn := True;
+        end;
+      if not BKDrawn then
+        begin
+          tvMain.Canvas.Brush.Color := tvMain.SelectionColor;
+          tvMain.Canvas.FillRect(bgRect);
+        end;
+    end;
   NodeRect.Right := Sender.Width-NodeRect.Left;
   Sender.Canvas.Brush.Style := bsClear;
   CellText := GetNodeText(Node);
@@ -800,32 +826,7 @@ begin
     end;
   NodeRect.Left:=NodeRect.Left+3;
   Sender.Canvas.Font.Size:=Sender.Font.Size;
-  //Background
-  BKDrawn := False;
-  if (cdsSelected in State) then
-    begin
-      if tvoThemedDraw in tvMain.Options then
-        begin
-          if Focused then
-            Details := ThemeServices.GetElementDetails(ttItemSelected)
-          else
-            Details := ThemeServices.GetElementDetails(ttItemSelectedNotFocus);
-          if ThemeServices.HasTransparentParts(Details) then
-          begin
-            tvMain.Canvas.Brush.Color := tvMain.BackgroundColor;
-            tvMain.Canvas.FillRect(NodeRect);
-          end;
-          ThemeServices.DrawElement(tvMain.Canvas.Handle, Details, NodeRect, nil);
-          BKDrawn := True;
-        end;
-      if not BKDrawn then
-        begin
-          tvMain.Canvas.Brush.Color := tvMain.SelectionColor;
-          tvMain.Canvas.FillRect(NodeRect);
-        end;
-    end;
   //Text
-
   if cdsSelected in State then
     begin
       if Focused then
