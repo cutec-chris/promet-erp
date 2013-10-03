@@ -7,17 +7,17 @@ uses
   {$IFDEF UNIX}cthreads,{$ENDIF}
   Interfaces, Forms, GuiTestRunner, lazmouseandkeyinput, general,
   richmemopackage, pvisualprometapp, uBaseVisualApplication, tLogin, tdbtests,
-  //ucreatetable,
-  //utransaction,
-  utgridview,
-//  udocumentmanagement,
-//  tmemoryleak,
-//  utfulllogout,
-//  ulinkcheck,
-//  upersontest,
-//  umasterdatatest,
-//  uprojecttest,
-//  uordertest,
+  ucreatetable,
+  utransaction,
+  //utgridview,
+  udocumentmanagement,
+  tmemoryleak,
+  utfulllogout,
+  ulinkcheck,
+  upersontest,
+  umasterdatatest,
+  uprojecttest,
+  uordertest,
 
   tLogout;
 
@@ -30,4 +30,4 @@ begin
   Application.CreateForm(TGuiTestRunner, TestRunner);
   Application.Run;
 end.
-
+

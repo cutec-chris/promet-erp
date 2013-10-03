@@ -5,9 +5,11 @@ unit uordertest;
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testutils, testregistry,uOrder;
+  Classes, SysUtils, fpcunit, testutils, testregistry,uOrder,uBaseERPDBClasses;
 
 type
+
+  { OrderTest }
 
   OrderTest= class(TTestCase)
   published
@@ -17,6 +19,9 @@ type
     procedure CheckQuantityCalculation;
     procedure FillPosition2;
     procedure CheckSumCalculation;
+    procedure CheckPost;
+    procedure ConvertAU;
+    procedure ConvertLI;
     procedure Free;
   end;
 
@@ -62,6 +67,26 @@ procedure OrderTest.CheckSumCalculation;
 begin
   aOrder.DataSet.Post;
   Check(aOrder.FieldByName('NETPRICE').AsFloat = 35);
+  aOrder.CascadicPost;
+end;
+
+procedure OrderTest.CheckPost;
+begin
+  Check(aOrder.Post=prSuccess,'Order post failed');
+end;
+
+procedure OrderTest.ConvertAU;
+begin
+  aOrder.ChangeStatus('AU');
+  Check(aOrder.Count=2,'Order Count='+IntToStr(aOrder.Count));
+  Check(aOrder.Post=prSuccess,'Order post failed');
+end;
+
+procedure OrderTest.ConvertLI;
+begin
+  aOrder.ChangeStatus('LI');
+  Check(aOrder.Count=3,'Order Count='+IntToStr(aOrder.Count));
+  Check(aOrder.Post=prSuccess,'Order post failed');
 end;
 
 procedure OrderTest.Free;
