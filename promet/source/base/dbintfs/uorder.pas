@@ -656,7 +656,7 @@ var
   Person: TPerson = nil;
   MainOrder: TOrder = nil;
 
-  MainOrderId: LongInt = 0;
+  MainOrderId: LargeInt = 0;
   OrderTyp: Integer;
   OrderDone: Boolean;
   OrderDelivered: Boolean;
@@ -789,30 +789,6 @@ begin
                           if Positions.CanEdit then
                             Positions.DataSet.Post;
                         end;
-                      F_Date := 0;
-                      F_POSNO := Positions.FieldByName('POSNO').AsString;
-                      if (not OrderType.FieldByName('B_STORDER').IsNull)
-                      and (OrderType.FieldByName('B_STORDER').AsString <> '0')
-                      and Assigned(MainOrder)then
-                        begin
-                          //Im Hauptvorgang menge geliefert buchen
-                          F_QUANTITY := Positions.FieldByName('QUANTITY').AsFloat;
-                          if (OrderType.FieldByName('B_STORDER').AsString = '-') then
-                            F_QUANTITY := -F_QUANTITY
-                          else if (OrderType.FieldByName('B_STORDER').AsString <> '+') then
-                            F_QUANTITY := 0;
-                          F_Date := DataSet.FieldByName('DATE').AsDateTime;
-                          if MainOrder.Positions.DataSet.Locate('POSNO', F_POSNO, [loCaseInsensitive]) then
-                            with Mainorder.Positions.DataSet do
-                              begin
-                                Edit;
-                                FieldByName('QUANTITYD').AsFloat := FieldByName('QUANTITYD').AsFloat + F_QUANTITY;
-                                Post;
-                                if FieldByName('QUANTITYD').AsFloat <
-                                   FieldByName('QUANTITY').AsFloat then
-                                  OrderDelivered := False;
-                              end;
-                        end;
                       //Bei Bestellungseingang Lieferzeit setzen
     //TODO:
     {
@@ -832,6 +808,31 @@ begin
     }
                     end;
                 end;
+            //Menge geliefert setzen
+            F_Date := 0;
+            F_POSNO := Positions.FieldByName('POSNO').AsString;
+            if (not OrderType.FieldByName('B_STORDER').IsNull)
+            and (OrderType.FieldByName('B_STORDER').AsString <> '0')
+            and Assigned(MainOrder)then
+              begin
+                //Im Hauptvorgang menge geliefert buchen
+                F_QUANTITY := Positions.FieldByName('QUANTITY').AsFloat;
+                if (OrderType.FieldByName('B_STORDER').AsString = '-') then
+                  F_QUANTITY := -F_QUANTITY
+                else if (OrderType.FieldByName('B_STORDER').AsString <> '+') then
+                  F_QUANTITY := 0;
+                F_Date := DataSet.FieldByName('DATE').AsDateTime;
+                if MainOrder.Positions.DataSet.Locate('POSNO', F_POSNO, [loCaseInsensitive]) then
+                  with Mainorder.Positions.DataSet do
+                    begin
+                      Edit;
+                      FieldByName('QUANTITYD').AsFloat := FieldByName('QUANTITYD').AsFloat + F_QUANTITY;
+                      Post;
+                      if FieldByName('QUANTITYD').AsFloat <
+                         FieldByName('QUANTITY').AsFloat then
+                        OrderDelivered := False;
+                    end;
+              end;
             //Wenn Rechnung, dann QUANTITYC im Hauptvorgang setzen
             if (OrderTyp = 3) and (OrderType.FieldByName('B_INVO').AsString <> '0') then
               begin
