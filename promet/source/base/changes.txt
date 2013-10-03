@@ -1,4 +1,7 @@
-﻿Build 283
+﻿Build 284
+      - Aufgaben waren in Standardansich für Benutzer mit @ in Accountno (sehr selten) nicht sichtbar
+      - Beim buchen von Positionen ohne Artikel wurde keine menge geiefert gesetzt
+Build 283
       - In Gantt Ansicht werden Wochenenden und Auslastungen automatisch zu Nettozeiten eingerechnet
         und Aufgaben entsprechend ausgedehnt wenn die aktuelle Dauer nicht ausreicht
         entsprechend werden Aufgaben eingekürzt wenn Abhängigkeiten "zurückgeschoben" werden
