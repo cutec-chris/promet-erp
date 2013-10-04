@@ -503,10 +503,11 @@
       <Unit21>
         <Filename Value="../base/dbintfs/uorder.pas"/>
         <UnitName Value="uOrder"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="837"/>
-        <CursorPos X="1" Y="860"/>
+        <TopLine Value="988"/>
+        <CursorPos X="3" Y="1003"/>
         <UsageCount Value="86"/>
         <Loaded Value="True"/>
       </Unit21>
@@ -1060,7 +1061,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="utasks"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="217"/>
         <CursorPos X="55" Y="578"/>
@@ -1127,7 +1128,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPositionFrame"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="331"/>
         <CursorPos X="7" Y="356"/>
@@ -1303,9 +1304,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMeetingFrame"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="154"/>
+        <TopLine Value="169"/>
         <CursorPos X="37" Y="176"/>
         <UsageCount Value="93"/>
         <Loaded Value="True"/>
@@ -1948,7 +1949,7 @@
       <Unit174>
         <Filename Value="../base/dbintfs/umeeting.pas"/>
         <UnitName Value="umeeting"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="248"/>
         <CursorPos X="55" Y="281"/>
@@ -1961,7 +1962,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uSelectReport"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="101"/>
         <CursorPos X="14" Y="119"/>
@@ -2777,7 +2778,7 @@
       <Unit272>
         <Filename Value="../base/dbintfs/ubasesearch.pas"/>
         <UnitName Value="uBaseSearch"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="16"/>
         <CursorPos X="107" Y="41"/>
@@ -3089,12 +3090,10 @@
       </Unit309>
       <Unit310>
         <Filename Value="../../../../../lazarus/lcl/include/control.inc"/>
-        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="3224"/>
         <CursorPos X="54" Y="3233"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit310>
       <Unit311>
         <Filename Value="../../../../../lazarus/lcl/actnlist.pas"/>
@@ -3407,7 +3406,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uWizardnewaccount"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="215"/>
@@ -3479,7 +3477,7 @@
       <Unit357>
         <Filename Value="../base/dbintfs/utimes.pas"/>
         <UnitName Value="uTimes"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="28"/>
         <CursorPos X="15" Y="28"/>
@@ -3495,7 +3493,7 @@
         <UsageCount Value="10"/>
       </Unit358>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
         <Filename Value="../base/dbintfs/uorder.pas"/>
         <Caret Line="828" Column="1" TopLine="800"/>
@@ -3612,10 +3610,6 @@
         <Filename Value="uwizardnewaccount.pas"/>
         <Caret Line="269" Column="32" TopLine="247"/>
       </Position29>
-      <Position30>
-        <Filename Value="../../../../../lazarus/lcl/include/control.inc"/>
-        <Caret Line="3233" Column="54" TopLine="3224"/>
-      </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>

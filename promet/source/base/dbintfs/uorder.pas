@@ -997,7 +997,10 @@ begin
                 begin
                   if FieldByName('QUANTITYO').IsNull then
                     FieldByName('QUANTITYO').AsFloat := FieldByName('QUANTITY').AsFloat;
-                  FieldByName('QUANTITY').AsFloat := FieldByName('QUANTITYD').AsFloat-FieldByName('QUANTITYC').AsFloat
+                  if FieldByName('QUANTITYD').IsNull then
+                    FieldByName('QUANTITY').AsFloat := FieldByName('QUANTITY').AsFloat-FieldByName('QUANTITYC').AsFloat
+                  else
+                    FieldByName('QUANTITY').AsFloat := FieldByName('QUANTITYD').AsFloat-FieldByName('QUANTITYC').AsFloat
                 end
               else
                 FieldByName('QUANTITY').AsFloat := FieldByName('QUANTITY').AsFloat-FieldByName('QUANTITYD').AsFloat;
