@@ -2187,8 +2187,8 @@ begin
     end;
   etNewAccount:
     begin
-//      fWizardNewAccount.InitWizard;
-//      fWizardNewAccount.ShowModal;
+      fWizardNewAccount.InitWizard;
+      fWizardNewAccount.ShowModal;
     end;
   etAccountingQue:
     begin

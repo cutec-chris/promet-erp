@@ -1,4 +1,6 @@
-﻿Build 284
+﻿Build 285
+      -
+Build 284
       - Aufgaben waren in Standardansich für Benutzer mit @ in Accountno (sehr selten) nicht sichtbar
       - Beim buchen von Positionen ohne Artikel wurde keine menge geiefert gesetzt
 Build 283

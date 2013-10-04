@@ -9,7 +9,7 @@ object fWizardNewAccount: TfWizardNewAccount
   ClientWidth = 450
   Position = poMainFormCenter
   LCLVersion = '1.3'
-  object pCont1: TPanel
+  object pCont3: TPanel
     Left = 128
     Height = 300
     Top = 0
@@ -41,7 +41,7 @@ object fWizardNewAccount: TfWizardNewAccount
       Left = 0
       Height = 14
       Top = 120
-      Width = 33
+      Width = 37
       Caption = 'lName'
       ParentColor = False
     end
@@ -63,7 +63,7 @@ object fWizardNewAccount: TfWizardNewAccount
         Align = alTop
         Shape = bsTopLine
       end
-      object bNext1: TButton
+      object bNext3: TButton
         Left = 120
         Height = 25
         Top = 14
@@ -73,7 +73,7 @@ object fWizardNewAccount: TfWizardNewAccount
         OnClick = bNext0Click
         TabOrder = 0
       end
-      object bPrev1: TButton
+      object bPrev3: TButton
         Left = 21
         Height = 25
         Top = 14
@@ -83,7 +83,7 @@ object fWizardNewAccount: TfWizardNewAccount
         OnClick = bPrev0Click
         TabOrder = 1
       end
-      object bAbort1: TButton
+      object bAbort3: TButton
         Left = 225
         Height = 25
         Top = 14
@@ -97,21 +97,21 @@ object fWizardNewAccount: TfWizardNewAccount
     end
     object cbAccount: TComboBox
       Left = 96
-      Height = 22
+      Height = 27
       Top = 80
       Width = 216
-      ItemHeight = 14
+      ItemHeight = 0
       TabOrder = 1
     end
     object eName: TEdit
       Left = 96
-      Height = 22
+      Height = 24
       Top = 120
       Width = 216
       TabOrder = 2
     end
   end
-  object pCont2: TPanel
+  object pCont1: TPanel
     Left = 128
     Height = 300
     Top = 0
@@ -123,44 +123,44 @@ object fWizardNewAccount: TfWizardNewAccount
     TabOrder = 3
     object lDescription2: TLabel
       Left = 0
-      Height = 14
+      Height = 31
       Top = 0
       Width = 322
       Align = alTop
-      Caption = 'lDescription0'
+      Caption = 'geben Sie hier die Zugangsdaten die Sie von Ihrer Bank erhalten an'
       ParentColor = False
       WordWrap = True
     end
     object lAccountName: TLabel
-      Left = 0
+      Left = 1
       Height = 14
-      Top = 28
-      Width = 48
-      Caption = 'lAccount'
+      Top = 48
+      Width = 64
+      Caption = 'Kontoname'
       ParentColor = False
     end
     object lAccountNo: TLabel
-      Left = 0
+      Left = 1
       Height = 14
-      Top = 84
-      Width = 63
-      Caption = 'lAccountNo'
+      Top = 96
+      Width = 192
+      Caption = 'Kontonummer (Benutzerkennung)'
       ParentColor = False
     end
     object lSortcode: TLabel
-      Left = 0
+      Left = 243
       Height = 14
-      Top = 140
-      Width = 52
-      Caption = 'lSortcode'
+      Top = 96
+      Width = 69
+      Caption = 'Bankleitzahl'
       ParentColor = False
     end
     object lFinTsName: TLabel
-      Left = 0
+      Left = 1
       Height = 14
       Top = 200
-      Width = 61
-      Caption = 'lFinTsName'
+      Width = 141
+      Caption = 'Serveradresse (http://...)'
       ParentColor = False
     end
     object pButtons2: TPanel
@@ -181,7 +181,7 @@ object fWizardNewAccount: TfWizardNewAccount
         Align = alTop
         Shape = bsTopLine
       end
-      object bNext2: TButton
+      object bNext1: TButton
         Left = 120
         Height = 25
         Top = 14
@@ -190,7 +190,7 @@ object fWizardNewAccount: TfWizardNewAccount
         Caption = 'bNext0'
         TabOrder = 0
       end
-      object bPrev2: TButton
+      object bPrev1: TButton
         Left = 21
         Height = 25
         Top = 14
@@ -199,7 +199,7 @@ object fWizardNewAccount: TfWizardNewAccount
         Caption = 'bPrev0'
         TabOrder = 1
       end
-      object bAbort2: TButton
+      object bAbort1: TButton
         Left = 225
         Height = 25
         Top = 14
@@ -212,35 +212,46 @@ object fWizardNewAccount: TfWizardNewAccount
     end
     object eAccountname: TEdit
       Left = 0
-      Height = 22
-      Top = 48
-      Width = 220
+      Height = 24
+      Top = 60
+      Width = 312
       TabOrder = 1
-      Text = 'eAccountname'
     end
     object eAccountNo: TEdit
-      Left = 0
-      Height = 22
-      Top = 104
-      Width = 220
+      Left = 1
+      Height = 24
+      Top = 112
+      Width = 153
       TabOrder = 2
-      Text = 'eAccountNo'
     end
     object eSortcode: TEdit
-      Left = 0
-      Height = 22
-      Top = 168
-      Width = 220
+      Left = 160
+      Height = 24
+      Top = 112
+      Width = 152
       TabOrder = 3
-      Text = 'eSortcode'
     end
-    object eFinTSName: TEdit
-      Left = 0
-      Height = 22
-      Top = 217
-      Width = 220
+    object eWebAddress: TEdit
+      Left = 1
+      Height = 24
+      Top = 214
+      Width = 311
       TabOrder = 4
-      Text = 'eFinTSName'
+    end
+    object lAccountNo1: TLabel
+      Left = 1
+      Height = 14
+      Top = 144
+      Width = 134
+      Caption = 'Kunden-ID (oft optional)'
+      ParentColor = False
+    end
+    object eCustomerID: TEdit
+      Left = 1
+      Height = 24
+      Top = 160
+      Width = 311
+      TabOrder = 5
     end
   end
   object pCont0: TPanel
@@ -259,7 +270,7 @@ object fWizardNewAccount: TfWizardNewAccount
       Top = 0
       Width = 322
       Align = alTop
-      Caption = 'lDescription0'
+      Caption = 'wählen Sie hier den Typ des Zugangs zu ihrem Konto'
       ParentColor = False
       WordWrap = True
     end
@@ -313,15 +324,42 @@ object fWizardNewAccount: TfWizardNewAccount
         TabOrder = 2
       end
     end
-    object rbImportManualAccounts: TRadioButton
+    object rbPINTAN: TRadioButton
       Left = 0
-      Height = 18
+      Height = 24
       Top = 96
-      Width = 154
-      Caption = 'rbImportManualAccounts'
+      Width = 139
+      Caption = 'PIN/TAN HBCI Konto'
       Checked = True
       TabOrder = 1
       TabStop = True
+    end
+    object RadioButton1: TRadioButton
+      Left = 0
+      Height = 24
+      Top = 64
+      Width = 164
+      Caption = 'manuell geführtes Konto'
+      Enabled = False
+      TabOrder = 2
+    end
+    object RadioButton2: TRadioButton
+      Left = 0
+      Height = 24
+      Top = 128
+      Width = 153
+      Caption = 'Mobile Tan HBCI Konto'
+      Enabled = False
+      TabOrder = 3
+    end
+    object RadioButton3: TRadioButton
+      Left = 0
+      Height = 24
+      Top = 160
+      Width = 150
+      Caption = 'Chipkaten HBCI Konto'
+      Enabled = False
+      TabOrder = 4
     end
   end
   object pLeft: TPanel
@@ -708,4 +746,4 @@ object fWizardNewAccount: TfWizardNewAccount
       }
     end
   end
-end
+end
