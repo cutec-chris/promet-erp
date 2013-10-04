@@ -1,5 +1,6 @@
 ﻿Build 285
-      -
+      - Rechnung nutzt Menge wenn Menge gelifert null ist
+      - Kontoassistenen begonnen
 Build 284
       - Aufgaben waren in Standardansich für Benutzer mit @ in Accountno (sehr selten) nicht sichtbar
       - Beim buchen von Positionen ohne Artikel wurde keine menge geiefert gesetzt

@@ -503,7 +503,6 @@
       <Unit21>
         <Filename Value="../base/dbintfs/uorder.pas"/>
         <UnitName Value="uOrder"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="988"/>
@@ -1026,6 +1025,7 @@
       </Unit68>
       <Unit69>
         <Filename Value="../base/revision.inc"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -1038,7 +1038,7 @@
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="9" Y="2"/>
+        <CursorPos X="33" Y="3"/>
         <UsageCount Value="103"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
