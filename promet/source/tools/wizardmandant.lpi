@@ -26,7 +26,6 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--config-path=/home/chris/.promet-erp-devel"/>
       </local>
     </RunParams>
     <RequiredPackages Count="6">
@@ -53,17 +52,16 @@
         <PackageName Value="LCL"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="106">
+    <Units Count="110">
       <Unit0>
         <Filename Value="wizardmandant.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="wizardmandant"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="53" Y="21"/>
-        <UsageCount Value="136"/>
+        <UsageCount Value="138"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -83,12 +81,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uWizardNewMandant"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="600"/>
-        <CursorPos X="1" Y="618"/>
-        <UsageCount Value="136"/>
+        <TopLine Value="231"/>
+        <CursorPos X="3" Y="234"/>
+        <UsageCount Value="138"/>
         <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="../base/uimpcsv.pas"/>
@@ -269,10 +267,12 @@
       <Unit25>
         <Filename Value="../components/zeos/src/plain/ZPlainLoader.pas"/>
         <UnitName Value="ZPlainLoader"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="206"/>
-        <CursorPos X="54" Y="220"/>
-        <UsageCount Value="2"/>
+        <TopLine Value="207"/>
+        <CursorPos X="1" Y="223"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit25>
       <Unit26>
@@ -287,10 +287,12 @@
       <Unit27>
         <Filename Value="../components/zeos/src/plain/ZPlainDriver.pas"/>
         <UnitName Value="ZPlainDriver"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="170"/>
-        <CursorPos X="94" Y="192"/>
-        <UsageCount Value="2"/>
+        <TopLine Value="107"/>
+        <CursorPos X="27" Y="124"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit27>
       <Unit28>
@@ -387,10 +389,13 @@
       <Unit39>
         <Filename Value="../components/zeos/src/plain/ZPlainPostgreSqlDriver.pas"/>
         <UnitName Value="ZPlainPostgreSqlDriver"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="775"/>
-        <CursorPos X="47" Y="806"/>
-        <UsageCount Value="2"/>
+        <TopLine Value="881"/>
+        <CursorPos X="90" Y="891"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit39>
       <Unit40>
@@ -944,8 +949,170 @@
         <CursorPos X="1" Y="67"/>
         <UsageCount Value="10"/>
       </Unit105>
+      <Unit106>
+        <Filename Value="../components/zeos/src/dbc/ZDbcConnection.pas"/>
+        <UnitName Value="ZDbcConnection"/>
+        <EditorIndex Value="6"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="393"/>
+        <CursorPos X="1" Y="403"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit106>
+      <Unit107>
+        <Filename Value="../components/zeos/src/dbc/ZDbcPostgreSql.pas"/>
+        <UnitName Value="ZDbcPostgreSql"/>
+        <EditorIndex Value="7"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="170"/>
+        <CursorPos X="1" Y="188"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit107>
+      <Unit108>
+        <Filename Value="../components/zeos/src/core/ZCompatibility.pas"/>
+        <UnitName Value="ZCompatibility"/>
+        <EditorIndex Value="5"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="118"/>
+        <CursorPos X="9" Y="135"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit108>
+      <Unit109>
+        <Filename Value="../../../../lazarus/fpc/rtl/objpas/objpas.pp"/>
+        <UnitName Value="objpas"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="74"/>
+        <CursorPos X="15" Y="91"/>
+        <UsageCount Value="10"/>
+      </Unit109>
     </Units>
-    <JumpHistory Count="0" HistoryIndex="-1"/>
+    <JumpHistory Count="30" HistoryIndex="29">
+      <Position1>
+        <Filename Value="../components/zeos/src/core/ZCompatibility.pas"/>
+        <Caret Line="732" Column="1" TopLine="713"/>
+      </Position1>
+      <Position2>
+        <Filename Value="../components/zeos/src/plain/ZPlainLoader.pas"/>
+        <Caret Line="194" Column="1" TopLine="172"/>
+      </Position2>
+      <Position3>
+        <Filename Value="../components/zeos/src/plain/ZPlainLoader.pas"/>
+        <Caret Line="200" Column="1" TopLine="172"/>
+      </Position3>
+      <Position4>
+        <Filename Value="../components/zeos/src/plain/ZPlainLoader.pas"/>
+        <Caret Line="179" Column="1" TopLine="172"/>
+      </Position4>
+      <Position5>
+        <Filename Value="../components/zeos/src/plain/ZPlainLoader.pas"/>
+        <Caret Line="181" Column="1" TopLine="172"/>
+      </Position5>
+      <Position6>
+        <Filename Value="../components/zeos/src/plain/ZPlainLoader.pas"/>
+        <Caret Line="182" Column="1" TopLine="172"/>
+      </Position6>
+      <Position7>
+        <Filename Value="../components/zeos/src/plain/ZPlainLoader.pas"/>
+        <Caret Line="186" Column="1" TopLine="172"/>
+      </Position7>
+      <Position8>
+        <Filename Value="../components/zeos/src/plain/ZPlainLoader.pas"/>
+        <Caret Line="194" Column="1" TopLine="172"/>
+      </Position8>
+      <Position9>
+        <Filename Value="../components/zeos/src/plain/ZPlainLoader.pas"/>
+        <Caret Line="200" Column="1" TopLine="172"/>
+      </Position9>
+      <Position10>
+        <Filename Value="../components/zeos/src/plain/ZPlainLoader.pas"/>
+        <Caret Line="209" Column="35" TopLine="197"/>
+      </Position10>
+      <Position11>
+        <Filename Value="../components/zeos/src/plain/ZPlainLoader.pas"/>
+        <Caret Line="213" Column="10" TopLine="198"/>
+      </Position11>
+      <Position12>
+        <Filename Value="../components/zeos/src/plain/ZPlainLoader.pas"/>
+        <Caret Line="258" Column="1" TopLine="224"/>
+      </Position12>
+      <Position13>
+        <Filename Value="../components/zeos/src/plain/ZPlainPostgreSqlDriver.pas"/>
+        <Caret Line="66" Column="38" TopLine="51"/>
+      </Position13>
+      <Position14>
+        <Filename Value="../components/zeos/src/plain/ZPlainLoader.pas"/>
+        <Caret Line="213" Column="1" TopLine="201"/>
+      </Position14>
+      <Position15>
+        <Filename Value="../components/zeos/src/plain/ZPlainLoader.pas"/>
+        <Caret Line="178" Column="1" TopLine="161"/>
+      </Position15>
+      <Position16>
+        <Filename Value="../components/zeos/src/plain/ZPlainLoader.pas"/>
+        <Caret Line="179" Column="1" TopLine="161"/>
+      </Position16>
+      <Position17>
+        <Filename Value="../components/zeos/src/plain/ZPlainLoader.pas"/>
+        <Caret Line="213" Column="1" TopLine="196"/>
+      </Position17>
+      <Position18>
+        <Filename Value="../components/zeos/src/plain/ZPlainLoader.pas"/>
+        <Caret Line="179" Column="1" TopLine="162"/>
+      </Position18>
+      <Position19>
+        <Filename Value="../components/zeos/src/plain/ZPlainLoader.pas"/>
+        <Caret Line="181" Column="1" TopLine="162"/>
+      </Position19>
+      <Position20>
+        <Filename Value="../components/zeos/src/plain/ZPlainLoader.pas"/>
+        <Caret Line="182" Column="1" TopLine="162"/>
+      </Position20>
+      <Position21>
+        <Filename Value="../components/zeos/src/plain/ZPlainLoader.pas"/>
+        <Caret Line="186" Column="1" TopLine="162"/>
+      </Position21>
+      <Position22>
+        <Filename Value="../components/zeos/src/plain/ZPlainPostgreSqlDriver.pas"/>
+        <Caret Line="1460" Column="37" TopLine="1440"/>
+      </Position22>
+      <Position23>
+        <Filename Value="../components/zeos/src/plain/ZPlainLoader.pas"/>
+        <Caret Line="12" Column="61" TopLine="1"/>
+      </Position23>
+      <Position24>
+        <Filename Value="../components/zeos/src/plain/ZPlainPostgreSqlDriver.pas"/>
+        <Caret Line="1461" Column="79" TopLine="1442"/>
+      </Position24>
+      <Position25>
+        <Filename Value="../components/zeos/src/plain/ZPlainPostgreSqlDriver.pas"/>
+        <Caret Line="1460" Column="45" TopLine="1442"/>
+      </Position25>
+      <Position26>
+        <Filename Value="../components/zeos/src/plain/ZPlainPostgreSqlDriver.pas"/>
+        <Caret Line="1461" Column="50" TopLine="1442"/>
+      </Position26>
+      <Position27>
+        <Filename Value="../components/zeos/src/plain/ZPlainPostgreSqlDriver.pas"/>
+        <Caret Line="1458" Column="35" TopLine="1442"/>
+      </Position27>
+      <Position28>
+        <Filename Value="../components/zeos/src/plain/ZPlainPostgreSqlDriver.pas"/>
+        <Caret Line="1460" Column="46" TopLine="1432"/>
+      </Position28>
+      <Position29>
+        <Filename Value="../components/zeos/src/plain/ZPlainPostgreSqlDriver.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position29>
+      <Position30>
+        <Filename Value="../components/zeos/src/plain/ZPlainPostgreSqlDriver.pas"/>
+        <Caret Line="724" Column="44" TopLine="712"/>
+      </Position30>
+    </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
@@ -957,6 +1124,15 @@
       <OtherUnitFiles Value="../base"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
+    <Conditionals Value="// example for adding linker options on Mac OS X
+if TargetOS='darwin' then
+  LinkerOptions := ' -Fllib';
+
+// example for adding a unit and include path on Windows
+//if SrcOS='win' then begin
+//  UnitPath += ';win';
+//  IncPath += ';win';
+//end;"/>
     <Linking>
       <Debugging>
         <UseExternalDbgSyms Value="True"/>
@@ -975,7 +1151,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="5">
+    <Exceptions Count="6">
       <Item1>
         <Name Value="EZDatabaseError"/>
       </Item1>
@@ -991,6 +1167,9 @@
       <Item5>
         <Name Value="EConvertError"/>
       </Item5>
+      <Item6>
+        <Name Value="EFCreateError"/>
+      </Item6>
     </Exceptions>
   </Debugging>
   <EditorMacros Count="0"/>

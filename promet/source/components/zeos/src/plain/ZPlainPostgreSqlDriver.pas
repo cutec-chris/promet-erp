@@ -888,6 +888,7 @@ begin
       FLoader.AddLocation(WINDOWS_DLL_LOCATION);
     {$ELSE}
       FLoader.AddLocation(LINUX_DLL_LOCATION);
+      FLoader.AddLocation(ExtractFilePath(Paramstr(0))+'lib'+DirectorySeparator+LINUX_DLL_LOCATION);
     {$ENDIF}
   {$ENDIF}
 end;
