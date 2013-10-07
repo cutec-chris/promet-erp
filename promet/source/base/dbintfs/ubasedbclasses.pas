@@ -1989,7 +1989,7 @@ begin
             FDataSet.Close;
             if CheckTable then
               if not AlterTable then
-                raise Exception.Create('Altering Table failed !');
+                raise Exception.Create('Altering Table "'+TableName+'" failed !');
             if aOldFilter<>'' then
               with DataSet as IBaseDbFilter do
                 begin
@@ -2300,4 +2300,4 @@ begin
 end;
 initialization
 end.
-
+
