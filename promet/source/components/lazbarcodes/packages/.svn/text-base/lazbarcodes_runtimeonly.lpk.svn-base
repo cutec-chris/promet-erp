@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <Package Version="4">
+    <PathDelim Value="\"/>
+    <Name Value="lazbarcodes_runtimeonly"/>
+    <Author Value="José Mejuto"/>
+    <CompilerOptions>
+      <Version Value="10"/>
+      <PathDelim Value="\"/>
+      <SearchPaths>
+        <OtherUnitFiles Value="..\src"/>
+        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+      <Other>
+        <CompilerMessages>
+          <UseMsgFile Value="True"/>
+        </CompilerMessages>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
+    </CompilerOptions>
+    <Description Value="Provides barcode 1D and 2D generation based in the 'C' zint library."/>
+    <License Value="GNU General Public License version 3.0 (GPLv3)"/>
+    <Version Major="1"/>
+    <Files Count="9">
+      <Item1>
+        <Filename Value="..\src\zint.pp"/>
+        <UnitName Value="zint"/>
+      </Item1>
+      <Item2>
+        <Filename Value="..\src\uaztec.pas"/>
+        <UnitName Value="uaztec"/>
+      </Item2>
+      <Item3>
+        <Filename Value="..\src\ubasic.pas"/>
+        <UnitName Value="ubasic"/>
+      </Item3>
+      <Item4>
+        <Filename Value="..\src\udatamatrix.pas"/>
+        <UnitName Value="udatamatrix"/>
+      </Item4>
+      <Item5>
+        <Filename Value="..\src\uhelper.pas"/>
+        <UnitName Value="uhelper"/>
+      </Item5>
+      <Item6>
+        <Filename Value="..\src\uqr.pas"/>
+        <UnitName Value="uqr"/>
+      </Item6>
+      <Item7>
+        <Filename Value="..\src\ureedsolomon.pas"/>
+        <UnitName Value="ureedsolomon"/>
+      </Item7>
+      <Item8>
+        <Filename Value="..\src\urender.pas"/>
+        <UnitName Value="urender"/>
+      </Item8>
+      <Item9>
+        <Filename Value="..\src\usjis.pas"/>
+        <UnitName Value="usjis"/>
+      </Item9>
+    </Files>
+    <RequiredPkgs Count="2">
+      <Item1>
+        <PackageName Value="LCLBase"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="FCL"/>
+      </Item2>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

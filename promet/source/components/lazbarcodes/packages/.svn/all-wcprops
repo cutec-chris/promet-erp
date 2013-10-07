@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/p/lazarus-ccr/svn/!svn/ver/1758/components/lazbarcodes/packages
+END
+lazbarcodes_runtimeonly.pas
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/p/lazarus-ccr/svn/!svn/ver/1758/components/lazbarcodes/packages/lazbarcodes_runtimeonly.pas
+END
+lazbarcodes_runtimeonly.lpk
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/p/lazarus-ccr/svn/!svn/ver/1758/components/lazbarcodes/packages/lazbarcodes_runtimeonly.lpk
+END
+lazbarcodes.pas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/p/lazarus-ccr/svn/!svn/ver/1758/components/lazbarcodes/packages/lazbarcodes.pas
+END
+lazbarcodes.lpk
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/p/lazarus-ccr/svn/!svn/ver/1758/components/lazbarcodes/packages/lazbarcodes.lpk
+END
