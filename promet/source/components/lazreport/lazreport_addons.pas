@@ -7,14 +7,15 @@ unit lazreport_addons;
 interface
 
 uses
-  lr_richview, lr_tachart, LazarusPackageIntf;
+  lr_2dbarcodes, lr_tachart, lr_richview, LazarusPackageIntf;
 
 implementation
 
 procedure Register;
 begin
-  RegisterUnit('lr_richview', @lr_richview.Register);
+  RegisterUnit('lr_2dbarcodes', @lr_2dbarcodes.Register);
   RegisterUnit('lr_tachart', @lr_tachart.Register);
+  RegisterUnit('lr_richview', @lr_richview.Register);
 end;
 
 initialization

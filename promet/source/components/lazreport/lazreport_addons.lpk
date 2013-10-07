@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Package Version="4">
     <Name Value="lazreport_addons"/>
@@ -14,11 +14,11 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="3">
+    <Files Count="6">
       <Item1>
-        <Filename Value="lr_richview.pas"/>
+        <Filename Value="lr_2dbarcodes.pas"/>
         <HasRegisterProc Value="True"/>
-        <UnitName Value="lr_richview"/>
+        <UnitName Value="lr_2dbarcodes"/>
       </Item1>
       <Item2>
         <Filename Value="lr_tachart.lfm"/>
@@ -29,22 +29,38 @@
         <HasRegisterProc Value="True"/>
         <UnitName Value="lr_tachart"/>
       </Item3>
+      <Item4>
+        <Filename Value="lr_richview.lfm"/>
+        <Type Value="LFM"/>
+      </Item4>
+      <Item5>
+        <Filename Value="lr_richview.lrs"/>
+        <Type Value="LRS"/>
+      </Item5>
+      <Item6>
+        <Filename Value="lr_richview.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="lr_richview"/>
+      </Item6>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="4">
+    <RequiredPkgs Count="5">
       <Item1>
-        <PackageName Value="TAChartLazarusPkg"/>
+        <PackageName Value="lazbarcodes_runtimeonly"/>
       </Item1>
       <Item2>
-        <PackageName Value="TurboPowerIPro"/>
+        <PackageName Value="TAChartLazarusPkg"/>
       </Item2>
       <Item3>
-        <PackageName Value="lazreport"/>
-        <MinVersion Minor="9" Release="9" Valid="True"/>
+        <PackageName Value="TurboPowerIPro"/>
       </Item3>
       <Item4>
-        <PackageName Value="FCL"/>
+        <PackageName Value="lazreport"/>
+        <MinVersion Minor="9" Release="9" Valid="True"/>
       </Item4>
+      <Item5>
+        <PackageName Value="FCL"/>
+      </Item5>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>
