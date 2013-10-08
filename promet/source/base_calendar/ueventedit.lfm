@@ -601,10 +601,10 @@ object fEventEdit: TfEventEdit
         TabOrder = 1
       end
       object seDuration: TFloatSpinEdit
-        Left = 256
+        Left = 240
         Height = 22
         Top = 25
-        Width = 53
+        Width = 69
         Increment = 0.5
         MaxValue = 24
         MinValue = 0.1
