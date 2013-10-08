@@ -1156,6 +1156,8 @@ begin
                               begin
                                 if not ((dgFake.DataSource.DataSet.State = dsEdit) or (dgFake.DataSource.DataSet.State = dsInsert)) then
                                   dgFake.DataSource.DataSet.Edit;
+                                if ((pos('END',dgFake.Columns[gList.Col-1].Field.FieldName)>0) or (pos('DUE',dgFake.Columns[gList.Col-1].Field.FieldName)>0)) and (Trunc(oDate) = oDate) then
+                                  oDate := oDate+0.999;
                                 dgFake.Columns[gList.Col-1].Field.AsDateTime:=oDate;
                               end
                           end
@@ -1655,7 +1657,11 @@ begin
                 if dgFake.Columns[aCol-1].Field.DataType = ftDateTime then
                   begin
                     if TryStrToDateTime(tmp,oDate) then
-                      dgFake.Columns[aCol-1].Field.AsDateTime:=oDate;
+                      begin
+                        if ((pos('END',dgFake.Columns[gList.Col-1].Field.FieldName)>0) or (pos('DUE',dgFake.Columns[gList.Col-1].Field.FieldName)>0)) and (Trunc(oDate) = oDate) then
+                          oDate := oDate+0.999;
+                        dgFake.Columns[aCol-1].Field.AsDateTime:=oDate;
+                      end;
                     debugln('SetEditDate:'+tmp+' '+dgFake.Columns[aCol-1].Field.AsString);
                   end
                 else
