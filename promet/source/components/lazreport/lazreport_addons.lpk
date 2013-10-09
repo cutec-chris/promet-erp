@@ -46,7 +46,7 @@
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="5">
       <Item1>
-        <PackageName Value="lazbarcodes_runtimeonly"/>
+        <PackageName Value="lazbarcodes"/>
       </Item1>
       <Item2>
         <PackageName Value="TAChartLazarusPkg"/>
