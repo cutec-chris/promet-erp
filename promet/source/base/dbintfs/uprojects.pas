@@ -67,6 +67,7 @@ type
     procedure RealPriceChanged(aRealDiff :Extended);
     procedure PosWeightChanged(aPosDiff :Extended);override;
     procedure DoModifyPosPrice; override;
+    procedure DoDataChange(Sender: TObject; Field: TField); override;
     procedure DoInsert; override;
     procedure DoDelete; override;
     procedure DoEdit; override;
@@ -157,6 +158,16 @@ begin
     EnableCalculation;
   end;
 end;
+
+procedure TProjectPositions.DoDataChange(Sender: TObject; Field: TField);
+begin
+  inherited DoDataChange(Sender, Field);
+  if (Field.FieldName = 'REALPRICE') then
+    begin
+      DoModifyPosPrice;
+    end
+end;
+
 procedure TProjectPositions.DoInsert;
 begin
   inherited DoInsert;
@@ -173,20 +184,20 @@ end;
 procedure TProjectPositions.DoEdit;
 begin
   inherited DoEdit;
-  OldRealPosPrice:=DataSet.FieldByName('REALPOSPRICE').AsFloat;
+  OldRealPosPrice:=DataSet.FieldByName('REALPRICE').AsFloat;
 end;
 
 procedure TProjectPositions.DoBeforeDelete;
 begin
   inherited DoBeforeDelete;
-  OldRealPosPrice:=DataSet.FieldByName('REALPOSPRICE').AsFloat;
+  OldRealPosPrice:=DataSet.FieldByName('REALPRICE').AsFloat;
 end;
 procedure TProjectPositions.DoPost;
 begin
   inherited DoPost;
-  if (OldRealPosPrice <> DataSet.FieldByName('REALPOSPRICE').AsFloat) then
+  if (OldRealPosPrice <> DataSet.FieldByName('REALPRICE').AsFloat) then
     begin
-      RealPriceChanged(DataSet.FieldByName('REALPOSPRICE').AsFloat-OldRealPosPrice);
+      RealPriceChanged(DataSet.FieldByName('REALPRICE').AsFloat-OldRealPosPrice);
     end;
 end;
 procedure TProjectPositions.FillDefaults(aDataSet: TDataSet);
