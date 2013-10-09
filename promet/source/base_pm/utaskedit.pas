@@ -410,7 +410,10 @@ begin
         eSummary.SetFocus
       else mNotes.SetFocus;
       while Visible do
-        Application.ProcessMessages;
+        begin
+          Application.ProcessMessages;
+          sleep(100);
+        end;
       Result := ModalResult = mrOk;
       if not Assigned(FDataSet) then exit;
       if (ModalResult = mrNone) and FDataSet.Changed then

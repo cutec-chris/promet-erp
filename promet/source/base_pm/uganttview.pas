@@ -1025,7 +1025,10 @@ begin
   Caption := strGanttView+' - '+FTasks.Parent.FieldByName('NAME').AsString;
   Show;
   while Visible do
-    Application.ProcessMessages;
+    begin
+      Application.ProcessMessages;
+      sleep(100);
+    end;
   Result := ModalResult = mrOK;
   if Result then
     begin

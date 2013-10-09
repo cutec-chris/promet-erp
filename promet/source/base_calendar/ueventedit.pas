@@ -316,7 +316,10 @@ begin
   ActControl := Screen.ActiveControl;
   Show;
   while Visible do
-    Application.ProcessMessages;
+    begin
+      Application.ProcessMessages;
+      sleep(100);
+    end;
   Result := ModalResult = mrOk;
   if ModalResult = mrNone then
     if (MessageDlg(strItem+' '+FDataSet.FieldByName('SUMMARY').AsString,strItemnotSaved,mtInformation,[mbYes,mbNo],0) = mrYes) then

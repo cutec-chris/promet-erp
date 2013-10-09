@@ -876,7 +876,11 @@ begin
     Report.PreviewButtons:=[pbZoom, pbSave, pbPrint, pbFind, pbExit];
   Show;
   Application.ProcessMessages; // Preview ist meisst Modal unter diversen Umständen gibts Probleme mit 2 Modalen Forms übereinander
-  while Visible do Application.ProcessMessages;
+  while Visible do
+    begin
+      Application.ProcessMessages;
+      sleep(100);
+    end;
   Result := ModalResult = mrOK;
   FDS := nil;
   if not Result then
