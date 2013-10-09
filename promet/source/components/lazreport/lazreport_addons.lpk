@@ -47,6 +47,7 @@
     <RequiredPkgs Count="5">
       <Item1>
         <PackageName Value="lazbarcodes"/>
+        <DefaultFilename Value="../lazbarcodes/packages/lazbarcodes.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="TAChartLazarusPkg"/>
