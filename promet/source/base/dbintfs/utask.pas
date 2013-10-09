@@ -131,6 +131,7 @@ resourcestring
   strCompleted              = 'fertig';
   strStarted                = 'gestartet';
   strTaskAdded              = '%s - hinzugefügt';
+  strTaskDeleted            = '%s - gelöscht';
   strDueDateChanged         = 'Zieldatum geändert zu %s';
   strHasChilds              = 'hat Untereinträge';
   strPercentDone            = '% erledigt';
@@ -462,17 +463,20 @@ begin
     end;
   if FAddProjectOnPost then
     begin
-      aProject := TProject.Create(Self,Data,Connection);
-      aProject.Select(FDS.DataSet.FieldByName('PROJECTID').AsVariant);
-      aProject.Open;
-      if aProject.Count>0 then
+      if trim(FDS.DataSet.FieldByName('SUMMARY').AsString)<>'' then
         begin
-          History.AddItem(Self.DataSet,strProjectChanged,'',DataSet.FieldByName('PROJECT').AsString,DataSet,ACICON_EDITED);
-          aProject.History.Open;
-          aProject.History.AddItem(aProject.DataSet,Format(strTaskAdded,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',DataSet,ACICON_TASKADDED);
+          aProject := TProject.Create(Self,Data,Connection);
+          aProject.Select(FDS.DataSet.FieldByName('PROJECTID').AsVariant);
+          aProject.Open;
+          if (aProject.Count>0) then
+            begin
+              History.AddItem(Self.DataSet,strProjectChanged,'',DataSet.FieldByName('PROJECT').AsString,DataSet,ACICON_EDITED);
+              aProject.History.Open;
+              aProject.History.AddItem(aProject.DataSet,Format(strTaskAdded,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',DataSet,ACICON_TASKADDED);
+            end;
+          aProject.Free;
+          FAddProjectOnPost:=False;
         end;
-      aProject.Free;
-      FAddProjectOnPost:=False;
     end;
 end;
 procedure TTaskList.DataSetBeforeDelete(aDataSet: TDataSet);
@@ -482,6 +486,18 @@ var
   Clean: Boolean;
   i: Integer;
 begin
+  if trim(FDS.DataSet.FieldByName('SUMMARY').AsString)<>'' then
+    begin
+      aProject := TProject.Create(Self,Data,Connection);
+      aProject.Select(FDS.DataSet.FieldByName('PROJECTID').AsVariant);
+      aProject.Open;
+      if (aProject.Count>0) then
+        begin
+          aProject.History.Open;
+          aProject.History.AddItem(aProject.DataSet,Format(strTaskDeleted,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',DataSet,ACICON_TASKCLOSED);
+        end;
+      aProject.Free;
+    end;
   if  (Data.TriggerExists('TASKS_DEL_CHILD')) then exit;
   aParent := TTask.Create(Self,DataModule,Connection);
   aParent.Select(DataSet.FieldByName('PARENT').AsVariant);
