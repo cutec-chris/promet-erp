@@ -765,6 +765,7 @@ begin
             Add('OWNER',ftString,20,True);
             Add('USER',ftString,20,False);
             Add('PARENT',ftLargeInt,0,False);
+            Add('LPARENT',ftLargeInt,0,False);
             Add('PROJECTID',ftLargeInt,0,False);
             Add('PROJECT',ftString,260,False);
             Add('ORIGID',ftLargeInt,0,False);
@@ -964,7 +965,7 @@ begin
   FHistory.CreateTable;
   FSnapshots.CreateTable;
   try
-    if Data.ShouldCheckTable('TASKS') then
+    if Data.ShouldCheckTable('TASKS',False) then
       begin
         Data.CreateTrigger('DEL_CHILD','TASKS','DELETE',
          'UPDATE '+Data.QuoteField('TASKS')

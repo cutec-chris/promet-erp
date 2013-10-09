@@ -32,6 +32,7 @@ constructor TfMainTaskFrame.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   FTasks := TfTaskFrame.Create(Self);
+  FTasks.GridView.TreeField := 'LPARENT';
   FTasks.Parent := Self;
   fTasks.Align:=alClient;
   fTasks.Show;
