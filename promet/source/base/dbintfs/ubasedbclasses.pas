@@ -105,8 +105,11 @@ type
     property ChangedDuringSession : Boolean read FHChanged write FHChanged;
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure Change; override;
-    procedure AddItem(aObject : TDataSet;aAction : string;aLink : string = '';aReference : string = '';aRefObject : TDataSet = nil;aIcon : Integer = 0;aComission : string = '';DoPost : Boolean = True;DoChange : Boolean = False);virtual;
-    procedure AddItemWithoutUser(aObject : TDataSet;aAction : string;aLink : string = '';aReference : string = '';aRefObject : TDataSet = nil;aIcon : Integer = 0;aComission : string = '';DoPost : Boolean = True;DoChange : Boolean = False);virtual;
+    procedure AddItem(aObject: TDataSet; aAction: string; aLink: string='';
+      aReference: string=''; aRefObject: TDataSet=nil; aIcon: Integer=0;
+  aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True;
+  DoChange: Boolean=False); virtual;
+    procedure AddItemWithoutUser(aObject : TDataSet;aAction : string;aLink : string = '';aReference : string = '';aRefObject : TDataSet = nil;aIcon : Integer = 0;aComission : string = '';CheckDouble: Boolean=True;DoPost : Boolean = True;DoChange : Boolean = False);virtual;
   end;
   IBaseHistory = interface['{8BA16E96-1A06-49E2-88B1-301CF9E5C8FC}']
     function GetHistory: TBaseHistory;
@@ -1089,7 +1092,7 @@ begin
     end;
 end;
 procedure TBaseHistory.AddItem(aObject : TDataSet;aAction: string; aLink: string;
-  aReference: string;aRefObject : TDataSet; aIcon: Integer; aComission: string;DoPost : Boolean = True;DoChange : Boolean = False);
+  aReference: string;aRefObject : TDataSet; aIcon: Integer; aComission: string;CheckDouble : Boolean = True;DoPost : Boolean = True;DoChange : Boolean = False);
 var
   tmp: String;
 begin
@@ -1107,6 +1110,7 @@ begin
           and (trunc(FieldByName('TIMESTAMPD').AsDatetime) = trunc(Now()))
           and (FieldByName('CHANGEDBY').AsString = Data.Users.FieldByName('IDCODE').AsString)
           and (FieldByName('REFERENCE').AsString = aReference)
+          and (CheckDouble)
           then
             Delete;
         end;
@@ -1137,8 +1141,8 @@ begin
 end;
 
 procedure TBaseHistory.AddItemWithoutUser(aObject: TDataSet; aAction: string;
-  aLink: string; aReference: string;aRefObject : TDataSet; aIcon: Integer; aComission: string;
-  DoPost: Boolean; DoChange: Boolean);
+  aLink: string; aReference: string; aRefObject: TDataSet; aIcon: Integer;
+  aComission: string; CheckDouble: Boolean; DoPost: Boolean; DoChange: Boolean);
 var
   tmp: String;
 begin
@@ -1156,6 +1160,7 @@ begin
           and (trunc(FieldByName('TIMESTAMPD').AsDatetime) = trunc(Now()))
           and (FieldByName('CHANGEDBY').AsString = Data.Users.FieldByName('IDCODE').AsString)
           and (FieldByName('REFERENCE').AsString = aReference)
+          and (CheckDouble)
           then
             exit; //Ignore Add when Action is equal
         end;

@@ -124,7 +124,7 @@ resourcestring
   strTaskSreopened          = '%s - wiedereröffnet';
   strTaskChecked            = 'Aufgabe geprüft';
   strProjectChanged         = 'Project geändert';
-  strDelegated              = 'Delegiert';
+  strDelegated              = 'an %s delegiert';
   strPlantime               = 'Planzeit';
   strBuffertime             = 'Wartezeit';
   strCompletedAt            = 'fertiggestellt';
@@ -485,6 +485,7 @@ var
   aTasks: TTaskList;
   Clean: Boolean;
   i: Integer;
+  aProject: TProject;
 begin
   if trim(FDS.DataSet.FieldByName('SUMMARY').AsString)<>'' then
     begin
@@ -630,7 +631,8 @@ begin
       if aProject.Count>0 then
         begin
           aProject.History.Open;
-          aProject.History.AddItem(aProject.DataSet,Format(strTaskAdded,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',aProject.DataSet,ACICON_TASKADDED);
+          if FDS.DataSet.FieldByName('SUMMARY').AsString<>'' then
+            aProject.History.AddItem(aProject.DataSet,Format(strTaskAdded,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',aProject.DataSet,ACICON_TASKADDED);
           History.AddItem(Self.DataSet,strProjectChanged,Data.BuildLink(aProject.DataSet),Field.AsString,aProject.DataSet,ACICON_EDITED);
         end;
       aProject.Free;
@@ -644,8 +646,6 @@ begin
   else if (Field.FieldName='USER') then
     begin
       DataSet.DisableControls;
-      if not History.DataSet.Active then History.Open;
-      History.AddItem(Self.DataSet,strDelegated,'','',nil,ACICON_TASKADDED);
       DataSet.FieldByName('SEEN').AsString:='N';
       if DataSet.FieldByName('USER').AsString<>DataSet.FieldByName('OWNER').AsString then
         begin
@@ -654,13 +654,15 @@ begin
           aUser.Open;
           if aUser.Count>0 then
             begin
+              if not History.DataSet.Active then History.Open;
+              History.AddItem(Self.DataSet,Format(strDelegated,[aUser.Text.AsString]),'','',nil,ACICON_TASKADDED,'',False);
               aProject := TProject.Create(Self,Data,Connection);
               aProject.Select(FDS.DataSet.FieldByName('PROJECTID').AsVariant);
               aProject.Open;
               if aProject.Count>0 then
-                aUser.History.AddItem(aProject.DataSet,Format(strTaskUDelegated,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',aProject.DataSet,ACICON_TASKADDED)
+                aUser.History.AddItem(aProject.DataSet,Format(strTaskUDelegated,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',aProject.DataSet,ACICON_TASKADDED,'',False)
               else
-                aUser.History.AddItem(Self.DataSet,Format(strTaskUDelegated,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',nil,ACICON_TASKADDED);
+                aUser.History.AddItem(Self.DataSet,Format(strTaskUDelegated,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',nil,ACICON_TASKADDED,'',False);
               aProject.Free;
             end;
           aUser.Free;
