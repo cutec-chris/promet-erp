@@ -1,4 +1,8 @@
-﻿Build 285
+﻿Build 286
+      - Aufgaben werden 1 Tag vor Zieldatum eingefärbt auch wenn keine Panzeit hinterlegt ist
+      - Bis Datum und Endatum werden im Gridview auf Datum+23.59h erstellt
+        es ist intuitiver Bis als "bis einschließlich" zu behandeln
+Build 285
       - Rechnung nutzt Menge wenn Menge gelifert null ist
       - Kontoassistenen begonnen
 Build 284
