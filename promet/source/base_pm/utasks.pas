@@ -1011,8 +1011,8 @@ begin
     TRowObject(TExtStringGrid(Sender).Objects[0,TExtStringGrid(Sender).Row]).ShouldStart:=0;
     if FDataSet.FieldByName('PLANTIME').AsString <> '' then
       TRowObject(TExtStringGrid(Sender).Objects[0,TExtStringGrid(Sender).Row]).ShouldStart:=FDataSet.FieldByName('DUEDATE').AsDateTime-FDataSet.FieldByName('PLANTIME').AsFloat
-    else if FDataSet.FieldByName('DUEDATE').AsString<>'' then
-      TRowObject(TExtStringGrid(Sender).Objects[0,TExtStringGrid(Sender).Row]).ShouldStart:=Now()-1;
+    else if (FDataSet.FieldByName('DUEDATE').AsString<>'')  then
+      TRowObject(TExtStringGrid(Sender).Objects[0,TExtStringGrid(Sender).Row]).ShouldStart:=FDataSet.FieldByName('DUEDATE').AsDateTime-1;
   except
     TExtStringGrid(Sender).Objects[0,TExtStringGrid(Sender).Row] := nil;
   end;
