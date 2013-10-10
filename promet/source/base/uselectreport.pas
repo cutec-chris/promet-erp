@@ -598,7 +598,7 @@ begin
                       aUser.Open;
                       if (aUser.Count=1) and (aUser.Id.AsVariant<>Data.Users.Id.AsVariant) then
                         if aUser.FieldByName('EMAIL').AsString<>'' then
-                          eMail:=eMail+','+aUser.FieldByName('EMAIL').AsString;
+                          eMail:=eMail+'; '+aUser.FieldByName('EMAIL').AsString;
                       next;
                     end;
                   eMail:=copy(eMail,2,length(eMail));

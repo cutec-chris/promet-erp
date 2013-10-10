@@ -20,7 +20,7 @@ Created 03.12.2011
 unit ugridview;
 {$mode objfpc}{$H+}
 
-{$define gridvisible}
+{.$define gridvisible}
 {.$define slowdebug}
 {.$define debug}
 
@@ -802,7 +802,7 @@ var
   aRect: Classes.TRect;
 begin
   aRect := gList.CellRect(gList.Col,gList.Row);
-  if gList.Col>1 then
+  if gList.Col>0 then
     if Assigned(FSearchKey) then
       FSearchKey(Self,aRect.Left,aRect.Bottom,dgFake.Columns[gList.Col-1],aKey,[],'');
 end;
@@ -1525,7 +1525,8 @@ begin
         TStringGrid(Sender).InvalidateCell(0,OldRow);
         if aRow < TStringGrid(Sender).RowCount then
           TStringGrid(Sender).InvalidateCell(0,aRow);
-        TStringGrid(Sender).RowHeights[OldRow] := GetRowHeight(OldRow);
+        if OldRow>-1 then
+          TStringGrid(Sender).RowHeights[OldRow] := GetRowHeight(OldRow);
         if Assigned(FDataSet) and (FDataSet.CanEdit) and (not FDataSet.DataSet.ControlsDisabled) then
           begin
             if FDataSet.Changed then
@@ -1534,7 +1535,7 @@ begin
                 if FDataSet.CanEdit then
                   FDataSet.DataSet.Post;
                 aBm := DataSet.GetBookmark;
-                if Assigned(gList.Objects[0,OldRow]) and (TRowObject(gList.Objects[0,OldRow]).Rec<>aBm) and (TRowObject(gList.Objects[0,OldRow]).Rec=0) then
+                if (OldRow>-1) and Assigned(gList.Objects[0,OldRow]) and (TRowObject(gList.Objects[0,OldRow]).Rec<>aBm) and (TRowObject(gList.Objects[0,OldRow]).Rec=0) then
                   TRowObject(gList.Objects[0,OldRow]).Rec:=aBm;
                 if WasInsert then
                   gListColRowMoved(gList,False,OldRow,OldRow);
@@ -1870,6 +1871,7 @@ var
   i: Integer;
 begin
   Result := gList.DefaultRowHeight;
+  if aRow<0 then exit;
   if UseDefaultRowHeight then exit;
   for i := 0 to dgFake.Columns.Count-1 do
     if Assigned(dgFake.Columns[i].Field) and (dgFake.Columns[i].Field.FieldName = TextField) then
@@ -2673,6 +2675,7 @@ var
   aTime: DWORD;
   aCol: Integer;
   aCnt: Integer;
+  aOldCol: Integer;
   procedure AddTasks(aLevel : Integer = 0);
   var
     aRow: Integer;
@@ -2755,7 +2758,9 @@ begin
   OldRow := gList.Row;
   {$ifndef slowdebug}
   gList.EndUpdate;
-//  Self.Visible:=True;
+  aOldCol := gList.Col;
+  gList.Col := gList.ColCount-1;
+  gList.Col := aOldCol;
   {$else}
   debugln('SyncDataSourceEnd='+IntToStr(GetTickCount-aTime));
   {$endif}
