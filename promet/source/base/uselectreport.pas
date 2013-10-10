@@ -614,6 +614,7 @@ begin
                   isPrepared := True;
                   Report.ExportTo(frFilters[i].ClassRef,GetTempDir+Report.Title+'.pdf');
                   DoSendMail(Report.Title,Data.Reports.FieldByName('TEXT').AsString,GetTempDir+Report.Title+'.pdf','','','',eMail);
+                  Res := True;
                 end;
         end
       else if cbPrinter.Text = '<'+strDefaultPrinter+'>' then
