@@ -131,7 +131,7 @@ implementation
 
 uses
   uIntfStrConsts,uError,uData,
-  uLogWait,uBaseDbInterface,uDocuments,uPerson,uSendMail,uEditText
+  uLogWait,uBaseDbInterface,uDocuments,uPerson,uSendMail,uEditText,umeeting
   ;
 
 resourcestring
@@ -149,6 +149,7 @@ resourcestring
   strPrint                      = 'Ausgabe';
   strPrintBook                  = 'Ausgabe+Buchen';
   strPostingFailed              = 'Fehler beim Buchen !';
+  strMeeting                    = 'Besprechung';
 procedure TfSelectReport.bCloseClick(Sender: TObject);
 begin
   Close;
@@ -453,6 +454,7 @@ var
   aDocument : TDocument;
   SH : IPostableDataSet;
   eMail: String;
+  aUser: TUser;
 begin
   Res := false;
   if not Assigned(fLogWaitForm) then
@@ -583,6 +585,26 @@ begin
           aName := 'Document';
           if (copy(fType,0,2) = 'OR') and (FDS is TOrder) then
             aName := TOrder(FDS).OrderType.FieldByName('STATUSNAME').AsString+' '+TOrder(FDS).FieldByName('NUMBER').AsString;
+          if FDS is TMeetings then
+            begin
+              Report.Title := strMeeting+' '+TMeetings(FDS).Text.AsString;
+              with TMeetings(FDS).Users do
+                begin
+                  First;
+                  aUser := TUser.Create(nil,Data);
+                  while not EOF do
+                    begin
+                      aUser.Select(FieldbyName('USER_ID').AsVariant);
+                      aUser.Open;
+                      if (aUser.Count=1) and (aUser.Id.AsVariant<>Data.Users.Id.AsVariant) then
+                        if aUser.FieldByName('EMAIL').AsString<>'' then
+                          eMail:=eMail+','+aUser.FieldByName('EMAIL').AsString;
+                      next;
+                    end;
+                  eMail:=copy(eMail,2,length(eMail));
+                  aUser.Free;
+                end;
+            end;
           if Report.Title='' then
             Report.Title:='PrometERP-'+aName;
           FOR i := 0 TO frFiltersCount - 1 DO

@@ -762,7 +762,7 @@ begin
       fSelectReport.ReportType := 'MEE';
     end;
   fSelectReport.DataSet := DataSet;
-  fSelectReport.Showmodal;
+  fSelectReport.Execute;
   if fSelectReport.Booked then
     begin
       if Assigned(FConnection) then

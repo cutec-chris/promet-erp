@@ -97,7 +97,7 @@
         <DefaultFilename Value="..\base\pvisualprometapp.lpk"/>
       </Item12>
     </RequiredPackages>
-    <Units Count="251">
+    <Units Count="252">
       <Unit0>
         <Filename Value="meeting.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -1132,11 +1132,11 @@
       <Unit135>
         <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="915"/>
         <CursorPos X="1" Y="934"/>
-        <UsageCount Value="36"/>
+        <UsageCount Value="37"/>
         <Loaded Value="True"/>
       </Unit135>
       <Unit136>
@@ -1198,7 +1198,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="89" Y="4"/>
-        <UsageCount Value="50"/>
+        <UsageCount Value="51"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit141>
@@ -1213,11 +1213,11 @@
       <Unit143>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2183"/>
         <CursorPos X="1" Y="2210"/>
-        <UsageCount Value="43"/>
+        <UsageCount Value="44"/>
         <Loaded Value="True"/>
       </Unit143>
       <Unit144>
@@ -1285,11 +1285,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMainTreeFrame"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="266"/>
         <CursorPos X="38" Y="293"/>
-        <UsageCount Value="53"/>
+        <UsageCount Value="54"/>
         <Loaded Value="True"/>
       </Unit151>
       <Unit152>
@@ -1390,7 +1390,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1043"/>
         <CursorPos X="1" Y="1062"/>
-        <UsageCount Value="24"/>
+        <UsageCount Value="25"/>
         <Loaded Value="True"/>
       </Unit162>
       <Unit163>
@@ -1420,7 +1420,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1867"/>
         <CursorPos X="1" Y="1886"/>
-        <UsageCount Value="27"/>
+        <UsageCount Value="28"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit165>
@@ -1539,10 +1539,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uSelectReport"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="846"/>
-        <CursorPos X="1" Y="856"/>
-        <UsageCount Value="17"/>
+        <TopLine Value="585"/>
+        <CursorPos X="59" Y="606"/>
+        <UsageCount Value="18"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit179>
       <Unit180>
         <Filename Value="..\..\..\..\lazarus\components\tachart\tagraph.pas"/>
@@ -1605,11 +1608,11 @@
       <Unit186>
         <Filename Value="..\components\zeos\src\component\ZAbstractRODataset.pas"/>
         <UnitName Value="ZAbstractRODataset"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1368"/>
         <CursorPos X="1" Y="1386"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit186>
@@ -1780,10 +1783,12 @@
       <Unit206>
         <Filename Value="..\base\dbintfs\umeeting.pas"/>
         <UnitName Value="umeeting"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="18"/>
-        <CursorPos X="15" Y="35"/>
+        <TopLine Value="99"/>
+        <CursorPos X="25" Y="107"/>
         <UsageCount Value="20"/>
+        <Loaded Value="True"/>
       </Unit206>
       <Unit207>
         <Filename Value="..\base\dbintfs\uperson.pas"/>
@@ -1940,9 +1945,9 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="355"/>
-        <CursorPos X="37" Y="370"/>
-        <UsageCount Value="22"/>
+        <TopLine Value="747"/>
+        <CursorPos X="24" Y="765"/>
+        <UsageCount Value="23"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit224>
@@ -2159,123 +2164,140 @@
         <CursorPos X="41" Y="885"/>
         <UsageCount Value="10"/>
       </Unit250>
+      <Unit251>
+        <Filename Value="C:\Programme\lazarus\lcl\include\customform.inc"/>
+        <EditorIndex Value="6"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2810"/>
+        <CursorPos X="52" Y="2828"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit251>
     </Units>
     <Build>
       <CleanOutputFileMask Value="*.ppu;*.ppl;*.o;*.or"/>
     </Build>
-    <JumpHistory Count="28" HistoryIndex="27">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="..\base\ugridview.pas"/>
-        <Caret Line="2787" Column="1" TopLine="2766"/>
+        <Caret Line="2797" Column="1" TopLine="2766"/>
       </Position1>
       <Position2>
         <Filename Value="..\base\ugridview.pas"/>
-        <Caret Line="2788" Column="1" TopLine="2766"/>
+        <Caret Line="2799" Column="1" TopLine="2768"/>
       </Position2>
       <Position3>
         <Filename Value="..\base\ugridview.pas"/>
-        <Caret Line="2789" Column="1" TopLine="2766"/>
+        <Caret Line="2800" Column="1" TopLine="2769"/>
       </Position3>
       <Position4>
         <Filename Value="..\base\ugridview.pas"/>
-        <Caret Line="2790" Column="1" TopLine="2766"/>
+        <Caret Line="2802" Column="1" TopLine="2771"/>
       </Position4>
       <Position5>
         <Filename Value="..\base\ugridview.pas"/>
-        <Caret Line="2792" Column="1" TopLine="2766"/>
+        <Caret Line="2804" Column="1" TopLine="2774"/>
       </Position5>
       <Position6>
         <Filename Value="..\base\ugridview.pas"/>
-        <Caret Line="2793" Column="1" TopLine="2766"/>
+        <Caret Line="2805" Column="1" TopLine="2775"/>
       </Position6>
       <Position7>
         <Filename Value="..\base\ugridview.pas"/>
-        <Caret Line="2794" Column="1" TopLine="2766"/>
+        <Caret Line="2807" Column="1" TopLine="2777"/>
       </Position7>
       <Position8>
         <Filename Value="..\base\ugridview.pas"/>
-        <Caret Line="2795" Column="1" TopLine="2766"/>
+        <Caret Line="2812" Column="1" TopLine="2782"/>
       </Position8>
       <Position9>
         <Filename Value="..\base\ugridview.pas"/>
-        <Caret Line="2796" Column="1" TopLine="2766"/>
+        <Caret Line="2813" Column="1" TopLine="2783"/>
       </Position9>
       <Position10>
         <Filename Value="..\base\ugridview.pas"/>
-        <Caret Line="2797" Column="1" TopLine="2766"/>
+        <Caret Line="2814" Column="1" TopLine="2784"/>
       </Position10>
       <Position11>
-        <Filename Value="..\base\ugridview.pas"/>
-        <Caret Line="2799" Column="1" TopLine="2768"/>
+        <Filename Value="..\base_pm\umeetingframe.pas"/>
+        <Caret Line="241" Column="1" TopLine="222"/>
       </Position11>
       <Position12>
-        <Filename Value="..\base\ugridview.pas"/>
-        <Caret Line="2800" Column="1" TopLine="2769"/>
+        <Filename Value="..\base_pm\umeetingframe.pas"/>
+        <Caret Line="242" Column="1" TopLine="222"/>
       </Position12>
       <Position13>
-        <Filename Value="..\base\ugridview.pas"/>
-        <Caret Line="2802" Column="1" TopLine="2771"/>
+        <Filename Value="..\base_pm\umeetingframe.pas"/>
+        <Caret Line="241" Column="1" TopLine="222"/>
       </Position13>
       <Position14>
         <Filename Value="..\base\ugridview.pas"/>
-        <Caret Line="2804" Column="1" TopLine="2774"/>
+        <Caret Line="2785" Column="1" TopLine="2778"/>
       </Position14>
       <Position15>
         <Filename Value="..\base\ugridview.pas"/>
-        <Caret Line="2805" Column="1" TopLine="2775"/>
+        <Caret Line="28" Column="38" TopLine="1"/>
       </Position15>
       <Position16>
         <Filename Value="..\base\ugridview.pas"/>
-        <Caret Line="2807" Column="1" TopLine="2777"/>
+        <Caret Line="3182" Column="15" TopLine="3175"/>
       </Position16>
       <Position17>
-        <Filename Value="..\base\ugridview.pas"/>
-        <Caret Line="2812" Column="1" TopLine="2782"/>
+        <Filename Value="..\base_pm\umeetingframe.pas"/>
+        <Caret Line="374" Column="1" TopLine="355"/>
       </Position17>
       <Position18>
         <Filename Value="..\base\ugridview.pas"/>
-        <Caret Line="2813" Column="1" TopLine="2783"/>
+        <Caret Line="1886" Column="1" TopLine="1867"/>
       </Position18>
       <Position19>
-        <Filename Value="..\base\ugridview.pas"/>
-        <Caret Line="2814" Column="1" TopLine="2784"/>
+        <Filename Value="..\base_pm\umeetingframe.pas"/>
+        <Caret Line="375" Column="21" TopLine="355"/>
       </Position19>
       <Position20>
         <Filename Value="..\base_pm\umeetingframe.pas"/>
-        <Caret Line="241" Column="1" TopLine="222"/>
+        <Caret Line="365" Column="48" TopLine="37"/>
       </Position20>
       <Position21>
         <Filename Value="..\base_pm\umeetingframe.pas"/>
-        <Caret Line="242" Column="1" TopLine="222"/>
+        <Caret Line="764" Column="11" TopLine="747"/>
       </Position21>
       <Position22>
-        <Filename Value="..\base_pm\umeetingframe.pas"/>
-        <Caret Line="241" Column="1" TopLine="222"/>
+        <Filename Value="..\base\uselectreport.pas"/>
+        <Caret Line="127" Column="3" TopLine="150"/>
       </Position22>
       <Position23>
-        <Filename Value="..\base\ugridview.pas"/>
-        <Caret Line="2785" Column="1" TopLine="2778"/>
+        <Filename Value="..\base\uselectreport.pas"/>
+        <Caret Line="134" Column="76" TopLine="116"/>
       </Position23>
       <Position24>
-        <Filename Value="..\base\ugridview.pas"/>
-        <Caret Line="28" Column="38" TopLine="1"/>
+        <Filename Value="..\base\uselectreport.pas"/>
+        <Caret Line="589" Column="38" TopLine="570"/>
       </Position24>
       <Position25>
-        <Filename Value="..\base\ugridview.pas"/>
-        <Caret Line="3182" Column="15" TopLine="3175"/>
+        <Filename Value="..\base\dbintfs\umeeting.pas"/>
+        <Caret Line="79" Column="29" TopLine="62"/>
       </Position25>
       <Position26>
-        <Filename Value="..\base_pm\umeetingframe.pas"/>
-        <Caret Line="374" Column="1" TopLine="355"/>
+        <Filename Value="..\base\uselectreport.pas"/>
+        <Caret Line="595" Column="29" TopLine="570"/>
       </Position26>
       <Position27>
-        <Filename Value="..\base\ugridview.pas"/>
-        <Caret Line="1886" Column="1" TopLine="1867"/>
+        <Filename Value="..\base\uselectreport.pas"/>
+        <Caret Line="603" Column="56" TopLine="577"/>
       </Position27>
       <Position28>
-        <Filename Value="..\base_pm\umeetingframe.pas"/>
-        <Caret Line="375" Column="21" TopLine="355"/>
+        <Filename Value="..\base\uselectreport.pas"/>
+        <Caret Line="152" Column="49" TopLine="138"/>
       </Position28>
+      <Position29>
+        <Filename Value="..\base\uselectreport.pas"/>
+        <Caret Line="606" Column="59" TopLine="585"/>
+      </Position29>
+      <Position30>
+        <Filename Value="C:\Programme\lazarus\lcl\include\customform.inc"/>
+        <Caret Line="2828" Column="52" TopLine="2810"/>
+      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
