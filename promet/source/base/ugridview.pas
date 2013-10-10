@@ -20,7 +20,7 @@ Created 03.12.2011
 unit ugridview;
 {$mode objfpc}{$H+}
 
-{.$define gridvisible}
+{$define gridvisible}
 {.$define slowdebug}
 {.$define debug}
 
@@ -1374,6 +1374,7 @@ begin
               if gList.RowCount = gList.FixedRows then
                 begin
                   gList.RowCount:=gList.FixedRows+1;
+                  gList.Objects[0,gList.FixedRows] := TRowObject.Create;
                 end;
             end
           else
@@ -2787,9 +2788,9 @@ procedure TfGridView.Append;
 var
   DoInsert: Boolean = True;
   DoSync : Boolean = False;
-  aBm: Int64;
+  aBm: Int64 = 0;
   i: Integer;
-  aTree: String;
+  aTree: String = '';
   asCol: Integer = -1;
   aLevel: Integer;
   aHasChilds: Char;
@@ -2800,24 +2801,26 @@ begin
   if FDataSet.State = dsInsert then
     FDataSet.Post;
   gList.EditorMode:=False;
-  if not GotoActiveRow then exit;
-  aBm := DataSet.GetBookmark;
-  if TRowObject(gList.Objects[0,gList.Row]).Rec = 0 then
-    TRowObject(gList.Objects[0,gList.Row]).Rec := aBM;
-  if aBm = TRowObject(gList.Objects[0,gList.Row]).Rec then
-    SyncActiveRow(aBm,false,true);
-  if TreeField <> '' then
-    aTree := DataSet.FieldByName(TreeField).AsString;
-  for i := 0 to dgFake.Columns.Count-1 do
-    if dgFake.Columns[i].FieldName = IdentField then
-      begin
-        asCol := i+1;
-        break;
-      end;
-  if asCol > -1 then
+  if GotoActiveRow then
     begin
-      aLevel := GetLevel(asCol,gList.Row);
-      aHasChilds := HasChilds(asCol,gList.Row);
+      aBm := DataSet.GetBookmark;
+      if TRowObject(gList.Objects[0,gList.Row]).Rec = 0 then
+        TRowObject(gList.Objects[0,gList.Row]).Rec := aBM;
+      if aBm = TRowObject(gList.Objects[0,gList.Row]).Rec then
+        SyncActiveRow(aBm,false,true);
+      if TreeField <> '' then
+        aTree := DataSet.FieldByName(TreeField).AsString;
+      for i := 0 to dgFake.Columns.Count-1 do
+        if dgFake.Columns[i].FieldName = IdentField then
+          begin
+            asCol := i+1;
+            break;
+          end;
+      if asCol > -1 then
+        begin
+          aLevel := GetLevel(asCol,gList.Row);
+          aHasChilds := HasChilds(asCol,gList.Row);
+        end;
     end;
   if Assigned(FBeforeInsert) then
     begin
@@ -2828,13 +2831,13 @@ begin
   try
     FDataSource.DataSet.Append;
     aBm :=0;
-    if (gList.RowCount = gList.FixedRows+1) and (TRowObject(gList.Objects[0,gList.FixedRows]).Rec = 0) then
+    if (gList.RowCount = gList.FixedRows+1) and Assigned(gList.Objects[0,gList.FixedRows]) and (TRowObject(gList.Objects[0,gList.FixedRows]).Rec = 0) then
       begin
         CleanList(0);
       end
     else
       for i := gList.FixedRows to gList.RowCount-1 do
-        if TRowObject(gList.Objects[0,i]).Rec = aBm then
+        if Assigned(gList.Objects[0,i]) and (TRowObject(gList.Objects[0,i]).Rec = aBm) then
           break;
     SyncActiveRow(aBm,DoInsert,DoSync);
     if Assigned(FAfterInsert) then
