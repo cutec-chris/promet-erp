@@ -20,7 +20,7 @@ unit uSendMail;
 {$mode delphi}{$H+}
 interface
 uses
-  Classes, SysUtils,UTF8Process,process
+  Classes, SysUtils,UTF8Process,process,Dialogs
   {$IFDEF WINDOWS}
   ,MAPI,windows,Forms
   {$ENDIF}
@@ -35,13 +35,17 @@ function DoSendMail(const Subject, Body, FileName, SenderName, SenderEMail,
                   RecepientName, RecepientEMail: String) : Integer;
 var
   message: TMapiMessage;
-  lpSender,
-  lpRecepient: TMapiRecipDesc;
+  lpSender : TMapiRecipDesc;
+  MailName : array[0..30] of string;
+  MailAddr : array[0..30] of string;
+  lpRecepient : array[0..30] of TMapiRecipDesc;
   FileAttach: TMapiFileDesc;
   SM: TFNMapiSendMail;
   MAPIModule: HModule;
+  tmpMail: String;
 begin
   FillChar(message, SizeOf(message), 0);
+  FillChar(lpRecepient, SizeOf(lpRecepient), 0);
   with message do
   begin
     if (Subject<>'') then
@@ -69,28 +73,32 @@ begin
       lpSender.lpEntryID := nil;
       lpOriginator := @lpSender;
     end;
-    if (RecepientEMail<>'') then
-    begin
-      lpRecepient.ulRecipClass := MAPI_TO;
-      if (RecepientName='') then
+    tmpMail := RecepientEMail;
+    if pos('@',tmpMail)>0 then
+      tmpMail:=tmpMail+',';
+    lpRecips := nil;
+    nRecipCount:=0;
+    while pos(',',tmpMail)>0 do
       begin
-        lpRecepient.lpszName := PChar(RecepientEMail)
-      end
-      else
-      begin
-        lpRecepient.lpszName := PChar(RecepientName)
+        lpRecepient[nRecipCount].ulRecipClass := MAPI_TO;
+        MailName[nRecipCount] := copy(tmpMail,0,pos(',',tmpMail)-1);
+        if (RecepientName='') then
+        begin
+          lpRecepient[nRecipCount].lpszName := PChar(MailName[nRecipCount])
+        end
+        else
+        begin
+          lpRecepient[nRecipCount].lpszName := PChar(RecepientName)
+        end;
+        MailAddr[nRecipCount] := 'SMTP:'+copy(tmpMail,0,pos(',',tmpMail)-1);
+        lpRecepient[nRecipCount].lpszAddress := PChar(MailAddr[nRecipCount]);
+        lpRecepient[nRecipCount].ulReserved := 0;
+        lpRecepient[nRecipCount].ulEIDSize := 0;
+        lpRecepient[nRecipCount].lpEntryID := nil;
+        nRecipCount := nRecipCount+1;
+        lpRecips := @lpRecepient;
+        tmpMail := copy(tmpMail,pos(',',tmpMail)+1,length(tmpMail));
       end;
-      lpRecepient.lpszAddress := PChar('SMTP:'+RecepientEMail);
-      lpRecepient.ulReserved := 0;
-      lpRecepient.ulEIDSize := 0;
-      lpRecepient.lpEntryID := nil;
-      nRecipCount := 1;
-      lpRecips := @lpRecepient;
-    end
-    else
-    begin
-      lpRecips := nil
-    end;
     if (FileName='') then
     begin
       nFileCount := 0;
@@ -113,17 +121,24 @@ begin
   else
   begin
     try
-      @SM := GetProcAddress(MAPIModule, 'MAPISendMail');
-      if @SM<>nil then
-      begin
-        Result := SM(0, Application.MainForm.Handle, message, MAPI_DIALOG or
-                     MAPI_LOGON_UI, 0);
-      end
-      else
-      begin
-        Result := 1
+      try
+        @SM := GetProcAddress(MAPIModule, 'MAPISendMail');
+        if @SM<>nil then
+        begin
+          Result := SM(0, Application.MainForm.Handle, message, MAPI_DIALOG or
+                       MAPI_LOGON_UI, 0);
+        end
+        else
+        begin
+          Result := 1
+        end;
+      except
+        on e : Exception do
+          begin
+            Result := 2;
+            Showmessage(e.Message);
+          end;
       end;
-
     finally
       FreeLibrary(MAPIModule);
     end;

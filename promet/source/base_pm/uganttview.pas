@@ -246,7 +246,7 @@ begin
     begin
       if bCalculate.Down then
         begin
-          debugln('IntervalChanged('+TInterval(Sender).Task+')');
+          //debugln('IntervalChanged('+TInterval(Sender).Task+')');
           TInterval(Sender).BeginUpdate;
           //Move Forward
           aDur := NetTime;

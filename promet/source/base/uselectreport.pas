@@ -299,8 +299,11 @@ begin
   tmp := tmp+'N'+';';
   tmp := tmp+cbInfo.Text+';';
   tmp := tmp+IntToStr(eCopies.Value)+';';
-  with Application as IBaseDBInterface do
-    DBConfig.WriteString('REPORTD:'+Data.Reports.Id.AsString,tmp);
+  try
+    with Application as IBaseDBInterface do
+      DBConfig.WriteString('REPORTD:'+Data.Reports.Id.AsString,tmp);
+  except
+  end;
 end;
 procedure TfSelectReport.ApplicationIBaseDBInterfaceTfrDesignerFormShow(
   Sender: TObject);
@@ -598,7 +601,7 @@ begin
                       aUser.Open;
                       if (aUser.Count=1) and (aUser.Id.AsVariant<>Data.Users.Id.AsVariant) then
                         if aUser.FieldByName('EMAIL').AsString<>'' then
-                          eMail:=eMail+'; '+aUser.FieldByName('EMAIL').AsString;
+                          eMail:=eMail+','+aUser.FieldByName('EMAIL').AsString;
                       next;
                     end;
                   eMail:=copy(eMail,2,length(eMail));
@@ -609,13 +612,15 @@ begin
             Report.Title:='PrometERP-'+aName;
           FOR i := 0 TO frFiltersCount - 1 DO
             if pos('PDF',Uppercase(frFilters[i].FilterDesc)) > 0 then
-              if Report.PrepareReport then
+              if isPrepared or Report.PrepareReport then
                 begin
                   isPrepared := True;
                   Report.ExportTo(frFilters[i].ClassRef,GetTempDir+Report.Title+'.pdf');
                   DoSendMail(Report.Title,Data.Reports.FieldByName('TEXT').AsString,GetTempDir+Report.Title+'.pdf','','','',eMail);
-                  Res := True;
-                end;
+                  isPrepared := True;
+                  Res:=True;
+                end
+              else fError.ShowWarning(strCantPrepareReport);
         end
       else if cbPrinter.Text = '<'+strDefaultPrinter+'>' then
         begin
