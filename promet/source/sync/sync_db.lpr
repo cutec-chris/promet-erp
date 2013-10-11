@@ -491,7 +491,7 @@ begin
                               else
                                 begin
                                   (BaseApplication as IBaseApplication).Error(strLoginFailed);
-                                  FAddLog := False;
+                                  FAddLog := True;
                                   with SyncDB.DataSet do
                                     begin
                                       Edit;
@@ -568,4 +568,4 @@ begin
   Application.Run;
   Application.Free;
 end.
-
+
