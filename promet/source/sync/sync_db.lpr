@@ -121,14 +121,14 @@ begin
                       aDest.FieldByName(aFieldName).AsVariant := aSource.FieldByName(aFieldName).AsVariant;
                       DoPost := True;
                     end;
-                  if SyncOut and DoPost then
-                    if aDest.FieldDefs.IndexOf('TIMESTAMPD') > -1 then
-                      if not aDest.FieldByName('TIMESTAMPD').IsNull then
-                        if aDest.FieldByName('TIMESTAMPD').AsDateTime < aFirstSyncedRow then
-                          aFirstSyncedRow:=aDest.FieldByName('TIMESTAMPD').AsDateTime;
                 end;
             end;
         end;
+      if SyncOut and DoPost then
+        if aDest.FieldDefs.IndexOf('TIMESTAMPD') > -1 then
+          if not aDest.FieldByName('TIMESTAMPD').IsNull then
+            if aDest.FieldByName('TIMESTAMPD').AsDateTime < aFirstSyncedRow then
+              aFirstSyncedRow:=aDest.FieldByName('TIMESTAMPD').AsDateTime;
       if aDest.FieldDefs.IndexOf('TIMESTAMPD') > -1 then
         if aDest.FieldByName('TIMESTAMPD').IsNull then
           aDest.FieldByName('TIMESTAMPD').AsDateTime:=Now();
