@@ -1,15 +1,15 @@
 inherited fHistoryFrame: TfHistoryFrame
   Left = 0
-  Height = 418
+  Height = 580
   Top = 0
   Width = 597
-  ClientHeight = 418
+  ClientHeight = 580
   ClientWidth = 597
   DesignLeft = 584
   DesignTop = 183
   object pCont: TPanel[0]
     Left = 44
-    Height = 418
+    Height = 580
     Top = 0
     Width = 553
     Align = alClient
@@ -18,12 +18,12 @@ inherited fHistoryFrame: TfHistoryFrame
   end
   object Panel1: TPanel[1]
     Left = 0
-    Height = 418
+    Height = 580
     Top = 0
     Width = 44
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 418
+    ClientHeight = 580
     ClientWidth = 44
     TabOrder = 1
     object Panel2: TPanel
@@ -235,12 +235,13 @@ inherited fHistoryFrame: TfHistoryFrame
     end
     object Panel4: TPanel
       Left = 0
-      Height = 360
+      Height = 460
       Top = 120
       Width = 44
       Align = alTop
+      Anchors = [akTop, akLeft, akRight, akBottom]
       BevelOuter = bvNone
-      ClientHeight = 360
+      ClientHeight = 460
       ClientWidth = 44
       TabOrder = 2
       object Bevel3: TBevel
@@ -255,7 +256,7 @@ inherited fHistoryFrame: TfHistoryFrame
       end
       object ExtRotatedLabel3: TExtRotatedLabel
         Left = 0
-        Height = 356
+        Height = 456
         Top = 4
         Width = 14
         Align = alLeft
@@ -269,10 +270,11 @@ inherited fHistoryFrame: TfHistoryFrame
         ParentFont = False
       end
       object pButtons: TPanel
-        Left = 16
-        Height = 292
-        Top = 28
+        Left = 15
+        Height = 428
+        Top = 32
         Width = 23
+        Anchors = [akTop, akLeft, akBottom]
         BevelOuter = bvNone
         TabOrder = 0
       end
