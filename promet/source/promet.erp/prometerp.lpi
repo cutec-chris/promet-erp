@@ -375,10 +375,14 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uHistoryFrame"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="119"/>
-        <CursorPos X="3" Y="128"/>
+        <TopLine Value="75"/>
+        <CursorPos X="63" Y="96"/>
         <UsageCount Value="80"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit9>
       <Unit10>
         <Filename Value="../base/uimageframe.pas"/>
@@ -475,7 +479,7 @@
       <Unit18>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="877"/>
         <CursorPos X="1" Y="898"/>
@@ -1068,7 +1072,6 @@
         <CursorPos X="17" Y="240"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit72>
       <Unit73>
         <Filename Value="../base_documents/udocumentframe.pas"/>
@@ -1305,7 +1308,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMeetingFrame"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="750"/>
         <CursorPos X="23" Y="766"/>
@@ -1951,13 +1954,10 @@
       <Unit174>
         <Filename Value="../base/dbintfs/umeeting.pas"/>
         <UnitName Value="umeeting"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="350"/>
-        <CursorPos X="36" Y="361"/>
+        <CursorPos X="127" Y="357"/>
         <UsageCount Value="53"/>
-        <Loaded Value="True"/>
       </Unit174>
       <Unit175>
         <Filename Value="../base/uselectreport.pas"/>
@@ -1969,7 +1969,6 @@
         <TopLine Value="676"/>
         <CursorPos X="5" Y="693"/>
         <UsageCount Value="32"/>
-        <LoadedDesigner Value="True"/>
       </Unit175>
       <Unit176>
         <Filename Value="../../../../lazarus/lcl/interfaces/gtk2/gtk2memostrings.inc"/>
@@ -3495,7 +3494,7 @@
         <UsageCount Value="10"/>
       </Unit359>
     </Units>
-    <JumpHistory Count="23" HistoryIndex="22">
+    <JumpHistory Count="18" HistoryIndex="17">
       <Position1>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <Caret Line="527" Column="1" TopLine="496"/>
@@ -3557,37 +3556,17 @@
         <Caret Line="898" Column="1" TopLine="877"/>
       </Position15>
       <Position16>
-        <Filename Value="../base/dbintfs/umeeting.pas"/>
-        <Caret Line="254" Column="1" TopLine="246"/>
-      </Position16>
-      <Position17>
-        <Filename Value="../base/dbintfs/umeeting.pas"/>
-        <Caret Line="255" Column="1" TopLine="246"/>
-      </Position17>
-      <Position18>
-        <Filename Value="../base/dbintfs/umeeting.pas"/>
-        <Caret Line="256" Column="1" TopLine="246"/>
-      </Position18>
-      <Position19>
-        <Filename Value="../base/dbintfs/umeeting.pas"/>
-        <Caret Line="258" Column="1" TopLine="246"/>
-      </Position19>
-      <Position20>
-        <Filename Value="../base/dbintfs/umeeting.pas"/>
-        <Caret Line="259" Column="1" TopLine="246"/>
-      </Position20>
-      <Position21>
-        <Filename Value="../base/dbintfs/umeeting.pas"/>
-        <Caret Line="368" Column="1" TopLine="350"/>
-      </Position21>
-      <Position22>
         <Filename Value="../base_pm/umeetingframe.pas"/>
         <Caret Line="176" Column="37" TopLine="169"/>
-      </Position22>
-      <Position23>
+      </Position16>
+      <Position17>
         <Filename Value="../base_pm/umeetingframe.pas"/>
         <Caret Line="766" Column="23" TopLine="750"/>
-      </Position23>
+      </Position17>
+      <Position18>
+        <Filename Value="../base/uhistoryframe.pas"/>
+        <Caret Line="253" Column="31" TopLine="230"/>
+      </Position18>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>

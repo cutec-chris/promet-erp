@@ -92,6 +92,8 @@ resourcestring
   strHistory10                             = 'Aufgabe hinzugefügt';
   strHistory11                             = 'Termin geändert';
   strHistory12                             = 'umbenannt';
+  strHistory13                             = 'aus Office geändert';
+  strHistory14                             = 'extern geändert';
 function TfHistoryFrame.FContListDrawColumnCell(Sender: TObject;
   const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState) : Boolean;
 begin
@@ -215,7 +217,7 @@ procedure TfHistoryFrame.RestoreButtons;
 var
   i: Integer;
   aButton: TSpeedButton;
-  DefaultButtons : set of TDefaultButtons = [1,2,3,4,5,6,7,8,9,11];
+  DefaultButtons : set of TDefaultButtons = [1,2,3,4,5,6,7,8,9,11,14];
   s: String;
 begin
   with Application as IBaseDbInterface do
@@ -251,6 +253,8 @@ begin
       10:aButton.Hint:=strHistory10;
       11:aButton.Hint:=strHistory11;
       12:aButton.Hint:=strHistory12;
+      13:aButton.Hint:=strHistory13;
+      14:aButton.Hint:=strHistory14;
       end;
     end;
 end;
