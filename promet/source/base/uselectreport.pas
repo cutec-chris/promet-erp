@@ -458,6 +458,7 @@ var
   SH : IPostableDataSet;
   eMail: String;
   aUser: TUser;
+  a: Integer;
 begin
   Res := false;
   if not Assigned(fLogWaitForm) then
@@ -617,8 +618,7 @@ begin
                   isPrepared := True;
                   Report.ExportTo(frFilters[i].ClassRef,GetTempDir+Report.Title+'.pdf');
                   DoSendMail(Report.Title,Data.Reports.FieldByName('TEXT').AsString,GetTempDir+Report.Title+'.pdf','','','',eMail);
-                  isPrepared := True;
-                  Res:=True;
+                  res := True;
                 end
               else fError.ShowWarning(strCantPrepareReport);
         end

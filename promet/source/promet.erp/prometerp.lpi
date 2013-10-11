@@ -476,7 +476,7 @@
       <Unit18>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="825"/>
         <CursorPos X="1" Y="849"/>
@@ -486,22 +486,18 @@
       <Unit19>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1272"/>
         <CursorPos X="1" Y="1293"/>
         <UsageCount Value="104"/>
-        <Loaded Value="True"/>
       </Unit19>
       <Unit20>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="996"/>
         <CursorPos X="1" Y="1019"/>
         <UsageCount Value="100"/>
-        <Loaded Value="True"/>
       </Unit20>
       <Unit21>
         <Filename Value="../base/dbintfs/uorder.pas"/>
@@ -514,12 +510,10 @@
       <Unit22>
         <Filename Value="../base/dbintfs/uperson.pas"/>
         <UnitName Value="uPerson"/>
-        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="447"/>
         <CursorPos X="1" Y="478"/>
         <UsageCount Value="21"/>
-        <Loaded Value="True"/>
       </Unit22>
       <Unit23>
         <Filename Value="ubankingdialog.pas"/>
@@ -1629,12 +1623,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uGanttView"/>
-        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="231"/>
         <CursorPos X="35" Y="257"/>
         <UsageCount Value="100"/>
-        <Loaded Value="True"/>
       </Unit136>
       <Unit137>
         <Filename Value="../../../../lazarus/lcl/include/mouse.inc"/>
@@ -1952,12 +1944,14 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uSelectReport"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="284"/>
-        <CursorPos X="1" Y="305"/>
+        <TopLine Value="605"/>
+        <CursorPos X="22" Y="621"/>
         <UsageCount Value="36"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit175>
       <Unit176>
         <Filename Value="../../../../lazarus/lcl/interfaces/gtk2/gtk2memostrings.inc"/>
@@ -3397,7 +3391,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="216"/>
         <CursorPos X="51" Y="234"/>
-        <UsageCount Value="65"/>
+        <UsageCount Value="66"/>
       </Unit348>
       <Unit349>
         <Filename Value="../../../../../lazarus/lcl/include/treeview.inc"/>
@@ -3485,11 +3479,10 @@
       <Unit360>
         <Filename Value="../base/usendmail.pas"/>
         <UnitName Value="uSendMail"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="75"/>
-        <CursorPos X="62" Y="87"/>
+        <TopLine Value="61"/>
+        <CursorPos X="11" Y="46"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit360>
@@ -3497,123 +3490,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="../base/usendmail.pas"/>
-        <Caret Line="109" Column="1" TopLine="82"/>
+        <Caret Line="121" Column="1" TopLine="91"/>
       </Position1>
       <Position2>
         <Filename Value="../base/usendmail.pas"/>
-        <Caret Line="110" Column="1" TopLine="82"/>
+        <Caret Line="122" Column="1" TopLine="92"/>
       </Position2>
       <Position3>
         <Filename Value="../base/usendmail.pas"/>
-        <Caret Line="113" Column="1" TopLine="83"/>
+        <Caret Line="123" Column="1" TopLine="93"/>
       </Position3>
       <Position4>
         <Filename Value="../base/usendmail.pas"/>
-        <Caret Line="114" Column="1" TopLine="84"/>
+        <Caret Line="100" Column="34" TopLine="71"/>
       </Position4>
       <Position5>
-        <Filename Value="../base/usendmail.pas"/>
-        <Caret Line="120" Column="1" TopLine="90"/>
+        <Filename Value="../base/uselectreport.pas"/>
+        <Caret Line="590" Column="17" TopLine="578"/>
       </Position5>
       <Position6>
         <Filename Value="../base/usendmail.pas"/>
-        <Caret Line="121" Column="1" TopLine="91"/>
+        <Caret Line="81" Column="1" TopLine="60"/>
       </Position6>
       <Position7>
         <Filename Value="../base/usendmail.pas"/>
-        <Caret Line="122" Column="1" TopLine="92"/>
+        <Caret Line="83" Column="82" TopLine="70"/>
       </Position7>
       <Position8>
         <Filename Value="../base/usendmail.pas"/>
-        <Caret Line="123" Column="1" TopLine="93"/>
+        <Caret Line="111" Column="1" TopLine="69"/>
       </Position8>
       <Position9>
         <Filename Value="../base/usendmail.pas"/>
-        <Caret Line="100" Column="34" TopLine="71"/>
+        <Caret Line="78" Column="1" TopLine="69"/>
       </Position9>
       <Position10>
-        <Filename Value="../base/uselectreport.pas"/>
-        <Caret Line="590" Column="17" TopLine="578"/>
+        <Filename Value="../base/usendmail.pas"/>
+        <Caret Line="80" Column="1" TopLine="69"/>
       </Position10>
       <Position11>
         <Filename Value="../base/usendmail.pas"/>
-        <Caret Line="81" Column="1" TopLine="60"/>
+        <Caret Line="81" Column="1" TopLine="69"/>
       </Position11>
       <Position12>
         <Filename Value="../base/usendmail.pas"/>
-        <Caret Line="83" Column="82" TopLine="70"/>
+        <Caret Line="83" Column="1" TopLine="69"/>
       </Position12>
       <Position13>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="257" Column="35" TopLine="231"/>
+        <Filename Value="../base/usendmail.pas"/>
+        <Caret Line="89" Column="1" TopLine="69"/>
       </Position13>
       <Position14>
         <Filename Value="../base/usendmail.pas"/>
-        <Caret Line="111" Column="1" TopLine="69"/>
+        <Caret Line="90" Column="1" TopLine="69"/>
       </Position14>
       <Position15>
         <Filename Value="../base/usendmail.pas"/>
-        <Caret Line="78" Column="1" TopLine="69"/>
+        <Caret Line="91" Column="1" TopLine="69"/>
       </Position15>
       <Position16>
         <Filename Value="../base/usendmail.pas"/>
-        <Caret Line="80" Column="1" TopLine="69"/>
+        <Caret Line="92" Column="1" TopLine="69"/>
       </Position16>
       <Position17>
         <Filename Value="../base/usendmail.pas"/>
-        <Caret Line="81" Column="1" TopLine="69"/>
+        <Caret Line="93" Column="1" TopLine="69"/>
       </Position17>
       <Position18>
         <Filename Value="../base/usendmail.pas"/>
-        <Caret Line="83" Column="1" TopLine="69"/>
+        <Caret Line="94" Column="1" TopLine="69"/>
       </Position18>
       <Position19>
         <Filename Value="../base/usendmail.pas"/>
-        <Caret Line="89" Column="1" TopLine="69"/>
+        <Caret Line="95" Column="1" TopLine="69"/>
       </Position19>
       <Position20>
         <Filename Value="../base/usendmail.pas"/>
-        <Caret Line="90" Column="1" TopLine="69"/>
+        <Caret Line="80" Column="1" TopLine="69"/>
       </Position20>
       <Position21>
         <Filename Value="../base/usendmail.pas"/>
-        <Caret Line="91" Column="1" TopLine="69"/>
+        <Caret Line="81" Column="1" TopLine="69"/>
       </Position21>
       <Position22>
         <Filename Value="../base/usendmail.pas"/>
-        <Caret Line="92" Column="1" TopLine="69"/>
+        <Caret Line="83" Column="1" TopLine="69"/>
       </Position22>
       <Position23>
         <Filename Value="../base/usendmail.pas"/>
-        <Caret Line="93" Column="1" TopLine="69"/>
+        <Caret Line="89" Column="1" TopLine="69"/>
       </Position23>
       <Position24>
         <Filename Value="../base/usendmail.pas"/>
-        <Caret Line="94" Column="1" TopLine="69"/>
+        <Caret Line="92" Column="85" TopLine="79"/>
       </Position24>
       <Position25>
         <Filename Value="../base/usendmail.pas"/>
-        <Caret Line="95" Column="1" TopLine="69"/>
+        <Caret Line="87" Column="62" TopLine="75"/>
       </Position25>
       <Position26>
-        <Filename Value="../base/usendmail.pas"/>
-        <Caret Line="80" Column="1" TopLine="69"/>
+        <Filename Value="../base/uselectreport.pas"/>
+        <Caret Line="593" Column="15" TopLine="581"/>
       </Position26>
       <Position27>
-        <Filename Value="../base/usendmail.pas"/>
-        <Caret Line="81" Column="1" TopLine="69"/>
+        <Filename Value="../base/uselectreport.pas"/>
+        <Caret Line="620" Column="25" TopLine="595"/>
       </Position27>
       <Position28>
         <Filename Value="../base/usendmail.pas"/>
-        <Caret Line="83" Column="1" TopLine="69"/>
+        <Caret Line="111" Column="39" TopLine="91"/>
       </Position28>
       <Position29>
         <Filename Value="../base/usendmail.pas"/>
-        <Caret Line="89" Column="1" TopLine="69"/>
+        <Caret Line="23" Column="57" TopLine="1"/>
       </Position29>
       <Position30>
         <Filename Value="../base/usendmail.pas"/>
-        <Caret Line="92" Column="85" TopLine="79"/>
+        <Caret Line="34" Column="21" TopLine="19"/>
       </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">
@@ -3658,15 +3651,6 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="1">
-      <Item1>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="../base/usendmail.pas"/>
-        <Line Value="116"/>
-      </Item1>
-    </BreakPoints>
     <Watches Count="1">
       <Item1>
         <Expression Value="aTableName"/>

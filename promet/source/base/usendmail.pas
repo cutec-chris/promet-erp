@@ -20,18 +20,18 @@ unit uSendMail;
 {$mode delphi}{$H+}
 interface
 uses
-  Classes, SysUtils,UTF8Process,process,Dialogs
+  Classes, SysUtils,UTF8Process,process,Dialogs,FileUtil
   {$IFDEF WINDOWS}
   ,MAPI,windows,Forms
   {$ENDIF}
   ;
 
-function DoSendMail(const Subject, Body, FileName, SenderName, SenderEMail,
+function DoSendMail(Subject, Body, FileName, SenderName, SenderEMail,
                   RecepientName, RecepientEMail: String) : Integer;
 
 implementation
 {$IFDEF WINDOWS}
-function DoSendMail(const Subject, Body, FileName, SenderName, SenderEMail,
+function DoSendMail(Subject, Body, FileName, SenderName, SenderEMail,
                   RecepientName, RecepientEMail: String) : Integer;
 var
   message: TMapiMessage;
@@ -50,6 +50,7 @@ begin
   begin
     if (Subject<>'') then
     begin
+      Subject:=UTF8ToSys(Subject);
       lpszSubject := PChar(Subject)
     end;
     if (Body<>'') then
@@ -108,6 +109,7 @@ begin
     begin
       FillChar(FileAttach, SizeOf(FileAttach), 0);
       FileAttach.nPosition := Cardinal($FFFFFFFF);
+      FileName := UTF8ToSys(FileName);
       FileAttach.lpszPathName := PChar(FileName);
       nFileCount := 1;
       lpFiles := @FileAttach;
@@ -148,7 +150,7 @@ begin
   end;
 end;
 {$ELSE}
-function DoSendMail(const Subject, Body, FileName, SenderName, SenderEMail,
+function DoSendMail(Subject, Body, FileName, SenderName, SenderEMail,
                   RecepientName, RecepientEMail: String) : Integer;
 var
   aProc: TProcessUTF8;
