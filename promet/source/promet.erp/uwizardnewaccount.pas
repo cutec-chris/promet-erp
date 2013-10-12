@@ -43,12 +43,13 @@ type
     bPrev3: TButton;
     bPrev1: TButton;
     bvleft: TBevel;
-    bvImage: TBevel;
     bvRight0: TBevel;
     bvRight1: TBevel;
     bvRight2: TBevel;
     cbAccount: TComboBox;
-    eAccountname: TEdit;
+    CheckBox1: TCheckBox;
+    cbExisting: TComboBox;
+    eUsername: TEdit;
     eAccountNo: TEdit;
     eCustomerID: TEdit;
     eWebAddress: TEdit;
@@ -65,6 +66,7 @@ type
     lAccount: TLabel;
     lDescription0: TLabel;
     lDescription1: TLabel;
+    Panel1: TPanel;
     pButtons0: TPanel;
     pButtons1: TPanel;
     pButtons2: TPanel;
@@ -74,15 +76,21 @@ type
     pLeft: TPanel;
     RadioButton1: TRadioButton;
     RadioButton2: TRadioButton;
-    RadioButton3: TRadioButton;
+    rbHBCI: TRadioButton;
     rbPINTAN: TRadioButton;
     rbImportManualAccounts1: TRadioButton;
     procedure bAbort0Click(Sender: TObject);
     procedure bNext0Click(Sender: TObject);
     procedure bPrev0Click(Sender: TObject);
+    procedure cbExistingSelect(Sender: TObject);
+    procedure CheckBox1Change(Sender: TObject);
+    procedure ProcLineWritten(Line: string);
   private
     { private declarations }
     Steps : array of Integer;
+    Dialog1,Dialog2 : string;
+    LastDialogTime : LongWord;
+    DontHide: Boolean;
   public
     { public declarations }
     procedure SetLanguage;
@@ -96,7 +104,7 @@ var
 
 implementation
 
-uses uData,uMain;
+uses uData,uMain,uLogWait,LCLIntf,uAccountingque;
 
 { TfWizardNewAccount }
 
@@ -133,6 +141,82 @@ begin
   if FindComponent('pCont'+IntToStr(Steps[length(Steps)-2])) <> nil then
     TPanel(FindComponent('pCont'+IntToStr(Steps[length(Steps)-2]))).Visible := True;
   Setlength(Steps,length(Steps)-1);
+end;
+
+procedure TfWizardNewAccount.cbExistingSelect(Sender: TObject);
+var
+  aAcc: TAccounts;
+begin
+  aAcc := TAccounts.Create(nil,Data);
+  aAcc.Open;
+  if aAcc.DataSet.Locate('NAME',cbExisting.Text,[]) then
+    begin
+      eAccountNo.Text:=aAcc.FieldByName('ACCOUNTNO').AsString;
+      eSortcode.Text:=aAcc.FieldByName('SORTCODE').AsString;
+    end;
+  aAcc.Free;
+end;
+
+procedure TfWizardNewAccount.CheckBox1Change(Sender: TObject);
+var
+  aAcc: TAccounts;
+begin
+  cbExisting.Enabled:=CheckBox1.Checked;
+  if cbExisting.Enabled then
+    begin
+      cbExisting.Clear;
+      aAcc := TAccounts.Create(nil,Data);
+      aAcc.Open;
+      with aAcc.DataSet do
+        begin
+          First;
+          while not EOF do
+            begin
+              cbExisting.Items.Add(FieldByName('NAME').AsString);
+              Next;
+            end;
+        end;
+      aAcc.Free;
+    end;
+end;
+
+procedure TfWizardNewAccount.ProcLineWritten(Line: string);
+var
+  Value : string;
+begin
+  if copy(Line,0,6) = '===== ' then
+    begin
+      Dialog1 := copy(Line,7,length(Line));
+      Dialog1 := copy(Dialog1,0,pos(' =====',Dialog1)-1);
+      fLogWaitForm.ShowInfo(Line);
+      LastDialogTime := GetTickCount;
+    end
+  else if (Dialog1 <> '') then
+    begin
+      Dialog2 := Dialog2+lineending+Line;
+      fLogWaitForm.ShowInfo(Line);
+      LastDialogTime := GetTickCount;
+    end
+  else if pos(':',copy(line,0,3)) = 2 then
+    begin
+      if pos('Creating crypttoken (DDV)',line) > 0 then
+        fLogWaitForm.ShowInfo(strWaitingforCard)
+      else if pos('Error performing queue',line) > 0 then
+        DontHide := True
+      else if pos('Input',line) > 0 then
+      else
+        begin
+          line := copy(line,pos(':',line)+1,length(line));
+          line := copy(line,pos(':',line)+1,length(line));
+          line := copy(line,pos(':',line)+1,length(line));
+          line := copy(line,pos(':',line)+1,length(line));
+          line := copy(line,pos(':',line)+1,length(line));
+          fLogWaitForm.ShowInfo(trim(Line))
+        end;
+    end
+  else if trim(line) <> '' then
+    fLogWaitForm.ShowInfo(Line);
+  //Output.Add(line);
 end;
 
 procedure TfWizardNewAccount.SetLanguage;
@@ -203,34 +287,56 @@ var
   atmp: String;
   btmp : string;
   CmdLn: String;
+  Proc: TExtendedProcess;
 begin
   //Do whatever to do in these Step and return the next step
   case Step of
   0:
     begin
-      if rbPINTAN.Checked then
+      if rbPINTAN.Checked
+      or rbHBCI.Checked
+      then
         begin
           Result := 1;
         end
-      {
-      else if rbImportFinTSToolsAccount.Checked then
-        begin
-          Result := 2;
-        end;
-      }
     end;
   1:
     begin
       Result := 3;
       try
-        CmdLn := 'aqhbci-tool4 adduser -t pintan -u ';
+        fLogWaitForm.Show;
+        if rbPINTAN.Checked then
+          CmdLn := 'aqhbci-tool4 adduser -t pintan --context=1 -u '+eAccountNo.Text+' -b '+eSortcode.Text+' --username="'+eUsername.Text+'"';
+        Proc := TExtendedProcess.Create(Cmdln);
+        Proc.OnLineWritten:=@ProcLineWritten;
+        if eCustomerID.Text<>'' then
+          CmdLn += ' -c '+eCustomerID.Text;
+        //--hbciversion=300
+        if eWebAddress.Text<>'' then
+          CmdLn += ' -s '+eWebAddress.Text;
+
         {$IFDEF MSWINDOWS}
         CmdLn := AppendPathDelim(AppendPathDelim(ExtractFilePath(Application.Exename))+'tools')+CmdLn;
         {$ENDIF}
-        tmp := ExecProcessEx(CmdLn,AppendPathDelim(ExtractFileDir(Application.Exename))+'tools');
+        Proc.Execute;
+        while Proc.Active do
+          begin
+            Application.ProcessMessages;
+            sleep(100);
+          end;
+        Proc.Free;
+        fLogWaitForm.Hide;
+        //tmp := ExecProcessEx(CmdLn,AppendPathDelim(ExtractFileDir(Application.Exename))+'tools');
       except
+        fLogWaitForm.Hide;
         tmp := '';
       end;
+      if pos(':',tmp)>0 then
+        begin
+          Showmessage(tmp) ;
+          Result := 1;
+          exit;
+        end;
       cbAccount.Items.Clear;
       try
         CmdLn := 'aqbanking-cli listaccs';
@@ -288,8 +394,10 @@ begin
       TPanel(FindComponent('pCont'+IntToStr(i))).Visible := False;
       inc(i);
     end;
+  SetLanguage;
   pCont0.Visible := True;
   //bNext3.Caption := strFinish;
+
 end;
 
 initialization

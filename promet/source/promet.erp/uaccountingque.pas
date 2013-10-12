@@ -82,9 +82,6 @@ type
   end;
 var
   fAccountingQue: TfAccountingQue;
-
-implementation
-uses uLogWait,uData,uError,uBankingDialog,SecureUtils,uBaseApplication;
 resourcestring
   strEnterPassword              = 'Geben Sie die Pin/Passwort an';
   strWaitingforCard             = 'Warte auf Chipkarte...';
@@ -97,6 +94,9 @@ resourcestring
   strJobsDone                   = 'Alles ausgeführt.';
   strImportComplete             = 'Import fertiggestellt';
   strTransfer                   = 'Überweisung';
+
+implementation
+uses uLogWait,uData,uError,uBankingDialog,SecureUtils,uBaseApplication;
 
 procedure TAccountingAQBankingCLICmdInterface.ImportCTXData(Accounts : TAccounts;iData: TStringList;
   Ballance: real);
