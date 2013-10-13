@@ -25,8 +25,8 @@ interface
 
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, Buttons, ComCtrls, uIntfStrConsts, ProcessUtils, FileUtil,uBaseERPDBClasses,
-  uAccounting;
+  StdCtrls, Buttons, ComCtrls, uIntfStrConsts, ProcessUtils, FileUtil,
+  DividerBevel, uBaseERPDBClasses, uAccounting;
 
 type
 
@@ -49,6 +49,8 @@ type
     cbAccount: TComboBox;
     CheckBox1: TCheckBox;
     cbExisting: TComboBox;
+    cbExistingUser: TComboBox;
+    DividerBevel1: TDividerBevel;
     eUsername: TEdit;
     eAccountNo: TEdit;
     eCustomerID: TEdit;
@@ -75,10 +77,11 @@ type
     pCont1: TPanel;
     pLeft: TPanel;
     RadioButton1: TRadioButton;
-    RadioButton2: TRadioButton;
+    rbMobileTan: TRadioButton;
+    rbExistingUser: TRadioButton;
     rbHBCI: TRadioButton;
-    rbPINTAN: TRadioButton;
     rbImportManualAccounts1: TRadioButton;
+    rbPINTAN: TRadioButton;
     procedure bAbort0Click(Sender: TObject);
     procedure bNext0Click(Sender: TObject);
     procedure bPrev0Click(Sender: TObject);
@@ -105,7 +108,8 @@ var
 implementation
 
 uses uData,uMain,uLogWait,LCLIntf,uAccountingque;
-
+resourcestring
+  strAQBankingisnotinstalled                     = 'aqBanking ist nicht installiert ! aqBanking muss installiert sein um Online Banking zu bretreiben';
 { TfWizardNewAccount }
 
 procedure TfWizardNewAccount.bAbort0Click(Sender: TObject);
@@ -380,6 +384,8 @@ end;
 procedure TfWizardNewAccount.InitWizard;
 var
   i : Integer;
+  CmdLn: String;
+  tmp: String;
 begin
   if not Assigned(Self) then
     begin
@@ -397,7 +403,19 @@ begin
   SetLanguage;
   pCont0.Visible := True;
   //bNext3.Caption := strFinish;
-
+  CmdLn := 'aqbanking-cli';
+  {$IFDEF MSWINDOWS}
+  CmdLn := AppendPathDelim(AppendPathDelim(ExtractFilePath(Application.Exename))+'tools')+CmdLn;
+  {$ENDIF}
+  tmp := ExecProcessEx(CmdLn,AppendPathDelim(ExtractFileDir(Application.Exename))+'tools');
+  if tmp = '' then
+    begin
+      rbExistingUser.Enabled:=False;
+      rbPINTAN.Enabled:=False;
+      rbMobileTan.Enabled:=False;
+      rbHBCI.Enabled:=False;
+      Showmessage(strAQBankingisnotinstalled);
+    end;
 end;
 
 initialization

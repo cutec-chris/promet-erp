@@ -182,89 +182,92 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="21">
+    <RequiredPackages Count="22">
       <Item1>
-        <PackageName Value="ptimes"/>
-        <DefaultFilename Value="../timeregistering/ptimes.lpk"/>
+        <PackageName Value="LazControls"/>
       </Item1>
       <Item2>
-        <PackageName Value="pDocManage"/>
-        <DefaultFilename Value="../base_docmanage/pdocmanage.lpk" Prefer="True"/>
+        <PackageName Value="ptimes"/>
+        <DefaultFilename Value="../timeregistering/ptimes.lpk"/>
       </Item2>
       <Item3>
-        <PackageName Value="tabeditor"/>
-        <DefaultFilename Value="../editform/tabeditor.lpk"/>
+        <PackageName Value="pDocManage"/>
+        <DefaultFilename Value="../base_docmanage/pdocmanage.lpk" Prefer="True"/>
       </Item3>
       <Item4>
-        <PackageName Value="statisticsaddon"/>
-        <DefaultFilename Value="../statistics/statisticsaddon.lpk"/>
+        <PackageName Value="tabeditor"/>
+        <DefaultFilename Value="../editform/tabeditor.lpk"/>
       </Item4>
       <Item5>
-        <PackageName Value="base_inet"/>
-        <DefaultFilename Value="../base_inet/base_inet.lpk" Prefer="True"/>
+        <PackageName Value="statisticsaddon"/>
+        <DefaultFilename Value="../statistics/statisticsaddon.lpk"/>
       </Item5>
       <Item6>
-        <PackageName Value="prepair"/>
-        <DefaultFilename Value="../base_repair/prepair.lpk"/>
+        <PackageName Value="base_inet"/>
+        <DefaultFilename Value="../base_inet/base_inet.lpk" Prefer="True"/>
       </Item6>
       <Item7>
-        <PackageName Value="pmessaging"/>
-        <DefaultFilename Value="../base_messaging/pmessaging.lpk"/>
+        <PackageName Value="prepair"/>
+        <DefaultFilename Value="../base_repair/prepair.lpk"/>
       </Item7>
       <Item8>
-        <PackageName Value="perp"/>
-        <DefaultFilename Value="../base_erp/perp.lpk"/>
+        <PackageName Value="pmessaging"/>
+        <DefaultFilename Value="../base_messaging/pmessaging.lpk"/>
       </Item8>
       <Item9>
-        <PackageName Value="pcalendar"/>
-        <DefaultFilename Value="../base_calendar/pcalendar.lpk" Prefer="True"/>
+        <PackageName Value="perp"/>
+        <DefaultFilename Value="../base_erp/perp.lpk"/>
       </Item9>
       <Item10>
-        <PackageName Value="projectmanagement"/>
-        <DefaultFilename Value="../projectmanagement/projectmanagement.lpk"/>
+        <PackageName Value="pcalendar"/>
+        <DefaultFilename Value="../base_calendar/pcalendar.lpk" Prefer="True"/>
       </Item10>
       <Item11>
-        <PackageName Value="ZVDateTimeCtrls"/>
+        <PackageName Value="projectmanagement"/>
+        <DefaultFilename Value="../projectmanagement/projectmanagement.lpk"/>
       </Item11>
       <Item12>
-        <PackageName Value="phelp"/>
-        <DefaultFilename Value="../base/phelp.lpk"/>
+        <PackageName Value="ZVDateTimeCtrls"/>
       </Item12>
       <Item13>
-        <PackageName Value="pPhones"/>
-        <DefaultFilename Value="../base_phone/pphones.lpk"/>
+        <PackageName Value="phelp"/>
+        <DefaultFilename Value="../base/phelp.lpk"/>
       </Item13>
       <Item14>
-        <PackageName Value="TurboPowerIPro"/>
-        <MinVersion Major="1" Valid="True"/>
+        <PackageName Value="pPhones"/>
+        <DefaultFilename Value="../base_phone/pphones.lpk"/>
       </Item14>
       <Item15>
-        <PackageName Value="lazreport"/>
-        <MinVersion Minor="9" Release="8" Valid="True"/>
+        <PackageName Value="TurboPowerIPro"/>
+        <MinVersion Major="1" Valid="True"/>
       </Item15>
       <Item16>
-        <PackageName Value="FCL"/>
-        <MinVersion Major="1" Release="1" Valid="True"/>
+        <PackageName Value="lazreport"/>
+        <MinVersion Minor="9" Release="8" Valid="True"/>
       </Item16>
       <Item17>
-        <PackageName Value="LCLBase"/>
+        <PackageName Value="FCL"/>
         <MinVersion Major="1" Release="1" Valid="True"/>
       </Item17>
       <Item18>
-        <PackageName Value="general"/>
-        <DefaultFilename Value="../../../general/general.lpk"/>
+        <PackageName Value="LCLBase"/>
+        <MinVersion Major="1" Release="1" Valid="True"/>
       </Item18>
       <Item19>
-        <PackageName Value="richmemopackage"/>
-        <DefaultFilename Value="../components/richmemo/richmemopackage.lpk"/>
+        <PackageName Value="general"/>
+        <DefaultFilename Value="../../../general/general.lpk"/>
       </Item19>
       <Item20>
-        <PackageName Value="pVisualPrometApp"/>
-        <DefaultFilename Value="../base/pvisualprometapp.lpk"/>
+        <PackageName Value="richmemopackage"/>
+        <DefaultFilename Value="../components/richmemo/richmemopackage.lpk"/>
       </Item20>
       <Item21>
-        <PackageName Value="LCL"/>
+        <PackageName Value="pVisualPrometApp"/>
+        <DefaultFilename Value="../base/pvisualprometapp.lpk"/>
       </Item21>
+      <Item22>
+        <PackageName Value="LCL"/>
+      </Item22>
     </RequiredPackages>
     <Units Count="363">
       <Unit0>
@@ -293,11 +296,10 @@
       <Unit2>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="671"/>
-        <CursorPos X="1" Y="680"/>
+        <CursorPos X="17" Y="683"/>
         <UsageCount Value="112"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -448,7 +450,7 @@
         <UnitName Value="uAccountingFrame"/>
         <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="245"/>
+        <TopLine Value="62"/>
         <CursorPos X="22" Y="62"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -2298,9 +2300,9 @@
       <Unit215>
         <Filename Value="../base/dbintfs/uaccounting.pas"/>
         <UnitName Value="uAccounting"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="145"/>
+        <TopLine Value="144"/>
         <CursorPos X="27" Y="165"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
@@ -3393,11 +3395,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uWizardnewaccount"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="71"/>
-        <CursorPos X="1" Y="94"/>
-        <UsageCount Value="71"/>
+        <TopLine Value="381"/>
+        <CursorPos X="28" Y="415"/>
+        <UsageCount Value="72"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit348>
@@ -3503,134 +3506,132 @@
       <Unit362>
         <Filename Value="../../../general/src/processutils.pas"/>
         <UnitName Value="ProcessUtils"/>
-        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="116"/>
-        <CursorPos X="32" Y="123"/>
+        <TopLine Value="21"/>
+        <CursorPos X="11" Y="38"/>
         <UsageCount Value="12"/>
-        <Loaded Value="True"/>
       </Unit362>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="uwizardnewaccount.pas"/>
-        <Caret Line="310" Column="1" TopLine="282"/>
+        <Filename Value="uaccountingque.pas"/>
+        <Caret Line="241" Column="36" TopLine="229"/>
       </Position1>
       <Position2>
         <Filename Value="uwizardnewaccount.pas"/>
-        <Caret Line="311" Column="1" TopLine="283"/>
+        <Caret Line="214" Column="1" TopLine="180"/>
       </Position2>
       <Position3>
-        <Filename Value="uwizardnewaccount.pas"/>
-        <Caret Line="312" Column="1" TopLine="284"/>
+        <Filename Value="uaccountingque.pas"/>
+        <Caret Line="439" Column="9" TopLine="425"/>
       </Position3>
       <Position4>
         <Filename Value="uwizardnewaccount.pas"/>
-        <Caret Line="314" Column="1" TopLine="286"/>
+        <Caret Line="93" Column="1" TopLine="81"/>
       </Position4>
       <Position5>
         <Filename Value="uwizardnewaccount.pas"/>
-        <Caret Line="315" Column="1" TopLine="287"/>
+        <Caret Line="106" Column="34" TopLine="86"/>
       </Position5>
       <Position6>
         <Filename Value="uwizardnewaccount.pas"/>
-        <Caret Line="292" Column="1" TopLine="286"/>
+        <Caret Line="330" Column="26" TopLine="299"/>
       </Position6>
       <Position7>
         <Filename Value="uwizardnewaccount.pas"/>
-        <Caret Line="320" Column="1" TopLine="303"/>
+        <Caret Line="202" Column="48" TopLine="179"/>
       </Position7>
       <Position8>
         <Filename Value="uwizardnewaccount.pas"/>
-        <Caret Line="118" Column="1" TopLine="100"/>
+        <Caret Line="106" Column="49" TopLine="84"/>
       </Position8>
       <Position9>
-        <Filename Value="uwizardnewaccount.pas"/>
-        <Caret Line="119" Column="1" TopLine="100"/>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <Caret Line="217" Column="45" TopLine="204"/>
       </Position9>
       <Position10>
-        <Filename Value="uwizardnewaccount.pas"/>
-        <Caret Line="120" Column="1" TopLine="100"/>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <Caret Line="680" Column="1" TopLine="671"/>
       </Position10>
       <Position11>
-        <Filename Value="uwizardnewaccount.pas"/>
-        <Caret Line="121" Column="1" TopLine="100"/>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <Caret Line="681" Column="1" TopLine="671"/>
       </Position11>
       <Position12>
         <Filename Value="uwizardnewaccount.pas"/>
-        <Caret Line="127" Column="1" TopLine="100"/>
+        <Caret Line="83" Column="72" TopLine="71"/>
       </Position12>
       <Position13>
         <Filename Value="uwizardnewaccount.pas"/>
-        <Caret Line="267" Column="1" TopLine="251"/>
+        <Caret Line="84" Column="72" TopLine="71"/>
       </Position13>
       <Position14>
         <Filename Value="uwizardnewaccount.pas"/>
-        <Caret Line="265" Column="1" TopLine="251"/>
+        <Caret Line="83" Column="72" TopLine="71"/>
       </Position14>
       <Position15>
         <Filename Value="uwizardnewaccount.pas"/>
-        <Caret Line="266" Column="1" TopLine="251"/>
+        <Caret Line="84" Column="72" TopLine="72"/>
       </Position15>
       <Position16>
         <Filename Value="uwizardnewaccount.pas"/>
-        <Caret Line="267" Column="1" TopLine="251"/>
+        <Caret Line="83" Column="72" TopLine="72"/>
       </Position16>
       <Position17>
         <Filename Value="uwizardnewaccount.pas"/>
-        <Caret Line="268" Column="1" TopLine="251"/>
+        <Caret Line="82" Column="72" TopLine="72"/>
       </Position17>
       <Position18>
         <Filename Value="uwizardnewaccount.pas"/>
-        <Caret Line="271" Column="1" TopLine="251"/>
+        <Caret Line="81" Column="72" TopLine="72"/>
       </Position18>
       <Position19>
         <Filename Value="uwizardnewaccount.pas"/>
-        <Caret Line="277" Column="1" TopLine="251"/>
+        <Caret Line="84" Column="72" TopLine="72"/>
       </Position19>
       <Position20>
-        <Filename Value="uaccountingframe.pas"/>
-        <Caret Line="62" Column="22" TopLine="36"/>
+        <Filename Value="uwizardnewaccount.pas"/>
+        <Caret Line="85" Column="72" TopLine="72"/>
       </Position20>
       <Position21>
         <Filename Value="uwizardnewaccount.pas"/>
-        <Caret Line="273" Column="46" TopLine="260"/>
+        <Caret Line="86" Column="72" TopLine="73"/>
       </Position21>
       <Position22>
-        <Filename Value="uaccountingque.pas"/>
-        <Caret Line="241" Column="36" TopLine="229"/>
+        <Filename Value="uwizardnewaccount.pas"/>
+        <Caret Line="85" Column="72" TopLine="73"/>
       </Position22>
       <Position23>
         <Filename Value="uwizardnewaccount.pas"/>
-        <Caret Line="214" Column="1" TopLine="180"/>
+        <Caret Line="84" Column="72" TopLine="73"/>
       </Position23>
       <Position24>
-        <Filename Value="uaccountingque.pas"/>
-        <Caret Line="439" Column="9" TopLine="425"/>
+        <Filename Value="uwizardnewaccount.pas"/>
+        <Caret Line="83" Column="72" TopLine="73"/>
       </Position24>
       <Position25>
         <Filename Value="uwizardnewaccount.pas"/>
-        <Caret Line="93" Column="1" TopLine="81"/>
+        <Caret Line="82" Column="72" TopLine="72"/>
       </Position25>
       <Position26>
         <Filename Value="uwizardnewaccount.pas"/>
-        <Caret Line="106" Column="34" TopLine="86"/>
+        <Caret Line="85" Column="72" TopLine="72"/>
       </Position26>
       <Position27>
         <Filename Value="uwizardnewaccount.pas"/>
-        <Caret Line="330" Column="26" TopLine="299"/>
+        <Caret Line="86" Column="72" TopLine="73"/>
       </Position27>
       <Position28>
         <Filename Value="uwizardnewaccount.pas"/>
-        <Caret Line="202" Column="48" TopLine="179"/>
+        <Caret Line="85" Column="72" TopLine="72"/>
       </Position28>
       <Position29>
         <Filename Value="uwizardnewaccount.pas"/>
-        <Caret Line="106" Column="49" TopLine="84"/>
+        <Caret Line="349" Column="25" TopLine="338"/>
       </Position29>
       <Position30>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="217" Column="45" TopLine="204"/>
+        <Filename Value="uwizardnewaccount.pas"/>
+        <Caret Line="403" Column="3" TopLine="370"/>
       </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">
@@ -3675,15 +3676,6 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="1">
-      <Item1>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="../base/ubasevisualapplication.pas"/>
-        <Line Value="680"/>
-      </Item1>
-    </BreakPoints>
     <Watches Count="1">
       <Item1>
         <Expression Value="aTableName"/>

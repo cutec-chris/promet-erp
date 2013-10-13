@@ -7476,6 +7476,10 @@ msgstr ""
 msgid "Bitte klicken Sie doppelt auf diesen Eintrag um ihn anzuzeigen"
 msgstr ""
 
+#: uwizardnewaccount.straqbankingisnotinstalled
+msgid "aqBanking ist nicht installiert ! aqBanking muss installiert sein um Online Banking zu bretreiben"
+msgstr ""
+
 #: uwizardnewaccount.strenterftsname
 msgid "geben Sie einen FinTS Konto Namen an !"
 msgstr ""
