@@ -142,10 +142,9 @@
       <Unit9>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1094"/>
+        <TopLine Value="1"/>
         <CursorPos X="1" Y="1125"/>
         <UsageCount Value="40"/>
         <Loaded Value="True"/>
@@ -511,10 +510,11 @@
         <Filename Value="uprometnntp.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uprometnntp"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="20"/>
+        <TopLine Value="54"/>
+        <CursorPos X="18" Y="65"/>
         <UsageCount Value="64"/>
         <Loaded Value="True"/>
       </Unit53>

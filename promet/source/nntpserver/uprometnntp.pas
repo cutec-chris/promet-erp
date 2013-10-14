@@ -61,6 +61,7 @@ begin
   Result := aMessage.EncodeMessage;
   Result.Header.CustomHeaders.Add('Lines: '+aMessage.DataSet.FieldByName('LINES').AsString);
   Result.Header.CustomHeaders.Add('Xref: localhost '+FGroupName+':'+VarToStr(FMessages.FieldByName('GRP_ID').AsVariant));
+  Result.Header.ReplyTo:='';
   Result.EncodeMessage;
   aMessage.Free;
 end;
