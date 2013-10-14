@@ -176,6 +176,8 @@ begin
     aMessage.Header.XMailer := Appname+' '+StringReplace(Format('Version %f Build %d',[AppVersion,AppRevision]),',','.',[rfReplaceAll]);
   aMessage.Header.From := DataSet.FieldByName('SENDER').AsString;
   aMessage.Header.Date := DataSet.FieldByName('SENDDATE').AsDateTime;
+  if not DataSet.FieldByName('REPLYTO').IsNull then
+    aMessage.Header.ReplyTo:=DataSet.FieldByName('REPLYTO').AsString;
   aMessage.Header.Subject := CharsetConversion(DataSet.FieldByName('SUBJECT').AsString,UTF_8,amessage.Header.CharsetCode);
   aMessage.Header.MessageID := DataSet.FieldByName('ID').AsString;
   MailAddressesFromString(Content.DataSet.FieldByName('RECEIVERS').AsString,aMessage.Header.ToList);
@@ -354,4 +356,4 @@ begin
 end;
 
 end.
-
+
