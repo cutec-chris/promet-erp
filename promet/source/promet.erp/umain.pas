@@ -815,6 +815,41 @@ begin
   {$endregion}
   debugln('Contacts: '+IntToStr(GetTickCount64-aTime));
   Synchronize(@ShowAll);
+  //Add Masterdata stuff
+  {$region}
+  if (Data.Users.Rights.Right('MASTERDATA') > RIGHT_NONE) then
+    begin
+      aDataSet := TMasterdata.Create(nil,Data,aConn);
+      TMasterdata(aDataSet).CreateTable;
+      aDataSet.Destroy;
+      fMain.pcPages.AddTabClass(TfFilter,strArticleList,@fMain.AddMasterdataList,Data.GetLinkIcon('MASTERDATA@'),True);
+      Data.RegisterLinkHandler('MASTERDATA',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
+      AddSearchAbleDataSet(TMasterdataList);
+      Synchronize(@NewMenu);
+      miNew.Action := fMain.acMasterdata;
+      NewNode;
+      Node.Height := 32;
+      TTreeEntry(Node.Data).Typ := etMasterdata;
+      NewNode1;
+      TTreeEntry(Node1.Data).Typ := etArticleList;
+      NewNode1;
+      TTreeEntry(Node1.Data).Typ := etAction;
+      TTreeEntry(Node1.Data).Action := fMain.acNewMasterdata;
+      Data.SetFilter(aTree,'(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('M')+'))',0,'','ASC',False,True,True);
+      aTree.DataSet.First;
+      while not aTree.dataSet.EOF do
+        begin
+          NewNode1;
+          TTreeEntry(Node1.Data).Rec := Data.GetBookmark(aTree);
+          TTreeEntry(Node1.Data).DataSource := aTree;
+          TTreeEntry(Node1.Data).Text[0] := aTree.FieldByName('NAME').AsString;
+          TTreeEntry(Node1.Data).Typ := etDir;
+          fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'',TTreeEntry.Create);
+          aTree.DataSet.Next;
+        end;
+    end;
+  {$endregion}
+  debugln('Masterdata: '+IntToStr(GetTickCount64-aTime));
 
 
   if Application.HasOption('startuptype') then
@@ -898,44 +933,6 @@ begin
         //Options
         Data.RegisterLinkHandler('OPTION',@OpenOption);
         {
-        fSplash.AddText(strAdding+' '+strMasterdata);;
-        fSplash.SetPercent(70);
-        //Add Masterdata stuff
-        {$region}
-        if (Data.Users.Rights.Right('MASTERDATA') > RIGHT_NONE) then
-          begin
-            aDataSet := TMasterdata.Create(Self,Data);
-            TMasterdata(aDataSet).CreateTable;
-            aDataSet.Destroy;
-            pcPages.AddTabClass(TfFilter,strArticleList,@AddMasterdataList,Data.GetLinkIcon('MASTERDATA@'),True);
-            Data.RegisterLinkHandler('MASTERDATA',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
-            AddSearchAbleDataSet(TMasterdataList);
-            miNew := TmenuItem.Create(miView);
-            miView.Add(miNew);
-            miNew.Action := acMasterdata;
-            Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
-            Node.Height := 32;
-            TTreeEntry(Node.Data).Typ := etMasterdata;
-            Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
-            TTreeEntry(Node1.Data).Typ := etArticleList;
-            Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
-            TTreeEntry(Node1.Data).Typ := etAction;
-            TTreeEntry(Node1.Data).Action := acNewMasterdata;
-            Data.SetFilter(aTree,'(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('M')+'))',0,'','ASC',False,True,True);
-            aTree.DataSet.First;
-            while not aTree.dataSet.EOF do
-              begin
-                Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
-                TTreeEntry(Node1.Data).Rec := Data.GetBookmark(aTree);
-                TTreeEntry(Node1.Data).DataSource := aTree;
-                TTreeEntry(Node1.Data).Text[0] := aTree.FieldByName('NAME').AsString;
-                TTreeEntry(Node1.Data).Typ := etDir;
-                fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'',TTreeEntry.Create);
-                aTree.DataSet.Next;
-              end;
-          end;
-        {$endregion}
-        debugln('Masterdata: '+IntToStr(GetTickCount64-aTime));
         fSplash.AddText(strAdding+' '+strProjects);;
         fSplash.SetPercent(80);
         //Projects
