@@ -210,91 +210,94 @@ var
     d: Integer;
   begin
     Result := 0;
-    try
-      if not assigned(aInterval) then exit;
-      for c := 0 to aInterval.ConnectionCount-1 do
-        if aInterval.Connection[c] = aConn then
-          begin
-            bInt := aInterval;
-            aTmp := (bInt.FinishDate+bInt.Buffer)-aConn.StartDate;
-            if (aTmp > Result) or (Result=0) then Result := aTmp;
-            if aTmp>0 then
-              begin
-                bInt.BeginUpdate;
-                bDur := bInt.Duration;
-                aDur := bInt.NetTime;
-                aDur := aDur/bInt.ResourceTimePerDay;
-                if aDur<1 then aDur:=1;
-                //Add Weekends
-                for d := trunc(bInt.StartDate) to trunc(bInt.StartDate+aDur) do
-                  if ((DayOfWeek(d)=1) or (DayOfWeek(d)=7)) then
-                    aDur := aDur+1;
-                bInt.FinishDate:=aConn.StartDate-bInt.Buffer;
-                if aDur<bDur then
-                  bInt.StartDate:=bInt.FinishDate-aDur
-                else
-                  bInt.StartDate:=bInt.FinishDate-bDur;
-                IsMoved := True;
-                bInt.EndUpdate;
-              end;
-          end;
-      for b := 0 to aInterval.IntervalCount-1 do
-        Result := DoMoveBack(aInterval.Interval[b],aConn,aTime);
-    except
-    end;
+    if not assigned(aInterval) then exit;
+    for c := 0 to aInterval.ConnectionCount-1 do
+      if aInterval.Connection[c] = aConn then
+        begin
+          bInt := aInterval;
+          aTmp := (bInt.FinishDate+bInt.Buffer)-aConn.StartDate;
+          if (aTmp > Result) or (Result=0) then Result := aTmp;
+          if aTmp>0 then
+            begin
+              bInt.BeginUpdate;
+              bDur := bInt.Duration;
+              aDur := bInt.NetTime;
+              aDur := aDur/bInt.ResourceTimePerDay;
+              if aDur<1 then aDur:=1;
+              //Add Weekends
+              for d := trunc(bInt.StartDate) to trunc(bInt.StartDate+aDur) do
+                if ((DayOfWeek(d)=1) or (DayOfWeek(d)=7)) then
+                  aDur := aDur+1;
+              bInt.FinishDate:=aConn.StartDate-bInt.Buffer;
+              if aDur<bDur then
+                bInt.StartDate:=bInt.FinishDate-aDur
+              else
+                bInt.StartDate:=bInt.FinishDate-bDur;
+              IsMoved := True;
+              bInt.EndUpdate;
+            end;
+        end;
+    for b := 0 to aInterval.IntervalCount-1 do
+      Result := DoMoveBack(aInterval.Interval[b],aConn,aTime);
   end;
-
 begin
   with TInterval(Sender) do
     begin
       if bCalculate.Down then
         begin
-          //debugln('IntervalChanged('+TInterval(Sender).Task+')');
-          TInterval(Sender).BeginUpdate;
-          //Move Forward
-          aDur := NetTime;
-          if TInterval(Sender).StartDate<TInterval(Sender).Earliest then
-            TInterval(Sender).StartDate:=TInterval(Sender).Earliest;
-          //Set Max Usage
-          aDur := aDur/ResourceTimePerDay;
-          if TInterval(Sender).FinishDate<(TInterval(Sender).StartDate+aDur) then
-            TInterval(Sender).FinishDate := (TInterval(Sender).StartDate+aDur);
-          //Add Weekends
-          for i := trunc(TInterval(Sender).StartDate) to Trunc(TInterval(Sender).StartDate+aDur) do
-            if ((DayOfWeek(i)=1) or (DayOfWeek(i)=7)) then
-              aDur := aDur+1;
-          if aDur<Duration then
-            aDur := Duration;
-          //TODO: Urlaub
-          if TInterval(Sender).FinishDate<(TInterval(Sender).StartDate+aDur) then
-            TInterval(Sender).FinishDate := (TInterval(Sender).StartDate+aDur);
-          IntervalDone:=TInterval(Sender).StartDate;
-          for i := 0 to ConnectionCount-1 do
+          if TInterval(Sender).MovedFwd then
             begin
-              Connection[i].BeginUpdate;
-              oD := Connection[i].Duration;
-              if Connection[i].StartDate<FinishDate+Buffer then
+              debugln('IntervalChanged('+TInterval(Sender).Task+')');
+              TInterval(Sender).BeginUpdate;
+              //Move Forward
+              aDur := NetTime;
+              if TInterval(Sender).StartDate<TInterval(Sender).Earliest then
+                TInterval(Sender).StartDate:=TInterval(Sender).Earliest;
+              //Set Max Usage
+              aDur := aDur/ResourceTimePerDay;
+              if TInterval(Sender).FinishDate<(TInterval(Sender).StartDate+aDur) then
+                TInterval(Sender).FinishDate := (TInterval(Sender).StartDate+aDur);
+              //Add Weekends
+              for i := trunc(TInterval(Sender).StartDate) to Trunc(TInterval(Sender).StartDate+aDur) do
+                if ((DayOfWeek(i)=1) or (DayOfWeek(i)=7)) then
+                  aDur := aDur+1;
+              if aDur<Duration then
+                aDur := Duration;
+              //TODO: Urlaub
+              if TInterval(Sender).FinishDate<(TInterval(Sender).StartDate+aDur) then
+                TInterval(Sender).FinishDate := (TInterval(Sender).StartDate+aDur);
+              IntervalDone:=TInterval(Sender).StartDate;
+              for i := 0 to ConnectionCount-1 do
                 begin
-                  for c := 0 to Connection[i].IntervalCount-1 do
-                    if Connection[i].Interval[c].StartDate<FinishDate+Buffer then
-                      begin
-                        oD2 := Connection[i].Interval[c].Duration;
-                        Connection[i].Interval[c].BeginUpdate;
-                        Connection[i].Interval[c].StartDate:=FinishDate+Buffer;
-                        Connection[i].Interval[c].FinishDate:=FinishDate+Buffer+oD2;
-                        Connection[i].Interval[c].EndUpdate;
-                      end;
-                  Connection[i].StartDate:=FinishDate+Buffer;
+                  Connection[i].BeginUpdate;
+                  oD := Connection[i].Duration;
+                  if Connection[i].StartDate<FinishDate+Buffer then
+                    begin
+                      for c := 0 to Connection[i].IntervalCount-1 do
+                        if Connection[i].Interval[c].StartDate<FinishDate+Buffer then
+                          begin
+                            oD2 := Connection[i].Interval[c].Duration;
+                            Connection[i].Interval[c].BeginUpdate;
+                            Connection[i].Interval[c].StartDate:=FinishDate+Buffer;
+                            Connection[i].Interval[c].FinishDate:=FinishDate+Buffer+oD2;
+                            Connection[i].Interval[c].EndUpdate;
+                          end;
+                      Connection[i].StartDate:=FinishDate+Buffer;
+                    end;
+                  if Connection[i].FinishDate<Connection[i].StartDate+oD then
+                    Connection[i].FinishDate:=Connection[i].StartDate+oD;
+                  Connection[i].IntervalDone:=Connection[i].StartDate;
+                  Connection[i].EndUpdate;
                 end;
-              if Connection[i].FinishDate<Connection[i].StartDate+oD then
-                Connection[i].FinishDate:=Connection[i].StartDate+oD;
-              Connection[i].IntervalDone:=Connection[i].StartDate;
-              Connection[i].EndUpdate;
             end;
-          //Move back
-          for i := 0 to TInterval(Sender).Gantt.IntervalCount-1 do
-            DoMoveBack(TInterval(Sender).Gantt.Interval[i],TInterval(Sender),TInterval(Sender).FinishDate);
-          TInterval(Sender).Endupdate;
+          if TInterval(Sender).MovedBack then
+            begin
+              //Move back
+              for i := 0 to TInterval(Sender).Gantt.IntervalCount-1 do
+                DoMoveBack(TInterval(Sender).Gantt.Interval[i],TInterval(Sender),TInterval(Sender).FinishDate);
+            end;
+          TInterval(Sender).ResetMovement;
+          TInterval(Sender).Endupdate(True);
           RecalcTimer.Enabled := True;
         end;
       for i := 0 to FRessources.Count-1 do

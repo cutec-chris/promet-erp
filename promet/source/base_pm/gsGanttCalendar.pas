@@ -92,6 +92,8 @@ type
     Fid: Variant;
     FInCriticalPath: Boolean;
     FIntervalStyle: TIntervalStyle;
+    FMovedBack: Boolean;
+    FMovedFwd: Boolean;
     FNetTime: TDateTime;
     FOnChanged: TNotifyEvent;
     FOnOpen: TNotifyEvent;
@@ -239,10 +241,13 @@ type
     property InCriticalPath : Boolean read FInCriticalPath write FInCriticalPath;
     property Id : Variant read Fid write SetId;
     property Changed : Boolean read FChanged write FChanged;
+    property MovedBack : Boolean read FMovedBack;
+    property MovedFwd : Boolean read FMovedFwd;
+    procedure ResetMovement;
     property DontChange : Boolean read FDontChange write FDontChange;
     procedure Change;
     procedure BeginUpdate;
-    procedure EndUpdate;
+    procedure EndUpdate(aDontchange : Boolean = False);
     property Pointer : Pointer read FPointer write FPointer;
     property Pointer2 : Pointer read FPointer2 write FPointer2;
     property Resource : string read FRes write FRes;
@@ -1220,6 +1225,7 @@ begin
   FIntervals := TList.Create;
   FConnections := Tlist.Create;
   FCanUpdate := True;
+  ResetMovement;
 end;
 
 destructor TInterval.Destroy;
@@ -1399,6 +1405,12 @@ begin
     Connection[I].PrepareToUpdate;
 end;
 
+procedure TInterval.ResetMovement;
+begin
+  FMovedBack:=False;
+  FMovedFwd :=False;
+end;
+
 {
   **************************
   ***   Protected Part   ***
@@ -1491,6 +1503,10 @@ end;
 procedure TInterval.SetStartDate(const Value: TDateTime);
 begin
   if FStartDate=Value then exit;
+  if FStartDate<Value then
+    FMovedFwd:=True;
+  if FStartDate>Value then
+    FMovedBack:=True;
   FStartDate := Value;
   if FIntervalDone < FStartDate then
     FIntervalDone := FStartDate;
@@ -1805,13 +1821,14 @@ begin
   inc(FUpdating);
 end;
 
-procedure TInterval.EndUpdate;
+procedure TInterval.EndUpdate(aDontchange: Boolean);
 begin
   dec(FUpdating);
   if FUpdating>0 then exit;
   if FUpdateCount>0 then
     begin
-      Change;
+      if not aDontchange then
+        Change;
       FUpdateCount:=0;
     end;
 end;
