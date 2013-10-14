@@ -610,8 +610,8 @@ end;
 
 procedure TStarterThread.ShowAll;
 begin
-  fMain.Invalidate;
-  //Application.ProcessMessages;
+  //fMain.Invalidate;
+  fMainTreeFrame.tvMain.Invalidate;
 end;
 
 procedure TStarterThread.AddStatistics;
@@ -692,7 +692,7 @@ begin
       aTree.DataSet.Next;
     end;
   {$endregion}
-  debugln('Favourites: '+IntToStr(GetTickCount64-aTime));
+  //debugln('Favourites: '+IntToStr(GetTickCount64-aTime));
   Synchronize(@ShowAll);
   aDocuments := TDocument.Create(nil,Data,aConn);
   aDocuments.CreateTable;
@@ -738,7 +738,7 @@ begin
       fMain.RefreshMessages;
     end;
   {$endregion}
-  debugln('Messages: '+IntToStr(GetTickCount64-aTime));
+  //debugln('Messages: '+IntToStr(GetTickCount64-aTime));
   Synchronize(@ShowAll);
   //Add PIM Entrys
   {$ifndef heaptrc}
@@ -758,7 +758,7 @@ begin
       TTreeEntry(Node1.Data).Action := fMain.acAttPlan;
       fMain.RefreshCalendar;
     end;
-  debugln('PIM: '+IntToStr(GetTickCount64-aTime));
+  //debugln('PIM: '+IntToStr(GetTickCount64-aTime));
   Synchronize(@ShowAll);
   //Orders,Production,...
   {$region}
@@ -824,7 +824,7 @@ begin
         fMain.acNewOrder.Enabled:=False;
      end;
   {$endregion}
-  debugln('Orders: '+IntToStr(GetTickCount64-aTime));
+  //debugln('Orders: '+IntToStr(GetTickCount64-aTime));
   Synchronize(@ShowAll);
   //Add Contacts
   {$region}
@@ -863,7 +863,7 @@ begin
         end;
     end;
   {$endregion}
-  debugln('Contacts: '+IntToStr(GetTickCount64-aTime));
+  //debugln('Contacts: '+IntToStr(GetTickCount64-aTime));
   Synchronize(@ShowAll);
   //Add Masterdata stuff
   {$region}
@@ -899,7 +899,7 @@ begin
         end;
     end;
   {$endregion}
-  debugln('Masterdata: '+IntToStr(GetTickCount64-aTime));
+  //debugln('Masterdata: '+IntToStr(GetTickCount64-aTime));
   Synchronize(@ShowAll);
   //Projects
   uProjectFrame.AddToMainTree(fMain.acNewProject);
@@ -907,7 +907,7 @@ begin
     begin
       fMain.pcPages.AddTabClass(TfFilter,strProjectList,@fMain.AddProjectList,Data.GetLinkIcon('PROJECTS@'),True);
     end;
-  debugln('Projects: '+IntToStr(GetTickCount64-aTime));
+  //debugln('Projects: '+IntToStr(GetTickCount64-aTime));
   Synchronize(@ShowAll);
   //Wiki
   {$region}
@@ -933,7 +933,7 @@ begin
         end;
     end;
   {$endregion}
-  debugln('Wiki: '+IntToStr(GetTickCount64-aTime));
+  //debugln('Wiki: '+IntToStr(GetTickCount64-aTime));
   Synchronize(@ShowAll);
   {$region}
   try
@@ -947,7 +947,7 @@ begin
   except
   end;
   {$endregion}
-  debugln('Documents: '+IntToStr(GetTickCount64-aTime));
+  //debugln('Documents: '+IntToStr(GetTickCount64-aTime));
   Synchronize(@ShowAll);
   {$region}
   if (Data.Users.Rights.Right('LISTS') > RIGHT_NONE) then
@@ -960,7 +960,7 @@ begin
       TTreeEntry(Node.Data).Typ := etLists;
     end;
   {$endregion}
-  debugln('Lists: '+IntToStr(GetTickCount64-aTime));
+  //debugln('Lists: '+IntToStr(GetTickCount64-aTime));
   Synchronize(@ShowAll);
   {$region}
   if (Data.Users.Rights.Right('MEETINGS') > RIGHT_NONE) then
@@ -974,7 +974,7 @@ begin
       aDS.Free;
     end;
   {$endregion}
-  debugln('Doc/Lists: '+IntToStr(GetTickCount64-aTime));
+  //debugln('Doc/Lists: '+IntToStr(GetTickCount64-aTime));
   Synchronize(@ShowAll);
   {$region}
   if (Data.Users.Rights.Right('INVENTORY') > RIGHT_NONE) then
@@ -1031,7 +1031,7 @@ begin
         end;
     end;
   {$endregion}
-  debugln('Inventory/Financial: '+IntToStr(GetTickCount64-aTime));
+  //debugln('Inventory/Financial: '+IntToStr(GetTickCount64-aTime));
   //Add Statistics
   {$ifndef heaptrc}
   Synchronize(@AddStatistics);
@@ -1107,7 +1107,7 @@ begin
           Caption := MandantName+' - Promet-ERP';
         if Assigned(TBaseVisualApplication(Application).MessageHandler) then
           TBaseVisualApplication(Application).MessageHandler.RegisterCommandHandler(@CommandReceived);
-        debugln('BaseLogin: '+IntToStr(GetTickCount64-aTime));
+        //debugln('BaseLogin: '+IntToStr(GetTickCount64-aTime));
         aWiki := TWikiList.Create(nil,Data);
         aWiki.CreateTable;
         aWiki.Free;
@@ -1119,7 +1119,7 @@ begin
         except
         end;
         WikiFrame.SetRights(Data.Users.Rights.Right('WIKI')>RIGHT_READ);
-        debugln('Wiki: '+IntToStr(GetTickCount64-aTime));
+        //debugln('Wiki: '+IntToStr(GetTickCount64-aTime));
         //Add Search Node
         {$region}
         Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
@@ -1142,7 +1142,7 @@ begin
             acShowTree.Checked:=False;
           end;
       end;
-    debugln('LoginTime: '+IntToStr(GetTickCount64-aTime));
+    //debugln('LoginTime: '+IntToStr(GetTickCount64-aTime));
   finally
     fSplash.Hide;
     fMain.Visible:=True;

@@ -290,8 +290,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1116"/>
-        <CursorPos X="1" Y="1135"/>
+        <TopLine Value="1117"/>
+        <CursorPos X="7" Y="1145"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -3417,7 +3417,7 @@
         <Filename Value="../../../../../lazarus/lcl/include/treeview.inc"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="2256"/>
+        <TopLine Value="2255"/>
         <CursorPos X="3" Y="2250"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
@@ -3543,123 +3543,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="umain.pas"/>
-        <Caret Line="864" Column="13" TopLine="852"/>
+        <Caret Line="996" Column="11" TopLine="977"/>
       </Position1>
       <Position2>
         <Filename Value="umain.pas"/>
-        <Caret Line="857" Column="64" TopLine="840"/>
+        <Caret Line="979" Column="66" TopLine="962"/>
       </Position2>
       <Position3>
         <Filename Value="umain.pas"/>
-        <Caret Line="1010" Column="1" TopLine="938"/>
+        <Caret Line="982" Column="50" TopLine="965"/>
       </Position3>
       <Position4>
         <Filename Value="umain.pas"/>
-        <Caret Line="915" Column="7" TopLine="900"/>
+        <Caret Line="994" Column="20" TopLine="977"/>
       </Position4>
       <Position5>
         <Filename Value="umain.pas"/>
-        <Caret Line="917" Column="34" TopLine="896"/>
+        <Caret Line="1000" Column="52" TopLine="983"/>
       </Position5>
       <Position6>
         <Filename Value="umain.pas"/>
-        <Caret Line="915" Column="64" TopLine="898"/>
+        <Caret Line="1006" Column="17" TopLine="984"/>
       </Position6>
       <Position7>
         <Filename Value="umain.pas"/>
-        <Caret Line="918" Column="7" TopLine="900"/>
+        <Caret Line="995" Column="28" TopLine="979"/>
       </Position7>
       <Position8>
         <Filename Value="umain.pas"/>
-        <Caret Line="927" Column="52" TopLine="910"/>
+        <Caret Line="280" Column="29" TopLine="264"/>
       </Position8>
       <Position9>
         <Filename Value="umain.pas"/>
-        <Caret Line="277" Column="24" TopLine="263"/>
+        <Caret Line="281" Column="26" TopLine="265"/>
       </Position9>
       <Position10>
         <Filename Value="umain.pas"/>
-        <Caret Line="600" Column="1" TopLine="597"/>
+        <Caret Line="282" Column="27" TopLine="264"/>
       </Position10>
       <Position11>
         <Filename Value="umain.pas"/>
-        <Caret Line="272" Column="27" TopLine="260"/>
+        <Caret Line="672" Column="1" TopLine="666"/>
       </Position11>
       <Position12>
         <Filename Value="umain.pas"/>
-        <Caret Line="959" Column="54" TopLine="941"/>
+        <Caret Line="673" Column="1" TopLine="666"/>
       </Position12>
       <Position13>
         <Filename Value="umain.pas"/>
-        <Caret Line="996" Column="11" TopLine="977"/>
+        <Caret Line="674" Column="1" TopLine="666"/>
       </Position13>
       <Position14>
         <Filename Value="umain.pas"/>
-        <Caret Line="979" Column="66" TopLine="962"/>
+        <Caret Line="675" Column="1" TopLine="666"/>
       </Position14>
       <Position15>
         <Filename Value="umain.pas"/>
-        <Caret Line="982" Column="50" TopLine="965"/>
+        <Caret Line="677" Column="1" TopLine="666"/>
       </Position15>
       <Position16>
         <Filename Value="umain.pas"/>
-        <Caret Line="994" Column="20" TopLine="977"/>
+        <Caret Line="696" Column="25" TopLine="666"/>
       </Position16>
       <Position17>
         <Filename Value="umain.pas"/>
-        <Caret Line="1000" Column="52" TopLine="983"/>
+        <Caret Line="671" Column="1" TopLine="663"/>
       </Position17>
       <Position18>
-        <Filename Value="umain.pas"/>
-        <Caret Line="1006" Column="17" TopLine="984"/>
+        <Filename Value="../../../../../lazarus/lcl/include/treeview.inc"/>
+        <Caret Line="2250" Column="3" TopLine="2255"/>
       </Position18>
       <Position19>
         <Filename Value="umain.pas"/>
-        <Caret Line="995" Column="28" TopLine="979"/>
+        <Caret Line="765" Column="17" TopLine="763"/>
       </Position19>
       <Position20>
         <Filename Value="umain.pas"/>
-        <Caret Line="280" Column="29" TopLine="264"/>
+        <Caret Line="827" Column="10" TopLine="799"/>
       </Position20>
       <Position21>
         <Filename Value="umain.pas"/>
-        <Caret Line="281" Column="26" TopLine="265"/>
+        <Caret Line="866" Column="10" TopLine="838"/>
       </Position21>
       <Position22>
         <Filename Value="umain.pas"/>
-        <Caret Line="282" Column="27" TopLine="264"/>
+        <Caret Line="902" Column="10" TopLine="874"/>
       </Position22>
       <Position23>
         <Filename Value="umain.pas"/>
-        <Caret Line="613" Column="20" TopLine="668"/>
+        <Caret Line="910" Column="10" TopLine="882"/>
       </Position23>
       <Position24>
         <Filename Value="umain.pas"/>
-        <Caret Line="672" Column="1" TopLine="666"/>
+        <Caret Line="936" Column="10" TopLine="908"/>
       </Position24>
       <Position25>
         <Filename Value="umain.pas"/>
-        <Caret Line="673" Column="1" TopLine="666"/>
+        <Caret Line="950" Column="10" TopLine="922"/>
       </Position25>
       <Position26>
         <Filename Value="umain.pas"/>
-        <Caret Line="674" Column="1" TopLine="666"/>
+        <Caret Line="963" Column="10" TopLine="935"/>
       </Position26>
       <Position27>
         <Filename Value="umain.pas"/>
-        <Caret Line="675" Column="1" TopLine="666"/>
+        <Caret Line="977" Column="10" TopLine="949"/>
       </Position27>
       <Position28>
         <Filename Value="umain.pas"/>
-        <Caret Line="677" Column="1" TopLine="666"/>
+        <Caret Line="1034" Column="10" TopLine="1006"/>
       </Position28>
       <Position29>
         <Filename Value="umain.pas"/>
-        <Caret Line="696" Column="25" TopLine="666"/>
+        <Caret Line="1110" Column="16" TopLine="1082"/>
       </Position29>
       <Position30>
         <Filename Value="umain.pas"/>
-        <Caret Line="671" Column="1" TopLine="663"/>
+        <Caret Line="1122" Column="16" TopLine="1094"/>
       </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">
