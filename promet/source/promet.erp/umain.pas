@@ -610,7 +610,8 @@ end;
 
 procedure TStarterThread.ShowAll;
 begin
-  Application.ProcessMessages;
+  fMain.Invalidate;
+  //Application.ProcessMessages;
 end;
 
 procedure TStarterThread.AddStatistics;
@@ -1130,6 +1131,7 @@ begin
         //Options
         Data.RegisterLinkHandler('OPTION',@OpenOption);
 
+        bStart := TStarterThread.Create;
 
         with Application as IBaseDbInterface do
           FHistory.Text := DBConfig.ReadString('HISTORY','');
@@ -1145,7 +1147,6 @@ begin
     fSplash.Hide;
     fMain.Visible:=True;
   end;
-  bStart := TStarterThread.Create;
   IPCTimer.Enabled:=True;
 end;
 procedure TfMain.acContactExecute(Sender: TObject);
