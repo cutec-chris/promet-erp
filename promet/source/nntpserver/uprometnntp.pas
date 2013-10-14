@@ -152,7 +152,7 @@ end;
 function TPNNTPGroup.GetCreatedAt: TDateTime;
 begin
   Result:=inherited GetCreatedAt;
-  if Data.Tree.DataSet.Locate('ID',FTreeEntry,[]) then
+  if Data.Tree.DataSet.Locate('SQL_ID',FTreeEntry,[]) then
     Result := Data.Tree.TimeStamp.AsDateTime;
 end;
 function TPNNTPGroup.XOverAnswer: string;
@@ -249,9 +249,9 @@ constructor TPNNTPGroup.Create(aName: string;cFirstID : LargeInt);
 begin
   FMessages := TMessageList.Create(Self,Data);
   if Data.Tree.DataSet.Locate('NAME',aName,[loCaseInsensitive]) then
-    FTreeEntry := Data.Tree.DataSet.FieldByName('ID').AsString
+    FTreeEntry := Data.Tree.Id.AsString
   else if Data.Tree.DataSet.Locate('NAME',StringReplace(aName,'_',' ',[rfReplaceAll]),[loCaseInsensitive]) then
-    FTreeEntry := Data.Tree.DataSet.FieldByName('ID').AsString;
+    FTreeEntry := Data.Tree.Id.AsString;
   FGroupName := aName;
   RefreshFirstID;
   if FMessages.FieldByName('GRP_ID').IsNull then
@@ -266,4 +266,4 @@ begin
   inherited Destroy;
 end;
 end.
-
+

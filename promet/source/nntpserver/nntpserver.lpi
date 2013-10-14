@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -24,6 +24,9 @@
     </MacroValues>
     <BuildModes Count="1" Active="Default">
       <Item1 Name="Default" Default="True"/>
+      <SharedMatrixOptions Count="1">
+        <Item1 ID="367675269827" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="nogui"/>
+      </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
@@ -38,22 +41,24 @@
     </RunParams>
     <RequiredPackages Count="6">
       <Item1>
-        <PackageName Value="LazUtils"/>
+        <PackageName Value="laz_synapse"/>
       </Item1>
       <Item2>
-        <PackageName Value="LCL"/>
+        <PackageName Value="LazUtils"/>
       </Item2>
       <Item3>
-        <PackageName Value="pmimemessages"/>
+        <PackageName Value="LCL"/>
       </Item3>
       <Item4>
-        <PackageName Value="synapse"/>
+        <PackageName Value="pmimemessages"/>
+        <DefaultFilename Value="..\base_messaging\pmimemessages.lpk"/>
       </Item4>
       <Item5>
         <PackageName Value="lnetbase"/>
       </Item5>
       <Item6>
         <PackageName Value="pcmdprometapp"/>
+        <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
       </Item6>
     </RequiredPackages>
     <Units Count="110">
@@ -63,8 +68,8 @@
         <UnitName Value="nntpserver"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="54"/>
-        <CursorPos X="41" Y="89"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="20"/>
         <UsageCount Value="119"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -137,6 +142,7 @@
       <Unit9>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1094"/>
@@ -201,7 +207,7 @@
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="15" Y="11"/>
+        <CursorPos X="34" Y="8"/>
         <UsageCount Value="116"/>
         <Loaded Value="True"/>
       </Unit16>
@@ -505,11 +511,10 @@
         <Filename Value="uprometnntp.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uprometnntp"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="202"/>
-        <CursorPos X="1" Y="223"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="20"/>
         <UsageCount Value="64"/>
         <Loaded Value="True"/>
       </Unit53>
@@ -970,124 +975,124 @@
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1493" Column="1" TopLine="1476"/>
+        <Filename Value="ulnntp.pas"/>
+        <Caret Line="11" Column="38" TopLine="1"/>
       </Position1>
       <Position2>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1494" Column="1" TopLine="1476"/>
+        <Filename Value="ulnntp.pas"/>
+        <Caret Line="52" Column="12" TopLine="21"/>
       </Position2>
       <Position3>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1495" Column="1" TopLine="1476"/>
+        <Filename Value="uprometnntp.pas"/>
+        <Caret Line="213" Column="57" TopLine="188"/>
       </Position3>
       <Position4>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1510" Column="1" TopLine="1480"/>
+        <Filename Value="uprometnntp.pas"/>
+        <Caret Line="207" Column="1" TopLine="188"/>
       </Position4>
       <Position5>
         <Filename Value="uprometnntp.pas"/>
-        <Caret Line="214" Column="1" TopLine="173"/>
+        <Caret Line="209" Column="73" TopLine="188"/>
       </Position5>
       <Position6>
         <Filename Value="uprometnntp.pas"/>
-        <Caret Line="203" Column="1" TopLine="173"/>
+        <Caret Line="207" Column="1" TopLine="188"/>
       </Position6>
       <Position7>
         <Filename Value="uprometnntp.pas"/>
-        <Caret Line="213" Column="1" TopLine="195"/>
+        <Caret Line="217" Column="1" TopLine="200"/>
       </Position7>
       <Position8>
         <Filename Value="uprometnntp.pas"/>
-        <Caret Line="217" Column="17" TopLine="191"/>
+        <Caret Line="218" Column="101" TopLine="200"/>
       </Position8>
       <Position9>
-        <Filename Value="ulnntp.pas"/>
-        <Caret Line="11" Column="38" TopLine="1"/>
+        <Filename Value="uprometnntp.pas"/>
+        <Caret Line="207" Column="1" TopLine="200"/>
       </Position9>
       <Position10>
-        <Filename Value="ulnntp.pas"/>
-        <Caret Line="52" Column="12" TopLine="21"/>
+        <Filename Value="uprometnntp.pas"/>
+        <Caret Line="217" Column="1" TopLine="200"/>
       </Position10>
       <Position11>
         <Filename Value="uprometnntp.pas"/>
-        <Caret Line="213" Column="57" TopLine="188"/>
+        <Caret Line="218" Column="1" TopLine="200"/>
       </Position11>
       <Position12>
         <Filename Value="uprometnntp.pas"/>
-        <Caret Line="207" Column="1" TopLine="188"/>
+        <Caret Line="219" Column="53" TopLine="200"/>
       </Position12>
       <Position13>
         <Filename Value="uprometnntp.pas"/>
-        <Caret Line="209" Column="73" TopLine="188"/>
+        <Caret Line="80" Column="47" TopLine="64"/>
       </Position13>
       <Position14>
         <Filename Value="uprometnntp.pas"/>
-        <Caret Line="207" Column="1" TopLine="188"/>
+        <Caret Line="83" Column="10" TopLine="64"/>
       </Position14>
       <Position15>
         <Filename Value="uprometnntp.pas"/>
-        <Caret Line="217" Column="1" TopLine="200"/>
+        <Caret Line="61" Column="13" TopLine="54"/>
       </Position15>
       <Position16>
         <Filename Value="uprometnntp.pas"/>
-        <Caret Line="218" Column="101" TopLine="200"/>
+        <Caret Line="58" Column="15" TopLine="48"/>
       </Position16>
       <Position17>
         <Filename Value="uprometnntp.pas"/>
-        <Caret Line="207" Column="1" TopLine="200"/>
+        <Caret Line="56" Column="1" TopLine="48"/>
       </Position17>
       <Position18>
         <Filename Value="uprometnntp.pas"/>
-        <Caret Line="217" Column="1" TopLine="200"/>
+        <Caret Line="85" Column="57" TopLine="68"/>
       </Position18>
       <Position19>
         <Filename Value="uprometnntp.pas"/>
-        <Caret Line="218" Column="1" TopLine="200"/>
+        <Caret Line="211" Column="1" TopLine="193"/>
       </Position19>
       <Position20>
         <Filename Value="uprometnntp.pas"/>
-        <Caret Line="219" Column="53" TopLine="200"/>
+        <Caret Line="221" Column="1" TopLine="193"/>
       </Position20>
       <Position21>
         <Filename Value="uprometnntp.pas"/>
-        <Caret Line="80" Column="47" TopLine="64"/>
+        <Caret Line="222" Column="1" TopLine="193"/>
       </Position21>
       <Position22>
         <Filename Value="uprometnntp.pas"/>
-        <Caret Line="83" Column="10" TopLine="64"/>
+        <Caret Line="223" Column="1" TopLine="193"/>
       </Position22>
       <Position23>
         <Filename Value="uprometnntp.pas"/>
-        <Caret Line="61" Column="13" TopLine="54"/>
+        <Caret Line="8" Column="50" TopLine="1"/>
       </Position23>
       <Position24>
         <Filename Value="uprometnntp.pas"/>
-        <Caret Line="58" Column="15" TopLine="48"/>
+        <Caret Line="155" Column="36" TopLine="136"/>
       </Position24>
       <Position25>
         <Filename Value="uprometnntp.pas"/>
-        <Caret Line="56" Column="1" TopLine="48"/>
+        <Caret Line="172" Column="49" TopLine="141"/>
       </Position25>
       <Position26>
         <Filename Value="uprometnntp.pas"/>
-        <Caret Line="85" Column="57" TopLine="68"/>
+        <Caret Line="184" Column="317" TopLine="153"/>
       </Position26>
       <Position27>
         <Filename Value="uprometnntp.pas"/>
-        <Caret Line="211" Column="1" TopLine="193"/>
+        <Caret Line="253" Column="31" TopLine="221"/>
       </Position27>
       <Position28>
         <Filename Value="uprometnntp.pas"/>
-        <Caret Line="221" Column="1" TopLine="193"/>
+        <Caret Line="55" Column="38" TopLine="43"/>
       </Position28>
       <Position29>
         <Filename Value="uprometnntp.pas"/>
-        <Caret Line="222" Column="1" TopLine="193"/>
+        <Caret Line="172" Column="52" TopLine="141"/>
       </Position29>
       <Position30>
-        <Filename Value="uprometnntp.pas"/>
-        <Caret Line="223" Column="1" TopLine="193"/>
+        <Filename Value="nntpserver.lpr"/>
+        <Caret Line="5" Column="50" TopLine="1"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -1120,7 +1125,6 @@
 -dSTATISTICS"/>
       <CompilerPath Value="$(CompPath)"/>
     </Other>
-    <LCLWidgetType Value="nogui"/>
   </CompilerOptions>
   <Debugging>
     <Watches Count="1">
