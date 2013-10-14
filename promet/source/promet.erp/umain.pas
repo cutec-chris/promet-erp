@@ -270,9 +270,12 @@ type
   TStarterThread = class(TThread)
   private
     Node,Node1,Node2,aNode : TTreeNode;
+    miNew: TMenuItem;
     procedure NewNode;
     procedure NewNode1;
     procedure NewNode2;
+    procedure NewMenu;
+    procedure ShowAll;
   public
     constructor Create;
     procedure Execute; override;
@@ -590,6 +593,17 @@ begin
   Node2 := fMainTreeFrame.tvMain.Items.AddChildObject(Node1.Parent,'',TTreeEntry.Create);
 end;
 
+procedure TStarterThread.NewMenu;
+begin
+  miNew := TmenuItem.Create(fMain.miView);
+  fMain.miView.Add(miNew);
+end;
+
+procedure TStarterThread.ShowAll;
+begin
+  Application.ProcessMessages;
+end;
+
 constructor TStarterThread.Create;
 begin
   FreeOnTerminate:=True;
@@ -601,14 +615,14 @@ var
   aTime: QWord;
   aDocuments: TDocument;
   aDataSet: TBaseDbDataSet;
-  miNew: TMenuItem;
   aTree: TTree;
   aOrderType: TOrderTyp;
   DefaultOrder: Boolean;
+  aConn: TComponent;
 begin
-  aTree := TTree.Create(nil,Data);
-  miNew := TmenuItem.Create(fMain.miView);
-  fMain.miView.Add(miNew);
+  aConn := Data.GetNewConnection;
+  aTree := TTree.Create(nil,Data,aConn);
+  Synchronize(@NewMenu);
   miNew.Action := fMainTreeFrame.acSearch;
   //Favorites
   {$region}
@@ -629,22 +643,22 @@ begin
     end;
   {$endregion}
   debugln('Favourites: '+IntToStr(GetTickCount64-aTime));
-  aDocuments := TDocument.Create(nil,Data);
+  Synchronize(@ShowAll);
+  aDocuments := TDocument.Create(nil,Data,aConn);
   aDocuments.CreateTable;
   aDocuments.Destroy;
   //Messages
   {$region}
   if Data.Users.Rights.Right('MESSAGES') > RIGHT_NONE then
     begin
-      aDataSet := TMessage.Create(nil,Data);
+      aDataSet := TMessage.Create(nil,Data,aConn);
       TMessage(aDataSet).CreateTable;
       aDataSet.Destroy;
       fMain.pcPages.AddTabClass(TfMessageFrame,strMessages,nil,Data.GetLinkIcon('MESSAGEIDX@'),True);
       Data.RegisterLinkHandler('MESSAGEIDX',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
       AddSearchAbleDataSet(TMessageList);
       AddSearchAbleDataSet(TLists);
-      miNew := TmenuItem.Create(fMain.miView);
-      fMain.miView.Add(miNew);
+      Synchronize(@NewMenu);
       miNew.Action := fMain.acMessages;
       NewNode;
       Node.Height := 34;
@@ -675,6 +689,7 @@ begin
     end;
   {$endregion}
   debugln('Messages: '+IntToStr(GetTickCount64-aTime));
+  Synchronize(@ShowAll);
   //Add PIM Entrys
   {$ifndef heaptrc}
   uTasks.AddToMainTree(fMain.acNewTask,fMain.FTaskNode);
@@ -682,8 +697,7 @@ begin
   if Data.Users.Rights.Right('CALENDAR') > RIGHT_NONE then
     begin
       fMain.pcPages.AddTabClass(TfCalendarFrame,strCalendar,@fMain.AddCalendar,Data.GetLinkIcon('CALENDAR@'),True);
-      miNew := TmenuItem.Create(fMain.miView);
-      fMain.miView.Add(miNew);
+      Synchronize(@NewMenu);
       miNew.Action := fMain.acCalendar;
       {$ifndef heaptrc}
       uCalendarFrame.AddToMainTree(fMain.acNewTermin,fMain.FCalendarNode);
@@ -695,18 +709,18 @@ begin
       fMain.RefreshCalendar;
     end;
   debugln('PIM: '+IntToStr(GetTickCount64-aTime));
+  Synchronize(@ShowAll);
   //Orders,Production,...
   {$region}
   if Data.Users.Rights.Right('ORDERS') > RIGHT_NONE then
     begin
-      aDataSet := TOrder.Create(nil,Data);
+      aDataSet := TOrder.Create(nil,Data,aConn);
       TOrder(aDataSet).CreateTable;
       aDataSet.Destroy;
       fMain.pcPages.AddTabClass(TfFilter,strOrderList,@fMain.AddOrderList,Data.GetLinkIcon('ORDERS@'),True);
       Data.RegisterLinkHandler('ORDERS',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
       AddSearchAbleDataSet(TOrderList);
-      miNew := TMenuItem.Create(fMain.miView);
-      fMain.miView.Add(miNew);
+      Synchronize(@NewMenu);
       miNew.Action := fMain.acOrders;
       NewNode;
       Node.Height := 32;
@@ -715,7 +729,7 @@ begin
       TTreeEntry(Node1.Data).Typ := etOrderList;
       if Data.Users.Rights.Right('ORDERS') > RIGHT_READ then
         begin
-          aOrderType := TOrderTyp.Create(nil,Data);
+          aOrderType := TOrderTyp.Create(nil,Data,aConn);
           aOrderType.Open;
           Data.SetFilter(aOrderType,'('+Data.QuoteField('SI_ORDER')+' = ''Y'')');
           aOrderType.DataSet.First;
@@ -761,6 +775,46 @@ begin
      end;
   {$endregion}
   debugln('Orders: '+IntToStr(GetTickCount64-aTime));
+  Synchronize(@ShowAll);
+  //Add Contacts
+  {$region}
+  if Data.Users.Rights.Right('CUSTOMERS') > RIGHT_NONE then
+    begin
+      aDataSet := TPerson.Create(nil,Data,aConn);
+      TPerson(aDataSet).CreateTable;
+      aDataSet.Destroy;
+      Data.Countries.CreateTable;
+      fMain.pcPages.AddTabClass(TfFilter,strCustomerList,@fMain.AddCustomerList,Data.GetLinkIcon('CUSTOMERS@'),True);
+      Data.RegisterLinkHandler('CUSTOMERS',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
+      AddSearchAbleDataSet(TPersonList);
+      AddSearchAbleDataSet(TPersonContactData);
+      AddSearchAbleDataSet(TPersonAddress);
+      Synchronize(@NewMenu);
+      miNew.Action := fMain.acContact;
+      NewNode;
+      TTreeEntry(Node.Data).Typ := etCustomers;
+      Node.Height := 34;
+      NewNode1;
+      TTreeEntry(Node1.Data).Typ := etCustomerList;
+      NewNode1;
+      TTreeEntry(Node1.Data).Typ := etAction;
+      TTreeEntry(Node1.Data).Action := fMain.acNewContact;
+      Data.SetFilter(aTree,'(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('C')+'))',0,'','ASC',False,True,True);
+      aTree.DataSet.First;
+      while not aTree.dataSet.EOF do
+        begin
+          NewNode1;
+          TTreeEntry(Node1.Data).Rec := Data.GetBookmark(aTree);
+          TTreeEntry(Node1.Data).DataSource := aTree;
+          TTreeEntry(Node1.Data).Text[0] := aTree.FieldByName('NAME').AsString;
+          TTreeEntry(Node1.Data).Typ := etDir;
+          fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'1',TTreeEntry.Create);
+          aTree.DataSet.Next;
+        end;
+    end;
+  {$endregion}
+  debugln('Contacts: '+IntToStr(GetTickCount64-aTime));
+  Synchronize(@ShowAll);
 
 
   if Application.HasOption('startuptype') then
@@ -844,47 +898,6 @@ begin
         //Options
         Data.RegisterLinkHandler('OPTION',@OpenOption);
         {
-        fSplash.AddText(strAdding+' '+strContact);;
-        fSplash.SetPercent(60);
-        //Add Contacts
-        {$region}
-        if Data.Users.Rights.Right('CUSTOMERS') > RIGHT_NONE then
-          begin
-            aDataSet := TPerson.Create(Self,Data);
-            TPerson(aDataSet).CreateTable;
-            aDataSet.Destroy;
-            Data.Countries.CreateTable;
-            pcPages.AddTabClass(TfFilter,strCustomerList,@AddCustomerList,Data.GetLinkIcon('CUSTOMERS@'),True);
-            Data.RegisterLinkHandler('CUSTOMERS',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
-            AddSearchAbleDataSet(TPersonList);
-            AddSearchAbleDataSet(TPersonContactData);
-            AddSearchAbleDataSet(TPersonAddress);
-            miNew := TmenuItem.Create(miView);
-            miView.Add(miNew);
-            miNew.Action := acContact;
-            Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
-            TTreeEntry(Node.Data).Typ := etCustomers;
-            Node.Height := 34;
-            Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
-            TTreeEntry(Node1.Data).Typ := etCustomerList;
-            Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
-            TTreeEntry(Node1.Data).Typ := etAction;
-            TTreeEntry(Node1.Data).Action := acNewContact;
-            Data.SetFilter(aTree,'(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('C')+'))',0,'','ASC',False,True,True);
-            aTree.DataSet.First;
-            while not aTree.dataSet.EOF do
-              begin
-                Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
-                TTreeEntry(Node1.Data).Rec := Data.GetBookmark(aTree);
-                TTreeEntry(Node1.Data).DataSource := aTree;
-                TTreeEntry(Node1.Data).Text[0] := aTree.FieldByName('NAME').AsString;
-                TTreeEntry(Node1.Data).Typ := etDir;
-                fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'1',TTreeEntry.Create);
-                aTree.DataSet.Next;
-              end;
-          end;
-        {$endregion}
-        debugln('Contacts: '+IntToStr(GetTickCount64-aTime));
         fSplash.AddText(strAdding+' '+strMasterdata);;
         fSplash.SetPercent(70);
         //Add Masterdata stuff
