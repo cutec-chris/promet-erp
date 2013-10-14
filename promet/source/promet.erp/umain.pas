@@ -269,13 +269,17 @@ type
 
   TStarterThread = class(TThread)
   private
-    Node,Node1,Node2,aNode : TTreeNode;
+    Node,Node1,Node2,Node3,aNode : TTreeNode;
     miNew: TMenuItem;
     procedure NewNode;
     procedure NewNode1;
     procedure NewNode2;
+    procedure NewNode3;
     procedure NewMenu;
     procedure ShowAll;
+    procedure AddStatistics;
+    procedure AddTimeReg;
+    procedure AddTimeReg2;
   public
     constructor Create;
     procedure Execute; override;
@@ -593,6 +597,11 @@ begin
   Node2 := fMainTreeFrame.tvMain.Items.AddChildObject(Node1.Parent,'',TTreeEntry.Create);
 end;
 
+procedure TStarterThread.NewNode3;
+begin
+  Node3 := fMainTreeFrame.tvMain.Items.AddChildObject(Node2,'',TTreeEntry.Create);
+end;
+
 procedure TStarterThread.NewMenu;
 begin
   miNew := TmenuItem.Create(fMain.miView);
@@ -602,6 +611,42 @@ end;
 procedure TStarterThread.ShowAll;
 begin
   Application.ProcessMessages;
+end;
+
+procedure TStarterThread.AddStatistics;
+begin
+  uStatisticFrame.AddToMainTree(fMain.acNewStatistics);
+end;
+
+procedure TStarterThread.AddTimeReg;
+begin
+  if (Data.Users.Rights.Right('TIMEREG') > RIGHT_NONE) then
+    begin
+      if not fMain.IPC.ServerRunning then
+        begin
+          fOptions.RegisterOptionsFrame(TfTimeOptions.Create(fOptions),strTimetools,strPersonalOptions);
+          Application.CreateForm(TfEnterTime,fMain.FTimeReg);
+          fMain.FTimeReg.Node:=MainNode;
+          fMain.FTimeReg.PauseBtn := fMain.bPauseTime;
+          fMain.FTimeReg.DoSetup;
+          fMain.FTimeReg.SetupDB;
+          fMain.pTimes.Visible := True;
+        end;
+    end;
+end;
+
+procedure TStarterThread.AddTimeReg2;
+begin
+  if (Data.Users.Rights.Right('TIMEREG') > RIGHT_NONE) then
+    begin
+      if not fMain.IPC.ServerRunning then
+        begin
+          MainNode := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
+          MainNode.Height := 34;
+          TTreeEntry(MainNode.Data).Typ := etTimeRegistering;
+          fMain.FTimeReg.refreshNode;
+        end;
+    end;
 end;
 
 constructor TStarterThread.Create;
@@ -619,11 +664,15 @@ var
   aOrderType: TOrderTyp;
   DefaultOrder: Boolean;
   aConn: TComponent;
+  aDS: TMeetings;
+  Accounts: TAccounts;
 begin
   aConn := Data.GetNewConnection;
   aTree := TTree.Create(nil,Data,aConn);
   Synchronize(@NewMenu);
   miNew.Action := fMainTreeFrame.acSearch;
+  //Timeregistering
+  Synchronize(@AddTimeReg);
   //Favorites
   {$region}
   Synchronize(@NewNode);
@@ -850,6 +899,153 @@ begin
     end;
   {$endregion}
   debugln('Masterdata: '+IntToStr(GetTickCount64-aTime));
+  Synchronize(@ShowAll);
+  //Projects
+  uProjectFrame.AddToMainTree(fMain.acNewProject);
+  if (Data.Users.Rights.Right('PROJECTS') > RIGHT_NONE) then
+    begin
+      fMain.pcPages.AddTabClass(TfFilter,strProjectList,@fMain.AddProjectList,Data.GetLinkIcon('PROJECTS@'),True);
+    end;
+  debugln('Projects: '+IntToStr(GetTickCount64-aTime));
+  Synchronize(@ShowAll);
+  //Wiki
+  {$region}
+  if (Data.Users.Rights.Right('WIKI') > RIGHT_NONE) then
+    begin
+      fMain.pcPages.AddTabClass(TfWikiFrame,strWiki,@fMain.AddWiki,Data.GetLinkIcon('WIKI@'),True);
+      Data.RegisterLinkHandler('WIKI',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
+      AddSearchAbleDataSet(TWikiList);
+      NewNode;
+      Node.Height := 34;
+      TTreeEntry(Node.Data).Typ := etWiki;
+      Data.SetFilter(aTree,'(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('W')+'))',0,'','ASC',False,True,True);
+      aTree.DataSet.First;
+      while not aTree.dataSet.EOF do
+        begin
+          NewNode1;
+          TTreeEntry(Node1.Data).Rec := Data.GetBookmark(aTree);
+          TTreeEntry(Node1.Data).DataSource := aTree;
+          TTreeEntry(Node1.Data).Text[0] := aTree.FieldByName('NAME').AsString;
+          TTreeEntry(Node1.Data).Typ := etDir;
+          fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'',TTreeEntry.Create);
+          aTree.DataSet.Next;
+        end;
+    end;
+  {$endregion}
+  debugln('Wiki: '+IntToStr(GetTickCount64-aTime));
+  Synchronize(@ShowAll);
+  {$region}
+  try
+    if (Data.Users.Rights.Right('DOCUMENTS') > RIGHT_NONE) then
+      begin
+        Data.RegisterLinkHandler('DOCUMENTS',@fMainTreeFrame.OpenLink);
+        NewNode;
+        TTreeEntry(Node.Data).Typ := etFiles;
+        umanagedocframe.AddToMainTree;
+      end;
+  except
+  end;
+  {$endregion}
+  debugln('Documents: '+IntToStr(GetTickCount64-aTime));
+  Synchronize(@ShowAll);
+  {$region}
+  if (Data.Users.Rights.Right('LISTS') > RIGHT_NONE) then
+    begin
+      aDataSet := TLists.Create(nil,Data,aConn);
+      TLists(aDataSet).CreateTable;
+      aDataSet.Destroy;
+      Data.RegisterLinkHandler('LISTS',@fMainTreeFrame.OpenLink);
+      NewNode;
+      TTreeEntry(Node.Data).Typ := etLists;
+    end;
+  {$endregion}
+  debugln('Lists: '+IntToStr(GetTickCount64-aTime));
+  Synchronize(@ShowAll);
+  {$region}
+  if (Data.Users.Rights.Right('MEETINGS') > RIGHT_NONE) then
+    begin
+      umeetingframe.AddToMainTree(fMain.acNewMeeting);
+      fMainTreeFrame.tvMain.Items[0].Expanded:=True;
+      fMain.pcPages.AddTabClass(TfFilter,strMeetingList,@fMain.AddMeetingList,-1,True);
+      Data.RegisterLinkHandler('MEETINGS',@fMainTreeFrame.OpenLink);
+      aDS := TMeetings.Create(nil,Data,aConn);
+      aDS.CreateTable;
+      aDS.Free;
+    end;
+  {$endregion}
+  debugln('Doc/Lists: '+IntToStr(GetTickCount64-aTime));
+  Synchronize(@ShowAll);
+  {$region}
+  if (Data.Users.Rights.Right('INVENTORY') > RIGHT_NONE) then
+    begin
+      aDataSet := TInventorys.Create(nil,Data,aConn);
+      TInventorys(aDataSet).CreateTable;
+      aDataSet.Destroy;
+      Data.RegisterLinkHandler('INVENTORY',@fMainTreeFrame.OpenLink);
+      NewNode;
+      TTreeEntry(Node.Data).Typ := etInventory;
+    end;
+  {$endregion}
+  //Financial
+  {$region}
+  if (Data.Users.Rights.Right('BANKACCNTS') > RIGHT_NONE)
+  or (Data.Users.Rights.Right('SALESLIST') > RIGHT_NONE) then
+    begin
+      NewNode;
+      Node.Height := 34;
+      TTreeEntry(Node.Data).Typ := etFinancial;
+      if Data.Users.Rights.Right('BANKACCNTS') > RIGHT_NONE then
+        begin
+          Data.RegisterLinkHandler('ACCOUNTEXCHANGE',@fMainTreeFrame.OpenLink);
+          NewNode1;
+          TTreeEntry(Node1.Data).Typ := etBanking;
+          NewNode2;
+          TTreeEntry(Node2.Data).Typ := etAccounts;
+          NewNode3;
+          TTreeEntry(Node3.Data).Typ := etNewAccount;
+          Accounts := TAccounts.Create(nil,Data,aConn);
+          Accounts.CreateTable;
+          Accounts.Open;
+          Accounts.DataSet.First;
+          while not Accounts.DataSet.EOF do
+            begin
+              NewNode3;
+              TTreeEntry(Node3.Data).Rec := Accounts.GetBookmark;
+              TTreeEntry(Node3.Data).Text[0] := Accounts.FieldByName('NAME').AsString;
+              TTreeEntry(Node3.Data).Typ := etAccount;
+              Accounts.DataSet.Next;
+            end;
+          Accounts.Free;
+          NewNode2;
+          TTreeEntry(Node2.Data).Typ := etNewTransfer;
+          NewNode2;
+          TTreeEntry(Node2.Data).Typ := etAccountingQue;
+        end;
+      if Data.Users.Rights.Right('SALESLIST') > RIGHT_NONE then
+        begin
+          fMain.pcPages.AddTabClass(TfFilter,strSalesList,@fMain.AddSalesList,-1,True);
+          NewNode1;
+          TTreeEntry(Node1.Data).Typ := etSalesList;
+          TTreeEntry(Node1.Data).Action := fMain.acSalesList;
+        end;
+    end;
+  {$endregion}
+  debugln('Inventory/Financial: '+IntToStr(GetTickCount64-aTime));
+  //Add Statistics
+  {$ifndef heaptrc}
+  Synchronize(@AddStatistics);
+  {$endif}
+  //Timeregistering
+  Synchronize(@AddTimeReg2);
+  AddSearchAbleDataSet(TUser);
+  {$IFDEF CPU32}
+  uSkypePhone.RegisterPhoneLines;
+  {$ENDIF}
+  {$IFDEF WINDOWS}
+  {$IFDEF CPU32}
+  uTAPIPhone.RegisterPhoneLines;
+  {$ENDIF}
+  {$ENDIF}
 
 
   if Application.HasOption('startuptype') then
@@ -868,6 +1064,7 @@ begin
         end;
     end;
   aTree.Free;
+  aConn.Free;
 end;
 
 procedure TfMain.acLoginExecute(Sender: TObject);
@@ -932,173 +1129,7 @@ begin
         Data.RegisterLinkHandler('ACTION',@OpenAction);
         //Options
         Data.RegisterLinkHandler('OPTION',@OpenOption);
-        {
-        fSplash.AddText(strAdding+' '+strProjects);;
-        fSplash.SetPercent(80);
-        //Projects
-        uProjectFrame.AddToMainTree(acNewProject);
-        if (Data.Users.Rights.Right('PROJECTS') > RIGHT_NONE) then
-          begin
-            pcPages.AddTabClass(TfFilter,strProjectList,@AddProjectList,Data.GetLinkIcon('PROJECTS@'),True);
 
-          end;
-        debugln('Projects: '+IntToStr(GetTickCount64-aTime));
-        fSplash.AddText(strAdding+' '+strWIki);;
-        fSplash.SetPercent(90);
-        //Wiki
-        {$region}
-        if (Data.Users.Rights.Right('WIKI') > RIGHT_NONE) then
-          begin
-            pcPages.AddTabClass(TfWikiFrame,strWiki,@AddWiki,Data.GetLinkIcon('WIKI@'),True);
-            Data.RegisterLinkHandler('WIKI',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
-            AddSearchAbleDataSet(TWikiList);
-            Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
-            Node.Height := 34;
-            TTreeEntry(Node.Data).Typ := etWiki;
-            Data.SetFilter(aTree,'(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('W')+'))',0,'','ASC',False,True,True);
-            aTree.DataSet.First;
-            while not aTree.dataSet.EOF do
-              begin
-                Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
-                TTreeEntry(Node1.Data).Rec := Data.GetBookmark(aTree);
-                TTreeEntry(Node1.Data).DataSource := aTree;
-                TTreeEntry(Node1.Data).Text[0] := aTree.FieldByName('NAME').AsString;
-                TTreeEntry(Node1.Data).Typ := etDir;
-                fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'',TTreeEntry.Create);
-                aTree.DataSet.Next;
-              end;
-          end;
-        {$endregion}
-        debugln('Wiki: '+IntToStr(GetTickCount64-aTime));
-        fSplash.AddText(strAdding+' '+strFiles);;
-        fSplash.SetPercent(100);
-        {$region}
-        try
-          if (Data.Users.Rights.Right('DOCUMENTS') > RIGHT_NONE) then
-            begin
-              Data.RegisterLinkHandler('DOCUMENTS',@fMainTreeFrame.OpenLink);
-              Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
-              TTreeEntry(Node.Data).Typ := etFiles;
-              umanagedocframe.AddToMainTree;
-            end;
-        except
-        end;
-        {$endregion}
-        debugln('Documents: '+IntToStr(GetTickCount64-aTime));
-        {$region}
-        if (Data.Users.Rights.Right('LISTS') > RIGHT_NONE) then
-          begin
-            aDataSet := TLists.Create(Self,Data);
-            TLists(aDataSet).CreateTable;
-            aDataSet.Destroy;
-            Data.RegisterLinkHandler('LISTS',@fMainTreeFrame.OpenLink);
-            Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
-            TTreeEntry(Node.Data).Typ := etLists;
-          end;
-        {$endregion}
-        debugln('Lists: '+IntToStr(GetTickCount64-aTime));
-        {$region}
-        if (Data.Users.Rights.Right('MEETINGS') > RIGHT_NONE) then
-          begin
-            umeetingframe.AddToMainTree(acNewMeeting);
-            fMainTreeFrame.tvMain.Items[0].Expanded:=True;
-            pcPages.AddTabClass(TfFilter,strMeetingList,@AddMeetingList,-1,True);
-            Data.RegisterLinkHandler('MEETINGS',@fMainTreeFrame.OpenLink);
-            aDS := TMeetings.Create(nil,Data);
-            aDS.CreateTable;
-            aDS.Free;
-          end;
-        {$endregion}
-        debugln('Doc/Lists: '+IntToStr(GetTickCount64-aTime));
-        {$region}
-        if (Data.Users.Rights.Right('INVENTORY') > RIGHT_NONE) then
-          begin
-            aDataSet := TInventorys.Create(Self,Data);
-            TInventorys(aDataSet).CreateTable;
-            aDataSet.Destroy;
-            Data.RegisterLinkHandler('INVENTORY',@fMainTreeFrame.OpenLink);
-            Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
-            TTreeEntry(Node.Data).Typ := etInventory;
-          end;
-        {$endregion}
-        //Financial
-        {$region}
-        if (Data.Users.Rights.Right('BANKACCNTS') > RIGHT_NONE)
-        or (Data.Users.Rights.Right('SALESLIST') > RIGHT_NONE) then
-          begin
-            Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
-            Node.Height := 34;
-            TTreeEntry(Node.Data).Typ := etFinancial;
-            if Data.Users.Rights.Right('BANKACCNTS') > RIGHT_NONE then
-              begin
-                Data.RegisterLinkHandler('ACCOUNTEXCHANGE',@fMainTreeFrame.OpenLink);
-                Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
-                TTreeEntry(Node1.Data).Typ := etBanking;
-                Node2 := fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'',TTreeEntry.Create);
-                TTreeEntry(Node2.Data).Typ := etAccounts;
-                Node3 := fMainTreeFrame.tvMain.Items.AddChildObject(Node2,'',TTreeEntry.Create);
-                TTreeEntry(Node3.Data).Typ := etNewAccount;
-                Accounts := TAccounts.Create(Self,Data);
-                Accounts.CreateTable;
-                Accounts.Open;
-                Accounts.DataSet.First;
-                while not Accounts.DataSet.EOF do
-                  begin
-                    Node3 := fMainTreeFrame.tvMain.Items.AddChildObject(Node2,'',TTreeEntry.Create);
-                    TTreeEntry(Node3.Data).Rec := Accounts.GetBookmark;
-                    TTreeEntry(Node3.Data).Text[0] := Accounts.FieldByName('NAME').AsString;
-                    TTreeEntry(Node3.Data).Typ := etAccount;
-                    Accounts.DataSet.Next;
-                  end;
-                Accounts.Free;
-                Node2 := fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'',TTreeEntry.Create);
-                TTreeEntry(Node2.Data).Typ := etNewTransfer;
-                Node2 := fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'',TTreeEntry.Create);
-                TTreeEntry(Node2.Data).Typ := etAccountingQue;
-              end;
-            if Data.Users.Rights.Right('SALESLIST') > RIGHT_NONE then
-              begin
-                pcPages.AddTabClass(TfFilter,strSalesList,@AddSalesList,-1,True);
-                Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
-                TTreeEntry(Node1.Data).Typ := etSalesList;
-                TTreeEntry(Node1.Data).Action := acSalesList;
-              end;
-          end;
-        {$endregion}
-        debugln('Inventory/Financial: '+IntToStr(GetTickCount64-aTime));
-        //Add Statistics
-        {$ifndef heaptrc}
-        uStatisticFrame.AddToMainTree(acNewStatistics);
-        {$endif}
-        //Timeregistering
-        if (Data.Users.Rights.Right('TIMEREG') > RIGHT_NONE) then
-          begin
-            if not IPC.ServerRunning then
-              begin
-                MainNode := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
-                MainNode.Height := 34;
-                TTreeEntry(MainNode.Data).Typ := etTimeRegistering;
-                fOptions.RegisterOptionsFrame(TfTimeOptions.Create(fOptions),strTimetools,strPersonalOptions);
-                Application.CreateForm(TfEnterTime,FTimeReg);
-                FTimeReg.Node:=MainNode;
-                FTimeReg.PauseBtn := bPauseTime;
-                FTimeReg.DoSetup;
-                FTimeReg.SetupDB;
-                pTimes.Visible := True;
-                FTimeReg.refreshNode;
-              end;
-          end;
-        AddSearchAbleDataSet(TUser);
-        {$IFDEF CPU32}
-        uSkypePhone.RegisterPhoneLines;
-        {$ENDIF}
-        {$IFDEF WINDOWS}
-        {$IFDEF CPU32}
-        uTAPIPhone.RegisterPhoneLines;
-        {$ENDIF}
-        {$ENDIF}
-
-        }
 
         with Application as IBaseDbInterface do
           FHistory.Text := DBConfig.ReadString('HISTORY','');
