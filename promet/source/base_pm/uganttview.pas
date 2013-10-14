@@ -210,35 +210,38 @@ var
     d: Integer;
   begin
     Result := 0;
-    if not assigned(aInterval) then exit;
-    for c := 0 to aInterval.ConnectionCount-1 do
-      if aInterval.Connection[c] = aConn then
-        begin
-          bInt := aInterval;
-          aTmp := (bInt.FinishDate+bInt.Buffer)-aConn.StartDate;
-          if (aTmp > Result) or (Result=0) then Result := aTmp;
-          if aTmp>0 then
-            begin
-              bInt.BeginUpdate;
-              bDur := bInt.Duration;
-              aDur := bInt.NetTime;
-              aDur := aDur/bInt.ResourceTimePerDay;
-              if aDur<1 then aDur:=1;
-              //Add Weekends
-              for d := trunc(bInt.StartDate) to trunc(bInt.StartDate+aDur) do
-                if ((DayOfWeek(d)=1) or (DayOfWeek(d)=7)) then
-                  aDur := aDur+1;
-              bInt.FinishDate:=aConn.StartDate-bInt.Buffer;
-              if aDur<bDur then
-                bInt.StartDate:=bInt.FinishDate-aDur
-              else
-                bInt.StartDate:=bInt.FinishDate-bDur;
-              IsMoved := True;
-              bInt.EndUpdate;
-            end;
-        end;
-    for b := 0 to aInterval.IntervalCount-1 do
-      Result := DoMoveBack(aInterval.Interval[b],aConn,aTime);
+    try
+      if not assigned(aInterval) then exit;
+      for c := 0 to aInterval.ConnectionCount-1 do
+        if aInterval.Connection[c] = aConn then
+          begin
+            bInt := aInterval;
+            aTmp := (bInt.FinishDate+bInt.Buffer)-aConn.StartDate;
+            if (aTmp > Result) or (Result=0) then Result := aTmp;
+            if aTmp>0 then
+              begin
+                bInt.BeginUpdate;
+                bDur := bInt.Duration;
+                aDur := bInt.NetTime;
+                aDur := aDur/bInt.ResourceTimePerDay;
+                if aDur<1 then aDur:=1;
+                //Add Weekends
+                for d := trunc(bInt.StartDate) to trunc(bInt.StartDate+aDur) do
+                  if ((DayOfWeek(d)=1) or (DayOfWeek(d)=7)) then
+                    aDur := aDur+1;
+                bInt.FinishDate:=aConn.StartDate-bInt.Buffer;
+                if aDur<bDur then
+                  bInt.StartDate:=bInt.FinishDate-aDur
+                else
+                  bInt.StartDate:=bInt.FinishDate-bDur;
+                IsMoved := True;
+                bInt.EndUpdate;
+              end;
+          end;
+      for b := 0 to aInterval.IntervalCount-1 do
+        Result := DoMoveBack(aInterval.Interval[b],aConn,aTime);
+    except
+    end;
   end;
 
 begin
