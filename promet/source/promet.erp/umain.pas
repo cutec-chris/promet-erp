@@ -238,6 +238,7 @@ type
     FCalendarNode : TTreeNode;
     FTaskNode : TTreeNode;
     FTimeReg : TfEnterTime;
+    aTime : Int64;
     procedure AddCustomerList(Sender: TObject);
     procedure AddMasterdataList(Sender: TObject);
     procedure AddOrderList(Sender: TObject);
@@ -268,9 +269,10 @@ type
 
   TStarterThread = class(TThread)
   private
-    Node,Node1 : TTreeNode;
+    Node,Node1,Node2,aNode : TTreeNode;
     procedure NewNode;
     procedure NewNode1;
+    procedure NewNode2;
   public
     constructor Create;
     procedure Execute; override;
@@ -583,6 +585,11 @@ begin
   Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
 end;
 
+procedure TStarterThread.NewNode2;
+begin
+  Node2 := fMainTreeFrame.tvMain.Items.AddChildObject(Node1.Parent,'',TTreeEntry.Create);
+end;
+
 constructor TStarterThread.Create;
 begin
   FreeOnTerminate:=True;
@@ -590,46 +597,199 @@ begin
 end;
 
 procedure TStarterThread.Execute;
+var
+  aTime: QWord;
+  aDocuments: TDocument;
+  aDataSet: TBaseDbDataSet;
+  miNew: TMenuItem;
+  aTree: TTree;
+  aOrderType: TOrderTyp;
+  DefaultOrder: Boolean;
 begin
+  aTree := TTree.Create(nil,Data);
+  miNew := TmenuItem.Create(fMain.miView);
+  fMain.miView.Add(miNew);
+  miNew.Action := fMainTreeFrame.acSearch;
   //Favorites
   {$region}
-  fSplash.AddText(strAdding+' '+strFavourites);;
-  fSplash.SetPercent(10);
   Synchronize(@NewNode);
   Node.Height := 34;
   TTreeEntry(Node.Data).Typ := etFavourites;
-  Data.SetFilter(Data.Tree,Data.QuoteField('PARENT')+'=0 and '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('F'),0,'','ASC',False,True,True);
-  Data.Tree.DataSet.First;
-  while not Data.Tree.dataSet.EOF do
+  Data.SetFilter(aTree,Data.QuoteField('PARENT')+'=0 and '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('F'),0,'','ASC',False,True,True);
+  aTree.DataSet.First;
+  while not aTree.dataSet.EOF do
     begin
       Synchronize(@NewNode1);
-      TTreeEntry(Node1.Data).Rec := Data.Tree.GetBookmark;
-      TTreeEntry(Node1.Data).DataSource := Data.Tree;
-      TTreeEntry(Node1.Data).Text[0] := Data.Tree.FieldByName('NAME').AsString;
+      TTreeEntry(Node1.Data).Rec := aTree.GetBookmark;
+      TTreeEntry(Node1.Data).DataSource := aTree;
+      TTreeEntry(Node1.Data).Text[0] := aTree.FieldByName('NAME').AsString;
       TTreeEntry(Node1.Data).Typ := etDir;
       Node1.HasChildren:=True;
-      Data.Tree.DataSet.Next;
+      aTree.DataSet.Next;
     end;
   {$endregion}
+  debugln('Favourites: '+IntToStr(GetTickCount64-aTime));
+  aDocuments := TDocument.Create(nil,Data);
+  aDocuments.CreateTable;
+  aDocuments.Destroy;
+  //Messages
+  {$region}
+  if Data.Users.Rights.Right('MESSAGES') > RIGHT_NONE then
+    begin
+      aDataSet := TMessage.Create(nil,Data);
+      TMessage(aDataSet).CreateTable;
+      aDataSet.Destroy;
+      fMain.pcPages.AddTabClass(TfMessageFrame,strMessages,nil,Data.GetLinkIcon('MESSAGEIDX@'),True);
+      Data.RegisterLinkHandler('MESSAGEIDX',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
+      AddSearchAbleDataSet(TMessageList);
+      AddSearchAbleDataSet(TLists);
+      miNew := TmenuItem.Create(fMain.miView);
+      fMain.miView.Add(miNew);
+      miNew.Action := fMain.acMessages;
+      NewNode;
+      Node.Height := 34;
+      TTreeEntry(Node.Data).Typ := etMessages;
+      fMainTreeFrame.StartupTypes.Add(strMessages);
+      fMain.FMessageNode := Node;
+      Data.SetFilter(aTree,Data.QuoteField('PARENT')+'=0 and '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('N')+' OR '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('B'),0,'','ASC',False,True,True);
+      aTree.DataSet.First;
+      while not aTree.dataSet.EOF do
+        begin
+          NewNode1;
+          TTreeEntry(Node1.Data).Rec := aTree.GetBookmark;
+          TTreeEntry(Node1.Data).DataSource := aTree;
+          TTreeEntry(Node1.Data).Text[0] := aTree.FieldByName('NAME').AsString;
+          if aTree.FieldByName('TYPE').AsString = 'N' then
+            TTreeEntry(Node1.Data).Typ := etMessageDir
+          else if aTree.FieldByName('TYPE').AsString = 'B' then
+            TTreeEntry(Node1.Data).Typ := etMessageBoard;
+          aTree.DataSet.Next;
+        end;
+      {$ifndef heaptrc}
+      try
+        TBaseVisualApplication(Application).MessageHandler.SendCommand('*receiver','Receive('+Data.Users.FieldByName('NAME').AsString+')');
+      except
+      end;
+      {$endif}
+      fMain.RefreshMessages;
+    end;
+  {$endregion}
+  debugln('Messages: '+IntToStr(GetTickCount64-aTime));
+  //Add PIM Entrys
+  {$ifndef heaptrc}
+  uTasks.AddToMainTree(fMain.acNewTask,fMain.FTaskNode);
+  {$endif}
+  if Data.Users.Rights.Right('CALENDAR') > RIGHT_NONE then
+    begin
+      fMain.pcPages.AddTabClass(TfCalendarFrame,strCalendar,@fMain.AddCalendar,Data.GetLinkIcon('CALENDAR@'),True);
+      miNew := TmenuItem.Create(fMain.miView);
+      fMain.miView.Add(miNew);
+      miNew.Action := fMain.acCalendar;
+      {$ifndef heaptrc}
+      uCalendarFrame.AddToMainTree(fMain.acNewTermin,fMain.FCalendarNode);
+      {$endif}
+      Node := fMain.FCalendarNode;
+      NewNode1;
+      TTreeEntry(Node1.Data).Typ := etAttPlan;
+      TTreeEntry(Node1.Data).Action := fMain.acAttPlan;
+      fMain.RefreshCalendar;
+    end;
+  debugln('PIM: '+IntToStr(GetTickCount64-aTime));
+  //Orders,Production,...
+  {$region}
+  if Data.Users.Rights.Right('ORDERS') > RIGHT_NONE then
+    begin
+      aDataSet := TOrder.Create(nil,Data);
+      TOrder(aDataSet).CreateTable;
+      aDataSet.Destroy;
+      fMain.pcPages.AddTabClass(TfFilter,strOrderList,@fMain.AddOrderList,Data.GetLinkIcon('ORDERS@'),True);
+      Data.RegisterLinkHandler('ORDERS',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
+      AddSearchAbleDataSet(TOrderList);
+      miNew := TMenuItem.Create(fMain.miView);
+      fMain.miView.Add(miNew);
+      miNew.Action := fMain.acOrders;
+      NewNode;
+      Node.Height := 32;
+      TTreeEntry(Node.Data).Typ := etOrders;
+      NewNode1;
+      TTreeEntry(Node1.Data).Typ := etOrderList;
+      if Data.Users.Rights.Right('ORDERS') > RIGHT_READ then
+        begin
+          aOrderType := TOrderTyp.Create(nil,Data);
+          aOrderType.Open;
+          Data.SetFilter(aOrderType,'('+Data.QuoteField('SI_ORDER')+' = ''Y'')');
+          aOrderType.DataSet.First;
+          DefaultOrder := False;
+          while not aOrderType.DataSet.EOF do
+            begin
+              NewNode2;
+              if (aOrderType.FieldByName('TYPE').AsString = '0') and (not DefaultOrder) then
+                begin
+                  TTreeEntry(Node2.Data).Typ := etAction;
+                  TTreeEntry(Node2.Data).Action := fMain.acNewOrder;
+                  DefaultOrder := True;
+                end
+              else
+                begin
+                  TTreeEntry(Node2.Data).Typ := etNewOrder;
+                  TTreeEntry(Node2.Data).Rec := Data.GetBookmark(aOrderType);
+                  TTreeEntry(Node2.Data).DataSource := aOrderType;
+                  TTreeEntry(Node2.Data).DataSourceType:=TOrderTyp;
+                  TTreeEntry(Node2.Data).Text[0] := Format(strNewOrder,[aOrderType.FieldByName('STATUSNAME').AsString]);
+                end;
+              aOrderType.DataSet.Next;
+            end;
+          Data.SetFilter(aOrderType,'('+Data.QuoteValue('SI_PROD')+' = '+Data.QuoteValue('Y')+')');
+          aOrderType.DataSet.First;
+          while not aOrderType.DataSet.EOF do
+            begin
+              Node2 := fMainTreeFrame.tvMain.Items.AddChildObject(Node1.Parent,'',TTreeEntry.Create);
+              TTreeEntry(Node2.Data).Typ := etNewOrder;
+              TTreeEntry(Node2.Data).Rec := Data.GetBookmark(aOrderType);
+              TTreeEntry(Node2.Data).DataSource := aOrderType;
+              TTreeEntry(Node2.Data).DataSourceType:=TOrderTyp;
+              TTreeEntry(Node2.Data).Text[0] := Format(strNewOrder,[aOrderType.FieldByName('STATUSNAME').AsString]);
+              aOrderType.DataSet.Next;
+            end;
+          Data.SetFilter(aOrderType,'');
+          aOrderType.DataSet.Locate('TYPE','0',[loCaseInsensitive,loPartialKey]);
+          fMain.acNewOrder.Caption := Format(strNewOrder,[aOrderType.FieldByName('STATUSNAME').AsString]);
+          aOrderType.Free;
+        end
+      else
+        fMain.acNewOrder.Enabled:=False;
+     end;
+  {$endregion}
+  debugln('Orders: '+IntToStr(GetTickCount64-aTime));
+
+
+  if Application.HasOption('startuptype') then
+    begin
+      if fMainTreeFrame.tvMain.Items.Count > 0 then
+        aNode := fMainTreeFrame.tvMain.Items[0];
+      while Assigned(aNode) do
+        begin
+          if (Application.GetOptionValue('startuptype') = aNode.Text)
+          or (Application.GetOptionValue('startuptype') = fMainTreeFrame.GetNodeText(aNode)) then
+            begin
+              fMainTreeFrame.tvMain.Selected := aNode;
+              break;
+            end;
+          aNode := aNode.GetNextSibling;
+        end;
+    end;
+  aTree.Free;
 end;
 
 procedure TfMain.acLoginExecute(Sender: TObject);
 var
   Node: TTreeNode;
-  miNew: TMenuItem;
-  Node1: TTreeNode;
-  Node2: TTreeNode;
-  Node3: TTreeNode;
   Accounts: TAccounts;
   aOrder: TOrder;
   aOrderType: TOrderTyp;
   DefaultOrder: Boolean;
   WikiFrame: TfWikiFrame;
-  aDataSet: TBaseDbDataSet;
-  aDocuments: TDocument;
-  aNode: TTreeNode;
   aListL: TLinks;
-  aTime: QWord;
   aDS: TMeetings;
   aWiki: TWikiList;
   aHist: TBaseHistory;
@@ -678,153 +838,12 @@ begin
         Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
         Node.Height := 34;
         TTreeEntry(Node.Data).Typ := etSearch;
-        miNew := TmenuItem.Create(miView);
-        miView.Add(miNew);
-        miNew.Action := fMainTreeFrame.acSearch;
         {$endregion}
         //Actions
         Data.RegisterLinkHandler('ACTION',@OpenAction);
         //Options
         Data.RegisterLinkHandler('OPTION',@OpenOption);
         {
-        debugln('Favourites: '+IntToStr(GetTickCount64-aTime));
-        fSplash.AddText(strAdding+' '+strMessages);;
-        fSplash.SetPercent(20);
-        aDocuments := TDocument.Create(Self,Data);
-        aDocuments.CreateTable;
-        aDocuments.Destroy;
-        //Messages
-        {$region}
-        if Data.Users.Rights.Right('MESSAGES') > RIGHT_NONE then
-          begin
-            aDataSet := TMessage.Create(Self,Data);
-            TMessage(aDataSet).CreateTable;
-            aDataSet.Destroy;
-            pcPages.AddTabClass(TfMessageFrame,strMessages,nil,Data.GetLinkIcon('MESSAGEIDX@'),True);
-            Data.RegisterLinkHandler('MESSAGEIDX',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
-            AddSearchAbleDataSet(TMessageList);
-            AddSearchAbleDataSet(TLists);
-            miNew := TmenuItem.Create(miView);
-            miView.Add(miNew);
-            miNew.Action := acMessages;
-            Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
-            Node.Height := 34;
-            TTreeEntry(Node.Data).Typ := etMessages;
-            fMainTreeFrame.StartupTypes.Add(strMessages);
-            FMessageNode := Node;
-            Data.SetFilter(Data.Tree,Data.QuoteField('PARENT')+'=0 and '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('N')+' OR '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('B'),0,'','ASC',False,True,True);
-            Data.Tree.DataSet.First;
-            while not Data.Tree.dataSet.EOF do
-              begin
-                Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
-                TTreeEntry(Node1.Data).Rec := Data.Tree.GetBookmark;
-                TTreeEntry(Node1.Data).DataSource := Data.Tree;
-                TTreeEntry(Node1.Data).Text[0] := Data.Tree.FieldByName('NAME').AsString;
-                if Data.Tree.FieldByName('TYPE').AsString = 'N' then
-                  TTreeEntry(Node1.Data).Typ := etMessageDir
-                else if Data.Tree.FieldByName('TYPE').AsString = 'B' then
-                  TTreeEntry(Node1.Data).Typ := etMessageBoard;
-                Data.Tree.DataSet.Next;
-              end;
-            {$ifndef heaptrc}
-            try
-              TBaseVisualApplication(Application).MessageHandler.SendCommand('*receiver','Receive('+Data.Users.FieldByName('NAME').AsString+')');
-            except
-            end;
-            {$endif}
-            RefreshMessages;
-          end;
-        {$endregion}
-        debugln('Messages: '+IntToStr(GetTickCount64-aTime));
-        fSplash.AddText(strAdding+' '+strCalendar);;
-        fSplash.SetPercent(30);
-        //Add PIM Entrys
-        {$ifndef heaptrc}
-        uTasks.AddToMainTree(acNewTask,FTaskNode);
-        {$endif}
-        if Data.Users.Rights.Right('CALENDAR') > RIGHT_NONE then
-          begin
-            pcPages.AddTabClass(TfCalendarFrame,strCalendar,@AddCalendar,Data.GetLinkIcon('CALENDAR@'),True);
-            miNew := TmenuItem.Create(miView);
-            miView.Add(miNew);
-            miNew.Action := acCalendar;
-            {$ifndef heaptrc}
-            uCalendarFrame.AddToMainTree(acNewTermin,FCalendarNode);
-            {$endif}
-            Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(FCalendarNode,'',TTreeEntry.Create);
-            TTreeEntry(Node1.Data).Typ := etAttPlan;
-            TTreeEntry(Node1.Data).Action := acAttPlan;
-            RefreshCalendar;
-          end;
-        debugln('PIM: '+IntToStr(GetTickCount64-aTime));
-        fSplash.AddText(strAdding+' '+strOrders);;
-        fSplash.SetPercent(40);
-        //Orders,Production,...
-        {$region}
-        if Data.Users.Rights.Right('ORDERS') > RIGHT_NONE then
-          begin
-            aDataSet := TOrder.Create(Self,Data);
-            TOrder(aDataSet).CreateTable;
-            aDataSet.Destroy;
-            pcPages.AddTabClass(TfFilter,strOrderList,@AddOrderList,Data.GetLinkIcon('ORDERS@'),True);
-            Data.RegisterLinkHandler('ORDERS',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
-            AddSearchAbleDataSet(TOrderList);
-            miNew := TMenuItem.Create(miView);
-            miView.Add(miNew);
-            miNew.Action := acOrders;
-            Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
-            Node.Height := 32;
-            TTreeEntry(Node.Data).Typ := etOrders;
-            Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
-            TTreeEntry(Node1.Data).Typ := etOrderList;
-            if Data.Users.Rights.Right('ORDERS') > RIGHT_READ then
-              begin
-                aOrderType := TOrderTyp.Create(Self,Data);
-                aOrderType.Open;
-                Data.SetFilter(aOrderType,'('+Data.QuoteField('SI_ORDER')+' = ''Y'')');
-                aOrderType.DataSet.First;
-                DefaultOrder := False;
-                while not aOrderType.DataSet.EOF do
-                  begin
-                    Node2 := fMainTreeFrame.tvMain.Items.AddChildObject(Node1.Parent,'',TTreeEntry.Create);
-                    if (aOrderType.FieldByName('TYPE').AsString = '0') and (not DefaultOrder) then
-                      begin
-                        TTreeEntry(Node2.Data).Typ := etAction;
-                        TTreeEntry(Node2.Data).Action := acNewOrder;
-                        DefaultOrder := True;
-                      end
-                    else
-                      begin
-                        TTreeEntry(Node2.Data).Typ := etNewOrder;
-                        TTreeEntry(Node2.Data).Rec := Data.GetBookmark(aOrderType);
-                        TTreeEntry(Node2.Data).DataSource := aOrderType;
-                        TTreeEntry(Node2.Data).DataSourceType:=TOrderTyp;
-                        TTreeEntry(Node2.Data).Text[0] := Format(strNewOrder,[aOrderType.FieldByName('STATUSNAME').AsString]);
-                      end;
-                    aOrderType.DataSet.Next;
-                  end;
-                Data.SetFilter(aOrderType,'('+Data.QuoteValue('SI_PROD')+' = '+Data.QuoteValue('Y')+')');
-                aOrderType.DataSet.First;
-                while not aOrderType.DataSet.EOF do
-                  begin
-                    Node2 := fMainTreeFrame.tvMain.Items.AddChildObject(Node1.Parent,'',TTreeEntry.Create);
-                    TTreeEntry(Node2.Data).Typ := etNewOrder;
-                    TTreeEntry(Node2.Data).Rec := Data.GetBookmark(aOrderType);
-                    TTreeEntry(Node2.Data).DataSource := aOrderType;
-                    TTreeEntry(Node2.Data).DataSourceType:=TOrderTyp;
-                    TTreeEntry(Node2.Data).Text[0] := Format(strNewOrder,[aOrderType.FieldByName('STATUSNAME').AsString]);
-                    aOrderType.DataSet.Next;
-                  end;
-                Data.SetFilter(aOrderType,'');
-                aOrderType.DataSet.Locate('TYPE','0',[loCaseInsensitive,loPartialKey]);
-                acNewOrder.Caption := Format(strNewOrder,[aOrderType.FieldByName('STATUSNAME').AsString]);
-                aOrderType.Free;
-              end
-            else
-              acNewOrder.Enabled:=False;
-           end;
-        {$endregion}
-        debugln('Orders: '+IntToStr(GetTickCount64-aTime));
         fSplash.AddText(strAdding+' '+strContact);;
         fSplash.SetPercent(60);
         //Add Contacts
@@ -851,17 +870,17 @@ begin
             Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
             TTreeEntry(Node1.Data).Typ := etAction;
             TTreeEntry(Node1.Data).Action := acNewContact;
-            Data.SetFilter(Data.Tree,'(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('C')+'))',0,'','ASC',False,True,True);
-            Data.Tree.DataSet.First;
-            while not Data.Tree.dataSet.EOF do
+            Data.SetFilter(aTree,'(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('C')+'))',0,'','ASC',False,True,True);
+            aTree.DataSet.First;
+            while not aTree.dataSet.EOF do
               begin
                 Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
-                TTreeEntry(Node1.Data).Rec := Data.GetBookmark(Data.Tree);
-                TTreeEntry(Node1.Data).DataSource := Data.Tree;
-                TTreeEntry(Node1.Data).Text[0] := Data.Tree.FieldByName('NAME').AsString;
+                TTreeEntry(Node1.Data).Rec := Data.GetBookmark(aTree);
+                TTreeEntry(Node1.Data).DataSource := aTree;
+                TTreeEntry(Node1.Data).Text[0] := aTree.FieldByName('NAME').AsString;
                 TTreeEntry(Node1.Data).Typ := etDir;
                 fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'1',TTreeEntry.Create);
-                Data.Tree.DataSet.Next;
+                aTree.DataSet.Next;
               end;
           end;
         {$endregion}
@@ -889,17 +908,17 @@ begin
             Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
             TTreeEntry(Node1.Data).Typ := etAction;
             TTreeEntry(Node1.Data).Action := acNewMasterdata;
-            Data.SetFilter(Data.Tree,'(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('M')+'))',0,'','ASC',False,True,True);
-            Data.Tree.DataSet.First;
-            while not Data.Tree.dataSet.EOF do
+            Data.SetFilter(aTree,'(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('M')+'))',0,'','ASC',False,True,True);
+            aTree.DataSet.First;
+            while not aTree.dataSet.EOF do
               begin
                 Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
-                TTreeEntry(Node1.Data).Rec := Data.GetBookmark(Data.Tree);
-                TTreeEntry(Node1.Data).DataSource := Data.Tree;
-                TTreeEntry(Node1.Data).Text[0] := Data.Tree.FieldByName('NAME').AsString;
+                TTreeEntry(Node1.Data).Rec := Data.GetBookmark(aTree);
+                TTreeEntry(Node1.Data).DataSource := aTree;
+                TTreeEntry(Node1.Data).Text[0] := aTree.FieldByName('NAME').AsString;
                 TTreeEntry(Node1.Data).Typ := etDir;
                 fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'',TTreeEntry.Create);
-                Data.Tree.DataSet.Next;
+                aTree.DataSet.Next;
               end;
           end;
         {$endregion}
@@ -926,17 +945,17 @@ begin
             Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
             Node.Height := 34;
             TTreeEntry(Node.Data).Typ := etWiki;
-            Data.SetFilter(Data.Tree,'(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('W')+'))',0,'','ASC',False,True,True);
-            Data.Tree.DataSet.First;
-            while not Data.Tree.dataSet.EOF do
+            Data.SetFilter(aTree,'(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('W')+'))',0,'','ASC',False,True,True);
+            aTree.DataSet.First;
+            while not aTree.dataSet.EOF do
               begin
                 Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
-                TTreeEntry(Node1.Data).Rec := Data.GetBookmark(Data.Tree);
-                TTreeEntry(Node1.Data).DataSource := Data.Tree;
-                TTreeEntry(Node1.Data).Text[0] := Data.Tree.FieldByName('NAME').AsString;
+                TTreeEntry(Node1.Data).Rec := Data.GetBookmark(aTree);
+                TTreeEntry(Node1.Data).DataSource := aTree;
+                TTreeEntry(Node1.Data).Text[0] := aTree.FieldByName('NAME').AsString;
                 TTreeEntry(Node1.Data).Typ := etDir;
                 fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'',TTreeEntry.Create);
-                Data.Tree.DataSet.Next;
+                aTree.DataSet.Next;
               end;
           end;
         {$endregion}
@@ -1073,21 +1092,6 @@ begin
 
         with Application as IBaseDbInterface do
           FHistory.Text := DBConfig.ReadString('HISTORY','');
-        if Application.HasOption('startuptype') then
-          begin
-            if fMainTreeFrame.tvMain.Items.Count > 0 then
-              aNode := fMainTreeFrame.tvMain.Items[0];
-            while Assigned(aNode) do
-              begin
-                if (Application.GetOptionValue('startuptype') = aNode.Text)
-                or (Application.GetOptionValue('startuptype') = fMainTreeFrame.GetNodeText(aNode)) then
-                  begin
-                    fMainTreeFrame.tvMain.Selected := aNode;
-                    break;
-                  end;
-                aNode := aNode.GetNextSibling;
-              end;
-          end;
         if Application.HasOption('hidetree') then
           begin
             tvMain.Visible:=False;
@@ -1267,7 +1271,6 @@ var
   aFrame: TTabSheet;
   aConn: TComponent;
   a: Integer;
-  aTime: DWORD;
 begin
   nData := TTreeEntry(fMainTreeFrame.tvMain.Selected.Data);
   if not Assigned(nData) then exit;
