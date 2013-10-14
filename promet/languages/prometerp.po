@@ -7006,6 +7006,10 @@ msgctxt "umain.strlanguages"
 msgid "Sprachen"
 msgstr ""
 
+#: umain.strlogin
+msgid "Login..."
+msgstr ""
+
 #: umain.strmessageaccounts
 msgid "Nachrichtenkonten"
 msgstr ""
@@ -7478,10 +7482,6 @@ msgstr ""
 
 #: uwizardnewaccount.straqbankingisnotinstalled
 msgid "aqBanking ist nicht installiert ! aqBanking muss installiert sein um Online Banking zu bretreiben"
-msgstr ""
-
-#: uwizardnewaccount.strenterftsname
-msgid "geben Sie einen FinTS Konto Namen an !"
 msgstr ""
 
 #: uwizardnewmandant.strcheckandcorrectdbfailed

@@ -261,6 +261,21 @@ type
     property TimeReg : TfEnterTime read FTimeReg;
     function DoCreate : Boolean;
   end;
+
+  { TStaarterThread }
+
+  { TStarterThread }
+
+  TStarterThread = class(TThread)
+  private
+    Node,Node1 : TTreeNode;
+    procedure NewNode;
+    procedure NewNode1;
+  public
+    constructor Create;
+    procedure Execute; override;
+  end;
+
 var
   fMain: TfMain;
 implementation
@@ -307,6 +322,7 @@ resourcestring
   strNewInventory               = 'Neue Inventur';
   strInventory                  = 'Inventur';
   strDeletingMessages           = 'lösche Nachrichten, noch %d Nachichten';
+  strLogin                      = 'Login...';
 
 function OnMessageReceived(aMessage: string): Boolean;
 var
@@ -555,6 +571,48 @@ begin
       OpenFromLink('WIKI@INDEX');
     end;
 end;
+{ TStaarterThread }
+
+procedure TStarterThread.NewNode;
+begin
+  Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
+end;
+
+procedure TStarterThread.NewNode1;
+begin
+  Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
+end;
+
+constructor TStarterThread.Create;
+begin
+  FreeOnTerminate:=True;
+  inherited Create(False);
+end;
+
+procedure TStarterThread.Execute;
+begin
+  //Favorites
+  {$region}
+  fSplash.AddText(strAdding+' '+strFavourites);;
+  fSplash.SetPercent(10);
+  Synchronize(@NewNode);
+  Node.Height := 34;
+  TTreeEntry(Node.Data).Typ := etFavourites;
+  Data.SetFilter(Data.Tree,Data.QuoteField('PARENT')+'=0 and '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('F'),0,'','ASC',False,True,True);
+  Data.Tree.DataSet.First;
+  while not Data.Tree.dataSet.EOF do
+    begin
+      Synchronize(@NewNode1);
+      TTreeEntry(Node1.Data).Rec := Data.Tree.GetBookmark;
+      TTreeEntry(Node1.Data).DataSource := Data.Tree;
+      TTreeEntry(Node1.Data).Text[0] := Data.Tree.FieldByName('NAME').AsString;
+      TTreeEntry(Node1.Data).Typ := etDir;
+      Node1.HasChildren:=True;
+      Data.Tree.DataSet.Next;
+    end;
+  {$endregion}
+end;
+
 procedure TfMain.acLoginExecute(Sender: TObject);
 var
   Node: TTreeNode;
@@ -576,21 +634,24 @@ var
   aWiki: TWikiList;
   aHist: TBaseHistory;
   aCategory: TCategory;
+  aStart: TStarterThread;
+  bStart: TStarterThread;
 begin
   fMain.Hide;
   aTime := GetTickCount64;
-  with Application as IBaseApplication do
-    if not Login then
-      begin
-        Application.Terminate;
-        exit;
-      end;
   fSplash := TfSplash.Create(Self);
   try
     with Application as IBaseApplication do
       fSplash.lVersion.Caption:= strVersion+' '+StringReplace(FormatFloat('0.0', AppVersion),',','.',[])+'.'+IntToStr(AppRevision);
     fSplash.Show;
+    fSplash.AddText(strLogin);;
     Application.ProcessMessages;
+    with Application as IBaseApplication do
+      if not Login then
+        begin
+          Application.Terminate;
+          exit;
+        end;
     with Application as IBaseDBInterface do
       begin
         acLogin.Enabled:=False;
@@ -600,8 +661,6 @@ begin
         if Assigned(TBaseVisualApplication(Application).MessageHandler) then
           TBaseVisualApplication(Application).MessageHandler.RegisterCommandHandler(@CommandReceived);
         debugln('BaseLogin: '+IntToStr(GetTickCount64-aTime));
-        fSplash.AddText(strAdding+' '+strFavourites);;
-        fSplash.SetPercent(10);
         aWiki := TWikiList.Create(nil,Data);
         aWiki.CreateTable;
         aWiki.Free;
@@ -627,24 +686,7 @@ begin
         Data.RegisterLinkHandler('ACTION',@OpenAction);
         //Options
         Data.RegisterLinkHandler('OPTION',@OpenOption);
-        //Favorites
-        {$region}
-        Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
-        Node.Height := 34;
-        TTreeEntry(Node.Data).Typ := etFavourites;
-        Data.SetFilter(Data.Tree,Data.QuoteField('PARENT')+'=0 and '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('F'),0,'','ASC',False,True,True);
-        Data.Tree.DataSet.First;
-        while not Data.Tree.dataSet.EOF do
-          begin
-            Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
-            TTreeEntry(Node1.Data).Rec := Data.Tree.GetBookmark;
-            TTreeEntry(Node1.Data).DataSource := Data.Tree;
-            TTreeEntry(Node1.Data).Text[0] := Data.Tree.FieldByName('NAME').AsString;
-            TTreeEntry(Node1.Data).Typ := etDir;
-            Node1.HasChildren:=True;
-            Data.Tree.DataSet.Next;
-          end;
-        {$endregion}
+        {
         debugln('Favourites: '+IntToStr(GetTickCount64-aTime));
         fSplash.AddText(strAdding+' '+strMessages);;
         fSplash.SetPercent(20);
@@ -1026,6 +1068,9 @@ begin
         uTAPIPhone.RegisterPhoneLines;
         {$ENDIF}
         {$ENDIF}
+
+        }
+
         with Application as IBaseDbInterface do
           FHistory.Text := DBConfig.ReadString('HISTORY','');
         if Application.HasOption('startuptype') then
@@ -1055,6 +1100,7 @@ begin
     fSplash.Hide;
     fMain.Visible:=True;
   end;
+  bStart := TStarterThread.Create;
   IPCTimer.Enabled:=True;
 end;
 procedure TfMain.acContactExecute(Sender: TObject);
