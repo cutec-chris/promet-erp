@@ -1486,8 +1486,6 @@ begin
     begin
       Data.RegisterLinkHandler('TASKS',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
       Node := aNode;
-      Node.Height := 34;
-      TTreeEntry(Node.Data).Typ := etTasks;
       Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
       TTreeEntry(Node1.Data).Typ := etAction;
       TTreeEntry(Node1.Data).Action := aAction;

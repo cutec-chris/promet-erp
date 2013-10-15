@@ -697,25 +697,11 @@ begin
   {$endif}
   fMain.RefreshMessages;
   //Add PIM Entrys
-  {$ifndef heaptrc}
-  uTasks.AddToMainTree(fMain.acNewTask,fMain.FTaskNode);
-  {$endif}
   if Data.Users.Rights.Right('CALENDAR') > RIGHT_NONE then
     begin
       fMain.pcPages.AddTabClass(TfCalendarFrame,strCalendar,@fMain.AddCalendar,Data.GetLinkIcon('CALENDAR@'),True);
-      Synchronize(@NewMenu);
-      miNew.Action := fMain.acCalendar;
-      {$ifndef heaptrc}
-      uCalendarFrame.AddToMainTree(fMain.acNewTermin,fMain.FCalendarNode);
-      {$endif}
-      Node := fMain.FCalendarNode;
-      NewNode1;
-      TTreeEntry(Node1.Data).Typ := etAttPlan;
-      TTreeEntry(Node1.Data).Action := fMain.acAttPlan;
       fMain.RefreshCalendar;
     end;
-  //debugln('PIM: '+IntToStr(GetTickCount64-aTime));
-  Synchronize(@ShowAll);
   //Orders,Production,...
   {$region}
   if Data.Users.Rights.Right('ORDERS') > RIGHT_NONE then
@@ -1081,11 +1067,9 @@ begin
         WikiFrame.SetRights(Data.Users.Rights.Right('WIKI')>RIGHT_READ);
         //debugln('Wiki: '+IntToStr(GetTickCount64-aTime));
         //Add Search Node
-        {$region}
         Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
         Node.Height := 34;
         TTreeEntry(Node.Data).Typ := etSearch;
-        {$endregion}
         //Actions
         Data.RegisterLinkHandler('ACTION',@OpenAction);
         //Options
@@ -1094,7 +1078,6 @@ begin
         Node.Height := 34;
         TTreeEntry(Node.Data).Typ := etFavourites;
         //Messages
-        {$region}
         if Data.Users.Rights.Right('MESSAGES') > RIGHT_NONE then
           begin
             NewMenu;
@@ -1105,7 +1088,24 @@ begin
             fMainTreeFrame.StartupTypes.Add(strMessages);
             fMain.FMessageNode := Node;
           end;
-        {$endregion}
+        //Tasks
+        if (Data.Users.Rights.Right('TASKS') > RIGHT_NONE) then
+          begin
+            NewNode;
+            Node.Height := 34;
+            TTreeEntry(Node.Data).Typ := etTasks;
+            FTaskNode := Node;
+          end;
+        //PIM
+        if Data.Users.Rights.Right('CALENDAR') > RIGHT_NONE then
+          begin
+            NewMenu;
+            miNew.Action := fMain.acCalendar;
+            NewNode;
+            Node.Height := 34;
+            TTreeEntry(Node.Data).Typ := etCalendar;
+            FCalendarNode := Node;
+          end;
 
         //bStart := TStarterThread.Create;
 
@@ -2817,6 +2817,17 @@ begin
                 TTreeEntry(Node1.Data).Typ := etMessageBoard;
               Data.Tree.DataSet.Next;
             end;
+        end;
+      etTasks:
+        begin
+          uTasks.AddToMainTree(fMain.acNewTask,fMain.FTaskNode);
+        end;
+      etCalendar:
+        begin
+          uCalendarFrame.AddToMainTree(fMain.acNewTermin,fMain.FCalendarNode);
+          Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
+          TTreeEntry(Node1.Data).Typ := etAttPlan;
+          TTreeEntry(Node1.Data).Action := fMain.acAttPlan;
         end;
       end;
     end;
