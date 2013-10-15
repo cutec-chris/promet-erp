@@ -642,7 +642,8 @@ begin
           MainNode := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
           MainNode.Height := 34;
           TTreeEntry(MainNode.Data).Typ := etTimeRegistering;
-          fMain.FTimeReg.refreshNode;
+          fMain.FTimeReg.Node := MainNode;
+          fMain.FTimeReg.RefreshNode;
         end;
     end;
 end;
@@ -656,18 +657,13 @@ end;
 procedure TStarterThread.Execute;
 var
   aTime: QWord;
-  aDocuments: TDocument;
   aDataSet: TBaseDbDataSet;
-  aTree: TTree;
-  aOrderType: TOrderTyp;
-  DefaultOrder: Boolean;
   aConn: TComponent;
-  aDS: TMeetings;
-  Accounts: TAccounts;
   aCal: TCalendar;
+  aDocuments: TDocument;
+  aDS: TMeetings;
 begin
   aConn := Data.GetNewConnection;
-  aTree := TTree.Create(nil,Data,aConn);
   Synchronize(@NewMenu);
   miNew.Action := fMainTreeFrame.acSearch;
   //Timeregistering
@@ -691,6 +687,8 @@ begin
   end;
   {$endif}
   fMain.RefreshMessages;
+  //Tasks
+  uTasks.RefreshTasks(fMain.FTaskNode);
   //Add PIM Entrys
   if Data.Users.Rights.Right('CALENDAR') > RIGHT_NONE then
     begin
@@ -806,7 +804,6 @@ begin
           aNode := aNode.GetNextSibling;
         end;
     end;
-  aTree.Free;
   aConn.Free;
 end;
 
@@ -983,11 +980,11 @@ begin
         if (Data.Users.Rights.Right('STATISTICS') > RIGHT_NONE) then
           begin
             NewNode;
-            MainNode.Height := 34;
-            TTreeEntry(MainNode.Data).Typ := etStatistics;
+            Node.Height := 34;
+            TTreeEntry(Node.Data).Typ := etStatistics;
           end;
 
-        //bStart := TStarterThread.Create;
+        bStart := TStarterThread.Create;
 
         with Application as IBaseDbInterface do
           FHistory.Text := DBConfig.ReadString('HISTORY','');

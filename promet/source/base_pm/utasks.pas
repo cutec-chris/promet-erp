@@ -1489,7 +1489,6 @@ begin
       Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
       TTreeEntry(Node1.Data).Typ := etAction;
       TTreeEntry(Node1.Data).Action := aAction;
-      RefreshTasks(aNode);
       fMainTreeFrame.StartupTypes.Add(strTasks);
       Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
       TTreeEntry(Node1.Data).Typ := etTaskPlan;
