@@ -279,7 +279,6 @@ type
     procedure NewNode3;
     procedure NewMenu;
     procedure ShowAll;
-    procedure AddStatistics;
     procedure AddTimeReg;
     procedure AddTimeReg2;
   public
@@ -617,11 +616,6 @@ begin
   fMainTreeFrame.tvMain.Invalidate;
 end;
 
-procedure TStarterThread.AddStatistics;
-begin
-  uStatisticFrame.AddToMainTree(fMain.acNewStatistics);
-end;
-
 procedure TStarterThread.AddTimeReg;
 begin
   if (Data.Users.Rights.Right('TIMEREG') > RIGHT_NONE) then
@@ -779,10 +773,11 @@ begin
       aDataSet.Destroy;
       Data.RegisterLinkHandler('INVENTORY',@fMainTreeFrame.OpenLink);
     end;
-  //Add Statistics
-  {$ifndef heaptrc}
-  Synchronize(@AddStatistics);
-  {$endif}
+  //Statistics
+  if (Data.Users.Rights.Right('STATISTICS') > RIGHT_NONE) then
+    begin
+      Data.RegisterLinkHandler('STATISTICS',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
+    end;
   //Timeregistering
   Synchronize(@AddTimeReg2);
   AddSearchAbleDataSet(TUser);
@@ -983,6 +978,13 @@ begin
             NewNode;
             Node.Height := 34;
             TTreeEntry(Node.Data).Typ := etFinancial;
+          end;
+        //Statistics
+        if (Data.Users.Rights.Right('STATISTICS') > RIGHT_NONE) then
+          begin
+            NewNode;
+            MainNode.Height := 34;
+            TTreeEntry(MainNode.Data).Typ := etStatistics;
           end;
 
         //bStart := TStarterThread.Create;
@@ -2863,6 +2865,10 @@ begin
               TTreeEntry(Node1.Data).Typ := etSalesList;
               TTreeEntry(Node1.Data).Action := fMain.acSalesList;
             end;
+        end;
+      etStatistics:
+        begin
+          uStatisticFrame.AddToMainTree(fMain.acNewStatistics,Node);
         end;
       end;
     end;

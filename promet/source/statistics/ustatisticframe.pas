@@ -193,7 +193,7 @@ type
   end;
   TOwnSQLParser = class(TSQLParser)
   end;
-procedure AddToMainTree(aAction : TAction);
+procedure AddToMainTree(aAction : TAction;Node : TTreeNode);
 var
   MainNode : TTreeNode;
 
@@ -227,7 +227,7 @@ begin
   TTreeEntry(Node1.Data).Typ := aTyp;
   result := Node1;
 end;
-procedure AddToMainTree(aAction : TAction);
+procedure AddToMainTree(aAction: TAction; Node: TTreeNode);
 var
   aDataSet: TStatistic;
   Node1: TTreeNode;
@@ -235,10 +235,7 @@ var
 begin
   if (Data.Users.Rights.Right('STATISTICS') > RIGHT_NONE) then
     begin
-      Data.RegisterLinkHandler('STATISTICS',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
-      MainNode := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
-      MainNode.Height := 34;
-      TTreeEntry(MainNode.Data).Typ := etStatistics;
+      MainNode := Node;
       Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(MainNode,'',TTreeEntry.Create);
       TTreeEntry(Node1.Data).Typ := etAction;
       TTreeEntry(Node1.Data).Action := aAction;
