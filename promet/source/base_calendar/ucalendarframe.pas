@@ -248,10 +248,7 @@ begin
   if Data.Users.Rights.Right('CALENDAR') > RIGHT_NONE then
     begin
       Data.RegisterLinkHandler('CALENDAR',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
-      Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
-      TTreeEntry(Node.Data).Typ := etCalendar;
-      FCalendarNode := Node;
-      Node.Height := 34;
+      Node := FCalendarNode;
       Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
       TTreeEntry(Node1.Data).Typ := etAction;
       TTreeEntry(Node1.Data).Action := aAction;
@@ -261,9 +258,6 @@ begin
         begin
           CollectUsers(Data.Users.FieldByName('PARENT').AsVariant);
         end;
-      aCal := TCalendar.Create(nil,Data);
-      aCal.CreateTable;
-      acal.Free;
     end;
 end;
 

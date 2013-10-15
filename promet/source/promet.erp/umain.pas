@@ -303,7 +303,7 @@ uses uBaseDBInterface,uIntfStrConsts,uSearch,uFilterFrame,uPerson,uData,
   uProcessOptions,Utils,uBaseERPDBClasses,umaintasks,utasks,uTaskEdit,LCLProc,
   usplash,ufavorites,uBaseVisualControls,uStatisticFrame,uwait,uprometipc,uMeetingFrame,
   umeeting,uEditableTab,umanagedocframe,uBaseDocPages,uTaskPlan,uattendanceplan,
-  uTimeFrame,uTimeOptions,uWizardnewaccount,
+  uTimeFrame,uTimeOptions,uWizardnewaccount,uCalendar,
   uOptionsFrame
   {$ifdef WINDOWS}
   {$ifdef CPU32}
@@ -670,6 +670,7 @@ var
   aConn: TComponent;
   aDS: TMeetings;
   Accounts: TAccounts;
+  aCal: TCalendar;
 begin
   aConn := Data.GetNewConnection;
   aTree := TTree.Create(nil,Data,aConn);
@@ -699,75 +700,20 @@ begin
   //Add PIM Entrys
   if Data.Users.Rights.Right('CALENDAR') > RIGHT_NONE then
     begin
+      aCal := TCalendar.Create(nil,Data);
+      aCal.CreateTable;
+      acal.Free;
       fMain.pcPages.AddTabClass(TfCalendarFrame,strCalendar,@fMain.AddCalendar,Data.GetLinkIcon('CALENDAR@'),True);
       fMain.RefreshCalendar;
     end;
-  //Orders,Production,...
-  {$region}
-  if Data.Users.Rights.Right('ORDERS') > RIGHT_NONE then
-    begin
-      aDataSet := TOrder.Create(nil,Data,aConn);
-      TOrder(aDataSet).CreateTable;
-      aDataSet.Destroy;
-      fMain.pcPages.AddTabClass(TfFilter,strOrderList,@fMain.AddOrderList,Data.GetLinkIcon('ORDERS@'),True);
-      Data.RegisterLinkHandler('ORDERS',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
-      AddSearchAbleDataSet(TOrderList);
-      Synchronize(@NewMenu);
-      miNew.Action := fMain.acOrders;
-      NewNode;
-      Node.Height := 32;
-      TTreeEntry(Node.Data).Typ := etOrders;
-      NewNode1;
-      TTreeEntry(Node1.Data).Typ := etOrderList;
-      if Data.Users.Rights.Right('ORDERS') > RIGHT_READ then
-        begin
-          aOrderType := TOrderTyp.Create(nil,Data,aConn);
-          aOrderType.Open;
-          Data.SetFilter(aOrderType,'('+Data.QuoteField('SI_ORDER')+' = ''Y'')');
-          aOrderType.DataSet.First;
-          DefaultOrder := False;
-          while not aOrderType.DataSet.EOF do
-            begin
-              NewNode2;
-              if (aOrderType.FieldByName('TYPE').AsString = '0') and (not DefaultOrder) then
-                begin
-                  TTreeEntry(Node2.Data).Typ := etAction;
-                  TTreeEntry(Node2.Data).Action := fMain.acNewOrder;
-                  DefaultOrder := True;
-                end
-              else
-                begin
-                  TTreeEntry(Node2.Data).Typ := etNewOrder;
-                  TTreeEntry(Node2.Data).Rec := Data.GetBookmark(aOrderType);
-                  TTreeEntry(Node2.Data).DataSource := aOrderType;
-                  TTreeEntry(Node2.Data).DataSourceType:=TOrderTyp;
-                  TTreeEntry(Node2.Data).Text[0] := Format(strNewOrder,[aOrderType.FieldByName('STATUSNAME').AsString]);
-                end;
-              aOrderType.DataSet.Next;
-            end;
-          Data.SetFilter(aOrderType,'('+Data.QuoteValue('SI_PROD')+' = '+Data.QuoteValue('Y')+')');
-          aOrderType.DataSet.First;
-          while not aOrderType.DataSet.EOF do
-            begin
-              Node2 := fMainTreeFrame.tvMain.Items.AddChildObject(Node1.Parent,'',TTreeEntry.Create);
-              TTreeEntry(Node2.Data).Typ := etNewOrder;
-              TTreeEntry(Node2.Data).Rec := Data.GetBookmark(aOrderType);
-              TTreeEntry(Node2.Data).DataSource := aOrderType;
-              TTreeEntry(Node2.Data).DataSourceType:=TOrderTyp;
-              TTreeEntry(Node2.Data).Text[0] := Format(strNewOrder,[aOrderType.FieldByName('STATUSNAME').AsString]);
-              aOrderType.DataSet.Next;
-            end;
-          Data.SetFilter(aOrderType,'');
-          aOrderType.DataSet.Locate('TYPE','0',[loCaseInsensitive,loPartialKey]);
-          fMain.acNewOrder.Caption := Format(strNewOrder,[aOrderType.FieldByName('STATUSNAME').AsString]);
-          aOrderType.Free;
-        end
-      else
-        fMain.acNewOrder.Enabled:=False;
-     end;
-  {$endregion}
-  //debugln('Orders: '+IntToStr(GetTickCount64-aTime));
-  Synchronize(@ShowAll);
+  //Orders
+  aDataSet := TOrder.Create(nil,Data,aConn);
+  TOrder(aDataSet).CreateTable;
+  aDataSet.Destroy;
+  fMain.pcPages.AddTabClass(TfFilter,strOrderList,@fMain.AddOrderList,Data.GetLinkIcon('ORDERS@'),True);
+  Data.RegisterLinkHandler('ORDERS',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
+  AddSearchAbleDataSet(TOrderList);
+
   //Add Contacts
   {$region}
   if Data.Users.Rights.Right('CUSTOMERS') > RIGHT_NONE then
@@ -1106,6 +1052,15 @@ begin
             TTreeEntry(Node.Data).Typ := etCalendar;
             FCalendarNode := Node;
           end;
+        //Orders,Production,...
+        if Data.Users.Rights.Right('ORDERS') > RIGHT_NONE then
+          begin
+            NewMenu;
+            miNew.Action := fMain.acOrders;
+            NewNode;
+            Node.Height := 32;
+            TTreeEntry(Node.Data).Typ := etOrders;
+           end;
 
         //bStart := TStarterThread.Create;
 
@@ -2778,6 +2733,9 @@ procedure TfMain.fMainTreeFrametvMainExpanding(Sender: TObject;
 var
   DataT: TTreeEntry;
   Node1: TTreeNode;
+  aOrderType: TOrderTyp;
+  DefaultOrder: Boolean;
+  Node2: TTreeNode;
 begin
   DataT := TTreeEntry(Node.Data);
   if not Assigned(DataT) then
@@ -2828,6 +2786,56 @@ begin
           Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
           TTreeEntry(Node1.Data).Typ := etAttPlan;
           TTreeEntry(Node1.Data).Action := fMain.acAttPlan;
+        end;
+      etOrders:
+        begin
+          Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
+          TTreeEntry(Node1.Data).Typ := etOrderList;
+          if Data.Users.Rights.Right('ORDERS') > RIGHT_READ then
+            begin
+              aOrderType := TOrderTyp.Create(nil,Data);
+              aOrderType.Open;
+              Data.SetFilter(aOrderType,'('+Data.QuoteField('SI_ORDER')+' = ''Y'')');
+              aOrderType.DataSet.First;
+              DefaultOrder := False;
+              while not aOrderType.DataSet.EOF do
+                begin
+                  Node2 := fMainTreeFrame.tvMain.Items.AddChildObject(Node1.Parent,'',TTreeEntry.Create);
+                  if (aOrderType.FieldByName('TYPE').AsString = '0') and (not DefaultOrder) then
+                    begin
+                      TTreeEntry(Node2.Data).Typ := etAction;
+                      TTreeEntry(Node2.Data).Action := fMain.acNewOrder;
+                      DefaultOrder := True;
+                    end
+                  else
+                    begin
+                      TTreeEntry(Node2.Data).Typ := etNewOrder;
+                      TTreeEntry(Node2.Data).Rec := Data.GetBookmark(aOrderType);
+                      TTreeEntry(Node2.Data).DataSource := aOrderType;
+                      TTreeEntry(Node2.Data).DataSourceType:=TOrderTyp;
+                      TTreeEntry(Node2.Data).Text[0] := Format(strNewOrder,[aOrderType.FieldByName('STATUSNAME').AsString]);
+                    end;
+                  aOrderType.DataSet.Next;
+                end;
+              Data.SetFilter(aOrderType,'('+Data.QuoteValue('SI_PROD')+' = '+Data.QuoteValue('Y')+')');
+              aOrderType.DataSet.First;
+              while not aOrderType.DataSet.EOF do
+                begin
+                  Node2 := fMainTreeFrame.tvMain.Items.AddChildObject(Node1.Parent,'',TTreeEntry.Create);
+                  TTreeEntry(Node2.Data).Typ := etNewOrder;
+                  TTreeEntry(Node2.Data).Rec := Data.GetBookmark(aOrderType);
+                  TTreeEntry(Node2.Data).DataSource := aOrderType;
+                  TTreeEntry(Node2.Data).DataSourceType:=TOrderTyp;
+                  TTreeEntry(Node2.Data).Text[0] := Format(strNewOrder,[aOrderType.FieldByName('STATUSNAME').AsString]);
+                  aOrderType.DataSet.Next;
+                end;
+              Data.SetFilter(aOrderType,'');
+              aOrderType.DataSet.Locate('TYPE','0',[loCaseInsensitive,loPartialKey]);
+              fMain.acNewOrder.Caption := Format(strNewOrder,[aOrderType.FieldByName('STATUSNAME').AsString]);
+              aOrderType.Free;
+            end
+          else
+            fMain.acNewOrder.Enabled:=False;
         end;
       end;
     end;
