@@ -86,6 +86,7 @@ var
   miNew: TMenuItem;
   aDocuments: TDocuments;
   aFrame: TfProjectDispoFrame;
+  aStat: TTreeNode;
 begin
   with Application as IBaseApplication do
     if not Login then
@@ -105,7 +106,9 @@ begin
   aDocuments.CreateTable;
   aDocuments.Destroy;
   //Projects
-  ustatisticframe.AddToMainTree(acNewStatistic);
+  aStat := fMainTreeFrame.tvMain.Items.AddChildObject(nil,strStatistics,TTreeEntry.Create);
+  TTreeEntry(aStat.Data).Typ := etAction;
+  ustatisticframe.AddToMainTree(acNewStatistic,aStat);
   if fMainTreeFrame.tvMain.Items.Count>0 then
     fMainTreeFrame.tvMain.Items[0].Expanded:=True;
 //  pcPages.AddTabClass(TfFilter,strProjectList,@AddProjectList,Data.GetLinkIcon('PROJECTS@'),True);
