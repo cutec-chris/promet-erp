@@ -713,9 +713,7 @@ begin
   fMain.pcPages.AddTabClass(TfFilter,strOrderList,@fMain.AddOrderList,Data.GetLinkIcon('ORDERS@'),True);
   Data.RegisterLinkHandler('ORDERS',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
   AddSearchAbleDataSet(TOrderList);
-
   //Add Contacts
-  {$region}
   if Data.Users.Rights.Right('CUSTOMERS') > RIGHT_NONE then
     begin
       aDataSet := TPerson.Create(nil,Data,aConn);
@@ -727,32 +725,8 @@ begin
       AddSearchAbleDataSet(TPersonList);
       AddSearchAbleDataSet(TPersonContactData);
       AddSearchAbleDataSet(TPersonAddress);
-      Synchronize(@NewMenu);
-      miNew.Action := fMain.acContact;
-      NewNode;
-      TTreeEntry(Node.Data).Typ := etCustomers;
-      Node.Height := 34;
-      NewNode1;
-      TTreeEntry(Node1.Data).Typ := etCustomerList;
-      NewNode1;
-      TTreeEntry(Node1.Data).Typ := etAction;
-      TTreeEntry(Node1.Data).Action := fMain.acNewContact;
-      Data.SetFilter(aTree,'(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('C')+'))',0,'','ASC',False,True,True);
-      aTree.DataSet.First;
-      while not aTree.dataSet.EOF do
-        begin
-          NewNode1;
-          TTreeEntry(Node1.Data).Rec := Data.GetBookmark(aTree);
-          TTreeEntry(Node1.Data).DataSource := aTree;
-          TTreeEntry(Node1.Data).Text[0] := aTree.FieldByName('NAME').AsString;
-          TTreeEntry(Node1.Data).Typ := etDir;
-          fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'1',TTreeEntry.Create);
-          aTree.DataSet.Next;
-        end;
     end;
-  {$endregion}
-  //debugln('Contacts: '+IntToStr(GetTickCount64-aTime));
-  Synchronize(@ShowAll);
+
   //Add Masterdata stuff
   {$region}
   if (Data.Users.Rights.Right('MASTERDATA') > RIGHT_NONE) then
@@ -1061,6 +1035,15 @@ begin
             Node.Height := 32;
             TTreeEntry(Node.Data).Typ := etOrders;
            end;
+        //Contacts
+        if Data.Users.Rights.Right('CUSTOMERS') > RIGHT_NONE then
+          begin
+            NewMenu;
+            miNew.Action := fMain.acContact;
+            NewNode;
+            TTreeEntry(Node.Data).Typ := etCustomers;
+            Node.Height := 34;
+          end;
 
         //bStart := TStarterThread.Create;
 
@@ -2836,6 +2819,26 @@ begin
             end
           else
             fMain.acNewOrder.Enabled:=False;
+        end;
+      etCustomers:
+        begin
+          Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
+          TTreeEntry(Node1.Data).Typ := etCustomerList;
+          Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
+          TTreeEntry(Node1.Data).Typ := etAction;
+          TTreeEntry(Node1.Data).Action := fMain.acNewContact;
+          Data.SetFilter(Data.Tree,'(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('C')+'))',0,'','ASC',False,True,True);
+          Data.Tree.DataSet.First;
+          while not Data.Tree.dataSet.EOF do
+            begin
+              Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
+              TTreeEntry(Node1.Data).Rec := Data.GetBookmark(Data.Tree);
+              TTreeEntry(Node1.Data).DataSource := Data.Tree;
+              TTreeEntry(Node1.Data).Text[0] := Data.Tree.FieldByName('NAME').AsString;
+              TTreeEntry(Node1.Data).Typ := etDir;
+              fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'1',TTreeEntry.Create);
+              Data.Tree.DataSet.Next;
+            end;
         end;
       end;
     end;
