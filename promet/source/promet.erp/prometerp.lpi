@@ -967,7 +967,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMainTreeFrame"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1486"/>
         <CursorPos X="1" Y="1507"/>
@@ -980,11 +980,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uProjectFrame"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="888"/>
-        <CursorPos X="34" Y="899"/>
+        <TopLine Value="420"/>
+        <CursorPos X="27" Y="900"/>
         <UsageCount Value="99"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -1030,7 +1029,7 @@
       </Unit68>
       <Unit69>
         <Filename Value="../base/revision.inc"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
@@ -1042,7 +1041,7 @@
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="122" Y="8"/>
+        <CursorPos X="14" Y="10"/>
         <UsageCount Value="103"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
@@ -1636,10 +1635,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uGanttView"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="279"/>
-        <CursorPos X="35" Y="300"/>
+        <TopLine Value="232"/>
+        <CursorPos X="1" Y="250"/>
         <UsageCount Value="100"/>
+        <Loaded Value="True"/>
       </Unit136>
       <Unit137>
         <Filename Value="../../../../lazarus/lcl/include/mouse.inc"/>
@@ -3532,7 +3534,7 @@
         <UsageCount Value="10"/>
       </Unit365>
     </Units>
-    <JumpHistory Count="28" HistoryIndex="27">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
         <Filename Value="umain.pas"/>
         <Caret Line="399" Column="2" TopLine="391"/>
@@ -3645,6 +3647,10 @@
         <Filename Value="umain.pas"/>
         <Caret Line="884" Column="1" TopLine="865"/>
       </Position28>
+      <Position29>
+        <Filename Value="../projectmanagement/uprojectframe.pas"/>
+        <Caret Line="900" Column="27" TopLine="420"/>
+      </Position29>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>
@@ -3688,15 +3694,6 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="1">
-      <Item1>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="../base_pm/uganttview.pas"/>
-        <Line Value="250"/>
-      </Item1>
-    </BreakPoints>
     <Watches Count="1">
       <Item1>
         <Expression Value="aTableName"/>
