@@ -582,6 +582,7 @@ begin
             DataSet.FieldByName('PERCENT').AsInteger:=0;
           DataSet.FieldByName('COMPLETEDAT').Clear;
           DataSet.FieldByName('CHECKED').AsString:='N';
+          DataSet.FieldByName('DUEDATE').Clear;
           if not History.DataSet.Active then History.Open;
           History.AddItem(Self.DataSet,strTaskReopened,Data.BuildLink(FDS.DataSet),'',nil,ACICON_STATUSCH);
           aProject := TProject.Create(Self,Data,Connection);
