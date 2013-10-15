@@ -32,6 +32,7 @@ If errorlevel 1 goto end
 lazbuild -q ..\..\source\tools\checkin.lpi
 If errorlevel 1 goto end
 lazbuild -q ..\..\source\tools\tableedit.lpi
+If errorlevel 1 lazbuild -q -B ..\..\source\tools\tableedit.lpi
 If errorlevel 1 goto end
 
 lazbuild -q ..\..\source\timeregistering\timeregistering.lpi
