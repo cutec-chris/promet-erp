@@ -771,17 +771,14 @@ begin
       aDS.CreateTable;
       aDS.Free;
     end;
-  {$region}
+  //Inventory
   if (Data.Users.Rights.Right('INVENTORY') > RIGHT_NONE) then
     begin
       aDataSet := TInventorys.Create(nil,Data,aConn);
       TInventorys(aDataSet).CreateTable;
       aDataSet.Destroy;
       Data.RegisterLinkHandler('INVENTORY',@fMainTreeFrame.OpenLink);
-      NewNode;
-      TTreeEntry(Node.Data).Typ := etInventory;
     end;
-  {$endregion}
   //Financial
   {$region}
   if (Data.Users.Rights.Right('BANKACCNTS') > RIGHT_NONE)
@@ -1017,6 +1014,11 @@ begin
           begin
             NewNode;
             TTreeEntry(Node.Data).Typ := etMeetings;
+          end;
+        if (Data.Users.Rights.Right('INVENTORY') > RIGHT_NONE) then
+          begin
+            NewNode;
+            TTreeEntry(Node.Data).Typ := etInventory;
           end;
 
         //bStart := TStarterThread.Create;
