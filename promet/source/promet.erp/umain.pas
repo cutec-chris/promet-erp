@@ -651,7 +651,7 @@ end;
 constructor TStarterThread.Create;
 begin
   FreeOnTerminate:=True;
-  inherited Create(False);
+  inherited Create(True);
 end;
 
 procedure TStarterThread.Execute;
@@ -732,6 +732,8 @@ begin
   if (Data.Users.Rights.Right('PROJECTS') > RIGHT_NONE) then
     begin
       fMain.pcPages.AddTabClass(TfFilter,strProjectList,@fMain.AddProjectList,Data.GetLinkIcon('PROJECTS@'),True);
+      Data.RegisterLinkHandler('PROJECT',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
+      AddSearchAbleDataSet(TProjectList);
     end;
   //Wiki
   if (Data.Users.Rights.Right('WIKI') > RIGHT_NONE) then
@@ -787,7 +789,6 @@ begin
   uTAPIPhone.RegisterPhoneLines;
   {$ENDIF}
   {$ENDIF}
-
 
   if Application.HasOption('startuptype') then
     begin
@@ -985,6 +986,7 @@ begin
           end;
 
         bStart := TStarterThread.Create;
+        bStart.Execute; //At time manually, couse a lot of synchronizeing work has to be done for staterthread
 
         with Application as IBaseDbInterface do
           FHistory.Text := DBConfig.ReadString('HISTORY','');

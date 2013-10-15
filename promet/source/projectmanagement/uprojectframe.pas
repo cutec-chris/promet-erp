@@ -208,8 +208,6 @@ var
 begin
   if (Data.Users.Rights.Right('PROJECTS') > RIGHT_NONE) then
     begin
-      Data.RegisterLinkHandler('PROJECT',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
-      AddSearchAbleDataSet(TProjectList);
       Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
       TTreeEntry(Node1.Data).Typ := etAction;
       TTreeEntry(Node1.Data).Action := aAction;
