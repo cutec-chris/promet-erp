@@ -673,13 +673,15 @@ begin
   aDocuments.CreateTable;
   aDocuments.Destroy;
   //Messages
-  aDataSet := TMessage.Create(nil,Data,aConn);
-  TMessage(aDataSet).CreateTable;
-  aDataSet.Destroy;
-  fMain.pcPages.AddTabClass(TfMessageFrame,strMessages,nil,Data.GetLinkIcon('MESSAGEIDX@'),True);
-  Data.RegisterLinkHandler('MESSAGEIDX',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
-  AddSearchAbleDataSet(TMessageList);
-  AddSearchAbleDataSet(TLists);
+  if Data.Users.Rights.Right('MESSAGES') > RIGHT_NONE then
+    begin
+      aDataSet := TMessage.Create(nil,Data,aConn);
+      TMessage(aDataSet).CreateTable;
+      aDataSet.Destroy;
+      fMain.pcPages.AddTabClass(TfMessageFrame,strMessages,nil,Data.GetLinkIcon('MESSAGEIDX@'),True);
+      Data.RegisterLinkHandler('MESSAGEIDX',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
+      AddSearchAbleDataSet(TMessageList);
+    end;
   {$ifndef heaptrc}
   try
     TBaseVisualApplication(Application).MessageHandler.SendCommand('*receiver','Receive('+Data.Users.FieldByName('NAME').AsString+')');
@@ -688,7 +690,11 @@ begin
   {$endif}
   fMain.RefreshMessages;
   //Tasks
-  uTasks.RefreshTasks(fMain.FTaskNode);
+  if (Data.Users.Rights.Right('TASKS') > RIGHT_NONE) then
+    begin
+      uTasks.RefreshTasks(fMain.FTaskNode);
+      Data.RegisterLinkHandler('TASKS',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
+    end;
   //Add PIM Entrys
   if Data.Users.Rights.Right('CALENDAR') > RIGHT_NONE then
     begin
@@ -755,6 +761,7 @@ begin
       TLists(aDataSet).CreateTable;
       aDataSet.Destroy;
       Data.RegisterLinkHandler('LISTS',@fMainTreeFrame.OpenLink);
+      AddSearchAbleDataSet(TLists);
     end;
   //Meetings
   if (Data.Users.Rights.Right('MEETINGS') > RIGHT_NONE) then

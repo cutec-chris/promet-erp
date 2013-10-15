@@ -893,6 +893,11 @@ begin
   acDelete.Enabled:=FEditable and (Data.Users.Rights.Right('PROJECTS') > RIGHT_WRITE);
   acPaste.Enabled:=FEditable;
   acRights.Enabled:=Data.Users.Rights.Right('PROJECTS') >= RIGHT_PERMIT;
+  eNumber.Enabled:=FEditable;
+  cbStatus.Enabled:=FEditable;
+  cbType.Enabled:=FEditable;
+  eParent.ReadOnly:=not FEditable;
+  eName.Enabled:=FEditable;
 
   pComponents.Enabled := FEditable;
   mInfo.ReadOnly:=not FEditable;

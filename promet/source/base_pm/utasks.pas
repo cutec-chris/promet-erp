@@ -1484,7 +1484,6 @@ var
 begin
   if (Data.Users.Rights.Right('TASKS') > RIGHT_NONE) then
     begin
-      Data.RegisterLinkHandler('TASKS',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
       Node := aNode;
       Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
       TTreeEntry(Node1.Data).Typ := etAction;
