@@ -169,7 +169,7 @@ type
     procedure ShowFrame; override;
     procedure SetLanguage; override;
   end;
-procedure AddToMainTree(aAction : TAction);
+procedure AddToMainTree(aAction : TAction;Node : TTreeNode);
 var
   MainNode : TTreeNode;
 implementation
@@ -181,16 +181,14 @@ resourcestring
   strSearchFromMeetings                    = 'Mit Öffnen wird das gewählte Projekt in die Liste übernommen';
   strMeetingUsers                          = 'Teilnehmer';
   strNewMeeting                            = 'neue Besprechung';
-procedure AddToMainTree(aAction: TAction);
+procedure AddToMainTree(aAction: TAction; Node: TTreeNode);
 var
   Node1: TTreeNode;
 begin
-  MainNode := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
-  TTreeEntry(MainNode.Data).Typ := etMeetings;
-  Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(MainNode,'',TTreeEntry.Create);
+  Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
   TTreeEntry(Node1.Data).Typ := etAction;
   TTreeEntry(Node1.Data).Action := aAction;
-  Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(MainNode,'',TTreeEntry.Create);
+  Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
   TTreeEntry(Node1.Data).Typ := etMeetingList;
 end;
 

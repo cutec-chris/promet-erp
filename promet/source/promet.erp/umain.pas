@@ -749,47 +749,28 @@ begin
       AddSearchAbleDataSet(TWikiList);
     end;
   //Documents
-  {$region}
-  try
-    if (Data.Users.Rights.Right('DOCUMENTS') > RIGHT_NONE) then
-      begin
-        Data.RegisterLinkHandler('DOCUMENTS',@fMainTreeFrame.OpenLink);
-        NewNode;
-        TTreeEntry(Node.Data).Typ := etFiles;
-        umanagedocframe.AddToMainTree;
-      end;
-  except
-  end;
-  {$endregion}
-  //debugln('Documents: '+IntToStr(GetTickCount64-aTime));
-  Synchronize(@ShowAll);
-  {$region}
+  if (Data.Users.Rights.Right('DOCUMENTS') > RIGHT_NONE) then
+    begin
+      Data.RegisterLinkHandler('DOCUMENTS',@fMainTreeFrame.OpenLink);
+      Data.RegisterLinkHandler('DOCPAGES',@fMainTreeFrame.OpenLink);
+    end;
+  //Lists
   if (Data.Users.Rights.Right('LISTS') > RIGHT_NONE) then
     begin
       aDataSet := TLists.Create(nil,Data,aConn);
       TLists(aDataSet).CreateTable;
       aDataSet.Destroy;
       Data.RegisterLinkHandler('LISTS',@fMainTreeFrame.OpenLink);
-      NewNode;
-      TTreeEntry(Node.Data).Typ := etLists;
     end;
-  {$endregion}
-  //debugln('Lists: '+IntToStr(GetTickCount64-aTime));
-  Synchronize(@ShowAll);
-  {$region}
+  //Meetings
   if (Data.Users.Rights.Right('MEETINGS') > RIGHT_NONE) then
     begin
-      umeetingframe.AddToMainTree(fMain.acNewMeeting);
-      fMainTreeFrame.tvMain.Items[0].Expanded:=True;
       fMain.pcPages.AddTabClass(TfFilter,strMeetingList,@fMain.AddMeetingList,-1,True);
       Data.RegisterLinkHandler('MEETINGS',@fMainTreeFrame.OpenLink);
       aDS := TMeetings.Create(nil,Data,aConn);
       aDS.CreateTable;
       aDS.Free;
     end;
-  {$endregion}
-  //debugln('Doc/Lists: '+IntToStr(GetTickCount64-aTime));
-  Synchronize(@ShowAll);
   {$region}
   if (Data.Users.Rights.Right('INVENTORY') > RIGHT_NONE) then
     begin
@@ -1018,6 +999,24 @@ begin
             NewNode;
             Node.Height := 34;
             TTreeEntry(Node.Data).Typ := etWiki;
+          end;
+        //Documents
+        if (Data.Users.Rights.Right('DOCUMENTS') > RIGHT_NONE) then
+          begin
+            NewNode;
+            TTreeEntry(Node.Data).Typ := etFiles;
+          end;
+        //Lists
+        if (Data.Users.Rights.Right('LISTS') > RIGHT_NONE) then
+          begin
+            NewNode;
+            TTreeEntry(Node.Data).Typ := etLists;
+          end;
+        //Meetings
+        if (Data.Users.Rights.Right('MEETINGS') > RIGHT_NONE) then
+          begin
+            NewNode;
+            TTreeEntry(Node.Data).Typ := etMeetings;
           end;
 
         //bStart := TStarterThread.Create;
@@ -2845,7 +2844,7 @@ begin
           Data.Tree.DataSet.First;
           while not Data.Tree.dataSet.EOF do
             begin
-              NewNode1;
+              Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
               TTreeEntry(Node1.Data).Rec := Data.GetBookmark(Data.Tree);
               TTreeEntry(Node1.Data).DataSource := Data.Tree;
               TTreeEntry(Node1.Data).Text[0] := Data.Tree.FieldByName('NAME').AsString;
@@ -2853,6 +2852,14 @@ begin
               fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'',TTreeEntry.Create);
               Data.Tree.DataSet.Next;
             end;
+        end;
+      etFiles:
+        begin
+          umanagedocframe.AddToMainTree(Node);
+        end;
+      etMeetings:
+        begin
+          umeetingframe.AddToMainTree(fMain.acNewMeeting,Node);
         end;
       end;
     end;

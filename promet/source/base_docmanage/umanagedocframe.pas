@@ -152,7 +152,7 @@ type
     function GotoCurrentItem: Boolean;
     procedure OpenDir(aDir : Variant);
   end;
-procedure AddToMainTree;
+procedure AddToMainTree(Node : TTReeNode);
 const
   MAX_IMAGES = 50;
 implementation
@@ -164,13 +164,10 @@ resourcestring
   strSetTag                = 'durch Klick setzen';
   strCantAccessFile        = 'Auf die Datei "%s" kann nicht zugegriffen werden,'+lineending+'kopieren Sie diese Datei ggf erst auf Ihren Computer oder mounten Sie die Quelle';
 
-procedure AddToMainTree;
+procedure AddToMainTree(Node: TTReeNode);
 var
-  Node: TTreeNode;
   Node1: TTreeNode;
 begin
-  Data.RegisterLinkHandler('DOCPAGES',@fMainTreeFrame.OpenLink);
-  Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
   TTreeEntry(Node.Data).Typ := etDocuments;
   Data.SetFilter(Data.Tree,'(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('D')+'))',0,'','ASC',False,True,True);
   Data.Tree.DataSet.First;
