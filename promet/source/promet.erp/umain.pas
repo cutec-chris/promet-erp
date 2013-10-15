@@ -2661,6 +2661,8 @@ var
   aOrderType: TOrderTyp;
   DefaultOrder: Boolean;
   Node2: TTreeNode;
+  Accounts: TAccounts;
+  Node3: TTreeNode;
 begin
   DataT := TTreeEntry(Node.Data);
   if not Assigned(DataT) then
@@ -2840,7 +2842,7 @@ begin
               TTreeEntry(Node2.Data).Typ := etAccounts;
               Node3 := fMainTreeFrame.tvMain.Items.AddChildObject(Node2,'',TTreeEntry.Create);
               TTreeEntry(Node3.Data).Typ := etNewAccount;
-              Accounts := TAccounts.Create(nil,Data,aConn);
+              Accounts := TAccounts.Create(nil,Data);
               Accounts.CreateTable;
               Accounts.Open;
               Accounts.DataSet.First;
