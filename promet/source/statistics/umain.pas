@@ -107,7 +107,7 @@ begin
   aDocuments.Destroy;
   //Projects
   aStat := fMainTreeFrame.tvMain.Items.AddChildObject(nil,strStatistics,TTreeEntry.Create);
-  TTreeEntry(aStat.Data).Typ := etAction;
+  TTreeEntry(aStat.Data).Typ := etStatistic;
   ustatisticframe.AddToMainTree(acNewStatistic,aStat);
   if fMainTreeFrame.tvMain.Items.Count>0 then
     fMainTreeFrame.tvMain.Items[0].Expanded:=True;

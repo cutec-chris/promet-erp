@@ -86,6 +86,7 @@ var
   miNew: TMenuItem;
   aDocuments: TDocuments;
   aDS: TMeetings;
+  aNode: TTreeNode;
 begin
   with Application as IBaseApplication do
     if not Login then
@@ -105,7 +106,9 @@ begin
   aDocuments.CreateTable;
   aDocuments.Destroy;
   //Meetings
-  umeetingframe.AddToMainTree(acNewMeeting);
+  aNode := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
+  TTreeEntry(aNode.Data).Typ := etStatistic;
+  umeetingframe.AddToMainTree(acNewMeeting,aNode);
   fMainTreeFrame.tvMain.Items[0].Expanded:=True;
   pcPages.AddTabClass(TfFilter,strMeetingList,@AddMeetingList,-1,True);
   Data.RegisterLinkHandler('MEETINGS',@fMainTreeFrame.OpenLink);
