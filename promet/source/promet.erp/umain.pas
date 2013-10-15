@@ -201,6 +201,8 @@ type
     function fMainTreeFrameOpenFromLink(aLink: string; aSender: TObject
       ): Boolean;
     procedure fMainTreeFrameSelectionChanged(aEntry: TTreeEntry);
+    procedure fMainTreeFrametvMainExpanding(Sender: TObject; Node: TTreeNode;
+      var AllowExpansion: Boolean);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
@@ -404,6 +406,7 @@ begin
 end;
 function TfMain.DoCreate : Boolean;
 begin
+  fMainTreeFrame.tvMain.OnExpanding:=@fMainTreeFrametvMainExpanding;
   acLogin.Execute;
   Result := not acLogin.Enabled;
 end;
@@ -674,25 +677,7 @@ begin
   miNew.Action := fMainTreeFrame.acSearch;
   //Timeregistering
   Synchronize(@AddTimeReg);
-  //Favorites
-  {$region}
-  Synchronize(@NewNode);
-  Node.Height := 34;
-  TTreeEntry(Node.Data).Typ := etFavourites;
-  Data.SetFilter(aTree,Data.QuoteField('PARENT')+'=0 and '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('F'),0,'','ASC',False,True,True);
-  aTree.DataSet.First;
-  while not aTree.dataSet.EOF do
-    begin
-      Synchronize(@NewNode1);
-      TTreeEntry(Node1.Data).Rec := aTree.GetBookmark;
-      TTreeEntry(Node1.Data).DataSource := aTree;
-      TTreeEntry(Node1.Data).Text[0] := aTree.FieldByName('NAME').AsString;
-      TTreeEntry(Node1.Data).Typ := etDir;
-      Node1.HasChildren:=True;
-      aTree.DataSet.Next;
-    end;
-  {$endregion}
-  //debugln('Favourites: '+IntToStr(GetTickCount64-aTime));
+
   Synchronize(@ShowAll);
   aDocuments := TDocument.Create(nil,Data,aConn);
   aDocuments.CreateTable;
@@ -1083,6 +1068,12 @@ var
   aCategory: TCategory;
   aStart: TStarterThread;
   bStart: TStarterThread;
+  procedure NewNode;
+  begin
+    Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
+    fMainTreeFrame.tvMain.Items.AddChild(Node,'');
+  end;
+
 begin
   fMain.Hide;
   aTime := GetTickCount64;
@@ -1130,6 +1121,9 @@ begin
         Data.RegisterLinkHandler('ACTION',@OpenAction);
         //Options
         Data.RegisterLinkHandler('OPTION',@OpenOption);
+        NewNode;
+        Node.Height := 34;
+        TTreeEntry(Node.Data).Typ := etFavourites;
 
         bStart := TStarterThread.Create;
 
@@ -2796,6 +2790,41 @@ begin
     end;
   end;
 end;
+
+procedure TfMain.fMainTreeFrametvMainExpanding(Sender: TObject;
+  Node: TTreeNode; var AllowExpansion: Boolean);
+var
+  DataT: TTreeEntry;
+  Node1: TTreeNode;
+begin
+  DataT := TTreeEntry(Node.Data);
+  if not Assigned(DataT) then
+    exit;
+  if (Node.Count=1) and (Node.Items[0].Data=nil) then
+    begin
+      Node.DeleteChildren;
+      case DataT.Typ of
+      etFavourites:
+        begin
+          Data.SetFilter(Data.Tree,Data.QuoteField('PARENT')+'=0 and '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('F'),0,'','ASC',False,True,True);
+          Data.Tree.DataSet.First;
+          while not Data.Tree.dataSet.EOF do
+            begin
+              Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
+              TTreeEntry(Node1.Data).Rec := Data.Tree.GetBookmark;
+              TTreeEntry(Node1.Data).DataSource := Data.Tree;
+              TTreeEntry(Node1.Data).Text[0] := Data.Tree.FieldByName('NAME').AsString;
+              TTreeEntry(Node1.Data).Typ := etDir;
+              Node1.HasChildren:=True;
+              Data.Tree.DataSet.Next;
+            end;
+        end;
+      end;
+    end;
+
+  fMainTreeFrame.tvMainExpanding(Sender,Node,AllowExpansion);
+end;
+
 procedure TfMain.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   IPCTimer.Enabled:=False;
