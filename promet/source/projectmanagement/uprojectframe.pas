@@ -185,7 +185,7 @@ type
   end;
 var
   aNewProjectName: String;
-procedure AddToMainTree(aAction : TAction);
+procedure AddToMainTree(aAction : TAction;Node : TTreeNode);
 implementation
 uses uData,uProjects,uHistoryFrame,uLinkFrame,uImageFrame,uDocuments,
   uDocumentFrame,uIntfStrConsts,uMainTreeFrame,uBaseDBInterface,uEditableTab,
@@ -201,24 +201,15 @@ resourcestring
   strInactiveStatus               = 'Der gewähte Status ist kein aktiver Status, sollen alle aktiven Aufgaben deaktiviert werden ?';
   strActiveStatus                 = 'Der gewähte Status ist ein aktiver Status, sollen alle aktiven Aufgaben aktiviert werden ?';
   strNewProject                   = 'neues Projekt';
-procedure AddToMainTree(aAction : TAction);
+procedure AddToMainTree(aAction : TAction;Node : TTreeNode);
 var
   aDataSet: TProject;
-  Node: TTreeNode;
   Node1: TTreeNode;
 begin
   if (Data.Users.Rights.Right('PROJECTS') > RIGHT_NONE) then
     begin
-      aDataSet := TProject.Create(nil,Data);
-      TProject(aDataSet).CreateTable;
-      Tproject(aDataSet).Select(0);
-      TProject(aDataSet).Open;//Alter it to sure add GPRIORITY
-      aDataSet.Destroy;
       Data.RegisterLinkHandler('PROJECT',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
       AddSearchAbleDataSet(TProjectList);
-      Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
-      Node.Height := 34;
-      TTreeEntry(Node.Data).Typ := etProjects;
       Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
       TTreeEntry(Node1.Data).Typ := etAction;
       TTreeEntry(Node1.Data).Action := aAction;

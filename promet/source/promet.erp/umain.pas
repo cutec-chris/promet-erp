@@ -737,39 +737,18 @@ begin
       AddSearchAbleDataSet(TMasterdataList);
     end;
   //Projects
-  uProjectFrame.AddToMainTree(fMain.acNewProject);
   if (Data.Users.Rights.Right('PROJECTS') > RIGHT_NONE) then
     begin
       fMain.pcPages.AddTabClass(TfFilter,strProjectList,@fMain.AddProjectList,Data.GetLinkIcon('PROJECTS@'),True);
     end;
-  //debugln('Projects: '+IntToStr(GetTickCount64-aTime));
-  Synchronize(@ShowAll);
   //Wiki
-  {$region}
   if (Data.Users.Rights.Right('WIKI') > RIGHT_NONE) then
     begin
       fMain.pcPages.AddTabClass(TfWikiFrame,strWiki,@fMain.AddWiki,Data.GetLinkIcon('WIKI@'),True);
       Data.RegisterLinkHandler('WIKI',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
       AddSearchAbleDataSet(TWikiList);
-      NewNode;
-      Node.Height := 34;
-      TTreeEntry(Node.Data).Typ := etWiki;
-      Data.SetFilter(aTree,'(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('W')+'))',0,'','ASC',False,True,True);
-      aTree.DataSet.First;
-      while not aTree.dataSet.EOF do
-        begin
-          NewNode1;
-          TTreeEntry(Node1.Data).Rec := Data.GetBookmark(aTree);
-          TTreeEntry(Node1.Data).DataSource := aTree;
-          TTreeEntry(Node1.Data).Text[0] := aTree.FieldByName('NAME').AsString;
-          TTreeEntry(Node1.Data).Typ := etDir;
-          fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'',TTreeEntry.Create);
-          aTree.DataSet.Next;
-        end;
     end;
-  {$endregion}
-  //debugln('Wiki: '+IntToStr(GetTickCount64-aTime));
-  Synchronize(@ShowAll);
+  //Documents
   {$region}
   try
     if (Data.Users.Rights.Right('DOCUMENTS') > RIGHT_NONE) then
@@ -1025,6 +1004,20 @@ begin
             NewNode;
             Node.Height := 32;
             TTreeEntry(Node.Data).Typ := etMasterdata;
+          end;
+        //Projects
+        if (Data.Users.Rights.Right('PROJECTS') > RIGHT_NONE) then
+          begin
+            NewNode;
+            Node.Height := 32;
+            TTreeEntry(Node.Data).Typ := etProjects;
+          end;
+        //Wiki
+        if (Data.Users.Rights.Right('WIKI') > RIGHT_NONE) then
+          begin
+            NewNode;
+            Node.Height := 34;
+            TTreeEntry(Node.Data).Typ := etWiki;
           end;
 
         //bStart := TStarterThread.Create;
@@ -2842,9 +2835,27 @@ begin
               Data.Tree.DataSet.Next;
             end;
         end;
+      etProjects:
+        begin
+          uProjectFrame.AddToMainTree(fMain.acNewProject,Node);
+        end;
+      etWiki:
+        begin
+          Data.SetFilter(Data.Tree,'(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('W')+'))',0,'','ASC',False,True,True);
+          Data.Tree.DataSet.First;
+          while not Data.Tree.dataSet.EOF do
+            begin
+              NewNode1;
+              TTreeEntry(Node1.Data).Rec := Data.GetBookmark(Data.Tree);
+              TTreeEntry(Node1.Data).DataSource := Data.Tree;
+              TTreeEntry(Node1.Data).Text[0] := Data.Tree.FieldByName('NAME').AsString;
+              TTreeEntry(Node1.Data).Typ := etDir;
+              fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'',TTreeEntry.Create);
+              Data.Tree.DataSet.Next;
+            end;
+        end;
       end;
     end;
-
   fMainTreeFrame.tvMainExpanding(Sender,Node,AllowExpansion);
 end;
 
