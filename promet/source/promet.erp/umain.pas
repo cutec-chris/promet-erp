@@ -677,54 +677,25 @@ begin
   miNew.Action := fMainTreeFrame.acSearch;
   //Timeregistering
   Synchronize(@AddTimeReg);
-
-  Synchronize(@ShowAll);
-  aDocuments := TDocument.Create(nil,Data,aConn);
+  //Documents
+  aDocuments := TDocument.Create(nil,Data);
   aDocuments.CreateTable;
   aDocuments.Destroy;
   //Messages
-  {$region}
-  if Data.Users.Rights.Right('MESSAGES') > RIGHT_NONE then
-    begin
-      aDataSet := TMessage.Create(nil,Data,aConn);
-      TMessage(aDataSet).CreateTable;
-      aDataSet.Destroy;
-      fMain.pcPages.AddTabClass(TfMessageFrame,strMessages,nil,Data.GetLinkIcon('MESSAGEIDX@'),True);
-      Data.RegisterLinkHandler('MESSAGEIDX',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
-      AddSearchAbleDataSet(TMessageList);
-      AddSearchAbleDataSet(TLists);
-      Synchronize(@NewMenu);
-      miNew.Action := fMain.acMessages;
-      NewNode;
-      Node.Height := 34;
-      TTreeEntry(Node.Data).Typ := etMessages;
-      fMainTreeFrame.StartupTypes.Add(strMessages);
-      fMain.FMessageNode := Node;
-      Data.SetFilter(aTree,Data.QuoteField('PARENT')+'=0 and '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('N')+' OR '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('B'),0,'','ASC',False,True,True);
-      aTree.DataSet.First;
-      while not aTree.dataSet.EOF do
-        begin
-          NewNode1;
-          TTreeEntry(Node1.Data).Rec := aTree.GetBookmark;
-          TTreeEntry(Node1.Data).DataSource := aTree;
-          TTreeEntry(Node1.Data).Text[0] := aTree.FieldByName('NAME').AsString;
-          if aTree.FieldByName('TYPE').AsString = 'N' then
-            TTreeEntry(Node1.Data).Typ := etMessageDir
-          else if aTree.FieldByName('TYPE').AsString = 'B' then
-            TTreeEntry(Node1.Data).Typ := etMessageBoard;
-          aTree.DataSet.Next;
-        end;
-      {$ifndef heaptrc}
-      try
-        TBaseVisualApplication(Application).MessageHandler.SendCommand('*receiver','Receive('+Data.Users.FieldByName('NAME').AsString+')');
-      except
-      end;
-      {$endif}
-      fMain.RefreshMessages;
-    end;
-  {$endregion}
-  //debugln('Messages: '+IntToStr(GetTickCount64-aTime));
-  Synchronize(@ShowAll);
+  aDataSet := TMessage.Create(nil,Data,aConn);
+  TMessage(aDataSet).CreateTable;
+  aDataSet.Destroy;
+  fMain.pcPages.AddTabClass(TfMessageFrame,strMessages,nil,Data.GetLinkIcon('MESSAGEIDX@'),True);
+  Data.RegisterLinkHandler('MESSAGEIDX',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
+  AddSearchAbleDataSet(TMessageList);
+  AddSearchAbleDataSet(TLists);
+  {$ifndef heaptrc}
+  try
+    TBaseVisualApplication(Application).MessageHandler.SendCommand('*receiver','Receive('+Data.Users.FieldByName('NAME').AsString+')');
+  except
+  end;
+  {$endif}
+  fMain.RefreshMessages;
   //Add PIM Entrys
   {$ifndef heaptrc}
   uTasks.AddToMainTree(fMain.acNewTask,fMain.FTaskNode);
@@ -1056,22 +1027,20 @@ end;
 procedure TfMain.acLoginExecute(Sender: TObject);
 var
   Node: TTreeNode;
-  Accounts: TAccounts;
-  aOrder: TOrder;
-  aOrderType: TOrderTyp;
-  DefaultOrder: Boolean;
-  WikiFrame: TfWikiFrame;
-  aListL: TLinks;
-  aDS: TMeetings;
-  aWiki: TWikiList;
-  aHist: TBaseHistory;
-  aCategory: TCategory;
-  aStart: TStarterThread;
   bStart: TStarterThread;
+  miNew: TMenuItem;
+  aWiki: TWikiList;
+  WikiFrame: TfWikiFrame;
+  aDocuments: TDocument;
   procedure NewNode;
   begin
     Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
     fMainTreeFrame.tvMain.Items.AddChild(Node,'');
+  end;
+  procedure NewMenu;
+  begin
+    miNew := TmenuItem.Create(fMain.miView);
+    fMain.miView.Add(miNew);
   end;
 
 begin
@@ -1124,8 +1093,21 @@ begin
         NewNode;
         Node.Height := 34;
         TTreeEntry(Node.Data).Typ := etFavourites;
+        //Messages
+        {$region}
+        if Data.Users.Rights.Right('MESSAGES') > RIGHT_NONE then
+          begin
+            NewMenu;
+            miNew.Action := fMain.acMessages;
+            NewNode;
+            Node.Height := 34;
+            TTreeEntry(Node.Data).Typ := etMessages;
+            fMainTreeFrame.StartupTypes.Add(strMessages);
+            fMain.FMessageNode := Node;
+          end;
+        {$endregion}
 
-        bStart := TStarterThread.Create;
+        //bStart := TStarterThread.Create;
 
         with Application as IBaseDbInterface do
           FHistory.Text := DBConfig.ReadString('HISTORY','');
@@ -2816,6 +2798,23 @@ begin
               TTreeEntry(Node1.Data).Text[0] := Data.Tree.FieldByName('NAME').AsString;
               TTreeEntry(Node1.Data).Typ := etDir;
               Node1.HasChildren:=True;
+              Data.Tree.DataSet.Next;
+            end;
+        end;
+      etMessages:
+        begin
+          Data.SetFilter(Data.Tree,Data.QuoteField('PARENT')+'=0 and '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('N')+' OR '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('B'),0,'','ASC',False,True,True);
+          Data.Tree.DataSet.First;
+          while not Data.Tree.dataSet.EOF do
+            begin
+              Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
+              TTreeEntry(Node1.Data).Rec := Data.Tree.GetBookmark;
+              TTreeEntry(Node1.Data).DataSource := Data.Tree;
+              TTreeEntry(Node1.Data).Text[0] := Data.Tree.FieldByName('NAME').AsString;
+              if Data.Tree.FieldByName('TYPE').AsString = 'N' then
+                TTreeEntry(Node1.Data).Typ := etMessageDir
+              else if Data.Tree.FieldByName('TYPE').AsString = 'B' then
+                TTreeEntry(Node1.Data).Typ := etMessageBoard;
               Data.Tree.DataSet.Next;
             end;
         end;
