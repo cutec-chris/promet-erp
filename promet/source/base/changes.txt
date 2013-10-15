@@ -5,6 +5,7 @@
       - Echtpreis in Projektkosten wird mitberechnet (vorher nur bei Mengenänderung)
       - Aufgaben ohne Planzeit werden nun auch orange eingefärbt wenn sie heute zu erledigen sind
       - Fehler beim verschieben von Aufgaben behoben (Gannt Ansicht)
+      - schellerer Start (Elemente werden teils erst geladen wenn Baum Einträge aufgeklappt werden, teils in einem Thread)
 Build 285
       - Rechnung nutzt Menge wenn Menge gelifert null ist
       - Kontoassistenen begonnen
