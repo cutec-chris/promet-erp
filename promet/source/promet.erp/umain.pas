@@ -124,6 +124,7 @@ type
     spTree: TSplitter;
     SearchTimer: TTimer;
     tbMenue: TToolButton;
+    StartupTimer: TTimer;
     ToolBar1: TToolBar;
     ToolBar2: TToolBar;
     ToolButton2: TToolButton;
@@ -230,6 +231,7 @@ type
       procedure SenderTfMainTaskFrameControlsSenderTfMainTaskFrameTfTaskFrameStartTime
       (Sender: TObject; aProject, aTask: string);
     procedure TfFilteracOpenExecute(Sender: TObject);
+    procedure StartupTimerTimer(Sender: TObject);
   private
     { private declarations }
     FHistory: THistory;
@@ -286,7 +288,7 @@ type
     procedure StartReceive;
     procedure DoStartupType;
   public
-    constructor Create;
+    constructor Create(aSuspended : Boolean = False);
     procedure Execute; override;
   end;
 
@@ -665,6 +667,7 @@ begin
   except
   end;
   {$endif}
+  fMain.RefreshMessages;
 end;
 
 procedure TStarterThread.DoStartupType;
@@ -686,10 +689,10 @@ begin
     end;
 end;
 
-constructor TStarterThread.Create;
+constructor TStarterThread.Create(aSuspended: Boolean);
 begin
   FreeOnTerminate:=True;
-  inherited Create(False);
+  inherited Create(aSuspended);
 end;
 
 procedure TStarterThread.Execute;
@@ -720,7 +723,6 @@ begin
       AddSearchAbleDataSet(TMessageList);
     end;
   Synchronize(@StartReceive);
-  fMain.RefreshMessages;
   //Tasks
   if (Data.Users.Rights.Right('TASKS') > RIGHT_NONE) then
     begin
@@ -835,7 +837,6 @@ end;
 procedure TfMain.acLoginExecute(Sender: TObject);
 var
   Node: TTreeNode;
-  bStart: TStarterThread;
   miNew: TMenuItem;
   aWiki: TWikiList;
   WikiFrame: TfWikiFrame;
@@ -1013,8 +1014,6 @@ begin
           end;
 
         fSplash.AddText(strRefresh);
-        bStart := TStarterThread.Create;
-        //bStart.Execute; //At time manually, couse a lot of synchronizeing work has to be done for staterthread
 
         with Application as IBaseDbInterface do
           FHistory.Text := DBConfig.ReadString('HISTORY','');
@@ -1031,6 +1030,7 @@ begin
     fMain.Visible:=True;
   end;
   IPCTimer.Enabled:=True;
+  StartupTimer.Enabled:=True;
 end;
 procedure TfMain.acContactExecute(Sender: TObject);
 var
@@ -3220,6 +3220,15 @@ begin
       if TfFilter(pcPages.ActivePage.Controls[0]).DataSet.Count>0 then
         Data.GotoLink(TfFilter(pcPages.ActivePage.Controls[0]).DataSet.FieldByName('LINK').AsString);
     end;
+end;
+
+procedure TfMain.StartupTimerTimer(Sender: TObject);
+var
+  bStart: TStarterThread;
+begin
+  StartupTimer.Enabled:=False;
+  bStart := TStarterThread.Create(True);
+  bStart.Execute; //At time manually, couse a lot of synchronizeing work has to be done for staterthread
 end;
 
 end.
