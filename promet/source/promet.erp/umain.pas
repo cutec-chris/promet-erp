@@ -273,6 +273,7 @@ type
   private
     Node,Node1,Node2,Node3,aNode : TTreeNode;
     miNew: TMenuItem;
+    aConn: TComponent;
     procedure NewNode;
     procedure NewNode1;
     procedure NewNode2;
@@ -281,6 +282,9 @@ type
     procedure ShowAll;
     procedure AddTimeReg;
     procedure AddTimeReg2;
+    procedure NewConn;
+    procedure StartReceive;
+    procedure DoStartupType;
   public
     constructor Create;
     procedure Execute; override;
@@ -648,28 +652,61 @@ begin
     end;
 end;
 
+procedure TStarterThread.NewConn;
+begin
+  aConn := Data.GetNewConnection;
+end;
+
+procedure TStarterThread.StartReceive;
+begin
+  {$ifndef heaptrc}
+  try
+    TBaseVisualApplication(Application).MessageHandler.SendCommand('*receiver','Receive('+Data.Users.FieldByName('NAME').AsString+')');
+  except
+  end;
+  {$endif}
+end;
+
+procedure TStarterThread.DoStartupType;
+begin
+  if Application.HasOption('startuptype') then
+    begin
+      if fMainTreeFrame.tvMain.Items.Count > 0 then
+        aNode := fMainTreeFrame.tvMain.Items[0];
+      while Assigned(aNode) do
+        begin
+          if (Application.GetOptionValue('startuptype') = aNode.Text)
+          or (Application.GetOptionValue('startuptype') = fMainTreeFrame.GetNodeText(aNode)) then
+            begin
+              fMainTreeFrame.tvMain.Selected := aNode;
+              break;
+            end;
+          aNode := aNode.GetNextSibling;
+        end;
+    end;
+end;
+
 constructor TStarterThread.Create;
 begin
   FreeOnTerminate:=True;
-  inherited Create(True);
+  inherited Create(False);
 end;
 
 procedure TStarterThread.Execute;
 var
   aTime: QWord;
   aDataSet: TBaseDbDataSet;
-  aConn: TComponent;
   aCal: TCalendar;
   aDocuments: TDocument;
   aDS: TMeetings;
 begin
-  aConn := Data.GetNewConnection;
+  Synchronize(@NewConn);
   Synchronize(@NewMenu);
   miNew.Action := fMainTreeFrame.acSearch;
   //Timeregistering
   Synchronize(@AddTimeReg);
   //Documents
-  aDocuments := TDocument.Create(nil,Data);
+  aDocuments := TDocument.Create(nil,Data,aConn);
   aDocuments.CreateTable;
   aDocuments.Destroy;
   //Messages
@@ -682,12 +719,7 @@ begin
       Data.RegisterLinkHandler('MESSAGEIDX',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
       AddSearchAbleDataSet(TMessageList);
     end;
-  {$ifndef heaptrc}
-  try
-    TBaseVisualApplication(Application).MessageHandler.SendCommand('*receiver','Receive('+Data.Users.FieldByName('NAME').AsString+')');
-  except
-  end;
-  {$endif}
+  Synchronize(@StartReceive);
   fMain.RefreshMessages;
   //Tasks
   if (Data.Users.Rights.Right('TASKS') > RIGHT_NONE) then
@@ -698,7 +730,7 @@ begin
   //Add PIM Entrys
   if Data.Users.Rights.Right('CALENDAR') > RIGHT_NONE then
     begin
-      aCal := TCalendar.Create(nil,Data);
+      aCal := TCalendar.Create(nil,Data,aConn);
       aCal.CreateTable;
       acal.Free;
       fMain.pcPages.AddTabClass(TfCalendarFrame,strCalendar,@fMain.AddCalendar,Data.GetLinkIcon('CALENDAR@'),True);
@@ -796,22 +828,7 @@ begin
   uTAPIPhone.RegisterPhoneLines;
   {$ENDIF}
   {$ENDIF}
-
-  if Application.HasOption('startuptype') then
-    begin
-      if fMainTreeFrame.tvMain.Items.Count > 0 then
-        aNode := fMainTreeFrame.tvMain.Items[0];
-      while Assigned(aNode) do
-        begin
-          if (Application.GetOptionValue('startuptype') = aNode.Text)
-          or (Application.GetOptionValue('startuptype') = fMainTreeFrame.GetNodeText(aNode)) then
-            begin
-              fMainTreeFrame.tvMain.Selected := aNode;
-              break;
-            end;
-          aNode := aNode.GetNextSibling;
-        end;
-    end;
+  Synchronize(@DoStartupType);
   aConn.Free;
 end;
 
@@ -850,6 +867,7 @@ begin
           Application.Terminate;
           exit;
         end;
+    fSplash.AddText(strAdding+strLinks);
     with Application as IBaseDBInterface do
       begin
         acLogin.Enabled:=False;
@@ -994,8 +1012,9 @@ begin
             TTreeEntry(Node.Data).Typ := etStatistics;
           end;
 
+        fSplash.AddText(strRefresh);
         bStart := TStarterThread.Create;
-        bStart.Execute; //At time manually, couse a lot of synchronizeing work has to be done for staterthread
+        //bStart.Execute; //At time manually, couse a lot of synchronizeing work has to be done for staterthread
 
         with Application as IBaseDbInterface do
           FHistory.Text := DBConfig.ReadString('HISTORY','');
