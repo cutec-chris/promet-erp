@@ -957,6 +957,8 @@ begin
           begin
             NewNode;
             TTreeEntry(Node.Data).Typ := etFiles;
+            NewNode;
+            TTreeEntry(Node.Data).Typ := etDocuments;
           end;
         //Lists
         if (Data.Users.Rights.Right('LISTS') > RIGHT_NONE) then
@@ -2829,7 +2831,7 @@ begin
               Data.Tree.DataSet.Next;
             end;
         end;
-      etFiles:
+      etDocuments:
         begin
           umanagedocframe.AddToMainTree(Node);
         end;

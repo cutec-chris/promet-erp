@@ -1,4 +1,6 @@
-﻿Build 286
+﻿Build 287
+      - Dokumente/Bilder wurden seit 286 falsch hinzugefügt
+Build 286
       - Aufgaben werden 1 Tag vor Zieldatum eingefärbt auch wenn keine Panzeit hinterlegt ist
       - Bis Datum und Endatum werden im Gridview auf Datum+23.59h erstellt
         es ist intuitiver Bis als "bis einschließlich" zu behandeln
