@@ -58,6 +58,12 @@ var
   aLeft: Int64;
   aUsers: TUser;
   aUID: String;
+  SyncItems : TSyncItems;
+  SyncOut: Boolean;
+  Collect: Boolean;
+  DoSync: Boolean;
+  aID: Integer;
+  rmUser: TZQuery;
 begin
   aGlobalTime := Now();
   FTempDataSet := nil;
@@ -84,8 +90,11 @@ begin
   rmConn := TZConnection.Create(Self);
   rmQuerry := TZQuery.Create(Self);
   rmQuerry.Connection:=rmConn;
+  rmUser := TZQuery.Create(Self);
+  rmUser.Connection:=rmConn;
   rmQuerryE := TZQuery.Create(Self);
   rmQuerryE.Connection:=rmConn;
+  SyncItems := TSyncItems.Create(nil,Data);
   rmConn.Protocol:=aConfig.ReadString('database','protocol','sqlite-3');
   rmConn.HostName:=aConfig.ReadString('database','host','localhost');
   rmConn.Database:=aConfig.ReadString('database','database','owncloud.db');
@@ -96,8 +105,8 @@ begin
   if not rmConn.Connected then
     raise Exception.Create(strConnectFailed);
   WriteMessage('Connection successful');
-  rmQuerry.SQL.Text:='select * from oc_users';
-  rmQuerry.Open;
+  rmUser.SQL.Text:='select * from oc_users';
+  rmUser.Open;
   aUsers := TUser.Create(nil,Data);
   aUsers.Open;
   while not aUsers.EOF do
@@ -107,24 +116,51 @@ begin
           aUID := trim(aUsers.FieldByName('LOGINNAME').AsString);
           if aUID='' then
             aUID := copy(aUsers.FieldByName('NAME').AsString,pos(' ',aUsers.FieldByName('NAME').AsString)+1,length(aUsers.FieldByName('NAME').AsString));
-          if (not rmQuerry.Locate('uid',aUID,[]))
+          if (not rmUser.Locate('uid',aUID,[]))
           and (aUID <> 'Gast')
           and (aUID <> 'Administrator')
           then
             begin
-              rmQuerry.Insert;
-              rmQuerry.FieldByName('uid').AsString:=aUID;
-              rmQuerry.FieldByName('displayname').AsString:=aUsers.FieldByName('NAME').AsString;
-              rmQuerry.FieldByName('password').AsString:='$2a$08$qnPfPL3wi40AJt8Sp4ceTOlnMGe7scbPdChcT4QhWWOrdHKzSQTBm';//default
-              rmQuerry.Post;
+              rmUser.Insert;
+              rmUser.FieldByName('uid').AsString:=aUID;
+              rmUser.FieldByName('displayname').AsString:=aUsers.FieldByName('NAME').AsString;
+              rmUser.FieldByName('password').AsString:='$2a$08$qnPfPL3wi40AJt8Sp4ceTOlnMGe7scbPdChcT4QhWWOrdHKzSQTBm';//default
+              rmUser.Post;
             end;
+
+          //Sync Calendars
+          rmQuerry.SQL.Text:='select * from oc_clndr_calendars where uid='''+aUID+'''';
+          rmQuerry.Open;
+          while not rmQuerry.EOF do
+            begin
+              if rmQuerry.FieldByName('displayname').AsString='Default calendar' then
+                begin
+                  rmQuerryE.SQL.Text:='select * from oc_clndr_objects where calendarid='''+aUID+'''';
+                  rmQuerryE.Open;
+                  while not rmQuerryE.EOF do
+                    begin
+                      if rmQuerryE.FieldByName('objecttype').AsString='VEVENT' then
+                        begin
+                          SyncOut := False;
+                          Collect := False;
+                          DoSync := True;
+                          aID := 0;
+                          Data.SetFilter(SyncItems,Data.QuoteField('SYNCTYPE')+'='+Data.QuoteValue('OWNCLOUD')+' AND '+Data.QuoteField('REMOTE_ID')+'='+Data.QuoteValue(rmQuerryE.FieldByName('uri').AsString));
+                          if SyncItems.Count > 0 then
+                            begin
+                              DoSync := (not SyncItems.DataSet.FieldByName('LOCAL_ID').IsNull) and (not SyncItems.DataSet.FieldByName('LOCAL_ID').AsInteger = 0);
+
+                            end;
+                        end;
+                      rmQuerryE.Next;
+                    end;
+                end;
+              rmQuerry.Next;
+            end;
+
         end;
       aUsers.Next;
     end;
-  //Sync Calendars
-  rmQuerry.SQL.Text:='select * from oc_calendars';
-  rmQuerry.Open;
-
 
 {
   aProjects := TProject.Create(nil,Data);
