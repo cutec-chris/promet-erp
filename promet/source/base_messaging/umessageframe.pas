@@ -377,6 +377,7 @@ end;
 procedure TfMessageFrame.OpenDir(Directory: Variant);
 begin
   FList.ClearFilters;
+  Data.Tree.Open;
   if Data.Tree.DataSet.Locate(Data.Tree.Id.FieldName,Directory,[]) then
     Caption := Data.Tree.FieldByName('NAME').AsString;
   if (Data.Tree.FieldByName('TYPE').AsString <> 'B')

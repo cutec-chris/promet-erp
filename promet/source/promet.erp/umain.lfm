@@ -872,11 +872,4 @@ object fMain: TfMain
     left = 80
     top = 40
   end
-  object StartupTimer: TTimer
-    Enabled = False
-    Interval = 50
-    OnTimer = StartupTimerTimer
-    left = 72
-    top = 176
-  end
 end

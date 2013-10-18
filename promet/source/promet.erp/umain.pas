@@ -124,7 +124,6 @@ type
     spTree: TSplitter;
     SearchTimer: TTimer;
     tbMenue: TToolButton;
-    StartupTimer: TTimer;
     ToolBar1: TToolBar;
     ToolBar2: TToolBar;
     ToolButton2: TToolButton;
@@ -231,7 +230,6 @@ type
       procedure SenderTfMainTaskFrameControlsSenderTfMainTaskFrameTfTaskFrameStartTime
       (Sender: TObject; aProject, aTask: string);
     procedure TfFilteracOpenExecute(Sender: TObject);
-    procedure StartupTimerTimer(Sender: TObject);
   private
     { private declarations }
     FHistory: THistory;
@@ -276,6 +274,7 @@ type
     Node,Node1,Node2,Node3,aNode : TTreeNode;
     miNew: TMenuItem;
     aConn: TComponent;
+    DataSetType : TBaseDBDatasetClass;
     procedure NewNode;
     procedure NewNode1;
     procedure NewNode2;
@@ -287,6 +286,8 @@ type
     procedure NewConn;
     procedure StartReceive;
     procedure DoStartupType;
+    procedure DoCreate;
+    procedure RefreshTasks;
   public
     constructor Create(aSuspended : Boolean = False);
     procedure Execute; override;
@@ -689,9 +690,25 @@ begin
     end;
 end;
 
+procedure TStarterThread.DoCreate;
+var
+  aDataSet: TBaseDBDataset;
+begin
+  aDataSet := DataSetType.Create(nil,Data,aConn);
+  aDataSet.CreateTable;
+  aDataSet.Destroy;
+  Application.ProcessMessages;
+end;
+
+procedure TStarterThread.RefreshTasks;
+begin
+  uTasks.RefreshTasks(fMain.FTaskNode);
+end;
+
 constructor TStarterThread.Create(aSuspended: Boolean);
 begin
   FreeOnTerminate:=True;
+  Priority:=tpLowest;
   inherited Create(aSuspended);
 end;
 
@@ -700,7 +717,6 @@ var
   aTime: QWord;
   aDataSet: TBaseDbDataSet;
   aCal: TCalendar;
-  aDocuments: TDocument;
   aDS: TMeetings;
 begin
   Synchronize(@NewConn);
@@ -709,15 +725,13 @@ begin
   //Timeregistering
   Synchronize(@AddTimeReg);
   //Documents
-  aDocuments := TDocument.Create(nil,Data,aConn);
-  aDocuments.CreateTable;
-  aDocuments.Destroy;
+  DataSetType:=TDocuments;
+  Synchronize(@DoCreate);
   //Messages
   if Data.Users.Rights.Right('MESSAGES') > RIGHT_NONE then
     begin
-      aDataSet := TMessage.Create(nil,Data,aConn);
-      TMessage(aDataSet).CreateTable;
-      aDataSet.Destroy;
+      DataSetType:=TMessageList;
+      Synchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfMessageFrame,strMessages,nil,Data.GetLinkIcon('MESSAGEIDX@'),True);
       Data.RegisterLinkHandler('MESSAGEIDX',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
       AddSearchAbleDataSet(TMessageList);
@@ -726,31 +740,31 @@ begin
   //Tasks
   if (Data.Users.Rights.Right('TASKS') > RIGHT_NONE) then
     begin
-      uTasks.RefreshTasks(fMain.FTaskNode);
+      Synchronize(@RefreshTasks);
       Data.RegisterLinkHandler('TASKS',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
     end;
   //Add PIM Entrys
   if Data.Users.Rights.Right('CALENDAR') > RIGHT_NONE then
     begin
-      aCal := TCalendar.Create(nil,Data,aConn);
-      aCal.CreateTable;
-      acal.Free;
+      DataSetType:=TCalendar;
+      Synchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfCalendarFrame,strCalendar,@fMain.AddCalendar,Data.GetLinkIcon('CALENDAR@'),True);
       fMain.RefreshCalendar;
     end;
   //Orders
-  aDataSet := TOrder.Create(nil,Data,aConn);
-  TOrder(aDataSet).CreateTable;
-  aDataSet.Destroy;
-  fMain.pcPages.AddTabClass(TfFilter,strOrderList,@fMain.AddOrderList,Data.GetLinkIcon('ORDERS@'),True);
-  Data.RegisterLinkHandler('ORDERS',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
-  AddSearchAbleDataSet(TOrderList);
+  if Data.Users.Rights.Right('ORDERS') > RIGHT_NONE then
+    begin
+      DataSetType:=TOrder;
+      Synchronize(@DoCreate);
+      fMain.pcPages.AddTabClass(TfFilter,strOrderList,@fMain.AddOrderList,Data.GetLinkIcon('ORDERS@'),True);
+      Data.RegisterLinkHandler('ORDERS',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
+      AddSearchAbleDataSet(TOrderList);
+    end;
   //Add Contacts
   if Data.Users.Rights.Right('CUSTOMERS') > RIGHT_NONE then
     begin
-      aDataSet := TPerson.Create(nil,Data,aConn);
-      TPerson(aDataSet).CreateTable;
-      aDataSet.Destroy;
+      DataSetType:=TPerson;
+      Synchronize(@DoCreate);
       Data.Countries.CreateTable;
       fMain.pcPages.AddTabClass(TfFilter,strCustomerList,@fMain.AddCustomerList,Data.GetLinkIcon('CUSTOMERS@'),True);
       Data.RegisterLinkHandler('CUSTOMERS',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
@@ -761,9 +775,8 @@ begin
   //Add Masterdata stuff
   if (Data.Users.Rights.Right('MASTERDATA') > RIGHT_NONE) then
     begin
-      aDataSet := TMasterdata.Create(nil,Data,aConn);
-      TMasterdata(aDataSet).CreateTable;
-      aDataSet.Destroy;
+      DataSetType:=TMasterdata;
+      Synchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfFilter,strArticleList,@fMain.AddMasterdataList,Data.GetLinkIcon('MASTERDATA@'),True);
       Data.RegisterLinkHandler('MASTERDATA',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
       AddSearchAbleDataSet(TMasterdataList);
@@ -771,6 +784,8 @@ begin
   //Projects
   if (Data.Users.Rights.Right('PROJECTS') > RIGHT_NONE) then
     begin
+      DataSetType:=TProject;
+      Synchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfFilter,strProjectList,@fMain.AddProjectList,Data.GetLinkIcon('PROJECTS@'),True);
       Data.RegisterLinkHandler('PROJECT',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
       AddSearchAbleDataSet(TProjectList);
@@ -791,27 +806,24 @@ begin
   //Lists
   if (Data.Users.Rights.Right('LISTS') > RIGHT_NONE) then
     begin
-      aDataSet := TLists.Create(nil,Data,aConn);
-      TLists(aDataSet).CreateTable;
-      aDataSet.Destroy;
+      DataSetType:=TLists;
+      Synchronize(@DoCreate);
       Data.RegisterLinkHandler('LISTS',@fMainTreeFrame.OpenLink);
       AddSearchAbleDataSet(TLists);
     end;
   //Meetings
   if (Data.Users.Rights.Right('MEETINGS') > RIGHT_NONE) then
     begin
+      DataSetType:=TMeetings;
+      Synchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfFilter,strMeetingList,@fMain.AddMeetingList,-1,True);
       Data.RegisterLinkHandler('MEETINGS',@fMainTreeFrame.OpenLink);
-      aDS := TMeetings.Create(nil,Data,aConn);
-      aDS.CreateTable;
-      aDS.Free;
     end;
   //Inventory
   if (Data.Users.Rights.Right('INVENTORY') > RIGHT_NONE) then
     begin
-      aDataSet := TInventorys.Create(nil,Data,aConn);
-      TInventorys(aDataSet).CreateTable;
-      aDataSet.Destroy;
+      DataSetType:=TInventorys;
+      Synchronize(@DoCreate);
       Data.RegisterLinkHandler('INVENTORY',@fMainTreeFrame.OpenLink);
     end;
   //Statistics
@@ -841,6 +853,7 @@ var
   aWiki: TWikiList;
   WikiFrame: TfWikiFrame;
   aDocuments: TDocument;
+  bStart: TStarterThread;
   procedure NewNode;
   begin
     Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
@@ -1014,6 +1027,7 @@ begin
           end;
 
         fSplash.AddText(strRefresh);
+        bStart := TStarterThread.Create(False);
 
         with Application as IBaseDbInterface do
           FHistory.Text := DBConfig.ReadString('HISTORY','');
@@ -1030,7 +1044,6 @@ begin
     fMain.Visible:=True;
   end;
   IPCTimer.Enabled:=True;
-  StartupTimer.Enabled:=True;
 end;
 procedure TfMain.acContactExecute(Sender: TObject);
 var
@@ -3220,15 +3233,6 @@ begin
       if TfFilter(pcPages.ActivePage.Controls[0]).DataSet.Count>0 then
         Data.GotoLink(TfFilter(pcPages.ActivePage.Controls[0]).DataSet.FieldByName('LINK').AsString);
     end;
-end;
-
-procedure TfMain.StartupTimerTimer(Sender: TObject);
-var
-  bStart: TStarterThread;
-begin
-  StartupTimer.Enabled:=False;
-  bStart := TStarterThread.Create(True);
-  bStart.Execute; //At time manually, couse a lot of synchronizeing work has to be done for staterthread
 end;
 
 end.

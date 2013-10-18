@@ -311,6 +311,8 @@ begin
         fLogWaitForm.Show;
         if rbPINTAN.Checked then
           CmdLn := 'aqhbci-tool4 adduser -t pintan --context=1 -u '+eAccountNo.Text+' -b '+eSortcode.Text+' --username="'+eUsername.Text+'"';
+        if rbHBCI.Checked then
+          CmdLn := 'aqhbci-tool4 adduser -t pintan --context=1 -u '+eAccountNo.Text+' -b '+eSortcode.Text+' --username="'+eUsername.Text+'"';
         Proc := TExtendedProcess.Create(Cmdln);
         Proc.OnLineWritten:=@ProcLineWritten;
         if eCustomerID.Text<>'' then

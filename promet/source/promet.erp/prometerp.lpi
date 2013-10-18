@@ -181,7 +181,6 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--config-path=/home/chris/.promet-erp-devel"/>
       </local>
     </RunParams>
     <RequiredPackages Count="22">
@@ -271,7 +270,7 @@
         <PackageName Value="LCL"/>
       </Item22>
     </RequiredPackages>
-    <Units Count="366">
+    <Units Count="368">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -288,15 +287,15 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="3200"/>
-        <CursorPos X="39" Y="3230"/>
+        <TopLine Value="1350"/>
+        <CursorPos X="1" Y="1366"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="3">
-          <Item0 X="2" Y="710" ID="0"/>
-          <Item1 X="6" Y="902" ID="1"/>
-          <Item2 X="1" Y="2905" ID="2"/>
+          <Item0 X="2" Y="726" ID="0"/>
+          <Item1 X="6" Y="915" ID="1"/>
+          <Item2 X="1" Y="2918" ID="2"/>
         </Bookmarks>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -386,13 +385,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uHistoryFrame"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="252"/>
-        <CursorPos X="35" Y="269"/>
-        <UsageCount Value="94"/>
-        <Loaded Value="True"/>
+        <TopLine Value="36"/>
+        <CursorPos X="38" Y="85"/>
+        <UsageCount Value="97"/>
         <LoadedDesigner Value="True"/>
       </Unit9>
       <Unit10>
@@ -972,12 +968,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMainTreeFrame"/>
-        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1486"/>
         <CursorPos X="1" Y="1507"/>
         <UsageCount Value="100"/>
-        <Loaded Value="True"/>
       </Unit63>
       <Unit64>
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
@@ -985,12 +979,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uProjectFrame"/>
-        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="420"/>
         <CursorPos X="27" Y="900"/>
-        <UsageCount Value="99"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="100"/>
         <LoadedDesigner Value="True"/>
       </Unit64>
       <Unit65>
@@ -1034,12 +1026,10 @@
       </Unit68>
       <Unit69>
         <Filename Value="../base/revision.inc"/>
-        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
         <UsageCount Value="101"/>
-        <Loaded Value="True"/>
       </Unit69>
       <Unit70>
         <Filename Value="../base/changes.txt"/>
@@ -1070,8 +1060,8 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="utasks"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1464"/>
-        <CursorPos X="1" Y="1487"/>
+        <TopLine Value="233"/>
+        <CursorPos X="11" Y="250"/>
         <UsageCount Value="100"/>
       </Unit72>
       <Unit73>
@@ -1170,10 +1160,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMessageFrame"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="59"/>
-        <CursorPos X="15" Y="75"/>
-        <UsageCount Value="7"/>
+        <TopLine Value="362"/>
+        <CursorPos X="18" Y="380"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit82>
       <Unit83>
         <Filename Value="../base/dbintfs/uwiki.pas"/>
@@ -1266,9 +1259,9 @@
         <Filename Value="../components/zeos/src/plain/ZPlainPostgreSqlDriver.pas"/>
         <UnitName Value="ZPlainPostgreSqlDriver"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="967"/>
-        <CursorPos X="1" Y="985"/>
-        <UsageCount Value="4"/>
+        <TopLine Value="1249"/>
+        <CursorPos X="37" Y="1263"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit93>
       <Unit94>
@@ -1340,12 +1333,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="umanagedocframe"/>
-        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="830"/>
         <CursorPos X="28" Y="859"/>
-        <UsageCount Value="98"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="101"/>
       </Unit101>
       <Unit102>
         <Filename Value="../components/thumbs/thumbcontrol.pas"/>
@@ -1642,12 +1633,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uGanttView"/>
-        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="232"/>
         <CursorPos X="1" Y="250"/>
         <UsageCount Value="100"/>
-        <Loaded Value="True"/>
       </Unit136>
       <Unit137>
         <Filename Value="../../../../lazarus/lcl/include/mouse.inc"/>
@@ -2002,7 +1991,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="471"/>
         <CursorPos X="25" Y="505"/>
-        <UsageCount Value="75"/>
+        <UsageCount Value="78"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit179>
@@ -3405,10 +3394,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uWizardnewaccount"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="381"/>
-        <CursorPos X="57" Y="390"/>
-        <UsageCount Value="88"/>
+        <TopLine Value="299"/>
+        <CursorPos X="45" Y="315"/>
+        <UsageCount Value="93"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit348>
       <Unit349>
         <Filename Value="../../../../../lazarus/lcl/include/treeview.inc"/>
@@ -3539,127 +3531,141 @@
         <CursorPos X="31" Y="450"/>
         <UsageCount Value="10"/>
       </Unit365>
+      <Unit366>
+        <Filename Value="/usr/share/fpcsrc/2.6.2/rtl/objpas/classes/classesh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1585"/>
+        <CursorPos X="17" Y="1602"/>
+        <UsageCount Value="10"/>
+      </Unit366>
+      <Unit367>
+        <Filename Value="/usr/share/fpcsrc/2.6.2/rtl/unix/tthread.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="171"/>
+        <CursorPos X="3" Y="175"/>
+        <UsageCount Value="10"/>
+      </Unit367>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="umain.pas"/>
-        <Caret Line="644" Column="1" TopLine="619"/>
+        <Caret Line="724" Column="25" TopLine="705"/>
       </Position1>
       <Position2>
         <Filename Value="umain.pas"/>
-        <Caret Line="645" Column="1" TopLine="619"/>
+        <Caret Line="680" Column="84" TopLine="678"/>
       </Position2>
       <Position3>
         <Filename Value="umain.pas"/>
-        <Caret Line="359" Column="14" TopLine="340"/>
+        <Caret Line="3230" Column="31" TopLine="3201"/>
       </Position3>
       <Position4>
         <Filename Value="umain.pas"/>
-        <Caret Line="987" Column="38" TopLine="976"/>
+        <Caret Line="3214" Column="26" TopLine="3201"/>
       </Position4>
       <Position5>
         <Filename Value="umain.pas"/>
-        <Caret Line="285" Column="17" TopLine="242"/>
+        <Caret Line="290" Column="31" TopLine="277"/>
       </Position5>
       <Position6>
         <Filename Value="umain.pas"/>
-        <Caret Line="988" Column="21" TopLine="979"/>
+        <Caret Line="291" Column="24" TopLine="278"/>
       </Position6>
       <Position7>
         <Filename Value="umain.pas"/>
-        <Caret Line="735" Column="37" TopLine="724"/>
+        <Caret Line="725" Column="32" TopLine="706"/>
       </Position7>
       <Position8>
         <Filename Value="umain.pas"/>
-        <Caret Line="729" Column="86" TopLine="717"/>
+        <Caret Line="698" Column="3" TopLine="679"/>
       </Position8>
       <Position9>
         <Filename Value="umain.pas"/>
-        <Caret Line="878" Column="18" TopLine="795"/>
+        <Caret Line="737" Column="20" TopLine="712"/>
       </Position9>
       <Position10>
         <Filename Value="umain.pas"/>
-        <Caret Line="690" Column="28" TopLine="664"/>
+        <Caret Line="292" Column="28" TopLine="278"/>
       </Position10>
       <Position11>
         <Filename Value="umain.pas"/>
-        <Caret Line="884" Column="1" TopLine="865"/>
+        <Caret Line="707" Column="1" TopLine="702"/>
       </Position11>
       <Position12>
-        <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="900" Column="27" TopLine="420"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="753" Column="70" TopLine="743"/>
       </Position12>
       <Position13>
         <Filename Value="umain.pas"/>
-        <Caret Line="747" Column="23" TopLine="731"/>
+        <Caret Line="2917" Column="1" TopLine="2828"/>
       </Position13>
       <Position14>
         <Filename Value="umain.pas"/>
-        <Caret Line="961" Column="53" TopLine="944"/>
+        <Caret Line="948" Column="1" TopLine="933"/>
       </Position14>
       <Position15>
         <Filename Value="umain.pas"/>
-        <Caret Line="2834" Column="18" TopLine="2809"/>
+        <Caret Line="3237" Column="1" TopLine="3204"/>
       </Position15>
       <Position16>
         <Filename Value="umain.pas"/>
-        <Caret Line="999" Column="37" TopLine="980"/>
+        <Caret Line="234" Column="1" TopLine="218"/>
       </Position16>
       <Position17>
         <Filename Value="umain.pas"/>
-        <Caret Line="284" Column="23" TopLine="268"/>
+        <Caret Line="233" Column="1" TopLine="217"/>
       </Position17>
       <Position18>
         <Filename Value="umain.pas"/>
-        <Caret Line="693" Column="59" TopLine="688"/>
+        <Caret Line="1028" Column="1" TopLine="1017"/>
       </Position18>
       <Position19>
         <Filename Value="umain.pas"/>
-        <Caret Line="285" Column="28" TopLine="269"/>
+        <Caret Line="700" Column="1" TopLine="691"/>
       </Position19>
       <Position20>
         <Filename Value="umain.pas"/>
-        <Caret Line="286" Column="29" TopLine="270"/>
+        <Caret Line="914" Column="6" TopLine="862"/>
       </Position20>
       <Position21>
         <Filename Value="umain.pas"/>
-        <Caret Line="686" Column="1" TopLine="669"/>
+        <Caret Line="725" Column="2" TopLine="713"/>
       </Position21>
       <Position22>
         <Filename Value="umain.pas"/>
-        <Caret Line="1031" Column="26" TopLine="1019"/>
+        <Caret Line="914" Column="6" TopLine="898"/>
       </Position22>
       <Position23>
         <Filename Value="umain.pas"/>
-        <Caret Line="1033" Column="26" TopLine="1021"/>
+        <Caret Line="2917" Column="1" TopLine="2900"/>
       </Position23>
       <Position24>
         <Filename Value="umain.pas"/>
-        <Caret Line="3227" Column="30" TopLine="3198"/>
+        <Caret Line="1029" Column="37" TopLine="1011"/>
       </Position24>
       <Position25>
         <Filename Value="umain.pas"/>
-        <Caret Line="1034" Column="29" TopLine="1021"/>
+        <Caret Line="711" Column="10" TopLine="707"/>
       </Position25>
       <Position26>
         <Filename Value="umain.pas"/>
-        <Caret Line="11" Column="73" TopLine="1"/>
+        <Caret Line="712" Column="16" TopLine="695"/>
       </Position26>
       <Position27>
         <Filename Value="umain.pas"/>
-        <Caret Line="855" Column="25" TopLine="841"/>
+        <Caret Line="722" Column="1" TopLine="714"/>
       </Position27>
       <Position28>
-        <Filename Value="umain.pas"/>
-        <Caret Line="724" Column="25" TopLine="705"/>
+        <Filename Value="../base_messaging/umessageframe.pas"/>
+        <Caret Line="382" Column="34" TopLine="362"/>
       </Position28>
       <Position29>
         <Filename Value="umain.pas"/>
-        <Caret Line="680" Column="84" TopLine="678"/>
+        <Caret Line="1366" Column="1" TopLine="1350"/>
       </Position29>
       <Position30>
-        <Filename Value="umain.pas"/>
-        <Caret Line="3230" Column="31" TopLine="3201"/>
+        <Filename Value="../base_messaging/umessageframe.pas"/>
+        <Caret Line="378" Column="108" TopLine="362"/>
       </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">
