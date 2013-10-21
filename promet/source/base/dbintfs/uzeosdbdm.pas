@@ -1215,6 +1215,7 @@ begin
             else if copy(FConnection.Protocol,0,6) = 'sqlite' then
               begin
                 FConnection.ExecuteDirect('CREATE TABLE IF NOT EXISTS "GEN_SQL_ID"("SQL_ID" BIGINT NOT NULL PRIMARY KEY,ID BIGINT);');
+                FConnection.ExecuteDirect('CREATE TABLE IF NOT EXISTS "GEN_AUTO_ID"("SQL_ID" BIGINT NOT NULL PRIMARY KEY,ID BIGINT);');
               end
             else
               begin
@@ -1813,4 +1814,4 @@ begin
 end;
 
 end.
-
+

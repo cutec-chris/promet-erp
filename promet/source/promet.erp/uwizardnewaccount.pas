@@ -308,6 +308,8 @@ begin
     begin
       Result := 3;
       try
+        //TODO: packages sollten installiert sein: libccid,pcscd,libifd-cyberjack6,libchipcard-libgwenhywfar60-plugins in
+        //TODO: HBCI Adressen: http://www.hbci-zka.de/
         fLogWaitForm.Show;
         if rbPINTAN.Checked then
           CmdLn := 'aqhbci-tool4 adduser -t pintan --context=1 -u '+eAccountNo.Text+' -b '+eSortcode.Text+' --username="'+eUsername.Text+'"';

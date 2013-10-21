@@ -389,7 +389,6 @@
         <TopLine Value="36"/>
         <CursorPos X="38" Y="85"/>
         <UsageCount Value="97"/>
-        <LoadedDesigner Value="True"/>
       </Unit9>
       <Unit10>
         <Filename Value="../base/uimageframe.pas"/>
@@ -983,7 +982,6 @@
         <TopLine Value="420"/>
         <CursorPos X="27" Y="900"/>
         <UsageCount Value="100"/>
-        <LoadedDesigner Value="True"/>
       </Unit64>
       <Unit65>
         <Filename Value="../base/dbintfs/ubaseapplication.pas"/>
@@ -1160,13 +1158,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMessageFrame"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="362"/>
         <CursorPos X="18" Y="380"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit82>
       <Unit83>
         <Filename Value="../base/dbintfs/uwiki.pas"/>
@@ -1991,7 +1989,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="471"/>
         <CursorPos X="25" Y="505"/>
-        <UsageCount Value="78"/>
+        <UsageCount Value="80"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit179>
@@ -3394,11 +3392,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uWizardnewaccount"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="299"/>
-        <CursorPos X="45" Y="315"/>
-        <UsageCount Value="93"/>
+        <CursorPos X="119" Y="311"/>
+        <UsageCount Value="97"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit348>
