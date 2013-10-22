@@ -26,6 +26,7 @@ uses
     {$ENDIF}
     LCLStrConsts;
 resourcestring
+  strCantAccessFile             = 'Auf die Datei "%s" kann nicht zugegriffen werden,'+lineending+'kopieren Sie diese Datei ggf erst auf Ihren Computer oder mounten Sie die Quelle';
   strTimetools                  = 'Zeiterfassung';
   strCosts                      = 'Kosten';
   strFullPercent                = 'Auslastung:%d%%';

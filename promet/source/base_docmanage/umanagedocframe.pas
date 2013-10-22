@@ -42,6 +42,7 @@ type
     acEdit: TAction;
     acSaveAll: TAction;
     acSave: TAction;
+    acImport: TAction;
     ActionList1: TActionList;
     bEditFilter: TSpeedButton;
     Bevel3: TBevel;
@@ -50,6 +51,7 @@ type
     Bevel6: TBevel;
     Bevel7: TBevel;
     Bevel8: TBevel;
+    Bevel9: TBevel;
     bExecute1: TSpeedButton;
     bRefresh2: TSpeedButton;
     bRefresh3: TSpeedButton;
@@ -58,6 +60,7 @@ type
     bTag1: TSpeedButton;
     bZoomIn: TSpeedButton;
     bZoomOut: TSpeedButton;
+    bImport: TSpeedButton;
     cbFilter: TComboBox;
     Datasource1: TDatasource;
     DBEdit1: TDBEdit;
@@ -69,6 +72,7 @@ type
     ExtRotatedLabel4: TLabel;
     ExtRotatedLabel5: TLabel;
     ExtRotatedLabel6: TLabel;
+    ExtRotatedLabel7: TLabel;
     IdleTimer1: TIdleTimer;
     iNoThumbnail: TImage;
     Label1: TLabel;
@@ -88,6 +92,7 @@ type
     pmPopup: TPopupMenu;
     pNav2: TPanel;
     pNav3: TPanel;
+    pNav4: TPanel;
     PopupMenu1: TPopupMenu;
     pRight: TPanel;
     pThumb: TPanel;
@@ -101,6 +106,7 @@ type
     tsFiles: TTabSheet;
     procedure acDeleteExecute(Sender: TObject);
     procedure acEditExecute(Sender: TObject);
+    procedure acImportExecute(Sender: TObject);
     procedure acRebuildThumbExecute(Sender: TObject);
     procedure acRefreshExecute(Sender: TObject);
     procedure acSaveAllExecute(Sender: TObject);
@@ -152,17 +158,28 @@ type
     function GotoCurrentItem: Boolean;
     procedure OpenDir(aDir : Variant);
   end;
+
+  { TImportCheckTherad }
+
+  TImportCheckTherad = class(TThread)
+  private
+    FDoc: TfManageDocFrame;
+    procedure CheckImport;
+  public
+    procedure Execute;override;
+    constructor Create(aDocFrame : TfManageDocFrame);
+  end;
+
 procedure AddToMainTree(Node : TTReeNode);
 const
   MAX_IMAGES = 50;
 implementation
 {$R *.lfm}
 uses uData,udocuments,uWait,LCLIntf,Utils,uFormAnimate,uImportImages,
-  ProcessUtils,uMainTreeFrame;
+  ProcessUtils,uMainTreeFrame,ucameraimport;
 resourcestring
   strTag                   = 'Tag';
   strSetTag                = 'durch Klick setzen';
-  strCantAccessFile        = 'Auf die Datei "%s" kann nicht zugegriffen werden,'+lineending+'kopieren Sie diese Datei ggf erst auf Ihren Computer oder mounten Sie die Quelle';
 
 procedure AddToMainTree(Node: TTReeNode);
 var
@@ -182,6 +199,26 @@ begin
       Data.Tree.DataSet.Next;
     end;
 end;
+
+{ TImportCheckTherad }
+
+procedure TImportCheckTherad.CheckImport;
+begin
+  FDoc.acImport.Enabled := fCameraimport.ImportAvalibe;
+end;
+
+procedure TImportCheckTherad.Execute;
+begin
+  Synchronize(@CheckImport);
+end;
+
+constructor TImportCheckTherad.Create(aDocFrame: TfManageDocFrame);
+begin
+  FDoc := aDocFrame;
+  FreeOnTerminate:=True;
+  inherited Create(false);
+end;
+
 procedure TfManageDocFrame.ThumbControl1LoadFile(Sender: TObject; URL: string;
   out Stream: TStream);
 begin
@@ -587,6 +624,13 @@ begin
         break;
       end;
 end;
+
+procedure TfManageDocFrame.acImportExecute(Sender: TObject);
+begin
+  if fCameraimport.Execute(Self) then
+    acRefresh.Execute;
+end;
+
 procedure TfManageDocFrame.acRebuildThumbExecute(Sender: TObject);
 begin
   RebuidThumb;
@@ -804,6 +848,8 @@ begin
   inherited Destroy;
 end;
 procedure TfManageDocFrame.Open;
+var
+  aRefThread: TImportCheckTherad;
 begin
   ThumbControl1.ImageLoaderManager.BeforeStartQueue:=@ThumbControl1ImageLoaderManagerBeforeStartQueue;
   DataSet.CreateTable;
@@ -823,6 +869,7 @@ begin
   FetchNext;
   bExecute1.Down:=False;
   bExecute1Click(nil);
+  aRefThread := TImportCheckTherad.Create(Self);
 end;
 procedure TfManageDocFrame.DoRefresh;
 begin

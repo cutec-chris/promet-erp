@@ -18,7 +18,7 @@ inherited fManageDocFrame: TfManageDocFrame
     ClientWidth = 874
     TabOrder = 0
     object pNav: TPanel
-      Left = 232
+      Left = 288
       Height = 42
       Top = 0
       Width = 160
@@ -58,14 +58,14 @@ inherited fManageDocFrame: TfManageDocFrame
       end
     end
     object Panel5: TPanel
-      Left = 464
+      Left = 520
       Height = 42
       Top = 0
-      Width = 410
+      Width = 354
       Align = alClient
       BevelOuter = bvNone
       ClientHeight = 42
-      ClientWidth = 410
+      ClientWidth = 354
       Constraints.MaxWidth = 700
       TabOrder = 1
       Visible = False
@@ -96,7 +96,7 @@ inherited fManageDocFrame: TfManageDocFrame
         Height = 28
         Hint = 'hier können Sie eine vordefinierte Ansicht wählen'#10'Wenn Sie eine spezielle Ansicht/Sortierung benötigen wenden Sie sich an Ihren Administrator'
         Top = 12
-        Width = 358
+        Width = 302
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Left = 8
         ItemHeight = 0
@@ -104,7 +104,7 @@ inherited fManageDocFrame: TfManageDocFrame
         TabOrder = 0
       end
       object bEditFilter: TSpeedButton
-        Left = 368
+        Left = 312
         Height = 21
         Hint = 'zeigt/verbirgt weitere Einstellungen'#10'zu den Ansichten'
         Top = 12
@@ -366,7 +366,7 @@ inherited fManageDocFrame: TfManageDocFrame
       ShowCaption = False
     end
     object pNav2: TPanel
-      Left = 132
+      Left = 188
       Height = 42
       Top = 0
       Width = 100
@@ -554,7 +554,7 @@ inherited fManageDocFrame: TfManageDocFrame
       end
     end
     object pNav3: TPanel
-      Left = 396
+      Left = 452
       Height = 42
       Top = 0
       Width = 68
@@ -675,6 +675,84 @@ inherited fManageDocFrame: TfManageDocFrame
           39FFBD6E3BFFBB6D3AFFBB6B38EFBB703ECBB6693554FFFFFF00
         }
         Layout = blGlyphTop
+        ShowCaption = False
+      end
+    end
+    object pNav4: TPanel
+      Left = 132
+      Height = 42
+      Top = 0
+      Width = 52
+      Align = alLeft
+      BorderSpacing.Left = 4
+      BevelOuter = bvNone
+      ClientHeight = 42
+      ClientWidth = 52
+      TabOrder = 5
+      object ExtRotatedLabel7: TLabel
+        Left = 6
+        Height = 14
+        Top = 0
+        Width = 37
+        Caption = 'Import'
+        Font.Color = clMedGray
+        Font.Height = 11
+        Layout = tlBottom
+        ParentColor = False
+        ParentFont = False
+      end
+      object Bevel9: TBevel
+        Left = 0
+        Height = 34
+        Top = 4
+        Width = 16
+        BorderSpacing.Top = 4
+        BorderSpacing.Bottom = 4
+        Shape = bsLeftLine
+      end
+      object bImport: TSpeedButton
+        Left = 6
+        Height = 24
+        Top = 16
+        Width = 24
+        Action = acImport
+        Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00196B3788196B37F2196B37FF196B37F2196B3788FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00196B
+          3784288C53FF64BA8DFF95D2B2FF64BA8DFF288C53FF196B378CFFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF001B6C
+          39F762BA8BFF60BA87FFFFFFFFFF60B987FF67BC8FFF196B37F74747476F3737
+          37F6353535FD464646FE444444FF414141FF3F3F3FFF3C3C3CFF343434FE317B
+          4CFF9CD4B6FFFFFFFFFFFFFFFFFFFFFFFFFF95D2B2FF196B37FF575757FF6F6F
+          6FFF676767FF7A7A7AFF9B9B9BFF989898FF939393FF868686FF585858FF4485
+          5CFF90D3B1FF92D6B1FFFFFFFFFF65BC8CFF67BC8FFF1A6937FF5E5E5EFF7E7E
+          7EFF8B8B8BFFB8A595FFCE9664FFD69A60FFD79B63FFCE9968FFA39383FF5675
+          62FF61AB81FF95D4B4FFBAE6D0FF6ABB8FFF2D8F57FF255235FF606060FF8787
+          87FFB9B9B9FFD09664FFD89A61FFD89C67FFD89D67FFD89C66FFCE9A68FF8C8C
+          8CFF516E5CFF5B9470FF4F8E66FF408158FF4C7059FF353535FF626262FF8E8E
+          8EFFC7C7C7FFD6975EFFD79C65FFD99E69FFD9A06AFFD89D67FFD79A62FF9B9B
+          9BFF505050FF9E9E9EFF858585FF4E4E4EFF6E6E6EFF373737FF656565FF9494
+          94FFD0D0D0FFD6975EFFD99D66FFD99F6AFFD99E69FFD89B65FFD6985FFFA5A5
+          A5FF565656FFA3A3A3FF8B8B8BFF575757FF757575FF393939FF676767FF9B9B
+          9BFFD7D7D7FFD49A6AFFD69962FFD79B66FFD79C64FFD69960FFD09763FFADAD
+          ADFF5E5E5EFFA9A9A9FF929292FF5F5F5FFF7C7C7CFF3B3B3BFF696969FFA6A6
+          A6FFBABABAFFDAC7B7FFD49A69FFD5965EFFD5965CFFD19763FFC5B3A2FF9696
+          96FF717171FFAEAEAEFF989898FF686868FF818181FF3E3E3EFF6C6C6CFFBCBC
+          BCFFA6A6A6FFBCBCBCFFDDDDDDFFD8D8D8FFD5D5D5FFCCCCCCFFA3A3A3FF8484
+          84FF979797FFB4B4B4FF9D9D9DFF8D8D8DFF888888FF404040FF6D6D6DDBAEAE
+          AEFFD2D2D2FFB0B0B0FFA3A3A3FF9F9F9FFFB7B7B7FF989898FF9E9E9EFFC0C0
+          C0FFAAAAAAFF727272FF696969FF6A6A6AFF676767FF535353D89595950F9898
+          98FFC9C9C9FFC8C8C8FFC6C6C6FFC4C4C4FF7F939BFFA4E0F9FF41BEF3FF697C
+          85FF929393FF6D6D6D5E5C5C5CF15C5C5CFF5C5C5CFE5C5C5C35FFFFFF009898
+          9885909090C78B8B8BD0888888D1818181D6787878DC717171E16F6F6FE27676
+          76DC88888890FFFFFF00FFFFFF005C5C5C335C5C5C12FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+        }
+        OnClick = bZoomOutClick
         ShowCaption = False
       end
     end
@@ -1025,6 +1103,12 @@ inherited fManageDocFrame: TfManageDocFrame
       Caption = 'acSave'
       Hint = 'Aktuelles Bild speichern'
       OnExecute = acSaveExecute
+    end
+    object acImport: TAction
+      Caption = 'acImport'
+      Enabled = False
+      ImageIndex = 108
+      OnExecute = acImportExecute
     end
   end
   object pmPopup: TPopupMenu[6]

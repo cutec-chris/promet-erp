@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Package Version="4">
     <Name Value="pDocManage"/>
@@ -14,7 +14,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="3">
+    <Files Count="4">
       <Item1>
         <Filename Value="umanagedocframe.lfm"/>
         <Type Value="LFM"/>
@@ -27,6 +27,10 @@
         <Filename Value="uimportimages.pas"/>
         <UnitName Value="uImportImages"/>
       </Item3>
+      <Item4>
+        <Filename Value="ucameraimport.pas"/>
+        <UnitName Value="ucameraimport"/>
+      </Item4>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="4">

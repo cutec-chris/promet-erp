@@ -313,48 +313,51 @@ var
   wr: TFPWriterJPEG;
   area: TRect;
 begin
-  e := lowercase (ExtractFileExt(aName));
-  if (e <> '') and (e[1] = '.') then
-    System.delete (e,1,1);
-  s := e + ';';
-  if (s = 'jpg;') or (s='jpeg;') then
-    h := TFPReaderJPEG
-  else
-    for i := 0 to ImageHandlers.Count-1 do
-      if pos(s,ImageHandlers.Extentions[ImageHandlers.TypeNames[i]]+';')>0 then
-        begin
-          h := ImageHandlers.ImageReader[ImageHandlers.TypeNames[i]];
-          break;
-        end;
-  if assigned (h) then
-    begin
-      Img := TFPMemoryImage.Create(0, 0);
-      Img.UsePalette := false;
-      reader := h.Create;
-      if reader is TFPReaderJPEG then
-        begin
-          TFPReaderJPEG(reader).MinHeight:=aHeight;
-          TFPReaderJPEG(reader).MinWidth:=aWidth;
-        end;
-      try
-        Img.LoadFromStream(aFullStream, reader);
+  try
+    e := lowercase (ExtractFileExt(aName));
+    if (e <> '') and (e[1] = '.') then
+      System.delete (e,1,1);
+    s := e + ';';
+    if (s = 'jpg;') or (s='jpeg;') then
+      h := TFPReaderJPEG
+    else
+      for i := 0 to ImageHandlers.Count-1 do
+        if pos(s,ImageHandlers.Extentions[ImageHandlers.TypeNames[i]]+';')>0 then
+          begin
+            h := ImageHandlers.ImageReader[ImageHandlers.TypeNames[i]];
+            break;
+          end;
+    if assigned (h) then
+      begin
+        Img := TFPMemoryImage.Create(0, 0);
+        Img.UsePalette := false;
+        reader := h.Create;
         if reader is TFPReaderJPEG then
           begin
+            TFPReaderJPEG(reader).MinHeight:=aHeight;
+            TFPReaderJPEG(reader).MinWidth:=aWidth;
           end;
-      finally
-        Reader.Free;
+        try
+          Img.LoadFromStream(aFullStream, reader);
+          if reader is TFPReaderJPEG then
+            begin
+            end;
+        finally
+          Reader.Free;
+        end;
       end;
-    end;
-  if Assigned(Img) then
-    begin
-      iOut := ThumbResize(Img, aWidth, aHeight, area);
-      wr := TFPWriterJPEG.Create;
-      wr.ProgressiveEncoding:=True;
-      iOut.SaveToStream(aStream,wr);
-      wr.Free;
-      iOut.Free;
-      Img.Free;
-    end;
+    if Assigned(Img) then
+      begin
+        iOut := ThumbResize(Img, aWidth, aHeight, area);
+        wr := TFPWriterJPEG.Create;
+        wr.ProgressiveEncoding:=True;
+        iOut.SaveToStream(aStream,wr);
+        wr.Free;
+        iOut.Free;
+        Img.Free;
+      end;
+  except
+  end;
 end;
 
 end.

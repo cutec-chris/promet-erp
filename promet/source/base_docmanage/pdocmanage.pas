@@ -7,7 +7,7 @@ unit pDocManage;
 interface
 
 uses
-  umanagedocframe, uImportImages, LazarusPackageIntf;
+  umanagedocframe, uImportImages, ucameraimport, LazarusPackageIntf;
 
 implementation
 
