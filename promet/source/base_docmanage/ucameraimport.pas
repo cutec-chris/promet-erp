@@ -41,6 +41,7 @@ type
     Label1: TLabel;
     lvPhotos: TListView;
     procedure bImportClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
     procedure cbCameraSelect(Sender: TObject);
   private
     { private declarations }
@@ -55,7 +56,7 @@ var
   fCameraimport: TfCameraimport;
 
 implementation
-uses uBaseDocPages,Utils;
+uses uBaseDocPages,Utils,uData,uBaseDbClasses;
 {$R *.lfm}
 
 { TfCameraimport }
@@ -66,6 +67,9 @@ var
   sl: TStringList;
   i: Integer;
   aItem: TListItem;
+  aDS: TDocPages;
+  tmp: String;
+  aDS2: TDeletedItems;
 begin
   aProcess := TProcessUTF8.Create(nil);
   sl := TStringList.Create;
@@ -79,17 +83,27 @@ begin
   end;
   i := 0;
   lvPhotos.Clear;
+  aDS := TDocPages.Create(nil,Data);
+  aDS2 := TDeletedItems.Create(nil,Data);
   while i < sl.Count do
     begin
       if (copy(sl[i],0,1)='#') and (pos('image/',sl[i])>0) then
         begin
+          tmp := sl[i];
+          tmp := trim(copy(tmp,pos(' ',tmp)+1,length(tmp)));
+          tmp := copy(tmp,0,pos(' ',tmp)-1);
+          Data.SetFilter(aDS,Data.ProcessTerm('UPPER('+Data.QuoteField('NAME')+')='+Data.QuoteValue('*'+Uppercase(tmp))));
           aItem := lvPhotos.Items.Add;
+          Data.SetFilter(aDS2,Data.ProcessTerm('UPPER('+Data.QuoteField('LINK')+')='+Data.QuoteValue('*'+Uppercase(tmp)+'*')));
+          aItem.Checked:=(aDS.Count=0) and (aDS2.Count=0);
           aItem.Caption:=sl[i];
           inc(i);
         end
       else
         sl.Delete(i);
     end;
+  aDS2.Free;
+  aDS.Free;
 
 end;
 
@@ -153,21 +167,7 @@ begin
       TDocPages(FDoc.DataSet).AddFromFile(NewFileName);
       if not TDocPages(FDoc.DataSet).CanEdit then TDocPages(FDoc.DataSet).DataSet.Edit;
       TDocPages(FDoc.DataSet).Post;
-      if cbDelete.Checked then
-        begin
-          sl := TStringList.Create;
-          aProcess := TProcessUTF8.Create(nil);
-          aProcess.CurrentDirectory:=GetTempDir;
-          try
-            aProcess.CommandLine:='gphoto2 --delete-file='+atmp;
-            aProcess.Options:=[poUsePipes,poWaitOnExit];
-            aProcess.Execute;
-            sl.LoadFromStream(aProcess.Output);
-          finally
-            aProcess.Free;
-          end;
-          sl.Free;
-          aFile := NewFileName;
+           aFile := NewFileName;
           extn :=  AnsiString(AnsiLowerCase(ExtractFileExt(aFile)));
           if (extn = '.cr2')
           or (extn = '.crw')
@@ -230,11 +230,49 @@ begin
               ExecProcess('gvfs-rm "'+aFile+'"');
               {$endif}
             end;
+     if cbDelete.Checked then
+        begin
+          sl := TStringList.Create;
+          aProcess := TProcessUTF8.Create(nil);
+          aProcess.CurrentDirectory:=GetTempDir;
+          try
+            aProcess.CommandLine:='gphoto2 --delete-file='+atmp;
+            aProcess.Options:=[poUsePipes,poWaitOnExit];
+            aProcess.Execute;
+            sl.LoadFromStream(aProcess.Output);
+          finally
+            aProcess.Free;
+          end;
+          sl.Free;
         end;
-      FDoc.acRefresh.Execute;
-      lvPhotos.Selected.Delete;
+      if Sender <> nil then
+        FDoc.acRefresh.Execute;
+      lvPhotos.Selected.Checked:=False;
     end;
-  cbCameraSelect(nil);
+  if Sender <> nil then
+    cbCameraSelect(nil);
+end;
+
+procedure TfCameraimport.Button1Click(Sender: TObject);
+var
+  i: Integer;
+  oldDelete: Boolean;
+begin
+  oldDelete := cbDelete.Checked;
+  cbDelete.Checked:=False;
+  i := 0;
+  if lvPhotos.ItemIndex>-1 then i := lvPhotos.ItemIndex;
+  for i := i to lvPhotos.Items.Count-1 do
+    begin
+      if lvPhotos.Items[i].Checked then
+        begin
+          lvPhotos.Selected := lvPhotos.Items[i];
+          lvPhotos.Selected.MakeVisible(True);
+          Application.ProcessMessages;
+          bImport.Click;
+        end;
+    end;
+  cbDelete.Checked:=oldDelete;
 end;
 
 function TfCameraimport.ImportAvalibe: Boolean;

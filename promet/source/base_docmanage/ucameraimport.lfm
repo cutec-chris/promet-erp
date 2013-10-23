@@ -32,6 +32,7 @@ object fCameraimport: TfCameraimport
     Top = 56
     Width = 520
     Anchors = [akTop, akLeft, akRight, akBottom]
+    Checkboxes = True
     Columns = <>
     TabOrder = 1
   end
@@ -59,6 +60,7 @@ object fCameraimport: TfCameraimport
       AutoSize = True
       BorderSpacing.Top = 6
       Caption = 'Alle Fotos importieren'
+      OnClick = Button1Click
       TabOrder = 4
     end
     object cbDelete: TCheckBox
