@@ -1,4 +1,7 @@
-﻿Build 287
+﻿Build 288
+      - Bildimport für Kameras über gphoto2 implementiert
+      - Bilder/Dokumente können nun im Dokumentenmanagement direkt gedreht werden
+Build 287
       - Dokumente/Bilder wurden seit 286 falsch hinzugefügt
 Build 286
       - Aufgaben werden 1 Tag vor Zieldatum eingefärbt auch wenn keine Panzeit hinterlegt ist

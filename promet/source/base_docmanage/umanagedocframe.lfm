@@ -548,7 +548,7 @@ inherited fManageDocFrame: TfManageDocFrame
             Caption = 'tbMenue'
             ImageIndex = 83
             OnClick = tbMenue1Click
-            PopupMenu = PopupMenu1
+            PopupMenu = pmPopup
           end
         end
       end
@@ -1110,12 +1110,20 @@ inherited fManageDocFrame: TfManageDocFrame
       ImageIndex = 108
       OnExecute = acImportExecute
     end
+    object acRotate: TAction
+      Caption = 'acRotate'
+      ImageIndex = 109
+      OnExecute = acRotateExecute
+    end
   end
   object pmPopup: TPopupMenu[6]
     Images = fVisualControls.Images
     OnPopup = pmPopupPopup
     left = 16
     top = 96
+    object MenuItem3: TMenuItem
+      Action = acRebuildThumb
+    end
     object MenuItem1: TMenuItem
       Action = acDelete
       Bitmap.Data = {
@@ -1163,14 +1171,7 @@ inherited fManageDocFrame: TfManageDocFrame
     left = 352
     top = 72
   end
-  object PopupMenu1: TPopupMenu[8]
-    left = 408
-    top = 72
-    object MenuItem2: TMenuItem
-      Action = acRebuildThumb
-    end
-  end
-  object SelectDirectoryDialog1: TSelectDirectoryDialog[9]
+  object SelectDirectoryDialog1: TSelectDirectoryDialog[8]
     left = 21
     top = 155
   end

@@ -84,6 +84,9 @@ type
     procedure Open; override;
     procedure FillDefaults(aDataSet: TDataSet); override;
   end;
+
+  { TDocument }
+
   TDocument = class(TDocuments)
   private
     FAfterCheckinFiles: TNotifyEvent;
@@ -117,6 +120,7 @@ type
     function GetIDCheckoutPath(Directory: string; TempID: string): string;
     procedure DoCheckout(Directory : string;aRevision : Integer = -1);
     procedure CheckoutToStream(aStream : TStream;aRevision : Integer = -1);
+    procedure CheckInFromStream(aStream: TStream; Desc: string='');
     function CollectCheckInFiles(Directory : string) : TStrings;
     function CheckCheckInFiles(aFiles : TStrings;Directory: string) : Boolean;
     function CheckinFiles(aFiles : TStrings;Directory: string;Desc : string = '') : Boolean;
@@ -1160,6 +1164,114 @@ begin
         end;
     end;
 end;
+
+procedure TDocument.CheckInFromStream(aStream: TStream;Desc : string = '');
+//This routine cant do diffs
+var
+  OldRec: LargeInt;
+  aNumber,aVersion,aLanguage,aRev : Variant;
+  aTyp: String;
+  aID: String;
+  aParent: Integer;
+  aEName: String;
+  aExtension: String;
+  UseFullFile: Boolean;
+  aRevision: Int64;
+begin
+  try
+    aRevision := StrToInt64(TBaseDBModule(Self.DataModule).Numbers.GetNewNumber('DOCUMENTS'));
+  except
+    raise;
+    exit;
+  end;
+  //Store all needed values
+  with DataSet do
+    begin
+      aNumber := FieldByName('NUMBER').AsVariant;
+      aTyp := FieldByName('TYPE').AsString;
+      if FieldDefs.IndexOf('ID') > -1 then
+        begin
+          aID := FieldByName('ID').AsString;
+          aLanguage := FieldByName('LANGUAGE').AsVariant;
+          aVersion := FieldByName('VERSION').Asvariant;
+        end;
+      aParent := FieldByName('PARENT').AsInteger;
+      aEName := FieldByName('NAME').AsString;
+      aExtension := FieldByName('EXTENSION').AsString;
+      UseFullFile := True;
+      //delete this revision when its not revision 0
+      Last;
+      if UseFullFile and (RecordCount > 1) then
+        begin
+          aRev := FieldByName('REVISION').AsVariant;
+          Prior;
+          if aRev = FieldByName('REVISION').AsVariant then
+            begin
+              Delete;
+              Append;
+            end
+          else
+            Last;
+        end;
+      if State = dsBrowse then
+        begin
+          if RecordCount <= 1 then
+            Append
+          else Edit;
+        end;
+      FieldByName('TYPE').AsString := aTyp;
+      if FieldDefs.IndexOf('ID') > -1 then
+        begin
+          FieldByName('ID').AsString := aID;
+          FieldByName('LANGUAGE').AsVariant := aLanguage;
+          FieldByName('VERSION').AsVariant := aVersion;
+        end;
+      FieldByName('ISDIR').AsString := 'N';
+      FieldByName('PARENT').AsInteger := aParent;
+      FieldByName('REVISION').AsVariant := aRevision;
+      FieldByName('MESSAGE').AsString := Desc;
+      FieldByName('NUMBER').AsVariant := aNumber;
+      FieldByName('CHECKSUM').Clear;
+      if not UseFullFile then
+        FieldByName('FULL').AsString := 'N'
+      else
+        FieldByName('FULL').AsString := 'Y';
+      FieldByName('NAME').AsString := aEName;
+      FieldByName('EXTENSION').AsString := aExtension;
+      FieldByName('DATE').AsFloat := Now();
+      FieldByName('TIMESTAMPD').AsdateTime := Now();
+      if FieldDefs.IndexOf('TIMESTAMPT') <> -1 then
+        FieldByName('TIMESTAMPT').AsFloat := Frac(Now());
+      Post;
+      //add the complete file
+      Append;
+      FieldByName('TYPE').AsString := aTyp;
+      if FieldDefs.IndexOf('ID') > -1 then
+        begin
+          FieldByName('ID').AsString := aID;
+          FieldByName('LANGUAGE').AsVariant := aLanguage;
+          FieldByName('VERSION').AsVariant := aVersion;
+        end;
+      FieldByName('ISDIR').AsString := 'N';
+      FieldByName('PARENT').AsInteger := aParent;
+      FieldByName('REVISION').AsVariant := aRevision;
+      FieldByName('NUMBER').AsVariant := aNumber;
+      FieldByName('NAME').AsString := aEName;
+      FieldByName('FULL').AsString:='Y';
+      FieldByName('EXTENSION').AsString := aExtension;
+      with BaseApplication as IBaseDbInterface do
+        Data.StreamToBlobField(aStream,DataSet,'DOCUMENT');
+      FieldByName('SIZE').AsInteger:=aStream.Size;
+      FieldByName('DATE').AsFloat := Now();
+      with BaseApplication as IBaseDbInterface do
+        FieldByName('CHANGEDBY').AsString := Data.Users.FieldByName('IDCODE').AsString;
+      FieldByName('TIMESTAMPD').AsDateTime := Now();
+      if FieldDefs.IndexOf('TIMESTAMPT') <> -1 then
+        FieldByName('TIMESTAMPT').AsFloat := Frac(Now());
+      Post;
+    end;
+end;
+
 function TDocument.CollectCheckInFiles(Directory: string): TStrings;
   procedure FindFiles(aDir : string);
   var
