@@ -71,9 +71,8 @@ object fCameraimport: TfCameraimport
       Align = alLeft
       BorderSpacing.Around = 6
       Caption = 'nach Import löschen'
-      Checked = True
-      State = cbChecked
       TabOrder = 5
+      Visible = False
     end
     object bImport: TButton
       Left = 0

@@ -707,6 +707,7 @@ begin
                   aDoc.CheckInFromStream(aFullStream);
                   aDoc.Free;
                   aFullStream.Free;
+                  Img2.Free;
                 end;
             finally
               Img.Free;
