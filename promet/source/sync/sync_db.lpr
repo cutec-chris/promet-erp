@@ -311,7 +311,7 @@ begin
         aSQL := aSQL+' where '+aFilter;
       aSync := DestDM.GetNewDataSet(aSQL);
       aSync.Open;
-      if (aSync.RecordCount > 0) and (not TimeSet) then
+      if (aSync.RecordCount > 0) then
         begin
           SetTime := True;
           (BaseApplication as IBaseApplication).Info(Format(strSyncTable,[aSync.RecordCount,'>',SyncDB.Tables.DataSet.FieldByName('NAME').AsString]));

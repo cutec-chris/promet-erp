@@ -56,15 +56,15 @@
         <UnitName Value="pop3receiver"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="517"/>
-        <CursorPos X="1" Y="505"/>
+        <TopLine Value="293"/>
+        <CursorPos X="1" Y="310"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <WindowIndex Value="0"/>
           <TopLine Value="1"/>
           <CursorPos X="25" Y="12"/>
         </ExtraEditor1>
-        <UsageCount Value="135"/>
+        <UsageCount Value="138"/>
         <Bookmarks Count="2">
           <Item0 X="1" Y="119" ID="0"/>
           <Item1 X="1" Y="97" ID="1"/>
@@ -495,11 +495,11 @@
       <Unit56>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
         <UnitName Value="uBaseCustomApplication"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="276"/>
         <CursorPos X="22" Y="290"/>
-        <UsageCount Value="33"/>
+        <UsageCount Value="34"/>
         <Loaded Value="True"/>
       </Unit56>
       <Unit57>
@@ -676,21 +676,21 @@
       <Unit78>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1971"/>
         <CursorPos X="1" Y="1999"/>
-        <UsageCount Value="28"/>
+        <UsageCount Value="29"/>
         <Loaded Value="True"/>
       </Unit78>
       <Unit79>
         <Filename Value="..\base\dbintfs\umessages.pas"/>
         <UnitName Value="uMessages"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="52"/>
         <CursorPos X="14" Y="68"/>
-        <UsageCount Value="45"/>
+        <UsageCount Value="46"/>
         <Loaded Value="True"/>
       </Unit79>
       <Unit80>
@@ -713,12 +713,10 @@
       <Unit82>
         <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="628"/>
         <CursorPos X="1" Y="644"/>
         <UsageCount Value="24"/>
-        <Loaded Value="True"/>
       </Unit82>
       <Unit83>
         <Filename Value="..\base\usysmonitor.pas"/>
@@ -782,12 +780,11 @@
       <Unit90>
         <Filename Value="..\base\dbintfs\usystemmessage.pas"/>
         <UnitName Value="uSystemMessage"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="205"/>
-        <CursorPos X="19" Y="230"/>
-        <UsageCount Value="37"/>
+        <TopLine Value="83"/>
+        <CursorPos X="31" Y="186"/>
+        <UsageCount Value="38"/>
         <Loaded Value="True"/>
       </Unit90>
       <Unit91>
@@ -815,11 +812,11 @@
       <Unit94>
         <Filename Value="..\base\dbintfs\uintfstrconsts.pas"/>
         <UnitName Value="uIntfStrConsts"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="84"/>
         <CursorPos X="48" Y="102"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit94>
       <Unit95>
@@ -848,11 +845,11 @@
       <Unit98>
         <Filename Value="..\base_messaging\umimemessages.pas"/>
         <UnitName Value="uMimeMessages"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="101"/>
-        <CursorPos X="1" Y="142"/>
-        <UsageCount Value="16"/>
+        <TopLine Value="305"/>
+        <CursorPos X="1" Y="333"/>
+        <UsageCount Value="17"/>
         <Loaded Value="True"/>
       </Unit98>
       <Unit99>
@@ -901,12 +898,10 @@
       <Unit104>
         <Filename Value="..\components\zeos\src\component\ZAbstractDataset.pas"/>
         <UnitName Value="ZAbstractDataset"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="397"/>
         <CursorPos X="1" Y="417"/>
         <UsageCount Value="12"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit104>
       <Unit105>
@@ -960,29 +955,32 @@
       <Unit111>
         <Filename Value="..\base_messaging\mailchck.pas"/>
         <UnitName Value="mailchck"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="63"/>
-        <CursorPos X="1" Y="106"/>
-        <UsageCount Value="13"/>
+        <TopLine Value="8"/>
+        <CursorPos X="19" Y="23"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit111>
       <Unit112>
         <Filename Value="..\components\synapse\blcksock.pas"/>
         <UnitName Value="blcksock"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="3777"/>
-        <CursorPos X="1" Y="3796"/>
+        <TopLine Value="1795"/>
+        <CursorPos X="22" Y="1808"/>
         <UsageCount Value="13"/>
+        <Loaded Value="True"/>
       </Unit112>
       <Unit113>
         <Filename Value="..\components\synapse\smtpsend.pas"/>
         <UnitName Value="smtpsend"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="458"/>
         <CursorPos X="1" Y="474"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit113>
       <Unit114>
@@ -1005,124 +1003,124 @@
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="1200" Column="1" TopLine="1183"/>
+        <Filename Value="pop3receiver.lpr"/>
+        <Caret Line="442" Column="1" TopLine="414"/>
       </Position1>
       <Position2>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="1021" Column="1" TopLine="1003"/>
+        <Filename Value="pop3receiver.lpr"/>
+        <Caret Line="443" Column="1" TopLine="415"/>
       </Position2>
       <Position3>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="1022" Column="1" TopLine="1003"/>
+        <Filename Value="pop3receiver.lpr"/>
+        <Caret Line="444" Column="1" TopLine="416"/>
       </Position3>
       <Position4>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="1202" Column="1" TopLine="1186"/>
+        <Filename Value="pop3receiver.lpr"/>
+        <Caret Line="445" Column="1" TopLine="417"/>
       </Position4>
       <Position5>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="1203" Column="1" TopLine="1186"/>
+        <Filename Value="pop3receiver.lpr"/>
+        <Caret Line="446" Column="1" TopLine="418"/>
       </Position5>
       <Position6>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="1204" Column="1" TopLine="1186"/>
+        <Filename Value="pop3receiver.lpr"/>
+        <Caret Line="447" Column="1" TopLine="419"/>
       </Position6>
       <Position7>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="1215" Column="1" TopLine="1187"/>
+        <Filename Value="..\base_messaging\umimemessages.pas"/>
+        <Caret Line="277" Column="1" TopLine="259"/>
       </Position7>
       <Position8>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="1225" Column="1" TopLine="1199"/>
+        <Filename Value="..\base_messaging\umimemessages.pas"/>
+        <Caret Line="278" Column="1" TopLine="259"/>
       </Position8>
       <Position9>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="14" Column="65" TopLine="1"/>
+        <Filename Value="..\base_messaging\umimemessages.pas"/>
+        <Caret Line="279" Column="1" TopLine="259"/>
       </Position9>
       <Position10>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="276" Column="53" TopLine="245"/>
+        <Filename Value="..\base_messaging\umimemessages.pas"/>
+        <Caret Line="281" Column="1" TopLine="259"/>
       </Position10>
       <Position11>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="279" Column="50" TopLine="250"/>
+        <Filename Value="..\base_messaging\umimemessages.pas"/>
+        <Caret Line="283" Column="1" TopLine="259"/>
       </Position11>
       <Position12>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="305" Column="51" TopLine="276"/>
+        <Filename Value="..\base_messaging\umimemessages.pas"/>
+        <Caret Line="288" Column="1" TopLine="260"/>
       </Position12>
       <Position13>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="315" Column="45" TopLine="286"/>
+        <Filename Value="..\base_messaging\umimemessages.pas"/>
+        <Caret Line="290" Column="1" TopLine="262"/>
       </Position13>
       <Position14>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="318" Column="50" TopLine="288"/>
+        <Filename Value="..\base_messaging\umimemessages.pas"/>
+        <Caret Line="291" Column="1" TopLine="263"/>
       </Position14>
       <Position15>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="438" Column="52" TopLine="409"/>
+        <Filename Value="..\base_messaging\umimemessages.pas"/>
+        <Caret Line="292" Column="1" TopLine="264"/>
       </Position15>
       <Position16>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="442" Column="68" TopLine="413"/>
+        <Filename Value="..\base_messaging\umimemessages.pas"/>
+        <Caret Line="293" Column="1" TopLine="265"/>
       </Position16>
       <Position17>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="452" Column="63" TopLine="422"/>
+        <Filename Value="..\base_messaging\umimemessages.pas"/>
+        <Caret Line="295" Column="1" TopLine="267"/>
       </Position17>
       <Position18>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="454" Column="141" TopLine="425"/>
+        <Filename Value="..\base_messaging\umimemessages.pas"/>
+        <Caret Line="296" Column="1" TopLine="268"/>
       </Position18>
       <Position19>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="463" Column="1" TopLine="433"/>
+        <Filename Value="..\base_messaging\umimemessages.pas"/>
+        <Caret Line="297" Column="1" TopLine="269"/>
       </Position19>
       <Position20>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="496" Column="112" TopLine="468"/>
+        <Filename Value="..\base_messaging\umimemessages.pas"/>
+        <Caret Line="298" Column="1" TopLine="270"/>
       </Position20>
       <Position21>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="522" Column="106" TopLine="494"/>
+        <Filename Value="..\base_messaging\umimemessages.pas"/>
+        <Caret Line="299" Column="1" TopLine="271"/>
       </Position21>
       <Position22>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="641" Column="1" TopLine="610"/>
+        <Filename Value="..\base_messaging\umimemessages.pas"/>
+        <Caret Line="314" Column="1" TopLine="298"/>
       </Position22>
       <Position23>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="638" Column="1" TopLine="610"/>
+        <Filename Value="..\base_messaging\umimemessages.pas"/>
+        <Caret Line="326" Column="1" TopLine="298"/>
       </Position23>
       <Position24>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="640" Column="1" TopLine="612"/>
+        <Filename Value="..\base_messaging\umimemessages.pas"/>
+        <Caret Line="327" Column="1" TopLine="299"/>
       </Position24>
       <Position25>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="672" Column="21" TopLine="645"/>
+        <Filename Value="..\base_messaging\umimemessages.pas"/>
+        <Caret Line="328" Column="1" TopLine="300"/>
       </Position25>
       <Position26>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="638" Column="1" TopLine="628"/>
+        <Filename Value="..\base_messaging\umimemessages.pas"/>
+        <Caret Line="329" Column="1" TopLine="301"/>
       </Position26>
       <Position27>
-        <Filename Value="..\base\dbintfs\usystemmessage.pas"/>
-        <Caret Line="230" Column="1" TopLine="205"/>
+        <Filename Value="..\base_messaging\umimemessages.pas"/>
+        <Caret Line="331" Column="1" TopLine="303"/>
       </Position27>
       <Position28>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="641" Column="1" TopLine="628"/>
+        <Filename Value="..\base_messaging\umimemessages.pas"/>
+        <Caret Line="332" Column="1" TopLine="304"/>
       </Position28>
       <Position29>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="642" Column="1" TopLine="628"/>
+        <Filename Value="..\base_messaging\umimemessages.pas"/>
+        <Caret Line="333" Column="1" TopLine="305"/>
       </Position29>
       <Position30>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="644" Column="1" TopLine="628"/>
+        <Filename Value="pop3receiver.lpr"/>
+        <Caret Line="310" Column="1" TopLine="293"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
