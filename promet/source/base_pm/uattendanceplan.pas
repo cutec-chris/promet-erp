@@ -431,10 +431,12 @@ var
     aUsers: TUser;
     aINew: TPInterval;
     tmpRes: TRessource;
+    aActive: TActiveUsers;
   begin
     aUsers := TUser.Create(nil,Data);
     Data.SetFilter(aUsers,Data.QuoteField('PARENT')+'='+Data.QuoteValue(bParent));
     aUsers.First;
+    aActive := TActiveUsers.Create(nil,Data);
     while not aUsers.EOF do
       begin
         if aUsers.FieldByName('TYPE').AsString='G' then
@@ -469,6 +471,11 @@ var
             aINew.FinishDate:=Now()-(365*10);
             aINew.SetUser(aUsers.FieldByName('ACCOUNTNO').AsString,nil);
             aIParent.AddInterval(aINew);
+            Data.SetFilter(aActive,Data.QuoteField('NAME')+'='+Data.QuoteValue(aUsers.FieldByName('NAME').AsString));
+            if aActive.Count>0 then
+              begin
+                aINew.Styles:=[fsBold];
+              end;
             if (aUsers.Id.AsVariant=ColorUser) or Colorized then
               begin
                 aINew.Color:=clred;
@@ -478,6 +485,7 @@ var
           end;
         aUsers.Next;
       end;
+    aActive.Free;
   end;
 begin
   if Data.Users.FieldByName('POSITION').AsString='LEADER' then

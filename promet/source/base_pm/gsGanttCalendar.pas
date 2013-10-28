@@ -107,6 +107,7 @@ type
     FStartDate: TDateTime;
     FFinishDate: TDateTime;
     FStarted: Boolean;
+    FStyle: TFontStyles;
     FTask: String;
     FParent: TInterval;
 
@@ -255,6 +256,7 @@ type
     property OnChanged : TNotifyEvent read FOnChanged write FOnChanged;
     property OnDrawBackground : TPaitBackgroundEvent read FPB write FBP;
     property Color : TColor read FColor write SetColor;
+    property Styles : TFontStyles read FStyle write FStyle;
     property Gantt : TgsGantt read FGantt;
     property OnOpen : TNotifyEvent read FOnOpen write FOnOpen;
   end;
@@ -3367,6 +3369,7 @@ begin
             Canvas.Font.Color:=CurrInterval.Color
           else
             Canvas.Font.Color:=clWindowText;
+          Canvas.Font.Style:=CurrInterval.Styles;
           WriteText
           (
             Canvas,

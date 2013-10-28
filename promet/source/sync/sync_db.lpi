@@ -47,11 +47,10 @@
         <Filename Value="sync_db.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="sync_db"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="297"/>
-        <CursorPos X="44" Y="320"/>
+        <TopLine Value="122"/>
+        <CursorPos X="43" Y="307"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -61,6 +60,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="usyncdb"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -176,12 +176,10 @@
       <Unit14>
         <Filename Value="..\base\dbintfs\usystemmessage.pas"/>
         <UnitName Value="uSystemMessage"/>
-        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="121"/>
         <CursorPos X="19" Y="121"/>
         <UsageCount Value="90"/>
-        <Loaded Value="True"/>
       </Unit14>
       <Unit15>
         <Filename Value="C:\Programme\lazarus\lcl\lresources.pp"/>
@@ -202,12 +200,10 @@
       <Unit17>
         <Filename Value="..\..\..\general\src\uerror.pas"/>
         <UnitName Value="uError"/>
-        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="47"/>
         <CursorPos X="1" Y="79"/>
         <UsageCount Value="86"/>
-        <Loaded Value="True"/>
       </Unit17>
       <Unit18>
         <Filename Value="..\..\..\LKomponenten\z-push\z-push-2.0alpha2-777\lib\wbxml.php"/>
@@ -512,7 +508,7 @@
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit54>
       <Unit55>
-        <Filename Value="..\..\..\..\..\..\..\home\chris\.prometerp\ForumPG.perml"/>
+        <Filename Value="C:\home\chris\.prometerp\ForumPG.perml"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="28" Y="2"/>
