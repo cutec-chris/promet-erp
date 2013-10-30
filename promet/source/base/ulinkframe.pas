@@ -113,17 +113,23 @@ begin
   Stream := TStringStream.Create('');
   if (pos('://',ClipBoard.AsText) > 0) then
     begin
-      aLink := ClipBoard.AsText;
-      aLinkDesc := aLink;
-      aIcon := Data.GetLinkIcon(aLink);
-      with DataSet.DataSet do
+      aLinks := ClipBoard.AsText;
+      if copy(aLinks,length(aLinks)-1,1)<>';' then aLinks := aLinks+';';
+      while pos(';',aLinks)>0 do
         begin
-          Insert;
-          FieldByName('LINK').AsString := aLink;
-          FieldByName('NAME').AsString := aLinkDesc;
-          FieldByName('ICON').AsInteger := aIcon;
-          FieldByName('CHANGEDBY').AsString := Data.Users.FieldByName('IDCODE').AsString;
-          Post;
+          aLink := copy(aLinks,0,pos(';',aLinks)-1);
+          aLinks := copy(aLinks,pos(';',aLinks)+1,length(aLinks));
+          aLinkDesc := aLink;
+          aIcon := Data.GetLinkIcon(aLink);
+          with DataSet.DataSet do
+            begin
+              Insert;
+              FieldByName('LINK').AsString := aLink;
+              FieldByName('NAME').AsString := aLinkDesc;
+              FieldByName('ICON').AsInteger := aIcon;
+              FieldByName('CHANGEDBY').AsString := Data.Users.FieldByName('IDCODE').AsString;
+              Post;
+            end;
         end;
     end
   else if Clipboard.GetFormat(LinkClipboardFormat,Stream) then

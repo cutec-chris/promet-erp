@@ -287,6 +287,8 @@ procedure TfSearch.DataSearchresultItem(aIdent: string; aName: string;
   aStatus: string;aActive : Boolean; aLink: string;aItem : TBaseDBList = nil);
 var
   i: Integer;
+  aRec: String;
+  gSel: TGridRect;
 begin
   aRec := GetLink;
   for i := 1 to sgResults.RowCount-1 do
@@ -315,8 +317,10 @@ begin
   for i := 1 to sgResults.RowCount-1 do
     if sgResults.Cells[4,i] = arec then
       begin
-        sgResults.Selection.Top:=1;
-        sgResults.Selection.Bottom:=1;
+        gSel := sgResults.Selection;
+        gSel.Top:=i;
+        gSel.Bottom:=i;
+        sgResults.Selection:=gSel;
       end;
 end;
 procedure TfSearch.eContainsChange(Sender: TObject);
@@ -610,11 +614,14 @@ begin
     end;
 end;
 function TfSearch.GetLink(Multi: Boolean): string;
+var
+  i: LongInt;
 begin
   Result := '';
   if Multi then
     begin
-      //+';'
+      for i := sgResults.Selection.Top to sgResults.Selection.Bottom do
+        Result := Result+sgResults.Cells[4,i]+';'
     end
   else if (sgResults.RowCount > 0) and (sgResults.Row > -1) then
     Result := sgResults.Cells[4,sgResults.Row];
