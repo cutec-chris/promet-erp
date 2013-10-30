@@ -11,6 +11,7 @@
       <Title Value="Promet-ERP"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
+      <Icon Value="0"/>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
     <i18n>
@@ -3676,7 +3677,7 @@
         <UsageCount Value="11"/>
       </Unit381>
     </Units>
-    <JumpHistory Count="20" HistoryIndex="19">
+    <JumpHistory Count="19" HistoryIndex="18">
       <Position1>
         <Filename Value="../base/dbintfs/uprojects.pas"/>
         <Caret Line="205" Column="19" TopLine="203"/>
@@ -3746,17 +3747,13 @@
         <Caret Line="3372" Column="44" TopLine="3354"/>
       </Position17>
       <Position18>
-        <Filename Value="../base_pm/gsGanttCalendar.pas"/>
-        <Caret Line="219" Column="14" TopLine="234"/>
+        <Filename Value="../base_pm/uattendanceplan.pas"/>
+        <Caret Line="314" Column="28" TopLine="301"/>
       </Position18>
       <Position19>
         <Filename Value="../base_pm/uattendanceplan.pas"/>
-        <Caret Line="314" Column="28" TopLine="301"/>
-      </Position19>
-      <Position20>
-        <Filename Value="../base_pm/uattendanceplan.pas"/>
         <Caret Line="474" Column="35" TopLine="455"/>
-      </Position20>
+      </Position19>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>
