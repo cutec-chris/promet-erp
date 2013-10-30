@@ -1,6 +1,9 @@
 ﻿Build 288
       - Bildimport für Kameras über gphoto2 implementiert
       - Bilder/Dokumente können nun im Dokumentenmanagement direkt gedreht werden
+      - Mehrere Einträge im Suchfenster können als Verknüpfung kopiert werden
+      - Mehrere Einträge als Verknüpfung auf nun fast allen Listenansichten können in Verknüpfungen eingefügt werden
+      - Abfrage beim einfügen von Links ob diese Kreuzreferenzziert werden sollen
 Build 287
       - Dokumente/Bilder wurden seit 286 falsch hinzugefügt
 Build 286

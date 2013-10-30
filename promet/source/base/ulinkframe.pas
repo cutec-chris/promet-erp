@@ -75,11 +75,13 @@ type
 
 implementation
 uses uBaseVisualControls,Graphics,uBaseDbInterface,uData,uBaseVisualApplication,
-  uError, uIntfStrConsts,uAccounting,Utils,uSearch,uMainTreeFrame;
+  uError, uIntfStrConsts,uAccounting,Utils,uSearch,uMainTreeFrame,uMasterdata,uProjects,
+  uPerson,umeeting;
 {$R *.lfm}
 resourcestring
   strDoAppendToAccount            = 'Der eingefuegte Verweis ist eine Kontobuchung,'+lineending+'moechten Sie diesen Vorgang als Beleg einfuegen ?';
   strEntryNotFound                = 'Eintrag konnte nicht gefundne werden !';
+  strAddEntryToLinkedItem         = 'Soll der zu verlinkende Eintrag auch einen Link auf diesen Eintrag erhalten ?';
 procedure TfLinkFrame.FContListDrawColumnCell(Sender: TObject;
   const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
 begin
@@ -109,6 +111,10 @@ var
   Accounts: TAccounts;
   tmp1: String;
   tmp2: String;
+  addToLinked: Boolean = False;
+  aHistory: TBaseHistory;
+  bLink: String;
+  aDS: TBaseDBList;
 begin
   Stream := TStringStream.Create('');
   if (pos('://',ClipBoard.AsText) > 0) then
@@ -140,6 +146,7 @@ begin
   else
     fError.ShowWarning(strCantgetClipboardContents);
   Stream.Free;
+  addToLinked := MessageDlg(strAddEntryToLinkedItem,mtInformation,[mbYes,mbNo],0) = mrYes;
   while pos(';',aLinks) > 0 do
     begin
       aLink := copy(aLinks,0,pos(';',aLinks)-1);
@@ -154,6 +161,37 @@ begin
           FieldByName('ICON').AsInteger := aIcon;
           FieldByName('CHANGEDBY').AsString := Data.Users.FieldByName('IDCODE').AsString;
           Post;
+          if addToLinked then
+            begin
+              aDS := nil;
+              bLink := Data.BuildLink(DataSet.Parent.DataSet);
+              case copy(aLink,0,pos('@',aLink)-1) of
+              'MASTERDATA',
+              'MASTERDATA.ID':aDS := TMasterdata.Create(nil,Data);
+              'PROJECTS',
+              'PROJECTS.ID':aDS := TProject.Create(nil,Data);
+              'CUSTOMERS',
+              'CUSTOMERS.ID':aDS := TPerson.Create(nil,Data);
+              'MEETINGS':aDS := TMeetings.Create(nil,Data);
+              'ORDERS':aDS := TOrder.Create(nil,Data);
+              end;
+              if Assigned(aDS) then
+                begin
+                  aDS.SelectFromLink(aLink);
+                  aDS.Open;
+                  Insert;
+                  FieldByName('RREF_ID').AsVariant:=aDS.Id.AsVariant;
+                  aLinkDesc := Data.GetLinkDesc(bLink);
+                  aIcon := Data.GetLinkIcon(bLink);
+                  FieldByName('LINK').AsString := bLink;
+                  FieldByName('NAME').AsString := aLinkDesc;
+                  FieldByName('ICON').AsInteger := aIcon;
+                  FieldByName('CHANGEDBY').AsString := Data.Users.FieldByName('IDCODE').AsString;
+                  Post;
+                  aDS.Free;
+                  DataSet.DataSet.Refresh;
+                end;
+            end;
         end;
       if (copy(aLink,0,16) = 'ACCOUNTEXCHANGE@') and Assigned(Order) then
         begin
