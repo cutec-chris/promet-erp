@@ -110,7 +110,7 @@ type
     function ShowHint(var HintStr: string;var CanShow: Boolean; var HintInfo: THintInfo) : Boolean;
     procedure SetLanguage;
     procedure LoadOptions(OptionSet : string);
-    function GetLink : string;
+    function GetLink(Multi : Boolean = False) : string;
     property OnOpenItem : TOpenItemEvent read FOpenItem write FOpenItem;
   end;
   TSearchHintWindow = class(THintWindow)
@@ -209,7 +209,7 @@ var
   Stream: TStringStream;
 begin
   if sgResults.RowCount <= 1 then exit;
-  Stream := TStringStream.Create(GetLink+';');
+  Stream := TStringStream.Create(GetLink(True));
   Clipboard.AddFormat(LinkClipboardFormat,Stream);
   Stream.Free;
 end;
@@ -288,17 +288,22 @@ procedure TfSearch.DataSearchresultItem(aIdent: string; aName: string;
 var
   i: Integer;
 begin
+  aRec := GetLink;
   for i := 1 to sgResults.RowCount-1 do
     if sgResults.Cells[4,i] = aLink then
       exit;
   if aActive then
     begin
-      for i := 1 to sgResults.RowCount-1 do
+      for i := 0 to sgResults.RowCount-1 do
         if sgResults.Cells[5,i] = 'N' then
           break;
-    end;
+    end
+  else
+    i := sgResults.RowCount;
+  if i<0 then i := 0;
+  if i>sgResults.RowCount then
+    i := sgResults.RowCount;
   sgResults.InsertColRow(False,i);
-//  sgResults.RowCount := sgResults.RowCount+1;
   sgResults.Cells[1,i] := aIdent;
   sgResults.Cells[2,i] := aName;
   sgResults.Cells[3,i] := aStatus;
@@ -307,6 +312,12 @@ begin
     sgResults.Cells[5,i] := 'Y'
   else
     sgResults.Cells[5,i] := 'N';
+  for i := 1 to sgResults.RowCount-1 do
+    if sgResults.Cells[4,i] = arec then
+      begin
+        sgResults.Selection.Top:=1;
+        sgResults.Selection.Bottom:=1;
+      end;
 end;
 procedure TfSearch.eContainsChange(Sender: TObject);
 begin
@@ -598,10 +609,14 @@ begin
       Options := copy(Options,pos(';',Options)+1,length(Options));
     end;
 end;
-function TfSearch.GetLink: string;
+function TfSearch.GetLink(Multi: Boolean): string;
 begin
   Result := '';
-  if (sgResults.RowCount > 0) and (sgResults.Row > -1) then
+  if Multi then
+    begin
+      //+';'
+    end
+  else if (sgResults.RowCount > 0) and (sgResults.Row > -1) then
     Result := sgResults.Cells[4,sgResults.Row];
 end;
 function TSearchHintWindow.GetDrawTextFlags: Cardinal;
@@ -690,4 +705,4 @@ end;
 initialization
   {$I usearch.lrs}
 end.
-
+

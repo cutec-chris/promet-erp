@@ -15,11 +15,11 @@ object fSearch: TfSearch
   Position = poMainFormCenter
   ShowHint = True
   ShowInTaskBar = stAlways
-  LCLVersion = '1.1'
+  LCLVersion = '1.3'
   object pTop: TPanel
     Left = 0
     Height = 111
-    Top = 33
+    Top = 29
     Width = 577
     Align = alTop
     BevelOuter = bvNone
@@ -28,7 +28,7 @@ object fSearch: TfSearch
     TabOrder = 0
     object eContains: TEdit
       Left = 72
-      Height = 27
+      Height = 21
       Top = 9
       Width = 344
       Anchors = [akTop, akLeft, akRight]
@@ -170,9 +170,9 @@ object fSearch: TfSearch
     end
     object cbContains: TRadioButton
       Left = 72
-      Height = 24
+      Height = 17
       Top = 55
-      Width = 74
+      Width = 52
       Caption = 'enthält'
       Checked = True
       TabOrder = 4
@@ -180,18 +180,18 @@ object fSearch: TfSearch
     end
     object cbWildgards: TRadioButton
       Left = 160
-      Height = 24
+      Height = 17
       Top = 55
-      Width = 190
+      Width = 137
       Caption = 'Jokerzeichen verwenden'
       OnChange = cbWildgardsChange
       TabOrder = 1
     end
     object cbAutomaticsearch: TCheckBox
-      Left = 368
-      Height = 24
+      Left = 423
+      Height = 17
       Top = 55
-      Width = 201
+      Width = 146
       Anchors = [akTop, akRight]
       Caption = 'Suche wärend des Tippens'
       Checked = True
@@ -249,7 +249,7 @@ object fSearch: TfSearch
     end
     object seMaxresults: TSpinEdit
       Left = 511
-      Height = 27
+      Height = 21
       Top = 83
       Width = 58
       Anchors = [akTop, akRight]
@@ -262,10 +262,10 @@ object fSearch: TfSearch
       Value = 10
     end
     object cbMaxResults: TCheckBox
-      Left = 275
-      Height = 24
+      Left = 339
+      Height = 17
       Top = 83
-      Width = 230
+      Width = 166
       Anchors = [akTop, akRight]
       Caption = 'Anzahl Ergebnisse pro Suchtyp'
       Checked = True
@@ -325,17 +325,17 @@ object fSearch: TfSearch
   end
   object Panel2: TPanel
     Left = 431
-    Height = 234
-    Top = 144
+    Height = 238
+    Top = 140
     Width = 146
     Align = alRight
     BevelOuter = bvNone
-    ClientHeight = 234
+    ClientHeight = 238
     ClientWidth = 146
     TabOrder = 1
     object lSearchIn: TLabel
       Left = 4
-      Height = 17
+      Height = 13
       Top = 4
       Width = 138
       Align = alTop
@@ -345,20 +345,19 @@ object fSearch: TfSearch
     end
     object cbSearchIn: TCheckListBox
       Left = 8
-      Height = 83
-      Top = 29
+      Height = 95
+      Top = 25
       Width = 130
       Align = alClient
       BorderSpacing.Around = 8
       ItemHeight = 0
       TabOrder = 0
       TabStop = False
-      TopIndex = -1
     end
     object lSearchtype: TLabel
       Left = 4
-      Height = 17
-      Top = 129
+      Height = 13
+      Top = 137
       Width = 138
       Align = alBottom
       BorderSpacing.Around = 4
@@ -368,20 +367,19 @@ object fSearch: TfSearch
     object cbSearchType: TCheckListBox
       Left = 8
       Height = 72
-      Top = 154
+      Top = 158
       Width = 130
       Align = alBottom
       BorderSpacing.Around = 8
       ItemHeight = 0
       TabOrder = 1
       TabStop = False
-      TopIndex = -1
     end
     object Splitter2: TSplitter
       Cursor = crVSplit
       Left = 0
       Height = 5
-      Top = 120
+      Top = 128
       Width = 146
       Align = alBottom
       ResizeAnchor = akBottom
@@ -389,8 +387,8 @@ object fSearch: TfSearch
   end
   object Splitter1: TSplitter
     Left = 426
-    Height = 234
-    Top = 144
+    Height = 238
+    Top = 140
     Width = 5
     Align = alRight
     ResizeAnchor = akRight
@@ -398,19 +396,19 @@ object fSearch: TfSearch
   end
   object Panel3: TPanel
     Left = 0
-    Height = 234
-    Top = 144
+    Height = 238
+    Top = 140
     Width = 426
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 234
+    ClientHeight = 238
     ClientWidth = 426
     TabOrder = 3
     object lResults: TLabel
       Left = 8
-      Height = 17
+      Height = 13
       Top = 0
-      Width = 112
+      Width = 89
       Caption = 'Suchergebnisse'
       Font.Style = [fsBold]
       ParentColor = False
@@ -418,11 +416,12 @@ object fSearch: TfSearch
     end
     object sgResults: TStringGrid
       Left = 8
-      Height = 210
+      Height = 214
       Top = 20
       Width = 410
       Anchors = [akTop, akLeft, akRight, akBottom]
       ColCount = 6
+      ColumnClickSorts = True
       Columns = <      
         item
           Title.Caption = 'Type'
@@ -474,7 +473,7 @@ object fSearch: TfSearch
   end
   object lHint: TLabel
     Left = 8
-    Height = 17
+    Height = 13
     Top = 8
     Width = 561
     Align = alTop
@@ -499,10 +498,10 @@ object fSearch: TfSearch
     ClientWidth = 577
     TabOrder = 4
     object bClose: TBitBtn
-      Left = 452
-      Height = 37
-      Top = 11
-      Width = 103
+      Left = 456
+      Height = 34
+      Top = 14
+      Width = 99
       HelpType = htKeyword
       Anchors = [akRight, akBottom]
       AutoSize = True
@@ -522,10 +521,10 @@ object fSearch: TfSearch
     end
     object bOpen: TBitBtn
       AnchorSideRight.Control = bClose
-      Left = 357
-      Height = 37
-      Top = 11
-      Width = 90
+      Left = 360
+      Height = 34
+      Top = 14
+      Width = 91
       Action = acOpen
       Anchors = [akRight, akBottom]
       AutoSize = True
@@ -602,9 +601,45 @@ object fSearch: TfSearch
     end
     object MenuItem2: TMenuItem
       Action = acCopyLink
+      Bitmap.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000064000000640000000000000000000000000000000000
+        000000000000000000000000000000000000C77342FFC67747FFCE7747FFC777
+        47FFCE7747FFC77747FFC77747FFCE7746FFC77746FFCE7F53FF000000000000
+        000000000000000000000000000000000000C77B4BFFFFF7EFFFFFF7EFFFFFF7
+        E7FFFFF7EFFFFFF7EFFFFFF7EFFFFFF7EFFFFFF7EFFFCE8456FF000000000000
+        000000000000000000000000000000000000CF8653FFEFF7E7FFFFEFDFFFFFEF
+        DFFFFFEFDFFFFFE7D7FFFFE7D6FFFFE7CFFFEFF7EFFFCE8556FF000000000000
+        000000000000000000000000000000000000CE8752FFFFF7EFFFFFEFDFFFFFEF
+        DFFFFFEFDFFFFFE7D7FFFFE7D6FFFFE7CFFFFFF7EFFFCE8757FFC77B4AFFCE7B
+        4BFFCE7747FFC77747FFCE7747FFC77747FFCE8452FFFFF7F7FFFFEFDFFFFFEF
+        DFFFFFEFDFFFFFE7D7FFFFE7D6FFFFE7CFFFFFF7F7FFCF8557FFCE7F4EFFFFF7
+        EFFFFFF7EFFFFFF7E7FFFFF7EFFFFFF7EFFFE7BF95FFFFF7F7FFFFE7D7FFFFE7
+        D6FFFFE7D6FFFFE7D6FFFFE7CFFFFFDEC6FFFFF7EFFFCE8656FFCF8653FFEFF7
+        E7FFFFEFDFFFFFEFDFFFFFEFDFFFFFE7D7FFE7BF95FFFFF7F7FFFFE7D7FFFFE7
+        D7FFFFE7D7FFFFE7CEFFFFDEC6FFF7DFBDFFFFF7E7FFCE8757FFCE8752FFFFF7
+        EFFFFFEFDFFFFFEFDFFFFFEFDFFFFFE7D7FFE7BF96FFFFF7F7FFFFE7D6FFFFE7
+        D7FFFFE7CEFFFFDFC6FFF7D7BFFFF7D7AFFFFFEFE7FFCE875AFFCE8452FFFFF7
+        F7FFFFEFDFFFFFEFDFFFFFEFDFFFFFE7D7FFE7BF96FFFFF7F7FFFFE7CFFFFFE7
+        CFFFFFDFCEFFF7DFBDFFF7EFDFFFFFF7EFFFFFFFF7FFCE8753FFCF8553FFFFF7
+        F7FFFFE7D7FFFFE7D6FFFFE7D6FFFFE7D6FFE7BF97FFFFF7EFFFFFDEC7FFFFE7
+        C7FFFFDEC6FFF7D7B5FFFFFFF7FFFFE7C6FFEFC797FFC77F4AFFCF8656FFFFF7
+        F7FFFFE7D7FFFFE7D7FFFFE7D7FFFFE7CEFFE7BF96FFFFFFFFFFFFF7EFFFFFF7
+        EFFFFFF7EFFFFFEFE7FFFFF7E7FFEFBF8CFFCF8557FF00000000CF8657FFFFF7
+        F7FFFFE7D6FFFFE7D7FFFFE7CEFFFFDFC6FFEFC79DFFE7BF96FFE7BF96FFE7BF
+        96FFD7A56FFFD69E6FFFCE965FFF000000000000000000000000CF8657FFFFF7
+        F7FFFFE7CFFFFFE7CFFFFFDFCEFFF7DFBDFFF7EFDFFFFFF7EFFFFFFFF7FFCF95
+        67FF000000000000000000000000000000000000000000000000CF8656FFFFF7
+        EFFFFFDEC7FFFFE7C7FFFFDEC6FFF7D7B5FFFFFFF7FFFFE7C6FFEFC797FFC77F
+        4AFF000000000000000000000000000000000000000000000000CE8556FFFFFF
+        FFFFFFF7EFFFFFF7EFFFFFF7EFFFFFEFE7FFFFF7E7FFEFBF8CFFCF8557FF0000
+        0000000000000000000000000000000000000000000000000000C77B47FFCE86
+        57FFCE8C57FFCF8C56FFCE8C56FFCF8757FFCE8752FF00000000000000000000
+        0000000000000000000000000000000000000000000000000000
+      }
     end
     object MenuItem3: TMenuItem
-      Action = fFilter.acSaveLink
+      Action = acSaveToLink
     end
   end
   object IdleTimer: TTimer
@@ -619,4 +654,4 @@ object fSearch: TfSearch
     left = 144
     top = 304
   end
-end
+end
