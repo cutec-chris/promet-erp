@@ -54,9 +54,9 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="271"/>
-        <CursorPos X="73" Y="294"/>
-        <UsageCount Value="63"/>
+        <TopLine Value="230"/>
+        <CursorPos X="1" Y="257"/>
+        <UsageCount Value="64"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit0>
@@ -351,11 +351,11 @@
       <Unit41>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
         <UnitName Value="uBaseCustomApplication"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="72" Y="6"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit41>
       <Unit42>
@@ -402,30 +402,32 @@
       <Unit47>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="124"/>
-        <CursorPos X="15" Y="124"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="1430"/>
+        <CursorPos X="3" Y="1432"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
       </Unit47>
       <Unit48>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1231"/>
-        <CursorPos X="1" Y="1258"/>
+        <TopLine Value="61"/>
+        <CursorPos X="13" Y="78"/>
         <ExtraEditorCount Value="1"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit48>
       <Unit49>
         <Filename Value="..\base\dbintfs\ubaseerpdbclasses.pas"/>
         <UnitName Value="uBaseERPDBClasses"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="86"/>
         <CursorPos X="1" Y="101"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit49>
       <Unit50>
@@ -435,7 +437,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="420"/>
         <CursorPos X="1" Y="440"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit50>
       <Unit51>
@@ -503,7 +505,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="117"/>
         <CursorPos X="1" Y="135"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit58>
       <Unit59>
@@ -517,134 +519,134 @@
       <Unit60>
         <Filename Value="..\base\dbintfs\uprocessmanager.pas"/>
         <UnitName Value="uProcessManager"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="54"/>
         <CursorPos X="1" Y="75"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit60>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="rssreceiver.lpr"/>
-        <Caret Line="254" Column="1" TopLine="224"/>
+        <Caret Line="251" Column="1" TopLine="231"/>
       </Position1>
       <Position2>
         <Filename Value="rssreceiver.lpr"/>
-        <Caret Line="263" Column="1" TopLine="245"/>
+        <Caret Line="252" Column="1" TopLine="231"/>
       </Position2>
       <Position3>
         <Filename Value="rssreceiver.lpr"/>
-        <Caret Line="264" Column="1" TopLine="245"/>
+        <Caret Line="253" Column="1" TopLine="231"/>
       </Position3>
       <Position4>
         <Filename Value="rssreceiver.lpr"/>
-        <Caret Line="265" Column="1" TopLine="245"/>
+        <Caret Line="255" Column="1" TopLine="231"/>
       </Position4>
       <Position5>
         <Filename Value="rssreceiver.lpr"/>
-        <Caret Line="266" Column="1" TopLine="245"/>
+        <Caret Line="257" Column="1" TopLine="231"/>
       </Position5>
       <Position6>
         <Filename Value="rssreceiver.lpr"/>
-        <Caret Line="268" Column="1" TopLine="245"/>
+        <Caret Line="258" Column="1" TopLine="249"/>
       </Position6>
       <Position7>
         <Filename Value="rssreceiver.lpr"/>
-        <Caret Line="270" Column="1" TopLine="245"/>
+        <Caret Line="259" Column="1" TopLine="249"/>
       </Position7>
       <Position8>
         <Filename Value="rssreceiver.lpr"/>
-        <Caret Line="271" Column="1" TopLine="245"/>
+        <Caret Line="260" Column="1" TopLine="249"/>
       </Position8>
       <Position9>
         <Filename Value="rssreceiver.lpr"/>
-        <Caret Line="273" Column="1" TopLine="245"/>
+        <Caret Line="261" Column="1" TopLine="249"/>
       </Position9>
       <Position10>
         <Filename Value="rssreceiver.lpr"/>
-        <Caret Line="274" Column="1" TopLine="245"/>
+        <Caret Line="262" Column="1" TopLine="249"/>
       </Position10>
       <Position11>
         <Filename Value="rssreceiver.lpr"/>
-        <Caret Line="275" Column="1" TopLine="245"/>
+        <Caret Line="263" Column="1" TopLine="249"/>
       </Position11>
       <Position12>
         <Filename Value="rssreceiver.lpr"/>
-        <Caret Line="278" Column="1" TopLine="248"/>
+        <Caret Line="264" Column="1" TopLine="249"/>
       </Position12>
       <Position13>
         <Filename Value="rssreceiver.lpr"/>
-        <Caret Line="279" Column="1" TopLine="249"/>
+        <Caret Line="265" Column="1" TopLine="249"/>
       </Position13>
       <Position14>
         <Filename Value="rssreceiver.lpr"/>
-        <Caret Line="280" Column="1" TopLine="250"/>
+        <Caret Line="267" Column="1" TopLine="249"/>
       </Position14>
       <Position15>
         <Filename Value="rssreceiver.lpr"/>
-        <Caret Line="281" Column="1" TopLine="251"/>
+        <Caret Line="268" Column="1" TopLine="249"/>
       </Position15>
       <Position16>
         <Filename Value="rssreceiver.lpr"/>
-        <Caret Line="283" Column="1" TopLine="253"/>
+        <Caret Line="277" Column="1" TopLine="249"/>
       </Position16>
       <Position17>
         <Filename Value="rssreceiver.lpr"/>
-        <Caret Line="284" Column="1" TopLine="254"/>
+        <Caret Line="278" Column="1" TopLine="250"/>
       </Position17>
       <Position18>
         <Filename Value="rssreceiver.lpr"/>
-        <Caret Line="285" Column="1" TopLine="255"/>
+        <Caret Line="279" Column="1" TopLine="251"/>
       </Position18>
       <Position19>
         <Filename Value="rssreceiver.lpr"/>
-        <Caret Line="286" Column="1" TopLine="256"/>
+        <Caret Line="280" Column="1" TopLine="252"/>
       </Position19>
       <Position20>
         <Filename Value="rssreceiver.lpr"/>
-        <Caret Line="292" Column="1" TopLine="262"/>
+        <Caret Line="282" Column="1" TopLine="254"/>
       </Position20>
       <Position21>
         <Filename Value="rssreceiver.lpr"/>
-        <Caret Line="293" Column="1" TopLine="263"/>
+        <Caret Line="247" Column="1" TopLine="230"/>
       </Position21>
       <Position22>
         <Filename Value="rssreceiver.lpr"/>
-        <Caret Line="294" Column="1" TopLine="264"/>
+        <Caret Line="251" Column="1" TopLine="230"/>
       </Position22>
       <Position23>
         <Filename Value="rssreceiver.lpr"/>
-        <Caret Line="295" Column="1" TopLine="265"/>
+        <Caret Line="252" Column="1" TopLine="230"/>
       </Position23>
       <Position24>
         <Filename Value="rssreceiver.lpr"/>
-        <Caret Line="240" Column="1" TopLine="228"/>
+        <Caret Line="253" Column="1" TopLine="230"/>
       </Position24>
       <Position25>
         <Filename Value="rssreceiver.lpr"/>
-        <Caret Line="286" Column="1" TopLine="271"/>
+        <Caret Line="255" Column="1" TopLine="230"/>
       </Position25>
       <Position26>
-        <Filename Value="..\base\ubasecustomapplication.pas"/>
-        <Caret Line="274" Column="16" TopLine="264"/>
+        <Filename Value="rssreceiver.lpr"/>
+        <Caret Line="247" Column="1" TopLine="230"/>
       </Position26>
       <Position27>
-        <Filename Value="..\base\ubasecustomapplication.pas"/>
-        <Caret Line="44" Column="13" TopLine="25"/>
+        <Filename Value="rssreceiver.lpr"/>
+        <Caret Line="251" Column="1" TopLine="230"/>
       </Position27>
       <Position28>
-        <Filename Value="..\base\ubasecustomapplication.pas"/>
-        <Caret Line="173" Column="36" TopLine="171"/>
+        <Filename Value="rssreceiver.lpr"/>
+        <Caret Line="252" Column="1" TopLine="230"/>
       </Position28>
       <Position29>
         <Filename Value="rssreceiver.lpr"/>
-        <Caret Line="292" Column="1" TopLine="271"/>
+        <Caret Line="253" Column="1" TopLine="230"/>
       </Position29>
       <Position30>
         <Filename Value="rssreceiver.lpr"/>
-        <Caret Line="262" Column="72" TopLine="244"/>
+        <Caret Line="255" Column="1" TopLine="230"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>

@@ -126,8 +126,9 @@ begin
       fMailOptions.eName.Text := copy(tmp,0,pos(';',tmp)-1);
       tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
       fMailOptions.eMailAddr.Text := copy(tmp,0,pos(';',tmp)-1);
+      tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
     end
-  else if fMailOptions.eServertype.Text = 'POP3' then
+  else if (fMailOptions.eServertype.Text = 'POP3') then
     begin
       tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
       if copy(tmp,0,2) <> 'L:' then
@@ -137,6 +138,12 @@ begin
           fMailOptions.cbDelete.Checked := copy(tmp,0,pos(';',tmp)-1) = 'YES';
           tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
         end;
+    end
+  else if (fMailOptions.eServertype.Text = 'FEED') then
+    begin
+      tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
+      fMailOptions.eTargetFolder.Text := copy(tmp,0,pos(';',tmp)-1);
+      tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
     end;
   tmp := copy(tmp,pos('|',tmp),length(tmp));
   fMailOptions.eServertypeSelect(nil);
@@ -146,7 +153,7 @@ begin
         tmpa := eServertype.Text+';'+eServer.Text+';'+eUsername.Text+';'+ePassword.Text+';YES;';
         if eServertype.text = 'SMTP' then
           tmpa := tmpa+eName.Text+';'+eMailAddr.Text+';';
-        if eServertype.text = 'POP3' then
+        if (eServertype.text = 'POP3') then
           begin
             if cbArchive.Checked then
               tmpa := tmpa+'YES;'
@@ -156,6 +163,10 @@ begin
               tmpa := tmpa+'YES;'
             else
               tmpa := tmpa+'NO;';
+          end;
+        if (eServertype.text = 'FEED') then
+          begin
+            tmpa := tmpa+eTargetFolder.Text+';';
           end;
         tmpn := tmpn+tmpa+tmp;
         FMailAccounts := tmpn;

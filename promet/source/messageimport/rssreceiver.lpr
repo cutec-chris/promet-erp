@@ -121,6 +121,7 @@ var
   FeedType: String;
   aLinkValue: String;
   aLoc: String;
+  aDir: String;
   function DoDecode(aIn : string) : string;
   begin
     Result := ConvertEncoding(aIn,GuessEncoding(aIn),EncodingUTF8);
@@ -151,6 +152,10 @@ begin
               if HasOption('debug') then
                 http.Document.SaveToFile('/tmp/rss.xml');
             end;
+          mailaccounts := copy(mailaccounts,pos(';',mailaccounts)+1,length(mailaccounts));
+          mailaccounts := copy(mailaccounts,pos(';',mailaccounts)+1,length(mailaccounts));
+          mailaccounts := copy(mailaccounts,pos(';',mailaccounts)+1,length(mailaccounts));
+          mailaccounts := copy(mailaccounts,pos(';',mailaccounts)+1,length(mailaccounts));
           if http.ResultCode = 200 then
             begin
               try
@@ -237,6 +242,16 @@ begin
                           begin
                             writeln('New Entry '+MID);
                             aTreeEntry := TREE_ID_UNKNOWN_MESSAGES;
+                            Data.SetFilter(Data.Tree,Data.QuoteField('TYPE')+'='+Data.QuoteValue('N'));
+                            aDir := trim(copy(mailaccounts,0,pos(';',mailaccounts)-1));
+                            if Data.Tree.DataSet.Locate('NAME',aDir,[loCaseInsensitive]) then
+                              aTreeEntry := Data.Tree.FieldByName('SQL_ID').AsVariant
+                            else
+                              begin
+                                Data.SetFilter(Data.Tree,Data.QuoteField('TYPE')+'='+Data.QuoteValue('B'));
+                                if Data.Tree.DataSet.Locate('NAME',aDir,[loCaseInsensitive]) then
+                                  aTreeEntry := Data.Tree.FieldByName('SQL_ID').AsVariant
+                              end;
                             with MessageIndex.DataSet do
                               begin //Message not there
                                 Insert;

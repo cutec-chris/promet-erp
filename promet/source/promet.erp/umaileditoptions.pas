@@ -39,15 +39,18 @@ type
     eName: TEdit;
     eMailAddr: TEdit;
     eServertype: TComboBox;
+    eTargetFolder: TEdit;
     eUsername: TEdit;
     eServer: TEdit;
     ePassword: TEdit;
+    Label1: TLabel;
     lName: TLabel;
     lMailAddr: TLabel;
     lServertype: TLabel;
     lUsername: TLabel;
     lServer: TLabel;
     lPassword: TLabel;
+    pFeedOptions: TPanel;
     pPOPOptions: TPanel;
     pSMTPOptions: TPanel;
     procedure eServertypeSelect(Sender: TObject);
@@ -75,6 +78,7 @@ procedure TfMailOptions.eServertypeSelect(Sender: TObject);
 begin
   pSMTPOptions.Visible := eServertype.Text = 'SMTP';
   pPOPOptions.Visible := eServertype.Text = 'POP3';
+  pFeedOptions.Visible := eServertype.Text = 'FEED';
   if eServertype.Text = 'FEED' then
     begin
       lServer.Caption := strFeed;

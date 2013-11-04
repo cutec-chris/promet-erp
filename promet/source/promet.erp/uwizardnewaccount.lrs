@@ -1,5 +1,3 @@
-{ This is an automatically generated lazarus resource file }
-
 LazarusResources.Add('TfWizardNewAccount','FORMDATA',[
   'TPF0'#18'TfWizardNewAccount'#17'fWizardNewAccount'#4'Left'#3#142#1#6'Height'
   +#3'c'#1#3'Top'#3#226#0#5'Width'#3#195#1#13'ActiveControl'#7#6'bNext0'#7'Capt'
@@ -584,4 +582,4 @@ LazarusResources.Add('TfWizardNewAccount','FORMDATA',[
   +#30#27'p'#27'p'#27'p'#27'p'#27'p'#219'c'#3'n'#3'n'#3'n'#3'n{l'#192'm'#192'm'
   +#192'm'#192'm'#192'm'#143#13#184#13#184'_'#224#241#127#230', _'#253'Lu'#210#0
   +#0#0#0'IEND'#174'B`'#130#0#0#0#0#0
-]);
+]);

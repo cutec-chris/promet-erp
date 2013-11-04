@@ -5,6 +5,7 @@
       - Mehrere Einträge als Verknüpfung auf nun fast allen Listenansichten können in Verknüpfungen eingefügt werden
       - Abfrage beim einfügen von Links ob diese Kreuzreferenzziert werden sollen
       - Suche nach übergeordneten Artikeln (enthalten in oder Verwendungsnachweis)
+      - Option um Mails/Feeds direkt in einen Ordner zu sortieren
 Build 287
       - Dokumente/Bilder wurden seit 286 falsch hinzugefügt
 Build 286
@@ -21,8 +22,8 @@ Build 285
       - Rechnung nutzt Menge wenn Menge gelifert null ist
       - Kontoassistenen begonnen
 Build 284
-      - Aufgaben waren in Standardansich für Benutzer mit @ in Accountno (sehr selten) nicht sichtbar
-      - Beim buchen von Positionen ohne Artikel wurde keine menge geiefert gesetzt
+      - Aufgaben waren in Standardansicht für Benutzer mit @ in Accountno (sehr selten) nicht sichtbar
+      - Beim buchen von Positionen ohne Artikel wurde keine "Menge geliefert" gesetzt
 Build 283
       - In Gantt Ansicht werden Wochenenden und Auslastungen automatisch zu Nettozeiten eingerechnet
         und Aufgaben entsprechend ausgedehnt wenn die aktuelle Dauer nicht ausreicht

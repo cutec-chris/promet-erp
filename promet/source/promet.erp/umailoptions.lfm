@@ -8,12 +8,13 @@ inherited fMessageOptions: TfMessageOptions
   DesignTop = 204
   object lCheckForMailevery: TLabel[0]
     Left = 8
-    Height = 18
-    Top = 188
-    Width = 245
+    Height = 14
+    Top = 192
+    Width = 211
     Anchors = [akLeft, akBottom]
     Caption = 'alle x Minuten nach Narichten prüfen'
     ParentColor = False
+    Visible = False
   end
   object clbMailAccounts: TCheckListBox[1]
     Left = 8
@@ -28,12 +29,13 @@ inherited fMessageOptions: TfMessageOptions
   end
   object seMailCheckTime: TSpinEdit[2]
     Left = 285
-    Height = 27
-    Top = 184
+    Height = 24
+    Top = 187
     Width = 54
     Anchors = [akRight, akBottom]
     TabOrder = 1
     Value = 7
+    Visible = False
   end
   object bAdd: TBitBtn[3]
     Left = 353
@@ -129,9 +131,9 @@ inherited fMessageOptions: TfMessageOptions
   end
   object lSignature: TLabel[5]
     Left = 8
-    Height = 18
-    Top = 212
-    Width = 57
+    Height = 14
+    Top = 216
+    Width = 47
     Anchors = [akLeft, akBottom]
     Caption = 'Signatur'
     ParentColor = False
@@ -149,7 +151,7 @@ inherited fMessageOptions: TfMessageOptions
       Width = 451
     end
     inherited seFontSize: TSpinEdit
-      Height = 27
+      Height = 24
     end
   end
 end
