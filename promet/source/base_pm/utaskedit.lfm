@@ -8,16 +8,17 @@ object fTaskEdit: TfTaskEdit
   ClientHeight = 430
   ClientWidth = 752
   Color = clWindow
+  DefaultMonitor = dmMainForm
   KeyPreview = True
   OnKeyDown = FormKeyDown
   OnShow = FormShow
   Position = poScreenCenter
   ShowHint = True
   ShowInTaskBar = stAlways
-  LCLVersion = '1.1'
+  LCLVersion = '1.3'
   object lMessage: TLabel
     Left = 8
-    Height = 15
+    Height = 13
     Top = 8
     Width = 736
     Align = alTop
@@ -33,7 +34,7 @@ object fTaskEdit: TfTaskEdit
   object ToolBar1: TPanel
     Left = 0
     Height = 44
-    Top = 31
+    Top = 29
     Width = 752
     Align = alTop
     BevelOuter = bvNone
@@ -76,7 +77,7 @@ object fTaskEdit: TfTaskEdit
       end
       object eSummary: TDBEdit
         Left = 4
-        Height = 25
+        Height = 21
         Hint = 'Beschreibung der Aufgabe'
         Top = 13
         Width = 184
@@ -124,7 +125,7 @@ object fTaskEdit: TfTaskEdit
       end
       object eProject: TDBEdit
         Left = 4
-        Height = 25
+        Height = 21
         Hint = 'Projekt der Aufgabe'
         Top = 13
         Width = 128
@@ -292,13 +293,13 @@ object fTaskEdit: TfTaskEdit
       end
       object cbPriority: TDBComboBox
         Left = 4
-        Height = 27
+        Height = 21
         Top = 13
         Width = 156
         Anchors = [akTop, akLeft, akRight]
         DataField = 'PRIORITY'
         DataSource = Task
-        ItemHeight = 0
+        ItemHeight = 13
         MaxLength = 0
         TabOrder = 0
       end
@@ -339,7 +340,7 @@ object fTaskEdit: TfTaskEdit
       end
       object eTime: TEdit
         Left = 4
-        Height = 25
+        Height = 21
         Hint = 'Netto Planzeit der Aufgabe'
         Top = 12
         Width = 36
@@ -348,7 +349,7 @@ object fTaskEdit: TfTaskEdit
       end
       object eBuffer: TEdit
         Left = 48
-        Height = 25
+        Height = 21
         Hint = 'Die Wartezeit gibt an welche Zeit die Aufgabe '#10'zusätzlich zur Nettozeit benötigt z.b. Wartezeit '#10'auf Material'
         Top = 12
         Width = 36
@@ -392,13 +393,13 @@ object fTaskEdit: TfTaskEdit
       end
       object cbClass: TExtDBCombobox
         Left = 4
-        Height = 27
+        Height = 21
         Top = 13
         Width = 76
         Anchors = [akTop, akLeft, akRight]
         DataField = 'CLASS'
         DataSource = Task
-        ItemHeight = 0
+        ItemHeight = 13
         Items.Strings = (
           'M Meilenstein'
           'T Aufgabe'
@@ -412,7 +413,7 @@ object fTaskEdit: TfTaskEdit
   object ToolBar2: TPanel
     Left = 0
     Height = 91
-    Top = 75
+    Top = 73
     Width = 752
     Align = alTop
     BevelOuter = bvNone
@@ -451,9 +452,9 @@ object fTaskEdit: TfTaskEdit
       end
       object cbChecked: TDBCheckBox
         Left = 4
-        Height = 24
+        Height = 17
         Top = 35
-        Width = 71
+        Width = 54
         AutoSize = True
         Caption = 'geprüft'
         DataField = 'CHECKED'
@@ -478,9 +479,9 @@ object fTaskEdit: TfTaskEdit
       end
       object cbCompleted: TDBCheckBox
         Left = 4
-        Height = 24
+        Height = 17
         Top = 16
-        Width = 102
+        Width = 79
         AutoSize = True
         Caption = 'fertiggestellt'
         DataField = 'COMPLETED'
@@ -491,10 +492,10 @@ object fTaskEdit: TfTaskEdit
       end
       object cbCompleted1: TDBCheckBox
         Left = 148
-        Height = 24
+        Height = 17
         Hint = 'inaktive Aufgaben werden den Benutzern nicht angezeigt'
         Top = 16
-        Width = 55
+        Width = 41
         AutoSize = True
         Caption = 'aktiv'
         DataField = 'ACTIVE'
@@ -505,9 +506,9 @@ object fTaskEdit: TfTaskEdit
       end
       object cbChecked1: TDBCheckBox
         Left = 4
-        Height = 24
+        Height = 17
         Top = 60
-        Width = 130
+        Width = 101
         AutoSize = True
         Caption = 'Planungsrelevant'
         DataField = 'PLANTASK'
@@ -565,9 +566,9 @@ object fTaskEdit: TfTaskEdit
       end
       object StartDate: TDBZVDateTimePicker
         Left = 68
-        Height = 23
+        Height = 21
         Top = 0
-        Width = 169
+        Width = 137
         DataField = 'STARTDATE'
         DataSource = Task
         ReadOnly = False
@@ -587,9 +588,9 @@ object fTaskEdit: TfTaskEdit
       end
       object EndDate: TDBZVDateTimePicker
         Left = 68
-        Height = 23
+        Height = 21
         Top = 27
-        Width = 169
+        Width = 137
         DataField = 'DUEDATE'
         DataSource = Task
         ReadOnly = False
@@ -608,9 +609,9 @@ object fTaskEdit: TfTaskEdit
       end
       object EndDate1: TDBZVDateTimePicker
         Left = 255
-        Height = 23
+        Height = 21
         Top = 17
-        Width = 97
+        Width = 81
         DataField = 'PLANED'
         DataSource = Task
         ReadOnly = False
@@ -640,10 +641,10 @@ object fTaskEdit: TfTaskEdit
         ParentFont = False
       end
       object Label11: TLabel
-        Left = 328
-        Height = 14
-        Top = -1
-        Width = 122
+        Left = 362
+        Height = 11
+        Top = 2
+        Width = 88
         Anchors = [akRight, akBottom]
         BorderSpacing.Left = 5
         Caption = 'Bearbeitung in Status'
@@ -654,14 +655,14 @@ object fTaskEdit: TfTaskEdit
       end
       object cbState: TExtDBCombobox
         Left = 360
-        Height = 27
+        Height = 21
         Hint = 'In welchem Status des Projektes '#10'wird die Aufgabe bearbeitet ?'
         Top = 13
         Width = 88
         Anchors = [akTop, akLeft, akRight]
         DataField = 'WORKSTATUS'
         DataSource = Task
-        ItemHeight = 0
+        ItemHeight = 13
         Items.Strings = (
           'M Meilenstein'
           'T Aufgabe'
@@ -687,12 +688,12 @@ object fTaskEdit: TfTaskEdit
       end
       object cbCategory: TDBComboBox
         Left = 255
-        Height = 27
+        Height = 21
         Top = 58
         Width = 193
         DataField = 'CATEGORY'
         DataSource = Task
-        ItemHeight = 0
+        ItemHeight = 13
         MaxLength = 0
         TabOrder = 4
       end
@@ -712,9 +713,9 @@ object fTaskEdit: TfTaskEdit
       end
       object EarlystDate: TDBZVDateTimePicker
         Left = 68
-        Height = 23
+        Height = 21
         Top = 55
-        Width = 169
+        Width = 137
         DataField = 'EARLIEST'
         DataSource = Task
         ReadOnly = False
@@ -735,8 +736,8 @@ object fTaskEdit: TfTaskEdit
   end
   object pcPages: TExtMenuPageControl
     Left = 0
-    Height = 264
-    Top = 166
+    Height = 266
+    Top = 164
     Width = 752
     ActivePage = tsNotes
     Align = alClient
@@ -746,12 +747,12 @@ object fTaskEdit: TfTaskEdit
     NewTabImageIndex = 0
     object tsNotes: TTabSheet
       Caption = 'Allgemein'
-      ClientHeight = 226
+      ClientHeight = 239
       ClientWidth = 744
       ImageIndex = 49
       object mNotes: TDBMemo
         Left = 4
-        Height = 218
+        Height = 231
         Hint = 'Beschreibung der Aufgabe'
         Top = 4
         Width = 300
@@ -764,17 +765,17 @@ object fTaskEdit: TfTaskEdit
       end
       object pHist: TPanel
         Left = 313
-        Height = 226
+        Height = 239
         Top = 0
         Width = 431
         Align = alClient
         BevelOuter = bvNone
-        ClientHeight = 226
+        ClientHeight = 239
         ClientWidth = 431
         TabOrder = 1
         object Label1: TLabel
           Left = 0
-          Height = 15
+          Height = 13
           Top = 0
           Width = 431
           Align = alTop
@@ -786,7 +787,7 @@ object fTaskEdit: TfTaskEdit
       end
       object Splitter1: TSplitter
         Left = 308
-        Height = 226
+        Height = 239
         Top = 0
         Width = 5
       end
@@ -815,4 +816,4 @@ object fTaskEdit: TfTaskEdit
       OnExecute = acAbortExecute
     end
   end
-end
+end

@@ -402,6 +402,7 @@ begin
     end;
   with Application as IBaseDbInterface do
     DBConfig.WriteString('SEARCHIN:'+FOptionSet,Options);
+  CloseAction:=caHide;
 end;
 procedure TfSearch.FormHide(Sender: TObject);
 begin
@@ -554,12 +555,7 @@ begin
   else
     begin
       DoSearch(nil);
-//      ActControl := Screen.ActiveControl;
       Result := Showmodal = mrOK;
-//      try
-//        if Assigned(ActControl) and ActControl.CanFocus then ActControl.SetFocus;
-//      except
-//      end;
     end;
 end;
 function TfSearch.ShowHint(var HintStr: string; var CanShow: Boolean;
