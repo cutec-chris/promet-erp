@@ -72,7 +72,7 @@ type
   procedure AddSearchAbleDataSet(aClass : TBaseDBListClass);
   function GetSearchAbleItems : TSearchLocations;
 implementation
-uses uBaseApplication, uBaseDbInterface;
+uses uBaseApplication, uBaseDbInterface,uOrder;
 var SearchAble : array of TBaseDBListClass;
 procedure AddSearchAbleDataSet(aClass: TBaseDBListClass);
 begin
@@ -165,12 +165,15 @@ var
   tmp: String;
   aType: TFullTextSearchType;
   aActive: Boolean;
+  aPos: TOrderPos;
+  aOrder: TOrder;
 begin
   if not Assigned(FItemFound) then exit;
   FActive := True;
   FCount := 0;
   with BaseApplication as IBaseDBInterface do
     begin
+      //Search for registered Searchtytpes
       for i := 0 to length(Lists)-1 do
         begin
           if Assigned(FBeginSearch) then FBeginSearch(Self);
@@ -234,6 +237,23 @@ begin
                 end;
             end;
           if Assigned(FEndSearch) then FEndSearch(Self);
+        end;
+      //Search for Serial Number
+      if fsSerial in FSearchTypes then
+        begin
+          aPos := TOrderPos.Create(nil,Data);
+          Data.SetFilter(aPos,Data.QuoteField('SERIAL')+'='+Data.QuoteValue(SearchText),FMaxResults);
+          while not aPos.EOF do
+            begin
+              aOrder := Torder.Create(nil,Data);
+              aOrder.Select(aPos.FieldByName('REF_ID').AsVariant);
+              aOrder.Open;
+              if aOrder.Count>0 then
+                FItemFound(aOrder.Number.AsString,aOrder.Text.AsString,aOrder.Status.AsString,True,Data.BuildLink(aOrder.DataSet),aOrder);
+              aOrder.Free;
+              aPos.Next;
+            end;
+          aPos.Free;
         end;
     end;
   FActive := False;

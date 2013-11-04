@@ -4,6 +4,7 @@
       - Mehrere Einträge im Suchfenster können als Verknüpfung kopiert werden
       - Mehrere Einträge als Verknüpfung auf nun fast allen Listenansichten können in Verknüpfungen eingefügt werden
       - Abfrage beim einfügen von Links ob diese Kreuzreferenzziert werden sollen
+      - Suche nach übergeordneten Artikeln (enthalten in oder Verwendungsnachweis)
 Build 287
       - Dokumente/Bilder wurden seit 286 falsch hinzugefügt
 Build 286
