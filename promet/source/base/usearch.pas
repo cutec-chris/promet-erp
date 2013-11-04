@@ -32,6 +32,7 @@ type
     acOpen: TAction;
     acCopyLink: TAction;
     acSaveToLink: TAction;
+    acSearchContained: TAction;
     ActionList1: TActionList;
     bClose: TBitBtn;
     bEditFilter: TSpeedButton;
@@ -53,6 +54,9 @@ type
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
+    MenuItem4: TMenuItem;
+    MenuItem5: TMenuItem;
+    MenuItem6: TMenuItem;
     pTop: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
@@ -67,6 +71,7 @@ type
     procedure acCopyLinkExecute(Sender: TObject);
     procedure acOpenExecute(Sender: TObject);
     procedure acSaveToLinkExecute(Sender: TObject);
+    procedure acSearchContainedExecute(Sender: TObject);
     procedure ActiveSearchBeginItemSearch(Sender: TObject);
     procedure ActiveSearchEndItemSearch(Sender: TObject);
     procedure bCloseClick(Sender: TObject);
@@ -84,6 +89,7 @@ type
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormShow(Sender: TObject);
     procedure IdleTimerTimer(Sender: TObject);
+    procedure PopupMenu1Popup(Sender: TObject);
     procedure seMaxresultsChange(Sender: TObject);
     procedure sgResultsDblClick(Sender: TObject);
     procedure sgResultsDrawCell(Sender: TObject; aCol, aRow: Integer;
@@ -127,7 +133,7 @@ var
   fSearch: TfSearch;
 implementation
 uses uBaseDBInterface,uBaseApplication,uBaseVisualControls,uFormAnimate,
-  uBaseVisualApplication,uData
+  uBaseVisualApplication,uData,uBaseERPDBClasses,uMasterdata
   ;
 resourcestring
   strSearchfromOrderMode        = 'Diese Suche wurde aus der Vorgangsverwaltung gestartet, wenn Sie einen Eintrag öffnen, wird dieser automatisch in den aktuellen Vorgang übernommen.';
@@ -194,6 +200,43 @@ begin
    end;
 end;
 
+procedure TfSearch.acSearchContainedExecute(Sender: TObject);
+var
+  aPos: TBaseDBPosition;
+  aMS: TMasterdata;
+  aActive: Boolean;
+begin
+  aMS := TMasterdata.Create(nil,data);
+  aMS.SelectFromLink(GetLink());
+  aMS.Open;
+  if aMS.Count>0 then
+    begin
+      sgResults.RowCount:=sgResults.FixedRows;
+      aPos := TMDPos.Create(nil,Data);
+      Data.SetFilter(aPos,Data.QuoteField('IDENT')+'='+Data.QuoteValue(aMS.Number.AsString));
+      with aPos do
+        begin
+          First;
+          while not EOF do
+            begin
+              aMS := TMasterdata.Create(nil,data);
+              aMS.Select(aPos.FieldByName('REF_ID').AsVariant);
+              aMS.Open;
+              if aMS.Count>0 then
+                begin
+                  aActive := Data.States.DataSet.Locate('STATUS',aMS.Status.AsString,[loCaseInsensitive]);
+                  if aActive then
+                    aActive := aActive and (Data.States.FieldByName('ACTIVE').AsString='Y');
+                  DataSearchresultItem(aMS.FieldByName('ID').AsString,aMS.FieldByName('SHORTTEXT').AsString,aMs.Status.AsString,aActive,Data.BuildLink(aMS.DataSet),aMS);
+                end;
+              Next;
+            end;
+        end;
+      aPos.Free;
+    end;
+  aMS.Free;
+end;
+
 procedure TfSearch.ActiveSearchBeginItemSearch(Sender: TObject);
 begin
   sgResults.BeginUpdate;
@@ -241,7 +284,7 @@ begin
         SetLength(SearchLocations,length(SearchLocations)+1);
         SearchLocations[length(SearchLocations)-1] := cbSearchType.Items[i];
       end;
-  sgResults.RowCount := 1;
+  sgResults.RowCount := sgResults.FixedRows;
   bSearch.Caption := strAbort;
   SearchText := eContains.Text;
   if cbMaxResults.Checked then
@@ -290,7 +333,6 @@ var
   aRec: String;
   gSel: TGridRect;
 begin
-  aRec := GetLink;
   for i := 1 to sgResults.RowCount-1 do
     if sgResults.Cells[4,i] = aLink then
       exit;
@@ -314,14 +356,6 @@ begin
     sgResults.Cells[5,i] := 'Y'
   else
     sgResults.Cells[5,i] := 'N';
-  for i := 1 to sgResults.RowCount-1 do
-    if sgResults.Cells[4,i] = arec then
-      begin
-        gSel := sgResults.Selection;
-        gSel.Top:=i;
-        gSel.Bottom:=i;
-        sgResults.Selection:=gSel;
-      end;
 end;
 procedure TfSearch.eContainsChange(Sender: TObject);
 begin
@@ -415,6 +449,12 @@ begin
       DoSearch(nil);
     end;
 end;
+
+procedure TfSearch.PopupMenu1Popup(Sender: TObject);
+begin
+  acSearchContained.Enabled:=copy(GetLink(),0,10)='MASTERDATA';
+end;
+
 procedure TfSearch.seMaxresultsChange(Sender: TObject);
 begin
   with Application as IBaseApplication do

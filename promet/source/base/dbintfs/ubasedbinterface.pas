@@ -900,6 +900,14 @@ begin
       Result := Result + aDataSet.FieldByName('LANGUAGE').AsString;
       Result := result+'{'+aDataSet.FieldByName('SHORTTEXT').AsString+'}';
     end
+  else  if (Result = 'MDPOSITIONS@') then
+    begin
+      Result := 'MASTERDATA@';
+      Result := Result + aDataSet.FieldByName('IDENT').AsString + '&&';
+      Result := Result + aDataSet.FieldByName('VERSION').AsString + '&&';
+      Result := Result + aDataSet.FieldByName('LANGUAGE').AsString;
+      Result := Result+'{'+aDataSet.FieldByName('SHORTTEXT').AsString+'}';
+    end
   else  if (Result = 'CUSTOMERS@') then
     begin
       if aDataSet.FieldDefs.IndexOf('ACCOUNTNO') = -1 then
