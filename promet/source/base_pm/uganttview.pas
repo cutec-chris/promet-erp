@@ -25,7 +25,8 @@ interface
 
 uses
   Classes, SysUtils, db, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, Buttons, Menus, ActnList, gsGanttCalendar, uTask,Math,uProjects;
+  StdCtrls, Buttons, Menus, ActnList, Spin, gsGanttCalendar, uTask, Math,
+  uProjects;
 
 type
 
@@ -40,6 +41,7 @@ type
     ActionList1: TActionList;
     bCalculate1: TSpeedButton;
     bCalculate2: TSpeedButton;
+    bMoveBack: TSpeedButton;
     bDayView: TSpeedButton;
     Bevel5: TBevel;
     Bevel6: TBevel;
@@ -47,7 +49,7 @@ type
     Bevel8: TBevel;
     bMonthView: TSpeedButton;
     bShowTasks: TSpeedButton;
-    bCalculate: TSpeedButton;
+    bMoveFwd: TSpeedButton;
     bRefresh: TSpeedButton;
     bShowTasks1: TSpeedButton;
     bToday: TSpeedButton;
@@ -67,6 +69,7 @@ type
     pgantt: TPanel;
     Panel7: TPanel;
     PopupMenu1: TPopupMenu;
+    SpinEdit1: TSpinEdit;
     tbTop: TPanel;
     RecalcTimer: TTimer;
     ToolButton1: TSpeedButton;
@@ -79,7 +82,8 @@ type
     procedure aIntervalChanged(Sender: TObject);
     procedure aIntervalDrawBackground(Sender: TObject; aCanvas: TCanvas;
       aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
-    procedure bCalculateClick(Sender: TObject);
+    procedure bMoveBackClick(Sender: TObject);
+    procedure bMoveFwdClick(Sender: TObject);
     procedure bDayViewClick(Sender: TObject);
     procedure bMonthViewClick(Sender: TObject);
     procedure bRefresh1Click(Sender: TObject);
@@ -118,7 +122,7 @@ type
     procedure Populate(aTasks: TTaskList; DoClean: Boolean=True;AddInactive : Boolean = False);
     procedure DoSave;
     procedure CleanIntervals;
-    procedure FindCriticalPath;
+    function FindCriticalPath: TInterval;
     procedure FillInterval(aInterval : TInterval;aTasks : TTaskList);
     procedure GotoTask(aLink : string);
     function Execute(aProject : TProject;aLink : string = ''; DoClean: Boolean=True;AddInactive : Boolean = False) : Boolean;
@@ -241,9 +245,10 @@ var
       Result := DoMoveBack(aInterval.Interval[b],aConn,aTime);
   end;
 begin
+{
   with TInterval(Sender) do
     begin
-      if bCalculate.Down then
+      if bMoveFwd.Down then
         begin
           if TInterval(Sender).MovedFwd then
             begin
@@ -310,6 +315,7 @@ begin
               TRessource(FRessources[i]).EndUpdate;
             end;
     end;
+}
 end;
 
 procedure TfGanttView.aIntervalDrawBackground(Sender: TObject; aCanvas: TCanvas;
@@ -351,14 +357,128 @@ begin
     end;
 end;
 
-procedure TfGanttView.bCalculateClick(Sender: TObject);
+procedure TfGanttView.bMoveBackClick(Sender: TObject);
+  function DoMoveBack(aInterval,aConn : TInterval) : TDateTime;
+  var
+    b: Integer;
+    aTmp: TDateTime;
+    c: Integer;
+    aDur: TDateTime;
+    bInt: TInterval;
+    IsMoved: Boolean = False;
+    aParent: TInterval;
+    bDur: TDateTime;
+    d: Integer;
+    bSubInterval: TInterval;
+    bMasterInterval: TInterval;
+  begin
+    Result := 0;
+    if not assigned(aInterval) then exit;
+    for c := 0 to aInterval.ConnectionCount-1 do
+      begin
+        DoMoveBack(aInterval.Connection[c],aInterval);
+        if Assigned(aConn) then
+          begin
+            bSubInterval := aInterval;
+            bMasterInterval := aConn;
+            aTmp := (bMasterInterval.FinishDate+bMasterInterval.Buffer)-bSubInterval.StartDate;
+            if (aTmp > Result) or (Result=0) then Result := aTmp;
+            if aTmp>0 then
+              begin
+                bMasterInterval.BeginUpdate;
+                bDur := bMasterInterval.Duration;
+                aDur := bMasterInterval.NetTime;
+                aDur := aDur/bMasterInterval.ResourceTimePerDay;
+                if aDur<1 then aDur:=1;
+                //Add Weekends
+                for d := trunc(bMasterInterval.StartDate) to trunc(bMasterInterval.StartDate+aDur) do
+                  if ((DayOfWeek(d)=1) or (DayOfWeek(d)=7)) then
+                    aDur := aDur+1;
+                bMasterInterval.FinishDate:=bSubInterval.StartDate-bMasterInterval.Buffer;
+                if aDur<bDur then
+                  bMasterInterval.StartDate:=bMasterInterval.FinishDate-aDur
+                else
+                  bMasterInterval.StartDate:=bMasterInterval.FinishDate-bDur;
+                IsMoved := True;
+                bMasterInterval.EndUpdate;
+              end;
+          end;
+      end;
+    for c := 0 to aInterval.IntervalCount-1 do
+      DoMoveBack(aInterval.Interval[c],aConn);
+  end;
 var
   i: Integer;
+  LastNode: TInterval;
 begin
-  Application.ProcessMessages;
   for i := 0 to FGantt.IntervalCount-1 do
-    if Assigned(FGantt.Interval[i].OnChanged) then
-      FGantt.Interval[i].OnChanged(FGantt.Interval[i]);
+    DoMoveBack(FGantt.Interval[i],nil);
+  FGantt.Invalidate;
+end;
+
+procedure TfGanttView.bMoveFwdClick(Sender: TObject);
+  procedure MoveForward(Sender : TInterval);
+  var
+    aDur: TDateTime;
+    i: Integer;
+    oD: TDateTime;
+    c: Integer;
+    oD2: TDateTime;
+  begin
+    with TInterval(Sender) do
+      begin
+        TInterval(Sender).BeginUpdate;
+        //Move Forward
+        aDur := NetTime;
+        if TInterval(Sender).StartDate<TInterval(Sender).Earliest then
+          TInterval(Sender).StartDate:=TInterval(Sender).Earliest;
+        //Set Max Usage
+        if ResourceTimePerDay>0 then
+          aDur := aDur/ResourceTimePerDay;
+        if TInterval(Sender).FinishDate<(TInterval(Sender).StartDate+aDur) then
+          TInterval(Sender).FinishDate := (TInterval(Sender).StartDate+aDur);
+        //Add Weekends
+        for i := trunc(TInterval(Sender).StartDate) to Trunc(TInterval(Sender).StartDate+aDur) do
+          if ((DayOfWeek(i)=1) or (DayOfWeek(i)=7)) then
+            aDur := aDur+1;
+        if aDur<Duration then
+          aDur := Duration;
+        //TODO: Urlaub
+        if TInterval(Sender).FinishDate<(TInterval(Sender).StartDate+aDur) then
+          TInterval(Sender).FinishDate := (TInterval(Sender).StartDate+aDur);
+        IntervalDone:=TInterval(Sender).StartDate;
+        for i := 0 to ConnectionCount-1 do
+          begin
+            Connection[i].BeginUpdate;
+            oD := Connection[i].Duration;
+            if Connection[i].StartDate<FinishDate+Buffer then
+              begin
+                for c := 0 to Connection[i].IntervalCount-1 do
+                  if Connection[i].Interval[c].StartDate<FinishDate+Buffer then
+                    begin
+                      oD2 := Connection[i].Interval[c].Duration;
+                      Connection[i].Interval[c].BeginUpdate;
+                      Connection[i].Interval[c].StartDate:=FinishDate+Buffer;
+                      Connection[i].Interval[c].FinishDate:=FinishDate+Buffer+oD2;
+                      Connection[i].Interval[c].EndUpdate;
+                    end;
+                Connection[i].StartDate:=FinishDate+Buffer;
+              end;
+            if Connection[i].FinishDate<Connection[i].StartDate+oD then
+              Connection[i].FinishDate:=Connection[i].StartDate+oD;
+            Connection[i].IntervalDone:=Connection[i].StartDate;
+            Connection[i].EndUpdate;
+          end;
+        for i := 0 to IntervalCount-1 do
+          MoveForward(Interval[i]);
+      end;
+  end;
+var
+  i : Integer;
+begin
+  for i := 0 to FGantt.IntervalCount-1 do
+    MoveForward(FGantt.Interval[i]);
+  FGantt.Invalidate;
 end;
 
 procedure TfGanttView.acCenterTaskExecute(Sender: TObject);
@@ -450,6 +570,7 @@ var
 begin
   for i := 0 to FGantt.IntervalCount-1 do
     DoMove(FGantt.Interval[i]);
+  FGantt.Invalidate;
 end;
 
 procedure TfGanttView.acOpenExecute(Sender: TObject);
@@ -908,10 +1029,11 @@ begin
   FGantt.EndUpdate;
 end;
 
-procedure TfGanttView.FindCriticalPath;
+function TfGanttView.FindCriticalPath : TInterval;
 var
   y: Integer;
   aLastDate : TDateTime;
+  aRes : TInterval;
   function DoPath(aInterval : TInterval) : Boolean;
   var
     i: Integer;
@@ -920,7 +1042,11 @@ var
     for i := 0 to aInterval.ConnectionCount-1 do
       Result := Result
       or (DoPath(aInterval.Connection[i]) and (aInterval.Connection[i].StartDate<=aInterval.FinishDate));
-    if (aInterval.ConnectionCount = 0) and (aInterval.IntervalCount = 0) and (aInterval.FinishDate>=aLastDate) then Result := True;
+    if (aInterval.ConnectionCount = 0) and (aInterval.IntervalCount = 0) and (aInterval.FinishDate>=aLastDate) then
+      begin
+        aRes := aInterval;
+        Result := True;
+      end;
     if (aInterval.ConnectionCount = 0) and (aInterval.IntervalCount > 0) then
       for i := 0 to aInterval.IntervalCount-1 do
         Result := Result or DoPath(aInterval.Interval[i]);
@@ -928,12 +1054,16 @@ var
   end;
 begin
   aLastDate := 0;
+  aRes := nil;
   for y := 0 to fGantt.IntervalCount-1 do
     if FGantt.Interval[y].FinishDate>aLastDate then
-      aLastDate := FGantt.Interval[y].FinishDate;
+      begin
+        aLastDate := FGantt.Interval[y].FinishDate;
+      end;
   for y := 0 to fGantt.IntervalCount-1 do
     if not Assigned(FGantt.Interval[y].Parent) then
       DoPath(FGantt.Interval[y]);
+  Result := aRes;
   FGantt.Calendar.Invalidate;
 end;
 

@@ -19,7 +19,7 @@ object fGanttView: TfGanttView
     ClientWidth = 994
     TabOrder = 0
     object Panel7: TPanel
-      Left = 168
+      Left = 288
       Height = 42
       Top = 0
       Width = 176
@@ -469,17 +469,17 @@ object fGanttView: TfGanttView
       Left = 80
       Height = 42
       Top = 0
-      Width = 88
+      Width = 208
       Align = alLeft
       BevelOuter = bvNone
       ClientHeight = 42
-      ClientWidth = 88
+      ClientWidth = 208
       TabOrder = 2
       object Label6: TLabel
         Left = 4
         Height = 15
         Top = -2
-        Width = 80
+        Width = 200
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
         AutoSize = False
@@ -500,13 +500,12 @@ object fGanttView: TfGanttView
         BorderSpacing.Bottom = 4
         Shape = bsLeftLine
       end
-      object bCalculate: TSpeedButton
+      object bMoveFwd: TSpeedButton
         Left = 4
         Height = 24
         Hint = 'abhängige Aufgaben "mitschieben"'#10'Achtung, achten Sie darauf wie die Ressourcen'#10'der mitgeschobenen Aufgaben verfügbar sind'
         Top = 14
         Width = 24
-        AllowAllUp = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -543,13 +542,12 @@ object fGanttView: TfGanttView
           728A9E9E9EE3A8A8A8FFABABABFFACACACFFADADADFFACACACFFABABABFFA8A8
           A8FFA4A4A4FF9B9B9BEB7E7E7E92FFFFFF00FFFFFF00FFFFFF00
         }
-        GroupIndex = 5
         Layout = blGlyphTop
-        OnClick = bCalculateClick
+        OnClick = bMoveFwdClick
         ShowCaption = False
       end
       object bCalculate1: TSpeedButton
-        Left = 28
+        Left = 112
         Height = 24
         Top = 14
         Width = 24
@@ -595,7 +593,7 @@ object fGanttView: TfGanttView
         ShowCaption = False
       end
       object bCalculate2: TSpeedButton
-        Left = 53
+        Left = 137
         Height = 24
         Top = 14
         Width = 24
@@ -639,6 +637,60 @@ object fGanttView: TfGanttView
         }
         Layout = blGlyphTop
         ShowCaption = False
+      end
+      object bMoveBack: TSpeedButton
+        Left = 28
+        Height = 24
+        Hint = 'abhängige Aufgaben "mitschieben"'#10'Achtung, achten Sie darauf wie die Ressourcen'#10'der mitgeschobenen Aufgaben verfügbar sind'
+        Top = 14
+        Width = 24
+        Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+          FF00FFFFFF00262626033F3F3F304A4A4ADF646464F46B6B6BF76B6B6BF95757
+          575E575757436B6B6BF26B6B6BF7646464F44A4A4ADF3F3F3F30FFFFFF00FFFF
+          FF00FFFFFF00292929294D4D4DD78D8D8DEFAAAAAAEDAEAEAEFF979797FF7171
+          71FF787878FF979797FFAEAEAEFFAAAAAAED8D8D8DEF4D4D4DD7FFFFFF007A7A
+          7AD3848383F5626161FF696969FFD3D3CEFF616161FF424242FF464646FF5151
+          51FF515151FF464646FF424242FE525252B9C4C4C4FF676767EFFFFFFF008686
+          86FBC2C2C1FE717171FF848484FFD3D3CEFFB8B8B7FF454545FFBDBDBDFFCECE
+          CEFFC2C2C2FFADADADFF424242FF4F4F4F0AC4C4C4FF828282F7FFFFFF008C8C
+          8BFFFFFFFFFFB2B2B2FF7A7A7AFFD3D3CEFF818181FF4D4D4DFF656565FF9292
+          92FF797979FF656565FF4C4C4CFF585858B6C4C4C4FF737373F0FFFFFF009291
+          91FFFFFFFFFFB1B1B1FF6D6D6DFF919191FFE8E8E8FFDDDDDDFFC1C1C1FF8787
+          87FF808080FFDADADAFFDDDDDDFFC4C4C4FF919191FF4C4C4C8AFFFFFF009595
+          95FFFFFFFFFFE8E8E8FFE0E0E0FFADADADFF8B8B8BFF9E9E9EFF888888FFC6C6
+          C6FFD1D1D1FF8D8D8DFF9E9E9EFF858585EE6A6A6A753E3E3E0BFFFFFF009A9A
+          99FFFFFFFFFFB1B1B1FF919191FFE2E2E2FFADADADFF8F8F8FFFDCDCDCFFA9A9
+          A9FF8D8D8DFFFBFBFBFF9A9999FFFFFFFF00FFFFFF00FFFFFF00FFFFFF009E9D
+          9DFFFFFFFFFFE3E3E3FFE1E1E1FFDCDCDCFFDBDBDBFFD7D7D7FFD3D3D3FFD3D3
+          D3FFD1D1D1FFFFFFFFFF9E9D9CFFFFFFFF00FFFFFF00FFFFFF00FFFFFF00A0A0
+          A0FFFFFFFFFFADADADFF8E8E8EFFD8D8D8FFA5A5A5FF8A8A8AFFCECECEFF7374
+          E8FF5258DBFFFBFBFBFF9E9E9EFFFFFFFF00FFFFFF00FFFFFF00FFFFFF00A3A3
+          A3FFFCFCFCFFDADADAFFD7D7D7FFD2D2D2FFCECECEFFC9C9C9FFC5C5C5FFC2C2
+          C2FFBFBFBFFFFFFFFFFFA0A0A0FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00A3A3
+          A3FFFFFFFFFFB07B56FFC38D67FFC58F68FFC69069FFC8926BFFCA946CFFCA95
+          6EFFB07B56FFFFFFFFFFA1A09FFFFFFFFF00FFFFFF00FFFFFF00FFFFFF00A4A4
+          A4FFFFFFFFFFB07B56FFC18B64FFC38D66FFC58F67FFC69069FFC8926BFFCA94
+          6CFFB07B56FFFFFFFFFFA0A0A0FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00A2A2
+          A2FBFFFFFFFEA7724DFFA7724DFFA7724DFFA7724DFFA7724DFFA7724DFFA772
+          4DFFA7724DFFFFFFFFFF9E9E9EFFFFFFFF00FFFFFF00FFFFFF00FFFFFF009797
+          97D1FFFFFFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFF9999999E6FFFFFF00FFFFFF00FFFFFF00FFFFFF007272
+          728A9E9E9EE3A8A8A8FFABABABFFACACACFFADADADFFACACACFFABABABFFA8A8
+          A8FFA4A4A4FF9B9B9BEB7E7E7E92FFFFFF00FFFFFF00FFFFFF00
+        }
+        Layout = blGlyphTop
+        OnClick = bMoveBackClick
+        ShowCaption = False
+      end
+      object SpinEdit1: TSpinEdit
+        Left = 56
+        Height = 21
+        Hint = 'Buffer in Prozent'
+        Top = 14
+        Width = 50
+        TabOrder = 0
       end
     end
     object Panel9: TPanel
@@ -772,10 +824,10 @@ object fGanttView: TfGanttView
       end
       object cbSnapshot: TComboBox
         Left = 32
-        Height = 22
+        Height = 21
         Top = 14
         Width = 140
-        ItemHeight = 14
+        ItemHeight = 13
         OnSelect = cbSnapshotSelect
         Style = csDropDownList
         TabOrder = 0
