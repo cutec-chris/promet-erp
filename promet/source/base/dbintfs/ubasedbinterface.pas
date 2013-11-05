@@ -379,7 +379,7 @@ resourcestring
   strEnterAnName                 = 'enter an Name';
   strProjectProcess              = 'Projekt/Prozess';
 implementation
-uses uZeosDBDM, uBaseApplication, uWiki, uMessages, uprocessmanager;
+uses uZeosDBDM, uBaseApplication, uWiki, uMessages, uprocessmanager,uRTFtoTXT;
 destructor TInternalDBDataSet.Destroy;
 begin
   if Assigned(FDataSet) then
@@ -753,7 +753,7 @@ begin
               aTable.Open;
               if aTable.RecordCount > 0 then
                 begin
-                  Result := aTable.FieldByName('TEXT').AsString;
+                  Result := RTF2Plain(aTable.FieldByName('TEXT').AsString);
                 end;
             end;
           FreeAndNil(aTable);
