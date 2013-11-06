@@ -61,6 +61,7 @@ type
     Label12: TLabel;
     Panel11: TPanel;
     pHist: TPanel;
+    bSetUser: TSpeedButton;
     Splitter1: TSplitter;
     Task: TDatasource;
     eSummary: TDBEdit;
@@ -97,11 +98,13 @@ type
     procedure acAbortExecute(Sender: TObject);
     procedure acPasteLinkExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
+    procedure bSetUserClick(Sender: TObject);
     procedure cbStateSelect(Sender: TObject);
     procedure eBufferExit(Sender: TObject);
     procedure eTimeExit(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormShow(Sender: TObject);
+    function fSearchOpenUserItem(aLink: string): Boolean;
     procedure TfListFrameFListgListDrawColumnCell(Sender: TObject;
       const Rect: TRect; DataCol: Integer; Column: TColumn;
       State: TGridDrawState);
@@ -127,7 +130,7 @@ type
 implementation
 uses uData,uDocumentFrame,uDocuments,uLinkFrame,uprometframesinplace,
   uListFrame,uBaseVisualControls,ClipBrd,uBaseVisualApplication,
-  uError,utasks;
+  uError,utasks,uSearch,uBaseDbClasses;
 resourcestring
   strDependencies               = 'Abhängigkeiten';
   strClassTask                  = 'T Aufgabe';
@@ -146,6 +149,32 @@ begin
   FHistoryFrame.DataSet := TTask(FDataSet).History;
   FHistoryFrame.SetRights(FEditable);
 end;
+
+function TfTaskEdit.fSearchOpenUserItem(aLink: string): Boolean;
+var
+  aCount: Integer;
+  aUser: TUser;
+begin
+  Result := False;
+  aUser := TUser.Create(Self,Data);
+  aUser.SelectFromLink(aLink);
+  aUser.Open;
+  Result := aUser.Count>0;
+  if Result then
+    begin
+      if not FDataSet.CanEdit then
+        FDataSet.DataSet.Edit;
+      FDataSet.FieldByName('USER').AsString := aUser.FieldByName('ACCOUNTNO').AsString;
+    end
+  else
+    begin
+      if not FDataSet.CanEdit then
+        FDataSet.DataSet.Edit;
+      FDataSet.FieldByName('USER').Clear;
+    end;
+  aUSer.Free;
+end;
+
 procedure TfTaskEdit.acPasteLinkExecute(Sender: TObject);
 var
   Stream: TStringStream;
@@ -183,6 +212,25 @@ begin
       FDataSet.CascadicPost;
     end;
   Close;
+end;
+
+procedure TfTaskEdit.bSetUserClick(Sender: TObject);
+var
+  i :Integer = 0;
+begin
+  fSearch.SetLanguage;
+  while i < fSearch.cbSearchType.Count do
+    begin
+      if fSearch.cbSearchType.Items[i] <> strUsers then
+        fSearch.cbSearchType.Items.Delete(i)
+      else
+        inc(i);
+    end;
+  fSearch.eContains.Clear;
+  fSearch.sgResults.RowCount:=1;
+  fSearch.OnOpenItem:=@fSearchOpenUserItem;
+  fSearch.Execute(True,'TASKSU',strSearchFromTasks);
+  fSearch.SetLanguage;
 end;
 
 procedure TfTaskEdit.cbStateSelect(Sender: TObject);
