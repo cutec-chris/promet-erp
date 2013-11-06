@@ -748,6 +748,9 @@ object fGanttView: TfGanttView
       BevelOuter = bvNone
       ClientHeight = 42
       ClientWidth = 112
+      Font.Color = clSkyBlue
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 3
       object Label7: TLabel
         Left = 5
@@ -782,7 +785,9 @@ object fGanttView: TfGanttView
         Width = 112
         Align = alTop
         Alignment = taCenter
+        Font.Color = clSkyBlue
         Font.Height = 20
+        Font.Style = [fsBold]
         ParentColor = False
         ParentFont = False
       end

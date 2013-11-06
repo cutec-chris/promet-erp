@@ -338,7 +338,9 @@ inherited fAttPlan: TfAttPlan
         Width = 112
         Align = alTop
         Alignment = taCenter
+        Font.Color = clSkyBlue
         Font.Height = 20
+        Font.Style = [fsBold]
         ParentColor = False
         ParentFont = False
       end

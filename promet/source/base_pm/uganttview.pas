@@ -422,7 +422,7 @@ var
 begin
   for i := 0 to FGantt.IntervalCount-1 do
     MoveForward(FGantt.Interval[i]);
-  FGantt.Invalidate;
+  bMoveFwd.Click;
 end;
 
 procedure TfGanttView.bMoveBackClick(Sender: TObject);

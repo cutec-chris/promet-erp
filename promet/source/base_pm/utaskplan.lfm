@@ -338,7 +338,9 @@ inherited fTaskPlan: TfTaskPlan
         Width = 112
         Align = alTop
         Alignment = taCenter
+        Font.Color = clSkyBlue
         Font.Height = 20
+        Font.Style = [fsBold]
         ParentColor = False
         ParentFont = False
       end
@@ -363,8 +365,9 @@ inherited fTaskPlan: TfTaskPlan
         AutoSize = False
         BorderSpacing.Left = 5
         Caption = 'Übernehmen'
-        Font.Color = clMedGray
+        Font.Color = clSkyBlue
         Font.Height = 11
+        Font.Style = [fsBold]
         ParentColor = False
         ParentFont = False
       end
@@ -489,7 +492,7 @@ inherited fTaskPlan: TfTaskPlan
       TabOrder = 1
       object Label1: TLabel
         Left = 8
-        Height = 14
+        Height = 13
         Top = 8
         Width = 978
         Align = alTop
