@@ -65,7 +65,7 @@ type
     MenuItem1: TMenuItem;
     Panel10: TPanel;
     Panel4: TPanel;
-    Panel8: TPanel;
+    pCalc: TPanel;
     Panel9: TPanel;
     pgantt: TPanel;
     Panel7: TPanel;
@@ -128,6 +128,7 @@ type
     procedure FillInterval(aInterval : TInterval;aTasks : TTaskList);
     procedure GotoTask(aLink : string);
     function Execute(aProject : TProject;aLink : string = ''; DoClean: Boolean=True;AddInactive : Boolean = False) : Boolean;
+    procedure SetRights;
   end;
 
 var
@@ -1238,6 +1239,7 @@ begin
   FProject := aproject;
   FTasks := aProject.Tasks;
   Populate(FTasks,DoClean,AddInactive);
+  SetRights;
   ModalResult := mrNone;
   if aLink <> '' then
     GotoTask(aLink);
@@ -1254,6 +1256,13 @@ begin
       DoSave;
     end;
   CleanIntervals;
+end;
+
+procedure TfGanttView.SetRights;
+begin
+  acMakePossible.Enabled := Data.Users.Rights.Right('PROJECTS') > RIGHT_READ;
+  acAddSnapshot.Enabled := Data.Users.Rights.Right('PROJECTS') > RIGHT_READ;
+  pCalc.Enabled := Data.Users.Rights.Right('PROJECTS') > RIGHT_READ;
 end;
 
 end.

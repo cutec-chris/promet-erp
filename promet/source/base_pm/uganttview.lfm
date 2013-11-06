@@ -465,7 +465,7 @@ object fGanttView: TfGanttView
         ShowCaption = False
       end
     end
-    object Panel8: TPanel
+    object pCalc: TPanel
       Left = 256
       Height = 42
       Top = 0
