@@ -511,25 +511,30 @@ var
   aProjects: TProjectList;
   aProject: TProject;
 begin
-  aProjects := TProjectList.Create(nil,Data);
-  aProjects.SelectFromParent(Fproject.Id.AsVariant);
-  aProjects.Open;
-  while not aProjects.EOF do
+  Application.ProcessMessages;
+  if bCalculate2.Down then
     begin
-      aProject := TProject.Create(nil,Data);
-      aProject.Select(aProjects.Id.AsVariant);
-      aProject.Open;
-      if aProject.Count>0 then
+      aProjects := TProjectList.Create(nil,Data);
+      aProjects.SelectFromParent(Fproject.Id.AsVariant);
+      aProjects.Open;
+      while not aProjects.EOF do
         begin
-          //if not FTasks.DataSet.Locate('COMPLETED','N',[]) then
-          aProject.Tasks.SelectActive;
-          aProject.Tasks.Open;
-          Populate(aProject.Tasks,False);
+          aProject := TProject.Create(nil,Data);
+          aProject.Select(aProjects.Id.AsVariant);
+          aProject.Open;
+          if aProject.Count>0 then
+            begin
+              //if not FTasks.DataSet.Locate('COMPLETED','N',[]) then
+              aProject.Tasks.SelectActive;
+              aProject.Tasks.Open;
+              Populate(aProject.Tasks,False);
+            end;
+          aProject.Free;
+          aProjects.Next;
         end;
-      aProject.Free;
-      aProjects.Next;
-    end;
-  aProjects.Free;
+      aProjects.Free;
+    end
+  else Populate(FTasks);
 end;
 
 procedure TfGanttView.acAddSnapshotExecute(Sender: TObject);
@@ -639,6 +644,8 @@ end;
 procedure TfGanttView.bRefreshClick(Sender: TObject);
 begin
   Populate(FTasks);
+  if bCalculate2.Down then
+    acAddSubProjects.Execute;
 end;
 procedure TfGanttView.bShowTasksClick(Sender: TObject);
 begin
