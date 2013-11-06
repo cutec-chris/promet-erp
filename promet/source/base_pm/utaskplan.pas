@@ -697,7 +697,6 @@ begin
   aCanvas.Brush.Style:=bsSolid;
   aCanvas.Brush.Color:=clWindow;
   aCanvas.FillRect(aRect);
-  aCanvas.Brush.Color:=$e0e0e0;
   if Assigned(TInterval(Sender).Gantt) then
     aCanvas.Pen.Color:=TInterval(Sender).Gantt.Tree.GridLineColor
   else
@@ -708,9 +707,10 @@ begin
   for i := 0 to round(aEnd-aStart) do
     begin
       aDay := aStart+i;
+      aCanvas.Brush.Color:=$e0e0e0;
       if (DayOfWeek(aDay) = 1) or (DayOfWeek(aDay) = 7) then
         aCanvas.FillRect(round(i*aDayWidth),aRect.Top+1,round((i*aDayWidth)+aDayWidth),aRect.Bottom);
-      aCanvas.Brush.Color:=$0000e0;
+      aCanvas.Brush.Color:=clSkyBlue;
       if (trunc(aDay) = trunc(Now())) then
         aCanvas.FillRect(round(i*aDayWidth),aRect.Top+1,round((i*aDayWidth)+aDayWidth),aRect.Bottom);
     end;
