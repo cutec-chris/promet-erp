@@ -270,7 +270,7 @@
         <PackageName Value="LCL"/>
       </Item22>
     </RequiredPackages>
-    <Units Count="420">
+    <Units Count="421">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -907,7 +907,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="15" Y="27"/>
-        <UsageCount Value="85"/>
+        <UsageCount Value="86"/>
         <Loaded Value="True"/>
       </Unit56>
       <Unit57>
@@ -1079,7 +1079,7 @@
         <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="454"/>
-        <CursorPos X="1" Y="487"/>
+        <CursorPos X="52" Y="466"/>
         <UsageCount Value="97"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -1474,12 +1474,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uTaskEdit"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="201"/>
-        <CursorPos X="15" Y="219"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="183"/>
+        <CursorPos X="7" Y="213"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit117>
@@ -1966,7 +1965,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="40"/>
         <CursorPos X="44" Y="62"/>
-        <UsageCount Value="63"/>
+        <UsageCount Value="64"/>
         <Loaded Value="True"/>
       </Unit173>
       <Unit174>
@@ -3275,11 +3274,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uTaskPlan"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="512"/>
-        <CursorPos X="160" Y="887"/>
-        <UsageCount Value="29"/>
+        <TopLine Value="921"/>
+        <CursorPos X="58" Y="936"/>
+        <UsageCount Value="30"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit330>
@@ -3419,7 +3419,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="286"/>
         <CursorPos X="119" Y="311"/>
-        <UsageCount Value="155"/>
+        <UsageCount Value="156"/>
       </Unit347>
       <Unit348>
         <Filename Value="../../../../../lazarus/lcl/include/treeview.inc"/>
@@ -4004,127 +4004,134 @@
         <CursorPos X="24" Y="492"/>
         <UsageCount Value="10"/>
       </Unit419>
+      <Unit420>
+        <Filename Value="../../../../../../Programme/lazarus/lcl/include/containedaction.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="74"/>
+        <CursorPos X="30" Y="97"/>
+        <UsageCount Value="10"/>
+      </Unit420>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="umain.pas"/>
-        <Caret Line="2529" Column="13" TopLine="2514"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="688" Column="51" TopLine="677"/>
       </Position1>
       <Position2>
-        <Filename Value="umain.pas"/>
-        <Caret Line="2531" Column="17" TopLine="2514"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="142" Column="1" TopLine="123"/>
       </Position2>
       <Position3>
-        <Filename Value="umain.pas"/>
-        <Caret Line="2865" Column="17" TopLine="2835"/>
+        <Filename Value="../base_pm/utaskplan.pas"/>
+        <Caret Line="185" Column="1" TopLine="171"/>
       </Position3>
       <Position4>
-        <Filename Value="umain.pas"/>
-        <Caret Line="42" Column="15" TopLine="23"/>
+        <Filename Value="../base_pm/utaskplan.pas"/>
+        <Caret Line="936" Column="59" TopLine="917"/>
       </Position4>
       <Position5>
-        <Filename Value="umain.pas"/>
-        <Caret Line="166" Column="25" TopLine="136"/>
+        <Filename Value="../base_pm/utaskplan.pas"/>
+        <Caret Line="946" Column="22" TopLine="928"/>
       </Position5>
       <Position6>
-        <Filename Value="umain.pas"/>
-        <Caret Line="307" Column="27" TopLine="276"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="697" Column="25" TopLine="669"/>
       </Position6>
       <Position7>
-        <Filename Value="umain.pas"/>
-        <Caret Line="546" Column="43" TopLine="515"/>
+        <Filename Value="../base_pm/utaskplan.pas"/>
+        <Caret Line="939" Column="36" TopLine="881"/>
       </Position7>
       <Position8>
         <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="1266" Column="1" TopLine="631"/>
+        <Caret Line="1204" Column="3" TopLine="1193"/>
       </Position8>
       <Position9>
         <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="335" Column="29" TopLine="323"/>
+        <Caret Line="691" Column="30" TopLine="676"/>
       </Position9>
       <Position10>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="782" Column="43" TopLine="769"/>
+        <Filename Value="../base_pm/utaskedit.pas"/>
+        <Caret Line="32" Column="3" TopLine="14"/>
       </Position10>
       <Position11>
-        <Filename Value="../base_pm/utaskplan.pas"/>
-        <Caret Line="713" Column="36" TopLine="696"/>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="159" Column="70" TopLine="147"/>
       </Position11>
       <Position12>
-        <Filename Value="../base_pm/utaskplan.pas"/>
-        <Caret Line="953" Column="1" TopLine="920"/>
+        <Filename Value="../base_pm/utaskedit.pas"/>
+        <Caret Line="209" Column="44" TopLine="191"/>
       </Position12>
       <Position13>
-        <Filename Value="../base_pm/utaskplan.pas"/>
-        <Caret Line="932" Column="102" TopLine="917"/>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="1076" Column="36" TopLine="1058"/>
       </Position13>
       <Position14>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="688" Column="51" TopLine="677"/>
+        <Filename Value="../base_pm/utaskedit.pas"/>
+        <Caret Line="164" Column="12" TopLine="153"/>
       </Position14>
       <Position15>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="142" Column="1" TopLine="123"/>
+        <Filename Value="../base_pm/utaskedit.pas"/>
+        <Caret Line="133" Column="39" TopLine="125"/>
       </Position15>
       <Position16>
-        <Filename Value="../base_pm/utaskplan.pas"/>
-        <Caret Line="185" Column="1" TopLine="171"/>
+        <Filename Value="../base_pm/utaskedit.pas"/>
+        <Caret Line="163" Column="1" TopLine="150"/>
       </Position16>
       <Position17>
-        <Filename Value="../base_pm/utaskplan.pas"/>
-        <Caret Line="936" Column="59" TopLine="917"/>
+        <Filename Value="../base_pm/utaskedit.pas"/>
+        <Caret Line="165" Column="13" TopLine="145"/>
       </Position17>
       <Position18>
         <Filename Value="../base_pm/utaskplan.pas"/>
-        <Caret Line="946" Column="22" TopLine="928"/>
+        <Caret Line="887" Column="160" TopLine="512"/>
       </Position18>
       <Position19>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="697" Column="25" TopLine="669"/>
+        <Filename Value="../base_pm/utaskplan.pas"/>
+        <Caret Line="934" Column="23" TopLine="919"/>
       </Position19>
       <Position20>
         <Filename Value="../base_pm/utaskplan.pas"/>
-        <Caret Line="939" Column="36" TopLine="881"/>
+        <Caret Line="933" Column="1" TopLine="919"/>
       </Position20>
       <Position21>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="1204" Column="3" TopLine="1193"/>
+        <Filename Value="../base_pm/utaskplan.pas"/>
+        <Caret Line="934" Column="1" TopLine="919"/>
       </Position21>
       <Position22>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="691" Column="30" TopLine="676"/>
+        <Filename Value="../base_pm/utaskplan.pas"/>
+        <Caret Line="933" Column="1" TopLine="919"/>
       </Position22>
       <Position23>
-        <Filename Value="../base_pm/utaskedit.pas"/>
-        <Caret Line="32" Column="3" TopLine="14"/>
+        <Filename Value="../base_pm/utaskplan.pas"/>
+        <Caret Line="934" Column="1" TopLine="919"/>
       </Position23>
       <Position24>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="159" Column="70" TopLine="147"/>
+        <Filename Value="../base_pm/utaskplan.pas"/>
+        <Caret Line="936" Column="1" TopLine="919"/>
       </Position24>
       <Position25>
-        <Filename Value="../base_pm/utaskedit.pas"/>
-        <Caret Line="209" Column="44" TopLine="191"/>
+        <Filename Value="../base_pm/utaskplan.pas"/>
+        <Caret Line="1027" Column="32" TopLine="1020"/>
       </Position25>
       <Position26>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="1076" Column="36" TopLine="1058"/>
+        <Filename Value="../base_pm/utaskplan.pas"/>
+        <Caret Line="157" Column="30" TopLine="146"/>
       </Position26>
       <Position27>
-        <Filename Value="../base_pm/utaskedit.pas"/>
-        <Caret Line="164" Column="12" TopLine="153"/>
+        <Filename Value="../base_pm/utaskplan.pas"/>
+        <Caret Line="543" Column="22" TopLine="921"/>
       </Position27>
       <Position28>
-        <Filename Value="../base_pm/utaskedit.pas"/>
-        <Caret Line="133" Column="39" TopLine="125"/>
+        <Filename Value="../base_pm/utaskplan.pas"/>
+        <Caret Line="933" Column="24" TopLine="921"/>
       </Position28>
       <Position29>
-        <Filename Value="../base_pm/utaskedit.pas"/>
-        <Caret Line="163" Column="1" TopLine="150"/>
+        <Filename Value="../base_pm/utaskplan.pas"/>
+        <Caret Line="935" Column="1" TopLine="921"/>
       </Position29>
       <Position30>
-        <Filename Value="../base_pm/utaskedit.pas"/>
-        <Caret Line="165" Column="13" TopLine="145"/>
+        <Filename Value="../base_pm/utaskplan.pas"/>
+        <Caret Line="936" Column="1" TopLine="921"/>
       </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">

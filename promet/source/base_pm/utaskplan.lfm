@@ -365,9 +365,8 @@ inherited fTaskPlan: TfTaskPlan
         AutoSize = False
         BorderSpacing.Left = 5
         Caption = 'Übernehmen'
-        Font.Color = clSkyBlue
+        Font.Color = clMedGray
         Font.Height = 11
-        Font.Style = [fsBold]
         ParentColor = False
         ParentFont = False
       end

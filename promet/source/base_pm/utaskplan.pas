@@ -154,6 +154,7 @@ type
     aClickPoint: types.TPoint;
     FSelectedUser : TInterval;
     FTaskView: TfTaskFrame;
+    FSelectedInt : TInterval;
   public
     { public declarations }
     constructor Create(TheOwner: TComponent); override;
@@ -539,6 +540,7 @@ var
   i: Integer;
   ay: Integer;
 begin
+  FSelectedInt := nil;
   List := TList.Create;
   FGantt.MakeIntervalList(List);
   for i := 0 to List.Count-1 do
@@ -556,6 +558,7 @@ begin
         TInterval(List[ay]).FinishDate:=TInterval(TMenuItem(Sender).Tag).FinishDate;
         TInterval(List[ay]).Pointer2 := TInterval(TMenuItem(Sender).Tag);
         FSelectedUser := TInterval(List[ay]);
+        FSelectedInt := TInterval(TMenuItem(Sender).Tag);
         TInterval(List[ay]).OnChanged:=@TIntervalChanged;
         FGantt.Invalidate;
       end;
@@ -927,29 +930,14 @@ var
   aTask: TTask;
   gView : TfGanttView;
 begin
-  aLink := GetTaskFromCoordinates(FGantt,aClickPoint.X,aClickPoint.Y,TMenuItem(Sender).Tag);
-  if aLink <> '' then
+  if Assigned(FSelectedInt) then
     begin
-      aInt := GetTaskIntervalFromCoordinates(FGantt,aClickPoint.X,aClickPoint.Y,TMenuItem(Sender).Tag);
-      if Assigned(aInt) then
+      aEdit :=TfTaskEdit.Create(nil);
+      if aEdit.Execute('TASKS@'+VarToStr(FSelectedInt.Id)) then
         begin
-          if (not aInt.Changed) or (MessageDlg(strSaveTaskChanges,mtInformation,[mbYes,mbNo],0) = mrYes) then
-            begin
-              if aInt.Changed then
-                ChangeTask(FTasks,aInt);
-              aEdit :=TfTaskEdit.Create(nil);
-              if aEdit.Execute(aLink) then
-                begin
-                  aTask := TTask.Create(nil,Data);
-                  aTask.SelectFromLink(aLink);
-                  aTask.Open;
-                  //FillInterval(TPInterval(aInt),aTask);
-                  aTask.Free;
-                  FGantt.Calendar.Invalidate;
-                  aEdit.Free;
-                end;
-            end;
+          bRefresh.Click;
         end;
+      aEdit.Free;
     end;
 end;
 
@@ -1048,6 +1036,7 @@ begin
   if pmTask.Items.Count=1 then
     begin
       aInt := GetIntervalFromCoordinates(FGantt,aClickPoint.X,aClickPoint.Y,0);
+      FSelectedInt := aInt;
       ay := aClickPoint.Y-FGantt.Calendar.StartDrawIntervals;
       ay := ay div max(FGantt.Calendar.PixelsPerLine,1);
       ay := ay+(FGantt.Tree.TopRow-1);
