@@ -729,6 +729,7 @@ var
   aWiki: TWikiList;
   aID: String;
   aTmp1: String;
+  aBaseHist: TBaseHistory;
 begin
   Result := '';
   with BaseApplication as IBaseDbInterface do
@@ -850,7 +851,14 @@ begin
             end;
           FreeAndNil(aTable);
         end
-      ;
+      else if copy(aLink, 0, pos('@', aLink) - 1) = 'HISTORY' then
+        begin
+          aBaseHist := TBaseHistory.Create(nil,Data);
+          aBaseHist.SelectFromLink(aLink);
+          aBaseHist.Open;
+          Result := GetLinkLongDesc(aBaseHist.FieldByName('OBJECT').AsString);
+          aBaseHist.Free;
+        end;
       if length(Result) > 300 then
         result := copy(Result,0,300)+lineending+' ...';
     end;
