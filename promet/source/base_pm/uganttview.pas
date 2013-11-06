@@ -375,37 +375,35 @@ procedure TfGanttView.bMoveBackClick(Sender: TObject);
     Result := 0;
     if not assigned(aInterval) then exit;
     for c := 0 to aInterval.ConnectionCount-1 do
-      begin
-        DoMoveBack(aInterval.Connection[c],aInterval);
-        if Assigned(aConn) then
-          begin
-            bSubInterval := aInterval;
-            bMasterInterval := aConn;
-            aTmp := (bMasterInterval.FinishDate+bMasterInterval.Buffer)-bSubInterval.StartDate;
-            if (aTmp > Result) or (Result=0) then Result := aTmp;
-            if aTmp>0 then
-              begin
-                bMasterInterval.BeginUpdate;
-                bDur := bMasterInterval.Duration;
-                aDur := bMasterInterval.NetTime;
-                aDur := aDur/bMasterInterval.ResourceTimePerDay;
-                if aDur<1 then aDur:=1;
-                //Add Weekends
-                for d := trunc(bMasterInterval.StartDate) to trunc(bMasterInterval.StartDate+aDur) do
-                  if ((DayOfWeek(d)=1) or (DayOfWeek(d)=7)) then
-                    aDur := aDur+1;
-                bMasterInterval.FinishDate:=bSubInterval.StartDate-bMasterInterval.Buffer;
-                if aDur<bDur then
-                  bMasterInterval.StartDate:=bMasterInterval.FinishDate-aDur
-                else
-                  bMasterInterval.StartDate:=bMasterInterval.FinishDate-bDur;
-                IsMoved := True;
-                bMasterInterval.EndUpdate;
-              end;
-          end;
-      end;
+      DoMoveBack(aInterval.Connection[c],aInterval);
     for c := 0 to aInterval.IntervalCount-1 do
       DoMoveBack(aInterval.Interval[c],aConn);
+    if Assigned(aConn) then
+      begin
+        bSubInterval := aInterval;
+        bMasterInterval := aConn;
+        aTmp := (bMasterInterval.FinishDate+bMasterInterval.Buffer)-bSubInterval.StartDate;
+        if (aTmp > Result) or (Result=0) then Result := aTmp;
+        if aTmp>0 then
+          begin
+            bMasterInterval.BeginUpdate;
+            bDur := bMasterInterval.Duration;
+            aDur := bMasterInterval.NetTime;
+            aDur := aDur/bMasterInterval.ResourceTimePerDay;
+            if aDur<1 then aDur:=1;
+            //Add Weekends
+            for d := trunc(bMasterInterval.StartDate) to trunc(bMasterInterval.StartDate+aDur) do
+              if ((DayOfWeek(d)=1) or (DayOfWeek(d)=7)) then
+                aDur := aDur+1;
+            bMasterInterval.FinishDate:=bSubInterval.StartDate-bMasterInterval.Buffer;
+            if aDur<bDur then
+              bMasterInterval.StartDate:=bMasterInterval.FinishDate-aDur
+            else
+              bMasterInterval.StartDate:=bMasterInterval.FinishDate-bDur;
+            IsMoved := True;
+            bMasterInterval.EndUpdate;
+          end;
+      end;
   end;
 var
   i: Integer;
