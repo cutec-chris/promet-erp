@@ -95,7 +95,7 @@ type
     property OnChange : TNotifyEvent read FOnChanged write FOnChanged;
     property OnRemove : TNotifyEvent read FOnRemoved write FOnRemoved;
   end;
-  TBaseHistory = class(TBaseDBDataSet)
+  TBaseHistory = class(TBaseDBDataSet,ISearchableDataSet)
   private
     FHChanged: Boolean;
     FShouldChange : Boolean;

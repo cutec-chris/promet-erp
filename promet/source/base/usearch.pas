@@ -57,6 +57,8 @@ type
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
+    Panel1: TPanel;
+    Panel5: TPanel;
     pTop: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
