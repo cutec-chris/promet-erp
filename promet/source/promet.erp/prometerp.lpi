@@ -588,7 +588,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="21"/>
         <CursorPos X="57" Y="142"/>
-        <UsageCount Value="89"/>
+        <UsageCount Value="88"/>
       </Unit28>
       <Unit29>
         <Filename Value="uarticleframe.pas"/>
@@ -1647,7 +1647,7 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="388"/>
+        <TopLine Value="385"/>
         <CursorPos X="1" Y="411"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>

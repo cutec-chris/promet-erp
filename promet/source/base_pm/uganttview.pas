@@ -408,8 +408,7 @@ procedure TfGanttView.bMoveBack1Click(Sender: TObject);
                   Connection[i].Interval[c].EndUpdate;
                 end;
             Connection[i].StartDate:=FinishDate+aBuffer;
-            if Connection[i].FinishDate<Connection[i].StartDate+oD then
-              Connection[i].FinishDate:=Connection[i].StartDate+oD;
+            Connection[i].FinishDate:=Connection[i].StartDate+oD;
             Connection[i].IntervalDone:=Connection[i].StartDate;
             Connection[i].EndUpdate;
           end;
