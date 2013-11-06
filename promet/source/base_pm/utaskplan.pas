@@ -710,6 +710,9 @@ begin
       aDay := aStart+i;
       if (DayOfWeek(aDay) = 1) or (DayOfWeek(aDay) = 7) then
         aCanvas.FillRect(round(i*aDayWidth),aRect.Top+1,round((i*aDayWidth)+aDayWidth),aRect.Bottom);
+      aCanvas.Brush.Color:=$0000e0;
+      if (trunc(aDay) = trunc(Now())) then
+        aCanvas.FillRect(round(i*aDayWidth),aRect.Top+1,round((i*aDayWidth)+aDayWidth),aRect.Bottom);
     end;
   if Assigned(TInterval(Sender).Pointer) then
     begin
