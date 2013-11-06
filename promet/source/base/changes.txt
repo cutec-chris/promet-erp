@@ -1,4 +1,6 @@
-﻿Build 288
+﻿Build 289
+      - Austausch von Suchtypen und "Suche in" in Suchfenster
+Build 288
       - Bildimport für Kameras über gphoto2 implementiert
       - Bilder/Dokumente können nun im Dokumentenmanagement direkt gedreht werden
       - Mehrere Einträge im Suchfenster können als Verknüpfung kopiert werden

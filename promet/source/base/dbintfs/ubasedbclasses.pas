@@ -95,30 +95,7 @@ type
     property OnChange : TNotifyEvent read FOnChanged write FOnChanged;
     property OnRemove : TNotifyEvent read FOnRemoved write FOnRemoved;
   end;
-  TBaseHistory = class(TBaseDBDataSet,ISearchableDataSet)
-  private
-    FHChanged: Boolean;
-    FShouldChange : Boolean;
-  public
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
-    procedure SetDisplayLabels(aDataSet: TDataSet); override;
-    property ChangedDuringSession : Boolean read FHChanged write FHChanged;
-    procedure DefineFields(aDataSet : TDataSet);override;
-    procedure Change; override;
-    procedure AddItem(aObject: TDataSet; aAction: string; aLink: string='';
-      aReference: string=''; aRefObject: TDataSet=nil; aIcon: Integer=0;
-  aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True;
-  DoChange: Boolean=False); virtual;
-    procedure AddItemWithoutUser(aObject : TDataSet;aAction : string;aLink : string = '';aReference : string = '';aRefObject : TDataSet = nil;aIcon : Integer = 0;aComission : string = '';CheckDouble: Boolean=True;DoPost : Boolean = True;DoChange : Boolean = False);virtual;
-  end;
-  IBaseHistory = interface['{8BA16E96-1A06-49E2-88B1-301CF9E5C8FC}']
-    function GetHistory: TBaseHistory;
-    property History : TBaseHistory read GetHistory;
-  end;
   TReplaceFieldFunc = procedure(aField : TField;aOldValue : string;var aNewValue : string);
-
-  { TBaseDbList }
-
   TBaseDbList = class(TBaseDBDataSet)
   private
     function GetBookNumber: TField;
@@ -162,6 +139,28 @@ type
   end;
   TBaseDBDatasetClass = class of TBaseDBDataset;
   TBaseDBListClass = class of TBaseDBList;
+  TBaseHistory = class(TBaseDBList)
+  private
+    FHChanged: Boolean;
+    FShouldChange : Boolean;
+  public
+    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    procedure SetDisplayLabels(aDataSet: TDataSet); override;
+    property ChangedDuringSession : Boolean read FHChanged write FHChanged;
+    procedure DefineFields(aDataSet : TDataSet);override;
+    procedure Change; override;
+    procedure AddItem(aObject: TDataSet; aAction: string; aLink: string='';
+      aReference: string=''; aRefObject: TDataSet=nil; aIcon: Integer=0;
+  aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True;
+  DoChange: Boolean=False); virtual;
+    procedure AddItemWithoutUser(aObject : TDataSet;aAction : string;aLink : string = '';aReference : string = '';aRefObject : TDataSet = nil;aIcon : Integer = 0;aComission : string = '';CheckDouble: Boolean=True;DoPost : Boolean = True;DoChange : Boolean = False);virtual;
+    function GetTextFieldName: string;override;
+    function GetNumberFieldName : string;override;
+  end;
+  IBaseHistory = interface['{8BA16E96-1A06-49E2-88B1-301CF9E5C8FC}']
+    function GetHistory: TBaseHistory;
+    property History : TBaseHistory read GetHistory;
+  end;
   TOptions = class;
   TRights = class;
 
@@ -1077,6 +1076,7 @@ begin
             Add('REF_ID','REF_ID',[]);
             Add('REFERENCE','REFERENCE',[]);
             Add('LINK','LINK',[]);
+            Add('ACTION','ACTION',[]);
             Add('TIMESTAMPD','TIMESTAMPD',[]);
           end;
     end;
@@ -1186,6 +1186,16 @@ begin
           Change;
         end;
     end;
+end;
+
+function TBaseHistory.GetTextFieldName: string;
+begin
+  Result := 'ACTION';
+end;
+
+function TBaseHistory.GetNumberFieldName: string;
+begin
+  Result := 'REFERENCE';
 end;
 
 procedure TActiveUsers.DefineFields(aDataSet: TDataSet);

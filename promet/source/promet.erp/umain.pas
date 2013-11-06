@@ -818,6 +818,7 @@ begin
       Synchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfFilter,strMeetingList,@fMain.AddMeetingList,-1,True);
       Data.RegisterLinkHandler('MEETINGS',@fMainTreeFrame.OpenLink);
+      AddSearchAbleDataSet(TMeetings);
     end;
   //Inventory
   if (Data.Users.Rights.Right('INVENTORY') > RIGHT_NONE) then
@@ -834,6 +835,12 @@ begin
   //Timeregistering
   Synchronize(@AddTimeReg2);
   AddSearchAbleDataSet(TUser);
+  //History
+  if Data.Users.Rights.Right('DOCUMENTS') > RIGHT_NONE then
+    begin
+      AddSearchAbleDataSet(TBaseHistory);
+      Data.RegisterLinkHandler('HISTORY',@fMainTreeFrame.OpenLink);
+    end;
   {$IFDEF CPU32}
   uSkypePhone.RegisterPhoneLines;
   {$ENDIF}
@@ -2233,6 +2240,7 @@ var
   aDoc: TDocuments;
   aDocs: TTabSheet;
   FTaskEdit: TfTaskEdit;
+  aBaseHist: TBaseHistory;
 begin
   Result := False;
   Screen.Cursor:=crHourGlass;
@@ -2249,7 +2257,6 @@ begin
               exit;
             end;
     end;
-  FHistory.Add(aLink);
   if copy(aLink,0,8) = 'CUSTOMER' then
     begin
       aFrame := TfPersonFrame.Create(Self);
@@ -2377,6 +2384,15 @@ begin
         end;
       TfFilter(aFrame).Open;
     end
+  else if (copy(aLink,0,8) = 'HISTORY@') then
+    begin
+      aBaseHist := TBaseHistory.Create(nil,Data);
+      aBaseHist.SelectFromLink(aLink);
+      abaseHist.Open;
+      aLink := aBaseHist.FieldByName('OBJECT').AsString;
+      aBaseHist.Free;
+      Data.GotoLink(aLink);
+    end
   else if (copy(aLink,0,9) = 'DOCUMENTS') then
     begin
       aDoc:=TDocuments.Create(Self,Data);
@@ -2481,6 +2497,8 @@ begin
     end
   else Data.GotoLink(aLink)
   ;
+  if Result then
+    FHistory.Add(aLink);
   Screen.Cursor:=crDefault;
 end;
 procedure TfMain.fMainTreeFrameSelectionChanged(aEntry: TTreeEntry);
