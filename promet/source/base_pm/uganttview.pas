@@ -139,7 +139,6 @@ uses uData,LCLIntf,uBaseDbClasses,uTaskEdit,variants,LCLProc,uTaskPlan,
   uIntfStrConsts,uColors,uBaseDBInterface,Grids;
 {$R *.lfm}
 resourcestring
-  strSaveChanges                          = 'Um die Aufgabe zu bearbeiten müssen alle Änderungen gespeichert werden, Sollen alle Änderungen gespeichert werden ?';
   strSnapshot                             = 'Snapshot';
   strNoSnapshot                           = '<keiner>';
 procedure TfGanttView.FGanttTreeAfterUpdateCommonSettings(Sender: TObject);
@@ -682,26 +681,26 @@ begin
   aLink := TP.GetTaskFromCoordinates(FGantt,aClickPoint.X,aClickPoint.Y,aSelInterval);
   if aLink <> '' then
     begin
-      aEdit :=TfTaskEdit.Create(nil);
-      if aEdit.Execute(aLink) then
+      aInt := TP.GetTaskIntervalFromCoordinates(FGantt,aClickPoint.X,aClickPoint.Y,aSelInterval);
+      if Assigned(aInt) then
         begin
-          aInt := TP.GetTaskIntervalFromCoordinates(FGantt,aClickPoint.X,aClickPoint.Y,aSelInterval);
-          if Assigned(aInt) then
+          if (not aInt.Changed) or (MessageDlg(strSaveTaskChanges,mtInformation,[mbYes,mbNo],0) = mrYes) then
             begin
-              if (not aInt.Changed) or (MessageDlg(strSaveChanges,mtInformation,[mbYes,mbNo],0) = mrYes) then
+              if aInt.Changed then
+                ChangeTask(FTasks,aInt);
+              aEdit :=TfTaskEdit.Create(nil);
+              if aEdit.Execute(aLink) then
                 begin
-                  if aInt.Changed then
-                    ChangeTask(FTasks,aInt);
                   aTask := TTask.Create(nil,Data);
                   aTask.SelectFromLink(aLink);
                   aTask.Open;
                   FillInterval(TPInterval(aInt),aTask);
                   aTask.Free;
                   FGantt.Calendar.Invalidate;
+                  aEdit.Free;
                 end;
             end;
         end;
-      aEdit.Free;
     end;
 end;
 procedure TfGanttView.bMonthViewClick(Sender: TObject);

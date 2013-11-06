@@ -180,7 +180,8 @@ type
     constructor Create(aPlan : TfTaskPlan;aResource : TRessource;asUser : string;AttatchTo : TInterval = nil);
   end;
 procedure ChangeTask(aTasks: TTaskList;aTask : TInterval);
-
+resourcestring
+  strSaveTaskChanges                      = 'Um die Aufgabe zu bearbeiten müssen alle Änderungen gespeichert werden, Sollen alle Änderungen gespeichert werden ?';
 implementation
 uses uData,LCLIntf,uBaseDbClasses,uProjects,uTaskEdit,LCLProc,uGanttView,uColors,
   uCalendar,uTaskPlanOptions;
@@ -929,21 +930,26 @@ begin
   aLink := GetTaskFromCoordinates(FGantt,aClickPoint.X,aClickPoint.Y,TMenuItem(Sender).Tag);
   if aLink <> '' then
     begin
-      aEdit :=TfTaskEdit.Create(nil);
-      if aEdit.Execute(aLink) then
+      aInt := GetTaskIntervalFromCoordinates(FGantt,aClickPoint.X,aClickPoint.Y,TMenuItem(Sender).Tag);
+      if Assigned(aInt) then
         begin
-          aInt := GetIntervalFromCoordinates(FGantt,aClickPoint.X,aClickPoint.Y,TMenuItem(Sender).Tag);
-          if Assigned(aInt) then
+          if (not aInt.Changed) or (MessageDlg(strSaveTaskChanges,mtInformation,[mbYes,mbNo],0) = mrYes) then
             begin
-              aTask := TTask.Create(nil,Data);
-              aTask.SelectFromLink(aLink);
-              aTask.Open;
-              gView.FillInterval(TPInterval(aInt),aTask);
-              aTask.Free;
-              FGantt.Calendar.Invalidate;
+              if aInt.Changed then
+                ChangeTask(FTasks,aInt);
+              aEdit :=TfTaskEdit.Create(nil);
+              if aEdit.Execute(aLink) then
+                begin
+                  aTask := TTask.Create(nil,Data);
+                  aTask.SelectFromLink(aLink);
+                  aTask.Open;
+                  //FillInterval(TPInterval(aInt),aTask);
+                  aTask.Free;
+                  FGantt.Calendar.Invalidate;
+                  aEdit.Free;
+                end;
             end;
         end;
-      aEdit.Free;
     end;
 end;
 
