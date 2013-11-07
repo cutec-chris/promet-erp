@@ -105,6 +105,7 @@ type
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormShow(Sender: TObject);
     function fSearchOpenUserItem(aLink: string): Boolean;
+    procedure TfHistoryFrameAddUserMessage(Sender: TObject);
     procedure TfListFrameFListgListDrawColumnCell(Sender: TObject;
       const Rect: TRect; DataCol: Integer; Column: TColumn;
       State: TGridDrawState);
@@ -130,7 +131,7 @@ type
 implementation
 uses uData,uDocumentFrame,uDocuments,uLinkFrame,uprometframesinplace,
   uListFrame,uBaseVisualControls,ClipBrd,uBaseVisualApplication,
-  uError,utasks,uSearch,uBaseDbClasses;
+  uError,utasks,uSearch,uBaseDbClasses,uhistoryadditem,uBaseDBInterface;
 resourcestring
   strDependencies               = 'Abhängigkeiten';
   strClassTask                  = 'T Aufgabe';
@@ -173,6 +174,21 @@ begin
       FDataSet.FieldByName('USER').Clear;
     end;
   aUSer.Free;
+end;
+
+procedure TfTaskEdit.TfHistoryFrameAddUserMessage(Sender: TObject);
+var
+  aOwner: String;
+  aUser: TUser;
+begin
+  aUser := TUser.Create(nil,Data);
+  aUser.SelectByAccountno(FDataSet.FieldByName('OWNER').AsString);
+  aUser.Open;
+  if aUser.Count>0 then
+    begin
+      aUser.History.AddItem(FDataSet.DataSet,TfHistoryAddItem(Sender).eAction.Text,'',TfHistoryAddItem(Sender).eReference.Text,FDataSet.DataSet,ACICON_USEREDITED,'',True,True);
+    end;
+  aUser.Free;
 end;
 
 procedure TfTaskEdit.acPasteLinkExecute(Sender: TObject);
@@ -393,6 +409,7 @@ begin
   TfHistoryFrame(Sender).BaseName:='TASK';
   TfHistoryFrame(Sender).DataSet := TTask(FDataSet).History;
   TPrometInplaceFrame(Sender).SetRights(FEditable);
+  TfHistoryFrame(Sender).OnAddUserMessage:=@TfHistoryFrameAddUserMessage;
 end;
 procedure TfTaskEdit.AddList(Sender: TObject);
 begin
@@ -430,6 +447,7 @@ begin
   FHistoryFrame := TfHistoryFrame.Create(Self);
   FHistoryFrame.Parent := pHist;
   FHistoryFrame.Align:=alClient;
+  FHistoryFrame.OnAddUserMessage:=@TfHistoryFrameAddUserMessage;
 end;
 destructor TfTaskEdit.Destroy;
 begin

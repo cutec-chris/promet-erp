@@ -62,6 +62,7 @@ type
     { private declarations }
 //    FContList: TfFilter;
     FGridView : TfGridView;
+    FOnAddUserMessage: TNotifyEvent;
     procedure SetBaseName(const AValue: string);
     procedure RestoreButtons;
   protected
@@ -73,6 +74,7 @@ type
     procedure SetDataSet(const AValue: TBaseDBDataSet);override;
     procedure SetRights(Editable : Boolean);override;
     procedure ShowFrame; override;
+    property OnAddUserMessage : TNotifyEvent read FOnAddUserMessage write FOnAddUserMessage;
   end;
 implementation
 uses uBaseVisualControls,Graphics,uData,uBaseDbInterface,uHistoryAddItem,
@@ -119,8 +121,13 @@ procedure TfHistoryFrame.acAddExecute(Sender: TObject);
 begin
   if fHistoryAddItem.Execute then
     begin
-      TBaseHistory(DataSet).AddItem(Data.Users.DataSet,fHistoryAddItem.eAction.Text,'',fHistoryAddItem.eReference.Text,nil,ACICON_USEREDITED,'',True,True);
+      if Assigned(TBaseHistory(DataSet).Parent) then
+        TBaseHistory(DataSet).AddItem(Data.Users.DataSet,fHistoryAddItem.eAction.Text,'',fHistoryAddItem.eReference.Text,TBaseHistory(DataSet).Parent.DataSet,ACICON_USEREDITED,'',True,True)
+      else
+        TBaseHistory(DataSet).AddItem(Data.Users.DataSet,fHistoryAddItem.eAction.Text,'',fHistoryAddItem.eReference.Text,nil,ACICON_USEREDITED,'',True,True);
       FGridView.Refresh;
+      if Assigned(FOnAddUserMessage) then
+        FOnAddUserMessage(fHistoryAddItem);
     end;
 end;
 procedure TfHistoryFrame.aButtonClick(Sender: TObject);
@@ -163,6 +170,8 @@ begin
         aLink := copy(aLink,0,pos(';',aLink)-1);
       Stream.Free;
       TBaseHistory(DataSet).AddItem(Data.Users.DataSet,fHistoryAddItem.eAction.Text,aLink,fHistoryAddItem.eReference.Text,nil,ACICON_USEREDITED,'',True,True);
+      if Assigned(FOnAddUserMessage) then
+        FOnAddUserMessage(fHistoryAddItem);
       FGridView.Refresh;
     end;
 end;
