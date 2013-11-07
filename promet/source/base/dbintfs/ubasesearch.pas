@@ -208,6 +208,7 @@ begin
                   if Lists[i] is TBaseHistory then
                     aFilter += ' AND (('+Data.ProcessTerm(Data.QuoteField('OBJECT')+'='+Data.QuoteValue('PROJECTS@*'))+') OR ('+Data.ProcessTerm(Data.QuoteField('OBJECT')+'='+Data.QuoteValue('MASTERDATA@*'))+'))';
                   aFilter := copy(aFilter,pos(' ',aFilter)+1,length(aFilter));
+                  aFilter := copy(aFilter,pos(' ',aFilter)+1,length(aFilter));
                   if aFilter <> '' then
                     begin
                       SortFields:='';
