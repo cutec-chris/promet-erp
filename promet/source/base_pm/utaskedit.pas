@@ -186,7 +186,7 @@ begin
   aUser.Open;
   if aUser.Count>0 then
     begin
-      aUser.History.AddItem(FDataSet.DataSet,TfHistoryAddItem(Sender).eAction.Text,'',TfHistoryAddItem(Sender).eReference.Text,FDataSet.DataSet,ACICON_USEREDITED,'',True,True);
+      aUser.History.AddItem(FDataSet.DataSet,TfHistoryAddItem(Sender).eAction.Text,Data.BuildLink(FDataSet.DataSet),TfHistoryAddItem(Sender).eReference.Text,FDataSet.DataSet,10,'',True,True);
     end;
   aUser.Free;
 end;

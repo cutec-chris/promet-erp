@@ -205,7 +205,9 @@ begin
                     aFilter += ' OR ('+Data.ProcessTerm(EncodeField(Data,Lists[i].GetCommissionFieldName)+' = '+EncodeValue(Data,SearchText))+')';
                   if (aType = fsDescription) and (fsDescription in FSearchTypes) and (Lists[i].GetDescriptionFieldName <> '') then
                     aFilter += ' OR ('+Data.ProcessTerm(CastText(Data,Lists[i].GetDescriptionFieldName)+' = '+EncodeValue(Data,SearchText))+')';
-                  aFilter := copy(aFilter,4,length(aFilter));
+                  if Lists[i] is TBaseHistory then
+                    aFilter += ' AND (('+Data.ProcessTerm(Data.QuoteField('OBJECT')+'='+Data.QuoteValue('PROJECTS@*'))+') OR ('+Data.ProcessTerm(Data.QuoteField('OBJECT')+'='+Data.QuoteValue('MASTERDATA@*'))+'))';
+                  aFilter := copy(aFilter,pos(' ',aFilter)+1,length(aFilter));
                   if aFilter <> '' then
                     begin
                       SortFields:='';
