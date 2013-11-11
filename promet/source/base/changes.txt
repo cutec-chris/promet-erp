@@ -1,5 +1,6 @@
 ﻿Build 289
       - Austausch von Suchtypen und "Suche in" in Suchfenster
+      - Verantwortliche bekommen Nachricht sobald jemand an "ihren" Aufgaben einen Verlaufeintrag erzeugt
 Build 288
       - Bildimport für Kameras über gphoto2 implementiert
       - Bilder/Dokumente können nun im Dokumentenmanagement direkt gedreht werden
