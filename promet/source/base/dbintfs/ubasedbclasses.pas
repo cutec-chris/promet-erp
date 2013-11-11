@@ -1076,7 +1076,6 @@ begin
             Add('REF_ID','REF_ID',[]);
             Add('REFERENCE','REFERENCE',[]);
             Add('LINK','LINK',[]);
-            Add('ACTION','ACTION',[]);
             Add('TIMESTAMPD','TIMESTAMPD',[]);
           end;
     end;

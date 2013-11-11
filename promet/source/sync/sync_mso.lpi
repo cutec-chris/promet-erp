@@ -16,12 +16,12 @@
       <StringTable ProductVersion=""/>
     </VersionInfo>
     <MacroValues Count="1">
-      <Macro1 Name="LCLWidgetType" Value="nogui"/>
+      <Macro1 Name="LCLWidgetType" Value="win32"/>
     </MacroValues>
     <BuildModes Count="1">
       <Item1 Name="default" Default="True"/>
       <SharedMatrixOptions Count="1">
-        <Item1 ID="021010899832" Modes="default" Type="IDEMacro" MacroName="LCLWidgetType" Value="nogui"/>
+        <Item1 ID="838569032399" Modes="default" Type="IDEMacro" MacroName="LCLWidgetType" Value="win32"/>
       </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>
@@ -48,16 +48,15 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="144">
+    <Units Count="145">
       <Unit0>
         <Filename Value="sync_mso.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="traceimport"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="526"/>
-        <CursorPos X="1" Y="542"/>
+        <TopLine Value="1070"/>
+        <CursorPos X="30" Y="1088"/>
         <FoldState Value=" T3mg2{R1 T0z9C}R TL+f2SX"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -471,7 +470,7 @@
       <Unit55>
         <Filename Value="mapi\MapiServices.pas"/>
         <UnitName Value="MapiServices"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1849"/>
         <CursorPos X="1" Y="1868"/>
@@ -806,25 +805,28 @@
       <Unit97>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1216"/>
-        <CursorPos X="1" Y="1237"/>
+        <CursorPos X="58" Y="1234"/>
         <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit97>
       <Unit98>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1345"/>
-        <CursorPos X="3" Y="1347"/>
+        <TopLine Value="1054"/>
+        <CursorPos X="1" Y="1079"/>
         <UsageCount Value="22"/>
+        <Loaded Value="True"/>
       </Unit98>
       <Unit99>
         <Filename Value="..\base\dbintfs\usync.pas"/>
         <UnitName Value="usync"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="49"/>
         <CursorPos X="22" Y="69"/>
@@ -983,10 +985,12 @@
       <Unit119>
         <Filename Value="..\base\dbintfs\utask.pas"/>
         <UnitName Value="utask"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="621"/>
-        <CursorPos X="88" Y="638"/>
+        <TopLine Value="55"/>
+        <CursorPos X="26" Y="72"/>
         <UsageCount Value="22"/>
+        <Loaded Value="True"/>
       </Unit119>
       <Unit120>
         <Filename Value="C:\Programme\lazarus\components\lazutils\fileutil.inc"/>
@@ -1048,7 +1052,7 @@
       <Unit127>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
         <UnitName Value="uBaseCustomApplication"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="34"/>
         <CursorPos X="3" Y="28"/>
@@ -1184,6 +1188,17 @@
         <CursorPos X="3" Y="116"/>
         <UsageCount Value="10"/>
       </Unit143>
+      <Unit144>
+        <Filename Value="..\components\zeos\src\plain\ZPlainDbLibDriver.pas"/>
+        <UnitName Value="ZPlainDbLibDriver"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="571"/>
+        <CursorPos X="33" Y="599"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit144>
     </Units>
     <Build>
       <CleanOutputFileMask Value="*.ppu;*.ppl;*.o;*.or;*.rc"/>
@@ -1191,123 +1206,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1037" Column="1" TopLine="1022"/>
+        <Caret Line="1062" Column="1" TopLine="1049"/>
       </Position1>
       <Position2>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1040" Column="1" TopLine="1034"/>
+        <Caret Line="1063" Column="1" TopLine="1049"/>
       </Position2>
       <Position3>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1059" Column="1" TopLine="1034"/>
+        <Caret Line="1064" Column="1" TopLine="1049"/>
       </Position3>
       <Position4>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1061" Column="1" TopLine="1049"/>
+        <Caret Line="1067" Column="1" TopLine="1049"/>
       </Position4>
       <Position5>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1062" Column="1" TopLine="1049"/>
+        <Caret Line="1068" Column="1" TopLine="1049"/>
       </Position5>
       <Position6>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1063" Column="1" TopLine="1049"/>
+        <Caret Line="1069" Column="1" TopLine="1049"/>
       </Position6>
       <Position7>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1064" Column="1" TopLine="1049"/>
+        <Caret Line="1070" Column="1" TopLine="1049"/>
       </Position7>
       <Position8>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1067" Column="1" TopLine="1049"/>
+        <Caret Line="1095" Column="1" TopLine="1077"/>
       </Position8>
       <Position9>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1068" Column="1" TopLine="1049"/>
+        <Caret Line="1097" Column="1" TopLine="1077"/>
       </Position9>
       <Position10>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1069" Column="1" TopLine="1049"/>
+        <Caret Line="1104" Column="1" TopLine="1077"/>
       </Position10>
       <Position11>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1070" Column="1" TopLine="1049"/>
+        <Caret Line="1105" Column="1" TopLine="1077"/>
       </Position11>
       <Position12>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1095" Column="1" TopLine="1077"/>
+        <Caret Line="1107" Column="1" TopLine="1077"/>
       </Position12>
       <Position13>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1097" Column="1" TopLine="1077"/>
+        <Caret Line="1125" Column="1" TopLine="1107"/>
       </Position13>
       <Position14>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1104" Column="1" TopLine="1077"/>
+        <Caret Line="1127" Column="1" TopLine="1107"/>
       </Position14>
       <Position15>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1105" Column="1" TopLine="1077"/>
+        <Caret Line="1128" Column="1" TopLine="1107"/>
       </Position15>
       <Position16>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1107" Column="1" TopLine="1077"/>
+        <Caret Line="1129" Column="1" TopLine="1107"/>
       </Position16>
       <Position17>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1125" Column="1" TopLine="1107"/>
+        <Caret Line="1237" Column="73" TopLine="1002"/>
       </Position17>
       <Position18>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1127" Column="1" TopLine="1107"/>
+        <Caret Line="1020" Column="1" TopLine="1003"/>
       </Position18>
       <Position19>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1128" Column="1" TopLine="1107"/>
+        <Caret Line="1021" Column="1" TopLine="1003"/>
       </Position19>
       <Position20>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1129" Column="1" TopLine="1107"/>
+        <Caret Line="1022" Column="1" TopLine="1003"/>
       </Position20>
       <Position21>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1237" Column="73" TopLine="1002"/>
+        <Caret Line="1029" Column="151" TopLine="1011"/>
       </Position21>
       <Position22>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1020" Column="1" TopLine="1003"/>
+        <Caret Line="1199" Column="54" TopLine="1166"/>
       </Position22>
       <Position23>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1021" Column="1" TopLine="1003"/>
+        <Caret Line="1087" Column="73" TopLine="1063"/>
       </Position23>
       <Position24>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1022" Column="1" TopLine="1003"/>
+        <Caret Line="1057" Column="88" TopLine="1037"/>
       </Position24>
       <Position25>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1029" Column="151" TopLine="1011"/>
+        <Caret Line="1129" Column="3" TopLine="1111"/>
       </Position25>
       <Position26>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1199" Column="54" TopLine="1166"/>
+        <Caret Line="543" Column="48" TopLine="527"/>
       </Position26>
       <Position27>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1087" Column="73" TopLine="1063"/>
+        <Caret Line="542" Column="1" TopLine="484"/>
       </Position27>
       <Position28>
-        <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1057" Column="88" TopLine="1037"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1234" Column="58" TopLine="1216"/>
       </Position28>
       <Position29>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1129" Column="3" TopLine="1111"/>
+        <Caret Line="1088" Column="30" TopLine="1070"/>
       </Position29>
       <Position30>
-        <Filename Value="sync_mso.lpr"/>
-        <Caret Line="543" Column="48" TopLine="527"/>
+        <Filename Value="..\base\dbintfs\utask.pas"/>
+        <Caret Line="72" Column="26" TopLine="55"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
