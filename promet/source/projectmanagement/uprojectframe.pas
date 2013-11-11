@@ -576,8 +576,6 @@ begin
           TfTaskFrame(pcPages.ActivePage.Controls[0]).DoRefresh;
         end;
       FDataSet.CascadicCancel;
-//      Data.Rollback(FConnection);
-//      Data.StartTransaction(FConnection);
     end;
 end;
 procedure TfProjectFrame.acSaveExecute(Sender: TObject);
@@ -587,12 +585,10 @@ begin
       if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
         begin
           TfTaskFrame(pcPages.ActivePage.Controls[0]).Post;
-          TfTaskFrame(pcPages.ActivePage.Controls[0]).DataSet.CascadicPost;
-          TfTaskFrame(pcPages.ActivePage.Controls[0]).DoRefresh;
+          TfTaskFrame(pcPages.ActivePage.Controls[0]).acRefresh.Execute;
         end;
       FDataSet.CascadicPost;
-//      Data.Commit(FConnection);
-//      Data.StartTransaction(FConnection);
+
     end;
 end;
 procedure TfProjectFrame.acSetTreeDirExecute(Sender: TObject);
