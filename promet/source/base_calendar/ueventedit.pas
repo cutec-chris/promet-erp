@@ -94,6 +94,8 @@ type
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure AlarmAdvanceChange(Sender: TObject);
     procedure AdvanceUpDownClick(Sender: TObject; Button: TUDBtnType);
+    procedure fSelectReportReportGetValue(const ParName: String;
+      var ParValue: Variant);
     procedure RecurringTypeChange(Sender: TObject);
     procedure AlarmSetClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -142,6 +144,7 @@ begin
   FDataSet.SelectById(Event.RecordID);
   FDataSet.Open;
   fSelectReport.Report := Report;
+  fSelectReport.Report.OnGetValue:=@fSelectReportReportGetValue;
   fSelectReport.SetLanguage;
   //MandantDetails.DataSet := Data.MandantDetails.DataSet;
   //Data.MandantDetails.Open;
@@ -155,6 +158,7 @@ begin
       fSelectReport.ReportType := 'EVT';
     end;
   fSelectReport.Showmodal;
+  fSelectReport.Report.OnGetValue:=nil;
 end;
 
 procedure TfEventEdit.FormKeyDown(Sender: TObject; var Key: Word;
@@ -366,6 +370,22 @@ begin
   end;}
   AlarmAdvance.Text := IntToStr(AdvanceUpDown.Position);
 end;
+
+procedure TfEventEdit.fSelectReportReportGetValue(const ParName: String;
+  var ParValue: Variant);
+var
+  Result: Integer = 0;
+  i: Cardinal;
+begin
+  if Uppercase(ParName) = 'DURATION' then
+    begin
+      for i := trunc(FDataSet.FieldByName('STARTDATE').AsDateTime) to Trunc(FDataSet.FieldByName('ENDDATE').AsDateTime) do
+        if not ((DayOfWeek(i)=1) or (DayOfWeek(i)=7)) then
+          Result := Result+1;
+      ParValue := IntToStr(Result);
+    end;
+end;
+
 procedure TfEventEdit.RecurringTypeChange(Sender: TObject);
 begin
   if (RecurringType.ItemIndex > 0)
