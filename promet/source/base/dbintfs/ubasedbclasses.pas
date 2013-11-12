@@ -149,7 +149,11 @@ type
     property ChangedDuringSession : Boolean read FHChanged write FHChanged;
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure Change; override;
-    procedure AddItem(aObject: TDataSet; aAction: string; aLink: string='';
+    function AddItem(aObject: TDataSet; aAction: string; aLink: string='';
+      aReference: string=''; aRefObject: TDataSet=nil; aIcon: Integer=0;
+  aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True;
+  DoChange: Boolean=False) : Boolean; virtual;
+    procedure AddParentedItem(aObject: TDataSet; aAction: string;aParent : Variant; aLink: string='';
       aReference: string=''; aRefObject: TDataSet=nil; aIcon: Integer=0;
   aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True;
   DoChange: Boolean=False); virtual;
@@ -1064,16 +1068,19 @@ begin
             Add('LINK',ftString,200,False);
             Add('OBJECT',ftString,200,False);
             Add('ACTIONICON',ftInteger,0,False);
-            Add('ACTION',ftMemo,0,True);
+            Add('ACTION',ftString,1500,True);
             Add('REFERENCE', ftString,150,False);
             Add('REFOBJECT',ftString,200,False);
             Add('COMMISSION',ftString,60,False);
             Add('CHANGEDBY',ftString,4,False);
+            Add('PARENT',ftLargeInt,0,False);
           end;
       if Assigned(ManagedIndexdefs) then
         with ManagedIndexDefs do
           begin
             Add('REF_ID','REF_ID',[]);
+            Add('PARENT','PARENT',[]);
+            Add('ACTION','ACTION',[]);
             Add('REFERENCE','REFERENCE',[]);
             Add('LINK','LINK',[]);
             Add('TIMESTAMPD','TIMESTAMPD',[]);
@@ -1090,11 +1097,13 @@ begin
       FShouldCHange := False;
     end;
 end;
-procedure TBaseHistory.AddItem(aObject : TDataSet;aAction: string; aLink: string;
-  aReference: string;aRefObject : TDataSet; aIcon: Integer; aComission: string;CheckDouble : Boolean = True;DoPost : Boolean = True;DoChange : Boolean = False);
+function TBaseHistory.AddItem(aObject: TDataSet; aAction: string;
+  aLink: string; aReference: string; aRefObject: TDataSet; aIcon: Integer;
+  aComission: string; CheckDouble: Boolean; DoPost: Boolean; DoChange: Boolean) : Boolean;
 var
   tmp: String;
 begin
+  Result := False;
   if not DataSet.Active then
     Open;
   with DataSet do
@@ -1131,11 +1140,25 @@ begin
       DataSet.FieldByName('COMMISSION').AsString := aComission;
       if DoPost then
         Post;
+      result := True;
       if DoChange or (not DoPost) then
         begin
           FShouldChange := True;
           Change;
         end;
+    end;
+end;
+
+procedure TBaseHistory.AddParentedItem(aObject: TDataSet; aAction: string;
+  aParent: Variant; aLink: string; aReference: string; aRefObject: TDataSet;
+  aIcon: Integer; aComission: string; CheckDouble: Boolean; DoPost: Boolean;
+  DoChange: Boolean);
+begin
+  if AddItem(aObject,aAction,aLink,aReference,aRefObject,aIcon,aComission,CheckDouble,False,DoChange) then
+    begin
+      DataSet.FieldByName('PARENT').AsVariant := aParent;
+      if DoPost then
+        Post;
     end;
 end;
 

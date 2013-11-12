@@ -67,6 +67,7 @@ type
     fTimeline : TfGridView;
     FDrawnDate : TDateTime;
     aHistoryFrame: TfHistoryFrame;
+    FParentItem : Variant;
   public
     { public declarations }
     procedure Execute;
@@ -91,11 +92,12 @@ begin
       Self := fmTimeline;
       fTimeline.Parent := Panel2;
       fTimeline.Align := alClient;
-      fTimeline.DefaultRows:='GLOBALWIDTH:530;TIMESTAMPD:100;ACTIONICON:30;ACTION:200;REFERENCE:100;OBJECT:100;';
+      fTimeline.DefaultRows:='GLOBALWIDTH:430;TIMESTAMPD:100;ACTIONICON:30;ACTION:250;REFERENCE:50;';
       fTimeline.BaseName:='PTLINE';
       fTimeline.SortDirection:=sdDescending;
       fTimeline.SortField:='TIMESTAMPD';
       fTimeline.TextField:='ACTION';
+      fTimeLine.TreeField:='PARENT';
       fTimeline.FilterRow:=True;
       fTimeline.ReadOnly:=True;
       fTimeline.OnDrawColumnCell:=@FContListDrawColumnCell;
@@ -286,7 +288,7 @@ begin
             begin
               Found := True;
               if not AddTask then
-                aUser.History.AddItem(aUser.DataSet,tmp,'',Data.Users.FieldByName('IDCODE').AsString,nil,ACICON_USEREDITED,'',True,True)
+                aUser.History.AddParentedItem(aUser.DataSet,tmp,FParentItem,'',Data.Users.FieldByName('IDCODE').AsString,nil,ACICON_USEREDITED,'',True,True)
               else
                 begin
                   aTask := TTask.Create(nil,Data);
@@ -447,6 +449,7 @@ begin
           ToolButton2.Down:=True;
           ToolButton2Click(ToolButton2);
         end;
+      FParentItem := fTimeline.DataSet.Id.AsVariant;
     end;
 end;
 
@@ -593,6 +596,7 @@ procedure TfmTimeline.ToolButton2Click(Sender: TObject);
 var
   aController: TAnimationController;
 begin
+  FParentItem:=Null;
   aController := TAnimationController.Create(pInput);
   if ToolButton2.Down then
     begin
