@@ -1961,6 +1961,16 @@ var
   DoneRect: TRect;
   aTop: Integer;
   bri: Integer;
+  aTextStyle : TTextStyle = (Alignment:taLeftJustify;
+                             Layout : tlTop;
+                             SingleLine : True;
+                             Clipping  : True;
+                             ExpandTabs:False;
+                             ShowPrefix:False;
+                             Wordbreak:false;
+                             Opaque:False;
+                             SystemFont:False;
+                             RightToLeft:False);
 begin
   aTop := FGantt.Tree.TopRow-1;
   ClipRgn := CreateRectRgn
@@ -2126,7 +2136,6 @@ begin
               end;
             {$ENDIF}
             FillRect(CurrInterval.DrawRect);
-
             Brush.Bitmap := nil;
             Brush.Color := CurrInterval.Color;
             Brush.Style := bsSolid;
@@ -2140,6 +2149,10 @@ begin
               Brush.Color := clBlack;
               FillRect(DoneRect);
             end;
+
+            Brush.Style:=bsClear;
+            TextOut(CurrInterval.DrawRect.Right+10,CurrInterval.DrawRect.Top,CurrInterval.Task);
+            Brush.Style:=bsSolid;
           end;
         end;
       end;
@@ -2412,8 +2425,13 @@ begin
   begin
     Brush.Style := bsSolid;
     Brush.Color := clBlack;
-    Pen.Color := clBlack;
-    Pen.Style := psSolid;
+    Pen.Color := clWhite;
+    Pen.Style := psDot;
+    if FromInterval.Buffer>0 then
+      begin
+        Pen.Color := clBlack;
+        Pen.Style := psSolid;
+      end;
 
     FromRect := FromInterval.DrawRect;
     ToRect := ToInterval.DrawRect;
