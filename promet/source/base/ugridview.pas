@@ -885,6 +885,7 @@ var
   aStrlevel: String;
   aDrawed: Boolean;
   aFontStyle : TFontStyles;
+  cRect: TRect;
   procedure DrawExpandSign(MidX, MidY: integer; CollapseSign: boolean);
   const
     PlusMinusDetail: array[Boolean {Hot}, Boolean {Expanded}] of TThemedTreeview =
@@ -1059,17 +1060,32 @@ begin
           exit;
         end;
       aDrawed := False;
+      aColor := TStringGrid(Sender).Columns[aCol-1].Color;
+      if (not (gdFixed in AState)) and (AlternateColor<>AColor) then
+        begin
+          if (AltColorStartNormal and Odd(ARow-FixedRows)) {(1)} or
+             (not AltColorStartNormal and Odd(ARow)) {(2)} then
+            AColor := AlternateColor;
+        end;
+      TStringGrid(Sender).Canvas.Brush.Color:=aColor;
+      TStringGrid(Sender).Canvas.FillRect(aRect);
       if Assigned(FOnDrawCell) then
-        aDrawed := FOnDrawCell(gList,aRect,aRow,dgFake.Columns[aCol-1],aState);
+        begin
+          bRect := aRect;
+          if (dgFake.Columns[aCol-1].FieldName = IdentField) and (TreeField <> '') then
+            begin
+              aLevel := GetLevel(asCol,aRow);
+              inc(bRect.Left,10*aLevel);
+              if (HasChilds(asCol,aRow) = '+')
+              or (HasChilds(asCol,aRow) = '-')
+              then
+                DrawExpandSign(bRect.Left+((FExpandSignSize+4) div 2),bRect.Top+((bRect.Bottom-bRect.Top) div 2),HasChilds(asCol,aRow) = '-');
+              inc(bRect.Left,(FExpandSignSize+4));
+            end;
+          aDrawed := FOnDrawCell(gList,bRect,aRow,dgFake.Columns[aCol-1],aState);
+        end;
       if not aDrawed then
         begin
-          aColor := TStringGrid(Sender).Columns[aCol-1].Color;
-          if (not (gdFixed in AState)) and (AlternateColor<>AColor) then
-            begin
-              if (AltColorStartNormal and Odd(ARow-FixedRows)) {(1)} or
-                 (not AltColorStartNormal and Odd(ARow)) {(2)} then
-                AColor := AlternateColor;
-            end;
           if (gdSelected in AState) then
             begin
               aColor := SelectedColor;
@@ -1079,8 +1095,6 @@ begin
             FOnGetFontCell(gList,aRect,aRow,dgFake.Columns[aCol-1],aState,aColor,aFontStyle);
           with TStringGrid(Sender).Canvas do
             begin
-              TStringGrid(Sender).Canvas.Brush.Color:=aColor;
-              FillRect(aRect);
               bRect := aRect;
               for i := 0 to dgFake.Columns.Count-1 do
                 if dgFake.Columns[i].FieldName = IdentField then

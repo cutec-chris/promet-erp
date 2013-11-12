@@ -97,6 +97,7 @@ begin
       fTimeline.SortDirection:=sdDescending;
       fTimeline.SortField:='TIMESTAMPD';
       fTimeline.TextField:='ACTION';
+      fTimeline.IdentField:='ACTION';
       fTimeLine.TreeField:='PARENT';
       fTimeline.FilterRow:=True;
       fTimeline.ReadOnly:=True;

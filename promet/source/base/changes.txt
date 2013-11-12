@@ -1,4 +1,6 @@
-﻿Build 289
+﻿Build 290
+      - Messagemanager zeigt Unterhaltungen nun in Threads an
+Build 289
       - Austausch von Suchtypen und "Suche in" in Suchfenster
       - Verantwortliche bekommen Nachricht sobald jemand an "ihren" Aufgaben einen Verlaufeintrag erzeugt
 Build 288
