@@ -348,6 +348,8 @@ begin
   TfTaskFrame(Sender).DataSet := TProject(FDataSet).Tasks;
   TfTaskFrame(Sender).OnStartTime:=FOnStartTime;
   TPrometInplaceFrame(Sender).SetRights(FEditable);
+  TProject(FDataSet).Tasks.First;
+  TfTaskFrame(Sender).GridView.GotoDataSetRow;
 end;
 procedure TfProjectFrame.acCloseExecute(Sender: TObject);
 begin
