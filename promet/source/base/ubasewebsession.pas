@@ -14,8 +14,7 @@
   at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
-}
-Created 04.08.2013
+  Created 04.08.2013
 *******************************************************************************}
 unit uBaseWebSession;
 

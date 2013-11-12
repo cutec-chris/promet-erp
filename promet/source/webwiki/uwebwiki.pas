@@ -80,6 +80,8 @@ type
   end;
 var
   fmWikiPage: TfmWikiPage;
+const
+  LAST_CHANGES_COUNT = 20;
 implementation
 uses WikitoHTML, uBaseApplication,uBaseDbInterface,Variants,
   uBaseFCGIApplication, htmlconvert, uError, fpImage, FPReadJPEGintfd,
@@ -213,6 +215,7 @@ var
   ss: TStringStream;
   FDataSet: TWikiList;
   aRow: String;
+  aContent: String;
 begin
   if Uppercase(copy(Inp,0,6)) = 'BOARD(' then
     begin
@@ -240,11 +243,15 @@ begin
                     begin
                       ss := TStringStream.Create('');
                       Data.BlobFieldToStream(aMessage.Content.DataSet,'DATA',ss);
+                      if aMessage.Content.FieldByName('DATATYP').AsString='WIKI' then
+                        aContent := WikiText2HTML(ss.DataString,'','')
+                      else
+                        aContent := WikiText2HTML(ss.DataString,'','');
                       Outp := Outp+StringReplace(
                                    StringReplace(
                                    StringReplace(aRow,'~Subject',aMessage.FieldByName('SUBJECT').AsString,[rfReplaceAll])
                                                      ,'~Date',DateTimeToStr(aMessage.FieldByName('SENDDATE').AsDateTime),[rfReplaceAll])
-                                                     ,'~Content',WikiText2HTML(ss.DataString,'',''),[rfReplaceAll]);
+                                                     ,'~Content',aContent,[rfReplaceAll]);
                       ss.Free;
                     end;
                 end;
@@ -328,7 +335,7 @@ begin
     RootNode.ChildNodes.Item[0].AppendChild(parentNode);
 
     aWiki := TWikiList.Create(Self,Data);
-    Data.SetFilter(aWiki,'',60,'TIMESTAMPD','DESC');
+    Data.SetFilter(aWiki,'',LAST_CHANGES_COUNT,'TIMESTAMPD','DESC');
     while not aWiki.DataSet.EOF do
       begin
         LinkValue := Data.BuildLink(aWiki.DataSet);
@@ -709,7 +716,7 @@ begin
       ReplaceText := TagParams.Values['CHANGHEADER'];
       aRow := TagParams.Values['CHANGONEROW'];
       aWiki := TWikiList.Create(Self,Data);
-      Data.SetFilter(aWiki,'',60,'TIMESTAMPD','DESC');
+      Data.SetFilter(aWiki,'',LAST_CHANGES_COUNT,'TIMESTAMPD','DESC');
       while not aWiki.DataSet.EOF do
         begin
           LinkValue := Data.BuildLink(aWiki.DataSet);

@@ -4,7 +4,6 @@ object fmError: TfmError
   OldCreateOrder = False
   Actions = <>
   OnRequest = DataModuleRequest
-  DefActionWhenUnknown = False
   CreateSession = True
   OnNewSession = DataModuleNewSession
   Height = 290

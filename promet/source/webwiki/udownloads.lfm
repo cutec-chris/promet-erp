@@ -2,7 +2,7 @@ object fmDownloads: TfmDownloads
   OldCreateOrder = False
   Actions = <>
   OnRequest = DataModuleRequest
-  CreateSession = False
+  CreateSession = True
   Height = 50
   HorizontalOffset = 306
   VerticalOffset = 346

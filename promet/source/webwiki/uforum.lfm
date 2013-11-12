@@ -28,7 +28,7 @@ object fmForum: TfmForum
       Template.AllowTagParams = False
     end>
   OnGetAction = DataModuleGetAction
-  CreateSession = False
+  CreateSession = True
   Height = 202
   HorizontalOffset = 580
   VerticalOffset = 288
