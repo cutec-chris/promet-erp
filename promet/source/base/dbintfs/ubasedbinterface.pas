@@ -226,6 +226,7 @@ type
 
   IBaseDbFilter = interface['{7EBB7ABE-1171-4333-A609-C0F59B1E2C5F}']
     function GetBaseSortDirection: TSortDirection;
+    function GetfetchRows: Integer;
     function GetUseBaseSorting: Boolean;
     procedure SetBaseSortDirection(AValue: TSortDirection);
     function GetBaseSorting: string;
@@ -233,6 +234,7 @@ type
     procedure SetBaseSortFields(const AValue: string);
     function GetBaseSortFields: string;
     function GetFields: string;
+    procedure SetfetchRows(AValue: Integer);
     procedure SetFields(const AValue: string);
     function GetSQL: string;
     procedure SetSQL(const AValue: string);
@@ -260,6 +262,7 @@ type
 
     property FullSQL : string read GetSQL write SetSQL;
     property Filter : string read GetFilter write SetFilter;
+    property FetchRows : Integer read GetfetchRows write SetfetchRows;
     property BaseFilter : string read GetBaseFilter write SetBaseFilter;
     property Limit : Integer read GetLimit write Setlimit;
     property Fields : string read GetFields write SetFields;

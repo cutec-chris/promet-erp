@@ -154,6 +154,8 @@ type
     procedure SetBaseSortDirection(AValue: TSortDirection);
     function GetUseBaseSorting: Boolean;
     procedure SetUseBaseSorting(AValue: Boolean);
+    function GetfetchRows: Integer;
+    procedure SetfetchRows(AValue: Integer);
     //IBaseManageDB
     function GetManagedFieldDefs: TFieldDefs;
     function GetManagedIndexDefs: TIndexDefs;
@@ -884,6 +886,17 @@ begin
   FUseBaseSorting := AValue;
   SQL.text := BuildSQL;
 end;
+
+function TZeosDBDataSet.GetfetchRows: Integer;
+begin
+  result := FetchRow;
+end;
+
+procedure TZeosDBDataSet.SetfetchRows(AValue: Integer);
+begin
+  FetchRow:=AValue;
+end;
+
 function TZeosDBDataSet.GetManagedFieldDefs: TFieldDefs;
 begin
   Result := FManagedFieldDefs;
@@ -1814,4 +1827,4 @@ begin
 end;
 
 end.
-
+

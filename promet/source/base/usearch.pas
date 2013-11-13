@@ -361,6 +361,7 @@ begin
 end;
 procedure TfSearch.eContainsChange(Sender: TObject);
 begin
+  IdleTimer.Enabled:=False;
   IdleTimer.Enabled:=True;
 end;
 procedure TfSearch.eContainsKeyDown(Sender: TObject; var Key: Word;

@@ -214,6 +214,7 @@ begin
                       SortFields:='';
                       Filter := aFilter;
                       Limit := FMaxResults;
+                      FetchRows:=1;
                       Lists[i].Open;
                       if Assigned(Lists[i].Status) then
                         Data.SetFilter(Data.States,Data.QuoteField('TYPE')+'='+Data.QuoteValue(Lists[i].Typ));

@@ -22,7 +22,7 @@ unit ugridview;
 
 {.$define gridvisible}
 {.$define slowdebug}
-{$define debug}
+{.$define debug}
 
 interface
 uses
@@ -1067,10 +1067,10 @@ begin
              (not AltColorStartNormal and Odd(ARow)) {(2)} then
             AColor := AlternateColor;
         end;
-      TStringGrid(Sender).Canvas.Brush.Color:=aColor;
-      TStringGrid(Sender).Canvas.FillRect(aRect);
       if Assigned(FOnDrawCell) then
         begin
+          TStringGrid(Sender).Canvas.Brush.Color:=aColor;
+          TStringGrid(Sender).Canvas.FillRect(aRect);
           bRect := aRect;
           if (dgFake.Columns[aCol-1].FieldName = IdentField) and (TreeField <> '') then
             begin
@@ -1095,6 +1095,8 @@ begin
             FOnGetFontCell(gList,aRect,aRow,dgFake.Columns[aCol-1],aState,aColor,aFontStyle);
           with TStringGrid(Sender).Canvas do
             begin
+              TStringGrid(Sender).Canvas.Brush.Color:=aColor;
+              TStringGrid(Sender).Canvas.FillRect(aRect);
               bRect := aRect;
               for i := 0 to dgFake.Columns.Count-1 do
                 if dgFake.Columns[i].FieldName = IdentField then
