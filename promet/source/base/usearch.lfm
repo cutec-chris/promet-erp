@@ -755,7 +755,7 @@ object fSearch: TfSearch
   end
   object IdleTimer: TTimer
     Enabled = False
-    Interval = 300
+    Interval = 200
     OnTimer = IdleTimerTimer
     left = 96
     top = 304
