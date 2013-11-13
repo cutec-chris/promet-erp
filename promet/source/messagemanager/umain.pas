@@ -208,7 +208,7 @@ begin
   if acHistory.Enabled then
     begin
       //Show new History Entrys
-      if (FHistory.DataSet.EOF) then //all shown, refresh list
+      if (not FHistory.DataSet.Active) or (FHistory.DataSet.EOF) then //all shown, refresh list
         begin
           Data.SetFilter(FHistory,'('+FFilter+') AND ('+Data.QuoteField('TIMESTAMPD')+'>='+Data.DateTimeToFilter(InformRecTime)+')',10,'TIMESTAMPD','DESC');
           History.DataSet.Refresh;
@@ -488,8 +488,6 @@ begin
   if aUser <> '' then
     begin
       FFilter := '('+Data.QuoteField('REF_ID')+'='+Data.QuoteValue(Data.Users.Id.AsString)+') OR ('+Data.QuoteField('REFERENCE')+'='+Data.QuoteValue(Data.Users.FieldByName('IDCODE').AsString)+')';
-      Data.SetFilter(FHistory,'('+FFilter+') AND ('+Data.QuoteField('TIMESTAMPD')+'>'+Data.DateTimeToFilter(InformRecTime)+')',30,'TIMESTAMPD','DESC');
-      FHistory.Open;
     end;
   ProgTimer.Enabled:=True;
   uprometipc.OnMessageReceived:=@OnMessageReceived;
