@@ -1080,7 +1080,6 @@ begin
           begin
             Add('REF_ID','REF_ID',[]);
             Add('PARENT','PARENT',[]);
-            Add('ACTION','ACTION',[]);
             Add('REFERENCE','REFERENCE',[]);
             Add('LINK','LINK',[]);
             Add('TIMESTAMPD','TIMESTAMPD',[]);

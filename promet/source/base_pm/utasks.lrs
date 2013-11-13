@@ -1242,10 +1242,10 @@ LazarusResources.Add('TfTaskFrame','FORMDATA',[
   +'Left'#2#6#6'Height'#2#11#3'Top'#2#0#5'Width'#2#21#7'Caption'#6#6'Filter'#10
   +'Font.Color'#7#9'clMedGray'#11'Font.Height'#2#11#6'Layout'#7#8'tlBottom'#11
   +'ParentColor'#8#10'ParentFont'#8#0#0#9'TComboBox'#8'cbFilter'#19'AnchorSideL'
-  +'eft.Side'#7#9'asrBottom'#4'Left'#2#6#6'Height'#2#22#4'Hint'#6'Bhier k'#195
+  +'eft.Side'#7#9'asrBottom'#4'Left'#2#6#6'Height'#2#21#4'Hint'#6'Bhier k'#195
   +#182'nnen Sie einen Filter w'#195#164'hlen um die Liste einzuschr'#195#164'n'
   +'ken'#3'Top'#2#12#5'Width'#3#241#0#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRigh'
-  +'t'#0#18'BorderSpacing.Left'#2#8#10'ItemHeight'#2#14#8'OnSelect'#7#14'cbFilt'
+  +'t'#0#18'BorderSpacing.Left'#2#8#10'ItemHeight'#2#13#8'OnSelect'#7#14'cbFilt'
   +'erSelect'#8'TabOrder'#2#0#0#0#12'TSpeedButton'#11'bEditFilter'#4'Left'#3#250
   +#0#6'Height'#2#21#4'Hint'#6#31'zeigt/verbirgt den Filtereditor'#3'Top'#2#12#5
   +'Width'#2#26#10'AllowAllUp'#9#7'Anchors'#11#5'akTop'#7'akRight'#0#10'Glyph.D'
@@ -1372,7 +1372,7 @@ LazarusResources.Add('TfTaskFrame','FORMDATA',[
   +'gn'#7#7'alRight'#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#0#10'BevelOute'
   +'r'#7#6'bvNone'#12'ClientHeight'#3#143#0#11'ClientWidth'#3'S'#2#20'Constrain'
   +'ts.MaxWidth'#3#188#2#8'TabOrder'#2#0#0#9'TCheckBox'#12'cbMaxResults'#4'Left'
-  +#2#9#6'Height'#2#18#3'Top'#2#5#5'Width'#3#193#0#7'Caption'#6' Filterergebnis'
+  +#2#9#6'Height'#2#17#3'Top'#2#5#5'Width'#3#173#0#7'Caption'#6' Filterergebnis'
   +'se begrenzen auf  '#7'Checked'#9#8'OnChange'#7#18'seMaxresultsChange'#5'Sta'
   +'te'#7#9'cbChecked'#8'TabOrder'#2#0#7'TabStop'#8#0#0#6'TBevel'#6'Bevel8'#4'L'
   +'eft'#2#0#6'Height'#2#12#3'Top'#2#2#5'Width'#3'K'#2#7'Anchors'#11#5'akTop'#6
@@ -1517,18 +1517,18 @@ LazarusResources.Add('TfTaskFrame','FORMDATA',[
   +#163#163#129#160#160#160#186#157#157#157#204#154#154#154#204#151#151#151#186
   +#148#148#148#129#144#144#144#12#255#255#255#0#255#255#255#0#255#255#255#0#255
   +#255#255#0#11'ShowCaption'#8#0#0#6'TLabel'#11'lFilterEdit'#4'Left'#2#9#6'Hei'
-  +'ght'#2#14#3'Top'#2'!'#5'Width'#2'T'#7'Caption'#6#15'Filterbedingung'#11'Par'
+  +'ght'#2#13#3'Top'#2'!'#5'Width'#2'J'#7'Caption'#6#15'Filterbedingung'#11'Par'
   +'entColor'#8#0#0#6'TLabel'#9'lFilterIn'#4'Left'#3#179#1#6'Height'#2#16#3'Top'
   +#2'?'#5'Width'#3#151#0#7'Anchors'#11#5'akTop'#7'akRight'#0#8'AutoSize'#8#7'C'
   +'aption'#6#19'in Tabellen Filtern'#11'ParentColor'#8#0#0#5'TEdit'#9'eFilterI'
-  +'n'#4'Left'#3#179#1#6'Height'#2#22#4'Hint'#6'aWenn Sie '#195#188'ber mehrere'
+  +'n'#4'Left'#3#179#1#6'Height'#2#21#4'Hint'#6'aWenn Sie '#195#188'ber mehrere'
   +' Tabellen Filtern '#13#10'm'#195#182'chten f'#195#188'llen Sie dieses Feld'
   +#13#10'z.b.'#13#10'Orders,OrderPos'#3'Top'#2'P'#5'Width'#3#152#0#7'Anchors'
   +#11#5'akTop'#7'akRight'#0#8'TabOrder'#2#1#0#0#6'TBevel'#6'Bevel9'#4'Left'#2#8
   +#6'Height'#2#12#3'Top'#3#141#0#5'Width'#3'@'#2#7'Anchors'#11#6'akLeft'#7'akR'
   +'ight'#8'akBottom'#0#5'Shape'#7#9'bsTopLine'#0#0#9'TSpinEdit'#12'seMaxresult'
   +'s'#22'AnchorSideLeft.Control'#7#12'cbMaxResults'#19'AnchorSideLeft.Side'#7#9
-  +'asrBottom'#4'Left'#3#202#0#6'Height'#2#22#4'Hint'#6'@hier k'#195#182'nnen S'
+  +'asrBottom'#4'Left'#3#182#0#6'Height'#2#21#4'Hint'#6'@hier k'#195#182'nnen S'
   +'ie die Zahl der maximalen Filterergebnisse angeben'#3'Top'#2#5#5'Width'#2'4'
   +#9'Increment'#2#20#8'MaxValue'#3#136#19#8'OnChange'#7#18'seMaxresultsChange'
   +#7'TabStop'#8#8'TabOrder'#2#2#5'Value'#3#244#1#0#0#244#8'TSynMemo'#11'eFilte'

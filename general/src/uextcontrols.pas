@@ -156,6 +156,7 @@ type
     constructor Create(AOwner: TComponent); override;
     property TabCaption : string read FTabCaption write SetTabCaption;
     procedure ShowFrame;virtual;
+    procedure FrameAdded;virtual;
     procedure DoRefresh;virtual;
   end;
   TExtMenuPageControl = class(TPageControl)
@@ -347,6 +348,12 @@ end;
 procedure TExtControlFrame.ShowFrame;
 begin
 end;
+
+procedure TExtControlFrame.FrameAdded;
+begin
+
+end;
+
 procedure TExtControlFrame.DoRefresh;
 begin
 end;
@@ -598,6 +605,8 @@ begin
   FNewPage.ImageIndex:=FNewTabImageIndex;
   if (aFrame is TExtControlFrame) then
     TExtControlFrame(aFrame).ShowFrame;
+  if (aFrame is TExtControlFrame) then
+    TExtControlFrame(aFrame).FrameAdded;
   RefreshMenue;
 end;
 function TExtMenuPageControl.GetTab(aFrameClass: TFrameClass): TTabSheet;
@@ -1129,4 +1138,4 @@ begin
   FCanvas.Free;
 end;
 end.
-
+

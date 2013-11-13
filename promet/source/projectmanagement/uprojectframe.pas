@@ -180,6 +180,7 @@ type
     procedure New;override;
     procedure SetLanguage;override;
     procedure ShowFrame; override;
+    procedure FrameAdded; override;
     procedure GotoTask(aLink : string);
     property OnStartTime : TOnStartTime read FOnStartTime write FOnStartTime;
   end;
@@ -348,8 +349,6 @@ begin
   TfTaskFrame(Sender).DataSet := TProject(FDataSet).Tasks;
   TfTaskFrame(Sender).OnStartTime:=FOnStartTime;
   TPrometInplaceFrame(Sender).SetRights(FEditable);
-  TProject(FDataSet).Tasks.First;
-  TfTaskFrame(Sender).GridView.GotoDataSetRow;
 end;
 procedure TfProjectFrame.acCloseExecute(Sender: TObject);
 begin
@@ -738,6 +737,7 @@ var
   aType: Char;
   tmp: String;
   aFound: Boolean;
+  aTasks: TfTaskFrame;
 begin
   SetRights;
   pcPages.ClearTabClasses;
@@ -864,12 +864,6 @@ begin
   TProject(DataSet).Positions.Open;
   if TProject(DataSet).Positions.Count > 0 then
     pcPages.AddTab(TfProjectPositions.Create(Self),False);
-  pcPages.AddTabClass(TfTaskFrame,strTasks,@AddTasks);
-  TProject(DataSet).Tasks.Open;
-  if TProject(DataSet).Tasks.Count > 0 then
-    pcPages.AddTab(TfTaskFrame.Create(Self),True)
-  else
-    pcPages.PageIndex:=0;
   sePriority.Value:=DataSet.FieldByName('GPRIORITY').AsInteger;
   eName.SetFocus;
   if Data.Users.Rights.Right('OPTIONS') > RIGHT_READ then
@@ -882,7 +876,16 @@ begin
     AddTabs(pcPages);
   SetRights;
   RefreshFlow;
-  inherited DoOpen;
+  pcPages.AddTabClass(TfTaskFrame,strTasks,@AddTasks);
+  TProject(DataSet).Tasks.Open;
+  if TProject(DataSet).Tasks.Count > 0 then
+    begin
+      aTasks := TfTaskFrame.Create(Self);
+      pcPages.AddTab(aTasks,True);
+      aTasks.GridView.GotoRowNumber(aTasks.GridView.gList.FixedRows);
+    end
+  else
+    pcPages.PageIndex:=0;
 end;
 function TfProjectFrame.SetRights: Boolean;
 begin
@@ -984,6 +987,13 @@ begin
   inherited ShowFrame;
   if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
     TfTaskFrame(pcPages.ActivePage.Controls[0]).ShowFrame;
+end;
+
+procedure TfProjectFrame.FrameAdded;
+begin
+  inherited FrameAdded;
+  if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
+    TfTaskFrame(pcPages.ActivePage.Controls[0]).FrameAdded;
 end;
 
 procedure TfProjectFrame.GotoTask(aLink: string);

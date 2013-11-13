@@ -36,7 +36,8 @@ type
     procedure SetLanguage;virtual;abstract;
     function OpenFromLink(aLink : string) : Boolean;virtual;abstract;
     procedure New;virtual;
-    procedure DoRefresh;virtual;
+    procedure DoRefresh;override;
+    procedure FrameAdded; override;
   end;
 implementation
 {$R *.lfm}
@@ -52,5 +53,10 @@ procedure TPrometInplaceDBFrame.DoRefresh;
 begin
 end;
 
+procedure TPrometInplaceDBFrame.FrameAdded;
+begin
+  inherited FrameAdded;
+end;
+
 end.
-
+

@@ -441,7 +441,6 @@ end;
 procedure TfSearch.IdleTimerTimer(Sender: TObject);
 begin
   if eContains.Text = '' then exit;
-//  if SearchText = eContains.text then exit;
   if FLastSearch = eContains.Text then IdleTimer.Enabled:=False;
   if cbAutomaticSearch.Checked then
     begin

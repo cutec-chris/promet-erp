@@ -22,7 +22,7 @@ unit ugridview;
 
 {.$define gridvisible}
 {.$define slowdebug}
-{.$define debug}
+{$define debug}
 
 interface
 uses
