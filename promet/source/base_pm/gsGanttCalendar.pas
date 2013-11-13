@@ -2906,7 +2906,7 @@ begin
         FDragRect := Rect(-1, -1, -1, -1);
         FDragStarted := False;
       end;
-    end else if Assigned(FDragInterval) and (FDragType <> ditNone) and FDragStarted then
+    end else if Assigned(FDragInterval) and (FDragType <> ditNone) and FDragStarted and (abs(Message.XPos-FConnectFromPoint.X)>5) then
     begin
       case FDragType of
         ditMiddle:
@@ -2980,7 +2980,7 @@ begin
       case FDragType of
         ditMiddle:
         begin
-          if ((Message.YPos < FDragRect.Top) or (Message.YPos > FDragRect.Bottom)) and  (abs(Message.XPos-FConnectFromPoint.X)<30) then
+          if ((Message.YPos < FDragRect.Top) or (Message.YPos > FDragRect.Bottom)) and (abs(Message.XPos-FConnectFromPoint.X)<30) then
           begin
             FDragType := ditConnect;
             Screen.Cursor := crGanttConnect;
@@ -3129,32 +3129,35 @@ begin
     case FDragType of
       ditMiddle:
       begin
-        if FDragInterval.IntervalType = itPeriod then
-        begin
-          R := FDragInterval.DoneRect;
+        if (abs(Message.XPos-FConnectFromPoint.X)>5) then
+          begin
+            if FDragInterval.IntervalType = itPeriod then
+            begin
+              R := FDragInterval.DoneRect;
 
-          FDragInterval.StartDate :=
-            IncTimeEx(VisibleStart, MinorScale, FDragRect.Left / PixelsPerMinorScale);
+              FDragInterval.StartDate :=
+                IncTimeEx(VisibleStart, MinorScale, FDragRect.Left / PixelsPerMinorScale);
 
-          FDragInterval.FinishDate :=
-            IncTimeEx(VisibleStart, MinorScale, FDragRect.Right / PixelsPerMinorScale);
+              FDragInterval.FinishDate :=
+                IncTimeEx(VisibleStart, MinorScale, FDragRect.Right / PixelsPerMinorScale);
 
-          FDragInterval.IntervalDone :=
-            IncTimeEx
-            (
-              VisibleStart,
-              MinorScale,
-              (FDragRect.Left + (R.Right - R.Left)) / PixelsPerMinorScale
-            );
-        end else begin
-          FDragInterval.StartDate :=
-            IncTimeEx(
-              VisibleStart,
-              MinorScale,
-              (FDragRect.Left + (FDragRect.Right - FDragRect.Left) div 2) / PixelsPerMinorScale);
+              FDragInterval.IntervalDone :=
+                IncTimeEx
+                (
+                  VisibleStart,
+                  MinorScale,
+                  (FDragRect.Left + (R.Right - R.Left)) / PixelsPerMinorScale
+                );
+            end else begin
+              FDragInterval.StartDate :=
+                IncTimeEx(
+                  VisibleStart,
+                  MinorScale,
+                  (FDragRect.Left + (FDragRect.Right - FDragRect.Left) div 2) / PixelsPerMinorScale);
 
-          FDragInterval.FinishDate := FDragInterval.StartDate;
-        end;
+              FDragInterval.FinishDate := FDragInterval.StartDate;
+            end;
+          end;
       end;
       ditRightMove:
       begin

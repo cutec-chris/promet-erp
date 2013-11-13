@@ -206,10 +206,10 @@ var
 begin
   with TInterval(Sender) do
     begin
-      if TInterval(Sender).MovedFwd then
+      TInterval(Sender).BeginUpdate;
+      //if TInterval(Sender).MovedFwd then
         begin
           debugln('IntervalChanged('+TInterval(Sender).Task+')');
-          TInterval(Sender).BeginUpdate;
           //Move Forward
           aDur := NetTime;
           if TInterval(Sender).StartDate<TInterval(Sender).Earliest then
@@ -254,7 +254,6 @@ begin
             end;
     end;
 end;
-
 procedure TfGanttView.aIntervalDrawBackground(Sender: TObject; aCanvas: TCanvas;
   aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
 var
@@ -293,7 +292,6 @@ begin
           end;
     end;
 end;
-
 procedure TfGanttView.bMoveBack1Click(Sender: TObject);
   procedure MoveForward(Sender : TInterval);
   var
@@ -358,7 +356,6 @@ begin
     MoveForward(FGantt.Interval[i]);
   bMoveFwd.Click;
 end;
-
 procedure TfGanttView.bMoveBackClick(Sender: TObject);
   function DoMoveBack(aInterval,aConn : TInterval) : TDateTime;
   var
@@ -422,7 +419,6 @@ begin
     DoMoveBack(FGantt.Interval[i],nil);
   FGantt.Invalidate;
 end;
-
 procedure TfGanttView.bMoveFwdClick(Sender: TObject);
   procedure MoveForward(Sender : TInterval);
   var
@@ -491,7 +487,6 @@ begin
     MoveForward(FGantt.Interval[i]);
   FGantt.Invalidate;
 end;
-
 procedure TfGanttView.acCenterTaskExecute(Sender: TObject);
 var
   aTask: TTask;
@@ -516,7 +511,6 @@ begin
         end;
     end;
 end;
-
 procedure TfGanttView.acAddSubProjectsExecute(Sender: TObject);
 var
   aProjects: TProjectList;
@@ -547,7 +541,6 @@ begin
     end
   else Populate(FTasks);
 end;
-
 procedure TfGanttView.acAddSnapshotExecute(Sender: TObject);
 var
   aName: String;
@@ -564,7 +557,6 @@ begin
       cbSnapshot.Items.Add(aName);
     end;
 end;
-
 procedure TfGanttView.acMakePossibleExecute(Sender: TObject);
   function DoMove(aInterval : TInterval) : Boolean;
   var
@@ -588,7 +580,6 @@ begin
     DoMove(FGantt.Interval[i]);
   bMoveFwd.Click;
 end;
-
 procedure TfGanttView.acOpenExecute(Sender: TObject);
   function MustChange(aParent : TInterval) : Boolean;
   var
@@ -645,13 +636,11 @@ begin
   FGantt.MinorScale:=tsMonth;
   FGantt.Calendar.StartDate:=FGantt.Calendar.StartDate;
 end;
-
 procedure TfGanttView.bRefresh1Click(Sender: TObject);
 begin
   FindCriticalPath;
   FGantt.Calendar.Invalidate;
 end;
-
 procedure TfGanttView.bRefreshClick(Sender: TObject);
 begin
   Populate(FTasks);
@@ -944,6 +933,16 @@ var
           end;
       end;
   end;
+  function DoUnChange(aInterval : TInterval) : Boolean;
+  var
+    b: Integer;
+  begin
+    Result := False;
+    aIntervalChanged(aInterval);
+    for b := 0 to aInterval.IntervalCount-1 do
+      Result := DoUnChange(aInterval.Interval[b]);
+    aInterval.Changed:=false;
+  end;
 begin
   FGantt.BeginUpdate;
   try
@@ -1001,6 +1000,8 @@ begin
       end;
     if aRoot.IntervalCount>0 then
       aRoot.Visible:=True;
+    for i := 0 to FGantt.Calendar.IntervalCount-1 do
+      DoUnChange(FGantt.Calendar.Interval[i]);
   finally
     FGantt.EndUpdate;
   end;
@@ -1008,7 +1009,6 @@ begin
   FGantt.StartDate:=Now();
   FindCriticalPath;
 end;
-
 procedure TfGanttView.DoSave;
   procedure RecoursiveChange(aParent : TInterval);
   var
@@ -1031,7 +1031,6 @@ begin
   for i := 0 to FGantt.IntervalCount-1 do
     RecoursiveChange(FGantt.Interval[i]);
 end;
-
 procedure TfGanttView.CleanIntervals;
 var
   i: Integer;
@@ -1046,7 +1045,6 @@ begin
   FRessources.Clear;
   FGantt.EndUpdate;
 end;
-
 function TfGanttView.FindCriticalPath : TInterval;
 var
   y: Integer;
@@ -1084,7 +1082,6 @@ begin
   Result := aRes;
   FGantt.Calendar.Invalidate;
 end;
-
 procedure TfGanttView.FillInterval(aInterval : TInterval; aTasks: TTaskList);
 var
   aUser: TUser;
@@ -1191,7 +1188,6 @@ begin
     end;
   CleanIntervals;
 end;
-
 procedure TfGanttView.SetRights;
 begin
   acMakePossible.Enabled := Data.Users.Rights.Right('PROJECTS') > RIGHT_READ;
