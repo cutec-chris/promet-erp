@@ -46,31 +46,33 @@ type
   // used in JvSpeedButton, JvArrowButton, JvButton CM_JVBUTTONPRESSED
   // asn: can also be used with CM_BUTTONPRESSED
   TCMButtonPressed = packed record
-    Msg: Cardinal;
-    Index: Integer;     { clx has Index and Control switched }
+    Msg: cardinal;
+    Index: integer;     { clx has Index and Control switched }
     Control: TControl;
-    Result: Longint;
+    Result: longint;
   end;
 
   THintString = string;
   THintStringList = TStringList;
 
   { JvExVCL classes }
-  TInputKey = (ikAll, ikArrows, ikChars, ikButton, ikTabs, ikEdit, ikNative{, ikNav, ikEsc});
+  TInputKey = (ikAll, ikArrows, ikChars, ikButton, ikTabs, ikEdit,
+    ikNative{, ikNav, ikEsc});
   TInputKeys = set of TInputKey;
 
   TJvRGBTriple = packed record
-    rgbBlue: Byte;
-    rgbGreen: Byte;
-    rgbRed: Byte;
+    rgbBlue: byte;
+    rgbGreen: byte;
+    rgbRed: byte;
   end;
 
 const
   NullHandle = 0;
-  // (rom) deleted fbs constants. They are already in JvConsts.pas.
+// (rom) deleted fbs constants. They are already in JvConsts.pas.
 
 type
-  TTimerProc = procedure(hwnd: THandle; Msg: Cardinal; idEvent: Cardinal; dwTime: Cardinal);
+  TTimerProc = procedure(hwnd: THandle; Msg: cardinal; idEvent: cardinal;
+    dwTime: cardinal);
 
 type
   // Base class for persistent properties that can show events.
@@ -100,7 +102,7 @@ type
 
   TJvPersistentProperty = class(TJvPersistent)//TPersistent => TJvPersistent
   private
-    FUpdateCount: Integer;
+    FUpdateCount: integer;
     FOnChanging: TNotifyEvent;
     FOnChanged: TNotifyEvent;
     FOnChangingProperty: TJvPropertyChangeEvent;
@@ -110,15 +112,17 @@ type
     procedure Changing; virtual;
     procedure ChangedProperty(const PropName: string); virtual;
     procedure ChangingProperty(const PropName: string); virtual;
-    procedure SetUpdateState(aUpdating: Boolean); virtual;
-    property UpdateCount: Integer read FUpdateCount;
+    procedure SetUpdateState(aUpdating: boolean); virtual;
+    property UpdateCount: integer read FUpdateCount;
   public
     procedure BeginUpdate; virtual;
     procedure EndUpdate; virtual;
     property OnChanged: TNotifyEvent read FOnChanged write FOnChanged;
     property OnChanging: TNotifyEvent read FOnChanging write FOnChanging;
-    property OnChangedProperty: TJvPropertyChangeEvent read FOnChangedProperty write FOnChangedProperty;
-    property OnChangingProperty: TJvPropertyChangeEvent read FOnChangingProperty write FOnChangingProperty;
+    property OnChangedProperty: TJvPropertyChangeEvent
+      read FOnChangedProperty write FOnChangedProperty;
+    property OnChangingProperty: TJvPropertyChangeEvent
+      read FOnChangingProperty write FOnChangingProperty;
   end;
 
   TJvRegKey = (hkClassesRoot, hkCurrentUser, hkLocalMachine, hkUsers,
@@ -134,10 +138,14 @@ type
   TJvOutputMode = (omFile, omStream);
   //  TLabelDirection = (sdLeftToRight, sdRightToLeft); // JvScrollingLabel
 
-  TJvDoneFileEvent = procedure(Sender: TObject; FileName: string; FileSize: Integer; Url: string) of object;
-  TJvDoneStreamEvent = procedure(Sender: TObject; Stream: TStream; StreamSize: Integer; Url: string) of object;
-  TJvHTTPProgressEvent = procedure(Sender: TObject; UserData, Position: Integer; TotalSize: Integer; Url: string; var Continue: Boolean) of object;
-  TJvFTPProgressEvent = procedure(Sender: TObject; Position: Integer; Url: string) of object;
+  TJvDoneFileEvent = procedure(Sender: TObject; FileName: string;
+    FileSize: integer; Url: string) of object;
+  TJvDoneStreamEvent = procedure(Sender: TObject; Stream: TStream;
+    StreamSize: integer; Url: string) of object;
+  TJvHTTPProgressEvent = procedure(Sender: TObject; UserData, Position: integer;
+    TotalSize: integer; Url: string; var Continue: boolean) of object;
+  TJvFTPProgressEvent = procedure(Sender: TObject; Position: integer;
+    Url: string) of object;
 
   // from JvComponent.pas
   TJvClipboardCommand = (caCopy, caCut, caPaste, caClear, caUndo);
@@ -145,10 +153,10 @@ type
 
   // used in JvButton
   TCMForceSize = record
-    Msg: Cardinal;
+    Msg: cardinal;
     NewSize: TSmallPoint;
     Sender: TControl;
-    Result: Longint;
+    Result: longint;
   end;
 
   PJvRGBArray = ^TJvRGBArray;
@@ -156,7 +164,7 @@ type
   PRGBQuadArray = ^TRGBQuadArray;
   TRGBQuadArray = array [0..MaxPixelCount] of TRGBQuad;
   PRGBPalette = ^TRGBPalette;
-  TRGBPalette = array [Byte] of TRGBQuad;
+  TRGBPalette = array [byte] of TRGBQuad;
 
   { (rom) unused
   TJvPoint = class(TPersistent)
@@ -178,8 +186,8 @@ type
   //  EJvDirectoryError = class(EJVCLException); // JvDirectorySpy
   //  TListEvent = procedure(Sender: TObject; Title: string; Handle: THandle) of object; // JvWindowsTitle
 
-  TJvProgressEvent = procedure(Sender: TObject; Current, Total: Integer) of object;
-  TJvNextPageEvent = procedure(Sender: TObject; PageNumber: Integer) of object;
+  TJvProgressEvent = procedure(Sender: TObject; Current, Total: integer) of object;
+  TJvNextPageEvent = procedure(Sender: TObject; PageNumber: integer) of object;
   TJvBitmapStyle = (bsNormal, bsCentered, bsStretched);
 
   //  TOnOpened = procedure(Sender: TObject; Value: string) of object; // archive
@@ -220,14 +228,15 @@ type
   TJvFileInfoRec = record
     Attributes: DWORD;
     DisplayName: string;
-    ExeType: Integer;
+    ExeType: integer;
     Icon: HICON;
     Location: string;
     TypeName: string;
-    SysIconIndex: Integer;
+    SysIconIndex: integer;
   end;
 
-  TJvAnimation = (anLeftRight, anRightLeft, anRightAndLeft, anLeftVumeter, anRightVumeter);
+  TJvAnimation = (anLeftRight, anRightLeft, anRightAndLeft, anLeftVumeter,
+    anRightVumeter);
   TJvAnimations = set of TJvAnimation;
   //   TOnFound = procedure(Sender: TObject; Path: string) of object; // JvSearchFile
   //  TOnChangedDir = procedure(Sender: TObject; Directory: string) of object; // JvSearchFile
@@ -240,29 +249,32 @@ type
 
   // Bianconi - Moved from JvAlarms.pas
   TJvTriggerKind =
-    (tkOneShot, tkEachSecond, tkEachMinute, tkEachHour, tkEachDay, tkEachMonth, tkEachYear);
+    (tkOneShot, tkEachSecond, tkEachMinute, tkEachHour, tkEachDay,
+    tkEachMonth, tkEachYear);
   // End of Bianconi
 
   TJvFourCC = array [0..3] of AnsiChar;
   PJvAniTag = ^TJvAniTag;
+
   TJvAniTag = packed record
     ckID: TJvFourCC;
-    ckSize: Longint;
+    ckSize: longint;
   end;
 
   TJvAniHeader = packed record
-    dwSizeof: Longint;
-    dwFrames: Longint;
-    dwSteps: Longint;
-    dwCX: Longint;
-    dwCY: Longint;
-    dwBitCount: Longint;
-    dwPlanes: Longint;
-    dwJIFRate: Longint;
-    dwFlags: Longint;
+    dwSizeof: longint;
+    dwFrames: longint;
+    dwSteps: longint;
+    dwCX: longint;
+    dwCY: longint;
+    dwBitCount: longint;
+    dwPlanes: longint;
+    dwJIFRate: longint;
+    dwFlags: longint;
   end;
 
-  TJvChangeColorEvent = procedure(Sender: TObject; Foreground, Background: TColor) of object;
+  TJvChangeColorEvent = procedure(Sender: TObject;
+    Foreground, Background: TColor) of object;
 
   TJvLayout = (lTop, lCenter, lBottom);
   TJvBevelStyle = (bsShape, bsLowered, bsRaised);
@@ -273,7 +285,7 @@ type
     const AFocusControl: TWinControl) of object;
 
   // JvJCLUtils
-  TTickCount = Cardinal;
+  TTickCount = cardinal;
 
   {**** string handling routines}
   TSetOfChar = TSysCharSet;
@@ -286,7 +298,7 @@ type
 const
   DefaultDateOrder = doDMY;
 
-  CenturyOffset: Byte = 60;
+  CenturyOffset: byte = 60;
   NullDate: TDateTime = 0; {-693594}
 
 type
@@ -315,8 +327,10 @@ const
 
 type
   // from JvListView.pas
-  TJvSortMethod = (smAutomatic, smAlphabetic, smNonCaseSensitive, smNumeric, smDate, smTime, smDateTime, smCurrency);
-  TJvListViewColumnSortEvent = procedure(Sender: TObject; Column: Integer; var AMethod: TJvSortMethod) of object;
+  TJvSortMethod = (smAutomatic, smAlphabetic, smNonCaseSensitive,
+    smNumeric, smDate, smTime, smDateTime, smCurrency);
+  TJvListViewColumnSortEvent = procedure(Sender: TObject; Column: integer;
+    var AMethod: TJvSortMethod) of object;
 
   // from JvOfficeColorPanel.pas
   TJvAddInControlSiteInfo = record
@@ -329,7 +343,8 @@ type
     (cctColors, cctNoneColor, cctDefaultColor, cctCustomColor, cctAddInControl, cctNone);
   TJvHoldCustomColorEvent = procedure(Sender: TObject; AColor: TColor) of object;
   TJvColorQuadLayOut = (cqlNone, cqlLeft, cqlRight, cqlClient);
-  TJvGetAddInControlSiteInfoEvent = procedure(Sender: TControl; var ASiteInfo: TJvAddInControlSiteInfo) of object;
+  TJvGetAddInControlSiteInfoEvent = procedure(Sender: TControl;
+    var ASiteInfo: TJvAddInControlSiteInfo) of object;
 
   // from JvColorProvider.pas
   TColorType = (ctStandard, ctSystem, ctCustom);
@@ -351,260 +366,271 @@ const
   {$ENDIF COMPILER6}
 
   ColorValues: array [0 .. ColCount - 1] of TDefColorItem = (
-    (Value: clBlack;      Constant: 'clBlack';      Description: RsClBlack),
-    (Value: clMaroon;     Constant: 'clMaroon';     Description: RsClMaroon),
-    (Value: clGreen;      Constant: 'clGreen';      Description: RsClGreen),
-    (Value: clOlive;      Constant: 'clOlive';      Description: RsClOlive),
-    (Value: clNavy;       Constant: 'clNavy';       Description: RsClNavy),
-    (Value: clPurple;     Constant: 'clPurple';     Description: RsClPurple),
-    (Value: clTeal;       Constant: 'clTeal';       Description: RsClTeal),
-    (Value: clGray;       Constant: 'clGray';       Description: RsClGray),
-    (Value: clSilver;     Constant: 'clSilver';     Description: RsClSilver),
-    (Value: clRed;        Constant: 'clRed';        Description: RsClRed),
-    (Value: clLime;       Constant: 'clLime';       Description: RsClLime),
-    (Value: clYellow;     Constant: 'clYellow';     Description: RsClYellow),
-    (Value: clBlue;       Constant: 'clBlue';       Description: RsClBlue),
-    (Value: clFuchsia;    Constant: 'clFuchsia';    Description: RsClFuchsia),
-    (Value: clAqua;       Constant: 'clAqua';       Description: RsClAqua),
-    (Value: clWhite;      Constant: 'clWhite';      Description: RsClWhite),
+    (Value: clBlack; Constant: 'clBlack'; Description: RsClBlack),
+    (Value: clMaroon; Constant: 'clMaroon'; Description: RsClMaroon),
+    (Value: clGreen; Constant: 'clGreen'; Description: RsClGreen),
+    (Value: clOlive; Constant: 'clOlive'; Description: RsClOlive),
+    (Value: clNavy; Constant: 'clNavy'; Description: RsClNavy),
+    (Value: clPurple; Constant: 'clPurple'; Description: RsClPurple),
+    (Value: clTeal; Constant: 'clTeal'; Description: RsClTeal),
+    (Value: clGray; Constant: 'clGray'; Description: RsClGray),
+    (Value: clSilver; Constant: 'clSilver'; Description: RsClSilver),
+    (Value: clRed; Constant: 'clRed'; Description: RsClRed),
+    (Value: clLime; Constant: 'clLime'; Description: RsClLime),
+    (Value: clYellow; Constant: 'clYellow'; Description: RsClYellow),
+    (Value: clBlue; Constant: 'clBlue'; Description: RsClBlue),
+    (Value: clFuchsia; Constant: 'clFuchsia'; Description: RsClFuchsia),
+    (Value: clAqua; Constant: 'clAqua'; Description: RsClAqua),
+    (Value: clWhite; Constant: 'clWhite'; Description: RsClWhite),
     (Value: clMoneyGreen; Constant: 'clMoneyGreen'; Description: RsClMoneyGreen),
-    (Value: clSkyBlue;    Constant: 'clSkyBlue';    Description: RsClSkyBlue),
-    (Value: clCream;      Constant: 'clCream';      Description: RsClCream),
-    (Value: clMedGray;    Constant: 'clMedGray';    Description: RsClMedGray)
-  );
+    (Value: clSkyBlue; Constant: 'clSkyBlue'; Description: RsClSkyBlue),
+    (Value: clCream; Constant: 'clCream'; Description: RsClCream),
+    (Value: clMedGray; Constant: 'clMedGray'; Description: RsClMedGray)
+    );
 
   //added by dejoy (2005-04-20)
   StandardColorValues: array [0 .. StandardColCount - 1] of TDefColorItem = (
-    (Value: $00000000;    Constant: 'clBlack';          Description: RsClBlack),
-    (Value: $00003399;    Constant: 'clBrown';          Description: RsClBrown),
-    (Value: $00003333;    Constant: 'clOliveGreen';     Description: RsClOliveGreen),
-    (Value: $00003300;    Constant: 'clDarkGreen';      Description: RsClDarkGreen),
-    (Value: $00663300;    Constant: 'clDarkTeal';       Description: RsClDarkTeal),
-    (Value: $00800000;    Constant: 'clDarkBlue';       Description: RsClDarkBlue),
-    (Value: $00993333;    Constant: 'clIndigo';         Description: RsClIndigo),
-    (Value: $00333333;    Constant: 'clGray80';         Description: RsClGray80),
+    (Value: $00000000; Constant: 'clBlack'; Description: RsClBlack),
+    (Value: $00003399; Constant: 'clBrown'; Description: RsClBrown),
+    (Value: $00003333; Constant: 'clOliveGreen'; Description: RsClOliveGreen),
+    (Value: $00003300; Constant: 'clDarkGreen'; Description: RsClDarkGreen),
+    (Value: $00663300; Constant: 'clDarkTeal'; Description: RsClDarkTeal),
+    (Value: $00800000; Constant: 'clDarkBlue'; Description: RsClDarkBlue),
+    (Value: $00993333; Constant: 'clIndigo'; Description: RsClIndigo),
+    (Value: $00333333; Constant: 'clGray80'; Description: RsClGray80),
 
-    (Value: $00000080;    Constant: 'clDarkRed';        Description: RsClDarkRed),
-    (Value: $000066FF;    Constant: 'clOrange';         Description: RsClOrange),
-    (Value: $00008080;    Constant: 'clDarkYellow';     Description: RsClDarkYellow),
-    (Value: $00008000;    Constant: 'clGreen';          Description: RsClGreen),
-    (Value: $00808000;    Constant: 'clTeal';           Description: RsClTeal),
-    (Value: $00FF0000;    Constant: 'clBlue';           Description: RsClBlue),
-    (Value: $00996666;    Constant: 'clBlueGray';       Description: RsClBlueGray),
-    (Value: $00808080;    Constant: 'clGray50';         Description: RsClGray50),
+    (Value: $00000080; Constant: 'clDarkRed'; Description: RsClDarkRed),
+    (Value: $000066FF; Constant: 'clOrange'; Description: RsClOrange),
+    (Value: $00008080; Constant: 'clDarkYellow'; Description: RsClDarkYellow),
+    (Value: $00008000; Constant: 'clGreen'; Description: RsClGreen),
+    (Value: $00808000; Constant: 'clTeal'; Description: RsClTeal),
+    (Value: $00FF0000; Constant: 'clBlue'; Description: RsClBlue),
+    (Value: $00996666; Constant: 'clBlueGray'; Description: RsClBlueGray),
+    (Value: $00808080; Constant: 'clGray50'; Description: RsClGray50),
 
-    (Value: $000000FF;    Constant: 'clRed';            Description: RsClRed),
-    (Value: $000099FF;    Constant: 'clLightOrange';    Description: RsClLightOrange),
-    (Value: $0000CC99;    Constant: 'clLime';           Description: RsClLime),
-    (Value: $00669933;    Constant: 'clSeaGreen';       Description: RsClSeaGreen),
-    (Value: $00999933;    Constant: 'clAqua';           Description: RsClAqua),
-    (Value: $00FF6633;    Constant: 'clLightBlue';      Description: RsClLightBlue),
-    (Value: $00800080;    Constant: 'clViolet';         Description: RsClViolet),
-    (Value: $00999999;    Constant: 'clGray40';         Description: RsClGray40),
+    (Value: $000000FF; Constant: 'clRed'; Description: RsClRed),
+    (Value: $000099FF; Constant: 'clLightOrange'; Description: RsClLightOrange),
+    (Value: $0000CC99; Constant: 'clLime'; Description: RsClLime),
+    (Value: $00669933; Constant: 'clSeaGreen'; Description: RsClSeaGreen),
+    (Value: $00999933; Constant: 'clAqua'; Description: RsClAqua),
+    (Value: $00FF6633; Constant: 'clLightBlue'; Description: RsClLightBlue),
+    (Value: $00800080; Constant: 'clViolet'; Description: RsClViolet),
+    (Value: $00999999; Constant: 'clGray40'; Description: RsClGray40),
 
-    (Value: $00FF00FF;    Constant: 'clPink';           Description: RsClPink),
-    (Value: $0000CCFF;    Constant: 'clGold';           Description: RsClGold),
-    (Value: $0000FFFF;    Constant: 'clYellow';         Description: RsClYellow),
-    (Value: $0000FF00;    Constant: 'clBrightGreen';    Description: RsClBrightGreen),
-    (Value: $00FFFF00;    Constant: 'clTurquoise';      Description: RsClTurquoise),
-    (Value: $00F0CAA6;    Constant: 'clSkyBlue';        Description: RsClSkyBlue),
-    (Value: $00663399;    Constant: 'clPlum';           Description: RsClPlum),
-    (Value: $00C0C0C0;    Constant: 'clGray25';         Description: RsClGray25),
+    (Value: $00FF00FF; Constant: 'clPink'; Description: RsClPink),
+    (Value: $0000CCFF; Constant: 'clGold'; Description: RsClGold),
+    (Value: $0000FFFF; Constant: 'clYellow'; Description: RsClYellow),
+    (Value: $0000FF00; Constant: 'clBrightGreen'; Description: RsClBrightGreen),
+    (Value: $00FFFF00; Constant: 'clTurquoise'; Description: RsClTurquoise),
+    (Value: $00F0CAA6; Constant: 'clSkyBlue'; Description: RsClSkyBlue),
+    (Value: $00663399; Constant: 'clPlum'; Description: RsClPlum),
+    (Value: $00C0C0C0; Constant: 'clGray25'; Description: RsClGray25),
 
-    (Value: $00CC99FF;    Constant: 'clRose';           Description: RsClRose),
-    (Value: $0099CCFF;    Constant: 'clTan';            Description: RsClTan),
-    (Value: $0099FFFF;    Constant: 'clLightYellow';    Description: RsClLightYellow),
-    (Value: $00CCFFCC;    Constant: 'clLightGreen';     Description: RsClLightGreen),
-    (Value: $00FFFFCC;    Constant: 'clLightTurquoise'; Description: RsClLightTurquoise),
-    (Value: $00FFCC99;    Constant: 'clPaleBlue';       Description: RsClPaleBlue),
-    (Value: $00FF99CC;    Constant: 'clLavender';       Description: RsClLavender),
-    (Value: $00FFFFFF;    Constant: 'clWhite';          Description: RsClWhite)
-  );
+    (Value: $00CC99FF; Constant: 'clRose'; Description: RsClRose),
+    (Value: $0099CCFF; Constant: 'clTan'; Description: RsClTan),
+    (Value: $0099FFFF; Constant: 'clLightYellow'; Description: RsClLightYellow),
+    (Value: $00CCFFCC; Constant: 'clLightGreen'; Description: RsClLightGreen),
+    (Value: $00FFFFCC; Constant: 'clLightTurquoise'; Description: RsClLightTurquoise),
+    (Value: $00FFCC99; Constant: 'clPaleBlue'; Description: RsClPaleBlue),
+    (Value: $00FF99CC; Constant: 'clLavender'; Description: RsClLavender),
+    (Value: $00FFFFFF; Constant: 'clWhite'; Description: RsClWhite)
+    );
 
   SysColorValues: array [0 .. SysColCount - 1] of TDefColorItem = (
-    (Value: clScrollBar;           Constant: 'clScrollBar';           Description: RsClScrollBar),
-    (Value: clBackground;          Constant: 'clBackground';          Description: RsClBackground),
-    (Value: clActiveCaption;       Constant: 'clActiveCaption';       Description: RsClActiveCaption),
-    (Value: clInactiveCaption;     Constant: 'clInactiveCaption';     Description: RsClInactiveCaption),
-    (Value: clMenu;                Constant: 'clMenu';                Description: RsClMenu),
-    (Value: clWindow;              Constant: 'clWindow';              Description: RsClWindow),
-    (Value: clWindowFrame;         Constant: 'clWindowFrame';         Description: RsClWindowFrame),
-    (Value: clMenuText;            Constant: 'clMenuText';            Description: RsClMenuText),
-    (Value: clWindowText;          Constant: 'clWindowText';          Description: RsClWindowText),
-    (Value: clCaptionText;         Constant: 'clCaptionText';         Description: RsClCaptionText),
-    (Value: clActiveBorder;        Constant: 'clActiveBorder';        Description: RsClActiveBorder),
-    (Value: clInactiveBorder;      Constant: 'clInactiveBorder';      Description: RsClInactiveBorder),
-    (Value: clAppWorkSpace;        Constant: 'clAppWorkSpace';        Description: RsClAppWorkSpace),
-    (Value: clHighlight;           Constant: 'clHighlight';           Description: RsClHighlight),
-    (Value: clHighlightText;       Constant: 'clHighlightText';       Description: RsClHighlightText),
-    (Value: clBtnFace;             Constant: 'clBtnFace';             Description: RsClBtnFace),
-    (Value: clBtnShadow;           Constant: 'clBtnShadow';           Description: RsClBtnShadow),
-    (Value: clGrayText;            Constant: 'clGrayText';            Description: RsClGrayText),
-    (Value: clBtnText;             Constant: 'clBtnText';             Description: RsClBtnText),
-    (Value: clInactiveCaptionText; Constant: 'clInactiveCaptionText'; Description: RsClInactiveCaptionText),
-    (Value: clBtnHighlight;        Constant: 'clBtnHighlight';        Description: RsClBtnHighlight),
-    (Value: cl3DDkShadow;          Constant: 'cl3DDkShadow';          Description: RsCl3DDkShadow),
-    (Value: cl3DLight;             Constant: 'cl3DLight';             Description: RsCl3DLight),
-    (Value: clInfoText;            Constant: 'clInfoText';            Description: RsClInfoText),
-    (Value: clInfoBk;              Constant: 'clInfoBk';              Description: RsClInfoBk),
+    (Value: clScrollBar; Constant: 'clScrollBar';
+    Description: RsClScrollBar),
+    (Value: clBackground; Constant: 'clBackground';
+    Description: RsClBackground),
+    (Value: clActiveCaption; Constant: 'clActiveCaption';
+    Description: RsClActiveCaption),
+    (Value: clInactiveCaption; Constant: 'clInactiveCaption';
+    Description: RsClInactiveCaption),
+    (Value: clMenu; Constant: 'clMenu';
+    Description: RsClMenu),
+    (Value: clWindow; Constant: 'clWindow';
+    Description: RsClWindow),
+    (Value: clWindowFrame; Constant: 'clWindowFrame';
+    Description: RsClWindowFrame),
+    (Value: clMenuText; Constant: 'clMenuText';
+    Description: RsClMenuText),
+    (Value: clWindowText; Constant: 'clWindowText';
+    Description: RsClWindowText),
+    (Value: clCaptionText; Constant: 'clCaptionText';
+    Description: RsClCaptionText),
+    (Value: clActiveBorder; Constant: 'clActiveBorder';
+    Description: RsClActiveBorder),
+    (Value: clInactiveBorder; Constant: 'clInactiveBorder';
+    Description: RsClInactiveBorder),
+    (Value: clAppWorkSpace; Constant: 'clAppWorkSpace';
+    Description: RsClAppWorkSpace),
+    (Value: clHighlight; Constant: 'clHighlight';
+    Description: RsClHighlight),
+    (Value: clHighlightText; Constant: 'clHighlightText';
+    Description: RsClHighlightText),
+    (Value: clBtnFace; Constant: 'clBtnFace';
+    Description: RsClBtnFace),
+    (Value: clBtnShadow; Constant: 'clBtnShadow';
+    Description: RsClBtnShadow),
+    (Value: clGrayText; Constant: 'clGrayText';
+    Description: RsClGrayText),
+    (Value: clBtnText; Constant: 'clBtnText';
+    Description: RsClBtnText),
+    (Value: clInactiveCaptionText; Constant: 'clInactiveCaptionText';
+    Description: RsClInactiveCaptionText),
+    (Value: clBtnHighlight; Constant: 'clBtnHighlight';
+    Description: RsClBtnHighlight),
+    (Value: cl3DDkShadow; Constant: 'cl3DDkShadow';
+    Description: RsCl3DDkShadow),
+    (Value: cl3DLight; Constant: 'cl3DLight';
+    Description: RsCl3DLight),
+    (Value: clInfoText; Constant: 'clInfoText';
+    Description: RsClInfoText),
+    (Value: clInfoBk; Constant: 'clInfoBk';
+    Description: RsClInfoBk),
 
-    (Value: clGradientActiveCaption;   Constant: 'clGradientActiveCaption';  Description: RsGradientActiveCaption),
-    (Value: clGradientInactiveCaption; Constant: 'clGradientInactiveCaption';Description: RsGradientInactiveCaption),
-    (Value: clHotLight;                Constant: 'clHotLight';               Description: RsHotLight),
-    (Value: clMenuBar;                 Constant: 'clMenuBar';                Description: RsMenuBar),
-    (Value: clMenuHighlight;           Constant: 'clMenuHighlight';          Description: RsMenuHighlight)
-  );
+    (Value: clGradientActiveCaption; Constant: 'clGradientActiveCaption';
+    Description: RsGradientActiveCaption),
+    (Value: clGradientInactiveCaption; Constant: 'clGradientInactiveCaption';
+    Description: RsGradientInactiveCaption),
+    (Value: clHotLight; Constant: 'clHotLight';
+    Description: RsHotLight),
+    (Value: clMenuBar; Constant: 'clMenuBar';
+    Description: RsMenuBar),
+    (Value: clMenuHighlight; Constant: 'clMenuHighlight';
+    Description: RsMenuHighlight)
+    );
 
 type
   TJvSizeRect = packed record
-    Top: Integer;
-    Left: Integer;
-    Width: Integer;
-    Height: Integer;
+    Top: integer;
+    Left: integer;
+    Width: integer;
+    Height: integer;
   end;
 
   TJvMessage = packed record
-    Msg: Integer;
-    case Integer of
-    0:
-     (
-      WParam: Integer;
-      LParam: Integer;
-      Result: Integer;
-     );
-    1:
-     (
-      WParamLo: Word;
-      WParamHi: Word;
-      LParamLo: Word;
-      LParamHi: Word;
-      ResultLo: Word;
-      ResultHi: Word;
-     );
-    2:
-     ( // WM_NOPARAMS
-      Unused: array[0..3] of Word;
-      Handled: LongBool;  // "Result"
-     );
-    3:
-     ( // WM_SCROLL
-      Pos: Integer;         // WParam
-      ScrollCode: Integer;  // LParam
-     );
-    4:
-     ( // WM_TIMER
-      TimerID: Integer;     // WParam
-      TimerProc: TTimerProc;// LParam
-     );
-    5:
-     ( // WM_MOUSEACTIVATE
-      TopLevel: HWND;       // WParam
-      HitTestCode: Word;    // LParamLo
-      MouseMsg: Word;       // LParamHi
-     );
-    6:
-     ( // WM_MOUSE(WHEEL) | WM_MOVE
-      case Integer of
-      0:
-       ( // WM_MOUSE
-        Keys: Integer;     // WParam
-        // LParam: Pos | (XPos, YPos)
-        case Integer of
-        0:
-         (
-          Position: TSmallPoint;
-         );
-        1:
-         (
-          XPos: Smallint;
-          YPos: Smallint;
-         )
-       );
-      1:
-       ( // WM_MOUSEWHEEL
-        WheelDelta: Integer; // WParam
-       );
-     );
-    7:
-     ( // WM_ACTIVATE
-      Active: Word; { WA_INACTIVE, WA_ACTIVE, WA_CLICKACTIVE } // WParamLo
-      Minimized: WordBool;  // WParamHi
-      ActiveWindow: HWND;   // LParam
-     );
+    Msg: integer;
+    case integer of
+      0: (
+        WParam: integer;
+        LParam: integer;
+        Result: integer;
+      );
+      1: (
+        WParamLo: word;
+        WParamHi: word;
+        LParamLo: word;
+        LParamHi: word;
+        ResultLo: word;
+        ResultHi: word;
+      );
+      2: ( // WM_NOPARAMS
+        Unused: array[0..3] of word;
+        Handled: longbool;  // "Result"
+      );
+      3: ( // WM_SCROLL
+        Pos: integer;         // WParam
+        ScrollCode: integer;  // LParam
+      );
+      4: ( // WM_TIMER
+        TimerID: integer;     // WParam
+        TimerProc: TTimerProc;// LParam
+      );
+      5: ( // WM_MOUSEACTIVATE
+        TopLevel: HWND;       // WParam
+        HitTestCode: word;    // LParamLo
+        MouseMsg: word;       // LParamHi
+      );
+      6: ( // WM_MOUSE(WHEEL) | WM_MOVE
+        case integer of
+          0:
+          ( // WM_MOUSE
+          Keys: integer;     // WParam
+            // LParam: Pos | (XPos, YPos)
+          case integer of
+            0:
+            (
+            Position: TSmallPoint;
+            );
+            1:
+            (
+            XPos: smallint;
+            YPos: smallint;
+            )
+          );
+          1:
+          ( // WM_MOUSEWHEEL
+          WheelDelta: integer; // WParam
+          );
+      );
+      7: ( // WM_ACTIVATE
+        Active: word; { WA_INACTIVE, WA_ACTIVE, WA_CLICKACTIVE } // WParamLo
+        Minimized: wordbool;  // WParamHi
+        ActiveWindow: HWND;   // LParam
+      );
 
-    8:
-     ( // WM_COMMAND
-      ItemID: Word;         // WParamLo
-      NotifyCode: Word;     // WParamHi
-      Ctl: HWND;            // LParam
-     );
-    9:
-     ( // WM_GETICON
-      BigIcon: LongBool;
-     );
-    10:
-     ( // CM_(FOCUS|CONTROL)CHANGED  | CM_HINTSHOW
-      Reserved: Integer;      // WParam
-      case Integer of
-        0:
-         ( // CM_(CONTROL)CHANGED
+      8: ( // WM_COMMAND
+        ItemID: word;         // WParamLo
+        NotifyCode: word;     // WParamHi
+        Ctl: HWND;            // LParam
+      );
+      9: ( // WM_GETICON
+        BigIcon: longbool;
+      );
+      10: ( // CM_(FOCUS|CONTROL)CHANGED  | CM_HINTSHOW
+        Reserved: integer;      // WParam
+        case integer of
+          0:
+          ( // CM_(CONTROL)CHANGED
           Child: TControl;    // LParam
-         );
-        1:
-         ( // CM_FOCUSCHANGED | CM_FORCESIZE }
+          );
+          1:
+          ( // CM_FOCUSCHANGED | CM_FORCESIZE }
           Sender: TControl;   // LParam
-         );
-        2:
-         ( //CM_HINTSHOW
+          );
+          2:
+          ( //CM_HINTSHOW
           HintInfo: PHintInfo;
-         )
-     );
-    11:
-     ( // CM_CONTROLLISTCHANGE | CM_(CONTROL)CHANGED (| CM_BUTTONPRESSED for clx)
-      Control: TControl;    // WParam
-      case Integer of
-        0:
-         ( // CM_(CONTROL)CHANGED
-          Inserting: LongBool;    // LParam
-         );
-        1: // CM_BUTTONPRESSED (clx)
-         (
-          Index: Integer;
-         )
-     );
-    12:
-     ( // CM_HINTSHOWPAUSE
-      WasActive: LongBool;
-      Pause: PInteger;
-     );
-    13:
-     ( // WM_KEY
-      CharCode: Word;
-      NotUsed: Word;
-      KeyData: Integer;
-     );
-    14:
-     ( // WM_GETTEXT
-      TextMax: Integer;
-      Text: PChar
-     );
-    15:
-     ( // WM_ERASEBKGND | WM_PAINT
-      DC: HDC;
-     );
-    16:
-     ( // WM_KILLFOCUS
-      FocusedWnd: HWND;
-     );
-    17:
-     (
-      NewSize: TSmallPoint; //CM_FORCESIZE wParam
-     );
-    18:
-     ( { alternative naming for VCL CM_BUTTONPRESSED }
-      GroupIndex: Integer;
-      Button: TControl;
-     );
+          )
+      );
+      11: ( // CM_CONTROLLISTCHANGE | CM_(CONTROL)CHANGED (| CM_BUTTONPRESSED for clx)
+        Control: TControl;    // WParam
+        case integer of
+          0:
+          ( // CM_(CONTROL)CHANGED
+          Inserting: longbool;    // LParam
+          );
+          1: // CM_BUTTONPRESSED (clx)
+          (
+          Index: integer;
+          )
+      );
+      12: ( // CM_HINTSHOWPAUSE
+        WasActive: longbool;
+        Pause: PInteger;
+      );
+      13: ( // WM_KEY
+        CharCode: word;
+        NotUsed: word;
+        KeyData: integer;
+      );
+      14: ( // WM_GETTEXT
+        TextMax: integer;
+        Text: PChar
+      );
+      15: ( // WM_ERASEBKGND | WM_PAINT
+        DC: HDC;
+      );
+      16: ( // WM_KILLFOCUS
+        FocusedWnd: HWND;
+      );
+      17: (
+        NewSize: TSmallPoint; //CM_FORCESIZE wParam
+      );
+      18: ( { alternative naming for VCL CM_BUTTONPRESSED }
+        GroupIndex: integer;
+        Button: TControl;
+      );
   end;
 
 {$IFDEF UNITVERSIONING}
@@ -614,7 +640,7 @@ const
     Revision: '$Revision: 12461 $';
     Date: '$Date: 2009-08-14 19:21:33 +0200 (ven., 14 aoΓ»t 2009) $';
     LogPath: 'JVCL\run'
-  );
+    );
 {$ENDIF UNITVERSIONING}
 
 implementation
@@ -641,16 +667,13 @@ var
 begin
   Result := inherited GetNamePath;
   lOwner := GetOwner;   //Resturn Nested NamePath
-  if (lOwner <> nil)
-    and ( (csSubComponent in TComponent(lOwner).ComponentStyle)
-         or (TPersistentAccessProtected(lOwner).GetOwner <> nil)
-        )
-   then
-  begin
+  if (lOwner <> nil) and ((csSubComponent in TComponent(lOwner).ComponentStyle) or
+    (TPersistentAccessProtected(lOwner).GetOwner <> nil)) then
+    begin
     S := lOwner.GetNamePath;
     if S <> '' then
       Result := S + '.' + Result;
-  end;
+    end;
 end;
 
 function TJvPersistent.GetOwner: TPersistent;
@@ -703,7 +726,7 @@ begin
     SetUpdateState(False);
 end;
 
-procedure TJvPersistentProperty.SetUpdateState(aUpdating: Boolean);
+procedure TJvPersistentProperty.SetUpdateState(aUpdating: boolean);
 begin
   if aUpdating then
     Changing
@@ -720,4 +743,3 @@ finalization
 {$ENDIF UNITVERSIONING}
 
 end.
-

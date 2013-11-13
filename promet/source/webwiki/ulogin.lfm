@@ -17,7 +17,7 @@ object fmLogin: TfmLogin
       Template.AllowTagParams = False
     end>
   OnGetAction = DataModuleGetAction
-  CreateSession = False
+  CreateSession = True
   Height = 146
   HorizontalOffset = 585
   VerticalOffset = 272

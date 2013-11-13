@@ -17,14 +17,14 @@
  * The Original Code is DUnit.
  *
  * The Initial Developers of the Original Code are Serge Beaumont
- * and Juancarlo Añez.
+ * and Juancarlo A?ez.
  * Portions created The Initial Developers are Copyright (C) 1999-2000.
  * Portions created by The DUnit Group are Copyright (C) 2000-2004.
  * All rights reserved.
  *
  * Contributor(s):
  * Serge Beaumont <beaumose@iquip.nl>
- * Juanco Añez <juanco@users.sourceforge.net>
+ * Juanco A?ez <juanco@users.sourceforge.net>
  * Uberto Barbini <uberto@usa.net>
  * Kris Golko <neuromancer@users.sourceforge.net>
  * Jon Bertrand <jonbsfnet@users.sourceforge.net>
@@ -39,6 +39,7 @@
 unit GUITesting;
 
 interface
+
 uses
   TestFramework,
 
@@ -74,19 +75,21 @@ const
 type
   TGUITestCase = class(TTestCase)
   public
-    constructor Create(MethodName :string); override;
-    destructor  Destroy; override;
+    constructor Create(MethodName: string); override;
+    destructor Destroy; override;
 
     procedure TearDown; override;
 
   protected
-    FGUI         :TControl; // this is the control we're testing
-    FActionDelay :Integer;
+    FGUI: TControl; // this is the control we're testing
+    FActionDelay: integer;
 
-    function  FindControl(Comp: TComponent; const CtlName: string; Addr :Pointer = nil): TControl; overload;
-    function  FindControl(const Name: string; Addr :Pointer = nil): TControl;                      overload;
+    function FindControl(comp: TComponent; const CtlName: string;
+      Addr: Pointer = nil): TControl; overload;
+    function FindControl(const Name: string; Addr: Pointer = nil): TControl;
+      overload;
 
-    function  FindParentWinControl(Control :TControl):TWinControl;
+    function FindParentWinControl(Control: TControl): TWinControl;
 
 (* I belive this is now dead code - if so remove it by Dec 2003
    Windows doesn't use shift/alt like this at all so I was assuming this was
@@ -98,58 +101,62 @@ type
 
 {$IFNDEF DUNIT_CLX}
     { Windows specific keyboard state code }
-    procedure SetKeyboardStateDown(pControl : TWinControl; pShiftState: TShiftState);
+    procedure SetKeyboardStateDown(pControl: TWinControl; pShiftState: TShiftState);
     procedure SetKeyboardStateUp(pControl: TWinControl; pShiftState: TShiftState);
 {$ENDIF}
 
     procedure ClickLeftMouseButtonOn(Control: TControl);
 
-    procedure Click;                      overload;
-    procedure Click(ControlName :string); overload;
-    procedure Click(control :TControl);   overload;
+    procedure Click; overload;
+    procedure Click(ControlName: string); overload;
+    procedure Click(control: TControl); overload;
 
-    procedure EnterKey(Key :Word; const ShiftState :TShiftState = []); overload;
-    procedure EnterKeyInto(Control :TControl;   Key :Word; const ShiftState :TShiftState = []); overload;
-    procedure EnterKeyInto(ControlName :string; Key :Word; const ShiftState :TShiftState = []); overload;
+    procedure EnterKey(Key: word; const ShiftState: TShiftState = []); overload;
+    procedure EnterKeyInto(Control: TControl; Key: word;
+      const ShiftState: TShiftState = []); overload;
+    procedure EnterKeyInto(ControlName: string; Key: word;
+      const ShiftState: TShiftState = []); overload;
 
-    procedure EnterKey(Key :Char; const ShiftState :TShiftState = []); overload;
-    procedure EnterKeyInto(Control :TControl;   Key :Char; const ShiftState :TShiftState = []); overload;
-    procedure EnterKeyInto(ControlName :string; Key :Char; const ShiftState :TShiftState = []); overload;
+    procedure EnterKey(Key: char; const ShiftState: TShiftState = []); overload;
+    procedure EnterKeyInto(Control: TControl; Key: char;
+      const ShiftState: TShiftState = []); overload;
+    procedure EnterKeyInto(ControlName: string; Key: char;
+      const ShiftState: TShiftState = []); overload;
 
-    procedure EnterText(Text :string);
-    procedure EnterTextInto(Control :TControl;   Text :string); overload;
-    procedure EnterTextInto(ControlName :string; Text :string); overload;
+    procedure EnterText(Text: string);
+    procedure EnterTextInto(Control: TControl; Text: string); overload;
+    procedure EnterTextInto(ControlName: string; Text: string); overload;
 
-    procedure Show(OnOff :boolean = true);                      overload;
-    procedure Show(Control :TControl; OnOff :boolean = true);   overload;
-    procedure Show(ControlName :string; OnOff :boolean = true); overload;
+    procedure Show(OnOff: boolean = True); overload;
+    procedure Show(Control: TControl; OnOff: boolean = True); overload;
+    procedure Show(ControlName: string; OnOff: boolean = True); overload;
 
-    procedure Hide;                      overload;
-    procedure Hide(Control :TControl);   overload;
-    procedure Hide(ControlName :string); overload;
+    procedure Hide; overload;
+    procedure Hide(Control: TControl); overload;
+    procedure Hide(ControlName: string); overload;
 
-    procedure Tab(n :Integer =1);
+    procedure Tab(n: integer = 1);
 
-    procedure CheckTabTo(Control :TControl; Addr :Pointer = nil); overload;
-    procedure CheckTabTo(ControlName :string);                    overload;
+    procedure CheckTabTo(Control: TControl; Addr: Pointer = nil); overload;
+    procedure CheckTabTo(ControlName: string); overload;
 
-    function  GetFocused :TControl;
-    function  IsFocused(Control : TControl) : boolean;
-    procedure SetFocus(Control :TControl; Addr :Pointer = nil); overload;
-    procedure SetFocus(ControlName :string);                    overload;
+    function GetFocused: TControl;
+    function IsFocused(Control: TControl): boolean;
+    procedure SetFocus(Control: TControl; Addr: Pointer = nil); overload;
+    procedure SetFocus(ControlName: string); overload;
 
-    procedure CheckFocused(Control :TControl; Addr :Pointer = nil); overload;
-    procedure CheckFocused(ControlName :string);                    overload;
+    procedure CheckFocused(Control: TControl; Addr: Pointer = nil); overload;
+    procedure CheckFocused(ControlName: string); overload;
 
-    procedure CheckEnabled(Control :TControl; Addr :Pointer = nil);  overload;
-    procedure CheckEnabled(ControlName :string);                     overload;
+    procedure CheckEnabled(Control: TControl; Addr: Pointer = nil); overload;
+    procedure CheckEnabled(ControlName: string); overload;
 
-    procedure CheckVisible(Control :TControl; Addr :Pointer = nil);  overload;
-    procedure CheckVisible(ControlName :string);                     overload;
-    procedure CheckVisible;                                          overload;
+    procedure CheckVisible(Control: TControl; Addr: Pointer = nil); overload;
+    procedure CheckVisible(ControlName: string); overload;
+    procedure CheckVisible; overload;
 
-    property GUI :TControl read FGUI write FGUI;
-    property ActionDelay :Integer  read FActionDelay write FActionDelay;
+    property GUI: TControl read FGUI write FGUI;
+    property ActionDelay: integer read FActionDelay write FActionDelay;
   end;
 
 
@@ -162,7 +169,7 @@ implementation
 
 { TGUITestCase }
 
-constructor TGUITestCase.Create(MethodName :string);
+constructor TGUITestCase.Create(MethodName: string);
 begin
   inherited Create(MethodName);
   FActionDelay := 100;
@@ -181,27 +188,29 @@ begin
   FGUI := nil;
 end;
 
-function TGUITestCase.FindControl(Comp: TComponent; const CtlName: string; Addr :Pointer): TControl;
+function TGUITestCase.FindControl(comp: TComponent; const CtlName: string;
+  Addr: Pointer): TControl;
 
-  function DoFind(C :TComponent; const CName :string) :TControl;
+  function DoFind(C: TComponent; const CName: string): TControl;
   var
-    i: Integer;
+    i: integer;
   begin
     Result := nil;
     i := 0;
     while (Result = nil) and (i < C.ComponentCount) do
-    begin
-      with C do
       begin
-        if (Components[i] is TControl)
-        and (UpperCase(Components[i].Name) = CName) then
+      with C do
+        begin
+        if (Components[i] is TControl) and
+          (UpperCase(Components[i].Name) = CName) then
           Result := Components[I] as TControl
         else
           Result := DoFind(Components[I], CName);
-      end;
+        end;
       Inc(i);
-    end;
+      end;
   end;
+
 begin
   if Addr = nil then
     Addr := CallerAddr;
@@ -210,12 +219,12 @@ begin
   if Trim(CtlName) = '' then
     Fail('No control name', Addr);
 
-  Result := DoFind(Comp, UpperCase(CtlName));
+  Result := DoFind(comp, UpperCase(CtlName));
 
   if Result = nil then
-    Fail( Format('Control named "%s" not found in %s',
-                  [CtlName, Screen.ActiveForm.Name])
-    );
+    Fail(Format('Control named "%s" not found in %s',
+      [CtlName, Screen.ActiveForm.Name])
+      );
 end;
 
 procedure TGUITestCase.ClickLeftMouseButtonOn(Control: TControl);
@@ -231,27 +240,29 @@ begin
 
   Control := FindParentWinControl(Control);
   if Control <> nil then
-  begin
+    begin
     {:@ todo consider if this method should have X,Y parameters.
       @todo This doesn't work if the original control is not a TWinControl and is not in
        the middle of its parent. }
 {$IFDEF DUNIT_CLX}
-    P := Point(Control.Width  div 2, Control.Height div 2);
-    evMouse := QMouseEvent_create(QEventType_MouseButtonPress, @P, Integer(ButtonState_LeftButton), Integer(ButtonState_LeftButton));
+    P := Point(Control.Width div 2, Control.Height div 2);
+    evMouse := QMouseEvent_create(QEventType_MouseButtonPress, @P,
+      integer(ButtonState_LeftButton), integer(ButtonState_LeftButton));
     QApplication_sendEvent(TWidgetControl(Control).Handle, evMouse);
-    evMouse := QMouseEvent_create(QEventType_MouseButtonRelease, @P, Integer(ButtonState_LeftButton), Integer(ButtonState_LeftButton));
+    evMouse := QMouseEvent_create(QEventType_MouseButtonRelease, @P,
+      integer(ButtonState_LeftButton), integer(ButtonState_LeftButton));
     QApplication_sendEvent(TWidgetControl(Control).Handle, evMouse);
 {$ELSE}
-    P := SmallPoint(Control.Width  div 2, Control.Height div 2);
-    PostMessage(TWinControl(Control).Handle, WM_LBUTTONDOWN, 0, Longint(P));
-    PostMessage(TWinControl(Control).Handle, WM_LBUTTONUP, 0,   Longint(P));
+    P := SmallPoint(Control.Width div 2, Control.Height div 2);
+    PostMessage(TWinControl(Control).Handle, WM_LBUTTONDOWN, 0, longint(P));
+    PostMessage(TWinControl(Control).Handle, WM_LBUTTONUP, 0, longint(P));
 {$ENDIF}
     Sleep(ActionDelay);
-  end;
+    end;
   Application.ProcessMessages;
 end;
 
-function TGUITestCase.FindControl(const Name: string; Addr :Pointer): TControl;
+function TGUITestCase.FindControl(const Name: string; Addr: Pointer): TControl;
 begin
   Result := FindControl(Screen.ActiveForm, Name, Addr);
 end;
@@ -282,57 +293,62 @@ end;
 
 {$ifndef DUNIT_CLX}
 { Windows specific keyboard state code }
-procedure TGUITestCase.SetKeyboardStateDown(pControl : TWinControl; pShiftState: TShiftState);
-var KeyboardState : TKeyboardState;
+procedure TGUITestCase.SetKeyboardStateDown(pControl: TWinControl;
+  pShiftState: TShiftState);
+var
+  KeyboardState: TKeyboardState;
 begin
   GetKeyboardState(KeyboardState);
 
-  if ( ssAlt in pShiftState ) then
-  begin
+  if (ssAlt in pShiftState) then
+    begin
     KeyboardState[VK_MENU] := $80;
     SetKeyboardState(KeyboardState);
-  end;
+    end;
 
-  if ( ssShift in pShiftState ) then
-  begin
+  if (ssShift in pShiftState) then
+    begin
     KeyboardState[VK_SHIFT] := $80;
     SetKeyboardState(KeyboardState);
-  end;
+    end;
 
-  if ( ssCtrl in pShiftState ) then
-  begin
+  if (ssCtrl in pShiftState) then
+    begin
     KeyboardState[VK_CONTROL] := $80;
-    SetKeyboardState( KeyboardState );
-  end;
+    SetKeyboardState(KeyboardState);
+    end;
 end;
 
 { Windows specific keyboard state code }
-procedure TGUITestCase.SetKeyboardStateUp(pControl: TWinControl; pShiftState: TShiftState);
-var KeyboardState : TKeyboardState;
+procedure TGUITestCase.SetKeyboardStateUp(pControl: TWinControl;
+  pShiftState: TShiftState);
+var
+  KeyboardState: TKeyboardState;
 begin
   { Get the current keyboard state. }
-  GetKeyboardState( KeyboardState );
+  GetKeyboardState(KeyboardState);
 
-  if ( ssAlt in pShiftState ) then
-  begin
+  if (ssAlt in pShiftState) then
+    begin
     KeyboardState[VK_MENU] := $00;
     SetKeyboardState(KeyboardState);
-  end;
+    end;
 
-  if ( ssShift in pShiftState ) then
-  begin
+  if (ssShift in pShiftState) then
+    begin
     { Modify the keyboard state. }
     KeyboardState[VK_SHIFT] := $00;
     SetKeyboardState(KeyboardState);
-  end;
+    end;
 
-  if ( ssCtrl in pShiftState ) then
-  begin
+  if (ssCtrl in pShiftState) then
+    begin
     { Modify the keyboard state. }
     KeyboardState[VK_CONTROL] := $00;
     SetKeyboardState(KeyboardState);
-  end;
+    end;
 end;
+
 {$endif}
 
 procedure TGUITestCase.Click;
@@ -351,110 +367,116 @@ begin
   ClickLeftMouseButtonOn(Control);
 end;
 
-procedure TGUITestCase.EnterKey(Key: Word; const ShiftState: TShiftState);
+procedure TGUITestCase.EnterKey(Key: word; const ShiftState: TShiftState);
 begin
   //  EnterKeyInto(Screen.ActiveForm, Key, ShiftState);
   EnterKeyInto(GetFocused, Key, ShiftState);
 end;
 
-procedure TGUITestCase.EnterKeyInto(Control: TControl; Key: Word; const ShiftState: TShiftState);
+procedure TGUITestCase.EnterKeyInto(Control: TControl; Key: word;
+  const ShiftState: TShiftState);
 {$IFDEF DUNIT_CLX}
 var
   E: QKeyEventH;
   Ch: char;
   S: WideString;
   state: integer;
+
   function KeyChar(Key: word; Shift: boolean): char;
   begin
-    Result := Char(Key);
+    Result := char(Key);
     if Shift then
       Result := UpCase(Result)
     else
       Result := LowerCase(Result)[1];
   end;
+
 {$ENDIF}
 begin
   Assert(Control <> nil, 'No control');
   Control := FindParentWinControl(Control);
   if Control <> nil then
-  begin
+    begin
 {$IFDEF DUNIT_CLX}
     if Key <= 255 then
-    begin
+      begin
       Ch := KeyChar(Key, ssShift in ShiftState);
       S := Ch;
-    end
+      end
     else
-    begin
+      begin
       Ch := #0;
       S := '';
-    end;
+      end;
     State := 0;
     if ssAlt in ShiftState then
       State := integer(ButtonState_AltButton);
     if ssCtrl in ShiftState then
-      State := State or Integer(ButtonState_ControlButton);
+      State := State or integer(ButtonState_ControlButton);
     if ssShift in ShiftState then
-      State := State or Integer(ButtonState_ShiftButton);
+      State := State or integer(ButtonState_ShiftButton);
 
-    E := QKeyEvent_create(QEventType_KeyPress, Key, Ord(Ch), State, @S, false, 1);
-    try
+    E := QKeyEvent_create(QEventType_KeyPress, Key, Ord(Ch), State, @S, False, 1);
+      try
       QApplication_sendEvent(TWidgetControl(Control).Handle, E);
-    finally
+      finally
       QKeyEvent_destroy(E);
-    end;
+      end;
 {$ELSE}
     SetKeyboardStateDown(TWinControl(Control), ShiftState);
     if ssAlt in ShiftState then
-    begin
+      begin
       PostMessage(TWinControl(Control).Handle, WM_SYSKEYDOWN, Key, integer($20000000));
-    end
+      end
     else
-    begin
+      begin
       PostMessage(TWinControl(Control).Handle, WM_KEYDOWN, Key, 0);
-    end;
+      end;
     Application.ProcessMessages;
 {$ENDIF}
     Sleep(ActionDelay);
 {$IFDEF DUNIT_CLX}
-    E := QKeyEvent_create(QEventType_KeyRelease, Key, Ord(Ch), State, @S, false, 1);
-    try
+    E := QKeyEvent_create(QEventType_KeyRelease, Key, Ord(Ch), State, @S, False, 1);
+      try
       QApplication_sendEvent(TWidgetControl(Control).Handle, E);
-    finally
+      finally
       QKeyEvent_destroy(E);
-    end;
+      end;
 {$ELSE}
     if ssAlt in ShiftState then
-    begin
+      begin
       PostMessage(TWinControl(Control).Handle, WM_SYSKEYUP, Key, integer($E0000000));
-    end
+      end
     else
-    begin
+      begin
       PostMessage(TWinControl(Control).Handle, WM_KEYUP, Key, integer($C0000000));
-    end;
-    SetKeyboardStateUp( TWinControl(Control), ShiftState );
+      end;
+    SetKeyboardStateUp(TWinControl(Control), ShiftState);
 {$ENDIF}
     Sleep(ActionDelay);
     Application.ProcessMessages;
-  end;
+    end;
 end;
 
-procedure TGUITestCase.EnterKeyInto(ControlName: string; Key: Word; const ShiftState: TShiftState);
+procedure TGUITestCase.EnterKeyInto(ControlName: string; Key: word;
+  const ShiftState: TShiftState);
 begin
   EnterKeyInto(FindControl(ControlName, CallerAddr), Key, ShiftState);
 end;
 
-procedure TGUITestCase.EnterKey(Key: Char; const ShiftState: TShiftState);
+procedure TGUITestCase.EnterKey(Key: char; const ShiftState: TShiftState);
 begin
   EnterKey(Ord(Key), ShiftState);
 end;
 
-procedure TGUITestCase.EnterKeyInto(Control: TControl; Key: Char; const ShiftState: TShiftState);
+procedure TGUITestCase.EnterKeyInto(Control: TControl; Key: char;
+  const ShiftState: TShiftState);
 begin
   EnterKeyInto(Control, Ord(Key), ShiftState);
 end;
 
-procedure TGUITestCase.EnterKeyInto(ControlName: string; Key: Char; const ShiftState: TShiftState);
+procedure TGUITestCase.EnterKeyInto(ControlName: string; Key: char;
+  const ShiftState: TShiftState);
 begin
   EnterKeyInto(ControlName, Ord(Key), ShiftState);
 end;
@@ -471,7 +493,7 @@ end;
 
 procedure TGUITestCase.EnterTextInto(Control: TControl; Text: string);
 var
-  i :Integer;
+  i: integer;
 {$IFDEF DUNIT_CLX}
   E: QKeyEventH;
   S: WideString;
@@ -480,21 +502,22 @@ begin
   Assert(Control <> nil, 'No control');
   Control := FindParentWinControl(Control);
   if Control <> nil then
-  begin
-    for i := 1 to Length(Text) do
     begin
+    for i := 1 to Length(Text) do
+      begin
 {$IFDEF DUNIT_CLX}
-    S := Text[i];
-    E := QKeyEvent_create(QEventType_KeyPress, Ord(Text[i]), Ord(Text[i]), 0, @S, false, 1);
-    QApplication_sendEvent(TWidgetControl(Control).Handle, E);
-    QKeyEvent_destroy(E);
+      S := Text[i];
+      E := QKeyEvent_create(QEventType_KeyPress, Ord(Text[i]),
+        Ord(Text[i]), 0, @S, False, 1);
+      QApplication_sendEvent(TWidgetControl(Control).Handle, E);
+      QKeyEvent_destroy(E);
 {$ELSE}
       PostMessage(TWinControl(Control).Handle, WM_CHAR, Ord(Text[i]), 0);
 {$ENDIF}
       Application.ProcessMessages;
       Sleep(ActionDelay);
+      end;
     end;
-  end;
 end;
 
 procedure TGUITestCase.Show(OnOff: boolean);
@@ -518,30 +541,30 @@ end;
 
 procedure TGUITestCase.Hide;
 begin
-  Screen.ActiveForm.Visible := false;
+  Screen.ActiveForm.Visible := False;
 end;
 
 procedure TGUITestCase.Hide(ControlName: string);
 begin
-  Show(ControlName, false);
+  Show(ControlName, False);
 end;
 
 procedure TGUITestCase.Hide(Control: TControl);
 begin
-  Show(Control, false);
+  Show(Control, False);
 end;
 
-procedure TGUITestCase.Tab(n: Integer);
+procedure TGUITestCase.Tab(n: integer);
 var
-  i :Integer;
-  s :TShiftState;
+  i: integer;
+  s: TShiftState;
 begin
   s := [];
   if n < 0 then
-  begin
+    begin
     s := [ssShift];
     n := -n;
-  end;
+    end;
 
   for i := 1 to n do
     EnterKey(VK_TAB, s);
@@ -555,43 +578,43 @@ begin
   Result := Screen.ActiveControl;
 end;
 
-function TGUITestCase.IsFocused(Control : TControl) : boolean;
+function TGUITestCase.IsFocused(Control: TControl): boolean;
 begin
   Result := GetFocused = Control;
 end;
 
-procedure TGUITestCase.CheckTabTo(Control: TControl; Addr :Pointer = nil);
+procedure TGUITestCase.CheckTabTo(Control: TControl; Addr: Pointer = nil);
 var
-  i :Integer;
+  i: integer;
 begin
   if Addr = nil then
     Addr := CallerAddr;
 
   if not (Control is TWinControl) then
-     Fail(
-        Format('%s: Expected a TWinControl, but %s is a %s',
-               [Control.Name, Control.ClassName]),
-               Addr
-        );
+    Fail(
+      Format('%s: Expected a TWinControl, but %s is a %s',
+      [Control.Name, Control.ClassName]),
+      Addr
+      );
   if not TWinControl(Control).CanFocus then
-      Fail(
-        Format('Control %s:%s cannot focus', [Control.Name, Control.ClassName]),
-        Addr
-        );
+    Fail(
+      Format('Control %s:%s cannot focus', [Control.Name, Control.ClassName]),
+      Addr
+      );
 
   for i := 1 to Screen.ActiveForm.ComponentCount do
-  begin
-     if GetFocused = Control then
-       EXIT;
-     Tab;
-  end;
+    begin
+    if GetFocused = Control then
+      EXIT;
+    Tab;
+    end;
   Fail(Format('Could not Tab to control "%s"', [Control.Name]), Addr);
 end;
 
 
-procedure TGUITestCase.CheckFocused(Control: TControl; Addr :Pointer);
+procedure TGUITestCase.CheckFocused(Control: TControl; Addr: Pointer);
 var
-  F :TControl;
+  F: TControl;
 begin
   Assert(Control <> nil, 'No control');
 
@@ -600,26 +623,27 @@ begin
 
   if not (Control is TWinControl) then
     Fail(
-        Format('Expected a TWinControl, but %s is a %s',
-               [Control.Name, Control.ClassName]),
-        Addr
-        );
+      Format('Expected a TWinControl, but %s is a %s',
+      [Control.Name, Control.ClassName]),
+      Addr
+      );
   if not TWinControl(Control).CanFocus then
-     Fail(
-        Format('Control %s cannot focus', [Control.ClassName]),
-        Addr
-        );
+    Fail(
+      Format('Control %s cannot focus', [Control.ClassName]),
+      Addr
+      );
   if (Control.Owner <> nil) and (Control.Owner is TCustomForm) then
     F := (Control.Owner as TCustomForm).ActiveControl
   else
     F := GetFocused;
-  if  F <> Control then
-  begin
+  if F <> Control then
+    begin
     if F <> nil then
-      Fail(Format('Expected control %s to have focus, but %s had it.', [Control.Name, F.Name]), Addr)
+      Fail(Format('Expected control %s to have focus, but %s had it.',
+        [Control.Name, F.Name]), Addr)
     else
       Fail(Format('Expected control %s to have focus', [Control.Name]), Addr);
-  end
+    end;
 end;
 
 procedure TGUITestCase.CheckFocused(ControlName: string);
@@ -632,7 +656,7 @@ begin
   CheckTabTo(FindControl(ControlName, CallerAddr), CallerAddr);
 end;
 
-procedure TGUITestCase.CheckEnabled(Control: TControl; Addr :Pointer = nil);
+procedure TGUITestCase.CheckEnabled(Control: TControl; Addr: Pointer = nil);
 begin
   if not Control.Enabled then
     Fail(Format('Expected control %s to be enabled', [Control.Name]), CallerAddr);
@@ -649,16 +673,16 @@ begin
     Addr := CallerAddr;
 
   if not (Control is TWinControl) then
-     Fail(
-        Format('%s: Expected a TWinControl, but %s is a %s',
-               [Control.Name, Control.ClassName]),
-               Addr
-        );
+    Fail(
+      Format('%s: Expected a TWinControl, but %s is a %s',
+      [Control.Name, Control.ClassName]),
+      Addr
+      );
   if not TWinControl(Control).CanFocus then
-      Fail(
-        Format('Control %s:%s cannot focus', [Control.Name, Control.ClassName]),
-        Addr
-        );
+    Fail(
+      Format('Control %s:%s cannot focus', [Control.Name, Control.ClassName]),
+      Addr
+      );
   TWinControl(Control).SetFocus;
 end;
 
