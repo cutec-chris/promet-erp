@@ -1990,7 +1990,6 @@ begin
   FDatasource.DataSet := FDataset.DataSet;
 //  fRowEditor.GetGridSizes(FBaseName,FDataSource,dgFake,FDefaultRows);
   SyncDataSource;
-  gList.TopRow:=0;
 end;
 procedure TfGridView.SetDefaultRowHeight(AValue: Boolean);
 begin
