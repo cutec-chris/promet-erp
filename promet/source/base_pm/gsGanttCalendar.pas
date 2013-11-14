@@ -2152,7 +2152,6 @@ begin
 
             Brush.Style:=bsClear;
             TextOut(CurrInterval.DrawRect.Right+10,CurrInterval.DrawRect.Top,CurrInterval.Task);
-            Brush.Style:=bsSolid;
           end;
         end;
       end;

@@ -108,6 +108,7 @@ type
     tbTop: TPanel;
     ToolButton1: TSpeedButton;
     ToolButton2: TSpeedButton;
+    procedure aCalendarDataSetbIntervalChanged(Sender: TObject);
     procedure acCancelExecute(Sender: TObject);
     procedure acOpenExecute(Sender: TObject);
     procedure acShowInProjectGanttExecute(Sender: TObject);
@@ -946,6 +947,11 @@ begin
   bRefreshClick(Sender);
 end;
 
+procedure TfTaskPlan.aCalendarDataSetbIntervalChanged(Sender: TObject);
+begin
+  debugln('change of back interval !!');
+end;
+
 procedure TfTaskPlan.bMonthViewClick(Sender: TObject);
 begin
   FGantt.MinorScale:=tsDay;
@@ -1368,6 +1374,7 @@ begin
           bInterval.Task:=aCalendar.FieldByName('SUMMARY').AsString;
           aResource.AddInterval(bInterval);
           bInterval.Changed:=False;
+          bInterval.OnChanged:=@aCalendarDataSetbIntervalChanged;
           Next;
         end;
     end;

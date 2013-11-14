@@ -243,15 +243,6 @@ begin
       TInterval(Sender).ResetMovement;
       TInterval(Sender).Endupdate(True);
       RecalcTimer.Enabled := True;
-      for i := 0 to FRessources.Count-1 do
-        for a := 0 to TRessource(FRessources[i]).IntervalCount-1 do
-          if TRessource(FRessources[i]).Interval[a].Id = TInterval(Sender).Id then
-            begin
-              TRessource(FRessources[i]).BeginUpdate;
-              TRessource(FRessources[i]).Interval[a].StartDate:=TInterval(Sender).StartDate;
-              TRessource(FRessources[i]).Interval[a].FinishDate:=TInterval(Sender).FinishDate;
-              TRessource(FRessources[i]).EndUpdate;
-            end;
     end;
 end;
 procedure TfGanttView.aIntervalDrawBackground(Sender: TObject; aCanvas: TCanvas;
