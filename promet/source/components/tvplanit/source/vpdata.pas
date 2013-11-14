@@ -1266,9 +1266,10 @@ begin
         and (Day > trunc(Event.StartTime)) then begin
           { if the number of elapsed days between the "Day" parameter and  }
           { the event start time is evenly divisible by the event's custom }
-          { interval, then we have a recurrence on this day                }
-           result := (Trunc(Day) - Trunc(Event.StartTime))
-             mod Event.CustInterval = 0;
+          { interval, then we have a recurrence on this day }
+          if Event.CustInterval <> 0 then
+            result := (Trunc(Day) - Trunc(Event.StartTime)) mod Event.CustInterval = 0
+          else Result := false;
         end;
     end;
   end;
