@@ -496,19 +496,13 @@ var
 begin
   if Assigned(FGantt.Tree.Objects[0,FGantt.Tree.Row]) then
     begin
-      aTask := TTask.Create(nil,Data);
-      aTask.Select(TInterval(FGantt.Tree.Objects[0,FGantt.Tree.Row]).Id);
-      aTask.Open;
-      if aTask.Count>0 then
-        begin
-          aDur := round(FGantt.Calendar.Width/FGantt.Calendar.GetIntervalWidth);
-          aTask.CalcDates(aStart,aEnd);
-          if (aEnd-aStart) > aDur then
-            FGantt.StartDate:=aStart
-          else
-            FGantt.StartDate:=aStart-((aDur-((aEnd-aStart)/2)) / 2);
-          aTask.Free;
-        end;
+      aDur := round(FGantt.Calendar.Width/FGantt.Calendar.GetIntervalWidth);
+      aStart := TInterval(FGantt.Tree.Objects[0,FGantt.Tree.Row]).StartDate;
+      aEnd := TInterval(FGantt.Tree.Objects[0,FGantt.Tree.Row]).FinishDate;
+      if (aEnd-aStart) > aDur then
+        FGantt.StartDate:=aStart
+      else
+        FGantt.StartDate:=aStart-((aDur-((aEnd-aStart)/2)) / 2);
     end;
 end;
 procedure TfGanttView.acAddSubProjectsExecute(Sender: TObject);
