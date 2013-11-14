@@ -115,6 +115,8 @@ begin
       Show;
       BoundsRect := aBoundsRect;
     end;
+  if fmTimeline.WindowState=wsMinimized then
+    fmTimeline.WindowState:=wsNormal;
   Show;
   fTimeline.acFilter.Execute;
   //IdleTimer1.Enabled:=True;
