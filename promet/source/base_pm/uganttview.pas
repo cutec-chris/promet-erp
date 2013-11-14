@@ -73,8 +73,8 @@ type
     seBuffer: TSpinEdit;
     tbTop: TPanel;
     RecalcTimer: TTimer;
-    ToolButton1: TSpeedButton;
-    ToolButton2: TSpeedButton;
+    bSave: TSpeedButton;
+    bCancel: TSpeedButton;
     procedure acAddSnapshotExecute(Sender: TObject);
     procedure acAddSubProjectsExecute(Sender: TObject);
     procedure acCenterTaskExecute(Sender: TObject);
@@ -104,8 +104,8 @@ type
     procedure FGanttTreeAfterUpdateCommonSettings(Sender: TObject);
     procedure FGanttTreeResize(Sender: TObject);
     procedure RecalcTimerTimer(Sender: TObject);
-    procedure ToolButton1Click(Sender: TObject);
-    procedure ToolButton2Click(Sender: TObject);
+    procedure bSaveClick(Sender: TObject);
+    procedure bCancelClick(Sender: TObject);
   private
     { private declarations }
     FGantt: TgsGantt;
@@ -176,16 +176,14 @@ begin
   FGantt.Calendar.Invalidate;
 end;
 
-procedure TfGanttView.ToolButton1Click(Sender: TObject);
+procedure TfGanttView.bSaveClick(Sender: TObject);
 begin
-  ModalResult := mrOK;
-  Close;
+  DoSave;
 end;
 
-procedure TfGanttView.ToolButton2Click(Sender: TObject);
+procedure TfGanttView.bCancelClick(Sender: TObject);
 begin
-  ModalResult := mrAbort;
-  Close;
+  bRefresh.Click;
 end;
 
 procedure TfGanttView.bDayViewClick(Sender: TObject);
@@ -204,6 +202,8 @@ var
   c: Integer;
   oD2: TDateTime;
 begin
+  bSave.Enabled:=True;
+  bCancel.Enabled:=true;
   with TInterval(Sender) do
     begin
       TInterval(Sender).BeginUpdate;
@@ -1005,6 +1005,8 @@ begin
   finally
     FGantt.EndUpdate;
   end;
+  bSave.Enabled:=False;
+  bCancel.Enabled:=False;
   FGantt.Tree.TopRow:=1;
   FGantt.StartDate:=Now();
   FindCriticalPath;
@@ -1182,10 +1184,6 @@ begin
       sleep(100);
     end;
   Result := ModalResult = mrOK;
-  if Result then
-    begin
-      DoSave;
-    end;
   CleanIntervals;
 end;
 procedure TfGanttView.SetRights;

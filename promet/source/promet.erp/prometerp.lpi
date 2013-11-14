@@ -495,7 +495,7 @@
       <Unit19>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="223"/>
         <CursorPos X="22" Y="236"/>
@@ -698,7 +698,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uNewStorage"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="22"/>
         <CursorPos X="1" Y="70"/>
@@ -1025,20 +1025,16 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ugridview"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1103"/>
+        <TopLine Value="1102"/>
         <CursorPos X="1" Y="1100"/>
         <FoldState Value=" T3+S2*1 T6+T25a"/>
         <UsageCount Value="102"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit67>
       <Unit68>
         <Filename Value="../base/dbintfs/utask.pas"/>
         <UnitName Value="utask"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="979"/>
         <CursorPos X="1" Y="1000"/>
@@ -1575,13 +1571,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uattendanceplan"/>
-        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="36"/>
+        <TopLine Value="26"/>
         <CursorPos X="33" Y="465"/>
         <UsageCount Value="100"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit127>
       <Unit128>
         <Filename Value="../../../../lazarus/lcl/actnlist.pas"/>
@@ -1648,11 +1641,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uGanttView"/>
-        <EditorIndex Value="10"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="830"/>
-        <CursorPos X="1" Y="942"/>
-        <FoldState Value=" T3mf0b1111161C12 p0tN0I113]I213 pjHq805s"/>
+        <TopLine Value="195"/>
+        <CursorPos X="1" Y="206"/>
+        <FoldState Value=" T3mf0b1111161C1A"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -1962,7 +1956,7 @@
       <Unit173>
         <Filename Value="../base/dbintfs/umeeting.pas"/>
         <UnitName Value="umeeting"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="40"/>
         <CursorPos X="44" Y="62"/>
@@ -2787,7 +2781,7 @@
       <Unit271>
         <Filename Value="../base/dbintfs/ubasesearch.pas"/>
         <UnitName Value="uBaseSearch"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="161"/>
         <CursorPos X="70" Y="219"/>
@@ -3277,7 +3271,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uTaskPlan"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="921"/>
         <CursorPos X="58" Y="936"/>
@@ -4060,7 +4054,7 @@
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit426>
     </Units>
-    <JumpHistory Count="3" HistoryIndex="2">
+    <JumpHistory Count="11" HistoryIndex="10">
       <Position1>
         <Filename Value="../base_pm/uganttview.pas"/>
         <Caret Line="240" Column="17" TopLine="210"/>
@@ -4073,6 +4067,38 @@
         <Filename Value="../base_pm/uganttview.pas"/>
         <Caret Line="942" Column="1" TopLine="830"/>
       </Position3>
+      <Position4>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="947" Column="3" TopLine="982"/>
+      </Position4>
+      <Position5>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="1185" Column="1" TopLine="1158"/>
+      </Position5>
+      <Position6>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="181" Column="11" TopLine="179"/>
+      </Position6>
+      <Position7>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="186" Column="8" TopLine="184"/>
+      </Position7>
+      <Position8>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="644" Column="1" TopLine="642"/>
+      </Position8>
+      <Position9>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="186" Column="17" TopLine="184"/>
+      </Position9>
+      <Position10>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="644" Column="7" TopLine="642"/>
+      </Position10>
+      <Position11>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="88" Column="93" TopLine="77"/>
+      </Position11>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>

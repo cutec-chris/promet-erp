@@ -374,7 +374,7 @@ object fGanttView: TfGanttView
         ParentColor = False
         ParentFont = False
       end
-      object ToolButton1: TSpeedButton
+      object bSave: TSpeedButton
         Left = 4
         Height = 28
         Hint = 'Änderungen speichern'
@@ -416,10 +416,10 @@ object fGanttView: TfGanttView
           FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
           FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
         }
-        OnClick = ToolButton1Click
+        OnClick = bSaveClick
         ShowCaption = False
       end
-      object ToolButton2: TSpeedButton
+      object bCancel: TSpeedButton
         Left = 32
         Height = 28
         Hint = 'Änderungen verwerfen'
@@ -461,7 +461,7 @@ object fGanttView: TfGanttView
           FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
           FF00FFFFFF00FFFFFF006360F80AFFFFFF00FFFFFF00FFFFFF00
         }
-        OnClick = ToolButton2Click
+        OnClick = bCancelClick
         ShowCaption = False
       end
     end
