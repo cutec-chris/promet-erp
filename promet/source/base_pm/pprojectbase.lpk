@@ -14,7 +14,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="21">
+    <Files Count="23">
       <Item1>
         <Filename Value="gsGantt.res"/>
         <Type Value="Binary"/>
@@ -29,7 +29,7 @@
       </Item3>
       <Item4>
         <Filename Value="uattstatistic.pas"/>
-        <UnitName Value="uattstatistic"/>
+        <UnitName Value="uAttStatistic"/>
       </Item4>
       <Item5>
         <Filename Value="uganttview.pas"/>
@@ -99,6 +99,14 @@
         <Filename Value="utasks.lrs"/>
         <Type Value="LRS"/>
       </Item21>
+      <Item22>
+        <Filename Value="uroughpklanningframe.lfm"/>
+        <Type Value="LFM"/>
+      </Item22>
+      <Item23>
+        <Filename Value="uroughpklanningframe.pas"/>
+        <UnitName Value="uroughpklanningframe"/>
+      </Item23>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="6">

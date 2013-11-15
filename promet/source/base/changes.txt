@@ -1,4 +1,8 @@
-﻿Build 290
+﻿Build 291
+      - in Suche kann Anzahl der Suchergebnisse nicht mehr auf unbegrenzt gespeichert wedren
+        temporär ist unbegrenzte Suche weiterhin möglich
+      - Grobplan zu Promet hinzugefügt
+Build 290
       - Messagemanager zeigt Unterhaltungen nun in Threads an
       - Aufgabenname wird in Gantt Diagramm angezeigt
       - Normale Verknüpfungen werden gestrichelt, Verknüpfungen mit Wartezeit durchgezogen dargetellt

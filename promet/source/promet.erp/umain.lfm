@@ -799,7 +799,7 @@ object fMain: TfMain
       OnExecute = acMeetingsExecute
     end
     object acTaskPlan: TAction
-      Caption = 'Aufgabneplan'
+      Caption = 'Aufgabenplan'
       ImageIndex = 4
       OnExecute = acTaskPlanExecute
     end
@@ -830,6 +830,11 @@ object fMain: TfMain
       Caption = 'Neues Konto'
       ImageIndex = 88
       OnExecute = acNewAccountExecute
+    end
+    object acRoughPlanning: TAction
+      Caption = 'Grobplanung'
+      ImageIndex = 4
+      OnExecute = acRoughPlanningExecute
     end
   end
   object ApplicationProperties1: TApplicationProperties
