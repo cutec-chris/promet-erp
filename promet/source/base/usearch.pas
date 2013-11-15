@@ -465,7 +465,7 @@ begin
       if cbMaxresults.Checked then
         Config.WriteInteger('SEARCHMAXRESULTS',seMaxResults.Value)
       else
-        Config.WriteString('SEARCHMAXRESULTS','OFF');
+        Config.WriteString('SEARCHMAXRESULTS','10');
     end;
   DoSearch(nil);
 end;
