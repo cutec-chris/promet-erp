@@ -483,10 +483,12 @@ inherited fRoughPlanningFrame: TfRoughPlanningFrame
     object acUse: TAction
       Caption = 'acUse'
       Hint = 'Änderungen in Aufgaben übernehmen'
+      OnExecute = acUseExecute
     end
     object acCancel: TAction
       Caption = 'acCancel'
       Hint = 'Ändrungen verwerfen'
+      OnExecute = acCancelExecute
     end
   end
   object Timer1: TTimer[3]
