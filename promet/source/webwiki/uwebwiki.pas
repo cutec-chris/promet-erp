@@ -315,96 +315,110 @@ var
   itemNode: TDOMElement;
 begin
   try
-    ss := TStringStream.Create('');
-    Doc := TXMLDocument.Create;
-    RootNode := Doc.CreateElement('rss');
-    TDOMElement(RootNode).SetAttribute('version', '2.0');
-    Doc.Appendchild(RootNode);
-    RootNode:= Doc.DocumentElement;
-    parentNode := Doc.CreateElement('channel');
-    channelNode := parentNode;
-    RootNode.Appendchild(parentNode);
-    parentNode := Doc.CreateElement('title');
-    nofilho := Doc.CreateTextNode(HTMLEncode(strLastChanges));
-    parentNode.Appendchild(nofilho);
-    RootNode.ChildNodes.Item[0].AppendChild(parentNode);
-    parentNode := Doc.CreateElement('pubDate');
-    nofilho := Doc.CreateTextNode(Rfc822DateTime((Now())));
-    parentNode.Appendchild(nofilho);
-    with BaseApplication as IBaseApplication do
-      begin
-        LinkBase := Config.ReadString('WebsiteCompleteURL','');
-      end;
-    LinkBase := LinkBase+'/wiki/';
-    RootNode.ChildNodes.Item[0].AppendChild(parentNode);
-    parentNode := Doc.CreateElement('link');
-    nofilho := Doc.CreateTextNode(LinkBase);
-    parentNode.Appendchild(nofilho);
-    RootNode.ChildNodes.Item[0].AppendChild(parentNode);
-    parentNode := Doc.CreateElement('description');
-    nofilho := Doc.CreateTextNode(HTMLEncode(strLastChangesDesc));
-    parentNode.Appendchild(nofilho);
-    RootNode.ChildNodes.Item[0].AppendChild(parentNode);
-
-    aWiki := TWikiList.Create(Self,Data);
-    Data.SetFilter(aWiki,'',LAST_CHANGES_COUNT,'TIMESTAMPD','DESC');
-    while not aWiki.DataSet.EOF do
-      begin
-        LinkValue := Data.BuildLink(aWiki.DataSet);
-        LinkRValue := LinkValue;
-        LinkDesc := HTMLEncode(Data.GetLinkDesc(LinkValue));
-        LinkValue := copy(LinkValue,pos('@',LinkValue)+1,length(LinkValue));
-        if rpos('{',LinkValue) > 0 then
-          LinkValue := copy(LinkValue,0,rpos('{',LinkValue)-1)
-        else if rpos('(',LinkValue) > 0 then
-          LinkValue := copy(LinkValue,0,rpos('(',LinkValue)-1);
-        if not IgnorePage(LinkValue) then
+    try
+      ss := TStringStream.Create('');
+      Doc := TXMLDocument.Create;
+      try
+        RootNode := Doc.CreateElement('rss');
+        TDOMElement(RootNode).SetAttribute('version', '2.0');
+        Doc.Appendchild(RootNode);
+        RootNode:= Doc.DocumentElement;
+        parentNode := Doc.CreateElement('channel');
+        channelNode := parentNode;
+        RootNode.Appendchild(parentNode);
+        parentNode := Doc.CreateElement('title');
+        nofilho := Doc.CreateTextNode(HTMLEncode(strLastChanges));
+        parentNode.Appendchild(nofilho);
+        RootNode.ChildNodes.Item[0].AppendChild(parentNode);
+        parentNode := Doc.CreateElement('pubDate');
+        nofilho := Doc.CreateTextNode(Rfc822DateTime((Now())));
+        parentNode.Appendchild(nofilho);
+        with BaseApplication as IBaseApplication do
           begin
-            if rpos('(',Linkdesc) > 0 then
-              begin
-                LinkLocation := copy(LinkDesc,rpos('(',LinkDesc)+1,length(LinkDesc));
-                LinkLocation := copy(LinkLocation,0,length(LinkLocation)-1);
-                LinkDesc := copy(LinkDesc,0,rpos('(',LinkDesc)-1);
-              end
-            else if rpos('{',Linkdesc) > 0 then
-              begin
-                LinkLocation := copy(LinkDesc,rpos('{',LinkDesc)+1,length(LinkDesc));
-                LinkLocation := copy(LinkLocation,0,length(LinkLocation)-1);
-                LinkDesc := copy(LinkDesc,0,rpos('{',LinkDesc)-1);
-              end;
-            itemNode := Doc.CreateElement('item');
-            ChannelNode.Appendchild(itemNode);
-            parentNode := Doc.CreateElement('title');
-            nofilho := Doc.CreateTextNode(LinkDesc);
-            parentNode.Appendchild(nofilho);
-            itemNode.AppendChild(parentNode);
-            parentNode := Doc.CreateElement('description');
-            nofilho := Doc.CreateTextNode(HTMLEncode(Data.GetLinkLongDesc(LinkRValue)));
-            parentNode.Appendchild(nofilho);
-            itemNode.AppendChild(parentNode);
-            parentNode := Doc.CreateElement('link');
-            nofilho := Doc.CreateTextNode(LinkBase+LinkValue);
-            parentNode.Appendchild(nofilho);
-            itemNode.AppendChild(parentNode);
-            parentNode := Doc.CreateElement('guid');
-            nofilho := Doc.CreateTextNode(LinkValue);
-            parentNode.Appendchild(nofilho);
-            itemNode.AppendChild(parentNode);
-            parentNode := Doc.CreateElement('pubDate');
-            nofilho := Doc.CreateTextNode(Rfc822DateTime(aWiki.TimeStamp.AsDateTime));
-            parentNode.Appendchild(nofilho);
-            itemNode.AppendChild(parentNode);
+            LinkBase := Config.ReadString('WebsiteCompleteURL','');
           end;
-        aWiki.DataSet.Next;
+        LinkBase := LinkBase+'/wiki/';
+        RootNode.ChildNodes.Item[0].AppendChild(parentNode);
+        parentNode := Doc.CreateElement('link');
+        nofilho := Doc.CreateTextNode(LinkBase);
+        parentNode.Appendchild(nofilho);
+        RootNode.ChildNodes.Item[0].AppendChild(parentNode);
+        parentNode := Doc.CreateElement('description');
+        nofilho := Doc.CreateTextNode(HTMLEncode(strLastChangesDesc));
+        parentNode.Appendchild(nofilho);
+        RootNode.ChildNodes.Item[0].AppendChild(parentNode);
+
+        aWiki := TWikiList.Create(Self,Data);
+        try
+          Data.SetFilter(aWiki,'',LAST_CHANGES_COUNT,'TIMESTAMPD','DESC');
+          while not aWiki.DataSet.EOF do
+            begin
+              LinkValue := Data.BuildLink(aWiki.DataSet);
+              LinkRValue := LinkValue;
+              LinkDesc := HTMLEncode(Data.GetLinkDesc(LinkValue));
+              LinkValue := copy(LinkValue,pos('@',LinkValue)+1,length(LinkValue));
+              if rpos('{',LinkValue) > 0 then
+                LinkValue := copy(LinkValue,0,rpos('{',LinkValue)-1)
+              else if rpos('(',LinkValue) > 0 then
+                LinkValue := copy(LinkValue,0,rpos('(',LinkValue)-1);
+              if not IgnorePage(LinkValue) then
+                begin
+                  try
+                    if rpos('(',Linkdesc) > 0 then
+                      begin
+                        LinkLocation := copy(LinkDesc,rpos('(',LinkDesc)+1,length(LinkDesc));
+                        LinkLocation := copy(LinkLocation,0,length(LinkLocation)-1);
+                        LinkDesc := copy(LinkDesc,0,rpos('(',LinkDesc)-1);
+                      end
+                    else if rpos('{',Linkdesc) > 0 then
+                      begin
+                        LinkLocation := copy(LinkDesc,rpos('{',LinkDesc)+1,length(LinkDesc));
+                        LinkLocation := copy(LinkLocation,0,length(LinkLocation)-1);
+                        LinkDesc := copy(LinkDesc,0,rpos('{',LinkDesc)-1);
+                      end;
+                    itemNode := Doc.CreateElement('item');
+                    ChannelNode.Appendchild(itemNode);
+                    parentNode := Doc.CreateElement('title');
+                    nofilho := Doc.CreateTextNode(LinkDesc);
+                    parentNode.Appendchild(nofilho);
+                    itemNode.AppendChild(parentNode);
+                    parentNode := Doc.CreateElement('description');
+                    nofilho := Doc.CreateTextNode(HTMLEncode(Data.GetLinkLongDesc(LinkRValue)));
+                    parentNode.Appendchild(nofilho);
+                    itemNode.AppendChild(parentNode);
+                    parentNode := Doc.CreateElement('link');
+                    nofilho := Doc.CreateTextNode(LinkBase+LinkValue);
+                    parentNode.Appendchild(nofilho);
+                    itemNode.AppendChild(parentNode);
+                    parentNode := Doc.CreateElement('guid');
+                    nofilho := Doc.CreateTextNode(LinkValue);
+                    parentNode.Appendchild(nofilho);
+                    itemNode.AppendChild(parentNode);
+                    parentNode := Doc.CreateElement('pubDate');
+                    nofilho := Doc.CreateTextNode(Rfc822DateTime(aWiki.TimeStamp.AsDateTime));
+                    parentNode.Appendchild(nofilho);
+                  except
+                    parentNode := nil;
+                  end;
+                  if Assigned(parentNode) then
+                    itemNode.AppendChild(parentNode);
+                end;
+              aWiki.DataSet.Next;
+            end;
+          WriteXMLFile(Doc, ss);                     // write to XML
+          AResponse.Content := ss.DataString;
+          AResponse.ContentType := 'text/xml';
+          Handled := True;
+        finally
+          aWiki.Free;
+        end;
+      finally
+        Doc.Free;
       end;
-    WriteXMLFile(Doc, ss);                     // write to XML
-    AResponse.Content := ss.DataString;
-    AResponse.ContentType := 'text/xml';
-    Handled := True;
-  finally
-    aWiki.Free;
-    ss.Free;
-    Doc.Free;
+    finally
+      ss.Free;
+    end;
+  except
   end;
 end;
 procedure TfmWikiPage.ReplaceStdTags(Sender: TObject; const TagString: String;
@@ -439,13 +453,11 @@ begin
       ReplaceText := TagParams.Values['SEARCHFORM'];
     end;
 end;
-
 constructor TfmWikiPage.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   WikitoHTML.OnWikiInclude:=@fmWikiPageWikiInclude;
 end;
-
 function TfmWikiPage.CreateAllowed: Boolean;
 begin
   Result := False;
