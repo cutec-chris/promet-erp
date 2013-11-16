@@ -484,16 +484,6 @@ begin
                                           end;
                                           SyncDB.Tables.DataSet.Next;
                                         end;
-                                    end
-                                  else
-                                    begin
-                                      with SyncDB.DataSet do
-                                        begin
-                                          (BaseApplication as IBaseApplication).Error(Format(strSyncOffsetdontMatch,[SyncDB.DataSet.FieldByName('NAME').AsString]));
-                                          Edit;
-                                          FieldByName('ACTIVE').AsString := 'N';
-                                          Post;
-                                        end;
                                     end;
                                   DBLogout;
                                 end
