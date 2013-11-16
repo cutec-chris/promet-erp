@@ -207,7 +207,7 @@ begin
 end;
 var
   aFilter: String;
-  aSync: TDataSet;
+  aSyncOut,aSyncIn: TDataSet;
   aSQL: String;
   TimeSet: Boolean = False;
   aTableName: String;
@@ -255,6 +255,7 @@ begin
         end;
     end;
   aFilter := BuildFilter(SourceDM,DestDM,aSyncTime);
+  //First collect the rows to sync (if we do this afterwards we sync everything double)
   if SyncDB.Tables.DataSet.FieldByName('ACTIVEOUT').AsString = 'Y' then //Out
     begin
       if trim(SyncDB.Tables.DataSet.FieldByName('FILTEROUT').AsString) <> '' then
@@ -271,28 +272,9 @@ begin
       aSQL := 'select '+SourceDM.QuoteField('SQL_ID')+','+SourceDM.QuoteField('TIMESTAMPD')+' from '+SourceDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
       if aFilter <> '' then
         aSQL := aSQL+' where '+aFilter;
-      aSync := SourceDM.GetNewDataSet(aSQL);
-      aSync.Open;
-      aOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
-      if aSync.RecordCount > 0 then
-        begin
-          TimeSet := True;
-          SetTime := True;
-          (BaseApplication as IBaseApplication).Info(Format(strSyncTable,[aSync.RecordCount,'<',SyncDB.Tables.DataSet.FieldByName('NAME').AsString]));
-          (BaseApplication as IBaseApplication).Info(aFilter);
-        end;
-      while not aSync.EOF do
-        begin
-          try
-            if not SyncRow(SyncDB,aSync,SourceDM,DestDM,True) then RestoreTime:=True;
-          except
-            RestoreTime := True;
-          end;
-          aSync.Next;
-        end;
-      aSync.Destroy;
+      aSyncOut := SourceDM.GetNewDataSet(aSQL);
+      aSyncOut.Open;
     end;
-  aFilter := BuildFilter(SourceDM,DestDM,aSyncTime);
   if SyncDB.Tables.DataSet.FieldByName('ACTIVE').AsString = 'Y' then //In
     begin
       if trim(SyncDB.Tables.DataSet.FieldByName('FILTERIN').AsString) <> '' then
@@ -309,25 +291,52 @@ begin
       aSQL := 'select '+DestDM.QuoteField('SQL_ID')+','+DestDM.QuoteField('TIMESTAMPD')+' from '+DestDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
       if aFilter <> '' then
         aSQL := aSQL+' where '+aFilter;
-      aSync := DestDM.GetNewDataSet(aSQL);
-      aSync.Open;
-      if (aSync.RecordCount > 0) then
+      aSyncIn := DestDM.GetNewDataSet(aSQL);
+      aSyncIn.Open;
+    end;
+
+  //Then sync them
+  if SyncDB.Tables.DataSet.FieldByName('ACTIVEOUT').AsString = 'Y' then //Out
+    begin
+      aOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
+      if aSyncOut.RecordCount > 0 then
         begin
+          TimeSet := True;
           SetTime := True;
-          (BaseApplication as IBaseApplication).Info(Format(strSyncTable,[aSync.RecordCount,'>',SyncDB.Tables.DataSet.FieldByName('NAME').AsString]));
+          (BaseApplication as IBaseApplication).Info(Format(strSyncTable,[aSyncOut.RecordCount,'<',SyncDB.Tables.DataSet.FieldByName('NAME').AsString]));
+          (BaseApplication as IBaseApplication).Info(aFilter);
         end;
-      while not aSync.EOF do
+      while not aSyncOut.EOF do
         begin
           try
-            if not SyncRow(SyncDB,aSync,DestDM,SourceDM,False) then RestoreTime:=True;
+            if not SyncRow(SyncDB,aSyncOut,SourceDM,DestDM,True) then RestoreTime:=True;
+          except
+            RestoreTime := True;
+          end;
+          aSyncOut.Next;
+        end;
+      aSyncOut.Destroy;
+    end;
+  aFilter := BuildFilter(SourceDM,DestDM,aSyncTime);
+  if SyncDB.Tables.DataSet.FieldByName('ACTIVE').AsString = 'Y' then //In
+    begin
+      if (aSyncIn.RecordCount > 0) then
+        begin
+          SetTime := True;
+          (BaseApplication as IBaseApplication).Info(Format(strSyncTable,[aSyncIn.RecordCount,'>',SyncDB.Tables.DataSet.FieldByName('NAME').AsString]));
+        end;
+      while not aSyncIn.EOF do
+        begin
+          try
+            if not SyncRow(SyncDB,aSyncIn,DestDM,SourceDM,False) then RestoreTime:=True;
           except
             RestoreTime:=True;
           end;
-          aSync.Next;
+          aSyncIn.Next;
         end;
       FreeAndNil(FTempDataSet);
       FTempNewCounter := 0;
-      aSync.Destroy;
+      aSyncIn.Destroy;
     end;
   if (not RestoreTime) and SetTime then
     begin

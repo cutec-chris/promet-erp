@@ -850,7 +850,7 @@ begin
               aWiki := TWikiList.Create(Self,Data);
               if aWiki.FindWikiPage(copy(aLink, pos('@', aLink) + 1, length(aLink))) then
                 Result := aWiki.PageAsText;
-              aWiki.Destroy;
+              aWiki.Free;
             end;
           FreeAndNil(aTable);
         end
@@ -1525,4 +1525,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+

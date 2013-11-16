@@ -228,50 +228,62 @@ begin
           Inp := copy(Inp,pos(',',Inp)+1,length(Inp));
           Inp := copy(Inp,0,pos(')',Inp)-1);
           if not  TryStrToInt(Inp,aCount) then aCount := 30;
-          aList := TMessageList.Create(nil,Data);
-          Data.SetFilter(aList,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(VarToStr(Data.Tree.Id.AsVariant)),aCount,'SENDDATE','DESC');
-          while not aList.DataSet.EOF do
-            begin
-              if aCount <= 0 then break;
-              aMessage := TMessage.Create(Self,Data);
-              aMessage.Select(aList.Id.AsVariant);
-              aMessage.Open;
-              if aMessage.Count > 0 then
-                begin
-                  aMessage.Content.Open;
-                  if aMessage.Content.Count > 0 then
+          try
+            aList := TMessageList.Create(nil,Data);
+            Data.SetFilter(aList,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(VarToStr(Data.Tree.Id.AsVariant)),aCount,'SENDDATE','DESC');
+            while not aList.DataSet.EOF do
+              begin
+                if aCount <= 0 then break;
+                try
+                  aMessage := TMessage.Create(Self,Data);
+                  aMessage.Select(aList.Id.AsVariant);
+                  aMessage.Open;
+                  if aMessage.Count > 0 then
                     begin
-                      ss := TStringStream.Create('');
-                      Data.BlobFieldToStream(aMessage.Content.DataSet,'DATA',ss);
-                      if aMessage.Content.FieldByName('DATATYP').AsString='WIKI' then
-                        aContent := WikiText2HTML(ss.DataString,'','')
-                      else
-                        aContent := WikiText2HTML(ss.DataString,'','');
-                      Outp := Outp+StringReplace(
-                                   StringReplace(
-                                   StringReplace(aRow,'~Subject',aMessage.FieldByName('SUBJECT').AsString,[rfReplaceAll])
-                                                     ,'~Date',DateTimeToStr(aMessage.FieldByName('SENDDATE').AsDateTime),[rfReplaceAll])
-                                                     ,'~Content',aContent,[rfReplaceAll]);
-                      ss.Free;
+                      aMessage.Content.Open;
+                      if aMessage.Content.Count > 0 then
+                        begin
+                          try
+                            ss := TStringStream.Create('');
+                            Data.BlobFieldToStream(aMessage.Content.DataSet,'DATA',ss);
+                            if aMessage.Content.FieldByName('DATATYP').AsString='WIKI' then
+                              aContent := WikiText2HTML(ss.DataString,'','')
+                            else
+                              aContent := WikiText2HTML(ss.DataString,'','');
+                            Outp := Outp+StringReplace(
+                                         StringReplace(
+                                         StringReplace(aRow,'~Subject',aMessage.FieldByName('SUBJECT').AsString,[rfReplaceAll])
+                                                           ,'~Date',DateTimeToStr(aMessage.FieldByName('SENDDATE').AsDateTime),[rfReplaceAll])
+                                                           ,'~Content',aContent,[rfReplaceAll]);
+                          finally
+                            ss.Free;
+                          end;
+                        end;
                     end;
+                finally
+                  aMessage.Free;
                 end;
-              aMessage.Free;
-              aList.DataSet.Next;
-            end;
-          aList.Free;
+                aList.DataSet.Next;
+              end;
+          finally
+            aList.Free;
+          end;
           Outp := Outp+actTagParams.Values['BOARDFOOTER'];
         end;
     end
   else
     begin
-      FDataSet := TWikiList.Create(Self,Data);
-      if pos('|',Inp) > 0 then
-        Inp := copy(Inp,0,pos('|',Inp)-1);
-      if TWikiList(FDataSet).FindWikiPage(Inp) then
-        begin
-          Outp := Outp+WikiText2HTML(FDataSet.FieldByName('DATA').AsString,'','');
-        end;
-      FDataSet.Free;
+      try
+        FDataSet := TWikiList.Create(Self,Data);
+        if pos('|',Inp) > 0 then
+          Inp := copy(Inp,0,pos('|',Inp)-1);
+        if TWikiList(FDataSet).FindWikiPage(Inp) then
+          begin
+            Outp := Outp+WikiText2HTML(FDataSet.FieldByName('DATA').AsString,'','');
+          end;
+      finally
+        FDataSet.Free;
+      end;
     end;
 end;
 procedure TfmWikiPage.FSearchItemFound(aIdent: string; aName: string;
@@ -495,24 +507,36 @@ begin
         Data.SetFilter(Documents,'"TYPE"=''W'' and "NAME"='+Data.QuoteValue(copy(ExtractFileName(Image),0,rpos('.',ExtractFileName(Image))-1)),1);
         if Documents.DataSet.RecordCount > 0 then
           begin
-            fs := TFileStream.Create(ImageFile,fmCreate);
-            Data.BlobFieldToStream(Documents.DataSet,'DOCUMENT',fs);
-            fs.Free;
+            try
+              fs := TFileStream.Create(ImageFile,fmCreate);
+              Data.BlobFieldToStream(Documents.DataSet,'DOCUMENT',fs);
+            finally
+              fs.Free;
+            end;
             if aWidth <> '' then
               begin
                 SmallFile := copy(ImageFile,0,rpos('.',ImageFile)-1)+'_'+aWidth+'px.jpg';
-                aPicture := TFPMemoryImage.Create(0,0);
-                aPicture.LoadFromFile(ImageFile);
-                Aspect := aPicture.Width/aPicture.Height;
-                aPicture2 := TFPMemoryImage.Create(StrToInt(aWidth),round(StrToInt(aWidth)/Aspect));
-                aCanvas := TFPImageCanvas.create(aPicture2);
-                aCanvas.Height := aPicture2.Height;
-                aCanvas.Width := aPicture2.Width;
-                aCanvas.StretchDraw(0,0,StrToInt(aWidth),round(StrToInt(aWidth)/Aspect),aPicture);
-                aPicture2.SaveToFile(SmallFile);
-                aPicture.Free;
-                aPicture2.Free;
-                aCanvas.Free;
+                try
+                  aPicture := TFPMemoryImage.Create(0,0);
+                  aPicture.LoadFromFile(ImageFile);
+                  Aspect := aPicture.Width/aPicture.Height;
+                  try
+                    aPicture2 := TFPMemoryImage.Create(StrToInt(aWidth),round(StrToInt(aWidth)/Aspect));
+                    aCanvas := TFPImageCanvas.create(aPicture2);
+                    try
+                      aCanvas.Height := aPicture2.Height;
+                      aCanvas.Width := aPicture2.Width;
+                      aCanvas.StretchDraw(0,0,StrToInt(aWidth),round(StrToInt(aWidth)/Aspect),aPicture);
+                    finally
+                      aCanvas.Free;
+                    end;
+                    aPicture2.SaveToFile(SmallFile);
+                  finally
+                    aPicture2.Free;
+                  end;
+                finally
+                  aPicture.Free;
+                end;
               end;
           end;
       end;
@@ -778,15 +802,18 @@ begin
       with BaseApplication as IBaseApplication do
         FTemplate.LoadFromFile(AppendPathDelim(AppendPathDelim(Config.ReadString('DOCROOTPATH',''))+'templates')+'maintemplate.html');
       sl := TStringList.Create;
-      with BaseApplication as IBaseApplication do
-        sl.LoadFromFile(AppendPathDelim(AppendPathDelim(Config.ReadString('DOCROOTPATH',''))+'templates')+'ajaxtemplate.html');
-      FTemplate.Text:=StringReplace(FTemplate.text,'~MainTemplateContent',sl.Text,[]);
-      with BaseApplication as IBaseApplication do
-        begin
-          FTemplate.Text:=StringReplace(FTemplate.text,'~WebsiteTitle',Config.ReadString('WebsiteTitle',''),[rfReplaceAll]);
-          FTemplate.Text:=StringReplace(FTemplate.text,'~WebsiteURL',Config.ReadString('WebsiteURL',''),[rfReplaceAll]);
-        end;
-      sl.Free;
+      try
+        with BaseApplication as IBaseApplication do
+          sl.LoadFromFile(AppendPathDelim(AppendPathDelim(Config.ReadString('DOCROOTPATH',''))+'templates')+'ajaxtemplate.html');
+        FTemplate.Text:=StringReplace(FTemplate.text,'~MainTemplateContent',sl.Text,[]);
+        with BaseApplication as IBaseApplication do
+          begin
+            FTemplate.Text:=StringReplace(FTemplate.text,'~WebsiteTitle',Config.ReadString('WebsiteTitle',''),[rfReplaceAll]);
+            FTemplate.Text:=StringReplace(FTemplate.text,'~WebsiteURL',Config.ReadString('WebsiteURL',''),[rfReplaceAll]);
+          end;
+      finally
+        sl.Free;
+      end;
     end;
   aTemplate.Template := FTemplate.Text;
   aTemplate.OnReplaceTag :=@ReplaceMainTags;
