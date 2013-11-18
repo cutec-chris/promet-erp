@@ -687,8 +687,7 @@ begin
     end;
   1:
     begin
-      if (tvProfile.Selected = nil)
-      or (tvProfile.Selected.Level < 1) then
+      if (tvProfile.Selected = nil) then
         begin
           ShowMessage(strSelectProfile);
           result := 1;
@@ -754,4 +753,4 @@ end;
 initialization
   {$I uwizardnewmandant.lrs}
 end.
-
+
