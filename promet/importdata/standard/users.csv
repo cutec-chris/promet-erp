@@ -1,7 +1,7 @@
 "SQL_ID";"TYPE";"ACCOUNTNO";"NAME";"PASSWORD";"IDCODE";"EMPLOYMENT";"LEAVED";"CUSTOMERNO";"DEPARTMENT";"POSITION";"PARENT";
 "1";"G";"R63SSD3R84DP5";"Firma";;;;;;;;;
 "2";"G";"R63SSD3R84DP6";"Geschäftsleitung";;;;;;;;"1";
-"3";"U";"R63SSD3R84DP7";"Administrator";;"ADM";;;;;;"2";
+"3";"U";"R63SSD3R84DP7";"Administrator";;"ADM";;;;;;"1";
 "4";"G";"R63SSD3R84DP8";"Produktmanagment";;;;;;;;"1";
 "5";"G";"R63SSD3R84DP9";"Projektmanagment";;;;;;;;"1";
 "6";"G";"R63SSD3R84DPA";"Entwicklung";;;;;;;;"1";
