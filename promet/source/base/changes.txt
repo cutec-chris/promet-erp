@@ -1,6 +1,9 @@
 ﻿Build 292
-      - Messagemanager:folgen von Elmeneten
+      - Messagemanager:folgen von Elementen
       - Projekt: Status wird in Übersicht angezeigt
+      - Statistik: Statistiken suchbar
+      - Gantt Ansicht: Abfragen vor Speichern/abbrechen
+      - Gantt Ansicht: Aktualisieren Knopf entfernt (Abbrechen tut das selbe)
 Build 291
       - Suche:in Suche kann Anzahl der Suchergebnisse nicht mehr auf unbegrenzt gespeichert werden
         temporär ist unbegrenzte Suche weiterhin möglich

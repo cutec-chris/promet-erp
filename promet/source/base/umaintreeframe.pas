@@ -1497,6 +1497,8 @@ var
       TTreeEntry(Node1.Data).Text[0] := aList.Text.AsString+' ('+aList.Number.AsString+')'
     else
       TTreeEntry(Node1.Data).Text[0] := aList.Text.AsString;
+    if Assigned(aList.Status) and (aList.Status.AsString<>'') then
+      TTreeEntry(Node1.Data).Text[0] := TTreeEntry(Node1.Data).Text[0]+' ['+aList.Status.AsString+']';
     TTreeEntry(Node1.Data).Typ := aTyp;
     Node1.HasChildren:=GetHasChildren(Node1);
   end;

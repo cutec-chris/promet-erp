@@ -311,7 +311,7 @@ uses uBaseDBInterface,uIntfStrConsts,uSearch,uFilterFrame,uPerson,uData,
   uProcessOptions,Utils,uBaseERPDBClasses,umaintasks,utasks,uTaskEdit,LCLProc,
   usplash,ufavorites,uBaseVisualControls,uStatisticFrame,uwait,uprometipc,uMeetingFrame,
   umeeting,uEditableTab,umanagedocframe,uBaseDocPages,uTaskPlan,uattendanceplan,
-  uTimeFrame,uTimeOptions,uWizardnewaccount,uCalendar,uRoughpklanningframe,
+  uTimeFrame,uTimeOptions,uWizardnewaccount,uCalendar,uRoughpklanningframe,uStatistic,
   uOptionsFrame
   {$ifdef WINDOWS}
   {$ifdef CPU32}
@@ -833,6 +833,7 @@ begin
   if (Data.Users.Rights.Right('STATISTICS') > RIGHT_NONE) then
     begin
       Data.RegisterLinkHandler('STATISTICS',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
+      AddSearchAbleDataSet(TStatistic);
     end;
   //Timeregistering
   Synchronize(@AddTimeReg2);

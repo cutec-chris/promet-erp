@@ -51,7 +51,6 @@ type
     bMoveBack1: TSpeedButton;
     bShowTasks: TSpeedButton;
     bMoveFwd: TSpeedButton;
-    bRefresh: TSpeedButton;
     bShowTasks1: TSpeedButton;
     bToday: TSpeedButton;
     bWeekView: TSpeedButton;
@@ -141,6 +140,9 @@ uses uData,LCLIntf,uBaseDbClasses,uTaskEdit,variants,LCLProc,uTaskPlan,
 resourcestring
   strSnapshot                             = 'Snapshot';
   strNoSnapshot                           = '<keiner>';
+  strCommitChanges                        = 'Sollen wirklich alle Änderungen in die Aufgaben eingetragen werden ?';
+  strCancelChanges                        = 'Sollen wirklich alle Änderungen verworfen werden ?';
+
 procedure TfGanttView.FGanttTreeAfterUpdateCommonSettings(Sender: TObject);
 begin
   fgantt.Tree.ColWidths[0]:=0;
@@ -178,12 +180,14 @@ end;
 
 procedure TfGanttView.bSaveClick(Sender: TObject);
 begin
-  DoSave;
+  if (MessageDlg(strCommitChanges,mtInformation,[mbYes,mbNo],0) = mrYes) then
+    DoSave;
 end;
 
 procedure TfGanttView.bCancelClick(Sender: TObject);
 begin
-  bRefresh.Click;
+  if (MessageDlg(strCancelChanges,mtInformation,[mbYes,mbNo],0) = mrYes) then
+    bRefresh.Click;
 end;
 
 procedure TfGanttView.bDayViewClick(Sender: TObject);

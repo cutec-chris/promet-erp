@@ -24,7 +24,7 @@ unit uStatistic;
 interface
 
 uses
-  Classes, SysUtils, uBaseDbClasses, db, uBaseDbInterface;
+  Classes, SysUtils, uBaseDbClasses, db, uBaseDbInterface,uIntfStrConsts;
 
 type
 
@@ -34,6 +34,7 @@ type
   public
     function GetTextFieldName: string;override;
     function GetNumberFieldName : string;override;
+    function GetDescriptionFieldName: string; override;
     procedure DefineFields(aDataSet : TDataSet);override;
     constructor Create(aOwner: TComponent; DM: TComponent;
        aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
@@ -53,15 +54,22 @@ begin
   Result := 'SQL_ID';
 end;
 
+function TStatistic.GetDescriptionFieldName: string;
+begin
+  Result:='DESCRIPTION';
+end;
+
 procedure TStatistic.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do
     begin
       TableName := 'STATISTICS';
+      TableCaption:=strStatistics;
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
             Add('NAME',ftString,40,True);
+            Add('DESCRIPTION',ftMemo,0,False);
             Add('QUERRY',ftMemo,0,False);
             Add('DETAIL',ftMemo,0,False);
             Add('SUBDETAIL',ftMemo,0,False);
@@ -90,4 +98,4 @@ begin
 end;
 
 end.
-
+

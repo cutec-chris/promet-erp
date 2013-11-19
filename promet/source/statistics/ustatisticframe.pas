@@ -55,6 +55,7 @@ type
     BtZoomIn: TBitBtn;
     BtZoomOut: TBitBtn;
     Datasource: TDatasource;
+    DBMemo1: TDBMemo;
     eName: TDBEdit;
     Detail: TDatasource;
     frPreview: TfrPreview;
@@ -124,6 +125,7 @@ type
     StatisticResults: TDatasource;
     SubDetail: TDatasource;
     SynSQLSyn1: TSynSQLSyn;
+    tsDescription: TTabSheet;
     ToolBar: TToolBar;
     ToolBar1: TPanel;
     ToolButton1: TSpeedButton;
@@ -1157,6 +1159,7 @@ begin
   acRights.Enabled:=Data.Users.Rights.Right('STATISTICS') >= RIGHT_PERMIT;
   bEditFilter.Visible:=FEditable;
   eName.Enabled := FEditable;
+  DBMemo1.ReadOnly:=not FEditable;
 end;
 
 constructor TfStatisticFrame.Create(AOwner: TComponent);
