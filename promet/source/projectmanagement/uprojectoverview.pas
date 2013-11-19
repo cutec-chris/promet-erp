@@ -63,7 +63,7 @@ begin
       with Fproject.DataSet as IBaseManageDB do
         TTreeEntry(Node1.Data).Filter:=Data.QuoteField(TableName)+'.'+Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(IntToStr(Fproject.GetBookmark));
       TTreeEntry(Node1.Data).DataSourceType := TBaseDBDataSetClass(Fproject.ClassType);
-      TTreeEntry(Node1.Data).Text[0] := Fproject.Text.AsString+' ('+fPROJECT.Number.AsString+')';
+      TTreeEntry(Node1.Data).Text[0] := Fproject.Text.AsString+' ('+Fproject.Number.AsString+')'+' ['+Fproject.Status.AsString+']';
       TTreeEntry(Node1.Data).Typ := etProject;
       Node1.HasChildren:=True;
       Node1.Expanded:=True;

@@ -1,38 +1,41 @@
-﻿Build 291
-      - in Suche kann Anzahl der Suchergebnisse nicht mehr auf unbegrenzt gespeichert wedren
+﻿Build 292
+      - Messagemanager:folgen von Elmeneten
+      - Projekt: Status wird in Übersicht angezeigt
+Build 291
+      - Suche:in Suche kann Anzahl der Suchergebnisse nicht mehr auf unbegrenzt gespeichert werden
         temporär ist unbegrenzte Suche weiterhin möglich
-      - Grobplan zu Promet hinzugefügt
+      - Projektverwaltung:Grobplan zu Promet hinzugefügt
 Build 290
-      - Messagemanager zeigt Unterhaltungen nun in Threads an
-      - Aufgabenname wird in Gantt Diagramm angezeigt
-      - Normale Verknüpfungen werden gestrichelt, Verknüpfungen mit Wartezeit durchgezogen dargetellt
-      - beim öffnen vom Projekt wird immer erste Aufgabe markiert
+      - Messagemanager: zeigt Unterhaltungen nun in Threads an
+      - Gantt Ansicht: Aufgabenname wird in Gantt Diagramm angezeigt
+      - Gantt Ansicht: Normale Verknüpfungen werden gestrichelt, Verknüpfungen mit Wartezeit durchgezogen dargetellt
+      - Projekt: beim öffnen vom Projekt wird immer erste Aufgabe markiert
 Build 289
-      - Austausch von Suchtypen und "Suche in" in Suchfenster
-      - Verantwortliche bekommen Nachricht sobald jemand an "ihren" Aufgaben einen Verlaufeintrag erzeugt
+      - Suche: Austausch von Suchtypen und "Suche in" in Suchfenster
+      - Messagemanager: Verantwortliche bekommen Nachricht sobald jemand an "ihren" Aufgaben einen Verlaufeintrag erzeugt
 Build 288
-      - Bildimport für Kameras über gphoto2 implementiert
-      - Bilder/Dokumente können nun im Dokumentenmanagement direkt gedreht werden
-      - Mehrere Einträge im Suchfenster können als Verknüpfung kopiert werden
+      - Dokumenten/Bildverwaltung: Bildimport für Kameras über gphoto2 implementiert
+      - Dokumenten/Bildverwaltung: Bilder/Dokumente können nun im Dokumentenmanagement direkt gedreht werden
+      - Suche: Mehrere Einträge im Suchfenster können als Verknüpfung kopiert werden
       - Mehrere Einträge als Verknüpfung auf nun fast allen Listenansichten können in Verknüpfungen eingefügt werden
-      - Abfrage beim einfügen von Links ob diese Kreuzreferenzziert werden sollen
-      - Suche nach übergeordneten Artikeln (enthalten in oder Verwendungsnachweis)
-      - Option um Mails/Feeds direkt in einen Ordner zu sortieren
+      - Verknüpfungen: Abfrage beim einfügen von Links ob diese Kreuzreferenzziert werden sollen
+      - Suche: Suche nach übergeordneten Artikeln (enthalten in oder Verwendungsnachweis)
+      - Nachichtenverwaltung: Option um Mails/Feeds direkt in einen Ordner zu sortieren
 Build 287
-      - Dokumente/Bilder wurden seit 286 falsch hinzugefügt
+      - Dokumenten/Bildverwaltung: Dokumente/Bilder wurden seit 286 falsch hinzugefügt
 Build 286
-      - Aufgaben werden 1 Tag vor Zieldatum eingefärbt auch wenn keine Panzeit hinterlegt ist
-      - Bis Datum und Endatum werden im Gridview auf Datum+23.59h erstellt
+      - Aufgaben: Aufgaben werden 1 Tag vor Zieldatum eingefärbt auch wenn keine Panzeit hinterlegt ist
+      - Aufgaben: Bis Datum und Endatum werden im Gridview auf Datum+23.59h erstellt
         es ist intuitiver Bis als "bis einschließlich" zu behandeln
-      - Echtpreis in Projektkosten wird mitberechnet (vorher nur bei Mengenänderung)
-      - Aufgaben ohne Planzeit werden nun auch orange eingefärbt wenn sie heute zu erledigen sind
-      - Fehler beim verschieben von Aufgaben behoben (Gannt Ansicht)
+      - Projekt: Echtpreis in Projektkosten wird mitberechnet (vorher nur bei Mengenänderung)
+      - Aufgaben: Aufgaben ohne Planzeit werden nun auch orange eingefärbt wenn sie heute zu erledigen sind
+      - Gantt Ansicht: Fehler beim verschieben von Aufgaben behoben (Gannt Ansicht)
       - schellerer Start (Elemente werden teils erst geladen wenn Baum Einträge aufgeklappt werden, teils in einem Thread)
-      - Projekteingaben werden besser geschützt
-      - Bis Termin der aufgaben wird beim wiedereröffnen zurückgesetzt
+      - Projekt: Projekteingaben werden besser geschützt (Elemente deaktiviert)
+      - Aufgaben: Bis Termin der Aufgaben wird beim wiedereröffnen zurückgesetzt
 Build 285
-      - Rechnung nutzt Menge wenn Menge gelifert null ist
-      - Kontoassistenen begonnen
+      - Vorgang: Rechnung nutzt Menge wenn Menge gelifert null ist
+      - Banking: Kontoassistenen begonnen
 Build 284
       - Aufgaben waren in Standardansicht für Benutzer mit @ in Accountno (sehr selten) nicht sichtbar
       - Beim buchen von Positionen ohne Artikel wurde keine "Menge geliefert" gesetzt

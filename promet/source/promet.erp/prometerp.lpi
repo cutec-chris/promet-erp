@@ -296,7 +296,6 @@
           <Item1 X="6" Y="924" ID="1"/>
           <Item2 X="1" Y="2949" ID="2"/>
         </Bookmarks>
-        <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="../base/ubasevisualapplication.pas"/>
@@ -970,10 +969,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMainTreeFrame"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="292"/>
-        <CursorPos X="1" Y="302"/>
+        <TopLine Value="821"/>
+        <CursorPos X="13" Y="712"/>
         <UsageCount Value="98"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit63>
       <Unit64>
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
@@ -981,11 +983,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uProjectFrame"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="205"/>
         <CursorPos X="1" Y="215"/>
         <UsageCount Value="101"/>
-        <LoadedDesigner Value="True"/>
+        <Loaded Value="True"/>
       </Unit64>
       <Unit65>
         <Filename Value="../base/dbintfs/ubaseapplication.pas"/>
@@ -1013,7 +1016,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ugridview"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="90"/>
         <CursorPos X="80" Y="96"/>
@@ -1040,10 +1043,11 @@
       </Unit69>
       <Unit70>
         <Filename Value="../base/changes.txt"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="39" Y="4"/>
+        <CursorPos X="18" Y="38"/>
         <UsageCount Value="103"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
@@ -1130,7 +1134,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPositionFrame"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="633"/>
         <CursorPos X="16" Y="654"/>
@@ -1635,7 +1639,6 @@
         <TopLine Value="237"/>
         <CursorPos X="39" Y="255"/>
         <UsageCount Value="100"/>
-        <LoadedDesigner Value="True"/>
       </Unit135>
       <Unit136>
         <Filename Value="../../../../lazarus/lcl/include/mouse.inc"/>
@@ -2036,10 +2039,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uprojectoverview"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="33" Y="44"/>
-        <UsageCount Value="2"/>
+        <TopLine Value="40"/>
+        <CursorPos X="20" Y="61"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit183>
       <Unit184>
         <Filename Value="../base_pm/uprojectpositions.pas"/>
@@ -4043,8 +4049,7 @@
       <Unit428>
         <Filename Value="../../../../../../Programme/lazarus/components/lazreport/source/addons/ZeosDB/lr_db_zeos.pas"/>
         <UnitName Value="LR_DB_Zeos"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="58" Y="8"/>
@@ -4052,7 +4057,7 @@
         <Loaded Value="True"/>
       </Unit428>
     </Units>
-    <JumpHistory Count="14" HistoryIndex="13">
+    <JumpHistory Count="17" HistoryIndex="16">
       <Position1>
         <Filename Value="../base/ugridview.pas"/>
         <Caret Line="2763" Column="1" TopLine="2756"/>
@@ -4109,6 +4114,18 @@
         <Filename Value="../../../../../../Programme/lazarus/components/lazreport/source/addons/ZeosDB/lr_db_zeos.pas"/>
         <Caret Line="1" Column="1" TopLine="1"/>
       </Position14>
+      <Position15>
+        <Filename Value="../projectmanagement/uprojectoverview.pas"/>
+        <Caret Line="61" Column="20" TopLine="40"/>
+      </Position15>
+      <Position16>
+        <Filename Value="../base/umaintreeframe.pas"/>
+        <Caret Line="137" Column="40" TopLine="125"/>
+      </Position16>
+      <Position17>
+        <Filename Value="../base/umaintreeframe.pas"/>
+        <Caret Line="657" Column="13" TopLine="625"/>
+      </Position17>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>
