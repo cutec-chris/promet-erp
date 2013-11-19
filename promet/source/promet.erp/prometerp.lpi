@@ -270,7 +270,7 @@
         <PackageName Value="LCL"/>
       </Item22>
     </RequiredPackages>
-    <Units Count="428">
+    <Units Count="429">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -287,7 +287,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2861"/>
         <CursorPos X="72" Y="2880"/>
@@ -297,7 +296,6 @@
           <Item1 X="6" Y="924" ID="1"/>
           <Item2 X="1" Y="2949" ID="2"/>
         </Bookmarks>
-        <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
@@ -485,12 +483,10 @@
       <Unit18>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="888"/>
         <CursorPos X="19" Y="897"/>
         <UsageCount Value="107"/>
-        <Loaded Value="True"/>
       </Unit18>
       <Unit19>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
@@ -921,12 +917,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uExtControls"/>
-        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="592"/>
         <CursorPos X="31" Y="609"/>
         <UsageCount Value="80"/>
-        <Loaded Value="True"/>
       </Unit58>
       <Unit59>
         <Filename Value="../base/dbintfs/umessages.pas"/>
@@ -987,12 +981,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uProjectFrame"/>
-        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="205"/>
         <CursorPos X="1" Y="215"/>
         <UsageCount Value="101"/>
-        <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit64>
       <Unit65>
@@ -1639,12 +1631,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uGanttView"/>
-        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="237"/>
         <CursorPos X="39" Y="255"/>
         <UsageCount Value="100"/>
-        <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit135>
       <Unit136>
@@ -3263,12 +3253,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uTaskPlan"/>
-        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1353"/>
         <CursorPos X="1" Y="1371"/>
         <UsageCount Value="46"/>
-        <Loaded Value="True"/>
       </Unit330>
       <Unit331>
         <Filename Value="../../../../../lazarus/lcl/extctrls.pp"/>
@@ -4047,16 +4035,24 @@
       <Unit427>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
         <UnitName Value="uroughpklanningframe"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="151"/>
         <CursorPos X="43" Y="155"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit427>
+      <Unit428>
+        <Filename Value="../../../../../../Programme/lazarus/components/lazreport/source/addons/ZeosDB/lr_db_zeos.pas"/>
+        <UnitName Value="LR_DB_Zeos"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="7"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="58" Y="8"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit428>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="14" HistoryIndex="13">
       <Position1>
         <Filename Value="../base/ugridview.pas"/>
         <Caret Line="2763" Column="1" TopLine="2756"/>
@@ -4110,73 +4106,9 @@
         <Caret Line="1993" Column="1" TopLine="1974"/>
       </Position13>
       <Position14>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="926" Column="32" TopLine="904"/>
+        <Filename Value="../../../../../../Programme/lazarus/components/lazreport/source/addons/ZeosDB/lr_db_zeos.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position14>
-      <Position15>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="255" Column="39" TopLine="237"/>
-      </Position15>
-      <Position16>
-        <Filename Value="umain.pas"/>
-        <Caret Line="2326" Column="29" TopLine="2284"/>
-      </Position16>
-      <Position17>
-        <Filename Value="umain.pas"/>
-        <Caret Line="982" Column="32" TopLine="970"/>
-      </Position17>
-      <Position18>
-        <Filename Value="umain.pas"/>
-        <Caret Line="922" Column="6" TopLine="880"/>
-      </Position18>
-      <Position19>
-        <Filename Value="umain.pas"/>
-        <Caret Line="2868" Column="37" TopLine="2849"/>
-      </Position19>
-      <Position20>
-        <Filename Value="../base_pm/utaskplan.pas"/>
-        <Caret Line="950" Column="1" TopLine="927"/>
-      </Position20>
-      <Position21>
-        <Filename Value="../base_pm/utaskplan.pas"/>
-        <Caret Line="111" Column="1" TopLine="93"/>
-      </Position21>
-      <Position22>
-        <Filename Value="umain.pas"/>
-        <Caret Line="312" Column="55" TopLine="314"/>
-      </Position22>
-      <Position23>
-        <Filename Value="umain.pas"/>
-        <Caret Line="314" Column="55" TopLine="314"/>
-      </Position23>
-      <Position24>
-        <Filename Value="umain.pas"/>
-        <Caret Line="11" Column="96" TopLine="1"/>
-      </Position24>
-      <Position25>
-        <Filename Value="umain.pas"/>
-        <Caret Line="2778" Column="27" TopLine="2766"/>
-      </Position25>
-      <Position26>
-        <Filename Value="umain.pas"/>
-        <Caret Line="2782" Column="35" TopLine="2766"/>
-      </Position26>
-      <Position27>
-        <Filename Value="umain.pas"/>
-        <Caret Line="2879" Column="33" TopLine="2861"/>
-      </Position27>
-      <Position28>
-        <Filename Value="umain.pas"/>
-        <Caret Line="2880" Column="40" TopLine="2861"/>
-      </Position28>
-      <Position29>
-        <Filename Value="../base_pm/uroughpklanningframe.pas"/>
-        <Caret Line="168" Column="7" TopLine="163"/>
-      </Position29>
-      <Position30>
-        <Filename Value="../base_pm/uroughpklanningframe.pas"/>
-        <Caret Line="170" Column="7" TopLine="149"/>
-      </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>

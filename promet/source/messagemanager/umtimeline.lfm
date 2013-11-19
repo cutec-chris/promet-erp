@@ -76,6 +76,11 @@ object fmTimeline: TfmTimeline
       GroupIndex = 11
       OnClick = ToolButton2Click
     end
+    object ToolButton3: TToolButton
+      Left = 62
+      Top = 2
+      Action = acFollow
+    end
   end
   object pInput: TPanel
     Left = 0
@@ -187,6 +192,8 @@ object fmTimeline: TfmTimeline
     top = 8
     object acFollow: TAction
       Caption = 'acFollow'
+      ImageIndex = 110
+      OnExecute = acFollowExecute
     end
     object acRefresh: TAction
       ImageIndex = 69

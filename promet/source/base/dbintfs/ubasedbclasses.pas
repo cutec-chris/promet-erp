@@ -166,12 +166,14 @@ type
     property History : TBaseHistory read GetHistory;
   end;
   TOptions = class;
+  TFollowers = class;
   TRights = class;
 
   { TUser }
 
   TUser = class(TBaseDbList,IBaseHistory)
   private
+    FFollows: TFollowers;
     FOptions: TOptions;
     FRights: TRights;
     FHistory: TBaseHistory;
@@ -199,6 +201,7 @@ type
     property Salt : TField read GetSalt;
     property Rights : TRights read FRights;
     property Options : TOptions read FOptions;
+    property Follows : TFollowers read FFollows;
     procedure SetPasswort(aPasswort : string);
     function GetRandomSalt : string;
     function CheckPasswort(aPasswort : string) : Boolean;
@@ -274,6 +277,11 @@ type
   { TOptions }
 
   TOptions = class(TBaseDBDataSet)
+  public
+    procedure DefineFields(aDataSet : TDataSet);override;
+    procedure Open; override;
+  end;
+  TFollowers = class(TBaseDBDataSet)
   public
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure Open; override;
@@ -419,6 +427,25 @@ resourcestring
   strNotes                      = 'Notizen';
   strOwner                      = 'Eigentümer';
   strAvalible                   = 'Verfügbar';
+
+procedure TFollowers.DefineFields(aDataSet: TDataSet);
+begin
+  with aDataSet as IBaseManageDB do
+    begin
+      TableName := 'FOLLOWERS';
+      if Assigned(ManagedFieldDefs) then
+        with ManagedFieldDefs do
+          begin
+            Add('LINK',ftString,160,True);
+          end;
+    end;
+end;
+
+procedure TFollowers.Open;
+begin
+  inherited Open;
+end;
+
 procedure TPayGroups.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do
@@ -1738,6 +1765,7 @@ begin
   inherited Create(aOwner, DM, aConnection, aMasterdata);
   FOptions := TOptions.Create(Owner,DM,aConnection,DataSet);
   FRights := TRights.Create(Owner,DM,aConnection,DataSet);
+  FFollows := TFollowers.Create(Owner,DM,aConnection,DataSet);
   FRights.Users := Self;
   FHistory := TBaseHistory.Create(Self,DM,aConnection,DataSet);
   with BaseApplication as IBaseDbInterface do
@@ -1752,6 +1780,7 @@ destructor TUser.Destroy;
 begin
   Options.Destroy;
   Rights.Destroy;
+  FFollows.Destroy;
   FHistory.Destroy;
   inherited Destroy;
 end;
@@ -1823,6 +1852,7 @@ begin
   Result := inherited CreateTable;
   FOptions.CreateTable;
   FRights.CreateTable;
+  FFollows.CreateTable;
 end;
 procedure TUser.SetPasswort(aPasswort: string);
 var

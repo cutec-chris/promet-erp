@@ -41,17 +41,21 @@ type
     aNow: TDateTime;
     aRefresh : Integer;
     FFilter: string;
+    FFilter2: string;
     InformRecTime : TDateTime;
     FHistory : TBaseHistory;
     Processes : array of TProcProcess;
     function CommandReceived(Sender : TObject;aCommand : string) : Boolean;
     procedure SetFilter(AValue: string);
+    procedure SetFilter2(AValue: string);
     procedure SwitchAnimationOff;
     procedure DoExit;
   public
     { public declarations }
+    procedure RefreshFilter2;
     property History : TBaseHistory read FHistory;
     property Filter : string read FFilter write SetFilter;
+    property Filter2 : string read FFilter2 write SetFilter2;
   end;
 var
   fMain: TfMain;
@@ -210,7 +214,7 @@ begin
       //Show new History Entrys
       if (not FHistory.DataSet.Active) or (FHistory.DataSet.EOF) then //all shown, refresh list
         begin
-          Data.SetFilter(FHistory,'('+FFilter+') AND ('+Data.QuoteField('TIMESTAMPD')+'>='+Data.DateTimeToFilter(InformRecTime)+')',10,'TIMESTAMPD','DESC');
+          Data.SetFilter(FHistory,'('+FFilter+' '+FFilter2+') AND ('+Data.QuoteField('TIMESTAMPD')+'>='+Data.DateTimeToFilter(InformRecTime)+')',10,'TIMESTAMPD','DESC');
           History.DataSet.Refresh;
           History.DataSet.First;
         end;
@@ -346,6 +350,12 @@ begin
   FFilter:=AValue;
 end;
 
+procedure TfMain.SetFilter2(AValue: string);
+begin
+  if FFilter2=AValue then Exit;
+  FFilter2:=AValue;
+end;
+
 procedure TfMain.SwitchAnimationOff;
 begin
   if TrayIcon.Tag=0 then
@@ -368,6 +378,21 @@ begin
       end;
   except
   end;
+end;
+
+procedure TfMain.RefreshFilter2;
+begin
+  Data.Users.Follows.Open;
+  FFilter2:='';
+  with Data.Users.Follows do
+    begin
+      First;
+      while not EOF do
+        begin
+          FFilter2:=FFilter2+' OR ('+Data.QuoteField('OBJECT')+'='+Data.QuoteValue(FieldByName('LINK').AsString)+')';
+          Next;
+        end;
+    end;
 end;
 
 procedure TfMain.DataModuleCreate(Sender: TObject);
@@ -488,6 +513,7 @@ begin
   if aUser <> '' then
     begin
       FFilter := '('+Data.QuoteField('REF_ID')+'='+Data.QuoteValue(Data.Users.Id.AsString)+') OR ('+Data.QuoteField('REFERENCE')+'='+Data.QuoteValue(Data.Users.FieldByName('IDCODE').AsString)+')';
+      RefreshFilter2;
     end;
   ProgTimer.Enabled:=True;
   uprometipc.OnMessageReceived:=@OnMessageReceived;

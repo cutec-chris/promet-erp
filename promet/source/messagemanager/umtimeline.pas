@@ -36,7 +36,9 @@ type
     ToolBar1: TToolBar;
     ToolButton1: TToolButton;
     ToolButton2: TSpeedButton;
+    ToolButton3: TToolButton;
     tsHistory: TTabSheet;
+    procedure acFollowExecute(Sender: TObject);
     procedure acRefreshExecute(Sender: TObject);
     procedure acSendExecute(Sender: TObject);
     procedure ActiveSearchEndItemSearch(Sender: TObject);
@@ -79,7 +81,7 @@ var
   fmTimeline: TfmTimeline;
 implementation
 uses uBaseApplication, uData, uBaseDbInterface, uOrder,uMessages,uBaseERPDBClasses,
-  uMain,LCLType,utask,uProcessManager,uprometipc,ProcessUtils;
+  uMain,LCLType,utask,uProcessManager,uprometipc,ProcessUtils,ufollow;
 resourcestring
   strTo                                  = 'an ';
 procedure TfmTimeline.Execute;
@@ -108,7 +110,7 @@ begin
       fTimeline.gList.OnDblClick:=@fTimelinegListDblClick;
       fTimeline.gList.Options:=fTimeline.gList.Options-[goVertLine];
       fTimeline.gHeader.Options:=fTimeline.gHeader.Options-[goVertLine];
-      Data.SetFilter(fTimeline.DataSet,fMain.Filter,300);
+      Data.SetFilter(fTimeline.DataSet,fMain.Filter+' '+fMain.Filter2,300);
       with Application as IBaseApplication do
         Config.ReadRect('TIMELINERECT',aBoundsRect,BoundsRect);
       fTimeline.Show;
@@ -246,6 +248,16 @@ end;
 procedure TfmTimeline.acRefreshExecute(Sender: TObject);
 begin
   FTimeLine.Refresh(True);
+end;
+
+procedure TfmTimeline.acFollowExecute(Sender: TObject);
+begin
+  if fFollow.Execute then
+    begin
+      fMain.RefreshFilter2;
+      Data.SetFilter(fTimeline.DataSet,fMain.Filter+' '+fMain.Filter2,300);
+      acRefresh.Execute;
+    end;
 end;
 
 procedure TfmTimeline.acSendExecute(Sender: TObject);

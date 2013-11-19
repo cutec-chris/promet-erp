@@ -48,7 +48,7 @@
         <PackageName Value="LCL"/>
       </Item5>
     </RequiredPackages>
-    <Units Count="3">
+    <Units Count="4">
       <Unit0>
         <Filename Value="messagemanager.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -70,6 +70,14 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="umtimeline"/>
       </Unit2>
+      <Unit3>
+        <Filename Value="ufollow.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fFollow"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ufollow"/>
+      </Unit3>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
