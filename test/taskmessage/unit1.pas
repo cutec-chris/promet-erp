@@ -6,13 +6,15 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  dnssend,smtpsend,synamisc,mimemess, mimepart,synachar;
+  dnssend,smtpsend,synamisc,mimemess, mimepart,synachar,fpolestorage;
 
 type
   TForm1 = class(TForm)
     Button1: TButton;
+    Button2: TButton;
     Edit1: TEdit;
     procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
   private
     { private declarations }
   public
@@ -96,6 +98,15 @@ begin
           smtp.Free;
         end;
     end;
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+var
+  aStor: TOLEStorage;
+  aDoc : TOLEDocument;
+begin
+  aStor := TOLEStorage.Create;
+  aStor.ReadOLEFile('c:\testaufgabe.msg',aDoc,'Book');
 end;
 
 end.
