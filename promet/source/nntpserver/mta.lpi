@@ -64,10 +64,11 @@
         <Filename Value="mta.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="nntpserver"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="286"/>
-        <CursorPos X="57" Y="341"/>
+        <TopLine Value="275"/>
+        <CursorPos X="59" Y="152"/>
         <UsageCount Value="143"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -356,10 +357,9 @@
       <Unit35>
         <Filename Value="..\base\dbintfs\umessages.pas"/>
         <UnitName Value="uMessages"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="327"/>
+        <TopLine Value="33"/>
         <CursorPos X="56" Y="358"/>
         <UsageCount Value="40"/>
         <Loaded Value="True"/>

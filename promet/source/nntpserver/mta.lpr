@@ -149,7 +149,7 @@ begin
           if ares then break;
         end;
     end;
-  Result := aRes;
+  Result := True; //first accept for every user (spam test)
 end;
 
 procedure TPMTAServer.ServerMailreceived(aSocket: TLSMTPSocket;
