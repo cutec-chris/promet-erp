@@ -1,0 +1,15 @@
+TYPE;NAME;ACTIVE;COLOR;
+"P";"Organisationsprojekt";;;
+"P";"Produktprojekt";;;
+"M";"Produkt";;;
+"M";"Einkaufsartikel";;;
+"T";"Verwaltung";;;
+"T";"Organisation";;;
+"T";"Kundenkontakt";;;
+"C";"Urlaub";;clRed;
+"C";"Krank";;clAqua;
+"C";"Dienstreise";;clBlue;
+"C";"Gleitzeit";;clGreen;
+"C";"Schule";;clYellow;
+"C";"geplant";;clOlive;
+
