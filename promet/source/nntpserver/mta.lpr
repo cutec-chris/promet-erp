@@ -416,7 +416,7 @@ begin
           aMessage.Open;
           if aMessage.Count>0 then
             begin
-              aTo := aMessage.FieldByName('RECEIVERS').AsString;
+              aTo := GetEmailAddr(aMessage.FieldByName('RECEIVERS').AsString);
               for i := 0 to DNSServers.Count-1 do
                 begin
                   GetMailServers(DNSServers[i],copy(aTo,pos('@',aTo)+1,length(aTo)),aServers);

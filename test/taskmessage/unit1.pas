@@ -73,6 +73,7 @@ begin
             t.Add('DURATION:PT1H');
             t.Add('END:VTODO');
             t.Add('END:VCALENDAR');
+            t.LoadFromFile('c:\3.ics');
             mimePart := msg.AddPart(nil);
             with mimePart do
               begin
@@ -91,10 +92,10 @@ begin
           smtp.MailFrom(aTo,length(aTo));
           smtp.MailTo(Edit1.Text);
           msg.EncodeMessage;
-          t := TStringList.Create;
-          t.LoadFromFile('c:\tobit_1.eml');
-          smtp.MailData(t);
-          t.Free;
+//          t := TStringList.Create;
+//          t.LoadFromFile('c:\tobit_1.eml');
+          smtp.MailData(msg.Lines);
+//          t.Free;
           smtp.Free;
         end;
     end;
