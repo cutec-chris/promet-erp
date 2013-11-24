@@ -1095,7 +1095,7 @@ begin
             Add('LINK',ftString,200,False);
             Add('OBJECT',ftString,200,False);
             Add('ACTIONICON',ftInteger,0,False);
-            Add('ACTION',ftString,1500,True);
+            Add('ACTION',ftMemo,0,True);
             Add('REFERENCE', ftString,150,False);
             Add('REFOBJECT',ftString,200,False);
             Add('COMMISSION',ftString,60,False);
@@ -2366,4 +2366,4 @@ begin
 end;
 initialization
 end.
-
+

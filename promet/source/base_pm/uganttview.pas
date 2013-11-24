@@ -187,7 +187,7 @@ end;
 procedure TfGanttView.bCancelClick(Sender: TObject);
 begin
   if (MessageDlg(strCancelChanges,mtInformation,[mbYes,mbNo],0) = mrYes) then
-    bRefresh.Click;
+    bRefreshClick(nil);
 end;
 
 procedure TfGanttView.bDayViewClick(Sender: TObject);

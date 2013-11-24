@@ -220,7 +220,7 @@ begin
   if Uppercase(copy(Inp,0,6)) = 'BOARD(' then
     begin
       Inp := copy(Inp,7,length(Inp));
-      Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
+      Data.SetFilter(Data.Tree,'',0,'','ASC',False,True);
       if Data.Tree.DataSet.Locate('NAME',copy(Inp,0,pos(',',Inp)-1),[loCaseInsensitive]) then
         begin
           Outp := actTagParams.Values['BOARDHEADER'];
@@ -249,7 +249,7 @@ begin
                             if aMessage.Content.FieldByName('DATATYP').AsString='WIKI' then
                               aContent := WikiText2HTML(ss.DataString,'','')
                             else
-                              aContent := WikiText2HTML(ss.DataString,'','');
+                              aContent := ss.DataString;
                             Outp := Outp+StringReplace(
                                          StringReplace(
                                          StringReplace(aRow,'~Subject',aMessage.FieldByName('SUBJECT').AsString,[rfReplaceAll])

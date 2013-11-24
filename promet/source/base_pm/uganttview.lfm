@@ -639,7 +639,7 @@ object fGanttView: TfGanttView
       end
       object seBuffer: TSpinEdit
         Left = 56
-        Height = 21
+        Height = 24
         Hint = 'Buffer in Prozent'
         Top = 16
         Width = 50
@@ -829,10 +829,10 @@ object fGanttView: TfGanttView
       end
       object cbSnapshot: TComboBox
         Left = 32
-        Height = 21
+        Height = 28
         Top = 14
         Width = 140
-        ItemHeight = 13
+        ItemHeight = 0
         OnSelect = cbSnapshotSelect
         Style = csDropDownList
         TabOrder = 0

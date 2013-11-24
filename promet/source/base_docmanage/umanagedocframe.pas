@@ -163,7 +163,7 @@ type
 
   { TImportCheckTherad }
 
-  TImportCheckTherad = class(TThread)
+  TImportCheckThread = class(TThread)
   private
     FDoc: TfManageDocFrame;
     procedure CheckImport;
@@ -205,17 +205,17 @@ end;
 
 { TImportCheckTherad }
 
-procedure TImportCheckTherad.CheckImport;
+procedure TImportCheckThread.CheckImport;
 begin
   FDoc.acImport.Enabled := fCameraimport.ImportAvalibe;
 end;
 
-procedure TImportCheckTherad.Execute;
+procedure TImportCheckThread.Execute;
 begin
   Synchronize(@CheckImport);
 end;
 
-constructor TImportCheckTherad.Create(aDocFrame: TfManageDocFrame);
+constructor TImportCheckThread.Create(aDocFrame: TfManageDocFrame);
 begin
   FDoc := aDocFrame;
   FreeOnTerminate:=True;
@@ -861,7 +861,8 @@ begin
     begin
       if FDocFrame.GotoEntry(FDocFrame.lvDocuments.Items[i]) then
         if (Uppercase(FDocFrame.DataSet.FieldByName('EXTENSION').AsString)='JPG')
-        or (Uppercase(FDocFrame.DataSet.FieldByName('EXTENSION').AsString)='JPG') then
+        or (Uppercase(FDocFrame.DataSet.FieldByName('EXTENSION').AsString)='JPEG')
+        then
           begin
             aDocument := TDocument.Create(nil,Data);
             aDocument.SelectByID(FDocFrame.DataSet.Id.AsVariant);
@@ -926,7 +927,7 @@ begin
 end;
 procedure TfManageDocFrame.Open;
 var
-  aRefThread: TImportCheckTherad;
+  aRefThread: TImportCheckThread;
 begin
   ThumbControl1.ImageLoaderManager.BeforeStartQueue:=@ThumbControl1ImageLoaderManagerBeforeStartQueue;
   DataSet.CreateTable;
@@ -946,7 +947,7 @@ begin
   FetchNext;
   bExecute1.Down:=False;
   bExecute1Click(nil);
-  aRefThread := TImportCheckTherad.Create(Self);
+  aRefThread := TImportCheckThread.Create(Self);
 end;
 procedure TfManageDocFrame.DoRefresh;
 begin
