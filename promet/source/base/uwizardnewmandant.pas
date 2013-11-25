@@ -154,7 +154,7 @@ implementation
 uses uError,uImpCSV, uBaseApplication, uBaseDbInterface, uBaseDbClasses,
   uBaseERPDBClasses, uOrder, uSync, uOptions, uMandantOptions, uuseroptions,
   uProcessOptions,uSyncOptions,uDocuments,uWiki,Utils,uProjects,uMasterdata,
-  uPerson;
+  uPerson,utask;
 resourcestring
   strdBase                      = 'DBase Datenbank';
   strSQLDatabase                = 'SQL basierte Datenbank';
@@ -583,7 +583,8 @@ begin
           DoImport(TCategory);
 
           DoImport(TProject);
-          DoImport(TProjectTasks);
+          DoImport(TTaskList);
+          DoImport(TDependencies);
           DoImport(TPerson);
           DoImport(TMasterdata);
           DoImport(TOrder);

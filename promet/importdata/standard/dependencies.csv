@@ -1,0 +1,8 @@
+"REF_ID";"REF_ID_ID";;"LINK";"NAME";
+211;210;"TASKS@210{Idee ausformulieren}";"Idee ausformulieren";
+212;211;"TASKS@211{Marktanalyse}";"Marktanalyse";
+213;212;"TASKS@212{Idee vorstellen}";"Idee vorstellen";
+214;213;"TASKS@213{Lastenheft anfordern/erstellen}";"Lastenheft anfordern/erstellen";
+221;220;"TASKS@220{Pflichtenheft erstellen}";"Pflichtenheft erstellen";
+222;221;"TASKS@221{freigabe Pflichtenheft}";"freigabe Pflichtenheft";
+231;230;"TASKS@230{Änderungsantrag prüfen}";"Änderungsantrag prüfen";

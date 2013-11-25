@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CONFIG>
-  <Config LANGUAGE="Deutsch"/>
+  <Config LANGUAGE="Deutsch" LOGINUSER="Administrator" LOGINMANDANT="Projektverwaltung" AUTOMATICLOGIN="NO" MainFormPosTop="-5" MainFormPosLeft="301" MainFormPosRight="1674" MainFormPosBottom="981" SEARCHWHILETYPING="YES"/>
 </CONFIG>

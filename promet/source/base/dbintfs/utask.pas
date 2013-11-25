@@ -25,6 +25,7 @@ interface
 uses
   Classes, SysUtils, uBaseDbClasses, uBaseDbInterface, db, uBaseERPDBClasses,Math;
 type
+  TDependencies = class;
   TTaskSnapshots = class(TBaseDbDataSet)
     procedure DefineFields(aDataSet : TDataSet);override;
   end;
@@ -37,6 +38,7 @@ type
     FHistory: TBaseHistory;
     FSnapshots: TTaskSnapshots;
     FTempUsers : TUser;
+    FDependencies: TDependencies;
     FDS: TDataSource;
     DoCheckTask : Boolean;
     FUserID: String;
@@ -100,11 +102,9 @@ type
   TTask = class(TTaskList)
   private
     FLinks: TTaskLinks;
-    FDependencies: TDependencies;
   public
     constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
-    function CreateTable : Boolean;override;
     procedure CheckDependencies;
     property Links : TTaskLinks read FLinks;
     property Dependencies : TDependencies read FDependencies;
@@ -225,19 +225,11 @@ constructor TTask.Create(aOwner: TComponent; DM: TComponent;
 begin
   inherited Create(aOwner, DM, aConnection, aMasterdata);
   FLinks := TTaskLinks.Create(Self,DM,aConnection);
-  FDependencies := TDependencies.Create(Self,DM,aConnection,DataSet);
-  FDependencies.FTask:=Self;
 end;
 destructor TTask.Destroy;
 begin
-  FDependencies.Free;
   FLinks.Free;
   inherited Destroy;
-end;
-function TTask.CreateTable : Boolean;
-begin
-  Result := inherited CreateTable;
-  Dependencies.CreateTable;
 end;
 procedure TTask.CheckDependencies;
 var
@@ -936,10 +928,13 @@ begin
   FTempUsers := TUser.Create(aOwner,DM);
   FHistory := TBaseHistory.Create(Self,DM,aConnection,DataSet);
   FSnapshots := TTaskSnapshots.Create(Self,DM,aConnection,DataSet);
+  FDependencies := TDependencies.Create(Self,DM,aConnection,DataSet);
+  FDependencies.FTask:=Self;
 end;
 
 destructor TTaskList.Destroy;
 begin
+  FDependencies.Free;
   FSnapshots.Free;
   FDS.Free;
   FHistory.Free;
@@ -967,6 +962,7 @@ begin
   Result := inherited CreateTable;
   FHistory.CreateTable;
   FSnapshots.CreateTable;
+  FDependencies.CreateTable;
   try
     if Data.ShouldCheckTable('TASKS',False) then
       begin

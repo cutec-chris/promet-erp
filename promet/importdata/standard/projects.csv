@@ -1,4 +1,4 @@
-"SQL_ID","NAME";"TYPE";"CATEGORY";"STATUS";
-101,"Ideenprozess";"C";"Organisation";"I";
-102,"Entwicklungsprozess";"C";"Organisation";"I";
-103,"Änderungsprozess";"N";"Organisation";"I";
+"SQL_ID";"NAME";"TYPE";"CATEGORY";"STATUS";
+101;"Ideenprozess";"C";"Organisation";"I";
+102;"Entwicklungsprozess";"C";"Organisation";"I";
+103;"Änderungsprozess";"N";"Organisation";"I";
