@@ -2772,6 +2772,8 @@ inherited fStatisticFrame: TfStatisticFrame
         Anchors = [akTop, akLeft, akRight, akBottom]
         DataField = 'DESCRIPTION'
         DataSource = Datasource
+        Font.Height = -16
+        ParentFont = False
         TabOrder = 0
       end
     end
