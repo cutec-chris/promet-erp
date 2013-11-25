@@ -153,7 +153,8 @@ var
 implementation
 uses uError,uImpCSV, uBaseApplication, uBaseDbInterface, uBaseDbClasses,
   uBaseERPDBClasses, uOrder, uSync, uOptions, uMandantOptions, uuseroptions,
-  uProcessOptions,uSyncOptions,uDocuments,uWiki,Utils;
+  uProcessOptions,uSyncOptions,uDocuments,uWiki,Utils,uProjects,uMasterdata,
+  uPerson;
 resourcestring
   strdBase                      = 'DBase Datenbank';
   strSQLDatabase                = 'SQL basierte Datenbank';
@@ -579,6 +580,13 @@ begin
           DoImport(TStates);
           DoImport(TUnits);
           DoImport(TDispatchTypes);
+          DoImport(TCategory);
+
+          DoImport(TProject);
+          DoImport(TProjectTasks);
+          DoImport(TPerson);
+          DoImport(TMasterdata);
+          DoImport(TOrder);
           try
             Data.Tree.CreateTable;
             Data.SetFilter(Data.Tree,'');

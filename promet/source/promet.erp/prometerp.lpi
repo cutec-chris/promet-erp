@@ -181,7 +181,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--config-path=/home/chris/.promet-erp-devel"/>
+        <CommandLineParams Value="--config-path=../../../schulung/configs"/>
       </local>
     </RunParams>
     <RequiredPackages Count="22">
@@ -288,7 +288,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="291"/>
         <CursorPos X="79" Y="314"/>
@@ -316,7 +316,7 @@
         <UnitName Value="uBaseVisualControls"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
+        <TopLine Value="9"/>
         <CursorPos X="41" Y="24"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
@@ -895,12 +895,10 @@
       <Unit56>
         <Filename Value="../base/dbintfs/uprojects.pas"/>
         <UnitName Value="uProjects"/>
-        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="19"/>
         <CursorPos X="15" Y="27"/>
         <UsageCount Value="100"/>
-        <Loaded Value="True"/>
       </Unit56>
       <Unit57>
         <Filename Value="../base/uviewmessage.pas"/>
@@ -972,7 +970,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMainTreeFrame"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1470"/>
         <CursorPos X="102" Y="1501"/>
@@ -986,7 +984,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uProjectFrame"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="205"/>
         <CursorPos X="1" Y="215"/>
@@ -1019,7 +1017,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ugridview"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="90"/>
         <CursorPos X="80" Y="96"/>
@@ -1030,14 +1028,16 @@
       <Unit68>
         <Filename Value="../base/dbintfs/utask.pas"/>
         <UnitName Value="utask"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="979"/>
-        <CursorPos X="1" Y="1000"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
         <UsageCount Value="100"/>
+        <Loaded Value="True"/>
       </Unit68>
       <Unit69>
         <Filename Value="../base/revision.inc"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -1137,9 +1137,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPositionFrame"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="633"/>
+        <TopLine Value="594"/>
         <CursorPos X="16" Y="654"/>
         <UsageCount Value="98"/>
         <Loaded Value="True"/>
@@ -1339,7 +1339,6 @@
         <TopLine Value="857"/>
         <CursorPos X="9" Y="865"/>
         <UsageCount Value="96"/>
-        <LoadedDesigner Value="True"/>
       </Unit100>
       <Unit101>
         <Filename Value="../components/thumbs/thumbcontrol.pas"/>
@@ -1471,10 +1470,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uTaskEdit"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="468"/>
-        <CursorPos X="1" Y="487"/>
+        <TopLine Value="8"/>
+        <CursorPos X="25" Y="26"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit117>
@@ -1641,9 +1640,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uGanttView"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="632"/>
+        <TopLine Value="527"/>
         <CursorPos X="67" Y="648"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
@@ -2037,13 +2036,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ustatisticframe"/>
-        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1153"/>
         <CursorPos X="25" Y="1162"/>
         <UsageCount Value="16"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit182>
       <Unit183>
         <Filename Value="../projectmanagement/uprojectoverview.pas"/>
@@ -2051,10 +2047,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uprojectoverview"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="43"/>
-        <CursorPos X="20" Y="61"/>
+        <TopLine Value="44"/>
+        <CursorPos X="57" Y="48"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -2230,12 +2226,10 @@
       <Unit204>
         <Filename Value="../base/dbintfs/ustatistic.pas"/>
         <UnitName Value="uStatistic"/>
-        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="43"/>
-        <CursorPos X="30" Y="67"/>
+        <CursorPos X="25" Y="54"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit204>
       <Unit205>
         <Filename Value="../../../general/src/umashineid.pas"/>
@@ -4069,7 +4063,7 @@
         <UsageCount Value="10"/>
       </Unit428>
     </Units>
-    <JumpHistory Count="23" HistoryIndex="22">
+    <JumpHistory Count="20" HistoryIndex="19">
       <Position1>
         <Filename Value="../base/ugridview.pas"/>
         <Caret Line="2779" Column="1" TopLine="2756"/>
@@ -4119,49 +4113,37 @@
         <Caret Line="314" Column="79" TopLine="291"/>
       </Position12>
       <Position13>
-        <Filename Value="../base/dbintfs/ustatistic.pas"/>
-        <Caret Line="35" Column="20" TopLine="16"/>
-      </Position13>
-      <Position14>
-        <Filename Value="../base/dbintfs/ustatistic.pas"/>
-        <Caret Line="37" Column="56" TopLine="18"/>
-      </Position14>
-      <Position15>
-        <Filename Value="../statistics/ustatisticframe.pas"/>
-        <Caret Line="192" Column="20" TopLine="183"/>
-      </Position15>
-      <Position16>
-        <Filename Value="../statistics/ustatisticframe.pas"/>
-        <Caret Line="193" Column="20" TopLine="184"/>
-      </Position16>
-      <Position17>
-        <Filename Value="../statistics/ustatisticframe.pas"/>
-        <Caret Line="7" Column="97" TopLine="1"/>
-      </Position17>
-      <Position18>
-        <Filename Value="../base/dbintfs/ustatistic.pas"/>
-        <Caret Line="67" Column="30" TopLine="43"/>
-      </Position18>
-      <Position19>
         <Filename Value="../base_pm/uganttview.pas"/>
         <Caret Line="255" Column="39" TopLine="237"/>
-      </Position19>
-      <Position20>
+      </Position13>
+      <Position14>
         <Filename Value="../base_pm/uganttview.pas"/>
         <Caret Line="254" Column="39" TopLine="236"/>
-      </Position20>
-      <Position21>
+      </Position14>
+      <Position15>
         <Filename Value="../base_pm/utaskedit.pas"/>
         <Caret Line="189" Column="1" TopLine="167"/>
-      </Position21>
-      <Position22>
+      </Position15>
+      <Position16>
         <Filename Value="../base_pm/uganttview.pas"/>
         <Caret Line="189" Column="27" TopLine="167"/>
-      </Position22>
-      <Position23>
+      </Position16>
+      <Position17>
         <Filename Value="../base_pm/uganttview.pas"/>
         <Caret Line="190" Column="14" TopLine="172"/>
-      </Position23>
+      </Position17>
+      <Position18>
+        <Filename Value="../base_pm/utaskedit.pas"/>
+        <Caret Line="13" Column="124" TopLine="8"/>
+      </Position18>
+      <Position19>
+        <Filename Value="../base_pm/utaskedit.pas"/>
+        <Caret Line="22" Column="11" TopLine="8"/>
+      </Position19>
+      <Position20>
+        <Filename Value="../base_pm/utaskedit.pas"/>
+        <Caret Line="26" Column="25" TopLine="8"/>
+      </Position20>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>
