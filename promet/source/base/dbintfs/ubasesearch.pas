@@ -246,19 +246,23 @@ begin
       if fsSerial in FSearchTypes then
         begin
           aPos := TOrderPos.Create(nil,Data);
-          Data.SetFilter(aPos,Data.QuoteField('SERIAL')+'='+Data.QuoteValue(SearchText),FMaxResults);
-          while not aPos.EOF do
-            begin
-              aOrder := Torder.Create(nil,Data);
-              aOrder.Select(aPos.FieldByName('REF_ID').AsVariant);
-              aOrder.Open;
-              if aOrder.Count>0 then
-                FItemFound(aOrder.Number.AsString,aOrder.Text.AsString,aOrder.Status.AsString,True,Data.BuildLink(aOrder.DataSet),aOrder);
-              aOrder.Free;
-              aPos.Next;
-            end;
+          try
+            Data.SetFilter(aPos,Data.QuoteField('SERIAL')+'='+Data.QuoteValue(SearchText),FMaxResults);
+            while not aPos.EOF do
+              begin
+                aOrder := Torder.Create(nil,Data);
+                aOrder.Select(aPos.FieldByName('REF_ID').AsVariant);
+                aOrder.Open;
+                if aOrder.Count>0 then
+                  FItemFound(aOrder.Number.AsString,aOrder.Text.AsString,aOrder.Status.AsString,True,Data.BuildLink(aOrder.DataSet),aOrder);
+                aOrder.Free;
+                aPos.Next;
+              end;
+          except  //maybe table dont exists
+          end;
           aPos.Free;
         end;
+
     end;
   FActive := False;
   if Assigned(FFullEndSearch) then FFullEndSearch(Self);
