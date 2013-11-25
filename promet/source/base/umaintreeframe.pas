@@ -1512,7 +1512,7 @@ begin
   or (DataT.Typ = etDocumentDir)
   then
     begin
-      Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
+      Data.SetFilter(Data.Tree,'',0,'','DESC',False,True,True);
       Data.Tree.GotoBookmark(DataT.Rec);
       ID := Data.Tree.Id.AsString;
       Typ := Data.Tree.FieldByName('TYPE').AsString;

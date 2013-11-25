@@ -1,5 +1,5 @@
 ﻿Build 293
-
+      - Adresseingabe von mehreren Adressen im Vorgang korrigiert
 Build 292
       - Messagemanager:folgen von Elementen
       - Projekt: Status wird in Übersicht angezeigt

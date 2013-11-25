@@ -428,7 +428,15 @@ end;
 procedure TfOrderFrame.acAddAddressExecute(Sender: TObject);
 var
   aAddress: TfOrderAddress;
+  aInsert: Boolean;
 begin
+  if (TOrder(DataSet).Address.CanEdit) then
+    begin
+      aInsert := TOrder(DataSet).Address.DataSet.State = dsInsert;
+      TOrder(DataSet).Address.Post;
+      if aInsert then
+        TfOrderAddress(pAddresses.Controls[0]).Rec:=TOrder(fDataSet).Address.GetBookmark;
+    end;
   aAddress := TfOrderAddress.Create(Self);
   aAddress.Name:='';
   aAddress.Parent := pAddresses;
@@ -439,10 +447,7 @@ begin
   pAddresses.Width:=pAddresses.Width+aAddress.Width;
   aAddress.DataSet := TOrder(fDataSet).Address;
   aAddress.OnSearchKey:=@OnSearchKey;
-//  if (TOrder(DataSet).Address.Count>0) and (TOrder(DataSet).Address.State <> dsInsert) then
-//    TfOrderAddress(pAddresses.Controls[0]).Rec:=TOrder(fDataSet).Address.GetBookmark
-//  else
-    aAddress.Rec:=0;
+  aAddress.Rec:=0;
   if aAddress.CanFocus then
     aAddress.SetFocus;
   RefreshAddress;
@@ -822,14 +827,16 @@ begin
   acRights.Enabled:=Data.Users.Rights.Right('ORDERS') >= RIGHT_PERMIT;
 end;
 procedure TfOrderFrame.RefreshAddress;
+var
+  i: Integer;
 begin
   pAddresses.Width:=pAddresses.ControlCount*230;
   if (pAddresses.ControlCount = 0) and FEditable then
     begin
       acAddAddress.Execute;
     end;
-  if pAddresses.ControlCount > 0 then
-    TfOrderAddress(pAddresses.Controls[0]).DataSet := TOrder(DataSet).Address;
+  if pAddresses.ControlCount>0 then
+    TfOrderAddress(pAddresses.Controls[pAddresses.ControlCount-1]).DataSet := TOrder(DataSet).Address;
 end;
 procedure TfOrderFrame.DoSelect;
 begin
