@@ -140,10 +140,10 @@ begin
             begin
               //aLog.Text := Data.ProcessClient.Processes.DataSet.FieldByName('LOG').AsString;
               aProcess := Data.ProcessClient.Processes.FieldByName('NAME').AsString;
-              if FileExistsUTF8(ExpandFileNameUTF8(aProcess+ExtractFileExt(Application.ExeName))) then
+              if FileExistsUTF8(ExpandFileNameUTF8(AppendPathDelim(Application.Location)+aProcess+ExtractFileExt(Application.ExeName))) then
                 begin
                   Found := False;
-                  tmp := aProcess;
+                  tmp := AppendPathDelim(Application.Location)+aProcess;
                   for i := 0 to length(Processes)-1 do
                     if copy(Processes[i].CommandLine,0,length(tmp)) = tmp then
                       begin
@@ -152,7 +152,7 @@ begin
                           Found := True
                         else
                           begin
-                            tmp := aProcess+BuildCmdLine;
+                            tmp := tmp+BuildCmdLine;
                             sl := TStringList.Create;
                             sl.LoadFromStream(bProcess.Output);
                             for a := 0 to sl.Count-1 do
@@ -185,7 +185,7 @@ begin
                   if not Found then
                     begin
                       aLog.Clear;
-                      cmd := aProcess+ExtractFileExt(Application.ExeName);
+                      cmd := AppendPathDelim(Application.Location)+aProcess+ExtractFileExt(Application.ExeName);
                       cmd := cmd+BuildCmdLine;
                       DoLog(aProcess+':'+strStartingProcess+' ('+cmd+')',aLog);
                       Process := TProcProcess.Create(Self);
