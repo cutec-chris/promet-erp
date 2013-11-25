@@ -1,4 +1,6 @@
-﻿Build 292
+﻿Build 293
+
+Build 292
       - Messagemanager:folgen von Elementen
       - Projekt: Status wird in Übersicht angezeigt
       - Statistik: Statistiken suchbar
