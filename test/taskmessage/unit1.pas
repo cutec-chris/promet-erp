@@ -58,6 +58,7 @@ begin
           msg := TMimeMess.Create;
           msg.Header.Subject:='Aufgabenblah';
           msg.Header.ToList.Text:=Edit1.Text;
+          {
           try
             t := TStringList.Create;
             t.Add('BEGIN:VCALENDAR');
@@ -89,13 +90,42 @@ begin
            finally
              t.Free;
            end;
+         }
+         try
+           t := TStringList.Create;
+           t.Add('From: "Rechlin, Andreas" <rechlin@tcs-germany.de>');
+           t.Add('Subject: =?iso-8859-1?Q?1_W=F6chiges_Praktikum_in_Montage?=');
+           t.Add('Thread-Index: Ac7p5hkH0iwuVC3jRWmGsa5Rq6F19g==');
+           t.Add('Date: Mon, 25 Nov 2013 13:56:11 +0000');
+           t.Add('X-MS-Has-Attach:');
+           t.Add('X-MS-TNEF-Correlator:');
+           t.Add('Content-Type: text/plain; charset="iso-8859-1"');
+           t.Add('Content-Transfer-Encoding: quoted-printable');
+           t.Add('MIME-Version: 1.0');
+           t.Add('');
+
+           mimePart := msg.AddPart(nil);
+           with mimePart do
+             begin
+               t.SaveToStream(DecodedLines);
+               Primary := 'message';
+               Secondary := 'rfc822';
+               CharsetCode := GetCurCP;
+               EncodingCode := ME_8BIT;
+               EncodePart;
+               CharsetCode := UTF_8;
+               EncodePartHeader;
+             end;
+          finally
+            t.Free;
+          end;
           smtp.MailFrom(aTo,length(aTo));
           smtp.MailTo(Edit1.Text);
           msg.EncodeMessage;
-//          t := TStringList.Create;
-//          t.LoadFromFile('c:\tobit_1.eml');
+          //t := TStringList.Create;
+          //t.LoadFromFile('c:\1.rtf');
           smtp.MailData(msg.Lines);
-//          t.Free;
+          //t.Free;
           smtp.Free;
         end;
     end;
@@ -107,7 +137,7 @@ var
   aDoc : TOLEDocument;
 begin
   aStor := TOLEStorage.Create;
-  aStor.ReadOLEFile('c:\testaufgabe.msg',aDoc,'Book');
+  aStor.ReadOLEFile('c:\testaufgabe.msg',aDoc,'!');
 end;
 
 end.

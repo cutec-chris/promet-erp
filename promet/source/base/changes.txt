@@ -1,4 +1,6 @@
-﻿Build 293
+﻿Build 294
+      - Spalten werden automatisch verkleinert wenn sie in Summe die Gridbreite überschreiten
+Build 293
       - Adresseingabe von mehreren Adressen im Vorgang korrigiert
 Build 292
       - Messagemanager:folgen von Elementen

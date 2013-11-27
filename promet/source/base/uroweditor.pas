@@ -218,11 +218,15 @@ begin
         GetGridSizes(aConfigName,DataSource,Grid,'',False,Filter);
       end;
 end;
+const
+  SBWidth = 30;
 procedure TfRowEditor.SetGridSizes(aConfigName : string;DataSource: TDataSource; Grid: TDBGrid; Filter : string = '');
 var
   s: String;
   i: Integer;
   tmp: String;
+  FullWidth : Integer = 0;
+  IsReadOnly: Boolean = True;
 begin
   if not Assigned(DataSource) then exit;
   if not Assigned(Grid) then exit;
@@ -231,10 +235,17 @@ begin
     tmp := tmp+','+Filter;
   s := 'GLOBALWIDTH:'+IntToStr(Grid.Width)+';';
   for i := 0 to Grid.Columns.Count-1 do
-    s := s+TColumn(Grid.Columns[i]).FieldName+':'+IntToStr(TColumn(Grid.Columns[i]).Width)+';';
+    begin
+      s := s+TColumn(Grid.Columns[i]).FieldName+':'+IntToStr(TColumn(Grid.Columns[i]).Width)+';';
+      FullWidth := FullWidth+TColumn(Grid.Columns[i]).Width;
+      if not TColumn(Grid.Columns[i]).ReadOnly then
+        IsReadOnly := false;
+    end;
   if s <> '' then
     with Application as IBaseDbInterface do
       DBConfig.WriteString('GRID:'+Uppercase(tmp),s);
+  if FullWidth>Grid.Width-SBWidth then
+    GetGridSizes(aConfigName,DataSource,Grid,'',IsReadOnly,Filter);
 end;
 function TfRowEditor.GetGridSizes(aConfigName : string;DataSource: TDataSource; Grid: TDBGrid;Defaults : string = '';MakereadOnly : Boolean = False; Filter : string = '') : Boolean;
 var
@@ -250,6 +261,8 @@ var
   aConfig: TDataSet;
   i: Integer;
   ib : IBaseDbInterface;
+  FullWidth: Integer;
+  s1: String;
 begin
   Result := False;
   if not Assigned(DataSource) then exit;
@@ -286,6 +299,21 @@ begin
           if GlobalWidth <> 0 then
             Factor := Grid.Width/GlobalWidth;
         end;
+      s1 := s;
+      //see if Width of all columns > Grid.Width
+      FullWidth := 0;
+      while pos(';',s) > 0 do
+        begin
+          s := copy(s,pos(':',s)+1,length(s));
+          FullWidth := FullWidth+StrToIntDef(copy(s,0,pos(';',s)-1),64);
+          s := copy(s,pos(';',s)+1,length(s));
+        end;
+      if FullWidth>Grid.Width-SBWidth then
+        begin
+          Factor := Factor+(((Grid.Width-SBWidth)/FullWidth)-1);
+        end;
+      s := s1;
+      //Collect Columns
       while pos(';',s) > 0 do
         begin
           cl := Grid.Columns.Add;
@@ -332,4 +360,4 @@ end;
 initialization
   {$I uroweditor.lrs}
 end.
-
+
