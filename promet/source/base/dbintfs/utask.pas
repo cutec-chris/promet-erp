@@ -181,6 +181,12 @@ begin
             Add('ICON',ftInteger,0,False); //LinkIcon
             Add('NAME',ftString,100,True);
           end;
+      if Assigned(ManagedIndexdefs) then
+        with ManagedIndexDefs do
+          begin
+            Add('REF_ID_ID','REF_ID_ID',[]);
+            Add('LINK','LINK',[]);
+          end;
     end;
 end;
 procedure TDependencies.Add(aLink: string);
