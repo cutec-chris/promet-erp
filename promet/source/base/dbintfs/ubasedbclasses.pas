@@ -1099,6 +1099,7 @@ begin
             Add('REFERENCE', ftString,150,False);
             Add('REFOBJECT',ftString,200,False);
             Add('COMMISSION',ftString,60,False);
+            Add('READ',ftString,1,False);
             Add('CHANGEDBY',ftString,4,False);
             Add('PARENT',ftLargeInt,0,False);
           end;
@@ -2366,4 +2367,4 @@ begin
 end;
 initialization
 end.
-
+

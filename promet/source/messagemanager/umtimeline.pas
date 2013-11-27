@@ -11,6 +11,8 @@ type
   TMGridObject = class(TObject)
   public
     Caption : string;
+    Bold : Boolean;
+    constructor Create;
   end;
 
   TfmTimeline = class(TForm)
@@ -84,6 +86,12 @@ uses uBaseApplication, uData, uBaseDbInterface, uOrder,uMessages,uBaseERPDBClass
   uMain,LCLType,utask,uProcessManager,uprometipc,ProcessUtils,ufollow;
 resourcestring
   strTo                                  = 'an ';
+
+constructor TMGridObject.Create;
+begin
+  Bold := False;
+end;
+
 procedure TfmTimeline.Execute;
 var
   aBoundsRect: TRect;
@@ -419,6 +427,7 @@ begin
                     TMGridObject(aObj).Caption := strTo+Data.GetLinkDesc(fTimeline.dgFake.DataSource.DataSet.FieldByName('OBJECT').AsString)
                   else
                     TMGridObject(aObj).Caption := Data.GetLinkDesc(fTimeline.dgFake.DataSource.DataSet.FieldByName('OBJECT').AsString);
+                  TMGridObject(aObj).Bold:=fTimeline.dgFake.DataSource.DataSet.FieldByName('READ').AsString<>'N';
                 end;
               fTimeline.DataSet.GotoBookmark(aRec);
               fTimeline.gList.RowHeights[aRow] := fTimeline.gList.RowHeights[aRow]+12;
@@ -428,6 +437,14 @@ begin
     end
   else if aCol.FieldName='TIMESTAMPD' then
     begin
+      aObj := fTimeline.gList.Objects[aCol.Index+1,aRow];
+      if Assigned(aObj) then
+        begin
+          if TMGridObject(aObj).Bold then
+            TStringGrid(Sender).Canvas.Font.Style:=[fsBold]
+          else
+            TStringGrid(Sender).Canvas.Font.Style:=[];
+        end;
       if TryStrToDateTime(NewText,aTime) then
         begin
           if (trunc(aTime) = FDrawnDate) or (trunc(aTime) = trunc(Now())) then
