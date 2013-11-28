@@ -1487,7 +1487,11 @@ var
   end;
 
   procedure AddEntry;
+  var
+    i: Integer;
   begin
+    for i := 0 to Node.Count-1 do
+      if TTreeEntry(Node.Items[i].Data).Rec = aList.GetBookmark then exit;
     Node1 := tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
     TTreeEntry(Node1.Data).Rec := aList.GetBookmark;
     with aList.DataSet as IBaseManageDB do
