@@ -149,8 +149,6 @@ end;
 
 procedure TfmTimeline.ShowFrame;
 begin
-  //fTimeline.;
-  FTimeLine.Refresh(True);
 end;
 
 function TfmTimeline.FContListDrawColumnCell(Sender: TObject; const aRect: TRect;
@@ -243,6 +241,8 @@ begin
               TStringGrid(Sender).Canvas.TextRect(bRect,aRect.Left+3,bRect.Top,aText,aTextStyle);
               TStringGrid(Sender).Canvas.Font.Color:=clGray;
               bRect := aRect;
+              if TMGridObject(aObj).Bold then
+                Canvas.Font.Style := [fsBold];
               brect.Bottom := aRect.Top+Canvas.TextExtent('A').cy;
               TStringGrid(Sender).canvas.TextOut(arect.Left+3,aRect.Top,TMGridObject(aObj).Caption);
               if (gdSelected in State) and TStringGrid(Sender).Focused then
@@ -252,12 +252,6 @@ begin
         end
       else
         begin
-          aObj := fTimeline.gList.Objects[Column.Index+1,DataCol];
-          if Assigned(aObj) then
-            begin
-              if TMGridObject(aObj).Bold then
-                Canvas.Font.Style := [fsBold];
-            end;
           Result := False;
         end;
     end;
@@ -437,7 +431,7 @@ begin
                     TMGridObject(aObj).Caption := strTo+Data.GetLinkDesc(fTimeline.dgFake.DataSource.DataSet.FieldByName('OBJECT').AsString)
                   else
                     TMGridObject(aObj).Caption := Data.GetLinkDesc(fTimeline.dgFake.DataSource.DataSet.FieldByName('OBJECT').AsString);
-                  TMGridObject(aObj).Bold:=fTimeline.dgFake.DataSource.DataSet.FieldByName('READ').AsString<>'N';
+                  TMGridObject(aObj).Bold:=(fTimeline.dgFake.DataSource.DataSet.FieldByName('READ').AsString<>'Y');
                 end;
               fTimeline.DataSet.GotoBookmark(aRec);
               fTimeline.gList.RowHeights[aRow] := fTimeline.gList.RowHeights[aRow]+12;
@@ -497,6 +491,8 @@ end;
 
 procedure TfmTimeline.fTimelinegListKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
+var
+  i: Integer;
 begin
   if Key = VK_INSERT then
     begin
@@ -516,6 +512,10 @@ begin
           fTimeline.DataSet.post;
           with fTimeline.DataSet.DataSet as IBaseManageDB do
             UpdateStdFields:=True;
+          for i := 0 to fTimeline.dgFake.Columns.Count-1 do
+            if fTimeline.dgFake.Columns[i].FieldName='ACTION' then
+              fTimeline.gList.Objects[i+1,fTimeline.gList.Row].Free;
+          fTimeline.gList.Invalidate;
           fTimeline.gList.Row:=fTimeline.gList.Row+1;
         end;
     end;
