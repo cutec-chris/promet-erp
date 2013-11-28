@@ -406,6 +406,8 @@ begin
   aProject.SelectFromLink(aLink);
   aProject.Open;
   Result := aProject.Count>0;
+  if pSearch.Visible then
+    FGridView.EndUpdate;
   pSearch.Visible:=False;
   if Result and FGridView.GotoActiveRow then
     begin
@@ -431,6 +433,8 @@ begin
   aUser.SelectFromLink(aLink);
   aUser.Open;
   Result := aUser.Count>0;
+  if pSearch.Visible then
+    FGridView.EndUpdate;
   pSearch.Visible:=False;
   if Result and FGridView.GotoActiveRow then
     begin
@@ -457,13 +461,13 @@ function TfTaskFrame.fSearchOpenUserItem(aLink: string): Boolean;
 var
   aCount: Integer;
   aUser: TUser;
+  aSel: TGridRect;
 begin
   Result := False;
   aUser := TUser.Create(Self,Data);
   aUser.SelectFromLink(aLink);
   aUser.Open;
   Result := aUser.Count>0;
-  pSearch.Visible:=False;
   if Result and FGridView.GotoActiveRow then
     begin
       if DataSet.CanEdit then
@@ -484,6 +488,9 @@ begin
       FGridView.gList.EditorMode:=False;
       FGridView.SetEdited;
     end;
+  if pSearch.Visible then
+    FGridView.EndUpdate;
+  pSearch.Visible:=False;
   aUSer.Free;
 end;
 procedure TfTaskFrame.lbResultsDblClick(Sender: TObject);
@@ -499,6 +506,8 @@ begin
     begin
       fSearchOpenItem(TLinkObject(lbResults.Items.Objects[lbResults.ItemIndex]).Link);
     end;
+  if pSearch.Visible then
+    FGridView.EndUpdate;
   pSearch.Visible:=False;
   FGridView.SetFocus;
 end;
@@ -897,7 +906,11 @@ begin
   if not ActiveSearch.Active then
     begin
       if ActiveSearch.Count=0 then
-        pSearch.Visible:=False;
+        begin
+          if pSearch.Visible then
+            FGridView.EndUpdate;
+          pSearch.Visible:=False;
+        end;
     end;
 end;
 procedure TfTaskFrame.ActiveSearchItemFound(aIdent: string; aName: string;
@@ -906,7 +919,10 @@ begin
   with pSearch do
     begin
       if not Visible then
-        Visible := True;
+        begin
+          Visible := True;
+          FGridView.beginUpdate;
+        end;
     end;
   if aActive then
     lbResults.Items.AddObject(aName,TLinkObject.Create(aLink));
@@ -1244,6 +1260,8 @@ begin
                   if lbResults.ItemIndex = -1 then
                     begin
                       lbResults.ItemIndex:=0;
+                      if pSearch.Visible then
+                        FGridView.EndUpdate;
                       pSearch.Visible := False;
                     end
                   else
@@ -1270,6 +1288,8 @@ begin
                 end;
               VK_ESCAPE:
                 begin
+                  if pSearch.Visible then
+                    FGridView.EndUpdate;
                   pSearch.Visible:=False;
                   Key := 0;
                 end;

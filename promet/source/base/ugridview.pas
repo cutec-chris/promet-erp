@@ -144,6 +144,7 @@ type
     procedure gListEnterEdit(Sender: TObject);
     procedure gListExit(Sender: TObject);
     procedure gListResize(Sender: TObject);
+    procedure gListSelection(Sender: TObject; aCol, aRow: Integer);
     procedure mInplaceEditingDone(Sender: TObject);
     procedure mInplaceKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState
       );
@@ -646,6 +647,12 @@ procedure TfGridView.gListResize(Sender: TObject);
 begin
   dgFake.Width:=gList.Width;
 end;
+
+procedure TfGridView.gListSelection(Sender: TObject; aCol, aRow: Integer);
+begin
+  debugln('Selection(',IntToStr(aCol),IntToStr(aRow),')');
+end;
+
 procedure TfGridView.mInplaceEditingDone(Sender: TObject);
 begin
   gList.Cells[gList.Col,gList.Row]:=mInplace.Lines.Text;
@@ -1149,6 +1156,7 @@ begin
   if WasEditing or gList.EditorMode then
     begin
       BeginUpdate;
+      gList.BeginUpdate;
       try
         try
           aStart := gList.Selection.Top;
@@ -1200,14 +1208,12 @@ begin
               end;
           aRect := gList.Selection;
         finally
+          gList.EndUpdate;
           EndUpdate;
         end;
       except
       end;
-      gList.Col:=aRect.Left;
-      gList.Row:=aRect.Bottom;
-      aRect.Top := arect.Bottom;
-      gList.Selection := aRect;
+      WasEditing:=False;
     end;
 end;
 procedure TfGridView.gListGetEditText(Sender: TObject; ACol,
@@ -1247,7 +1253,7 @@ var
   aSetEdit: Boolean = false;
   aKey : Word = VK_ESCAPE;
 begin
-  inc(FDontUpdate);
+  BeginUpdate;
   if Assigned(FSearchKey) then
     begin
       case Key of
@@ -1316,7 +1322,7 @@ begin
                   gListColRowMoved(gList,False,gList.Row,gList.Row);
               end;
           except
-            Dec(FDontUpdate);
+            EndUpdate;
             raise;
           end;
         end;
@@ -1355,7 +1361,7 @@ begin
             if aBm = TRowObject(gList.Objects[0,gList.Row]).Rec then
               SyncActiveRow(aBm,false,true);
           except
-            Dec(FDontUpdate);
+            EndUpdate;
             raise;
             exit;
           end;
@@ -1419,7 +1425,7 @@ begin
                 aBm := DataSet.GetBookmark;
                 SyncActiveRow(aBm,false,false);
               except
-                Dec(FDontUpdate);
+                EndUpdate;
                 raise;
                 exit;
               end;
@@ -1468,7 +1474,7 @@ begin
       if gList.CanFocus then
         gList.SetFocus;
     end;
-  Dec(FDontUpdate);
+  EndUpdate;
 end;
 procedure TfGridView.gListMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
@@ -1710,7 +1716,7 @@ begin
     begin
       if FDataSet.DataSet.RecordCount=0 then
         FDataSet.DataSet.Edit;
-      inc(FDontUpdate);
+      BeginUpdate;
       tmp :=Value;
       FInpStringList.Text := tmp;
       if DataSet.DataSet.FieldDefs.IndexOf(ShortTextField)>=0 then
@@ -1743,7 +1749,7 @@ begin
               dataSet.Change;
             end;
         end;
-      dec(FDontUpdate);
+      EndUpdate;
     end;
   InEdit := False;
 end;

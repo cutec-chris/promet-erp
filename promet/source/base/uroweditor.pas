@@ -308,10 +308,8 @@ begin
           FullWidth := FullWidth+StrToIntDef(copy(s,0,pos(';',s)-1),64);
           s := copy(s,pos(';',s)+1,length(s));
         end;
-      if FullWidth>Grid.Width-SBWidth then
-        begin
-          Factor := Factor+(((Grid.Width-SBWidth)/FullWidth)-1);
-        end;
+      if FullWidth>Grid.Width then
+        Factor := Factor+(((Grid.Width-SBWidth)/FullWidth)-1);
       s := s1;
       //Collect Columns
       while pos(';',s) > 0 do

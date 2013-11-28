@@ -56,6 +56,7 @@ object fGridView: TfGridView
       OnMouseWheel = gListMouseWheel
       OnResize = gListResize
       OnSelectEditor = gListSelectEditor
+      OnSelection = gListSelection
       OnSelectCell = gListSelectCell
       OnSetEditText = gListSetEditText
       CachedEditing = True
