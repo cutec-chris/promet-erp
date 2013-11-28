@@ -238,12 +238,13 @@ begin
               TStringGrid(Sender).Canvas.Brush.Style:=bsClear;
               bRect := aRect;
               brect.Top := bRect.Top+TStringGrid(Sender).Canvas.TextExtent('A').cy;
+              if TMGridObject(aObj).Bold then
+                Canvas.Font.Style := [fsBold];
               TStringGrid(Sender).Canvas.TextRect(bRect,aRect.Left+3,bRect.Top,aText,aTextStyle);
               TStringGrid(Sender).Canvas.Font.Color:=clGray;
               bRect := aRect;
-              if TMGridObject(aObj).Bold then
-                Canvas.Font.Style := [fsBold];
               brect.Bottom := aRect.Top+Canvas.TextExtent('A').cy;
+              Canvas.Font.Style := [];
               TStringGrid(Sender).canvas.TextOut(arect.Left+3,aRect.Top,TMGridObject(aObj).Caption);
               if (gdSelected in State) and TStringGrid(Sender).Focused then
                 TStringGrid(Sender).Canvas.DrawFocusRect(arect);
@@ -514,7 +515,10 @@ begin
             UpdateStdFields:=True;
           for i := 0 to fTimeline.dgFake.Columns.Count-1 do
             if fTimeline.dgFake.Columns[i].FieldName='ACTION' then
-              fTimeline.gList.Objects[i+1,fTimeline.gList.Row].Free;
+              begin
+                fTimeline.gList.Objects[i+1,fTimeline.gList.Row].Free;
+                fTimeline.gList.Objects[i+1,fTimeline.gList.Row]:=nil;
+              end;
           fTimeline.gList.Invalidate;
           fTimeline.gList.Row:=fTimeline.gList.Row+1;
         end;
