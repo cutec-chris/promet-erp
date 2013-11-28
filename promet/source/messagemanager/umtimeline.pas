@@ -149,6 +149,7 @@ end;
 
 procedure TfmTimeline.ShowFrame;
 begin
+  //fTimeline.;
   FTimeLine.Refresh(True);
 end;
 
@@ -176,6 +177,7 @@ begin
   with (Sender as TCustomGrid), Canvas do
     begin
       Result := True;
+      Canvas.Font.Style := [];
       Canvas.FillRect(aRect);
       if gdSelected in State then
         Canvas.Font.Color:=clHighlightText
@@ -249,7 +251,15 @@ begin
           else result := False;
         end
       else
-        Result := False;
+        begin
+          aObj := fTimeline.gList.Objects[Column.Index+1,DataCol];
+          if Assigned(aObj) then
+            begin
+              if TMGridObject(aObj).Bold then
+                Canvas.Font.Style := [fsBold];
+            end;
+          Result := False;
+        end;
     end;
 end;
 
@@ -494,6 +504,21 @@ begin
       ToolButton2Click(ToolButton2);
     end
   else fTimeline.gListKeyDown(Sender,Key,Shift);
+  if Key = VK_G then
+    begin
+      if fTimeline.GotoActiveRow then
+        begin
+          with fTimeline.DataSet.DataSet as IBaseManageDB do
+            UpdateStdFields:=False;
+          if not fTimeline.DataSet.CanEdit then
+            fTimeline.DataSet.DataSet.Edit;
+          fTimeline.DataSet.FieldByName('READ').AsString:='Y';
+          fTimeline.DataSet.post;
+          with fTimeline.DataSet.DataSet as IBaseManageDB do
+            UpdateStdFields:=True;
+          fTimeline.gList.Row:=fTimeline.gList.Row+1;
+        end;
+    end;
 end;
 
 procedure TfmTimeline.IdleTimer1Timer(Sender: TObject);
