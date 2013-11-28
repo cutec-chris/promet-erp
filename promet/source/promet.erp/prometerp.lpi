@@ -23,7 +23,7 @@
       <MajorVersionNr Value="7"/>
       <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP" ProductVersion=""/>
     </VersionInfo>
-    <BuildModes Count="5" Active="Debug">
+    <BuildModes Count="5" Active="Default">
       <Item1 Name="Default" Default="True"/>
       <Item2 Name="Debug">
         <CompilerOptions>
@@ -1009,10 +1009,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ugridview"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="2892"/>
-        <CursorPos X="1" Y="2899"/>
+        <TopLine Value="639"/>
+        <CursorPos X="1" Y="657"/>
         <UsageCount Value="101"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -1064,7 +1065,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="utasks"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="905"/>
@@ -3893,123 +3893,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="411" Column="11" TopLine="379"/>
+        <Caret Line="438" Column="11" TopLine="406"/>
       </Position1>
       <Position2>
         <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="436" Column="14" TopLine="404"/>
+        <Caret Line="471" Column="14" TopLine="439"/>
       </Position2>
       <Position3>
         <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="438" Column="11" TopLine="406"/>
+        <Caret Line="473" Column="11" TopLine="441"/>
       </Position3>
       <Position4>
         <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="471" Column="14" TopLine="439"/>
+        <Caret Line="500" Column="14" TopLine="468"/>
       </Position4>
       <Position5>
         <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="473" Column="11" TopLine="441"/>
+        <Caret Line="502" Column="11" TopLine="470"/>
       </Position5>
       <Position6>
         <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="500" Column="14" TopLine="468"/>
+        <Caret Line="512" Column="14" TopLine="480"/>
       </Position6>
       <Position7>
         <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="502" Column="11" TopLine="470"/>
+        <Caret Line="514" Column="11" TopLine="482"/>
       </Position7>
       <Position8>
         <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="512" Column="14" TopLine="480"/>
+        <Caret Line="913" Column="22" TopLine="881"/>
       </Position8>
       <Position9>
         <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="514" Column="11" TopLine="482"/>
+        <Caret Line="915" Column="19" TopLine="883"/>
       </Position9>
       <Position10>
         <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="913" Column="22" TopLine="881"/>
+        <Caret Line="1254" Column="22" TopLine="1240"/>
       </Position10>
       <Position11>
         <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="915" Column="19" TopLine="883"/>
+        <Caret Line="1266" Column="1" TopLine="1240"/>
       </Position11>
       <Position12>
         <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="1254" Column="22" TopLine="1240"/>
+        <Caret Line="1295" Column="1" TopLine="1260"/>
       </Position12>
       <Position13>
         <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="1266" Column="1" TopLine="1240"/>
+        <Caret Line="1301" Column="26" TopLine="1291"/>
       </Position13>
       <Position14>
         <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="1295" Column="1" TopLine="1260"/>
+        <Caret Line="1304" Column="25" TopLine="1291"/>
       </Position14>
       <Position15>
         <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="1301" Column="26" TopLine="1291"/>
+        <Caret Line="1305" Column="28" TopLine="1291"/>
       </Position15>
       <Position16>
         <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="1304" Column="25" TopLine="1291"/>
+        <Caret Line="1307" Column="25" TopLine="1291"/>
       </Position16>
       <Position17>
         <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="1305" Column="28" TopLine="1291"/>
+        <Caret Line="1309" Column="25" TopLine="1291"/>
       </Position17>
       <Position18>
         <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="1307" Column="25" TopLine="1291"/>
+        <Caret Line="10" Column="97" TopLine="1"/>
       </Position18>
       <Position19>
         <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="1309" Column="25" TopLine="1291"/>
+        <Caret Line="914" Column="27" TopLine="902"/>
       </Position19>
       <Position20>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="10" Column="97" TopLine="1"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="2899" Column="3" TopLine="2896"/>
       </Position20>
       <Position21>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="914" Column="27" TopLine="902"/>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="2901" Column="41" TopLine="2892"/>
       </Position21>
       <Position22>
         <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2899" Column="3" TopLine="2896"/>
+        <Caret Line="2899" Column="1" TopLine="2892"/>
       </Position22>
       <Position23>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2901" Column="41" TopLine="2892"/>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="927" Column="1" TopLine="902"/>
       </Position23>
       <Position24>
         <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2899" Column="1" TopLine="2892"/>
+        <Caret Line="2900" Column="1" TopLine="2892"/>
       </Position24>
       <Position25>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="927" Column="1" TopLine="902"/>
-      </Position25>
-      <Position26>
-        <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2900" Column="1" TopLine="2892"/>
-      </Position26>
-      <Position27>
         <Filename Value="../base/ugridview.pas"/>
         <Caret Line="2899" Column="1" TopLine="2892"/>
-      </Position27>
-      <Position28>
+      </Position25>
+      <Position26>
         <Filename Value="../base_pm/utasks.pas"/>
         <Caret Line="504" Column="21" TopLine="485"/>
-      </Position28>
-      <Position29>
+      </Position26>
+      <Position27>
         <Filename Value="../base_pm/utasks.pas"/>
         <Caret Line="486" Column="40" TopLine="459"/>
+      </Position27>
+      <Position28>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="2899" Column="1" TopLine="2892"/>
+      </Position28>
+      <Position29>
+        <Filename Value="../base/ugridview.pas"/>
+        <Caret Line="12" Column="106" TopLine="1"/>
       </Position29>
       <Position30>
         <Filename Value="../base/ugridview.pas"/>
-        <Caret Line="2899" Column="1" TopLine="2892"/>
+        <Caret Line="655" Column="11" TopLine="621"/>
       </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">

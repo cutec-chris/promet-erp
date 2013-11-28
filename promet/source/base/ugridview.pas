@@ -650,7 +650,9 @@ end;
 
 procedure TfGridView.gListSelection(Sender: TObject; aCol, aRow: Integer);
 begin
+  {$IFDEF DEBUG}
   debugln('Selection(',IntToStr(aCol),IntToStr(aRow),')');
+  {$ENDIF}
 end;
 
 procedure TfGridView.mInplaceEditingDone(Sender: TObject);
