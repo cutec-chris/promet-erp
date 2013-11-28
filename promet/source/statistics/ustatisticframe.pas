@@ -220,9 +220,11 @@ function AddEntry(ID,Typ : string;aTyp : TEntryTyp;aList : TStatistic) : TTreeNo
 var
   Node1: TTreeNode;
   i: Integer;
+  aRec: LargeInt;
 begin
+  aRec := aList.GetBookmark;
   for i := 0 to MainNode.Count-1 do
-    if TTreeEntry(MainNode.Items[i].Data).Rec = aList.GetBookmark then exit;
+    if TTreeEntry(MainNode.Items[i].Data).Rec = aRec then exit;
   Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(MainNode,'',TTreeEntry.Create);
   TTreeEntry(Node1.Data).Rec := aList.GetBookmark;
   with aList.DataSet as IBaseManageDB do

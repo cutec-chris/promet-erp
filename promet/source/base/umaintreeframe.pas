@@ -21,7 +21,7 @@ unit uMainTreeFrame;
 interface
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, ComCtrls, ActnList,
-  Menus, ExtCtrls, uBaseDBInterface, uBaseDbClasses,uExtControls;
+  Menus, ExtCtrls, uBaseDBInterface, uBaseDbClasses,uExtControls, db;
 type
   TEntryTyp = (etNone,etAction,etDir,
                etFavourites,etLink,
@@ -1489,9 +1489,11 @@ var
   procedure AddEntry;
   var
     i: Integer;
+    aRec: LargeInt;
   begin
+    aRec := aList.GetBookmark;
     for i := 0 to Node.Count-1 do
-      if TTreeEntry(Node.Items[i].Data).Rec = aList.GetBookmark then exit;
+      if TTreeEntry(Node.Items[i].Data).Rec = arec then exit;
     Node1 := tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
     TTreeEntry(Node1.Data).Rec := aList.GetBookmark;
     with aList.DataSet as IBaseManageDB do
