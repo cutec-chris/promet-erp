@@ -744,7 +744,8 @@ begin
               frPreview.Caption:='';
               pcTabs.ActivePage := tsReport;
             end;
-        end;
+        end
+      else pcTabs.ActivePage:=tsResults;
       if tsReport.TabVisible then
         begin
           if frReport.PrepareReport then

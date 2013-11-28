@@ -893,7 +893,7 @@ begin
   eName.ReadOnly:=not DataSet.FieldByName('DATE').IsNull;
   Memo1.ReadOnly:=not DataSet.FieldByName('DATE').IsNull;
   acAddPos.Enabled:=DataSet.FieldByName('DATE').IsNull;
-  acAddPos2.Enabled:=DataSet.FieldByName('DATE').IsNull;
+  acAppendPos.Enabled:=DataSet.FieldByName('DATE').IsNull;
   acAddTopic.Enabled:=DataSet.FieldByName('DATE').IsNull;
   acDelPos.Enabled:=DataSet.FieldByName('DATE').IsNull;
   acMAkeSubTask.Enabled:=DataSet.FieldByName('DATE').IsNull;
