@@ -132,7 +132,6 @@ resourcestring
   strStarted                = 'gestartet';
   strTaskAdded              = '%s - hinzugefügt';
   strTaskDeleted            = '%s - gelöscht';
-  strDueDateChanged         = 'Zieldatum geändert zu %s';
   strHasChilds              = 'hat Untereinträge';
   strPercentDone            = '% erledigt';
   strWorkstatus             = 'Bearbeitungsstatus';

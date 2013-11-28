@@ -350,11 +350,11 @@ inherited fMeetingFrame: TfMeetingFrame
       end
       object cbStatus: TComboBox
         Left = 1
-        Height = 22
+        Height = 21
         Hint = 'hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu überführen'
         Top = 12
         Width = 137
-        ItemHeight = 14
+        ItemHeight = 13
         OnSelect = cbStatusSelect
         Style = csDropDownList
         TabOrder = 0
@@ -362,9 +362,9 @@ inherited fMeetingFrame: TfMeetingFrame
     end
     object Label1: TLabel
       Left = 352
-      Height = 14
+      Height = 13
       Top = 24
-      Width = 53
+      Width = 46
       Caption = 'Einleitung'
       ParentColor = False
     end
@@ -391,9 +391,9 @@ inherited fMeetingFrame: TfMeetingFrame
     TabOrder = 1
     object lname: TLabel
       Left = 9
-      Height = 14
+      Height = 13
       Top = 0
-      Width = 31
+      Width = 27
       Caption = 'Name'
       ParentColor = False
     end
@@ -411,7 +411,7 @@ inherited fMeetingFrame: TfMeetingFrame
     end
     object eName: TDBEdit
       Left = 9
-      Height = 22
+      Height = 21
       Top = 16
       Width = 335
       DataField = 'NAME'
@@ -422,10 +422,10 @@ inherited fMeetingFrame: TfMeetingFrame
       OnChange = eNameChange
     end
     object dtStart: TDBZVDateTimePicker
-      Left = 566
-      Height = 22
+      Left = 580
+      Height = 21
       Top = 0
-      Width = 135
+      Width = 121
       DataField = 'STARTTIME'
       DataSource = Datasource
       ReadOnly = False
@@ -444,10 +444,10 @@ inherited fMeetingFrame: TfMeetingFrame
       UseDefaultSeparators = True
     end
     object dtEnd: TDBZVDateTimePicker
-      Left = 646
-      Height = 22
+      Left = 650
+      Height = 21
       Top = 26
-      Width = 55
+      Width = 51
       DataField = 'ENDTIME'
       DataSource = Datasource
       ReadOnly = False

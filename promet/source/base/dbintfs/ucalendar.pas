@@ -28,6 +28,10 @@ type
   { TCalendar }
 
   TCalendar = class(TBaseDbList)
+    procedure FDSDataChange(Sender: TObject; Field: TField);
+  private
+    FHistory: TBaseHistory;
+    FDS: TDataSource;
   protected
     function GetTextFieldName: string;override;
     function GetNumberFieldName : string;override;
@@ -36,6 +40,10 @@ type
     procedure SelectPlanedByUser(AccountNo : string);
     procedure SelectPlanedByUserAndTime(AccountNo : string;aStart,aEnd : TDateTime);
     procedure SelectPlanedByUseridAndTime(User : Variant;aStart,aEnd : TDateTime);
+    property History : TBaseHistory read FHistory;
+    constructor Create(aOwner: TComponent; DM: TComponent;
+      aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
+    destructor Destroy; override;
   end;
   TEventLinks = class(TLinks)
   public
@@ -60,7 +68,7 @@ type
   end;
   function TimeRangeOverlap(Range1Start, Range1Finish, Range2Start, Range2Finish : TDateTime) : TDateTime;
 implementation
-uses uBaseApplication,uData,math;
+uses uBaseApplication,uData,math,uBaseERPDBClasses;
 
 function TEvent.GetEnd: TDateTime;
 begin
@@ -98,6 +106,28 @@ begin
   inherited FillDefaults(aDataSet);
   aDataSet.FieldByName('REF_ID').AsVariant:=(Parent as TEvent).Id.AsVariant;
 end;
+
+procedure TCalendar.FDSDataChange(Sender: TObject; Field: TField);
+begin
+  if not Assigned(Field) then exit;
+  if DataSet.ControlsDisabled then
+    exit;
+  if (Field.FieldName='ENDDATE') then
+    begin
+      DataSet.DisableControls;
+      if not History.DataSet.Active then History.Open;
+      History.AddItem(Self.DataSet,Format(strDueDateChanged,[Field.AsString]),'','',nil,ACICON_DATECHANGED);
+      DataSet.EnableControls;
+    end
+  else if (Field.FieldName='CATEGORY') then
+    begin
+      DataSet.DisableControls;
+      if not History.DataSet.Active then History.Open;
+      History.AddItem(Self.DataSet,Format(strCategoryChanged,[Field.AsString]),'','',nil,ACICON_ORERSTATUSCH);
+      DataSet.EnableControls;
+    end;
+end;
+
 function TCalendar.GetTextFieldName: string;
 begin
   Result:='SUMMARY';
@@ -203,6 +233,23 @@ begin
       Filter := '('+QuoteField('REF_ID_ID')+'='+QuoteValue(User)+') and ('+QuoteField('ICATEGORY')+'='+QuoteValue('8')+')';
       Filter := Filter+' AND ('+Data.QuoteField('STARTDATE')+' >= '+Data.DateToFilter(aStart)+') AND (('+Data.QuoteField('ENDDATE')+' <= '+Data.DateToFilter(aEnd)+') OR ('+Data.QuoteField('ROTATION')+' > 0))';
     end;
+end;
+
+constructor TCalendar.Create(aOwner: TComponent; DM: TComponent;
+  aConnection: TComponent; aMasterdata: TDataSet);
+begin
+  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  FHistory := TBaseHistory.Create(Self,DM,aConnection,DataSet);
+  FDS := TDataSource.Create(Self);
+  FDS.DataSet := DataSet;
+  FDS.OnDataChange:=@FDSDataChange;
+end;
+
+destructor TCalendar.Destroy;
+begin
+  FDS.Free;
+  FHistory.Free;
+  inherited Destroy;
 end;
 
 function TimeRangeOverlap(Range1Start, Range1Finish, Range2Start, Range2Finish : TDateTime) : TDateTime;

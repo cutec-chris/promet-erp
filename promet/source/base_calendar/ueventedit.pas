@@ -112,6 +112,7 @@ type
     procedure DoOpen;
     procedure AddDocuments(Sender: TObject);
     procedure AddLinks(Sender: TObject);
+    procedure AddHistory(Sender: TObject);
   public { Public declarations }
     Event: TVpEvent;
     CatColorMap: TVpCategoryColorMap;
@@ -127,7 +128,7 @@ type
 implementation
 uses
   VpSR,uDocuments,uDocumentFrame,uData,uLinkFrame,uprometframesinplace,
-  uSelectReport,uBaseDBInterface;
+  uSelectReport,uBaseDBInterface,uHistoryFrame;
 resourcestring
   strEventinPast                = 'Das Ereignis liegt in der Vergangenheit';
 procedure TfEventEdit.FormCreate(Sender: TObject);
@@ -279,6 +280,10 @@ begin
   TEvent(FDataSet).Links.Open;
   if TEvent(FDataSet).Links.Count > 0 then
     pcPages.AddTab(TfLinkFrame.Create(Self),False);
+  pcPages.AddTabClass(TfHistoryFrame,strHistory,@AddHistory);
+  TEvent(FDataSet).History.Open;
+  if TEvent(FDataSet).History.Count > 0 then
+    pcPages.AddTab(TfHistoryFrame.Create(Self),False);
 end;
 procedure TfEventEdit.AddDocuments(Sender: TObject);
 var
@@ -298,6 +303,14 @@ begin
   TfLinkFrame(Sender).DataSet := TEvent(FDataSet).Links;
   TPrometInplaceFrame(Sender).SetRights(FEditable);
 end;
+
+procedure TfEventEdit.AddHistory(Sender: TObject);
+begin
+  TfHistoryFrame(Sender).BaseName:='CA';
+  TfHistoryFrame(Sender).DataSet := TEvent(FDataSet).History;
+  TPrometInplaceFrame(Sender).SetRights(FEditable);
+end;
+
 function TfEventEdit.Execute(aEvent: TVpEvent; aResource: TVpResource;
   aDir: Variant; aDataStore: TVpCustomDataStore): Boolean;
 var

@@ -26,6 +26,8 @@ uses
     {$ENDIF}
     LCLStrConsts;
 resourcestring
+  strCategoryChanged            = 'Kategorie geändetr auf %s';
+  strDueDateChanged             = 'Zieldatum geändert zu %s';
   strCantAccessFile             = 'Auf die Datei "%s" kann nicht zugegriffen werden,'+lineending+'kopieren Sie diese Datei ggf erst auf Ihren Computer oder mounten Sie die Quelle';
   strTimetools                  = 'Zeiterfassung';
   strCosts                      = 'Kosten';
@@ -242,4 +244,4 @@ begin
   nav.Hints.Add(strRefresh);
 end;
 {$ENDIF}
-end.
+end.
