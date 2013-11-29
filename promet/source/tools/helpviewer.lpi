@@ -45,12 +45,12 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="73">
+    <Units Count="74">
       <Unit0>
         <Filename Value="helpviewer.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="helpviewer"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="21"/>
@@ -80,7 +80,7 @@
       <Unit3>
         <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1038"/>
         <CursorPos X="135" Y="1055"/>
@@ -90,18 +90,17 @@
       <Unit4>
         <Filename Value="..\base\dbintfs\ubaseapplication.pas"/>
         <UnitName Value="uBaseApplication"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="20"/>
-        <CursorPos X="3" Y="20"/>
+        <CursorPos X="59" Y="35"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1335"/>
         <CursorPos X="1" Y="1381"/>
@@ -663,7 +662,6 @@
         <WindowIndex Value="0"/>
         <TopLine Value="441"/>
         <CursorPos X="1" Y="497"/>
-        <FoldState Value=" T3W2I1 pj0jK2W2c"/>
         <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit70>
@@ -676,15 +674,26 @@
         <UsageCount Value="12"/>
       </Unit71>
       <Unit72>
-        <Filename Value="..\..\..\..\..\..\..\..\usr\share\fpcsrc\2.6.2\rtl\wince\windows.pp"/>
+        <Filename Value="C:\usr\share\fpcsrc\2.6.2\rtl\wince\windows.pp"/>
         <UnitName Value="windows"/>
         <WindowIndex Value="0"/>
         <TopLine Value="21"/>
         <CursorPos X="5" Y="38"/>
         <UsageCount Value="10"/>
       </Unit72>
+      <Unit73>
+        <Filename Value="..\base\uquickhelpframe.pas"/>
+        <UnitName Value="uQuickHelpFrame"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="7"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="38"/>
+        <CursorPos X="9" Y="69"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit73>
     </Units>
-    <JumpHistory Count="8" HistoryIndex="7">
+    <JumpHistory Count="9" HistoryIndex="8">
       <Position1>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
         <Caret Line="473" Column="18" TopLine="453"/>
@@ -717,6 +726,10 @@
         <Filename Value="..\base\uwikiframe.pas"/>
         <Caret Line="7" Column="79" TopLine="1"/>
       </Position8>
+      <Position9>
+        <Filename Value="..\base\uquickhelpframe.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position9>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -768,4 +781,4 @@
     </Exceptions>
   </Debugging>
   <EditorMacros Count="0"/>
-</CONFIG>
+</CONFIG>
