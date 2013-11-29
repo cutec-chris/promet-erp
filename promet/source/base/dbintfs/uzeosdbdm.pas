@@ -334,6 +334,7 @@ begin
     end
   else
     Result := SQL.text;
+  if Assigned(FOrigTable) then TBaseDBModule(ForigTable.DataModule).LastStatement := Result;
 end;
 function TZeosDBDataSet.IndexExists(IndexName: string): Boolean;
 var
@@ -1020,10 +1021,14 @@ end;
 procedure TZeosDBDM.MonitorTrace(Sender: TObject; Event: TZLoggingEvent;
   var LogTrace: Boolean);
 begin
-//  FLastStmt := Event.AsString;
   if Assigned(BaseApplication) then
     with BaseApplication as IBaseApplication do
-      Debug(Event.AsString);
+      begin
+        if Event.Error<>'' then
+          Error(Event.AsString+'('+LastStatement+')')
+        else
+          Debug(Event.AsString);
+      end;
 end;
 function TZeosDBDM.GetConnection: TComponent;
 begin

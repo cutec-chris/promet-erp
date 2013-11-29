@@ -2043,33 +2043,7 @@ begin
   try
     with DataSet as IBaseManageDB do
       begin
-        if (not Assigned(Data)) or (not Data.ShouldCheckTable(TableName,False)) then
-          FDataSet.Open
-        else
-          begin
-            with DataSet as IBaseDbFilter do
-              begin
-                aOldFilter := Filter;
-                Filter := '';
-                aOldLimit := Limit;
-                Limit := 1;
-              end;
-            FDataSet.Open;
-            FDataSet.DisableControls;
-            FDataSet.Close;
-            if CheckTable then
-              if not AlterTable then
-                raise Exception.Create('Altering Table "'+TableName+'" failed !');
-            if aOldFilter<>'' then
-              with DataSet as IBaseDbFilter do
-                begin
-                  Filter := aOldFilter;
-                end;
-            with DataSet as IBaseDbFilter do
-              Limit := aOldLimit;
-            FDataSet.Open;
-            FDataSet.EnableControls;
-          end;
+        FDataSet.Open
       end;
   except
     on e : Exception do
@@ -2081,7 +2055,8 @@ begin
   end;
   if Retry then
     begin
-      FDataSet.EnableControls;
+      while FDataSet.ControlsDisabled do
+        FDataSet.EnableControls;
       try
         FDataSet.Open;
       except
@@ -2095,9 +2070,36 @@ begin
     SetDisplayLabels(DataSet);
 end;
 function TBaseDBDataset.CreateTable : Boolean;
+var
+  aOldFilter: String;
+  aOldLimit: Integer;
 begin
   with FDataSet as IBaseManageDB do
-    Result := CreateTable;
+    begin
+      Result := CreateTable;
+      if not Result then
+        begin
+          if (Assigned(Data)) and (Data.ShouldCheckTable(TableName,False)) then
+            begin
+              with DataSet as IBaseDbFilter do
+                begin
+                  aOldFilter := Filter;
+                  Filter := '';
+                  aOldLimit := Limit;
+                  Limit := 1;
+                end;
+              FDataSet.Open;
+              if CheckTable then
+                if not AlterTable then
+                  debugln('Altering Table "'+TableName+'" failed !');
+              with DataSet as IBaseDbFilter do
+                begin
+                  Limit := aOldLimit;
+                  Filter := aOldFilter;
+                end;
+            end;
+        end;
+    end;
 end;
 procedure TBaseDBDataset.DefineDefaultFields(aDataSet: TDataSet;HasMasterSource : Boolean);
 begin

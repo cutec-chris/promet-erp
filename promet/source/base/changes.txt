@@ -2,7 +2,9 @@
       - Spalten werden automatisch verkleinert wenn sie in Summe die Gridbreite überschreiten
       - Aufgaben:Benutzer zu mehren Aufgaben gleichzeitig zuweisen (multiselect) funktioniert nun wie erwartet
       - Kalender: Kalendereinträge haben Verlauf, bei Kategorieänderung oder Verschiebung wird automatisch Verlaufeintrag erzeugt
-      - Statistiken werden nicht mehr doppelt hinzugefügt wenn jemand über mehrere Rechtevergaben auf die Statistik zugreifen darf
+      - Statistiken: werden nicht mehr doppelt hinzugefügt wenn jemand über mehrere Rechtevergaben auf die Statistik zugreifen darf
+      - Setup: einige Datenbank Tabellen wurden nach der erstellung nicht richtig geöffnet so das bei der ersten Sitzung zu merkwürdigen Phänomenen kommen konnte
+        meisst wurde nur eine Zeile angezeigt auch wenn man schon mehrere eingegeben hatte
 Build 293
       - Adresseingabe von mehreren Adressen im Vorgang korrigiert
 Build 292

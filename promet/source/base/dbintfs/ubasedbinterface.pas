@@ -58,6 +58,7 @@ type
     FConnect: TNotifyEvent;
     FConnectionLost: TNotifyEvent;
     FKeepAlive: TNotifyEvent;
+    FLastStmt: string;
     FSessionID: Variant;
     FTables: TStrings;
     FTriggers: TStrings;
@@ -115,6 +116,7 @@ type
     procedure DeleteExpiredSessions;virtual;
     function SetProperties(aProp : string;Connection : TComponent = nil) : Boolean;virtual;
     function CreateDBFromProperties(aProp : string) : Boolean;virtual;
+    property LastStatement : string read FLastStmt write FLastStmt;
     function IsSQLDB : Boolean;virtual;abstract;
     function ProcessTerm(aTerm : string) : string;
     function GetUniID(aConnection : TComponent = nil;Generator : string = 'GEN_SQL_ID';AutoInc : Boolean = True) : Variant;virtual;abstract;
@@ -1525,4 +1527,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+
