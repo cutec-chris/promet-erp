@@ -24,16 +24,20 @@ uses
   LMessages, LCLProc, LCLType, LCLIntf, LResources, SysUtils, Classes, Graphics,
   Controls, Forms, Dialogs, StdCtrls, ExtCtrls, VpData, VpEdPop, VpDateEdit,
   ComCtrls, VpBase, VpClock, VpBaseDS, VpDlg, VpConst, ZVDateTimePicker,
-  uExtControls, Buttons, EditBtn, ButtonPanel, Spin, DbCtrls, LR_DBSet,
-  LR_Class, uIntfStrConsts, uCalendar, db, uBaseDbClasses;
+  uExtControls, Buttons, EditBtn, ButtonPanel, Spin, DbCtrls, Menus, ActnList,
+  LR_DBSet, LR_Class, uIntfStrConsts, uCalendar, db, uBaseDbClasses;
 type
 
   { TfEventEdit }
 
   TfEventEdit = class(TForm)
+    acDelete: TAction;
+    acRights: TAction;
+    ActionList1: TActionList;
     AdvanceUpDown: TUpDown;
     AlarmAdvance: TEdit;
     AlarmSet: TCheckBox;
+    Bevel3: TBevel;
     Bevel4: TBevel;
     Bevel5: TBevel;
     Bevel6: TBevel;
@@ -51,8 +55,12 @@ type
     EndDate: TZVDateTimePicker;
     EndTimeLbl: TLabel;
     History: TDatasource;
+    Label3: TLabel;
     Label7: TLabel;
+    MenuItem3: TMenuItem;
+    miDelete: TMenuItem;
     Panel10: TPanel;
+    Panel11: TPanel;
     pcPages: TExtMenuPageControl;
     Image1: TImage;
     Image2: TImage;
@@ -73,12 +81,14 @@ type
     pgEvent: TPageControl;
     PHistory: TfrDBDataSet;
     PList: TfrDBDataSet;
+    pmAction: TPopupMenu;
     pNav1: TPanel;
     PUsers: TfrDBDataSet;
     RecurrenceEndsLbl: TLabel;
     RecurringType: TComboBox;
     RepeatUntil: TZVDateTimePicker;
     Report: TfrReport;
+    sbMenue: TSpeedButton;
     seDuration: TFloatSpinEdit;
     StartDate: TZVDateTimePicker;
     StartTimeLbl: TLabel;
@@ -89,6 +99,8 @@ type
     ToolBar1: TPanel;
     ToolBar2: TPanel;
     Users: TDatasource;
+    procedure acDeleteExecute(Sender: TObject);
+    procedure acRightsExecute(Sender: TObject);
     procedure bExecuteClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -99,6 +111,7 @@ type
     procedure RecurringTypeChange(Sender: TObject);
     procedure AlarmSetClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure sbMenueClick(Sender: TObject);
     procedure seDurationChange(Sender: TObject);
     procedure StartDateExit(Sender: TObject);
     procedure ToolButton1Click(Sender: TObject);
@@ -123,12 +136,13 @@ type
     FLastEndTime : TDateTime;                                            
     procedure PopulateDialog;
     procedure DePopulateDialog;
+    procedure SetRights;
     function Execute(aEvent : TVpEvent;aResource : TVpResource;aDir : Variant;aDataStore : TVpCustomDataStore) : Boolean;
   end;
 implementation
 uses
   VpSR,uDocuments,uDocumentFrame,uData,uLinkFrame,uprometframesinplace,
-  uSelectReport,uBaseDBInterface,uHistoryFrame;
+  uSelectReport,uBaseDBInterface,uHistoryFrame,uNRights;
 resourcestring
   strEventinPast                = 'Das Ereignis liegt in der Vergangenheit';
 procedure TfEventEdit.FormCreate(Sender: TObject);
@@ -160,6 +174,24 @@ begin
     end;
   fSelectReport.Showmodal;
   fSelectReport.Report.OnGetValue:=nil;
+end;
+
+procedure TfEventEdit.acDeleteExecute(Sender: TObject);
+begin
+  if MessageDlg(strRealdelete,mtInformation,[mbYes,mbNo],0) = mrYes then
+    begin
+      Application.ProcessMessages;
+      FDataSet.Delete;
+      FDataSet.CascadicCancel;
+      FDataStore.RefreshEvents;
+      ModalResult := mrCancel;
+      Close;
+    end;
+end;
+
+procedure TfEventEdit.acRightsExecute(Sender: TObject);
+begin
+  fNRights.Execute(FDataSet.Id.AsVariant);
 end;
 
 procedure TfEventEdit.FormKeyDown(Sender: TObject; var Key: Word;
@@ -233,6 +265,12 @@ begin
   Event.AlarmWavPath := AlarmWavPath;
   Event.Location:=eLocation.Text;
 end;
+
+procedure TfEventEdit.SetRights;
+begin
+
+end;
+
 procedure TfEventEdit.PopLists;
 var
   I, Hour, Minute: Integer;
@@ -284,6 +322,7 @@ begin
   TEvent(FDataSet).History.Open;
   if TEvent(FDataSet).History.Count > 0 then
     pcPages.AddTab(TfHistoryFrame.Create(Self),False);
+  SetRights;
 end;
 procedure TfEventEdit.AddDocuments(Sender: TObject);
 var
@@ -420,6 +459,12 @@ procedure TfEventEdit.FormShow(Sender: TObject);
 begin
   DescriptionEdit.SetFocus;
 end;
+
+procedure TfEventEdit.sbMenueClick(Sender: TObject);
+begin
+  TSpeedButton(Sender).PopupMenu.PopUp(TSpeedButton(Sender).ClientOrigin.x,TSpeedButton(Sender).ClientOrigin.y+TSpeedButton(Sender).Height);
+end;
+
 procedure TfEventEdit.seDurationChange(Sender: TObject);
 begin
   EndDate.DateTime := StartDate.DateTime+(seDuration.Value/24);

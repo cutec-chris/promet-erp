@@ -186,22 +186,28 @@ var
 begin
   if not Assigned(Self) then
     begin
+      Screen.Cursor := crHourGlass;
       Application.CreateForm(TfNRights,fNRights);
       Self := fNRights;
+      with Application as IBaseDBInterface do
+        begin
+          aUser := Data.Users.GetBookmark;
+          Data.Users.DataSet.First;
+          Users.Clear;
+          while not Data.Users.DataSet.EOF do
+            begin
+              if Data.Users.Leaved.IsNull then
+                Users.Values[Data.Users.FieldByName('NAME').AsString] := Data.Users.FieldByName('SQL_ID').AsString;
+              Data.Users.DataSet.Next;
+            end;
+          Data.Users.GotoBookmark(aUser);
+        end;
+      Screen.Cursor := crDefault;
     end;
   with Application as IBaseDBInterface do
     begin
-      Data.SetFilter(Data.Permissions,'"REF_ID_ID"='+Data.QuoteValue(VarToStr(Id)),0,'','ASC',False,True,False);
-      aUser := Data.Users.GetBookmark;
+      Data.SetFilter(Data.Permissions,Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(VarToStr(Id)),0,'','ASC',False,True,False);
       FID := ID;
-      Data.Users.DataSet.First;
-      Users.Clear;
-      while not Data.Users.DataSet.EOF do
-        begin
-          if Data.Users.Leaved.IsNull then
-            Users.Values[Data.Users.FieldByName('NAME').AsString] := Data.Users.FieldByName('SQL_ID').AsString;
-          Data.Users.DataSet.Next;
-        end;
       with cbUser do
         begin
           Clear;
@@ -222,4 +228,4 @@ initialization
   {$I unrights.lrs}
 
 end.
-
+

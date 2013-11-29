@@ -1278,6 +1278,9 @@ begin
             Add('USER',ftLargeInt,0,True);
             Add('RIGHT',ftSmallInt,0,True);
           end;
+      if Assigned(ManagedIndexdefs) then
+        with ManagedIndexDefs do
+          Add('REF_ID_ID','REF_ID_ID',[]);
     end;
 end;
 procedure Treports.DefineFields(aDataSet: TDataSet);
