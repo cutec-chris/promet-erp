@@ -34,6 +34,7 @@ Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\messagemanager.exe"; Dest
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\wizardmandant.exe"; DestDir: "{app}"; Components: main
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\*receiver.exe"; DestDir: "{app}\tools"; Components: main
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\*sender.exe"; DestDir: "{app}\tools"; Components: main
+Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\sync_db.exe"; DestDir: "{app}\tools"; Components: main
 Source: "sqlite3.dll"; DestDir: "{app}"; Components: main
 Source: "sqlite3.dll"; DestDir: "{app}\tools"; Components: main
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\linksender.exe"; DestDir: "{app}\tools"; Components: main
@@ -96,13 +97,6 @@ Name: de; MessagesFile: German.isl
 
 [Code]
 #include "feedback.iss"
-
-procedure DoInstallDB(InstallPath : String);
-begin
-  InstallPath := ExpandConstant(InstallPath);
-  ForceDirectories(InstallPath+'\prometerp\');
-  SaveStringToFile(InstallPath+'\prometerp\Standart.perml','SQL'+#13#10+'sqlite-3;localhost;'+InstallPath+'\promet-erp.db;;x',False);
-end;
 
 {
 function InitializeSetup : Boolean;

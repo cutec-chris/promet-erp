@@ -26,6 +26,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <CommandLineParams Value="--silent"/>
       </local>
     </RunParams>
     <RequiredPackages Count="6">
@@ -81,10 +82,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uWizardNewMandant"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="565"/>
-        <CursorPos X="23" Y="585"/>
+        <TopLine Value="524"/>
+        <CursorPos X="39" Y="610"/>
         <UsageCount Value="140"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -991,7 +993,6 @@
       <Unit111>
         <Filename Value="../base/dbintfs/utask.pas"/>
         <UnitName Value="utask"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="959"/>
@@ -1000,7 +1001,7 @@
         <Loaded Value="True"/>
       </Unit111>
     </Units>
-    <JumpHistory Count="11" HistoryIndex="10">
+    <JumpHistory Count="12" HistoryIndex="11">
       <Position1>
         <Filename Value="../base/uwizardnewmandant.pas"/>
         <Caret Line="583" Column="27" TopLine="552"/>
@@ -1045,6 +1046,10 @@
         <Filename Value="../base/dbintfs/utask.pas"/>
         <Caret Line="108" Column="1" TopLine="89"/>
       </Position11>
+      <Position12>
+        <Filename Value="../base/uwizardnewmandant.pas"/>
+        <Caret Line="4" Column="79" TopLine="1"/>
+      </Position12>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

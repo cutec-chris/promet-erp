@@ -5,6 +5,7 @@
       - Statistiken: werden nicht mehr doppelt hinzugefügt wenn jemand über mehrere Rechtevergaben auf die Statistik zugreifen darf
       - Setup: einige Datenbank Tabellen wurden nach der erstellung nicht richtig geöffnet so das bei der ersten Sitzung zu merkwürdigen Phänomenen kommen konnte
         meisst wurde nur eine Zeile angezeigt auch wenn man schon mehrere eingegeben hatte
+      - Setup: sync_db hat in den letzten Installatione gefehlt wodurch die Hilfe nicht in die neu erstellten Datenbanken synchronisiert wurde
 Build 293
       - Adresseingabe von mehreren Adressen im Vorgang korrigiert
 Build 292
