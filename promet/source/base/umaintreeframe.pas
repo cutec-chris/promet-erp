@@ -1492,8 +1492,9 @@ var
     aRec: LargeInt;
   begin
     aRec := aList.GetBookmark;
-    for i := 0 to Node.Count-1 do
-      if TTreeEntry(Node.Items[i].Data).Rec = arec then exit;
+    if aRec > 0 then
+      for i := 0 to Node.Count-1 do
+        if TTreeEntry(Node.Items[i].Data).Rec = arec then exit;
     Node1 := tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
     TTreeEntry(Node1.Data).Rec := aList.GetBookmark;
     with aList.DataSet as IBaseManageDB do
