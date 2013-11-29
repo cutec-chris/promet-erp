@@ -9,12 +9,17 @@ type
     Rec : Int64;
     DataSource : TDataSource;
   end;
+
+  { TfUserOptions }
+
   TfUserOptions = class(TOptionsFrame)
     bNewGroup: TSpeedButton;
     bNewUser: TSpeedButton;
     bResetPassword: TBitBtn;
     bSaveUser: TSpeedButton;
     cbPosition: TDBComboBox;
+    DBCheckBox1: TDBCheckBox;
+    DBCheckBox2: TDBCheckBox;
     eCustomerNumber2: TDBEdit;
     lCustomerNumber3: TLabel;
     Paygroups: TDatasource;

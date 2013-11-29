@@ -1828,6 +1828,8 @@ begin
             Add('WORKTIME',ftInteger,0,false); //8 wenn NULL
             Add('WEEKWORKTIME',ftInteger,0,false);//40 wenn NULL
             Add('USEWORKTIME',ftInteger,0,false);
+            Add('LOGINACTIVE',ftString,1,false);
+            Add('REMOTEACCESS',ftString,1,false);
           end;
       if Assigned(ManagedIndexdefs) then
         with ManagedIndexDefs do
@@ -2372,4 +2374,4 @@ begin
 end;
 initialization
 end.
-
+

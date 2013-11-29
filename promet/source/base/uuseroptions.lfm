@@ -12,6 +12,7 @@ inherited fUserOptions: TfUserOptions
     Top = 8
     Width = 203
     Anchors = [akTop, akLeft, akRight, akBottom]
+    DefaultItemHeight = 16
     DragMode = dmAutomatic
     Images = fVisualControls.Images
     ReadOnly = True
@@ -33,20 +34,55 @@ inherited fUserOptions: TfUserOptions
     ClientWidth = 300
     TabOrder = 1
     object bResetPassword: TBitBtn
-      Left = 131
-      Height = 29
-      Top = 103
-      Width = 166
-      AutoSize = True
-      Caption = 'Passwort zurücksetzen'
+      Left = 103
+      Height = 30
+      Hint = 'Passwort zurücksetzen'
+      Top = 8
+      Width = 32
+      Glyph.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000064000000640000000000000000000000FFFFFF00369D
+        D9FF3199D8FF2C94D7FF2890D6FF238CD5FF1E88D4FF1A84D3FF1580D2FF117C
+        D1FF0E79D1FF0A76D0FF0773CFFF0470CFFF016ECEFFFFFFFF00FFFFFF003DA3
+        DAFFBCEBFAFFBCEBFCFFBFEEFEFFC6F4FFFFCEF8FFFFD3FAFFFFD0F8FFFFC7F2
+        FFFFBAE9FCFFB3E4F9FFB0E2F8FFB0E2F8FF0571CFFFFFFFFF00FFFFFF0043A8
+        DBFFBFECFBFF59CFF5FF41B0ECFF4EBAEFFF5AC2EFFF60C6EFFF5CC4EFFF4CB6
+        EFFF37A5E6FF2A9AE1FF38B8EEFFB1E3F8FF0975D0FFFFFFFF00FFFFFF0049AD
+        DCFFC1EEFBFF5FD3F7FF6CDBFCFF7FE5FFFF8FEDFFFF97F2FFFF93EDFFFF7CDF
+        FFFF5BCCF8FF46BEEFFF3CBAEEFFB3E3F9FF0E79D1FFFFFFFF00FFFFFF004EB2
+        DDFFC3EFFBFF65D6F8FF4CB6ECFF5ABDEFFF95EBFFFF3097DDFF4D82ABFF84E1
+        FFFF41A9E9FF329FE1FF42BEEFFFB4E5F9FF137ED2FFFFFFFF00FFFFFF0053B7
+        DEFFC6F0FCFF6AD9F8FF7CE2FDFF90E8FFFF99E9FFFF329FDFFF548BB2FF8AE2
+        FFFF6AD0F9FF50C5F1FF46C1F0FFB6E7F9FF1883D3FFFFFFFF00FFFFFF0058BB
+        DFFFC7F1FCFF6FDCF9FF56BBEDFF61BDEFFF9BE7FFFF35A6E2FF4BA4E1FF90E2
+        FFFF49ADE9FF38A4E3FF49C4F0FFB8E8F9FF1E88D4FFFFFFFF00FFFFFF005CBF
+        E0FFC8F3FCFF75DFF9FF89E6FDFF95E7FFFF9AE5FFFFAAEEFFFFA8EDFFFF99E3
+        FFFF74D5F9FF59CCF3FF4FC8F1FFBBE9FAFF248DD5FFFFFFFF00FFFFFF0060C2
+        E1FFC9F3FCFFCBF3FDFFD4F6FEFFD7F6FFFFD8F4FFFFE0F8FFFFDFF8FFFFDAF5
+        FFFF369AD5FF369AD5FF369AD5FFBDEBFAFF2B93D6FFFFFFFF00FFFFFF0061C3
+        E1FF909395FF919191FF8E8E8EFF5AB9DCFF55B8DFFF51B5DEFF4DB1DDFF49AD
+        DCFF46A8D7AF369AD55F369AD5B6359AD6FF3199D8FFFFFFFF00FFFFFF00FFFF
+        FF00939393F6B9B9B9FF919191EBFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00939393F3BCBCBCFF929292EEFFFFFF00FFFFFF00FFFFFF00FFFFFF008F8F
+        8FEB939393FF8F8F8FE7FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00939393ECC0C0C0FFACACACFF9292925BFFFFFF00FFFFFF008686865E8F8F
+        8FFFA2A2A2FE7A7A7ADBFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00A1A1A128ADADADF2C7C7C7FFAAAAAAFF929292FF929292FF9F9F9FFFB4B4
+        B4FF929292F221212153FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00A1A1A168AEAEAEFEC8C8C8FFCACACAFFCACACAFFBEBEBEFF9B9B
+        9BFE87878768FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00A4A4A442A1A1A1B19A9A9AEA9A9A9AF5969696B19292
+        9242FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+      }
       OnClick = bResetPasswordClick
       TabOrder = 0
     end
     object cbPosition: TDBComboBox
-      Left = 8
-      Height = 29
-      Top = 152
-      Width = 279
+      Left = 126
+      Height = 27
+      Top = 103
+      Width = 161
       DataField = 'POSITION'
       DataSource = UsersDS
       ItemHeight = 0
@@ -58,7 +94,7 @@ inherited fUserOptions: TfUserOptions
     end
     object eDepartment: TDBEdit
       Left = 8
-      Height = 27
+      Height = 24
       Top = 103
       Width = 115
       DataField = 'DEPARTMENT'
@@ -69,8 +105,8 @@ inherited fUserOptions: TfUserOptions
     end
     object eCustomerNumber: TDBEdit
       Left = 80
-      Height = 27
-      Top = 199
+      Height = 24
+      Top = 152
       Width = 81
       DataSource = UsersDS
       CharCase = ecNormal
@@ -79,7 +115,7 @@ inherited fUserOptions: TfUserOptions
     end
     object eLeaveDate: TDBEdit
       Left = 8
-      Height = 27
+      Height = 24
       Top = 288
       Width = 120
       DataField = 'LEAVED'
@@ -90,7 +126,7 @@ inherited fUserOptions: TfUserOptions
     end
     object eEmploymentDate: TDBEdit
       Left = 8
-      Height = 27
+      Height = 24
       Top = 248
       Width = 120
       DataField = 'EMPLOYMENT'
@@ -101,8 +137,8 @@ inherited fUserOptions: TfUserOptions
     end
     object eIDCode: TDBEdit
       Left = 9
-      Height = 27
-      Top = 199
+      Height = 24
+      Top = 152
       Width = 55
       DataField = 'IDCODE'
       DataSource = UsersDS
@@ -112,7 +148,7 @@ inherited fUserOptions: TfUserOptions
     end
     object eUsername: TDBEdit
       Left = 8
-      Height = 27
+      Height = 24
       Top = 57
       Width = 279
       DataField = 'NAME'
@@ -123,10 +159,10 @@ inherited fUserOptions: TfUserOptions
       OnChange = eUsernameChange
     end
     object lPosition: TLabel
-      Left = 8
-      Height = 17
-      Top = 136
-      Width = 56
+      Left = 126
+      Height = 14
+      Top = 87
+      Width = 44
       Caption = 'Position'
       ParentColor = False
     end
@@ -141,41 +177,41 @@ inherited fUserOptions: TfUserOptions
     end
     object lDepartment: TLabel
       Left = 8
-      Height = 17
+      Height = 14
       Top = 87
-      Width = 65
+      Width = 53
       Caption = 'Abteilung'
       ParentColor = False
     end
     object lIDCode: TLabel
       Left = 10
-      Height = 17
-      Top = 183
-      Width = 52
+      Height = 14
+      Top = 136
+      Width = 45
       Caption = 'ID Code'
       ParentColor = False
     end
     object lUsername: TLabel
       Left = 8
-      Height = 17
+      Height = 14
       Top = 40
-      Width = 97
+      Width = 83
       Caption = 'Benutzername'
       ParentColor = False
     end
     object lCustomerNumber: TLabel
       Left = 79
-      Height = 17
-      Top = 183
-      Width = 106
+      Height = 14
+      Top = 136
+      Width = 90
       Caption = 'Kundennummer'
       ParentColor = False
     end
     object lEmploymentDate: TLabel
       Left = 9
-      Height = 17
+      Height = 14
       Top = 232
-      Width = 124
+      Width = 103
       Caption = 'Einstellungsdatum'
       ParentColor = False
     end
@@ -185,6 +221,7 @@ inherited fUserOptions: TfUserOptions
       Top = 328
       Width = 277
       Anchors = [akTop, akLeft, akRight, akBottom]
+      DefaultItemHeight = 16
       MultiSelect = True
       PopupMenu = pmRights
       ReadOnly = True
@@ -229,9 +266,9 @@ inherited fUserOptions: TfUserOptions
     end
     object lRights: TLabel
       Left = 10
-      Height = 17
+      Height = 14
       Top = 312
-      Width = 46
+      Width = 39
       Caption = 'Rechte'
       ParentColor = False
     end
@@ -369,8 +406,8 @@ inherited fUserOptions: TfUserOptions
     end
     object eCustomerNumber1: TDBEdit
       Left = 167
-      Height = 27
-      Top = 199
+      Height = 24
+      Top = 152
       Width = 120
       DataField = 'LOGINNAME'
       DataSource = UsersDS
@@ -380,26 +417,26 @@ inherited fUserOptions: TfUserOptions
       TabOrder = 9
     end
     object lCustomerNumber1: TLabel
-      Left = 250
-      Height = 17
-      Top = 184
-      Width = 37
+      Left = 257
+      Height = 14
+      Top = 137
+      Width = 30
       Anchors = [akTop, akRight]
       Caption = 'Login'
       ParentColor = False
     end
     object lCustomerNumber2: TLabel
-      Left = 206
-      Height = 17
+      Left = 220
+      Height = 14
       Top = 232
-      Width = 81
+      Width = 67
       Anchors = [akTop, akRight]
       Caption = 'Lohngruppe'
       ParentColor = False
     end
     object DBLookupComboBox1: TDBLookupComboBox
       Left = 139
-      Height = 29
+      Height = 27
       Top = 248
       Width = 148
       Anchors = [akTop, akLeft, akRight]
@@ -413,17 +450,17 @@ inherited fUserOptions: TfUserOptions
       TabOrder = 10
     end
     object lCustomerNumber3: TLabel
-      Left = 240
-      Height = 17
+      Left = 249
+      Height = 14
       Top = 273
-      Width = 47
+      Width = 38
       Anchors = [akTop, akRight]
       Caption = 'e-MAIL'
       ParentColor = False
     end
     object eCustomerNumber2: TDBEdit
       Left = 139
-      Height = 27
+      Height = 24
       Top = 288
       Width = 148
       DataField = 'EMAIL'
@@ -432,6 +469,32 @@ inherited fUserOptions: TfUserOptions
       CharCase = ecNormal
       MaxLength = 0
       TabOrder = 11
+    end
+    object DBCheckBox1: TDBCheckBox
+      Left = 8
+      Height = 24
+      Top = 184
+      Width = 131
+      AutoSize = True
+      Caption = 'Anmelden möglich'
+      DataField = 'LOGINACTIVE'
+      DataSource = UsersDS
+      TabOrder = 12
+      ValueChecked = 'Y'
+      ValueUnchecked = 'N'
+    end
+    object DBCheckBox2: TDBCheckBox
+      Left = 156
+      Height = 24
+      Top = 184
+      Width = 87
+      AutoSize = True
+      Caption = 'Fernzugriff'
+      DataField = 'REMOTEACCESS'
+      DataSource = UsersDS
+      TabOrder = 13
+      ValueChecked = 'Y'
+      ValueUnchecked = 'N'
     end
   end
   object UsersDS: TDatasource[2]
