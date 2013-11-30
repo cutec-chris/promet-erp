@@ -37,6 +37,7 @@ type
     procedure SelectByParent(aParent : Variant);
     function GetTextFieldName: string;override;
     function GetNumberFieldName : string;override;
+    function GetCommissionFieldName: string;override;
     procedure Delete;virtual;
     procedure Archive;
     procedure MarkAsRead;
@@ -390,6 +391,12 @@ function TMessageList.GetNumberFieldName: string;
 begin
   Result:='MSG_ID';
 end;
+
+function TMessageList.GetCommissionFieldName: string;
+begin
+  Result:='SENDER';
+end;
+
 procedure TMessageList.Delete;
 begin
   if Count = 0 then exit;

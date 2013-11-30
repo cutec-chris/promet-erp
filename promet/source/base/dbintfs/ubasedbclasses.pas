@@ -2042,6 +2042,9 @@ begin
       FDataSet.Refresh;
       exit;
     end;
+  with FDataSet as IBaseManageDB do
+    if (Assigned(Data)) and (Data.ShouldCheckTable(TableName,False)) then
+      CreateTable;
   try
     with DataSet as IBaseManageDB do
       begin
@@ -2075,13 +2078,15 @@ function TBaseDBDataset.CreateTable : Boolean;
 var
   aOldFilter: String;
   aOldLimit: Integer;
+  aTableName: String;
 begin
   with FDataSet as IBaseManageDB do
     begin
       Result := CreateTable;
       if not Result then
         begin
-          if (Assigned(Data)) and (Data.ShouldCheckTable(TableName,False)) then
+          aTableName:=TableName;
+          if (Assigned(Data)) and (Data.ShouldCheckTable(aTableName,False)) then
             begin
               with DataSet as IBaseDbFilter do
                 begin
