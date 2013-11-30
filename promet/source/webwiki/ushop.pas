@@ -129,6 +129,7 @@ begin
       Data.SetFilter(Masterdata,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(IntToStr(aParent))+' and '+Data.QuoteField('SALEITEM')+'='+Data.QuoteValue('Y'),10);
       TFPWebAction(Sender).Template.OnReplaceTag := @ReplaceShopTags;
       AResponse.Content := TFPWebAction(Sender).Template.GetContent;
+      AResponse.SendContent;
       Handled := true;
     end;
 end;
@@ -175,6 +176,7 @@ begin
     end;
   TFPWebAction(Sender).Template.OnReplaceTag := @ReplaceBasketDetailTags;
   AResponse.Content := TFPWebAction(Sender).Template.GetContent;
+  AResponse.SendContent;
   Handled := true;
 end;
 procedure TfmShop.DataModuleCreate(Sender: TObject);
@@ -803,6 +805,7 @@ begin
   FreeAndNil(FSearch);
   AResponse.Content := TFPWebAction(Sender).Template.GetContent;
   FreeAndNil(FSearchResult);
+  AResponse.SendContent;
   Handled := true;
 end;
 procedure TfmShop.SearchTagreplace(Sender: TObject; const TagString: String;
@@ -933,6 +936,7 @@ begin
   fmWikiPage.SetTemplateParams(TFPWebAction(Sender).Template);
   TFPWebAction(Sender).Template.OnReplaceTag :=@ReplaceBasketDetailTags;
   AResponse.Content := TFPWebAction(Sender).Template.GetContent;
+  AResponse.SendContent;
   Handled := true;
 end;
 procedure TfmShop.showdetailRequest(Sender: TObject; ARequest: TRequest;
@@ -953,6 +957,7 @@ begin
       if aMasterdata.Count > 0 then
         AResponse.Content := TFPWebAction(Sender).Template.GetContent;
       aMasterdata.Free;
+      AResponse.SendContent;
       Handled := true;
     end;
 end;
@@ -962,6 +967,7 @@ begin
   fmWikiPage.SetTemplateParams(TFPWebAction(Sender).Template);
   TFPWebAction(Sender).Template.OnReplaceTag :=@ReplaceShopTags;
   AResponse.Content := TFPWebAction(Sender).Template.GetContent;
+  AResponse.SendContent;
   Handled := true;
 end;
 initialization

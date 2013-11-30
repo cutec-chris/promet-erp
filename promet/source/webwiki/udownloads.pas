@@ -85,6 +85,7 @@ begin
       writeln('udownloads:File not found:'+aPath);
       AResponse.Code := 404;
       AResponse.CodeText := 'Not found';
+      AResponse.SendContent;
     end;
   Handled := True;
 end;

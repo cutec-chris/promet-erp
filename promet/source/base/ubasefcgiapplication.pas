@@ -157,7 +157,10 @@ begin
       FMessagehandler.Terminate;
       sleep(20);
     end;
-  FDBInterface.Data.Free;
+  try
+    FDBInterface.Data.Free;
+  except
+  end;
   FLogger.Free;
   inherited Destroy;
 end;

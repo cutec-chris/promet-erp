@@ -49,6 +49,7 @@ begin
       AResponse.ContentType:='text/javascript;charset=utf-8';
       AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
       AResponse.Contents.Text := 'OnLoggedIn();';
+      AResponse.SendContent;
     end
   else
     begin
@@ -56,12 +57,14 @@ begin
       AResponse.ContentType:='text/javascript;charset=utf-8';
       AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
       AResponse.Contents.Text := '';
+      AResponse.SendContent;
     end;
 end;
 procedure Tappbase.connectionavalibeRequest(Sender: TObject;
   ARequest: TRequest; AResponse: TResponse; var Handled: Boolean);
 begin
   TBaseWebSession(Session).ConnectionAvalible(ARequest,AResponse);
+  AResponse.SendContent;
   Handled:=True;
 end;
 procedure Tappbase.getstatisticRequest(Sender: TObject; ARequest: TRequest;
@@ -153,11 +156,13 @@ begin
       AResponse.Code:=200;
       AResponse.ContentType:='text/javascript;charset=utf-8';
       AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
+      AResponse.SendContent;
     end
   else
     begin
       AResponse.Code:=404;
       AResponse.CodeText:='Document not found';
+      AResponse.SendContent;
     end;
   aStatistic.Free;
 end;
@@ -199,11 +204,13 @@ begin
     end
   else
     AResponse.Code:=403;
+  AResponse.SendContent;
 end;
 procedure Tappbase.loginRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 begin
   TBaseWebSession(Session).DoLogin(Arequest,AResponse);
+  AResponse.SendContent;
   Handled:=True;
 end;
 procedure Tappbase.logoutRequest(Sender: TObject; ARequest: TRequest;
@@ -211,6 +218,7 @@ procedure Tappbase.logoutRequest(Sender: TObject; ARequest: TRequest;
 begin
   Handled:=True;
   TBaseWebSession(Session).DoLogout(ARequest,AResponse);
+  AResponse.SendContent;
 end;
 procedure Tappbase.FieldsToJSON(AFields: TFields; AJSON: TJSONObject;
   const ADateAsString: Boolean);

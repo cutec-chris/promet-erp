@@ -217,9 +217,11 @@ var
   aRow: String;
   aContent: String;
 begin
+  if not Assigned(actTagParams) then exit;
   if Uppercase(copy(Inp,0,6)) = 'BOARD(' then
     begin
       Inp := copy(Inp,7,length(Inp));
+      try
       Data.SetFilter(Data.Tree,'',0,'','ASC',False,True);
       if Data.Tree.DataSet.Locate('NAME',copy(Inp,0,pos(',',Inp)-1),[loCaseInsensitive]) then
         begin
@@ -270,6 +272,8 @@ begin
           end;
           Outp := Outp+actTagParams.Values['BOARDFOOTER'];
         end;
+      except
+      end;
     end
   else
     begin
@@ -408,6 +412,7 @@ begin
           WriteXMLFile(Doc, ss);                     // write to XML
           AResponse.Content := ss.DataString;
           AResponse.ContentType := 'text/xml';
+          AResponse.SendContent;
           Handled := True;
         finally
           aWiki.Free;
@@ -676,6 +681,7 @@ begin
   Title := strLastChanges;
   TFPWebAction(Sender).Template.OnReplaceTag:=@TFPWebActionTemplateReplaceTag;
   AResponse.Content := TFPWebAction(Sender).Template.GetContent;
+  AResponse.SendContent;
   Handled := true;
 end;
 procedure TfmWikiPage.Showrequest(Sender: TObject; ARequest: TRequest;
@@ -684,6 +690,7 @@ begin
   SettemplateParams(TFPWebAction(Sender).Template);
   Title := Wiki.FieldByName('CAPTION').Text;
   AResponse.Content := TFPWebAction(Sender).Template.GetContent;
+  AResponse.SendContent;
   Handled := true;
 end;
 procedure TfmWikiPage.SearchRequest(Sender: TObject; ARequest: TRequest;
@@ -703,6 +710,7 @@ begin
   FreeAndNil(FSearch);
   AResponse.Content := TFPWebAction(Sender).Template.GetContent;
   FreeAndNil(FSearchResult);
+  AResponse.SendContent;
   Handled := true;
 end;
 procedure TfmWikiPage.Createrequest(Sender: TObject; ARequest: TRequest;
@@ -721,6 +729,7 @@ begin
   if CreateAllowed then
     begin
       AResponse.Code := 404;
+      AResponse.SendContent;
       Handled :=True;
     end
   else
