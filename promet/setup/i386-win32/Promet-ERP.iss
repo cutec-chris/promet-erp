@@ -75,10 +75,6 @@ Name: desktopicon; Description: Ein Desktop Icon erstellen; GroupDescription: Zu
 
 [Icons]
 Name: {group}\{#AppName}; Filename: {app}\prometerp.exe; Workingdir: {app}; Flags: createonlyiffileexists
-Name: {group}\Mandant anlegen/bearbeiten; Filename: {app}\wizardmandant.exe; Workingdir: {app}; Languages: de; Flags: createonlyiffileexists
-Name: {group}\create/edit Mandant; Filename: {app}\wizardmandant.exe; Workingdir: {app}; Languages: en; Flags: createonlyiffileexists
-Name: {group}\Online Hilfe; Filename: {app}\help\{#AppName}-helpde.html; Languages: de; Flags: createonlyiffileexists
-Name: {group}\Online Help; Filename: {app}\help\{#AppName}-helpen.html; Languages: en; Flags: createonlyiffileexists
 Name: {group}\Internet; Filename: {app}\website.url
 Name: {userdesktop}\{#AppName}; Filename: {app}\prometerp.exe; Tasks: desktopicon; Flags: createonlyiffileexists
 
