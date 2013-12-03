@@ -480,7 +480,7 @@ begin
     begin
       DataSet.DisableControls;
       if not History.DataSet.Active then History.Open;
-      History.AddItem(Self.DataSet,Format(strRenamed,[Field.AsString]),'','',nil,ACICON_RENAMED);
+      History.AddItem(Self.DataSet,Format(strRenamed,[FDS.DataSet.FieldByName('SUMMARY').AsString]),'','',nil,ACICON_RENAMED);
       DataSet.EnableControls;
       FAddSummaryOnPost:=false;
     end;
