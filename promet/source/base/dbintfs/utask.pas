@@ -35,6 +35,7 @@ type
     procedure FDSDataChange(Sender: TObject; Field: TField);
   private
     FAddProjectOnPost : Boolean;
+    FAddSummaryOnPost : Boolean;
     FHistory: TBaseHistory;
     FSnapshots: TTaskSnapshots;
     FTempUsers : TUser;
@@ -475,6 +476,14 @@ begin
           FAddProjectOnPost:=False;
         end;
     end;
+  if FAddSummaryOnPost then
+    begin
+      DataSet.DisableControls;
+      if not History.DataSet.Active then History.Open;
+      History.AddItem(Self.DataSet,Format(strRenamed,[Field.AsString]),'','',nil,ACICON_RENAMED);
+      DataSet.EnableControls;
+      FAddSummaryOnPost:=false;
+    end;
 end;
 procedure TTaskList.DataSetBeforeDelete(aDataSet: TDataSet);
 var
@@ -616,10 +625,7 @@ begin
     end
   else if (Field.FieldName='SUMMARY') then
     begin
-      DataSet.DisableControls;
-      if not History.DataSet.Active then History.Open;
-      History.AddItem(Self.DataSet,Format(strRenamed,[Field.AsString]),'','',nil,ACICON_RENAMED);
-      DataSet.EnableControls;
+      FAddSummaryOnPost:=True;
     end
   else if (Field.FieldName='PROJECT') and (DataSet.State <> dsInsert) then
     begin
@@ -914,6 +920,7 @@ constructor TTaskList.Create(aOwner: TComponent; DM: TComponent;
 begin
   inherited Create(aOwner, DM, aConnection, aMasterdata);
   FAddProjectOnPost := false;
+  FAddSummaryOnPost:=false;
   DoCheckTask:=False;
   FDS := TDataSource.Create(Self);
   FDS.DataSet := DataSet;
