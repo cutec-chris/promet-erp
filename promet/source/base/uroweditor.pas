@@ -220,6 +220,7 @@ begin
 end;
 const
   SBWidth = 30;
+  MIN_WIDTH = 15;
 procedure TfRowEditor.SetGridSizes(aConfigName : string;DataSource: TDataSource; Grid: TDBGrid; Filter : string = '');
 var
   s: String;
@@ -310,6 +311,7 @@ begin
         end;
       if FullWidth>Grid.Width then
         Factor := Factor+(((Grid.Width-SBWidth)/FullWidth)-1);
+      if Factor < 0.2 then Factor := 1;
       s := s1;
       //Collect Columns
       while pos(';',s) > 0 do
@@ -322,8 +324,10 @@ begin
           if TColumn(cl).Width = 0 then
             TColumn(cl).Width := 64;
           TColumn(cl).Width := round(TColumn(cl).Width * Factor);
+          if TColumn(cl).Width<MIN_WIDTH then
+            TColumn(cl).Width := MIN_WIDTH;
           if TColumn(cl).Width > Grid.Width then
-            TColumn(cl).Width := Grid.Width-30;
+            TColumn(cl).Width := Grid.Width-SBWidth;
           s := copy(s,pos(';',s)+1,length(s));
           for a := 0 to tmpCols.Count-1 do
             if TColumn(tmpCols[a]).FieldName = TColumn(cl).FieldName then
