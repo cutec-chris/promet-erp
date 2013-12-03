@@ -35,6 +35,7 @@ type
     Panel2: TPanel;
     pSearch: TPanel;
     SelectDirectoryDialog1: TSelectDirectoryDialog;
+    Timer1: TTimer;
     ToolBar1: TToolBar;
     ToolButton1: TToolButton;
     ToolButton2: TSpeedButton;
@@ -63,6 +64,7 @@ type
     procedure mEntryKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure mEntryKeyPress(Sender: TObject; var Key: char);
     procedure pSearchClick(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
     procedure ToolButton2Click(Sender: TObject);
   private
     { private declarations }
@@ -72,6 +74,7 @@ type
     FDrawnDate : TDateTime;
     aHistoryFrame: TfHistoryFrame;
     FParentItem : Variant;
+    procedure MarkAsRead;
   public
     { public declarations }
     procedure Execute;
@@ -396,7 +399,7 @@ end;
 
 procedure TfmTimeline.FormShow(Sender: TObject);
 begin
-  ShowFrame;
+  Timer1.Enabled:=True;
 end;
 
 procedure TfmTimeline.fTimelineGetCellText(Sender: TObject; aCol: TColumn;
@@ -487,6 +490,7 @@ begin
           ToolButton2Click(ToolButton2);
         end;
       FParentItem := fTimeline.DataSet.Id.AsVariant;
+      MarkAsRead;
     end;
 end;
 
@@ -505,21 +509,7 @@ begin
     begin
       if fTimeline.GotoActiveRow then
         begin
-          with fTimeline.DataSet.DataSet as IBaseManageDB do
-            UpdateStdFields:=False;
-          if not fTimeline.DataSet.CanEdit then
-            fTimeline.DataSet.DataSet.Edit;
-          fTimeline.DataSet.FieldByName('READ').AsString:='Y';
-          fTimeline.DataSet.post;
-          with fTimeline.DataSet.DataSet as IBaseManageDB do
-            UpdateStdFields:=True;
-          for i := 0 to fTimeline.dgFake.Columns.Count-1 do
-            if fTimeline.dgFake.Columns[i].FieldName='ACTION' then
-              begin
-                fTimeline.gList.Objects[i+1,fTimeline.gList.Row].Free;
-                fTimeline.gList.Objects[i+1,fTimeline.gList.Row]:=nil;
-              end;
-          fTimeline.gList.Invalidate;
+          MarkAsRead;
           fTimeline.gList.Row:=fTimeline.gList.Row+1;
         end;
     end;
@@ -595,7 +585,12 @@ begin
     end
   else
     begin
-      if Key = VK_ESCAPE then
+      if (ssCtrl in Shift)
+      and (Key = VK_RETURN) then
+        begin
+          mEntry.Text:=mEntry.Text+LineEnding;
+        end
+      else if Key = VK_ESCAPE then
         begin
           ToolButton2.Down:=false;
           ToolButton2Click(ToolButton2);
@@ -653,6 +648,12 @@ begin
 
 end;
 
+procedure TfmTimeline.Timer1Timer(Sender: TObject);
+begin
+  Timer1.Enabled:=False;
+  acRefresh.Execute;
+end;
+
 procedure TfmTimeline.ToolButton2Click(Sender: TObject);
 var
   aController: TAnimationController;
@@ -672,6 +673,27 @@ begin
       pSearch.Visible:=False;
     end;
   aController.Free;
+end;
+
+procedure TfmTimeline.MarkAsRead;
+var
+  i: Integer;
+begin
+  with fTimeline.DataSet.DataSet as IBaseManageDB do
+    UpdateStdFields:=False;
+  if not fTimeline.DataSet.CanEdit then
+    fTimeline.DataSet.DataSet.Edit;
+  fTimeline.DataSet.FieldByName('READ').AsString:='Y';
+  fTimeline.DataSet.post;
+  with fTimeline.DataSet.DataSet as IBaseManageDB do
+    UpdateStdFields:=True;
+  for i := 0 to fTimeline.dgFake.Columns.Count-1 do
+    if fTimeline.dgFake.Columns[i].FieldName='ACTION' then
+      begin
+        fTimeline.gList.Objects[i+1,fTimeline.gList.Row].Free;
+        fTimeline.gList.Objects[i+1,fTimeline.gList.Row]:=nil;
+      end;
+  fTimeline.gList.Invalidate;
 end;
 
 initialization

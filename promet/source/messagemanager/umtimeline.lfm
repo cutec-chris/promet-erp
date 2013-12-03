@@ -96,18 +96,19 @@ object fmTimeline: TfmTimeline
       Left = 9
       Height = 39
       Top = 9
-      Width = 496
+      Width = 478
       Align = alClient
       BorderSpacing.Around = 8
       OnKeyDown = mEntryKeyDown
       OnKeyPress = mEntryKeyPress
       TabOrder = 0
+      WantReturns = False
     end
     object bSend: TBitBtn
-      Left = 513
+      Left = 495
       Height = 39
       Top = 9
-      Width = 28
+      Width = 46
       Action = acSend
       Align = alRight
       AutoSize = True
@@ -184,7 +185,6 @@ object fmTimeline: TfmTimeline
       ScrollWidth = 342
       TabOrder = 0
       TabStop = False
-      TopIndex = -1
     end
   end
   object ActionList1: TActionList
@@ -203,7 +203,7 @@ object fmTimeline: TfmTimeline
     object acSend: TAction
       ImageIndex = 59
       OnExecute = acSendExecute
-      ShortCut = 32781
+      ShortCut = 13
     end
   end
   object SelectDirectoryDialog1: TSelectDirectoryDialog
@@ -214,7 +214,14 @@ object fmTimeline: TfmTimeline
     Enabled = False
     Interval = 5000
     OnTimer = IdleTimer1Timer
-    left = 320
-    top = 24
+    left = 192
+    top = 8
   end
-end
+  object Timer1: TTimer
+    Enabled = False
+    Interval = 400
+    OnTimer = Timer1Timer
+    left = 256
+    top = 8
+  end
+end

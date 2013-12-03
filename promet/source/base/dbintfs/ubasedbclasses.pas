@@ -2086,7 +2086,7 @@ begin
       if not Result then
         begin
           aTableName:=TableName;
-          if (Assigned(Data)) and (Data.ShouldCheckTable(aTableName,False)) then
+          if (not Assigned(Data)) or (Data.ShouldCheckTable(aTableName,False)) then
             begin
               with DataSet as IBaseDbFilter do
                 begin
@@ -2379,4 +2379,4 @@ begin
 end;
 initialization
 end.
-
+

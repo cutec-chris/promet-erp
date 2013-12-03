@@ -131,6 +131,7 @@ begin
         begin
           if not DoOpenMandant(AppendPathDelim(MandantPath)+cbMandant.Text+MandantExtension) then exit;
         end;
+      Data.Users.CreateTable;
       Data.Users.Open;
       while not Data.Users.DataSet.EOF do
         begin
@@ -315,4 +316,4 @@ end;
 initialization
   {$I upassword.lrs}
 end.
-
+

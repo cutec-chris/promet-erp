@@ -1,5 +1,8 @@
 ﻿Build 295
       - Suche:Kommission sucht nun bei Mails nach Absender
+      - Nachrichtenzentrale: Nachricht abschicken nun mit Enter, neue Zeile mit Strg+Enter
+      - Nachrichtenzentrale: Nachichten auf die geantwortet wird werden automatisch als gelesen markiert
+      - Nachrichtenzentrale: Nachichten werden fett dargestellt bis sie von jemandem (egal wer) gelesen markiert werden mit G werden die nachrichten als gelesen markiert
 Build 294
       - Spalten werden automatisch verkleinert wenn sie in Summe die Gridbreite überschreiten
       - Aufgaben:Benutzer zu mehren Aufgaben gleichzeitig zuweisen (multiselect) funktioniert nun wie erwartet
