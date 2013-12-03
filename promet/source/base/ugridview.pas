@@ -20,7 +20,7 @@ Created 03.12.2011
 unit ugridview;
 {$mode objfpc}{$H+}
 
-{$define gridvisible}
+{.$define gridvisible}
 {.$define slowdebug}
 {.$define debug}
 
@@ -1133,6 +1133,7 @@ begin
                 aText := '['+IntToStr(TRowObject(gList.Objects[0,aRow]).Rec)+'] '+aText;
               {$endif}
               aTextStyle.Alignment:=dgFake.Columns[aCol-1].Alignment;
+              dec(bRect.Right,1);
               TextRect(bRect,bRect.Left+3,bRect.Top,aText,aTextStyle);
               dec(aRect.Right,1);
               dec(aRect.Bottom,1);
