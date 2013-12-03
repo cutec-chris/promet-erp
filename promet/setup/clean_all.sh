@@ -28,4 +28,3 @@ rm -f -r ../source/svnserver/lib
 rm -f -r ../source/sync/lib
 rm -f -r ../source/timeregistering/lib
 rm -f -r ../source/tools/lib
-

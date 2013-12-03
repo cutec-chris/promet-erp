@@ -1,8 +1,7 @@
 #!/bin/bash
 Version=$(sed 's/\r//g' ../source/base/version.inc).$(sed 's/\r//g' ../source/base/revision.inc)
 Version=$(echo $Version | sed 's/\n//g');
-mkdir output/old
-sudo -S mv output/* output/old
+sudo -S rm output/*
 mkdir executables/$Version
 mkdir executables/$Version/x86_64
 mkdir executables/$Version/i386
@@ -15,7 +14,6 @@ fi
 sudo -S ./clean_all.sh
 virsh start Autobuild_lin3
 sh build_win_wine_i386.sh &
-ssh chris@minimac 'sh promet/promet/setup/build_all.mac' &
 State=$(virsh domstate Autobuild_lin3)
 while [ "$State" = laufend ] ; do
   sleep 5
@@ -40,6 +38,7 @@ cd i386-linux
 cd ..
 ./upload_lin.sh amd64 x86_64
 ./change_wiki.sh
+ssh chris@minimac 'sh promet/promet/setup/build_all.mac' &
 #cd $FULL_NAME/zip-files
 #./build_stick.sh
 #cd ..
