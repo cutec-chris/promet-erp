@@ -20,7 +20,7 @@ Created 03.12.2011
 unit ugridview;
 {$mode objfpc}{$H+}
 
-{.$define gridvisible}
+{$define gridvisible}
 {.$define slowdebug}
 {.$define debug}
 
@@ -3076,7 +3076,7 @@ begin
             end;
         end;
       aPosNo := -1;
-      if SortField<>'' then
+      if (SortField<>'') and (DataSet.Count>0) then
         begin
           if not DataSet.CanEdit then DataSet.DataSet.Edit;
           aPosNo := DataSet.FieldByName(SortField).AsInteger+1;
