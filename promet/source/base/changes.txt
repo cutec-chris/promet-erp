@@ -1,5 +1,5 @@
 ﻿Build 296
-      - Aufgabe hat Feld Auftrag (z.b. können so über Trigger o.ä. Aufgaben zu erledigten Bestellungen oder Produktionsaufträgen automatisch fertiggestellt werden)
+      - Aufgabe: hat Feld Auftrag (z.b. können so über Trigger o.ä. Aufgaben zu erledigten Bestellungen oder Produktionsaufträgen automatisch fertiggestellt werden)
 Build 295
       - Suche:Kommission sucht nun bei Mails nach Absender
       - Nachrichtenzentrale: Nachricht abschicken nun mit Enter, neue Zeile mit Strg+Enter
@@ -25,7 +25,7 @@ Build 292
       - Gantt Ansicht: Aktualisieren Knopf entfernt (Abbrechen tut das selbe)
 Build 291
       - Suche:in Suche kann Anzahl der Suchergebnisse nicht mehr auf unbegrenzt gespeichert werden
-        temporär ist unbegrenzte Suche weiterhin möglich
+              temporär ist unbegrenzte Suche weiterhin möglich
       - Projektverwaltung:Grobplan zu Promet hinzugefügt
 Build 290
       - Messagemanager: zeigt Unterhaltungen nun in Threads an

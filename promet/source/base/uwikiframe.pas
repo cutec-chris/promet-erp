@@ -125,8 +125,8 @@ type
     constructor Create;
   end;
 implementation
-uses uWiki,uData,WikiToHTML,uDocuments,Utils,LCLIntf,Variants,uDocumentFrame,
-  uBaseDbInterface,uscreenshotmain,uMessages;
+uses uWiki,uData,WikiToHTML,uDocuments,Utils,LCLIntf,Variants,
+  uBaseDbInterface,uscreenshotmain,uMessages,uDocumentFrame;
 procedure THistory.SetIndex(const AValue: Integer);
 begin
   Move(AValue,Count-1);
