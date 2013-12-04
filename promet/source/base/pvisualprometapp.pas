@@ -14,7 +14,7 @@ uses
   uSyncOptions, uTimeLine, uUserfieldDefOptions, uuseroptions, uwait, 
   uhistoryadditem, uHistoryFrame, uMainTreeFrame, uLinkFrame, uImageFrame, 
   utreeview, uPrometFramesInplaceDB, uprometframesinplace, uListFrame, 
-  uSendMail, uEditText, uQuickHelpFrame, LazarusPackageIntf;
+  uSendMail, uEditText, uQuickHelpFrame, uclipp, LazarusPackageIntf;
 
 implementation
 

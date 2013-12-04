@@ -14,7 +14,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="74">
+    <Files Count="75">
       <Item1>
         <Filename Value="htmltortf.pas"/>
         <UnitName Value="htmltortf"/>
@@ -311,6 +311,10 @@
         <Filename Value="uquickhelpframe.pas"/>
         <UnitName Value="uQuickHelpFrame"/>
       </Item74>
+      <Item75>
+        <Filename Value="uclipp.pas"/>
+        <UnitName Value="uclipp"/>
+      </Item75>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="15">

@@ -168,7 +168,7 @@ var
 implementation
 uses uData,uPrometFrames,LCLType,Dialogs,uIntfStrConsts, FPCanvas,
   uBaseVisualControls, Graphics, Utils, LCLProc, uPerson,uMasterdata,uProjects,
-  uWiki,uSearch,Themes,uFilterFrame,uNRights,uStatistic;
+  uWiki,uSearch,Themes,uFilterFrame,uNRights,uStatistic,uClipp;
 constructor TTreeEntry.Create;
 begin
   Action := nil;
