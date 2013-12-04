@@ -532,7 +532,7 @@ object fTaskEdit: TfTaskEdit
         Left = 4
         Height = 13
         Top = 2
-        Width = 59
+        Width = 40
         Alignment = taRightJustify
         AutoSize = False
         Caption = 'Startzeit'
@@ -545,7 +545,7 @@ object fTaskEdit: TfTaskEdit
         Left = 4
         Height = 13
         Top = 27
-        Width = 57
+        Width = 40
         Alignment = taRightJustify
         AutoSize = False
         Caption = 'Endzeit'
@@ -565,7 +565,7 @@ object fTaskEdit: TfTaskEdit
         Shape = bsLeftLine
       end
       object StartDate: TDBZVDateTimePicker
-        Left = 68
+        Left = 51
         Height = 21
         Top = 0
         Width = 137
@@ -587,7 +587,7 @@ object fTaskEdit: TfTaskEdit
         UseDefaultSeparators = True
       end
       object EndDate: TDBZVDateTimePicker
-        Left = 68
+        Left = 51
         Height = 21
         Top = 27
         Width = 137
@@ -608,7 +608,7 @@ object fTaskEdit: TfTaskEdit
         UseDefaultSeparators = True
       end
       object EndDate1: TDBZVDateTimePicker
-        Left = 255
+        Left = 208
         Height = 21
         Top = 17
         Width = 81
@@ -629,7 +629,7 @@ object fTaskEdit: TfTaskEdit
         UseDefaultSeparators = True
       end
       object EndTimeLbl1: TLabel
-        Left = 255
+        Left = 208
         Height = 13
         Top = 0
         Width = 57
@@ -641,9 +641,9 @@ object fTaskEdit: TfTaskEdit
         ParentFont = False
       end
       object Label11: TLabel
-        Left = 362
+        Left = 208
         Height = 11
-        Top = 2
+        Top = 47
         Width = 88
         Anchors = [akRight, akBottom]
         BorderSpacing.Left = 5
@@ -654,11 +654,11 @@ object fTaskEdit: TfTaskEdit
         ParentFont = False
       end
       object cbState: TExtDBCombobox
-        Left = 360
+        Left = 208
         Height = 21
         Hint = 'In welchem Status des Projektes '#10'wird die Aufgabe bearbeitet ?'
-        Top = 13
-        Width = 88
+        Top = 58
+        Width = 81
         Anchors = [akTop, akLeft, akRight]
         DataField = 'WORKSTATUS'
         DataSource = Task
@@ -673,10 +673,10 @@ object fTaskEdit: TfTaskEdit
         TabOrder = 3
       end
       object Label12: TLabel
-        Left = 255
+        Left = 312
         Height = 14
-        Top = 43
-        Width = 192
+        Top = 4
+        Width = 120
         Anchors = [akRight, akBottom]
         AutoSize = False
         BorderSpacing.Left = 5
@@ -687,10 +687,10 @@ object fTaskEdit: TfTaskEdit
         ParentFont = False
       end
       object cbCategory: TDBComboBox
-        Left = 255
+        Left = 312
         Height = 21
-        Top = 58
-        Width = 193
+        Top = 17
+        Width = 136
         DataField = 'CATEGORY'
         DataSource = Task
         ItemHeight = 13
@@ -701,7 +701,7 @@ object fTaskEdit: TfTaskEdit
         Left = 4
         Height = 29
         Top = 55
-        Width = 57
+        Width = 40
         Alignment = taRightJustify
         AutoSize = False
         Caption = 'Frühest möglich'
@@ -712,7 +712,7 @@ object fTaskEdit: TfTaskEdit
         WordWrap = True
       end
       object EarlystDate: TDBZVDateTimePicker
-        Left = 68
+        Left = 51
         Height = 21
         Top = 55
         Width = 137
@@ -731,6 +731,31 @@ object fTaskEdit: TfTaskEdit
         TimeDisplay = tdHMS
         DateMode = dmComboBox
         UseDefaultSeparators = True
+      end
+      object Label13: TLabel
+        Left = 312
+        Height = 14
+        Top = 47
+        Width = 112
+        Anchors = [akRight, akBottom]
+        AutoSize = False
+        BorderSpacing.Left = 5
+        Caption = 'Auftrag'
+        Font.Color = clMedGray
+        Font.Height = 11
+        ParentColor = False
+        ParentFont = False
+      end
+      object eOrder: TDBEdit
+        Left = 312
+        Height = 21
+        Top = 58
+        Width = 136
+        DataField = 'ORDERNO'
+        DataSource = Task
+        CharCase = ecNormal
+        MaxLength = 0
+        TabOrder = 6
       end
     end
     object bSetUser: TSpeedButton

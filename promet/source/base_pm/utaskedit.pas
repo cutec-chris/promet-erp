@@ -49,6 +49,7 @@ type
     cbPriority: TDBComboBox;
     cbState: TExtDBCombobox;
     cbCategory: TDBComboBox;
+    eOrder: TDBEdit;
     EarlystDate: TDBZVDateTimePicker;
     EndTimeLbl2: TLabel;
     eTime: TEdit;
@@ -59,6 +60,7 @@ type
     Label10: TLabel;
     Label11: TLabel;
     Label12: TLabel;
+    Label13: TLabel;
     Panel11: TPanel;
     pHist: TPanel;
     bSetUser: TSpeedButton;

@@ -23,9 +23,10 @@ Compression=bzip
 VersionInfoCopyright=C.Ulrich
 AppPublisher=C.Ulrich
 AppPublisherURL=http://www.free-erp.de
-AppSupportURL=http://www.free-erp.de
+AppSupportURL=http://mantis.free-erp.de/mantis/
 AppUpdatesURL=http://www.free-erp.de
 AppContact=http://www.free-erp.de
+CloseApplications=yes
 
 [Files]
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\prometerp.exe"; DestDir: "{app}"; Components: main

@@ -5,7 +5,7 @@ cd i386-win32
 FULL_NAME=$(cd `dirname $0` && pwd)
 WIN_DIR=$(echo $FULL_NAME | sed 's/\//\\/g')
 WIN_DIR='Z:\'$WIN_DIR
-WINEPREFIX=$FULL_NAME/../../../lazarus_wine/ wineconsole "$WIN_DIR\clean_all.bat"
+WINEPREFIX=$FULL_NAME/../../../lazarus_wine/ wineconsole "$WIN_DIR\clean_all.bat" i386-win32
 WINEPREFIX=$FULL_NAME/../../../lazarus_wine/ wineconsole "$WIN_DIR\build_install_files.bat" i386-win32
 WINEPREFIX=$FULL_NAME/../../../lazarus_wine/ wineconsole "$WIN_DIR\copy_to_builddir.bat" $Version i386
 WINEPREFIX=$FULL_NAME/../../../lazarus_wine/ wineconsole "$WIN_DIR\build_setup.bat" win32 i386 $Version

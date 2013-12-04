@@ -1,8 +1,6 @@
 md ..\..\output
 md ..\..\output\%1
 md ..\..\output\%1\plugins
-rm ..\..\output\i386-win32\*.exe
-rm ..\..\output\i386-win32\tools\*.exe
 lazbuild -q ..\..\source\tools\wizardmandant.lpi
 If errorlevel 1 lazbuild -q ..\..\source\tools\wizardmandant.lpi
 If errorlevel 1 goto end
