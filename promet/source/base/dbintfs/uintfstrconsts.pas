@@ -26,6 +26,7 @@ uses
     {$ENDIF}
     LCLStrConsts;
 resourcestring
+  strClipboard                  = 'Zwischenablage';
   strCategoryChanged            = 'Kategorie geändetr auf %s';
   strDueDateChanged             = 'Zieldatum geändert zu %s';
   strCantAccessFile             = 'Auf die Datei "%s" kann nicht zugegriffen werden,'+lineending+'kopieren Sie diese Datei ggf erst auf Ihren Computer oder mounten Sie die Quelle';

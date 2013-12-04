@@ -67,7 +67,10 @@ type
                etMeetings,
                  etMeetingList,
                etWiki,
-                 etWikiPage);
+                 etWikiPage,
+               etClipboard,
+                 etClipboardItem
+               );
   TTreeEntry = class
   public
     Rec : Int64;
@@ -219,6 +222,7 @@ begin
       or (DataT.Typ = etFavourites)
       or (DataT.Typ = etDocuments)
       or (DataT.Typ = etDocumentDir)
+      or (DataT.Typ = etClipboard)
       )
       then
         begin
@@ -411,19 +415,6 @@ var
 begin
   DataT := TTreeEntry(tvMain.Selected.Data);
   if not Assigned(DataT) then exit;
-  if (DataT.Typ <> etDir)
-  and (DataT.Typ <> etCustomers)
-  and (DataT.Typ <> etMasterdata)
-  and (DataT.Typ <> etWiki)
-  and (DataT.Typ <> etStatistics)
-  and (DataT.Typ <> etProjects)
-  and (DataT.Typ <> etMessageDir)
-  and (DataT.Typ <> etMessageBoard)
-  and (DataT.Typ <> etMessages)
-  and (DataT.Typ <> etFavourites)
-  and (DataT.Typ <> etDocuments)
-  and (DataT.Typ <> etDocumentDir)
-  then exit;
   Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,False);
   if (DataT.Typ = etDir)
   or (DataT.Typ = etMessageDir)
@@ -468,6 +459,11 @@ begin
     begin
       ParentID := '0';
       Typ := 'F';
+    end
+  else if (DataT.Typ = etClipboard) then
+    begin
+      ParentID := '0';
+      Typ := 'Z';
     end
   else if (DataT.Typ = etDocuments)
        or (DataT.Typ = etDocumentDir)
@@ -1664,6 +1660,20 @@ begin
               aListL.DataSet.Next;
             end;
           aListL.Free;
+        end
+      else if (Typ = 'Z') then //Clipboard
+        begin
+          aList := TClipp.Create(Self,Data);
+          aTyp := etClipboardItem;
+          with aList.DataSet as IBaseDBFilter do
+            Data.SetFilter(aList,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(ID),0,'','ASC',False,True,True);
+          aList.DataSet.First;
+          while not aList.DataSet.EOF do
+            begin
+              AddEntry;
+              aList.DataSet.Next;
+            end;
+          aList.Free;
         end
     end
   else if (DataT.Typ=etProject) or (DataT.Typ=etProcess) then

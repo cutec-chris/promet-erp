@@ -74,7 +74,7 @@ var
 implementation
 uses LCLIntf,LCLType,uBaseApplication, uData, uBaseDbInterface,
   uDocuments,uFilterFrame,uIntfStrConsts,uPrometFrames,uBaseDbClasses,
-  uWikiFrame,uMainTreeFrame;
+  uWikiFrame,uMainTreeFrame,uClipp;
 {$R *.lfm}
 
 procedure TfMain.acAddExecute(Sender: TObject);
@@ -137,18 +137,9 @@ begin
       end;
   acLogin.Enabled:=False;
   acLogout.Enabled:=True;
-  //Add Search Node
-  aDocuments := TDocuments.Create(Self,Data);
-  aDocuments.CreateTable;
-  aDocuments.Destroy;
-  //Projects
-  aStat := fMainTreeFrame.tvMain.Items.AddChildObject(nil,strStatistics,TTreeEntry.Create);
-  TTreeEntry(aStat.Data).Typ := etStatistic;
+  uClipp.AddToMainTree;
   if fMainTreeFrame.tvMain.Items.Count>0 then
     fMainTreeFrame.tvMain.Items[0].Expanded:=True;
-//  pcPages.AddTabClass(TfFilter,strProjectList,@AddProjectList,Data.GetLinkIcon('PROJECTS@'),True);
-//  aFrame := TfProjectDispoFrame.Create(Self);
-//  pcPages.AddTab(aFrame);
 end;
 
 procedure TfMain.acLogoutExecute(Sender: TObject);

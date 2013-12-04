@@ -42,7 +42,7 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="2">
+    <Units Count="3">
       <Unit0>
         <Filename Value="clipp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -56,6 +56,11 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="umain"/>
       </Unit1>
+      <Unit2>
+        <Filename Value="uclipp.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uclipp"/>
+      </Unit2>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
