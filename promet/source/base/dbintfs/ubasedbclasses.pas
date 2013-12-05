@@ -89,6 +89,7 @@ type
     function FieldByName(aFieldName : string) : TField;
     procedure Assign(Source: TPersistent); override;
     procedure DirectAssign(Source : TPersistent);
+    procedure Filter(aFilter : string;aLimit : Integer = 0;aOrderBy : string = '';aSortDirection : string = 'ASC';aLocalSorting : Boolean = False;aGlobalFilter : Boolean = True;aUsePermissions : Boolean = False;aFilterIn : string = '');
     property Parent : TBaseDbDataSet read FParent;
     property UpdateFloatFields : Boolean read FUpdateFloatFields write FUpdateFloatFields;
     property CanEdit : Boolean read GetCanEdit;
@@ -1068,6 +1069,29 @@ begin
       and (TBaseDbDataSet(Source).DataSet.Fields[i].FieldName <> 'TIMESTAMP') then
         DataSet.FieldByName(TBaseDbDataSet(Source).DataSet.Fields[i].FieldName).AsVariant:=TBaseDbDataSet(Source).DataSet.Fields[i].AsVariant;
 end;
+
+procedure TBaseDBDataset.Filter(aFilter: string;
+  aLimit: Integer; aOrderBy: string; aSortDirection: string;
+  aLocalSorting: Boolean; aGlobalFilter: Boolean; aUsePermissions: Boolean;
+  aFilterIn: string);
+begin
+  with DataSet as IBaseDbFilter do
+    begin
+      UsePermissions := aUsePermissions;
+      if (aOrderBy <> '') then
+        begin
+          SortFields:=aOrderBy;
+          if aSortDirection = 'DESC' then
+            SortDirection := sdDescending
+          else
+            SortDirection := sdAscending;
+        end;
+      Limit := aLimit;
+      Filter := aFilter;
+    end;
+  Open;
+end;
+
 constructor TBaseHistory.Create(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin

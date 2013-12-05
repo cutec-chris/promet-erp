@@ -1192,21 +1192,7 @@ procedure TBaseDBModule.SetFilter(DataSet: TbaseDBDataSet; aFilter: string;
   aFilterIn: string);
 begin
   if CheckForInjection(aFilter) then exit;
-  with DataSet.DataSet as IBaseDbFilter do
-    begin
-      UsePermissions := aUsePermissions;
-      if (aOrderBy <> '') then
-        begin
-          SortFields:=aOrderBy;
-          if aSortDirection = 'DESC' then
-            SortDirection := sdDescending
-          else
-            SortDirection := sdAscending;
-        end;
-      Limit := aLimit;
-      Filter := aFilter;
-    end;
-  DataSet.Open;
+  DataSet.Filter(aFilter,aLimit,aOrderBy,aSortDirection,aLocalSorting,aGlobalFilter,aUsePermissions,aFilterIn);
 end;
 procedure TBaseDBModule.AppendUserToActiveList;
 var
@@ -1527,4 +1513,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+

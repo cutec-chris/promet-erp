@@ -1,4 +1,4 @@
- program cmdln_sample;
+ program taskreminder;
 
 {$mode objfpc}{$H+}
 
@@ -10,7 +10,7 @@ uses
   Interfaces
   { you can add units after this },db,Utils,
   FileUtil,Forms,uData, uIntfStrConsts, pcmdprometapp,uBaseCustomApplication,
-  uBaseApplication;
+  uBaseApplication,uBaseDbClasses,utask;
 
 type
 
@@ -29,6 +29,9 @@ type
 { PrometCmdApp }
 
 procedure PrometCmdApp.DoRun;
+var
+  aUsers: TUser;
+  aTasks: TTaskList;
 begin
   with BaseApplication as IBaseApplication do
     begin
@@ -38,7 +41,24 @@ begin
   if not Login then Terminate;
   //Your logged in here on promet DB
 
-
+  aUsers := TUser.Create(nil,Data);
+  aUsers.Filter(Data.QuoteField('LOGINACTIVE')+'='+Data.QuoteValue('N'));
+  aTasks := TTaskList.Create(nil,Data);
+  aUsers.First;
+  while not aUsers.EOF do
+    begin
+      aTasks.Filter(Data.QuoteField('USER')+'='+Data.QuoteValue(aUsers.FieldByName('ACCOUNTNO').AsString)+' AND '+Data.QuoteField('COMPLETED')+'<>'+Data.QuoteValue('Y')+' AND '+Data.QuoteField('SEEN')+'<>'+Data.QuoteValue('Y'));
+      if not aTasks.EOF then
+        writeln(aUsers.Text.AsString);
+      while not aTasks.EOF do
+        begin
+          writeln('  '+aTasks.FieldByName('SUMMARY').AsString);
+          atasks.Next;
+        end;
+      aUsers.Next;
+    end;
+  aUsers.Free;
+  aTasks.Free;
   // stop program loop
   Terminate;
 end;
