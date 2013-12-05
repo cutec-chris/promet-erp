@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="9"/>
+    <PathDelim Value="\"/>
+    <General>
+      <Flags>
+        <LRSInOutputDirectory Value="False"/>
+      </Flags>
+      <MainUnit Value="0"/>
+      <Title Value="cmdln_sample"/>
+      <ActiveWindowIndexAtStart Value="0"/>
+    </General>
+    <VersionInfo>
+      <StringTable ProductVersion=""/>
+    </VersionInfo>
+    <BuildModes Count="1">
+      <Item1 Name="default" Default="True"/>
+    </BuildModes>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IgnoreBinaries Value="False"/>
+      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
+      <ExcludeFileFilter Value="*.(bak|ppu|ppw|o|so);*~;backup"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+        <CommandLineParams Value="--mandant=&quot;TEST&quot;"/>
+        <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
+      </local>
+    </RunParams>
+    <RequiredPackages Count="3">
+      <Item1>
+        <PackageName Value="pcmdprometapp"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="general"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="LCL"/>
+      </Item3>
+    </RequiredPackages>
+    <Units Count="52">
+      <Unit0>
+        <Filename Value="cmdln_sample.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="cmdln_sample"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="28"/>
+        <CursorPos X="1" Y="41"/>
+        <UsageCount Value="56"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="dbsync.lpr"/>
+        <UnitName Value="dbsync"/>
+        <TopLine Value="1"/>
+        <CursorPos X="22" Y="1"/>
+        <UsageCount Value="9"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="udbsyncmain.pas"/>
+        <UnitName Value="udbsyncmain"/>
+        <TopLine Value="70"/>
+        <CursorPos X="1" Y="91"/>
+        <UsageCount Value="9"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="lazarus\components\tdbf\dbflaz.pas"/>
+        <UnitName Value="DBFLaz"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="9"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="udata.pas"/>
+        <ComponentName Value="Data"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="uData"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="600"/>
+        <CursorPos X="1" Y="619"/>
+        <UsageCount Value="23"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="uintfstrconsts.pas"/>
+        <UnitName Value="uIntfStrConsts"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="19" Y="12"/>
+        <UsageCount Value="13"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="uzeosdm.pas"/>
+        <UnitName Value="uZeOSDM"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1613"/>
+        <CursorPos X="24" Y="1624"/>
+        <UsageCount Value="18"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="umessages.pas"/>
+        <UnitName Value="uMessages"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="39"/>
+        <CursorPos X="25" Y="39"/>
+        <UsageCount Value="23"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="lkomponenten\synapse\pop3send.pas"/>
+        <UnitName Value="pop3send"/>
+        <TopLine Value="306"/>
+        <CursorPos X="1" Y="322"/>
+        <UsageCount Value="10"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="lazarus\lcl\controls.pp"/>
+        <UnitName Value="Controls"/>
+        <TopLine Value="39"/>
+        <CursorPos X="3" Y="55"/>
+        <UsageCount Value="9"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="lkomponenten\synapse\synautil.pas"/>
+        <UnitName Value="synautil"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="594"/>
+        <CursorPos X="1" Y="606"/>
+        <UsageCount Value="14"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="E:\lazarus\lcl\include\lclintf.inc"/>
+        <TopLine Value="385"/>
+        <CursorPos X="23" Y="402"/>
+        <UsageCount Value="10"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="E:\lazarus\components\lazreport\source\lr_desgn.pas"/>
+        <UnitName Value="LR_Desgn"/>
+        <TopLine Value="6350"/>
+        <CursorPos X="1" Y="6366"/>
+        <UsageCount Value="9"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="E:\lazarus\lcl\include\rasterimage.inc"/>
+        <TopLine Value="872"/>
+        <CursorPos X="1" Y="894"/>
+        <UsageCount Value="9"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="E:\lazarus\fpc\2.2.2\source\rtl\i386\i386.inc"/>
+        <TopLine Value="1309"/>
+        <CursorPos X="22" Y="1329"/>
+        <UsageCount Value="9"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="E:\lazarus\fpc\2.2.2\source\rtl\objpas\classes\reader.inc"/>
+        <TopLine Value="670"/>
+        <CursorPos X="1" Y="686"/>
+        <UsageCount Value="9"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="E:\lazarus\fpc\2.2.2\source\rtl\inc\except.inc"/>
+        <TopLine Value="177"/>
+        <CursorPos X="30" Y="196"/>
+        <UsageCount Value="9"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="E:\ureportdata.pas"/>
+        <ComponentName Value="ReportData"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="uReportData"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="9"/>
+        <CursorPos X="16" Y="13"/>
+        <UsageCount Value="32"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="E:\lkomponenten\synapse\mimepart.pas"/>
+        <UnitName Value="mimepart"/>
+        <TopLine Value="197"/>
+        <CursorPos X="15" Y="209"/>
+        <UsageCount Value="17"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="E:\zeos\src\dbc\ZDbcSqLiteUtils.pas"/>
+        <UnitName Value="ZDbcSqLiteUtils"/>
+        <TopLine Value="213"/>
+        <CursorPos X="1" Y="236"/>
+        <UsageCount Value="11"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="E:\zeos\src\dbc\ZDbcUtils.pas"/>
+        <UnitName Value="ZDbcUtils"/>
+        <TopLine Value="355"/>
+        <CursorPos X="32" Y="375"/>
+        <UsageCount Value="9"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="E:\zeos\src\component\ZAbstractDataset.pas"/>
+        <UnitName Value="ZAbstractDataset"/>
+        <TopLine Value="408"/>
+        <CursorPos X="36" Y="419"/>
+        <UsageCount Value="10"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="E:\lazarus\lcl\interfaces\win32\win32wscontrols.pp"/>
+        <UnitName Value="Win32WSControls"/>
+        <TopLine Value="212"/>
+        <CursorPos X="1" Y="224"/>
+        <UsageCount Value="10"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="E:\lazarus\lcl\fileutil.pas"/>
+        <UnitName Value="FileUtil"/>
+        <TopLine Value="170"/>
+        <CursorPos X="10" Y="186"/>
+        <UsageCount Value="10"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="E:\fparchive\AbTempFileStream.pas"/>
+        <UnitName Value="AbTempFileStream"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit24>
+      <Unit25>
+        <Filename Value="E:\ubasedatamodule.pas"/>
+        <UnitName Value="uBaseDataModule"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="375"/>
+        <CursorPos X="47" Y="386"/>
+        <UsageCount Value="15"/>
+      </Unit25>
+      <Unit26>
+        <Filename Value="E:\zeos\src\plain\ZPlainSqLiteDriver.pas"/>
+        <UnitName Value="ZPlainSqLiteDriver"/>
+        <TopLine Value="756"/>
+        <CursorPos X="1" Y="772"/>
+        <UsageCount Value="10"/>
+      </Unit26>
+      <Unit27>
+        <Filename Value="E:\udocumentmanagement.pas"/>
+        <UnitName Value="uDocumentmanagement"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="21" Y="1"/>
+        <UsageCount Value="15"/>
+      </Unit27>
+      <Unit28>
+        <Filename Value="E:\rss.xml"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="13"/>
+        <DefaultSyntaxHighlighter Value="XML"/>
+      </Unit28>
+      <Unit29>
+        <Filename Value="E:\pop3receiver.lpr"/>
+        <UnitName Value="pop3receiver"/>
+        <TopLine Value="258"/>
+        <CursorPos X="1" Y="267"/>
+        <UsageCount Value="11"/>
+      </Unit29>
+      <Unit30>
+        <Filename Value="E:\lazarus\fpc\2.2.4\source\packages\hash\src\md5.pp"/>
+        <UnitName Value="md5"/>
+        <TopLine Value="132"/>
+        <CursorPos X="19" Y="154"/>
+        <UsageCount Value="10"/>
+      </Unit30>
+      <Unit31>
+        <Filename Value="E:\lazarus\fpc\2.2.4\source\rtl\objpas\sysutils\datih.inc"/>
+        <TopLine Value="118"/>
+        <CursorPos X="10" Y="130"/>
+        <UsageCount Value="11"/>
+      </Unit31>
+      <Unit32>
+        <Filename Value="E:\components\zeos\src\component\ZAbstractRODataset.pas"/>
+        <UnitName Value="ZAbstractRODataset"/>
+        <TopLine Value="2621"/>
+        <CursorPos X="1" Y="2633"/>
+        <SyntaxHighlighter Value="Delphi"/>
+        <UsageCount Value="13"/>
+      </Unit32>
+      <Unit33>
+        <Filename Value="E:\general\src\Utils.pas"/>
+        <UnitName Value="Utils"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="7"/>
+        <CursorPos X="36" Y="15"/>
+        <UsageCount Value="12"/>
+      </Unit33>
+      <Unit34>
+        <Filename Value="E:\lazarus\fpc\2.2.4\source\rtl\objpas\sysutils\dati.inc"/>
+        <TopLine Value="657"/>
+        <CursorPos X="35" Y="661"/>
+        <UsageCount Value="11"/>
+      </Unit34>
+      <Unit35>
+        <Filename Value="E:\lazarus\fpc\2.2.4\source\rtl\objpas\sysutils\sysinth.inc"/>
+        <TopLine Value="45"/>
+        <CursorPos X="30" Y="55"/>
+        <UsageCount Value="11"/>
+      </Unit35>
+      <Unit36>
+        <Filename Value="E:\lazarus\fpc\2.2.4\source\packages\fcl-xml\src\dom.pp"/>
+        <UnitName Value="DOM"/>
+        <TopLine Value="253"/>
+        <CursorPos X="14" Y="265"/>
+        <UsageCount Value="10"/>
+      </Unit36>
+      <Unit37>
+        <Filename Value="E:\lazarus\ideintf\projectresourcesintf.pas"/>
+        <UnitName Value="ProjectResourcesIntf"/>
+        <TopLine Value="81"/>
+        <CursorPos X="35" Y="20"/>
+        <UsageCount Value="10"/>
+      </Unit37>
+      <Unit38>
+        <Filename Value="C:\FPC\2.4.0\source\fpcsrc\packages\fcl-db\src\dbase\dbf.pas"/>
+        <UnitName Value="dbf"/>
+        <TopLine Value="414"/>
+        <CursorPos X="24" Y="425"/>
+        <UsageCount Value="10"/>
+      </Unit38>
+      <Unit39>
+        <Filename Value="E:\components\zeos\src\dbc\ZDbcDbLib.pas"/>
+        <UnitName Value="ZDbcDbLib"/>
+        <TopLine Value="370"/>
+        <CursorPos X="28" Y="384"/>
+        <SyntaxHighlighter Value="Delphi"/>
+        <UsageCount Value="10"/>
+      </Unit39>
+      <Unit40>
+        <Filename Value="E:\uappconsts.pas"/>
+        <UnitName Value="uappconsts"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2"/>
+        <CursorPos X="87" Y="19"/>
+        <UsageCount Value="10"/>
+      </Unit40>
+      <Unit41>
+        <Filename Value="..\..\..\LKomponenten\zeos\src\plain\ZPlainDbLibDriver.pas"/>
+        <UnitName Value="ZPlainDbLibDriver"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1193"/>
+        <CursorPos X="1" Y="1212"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit41>
+      <Unit42>
+        <Filename Value="ubasedatamodule.pas"/>
+        <UnitName Value="uBaseDataModule"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2622"/>
+        <CursorPos X="37" Y="2603"/>
+        <UsageCount Value="11"/>
+      </Unit42>
+      <Unit43>
+        <Filename Value="C:\Programme\lazarus\lcl\interfaces\win32\win32wscontrols.pp"/>
+        <UnitName Value="Win32WSControls"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="248"/>
+        <CursorPos X="26" Y="269"/>
+        <UsageCount Value="10"/>
+      </Unit43>
+      <Unit44>
+        <Filename Value="..\..\..\LKomponenten\zeos\src\component\ZConnection.pas"/>
+        <UnitName Value="ZConnection"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1090"/>
+        <CursorPos X="22" Y="1135"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit44>
+      <Unit45>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.0\source\rtl\objpas\types.pp"/>
+        <UnitName Value="types"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="44"/>
+        <CursorPos X="3" Y="63"/>
+        <UsageCount Value="10"/>
+      </Unit45>
+      <Unit46>
+        <Filename Value="..\..\..\LKomponenten\zeos\src\dbc\ZDbcIntfs.pas"/>
+        <UnitName Value="ZDbcIntfs"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="357"/>
+        <CursorPos X="42" Y="364"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit46>
+      <Unit47>
+        <Filename Value="C:\Programme\lazarus\fpc\2.4.0\source\rtl\objpas\classes\classesh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="622"/>
+        <CursorPos X="14" Y="641"/>
+        <UsageCount Value="10"/>
+      </Unit47>
+      <Unit48>
+        <Filename Value="..\..\..\LKomponenten\zeos\src\component\ZAbstractRODataset.pas"/>
+        <UnitName Value="ZAbstractRODataset"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2628"/>
+        <CursorPos X="54" Y="2675"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit48>
+      <Unit49>
+        <Filename Value="..\..\..\LKomponenten\zeos\src\dbc\ZDbcConnection.pas"/>
+        <UnitName Value="ZDbcConnection"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="213"/>
+        <CursorPos X="30" Y="232"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit49>
+      <Unit50>
+        <Filename Value="..\..\..\LKomponenten\zeos\src\dbc\ZDbcDbLibMsSqlMetadata.pas"/>
+        <UnitName Value="ZDbcDbLibMsSqlMetadata"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="19"/>
+        <CursorPos X="3" Y="2467"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit50>
+      <Unit51>
+        <Filename Value="..\messageimport\pop3receiver.lpr"/>
+        <UnitName Value="pop3receiver"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="548"/>
+        <CursorPos X="1" Y="565"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit51>
+    </Units>
+    <JumpHistory Count="7" HistoryIndex="6">
+      <Position1>
+        <Filename Value="..\messageimport\pop3receiver.lpr"/>
+        <Caret Line="64" Column="19" TopLine="46"/>
+      </Position1>
+      <Position2>
+        <Filename Value="cmdln_sample.lpr"/>
+        <Caret Line="11" Column="37" TopLine="1"/>
+      </Position2>
+      <Position3>
+        <Filename Value="cmdln_sample.lpr"/>
+        <Caret Line="3" Column="27" TopLine="1"/>
+      </Position3>
+      <Position4>
+        <Filename Value="cmdln_sample.lpr"/>
+        <Caret Line="11" Column="46" TopLine="1"/>
+      </Position4>
+      <Position5>
+        <Filename Value="cmdln_sample.lpr"/>
+        <Caret Line="12" Column="77" TopLine="1"/>
+      </Position5>
+      <Position6>
+        <Filename Value="cmdln_sample.lpr"/>
+        <Caret Line="13" Column="19" TopLine="1"/>
+      </Position6>
+      <Position7>
+        <Filename Value="cmdln_sample.lpr"/>
+        <Caret Line="15" Column="22" TopLine="1"/>
+      </Position7>
+    </JumpHistory>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="11"/>
+    <PathDelim Value="\"/>
+    <SearchPaths>
+      <OtherUnitFiles Value="..\base"/>
+      <UnitOutputDirectory Value="..\..\output\$(TargetCPU)-$(TargetOS)"/>
+    </SearchPaths>
+    <Parsing>
+      <SyntaxOptions>
+        <CStyleOperator Value="False"/>
+        <UseAnsiStrings Value="False"/>
+      </SyntaxOptions>
+    </Parsing>
+    <Linking>
+      <Debugging>
+        <UseExternalDbgSyms Value="True"/>
+      </Debugging>
+    </Linking>
+    <Other>
+      <CompilerMessages>
+        <UseMsgFile Value="True"/>
+      </CompilerMessages>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
+  </CompilerOptions>
+  <Debugging>
+    <BreakPoints Count="4">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsGlobal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="E:\umain.pas"/>
+        <Line Value="1220"/>
+      </Item1>
+      <Item2>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsGlobal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="E:\uregister.pas"/>
+        <Line Value="62"/>
+      </Item2>
+      <Item3>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsGlobal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="E:\umessages.pas"/>
+        <Line Value="893"/>
+      </Item3>
+      <Item4>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsGlobal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="E:\umessages.pas"/>
+        <Line Value="922"/>
+      </Item4>
+    </BreakPoints>
+    <Watches Count="2">
+      <Item1>
+        <Expression Value="FMasterSources[2]"/>
+      </Item1>
+      <Item2>
+        <Expression Value="TDataSource(FMasterSources[TableIndex]).FDataSet"/>
+      </Item2>
+    </Watches>
+    <Exceptions Count="1">
+      <Item1>
+        <Name Value="EConvertError"/>
+      </Item1>
+    </Exceptions>
+  </Debugging>
+  <EditorMacros Count="0"/>
+</CONFIG>
