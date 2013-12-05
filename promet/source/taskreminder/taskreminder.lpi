@@ -46,12 +46,11 @@
         <Filename Value="taskreminder.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="taskreminder"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="28"/>
-        <CursorPos X="199" Y="50"/>
-        <UsageCount Value="57"/>
+        <TopLine Value="25"/>
+        <CursorPos X="17" Y="44"/>
+        <UsageCount Value="60"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit0>
@@ -436,17 +435,18 @@
         <WindowIndex Value="0"/>
         <TopLine Value="548"/>
         <CursorPos X="1" Y="565"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit51>
       <Unit52>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1011"/>
-        <CursorPos X="1" Y="1043"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="193"/>
+        <CursorPos X="15" Y="210"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit52>
       <Unit53>
@@ -454,132 +454,132 @@
         <UnitName Value="uBaseDBInterface"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1187"/>
-        <CursorPos X="1" Y="1195"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="276"/>
+        <CursorPos X="29" Y="305"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit53>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="taskreminder.lpr"/>
-        <Caret Line="52" Column="1" TopLine="37"/>
+        <Caret Line="57" Column="1" TopLine="37"/>
       </Position1>
       <Position2>
         <Filename Value="taskreminder.lpr"/>
-        <Caret Line="57" Column="1" TopLine="37"/>
+        <Caret Line="50" Column="1" TopLine="37"/>
       </Position2>
       <Position3>
         <Filename Value="taskreminder.lpr"/>
-        <Caret Line="50" Column="1" TopLine="37"/>
+        <Caret Line="51" Column="1" TopLine="37"/>
       </Position3>
       <Position4>
         <Filename Value="taskreminder.lpr"/>
-        <Caret Line="51" Column="1" TopLine="37"/>
+        <Caret Line="52" Column="1" TopLine="37"/>
       </Position4>
       <Position5>
         <Filename Value="taskreminder.lpr"/>
-        <Caret Line="52" Column="1" TopLine="37"/>
+        <Caret Line="57" Column="1" TopLine="37"/>
       </Position5>
       <Position6>
         <Filename Value="taskreminder.lpr"/>
-        <Caret Line="57" Column="1" TopLine="37"/>
+        <Caret Line="50" Column="1" TopLine="37"/>
       </Position6>
       <Position7>
         <Filename Value="taskreminder.lpr"/>
-        <Caret Line="50" Column="1" TopLine="37"/>
+        <Caret Line="51" Column="1" TopLine="37"/>
       </Position7>
       <Position8>
         <Filename Value="taskreminder.lpr"/>
-        <Caret Line="51" Column="1" TopLine="37"/>
+        <Caret Line="52" Column="1" TopLine="37"/>
       </Position8>
       <Position9>
         <Filename Value="taskreminder.lpr"/>
-        <Caret Line="52" Column="1" TopLine="37"/>
+        <Caret Line="57" Column="1" TopLine="37"/>
       </Position9>
       <Position10>
         <Filename Value="taskreminder.lpr"/>
-        <Caret Line="57" Column="1" TopLine="37"/>
+        <Caret Line="50" Column="1" TopLine="37"/>
       </Position10>
       <Position11>
         <Filename Value="taskreminder.lpr"/>
-        <Caret Line="50" Column="1" TopLine="37"/>
+        <Caret Line="51" Column="1" TopLine="37"/>
       </Position11>
       <Position12>
         <Filename Value="taskreminder.lpr"/>
-        <Caret Line="51" Column="1" TopLine="37"/>
+        <Caret Line="52" Column="1" TopLine="37"/>
       </Position12>
       <Position13>
         <Filename Value="taskreminder.lpr"/>
-        <Caret Line="52" Column="1" TopLine="37"/>
+        <Caret Line="57" Column="1" TopLine="37"/>
       </Position13>
       <Position14>
         <Filename Value="taskreminder.lpr"/>
-        <Caret Line="57" Column="1" TopLine="37"/>
+        <Caret Line="50" Column="1" TopLine="37"/>
       </Position14>
       <Position15>
         <Filename Value="taskreminder.lpr"/>
-        <Caret Line="50" Column="1" TopLine="37"/>
+        <Caret Line="51" Column="1" TopLine="37"/>
       </Position15>
       <Position16>
         <Filename Value="taskreminder.lpr"/>
-        <Caret Line="51" Column="1" TopLine="37"/>
+        <Caret Line="52" Column="1" TopLine="37"/>
       </Position16>
       <Position17>
         <Filename Value="taskreminder.lpr"/>
-        <Caret Line="52" Column="1" TopLine="37"/>
+        <Caret Line="57" Column="1" TopLine="37"/>
       </Position17>
       <Position18>
         <Filename Value="taskreminder.lpr"/>
-        <Caret Line="57" Column="1" TopLine="37"/>
+        <Caret Line="50" Column="1" TopLine="37"/>
       </Position18>
       <Position19>
         <Filename Value="taskreminder.lpr"/>
-        <Caret Line="50" Column="1" TopLine="37"/>
+        <Caret Line="51" Column="1" TopLine="37"/>
       </Position19>
       <Position20>
         <Filename Value="taskreminder.lpr"/>
-        <Caret Line="51" Column="1" TopLine="37"/>
+        <Caret Line="52" Column="1" TopLine="37"/>
       </Position20>
       <Position21>
         <Filename Value="taskreminder.lpr"/>
-        <Caret Line="52" Column="1" TopLine="37"/>
+        <Caret Line="57" Column="1" TopLine="37"/>
       </Position21>
       <Position22>
         <Filename Value="taskreminder.lpr"/>
-        <Caret Line="57" Column="1" TopLine="37"/>
+        <Caret Line="50" Column="1" TopLine="37"/>
       </Position22>
       <Position23>
         <Filename Value="taskreminder.lpr"/>
-        <Caret Line="50" Column="1" TopLine="37"/>
+        <Caret Line="51" Column="1" TopLine="37"/>
       </Position23>
       <Position24>
         <Filename Value="taskreminder.lpr"/>
-        <Caret Line="51" Column="1" TopLine="37"/>
+        <Caret Line="52" Column="3" TopLine="37"/>
       </Position24>
       <Position25>
         <Filename Value="taskreminder.lpr"/>
-        <Caret Line="52" Column="1" TopLine="37"/>
+        <Caret Line="50" Column="199" TopLine="28"/>
       </Position25>
       <Position26>
         <Filename Value="taskreminder.lpr"/>
-        <Caret Line="57" Column="1" TopLine="37"/>
+        <Caret Line="44" Column="17" TopLine="28"/>
       </Position26>
       <Position27>
-        <Filename Value="taskreminder.lpr"/>
-        <Caret Line="50" Column="1" TopLine="37"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1940" Column="31" TopLine="1931"/>
       </Position27>
       <Position28>
-        <Filename Value="taskreminder.lpr"/>
-        <Caret Line="51" Column="1" TopLine="37"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1944" Column="34" TopLine="1922"/>
       </Position28>
       <Position29>
         <Filename Value="taskreminder.lpr"/>
-        <Caret Line="52" Column="3" TopLine="37"/>
+        <Caret Line="44" Column="17" TopLine="25"/>
       </Position29>
       <Position30>
-        <Filename Value="taskreminder.lpr"/>
-        <Caret Line="50" Column="1" TopLine="27"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="210" Column="26" TopLine="192"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -609,7 +609,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="5">
+    <BreakPoints Count="4">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsGlobal"/>
@@ -638,13 +638,6 @@
         <Source Value="E:\umessages.pas"/>
         <Line Value="922"/>
       </Item4>
-      <Item5>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="taskreminder.lpr"/>
-        <Line Value="60"/>
-      </Item5>
     </BreakPoints>
     <Watches Count="2">
       <Item1>

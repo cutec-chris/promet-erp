@@ -1430,6 +1430,7 @@ begin
   FDB.Users.Options.Open;
   if AppendToActiveList then
     FDB.AppendUserToActiveList;
+  FDB.Users.LoginWasOK;
   Result := True;
 end;
 function TBaseDBInterface.LoadMandants(aConfigPath: string): Boolean;

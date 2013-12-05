@@ -207,6 +207,7 @@ type
     function GetRandomSalt : string;
     function CheckPasswort(aPasswort : string) : Boolean;
     function CheckSHA1Passwort(aPasswort : string) : Boolean;
+    procedure LoginWasOK;
     procedure SelectByAccountno(aAccountno : string);virtual;
     property History : TBaseHistory read FHistory;
     property WorkTime : Extended read GetWorktime;
@@ -1854,6 +1855,7 @@ begin
             Add('USEWORKTIME',ftInteger,0,false);
             Add('LOGINACTIVE',ftString,1,false);
             Add('REMOTEACCESS',ftString,1,false);
+            Add('LASTLOGIN',ftDateTime,0,false);
           end;
       if Assigned(ManagedIndexdefs) then
         with ManagedIndexDefs do
@@ -1934,6 +1936,17 @@ var
 begin
   aRes := '$'+SHA1Print(SHA1String(aPasswort));
   Result := (copy(aRes,0,length(Passwort.AsString)) = Passwort.AsString) and (length(Passwort.AsString) > 30);
+end;
+
+procedure TUser.LoginWasOK;
+begin
+  with DataSet as IBaseManageDB do
+    UpdateStdFields := False;
+  DataSet.Edit;
+  FieldByName('LASTLOGIN').AsDateTime:=Now();
+  DataSet.Post;
+  with DataSet as IBaseManageDB do
+    UpdateStdFields := True;
 end;
 
 procedure TUser.SelectByAccountno(aAccountno: string);
