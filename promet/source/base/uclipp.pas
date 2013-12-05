@@ -39,7 +39,7 @@ procedure AddToMainTree(MainNode : TTreeNode = nil);
 
 implementation
 
-uses uMainTreeFrame,uData;
+uses LCLIntf,LCLType,uMainTreeFrame,uData;
 
 procedure AddToMainTree(MainNode : TTreeNode = nil);
 var
@@ -87,13 +87,67 @@ begin
 end;
 
 procedure TClipp.AddFromClipboard;
+var
+  GlobalStream: TMemoryStream;
+  i: Integer;
+  aMStream: TMemoryStream;
+  aOK: Boolean;
+  aFormat: LongWord;
+  aMime: String;
 begin
-
+  if not CanEdit then DataSet.Edit;
+  GlobalStream := TMemoryStream.Create;
+  for i := 0 to Clipboard.FormatCount-1 do
+    begin
+      aMStream := TMemoryStream.Create;
+      try
+        aOK := Clipboard.GetFormat(Clipboard.Formats[i],aMStream);
+      except
+        aOK := false;
+      end;
+      if aOK  then
+        begin
+          aFormat := Clipboard.Formats[i];
+          aMime := ClipboardFormatToMimeType(aFormat);
+          aMStream.Position:=0;
+          GlobalStream.WriteAnsiString(aMime);
+          GlobalStream.WriteDWord(aFormat);
+          GlobalStream.WriteDWord(aMStream.Size);
+          GlobalStream.CopyFrom(aMStream,0);
+          aMStream.Position:=0;
+        end;
+      aMStream.Free;
+    end;
+  Data.StreamToBlobField(GlobalStream,DataSet,'DATA');
+  GlobalStream.Free;
 end;
 
 procedure TClipp.RestoreToClipboard;
+var
+  GlobalStream: TMemoryStream;
+  aMime: String;
+  aFormat: Cardinal;
+  aSize: Cardinal;
+  aMStream: TMemoryStream;
 begin
-
+  Clipboard.Clear;
+  GlobalStream := TMemoryStream.Create;
+  Data.BlobFieldToStream(DataSet,'DATA',GlobalStream);
+  GlobalStream.Position:=0;
+  while GlobalStream.Position<GlobalStream.Size do
+    begin
+      aMime := GlobalStream.ReadAnsiString;
+      aFormat := GlobalStream.ReadDWord;
+      if Clipboard.FindFormatID(aMime) = 0 then
+        aFormat := RegisterClipboardFormat(aMime);
+      aSize := GlobalStream.ReadDWord;
+      aMStream := TMemoryStream.Create;
+      aMStream.CopyFrom(GlobalStream,aSize);
+      aMStream.Position:=0;
+      Clipboard.AddFormat(aFormat,aMStream);
+      aMStream.Free;
+    end;
+  GlobalStream.Free;
 end;
 
 end.

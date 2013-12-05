@@ -1,11 +1,12 @@
 object fMain: TfMain
-  Left = 416
-  Height = 477
-  Top = 201
-  Width = 677
+  Left = 425
+  Height = 507
+  Top = 222
+  Width = 731
+  ActiveControl = eSearch
   Caption = 'Clipp'
-  ClientHeight = 457
-  ClientWidth = 677
+  ClientHeight = 487
+  ClientWidth = 731
   Color = clWindow
   Menu = MainMenu
   OnClose = FormClose
@@ -14,61 +15,126 @@ object fMain: TfMain
   LCLVersion = '1.3'
   object tvMain: TPanel
     Left = 0
-    Height = 423
+    Height = 453
     Top = 34
-    Width = 226
+    Width = 275
     Align = alLeft
     BevelOuter = bvNone
+    ClientHeight = 453
+    ClientWidth = 275
     TabOrder = 0
+    object Panel3: TPanel
+      Left = 0
+      Height = 30
+      Top = 0
+      Width = 275
+      Align = alTop
+      BevelOuter = bvNone
+      ClientHeight = 30
+      ClientWidth = 275
+      TabOrder = 0
+      object eSearch: TEdit
+        Left = 8
+        Height = 21
+        Top = 6
+        Width = 264
+        Anchors = [akTop, akLeft, akRight]
+        TabOrder = 0
+      end
+    end
   end
   object Splitter1: TSplitter
-    Left = 226
-    Height = 423
+    Left = 275
+    Height = 453
     Top = 34
     Width = 5
   end
   object Panel2: TPanel
-    Left = 231
-    Height = 423
+    Left = 280
+    Height = 453
     Top = 34
-    Width = 446
+    Width = 451
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 423
-    ClientWidth = 446
+    ClientHeight = 453
+    ClientWidth = 451
+    Enabled = False
     TabOrder = 2
     OnClick = Panel2Click
-    object lbFormats: TListBox
-      Left = 9
-      Height = 80
-      Top = 338
-      Width = 432
-      Anchors = [akLeft, akRight, akBottom]
-      ItemHeight = 0
+    object eName: TEdit
+      Left = 1
+      Height = 21
+      Top = 30
+      Width = 437
+      Anchors = [akTop, akLeft, akRight]
       TabOrder = 0
     end
-    object Image1: TImage
-      Left = 271
-      Height = 170
-      Top = 182
-      Width = 170
+    object Label1: TLabel
+      Left = 1
+      Height = 13
+      Top = 14
+      Width = 27
+      Caption = 'Name'
+      ParentColor = False
     end
     object Memo1: TMemo
-      Left = 9
-      Height = 170
-      Top = 182
-      Width = 254
-      Lines.Strings = (
-        'Memo1'
-      )
+      Left = 1
+      Height = 272
+      Top = 78
+      Width = 253
+      Anchors = [akTop, akLeft, akRight, akBottom]
       TabOrder = 1
+    end
+    object Label2: TLabel
+      Left = 1
+      Height = 13
+      Top = 62
+      Width = 64
+      Caption = 'Beschreibung'
+      ParentColor = False
+    end
+    object Panel1: TPanel
+      Left = 262
+      Height = 166
+      Top = 80
+      Width = 176
+      Anchors = [akTop, akRight]
+      BevelOuter = bvLowered
+      Caption = 'kein Bild'
+      ClientHeight = 166
+      ClientWidth = 176
+      TabOrder = 2
+      object Image1: TImage
+        Left = 1
+        Height = 164
+        Top = 1
+        Width = 174
+        Align = alClient
+      end
+    end
+    object lbFormats: TListBox
+      Left = 1
+      Height = 72
+      Top = 372
+      Width = 437
+      Anchors = [akLeft, akRight, akBottom]
+      ItemHeight = 0
+      TabOrder = 3
+    end
+    object Label3: TLabel
+      Left = 1
+      Height = 13
+      Top = 355
+      Width = 28
+      Caption = 'Inahlt'
+      ParentColor = False
     end
   end
   object ToolBar1: TToolBar
     Left = 0
     Height = 34
     Top = 0
-    Width = 677
+    Width = 731
     ButtonHeight = 32
     ButtonWidth = 32
     Caption = 'ToolBar1'
@@ -76,16 +142,17 @@ object fMain: TfMain
     EdgeInner = esNone
     EdgeOuter = esNone
     Flat = False
+    Images = fVisualControls.Images
     TabOrder = 3
     object bNew: TToolButton
       Left = 33
       Top = 0
-      Caption = 'acAdd'
+      Action = acAdd
     end
     object brestore: TToolButton
       Left = 1
       Top = 0
-      Caption = 'acRestore'
+      Action = acRestore
     end
   end
   object MainMenu: TMainMenu
@@ -100,9 +167,6 @@ object fMain: TfMain
         Action = acLogout
       end
     end
-    object miView: TMenuItem
-      Caption = 'Ansicht'
-    end
     object miOptions: TMenuItem
       Caption = 'Optionen'
       object miLanguage: TMenuItem
@@ -111,30 +175,28 @@ object fMain: TfMain
     end
   end
   object ActionList2: TActionList
+    Images = fVisualControls.Images
     left = 44
     top = 148
     object acLogin: TAction
       Caption = 'Anmelden'
+      ImageIndex = 12
       OnExecute = acLoginExecute
     end
     object acLogout: TAction
       Caption = 'Abmelden'
       Enabled = False
+      ImageIndex = 17
       OnExecute = acLogoutExecute
-    end
-    object acNewStatistic: TAction
-      Caption = 'neue Statistik'
-      ImageIndex = 88
-    end
-    object acCloseTab: TAction
-      Caption = 'acCloseTab'
     end
     object acAdd: TAction
       Caption = 'acAdd'
+      ImageIndex = 88
       OnExecute = acAddExecute
     end
     object acRestore: TAction
       Caption = 'acRestore'
+      ImageIndex = 111
       OnExecute = acRestoreExecute
     end
   end

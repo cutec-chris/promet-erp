@@ -25,18 +25,21 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ExtCtrls, ComCtrls, ActnList,Clipbrd, Menus,process;
+  ExtCtrls, ComCtrls, ActnList,Clipbrd, Menus,process,uclipp,uMainTreeFrame;
 
 type
   TfMain = class(TForm)
-    acCloseTab: TAction;
     acLogin: TAction;
     acLogout: TAction;
-    acNewStatistic: TAction;
     acAdd: TAction;
     acRestore: TAction;
     ActionList2: TActionList;
+    eSearch: TEdit;
+    eName: TEdit;
     Image1: TImage;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
     lbFormats: TListBox;
     MainMenu: TMainMenu;
     Memo1: TMemo;
@@ -45,7 +48,8 @@ type
     miLanguage: TMenuItem;
     miMandant: TMenuItem;
     miOptions: TMenuItem;
-    miView: TMenuItem;
+    Panel1: TPanel;
+    Panel3: TPanel;
     tvMain: TPanel;
     Panel2: TPanel;
     Splitter1: TSplitter;
@@ -56,6 +60,7 @@ type
     procedure acLoginExecute(Sender: TObject);
     procedure acLogoutExecute(Sender: TObject);
     procedure acRestoreExecute(Sender: TObject);
+    procedure fMainTreeFrameSelectionChanged(aEntry: TTreeEntry);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -65,16 +70,18 @@ type
   public
     { public declarations }
     GlobalStream : TMemoryStream;
+    DataSet : TClipp;
     procedure DoCreate;
+    procedure RefreshView;
   end;
 
 var
   fMain: TfMain;
 
 implementation
-uses LCLIntf,LCLType,uBaseApplication, uData, uBaseDbInterface,
+uses uBaseApplication, uData, uBaseDbInterface,
   uDocuments,uFilterFrame,uIntfStrConsts,uPrometFrames,uBaseDbClasses,
-  uWikiFrame,uMainTreeFrame,uClipp;
+  uWikiFrame;
 {$R *.lfm}
 
 procedure TfMain.acAddExecute(Sender: TObject);
@@ -88,37 +95,16 @@ var
   aMStream: TMemoryStream;
   aFStream: TFileStream;
   aOK: Boolean;
+  aName: String;
 begin
-  lbFormats.Clear;
-  FreeAndNil(GlobalStream);
-  GlobalStream := TMemoryStream.Create;
-  for i := 0 to Clipboard.FormatCount-1 do
+  if InputQuery(strName,strName,aName) then
     begin
-      aMStream := TMemoryStream.Create;
-      try
-        aOK := Clipboard.GetFormat(Clipboard.Formats[i],aMStream);
-      except
-        aOK := false;
-      end;
-      if aOK  then
-        begin
-          aFormat := Clipboard.Formats[i];
-          aMime := ClipboardFormatToMimeType(aFormat);
-          lbFormats.Items.Add(aMime);
-
-          aMStream.Position:=0;
-          GlobalStream.WriteAnsiString(aMime);
-          GlobalStream.WriteDWord(aFormat);
-          GlobalStream.WriteDWord(aMStream.Size);
-          GlobalStream.CopyFrom(aMStream,0);
-          aMStream.Position:=0;
-        end;
-      aMStream.Free;
+      DataSet.Insert;
+      DataSet.FieldByName('NAME').AsString:=aName;
+      DataSet.AddFromClipboard;
+      RefreshView;
+      DataSet.Post;
     end;
-  Image1.Picture.Clear;
-  if Clipboard.HasPictureFormat then
-    Image1.Picture.LoadFromClipboardFormat(Clipboard.FindPictureFormatID);
-  Memo1.Text := Clipboard.AsText;
 end;
 
 procedure TfMain.acLoginExecute(Sender: TObject);
@@ -149,27 +135,13 @@ begin
 end;
 
 procedure TfMain.acRestoreExecute(Sender: TObject);
-var
-  aFormat: Cardinal;
-  aMStream: TMemoryStream;
-  aSize: Cardinal;
-  aMime: String;
 begin
-  Clipboard.Clear;
-  GlobalStream.Position:=0;
-  while GlobalStream.Position<GlobalStream.Size do
-    begin
-      aMime := GlobalStream.ReadAnsiString;
-      aFormat := GlobalStream.ReadDWord;
-      if Clipboard.FindFormatID(aMime) = 0 then
-        aFormat := RegisterClipboardFormat(aMime);
-      aSize := GlobalStream.ReadDWord;
-      aMStream := TMemoryStream.Create;
-      aMStream.CopyFrom(GlobalStream,aSize);
-      aMStream.Position:=0;
-      Clipboard.AddFormat(aFormat,aMStream);
-      aMStream.Free;
-    end;
+  DataSet.RestoreToClipboard;
+end;
+
+procedure TfMain.fMainTreeFrameSelectionChanged(aEntry: TTreeEntry);
+begin
+  FreeAndnil(DataSet);
 end;
 
 procedure TfMain.FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -183,6 +155,7 @@ begin
   fMainTreeFrame.Parent := tvMain;
   fMainTreeFrame.Align:=alClient;
   fMainTreeFrame.SearchOptions:='CLIPP';
+  fMainTreeFrame.OnSelectionChanged:=@fMainTreeFrameSelectionChanged;
 end;
 
 procedure TfMain.FormShow(Sender: TObject);
@@ -209,6 +182,13 @@ begin
     end;
   with Application as IBaseDbInterface do
     LoadMandants;
+end;
+
+procedure TfMain.RefreshView;
+begin
+  Image1.Picture.Clear;
+  Memo1.Lines.Clear;
+  eName.Text:='';
 end;
 
 end.
