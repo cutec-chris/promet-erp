@@ -69,7 +69,6 @@ type
     { private declarations }
   public
     { public declarations }
-    GlobalStream : TMemoryStream;
     DataSet : TClipp;
     procedure DoCreate;
     procedure RefreshView;
@@ -82,6 +81,8 @@ implementation
 uses uBaseApplication, uData, uBaseDbInterface,
   uDocuments,uFilterFrame,uIntfStrConsts,uPrometFrames,uBaseDbClasses,
   uWikiFrame;
+resourcestring
+  strDirmustSelected                 = 'Wählen (oder erstellen) Sie ein Verzeichnis um den Eintrag abzulegen.';
 {$R *.lfm}
 
 procedure TfMain.acAddExecute(Sender: TObject);
@@ -96,15 +97,27 @@ var
   aFStream: TFileStream;
   aOK: Boolean;
   aName: String;
+  ParentID: String;
 begin
-  if InputQuery(strName,strName,aName) then
+  if Assigned(fMainTreeFrame.tvMain.Selected)
+  and (TTreeEntry(fMainTreeFrame.tvMain.Selected.Data).Typ = etDir) then
     begin
-      DataSet.Insert;
-      DataSet.FieldByName('NAME').AsString:=aName;
-      DataSet.AddFromClipboard;
-      RefreshView;
-      DataSet.Post;
-    end;
+      if InputQuery(strName,strName,aName) then
+        begin
+          DataSet.Insert;
+          DataSet.FieldByName('NAME').AsString:=aName;
+          Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,False);
+          Data.GotoBookmark(Data.Tree,TTreeEntry(fMainTreeFrame.tvMain.Selected.Data).Rec);
+          ParentID := Data.Tree.Id.AsString;
+          DataSet.FieldByName('TREEENTRY').AsString:=ParentID;
+          DataSet.AddFromClipboard;
+          RefreshView;
+          DataSet.Post;
+          fMainTreeFrame.tvMain.Selected.Collapse(False);
+          fMainTreeFrame.tvMain.Selected.Expand(False);
+        end;
+    end
+  else Showmessage(strDirmustSelected);
 end;
 
 procedure TfMain.acLoginExecute(Sender: TObject);
@@ -126,10 +139,12 @@ begin
   uClipp.AddToMainTree;
   if fMainTreeFrame.tvMain.Items.Count>0 then
     fMainTreeFrame.tvMain.Items[0].Expanded:=True;
+  DataSet := TClipp.Create(nil,Data);
 end;
 
 procedure TfMain.acLogoutExecute(Sender: TObject);
 begin
+  DataSet.Free;
   with Application as IBaseApplication do
     Logout;
 end;
@@ -141,12 +156,10 @@ end;
 
 procedure TfMain.fMainTreeFrameSelectionChanged(aEntry: TTreeEntry);
 begin
-  FreeAndnil(DataSet);
 end;
 
 procedure TfMain.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
-  FreeAndNil(GlobalStream);
 end;
 
 procedure TfMain.FormCreate(Sender: TObject);
