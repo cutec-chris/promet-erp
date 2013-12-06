@@ -807,6 +807,7 @@ begin
     etInventory:aImageIndex := 24;
     etMeetings:aImageIndex := 31;
     etTaskPlan,etAttPlan:aImageIndex:=4;
+    etClipboardItem:aImageIndex:=111;
     end;
   if (aImageIndex <> -1) and (not Assigned(aImageList)) then
     aImageList := fVisualControls.Images;

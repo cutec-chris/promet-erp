@@ -25,7 +25,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ExtCtrls, ComCtrls, ActnList,Clipbrd, Menus,process,uclipp,uMainTreeFrame;
+  ExtCtrls, ComCtrls, ActnList, Clipbrd, Menus, Buttons, process, uclipp,
+  uMainTreeFrame;
 
 type
   TfMain = class(TForm)
@@ -33,6 +34,7 @@ type
     acLogout: TAction;
     acAdd: TAction;
     acRestore: TAction;
+    acDelete: TAction;
     ActionList2: TActionList;
     eSearch: TEdit;
     eName: TEdit;
@@ -42,7 +44,7 @@ type
     Label3: TLabel;
     lbFormats: TListBox;
     MainMenu: TMainMenu;
-    Memo1: TMemo;
+    mDesc: TMemo;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
     miLanguage: TMenuItem;
@@ -50,6 +52,7 @@ type
     miOptions: TMenuItem;
     Panel1: TPanel;
     Panel3: TPanel;
+    SpeedButton1: TSpeedButton;
     tvMain: TPanel;
     Panel2: TPanel;
     Splitter1: TSplitter;
@@ -57,13 +60,15 @@ type
     bNew: TToolButton;
     brestore: TToolButton;
     procedure acAddExecute(Sender: TObject);
+    procedure acDeleteExecute(Sender: TObject);
     procedure acLoginExecute(Sender: TObject);
     procedure acLogoutExecute(Sender: TObject);
     procedure acRestoreExecute(Sender: TObject);
+    procedure eNameEditingDone(Sender: TObject);
     procedure fMainTreeFrameSelectionChanged(aEntry: TTreeEntry);
-    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure mDescEditingDone(Sender: TObject);
     procedure Panel2Click(Sender: TObject);
   private
     { private declarations }
@@ -120,6 +125,16 @@ begin
   else Showmessage(strDirmustSelected);
 end;
 
+procedure TfMain.acDeleteExecute(Sender: TObject);
+begin
+  if dataSet.Count>0 then
+    begin
+      DataSet.Delete;
+      fMainTreeFrame.tvMain.Selected.Delete;
+    end;
+  RefreshView;
+end;
+
 procedure TfMain.acLoginExecute(Sender: TObject);
 var
   WikiFrame: TfWikiFrame;
@@ -151,15 +166,28 @@ end;
 
 procedure TfMain.acRestoreExecute(Sender: TObject);
 begin
-  DataSet.RestoreToClipboard;
+  if DataSet.Count>0 then
+    DataSet.RestoreToClipboard;
+end;
+
+procedure TfMain.eNameEditingDone(Sender: TObject);
+begin
+  if DataSet.Count>0 then
+    begin
+      if not DataSet.CanEdit then DataSet.DataSet.Edit;
+      DataSet.FieldByName('NAME').AsString := eName.Text;
+    end;
 end;
 
 procedure TfMain.fMainTreeFrameSelectionChanged(aEntry: TTreeEntry);
 begin
-end;
-
-procedure TfMain.FormClose(Sender: TObject; var CloseAction: TCloseAction);
-begin
+  DataSet.Close;
+  if aEntry.Typ = etClipboardItem then
+    begin
+      DataSet.Filter(aEntry.Filter);
+      DataSet.GotoBookmark(aEntry.Rec);
+    end;
+  RefreshView;
 end;
 
 procedure TfMain.FormCreate(Sender: TObject);
@@ -182,6 +210,15 @@ begin
     end;
 end;
 
+procedure TfMain.mDescEditingDone(Sender: TObject);
+begin
+  if DataSet.Count>0 then
+    begin
+      if not DataSet.CanEdit then DataSet.DataSet.Edit;
+      DataSet.FieldByName('DESCRIPTION').AsString := mDesc.Lines.Text;
+    end;
+end;
+
 procedure TfMain.Panel2Click(Sender: TObject);
 begin
 
@@ -199,9 +236,16 @@ end;
 
 procedure TfMain.RefreshView;
 begin
+  Panel2.Enabled := False;
   Image1.Picture.Clear;
-  Memo1.Lines.Clear;
+  mDesc.Lines.Clear;
   eName.Text:='';
+  if DataSet.Count>0 then
+    begin
+      eName.Text:=DataSet.FieldByName('NAME').AsString;
+      mDesc.Lines.Text:=DataSet.FieldByName('DESCRIPTION').AsString;
+      Panel2.Enabled:=True;
+    end;
 end;
 
 end.

@@ -52,6 +52,7 @@ type
     property DataSet : TDataSet read FDataSet write FDataSet;
     property DataModule : TComponent read FDataModule;
     procedure Open;virtual;
+    procedure Close;virtual;
     function CreateTable : Boolean;virtual;
     procedure DefineFields(aDataSet : TDataSet);virtual;abstract;
     procedure DefineDefaultFields(aDataSet : TDataSet;HasMasterSource : Boolean);
@@ -2091,6 +2092,13 @@ begin
   if DataSet.Active and FDisplayLabelsWasSet then
     SetDisplayLabels(DataSet);
 end;
+
+procedure TBaseDBDataset.Close;
+begin
+  if not Assigned(FDataSet) then exit;
+  FDataSet.Close;
+end;
+
 function TBaseDBDataset.CreateTable : Boolean;
 var
   aOldFilter: String;

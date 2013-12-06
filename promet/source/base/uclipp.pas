@@ -31,6 +31,8 @@ type
   protected
     procedure DefineFields(aDataSet: TDataSet); override;
   public
+    function GetTextFieldName: string;override;
+    function GetNumberFieldName : string;override;
     procedure AddFromClipboard;
     procedure RestoreToClipboard;
   end;
@@ -86,6 +88,16 @@ begin
     end;
 end;
 
+function TClipp.GetTextFieldName: string;
+begin
+  Result := 'NAME';
+end;
+
+function TClipp.GetNumberFieldName: string;
+begin
+  Result := 'SQL_ID';
+end;
+
 procedure TClipp.AddFromClipboard;
 var
   GlobalStream: TMemoryStream;
@@ -118,6 +130,7 @@ begin
         end;
       aMStream.Free;
     end;
+  GlobalStream.Position:=0;
   Data.StreamToBlobField(GlobalStream,DataSet,'DATA');
   GlobalStream.Free;
 end;
