@@ -47,11 +47,10 @@
         <Filename Value="sync_db.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="sync_db"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="327"/>
-        <CursorPos X="14" Y="339"/>
+        <TopLine Value="501"/>
+        <CursorPos X="88" Y="511"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -69,10 +68,11 @@
       <Unit2>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1443"/>
-        <CursorPos X="1" Y="1474"/>
+        <TopLine Value="348"/>
+        <CursorPos X="40" Y="365"/>
         <UsageCount Value="111"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -499,7 +499,7 @@
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="18" Y="24"/>
+        <CursorPos X="79" Y="1"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
@@ -516,123 +516,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="113" Column="1" TopLine="98"/>
+        <Caret Line="119" Column="1" TopLine="98"/>
       </Position1>
       <Position2>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="119" Column="1" TopLine="98"/>
+        <Caret Line="124" Column="1" TopLine="98"/>
       </Position2>
       <Position3>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="124" Column="1" TopLine="98"/>
+        <Caret Line="104" Column="1" TopLine="98"/>
       </Position3>
       <Position4>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="104" Column="1" TopLine="98"/>
+        <Caret Line="106" Column="1" TopLine="98"/>
       </Position4>
       <Position5>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="106" Column="1" TopLine="98"/>
+        <Caret Line="107" Column="1" TopLine="98"/>
       </Position5>
       <Position6>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="107" Column="1" TopLine="98"/>
+        <Caret Line="108" Column="1" TopLine="98"/>
       </Position6>
       <Position7>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="108" Column="1" TopLine="98"/>
+        <Caret Line="111" Column="1" TopLine="98"/>
       </Position7>
       <Position8>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="111" Column="1" TopLine="98"/>
+        <Caret Line="113" Column="1" TopLine="98"/>
       </Position8>
       <Position9>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="113" Column="1" TopLine="98"/>
+        <Caret Line="114" Column="1" TopLine="98"/>
       </Position9>
       <Position10>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="114" Column="1" TopLine="98"/>
+        <Caret Line="119" Column="1" TopLine="98"/>
       </Position10>
       <Position11>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="119" Column="1" TopLine="98"/>
+        <Caret Line="124" Column="1" TopLine="98"/>
       </Position11>
       <Position12>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="124" Column="1" TopLine="98"/>
+        <Caret Line="104" Column="1" TopLine="98"/>
       </Position12>
       <Position13>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="104" Column="1" TopLine="98"/>
+        <Caret Line="106" Column="1" TopLine="98"/>
       </Position13>
       <Position14>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="106" Column="1" TopLine="98"/>
+        <Caret Line="107" Column="1" TopLine="98"/>
       </Position14>
       <Position15>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="107" Column="1" TopLine="98"/>
+        <Caret Line="108" Column="1" TopLine="98"/>
       </Position15>
       <Position16>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="108" Column="1" TopLine="98"/>
+        <Caret Line="111" Column="1" TopLine="98"/>
       </Position16>
       <Position17>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="111" Column="1" TopLine="98"/>
+        <Caret Line="104" Column="1" TopLine="98"/>
       </Position17>
       <Position18>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="104" Column="1" TopLine="98"/>
+        <Caret Line="106" Column="1" TopLine="98"/>
       </Position18>
       <Position19>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="106" Column="1" TopLine="98"/>
+        <Caret Line="107" Column="1" TopLine="98"/>
       </Position19>
       <Position20>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="107" Column="1" TopLine="98"/>
+        <Caret Line="108" Column="1" TopLine="98"/>
       </Position20>
       <Position21>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="108" Column="1" TopLine="98"/>
+        <Caret Line="111" Column="1" TopLine="98"/>
       </Position21>
       <Position22>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="111" Column="1" TopLine="98"/>
+        <Caret Line="113" Column="1" TopLine="98"/>
       </Position22>
       <Position23>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="113" Column="1" TopLine="98"/>
+        <Caret Line="119" Column="1" TopLine="98"/>
       </Position23>
       <Position24>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="119" Column="1" TopLine="98"/>
+        <Caret Line="124" Column="1" TopLine="98"/>
       </Position24>
       <Position25>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="124" Column="1" TopLine="98"/>
+        <Caret Line="106" Column="32" TopLine="92"/>
       </Position25>
       <Position26>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="106" Column="32" TopLine="92"/>
+        <Caret Line="189" Column="71" TopLine="176"/>
       </Position26>
       <Position27>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="189" Column="71" TopLine="176"/>
+        <Caret Line="276" Column="11" TopLine="258"/>
       </Position27>
       <Position28>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="276" Column="11" TopLine="258"/>
+        <Caret Line="210" Column="19" TopLine="196"/>
       </Position28>
       <Position29>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="210" Column="19" TopLine="196"/>
+        <Caret Line="295" Column="14" TopLine="267"/>
       </Position29>
       <Position30>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="295" Column="14" TopLine="267"/>
+        <Caret Line="511" Column="88" TopLine="501"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>

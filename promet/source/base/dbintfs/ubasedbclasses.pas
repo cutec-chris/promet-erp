@@ -1398,10 +1398,8 @@ begin
       DataSet.FieldByName('PARENT').AsString := '0';
       DataSet.FieldByName('TYPE').AsString := 'C';
       DataSet.FieldByName('NAME').AsString := strUnsorted;
-      DataSet.Post;
-      DataSet.Edit;
-      id.AsVariant:=TREE_ID_CUSTOMER_UNSORTED;
-      DataSet.Post;
+      Id.AsVariant:=TREE_ID_CUSTOMER_UNSORTED;
+      Post;
     end;
   if not DataSet.Locate('SQL_ID',TREE_ID_MASTERDATA_UNSORTED,[]) then
     begin
@@ -1409,10 +1407,8 @@ begin
       DataSet.FieldByName('PARENT').AsString := '0';
       DataSet.FieldByName('TYPE').AsString := 'M';
       DataSet.FieldByName('NAME').AsString := strUnsorted;
-      DataSet.Post;
-      DataSet.Edit;
       id.AsVariant:=TREE_ID_MASTERDATA_UNSORTED;
-      DataSet.Post;
+      Post;
     end;
   if not DataSet.Locate('SQL_ID',TREE_ID_PROJECT_UNSORTED,[]) then
     begin
@@ -1423,7 +1419,7 @@ begin
       DataSet.Post;
       DataSet.Edit;
       id.AsVariant:=TREE_ID_PROJECT_UNSORTED;
-      DataSet.Post;
+      Post;
     end;
   if not DataSet.Locate('SQL_ID',TREE_ID_WIKI_UNSORTED,[]) then
     begin
@@ -1431,10 +1427,8 @@ begin
       DataSet.FieldByName('PARENT').AsString := '0';
       DataSet.FieldByName('TYPE').AsString := 'W';
       DataSet.FieldByName('NAME').AsString := strUnsorted;
-      DataSet.Post;
-      DataSet.Edit;
       id.AsVariant:=TREE_ID_WIKI_UNSORTED;
-      DataSet.Post;
+      Post;
     end;
   if not DataSet.Locate('SQL_ID',TREE_ID_MESSAGES,[]) then
     begin
@@ -1442,10 +1436,8 @@ begin
       DataSet.FieldByName('PARENT').AsString := '0';
       DataSet.FieldByName('TYPE').AsString := 'N';
       DataSet.FieldByName('NAME').AsString := strMessages;
-      DataSet.Post;
-      DataSet.Edit;
       id.AsVariant:=TREE_ID_MESSAGES;
-      DataSet.Post;
+      Post;
     end;
   if not DataSet.Locate('SQL_ID',TREE_ID_UNKNOWN_MESSAGES,[]) then
     begin
@@ -1453,8 +1445,6 @@ begin
       DataSet.FieldByName('PARENT').AsString := '0';
       DataSet.FieldByName('TYPE').AsString := 'N';
       DataSet.FieldByName('NAME').AsString := strUnknownMessages;
-      DataSet.Post;
-      DataSet.Edit;
       id.AsVariant:=TREE_ID_UNKNOWN_MESSAGES;
       DataSet.Post;
     end;
@@ -1464,10 +1454,8 @@ begin
       DataSet.FieldByName('PARENT').AsString := '0';
       DataSet.FieldByName('TYPE').AsString := 'N';
       DataSet.FieldByName('NAME').AsString := strSendMessages;
-      DataSet.Post;
-      DataSet.Edit;
       id.AsVariant:=TREE_ID_SEND_MESSAGES;
-      DataSet.Post;
+      Post;
     end;
   if not DataSet.Locate('SQL_ID',TREE_ID_SPAM_MESSAGES,[]) then
     begin
@@ -1475,10 +1463,8 @@ begin
       DataSet.FieldByName('PARENT').AsString := '0';
       DataSet.FieldByName('TYPE').AsString := 'N';
       DataSet.FieldByName('NAME').AsString := strSpam;
-      DataSet.Post;
-      DataSet.Edit;
       id.AsVariant:=TREE_ID_SPAM_MESSAGES;
-      DataSet.Post;
+      Post;
     end;
   if not DataSet.Locate('SQL_ID',TREE_ID_ARCHIVE_MESSAGES,[]) then
     begin
@@ -1486,10 +1472,8 @@ begin
       DataSet.FieldByName('PARENT').AsString := '0';
       DataSet.FieldByName('TYPE').AsString := 'N';
       DataSet.FieldByName('NAME').AsString := strArchive;
-      DataSet.Post;
-      DataSet.Edit;
       id.AsVariant:=TREE_ID_ARCHIVE_MESSAGES;
-      DataSet.Post;
+      Post;
     end;
   if not DataSet.Locate('SQL_ID',TREE_ID_DELETED_MESSAGES,[]) then
     begin
@@ -1497,10 +1481,8 @@ begin
       DataSet.FieldByName('PARENT').AsString := '0';
       DataSet.FieldByName('TYPE').AsString := 'N';
       DataSet.FieldByName('NAME').AsString := strDeletedMessages;
-      DataSet.Post;
-      DataSet.Edit;
       id.AsVariant:=TREE_ID_DELETED_MESSAGES;
-      DataSet.Post;
+      Post;
     end;
   if not DataSet.Locate('SQL_ID',TREE_ID_LOG_MESSAGES,[]) then
     begin
@@ -1508,10 +1490,8 @@ begin
       DataSet.FieldByName('PARENT').AsString := '0';
       DataSet.FieldByName('TYPE').AsString := 'N';
       DataSet.FieldByName('NAME').AsString := strLogMessages;
-      DataSet.Post;
-      DataSet.Edit;
       id.AsVariant:=TREE_ID_LOG_MESSAGES;
-      DataSet.Post;
+      Post;
     end;
 end;
 procedure TTree.DefineFields(aDataSet : TDataSet);
