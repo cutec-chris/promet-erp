@@ -159,6 +159,9 @@ type
     procedure FrameAdded;virtual;
     procedure DoRefresh;virtual;
   end;
+
+  { TExtMenuPageControl }
+
   TExtMenuPageControl = class(TPageControl)
     procedure CloseFrameClick(Sender: TObject);
     procedure ExtMenuPageControlContextPopup(Sender: TObject; MousePos: TPoint;
@@ -400,9 +403,7 @@ var
   aMenu: TMenuItem;
   aControl: TComponent;
 begin
-  {.$IFDEF DARWIN}
   if Sender = nil then exit; //Bug with ActionLists
-  {.$ENDIF}
   if Sender is TTabSheet then
     aPage := Sender as TTabSheet
   else
@@ -428,6 +429,7 @@ begin
         TExtControlFrame(ActivePage.Controls[0]).ShowFrame;
     end;
 end;
+
 procedure TExtMenuPageControl.ExtMenuPageControlContextPopup(Sender: TObject;
   MousePos: TPoint; var Handled: Boolean);
 var
@@ -1138,4 +1140,4 @@ begin
   FCanvas.Free;
 end;
 end.
-
+

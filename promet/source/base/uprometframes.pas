@@ -28,6 +28,7 @@ type
   { TPrometMainFrame }
 
   TPrometMainFrame = class(TExtControlFrame)
+    procedure FwindowClose(Sender: TObject; var CloseAction: TCloseAction);
   private
     FLink: string;
     FUseTransactions: Boolean;
@@ -35,9 +36,11 @@ type
     FDataSet: TBaseDBDataSet;
     FConnection: TComponent;
     FHelpPanel : TPanel;
+    Fwindow : TForm;
     FQuickHelpFrame: TfQuickHelpFrame;
     procedure SetDataSet(const AValue: TBaseDBDataset);virtual;
     procedure DoCloseFrame(Data : PtrInt);
+    procedure DoWindowize(Data : PtrInt);
     procedure DoExit; override;
     procedure DoOpen;virtual;
   public
@@ -51,6 +54,7 @@ type
     procedure New;virtual;
     procedure SetLanguage;virtual;abstract;
     procedure CloseFrame;
+    procedure Windowize;
     function ShowHint(var HintStr: string;var CanShow: Boolean; var HintInfo: THintInfo) : Boolean;virtual;
     function HasHelp : Boolean;
     procedure AddHelp(aWindow : TWinControl);
@@ -59,6 +63,15 @@ type
   end;
 implementation
 uses ComCtrls, uIntfStrConsts,LCLType,LCLIntf,uWiki,uData,uBaseApplication;
+
+procedure TPrometMainFrame.FwindowClose(Sender: TObject;
+  var CloseAction: TCloseAction);
+begin
+  with Application as IBaseDbInterface do
+    DBConfig.WriteRect('WNDPOS:'+ClassName,Fwindow.BoundsRect);
+  CloseAction:=caFree;
+end;
+
 procedure TPrometMainFrame.SetDataSet(const AValue: TBaseDBDataset);
 begin
   if FDataSet=AValue then exit;
@@ -71,6 +84,25 @@ begin
   except
   end;
 end;
+
+procedure TPrometMainFrame.DoWindowize(Data: PtrInt);
+var
+  aRect: TRect;
+begin
+  try
+    FWindow := TForm.Create(Application);
+    Self.Parent := Fwindow;
+    Fwindow.Show;
+    Fwindow.OnClose:=@FwindowClose;
+    FWindow.Caption:=TTabSheet(Data).Caption;
+    with Application as IBaseDbInterface do
+      DBConfig.ReadRect('WNDPOS:'+ClassName,aRect,Fwindow.BoundsRect);
+    Fwindow.BoundsRect:=aRect;
+    TExtMenuPageControl(TTabSheet(Data).PageControl).CloseFrameClick(TTabSheet(Data));
+  except
+  end;
+end;
+
 procedure TPrometMainFrame.DoExit;
 begin
   inherited DoExit;
@@ -160,6 +192,16 @@ begin
       Application.QueueAsyncCall(@DoCloseFrame,PtrInt(Parent));
     end;
 end;
+
+procedure TPrometMainFrame.Windowize;
+begin
+  if (Parent is TTabSheet) and (TTabSheet(Parent).Visible) and (TTabSheet(Parent).PageControl is TExtMenuPageControl) then
+    begin
+      if TTabSheet(Parent).PageControl.ActivePage <> TTabSheet(Parent) then exit;
+      Application.QueueAsyncCall(@DoWindowize,PtrInt(Parent));
+    end;
+end;
+
 function TPrometMainFrame.ShowHint(var HintStr: string; var CanShow: Boolean;
   var HintInfo: THintInfo): Boolean;
 begin

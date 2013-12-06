@@ -1,5 +1,6 @@
 ﻿Build 296
       - Aufgabe: hat Feld Auftrag (z.b. können so über Trigger o.ä. Aufgaben zu erledigten Bestellungen oder Produktionsaufträgen automatisch fertiggestellt werden)
+      - Fenster können ausgedockt werden und als Fliegende Fenster auf andere Desktops oder nebeneinander verschoben werden
 Build 295
       - Suche:Kommission sucht nun bei Mails nach Absender
       - Nachrichtenzentrale: Nachricht abschicken nun mit Enter, neue Zeile mit Strg+Enter

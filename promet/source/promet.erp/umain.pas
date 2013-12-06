@@ -77,6 +77,7 @@ type
     acAttPlan: TAction;
     acNewAccount: TAction;
     acRoughPlanning: TAction;
+    acWindowize: TAction;
     acWiki: TAction;
     ActionList1: TActionList;
     ApplicationProperties1: TApplicationProperties;
@@ -98,6 +99,7 @@ type
     Label6: TLabel;
     MenuItem3: TMenuItem;
     Panel3: TPanel;
+    Panel4: TPanel;
     Panel6: TPanel;
     Panel7: TPanel;
     Panel8: TPanel;
@@ -122,6 +124,7 @@ type
     miLogin: TMenuItem;
     miMandant: TMenuItem;
     SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
     spTree: TSplitter;
     SearchTimer: TTimer;
     tbMenue: TToolButton;
@@ -176,6 +179,7 @@ type
     procedure acTasksExecute(Sender: TObject);
     procedure acTimeRegisteringExecute(Sender: TObject);
     procedure acWikiExecute(Sender: TObject);
+    procedure acWindowizeExecute(Sender: TObject);
     procedure aFrameTfFilterClose(Sender: TObject; var CloseAction: TCloseAction
       );
     procedure aFrameTfFilterDragDrop(Sender, Source: TObject; X, Y: Integer);
@@ -1733,6 +1737,14 @@ begin
       aFrame.SetRights(Data.Users.Rights.Right('WIKI')>RIGHT_READ);
     end;
 end;
+
+procedure TfMain.acWindowizeExecute(Sender: TObject);
+begin
+  if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TPrometMainFrame)
+  and (pcPages.PageCount > 2) then
+    TPrometMainFrame(pcPages.ActivePage.Controls[0]).Windowize;
+end;
+
 procedure TfMain.aFrameTfFilterClose(Sender: TObject;
   var CloseAction: TCloseAction);
 begin
