@@ -30,25 +30,28 @@
         <CommandLineParams Value="--mandant=TestPG --user=Administrator"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="5">
+    <RequiredPackages Count="6">
       <Item1>
-        <PackageName Value="general"/>
+        <PackageName Value="TurboPowerIPro"/>
       </Item1>
       <Item2>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="general"/>
       </Item2>
       <Item3>
-        <PackageName Value="pVisualPrometApp"/>
-        <DefaultFilename Value="../base/pvisualprometapp.lpk"/>
+        <PackageName Value="richmemopackage"/>
       </Item3>
       <Item4>
-        <PackageName Value="FCL"/>
+        <PackageName Value="pVisualPrometApp"/>
+        <DefaultFilename Value="../base/pvisualprometapp.lpk"/>
       </Item4>
       <Item5>
-        <PackageName Value="LCL"/>
+        <PackageName Value="FCL"/>
       </Item5>
+      <Item6>
+        <PackageName Value="LCL"/>
+      </Item6>
     </RequiredPackages>
-    <Units Count="4">
+    <Units Count="5">
       <Unit0>
         <Filename Value="messagemanager.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -78,6 +81,13 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ufollow"/>
       </Unit3>
+      <Unit4>
+        <Filename Value="udetailview.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fDetailView"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="udetailview"/>
+      </Unit4>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -107,7 +117,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="6">
+    <Exceptions Count="7">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -126,6 +136,9 @@
       <Item6>
         <Name Value="EConvertError"/>
       </Item6>
+      <Item7>
+        <Name Value="EInterfaceCritical"/>
+      </Item7>
     </Exceptions>
   </Debugging>
 </CONFIG>

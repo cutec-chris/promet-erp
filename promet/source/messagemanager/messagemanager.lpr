@@ -8,7 +8,7 @@ uses
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, umain, umtimeline, pvisualprometapp, richmemopackage, general,
-  uBaseVisualApplication, ufollow;
+  uBaseVisualApplication, ufollow, udetailview;
 
 {$R *.res}
 

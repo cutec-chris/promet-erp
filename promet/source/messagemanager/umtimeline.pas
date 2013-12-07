@@ -1,3 +1,22 @@
+{*******************************************************************************
+  Copyright (C) Christian Ulrich info@cu-tec.de
+
+  This source is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 2 of the License, or commercial alternative
+  contact us for more information
+
+  This code is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+  details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+  MA 02111-1307, USA.
+Created 07.10.2013
+*******************************************************************************}
 unit umtimeline;
 {$mode objfpc}{$H+}
 interface
@@ -15,15 +34,23 @@ type
     constructor Create;
   end;
 
+  { TfmTimeline }
+
   TfmTimeline = class(TForm)
     acFollow: TAction;
     acRefresh: TAction;
     acSend: TAction;
+    acAnswer: TAction;
+    acDetailView: TAction;
+    acViewThread: TAction;
     ActionList1: TActionList;
     bSend: TBitBtn;
     lbResults: TListBox;
     mEntry: TMemo;
     IdleTimer1: TIdleTimer;
+    MenuItem1: TMenuItem;
+    MenuItem2: TMenuItem;
+    MenuItem3: TMenuItem;
     MenuItem5: TMenuItem;
     MenuItem7: TMenuItem;
     miBugtracker: TMenuItem;
@@ -33,6 +60,7 @@ type
     miRegister: TMenuItem;
     pInput: TPanel;
     Panel2: TPanel;
+    PopupMenu1: TPopupMenu;
     pSearch: TPanel;
     SelectDirectoryDialog1: TSelectDirectoryDialog;
     Timer1: TTimer;
@@ -41,6 +69,8 @@ type
     ToolButton2: TSpeedButton;
     ToolButton3: TToolButton;
     tsHistory: TTabSheet;
+    procedure acAnswerExecute(Sender: TObject);
+    procedure acDetailViewExecute(Sender: TObject);
     procedure acFollowExecute(Sender: TObject);
     procedure acRefreshExecute(Sender: TObject);
     procedure acSendExecute(Sender: TObject);
@@ -86,7 +116,7 @@ var
   fmTimeline: TfmTimeline;
 implementation
 uses uBaseApplication, uData, uBaseDbInterface, uOrder,uMessages,uBaseERPDBClasses,
-  uMain,LCLType,utask,uProcessManager,uprometipc,ProcessUtils,ufollow;
+  uMain,LCLType,utask,uProcessManager,uprometipc,ProcessUtils,ufollow,udetailview;
 resourcestring
   strTo                                  = 'an ';
 
@@ -121,6 +151,8 @@ begin
       fTimeline.gList.OnDblClick:=@fTimelinegListDblClick;
       fTimeline.gList.Options:=fTimeline.gList.Options-[goVertLine];
       fTimeline.gHeader.Options:=fTimeline.gHeader.Options-[goVertLine];
+      fTimeline.gList.PopupMenu := PopupMenu1;
+      fTimeline.OnGetCellText:=@fTimelineGetCellText;
       Data.SetFilter(fTimeline.DataSet,fMain.Filter+' '+fMain.Filter2,300);
       with Application as IBaseApplication do
         Config.ReadRect('TIMELINERECT',aBoundsRect,BoundsRect);
@@ -274,6 +306,42 @@ begin
       Data.SetFilter(fTimeline.DataSet,fMain.Filter+' '+fMain.Filter2,300);
       acRefresh.Execute;
     end;
+end;
+
+procedure TfmTimeline.acAnswerExecute(Sender: TObject);
+var
+  tmp: String;
+begin
+  Application.ProcessMessages;
+  if fTimeline.GotoActiveRow then
+    begin
+      if (fTimeline.DataSet.FieldByName('LINK').AsString <> '')
+      and (fTimeline.DataSet.FieldByName('ACTIONICON').AsString <> '8')
+      then
+        begin
+          if not ProcessExists('prometerp'+ExtractFileExt(Application.ExeName)) then
+            begin
+              ExecProcess(AppendPathDelim(ExpandFileName(AppendPathdelim(Application.Location) + '..'))+'prometerp'+ExtractFileExt(Application.ExeName),'',False);
+            end;
+          SendIPCMessage('OpenLink('+fTimeline.DataSet.FieldByName('LINK').AsString+')');
+        end
+      else if fTimeline.DataSet.FieldByName('REFERENCE').AsString <> '' then
+        begin
+          tmp := fTimeline.DataSet.FieldByName('REFERENCE').AsString;
+          mEntry.Lines.Text:='@'+tmp+' ';
+          mEntry.SelStart:=length(mEntry.Lines.Text);
+          ToolButton2.Down:=True;
+          ToolButton2Click(ToolButton2);
+        end;
+      FParentItem := fTimeline.DataSet.Id.AsVariant;
+      MarkAsRead;
+    end;
+end;
+
+procedure TfmTimeline.acDetailViewExecute(Sender: TObject);
+begin
+  if fTimeline.GotoActiveRow then
+    fDetailView.Execute(TBaseHistory(fTimeline.DataSet));
 end;
 
 procedure TfmTimeline.acSendExecute(Sender: TObject);
@@ -441,6 +509,8 @@ begin
               fTimeline.gList.RowHeights[aRow] := fTimeline.gList.RowHeights[aRow]+12;
             end;
           NewText := TMGridObject(aObj).Caption+lineending+NewText;
+          if length(NewText)>1000 then
+            NewText:=copy(NewText,0,1000)+LineEnding+'...';
         end;
     end
   else if aCol.FieldName='TIMESTAMPD' then
@@ -465,33 +535,8 @@ begin
 end;
 
 procedure TfmTimeline.fTimelinegListDblClick(Sender: TObject);
-var
-  tmp: String;
 begin
-  Application.ProcessMessages;
-  if fTimeline.GotoActiveRow then
-    begin
-      if (fTimeline.DataSet.FieldByName('LINK').AsString <> '')
-      and (fTimeline.DataSet.FieldByName('ACTIONICON').AsString <> '8')
-      then
-        begin
-          if not ProcessExists('prometerp'+ExtractFileExt(Application.ExeName)) then
-            begin
-              ExecProcess(AppendPathDelim(ExpandFileName(AppendPathdelim(Application.Location) + '..'))+'prometerp'+ExtractFileExt(Application.ExeName),'',False);
-            end;
-          SendIPCMessage('OpenLink('+fTimeline.DataSet.FieldByName('LINK').AsString+')');
-        end
-      else if fTimeline.DataSet.FieldByName('REFERENCE').AsString <> '' then
-        begin
-          tmp := fTimeline.DataSet.FieldByName('REFERENCE').AsString;
-          mEntry.Lines.Text:='@'+tmp+' ';
-          mEntry.SelStart:=length(mEntry.Lines.Text);
-          ToolButton2.Down:=True;
-          ToolButton2Click(ToolButton2);
-        end;
-      FParentItem := fTimeline.DataSet.Id.AsVariant;
-      MarkAsRead;
-    end;
+  acAnswer.Execute;
 end;
 
 procedure TfmTimeline.fTimelinegListKeyDown(Sender: TObject; var Key: Word;

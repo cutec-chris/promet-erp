@@ -96,7 +96,7 @@ object fmTimeline: TfmTimeline
       Left = 9
       Height = 39
       Top = 9
-      Width = 478
+      Width = 496
       Align = alClient
       BorderSpacing.Around = 8
       OnKeyDown = mEntryKeyDown
@@ -105,10 +105,10 @@ object fmTimeline: TfmTimeline
       WantReturns = False
     end
     object bSend: TBitBtn
-      Left = 495
+      Left = 513
       Height = 39
       Top = 9
-      Width = 46
+      Width = 28
       Action = acSend
       Align = alRight
       AutoSize = True
@@ -185,6 +185,7 @@ object fmTimeline: TfmTimeline
       ScrollWidth = 342
       TabOrder = 0
       TabStop = False
+      TopIndex = -1
     end
   end
   object ActionList1: TActionList
@@ -205,6 +206,17 @@ object fmTimeline: TfmTimeline
       OnExecute = acSendExecute
       ShortCut = 13
     end
+    object acAnswer: TAction
+      Caption = 'Antworten'
+      OnExecute = acAnswerExecute
+    end
+    object acDetailView: TAction
+      Caption = 'Detailansicht'
+      OnExecute = acDetailViewExecute
+    end
+    object acViewThread: TAction
+      Caption = 'Unterhaltung anzeigen'
+    end
   end
   object SelectDirectoryDialog1: TSelectDirectoryDialog
     left = 128
@@ -224,4 +236,17 @@ object fmTimeline: TfmTimeline
     left = 256
     top = 8
   end
-end
+  object PopupMenu1: TPopupMenu
+    left = 464
+    top = 122
+    object MenuItem2: TMenuItem
+      Action = acDetailView
+    end
+    object MenuItem3: TMenuItem
+      Action = acViewThread
+    end
+    object MenuItem1: TMenuItem
+      Action = acAnswer
+    end
+  end
+end
