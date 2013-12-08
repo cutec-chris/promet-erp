@@ -209,6 +209,7 @@ begin
       AResponse.Location := Redirects.Values[ARequest.PathInfo];
       AResponse.Code := 301;
       AResponse.CodeText := 'Moved Permanently';
+      AResponse.SendContent;
     end
   else if FileExistsUTF8(aPath) and not DirectoryExistsUTF8(aPath) then
     begin
@@ -240,6 +241,7 @@ begin
 
       AResponse.Code := 404;
       AResponse.CodeText := 'Not found';
+      AResponse.SendContent;
       writeln('uerror:file not found'+aPath)
     end;
   Handled := True;
