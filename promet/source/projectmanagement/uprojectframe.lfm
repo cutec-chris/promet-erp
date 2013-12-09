@@ -135,8 +135,8 @@ inherited fprojectFrame: TfprojectFrame
     NewTabImageIndex = 59
     object tsInfo: TTabSheet
       Caption = 'Allgemein'
-      ClientHeight = 327
-      ClientWidth = 726
+      ClientHeight = 654
+      ClientWidth = 1452
       ImageIndex = 62
       object mInfo: TDBMemo
         Left = 8
@@ -1031,8 +1031,8 @@ inherited fprojectFrame: TfprojectFrame
     BevelOuter = bvNone
     BorderStyle = bsSingle
     Caption = 'kein Bild'
-    ClientHeight = 64
-    ClientWidth = 80
+    ClientHeight = 68
+    ClientWidth = 84
     TabOrder = 4
     object iProject: TImage
       Left = 0

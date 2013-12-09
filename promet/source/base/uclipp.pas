@@ -162,8 +162,11 @@ begin
       tmpresult := True;
       aMime := GlobalStream.ReadAnsiString;
       aFormat := GlobalStream.ReadDWord;
-      if Clipboard.FindFormatID(aMime) = 0 then
-        aFormat := RegisterClipboardFormat(aMime);
+      try
+        if Clipboard.FindFormatID(aMime) = 0 then
+          aFormat := RegisterClipboardFormat(aMime);
+      except
+      end;
       aSize := GlobalStream.ReadDWord;
       aMStream := TMemoryStream.Create;
       aMStream.CopyFrom(GlobalStream,aSize);

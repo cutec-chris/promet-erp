@@ -22,10 +22,10 @@ unit uprojectimport;
 interface
 uses
   Classes, SysUtils, uProjects,XMLRead,XMLWrite,DOM,LConvEncoding,uData,uTask,db,
-  Utils,Math,FileUtil,uBaseDBInterface;
+  Utils,Math,FileUtil,uBaseDBInterface,variants;
 //function ImportMPX(aFile : TStream;aProject : TProject) : Boolean; //MS Project ASCII
 function ImportMSPDI(aFile : TStream;aProject : TProject) : Boolean; //MS Project XML
-function ImportGAN(aFile : TStream;aProject : TProject) : Boolean; //Gantt Project
+function ImportGAN(aFile : TStream;aProject : TProject;ReplaceIDs : Boolean = True;ImportAsSnapshot : Boolean = False) : Boolean; //Gantt Project
 function ExportGAN(aFile : TStream;bProject : TProject) : Boolean;
 
 implementation
@@ -37,7 +37,8 @@ begin
 
   aDoc.Free;
 end;
-function ImportGAN(aFile: TStream; aProject: TProject): Boolean;
+function ImportGAN(aFile: TStream; aProject: TProject; ReplaceIDs: Boolean;
+  ImportAsSnapshot: Boolean): Boolean;
 var
   aDoc: TXMLDocument;
   aProjectNode: TDOMNode;
@@ -88,7 +89,7 @@ var
             aTask := aTasks.ChildNodes[i];
             with aProject do
               begin
-                if Tasks.DataSet.Locate('ORIGID',aTask.Attributes.GetNamedItem('id').NodeValue,[]) then
+                if ReplaceIDs and (Tasks.DataSet.Locate('ORIGID;NAME',VarArrayOf([aTask.Attributes.GetNamedItem('id').NodeValue,ConvertEncoding(aTask.Attributes.GetNamedItem('name').NodeValue,GuessEncoding(aTask.Attributes.GetNamedItem('name').NodeValue),EncodingUTF8)]),[])) then
                   Tasks.DataSet.Edit
                 else
                   Tasks.DataSet.Append;
@@ -403,4 +404,4 @@ begin
 end;
 
 end.
-
+
