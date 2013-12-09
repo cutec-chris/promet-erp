@@ -81,7 +81,7 @@ begin
             Add('NAME',ftString,100,True);
             Add('TREEENTRY',ftLargeint,0,False);
             Add('DESCRIPTION',ftMemo,0,False);
-            Add('DATA',ftMemo,0,False);
+            Add('DATA',ftBlob,0,False);
             Add('CREATEDBY',ftString,4,False);
             Add('CHANGEDBY',ftString,4,False);
           end;
@@ -105,7 +105,7 @@ var
   aMStream: TMemoryStream;
   aOK: Boolean;
   aFormat: LongWord;
-  aMime: String;
+  aMime: AnsiString;
 begin
   if not CanEdit then DataSet.Edit;
   GlobalStream := TMemoryStream.Create;
@@ -138,10 +138,11 @@ end;
 procedure TClipp.RestoreToClipboard;
 var
   GlobalStream: TMemoryStream;
-  aMime: String;
+  aMime: AnsiString;
   aFormat: Cardinal;
   aSize: Cardinal;
   aMStream: TMemoryStream;
+  aMimelength: Cardinal;
 begin
   Clipboard.Clear;
   GlobalStream := TMemoryStream.Create;
