@@ -1,7 +1,7 @@
 object fMain: TfMain
-  Left = 407
+  Left = 417
   Height = 507
-  Top = 216
+  Top = 296
   Width = 731
   ActiveControl = eSearch
   Caption = 'Clipp'
@@ -11,6 +11,7 @@ object fMain: TfMain
   Menu = MainMenu
   OnCreate = FormCreate
   OnShow = FormShow
+  Position = poScreenCenter
   LCLVersion = '1.3'
   object tvMain: TPanel
     Left = 0
@@ -284,6 +285,55 @@ object fMain: TfMain
       BevelOuter = bvNone
       TabOrder = 0
     end
+    object pTemp1: TPanel
+      Left = 312
+      Height = 34
+      Top = 0
+      Width = 40
+      Align = alRight
+      BevelOuter = bvLowered
+      Caption = '<leer>'
+      PopupMenu = pmTempBoards
+      TabOrder = 1
+      OnDblClick = pTemp1DblClick
+    end
+    object pTemp2: TPanel
+      Left = 352
+      Height = 34
+      Top = 0
+      Width = 40
+      Align = alRight
+      BevelOuter = bvLowered
+      Caption = '<leer>'
+      PopupMenu = pmTempBoards
+      TabOrder = 2
+      OnDblClick = pTemp1DblClick
+    end
+    object pTemp3: TPanel
+      Left = 392
+      Height = 34
+      Top = 0
+      Width = 40
+      Align = alRight
+      BevelOuter = bvLowered
+      Caption = '<leer>'
+      PopupMenu = pmTempBoards
+      TabOrder = 3
+      OnDblClick = pTemp1DblClick
+    end
+    object pTemp4: TPanel
+      Tag = 4
+      Left = 432
+      Height = 34
+      Top = 0
+      Width = 40
+      Align = alRight
+      BevelOuter = bvLowered
+      Caption = '<leer>'
+      PopupMenu = pmTempBoards
+      TabOrder = 4
+      OnDblClick = pTemp1DblClick
+    end
   end
   object MainMenu: TMainMenu
     left = 44
@@ -355,5 +405,28 @@ object fMain: TfMain
     OnStateChange = DatasourceStateChange
     left = 96
     top = 152
+  end
+  object pmTempBoards: TPopupMenu
+    OnPopup = pmTempBoardsPopup
+    left = 256
+    object miGet: TMenuItem
+      Caption = 'Holen'
+      OnClick = pTemp1DblClick
+    end
+    object miSet: TMenuItem
+      Caption = 'Setzen'
+      OnClick = miSetClick
+    end
+    object miClear: TMenuItem
+      Caption = 'Löschen'
+      OnClick = miClearClick
+    end
+  end
+  object tRefreshTemps: TTimer
+    Enabled = False
+    Interval = 3000
+    OnTimer = tRefreshTempsTimer
+    left = 152
+    top = 100
   end
 end

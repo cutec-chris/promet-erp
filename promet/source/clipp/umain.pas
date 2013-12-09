@@ -46,18 +46,27 @@ type
     Label2: TLabel;
     MainMenu: TMainMenu;
     mDesc: TMemo;
+    miSet: TMenuItem;
+    miGet: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
+    miClear: TMenuItem;
     miLanguage: TMenuItem;
     miMandant: TMenuItem;
     miOptions: TMenuItem;
     Panel1: TPanel;
     Panel3: TPanel;
+    pTemp1: TPanel;
+    pTemp2: TPanel;
+    pTemp3: TPanel;
+    pTemp4: TPanel;
     pClipboard: TPanel;
+    pmTempBoards: TPopupMenu;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
     SpeedButton3: TSpeedButton;
     Timer1: TTimer;
+    tRefreshTemps: TTimer;
     tvMain: TPanel;
     Panel2: TPanel;
     Splitter1: TSplitter;
@@ -81,12 +90,18 @@ type
     procedure FormShow(Sender: TObject);
     procedure mDescEditingDone(Sender: TObject);
     procedure mDescKeyPress(Sender: TObject; var Key: char);
+    procedure miClearClick(Sender: TObject);
+    procedure miSetClick(Sender: TObject);
+    procedure pmTempBoardsPopup(Sender: TObject);
+    procedure pTemp1DblClick(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
+    procedure tRefreshTempsTimer(Sender: TObject);
   private
     { private declarations }
   public
     { public declarations }
     DataSet : TClipp;
+    TempDataSet : TClipp;
     SearchDS : TClipp;
     procedure DoCreate;
     procedure RefreshView;
@@ -102,6 +117,7 @@ resourcestring
   strDirmustSelected                 = 'Wählen (oder erstellen) Sie ein Verzeichnis um den Eintrag abzulegen.';
   strRestoreCompleted                = 'in Zwischenablage';
   strRestorePartCompleted            = 'teilweise in Zwischenablage';
+  strClear                           = '<leer>';
 {$R *.lfm}
 procedure TfMain.acAddExecute(Sender: TObject);
 var
@@ -172,11 +188,13 @@ begin
   if fMainTreeFrame.tvMain.Items.Count>0 then
     fMainTreeFrame.tvMain.Items[0].Expanded:=True;
   DataSet := TClipp.Create(nil,Data);
+  TempDataSet := TClipp.Create(nil,Data);
   Datasource.DataSet := DataSet.DataSet;
   SearchDS := TClipp.Create(nil,Data);
 end;
 procedure TfMain.acLogoutExecute(Sender: TObject);
 begin
+  TempDataSet.Free;
   DataSet.Free;
   SearchDS.Free;
   with Application as IBaseApplication do
@@ -284,6 +302,73 @@ begin
   mDescEditingDone(Sender);
 end;
 
+procedure TfMain.miClearClick(Sender: TObject);
+var
+  aCon: TComponent;
+  aTag: PtrInt;
+begin
+  aTag := TComponent(Sender).Tag;
+  TempDataSet.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue('Temp'+IntToStr(aTag)));
+  while TempDataSet.Count>0 do
+    TempDataSet.Delete;
+  aCon := FindComponent('pTemp'+IntToStr(aTag));
+  if Assigned(aCon) then
+    TPanel(aCon).Caption:=strClear;
+end;
+
+procedure TfMain.miSetClick(Sender: TObject);
+var
+  aTag: PtrInt;
+  aCon: TComponent;
+begin
+  aTag := TComponent(Sender).Tag;
+  TempDataSet.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue('Temp'+IntToStr(aTag)));
+  if TempDataSet.Count>0 then
+    TempDataSet.DataSet.Edit
+  else
+    begin
+      TempDataSet.Append;
+      TempDataSet.FieldByName('NAME').AsString:='Temp'+IntToStr(aTag);
+    end;
+  TempDataSet.AddFromClipboard;
+  TempDataSet.Post;
+  aCon := FindComponent('pTemp'+IntToStr(aTag));
+  if Assigned(aCon) then
+    TPanel(aCon).Caption:=TempDataSet.FieldByName('CHANGEDBY').AsString;
+end;
+
+procedure TfMain.pmTempBoardsPopup(Sender: TObject);
+var
+  aCon: TControl;
+begin
+  aCon := ControlAtPos(Mouse.CursorPos,False,True);
+  if Assigned(aCon) then
+    pmTempBoards.Tag := aCon.Tag;
+end;
+
+procedure TfMain.pTemp1DblClick(Sender: TObject);
+var
+  aTag: PtrInt;
+  aRes: TRestoreResult;
+begin
+  aTag := TComponent(Sender).Tag;
+  TempDataSet.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue('Temp'+IntToStr(aTag)));
+  if TempDataSet.Count>0 then
+    begin
+      aRes := DataSet.RestoreToClipboard;
+      if aRes = rrFully then
+        begin
+          pClipboard.Caption:=strRestoreCompleted;
+          pClipboard.Color:=clLime;
+        end
+      else if aRes = rrPartially then
+        begin
+          pClipboard.Caption:=strRestorePartCompleted;
+          pClipboard.Color:=clYellow;
+        end;
+    end;
+end;
+
 procedure TfMain.Timer1Timer(Sender: TObject);
   function NodeThere(aRec : largeInt) : TTreeNode;
   var
@@ -331,19 +416,39 @@ begin
       SearchDS.Filter(data.ProcessTerm(Data.QuoteField('NAME')+'='+Data.QuoteValue('*'+eSearch.Text+'*')),1);
       if SearchDS.Count>0 then
         begin
-          aParent := ExpandDir(SearchDS.FieldByName('TREEENTRY').AsVariant);
-          if Assigned(aParent) then
+          while not SearchDS.EOF do
             begin
-              for i := 0 to aParent.Count-1 do
+              aParent := ExpandDir(SearchDS.FieldByName('TREEENTRY').AsVariant);
+              if Assigned(aParent) then
                 begin
-                  if Assigned(aParent.Items[i].Data) and (TTreeEntry(aParent.Items[i].Data).Rec = SearchDS.Id.AsVariant) then
+                  for i := 0 to aParent.Count-1 do
                     begin
-                      fMainTreeFrame.tvMain.Selected:=aParent.Items[i];
-                      break;
+                      if Assigned(aParent.Items[i].Data) and (TTreeEntry(aParent.Items[i].Data).Rec = SearchDS.Id.AsVariant) then
+                        begin
+                          fMainTreeFrame.tvMain.Selected:=aParent.Items[i];
+                          exit;
+                        end;
                     end;
                 end;
+              SearchDS.Next;
             end;
         end;
+    end;
+end;
+
+procedure TfMain.tRefreshTempsTimer(Sender: TObject);
+var
+  i: Integer;
+begin
+  for i := 0 to ToolBar1.ComponentCount-1 do
+    if copy(ToolBar1.Components[i].Name,0,5) = 'pTemp' then
+      TPanel(ToolBar1.Components[i]).Caption:=strClear;
+  TempDataSet.Filter(Data.ProcessTerm(Data.QuoteField('NAME')+'='+Data.QuoteValue('Temp*')));
+  while not TempDataSet.EOF do
+    begin
+      if Assigned(FindComponent('p'+TempDataSet.FieldByName('NAME').AsString)) then
+        TPanel(FindComponent('p'+TempDataSet.FieldByName('NAME').AsString)).Caption:=TempDataSet.FieldByName('CHANGEDBY').AsString;
+      TempDataSet.Next;
     end;
 end;
 
