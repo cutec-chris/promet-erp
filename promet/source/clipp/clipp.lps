@@ -21,11 +21,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="umain"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="77"/>
-        <CursorPos X="70" Y="94"/>
-        <FoldState Value=" T5if01 T4j102 T3lE07U"/>
+        <TopLine Value="225"/>
+        <CursorPos X="26" Y="227"/>
+        <FoldState Value=" T5j801 T4jB02 T3m007Y"/>
         <UsageCount Value="37"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -96,13 +97,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="umain"/>
-        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="62"/>
         <CursorPos X="66" Y="66"/>
         <UsageCount Value="13"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit10>
       <Unit11>
         <Filename Value="..\base\uwikiframe.pas"/>
@@ -123,21 +121,19 @@
       <Unit13>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1041"/>
         <CursorPos X="1" Y="1052"/>
         <UsageCount Value="12"/>
-        <Loaded Value="True"/>
       </Unit13>
       <Unit14>
         <Filename Value="..\base\dbintfs\uintfstrconsts.pas"/>
         <UnitName Value="uIntfStrConsts"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="52" Y="29"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit14>
       <Unit15>
@@ -146,11 +142,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMainTreeFrame"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="323"/>
         <CursorPos X="3" Y="327"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit15>
@@ -180,40 +176,35 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="20" Y="1"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit18>
       <Unit19>
         <Filename Value="..\base\uclipp.pas"/>
         <UnitName Value="uclipp"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="157"/>
-        <CursorPos X="42" Y="188"/>
-        <UsageCount Value="13"/>
+        <TopLine Value="1"/>
+        <CursorPos X="44" Y="165"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit19>
       <Unit20>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="574"/>
         <CursorPos X="3" Y="581"/>
         <UsageCount Value="12"/>
-        <Loaded Value="True"/>
       </Unit20>
       <Unit21>
         <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1452"/>
         <CursorPos X="1" Y="1484"/>
         <UsageCount Value="13"/>
-        <Loaded Value="True"/>
       </Unit21>
       <Unit22>
         <Filename Value="C:\Programme\lazarus\fpc\2.6.2\source\rtl\objpas\classes\classesh.inc"/>
@@ -252,123 +243,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="..\base\uclipp.pas"/>
-        <Caret Line="165" Column="1" TopLine="153"/>
+        <Caret Line="169" Column="1" TopLine="153"/>
       </Position1>
       <Position2>
         <Filename Value="..\base\uclipp.pas"/>
-        <Caret Line="166" Column="1" TopLine="153"/>
+        <Caret Line="170" Column="1" TopLine="153"/>
       </Position2>
       <Position3>
         <Filename Value="..\base\uclipp.pas"/>
-        <Caret Line="167" Column="1" TopLine="153"/>
+        <Caret Line="171" Column="1" TopLine="153"/>
       </Position3>
       <Position4>
         <Filename Value="..\base\uclipp.pas"/>
-        <Caret Line="168" Column="1" TopLine="153"/>
+        <Caret Line="172" Column="1" TopLine="153"/>
       </Position4>
       <Position5>
         <Filename Value="..\base\uclipp.pas"/>
-        <Caret Line="169" Column="1" TopLine="153"/>
+        <Caret Line="182" Column="1" TopLine="153"/>
       </Position5>
       <Position6>
         <Filename Value="..\base\uclipp.pas"/>
-        <Caret Line="170" Column="1" TopLine="153"/>
+        <Caret Line="183" Column="1" TopLine="153"/>
       </Position6>
       <Position7>
         <Filename Value="..\base\uclipp.pas"/>
-        <Caret Line="171" Column="1" TopLine="153"/>
+        <Caret Line="184" Column="1" TopLine="153"/>
       </Position7>
       <Position8>
         <Filename Value="..\base\uclipp.pas"/>
-        <Caret Line="172" Column="1" TopLine="153"/>
+        <Caret Line="162" Column="1" TopLine="153"/>
       </Position8>
       <Position9>
         <Filename Value="..\base\uclipp.pas"/>
-        <Caret Line="182" Column="1" TopLine="153"/>
+        <Caret Line="163" Column="1" TopLine="153"/>
       </Position9>
       <Position10>
         <Filename Value="..\base\uclipp.pas"/>
-        <Caret Line="183" Column="1" TopLine="153"/>
+        <Caret Line="164" Column="1" TopLine="153"/>
       </Position10>
       <Position11>
         <Filename Value="..\base\uclipp.pas"/>
-        <Caret Line="184" Column="1" TopLine="153"/>
+        <Caret Line="186" Column="1" TopLine="155"/>
       </Position11>
       <Position12>
         <Filename Value="..\base\uclipp.pas"/>
-        <Caret Line="162" Column="1" TopLine="153"/>
+        <Caret Line="188" Column="1" TopLine="157"/>
       </Position12>
       <Position13>
-        <Filename Value="..\base\uclipp.pas"/>
-        <Caret Line="163" Column="1" TopLine="153"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="94" Column="70" TopLine="1"/>
       </Position13>
       <Position14>
-        <Filename Value="..\base\uclipp.pas"/>
-        <Caret Line="164" Column="1" TopLine="153"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="95" Column="70" TopLine="54"/>
       </Position14>
       <Position15>
-        <Filename Value="..\base\uclipp.pas"/>
-        <Caret Line="165" Column="1" TopLine="153"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="96" Column="70" TopLine="55"/>
       </Position15>
       <Position16>
-        <Filename Value="..\base\uclipp.pas"/>
-        <Caret Line="166" Column="1" TopLine="153"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="97" Column="70" TopLine="56"/>
       </Position16>
       <Position17>
-        <Filename Value="..\base\uclipp.pas"/>
-        <Caret Line="167" Column="1" TopLine="153"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="70" Column="5" TopLine="75"/>
       </Position17>
       <Position18>
-        <Filename Value="..\base\uclipp.pas"/>
-        <Caret Line="168" Column="1" TopLine="153"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="231" Column="3" TopLine="223"/>
       </Position18>
       <Position19>
-        <Filename Value="..\base\uclipp.pas"/>
-        <Caret Line="169" Column="1" TopLine="153"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="245" Column="14" TopLine="223"/>
       </Position19>
       <Position20>
-        <Filename Value="..\base\uclipp.pas"/>
-        <Caret Line="170" Column="1" TopLine="153"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="84" Column="14" TopLine="66"/>
       </Position20>
       <Position21>
-        <Filename Value="..\base\uclipp.pas"/>
-        <Caret Line="171" Column="1" TopLine="153"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="165" Column="40" TopLine="132"/>
       </Position21>
       <Position22>
-        <Filename Value="..\base\uclipp.pas"/>
-        <Caret Line="172" Column="1" TopLine="153"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="206" Column="1" TopLine="193"/>
       </Position22>
       <Position23>
-        <Filename Value="..\base\uclipp.pas"/>
-        <Caret Line="182" Column="1" TopLine="153"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="200" Column="1" TopLine="186"/>
       </Position23>
       <Position24>
-        <Filename Value="..\base\uclipp.pas"/>
-        <Caret Line="183" Column="1" TopLine="153"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="73" Column="1" TopLine="54"/>
       </Position24>
       <Position25>
-        <Filename Value="..\base\uclipp.pas"/>
-        <Caret Line="184" Column="1" TopLine="153"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="205" Column="16" TopLine="202"/>
       </Position25>
       <Position26>
-        <Filename Value="..\base\uclipp.pas"/>
-        <Caret Line="162" Column="1" TopLine="153"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="142" Column="1" TopLine="122"/>
       </Position26>
       <Position27>
-        <Filename Value="..\base\uclipp.pas"/>
-        <Caret Line="163" Column="1" TopLine="153"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="215" Column="1" TopLine="194"/>
       </Position27>
       <Position28>
-        <Filename Value="..\base\uclipp.pas"/>
-        <Caret Line="164" Column="1" TopLine="153"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="75" Column="1" TopLine="57"/>
       </Position28>
       <Position29>
-        <Filename Value="..\base\uclipp.pas"/>
-        <Caret Line="186" Column="1" TopLine="155"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="268" Column="3" TopLine="265"/>
       </Position29>
       <Position30>
-        <Filename Value="..\base\uclipp.pas"/>
-        <Caret Line="188" Column="1" TopLine="157"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="284" Column="26" TopLine="282"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>

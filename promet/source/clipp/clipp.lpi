@@ -28,19 +28,22 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="4">
+    <RequiredPackages Count="5">
       <Item1>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="FCL"/>
       </Item1>
       <Item2>
-        <PackageName Value="phelp"/>
+        <PackageName Value="richmemopackage"/>
       </Item2>
       <Item3>
-        <PackageName Value="pVisualPrometApp"/>
+        <PackageName Value="phelp"/>
       </Item3>
       <Item4>
-        <PackageName Value="LCL"/>
+        <PackageName Value="pVisualPrometApp"/>
       </Item4>
+      <Item5>
+        <PackageName Value="LCL"/>
+      </Item5>
     </RequiredPackages>
     <Units Count="3">
       <Unit0>

@@ -35,7 +35,10 @@ type
     acAdd: TAction;
     acRestore: TAction;
     acDelete: TAction;
+    acSave: TAction;
+    acCancel: TAction;
     ActionList2: TActionList;
+    Datasource: TDatasource;
     eSearch: TEdit;
     eName: TEdit;
     Image1: TImage;
@@ -52,6 +55,8 @@ type
     Panel3: TPanel;
     pClipboard: TPanel;
     SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    SpeedButton3: TSpeedButton;
     Timer1: TTimer;
     tvMain: TPanel;
     Panel2: TPanel;
@@ -60,17 +65,22 @@ type
     bNew: TToolButton;
     brestore: TToolButton;
     procedure acAddExecute(Sender: TObject);
+    procedure acCancelExecute(Sender: TObject);
     procedure acDeleteExecute(Sender: TObject);
     procedure acLoginExecute(Sender: TObject);
     procedure acLogoutExecute(Sender: TObject);
     procedure acRestoreExecute(Sender: TObject);
+    procedure acSaveExecute(Sender: TObject);
+    procedure DatasourceStateChange(Sender: TObject);
     procedure eNameEditingDone(Sender: TObject);
+    procedure eNameKeyPress(Sender: TObject; var Key: char);
     procedure eSearchKeyPress(Sender: TObject; var Key: char);
     function fMainTreeFrameOpen(aEntry: TTreeEntry): Boolean;
     procedure fMainTreeFrameSelectionChanged(aEntry: TTreeEntry);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure mDescEditingDone(Sender: TObject);
+    procedure mDescKeyPress(Sender: TObject; var Key: char);
     procedure Timer1Timer(Sender: TObject);
   private
     { private declarations }
@@ -127,6 +137,12 @@ begin
     end
   else Showmessage(strDirmustSelected);
 end;
+
+procedure TfMain.acCancelExecute(Sender: TObject);
+begin
+  DataSet.DataSet.Cancel;
+end;
+
 procedure TfMain.acDeleteExecute(Sender: TObject);
 begin
   if dataSet.Count>0 then
@@ -156,6 +172,7 @@ begin
   if fMainTreeFrame.tvMain.Items.Count>0 then
     fMainTreeFrame.tvMain.Items[0].Expanded:=True;
   DataSet := TClipp.Create(nil,Data);
+  Datasource.DataSet := DataSet.DataSet;
   SearchDS := TClipp.Create(nil,Data);
 end;
 procedure TfMain.acLogoutExecute(Sender: TObject);
@@ -184,6 +201,18 @@ begin
         end;
     end;
 end;
+
+procedure TfMain.acSaveExecute(Sender: TObject);
+begin
+  DataSet.Post;
+end;
+
+procedure TfMain.DatasourceStateChange(Sender: TObject);
+begin
+  acSave.Enabled:=DataSet.CanEdit;
+  acCancel.Enabled:=DataSet.CanEdit;
+end;
+
 procedure TfMain.eNameEditingDone(Sender: TObject);
 begin
   if DataSet.Count>0 then
@@ -192,6 +221,12 @@ begin
       DataSet.FieldByName('NAME').AsString := eName.Text;
     end;
 end;
+
+procedure TfMain.eNameKeyPress(Sender: TObject; var Key: char);
+begin
+  eNameEditingDone(Sender);
+end;
+
 procedure TfMain.eSearchKeyPress(Sender: TObject; var Key: char);
 begin
   Timer1.Enabled:=True;
@@ -242,6 +277,11 @@ begin
       if not DataSet.CanEdit then DataSet.DataSet.Edit;
       DataSet.FieldByName('DESCRIPTION').AsString := mDesc.Lines.Text;
     end;
+end;
+
+procedure TfMain.mDescKeyPress(Sender: TObject; var Key: char);
+begin
+  mDescEditingDone(Sender);
 end;
 
 procedure TfMain.Timer1Timer(Sender: TObject);
