@@ -1205,7 +1205,7 @@ begin
                                       FieldByName('ID').AsString      := aID;
                                       FieldByName('VERSION').AsString := aVersion;
                                       FieldByName('LANGUAGE').AsString := aLanguage;
-                                      FieldByName('SERIAL').AsString  := Masterdata.Storage.Serials.FieldByName('SERIAL').AsString;
+                                      FieldByName('SERIAL').AsString  := Masterdata.Serials.FieldByName('SERIAL').AsString;
                                       FieldByName('QUANTITY').AsFloat := 1;
                                       FieldByName('QUANTITYU').AsString := QuantityUnit;
                                       Post;
@@ -1232,7 +1232,7 @@ begin
                                       FieldByName('ID').AsString      := aID;
                                       FieldByName('VERSION').AsString := aVersion;
                                       FieldByName('LANGUAGE').AsString := aLanguage;
-                                      FieldByName('SERIAL').AsString  := Masterdata.Storage.Serials.FieldByName('SERIAL').AsString;
+                                      FieldByName('SERIAL').AsString  := Masterdata.Serials.FieldByName('SERIAL').AsString;
                                       FieldByName('QUANTITY').AsFloat := -1;
                                       FieldByName('QUANTITYU').AsString := QuantityUnit;
                                       Post;
@@ -1643,4 +1643,4 @@ begin
 end;
 initialization
 end.
-
+

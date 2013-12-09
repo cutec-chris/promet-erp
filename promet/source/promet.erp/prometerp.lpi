@@ -181,7 +181,6 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--config-path=/home/chris/.promet-erp-devel"/>
       </local>
     </RunParams>
     <RequiredPackages Count="22">
@@ -289,15 +288,15 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
         <IsVisibleTab Value="True"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1079"/>
-        <CursorPos X="17" Y="1101"/>
+        <TopLine Value="1086"/>
+        <CursorPos X="47" Y="1097"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="3">
           <Item0 X="2" Y="732" ID="0"/>
           <Item1 X="6" Y="929" ID="1"/>
-          <Item2 X="1" Y="2972" ID="2"/>
+          <Item2 X="1" Y="2974" ID="2"/>
         </Bookmarks>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -305,7 +304,7 @@
       <Unit2>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="832"/>
         <CursorPos X="22" Y="846"/>
@@ -366,7 +365,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPrometFrames"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="87"/>
         <CursorPos X="45" Y="97"/>
@@ -502,7 +501,7 @@
       <Unit19>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1278"/>
         <CursorPos X="1" Y="1298"/>
@@ -512,7 +511,7 @@
       <Unit20>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1400"/>
         <CursorPos X="1" Y="1431"/>
@@ -522,10 +521,12 @@
       <Unit21>
         <Filename Value="../base/dbintfs/uorder.pas"/>
         <UnitName Value="uOrder"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="483"/>
-        <CursorPos X="1" Y="500"/>
+        <TopLine Value="1216"/>
+        <CursorPos X="85" Y="1235"/>
         <UsageCount Value="83"/>
+        <Loaded Value="True"/>
       </Unit21>
       <Unit22>
         <Filename Value="../base/dbintfs/uperson.pas"/>
@@ -573,10 +574,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uArticleStorageFrame"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="39"/>
-        <CursorPos X="30" Y="67"/>
+        <TopLine Value="30"/>
+        <CursorPos X="15" Y="56"/>
         <UsageCount Value="202"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit26>
       <Unit27>
         <Filename Value="utextframe.pas"/>
@@ -592,7 +596,7 @@
       <Unit28>
         <Filename Value="../base/dbintfs/ubaseerpdbclasses.pas"/>
         <UnitName Value="uBaseERPDBClasses"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="63"/>
         <CursorPos X="34" Y="74"/>
@@ -614,10 +618,12 @@
       <Unit30>
         <Filename Value="../base/dbintfs/umasterdata.pas"/>
         <UnitName Value="uMasterdata"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="323"/>
-        <CursorPos X="25" Y="342"/>
+        <TopLine Value="471"/>
+        <CursorPos X="1" Y="485"/>
         <UsageCount Value="81"/>
+        <Loaded Value="True"/>
       </Unit30>
       <Unit31>
         <Filename Value="uarticlepositionframe.pas"/>
@@ -744,10 +750,12 @@
         <ComponentName Value="FArticlerepairFrame"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uarticlerepairframe"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="35" Y="15"/>
+        <TopLine Value="15"/>
+        <CursorPos X="10" Y="24"/>
         <UsageCount Value="275"/>
+        <Loaded Value="True"/>
       </Unit41>
       <Unit42>
         <Filename Value="usystemoptions.pas"/>
@@ -948,7 +956,7 @@
       <Unit60>
         <Filename Value="../base/dbintfs/uintfstrconsts.pas"/>
         <UnitName Value="uIntfStrConsts"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="63" Y="29"/>
@@ -1035,7 +1043,7 @@
       <Unit68>
         <Filename Value="../base/dbintfs/utask.pas"/>
         <UnitName Value="utask"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="455"/>
         <CursorPos X="32" Y="475"/>
@@ -1044,7 +1052,7 @@
       </Unit68>
       <Unit69>
         <Filename Value="../base/revision.inc"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="33" Y="1"/>
@@ -1056,7 +1064,7 @@
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="91" Y="3"/>
+        <CursorPos X="27" Y="4"/>
         <UsageCount Value="103"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
@@ -1793,7 +1801,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMandantOptions"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="109"/>
         <CursorPos X="18" Y="119"/>
@@ -4015,7 +4023,7 @@
         <UsageCount Value="10"/>
       </Unit422>
     </Units>
-    <JumpHistory Count="2" HistoryIndex="1">
+    <JumpHistory Count="8" HistoryIndex="7">
       <Position1>
         <Filename Value="umain.pas"/>
         <Caret Line="69" Column="91" TopLine="64"/>
@@ -4024,6 +4032,30 @@
         <Filename Value="umain.pas"/>
         <Caret Line="77" Column="10" TopLine="64"/>
       </Position2>
+      <Position3>
+        <Filename Value="uarticlerepairframe.pas"/>
+        <Caret Line="24" Column="10" TopLine="15"/>
+      </Position3>
+      <Position4>
+        <Filename Value="../base/dbintfs/umasterdata.pas"/>
+        <Caret Line="159" Column="28" TopLine="140"/>
+      </Position4>
+      <Position5>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="500" Column="1" TopLine="483"/>
+      </Position5>
+      <Position6>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1208" Column="84" TopLine="1186"/>
+      </Position6>
+      <Position7>
+        <Filename Value="../base/dbintfs/umasterdata.pas"/>
+        <Caret Line="162" Column="14" TopLine="143"/>
+      </Position7>
+      <Position8>
+        <Filename Value="umain.pas"/>
+        <Caret Line="1101" Column="7" TopLine="1081"/>
+      </Position8>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>

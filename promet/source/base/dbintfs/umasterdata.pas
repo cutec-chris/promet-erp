@@ -61,14 +61,11 @@ type
     procedure DefineFields(aDataSet : TDataSet);override;
   end;
   TStorage = class(TBaseDBDataSet)
-  private
-    FSerials: TSerials;
   public
     constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy; override;
     function CreateTable : Boolean;override;
     procedure DefineFields(aDataSet : TDataSet);override;
-    property Serials : TSerials read FSerials;
   end;
   TSupplierPrices = class(TBaseDBDataSet)
   private
@@ -131,6 +128,7 @@ type
     FPosition: TMDPos;
     FPrices: TMasterdataPrices;
     FProperties: TMdProperties;
+    FSerials: TSerials;
     FStateChange: TNotifyEvent;
     FStorage: TStorage;
     FSupplier: TSupplier;
@@ -161,6 +159,7 @@ type
     property Prices : TMasterdataPrices read FPrices;
     property Properties : TMdProperties read FProperties;
     property Assembly : TRepairAssembly read FAssembly;
+    property Serials : TSerials read FSerials;
     function Copy(aNewVersion : Variant;aNewLanguage : Variant;cPrices : Boolean = True;
                                                                cProperties : Boolean = True;
                                                                cTexts : Boolean = True;
@@ -351,6 +350,7 @@ begin
         with ManagedFieldDefs do
           begin
             Add('SERIAL',ftString,30,False);
+            Add('NOTE',ftString,300,False);
           end;
     end;
 end;
@@ -358,19 +358,16 @@ constructor TStorage.Create(aOwner: TComponent; DM : TComponent;aConnection: TCo
   aMasterdata: TDataSet);
 begin
   inherited Create(aOwner, DM,aConnection, aMasterdata);
-  FSerials := TSerials.Create(Owner,DM,aConnection,DataSet);
 end;
 
 destructor TStorage.Destroy;
 begin
-  FSerials.Free;
   inherited Destroy;
 end;
 
 function TStorage.CreateTable : Boolean;
 begin
   Result := inherited CreateTable;
-  FSerials.CreateTable;
 end;
 
 procedure TStorage.DefineFields(aDataSet: TDataSet);
@@ -444,6 +441,7 @@ begin
   FProperties := TMdProperties.Create(Self,DM,aConnection,DataSet);
   FAssembly := TRepairAssembly.Create(Self,DM,aConnection,DataSet);
   FSupplier := TSupplier.Create(Self,DM,aConnection,DataSet);
+  FSerials := TSerials.Create(Self,DM,aConnection,DataSet);
   FDS := TDataSource.Create(Self);
   FDS.DataSet := DataSet;
   FDS.OnDataChange:=@FDSDataChange;
@@ -451,6 +449,7 @@ end;
 destructor TMasterdata.Destroy;
 begin
   FDS.Free;
+  FSerials.Free;
   FPosition.Destroy;
   FStorage.Destroy;
   FHistory.Destroy;
@@ -482,6 +481,7 @@ begin
   FLinks.CreateTable;
   FPrices.CreateTable;
   FProperties.CreateTable;
+  FSerials.CreateTable;
   FAssembly.CreateTable;
   FSupplier.CreateTable;
   aUnits := TUnits.Create(nil,DataModule,Connection);
@@ -750,4 +750,4 @@ begin
 end;
 initialization
 end.
-
+

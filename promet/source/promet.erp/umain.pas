@@ -1095,6 +1095,8 @@ end;
 procedure TfMain.acAttPlanExecute(Sender: TObject);
 var
   aFrame: TfAttPlan;
+  i: Integer;
+  Found: Boolean = False;
 begin
   Application.ProcessMessages;
   for i := 0 to pcPages.PageCount-2 do

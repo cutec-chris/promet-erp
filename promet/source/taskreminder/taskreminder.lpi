@@ -46,9 +46,10 @@
         <Filename Value="taskreminder.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="taskreminder"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="25"/>
+        <TopLine Value="28"/>
         <CursorPos X="17" Y="44"/>
         <UsageCount Value="60"/>
         <Loaded Value="True"/>
@@ -441,7 +442,6 @@
       <Unit52>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="193"/>
@@ -609,7 +609,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="4">
+    <BreakPoints Count="5">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsGlobal"/>
@@ -638,6 +638,13 @@
         <Source Value="E:\umessages.pas"/>
         <Line Value="922"/>
       </Item4>
+      <Item5>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="taskreminder.lpr"/>
+        <Line Value="60"/>
+      </Item5>
     </BreakPoints>
     <Watches Count="2">
       <Item1>
