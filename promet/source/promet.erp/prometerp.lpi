@@ -303,7 +303,7 @@
       <Unit2>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="832"/>
         <CursorPos X="22" Y="846"/>
@@ -368,7 +368,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="56"/>
         <CursorPos X="33" Y="175"/>
-        <UsageCount Value="80"/>
+        <UsageCount Value="81"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit7>
@@ -500,7 +500,7 @@
       <Unit19>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1278"/>
         <CursorPos X="1" Y="1298"/>
@@ -510,7 +510,7 @@
       <Unit20>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="18"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1400"/>
         <CursorPos X="1" Y="1431"/>
@@ -524,7 +524,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1216"/>
         <CursorPos X="85" Y="1235"/>
-        <UsageCount Value="84"/>
+        <UsageCount Value="85"/>
         <Loaded Value="True"/>
       </Unit21>
       <Unit22>
@@ -595,11 +595,11 @@
       <Unit28>
         <Filename Value="../base/dbintfs/ubaseerpdbclasses.pas"/>
         <UnitName Value="uBaseERPDBClasses"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="63"/>
         <CursorPos X="34" Y="74"/>
-        <UsageCount Value="98"/>
+        <UsageCount Value="99"/>
         <Loaded Value="True"/>
       </Unit28>
       <Unit29>
@@ -621,7 +621,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="471"/>
         <CursorPos X="1" Y="485"/>
-        <UsageCount Value="82"/>
+        <UsageCount Value="83"/>
         <Loaded Value="True"/>
       </Unit30>
       <Unit31>
@@ -917,10 +917,12 @@
       <Unit56>
         <Filename Value="../base/dbintfs/uprojects.pas"/>
         <UnitName Value="uProjects"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="498"/>
-        <CursorPos X="48" Y="530"/>
+        <TopLine Value="29"/>
+        <CursorPos X="29" Y="49"/>
         <UsageCount Value="98"/>
+        <Loaded Value="True"/>
       </Unit56>
       <Unit57>
         <Filename Value="../base/uviewmessage.pas"/>
@@ -955,7 +957,7 @@
       <Unit60>
         <Filename Value="../base/dbintfs/uintfstrconsts.pas"/>
         <UnitName Value="uIntfStrConsts"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="19"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="63" Y="29"/>
@@ -1003,11 +1005,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uProjectFrame"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="418"/>
-        <CursorPos X="64" Y="425"/>
+        <TopLine Value="412"/>
+        <CursorPos X="13" Y="427"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -1046,10 +1047,10 @@
       <Unit68>
         <Filename Value="../base/dbintfs/utask.pas"/>
         <UnitName Value="utask"/>
-        <EditorIndex Value="19"/>
+        <EditorIndex Value="20"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="455"/>
-        <CursorPos X="32" Y="475"/>
+        <TopLine Value="526"/>
+        <CursorPos X="53" Y="533"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
       </Unit68>
@@ -1534,12 +1535,13 @@
       <Unit122>
         <Filename Value="../base_pm/uprojectimport.pas"/>
         <UnitName Value="uprojectimport"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="17" Y="28"/>
-        <FoldState Value=" T3jd2bW"/>
-        <UsageCount Value="22"/>
+        <TopLine Value="135"/>
+        <CursorPos X="1" Y="217"/>
+        <FoldState Value=" T3k52br"/>
+        <UsageCount Value="23"/>
         <Loaded Value="True"/>
       </Unit122>
       <Unit123>
@@ -1807,11 +1809,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMandantOptions"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="109"/>
         <CursorPos X="18" Y="119"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit153>
@@ -2018,7 +2020,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="78"/>
         <CursorPos X="45" Y="109"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="21"/>
         <Loaded Value="True"/>
       </Unit178>
       <Unit179>
@@ -4029,59 +4031,127 @@
         <UsageCount Value="10"/>
       </Unit422>
     </Units>
-    <JumpHistory Count="13" HistoryIndex="12">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="umain.pas"/>
-        <Caret Line="69" Column="91" TopLine="64"/>
+        <Filename Value="../base_pm/uprojectimport.pas"/>
+        <Caret Line="110" Column="1" TopLine="80"/>
       </Position1>
       <Position2>
-        <Filename Value="umain.pas"/>
-        <Caret Line="77" Column="10" TopLine="64"/>
+        <Filename Value="../base_pm/uprojectimport.pas"/>
+        <Caret Line="111" Column="1" TopLine="81"/>
       </Position2>
       <Position3>
-        <Filename Value="uarticlerepairframe.pas"/>
-        <Caret Line="24" Column="10" TopLine="15"/>
+        <Filename Value="../base_pm/uprojectimport.pas"/>
+        <Caret Line="114" Column="1" TopLine="84"/>
       </Position3>
       <Position4>
-        <Filename Value="../base/dbintfs/umasterdata.pas"/>
-        <Caret Line="159" Column="28" TopLine="140"/>
+        <Filename Value="../base_pm/uprojectimport.pas"/>
+        <Caret Line="115" Column="1" TopLine="85"/>
       </Position4>
       <Position5>
-        <Filename Value="../base/dbintfs/uorder.pas"/>
-        <Caret Line="500" Column="1" TopLine="483"/>
+        <Filename Value="../base_pm/uprojectimport.pas"/>
+        <Caret Line="119" Column="1" TopLine="89"/>
       </Position5>
       <Position6>
-        <Filename Value="../base/dbintfs/uorder.pas"/>
-        <Caret Line="1208" Column="84" TopLine="1186"/>
+        <Filename Value="../base_pm/uprojectimport.pas"/>
+        <Caret Line="120" Column="1" TopLine="90"/>
       </Position6>
       <Position7>
-        <Filename Value="../base/dbintfs/umasterdata.pas"/>
-        <Caret Line="162" Column="14" TopLine="143"/>
+        <Filename Value="../base_pm/uprojectimport.pas"/>
+        <Caret Line="121" Column="1" TopLine="91"/>
       </Position7>
       <Position8>
-        <Filename Value="umain.pas"/>
-        <Caret Line="1101" Column="7" TopLine="1081"/>
+        <Filename Value="../base_pm/uprojectimport.pas"/>
+        <Caret Line="122" Column="1" TopLine="92"/>
       </Position8>
       <Position9>
-        <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="207" Column="43" TopLine="183"/>
+        <Filename Value="../base_pm/uprojectimport.pas"/>
+        <Caret Line="123" Column="1" TopLine="93"/>
       </Position9>
       <Position10>
-        <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="427" Column="13" TopLine="418"/>
+        <Filename Value="../base_pm/uprojectimport.pas"/>
+        <Caret Line="124" Column="1" TopLine="94"/>
       </Position10>
       <Position11>
         <Filename Value="../base_pm/uprojectimport.pas"/>
-        <Caret Line="176" Column="10" TopLine="161"/>
+        <Caret Line="126" Column="1" TopLine="96"/>
       </Position11>
       <Position12>
         <Filename Value="../base_pm/uprojectimport.pas"/>
-        <Caret Line="40" Column="78" TopLine="31"/>
+        <Caret Line="129" Column="1" TopLine="99"/>
       </Position12>
       <Position13>
         <Filename Value="../base_pm/uprojectimport.pas"/>
-        <Caret Line="109" Column="39" TopLine="64"/>
+        <Caret Line="131" Column="1" TopLine="101"/>
       </Position13>
+      <Position14>
+        <Filename Value="../base_pm/uprojectimport.pas"/>
+        <Caret Line="86" Column="1" TopLine="68"/>
+      </Position14>
+      <Position15>
+        <Filename Value="../base_pm/uprojectimport.pas"/>
+        <Caret Line="88" Column="1" TopLine="68"/>
+      </Position15>
+      <Position16>
+        <Filename Value="../base_pm/uprojectimport.pas"/>
+        <Caret Line="134" Column="1" TopLine="116"/>
+      </Position16>
+      <Position17>
+        <Filename Value="../base_pm/uprojectimport.pas"/>
+        <Caret Line="88" Column="1" TopLine="70"/>
+      </Position17>
+      <Position18>
+        <Filename Value="../base_pm/uprojectimport.pas"/>
+        <Caret Line="90" Column="1" TopLine="70"/>
+      </Position18>
+      <Position19>
+        <Filename Value="../base_pm/uprojectimport.pas"/>
+        <Caret Line="91" Column="1" TopLine="70"/>
+      </Position19>
+      <Position20>
+        <Filename Value="../base_pm/uprojectimport.pas"/>
+        <Caret Line="93" Column="1" TopLine="70"/>
+      </Position20>
+      <Position21>
+        <Filename Value="../base_pm/uprojectimport.pas"/>
+        <Caret Line="94" Column="1" TopLine="70"/>
+      </Position21>
+      <Position22>
+        <Filename Value="../base_pm/uprojectimport.pas"/>
+        <Caret Line="97" Column="1" TopLine="70"/>
+      </Position22>
+      <Position23>
+        <Filename Value="../base_pm/uprojectimport.pas"/>
+        <Caret Line="98" Column="1" TopLine="70"/>
+      </Position23>
+      <Position24>
+        <Filename Value="../base_pm/uprojectimport.pas"/>
+        <Caret Line="99" Column="1" TopLine="70"/>
+      </Position24>
+      <Position25>
+        <Filename Value="../base_pm/uprojectimport.pas"/>
+        <Caret Line="100" Column="1" TopLine="70"/>
+      </Position25>
+      <Position26>
+        <Filename Value="../base_pm/uprojectimport.pas"/>
+        <Caret Line="101" Column="1" TopLine="71"/>
+      </Position26>
+      <Position27>
+        <Filename Value="../base_pm/uprojectimport.pas"/>
+        <Caret Line="102" Column="1" TopLine="72"/>
+      </Position27>
+      <Position28>
+        <Filename Value="../base_pm/uprojectimport.pas"/>
+        <Caret Line="103" Column="1" TopLine="73"/>
+      </Position28>
+      <Position29>
+        <Filename Value="../base_pm/uprojectimport.pas"/>
+        <Caret Line="105" Column="1" TopLine="75"/>
+      </Position29>
+      <Position30>
+        <Filename Value="../base_pm/uprojectimport.pas"/>
+        <Caret Line="179" Column="67" TopLine="126"/>
+      </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>

@@ -80,7 +80,8 @@ var
       begin
         aProject.Tasks.DataSet.Edit;
         aProject.Tasks.FieldByName('HASCHILDS').AsString:='Y';
-        aProject.Tasks.DataSet.Post;
+        if aProject.Tasks.CanEdit then
+          aProject.Tasks.DataSet.Post;
       end;
     for i := 0 to aTasks.ChildNodes.Count-1 do
       begin
@@ -89,26 +90,34 @@ var
             aTask := aTasks.ChildNodes[i];
             with aProject do
               begin
-                if ReplaceIDs and (Tasks.DataSet.Locate('ORIGID;NAME',VarArrayOf([aTask.Attributes.GetNamedItem('id').NodeValue,ConvertEncoding(aTask.Attributes.GetNamedItem('name').NodeValue,GuessEncoding(aTask.Attributes.GetNamedItem('name').NodeValue),EncodingUTF8)]),[])) then
+                if ReplaceIDs and (Tasks.DataSet.Locate('ORIGID;SUMMARY',VarArrayOf([aTask.Attributes.GetNamedItem('id').NodeValue,ConvertEncoding(aTask.Attributes.GetNamedItem('name').NodeValue,GuessEncoding(aTask.Attributes.GetNamedItem('name').NodeValue),EncodingUTF8)]),[])) then
                   Tasks.DataSet.Edit
                 else
                   Tasks.DataSet.Append;
                 Tasks.FieldByName('PARENT').AsVariant:=aParent;
+                if not tasks.CanEdit then Tasks.DataSet.Edit;
                 Tasks.FieldByName('SUMMARY').AsString:=ConvertEncoding(aTask.Attributes.GetNamedItem('name').NodeValue,GuessEncoding(aTask.Attributes.GetNamedItem('name').NodeValue),EncodingUTF8);
+                if not tasks.CanEdit then Tasks.DataSet.Edit;
                 Tasks.FieldByName('STARTDATE').AsDateTime:=StrToDateTime(aTask.Attributes.GetNamedItem('start').NodeValue,myFormat);
+                if not tasks.CanEdit then Tasks.DataSet.Edit;
                 if aTask.Attributes.GetNamedItem('meeting').NodeValue = 'true' then
                   Tasks.FieldByName('CLASS').AsString:='M';
+                if not tasks.CanEdit then Tasks.DataSet.Edit;
                 if (not Tasks.FieldByName('STARTDATE').IsNull) then
                   Tasks.FieldByName('DUEDATE').AsDateTime:=StrToDateTime(aTask.Attributes.GetNamedItem('start').NodeValue,myFormat)+(StrToInt(aTask.Attributes.GetNamedItem('duration').NodeValue));
+                if not tasks.CanEdit then Tasks.DataSet.Edit;
                 Tasks.FieldByName('ORIGID').AsString:=aTask.Attributes.GetNamedItem('id').NodeValue;
+                if not tasks.CanEdit then Tasks.DataSet.Edit;
                 if Tasks.State = dsInsert then
                   if aTask.Attributes.GetNamedItem('complete').NodeValue = '1' then
                     Tasks.FieldByName('COMPLETED').AsString:='Y';
+                if not tasks.CanEdit then Tasks.DataSet.Edit;
                 if aTask.FindNode('notes') <> nil then
                   begin
                     Tasks.FieldByName('DESC').AsString:=aTask.FindNode('notes').FirstChild.NodeValue;
                   end;
-                Tasks.DataSet.Post;
+                if Tasks.CanEdit then
+                  Tasks.DataSet.Post;
                 bTask := TTask.Create(nil,Data,Tasks.Connection);
                 bTask.Select(Tasks.Id.AsVariant);
                 bTask.Open;
@@ -171,7 +180,8 @@ begin
       if not aProject.CanEdit then aProject.DataSet.Edit;
       aProject.FieldByName('NAME').AsString:=aProjectNode.Attributes.GetNamedItem('name').NodeValue;
     end;
-//  aProject.Tasks.DataSet.DisableControls;
+  aProject.Tasks.DataSet.DisableControls;
+  try
   //Todo import Calendars
   //Import all Tasks
   ImportTasks(Null,aProjectNode.FindNode('tasks'));
@@ -198,10 +208,13 @@ begin
                     end;
               end;
       end;
-//  aProject.Tasks.DataSet.EnableControls;
-  aAllocNode.Free;
-  aProjectNode.Free;
-  aDoc.Free;
+
+  finally
+    aProject.Tasks.DataSet.EnableControls;
+    aAllocNode.Free;
+    aProjectNode.Free;
+    aDoc.Free;
+  end;
 end;
 function ExportGAN(aFile: TStream; bProject: TProject): Boolean;
 var
