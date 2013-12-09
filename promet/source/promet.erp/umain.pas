@@ -1096,10 +1096,20 @@ procedure TfMain.acAttPlanExecute(Sender: TObject);
 var
   aFrame: TfAttPlan;
 begin
-  aFrame := TfAttPlan.Create(Self);
-  aFrame.TabCaption := strAttPlan;
-  pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('TASKS@'),False);
-  aFrame.Populate(Data.Users.FieldByName('PARENT').AsVariant,Data.Users.Id.AsVariant);
+  Application.ProcessMessages;
+  for i := 0 to pcPages.PageCount-2 do
+    if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfAttPlan) then
+      begin
+        pcPages.PageIndex:=i;
+        Found := True;
+      end;
+  if not Found then
+    begin
+      aFrame := TfAttPlan.Create(Self);
+      aFrame.TabCaption := strAttPlan;
+      pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('TASKS@'),False);
+      aFrame.Populate(Data.Users.FieldByName('PARENT').AsVariant,Data.Users.Id.AsVariant);
+    end;
 end;
 
 procedure TfMain.acBookInventoryExecute(Sender: TObject);
