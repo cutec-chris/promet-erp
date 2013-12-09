@@ -26,7 +26,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
   ExtCtrls, ComCtrls, ActnList, Clipbrd, Menus, Buttons, process, uclipp,
-  uMainTreeFrame,DB;
+  uMainTreeFrame,DB,LCLType;
 
 type
   TfMain = class(TForm)
@@ -50,6 +50,7 @@ type
     miOptions: TMenuItem;
     Panel1: TPanel;
     Panel3: TPanel;
+    pClipboard: TPanel;
     SpeedButton1: TSpeedButton;
     Timer1: TTimer;
     tvMain: TPanel;
@@ -65,6 +66,7 @@ type
     procedure acRestoreExecute(Sender: TObject);
     procedure eNameEditingDone(Sender: TObject);
     procedure eSearchKeyPress(Sender: TObject; var Key: char);
+    function fMainTreeFrameOpen(aEntry: TTreeEntry): Boolean;
     procedure fMainTreeFrameSelectionChanged(aEntry: TTreeEntry);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -88,6 +90,8 @@ uses uBaseApplication, uData, uBaseDbInterface,
   uWikiFrame;
 resourcestring
   strDirmustSelected                 = 'Wählen (oder erstellen) Sie ein Verzeichnis um den Eintrag abzulegen.';
+  strRestoreCompleted                = 'in Zwischenablage';
+  strRestorePartCompleted            = 'teilweise in Zwischenablage';
 {$R *.lfm}
 procedure TfMain.acAddExecute(Sender: TObject);
 var
@@ -162,9 +166,23 @@ begin
     Logout;
 end;
 procedure TfMain.acRestoreExecute(Sender: TObject);
+var
+  aRes: TRestoreResult;
 begin
   if DataSet.Count>0 then
-    DataSet.RestoreToClipboard;
+    begin
+      aRes := DataSet.RestoreToClipboard;
+      if aRes = rrFully then
+        begin
+          pClipboard.Caption:=strRestoreCompleted;
+          pClipboard.Color:=clLime;
+        end
+      else if aRes = rrPartially then
+        begin
+          pClipboard.Caption:=strRestorePartCompleted;
+          pClipboard.Color:=clYellow;
+        end;
+    end;
 end;
 procedure TfMain.eNameEditingDone(Sender: TObject);
 begin
@@ -177,6 +195,16 @@ end;
 procedure TfMain.eSearchKeyPress(Sender: TObject; var Key: char);
 begin
   Timer1.Enabled:=True;
+end;
+function TfMain.fMainTreeFrameOpen(aEntry: TTreeEntry): Boolean;
+begin
+  if aEntry.Typ = etClipboardItem then
+    begin
+      DataSet.Filter(aEntry.Filter);
+      DataSet.GotoBookmark(aEntry.Rec);
+      if DataSet.Count>0 then
+        acRestore.Execute;
+    end;
 end;
 procedure TfMain.fMainTreeFrameSelectionChanged(aEntry: TTreeEntry);
 begin
@@ -195,6 +223,7 @@ begin
   fMainTreeFrame.Align:=alClient;
   fMainTreeFrame.SearchOptions:='CLIPP';
   fMainTreeFrame.OnSelectionChanged:=@fMainTreeFrameSelectionChanged;
+  fMainTreeFrame.OnOpen:=@fMainTreeFrameOpen;
 end;
 procedure TfMain.FormShow(Sender: TObject);
 begin
@@ -298,6 +327,8 @@ begin
       eName.Text:=DataSet.FieldByName('NAME').AsString;
       mDesc.Lines.Text:=DataSet.FieldByName('DESCRIPTION').AsString;
       Panel2.Enabled:=True;
+      pClipboard.Color:=clWindow;
+      pClipboard.Caption:='';
     end;
 end;
 end.

@@ -1,7 +1,7 @@
 object fMain: TfMain
-  Left = 425
+  Left = 407
   Height = 507
-  Top = 222
+  Top = 216
   Width = 731
   ActiveControl = eSearch
   Caption = 'Clipp'
@@ -183,6 +183,15 @@ object fMain: TfMain
       Top = 0
       Action = acRestore
     end
+    object pClipboard: TPanel
+      Left = 472
+      Height = 34
+      Top = 0
+      Width = 259
+      Align = alRight
+      BevelOuter = bvNone
+      TabOrder = 0
+    end
   end
   object MainMenu: TMainMenu
     left = 44
@@ -227,6 +236,7 @@ object fMain: TfMain
       Caption = 'acRestore'
       ImageIndex = 111
       OnExecute = acRestoreExecute
+      ShortCut = 16451
     end
     object acDelete: TAction
       Caption = 'acDelete'

@@ -27,6 +27,7 @@ uses
   Classes, SysUtils, uBaseDbDataSet,uBaseDbClasses,uIntfStrConsts,uBaseDBInterface,
   db,Clipbrd, ComCtrls;
 type
+  TRestoreResult = (rrPartially,rrFully,rrNone);
   TClipp = class(TBaseDBList)
   protected
     procedure DefineFields(aDataSet: TDataSet); override;
@@ -34,7 +35,7 @@ type
     function GetTextFieldName: string;override;
     function GetNumberFieldName : string;override;
     procedure AddFromClipboard;
-    procedure RestoreToClipboard;
+    function RestoreToClipboard: TRestoreResult;
   end;
 
 procedure AddToMainTree(MainNode : TTreeNode = nil);
@@ -120,7 +121,11 @@ begin
       if aOK  then
         begin
           aFormat := Clipboard.Formats[i];
-          aMime := ClipboardFormatToMimeType(aFormat);
+          try
+            aMime := ClipboardFormatToMimeType(aFormat);
+          except
+            aMime := '';
+          end;
           aMStream.Position:=0;
           GlobalStream.WriteAnsiString(aMime);
           GlobalStream.WriteDWord(aFormat);
@@ -135,7 +140,7 @@ begin
   GlobalStream.Free;
 end;
 
-procedure TClipp.RestoreToClipboard;
+function TClipp.RestoreToClipboard: TRestoreResult;
 var
   GlobalStream: TMemoryStream;
   aMime: AnsiString;
@@ -143,13 +148,18 @@ var
   aSize: Cardinal;
   aMStream: TMemoryStream;
   aMimelength: Cardinal;
+  Fullresult : Boolean = True;
+  Partresult : Boolean = False;
+  tmpresult: Boolean;
 begin
+  Result := rrFully;
   Clipboard.Clear;
   GlobalStream := TMemoryStream.Create;
   Data.BlobFieldToStream(DataSet,'DATA',GlobalStream);
   GlobalStream.Position:=0;
   while GlobalStream.Position<GlobalStream.Size do
     begin
+      tmpresult := True;
       aMime := GlobalStream.ReadAnsiString;
       aFormat := GlobalStream.ReadDWord;
       if Clipboard.FindFormatID(aMime) = 0 then
@@ -158,9 +168,25 @@ begin
       aMStream := TMemoryStream.Create;
       aMStream.CopyFrom(GlobalStream,aSize);
       aMStream.Position:=0;
-      Clipboard.AddFormat(aFormat,aMStream);
+      try
+        Clipboard.AddFormat(aFormat,aMStream);
+      except
+        try
+          aFormat := RegisterClipboardFormat(aMime);
+          if aFormat<>0 then
+            Clipboard.AddFormat(aFormat,aMStream);
+        except
+          tmpResult := False;
+        end;
+      end;
       aMStream.Free;
+      FullResult := FullResult and tmpResult;
+      PartResult := PartResult or tmpResult;
     end;
+  if (not FullResult) and (not Partresult) then
+    result := rrNone
+  else if Partresult and (not Fullresult) then
+    Result := rrPartially;
   GlobalStream.Free;
 end;
 
