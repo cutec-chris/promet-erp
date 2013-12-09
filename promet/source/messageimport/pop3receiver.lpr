@@ -77,34 +77,17 @@ begin
   ArchiveMsg.CreateTable;
   ArchiveMsg.Free;
   StartTime := Now();
-  {
   if SSLImplementation = nil then
-    debugln('warning no SSL Library loaded !');
-  }
-  {
-  while not Terminated do
+    WriteMessage('warning no SSL Library loaded !');
+  with Data.Users.DataSet do
     begin
-      aTime := (Now()-StartTime);
-      if aTime > ((1/HoursPerDay)*2) then break;
-  }
-      with Data.Users.DataSet do
+      First;
+      while not EOF do
         begin
-          First;
-          while not EOF do
-            begin
-              ReceiveMails(FieldByName('NAME').AsString);
-              Next;
-            end;
-        end;
-  {
-      if HasOption('o','onerun') then break;
-      for i := 0 to 1000 do
-        begin
-          sleep(60*6);
-          if Terminated then break;
+          ReceiveMails(FieldByName('NAME').AsString);
+          Next;
         end;
     end;
-  }
   // stop program loop
   if not Terminated then
     Terminate;

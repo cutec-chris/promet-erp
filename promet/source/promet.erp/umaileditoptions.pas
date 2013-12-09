@@ -34,6 +34,7 @@ type
 
   TfMailOptions = class(TForm)
     bpButtons: TButtonPanel;
+    bCheckConnection: TButton;
     cbArchive: TCheckBox;
     cbDelete: TCheckBox;
     eName: TEdit;
@@ -53,6 +54,7 @@ type
     pFeedOptions: TPanel;
     pPOPOptions: TPanel;
     pSMTPOptions: TPanel;
+    procedure bCheckConnectionClick(Sender: TObject);
     procedure eServertypeSelect(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
@@ -95,6 +97,11 @@ begin
       lUsername.Visible:=True;
       lPassword.Visible:=True;
     end;
+end;
+
+procedure TfMailOptions.bCheckConnectionClick(Sender: TObject);
+begin
+
 end;
 
 procedure TfMailOptions.FormKeyDown(Sender: TObject; var Key: Word;

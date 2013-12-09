@@ -88,6 +88,7 @@ object fMailOptions: TfMailOptions
       'POP3'
       'SMTP'
       'FEED'
+      'Twitter'
     )
     OnSelect = eServertypeSelect
     TabOrder = 3
@@ -156,6 +157,17 @@ object fMailOptions: TfMailOptions
     CancelButton.DefaultCaption = True
     TabOrder = 5
     ShowButtons = [pbOK, pbCancel]
+    object bCheckConnection: TButton
+      Left = 8
+      Height = 26
+      Top = 8
+      Width = 116
+      AutoSize = True
+      BorderSpacing.Around = 8
+      Caption = 'Verbindung Testen'
+      OnClick = bCheckConnectionClick
+      TabOrder = 4
+    end
   end
   object pPOPOptions: TPanel
     Left = 12

@@ -147,7 +147,8 @@ inherited fMessageOptions: TfMessageOptions
     ClientWidth = 467
     TabOrder = 4
     inherited rmText: TRichMemo
-      Height = 130
+      Height = 138
+      Top = 32
       Width = 451
     end
     inherited seFontSize: TSpinEdit
