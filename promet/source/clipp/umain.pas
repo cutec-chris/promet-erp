@@ -26,7 +26,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
   ExtCtrls, ComCtrls, ActnList, Clipbrd, Menus, Buttons, process, uclipp,
-  uMainTreeFrame;
+  uMainTreeFrame,DB;
 
 type
   TfMain = class(TForm)
@@ -41,8 +41,6 @@ type
     Image1: TImage;
     Label1: TLabel;
     Label2: TLabel;
-    Label3: TLabel;
-    lbFormats: TListBox;
     MainMenu: TMainMenu;
     mDesc: TMemo;
     MenuItem3: TMenuItem;
@@ -53,6 +51,7 @@ type
     Panel1: TPanel;
     Panel3: TPanel;
     SpeedButton1: TSpeedButton;
+    Timer1: TTimer;
     tvMain: TPanel;
     Panel2: TPanel;
     Splitter1: TSplitter;
@@ -65,23 +64,24 @@ type
     procedure acLogoutExecute(Sender: TObject);
     procedure acRestoreExecute(Sender: TObject);
     procedure eNameEditingDone(Sender: TObject);
+    procedure eSearchKeyPress(Sender: TObject; var Key: char);
     procedure fMainTreeFrameSelectionChanged(aEntry: TTreeEntry);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure mDescEditingDone(Sender: TObject);
-    procedure Panel2Click(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
   private
     { private declarations }
   public
     { public declarations }
     DataSet : TClipp;
+    SearchDS : TClipp;
     procedure DoCreate;
     procedure RefreshView;
   end;
 
 var
   fMain: TfMain;
-
 implementation
 uses uBaseApplication, uData, uBaseDbInterface,
   uDocuments,uFilterFrame,uIntfStrConsts,uPrometFrames,uBaseDbClasses,
@@ -89,7 +89,6 @@ uses uBaseApplication, uData, uBaseDbInterface,
 resourcestring
   strDirmustSelected                 = 'Wählen (oder erstellen) Sie ein Verzeichnis um den Eintrag abzulegen.';
 {$R *.lfm}
-
 procedure TfMain.acAddExecute(Sender: TObject);
 var
   aFormat: LongWord;
@@ -124,7 +123,6 @@ begin
     end
   else Showmessage(strDirmustSelected);
 end;
-
 procedure TfMain.acDeleteExecute(Sender: TObject);
 begin
   if dataSet.Count>0 then
@@ -134,7 +132,6 @@ begin
     end;
   RefreshView;
 end;
-
 procedure TfMain.acLoginExecute(Sender: TObject);
 var
   WikiFrame: TfWikiFrame;
@@ -155,21 +152,20 @@ begin
   if fMainTreeFrame.tvMain.Items.Count>0 then
     fMainTreeFrame.tvMain.Items[0].Expanded:=True;
   DataSet := TClipp.Create(nil,Data);
+  SearchDS := TClipp.Create(nil,Data);
 end;
-
 procedure TfMain.acLogoutExecute(Sender: TObject);
 begin
   DataSet.Free;
+  SearchDS.Free;
   with Application as IBaseApplication do
     Logout;
 end;
-
 procedure TfMain.acRestoreExecute(Sender: TObject);
 begin
   if DataSet.Count>0 then
     DataSet.RestoreToClipboard;
 end;
-
 procedure TfMain.eNameEditingDone(Sender: TObject);
 begin
   if DataSet.Count>0 then
@@ -178,7 +174,10 @@ begin
       DataSet.FieldByName('NAME').AsString := eName.Text;
     end;
 end;
-
+procedure TfMain.eSearchKeyPress(Sender: TObject; var Key: char);
+begin
+  Timer1.Enabled:=True;
+end;
 procedure TfMain.fMainTreeFrameSelectionChanged(aEntry: TTreeEntry);
 begin
   DataSet.Close;
@@ -189,7 +188,6 @@ begin
     end;
   RefreshView;
 end;
-
 procedure TfMain.FormCreate(Sender: TObject);
 begin
   uMainTreeFrame.fMainTreeFrame := TfMainTree.Create(Self);
@@ -198,7 +196,6 @@ begin
   fMainTreeFrame.SearchOptions:='CLIPP';
   fMainTreeFrame.OnSelectionChanged:=@fMainTreeFrameSelectionChanged;
 end;
-
 procedure TfMain.FormShow(Sender: TObject);
 begin
   if not acLogin.Enabled then exit;
@@ -209,7 +206,6 @@ begin
     begin
     end;
 end;
-
 procedure TfMain.mDescEditingDone(Sender: TObject);
 begin
   if DataSet.Count>0 then
@@ -219,9 +215,67 @@ begin
     end;
 end;
 
-procedure TfMain.Panel2Click(Sender: TObject);
-begin
+procedure TfMain.Timer1Timer(Sender: TObject);
+  function NodeThere(aRec : largeInt) : TTreeNode;
+  var
+    aNode: TTreeNode;
+  begin
+    Result := nil;
+    if uMainTreeFrame.fMainTreeFrame.tvMain.Items.Count>0 then
+      aNode := uMainTreeFrame.fMainTreeFrame.tvMain.Items[0];
+    while Assigned(aNode) do
+      begin
+        if Assigned(aNode.Data) and (TTreeEntry(aNode.Data).Rec = aRec) then
+          begin
+            Result := aNode;
+            break;
+          end;
+        aNode := aNode.GetNext;
+      end;
+  end;
 
+  function ExpandDir(aRec : LargeInt) : TTReeNode;
+  var
+    bParent : Variant;
+  begin
+    Result := NodeThere(aRec);
+    if not Assigned(Result) then
+      begin
+        if Data.Tree.DataSet.Locate('SQL_ID',aRec,[]) then
+          begin
+            bParent := Data.Tree.FieldByName('PARENT').AsVariant;
+            ExpandDir(bParent);
+          end;
+        Result := NodeThere(aRec);
+      end;
+    Result.Expand(False);
+  end;
+
+var
+  aParent: TTreeNode;
+  i: Integer;
+  aName: String;
+begin
+  Timer1.Enabled:=False;
+  if eSearch.Text<>'' then
+    begin
+      SearchDS.Filter(data.ProcessTerm(Data.QuoteField('NAME')+'='+Data.QuoteValue('*'+eSearch.Text+'*')),1);
+      if SearchDS.Count>0 then
+        begin
+          aParent := ExpandDir(SearchDS.FieldByName('TREEENTRY').AsVariant);
+          if Assigned(aParent) then
+            begin
+              for i := 0 to aParent.Count-1 do
+                begin
+                  if Assigned(aParent.Items[i].Data) and (TTreeEntry(aParent.Items[i].Data).Rec = SearchDS.Id.AsVariant) then
+                    begin
+                      fMainTreeFrame.tvMain.Selected:=aParent.Items[i];
+                      break;
+                    end;
+                end;
+            end;
+        end;
+    end;
 end;
 
 procedure TfMain.DoCreate;
@@ -233,7 +287,6 @@ begin
   with Application as IBaseDbInterface do
     LoadMandants;
 end;
-
 procedure TfMain.RefreshView;
 begin
   Panel2.Enabled := False;
@@ -247,6 +300,5 @@ begin
       Panel2.Enabled:=True;
     end;
 end;
-
 end.
 

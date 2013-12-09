@@ -38,6 +38,7 @@ object fMain: TfMain
         Top = 6
         Width = 264
         Anchors = [akTop, akLeft, akRight]
+        OnKeyPress = eSearchKeyPress
         TabOrder = 0
       end
     end
@@ -59,7 +60,6 @@ object fMain: TfMain
     ClientWidth = 451
     Enabled = False
     TabOrder = 2
-    OnClick = Panel2Click
     object eName: TEdit
       Left = 1
       Height = 21
@@ -79,7 +79,7 @@ object fMain: TfMain
     end
     object mDesc: TMemo
       Left = 1
-      Height = 272
+      Height = 368
       Top = 78
       Width = 253
       Anchors = [akTop, akLeft, akRight, akBottom]
@@ -112,23 +112,6 @@ object fMain: TfMain
         Width = 174
         Align = alClient
       end
-    end
-    object lbFormats: TListBox
-      Left = 1
-      Height = 72
-      Top = 372
-      Width = 437
-      Anchors = [akLeft, akRight, akBottom]
-      ItemHeight = 0
-      TabOrder = 3
-    end
-    object Label3: TLabel
-      Left = 1
-      Height = 13
-      Top = 355
-      Width = 28
-      Caption = 'Inahlt'
-      ParentColor = False
     end
     object SpeedButton1: TSpeedButton
       Left = 415
@@ -250,5 +233,10 @@ object fMain: TfMain
       ImageIndex = 60
       OnExecute = acDeleteExecute
     end
+  end
+  object Timer1: TTimer
+    OnTimer = Timer1Timer
+    left = 96
+    top = 100
   end
 end
