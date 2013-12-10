@@ -117,35 +117,22 @@ begin
               for i := 0 to jData.Count-1 do
                 begin
                   aData := jData.Items[i];
-                  text := ConvertEncoding(TJSONObject(aData).Elements['text'].AsString,GuessEncoding(TJSONObject(aData).Elements['text'].AsString),encodingUTF8);
-                  aCat := TJSONObject(aData).Elements['id'].AsString;
-                  aref := TJSONObject(aData).Elements['in_reply_to_status_id'].AsString;
-                  Data.SetFilter(aHist,Data.QuoteField('REFOBJECT')+'='+Data.QuoteValue(aCat));
-                  if aHist.Count=0 then
+                  if Assigned(TJSONObject(aData).Elements['text']) then
                     begin
-                      if aRef = '0' then aRef := '';
-                      aTime := DecodeRfcDateTime(TJSONObject(aData).Elements['created_at'].AsString);
-                      author := TJSONObject(TJSONObject(aData).Elements['user']).Elements['name'].AsString;
-                      author := ConvertEncoding(author,GuessEncoding(author),encodingUTF8);
-                      if aRef='' then
+                      text := ConvertEncoding(TJSONObject(aData).Elements['text'].AsString,GuessEncoding(TJSONObject(aData).Elements['text'].AsString),encodingUTF8);
+                      aCat := TJSONObject(aData).Elements['id'].AsString;
+                      aref := TJSONObject(aData).Elements['in_reply_to_status_id'].AsString;
+                      Data.SetFilter(aHist,Data.QuoteField('REFOBJECT')+'='+Data.QuoteValue(aCat));
+                      if aHist.Count=0 then
                         begin
-                          Retry := True;
-                          aHist.AddItem(Data.Users.DataSet,text,'',author,nil,0,'',False,False);
-                          aHist.TimeStamp.AsDateTime:=aTime;
-                          aHist.FieldByName('REF_ID').AsVariant:=Data.Users.Id.AsVariant;
-                          aHist.FieldByName('REFOBJECT').AsString:=aCat;
-                          try
-                            aHist.Post;
-                          except
-                          end;
-                        end
-                      else
-                        begin
-                          Data.SetFilter(aHist,Data.QuoteField('REFOBJECT')+'='+Data.QuoteValue(aRef));
-                          if aHist.Count>0 then
+                          if aRef = '0' then aRef := '';
+                          aTime := DecodeRfcDateTime(TJSONObject(aData).Elements['created_at'].AsString);
+                          author := TJSONObject(TJSONObject(aData).Elements['user']).Elements['name'].AsString;
+                          author := ConvertEncoding(author,GuessEncoding(author),encodingUTF8);
+                          if aRef='' then
                             begin
                               Retry := True;
-                              aHist.AddParentedItem(Data.Users.DataSet,text,aHist.Id.AsVariant,'',author,nil,0,'',False,False);
+                              aHist.AddItem(Data.Users.DataSet,text,'',author,nil,0,'',False,False);
                               aHist.TimeStamp.AsDateTime:=aTime;
                               aHist.FieldByName('REF_ID').AsVariant:=Data.Users.Id.AsVariant;
                               aHist.FieldByName('REFOBJECT').AsString:=aCat;
@@ -154,8 +141,24 @@ begin
                               except
                               end;
                             end
+                          else
+                            begin
+                              Data.SetFilter(aHist,Data.QuoteField('REFOBJECT')+'='+Data.QuoteValue(aRef));
+                              if aHist.Count>0 then
+                                begin
+                                  Retry := True;
+                                  aHist.AddParentedItem(Data.Users.DataSet,text,aHist.Id.AsVariant,'',author,nil,0,'',False,False);
+                                  aHist.TimeStamp.AsDateTime:=aTime;
+                                  aHist.FieldByName('REF_ID').AsVariant:=Data.Users.Id.AsVariant;
+                                  aHist.FieldByName('REFOBJECT').AsString:=aCat;
+                                  try
+                                    aHist.Post;
+                                  except
+                                  end;
+                                end
+                            end;
                         end;
-                    end;
+                   end;
                 end;
               writeln(Retry);
             end;
