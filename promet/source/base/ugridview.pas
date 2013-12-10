@@ -1150,7 +1150,7 @@ begin
               {$endif}
               aTextStyle.Alignment:=dgFake.Columns[aCol-1].Alignment;
               dec(bRect.Right,1);
-              if not WordWrap then
+              if not FWordWrap then
                 TextRect(bRect,bRect.Left+3,bRect.Top,aText,aTextStyle)
               else
                 TextRect(bRect,bRect.Left+3,bRect.Top,aText,aTextStyleW);
@@ -1914,6 +1914,7 @@ var
   aHeight : Integer = 1;
   i: Integer;
   r: Classes.TRect;
+  TextWidth: Integer;
 begin
   Result := gList.DefaultRowHeight;
   if aRow<0 then exit;
@@ -1929,14 +1930,18 @@ begin
             aText := gList.Cells[i+1,aRow];
             if Assigned(FGetCText) then
               FGetCText(Self,dgFake.Columns[i],aRow,atext,nil);
-            if WordWrap then
+            TextWidth := gList.CellRect(i+1,aRow).Right-gList.CellRect(i+1,aRow).Left;
+            if FWordWrap then
               begin
-                r := gList.CellRect(i+1,aRow);
-                DrawText(Canvas.Handle,
-                  PChar(aText),
-                  Length(aText),
-                  r,
-                  DT_LEFT or DT_WORDBREAK or DT_CALCRECT);
+                if gList.Canvas.HandleAllocated then
+                  begin
+                    r := gList.CellRect(i+1,aRow);
+                    DrawText(gList.Canvas.Handle,
+                      PChar(aText),
+                      Length(aText),
+                      r,
+                      DT_LEFT or DT_WORDBREAK or DT_CALCRECT);
+                  end;
               end;
           end;
         break;
@@ -1948,6 +1953,8 @@ begin
       while pos(#10,aText) > 0 do
         begin
           inc(aHeight,1);
+          //if Canvas.TextFitInfo(copy(atext,0,pos(#10,aText)-1),TextWidth)>length(copy(atext,0,pos(#10,aText)-1)) then
+          //  inc(aHeight,1);
           aText := copy(aText,pos(#10,aText)+1,length(aText));
         end;
       aHeight := ((aHeight)*(gList.DefaultRowHeight-4));

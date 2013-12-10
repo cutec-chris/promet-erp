@@ -287,6 +287,7 @@ begin
     end;
   FGridView.OnDrawColumnCell:=@FContListDrawColumnCell;
   FGridView.OnDblClick:=@FContListViewDetails;
+  FGridView.WordWrap:=true;
   Panel3.Visible:=Data.Users.Rights.Right('HISTORY') > RIGHT_WRITE;
   RestoreButtons;
 end;
