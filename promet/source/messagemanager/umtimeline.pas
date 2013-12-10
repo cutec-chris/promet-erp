@@ -86,6 +86,8 @@ type
     procedure FormShow(Sender: TObject);
     procedure fTimelineGetCellText(Sender: TObject; aCol: TColumn;
       aRow: Integer; var NewText: string; aFont: TFont);
+    procedure fTimelinegetRowHeight(Sender: TObject; aCol: TColumn;
+      aRow: Integer; var aHeight: Integer);
     procedure fTimelinegListDblClick(Sender: TObject);
     procedure fTimelinegListKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -116,7 +118,8 @@ var
   fmTimeline: TfmTimeline;
 implementation
 uses uBaseApplication, uData, uBaseDbInterface, uOrder,uMessages,uBaseERPDBClasses,
-  uMain,LCLType,utask,uProcessManager,uprometipc,ProcessUtils,ufollow,udetailview;
+  uMain,LCLType,utask,uProcessManager,uprometipc,ProcessUtils,ufollow,udetailview,
+  LCLIntf;
 resourcestring
   strTo                                  = 'an ';
 
@@ -153,6 +156,8 @@ begin
       fTimeline.gHeader.Options:=fTimeline.gHeader.Options-[goVertLine];
       fTimeline.gList.PopupMenu := PopupMenu1;
       fTimeline.OnGetCellText:=@fTimelineGetCellText;
+      fTimeline.OngetRowHeight:=@fTimelinegetRowHeight;
+      fTimeline.WordWrap:=True;
       Data.SetFilter(fTimeline.DataSet,fMain.Filter+' '+fMain.Filter2,300);
       with Application as IBaseApplication do
         Config.ReadRect('TIMELINERECT',aBoundsRect,BoundsRect);
@@ -188,9 +193,7 @@ end;
 
 function TfmTimeline.FContListDrawColumnCell(Sender: TObject; const aRect: TRect;
   DataCol: Integer; Column: TColumn; State: TGridDrawState): Boolean;
-var
-  aColor: TColor;
-  aText: String;
+const
   aTextStyle : TTextStyle = (Alignment:taLeftJustify;
                              Layout : tlTop;
                              SingleLine : False;
@@ -201,11 +204,25 @@ var
                              Opaque:True;
                              SystemFont:False;
                              RightToLeft:False);
+  aTextStyleW : TTextStyle = (Alignment:taLeftJustify;
+                             Layout : tlTop;
+                             SingleLine : False;
+                             Clipping  : True;
+                             ExpandTabs:False;
+                             ShowPrefix:False;
+                             Wordbreak:true;
+                             Opaque:True;
+                             SystemFont:False;
+                             RightToLeft:False);
+var
+  aColor: TColor;
+  aText: String;
   aHeight: Integer;
   aRRect: TRect;
   aMiddle: Integer;
   aObj: TObject;
   bRect: TRect;
+  r: TRect;
 begin
   with (Sender as TCustomGrid), Canvas do
     begin
@@ -272,15 +289,19 @@ begin
               TStringGrid(Sender).Canvas.FillRect(aRect);
               TStringGrid(Sender).Canvas.Brush.Style:=bsClear;
               bRect := aRect;
-              brect.Top := bRect.Top+TStringGrid(Sender).Canvas.TextExtent('A').cy;
+              if TMGridObject(aObj).Caption <> '' then
+                brect.Top := bRect.Top+TStringGrid(Sender).Canvas.TextExtent('A').cy;
               if TMGridObject(aObj).Bold then
                 Canvas.Font.Style := [fsBold];
-              TStringGrid(Sender).Canvas.TextRect(bRect,aRect.Left+3,bRect.Top,aText,aTextStyle);
+              if fTimeline.WordWrap then
+                TStringGrid(Sender).Canvas.TextRect(bRect,aRect.Left+3,bRect.Top,aText,aTextStyleW)
+              else
+                TStringGrid(Sender).Canvas.TextRect(bRect,aRect.Left+3,bRect.Top,aText,aTextStyle);
               TStringGrid(Sender).Canvas.Font.Color:=clGray;
               bRect := aRect;
               brect.Bottom := aRect.Top+Canvas.TextExtent('A').cy;
               Canvas.Font.Style := [];
-              TStringGrid(Sender).canvas.TextOut(arect.Left+3,aRect.Top,TMGridObject(aObj).Caption);
+              TStringGrid(Sender).Canvas.TextOut(arect.Left+3,aRect.Top,TMGridObject(aObj).Caption);
               if (gdSelected in State) and TStringGrid(Sender).Focused then
                 TStringGrid(Sender).Canvas.DrawFocusRect(arect);
             end
@@ -499,14 +520,18 @@ begin
               aObj := fTimeline.gList.Objects[aCol.Index+1,aRow];
               if fTimeline.GotoRowNumber(aRow) then
                 begin
-                  if copy(fTimeline.dgFake.DataSource.DataSet.FieldByName('OBJECT').AsString,0,6) = 'USERS@' then
-                    TMGridObject(aObj).Caption := strTo+Data.GetLinkDesc(fTimeline.dgFake.DataSource.DataSet.FieldByName('OBJECT').AsString)
-                  else
-                    TMGridObject(aObj).Caption := Data.GetLinkDesc(fTimeline.dgFake.DataSource.DataSet.FieldByName('OBJECT').AsString);
-                  TMGridObject(aObj).Bold:=(fTimeline.dgFake.DataSource.DataSet.FieldByName('READ').AsString<>'Y');
+                  if fTimeline.dgFake.DataSource.DataSet.FieldByName('OBJECT').AsString <> Data.BuildLink(Data.Users.dataSet) then
+                    begin
+                      if copy(fTimeline.dgFake.DataSource.DataSet.FieldByName('OBJECT').AsString,0,6) = 'USERS@' then
+                        TMGridObject(aObj).Caption := strTo+Data.GetLinkDesc(fTimeline.dgFake.DataSource.DataSet.FieldByName('OBJECT').AsString)
+                      else
+                        TMGridObject(aObj).Caption := Data.GetLinkDesc(fTimeline.dgFake.DataSource.DataSet.FieldByName('OBJECT').AsString);
+                      TMGridObject(aObj).Bold:=(fTimeline.dgFake.DataSource.DataSet.FieldByName('READ').AsString<>'Y');
+                      fTimeline.DataSet.GotoBookmark(aRec);
+                      fTimeline.gList.RowHeights[aRow] := fTimeline.gList.RowHeights[aRow]+12;
+                    end;
                 end;
               fTimeline.DataSet.GotoBookmark(aRec);
-              fTimeline.gList.RowHeights[aRow] := fTimeline.gList.RowHeights[aRow]+12;
             end;
           NewText := TMGridObject(aObj).Caption+lineending+NewText;
           if length(NewText)>1000 then
@@ -532,6 +557,12 @@ begin
           aCol.Alignment:=taRightJustify;
         end;
     end;
+end;
+
+procedure TfmTimeline.fTimelinegetRowHeight(Sender: TObject; aCol: TColumn;
+  aRow: Integer; var aHeight: Integer);
+begin
+  aHeight := aHeight+3;
 end;
 
 procedure TfmTimeline.fTimelinegListDblClick(Sender: TObject);

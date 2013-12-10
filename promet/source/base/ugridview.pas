@@ -86,6 +86,7 @@ type
   TCellButtonClickEvent = procedure(Sender : TObject;Cell : TPoint;Field : TColumn) of object;
   TSetupPositionEvent = procedure(Sender : TObject;Columns : TGridColumns)  of object;
   TGetCellTextEvent = procedure(Sender : TObject;aCol : TColumn;aRow : Integer;var NewText : string;aFont : TFont) of object;
+  TGetRowHeightEvent = procedure(Sender : TObject;aCol : TColumn;aRow : Integer;var aHeight : Integer) of object;
   TSetCellTextEvent = procedure(Sender : TObject;aCol : TColumn;aRow : Integer;var NewText : string) of object;
   TFieldEvent = procedure(Field : TColumn) of object;
   TSearchKey = function(Sender : TObject;X,Y : Integer;Field : TColumn;var Key : Word;Shift : TShiftState;SearchString : string) : Boolean of object;
@@ -190,7 +191,9 @@ type
     fDefaultRows: string;
     FDelete: TNotifyEvent;
     FFilterCell: TFilterCellTextEvent;
+    FGetRowHeight: TGetRowHeightEvent;
     FOnGetFontCell: TCellFontEvent;
+    FWordwrap: Boolean;
     FWorkStatus: string;
     WasEditing: Boolean;
     { private declarations }
@@ -320,6 +323,7 @@ type
     property Columns: TDBGridColumns read GetColumns;
     property DefaultRows : string read fDefaultRows write SetDefaultRows;
     property SortDirection : TSortDirection read FSortDirection write SetSortDirecion;
+    property WordWrap : Boolean read FWordwrap write FWordwrap;
 
     property SortField : string read FSortField write SetSortField;
     property TextField : string read FTextField write SetTextField;
@@ -340,6 +344,7 @@ type
     property OnDragOver : TDragOverEvent read FDragOver write SetDragOver;
     property OnDragDrop : TDragDropEvent read FDragDrop write SetDragDrop;
     property OnGetCellText : TGetCellTextEvent read FGetCText write FGetCText;
+    property OngetRowHeight : TGetRowHeightEvent read FGetRowHeight write FGetRowHeight;
     property OnSetCellText : TSetCellTextEvent read FSetCText write FSetCText;
     property OnGetEditText : TGetEditEvent read FGetEdit write FGetEdit;
     property OnSetEditText : TSetEditEvent read FSetEdit write FSetEdit;
@@ -874,9 +879,7 @@ begin
 end;
 procedure TfGridView.gListDrawCell(Sender: TObject; aCol, aRow: Integer;
   aRect: TRect; aState: TGridDrawState);
-var
-  aColor: TColor;
-  aText: string = '';
+const
   aTextStyle : TTextStyle = (Alignment:taLeftJustify;
                              Layout : tlTop;
                              SingleLine : False;
@@ -887,6 +890,19 @@ var
                              Opaque:True;
                              SystemFont:False;
                              RightToLeft:False);
+  aTextStyleW : TTextStyle = (Alignment:taLeftJustify;
+                             Layout : tlTop;
+                             SingleLine : False;
+                             Clipping  : True;
+                             ExpandTabs:False;
+                             ShowPrefix:False;
+                             Wordbreak:True;
+                             Opaque:True;
+                             SystemFont:False;
+                             RightToLeft:False);
+var
+  aColor: TColor;
+  aText: string = '';
   bRect: TRect;
   aLevel: Integer;
   i: Integer;
@@ -1134,7 +1150,10 @@ begin
               {$endif}
               aTextStyle.Alignment:=dgFake.Columns[aCol-1].Alignment;
               dec(bRect.Right,1);
-              TextRect(bRect,bRect.Left+3,bRect.Top,aText,aTextStyle);
+              if not WordWrap then
+                TextRect(bRect,bRect.Left+3,bRect.Top,aText,aTextStyle)
+              else
+                TextRect(bRect,bRect.Left+3,bRect.Top,aText,aTextStyleW);
               dec(aRect.Right,1);
               dec(aRect.Bottom,1);
               if (gdSelected in aState) and gList.Focused then
@@ -1894,10 +1913,13 @@ var
   aText: string;
   aHeight : Integer = 1;
   i: Integer;
+  r: Classes.TRect;
 begin
   Result := gList.DefaultRowHeight;
   if aRow<0 then exit;
   if UseDefaultRowHeight then exit;
+  r.Top:=0;
+  r.Bottom:=0;
   for i := 0 to dgFake.Columns.Count-1 do
     if Assigned(dgFake.Columns[i].Field) and (dgFake.Columns[i].Field.FieldName = TextField) then
       begin
@@ -1907,22 +1929,37 @@ begin
             aText := gList.Cells[i+1,aRow];
             if Assigned(FGetCText) then
               FGetCText(Self,dgFake.Columns[i],aRow,atext,nil);
+            if WordWrap then
+              begin
+                r := gList.CellRect(i+1,aRow);
+                DrawText(Canvas.Handle,
+                  PChar(aText),
+                  Length(aText),
+                  r,
+                  DT_LEFT or DT_WORDBREAK or DT_CALCRECT);
+              end;
           end;
         break;
       end;
-  if copy(aText,length(aText),1) = #10 then
-    aText := copy(aText,0,length(atext)-2);
-  while pos(#10,aText) > 0 do
+  if r.Bottom = 0 then
     begin
-      inc(aHeight,1);
-      aText := copy(aText,pos(#10,aText)+1,length(aText));
-    end;
-  aHeight := ((aHeight)*(gList.DefaultRowHeight-4));
-  if gList.DefaultRowHeight > aHeight then
-    aHeight := gList.DefaultRowHeight;
-  Result := aHeight;
+      if copy(aText,length(aText),1) = #10 then
+        aText := copy(aText,0,length(atext)-2);
+      while pos(#10,aText) > 0 do
+        begin
+          inc(aHeight,1);
+          aText := copy(aText,pos(#10,aText)+1,length(aText));
+        end;
+      aHeight := ((aHeight)*(gList.DefaultRowHeight-4));
+      if gList.DefaultRowHeight > aHeight then
+        aHeight := gList.DefaultRowHeight;
+      Result := aHeight;
+    end
+  else Result := r.Bottom-r.Top;
   if Result>(gList.Height-(gList.FixedRows*gList.DefaultRowHeight)) then
     Result:=(gList.Height-(gList.FixedRows*gList.DefaultRowHeight));
+  if Assigned(FGetRowHeight) then
+    FGetRowHeight(Self,dgFake.Columns[i],aRow,Result);
 end;
 procedure TfGridView.SetBaseFilter(AValue: string);
 var
@@ -2490,6 +2527,7 @@ begin
   inherited Create(AOwner);
   InEdit := False;
   FreadOnly:=False;
+  FWordwrap:=False;
   FEntered := False;
   FDataSet := nil;
   FDontUpdate := 0;

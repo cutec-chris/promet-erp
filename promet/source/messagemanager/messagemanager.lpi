@@ -85,6 +85,7 @@
         <Filename Value="udetailview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fDetailView"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="udetailview"/>
       </Unit4>
