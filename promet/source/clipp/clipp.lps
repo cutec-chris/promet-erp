@@ -4,7 +4,7 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="27">
+    <Units Count="31">
       <Unit0>
         <Filename Value="clipp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -12,7 +12,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="56" Y="14"/>
-        <UsageCount Value="39"/>
+        <UsageCount Value="42"/>
       </Unit0>
       <Unit1>
         <Filename Value="umain.pas"/>
@@ -21,13 +21,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="umain"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="319"/>
-        <CursorPos X="30" Y="354"/>
-        <FoldState Value=" T5jN01 T4jQ02 T3mI07Z"/>
-        <UsageCount Value="39"/>
+        <TopLine Value="485"/>
+        <CursorPos X="51" Y="504"/>
+        <FoldState Value=" T5jc01 T4jf02 T3mb07y"/>
+        <UsageCount Value="42"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -38,16 +37,16 @@
         <WindowIndex Value="0"/>
         <TopLine Value="38"/>
         <CursorPos X="47" Y="62"/>
-        <UsageCount Value="32"/>
+        <UsageCount Value="35"/>
       </Unit2>
       <Unit3>
         <Filename Value="C:\Programme\lazarus\lcl\clipbrd.pp"/>
         <UnitName Value="Clipbrd"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="238"/>
         <CursorPos X="1" Y="258"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="18"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
@@ -60,11 +59,11 @@
       </Unit4>
       <Unit5>
         <Filename Value="C:\Programme\lazarus\lcl\include\clipbrd.inc"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="558"/>
-        <CursorPos X="28" Y="576"/>
-        <UsageCount Value="13"/>
+        <TopLine Value="440"/>
+        <CursorPos X="1" Y="472"/>
+        <UsageCount Value="15"/>
         <Loaded Value="True"/>
       </Unit5>
       <Unit6>
@@ -125,19 +124,21 @@
       <Unit13>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1041"/>
+        <TopLine Value="1028"/>
         <CursorPos X="1" Y="1052"/>
         <UsageCount Value="12"/>
+        <Loaded Value="True"/>
       </Unit13>
       <Unit14>
         <Filename Value="..\base\dbintfs\uintfstrconsts.pas"/>
         <UnitName Value="uIntfStrConsts"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="52" Y="29"/>
-        <UsageCount Value="15"/>
+        <TopLine Value="176"/>
+        <CursorPos X="37" Y="196"/>
+        <UsageCount Value="17"/>
         <Loaded Value="True"/>
       </Unit14>
       <Unit15>
@@ -146,11 +147,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMainTreeFrame"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="323"/>
         <CursorPos X="3" Y="327"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="17"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit15>
@@ -180,18 +181,19 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="20" Y="1"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="17"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit18>
       <Unit19>
         <Filename Value="..\base\uclipp.pas"/>
         <UnitName Value="uclipp"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="102"/>
-        <CursorPos X="3" Y="111"/>
-        <UsageCount Value="15"/>
+        <TopLine Value="189"/>
+        <CursorPos X="45" Y="210"/>
+        <UsageCount Value="17"/>
         <Loaded Value="True"/>
       </Unit19>
       <Unit20>
@@ -244,10 +246,41 @@
         <Filename Value="C:\Programme\lazarus\lcl\controls.pp"/>
         <UnitName Value="Controls"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="2116"/>
-        <CursorPos X="14" Y="2134"/>
+        <TopLine Value="2536"/>
+        <CursorPos X="10" Y="2555"/>
         <UsageCount Value="10"/>
       </Unit26>
+      <Unit27>
+        <Filename Value="C:\Programme\lazarus\lcl\include\control.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="3223"/>
+        <CursorPos X="1" Y="3242"/>
+        <UsageCount Value="11"/>
+      </Unit27>
+      <Unit28>
+        <Filename Value="C:\Programme\lazarus\lcl\include\wincontrol.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="6300"/>
+        <CursorPos X="1" Y="6320"/>
+        <UsageCount Value="11"/>
+      </Unit28>
+      <Unit29>
+        <Filename Value="C:\Programme\lazarus\fpc\2.6.2\source\rtl\objpas\sysutils\datih.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="9"/>
+        <CursorPos X="14" Y="27"/>
+        <UsageCount Value="10"/>
+      </Unit29>
+      <Unit30>
+        <Filename Value="..\base\dbintfs\udocuments.pas"/>
+        <UnitName Value="uDocuments"/>
+        <EditorIndex Value="5"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="724"/>
+        <CursorPos X="1" Y="732"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit30>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
@@ -255,123 +288,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="umain.pas"/>
-        <Caret Line="324" Column="25" TopLine="304"/>
+        <Caret Line="337" Column="15" TopLine="496"/>
       </Position1>
       <Position2>
-        <Filename Value="umain.pas"/>
-        <Caret Line="421" Column="7" TopLine="400"/>
+        <Filename Value="..\base\uclipp.pas"/>
+        <Caret Line="180" Column="21" TopLine="169"/>
       </Position2>
       <Position3>
-        <Filename Value="umain.pas"/>
-        <Caret Line="435" Column="1" TopLine="414"/>
+        <Filename Value="..\base\uclipp.pas"/>
+        <Caret Line="205" Column="1" TopLine="174"/>
       </Position3>
       <Position4>
-        <Filename Value="umain.pas"/>
-        <Caret Line="323" Column="21" TopLine="301"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1048" Column="1" TopLine="1028"/>
       </Position4>
       <Position5>
-        <Filename Value="umain.pas"/>
-        <Caret Line="326" Column="27" TopLine="304"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1049" Column="1" TopLine="1028"/>
       </Position5>
       <Position6>
-        <Filename Value="umain.pas"/>
-        <Caret Line="330" Column="77" TopLine="295"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1050" Column="1" TopLine="1028"/>
       </Position6>
       <Position7>
-        <Filename Value="umain.pas"/>
-        <Caret Line="323" Column="3" TopLine="302"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1051" Column="1" TopLine="1028"/>
       </Position7>
       <Position8>
-        <Filename Value="umain.pas"/>
-        <Caret Line="317" Column="45" TopLine="312"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1052" Column="1" TopLine="1028"/>
       </Position8>
       <Position9>
-        <Filename Value="umain.pas"/>
-        <Caret Line="324" Column="1" TopLine="311"/>
+        <Filename Value="C:\Programme\lazarus\lcl\clipbrd.pp"/>
+        <Caret Line="257" Column="1" TopLine="238"/>
       </Position9>
       <Position10>
-        <Filename Value="umain.pas"/>
-        <Caret Line="325" Column="1" TopLine="311"/>
+        <Filename Value="C:\Programme\lazarus\lcl\clipbrd.pp"/>
+        <Caret Line="258" Column="1" TopLine="238"/>
       </Position10>
       <Position11>
-        <Filename Value="umain.pas"/>
-        <Caret Line="326" Column="1" TopLine="311"/>
+        <Filename Value="C:\Programme\lazarus\lcl\include\clipbrd.inc"/>
+        <Caret Line="456" Column="1" TopLine="437"/>
       </Position11>
       <Position12>
-        <Filename Value="umain.pas"/>
-        <Caret Line="331" Column="70" TopLine="311"/>
+        <Filename Value="C:\Programme\lazarus\lcl\include\clipbrd.inc"/>
+        <Caret Line="457" Column="1" TopLine="437"/>
       </Position12>
       <Position13>
-        <Filename Value="umain.pas"/>
-        <Caret Line="327" Column="29" TopLine="309"/>
+        <Filename Value="C:\Programme\lazarus\lcl\include\clipbrd.inc"/>
+        <Caret Line="458" Column="1" TopLine="437"/>
       </Position13>
       <Position14>
-        <Filename Value="umain.pas"/>
-        <Caret Line="326" Column="1" TopLine="309"/>
+        <Filename Value="C:\Programme\lazarus\lcl\include\clipbrd.inc"/>
+        <Caret Line="459" Column="1" TopLine="437"/>
       </Position14>
       <Position15>
-        <Filename Value="umain.pas"/>
-        <Caret Line="330" Column="1" TopLine="309"/>
+        <Filename Value="C:\Programme\lazarus\lcl\include\clipbrd.inc"/>
+        <Caret Line="460" Column="1" TopLine="437"/>
       </Position15>
       <Position16>
-        <Filename Value="umain.pas"/>
-        <Caret Line="331" Column="1" TopLine="309"/>
+        <Filename Value="C:\Programme\lazarus\lcl\include\clipbrd.inc"/>
+        <Caret Line="461" Column="1" TopLine="437"/>
       </Position16>
       <Position17>
-        <Filename Value="umain.pas"/>
-        <Caret Line="333" Column="1" TopLine="309"/>
+        <Filename Value="C:\Programme\lazarus\lcl\include\clipbrd.inc"/>
+        <Caret Line="462" Column="1" TopLine="437"/>
       </Position17>
       <Position18>
-        <Filename Value="umain.pas"/>
-        <Caret Line="334" Column="1" TopLine="309"/>
+        <Filename Value="C:\Programme\lazarus\lcl\include\clipbrd.inc"/>
+        <Caret Line="463" Column="1" TopLine="437"/>
       </Position18>
       <Position19>
-        <Filename Value="umain.pas"/>
-        <Caret Line="335" Column="1" TopLine="309"/>
+        <Filename Value="C:\Programme\lazarus\lcl\include\clipbrd.inc"/>
+        <Caret Line="464" Column="1" TopLine="437"/>
       </Position19>
       <Position20>
-        <Filename Value="umain.pas"/>
-        <Caret Line="336" Column="1" TopLine="309"/>
+        <Filename Value="C:\Programme\lazarus\lcl\include\clipbrd.inc"/>
+        <Caret Line="465" Column="1" TopLine="437"/>
       </Position20>
       <Position21>
-        <Filename Value="umain.pas"/>
-        <Caret Line="316" Column="10" TopLine="310"/>
+        <Filename Value="C:\Programme\lazarus\lcl\include\clipbrd.inc"/>
+        <Caret Line="466" Column="1" TopLine="437"/>
       </Position21>
       <Position22>
-        <Filename Value="umain.pas"/>
-        <Caret Line="344" Column="1" TopLine="337"/>
+        <Filename Value="C:\Programme\lazarus\lcl\include\clipbrd.inc"/>
+        <Caret Line="469" Column="1" TopLine="437"/>
       </Position22>
       <Position23>
-        <Filename Value="umain.pas"/>
-        <Caret Line="345" Column="1" TopLine="337"/>
+        <Filename Value="C:\Programme\lazarus\lcl\include\clipbrd.inc"/>
+        <Caret Line="472" Column="1" TopLine="440"/>
       </Position23>
       <Position24>
-        <Filename Value="umain.pas"/>
-        <Caret Line="346" Column="1" TopLine="337"/>
+        <Filename Value="..\base\uclipp.pas"/>
+        <Caret Line="206" Column="1" TopLine="175"/>
       </Position24>
       <Position25>
-        <Filename Value="umain.pas"/>
-        <Caret Line="344" Column="1" TopLine="337"/>
+        <Filename Value="..\base\uclipp.pas"/>
+        <Caret Line="207" Column="1" TopLine="176"/>
       </Position25>
       <Position26>
         <Filename Value="umain.pas"/>
-        <Caret Line="345" Column="1" TopLine="337"/>
+        <Caret Line="350" Column="1" TopLine="331"/>
       </Position26>
       <Position27>
         <Filename Value="umain.pas"/>
-        <Caret Line="344" Column="65" TopLine="337"/>
+        <Caret Line="351" Column="1" TopLine="331"/>
       </Position27>
       <Position28>
         <Filename Value="umain.pas"/>
-        <Caret Line="345" Column="1" TopLine="337"/>
+        <Caret Line="233" Column="51" TopLine="219"/>
       </Position28>
       <Position29>
         <Filename Value="umain.pas"/>
-        <Caret Line="346" Column="1" TopLine="337"/>
+        <Caret Line="315" Column="1" TopLine="282"/>
       </Position29>
       <Position30>
-        <Filename Value="umain.pas"/>
-        <Caret Line="344" Column="1" TopLine="337"/>
+        <Filename Value="..\base\uclipp.pas"/>
+        <Caret Line="208" Column="48" TopLine="189"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>

@@ -193,6 +193,7 @@ resourcestring
   strAccountexchange            = 'Bankbuchungen';
   strHistory                    = 'Verlauf';
   strImages                     = 'Bilder';
+  strImage                      = 'Bild';
   strFinance                    = 'Finanzen';
   strSearchfromTimeregisteringMode = 'Diese Suche wurde aus der Zeiterfassung gestartet, wenn Sie einen Eintrag öffnen, wird dieser automatisch in die Zeiterfassung übernommen.';
   strError                      = 'Error';

@@ -24,9 +24,9 @@ unit umain;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ExtCtrls, ComCtrls, ActnList, Clipbrd, Menus, Buttons, process, uclipp,
-  uMainTreeFrame,DB,LCLType;
+  Classes, SysUtils, types, FileUtil, Forms, Controls, Graphics, Dialogs,
+  StdCtrls, ExtCtrls, ComCtrls, ActnList, Clipbrd, Menus, Buttons, process,
+  uclipp, uMainTreeFrame, DB, LCLType;
 
 type
   TfMain = class(TForm)
@@ -42,8 +42,19 @@ type
     eSearch: TEdit;
     eName: TEdit;
     Image1: TImage;
+    iTemp1: TImage;
+    iTemp2: TImage;
+    iTemp3: TImage;
+    iTemp4: TImage;
+    iTemp5: TImage;
     Label1: TLabel;
     Label2: TLabel;
+    Label3: TLabel;
+    lTemp1: TLabel;
+    lTemp2: TLabel;
+    lTemp3: TLabel;
+    lTemp4: TLabel;
+    lTemp5: TLabel;
     MainMenu: TMainMenu;
     mDesc: TMemo;
     miSet: TMenuItem;
@@ -56,12 +67,14 @@ type
     miOptions: TMenuItem;
     Panel1: TPanel;
     Panel3: TPanel;
+    pClipboard: TPanel;
+    pmTempBoards: TPopupMenu;
+    pTemp: TPanel;
     pTemp1: TPanel;
     pTemp2: TPanel;
     pTemp3: TPanel;
     pTemp4: TPanel;
-    pClipboard: TPanel;
-    pmTempBoards: TPopupMenu;
+    pTemp5: TPanel;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
     SpeedButton3: TSpeedButton;
@@ -92,6 +105,7 @@ type
     procedure mDescKeyPress(Sender: TObject; var Key: char);
     procedure miClearClick(Sender: TObject);
     procedure miSetClick(Sender: TObject);
+    procedure pmTempBoardsClose(Sender: TObject);
     procedure pmTempBoardsPopup(Sender: TObject);
     procedure pTemp1DblClick(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
@@ -105,6 +119,7 @@ type
     SearchDS : TClipp;
     procedure DoCreate;
     procedure RefreshView;
+    function BuildCaption(aDS: TClipp): string;
   end;
 
 var
@@ -138,6 +153,7 @@ begin
     begin
       if InputQuery(strName,strName,aName) then
         begin
+          Screen.Cursor:=crHourGlass;
           DataSet.Insert;
           DataSet.FieldByName('NAME').AsString:=aName;
           Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,False);
@@ -149,6 +165,7 @@ begin
           DataSet.Post;
           fMainTreeFrame.tvMain.Selected.Collapse(False);
           fMainTreeFrame.tvMain.Selected.Expand(False);
+          Screen.Cursor:=crDefault;
         end;
     end
   else Showmessage(strDirmustSelected);
@@ -191,9 +208,12 @@ begin
   TempDataSet := TClipp.Create(nil,Data);
   Datasource.DataSet := DataSet.DataSet;
   SearchDS := TClipp.Create(nil,Data);
+  tRefreshTempsTimer(nil);
+  tRefreshTemps.Enabled:=True;
 end;
 procedure TfMain.acLogoutExecute(Sender: TObject);
 begin
+  tRefreshTemps.Enabled:=false;
   TempDataSet.Free;
   DataSet.Free;
   SearchDS.Free;
@@ -204,6 +224,7 @@ procedure TfMain.acRestoreExecute(Sender: TObject);
 var
   aRes: TRestoreResult;
 begin
+  Screen.Cursor:=crHourGlass;
   if DataSet.Count>0 then
     begin
       aRes := DataSet.RestoreToClipboard;
@@ -218,19 +239,17 @@ begin
           pClipboard.Color:=clYellow;
         end;
     end;
+  Screen.Cursor:=crDefault;
 end;
-
 procedure TfMain.acSaveExecute(Sender: TObject);
 begin
   DataSet.Post;
 end;
-
 procedure TfMain.DatasourceStateChange(Sender: TObject);
 begin
   acSave.Enabled:=DataSet.CanEdit;
   acCancel.Enabled:=DataSet.CanEdit;
 end;
-
 procedure TfMain.eNameEditingDone(Sender: TObject);
 begin
   if DataSet.Count>0 then
@@ -244,7 +263,6 @@ procedure TfMain.eNameKeyPress(Sender: TObject; var Key: char);
 begin
   eNameEditingDone(Sender);
 end;
-
 procedure TfMain.eSearchKeyPress(Sender: TObject; var Key: char);
 begin
   Timer1.Enabled:=True;
@@ -296,12 +314,10 @@ begin
       DataSet.FieldByName('DESCRIPTION').AsString := mDesc.Lines.Text;
     end;
 end;
-
 procedure TfMain.mDescKeyPress(Sender: TObject; var Key: char);
 begin
   mDescEditingDone(Sender);
 end;
-
 procedure TfMain.miClearClick(Sender: TObject);
 var
   aCon: TComponent;
@@ -311,16 +327,16 @@ begin
   TempDataSet.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue('Temp'+IntToStr(aTag)));
   while TempDataSet.Count>0 do
     TempDataSet.Delete;
-  aCon := FindComponent('pTemp'+IntToStr(aTag));
+  aCon := FindComponent('lTemp'+IntToStr(aTag));
   if Assigned(aCon) then
     TPanel(aCon).Caption:=strClear;
 end;
-
 procedure TfMain.miSetClick(Sender: TObject);
 var
   aTag: PtrInt;
   aCon: TComponent;
 begin
+  Screen.Cursor:=crHourGlass;
   aTag := TComponent(Sender).Tag;
   TempDataSet.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue('Temp'+IntToStr(aTag)));
   if TempDataSet.Count>0 then
@@ -332,30 +348,76 @@ begin
     end;
   TempDataSet.AddFromClipboard;
   TempDataSet.Post;
-  aCon := FindComponent('pTemp'+IntToStr(aTag));
+  aCon := FindComponent('lTemp'+IntToStr(aTag));
   if Assigned(aCon) then
-    TPanel(aCon).Caption:=TempDataSet.FieldByName('CHANGEDBY').AsString;
+    TLabel(aCon).Caption:=TempDataSet.FieldByName('CHANGEDBY').AsString;
+  Screen.Cursor:=crDefault;
+end;
+
+procedure TfMain.pmTempBoardsClose(Sender: TObject);
+begin
+  tRefreshTemps.Enabled:=True;
 end;
 
 procedure TfMain.pmTempBoardsPopup(Sender: TObject);
 var
   aCon: TControl;
+  i: Integer;
+  AWinControl: TWinControl;
+  ScreenPos: types.TPoint;
+  ClientPos: TPoint;
 begin
-  aCon := ControlAtPos(Mouse.CursorPos,False,True);
+  tRefreshTemps.Enabled:=False;
+  ScreenPos := Mouse.CursorPos;
+  AWinControl := Self;
+  if Assigned(AWinControl) then
+    begin
+      ClientPos := AWinControl.ScreenToClient(ScreenPos);
+      aCon := AWinControl.ControlAtPos(ClientPos,
+                        [capfAllowDisabled, capfAllowWinControls, capfRecursive]);
+    end;
+  while Assigned(aCon) and (aCon.ClassType<>TPanel) do
+    begin
+      if aCon.Parent is TControl then
+        aCon := TControl(aCon.Parent)
+      else aCon := nil;
+    end;
   if Assigned(aCon) then
-    pmTempBoards.Tag := aCon.Tag;
+    begin
+      for i := 0 to pmTempBoards.Items.Count-1 do
+        begin
+          pmTempBoards.Items[i].Enabled:=True;
+          pmTempBoards.Items[i].Tag := aCon.Tag
+        end;
+    end
+  else
+    begin
+      for i := 0 to pmTempBoards.Items.Count-1 do
+        pmTempBoards.Items[i].Enabled:=False;
+    end;
 end;
-
 procedure TfMain.pTemp1DblClick(Sender: TObject);
 var
   aTag: PtrInt;
   aRes: TRestoreResult;
+  aCon: TControl;
 begin
-  aTag := TComponent(Sender).Tag;
+  Screen.Cursor:=crHourGlass;
+  aCon := TControl(Sender);
+  while Assigned(aCon) and (aCon.ClassType<>TPanel) do
+    begin
+      if aCon.Parent is TControl then
+        aCon := TControl(aCon.Parent)
+      else aCon := nil;
+    end;
+  if (not Assigned(aCon)) and (Sender is TMenuItem) then
+    aTag := TComponent(Sender).Tag
+  else
+    aTag := aCon.Tag;
   TempDataSet.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue('Temp'+IntToStr(aTag)));
   if TempDataSet.Count>0 then
     begin
-      aRes := DataSet.RestoreToClipboard;
+      aRes := TempDataSet.RestoreToClipboard;
       if aRes = rrFully then
         begin
           pClipboard.Caption:=strRestoreCompleted;
@@ -367,8 +429,8 @@ begin
           pClipboard.Color:=clYellow;
         end;
     end;
+  Screen.Cursor:=crDefault;
 end;
-
 procedure TfMain.Timer1Timer(Sender: TObject);
   function NodeThere(aRec : largeInt) : TTreeNode;
   var
@@ -387,7 +449,6 @@ procedure TfMain.Timer1Timer(Sender: TObject);
         aNode := aNode.GetNext;
       end;
   end;
-
   function ExpandDir(aRec : LargeInt) : TTReeNode;
   var
     bParent : Variant;
@@ -404,7 +465,6 @@ procedure TfMain.Timer1Timer(Sender: TObject);
       end;
     Result.Expand(False);
   end;
-
 var
   aParent: TTreeNode;
   i: Integer;
@@ -435,23 +495,35 @@ begin
         end;
     end;
 end;
-
 procedure TfMain.tRefreshTempsTimer(Sender: TObject);
 var
   i: Integer;
+  aConName: String;
+  aConName1: String;
 begin
-  for i := 0 to ToolBar1.ComponentCount-1 do
-    if copy(ToolBar1.Components[i].Name,0,5) = 'pTemp' then
-      TPanel(ToolBar1.Components[i]).Caption:=strClear;
+  tRefreshTemps.Enabled:=False;
+  for i := 0 to pTemp.ControlCount-1 do
+    if copy(pTemp.Controls[i].Name,0,5) = 'pTemp' then
+      begin
+        aConName := 'lTemp'+copy(pTemp.Controls[i].Name,6,10);
+        TLabel(FindComponent(aConName)).Caption:=strClear;
+        TLabel(FindComponent(aConName)).Hint:='';
+        aConName := 'iTemp'+copy(pTemp.Controls[i].Name,6,10);
+        TImage(FindComponent(aConName)).Hint := '';
+      end;
   TempDataSet.Filter(Data.ProcessTerm(Data.QuoteField('NAME')+'='+Data.QuoteValue('Temp*')));
   while not TempDataSet.EOF do
     begin
-      if Assigned(FindComponent('p'+TempDataSet.FieldByName('NAME').AsString)) then
-        TPanel(FindComponent('p'+TempDataSet.FieldByName('NAME').AsString)).Caption:=TempDataSet.FieldByName('CHANGEDBY').AsString;
+      if Assigned(FindComponent('l'+TempDataSet.FieldByName('NAME').AsString)) then
+        begin
+          TPanel(FindComponent('l'+TempDataSet.FieldByName('NAME').AsString)).Caption:=BuildCaption(TempDataSet);
+          TImage(FindComponent('i'+TempDataSet.FieldByName('NAME').AsString)).Hint:=TempDataSet.FieldByName('DESCRIPTION').AsString;
+          Tlabel(FindComponent('l'+TempDataSet.FieldByName('NAME').AsString)).Hint:=TempDataSet.FieldByName('DESCRIPTION').AsString;
+        end;
       TempDataSet.Next;
     end;
+  tRefreshTemps.Enabled:=True;
 end;
-
 procedure TfMain.DoCreate;
 begin
   with Application as IBaseApplication do
@@ -476,5 +548,23 @@ begin
       pClipboard.Caption:='';
     end;
 end;
+
+function TfMain.BuildCaption(aDS: TClipp) : string;
+var
+  aTime: Extended;
+  aTimeres: String;
+begin
+  Result := aDS.FieldByName('CHANGEDBY').AsString;
+  aTime := Now()-aDS.TimeStamp.AsDateTime;
+  if aTime*MinsPerDay<60 then
+    aTimeres := 'vor '+IntToStr(trunc(aTime*MinsPerDay))+'m'
+  else if aTime<1 then
+    aTimeres := 'vor '+IntToStr(trunc(aTime*HoursPerDay))+'h'
+  else
+    aTimeres := 'vor '+IntToStr(trunc(aTime))+'T'
+  ;
+  Result := Result+lineending+aTimeRes;
+end;
+
 end.
 

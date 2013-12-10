@@ -25,15 +25,23 @@ interface
 
 uses
   Classes, SysUtils, uBaseDbDataSet,uBaseDbClasses,uIntfStrConsts,uBaseDBInterface,
-  db,Clipbrd, ComCtrls;
+  db,Clipbrd, ComCtrls,uDocuments,uBaseApplication;
 type
   TRestoreResult = (rrPartially,rrFully,rrNone);
   TClipp = class(TBaseDBList)
+  private
+    FUsedFields : string;
   protected
     procedure DefineFields(aDataSet: TDataSet); override;
   public
+    procedure Select(aID: Variant); override;
+    procedure Filter(aFilter: string; aLimit: Integer=0; aOrderBy: string='';
+      aSortDirection: string='ASC'; aLocalSorting: Boolean=False;
+      aGlobalFilter: Boolean=True; aUsePermissions: Boolean=False;
+      aFilterIn: string='');override;
     function GetTextFieldName: string;override;
     function GetNumberFieldName : string;override;
+    function GetUsedFields : string;
     procedure AddFromClipboard;
     function RestoreToClipboard: TRestoreResult;
   end;
@@ -89,6 +97,29 @@ begin
     end;
 end;
 
+procedure TClipp.Select(aID: Variant);
+var
+  tmpfields: String;
+begin
+  inherited Select(aID);
+  tmpfields := GetUsedFields;
+  with Self.DataSet as IBaseDBFilter do
+    Fields := tmpFields;
+end;
+
+procedure TClipp.Filter(aFilter: string; aLimit: Integer; aOrderBy: string;
+  aSortDirection: string; aLocalSorting: Boolean; aGlobalFilter: Boolean;
+  aUsePermissions: Boolean; aFilterIn: string);
+var
+  tmpfields: String;
+begin
+  tmpfields := GetUsedFields;
+  with Self.DataSet as IBaseDBFilter do
+    Fields := tmpFields;
+  inherited Filter(aFilter, aLimit, aOrderBy, aSortDirection, aLocalSorting,
+    aGlobalFilter, aUsePermissions, aFilterIn);
+end;
+
 function TClipp.GetTextFieldName: string;
 begin
   Result := 'NAME';
@@ -97,6 +128,40 @@ end;
 function TClipp.GetNumberFieldName: string;
 begin
   Result := 'SQL_ID';
+end;
+
+function TClipp.GetUsedFields: string;
+var
+  tmpFields : string = '';
+  i: Integer;
+  aOldLimit: Integer;
+  OldUseP: Boolean;
+begin
+  if FUsedFields = '' then
+    begin
+      with BaseApplication as IBaseDbInterface do
+        begin
+          with Self.DataSet as IBaseDBFilter,Self.DataSet as IBaseManageDB do
+            begin
+              Filter := Data.ProcessTerm(Data.QuoteField(TableName)+'.'+Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(''));
+              Fields := '';
+              aOldLimit := Limit;
+              Limit := 1;
+              OldUseP := UsePermissions;
+              UsePermissions:=False;
+              Open;
+              for i := 0 to DataSet.FieldDefs.Count-1 do
+                if  (DataSet.FieldDefs[i].Name <> 'DATA')
+                then
+                  tmpfields := tmpfields+','+Data.QuoteField(TableName)+'.'+Data.QuoteField(DataSet.FieldDefs[i].Name);
+              tmpFields := copy(tmpFields,2,length(tmpFields));
+              FUsedFields := tmpFields;
+              Limit := aOldLimit;
+              UsePermissions:=OldUseP;
+            end;
+        end;
+    end;
+  Result := FUsedFields;
 end;
 
 procedure TClipp.AddFromClipboard;
@@ -137,6 +202,12 @@ begin
     end;
   GlobalStream.Position:=0;
   Data.StreamToBlobField(GlobalStream,DataSet,'DATA');
+  if Clipboard.AsText<>'' then
+    FieldByName('DESCRIPTION').AsString:=Clipboard.AsText
+  else if Clipboard.HasPictureFormat then
+    FieldByName('DESCRIPTION').AsString:=strImage
+  else
+    FieldByName('DESCRIPTION').AsString:='';
   GlobalStream.Free;
 end;
 
