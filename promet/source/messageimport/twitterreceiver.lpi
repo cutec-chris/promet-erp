@@ -49,7 +49,7 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="136"/>
+        <TopLine Value="89"/>
         <CursorPos X="1" Y="122"/>
         <UsageCount Value="59"/>
         <Loaded Value="True"/>
@@ -432,7 +432,7 @@
       <Unit51>
         <Filename Value="pop3receiver.lpr"/>
         <UnitName Value="pop3receiver"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="75" Y="22"/>
@@ -442,7 +442,7 @@
       <Unit52>
         <Filename Value="feedreceiver.lpr"/>
         <UnitName Value="feedreceiver"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="128"/>
         <CursorPos X="1" Y="146"/>
@@ -469,7 +469,7 @@
       <Unit55>
         <Filename Value="..\components\synapse\httpsend.pas"/>
         <UnitName Value="httpsend"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="642"/>
         <CursorPos X="1" Y="669"/>
@@ -495,17 +495,15 @@
       <Unit58>
         <Filename Value="..\..\..\..\..\..\..\usr\share\fpcsrc\2.6.2\packages\fcl-json\src\fpjson.pp"/>
         <UnitName Value="fpjson"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1628"/>
         <CursorPos X="3" Y="1630"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit58>
       <Unit59>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1111"/>
         <CursorPos X="3" Y="1113"/>
@@ -524,7 +522,7 @@
       <Unit61>
         <Filename Value="..\adds\forumimport2.lpr"/>
         <UnitName Value="forumimport2"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="110"/>
         <CursorPos X="47" Y="127"/>
@@ -534,12 +532,10 @@
       <Unit62>
         <Filename Value="..\components\zeos\src\dbc\ZDbcPostgreSqlUtils.pas"/>
         <UnitName Value="ZDbcPostgreSqlUtils"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="712"/>
         <CursorPos X="1" Y="729"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit62>
       <Unit63>
@@ -551,7 +547,7 @@
         <UsageCount Value="10"/>
       </Unit63>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="27" HistoryIndex="26">
       <Position1>
         <Filename Value="twitterreceiver.lpr"/>
         <Caret Line="117" Column="1" TopLine="100"/>
@@ -621,62 +617,53 @@
         <Caret Line="110" Column="10" TopLine="99"/>
       </Position17>
       <Position18>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcPostgreSqlUtils.pas"/>
-        <Caret Line="723" Column="33" TopLine="712"/>
+        <Filename Value="twitterreceiver.lpr"/>
+        <Caret Line="158" Column="1" TopLine="125"/>
       </Position18>
       <Position19>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="158" Column="1" TopLine="125"/>
+        <Caret Line="162" Column="1" TopLine="133"/>
       </Position19>
       <Position20>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcPostgreSqlUtils.pas"/>
-        <Caret Line="729" Column="1" TopLine="712"/>
+        <Filename Value="twitterreceiver.lpr"/>
+        <Caret Line="114" Column="1" TopLine="97"/>
       </Position20>
       <Position21>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="162" Column="1" TopLine="133"/>
+        <Caret Line="116" Column="1" TopLine="97"/>
       </Position21>
       <Position22>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="114" Column="1" TopLine="97"/>
+        <Caret Line="117" Column="1" TopLine="97"/>
       </Position22>
       <Position23>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="116" Column="1" TopLine="97"/>
+        <Caret Line="162" Column="1" TopLine="112"/>
       </Position23>
       <Position24>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="117" Column="1" TopLine="97"/>
+        <Caret Line="104" Column="101" TopLine="91"/>
       </Position24>
       <Position25>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="162" Column="1" TopLine="112"/>
+        <Caret Line="117" Column="1" TopLine="91"/>
       </Position25>
       <Position26>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="104" Column="101" TopLine="91"/>
+        <Caret Line="110" Column="41" TopLine="109"/>
       </Position26>
       <Position27>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="117" Column="1" TopLine="91"/>
-      </Position27>
-      <Position28>
-        <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="110" Column="41" TopLine="109"/>
-      </Position28>
-      <Position29>
-        <Filename Value="twitterreceiver.lpr"/>
         <Caret Line="120" Column="44" TopLine="109"/>
-      </Position29>
-      <Position30>
-        <Filename Value="..\..\..\..\..\..\..\usr\share\fpcsrc\2.6.2\packages\fcl-json\src\fpjson.pp"/>
-        <Caret Line="425" Column="58" TopLine="408"/>
-      </Position30>
+      </Position27>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
+    <Target>
+      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\tools\twitterreceiver"/>
+    </Target>
     <SearchPaths>
       <OtherUnitFiles Value="..\base"/>
       <UnitOutputDirectory Value="..\..\output\$(TargetCPU)-$(TargetOS)"/>

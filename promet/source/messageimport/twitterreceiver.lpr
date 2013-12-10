@@ -101,7 +101,7 @@ begin
           //https://friends.ullihome.de/api/statuses/home_timeline.xml?since_id=123455
           http.UserAgent:='Mozilla/5.0 (Windows NT 5.1; rv:6.0.2)';
           writeln('Importing Twitter Feed '+copy(mailaccounts,0,pos(';',mailaccounts)-1));
-          url := copy(mailaccounts,0,pos(';',mailaccounts)-1)+'statuses/home_timeline.json?count=5000';
+          url := copy(mailaccounts,0,pos(';',mailaccounts)-1)+'statuses/home_timeline.json';
           mailaccounts := copy(mailaccounts,pos(';',mailaccounts)+1,length(mailaccounts));
           http.UserName := copy(mailaccounts,0,pos(';',mailaccounts)-1);
           mailaccounts := copy(mailaccounts,pos(';',mailaccounts)+1,length(mailaccounts));

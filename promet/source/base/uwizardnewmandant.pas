@@ -557,8 +557,12 @@ begin
               FieldByName('NAME').AsString:='smtpsender';
               FieldByName('INTERVAL').AsInteger:=3;
               Insert;
-              FieldByName('NAME').AsString:='rssreceiver';
+              FieldByName('NAME').AsString:='feedreceiver';
               FieldByName('INTERVAL').AsInteger:=20;
+              Post;
+              Insert;
+              FieldByName('NAME').AsString:='twitterreceiver';
+              FieldByName('INTERVAL').AsInteger:=10;
               Post;
             end;
 
@@ -762,4 +766,4 @@ end;
 initialization
   {$I uwizardnewmandant.lrs}
 end.
-
+
