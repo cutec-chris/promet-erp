@@ -136,9 +136,11 @@
     <RequiredPkgs Count="5">
       <Item1>
         <PackageName Value="pOptions"/>
+        <DefaultFilename Value="../base/poptions.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="pvisualforms"/>
+        <DefaultFilename Value="../base_forms/pvisualforms.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="pOCR"/>

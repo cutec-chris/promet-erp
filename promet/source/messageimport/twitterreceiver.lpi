@@ -49,8 +49,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="192"/>
-        <CursorPos X="1" Y="212"/>
+        <TopLine Value="181"/>
+        <CursorPos X="1" Y="198"/>
         <UsageCount Value="64"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -505,8 +505,8 @@
         <UnitName Value="uBaseDbClasses"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1175"/>
-        <CursorPos X="1" Y="1203"/>
+        <TopLine Value="1162"/>
+        <CursorPos X="1" Y="1183"/>
         <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit59>
@@ -559,124 +559,124 @@
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="133" Column="1" TopLine="114"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1199" Column="1" TopLine="1171"/>
       </Position1>
       <Position2>
-        <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="135" Column="1" TopLine="114"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1200" Column="1" TopLine="1172"/>
       </Position2>
       <Position3>
-        <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="136" Column="1" TopLine="114"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1203" Column="1" TopLine="1175"/>
       </Position3>
       <Position4>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="137" Column="1" TopLine="114"/>
+        <Caret Line="156" Column="1" TopLine="138"/>
       </Position4>
       <Position5>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="139" Column="1" TopLine="114"/>
+        <Caret Line="157" Column="1" TopLine="138"/>
       </Position5>
       <Position6>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="140" Column="1" TopLine="114"/>
+        <Caret Line="158" Column="1" TopLine="138"/>
       </Position6>
       <Position7>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="142" Column="1" TopLine="114"/>
+        <Caret Line="159" Column="1" TopLine="138"/>
       </Position7>
       <Position8>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="143" Column="1" TopLine="127"/>
+        <Caret Line="160" Column="1" TopLine="138"/>
       </Position8>
       <Position9>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="144" Column="1" TopLine="127"/>
+        <Caret Line="159" Column="1" TopLine="138"/>
       </Position9>
       <Position10>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="145" Column="1" TopLine="127"/>
+        <Caret Line="192" Column="1" TopLine="175"/>
       </Position10>
       <Position11>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="146" Column="1" TopLine="127"/>
+        <Caret Line="155" Column="1" TopLine="138"/>
       </Position11>
       <Position12>
-        <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="148" Column="1" TopLine="127"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1158" Column="1" TopLine="1140"/>
       </Position12>
       <Position13>
-        <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="149" Column="1" TopLine="127"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1159" Column="1" TopLine="1140"/>
       </Position13>
       <Position14>
-        <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="150" Column="1" TopLine="127"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1160" Column="1" TopLine="1140"/>
       </Position14>
       <Position15>
-        <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="151" Column="1" TopLine="127"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1162" Column="1" TopLine="1140"/>
       </Position15>
       <Position16>
-        <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="152" Column="1" TopLine="127"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1164" Column="1" TopLine="1140"/>
       </Position16>
       <Position17>
-        <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="154" Column="1" TopLine="127"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1165" Column="1" TopLine="1140"/>
       </Position17>
       <Position18>
-        <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="155" Column="1" TopLine="127"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1166" Column="1" TopLine="1140"/>
       </Position18>
       <Position19>
-        <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="156" Column="1" TopLine="128"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1168" Column="1" TopLine="1140"/>
       </Position19>
       <Position20>
-        <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="198" Column="1" TopLine="181"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1169" Column="1" TopLine="1141"/>
       </Position20>
       <Position21>
-        <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="133" Column="1" TopLine="116"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1170" Column="1" TopLine="1142"/>
       </Position21>
       <Position22>
-        <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="198" Column="1" TopLine="181"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1171" Column="1" TopLine="1143"/>
       </Position22>
       <Position23>
-        <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="133" Column="1" TopLine="116"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1178" Column="1" TopLine="1162"/>
       </Position23>
       <Position24>
-        <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="200" Column="1" TopLine="183"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1179" Column="1" TopLine="1162"/>
       </Position24>
       <Position25>
-        <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="201" Column="1" TopLine="183"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1181" Column="1" TopLine="1162"/>
       </Position25>
       <Position26>
-        <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="203" Column="1" TopLine="183"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1182" Column="1" TopLine="1162"/>
       </Position26>
       <Position27>
-        <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="207" Column="1" TopLine="183"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1183" Column="1" TopLine="1162"/>
       </Position27>
       <Position28>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="96" Column="1" TopLine="79"/>
+        <Caret Line="155" Column="1" TopLine="138"/>
       </Position28>
       <Position29>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="209" Column="1" TopLine="192"/>
+        <Caret Line="198" Column="1" TopLine="181"/>
       </Position29>
       <Position30>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="211" Column="1" TopLine="192"/>
+        <Caret Line="176" Column="1" TopLine="159"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -709,7 +709,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="10">
+    <BreakPoints Count="4">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsGlobal"/>
@@ -738,48 +738,6 @@
         <Source Value="..\#sample_cmdln\E:\umessages.pas"/>
         <Line Value="922"/>
       </Item4>
-      <Item5>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="twitterreceiver.lpr"/>
-        <Line Value="203"/>
-      </Item5>
-      <Item6>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="twitterreceiver.lpr"/>
-        <Line Value="122"/>
-      </Item6>
-      <Item7>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="twitterreceiver.lpr"/>
-        <Line Value="200"/>
-      </Item7>
-      <Item8>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="twitterreceiver.lpr"/>
-        <Line Value="198"/>
-      </Item8>
-      <Item9>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="twitterreceiver.lpr"/>
-        <Line Value="155"/>
-      </Item9>
-      <Item10>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="twitterreceiver.lpr"/>
-        <Line Value="176"/>
-      </Item10>
     </BreakPoints>
     <Watches Count="2">
       <Item1>

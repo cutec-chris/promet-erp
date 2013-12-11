@@ -64,9 +64,11 @@
     <RequiredPkgs Count="6">
       <Item1>
         <PackageName Value="pvisualframes"/>
+        <DefaultFilename Value="../base_frames/pvisualframes.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="rtfconvert_pkg_vis"/>
+        <DefaultFilename Value="../base_wiki/rtfconvert_pkg_vis.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="MemDSLaz"/>

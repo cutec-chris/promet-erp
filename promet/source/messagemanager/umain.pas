@@ -508,8 +508,12 @@ begin
   acHistory.Enabled:=aUser <> '';
   FHistory := TBaseHistory.Create(Self,Data);
   FHistory.CreateTable;
-  with Application as IBaseDBInterface do
-    InformRecTime := StrToDateTime(DBConfig.ReadString('INFORMRECTIME',DateTimeToStr(Now()-5)));
+  try
+    with Application as IBaseDBInterface do
+      InformRecTime := StrToDateTime(DBConfig.ReadString('INFORMRECTIME',DateTimeToStr(Now()-5)));
+  except
+    InformRecTime:=Now()-5;
+  end;
   if aUser <> '' then
     begin
       FFilter := '('+Data.QuoteField('REF_ID')+'='+Data.QuoteValue(Data.Users.Id.AsString)+') OR ('+Data.QuoteField('REFERENCE')+'='+Data.QuoteValue(Data.Users.FieldByName('IDCODE').AsString)+')';
