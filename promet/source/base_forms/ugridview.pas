@@ -1575,6 +1575,7 @@ begin
       OldRow := TStringGrid(Sender).RowCount-1;
     if (OldRow <> aRow)  then
       begin
+        gList.EditorMode:=False;
         {$ifdef debug}
         debugln('RowChanged '+IntToStr(Oldrow)+'->'+IntToStr(aRow)+' '+TRowObject(gList.Objects[0,aRow]).StringRec);
         {$endif}
