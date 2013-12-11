@@ -7,7 +7,7 @@ uses
   cthreads,
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, richmemopackage, umain, pvisualprometapp,uBaseVisualApplication, uclipp
+  Forms, richmemopackage, umain,uBaseVisualApplication, uclipp
   { you can add units after this };
 
 {$R *.res}

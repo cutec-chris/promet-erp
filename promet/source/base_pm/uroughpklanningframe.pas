@@ -106,6 +106,8 @@ type
     Timer1: TTimer;
     ToolButton1: TSpeedButton;
     ToolButton2: TSpeedButton;
+    procedure acCancelExecute(Sender: TObject);
+    procedure acUseExecute(Sender: TObject);
     procedure bDayViewClick(Sender: TObject);
     procedure bMonthViewClick(Sender: TObject);
     procedure bRefreshClick(Sender: TObject);
@@ -152,25 +154,17 @@ type
     constructor Create(aFrame : TfRoughPlanningFrame);
   end;
 
-procedure AddToMainTree(aAction : TAction;Node : TTreeNode = nil);
+procedure AddToMainTree(aAction : TAction);
 var
   MainNode : TTreeNode;
 
 implementation
-uses uData,uBaseDBInterface,uBaseERPDBClasses,uCalendar,uMainTreeFrame;
+uses uData,uBaseDBInterface,uBaseERPDBClasses,uCalendar;
 resourcestring
   strRoughPlanning                                      = 'Grobplanung';
 {$R *.lfm}
-procedure AddToMainTree(aAction: TAction; Node: TTreeNode);
-var
-  Node1: TTreeNode;
+procedure AddToMainTree(aAction : TAction);
 begin
-  if (Data.Users.Rights.Right('PROJECTS') > RIGHT_NONE) then
-    begin
-      Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
-      TTreeEntry(Node1.Data).Typ := etAction;
-      TTreeEntry(Node1.Data).Action := aAction;
-    end;
 end;
 
 constructor TIntDepartment.Create;
@@ -341,6 +335,7 @@ var
   aDepartment: TIntDepartment;
   startinc: Integer;
   aSubInt: TProjectInterval;
+  aDay: Extended;
 begin
   if FUpdateCount>0 then exit;
   FillChar(Style, SizeOf(TTextStyle), 0);
@@ -350,9 +345,19 @@ begin
   Style.Clipping:=True;
   aInt := TInterval(Sender);
 
+  for i := 0 to round(aEnd-aStart) do
+    begin
+      aDay := aStart+i;
+      aCanvas.Brush.Color:=clSkyBlue;
+      if (trunc(aDay) = trunc(Now())) then
+        aCanvas.FillRect(round(i*aDayWidth),aRect.Top,round((i*aDayWidth)+aDayWidth),aRect.Bottom);
+    end;
+
   if aInt.IntervalCount=0 then
     begin
+      aCanvas.Font.Color:=clGrayText;
       aCanvas.TextRect(aRect,aRect.Left,aRect.Top,'keine Plandaten vorhanden',Style);
+      aCanvas.Font.Color:=clNormalText;
     end
   else if Assigned(aThread) then
     begin
@@ -371,7 +376,10 @@ begin
       for i := 0 to aInt.IntervalCount-1 do
         begin
           aDRect:=Rect(round((aInt.Interval[i].StartDate-aStart)*aDayWidth)-1,(aRect.Top)+aAddTop,round((aInt.Interval[i].FinishDate-aStart)*aDayWidth)+1,(aRect.Bottom)+aAddTop);
+          aCanvas.Brush.Style:=bsClear;
           aInt.Interval[i].DrawRect := aDrect;
+          if i = aInt.IntervalCount-1 then
+            aCanvas.TextRect(Rect(aDRect.Right+10,aDRect.Top,aDRect.Right+300,aDRect.Bottom),aDRect.Right+10,aDRect.Top,aInt.Task,Style);
           aCanvas.Pen.Style:=psSolid;
           aCanvas.Pen.Width:=2;
           aCanvas.Pen.Color:=clRed;
@@ -410,11 +418,11 @@ begin
                   else aTop := aDerect.Bottom;
                   aRrect.Top:=aTop+1;
                   aRrect.Left:=aDerect.Left+1;
-                  aRRect.Right:=aDerect.Left+11;
+                  aRRect.Right:=min(aDerect.Left+11,aDerect.Right);
 
                   aCanvas.Rectangle(aRRect);
                   aRRect := aDerect;
-                  aRRect.Left:=aDerect.Left+11;
+                  aRRect.Left:=min(aDerect.Left+11,aDerect.Right);
                   aCanvas.Font.Size:=8;
                   aCanvas.TextRect(aRRect,aRRect.Left,aRRect.Top,aDepartment.ShortName,Style);
                   aCanvas.Font.Size:=0;
@@ -444,6 +452,16 @@ begin
   FRough.MinorScale:=tsDay;
   FRough.MajorScale:=tsWeekNum;
   FRough.Calendar.StartDate:=FRough.Calendar.StartDate;
+end;
+
+procedure TfRoughPlanningFrame.acUseExecute(Sender: TObject);
+begin
+
+end;
+
+procedure TfRoughPlanningFrame.acCancelExecute(Sender: TObject);
+begin
+  StartFilling;
 end;
 
 procedure TfRoughPlanningFrame.bMonthViewClick(Sender: TObject);

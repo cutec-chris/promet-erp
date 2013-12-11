@@ -117,7 +117,7 @@ begin
   aDocuments.CreateTable;
   aDocuments.Destroy;
   //Projects
-  uProjectFrame.AddToMainTree(acNewProject);
+  uProjectFrame.AddToMainTree(acNewProject,nil);
   pcPages.AddTabClass(TfFilter,strProjectList,@AddProjectList,Data.GetLinkIcon('PROJECTS@'),True);
 end;
 procedure TfMain.acLogoutExecute(Sender: TObject);
@@ -316,4 +316,4 @@ end;
 
 initialization
   {$I umain.lrs}
-end.
+end.

@@ -30,16 +30,16 @@
     </RunParams>
     <RequiredPackages Count="5">
       <Item1>
-        <PackageName Value="FCL"/>
+        <PackageName Value="pvisualframes"/>
       </Item1>
       <Item2>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="FCL"/>
       </Item2>
       <Item3>
-        <PackageName Value="phelp"/>
+        <PackageName Value="richmemopackage"/>
       </Item3>
       <Item4>
-        <PackageName Value="pVisualPrometApp"/>
+        <PackageName Value="phelp"/>
       </Item4>
       <Item5>
         <PackageName Value="LCL"/>
