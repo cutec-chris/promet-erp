@@ -1,0 +1,34 @@
+TFFILTER.GHEADER.HINT=hier können Sie die Liste einschränken, 
+Sie können in jeder Spalte einen Wert eingeben 
+den die Einträge haben müssen oder aber mit <>
+arbeiten. Oder mit Jokerzeichen (*,?)
+Beispiel: 
+Wenn Sie in einer Spalte mit Nummern 
+>100 eingeben, werden nur die Einträge angezeigt die 
+als Wert in dieser Spalte > 100 haben.
+TFFILTER.SPEEDBUTTON2.CAPTION=?
+TFFILTER.CBFILTER.HINT=hier können Sie einen Filter wählen um die Liste einzuschränken
+TFFILTER.LFILTER.CAPTION=Filter
+TFFILTER.BEDITFILTER.HINT=zeigt/verbirgt den Filtereditor
+TFFILTER.TOOLBAR.CAPTION=ToolBar
+TFFILTER.CBMAXRESULTS.CAPTION=Filterergebnisse begrenzen auf
+TFFILTER.SEMAXRESULTS.HINT=hier können Sie die Zahl der maximalen Filterergebnisse angeben
+TFFILTER.PRIGHT.HINT=Mithilfe dieser Zeitleiste können
+Sie einfach einen Filter setzen der 
+nur Einträge vor dem gewählten 
+Datum anzeigt.
+Linksklick setzt den Filter.
+Rechtsklick oder Scrollrad bewegt 
+die Zeitleiste.
+TFFILTER.ACSAVEFILTER.CAPTION=acSaveFilter
+TFFILTER.ACSAVEFILTER.HINT=speichert den Filter privat
+TFFILTER.ACSAVEFILTERPUBLIC.CAPTION=acSaveFilterPublic
+TFFILTER.ACSAVEFILTERPUBLIC.HINT=speichert den Filter öffentlich
+TFFILTER.ACDELETEFILTER.CAPTION=acDeleteFilter
+TFFILTER.ACDELETEFILTER.HINT=löscht den Filter
+TFFILTER.ACFILTER.CAPTION=Filtern
+TFFILTER.ACFILTER.HINT=aktiviert den gewählten Filter, 
+wählen Sie den ersten Eintrag (leereintrag) 
+und klicken Sie hier um nicht zu filtern
+TFFILTER.ACOPEN.CAPTION=Öffnen
+TFFILTER.ACCOPYLINK.CAPTION=als Verknüpfung kopieren

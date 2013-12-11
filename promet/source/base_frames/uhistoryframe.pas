@@ -39,7 +39,6 @@ type
     ExtRotatedLabel1: TExtRotatedLabel;
     ExtRotatedLabel2: TExtRotatedLabel;
     ExtRotatedLabel3: TExtRotatedLabel;
-    HistoryImages: TImageList;
     Panel1: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
@@ -111,7 +110,7 @@ begin
       if (Column.FieldName = 'ACTIONICON') and Assigned(Column.Field) then
         begin
           if not Column.Field.IsNull then
-            HistoryImages.Draw(Canvas,Rect.Left,Rect.Top,StrToIntDef(TExtStringGrid(Sender).Cells[Column.Index+1,DataCol],-1));
+            fVisualControls.HistoryImages.Draw(Canvas,Rect.Left,Rect.Top,StrToIntDef(TExtStringGrid(Sender).Cells[Column.Index+1,DataCol],-1));
         end
       else
         Result := False;
@@ -233,11 +232,11 @@ begin
     s := DBConfig.ReadString('HISTB:'+fBaseName,'');
   while pButtons.ComponentCount>0 do
     pButtons.Components[0].Free;
-  for i := 0 to HistoryImages.Count-1 do
+  for i := 0 to fVisualControls.HistoryImages.Count-1 do
     begin
       aButton := TSpeedButton.Create(pButtons);
       aButton.Glyph := nil;
-      HistoryImages.GetBitmap(i,AButton.Glyph);
+      fVisualControls.HistoryImages.GetBitmap(i,AButton.Glyph);
       aButton.Tag:=i;
       aButton.GroupIndex:=100+i;
       aButton.AllowAllUp:=True;

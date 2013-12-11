@@ -57,27 +57,30 @@
       </Item10>
       <Item11>
         <Filename Value="umessageroute.pas"/>
-        <UnitName Value="umessageroute"/>
+        <UnitName Value="uMessageRoute"/>
       </Item11>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="5">
+    <RequiredPkgs Count="6">
       <Item1>
-        <PackageName Value="MemDSLaz"/>
+        <PackageName Value="pvisualframes"/>
       </Item1>
       <Item2>
-        <PackageName Value="phelp"/>
-        <DefaultFilename Value="../base/phelp.lpk"/>
+        <PackageName Value="rtfconvert_pkg_vis"/>
       </Item2>
       <Item3>
-        <PackageName Value="pdocuments"/>
+        <PackageName Value="MemDSLaz"/>
       </Item3>
       <Item4>
-        <PackageName Value="pVisualPrometApp"/>
+        <PackageName Value="phelp"/>
+        <DefaultFilename Value="../base/phelp.lpk"/>
       </Item4>
       <Item5>
-        <PackageName Value="FCL"/>
+        <PackageName Value="pdocuments"/>
       </Item5>
+      <Item6>
+        <PackageName Value="FCL"/>
+      </Item6>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

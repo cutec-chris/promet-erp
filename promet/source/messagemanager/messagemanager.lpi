@@ -32,17 +32,17 @@
     </RunParams>
     <RequiredPackages Count="6">
       <Item1>
-        <PackageName Value="TurboPowerIPro"/>
+        <PackageName Value="pvisualforms"/>
+        <DefaultFilename Value="../base_forms/pvisualforms.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="general"/>
+        <PackageName Value="TurboPowerIPro"/>
       </Item2>
       <Item3>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="general"/>
       </Item3>
       <Item4>
-        <PackageName Value="pVisualPrometApp"/>
-        <DefaultFilename Value="../base/pvisualprometapp.lpk"/>
+        <PackageName Value="richmemopackage"/>
       </Item4>
       <Item5>
         <PackageName Value="FCL"/>

@@ -2,12 +2,13 @@
   This source is only used to compile and install the package.
  }
 
-unit pvisualforms;
+unit pvisualframes;
 
 interface
 
 uses
-  ugridview, uFilterFrame, uSelectReport, LazarusPackageIntf;
+  uHistoryFrame, uFilterFrame, uhistoryadditem, uListFrame, uclipp, 
+  uFilterTabs, uLinkFrame, uImageFrame, LazarusPackageIntf;
 
 implementation
 
@@ -16,5 +17,5 @@ begin
 end;
 
 initialization
-  RegisterPackage('pvisualforms', @Register);
+  RegisterPackage('pvisualframes', @Register);
 end.

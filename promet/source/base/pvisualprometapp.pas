@@ -7,14 +7,9 @@ unit pVisualPrometApp;
 interface
 
 uses
-  htmltortf, uBaseVisualApplication, ubasevisualapplicationtools, 
-  uBaseVisualControls, uFilterTabs, uFormAnimate, uLogWait, uMandantOptions, 
-  uNRights, uOptions, uOptionsFrame, uPassword, uPersonalOptions, 
-  uProcessOptions, uPrometFrames, uRichFrame, uRowEditor, uSearch, 
-  uSyncOptions, uTimeLine, uUserfieldDefOptions, uuseroptions, uwait, 
-  uhistoryadditem, uHistoryFrame, uMainTreeFrame, uLinkFrame, uImageFrame, 
-  utreeview, uPrometFramesInplaceDB, uprometframesinplace, uListFrame, 
-  uSendMail, uEditText, uQuickHelpFrame, uclipp, LazarusPackageIntf;
+  uBaseVisualApplication, ubasevisualapplicationtools, uBaseVisualControls, 
+  uFormAnimate, uPassword, uPrometFrames, uPrometFramesInplaceDB, 
+  uprometframesinplace, LazarusPackageIntf;
 
 implementation
 

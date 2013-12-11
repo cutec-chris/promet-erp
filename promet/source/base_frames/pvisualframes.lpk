@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="4">
+    <PathDelim Value="\"/>
+    <Name Value="pvisualframes"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <PathDelim Value="\"/>
+      <SearchPaths>
+        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+      <Other>
+        <CompilerMessages>
+          <MsgFileName Value=""/>
+        </CompilerMessages>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
+    </CompilerOptions>
+    <Files Count="17">
+      <Item1>
+        <Filename Value="uhistoryframe.lfm"/>
+        <Type Value="LFM"/>
+      </Item1>
+      <Item2>
+        <Filename Value="uhistoryframe.pas"/>
+        <UnitName Value="uHistoryFrame"/>
+      </Item2>
+      <Item3>
+        <Filename Value="ufilterframe.lfm"/>
+        <Type Value="LFM"/>
+      </Item3>
+      <Item4>
+        <Filename Value="ufilterframe.lrs"/>
+        <Type Value="LRS"/>
+      </Item4>
+      <Item5>
+        <Filename Value="ufilterframe.pas"/>
+        <UnitName Value="uFilterFrame"/>
+      </Item5>
+      <Item6>
+        <Filename Value="uhistoryadditem.lfm"/>
+        <Type Value="LFM"/>
+      </Item6>
+      <Item7>
+        <Filename Value="uhistoryadditem.pas"/>
+        <UnitName Value="uhistoryadditem"/>
+      </Item7>
+      <Item8>
+        <Filename Value="ulistframe.lfm"/>
+        <Type Value="LFM"/>
+      </Item8>
+      <Item9>
+        <Filename Value="ulistframe.pas"/>
+        <UnitName Value="uListFrame"/>
+      </Item9>
+      <Item10>
+        <Filename Value="uclipp.pas"/>
+        <UnitName Value="uclipp"/>
+      </Item10>
+      <Item11>
+        <Filename Value="ufiltertabs.lfm"/>
+        <Type Value="LFM"/>
+      </Item11>
+      <Item12>
+        <Filename Value="ufiltertabs.lrs"/>
+        <Type Value="LRS"/>
+      </Item12>
+      <Item13>
+        <Filename Value="ufiltertabs.pas"/>
+        <UnitName Value="uFilterTabs"/>
+      </Item13>
+      <Item14>
+        <Filename Value="ulinkframe.lfm"/>
+        <Type Value="LFM"/>
+      </Item14>
+      <Item15>
+        <Filename Value="ulinkframe.pas"/>
+        <UnitName Value="uLinkFrame"/>
+      </Item15>
+      <Item16>
+        <Filename Value="uimageframe.lfm"/>
+        <Type Value="LFM"/>
+      </Item16>
+      <Item17>
+        <Filename Value="uimageframe.pas"/>
+        <UnitName Value="uImageFrame"/>
+      </Item17>
+    </Files>
+    <Type Value="RunAndDesignTime"/>
+    <RequiredPkgs Count="2">
+      <Item1>
+        <PackageName Value="pvisualforms"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="FCL"/>
+      </Item2>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

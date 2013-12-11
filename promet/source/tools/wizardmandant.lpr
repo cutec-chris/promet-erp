@@ -7,9 +7,9 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, dbflaz, pvisualprometapp
+  Forms, pvisualprometapp
   { you can add units after this }
-  ,uBaseVisualApplication, uwizardnewmandant, richmemopackage;
+  ,uBaseVisualApplication, uwizardnewmandant;
 
 {$R *.res}
 

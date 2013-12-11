@@ -29,29 +29,22 @@
         <CommandLineParams Value="--silent"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="6">
+    <RequiredPackages Count="4">
       <Item1>
-        <PackageName Value="richmemopackage"/>
-      </Item1>
-      <Item2>
-        <PackageName Value="DBFLaz"/>
-        <MinVersion Minor="1" Release="1" Valid="True"/>
-      </Item2>
-      <Item3>
         <PackageName Value="FCL"/>
         <MinVersion Major="1" Release="1" Valid="True"/>
-      </Item3>
-      <Item4>
+      </Item1>
+      <Item2>
         <PackageName Value="LCLBase"/>
         <MinVersion Major="1" Release="1" Valid="True"/>
-      </Item4>
-      <Item5>
+      </Item2>
+      <Item3>
         <PackageName Value="pVisualPrometApp"/>
         <DefaultFilename Value="../base/pvisualprometapp.lpk"/>
-      </Item5>
-      <Item6>
+      </Item3>
+      <Item4>
         <PackageName Value="LCL"/>
-      </Item6>
+      </Item4>
     </RequiredPackages>
     <Units Count="112">
       <Unit0>

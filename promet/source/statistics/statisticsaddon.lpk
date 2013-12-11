@@ -27,8 +27,7 @@
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="6">
       <Item1>
-        <PackageName Value="pVisualPrometApp"/>
-        <DefaultFilename Value="../base/pvisualprometapp.lpk"/>
+        <PackageName Value="pvisualframes"/>
       </Item1>
       <Item2>
         <PackageName Value="lazreport"/>

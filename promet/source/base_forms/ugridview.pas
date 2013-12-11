@@ -29,7 +29,7 @@ uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, DBGrids, ExtCtrls,
   Buttons, ComCtrls, uExtControls, db, Grids, ActnList, Menus, uBaseDBClasses,
   uBaseDbInterface, StdCtrls, Graphics, types, Clipbrd,
-  ubasevisualapplicationtools, Dialogs, EditBtn, DbCtrls, Calendar,uFilterFrame;
+  ubasevisualapplicationtools, Dialogs, EditBtn, DbCtrls, Calendar;
 type
   TUnprotectedGrid = class(TCustomGrid);
 
@@ -80,6 +80,10 @@ type
     ShouldStart : TDateTime;
     property StringRec : string read GetStringRec;
     constructor Create;
+  end;
+  TColumnWidthHelper = record
+    Index : integer;
+    MaxWidth : integer;
   end;
 
   TCellChangedEvent = procedure(Sender : TObject;NewCell,OldCell : TPoint) of object;

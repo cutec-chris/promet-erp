@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Package Version="4">
-    <Name Value="pDocManage"/>
+    <PathDelim Value="\"/>
+    <Name Value="rtfconvert_pkg_vis"/>
     <CompilerOptions>
       <Version Value="11"/>
+      <PathDelim Value="\"/>
       <SearchPaths>
-        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
       <Other>
         <CompilerMessages>
@@ -16,38 +18,34 @@
     </CompilerOptions>
     <Files Count="4">
       <Item1>
-        <Filename Value="umanagedocframe.lfm"/>
-        <Type Value="LFM"/>
+        <Filename Value="htmltortf.pas"/>
+        <UnitName Value="htmltortf"/>
       </Item1>
       <Item2>
-        <Filename Value="umanagedocframe.pas"/>
-        <UnitName Value="umanagedocframe"/>
+        <Filename Value="urichframe.lfm"/>
+        <Type Value="LFM"/>
       </Item2>
       <Item3>
-        <Filename Value="uimportimages.pas"/>
-        <UnitName Value="uImportImages"/>
+        <Filename Value="urichframe.pas"/>
+        <UnitName Value="uRichFrame"/>
       </Item3>
       <Item4>
-        <Filename Value="ucameraimport.pas"/>
-        <UnitName Value="ucameraimport"/>
+        <Filename Value="FontComboBox.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="FontComboBox"/>
       </Item4>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="4">
+    <RequiredPkgs Count="3">
       <Item1>
-        <PackageName Value="pvisualframes"/>
+        <PackageName Value="general"/>
       </Item1>
       <Item2>
-        <PackageName Value="pdocuments"/>
-        <DefaultFilename Value="../base_documents/pdocuments.lpk"/>
+        <PackageName Value="richmemopackage"/>
       </Item2>
       <Item3>
-        <PackageName Value="thumbctrl"/>
-        <DefaultFilename Value="../components/thumbs/thumbctrl.lpk"/>
-      </Item3>
-      <Item4>
         <PackageName Value="FCL"/>
-      </Item4>
+      </Item3>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

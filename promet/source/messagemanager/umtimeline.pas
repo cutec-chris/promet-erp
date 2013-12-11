@@ -24,7 +24,7 @@ uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, DBGrids,
   Buttons, Menus, ActnList, XMLPropStorage, StdCtrls, Utils, ZVDateTimePicker,
   uIntfStrConsts, db, memds, FileUtil, Translations, md5,
-  ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage,ugridview,uHistoryFrame,
+  ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage,ugridview,
   uExtControls,uBaseVisualControls,uBaseDbClasses,uFormAnimate,uBaseSearch,
   ImgList;
 type
@@ -82,7 +82,6 @@ type
     function FContListDrawColumnCell(Sender: TObject; const aRect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState): Boolean;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
-    procedure FormDestroy(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormShow(Sender: TObject);
     procedure fTimelineGetCellText(Sender: TObject; aCol: TColumn;
@@ -105,7 +104,6 @@ type
     SysCommands : TSystemCommands;
     fTimeline : TfGridView;
     FDrawnDate : TDateTime;
-    aHistoryFrame: TfHistoryFrame;
     FParentItem : Variant;
     procedure MarkAsRead;
   public
@@ -179,7 +177,6 @@ constructor TfmTimeline.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   fTimeline := TfGridView.Create(Self);
-  aHistoryFrame := TfHistoryFrame.Create(Self);
   fTimeline.ShowHint:=True;
 end;
 
@@ -264,7 +261,7 @@ begin
           if not (TExtStringGrid(Sender).Cells[Column.Index+1,DataCol] = '') then
             begin
               aObj := fTimeline.gList.Objects[Column.Index+1,DataCol];
-              aHistoryFrame.HistoryImages.StretchDraw(Canvas,StrToIntDef(TExtStringGrid(Sender).Cells[Column.Index+1,DataCol],-1),aRRect);// Draw(Canvas,Rect.Left,Rect.Top,);
+              fVisualControls.HistoryImages.StretchDraw(Canvas,StrToIntDef(TExtStringGrid(Sender).Cells[Column.Index+1,DataCol],-1),aRRect);// Draw(Canvas,Rect.Left,Rect.Top,);
             end;
           if (gdSelected in State) and TStringGrid(Sender).Focused then
             TStringGrid(Sender).Canvas.DrawFocusRect(arect);
@@ -480,11 +477,6 @@ begin
   with Application as IBaseApplication do
     Config.WriteRect('TIMELINERECT',BoundsRect);
   CloseAction:=caHide;
-end;
-
-procedure TfmTimeline.FormDestroy(Sender: TObject);
-begin
-  aHistoryFrame.Free;
 end;
 
 procedure TfmTimeline.FormKeyDown(Sender: TObject; var Key: Word;

@@ -1,9 +1,8 @@
-{ Diese Datei wurde automatisch von Lazarus erzeugt. Sie darf nicht bearbeitet 
-  werden!
-  Dieser Quelltext dient nur dem Übersetzen und Installieren des Packages.
+{ This file was automatically created by Lazarus. Do not edit!
+  This source is only used to compile and install the package.
  }
 
-unit wiki2html_pkg; 
+unit wiki2html_pkg;
 
 interface
 
@@ -12,10 +11,10 @@ uses
 
 implementation
 
-procedure Register; 
+procedure Register;
 begin
-end; 
+end;
 
 initialization
-  RegisterPackage('wiki2html_pkg', @Register); 
+  RegisterPackage('wiki2html_pkg', @Register);
 end.

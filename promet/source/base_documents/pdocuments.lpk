@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Package Version="4">
     <Name Value="pdocuments"/>
@@ -135,11 +135,11 @@
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="4">
       <Item1>
-        <PackageName Value="pOCR"/>
-        <DefaultFilename Value="../base_ocr/pocr.lpk"/>
+        <PackageName Value="pvisualforms"/>
       </Item1>
       <Item2>
-        <PackageName Value="pVisualPrometApp"/>
+        <PackageName Value="pOCR"/>
+        <DefaultFilename Value="../base_ocr/pocr.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="LCL"/>

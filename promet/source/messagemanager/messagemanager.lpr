@@ -7,7 +7,7 @@ uses
   cthreads,
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, umain, umtimeline, pvisualprometapp, richmemopackage, general,
+  Forms, umain, umtimeline, richmemopackage, general,
   uBaseVisualApplication, ufollow, udetailview;
 
 {$R *.res}

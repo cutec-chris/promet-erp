@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Package Version="4">
     <Name Value="perp"/>
@@ -35,12 +35,11 @@
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="5">
       <Item1>
-        <PackageName Value="pdocuments"/>
-        <DefaultFilename Value="../base_documents/pdocuments.lpk"/>
+        <PackageName Value="pvisualframes"/>
       </Item1>
       <Item2>
-        <PackageName Value="pVisualPrometApp"/>
-        <DefaultFilename Value="../base/pvisualprometapp.lpk"/>
+        <PackageName Value="pdocuments"/>
+        <DefaultFilename Value="../base_documents/pdocuments.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="pPrometDBIntfs"/>
