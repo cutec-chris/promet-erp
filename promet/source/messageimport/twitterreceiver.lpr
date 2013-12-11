@@ -82,6 +82,8 @@ var
   aref: String;
   author: TJSONStringType;
   Retry: Boolean;
+  purl: String;
+  tmp: String;
 begin
   omailaccounts := '';
   mailaccounts := '';
@@ -101,73 +103,113 @@ begin
           //https://friends.ullihome.de/api/statuses/home_timeline.xml?since_id=123455
           http.UserAgent:='Mozilla/5.0 (Windows NT 5.1; rv:6.0.2)';
           writeln('Importing Twitter Feed '+copy(mailaccounts,0,pos(';',mailaccounts)-1));
-          url := copy(mailaccounts,0,pos(';',mailaccounts)-1)+'statuses/home_timeline.json';
+          purl := copy(mailaccounts,0,pos(';',mailaccounts)-1);
+          url := purl+'statuses/home_timeline.json';
           mailaccounts := copy(mailaccounts,pos(';',mailaccounts)+1,length(mailaccounts));
           http.UserName := copy(mailaccounts,0,pos(';',mailaccounts)-1);
           mailaccounts := copy(mailaccounts,pos(';',mailaccounts)+1,length(mailaccounts));
           http.Password := copy(mailaccounts,0,pos(';',mailaccounts)-1);
           mailaccounts := copy(mailaccounts,pos(';',mailaccounts)+1,length(mailaccounts));
-          http.HTTPMethod('GET',url);
-          Parser := TJSONParser.Create(http.Document);
-          jData := Parser.Parse;
-          Retry := True;
-          while Retry do
+          omailaccounts := omailaccounts+'Twitter;'+purl+';'+http.UserName+';'+http.Password+';'+copy(mailaccounts,0,pos(';',mailaccounts)-1)+';';
+          omailaccounts := omailaccounts+'L:;';
+          if (copy(mailaccounts,0,pos(';',mailaccounts)-1)= 'YES') then
             begin
-              Retry := False;
-              for i := 0 to jData.Count-1 do
+              mailaccounts := copy(mailaccounts,pos(';',mailaccounts)+1,length(mailaccounts));
+              tmp := copy(mailaccounts,0,pos(';',mailaccounts)-1);
+              if copy(tmp,0,2)='L:' then
+                tmp := copy(tmp,3,length(tmp));
+              if tmp = '' then url := url+'?count=1000'
+              else url := url+'?since_id='+tmp;
+              http.HTTPMethod('GET',url);
+              Parser := TJSONParser.Create(http.Document);
+              jData := Parser.Parse;
+              if jData.Count>0 then
                 begin
-                  aData := jData.Items[i];
-                  if Assigned(TJSONObject(aData).Elements['text']) then
+                  ReplaceOmailaccounts:=True;
+                  aData := jData.Items[0];
+                  omailaccounts := copy(omailaccounts,0,length(omailaccounts)-1)+TJSONObject(aData).Elements['id'].AsString+';';
+                end;
+              Retry := True;
+              while Retry do
+                begin
+                  Retry := False;
+                  i := 0;
+                  while i < jData.Count do
                     begin
-                      text := ConvertEncoding(TJSONObject(aData).Elements['text'].AsString,GuessEncoding(TJSONObject(aData).Elements['text'].AsString),encodingUTF8);
-                      aCat := TJSONObject(aData).Elements['id'].AsString;
-                      aref := TJSONObject(aData).Elements['in_reply_to_status_id'].AsString;
-                      Data.SetFilter(aHist,Data.QuoteField('REFOBJECT')+'='+Data.QuoteValue(aCat));
-                      if aHist.Count=0 then
+                      aData := jData.Items[i];
+                      if Assigned(aData) and Assigned(TJSONObject(aData).Elements['text']) then
                         begin
-                          if aRef = '0' then aRef := '';
-                          aTime := DecodeRfcDateTime(TJSONObject(aData).Elements['created_at'].AsString);
-                          author := TJSONObject(TJSONObject(aData).Elements['user']).Elements['name'].AsString;
-                          author := ConvertEncoding(author,GuessEncoding(author),encodingUTF8);
-                          if aRef='' then
+                          text := ConvertEncoding(TJSONObject(aData).Elements['text'].AsString,GuessEncoding(TJSONObject(aData).Elements['text'].AsString),encodingUTF8);
+                          aCat := TJSONObject(aData).Elements['id'].AsString;
+                          aref := TJSONObject(aData).Elements['in_reply_to_status_id'].AsString;
+                          Data.SetFilter(aHist,Data.QuoteField('REFOBJECT')+'='+Data.QuoteValue(aCat));
+                          if aHist.Count=0 then
                             begin
-                              Retry := True;
-                              aHist.AddItem(Data.Users.DataSet,text,'',author,nil,0,'',False,False);
-                              aHist.TimeStamp.AsDateTime:=aTime;
-                              aHist.FieldByName('REF_ID').AsVariant:=Data.Users.Id.AsVariant;
-                              aHist.FieldByName('REFOBJECT').AsString:=aCat;
-                              try
-                                aHist.Post;
-                              except
-                              end;
-                            end
-                          else
-                            begin
-                              Data.SetFilter(aHist,Data.QuoteField('REFOBJECT')+'='+Data.QuoteValue(aRef));
-                              if aHist.Count>0 then
+                              if aRef = '0' then aRef := '';
+                              aTime := DecodeRfcDateTime(TJSONObject(aData).Elements['created_at'].AsString);
+                              author := TJSONObject(TJSONObject(aData).Elements['user']).Elements['name'].AsString;
+                              author := ConvertEncoding(author,GuessEncoding(author),encodingUTF8);
+                              if aRef='' then
                                 begin
                                   Retry := True;
-                                  aHist.AddParentedItem(Data.Users.DataSet,text,aHist.Id.AsVariant,'',author,nil,0,'',False,False);
+                                  aHist.AddItem(Data.Users.DataSet,text,'',author,nil,0,'',False,False);
                                   aHist.TimeStamp.AsDateTime:=aTime;
                                   aHist.FieldByName('REF_ID').AsVariant:=Data.Users.Id.AsVariant;
                                   aHist.FieldByName('REFOBJECT').AsString:=aCat;
                                   try
                                     aHist.Post;
                                   except
+                                    on e : Exception do
+                                      begin
+                                        //ReplaceOmailaccounts:=False;
+                                        jData.Items[i] := nil;
+                                        WriteLn(e.Message);
+                                      end;
                                   end;
                                 end
-                            end;
-                        end;
-                   end;
+                              else
+                                begin
+                                  Data.SetFilter(aHist,Data.QuoteField('REFOBJECT')+'='+Data.QuoteValue(aRef));
+                                  if aHist.Count>0 then
+                                    begin
+                                      Retry := True;
+                                      aHist.AddParentedItem(Data.Users.DataSet,text,aHist.Id.AsVariant,'',author,nil,0,'',False,False);
+                                      aHist.TimeStamp.AsDateTime:=aTime;
+                                      aHist.FieldByName('REF_ID').AsVariant:=Data.Users.Id.AsVariant;
+                                      aHist.FieldByName('REFOBJECT').AsString:=aCat;
+                                      try
+                                        aHist.Post;
+                                      except
+                                        on e : Exception do
+                                          begin
+                                            //ReplaceOmailaccounts:=False;
+                                            jData.Items[i] := nil;
+                                            WriteLn(e.Message);
+                                          end;
+                                      end;
+                                    end
+                                end;
+                              inc(i);
+                            end
+                          else jData.Items[i] := nil;
+                       end
+                     else inc(i);
+                    end;
+                  writeln(Retry);
                 end;
-              writeln(Retry);
+              Parser.Free;
+              http.Free;
             end;
-          Parser.Free;
-          http.Free;
+          omailaccounts := omailaccounts+'|';
         end
       else
-        mailaccounts := copy(mailaccounts,pos(';',mailaccounts)+1,length(mailaccounts));
+        omailaccounts := omailaccounts+copy(mailaccounts,0,pos('|',mailaccounts));
       mailaccounts := copy(mailaccounts,pos('|',mailaccounts)+1,length(mailaccounts));
+    end;
+  if ReplaceOmailaccounts then
+    begin
+      with Self as IBaseDbInterface do
+        DBConfig.WriteString('MAILACCOUNTS',omailaccounts);
     end;
   aHist.Free;
 end;

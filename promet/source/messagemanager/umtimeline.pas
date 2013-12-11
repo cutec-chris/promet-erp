@@ -25,7 +25,8 @@ uses
   Buttons, Menus, ActnList, XMLPropStorage, StdCtrls, Utils, ZVDateTimePicker,
   uIntfStrConsts, db, memds, FileUtil, Translations, md5,
   ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage,ugridview,uHistoryFrame,
-  uExtControls,uBaseVisualControls,uBaseDbClasses,uFormAnimate,uBaseSearch;
+  uExtControls,uBaseVisualControls,uBaseDbClasses,uFormAnimate,uBaseSearch,
+  ImgList;
 type
   TMGridObject = class(TObject)
   public
@@ -206,12 +207,12 @@ const
                              RightToLeft:False);
   aTextStyleW : TTextStyle = (Alignment:taLeftJustify;
                              Layout : tlTop;
-                             SingleLine : False;
-                             Clipping  : True;
+                             SingleLine : false;
+                             Clipping  : false;
                              ExpandTabs:False;
                              ShowPrefix:False;
                              Wordbreak:true;
-                             Opaque:True;
+                             Opaque:false;
                              SystemFont:False;
                              RightToLeft:False);
 var
@@ -223,6 +224,7 @@ var
   aObj: TObject;
   bRect: TRect;
   r: TRect;
+  aEn: Boolean;
 begin
   with (Sender as TCustomGrid), Canvas do
     begin
@@ -260,7 +262,10 @@ begin
                          aRect.Top+((aRect.Bottom-aRect.Top) div 2)+(aHeight div 2));
           Canvas.Ellipse(aRRect);
           if not (TExtStringGrid(Sender).Cells[Column.Index+1,DataCol] = '') then
-            aHistoryFrame.HistoryImages.StretchDraw(Canvas,StrToIntDef(TExtStringGrid(Sender).Cells[Column.Index+1,DataCol],-1),aRRect);// Draw(Canvas,Rect.Left,Rect.Top,);
+            begin
+              aObj := fTimeline.gList.Objects[Column.Index+1,DataCol];
+              aHistoryFrame.HistoryImages.StretchDraw(Canvas,StrToIntDef(TExtStringGrid(Sender).Cells[Column.Index+1,DataCol],-1),aRRect);// Draw(Canvas,Rect.Left,Rect.Top,);
+            end;
           if (gdSelected in State) and TStringGrid(Sender).Focused then
             TStringGrid(Sender).Canvas.DrawFocusRect(arect);
         end
@@ -284,6 +289,13 @@ begin
           if Assigned(aObj) then
             begin
               result := True;
+              if TMGridObject(aObj).Bold then
+                begin
+                  Canvas.Brush.Color := clHighlight;
+                  bRect := aRRect;
+                  bRect.Right := bRect.Left+4;
+                  Canvas.Rectangle(bRect);
+                end;
               atext := TExtStringGrid(Sender).Cells[Column.Index+1,DataCol];
               TStringGrid(Sender).Canvas.Brush.Color:=aColor;
               TStringGrid(Sender).Canvas.FillRect(aRect);
@@ -292,15 +304,15 @@ begin
               if TMGridObject(aObj).Caption <> '' then
                 brect.Top := bRect.Top+TStringGrid(Sender).Canvas.TextExtent('A').cy;
               if TMGridObject(aObj).Bold then
-                Canvas.Font.Style := [fsBold];
+                TStringGrid(Sender).Canvas.Font.Style := [fsBold];
               if fTimeline.WordWrap then
                 TStringGrid(Sender).Canvas.TextRect(bRect,aRect.Left+3,bRect.Top,aText,aTextStyleW)
               else
                 TStringGrid(Sender).Canvas.TextRect(bRect,aRect.Left+3,bRect.Top,aText,aTextStyle);
-              TStringGrid(Sender).Canvas.Font.Color:=clGray;
               bRect := aRect;
+              TStringGrid(Sender).Canvas.Font.Color:=clGray;
               brect.Bottom := aRect.Top+Canvas.TextExtent('A').cy;
-              Canvas.Font.Style := [];
+              TStringGrid(Sender).Canvas.Font.Style := [];
               TStringGrid(Sender).Canvas.TextOut(arect.Left+3,aRect.Top,TMGridObject(aObj).Caption);
               if (gdSelected in State) and TStringGrid(Sender).Focused then
                 TStringGrid(Sender).Canvas.DrawFocusRect(arect);
@@ -526,10 +538,10 @@ begin
                         TMGridObject(aObj).Caption := strTo+Data.GetLinkDesc(fTimeline.dgFake.DataSource.DataSet.FieldByName('OBJECT').AsString)
                       else
                         TMGridObject(aObj).Caption := Data.GetLinkDesc(fTimeline.dgFake.DataSource.DataSet.FieldByName('OBJECT').AsString);
-                      TMGridObject(aObj).Bold:=(fTimeline.dgFake.DataSource.DataSet.FieldByName('READ').AsString<>'Y');
                       fTimeline.DataSet.GotoBookmark(aRec);
                       fTimeline.gList.RowHeights[aRow] := fTimeline.gList.RowHeights[aRow]+12;
                     end;
+                  TMGridObject(aObj).Bold:=(fTimeline.dgFake.DataSource.DataSet.FieldByName('READ').AsString<>'Y');
                 end;
               fTimeline.DataSet.GotoBookmark(aRec);
             end;

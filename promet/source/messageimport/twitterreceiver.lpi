@@ -41,7 +41,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="64">
+    <Units Count="65">
       <Unit0>
         <Filename Value="twitterreceiver.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -49,9 +49,9 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="89"/>
-        <CursorPos X="1" Y="122"/>
-        <UsageCount Value="59"/>
+        <TopLine Value="192"/>
+        <CursorPos X="1" Y="212"/>
+        <UsageCount Value="64"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit0>
@@ -60,21 +60,21 @@
         <UnitName Value="dbsync"/>
         <TopLine Value="1"/>
         <CursorPos X="22" Y="1"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit1>
       <Unit2>
         <Filename Value="..\#sample_cmdln\udbsyncmain.pas"/>
         <UnitName Value="udbsyncmain"/>
         <TopLine Value="70"/>
         <CursorPos X="1" Y="91"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit2>
       <Unit3>
         <Filename Value="..\#sample_cmdln\lazarus\components\tdbf\dbflaz.pas"/>
         <UnitName Value="DBFLaz"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit3>
       <Unit4>
         <Filename Value="..\#sample_cmdln\udata.pas"/>
@@ -85,7 +85,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="600"/>
         <CursorPos X="1" Y="619"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="22"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\#sample_cmdln\uintfstrconsts.pas"/>
@@ -93,7 +93,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="19" Y="12"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="12"/>
       </Unit5>
       <Unit6>
         <Filename Value="..\#sample_cmdln\uzeosdm.pas"/>
@@ -101,7 +101,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1613"/>
         <CursorPos X="24" Y="1624"/>
-        <UsageCount Value="18"/>
+        <UsageCount Value="17"/>
       </Unit6>
       <Unit7>
         <Filename Value="..\#sample_cmdln\umessages.pas"/>
@@ -109,21 +109,21 @@
         <WindowIndex Value="0"/>
         <TopLine Value="39"/>
         <CursorPos X="25" Y="39"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="22"/>
       </Unit7>
       <Unit8>
         <Filename Value="..\#sample_cmdln\lkomponenten\synapse\pop3send.pas"/>
         <UnitName Value="pop3send"/>
         <TopLine Value="306"/>
         <CursorPos X="1" Y="322"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit8>
       <Unit9>
         <Filename Value="..\#sample_cmdln\lazarus\lcl\controls.pp"/>
         <UnitName Value="Controls"/>
         <TopLine Value="39"/>
         <CursorPos X="3" Y="55"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit9>
       <Unit10>
         <Filename Value="..\#sample_cmdln\lkomponenten\synapse\synautil.pas"/>
@@ -131,44 +131,44 @@
         <WindowIndex Value="0"/>
         <TopLine Value="594"/>
         <CursorPos X="1" Y="606"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="13"/>
       </Unit10>
       <Unit11>
         <Filename Value="..\#sample_cmdln\E:\lazarus\lcl\include\lclintf.inc"/>
         <TopLine Value="385"/>
         <CursorPos X="23" Y="402"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit11>
       <Unit12>
         <Filename Value="..\#sample_cmdln\E:\lazarus\components\lazreport\source\lr_desgn.pas"/>
         <UnitName Value="LR_Desgn"/>
         <TopLine Value="6350"/>
         <CursorPos X="1" Y="6366"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit12>
       <Unit13>
         <Filename Value="..\#sample_cmdln\E:\lazarus\lcl\include\rasterimage.inc"/>
         <TopLine Value="872"/>
         <CursorPos X="1" Y="894"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit13>
       <Unit14>
         <Filename Value="..\#sample_cmdln\E:\lazarus\fpc\2.2.2\source\rtl\i386\i386.inc"/>
         <TopLine Value="1309"/>
         <CursorPos X="22" Y="1329"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit14>
       <Unit15>
         <Filename Value="..\#sample_cmdln\E:\lazarus\fpc\2.2.2\source\rtl\objpas\classes\reader.inc"/>
         <TopLine Value="670"/>
         <CursorPos X="1" Y="686"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit15>
       <Unit16>
         <Filename Value="..\#sample_cmdln\E:\lazarus\fpc\2.2.2\source\rtl\inc\except.inc"/>
         <TopLine Value="177"/>
         <CursorPos X="30" Y="196"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit16>
       <Unit17>
         <Filename Value="..\#sample_cmdln\E:\ureportdata.pas"/>
@@ -178,56 +178,56 @@
         <WindowIndex Value="0"/>
         <TopLine Value="9"/>
         <CursorPos X="16" Y="13"/>
-        <UsageCount Value="32"/>
+        <UsageCount Value="31"/>
       </Unit17>
       <Unit18>
         <Filename Value="..\#sample_cmdln\E:\lkomponenten\synapse\mimepart.pas"/>
         <UnitName Value="mimepart"/>
         <TopLine Value="197"/>
         <CursorPos X="15" Y="209"/>
-        <UsageCount Value="17"/>
+        <UsageCount Value="16"/>
       </Unit18>
       <Unit19>
         <Filename Value="..\#sample_cmdln\E:\zeos\src\dbc\ZDbcSqLiteUtils.pas"/>
         <UnitName Value="ZDbcSqLiteUtils"/>
         <TopLine Value="213"/>
         <CursorPos X="1" Y="236"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
       </Unit19>
       <Unit20>
         <Filename Value="..\#sample_cmdln\E:\zeos\src\dbc\ZDbcUtils.pas"/>
         <UnitName Value="ZDbcUtils"/>
         <TopLine Value="355"/>
         <CursorPos X="32" Y="375"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit20>
       <Unit21>
         <Filename Value="..\#sample_cmdln\E:\zeos\src\component\ZAbstractDataset.pas"/>
         <UnitName Value="ZAbstractDataset"/>
         <TopLine Value="408"/>
         <CursorPos X="36" Y="419"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit21>
       <Unit22>
         <Filename Value="..\#sample_cmdln\E:\lazarus\lcl\interfaces\win32\win32wscontrols.pp"/>
         <UnitName Value="Win32WSControls"/>
         <TopLine Value="212"/>
         <CursorPos X="1" Y="224"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit22>
       <Unit23>
         <Filename Value="..\#sample_cmdln\E:\lazarus\lcl\fileutil.pas"/>
         <UnitName Value="FileUtil"/>
         <TopLine Value="170"/>
         <CursorPos X="10" Y="186"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit23>
       <Unit24>
         <Filename Value="..\#sample_cmdln\E:\fparchive\AbTempFileStream.pas"/>
         <UnitName Value="AbTempFileStream"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit24>
       <Unit25>
         <Filename Value="..\#sample_cmdln\E:\ubasedatamodule.pas"/>
@@ -235,14 +235,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="375"/>
         <CursorPos X="47" Y="386"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="14"/>
       </Unit25>
       <Unit26>
         <Filename Value="..\#sample_cmdln\E:\zeos\src\plain\ZPlainSqLiteDriver.pas"/>
         <UnitName Value="ZPlainSqLiteDriver"/>
         <TopLine Value="756"/>
         <CursorPos X="1" Y="772"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit26>
       <Unit27>
         <Filename Value="..\#sample_cmdln\E:\udocumentmanagement.pas"/>
@@ -250,13 +250,13 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="21" Y="1"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="14"/>
       </Unit27>
       <Unit28>
         <Filename Value="..\#sample_cmdln\E:\rss.xml"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="12"/>
         <DefaultSyntaxHighlighter Value="XML"/>
       </Unit28>
       <Unit29>
@@ -264,20 +264,20 @@
         <UnitName Value="pop3receiver"/>
         <TopLine Value="258"/>
         <CursorPos X="1" Y="267"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
       </Unit29>
       <Unit30>
         <Filename Value="..\#sample_cmdln\E:\lazarus\fpc\2.2.4\source\packages\hash\src\md5.pp"/>
         <UnitName Value="md5"/>
         <TopLine Value="132"/>
         <CursorPos X="19" Y="154"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit30>
       <Unit31>
         <Filename Value="..\#sample_cmdln\E:\lazarus\fpc\2.2.4\source\rtl\objpas\sysutils\datih.inc"/>
         <TopLine Value="118"/>
         <CursorPos X="10" Y="130"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
       </Unit31>
       <Unit32>
         <Filename Value="..\#sample_cmdln\E:\components\zeos\src\component\ZAbstractRODataset.pas"/>
@@ -285,7 +285,7 @@
         <TopLine Value="2621"/>
         <CursorPos X="1" Y="2633"/>
         <SyntaxHighlighter Value="Delphi"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="12"/>
       </Unit32>
       <Unit33>
         <Filename Value="..\#sample_cmdln\E:\general\src\Utils.pas"/>
@@ -293,40 +293,40 @@
         <WindowIndex Value="0"/>
         <TopLine Value="7"/>
         <CursorPos X="36" Y="15"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="11"/>
       </Unit33>
       <Unit34>
         <Filename Value="..\#sample_cmdln\E:\lazarus\fpc\2.2.4\source\rtl\objpas\sysutils\dati.inc"/>
         <TopLine Value="657"/>
         <CursorPos X="35" Y="661"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
       </Unit34>
       <Unit35>
         <Filename Value="..\#sample_cmdln\E:\lazarus\fpc\2.2.4\source\rtl\objpas\sysutils\sysinth.inc"/>
         <TopLine Value="45"/>
         <CursorPos X="30" Y="55"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
       </Unit35>
       <Unit36>
         <Filename Value="..\#sample_cmdln\E:\lazarus\fpc\2.2.4\source\packages\fcl-xml\src\dom.pp"/>
         <UnitName Value="DOM"/>
         <TopLine Value="253"/>
         <CursorPos X="14" Y="265"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit36>
       <Unit37>
         <Filename Value="..\#sample_cmdln\E:\lazarus\ideintf\projectresourcesintf.pas"/>
         <UnitName Value="ProjectResourcesIntf"/>
         <TopLine Value="81"/>
         <CursorPos X="35" Y="20"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit37>
       <Unit38>
         <Filename Value="..\#sample_cmdln\C:\FPC\2.4.0\source\fpcsrc\packages\fcl-db\src\dbase\dbf.pas"/>
         <UnitName Value="dbf"/>
         <TopLine Value="414"/>
         <CursorPos X="24" Y="425"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit38>
       <Unit39>
         <Filename Value="..\#sample_cmdln\E:\components\zeos\src\dbc\ZDbcDbLib.pas"/>
@@ -334,7 +334,7 @@
         <TopLine Value="370"/>
         <CursorPos X="28" Y="384"/>
         <SyntaxHighlighter Value="Delphi"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit39>
       <Unit40>
         <Filename Value="..\#sample_cmdln\E:\uappconsts.pas"/>
@@ -342,7 +342,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="2"/>
         <CursorPos X="87" Y="19"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit40>
       <Unit41>
         <Filename Value="..\..\..\LKomponenten\zeos\src\plain\ZPlainDbLibDriver.pas"/>
@@ -350,7 +350,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1193"/>
         <CursorPos X="1" Y="1212"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit41>
       <Unit42>
@@ -359,7 +359,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="2622"/>
         <CursorPos X="37" Y="2603"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
       </Unit42>
       <Unit43>
         <Filename Value="..\#sample_cmdln\C:\Programme\lazarus\lcl\interfaces\win32\win32wscontrols.pp"/>
@@ -367,7 +367,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="248"/>
         <CursorPos X="26" Y="269"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit43>
       <Unit44>
         <Filename Value="..\..\..\LKomponenten\zeos\src\component\ZConnection.pas"/>
@@ -375,7 +375,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1090"/>
         <CursorPos X="22" Y="1135"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit44>
       <Unit45>
@@ -384,7 +384,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="44"/>
         <CursorPos X="3" Y="63"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit45>
       <Unit46>
         <Filename Value="..\..\..\LKomponenten\zeos\src\dbc\ZDbcIntfs.pas"/>
@@ -392,7 +392,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="357"/>
         <CursorPos X="42" Y="364"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit46>
       <Unit47>
@@ -400,7 +400,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="622"/>
         <CursorPos X="14" Y="641"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit47>
       <Unit48>
         <Filename Value="..\..\..\LKomponenten\zeos\src\component\ZAbstractRODataset.pas"/>
@@ -408,7 +408,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="2628"/>
         <CursorPos X="54" Y="2675"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit48>
       <Unit49>
@@ -417,7 +417,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="213"/>
         <CursorPos X="30" Y="232"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit49>
       <Unit50>
@@ -426,7 +426,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="19"/>
         <CursorPos X="3" Y="2467"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit50>
       <Unit51>
@@ -434,19 +434,19 @@
         <UnitName Value="pop3receiver"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="75" Y="22"/>
-        <UsageCount Value="11"/>
+        <TopLine Value="510"/>
+        <CursorPos X="1" Y="528"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit51>
       <Unit52>
         <Filename Value="feedreceiver.lpr"/>
         <UnitName Value="feedreceiver"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="128"/>
         <CursorPos X="1" Y="146"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit52>
       <Unit53>
@@ -456,7 +456,7 @@
         <TopLine Value="1"/>
         <CursorPos X="3" Y="54"/>
         <FoldState Value=" T3kK2E5"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit53>
       <Unit54>
         <Filename Value="..\..\..\..\..\..\..\usr\share\fpcsrc\2.6.2\packages\fcl-json\src\jsonparser.pp"/>
@@ -464,7 +464,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="22"/>
         <CursorPos X="14" Y="28"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
       </Unit54>
       <Unit55>
         <Filename Value="..\components\synapse\httpsend.pas"/>
@@ -473,7 +473,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="642"/>
         <CursorPos X="1" Y="669"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit55>
       <Unit56>
@@ -482,7 +482,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="77"/>
         <CursorPos X="43" Y="143"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
       </Unit56>
       <Unit57>
         <Filename Value="..\..\..\..\..\..\..\usr\share\fpcsrc\2.6.2\packages\fcl-db\src\base\db.pas"/>
@@ -490,7 +490,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="93"/>
         <CursorPos X="3" Y="110"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit57>
       <Unit58>
         <Filename Value="..\..\..\..\..\..\..\usr\share\fpcsrc\2.6.2\packages\fcl-json\src\fpjson.pp"/>
@@ -498,16 +498,16 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1628"/>
         <CursorPos X="3" Y="1630"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit58>
       <Unit59>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1111"/>
-        <CursorPos X="3" Y="1113"/>
-        <UsageCount Value="11"/>
+        <TopLine Value="1175"/>
+        <CursorPos X="1" Y="1203"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit59>
       <Unit60>
@@ -516,17 +516,17 @@
         <WindowIndex Value="0"/>
         <TopLine Value="334"/>
         <CursorPos X="41" Y="349"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit60>
       <Unit61>
         <Filename Value="..\adds\forumimport2.lpr"/>
         <UnitName Value="forumimport2"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="110"/>
         <CursorPos X="47" Y="127"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit61>
       <Unit62>
@@ -535,7 +535,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="712"/>
         <CursorPos X="1" Y="729"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit62>
       <Unit63>
@@ -544,118 +544,140 @@
         <WindowIndex Value="0"/>
         <TopLine Value="3049"/>
         <CursorPos X="1" Y="3067"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit63>
+      <Unit64>
+        <Filename Value="smtpsender.lpr"/>
+        <UnitName Value="smtpsender"/>
+        <EditorIndex Value="4"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="108"/>
+        <CursorPos X="1" Y="125"/>
+        <UsageCount Value="13"/>
+        <Loaded Value="True"/>
+      </Unit64>
     </Units>
-    <JumpHistory Count="27" HistoryIndex="26">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="117" Column="1" TopLine="100"/>
+        <Caret Line="133" Column="1" TopLine="114"/>
       </Position1>
       <Position2>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="119" Column="1" TopLine="100"/>
+        <Caret Line="135" Column="1" TopLine="114"/>
       </Position2>
       <Position3>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="120" Column="1" TopLine="100"/>
+        <Caret Line="136" Column="1" TopLine="114"/>
       </Position3>
       <Position4>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="121" Column="1" TopLine="100"/>
+        <Caret Line="137" Column="1" TopLine="114"/>
       </Position4>
       <Position5>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="122" Column="1" TopLine="100"/>
+        <Caret Line="139" Column="1" TopLine="114"/>
       </Position5>
       <Position6>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="123" Column="1" TopLine="100"/>
+        <Caret Line="140" Column="1" TopLine="114"/>
       </Position6>
       <Position7>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="124" Column="1" TopLine="100"/>
+        <Caret Line="142" Column="1" TopLine="114"/>
       </Position7>
       <Position8>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="126" Column="1" TopLine="100"/>
+        <Caret Line="143" Column="1" TopLine="127"/>
       </Position8>
       <Position9>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="127" Column="1" TopLine="100"/>
+        <Caret Line="144" Column="1" TopLine="127"/>
       </Position9>
       <Position10>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="128" Column="1" TopLine="100"/>
+        <Caret Line="145" Column="1" TopLine="127"/>
       </Position10>
       <Position11>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="129" Column="1" TopLine="101"/>
+        <Caret Line="146" Column="1" TopLine="127"/>
       </Position11>
       <Position12>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="139" Column="1" TopLine="122"/>
+        <Caret Line="148" Column="1" TopLine="127"/>
       </Position12>
       <Position13>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="140" Column="1" TopLine="122"/>
+        <Caret Line="149" Column="1" TopLine="127"/>
       </Position13>
       <Position14>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="153" Column="22" TopLine="136"/>
+        <Caret Line="150" Column="1" TopLine="127"/>
       </Position14>
       <Position15>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="129" Column="92" TopLine="113"/>
+        <Caret Line="151" Column="1" TopLine="127"/>
       </Position15>
       <Position16>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="153" Column="34" TopLine="116"/>
+        <Caret Line="152" Column="1" TopLine="127"/>
       </Position16>
       <Position17>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="110" Column="10" TopLine="99"/>
+        <Caret Line="154" Column="1" TopLine="127"/>
       </Position17>
       <Position18>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="158" Column="1" TopLine="125"/>
+        <Caret Line="155" Column="1" TopLine="127"/>
       </Position18>
       <Position19>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="162" Column="1" TopLine="133"/>
+        <Caret Line="156" Column="1" TopLine="128"/>
       </Position19>
       <Position20>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="114" Column="1" TopLine="97"/>
+        <Caret Line="198" Column="1" TopLine="181"/>
       </Position20>
       <Position21>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="116" Column="1" TopLine="97"/>
+        <Caret Line="133" Column="1" TopLine="116"/>
       </Position21>
       <Position22>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="117" Column="1" TopLine="97"/>
+        <Caret Line="198" Column="1" TopLine="181"/>
       </Position22>
       <Position23>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="162" Column="1" TopLine="112"/>
+        <Caret Line="133" Column="1" TopLine="116"/>
       </Position23>
       <Position24>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="104" Column="101" TopLine="91"/>
+        <Caret Line="200" Column="1" TopLine="183"/>
       </Position24>
       <Position25>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="117" Column="1" TopLine="91"/>
+        <Caret Line="201" Column="1" TopLine="183"/>
       </Position25>
       <Position26>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="110" Column="41" TopLine="109"/>
+        <Caret Line="203" Column="1" TopLine="183"/>
       </Position26>
       <Position27>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="120" Column="44" TopLine="109"/>
+        <Caret Line="207" Column="1" TopLine="183"/>
       </Position27>
+      <Position28>
+        <Filename Value="twitterreceiver.lpr"/>
+        <Caret Line="96" Column="1" TopLine="79"/>
+      </Position28>
+      <Position29>
+        <Filename Value="twitterreceiver.lpr"/>
+        <Caret Line="209" Column="1" TopLine="192"/>
+      </Position29>
+      <Position30>
+        <Filename Value="twitterreceiver.lpr"/>
+        <Caret Line="211" Column="1" TopLine="192"/>
+      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -687,7 +709,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="4">
+    <BreakPoints Count="10">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsGlobal"/>
@@ -716,6 +738,48 @@
         <Source Value="..\#sample_cmdln\E:\umessages.pas"/>
         <Line Value="922"/>
       </Item4>
+      <Item5>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="twitterreceiver.lpr"/>
+        <Line Value="203"/>
+      </Item5>
+      <Item6>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="twitterreceiver.lpr"/>
+        <Line Value="122"/>
+      </Item6>
+      <Item7>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="twitterreceiver.lpr"/>
+        <Line Value="200"/>
+      </Item7>
+      <Item8>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="twitterreceiver.lpr"/>
+        <Line Value="198"/>
+      </Item8>
+      <Item9>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="twitterreceiver.lpr"/>
+        <Line Value="155"/>
+      </Item9>
+      <Item10>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="twitterreceiver.lpr"/>
+        <Line Value="176"/>
+      </Item10>
     </BreakPoints>
     <Watches Count="2">
       <Item1>
