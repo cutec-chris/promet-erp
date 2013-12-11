@@ -154,19 +154,26 @@ type
     constructor Create(aFrame : TfRoughPlanningFrame);
   end;
 
-procedure AddToMainTree(aAction : TAction);
+procedure AddToMainTree(aAction : TAction;Node : TTreeNode);
 var
   MainNode : TTreeNode;
 
 implementation
-uses uData,uBaseDBInterface,uBaseERPDBClasses,uCalendar;
+uses uData,uBaseDBInterface,uBaseERPDBClasses,uCalendar,uMainTreeFrame;
 resourcestring
   strRoughPlanning                                      = 'Grobplanung';
 {$R *.lfm}
-procedure AddToMainTree(aAction : TAction);
+procedure AddToMainTree(aAction: TAction; Node: TTreeNode);
+var
+  Node1: TTreeNode;
 begin
+  if (Data.Users.Rights.Right('PROJECTS') > RIGHT_NONE) then
+    begin
+      Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
+      TTreeEntry(Node1.Data).Typ := etAction;
+      TTreeEntry(Node1.Data).Action := aAction;
+    end;
 end;
-
 constructor TIntDepartment.Create;
 begin
   FullTime:=-1;

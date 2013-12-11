@@ -78,6 +78,7 @@ type
     Level : Integer;
     Seen : string;
     ShouldStart : TDateTime;
+    RefreshHeight : Boolean;
     property StringRec : string read GetStringRec;
     constructor Create;
   end;
@@ -366,7 +367,8 @@ type
 implementation
 uses uRowEditor,LCLType,LCLProc,LCLIntf,Themes,uIntfStrConsts,
   uData,uBaseVisualApplication,Math;
-
+const
+  INVALID_ROW_HEIGHT = 9;
 { TRowObject }
 
 function TRowObject.GetStringRec: string;
@@ -379,6 +381,7 @@ constructor TRowObject.Create;
 begin
   Rec := 0;
   Childs:=' ';
+  RefreshHeight := False;
 end;
 
 procedure TInplaceDateEdit.Change;
@@ -667,7 +670,7 @@ end;
 procedure TfGridView.mInplaceEditingDone(Sender: TObject);
 begin
   gList.Cells[gList.Col,gList.Row]:=mInplace.Lines.Text;
-  gList.RowHeights[gList.Row] := GetRowHeight(gList.Row);
+  TRowObject(gList.Objects[0,gList.Row]).RefreshHeight:=True;
 end;
 procedure TfGridView.mInplaceKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
@@ -776,7 +779,8 @@ begin
     end
   else
     begin
-      gList.RowHeights[gList.Row] := aHeight;
+      gList.RowHeights[gList.Row] := GetRowHeight(gList.Row);
+      //TRowObject(gList.Objects[0,gList.Row]).RefreshHeight:=True;
       TryToMakeEditorVisible;
       mInplace.BoundsRect:=gList.CellRect(gList.Col,gList.Row);
       mInplace.Width:=mInplace.Width-1;
@@ -1077,6 +1081,11 @@ begin
           if (gdSelected in aState) and gList.Focused then
             TStringGrid(Sender).Canvas.DrawFocusRect(arect);
           exit;
+        end
+      else if Assigned(gList.Objects[0,gList.Row]) and TRowObject(gList.Objects[0,gList.Row]).RefreshHeight and (not gList.EditorMode) then
+        begin
+          RowHeights[aRow] := GetRowHeight(aRow);
+          TRowObject(gList.Objects[0,gList.Row]).RefreshHeight := False;
         end;
       if (aCol = 0) then
         begin
@@ -1100,7 +1109,7 @@ begin
         begin
           TStringGrid(Sender).Canvas.Brush.Color:=aColor;
           TStringGrid(Sender).Canvas.FillRect(aRect);
-          bRect := aRect;
+          bRect :=aRect;
           if (dgFake.Columns[aCol-1].FieldName = IdentField) and (TreeField <> '') then
             begin
               aLevel := GetLevel(asCol,aRow);
@@ -1239,6 +1248,7 @@ begin
         end;
       except
       end;
+      gList.Invalidate;
       WasEditing:=False;
     end;
 end;
@@ -1573,8 +1583,10 @@ begin
         TStringGrid(Sender).InvalidateCell(0,OldRow);
         if aRow < TStringGrid(Sender).RowCount then
           TStringGrid(Sender).InvalidateCell(0,aRow);
-        if OldRow>-1 then
-          TStringGrid(Sender).RowHeights[OldRow] := GetRowHeight(OldRow);
+        if (OldRow>-1) and Assigned(gList.Objects[0,OldRow]) then
+          begin
+            TRowObject(gList.Objects[0,OldRow]).RefreshHeight := True;
+          end;
         if Assigned(FDataSet) and (FDataSet.CanEdit) and (not FDataSet.DataSet.ControlsDisabled) then
           begin
             if FDataSet.Changed then
@@ -1773,6 +1785,7 @@ begin
                 FDataSource.DataSet.Edit;
               DataSet.FieldByName(TextField).AsString:=FInpStringList.Text;
               dataSet.Change;
+              TRowObject(gList.Objects[0,aRow]).RefreshHeight:=True;
             end;
         end;
       EndUpdate;
@@ -1966,7 +1979,12 @@ begin
         aHeight := gList.DefaultRowHeight;
       Result := aHeight;
     end
-  else Result := r.Bottom-r.Top;
+  else
+    begin
+      Result := r.Bottom-r.Top;
+      if Result < gList.DefaultRowHeight then
+        Result := gList.DefaultRowHeight;
+    end;
   if Result>(gList.Height-(gList.FixedRows*gList.DefaultRowHeight)) then
     Result:=(gList.Height-(gList.FixedRows*gList.DefaultRowHeight));
   if Assigned(FGetRowHeight) then
@@ -2126,8 +2144,10 @@ begin
     gList.EditorMode:=False;
   gList.BeginUpdate;
   for i := gList.FixedRows to gList.RowCount-1 do
-    gList.RowHeights[i] := GetRowHeight(i);
+    if Assigned(gList.Objects[0,i]) then
+      TRowObject(gList.Objects[0,i]).RefreshHeight:=True;
   gList.EndUpdate;
+  gList.Invalidate;
 end;
 procedure TfGridView.AutoInsert;
 var
@@ -2731,7 +2751,7 @@ begin
       if Assigned(FAddRow) then fAddRow(gList);
     end;
   if Result and UpdateRowHeight then
-    gList.RowHeights[gList.Row] := GetRowHeight(gList.Row);
+    TRowObject(gList.Objects[0,gList.Row]).RefreshHeight:=True;
   if aRow > -1 then
     gList.Row := aRow;
   gList.OnSelectCell:=@gListSelectCell;

@@ -799,6 +799,8 @@ begin
   FGridView.TreeField:='PARENT';
   FGridView.Parent := Self;
   FGridView.Align:=alClient;
+  FGridView.FilterRow:=true;
+  FGridView.WordWrap:=true;
   FGridView.OnSearchKey:=@FGridViewSearchKey;
   FGridView.UseDefaultRowHeight := False;
 end;
@@ -835,4 +837,4 @@ begin
 end;
 
 end.
-
+
