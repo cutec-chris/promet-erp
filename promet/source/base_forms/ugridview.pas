@@ -381,7 +381,7 @@ constructor TRowObject.Create;
 begin
   Rec := 0;
   Childs:=' ';
-  RefreshHeight := False;
+  RefreshHeight := True;
 end;
 
 procedure TInplaceDateEdit.Change;

@@ -138,6 +138,7 @@ type
     procedure AutoInsert;
     procedure SetFocus;override;
     procedure SetLanguage;
+    property GridView : TfGridView read FGridView;
   end;
 implementation
 uses uRowEditor, uSearch, uBaseDbInterface, uOrder, uDocumentFrame, uDocuments,

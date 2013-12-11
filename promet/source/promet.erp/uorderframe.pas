@@ -386,6 +386,7 @@ begin
   PaymentTargets.DataSet := Data.PaymentTargets.DataSet;
   fSelectReport.DataSet := DataSet;
   DataSet.CascadicPost;
+  FPosFrame.GridView.GotoActiveRow;
   if UseTransactions then
     begin
       with Application as IBaseDbInterface do
