@@ -780,7 +780,7 @@ begin
   else
     begin
       gList.RowHeights[gList.Row] := GetRowHeight(gList.Row);
-      //TRowObject(gList.Objects[0,gList.Row]).RefreshHeight:=True;
+      TRowObject(gList.Objects[0,gList.Row]).RefreshHeight:=True;
       TryToMakeEditorVisible;
       mInplace.BoundsRect:=gList.CellRect(gList.Col,gList.Row);
       mInplace.Width:=mInplace.Width-1;
@@ -919,6 +919,7 @@ var
   aDrawed: Boolean;
   aFontStyle : TFontStyles;
   cRect: TRect;
+  aNewHeight: Integer;
   procedure DrawExpandSign(MidX, MidY: integer; CollapseSign: boolean);
   const
     PlusMinusDetail: array[Boolean {Hot}, Boolean {Expanded}] of TThemedTreeview =
@@ -1084,7 +1085,12 @@ begin
         end
       else if Assigned(gList.Objects[0,gList.Row]) and TRowObject(gList.Objects[0,gList.Row]).RefreshHeight and (not gList.EditorMode) then
         begin
-          RowHeights[aRow] := GetRowHeight(aRow);
+          aNewHeight := GetRowHeight(aRow);
+          if aNewHeight <> RowHeights[aRow] then
+            begin
+              RowHeights[aRow] := GetRowHeight(aRow);
+              gList.Invalidate;
+            end;
           TRowObject(gList.Objects[0,gList.Row]).RefreshHeight := False;
         end;
       if (aCol = 0) then
@@ -1584,10 +1590,6 @@ begin
         TStringGrid(Sender).InvalidateCell(0,OldRow);
         if aRow < TStringGrid(Sender).RowCount then
           TStringGrid(Sender).InvalidateCell(0,aRow);
-        if (OldRow>-1) and Assigned(gList.Objects[0,OldRow]) then
-          begin
-            TRowObject(gList.Objects[0,OldRow]).RefreshHeight := True;
-          end;
         if Assigned(FDataSet) and (FDataSet.CanEdit) and (not FDataSet.DataSet.ControlsDisabled) then
           begin
             if FDataSet.Changed then
@@ -2140,13 +2142,19 @@ end;
 procedure TfGridView.CalculateRowHeights;
 var
   i: Integer;
+  aNewHeight: Integer;
 begin
   if gList.EditorMode then
     gList.EditorMode:=False;
   gList.BeginUpdate;
   for i := gList.FixedRows to gList.RowCount-1 do
-    if Assigned(gList.Objects[0,i]) then
-      TRowObject(gList.Objects[0,i]).RefreshHeight:=True;
+    begin
+      aNewHeight := GetRowHeight(i);
+      if aNewHeight<>gList.RowHeights[i] then
+        gList.RowHeights[i] := aNewHeight;
+      if Assigned(gList.Objects[0,i]) then
+        TRowObject(gList.Objects[0,i]).RefreshHeight:=True;
+    end;
   gList.EndUpdate;
   gList.Invalidate;
 end;
@@ -2625,6 +2633,7 @@ var
   a: Integer;
   Found: Boolean;
   aTreeBM : Variant;
+  aNewHeight: Integer;
 
   function ParentExpanded(aID : string) : Boolean;
   begin
@@ -2752,7 +2761,12 @@ begin
       if Assigned(FAddRow) then fAddRow(gList);
     end;
   if Result and UpdateRowHeight then
-    TRowObject(gList.Objects[0,gList.Row]).RefreshHeight:=True;
+    begin
+      aNewHeight := GetRowHeight(gList.Row);
+      if aNewHeight <> gList.RowHeights[gList.Row] then
+        gList.RowHeights[gList.Row] := aNewHeight;
+      TRowObject(gList.Objects[0,gList.Row]).RefreshHeight:=True;
+    end;
   if aRow > -1 then
     gList.Row := aRow;
   gList.OnSelectCell:=@gListSelectCell;

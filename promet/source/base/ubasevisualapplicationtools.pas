@@ -84,6 +84,16 @@ function BuildAutofilter(List : TDBGrid;Header : TStringGrid;aEvent : TFilterCel
               Result := Data.QuoteField(Field.FieldName)+'='+Data.QuoteValue(StringReplace(aValue,',','.',[]))
             else
               begin
+                if copy(aValue,0,1)='"' then
+                  aValue := copy(aValue,2,length(aValue))
+                else if (pos('*',aValue)=0)
+                and (pos('?',aValue)=0) then
+                  aValue := '*'+aValue;
+                if copy(aValue,length(aValue),1)='"' then
+                  aValue := copy(aValue,0,length(aValue)-1)
+                else if (rpos('*',aValue)=1)
+                and (pos('?',aValue)=0) then
+                  aValue := aValue+'*';
                 with Field.DataSet as IBaseDbFilter do
                   begin
                     if (Field.DataType = ftMemo) or (Field.DataType = ftWideMemo) then

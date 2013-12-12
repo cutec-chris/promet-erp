@@ -4,6 +4,10 @@
       - Clipp:erste Version
       - Nachrichtenzentrale:Word Wrap für Aktion
       - Verlauf:Word Wrap
+      - Positionen:Word Wrap
+      - Positionen:Filterzeile
+      - Filterzeile: Filter mit Texten ohne Wildgards werden automatisch in *ANFRAGE* gesetzt
+      - Twitter oder Kompatibel (Friendica) importer
 Build 295
       - Suche:Kommission sucht nun bei Mails nach Absender
       - Nachrichtenzentrale: Nachricht abschicken nun mit Enter, neue Zeile mit Strg+Enter
