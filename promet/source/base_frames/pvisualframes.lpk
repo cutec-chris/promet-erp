@@ -90,6 +90,7 @@
     <RequiredPkgs Count="2">
       <Item1>
         <PackageName Value="pvisualforms"/>
+        <DefaultFilename Value="..\base_forms\pvisualforms.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="FCL"/>

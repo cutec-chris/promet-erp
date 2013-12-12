@@ -120,9 +120,11 @@
     <RequiredPkgs Count="13">
       <Item1>
         <PackageName Value="pVisualPrometApp"/>
+        <DefaultFilename Value="../base/pvisualprometapp.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="lazreport_addons"/>
+        <DefaultFilename Value="../components/lazreport/lazreport_addons.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="lr_DialogDesign"/>
@@ -135,6 +137,7 @@
       </Item5>
       <Item6>
         <PackageName Value="pImportExport"/>
+        <DefaultFilename Value="../import/pimportexport.lpk"/>
       </Item6>
       <Item7>
         <PackageName Value="ZVDateTimeCtrls"/>
@@ -147,6 +150,7 @@
       </Item9>
       <Item10>
         <PackageName Value="pPrometDBIntfs"/>
+        <DefaultFilename Value="../base/dbintfs/pprometdbintfs.lpk"/>
       </Item10>
       <Item11>
         <PackageName Value="general"/>

@@ -40,6 +40,7 @@
       </Item2>
       <Item3>
         <PackageName Value="general"/>
+        <DefaultFilename Value="../../../general/general.lpk"/>
       </Item3>
       <Item4>
         <PackageName Value="richmemopackage"/>
