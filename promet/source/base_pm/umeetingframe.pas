@@ -857,6 +857,7 @@ begin
   FGridView.OnCellButtonClick:=@FGridViewCellButtonClick;
   FGridView.OnGetCellText:=@FGridViewGetCellText;
   FGridView.OnSearchKey:=@FGridViewSearchKey;
+  FGridView.WordWrap:=True;
   FGridView.DataSet := TMeetings(DataSet).Entrys;
   FGridView.gList.Col:=1;
   FGridView.gList.Col:=0;

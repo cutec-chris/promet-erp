@@ -1083,16 +1083,17 @@ begin
           if (gdSelected in aState) and gList.Focused then
             TStringGrid(Sender).Canvas.DrawFocusRect(arect);
           exit;
-        end
-      else if Assigned(gList.Objects[0,gList.Row]) and TRowObject(gList.Objects[0,gList.Row]).RefreshHeight and (not gList.EditorMode) then
+        end;
+      if Assigned(gList.Objects[0,aRow]) and TRowObject(gList.Objects[0,aRow]).RefreshHeight and (not gList.EditorMode) then
         begin
           aNewHeight := GetRowHeight(aRow);
           if aNewHeight <> RowHeights[aRow] then
             begin
-              RowHeights[aRow] := GetRowHeight(aRow);
+              RowHeights[aRow] := aNewHeight;
               gList.Invalidate;
             end;
-          TRowObject(gList.Objects[0,gList.Row]).RefreshHeight := False;
+          if gList.Canvas.HandleAllocated then
+            TRowObject(gList.Objects[0,aRow]).RefreshHeight := False;
         end;
       if (aCol = 0) then
         begin
