@@ -97,6 +97,9 @@ type
   TSearchKey = function(Sender : TObject;X,Y : Integer;Field : TColumn;var Key : Word;Shift : TShiftState;SearchString : string) : Boolean of object;
   TGridDrawColumnCellEvent = function(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState) : Boolean of object;
   TCellFontEvent = function(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState;var aColor : TColor;var Style : TFontStyles) : Boolean of object;
+
+  { TfGridView }
+
   TfGridView = class(TFrame)
     acCopyLink: TAction;
     acFilter: TAction;
@@ -283,6 +286,7 @@ type
     procedure UpdateTitle;
     procedure DoSetEdit(Data : PtrInt);
     procedure DoSetEditDD(Data : PtrInt);
+    procedure DoInvalidate(Data : PtrInt);
     procedure CleanList(AddRows : Integer);
     procedure CleanRow(aRow : Integer;aIdentCol : Integer);
     property FEditPrefix : string read FFEditPrefix write SetEditPrefix;
@@ -1050,6 +1054,7 @@ var
     end;
   end;
 begin
+  try
   with Sender as TStringGrid do
     begin
       if (((gdFixed in AState)
@@ -1090,7 +1095,7 @@ begin
           if aNewHeight <> RowHeights[aRow] then
             begin
               RowHeights[aRow] := aNewHeight;
-              gList.Invalidate;
+              Application.QueueAsyncCall(@DoInvalidate,0);
             end;
           if gList.Canvas.HandleAllocated then
             TRowObject(gList.Objects[0,aRow]).RefreshHeight := False;
@@ -1184,6 +1189,8 @@ begin
       if (aCol-1) = ColumnWidthHelper.Index then
         ColumnWidthHelper.MaxWidth := Max(ColumnWidthHelper.MaxWidth, TStringGrid(Sender).Canvas.TextWidth(atext));
     end;
+  except
+  end;
 end;
 procedure TfGridView.gListEditingDone(Sender: TObject);
 var
@@ -2159,7 +2166,7 @@ begin
         TRowObject(gList.Objects[0,i]).RefreshHeight:=True;
     end;
   gList.EndUpdate;
-  gList.Invalidate;
+  Application.QueueAsyncCall(@DoInvalidate,0);
 end;
 procedure TfGridView.AutoInsert;
 var
@@ -2522,6 +2529,11 @@ begin
       FSearchKey(Self,aRect.Left,aRect.Bottom,dgFake.Columns[gList.Col-1],aKey,[],'');
   if gList.Editor is TComboBox then
     TComboBox(gList.Editor).DroppedDown:=True;
+end;
+
+procedure TfGridView.DoInvalidate(Data: PtrInt);
+begin
+  gList.Invalidate;
 end;
 
 procedure TfGridView.CleanList(AddRows: Integer);
