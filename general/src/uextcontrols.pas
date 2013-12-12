@@ -1060,6 +1060,7 @@ begin
   if Assigned(FAfterDrawCell) then
     FAfterDrawCell(Self,aCol,aRow,aRect,aState);
 end;
+
 function TExtStringgrid.CanGridAcceptKey(Key: Word; Shift: TShiftState
   ): Boolean;
 begin
@@ -1140,4 +1141,4 @@ begin
   FCanvas.Free;
 end;
 end.
-
+

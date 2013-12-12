@@ -752,7 +752,7 @@ begin
     end;
   if aLeave then
     begin
-      mInplace.Visible:=False;
+      gList.EditorMode:=False;
       TUnprotectedGrid(gList).KeyDown(Key,Shift);
       gList.SetFocus;
     end;
@@ -883,7 +883,8 @@ begin
         gList.EditorMode:=False;
       OnDblClick(Sender);
     end
-  else if not gList.EditorMode then gList.EditorMode:=True;
+  else if not gList.EditorMode then
+    gList.EditorMode:=True;
 end;
 procedure TfGridView.gListDrawCell(Sender: TObject; aCol, aRow: Integer;
   aRect: TRect; aState: TGridDrawState);
@@ -1367,6 +1368,7 @@ begin
             EndUpdate;
             raise;
           end;
+          gList.EditorMode:=False;
         end;
       if (gList.Row = gList.RowCount-1) and (goEditing in gList.Options) and FEditable then
         begin
