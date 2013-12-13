@@ -8,6 +8,8 @@
       - Positionen:Filterzeile
       - Filterzeile: Filter mit Texten ohne Wildgards werden automatisch in *ANFRAGE* gesetzt
       - Twitter oder Kompatibel (Friendica) importer
+      - Obereinträge im Baum können selbst angeordnet oder ausgeblendet werden
+      - zuletzt selektierter Obereintrag im Baum wird nach Start wieder selektiert
 Build 295
       - Suche:Kommission sucht nun bei Mails nach Absender
       - Nachrichtenzentrale: Nachricht abschicken nun mit Enter, neue Zeile mit Strg+Enter

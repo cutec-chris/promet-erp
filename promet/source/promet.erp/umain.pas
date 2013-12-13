@@ -294,6 +294,7 @@ type
     procedure DoStartupType;
     procedure DoCreate;
     procedure RefreshTasks;
+    procedure Expand;
   public
     constructor Create(aSuspended : Boolean = False);
     procedure Execute; override;
@@ -678,6 +679,8 @@ begin
 end;
 
 procedure TStarterThread.DoStartupType;
+var
+  aOldSelected: String;
 begin
   if Application.HasOption('startuptype') then
     begin
@@ -692,6 +695,25 @@ begin
               break;
             end;
           aNode := aNode.GetNextSibling;
+        end;
+    end
+  else
+    begin
+      with Application as IBaseDbInterface do
+        begin
+          aOldSelected := DBConfig.ReadString('TREENODE','');
+          if fMainTreeFrame.tvMain.Items.Count > 0 then
+            aNode := fMainTreeFrame.tvMain.Items[0];
+          while Assigned(aNode) do
+            begin
+              if (aOldSelected = aNode.Text)
+              or (aOldSelected = fMainTreeFrame.GetNodeText(aNode)) then
+                begin
+                  fMainTreeFrame.tvMain.Selected := aNode;
+                  break;
+                end;
+              aNode := aNode.GetNextSibling;
+            end;
         end;
     end;
 end;
@@ -709,6 +731,11 @@ end;
 procedure TStarterThread.RefreshTasks;
 begin
   uTasks.RefreshTasks(fMain.FTaskNode);
+end;
+
+procedure TStarterThread.Expand;
+begin
+  fMainTreeFrame.RestoreExpands;
 end;
 
 constructor TStarterThread.Create(aSuspended: Boolean);
@@ -848,6 +875,8 @@ begin
       AddSearchAbleDataSet(TBaseHistory);
       Data.RegisterLinkHandler('HISTORY',@fMainTreeFrame.OpenLink);
     end;
+  //Expand Tree
+  Synchronize(@Expand);
   {$IFDEF CPU32}
   uSkypePhone.RegisterPhoneLines;
   {$ENDIF}
@@ -1041,10 +1070,10 @@ begin
                 //Documents
                 if (Data.Users.Rights.Right('DOCUMENTS') > RIGHT_NONE) then
                   begin
-                    NewNode;
-                    TTreeEntry(Node.Data).Typ := etFiles;
-                    NewNode;
+                    Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
                     TTreeEntry(Node.Data).Typ := etDocuments;
+                    Node := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
+                    TTreeEntry(Node.Data).Typ := etFiles;
                   end;
               end;
             if aItems[0] = GetEntryText(etLists) then
@@ -3044,7 +3073,13 @@ begin
     end;
   while FHistory.Count>15 do FHistory.Delete(0);
   with Application as IBaseDbInterface do
-    DBConfig.WriteString('HISTORY',FHistory.Text);
+    begin
+      DBConfig.WriteString('HISTORY',FHistory.Text);
+      if Assigned(fMainTreeFrame.tvMain.Selected) then
+        DBConfig.WriteString('TREENODE',fMainTreeFrame.GetNodeText(fMainTreeFrame.tvMain.Selected))
+      else
+        DBConfig.WriteString('TREENODE','');
+    end;
   if Assigned(fOptions) then
     FreeAndNil(fOptions);
   if Assigned(fHelpContainer) then

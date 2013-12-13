@@ -19,6 +19,7 @@ object fMainTree: TfMainTree
     DragMode = dmAutomatic
     PopupMenu = pmTree
     ReadOnly = True
+    RightClickSelect = True
     ScrollBars = ssAutoBoth
     TabOrder = 0
     OnAdvancedCustomDrawItem = tvMainAdvancedCustomDrawItem
@@ -29,19 +30,20 @@ object fMainTree: TfMainTree
     OnDragOver = tvMainDragOver
     OnEdited = tvMainEdited
     OnEditing = tvMainEditing
+    OnExpanded = tvMainExpanded
     OnExpanding = tvMainExpanding
     OnKeyDown = tvMainKeyDown
     OnSelectionChanged = tvMainSelectionChanged
-    Options = [tvoAutoItemHeight, tvoHideSelection, tvoKeepCollapsedNodes, tvoReadOnly, tvoShowButtons, tvoShowLines, tvoShowRoot, tvoToolTips, tvoThemedDraw]
+    Options = [tvoAutoItemHeight, tvoHideSelection, tvoKeepCollapsedNodes, tvoReadOnly, tvoRightClickSelect, tvoShowButtons, tvoShowLines, tvoShowRoot, tvoToolTips, tvoThemedDraw]
   end
   object pmTree: TPopupMenu
     left = 88
     top = 216
     object MenuItem1: TMenuItem
-      Caption = 'New Item1'
     end
   end
   object ActionList1: TActionList
+    Images = fVisualControls.Images
     left = 88
     top = 168
     object acOpen: TAction
@@ -79,6 +81,16 @@ object fMainTree: TfMainTree
       Caption = 'Löschen'
       ImageIndex = 60
       OnExecute = acDeleteLinkExecute
+    end
+    object acHideEntry: TAction
+      Caption = 'Eintrag ausblenden'
+      ImageIndex = 60
+      OnExecute = acHideEntryExecute
+    end
+    object acRestoreStandard: TAction
+      Caption = 'Standardansicht wiederherstellen'
+      ImageIndex = 56
+      OnExecute = acRestoreStandardExecute
     end
   end
   object DblClickTimer: TIdleTimer

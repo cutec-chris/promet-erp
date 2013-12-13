@@ -103,6 +103,8 @@ type
     acAddBoard: TAction;
     acRights: TAction;
     acDeleteLink: TAction;
+    acHideEntry: TAction;
+    acRestoreStandard: TAction;
     ActionList1: TActionList;
     DblClickTimer: TIdleTimer;
     MenuItem1: TMenuItem;
@@ -112,8 +114,10 @@ type
     procedure acAddDirectoryExecute(Sender: TObject);
     procedure acDeleteDirectoryExecute(Sender: TObject);
     procedure acDeleteLinkExecute(Sender: TObject);
+    procedure acHideEntryExecute(Sender: TObject);
     procedure acOpenExecute(Sender: TObject);
     procedure acRenameDirectoryExecute(Sender: TObject);
+    procedure acRestoreStandardExecute(Sender: TObject);
     procedure acRightsExecute(Sender: TObject);
     procedure acSearchExecute(Sender: TObject);
     procedure DblClickTimerTimer(Sender: TObject);
@@ -130,6 +134,7 @@ type
     procedure tvMainEdited(Sender: TObject; Node: TTreeNode; var S: string);
     procedure tvMainEditing(Sender: TObject; Node: TTreeNode;
       var AllowEdit: Boolean);
+    procedure tvMainExpanded(Sender: TObject; Node: TTreeNode);
     procedure tvMainExpanding(Sender: TObject; Node: TTreeNode;
       var AllowExpansion: Boolean);
     procedure tvMainKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -157,6 +162,8 @@ type
     function GetNodeText(aNode : TTreeNode) : string;
     function GetEntryText(aNode : TEntryTyp) : string;
     function GetBigIconTexts : string;
+    procedure SaveTreeOptions;
+    procedure RestoreExpands;
     property SearchOptions : string read FSearchOptions write FSerachOptions;
     property OnSelectionChanged : TSelectionChangedEvent read FSelChanged write FSelChanged;
     property OnOpen : TOpenEvent read FOpen write FOpen;
@@ -194,7 +201,14 @@ var
   New: TMenuItem;
   Typ: String;
 begin
-  if not Assigned(tvMain.Selected) then exit;
+  if not Assigned(tvMain.Selected) then
+    begin
+      pmTree.Items.Clear;
+      New := TMenuItem.Create(nil);
+      New.Action := acRestoreStandard;
+      pmTree.Items.Add(New);
+      exit;
+    end;
   DataT := TTreeEntry(tvMain.Selected.Data);
   if not Assigned(DataT) then
     begin
@@ -290,6 +304,17 @@ begin
       New.Action := acDeleteLink;
       pmTree.Items.Add(New);
     end;
+  if tvMain.Selected.Level=0 then
+    begin
+      if pmTree.Items.Count>0 then
+        begin
+          New := TMenuItem.Create(nil);
+          New.Caption:='-';
+        end;
+      New := TMenuItem.Create(nil);
+      New.Action := acHideEntry;
+      pmTree.Items.Add(New);
+    end;
 end;
 constructor TfMainTree.Create(AOwner: TComponent);
 begin
@@ -371,6 +396,12 @@ begin
       aTree.Free;
       DataT.Text[0] := S;
     end;
+end;
+
+procedure TfMainTree.acRestoreStandardExecute(Sender: TObject);
+begin
+  with Application as IBaseDBInterface do
+    DBConfig.WriteString('TREEENTRYS',GetBigIconTexts);
 end;
 
 procedure TfMainTree.acRightsExecute(Sender: TObject);
@@ -627,6 +658,13 @@ begin
       aLinks.Free;
     end;
 end;
+
+procedure TfMainTree.acHideEntryExecute(Sender: TObject);
+begin
+  tvMain.Selected.Delete;
+  SaveTreeOptions;
+end;
+
 procedure TfMainTree.DblClickTimerTimer(Sender: TObject);
 begin
   DblClickTimer.Enabled:=False;
@@ -1115,6 +1153,11 @@ begin
               end;
         end;
       end;
+      if (tvMain.Selected.Level=0) and Assigned(tvMain.GetNodeAt(X,Y)) and (tvMain.GetNodeAt(X,Y).Level=0) then
+        begin
+          tvMain.Selected.MoveTo(tvMain.GetNodeAt(X,Y),naInsertBehind);
+          SaveTreeOptions;
+        end;
     end
   else if Source = pcPages then
     begin
@@ -1355,6 +1398,8 @@ begin
                   Accept:=True;
         end;
       end;
+      if (tvMain.Selected.Level=0) and Assigned(tvMain.GetNodeAt(X,Y)) and (tvMain.GetNodeAt(X,Y).Level=0) then
+        Accept := True;
     end
   else if Source = pcPages then
     begin
@@ -1461,6 +1506,12 @@ begin
   if not AllowEdit then exit;
   Node.Text:=DataT.Text[0];
 end;
+
+procedure TfMainTree.tvMainExpanded(Sender: TObject; Node: TTreeNode);
+begin
+  if Node.Level=0 then SaveTreeOptions;
+end;
+
 procedure TfMainTree.tvMainExpanding(Sender: TObject; Node: TTreeNode;
   var AllowExpansion: Boolean);
 var
@@ -1736,6 +1787,44 @@ begin
   Result := Result+GetEntryText(etInventory)+';';
   Result := Result+GetEntryText(etFinancial)+';';
   Result := Result+GetEntryText(etStatistics)+';';
+end;
+
+procedure TfMainTree.SaveTreeOptions;
+var
+  aNode: TTreeNode;
+  aOpt,aExp: String;
+begin
+  aNode := tvMain.Items[0];
+  aOpt := '';
+  aExp := '';
+  while Assigned(aNode) do
+    begin
+      aOpt := aOpt+GetNodeText(aNode)+';';
+      if aNode.Expanded then
+        aExp := aExp+GetNodeText(aNode)+';';
+      aNode := aNode.GetNextSibling;
+    end;
+  with Application as IBaseDBInterface do
+    begin
+      DBConfig.WriteString('TREEENTRYS',aOpt);
+      DBConfig.WriteString('TREEEXPAND',aExp);
+    end;
+end;
+
+procedure TfMainTree.RestoreExpands;
+var
+  aNode: TTreeNode;
+  aExp: String;
+begin
+  aNode := tvMain.Items[0];
+  with Application as IBaseDBInterface do
+    aExp := DBConfig.ReadString('TREEEXPAND','');
+  while Assigned(aNode) do
+    begin
+      if pos(GetNodeText(aNode)+';',aExp)>0 then
+        aNode.Expand(False);
+      aNode := aNode.GetNextSibling;
+    end;
 end;
 
 function TfMainTree.GetNodeText(aNode: TTreeNode): string;

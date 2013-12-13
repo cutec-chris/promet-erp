@@ -404,10 +404,14 @@ var
   aControl: TComponent;
 begin
   if Sender = nil then exit; //Bug with ActionLists
-  if Sender is TTabSheet then
-    aPage := Sender as TTabSheet
-  else
-    aPage := Self.ActivePage;
+  try
+    if Sender is TTabSheet then
+      aPage := Sender as TTabSheet
+    else
+      aPage := Self.ActivePage;
+  except
+    exit;
+  end;
   for i := 0 to FMenu.Items.Count-1 do
      if Fmenu.Items[i].Caption = aPage.Caption then
        FMenu.Items[i].Enabled := True;
