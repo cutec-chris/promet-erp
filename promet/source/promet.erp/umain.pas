@@ -868,6 +868,8 @@ var
   WikiFrame: TfWikiFrame;
   aDocuments: TDocument;
   bStart: TStarterThread;
+  aItems: TStringList;
+  aIt: String;
   procedure NewNode;
   begin
     Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
@@ -917,129 +919,185 @@ begin
         end;
         WikiFrame.SetRights(Data.Users.Rights.Right('WIKI')>RIGHT_READ);
         //debugln('Wiki: '+IntToStr(GetTickCount64-aTime));
-        //Add Search Node
-        Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
-        Node.Height := 34;
-        TTreeEntry(Node.Data).Typ := etSearch;
+        aItems := TStringList.Create;
+        aItems.Delimiter:=';';
+        aItems.DelimitedText := DBConfig.ReadString('TREEENTRYS',fMainTreeFrame.GetBigIconTexts);
         //Actions
         Data.RegisterLinkHandler('ACTION',@OpenAction);
         //Options
         Data.RegisterLinkHandler('OPTION',@OpenOption);
-        NewNode;
-        Node.Height := 34;
-        TTreeEntry(Node.Data).Typ := etFavourites;
-        //Messages
-        if Data.Users.Rights.Right('MESSAGES') > RIGHT_NONE then
+        while aItems.Count>0 do
+          with fMainTreeFrame do
           begin
-            NewMenu;
-            miNew.Action := fMain.acMessages;
-            NewNode;
-            Node.Height := 34;
-            TTreeEntry(Node.Data).Typ := etMessages;
-            fMainTreeFrame.StartupTypes.Add(strMessages);
-            fMain.FMessageNode := Node;
+            if aItems[0] = GetEntryText(etSearch) then
+              begin
+                //Add Search Node
+                Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
+                Node.Height := 34;
+                TTreeEntry(Node.Data).Typ := etSearch;
+              end;
+            if aItems[0] = GetEntryText(etFavourites) then
+              begin
+                NewNode;
+                Node.Height := 34;
+                TTreeEntry(Node.Data).Typ := etFavourites;
+              end;
+            if aItems[0] = GetEntryText(etMessages) then
+              begin
+                //Messages
+                if Data.Users.Rights.Right('MESSAGES') > RIGHT_NONE then
+                  begin
+                    NewMenu;
+                    miNew.Action := fMain.acMessages;
+                    NewNode;
+                    Node.Height := 34;
+                    TTreeEntry(Node.Data).Typ := etMessages;
+                    fMainTreeFrame.StartupTypes.Add(strMessages);
+                    fMain.FMessageNode := Node;
+                  end;
+              end;
+            if aItems[0] = GetEntryText(etTasks) then
+              begin
+                //Tasks
+                if (Data.Users.Rights.Right('TASKS') > RIGHT_NONE) then
+                  begin
+                    NewNode;
+                    Node.Height := 34;
+                    TTreeEntry(Node.Data).Typ := etTasks;
+                    FTaskNode := Node;
+                  end;
+              end;
+            if aItems[0] = GetEntryText(etCalendar) then
+              begin
+                //PIM
+                if Data.Users.Rights.Right('CALENDAR') > RIGHT_NONE then
+                  begin
+                    NewMenu;
+                    miNew.Action := fMain.acCalendar;
+                    NewNode;
+                    Node.Height := 34;
+                    TTreeEntry(Node.Data).Typ := etCalendar;
+                    FCalendarNode := Node;
+                  end;
+              end;
+            if aItems[0] = GetEntryText(etOrders) then
+              begin
+                //Orders,Production,...
+                if Data.Users.Rights.Right('ORDERS') > RIGHT_NONE then
+                  begin
+                    NewMenu;
+                    miNew.Action := fMain.acOrders;
+                    NewNode;
+                    Node.Height := 32;
+                    TTreeEntry(Node.Data).Typ := etOrders;
+                   end;
+              end;
+            if aItems[0] = GetEntryText(etCustomers) then
+              begin
+                //Contacts
+                if Data.Users.Rights.Right('CUSTOMERS') > RIGHT_NONE then
+                  begin
+                    NewMenu;
+                    miNew.Action := fMain.acContact;
+                    NewNode;
+                    TTreeEntry(Node.Data).Typ := etCustomers;
+                    Node.Height := 34;
+                  end;
+              end;
+            if aItems[0] = GetEntryText(etMasterdata) then
+              begin
+                //Add Masterdata stuff
+                if (Data.Users.Rights.Right('MASTERDATA') > RIGHT_NONE) then
+                  begin
+                    NewMenu;
+                    miNew.Action := fMain.acMasterdata;
+                    NewNode;
+                    Node.Height := 32;
+                    TTreeEntry(Node.Data).Typ := etMasterdata;
+                  end;
+              end;
+            if aItems[0] = GetEntryText(etProjects) then
+              begin
+                //Projects
+                if (Data.Users.Rights.Right('PROJECTS') > RIGHT_NONE) then
+                  begin
+                    NewNode;
+                    Node.Height := 32;
+                    TTreeEntry(Node.Data).Typ := etProjects;
+                  end;
+              end;
+            if aItems[0] = GetEntryText(etWiki) then
+              begin
+                //Wiki
+                if (Data.Users.Rights.Right('WIKI') > RIGHT_NONE) then
+                  begin
+                    NewNode;
+                    Node.Height := 34;
+                    TTreeEntry(Node.Data).Typ := etWiki;
+                  end;
+              end;
+            if aItems[0] = GetEntryText(etDocuments) then
+              begin
+                //Documents
+                if (Data.Users.Rights.Right('DOCUMENTS') > RIGHT_NONE) then
+                  begin
+                    NewNode;
+                    TTreeEntry(Node.Data).Typ := etFiles;
+                    NewNode;
+                    TTreeEntry(Node.Data).Typ := etDocuments;
+                  end;
+              end;
+            if aItems[0] = GetEntryText(etLists) then
+              begin
+                //Lists
+                if (Data.Users.Rights.Right('LISTS') > RIGHT_NONE) then
+                  begin
+                    NewNode;
+                    TTreeEntry(Node.Data).Typ := etLists;
+                  end;
+              end;
+            if aItems[0] = GetEntryText(etMeetings) then
+              begin
+                //Meetings
+                if (Data.Users.Rights.Right('MEETINGS') > RIGHT_NONE) then
+                  begin
+                    NewNode;
+                    TTreeEntry(Node.Data).Typ := etMeetings;
+                  end;
+              end;
+            if aItems[0] = GetEntryText(etInventory) then
+              begin
+                //Inventory
+                if (Data.Users.Rights.Right('INVENTORY') > RIGHT_NONE) then
+                  begin
+                    NewNode;
+                    TTreeEntry(Node.Data).Typ := etInventory;
+                  end;
+              end;
+            if aItems[0] = GetEntryText(etFinancial) then
+              begin
+                //Financial
+                if (Data.Users.Rights.Right('BANKACCNTS') > RIGHT_NONE)
+                or (Data.Users.Rights.Right('SALESLIST') > RIGHT_NONE) then
+                  begin
+                    NewNode;
+                    Node.Height := 34;
+                    TTreeEntry(Node.Data).Typ := etFinancial;
+                  end;
+              end;
+            if aItems[0] = GetEntryText(etStatistics) then
+              begin
+                //Statistics
+                if (Data.Users.Rights.Right('STATISTICS') > RIGHT_NONE) then
+                  begin
+                    NewNode;
+                    Node.Height := 34;
+                    TTreeEntry(Node.Data).Typ := etStatistics;
+                  end;
+              end;
+            aItems.Delete(0);
           end;
-        //Tasks
-        if (Data.Users.Rights.Right('TASKS') > RIGHT_NONE) then
-          begin
-            NewNode;
-            Node.Height := 34;
-            TTreeEntry(Node.Data).Typ := etTasks;
-            FTaskNode := Node;
-          end;
-        //PIM
-        if Data.Users.Rights.Right('CALENDAR') > RIGHT_NONE then
-          begin
-            NewMenu;
-            miNew.Action := fMain.acCalendar;
-            NewNode;
-            Node.Height := 34;
-            TTreeEntry(Node.Data).Typ := etCalendar;
-            FCalendarNode := Node;
-          end;
-        //Orders,Production,...
-        if Data.Users.Rights.Right('ORDERS') > RIGHT_NONE then
-          begin
-            NewMenu;
-            miNew.Action := fMain.acOrders;
-            NewNode;
-            Node.Height := 32;
-            TTreeEntry(Node.Data).Typ := etOrders;
-           end;
-        //Contacts
-        if Data.Users.Rights.Right('CUSTOMERS') > RIGHT_NONE then
-          begin
-            NewMenu;
-            miNew.Action := fMain.acContact;
-            NewNode;
-            TTreeEntry(Node.Data).Typ := etCustomers;
-            Node.Height := 34;
-          end;
-        //Add Masterdata stuff
-        if (Data.Users.Rights.Right('MASTERDATA') > RIGHT_NONE) then
-          begin
-            NewMenu;
-            miNew.Action := fMain.acMasterdata;
-            NewNode;
-            Node.Height := 32;
-            TTreeEntry(Node.Data).Typ := etMasterdata;
-          end;
-        //Projects
-        if (Data.Users.Rights.Right('PROJECTS') > RIGHT_NONE) then
-          begin
-            NewNode;
-            Node.Height := 32;
-            TTreeEntry(Node.Data).Typ := etProjects;
-          end;
-        //Wiki
-        if (Data.Users.Rights.Right('WIKI') > RIGHT_NONE) then
-          begin
-            NewNode;
-            Node.Height := 34;
-            TTreeEntry(Node.Data).Typ := etWiki;
-          end;
-        //Documents
-        if (Data.Users.Rights.Right('DOCUMENTS') > RIGHT_NONE) then
-          begin
-            NewNode;
-            TTreeEntry(Node.Data).Typ := etFiles;
-            NewNode;
-            TTreeEntry(Node.Data).Typ := etDocuments;
-          end;
-        //Lists
-        if (Data.Users.Rights.Right('LISTS') > RIGHT_NONE) then
-          begin
-            NewNode;
-            TTreeEntry(Node.Data).Typ := etLists;
-          end;
-        //Meetings
-        if (Data.Users.Rights.Right('MEETINGS') > RIGHT_NONE) then
-          begin
-            NewNode;
-            TTreeEntry(Node.Data).Typ := etMeetings;
-          end;
-        //Inventory
-        if (Data.Users.Rights.Right('INVENTORY') > RIGHT_NONE) then
-          begin
-            NewNode;
-            TTreeEntry(Node.Data).Typ := etInventory;
-          end;
-        //Financial
-        if (Data.Users.Rights.Right('BANKACCNTS') > RIGHT_NONE)
-        or (Data.Users.Rights.Right('SALESLIST') > RIGHT_NONE) then
-          begin
-            NewNode;
-            Node.Height := 34;
-            TTreeEntry(Node.Data).Typ := etFinancial;
-          end;
-        //Statistics
-        if (Data.Users.Rights.Right('STATISTICS') > RIGHT_NONE) then
-          begin
-            NewNode;
-            Node.Height := 34;
-            TTreeEntry(Node.Data).Typ := etStatistics;
-          end;
-
+        aItems.free;
         fSplash.AddText(strRefresh);
         bStart := TStarterThread.Create(False);
 

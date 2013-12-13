@@ -16,7 +16,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="17">
+    <Files Count="20">
       <Item1>
         <Filename Value="uhistoryframe.lfm"/>
         <Type Value="LFM"/>
@@ -85,6 +85,18 @@
         <Filename Value="uimageframe.pas"/>
         <UnitName Value="uImageFrame"/>
       </Item17>
+      <Item18>
+        <Filename Value="umaintreeframe.lfm"/>
+        <Type Value="LFM"/>
+      </Item18>
+      <Item19>
+        <Filename Value="umaintreeframe.lrs"/>
+        <Type Value="LRS"/>
+      </Item19>
+      <Item20>
+        <Filename Value="umaintreeframe.pas"/>
+        <UnitName Value="uMainTreeFrame"/>
+      </Item20>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="2">

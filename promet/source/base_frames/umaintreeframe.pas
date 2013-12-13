@@ -155,6 +155,8 @@ type
     function NewFromLink(aLink: string; Sender: TObject): TBaseDBdataSet;
     function GetTreeEntry : Variant;
     function GetNodeText(aNode : TTreeNode) : string;
+    function GetEntryText(aNode : TEntryTyp) : string;
+    function GetBigIconTexts : string;
     property SearchOptions : string read FSearchOptions write FSerachOptions;
     property OnSelectionChanged : TSelectionChangedEvent read FSelChanged write FSelChanged;
     property OnOpen : TOpenEvent read FOpen write FOpen;
@@ -165,10 +167,13 @@ type
   end;
 var
   fMainTreeFrame : TfMainTree;
+
+
 implementation
 uses uData,uPrometFrames,LCLType,Dialogs,uIntfStrConsts, FPCanvas,
   uBaseVisualControls, Graphics, Utils, LCLProc, uPerson,uMasterdata,uProjects,
   uWiki,uSearch,Themes,uFilterFrame,uNRights,uStatistic,uClipp;
+
 constructor TTreeEntry.Create;
 begin
   Action := nil;
@@ -1712,6 +1717,27 @@ begin
     Result := Data.Tree.Id.AsVariant;
 end;
 
+function TfMainTree.GetBigIconTexts: string;
+begin
+  Result := '';
+  Result := Result+GetEntryText(etSearch)+';';
+  Result := Result+GetEntryText(etFavourites)+';';
+  Result := Result+GetEntryText(etMessages)+';';
+  Result := Result+GetEntryText(etTasks)+';';
+  Result := Result+GetEntryText(etCalendar)+';';
+  Result := Result+GetEntryText(etOrders)+';';
+  Result := Result+GetEntryText(etCustomers)+';';
+  Result := Result+GetEntryText(etMasterdata)+';';
+  Result := Result+GetEntryText(etProjects)+';';
+  Result := Result+GetEntryText(etWiki)+';';
+  Result := Result+GetEntryText(etDocuments)+';';
+  Result := Result+GetEntryText(etLists)+';';
+  Result := Result+GetEntryText(etMeetings)+';';
+  Result := Result+GetEntryText(etInventory)+';';
+  Result := Result+GetEntryText(etFinancial)+';';
+  Result := Result+GetEntryText(etStatistics)+';';
+end;
+
 function TfMainTree.GetNodeText(aNode: TTreeNode): string;
 var
   aData: TTreeEntry;
@@ -1720,7 +1746,19 @@ begin
   if not Assigned(aNode.Data) then exit;
   aData := TTreeEntry(aNode.Data);
   if not Assigned(aData) then exit;
-  case aData.Typ of
+  Celltext := GetEntryText(aData.Typ);
+  if Celltext = '' then
+    CellText := aData.Text[0]
+  else if Celltext = 'ACTION' then
+    CellText := aData.Action.Caption;
+  Result := CellText;
+end;
+
+function TfMainTree.GetEntryText(aNode: TEntryTyp): string;
+var
+  Celltext: String = '';
+begin
+  case aNode of
     etCustomers:Celltext := strCustomers;
     etCustomerList:Celltext := strCustomerList;
     etMasterdata:Celltext := strMasterdata;
@@ -1757,12 +1795,11 @@ begin
     etInventory:CellText := strInventorys;
 //    etWebshop:Celltext := fWebshop.Caption;
 //    etDisposition:Celltext := fDisposition.Caption;
-    etAction:CellText := aData.Action.Caption;
-  else
-    CellText := aData.Text[0];
+    etAction:CellText := 'ACTION';
   end;
-  Result := CellText;
+  Result := Celltext;
 end;
+
 initialization
   {$I umaintreeframe.lrs}
 end.
