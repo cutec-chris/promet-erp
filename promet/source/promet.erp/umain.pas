@@ -2925,7 +2925,8 @@ begin
         end;
       etMeetings:
         begin
-          umeetingframe.AddToMainTree(fMain.acNewMeeting,Node);
+          if Data.Users.Rights.Right('MEETINGS') > RIGHT_NONE then
+            umeetingframe.AddToMainTree(fMain.acNewMeeting,Node);
         end;
       etFinancial:
         begin
