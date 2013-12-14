@@ -10,7 +10,7 @@ uses
   Forms, uerror, richmemopackage
   { you can add units after this },
 utableedit,
-  upassword, udata, pvisualprometapp, uBaseVisualApplication;
+  upassword, udata, uBaseVisualApplication;
 
 {$R *.res}
 

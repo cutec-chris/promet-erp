@@ -13,9 +13,9 @@ lazbuild -q ../../source/sync/sync_db.lpi  >> scompile-$2.log
 echo "compiling pop3receiver..."
 echo "compiling pop3receiver..." >> scompile-$2.log
 lazbuild -q ../../source/messageimport/pop3receiver.lpi  >> scompile-$2.log
-echo "compiling rssreceiver..."
-echo "compiling rssreceiver..." >> scompile-$2.log
-lazbuild -q ../../source/messageimport/rssreceiver.lpi  >> scompile-$2.log
+echo "compiling feedreceiver..."
+echo "compiling feedreceiver..." >> scompile-$2.log
+lazbuild -q ../../source/messageimport/feedreceiver.lpi  >> scompile-$2.log
 echo "compiling smtpsender..."
 echo "compiling smtpsender..." >> scompile-$2.log
 lazbuild -q ../../source/messageimport/smtpsender.lpi  >> scompile-$2.log

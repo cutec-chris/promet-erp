@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -30,21 +30,22 @@
     </RunParams>
     <RequiredPackages Count="5">
       <Item1>
-        <PackageName Value="LCL"/>
+        <PackageName Value="pvisualframes"/>
+        <DefaultFilename Value="..\base_frames\pvisualframes.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="LCL"/>
       </Item2>
       <Item3>
-        <PackageName Value="FCL"/>
-        <MinVersion Major="1" Release="1" Valid="True"/>
+        <PackageName Value="richmemopackage"/>
       </Item3>
       <Item4>
-        <PackageName Value="LCLBase"/>
+        <PackageName Value="FCL"/>
         <MinVersion Major="1" Release="1" Valid="True"/>
       </Item4>
       <Item5>
-        <PackageName Value="pVisualPrometApp"/>
+        <PackageName Value="LCLBase"/>
+        <MinVersion Major="1" Release="1" Valid="True"/>
       </Item5>
     </RequiredPackages>
     <Units Count="143">
@@ -69,8 +70,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="133"/>
-        <CursorPos X="1" Y="163"/>
+        <TopLine Value="1"/>
+        <CursorPos X="3" Y="11"/>
         <UsageCount Value="136"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -878,7 +879,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uPassword"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="113"/>
         <CursorPos X="71" Y="129"/>
@@ -1063,7 +1064,7 @@
       <Unit132>
         <Filename Value="..\..\..\general\src\uerror.pas"/>
         <UnitName Value="uError"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="38"/>
@@ -1076,18 +1077,16 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uFilterFrame"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1128"/>
         <CursorPos X="47" Y="1152"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit133>
       <Unit134>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="501"/>
         <CursorPos X="64" Y="504"/>
@@ -1097,7 +1096,7 @@
       <Unit135>
         <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="274"/>
         <CursorPos X="1" Y="288"/>
@@ -1167,18 +1166,18 @@
         <UsageCount Value="10"/>
       </Unit142>
     </Units>
-    <JumpHistory Count="12" HistoryIndex="11">
+    <JumpHistory Count="11" HistoryIndex="10">
       <Position1>
-        <Filename Value="..\base\ufilterframe.pas"/>
-        <Caret Line="1308" Column="1" TopLine="1289"/>
+        <Filename Value="utableedit.pas"/>
+        <Caret Line="108" Column="16" TopLine="84"/>
       </Position1>
       <Position2>
-        <Filename Value="..\base\ufilterframe.pas"/>
-        <Caret Line="1309" Column="1" TopLine="1289"/>
+        <Filename Value="utableedit.pas"/>
+        <Caret Line="109" Column="16" TopLine="85"/>
       </Position2>
       <Position3>
         <Filename Value="utableedit.pas"/>
-        <Caret Line="108" Column="16" TopLine="84"/>
+        <Caret Line="110" Column="16" TopLine="86"/>
       </Position3>
       <Position4>
         <Filename Value="utableedit.pas"/>
@@ -1186,36 +1185,32 @@
       </Position4>
       <Position5>
         <Filename Value="utableedit.pas"/>
-        <Caret Line="110" Column="16" TopLine="86"/>
+        <Caret Line="111" Column="40" TopLine="86"/>
       </Position5>
       <Position6>
         <Filename Value="utableedit.pas"/>
-        <Caret Line="109" Column="16" TopLine="85"/>
+        <Caret Line="131" Column="28" TopLine="112"/>
       </Position6>
       <Position7>
         <Filename Value="utableedit.pas"/>
-        <Caret Line="111" Column="40" TopLine="86"/>
+        <Caret Line="156" Column="39" TopLine="134"/>
       </Position7>
       <Position8>
         <Filename Value="utableedit.pas"/>
-        <Caret Line="131" Column="28" TopLine="112"/>
+        <Caret Line="163" Column="26" TopLine="134"/>
       </Position8>
       <Position9>
         <Filename Value="utableedit.pas"/>
-        <Caret Line="156" Column="39" TopLine="134"/>
+        <Caret Line="164" Column="3" TopLine="134"/>
       </Position9>
       <Position10>
         <Filename Value="utableedit.pas"/>
-        <Caret Line="163" Column="26" TopLine="134"/>
+        <Caret Line="163" Column="1" TopLine="133"/>
       </Position10>
       <Position11>
         <Filename Value="utableedit.pas"/>
-        <Caret Line="164" Column="3" TopLine="134"/>
+        <Caret Line="11" Column="3" TopLine="1"/>
       </Position11>
-      <Position12>
-        <Filename Value="..\base\ufilterframe.pas"/>
-        <Caret Line="1147" Column="1" TopLine="1128"/>
-      </Position12>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

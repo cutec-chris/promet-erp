@@ -57,7 +57,7 @@ lazbuild -q ..\..\source\messageimport\pop3receiver.lpi
 If errorlevel 1 goto end
 lazbuild -q ..\..\source\messageimport\smtpsender.lpi
 If errorlevel 1 goto end
-lazbuild -q ..\..\source\messageimport\rssreceiver.lpi
+lazbuild -q ..\..\source\messageimport\feedreceiver.lpi
 If errorlevel 1 goto end
 goto realend
 :end
