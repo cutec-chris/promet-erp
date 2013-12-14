@@ -82,9 +82,11 @@ var
   aref: String;
   author: TJSONStringType;
   Retry: Integer = 4;
+  nothingimported : Integer = 0;
   purl: String;
   tmp: String;
   aId: TJSONStringType;
+  Somethingimported: Boolean;
 begin
   omailaccounts := '';
   mailaccounts := '';
@@ -131,6 +133,7 @@ begin
               while Retry>0 do
                 begin
                   i := 0;
+                  Somethingimported := false;
                   while i < jData.Count do
                     begin
                       aData := jData.Items[i];
@@ -149,6 +152,7 @@ begin
                               if aRef='' then
                                 begin
                                   inc(Retry,2);
+                                  Somethingimported:=True;
                                   aHist.AddItem(Data.Users.DataSet,text,'',author,nil,ACICON_EXTERNALCHANGED,'',False,False);
                                   aHist.TimeStamp.AsDateTime:=aTime;
                                   aHist.FieldByName('REF_ID').AsVariant:=Data.Users.Id.AsVariant;
@@ -172,6 +176,7 @@ begin
                                   if aHist.Count>0 then
                                     begin
                                       inc(Retry,2);
+                                      Somethingimported:=True;
                                       aHist.AddParentedItem(Data.Users.DataSet,text,aHist.Id.AsVariant,'',author,nil,ACICON_EXTERNALCHANGED,'',False,False);
                                       aHist.TimeStamp.AsDateTime:=aTime;
                                       aHist.FieldByName('REF_ID').AsVariant:=Data.Users.Id.AsVariant;
@@ -197,6 +202,9 @@ begin
                      else inc(i);
                     end;
                   dec(Retry);
+                  if not Somethingimported then
+                    inc(nothingimported);
+                  if nothingimported>10 then break;
                   for i := 0 to jData.Count-1 do
                     if Assigned(jData.Items[i]) then
                       inc(Retry);

@@ -209,7 +209,7 @@ begin
     end;
   except
   end;
-  if acHistory.Enabled then
+  if acHistory.Enabled and ((not Assigned(fmTimeline)) or (not fmTimeline.Visible)) then
     begin
       //Show new History Entrys
       if (not FHistory.DataSet.Active) or (FHistory.DataSet.EOF) then //all shown, refresh list
@@ -236,7 +236,7 @@ begin
               TrayIcon.ShowBalloonHint;
               TrayIcon.Icons := ImageList2;
               TrayIcon.Animate:=True;
-              InformRecTime:=History.TimeStamp.AsDateTime+0.0001;
+              InformRecTime:=Now();
               with Application as IBaseDBInterface do
                 DBConfig.WriteString('INFORMRECTIME',DateTimeToStr(InformRecTime));
               TrayIcon.Tag := 0;
