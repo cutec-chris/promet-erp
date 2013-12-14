@@ -376,6 +376,12 @@ const
   ACICON_DOCUMENTADDED = 7;
   ACICON_USEREDITED = 8;
   ACICON_RENAMED = 12;
+  ACICON_ORERSTATUSCH = 6;
+  ACICON_TASKADDED     = 10;
+  ACICON_TASKCLOSED    = 9;
+  ACICON_DATECHANGED   = 11;
+  ACICON_OFFICECHANGED   = 13;
+  ACICON_EXTERNALCHANGED   = 14;
 resourcestring
   strGuest                       = 'Gast';
   strSQLInjection                = 'Versuchte SQL Injection !';
@@ -1514,4 +1520,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+

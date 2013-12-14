@@ -178,18 +178,6 @@ type
     property Positions : TInventoryPos read FPos;
   end;
   function InternalRound(Value: Extended): Extended;
-const
-  ACICON_EDITED   = 0;
-  ACICON_MAILNEW  = 1;
-  ACICON_MAILANSWERED = 2;
-  ACICON_CALL     = 3;
-  ACICON_NEWORDER = 4;
-  ACICON_ORDERPOSTED = 5;
-  ACICON_ORERSTATUSCH = 6;
-  ACICON_DOCUMENTADDED = 7;
-  ACICON_TASKADDED     = 10;
-  ACICON_TASKCLOSED    = 9;
-  ACICON_DATECHANGED   = 11;
 implementation
 uses uBaseDBInterface,uMasterdata, uBaseApplication,Math,Variants,uRTFtoTXT;
 resourcestring
@@ -1244,4 +1232,4 @@ begin
 end;
 initialization
 end.
-
+

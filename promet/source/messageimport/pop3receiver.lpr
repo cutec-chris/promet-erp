@@ -20,7 +20,8 @@ uses
   Classes, SysUtils, CustApp, uBaseCustomApplication, pmimemessages, mimemess,
   pop3send, mimepart, uData, uBaseDBInterface, Utils, uMessages, uBaseDBClasses,
   uPerson, synautil, uIntfStrConsts, FileUtil, db, uDocuments, ssl_openssl,
-  uMimeMessages,synaip, laz_synapse,uBaseApplication,LConvEncoding,RegExpr,mailchck;
+  uMimeMessages,synaip, laz_synapse,uBaseApplication,LConvEncoding,RegExpr,mailchck,
+  blcksock;
 
 type
   TPOP3Receiver = class(TBaseCustomApplication)

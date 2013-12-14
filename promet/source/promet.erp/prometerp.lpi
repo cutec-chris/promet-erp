@@ -324,6 +324,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="uBaseVisualControls"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -1046,7 +1047,6 @@
       </Unit69>
       <Unit70>
         <Filename Value="../base/changes.txt"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -1307,7 +1307,6 @@
         <TopLine Value="778"/>
         <CursorPos X="94" Y="807"/>
         <UsageCount Value="93"/>
-        <LoadedDesigner Value="True"/>
       </Unit96>
       <Unit97>
         <Filename Value="../../../../fpc/2.6_fixes/rtl/objpas/classes/streams.inc"/>
@@ -4163,7 +4162,6 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1494"/>
         <CursorPos X="38" Y="1512"/>
-        <FoldState Value=" T0:e8{v0K1@"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>

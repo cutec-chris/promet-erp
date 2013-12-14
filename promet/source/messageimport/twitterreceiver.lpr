@@ -81,9 +81,10 @@ var
   aCat: String;
   aref: String;
   author: TJSONStringType;
-  Retry: Boolean;
+  Retry: Integer = 4;
   purl: String;
   tmp: String;
+  aId: TJSONStringType;
 begin
   omailaccounts := '';
   mailaccounts := '';
@@ -118,21 +119,17 @@ begin
               tmp := copy(mailaccounts,0,pos(';',mailaccounts)-1);
               if copy(tmp,0,2)='L:' then
                 tmp := copy(tmp,3,length(tmp));
-              if tmp = '' then url := url+'?count=1000'
+              //tmp := '';
+              if tmp = '' then url := url+'?count=2200'
               else url := url+'?since_id='+tmp;
               http.HTTPMethod('GET',url);
               Parser := TJSONParser.Create(http.Document);
               jData := Parser.Parse;
+              Retry := 4;
               if jData.Count>0 then
+                aId := TJSONObject(jData.Items[0]).Elements['id'].AsString;
+              while Retry>0 do
                 begin
-                  ReplaceOmailaccounts:=True;
-                  aData := jData.Items[0];
-                  omailaccounts := copy(omailaccounts,0,length(omailaccounts)-1)+TJSONObject(aData).Elements['id'].AsString+';';
-                end;
-              Retry := True;
-              while Retry do
-                begin
-                  Retry := False;
                   i := 0;
                   while i < jData.Count do
                     begin
@@ -151,17 +148,19 @@ begin
                               author := ConvertEncoding(author,GuessEncoding(author),encodingUTF8);
                               if aRef='' then
                                 begin
-                                  Retry := True;
-                                  aHist.AddItem(Data.Users.DataSet,text,'',author,nil,0,'',False,False);
+                                  inc(Retry,2);
+                                  aHist.AddItem(Data.Users.DataSet,text,'',author,nil,ACICON_EXTERNALCHANGED,'',False,False);
                                   aHist.TimeStamp.AsDateTime:=aTime;
                                   aHist.FieldByName('REF_ID').AsVariant:=Data.Users.Id.AsVariant;
                                   aHist.FieldByName('REFOBJECT').AsString:=aCat;
+                                  aHist.FieldByName('CHANGEDBY').Clear;
                                   try
                                     aHist.Post;
                                   except
                                     on e : Exception do
                                       begin
                                         //ReplaceOmailaccounts:=False;
+                                        aId := TJSONObject(jData.Items[i]).Elements['id'].AsString;
                                         jData.Items[i] := nil;
                                         WriteLn(e.Message);
                                       end;
@@ -172,17 +171,19 @@ begin
                                   Data.SetFilter(aHist,Data.QuoteField('REFOBJECT')+'='+Data.QuoteValue(aRef));
                                   if aHist.Count>0 then
                                     begin
-                                      Retry := True;
-                                      aHist.AddParentedItem(Data.Users.DataSet,text,aHist.Id.AsVariant,'',author,nil,0,'',False,False);
+                                      inc(Retry,2);
+                                      aHist.AddParentedItem(Data.Users.DataSet,text,aHist.Id.AsVariant,'',author,nil,ACICON_EXTERNALCHANGED,'',False,False);
                                       aHist.TimeStamp.AsDateTime:=aTime;
                                       aHist.FieldByName('REF_ID').AsVariant:=Data.Users.Id.AsVariant;
                                       aHist.FieldByName('REFOBJECT').AsString:=aCat;
+                                      aHist.FieldByName('CHANGEDBY').Clear;
                                       try
                                         aHist.Post;
                                       except
                                         on e : Exception do
                                           begin
                                             //ReplaceOmailaccounts:=False;
+                                            aId := TJSONObject(jData.Items[i]).Elements['id'].AsString;
                                             jData.Items[i] := nil;
                                             WriteLn(e.Message);
                                           end;
@@ -195,7 +196,16 @@ begin
                        end
                      else inc(i);
                     end;
+                  dec(Retry);
+                  for i := 0 to jData.Count-1 do
+                    if Assigned(jData.Items[i]) then
+                      inc(Retry);
                   writeln(Retry);
+                end;
+              if aId <> '' then
+                begin
+                  ReplaceOmailaccounts:=True;
+                  omailaccounts := copy(omailaccounts,0,length(omailaccounts)-1)+aId+';';
                 end;
               Parser.Free;
               http.Free;

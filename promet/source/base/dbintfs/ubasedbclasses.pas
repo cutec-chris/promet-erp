@@ -1233,7 +1233,6 @@ begin
           and (FieldByName('ACTIONICON').AsInteger = aIcon)
           and (FieldByName('LINK').AsString = aLink)
           and (trunc(FieldByName('TIMESTAMPD').AsDatetime) = trunc(Now()))
-          and (FieldByName('CHANGEDBY').AsString = Data.Users.FieldByName('IDCODE').AsString)
           and (FieldByName('REFERENCE').AsString = aReference)
           and (CheckDouble)
           then
@@ -2404,4 +2403,4 @@ begin
 end;
 initialization
 end.
-
+
