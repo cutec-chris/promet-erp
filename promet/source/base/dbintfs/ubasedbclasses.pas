@@ -1136,6 +1136,7 @@ begin
             Add('PARENT','PARENT',[]);
             Add('REFERENCE','REFERENCE',[]);
             Add('LINK','LINK',[]);
+            Add('CHANGEDBY','CHANGEDBY',[]);
             Add('TIMESTAMPD','TIMESTAMPD',[]);
           end;
     end;

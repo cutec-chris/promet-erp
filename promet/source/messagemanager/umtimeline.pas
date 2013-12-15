@@ -32,6 +32,7 @@ type
   public
     Caption : string;
     Bold : Boolean;
+    Text : string;
     constructor Create;
   end;
 
@@ -118,7 +119,7 @@ var
 implementation
 uses uBaseApplication, uData, uBaseDbInterface, uOrder,uMessages,uBaseERPDBClasses,
   uMain,LCLType,utask,uProcessManager,uprometipc,ProcessUtils,ufollow,udetailview,
-  LCLIntf;
+  LCLIntf,wikitohtml;
 resourcestring
   strTo                                  = 'an ';
 
@@ -293,7 +294,9 @@ begin
                   bRect.Right := bRect.Left+4;
                   Canvas.Rectangle(bRect);
                 end;
-              atext := TExtStringGrid(Sender).Cells[Column.Index+1,DataCol];
+              if TMGridObject(aObj).Text='' then
+                TMGridObject(aObj).Text := StripWikiText(TExtStringGrid(Sender).Cells[Column.Index+1,DataCol]);
+              atext := TMGridObject(aObj).Text;
               TStringGrid(Sender).Canvas.Brush.Color:=aColor;
               TStringGrid(Sender).Canvas.FillRect(aRect);
               TStringGrid(Sender).Canvas.Brush.Style:=bsClear;
@@ -514,6 +517,7 @@ begin
       for i := 0 to fTimeline.dgFake.Columns.Count-1 do
         if fTimeline.dgFake.Columns[i].FieldName='OBJECT' then
           FHasObject := True;
+      NewText := StripWikiText(NewText);
       if (not fHasObject) and (aRow>=fTimeLine.gList.FixedRows) then
         begin
           aObj := fTimeline.gList.Objects[aCol.Index+1,aRow];

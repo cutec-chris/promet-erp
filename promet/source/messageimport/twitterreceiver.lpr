@@ -8,10 +8,10 @@ uses
   {$ENDIF}{$ENDIF}
   Classes, SysUtils, CustApp,
   Interfaces
-  { you can add units after this },db,Utils,
-  FileUtil,Forms,uData, uIntfStrConsts, pcmdprometapp,uBaseCustomApplication,
-  uBaseApplication,httpsend,jsonparser,jsonscanner, fpjson,uBaseDBInterface,
-  ssl_openssl,synautil,uBaseDbClasses,LConvEncoding;
+  { you can add units after this },db, Utils, FileUtil, Forms, uData,
+  uIntfStrConsts, pcmdprometapp, uBaseCustomApplication, wiki2html_pkg,
+  uBaseApplication, httpsend, jsonparser, jsonscanner, fpjson, uBaseDBInterface,
+  ssl_openssl, synautil, uBaseDbClasses, LConvEncoding,htmltowiki;
 
 type
 
@@ -87,6 +87,8 @@ var
   tmp: String;
   aId: TJSONStringType;
   Somethingimported: Boolean;
+  html: TJSONData;
+  atext: TJSONData;
 begin
   omailaccounts := '';
   mailaccounts := '';
@@ -121,9 +123,8 @@ begin
               tmp := copy(mailaccounts,0,pos(';',mailaccounts)-1);
               if copy(tmp,0,2)='L:' then
                 tmp := copy(tmp,3,length(tmp));
-              //tmp := '';
-              if tmp = '' then url := url+'?count=2200'
-              else url := url+'?since_id='+tmp;
+              url := url+'?count=2500';
+              if tmp <> '' then url := url+'&since_id='+tmp;
               http.HTTPMethod('GET',url);
               Parser := TJSONParser.Create(http.Document);
               jData := Parser.Parse;
@@ -139,45 +140,30 @@ begin
                       aData := jData.Items[i];
                       if Assigned(aData) and Assigned(TJSONObject(aData).Elements['text']) then
                         begin
-                          text := ConvertEncoding(TJSONObject(aData).Elements['text'].AsString,GuessEncoding(TJSONObject(aData).Elements['text'].AsString),encodingUTF8);
-                          aCat := TJSONObject(aData).Elements['id'].AsString;
-                          aref := TJSONObject(aData).Elements['in_reply_to_status_id'].AsString;
-                          Data.SetFilter(aHist,Data.QuoteField('REFOBJECT')+'='+Data.QuoteValue(aCat));
-                          if aHist.Count=0 then
+                          atext := TJSONObject(aData).Elements['text'];
+                          if Assigned(aText) and (not aText.IsNull) then
+                            text := atext.AsString
+                          else text := '';
+                          text := ConvertEncoding(text,GuessEncoding(text),encodingUTF8);
+                          html := TJSONObject(aData).Find('statusnet_html');
+                          if Assigned(html) and (not html.IsNull) then
+                            text := HTML2WikiText(html.AsString);
+                          if trim(text) <> '' then
                             begin
-                              if aRef = '0' then aRef := '';
-                              aTime := DecodeRfcDateTime(TJSONObject(aData).Elements['created_at'].AsString);
-                              author := TJSONObject(TJSONObject(aData).Elements['user']).Elements['name'].AsString;
-                              author := ConvertEncoding(author,GuessEncoding(author),encodingUTF8);
-                              if aRef='' then
+                              aCat := TJSONObject(aData).Elements['id'].AsString;
+                              aref := TJSONObject(aData).Elements['in_reply_to_status_id'].AsString;
+                              Data.SetFilter(aHist,Data.QuoteField('REFOBJECT')+'='+Data.QuoteValue(aCat));
+                              if aHist.Count=0 then
                                 begin
-                                  inc(Retry,2);
-                                  Somethingimported:=True;
-                                  aHist.AddItem(Data.Users.DataSet,text,'',author,nil,ACICON_EXTERNALCHANGED,'',False,False);
-                                  aHist.TimeStamp.AsDateTime:=aTime;
-                                  aHist.FieldByName('REF_ID').AsVariant:=Data.Users.Id.AsVariant;
-                                  aHist.FieldByName('REFOBJECT').AsString:=aCat;
-                                  aHist.FieldByName('CHANGEDBY').Clear;
-                                  try
-                                    aHist.Post;
-                                  except
-                                    on e : Exception do
-                                      begin
-                                        //ReplaceOmailaccounts:=False;
-                                        aId := TJSONObject(jData.Items[i]).Elements['id'].AsString;
-                                        jData.Items[i] := nil;
-                                        WriteLn(e.Message);
-                                      end;
-                                  end;
-                                end
-                              else
-                                begin
-                                  Data.SetFilter(aHist,Data.QuoteField('REFOBJECT')+'='+Data.QuoteValue(aRef));
-                                  if aHist.Count>0 then
+                                  if aRef = '0' then aRef := '';
+                                  aTime := DecodeRfcDateTime(TJSONObject(aData).Elements['created_at'].AsString);
+                                  author := TJSONObject(TJSONObject(aData).Elements['user']).Elements['name'].AsString;
+                                  author := ConvertEncoding(author,GuessEncoding(author),encodingUTF8);
+                                  if aRef='' then
                                     begin
                                       inc(Retry,2);
                                       Somethingimported:=True;
-                                      aHist.AddParentedItem(Data.Users.DataSet,text,aHist.Id.AsVariant,'',author,nil,ACICON_EXTERNALCHANGED,'',False,False);
+                                      aHist.AddItem(Data.Users.DataSet,text,'',author,nil,ACICON_EXTERNALCHANGED,'',False,False);
                                       aHist.TimeStamp.AsDateTime:=aTime;
                                       aHist.FieldByName('REF_ID').AsVariant:=Data.Users.Id.AsVariant;
                                       aHist.FieldByName('REFOBJECT').AsString:=aCat;
@@ -194,8 +180,34 @@ begin
                                           end;
                                       end;
                                     end
-                                end;
-                              inc(i);
+                                  else
+                                    begin
+                                      Data.SetFilter(aHist,Data.QuoteField('REFOBJECT')+'='+Data.QuoteValue(aRef));
+                                      if aHist.Count>0 then
+                                        begin
+                                          inc(Retry,2);
+                                          Somethingimported:=True;
+                                          aHist.AddParentedItem(Data.Users.DataSet,text,aHist.Id.AsVariant,'',author,nil,ACICON_EXTERNALCHANGED,'',False,False);
+                                          aHist.TimeStamp.AsDateTime:=aTime;
+                                          aHist.FieldByName('REF_ID').AsVariant:=Data.Users.Id.AsVariant;
+                                          aHist.FieldByName('REFOBJECT').AsString:=aCat;
+                                          aHist.FieldByName('CHANGEDBY').Clear;
+                                          try
+                                            aHist.Post;
+                                          except
+                                            on e : Exception do
+                                              begin
+                                                //ReplaceOmailaccounts:=False;
+                                                aId := TJSONObject(jData.Items[i]).Elements['id'].AsString;
+                                                jData.Items[i] := nil;
+                                                WriteLn(e.Message);
+                                              end;
+                                          end;
+                                        end
+                                    end;
+                                  inc(i);
+                                end
+                              else jData.Items[i] := nil;
                             end
                           else jData.Items[i] := nil;
                        end

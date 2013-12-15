@@ -25,7 +25,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, IpHtml, Forms, Controls, Graphics, Dialogs,
-  uBaseDbClasses,Utils;
+  uBaseDbClasses,Utils,wikitohtml;
 
 type
 
@@ -57,7 +57,7 @@ var
   begin
     Result := aStr;
     Result := StringReplace(HTMLEncode(Result),#10,'<br>',[rfReplaceAll]);
-    Result := '<html><body>'+result+'</body></html>';
+    Result := '<html><body>'+WikiText2HTML(result)+'</body></html>';
   end;
 
 begin

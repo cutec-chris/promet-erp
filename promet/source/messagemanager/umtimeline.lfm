@@ -95,7 +95,7 @@ object fmTimeline: TfmTimeline
       Left = 9
       Height = 39
       Top = 9
-      Width = 478
+      Width = 496
       Align = alClient
       BorderSpacing.Around = 8
       OnKeyDown = mEntryKeyDown
@@ -104,10 +104,10 @@ object fmTimeline: TfmTimeline
       WantReturns = False
     end
     object bSend: TBitBtn
-      Left = 495
+      Left = 513
       Height = 39
       Top = 9
-      Width = 46
+      Width = 28
       Action = acSend
       Align = alRight
       AutoSize = True
@@ -184,6 +184,7 @@ object fmTimeline: TfmTimeline
       ScrollWidth = 342
       TabOrder = 0
       TabStop = False
+      TopIndex = -1
     end
   end
   object ActionList1: TActionList
@@ -247,4 +248,4 @@ object fmTimeline: TfmTimeline
       Action = acAnswer
     end
   end
-end
+end

@@ -1,3 +1,22 @@
+{*******************************************************************************
+  Copyright (C) Christian Ulrich info@cu-tec.de
+
+  This source is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 2 of the License, or commercial alternative
+  contact us for more information
+
+  This code is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+  details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+  MA 02111-1307, USA.
+Created 01.06.2006
+*******************************************************************************}
 unit umain;
 
 {$mode objfpc}{$H+}
@@ -61,7 +80,7 @@ var
   fMain: TfMain;
 implementation
 uses uData,Utils,Forms,uBaseApplication,uIntfStrConsts,math,eventlog,uBaseDBInterface,
-  umTimeLine,XMLPropStorage,LCLProc,uprometipc;
+  umTimeLine,XMLPropStorage,LCLProc,uprometipc,wikitohtml;
 {$R *.lfm}
 const
   RefreshAll = 30;//5 mins refresh
@@ -226,7 +245,7 @@ begin
             begin
               if FHistory.FieldByName('CHANGEDBY').AsString <> Data.Users.FieldByName('IDCODE').AsString then
                 begin
-                  tmp:=tmp+FHistory.FieldByName('ACTION').AsString+' '+FHistory.FieldByName('REFERENCE').AsString+lineending;
+                  tmp:=tmp+StripWikiText(FHistory.FieldByName('ACTION').AsString)+' - '+FHistory.FieldByName('REFERENCE').AsString+lineending;
                 end;
               FHistory.DataSet.Next;
             end;
