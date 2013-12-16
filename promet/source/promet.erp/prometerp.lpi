@@ -278,7 +278,7 @@
         <PackageName Value="LCL"/>
       </Item24>
     </RequiredPackages>
-    <Units Count="443">
+    <Units Count="445">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -295,7 +295,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <IsVisibleTab Value="True"/>
         <WindowIndex Value="0"/>
         <TopLine Value="690"/>
         <CursorPos X="1" Y="717"/>
@@ -1040,7 +1039,8 @@
       </Unit69>
       <Unit70>
         <Filename Value="../base/changes.txt"/>
-        <EditorIndex Value="1"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="83" Y="12"/>
@@ -1134,7 +1134,6 @@
         <TopLine Value="761"/>
         <CursorPos X="113" Y="777"/>
         <UsageCount Value="100"/>
-        <LoadedDesigner Value="True"/>
       </Unit78>
       <Unit79>
         <Filename Value="../components/zeos/src/component/ZAbstractRODataset.pas"/>
@@ -4153,7 +4152,6 @@
         <TopLine Value="1494"/>
         <CursorPos X="38" Y="1512"/>
         <UsageCount Value="11"/>
-        <LoadedDesigner Value="True"/>
       </Unit440>
       <Unit441>
         <Filename Value="../../../../../../Programme/lazarus/lcl/propertystorage.pas"/>
@@ -4171,24 +4169,34 @@
         <CursorPos X="19" Y="2573"/>
         <UsageCount Value="10"/>
       </Unit442>
+      <Unit443>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <UnitName Value="wikitohtml"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="504"/>
+        <CursorPos X="5" Y="537"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit443>
+      <Unit444>
+        <Filename Value="../base_wiki/wiki2html_pkg.pas"/>
+        <UnitName Value="wiki2html_pkg"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="15" Y="10"/>
+        <UsageCount Value="10"/>
+      </Unit444>
     </Units>
-    <JumpHistory Count="4" HistoryIndex="3">
+    <JumpHistory Count="2" HistoryIndex="1">
       <Position1>
-        <Filename Value="umain.pas"/>
-        <Caret Line="3060" Column="39" TopLine="3038"/>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position1>
       <Position2>
-        <Filename Value="umain.pas"/>
-        <Caret Line="14" Column="111" TopLine="1"/>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="27" Column="58" TopLine="8"/>
       </Position2>
-      <Position3>
-        <Filename Value="umain.pas"/>
-        <Caret Line="294" Column="24" TopLine="262"/>
-      </Position3>
-      <Position4>
-        <Filename Value="umain.pas"/>
-        <Caret Line="700" Column="1" TopLine="664"/>
-      </Position4>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>

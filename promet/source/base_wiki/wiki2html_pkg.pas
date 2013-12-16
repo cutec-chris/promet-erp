@@ -7,7 +7,7 @@ unit wiki2html_pkg;
 interface
 
 uses
-  wikitohtml, htmltowiki, LazarusPackageIntf;
+  wikitohtml, LazarusPackageIntf;
 
 implementation
 
