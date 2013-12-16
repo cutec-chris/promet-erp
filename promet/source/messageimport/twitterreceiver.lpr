@@ -11,15 +11,17 @@ uses
   { you can add units after this },db, Utils, FileUtil, Forms, uData,
   uIntfStrConsts, pcmdprometapp, uBaseCustomApplication, wiki2html_pkg,
   uBaseApplication, httpsend, jsonparser, jsonscanner, fpjson, uBaseDBInterface,
-  ssl_openssl, synautil, uBaseDbClasses, LConvEncoding,htmltowiki;
+  ssl_openssl, synautil, uBaseDbClasses, LConvEncoding,htmltowiki,uDocuments;
 
 type
 
   { PrometCmdApp }
 
   PrometCmdApp = class(TBaseCustomApplication)
+    procedure PrometCmdAppConvertImage(Image: string; var OutFile: string);
   private
     mailaccounts : string;
+    aHist: TBaseHistory;
   protected
     procedure DoRun; override;
   public
@@ -62,7 +64,34 @@ destructor PrometCmdApp.Destroy;
 begin
   inherited Destroy;
 end;
-
+procedure PrometCmdApp.PrometCmdAppConvertImage(Image: string;
+  var OutFile: string);
+var
+  http: THTTPSend;
+  Document: TDocument;
+  aFilename: String;
+begin
+  http := THTTPSend.Create;
+  http.UserAgent:='Mozilla/5.0 (Windows NT 5.1; rv:6.0.2)';
+  http.HTTPMethod('GET',OutFile);
+  Document := TDocument.Create(Self,Data);
+  Document.Select(0);
+  Document.Open;
+  Document.Ref_ID := aHist.Id.AsVariant;
+  Document.BaseTyp := 'H';
+  Document.BaseID := aHist.Id.AsString;
+  Document.BaseVersion := Null;
+  Document.BaseLanguage := Null;
+  aFilename := ExtractFileName(Image);
+  Document.AddFromStream(copy(ExtractFileName(aFilename),0,rpos('.',ExtractFileName(aFileName))-1),
+                                             copy(ExtractFileExt(aFileName),2,length(ExtractFileExt(aFileName))),
+                                             http.Document,
+                                             '',
+                                             Now());
+  OutFile := aFilename;
+  Document.Free;
+  http.Free;
+end;
 procedure PrometCmdApp.ReceiveMails(aUser: string);
 var
   omailaccounts: String;
@@ -76,7 +105,6 @@ var
   text: String;
   adate: TDateTime;
   buser: String;
-  aHist: TBaseHistory;
   aTime: TDateTime;
   aCat: String;
   aref: String;
@@ -96,6 +124,7 @@ begin
     mailaccounts := DBConfig.ReadString('MAILACCOUNTS','');
   ReplaceOmailaccounts := false;
   aHist := TBaseHistory.Create(nil,Data);
+  htmltowiki.OnConvertImage:=@PrometCmdAppConvertImage;
   with aHist.DataSet as IBaseManageDB do
     UpdateStdFields := False;
   while pos('|',mailaccounts) > 0 do
@@ -109,7 +138,6 @@ begin
           http.UserAgent:='Mozilla/5.0 (Windows NT 5.1; rv:6.0.2)';
           writeln('Importing Twitter Feed '+copy(mailaccounts,0,pos(';',mailaccounts)-1));
           purl := copy(mailaccounts,0,pos(';',mailaccounts)-1);
-          url := purl+'statuses/home_timeline.json';
           mailaccounts := copy(mailaccounts,pos(';',mailaccounts)+1,length(mailaccounts));
           http.UserName := copy(mailaccounts,0,pos(';',mailaccounts)-1);
           mailaccounts := copy(mailaccounts,pos(';',mailaccounts)+1,length(mailaccounts));
@@ -123,8 +151,9 @@ begin
               tmp := copy(mailaccounts,0,pos(';',mailaccounts)-1);
               if copy(tmp,0,2)='L:' then
                 tmp := copy(tmp,3,length(tmp));
-              url := url+'?count=2500';
+              url := purl+'statuses/home_timeline.json?count=2500';
               if tmp <> '' then url := url+'&since_id='+tmp;
+              //url := purl+'statuses/home_timeline.json';
               http.HTTPMethod('GET',url);
               Parser := TJSONParser.Create(http.Document);
               jData := Parser.Parse;
@@ -146,8 +175,6 @@ begin
                           else text := '';
                           text := ConvertEncoding(text,GuessEncoding(text),encodingUTF8);
                           html := TJSONObject(aData).Find('statusnet_html');
-                          if Assigned(html) and (not html.IsNull) then
-                            text := HTML2WikiText(html.AsString);
                           if trim(text) <> '' then
                             begin
                               aCat := TJSONObject(aData).Elements['id'].AsString;
@@ -168,6 +195,14 @@ begin
                                       aHist.FieldByName('REF_ID').AsVariant:=Data.Users.Id.AsVariant;
                                       aHist.FieldByName('REFOBJECT').AsString:=aCat;
                                       aHist.FieldByName('CHANGEDBY').Clear;
+                                      if Assigned(html) and (not html.IsNull) then
+                                        begin
+                                          aHist.Post;
+                                          aHist.DataSet.Edit;
+                                          text := TJSONObject(aData).Elements['text'].AsString;
+                                          text := HTML2WikiText(text);
+                                        end;
+                                      aHist.FieldByName('ACTION').AsString:=text;
                                       try
                                         aHist.Post;
                                       except
@@ -192,6 +227,14 @@ begin
                                           aHist.FieldByName('REF_ID').AsVariant:=Data.Users.Id.AsVariant;
                                           aHist.FieldByName('REFOBJECT').AsString:=aCat;
                                           aHist.FieldByName('CHANGEDBY').Clear;
+                                          if Assigned(html) and (not html.IsNull) then
+                                            begin
+                                              aHist.Post;
+                                              aHist.DataSet.Edit;
+                                              text := TJSONObject(aData).Elements['text'].AsString;
+                                              text := HTML2WikiText(text);
+                                            end;
+                                          aHist.FieldByName('ACTION').AsString:=text;
                                           try
                                             aHist.Post;
                                           except

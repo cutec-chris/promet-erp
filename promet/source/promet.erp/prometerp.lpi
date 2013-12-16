@@ -181,6 +181,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <CommandLineParams Value="--config-path=/home/chris/.promet-erp-devel"/>
       </local>
     </RunParams>
     <RequiredPackages Count="24">
@@ -1038,17 +1039,24 @@
       </Unit68>
       <Unit69>
         <Filename Value="../base/revision.inc"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="33" Y="1"/>
+        <CursorPos X="4" Y="1"/>
         <UsageCount Value="100"/>
+        <Loaded Value="True"/>
       </Unit69>
       <Unit70>
         <Filename Value="../base/changes.txt"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
+<<<<<<< HEAD
         <CursorPos X="28" Y="6"/>
+=======
+        <CursorPos X="8" Y="2"/>
+>>>>>>> master
         <UsageCount Value="103"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
@@ -4167,11 +4175,17 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
+<<<<<<< HEAD
         <TopLine Value="1791"/>
         <CursorPos X="3" Y="1810"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
+=======
+        <TopLine Value="1494"/>
+        <CursorPos X="38" Y="1512"/>
+        <UsageCount Value="11"/>
+>>>>>>> master
       </Unit440>
       <Unit441>
         <Filename Value="../../../../../../Programme/lazarus/lcl/propertystorage.pas"/>
@@ -4208,6 +4222,7 @@
         <UsageCount Value="10"/>
       </Unit444>
     </Units>
+<<<<<<< HEAD
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="../base/dbintfs/utask.pas"/>
@@ -4330,6 +4345,9 @@
         <Caret Line="665" Column="12" TopLine="646"/>
       </Position30>
     </JumpHistory>
+=======
+    <JumpHistory Count="0" HistoryIndex="-1"/>
+>>>>>>> master
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>
       <Item1 Name="SVN repository" Value="/media/Daten/Source/prometheus/source"/>
