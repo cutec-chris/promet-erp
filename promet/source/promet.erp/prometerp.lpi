@@ -1039,11 +1039,10 @@
       </Unit69>
       <Unit70>
         <Filename Value="../base/changes.txt"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="83" Y="12"/>
+        <CursorPos X="28" Y="6"/>
         <UsageCount Value="103"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
@@ -1613,10 +1612,14 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uGanttView"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="527"/>
-        <CursorPos X="67" Y="648"/>
+        <TopLine Value="999"/>
+        <CursorPos X="56" Y="1006"/>
         <UsageCount Value="98"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit133>
       <Unit134>
         <Filename Value="../../../../lazarus/lcl/include/mouse.inc"/>
@@ -3342,10 +3345,12 @@
       </Unit341>
       <Unit342>
         <Filename Value="../../../../../../Programme/lazarus/lcl/include/treeview.inc"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="429"/>
-        <CursorPos X="31" Y="450"/>
-        <UsageCount Value="1"/>
+        <TopLine Value="1558"/>
+        <CursorPos X="22" Y="1581"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit342>
       <Unit343>
         <Filename Value="/usr/share/fpcsrc/2.6.2/rtl/objpas/classes/classesh.inc"/>
@@ -4148,10 +4153,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMainTreeFrame"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1494"/>
-        <CursorPos X="38" Y="1512"/>
+        <TopLine Value="1138"/>
+        <CursorPos X="43" Y="1160"/>
         <UsageCount Value="11"/>
+        <Loaded Value="True"/>
       </Unit440>
       <Unit441>
         <Filename Value="../../../../../../Programme/lazarus/lcl/propertystorage.pas"/>
@@ -4188,7 +4195,7 @@
         <UsageCount Value="10"/>
       </Unit444>
     </Units>
-    <JumpHistory Count="2" HistoryIndex="1">
+    <JumpHistory Count="6" HistoryIndex="5">
       <Position1>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
         <Caret Line="1" Column="1" TopLine="1"/>
@@ -4197,6 +4204,22 @@
         <Filename Value="../base_wiki/wikitohtml.pas"/>
         <Caret Line="27" Column="58" TopLine="8"/>
       </Position2>
+      <Position3>
+        <Filename Value="../base/changes.txt"/>
+        <Caret Line="6" Column="28" TopLine="1"/>
+      </Position3>
+      <Position4>
+        <Filename Value="../../../../../../Programme/lazarus/lcl/include/treeview.inc"/>
+        <Caret Line="1581" Column="22" TopLine="1558"/>
+      </Position4>
+      <Position5>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="648" Column="67" TopLine="527"/>
+      </Position5>
+      <Position6>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="184" Column="8" TopLine="181"/>
+      </Position6>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>
@@ -4240,7 +4263,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="2">
+    <BreakPoints Count="3">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
@@ -4255,6 +4278,13 @@
         <Source Value="../base/dbintfs/ubasedbclasses.pas"/>
         <Line Value="1395"/>
       </Item2>
+      <Item3>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="../base_pm/uganttview.pas"/>
+        <Line Value="1008"/>
+      </Item3>
     </BreakPoints>
     <Watches Count="2">
       <Item1>

@@ -1153,7 +1153,7 @@ begin
               end;
         end;
       end;
-      if (tvMain.Selected.Level=0) and Assigned(tvMain.GetNodeAt(X,Y)) and (tvMain.GetNodeAt(X,Y).Level=0) then
+      if Assigned(tvMain.Selected) and (tvMain.Selected.Level=0) and Assigned(tvMain.GetNodeAt(X,Y)) and (tvMain.GetNodeAt(X,Y).Level=0) then
         begin
           tvMain.Selected.MoveTo(tvMain.GetNodeAt(X,Y),naInsertBehind);
           SaveTreeOptions;
