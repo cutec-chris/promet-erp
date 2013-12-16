@@ -10,7 +10,7 @@ interface
 uses
 
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  Buttons,uBugtracker,uGeneralStrConsts,LCLProc, LCLType,FileUtil,LConvEncoding;
+  Buttons,uGeneralStrConsts,LCLProc, LCLType,FileUtil,LConvEncoding;
 
 type
   { TfError }
@@ -20,7 +20,6 @@ type
     bOK: TBitBtn;
     mError: TMemo;
     procedure bBacktraceClick(Sender: TObject);
-    procedure bBugtrackerClick(Sender: TObject);
     procedure bOKClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
@@ -187,13 +186,6 @@ begin
     Caption := strError;
   except
   end;
-end;
-
-procedure TfError.bBugtrackerClick(Sender: TObject);
-begin
-  fBugtracker.Refresh;
-  fBugtracker.AddBug(mError.Lines.Text);
-  Close;
 end;
 
 procedure TfError.bBacktraceClick(Sender: TObject);

@@ -24,7 +24,7 @@ interface
 uses
   Classes, SysUtils, LResources, Forms, Controls, Dialogs, Buttons, StdCtrls,
   ExtCtrls, ComCtrls, Utils, db, uIntfStrConsts, md5, mimepart, mimemess,
-  Variants, htmlconvert, uExtControls, uViewMessage, FileUtil, LCLType,
+  Variants, uExtControls, uViewMessage, FileUtil, LCLType,
   ActnList, uRichFrame, RichMemo, LCLProc, ClipBrd, Menus, DbCtrls, EditBtn,
   htmltortf, uMessages, uDocumentFrame, uBaseSearch, uBaseDbClasses;
 type

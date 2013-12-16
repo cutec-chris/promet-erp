@@ -51,6 +51,7 @@
       </Item1>
       <Item2>
         <PackageName Value="general_nogui"/>
+        <DefaultFilename Value="general_nogui.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="TurboPowerIPro"/>

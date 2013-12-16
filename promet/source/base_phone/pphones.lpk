@@ -38,6 +38,7 @@
     <RequiredPkgs Count="4">
       <Item1>
         <PackageName Value="pVisualPrometApp"/>
+        <DefaultFilename Value="../base/pvisualprometapp.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="laz_tapi"/>

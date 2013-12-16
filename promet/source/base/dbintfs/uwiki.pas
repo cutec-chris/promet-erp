@@ -50,7 +50,7 @@ type
     property Keywords : TKeywords read FKeywords;
   end;
 implementation
-uses uData,Variants,HTMLConvert,WikiToHtml;
+uses uData,Variants,WikiToHtml,htmltowiki;
 
 procedure TKeywords.DefineFields(aDataSet: TDataSet);
 begin
@@ -202,7 +202,7 @@ begin
 end;
 function TWikiList.PageAsText: string;
 begin
-  Result := HTMLToTxt(WikiText2HTML(DataSet.FieldByName('DATA').AsString,'',''));
+  Result := StripHTML(WikiText2HTML(DataSet.FieldByName('DATA').AsString,'',''));
 end;
 
 constructor TWikiList.Create(aOwner: TComponent; DM: TComponent;

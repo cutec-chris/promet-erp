@@ -22,7 +22,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="9">
+    <Files Count="8">
       <Item1>
         <Filename Value="src\Utils.pas"/>
         <UnitName Value="Utils"/>
@@ -44,21 +44,17 @@
         <UnitName Value="umashineid"/>
       </Item5>
       <Item6>
-        <Filename Value="src\htmlconvert.pas"/>
-        <UnitName Value="htmlconvert"/>
-      </Item6>
-      <Item7>
         <Filename Value="src\umodifiedds.pas"/>
         <UnitName Value="uModifiedDS"/>
-      </Item7>
-      <Item8>
+      </Item6>
+      <Item7>
         <Filename Value="src\ucolors.pas"/>
         <UnitName Value="uColors"/>
-      </Item8>
-      <Item9>
+      </Item7>
+      <Item8>
         <Filename Value="src\urtftotxt.pas"/>
-        <UnitName Value="urtftotxt"/>
-      </Item9>
+        <UnitName Value="uRTFtoTXT"/>
+      </Item8>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="2">

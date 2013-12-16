@@ -9,7 +9,7 @@ object fError: TfError
   KeyPreview = True
   OnKeyDown = FormKeyDown
   Position = poScreenCenter
-  LCLVersion = '1.1'
+  LCLVersion = '1.3'
   object mError: TMemo
     Left = 8
     Height = 134

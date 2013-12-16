@@ -4,7 +4,7 @@ LazarusResources.Add('TfError','FORMDATA',[
   'TPF0'#7'TfError'#6'fError'#4'Left'#3#140#1#6'Height'#3#151#0#3'Top'#3'^'#1#5
   +'Width'#3#13#2#7'Caption'#6#6'fError'#12'ClientHeight'#3#151#0#11'ClientWidt'
   +'h'#3#13#2#10'KeyPreview'#9#9'OnKeyDown'#7#11'FormKeyDown'#8'Position'#7#14
-  +'poScreenCenter'#10'LCLVersion'#6#3'1.1'#0#5'TMemo'#6'mError'#4'Left'#2#8#6
+  +'poScreenCenter'#10'LCLVersion'#6#3'1.3'#0#5'TMemo'#6'mError'#4'Left'#2#8#6
   +'Height'#3#134#0#3'Top'#2#8#5'Width'#3'@'#1#7'Anchors'#11#5'akTop'#6'akLeft'
   +#7'akRight'#8'akBottom'#0#10'Font.Color'#7#5'clRed'#13'Lines.Strings'#1#6#5
   +'Memo1'#0#10'ParentFont'#8#8'ReadOnly'#9#8'TabOrder'#2#0#0#0#7'TBitBtn'#3'bO'

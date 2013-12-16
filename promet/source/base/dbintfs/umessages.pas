@@ -21,7 +21,7 @@ unit uMessages;
 interface
 uses
   Classes, SysUtils, uBaseDbClasses, db, uBaseDBInterface, uDocuments,
-  uBaseApplication, uBaseSearch, uIntfStrConsts,htmlconvert,LConvEncoding;
+  uBaseApplication, uBaseSearch, uIntfStrConsts,LConvEncoding;
 type
 
   { TMessageList }
@@ -88,7 +88,7 @@ type
     procedure DefineFields(aDataSet : TDataSet);override;
   end;
 implementation
-uses uData,md5,Variants,Utils;
+uses uData,md5,Variants,Utils,htmltowiki;
 procedure TArchivedMessage.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do
@@ -129,20 +129,9 @@ begin
       Data.BlobFieldToStream(DataSet,'DATA',ss);
       ss.Position:=0;
       tmp := ss.DataString;
-      tmp := HTMLToTxT(tmp);
+      tmp := StripHTML(tmp);
       tmp := ConvertEncoding(tmp,GuessEncoding(tmp),EncodingUTF8);
-      tmp := StringReplace(tmp, '&amp;'  ,'&', [rfreplaceall]);
-      tmp := StringReplace(tmp, '&quot;' ,'"', [rfreplaceall]);
-      tmp := StringReplace(tmp, '&lt;'   ,'<', [rfreplaceall]);
-      tmp := StringReplace(tmp, '&gt;'   ,'>', [rfreplaceall]);
-      tmp := StringReplace(tmp, '&nbsp;' ,' ', [rfreplaceall]);
-      tmp := StringReplace(tmp, '&auml;' ,'ä', [rfreplaceall]);
-      tmp := StringReplace(tmp, '&ouml;' ,'ö', [rfreplaceall]);
-      tmp := StringReplace(tmp, '&uuml;' ,'ü', [rfreplaceall]);
-      tmp := StringReplace(tmp, '&Auml;' ,'Ä', [rfreplaceall]);
-      tmp := StringReplace(tmp, '&Ouml;' ,'Ö', [rfreplaceall]);
-      tmp := StringReplace(tmp, '&Uuml;' ,'Ü', [rfreplaceall]);
-      tmp := StringReplace(tmp, '&szlig;','ß', [rfreplaceall]);
+      tmp := HTMLDecode(tmp);
       sl.Text:=tmp;
       ss.Free;
     end;
