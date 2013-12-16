@@ -43,7 +43,7 @@ function OnConnected() {
     link.id="loginButton";
     link.text="login";
     function DoLogin() {
-      loadPage("login.html");
+      loadPage("base/login.html");
     }
     link.addEventListener('click',DoLogin);
     document.getElementById('systray').appendChild(link);

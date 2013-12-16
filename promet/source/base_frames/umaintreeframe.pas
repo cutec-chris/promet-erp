@@ -1806,7 +1806,8 @@ begin
     end;
   with Application as IBaseDBInterface do
     begin
-      DBConfig.WriteString('TREEENTRYS',aOpt);
+      if trim(aOpt)<>'' then
+        DBConfig.WriteString('TREEENTRYS',aOpt);
       DBConfig.WriteString('TREEEXPAND',aExp);
     end;
 end;

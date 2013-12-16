@@ -187,15 +187,15 @@ begin
      end;
   'masterdata':aDs := TMasterdataList.Create(nil,Data);
   'tasks':aDs := TTaskList.Create(nil,Data);
-  'projects':aDs := TTaskList.Create(nil,Data);
-  'orders':aDs := TTaskList.Create(nil,Data);
+  'projects':aDs := TProjectList.Create(nil,Data);
+  'orders':aDs := TOrderList.Create(nil,Data);
   end;
   if data.Users.Rights.Right(aRight)>RIGHT_READ then
     begin
       aDs.Open;
       Json := TJSONArray.Create;
       DataSetToJSON(aDs.DataSet,Json,True);
-      Response.Contents.Text := 'handleData('+Json.AsJSON+');';
+      Response.Contents.Text := 'DoHandleList('+Json.AsJSON+');';
       Json.Free;
       aDS.Free;
       AResponse.Code:=200;
