@@ -8,8 +8,8 @@
       <Version Value="11"/>
       <PathDelim Value="\"/>
       <SearchPaths>
-        <IncludeFiles Value="src"/>
-        <OtherUnitFiles Value="src"/>
+        <IncludeFiles Value="src;src_vis"/>
+        <OtherUnitFiles Value="src;src_vis"/>
         <UnitOutputDirectory Value="lib\gui\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
       </SearchPaths>
       <Parsing>
@@ -21,28 +21,52 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="5">
+    <Files Count="11">
       <Item1>
-        <Filename Value="src\uinfo.pas"/>
-        <UnitName Value="uInfo"/>
+        <Filename Value="src_vis\ubenchmark.pas"/>
+        <UnitName Value="ubenchmark"/>
       </Item1>
       <Item2>
-        <Filename Value="src\uerror.pas"/>
-        <UnitName Value="uError"/>
+        <Filename Value="src_vis\ucomport.pas"/>
+        <UnitName Value="ucomport"/>
       </Item2>
       <Item3>
-        <Filename Value="src\ubenchmark.pas"/>
-        <UnitName Value="ubenchmark"/>
+        <Filename Value="src_vis\uerror.lfm"/>
+        <Type Value="LFM"/>
       </Item3>
       <Item4>
-        <Filename Value="src\uextcontrols.pas"/>
-        <HasRegisterProc Value="True"/>
-        <UnitName Value="uExtControls"/>
+        <Filename Value="src_vis\uerror.lrs"/>
+        <Type Value="LRS"/>
       </Item4>
       <Item5>
-        <Filename Value="src\ucomport.pas"/>
-        <UnitName Value="ucomport"/>
+        <Filename Value="src_vis\uerror.pas"/>
+        <UnitName Value="uError"/>
       </Item5>
+      <Item6>
+        <Filename Value="src_vis\uextcontrols.lfm"/>
+        <Type Value="LFM"/>
+      </Item6>
+      <Item7>
+        <Filename Value="src_vis\uextcontrols.lrs"/>
+        <Type Value="LRS"/>
+      </Item7>
+      <Item8>
+        <Filename Value="src_vis\uextcontrols.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="uExtControls"/>
+      </Item8>
+      <Item9>
+        <Filename Value="src_vis\uinfo.lfm"/>
+        <Type Value="LFM"/>
+      </Item9>
+      <Item10>
+        <Filename Value="src_vis\uinfo.lrs"/>
+        <Type Value="LRS"/>
+      </Item10>
+      <Item11>
+        <Filename Value="src_vis\uinfo.pas"/>
+        <UnitName Value="uInfo"/>
+      </Item11>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="5">

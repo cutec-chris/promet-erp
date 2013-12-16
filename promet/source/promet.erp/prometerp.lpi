@@ -928,12 +928,10 @@
       <Unit59>
         <Filename Value="../base/dbintfs/umessages.pas"/>
         <UnitName Value="uMessages"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="19"/>
         <UsageCount Value="222"/>
-        <Loaded Value="True"/>
       </Unit59>
       <Unit60>
         <Filename Value="../base/dbintfs/uintfstrconsts.pas"/>
@@ -1037,7 +1035,7 @@
       </Unit69>
       <Unit70>
         <Filename Value="../base/changes.txt"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="83" Y="12"/>
@@ -1172,12 +1170,10 @@
       <Unit83>
         <Filename Value="../base/dbintfs/uwiki.pas"/>
         <UnitName Value="uWiki"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="175"/>
         <CursorPos X="23" Y="205"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit83>
       <Unit84>
         <Filename Value="../base_calendar/ucalendarframe.pas"/>
@@ -1967,7 +1963,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMessageEdit"/>
-        <EditorIndex Value="5"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="9"/>
         <CursorPos X="13" Y="27"/>
@@ -2047,11 +2044,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uError"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="6"/>
         <CursorPos X="1" Y="23"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit184>
       <Unit185>
@@ -2234,13 +2231,10 @@
       <Unit206>
         <Filename Value="../base_messaging/umimemessages.pas"/>
         <UnitName Value="uMimeMessages"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="19"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit206>
       <Unit207>
         <Filename Value="../base/umaintreeframe.lfm"/>
@@ -4178,17 +4172,15 @@
       <Unit443>
         <Filename Value="../../../general/general_nogui.pas"/>
         <UnitName Value="general_nogui"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="3" Y="11"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit443>
       <Unit444>
         <Filename Value="../base_wiki/htmltowiki.pas"/>
         <UnitName Value="htmltowiki"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="16"/>
         <CursorPos X="1" Y="1"/>
@@ -4196,7 +4188,7 @@
         <Loaded Value="True"/>
       </Unit444>
     </Units>
-    <JumpHistory Count="11" HistoryIndex="10">
+    <JumpHistory Count="4" HistoryIndex="3">
       <Position1>
         <Filename Value="../../../general/src/uerror.pas"/>
         <Caret Line="136" Column="26" TopLine="1"/>
@@ -4210,37 +4202,9 @@
         <Caret Line="192" Column="1" TopLine="177"/>
       </Position3>
       <Position4>
-        <Filename Value="../../../general/general_nogui.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
-      </Position4>
-      <Position5>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="141" Column="1" TopLine="115"/>
-      </Position5>
-      <Position6>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="53" Column="21" TopLine="196"/>
-      </Position6>
-      <Position7>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="205" Column="22" TopLine="188"/>
-      </Position7>
-      <Position8>
-        <Filename Value="../base/dbintfs/umessages.pas"/>
-        <Caret Line="397" Column="19" TopLine="386"/>
-      </Position8>
-      <Position9>
-        <Filename Value="../base/dbintfs/umessages.pas"/>
-        <Caret Line="24" Column="49" TopLine="6"/>
-      </Position9>
-      <Position10>
-        <Filename Value="../base_messaging/umimemessages.pas"/>
-        <Caret Line="8" Column="49" TopLine="1"/>
-      </Position10>
-      <Position11>
         <Filename Value="../base_messaging/umessageedit.pas"/>
         <Caret Line="129" Column="17" TopLine="110"/>
-      </Position11>
+      </Position4>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>
