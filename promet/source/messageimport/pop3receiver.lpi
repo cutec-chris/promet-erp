@@ -49,15 +49,15 @@
         <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="118">
+    <Units Count="119">
       <Unit0>
         <Filename Value="pop3receiver.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="pop3receiver"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="308"/>
-        <CursorPos X="70" Y="333"/>
+        <TopLine Value="1"/>
+        <CursorPos X="9" Y="23"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <WindowIndex Value="0"/>
@@ -688,7 +688,7 @@
         <UnitName Value="uMessages"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="52"/>
+        <TopLine Value="16"/>
         <CursorPos X="14" Y="68"/>
         <UsageCount Value="46"/>
         <Loaded Value="True"/>
@@ -772,10 +772,9 @@
       <Unit89>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="356"/>
+        <TopLine Value="137"/>
         <CursorPos X="1" Y="380"/>
         <UsageCount Value="38"/>
         <Loaded Value="True"/>
@@ -843,15 +842,16 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
       </Unit97>
       <Unit98>
         <Filename Value="..\base_messaging\umimemessages.pas"/>
         <UnitName Value="uMimeMessages"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="305"/>
-        <CursorPos X="1" Y="333"/>
+        <TopLine Value="54"/>
+        <CursorPos X="1" Y="69"/>
         <UsageCount Value="17"/>
         <Loaded Value="True"/>
       </Unit98>
@@ -1018,127 +1018,135 @@
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit117>
+      <Unit118>
+        <Filename Value="..\components\synapse\mimemess.pas"/>
+        <UnitName Value="mimemess"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="43"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit118>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="..\base_messaging\umimemessages.pas"/>
-        <Caret Line="278" Column="1" TopLine="259"/>
+        <Caret Line="283" Column="1" TopLine="259"/>
       </Position1>
       <Position2>
         <Filename Value="..\base_messaging\umimemessages.pas"/>
-        <Caret Line="279" Column="1" TopLine="259"/>
+        <Caret Line="288" Column="1" TopLine="260"/>
       </Position2>
       <Position3>
         <Filename Value="..\base_messaging\umimemessages.pas"/>
-        <Caret Line="281" Column="1" TopLine="259"/>
+        <Caret Line="290" Column="1" TopLine="262"/>
       </Position3>
       <Position4>
         <Filename Value="..\base_messaging\umimemessages.pas"/>
-        <Caret Line="283" Column="1" TopLine="259"/>
+        <Caret Line="291" Column="1" TopLine="263"/>
       </Position4>
       <Position5>
         <Filename Value="..\base_messaging\umimemessages.pas"/>
-        <Caret Line="288" Column="1" TopLine="260"/>
+        <Caret Line="292" Column="1" TopLine="264"/>
       </Position5>
       <Position6>
         <Filename Value="..\base_messaging\umimemessages.pas"/>
-        <Caret Line="290" Column="1" TopLine="262"/>
+        <Caret Line="293" Column="1" TopLine="265"/>
       </Position6>
       <Position7>
         <Filename Value="..\base_messaging\umimemessages.pas"/>
-        <Caret Line="291" Column="1" TopLine="263"/>
+        <Caret Line="295" Column="1" TopLine="267"/>
       </Position7>
       <Position8>
         <Filename Value="..\base_messaging\umimemessages.pas"/>
-        <Caret Line="292" Column="1" TopLine="264"/>
+        <Caret Line="296" Column="1" TopLine="268"/>
       </Position8>
       <Position9>
         <Filename Value="..\base_messaging\umimemessages.pas"/>
-        <Caret Line="293" Column="1" TopLine="265"/>
+        <Caret Line="297" Column="1" TopLine="269"/>
       </Position9>
       <Position10>
         <Filename Value="..\base_messaging\umimemessages.pas"/>
-        <Caret Line="295" Column="1" TopLine="267"/>
+        <Caret Line="298" Column="1" TopLine="270"/>
       </Position10>
       <Position11>
         <Filename Value="..\base_messaging\umimemessages.pas"/>
-        <Caret Line="296" Column="1" TopLine="268"/>
+        <Caret Line="299" Column="1" TopLine="271"/>
       </Position11>
       <Position12>
         <Filename Value="..\base_messaging\umimemessages.pas"/>
-        <Caret Line="297" Column="1" TopLine="269"/>
+        <Caret Line="314" Column="1" TopLine="298"/>
       </Position12>
       <Position13>
         <Filename Value="..\base_messaging\umimemessages.pas"/>
-        <Caret Line="298" Column="1" TopLine="270"/>
+        <Caret Line="326" Column="1" TopLine="298"/>
       </Position13>
       <Position14>
         <Filename Value="..\base_messaging\umimemessages.pas"/>
-        <Caret Line="299" Column="1" TopLine="271"/>
+        <Caret Line="327" Column="1" TopLine="299"/>
       </Position14>
       <Position15>
         <Filename Value="..\base_messaging\umimemessages.pas"/>
-        <Caret Line="314" Column="1" TopLine="298"/>
+        <Caret Line="328" Column="1" TopLine="300"/>
       </Position15>
       <Position16>
         <Filename Value="..\base_messaging\umimemessages.pas"/>
-        <Caret Line="326" Column="1" TopLine="298"/>
+        <Caret Line="329" Column="1" TopLine="301"/>
       </Position16>
       <Position17>
         <Filename Value="..\base_messaging\umimemessages.pas"/>
-        <Caret Line="327" Column="1" TopLine="299"/>
+        <Caret Line="331" Column="1" TopLine="303"/>
       </Position17>
       <Position18>
         <Filename Value="..\base_messaging\umimemessages.pas"/>
-        <Caret Line="328" Column="1" TopLine="300"/>
+        <Caret Line="332" Column="1" TopLine="304"/>
       </Position18>
       <Position19>
         <Filename Value="..\base_messaging\umimemessages.pas"/>
-        <Caret Line="329" Column="1" TopLine="301"/>
+        <Caret Line="333" Column="1" TopLine="305"/>
       </Position19>
       <Position20>
-        <Filename Value="..\base_messaging\umimemessages.pas"/>
-        <Caret Line="331" Column="1" TopLine="303"/>
+        <Filename Value="pop3receiver.lpr"/>
+        <Caret Line="310" Column="1" TopLine="293"/>
       </Position20>
       <Position21>
-        <Filename Value="..\base_messaging\umimemessages.pas"/>
-        <Caret Line="332" Column="1" TopLine="304"/>
+        <Filename Value="pop3receiver.lpr"/>
+        <Caret Line="10" Column="74" TopLine="1"/>
       </Position21>
       <Position22>
-        <Filename Value="..\base_messaging\umimemessages.pas"/>
-        <Caret Line="333" Column="1" TopLine="305"/>
+        <Filename Value="pop3receiver.lpr"/>
+        <Caret Line="328" Column="66" TopLine="306"/>
       </Position22>
       <Position23>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="310" Column="1" TopLine="293"/>
+        <Caret Line="80" Column="15" TopLine="64"/>
       </Position23>
       <Position24>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="10" Column="74" TopLine="1"/>
+        <Caret Line="22" Column="71" TopLine="2"/>
       </Position24>
       <Position25>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="328" Column="66" TopLine="306"/>
+        <Caret Line="24" Column="11" TopLine="7"/>
       </Position25>
       <Position26>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="80" Column="15" TopLine="64"/>
+        <Caret Line="333" Column="70" TopLine="308"/>
       </Position26>
       <Position27>
-        <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="22" Column="71" TopLine="2"/>
+        <Filename Value="..\base\dbintfs\ubaseerpdbclasses.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position27>
       <Position28>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="24" Column="11" TopLine="7"/>
+        <Caret Line="8" Column="78" TopLine="1"/>
       </Position28>
       <Position29>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="333" Column="70" TopLine="308"/>
+        <Caret Line="20" Column="76" TopLine="1"/>
       </Position29>
       <Position30>
-        <Filename Value="..\base\dbintfs\ubaseerpdbclasses.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Filename Value="pop3receiver.lpr"/>
+        <Caret Line="23" Column="9" TopLine="1"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>

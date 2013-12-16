@@ -1,4 +1,6 @@
-﻿Build 296
+﻿Build 297
+      -
+Build 296
       - Aufgabe: hat Feld Auftrag (z.b. können so über Trigger o.ä. Aufgaben zu erledigten Bestellungen oder Produktionsaufträgen automatisch fertiggestellt werden)
       - Fenster können ausgedockt werden und als Fliegende Fenster auf andere Desktops oder nebeneinander verschoben werden
       - Clipp:erste Version
