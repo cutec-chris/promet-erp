@@ -36,6 +36,7 @@ type
   private
     FAddProjectOnPost : Boolean;
     FAddSummaryOnPost : Boolean;
+    FDueDateChanged: Boolean;
     FHistory: TBaseHistory;
     FSnapshots: TTaskSnapshots;
     FTempUsers : TUser;
@@ -374,9 +375,11 @@ begin
           aTask.Open;
           if aTask.FieldByName('STARTDATE').AsDateTime<DataSet.FieldByName('DUEDATE').AsDateTime then
             begin
+              aTask.DataSet.DisableControls;
               if not aTask.CanEdit then aTask.DataSet.Edit;
               aTask.FieldByName('STARTDATE').AsDateTime:=DataSet.FieldByName('DUEDATE').AsDateTime;
               aTask.Post;
+              atask.DataSet.EnableControls;
             end;
           aTask.Free;
           Next;
@@ -483,6 +486,28 @@ begin
       History.AddItem(Self.DataSet,Format(strRenamed,[FDS.DataSet.FieldByName('SUMMARY').AsString]),'','',nil,ACICON_RENAMED);
       DataSet.EnableControls;
       FAddSummaryOnPost:=false;
+    end;
+  if FDueDateChanged then
+    begin
+      DataSet.DisableControls;
+      if not History.DataSet.Active then History.Open;
+      History.AddItem(Self.DataSet,Format(strDueDateChanged,[FDS.DataSet.FieldByName('DUEDATE').AsString]),'','',nil,ACICON_DATECHANGED);
+      if (DataSet.FieldByName('CLASS').AsString = 'M') then
+        begin
+          aProject := TProject.Create(Self,Data,Connection);
+          aProject.Select(FDS.DataSet.FieldByName('PROJECTID').AsVariant);
+          aProject.Open;
+          if aProject.Count>0 then
+            begin
+              aProject.History.Open;
+              aProject.History.AddItem(aProject.DataSet,Format(strDueDateChanged,[FDS.DataSet.FieldByName('DUEDATE').AsString]),Data.BuildLink(aProject.DataSet),FDS.DataSet.FieldByName('SUMMARY').AsString,nil,ACICON_DATECHANGED);
+            end;
+          aProject.Free;
+        end;
+      if not FDS.DataSet.FieldByName('DUEDATE').IsNull then
+        MoveDependTasks;
+      FDueDateChanged:=False;
+      DataSet.EnableControls;
     end;
 end;
 procedure TTaskList.DataSetBeforeDelete(aDataSet: TDataSet);
@@ -678,24 +703,9 @@ begin
   else if (Field.FieldName='DUEDATE') then
     begin
       DataSet.DisableControls;
-      if not History.DataSet.Active then History.Open;
-      History.AddItem(Self.DataSet,Format(strDueDateChanged,[Field.AsString]),'','',nil,ACICON_DATECHANGED);
-      if (DataSet.FieldByName('CLASS').AsString = 'M') then
-        begin
-          aProject := TProject.Create(Self,Data,Connection);
-          aProject.Select(FDS.DataSet.FieldByName('PROJECTID').AsVariant);
-          aProject.Open;
-          if aProject.Count>0 then
-            begin
-              aProject.History.Open;
-              aProject.History.AddItem(aProject.DataSet,Format(strDueDateChanged,[Field.AsString]),Data.BuildLink(aProject.DataSet),FDS.DataSet.FieldByName('SUMMARY').AsString,nil,ACICON_DATECHANGED);
-            end;
-          aProject.Free;
-        end;
+      FDueDateChanged := True;
       DataSet.FieldByName('SEEN').AsString:='N';
       DataSet.EnableControls;
-      if not Field.IsNull then
-        MoveDependTasks;
     end
   else if (Field.FieldName='STARTDATE') then
     begin
@@ -922,6 +932,7 @@ begin
   inherited Create(aOwner, DM, aConnection, aMasterdata);
   FAddProjectOnPost := false;
   FAddSummaryOnPost:=false;
+  FDueDateChanged:=False;
   DoCheckTask:=False;
   FDS := TDataSource.Create(Self);
   FDS.DataSet := DataSet;

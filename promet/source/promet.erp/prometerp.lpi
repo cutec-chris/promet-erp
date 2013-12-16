@@ -492,10 +492,12 @@
       <Unit18>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="634"/>
-        <CursorPos X="64" Y="642"/>
+        <TopLine Value="940"/>
+        <CursorPos X="1" Y="959"/>
         <UsageCount Value="105"/>
+        <Loaded Value="True"/>
       </Unit18>
       <Unit19>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
@@ -508,10 +510,12 @@
       <Unit20>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1400"/>
-        <CursorPos X="1" Y="1431"/>
+        <TopLine Value="1028"/>
+        <CursorPos X="1" Y="1052"/>
         <UsageCount Value="100"/>
+        <Loaded Value="True"/>
       </Unit20>
       <Unit21>
         <Filename Value="../base/dbintfs/uorder.pas"/>
@@ -1025,10 +1029,13 @@
       <Unit68>
         <Filename Value="../base/dbintfs/utask.pas"/>
         <UnitName Value="utask"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="526"/>
-        <CursorPos X="53" Y="533"/>
+        <TopLine Value="351"/>
+        <CursorPos X="43" Y="382"/>
         <UsageCount Value="100"/>
+        <Loaded Value="True"/>
       </Unit68>
       <Unit69>
         <Filename Value="../base/revision.inc"/>
@@ -1137,10 +1144,12 @@
       <Unit79>
         <Filename Value="../components/zeos/src/component/ZAbstractRODataset.pas"/>
         <UnitName Value="ZAbstractRODataset"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="609"/>
-        <CursorPos X="1" Y="629"/>
-        <UsageCount Value="3"/>
+        <TopLine Value="1435"/>
+        <CursorPos X="1" Y="1458"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit79>
       <Unit80>
@@ -1501,10 +1510,12 @@
       <Unit121>
         <Filename Value="../base_pm/gsGanttCalendar.pas"/>
         <UnitName Value="gsGanttCalendar"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="2128"/>
-        <CursorPos X="1" Y="2155"/>
-        <UsageCount Value="96"/>
+        <TopLine Value="1574"/>
+        <CursorPos X="1" Y="1595"/>
+        <UsageCount Value="97"/>
+        <Loaded Value="True"/>
       </Unit121>
       <Unit122>
         <Filename Value="../base_pm/uprojectimport.pas"/>
@@ -1612,12 +1623,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uGanttView"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="999"/>
-        <CursorPos X="56" Y="1006"/>
-        <UsageCount Value="98"/>
+        <CursorPos X="1" Y="1012"/>
+        <UsageCount Value="99"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit133>
@@ -3138,10 +3148,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uTaskPlan"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1353"/>
-        <CursorPos X="1" Y="1371"/>
-        <UsageCount Value="43"/>
+        <TopLine Value="345"/>
+        <CursorPos X="1" Y="376"/>
+        <UsageCount Value="44"/>
+        <Loaded Value="True"/>
       </Unit316>
       <Unit317>
         <Filename Value="../../../../../lazarus/lcl/extctrls.pp"/>
@@ -3349,7 +3361,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1558"/>
         <CursorPos X="22" Y="1581"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit342>
       <Unit343>
@@ -4157,7 +4169,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1138"/>
         <CursorPos X="43" Y="1160"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit440>
       <Unit441>
@@ -4183,7 +4195,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="504"/>
         <CursorPos X="5" Y="537"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit443>
       <Unit444>
@@ -4195,31 +4207,127 @@
         <UsageCount Value="10"/>
       </Unit444>
     </Units>
-    <JumpHistory Count="6" HistoryIndex="5">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="371" Column="1" TopLine="344"/>
       </Position1>
       <Position2>
-        <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="27" Column="58" TopLine="8"/>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="373" Column="1" TopLine="344"/>
       </Position2>
       <Position3>
-        <Filename Value="../base/changes.txt"/>
-        <Caret Line="6" Column="28" TopLine="1"/>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="374" Column="1" TopLine="344"/>
       </Position3>
       <Position4>
-        <Filename Value="../../../../../../Programme/lazarus/lcl/include/treeview.inc"/>
-        <Caret Line="1581" Column="22" TopLine="1558"/>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="375" Column="1" TopLine="344"/>
       </Position4>
       <Position5>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="648" Column="67" TopLine="527"/>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="376" Column="1" TopLine="356"/>
       </Position5>
       <Position6>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="184" Column="8" TopLine="181"/>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="382" Column="1" TopLine="356"/>
       </Position6>
+      <Position7>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="383" Column="1" TopLine="356"/>
+      </Position7>
+      <Position8>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="373" Column="1" TopLine="356"/>
+      </Position8>
+      <Position9>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="374" Column="1" TopLine="356"/>
+      </Position9>
+      <Position10>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="375" Column="1" TopLine="356"/>
+      </Position10>
+      <Position11>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="376" Column="1" TopLine="356"/>
+      </Position11>
+      <Position12>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="382" Column="1" TopLine="356"/>
+      </Position12>
+      <Position13>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="383" Column="1" TopLine="356"/>
+      </Position13>
+      <Position14>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="373" Column="1" TopLine="356"/>
+      </Position14>
+      <Position15>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="378" Column="1" TopLine="356"/>
+      </Position15>
+      <Position16>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="379" Column="1" TopLine="356"/>
+      </Position16>
+      <Position17>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="380" Column="1" TopLine="356"/>
+      </Position17>
+      <Position18>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="506" Column="1" TopLine="479"/>
+      </Position18>
+      <Position19>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="364" Column="1" TopLine="344"/>
+      </Position19>
+      <Position20>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="365" Column="1" TopLine="344"/>
+      </Position20>
+      <Position21>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="366" Column="1" TopLine="344"/>
+      </Position21>
+      <Position22>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="367" Column="1" TopLine="344"/>
+      </Position22>
+      <Position23>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="368" Column="1" TopLine="344"/>
+      </Position23>
+      <Position24>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="370" Column="1" TopLine="344"/>
+      </Position24>
+      <Position25>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="371" Column="1" TopLine="344"/>
+      </Position25>
+      <Position26>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="373" Column="1" TopLine="344"/>
+      </Position26>
+      <Position27>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="374" Column="1" TopLine="344"/>
+      </Position27>
+      <Position28>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="375" Column="1" TopLine="344"/>
+      </Position28>
+      <Position29>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="376" Column="1" TopLine="344"/>
+      </Position29>
+      <Position30>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="382" Column="1" TopLine="350"/>
+      </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>
@@ -4268,22 +4376,22 @@
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
-        <Source Value="../base/dbintfs/utask.pas"/>
-        <Line Value="350"/>
+        <Source Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Line Value="1395"/>
       </Item1>
       <Item2>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
-        <Source Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Line Value="1395"/>
+        <Source Value="../base_pm/uganttview.pas"/>
+        <Line Value="1012"/>
       </Item2>
       <Item3>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
-        <Source Value="../base_pm/uganttview.pas"/>
-        <Line Value="1008"/>
+        <Source Value="../base/dbintfs/utask.pas"/>
+        <Line Value="508"/>
       </Item3>
     </BreakPoints>
     <Watches Count="2">
