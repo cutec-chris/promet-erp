@@ -26,7 +26,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--silent"/>
+        <CommandLineParams Value="--config-path=/home/chris/.promet-erp-devel"/>
       </local>
     </RunParams>
     <RequiredPackages Count="4">
@@ -46,11 +46,12 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="112">
+    <Units Count="113">
       <Unit0>
         <Filename Value="wizardmandant.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="wizardmandant"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -77,8 +78,8 @@
         <UnitName Value="uWizardNewMandant"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="573"/>
-        <CursorPos X="51" Y="565"/>
+        <TopLine Value="476"/>
+        <CursorPos X="1" Y="493"/>
         <UsageCount Value="140"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -110,10 +111,12 @@
       <Unit6>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="3"/>
-        <CursorPos X="27" Y="15"/>
+        <TopLine Value="1352"/>
+        <CursorPos X="1" Y="1369"/>
         <UsageCount Value="59"/>
+        <Loaded Value="True"/>
       </Unit6>
       <Unit7>
         <Filename Value="../base/dbintfs/ubaseerpdbclasses.pas"/>
@@ -126,11 +129,10 @@
       <Unit8>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1921"/>
-        <CursorPos X="14" Y="1922"/>
+        <TopLine Value="1668"/>
+        <CursorPos X="1" Y="1685"/>
         <UsageCount Value="60"/>
         <Loaded Value="True"/>
       </Unit8>
@@ -170,8 +172,8 @@
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1508"/>
-        <CursorPos X="6" Y="1517"/>
+        <TopLine Value="616"/>
+        <CursorPos X="1" Y="634"/>
         <UsageCount Value="59"/>
       </Unit13>
       <Unit14>
@@ -991,40 +993,135 @@
         <CursorPos X="4" Y="965"/>
         <UsageCount Value="11"/>
       </Unit111>
+      <Unit112>
+        <Filename Value="../../../../../lazarus/lcl/include/control.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="3244"/>
+        <CursorPos X="1" Y="3260"/>
+        <UsageCount Value="10"/>
+      </Unit112>
     </Units>
-    <JumpHistory Count="8" HistoryIndex="7">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="583" Column="27" TopLine="552"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1418" Column="1" TopLine="1390"/>
       </Position1>
       <Position2>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="584" Column="27" TopLine="578"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1419" Column="1" TopLine="1391"/>
       </Position2>
       <Position3>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="580" Column="15" TopLine="557"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1420" Column="1" TopLine="1392"/>
       </Position3>
       <Position4>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="169" Column="49" TopLine="140"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1421" Column="1" TopLine="1393"/>
       </Position4>
       <Position5>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="156" Column="59" TopLine="138"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1422" Column="1" TopLine="1394"/>
       </Position5>
       <Position6>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="587" Column="28" TopLine="565"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1423" Column="1" TopLine="1395"/>
       </Position6>
       <Position7>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="585" Column="23" TopLine="565"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1424" Column="1" TopLine="1396"/>
       </Position7>
       <Position8>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="4" Column="79" TopLine="1"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1425" Column="1" TopLine="1397"/>
       </Position8>
+      <Position9>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1426" Column="1" TopLine="1398"/>
+      </Position9>
+      <Position10>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1427" Column="1" TopLine="1399"/>
+      </Position10>
+      <Position11>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1428" Column="1" TopLine="1400"/>
+      </Position11>
+      <Position12>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1429" Column="1" TopLine="1401"/>
+      </Position12>
+      <Position13>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1430" Column="1" TopLine="1402"/>
+      </Position13>
+      <Position14>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1431" Column="1" TopLine="1403"/>
+      </Position14>
+      <Position15>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1432" Column="1" TopLine="1404"/>
+      </Position15>
+      <Position16>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1433" Column="1" TopLine="1405"/>
+      </Position16>
+      <Position17>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1434" Column="1" TopLine="1406"/>
+      </Position17>
+      <Position18>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1435" Column="1" TopLine="1407"/>
+      </Position18>
+      <Position19>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1436" Column="1" TopLine="1408"/>
+      </Position19>
+      <Position20>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1437" Column="1" TopLine="1409"/>
+      </Position20>
+      <Position21>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1438" Column="1" TopLine="1410"/>
+      </Position21>
+      <Position22>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1439" Column="1" TopLine="1411"/>
+      </Position22>
+      <Position23>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1923" Column="1" TopLine="1906"/>
+      </Position23>
+      <Position24>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1924" Column="1" TopLine="1906"/>
+      </Position24>
+      <Position25>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1925" Column="1" TopLine="1906"/>
+      </Position25>
+      <Position26>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1926" Column="39" TopLine="1906"/>
+      </Position26>
+      <Position27>
+        <Filename Value="../base/uwizardnewmandant.pas"/>
+        <Caret Line="438" Column="1" TopLine="421"/>
+      </Position27>
+      <Position28>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1369" Column="1" TopLine="1352"/>
+      </Position28>
+      <Position29>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1925" Column="6" TopLine="1906"/>
+      </Position29>
+      <Position30>
+        <Filename Value="../base/uwizardnewmandant.pas"/>
+        <Caret Line="493" Column="1" TopLine="476"/>
+      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -1064,6 +1161,15 @@ if TargetOS='darwin' then
     </Other>
   </CompilerOptions>
   <Debugging>
+    <BreakPoints Count="1">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="../base/uwizardnewmandant.pas"/>
+        <Line Value="493"/>
+      </Item1>
+    </BreakPoints>
     <Exceptions Count="6">
       <Item1>
         <Name Value="EZDatabaseError"/>
