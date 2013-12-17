@@ -3065,7 +3065,10 @@ procedure TfMain.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   IPCTimer.Enabled:=False;
   RefreshTimer.Enabled:=False;
-  ImportFavorites;
+  try
+    ImportFavorites;
+  except
+  end;
   if Assigned(FTimeReg) then
     begin
       FTimereg.StopActualTime;

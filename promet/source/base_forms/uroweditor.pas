@@ -264,6 +264,7 @@ var
   ib : IBaseDbInterface;
   FullWidth: Integer;
   s1: String;
+  GridWidth: Integer;
 begin
   Result := False;
   if not Assigned(DataSource) then exit;
@@ -292,13 +293,14 @@ begin
       Grid.DataSource := nil;
       tmpCols.Assign(Grid.Columns);
       Grid.Columns.Clear;
+      GridWidth := Grid.Width;
       if copy(s,0,12) = 'GLOBALWIDTH:' then
         begin
           s := copy(s,pos(':',s)+1,length(s));
           GlobalWidth := StrToIntDef(copy(s,0,pos(';',s)-1),0);
           s := copy(s,pos(';',s)+1,length(s));
           if GlobalWidth <> 0 then
-            Factor := Grid.Width/GlobalWidth;
+            Factor := GridWidth/GlobalWidth;
         end;
       s1 := s;
       //see if Width of all columns > Grid.Width
