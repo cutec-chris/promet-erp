@@ -235,7 +235,6 @@ type
     property UserID : Variant read FUserID write SetUserID;
     procedure SetRights(Editable : Boolean);override;
     procedure ShowFrame; override;
-    procedure FrameAdded; override;
     procedure DoRefresh; override;
     property BaseFilter : string read FBaseFilter write SetBaseFilter;
     property FilterType : string read FFilterType write SetFilterType;
@@ -1442,13 +1441,6 @@ procedure TfTaskFrame.ShowFrame;
 begin
   FGridView.Refresh;
   FGridView.SetFocus;
-end;
-
-procedure TfTaskFrame.FrameAdded;
-begin
-  Application.ProcessMessages;
-  FGridView.DataSet.First;
-  FGridView.GotoDataSetRow;
 end;
 
 procedure TfTaskFrame.DoRefresh;

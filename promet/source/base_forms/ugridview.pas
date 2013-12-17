@@ -535,17 +535,13 @@ procedure TfGridView.FDataSourceDataChange(Sender: TObject; Field: TField);
 begin
   FieldModified(Field);
 end;
-
 procedure TfGridView.FDataSourceStateChange(Sender: TObject);
 begin
-
 end;
-
 procedure TfGridView.fGridViewEnter(Sender: TObject);
 begin
   if FEntered then exit;
   FEntered := True;
-  SyncDataSource;
 end;
 procedure TfGridView.FrameResize(Sender: TObject);
 var

@@ -22,9 +22,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="umain"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="165"/>
+        <TopLine Value="164"/>
         <CursorPos X="161" Y="109"/>
         <UsageCount Value="70"/>
         <Loaded Value="True"/>
@@ -361,11 +362,10 @@
       </Unit41>
       <Unit42>
         <Filename Value="../../../apps/promet/tasks.html"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="26" Y="24"/>
+        <CursorPos X="55" Y="22"/>
         <UsageCount Value="15"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="HTML"/>
