@@ -1923,9 +1923,12 @@ procedure TUser.LoginWasOK;
 begin
   with DataSet as IBaseManageDB do
     UpdateStdFields := False;
-  DataSet.Edit;
-  FieldByName('LASTLOGIN').AsDateTime:=Now();
-  DataSet.Post;
+  try
+    DataSet.Edit;
+    FieldByName('LASTLOGIN').AsDateTime:=Now();
+    DataSet.Post;
+  except
+  end;
   with DataSet as IBaseManageDB do
     UpdateStdFields := True;
 end;

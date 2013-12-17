@@ -75,10 +75,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uWizardNewMandant"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="535"/>
+        <TopLine Value="573"/>
         <CursorPos X="51" Y="565"/>
         <UsageCount Value="140"/>
         <Loaded Value="True"/>
@@ -127,10 +126,13 @@
       <Unit8>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="952"/>
-        <CursorPos X="1" Y="1819"/>
+        <TopLine Value="1921"/>
+        <CursorPos X="14" Y="1922"/>
         <UsageCount Value="60"/>
+        <Loaded Value="True"/>
       </Unit8>
       <Unit9>
         <Filename Value="../base/dbintfs/ubasedbdataset.pas"/>
@@ -976,25 +978,21 @@
       <Unit110>
         <Filename Value="../base/dbintfs/uprojects.pas"/>
         <UnitName Value="uProjects"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="378"/>
         <CursorPos X="14" Y="384"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit110>
       <Unit111>
         <Filename Value="../base/dbintfs/utask.pas"/>
         <UnitName Value="utask"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="959"/>
         <CursorPos X="4" Y="965"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit111>
     </Units>
-    <JumpHistory Count="12" HistoryIndex="11">
+    <JumpHistory Count="8" HistoryIndex="7">
       <Position1>
         <Filename Value="../base/uwizardnewmandant.pas"/>
         <Caret Line="583" Column="27" TopLine="552"/>
@@ -1004,45 +1002,29 @@
         <Caret Line="584" Column="27" TopLine="578"/>
       </Position2>
       <Position3>
-        <Filename Value="../base/dbintfs/uprojects.pas"/>
-        <Caret Line="49" Column="30" TopLine="30"/>
+        <Filename Value="../base/uwizardnewmandant.pas"/>
+        <Caret Line="580" Column="15" TopLine="557"/>
       </Position3>
       <Position4>
         <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="580" Column="15" TopLine="557"/>
+        <Caret Line="169" Column="49" TopLine="140"/>
       </Position4>
       <Position5>
         <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="169" Column="49" TopLine="140"/>
+        <Caret Line="156" Column="59" TopLine="138"/>
       </Position5>
       <Position6>
         <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="156" Column="59" TopLine="138"/>
+        <Caret Line="587" Column="28" TopLine="565"/>
       </Position6>
       <Position7>
-        <Filename Value="../base/dbintfs/uprojects.pas"/>
-        <Caret Line="49" Column="30" TopLine="37"/>
+        <Filename Value="../base/uwizardnewmandant.pas"/>
+        <Caret Line="585" Column="23" TopLine="565"/>
       </Position7>
       <Position8>
         <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="587" Column="28" TopLine="565"/>
-      </Position8>
-      <Position9>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="585" Column="23" TopLine="565"/>
-      </Position9>
-      <Position10>
-        <Filename Value="../base/dbintfs/uprojects.pas"/>
-        <Caret Line="384" Column="14" TopLine="378"/>
-      </Position10>
-      <Position11>
-        <Filename Value="../base/dbintfs/utask.pas"/>
-        <Caret Line="108" Column="1" TopLine="89"/>
-      </Position11>
-      <Position12>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
         <Caret Line="4" Column="79" TopLine="1"/>
-      </Position12>
+      </Position8>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
