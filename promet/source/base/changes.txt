@@ -1,4 +1,6 @@
-﻿Build 297
+﻿Build 298
+      - Auftrag:Fehler beim Öffnen eines neuen Auftrages behoben
+Build 297
       - Wizardmandant: Fehler bei import behoben
 Build 296
       - Aufgabe: hat Feld Auftrag (z.b. können so über Trigger o.ä. Aufgaben zu erledigten Bestellungen oder Produktionsaufträgen automatisch fertiggestellt werden)

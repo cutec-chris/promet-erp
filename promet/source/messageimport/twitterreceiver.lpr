@@ -74,7 +74,10 @@ begin
   http := THTTPSend.Create;
   try
   http.UserAgent:='Mozilla/5.0 (Windows NT 5.1; rv:6.0.2)';
+  Write('getting '+OutFile+' ...');
+  http.Timeout:=1000;
   http.HTTPMethod('GET',OutFile);
+  WriteLn('->OK');
   if http.ResultCode=200 then
     begin
       Document := TDocument.Create(Self,Data);
@@ -196,6 +199,7 @@ begin
                                     begin
                                       inc(Retry,2);
                                       Somethingimported:=True;
+                                      Write('new Entry from '+author);
                                       aHist.AddItem(Data.Users.DataSet,text,'',author,nil,ACICON_EXTERNALCHANGED,'',False,False);
                                       aHist.TimeStamp.AsDateTime:=aTime;
                                       aHist.FieldByName('REF_ID').AsVariant:=Data.Users.Id.AsVariant;
@@ -228,6 +232,7 @@ begin
                                         begin
                                           inc(Retry,2);
                                           Somethingimported:=True;
+                                          WriteLn('new Subentry from '+author);
                                           aHist.AddParentedItem(Data.Users.DataSet,text,aHist.Id.AsVariant,'',author,nil,ACICON_EXTERNALCHANGED,'',False,False);
                                           aHist.TimeStamp.AsDateTime:=aTime;
                                           aHist.FieldByName('REF_ID').AsVariant:=Data.Users.Id.AsVariant;
@@ -269,7 +274,7 @@ begin
                   for i := 0 to jData.Count-1 do
                     if Assigned(jData.Items[i]) then
                       inc(Retry);
-                  writeln(Retry);
+                  writeln('retrying '+IntToStr(Retry));
                 end;
               if aId <> '' then
                 begin
