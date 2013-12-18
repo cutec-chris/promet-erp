@@ -72,25 +72,31 @@ var
   aFilename: String;
 begin
   http := THTTPSend.Create;
+  try
   http.UserAgent:='Mozilla/5.0 (Windows NT 5.1; rv:6.0.2)';
   http.HTTPMethod('GET',OutFile);
-  Document := TDocument.Create(Self,Data);
-  Document.Select(0);
-  Document.Open;
-  Document.Ref_ID := aHist.Id.AsVariant;
-  Document.BaseTyp := 'H';
-  Document.BaseID := aHist.Id.AsString;
-  Document.BaseVersion := Null;
-  Document.BaseLanguage := Null;
-  aFilename := ExtractFileName(Image);
-  Document.AddFromStream(copy(ExtractFileName(aFilename),0,rpos('.',ExtractFileName(aFileName))-1),
-                                             copy(ExtractFileExt(aFileName),2,length(ExtractFileExt(aFileName))),
-                                             http.Document,
-                                             '',
-                                             Now());
-  OutFile := aFilename;
-  Document.Free;
-  http.Free;
+  if http.ResultCode=200 then
+    begin
+      Document := TDocument.Create(Self,Data);
+      Document.Select(0);
+      Document.Open;
+      Document.Ref_ID := aHist.Id.AsVariant;
+      Document.BaseTyp := 'H';
+      Document.BaseID := aHist.Id.AsString;
+      Document.BaseVersion := Null;
+      Document.BaseLanguage := Null;
+      aFilename := ExtractFileName(Image);
+      Document.AddFromStream(copy(ExtractFileName(aFilename),0,rpos('.',ExtractFileName(aFileName))-1),
+                                                 copy(ExtractFileExt(aFileName),2,length(ExtractFileExt(aFileName))),
+                                                 http.Document,
+                                                 '',
+                                                 Now());
+      OutFile := aFilename;
+      Document.Free;
+    end;
+  finally
+    http.Free;
+  end;
 end;
 procedure PrometCmdApp.ReceiveMails(aUser: string);
 var
@@ -199,7 +205,7 @@ begin
                                         begin
                                           aHist.Post;
                                           aHist.DataSet.Edit;
-                                          text := TJSONObject(aData).Elements['text'].AsString;
+                                          text := TJSONObject(aData).Elements['statusnet_html'].AsString;
                                           text := HTML2WikiText(text);
                                         end;
                                       aHist.FieldByName('ACTION').AsString:=text;
@@ -231,7 +237,7 @@ begin
                                             begin
                                               aHist.Post;
                                               aHist.DataSet.Edit;
-                                              text := TJSONObject(aData).Elements['text'].AsString;
+                                              text := TJSONObject(aData).Elements['statusnet_html'].AsString;
                                               text := HTML2WikiText(text);
                                             end;
                                           aHist.FieldByName('ACTION').AsString:=text;
