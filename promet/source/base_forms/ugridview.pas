@@ -200,6 +200,7 @@ type
     FDelete: TNotifyEvent;
     FFilterCell: TFilterCellTextEvent;
     FGetRowHeight: TGetRowHeightEvent;
+    FNumberField: string;
     FOnGetFontCell: TCellFontEvent;
     FWordwrap: Boolean;
     FWorkStatus: string;
@@ -276,6 +277,7 @@ type
     procedure SetDragDrop(AValue: TDragDropEvent);
     procedure SetDragOver(AValue: TDragOverEvent);
     procedure SetIdentField(AValue: string);
+    procedure SetNumberField(AValue: string);
     procedure SetReadOnly(AValue: Boolean);
     procedure SetShortTextField(AValue: string);
     procedure SetSortDirecion(AValue: TSortDirection);
@@ -335,6 +337,7 @@ type
     property WordWrap : Boolean read FWordwrap write FWordwrap;
 
     property SortField : string read FSortField write SetSortField;
+    property NumberField : string read FNumberField write SetNumberField;
     property TextField : string read FTextField write SetTextField;
     property FilterRow : Boolean read GetFilterRow write SetFilterRow;
     property ShortTextField : string read FSTextField write SetShortTextField;
@@ -543,8 +546,11 @@ begin
   if FEntered then exit;
   FEntered := True;
   SyncDataSource;
-  DataSet.First;
-  GotoDataSetRow;
+  if Assigned(DataSet) then
+    begin
+      DataSet.First;
+      GotoDataSetRow;
+    end;
 end;
 procedure TfGridView.FrameResize(Sender: TObject);
 var
@@ -2108,6 +2114,12 @@ begin
   FIdentField:=AValue;
 end;
 
+procedure TfGridView.SetNumberField(AValue: string);
+begin
+  if FNumberField=AValue then Exit;
+  FNumberField:=AValue;
+end;
+
 procedure TfGridView.SetReadOnly(AValue: Boolean);
 begin
   if FreadOnly=AValue then Exit;
@@ -3045,10 +3057,10 @@ begin
       FBeforeInsert(Self);
     end;
   aPosNo := -1;
-  if SortField<>'' then
+  if NumberField<>'' then
     begin
       if not DataSet.CanEdit then DataSet.DataSet.Edit;
-      aPosNo := DataSet.FieldByName(SortField).AsInteger;
+      aPosNo := DataSet.FieldByName(NumberField).AsInteger;
       RenumberRows(gList.Row,1);
     end;
   FDataSource.DataSet.Insert;
@@ -3060,9 +3072,9 @@ begin
       begin
         DataSet.FieldByName(TreeField).AsString:=aTree;
       end;
-    if (SortField <> '') and (aPosNo>-1) then
+    if (NumberField <> '') and (aPosNo>-1) then
       begin
-        DataSet.FieldByName(SortField).AsInteger:=aPosNo;
+        DataSet.FieldByName(NumberField).AsInteger:=aPosNo;
       end;
   finally
     FDataSet.EnableChanges;
@@ -3175,10 +3187,10 @@ begin
             end;
         end;
       aPosNo := -1;
-      if (SortField<>'') and (DataSet.Count>0) then
+      if (NumberField<>'') and (DataSet.Count>0) then
         begin
           if not DataSet.CanEdit then DataSet.DataSet.Edit;
-          aPosNo := DataSet.FieldByName(SortField).AsInteger+1;
+          aPosNo := DataSet.FieldByName(NumberField).AsInteger+1;
           RenumberRows(gList.Row+1,1);
         end;
       FDataSet.DisableChanges;
@@ -3193,9 +3205,9 @@ begin
           begin
             DataSet.FieldByName(TreeField).AsString:=aTree;
           end;
-        if (SortField <> '') and (aPosNo>-1) then
+        if (NumberField <> '') and (aPosNo>-1) then
           begin
-            DataSet.FieldByName(SortField).AsInteger:=aPosNo;
+            DataSet.FieldByName(NumberField).AsInteger:=aPosNo;
           end;
         aBm := 0;
       finally
@@ -3301,23 +3313,23 @@ begin
       aIndex := gList.FixedRows;
       aPosNo := 0+aOffset;
     end;
-  if SortField<>'' then
+  if NumberField<>'' then
     begin
       if aIndex=gList.FixedRows then
         begin
           if not GotoRowNumber(gList.FixedRows) then exit;
           if aPosNo=-1 then
-            aPosno := DataSet.FieldByName(SortField).AsInteger+aOffset;
+            aPosno := DataSet.FieldByName(NumberField).AsInteger+aOffset;
         end
       else
         begin
           if not GotoRowNumber(aIndex-1) then exit;
           if aPosNo=-1 then
-            aPosno := DataSet.FieldByName(SortField).AsInteger+aOffset;
+            aPosno := DataSet.FieldByName(NumberField).AsInteger+aOffset;
         end;
       aNumCol:=-1;
       for i := 0 to dgFake.Columns.Count-1 do
-        if dgFake.Columns[i].FieldName = SortField then
+        if dgFake.Columns[i].FieldName = NumberField then
           begin
             aNumCol := i+1;
             break;
@@ -3332,7 +3344,7 @@ begin
             if not GotoRowNumber(i) then exit;
             if not DataSet.CanEdit then
               DataSet.DataSet.Edit;
-            DataSet.FieldByName(SortField).AsInteger := aPosno;
+            DataSet.FieldByName(NumberField).AsInteger := aPosno;
             if aNumCol>-1 then
               gList.Cells[aNumCol,i]:=IntToStr(aPosNo);
             if DataSet.CanEdit then

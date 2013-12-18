@@ -795,6 +795,7 @@ begin
   FGridView.DefaultRows:='GLOBALWIDTH:670;POSNO:32;TEXT:301;QUANTITY:40;QUANTITYU:62;SELLPRICE:68;VAT:49;GROSSPRICE:83;';
   FGridView.IdentField:='TEXT';
   FGridView.TextField:='TEXT';
+  FGridView.NumberField:='POSNO';
   FGridView.SortField:='POSNO';
   FGridView.ShortTextField:='SHORTTEXT';
   FGridView.TreeField:='PARENT';

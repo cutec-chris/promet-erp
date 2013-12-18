@@ -345,6 +345,7 @@ begin
   TfTaskFrame(Sender).bFuture1.Down:=True;
   TfTaskFrame(Sender).UserID := Data.Users.Id.AsVariant;
   TfTaskFrame(Sender).IgnoreUser := True;
+  TfTaskFrame(Sender).GridView.NumberField:='GPRIORITY';
   TfTaskFrame(Sender).GridView.SortField:='GPRIORITY';
   TfTaskFrame(Sender).DataSet := TProject(FDataSet).Tasks;
   TfTaskFrame(Sender).OnStartTime:=FOnStartTime;

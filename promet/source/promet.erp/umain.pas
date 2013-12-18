@@ -562,6 +562,7 @@ begin
     begin
       with Controls[0] as TfTaskFrame do
         begin
+          GridView.NumberField:='LPRIORITY';
           GridView.SortField:='LPRIORITY';
           aDataset := TTaskList.Create(nil,Data);
           BaseFilter:=Data.QuoteField('ACTIVE')+'='+Data.QuoteValue('Y');

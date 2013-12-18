@@ -48,6 +48,7 @@ var
 procedure TGridviewtest.Create;
 begin
   GV := TfGridView.Create(nil);
+  GV.NumberField:='GPRIORITY';
   GV.SortField:='GPRIORITY';
   GV.DefaultRows:='GLOBALWIDTH:800;GPRIORITY:30;COMPLETED:30;SUMMARY:200;PROJECT:200;STARTDATE:60;DUEDATE:60;USER:100;OWNER:100';
   GV.BaseName := 'TESTTASK';
