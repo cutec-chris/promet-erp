@@ -17,7 +17,7 @@ function DeleteDoneTasks(){
   var aTask = tasks[i];
   while (aTask) {
     var bTask = tasks[i+1];
-    if (aTask.COMPLEETD=='Y'){
+    if (aTask.COMPLETED=='Y'){
       tasks.splice(i,1);
     } else {
       i++;
@@ -87,7 +87,7 @@ document.querySelector('#submitForm').onsubmit=function(){
   return false;
 }
 if (IsConnectionOK){
-  GetList("tasks","\"COMPLETED\"<>\'Y\'",function (aData)
+  GetList("tasks","\"HASCHILDS\"<>\'Y\'",function (aData)
     {
     var RemoteTasks = aData;
     for (var r=0;r<=RemoteTasks.length-1;r++){
