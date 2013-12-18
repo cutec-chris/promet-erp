@@ -24,7 +24,7 @@ unit wikitohtml;
 interface
 
 uses
-  Classes, SysUtils, Utils, FileUtil,RegExpr{,htmltowiki};
+  Classes, SysUtils, Utils, FileUtil,RegExpr,htmltowiki;
 
 function WikiText2HTML(input: string;LinkOffset : string = '';RemoveLinkOffset : string = '';IproChanges : Boolean = False): string;
 function StripWikiText(input : string) : string;
@@ -534,9 +534,9 @@ end;
 
 function StripWikiText(input: string): string;
 begin
-  //Result := StripHTML(WikiText2HTML(input));
+  Result := StripHTML(WikiText2HTML(input));
 end;
 
 
 end.
-
+
