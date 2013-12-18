@@ -46,7 +46,7 @@ object appbase: Tappbase
   DefActionWhenUnknown = False
   CreateSession = True
   Height = 328
-  HorizontalOffset = 328
-  VerticalOffset = 364
+  HorizontalOffset = 346
+  VerticalOffset = 342
   Width = 393
 end

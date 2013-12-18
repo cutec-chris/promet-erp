@@ -101,6 +101,8 @@ type
   TBaseDbList = class(TBaseDBDataSet)
   private
     function GetBookNumber: TField;
+    function GetFilter: string;
+    function GetLimit: Integer;
     function GetMatchcode: TField;
     function GetBarcode: TField;
     function GetCommission: TField;
@@ -108,6 +110,8 @@ type
     function GetStatus: TField;
     function GetText: TField;
     function GetNumber : TField;
+    procedure SetFilter(AValue: string);
+    procedure SetLimit(AValue: Integer);
   protected
     FStatusCache: TStringList;
   public
@@ -137,6 +141,8 @@ type
     property Status : TField read GetStatus;
     property Typ : string read GetTyp;
     property Matchcode : TField read GetMatchcode;
+    property ActualFilter : string read GetFilter write SetFilter;
+    property ActualLimit : Integer read GetLimit write SetLimit;
     procedure SelectFromLink(aLink : string);virtual;
   end;
   TBaseDBDatasetClass = class of TBaseDBDataset;
@@ -648,6 +654,23 @@ begin
   if aField <> '' then
     Result := DataSet.FieldByName(aField);
 end;
+
+function TBaseDbList.GetFilter: string;
+begin
+  result := '';
+  if not Assigned(DataSet) then exit;
+  with DataSet as IBaseDbFilter do
+    Result := Filter;
+end;
+
+function TBaseDbList.GetLimit: Integer;
+begin
+  result := -1;
+  if not Assigned(DataSet) then exit;
+  with DataSet as IBaseDbFilter do
+    Result := Limit;
+end;
+
 function TBaseDbList.GetMatchcode: TField;
 var
   aField: String;
@@ -708,6 +731,19 @@ begin
   if aField <> '' then
     Result := DataSet.FieldByName(aField);
 end;
+
+procedure TBaseDbList.SetFilter(AValue: string);
+begin
+  with DataSet as IBaseDbFilter do
+    Filter := AValue;
+end;
+
+procedure TBaseDbList.SetLimit(AValue: Integer);
+begin
+  with DataSet as IBaseDbFilter do
+    Limit := aValue;
+end;
+
 constructor TBaseDbList.Create(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
@@ -2407,4 +2443,4 @@ begin
 end;
 initialization
 end.
-
+

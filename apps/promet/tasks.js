@@ -31,10 +31,11 @@ function DeleteDoneTasks(){
 }
 function TaskDone(event){
   e = event.target;
+  aTask = tasks[e.parentElement.id];
   if (e.checked)
-    tasks[e.parentElement.id].COMPLETED='Y';
+    aTask.COMPLETED='Y';
   else
-    tasks[e.parentElement.id].COMPLETED='N';
+    aTask.COMPLETED='N';
   localStorage['tasks'] = JSON.stringify(tasks);
 }
 // This adds a task
@@ -46,8 +47,8 @@ function addTask(task){
   var ndiv = document.createElement("div");
   nli.appendChild(ndiv);
   ndiv.setAttribute('id',task.LPRIORITY);
-  ndiv.innerHTML = '<input type="checkbox" style="width:auto;display:inline;"><label style="margin-left:5px;">'+task.subject+'</label>';
-  ndiv.firstElementChild.checked = (task.COMPLETED=="Y");
+  ndiv.innerHTML = '<input type="checkbox" style="width:auto;display:inline;"><label style="margin-left:5px;">'+task.SUMMARY+'</label>';
+  ndiv.firstElementChild.checked = (task.COMPLETED=='Y');
   // To memory
   tasks[tasks.length] = task;
   ndiv.firstElementChild.addEventListener('CheckboxStateChange',TaskDone);
@@ -71,7 +72,7 @@ LoadTasks();
 document.querySelector('#submitForm').onsubmit=function(){
   // Add the new task
   var aTaskName = document.querySelector('#task-name');
-  var newTask = { 'SUBJECT' : aTaskName.value,
+  var newTask = { 'SUMMARY' : aTaskName.value,
                   'SQL_ID' : undefined,
                   'COMPLETED' : 'N',
                   'LPRIORITY' : 0
@@ -86,16 +87,25 @@ document.querySelector('#submitForm').onsubmit=function(){
   return false;
 }
 if (IsConnectionOK){
-  GetList("tasks",function (aData) {
-    var RemoteTasks = JSON.parse(aData);
-
+  GetList("tasks","\"COMPLETED\"<>\'Y\'",function (aData)
+    {
+    var RemoteTasks = aData;
     for (var r=0;r<=RemoteTasks.length-1;r++){
       var found = false;
       for (var i=0;i<=tasks.length-1;i++) {
         if (tasks[i].SQL_ID==RemoteTasks[r].SQL_ID)
-          found = true;
+          {
+            if (tasks[i].TIMESTAMPD>RemoteTasks[r].TIMESTAMPD) {
+              //sync out
+            } else {
+              //sync in
+              tasks[i].SUMMARY = RemoteTasks[r].SUMMARY;
+            }
+
+            found = true;
+          }
       }
-      if (!found) then
+      if (!found)
         addTask(RemoteTasks[r]);
     }
   }

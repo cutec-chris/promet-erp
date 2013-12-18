@@ -6,7 +6,7 @@ interface
 
 uses
   SysUtils, Classes, LR_Class, httpdefs, fpHTTP, fpWeb, fpdatasetform, db,fpjson,
-  LCLproc,uBaseDBInterface;
+  LCLproc,uBaseDBInterface,FileUtil,LConvEncoding;
 
 type
   Tappbase = class(TFPWebModule)
@@ -38,7 +38,6 @@ implementation
 uses uStatistic,uData,uBaseWebSession,uPerson,uOrder,uMasterdata,utask,uProjects,
   uBaseDbClasses,uBaseDbDataSet;
 {$R *.lfm}
-
 procedure Tappbase.checkloginRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 begin
@@ -74,7 +73,6 @@ var
   aDS: TDataSet;
   Json: TJSONArray;
   aStat: String;
-  i: Integer;
   aQuerry: String;
   aState: Integer;
   bQuerry: String;
@@ -89,7 +87,6 @@ begin
   if not TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True) then exit;
   aStatistic := TStatistic.Create(nil,Data);
   aStatistic.Open;
-  i :=  ARequest.QueryFields.Count;
   aStat := ARequest.QueryFields.Values['name'];
   if aStatistic.DataSet.Locate('NAME',aStat,[loCaseInsensitive]) then
     begin
@@ -172,27 +169,45 @@ var
   aList: String;
   aRight: String;
   Json: TJSONArray;
-  aDs: TBaseDbList;
+  aDs: TBaseDbList = nil;
 begin
   Handled:=True;
-  if not TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True) then exit;
-  aList := ARequest.QueryFields.Values['name'];
+  if not TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True,False) then exit;
+  aList := lowercase(ARequest.QueryFields.Values['name']);
   aRight := UpperCase(aList);
-  case lowercase(aList) of
+  case aList of
   'contacts','customers':
      begin
        aRight := 'CUSTOMERS';
        aList := 'CUSTOMERS';
        aDs := TPersonList.Create(nil,Data);
      end;
-  'masterdata':aDs := TMasterdataList.Create(nil,Data);
-  'tasks':aDs := TTaskList.Create(nil,Data);
-  'projects':aDs := TProjectList.Create(nil,Data);
-  'orders':aDs := TOrderList.Create(nil,Data);
+  'masterdata':
+     begin
+       aDs := TMasterdataList.Create(nil,Data);
+     end;
+  'tasks':
+     begin
+       aDs := TTaskList.Create(nil,Data);
+       TTaskList(aDs).SelectActiveByUser(Data.Users.FieldByName('ACCOUNTNO').AsString);
+     end;
+  'projects':
+     begin
+       aDs := TProjectList.Create(nil,Data);
+     end;
+  'orders':
+     begin
+       aDs := TOrderList.Create(nil,Data);
+     end;
   end;
-  if data.Users.Rights.Right(aRight)>RIGHT_READ then
+  if (data.Users.Rights.Right(aRight)>RIGHT_READ) and (Assigned(aDS)) then
     begin
-      aDs.Open;
+      if (aDs.ActualFilter<>'') and (ARequest.QueryFields.Values['filter']<>'') then
+        aDs.Filter('('+aDs.ActualFilter+') AND ('+ARequest.QueryFields.Values['filter']+')')
+      else if (ARequest.QueryFields.Values['filter']<>'') then
+        aDs.Filter(ARequest.QueryFields.Values['filter'])
+      else
+        aDs.Open;
       Json := TJSONArray.Create;
       DataSetToJSON(aDs.DataSet,Json,True);
       Response.Contents.Text := 'DoHandleList('+Json.AsJSON+');';
@@ -232,7 +247,7 @@ begin
     VField := AFields[I];
     VFieldName := VField.FieldName;
     if VField.DataType = ftString then
-      AJSON.Add(VFieldName, VField.AsString);
+      AJSON.Add(VFieldName, ConvertEncoding(VField.AsString,guessEncoding(VField.AsString),EncodingUTF8));
     if VField.DataType = ftBoolean then
       AJSON.Add(VFieldName, VField.AsBoolean);
     if VField.DataType = ftDateTime then

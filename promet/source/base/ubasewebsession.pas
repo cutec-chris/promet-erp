@@ -405,8 +405,12 @@ begin
 end;
 
 function TBaseWebSession.CheckLogin(ARequest : TRequest;AResponse : TResponse;JSRequest : Boolean = false;aRedirect: Boolean = True): Boolean;
+var
+  aLogin: String;
+  aResult: Boolean;
 begin
-  Result := Variables['LOGIN'] <> '';
+  aLogin := Variables['LOGIN'];
+  aResult := aLogin <> '';
   if (not Result) and aRedirect then
     begin
       if JSRequest then
@@ -419,6 +423,12 @@ begin
       else
         AResponse.SendRedirect('login.html');
     end;
+  Data.Users.Open;
+  if not (aResult
+  and ((Data.Users.DataSet.Locate('NAME',aLogin,[loCaseInsensitive]))
+  or (Data.Users.DataSet.Locate('LOGINNAME',aLogin,[loCaseInsensitive])))) then
+    aResult:=False;
+  Result := aResult;
 end;
 
 end.
