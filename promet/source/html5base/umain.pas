@@ -28,6 +28,8 @@ type
     procedure DataSetToJSON(ADataSet: TDataSet; AJSON: TJSONArray; const ADateAsString: Boolean);
     procedure JSONToFields(AJSON: TJSONObject; AFields: TFields; const ADateAsString: Boolean);
     procedure ObjectToJSON(AObject : TBaseDBDataSet; AJSON: TJSONObject;const ADateAsString: Boolean);
+    function GetListObject(aName : string) : TBaseDBList;
+    function GetObject(aName : string) : TBaseDBDataset;
   public
     { public declarations }
   end;
@@ -175,32 +177,8 @@ begin
   Handled:=True;
   if not TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True,False) then exit;
   aList := lowercase(ARequest.QueryFields.Values['name']);
+  aDs := GetListObject(aList);
   aRight := UpperCase(aList);
-  case aList of
-  'contacts','customers':
-     begin
-       aRight := 'CUSTOMERS';
-       aList := 'CUSTOMERS';
-       aDs := TPersonList.Create(nil,Data);
-     end;
-  'masterdata':
-     begin
-       aDs := TMasterdataList.Create(nil,Data);
-     end;
-  'tasks':
-     begin
-       aDs := TTaskList.Create(nil,Data);
-       TTaskList(aDs).SelectActiveByUser(Data.Users.FieldByName('ACCOUNTNO').AsString);
-     end;
-  'projects':
-     begin
-       aDs := TProjectList.Create(nil,Data);
-     end;
-  'orders':
-     begin
-       aDs := TOrderList.Create(nil,Data);
-     end;
-  end;
   if (data.Users.Rights.Right(aRight)>RIGHT_READ) and (Assigned(aDS)) then
     begin
       if (aDs.ActualFilter<>'') and (ARequest.QueryFields.Values['filter']<>'') then
@@ -213,13 +191,14 @@ begin
       DataSetToJSON(aDs.DataSet,Json,True);
       Response.Contents.Text := 'DoHandleList('+Json.AsJSON+');';
       Json.Free;
-      aDS.Free;
       AResponse.Code:=200;
       AResponse.ContentType:='text/javascript;charset=utf-8';
       AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
     end
   else
     AResponse.Code:=403;
+  if Assigned(aDs) then
+    aDS.Free;
   AResponse.SendContent;
 end;
 procedure Tappbase.loginRequest(Sender: TObject; ARequest: TRequest;
@@ -250,16 +229,16 @@ begin
     if VField.DataType = ftString then
       AJSON.Add(lowercase(VFieldName), ConvertEncoding(VField.AsString,guessEncoding(VField.AsString),EncodingUTF8));
     if VField.DataType = ftBoolean then
-      AJSON.Add(VFieldName, VField.AsBoolean);
+      AJSON.Add(lowercase(VFieldName), VField.AsBoolean);
     if VField.DataType = ftDateTime then
       if ADateAsString then
-        AJSON.Add(VFieldName, VField.AsString)
+        AJSON.Add(lowercase(VFieldName), VField.AsString)
       else
-        AJSON.Add(VFieldName, VField.AsFloat);
+        AJSON.Add(lowercase(VFieldName), VField.AsFloat);
     if VField.DataType = ftFloat then
-      AJSON.Add(VFieldName, VField.AsFloat);
+      AJSON.Add(lowercase(VFieldName), VField.AsFloat);
     if VField.DataType = ftInteger then
-      AJSON.Add(VFieldName, VField.AsInteger);
+      AJSON.Add(lowercase(VFieldName), VField.AsInteger);
   end;
 end;
 procedure Tappbase.DataSetToJSON(ADataSet: TDataSet; AJSON: TJSONArray;
@@ -314,9 +293,66 @@ end;
 procedure Tappbase.ObjectToJSON(AObject: TBaseDBDataSet; AJSON: TJSONObject;
   const ADateAsString: Boolean);
 begin
-  AObject.
 end;
-
+function Tappbase.GetListObject(aName: string): TBaseDBList;
+var
+  aList: String;
+begin
+  aList := lowercase(aName);
+  case aList of
+  'contacts','customers':
+     begin
+       aList := 'CUSTOMERS';
+       Result := TPersonList.Create(nil,Data);
+     end;
+  'masterdata':
+     begin
+       Result := TMasterdataList.Create(nil,Data);
+     end;
+  'tasks':
+     begin
+       Result := TTaskList.Create(nil,Data);
+       TTaskList(result).SelectActiveByUser(Data.Users.FieldByName('ACCOUNTNO').AsString);
+     end;
+  'projects':
+     begin
+       result := TProjectList.Create(nil,Data);
+     end;
+  'orders':
+     begin
+       result := TOrderList.Create(nil,Data);
+     end;
+  end;
+end;
+function Tappbase.GetObject(aName: string): TBaseDBDataset;
+var
+  aList: String;
+begin
+  aList := lowercase(aName);
+  case aList of
+  'contacts','customers':
+     begin
+       aList := 'CUSTOMERS';
+       Result := TPerson.Create(nil,Data);
+     end;
+  'masterdata':
+     begin
+       Result := TMasterdata.Create(nil,Data);
+     end;
+  'tasks':
+     begin
+       Result := TTask.Create(nil,Data);
+     end;
+  'projects':
+     begin
+       result := TProject.Create(nil,Data);
+     end;
+  'orders':
+     begin
+       result := TOrder.Create(nil,Data);
+     end;
+  end;
+end;
 initialization
   RegisterHTTPModule('main', Tappbase);
 end.

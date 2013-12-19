@@ -53,7 +53,7 @@ function addTask(task){
   ndiv.firstElementChild.checked = (task.completed=='Y');
   // To memory
   tasks[tasks.length] = task;
-  ndiv.firstElementChild.addEventListener('CheckboxStateChange',TaskDone);
+  ndiv.firstElementChild.addEventListener('change',TaskDone);
 }
 function LoadTasks() {
 // Set it all up
@@ -94,23 +94,25 @@ if (IsConnectionOK){
     {
     console.log("Sync started...");
     var RemoteTasks = aData;
-    for (var r=0;r<=RemoteTasks.length-1;r++){
-      var found = false;
-      for (var i=0;i<=tasks.length-1;i++) {
-        if (tasks[i].sql_id==RemoteTasks[r].sql_id)
-          {
-            if (tasks[i].timestampd>RemoteTasks[r].timestampd) {
-              //sync out
-            } else {
-              //sync in
-              tasks[i].summary = RemoteTasks[r].summary;
+    if (RemoteTasks)
+      for (var r=0;r<=RemoteTasks.length-1;r++){
+        var found = false;
+        for (var i=0;i<=tasks.length-1;i++) {
+          if (tasks[i].sql_id==RemoteTasks[r].sql_id)
+            {
+              if (tasks[i].timestampd>RemoteTasks[r].timestampd) {
+                //sync out
+              } else {
+                //sync in
+                tasks[i].summary = RemoteTasks[r].summary;
+              }
+              found = true;
+              break;
             }
-            found = true;
-          }
+        }
+        if (!found)
+          addTask(RemoteTasks[r]);
       }
-      if (!found)
-        addTask(RemoteTasks[r]);
-    }
   }
   );
 }
