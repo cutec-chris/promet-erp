@@ -252,8 +252,8 @@ begin
   ConvertLinks;
   ConvertImages;
   ConvertBr;
-  ConvertTag('b','''');
-  ConvertTag('strong','''');
+  ConvertTag('b','''''''');
+  ConvertTag('strong','''''''');
   ConvertTag('i','''''');
   ConvertTag('em','''''');
   Result := StripHTML(aOut);

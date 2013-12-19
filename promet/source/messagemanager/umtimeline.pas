@@ -295,7 +295,7 @@ begin
                   Canvas.Rectangle(bRect);
                 end;
               if TMGridObject(aObj).Text='' then
-                TMGridObject(aObj).Text := StripWikiText(TExtStringGrid(Sender).Cells[Column.Index+1,DataCol]);
+                TMGridObject(aObj).Text := copy(StripWikiText(TExtStringGrid(Sender).Cells[Column.Index+1,DataCol]),0,1000);
               atext := TMGridObject(aObj).Text;
               TStringGrid(Sender).Canvas.Brush.Color:=aColor;
               TStringGrid(Sender).Canvas.FillRect(aRect);

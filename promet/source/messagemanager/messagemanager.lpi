@@ -27,7 +27,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=&quot;Stora&quot;"/>
+        <CommandLineParams Value="--mandant=&quot;TestPG&quot; --user=Administrator"/>
       </local>
     </RunParams>
     <RequiredPackages Count="7">
