@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Project>
+    <component class="TProject">
+      <properties>
+        <string name="Name" value="Promet-App"/>
+        <string name="Filenames" value="C:\Prometheus\TCS\paradoxtest1\apps\promet\index.html
+C:\Prometheus\TCS\paradoxtest1\apps\promet\tasks.html
+C:\Prometheus\TCS\paradoxtest1\apps\promet\timeregistering.html
+C:\Prometheus\TCS\paradoxtest1\apps\promet\history.html
+C:\Prometheus\TCS\paradoxtest1\apps\promet\tasks.js
+"/>
+        <string name="OpenNames" value="C:\Prometheus\TCS\paradoxtest1\apps\promet\index.html
+C:\Prometheus\TCS\paradoxtest1\apps\promet\tasks.html
+C:\Prometheus\TCS\paradoxtest1\apps\promet\tasks.js
+"/>
+      </properties>
+    </component>
+  </Project>
+</CONFIG>

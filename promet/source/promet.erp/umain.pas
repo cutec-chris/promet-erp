@@ -951,7 +951,7 @@ begin
         //debugln('Wiki: '+IntToStr(GetTickCount64-aTime));
         aItems := TStringList.Create;
         aItems.Delimiter:=';';
-        aItems.DelimitedText := DBConfig.ReadString('TREEENTRYS',fMainTreeFrame.GetBigIconTexts);
+        aItems.DelimitedText := DBConfig.ReadString('TREEENTRYS:'+ApplicationName,fMainTreeFrame.GetBigIconTexts);
         //Actions
         Data.RegisterLinkHandler('ACTION',@OpenAction);
         //Options

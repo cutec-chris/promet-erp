@@ -6,7 +6,7 @@ interface
 
 uses
   SysUtils, Classes, LR_Class, httpdefs, fpHTTP, fpWeb, fpdatasetform, db,fpjson,
-  LCLproc,uBaseDBInterface,FileUtil,LConvEncoding;
+  LCLproc,uBaseDBInterface,FileUtil,LConvEncoding,uBaseDbClasses;
 
 type
   Tappbase = class(TFPWebModule)
@@ -27,6 +27,7 @@ type
     procedure FieldsToJSON(AFields: TFields; AJSON: TJSONObject; const ADateAsString: Boolean);
     procedure DataSetToJSON(ADataSet: TDataSet; AJSON: TJSONArray; const ADateAsString: Boolean);
     procedure JSONToFields(AJSON: TJSONObject; AFields: TFields; const ADateAsString: Boolean);
+    procedure ObjectToJSON(AObject : TBaseDBDataSet; AJSON: TJSONObject;const ADateAsString: Boolean);
   public
     { public declarations }
   end;
@@ -36,7 +37,7 @@ var
 
 implementation
 uses uStatistic,uData,uBaseWebSession,uPerson,uOrder,uMasterdata,utask,uProjects,
-  uBaseDbClasses,uBaseDbDataSet;
+  uBaseDbDataSet;
 {$R *.lfm}
 procedure Tappbase.checkloginRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
@@ -247,7 +248,7 @@ begin
     VField := AFields[I];
     VFieldName := VField.FieldName;
     if VField.DataType = ftString then
-      AJSON.Add(VFieldName, ConvertEncoding(VField.AsString,guessEncoding(VField.AsString),EncodingUTF8));
+      AJSON.Add(lowercase(VFieldName), ConvertEncoding(VField.AsString,guessEncoding(VField.AsString),EncodingUTF8));
     if VField.DataType = ftBoolean then
       AJSON.Add(VFieldName, VField.AsBoolean);
     if VField.DataType = ftDateTime then
@@ -286,7 +287,7 @@ begin
   for I := 0 to Pred(AJSON.Count) do
   begin
     VName := AJSON.Names[I];
-    VField := AFields.FindField(VName);
+    VField := AFields.FindField(uppercase(VName));
     if not Assigned(VField) then
       Continue;
     VData := AJSON.Items[I];
@@ -309,6 +310,11 @@ begin
       else
         VField.AsDateTime := VData.AsFloat;
   end;
+end;
+procedure Tappbase.ObjectToJSON(AObject: TBaseDBDataSet; AJSON: TJSONObject;
+  const ADateAsString: Boolean);
+begin
+  AObject.
 end;
 
 initialization

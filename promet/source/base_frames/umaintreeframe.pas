@@ -180,7 +180,8 @@ implementation
 uses uData,uPrometFrames,LCLType,Dialogs,uIntfStrConsts, FPCanvas,
   uBaseVisualControls, Graphics, Utils, LCLProc, uPerson,uMasterdata,uProjects,
   uWiki,uSearch,Themes,uFilterFrame,uNRights,uStatistic,uClipp;
-
+resourcestring
+  strRestartNessesary                         = 'Starten Sie die Anwendung neu !';
 constructor TTreeEntry.Create;
 begin
   Action := nil;
@@ -401,7 +402,8 @@ end;
 procedure TfMainTree.acRestoreStandardExecute(Sender: TObject);
 begin
   with Application as IBaseDBInterface do
-    DBConfig.WriteString('TREEENTRYS',GetBigIconTexts);
+    DBConfig.WriteString('TREEENTRYS:'+ApplicationName,GetBigIconTexts);
+  Showmessage(strRestartNessesary);
 end;
 
 procedure TfMainTree.acRightsExecute(Sender: TObject);
@@ -1806,9 +1808,9 @@ begin
     end;
   with Application as IBaseDBInterface do
     begin
-      if trim(aOpt)<>'' then
-        DBConfig.WriteString('TREEENTRYS',aOpt);
-      DBConfig.WriteString('TREEEXPAND',aExp);
+      if (trim(aOpt)<>'') then
+        DBConfig.WriteString('TREEENTRYS:'+ApplicationName,aOpt);
+      DBConfig.WriteString('TREEEXPAND:'+ApplicationName,aExp);
     end;
 end;
 
@@ -1819,7 +1821,7 @@ var
 begin
   aNode := tvMain.Items[0];
   with Application as IBaseDBInterface do
-    aExp := DBConfig.ReadString('TREEEXPAND','');
+    aExp := DBConfig.ReadString('TREEEXPAND:'+ApplicationName,'');
   while Assigned(aNode) do
     begin
       if pos(GetNodeText(aNode)+';',aExp)>0 then
