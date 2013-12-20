@@ -1,3 +1,23 @@
+{*******************************************************************************
+  Copyright (C) Christian Ulrich info@cu-tec.de
+
+  This source is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 2 of the License, or commercial alternative
+  contact us for more information
+
+  This code is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+  details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+  MA 02111-1307, USA.
+
+info@cu-tec.de
+*******************************************************************************}
 unit umain;
 
 {$mode objfpc}{$H+}
@@ -21,6 +41,8 @@ type
     procedure loginRequest(Sender: TObject; ARequest: TRequest;
       AResponse: TResponse; var Handled: Boolean);
     procedure logoutRequest(Sender: TObject; ARequest: TRequest;
+      AResponse: TResponse; var Handled: Boolean);
+    procedure objectRequest(Sender: TObject; ARequest: TRequest;
       AResponse: TResponse; var Handled: Boolean);
   private
     { private declarations }
@@ -189,7 +211,7 @@ begin
         aDs.Open;
       Json := TJSONArray.Create;
       DataSetToJSON(aDs.DataSet,Json,True);
-      Response.Contents.Text := 'DoHandleList('+Json.AsJSON+');';
+      Response.Contents.Text := 'DoHandleList('+ARequest.QueryFields.Values['sequence']+','+Json.AsJSON+');';
       Json.Free;
       AResponse.Code:=200;
       AResponse.ContentType:='text/javascript;charset=utf-8';
@@ -213,6 +235,36 @@ procedure Tappbase.logoutRequest(Sender: TObject; ARequest: TRequest;
 begin
   Handled:=True;
   TBaseWebSession(Session).DoLogout(ARequest,AResponse);
+  AResponse.SendContent;
+end;
+procedure Tappbase.objectRequest(Sender: TObject; ARequest: TRequest;
+  AResponse: TResponse; var Handled: Boolean);
+var
+  Json: TJSONObject;
+  aList: String;
+  aDs: TBaseDBDataset;
+  aRight: String;
+begin
+  Handled:=True;
+  if not TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True,False) then exit;
+  aList := lowercase(ARequest.QueryFields.Values['name']);
+  aDs := GetObject(aList);
+  aRight := UpperCase(aList);
+  if (data.Users.Rights.Right(aRight)>RIGHT_READ) and (Assigned(aDS)) then
+    begin
+      aDs.Open;
+      Json := TJSONObject.Create;
+      ObjectToJSON(aDs,Json,True);
+      Response.Contents.Text := 'DoHandleObject('+ARequest.QueryFields.Values['sequence']+','+Json.AsJSON+');';
+      Json.Free;
+      AResponse.Code:=200;
+      AResponse.ContentType:='text/javascript;charset=utf-8';
+      AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
+    end
+  else
+    AResponse.Code:=403;
+  if Assigned(aDs) then
+    aDS.Free;
   AResponse.SendContent;
 end;
 procedure Tappbase.FieldsToJSON(AFields: TFields; AJSON: TJSONObject;
@@ -292,7 +344,21 @@ begin
 end;
 procedure Tappbase.ObjectToJSON(AObject: TBaseDBDataSet; AJSON: TJSONObject;
   const ADateAsString: Boolean);
+var
+  aArray: TJSONArray;
+  aNewObj: TJSONObject;
+  i: Integer;
 begin
+  aArray := TJSONArray.Create;
+  DataSetToJSON(AObject.DataSet,aArray,ADateAsString);
+  AJSON.Add('Fields',aArray);
+  with AObject as IBaseSubDataSets do
+    for i := 0 to GetCount-1 do
+      begin
+        aNewObj := TJSONObject.Create;
+        ObjectToJSON(SubDataSet[i],aNewObj,ADateAsString);
+        AJSON.Add(SubDataSet[i].Caption,aNewObj);
+      end;
 end;
 function Tappbase.GetListObject(aName: string): TBaseDBList;
 var
