@@ -33,6 +33,7 @@ type
     Caption : string;
     Bold : Boolean;
     Text : string;
+    HasAttachment : Boolean;
     constructor Create;
   end;
 
@@ -119,7 +120,7 @@ var
 implementation
 uses uBaseApplication, uData, uBaseDbInterface, uOrder,uMessages,uBaseERPDBClasses,
   uMain,LCLType,utask,uProcessManager,uprometipc,ProcessUtils,ufollow,udetailview,
-  LCLIntf,wikitohtml;
+  LCLIntf,wikitohtml,uDocuments;
 resourcestring
   strTo                                  = 'an ';
 
@@ -301,6 +302,8 @@ begin
               TStringGrid(Sender).Canvas.FillRect(aRect);
               TStringGrid(Sender).Canvas.Brush.Style:=bsClear;
               bRect := aRect;
+              if TMGridObject(aObj).HasAttachment then
+                fVisualControls.Images.Draw(TStringGrid(Sender).Canvas,aRRect.Left-16,aRect.Top,70);
               if TMGridObject(aObj).Caption <> '' then
                 brect.Top := bRect.Top+TStringGrid(Sender).Canvas.TextExtent('A').cy;
               if TMGridObject(aObj).Bold then
@@ -506,6 +509,7 @@ var
   i: Integer;
   aObj: TObject;
   arec: LargeInt;
+  aDocument: TDocument;
 begin
   if aCol.FieldName='LINK' then
     NewText := Data.GetLinkDesc(NewText)
@@ -538,6 +542,12 @@ begin
                       fTimeline.gList.RowHeights[aRow] := fTimeline.gList.RowHeights[aRow]+12;
                     end;
                   TMGridObject(aObj).Bold:=(fTimeline.dgFake.DataSource.DataSet.FieldByName('READ').AsString<>'Y');
+                  aDocument := TDocument.Create(nil,data);
+                  aDocument.Select(fTimeline.dgFake.DataSource.DataSet.FieldByName('SQL_ID').AsVariant,'H',0);
+                  aDocument.ActualLimit:=1;
+                  aDocument.Open;
+                  TMGridObject(aObj).HasAttachment := aDocument.Count>0;
+                  aDocument.Free;
                 end;
               fTimeline.DataSet.GotoBookmark(aRec);
             end;
