@@ -216,6 +216,7 @@ type
     function CheckSHA1Passwort(aPasswort : string) : Boolean;
     procedure LoginWasOK;
     procedure SelectByAccountno(aAccountno : string);virtual;
+    function GetLeaderAccountno : string;
     property History : TBaseHistory read FHistory;
     property WorkTime : Extended read GetWorktime;
   end;
@@ -1979,6 +1980,20 @@ begin
         Filter := Data.QuoteField('ACCOUNTNO')+'='+Data.QuoteValue(aAccountno);
       end;
 end;
+
+function TUser.GetLeaderAccountno: string;
+var
+  aUsers: TUser;
+begin
+  Result := '';
+  aUsers := Tuser.Create(nil,DataModule);
+  aUsers.SelectByParent(FieldbyName('PARENT').AsVariant);
+  aUsers.Open;
+  if aUsers.DataSet.Locate('POSITION','LEADER',[loCaseInsensitive]) then
+    Result := aUsers.FieldByName('ACCOUNTNO').AsString;
+  aUsers.Free;
+end;
+
 function TBaseDBDataset.GetID: TField;
 begin
   Result := nil;
