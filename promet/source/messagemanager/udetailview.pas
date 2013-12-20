@@ -25,7 +25,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, IpHtml, Forms, Controls, Graphics, Dialogs,
-  uBaseDbClasses,Utils,wikitohtml;
+  uBaseDbClasses,Utils,wikitohtml,uDocuments,variants;
 
 type
 
@@ -33,21 +33,55 @@ type
 
   TfDetailView = class(TForm)
     IpHtmlPanel1: TIpHtmlPanel;
+    procedure TSimpleIpHtmlGetImageX(Sender: TIpHtmlNode; const URL: string;
+      var Picture: TPicture);
   private
     { private declarations }
+    FDataSet : TBaseDBDataset;
   public
     { public declarations }
     function Execute(aDataSet: TBaseHistory): Boolean;
+  end;
+  TSimpleIpHtml = class(TIpHtml)
+  public
+    property OnGetImageX;
   end;
 
 var
   fDetailView: TfDetailView;
 
 implementation
-
+uses uData;
 {$R *.lfm}
 
 { TfDetailView }
+
+procedure TfDetailView.TSimpleIpHtmlGetImageX(Sender: TIpHtmlNode;
+  const URL: string; var Picture: TPicture);
+var
+  aDocument: TDocument;
+  ms: TMemoryStream;
+begin
+  aDocument := TDocument.Create(nil,data);
+  aDocument.Select(FDataSet.Id.AsVariant,'H',0);
+  aDocument.Open;
+  if aDocument.DataSet.Locate('NAME',VarArrayOf([copy(ExtractFileName(URL),0,rpos('.',ExtractFileName(URL))-1)]),[]) then
+    begin
+      if aDocument.DataSet.RecordCount > 0 then
+        begin
+          ms := TMemoryStream.Create;
+          Data.BlobFieldToStream(aDocument.DataSet,'DOCUMENT',ms);
+          ms.Position := 0;
+          Picture := TPicture.Create;
+          try
+            Picture.LoadFromStreamWithFileExt(ms,ExtractFileExt(URL));
+          except
+          end;
+          ms.Free;
+        end;
+    end;
+  aDocument.Free;
+end;
 
 function TfDetailView.Execute(aDataSet: TBaseHistory) : Boolean;
 var
@@ -66,7 +100,9 @@ begin
       Application.CreateForm(TfDetailView,fDetailView);
       Self := fDetailView;
     end;
-  aHTML := TIpHtml.Create;
+  FDataSet := aDataSet;
+  aHTML := TSimpleIpHtml.Create;
+  TSimpleIpHtml(aHTML).OnGetImageX:=@TSimpleIpHtmlGetImageX;
   ss := TStringStream.Create(BBCodeToHTML(aDataSet.FieldByName('ACTION').AsString));
   aHTML.LoadFromStream(ss);
   ss.Free;

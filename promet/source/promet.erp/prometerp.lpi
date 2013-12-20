@@ -280,7 +280,6 @@
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="prometerp"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="15"/>
@@ -295,7 +294,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="920"/>
         <CursorPos X="82" Y="954"/>
@@ -493,7 +492,7 @@
       <Unit18>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="782"/>
         <CursorPos X="1" Y="802"/>
@@ -511,7 +510,7 @@
       <Unit20>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1929"/>
         <CursorPos X="35" Y="1947"/>
@@ -869,10 +868,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uWikiFrame"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="183"/>
-        <CursorPos X="13" Y="205"/>
+        <TopLine Value="108"/>
+        <CursorPos X="17" Y="124"/>
         <UsageCount Value="35"/>
+        <Loaded Value="True"/>
       </Unit52>
       <Unit53>
         <Filename Value="uarticletext.pas"/>
@@ -1037,7 +1039,7 @@
       </Unit68>
       <Unit69>
         <Filename Value="../base/revision.inc"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
@@ -1046,7 +1048,7 @@
       </Unit69>
       <Unit70>
         <Filename Value="../base/changes.txt"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="32" Y="2"/>
@@ -1136,7 +1138,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPositionFrame"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="766"/>
         <CursorPos X="19" Y="798"/>
@@ -1175,7 +1177,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMessageFrame"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="371"/>
         <CursorPos X="8" Y="391"/>
@@ -4140,11 +4142,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ugridview"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2803"/>
         <CursorPos X="1" Y="2837"/>
-        <FoldState Value=" T3iqB0{G1I"/>
         <UsageCount Value="14"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -4216,7 +4217,7 @@
       <Unit446>
         <Filename Value="../base_forms/uroweditor.pas"/>
         <UnitName Value="uRowEditor"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="38"/>
         <CursorPos X="11" Y="235"/>
@@ -4226,7 +4227,7 @@
       <Unit447>
         <Filename Value="../messagemanager/umtimeline.pas"/>
         <UnitName Value="umtimeline"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="128"/>
         <CursorPos X="16" Y="144"/>

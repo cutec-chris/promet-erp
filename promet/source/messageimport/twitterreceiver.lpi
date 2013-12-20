@@ -51,10 +51,11 @@
         <Filename Value="twitterreceiver.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="twitterreceiver"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="260"/>
-        <CursorPos X="54" Y="277"/>
+        <TopLine Value="65"/>
+        <CursorPos X="1" Y="99"/>
         <UsageCount Value="71"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -436,7 +437,7 @@
       <Unit51>
         <Filename Value="pop3receiver.lpr"/>
         <UnitName Value="pop3receiver"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="510"/>
         <CursorPos X="1" Y="528"/>
@@ -446,7 +447,7 @@
       <Unit52>
         <Filename Value="feedreceiver.lpr"/>
         <UnitName Value="feedreceiver"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="148"/>
         <CursorPos X="1" Y="146"/>
@@ -505,13 +506,10 @@
       <Unit59>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1111"/>
+        <TopLine Value="1045"/>
         <CursorPos X="39" Y="1139"/>
         <UsageCount Value="17"/>
-        <Loaded Value="True"/>
       </Unit59>
       <Unit60>
         <Filename Value="..\components\zeos\src\dbc\ZDbcUtils.pas"/>
@@ -525,7 +523,7 @@
       <Unit61>
         <Filename Value="..\adds\forumimport2.lpr"/>
         <UnitName Value="forumimport2"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="110"/>
         <CursorPos X="47" Y="127"/>
@@ -552,7 +550,7 @@
       <Unit64>
         <Filename Value="smtpsender.lpr"/>
         <UnitName Value="smtpsender"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="108"/>
         <CursorPos X="1" Y="125"/>
@@ -562,7 +560,7 @@
       <Unit65>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
         <UnitName Value="wikitohtml"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="19"/>
         <CursorPos X="1" Y="38"/>
@@ -572,7 +570,7 @@
       <Unit66>
         <Filename Value="..\base_wiki\htmltowiki.pas"/>
         <UnitName Value="htmltowiki"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="165"/>
         <CursorPos X="1" Y="185"/>

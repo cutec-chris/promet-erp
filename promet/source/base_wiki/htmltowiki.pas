@@ -182,7 +182,6 @@ var
             aImg := copy(tmp,0,pos('"',tmp)-1);
             if Assigned(OnConvertImage) then
               OnConvertImage(aImg,aImg);
-            bOut := bOut+'[Image:'+aImg;
           end
         else if pos('''',tmp)=1 then
           begin
@@ -190,16 +189,18 @@ var
             aImg := copy(tmp,0,pos('''',tmp)-1);
             if Assigned(OnConvertImage) then
               OnConvertImage(aImg,aImg);
-            bOut := bOut+'[Image:'+aImg;
           end
         else
           begin
             aImg := copy(tmp,0,pos('>',tmp)-1);
             if Assigned(OnConvertImage) then
               OnConvertImage(aImg,aImg);
-            bOut := bOut+'[Image:'+aImg;
           end;
-        bOut := bOut+']';
+        if trim(aImg)<>'' then
+          begin
+            bOut := bOut+'[[Image:'+aImg;
+            bOut := bOut+']]';
+          end;
       end;
     aOut := bOut+aOut;
     bOut := '';
@@ -249,8 +250,8 @@ begin
   RemoveComments;
   RemoveTag('script');
   RemoveTag('style');
-  ConvertLinks;
   ConvertImages;
+  ConvertLinks;
   ConvertBr;
   ConvertTag('b','''''''');
   ConvertTag('strong','''''''');
