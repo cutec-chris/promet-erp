@@ -197,10 +197,11 @@
       <Unit21>
         <Filename Value="../base/dbintfs/utask.pas"/>
         <UnitName Value="utask"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="611"/>
-        <CursorPos X="84" Y="626"/>
+        <TopLine Value="763"/>
+        <CursorPos X="1" Y="779"/>
         <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit21>
@@ -427,11 +428,10 @@
       <Unit49>
         <Filename Value="../base/dbintfs/uprojects.pas"/>
         <UnitName Value="uProjects"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="498"/>
-        <CursorPos X="38" Y="522"/>
+        <CursorPos X="31" Y="522"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit49>

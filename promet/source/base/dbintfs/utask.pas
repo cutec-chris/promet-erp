@@ -655,6 +655,34 @@ begin
             begin
               aProject.History.Open;
               aProject.History.AddItem(aProject.DataSet,Format(strTaskSReopened,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',aProject.DataSet,ACICON_TASKADDED);
+              if (aProject.FieldByName('INFORMLEADER').AsString='Y') and  then
+                begin //Inform Leader of
+                  aUser := TUser.Create(Self,Data,Connection);
+                  aUser.SelectByAccountno(Data.Users.GetLeaderAccountno);
+                  aUser.Open;
+                  if aUser.Count>0 then
+                    begin
+                      if Assigned(aProject) then
+                        aUser.History.AddItem(aProject.DataSet,Format(strTaskSReopened,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',aProject.DataSet,ACICON_TASKADDED)
+                      else
+                        aUser.History.AddItem(Self.DataSet,Format(strTaskSReopened,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',nil,ACICON_TASKADDED);
+                    end;
+                  aUser.Free;
+                end;
+              if (aProject.FieldByName('INFORMPMANAGER').AsString='Y') and  then
+                begin //Inform Leader of
+                  aUser := TUser.Create(Self,Data,Connection);
+                  aUser.SelectByAccountno(aProject.FieldByName('PMANAGER').AsString);
+                  aUser.Open;
+                  if aUser.Count>0 then
+                    begin
+                      if Assigned(aProject) then
+                        aUser.History.AddItem(aProject.DataSet,Format(strTaskSReopened,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',aProject.DataSet,ACICON_TASKADDED)
+                      else
+                        aUser.History.AddItem(Self.DataSet,Format(strTaskSReopened,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',nil,ACICON_TASKADDED);
+                    end;
+                  aUser.Free;
+                end;
             end;
           aProject.Free;
         end;
@@ -747,20 +775,6 @@ begin
                 DataSet.FieldByName('DUEDATE').AsDateTime := DataSet.FieldByName('STARTDATE').AsDateTime+Max(StrToFloatDef(DataSet.FieldByName('PLANTIME').AsString,0)+StrToFloatDef(DataSet.FieldByName('BUFFERTIME').AsString,0),1);
             end;
         end;
-    end
-  else if (Field.FieldName='PLANTIME') then
-    begin
-      {
-      if not DataSet.FieldByName('DUEDATE').IsNull then
-        begin
-          if trim(DataSet.FieldByName('PLANTIME').AsString)<>'' then
-            if (DataSet.FieldByName('DUEDATE').AsDateTime-Max(DataSet.FieldByName('PLANTIME').AsFloat+DataSet.FieldByName('BUFFERTIME').AsFloat,1)) < DataSet.FieldByName('STARTDATE').AsDateTime then
-              begin
-                if not Canedit then DataSet.Edit;
-                  DataSet.FieldByName('DUEDATE').AsDateTime := DataSet.FieldByName('STARTDATE').AsDateTime+Max(DataSet.FieldByName('PLANTIME').AsFloat+DataSet.FieldByName('BUFFERTIME').AsFloat,1);
-              end;
-        end;
-      }
     end
   else if (Field.FieldName <> 'SEEN') and (Field.FieldName <> 'TIMESTAMPD') and (Field.FieldName <> 'CHANGEDBY') then
     begin
