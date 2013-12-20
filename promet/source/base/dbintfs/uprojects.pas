@@ -114,6 +114,7 @@ implementation
 uses uBaseSearch,uBaseApplication,Utils;
 resourcestring
   strTargetChanged              = 'Zieldatum geändert von %s zu %s';
+  strManagerChanged             = 'Projektleiter geändert zu %s';
   strPlanedPrice                = 'Planpreis';
   strRealPrice                  = 'Echtpreis';
   strInvoiceDate                = 'Rechnungsdatum';
@@ -273,11 +274,13 @@ end;
 procedure TProject.FDSDataChange(Sender: TObject; Field: TField);
 var
   aMakeInactive: Boolean;
+  aUsers: TUser;
 begin
   if not Assigned(Field) then exit;
   if (Dataset.State <> dsInsert)
   and ((Field.FieldName = 'STATUS')
    or  (Field.FieldName = 'TARGET')
+   or  (Field.FieldName = 'PMANAGER')
       )
   then
     begin
@@ -294,6 +297,17 @@ begin
         begin
           History.AddItem(Self.DataSet,Format(strTargetChanged,[FTarget,Field.AsString]),'','',DataSet,ACICON_DATECHANGED);
           FTarget := Field.AsString;
+        end;
+      if (Field.FieldName = 'PMANAGER') then
+        begin
+          aUsers := TUser.Create(nil,DataModule);
+          aUsers.SelectByAccountno(Field.AsString);
+          aUsers.Open;
+          if aUsers.Count>0 then
+            History.AddItem(Self.DataSet,Format(strManagerChanged,[aUsers.FieldByName('NAME').AsString]),'','',DataSet,ACICON_STATUSCH)
+          else
+            History.AddItem(Self.DataSet,Format(strManagerChanged,['']),'','',DataSet,ACICON_STATUSCH);
+          aUsers.Free;
         end;
     end;
 end;
