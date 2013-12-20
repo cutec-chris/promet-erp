@@ -1,4 +1,6 @@
-﻿Build 298
+﻿Build 299
+      - Baumansicht:Fehler beim wiederherstellen der baumansicht besser abgefangen
+Build 298
       - Auftrag:Fehler beim Öffnen eines neuen Auftrages behoben
 Build 297
       - Wizardmandant: Fehler bei import behoben

@@ -22,11 +22,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="umain"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="41" Y="44"/>
+        <TopLine Value="3"/>
+        <CursorPos X="45" Y="9"/>
         <FoldState Value=" T3i00K2 pjGjd0Y5 pifjc0324"/>
         <UsageCount Value="78"/>
         <Loaded Value="True"/>
@@ -198,9 +197,10 @@
       <Unit21>
         <Filename Value="../base/dbintfs/utask.pas"/>
         <UnitName Value="utask"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="47"/>
+        <TopLine Value="28"/>
         <CursorPos X="38" Y="51"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>

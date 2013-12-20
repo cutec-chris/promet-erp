@@ -1796,7 +1796,7 @@ var
   aNode: TTreeNode;
   aOpt,aExp: String;
 begin
-  aNode := tvMain.Items[0];
+  aNode := tvMain.Items.GetFirstNode;
   aOpt := '';
   aExp := '';
   while Assigned(aNode) do
