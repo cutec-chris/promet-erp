@@ -2886,7 +2886,6 @@ begin
         {$endif}
       end;
     end;
-  CalculateRowHeights;
   NotDone.Free;
   if not FEditable then
     gList.Row:=gList.FixedRows;
