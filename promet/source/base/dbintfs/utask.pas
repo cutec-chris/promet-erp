@@ -572,6 +572,8 @@ var
   aParent: TTask;
   aProject: TProject;
   aUser: TUser;
+  Informed1: String;
+  Informed2: String;
 begin
   if not Assigned(Field) then exit;
   if DataSet.ControlsDisabled then
@@ -590,6 +592,7 @@ begin
           aProject.Open;
           if DataSet.FieldByName('USER').AsString<>DataSet.FieldByName('OWNER').AsString then
             begin
+              Informed1 := DataSet.FieldByName('OWNER').AsString;
               aUser := TUser.Create(Self,Data,Connection);
               aUser.SelectByAccountno(DataSet.FieldByName('OWNER').AsString);
               aUser.Open;
@@ -606,10 +609,11 @@ begin
             begin
               aProject.History.Open;
               aProject.History.AddItem(aProject.DataSet,Format(strTaskSCompleted,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',aProject.DataSet,ACICON_TASKCLOSED);
-              if (aProject.FieldByName('INFORMLEADER').AsString='Y') and  then
+              Informed2 := Data.Users.GetLeaderAccountno;
+              if (aProject.FieldByName('INFORMLEADER').AsString='Y') and (Informed1 <> Informed2) then
                 begin //Inform Leader of
                   aUser := TUser.Create(Self,Data,Connection);
-                  aUser.SelectByAccountno(Data.Users.GetLeaderAccountno);
+                  aUser.SelectByAccountno(Informed2);
                   aUser.Open;
                   if aUser.Count>0 then
                     begin
@@ -619,8 +623,9 @@ begin
                         aUser.History.AddItem(Self.DataSet,Format(strTaskSCompleted,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',nil,ACICON_TASKCLOSED);
                     end;
                   aUser.Free;
-                end;
-              if (aProject.FieldByName('INFORMPMANAGER').AsString='Y') and  then
+                end
+              else Informed2 := '';
+              if (aProject.FieldByName('INFORMPMANAGER').AsString='Y') and (Informed2<>aProject.FieldByName('PMANAGER').AsString) and (Informed1<>aProject.FieldByName('PMANAGER').AsString) then
                 begin //Inform Leader of
                   aUser := TUser.Create(Self,Data,Connection);
                   aUser.SelectByAccountno(aProject.FieldByName('PMANAGER').AsString);
@@ -655,10 +660,11 @@ begin
             begin
               aProject.History.Open;
               aProject.History.AddItem(aProject.DataSet,Format(strTaskSReopened,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',aProject.DataSet,ACICON_TASKADDED);
-              if (aProject.FieldByName('INFORMLEADER').AsString='Y') and  then
+              Informed2 := Data.Users.GetLeaderAccountno;
+              if (aProject.FieldByName('INFORMLEADER').AsString='Y') then
                 begin //Inform Leader of
                   aUser := TUser.Create(Self,Data,Connection);
-                  aUser.SelectByAccountno(Data.Users.GetLeaderAccountno);
+                  aUser.SelectByAccountno(Informed2);
                   aUser.Open;
                   if aUser.Count>0 then
                     begin
@@ -669,7 +675,7 @@ begin
                     end;
                   aUser.Free;
                 end;
-              if (aProject.FieldByName('INFORMPMANAGER').AsString='Y') and  then
+              if (aProject.FieldByName('INFORMPMANAGER').AsString='Y') and (Informed2<>aProject.FieldByName('PMANAGER').AsString) then
                 begin //Inform Leader of
                   aUser := TUser.Create(Self,Data,Connection);
                   aUser.SelectByAccountno(aProject.FieldByName('PMANAGER').AsString);

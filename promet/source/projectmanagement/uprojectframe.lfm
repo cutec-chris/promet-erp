@@ -1,25 +1,25 @@
 inherited fprojectFrame: TfprojectFrame
   Height = 493
-  Width = 734
+  Width = 808
   ClientHeight = 493
-  ClientWidth = 734
+  ClientWidth = 808
   DesignLeft = 449
   DesignTop = 180
   object pComponents: TPanel[0]
     Left = 0
     Height = 48
     Top = 44
-    Width = 734
+    Width = 808
     Align = alTop
     BevelOuter = bvNone
     ClientHeight = 48
-    ClientWidth = 734
+    ClientWidth = 808
     TabOrder = 1
     object eName: TDBMemo
       Left = 8
       Height = 36
       Top = 11
-      Width = 557
+      Width = 631
       Anchors = [akTop, akLeft, akRight]
       DataField = 'NAME'
       DataSource = Projects
@@ -35,7 +35,7 @@ inherited fprojectFrame: TfprojectFrame
       ParentColor = False
     end
     object gbTree: TGroupBox
-      Left = 571
+      Left = 645
       Height = 48
       Top = 0
       Width = 65
@@ -126,7 +126,7 @@ inherited fprojectFrame: TfprojectFrame
     Left = 0
     Height = 353
     Top = 92
-    Width = 734
+    Width = 808
     ActivePage = tsInfo
     Align = alClient
     TabIndex = 0
@@ -135,14 +135,14 @@ inherited fprojectFrame: TfprojectFrame
     NewTabImageIndex = 59
     object tsInfo: TTabSheet
       Caption = 'Allgemein'
-      ClientHeight = 654
-      ClientWidth = 1452
+      ClientHeight = 327
+      ClientWidth = 800
       ImageIndex = 62
       object mInfo: TDBMemo
         Left = 8
         Height = 224
         Top = 95
-        Width = 710
+        Width = 784
         Align = alBottom
         Anchors = [akTop, akLeft, akRight, akBottom]
         BorderSpacing.Around = 8
@@ -151,10 +151,10 @@ inherited fprojectFrame: TfprojectFrame
         TabOrder = 0
       end
       object DBZVDateTimePicker1: TDBZVDateTimePicker
-        Left = 350
+        Left = 284
         Height = 21
         Hint = 'Drücken Sie N um das Datum zu löschen'
-        Top = 17
+        Top = 16
         Width = 81
         DataField = 'END'
         DataSource = Projects
@@ -182,7 +182,7 @@ inherited fprojectFrame: TfprojectFrame
         WordWrap = True
       end
       object Label2: TLabel
-        Left = 200
+        Left = 167
         Height = 13
         Top = -1
         Width = 54
@@ -190,7 +190,7 @@ inherited fprojectFrame: TfprojectFrame
         ParentColor = False
       end
       object DBZVDateTimePicker2: TDBZVDateTimePicker
-        Left = 200
+        Left = 167
         Height = 21
         Hint = 'Drücken Sie N um das Datum zu löschen'
         Top = 17
@@ -212,9 +212,9 @@ inherited fprojectFrame: TfprojectFrame
         UseDefaultSeparators = True
       end
       object Label7: TLabel
-        Left = 350
+        Left = 284
         Height = 13
-        Top = -1
+        Top = -2
         Width = 48
         Caption = 'Enddatum'
         ParentColor = False
@@ -273,7 +273,7 @@ inherited fprojectFrame: TfprojectFrame
         UseDefaultSeparators = True
       end
       object sePriority: TSpinEdit
-        Left = 200
+        Left = 167
         Height = 21
         Top = 65
         Width = 97
@@ -285,7 +285,7 @@ inherited fprojectFrame: TfprojectFrame
         Value = 1
       end
       object Label9: TLabel
-        Left = 200
+        Left = 167
         Height = 13
         Top = 47
         Width = 38
@@ -293,19 +293,19 @@ inherited fprojectFrame: TfprojectFrame
         ParentColor = False
       end
       object lVAT1: TLabel
-        Left = 350
+        Left = 284
         Height = 14
-        Top = 47
+        Top = 46
         Width = 128
         AutoSize = False
         Caption = 'Kategorie'
         ParentColor = False
       end
       object cbCategory: TExtDBCombobox
-        Left = 350
+        Left = 284
         Height = 21
-        Top = 65
-        Width = 343
+        Top = 64
+        Width = 270
         DataField = 'CATEGORY'
         DataSource = Projects
         ItemHeight = 13
@@ -313,17 +313,103 @@ inherited fprojectFrame: TfprojectFrame
         Sorted = True
         TabOrder = 6
       end
+      object Label11: TLabel
+        Left = 402
+        Height = 13
+        Top = -1
+        Width = 58
+        Caption = 'Projektleiter'
+        ParentColor = False
+      end
+      object eManager: TEditButton
+        Left = 402
+        Height = 21
+        Hint = 'der Vohrfahr des Projektes/Prozesses'
+        Top = 17
+        Width = 152
+        ButtonWidth = 23
+        CharCase = ecNormal
+        Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF0069A8DF0D8FBCA125668C57D5428B55FE338952FF2E8851FF2D8750FF2E85
+          4EFF39854EFE4F824EEC8CB4992A69A9E10DFFFFFF00FFFFFF00FFFFFF006DA2
+          D3792579CDFB429D67FF318F58FF63C18AFF63C18AFF63C18AFF63C18AFF63C1
+          8AFF63C18AFF2D8A53FF2F8853FF2E7ECEF86DA2D383FFFFFF00FFFFFF00297D
+          D1FE82BAEEFF409E67FF6ECC95FF5BB881FF58B57EFF53B17AFF4FAC75FF54B1
+          7AFF51AD76FF67C18AFF3B925CFF83BCEFFF2A77CAFEFFFFFF00FFFFFF00287C
+          CEFC78B3EAFF5AB881FF62C089FF62C089FF5FBD86FF5AB881FF55B37CFF4FAD
+          76FF49A770FF419E67FF4DAB74FF7EB8EDFF2974C7FAFFFFFF00FFFFFF00849D
+          6C8645A26BFF82E0A9FF82E0A9FF6FCD96FF69C790FF64C28BFF5EBC85FF57B5
+          7EFF50AE77FF6BC891FF67C08AFF4F9A66FF76926496FFFFFF00FFFFFF00A4A4
+          6E02AFE0AC8A37945DFF9FFDC6FF91EFB8FF78D69FFF6FCD96FF69C68FFF62BF
+          88FF73CF98FF94F0B9FF308851FF788754A39BA06C08FFFFFF00FFFFFF00FFFF
+          FF00A1A56F0E79935DA527854EFFB3F5C8FF49898FFF4B7FA0FF4B7FA0FF4989
+          8FFFA9E8BAFF26844DFF738C59AE9AA16E14FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00A1A5700A4C7249D3347499FF9CCCF8FFAFD4F7FFAFD4F7FFA5CF
+          F6FF357AA1FF4A6A46D39B976410FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF002C618EC8A6CAEEFFABCCEAFFA7D0F6FFA8D0F6FFABCC
+          EAFFA7CDEEFF2D6299CCFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF001E6DADF2BDD7EFFFA3C9EDFF9DC5E8FF44CEEFFF5BCD
+          EFFFA8DCF1FF207CBDF66AA0D206FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF001B9EF3FF62ABCEFF8AB7E4FF3EC6EBFF1C9FEDFF1DA4
+          EEFF1EA5EBFF1C9AE9FF3C94BC11FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF001DBAF5FF1CB6F5FF1CAAF4FF1CACF4FF1CACF4FF1CAC
+          F3FF1CA1F0FF1C93E4FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF0028B5E5DE1BB6F5FF1CB6F5FF1CB6F5FF1CB2F5FF1CAB
+          F4FF1DAAF0FF28B0E0E1FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF0027B2E5E31BA7F3FF1CACF4FF1CA8F4FF1BA1
+          F1FF27ACDEE6FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+        }
+        MaxLength = 0
+        NumGlyphs = 1
+        OnButtonClick = eManagerButtonClick
+        OnExit = eManagerExit
+        TabOrder = 7
+      end
+      object DBCheckBox1: TDBCheckBox
+        Left = 601
+        Height = 17
+        Hint = 'schickt eine Nachricht an den Vorgesetzten '#13#10'wenn Aufgaben erledigt oder wiedereröffnet werden'
+        Top = 51
+        Width = 133
+        AutoSize = True
+        Caption = 'Vorgesetzte informieren'
+        DataField = 'INFORMLEADER'
+        DataSource = Projects
+        TabOrder = 8
+        ValueChecked = 'Y'
+        ValueUnchecked = 'N'
+      end
+      object DBCheckBox2: TDBCheckBox
+        Left = 601
+        Height = 17
+        Hint = 'schickt eine Nachricht an den Projektleiter'#13#10'wenn Aufgaben erledigt oder wiedereröffnet werde'
+        Top = 68
+        Width = 133
+        AutoSize = True
+        Caption = 'Projektleiter informieren'
+        DataField = 'INFORMPMANAGER'
+        DataSource = Projects
+        TabOrder = 9
+        ValueChecked = 'Y'
+        ValueUnchecked = 'N'
+      end
     end
   end
   object ToolBar1: TPanel[2]
     Left = 0
     Height = 44
     Top = 0
-    Width = 734
+    Width = 808
     Align = alTop
     BevelOuter = bvNone
     ClientHeight = 44
-    ClientWidth = 734
+    ClientWidth = 808
     TabOrder = 2
     object Panel4: TPanel
       Left = 0
@@ -871,11 +957,11 @@ inherited fprojectFrame: TfprojectFrame
         Shape = bsLeftLine
       end
       object eParent: TEditButton
-        Left = 4
+        Left = 9
         Height = 21
         Hint = 'der Vohrfahr des Projektes/Prozesses'
         Top = 14
-        Width = 117
+        Width = 111
         ButtonWidth = 23
         CharCase = ecNormal
         Glyph.Data = {
@@ -1017,13 +1103,13 @@ inherited fprojectFrame: TfprojectFrame
     Left = 0
     Height = 48
     Top = 445
-    Width = 734
+    Width = 808
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 3
   end
   object pPreviewImage: TPanel[4]
-    Left = 643
+    Left = 717
     Height = 68
     Top = 40
     Width = 84
@@ -1031,8 +1117,8 @@ inherited fprojectFrame: TfprojectFrame
     BevelOuter = bvNone
     BorderStyle = bsSingle
     Caption = 'kein Bild'
-    ClientHeight = 68
-    ClientWidth = 84
+    ClientHeight = 64
+    ClientWidth = 80
     TabOrder = 4
     object iProject: TImage
       Left = 0

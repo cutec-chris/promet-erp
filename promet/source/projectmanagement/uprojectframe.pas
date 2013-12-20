@@ -65,10 +65,14 @@ type
     cbStatus: TComboBox;
     cbType: TExtDBCombobox;
     cbCategory: TExtDBCombobox;
+    DBCheckBox1: TDBCheckBox;
+    DBCheckBox2: TDBCheckBox;
     DBZVDateTimePicker4: TDBZVDateTimePicker;
     eParent: TEditButton;
+    eManager: TEditButton;
     iProject: TImage;
     Label10: TLabel;
+    Label11: TLabel;
     Label12: TLabel;
     Label8: TLabel;
     Label9: TLabel;
@@ -147,9 +151,12 @@ type
     procedure acSetTreeDirExecute(Sender: TObject);
     procedure cbStatusSelect(Sender: TObject);
     procedure eNameChange(Sender: TObject);
+    procedure eManagerButtonClick(Sender: TObject);
+    procedure eManagerExit(Sender: TObject);
     procedure eParentButtonClick(Sender: TObject);
     procedure eParentExit(Sender: TObject);
     function fSearchOpenItem(aLink: string): Boolean;
+    function fSearchOpenItemL(aLink: string): Boolean;
     procedure pcPagesChange(Sender: TObject);
     procedure ProjectsStateChange(Sender: TObject);
     procedure sbMenueClick(Sender: TObject);
@@ -679,6 +686,35 @@ begin
   acSave.Enabled := DataSet.CanEdit or DataSet.Changed;
   acCancel.Enabled:= DataSet.CanEdit or DataSet.Changed;
 end;
+
+procedure TfProjectFrame.eManagerButtonClick(Sender: TObject);
+var
+  i : Integer = 0;
+begin
+  fSearch.SetLanguage;
+  while i < fSearch.cbSearchType.Count do
+    begin
+      if fSearch.cbSearchType.Items[i] <> strUsers then
+        fSearch.cbSearchType.Items.Delete(i)
+      else
+        inc(i);
+    end;
+  fSearch.eContains.Clear;
+  fSearch.sgResults.RowCount:=1;
+  fSearch.OnOpenItem:=@fSearchOpenItemL;
+  fSearch.Execute(True,'TASKSL',strSearchFromProjects);
+  fSearch.SetLanguage;
+end;
+
+procedure TfProjectFrame.eManagerExit(Sender: TObject);
+begin
+  if trim(eParent.Text)='' then
+    begin
+      if not DataSet.CanEdit then DataSet.DataSet.Edit;
+      DataSet.FieldByName('PMANAGER').Clear;
+    end;
+end;
+
 procedure TfProjectFrame.eParentButtonClick(Sender: TObject);
 var
   i : Integer = 0;
@@ -722,6 +758,22 @@ begin
   aParent.free;
 end;
 
+function TfProjectFrame.fSearchOpenItemL(aLink: string): Boolean;
+var
+  aParent: TUser;
+begin
+  aParent := TUser.Create(nil,Data);
+  aParent.SelectFromLink(aLink);
+  aParent.Open;
+  if aParent.Count>0 then
+    begin
+      eManager.Text:=aParent.FieldByName('NAME').AsString;
+      if not DataSet.CanEdit then DataSet.DataSet.Edit;
+      dataSet.FieldByName('PMANAGER').AsString:=aParent.FieldByName('ACCOUNTNO').AsString;
+    end;
+  aParent.free;
+end;
+
 procedure TfProjectFrame.pcPagesChange(Sender: TObject);
 begin
 
@@ -739,6 +791,7 @@ var
   tmp: String;
   aFound: Boolean;
   aTasks: TfTaskFrame;
+  aParentU: TUser;
 begin
   SetRights;
   pcPages.ClearTabClasses;
@@ -758,6 +811,17 @@ begin
       if aParent.Count>0 then
         eParent.Text:=aParent.Text.AsString;
       aParent.free;
+    end;
+  if TProject(dataSet).FieldByName('PMANAGER').IsNull then
+    eManager.Text:=''
+  else
+    begin
+      aParentU := TUser.Create(nil,Data);
+      aParentU.SelectByAccountno(dataSet.FieldByName('PMANAGER').AsString);
+      aParentU.Open;
+      if aParentU.Count>0 then
+        eManager.Text:=aParentU.FieldByName('NAME').AsString;
+      aParentU.free;
     end;
 
   cbCategory.Items.Clear;
