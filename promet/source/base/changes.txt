@@ -1,5 +1,7 @@
 ﻿Build 299
       - Baumansicht:Fehler beim wiederherstellen der baumansicht besser abgefangen
+      - Nachrichtenzentrale: Darstellung von Bildern und Anhängen
+      - Twitterreceiver: Bildimport
 Build 298
       - Auftrag:Fehler beim Öffnen eines neuen Auftrages behoben
 Build 297

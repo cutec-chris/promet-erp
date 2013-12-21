@@ -263,10 +263,10 @@ begin
   istr := StringReplace(istr, 'Ü', '&Uuml;', [rfreplaceall]);
   istr := StringReplace(istr, 'ß', '&szlig;', [rfreplaceall]);
   //Replace Lists
-  while pos('*',istr) > 0 do
+  while pos(#10+'*',istr) > 0 do
     begin
-      ostr := ostr+copy(istr,0,pos('*',istr)-1);
-      istr := copy(istr,pos('*',istr)+1,length(istr));
+      ostr := ostr+copy(istr,0,pos(#10+'*',istr)-1);
+      istr := copy(istr,pos(#10+'*',istr)+2,length(istr));
       inc(act_uls);
       while (length(istr) > 0) and (istr[1] = '*') do
         begin
@@ -310,10 +310,10 @@ begin
   open_uls := 0;
   act_uls := 0;
   //Replace Numerated Lists
-  while pos('#',istr) > 0 do
+  while pos(#10+'#',istr) > 0 do
     begin
-      ostr := ostr+copy(istr,0,pos('#',istr)-1);
-      istr := copy(istr,pos('#',istr)+1,length(istr));
+      ostr := ostr+copy(istr,0,pos(#10+'#',istr)-1);
+      istr := copy(istr,pos(#10+'#',istr)+2,length(istr));
       inc(act_uls);
       while istr[1] = '#' do
         begin
@@ -484,7 +484,7 @@ begin
       istr := ReplaceRegExpr('=====(.*?)=====',istr,'<h5>$1</h5>',True);
       istr := ReplaceRegExpr('====(.*?)====',istr,'<h4>$1</h4>',True);
       istr := ReplaceRegExpr('===(.*?)===',istr,'<h3>$1</h3>',True);
-      istr := ReplaceRegExpr('==(.*?)==',istr,'<h2>$1</h2>',True);
+      istr := ReplaceRegExpr('\n==(.*?)==',istr,'<h2>$1</h2>',True);
       //istr := ReplaceRegExpr('\n=(.*?)=',istr,'<h1>$1</h1>',True);
     end
   else
@@ -493,7 +493,7 @@ begin
       istr := ReplaceRegExpr('=====(.*?)=====',istr,'<h4>$1</h4>',True);
       istr := ReplaceRegExpr('====(.*?)====',istr,'<h3>$1</h3>',True);
       istr := ReplaceRegExpr('===(.*?)===',istr,'<h2>$1</h2>',True);
-      istr := ReplaceRegExpr('==(.*?)==',istr,'<h1>$1</h1>',True);
+      istr := ReplaceRegExpr('\n==(.*?)==',istr,'<h1>$1</h1>',True);
       //istr := ReplaceRegExpr('\n=(.*?)=',istr,'<h1>$1</h1>',True);
     end;
   //Process unformated stuff

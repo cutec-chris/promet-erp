@@ -25,7 +25,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, IpHtml, Forms, Controls, Graphics, Dialogs,
-  uBaseDbClasses,Utils,wikitohtml,uDocuments,variants;
+  uBaseDbClasses,Utils,wikitohtml,uDocuments,variants,db;
 
 type
 
@@ -33,6 +33,7 @@ type
 
   TfDetailView = class(TForm)
     IpHtmlPanel1: TIpHtmlPanel;
+    procedure IpHtmlPanel1HotClick(Sender: TObject);
     procedure TSimpleIpHtmlGetImageX(Sender: TIpHtmlNode; const URL: string;
       var Picture: TPicture);
   private
@@ -51,7 +52,7 @@ var
   fDetailView: TfDetailView;
 
 implementation
-uses uData;
+uses uData,LCLIntf;
 {$R *.lfm}
 
 { TfDetailView }
@@ -65,22 +66,28 @@ begin
   aDocument := TDocument.Create(nil,data);
   aDocument.Select(FDataSet.Id.AsVariant,'H',0);
   aDocument.Open;
-  if aDocument.DataSet.Locate('NAME',VarArrayOf([copy(ExtractFileName(URL),0,rpos('.',ExtractFileName(URL))-1)]),[]) then
+  if aDocument.DataSet.RecordCount > 0 then
     begin
-      if aDocument.DataSet.RecordCount > 0 then
-        begin
-          ms := TMemoryStream.Create;
-          Data.BlobFieldToStream(aDocument.DataSet,'DOCUMENT',ms);
-          ms.Position := 0;
-          Picture := TPicture.Create;
-          try
-            Picture.LoadFromStreamWithFileExt(ms,ExtractFileExt(URL));
-          except
-          end;
-          ms.Free;
-        end;
+      if not aDocument.DataSet.Locate('NAME',VarArrayOf([copy(ExtractFileName(URL),0,rpos('.',ExtractFileName(URL))-1)]),[]) then
+        aDocument.DataSet.Locate('NAME',VarArrayOf([copy(ExtractFileName(URL),0,rpos('.',ExtractFileName(URL))-1)]),[loPartialKey]);
+      ms := TMemoryStream.Create;
+      Data.BlobFieldToStream(aDocument.DataSet,'DOCUMENT',ms);
+      ms.Position := 0;
+      Picture := TPicture.Create;
+      try
+        Picture.LoadFromStreamWithFileExt(ms,ExtractFileExt(URL));
+      except
+      end;
+      ms.Free;
     end;
   aDocument.Free;
+end;
+
+procedure TfDetailView.IpHtmlPanel1HotClick(Sender: TObject);
+begin
+  if IpHtmlPanel1.HotNode is TIpHtmlNodeA then
+    if ((Pos('://', TIpHtmlNodeA(IpHtmlPanel1.HotNode).HRef) > 0) or (pos('www',lowercase(TIpHtmlNodeA(IpHtmlPanel1.HotNode).HRef)) > 0)) then
+      OpenURL(TIpHtmlNodeA(IpHtmlPanel1.HotNode).HRef);
 end;
 
 function TfDetailView.Execute(aDataSet: TBaseHistory) : Boolean;

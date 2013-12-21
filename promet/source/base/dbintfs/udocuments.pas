@@ -820,7 +820,7 @@ begin
             Add('ISLINK',ftString,1,False);
             Add('PARENT',ftInteger,0,false);
             Add('NUMBER',ftLargeInt,0,True);
-            Add('NAME',ftString,60,True);
+            Add('NAME',ftString,240,True);
             Add('EXTENSION',ftString,15,false);
             Add('REVISION',ftInteger,0,True);
             Add('STATUS',ftString,4,false);

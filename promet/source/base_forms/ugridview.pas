@@ -192,6 +192,7 @@ type
     ColumnWidthHelper : TColumnWidthHelper;
     FAddRow: TNotifyEvent;
     FAfterInsert: TNotifyEvent;
+    FApplyAutoFilter: Boolean;
     FbaseFilter: string;
     FBeforeInsert: TNotifyEvent;
     FBeforInsert: TNotifyEvent;
@@ -322,6 +323,7 @@ type
     procedure SetChild(Dorefresh : Boolean = True);
     procedure UnSetChild;
     property BaseFilter : string read FbaseFilter write SetBaseFilter;
+    property ApplyAutoFilter : Boolean read FApplyAutoFilter write FApplyAutoFilter;
     function GotoActiveRow : Boolean;
     function GotoRow(aBookmark : LargeInt) : Boolean;
     function GotoRowNumber(aRow : Integer) : Boolean;
@@ -2013,7 +2015,7 @@ var
   aFilter: String;
 begin
   if (FbaseFilter=AValue)
-  and (FAutoFilter=FActAutoFilter)
+  and ((FAutoFilter=FActAutoFilter) and FApplyAutoFilter)
   and (FSortDirection=FActSortDirection)
   and (FSortField=FActSortField)
   then Exit;
@@ -2042,7 +2044,7 @@ begin
     aFilter := '('+aFilter+') AND ('+AValue+')'
   else if (aValue <> '') then
     aFilter := '('+AValue+')';
-  if FAutoFilter <> '' then
+  if (FAutoFilter <> '') and FApplyAutoFilter then
     begin
       aFilter := '('+aFilter+') AND ('+FAutoFilter+')';
       FActAutoFilter:=FAutoFilter;
@@ -2592,6 +2594,7 @@ var
 begin
   inherited Create(AOwner);
   InEdit := False;
+  FApplyAutoFilter := True;
   FreadOnly:=False;
   FWordwrap:=False;
   FEntered := False;

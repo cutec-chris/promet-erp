@@ -27,7 +27,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=&quot;TestPG&quot; --user=Administrator"/>
+        <CommandLineParams Value="--mandant=TestPG --user=Administrator"/>
       </local>
     </RunParams>
     <RequiredPackages Count="7">

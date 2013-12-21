@@ -147,6 +147,9 @@ type
   end;
   TBaseDBDatasetClass = class of TBaseDBDataset;
   TBaseDBListClass = class of TBaseDBList;
+
+  { TBaseHistory }
+
   TBaseHistory = class(TBaseDBList)
   private
     FHChanged: Boolean;
@@ -165,6 +168,8 @@ type
       aReference: string=''; aRefObject: TDataSet=nil; aIcon: Integer=0;
   aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True;
   DoChange: Boolean=False); virtual;
+    procedure SelectByParent(aParent: Variant);
+    procedure SelectByRoot(aParent: Variant);
     procedure AddItemWithoutUser(aObject : TDataSet;aAction : string;aLink : string = '';aReference : string = '';aRefObject : TDataSet = nil;aIcon : Integer = 0;aComission : string = '';CheckDouble: Boolean=True;DoPost : Boolean = True;DoChange : Boolean = False);virtual;
     function GetTextFieldName: string;override;
     function GetNumberFieldName : string;override;
@@ -1162,9 +1167,11 @@ begin
             Add('REFERENCE', ftString,150,False);
             Add('REFOBJECT',ftString,200,False);
             Add('COMMISSION',ftString,60,False);
+            Add('SOURCE',ftString,60,False);
             Add('READ',ftString,1,False);
             Add('CHANGEDBY',ftString,4,False);
             Add('PARENT',ftLargeInt,0,False);
+            Add('ROOT',ftLargeInt,0,False);
           end;
       if Assigned(ManagedIndexdefs) then
         with ManagedIndexDefs do
@@ -1176,6 +1183,26 @@ begin
             Add('CHANGEDBY','CHANGEDBY',[]);
             Add('TIMESTAMPD','TIMESTAMPD',[]);
           end;
+    end;
+end;
+procedure TBaseHistory.SelectByParent(aParent: Variant);
+begin
+  with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
+    begin
+      if aParent=Null then
+        Filter := Data.ProcessTerm('('+QuoteField('PARENT')+'='+Data.QuoteValue('')+')')
+      else
+        Filter := '('+QuoteField('PARENT')+'='+QuoteValue(aParent)+')';
+    end;
+end;
+procedure TBaseHistory.SelectByRoot(aParent: Variant);
+begin
+  with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
+    begin
+      if aParent=Null then
+        Filter := Data.ProcessTerm('('+QuoteField('ROOT')+'='+Data.QuoteValue('')+')')
+      else
+        Filter := '('+QuoteField('ROOT')+'='+QuoteValue(aParent)+')';
     end;
 end;
 procedure TBaseHistory.Change;
@@ -1244,10 +1271,29 @@ procedure TBaseHistory.AddParentedItem(aObject: TDataSet; aAction: string;
   aParent: Variant; aLink: string; aReference: string; aRefObject: TDataSet;
   aIcon: Integer; aComission: string; CheckDouble: Boolean; DoPost: Boolean;
   DoChange: Boolean);
+  function GetRoot(bParent : Variant) : Variant;
+  var
+    aFind: TBaseHistory;
+  begin
+    Result := Null;
+    aFind := TBaseHistory.Create(nil,DataModule);
+    aFind.Select(bParent);
+    aFind.Open;
+    if aFind.Count>0 then
+      begin
+        if (not aFind.FieldByName('PARENT').IsNull) and (aFind.FieldByName('PARENT').AsVariant<>bParent) then
+          Result := GetRoot(aFind.FieldByName('PARENT').AsVariant)
+        else
+          Result := aFind.Id.AsVariant;
+      end;
+    aFind.Free;
+  end;
+
 begin
   if AddItem(aObject,aAction,aLink,aReference,aRefObject,aIcon,aComission,CheckDouble,False,DoChange) then
     begin
       DataSet.FieldByName('PARENT').AsVariant := aParent;
+      DataSet.FieldByName('ROOT').AsVariant := GetRoot(aParent);
       if DoPost then
         Post;
     end;
@@ -2458,4 +2504,4 @@ begin
 end;
 initialization
 end.
-
+

@@ -126,6 +126,7 @@ var
   Somethingimported: Boolean;
   html: TJSONData;
   atext: TJSONData;
+  asource: string;
 begin
   omailaccounts := '';
   mailaccounts := '';
@@ -179,6 +180,7 @@ begin
                       if Assigned(aData) and Assigned(TJSONObject(aData).Elements['text']) then
                         begin
                           atext := TJSONObject(aData).Elements['text'];
+                          asource := TJSONObject(aData).Elements['source'].AsString;
                           if Assigned(aText) and (not aText.IsNull) then
                             text := atext.AsString
                           else text := '';
@@ -204,6 +206,7 @@ begin
                                       aHist.TimeStamp.AsDateTime:=aTime;
                                       aHist.FieldByName('REF_ID').AsVariant:=Data.Users.Id.AsVariant;
                                       aHist.FieldByName('REFOBJECT').AsString:=aCat;
+                                      aHist.FieldByName('SOURCE').AsString:=asource;
                                       aHist.FieldByName('CHANGEDBY').Clear;
                                       if Assigned(html) and (not html.IsNull) then
                                         begin
@@ -237,6 +240,7 @@ begin
                                           aHist.TimeStamp.AsDateTime:=aTime;
                                           aHist.FieldByName('REF_ID').AsVariant:=Data.Users.Id.AsVariant;
                                           aHist.FieldByName('REFOBJECT').AsString:=aCat;
+                                          aHist.FieldByName('SOURCE').AsString:=asource;
                                           aHist.FieldByName('CHANGEDBY').Clear;
                                           if Assigned(html) and (not html.IsNull) then
                                             begin

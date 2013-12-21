@@ -26,7 +26,7 @@ uses
   uIntfStrConsts, db, memds, FileUtil, Translations, md5,
   ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage,ugridview,
   uExtControls,uBaseVisualControls,uBaseDbClasses,uFormAnimate,uBaseSearch,
-  ImgList;
+  ImgList,uBaseDbInterface;
 type
   TMGridObject = class(TObject)
   public
@@ -66,6 +66,9 @@ type
     PopupMenu1: TPopupMenu;
     pSearch: TPanel;
     SelectDirectoryDialog1: TSelectDirectoryDialog;
+    tbRootEntrys: TSpeedButton;
+    tbThread: TSpeedButton;
+    tbUser: TSpeedButton;
     Timer1: TTimer;
     ToolBar1: TToolBar;
     ToolButton1: TToolButton;
@@ -98,8 +101,11 @@ type
     procedure mEntryKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure mEntryKeyPress(Sender: TObject; var Key: char);
     procedure pSearchClick(Sender: TObject);
+    procedure tbThreadClick(Sender: TObject);
+    procedure tbUserClick(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
     procedure ToolButton2Click(Sender: TObject);
+    procedure tbRootEntrysClick(Sender: TObject);
   private
     { private declarations }
     ActiveSearch : TSearch;
@@ -107,6 +113,14 @@ type
     fTimeline : TfGridView;
     FDrawnDate : TDateTime;
     FParentItem : Variant;
+    FOldBaseFilterU: String;
+    FOldRecU: LargeInt;
+    FOldBaseFilterT: String;
+    FOldRecT: LargeInt;
+    FOldSortT: String;
+    FOldSortDT: uBasedbinterface.TSortDirection;
+    FoldAutoFilterU : Boolean;
+    FOldAutoFilterT : Boolean;
     procedure MarkAsRead;
   public
     { public declarations }
@@ -118,7 +132,7 @@ type
 var
   fmTimeline: TfmTimeline;
 implementation
-uses uBaseApplication, uData, uBaseDbInterface, uOrder,uMessages,uBaseERPDBClasses,
+uses uBaseApplication, uData, uOrder,uMessages,uBaseERPDBClasses,
   uMain,LCLType,utask,uProcessManager,uprometipc,ProcessUtils,ufollow,udetailview,
   LCLIntf,wikitohtml,uDocuments;
 resourcestring
@@ -303,7 +317,7 @@ begin
               TStringGrid(Sender).Canvas.Brush.Style:=bsClear;
               bRect := aRect;
               if TMGridObject(aObj).HasAttachment then
-                fVisualControls.Images.Draw(TStringGrid(Sender).Canvas,aRRect.Left-16,aRect.Top,70);
+                fVisualControls.Images.Draw(TStringGrid(Sender).Canvas,aRect.Left-16,aRect.Top,70);
               if TMGridObject(aObj).Caption <> '' then
                 brect.Top := bRect.Top+TStringGrid(Sender).Canvas.TextExtent('A').cy;
               if TMGridObject(aObj).Bold then
@@ -538,16 +552,18 @@ begin
                         TMGridObject(aObj).Caption := strTo+Data.GetLinkDesc(fTimeline.dgFake.DataSource.DataSet.FieldByName('OBJECT').AsString)
                       else
                         TMGridObject(aObj).Caption := Data.GetLinkDesc(fTimeline.dgFake.DataSource.DataSet.FieldByName('OBJECT').AsString);
-                      fTimeline.DataSet.GotoBookmark(aRec);
                       fTimeline.gList.RowHeights[aRow] := fTimeline.gList.RowHeights[aRow]+12;
                     end;
                   TMGridObject(aObj).Bold:=(fTimeline.dgFake.DataSource.DataSet.FieldByName('READ').AsString<>'Y');
-                  aDocument := TDocument.Create(nil,data);
-                  aDocument.Select(fTimeline.dgFake.DataSource.DataSet.FieldByName('SQL_ID').AsVariant,'H',0);
-                  aDocument.ActualLimit:=1;
-                  aDocument.Open;
-                  TMGridObject(aObj).HasAttachment := aDocument.Count>0;
-                  aDocument.Free;
+                  if fTimeline.dgFake.DataSource.DataSet.RecordCount>0 then
+                    begin
+                      aDocument := TDocument.Create(nil,Data);
+                      aDocument.Select(fTimeline.dgFake.DataSource.DataSet.FieldByName('SQL_ID').AsVariant,'H',0);
+                      aDocument.ActualLimit:=1;
+                      aDocument.Open;
+                      TMGridObject(aObj).HasAttachment := aDocument.Count>0;
+                      aDocument.Free;
+                    end;
                 end;
               fTimeline.DataSet.GotoBookmark(aRec);
             end;
@@ -742,6 +758,90 @@ begin
 
 end;
 
+procedure TfmTimeline.tbThreadClick(Sender: TObject);
+var
+  FRoot : Variant;
+begin
+  Screen.Cursor:=crHourGlass;
+  tbRootEntrys.Down:=False;
+  fTimeline.ApplyAutoFilter:=True;
+  if tbThread.Down then
+    begin
+      fTimeline.GotoActiveRow;
+      FOldBaseFilterT := fTimeline.BaseFilter;
+      FOldRecT := fTimeline.DataSet.GetBookmark;
+      FOldSortT := fTimeline.SortField;
+      FOldSortDT := fTimeline.SortDirection;
+      FOldAutoFilterT := fTimeline.ApplyAutoFilter;
+      FRoot := fTimeline.DataSet.FieldByName('ROOT').AsVariant;
+      if FRoot = Null then
+        FRoot := fTimeline.DataSet.FieldByName('PARENT').AsVariant;
+      if FRoot = Null then
+        FRoot := fTimeline.DataSet.FieldByName('SQL_ID').AsVariant;
+      fTimeline.ApplyAutoFilter:=False;
+      fTimeline.SortField:='TIMESTAMPD';
+      fTimeline.SortDirection:=sdAscending;
+      fTimeline.BaseFilter:='('+Data.QuoteField('ROOT')+'='+Data.QuoteValue(FRoot)+') OR ('+Data.QuoteField('PARENT')+'='+Data.QuoteValue(FRoot)+') OR ('+Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(FRoot)+')';
+    end
+  else
+    begin
+      fTimeline.ApplyAutoFilter:=FOldAutoFilterT;
+      fTimeline.SortField := FOldSortT;
+      fTimeline.SortDirection := FOldSortDT;
+      if FOldBaseFilterT<>'' then
+        begin
+          fTimeline.BaseFilter:=FOldBaseFilterT;
+          FOldBaseFilterT:='';
+        end
+      else
+        fTimeline.BaseFilter:='';
+      if FOldRecT<>0 then
+        begin
+          fTimeline.DataSet.GotoBookmark(FOldRecT);
+          fTimeline.GotoDataSetRow;
+          FOldRecT:=0;
+        end;
+    end;
+  Screen.Cursor:=crDefault;
+end;
+
+procedure TfmTimeline.tbUserClick(Sender: TObject);
+var
+  FUser: String;
+begin
+  Screen.Cursor:=crHourGlass;
+  if tbRootEntrys.Down then
+    tbRootEntrys.Down:=False;
+  if tbUser.Down then
+    begin
+      fTimeline.GotoActiveRow;
+      FOldBaseFilterU := fTimeline.BaseFilter;
+      FOldRecU := fTimeline.DataSet.GetBookmark;
+      FUser := fTimeline.DataSet.FieldByName('REFERENCE').AsString;
+      FOldAutoFilterU := fTimeline.ApplyAutoFilter;
+      fTimeline.ApplyAutoFilter:=False;
+      fTimeline.BaseFilter:='('+Data.QuoteField('REFERENCE')+'='+Data.QuoteValue(FUser)+')';
+    end
+  else
+    begin
+      fTimeline.ApplyAutoFilter:=FoldAutoFilterU;
+      if FOldBaseFilterU<>'' then
+        begin
+          fTimeline.BaseFilter:=FOldBaseFilterU;
+          FOldBaseFilterU:='';
+        end
+      else
+        fTimeline.BaseFilter:='';
+      if FOldRecU<>0 then
+        begin
+          fTimeline.DataSet.GotoBookmark(FOldRecU);
+          fTimeline.GotoDataSetRow;
+          FOldRecU:=0;
+        end;
+    end;
+  Screen.Cursor:=crDefault;
+end;
+
 procedure TfmTimeline.Timer1Timer(Sender: TObject);
 begin
   Timer1.Enabled:=False;
@@ -767,6 +867,27 @@ begin
       pSearch.Visible:=False;
     end;
   aController.Free;
+end;
+
+procedure TfmTimeline.tbRootEntrysClick(Sender: TObject);
+var
+  FRoot : Variant;
+begin
+  Screen.Cursor:=crHourGlass;
+  fTimeline.ApplyAutoFilter:=True;
+  tbThread.Down:=False;
+  tbUser.Down:=False;
+  if tbRootEntrys.Down then
+    begin
+      fTimeline.GotoActiveRow;
+      FRoot := fTimeline.DataSet.FieldByName('ROOT').AsVariant;
+      if FRoot = Null then
+        FRoot := fTimeline.DataSet.FieldByName('PARENT').AsVariant;
+      fTimeline.BaseFilter:=Data.ProcessTerm(Data.QuoteField('PARENT')+'='+Data.QuoteValue(''));
+    end
+  else
+    fTimeline.BaseFilter:='';
+  Screen.Cursor:=crDefault;
 end;
 
 procedure TfmTimeline.MarkAsRead;
