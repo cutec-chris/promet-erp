@@ -79,6 +79,7 @@ type
     Seen : string;
     ShouldStart : TDateTime;
     RefreshHeight : Boolean;
+    Extends : TPoint;
     property StringRec : string read GetStringRec;
     constructor Create;
   end;
@@ -91,7 +92,7 @@ type
   TCellButtonClickEvent = procedure(Sender : TObject;Cell : TPoint;Field : TColumn) of object;
   TSetupPositionEvent = procedure(Sender : TObject;Columns : TGridColumns)  of object;
   TGetCellTextEvent = procedure(Sender : TObject;aCol : TColumn;aRow : Integer;var NewText : string;aFont : TFont) of object;
-  TGetRowHeightEvent = procedure(Sender : TObject;aCol : TColumn;aRow : Integer;var aHeight : Integer) of object;
+  TGetRowHeightEvent = procedure(Sender : TObject;aCol : TColumn;aRow : Integer;var aHeight : Integer;var aWidth : Integer) of object;
   TSetCellTextEvent = procedure(Sender : TObject;aCol : TColumn;aRow : Integer;var NewText : string) of object;
   TFieldEvent = procedure(Field : TColumn) of object;
   TSearchKey = function(Sender : TObject;X,Y : Integer;Field : TColumn;var Key : Word;Shift : TShiftState;SearchString : string) : Boolean of object;
@@ -270,7 +271,7 @@ type
     function GetActualField: TColumn;
     function GetColumns: TDBGridColumns;
     function GetCount: Integer;
-    function  GetRowHeight(aRow : Integer) : Integer;
+    function  GetRowHeight(aRow : Integer) : TPoint;
     procedure SetBaseFilter(AValue: string);
     procedure SetDataSet(const AValue: TBaseDBDataSet);
     procedure SetDefaultRowHeight(AValue: Boolean);
@@ -790,7 +791,8 @@ begin
     end
   else
     begin
-      gList.RowHeights[gList.Row] := GetRowHeight(gList.Row);
+      TRowObject(gList.Objects[0,gList.Row]).Extends := GetRowHeight(gList.Row);
+      gList.RowHeights[gList.Row] := TRowObject(gList.Objects[0,gList.Row]).Extends.Y;
       TRowObject(gList.Objects[0,gList.Row]).RefreshHeight:=True;
       TryToMakeEditorVisible;
       mInplace.BoundsRect:=gList.CellRect(gList.Col,gList.Row);
@@ -1096,16 +1098,23 @@ begin
             TStringGrid(Sender).Canvas.DrawFocusRect(arect);
           exit;
         end;
-      if Assigned(gList.Objects[0,aRow]) and TRowObject(gList.Objects[0,aRow]).RefreshHeight and (not gList.EditorMode) then
+      if Assigned(gList.Objects[0,aRow]) and TRowObject(gList.Objects[0,aRow]).RefreshHeight and (not gList.EditorMode) and gList.Canvas.HandleAllocated then
         begin
-          aNewHeight := GetRowHeight(aRow);
-          if aNewHeight <> RowHeights[aRow] then
+          gList.BeginUpdate;
+          for i := gList.TopRow to gList.TopRow+gList.VisibleRowCount-1 do
             begin
-              RowHeights[aRow] := aNewHeight;
-              Application.QueueAsyncCall(@DoInvalidate,0);
+              if Assigned(gList.Objects[0,i]) and TRowObject(gList.Objects[0,i]).RefreshHeight then
+                begin
+                  TRowObject(gList.Objects[0,i]).Extends := GetRowHeight(i);
+                  if TRowObject(gList.Objects[0,i]).Extends.Y <> RowHeights[i] then
+                    begin
+                      RowHeights[i] := TRowObject(gList.Objects[0,i]).Extends.Y;
+                    end;
+                  TRowObject(gList.Objects[0,i]).RefreshHeight := False;
+                end;
             end;
-          if gList.Canvas.HandleAllocated then
-            TRowObject(gList.Objects[0,aRow]).RefreshHeight := False;
+          gList.EndUpdate;
+          Application.QueueAsyncCall(@DoInvalidate,0);
         end;
       if (aCol = 0) then
         begin
@@ -1945,7 +1954,7 @@ function TfGridView.GetActualField: TColumn;
 begin
   Result := dgFake.Columns[gList.Col-1];
 end;
-function TfGridView.GetRowHeight(aRow: Integer): Integer;
+function TfGridView.GetRowHeight(aRow: Integer): TPoint;
 var
   aText: string;
   aHeight : Integer = 1;
@@ -1953,7 +1962,8 @@ var
   r: Classes.TRect;
   TextWidth: Integer;
 begin
-  Result := gList.DefaultRowHeight;
+  Result.Y := gList.DefaultRowHeight;
+  Result.X := 0;
   if aRow<0 then exit;
   if UseDefaultRowHeight then exit;
   r.Top:=0;
@@ -1968,6 +1978,7 @@ begin
             if Assigned(FGetCText) then
               FGetCText(Self,dgFake.Columns[i],aRow,atext,nil);
             TextWidth := gList.CellRect(i+1,aRow).Right-gList.CellRect(i+1,aRow).Left;
+            Result.X := TextWidth;
             if FWordWrap then
               begin
                 if gList.Canvas.HandleAllocated then
@@ -1997,18 +2008,18 @@ begin
       aHeight := ((aHeight)*(gList.DefaultRowHeight-4));
       if gList.DefaultRowHeight > aHeight then
         aHeight := gList.DefaultRowHeight;
-      Result := aHeight;
+      Result.Y := aHeight;
     end
   else
     begin
-      Result := r.Bottom-r.Top;
-      if Result < gList.DefaultRowHeight then
-        Result := gList.DefaultRowHeight;
+      Result.Y := r.Bottom-r.Top;
+      if Result.Y < gList.DefaultRowHeight then
+        Result.Y := gList.DefaultRowHeight;
     end;
-  if Result>(gList.Height-(gList.FixedRows*gList.DefaultRowHeight)) then
-    Result:=(gList.Height-(gList.FixedRows*gList.DefaultRowHeight));
+  if Result.Y>(gList.Height-(gList.FixedRows*gList.DefaultRowHeight)) then
+    Result.Y:=(gList.Height-(gList.FixedRows*gList.DefaultRowHeight));
   if Assigned(FGetRowHeight) then
-    FGetRowHeight(Self,dgFake.Columns[i],aRow,Result);
+    FGetRowHeight(Self,dgFake.Columns[i],aRow,Result.Y,Result.X);
 end;
 procedure TfGridView.SetBaseFilter(AValue: string);
 var
@@ -2165,16 +2176,16 @@ end;
 procedure TfGridView.CalculateRowHeights;
 var
   i: Integer;
-  aNewHeight: Integer;
 begin
   if gList.EditorMode then
     gList.EditorMode:=False;
   gList.BeginUpdate;
   for i := gList.FixedRows to gList.RowCount-1 do
     begin
-      aNewHeight := GetRowHeight(i);
-      if aNewHeight<>gList.RowHeights[i] then
-        gList.RowHeights[i] := aNewHeight;
+      if Assigned(gList.Objects[0,i]) then
+        TRowObject(gList.Objects[0,i]).Extends := GetRowHeight(i);
+      if TRowObject(gList.Objects[0,i]).Extends.Y<>gList.RowHeights[i] then
+        gList.RowHeights[i] := TRowObject(gList.Objects[0,i]).Extends.Y;
       if Assigned(gList.Objects[0,i]) then
         TRowObject(gList.Objects[0,i]).RefreshHeight:=True;
     end;
@@ -2791,8 +2802,8 @@ begin
     end;
   if Result and UpdateRowHeight then
     begin
-      aNewHeight := GetRowHeight(gList.Row);
-      if aNewHeight <> gList.RowHeights[gList.Row] then
+      TRowObject(gList.Objects[0,gList.Row]).Extends := GetRowHeight(gList.Row);
+      if TRowObject(gList.Objects[0,gList.Row]).Extends.Y <> gList.RowHeights[gList.Row] then
         gList.RowHeights[gList.Row] := aNewHeight;
       TRowObject(gList.Objects[0,gList.Row]).RefreshHeight:=True;
     end;

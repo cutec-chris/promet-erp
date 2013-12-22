@@ -92,7 +92,7 @@ type
     procedure fTimelineGetCellText(Sender: TObject; aCol: TColumn;
       aRow: Integer; var NewText: string; aFont: TFont);
     procedure fTimelinegetRowHeight(Sender: TObject; aCol: TColumn;
-      aRow: Integer; var aHeight: Integer);
+      aRow: Integer; var aHeight: Integer;var aWidth : Integer);
     procedure fTimelinegListDblClick(Sender: TObject);
     procedure fTimelinegListKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -594,9 +594,17 @@ begin
 end;
 
 procedure TfmTimeline.fTimelinegetRowHeight(Sender: TObject; aCol: TColumn;
-  aRow: Integer; var aHeight: Integer);
+  aRow: Integer; var aHeight: Integer; var aWidth: Integer);
+var
+  aObj: TObject;
 begin
   aHeight := aHeight+3;
+  aObj := fTimeline.gList.Objects[aCol.Index+1,aRow];
+  if Assigned(aObj) then
+    begin
+      if TMGridObject(aObj).HasAttachment then
+        aWidth := aWidth-50;
+    end;
 end;
 
 procedure TfmTimeline.fTimelinegListDblClick(Sender: TObject);
