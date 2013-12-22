@@ -76,6 +76,10 @@ begin
       Picture := TPicture.Create;
       try
         Picture.LoadFromStreamWithFileExt(ms,ExtractFileExt(URL));
+        Picture.Graphic.Transparent:=False;
+        if Assigned(Picture.Jpeg) then Picture.Jpeg.Transparent:=False;
+        if Assigned(Picture.PNG) then Picture.PNG.Transparent:=False;
+        if Assigned(Picture.Bitmap) then Picture.Bitmap.Transparent:=False;
       except
       end;
       ms.Free;
