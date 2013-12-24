@@ -24,8 +24,7 @@ interface
 
 uses
   Classes,SysUtils,uDocuments,uBaseDbClasses,uBaseDBInterface,db,uIntfStrConsts,
-  FPImage,fpreadgif,FPReadPSD,FPReadPCX,FPReadTGA,FPReadJPEGintfd,fpthumbresize,
-  FPWriteJPEG,Utils;
+  Utils;
 type
   TDocPages = class(TBaseDBDataset)
   private
@@ -39,11 +38,11 @@ type
     procedure DefineFields(aDataSet: TDataSet); override;
     procedure Add(aDocuments: TDocuments);
     procedure AddFromFile(aFile : UTF8String);
-    procedure GenerateThumbNail(aName : string;aFullStream,aStream : TStream;aWidth : Integer=310;aHeight : Integer=428);
   end;
 
 implementation
-uses uData,uBaseApplication,dEXIF,UTF8Process,process,LCLProc,ProcessUtils;
+uses uData,uBaseApplication,dEXIF,UTF8Process,process,LCLProc,ProcessUtils,
+  uthumbnails;
 
 procedure TDocPages.SetParamsFromExif(extn: string; aFullStream: TStream);
 var
@@ -297,68 +296,5 @@ begin
       aDocument.Free;
     end;
 end;
-
-procedure TDocPages.GenerateThumbNail(aName : string;aFullStream, aStream: TStream;aWidth : Integer;aHeight : Integer);
-var
-  Img: TFPMemoryImage = nil;
-  i: Integer;
-  e: String;
-  r: Integer;
-  s: String;
-  d: TIHData;
-  h: TFPCustomImageReaderClass = nil;
-  reader: TFPCustomImageReader;
-  Msg: String;
-  iOut: TFPMemoryImage;
-  wr: TFPWriterJPEG;
-  area: TRect;
-begin
-  try
-    e := lowercase (ExtractFileExt(aName));
-    if (e <> '') and (e[1] = '.') then
-      System.delete (e,1,1);
-    s := e + ';';
-    if (s = 'jpg;') or (s='jpeg;') then
-      h := TFPReaderJPEG
-    else
-      for i := 0 to ImageHandlers.Count-1 do
-        if pos(s,ImageHandlers.Extentions[ImageHandlers.TypeNames[i]]+';')>0 then
-          begin
-            h := ImageHandlers.ImageReader[ImageHandlers.TypeNames[i]];
-            break;
-          end;
-    if assigned (h) then
-      begin
-        Img := TFPMemoryImage.Create(0, 0);
-        Img.UsePalette := false;
-        reader := h.Create;
-        if reader is TFPReaderJPEG then
-          begin
-            TFPReaderJPEG(reader).MinHeight:=aHeight;
-            TFPReaderJPEG(reader).MinWidth:=aWidth;
-          end;
-        try
-          Img.LoadFromStream(aFullStream, reader);
-          if reader is TFPReaderJPEG then
-            begin
-            end;
-        finally
-          Reader.Free;
-        end;
-      end;
-    if Assigned(Img) then
-      begin
-        iOut := ThumbResize(Img, aWidth, aHeight, area);
-        wr := TFPWriterJPEG.Create;
-        wr.ProgressiveEncoding:=True;
-        iOut.SaveToStream(aStream,wr);
-        wr.Free;
-        iOut.Free;
-        Img.Free;
-      end;
-  except
-  end;
-end;
-
 end.
 

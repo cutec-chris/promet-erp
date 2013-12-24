@@ -90,7 +90,7 @@ document.querySelector('#submitForm').onsubmit=function(){
   return false;
 }
 if (IsConnectionOK){
-  GetList("tasks","\"HASCHILDS\"<>\'Y\'",function (aData)
+  GetList("tasks","\"HASCHILDS\"<>\'Y\'",1,function (aData)
     {
     console.log("Sync started...");
     var RemoteTasks = aData;

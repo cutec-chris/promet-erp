@@ -20,7 +20,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="37">
+    <Files Count="38">
       <Item1>
         <Filename Value="ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
@@ -169,6 +169,10 @@
         <Filename Value="fpreadjpegintfd.pas"/>
         <UnitName Value="FPReadJPEGintfd"/>
       </Item37>
+      <Item38>
+        <Filename Value="uthumbnails.pas"/>
+        <UnitName Value="uthumbnails"/>
+      </Item38>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="9">

@@ -2130,20 +2130,6 @@ end;
 destructor TBaseDBDataset.Destroy;
 begin
   if not TBaseDBModule(DataModule).IgnoreOpenRequests then
-  if Assigned(FDataSet) then
-    begin
-      try
-        if FDataSet.Active then
-          FDataSet.Close;
-      except
-        on e : Exception do
-          begin
-            with BaseApplication as IBaseApplication do
-              with FDataSet as IBaseManageDB do
-                debugln(Format('Error Destroying Table %s,%s',[TableName,e.Message]));
-          end;
-      end;
-    end;
   inherited Destroy;
 end;
 procedure TBaseDBDataset.Open;

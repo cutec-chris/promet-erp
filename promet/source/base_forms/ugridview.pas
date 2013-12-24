@@ -1961,6 +1961,7 @@ var
   i: Integer;
   r: Classes.TRect;
   TextWidth: Integer;
+  DontCall: Boolean = False;
 begin
   Result.Y := gList.DefaultRowHeight;
   Result.X := 0;
@@ -1981,9 +1982,15 @@ begin
             Result.X := TextWidth;
             if FWordWrap then
               begin
+                if Assigned(FGetRowHeight) then
+                  begin
+                    FGetRowHeight(Self,dgFake.Columns[i],aRow,Result.Y,TextWidth);
+                    //DontCall := True;
+                  end;
                 if gList.Canvas.HandleAllocated then
                   begin
                     r := gList.CellRect(i+1,aRow);
+                    r.Right:=r.Left+TextWidth;
                     DrawText(gList.Canvas.Handle,
                       PChar(aText),
                       Length(aText),
@@ -2018,7 +2025,7 @@ begin
     end;
   if Result.Y>(gList.Height-(gList.FixedRows*gList.DefaultRowHeight)) then
     Result.Y:=(gList.Height-(gList.FixedRows*gList.DefaultRowHeight));
-  if Assigned(FGetRowHeight) then
+  if Assigned(FGetRowHeight) and (not DontCall) then
     FGetRowHeight(Self,dgFake.Columns[i],aRow,Result.Y,Result.X);
 end;
 procedure TfGridView.SetBaseFilter(AValue: string);

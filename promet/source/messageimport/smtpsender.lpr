@@ -128,6 +128,7 @@ begin
                   begin
                     aMessage.Select(MessageIndex.Id.AsInteger);
                     aMessage.Open;
+                    if aMessage.Count>0 then
                     with aMessage.DataSet do
                       begin
                         if SMTP.MailFrom(FieldByName('SENDER').AsString,0) then

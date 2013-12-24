@@ -276,14 +276,17 @@ begin
   if Assigned(result) then
     begin
       aMessage.Encodemessage;
-      if Self.DataSet.FieldByName('LINES').IsNull then
-        begin
-          if not Self.CanEdit then
-            Self.DataSet.Edit;
-          Self.DataSet.FieldbyName('LINES').AsInteger := aMessage.Lines.Count;
-          Self.DataSet.FieldbyName('SIZE').AsInteger := length(aMessage.Lines.text);
-          Self.DataSet.Post;
-        end;
+      try
+        if Self.DataSet.FieldByName('LINES').IsNull then
+          begin
+            if not Self.CanEdit then
+              Self.DataSet.Edit;
+            Self.DataSet.FieldbyName('LINES').AsInteger := aMessage.Lines.Count;
+            Self.DataSet.FieldbyName('SIZE').AsInteger := length(aMessage.Lines.text);
+            Self.DataSet.Post;
+          end;
+      except
+      end;
     end;
 end;
 procedure TMimeMessage.DecodeMessage(msg: TMimeMess);

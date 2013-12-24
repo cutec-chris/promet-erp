@@ -28,13 +28,18 @@ uses
   uExtControls,uBaseVisualControls,uBaseDbClasses,uFormAnimate,uBaseSearch,
   ImgList,uBaseDbInterface;
 type
+
+  { TMGridObject }
+
   TMGridObject = class(TObject)
   public
     Caption : string;
     Bold : Boolean;
     Text : string;
     HasAttachment : Boolean;
+    Image : TBitmap;
     constructor Create;
+    destructor Destroy; override;
   end;
 
   { TfmTimeline }
@@ -131,16 +136,25 @@ type
   end;
 var
   fmTimeline: TfmTimeline;
+const
+  DrawImageWidth = 150;
 implementation
 uses uBaseApplication, uData, uOrder,uMessages,uBaseERPDBClasses,
   uMain,LCLType,utask,uProcessManager,uprometipc,ProcessUtils,ufollow,udetailview,
-  LCLIntf,wikitohtml,uDocuments;
+  LCLIntf,wikitohtml,uDocuments,uthumbnails;
 resourcestring
   strTo                                  = 'an ';
 
 constructor TMGridObject.Create;
 begin
   Bold := False;
+  Image := nil;
+end;
+
+destructor TMGridObject.Destroy;
+begin
+  if Assigned(Image) then Image.Free;
+  inherited Destroy;
 end;
 
 procedure TfmTimeline.Execute;
@@ -238,6 +252,8 @@ var
   bRect: TRect;
   r: TRect;
   aEn: Boolean;
+  cRect: TRect;
+  aFactor: Extended;
 begin
   with (Sender as TCustomGrid), Canvas do
     begin
@@ -317,7 +333,19 @@ begin
               TStringGrid(Sender).Canvas.Brush.Style:=bsClear;
               bRect := aRect;
               if TMGridObject(aObj).HasAttachment then
-                fVisualControls.Images.Draw(TStringGrid(Sender).Canvas,aRect.Left-16,aRect.Top,70);
+                begin
+                  fVisualControls.Images.Draw(TStringGrid(Sender).Canvas,aRect.Left-16,aRect.Top,70);
+                  bRect.Right:=bRect.Right-DrawImageWidth;
+                  if Assigned(TMGridObject(aObj).Image) then
+                    begin
+                      cRect := Rect(bRect.Right,bRect.Top,aRect.Right,0);
+                      aFactor := TMGridObject(aObj).Image.Width/TMGridObject(aObj).Image.Height;
+                      if TMGridObject(aObj).Image.Width>TMGridObject(aObj).Image.Height then
+                        cRect.Bottom:=round(cRect.Top+(DrawImageWidth/aFactor))
+                      else cRect.Bottom:=round(cRect.Top+(DrawImageWidth * aFactor));
+                      TStringGrid(Sender).Canvas.StretchDraw(cRect,TMGridObject(aObj).Image);
+                    end;
+                end;
               if TMGridObject(aObj).Caption <> '' then
                 brect.Top := bRect.Top+TStringGrid(Sender).Canvas.TextExtent('A').cy;
               if TMGridObject(aObj).Bold then
@@ -562,6 +590,10 @@ begin
                       aDocument.ActualLimit:=1;
                       aDocument.Open;
                       TMGridObject(aObj).HasAttachment := aDocument.Count>0;
+                      if aDocument.Count>0 then
+                        begin
+                          TMGridObject(aObj).Image := GetThumbnailBitmap(aDocument);
+                        end;
                       aDocument.Free;
                     end;
                 end;
@@ -602,8 +634,10 @@ begin
   aObj := fTimeline.gList.Objects[aCol.Index+1,aRow];
   if Assigned(aObj) then
     begin
-      if TMGridObject(aObj).HasAttachment then
-        aWidth := aWidth-50;
+      if TMGridObject(aObj).HasAttachment
+      and Assigned(TMGridObject(aObj).Image)
+      and (TMGridObject(aObj).Image.Width>0) then
+        aWidth := aWidth-TMGridObject(aObj).Image.Width div 2;
     end;
 end;
 

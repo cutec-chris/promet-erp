@@ -13,7 +13,8 @@ uses
   uAccounting, uMessages, uBaseApplication, uCalendar, uSystemMessage, 
   ubaseapplicationtools, uWiki, uEncrypt, usync, uSessionDBClasses, utask, 
   uvtools, uimpvcal, uDocumentProcess, uProcessManager, uProcessManagement, 
-  uprometipc, umeeting, uBaseDocPages, FPReadJPEGintfd, LazarusPackageIntf;
+  uprometipc, umeeting, uBaseDocPages, FPReadJPEGintfd, uthumbnails, 
+  LazarusPackageIntf;
 
 implementation
 

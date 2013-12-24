@@ -179,7 +179,7 @@ implementation
 {$R *.lfm}
 uses uData,udocuments,uWait,LCLIntf,Utils,uFormAnimate,uImportImages,
   ProcessUtils,uMainTreeFrame,ucameraimport,FPimage,FPReadJPEG,FPCanvas,
-  FPWriteJPEG,LCLProc;
+  FPWriteJPEG,LCLProc,uthumbnails;
 resourcestring
   strTag                   = 'Tag';
   strSetTag                = 'durch Klick setzen';
@@ -877,10 +877,6 @@ begin
             if aStream.Size>0 then
               Data.StreamToBlobField(aStream,DataSet.DataSet,'THUMBNAIL');
             aDocument.Free;
-            {
-            aFullStream.Position:=0;
-            aFullStream.SaveToFile(FtempPath+DataSet.FieldByName('SQL_ID').AsString+'.jpg');
-            }
             DeleteFileUTF8(FtempPath+DataSet.FieldByName('SQL_ID').AsString+'.jpg');
             aFullStream.Free;
             aStream.Free;
@@ -894,7 +890,7 @@ begin
   FFilter := '';
   SelectedItem:=nil;
   DataSet := TDocPages.Create(nil,Data);
-  FTempPath := GetTempDir+'promet_thumbs';
+  FTempPath := uthumbnails.GetThumbTempDir;
   ForceDirectoriesUTF8(FtempPath);
   FtempPath := AppendPathDelim(FtempPath);
   FDocFrame := TfDocumentFrame.Create(Self);
