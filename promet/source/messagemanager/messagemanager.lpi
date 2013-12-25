@@ -27,6 +27,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <CommandLineParams Value="--mandant=TestPG --user=Administrator"/>
       </local>
     </RunParams>
     <RequiredPackages Count="7">
@@ -122,7 +123,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="7">
+    <Exceptions Count="9">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -144,6 +145,12 @@
       <Item7>
         <Name Value="EInterfaceCritical"/>
       </Item7>
+      <Item8>
+        <Name Value="PNGImageException"/>
+      </Item8>
+      <Item9>
+        <Name Value="FPImageException"/>
+      </Item9>
     </Exceptions>
   </Debugging>
 </CONFIG>

@@ -24,6 +24,9 @@ uses
   Classes, SysUtils, db, uBaseDbDataSet, Variants, uIntfStrConsts, DOM,
   Contnrs,LCLProc;
 type
+
+  { TBaseDBDataset }
+
   TBaseDBDataset = class(TComponent)
   private
     fChanged: Boolean;
@@ -41,10 +44,14 @@ type
     function GetCaption: string;
     function GetConnection: TComponent;
     function GetCount: Integer;
+    function GetFilter: string;
     function GetFullCount: Integer;
     function GetID: TField;
+    function GetLimit: Integer;
     function GetState: TDataSetState;
     function GetTimestamp: TField;
+    procedure SetFilter(AValue: string);
+    procedure SetLimit(AValue: Integer);
   public
     constructor Create(aOwner : TComponent;DM : TComponent;aUseIntegrity : Boolean;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);virtual;
     constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);virtual;
@@ -91,6 +98,8 @@ type
     procedure Assign(Source: TPersistent); override;
     procedure DirectAssign(Source : TPersistent);
     procedure Filter(aFilter : string;aLimit : Integer = 0;aOrderBy : string = '';aSortDirection : string = 'ASC';aLocalSorting : Boolean = False;aGlobalFilter : Boolean = True;aUsePermissions : Boolean = False;aFilterIn : string = '');virtual;
+    property ActualFilter : string read GetFilter write SetFilter;
+    property ActualLimit : Integer read GetLimit write SetLimit;
     property Parent : TBaseDbDataSet read FParent;
     property UpdateFloatFields : Boolean read FUpdateFloatFields write FUpdateFloatFields;
     property CanEdit : Boolean read GetCanEdit;
@@ -101,8 +110,6 @@ type
   TBaseDbList = class(TBaseDBDataSet)
   private
     function GetBookNumber: TField;
-    function GetFilter: string;
-    function GetLimit: Integer;
     function GetMatchcode: TField;
     function GetBarcode: TField;
     function GetCommission: TField;
@@ -110,8 +117,6 @@ type
     function GetStatus: TField;
     function GetText: TField;
     function GetNumber : TField;
-    procedure SetFilter(AValue: string);
-    procedure SetLimit(AValue: Integer);
   protected
     FStatusCache: TStringList;
   public
@@ -141,8 +146,6 @@ type
     property Status : TField read GetStatus;
     property Typ : string read GetTyp;
     property Matchcode : TField read GetMatchcode;
-    property ActualFilter : string read GetFilter write SetFilter;
-    property ActualLimit : Integer read GetLimit write SetLimit;
     procedure SelectFromLink(aLink : string);virtual;
   end;
   TBaseDBDatasetClass = class of TBaseDBDataset;
@@ -661,22 +664,6 @@ begin
     Result := DataSet.FieldByName(aField);
 end;
 
-function TBaseDbList.GetFilter: string;
-begin
-  result := '';
-  if not Assigned(DataSet) then exit;
-  with DataSet as IBaseDbFilter do
-    Result := Filter;
-end;
-
-function TBaseDbList.GetLimit: Integer;
-begin
-  result := -1;
-  if not Assigned(DataSet) then exit;
-  with DataSet as IBaseDbFilter do
-    Result := Limit;
-end;
-
 function TBaseDbList.GetMatchcode: TField;
 var
   aField: String;
@@ -737,19 +724,6 @@ begin
   if aField <> '' then
     Result := DataSet.FieldByName(aField);
 end;
-
-procedure TBaseDbList.SetFilter(AValue: string);
-begin
-  with DataSet as IBaseDbFilter do
-    Filter := AValue;
-end;
-
-procedure TBaseDbList.SetLimit(AValue: Integer);
-begin
-  with DataSet as IBaseDbFilter do
-    Limit := aValue;
-end;
-
 constructor TBaseDbList.Create(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
@@ -2046,6 +2020,15 @@ begin
   if DataSet.Active and (DataSet.FieldDefs.IndexOf('SQL_ID')>-1) then
     Result := DataSet.FieldByName('SQL_ID');
 end;
+
+function TBaseDBDataset.GetLimit: Integer;
+begin
+  result := -1;
+  if not Assigned(DataSet) then exit;
+  with DataSet as IBaseDbFilter do
+    Result := Limit;
+end;
+
 function TBaseDBDataset.GetState: TDataSetState;
 begin
   if Assigned(FDataSet) then
@@ -2072,6 +2055,15 @@ begin
   else
     Result := -1;
 end;
+
+function TBaseDBDataset.GetFilter: string;
+begin
+  result := '';
+  if not Assigned(DataSet) then exit;
+  with DataSet as IBaseDbFilter do
+    Result := Filter;
+end;
+
 function TBaseDBDataset.GetFullCount: Integer;
 var
   aDS: TDataSet;
@@ -2098,6 +2090,17 @@ end;
 function TBaseDBDataset.GetTimestamp: TField;
 begin
   Result := DataSet.FieldByName('TIMESTAMPD');
+end;
+
+procedure TBaseDBDataset.SetFilter(AValue: string);
+begin
+  with DataSet as IBaseDbFilter do
+    Filter := AValue;
+end;
+procedure TBaseDBDataset.SetLimit(AValue: Integer);
+begin
+  with DataSet as IBaseDbFilter do
+    Limit := aValue;
 end;
 constructor TBaseDBDataset.Create(aOwner: TComponent; DM: TComponent; aUseIntegrity: Boolean;
   aConnection: TComponent; aMasterdata: TDataSet);

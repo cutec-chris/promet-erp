@@ -4,16 +4,16 @@
     <component class="TProject">
       <properties>
         <string name="Name" value="Promet-App"/>
-        <string name="Filenames" value="/media/Daten/Source/promet/apps/promet/index.html
-/media/Daten/Source/promet/apps/promet/tasks.html
-/media/Daten/Source/promet/apps/promet/timeregistering.html
-/media/Daten/Source/promet/apps/promet/history.html
-/media/Daten/Source/promet/apps/promet/tasks.js
+        <string name="Filenames" value="index.html
+tasks.html
+timeregistering.html
+history.html
+tasks.js
 "/>
-        <string name="OpenNames" value="/media/Daten/Source/promet/apps/promet/index.html
-/media/Daten/Source/promet/apps/promet/tasks.html
-/media/Daten/Source/promet/apps/promet/tasks.js
-/media/Daten/Source/promet/apps/promet/base/js/framework.js
+        <string name="OpenNames" value="index.html
+tasks.html
+tasks.js
+base/js/framework.js
 "/>
       </properties>
     </component>

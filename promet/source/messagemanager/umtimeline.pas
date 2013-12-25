@@ -126,6 +126,7 @@ type
     FOldSortDT: uBasedbinterface.TSortDirection;
     FoldAutoFilterU : Boolean;
     FOldAutoFilterT : Boolean;
+    FOldLimitT: Integer;
     procedure MarkAsRead;
   public
     { public declarations }
@@ -815,6 +816,7 @@ begin
       FOldSortT := fTimeline.SortField;
       FOldSortDT := fTimeline.SortDirection;
       FOldAutoFilterT := fTimeline.ApplyAutoFilter;
+      FOldLimitT := fTimeline.DataSet.ActualLimit;
       FRoot := fTimeline.DataSet.FieldByName('ROOT').AsVariant;
       if FRoot = Null then
         FRoot := fTimeline.DataSet.FieldByName('PARENT').AsVariant;
@@ -823,6 +825,7 @@ begin
       fTimeline.ApplyAutoFilter:=False;
       fTimeline.SortField:='TIMESTAMPD';
       fTimeline.SortDirection:=sdAscending;
+      fTimeline.DataSet.ActualLimit:=0;
       fTimeline.BaseFilter:='('+Data.QuoteField('ROOT')+'='+Data.QuoteValue(FRoot)+') OR ('+Data.QuoteField('PARENT')+'='+Data.QuoteValue(FRoot)+') OR ('+Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(FRoot)+')';
     end
   else
@@ -830,6 +833,7 @@ begin
       fTimeline.ApplyAutoFilter:=FOldAutoFilterT;
       fTimeline.SortField := FOldSortT;
       fTimeline.SortDirection := FOldSortDT;
+      fTimeline.DataSet.ActualLimit:=FOldLimitT;
       if FOldBaseFilterT<>'' then
         begin
           fTimeline.BaseFilter:=FOldBaseFilterT;
@@ -866,6 +870,7 @@ begin
     end
   else
     begin
+      fTimeline.DataSet.ActualLimit:=100;
       fTimeline.ApplyAutoFilter:=FoldAutoFilterU;
       if FOldBaseFilterU<>'' then
         begin
@@ -925,6 +930,7 @@ begin
       FRoot := fTimeline.DataSet.FieldByName('ROOT').AsVariant;
       if FRoot = Null then
         FRoot := fTimeline.DataSet.FieldByName('PARENT').AsVariant;
+      fTimeline.DataSet.ActualLimit:=100;
       fTimeline.BaseFilter:=Data.ProcessTerm(Data.QuoteField('PARENT')+'='+Data.QuoteValue(''));
     end
   else
