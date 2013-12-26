@@ -8,7 +8,8 @@
   <meta http-equiv="pragma" content="no-cache" />
   <meta charset='utf-8'>
   <link rel="stylesheet" type="text/css" href="base/phone.css" media="only screen and (max-width:480px)">
-  <link rel="stylesheet" type="text/css" href="base/standard.css" media="screen and (min-width:481px)"><body>
+  <link rel="stylesheet" type="text/css" href="base/standard.css" media="screen and (min-width:481px)">
+  <link rel="stylesheet" type="text/css" href="base/base.css">
   <link rel="stylesheet" href="base/font/font-awesome/css/font-awesome.min.css">
   <script src="base/js/library.js"></script>
   <script src="base/js/framework.js"></script>
@@ -31,18 +32,16 @@
   <div class="toolbar">
   </div>
   <div class="content">
-    <div id="pages-not-supported" style="display:none;background-color:#cc3333;color:white; padding:5px;font-weight:bold;">
-      Die Seite konnte nicht geladen werden, warscheinlich unterstützt Ihr Gerät keine dynamischen Anfragen
-    </div>
   </div>
 </div>
 <div id="systray">
+  <a href="base/options.html" class="toolbutton optionsButton">
 </div>
 <script type="text/javascript">
 function OnConnected() {
     console.log("were connected");
     link=document.createElement('a');
-    link.className="toolbutton";
+    link.className="loginbutton";
     link.id="loginButton";
     link.text="login";
     function DoLogin() {

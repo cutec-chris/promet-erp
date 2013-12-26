@@ -50,6 +50,8 @@ type
     acSend: TAction;
     acAnswer: TAction;
     acDetailView: TAction;
+    acMarkAllasRead: TAction;
+    acMarkasRead: TAction;
     acViewThread: TAction;
     ActionList1: TActionList;
     bSend: TBitBtn;
@@ -59,6 +61,7 @@ type
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
+    MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
     MenuItem7: TMenuItem;
     miBugtracker: TMenuItem;
@@ -79,10 +82,16 @@ type
     ToolButton1: TToolButton;
     ToolButton2: TSpeedButton;
     ToolButton3: TToolButton;
+    ToolButton4: TToolButton;
+    ToolButton5: TToolButton;
+    ToolButton6: TToolButton;
+    ToolButton7: TToolButton;
     tsHistory: TTabSheet;
     procedure acAnswerExecute(Sender: TObject);
     procedure acDetailViewExecute(Sender: TObject);
     procedure acFollowExecute(Sender: TObject);
+    procedure acMarkAllasReadExecute(Sender: TObject);
+    procedure acMarkasReadExecute(Sender: TObject);
     procedure acRefreshExecute(Sender: TObject);
     procedure acSendExecute(Sender: TObject);
     procedure ActiveSearchEndItemSearch(Sender: TObject);
@@ -385,6 +394,22 @@ begin
       Data.SetFilter(fTimeline.DataSet,fMain.Filter+' '+fMain.Filter2,300);
       acRefresh.Execute;
     end;
+end;
+
+procedure TfmTimeline.acMarkAllasReadExecute(Sender: TObject);
+begin
+  fTimeline.DataSet.First;
+  while not fTimeline.DataSet.EOF do
+    begin
+      MarkAsRead;
+      fTimeline.DataSet.Next;
+    end;
+end;
+
+procedure TfmTimeline.acMarkasReadExecute(Sender: TObject);
+begin
+  if fTimeline.GotoActiveRow then
+    MarkAsRead;
 end;
 
 procedure TfmTimeline.acAnswerExecute(Sender: TObject);
@@ -848,6 +873,7 @@ begin
           FOldRecT:=0;
         end;
     end;
+  acMarkAllasRead.Visible:=tbThread.Down or tbUser.Down;
   Screen.Cursor:=crDefault;
 end;
 
@@ -886,6 +912,7 @@ begin
           FOldRecU:=0;
         end;
     end;
+  acMarkAllasRead.Visible:=tbThread.Down or tbUser.Down;
   Screen.Cursor:=crDefault;
 end;
 

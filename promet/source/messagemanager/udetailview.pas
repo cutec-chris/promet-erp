@@ -33,6 +33,7 @@ type
 
   TfDetailView = class(TForm)
     IpHtmlPanel1: TIpHtmlPanel;
+    procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure IpHtmlPanel1HotClick(Sender: TObject);
     procedure TSimpleIpHtmlGetImageX(Sender: TIpHtmlNode; const URL: string;
       var Picture: TPicture);
@@ -76,6 +77,7 @@ begin
       Picture := TPicture.Create;
       try
         Picture.LoadFromStreamWithFileExt(ms,ExtractFileExt(URL));
+        Picture.Graphic.Transparent:=False;
       except
       end;
       ms.Free;
@@ -88,6 +90,11 @@ begin
   if IpHtmlPanel1.HotNode is TIpHtmlNodeA then
     if ((Pos('://', TIpHtmlNodeA(IpHtmlPanel1.HotNode).HRef) > 0) or (pos('www',lowercase(TIpHtmlNodeA(IpHtmlPanel1.HotNode).HRef)) > 0)) then
       OpenURL(TIpHtmlNodeA(IpHtmlPanel1.HotNode).HRef);
+end;
+
+procedure TfDetailView.FormCloseQuery(Sender: TObject; var CanClose: boolean);
+begin
+  CanClose:=True;
 end;
 
 function TfDetailView.Execute(aDataSet: TBaseHistory) : Boolean;
