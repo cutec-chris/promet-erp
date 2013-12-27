@@ -872,6 +872,7 @@ begin
           fTimeline.GotoDataSetRow;
           FOldRecT:=0;
         end;
+      fTimeline.GotoDataSetRow;
     end;
   acMarkAllasRead.Visible:=tbThread.Down or tbUser.Down;
   Screen.Cursor:=crDefault;
@@ -911,6 +912,7 @@ begin
           fTimeline.GotoDataSetRow;
           FOldRecU:=0;
         end;
+      fTimeline.GotoDataSetRow;
     end;
   acMarkAllasRead.Visible:=tbThread.Down or tbUser.Down;
   Screen.Cursor:=crDefault;

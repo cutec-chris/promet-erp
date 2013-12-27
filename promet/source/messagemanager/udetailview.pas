@@ -121,7 +121,7 @@ begin
   aHTML.LoadFromStream(ss);
   ss.Free;
   IpHtmlPanel1.SetHtml(aHTML);
-  Result := ShowModal=mrOK;
+  Show;
 end;
 
 end.

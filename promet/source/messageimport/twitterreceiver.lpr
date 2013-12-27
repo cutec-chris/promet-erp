@@ -180,7 +180,9 @@ begin
                       if Assigned(aData) and Assigned(TJSONObject(aData).Elements['text']) then
                         begin
                           atext := TJSONObject(aData).Elements['text'];
-                          asource := TJSONObject(aData).Elements['source'].AsString;
+                          if Assigned(TJSONObject(aData).Elements['source']) then
+                            asource := TJSONObject(aData).Elements['source'].AsString
+                          else asource := '';
                           if Assigned(aText) and (not aText.IsNull) then
                             text := atext.AsString
                           else text := '';
@@ -188,14 +190,22 @@ begin
                           html := TJSONObject(aData).Find('statusnet_html');
                           if trim(text) <> '' then
                             begin
-                              aCat := TJSONObject(aData).Elements['id'].AsString;
-                              aref := TJSONObject(aData).Elements['in_reply_to_status_id'].AsString;
+                              if Assigned(TJSONObject(aData).Elements['id']) then
+                                aCat := TJSONObject(aData).Elements['id'].AsString
+                              else aCat := '';
+                              if Assigned(TJSONObject(aData).Elements['in_reply_to_status_id']) and (not TJSONObject(aData).Elements['in_reply_to_status_id'].IsNull) then
+                                aref := TJSONObject(aData).Elements['in_reply_to_status_id'].AsString
+                              else aref := '';
                               Data.SetFilter(aHist,Data.QuoteField('REFOBJECT')+'='+Data.QuoteValue(aCat));
                               if aHist.Count=0 then
                                 begin
                                   if aRef = '0' then aRef := '';
-                                  aTime := DecodeRfcDateTime(TJSONObject(aData).Elements['created_at'].AsString);
-                                  author := TJSONObject(TJSONObject(aData).Elements['user']).Elements['name'].AsString;
+                                  if Assigned(TJSONObject(aData).Elements['created_at']) then
+                                    aTime := DecodeRfcDateTime(TJSONObject(aData).Elements['created_at'].AsString)
+                                  else aTime := now();
+                                  if Assigned(TJSONObject(TJSONObject(aData).Elements['user'])) and Assigned(TJSONObject(TJSONObject(aData).Elements['user']).Elements['name']) then
+                                    author := TJSONObject(TJSONObject(aData).Elements['user']).Elements['name'].AsString
+                                  else author := '';
                                   author := ConvertEncoding(author,GuessEncoding(author),encodingUTF8);
                                   if aRef='' then
                                     begin
