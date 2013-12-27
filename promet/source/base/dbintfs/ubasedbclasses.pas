@@ -1137,6 +1137,7 @@ begin
             Add('LINK',ftString,200,False);
             Add('OBJECT',ftString,200,False);
             Add('ACTIONICON',ftInteger,0,False);
+            Add('SUMMARY',ftString,120,False);
             Add('ACTION',ftMemo,0,True);
             Add('REFERENCE', ftString,150,False);
             Add('REFOBJECT',ftString,200,False);
@@ -1152,6 +1153,7 @@ begin
           begin
             Add('REF_ID','REF_ID',[]);
             Add('PARENT','PARENT',[]);
+            Add('SUMMARY','SUMMARY',[]);
             Add('REFERENCE','REFERENCE',[]);
             Add('LINK','LINK',[]);
             Add('CHANGEDBY','CHANGEDBY',[]);
