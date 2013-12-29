@@ -768,8 +768,8 @@ inherited fManageDocFrame: TfManageDocFrame
     TabOrder = 2
     object tsDocument: TTabSheet
       Caption = 'Dokument'
-      ClientHeight = 531
-      ClientWidth = 632
+      ClientHeight = 1062
+      ClientWidth = 1264
       object pThumb: TPanel
         Left = 0
         Height = 50
@@ -833,8 +833,8 @@ inherited fManageDocFrame: TfManageDocFrame
     end
     object tsFiles: TTabSheet
       Caption = 'Dateien'
-      ClientHeight = 531
-      ClientWidth = 632
+      ClientHeight = 1062
+      ClientWidth = 1264
       object pDocFrame: TPanel
         Left = 0
         Height = 531

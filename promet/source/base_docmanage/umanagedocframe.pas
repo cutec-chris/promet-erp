@@ -873,7 +873,7 @@ begin
             aFullStream := TMemoryStream.Create;
             aStream := TMemoryStream.Create;
             aDocument.CheckoutToStream(aFullStream);
-            TDocPages(DataSet).GenerateThumbNail(ExtractFileExt(aDocument.FileName),aFullStream,aStream);
+            GenerateThumbNail(ExtractFileExt(aDocument.FileName),aFullStream,aStream);
             if aStream.Size>0 then
               Data.StreamToBlobField(aStream,DataSet.DataSet,'THUMBNAIL');
             aDocument.Free;
