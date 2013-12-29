@@ -50,7 +50,7 @@ type
       AResponse: TResponse; var Handled: Boolean);
   private
     { private declarations }
-    procedure FieldsToJSON(AFields: TFields; AJSON: TJSONObject; const ADateAsString: Boolean; Fields: TSQLElementList = nil);
+    procedure FieldsToJSON(AFields: TFields; AJSON: TJSONObject; const ADateAsString: Boolean; bFields: TSQLElementList = nil);
     procedure DataSetToJSON(ADataSet: TDataSet; AJSON: TJSONArray; const ADateAsString: Boolean; Fields: TSQLElementList = nil);
     procedure JSONToFields(AJSON: TJSONObject; AFields: TFields; const ADateAsString: Boolean);
     procedure ObjectToJSON(AObject : TBaseDBDataSet; AJSON: TJSONObject;const ADateAsString: Boolean);
@@ -315,7 +315,7 @@ begin
   AResponse.SendContent;
 end;
 procedure Tappbase.FieldsToJSON(AFields: TFields; AJSON: TJSONObject;
-  const ADateAsString: Boolean; Fields: TSQLElementList);
+  const ADateAsString: Boolean; bFields: TSQLElementList);
 var
   I: Integer;
   VField: TField;
@@ -323,23 +323,36 @@ var
   function FindField(aName : string) : Boolean;
   var
     a: Integer;
+    aFName: string;
+    aF: TSQLElement;
   begin
     Result := False;
-    if not Assigned(Fields) then
+    if not Assigned(aFields) then
       begin
         Result := True;
         exit;
       end;
-    for a := 0 to Fields.Count-1 do
-      if (UpperCase(aName) = Uppercase(Fields[a].GetAsSQL([])))
-      or (UpperCase(aName) = 'ID') and (Uppercase(Fields[a].GetAsSQL([]))='SQL_ID')
-      then
-        begin
-          if aName <> '*' then
-            VFieldName:=Fields[i].GetAsSQL([]);
-          Result := True;
-          exit;
-        end;
+    for a := 0 to bFields.Count-1 do
+      begin
+        aF := bFields[a];
+        if af is TSQLSelectAsterisk then
+          begin
+            aFName:='*';
+            Result := True;
+            exit;
+          end
+        else if af is TSQLSelectField then
+          aFName := aF.GetAsSQL([],0);
+        if (UpperCase(aName) = Uppercase(aFName))
+        or (UpperCase(aName) = 'ID') and (Uppercase(aFName)='SQL_ID')
+        then
+          begin
+            if aName <> '*' then
+              VFieldName:=aFName;
+            Result := True;
+            exit;
+          end;
+      end;
   end;
 
 begin
