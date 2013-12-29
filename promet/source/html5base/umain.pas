@@ -205,6 +205,7 @@ var
   aStmt: TSQLElement;
   aFilter: String;
   a: Integer;
+  aSeq: String;
 begin
   //TODO:YQL Querys
   //http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%27http%3A%2F%2Fmashable.com%27
@@ -264,8 +265,11 @@ begin
   FSQLParser.Free;
   FSQLScanner.Free;
 
+  aSeq := ARequest.QueryFields.Values['sequence'];
+  if aSeq='' then aSeq := '0';
+  Response.Contents.Text := 'DoHandleObject('+aSeq+','+Json.AsJSON+');';
   if AResponse.Code=200 then
-    Response.Contents.Text := 'DoHandleList('+ARequest.QueryFields.Values['sequence']+','+Json.AsJSON+');';
+    Response.Contents.Text := 'DoHandleList('+aSeq+','+Json.AsJSON+');';
   Json.Free;
 
   AResponse.SendContent;
@@ -291,6 +295,7 @@ var
   aList: String;
   aDs: TBaseDBDataset;
   aRight: String;
+  aSeq: String;
 begin
   Handled:=True;
   if not TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True,False) then exit;
@@ -302,7 +307,9 @@ begin
       aDs.Open;
       Json := TJSONObject.Create;
       ObjectToJSON(aDs,Json,True);
-      Response.Contents.Text := 'DoHandleObject('+ARequest.QueryFields.Values['sequence']+','+Json.AsJSON+');';
+      aSeq := ARequest.QueryFields.Values['sequence'];
+      if aSeq='' then aSeq := '0';
+      Response.Contents.Text := 'DoHandleObject('+aSeq+','+Json.AsJSON+');';
       Json.Free;
       AResponse.Code:=200;
       AResponse.ContentType:='text/javascript;charset=utf-8';
