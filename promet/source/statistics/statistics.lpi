@@ -68,7 +68,7 @@
         <MinVersion Major="1" Release="1" Valid="True"/>
       </Item11>
     </RequiredPackages>
-    <Units Count="207">
+    <Units Count="208">
       <Unit0>
         <Filename Value="statistics.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -85,10 +85,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="umain"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="8"/>
+        <TopLine Value="98"/>
         <CursorPos X="22" Y="25"/>
         <UsageCount Value="185"/>
         <Loaded Value="True"/>
@@ -1091,12 +1090,11 @@
         <TopLine Value="952"/>
         <CursorPos X="1" Y="986"/>
         <UsageCount Value="21"/>
-        <LoadedDesigner Value="True"/>
       </Unit133>
       <Unit134>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="137"/>
         <CursorPos X="41" Y="154"/>
@@ -1106,7 +1104,7 @@
       <Unit135>
         <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1631"/>
         <CursorPos X="45" Y="1641"/>
@@ -1146,7 +1144,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPrometFrames"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="55"/>
         <CursorPos X="1" Y="72"/>
@@ -1189,7 +1187,7 @@
       <Unit143>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1858"/>
         <CursorPos X="1" Y="1882"/>
@@ -1265,7 +1263,6 @@
         <TopLine Value="335"/>
         <CursorPos X="70" Y="343"/>
         <UsageCount Value="39"/>
-        <LoadedDesigner Value="True"/>
       </Unit151>
       <Unit152>
         <Filename Value="..\base\dbintfs\ubasedbdataset.pas"/>
@@ -1294,7 +1291,7 @@
       <Unit155>
         <Filename Value="..\base\dbintfs\uintfstrconsts.pas"/>
         <UnitName Value="uIntfStrConsts"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="47" Y="19"/>
@@ -1323,7 +1320,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uWikiFrame"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="174"/>
         <CursorPos X="1" Y="193"/>
@@ -1435,10 +1432,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ustatisticframe"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="230"/>
-        <CursorPos X="1" Y="241"/>
+        <TopLine Value="525"/>
+        <CursorPos X="1" Y="527"/>
         <UsageCount Value="54"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -1446,7 +1444,7 @@
       <Unit171>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
         <UnitName Value="uStatistic"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="29" Y="23"/>
@@ -1594,7 +1592,7 @@
       <Unit187>
         <Filename Value="..\base\dbintfs\udata.pas"/>
         <UnitName Value="uData"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="17" Y="30"/>
@@ -1761,11 +1759,21 @@
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="10"/>
       </Unit206>
+      <Unit207>
+        <Filename Value="..\..\..\..\..\..\..\usr\share\fpcsrc\2.6.2\packages\fcl-db\src\sql\fpsqlparser.pas"/>
+        <UnitName Value="fpsqlparser"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="13"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit207>
     </Units>
     <Build>
       <CleanOutputFileMask Value="*.ppu;*.ppl;*.o;*.or"/>
     </Build>
-    <JumpHistory Count="16" HistoryIndex="15">
+    <JumpHistory Count="20" HistoryIndex="19">
       <Position1>
         <Filename Value="umain.pas"/>
         <Caret Line="192" Column="1" TopLine="164"/>
@@ -1830,6 +1838,22 @@
         <Filename Value="umain.pas"/>
         <Caret Line="111" Column="53" TopLine="85"/>
       </Position16>
+      <Position17>
+        <Filename Value="ustatisticframe.pas"/>
+        <Caret Line="29" Column="35" TopLine="7"/>
+      </Position17>
+      <Position18>
+        <Filename Value="ustatisticframe.pas"/>
+        <Caret Line="153" Column="61" TopLine="134"/>
+      </Position18>
+      <Position19>
+        <Filename Value="ustatisticframe.pas"/>
+        <Caret Line="197" Column="16" TopLine="177"/>
+      </Position19>
+      <Position20>
+        <Filename Value="ustatisticframe.pas"/>
+        <Caret Line="468" Column="29" TopLine="449"/>
+      </Position20>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

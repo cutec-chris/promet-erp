@@ -26,9 +26,13 @@ interface
 
 uses
   SysUtils, Classes, LR_Class, httpdefs, fpHTTP, fpWeb, fpdatasetform, db,fpjson,
-  LCLproc,uBaseDBInterface,FileUtil,LConvEncoding,uBaseDbClasses;
+  LCLproc,uBaseDBInterface,FileUtil,LConvEncoding,uBaseDbClasses,fpsqlparser,
+  fpsqlscanner, fpsqltree;
 
 type
+
+  { Tappbase }
+
   Tappbase = class(TFPWebModule)
     procedure checkloginRequest(Sender: TObject; ARequest: TRequest;
       AResponse: TResponse; var Handled: Boolean);
@@ -46,8 +50,8 @@ type
       AResponse: TResponse; var Handled: Boolean);
   private
     { private declarations }
-    procedure FieldsToJSON(AFields: TFields; AJSON: TJSONObject; const ADateAsString: Boolean);
-    procedure DataSetToJSON(ADataSet: TDataSet; AJSON: TJSONArray; const ADateAsString: Boolean);
+    procedure FieldsToJSON(AFields: TFields; AJSON: TJSONObject; const ADateAsString: Boolean; Fields: TSQLElementList = nil);
+    procedure DataSetToJSON(ADataSet: TDataSet; AJSON: TJSONArray; const ADateAsString: Boolean; Fields: TSQLElementList = nil);
     procedure JSONToFields(AJSON: TJSONObject; AFields: TFields; const ADateAsString: Boolean);
     procedure ObjectToJSON(AObject : TBaseDBDataSet; AJSON: TJSONObject;const ADateAsString: Boolean);
     function GetListObject(aName : string) : TBaseDBList;
@@ -195,32 +199,75 @@ var
   aRight: String;
   Json: TJSONArray;
   aDs: TBaseDbList = nil;
+  FSQLStream: TStringStream;
+  FSQLScanner: TSQLScanner;
+  FSQLParser: TSQLParser;
+  aStmt: TSQLElement;
+  aFilter: String;
+  a: Integer;
 begin
+  //TODO:YQL Querys
+  //http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%27http%3A%2F%2Fmashable.com%27
   Handled:=True;
   if not TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True,False) then exit;
   aList := lowercase(ARequest.QueryFields.Values['name']);
-  aDs := GetListObject(aList);
-  aRight := UpperCase(aList);
-  if (data.Users.Rights.Right(aRight)>RIGHT_READ) and (Assigned(aDS)) then
+  aFilter := ARequest.QueryFields.Values['filter'];
+  if aList <> '' then
     begin
-      if (aDs.ActualFilter<>'') and (ARequest.QueryFields.Values['filter']<>'') then
-        aDs.Filter('('+aDs.ActualFilter+') AND ('+ARequest.QueryFields.Values['filter']+')')
-      else if (ARequest.QueryFields.Values['filter']<>'') then
-        aDs.Filter(ARequest.QueryFields.Values['filter'])
-      else
-        aDs.Open;
-      Json := TJSONArray.Create;
-      DataSetToJSON(aDs.DataSet,Json,True);
-      Response.Contents.Text := 'DoHandleList('+ARequest.QueryFields.Values['sequence']+','+Json.AsJSON+');';
-      Json.Free;
-      AResponse.Code:=200;
-      AResponse.ContentType:='text/javascript;charset=utf-8';
-      AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
+      if aFilter<>'' then
+        aList := aList+' where '+aFilter;
+      FSQLStream := TStringStream.Create('select * from '+aList);
     end
   else
-    AResponse.Code:=403;
-  if Assigned(aDs) then
-    aDS.Free;
+    FSQLStream := TStringStream.Create(ARequest.QueryFields.Values['ql']);
+  FSQLScanner := TSQLScanner.Create(FSQLStream);
+  //FSQLScanner.ExcludeKeywords := FExcludeKeywords;
+  Json := TJSONArray.Create;
+  AResponse.Code:=200;
+  AResponse.ContentType:='text/javascript;charset=utf-8';
+  AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
+  FSQLParser := TSQLParser.Create(FSQLScanner);
+  try
+    aStmt := FSQLParser.Parse;
+    for a := 0 to TSQLSelectStatement(aStmt).Tables.Count-1 do
+      begin
+        aList := TSQLSimpleTableReference(TSQLSelectStatement(aStmt).Tables[a]).ObjectName.Name;
+        aDs := GetListObject(aList);
+        aRight := UpperCase(aList);
+        aFilter:=TSQLSelectStatement(aStmt).Where.GetAsSQL([sfoDoubleQuoteIdentifier]);
+        if (data.Users.Rights.Right(aRight)>RIGHT_READ) and (Assigned(aDS)) then
+          begin
+            if (aDs.ActualFilter<>'') and (aFilter<>'') then
+              aDs.Filter('('+aDs.ActualFilter+') AND ('+aFilter+')')
+            else if (aFilter<>'') then
+              aDs.Filter(ARequest.QueryFields.Values['filter'])
+            else
+              aDs.Open;
+            DataSetToJSON(aDs.DataSet,Json,True,TSQLSelectStatement(aStmt).Fields);
+          end
+        else
+          AResponse.Code:=403;
+        if Assigned(aDs) then
+          aDS.Free;
+      end;
+  except
+    on e : ESQLParser do
+      begin
+        if e.Col > 0 then
+          begin
+            AResponse.Code := 401;
+            AResponse.Contents.Text:='['+IntToStr(e.Line)+':'+IntToStr(e.Col)+'] '+e.Message+','+FSQLParser.CurSource;
+          end;
+      end;
+  end;
+
+  FSQLParser.Free;
+  FSQLScanner.Free;
+
+  if AResponse.Code=200 then
+    Response.Contents.Text := 'DoHandleList('+ARequest.QueryFields.Values['sequence']+','+Json.AsJSON+');';
+  Json.Free;
+
   AResponse.SendContent;
 end;
 procedure Tappbase.loginRequest(Sender: TObject; ARequest: TRequest;
@@ -268,33 +315,58 @@ begin
   AResponse.SendContent;
 end;
 procedure Tappbase.FieldsToJSON(AFields: TFields; AJSON: TJSONObject;
-  const ADateAsString: Boolean);
+  const ADateAsString: Boolean; Fields: TSQLElementList);
 var
   I: Integer;
   VField: TField;
   VFieldName: ShortString;
+  function FindField(aName : string) : Boolean;
+  var
+    a: Integer;
+  begin
+    Result := False;
+    if not Assigned(Fields) then
+      begin
+        Result := True;
+        exit;
+      end;
+    for a := 0 to Fields.Count-1 do
+      if (UpperCase(aName) = Uppercase(Fields[a].GetAsSQL([])))
+      or (UpperCase(aName) = 'ID') and (Uppercase(Fields[a].GetAsSQL([]))='SQL_ID')
+      then
+        begin
+          if aName <> '*' then
+            VFieldName:=Fields[i].GetAsSQL([]);
+          Result := True;
+          exit;
+        end;
+  end;
+
 begin
   for I := 0 to Pred(AFields.Count) do
   begin
     VField := AFields[I];
     VFieldName := VField.FieldName;
-    if VField.DataType = ftString then
-      AJSON.Add(lowercase(VFieldName), ConvertEncoding(VField.AsString,guessEncoding(VField.AsString),EncodingUTF8));
-    if VField.DataType = ftBoolean then
-      AJSON.Add(lowercase(VFieldName), VField.AsBoolean);
-    if VField.DataType = ftDateTime then
-      if ADateAsString then
-        AJSON.Add(lowercase(VFieldName), VField.AsString)
-      else
-        AJSON.Add(lowercase(VFieldName), VField.AsFloat);
-    if VField.DataType = ftFloat then
-      AJSON.Add(lowercase(VFieldName), VField.AsFloat);
-    if VField.DataType = ftInteger then
-      AJSON.Add(lowercase(VFieldName), VField.AsInteger);
+    if (FindField(VFieldName) or (FindField('*'))) then
+      begin
+        if VField.DataType = ftString then
+          AJSON.Add(lowercase(VFieldName), ConvertEncoding(VField.AsString,guessEncoding(VField.AsString),EncodingUTF8));
+        if VField.DataType = ftBoolean then
+          AJSON.Add(lowercase(VFieldName), VField.AsBoolean);
+        if VField.DataType = ftDateTime then
+          if ADateAsString then
+            AJSON.Add(lowercase(VFieldName), VField.AsString)
+          else
+            AJSON.Add(lowercase(VFieldName), VField.AsFloat);
+        if VField.DataType = ftFloat then
+          AJSON.Add(lowercase(VFieldName), VField.AsFloat);
+        if VField.DataType = ftInteger then
+          AJSON.Add(lowercase(VFieldName), VField.AsInteger);
+      end;
   end;
 end;
 procedure Tappbase.DataSetToJSON(ADataSet: TDataSet; AJSON: TJSONArray;
-  const ADateAsString: Boolean);
+  const ADateAsString: Boolean; Fields: TSQLElementList);
 var
   VJSON: TJSONObject;
 begin
@@ -302,7 +374,7 @@ begin
   while not ADataSet.EOF do
   begin
     VJSON := TJSONObject.Create;
-    FieldsToJSON(ADataSet.Fields, VJSON, ADateAsString);
+    FieldsToJSON(ADataSet.Fields, VJSON, ADateAsString, Fields);
     AJSON.Add(VJSON);
     ADataSet.Next;
   end;
