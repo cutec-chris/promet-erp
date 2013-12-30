@@ -299,10 +299,16 @@ type
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure Open; override;
   end;
+
+  { TFollowers }
+
   TFollowers = class(TBaseDBDataSet)
+  private
+    function GetLink: TField;
   public
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure Open; override;
+    property Link : TField read GetLink;
   end;
   TFilters = class(TBaseDBDataSet)
   public
@@ -445,6 +451,11 @@ resourcestring
   strNotes                      = 'Notizen';
   strOwner                      = 'Eigentümer';
   strAvalible                   = 'Verfügbar';
+
+function TFollowers.GetLink: TField;
+begin
+  result := FieldByName('LINK');
+end;
 
 procedure TFollowers.DefineFields(aDataSet: TDataSet);
 begin

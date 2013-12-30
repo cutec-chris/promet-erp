@@ -11,7 +11,8 @@ uses
   { you can add units after this },db, Utils, FileUtil, Forms, uData,
   uIntfStrConsts, pcmdprometapp, uBaseCustomApplication, wiki2html_pkg,
   uBaseApplication, httpsend, jsonparser, jsonscanner, fpjson, uBaseDBInterface,
-  ssl_openssl, synautil, uBaseDbClasses, LConvEncoding,htmltowiki,uDocuments;
+  ssl_openssl, synautil, uBaseDbClasses, LConvEncoding,htmltowiki,uDocuments,
+  uPerson;
 
 type
 
@@ -127,6 +128,9 @@ var
   html: TJSONData;
   atext: TJSONData;
   asource: string;
+  CustomerCont: TPersonContactData;
+  uid: string;
+  Customers: TPerson;
 begin
   omailaccounts := '';
   mailaccounts := '';
@@ -207,27 +211,77 @@ begin
                                     author := TJSONObject(TJSONObject(aData).Elements['user']).Elements['name'].AsString
                                   else author := '';
                                   author := ConvertEncoding(author,GuessEncoding(author),encodingUTF8);
+                                  if Assigned(TJSONObject(TJSONObject(aData).Elements['user'])) and Assigned(TJSONObject(TJSONObject(aData).Elements['user']).Elements['screen_name']) then
+                                    uid := TJSONObject(TJSONObject(aData).Elements['user']).Elements['screen_name'].AsString
+                                  else uid := '';
+
+                                  try
+                                    CustomerCont := TPersonContactData.Create(Self,Data);
+                                    if Data.IsSQLDb then
+                                      Data.SetFilter(CustomerCont,'"TYPE"=''SON'' AND UPPER("DATA")=UPPER('''+uid+''')')
+                                    else
+                                      Data.SetFilter(CustomerCont,'"TYPE"=''SON'' AND "DATA"='''+uid+'''');
+                                  except
+                                  end;
+                                  Customers := TPerson.Create(Self,Data);
+                                  Data.SetFilter(Customers,'"ACCOUNTNO"='+Data.QuoteValue(CustomerCont.DataSet.FieldByName('ACCOUNTNO').AsString));
+                                  CustomerCont.Free;
+                                  if Customers.Count > 0 then
+                                    begin
+                                      {
+                                      Customers.History.Open;
+                                      Customers.History.AddItem(Customers.DataSet,Format(strActionMessageReceived,[aSubject]),
+                                                                'MESSAGEIDX@'+aMID+'{'+aSubject+'}',
+                                                                '',
+                                                                nil,
+                                                                ACICON_MAILNEW);
+                                      Data.Users.History.AddItemWithoutUser(Customers.DataSet,Format(strActionMessageReceived,[aSubject]),
+                                                                    'MESSAGEIDX@'+aMID+'{'+aSubject+'}',
+                                                                    '',
+                                                                    nil,
+                                                                    ACICON_MAILNEW);
+                                       }
+                                    end
+                                  else
+                                    begin
+                                      //Add Customer
+                                      Customers.Insert;
+                                      Customers.Text.AsString:=author;
+                                      Customers.DataSet.Post;
+                                      Customers.CustomerCont.Insert;
+                                      Customers.CustomerCont.Typ.AsString:='SON';
+                                      Customers.CustomerCont.Data.AsString:=uid;
+                                      Customers.CustomerCont.Description.AsString:=asource;
+                                      Customers.CustomerCont.Post;
+                                      //Follow Customer
+                                      Data.Users.Follows.Insert;
+                                      Data.Users.Follows.Link.AsString:=Data.BuildLink(Customers.DataSet);
+                                      Data.Users.Follows.Post;
+                                    end;
+                                  Customers.History.Open;
+                                  with Customers.History.DataSet as IBaseManageDB do
+                                    UpdateStdFields := False;
+
                                   if aRef='' then
                                     begin
                                       inc(Retry,2);
                                       Somethingimported:=True;
                                       Write('new Entry from '+author);
-                                      aHist.AddItem(Data.Users.DataSet,text,'',author,nil,ACICON_EXTERNALCHANGED,'',False,False);
-                                      aHist.TimeStamp.AsDateTime:=aTime;
-                                      aHist.FieldByName('REF_ID').AsVariant:=Data.Users.Id.AsVariant;
-                                      aHist.FieldByName('REFOBJECT').AsString:=aCat;
-                                      aHist.FieldByName('SOURCE').AsString:=asource;
-                                      aHist.FieldByName('CHANGEDBY').Clear;
+                                      Customers.History.AddItem(Customers.DataSet,text,'',author,nil,ACICON_EXTERNALCHANGED,'',False,False);
+                                      Customers.History.TimeStamp.AsDateTime:=aTime;
+                                      Customers.History.FieldByName('REFOBJECT').AsString:=aCat;
+                                      Customers.History.FieldByName('SOURCE').AsString:=asource;
+                                      Customers.History.FieldByName('CHANGEDBY').Clear;
                                       if Assigned(html) and (not html.IsNull) then
                                         begin
-                                          aHist.Post;
-                                          aHist.DataSet.Edit;
+                                          Customers.History.Post;
+                                          Customers.History.DataSet.Edit;
                                           text := TJSONObject(aData).Elements['statusnet_html'].AsString;
                                           text := HTML2WikiText(text);
                                         end;
-                                      aHist.FieldByName('ACTION').AsString:=text;
+                                      Customers.History.FieldByName('ACTION').AsString:=text;
                                       try
-                                        aHist.Post;
+                                        Customers.History.Post;
                                       except
                                         on e : Exception do
                                           begin
@@ -246,22 +300,21 @@ begin
                                           inc(Retry,2);
                                           Somethingimported:=True;
                                           WriteLn('new Subentry from '+author);
-                                          aHist.AddParentedItem(Data.Users.DataSet,text,aHist.Id.AsVariant,'',author,nil,ACICON_EXTERNALCHANGED,'',False,False);
-                                          aHist.TimeStamp.AsDateTime:=aTime;
-                                          aHist.FieldByName('REF_ID').AsVariant:=Data.Users.Id.AsVariant;
-                                          aHist.FieldByName('REFOBJECT').AsString:=aCat;
-                                          aHist.FieldByName('SOURCE').AsString:=asource;
-                                          aHist.FieldByName('CHANGEDBY').Clear;
+                                          Customers.History.AddParentedItem(Customers.DataSet,text,aHist.Id.AsVariant,'',author,nil,ACICON_EXTERNALCHANGED,'',False,False);
+                                          Customers.History.TimeStamp.AsDateTime:=aTime;
+                                          Customers.History.FieldByName('REFOBJECT').AsString:=aCat;
+                                          Customers.History.FieldByName('SOURCE').AsString:=asource;
+                                          Customers.History.FieldByName('CHANGEDBY').Clear;
                                           if Assigned(html) and (not html.IsNull) then
                                             begin
-                                              aHist.Post;
-                                              aHist.DataSet.Edit;
+                                              Customers.History.Post;
+                                              Customers.History.DataSet.Edit;
                                               text := TJSONObject(aData).Elements['statusnet_html'].AsString;
                                               text := HTML2WikiText(text);
                                             end;
-                                          aHist.FieldByName('ACTION').AsString:=text;
+                                          Customers.History.FieldByName('ACTION').AsString:=text;
                                           try
-                                            aHist.Post;
+                                            Customers.History.Post;
                                           except
                                             on e : Exception do
                                               begin
@@ -273,6 +326,7 @@ begin
                                           end;
                                         end
                                     end;
+                                  Customers.Free;
                                   inc(i);
                                 end
                               else jData.Items[i] := nil;

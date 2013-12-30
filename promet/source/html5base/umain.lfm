@@ -46,6 +46,7 @@ object appbase: Tappbase
     item
       Name = 'setobject'
       Default = False
+      OnRequest = setobjectRequest
       Template.AllowTagParams = False
     end>
   ActionVar = 'action'

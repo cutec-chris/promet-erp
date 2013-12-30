@@ -57,12 +57,22 @@ type
     function GetNumberFieldName : string;override;
     function GetDescriptionFieldName : string;override;
   end;
+
+  { TPersonContactData }
+
   TPersonContactData = class(TBaseDBList)
+  private
+    function Getcomment: TField;
+    function GetData: TField;
+    function GetTyp: TField;
   public
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure FillDefaults(aDataSet : TDataSet);override;
     function GetNumberFieldName : string;override;
     function GetTextFieldName: string;override;
+    property Typ : TField read GetTyp;
+    property Data : TField read GetData;
+    property Description : TField read Getcomment;
   end;
   TPersonBanking = class(TBaseDBDataSet)
   public
@@ -146,6 +156,22 @@ begin
           end;
     end;
 end;
+
+function TPersonContactData.Getcomment: TField;
+begin
+  Result := FieldByName('DESCR');
+end;
+
+function TPersonContactData.GetData: TField;
+begin
+  Result := FieldByName('DATA');
+end;
+
+function TPersonContactData.GetTyp: TField;
+begin
+  Result := FieldByName('TYPE');
+end;
+
 procedure TPersonContactData.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do

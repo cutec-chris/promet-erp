@@ -48,6 +48,8 @@ type
       AResponse: TResponse; var Handled: Boolean);
     procedure objectRequest(Sender: TObject; ARequest: TRequest;
       AResponse: TResponse; var Handled: Boolean);
+    procedure setobjectRequest(Sender: TObject; ARequest: TRequest;
+      AResponse: TResponse; var Handled: Boolean);
   private
     { private declarations }
     procedure FieldsToJSON(AFields: TFields; AJSON: TJSONObject; const ADateAsString: Boolean; bFields: TSQLElementList = nil);
@@ -324,6 +326,24 @@ begin
       AResponse.Code:=200;
       AResponse.ContentType:='text/javascript;charset=utf-8';
       AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
+    end
+  else
+    AResponse.Code:=403;
+  if Assigned(aDs) then
+    aDS.Free;
+  AResponse.SendContent;
+end;
+procedure Tappbase.setobjectRequest(Sender: TObject; ARequest: TRequest;
+  AResponse: TResponse; var Handled: Boolean);
+begin
+  Handled:=True;
+  AResponse.Code:=500;
+  if not TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True,False) then exit;
+  aList := lowercase(ARequest.QueryFields.Values['name']);
+  aDs := GetObject(aList);
+  if (data.Users.Rights.Right(aRight)>RIGHT_WRITE) and (Assigned(aDS)) then
+    begin
+
     end
   else
     AResponse.Code:=403;
