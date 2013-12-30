@@ -27,7 +27,7 @@ interface
 uses
   SysUtils, Classes, LR_Class, httpdefs, fpHTTP, fpWeb, fpdatasetform, db,fpjson,
   LCLproc,uBaseDBInterface,FileUtil,LConvEncoding,uBaseDbClasses,fpsqlparser,
-  fpsqlscanner, fpsqltree;
+  fpsqlscanner, fpsqltree,httpsend,OpenSSL;
 
 type
 
@@ -206,9 +206,8 @@ var
   aFilter: String;
   a: Integer;
   aSeq: String;
+  http: THTTPSend;
 begin
-  //TODO:YQL Querys
-  //http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%27http%3A%2F%2Fmashable.com%27
   Handled:=True;
   if not TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True,False) then exit;
   aList := lowercase(ARequest.QueryFields.Values['name']);
@@ -245,6 +244,17 @@ begin
             else
               aDs.Open;
             DataSetToJSON(aDs.DataSet,Json,True,TSQLSelectStatement(aStmt).Fields);
+          end
+        else if (not Assigned(aDs)) and (pos('.',aList)>0) then
+          begin
+            //TODO:YQL Querys
+            //http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%27http%3A%2F%2Fmashable.com%27
+            http := THTTPSend.Create;
+            http.UserAgent:='Mozilla/5.0 (Windows NT 5.1; rv:6.0.2)';
+            http.HTTPMethod('GET','https://query.yahooapis.com/v1/public/yql?q='+HTTPEncode(FSQLStream.DataString));
+            if http.ResultCode=200 then
+              http.Document.SaveToFile('document.xml');
+            http.Free;
           end
         else
           AResponse.Code:=403;
@@ -369,19 +379,21 @@ begin
     VFieldName := VField.FieldName;
     if (FindField(VFieldName) or (FindField('*'))) then
       begin
-        if VField.DataType = ftString then
-          AJSON.Add(lowercase(VFieldName), ConvertEncoding(VField.AsString,guessEncoding(VField.AsString),EncodingUTF8));
         if VField.DataType = ftBoolean then
-          AJSON.Add(lowercase(VFieldName), VField.AsBoolean);
-        if VField.DataType = ftDateTime then
+          AJSON.Add(lowercase(VFieldName), VField.AsBoolean)
+        else if VField.DataType = ftDateTime then
+          begin
           if ADateAsString then
             AJSON.Add(lowercase(VFieldName), VField.AsString)
           else
             AJSON.Add(lowercase(VFieldName), VField.AsFloat);
-        if VField.DataType = ftFloat then
-          AJSON.Add(lowercase(VFieldName), VField.AsFloat);
-        if VField.DataType = ftInteger then
-          AJSON.Add(lowercase(VFieldName), VField.AsInteger);
+          end
+        else if VField.DataType = ftFloat then
+          AJSON.Add(lowercase(VFieldName), VField.AsFloat)
+        else if (VField.DataType = ftInteger) or (VField.DataType = ftLargeint) then
+          AJSON.Add(lowercase(VFieldName), VField.AsInteger)
+        else
+          AJSON.Add(lowercase(VFieldName), ConvertEncoding(VField.AsString,guessEncoding(VField.AsString),EncodingUTF8))
       end;
   end;
 end;

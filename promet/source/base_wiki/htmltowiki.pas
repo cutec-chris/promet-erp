@@ -36,6 +36,46 @@ var
 
 implementation
 
+procedure RemoveTag(var aOut,bOut : string;aTag : string;AllowShortenClose : Boolean = False;IgnoreWhen : string = '');
+var
+  ShortCloser: Boolean;
+  aTagOpen: Integer;
+  atmp : string = '';
+begin
+  while pos('<'+aTag,lowercase(aout))>0 do
+    begin
+      bOut := bOut+copy(aout,0,pos('<'+aTag,lowercase(aout))-1);
+      aOut := copy(aOut,pos('<'+aTag,lowercase(aout))+1+length(aTag),length(aOut));
+      aTagOpen := 1;
+      ShortCloser:=False;
+      while (aTagOpen>0) and (length(aOut)>0) do
+        begin
+          if copy(aOut,0,1)='<' then inc(aTagOpen);
+          if copy(aOut,0,2)='/>' then
+            ShortCloser := True;
+          if copy(aOut,0,1)='>' then dec(aTagOpen);
+          atmp := atmp+copy(aOut,0,1);
+          aOut := copy(aOut,2,length(aOut));
+        end;
+      if (IgnoreWhen<>'') and (pos(IgnoreWhen,atmp)>0) then
+        bout := bout+atmp;
+      if not ShortCloser then
+        begin
+          if (pos('</'+aTag+'>',lowercase(aout)) >= pos('<',aout)) or (not AllowShortenClose) then
+            begin
+              atmp := copy(aOut,0,pos('</'+aTag+'>',lowercase(aout))+3+length(aTag));
+              if (IgnoreWhen<>'') and (pos(IgnoreWhen,atmp)>0) then
+                bout := bout+atmp;
+              aOut := copy(aOut,pos('</'+aTag+'>',lowercase(aout))+3+length(aTag),length(aOut))
+            end
+          else
+            aOut := copy(aOut,pos('<',aout),length(aOut));
+        end;
+    end;
+  aOut := bOut+aOut;
+  bOut := '';
+end;
+
 function HTML2WikiText(input: string; RemoveLinkOffset: string): string;
 var
   aOut: String;
@@ -50,45 +90,6 @@ var
         bOut := bOut+copy(aout,0,pos('<!--',aout)-1);
         aOut := copy(aOut,pos('<!--',aout)+4,length(aOut));
         aOut := copy(aOut,pos('-->',aout)+3,length(aOut));
-      end;
-    aOut := bOut+aOut;
-    bOut := '';
-  end;
-  procedure RemoveTag(aTag : string;AllowShortenClose : Boolean = False;IgnoreWhen : string = '');
-  var
-    ShortCloser: Boolean;
-    aTagOpen: Integer;
-    atmp : string = '';
-  begin
-    while pos('<'+aTag,lowercase(aout))>0 do
-      begin
-        bOut := bOut+copy(aout,0,pos('<'+aTag,lowercase(aout))-1);
-        aOut := copy(aOut,pos('<'+aTag,lowercase(aout))+1+length(aTag),length(aOut));
-        aTagOpen := 1;
-        ShortCloser:=False;
-        while (aTagOpen>0) and (length(aOut)>0) do
-          begin
-            if copy(aOut,0,1)='<' then inc(aTagOpen);
-            if copy(aOut,0,2)='/>' then
-              ShortCloser := True;
-            if copy(aOut,0,1)='>' then dec(aTagOpen);
-            atmp := atmp+copy(aOut,0,1);
-            aOut := copy(aOut,2,length(aOut));
-          end;
-        if (IgnoreWhen<>'') and (pos(IgnoreWhen,atmp)>0) then
-          bout := bout+atmp;
-        if not ShortCloser then
-          begin
-            if (pos('</'+aTag+'>',lowercase(aout)) >= pos('<',aout)) or (not AllowShortenClose) then
-              begin
-                atmp := copy(aOut,0,pos('</'+aTag+'>',lowercase(aout))+3+length(aTag));
-                if (IgnoreWhen<>'') and (pos(IgnoreWhen,atmp)>0) then
-                  bout := bout+atmp;
-                aOut := copy(aOut,pos('</'+aTag+'>',lowercase(aout))+3+length(aTag),length(aOut))
-              end
-            else
-              aOut := copy(aOut,pos('<',aout),length(aOut));
-          end;
       end;
     aOut := bOut+aOut;
     bOut := '';
@@ -248,8 +249,8 @@ begin
   aOut := StringReplace(aOut,'</html>','',[rfReplaceAll]);
   bOut := '';
   RemoveComments;
-  RemoveTag('script');
-  RemoveTag('style');
+  RemoveTag(aOut,bOut,'script');
+  RemoveTag(aOut,bOut,'style');
   ConvertImages;
   ConvertLinks;
   ConvertBr;
@@ -269,6 +270,8 @@ var
 begin
   aOut := StringReplace(input,'<<','<',[rfReplaceAll]);
   bOut := '';
+  RemoveTag(aOut,bOut,'script');
+  RemoveTag(aOut,bOut,'style');
   TagOpen := 0;
   while length(aOut)>0 do
     begin

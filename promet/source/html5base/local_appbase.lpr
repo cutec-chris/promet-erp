@@ -6,7 +6,7 @@ uses
   {$IFDEF UNIX}cwstring,cthreads,{$ENDIF}
   pfcgiprometapp,
   ubasehttpapplication,
-  Interfaces,uBaseApplication,umain;
+  Interfaces,uBaseApplication,umain, laz_synapse;
 begin
   Application.DefaultModule:='main';
   with BaseApplication as IBaseApplication do

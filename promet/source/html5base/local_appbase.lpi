@@ -38,23 +38,26 @@
         <CommandLineParams Value="--mandant=&quot;Stora&quot;"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="5">
+    <RequiredPackages Count="6">
       <Item1>
-        <PackageName Value="LazUtils"/>
+        <PackageName Value="laz_synapse"/>
       </Item1>
       <Item2>
-        <PackageName Value="lazreport"/>
+        <PackageName Value="LazUtils"/>
       </Item2>
       <Item3>
-        <PackageName Value="pfcgiprometapp"/>
-        <DefaultFilename Value="../base/pfcgiprometapp.lpk"/>
+        <PackageName Value="lazreport"/>
       </Item3>
       <Item4>
-        <PackageName Value="WebLaz"/>
+        <PackageName Value="pfcgiprometapp"/>
+        <DefaultFilename Value="../base/pfcgiprometapp.lpk"/>
       </Item4>
       <Item5>
-        <PackageName Value="FCL"/>
+        <PackageName Value="WebLaz"/>
       </Item5>
+      <Item6>
+        <PackageName Value="FCL"/>
+      </Item6>
     </RequiredPackages>
     <Units Count="3">
       <Unit0>

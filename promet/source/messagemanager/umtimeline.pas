@@ -163,7 +163,8 @@ end;
 
 destructor TMGridObject.Destroy;
 begin
-  if Assigned(Image) then Image.Free;
+  if Assigned(Image) then
+    Image.Free;
   inherited Destroy;
 end;
 
