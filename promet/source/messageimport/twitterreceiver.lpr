@@ -23,6 +23,7 @@ type
   private
     mailaccounts : string;
     aHist: TBaseHistory;
+    Customers: TPerson;
   protected
     procedure DoRun; override;
   public
@@ -84,9 +85,9 @@ begin
       Document := TDocument.Create(Self,Data);
       Document.Select(0);
       Document.Open;
-      Document.Ref_ID := aHist.Id.AsVariant;
+      Document.Ref_ID := Customers.History.Id.AsVariant;
       Document.BaseTyp := 'H';
-      Document.BaseID := aHist.Id.AsString;
+      Document.BaseID := Customers.History.Id.AsString;
       Document.BaseVersion := Null;
       Document.BaseLanguage := Null;
       aFilename := ExtractFileName(Image);
@@ -130,7 +131,6 @@ var
   asource: string;
   CustomerCont: TPersonContactData;
   uid: string;
-  Customers: TPerson;
 begin
   omailaccounts := '';
   mailaccounts := '';
