@@ -188,7 +188,14 @@ begin
             Add('LINK',ftString,200,False);
             Add('ACTIVE',ftString,1,False);
           end;
-    end;
+       if Assigned(ManagedIndexdefs) then
+        with ManagedIndexDefs do
+          begin
+            Add('ACCOUNTNO','ACCOUNTNO',[ixUnique]);
+            Add('TYPE','TYPE',[]);
+            Add('DATA','DATA',[]);
+          end;
+   end;
 end;
 procedure TPersonContactData.FillDefaults(aDataSet: TDataSet);
 begin

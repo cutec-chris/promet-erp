@@ -27,7 +27,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TestPG --user=Administrator"/>
+        <CommandLineParams Value="--mandant=&quot;Stora&quot;"/>
       </local>
     </RunParams>
     <RequiredPackages Count="7">
@@ -123,7 +123,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="9">
+    <Exceptions Count="10">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -151,6 +151,9 @@
       <Item9>
         <Name Value="FPImageException"/>
       </Item9>
+      <Item10>
+        <Name Value="EFCreateError"/>
+      </Item10>
     </Exceptions>
   </Debugging>
 </CONFIG>

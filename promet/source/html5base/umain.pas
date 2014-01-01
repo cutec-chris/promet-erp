@@ -316,6 +316,7 @@ begin
   aRight := UpperCase(aList);
   if (data.Users.Rights.Right(aRight)>RIGHT_READ) and (Assigned(aDS)) then
     begin
+      aDs.Select(ARequest.QueryFields.Values['id']);
       aDs.Open;
       Json := TJSONObject.Create;
       ObjectToJSON(aDs,Json,True);
@@ -335,11 +336,16 @@ begin
 end;
 procedure Tappbase.setobjectRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
+var
+  aList: String;
+  aDs: TBaseDBDataset;
+  aRight: String;
 begin
   Handled:=True;
   AResponse.Code:=500;
   if not TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True,False) then exit;
   aList := lowercase(ARequest.QueryFields.Values['name']);
+  aRight := UpperCase(aList);
   aDs := GetObject(aList);
   if (data.Users.Rights.Right(aRight)>RIGHT_WRITE) and (Assigned(aDS)) then
     begin

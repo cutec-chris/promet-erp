@@ -57,13 +57,20 @@ begin
       aFullStream := TMemoryStream.Create;
       bDocument.CheckoutToStream(aFullStream);
       bDocument.Free;
-      aStream := TFileStream.Create(aFilename,fmCreate);
-      GenerateThumbNail(aFilename,aFullStream,aStream,aWidth,aHeight);
-      DelStream := aStream.Size=0;
-      aStream.Free;
-      if DelStream then
-        DeleteFileUTF8(aFilename)
-      else Result := aFilename;
+      try
+        aStream := TFileStream.Create(aFilename,fmCreate);
+        GenerateThumbNail(aFilename,aFullStream,aStream,aWidth,aHeight);
+        DelStream := aStream.Size=0;
+        aStream.Free;
+      except
+        DelStream:=True;
+      end;
+      try
+        if DelStream then
+          DeleteFileUTF8(aFilename)
+        else Result := aFilename;
+      except
+      end;
     end
   else
     Result := aFilename;
@@ -98,6 +105,7 @@ end;
 function GetThumbTempDir: string;
 begin
   Result := GetTempDir+'promet_thumbs';
+  ForceDirectoriesUTF8(Result);
 end;
 
 function GenerateThumbNail(aName: string; aFullStream, aStream: TStream;

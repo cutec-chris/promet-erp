@@ -214,6 +214,7 @@ begin
                                   if Assigned(TJSONObject(TJSONObject(aData).Elements['user'])) and Assigned(TJSONObject(TJSONObject(aData).Elements['user']).Elements['screen_name']) then
                                     uid := TJSONObject(TJSONObject(aData).Elements['user']).Elements['screen_name'].AsString
                                   else uid := '';
+                                  uid := StringReplace(uid,'''','',[rfReplaceAll]);
 
                                   try
                                     CustomerCont := TPersonContactData.Create(Self,Data);
@@ -226,23 +227,7 @@ begin
                                   Customers := TPerson.Create(Self,Data);
                                   Data.SetFilter(Customers,'"ACCOUNTNO"='+Data.QuoteValue(CustomerCont.DataSet.FieldByName('ACCOUNTNO').AsString));
                                   CustomerCont.Free;
-                                  if Customers.Count > 0 then
-                                    begin
-                                      {
-                                      Customers.History.Open;
-                                      Customers.History.AddItem(Customers.DataSet,Format(strActionMessageReceived,[aSubject]),
-                                                                'MESSAGEIDX@'+aMID+'{'+aSubject+'}',
-                                                                '',
-                                                                nil,
-                                                                ACICON_MAILNEW);
-                                      Data.Users.History.AddItemWithoutUser(Customers.DataSet,Format(strActionMessageReceived,[aSubject]),
-                                                                    'MESSAGEIDX@'+aMID+'{'+aSubject+'}',
-                                                                    '',
-                                                                    nil,
-                                                                    ACICON_MAILNEW);
-                                       }
-                                    end
-                                  else
+                                  if Customers.Count = 0 then
                                     begin
                                       //Add Customer
                                       Customers.Insert;
@@ -266,7 +251,7 @@ begin
                                     begin
                                       inc(Retry,2);
                                       Somethingimported:=True;
-                                      Write('new Entry from '+author);
+                                      Writeln('new Entry from '+author);
                                       Customers.History.AddItem(Customers.DataSet,text,'',author,nil,ACICON_EXTERNALCHANGED,'',False,False);
                                       Customers.History.TimeStamp.AsDateTime:=aTime;
                                       Customers.History.FieldByName('REFOBJECT').AsString:=aCat;

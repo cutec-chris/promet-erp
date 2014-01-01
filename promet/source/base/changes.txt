@@ -3,6 +3,12 @@
       - Nachrichtenzentrale: Darstellung von Bildern und Anhängen
       - Twitterreceiver: Bildimport
       - Nachrichtenzentrale: überarbeitung der Anzeigefunktionen incl Voschau für Bilder in Timeline
+      - Nachrichtenzentrale: es können nun mit einem Knopfdruck Threads isoliert dargestellt werden
+      - Nachrichtenzentrale: es können nun mit einem Knopfdruck Beitröge von Nutzern isoliert dargestellt werden
+      - Nachrichtenzentrale: in isolierter Darstellung können alle Beiträge mit einem Knopfdruck als gelesen markiert werden
+      - Twitterreceiver: legt automatisch Kontakte an, folgt ihnen und importiert in deren History
+                         so kann mna den Kontakten einfach nicht mehr folgen, die daten sind weiterhin da und durchsubćhbar
+      - Nachrichtenzentrale: Folgen Dialog wurde überarbeitet, man kann nun suchen, die Darstellung der Links wurde überarbeitet
 Build 298
       - Auftrag:Fehler beim Öffnen eines neuen Auftrages behoben
 Build 297
