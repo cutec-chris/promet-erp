@@ -165,7 +165,7 @@ begin
               tmp := copy(mailaccounts,0,pos(';',mailaccounts)-1);
               if copy(tmp,0,2)='L:' then
                 tmp := copy(tmp,3,length(tmp));
-              url := purl+'statuses/home_timeline.json?count=2500';
+              url := purl+'statuses/home_timeline.json?count=500';
               if tmp <> '' then url := url+'&since_id='+tmp;
               //url := purl+'statuses/home_timeline.json';
               http.HTTPMethod('GET',url);

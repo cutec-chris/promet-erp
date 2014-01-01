@@ -54,8 +54,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="155"/>
-        <CursorPos X="1" Y="172"/>
+        <TopLine Value="149"/>
+        <CursorPos X="1" Y="166"/>
         <UsageCount Value="75"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -599,123 +599,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="316" Column="1" TopLine="299"/>
+        <Caret Line="227" Column="1" TopLine="199"/>
       </Position1>
       <Position2>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="203" Column="1" TopLine="318"/>
+        <Caret Line="228" Column="1" TopLine="200"/>
       </Position2>
       <Position3>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="217" Column="81" TopLine="208"/>
+        <Caret Line="229" Column="1" TopLine="201"/>
       </Position3>
       <Position4>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="172" Column="1" TopLine="196"/>
+        <Caret Line="230" Column="1" TopLine="202"/>
       </Position4>
       <Position5>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="217" Column="1" TopLine="197"/>
+        <Caret Line="246" Column="1" TopLine="229"/>
       </Position5>
       <Position6>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="219" Column="1" TopLine="197"/>
+        <Caret Line="247" Column="1" TopLine="229"/>
       </Position6>
       <Position7>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="220" Column="1" TopLine="197"/>
+        <Caret Line="248" Column="1" TopLine="229"/>
       </Position7>
       <Position8>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="221" Column="1" TopLine="197"/>
+        <Caret Line="250" Column="1" TopLine="229"/>
       </Position8>
       <Position9>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="222" Column="1" TopLine="197"/>
+        <Caret Line="282" Column="1" TopLine="265"/>
       </Position9>
       <Position10>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="223" Column="1" TopLine="197"/>
+        <Caret Line="283" Column="1" TopLine="265"/>
       </Position10>
       <Position11>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="222" Column="1" TopLine="197"/>
+        <Caret Line="314" Column="1" TopLine="297"/>
       </Position11>
       <Position12>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="227" Column="1" TopLine="199"/>
+        <Caret Line="217" Column="1" TopLine="209"/>
       </Position12>
       <Position13>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="228" Column="1" TopLine="200"/>
+        <Caret Line="332" Column="1" TopLine="315"/>
       </Position13>
       <Position14>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="229" Column="1" TopLine="201"/>
+        <Caret Line="334" Column="1" TopLine="315"/>
       </Position14>
       <Position15>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="230" Column="1" TopLine="202"/>
+        <Caret Line="335" Column="1" TopLine="315"/>
       </Position15>
       <Position16>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="246" Column="1" TopLine="229"/>
+        <Caret Line="337" Column="1" TopLine="315"/>
       </Position16>
       <Position17>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="247" Column="1" TopLine="229"/>
+        <Caret Line="338" Column="1" TopLine="315"/>
       </Position17>
       <Position18>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="248" Column="1" TopLine="229"/>
+        <Caret Line="178" Column="31" TopLine="155"/>
       </Position18>
       <Position19>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="250" Column="1" TopLine="229"/>
+        <Caret Line="332" Column="1" TopLine="315"/>
       </Position19>
       <Position20>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="282" Column="1" TopLine="265"/>
+        <Caret Line="166" Column="19" TopLine="149"/>
       </Position20>
       <Position21>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="283" Column="1" TopLine="265"/>
+        <Caret Line="168" Column="63" TopLine="149"/>
       </Position21>
       <Position22>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="314" Column="1" TopLine="297"/>
+        <Caret Line="166" Column="1" TopLine="149"/>
       </Position22>
       <Position23>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="217" Column="1" TopLine="209"/>
+        <Caret Line="167" Column="1" TopLine="149"/>
       </Position23>
       <Position24>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="332" Column="1" TopLine="315"/>
+        <Caret Line="168" Column="1" TopLine="149"/>
       </Position24>
       <Position25>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="334" Column="1" TopLine="315"/>
+        <Caret Line="169" Column="1" TopLine="149"/>
       </Position25>
       <Position26>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="335" Column="1" TopLine="315"/>
+        <Caret Line="171" Column="1" TopLine="149"/>
       </Position26>
       <Position27>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="337" Column="1" TopLine="315"/>
+        <Caret Line="172" Column="26" TopLine="159"/>
       </Position27>
       <Position28>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="338" Column="1" TopLine="315"/>
+        <Caret Line="176" Column="20" TopLine="159"/>
       </Position28>
       <Position29>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="178" Column="31" TopLine="155"/>
+        <Caret Line="274" Column="48" TopLine="267"/>
       </Position29>
       <Position30>
         <Filename Value="twitterreceiver.lpr"/>
-        <Caret Line="332" Column="1" TopLine="315"/>
+        <Caret Line="307" Column="52" TopLine="306"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
