@@ -338,7 +338,7 @@ var
   aSL: TStringList;
   aLen: Integer;
   a: Integer;
-  aMime: TMimeMess;
+  aMime: TMimeMess = nil;
   aFields: String;
   bsl: TStringList;
   Found: Boolean;
@@ -392,7 +392,17 @@ begin
             end;
           'RFC822.SIZE':
             begin
-              aSize := FMessages.FieldByName('SIZE').AsString;
+              if not Assigned(aMessage) then
+                begin
+                  aMessage := TMimeMessage.Create(Self,Data);
+                  aMessage.Select(FMessages.Id.AsVariant);
+                  aMessage.Open;
+                end;
+              if not Assigned(aMime) then
+                aMime := aMessage.EncodeMessage;
+              aMime.Lines.TextLineBreakStyle:=tlbsCRLF;
+              aSize := IntToStr(length(aMime.Lines.Text)+2);
+              //aSize := FMessages.FieldByName('SIZE').AsString;
               if aSize = '' then aSize := '0';
               tmp := tmp+'RFC822.SIZE '+aSize+' ';
             end;
@@ -424,7 +434,9 @@ begin
                   aMessage.Select(FMessages.Id.AsVariant);
                   aMessage.Open;
                 end;
-              aMime := aMessage.EncodeMessage;
+              if not Assigned(aMime) then
+                aMime := aMessage.EncodeMessage;
+              aMime.Lines.TextLineBreakStyle:=tlbsCRLF;
               aSL := TStringList.Create;
               aSL.text := aMime.Lines.Text;
               aLen :=  length(aSL.Text);
@@ -435,7 +447,6 @@ begin
               then
                 tmp := tmp+'BODY[] {'+IntToStr(aLen+2)+'}'+#13#10+aSL.Text+#13#10+' ';
               aSL.Free;
-              aMime.Free;
             end;
           'BODY.PEEK[HEADER.FIELDS':
             begin
@@ -445,7 +456,9 @@ begin
                   aMessage.Select(FMessages.Id.AsVariant);
                   aMessage.Open;
                 end;
-              aMime := aMessage.EncodeMessage;
+              if not Assigned(aMime) then
+                aMime := aMessage.EncodeMessage;
+              aMime.Lines.TextLineBreakStyle:=tlbsCRLF;
               //BODY.PEEK[HEADER.FIELDS (From To Cc Bcc Subject Date Message-ID Priority X-Priority References Newsgroups In-Reply-To Content-Type)]
               aFields := copy(aFetch,pos('(',aFetch)+1,length(aFetch));
               aFields := copy(aFields,0,pos(')',aFields)-1);
@@ -489,7 +502,6 @@ begin
               tmp := tmp+aFields+' {'+IntToStr(aLen)+'}'+#13#10+aSL.Text+' ';
               aSL.Free;
               bSL.Free;
-              aMime.Free;
               aFetch:=copy(aFetch,pos(']',afetch)+1,length(aFetch));
             end
 {          else if trim(bFetch) <> '' then
@@ -505,6 +517,7 @@ begin
       Result.Add(copy(tmp,0,length(tmp)-1)+')');
       FetchSequence:=FetchSequence+1;
       FreeAndNil(aMessage);
+      FreeAndNil(aMime);
       Fmessages.DataSet.Prior;
       Dec(FSelectCount,1);
     end
