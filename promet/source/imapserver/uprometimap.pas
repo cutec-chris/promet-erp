@@ -21,7 +21,10 @@ unit uprometimap;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, uLIMAP, uMessages, MimeMess, uMimeMessages, db,cwstring;
+  Classes, SysUtils, uLIMAP, uMessages, MimeMess, uMimeMessages, db,cwstring,
+  LCLProc;
+
+{$DEFINE DEBUG}
 type
 
   { TPIMAPFolder }
@@ -85,6 +88,9 @@ begin
       aFilter := FSelector;
       FSelector:='';
     end;
+  {$IFDEF DEBUG}
+  debugln('SelectNext:'+aFilter);
+  {$ENDIF}
   if pos(':',aFilter) = 0 then
     begin
       Arg1 := aFilter;
@@ -116,7 +122,7 @@ begin
       if (not Result) and (Arg1='1') then
         begin
           FMessages.Last;
-          if StrToInt(Arg2)<9999 then
+          if StrToIntDef(Arg2,9999)<9999 then
             Max := StrToInt(Arg2);
           Result := FMessages.Count>0;
         end;
@@ -156,6 +162,9 @@ begin
   FMessages.Last;
   if FMessages.Count > 0 then
     FFirstID := FMessages.Id.AsVariant;
+  {$IFDEF DEBUG}
+  debugln('RefreshFirstID:'+FMessages.Id.AsString);
+  {$ENDIF}
 end;
 procedure TPIMAPFolder.RefreshCount;
 begin
@@ -317,6 +326,7 @@ begin
   Max := 0;
   FSelector := aFilter;
   FUseUID := aUseUID;
+  FMessages.Last;
   Result := SelectNext;
 end;
 
@@ -489,6 +499,9 @@ begin
             end;}
           end;
         end;
+      {$IFDEF DEBUG}
+      debugln('FetchOneEntry:'+FMessages.Id.AsString+' '+FMessages.Subject.AsString);
+      {$ENDIF}
       Result.Add(copy(tmp,0,length(tmp)-1)+')');
       FetchSequence:=FetchSequence+1;
       FreeAndNil(aMessage);
@@ -569,6 +582,9 @@ begin
             end;}
           end;
         end;
+      {$IFDEF DEBUG}
+      debugln('StoreOneEntry:'+FMessages.Id.AsString+' '+FMessages.Subject.AsString);
+      {$ENDIF}
       Result.Add(copy(tmp,0,length(tmp)-1)+')');
       FetchSequence:=FetchSequence+1;
       Fmessages.DataSet.Prior;
