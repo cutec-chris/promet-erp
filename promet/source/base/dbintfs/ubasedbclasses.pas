@@ -94,6 +94,7 @@ type
     procedure Next;virtual;
     procedure Prior;virtual;
     procedure Post;virtual;
+    procedure Edit;virtual;
     function EOF : Boolean;
     function FieldByName(aFieldName : string) : TField;
     procedure Assign(Source: TPersistent); override;
@@ -1068,6 +1069,12 @@ end;
 procedure TBaseDBDataset.Post;
 begin
   FDataSet.Post;
+end;
+
+procedure TBaseDBDataset.Edit;
+begin
+  if not CanEdit then
+    DataSet.Edit;
 end;
 
 function TBaseDBDataset.EOF: Boolean;

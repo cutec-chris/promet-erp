@@ -23,6 +23,9 @@ interface
 uses
   Classes, SysUtils, lNet, lEvents, mimemess, db, dateutils,base64;
 type
+
+  { TIMAPFolder }
+
   TIMAPFolder = class(TComponent)
   private
     FMessageIdx: LargeInt;
@@ -42,6 +45,7 @@ type
     FPostDateTime : string) : Boolean;virtual;abstract;
     function SelectMessages(aFilter : string;aUseUID : Boolean) : Boolean;virtual;
     function FetchOneEntry(aFetch: string): TStrings; virtual;
+    function StoreOneEntry(aFetch: string): TStrings; virtual;
   public
     constructor Create(aName : string;UID : string);virtual;
     destructor Destroy;override;
@@ -151,6 +155,11 @@ begin
   Result := nil;
 end;
 
+function TIMAPFolder.StoreOneEntry(aFetch: string): TStrings;
+begin
+  Result := nil;
+end;
+
 function TIMAPFolder.GetFirstID: LargeInt;
 begin
   Result := FFirstID;
@@ -251,6 +260,7 @@ var
   aDate: TDateTime;
   aTag: String;
   aGUID: TGUID;
+  aParam: String;
   procedure Answer(aMsg : string;UseTag : Boolean = True);
   begin
     if UseTag then
@@ -315,7 +325,7 @@ var
           end;
       end;
   end;
-  procedure DoFetch(bParams : string;aUseUID : Boolean);
+  procedure DoCommand(bParams : string;aUseUID : Boolean);
   var
     aCmd: String;
     aRange: String;
@@ -364,6 +374,42 @@ var
                     exit;
                   end;}
                 aRes := FGroup.FetchOneEntry(bParams);
+              end;
+            DontLog:=False;
+            Answer('OK Success '+IntToStr(aFCount)+' results');
+          end
+        else
+          begin
+            DontLog:=False;
+            Answer('NO failed.');
+          end;
+      end
+    else if aCmd = 'STORE' then
+      begin
+        DontLog:=True;
+        aRange := copy(bParams,0,pos(' ',bParams)-1);
+        bParams:=copy(bParams,pos(' ',bParams)+1,length(bParams));
+        if copy(bParams,0,1)='(' then
+          bParams := copy(bParams,2,length(bParams)-2);
+        aFCount := 0;
+        if FGroup.SelectMessages(aRange,aUseUID) then
+          begin
+            aRes := FGroup.StoreOneEntry(bParams);
+            while Assigned(aRes) do
+              begin
+                inc(aFCount);
+                for a := 0 to aRes.Count-1 do
+                  begin
+                    Creator.CallAction;
+                    if not FStopFetching then
+                      Answer(aRes[a],False)
+                    else
+                      begin
+                        DontLog:=False;
+                        exit;
+                      end;
+                  end;
+                aRes := FGroup.StoreOneEntry(bParams);
               end;
             DontLog:=False;
             Answer('OK Success '+IntToStr(aFCount)+' results');
@@ -503,23 +549,6 @@ begin
           else Answer('NO Folder not found !');
         end;
     end
-{
-  else if aCommand = 'STORE' then
-    begin
-      if (FUser = '') then
-        begin
-          Answer('BAD Authentication required');
-          exit;
-        end
-      else
-        begin
-          Answer('OK Input article; end with <CR-LF>.<CR-LF>');
-          FPostMode := True;
-          FPostMessage.Clear;
-          DontLog := True;
-        end;
-    end
-}
   else if aCommand = 'LIST' then
     begin
       if copy(tmp,0,1)='"' then
@@ -558,7 +587,7 @@ begin
     end
   else if aCommand = 'UID' then
     begin
-      DoFetch(aParams,True);
+      DoCommand(aParams,True);
     end
   else if aCommand = 'CREATE' then
     begin
@@ -570,10 +599,11 @@ begin
     end
   else if (aCommand = 'FETCH')
        or (aCommand = 'SEARCH')
+       or (aCommand = 'STORE')
   then
     begin
       aParams := aCommand+' '+aParams;
-      DoFetch(aParams,False);
+      DoCommand(aParams,False);
     end
   else if aCommand = 'STATUS' then
     begin
@@ -588,8 +618,27 @@ begin
         begin
           if TLIMAPServer(Creator).Folders.Folder[i].Name = aParams then
             begin
+              aParams := tmp;
+              if copy(aParams,0,1)='(' then
+                aParams := copy(aParams,2,length(aParams)-2);
+              if aParams = '' then aParams := 'MESSAGES UIDNEXT UNSEEN RECENT';
+              aParams := aParams+' ';
               aGroup := TLIMAPServer(Creator).Folders.Folder[i];
-              Answer(Format('* STATUS "%s" (MESSAGES %d UIDNEXT %d UNSEEN %d RECENT %d)',[aGroup.Name,aGroup.Count,aGroup.GetLastID,aGroup.Unseen,0]));
+              tmp := '';
+              while pos(' ',aParams)>0 do
+                begin
+                  aParam := copy(aParams,0,pos(' ',aParams)-1);
+                  aParams := copy(aParams,pos(' ',aParams)+1,length(aParams));
+                  case aParam of
+                  'MESSAGES':tmp += aParam+' '+IntToStr(aGroup.Count)+' ';
+                  'UIDNEXT':tmp  += aParam+' '+IntToStr(aGroup.GetLastID)+' ';
+                  'UNSEEN':tmp  += aParam+' '+IntToStr(aGroup.Unseen)+' ';
+                  'UIDVALIDITY':tmp  += aParam+' '+aGroup.UID+' ';
+                  else
+                    tmp  += aParam+' 0';
+                  end;
+                end;
+              Answer(Format('* STATUS "%s" (%s)',[aGroup.Name,copy(tmp,0,length(tmp)-1)]));
               Answer('OK STATUS Completed');
               Found := True;
               break;

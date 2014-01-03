@@ -17,6 +17,7 @@
   MA 02111-1307, USA.
 Created 01.06.2006
 *******************************************************************************}
+//TODO:Error on 7 UID fetch 92440905:92479961,92492667,92565735:92565739,92565747,92565755:92565767,92565775:92565787,92565795,92565811,92565827,92565839 (UID RFC822.SIZE FLAGS BODY.PEEK[HEADER.FIELDS (From To Cc Bcc Subject Date Message-ID Priority X-Priority References Newsgroups In-Reply-To Content-Type Reply-To)])
 program imapserver;
 {$mode objfpc}{$H+}
 uses

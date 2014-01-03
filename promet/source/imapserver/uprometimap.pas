@@ -56,6 +56,7 @@ type
     FPostDateTime : string) : Boolean;override;
     function SelectMessages(aFilter : string;aUseUID : Boolean) : Boolean;override;
     function FetchOneEntry(aFetch: string): TStrings; override;
+    function StoreOneEntry(aFetch: string): TStrings; override;
   public
     constructor Create(aName : string;aUID : string);override;
     destructor Destroy;override;
@@ -350,7 +351,7 @@ begin
           if pos('<',bFetch)>0 then
             bfetch := copy(bFetch,0,pos('<',bFetch)-1);
           afetch := copy(afetch,pos(' ',afetch)+1,length(afetch));
-          case bFetch of
+          case Uppercase(bFetch) of
           'UID':
             begin
               tmp := tmp+'UID '+FMessages.FieldByName('SQL_ID').AsString+' ';
@@ -484,6 +485,85 @@ begin
       Result.Add(copy(tmp,0,length(tmp)-1)+')');
       FetchSequence:=FetchSequence+1;
       FreeAndNil(aMessage);
+      Fmessages.DataSet.Prior;
+      Dec(FSelectCount,1);
+    end
+  else
+    FreeAndNil(Result);
+end;
+
+function TPIMAPFolder.StoreOneEntry(aFetch: string): TStrings;
+var
+  tmpRecNo: String;
+  bFetch: String;
+  tmp: String;
+  bOperator: String;
+  aParams: String;
+begin
+  if FSelectCount=0 then
+    if not SelectNext then
+      begin
+        Result := nil;
+        exit;
+      end;
+  Result := TStringList.Create;
+  aFetch := aFetch+' ';
+  if not FMessages.DataSet.BOF then
+    begin
+      if FSequenceNumbers.IndexOf(FMessages.Id.AsString)=-1 then
+        begin
+          tmpRecNo := IntToStr(FSequenceNumbers.Add(FMessages.Id.AsString)+1);
+        end
+      else tmpRecNo:=IntToStr(FSequenceNumbers.IndexOf(FMessages.Id.AsString)+1);
+      tmp := '* '+tmpRecNo+' FETCH (';
+      while pos(' ',aFetch)>0 do
+        begin
+          bFetch := copy(afetch,0,pos(' ',afetch)-1);
+          bOperator := copy(bFetch,0,1);
+          bFetch := copy(bFetch,2,length(bFetch));
+          if pos('<',bFetch)>0 then
+            bfetch := copy(bFetch,0,pos('<',bFetch)-1);
+          afetch := copy(afetch,pos(' ',afetch)+1,length(afetch));
+          case UpperCase(bFetch) of
+          'FLAGS','(FLAGS)','FLAGS.SILENT':
+            begin
+              aParams := Uppercase(copy(trim(aFetch),2,pos(')',trim(aFetch))-1));
+              FMessages.Edit;
+              if bOperator='+' then
+                bOperator:='Y'
+              else bOperator := 'N';
+              if pos('\SEEN',aParams)>0 then
+                FMessages.FieldByName('READ').AsString:=bOperator;
+              if (pos('\ANSWERED',aParams)>0) and (bOperator='Y') then
+                FMessages.FieldByName('ANSWERED').AsDateTime:=Now();
+              if (pos('\DELETED',aParams)>0) and (bOperator='Y') then
+                FMessages.FieldByName('TREEENTRY').AsVariant:=TREE_ID_DELETED_MESSAGES;
+              FMessages.Post;
+              if bFetch <> 'FLAGS.SILENT' then
+                begin
+                  tmp := tmp+'FLAGS (';
+                  if FMessages.FieldByName('READ').AsString='Y' then
+                    tmp+='\Seen ';
+                  if FMessages.FieldByName('ANSWERED').AsString='Y' then
+                    tmp+='\Answered ';
+                  if FMessages.FieldByName('TREEENTRY').AsVariant=TREE_ID_DELETED_MESSAGES then
+                    tmp+='\Deleted '
+                  else tmp +=' ';
+                  tmp := copy(tmp,0,length(tmp)-1);
+                  tmp+=') ';
+                end
+              else
+                tmp+=' ';
+            end;
+{          else if trim(bFetch) <> '' then
+            begin
+              Result.Clear;
+              exit;
+            end;}
+          end;
+        end;
+      Result.Add(copy(tmp,0,length(tmp)-1)+')');
+      FetchSequence:=FetchSequence+1;
       Fmessages.DataSet.Prior;
       Dec(FSelectCount,1);
     end
