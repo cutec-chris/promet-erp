@@ -32,6 +32,7 @@ type
     FUID: string;
   protected
     FFirstID: LargeInt;
+    FSelectCount : Integer;
     FName: string;
     function GetCount: Integer;virtual;
     function GetUnreadCount: Integer;virtual;
@@ -46,6 +47,7 @@ type
     function SelectMessages(aFilter : string;aUseUID : Boolean) : Boolean;virtual;
     function FetchOneEntry(aFetch: string): TStrings; virtual;
     function StoreOneEntry(aFetch: string): TStrings; virtual;
+    function Search(aFetch: string): string; virtual;
   public
     constructor Create(aName : string;UID : string);virtual;
     destructor Destroy;override;
@@ -60,6 +62,7 @@ type
     property MessageByID[Idx : string] : TMimeMess read GetMessageByID;
     property MessageIdx : LargeInt read FMessageIdx write FmessageIdx;
     property CreatedAt : TDateTime read GetCreatedAt;
+    property SelectCount : Integer read FSelectCount write FSelectCount;
   end;
   TIMAPFolderClass = class of TIMAPFolder;
   TIMAPFolders = class(TList)
@@ -158,6 +161,11 @@ end;
 function TIMAPFolder.StoreOneEntry(aFetch: string): TStrings;
 begin
   Result := nil;
+end;
+
+function TIMAPFolder.Search(aFetch: string): String;
+begin
+  result := '* SEARCH';
 end;
 
 function TIMAPFolder.GetFirstID: LargeInt;
@@ -332,6 +340,7 @@ var
     aRes: TStrings;
     a: Integer;
     aFCount: Integer;
+    tmp : String;
   begin
     FStopFetching := False;
     aCmd := Uppercase(copy(bParams,0,pos(' ',bParams)-1));
@@ -413,6 +422,35 @@ var
               end;
             DontLog:=False;
             Answer('OK Success '+IntToStr(aFCount)+' results');
+          end
+        else
+          begin
+            DontLog:=False;
+            Answer('NO failed.');
+          end;
+      end
+    else if aCmd = 'SEARCH' then
+      begin
+        DontLog:=True;
+        aRange := copy(bParams,0,pos(' ',bParams)-1);
+        bParams:=copy(bParams,pos(' ',bParams)+1,length(bParams));
+        if copy(bParams,0,1)='(' then
+          bParams := copy(bParams,2,length(bParams)-2);
+        aFCount := 0;
+        if aUseUID and FGroup.SelectMessages(aRange,aUseUID) then
+          begin
+            tmp := FGroup.Search(bParams);
+            DontLog:=False;
+            Answer(tmp,False);
+            Answer('OK Success');
+          end
+        else if not aUseUID then
+          begin
+            FGroup.SelectCount:=FGroup.Count;
+            tmp := FGroup.Search(aRange+' '+bParams);
+            DontLog:=False;
+            Answer(tmp,False);
+            Answer('OK Success');
           end
         else
           begin

@@ -36,7 +36,6 @@ type
     FLastID : LargeInt;
     FetchSequence : Integer;
     FSelector: String;
-    FSelectCount : Integer;
     FUseUID : Boolean;
     FSequenceNumbers : TStringList;
     function SelectNext : Boolean;
@@ -57,6 +56,7 @@ type
     function SelectMessages(aFilter : string;aUseUID : Boolean) : Boolean;override;
     function FetchOneEntry(aFetch: string): TStrings; override;
     function StoreOneEntry(aFetch: string): TStrings; override;
+    function Search(aParams: string): string; override;
   public
     constructor Create(aName : string;aUID : string);override;
     destructor Destroy;override;
@@ -113,6 +113,13 @@ begin
   else
     begin
       Result := FMessages.GotoBookmark(StrToInt(Arg1));
+      if (not Result) and (Arg1='1') then
+        begin
+          FMessages.Last;
+          if StrToInt(Arg2)<9999 then
+            Max := StrToInt(Arg2);
+          Result := FMessages.Count>0;
+        end;
     end;
   if (trim(Arg2) = '') and FUseUID then
     Max := 1
@@ -569,6 +576,37 @@ begin
     end
   else
     FreeAndNil(Result);
+end;
+
+function TPIMAPFolder.Search(aParams: string): string;
+var
+  tmpRecNo: String;
+  function CheckParams(sParams : string) : Boolean;
+  begin
+    Result := True;
+  end;
+
+begin
+  //TODO:more Selections possible
+  Result:='* SEARCH';
+  while FSelectCount>0 do
+    begin
+      while not FMessages.DataSet.BOF do
+        begin
+          if FSequenceNumbers.IndexOf(FMessages.Id.AsString)=-1 then
+            tmpRecNo := IntToStr(FSequenceNumbers.Add(FMessages.Id.AsString)+1)
+          else tmpRecNo:=IntToStr(FSequenceNumbers.IndexOf(FMessages.Id.AsString)+1);
+          if CheckParams(aParams) then
+            begin
+              if FUseUID then
+                Result := Result+' '+FMessages.Id.AsString
+              else
+                Result := Result+' '+tmpRecNo;
+            end;
+          dec(FSelectCount);
+          FMessages.Prior;
+        end;
+    end;
 end;
 
 constructor TPIMAPFolder.Create(aName: string;aUID : string);
