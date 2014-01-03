@@ -62,7 +62,7 @@ type
   private
     function Get(Idx : Integer): TIMAPFolder;
   public
-    property Group[Idx : Integer] : TIMAPFolder read Get;
+    property Folder[Idx : Integer] : TIMAPFolder read Get;
   end;
   TLIMAPSocket = class(TLSocket)
     procedure LIMAPSocketError(aHandle: TLHandle; const msg: string);
@@ -120,7 +120,7 @@ type
    procedure Start;
    property OnLogin : TLIMAPLoginEvent read FLogin write FLogin;
    property OnLog : TLIMAPLogEvent read FLog write FLog;
-   property Groups : TIMAPFolders read FGroups;
+   property Folders : TIMAPFolders read FGroups;
    procedure CallAction; override;
   end;
 implementation
@@ -412,15 +412,8 @@ begin
             end
           else
             begin
-              aGroup := TLIMAPServer(Creator).Groups.Group[0];
-              if Assigned(FGroup) then FGroup.Destroy;
-              aGroupClass := TIMAPFolderClass(aGroup.ClassType);
-              FGroup := aGroupClass.Create(aGroup.Name,aGroup.UID);
-              if FGroup.PostArticle(FPostMessage,FUser,FPostFlags,FPostDateTime) then
-                Answer('OK APPEND finished')
-              else
-                Answer('NO APPEND failed');
-              FreeAndNil(FGroup);
+              //TODO:Find group
+              Answer('NO APPEND failed');
             end;
         end;
       exit;
@@ -449,14 +442,12 @@ begin
       Found := False;
       if copy(aParams,0,1)='"' then
         aParams := copy(aParams,2,length(aParams)-2);
-      for i := 0 to TLIMAPServer(Creator).Groups.Count-1 do
+      for i := 0 to TLIMAPServer(Creator).Folders.Count-1 do
         begin
-          if TLIMAPServer(Creator).Groups.Group[i].Name = aParams then
+          if TLIMAPServer(Creator).Folders.Folder[i].Name = aParams then
             begin
-              aGroup := TLIMAPServer(Creator).Groups.Group[i];
-              if Assigned(FGroup) then FGroup.Destroy;
-              aGroupClass := TIMAPFolderClass(aGroup.ClassType);
-              FGroup := aGroupClass.Create(aGroup.Name,aGroup.UID);
+              aGroup := TLIMAPServer(Creator).Folders.Folder[i];
+              FGroup := aGroup;
               Answer(Format('* %d EXISTS',[aGroup.Count]),False);
               Answer(Format('* %d RECENT',[0]),False);
               Answer('* FLAGS (\Answered \Flagged \Deleted \Seen \Draft)',False);
@@ -483,13 +474,11 @@ begin
           if copy(tmp,0,1)='"' then
             tmp := copy(tmp,2,length(tmp)-2);
           if Assigned(FGroup) then FreeAndNil(FGroup);
-          for i := 0 to TLIMAPServer(Creator).Groups.Count-1 do
+          for i := 0 to TLIMAPServer(Creator).Folders.Count-1 do
             begin
-              if TLIMAPServer(Creator).Groups.Group[i].Name = tmp then
+              if TLIMAPServer(Creator).Folders.Folder[i].Name = tmp then
                 begin
-                  aGroup := TLIMAPServer(Creator).Groups.Group[i];
-                  aGroupClass := TIMAPFolderClass(aGroup.ClassType);
-                  FGroup := aGroupClass.Create(aGroup.Name,aGroup.UID);
+                  FGroup := TLIMAPServer(Creator).Folders.Folder[i];
                 end;
             end;
           if Assigned(FGroup) then
@@ -541,9 +530,9 @@ begin
       //TODO:fix this
       aParams := StringReplace(aParams,'*','',[rfReplaceAll]);
       aParams := StringReplace(aParams,'?','',[rfReplaceAll]);
-      for i := 0 to TLIMAPServer(Creator).Groups.Count-1 do
+      for i := 0 to TLIMAPServer(Creator).Folders.Count-1 do
         begin
-          aGroup := TLIMAPServer(Creator).Groups.Group[i];
+          aGroup := TLIMAPServer(Creator).Folders.Folder[i];
           if (pos(aParams,aGroup.Name) >0) or (aParams='') then
             Answer(Format('* LIST (\Noinferiors) "/" "%s"',[aGroup.Name]),False);
         end;
@@ -559,9 +548,9 @@ begin
       //TODO:fix this
       aParams := StringReplace(aParams,'*','',[rfReplaceAll]);
       aParams := StringReplace(aParams,'?','',[rfReplaceAll]);
-      for i := 0 to TLIMAPServer(Creator).Groups.Count-1 do
+      for i := 0 to TLIMAPServer(Creator).Folders.Count-1 do
         begin
-          aGroup := TLIMAPServer(Creator).Groups.Group[i];
+          aGroup := TLIMAPServer(Creator).Folders.Folder[i];
           if (pos(aParams,aGroup.Name) >0) or (aParams='') then
             Answer(Format('* LSUB (\Noinferiors) "/" "%s"',[aGroup.Name]),False);
         end;
@@ -595,11 +584,11 @@ begin
       if copy(aParams,0,1)='"' then
         aParams := copy(aParams,2,length(aParams)-2);
       Found := False;
-      for i := 0 to TLIMAPServer(Creator).Groups.Count-1 do
+      for i := 0 to TLIMAPServer(Creator).Folders.Count-1 do
         begin
-          if TLIMAPServer(Creator).Groups.Group[i].Name = aParams then
+          if TLIMAPServer(Creator).Folders.Folder[i].Name = aParams then
             begin
-              aGroup := TLIMAPServer(Creator).Groups.Group[i];
+              aGroup := TLIMAPServer(Creator).Folders.Folder[i];
               Answer(Format('* STATUS "%s" (MESSAGES %d UIDNEXT %d UNSEEN %d RECENT %d)',[aGroup.Name,aGroup.Count,aGroup.GetLastID,aGroup.Unseen,0]));
               Answer('OK STATUS Completed');
               Found := True;
@@ -658,7 +647,6 @@ begin
   else if aCommand = 'CLOSE' then
     begin
       Answer('OK closing mailbox');
-      FGroup.Destroy;
       FGroup:=nil;
     end
   else if aCommand = '' then
@@ -683,7 +671,7 @@ end;
 destructor TLIMAPSocket.Destroy;
 begin
   FTerminated := True;
-  if Assigned(FGroup) then fGroup.Destroy;
+//  if Assigned(FGroup) then fGroup.Destroy;
   FSendBuffer.Free;
   FPostMessage.Destroy;
   inherited;

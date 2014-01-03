@@ -38,6 +38,7 @@ type
     FSelector: String;
     FSelectCount : Integer;
     FUseUID : Boolean;
+    FSequenceNumbers : TStringList;
     function SelectNext : Boolean;
     function GenerateMessage : TMimeMess;
     procedure RefreshFirstID;
@@ -100,9 +101,14 @@ begin
       Result := False;
       exit;
     end;
-  FMessages.DataSet.First;
+  FMessages.DataSet.Last;
   if not FUseUID then
-    FMessages.DataSet.MoveBy(StrToInt(Arg1)-1)
+    begin
+      if FSequenceNumbers.Count<=StrToInt(Arg1) then
+        FMessages.GotoBookmark(FSequenceNumbers[StrToInt(Arg1)-1])
+      else
+        FMessages.DataSet.MoveBy(-(StrToInt(Arg1)-1))
+    end
   else
     begin
       Result := FMessages.GotoBookmark(StrToInt(Arg1));
@@ -138,8 +144,8 @@ begin
 end;
 procedure TPIMAPFolder.RefreshFirstID;
 begin
-  FMessages.Filter(Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(Data.Users.FieldByName('ACCOUNTNO').AsString),100,'SENDDATE');
-  FMessages.First;
+  FMessages.Filter(Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(Data.Users.FieldByName('ACCOUNTNO').AsString),300,'SENDDATE','DESC');
+  FMessages.Last;
   if FMessages.Count > 0 then
     FFirstID := FMessages.Id.AsVariant;
 end;
@@ -147,13 +153,14 @@ procedure TPIMAPFolder.RefreshCount;
 begin
   FFIrstID := 0;
   FlastID := 0;
-  Data.SetFilter(FMessages,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' and '+Data.QuoteField('READ')+'='+Data.QuoteValue('N')+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(Data.Users.FieldByName('ACCOUNTNO').AsString),100,'SENDDATE');
+  Data.SetFilter(FMessages,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' and '+Data.QuoteField('READ')+'='+Data.QuoteValue('N')+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(Data.Users.FieldByName('ACCOUNTNO').AsString),300,'SENDDATE','DESC');
   FUnreadCount := FMessages.Count;
-  Data.SetFilter(FMessages,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(Data.Users.FieldByName('ACCOUNTNO').AsString),100,'SENDDATE');
+  Data.SetFilter(FMessages,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(Data.Users.FieldByName('ACCOUNTNO').AsString),300,'SENDDATE','DESC');
   if FMessages.Count > 0 then
     begin
+      FMessages.Last;
       FFirstID:=FMessages.Id.AsVariant;
-      Fmessages.DataSet.Last;
+      Fmessages.DataSet.First;
       FLastID:=FMessages.Id.AsVariant;
     end;
   FCount := FMessages.Count;
@@ -319,6 +326,7 @@ var
   Found: Boolean;
   bFetch: String;
   aSize: String;
+  tmpRecNo: String;
 begin
   if FSelectCount=0 then
     if not SelectNext then
@@ -328,9 +336,14 @@ begin
       end;
   Result := TStringList.Create;
   aFetch := aFetch+' ';
-  if not FMessages.DataSet.EOF then
+  if not FMessages.DataSet.BOF then
     begin
-      tmp := '* '+IntToStr(FMessages.DataSet.RecNo)+' FETCH (';
+      if FSequenceNumbers.IndexOf(FMessages.Id.AsString)=-1 then
+        begin
+          tmpRecNo := IntToStr(FSequenceNumbers.Add(FMessages.Id.AsString)+1);
+        end
+      else tmpRecNo:=IntToStr(FSequenceNumbers.IndexOf(FMessages.Id.AsString)+1);
+      tmp := '* '+tmpRecNo+' FETCH (';
       while pos(' ',aFetch)>0 do
         begin
           bFetch := copy(afetch,0,pos(' ',afetch)-1);
@@ -471,7 +484,7 @@ begin
       Result.Add(copy(tmp,0,length(tmp)-1)+')');
       FetchSequence:=FetchSequence+1;
       FreeAndNil(aMessage);
-      Fmessages.DataSet.Next;
+      Fmessages.DataSet.Prior;
       Dec(FSelectCount,1);
     end
   else
@@ -480,6 +493,7 @@ end;
 
 constructor TPIMAPFolder.Create(aName: string;aUID : string);
 begin
+  FSequenceNumbers := TStringList.Create;
   FetchSequence := 1;
   FMessages := TMessageList.Create(Self,Data);
   if Data.Tree.DataSet.Locate('SQL_ID',aUID,[loCaseInsensitive]) then
@@ -492,6 +506,7 @@ begin
 end;
 destructor TPIMAPFolder.Destroy;
 begin
+  FSequenceNumbers.Free;
   if Assigned(FMessages) then
     FMessages.Free;
   inherited Destroy;

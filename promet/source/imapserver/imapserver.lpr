@@ -110,14 +110,17 @@ begin
             aGroup := TPIMAPFolder.Create('Trash',Data.Tree.Id.AsString)
           else
             aGroup := TPIMAPFolder.Create(FieldByName('NAME').AsString,Data.Tree.Id.AsString);
-          Server.Groups.Add(aGroup);
+          Server.Folders.Add(aGroup);
           next;
         end;
     end;
   Server.OnLogin :=@ServerLogin;
   Server.OnLog:=@ServerLog;
   while not Terminated do
-    Server.CallAction;
+    begin
+      Server.CallAction;
+      sleep(100);
+    end;
   // stop program loop
   Terminate;
 end;
