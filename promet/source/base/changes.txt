@@ -9,6 +9,7 @@
       - Twitterreceiver: legt automatisch Kontakte an, folgt ihnen und importiert in deren History
                          so kann mna den Kontakten einfach nicht mehr folgen, die daten sind weiterhin da und durchsubćhbar
       - Nachrichtenzentrale: Folgen Dialog wurde überarbeitet, man kann nun suchen, die Darstellung der Links wurde überarbeitet
+      - IMAP Server: abrufen von Nachrichten mit Thunderbird jetzt möglich (noch nicht vollständig)
 Build 298
       - Auftrag:Fehler beim Öffnen eines neuen Auftrages behoben
 Build 297

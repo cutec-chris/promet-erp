@@ -116,7 +116,8 @@ begin
     end;
   Server.OnLogin :=@ServerLogin;
   Server.OnLog:=@ServerLog;
-  while not Terminated do Server.CallAction;
+  while not Terminated do
+    Server.CallAction;
   // stop program loop
   Terminate;
 end;
@@ -124,7 +125,7 @@ end;
 constructor TPIMAPServer.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
-  StopOnException:=True;
+  StopOnException:=False;
   Server := TLIMAPServer.Create(Self);
   Server.Port := 143;
   if HasOption('port') then

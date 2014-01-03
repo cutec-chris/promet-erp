@@ -90,6 +90,7 @@ type
     procedure Insert;virtual;
     procedure Append;virtual;
     procedure First;virtual;
+    procedure Last;virtual;
     procedure Next;virtual;
     procedure Prior;virtual;
     procedure Post;virtual;
@@ -1048,6 +1049,11 @@ end;
 procedure TBaseDBDataset.First;
 begin
   DataSet.First;
+end;
+
+procedure TBaseDBDataset.Last;
+begin
+  DataSet.Last;
 end;
 
 procedure TBaseDBDataset.Next;

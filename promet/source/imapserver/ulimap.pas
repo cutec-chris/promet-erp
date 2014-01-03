@@ -321,6 +321,7 @@ var
     aRange: String;
     aRes: TStrings;
     a: Integer;
+    aFCount: Integer;
   begin
     FStopFetching := False;
     aCmd := Uppercase(copy(bParams,0,pos(' ',bParams)-1));
@@ -331,18 +332,20 @@ var
         aRange := copy(bParams,0,pos(' ',bParams)-1);
         bParams:=copy(bParams,pos(' ',bParams)+1,length(bParams));
         if copy(bParams,0,1)='(' then
-          tmp := copy(bParams,2,length(bParams)-2);
+          bParams := copy(bParams,2,length(bParams)-2);
         if bParams = 'ALL' then
           bParams := 'FLAGS INTERNALDATE RFC822.SIZE ENVELOPE';
         if bParams = 'FAST' then
           bParams := 'FLAGS INTERNALDATE RFC822.SIZE';
         if aUseUID and (pos('UID',bParams)=0) then
           bParams:='UID '+bParams;
+        aFCount := 0;
         if FGroup.SelectMessages(aRange,aUseUID) then
           begin
             aRes := FGroup.FetchOneEntry(bParams);
             while Assigned(aRes) do
               begin
+                inc(aFCount);
                 for a := 0 to aRes.Count-1 do
                   begin
                     Creator.CallAction;
@@ -354,17 +357,26 @@ var
                         exit;
                       end;
                   end;
+                {if aRes.Count=0 then
+                  begin
+                    DontLog:=False;
+                    Answer('BAD Parameter not implemented.');
+                    exit;
+                  end;}
                 aRes := FGroup.FetchOneEntry(bParams);
               end;
-            Answer('OK Success');
+            DontLog:=False;
+            Answer('OK Success '+IntToStr(aFCount)+' results');
           end
-        else Answer('NO failed.');
-        DontLog:=False;
+        else
+          begin
+            DontLog:=False;
+            Answer('NO failed.');
+          end;
       end
     else
       Answer('BAD Comand not implemented.');
   end;
-
 begin
   if Assigned(TLIMAPServer(Self.Creator).OnLog) and (not FPostMode) then
     begin
@@ -618,7 +630,8 @@ begin
       if copy(tmp,0,1)='"' then
         tmp := copy(tmp,2,length(tmp)-2);
       aParams:=copy(aParams,pos(' ',aParams)+1,length(aParams));
-      aParams := copy(aParams,2,length(aParams)-2);
+      if copy(aParams,0,1)='"' then
+        aParams := copy(aParams,2,length(aParams)-2);
       if Assigned(TLIMAPServer(Creator).OnLogin) then
         begin
           if TLIMAPServer(Creator).OnLogin(Self,tmp,aParams) then
@@ -641,6 +654,12 @@ begin
   else if aCommand = 'NOOP' then
     begin
       Answer('OK NOOP');
+    end
+  else if aCommand = 'CLOSE' then
+    begin
+      Answer('OK closing mailbox');
+      FGroup.Destroy;
+      FGroup:=nil;
     end
   else if aCommand = '' then
   else Answer('BAD Command not implemented.');

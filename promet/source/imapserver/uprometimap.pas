@@ -23,6 +23,9 @@ interface
 uses
   Classes, SysUtils, uLIMAP, uMessages, MimeMess, uMimeMessages, db,cwstring;
 type
+
+  { TPIMAPFolder }
+
   TPIMAPFolder = class(TIMAPFolder)
   private
     FMessages : TMessageList;
@@ -31,6 +34,11 @@ type
     FCount : Integer;
     FUnreadCount : Integer;
     FLastID : LargeInt;
+    FetchSequence : Integer;
+    FSelector: String;
+    FSelectCount : Integer;
+    FUseUID : Boolean;
+    function SelectNext : Boolean;
     function GenerateMessage : TMimeMess;
     procedure RefreshFirstID;
     procedure RefreshCount;
@@ -55,6 +63,68 @@ type
 implementation
 uses uData,Variants,SynaUtil,uSessionDBClasses,uBaseDBInterface,Utils,
   uPerson,LConvEncoding,uIntfStrConsts;
+
+function TPIMAPFolder.SelectNext: Boolean;
+var
+  aFilter: String;
+  Arg1: String;
+  Arg2: String;
+  Max: Integer;
+begin
+  Max := 1;
+  Result := True;
+  if pos(',',FSelector)>0 then
+    begin
+      aFilter := copy(FSelector,0,pos(',',FSelector)-1);
+      FSelector := copy(FSelector,pos(',',FSelector)+1,length(FSelector));
+    end
+  else
+    begin
+      aFilter := FSelector;
+      FSelector:='';
+    end;
+  if pos(':',aFilter) = 0 then
+    begin
+      Arg1 := aFilter;
+      Max := 1;
+      Arg2 := '';
+    end
+  else
+    begin
+      Arg1 := copy(aFilter,0,pos(':',aFilter)-1);
+      Arg2 := copy(aFilter,pos(':',aFilter)+1,length(aFilter));
+    end;
+  if aFilter='' then
+    begin
+      Max := 0;
+      Result := False;
+      exit;
+    end;
+  FMessages.DataSet.First;
+  if not FUseUID then
+    FMessages.DataSet.MoveBy(StrToInt(Arg1)-1)
+  else
+    begin
+      Result := FMessages.GotoBookmark(StrToInt(Arg1));
+    end;
+  if (trim(Arg2) = '') and FUseUID then
+    Max := 1
+  else if (trim(Arg2) = '*') then
+    begin
+      Max := FMessages.Count;
+      result := True;
+    end
+  else
+    begin
+      try
+        Max := (StrToInt(Arg2)-StrToInt(Arg1))+1;
+      except
+        Result := False;
+      end;
+    end;
+  FSelectCount:=Max;
+end;
+
 function TPIMAPFolder.GenerateMessage: TMimeMess;
 var
 aMessage: TMimeMessage;
@@ -68,7 +138,8 @@ begin
 end;
 procedure TPIMAPFolder.RefreshFirstID;
 begin
-  Data.SetFilter(FMessages,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry),1);
+  FMessages.Filter(Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(Data.Users.FieldByName('ACCOUNTNO').AsString),100,'SENDDATE');
+  FMessages.First;
   if FMessages.Count > 0 then
     FFirstID := FMessages.Id.AsVariant;
 end;
@@ -76,9 +147,9 @@ procedure TPIMAPFolder.RefreshCount;
 begin
   FFIrstID := 0;
   FlastID := 0;
-  Data.SetFilter(FMessages,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' and '+Data.QuoteField('READ')+'='+Data.QuoteValue('N'),0);
+  Data.SetFilter(FMessages,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' and '+Data.QuoteField('READ')+'='+Data.QuoteValue('N')+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(Data.Users.FieldByName('ACCOUNTNO').AsString),100,'SENDDATE');
   FUnreadCount := FMessages.Count;
-  Data.SetFilter(FMessages,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry),0);
+  Data.SetFilter(FMessages,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(Data.Users.FieldByName('ACCOUNTNO').AsString),100,'SENDDATE');
   if FMessages.Count > 0 then
     begin
       FFirstID:=FMessages.Id.AsVariant;
@@ -229,41 +300,9 @@ var
 begin
   Result:=False;
   Max := 0;
-  if pos(':',aFilter) = 0 then
-    begin
-      Arg1 := aFilter;
-      Max := 1;
-      Arg2 := '';
-    end
-  else
-    begin
-      Arg1 := copy(aFilter,0,pos(':',aFilter)-1);
-      Arg2 := copy(aFilter,pos(':',aFilter)+1,length(aFilter));
-    end;
-  if not aUseUID then
-    begin
-      aFilter := Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry);
-      Max := StrToInt(Arg1);
-      Data.SetFilter(FMessages,aFilter,Max);
-      FMessages.DataSet.last;
-      Arg1 := FMessages.Id.AsString;
-    end;
-  if (trim(Arg2) = '') or (trim(Arg2) = '*') then
-    aFilter := Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' AND '+Data.QuoteField('SQL_ID')+' >= '+Data.QuoteValue(Arg1)
-  else
-    begin
-      aFilter := Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' AND '+Data.QuoteField('SQL_ID')+' >= '+Data.QuoteValue(Arg1)+' AND '+Data.QuoteField('SQL_ID')+' <= '+Data.QuoteValue(Arg2);
-      try
-        Max := (StrToInt(Arg2)-StrToInt(Arg1))+1;
-        aFilter := Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' AND '+Data.QuoteField('SQL_ID')+' >= '+Data.QuoteValue(Arg1);
-      except
-        aFilter := Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' AND '+Data.QuoteField('SQL_ID')+' >= '+Data.QuoteValue(Arg1)+' AND '+Data.QuoteField('SQL_ID')+' <= '+Data.QuoteValue(Arg2);
-        Max := 0;
-      end;
-    end;
-  Data.SetFilter(FMessages,aFilter,Max);
-  FMessages.DataSet.First;
-  Result := True;
+  FSelector := aFilter;
+  FUseUID := aUseUID;
+  Result := SelectNext;
 end;
 
 function TPIMAPFolder.FetchOneEntry(aFetch: string): TStrings;
@@ -278,139 +317,162 @@ var
   aFields: String;
   bsl: TStringList;
   Found: Boolean;
+  bFetch: String;
+  aSize: String;
 begin
+  if FSelectCount=0 then
+    if not SelectNext then
+      begin
+        Result := nil;
+        exit;
+      end;
   Result := TStringList.Create;
-  i := 1;
   aFetch := aFetch+' ';
   if not FMessages.DataSet.EOF then
     begin
-      tmp := '* '+IntToStr(i)+' FETCH (';
-      if pos('UID',aFetch)>0 then
+      tmp := '* '+IntToStr(FMessages.DataSet.RecNo)+' FETCH (';
+      while pos(' ',aFetch)>0 do
         begin
-          tmp := tmp+'UID '+FMessages.FieldByName('SQL_ID').AsString+' ';
-        end;
-      if pos('FLAGS',aFetch)>0 then
-        begin
-          tmp := tmp+'FLAGS (';
-          if FMessages.FieldByName('READ').AsString='Y' then
-            tmp+='\Seen ';
-          if FMessages.FieldByName('READ').AsString='Y' then
-            tmp+='\Answered ';
-          if FMessages.FieldByName('TREEENTRY').AsVariant=TREE_ID_DELETED_MESSAGES then
-            tmp+='\Deleted ';
-          tmp := copy(tmp,0,length(tmp)-1);
-          tmp+=') ';
-        end;
-      if pos('INTERNALDATE',aFetch)>0 then
-        begin
-          tmp := tmp+'INTERNALDATE "'+Rfc822DateTime(FMessages.FieldByName('SENDDATE').AsDateTime)+'" ';
-        end;
-      if pos('RFC822.SIZE',aFetch)>0 then
-        begin
-          tmp := tmp+'RFC822.SIZE '+FMessages.FieldByName('SIZE').AsString+' ';
-        end;
-      if (pos('RFC822.HEADER ',aFetch)>0)
-      or (pos('BODY[HEADER] ',aFetch)>0)
-      then
-        begin
-          if not Assigned(aMessage) then
+          bFetch := copy(afetch,0,pos(' ',afetch)-1);
+          if pos('<',bFetch)>0 then
+            bfetch := copy(bFetch,0,pos('<',bFetch)-1);
+          afetch := copy(afetch,pos(' ',afetch)+1,length(afetch));
+          case bFetch of
+          'UID':
             begin
-              aMessage := TMimeMessage.Create(Self,Data);
-              aMessage.Select(FMessages.Id.AsVariant);
-              aMessage.Open;
+              tmp := tmp+'UID '+FMessages.FieldByName('SQL_ID').AsString+' ';
             end;
-          if aMessage.Count>0 then
-            aMessage.Content.Open;
-          aSL := TStringList.Create;
-          aSL.text := aMessage.Content.FieldByName('HEADER').AsString;
-          aLen := 0;
-          aLen :=  length(aSL.Text);
-          if (pos('RFC822.HEADER ',aFetch)>0) then
-            tmp := tmp+'RFC822.HEADER {'+IntToStr(aLen+2)+'}'+#13#10+aSL.Text;
-          if (pos('BODY[HEADER] ',aFetch)>0) then
-            tmp := tmp+'BODY[HEADER] {'+IntToStr(aLen+2)+'}'+#13#10+aSL.Text;
-          aSL.Free;
+          'FLAGS','(FLAGS)':
+            begin
+              tmp := tmp+'FLAGS (';
+              if FMessages.FieldByName('READ').AsString='Y' then
+                tmp+='\Seen ';
+              if FMessages.FieldByName('ANSWERED').AsString='Y' then
+                tmp+='\Answered ';
+              if FMessages.FieldByName('TREEENTRY').AsVariant=TREE_ID_DELETED_MESSAGES then
+                tmp+='\Deleted '
+              else tmp +=' ';
+              tmp := copy(tmp,0,length(tmp)-1);
+              tmp+=') ';
+            end;
+          'INTERNALDATE':
+            begin
+              tmp := tmp+'INTERNALDATE "'+Rfc822DateTime(FMessages.FieldByName('SENDDATE').AsDateTime)+'" ';
+            end;
+          'RFC822.SIZE':
+            begin
+              aSize := FMessages.FieldByName('SIZE').AsString;
+              if aSize = '' then aSize := '0';
+              tmp := tmp+'RFC822.SIZE '+aSize+' ';
+            end;
+          'RFC822.HEADER','BODY[HEADER]':
+            begin
+              if not Assigned(aMessage) then
+                begin
+                  aMessage := TMimeMessage.Create(Self,Data);
+                  aMessage.Select(FMessages.Id.AsVariant);
+                  aMessage.Open;
+                end;
+              if aMessage.Count>0 then
+                aMessage.Content.Open;
+              aSL := TStringList.Create;
+              aSL.text := aMessage.Content.FieldByName('HEADER').AsString;
+              aLen := 0;
+              aLen :=  length(aSL.Text);
+              if (pos('RFC822.HEADER ',aFetch)>0) then
+                tmp := tmp+'RFC822.HEADER {'+IntToStr(aLen+2)+'}'+#13#10+aSL.Text;
+              if (pos('BODY[HEADER] ',aFetch)>0) then
+                tmp := tmp+'BODY[HEADER] {'+IntToStr(aLen+2)+'}'+#13#10+aSL.Text;
+              aSL.Free;
+            end;
+          'RFC822','BODY[]','BODY.PEEK[]':
+            begin
+              if not Assigned(aMessage) then
+                begin
+                  aMessage := TMimeMessage.Create(Self,Data);
+                  aMessage.Select(FMessages.Id.AsVariant);
+                  aMessage.Open;
+                end;
+              aMime := aMessage.EncodeMessage;
+              aSL := TStringList.Create;
+              aSL.text := aMime.Lines.Text;
+              aLen :=  length(aSL.Text);
+              if (pos('RFC822',bFetch)>0) then
+                tmp := tmp+'RFC822 {'+IntToStr(aLen+2)+'}'+#13#10+aSL.Text+#13#10+' ';
+              if (pos('BODY[]',bFetch)>0)
+              or (pos('BODY.PEEK[]',bFetch)>0)
+              then
+                tmp := tmp+'BODY[] {'+IntToStr(aLen+2)+'}'+#13#10+aSL.Text+#13#10+' ';
+              aSL.Free;
+              aMime.Free;
+            end;
+          'BODY.PEEK[HEADER.FIELDS':
+            begin
+              if not Assigned(aMessage) then
+                begin
+                  aMessage := TMimeMessage.Create(Self,Data);
+                  aMessage.Select(FMessages.Id.AsVariant);
+                  aMessage.Open;
+                end;
+              aMime := aMessage.EncodeMessage;
+              //BODY.PEEK[HEADER.FIELDS (From To Cc Bcc Subject Date Message-ID Priority X-Priority References Newsgroups In-Reply-To Content-Type)]
+              aFields := copy(aFetch,pos('(',aFetch)+1,length(aFetch));
+              aFields := copy(aFields,0,pos(')',aFields)-1);
+              aSL := TStringList.Create;
+              bsl := TStringlist.Create;
+              aMime.Header.EncodeHeaders(bsl);
+              while pos(' ',aFields)>0 do
+                begin
+                  Found := False;
+                  for a := 0 to bsl.Count-1 do
+                    if Uppercase(copy(bsl[a],0,pos(':',bsl[a])-1)) = Uppercase(copy(aFields,0,pos(' ',aFields)-1)) then
+                      begin
+                        aSl.Add(bsl[a]);
+                        Found := True;
+                        break;
+                      end;
+                  if not Found then
+                    aSL.Add(copy(aFields,0,pos(' ',aFields)-1)+':');
+                  aFields := copy(aFields,pos(' ',aFields)+1,length(aFields));
+                end;
+              if aFields<>'' then
+                begin
+                  Found := False;
+                  for a := 0 to bsl.Count-1 do
+                    if Uppercase(copy(bsl[a],0,pos(':',bsl[a])-1)) = Uppercase(aFields) then
+                      begin
+                        aSl.Add(bsl[a]);
+                        Found := True;
+                        break;
+                      end;
+                  if not Found then
+                    aSL.Add(aFields+':');
+                  aFields := copy(aFields,pos(' ',aFields)+1,length(aFields));
+                end;
+              aLen := 0;
+              aSL.Add('');
+              aLen :=  length(aSL.Text);
+              aFields := bFetch+' '+aFetch;
+              aFields := copy(aFields,0,pos(']',aFields));
+              aFields := StringReplace(aFields,'BODY.PEEK[','BODY[',[]);
+              tmp := tmp+aFields+' {'+IntToStr(aLen)+'}'+#13#10+aSL.Text+' ';
+              aSL.Free;
+              bSL.Free;
+              aMime.Free;
+              aFetch:=copy(aFetch,pos(']',afetch)+1,length(aFetch));
+            end
+{          else if trim(bFetch) <> '' then
+            begin
+              Result.Clear;
+              exit;
+            end;}
+          end;
         end;
-      if (pos('RFC822 ',aFetch)>0)
-      or (pos('BODY[] ',aFetch)>0)
-      then
-        begin
-          if not Assigned(aMessage) then
-            begin
-              aMessage := TMimeMessage.Create(Self,Data);
-              aMessage.Select(FMessages.Id.AsVariant);
-              aMessage.Open;
-            end;
-          aMime := aMessage.EncodeMessage;
-          aSL := TStringList.Create;
-          aSL.text := aMime.Lines.Text;
-          aLen := 0;
-          aLen :=  length(aSL.Text);
-          if (pos('RFC822 ',aFetch)>0) then
-            tmp := tmp+'RFC822 {'+IntToStr(aLen+2)+'}'+#13#10+aSL.Text;
-          if (pos('BODY[] ',aFetch)>0) then
-            tmp := tmp+'BODY[] {'+IntToStr(aLen+2)+'}'+#13#10+aSL.Text;
-          aSL.Free;
-        end;
-      if pos('BODY.PEEK[HEADER.FIELDS (',aFetch)>0 then
-        begin
-          if not Assigned(aMessage) then
-            begin
-              aMessage := TMimeMessage.Create(Self,Data);
-              aMessage.Select(FMessages.Id.AsVariant);
-              aMessage.Open;
-            end;
-          aMime := aMessage.EncodeMessage;
-          //BODY.PEEK[HEADER.FIELDS (From To Cc Bcc Subject Date Message-ID Priority X-Priority References Newsgroups In-Reply-To Content-Type)]
-          aFields := copy(aFetch,pos('BODY.PEEK[HEADER.FIELDS (',aFetch)+25,length(aFetch));
-          aFields := copy(aFields,0,pos(')',aFields)-1);
-          aSL := TStringList.Create;
-          bsl := TStringlist.Create;
-          aMime.Header.EncodeHeaders(bsl);
-          while pos(' ',aFields)>0 do
-            begin
-              Found := False;
-              for a := 0 to bsl.Count-1 do
-                if Uppercase(copy(bsl[a],0,pos(':',bsl[a])-1)) = Uppercase(copy(aFields,0,pos(' ',aFields)-1)) then
-                  begin
-                    aSl.Add(bsl[a]);
-                    Found := True;
-                    break;
-                  end;
-              if not Found then
-                aSL.Add(copy(aFields,0,pos(' ',aFields)-1)+':');
-              aFields := copy(aFields,pos(' ',aFields)+1,length(aFields));
-            end;
-          if aFields<>'' then
-            begin
-              Found := False;
-              for a := 0 to bsl.Count-1 do
-                if Uppercase(copy(bsl[a],0,pos(':',bsl[a])-1)) = Uppercase(aFields) then
-                  begin
-                    aSl.Add(bsl[a]);
-                    Found := True;
-                    break;
-                  end;
-              if not Found then
-                aSL.Add(aFields+':');
-              aFields := copy(aFields,pos(' ',aFields)+1,length(aFields));
-            end;
-          aLen := 0;
-          aLen :=  length(aSL.Text);
-          aSl.Add('');
-          aSl.Add('');
-          aFields := copy(aFetch,pos('BODY.PEEK[HEADER.FIELDS (',aFetch),length(aFetch));
-          aFields := copy(aFields,0,pos(']',aFields));
-          aFields := StringReplace(aFields,'BODY.PEEK[','BODY[',[]);
-          tmp := tmp+aFields+' {'+IntToStr(aLen)+'}'+#13#10+aSL.Text;
-          aSL.Free;
-          bSL.Free;
-          aMime.Free;
-        end;
-      Result.Text := Result.Text+copy(tmp,0,length(tmp)-1)+')';
-      i:=i+1;
+      Result.Add(copy(tmp,0,length(tmp)-1)+')');
+      FetchSequence:=FetchSequence+1;
       FreeAndNil(aMessage);
       Fmessages.DataSet.Next;
+      Dec(FSelectCount,1);
     end
   else
     FreeAndNil(Result);
@@ -418,6 +480,7 @@ end;
 
 constructor TPIMAPFolder.Create(aName: string;aUID : string);
 begin
+  FetchSequence := 1;
   FMessages := TMessageList.Create(Self,Data);
   if Data.Tree.DataSet.Locate('SQL_ID',aUID,[loCaseInsensitive]) then
     FTreeEntry := Data.Tree.Id.AsString

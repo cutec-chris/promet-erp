@@ -60,27 +60,25 @@
         <PackageName Value="pcmdprometapp"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="118">
+    <Units Count="80">
       <Unit0>
         <Filename Value="imapserver.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="imapserver"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="20"/>
-        <UsageCount Value="197"/>
+        <TopLine Value="118"/>
+        <CursorPos X="37" Y="129"/>
+        <UsageCount Value="201"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
         <UnitName Value="uBaseCustomApplication"/>
-        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="20"/>
-        <UsageCount Value="75"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="85"/>
       </Unit1>
       <Unit2>
         <Filename Value="..\base\pcmdprometapp.pas"/>
@@ -88,1081 +86,770 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="11"/>
       </Unit2>
       <Unit3>
-        <Filename Value="C:\Programme\lazarus\lcl\propertystorage.pas"/>
-        <UnitName Value="PropertyStorage"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="16"/>
-        <CursorPos X="33" Y="14"/>
-        <UsageCount Value="1"/>
-      </Unit3>
-      <Unit4>
-        <Filename Value="..\..\..\general\src\Utils.pas"/>
-        <UnitName Value="Utils"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="444"/>
-        <CursorPos X="36" Y="463"/>
-        <UsageCount Value="1"/>
-      </Unit4>
-      <Unit5>
-        <Filename Value="C:\Programme\lazarus\lcl\fileutil.pas"/>
-        <UnitName Value="FileUtil"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="48" Y="30"/>
-        <UsageCount Value="1"/>
-      </Unit5>
-      <Unit6>
-        <Filename Value="C:\Programme\lazarus\lcl\masks.pas"/>
-        <UnitName Value="Masks"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="1"/>
-      </Unit6>
-      <Unit7>
-        <Filename Value="C:\Programme\lazarus\lcl\dbctrls.pp"/>
-        <UnitName Value="DbCtrls"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="13"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="1"/>
-      </Unit7>
-      <Unit8>
         <Filename Value="..\base\dbintfs\uintfstrconsts.pas"/>
         <UnitName Value="uIntfStrConsts"/>
         <WindowIndex Value="0"/>
         <TopLine Value="616"/>
         <CursorPos X="6" Y="635"/>
-        <UsageCount Value="13"/>
-      </Unit8>
-      <Unit9>
+        <UsageCount Value="10"/>
+      </Unit3>
+      <Unit4>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1153"/>
-        <CursorPos X="1" Y="1181"/>
-        <UsageCount Value="80"/>
-        <Loaded Value="True"/>
-      </Unit9>
-      <Unit10>
+        <TopLine Value="107"/>
+        <CursorPos X="5" Y="122"/>
+        <UsageCount Value="90"/>
+      </Unit4>
+      <Unit5>
         <Filename Value="..\..\..\LKomponenten\lnet\lib\lnet.pp"/>
         <UnitName Value="lNet"/>
         <WindowIndex Value="0"/>
         <TopLine Value="238"/>
         <CursorPos X="3" Y="346"/>
-        <UsageCount Value="15"/>
-      </Unit10>
-      <Unit11>
+        <UsageCount Value="12"/>
+      </Unit5>
+      <Unit6>
         <Filename Value="C:\Programme\lazarus\fpc\2.4.3\source\rtl\inc\socketsh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="60"/>
         <CursorPos X="28" Y="79"/>
-        <UsageCount Value="10"/>
-      </Unit11>
-      <Unit12>
+        <UsageCount Value="7"/>
+      </Unit6>
+      <Unit7>
         <Filename Value="..\..\..\LKomponenten\lnet\lib\levents.pp"/>
         <UnitName Value="lEvents"/>
         <WindowIndex Value="0"/>
         <TopLine Value="528"/>
         <CursorPos X="1" Y="558"/>
-        <UsageCount Value="20"/>
-      </Unit12>
-      <Unit13>
+        <UsageCount Value="17"/>
+      </Unit7>
+      <Unit8>
         <Filename Value="C:\Dokumente und Einstellungen\ulrich\Eigene Dateien\Hamster\cServerNNTP.pas"/>
         <UnitName Value="cServerNNTP"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2202"/>
         <CursorPos X="1" Y="2224"/>
-        <UsageCount Value="22"/>
+        <UsageCount Value="19"/>
         <Bookmarks Count="1">
           <Item0 X="10" Y="2911" ID="0"/>
         </Bookmarks>
-      </Unit13>
-      <Unit14>
+      </Unit8>
+      <Unit9>
         <Filename Value="C:\Dokumente und Einstellungen\ulrich\Eigene Dateien\Hamster\cServerBase.pas"/>
         <UnitName Value="cServerBase"/>
         <WindowIndex Value="0"/>
         <TopLine Value="148"/>
         <CursorPos X="41" Y="169"/>
-        <UsageCount Value="17"/>
-      </Unit14>
-      <Unit15>
+        <UsageCount Value="14"/>
+      </Unit9>
+      <Unit10>
         <Filename Value="..\..\..\LKomponenten\lnet\lib\lhttp.pp"/>
         <UnitName Value="lhttp"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1569"/>
         <CursorPos X="38" Y="1584"/>
-        <UsageCount Value="4"/>
-      </Unit15>
-      <Unit16>
+        <UsageCount Value="1"/>
+      </Unit10>
+      <Unit11>
         <Filename Value="ulimap.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ulimap"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="20"/>
-        <UsageCount Value="194"/>
+        <TopLine Value="150"/>
+        <CursorPos X="46" Y="167"/>
+        <FoldState Value=" T3n9271w"/>
+        <UsageCount Value="200"/>
         <Loaded Value="True"/>
-      </Unit16>
-      <Unit17>
+      </Unit11>
+      <Unit12>
         <Filename Value="..\..\..\LKomponenten\lnet\examples\console\lhttp\fphttpd.pp"/>
         <UnitName Value="fphttpd"/>
         <WindowIndex Value="0"/>
         <TopLine Value="35"/>
         <CursorPos X="61" Y="45"/>
-        <UsageCount Value="8"/>
-      </Unit17>
-      <Unit18>
-        <Filename Value="..\..\..\LKomponenten\lnet\lib\sys\osunits.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="1"/>
-      </Unit18>
-      <Unit19>
+        <UsageCount Value="5"/>
+      </Unit12>
+      <Unit13>
         <Filename Value="..\base\dbintfs\udata.pas"/>
         <UnitName Value="uData"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="16" Y="41"/>
-        <UsageCount Value="3"/>
-      </Unit19>
-      <Unit20>
-        <Filename Value="..\..\..\LKomponenten\zeos\src\component\ZDatasetUtils.pas"/>
-        <UnitName Value="ZDatasetUtils"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="577"/>
-        <CursorPos X="22" Y="601"/>
-        <UsageCount Value="2"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit20>
-      <Unit21>
+        <UsageCount Value="0"/>
+      </Unit13>
+      <Unit14>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="32" Y="2018"/>
-        <UsageCount Value="66"/>
+        <TopLine Value="1052"/>
+        <CursorPos X="16" Y="1056"/>
+        <UsageCount Value="79"/>
         <Loaded Value="True"/>
-      </Unit21>
-      <Unit22>
-        <Filename Value="..\base\ubasevisualapplication.pas"/>
-        <UnitName Value="uBaseVisualApplication"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="218"/>
-        <CursorPos X="1" Y="275"/>
-        <UsageCount Value="1"/>
-      </Unit22>
-      <Unit23>
+      </Unit14>
+      <Unit15>
         <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="20"/>
-        <UsageCount Value="79"/>
-        <Loaded Value="True"/>
-      </Unit23>
-      <Unit24>
-        <Filename Value="..\..\output\i386-win32\web\debug.txt"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="1"/>
-        <DefaultSyntaxHighlighter Value="None"/>
-      </Unit24>
-      <Unit25>
-        <Filename Value="..\base\dbintfs\uorder.pas"/>
-        <UnitName Value="uOrder"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="65" Y="15"/>
-        <UsageCount Value="1"/>
-      </Unit25>
-      <Unit26>
-        <Filename Value="C:\Dokumente und Einstellungen\ulrich\Eigene Dateien\Hamster\cArticle.pas"/>
-        <UnitName Value="cArticle"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="130"/>
-        <CursorPos X="37" Y="19"/>
-        <UsageCount Value="1"/>
-      </Unit26>
-      <Unit27>
+        <UsageCount Value="81"/>
+      </Unit15>
+      <Unit16>
         <Filename Value="C:\Dokumente und Einstellungen\ulrich\Eigene Dateien\Hamster\cArticleFile.pas"/>
         <UnitName Value="cArticleFile"/>
         <WindowIndex Value="0"/>
         <TopLine Value="394"/>
         <CursorPos X="18" Y="443"/>
-        <UsageCount Value="3"/>
-      </Unit27>
-      <Unit28>
-        <Filename Value="C:\Programme\lazarus\fpc\2.4.3\source\rtl\objpas\classes\classesh.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="284"/>
-        <CursorPos X="14" Y="303"/>
-        <UsageCount Value="2"/>
-      </Unit28>
-      <Unit29>
-        <Filename Value="..\..\..\LKomponenten\lnet\lib\lmimestreams.pp"/>
-        <UnitName Value="lMimeStreams"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="151"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="1"/>
-      </Unit29>
-      <Unit30>
-        <Filename Value="..\..\..\LKomponenten\lnet\lib\lsmtp.pp"/>
-        <UnitName Value="lsmtp"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="35"/>
-        <CursorPos X="15" Y="179"/>
-        <UsageCount Value="2"/>
-      </Unit30>
-      <Unit31>
-        <Filename Value="..\..\..\LKomponenten\lnet\lib\lmimewrapper.pp"/>
-        <UnitName Value="lMimeWrapper"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="48"/>
-        <CursorPos X="3" Y="42"/>
-        <UsageCount Value="2"/>
-      </Unit31>
-      <Unit32>
-        <Filename Value="C:\Dokumente und Einstellungen\ulrich\Desktop\LT-Spice.eml"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="73"/>
-        <CursorPos X="30" Y="8"/>
-        <UsageCount Value="1"/>
-        <DefaultSyntaxHighlighter Value="None"/>
-      </Unit32>
-      <Unit33>
+        <UsageCount Value="0"/>
+      </Unit16>
+      <Unit17>
         <Filename Value="C:\Dokumente und Einstellungen\ulrich\Desktop\Re  TARGET V15 vs. Altium Designer.eml"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="8" Y="11"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="2"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit33>
-      <Unit34>
+      </Unit17>
+      <Unit18>
         <Filename Value="..\..\..\LKomponenten\synapse\mimemess.pas"/>
         <UnitName Value="mimemess"/>
         <WindowIndex Value="0"/>
         <TopLine Value="798"/>
         <CursorPos X="3" Y="803"/>
-        <UsageCount Value="11"/>
-      </Unit34>
-      <Unit35>
+        <UsageCount Value="8"/>
+      </Unit18>
+      <Unit19>
         <Filename Value="..\base\dbintfs\umessages.pas"/>
         <UnitName Value="uMessages"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="18" Y="8"/>
-        <UsageCount Value="75"/>
+        <TopLine Value="15"/>
+        <CursorPos X="25" Y="36"/>
+        <UsageCount Value="88"/>
         <Loaded Value="True"/>
-      </Unit35>
-      <Unit36>
+      </Unit19>
+      <Unit20>
         <Filename Value="..\..\..\LKomponenten\zeos\src\plain\ZPlainDbLibDriver.pas"/>
         <UnitName Value="ZPlainDbLibDriver"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1194"/>
         <CursorPos X="15" Y="1201"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="0"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit36>
-      <Unit37>
+      </Unit20>
+      <Unit21>
         <Filename Value="..\base\umimemessages.pas"/>
         <UnitName Value="uMimeMessages"/>
         <WindowIndex Value="0"/>
         <TopLine Value="133"/>
         <CursorPos X="24" Y="182"/>
-        <UsageCount Value="37"/>
-      </Unit37>
-      <Unit38>
-        <Filename Value="..\base\dbintfs\ubasesearch.pas"/>
-        <UnitName Value="uBaseSearch"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="38" Y="17"/>
-        <UsageCount Value="1"/>
-      </Unit38>
-      <Unit39>
-        <Filename Value="..\..\..\general\src\htmlconvert.pas"/>
-        <UnitName Value="htmlconvert"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="1"/>
-      </Unit39>
-      <Unit40>
-        <Filename Value="..\..\..\LKomponenten\zeos\src\dbc\ZDbcSqLiteUtils.pas"/>
-        <UnitName Value="ZDbcSqLiteUtils"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="217"/>
-        <CursorPos X="42" Y="233"/>
-        <UsageCount Value="1"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit40>
-      <Unit41>
-        <Filename Value="C:\Dokumente und Einstellungen\ulrich\Desktop\Re  LT-Spice.eml"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="49" Y="8"/>
-        <UsageCount Value="1"/>
-        <DefaultSyntaxHighlighter Value="None"/>
-      </Unit41>
-      <Unit42>
+        <UsageCount Value="34"/>
+      </Unit21>
+      <Unit22>
         <Filename Value="..\..\..\LKomponenten\zeos\src\component\ZAbstractRODataset.pas"/>
         <UnitName Value="ZAbstractRODataset"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2801"/>
         <CursorPos X="1" Y="2818"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="3"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit42>
-      <Unit43>
-        <Filename Value="C:\Programme\lazarus\fpc\2.4.3\source\packages\fcl-db\src\base\db.pas"/>
-        <UnitName Value="db"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1281"/>
-        <CursorPos X="14" Y="1324"/>
-        <UsageCount Value="1"/>
-      </Unit43>
-      <Unit44>
+      </Unit22>
+      <Unit23>
         <Filename Value="..\..\..\LKomponenten\synapse\mimepart.pas"/>
         <UnitName Value="mimepart"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1123"/>
         <CursorPos X="1" Y="1141"/>
-        <UsageCount Value="8"/>
-      </Unit44>
-      <Unit45>
+        <UsageCount Value="5"/>
+      </Unit23>
+      <Unit24>
         <Filename Value="..\..\..\LKomponenten\synapse\synacode.pas"/>
         <UnitName Value="synacode"/>
         <WindowIndex Value="0"/>
         <TopLine Value="720"/>
         <CursorPos X="3" Y="726"/>
-        <UsageCount Value="3"/>
-      </Unit45>
-      <Unit46>
-        <Filename Value="..\..\..\LKomponenten\lnet\lib\lwebserver.pp"/>
-        <UnitName Value="lwebserver"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="971"/>
-        <CursorPos X="42" Y="816"/>
-        <UsageCount Value="1"/>
-      </Unit46>
-      <Unit47>
+        <UsageCount Value="0"/>
+      </Unit24>
+      <Unit25>
         <Filename Value="C:\Dokumente und Einstellungen\ulrich\Eigene Dateien\Hamster\cClientNNTP.pas"/>
         <UnitName Value="cClientNNTP"/>
         <WindowIndex Value="0"/>
         <TopLine Value="131"/>
         <CursorPos X="1" Y="129"/>
-        <UsageCount Value="3"/>
-      </Unit47>
-      <Unit48>
-        <Filename Value="C:\Dokumente und Einstellungen\ulrich\Eigene Dateien\Hamster\cClientBase.pas"/>
-        <UnitName Value="cClientBase"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="49"/>
-        <CursorPos X="31" Y="51"/>
-        <UsageCount Value="2"/>
-      </Unit48>
-      <Unit49>
-        <Filename Value="..\..\..\LKomponenten\synapse\synautil.pas"/>
-        <UnitName Value="synautil"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="421"/>
-        <CursorPos X="37" Y="451"/>
-        <UsageCount Value="2"/>
-      </Unit49>
-      <Unit50>
+        <UsageCount Value="0"/>
+      </Unit25>
+      <Unit26>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
         <UnitName Value="uDocuments"/>
         <WindowIndex Value="0"/>
         <TopLine Value="218"/>
         <CursorPos X="1" Y="254"/>
-        <UsageCount Value="15"/>
-      </Unit50>
-      <Unit51>
+        <UsageCount Value="12"/>
+      </Unit26>
+      <Unit27>
         <Filename Value="..\base\dbintfs\ubaseapplicationtools.pas"/>
         <UnitName Value="ubaseapplicationtools"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="21"/>
-        <UsageCount Value="7"/>
-      </Unit51>
-      <Unit52>
-        <Filename Value="C:\Programme\lazarus\fpc\2.4.3\source\packages\chm\src\chmfiftimain.pas"/>
-        <UnitName Value="chmFiftiMain"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="6"/>
-        <CursorPos X="32" Y="18"/>
-        <UsageCount Value="2"/>
-      </Unit52>
-      <Unit53>
+        <UsageCount Value="4"/>
+      </Unit27>
+      <Unit28>
         <Filename Value="uprometimap.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uprometimap"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="20"/>
-        <UsageCount Value="109"/>
+        <TopLine Value="242"/>
+        <CursorPos X="42" Y="331"/>
+        <UsageCount Value="138"/>
         <Loaded Value="True"/>
-      </Unit53>
-      <Unit54>
-        <Filename Value="..\..\..\LKomponenten\zeos\src\dbc\ZDbcPostgreSqlUtils.pas"/>
-        <UnitName Value="ZDbcPostgreSqlUtils"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="789"/>
-        <CursorPos X="26" Y="807"/>
-        <UsageCount Value="2"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit54>
-      <Unit55>
+      </Unit28>
+      <Unit29>
         <Filename Value="..\base\dbintfs\ubaseapplication.pas"/>
         <UnitName Value="uBaseApplication"/>
-        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="25" Y="16"/>
-        <UsageCount Value="65"/>
-        <Loaded Value="True"/>
-      </Unit55>
-      <Unit56>
-        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\packages\fcl-db\src\base\db.pas"/>
-        <UnitName Value="db"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="23"/>
-        <CursorPos X="3" Y="41"/>
-        <UsageCount Value="2"/>
-      </Unit56>
-      <Unit57>
+        <UsageCount Value="75"/>
+      </Unit29>
+      <Unit30>
         <Filename Value="..\..\..\LKomponenten\synapse\synachar.pas"/>
         <UnitName Value="synachar"/>
         <WindowIndex Value="0"/>
         <TopLine Value="74"/>
         <CursorPos X="65" Y="92"/>
-        <UsageCount Value="5"/>
-      </Unit57>
-      <Unit58>
-        <Filename Value="C:\Programme\lazarus\components\lazutils\winfileutil.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="140"/>
-        <CursorPos X="1" Y="163"/>
         <UsageCount Value="2"/>
-      </Unit58>
-      <Unit59>
-        <Filename Value="C:\Programme\lazarus\components\lazutils\lconvencoding.pas"/>
-        <UnitName Value="LConvEncoding"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="194"/>
-        <CursorPos X="1" Y="216"/>
-        <UsageCount Value="2"/>
-      </Unit59>
-      <Unit60>
-        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\rtl\win\wininc\func.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="920"/>
-        <CursorPos X="10" Y="938"/>
-        <UsageCount Value="2"/>
-      </Unit60>
-      <Unit61>
-        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\rtl\win32\windows.pp"/>
-        <UnitName Value="windows"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="2"/>
-      </Unit61>
-      <Unit62>
-        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\rtl\win\dos.pp"/>
-        <UnitName Value="dos"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="58"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="2"/>
-      </Unit62>
-      <Unit63>
-        <Filename Value="..\..\..\LKomponenten\lnet\lib\lftp.pp"/>
-        <UnitName Value="lFTP"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="50"/>
-        <CursorPos X="36" Y="64"/>
-        <UsageCount Value="2"/>
-      </Unit63>
-      <Unit64>
-        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\rtl\inc\socketsh.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="179"/>
-        <CursorPos X="3" Y="32"/>
-        <UsageCount Value="2"/>
-      </Unit64>
-      <Unit65>
-        <Filename Value="C:\Programme\lazarus\components\lazutils\fileutil.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="22"/>
-        <CursorPos X="1" Y="45"/>
-        <UsageCount Value="2"/>
-      </Unit65>
-      <Unit66>
-        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\packages\fcl-base\src\custapp.pp"/>
-        <UnitName Value="CustApp"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="278"/>
-        <CursorPos X="21" Y="281"/>
-        <UsageCount Value="2"/>
-      </Unit66>
-      <Unit67>
+      </Unit30>
+      <Unit31>
         <Filename Value="..\base\dbintfs\usessiondbclasses.pas"/>
         <UnitName Value="uSessionDBClasses"/>
         <WindowIndex Value="0"/>
         <TopLine Value="94"/>
         <CursorPos X="3" Y="96"/>
-        <UsageCount Value="3"/>
-      </Unit67>
-      <Unit68>
-        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\rtl\objpas\sysutils\sysutilh.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="168"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="2"/>
-      </Unit68>
-      <Unit69>
-        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\rtl\win\sysutils.pp"/>
-        <UnitName Value="sysutils"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="25"/>
-        <CursorPos X="10" Y="35"/>
-        <UsageCount Value="2"/>
-      </Unit69>
-      <Unit70>
+        <UsageCount Value="0"/>
+      </Unit31>
+      <Unit32>
         <Filename Value="..\..\..\general\src\uerror.pas"/>
         <UnitName Value="uError"/>
         <WindowIndex Value="0"/>
         <TopLine Value="111"/>
         <CursorPos X="41" Y="127"/>
-        <UsageCount Value="3"/>
-      </Unit70>
-      <Unit71>
+        <UsageCount Value="0"/>
+      </Unit32>
+      <Unit33>
         <Filename Value="..\..\..\general\src\ugeneralstrconsts.pas"/>
         <UnitName Value="uGeneralStrConsts"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="22"/>
-        <UsageCount Value="3"/>
-      </Unit71>
-      <Unit72>
+        <UsageCount Value="0"/>
+      </Unit33>
+      <Unit34>
         <Filename Value="..\base_messaging\umimemessages.pas"/>
         <UnitName Value="uMimeMessages"/>
         <WindowIndex Value="0"/>
         <TopLine Value="209"/>
         <CursorPos X="25" Y="273"/>
-        <UsageCount Value="29"/>
-      </Unit72>
-      <Unit73>
-        <Filename Value="C:\test.txt"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="32" Y="7"/>
-        <UsageCount Value="2"/>
-        <DefaultSyntaxHighlighter Value="None"/>
-      </Unit73>
-      <Unit74>
-        <Filename Value="C:\Dokumente und Einstellungen\ulrich\Desktop\Re  1 test.eml"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="43" Y="15"/>
-        <UsageCount Value="2"/>
-        <DefaultSyntaxHighlighter Value="None"/>
-      </Unit74>
-      <Unit75>
-        <Filename Value="C:\Dokumente und Einstellungen\ulrich\Desktop\1 test1.eml"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="25" Y="11"/>
-        <UsageCount Value="2"/>
-        <DefaultSyntaxHighlighter Value="None"/>
-      </Unit75>
-      <Unit76>
-        <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\rtl\objpas\sysutils\intfh.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="5"/>
-        <CursorPos X="10" Y="38"/>
-        <UsageCount Value="2"/>
-      </Unit76>
-      <Unit77>
+        <UsageCount Value="26"/>
+      </Unit34>
+      <Unit35>
         <Filename Value="..\..\..\LKomponenten\zeos\src\plain\ZPlainDriver.pas"/>
         <UnitName Value="ZPlainDriver"/>
         <WindowIndex Value="0"/>
         <TopLine Value="65"/>
         <CursorPos X="3" Y="65"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="0"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit77>
-      <Unit78>
+      </Unit35>
+      <Unit36>
         <Filename Value="..\..\..\LKomponenten\zeos\src\dbc\ZDbcDbLibMsSqlMetadata.pas"/>
         <UnitName Value="ZDbcDbLibMsSqlMetadata"/>
         <WindowIndex Value="0"/>
         <TopLine Value="395"/>
         <CursorPos X="14" Y="167"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="0"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit78>
-      <Unit79>
+      </Unit36>
+      <Unit37>
         <Filename Value="..\..\..\LKomponenten\zeos\src\dbc\ZDbcConnection.pas"/>
         <UnitName Value="ZDbcConnection"/>
         <WindowIndex Value="0"/>
         <TopLine Value="467"/>
         <CursorPos X="23" Y="486"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="0"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit79>
-      <Unit80>
+      </Unit37>
+      <Unit38>
         <Filename Value="..\..\..\LKomponenten\zeos\src\dbc\ZDbcDbLibStatement.pas"/>
         <UnitName Value="ZDbcDbLibStatement"/>
         <WindowIndex Value="0"/>
         <TopLine Value="313"/>
         <CursorPos X="1" Y="343"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="0"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit80>
-      <Unit81>
-        <Filename Value="..\..\..\LKomponenten\zeos\src\dbc\ZDbcResultSet.pas"/>
-        <UnitName Value="ZDbcResultSet"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="97"/>
-        <CursorPos X="1" Y="1724"/>
-        <UsageCount Value="2"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit81>
-      <Unit82>
-        <Filename Value="..\..\..\LKomponenten\zeos\src\dbc\ZDbcCachedResultSet.pas"/>
-        <UnitName Value="ZDbcCachedResultSet"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="836"/>
-        <CursorPos X="23" Y="860"/>
-        <UsageCount Value="2"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit82>
-      <Unit83>
-        <Filename Value="..\..\..\LKomponenten\zeos\src\dbc\ZDbcCache.pas"/>
-        <UnitName Value="ZDbcCache"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="142"/>
-        <CursorPos X="14" Y="160"/>
-        <UsageCount Value="2"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit83>
-      <Unit84>
-        <Filename Value="..\..\..\LKomponenten\zeos\src\dbc\ZDbcDbLibResultSet.pas"/>
-        <UnitName Value="ZDbcDbLibResultSet"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="156"/>
-        <CursorPos X="26" Y="177"/>
-        <UsageCount Value="2"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit84>
-      <Unit85>
-        <Filename Value="..\..\..\LKomponenten\zeos\src\dbc\ZDbcStatement.pas"/>
-        <UnitName Value="ZDbcStatement"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="433"/>
-        <CursorPos X="1" Y="458"/>
-        <UsageCount Value="2"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit85>
-      <Unit86>
-        <Filename Value="..\..\..\LKomponenten\zeos\src\dbc\ZDbcDbLibUtils.pas"/>
-        <UnitName Value="ZDbcDbLibUtils"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="140"/>
-        <CursorPos X="1" Y="167"/>
-        <UsageCount Value="2"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit86>
-      <Unit87>
-        <Filename Value="..\..\..\LKomponenten\zeos\src\component\ZAbstractDataset.pas"/>
-        <UnitName Value="ZAbstractDataset"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="400"/>
-        <CursorPos X="11" Y="415"/>
-        <UsageCount Value="2"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit87>
-      <Unit88>
+      </Unit38>
+      <Unit39>
         <Filename Value="C:\Programme\lazarus\fpc\2.6.0\source\rtl\objpas\sysutils\datih.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="144"/>
         <CursorPos X="17" Y="162"/>
-        <UsageCount Value="3"/>
-      </Unit88>
-      <Unit89>
-        <Filename Value="C:\Programme\lazarus\fpc\2.6.0\source\rtl\objpas\sysutils\dati.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="219"/>
-        <CursorPos X="3" Y="221"/>
-        <UsageCount Value="2"/>
-      </Unit89>
-      <Unit90>
-        <Filename Value="C:\Programme\lazarus\components\lazutils\lazclasses.pas"/>
-        <UnitName Value="LazClasses"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="91"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="2"/>
-      </Unit90>
-      <Unit91>
-        <Filename Value="C:\Programme\lazarus\components\lazutils\lazdbglog.pas"/>
-        <UnitName Value="LazDbgLog"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="3"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="2"/>
-      </Unit91>
-      <Unit92>
-        <Filename Value="C:\Programme\lazarus\components\lazutils\lazutf8.pas"/>
-        <UnitName Value="LazUTF8"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="79"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="2"/>
-      </Unit92>
-      <Unit93>
-        <Filename Value="C:\Programme\lazarus\components\lazutils\lazfileutils.pas"/>
-        <UnitName Value="LazFileUtils"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="2"/>
-      </Unit93>
-      <Unit94>
+        <UsageCount Value="0"/>
+      </Unit39>
+      <Unit40>
         <Filename Value="C:\Programme\lazarus\components\lazutils\lazutf8sysutils.pas"/>
         <UnitName Value="lazutf8sysutils"/>
         <WindowIndex Value="0"/>
         <TopLine Value="3"/>
         <CursorPos X="23" Y="90"/>
-        <UsageCount Value="3"/>
-      </Unit94>
-      <Unit95>
-        <Filename Value="C:\Programme\lazarus\fpc\2.6.0\source\rtl\objpas\dateutils.pp"/>
-        <UnitName Value="dateutils"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="8" Y="1"/>
-        <UsageCount Value="2"/>
-      </Unit95>
-      <Unit96>
-        <Filename Value="C:\Programme\lazarus\fpc\2.6.0\source\rtl\objpas\dateutil.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="394"/>
-        <CursorPos X="78" Y="5"/>
-        <UsageCount Value="2"/>
-      </Unit96>
-      <Unit97>
-        <Filename Value="..\..\..\LKomponenten\lnet\lib\lhttputil.pp"/>
-        <UnitName Value="lHTTPUtil"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="59"/>
-        <CursorPos X="12" Y="50"/>
-        <UsageCount Value="2"/>
-      </Unit97>
-      <Unit98>
-        <Filename Value="..\..\..\LKomponenten\lnet\lib\ltimer.pp"/>
-        <UnitName Value="ltimer"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="48"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="2"/>
-      </Unit98>
-      <Unit99>
-        <Filename Value="C:\Programme\lazarus\fpc\2.6.1\source\packages\fcl-base\src\eventlog.pp"/>
-        <UnitName Value="eventlog"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="7"/>
-        <CursorPos X="3" Y="26"/>
-        <UsageCount Value="2"/>
-      </Unit99>
-      <Unit100>
+        <UsageCount Value="0"/>
+      </Unit40>
+      <Unit41>
         <Filename Value="..\nntpserver\ulsmtpsrv.pas"/>
         <UnitName Value="ulsmtpsrv"/>
         <WindowIndex Value="0"/>
         <TopLine Value="3"/>
         <CursorPos X="1" Y="113"/>
-        <UsageCount Value="13"/>
-      </Unit100>
-      <Unit101>
+        <UsageCount Value="10"/>
+      </Unit41>
+      <Unit42>
         <Filename Value="rfc2060.txt"/>
         <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2040"/>
         <CursorPos X="44" Y="2050"/>
-        <UsageCount Value="58"/>
+        <UsageCount Value="73"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit101>
-      <Unit102>
+      </Unit42>
+      <Unit43>
         <Filename Value="..\..\..\lkomponenten\lnet\lib\lnet.pp"/>
         <UnitName Value="lNet"/>
         <WindowIndex Value="0"/>
         <TopLine Value="120"/>
         <CursorPos X="14" Y="137"/>
-        <UsageCount Value="54"/>
-      </Unit102>
-      <Unit103>
+        <UsageCount Value="51"/>
+      </Unit43>
+      <Unit44>
         <Filename Value="..\..\..\lkomponenten\lnet\lib\lcommon.pp"/>
         <UnitName Value="lCommon"/>
         <WindowIndex Value="0"/>
         <TopLine Value="356"/>
         <CursorPos X="1" Y="376"/>
-        <UsageCount Value="54"/>
-      </Unit103>
-      <Unit104>
-        <Filename Value="..\..\..\..\fpc\2.6_fixes\packages\fcl-base\src\base64.pp"/>
-        <UnitName Value="base64"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="399"/>
-        <CursorPos X="25" Y="432"/>
-        <UsageCount Value="2"/>
-      </Unit104>
-      <Unit105>
+        <UsageCount Value="51"/>
+      </Unit44>
+      <Unit45>
         <Filename Value="..\..\..\lkomponenten\synapse\imapsend.pas"/>
         <UnitName Value="imapsend"/>
         <WindowIndex Value="0"/>
         <TopLine Value="383"/>
         <CursorPos X="92" Y="390"/>
-        <UsageCount Value="55"/>
-      </Unit105>
-      <Unit106>
+        <UsageCount Value="52"/>
+      </Unit45>
+      <Unit46>
         <Filename Value="..\nntpserver\ulnntp.pas"/>
         <UnitName Value="uLNNTP"/>
-        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
+        <TopLine Value="25"/>
         <CursorPos X="1" Y="20"/>
-        <UsageCount Value="32"/>
-        <Loaded Value="True"/>
-      </Unit106>
-      <Unit107>
+        <UsageCount Value="42"/>
+      </Unit46>
+      <Unit47>
         <Filename Value="..\base\changes.txt"/>
         <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="9" Y="2"/>
-        <UsageCount Value="37"/>
+        <CursorPos X="99" Y="12"/>
+        <UsageCount Value="52"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit107>
-      <Unit108>
+      </Unit47>
+      <Unit48>
         <Filename Value="..\base\changes.en.txt"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1408"/>
         <CursorPos X="12" Y="1444"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="3"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit108>
-      <Unit109>
+      </Unit48>
+      <Unit49>
         <Filename Value="..\nntpserver\uprometnntp.pas"/>
         <UnitName Value="uprometnntp"/>
-        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="20"/>
-        <UsageCount Value="32"/>
-        <Loaded Value="True"/>
-      </Unit109>
-      <Unit110>
+        <UsageCount Value="42"/>
+      </Unit49>
+      <Unit50>
         <Filename Value="..\..\..\lkomponenten\synapse\synamisc.pas"/>
         <UnitName Value="synamisc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="85"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="7"/>
-      </Unit110>
-      <Unit111>
+        <UsageCount Value="4"/>
+      </Unit50>
+      <Unit51>
         <Filename Value="..\..\..\lkomponenten\synapse\synautil.pas"/>
         <UnitName Value="synautil"/>
         <WindowIndex Value="0"/>
         <TopLine Value="690"/>
         <CursorPos X="1" Y="711"/>
-        <UsageCount Value="10"/>
-      </Unit111>
-      <Unit112>
+        <UsageCount Value="7"/>
+      </Unit51>
+      <Unit52>
         <Filename Value="..\..\..\..\fpc\2.6_fixes\rtl\objpas\classes\classesh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="680"/>
         <CursorPos X="40" Y="692"/>
-        <UsageCount Value="9"/>
-      </Unit112>
-      <Unit113>
+        <UsageCount Value="6"/>
+      </Unit52>
+      <Unit53>
         <Filename Value="..\..\..\..\fpc\2.6_fixes\rtl\inc\systemh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="364"/>
         <CursorPos X="41" Y="376"/>
-        <UsageCount Value="9"/>
-      </Unit113>
-      <Unit114>
+        <UsageCount Value="6"/>
+      </Unit53>
+      <Unit54>
         <Filename Value="..\..\..\lkomponenten\synapse\mimemess.pas"/>
         <UnitName Value="mimemess"/>
         <WindowIndex Value="0"/>
         <TopLine Value="445"/>
         <CursorPos X="26" Y="463"/>
-        <UsageCount Value="10"/>
-      </Unit114>
-      <Unit115>
+        <UsageCount Value="7"/>
+      </Unit54>
+      <Unit55>
         <Filename Value="idimap4.pas"/>
         <UnitName Value="IdIMAP4"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="2082"/>
-        <CursorPos X="39" Y="2097"/>
-        <UsageCount Value="22"/>
+        <TopLine Value="2165"/>
+        <CursorPos X="66" Y="2174"/>
+        <UsageCount Value="37"/>
         <Loaded Value="True"/>
-      </Unit115>
-      <Unit116>
+      </Unit55>
+      <Unit56>
         <Filename Value="..\..\..\lkomponenten\synapse\blcksock.pas"/>
         <UnitName Value="blcksock"/>
         <WindowIndex Value="0"/>
         <TopLine Value="107"/>
         <CursorPos X="3" Y="125"/>
-        <UsageCount Value="12"/>
-      </Unit116>
-      <Unit117>
+        <UsageCount Value="9"/>
+      </Unit56>
+      <Unit57>
         <Filename Value="..\..\..\..\lazarus\components\lazutils\lazlogger.pas"/>
         <UnitName Value="LazLogger"/>
         <WindowIndex Value="0"/>
         <TopLine Value="495"/>
         <CursorPos X="37" Y="521"/>
+        <UsageCount Value="7"/>
+      </Unit57>
+      <Unit58>
+        <Filename Value="thunderbird_20140101_223007.log"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2264"/>
+        <CursorPos X="71" Y="2271"/>
+        <UsageCount Value="9"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit58>
+      <Unit59>
+        <Filename Value="thunderbird_20140102_113828.log"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="123"/>
+        <CursorPos X="116" Y="140"/>
+        <UsageCount Value="18"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit59>
+      <Unit60>
+        <Filename Value="thunderbird_20140102_114339.log"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="12"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit60>
+      <Unit61>
+        <Filename Value="thunderbird_20140102_133945.log"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2837"/>
+        <CursorPos X="97" Y="2855"/>
         <UsageCount Value="10"/>
-      </Unit117>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit61>
+      <Unit62>
+        <Filename Value="thunderbird_20140102_144754.log"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="527"/>
+        <CursorPos X="67" Y="561"/>
+        <UsageCount Value="8"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit62>
+      <Unit63>
+        <Filename Value="thunderbird_20140102_151103.log"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="298"/>
+        <CursorPos X="164" Y="308"/>
+        <UsageCount Value="8"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit63>
+      <Unit64>
+        <Filename Value="thunderbird_20140102_151848.log"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="18" Y="11"/>
+        <UsageCount Value="8"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit64>
+      <Unit65>
+        <Filename Value="thunderbird_20140102_152046.log"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="322"/>
+        <CursorPos X="64" Y="348"/>
+        <UsageCount Value="8"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit65>
+      <Unit66>
+        <Filename Value="thunderbird_20140102_152523.log"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="331"/>
+        <CursorPos X="72" Y="350"/>
+        <UsageCount Value="8"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit66>
+      <Unit67>
+        <Filename Value="thunderbird_20140102_153205.log"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="329"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="12"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit67>
+      <Unit68>
+        <Filename Value="thunderbird_20140102_153909.log"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="629"/>
+        <CursorPos X="119" Y="657"/>
+        <UsageCount Value="14"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit68>
+      <Unit69>
+        <Filename Value="thunderbird_20140102_191824.log"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="3910"/>
+        <CursorPos X="98" Y="2215"/>
+        <UsageCount Value="9"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit69>
+      <Unit70>
+        <Filename Value="thunderbird_20140102_193004.log"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="654"/>
+        <CursorPos X="115" Y="672"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit70>
+      <Unit71>
+        <Filename Value="thunderbird_20140102_202129.log"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="825"/>
+        <CursorPos X="78" Y="850"/>
+        <UsageCount Value="9"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit71>
+      <Unit72>
+        <Filename Value="thunderbird_20140102_202424.log"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="517"/>
+        <CursorPos X="1" Y="521"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit72>
+      <Unit73>
+        <Filename Value="thunderbird_20140102_211125.log"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="837"/>
+        <CursorPos X="1" Y="885"/>
+        <UsageCount Value="9"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit73>
+      <Unit74>
+        <Filename Value="thunderbird_20140102_212358.log"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="711"/>
+        <CursorPos X="63" Y="736"/>
+        <UsageCount Value="9"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit74>
+      <Unit75>
+        <Filename Value="thunderbird_20140102_212522.log"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="548"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="9"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit75>
+      <Unit76>
+        <Filename Value="thunderbird_20140102_212956.log"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="5084"/>
+        <CursorPos X="87" Y="5112"/>
+        <UsageCount Value="9"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit76>
+      <Unit77>
+        <Filename Value="thunderbird_20140102_213259.log"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="53" Y="13"/>
+        <UsageCount Value="9"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit77>
+      <Unit78>
+        <Filename Value="thunderbird_20140102_213436.log"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="27239"/>
+        <CursorPos X="74" Y="27256"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit78>
+      <Unit79>
+        <Filename Value="IdIMAP4Server.pas"/>
+        <UnitName Value="IdIMAP4Server"/>
+        <EditorIndex Value="6"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="984"/>
+        <CursorPos X="54" Y="983"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit79>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="387" Column="1" TopLine="359"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="110" Column="28" TopLine="92"/>
       </Position1>
       <Position2>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="388" Column="1" TopLine="360"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="93" Column="5" TopLine="72"/>
       </Position2>
       <Position3>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="389" Column="1" TopLine="361"/>
+        <Filename Value="ulimap.pas"/>
+        <Caret Line="323" Column="76" TopLine="318"/>
       </Position3>
       <Position4>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="391" Column="1" TopLine="363"/>
+        <Filename Value="ulimap.pas"/>
+        <Caret Line="465" Column="81" TopLine="437"/>
       </Position4>
       <Position5>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="392" Column="1" TopLine="364"/>
+        <Filename Value="ulimap.pas"/>
+        <Caret Line="52" Column="42" TopLine="36"/>
       </Position5>
       <Position6>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="393" Column="1" TopLine="365"/>
+        <Caret Line="185" Column="23" TopLine="182"/>
       </Position6>
       <Position7>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="394" Column="1" TopLine="366"/>
+        <Filename Value="ulimap.pas"/>
+        <Caret Line="75" Column="52" TopLine="56"/>
       </Position7>
       <Position8>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="398" Column="1" TopLine="370"/>
+        <Filename Value="ulimap.pas"/>
+        <Caret Line="464" Column="64" TopLine="440"/>
       </Position8>
       <Position9>
-        <Filename Value="rfc2060.txt"/>
-        <Caret Line="2076" Column="78" TopLine="2065"/>
+        <Filename Value="IdIMAP4Server.pas"/>
+        <Caret Line="417" Column="31" TopLine="402"/>
       </Position9>
       <Position10>
-        <Filename Value="rfc2060.txt"/>
-        <Caret Line="2725" Column="58" TopLine="2697"/>
+        <Filename Value="IdIMAP4Server.pas"/>
+        <Caret Line="215" Column="3" TopLine="199"/>
       </Position10>
       <Position11>
-        <Filename Value="rfc2060.txt"/>
-        <Caret Line="2726" Column="67" TopLine="2698"/>
+        <Filename Value="IdIMAP4Server.pas"/>
+        <Caret Line="480" Column="70" TopLine="453"/>
       </Position11>
       <Position12>
-        <Filename Value="rfc2060.txt"/>
-        <Caret Line="2888" Column="31" TopLine="2858"/>
+        <Filename Value="IdIMAP4Server.pas"/>
+        <Caret Line="882" Column="31" TopLine="866"/>
       </Position12>
       <Position13>
-        <Filename Value="rfc2060.txt"/>
-        <Caret Line="2890" Column="34" TopLine="2861"/>
+        <Filename Value="uprometimap.pas"/>
+        <Caret Line="137" Column="60" TopLine="134"/>
       </Position13>
       <Position14>
-        <Filename Value="rfc2060.txt"/>
-        <Caret Line="3176" Column="16" TopLine="3163"/>
+        <Filename Value="uprometimap.pas"/>
+        <Caret Line="386" Column="39" TopLine="306"/>
       </Position14>
       <Position15>
-        <Filename Value="rfc2060.txt"/>
-        <Caret Line="3180" Column="18" TopLine="3163"/>
+        <Filename Value="uprometimap.pas"/>
+        <Caret Line="330" Column="1" TopLine="306"/>
       </Position15>
       <Position16>
-        <Filename Value="rfc2060.txt"/>
-        <Caret Line="3185" Column="23" TopLine="3172"/>
+        <Filename Value="uprometimap.pas"/>
+        <Caret Line="331" Column="1" TopLine="306"/>
       </Position16>
       <Position17>
-        <Filename Value="rfc2060.txt"/>
-        <Caret Line="3188" Column="57" TopLine="3172"/>
+        <Filename Value="uprometimap.pas"/>
+        <Caret Line="333" Column="1" TopLine="306"/>
       </Position17>
       <Position18>
-        <Filename Value="rfc2060.txt"/>
-        <Caret Line="3200" Column="26" TopLine="3187"/>
+        <Filename Value="uprometimap.pas"/>
+        <Caret Line="334" Column="1" TopLine="306"/>
       </Position18>
       <Position19>
-        <Filename Value="rfc2060.txt"/>
-        <Caret Line="3201" Column="23" TopLine="3187"/>
+        <Filename Value="uprometimap.pas"/>
+        <Caret Line="336" Column="1" TopLine="308"/>
       </Position19>
       <Position20>
-        <Filename Value="rfc2060.txt"/>
-        <Caret Line="3202" Column="71" TopLine="3187"/>
+        <Filename Value="uprometimap.pas"/>
+        <Caret Line="337" Column="1" TopLine="310"/>
       </Position20>
       <Position21>
-        <Filename Value="rfc2060.txt"/>
-        <Caret Line="3205" Column="17" TopLine="3178"/>
+        <Filename Value="IdIMAP4Server.pas"/>
+        <Caret Line="228" Column="68" TopLine="220"/>
       </Position21>
       <Position22>
-        <Filename Value="rfc2060.txt"/>
-        <Caret Line="3211" Column="34" TopLine="3198"/>
+        <Filename Value="IdIMAP4Server.pas"/>
+        <Caret Line="562" Column="13" TopLine="533"/>
       </Position22>
       <Position23>
-        <Filename Value="rfc2060.txt"/>
-        <Caret Line="3214" Column="31" TopLine="3198"/>
+        <Filename Value="IdIMAP4Server.pas"/>
+        <Caret Line="682" Column="13" TopLine="653"/>
       </Position23>
       <Position24>
-        <Filename Value="rfc2060.txt"/>
-        <Caret Line="3761" Column="49" TopLine="3733"/>
+        <Filename Value="IdIMAP4Server.pas"/>
+        <Caret Line="789" Column="33" TopLine="760"/>
       </Position24>
       <Position25>
-        <Filename Value="rfc2060.txt"/>
-        <Caret Line="3934" Column="46" TopLine="3918"/>
+        <Filename Value="IdIMAP4Server.pas"/>
+        <Caret Line="824" Column="22" TopLine="795"/>
       </Position25>
       <Position26>
-        <Filename Value="rfc2060.txt"/>
-        <Caret Line="4454" Column="15" TopLine="4426"/>
+        <Filename Value="IdIMAP4Server.pas"/>
+        <Caret Line="833" Column="16" TopLine="804"/>
       </Position26>
       <Position27>
-        <Filename Value="rfc2060.txt"/>
-        <Caret Line="4455" Column="15" TopLine="4427"/>
+        <Filename Value="IdIMAP4Server.pas"/>
+        <Caret Line="855" Column="20" TopLine="826"/>
       </Position27>
       <Position28>
-        <Filename Value="rfc2060.txt"/>
-        <Caret Line="141" Column="16" TopLine="124"/>
+        <Filename Value="IdIMAP4Server.pas"/>
+        <Caret Line="983" Column="54" TopLine="984"/>
       </Position28>
       <Position29>
-        <Filename Value="rfc2060.txt"/>
-        <Caret Line="3" Column="82" TopLine="1"/>
+        <Filename Value="uprometimap.pas"/>
+        <Caret Line="340" Column="1" TopLine="318"/>
       </Position29>
       <Position30>
-        <Filename Value="rfc2060.txt"/>
-        <Caret Line="142" Column="1" TopLine="113"/>
+        <Filename Value="uprometimap.pas"/>
+        <Caret Line="337" Column="1" TopLine="318"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -1202,7 +889,7 @@
         <Expression Value="FPostLength"/>
       </Item1>
     </Watches>
-    <Exceptions Count="4">
+    <Exceptions Count="5">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -1215,6 +902,9 @@
       <Item4>
         <Name Value="EZSQLException"/>
       </Item4>
+      <Item5>
+        <Name Value="Exception"/>
+      </Item5>
     </Exceptions>
   </Debugging>
   <EditorMacros Count="0"/>

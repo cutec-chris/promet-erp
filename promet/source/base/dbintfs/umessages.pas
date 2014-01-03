@@ -29,6 +29,7 @@ type
   TMessageList = class(TBaseDBList)
   private
     function GetMsgID: TField;
+    function GetSubject: TField;
   public
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure SelectByID(aID : string);overload; //Select by ID
@@ -42,6 +43,7 @@ type
     procedure Archive;
     procedure MarkAsRead;
     property MsgID : TField read GetMsgID;
+    property Subject : TField read GetSubject;
   end;
   TMessageContent = class(TBaseDBDataSet)
   private
@@ -301,6 +303,11 @@ end;
 function TMessageList.GetMsgID: TField;
 begin
   result := FieldByName('MSG_ID');
+end;
+
+function TMessageList.GetSubject: TField;
+begin
+  result := FieldByName('SUBJECT');
 end;
 
 procedure TMessageList.DefineFields(aDataSet: TDataSet);
