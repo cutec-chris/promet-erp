@@ -100,7 +100,6 @@ type
   public
     DontLog : Boolean;
     property SendBuffer : String read FSendBuffer;
-    function Send(const aData; const aSize: Integer): Integer; override;
     property Buffer : string read FBuffer write FBuffer;
     procedure LineReceived(aLine : string);
     property User : string read FUser write FUser;
@@ -229,19 +228,6 @@ begin
   end;
   DontLog := False;
 end;
-function TLIMAPSocket.Send(const aData; const aSize: Integer): Integer;
-var
-  aMessage : string;
-begin
-  if (not DontLog) and Assigned(TLIMAPServer(Creator).OnLog) then
-    begin
-      Setlength(aMessage,aSize);
-      Move(aData,aMessage[1],aSize);
-      Setlength(aMessage,aSize-2);
-      TLIMAPServer(Creator).OnLog(Self,True,aMessage);
-    end;
-  Result:=inherited Send(aData, aSize);
-end;
 procedure TLIMAPSocket.LineReceived(aLine: string);
 var
   aCommand : string;
@@ -264,7 +250,11 @@ var
       FSendBuffer += aTag+' '+aMsg+CRLF
     else
       FSendBuffer += aMsg+CRLF;
-    DoSendBuffer(True);
+    DoSendBuffer;
+    if Assigned(TLIMAPServer(Creator).OnLog) then
+      begin
+        TLIMAPServer(Creator).OnLog(Self,True,copy(aMsg,0,100));
+      end;
     Answered := True;
   end;
   function IsNumeric(s:String):Boolean;
@@ -365,7 +355,7 @@ var
                 aRes := FGroup.FetchOneEntry(bParams);
               end;
             DontLog:=False;
-            Answer('OK Success '+IntToStr(aFCount)+' results');
+            Answer('OK Success '+IntToStr(aFCount)+' results.');
           end
         else
           begin
@@ -400,7 +390,7 @@ var
                 aRes := FGroup.StoreOneEntry(bParams);
               end;
             DontLog:=False;
-            Answer('OK Success '+IntToStr(aFCount)+' results');
+            Answer('OK Success '+IntToStr(aFCount)+' results.');
           end
         else
           begin
@@ -421,7 +411,7 @@ var
             tmp := FGroup.Search(bParams);
             DontLog:=False;
             Answer(tmp,False);
-            Answer('OK Success');
+            Answer('OK Success.');
           end
         else if not aUseUID then
           begin
@@ -429,7 +419,7 @@ var
             tmp := FGroup.Search(aRange+' '+bParams);
             DontLog:=False;
             Answer(tmp,False);
-            Answer('OK Success');
+            Answer('OK Success.');
           end
         else
           begin
@@ -469,9 +459,9 @@ begin
           if Assigned(FGroup) then
             begin
               if FGroup.PostArticle(FPostMessage,FUser,FPostFlags,FPostDateTime) then
-                Answer('OK APPEND finished')
+                Answer('OK APPEND finished.')
               else
-                Answer('NO APPEND failed');
+                Answer('NO APPEND failed.');
             end
           else
             begin
@@ -511,13 +501,14 @@ begin
             begin
               aGroup := TLIMAPServer(Creator).Folders.Folder[i];
               FGroup := aGroup;
+              Answer('* FLAGS (\Answered \Flagged \Deleted \Seen \Draft)',False);
+              Answer('* OK [PERMANENTFLAGS (\Answered \Flagged \Deleted \Seen \Draft \*)] Flags permitted. ',False);
               Answer(Format('* %d EXISTS',[aGroup.Count]),False);
               Answer(Format('* %d RECENT',[0]),False);
-              Answer('* FLAGS (\Answered \Flagged \Deleted \Seen \Draft)',False);
               Answer(Format('* OK [UNSEEN %d]',[aGroup.Unseen]),False);
               Answer(Format('* OK [UIDVALIDITY %s]',[aGroup.FUID]),False);
               Answer(Format('* OK [UIDNEXT %d] Predicted next UID.',[aGroup.NextID]),False);
-              Answer('OK [READ-WRITE] '+aCommand+' completed');
+              Answer('OK [READ-WRITE] '+aCommand+' completed.');
               Found := True;
               break;
             end;
@@ -582,7 +573,7 @@ begin
           if (pos(aParams,aGroup.Name) >0) or (aParams='') then
             Answer(Format('* LIST (\Noinferiors) "/" "%s"',[aGroup.Name]),False);
         end;
-      Answer('OK LIST completed');
+      Answer('OK LIST completed.');
     end
   else if aCommand = 'LSUB' then
     begin
@@ -600,7 +591,7 @@ begin
           if (pos(aParams,aGroup.Name) >0) or (aParams='') then
             Answer(Format('* LSUB (\Noinferiors) "/" "%s"',[aGroup.Name]),False);
         end;
-      Answer('OK LSUB completed');
+      Answer('OK Lsub completed.');
     end
   else if aCommand = 'UID' then
     begin
@@ -655,14 +646,14 @@ begin
                     tmp  += aParam+' 0';
                   end;
                 end;
-              Answer(Format('* STATUS "%s" (%s)',[aGroup.Name,copy(tmp,0,length(tmp)-1)]));
-              Answer('OK STATUS Completed');
+              Answer(Format('* STATUS "%s" (%s)',[aGroup.Name,copy(tmp,0,length(tmp)-1)]),False);
+              Answer('OK STATUS Completed.');
               Found := True;
               break;
             end;
         end;
       if not Found then
-        Answer('NO STATUS Completed');
+        Answer('NO Status Completed.');
     end
   else if aCommand = 'CAPABILITY' then
     begin
@@ -803,6 +794,9 @@ end;
 procedure TLIMAPServer.CallAction;
 begin
   inherited CallAction;
+  while IterNext do
+    if Iterator is TLIMAPSocket then
+      TLIMAPSocket(Iterator).DoSendBuffer;
 end;
 
 end.

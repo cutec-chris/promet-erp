@@ -24,7 +24,7 @@ uses
   Classes, SysUtils, uLIMAP, uMessages, MimeMess, uMimeMessages, db,cwstring,
   LCLProc;
 
-{$DEFINE DEBUG}
+{.$DEFINE DEBUG}
 type
 
   { TPIMAPFolder }
@@ -333,7 +333,7 @@ end;
 function TPIMAPFolder.FetchOneEntry(aFetch: string): TStrings;
 var
   i: Integer;
-  tmp: String;
+  tmp: String = '';
   aMessage: TMimeMessage = nil;
   aSL: TStringList;
   aLen: Integer;
@@ -383,7 +383,7 @@ begin
               if FMessages.FieldByName('TREEENTRY').AsVariant=TREE_ID_DELETED_MESSAGES then
                 tmp+='\Deleted '
               else tmp +=' ';
-              tmp := copy(tmp,0,length(tmp)-1);
+              tmp := copy(tmp,0,length(tmp)-2);
               tmp+=') ';
             end;
           'INTERNALDATE':
@@ -419,12 +419,8 @@ begin
               aSL := TStringList.Create;
               aSL.text := aMessage.Content.FieldByName('HEADER').AsString;
               aSL.TextLineBreakStyle:=tlbsCRLF;
-              aLen := 0;
-              aLen :=  length(aSL.Text);
-              if (pos('RFC822.HEADER ',aFetch)>0) then
-                tmp := tmp+'RFC822.HEADER {'+IntToStr(aLen+2)+'}'+#13#10+aSL.Text;
-              if (pos('BODY[HEADER] ',aFetch)>0) then
-                tmp := tmp+'BODY[HEADER] {'+IntToStr(aLen+2)+'}'+#13#10+aSL.Text;
+              aLen := length(aSL.Text);
+              tmp := tmp+bFetch+' {'+IntToStr(aLen+2)+'}'+#13#10+aSL.Text;
               aSL.Free;
             end;
           'RFC822','BODY[]','BODY.PEEK[]':
@@ -513,10 +509,10 @@ begin
             end;}
           end;
         end;
-      {$IFDEF DEBUG}
-      debugln('FetchOneEntry:'+FMessages.Id.AsString+' '+FMessages.Subject.AsString);
-      {$ENDIF}
       Result.Add(copy(tmp,0,length(tmp)-1)+')');
+      {$IFDEF DEBUG}
+      debugln('FetchOneEntry:'+FMessages.Id.AsString+' '+FMessages.Subject.AsString+' '+tmpRecNo);
+      {$ENDIF}
       FetchSequence:=FetchSequence+1;
       FreeAndNil(aMessage);
       FreeAndNil(aMime);
@@ -586,6 +582,9 @@ begin
                   else tmp +=' ';
                   tmp := copy(tmp,0,length(tmp)-1);
                   tmp+=') ';
+                  {$IFDEF DEBUG}
+                  debugln(tmp);
+                  {$ENDIF}
                 end
               else
                 tmp:='';
