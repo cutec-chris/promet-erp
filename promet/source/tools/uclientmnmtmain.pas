@@ -1,4 +1,4 @@
-unit umain;
+unit uclientmnmtmain;
 {$mode objfpc}{$H+}
 interface
 uses
@@ -153,6 +153,6 @@ begin
 end;
 
 initialization
-  {$I umain.lrs}
+  {$I uclientmnmtmain.lrs}
 
 end.

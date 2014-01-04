@@ -47,17 +47,19 @@ If errorlevel 1 goto end
 lazbuild -q ..\..\source\tools\helpviewer.lpi
 If errorlevel 1 lazbuild -q -B ..\..\source\tools\helpviewer.lpi
 If errorlevel 1 goto end
-lazbuild -q ..\..\source\archivestore\archivestore.lpi
-If errorlevel 1 lazbuild -q -B ..\..\source\archivestore\archivestore.lpi
+lazbuild -q ..\..\source\tools\archivestore.lpi
+If errorlevel 1 lazbuild -q -B ..\..\source\tools\archivestore.lpi
 If errorlevel 1 goto end
-lazbuild -q ..\..\source\clientmanagement\clientmanagement.lpi
-If errorlevel 1 lazbuild -q -B ..\..\source\clientmanagement\clientmanagement.lpi
+lazbuild -q ..\..\source\tools\clientmanagement.lpi
+If errorlevel 1 lazbuild -q -B ..\..\source\tools\clientmanagement.lpi
 If errorlevel 1 goto end
 lazbuild -q ..\..\source\messageimport\pop3receiver.lpi
 If errorlevel 1 goto end
 lazbuild -q ..\..\source\messageimport\smtpsender.lpi
 If errorlevel 1 goto end
 lazbuild -q ..\..\source\messageimport\feedreceiver.lpi
+If errorlevel 1 goto end
+lazbuild -q ..\..\source\messageimport\twitterreceiver.lpi
 If errorlevel 1 goto end
 goto realend
 :end

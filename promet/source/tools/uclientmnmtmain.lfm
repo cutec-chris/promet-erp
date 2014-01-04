@@ -4,17 +4,17 @@ object fMain: TfMain
   Top = 208
   Width = 887
   Caption = 'Clientmanagement'
-  ClientHeight = 353
+  ClientHeight = 331
   ClientWidth = 887
   Color = clWindow
   Menu = MainMenu
   OnClose = FormClose
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '0.9.31'
+  LCLVersion = '1.3'
   object gUsers: TDBGrid
     Left = 0
-    Height = 353
+    Height = 331
     Top = 0
     Width = 672
     Align = alClient
@@ -56,7 +56,7 @@ object fMain: TfMain
   end
   object Splitter1: TSplitter
     Left = 672
-    Height = 353
+    Height = 331
     Top = 0
     Width = 5
     Align = alRight
@@ -64,19 +64,19 @@ object fMain: TfMain
   end
   object Panel1: TPanel
     Left = 677
-    Height = 353
+    Height = 331
     Top = 0
     Width = 210
     Align = alRight
     BevelOuter = bvNone
     Caption = 'Panel1'
-    ClientHeight = 353
+    ClientHeight = 331
     ClientWidth = 210
     TabOrder = 2
     object DBGrid1: TDBGrid
       Left = 0
-      Height = 306
-      Top = 47
+      Height = 290
+      Top = 41
       Width = 210
       Align = alClient
       Color = clWindow
@@ -93,8 +93,8 @@ object fMain: TfMain
     end
     object cbCommand: TComboBox
       Left = 0
-      Height = 29
-      Top = 18
+      Height = 27
+      Top = 14
       Width = 210
       Align = alTop
       ItemHeight = 0
@@ -108,7 +108,7 @@ object fMain: TfMain
     end
     object Label1: TLabel
       Left = 0
-      Height = 18
+      Height = 14
       Top = 0
       Width = 210
       Align = alTop

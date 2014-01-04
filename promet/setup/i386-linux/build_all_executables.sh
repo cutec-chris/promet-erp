@@ -16,6 +16,9 @@ lazbuild -q ../../source/messageimport/pop3receiver.lpi  >> scompile-$2.log
 echo "compiling feedreceiver..."
 echo "compiling feedreceiver..." >> scompile-$2.log
 lazbuild -q ../../source/messageimport/feedreceiver.lpi  >> scompile-$2.log
+echo "compiling twitterreceiver..."
+echo "compiling twitterreceiver..." >> scompile-$2.log
+lazbuild -q ../../source/messageimport/twitterreceiver.lpi  >> scompile-$2.log
 echo "compiling smtpsender..."
 echo "compiling smtpsender..." >> scompile-$2.log
 lazbuild -q ../../source/messageimport/smtpsender.lpi  >> scompile-$2.log
@@ -32,9 +35,9 @@ lazbuild -q ../../source/tools/checkin.lpi  >> scompile-$2.log
 lazbuild -q ../../source/tools/checkout.lpi  >> scompile-$2.log
 lazbuild -q ../../source/tools/tableedit.lpi  >> scompile-$2.log
 echo "compiling archivestore..."
-lazbuild -q ../../source/archivestore/archivestore.lpi  >> scompile-$2.log
+lazbuild -q ../../source/tools/archivestore.lpi  >> scompile-$2.log
 echo "compiling clientmanagement..."
-lazbuild -q ../../source/clientmanagement/clientmanagement.lpi  >> scompile-$2.log
+lazbuild -q ../../source/tools/clientmanagement.lpi  >> scompile-$2.log
 echo "compiling helpviewer..."
 lazbuild -q ../../source/tools/helpviewer.lpi  >> scompile-$2.log
 

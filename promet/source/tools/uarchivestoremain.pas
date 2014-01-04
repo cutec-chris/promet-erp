@@ -1,4 +1,4 @@
-unit umain;
+unit uarchivestoremain;
 {$mode objfpc}{$H+}
 interface
 uses
@@ -130,6 +130,6 @@ begin
 end;
 
 initialization
-  {$I umain.lrs}
+  {$I uarchivestoremain.lrs}
 
 end.

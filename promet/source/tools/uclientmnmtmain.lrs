@@ -1,0 +1,48 @@
+{ This is an automatically generated lazarus resource file }
+
+LazarusResources.Add('TfMain','FORMDATA',[
+  'TPF0'#6'TfMain'#5'fMain'#4'Left'#3#149#1#6'Height'#3'a'#1#3'Top'#3#208#0#5'W'
+  +'idth'#3'w'#3#7'Caption'#6#16'Clientmanagement'#12'ClientHeight'#3'K'#1#11'C'
+  +'lientWidth'#3'w'#3#5'Color'#7#8'clWindow'#4'Menu'#7#8'MainMenu'#7'OnClose'#7
+  +#9'FormClose'#6'OnShow'#7#8'FormShow'#8'Position'#7#14'poScreenCenter'#10'LC'
+  +'LVersion'#6#3'1.3'#0#7'TDBGrid'#6'gUsers'#4'Left'#2#0#6'Height'#3'K'#1#3'To'
+  +'p'#2#0#5'Width'#3#160#2#5'Align'#7#8'alClient'#5'Color'#7#8'clWindow'#7'Col'
+  +'umns'#14#1#8'ReadOnly'#9#13'Title.Caption'#6#4'NAME'#5'Width'#3#150#0#9'Fie'
+  +'ldName'#6#4'NAME'#0#1#8'ReadOnly'#9#13'Title.Caption'#6#6'CLIENT'#5'Width'#2
+  +'d'#9'FieldName'#6#6'CLIENT'#0#1#8'ReadOnly'#9#13'Title.Caption'#6#7'VERSION'
+  +#5'Width'#3#150#0#9'FieldName'#6#7'VERSION'#0#1#8'ReadOnly'#9#13'Title.Capti'
+  +'on'#6#10'TIMESTAMPD'#5'Width'#3#140#0#9'FieldName'#6#10'TIMESTAMPD'#0#1#8'R'
+  +'eadOnly'#9#13'Title.Caption'#6#4'HOST'#5'Width'#2'd'#9'FieldName'#6#4'HOST'
+  +#0#0#10'DataSource'#7#11'ActiveUsers'#8'TabOrder'#2#0#10'TitleStyle'#7#8'tsN'
+  +'ative'#0#0#9'TSplitter'#9'Splitter1'#4'Left'#3#160#2#6'Height'#3'K'#1#3'Top'
+  +#2#0#5'Width'#2#5#5'Align'#7#7'alRight'#12'ResizeAnchor'#7#7'akRight'#0#0#6
+  +'TPanel'#6'Panel1'#4'Left'#3#165#2#6'Height'#3'K'#1#3'Top'#2#0#5'Width'#3#210
+  +#0#5'Align'#7#7'alRight'#10'BevelOuter'#7#6'bvNone'#7'Caption'#6#6'Panel1'#12
+  +'ClientHeight'#3'K'#1#11'ClientWidth'#3#210#0#8'TabOrder'#2#2#0#7'TDBGrid'#7
+  +'DBGrid1'#4'Left'#2#0#6'Height'#3'"'#1#3'Top'#2')'#5'Width'#3#210#0#5'Align'
+  +#7#8'alClient'#5'Color'#7#8'clWindow'#7'Columns'#14#1#13'Title.Caption'#6#7
+  +'COMMAND'#5'Width'#3#170#0#9'FieldName'#6#7'COMMAND'#0#0#10'DataSource'#7#8
+  +'Commands'#8'TabOrder'#2#0#10'TitleStyle'#7#8'tsNative'#16'OnDrawColumnCell'
+  +#7#21'DBGrid1DrawColumnCell'#0#0#9'TComboBox'#9'cbCommand'#4'Left'#2#0#6'Hei'
+  +'ght'#2#27#3'Top'#2#14#5'Width'#3#210#0#5'Align'#7#5'alTop'#10'ItemHeight'#2
+  +#0#13'Items.Strings'#1#6#8'Shutdown'#6#4'Ping'#0#6'OnExit'#7#15'cbCommandSel'
+  +'ect'#8'OnSelect'#7#15'cbCommandSelect'#8'TabOrder'#2#1#0#0#6'TLabel'#6'Labe'
+  +'l1'#4'Left'#2#0#6'Height'#2#14#3'Top'#2#0#5'Width'#3#210#0#5'Align'#7#5'alT'
+  +'op'#7'Caption'#6#6'Befehl'#11'ParentColor'#8#0#0#0#15'TXMLPropStorage'#10'P'
+  +'roperties'#12'StoredValues'#14#1#4'Name'#6#6'HEIGHT'#0#1#4'Name'#6#5'WIDTH'
+  +#0#1#4'Name'#6#4'LEFT'#0#1#4'Name'#6#3'TOP'#0#1#4'Name'#6#8'LANGUAGE'#0#1#4
+  +'Name'#6#12'LOGINMANDANT'#0#1#4'Name'#6#9'LOGINUSER'#0#1#4'Name'#6#14'AUTOMA'
+  +'TICLOGIN'#0#0#4'left'#2#16#3'top'#2'@'#0#0#11'TActionList'#11'ActionList1'#4
+  +'left'#2#16#3'top'#2'x'#0#7'TAction'#7'acLogin'#7'Caption'#6#8'Anmelden'#9'O'
+  +'nExecute'#7#14'acLoginExecute'#0#0#7'TAction'#8'acLogout'#7'Caption'#6#8'Ab'
+  +'melden'#7'Enabled'#8#9'OnExecute'#7#15'acLogoutExecute'#0#0#0#9'TMainMenu'#8
+  +'MainMenu'#4'left'#2'X'#3'top'#2'@'#0#9'TMenuItem'#9'miMandant'#7'Caption'#6
+  +#7'Mandant'#0#9'TMenuItem'#9'MenuItem4'#6'Action'#7#7'acLogin'#7'OnClick'#7
+  +#14'acLoginExecute'#0#0#9'TMenuItem'#9'MenuItem3'#6'Action'#7#8'acLogout'#7
+  +'OnClick'#7#15'acLogoutExecute'#0#0#0#9'TMenuItem'#9'miOptions'#7'Caption'#6
+  +#8'Optionen'#0#9'TMenuItem'#10'miLanguage'#7'Caption'#6#7'Sprache'#0#0#0#0#10
+  +'TIdleTimer'#10'IdleTimer1'#7'Enabled'#8#8'Interval'#3#208#7#7'OnTimer'#7#15
+  +'IdleTimer1Timer'#4'left'#2'X'#3'top'#2'x'#0#0#11'TDatasource'#11'ActiveUser'
+  +'s'#4'left'#3#160#0#3'top'#2'x'#0#0#11'TDatasource'#8'Commands'#4'left'#3#160
+  +#0#3'top'#3#184#0#0#0#0
+]);
