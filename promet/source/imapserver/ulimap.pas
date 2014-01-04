@@ -71,6 +71,9 @@ type
   public
     property Folder[Idx : Integer] : TIMAPFolder read Get;
   end;
+
+  { TLIMAPSocket }
+
   TLIMAPSocket = class(TLSocket)
     procedure LIMAPSocketError(aHandle: TLHandle; const msg: string);
   private
@@ -84,7 +87,7 @@ type
     FPostMode : Boolean;
     FPostMessage : TStringList;
     FPostLength : Integer;
-    FSendBuffer : TStrings;
+    FSendBuffer : String;
     FError : Boolean;
     FTerminated : Boolean;
     FAuthMode : Boolean;
@@ -93,10 +96,10 @@ type
     FPostFlags : string;
     FPostDateTime : string;
   protected
-    procedure DoSendBuffer;
+    procedure DoSendBuffer(ShowLog : Boolean = False);
   public
     DontLog : Boolean;
-    property SendBuffer : TStrings read FSendBuffer;
+    property SendBuffer : String read FSendBuffer;
     function Send(const aData; const aSize: Integer): Integer; override;
     property Buffer : string read FBuffer write FBuffer;
     procedure LineReceived(aLine : string);
@@ -112,6 +115,7 @@ type
   { TLIMAPServer }
 
   TLIMAPServer = class(TLTcp)
+    procedure LIMAPServerCanSend(aSocket: TLSocket);
   private
     FGroups: TIMAPFolders;
     FLog: TLIMAPLogEvent;
@@ -208,37 +212,22 @@ procedure TLIMAPSocket.LIMAPSocketError(aHandle: TLHandle; const msg: string);
 begin
   TLIMAPSocket(aHandle).FError:=True;
 end;
-procedure TLIMAPSocket.DoSendBuffer;
+procedure TLIMAPSocket.DoSendBuffer(ShowLog: Boolean);
 var
-  tmp: String;
+  aSize: Integer;
 begin
   try
-    if (SendBuffer.Count = 0) or (not FShouldSend) then exit;
-    while (not Fterminated) and (SendBuffer.Count > 0) do
+    if not ShowLog then DontLog := True;
+    aSize := SendMessage(FSendBuffer);
+    Delete(FSendBuffer, 1, aSize);
+    while (aSize>0) and (length(FSendBuffer)>0) do
       begin
-        tmp := SendBuffer[0];
-        DontLog := True;
-        if SendMessage(tmp+CRLF) > 0 then
-          begin
-            DontLog := False;
-            if FTerminated then exit;
-            SendBuffer.Delete(0);
-            try
-              if Assigned(Creator) then
-                Creator.CallAction;
-            except
-            end;
-          end
-        else
-          begin
-            DontLog := False;
-            break;
-          end;
+        aSize := SendMessage(FSendBuffer);
+        if FTerminated then break;
       end;
-    if (SendBuffer.Count = 0) then
-      FShouldSend := False;
   except //Client disconnects ??
   end;
+  DontLog := False;
 end;
 function TLIMAPSocket.Send(const aData; const aSize: Integer): Integer;
 var
@@ -272,15 +261,10 @@ var
   procedure Answer(aMsg : string;UseTag : Boolean = True);
   begin
     if UseTag then
-      begin
-        if SendMessage(aTag+' '+aMsg+CRLF) = 0 then
-          FSendBuffer.Add(aMsg);
-      end
+      FSendBuffer += aTag+' '+aMsg+CRLF
     else
-      begin
-        if SendMessage(aMsg+CRLF) = 0 then
-          FSendBuffer.Add(aMsg);
-      end;
+      FSendBuffer += aMsg+CRLF;
+    DoSendBuffer(True);
     Answered := True;
   end;
   function IsNumeric(s:String):Boolean;
@@ -365,16 +349,12 @@ var
             while Assigned(aRes) do
               begin
                 inc(aFCount);
-                for a := 0 to aRes.Count-1 do
+                Creator.CallAction;
+                Answer(aRes.Text,False);
+                if FStopFetching then
                   begin
-                    Creator.CallAction;
-                    if not FStopFetching then
-                      Answer(aRes[a],False)
-                    else
-                      begin
-                        DontLog:=False;
-                        exit;
-                      end;
+                    DontLog:=False;
+                    exit;
                   end;
                 {if aRes.Count=0 then
                   begin
@@ -407,16 +387,15 @@ var
             while Assigned(aRes) do
               begin
                 inc(aFCount);
-                for a := 0 to aRes.Count-1 do
+                Creator.CallAction;
+                if (not FStopFetching) then
                   begin
-                    Creator.CallAction;
-                    if not FStopFetching then
-                      Answer(aRes[a],False)
-                    else
-                      begin
-                        DontLog:=False;
-                        exit;
-                      end;
+                    if aRes.text<>'' then Answer(aRes.Text,False);
+                  end
+                else
+                  begin
+                    DontLog:=False;
+                    exit;
                   end;
                 aRes := FGroup.StoreOneEntry(bParams);
               end;
@@ -749,7 +728,6 @@ begin
   FAuthMode := False;
   FPostMessage := TStringList.Create;
   DontLog := False;
-  FSendBuffer := TStringList.Create;
   FError := False;
   FTerminated := False;
   FStopFetching := False;
@@ -759,10 +737,15 @@ destructor TLIMAPSocket.Destroy;
 begin
   FTerminated := True;
 //  if Assigned(FGroup) then fGroup.Destroy;
-  FSendBuffer.Free;
   FPostMessage.Destroy;
   inherited;
 end;
+
+procedure TLIMAPServer.LIMAPServerCanSend(aSocket: TLSocket);
+begin
+  TLIMAPSocket(aSocket).DoSendBuffer;
+end;
+
 procedure TLIMAPServer.AcceptEvent(aSocket: TLHandle);
 begin
   inherited AcceptEvent(aSocket);
@@ -804,6 +787,7 @@ begin
   FSocketCounter := 0;
   FGroups := TIMAPFolders.Create;
   SocketClass := TLIMAPSocket;
+  OnCanSend:=@LIMAPServerCanSend;
 end;
 destructor TLIMAPServer.Destroy;
 begin
@@ -819,9 +803,6 @@ end;
 procedure TLIMAPServer.CallAction;
 begin
   inherited CallAction;
-  while IterNext do
-    if Iterator is TLIMAPSocket then
-      TLIMAPSocket(Iterator).DoSendBuffer;
 end;
 
 end.

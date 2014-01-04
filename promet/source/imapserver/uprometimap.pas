@@ -418,6 +418,7 @@ begin
                 aMessage.Content.Open;
               aSL := TStringList.Create;
               aSL.text := aMessage.Content.FieldByName('HEADER').AsString;
+              aSL.TextLineBreakStyle:=tlbsCRLF;
               aLen := 0;
               aLen :=  length(aSL.Text);
               if (pos('RFC822.HEADER ',aFetch)>0) then
@@ -463,6 +464,7 @@ begin
               aFields := copy(aFetch,pos('(',aFetch)+1,length(aFetch));
               aFields := copy(aFields,0,pos(')',aFields)-1);
               aSL := TStringList.Create;
+              aSL.TextLineBreakStyle:=tlbsCRLF;
               bsl := TStringlist.Create;
               aMime.Header.EncodeHeaders(bsl);
               while pos(' ',aFields)>0 do
@@ -586,7 +588,7 @@ begin
                   tmp+=') ';
                 end
               else
-                tmp+=' ';
+                tmp:='';
             end;
 {          else if trim(bFetch) <> '' then
             begin
@@ -598,7 +600,8 @@ begin
       {$IFDEF DEBUG}
       debugln('StoreOneEntry:'+FMessages.Id.AsString+' '+FMessages.Subject.AsString);
       {$ENDIF}
-      Result.Add(copy(tmp,0,length(tmp)-1)+')');
+      if tmp <> '' then
+        Result.Add(copy(tmp,0,length(tmp)-1)+')');
       FetchSequence:=FetchSequence+1;
       Fmessages.DataSet.Prior;
       Dec(FSelectCount,1);
