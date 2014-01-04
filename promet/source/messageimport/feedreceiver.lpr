@@ -334,7 +334,10 @@ begin
                   end;
               except
                 on e : Exception do
-                  WriteWarning(e.Message);
+                  begin
+                    WriteWarning(e.Message);
+                    aNode := aNode.NextSibling;
+                  end;
               end;
               Doc.Free;
             end;
