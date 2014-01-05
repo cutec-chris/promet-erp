@@ -40,7 +40,7 @@ find $BuildDir -type d -print0 | xargs -0 sudo -S chmod 755  # this is needed, d
 find $BuildDir -type f -print0 | xargs -0 sudo -S chmod a+r  # this is needed, don't ask me why
 sudo -S chown -hR root:root $BuildDir/usr
 echo "build tar.gz..."
-tar -cvf - $BuildDir | gzip > ../output/${Program}-tools_$Version_$Arch-$Widgetset.tar.gz
+tar -cvf - $BuildDir | gzip > ../output/${Program}-${Subprogram}_$Version_$Arch-$Widgetset.tar.gz
 echo "creating control file..."
 mkdir -p $BuildDir/DEBIAN
 cat debian/control_tools | \
@@ -51,7 +51,7 @@ cat debian/control_tools | \
 chmod 755 $BuildDir/DEBIAN
 echo "building package..."
 sudo -S dpkg-deb --build $BuildDir
-cp $TmpDir/software_build.deb ../output/${Program}-tools_${Version}_${Arch}-$Widgetset.deb
+cp $TmpDir/software_build.deb ../output/${Program}-${Subprogram}_${Version}_${Arch}-$Widgetset.deb
 ./build_tar.sh $Widgetset $Program-tools $Version $Arch $Archfpc $Date $BuildDir
 mv $BuildDir/${Program}*.tar.gz ../output
 echo "cleaning up..."

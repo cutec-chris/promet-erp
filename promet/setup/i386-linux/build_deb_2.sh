@@ -44,7 +44,7 @@ cat debian/control_statistics | \
 chmod 755 $BuildDir/DEBIAN
 echo "building package..."
 sudo -S dpkg-deb --build $BuildDir
-cp $TmpDir/software_build.deb ../output/${Program}-statistics_${Version}_${Arch}-$Widgetset.deb
+cp $TmpDir/software_build.deb ../output/${Program}-${Subprogram}_${Version}_${Arch}-$Widgetset.deb
 ./build_tar.sh $Widgetset $Program-statistics $Version $Arch $Archfpc $Date $BuildDir
 mv $BuildDir/${Program}*.tar.gz ../output
 echo "cleaning up..."

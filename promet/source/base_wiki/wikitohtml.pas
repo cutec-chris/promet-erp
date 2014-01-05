@@ -239,6 +239,7 @@ begin
   //all newlines to \n
   ostr := StringReplace(ostr,#13#10,#10,[rfReplaceAll]);
   ostr := StringReplace(ostr,#10#13,#10,[rfReplaceAll]);
+  ostr := #10+ostr;
   //Remove NOTOC
   istr := StringReplace(istr,'__NOTOC__','',[rfReplaceAll]);
   //Remove TOC

@@ -23,7 +23,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ComCtrls, DbCtrls, Buttons,
   StdCtrls, ExtCtrls, IpHtml, db, uPrometFrames, uExtControls, Graphics,
-  DBGrids, ActnList, Dialogs, Menus, uImageCache;
+  DBGrids, ActnList, Dialogs, Menus, uImageCache,LCLProc;
 type
   THistory = class(TStringList)
   private
@@ -226,12 +226,9 @@ end;
 procedure TfWikiFrame.TSimpleIpHtmlGetImageX(Sender: TIpHtmlNode;
   const URL: string; var Picture: TPicture);
 var
-  aDocument: TDocument;
-  ms: TMemoryStream;
-  aPicture: TPicture;
-  Aspect: real;
-  aFile: TMemoryStream;
-  NewURL : string;
+  aPicture: TPicture = nil;
+  aFile: TMemoryStream = nil;
+  NewURL : string = '';
 begin
   FActNode := Sender;
   aFile := FCache.GetFile(URL,NewURL);
@@ -242,6 +239,7 @@ begin
       try
         Picture.LoadFromStreamWithFileExt(aFile,ExtractFileExt(NewURL));
       except
+        FreeAndNil(Picture);
       end;
     end;
 end;
