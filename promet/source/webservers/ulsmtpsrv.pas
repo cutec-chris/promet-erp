@@ -1,3 +1,22 @@
+{*******************************************************************************
+  Copyright (C) Christian Ulrich info@cu-tec.de
+
+  This source is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 2 of the License, or commercial alternative
+  contact us for more information
+
+  This code is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+  details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+  MA 02111-1307, USA.
+Created 01.06.2006
+*******************************************************************************}
 unit ulsmtpsrv;
 
 {$mode objfpc}{$H+}
@@ -39,8 +58,8 @@ type
     constructor Create;override;
     destructor Destroy;override;
   end;
-  TLSMTPLoginEvent = function(aSocket : TLSMTPSocket;aUser,aPasswort : string) : Boolean of object;
-  TLSMTPLogEvent = procedure(aSocket : TLSMTPSocket;DirectionIn : Boolean;aMessage : string) of object;
+  TLLoginEvent = function(aSocket : TLSocket;aUser,aPasswort : string) : Boolean of object;
+  TLLogEvent = procedure(aSocket : TLSocket;DirectionIn : Boolean;aMessage : string) of object;
   TLSMTPMailEvent = procedure(aSocket : TLSMTPSocket;aMail : TStrings;aFrom : string;aTo : TStrings) of object;
   TLSMTPAcceptEvent = function(aSocket : TLSMTPSocket;aFrom : string;aTo : TStrings) : Boolean of object;
 
@@ -50,8 +69,8 @@ type
   private
     FListenInterface: string;
     FListenPort: Integer;
-    FLog: TLSMTPLogEvent;
-    FLogin: TLSMTPLoginEvent;
+    FLog: TLLogEvent;
+    FLogin: TLLoginEvent;
     FOnMAccept: TLSMTPAcceptEvent;
     FOnMail: TLSMTPMailEvent;
     FSocketCounter : Integer;
@@ -62,8 +81,8 @@ type
   public
    constructor Create(aOwner: TComponent); override;
    procedure Start;
-   property OnLogin : TLSMTPLoginEvent read FLogin write FLogin;
-   property OnLog : TLSMTPLogEvent read FLog write FLog;
+   property OnLogin : TLLoginEvent read FLogin write FLogin;
+   property OnLog : TLLogEvent read FLog write FLog;
    property OnMailreceived : TLSMTPMailEvent read FOnMail write FOnMail;
    property OnAcceptMail : TLSMTPAcceptEvent read FOnMAccept write FOnMAccept;
    property ListenInterface : string read FListenInterface write FListenInterface;

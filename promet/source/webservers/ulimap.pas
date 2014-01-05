@@ -108,8 +108,8 @@ type
     constructor Create;override;
     destructor Destroy;override;
   end;
-  TLIMAPLoginEvent = function(aSocket : TLIMAPSocket;aUser,aPasswort : string) : Boolean of object;
-  TLIMAPLogEvent = procedure(aSocket : TLIMAPSocket;DirectionIn : Boolean;aMessage : string) of object;
+  TLLoginEvent = function(aSocket : TLSocket;aUser,aPasswort : string) : Boolean of object;
+  TLLogEvent = procedure(aSocket : TLSocket;DirectionIn : Boolean;aMessage : string) of object;
 
   { TLIMAPServer }
 
@@ -117,8 +117,8 @@ type
     procedure LIMAPServerCanSend(aSocket: TLSocket);
   private
     FGroups: TIMAPFolders;
-    FLog: TLIMAPLogEvent;
-    FLogin: TLIMAPLoginEvent;
+    FLog: TLLogEvent;
+    FLogin: TLLoginEvent;
     FSocketCounter : Integer;
   protected
     procedure AcceptEvent(aSocket: TLHandle); override;
@@ -128,8 +128,8 @@ type
    constructor Create(aOwner: TComponent); override;
    destructor Destroy; override;
    procedure Start;
-   property OnLogin : TLIMAPLoginEvent read FLogin write FLogin;
-   property OnLog : TLIMAPLogEvent read FLog write FLog;
+   property OnLogin : TLLoginEvent read FLogin write FLogin;
+   property OnLog : TLLogEvent read FLog write FLog;
    property Folders : TIMAPFolders read FGroups;
    procedure CallAction; override;
   end;

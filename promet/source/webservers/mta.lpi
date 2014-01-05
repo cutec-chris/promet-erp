@@ -67,8 +67,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="320"/>
-        <CursorPos X="1" Y="337"/>
+        <TopLine Value="562"/>
+        <CursorPos X="1" Y="579"/>
         <UsageCount Value="145"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -891,7 +891,7 @@
         <UnitName Value="ulsmtpsrv"/>
         <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="45"/>
+        <TopLine Value="1"/>
         <CursorPos X="28" Y="227"/>
         <UsageCount Value="64"/>
         <Loaded Value="True"/>

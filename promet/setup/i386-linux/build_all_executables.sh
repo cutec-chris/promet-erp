@@ -10,9 +10,7 @@ echo "compiling statistics..." >> scompile-$2.log
 lazbuild -q ../../source/statistics/statistics.lpi  >> scompile-$2.log
 echo "compiling wizardmandant..." >> scompile-$2.log
 lazbuild -q ../../source/tools/wizardmandant.lpi  >> scompile-$2.log
-echo "compiling tools..."
-echo "compiling pstarter..." >> scompile-$2.log
-lazbuild -q ../../source/tools/pstarter.lpi  >> scompile-$2.log
+echo "compiling import/exporters..."
 echo "compiling sync_db..." >> scompile-$2.log
 lazbuild -q ../../source/sync/sync_db.lpi  >> scompile-$2.log
 echo "compiling pop3receiver..." >> scompile-$2.log
@@ -24,6 +22,8 @@ lazbuild -q ../../source/messageimport/twitterreceiver.lpi  >> scompile-$2.log
 echo "compiling smtpsender..." >> scompile-$2.log
 lazbuild -q ../../source/messageimport/smtpsender.lpi  >> scompile-$2.log
 echo "compiling tools..."
+echo "compiling pstarter..." >> scompile-$2.log
+lazbuild -q ../../source/tools/pstarter.lpi  >> scompile-$2.log
 echo "compiling cdmenue..."  >> scompile-$2.log
 lazbuild -q ../../source/tools/cdmenue.lpi  >> scompile-$2.log
 echo "compiling cmdwizardmandant..."  >> scompile-$2.log
