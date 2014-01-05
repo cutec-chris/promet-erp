@@ -363,6 +363,11 @@ begin
   while fScreenshot.Visible do Application.ProcessMessages;
   fScreenshot.Destroy;
   fScreenshot := nil;
+  if DataSet.State=dsInsert then
+    begin
+      DataSet.Post;
+      DataSet.Edit;
+    end;
   aDocument := TDocument.Create(Self,Data);
   aDocument.Select(DataSet.Id.AsVariant ,'W',DataSet.FieldByName('NAME').AsString,Null,Null);
   aDocument.AddFromFile(AppendPathDelim(GetTempDir)+aName);

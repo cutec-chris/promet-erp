@@ -52,6 +52,9 @@ type
     acDetailView: TAction;
     acMarkAllasRead: TAction;
     acMarkasRead: TAction;
+    acAddUser: TAction;
+    acAddImage: TAction;
+    acAddScreenshot: TAction;
     acViewThread: TAction;
     ActionList1: TActionList;
     bSend: TBitBtn;
@@ -74,7 +77,10 @@ type
     PopupMenu1: TPopupMenu;
     pSearch: TPanel;
     SelectDirectoryDialog1: TSelectDirectoryDialog;
+    sbAddFile: TSpeedButton;
+    sbAddScreenshot: TSpeedButton;
     tbRootEntrys: TSpeedButton;
+    sbAddUser: TSpeedButton;
     tbThread: TSpeedButton;
     tbUser: TSpeedButton;
     Timer1: TTimer;
@@ -87,6 +93,7 @@ type
     ToolButton6: TToolButton;
     ToolButton7: TToolButton;
     tsHistory: TTabSheet;
+    procedure acAddScreenshotExecute(Sender: TObject);
     procedure acAnswerExecute(Sender: TObject);
     procedure acDetailViewExecute(Sender: TObject);
     procedure acFollowExecute(Sender: TObject);
@@ -151,7 +158,7 @@ const
 implementation
 uses uBaseApplication, uData, uOrder,uMessages,uBaseERPDBClasses,
   uMain,LCLType,utask,uProcessManager,uprometipc,ProcessUtils,ufollow,udetailview,
-  LCLIntf,wikitohtml,uDocuments,uthumbnails;
+  LCLIntf,wikitohtml,uDocuments,uthumbnails,uscreenshotmain;
 resourcestring
   strTo                                  = 'an ';
 
@@ -441,6 +448,63 @@ begin
       FParentItem := fTimeline.DataSet.Id.AsVariant;
       MarkAsRead;
     end;
+end;
+
+procedure TfmTimeline.acAddScreenshotExecute(Sender: TObject);
+var
+  aDocuments: TDocuments;
+  aDocument: TDocument;
+  aDocPage: TTabSheet;
+  aName : string = 'screenshot.jpg';
+  aPageIndex: Integer;
+begin
+  Application.ProcessMessages;
+  fTimeLine.Hide;
+  Application.ProcessMessages;
+  aName := InputBox(strScreenshotName, strEnterAnName, aName);
+  Application.ProcessMessages;
+  Application.CreateForm(TfScreenshot,fScreenshot);
+  fScreenshot.SaveTo:=AppendPathDelim(GetTempDir)+aName;
+  fScreenshot.Show;
+  while fScreenshot.Visible do Application.ProcessMessages;
+  fScreenshot.Destroy;
+  fScreenshot := nil;
+  aDocument := TDocument.Create(Self,Data);
+  aDocument.Select(DataSet.Id.AsVariant ,'W',DataSet.FieldByName('NAME').AsString,Null,Null);
+  aDocument.AddFromFile(AppendPathDelim(GetTempDir)+aName);
+  aDocument.Free;
+  aDocuments := TDocuments.Create(Self,Data);
+  aDocuments.CreateTable;
+  aDocuments.Select(DataSet.Id.AsVariant ,'W',DataSet.FieldByName('NAME').AsString,Null,Null);
+  aDocuments.Open;
+  if aDocuments.Count = 0 then
+    aDocuments.Free
+  else
+    begin
+      aDocPage := pcPages.GetTab(TfDocumentFrame);
+      if Assigned(aDocPage) then
+        begin
+          aDocFrame := TfDocumentFrame(aDocPage.Controls[0]);
+          aDocFrame.DataSet := aDocuments;
+        end
+      else
+        begin
+          aDocFrame := TfDocumentFrame.Create(Self);
+          aDocFrame.DataSet := aDocuments;
+          aPageIndex := pcPages.AddTab(aDocFrame,False);
+          pcPages.Visible:=False;
+          tsEdit.PageIndex:=1;
+          pcPages.ActivePage := tsView;
+          pcPages.Visible:=True;
+        end;
+    end;
+  if (DataSet.DataSet.State <> dsEdit)
+  and (DataSet.DataSet.State <> dsInsert) then
+    DataSet.DataSet.Edit;
+  eWikiPage.SelText := '[[Bild:'+aName+']]';
+  eWikiPage.SelStart:=eWikiPage.SelStart+length(eWikiPage.SelText);
+
+  fTimeLine.Show;
 end;
 
 procedure TfmTimeline.acDetailViewExecute(Sender: TObject);
