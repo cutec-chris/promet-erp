@@ -167,6 +167,11 @@ begin
     begin
       Answer('250 Hello '+aParams);
     end
+  else if aCommand = 'EHLO' then
+    begin
+      Answer('250 Hello '+aParams);
+      Answer('250 AUTH CRAM-MD5 STARTTLS LOGIN PLAIN');
+    end
   else if aCommand = 'MAIL FROM' then
     begin
       FTo.Clear;

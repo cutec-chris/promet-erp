@@ -65,11 +65,10 @@
         <Filename Value="imapserver.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="imapserver"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="163"/>
-        <CursorPos X="1" Y="180"/>
+        <TopLine Value="156"/>
+        <CursorPos X="64" Y="177"/>
         <UsageCount Value="201"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -290,7 +289,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="16"/>
         <CursorPos X="3" Y="27"/>
-        <UsageCount Value="177"/>
+        <UsageCount Value="178"/>
         <Loaded Value="True"/>
       </Unit26>
       <Unit27>
@@ -394,7 +393,7 @@
       </Unit38>
       <Unit39>
         <Filename Value="rfc2060.txt"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1935"/>
         <CursorPos X="18" Y="2050"/>
@@ -436,7 +435,7 @@
       </Unit43>
       <Unit44>
         <Filename Value="..\base\changes.txt"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="99" Y="12"/>
@@ -501,7 +500,7 @@
       <Unit52>
         <Filename Value="idimap4.pas"/>
         <UnitName Value="IdIMAP4"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="4033"/>
         <CursorPos X="35" Y="4065"/>
@@ -789,12 +788,10 @@
       <Unit88>
         <Filename Value="..\components\lnet\lib\lnet.pp"/>
         <UnitName Value="lNet"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1371"/>
+        <TopLine Value="1438"/>
         <CursorPos X="1" Y="1472"/>
         <UsageCount Value="15"/>
-        <Loaded Value="True"/>
       </Unit88>
       <Unit89>
         <Filename Value="..\components\lnet\lib\lsmtp.pp"/>
@@ -837,11 +834,12 @@
         <Filename Value="ulsmtpsrv.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ulsmtpsrv"/>
-        <EditorIndex Value="5"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="25"/>
-        <CursorPos X="15" Y="30"/>
-        <UsageCount Value="20"/>
+        <TopLine Value="170"/>
+        <CursorPos X="41" Y="173"/>
+        <UsageCount Value="21"/>
         <Loaded Value="True"/>
       </Unit94>
     </Units>
