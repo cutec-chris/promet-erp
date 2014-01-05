@@ -237,9 +237,10 @@ begin
   open_uls := 0;
   act_uls := 0;
   //all newlines to \n
-  ostr := StringReplace(ostr,#13#10,#10,[rfReplaceAll]);
-  ostr := StringReplace(ostr,#10#13,#10,[rfReplaceAll]);
-  ostr := #10+ostr;
+  istr := StringReplace(istr,#13#10,#10,[rfReplaceAll]);
+  istr := StringReplace(istr,#10#13,#10,[rfReplaceAll]);
+  if copy(trim(istr),0,1)='=' then
+    istr := #10+istr;
   //Remove NOTOC
   istr := StringReplace(istr,'__NOTOC__','',[rfReplaceAll]);
   //Remove TOC

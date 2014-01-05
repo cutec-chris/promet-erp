@@ -743,7 +743,8 @@ constructor TStarterThread.Create(aSuspended: Boolean);
 begin
   FreeOnTerminate:=True;
   Priority:=tpLowest;
-  inherited Create(aSuspended);
+  //inherited Create(aSuspended);
+  Execute;
 end;
 
 procedure TStarterThread.Execute;

@@ -191,7 +191,7 @@ begin
        if Assigned(ManagedIndexdefs) then
         with ManagedIndexDefs do
           begin
-            Add('ACCOUNTNO','ACCOUNTNO',[ixUnique]);
+            Add('ACCOUNTNO','ACCOUNTNO',[]);
             Add('TYPE','TYPE',[]);
             Add('DATA','DATA',[]);
           end;

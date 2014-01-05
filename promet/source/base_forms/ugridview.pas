@@ -2191,8 +2191,8 @@ begin
     begin
       if Assigned(gList.Objects[0,i]) then
         TRowObject(gList.Objects[0,i]).Extends := GetRowHeight(i);
-      if TRowObject(gList.Objects[0,i]).Extends.Y<>gList.RowHeights[i] then
-        gList.RowHeights[i] := TRowObject(gList.Objects[0,i]).Extends.Y;
+      //if TRowObject(gList.Objects[0,i]).Extends.Y<>gList.RowHeights[i] then
+      //  gList.RowHeights[i] := TRowObject(gList.Objects[0,i]).Extends.Y;
       if Assigned(gList.Objects[0,i]) then
         TRowObject(gList.Objects[0,i]).RefreshHeight:=True;
     end;

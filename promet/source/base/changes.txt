@@ -1,4 +1,7 @@
-﻿Build 299
+﻿Build 300
+      - gethreadetetes Aktualisieren von Baumansicht deaktiviert (Fehler wärenddessen können sonst nicht erkannt werden und führen zu sehr merkwürdig wirkenden Fehlern)
+      - Bilder können nun auch in GTK2 weich transparent dargestellt werden
+Build 299
       - Baumansicht:Fehler beim wiederherstellen der baumansicht besser abgefangen
       - Nachrichtenzentrale: Darstellung von Bildern und Anhängen
       - Twitterreceiver: Bildimport

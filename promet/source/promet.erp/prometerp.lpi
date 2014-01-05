@@ -183,7 +183,6 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--config-path=/home/chris/.promet-erp-devel"/>
       </local>
     </RunParams>
     <RequiredPackages Count="23">
@@ -294,15 +293,17 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="947"/>
-        <CursorPos X="1" Y="969"/>
+        <TopLine Value="741"/>
+        <CursorPos X="34" Y="761"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="3">
-          <Item0 X="1" Y="759" ID="0"/>
-          <Item1 X="6" Y="977" ID="1"/>
-          <Item2 X="1" Y="3086" ID="2"/>
+          <Item0 X="1" Y="760" ID="0"/>
+          <Item1 X="6" Y="978" ID="1"/>
+          <Item2 X="1" Y="3087" ID="2"/>
         </Bookmarks>
+        <Loaded Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="../base/ubasevisualapplication.pas"/>
@@ -521,10 +522,12 @@
       <Unit22>
         <Filename Value="../base/dbintfs/uperson.pas"/>
         <UnitName Value="uPerson"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="447"/>
-        <CursorPos X="1" Y="478"/>
+        <TopLine Value="169"/>
+        <CursorPos X="42" Y="194"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit22>
       <Unit23>
         <Filename Value="ubankingdialog.pas"/>
@@ -1035,17 +1038,22 @@
       </Unit68>
       <Unit69>
         <Filename Value="../base/revision.inc"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
         <UsageCount Value="99"/>
+        <Loaded Value="True"/>
       </Unit69>
       <Unit70>
         <Filename Value="../base/changes.txt"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="83" Y="2"/>
+        <CursorPos X="73" Y="3"/>
         <UsageCount Value="103"/>
+        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit70>
       <Unit71>
@@ -2712,7 +2720,7 @@
         <Filename Value="../base/dbintfs/ubasesearch.pas"/>
         <UnitName Value="uBaseSearch"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="81"/>
+        <TopLine Value="243"/>
         <CursorPos X="42" Y="81"/>
         <UsageCount Value="33"/>
       </Unit264>
@@ -4135,10 +4143,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ugridview"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="2803"/>
-        <CursorPos X="1" Y="2837"/>
+        <TopLine Value="2161"/>
+        <CursorPos X="27" Y="2181"/>
         <UsageCount Value="14"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit438>
       <Unit439>
         <Filename Value="../../../../../../Programme/lazarus/lcl/interfaces/win32/win32callback.inc"/>
@@ -4155,8 +4166,8 @@
         <UnitName Value="uMainTreeFrame"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1780"/>
-        <CursorPos X="26" Y="1806"/>
+        <TopLine Value="40"/>
+        <CursorPos X="26" Y="14"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -4188,13 +4199,10 @@
       <Unit444>
         <Filename Value="../base_wiki/htmltowiki.pas"/>
         <UnitName Value="htmltowiki"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="252"/>
         <CursorPos X="1" Y="275"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit444>
       <Unit445>
         <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
@@ -4268,7 +4276,7 @@
         <UsageCount Value="10"/>
       </Unit452>
     </Units>
-    <JumpHistory Count="6" HistoryIndex="5">
+    <JumpHistory Count="8" HistoryIndex="7">
       <Position1>
         <Filename Value="../base_messaging/umessageframe.pas"/>
         <Caret Line="391" Column="8" TopLine="371"/>
@@ -4290,9 +4298,17 @@
         <Caret Line="132" Column="15" TopLine="111"/>
       </Position5>
       <Position6>
-        <Filename Value="../base_wiki/htmltowiki.pas"/>
-        <Caret Line="78" Column="1" TopLine="44"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="955" Column="37" TopLine="947"/>
       </Position6>
+      <Position7>
+        <Filename Value="umain.pas"/>
+        <Caret Line="1155" Column="37" TopLine="1127"/>
+      </Position7>
+      <Position8>
+        <Filename Value="../base/dbintfs/uperson.pas"/>
+        <Caret Line="16" Column="47" TopLine="1"/>
+      </Position8>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>
