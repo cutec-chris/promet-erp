@@ -174,7 +174,7 @@ begin
       SMTPServer.ListenInterface := GetOptionValue('i','interface');
       debugln('using interface:'+GetOptionValue('i','interface'));
     end;
-  SMTPServer.Port := StrToIntDef(GetOptionValue('smtpport'),587);
+  SMTPServer.ListenPort := StrToIntDef(GetOptionValue('smtpport'),587);
   if GetOptionValue('smtpport')<>'' then
     begin
       debugln('using port for smtp:'+GetOptionValue('smtpport'));
@@ -192,7 +192,7 @@ begin
   try
     SMTPServer.Start;
   except
-    debugln('failed to open SMTP Port '+IntToStr(SMTPServer.Port));
+    debugln('failed to open SMTP Port '+IntToStr(SMTPServer.ListenPort));
     raise;
   end;
 end;

@@ -315,6 +315,7 @@ var
     a: Integer;
     aFCount: Integer;
     tmp : String;
+    bRange: String;
   begin
     FStopFetching := False;
     aCmd := Uppercase(copy(bParams,0,pos(' ',bParams)-1));
@@ -402,10 +403,28 @@ var
       begin
         DontLog:=True;
         aRange := copy(bParams,0,pos(' ',bParams)-1);
-        bParams:=copy(bParams,pos(' ',bParams)+1,length(bParams));
+        if pos(' ',bParams)>0 then
+          bParams:=copy(bParams,pos(' ',bParams)+1,length(bParams))
+        else
+          begin
+            aRange:=bParams;
+            bParams:='';
+          end;
+        if aUseUID and (Uppercase(trim(aRange))= 'UID') then
+          begin
+            aRange := copy(bParams,0,pos(' ',bParams)-1);
+            if pos(' ',bParams)>0 then
+              bParams:=copy(bParams,pos(' ',bParams)+1,length(bParams))
+            else
+              begin
+                aRange:=bParams;
+                bParams:='';
+              end;
+          end;
         if copy(bParams,0,1)='(' then
           bParams := copy(bParams,2,length(bParams)-2);
         aFCount := 0;
+        bRange := aRange;
         if aUseUID and FGroup.SelectMessages(aRange,aUseUID) then
           begin
             tmp := FGroup.Search(bParams);

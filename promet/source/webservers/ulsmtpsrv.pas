@@ -170,7 +170,7 @@ begin
   else if aCommand = 'EHLO' then
     begin
       Answer('250 Hello '+aParams);
-      Answer('250 AUTH CRAM-MD5 STARTTLS LOGIN PLAIN');
+      Answer('250 AUTH CRAM-MD5 TLS LOGIN PLAIN');
     end
   else if aCommand = 'MAIL FROM' then
     begin
