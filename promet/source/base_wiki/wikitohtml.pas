@@ -58,7 +58,7 @@ var
       begin
         NewLine := copy(instr,pos(ReplaceTag,instr)+length(ReplaceTag),length(instr));
         if MustBeInOneLine
-        and ((pos(#10,NewLine) < pos(ReplaceTag,NewLine))) and (not (length(NewLine) = pos(ReplaceTag,NewLine)+length(ReplaceTag)-1)) then
+        and ((pos(#13,NewLine) < pos(ReplaceTag,NewLine))) and (not (length(NewLine) = pos(ReplaceTag,NewLine)+length(ReplaceTag)-1)) then
           break;
         outstr := outstr+copy(instr,0,pos(ReplaceTag,instr)-1);
         instr := copy(instr,pos(replaceTag,instr)+length(ReplaceTag),length(instr));
@@ -237,10 +237,13 @@ begin
   open_uls := 0;
   act_uls := 0;
   //all newlines to \n
-  istr := StringReplace(istr,#13#10,#10,[rfReplaceAll]);
-  istr := StringReplace(istr,#10#13,#10,[rfReplaceAll]);
+  istr := StringReplace(istr,#13#10,#13,[rfReplaceAll]);
+  istr := StringReplace(istr,#10#13,#13,[rfReplaceAll]);
   if copy(trim(istr),0,1)='=' then
-    istr := #10+istr;
+    istr := #13+istr;
+  if copy(trim(istr),0,1)='*' then
+    istr := #13+istr;
+  istr := StringReplace(istr,#10,#13,[rfReplaceAll]);
   //Remove NOTOC
   istr := StringReplace(istr,'__NOTOC__','',[rfReplaceAll]);
   //Remove TOC
@@ -265,10 +268,10 @@ begin
   istr := StringReplace(istr, 'Ü', '&Uuml;', [rfreplaceall]);
   istr := StringReplace(istr, 'ß', '&szlig;', [rfreplaceall]);
   //Replace Lists
-  while pos(#10+'*',istr) > 0 do
+  while pos(#13+'*',istr) > 0 do
     begin
-      ostr := ostr+copy(istr,0,pos(#10+'*',istr)-1);
-      istr := copy(istr,pos(#10+'*',istr)+2,length(istr));
+      ostr := ostr+copy(istr,0,pos(#13+'*',istr)-1);
+      istr := copy(istr,pos(#13+'*',istr)+2,length(istr));
       inc(act_uls);
       while (length(istr) > 0) and (istr[1] = '*') do
         begin
@@ -288,10 +291,10 @@ begin
       open_uls := act_uls;
       act_uls := 0;
       ostr := ostr+'<li>';
-      if pos(#10,istr) > 0 then
+      if pos(#13,istr) > 0 then
         begin
-          ostr := ostr+copy(istr,0,pos(#10,istr)-1);
-          istr := copy(istr,pos(#10,istr)+1,length(istr));
+          ostr := ostr+copy(istr,0,pos(#13,istr)-1);
+          istr := copy(istr,pos(#13,istr),length(istr));
         end
       else
         begin
@@ -312,10 +315,10 @@ begin
   open_uls := 0;
   act_uls := 0;
   //Replace Numerated Lists
-  while pos(#10+'#',istr) > 0 do
+  while pos(#13+'#',istr) > 0 do
     begin
-      ostr := ostr+copy(istr,0,pos(#10+'#',istr)-1);
-      istr := copy(istr,pos(#10+'#',istr)+2,length(istr));
+      ostr := ostr+copy(istr,0,pos(#13+'#',istr)-1);
+      istr := copy(istr,pos(#13+'#',istr)+2,length(istr));
       inc(act_uls);
       while istr[1] = '#' do
         begin
@@ -335,10 +338,10 @@ begin
       open_uls := act_uls;
       act_uls := 0;
       ostr := ostr+'<li>';
-      if pos(#10,istr) > 0 then
+      if pos(#13,istr) > 0 then
         begin
-          ostr := ostr+copy(istr,0,pos(#10,istr)-1);
-          istr := copy(istr,pos(#10,istr)+1,length(istr));
+          ostr := ostr+copy(istr,0,pos(#13,istr)-1);
+          istr := copy(istr,pos(#13,istr),length(istr));
         end
       else
         begin
@@ -362,16 +365,16 @@ begin
       ostr := ostr+copy(istr,0,pos('{|',istr)-1);
       istr := copy(istr,pos('{|',istr)+2,length(istr));
       //remove also content behind {|
-      istr := copy(istr,pos(#10,istr)-1,length(istr));
-      tstr := copy(istr,0,pos(#10+'|}',istr)-1);
-      istr := copy(istr,pos(#10+'|}',istr)+3,length(istr));
+      istr := copy(istr,pos(#13,istr)-1,length(istr));
+      tstr := copy(istr,0,pos(#13+'|}',istr)-1);
+      istr := copy(istr,pos(#13+'|}',istr)+3,length(istr));
       ostr := ostr+'<table><tr>';
       tstr := StringReplace(tstr,'|-','</tr><tr>',[rfReplaceAll]);
       intd := False;
       while length(tstr) > 2 do
         begin
-          if ((tstr[1] = #10) and (tstr[2] = '|'))
-          or ((tstr[1] = #10) and (tstr[2] = '!')) then
+          if ((tstr[1] = #13) and (tstr[2] = '|'))
+          or ((tstr[1] = #13) and (tstr[2] = '!')) then
             begin
               if inTD then
                 ostr := ostr+'</td>'
@@ -396,7 +399,7 @@ begin
             end
           else
             begin
-              if (tstr[1] = #10) and InTD then
+              if (tstr[1] = #13) and InTD then
                 begin
                   ostr := ostr+'</td>';
                   InTD := False;
@@ -482,33 +485,33 @@ begin
   istr := ReplaceRegExpr('''''(.*?)''''',istr,'<i>$1</i>',True);
   if IproChanges then
     begin
-      istr := ReplaceRegExpr('======(.*?)======',istr,'<h5>$1</h5>',True);
-      istr := ReplaceRegExpr('=====(.*?)=====',istr,'<h5>$1</h5>',True);
-      istr := ReplaceRegExpr('====(.*?)====',istr,'<h4>$1</h4>',True);
-      istr := ReplaceRegExpr('===(.*?)===',istr,'<h3>$1</h3>',True);
-      istr := ReplaceRegExpr('\n==(.*?)==',istr,'<h2>$1</h2>',True);
-      //istr := ReplaceRegExpr('\n=(.*?)=',istr,'<h1>$1</h1>',True);
+      istr := ReplaceRegExpr('\r======(.*?)======',istr,#13'<h5>$1</h5>',True);
+      istr := ReplaceRegExpr('\r=====(.*?)=====',istr,#13'<h5>$1</h5>',True);
+      istr := ReplaceRegExpr('\r====(.*?)====',istr,#13'<h4>$1</h4>',True);
+      istr := ReplaceRegExpr('\r===(.*?)===',istr,#13'<h3>$1</h3>',True);
+      istr := ReplaceRegExpr('\r==(.*?)==',istr,#13'<h2>$1</h2>',True);
+      istr := ReplaceRegExpr('\r=(.*?)=\r',istr,#13'<h1>$1</h1>',True);
     end
   else
     begin
-      istr := ReplaceRegExpr('======(.*?)======',istr,'<h5>$1</h5>',True);
-      istr := ReplaceRegExpr('=====(.*?)=====',istr,'<h4>$1</h4>',True);
-      istr := ReplaceRegExpr('====(.*?)====',istr,'<h3>$1</h3>',True);
-      istr := ReplaceRegExpr('===(.*?)===',istr,'<h2>$1</h2>',True);
-      istr := ReplaceRegExpr('\n==(.*?)==',istr,'<h1>$1</h1>',True);
-      //istr := ReplaceRegExpr('\n=(.*?)=',istr,'<h1>$1</h1>',True);
+      istr := ReplaceRegExpr('\r======(.*?)======',istr,#13'<h5>$1</h5>',True);
+      istr := ReplaceRegExpr('\r=====(.*?)=====',istr,#13'<h4>$1</h4>',True);
+      istr := ReplaceRegExpr('\r====(.*?)====',istr,#13'<h3>$1</h3>',True);
+      istr := ReplaceRegExpr('\r===(.*?)===',istr,#13'<h2>$1</h2>',True);
+      istr := ReplaceRegExpr('\r==(.*?)==',istr,#13'<h1>$1</h1>',True);
+      istr := ReplaceRegExpr('\r=(.*?)=\r',istr,#13'<h1>$1</h1>'#13,True);
     end;
   //Process unformated stuff
-  while pos(#10+' ',istr) > 0 do
+  while pos(#13+' ',istr) > 0 do
     begin
       //Replace Line breaks in text bevore pre
-      ostr := ostr+StringReplace(StringReplace(copy(istr,0,pos(#10+' ',istr)-1),#10#10,'<br><br>',[rfReplaceAll]),#10,'',[rfReplaceAll]);
-      istr := copy(istr,pos(#10+' ',istr)+2,length(istr));
+      ostr := ostr+StringReplace(StringReplace(copy(istr,0,pos(#13+' ',istr)-1),#13#13,'<br><br>',[rfReplaceAll]),#13,'',[rfReplaceAll]);
+      istr := copy(istr,pos(#13+' ',istr)+2,length(istr));
       ostr := ostr+'<pre>';
-      while (pos(#10+' ',istr) > 0) do
+      while (pos(#13+' ',istr) > 0) do
         begin
-          ostr := ostr+copy(istr,0,pos(#10,istr));
-          istr := copy(istr,pos(#10,istr)+1,length(istr));
+          ostr := ostr+copy(istr,0,pos(#13,istr));
+          istr := copy(istr,pos(#13,istr)+1,length(istr));
           if (length(istr) > 0) and (istr[1] <> ' ') then
             break
           else
@@ -516,9 +519,9 @@ begin
         end;
       ostr := ostr+'</pre>';
     end;
-  ostr := ostr+StringReplace(istr,#10#10,'<br><br>',[rfReplaceAll]);
-  ostr := StringReplace(ostr,#13#10,'<br>',[rfReplaceAll]);
-  ostr := StringReplace(ostr,#10#13,'<br>',[rfReplaceAll]);
+  ostr := ostr+StringReplace(istr,#13#13,'<br><br>',[rfReplaceAll]);
+  if copy(ostr,0,1)=#13 then ostr := copy(ostr,2,length(ostr));
+  ostr := StringReplace(ostr,#13,'<br>',[rfReplaceAll]);
   //Remove <br> after <h*>
   if IproChanges then
     begin
