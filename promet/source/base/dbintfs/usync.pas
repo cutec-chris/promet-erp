@@ -63,11 +63,13 @@ begin
         with ManagedFieldDefs do
           begin
             Add('SYNCTYPE',ftString,100,True);
+            Add('SYNCTABLE',ftString,100,False);
             Add('LOCAL_ID',ftLargeInt,0,True);
             Add('REMOTE_ID',ftString,200,True);
             Add('USER_ID',ftLargeint,0,False);
             Add('REMOTE_TIME',ftDateTime,0,False);
             Add('SYNC_TIME',ftDateTime,0,False);
+            Add('ERROR',ftString,1,False);
           end;
     end;
 end;
@@ -144,4 +146,4 @@ begin
 end;
 
 end.
-
+

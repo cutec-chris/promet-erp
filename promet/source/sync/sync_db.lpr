@@ -54,6 +54,7 @@ var
   aDel: TDataSet = nil;
   aDelTable: String;
   DoPost: Boolean = False;
+  aSyncError: TSyncItems;
 begin
   Result := True;
   if Assigned(FTempDataSet) and (FTempDataSetName = SyncDB.Tables.DataSet.FieldByName('NAME').AsString) and FTempDataSet.Locate('SQL_ID',SyncTbl.FieldByName('SQL_ID').AsVariant,[]) and BaseApplication.HasOption('d','dontupdate') then
@@ -142,6 +143,17 @@ begin
             (BaseApplication as IBaseApplication).Warning(Format(strRowSyncFailed,[SyncTbl.FieldByName('SQL_ID').AsString,e.Message,SyncTbl.FieldByName('TIMESTAMPD').AsString]))
           else
             (BaseApplication as IBaseApplication).Error(Format(strRowSyncFailed,[SyncTbl.FieldByName('SQL_ID').AsString,e.Message,SyncTbl.FieldByName('TIMESTAMPD').AsString]));
+          aSyncError := TSyncItems.Create(nil,SyncDB.DataModule);
+          aSyncError.Insert;
+          aSyncError.FieldByName('LOCAL_ID').AsVariant:=SyncTbl.FieldByName('SQL_ID').AsVariant;
+          aSyncError.FieldByName('SYNCTYPE').AsString:='sync_db';
+          aSyncError.FieldByName('SYNCTABLE').AsString:=SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
+          aSyncError.FieldByName('REMOTE_ID').AsString:=SyncTbl.FieldByName('SQL_ID').AsString;
+          aSyncError.FieldByName('SYNC_TIME').AsDateTime:=Now();
+          aSyncError.FieldByName('REMOTE_TIME').AsDateTime:=SyncTbl.FieldByName('TIMESTAMPD').AsDateTime;
+          aSyncError.FieldByName('ERROR').AsString:='Y';
+          aSyncError.Post;
+          aSyncError.Free;
           result := False;
         end;
     end;
@@ -167,6 +179,16 @@ begin
               (BaseApplication as IBaseApplication).Info(Format(strRowDeleteFailed,[aDelTable,aSource.FieldByName('REF_ID_ID').AsString,e.Message]));
             end
           else (BaseApplication as IBaseApplication).Info(Format(strRowDeleteFailed,[aDelTable,aSource.FieldByName('REF_ID_ID').AsString,e.Message]));
+          aSyncError := TSyncItems.Create(nil,SyncDB.DataModule);
+          aSyncError.Insert;
+          aSyncError.FieldByName('SYNCTYPE').AsString:='sync_db';
+          aSyncError.FieldByName('SYNCTABLE').AsString:=SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
+          aSyncError.FieldByName('LOCAL_ID').AsVariant:=aSource.FieldByName('REF_ID_ID').AsVariant;
+          aSyncError.FieldByName('REMOTE_ID').AsString:=aSource.FieldByName('REF_ID_ID').AsString;
+          aSyncError.FieldByName('SYNC_TIME').AsDateTime:=Now();
+          aSyncError.FieldByName('ERROR').AsString:='Y';
+          aSyncError.Post;
+          aSyncError.Free;
         end;
     end;
   finally
@@ -311,7 +333,7 @@ begin
           try
             if not SyncRow(SyncDB,aSyncOut,SourceDM,DestDM,True) then RestoreTime:=True;
           except
-            RestoreTime := True;
+            //RestoreTime := True;
           end;
           aSyncOut.Next;
         end;
@@ -330,7 +352,7 @@ begin
           try
             if not SyncRow(SyncDB,aSyncIn,DestDM,SourceDM,False) then RestoreTime:=True;
           except
-            RestoreTime:=True;
+            //RestoreTime:=True;
           end;
           aSyncIn.Next;
         end;
