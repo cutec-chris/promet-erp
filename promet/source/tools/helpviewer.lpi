@@ -121,10 +121,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uWikiFrame"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="115"/>
-        <CursorPos X="24" Y="128"/>
+        <TopLine Value="6"/>
+        <CursorPos X="35" Y="25"/>
         <UsageCount Value="18"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -660,7 +661,6 @@
       <Unit70>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
         <UnitName Value="wikitohtml"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="506"/>
@@ -699,7 +699,7 @@
         <LoadedDesigner Value="True"/>
       </Unit73>
       <Unit74>
-        <Filename Value="..\..\..\..\..\..\..\usr\share\fpcsrc\2.6.2\rtl\inc\heaptrc.pp"/>
+        <Filename Value="C:\usr\share\fpcsrc\2.6.2\rtl\inc\heaptrc.pp"/>
         <UnitName Value="heaptrc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="7"/>
@@ -718,123 +718,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="283" Column="1" TopLine="263"/>
+        <Caret Line="291" Column="1" TopLine="269"/>
       </Position1>
       <Position2>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="291" Column="1" TopLine="269"/>
+        <Caret Line="292" Column="1" TopLine="275"/>
       </Position2>
       <Position3>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="292" Column="1" TopLine="275"/>
+        <Caret Line="293" Column="1" TopLine="275"/>
       </Position3>
       <Position4>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="293" Column="1" TopLine="275"/>
+        <Caret Line="294" Column="1" TopLine="278"/>
       </Position4>
       <Position5>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="294" Column="1" TopLine="278"/>
+        <Caret Line="296" Column="1" TopLine="278"/>
       </Position5>
       <Position6>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="296" Column="1" TopLine="278"/>
+        <Caret Line="297" Column="1" TopLine="278"/>
       </Position6>
       <Position7>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="297" Column="1" TopLine="278"/>
+        <Caret Line="304" Column="1" TopLine="278"/>
       </Position7>
       <Position8>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="304" Column="1" TopLine="278"/>
+        <Caret Line="305" Column="1" TopLine="278"/>
       </Position8>
       <Position9>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="305" Column="1" TopLine="278"/>
+        <Caret Line="344" Column="42" TopLine="326"/>
       </Position9>
       <Position10>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="344" Column="42" TopLine="326"/>
+        <Caret Line="255" Column="24" TopLine="227"/>
       </Position10>
       <Position11>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="255" Column="24" TopLine="227"/>
+        <Caret Line="246" Column="1" TopLine="227"/>
       </Position11>
       <Position12>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="246" Column="1" TopLine="227"/>
+        <Caret Line="485" Column="88" TopLine="479"/>
       </Position12>
       <Position13>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="485" Column="88" TopLine="479"/>
+        <Caret Line="486" Column="1" TopLine="479"/>
       </Position13>
       <Position14>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="486" Column="1" TopLine="479"/>
+        <Caret Line="488" Column="1" TopLine="479"/>
       </Position14>
       <Position15>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="488" Column="1" TopLine="479"/>
+        <Caret Line="489" Column="1" TopLine="479"/>
       </Position15>
       <Position16>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="489" Column="1" TopLine="479"/>
+        <Caret Line="490" Column="1" TopLine="479"/>
       </Position16>
       <Position17>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="490" Column="1" TopLine="479"/>
+        <Caret Line="491" Column="1" TopLine="479"/>
       </Position17>
       <Position18>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="491" Column="1" TopLine="479"/>
+        <Caret Line="492" Column="1" TopLine="479"/>
       </Position18>
       <Position19>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="492" Column="1" TopLine="479"/>
+        <Caret Line="493" Column="1" TopLine="479"/>
       </Position19>
       <Position20>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="493" Column="1" TopLine="479"/>
+        <Caret Line="492" Column="67" TopLine="479"/>
       </Position20>
       <Position21>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="492" Column="67" TopLine="479"/>
+        <Caret Line="522" Column="1" TopLine="505"/>
       </Position21>
       <Position22>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="522" Column="1" TopLine="505"/>
+        <Caret Line="491" Column="6" TopLine="482"/>
       </Position22>
       <Position23>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="491" Column="6" TopLine="482"/>
+        <Caret Line="486" Column="1" TopLine="480"/>
       </Position23>
       <Position24>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="486" Column="1" TopLine="480"/>
+        <Caret Line="488" Column="1" TopLine="480"/>
       </Position24>
       <Position25>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="488" Column="1" TopLine="480"/>
+        <Caret Line="489" Column="1" TopLine="480"/>
       </Position25>
       <Position26>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="489" Column="1" TopLine="480"/>
+        <Caret Line="490" Column="1" TopLine="480"/>
       </Position26>
       <Position27>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="490" Column="1" TopLine="480"/>
+        <Caret Line="491" Column="1" TopLine="480"/>
       </Position27>
       <Position28>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="491" Column="1" TopLine="480"/>
+        <Caret Line="492" Column="1" TopLine="480"/>
       </Position28>
       <Position29>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="492" Column="1" TopLine="480"/>
+        <Caret Line="493" Column="1" TopLine="480"/>
       </Position29>
       <Position30>
-        <Filename Value="..\base_wiki\wikitohtml.pas"/>
-        <Caret Line="493" Column="1" TopLine="480"/>
+        <Filename Value="..\base\uwikiframe.pas"/>
+        <Caret Line="128" Column="24" TopLine="115"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -891,4 +891,4 @@
     </Exceptions>
   </Debugging>
   <EditorMacros Count="0"/>
-</CONFIG>
+</CONFIG>
