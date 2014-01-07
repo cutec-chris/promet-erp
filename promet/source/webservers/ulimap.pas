@@ -244,14 +244,14 @@ var
   aTag: String;
   aGUID: TGUID;
   aParam: String;
-  procedure Answer(aMsg : string;UseTag : Boolean = True);
+  procedure Answer(aMsg : string;UseTag : Boolean = True;DoLog : Boolean = True);
   begin
     if UseTag then
       FSendBuffer += aTag+' '+aMsg+CRLF
     else
       FSendBuffer += aMsg+CRLF;
     DoSendBuffer;
-    if Assigned(TLIMAPServer(Creator).OnLog) then
+    if Assigned(TLIMAPServer(Creator).OnLog) and DoLog then
       begin
         TLIMAPServer(Creator).OnLog(Self,True,copy(aMsg,0,100));
       end;
@@ -341,18 +341,15 @@ var
               begin
                 inc(aFCount);
                 Creator.CallAction;
-                Answer(aRes.Text,False);
+                if aRes.Count=1 then
+                  Answer(aRes[0],False,False)
+                else
+                  Answer(aRes.Text,False,False);
                 if FStopFetching then
                   begin
                     DontLog:=False;
                     exit;
                   end;
-                {if aRes.Count=0 then
-                  begin
-                    DontLog:=False;
-                    Answer('BAD Parameter not implemented.');
-                    exit;
-                  end;}
                 aRes := FGroup.FetchOneEntry(bParams);
               end;
             DontLog:=False;
@@ -560,9 +557,14 @@ begin
             end;
           if Assigned(FGroup) then
             begin
-              tmp := copy(aParams,pos('{',aParams)+1,length(aParams));
-              FPostLength := StrToIntDef(copy(tmp,0,pos('}',tmp)-1),0);
-              tmp := trim(copy(aParams,pos(' ',aParams)+1,length(aParams)));
+              if copy(aParams,0,1)='"' then
+                begin
+                  tmp := copy(aParams,2,length(aParams));
+                  tmp := copy(tmp,pos('"',tmp)+1,length(tmp));
+                end
+              else
+                tmp := copy(aParams,pos(' ',aParams)+1,length(tmp));
+              tmp := trim(tmp);
               if copy(tmp,0,1)='(' then
                 begin
                   FPostFlags := copy(tmp,2,pos(')',tmp)-2);
@@ -573,6 +575,8 @@ begin
                 tmp := copy(tmp,2,length(tmp)-2);
               FPostDateTime:=tmp;
               FPostMode := True;
+              tmp := copy(aParams,pos('{',aParams)+1,length(aParams));
+              FPostLength := StrToIntDef(copy(tmp,0,pos('}',tmp)-1),0);
               FPostMessage.Clear;
               DontLog := True;
               SendMessage('+ OK'+CRLF)

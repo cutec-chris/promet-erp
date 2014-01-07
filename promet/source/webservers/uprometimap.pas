@@ -362,6 +362,7 @@ var
   bFetch: String;
   aSize: String;
   tmpRecNo: String;
+  FAdded: Boolean;
 begin
   if FSelectCount=0 then
     if not SelectNext then
@@ -392,15 +393,25 @@ begin
             end;
           'FLAGS','(FLAGS)':
             begin
+              FAdded := False;
               tmp := tmp+'FLAGS (';
               if FMessages.FieldByName('READ').AsString='Y' then
-                tmp+='\Seen ';
+                begin
+                  tmp+='\Seen ';
+                  FAdded:=True;
+                end;
               if FMessages.FieldByName('ANSWERED').AsString='Y' then
-                tmp+='\Answered ';
+                begin
+                  tmp+='\Answered ';
+                  FAdded:=True;
+                end;
               if FMessages.FieldByName('TREEENTRY').AsVariant=TREE_ID_DELETED_MESSAGES then
-                tmp+='\Deleted '
-              else tmp +=' ';
-              tmp := copy(tmp,0,length(tmp)-2);
+                begin
+                  tmp+='\Deleted ';
+                  FAdded:=True;
+                end;
+              if FAdded then
+                tmp := copy(tmp,0,length(tmp)-2);
               tmp+=') ';
             end;
           'INTERNALDATE':

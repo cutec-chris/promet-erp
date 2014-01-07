@@ -138,7 +138,7 @@ begin
           else if Data.Tree.Id.AsVariant = TREE_ID_DELETED_MESSAGES then
             aGroup := TPIMAPFolder.Create('Trash',Data.Tree.Id.AsString)
           else if Data.Tree.Id.AsVariant = TREE_ID_SEND_MESSAGES then
-            aGroup := TPIMAPFolder.Create('Send',Data.Tree.Id.AsString)
+            aGroup := TPIMAPFolder.Create('Sent',Data.Tree.Id.AsString)
           else
             aGroup := TPIMAPFolder.Create(FieldByName('NAME').AsString,Data.Tree.Id.AsString);
           IMAPServer.Folders.Add(aGroup);
