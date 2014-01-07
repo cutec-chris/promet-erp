@@ -431,6 +431,7 @@ begin
   SyncDB.Open;
   while not SyncDB.DataSet.EOF do
     begin
+      FLog.Clear;
       if (HasOption('db') and (GetOptionValue('db')=SyncDB.DataSet.FieldByName('NAME').AsString)) or (not HasOption('db')) then
         begin
           aRec := SyncDb.GetBookmark;
