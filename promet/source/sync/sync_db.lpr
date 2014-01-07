@@ -331,7 +331,7 @@ begin
       while not aSyncOut.EOF do
         begin
           try
-            if not SyncRow(SyncDB,aSyncOut,SourceDM,DestDM,True) then RestoreTime:=True;
+            SyncRow(SyncDB,aSyncOut,SourceDM,DestDM,True);
           except
             //RestoreTime := True;
           end;
@@ -350,7 +350,7 @@ begin
       while not aSyncIn.EOF do
         begin
           try
-            if not SyncRow(SyncDB,aSyncIn,DestDM,SourceDM,False) then RestoreTime:=True;
+            SyncRow(SyncDB,aSyncIn,DestDM,SourceDM,False);
           except
             //RestoreTime:=True;
           end;
@@ -401,6 +401,7 @@ var
   LoggedIn: Boolean;
   aMessage: TMessage;
   aRec: db.LargeInt;
+  aSyncError: TSyncItems;
 begin
   FLog := TStringList.Create;
   FTables := TStringList.Create;
@@ -429,6 +430,9 @@ begin
   SyncDB := TSyncDB.Create(Self,Data);
   SyncDB.CreateTable;
   SyncDB.Open;
+  aSyncError := TSyncItems.Create(nil,SyncDB.DataModule);
+  aSyncError.CreateTable;
+  aSyncError.Free;
   while not SyncDB.DataSet.EOF do
     begin
       FLog.Clear;
