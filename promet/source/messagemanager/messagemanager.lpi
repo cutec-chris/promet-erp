@@ -30,31 +30,35 @@
         <CommandLineParams Value="--mandant=&quot;Stora&quot;"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="7">
+    <RequiredPackages Count="8">
       <Item1>
-        <PackageName Value="wiki2html_pkg"/>
-        <DefaultFilename Value="../base_wiki/wiki2html_pkg.lpk"/>
+        <PackageName Value="phelp"/>
+        <DefaultFilename Value="../base/phelp.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="pvisualforms"/>
-        <DefaultFilename Value="../base_forms/pvisualforms.lpk"/>
+        <PackageName Value="wiki2html_pkg"/>
+        <DefaultFilename Value="../base_wiki/wiki2html_pkg.lpk"/>
       </Item2>
       <Item3>
-        <PackageName Value="TurboPowerIPro"/>
+        <PackageName Value="pvisualforms"/>
+        <DefaultFilename Value="../base_forms/pvisualforms.lpk"/>
       </Item3>
       <Item4>
-        <PackageName Value="general"/>
-        <DefaultFilename Value="../../../general/general.lpk"/>
+        <PackageName Value="TurboPowerIPro"/>
       </Item4>
       <Item5>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="general"/>
+        <DefaultFilename Value="../../../general/general.lpk"/>
       </Item5>
       <Item6>
-        <PackageName Value="FCL"/>
+        <PackageName Value="richmemopackage"/>
       </Item6>
       <Item7>
-        <PackageName Value="LCL"/>
+        <PackageName Value="FCL"/>
       </Item7>
+      <Item8>
+        <PackageName Value="LCL"/>
+      </Item8>
     </RequiredPackages>
     <Units Count="5">
       <Unit0>

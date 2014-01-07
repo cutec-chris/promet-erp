@@ -1,5 +1,5 @@
 ﻿Build 301
-      -
+      - Grids:falsches Wordwrap zeichnen in Windows seit letzter revision behoben
 Build 300
       - gethreadetetes Aktualisieren von Baumansicht deaktiviert (Fehler wärenddessen können sonst nicht erkannt werden und führen zu sehr merkwürdig wirkenden Fehlern)
       - Bilder können nun auch in GTK2 weich transparent dargestellt werden
