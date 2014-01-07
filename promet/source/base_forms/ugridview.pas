@@ -934,6 +934,7 @@ var
   aFontStyle : TFontStyles;
   cRect: TRect;
   aNewHeight: Integer;
+  UpdatedARow: Boolean;
   procedure DrawExpandSign(MidX, MidY: integer; CollapseSign: boolean);
   const
     PlusMinusDetail: array[Boolean {Hot}, Boolean {Expanded}] of TThemedTreeview =
@@ -1101,8 +1102,10 @@ begin
       if Assigned(gList.Objects[0,aRow]) and TRowObject(gList.Objects[0,aRow]).RefreshHeight and (not gList.EditorMode) and gList.Canvas.HandleAllocated then
         begin
           gList.BeginUpdate;
+          UpdatedARow := False;
           for i := gList.TopRow to gList.TopRow+gList.VisibleRowCount-1 do
             begin
+              UpdatedARow := i=aRow;
               if Assigned(gList.Objects[0,i]) and TRowObject(gList.Objects[0,i]).RefreshHeight then
                 begin
                   TRowObject(gList.Objects[0,i]).Extends := GetRowHeight(i);
@@ -1112,6 +1115,15 @@ begin
                     end;
                   TRowObject(gList.Objects[0,i]).RefreshHeight := False;
                 end;
+            end;
+          if not UpdatedARow then
+            begin
+              TRowObject(gList.Objects[0,aRow]).Extends := GetRowHeight(i);
+              if TRowObject(gList.Objects[0,aRow]).Extends.Y <> RowHeights[i] then
+                begin
+                  RowHeights[i] := TRowObject(gList.Objects[0,aRow]).Extends.Y;
+                end;
+              TRowObject(gList.Objects[0,aRow]).RefreshHeight := False;
             end;
           gList.EndUpdate;
           Application.QueueAsyncCall(@DoInvalidate,0);
@@ -2564,7 +2576,8 @@ end;
 
 procedure TfGridView.DoInvalidate(Data: PtrInt);
 begin
-  gList.Invalidate;
+  if Assigned(Self) then
+    gList.Invalidate;
 end;
 
 procedure TfGridView.CleanList(AddRows: Integer);

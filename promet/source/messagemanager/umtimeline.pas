@@ -458,6 +458,7 @@ var
   aName : string = 'screenshot.jpg';
   aPageIndex: Integer;
 begin
+  {
   Application.ProcessMessages;
   fTimeLine.Hide;
   Application.ProcessMessages;
@@ -503,7 +504,7 @@ begin
     DataSet.DataSet.Edit;
   eWikiPage.SelText := '[[Bild:'+aName+']]';
   eWikiPage.SelStart:=eWikiPage.SelStart+length(eWikiPage.SelText);
-
+  }
   fTimeLine.Show;
 end;
 

@@ -491,12 +491,6 @@ begin
                                 begin
                                   (BaseApplication as IBaseApplication).Error(strLoginFailed);
                                   FAddLog := True;
-                                  with SyncDB.DataSet do
-                                    begin
-                                      Edit;
-                                      FieldByName('ACTIVE').AsString := 'N';
-                                      Post;
-                                    end;
                                 end;
                             end;
                         end;
@@ -567,4 +561,4 @@ begin
   Application.Run;
   Application.Free;
 end.
-
+
