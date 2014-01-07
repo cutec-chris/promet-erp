@@ -543,9 +543,13 @@ begin
         end
       else
         begin
-          tmp := copy(aParams,0,pos(' ',aParams)-1);
-          if copy(tmp,0,1)='"' then
-            tmp := copy(tmp,2,length(tmp)-2);
+          if copy(aParams,0,1)='"' then
+            begin
+              tmp := copy(aParams,2,length(aParams));
+              tmp := copy(tmp,0,pos('"',tmp)-1);
+            end
+          else
+            tmp := copy(aParams,0,pos(' ',aParams)-1);
           if Assigned(FGroup) then FGroup := nil;
           for i := 0 to TLIMAPServer(Creator).Folders.Count-1 do
             begin
