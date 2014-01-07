@@ -119,11 +119,12 @@ begin
   else
     begin
       Result := FMessages.GotoBookmark(StrToInt(Arg1));
-      if (not Result) and (Arg1='1') then
+      if (not Result) and (StrToIntDef(Arg2,9999)<9999) then
         begin
           FMessages.Last;
+          FMessages.DataSet.MoveBy(StrToIntDef(Arg2,0));
           if StrToIntDef(Arg2,9999)<9999 then
-            Max := StrToInt(Arg2);
+            Max := StrToIntDef(Arg2,0)-StrToIntDef(Arg1,0);
           Result := FMessages.Count>0;
         end;
     end;
@@ -303,12 +304,28 @@ begin
                                 '',
                                 nil,
                                 ACICON_MAILNEW);
+      Customers.History.Edit;
+      with Customers.History.DataSet as IBaseManageDB do
+        UpdateStdFields := False;
+      if FPostDateTime<>'' then
+        Customers.History.TimeStamp.AsDateTime:=aMessage.FieldByName('SENDDATE').AsDateTime;
+      with Customers.History.DataSet as IBaseManageDB do
+        UpdateStdFields := True;
+      Customers.History.Post;
       if Data.Users.DataSet.Locate('NAME',aUser,[loCaseInsensitive]) then
       Data.Users.History.AddItemWithoutUser(Customers.DataSet,Format(strActionMessageReceived,[aSubject]),
                                     'MESSAGEIDX@'+aMessage.FieldByName('ID').AsString+'{'+aSubject+'}',
                                     '',
                                     nil,
                                     ACICON_MAILNEW);
+      Data.Users.History.Edit;
+      with Data.Users.History.DataSet as IBaseManageDB do
+        UpdateStdFields := False;
+      if FPostDateTime<>'' then
+        Data.Users.History.TimeStamp.AsDateTime:=aMessage.FieldByName('SENDDATE').AsDateTime;
+      Data.Users.History.Post;
+      with Data.Users.History.DataSet as IBaseManageDB do
+        UpdateStdFields := True;
     end;
   aMsg.Free;
   aMessage.DataSet.Post;

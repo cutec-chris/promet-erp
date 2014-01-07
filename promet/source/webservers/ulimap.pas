@@ -546,7 +546,7 @@ begin
           tmp := copy(aParams,0,pos(' ',aParams)-1);
           if copy(tmp,0,1)='"' then
             tmp := copy(tmp,2,length(tmp)-2);
-          if Assigned(FGroup) then FreeAndNil(FGroup);
+          if Assigned(FGroup) then FGroup := nil;
           for i := 0 to TLIMAPServer(Creator).Folders.Count-1 do
             begin
               if TLIMAPServer(Creator).Folders.Folder[i].Name = tmp then
