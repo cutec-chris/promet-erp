@@ -24,7 +24,7 @@ unit htmltowiki;
 interface
 
 uses
-  Classes, SysUtils,Utils;
+  Classes, SysUtils,Utils,LConvEncoding;
 
 function HTML2WikiText(input: string;RemoveLinkOffset : string = ''): string;
 function StripHTML(input : string) : string;
@@ -292,7 +292,8 @@ begin
           aOut := copy(aOut,2,length(aOut));
         end;
     end;
-  Result:=HTMLDecode(StringReplace(bOut,'&nbsp;','',[rfReplaceAll]));
+  Result := HTMLDecode(bOut);
+  Result:=ConvertEncoding(Result,GuessEncoding(Result),EncodingUTF8);
 end;
 
 end.

@@ -55,6 +55,7 @@ type
     acAddUser: TAction;
     acAddImage: TAction;
     acAddScreenshot: TAction;
+    acRights: TAction;
     acViewThread: TAction;
     ActionList1: TActionList;
     bSend: TBitBtn;
@@ -76,6 +77,7 @@ type
     Panel2: TPanel;
     PopupMenu1: TPopupMenu;
     pSearch: TPanel;
+    sbAddScreenshot1: TSpeedButton;
     SelectDirectoryDialog1: TSelectDirectoryDialog;
     sbAddFile: TSpeedButton;
     sbAddScreenshot: TSpeedButton;
@@ -143,6 +145,7 @@ type
     FoldAutoFilterU : Boolean;
     FOldAutoFilterT : Boolean;
     FOldLimitT: Integer;
+    function GetUsersFromString(var tmp : string) : TStringList;
     procedure MarkAsRead;
   public
     { public declarations }
@@ -534,15 +537,7 @@ begin
     begin
       Found := False;
       tmp := copy(tmp,2,length(tmp));
-      aUsers := TStringList.Create;
-      while (pos(',',tmp) > 0) and (pos(',',tmp) < pos(' ',tmp)) do
-        begin
-          aUsers.Add(copy(tmp,0,pos(',',tmp)-1));
-          tmp := copy(tmp,pos(',',tmp)+1,length(tmp));
-        end;
-      if pos(' ',tmp)>1 then
-        aUsers.Add(copy(tmp,0,pos(' ',tmp)-1));
-      tmp := copy(tmp,pos(' ',tmp)+1,length(tmp));
+      aUsers := GetUsersFromString(tmp);
       aUser := TUser.Create(nil,Data);
       for i := 0 to aUsers.Count-1 do
         begin
@@ -1000,7 +995,7 @@ begin
     begin
       pInput.Height := 0;
       pInput.Visible:=True;
-      aController.AnimateControlHeight(57);
+      aController.AnimateControlHeight(110);
       mEntry.SetFocus;
     end
   else
@@ -1033,6 +1028,19 @@ begin
   Screen.Cursor:=crDefault;
 end;
 
+function TfmTimeline.GetUsersFromString(var tmp: string): TStringList;
+begin
+  Result := TStringList.Create;
+  while (pos(',',tmp) > 0) and (pos(',',tmp) < pos(' ',tmp)) do
+    begin
+      Result.Add(copy(tmp,0,pos(',',tmp)-1));
+      tmp := copy(tmp,pos(',',tmp)+1,length(tmp));
+    end;
+  if pos(' ',tmp)>1 then
+    result.Add(copy(tmp,0,pos(' ',tmp)-1));
+  tmp := copy(tmp,pos(' ',tmp)+1,length(tmp));
+end;
+
 procedure TfmTimeline.MarkAsRead;
 var
   i: Integer;
@@ -1048,8 +1056,7 @@ begin
   for i := 0 to fTimeline.dgFake.Columns.Count-1 do
     if fTimeline.dgFake.Columns[i].FieldName='ACTION' then
       begin
-        fTimeline.gList.Objects[i+1,fTimeline.gList.Row].Free;
-        fTimeline.gList.Objects[i+1,fTimeline.gList.Row]:=nil;
+        TMGridObject(fTimeline.gList.Objects[i+1,fTimeline.gList.Row]).Bold:=False;
       end;
   fTimeline.gList.Invalidate;
 end;

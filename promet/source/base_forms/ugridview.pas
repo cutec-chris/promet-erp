@@ -2004,7 +2004,7 @@ begin
                     r := gList.CellRect(i+1,aRow);
                     r.Right:=r.Left+TextWidth;
                     DrawText(gList.Canvas.Handle,
-                      PChar(aText),
+                      PChar(UTF8ToSys(aText)),
                       Length(aText),
                       r,
                       DT_LEFT or DT_WORDBREAK or DT_CALCRECT);
