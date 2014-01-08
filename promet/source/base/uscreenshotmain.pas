@@ -6,15 +6,17 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  LCLType, ExtDlgs;
+  LCLType, ExtDlgs, StdCtrls;
 
 type
 
   { TfScreenshot }
 
   TfScreenshot = class(TForm)
+    Label1: TLabel;
     Scr: TImage;
     SavePictureDialog1: TSavePictureDialog;
+    Timer1: TTimer;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -24,6 +26,7 @@ type
     procedure ScrMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure ScrMouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure Timer1Timer(Sender: TObject);
   private
     FSaveTo: string;
     { private declarations }
@@ -146,6 +149,11 @@ begin
   FSelecting := False;
 end;
 
+procedure TfScreenshot.Timer1Timer(Sender: TObject);
+begin
+  Label1.Visible:=not Label1.Visible;
+end;
+
 procedure TfScreenshot.SetSaveTo(AValue: string);
 begin
   if FSaveTo=AValue then Exit;
@@ -153,4 +161,4 @@ begin
 end;
 
 end.
-
+

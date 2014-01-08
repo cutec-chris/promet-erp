@@ -22,7 +22,6 @@ type
     lbFollow: TListBox;
     procedure bDeleteClick(Sender: TObject);
     procedure bNewClick(Sender: TObject);
-    procedure ButtonPanel1Click(Sender: TObject);
     procedure CancelButtonClick(Sender: TObject);
     procedure eFilterChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -53,11 +52,6 @@ begin
   fSearch.SetLanguage;
   fSearch.OnOpenItem:=@fSearchOpenItem;
   fSearch.Execute(False,'FOLLOWERS','');
-end;
-
-procedure TfFollow.ButtonPanel1Click(Sender: TObject);
-begin
-
 end;
 
 procedure TfFollow.CancelButtonClick(Sender: TObject);
@@ -103,11 +97,19 @@ begin
 end;
 
 function TfFollow.fSearchOpenItem(aLink: string): Boolean;
+var
+  aLinks: String;
 begin
   lbFollow.Items.Add(fSearch.GetLink);
-  Data.Users.Follows.Insert;
-  Data.Users.Follows.FieldByName('LINK').AsString:=fSearch.GetLink;
-  Data.Users.Follows.DataSet.Post;
+  aLinks := fSearch.GetLink(true);
+  while pos(';',aLinks)>0 do
+    begin
+      aLink := copy(aLinks,0,pos(';',aLinks)-1);
+      aLinks := copy(aLinks,pos(';',aLinks)+1,length(aLinks));
+      Data.Users.Follows.Insert;
+      Data.Users.Follows.FieldByName('LINK').AsString:=aLink;
+      Data.Users.Follows.DataSet.Post;
+    end;
 end;
 
 procedure TfFollow.IdleTimer1Timer(Sender: TObject);

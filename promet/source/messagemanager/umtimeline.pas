@@ -37,6 +37,7 @@ type
     Bold : Boolean;
     Text : string;
     HasAttachment : Boolean;
+    IsThreaded : Boolean;
     Image : TBitmap;
     constructor Create;
     destructor Destroy; override;
@@ -145,6 +146,7 @@ type
     FoldAutoFilterU : Boolean;
     FOldAutoFilterT : Boolean;
     FOldLimitT: Integer;
+    FUserHist : TUser;
     function GetUsersFromString(var tmp : string) : TStringList;
     procedure MarkAsRead;
   public
@@ -353,6 +355,8 @@ begin
               TStringGrid(Sender).Canvas.FillRect(aRect);
               TStringGrid(Sender).Canvas.Brush.Style:=bsClear;
               bRect := aRect;
+              if TMGridObject(aObj).IsThreaded then
+                fVisualControls.Images.Draw(TStringGrid(Sender).Canvas,aRect.Left-16,aRect.Top+16,112);
               if TMGridObject(aObj).HasAttachment then
                 begin
                   fVisualControls.Images.Draw(TStringGrid(Sender).Canvas,aRect.Left-16,aRect.Top,70);
@@ -372,9 +376,9 @@ begin
               if TMGridObject(aObj).Bold then
                 TStringGrid(Sender).Canvas.Font.Style := [fsBold];
               if fTimeline.WordWrap then
-                TStringGrid(Sender).Canvas.TextRect(bRect,aRect.Left+3,bRect.Top,aText,aTextStyleW)
+                TStringGrid(Sender).Canvas.TextRect(bRect,aRect.Left+3,bRect.Top,UTF8ToSys(aText),aTextStyleW)
               else
-                TStringGrid(Sender).Canvas.TextRect(bRect,aRect.Left+3,bRect.Top,aText,aTextStyle);
+                TStringGrid(Sender).Canvas.TextRect(bRect,aRect.Left+3,bRect.Top,UTF8ToSys(aText),aTextStyle);
               bRect := aRect;
               TStringGrid(Sender).Canvas.Font.Color:=clGray;
               brect.Bottom := aRect.Top+Canvas.TextExtent('A').cy;
@@ -460,13 +464,46 @@ var
   aDocPage: TTabSheet;
   aName : string = 'screenshot.jpg';
   aPageIndex: Integer;
+  aUsers: TStringList;
+  tmp: TCaption;
+  i: Integer;
+  Found: Boolean = False;
+  aId : Variant;
 begin
-  {
+  tmp := mEntry.Text;
+  aUsers := GetUsersFromString(tmp);
+  FUserHist := TUser.Create(nil,Data);
+  for i := 0 to aUsers.Count-1 do
+    begin
+      Data.SetFilter(FUserHist,Data.QuoteField('IDCODE')+'='+Data.QuoteValue(aUsers[i]));
+      if FUserHist.Count=0 then
+        begin
+          Data.SetFilter(FUserHist,'',0);
+          if not FUserHist.DataSet.Locate('IDCODE',aUsers[i],[loCaseInsensitive]) then
+            FUserHist.DataSet.Close;
+        end;
+      if FUserHist.Count>0 then
+        begin
+          Found := True;
+          FUserHist.History.AddParentedItem(FUserHist.DataSet,tmp,FParentItem,'',Data.Users.FieldByName('IDCODE').AsString,nil,ACICON_USEREDITED,'',True,True);
+        end;
+    end;
+  if not Found then
+    begin
+      FUserHist.Select(Data.Users.Id.AsVariant);
+      FUserHist.Open;
+      FUserHist.History.AddItem(Data.Users.DataSet,mEntry.Lines.Text,'','',nil,ACICON_USEREDITED,'',True,True);
+    end;
+  if FUserHist.History.CanEdit then
+    FUserHist.History.Post;
+  aUsers.Free;
+  aId := FUserHist.History.Id.AsVariant;
   Application.ProcessMessages;
-  fTimeLine.Hide;
+  Self.Hide;
   Application.ProcessMessages;
-  aName := InputBox(strScreenshotName, strEnterAnName, aName);
+  //aName := InputBox(strScreenshotName, strEnterAnName, aName);
   Application.ProcessMessages;
+  acSend.Enabled:=False;
   Application.CreateForm(TfScreenshot,fScreenshot);
   fScreenshot.SaveTo:=AppendPathDelim(GetTempDir)+aName;
   fScreenshot.Show;
@@ -474,41 +511,13 @@ begin
   fScreenshot.Destroy;
   fScreenshot := nil;
   aDocument := TDocument.Create(Self,Data);
-  aDocument.Select(DataSet.Id.AsVariant ,'W',DataSet.FieldByName('NAME').AsString,Null,Null);
+  aDocument.Select(aId,'H',0);
   aDocument.AddFromFile(AppendPathDelim(GetTempDir)+aName);
   aDocument.Free;
-  aDocuments := TDocuments.Create(Self,Data);
-  aDocuments.CreateTable;
-  aDocuments.Select(DataSet.Id.AsVariant ,'W',DataSet.FieldByName('NAME').AsString,Null,Null);
-  aDocuments.Open;
-  if aDocuments.Count = 0 then
-    aDocuments.Free
-  else
-    begin
-      aDocPage := pcPages.GetTab(TfDocumentFrame);
-      if Assigned(aDocPage) then
-        begin
-          aDocFrame := TfDocumentFrame(aDocPage.Controls[0]);
-          aDocFrame.DataSet := aDocuments;
-        end
-      else
-        begin
-          aDocFrame := TfDocumentFrame.Create(Self);
-          aDocFrame.DataSet := aDocuments;
-          aPageIndex := pcPages.AddTab(aDocFrame,False);
-          pcPages.Visible:=False;
-          tsEdit.PageIndex:=1;
-          pcPages.ActivePage := tsView;
-          pcPages.Visible:=True;
-        end;
-    end;
-  if (DataSet.DataSet.State <> dsEdit)
-  and (DataSet.DataSet.State <> dsInsert) then
-    DataSet.DataSet.Edit;
-  eWikiPage.SelText := '[[Bild:'+aName+']]';
-  eWikiPage.SelStart:=eWikiPage.SelStart+length(eWikiPage.SelText);
-  }
-  fTimeLine.Show;
+  mEntry.SelText := '[[Bild:'+aName+']]';
+  mEntry.SelStart:=mEntry.SelStart+length(mEntry.SelText);
+  Self.Show;
+  acSend.Enabled:=True;
 end;
 
 procedure TfmTimeline.acDetailViewExecute(Sender: TObject);
@@ -552,7 +561,17 @@ begin
             begin
               Found := True;
               if not AddTask then
-                aUser.History.AddParentedItem(aUser.DataSet,tmp,FParentItem,'',Data.Users.FieldByName('IDCODE').AsString,nil,ACICON_USEREDITED,'',True,True)
+                begin
+                  if Assigned(FUserHist) then
+                    begin
+                      FUserHist.History.Edit;
+                      FUserHist.History.FieldByName('ACTION').AsString:=tmp;
+                      FUserHist.History.Post;
+                      FreeAndNil(FUserHist);
+                    end
+                  else
+                    aUser.History.AddParentedItem(aUser.DataSet,tmp,FParentItem,'',Data.Users.FieldByName('IDCODE').AsString,nil,ACICON_USEREDITED,'',True,True)
+                end
               else
                 begin
                   aTask := TTask.Create(nil,Data);
@@ -568,7 +587,15 @@ begin
     end
   else
     begin
-      Data.Users.History.AddItem(Data.Users.DataSet,mEntry.Lines.Text,'','',nil,ACICON_USEREDITED,'',True,True);
+      if Assigned(FUserHist) then
+        begin
+          FUserHist.History.Edit;
+          FUserHist.History.FieldByName('ACTION').AsString:=tmp;
+          FUserHist.History.Post;
+          FreeAndNil(FUserHist);
+        end
+      else
+        Data.Users.History.AddItem(Data.Users.DataSet,mEntry.Lines.Text,'','',nil,ACICON_USEREDITED,'',True,True);
       Found := True;
     end;
   fTimeline.Refresh;
@@ -677,6 +704,7 @@ begin
                       aDocument.ActualLimit:=1;
                       aDocument.Open;
                       TMGridObject(aObj).HasAttachment := aDocument.Count>0;
+                      TMGridObject(aObj).IsThreaded:=not fTimeline.dgFake.DataSource.DataSet.FieldByName('PARENT').IsNull;
                       if aDocument.Count>0 then
                         begin
                           TMGridObject(aObj).Image := GetThumbnailBitmap(aDocument);
@@ -990,6 +1018,7 @@ var
   aController: TAnimationController;
 begin
   FParentItem:=Null;
+  FreeAndNil(FUserHist);
   aController := TAnimationController.Create(pInput);
   if ToolButton2.Down then
     begin

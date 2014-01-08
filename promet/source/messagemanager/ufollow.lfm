@@ -19,7 +19,6 @@ object fFollow: TfFollow
     ScrollWidth = 294
     Style = lbOwnerDrawFixed
     TabOrder = 0
-    TopIndex = -1
   end
   object ButtonPanel1: TButtonPanel
     Left = 316
@@ -39,11 +38,10 @@ object fFollow: TfFollow
     CancelButton.DefaultCaption = True
     CancelButton.OnClick = CancelButtonClick
     TabOrder = 1
-    OnClick = ButtonPanel1Click
     ShowButtons = [pbOK, pbCancel]
     object bNew: TBitBtn
       Left = 6
-      Height = 28
+      Height = 26
       Top = 6
       Width = 81
       Align = alTop
@@ -92,8 +90,8 @@ object fFollow: TfFollow
     end
     object bDelete: TBitBtn
       Left = 6
-      Height = 28
-      Top = 40
+      Height = 26
+      Top = 38
       Width = 81
       Align = alTop
       Anchors = [akTop, akRight]
@@ -142,7 +140,7 @@ object fFollow: TfFollow
   end
   object eFilter: TEdit
     Left = 48
-    Height = 24
+    Height = 21
     Top = 8
     Width = 256
     OnChange = eFilterChange
@@ -150,9 +148,9 @@ object fFollow: TfFollow
   end
   object Label1: TLabel
     Left = 8
-    Height = 14
+    Height = 13
     Top = 11
-    Width = 29
+    Width = 24
     Caption = 'Filter'
     ParentColor = False
   end
