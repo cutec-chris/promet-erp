@@ -411,7 +411,7 @@ begin
                   FAdded:=True;
                 end;
               if FAdded then
-                tmp := copy(tmp,0,length(tmp)-2);
+                tmp := copy(tmp,0,length(tmp)-1);
               tmp+=') ';
             end;
           'INTERNALDATE':
