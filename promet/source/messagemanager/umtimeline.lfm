@@ -594,6 +594,11 @@ object fmTimeline: TfmTimeline
       Caption = 'acRights'
       ImageIndex = 100
     end
+    object acDelete: TAction
+      Caption = 'löschen'
+      ImageIndex = 60
+      OnExecute = acDeleteExecute
+    end
   end
   object SelectDirectoryDialog1: TSelectDirectoryDialog
     left = 392
@@ -627,6 +632,9 @@ object fmTimeline: TfmTimeline
     end
     object MenuItem1: TMenuItem
       Action = acAnswer
+    end
+    object MenuItem5: TMenuItem
+      Action = acDelete
     end
   end
 end

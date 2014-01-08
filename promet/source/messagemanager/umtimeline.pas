@@ -57,6 +57,7 @@ type
     acAddImage: TAction;
     acAddScreenshot: TAction;
     acRights: TAction;
+    acDelete: TAction;
     acViewThread: TAction;
     ActionList1: TActionList;
     bSend: TBitBtn;
@@ -98,6 +99,7 @@ type
     tsHistory: TTabSheet;
     procedure acAddScreenshotExecute(Sender: TObject);
     procedure acAnswerExecute(Sender: TObject);
+    procedure acDeleteExecute(Sender: TObject);
     procedure acDetailViewExecute(Sender: TObject);
     procedure acFollowExecute(Sender: TObject);
     procedure acMarkAllasReadExecute(Sender: TObject);
@@ -216,6 +218,7 @@ begin
       fTimeline.Show;
       Show;
       BoundsRect := aBoundsRect;
+      acDelete.Visible:=Data.Users.Rights.Right('HISTORY')>=RIGHT_DELETE;
     end;
   if fmTimeline.WindowState=wsMinimized then
     fmTimeline.WindowState:=wsNormal;
@@ -454,6 +457,14 @@ begin
         end;
       FParentItem := fTimeline.DataSet.Id.AsVariant;
       MarkAsRead;
+    end;
+end;
+
+procedure TfmTimeline.acDeleteExecute(Sender: TObject);
+begin
+  if fTimeline.GotoActiveRow then
+    begin
+      fTimeline.Delete;
     end;
 end;
 

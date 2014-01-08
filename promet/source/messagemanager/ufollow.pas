@@ -100,7 +100,6 @@ function TfFollow.fSearchOpenItem(aLink: string): Boolean;
 var
   aLinks: String;
 begin
-  lbFollow.Items.Add(fSearch.GetLink);
   aLinks := fSearch.GetLink(true);
   while pos(';',aLinks)>0 do
     begin
@@ -109,6 +108,7 @@ begin
       Data.Users.Follows.Insert;
       Data.Users.Follows.FieldByName('LINK').AsString:=aLink;
       Data.Users.Follows.DataSet.Post;
+      lbFollow.Items.Add(aLink);
     end;
 end;
 
