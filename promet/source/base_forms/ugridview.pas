@@ -2053,9 +2053,11 @@ begin
     begin
       with FDataSet.DataSet as IBaseDBFilter do
         aFilter := Filter;
+      {
       if aFirstFilter = '' then
         aFirstFilter := aFilter
       else aFilter := aFirstFilter;
+      }
       if pos(') AND ('+FbaseFilter+')',aFilter) > 0 then
         begin
           System.Delete(aFilter,pos(') AND ('+FbaseFilter+')',aFilter),length(aFilter));

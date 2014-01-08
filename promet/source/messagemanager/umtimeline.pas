@@ -408,6 +408,9 @@ procedure TfmTimeline.acFollowExecute(Sender: TObject);
 begin
   if fFollow.Execute then
     begin
+      tbUser.Down:=False;
+      tbThread.Down:=False;
+      tbRootEntrys.Down:=False;
       fMain.RefreshFilter2;
       Data.SetFilter(fTimeline.DataSet,fMain.Filter+' '+fMain.Filter2,300);
       acRefresh.Execute;
@@ -951,10 +954,12 @@ begin
       fTimeline.SortField:='TIMESTAMPD';
       fTimeline.SortDirection:=sdAscending;
       fTimeline.DataSet.ActualLimit:=0;
+      fTimeline.DataSet.ActualFilter:='';
       fTimeline.BaseFilter:='('+Data.QuoteField('ROOT')+'='+Data.QuoteValue(FRoot)+') OR ('+Data.QuoteField('PARENT')+'='+Data.QuoteValue(FRoot)+') OR ('+Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(FRoot)+')';
     end
   else
     begin
+      fTimeline.DataSet.ActualFilter:=fMain.Filter+' '+fMain.Filter2;
       fTimeline.ApplyAutoFilter:=FOldAutoFilterT;
       fTimeline.SortField := FOldSortT;
       fTimeline.SortDirection := FOldSortDT;
