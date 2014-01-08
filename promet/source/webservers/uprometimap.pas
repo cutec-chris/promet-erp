@@ -118,7 +118,7 @@ begin
     end
   else
     begin
-      Result := FMessages.GotoBookmark(StrToInt(Arg1));
+      Result := FMessages.GotoBookmark(StrToIntDef(Arg1,0));
       if (not Result) and (StrToIntDef(Arg2,9999)<9999) then
         begin
           FMessages.Last;
@@ -642,7 +642,9 @@ var
   tmpRecNo: String;
   function CheckParams(sParams : string) : Boolean;
   begin
-    Result := True;
+    Result := (pos('HEADER',aParams)=0)
+          and (pos('BODY',aParams)=0)
+             ;
   end;
 
 begin
