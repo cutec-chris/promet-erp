@@ -484,7 +484,7 @@ var
   Found: Boolean = False;
   aId : Variant;
 begin
-  tmp := mEntry.Text;
+  tmp := mEntry.Lines.Text;
   aUsers := GetUsersFromString(tmp);
   FUserHist := TUser.Create(nil,Data);
   for i := 0 to aUsers.Count-1 do
@@ -1047,6 +1047,12 @@ begin
     begin
       aController.AnimateControlHeight(0);
       pSearch.Visible:=False;
+      if Assigned(FUserHist) then
+        begin
+          FUserHist.History.Delete;
+          FreeAndNil(FUserHist);
+        end;
+      mEntry.Lines.Clear;
     end;
   aController.Free;
 end;
