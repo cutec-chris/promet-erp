@@ -25,12 +25,14 @@ object fmTimeline: TfmTimeline
     TabOrder = 0
     object ToolButton1: TToolButton
       Left = 42
+      Hint = 'aktualisiert die Ansicht'
       Top = 2
       Action = acRefresh
     end
     object ToolButton2: TSpeedButton
       Left = 1
       Height = 30
+      Hint = 'eine Nachricht,Screenshot oder Datei senden,'#10'oder eine Notiz erstellen'
       Top = 2
       Width = 31
       Align = alLeft
@@ -77,6 +79,7 @@ object fmTimeline: TfmTimeline
     end
     object ToolButton3: TToolButton
       Left = 72
+      Hint = 'Mit dieser Funktion können Sie Elementen folgen.'#10'Sie abonieren damit den Verlauf des Elements in Ihre Nachrichtenzentrale'#10'Wenn Sie den Elementen nicht mehr folgen, sind auch die Verlaufseinträge in '#10'ihrer Nachrichtenzentrale nicht mehr sichtbar.'
       Top = 2
       Action = acFollow
     end
@@ -181,7 +184,7 @@ object fmTimeline: TfmTimeline
     object tbUser: TSpeedButton
       Left = 174
       Height = 30
-      Hint = 'nur aktuellen Thread anzeigen'#10'zeigt den aktuellen Thread isoliert an'
+      Hint = 'nur aktuellen Benutzer anzeigen'#10'zeigt alle Beiträge dieses Benutzers'
       Top = 2
       Width = 31
       AllowAllUp = True
@@ -268,7 +271,7 @@ object fmTimeline: TfmTimeline
       Left = 29
       Height = 92
       Top = 9
-      Width = 458
+      Width = 476
       Align = alClient
       BorderSpacing.Left = 20
       BorderSpacing.Around = 8
@@ -278,10 +281,10 @@ object fmTimeline: TfmTimeline
       WantReturns = False
     end
     object bSend: TBitBtn
-      Left = 495
+      Left = 513
       Height = 92
       Top = 9
-      Width = 46
+      Width = 28
       Action = acSend
       Align = alRight
       AutoSize = True
@@ -374,6 +377,7 @@ object fmTimeline: TfmTimeline
     object sbAddScreenshot: TSpeedButton
       Left = 1
       Height = 25
+      Hint = 'ein Bildschirmfoto (Screenshot) einfügen'#10'gibt Ihnen die Möglichkeit einen Bereich des Bildschirms'#10'auszuwählen und direkt an die Nachricht anzuhängen'
       Top = 51
       Width = 25
       Action = acAddScreenshot
@@ -462,6 +466,7 @@ object fmTimeline: TfmTimeline
     object sbAddScreenshot1: TSpeedButton
       Left = 1
       Height = 25
+      Hint = 'Rechte für den Beitrag setzen.'#10'legt fest wer oder welche Gruppe(n) dem Beitrag folgen dürfen/sehen dürfen'
       Top = 76
       Width = 25
       Action = acRights
@@ -536,6 +541,7 @@ object fmTimeline: TfmTimeline
       ScrollWidth = 342
       TabOrder = 0
       TabStop = False
+      TopIndex = -1
     end
   end
   object ActionList1: TActionList
@@ -637,4 +643,4 @@ object fmTimeline: TfmTimeline
       Action = acDelete
     end
   end
-end
+end
