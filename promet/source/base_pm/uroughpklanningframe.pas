@@ -816,11 +816,11 @@ begin
                   if aUsers.DataSet.Locate('ACCOUNTNO',aDept.FieldByName('USER').AsString,[]) then
                     begin
                       if (aUsers.FieldByName('PARENT').IsNull) or (aUsers.FieldByName('TYPE').AsString='G') then
-                        aSubInt.AddTime(aUsers.FieldByName('ACCOUNTNO').AsString,aUsers.FieldByName('NAME').AsString,aUsers.FieldByName('IDCODE').AsString,aDept.FieldByName('TIME').AsFloat)
+                        aSubInt.AddTime(aUsers.FieldByName('ACCOUNTNO').AsString,aUsers.FieldByName('NAME').AsString,aUsers.IDCode.AsString,aDept.FieldByName('TIME').AsFloat)
                       else
                         begin
                           aUsers.DataSet.Locate('SQL_ID',aUsers.FieldByName('PARENT').AsString,[]);
-                          aSubInt.AddTime(aUsers.FieldByName('ACCOUNTNO').AsString,aUsers.FieldByName('NAME').AsString,aUsers.FieldByName('IDCODE').AsString,aDept.FieldByName('TIME').AsFloat);
+                          aSubInt.AddTime(aUsers.FieldByName('ACCOUNTNO').AsString,aUsers.FieldByName('NAME').AsString,aUsers.IDCode.AsString,aDept.FieldByName('TIME').AsFloat);
                         end;
                     end;
                   aDept.Next;

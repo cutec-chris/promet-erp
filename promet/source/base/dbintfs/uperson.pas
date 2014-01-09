@@ -546,8 +546,8 @@ begin
       FieldByName('DISCOUNT').AsFloat   := 0;
       FieldByName('TREEENTRY').AsVariant := TREE_ID_CUSTOMER_UNSORTED;
       FieldByName('CRDATE').AsDateTime  := Date;
-      FieldByName('CREATEDBY').AsString := Data.Users.FieldByName('IDCODE').AsString;
-      FieldByName('CHANGEDBY').AsString := Data.Users.FieldByName('IDCODE').AsString;
+      FieldByName('CREATEDBY').AsString := Data.Users.IDCode.AsString;
+      FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
       if Data.Currency.DataSet.Active and Data.Currency.DataSet.Locate('DEFAULTCUR', 'Y', []) then
         FieldByName('CURRENCY').AsString := Data.Currency.FieldByName('SYMBOL').AsString;
       if Data.Languages.DataSet.Active and Data.Languages.DataSet.Locate('DEFAULTLNG', 'Y', []) then
@@ -692,4 +692,4 @@ begin
     end;
 end;
 initialization
-end.
+end.

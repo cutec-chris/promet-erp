@@ -511,10 +511,8 @@ begin
       if not Data.Vat.DataSet.Active then
         Data.Vat.Open;
       FieldByName('VAT').AsString     := Data.Vat.FieldByName('ID').AsString;
-      FieldByName('CREATEDBY').AsString :=
-        Data.Users.FieldByName('IDCODE').AsString;
-      FieldByName('CHANGEDBY').AsString :=
-        Data.Users.FieldByName('IDCODE').AsString;
+      FieldByName('CREATEDBY').AsString := Data.Users.IDCode.AsString;
+      FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
     end;
 end;
 procedure TMasterdata.CascadicPost;

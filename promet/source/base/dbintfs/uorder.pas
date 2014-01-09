@@ -524,7 +524,7 @@ begin
       FieldByName('GROSSPRICE').AsFloat := 0;
       FieldByName('DONE').AsString    := 'N';
       FieldByName('DELIVERED').AsString := 'N';
-      FieldByName('CREATEDBY').AsString := Data.Users.FieldByName('IDCODE').AsString;
+      FieldByName('CREATEDBY').AsString := Data.Users.IDCode.AsString;
     end;
 end;
 procedure TOrder.Select(aID : string);

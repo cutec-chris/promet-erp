@@ -191,7 +191,7 @@ begin
       if DataSet.FieldByName('LINK').AsString='' then
         begin
           DataSet.Prior;
-          if FDataSet.DataSet.BOF and (FDataSet.FieldByName('CHANGEDBY').AsString = Data.Users.DataSet.FieldByName('IDCODE').AsString) then
+          if FDataSet.DataSet.BOF and (FDataSet.FieldByName('CHANGEDBY').AsString = Data.Users.DataSet.IDCode.AsString) then
             begin
               if fHistoryAddItem.Execute(FDataSet) then
                 begin

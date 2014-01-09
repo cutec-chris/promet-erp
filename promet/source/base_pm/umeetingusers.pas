@@ -69,7 +69,7 @@ begin
   if aUsers.Count>0 then
     begin
       DataSet.DataSet.FieldByName('USER_ID').AsVariant:=aUsers.Id.AsVariant;
-      DataSet.DataSet.FieldByName('IDCODE').AsString:=aUsers.FieldByName('IDCODE').AsString;
+      DataSet.DataSet.FieldByName('IDCODE').AsString:=aUsers.IDCode.AsString;
     end;
   aUsers.Free;
   DataSet.DataSet.Post;
@@ -100,7 +100,7 @@ begin
           if aUsers.Count>0 then
             begin
               DataSet.DataSet.FieldByName('USER_ID').AsVariant:=aUsers.Id.AsVariant;
-              DataSet.DataSet.FieldByName('IDCODE').AsString:=aUsers.FieldByName('IDCODE').AsString;
+              DataSet.DataSet.FieldByName('IDCODE').AsString:=aUsers.IDCode.AsString;
             end;
           aUsers.Free;
           Post;
@@ -199,4 +199,4 @@ begin
 end;
 
 end.
-
+

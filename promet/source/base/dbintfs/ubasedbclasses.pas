@@ -95,6 +95,7 @@ type
     procedure Prior;virtual;
     procedure Post;virtual;
     procedure Edit;virtual;
+    procedure Cancel;virtual;
     function EOF : Boolean;
     function FieldByName(aFieldName : string) : TField;
     procedure Assign(Source: TPersistent); override;
@@ -195,6 +196,7 @@ type
     FOptions: TOptions;
     FRights: TRights;
     FHistory: TBaseHistory;
+    function GetIDCode: TField;
     function GetLeaved: TField;
     function GetPasswort: TField;
     function GetSalt: TField;
@@ -229,6 +231,7 @@ type
     function GetLeaderAccountno : string;
     property History : TBaseHistory read FHistory;
     property WorkTime : Extended read GetWorktime;
+    property IDCode : TField read GetIDCode;
   end;
   TActiveUsers = class(TBaseDBDataSet)
   public
@@ -648,7 +651,7 @@ begin
       FieldByName('LINK').AsString := aLink;
       FieldByName('NAME').AsString := aLinkDesc;
       FieldByName('ICON').AsInteger := aIcon;
-      FieldByName('CHANGEDBY').AsString := Data.Users.FieldByName('IDCODE').AsString;
+      FieldByName('CHANGEDBY').AsString := Data.Users.Idcode.AsString;
       Post;
     end;
 end;
@@ -1077,6 +1080,12 @@ begin
     DataSet.Edit;
 end;
 
+procedure TBaseDBDataset.Cancel;
+begin
+  if Assigned(FDataSet) and (FDataSet.Active) then
+    FDataSet.Cancel;
+end;
+
 function TBaseDBDataset.EOF: Boolean;
 begin
   Result := True;
@@ -1234,8 +1243,8 @@ begin
           and (aIcon<>ACICON_USEREDITED)
           and (FieldByName('LINK').AsString = aLink)
           and (trunc(FieldByName('TIMESTAMPD').AsDatetime) = trunc(Now()))
-          and (FieldByName('CHANGEDBY').AsString = Data.Users.FieldByName('IDCODE').AsString)
-          and (FieldByName('REFERENCE').AsString = aReference)
+          and (FieldByName('CHANGEDBY').AsString = Data.Users.Idcode.AsString)
+          and ((FieldByName('REFERENCE').AsString = aReference) or (FieldByName('REFERENCE').AsString=Data.Users.IDCode.Asstring))
           and (CheckDouble)
           then
             Delete;
@@ -1254,7 +1263,7 @@ begin
             FieldByName('REFOBJECT').AsString := Data.BuildLink(aRefObject);
         end;
       with BaseApplication as IBaseDbInterface do
-        FieldByName('CHANGEDBY').AsString := Data.Users.FieldByName('IDCODE').AsString;
+        FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
       DataSet.FieldByName('COMMISSION').AsString := aComission;
       if DoPost then
         Post;
@@ -1804,6 +1813,12 @@ function TUser.GetLeaved: TField;
 begin
   Result := DataSet.FieldByName('LEAVED');
 end;
+
+function TUser.GetIDCode: TField;
+begin
+  Result := FieldByName('IDCODE');
+end;
+
 function TUser.GetPasswort: TField;
 begin
   Result := DataSet.FieldByName('PASSWORD');
@@ -2519,4 +2534,4 @@ begin
 end;
 initialization
 end.
-
+

@@ -133,7 +133,7 @@ begin
               FieldByName('LINK').AsString := aLink;
               FieldByName('NAME').AsString := aLinkDesc;
               FieldByName('ICON').AsInteger := aIcon;
-              FieldByName('CHANGEDBY').AsString := Data.Users.FieldByName('IDCODE').AsString;
+              FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
               Post;
             end;
         end;
@@ -159,7 +159,7 @@ begin
           FieldByName('LINK').AsString := aLink;
           FieldByName('NAME').AsString := aLinkDesc;
           FieldByName('ICON').AsInteger := aIcon;
-          FieldByName('CHANGEDBY').AsString := Data.Users.FieldByName('IDCODE').AsString;
+          FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
           Post;
           if addToLinked then
             begin
@@ -186,7 +186,7 @@ begin
                   FieldByName('LINK').AsString := bLink;
                   FieldByName('NAME').AsString := aLinkDesc;
                   FieldByName('ICON').AsInteger := aIcon;
-                  FieldByName('CHANGEDBY').AsString := Data.Users.FieldByName('IDCODE').AsString;
+                  FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
                   Post;
                   aDS.Free;
                   DataSet.DataSet.Refresh;
@@ -259,7 +259,7 @@ begin
           FieldByName('LINK').AsString := aLink;
           FieldByName('NAME').AsString := aLinkDesc;
           FieldByName('ICON').AsInteger := aIcon;
-          FieldByName('CHANGEDBY').AsString := Data.Users.FieldByName('IDCODE').AsString;
+          FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
           Post;
         end;
     end;
@@ -278,7 +278,7 @@ begin
               FieldByName('LINK').AsString := aLink;
               FieldByName('NAME').AsString := aLinkDesc;
               FieldByName('ICON').AsInteger := aIcon;
-              FieldByName('CHANGEDBY').AsString := Data.Users.FieldByName('IDCODE').AsString;
+              FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
               Post;
             end;
         end;

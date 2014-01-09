@@ -428,8 +428,8 @@ begin
       if Data.Numbers.HasNumberSet('PROJECTS') then
         if FieldByName('ID').IsNull then
           FieldByName('ID').AsString := Data.Numbers.GetNewNumber('PROJECTS');
-      FieldByName('CREATEDBY').AsString := Data.Users.FieldByName('IDCODE').AsString;
-      FieldByName('CHANGEDBY').AsString := Data.Users.FieldByName('IDCODE').AsString;
+      FieldByName('CREATEDBY').AsString := Data.Users.IDCode.AsString;
+      FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
     end;
 end;
 

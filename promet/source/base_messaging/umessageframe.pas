@@ -301,7 +301,7 @@ begin
               FieldByName('ACTION').AsString := strActionMessageReceived;
               FieldByName('ACTIONICON').AsInteger := ACICON_MAILNEW;
               FieldByName('REFERENCE').AsString := FList.DataSet.FieldByName('SUBJECT').AsString;
-              FieldByName('CHANGEDBY').AsString := Data.Users.FieldByName('IDCODE').AsString;
+              FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
               Post;
             end;
           FList.DataSet.DataSet.Edit;

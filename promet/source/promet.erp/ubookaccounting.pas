@@ -101,7 +101,7 @@ begin
                       aOrder.Links.FieldByName('LINK').AsString := AccountingLink;
                       aOrder.Links.FieldByName('NAME').AsString := Data.GetLinkDesc(AccountingLink);
                       aOrder.Links.FieldByName('ICON').AsInteger := Data.GetLinkIcon(AccountingLink);
-                      aOrder.Links.FieldByName('CHANGEDBY').AsString := Data.Users.FieldByName('IDCODE').AsString;
+                      aOrder.Links.FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
                       aOrder.Links.DataSet.Post;
                       with AccountExchange.Dataset do
                         begin

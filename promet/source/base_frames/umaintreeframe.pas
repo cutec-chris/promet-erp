@@ -1064,7 +1064,7 @@ begin
                                 aLinks.FieldByName('NAME').AsString := Data.GetLinkDesc(aLink);
                                 aLinks.FieldByName('LINK').AsString := aLink;
                                 aLinks.FieldByName('ICON').AsInteger := Data.GetLinkIcon(aLink);
-                                aLinks.FieldByName('CHANGEDBY').AsString := Data.Users.FieldByName('IDCODE').AsString;
+                                aLinks.FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
                                 aLinks.DataSet.Post;
                                 aLinks.Free;
                               end;
@@ -1208,7 +1208,7 @@ begin
                         aLinks.FieldByName('NAME').AsString := Data.GetLinkDesc(aLink);
                         aLinks.FieldByName('LINK').AsString := aLink;
                         aLinks.FieldByName('ICON').AsInteger := Data.GetLinkIcon(aLink);
-                        aLinks.FieldByName('CHANGEDBY').AsString := Data.Users.FieldByName('IDCODE').AsString;
+                        aLinks.FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
                         aLinks.DataSet.Post;
                         aLinks.Free;
                         tvMain.GetNodeAt(X,Y).Collapse(True);
@@ -1264,7 +1264,7 @@ begin
                   aLinks.FieldByName('NAME').AsString := Data.GetLinkDesc(aLink);
                   aLinks.FieldByName('LINK').AsString := aLink;
                   aLinks.FieldByName('ICON').AsInteger := Data.GetLinkIcon(aLink);
-                  aLinks.FieldByName('CHANGEDBY').AsString := Data.Users.FieldByName('IDCODE').AsString;
+                  aLinks.FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
                   aLinks.DataSet.Post;
                   aLinks.Free;
                   tvMain.GetNodeAt(X,Y).Collapse(True);
@@ -1335,7 +1335,7 @@ begin
                   aLinks.FieldByName('NAME').AsString := Data.GetLinkDesc(aLink);
                   aLinks.FieldByName('LINK').AsString := aLink;
                   aLinks.FieldByName('ICON').AsInteger := Data.GetLinkIcon(aLink);
-                  aLinks.FieldByName('CHANGEDBY').AsString := Data.Users.FieldByName('IDCODE').AsString;
+                  aLinks.FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
                   aLinks.DataSet.Post;
                   aLinks.Free;
                   tvMain.GetNodeAt(X,Y).Collapse(True);

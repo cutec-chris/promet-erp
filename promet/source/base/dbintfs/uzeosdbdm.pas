@@ -650,9 +650,9 @@ begin
         if Data.Users.DataSet.Active then
           begin
             if (FieldDefs.IndexOf('CREATEDBY') > -1) and (FieldByName('CREATEDBY').IsNull) then
-              FieldByName('CREATEDBY').AsString:=Data.Users.FieldByName('IDCODE').AsString;
+              FieldByName('CREATEDBY').AsString:=Data.Users.IDCode.AsString;
             if FUpChangedBy and (FieldDefs.IndexOf('CHANGEDBY') > -1) then
-              FieldByName('CHANGEDBY').AsString:=Data.Users.FieldByName('IDCODE').AsString;
+              FieldByName('CHANGEDBY').AsString:=Data.Users.IDCode.AsString;
           end;
     end;
   if Assigned(DataSource) and (FieldDefs.IndexOf('REF_ID')>-1) and  Assigned(FieldByName('REF_ID')) and FieldbyName('REF_ID').IsNull then

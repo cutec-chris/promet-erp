@@ -409,7 +409,7 @@ begin
               aLinks.FieldByName('LINK').AsString := aLink;
               aLinks.FieldByName('ICON').AsInteger := IMAGE_WEBSITE;
               aLinks.FieldByName('REFERENCE').AsString := 'BROWSERIMPORT';
-              aLinks.FieldByName('CHANGEDBY').AsString := Data.Users.FieldByName('IDCODE').AsString;
+              aLinks.FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
               aLinks.DataSet.Post;
             end
           else break;

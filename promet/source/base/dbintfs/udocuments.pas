@@ -513,7 +513,7 @@ begin
             FieldByName('REF_ID_ID').AsVariant  := aID;
           FieldByName('PARENT').AsVariant  := aParent;
           with BaseApplication as IBaseDbInterface do
-            FieldByName('CHANGEDBY').AsString := Data.Users.FieldByName('IDCODE').AsString;
+            FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
           FieldByName('TYPE').AsVariant := aType;
           if DataSet.FieldDefs.IndexOf('ID') > -1 then
             begin
@@ -555,7 +555,7 @@ begin
         FieldByName('REF_ID_ID').AsVariant  := FRefID;
       FieldByName('PARENT').AsVariant  := FParentID;
       if Data.Users.DataSet.Active then
-      FieldByName('CHANGEDBY').AsString := Data.Users.FieldByName('IDCODE').AsString;
+      FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
       FieldByName('TYPE').AsVariant := BaseTyp;
       if DataSet.FieldDefs.IndexOf('ID') > -1 then
         begin
@@ -1264,7 +1264,7 @@ begin
       FieldByName('SIZE').AsInteger:=aStream.Size;
       FieldByName('DATE').AsFloat := Now();
       with BaseApplication as IBaseDbInterface do
-        FieldByName('CHANGEDBY').AsString := Data.Users.FieldByName('IDCODE').AsString;
+        FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
       FieldByName('TIMESTAMPD').AsDateTime := Now();
       if FieldDefs.IndexOf('TIMESTAMPT') <> -1 then
         FieldByName('TIMESTAMPT').AsFloat := Frac(Now());
@@ -1577,7 +1577,7 @@ var
                     FieldByName('SIZE').AsInteger:=FileSize(aDir);
                     FieldByName('DATE').AsFloat := Now();
                     with BaseApplication as IBaseDbInterface do
-                      FieldByName('CHANGEDBY').AsString := Data.Users.FieldByName('IDCODE').AsString;
+                      FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
                     FieldByName('TIMESTAMPD').AsDateTime := Now();
                     if FieldDefs.IndexOf('TIMESTAMPT') <> -1 then
                       FieldByName('TIMESTAMPT').AsFloat := Frac(Now());

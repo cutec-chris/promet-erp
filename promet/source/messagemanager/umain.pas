@@ -243,7 +243,7 @@ begin
           tmp := '';
           while not FHistory.DataSet.EOF do
             begin
-              if FHistory.FieldByName('CHANGEDBY').AsString <> Data.Users.FieldByName('IDCODE').AsString then
+              if FHistory.FieldByName('CHANGEDBY').AsString <> Data.Users.IDCode.AsString then
                 begin
                   tmp:=tmp+StripWikiText(FHistory.FieldByName('ACTION').AsString)+' - '+FHistory.FieldByName('REFERENCE').AsString+lineending;
                 end;
@@ -535,7 +535,7 @@ begin
   end;
   if aUser <> '' then
     begin
-      FFilter := '('+Data.QuoteField('REF_ID')+'='+Data.QuoteValue(Data.Users.Id.AsString)+') OR ('+Data.QuoteField('REFERENCE')+'='+Data.QuoteValue(Data.Users.FieldByName('IDCODE').AsString)+')';
+      FFilter := '('+Data.QuoteField('REF_ID')+'='+Data.QuoteValue(Data.Users.Id.AsString)+') OR ('+Data.QuoteField('REFERENCE')+'='+Data.QuoteValue(Data.Users.IDCode.AsString)+')';
       RefreshFilter2;
     end;
   ProgTimer.Enabled:=True;

@@ -801,7 +801,7 @@ begin
               FieldByName('ACTIONICON').AsInteger := ACICON_DOCUMENTADDED;
               FieldByName('ACTION').AsString := strDocumentadded;
               FieldByName('REFERENCE').AsString := fDocumentAddOptions.eName.text;
-              FieldByName('CHANGEDBY').AsString := Data.Users.FieldByName('IDCODE').AsString;
+              FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
               Post;
             end;
         end;
@@ -1727,4 +1727,4 @@ begin
 end;
 
 end.
-
+

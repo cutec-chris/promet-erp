@@ -79,7 +79,8 @@ inherited fMessageFrame: TfMessageFrame
             Caption = 'Nachricht'
             Font.Color = clMedGray
             Font.Height = 11
-            Font.Orientation = -900
+            Font.Orientation = 900
+            Layout = tlBottom
             ParentColor = False
             ParentFont = False
           end
@@ -210,7 +211,8 @@ inherited fMessageFrame: TfMessageFrame
             Caption = 'Kontakt'
             Font.Color = clMedGray
             Font.Height = 11
-            Font.Orientation = -900
+            Font.Orientation = 900
+            Layout = tlBottom
             ParentColor = False
             ParentFont = False
           end
@@ -293,7 +295,8 @@ inherited fMessageFrame: TfMessageFrame
             Caption = 'Zusätzlich'
             Font.Color = clMedGray
             Font.Height = 11
-            Font.Orientation = -900
+            Font.Orientation = 900
+            Layout = tlBottom
             ParentColor = False
             ParentFont = False
           end

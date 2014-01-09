@@ -440,8 +440,9 @@ begin
   Application.ProcessMessages;
   if fTimeline.GotoActiveRow then
     begin
-      if (fTimeline.DataSet.FieldByName('LINK').AsString <> '')
-      and (fTimeline.DataSet.FieldByName('ACTIONICON').AsString <> '8')
+      if ((fTimeline.DataSet.FieldByName('LINK').AsString <> '')
+      and (fTimeline.DataSet.FieldByName('ACTIONICON').AsString <> '8'))
+      and (Sender = nil)
       then
         begin
           if not ProcessExists('prometerp'+ExtractFileExt(Application.ExeName)) then
@@ -450,9 +451,11 @@ begin
             end;
           SendIPCMessage('OpenLink('+fTimeline.DataSet.FieldByName('LINK').AsString+')');
         end
-      else if fTimeline.DataSet.FieldByName('REFERENCE').AsString <> '' then
+      else
         begin
           tmp := fTimeline.DataSet.FieldByName('REFERENCE').AsString;
+          if trim(tmp)='' then
+            tmp := fTimeline.DataSet.FieldByName('CHANGEDBY').AsString;
           mEntry.Lines.Text:='@'+tmp+' ';
           mEntry.SelStart:=length(mEntry.Lines.Text);
           ToolButton2.Down:=True;
@@ -499,7 +502,7 @@ begin
       if FUserHist.Count>0 then
         begin
           Found := True;
-          FUserHist.History.AddParentedItem(FUserHist.DataSet,tmp,FParentItem,'',Data.Users.FieldByName('IDCODE').AsString,nil,ACICON_USEREDITED,'',True,True);
+          FUserHist.History.AddParentedItem(FUserHist.DataSet,tmp,FParentItem,'',Data.Users.IDCode.AsString,nil,ACICON_USEREDITED,'',True,True);
         end;
     end;
   if not Found then
@@ -584,7 +587,7 @@ begin
                       FreeAndNil(FUserHist);
                     end
                   else
-                    aUser.History.AddParentedItem(aUser.DataSet,tmp,FParentItem,'',Data.Users.FieldByName('IDCODE').AsString,nil,ACICON_USEREDITED,'',True,True)
+                    aUser.History.AddParentedItem(aUser.DataSet,tmp,FParentItem,'',Data.Users.IDCode.AsString,nil,ACICON_USEREDITED,'',True,True)
                 end
               else
                 begin
@@ -772,7 +775,7 @@ end;
 
 procedure TfmTimeline.fTimelinegListDblClick(Sender: TObject);
 begin
-  acAnswer.Execute;
+  acAnswerExecute(nil);
 end;
 
 procedure TfmTimeline.fTimelinegListKeyDown(Sender: TObject; var Key: Word;
@@ -815,7 +818,7 @@ begin
     aText := copy(aText,0,rpos(',',aText))
   else if pos('@',atext)>0 then
     aText := copy(aText,0,pos('@',aText));
-  atext := atext+aUser.FieldByName('IDCODE').AsString;
+  atext := atext+aUser.IDCode.AsString;
   mEntry.Text:=aText;
   mEntry.SelStart:=length(atext);
   pSearch.Visible:=False;
