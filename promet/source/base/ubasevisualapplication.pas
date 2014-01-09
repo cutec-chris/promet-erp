@@ -128,7 +128,7 @@ var
   LinkClipboardFormat : TClipboardFormat;
 implementation
 uses uPassword,uMashineID,uError,ComCtrls,StdCtrls,ExtCtrls,
-  DBCtrls, uPrometFrames,uPrometFramesInplaceDB, LMessages, LCLIntf,
+  DBCtrls, LMessages, LCLIntf,
   LazLogger,Buttons;
 resourcestring
   strWrongPasswort            = 'Falsches Passwort !';
@@ -744,7 +744,7 @@ begin
               aParent := TWinControl(Sender);
               FProps := TStringList.Create;
               FFields := TStringList.Create;
-              while (not (aParent is TPrometMainFrame)) and Assigned(aParent) do
+              while (not (aParent is TExtControlFrame)) and Assigned(aParent) do
                 aParent := aParent.Parent;
               try
                 if Stream.Size>0 then

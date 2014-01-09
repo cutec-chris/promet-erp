@@ -175,7 +175,7 @@
       </Item38>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="9">
+    <RequiredPkgs Count="5">
       <Item1>
         <PackageName Value="dexif_package"/>
         <DefaultFilename Value="..\..\components\dexif\dexif_package.lpk"/>
@@ -196,22 +196,6 @@
         <PackageName Value="wiki2html_pkg"/>
         <DefaultFilename Value="..\wiki2html_pkg.lpk"/>
       </Item5>
-      <Item6>
-        <PackageName Value="zdbc"/>
-        <DefaultFilename Value="..\..\components\zeos\packages\lazarus\zdbc.lpk"/>
-      </Item6>
-      <Item7>
-        <PackageName Value="general_nogui"/>
-        <DefaultFilename Value="..\..\..\..\general\general_nogui.lpk"/>
-      </Item7>
-      <Item8>
-        <PackageName Value="zcore"/>
-        <DefaultFilename Value="..\..\components\zeos\packages\lazarus\zcore.lpk"/>
-      </Item8>
-      <Item9>
-        <PackageName Value="FCL"/>
-        <MinVersion Major="1" Valid="True"/>
-      </Item9>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

@@ -15,7 +15,7 @@
       </Other>
     </CompilerOptions>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="7">
+    <RequiredPkgs Count="6">
       <Item1>
         <PackageName Value="general"/>
       </Item1>
@@ -35,9 +35,6 @@
         <PackageName Value="zcomponent"/>
         <DefaultFilename Value="zeos/packages/lazarus/zcomponent.lpk"/>
       </Item6>
-      <Item7>
-        <PackageName Value="FCL"/>
-      </Item7>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

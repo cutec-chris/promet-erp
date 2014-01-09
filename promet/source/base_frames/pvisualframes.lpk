@@ -99,14 +99,18 @@
       </Item20>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="2">
+    <RequiredPkgs Count="3">
       <Item1>
-        <PackageName Value="pvisualforms"/>
-        <DefaultFilename Value="..\base_forms\pvisualforms.lpk"/>
+        <PackageName Value="phelp"/>
+        <DefaultFilename Value="..\base_help\phelp.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="FCL"/>
+        <PackageName Value="pvisualforms"/>
+        <DefaultFilename Value="..\base_forms\pvisualforms.lpk"/>
       </Item2>
+      <Item3>
+        <PackageName Value="FCL"/>
+      </Item3>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Package Version="4">
     <Name Value="pImportExport"/>
@@ -63,7 +63,7 @@
       </Item12>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="4">
+    <RequiredPkgs Count="2">
       <Item1>
         <PackageName Value="laz_fpspreadsheet"/>
         <DefaultFilename Value="../components/fpspreadsheet/laz_fpspreadsheet.lpk" Prefer="True"/>
@@ -71,13 +71,6 @@
       <Item2>
         <PackageName Value="general_nogui"/>
       </Item2>
-      <Item3>
-        <PackageName Value="lcl"/>
-      </Item3>
-      <Item4>
-        <PackageName Value="FCL"/>
-        <MinVersion Major="1" Valid="True"/>
-      </Item4>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

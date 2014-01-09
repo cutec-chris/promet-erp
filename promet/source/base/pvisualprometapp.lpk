@@ -14,7 +14,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="17">
+    <Files Count="11">
       <Item1>
         <Filename Value="ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
@@ -48,44 +48,20 @@
         <Type Value="LRS"/>
       </Item8>
       <Item9>
-        <Filename Value="uprometframes.pas"/>
-        <UnitName Value="uPrometFrames"/>
-      </Item9>
-      <Item10>
-        <Filename Value="uprometframes.lfm"/>
-        <Type Value="LFM"/>
-      </Item10>
-      <Item11>
-        <Filename Value="uprometframesinplacedb.lfm"/>
-        <Type Value="LFM"/>
-      </Item11>
-      <Item12>
-        <Filename Value="uprometframesinplacedb.pas"/>
-        <UnitName Value="uPrometFramesInplaceDB"/>
-      </Item12>
-      <Item13>
-        <Filename Value="uprometframesinplace.lfm"/>
-        <Type Value="LFM"/>
-      </Item13>
-      <Item14>
-        <Filename Value="uprometframesinplace.pas"/>
-        <UnitName Value="uprometframesinplace"/>
-      </Item14>
-      <Item15>
         <Filename Value="version.inc"/>
         <Type Value="Include"/>
-      </Item15>
-      <Item16>
+      </Item9>
+      <Item10>
         <Filename Value="revision.inc"/>
         <Type Value="Include"/>
-      </Item16>
-      <Item17>
+      </Item10>
+      <Item11>
         <Filename Value="changes.txt"/>
         <Type Value="Text"/>
-      </Item17>
+      </Item11>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="14">
+    <RequiredPkgs Count="10">
       <Item1>
         <PackageName Value="v103_lazarus"/>
         <DefaultFilename Value="..\components\tvplanit\packages\v103_lazarus.lpk"/>
@@ -95,49 +71,36 @@
         <DefaultFilename Value="..\components\ZVDateTimeCtrls\zvdatetimectrls.lpk"/>
       </Item2>
       <Item3>
-        <PackageName Value="SynEdit"/>
-      </Item3>
-      <Item4>
         <PackageName Value="pImportExport"/>
         <DefaultFilename Value="..\import\pimportexport.lpk"/>
-      </Item4>
-      <Item5>
+      </Item3>
+      <Item4>
         <PackageName Value="laz_twain"/>
         <DefaultFilename Value="..\components\scanning\laz_twain.lpk"/>
-      </Item5>
-      <Item6>
+      </Item4>
+      <Item5>
         <PackageName Value="pack_powerpdf"/>
         <DefaultFilename Value="..\components\powerpdf\pack_powerpdf.lpk"/>
-      </Item6>
-      <Item7>
+      </Item5>
+      <Item6>
         <PackageName Value="sanetools"/>
         <DefaultFilename Value="..\components\scanning\sanetools.lpk"/>
-      </Item7>
-      <Item8>
-        <PackageName Value="LCLBase"/>
-      </Item8>
-      <Item9>
+      </Item6>
+      <Item7>
         <PackageName Value="richmemopackage"/>
         <DefaultFilename Value="..\components\richmemo\richmemopackage.lpk"/>
-      </Item9>
-      <Item10>
+      </Item7>
+      <Item8>
         <PackageName Value="lazreport"/>
-      </Item10>
-      <Item11>
+      </Item8>
+      <Item9>
         <PackageName Value="pPrometDBIntfs"/>
         <DefaultFilename Value="dbintfs\pprometdbintfs.lpk"/>
-      </Item11>
-      <Item12>
+      </Item9>
+      <Item10>
         <PackageName Value="general"/>
         <DefaultFilename Value="..\..\..\general\general.lpk"/>
-      </Item12>
-      <Item13>
-        <PackageName Value="lcl"/>
-      </Item13>
-      <Item14>
-        <PackageName Value="FCL"/>
-        <MinVersion Major="1" Valid="True"/>
-      </Item14>
+      </Item10>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

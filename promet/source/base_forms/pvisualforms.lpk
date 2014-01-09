@@ -14,7 +14,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="25">
+    <Files Count="27">
       <Item1>
         <Filename Value="uselectreport.lfm"/>
         <Type Value="LFM"/>
@@ -115,9 +115,17 @@
         <Filename Value="ugridview.pas"/>
         <UnitName Value="ugridview"/>
       </Item25>
+      <Item26>
+        <Filename Value="uscreenshotmain.lfm"/>
+        <Type Value="LFM"/>
+      </Item26>
+      <Item27>
+        <Filename Value="uscreenshotmain.pas"/>
+        <UnitName Value="uscreenshotmain"/>
+      </Item27>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="13">
+    <RequiredPkgs Count="5">
       <Item1>
         <PackageName Value="pVisualPrometApp"/>
         <DefaultFilename Value="../base/pvisualprometapp.lpk"/>
@@ -135,32 +143,6 @@
       <Item5>
         <PackageName Value="lazreportpdfexport"/>
       </Item5>
-      <Item6>
-        <PackageName Value="pImportExport"/>
-        <DefaultFilename Value="../import/pimportexport.lpk"/>
-      </Item6>
-      <Item7>
-        <PackageName Value="ZVDateTimeCtrls"/>
-      </Item7>
-      <Item8>
-        <PackageName Value="lazreport"/>
-      </Item8>
-      <Item9>
-        <PackageName Value="SynEdit"/>
-      </Item9>
-      <Item10>
-        <PackageName Value="pPrometDBIntfs"/>
-        <DefaultFilename Value="../base/dbintfs/pprometdbintfs.lpk"/>
-      </Item10>
-      <Item11>
-        <PackageName Value="general"/>
-      </Item11>
-      <Item12>
-        <PackageName Value="LCL"/>
-      </Item12>
-      <Item13>
-        <PackageName Value="FCL"/>
-      </Item13>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

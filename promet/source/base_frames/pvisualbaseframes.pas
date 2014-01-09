@@ -2,13 +2,13 @@
   This source is only used to compile and install the package.
  }
 
-unit pVisualPrometApp;
+unit pvisualbaseframes;
 
 interface
 
 uses
-  uBaseVisualApplication, ubasevisualapplicationtools, uBaseVisualControls, 
-  uFormAnimate, uPassword, LazarusPackageIntf;
+  uPrometFrames, uprometframesinplace, uPrometFramesInplaceDB, 
+  uQuickHelpFrame, uImageCache, LazarusPackageIntf;
 
 implementation
 
@@ -17,5 +17,5 @@ begin
 end;
 
 initialization
-  RegisterPackage('pVisualPrometApp', @Register);
+  RegisterPackage('pvisualbaseframes', @Register);
 end.

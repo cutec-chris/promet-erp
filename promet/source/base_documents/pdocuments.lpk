@@ -135,12 +135,11 @@
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="5">
       <Item1>
-        <PackageName Value="pOptions"/>
-        <DefaultFilename Value="../base/poptions.lpk"/>
+        <PackageName Value="pvisualbaseframes"/>
       </Item1>
       <Item2>
-        <PackageName Value="pvisualforms"/>
-        <DefaultFilename Value="../base_forms/pvisualforms.lpk"/>
+        <PackageName Value="pOptions"/>
+        <DefaultFilename Value="../base/poptions.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="pOCR"/>

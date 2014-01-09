@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="4">
+    <PathDelim Value="\"/>
+    <Name Value="pvisualbaseframes"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <PathDelim Value="\"/>
+      <SearchPaths>
+        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+      <Other>
+        <CompilerMessages>
+          <MsgFileName Value=""/>
+        </CompilerMessages>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
+    </CompilerOptions>
+    <Files Count="10">
+      <Item1>
+        <Filename Value="uprometframes.lfm"/>
+        <Type Value="LFM"/>
+      </Item1>
+      <Item2>
+        <Filename Value="uprometframes.lrs"/>
+        <Type Value="LRS"/>
+      </Item2>
+      <Item3>
+        <Filename Value="uprometframes.pas"/>
+        <UnitName Value="uPrometFrames"/>
+      </Item3>
+      <Item4>
+        <Filename Value="uprometframesinplace.lfm"/>
+        <Type Value="LFM"/>
+      </Item4>
+      <Item5>
+        <Filename Value="uprometframesinplace.pas"/>
+        <UnitName Value="uprometframesinplace"/>
+      </Item5>
+      <Item6>
+        <Filename Value="uprometframesinplacedb.lfm"/>
+        <Type Value="LFM"/>
+      </Item6>
+      <Item7>
+        <Filename Value="uprometframesinplacedb.pas"/>
+        <UnitName Value="uPrometFramesInplaceDB"/>
+      </Item7>
+      <Item8>
+        <Filename Value="uquickhelpframe.lfm"/>
+        <Type Value="LFM"/>
+      </Item8>
+      <Item9>
+        <Filename Value="uquickhelpframe.pas"/>
+        <UnitName Value="uQuickHelpFrame"/>
+      </Item9>
+      <Item10>
+        <Filename Value="uimagecache.pas"/>
+        <UnitName Value="uImageCache"/>
+      </Item10>
+    </Files>
+    <Type Value="RunAndDesignTime"/>
+    <RequiredPkgs Count="3">
+      <Item1>
+        <PackageName Value="general"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="pPrometDBIntfs"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="LCL"/>
+      </Item3>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

@@ -11,7 +11,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="9">
+    <Files Count="6">
       <Item1>
         <Filename Value="uwikiframe.lfm"/>
         <Type Value="LFM"/>
@@ -33,49 +33,30 @@
         <UnitName Value="uHelpContainer"/>
       </Item5>
       <Item6>
-        <Filename Value="uimagecache.pas"/>
-        <UnitName Value="uImageCache"/>
-      </Item6>
-      <Item7>
-        <Filename Value="uscreenshotmain.lfm"/>
-        <Type Value="LFM"/>
-      </Item7>
-      <Item8>
-        <Filename Value="uscreenshotmain.pas"/>
-        <UnitName Value="uscreenshotmain"/>
-      </Item8>
-      <Item9>
         <Filename Value="uwikimessage.pas"/>
-        <UnitName Value="uwikimessage"/>
-      </Item9>
+        <UnitName Value="uWikiMessage"/>
+      </Item6>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="7">
+    <RequiredPkgs Count="5">
       <Item1>
         <PackageName Value="pDocuments"/>
         <DefaultFilename Value="../base_documents/pdocuments.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="FCL"/>
+        <PackageName Value="pvisualforms"/>
       </Item2>
       <Item3>
-        <PackageName Value="LCL"/>
+        <PackageName Value="pvisualbaseframes"/>
+        <DefaultFilename Value="../base_frames/pvisualbaseframes.lpk"/>
       </Item3>
       <Item4>
         <PackageName Value="TurboPowerIPro"/>
       </Item4>
       <Item5>
-        <PackageName Value="general"/>
-        <DefaultFilename Value="../../../general/general.lpk"/>
-      </Item5>
-      <Item6>
         <PackageName Value="wiki2html_pkg"/>
         <DefaultFilename Value="../base_wiki/wiki2html_pkg.lpk"/>
-      </Item6>
-      <Item7>
-        <PackageName Value="pVisualPrometApp"/>
-        <DefaultFilename Value="pvisualprometapp.lpk"/>
-      </Item7>
+      </Item5>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

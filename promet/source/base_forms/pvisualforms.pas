@@ -8,7 +8,7 @@ interface
 
 uses
   uSelectReport, uLogWait, uSendMail, uSearch, uEditText, uwait, uNRights, 
-  uTimeLine, uRowEditor, ugridview, LazarusPackageIntf;
+  uTimeLine, uRowEditor, ugridview, uscreenshotmain, LazarusPackageIntf;
 
 implementation
 
