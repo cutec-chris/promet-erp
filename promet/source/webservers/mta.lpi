@@ -57,6 +57,7 @@
       </Item5>
       <Item6>
         <PackageName Value="pcmdprometapp"/>
+        <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
       </Item6>
     </RequiredPackages>
     <Units Count="116">
@@ -67,7 +68,7 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="562"/>
+        <TopLine Value="561"/>
         <CursorPos X="1" Y="579"/>
         <UsageCount Value="145"/>
         <Loaded Value="True"/>

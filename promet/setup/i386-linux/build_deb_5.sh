@@ -24,6 +24,7 @@ mkdir -p $BuildDir/usr/bin/
 mkdir -p $BuildDir/usr/lib/$Program
 echo "copy to builddir..."
 ./copy_to_builddir_web.sh $Archfpc $BuildDir/usr/lib/$Program
+cp promet-process.sh $BuildDir/etc/init.d/
 ln -s /usr/lib/$Program/web/imapserver $BuildDir/usr/bin/promet-erp-imap
 ln -s /usr/lib/$Program/web/local_appbase $BuildDir/usr/bin/promet-erp-appbase
 ln -s /usr/lib/$Program/web/mta $BuildDir/usr/bin/promet-erp-mta

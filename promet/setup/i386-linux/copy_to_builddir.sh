@@ -16,20 +16,6 @@ cp ../../output/$1-linux/cdmenue ../executables/$Version/$1
 mkdir ../executables/$Version/$1
 cp $2/prometerp ../executables/$Version/$1
 cp $2/wizardmandant ../executables/$Version/$1
-if [ ! -f $2/prometerp ];
-then
-    exit
-fi
-cp $2/pstarter ../executables/$Version/$1
-if [ ! -f $2/pstarter ];
-then
-    exit
-fi
-cp $2/tools/processmanager ../executables/$Version/$1
-if [ ! -f $2/tools/processmanager ];
-then
-    exit
-fi
 cp $2/helpviewer ../executables/$Version/$1
 cp $2/tools/*receiver ../executables/$Version/$1
 cp $2/tools/*sender ../executables/$Version/$1

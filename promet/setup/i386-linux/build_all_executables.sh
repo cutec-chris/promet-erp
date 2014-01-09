@@ -3,13 +3,13 @@ echo "compiling for $1..."
 #lazbuild --add-package ../../source/components/promet_components.lpk
 echo "compiling apps..."
 echo "compiling messagemanager..." >> scompile-$2.log
-lazbuild -q -B ../../source/messagemanager/messagemanager.lpi  >> scompile-$2.log
+lazbuild -q -B -r ../../source/messagemanager/messagemanager.lpi  >> scompile-$2.log
 echo "compiling promet..." >> scompile-$2.log
 lazbuild -q -B ../../source/promet.erp/prometerp.lpi > scompile-$2.log
 echo "compiling statistics..." >> scompile-$2.log
-lazbuild -q ../../source/statistics/statistics.lpi  >> scompile-$2.log
+lazbuild -q -B -r ../../source/statistics/statistics.lpi  >> scompile-$2.log
 echo "compiling wizardmandant..." >> scompile-$2.log
-lazbuild -q ../../source/tools/wizardmandant.lpi  >> scompile-$2.log
+lazbuild -q -B ../../source/tools/wizardmandant.lpi  >> scompile-$2.log
 echo "compiling import/exporters..."
 echo "compiling sync_db..." >> scompile-$2.log
 lazbuild -q ../../source/sync/sync_db.lpi  >> scompile-$2.log
@@ -27,7 +27,7 @@ lazbuild -q ../../source/tools/pstarter.lpi  >> scompile-$2.log
 echo "compiling cdmenue..."  >> scompile-$2.log
 lazbuild -q ../../source/tools/cdmenue.lpi  >> scompile-$2.log
 echo "compiling cmdwizardmandant..."  >> scompile-$2.log
-lazbuild -q ../../source/tools/cmdwizardmandant.lpi  >> scompile-$2.log
+lazbuild -q -B -r ../../source/tools/cmdwizardmandant.lpi  >> scompile-$2.log
 echo "compiling checkin/out..."  >> scompile-$2.log
 lazbuild -q ../../source/tools/checkin.lpi  >> scompile-$2.log
 lazbuild -q ../../source/tools/checkout.lpi  >> scompile-$2.log

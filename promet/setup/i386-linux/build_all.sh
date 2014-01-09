@@ -24,6 +24,21 @@ fi
 
 export PATH=$PATH:/home/chris/lazarus:/media/2DF0E8714D527894/lazarus
 ./build_all_executables.sh $Widgetset $Archfpc
+if [ ! -f $2/prometerp ];
+then
+    exit
+fi
+cp $2/pstarter ../executables/$Version/$1
+if [ ! -f $2/pstarter ];
+then
+    exit
+fi
+cp $2/tools/processmanager ../executables/$Version/$1
+if [ ! -f $2/tools/processmanager ];
+then
+    exit
+fi
+
 echo build_deb.sh $Widgetset $Program $Version $Arch $Archfpc $Date $BuildDir $TmpDir
 sh build_deb.sh $Widgetset $Program $Version $Arch $Archfpc $Date $BuildDir $TmpDir
 if [ ! -f ../../output/$Archfpc-linux/cdmenue ];

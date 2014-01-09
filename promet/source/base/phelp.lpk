@@ -1,11 +1,11 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Package Version="4">
     <Name Value="phelp"/>
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
-        <OtherUnitFiles Value="/media/Daten/Source/prometheus/source/tools"/>
+        <OtherUnitFiles Value="/media/Daten/Source/prometheus/source/tools/"/>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
       </SearchPaths>
       <Other>
@@ -67,6 +67,7 @@
       </Item4>
       <Item5>
         <PackageName Value="general"/>
+        <DefaultFilename Value="../../../general/general.lpk"/>
       </Item5>
       <Item6>
         <PackageName Value="wiki2html_pkg"/>

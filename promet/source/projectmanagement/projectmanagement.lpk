@@ -31,7 +31,7 @@
       </Item4>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="6">
+    <RequiredPkgs Count="5">
       <Item1>
         <PackageName Value="tabeditor"/>
         <DefaultFilename Value="../editform/tabeditor.lpk"/>
@@ -45,15 +45,11 @@
         <DefaultFilename Value="../../../general/general.lpk"/>
       </Item3>
       <Item4>
-        <PackageName Value="pVisualPrometApp"/>
-        <DefaultFilename Value="../base/pvisualprometapp.lpk"/>
+        <PackageName Value="lcl"/>
       </Item4>
       <Item5>
-        <PackageName Value="lcl"/>
-      </Item5>
-      <Item6>
         <PackageName Value="FCL"/>
-      </Item6>
+      </Item5>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

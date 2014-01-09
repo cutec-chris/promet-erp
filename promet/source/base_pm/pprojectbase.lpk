@@ -109,7 +109,7 @@
       </Item23>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="6">
+    <RequiredPkgs Count="5">
       <Item1>
         <PackageName Value="pcalendar"/>
         <DefaultFilename Value="../base_calendar/pcalendar.lpk"/>
@@ -123,15 +123,11 @@
         <DefaultFilename Value="../base_documents/pdocuments.lpk"/>
       </Item3>
       <Item4>
-        <PackageName Value="pVisualPrometApp"/>
-        <DefaultFilename Value="../base/pvisualprometapp.lpk"/>
+        <PackageName Value="LCL"/>
       </Item4>
       <Item5>
-        <PackageName Value="LCL"/>
-      </Item5>
-      <Item6>
         <PackageName Value="FCL"/>
-      </Item6>
+      </Item5>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>
