@@ -26,7 +26,7 @@ uses
   uIntfStrConsts, db, memds, FileUtil, Translations, md5,
   ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage,ugridview,
   uExtControls,uBaseVisualControls,uBaseDbClasses,uFormAnimate,uBaseSearch,
-  ImgList,uBaseDbInterface;
+  ImgList,uBaseDbInterface,uQuickHelpFrame;
 type
 
   { TMGridObject }
@@ -134,6 +134,7 @@ type
     procedure tbRootEntrysClick(Sender: TObject);
   private
     { private declarations }
+    FQuickHelpFrame: TfQuickHelpFrame;
     ActiveSearch : TSearch;
     SysCommands : TSystemCommands;
     fTimeline : TfGridView;
@@ -157,6 +158,7 @@ type
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
     procedure ShowFrame;
+    procedure AddHelp;
   end;
 var
   fmTimeline: TfmTimeline;
@@ -165,7 +167,7 @@ const
 implementation
 uses uBaseApplication, uData, uOrder,uMessages,uBaseERPDBClasses,
   uMain,LCLType,utask,uProcessManager,uprometipc,ProcessUtils,ufollow,udetailview,
-  LCLIntf,wikitohtml,uDocuments,uthumbnails,uscreenshotmain;
+  LCLIntf,wikitohtml,uDocuments,uthumbnails,uscreenshotmain,uWiki;
 resourcestring
   strTo                                  = 'an ';
 
@@ -243,6 +245,29 @@ end;
 
 procedure TfmTimeline.ShowFrame;
 begin
+  AddHelp;
+end;
+
+procedure TfmTimeline.AddHelp;
+var
+  aWiki: TWikiList;
+begin
+  if Assigned(FQuickHelpFrame) then exit;
+  aWiki := TWikiList.Create(nil,Data);
+  with BaseApplication as IBaseApplication do
+  if aWiki.FindWikiPage('Promet-ERP-Help/workflows/tftimeline') then
+    begin
+      FQuickHelpFrame := TfQuickHelpFrame.Create(nil);
+      if not FQuickHelpFrame.OpenWikiPage(aWiki) then
+        FreeAndNil(FQuickHelpFrame)
+      else
+        begin
+          FQuickHelpFrame.Parent:=Self;
+          FQuickHelpFrame.Align:=alTop;
+          FQuickHelpFrame.BorderSpacing.Around:=8;
+        end;
+    end;
+  aWiki.Free;
 end;
 
 function TfmTimeline.FContListDrawColumnCell(Sender: TObject; const aRect: TRect;
@@ -894,7 +919,7 @@ var
 begin
   if (((key = '@')
   or ((Key=',') and (pos(' ',mEntry.Text)=0))
-  or ((Key = #8) and (copy(mEntry.Text,0,1)='@'))
+  or ((Key = #8) and (copy(mEntry.Text,mEntry.SelStart,1)='@'))
   ) and (pSearch.Visible=False))
   then
     begin
