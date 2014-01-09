@@ -225,6 +225,7 @@ begin
   if fmTimeline.WindowState=wsMinimized then
     fmTimeline.WindowState:=wsNormal;
   Show;
+  AddHelp;
   fTimeline.acFilter.Execute;
   //IdleTimer1.Enabled:=True;
   fTimeline.SetActive;
@@ -245,7 +246,6 @@ end;
 
 procedure TfmTimeline.ShowFrame;
 begin
-  AddHelp;
 end;
 
 procedure TfmTimeline.AddHelp;
