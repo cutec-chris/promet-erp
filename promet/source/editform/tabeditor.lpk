@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Package Version="4">
     <Name Value="tabeditor"/>
@@ -25,19 +25,25 @@
       </Item2>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="4">
+    <RequiredPkgs Count="6">
       <Item1>
         <PackageName Value="pVisualPrometApp"/>
       </Item1>
       <Item2>
-        <PackageName Value="jvRuntimeDesign"/>
+        <PackageName Value="ZVDateTimeCtrls"/>
       </Item2>
       <Item3>
-        <PackageName Value="jcfidelazarus"/>
+        <PackageName Value="pvisualbaseframes"/>
       </Item3>
       <Item4>
-        <PackageName Value="FCL"/>
+        <PackageName Value="jvRuntimeDesign"/>
       </Item4>
+      <Item5>
+        <PackageName Value="jcfidelazarus"/>
+      </Item5>
+      <Item6>
+        <PackageName Value="FCL"/>
+      </Item6>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

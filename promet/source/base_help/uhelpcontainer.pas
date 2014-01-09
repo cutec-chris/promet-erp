@@ -6,9 +6,12 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
-  uWikiFrame;
+  StdCtrls, uWikiFrame;
 
 type
+
+  { TfHelpContainer }
+
   TfHelpContainer = class(TForm)
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
