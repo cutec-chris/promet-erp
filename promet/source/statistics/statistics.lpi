@@ -48,7 +48,7 @@
       </Item5>
       <Item6>
         <PackageName Value="phelp"/>
-        <DefaultFilename Value="..\base\phelp.lpk"/>
+        <DefaultFilename Value="..\base_help\phelp.lpk"/>
       </Item6>
       <Item7>
         <PackageName Value="general"/>
@@ -1144,12 +1144,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPrometFrames"/>
-        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="55"/>
         <CursorPos X="1" Y="72"/>
         <UsageCount Value="30"/>
-        <Loaded Value="True"/>
       </Unit139>
       <Unit140>
         <Filename Value="..\base\upositionframe.pas"/>
@@ -1291,7 +1289,7 @@
       <Unit155>
         <Filename Value="..\base\dbintfs\uintfstrconsts.pas"/>
         <UnitName Value="uIntfStrConsts"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="47" Y="19"/>

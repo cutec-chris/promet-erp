@@ -33,7 +33,7 @@
     <RequiredPackages Count="8">
       <Item1>
         <PackageName Value="phelp"/>
-        <DefaultFilename Value="../base/phelp.lpk"/>
+        <DefaultFilename Value="../base_help/phelp.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="wiki2html_pkg"/>

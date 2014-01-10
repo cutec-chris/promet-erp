@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -23,6 +23,9 @@
     </MacroValues>
     <BuildModes Count="1" Active="Default">
       <Item1 Name="Default" Default="True"/>
+      <SharedMatrixOptions Count="1">
+        <Item1 ID="374602870743" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="nogui"/>
+      </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
@@ -33,7 +36,6 @@
       <local>
         <FormatVersion Value="1"/>
         <CommandLineParams Value="--mandant=&quot;Stora&quot;"/>
-        <LaunchingApplication PathPlusParams="\usr\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
     <RequiredPackages Count="4">
@@ -42,12 +44,14 @@
       </Item1>
       <Item2>
         <PackageName Value="pmimemessages"/>
+        <DefaultFilename Value="..\base_messaging\pmimemessages.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="lnetbase"/>
       </Item3>
       <Item4>
         <PackageName Value="pcmdprometapp"/>
+        <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
       </Item4>
     </RequiredPackages>
     <Units Count="130">
@@ -58,7 +62,7 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="83"/>
+        <TopLine Value="140"/>
         <CursorPos X="1" Y="173"/>
         <UsageCount Value="168"/>
         <Loaded Value="True"/>
@@ -463,7 +467,7 @@
       <Unit50>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
         <UnitName Value="uDocuments"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="584"/>
         <CursorPos X="1" Y="604"/>
@@ -643,7 +647,7 @@
         <Filename Value="ulsvnserver.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ulsvnserver"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="25"/>
@@ -654,7 +658,7 @@
         <Filename Value="ulwebdavserver.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ulwebdavserver"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="458"/>
         <CursorPos X="1" Y="488"/>
@@ -664,7 +668,7 @@
       <Unit75>
         <Filename Value="lexthttp.pp"/>
         <UnitName Value="lexthttp"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1908"/>
         <CursorPos X="1" Y="1928"/>
@@ -876,7 +880,7 @@
       </Unit100>
       <Unit101>
         <Filename Value="rfc2518.txt"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1478"/>
         <CursorPos X="39" Y="1508"/>
@@ -1015,7 +1019,7 @@
       </Unit118>
       <Unit119>
         <Filename Value="http-protocol-v2.txt"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
@@ -1026,7 +1030,7 @@
       <Unit120>
         <Filename Value="..\base\dbintfs\uimpvcal.pas"/>
         <UnitName Value="uimpvcal"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="37"/>
         <CursorPos X="10" Y="16"/>
@@ -1036,7 +1040,7 @@
       <Unit121>
         <Filename Value="..\base\dbintfs\ucalendar.pas"/>
         <UnitName Value="uCalendar"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="19"/>
         <CursorPos X="24" Y="54"/>
@@ -1045,7 +1049,7 @@
       </Unit121>
       <Unit122>
         <Filename Value="rfc4791.txt"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="116"/>
         <CursorPos X="12" Y="116"/>
@@ -1073,22 +1077,18 @@
       <Unit125>
         <Filename Value="..\..\..\lkomponenten\lnet\lib\lhttputil.pp"/>
         <UnitName Value="lHTTPUtil"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="134"/>
         <CursorPos X="52" Y="154"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit125>
       <Unit126>
         <Filename Value="..\..\..\lkomponenten\synapse\synautil.pas"/>
         <UnitName Value="synautil"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="48"/>
         <CursorPos X="40" Y="410"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit126>
       <Unit127>
         <Filename Value="..\..\..\..\fpc\2.6_fixes\rtl\objpas\sysutils\sysstrh.inc"/>
@@ -1100,24 +1100,20 @@
       <Unit128>
         <Filename Value="..\..\..\lkomponenten\lnet\lib\lnet.pp"/>
         <UnitName Value="lNet"/>
-        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1532"/>
         <CursorPos X="1" Y="1557"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit128>
       <Unit129>
         <Filename Value="..\..\..\lkomponenten\lnet\lib\sys\lepolleventer.inc"/>
-        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="166"/>
         <CursorPos X="16" Y="186"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit129>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="25" HistoryIndex="24">
       <Position1>
         <Filename Value="ulwebdavserver.pas"/>
         <Caret Line="444" Column="1" TopLine="421"/>
@@ -1218,26 +1214,6 @@
         <Filename Value="lexthttp.pp"/>
         <Caret Line="1928" Column="1" TopLine="1908"/>
       </Position25>
-      <Position26>
-        <Filename Value="..\..\..\lkomponenten\lnet\lib\lnet.pp"/>
-        <Caret Line="1551" Column="1" TopLine="1532"/>
-      </Position26>
-      <Position27>
-        <Filename Value="..\..\..\lkomponenten\lnet\lib\lnet.pp"/>
-        <Caret Line="1557" Column="1" TopLine="1532"/>
-      </Position27>
-      <Position28>
-        <Filename Value="..\..\..\lkomponenten\lnet\lib\sys\lepolleventer.inc"/>
-        <Caret Line="176" Column="1" TopLine="158"/>
-      </Position28>
-      <Position29>
-        <Filename Value="..\..\..\lkomponenten\lnet\lib\sys\lepolleventer.inc"/>
-        <Caret Line="180" Column="1" TopLine="158"/>
-      </Position29>
-      <Position30>
-        <Filename Value="..\..\..\lkomponenten\lnet\lib\sys\lepolleventer.inc"/>
-        <Caret Line="152" Column="1" TopLine="134"/>
-      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -1274,7 +1250,6 @@
 -dSTATISTICS"/>
       <CompilerPath Value="$(CompPath)"/>
     </Other>
-    <LCLWidgetType Value="nogui"/>
   </CompilerOptions>
   <Debugging>
     <BreakPoints Count="1">

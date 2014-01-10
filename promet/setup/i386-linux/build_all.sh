@@ -24,19 +24,26 @@ fi
 
 export PATH=$PATH:/home/chris/lazarus:/media/2DF0E8714D527894/lazarus
 ./build_all_executables.sh $Widgetset $Archfpc
-if [ ! -f $2/prometerp ];
+
+if [ ! -f ../../output/$Archfpc-linux/prometerp ];
 then
-    exit
+  echo "ERROR: prometerp fehlt"
+  exit
 fi
-cp $2/pstarter ../executables/$Version/$1
-if [ ! -f $2/pstarter ];
+if [ ! -f ../../output/$Archfpc-linux/tools/messagemanager ];
 then
-    exit
+  echo "ERROR: messagemanager fehlt"
+  exit
 fi
-cp $2/tools/processmanager ../executables/$Version/$1
-if [ ! -f $2/tools/processmanager ];
+if [ ! -f ../../output/$Archfpc-linux/pstarter ];
 then
-    exit
+  echo "ERROR: pstarter fehlt"
+  exit
+fi
+if [ ! -f ../../output/$Archfpc-linux/tools/processmanager ];
+then
+  echo "ERROR: processmanager fehlt"
+  exit
 fi
 
 echo build_deb.sh $Widgetset $Program $Version $Arch $Archfpc $Date $BuildDir $TmpDir

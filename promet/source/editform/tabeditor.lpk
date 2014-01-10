@@ -28,15 +28,19 @@
     <RequiredPkgs Count="6">
       <Item1>
         <PackageName Value="pVisualPrometApp"/>
+        <DefaultFilename Value="../base/pvisualprometapp.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="ZVDateTimeCtrls"/>
+        <DefaultFilename Value="../components/ZVDateTimeCtrls/zvdatetimectrls.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="pvisualbaseframes"/>
+        <DefaultFilename Value="../base_frames/pvisualbaseframes.lpk"/>
       </Item3>
       <Item4>
         <PackageName Value="jvRuntimeDesign"/>
+        <DefaultFilename Value="../components/jvdesign/jvRuntimeDesign.lpk"/>
       </Item4>
       <Item5>
         <PackageName Value="jcfidelazarus"/>

@@ -47,6 +47,7 @@
       </Item2>
       <Item3>
         <PackageName Value="pmimemessages"/>
+        <DefaultFilename Value="..\base_messaging\pmimemessages.lpk"/>
       </Item3>
       <Item4>
         <PackageName Value="lnetbase"/>

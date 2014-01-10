@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Package Version="4">
     <Name Value="prepair"/>
@@ -52,6 +52,7 @@
     <RequiredPkgs Count="3">
       <Item1>
         <PackageName Value="perp"/>
+        <DefaultFilename Value="../base_erp/perp.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="lcl"/>

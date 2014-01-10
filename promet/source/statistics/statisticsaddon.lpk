@@ -28,6 +28,7 @@
     <RequiredPkgs Count="6">
       <Item1>
         <PackageName Value="pvisualframes"/>
+        <DefaultFilename Value="../base_frames/pvisualframes.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="lazreport"/>

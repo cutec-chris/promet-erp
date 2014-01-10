@@ -35,6 +35,7 @@
     <RequiredPackages Count="5">
       <Item1>
         <PackageName Value="pvisualforms"/>
+        <DefaultFilename Value="..\base_forms\pvisualforms.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="pcmdprometapp"/>
@@ -42,6 +43,7 @@
       </Item2>
       <Item3>
         <PackageName Value="pPrometDBIntfs"/>
+        <DefaultFilename Value="..\base\dbintfs\pprometdbintfs.lpk"/>
       </Item3>
       <Item4>
         <PackageName Value="lazmouseandkeyinput"/>

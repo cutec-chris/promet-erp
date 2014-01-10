@@ -183,6 +183,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <CommandLineParams Value="--config-path=/home/chris/.promet-erp-devel"/>
       </local>
     </RunParams>
     <RequiredPackages Count="23">
@@ -239,10 +240,11 @@
       </Item13>
       <Item14>
         <PackageName Value="ZVDateTimeCtrls"/>
+        <DefaultFilename Value="../components/ZVDateTimeCtrls/zvdatetimectrls.lpk"/>
       </Item14>
       <Item15>
         <PackageName Value="phelp"/>
-        <DefaultFilename Value="../base/phelp.lpk"/>
+        <DefaultFilename Value="../base_help/phelp.lpk"/>
       </Item15>
       <Item16>
         <PackageName Value="pPhones"/>

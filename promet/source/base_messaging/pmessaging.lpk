@@ -79,6 +79,7 @@
       </Item4>
       <Item5>
         <PackageName Value="pdocuments"/>
+        <DefaultFilename Value="../base_documents/pdocuments.lpk"/>
       </Item5>
       <Item6>
         <PackageName Value="FCL"/>
