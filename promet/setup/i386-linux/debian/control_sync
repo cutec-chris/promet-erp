@@ -6,7 +6,7 @@ Priority: optional
 Maintainer: Christian Ulrich <info@free-erp.de>
 Architecture: ARCH
 Installed-Size: DEBSIZE
-Depends: libc6,libgtk2.0-dev (>=2.6.0),promet-erp
+Depends: libc6,libgtk2.0-dev (>=2.6.0)
 Description: Syncronisation for Promet-ERP Databases
  with that package the syncronisation tool for async syncronisation of
  one or more Promet-ERP databases (also across database architectures)

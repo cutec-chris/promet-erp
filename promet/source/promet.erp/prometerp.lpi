@@ -278,7 +278,7 @@
         <PackageName Value="LCL"/>
       </Item23>
     </RequiredPackages>
-    <Units Count="455">
+    <Units Count="458">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -717,6 +717,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uBookAccounting"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="83"/>
@@ -994,7 +995,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uProjectFrame"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="9"/>
@@ -4301,6 +4301,30 @@
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit454>
+      <Unit455>
+        <Filename Value="../components/tapi/laz_tapi.pas"/>
+        <UnitName Value="laz_tapi"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="25" Y="12"/>
+        <UsageCount Value="10"/>
+      </Unit455>
+      <Unit456>
+        <Filename Value="../components/tapi/TAPILines.pas"/>
+        <UnitName Value="TAPILines"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit456>
+      <Unit457>
+        <Filename Value="../components/tapi/TAPIHelpfunc.pas"/>
+        <UnitName Value="TAPIHelpFunc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="22"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit457>
     </Units>
     <JumpHistory Count="19" HistoryIndex="18">
       <Position1>

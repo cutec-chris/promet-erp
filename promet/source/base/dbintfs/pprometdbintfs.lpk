@@ -20,7 +20,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="38">
+    <Files Count="39">
       <Item1>
         <Filename Value="ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
@@ -173,6 +173,10 @@
         <Filename Value="uthumbnails.pas"/>
         <UnitName Value="uthumbnails"/>
       </Item38>
+      <Item39>
+        <Filename Value="fpthumbresize.pas"/>
+        <UnitName Value="fpthumbresize"/>
+      </Item39>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="5">

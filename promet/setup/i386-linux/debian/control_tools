@@ -6,7 +6,7 @@ Priority: optional
 Maintainer: Christian Ulrich <info@free-erp.de>
 Architecture: ARCH
 Installed-Size: DEBSIZE
-Depends: libc6,libgtk2.0-dev (>=2.6.0),promet-erp
+Depends: libc6,libgtk2.0-dev (>=2.6.0)
 Description: Admin Tools for Promet-ERP
  Installed is: The Commandline Wizard to create new Mandants
  ,an Tool to view and control attatched Promet Clients

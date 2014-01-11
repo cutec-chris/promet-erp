@@ -33,6 +33,8 @@ chmod 666 $BuildDir/usr/bin/promet-erp-imap
 chmod 666 $BuildDir/usr/bin/promet-erp-appbase
 chmod 666 $BuildDir/usr/bin/promet-erp-mta
 chmod 666 $BuildDir/usr/bin/promet-erp-nntp
+ln -s /usr/lib/$Program/cmdwizardmandant $BuildDir/usr/bin/promet-erp-cmdwizardmandant
+chmod 666 $BuildDir/usr/bin/promet-erp-cmdwizardmandant
 DebSize=$(du -s $BuildDir | cut -f1)
 echo "fixing permissions ..."
 find $BuildDir -type d -print0 | xargs -0 sudo -S chmod 755  # this is needed, don't ask me why
@@ -42,7 +44,7 @@ echo "build tar.gz..."
 tar -cvf - $BuildDir | gzip > ../output/${Program}-${Subprogram}_$Version_$Arch-$Widgetset.tar.gz
 echo "creating control file..."
 mkdir -p $BuildDir/DEBIAN
-cat debian/control_timeregistering | \
+cat debian/control_services | \
   sed -e "s/VERSION/$Version/g" \
       -e "s/ARCH/$Arch/g" \
       -e "s/DEBSIZE/$DebSize/g" \

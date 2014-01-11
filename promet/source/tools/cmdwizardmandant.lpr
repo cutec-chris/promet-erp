@@ -7,7 +7,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces,
-  Classes, SysUtils, dbflaz, pcmdprometapp, CustApp ,uBaseCustomApplication,
+  Classes, SysUtils, pcmdprometapp, CustApp ,uBaseCustomApplication,
   uBaseDBInterface,FileUtil,uBaseApplication
   { you can add units after this };
 

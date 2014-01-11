@@ -9,9 +9,10 @@
         <Filename Value="cmdwizardmandant.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="cmdwizardmandant"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
+        <TopLine Value="11"/>
         <CursorPos X="45" Y="11"/>
         <UsageCount Value="23"/>
         <Loaded Value="True"/>
@@ -119,7 +120,6 @@
       <Unit13>
         <Filename Value="..\base\pcmdprometapp.pas"/>
         <UnitName Value="pcmdprometapp"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>

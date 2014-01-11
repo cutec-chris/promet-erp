@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -37,10 +37,9 @@
       <local>
         <FormatVersion Value="1"/>
         <CommandLineParams Value="-b -n Zeiterfassung -s &quot;SQL:sqlite-3;localhost;C:\TEMP\zeiten.db;;x\&quot;"/>
-        <LaunchingApplication PathPlusParams="\usr\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="3">
+    <RequiredPackages Count="2">
       <Item1>
         <PackageName Value="LCL"/>
       </Item1>
@@ -48,9 +47,6 @@
         <PackageName Value="pcmdprometapp"/>
         <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
       </Item2>
-      <Item3>
-        <PackageName Value="DBFLaz"/>
-      </Item3>
     </RequiredPackages>
     <Units Count="1">
       <Unit0>
@@ -100,4 +96,4 @@
       </Item3>
     </Exceptions>
   </Debugging>
-</CONFIG>
+</CONFIG>

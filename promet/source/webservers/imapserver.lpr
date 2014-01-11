@@ -87,7 +87,7 @@ begin
   Result := False;
   with Self as IBaseDBInterface do
     begin
-      if Data.Users.DataSet.Locate('LOGINNAME',aUser,[]) then
+      if Data.Users.DataSet.Locate('LOGINNAME',aUser,[]) or Data.Users.DataSet.Locate('NAME',aUser,[]) then
         begin
           if (Data.Users.CheckPasswort(aPasswort)) then
             Result := True;

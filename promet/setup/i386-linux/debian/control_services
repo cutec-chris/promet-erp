@@ -1,0 +1,13 @@
+Source: promet-erp-webservices
+Package: promet-erp-webservices
+Version: VERSION
+Section: office
+Priority: optional
+Maintainer: Christian Ulrich <info@free-erp.de>
+Architecture: ARCH
+Installed-Size: DEBSIZE
+Depends: libc6
+Description: Admin Tools for Promet-ERP
+ Installed is: App Server, IMAP Server, NNTP (News) Server, WebDAV/SVN Server
+ .
+

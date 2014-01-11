@@ -13,32 +13,28 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="6">
+    <Files Count="5">
       <Item1>
-        <Filename Value="../../base/dbintfs/fpthumbresize.pas"/>
-        <UnitName Value="fpthumbresize"/>
-      </Item1>
-      <Item2>
         <Filename Value="scrollingcontrol.pas"/>
         <UnitName Value="scrollingcontrol"/>
-      </Item2>
-      <Item3>
+      </Item1>
+      <Item2>
         <Filename Value="threadedimageloader.pas"/>
         <UnitName Value="threadedimageLoader"/>
-      </Item3>
-      <Item4>
+      </Item2>
+      <Item3>
         <Filename Value="thumbcontrol.pas"/>
         <HasRegisterProc Value="True"/>
         <UnitName Value="thumbcontrol"/>
-      </Item4>
-      <Item5>
+      </Item3>
+      <Item4>
         <Filename Value="thumbctrl.lrs"/>
         <Type Value="LRS"/>
-      </Item5>
-      <Item6>
+      </Item4>
+      <Item5>
         <Filename Value="images.lrs"/>
         <Type Value="LRS"/>
-      </Item6>
+      </Item5>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="1">

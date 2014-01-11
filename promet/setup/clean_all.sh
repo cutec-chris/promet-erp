@@ -21,6 +21,11 @@ rm -f -r ../source/base_wiki/lib
 rm -f -r ../source/base_help/lib
 rm -f -r ../source/base_frames/lib
 rm -f -r ../source/base_forms/lib
+rm -f -r ../source/base_inet/lib
+rm -f -r ../source/base_docmanage/lib
+rm -f -r ../source/meeting/lib
+rm -f -r ../source/testcases/lib
+rm -f -r ../source/webstat/lib
 rm -f -r ../source/checkout/lib
 rm -f -r ../source/webservers/lib
 rm -f -r ../source/import/lib
