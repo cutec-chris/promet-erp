@@ -3,14 +3,21 @@ program processdaemon;
 {$mode objfpc}{$H+}
 
 uses
-{$IFDEF UNIX}{$IFDEF UseCThreads}
+{$IFDEF UNIX}
   CThreads,
-{$ENDIF} Cmem,{$ENDIF}
+  Cmem,{$ENDIF}
   Classes, SysUtils, EventLog, DaemonApp;
 
 type
+
+  { TTheThread }
+
   TTheThread = class(TThread)
+  private
+    FString : string;
+    procedure DoInfo;
   public
+    procedure Info(aInfo : string);
     procedure Execute; override;
   end;
 
@@ -42,10 +49,46 @@ begin
   if AVal = True then result := 'true' else result := 'false';
 end;
 
+procedure TTheThread.DoInfo;
+begin
+  Application.Log(etDebug,FString);
+end;
+
+procedure TTheThread.Info(aInfo: string);
+begin
+  FString := aInfo;
+  Synchronize(@DoInfo);
+end;
+
 procedure TTheThread.Execute;
 var i: integer;
 begin
   i := 0;
+  Info('processmanager starting...');
+  with BaseApplication as IBaseDbInterface do
+    begin
+      Info('loading mandants...');
+      if not LoadMandants then
+        begin
+          Error(strFailedtoLoadMandants);
+          raise Exception.Create(strFailedtoLoadMandants);
+          Terminate;
+        end;
+      if not HasOption('m','mandant') then
+        begin
+          Error(strMandantnotSelected);
+          raise Exception.Create(strMandantnotSelected);
+          Terminate;
+        end;
+      Info('login...');
+      if not DBLogin(GetOptionValue('m','mandant'),'',False,False) then
+        begin
+          Error(strLoginFailed+' '+LastError);
+          raise Exception.Create(strLoginFailed+' '+LastError);
+          Terminate;
+        end;
+      uData.Data := Data;
+    end;
   Application.Log(etDebug, 'Thread.Execute');
   try
     repeat
@@ -135,10 +178,10 @@ begin
   inherited Create(AOwner);
   with DaemonDefs.Add as TDaemonDef do
   begin
-    DaemonClassName := 'TTheDaemon';
+    DaemonClassName := 'TProcessDaemon';
     Name := 'theDaemon.exe';
-    Description := 'The Daemon Exsample';
-    DisplayName := 'The Daemon';
+    Description := 'Promet Processmanager Daemon';
+    DisplayName := 'Process Daemon';
     Options := [doAllowStop,doAllowPause];
     Enabled := true;
     with WinBindings do
@@ -185,7 +228,7 @@ begin
   RegisterDaemonMapper(TTheDaemonMapper);
   with Application do
   begin
-    Title := 'Daemon Application';
+    Title := 'Processdaemon';
     EventLog.LogType := ltFile;
     EventLog.DefaultEventType := etDebug;
     EventLog.AppendContent := true;

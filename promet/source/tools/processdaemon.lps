@@ -1,18 +1,17 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectSession>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="2">
+    <Units Count="7">
       <Unit0>
         <Filename Value="processdaemon.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="processdaemon"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="13" Y="8"/>
+        <TopLine Value="58"/>
+        <CursorPos X="24" Y="68"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -24,11 +23,56 @@
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="10"/>
       </Unit1>
+      <Unit2>
+        <Filename Value="processmanager.lpr"/>
+        <UnitName Value="processmanager"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="40"/>
+        <CursorPos X="81" Y="7"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="/usr/share/fpcsrc/2.6.2/rtl/objpas/classes/classesh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1586"/>
+        <CursorPos X="17" Y="1602"/>
+        <UsageCount Value="10"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="/usr/share/fpcsrc/2.6.2/rtl/unix/tthread.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="171"/>
+        <CursorPos X="1" Y="184"/>
+        <UsageCount Value="10"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="../base/pdaemonprometapp.pas"/>
+        <UnitName Value="pdaemonprometapp"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="19" Y="10"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="../base/ubasedaemonapplication.pas"/>
+        <UnitName Value="ubasedaemonapplication"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="23" Y="17"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit6>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="2" HistoryIndex="1">
+    <JumpHistory Count="9" HistoryIndex="8">
       <Position1>
         <Filename Value="processdaemon.lpr"/>
         <Caret Line="197" Column="5" TopLine="161"/>
@@ -37,6 +81,34 @@
         <Filename Value="processdaemon.lpr"/>
         <Caret Line="8" Column="13" TopLine="1"/>
       </Position2>
+      <Position3>
+        <Filename Value="processdaemon.lpr"/>
+        <Caret Line="82" Column="23" TopLine="76"/>
+      </Position3>
+      <Position4>
+        <Filename Value="processdaemon.lpr"/>
+        <Caret Line="66" Column="11" TopLine="45"/>
+      </Position4>
+      <Position5>
+        <Filename Value="processdaemon.lpr"/>
+        <Caret Line="17" Column="36" TopLine="7"/>
+      </Position5>
+      <Position6>
+        <Filename Value="processdaemon.lpr"/>
+        <Caret Line="18" Column="22" TopLine="1"/>
+      </Position6>
+      <Position7>
+        <Filename Value="processdaemon.lpr"/>
+        <Caret Line="21" Column="15" TopLine="3"/>
+      </Position7>
+      <Position8>
+        <Filename Value="processmanager.lpr"/>
+        <Caret Line="14" Column="36" TopLine="3"/>
+      </Position8>
+      <Position9>
+        <Filename Value="../base/pdaemonprometapp.pas"/>
+        <Caret Line="10" Column="19" TopLine="1"/>
+      </Position9>
     </JumpHistory>
   </ProjectSession>
   <EditorMacros Count="0"/>

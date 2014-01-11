@@ -1135,7 +1135,8 @@ begin
   for i := 0 to fTimeline.dgFake.Columns.Count-1 do
     if fTimeline.dgFake.Columns[i].FieldName='ACTION' then
       begin
-        TMGridObject(fTimeline.gList.Objects[i+1,fTimeline.gList.Row]).Bold:=False;
+        if Assigned(fTimeline.gList.Objects[i+1,fTimeline.gList.Row]) then
+          TMGridObject(fTimeline.gList.Objects[i+1,fTimeline.gList.Row]).Bold:=False;
       end;
   fTimeline.gList.Invalidate;
 end;

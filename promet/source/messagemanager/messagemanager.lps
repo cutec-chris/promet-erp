@@ -37,10 +37,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="umtimeline"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="210"/>
-        <CursorPos X="1" Y="228"/>
+        <TopLine Value="1112"/>
+        <CursorPos X="3" Y="1139"/>
         <UsageCount Value="159"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -889,7 +890,6 @@
       </Unit101>
       <Unit102>
         <Filename Value="../base/changes.txt"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -1486,7 +1486,7 @@
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="25" HistoryIndex="24">
+    <JumpHistory Count="26" HistoryIndex="25">
       <Position1>
         <Filename Value="umtimeline.pas"/>
         <Caret Line="255" Column="1" TopLine="234"/>
@@ -1587,6 +1587,10 @@
         <Filename Value="../base_frames/uquickhelpframe.pas"/>
         <Caret Line="311" Column="11" TopLine="300"/>
       </Position25>
+      <Position26>
+        <Filename Value="../base/changes.txt"/>
+        <Caret Line="5" Column="11" TopLine="1"/>
+      </Position26>
     </JumpHistory>
   </ProjectSession>
   <Debugging>
