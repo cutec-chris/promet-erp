@@ -1,4 +1,6 @@
-﻿Build 301
+﻿Build 302
+      -
+Build 301
       - Grids:falsches Wordwrap zeichnen in Windows seit letzter revision behoben
       - Nachrichtenzentrale:Screenshots können direkt in nachrichten eingefügt werden
       - Nachrichtenzentrale:Man kann aus der Suche heraus mehreren Einträgen gleichzeitig folgen
