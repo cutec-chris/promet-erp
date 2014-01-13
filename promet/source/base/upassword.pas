@@ -135,7 +135,7 @@ begin
       Data.Users.Open;
       while not Data.Users.DataSet.EOF do
         begin
-          if Data.Users.Leaved.IsNull and (Data.Users.FieldByName('TYPE').AsString <> 'G') and (Data.Users.FieldByName('LOGINACTIVE').AsString<>'N') then
+          if Data.Users.Leaved.IsNull and (Data.Users.FieldByName('TYPE').AsString <> 'G') and Assigned(Data.Users.FieldByName('LOGINACTIVE')) and (Data.Users.FieldByName('LOGINACTIVE').AsString<>'N') then
             cbUser.Items.Add(Data.Users.UserName.AsString);
           Data.Users.DataSet.Next;
         end;

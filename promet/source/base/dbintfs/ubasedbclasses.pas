@@ -1097,7 +1097,8 @@ function TBaseDBDataset.FieldByName(aFieldName : string): TField;
 begin
   Result := nil;
   if Assigned(DataSet) and DataSet.Active then
-    Result := DataSet.FieldByName(aFieldname);
+    if DataSet.FieldDefs.IndexOf(aFieldName)>0 then
+      Result := DataSet.FieldByName(aFieldname);
 end;
 procedure TBaseDBDataset.Assign(Source: TPersistent);
 begin
