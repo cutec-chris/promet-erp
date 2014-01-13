@@ -906,6 +906,7 @@ begin
             Result := prFailed;
             Data.RollbackTransaction(Connection);
             debugln(e.Message);
+            DataSet.Refresh;
           end;
       end;
     end;
@@ -1088,7 +1089,7 @@ begin
     begin
       try
       try
-        Result := False;
+        Result := True;
         OrderTyp := StrToIntDef(trim(copy(OrderType.FieldByName('TYPE').AsString, 0, 2)), 0);
         Masterdata := TMasterdata.Create(Owner,DataModule,Connection);
         Masterdata.CreateTable;
@@ -1128,10 +1129,10 @@ begin
                       if (not Masterdata.Storage.DataSet.Locate('STORAGEID', trim(copy(aStorage, 0, 3)), [loCaseInsensitive]))
                       and (not Data.StorageType.DataSet.Locate('ID',trim(copy(aStorage, 0, 3)),[loCaseInsensitive]))
                       then
+                        Masterdata.Storage.Open;
                         if Assigned(FOnGetStorage) then
                           if FOnGetStorage(Self,Masterdata.Storage) then
                             aStorage := Masterdata.Storage.FieldByName('STORAGEID').AsString;
-                      Masterdata.Storage.Open;
                       if OrderType.FieldByName('B_STORAGE').AsString = '+' then
                         begin
                           aQuantity:=Quantity;
