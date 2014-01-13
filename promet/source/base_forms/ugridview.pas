@@ -756,6 +756,8 @@ begin
       if Assigned(FSearchKey) then
         begin
           FSearchKeyRect := gList.CellRect(gList.Col,gList.Row);
+          if gHeader.Visible then
+            FSearchKeyRect.Bottom:=FSearchKeyRect.Bottom+gHeader.Height;
           FSearchKeyCol := dgFake.Columns[gList.Col-1];
           FSearchKeyKey := Key;
           FSearchKeyVal := gList.Cells[gList.Col,gList.Row]+chr(key);
@@ -1782,6 +1784,8 @@ begin
             if Assigned(FSearchKey) then
               begin
                 FSearchKeyRect := gList.CellRect(gList.Col,gList.Row);
+                if gHeader.Visible then
+                  FSearchKeyRect.Bottom:=FSearchKeyRect.Bottom+gHeader.Height;
                 FSearchKeyCol := dgFake.Columns[aCol-1];
                 FSearchKeyKey := aKey;
                 FSearchKeyVal := tmp;
