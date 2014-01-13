@@ -1081,9 +1081,8 @@ function TOrder.PostArticle(aTyp, aID, aVersion, aLanguage: variant;
 var
   OrderTyp: LongInt;
   Masterdata: TMasterdata;
-  JournalCreated: Boolean;
-  r: Double;
-  StorageJournal: TStorageJournal;
+  aQuantity : real = 0;
+  aReserved : real = 0;
 begin
   with BaseApplication as IBaseDbInterface do
     begin
@@ -1126,159 +1125,44 @@ begin
                   then
                     begin
                       //Ist Lagerdatensatz gleich zu buchendes Lager
-                      Masterdata.Storage.Open;
                       if (not Masterdata.Storage.DataSet.Locate('STORAGEID', trim(copy(aStorage, 0, 3)), [loCaseInsensitive]))
                       and (not Data.StorageType.DataSet.Locate('ID',trim(copy(aStorage, 0, 3)),[loCaseInsensitive]))
                       then
                         if Assigned(FOnGetStorage) then
                           if FOnGetStorage(Self,Masterdata.Storage) then
                             aStorage := Masterdata.Storage.FieldByName('STORAGEID').AsString;
-                      //hier sollte auf jeden fall ein Lager selektiert sein
-                      if Masterdata.Storage.FieldByName('STORAGEID').AsString<>aStorage then
+                      Masterdata.Storage.Open;
+                      if OrderType.FieldByName('B_STORAGE').AsString = '+' then
                         begin
-                          //Kein Lager vorhanden ? dann Tragen wir das Hauptlager ein (sollte ja nicht zuoft vorkommen)
-                          Data.StorageType.DataSet.Locate('DEFAULTST', 'Y', [loCaseInsensitive]);
-                          Data.StorageType.DataSet.Locate('ID',trim(copy(aStorage, 0, 3)),[loCaseInsensitive]);
-                          with Masterdata.Storage.DataSet do
-                            begin
-                              Append;
-                              if FieldDefs.IndexOf('TYPE') > -1 then
-                                begin
-                                  FieldByName('TYPE').AsString := aTyp;
-                                  FieldByName('ID').AsString := aID;
-                                  FieldByName('VERSION').AsVariant := aVersion;
-                                  FieldByName('LANGUAGE').AsVariant := aLanguage;
-                                end;
-                              FieldByName('STORAGEID').AsString := Data.StorageType.FieldByName('ID').AsString;
-                              FieldByName('STORNAME').AsString := Data.StorageType.FieldByName('NAME').AsString;
-                              FieldByName('QUANTITY').AsFloat := 0;
-                              FieldByName('QUANTITYU').AsString := QuantityUnit;
-                              aStorage := Masterdata.Storage.FieldByName('STORAGEID').AsString;
-                              Post;
-                            end;
+                          aQuantity:=Quantity;
+                        end
+                      else if OrderType.FieldByName('B_STORAGE').AsString = '-' then
+                        begin
+                          aQuantity:=-Quantity;
                         end;
+                      if (OrderType.FieldByName('B_RESERVED').AsString = '+') and
+                        (not ((OrderTyp = 7) and (Quantity > 0))) then
+                        begin
+                          aReserved:=Quantity;
+                          OrderDelivered := False;
+                        end
+                      else if (OrderType.FieldByName('B_RESERVED').AsString = '-') and
+                        (not ((OrderTyp = 7) and (Quantity > 0))) then
+                      begin
+                        aReserved:=-Quantity;
+                      end;
+                      Result := Masterdata.Storage.Post(OrderType,Self,aStorage,aQuantity,aReserved,QuantityUnit,PosNo);
                     end
                   else
                     OrderDelivered := False;
-                  if OrderType.FieldByName('B_STORAGE').AsString = '+' then
-                    begin
-                      MasterData.Storage.DataSet.Edit;
-                      MasterData.Storage.FieldByName('QUANTITY').AsFloat := MasterData.Storage.FieldByName('QUANTITY').AsFloat + Quantity;
-                      MasterData.Storage.DataSet.Post;
-                    end
-                  else if OrderType.FieldByName('B_STORAGE').AsString = '-' then
-                    begin
-                      MasterData.Storage.DataSet.Edit;
-                      MasterData.Storage.FieldByName('QUANTITY').AsFloat := MasterData.Storage.FieldByName('QUANTITY').AsFloat - Quantity;
-                      MasterData.Storage.DataSet.Post;
-                    end;
-                  if (OrderType.FieldByName('B_RESERVED').AsString = '+') and
-                    (not ((OrderTyp = 7) and (Quantity > 0))) then
-                    begin
-                      MasterData.Storage.DataSet.Edit;
-                      MasterData.Storage.FieldByName('RESERVED').AsFloat := MasterData.Storage.FieldByName('RESERVED').AsFloat + Quantity;
-                      MasterData.Storage.DataSet.Post;
-                      OrderDelivered := False;
-                    end
-                  else if (OrderType.FieldByName('B_RESERVED').AsString = '-') and
-                    (not ((OrderTyp = 7) and (Quantity > 0))) then
-                  begin
-                    MasterData.Storage.DataSet.Edit;
-                    MasterData.Storage.FieldByName('RESERVED').AsFloat := MasterData.Storage.FieldByName('RESERVED').AsFloat - Quantity;
-                    MasterData.Storage.DataSet.Post;
-                  end;
-                  JournalCreated := False;
-                  //Serienummern buchen
-                  if (OrderType.FieldByName('B_STORAGE').AsString <> '0') and (Masterdata.FieldByName('USESERIAL').AsString = 'Y') then
-                    begin
-                      if OrderType.FieldByName('B_SERIALS').AsString = '+' then
-                        begin
-                          r := Quantity;
-                          while r >= 1 do
-                            begin
-                              if Assigned(FOnGetSerial) then
-                                if FOnGetSerial(Self,Masterdata) then
-                                  with Data.StorageJournal.DataSet do
-                                    begin
-                                      Insert;
-                                      FieldByName('STORAGEID').AsString := MasterData.Storage.FieldByName('STORAGEID').AsString;
-                                      FieldByName('ORDERNO').AsString := DataSet.FieldByName('ORDERNO').AsString;
-                                      FieldByName('OSTATUS').AsString := DataSet.FieldByName('STATUS').AsString;
-                                      FieldByName('POSNO').AsString   := PosNo;
-                                      FieldByName('TYPE').AsString    := aTyp;
-                                      FieldByName('ID').AsString      := aID;
-                                      FieldByName('VERSION').AsString := aVersion;
-                                      FieldByName('LANGUAGE').AsString := aLanguage;
-                                      FieldByName('SERIAL').AsString  := Masterdata.Serials.FieldByName('SERIAL').AsString;
-                                      FieldByName('QUANTITY').AsFloat := 1;
-                                      FieldByName('QUANTITYU').AsString := QuantityUnit;
-                                      Post;
-                                      r := r - 1;
-                                      JournalCreated := True;
-                                    end;
-                            end;
-                        end
-                      else if OrderType.FieldByName('B_SERIALS').AsString = '-' then
-                        begin
-                          r := Quantity;
-                          while r >= 1 do
-                            begin
-                              if Assigned(FOnGetSerial) then
-                                if FOnGetSerial(Self,Masterdata) then
-                                  with Data.StorageJournal.DataSet do
-                                    begin
-                                      Insert;
-                                      FieldByName('STORAGEID').AsString := MasterData.Storage.FieldByName('STORAGEID').AsString;
-                                      FieldByName('ORDERNO').AsString := DataSet.FieldByName('ORDERNO').AsString;
-                                      FieldByName('OSTATUS').AsString := DataSet.FieldByName('STATUS').AsString;
-                                      FieldByName('POSNO').AsString   := PosNo;
-                                      FieldByName('TYPE').AsString    := aTyp;
-                                      FieldByName('ID').AsString      := aID;
-                                      FieldByName('VERSION').AsString := aVersion;
-                                      FieldByName('LANGUAGE').AsString := aLanguage;
-                                      FieldByName('SERIAL').AsString  := Masterdata.Serials.FieldByName('SERIAL').AsString;
-                                      FieldByName('QUANTITY').AsFloat := -1;
-                                      FieldByName('QUANTITYU').AsString := QuantityUnit;
-                                      Post;
-                                      r := r - 1;
-                                      JournalCreated := True;
-                                    end;
-                            end;
-                        end;
-                    end;
-                  //Journal erstellen falls nicht schon von den Serienummern gebucht wurde
-                  if (OrderType.FieldByName('B_STORAGE').AsString <> '0') then
-                    if not JournalCreated and (OrderType.FieldByName('B_STORAGE').AsString <> '0') then
-                      begin
-                        StorageJournal := TStorageJournal.Create(Owner,DataModule,Connection);
-                        StorageJournal.CreateTable;
-                        StorageJournal.Open;
-                        with StorageJournal.DataSet do
-                          begin
-                            Insert;
-                            FieldByName('STORAGEID').AsString := MasterData.Storage.FieldByName('STORAGEID').AsString;
-                            FieldByName('ORDERNO').AsString := DataSet.FieldByName('ORDERNO').AsString;
-                            FieldByName('OSTATUS').AsString := DataSet.FieldByName('STATUS').AsString;
-                            FieldByName('POSNO').AsString := PosNo;
-                            FieldByName('TYPE').AsString := aTyp;
-                            FieldByName('ID').AsString := aID;
-                            FieldByName('VERSION').AsVariant := aVersion;
-                            FieldByName('LANGUAGE').AsVariant := aLanguage;
-                            if OrderType.FieldByName('B_STORAGE').AsString = '-' then
-                              FieldByName('QUANTITY').AsFloat := -Quantity
-                            else
-                              FieldByName('QUANTITY').AsFloat := Quantity;
-                            FieldByName('QUANTITYU').AsString := QuantityUnit;
-                            Post;
-                          end;
-                        StorageJournal.Free;
-                      end;
                 end;
             end;
-        Result := True;
       except
         on e : Exception do
-          debugln('Postarticle:'+e.Message);
+          begin
+            debugln('Postarticle:'+e.Message);
+            Result := False;
+          end;
       end;
       finally
         Masterdata.Free;
