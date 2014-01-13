@@ -283,8 +283,15 @@ begin
     end;
   if aFilter <> '' then
     begin
-      cbFilter.Text := aFilter;
-      cbFilterSelect(nil);
+      try
+        cbFilter.Text := aFilter;
+        cbFilterSelect(nil);
+      except
+        begin
+          cbFilter.Text := strNoSelectFilter;
+          cbFilterSelect(nil);
+        end;
+      end;
     end
   else
     ChangeVisibleRows(bOldTasks);
