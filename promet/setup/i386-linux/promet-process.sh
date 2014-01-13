@@ -7,13 +7,13 @@ SVC_STOP_OPTIONS="s"
 # Edit SVC_ALIAS to the long description of your service application
 SVC_ALIAS="Description of your program"
 # Edit SVC_FILENAME to the actual name of your compiled service application
-SVC_FILENAME="YourProgram"
+SVC_FILENAME="processdaemon"
 
 # Edit SVC_DIR to where you place your compiled service application 
-SVC_DIR="/bin/YourFolder/"
+SVC_DIR="/lib//"
 
 # Edit SVC_SERVICE_SCRIPT to the name of this file without the extension
-SVC_SERVICE_SCRIPT="YourService"
+SVC_SERVICE_SCRIPT="promet-process"
 # this will become your service name.  Ie.) service YourService start
 
 SVC_FILE=$SVC_DIR$SVC_FILENAME

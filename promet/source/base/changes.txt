@@ -1,5 +1,6 @@
 ﻿Build 302
-      -
+      - Messagemanager: Timeline wird immer aktualisiert wenn neue Daten ankommen, wenn Timeline nicht sichtbar wird der erste Eintrag markiert
+      - Auftragseditor: mehrere kleine Fehler beseitigt
 Build 301
       - Grids:falsches Wordwrap zeichnen in Windows seit letzter revision behoben
       - Nachrichtenzentrale:Screenshots können direkt in nachrichten eingefügt werden

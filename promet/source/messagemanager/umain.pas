@@ -228,7 +228,7 @@ begin
     end;
   except
   end;
-  if acHistory.Enabled and ((not Assigned(fmTimeline)) or (not fmTimeline.Visible)) then
+  if acHistory.Enabled and (not Assigned(fmTimeline)) then
     begin
       //Show new History Entrys
       if (not FHistory.DataSet.Active) or (FHistory.DataSet.EOF) then //all shown, refresh list
@@ -239,26 +239,36 @@ begin
         end;
       if (FHistory.Count > 0) then
         begin
-          TrayIcon.BalloonTitle:=strNewEntrys;
-          tmp := '';
-          while not FHistory.DataSet.EOF do
+          if Assigned(fmTimeline) and fmTimeline.Visible then
+            fmTimeline.fTimeline.Refresh
+          else
             begin
-              if FHistory.FieldByName('CHANGEDBY').AsString <> Data.Users.IDCode.AsString then
+              TrayIcon.BalloonTitle:=strNewEntrys;
+              tmp := '';
+              while not FHistory.DataSet.EOF do
                 begin
-                  tmp:=tmp+StripWikiText(FHistory.FieldByName('ACTION').AsString)+' - '+FHistory.FieldByName('REFERENCE').AsString+lineending;
+                  if FHistory.FieldByName('CHANGEDBY').AsString <> Data.Users.IDCode.AsString then
+                    begin
+                      tmp:=tmp+StripWikiText(FHistory.FieldByName('ACTION').AsString)+' - '+FHistory.FieldByName('REFERENCE').AsString+lineending;
+                    end;
+                  FHistory.DataSet.Next;
                 end;
-              FHistory.DataSet.Next;
-            end;
-          if tmp <> '' then
-            begin
-              TrayIcon.BalloonHint:=tmp;
-              TrayIcon.ShowBalloonHint;
-              TrayIcon.Icons := ImageList2;
-              TrayIcon.Animate:=True;
-              InformRecTime:=Now();
-              with Application as IBaseDBInterface do
-                DBConfig.WriteString('INFORMRECTIME',DateTimeToStr(InformRecTime));
-              TrayIcon.Tag := 0;
+              if tmp <> '' then
+                begin
+                  TrayIcon.BalloonHint:=tmp;
+                  TrayIcon.ShowBalloonHint;
+                  TrayIcon.Icons := ImageList2;
+                  TrayIcon.Animate:=True;
+                  InformRecTime:=Now();
+                  with Application as IBaseDBInterface do
+                    DBConfig.WriteString('INFORMRECTIME',DateTimeToStr(InformRecTime));
+                  TrayIcon.Tag := 0;
+                  if Assigned(fmTimeline) then
+                    begin
+                      fmTimeline.fTimeline.DataSet.First;
+                      fmTimeline.fTimeline.Refresh;
+                    end;
+                end;
             end;
         end;
     end;

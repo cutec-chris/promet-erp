@@ -2,6 +2,8 @@
 mkdir $2/web
 mkdir $2/tools
 cp ../../output/$1-linux/tools/cmdwizardmandant $2/tools/
+cp ../../output/$1-linux/tools/processmanager $2/tools/
+cp ../../output/$1-linux/tools/processdaemon $2/tools/
 cp ../../output/$1-linux/web/local_appbase $2/web
 cp ../../output/$1-linux/web/imapserver $2/web
 cp ../../output/$1-linux/web/mta $2/web

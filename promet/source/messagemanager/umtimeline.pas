@@ -137,7 +137,6 @@ type
     FQuickHelpFrame: TfQuickHelpFrame;
     ActiveSearch : TSearch;
     SysCommands : TSystemCommands;
-    fTimeline : TfGridView;
     FDrawnDate : TDateTime;
     FParentItem : Variant;
     FOldBaseFilterU: String;
@@ -154,6 +153,7 @@ type
     procedure MarkAsRead;
   public
     { public declarations }
+    fTimeline : TfGridView;
     procedure Execute;
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
