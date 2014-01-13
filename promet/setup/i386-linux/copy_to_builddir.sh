@@ -9,10 +9,11 @@ install ../../output/$1-linux/pstarter $2
 install ../../output/$1-linux/tools/processmanager $2/tools
 install ../../output/$1-linux/tools/messagemanager $2/tools
 install ../../output/$1-linux/helpviewer $2
-install ../help.db $2
+install ../help/help.db $2
 install ../../output/$1-linux/tools/*receiver $2/tools
 install ../../output/$1-linux/tools/*sender $2/tools
 cp ../../output/$1-linux/cdmenue ../executables/$Version/$1
+mkdir ../executables/$Version
 mkdir ../executables/$Version/$1
 cp $2/prometerp ../executables/$Version/$1
 cp $2/wizardmandant ../executables/$Version/$1
