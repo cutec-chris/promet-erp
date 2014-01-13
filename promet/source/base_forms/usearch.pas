@@ -532,6 +532,7 @@ begin
       Application.CreateForm(TfSearch,fSearch);
       Self := fSearch;
     end;
+  if Self.Visible and Modal then Self.Hide;
   if sgResults.RowCount = 1 then
     begin
       bSearch.Default:=True;
