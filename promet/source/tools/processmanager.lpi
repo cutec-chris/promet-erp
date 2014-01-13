@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -22,6 +22,9 @@
     </MacroValues>
     <BuildModes Count="1" Active="Default">
       <Item1 Name="Default" Default="True"/>
+      <SharedMatrixOptions Count="1">
+        <Item1 ID="945437562517" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="nogui"/>
+      </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
@@ -46,9 +49,10 @@
         <Filename Value="processmanager.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="processmanager"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="7"/>
+        <TopLine Value="198"/>
         <CursorPos X="1" Y="236"/>
         <UsageCount Value="44"/>
         <Loaded Value="True"/>
@@ -56,13 +60,10 @@
       <Unit1>
         <Filename Value="../base/ubasecustomapplication.pas"/>
         <UnitName Value="uBaseCustomApplication"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
+        <TopLine Value="27"/>
         <CursorPos X="31" Y="5"/>
         <UsageCount Value="12"/>
-        <Loaded Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="../base/ubaseapplication.pas"/>
@@ -287,7 +288,7 @@
       <Unit29>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1516"/>
         <CursorPos X="1" Y="1533"/>
@@ -312,7 +313,7 @@
       <Unit32>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2"/>
         <CursorPos X="43" Y="14"/>
@@ -522,7 +523,7 @@
       <Unit59>
         <Filename Value="../base/dbintfs/udocumentprocess.pas"/>
         <UnitName Value="uDocumentProcess"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="34"/>
         <CursorPos X="28" Y="38"/>
@@ -555,10 +556,10 @@
       <Unit63>
         <Filename Value="../base/dbintfs/uprocessmanager.pas"/>
         <UnitName Value="uProcessManager"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="12"/>
-        <CursorPos X="23" Y="19"/>
+        <TopLine Value="27"/>
+        <CursorPos X="54" Y="41"/>
         <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit63>
@@ -588,7 +589,7 @@
       <Unit67>
         <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
         <UnitName Value="uProcessManagement"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="28" Y="58"/>
@@ -598,7 +599,7 @@
       <Unit68>
         <Filename Value="../base/dbintfs/umasterdata.pas"/>
         <UnitName Value="uMasterdata"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="382"/>
         <CursorPos X="60" Y="396"/>
@@ -648,7 +649,7 @@
       <Unit74>
         <Filename Value="../base/dbintfs/uintfstrconsts.pas"/>
         <UnitName Value="uIntfStrConsts"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="6"/>
         <CursorPos X="33" Y="22"/>
@@ -777,8 +778,8 @@
         <Caret Line="10" Column="59" TopLine="1"/>
       </Position29>
       <Position30>
-        <Filename Value="../base/ubasecustomapplication.pas"/>
-        <Caret Line="209" Column="1" TopLine="201"/>
+        <Filename Value="processmanager.lpr"/>
+        <Caret Line="236" Column="1" TopLine="85"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -812,7 +813,6 @@
       </CompilerMessages>
       <CompilerPath Value="$(CompPath)"/>
     </Other>
-    <LCLWidgetType Value="nogui"/>
   </CompilerOptions>
   <Debugging>
     <Watches Count="1">

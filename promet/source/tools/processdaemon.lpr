@@ -6,7 +6,7 @@ uses
 {$IFDEF UNIX}
   CThreads,
   Cmem,{$ENDIF}
-  Classes, SysUtils, EventLog, DaemonApp;
+  Classes, SysUtils, EventLog, DaemonApp,process;
 
 type
 
@@ -61,46 +61,21 @@ begin
 end;
 
 procedure TTheThread.Execute;
-var i: integer;
+var
+  aProcess: TProcess;
 begin
-  i := 0;
-  Info('processmanager starting...');
-  with BaseApplication as IBaseDbInterface do
-    begin
-      Info('loading mandants...');
-      if not LoadMandants then
-        begin
-          Error(strFailedtoLoadMandants);
-          raise Exception.Create(strFailedtoLoadMandants);
-          Terminate;
-        end;
-      if not HasOption('m','mandant') then
-        begin
-          Error(strMandantnotSelected);
-          raise Exception.Create(strMandantnotSelected);
-          Terminate;
-        end;
-      Info('login...');
-      if not DBLogin(GetOptionValue('m','mandant'),'',False,False) then
-        begin
-          Error(strLoginFailed+' '+LastError);
-          raise Exception.Create(strLoginFailed+' '+LastError);
-          Terminate;
-        end;
-      uData.Data := Data;
-    end;
   Application.Log(etDebug, 'Thread.Execute');
-  try
-    repeat
-      Sleep(1000); //milliseconds
-      inc(i);
-      Application.Log(etDebug, 'Thread.Loop ' + Format('Tick :%d', [i]));
-    until Terminated;
-    Application.Log(etDebug, 'Thread.LoopStopped');
-  except
-    on E: Exception do
-      Application.Log(etError, 'Thread.Execute: ' + E.Message);
-  end;
+  aProcess := TProcess.Create(nil);
+  aProcess.CurrentDirectory:=Application.Location;
+  aProcess.CommandLine:='processmanager';
+  aProcess.Options:=[poUsePipes,poNoConsole];
+  while not Terminated do
+    begin
+      aProcess.Execute;
+      while aProcess.Active and (not Terminated) do
+        sleep(100);
+    end;
+  aProcess.Free;
 end;
 
 {$REGION ' - Daemon - '}

@@ -3,15 +3,16 @@
   <ProjectSession>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="7">
+    <Units Count="8">
       <Unit0>
         <Filename Value="processdaemon.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="processdaemon"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="58"/>
-        <CursorPos X="24" Y="68"/>
+        <TopLine Value="68"/>
+        <CursorPos X="1" Y="78"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -26,11 +27,10 @@
       <Unit2>
         <Filename Value="processmanager.lpr"/>
         <UnitName Value="processmanager"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="40"/>
-        <CursorPos X="81" Y="7"/>
+        <TopLine Value="31"/>
+        <CursorPos X="1" Y="37"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -51,7 +51,7 @@
       <Unit5>
         <Filename Value="../base/pdaemonprometapp.pas"/>
         <UnitName Value="pdaemonprometapp"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="19" Y="10"/>
@@ -61,18 +61,28 @@
       <Unit6>
         <Filename Value="../base/ubasedaemonapplication.pas"/>
         <UnitName Value="ubasedaemonapplication"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="23" Y="17"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit6>
+      <Unit7>
+        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-process/src/process.pp"/>
+        <UnitName Value="process"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="5"/>
+        <CursorPos X="32" Y="26"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit7>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="9" HistoryIndex="8">
+    <JumpHistory Count="13" HistoryIndex="12">
       <Position1>
         <Filename Value="processdaemon.lpr"/>
         <Caret Line="197" Column="5" TopLine="161"/>
@@ -109,6 +119,22 @@
         <Filename Value="../base/pdaemonprometapp.pas"/>
         <Caret Line="10" Column="19" TopLine="1"/>
       </Position9>
+      <Position10>
+        <Filename Value="processdaemon.lpr"/>
+        <Caret Line="9" Column="44" TopLine="1"/>
+      </Position10>
+      <Position11>
+        <Filename Value="processdaemon.lpr"/>
+        <Caret Line="71" Column="17" TopLine="55"/>
+      </Position11>
+      <Position12>
+        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-process/src/process.pp"/>
+        <Caret Line="148" Column="35" TopLine="130"/>
+      </Position12>
+      <Position13>
+        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-process/src/process.pp"/>
+        <Caret Line="39" Column="33" TopLine="19"/>
+      </Position13>
     </JumpHistory>
   </ProjectSession>
   <EditorMacros Count="0"/>
