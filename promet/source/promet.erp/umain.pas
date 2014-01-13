@@ -743,8 +743,8 @@ constructor TStarterThread.Create(aSuspended: Boolean);
 begin
   FreeOnTerminate:=True;
   Priority:=tpLowest;
-  //inherited Create(aSuspended);
-  Execute;
+  inherited Create(aSuspended);
+  //Execute;
 end;
 
 procedure TStarterThread.Execute;
@@ -756,6 +756,7 @@ var
 begin
   Synchronize(@NewConn);
   Synchronize(@NewMenu);
+  Synchronize(@DoStartupType);
   miNew.Action := fMainTreeFrame.acSearch;
   //Timeregistering
   Synchronize(@AddTimeReg);
@@ -887,7 +888,6 @@ begin
   uTAPIPhone.RegisterPhoneLines;
   {$ENDIF}
   {$ENDIF}
-  Synchronize(@DoStartupType);
   aConn.Free;
 end;
 
