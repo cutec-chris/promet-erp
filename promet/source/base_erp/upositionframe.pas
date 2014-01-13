@@ -175,7 +175,7 @@ begin
 end;
 procedure TfPosition.FGridViewCellChanging(Sender: TObject);
 begin
-  if bDetailsVisible.Down and (not DataSet.DataSet.ControlsDisabled) then
+  if bDetailsVisible.Down then
     TabTimer.Enabled:=True;
 end;
 procedure TfPosition.FGridViewCellChanged(Sender: TObject; NewCell,
@@ -619,6 +619,7 @@ var
   NewVisible: Boolean;
   PosTyp: LongInt;
 begin
+  if DataSet.DataSet.ControlsDisabled then exit;
   TabTimer.Enabled:=False;
   if bDetailsVisible.Down then
     begin
