@@ -898,6 +898,7 @@ begin
         History.AddItem(Self.DataSet,strOrderPosted,'',DataSet.FieldByName('STATUS').AsString+' '+DataSet.FieldByName('NUMBER').AsString,nil,ACICON_ORDERPOSTED);
         //Auftragsansicht Neuprüfen
         Data.CommitTransaction(Connection);
+        Positions.First;
         Result := prSuccess;
       except
         on e : Exception do
