@@ -489,7 +489,7 @@
       <Unit18>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="770"/>
         <CursorPos X="1" Y="793"/>
@@ -499,32 +499,30 @@
       <Unit19>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1285"/>
-        <CursorPos X="1" Y="1306"/>
+        <TopLine Value="1174"/>
+        <CursorPos X="16" Y="1198"/>
         <UsageCount Value="100"/>
-        <Loaded Value="True"/>
       </Unit19>
       <Unit20>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1094"/>
-        <CursorPos X="3" Y="1102"/>
-        <UsageCount Value="99"/>
+        <TopLine Value="1081"/>
+        <CursorPos X="1" Y="1102"/>
+        <UsageCount Value="100"/>
         <Loaded Value="True"/>
       </Unit20>
       <Unit21>
         <Filename Value="../base/dbintfs/uorder.pas"/>
         <UnitName Value="uOrder"/>
-        <EditorIndex Value="7"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="888"/>
-        <CursorPos X="1" Y="902"/>
-        <UsageCount Value="85"/>
+        <TopLine Value="1124"/>
+        <CursorPos X="117" Y="1131"/>
+        <UsageCount Value="86"/>
         <Loaded Value="True"/>
       </Unit21>
       <Unit22>
@@ -592,11 +590,11 @@
       <Unit28>
         <Filename Value="../base/dbintfs/ubaseerpdbclasses.pas"/>
         <UnitName Value="uBaseERPDBClasses"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="9"/>
         <CursorPos X="14" Y="28"/>
-        <UsageCount Value="99"/>
+        <UsageCount Value="100"/>
         <Loaded Value="True"/>
       </Unit28>
       <Unit29>
@@ -614,10 +612,12 @@
       <Unit30>
         <Filename Value="../base/dbintfs/umasterdata.pas"/>
         <UnitName Value="uMasterdata"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="496"/>
-        <CursorPos X="61" Y="515"/>
+        <TopLine Value="43"/>
+        <CursorPos X="59" Y="68"/>
         <UsageCount Value="82"/>
+        <Loaded Value="True"/>
       </Unit30>
       <Unit31>
         <Filename Value="uarticlepositionframe.pas"/>
@@ -649,9 +649,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOrderFrame"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="777"/>
+        <TopLine Value="776"/>
         <CursorPos X="3" Y="680"/>
         <UsageCount Value="202"/>
         <Loaded Value="True"/>
@@ -724,7 +724,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uBookAccounting"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="83"/>
         <CursorPos X="90" Y="104"/>
@@ -738,7 +738,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uRepairPositionFrame"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="57"/>
         <CursorPos X="30" Y="84"/>
@@ -947,7 +947,7 @@
       <Unit59>
         <Filename Value="../base/dbintfs/umessages.pas"/>
         <UnitName Value="uMessages"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="111"/>
         <CursorPos X="15" Y="132"/>
@@ -1003,7 +1003,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uProjectFrame"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="9"/>
         <CursorPos X="27" Y="26"/>
@@ -1146,7 +1146,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPositionFrame"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="47"/>
         <CursorPos X="15" Y="92"/>
@@ -1301,11 +1301,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uEditableTab"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="61"/>
         <CursorPos X="6" Y="78"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit95>
       <Unit96>
@@ -1504,13 +1504,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uPassword"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="114"/>
-        <CursorPos X="120" Y="138"/>
+        <CursorPos X="49" Y="133"/>
         <UsageCount Value="13"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit119>
       <Unit120>
         <Filename Value="../projectmanagement/uganttview.pas"/>
@@ -1992,11 +1989,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMessageEdit"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="797"/>
         <CursorPos X="38" Y="812"/>
-        <UsageCount Value="93"/>
+        <UsageCount Value="94"/>
         <Loaded Value="True"/>
       </Unit176>
       <Unit177>
@@ -4103,11 +4100,11 @@
         <Filename Value="../base_forms/uselectreport.pas"/>
         <HasResources Value="True"/>
         <UnitName Value="uSelectReport"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="227"/>
         <CursorPos X="11" Y="228"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit432>
       <Unit433>
@@ -4121,11 +4118,11 @@
       <Unit434>
         <Filename Value="../base_forms/usearch.pas"/>
         <UnitName Value="uSearch"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="523"/>
         <CursorPos X="18" Y="542"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit434>
       <Unit435>
@@ -4164,7 +4161,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1110"/>
         <CursorPos X="38" Y="1129"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="16"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit438>
@@ -4243,11 +4240,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="umtimeline"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="244"/>
         <CursorPos X="30" Y="262"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit447>
@@ -4305,9 +4302,9 @@
         <UnitName Value="umain"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="513"/>
-        <CursorPos X="8" Y="522"/>
-        <UsageCount Value="11"/>
+        <TopLine Value="447"/>
+        <CursorPos X="32" Y="451"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit454>
       <Unit455>
@@ -4343,127 +4340,99 @@
         <UsageCount Value="10"/>
       </Unit458>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="23" HistoryIndex="22">
       <Position1>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1306" Column="1" TopLine="1285"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1097" Column="1" TopLine="1081"/>
       </Position1>
       <Position2>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="1963" Column="1" TopLine="1944"/>
+        <Caret Line="1098" Column="1" TopLine="1081"/>
       </Position2>
       <Position3>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="1964" Column="1" TopLine="1944"/>
+        <Caret Line="1099" Column="1" TopLine="1081"/>
       </Position3>
       <Position4>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="1965" Column="1" TopLine="1944"/>
+        <Caret Line="1100" Column="1" TopLine="1081"/>
       </Position4>
       <Position5>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="1966" Column="1" TopLine="1944"/>
+        <Caret Line="1101" Column="1" TopLine="1081"/>
       </Position5>
       <Position6>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="1967" Column="1" TopLine="1944"/>
+        <Caret Line="1102" Column="1" TopLine="1081"/>
       </Position6>
       <Position7>
-        <Filename Value="../base/upassword.pas"/>
-        <Caret Line="135" Column="1" TopLine="114"/>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="773" Column="38" TopLine="756"/>
       </Position7>
       <Position8>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1304" Column="1" TopLine="1285"/>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1079" Column="56" TopLine="1164"/>
       </Position8>
       <Position9>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1305" Column="1" TopLine="1285"/>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1092" Column="1" TopLine="1073"/>
       </Position9>
       <Position10>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1306" Column="1" TopLine="1285"/>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1093" Column="1" TopLine="1073"/>
       </Position10>
       <Position11>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="1897" Column="1" TopLine="1878"/>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1094" Column="1" TopLine="1073"/>
       </Position11>
       <Position12>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="1898" Column="1" TopLine="1878"/>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1095" Column="1" TopLine="1073"/>
       </Position12>
       <Position13>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="1900" Column="1" TopLine="1878"/>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1096" Column="1" TopLine="1086"/>
       </Position13>
       <Position14>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="1902" Column="1" TopLine="1878"/>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1097" Column="1" TopLine="1086"/>
       </Position14>
       <Position15>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="789" Column="1" TopLine="770"/>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1098" Column="1" TopLine="1086"/>
       </Position15>
       <Position16>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="790" Column="1" TopLine="770"/>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1099" Column="1" TopLine="1086"/>
       </Position16>
       <Position17>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="791" Column="1" TopLine="770"/>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1101" Column="1" TopLine="1086"/>
       </Position17>
       <Position18>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="792" Column="1" TopLine="770"/>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1122" Column="1" TopLine="1109"/>
       </Position18>
       <Position19>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="793" Column="1" TopLine="770"/>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1129" Column="1" TopLine="1109"/>
       </Position19>
       <Position20>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="1905" Column="1" TopLine="1878"/>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1130" Column="1" TopLine="1109"/>
       </Position20>
       <Position21>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="2186" Column="1" TopLine="2167"/>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1131" Column="1" TopLine="1115"/>
       </Position21>
       <Position22>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="2187" Column="1" TopLine="2167"/>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1130" Column="45" TopLine="1118"/>
       </Position22>
       <Position23>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="2188" Column="1" TopLine="2167"/>
+        <Filename Value="../base/dbintfs/umasterdata.pas"/>
+        <Caret Line="157" Column="29" TopLine="139"/>
       </Position23>
-      <Position24>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="2193" Column="1" TopLine="2183"/>
-      </Position24>
-      <Position25>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="2194" Column="1" TopLine="2183"/>
-      </Position25>
-      <Position26>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="2196" Column="1" TopLine="2183"/>
-      </Position26>
-      <Position27>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="2197" Column="1" TopLine="2183"/>
-      </Position27>
-      <Position28>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="2199" Column="1" TopLine="2183"/>
-      </Position28>
-      <Position29>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="2209" Column="1" TopLine="2195"/>
-      </Position29>
-      <Position30>
-        <Filename Value="../base/upassword.pas"/>
-        <Caret Line="138" Column="120" TopLine="114"/>
-      </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>
@@ -4507,7 +4476,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="1">
+    <BreakPoints Count="2">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
@@ -4515,6 +4484,13 @@
         <Source Value="../base/dbintfs/utask.pas"/>
         <Line Value="350"/>
       </Item1>
+      <Item2>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="../base/dbintfs/uorder.pas"/>
+        <Line Value="1092"/>
+      </Item2>
     </BreakPoints>
     <Watches Count="2">
       <Item1>

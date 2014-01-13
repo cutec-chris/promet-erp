@@ -1127,15 +1127,18 @@ begin
                     begin
                       //Ist Lagerdatensatz gleich zu buchendes Lager
                       Masterdata.Storage.Open;
-                      if not Masterdata.Storage.DataSet.Locate('STORAGEID', trim(copy(aStorage, 0, 3)), [loCaseInsensitive]) then
+                      if (not Masterdata.Storage.DataSet.Locate('STORAGEID', trim(copy(aStorage, 0, 3)), [loCaseInsensitive]))
+                      and (not Data.StorageType.DataSet.Locate('ID',trim(copy(aStorage, 0, 3)),[loCaseInsensitive]))
+                      then
                         if Assigned(FOnGetStorage) then
                           if FOnGetStorage(Self,Masterdata.Storage) then
                             aStorage := Masterdata.Storage.FieldByName('STORAGEID').AsString;
                       //hier sollte auf jeden fall ein Lager selektiert sein
-                      if Masterdata.Storage.Count = 0 then
+                      if Masterdata.Storage.FieldByName('STORAGEID').AsString<>aStorage then
                         begin
                           //Kein Lager vorhanden ? dann Tragen wir das Hauptlager ein (sollte ja nicht zuoft vorkommen)
                           Data.StorageType.DataSet.Locate('DEFAULTST', 'Y', [loCaseInsensitive]);
+                          Data.StorageType.DataSet.Locate('ID',trim(copy(aStorage, 0, 3)),[loCaseInsensitive]);
                           with Masterdata.Storage.DataSet do
                             begin
                               Append;
