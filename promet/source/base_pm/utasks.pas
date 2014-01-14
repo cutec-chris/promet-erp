@@ -1309,10 +1309,7 @@ begin
               if tbLeft.Visible then
                 pSearch.Left:=tbLeft.Width+X
               else pSearch.Left:=X;
-              if tbTop.Visible then
-                pSearch.Top:=tbTop.Height+Y
-              else
-                pSearch.Top:=Y;
+              pSearch.Top:=Y;
               if FGridView.gHeader.Visible then
                 pSearch.Top:=pSearch.Top+FGridView.gHeader.Height;
             end;
