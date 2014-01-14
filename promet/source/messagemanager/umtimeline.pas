@@ -392,7 +392,7 @@ begin
                   if Assigned(TMGridObject(aObj).Image) then
                     begin
                       cRect := Rect(bRect.Right,bRect.Top,aRect.Right,0);
-                      aFactor := TMGridObject(aObj).Image.Width/TMGridObject(aObj).Image.Height;
+                      aFactor := TMGridObject(aObj).Image.Height/TMGridObject(aObj).Image.Width;
                       if TMGridObject(aObj).Image.Width>TMGridObject(aObj).Image.Height then
                         cRect.Bottom:=round(cRect.Top+(DrawImageWidth/aFactor))
                       else cRect.Bottom:=round(cRect.Top+(DrawImageWidth * aFactor));
@@ -795,7 +795,11 @@ begin
       if TMGridObject(aObj).HasAttachment
       and Assigned(TMGridObject(aObj).Image)
       and (TMGridObject(aObj).Image.Width>0) then
-        aWidth := aWidth-TMGridObject(aObj).Image.Width div 2;
+        begin
+          aWidth := aWidth-TMGridObject(aObj).Image.Width div 2;
+          if aHeight < TMGridObject(aObj).Image.Height then
+            aHeight:=TMGridObject(aObj).Image.Height div 2;
+        end;
     end;
 end;
 

@@ -1978,6 +1978,7 @@ var
   r: Classes.TRect;
   TextWidth: Integer;
   DontCall: Boolean = False;
+  aStyle: TFontStyles;
 begin
   Result.Y := gList.DefaultRowHeight;
   Result.X := 0;
@@ -2007,11 +2008,14 @@ begin
                   begin
                     r := gList.CellRect(i+1,aRow);
                     r.Right:=r.Left+TextWidth;
+                    aStyle := gList.Canvas.Font.Style;
+                    gList.Canvas.Font.Style:=[fsBold];
                     DrawText(gList.Canvas.Handle,
                       PChar(UTF8ToSys(aText)),
                       Length(aText),
                       r,
                       DT_LEFT or DT_WORDBREAK or DT_CALCRECT);
+                    gList.Canvas.Font.Style := aStyle;
                   end;
               end;
           end;
