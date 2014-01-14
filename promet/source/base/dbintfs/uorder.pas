@@ -160,7 +160,7 @@ type
     property OnGetStorage : TOnGetStorageEvent read FOnGetStorage write FOnGetStorage;
     property OnGetSerial : TOnGetSerialEvent read FOnGetSerial write FOnGetSerial;
     procedure Recalculate;
-    function Post: TPostResult;
+    function DoPost: TPostResult;
     function ChangeStatus(aNewStatus : string) : Boolean;
     procedure ShippingOutput;
     function PostArticle(aTyp, aID, aVersion, aLanguage: variant; Quantity: real; QuantityUnit, PosNo: string; var aStorage: string; var OrderDelivered: boolean) : Boolean;
@@ -648,7 +648,7 @@ begin
   if CanEdit then DataSet.Post;
 end;
 
-function TOrder.Post: TPostResult;
+function TOrder.DoPost: TPostResult;
 var
   Orders: TOrderList;
   Accountingjournal: TAccountingJournal = nil;
@@ -1152,7 +1152,7 @@ begin
                       begin
                         aReserved:=-Quantity;
                       end;
-                      Result := Masterdata.Storage.Post(OrderType,Self,aStorage,aQuantity,aReserved,QuantityUnit,PosNo);
+                      Result := Masterdata.Storage.DoPost(OrderType,Self,aStorage,aQuantity,aReserved,QuantityUnit,PosNo);
                     end
                   else
                     OrderDelivered := False;

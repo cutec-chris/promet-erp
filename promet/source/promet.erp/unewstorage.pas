@@ -78,8 +78,8 @@ begin
                                                                aOrder.Positions.FieldByName('SHORTTEXT').AsString]);
   Result := ShowModal = mrOK;
   if Result then
-    if not aStorage.DataSet.Locate('STORAGEID',aStorageType.FieldByName('ID').AsString,[loCaseInsensitive]) then
-      with aStorage.DataSet do
+    if not aStorage.Locate('STORAGEID',aStorageType.FieldByName('ID').AsString,[loCaseInsensitive]) then
+      with aStorage do
         begin
           Insert;
           if aStorage.DataSet.FieldDefs.IndexOf('TYPE') > -1 then

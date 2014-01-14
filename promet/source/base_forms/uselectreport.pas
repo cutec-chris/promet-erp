@@ -225,7 +225,7 @@ begin
     end;
   if Assigned(FDS) and Supports(FDS, IPostableDataSet, SH) then
     begin
-      Res := SH.Post;
+      Res := SH.DoPost;
       FBooked := Res = prSuccess;
       if Res = prFailed then
         begin
@@ -477,7 +477,7 @@ begin
       if Assigned(FDS) and Supports(FDS, IPostableDataSet, SH) then
         begin
           fLogWaitForm.ShowInfo(strBooking);
-          pRes := SH.Post;
+          pRes := SH.DoPost;
           FBooked := pRes = prSuccess;
           if pRes = prFailed then
             begin

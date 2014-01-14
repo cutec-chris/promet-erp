@@ -69,7 +69,7 @@ type
     destructor Destroy; override;
     procedure CascadicPost; override;
     procedure CascadicCancel; override;
-    function Post: TPostResult;
+    function DoPost: TPostResult;
     procedure FillDefaults(aDataSet : TDataSet);override;
     function GetTextFieldName: string;override;
     function GetStatusFieldName : string;override;
@@ -243,7 +243,7 @@ begin
   FEntrys.CascadicCancel;
   FUsers.CascadicCancel;
 end;
-function TMeetings.Post: TPostResult;
+function TMeetings.DoPost: TPostResult;
 var
   ProjectLink: String = '';
   aProject: TProject;

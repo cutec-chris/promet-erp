@@ -550,7 +550,7 @@ end;
 
 procedure TfPosition.Datasource1StateChange(Sender: TObject);
 begin
-  if (bDetailsVisible.Down) and (not DataSet.DataSet.ControlsDisabled) and (FDataset.State=dsInsert) then
+  if (bDetailsVisible.Down) and Assigned(FDataSet) and (not DataSet.DataSet.ControlsDisabled) and (FDataset.State=dsInsert) then
     TabTimer.Enabled:=True;
 end;
 
@@ -654,9 +654,13 @@ begin
   FDataset:=AValue;
   SetLabels := FGridView.DataSet = nil;
   FGridView.DataSet := AValue;
-  Datasource1.DataSet := FGridView.DataSet.DataSet;
-  if SetLabels then
-    DataSet.SetDisplayLabels(DataSet.DataSet);
+  if Assigned(AValue) then
+    begin
+      Datasource1.DataSet := FGridView.DataSet.DataSet;
+      if SetLabels then
+        DataSet.SetDisplayLabels(DataSet.DataSet);
+    end
+  else Datasource1.DataSet := nil;
 end;
 procedure TfPosition.SetBaseName(AValue: string);
 begin

@@ -952,6 +952,7 @@ begin
   else if rpos('(',aLink) > 0 then
     aLink := copy(aLink,0,rpos('(',aLink)-1);
   pcHeader.CloseAll;
+  FPosFrame.Dataset:=nil;
   CloseConnection(acSave.Enabled);
   FreeAndNil(FConnection);
   if not Assigned(FConnection) then

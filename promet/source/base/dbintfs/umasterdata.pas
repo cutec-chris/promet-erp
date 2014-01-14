@@ -66,7 +66,7 @@ type
     destructor Destroy; override;
     function CreateTable : Boolean;override;
     procedure DefineFields(aDataSet : TDataSet);override;
-    function Post(OrderType: TBaseDBDataset; Order: TBaseDBDataset;
+    function DoPost(OrderType: TBaseDBDataset; Order: TBaseDBDataset;
       aStorage: string; aQuantity, aReserve: real; QuantityUnit, PosNo: string
   ): Boolean;
   end;
@@ -393,7 +393,7 @@ begin
     end;
 end;
 
-function TStorage.Post(OrderType: TBaseDBDataset; Order: TBaseDBDataset;
+function TStorage.DoPost(OrderType: TBaseDBDataset; Order: TBaseDBDataset;
   aStorage: string; aQuantity, aReserve: real; QuantityUnit,PosNo: string): Boolean;
 var
   JournalCreated: Boolean;

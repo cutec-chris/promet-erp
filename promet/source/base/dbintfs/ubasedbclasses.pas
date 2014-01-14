@@ -96,6 +96,7 @@ type
     procedure Post;virtual;
     procedure Edit;virtual;
     procedure Cancel;virtual;
+    function Locate(const keyfields: string; const keyvalues: Variant; options: TLocateOptions) : boolean; virtual;
     function EOF : Boolean;
     function FieldByName(aFieldName : string) : TField;
     procedure Assign(Source: TPersistent); override;
@@ -1084,6 +1085,14 @@ procedure TBaseDBDataset.Cancel;
 begin
   if Assigned(FDataSet) and (FDataSet.Active) then
     FDataSet.Cancel;
+end;
+
+function TBaseDBDataset.Locate(const keyfields: string;
+  const keyvalues: Variant; options: TLocateOptions): boolean;
+begin
+  Result := False;
+  if DataSet.Active then
+    Result := DataSet.Locate(keyfields,keyvalues,options);
 end;
 
 function TBaseDBDataset.EOF: Boolean;
@@ -2088,7 +2097,7 @@ begin
 end;
 function TBaseDBDataset.GetCanEdit: Boolean;
 begin
-  Result := Assigned(fdataSet) and (FDataSet.State = dsEdit) or (FDataSet.State = dsInsert);
+  Result := Assigned(Self) and (Self is TbaseDbDataSet) and Assigned(fdataSet) and (FDataSet.State = dsEdit) or (FDataSet.State = dsInsert);
 end;
 function TBaseDBDataset.GetCount: Integer;
 begin
