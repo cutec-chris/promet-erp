@@ -228,7 +228,7 @@ begin
     end;
   except
   end;
-  if acHistory.Enabled and (not Assigned(fmTimeline)) then
+  if acHistory.Enabled then
     begin
       //Show new History Entrys
       if (not FHistory.DataSet.Active) or (FHistory.DataSet.EOF) then //all shown, refresh list
@@ -255,7 +255,7 @@ begin
                 end;
               if tmp <> '' then
                 begin
-                  TrayIcon.BalloonHint:=tmp;
+                  TrayIcon.BalloonHint:=UTF8ToSys(tmp);
                   TrayIcon.ShowBalloonHint;
                   TrayIcon.Icons := ImageList2;
                   TrayIcon.Animate:=True;
