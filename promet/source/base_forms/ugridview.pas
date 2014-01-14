@@ -2829,7 +2829,8 @@ begin
   if Result and UpdateRowHeight then
     begin
       TRowObject(gList.Objects[0,gList.Row]).Extends := GetRowHeight(gList.Row);
-      if TRowObject(gList.Objects[0,gList.Row]).Extends.Y <> gList.RowHeights[gList.Row] then
+      aNewHeight := TRowObject(gList.Objects[0,gList.Row]).Extends.Y;
+      if aNewHeight <> gList.RowHeights[gList.Row] then
         gList.RowHeights[gList.Row] := aNewHeight;
       TRowObject(gList.Objects[0,gList.Row]).RefreshHeight:=True;
     end;
