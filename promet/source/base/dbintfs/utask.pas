@@ -115,8 +115,6 @@ type
 
 var
   OnMoveTasks : TMoveTasksEvent;
-implementation
-uses uBaseApplication,uIntfStrConsts,uProjects,uData,LCLProc;
 resourcestring
   strTaskCompleted          = 'Aufgabe fertiggestellt';
   strTaskreopened           = 'Aufgabe wiedereröffnet';
@@ -138,6 +136,8 @@ resourcestring
   strPercentDone            = '% erledigt';
   strWorkstatus             = 'Bearbeitungsstatus';
   strRenamed                = 'umbenannt in "%s"';
+implementation
+uses uBaseApplication,uIntfStrConsts,uProjects,uData,LCLProc;
 
 procedure TTaskSnapshots.DefineFields(aDataSet: TDataSet);
 begin

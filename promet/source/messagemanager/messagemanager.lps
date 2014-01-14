@@ -20,13 +20,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="umain"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="227"/>
+        <TopLine Value="158"/>
         <CursorPos X="41" Y="243"/>
         <UsageCount Value="161"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="umtimeline.pas"/>
@@ -35,10 +35,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="umtimeline"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="128"/>
-        <CursorPos X="1" Y="157"/>
+        <TopLine Value="605"/>
+        <CursorPos X="202" Y="624"/>
         <UsageCount Value="161"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -50,13 +51,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ufollow"/>
-        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="97"/>
         <CursorPos X="37" Y="104"/>
         <UsageCount Value="91"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="udetailview.pas"/>
@@ -69,7 +67,6 @@
         <TopLine Value="53"/>
         <CursorPos X="1" Y="85"/>
         <UsageCount Value="73"/>
-        <LoadedDesigner Value="True"/>
       </Unit4>
       <Unit5>
         <Filename Value="unit1.pas"/>
@@ -118,7 +115,7 @@
       <Unit10>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="746"/>
         <CursorPos X="1" Y="771"/>
@@ -221,7 +218,7 @@
       <Unit22>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="191"/>
         <CursorPos X="14" Y="208"/>
@@ -610,10 +607,12 @@
       <Unit68>
         <Filename Value="../base/dbintfs/utask.pas"/>
         <UnitName Value="utask"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="471"/>
-        <CursorPos X="26" Y="546"/>
-        <UsageCount Value="7"/>
+        <TopLine Value="34"/>
+        <CursorPos X="1" Y="139"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit68>
       <Unit69>
         <Filename Value="../../../../lazarus/lcl/interfaces/gtk2/gtk2widgetset.inc"/>
@@ -1209,12 +1208,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ugridview"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="3308"/>
         <CursorPos X="3" Y="3316"/>
         <UsageCount Value="25"/>
-        <Loaded Value="True"/>
       </Unit144>
       <Unit145>
         <Filename Value="../../../../../lazarus/lcl/include/wincontrol.inc"/>
@@ -1277,8 +1274,8 @@
         <UnitName Value="uDocuments"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="92"/>
-        <CursorPos X="59" Y="110"/>
+        <TopLine Value="34"/>
+        <CursorPos X="40" Y="104"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit152>
@@ -1304,7 +1301,7 @@
       <Unit155>
         <Filename Value="../base/dbintfs/uthumbnails.pas"/>
         <UnitName Value="uthumbnails"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="74"/>
         <CursorPos X="30" Y="108"/>
@@ -1441,7 +1438,7 @@
       <Unit172>
         <Filename Value="../base_forms/usearch.pas"/>
         <UnitName Value="uSearch"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="154"/>
         <CursorPos X="1" Y="174"/>
@@ -1521,7 +1518,7 @@
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="17" HistoryIndex="16">
+    <JumpHistory Count="23" HistoryIndex="22">
       <Position1>
         <Filename Value="umtimeline.pas"/>
         <Caret Line="255" Column="1" TopLine="234"/>
@@ -1590,6 +1587,30 @@
         <Filename Value="umain.pas"/>
         <Caret Line="242" Column="41" TopLine="226"/>
       </Position17>
+      <Position18>
+        <Filename Value="umtimeline.pas"/>
+        <Caret Line="157" Column="1" TopLine="128"/>
+      </Position18>
+      <Position19>
+        <Filename Value="umtimeline.pas"/>
+        <Caret Line="619" Column="30" TopLine="592"/>
+      </Position19>
+      <Position20>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="104" Column="21" TopLine="85"/>
+      </Position20>
+      <Position21>
+        <Filename Value="umtimeline.pas"/>
+        <Caret Line="624" Column="79" TopLine="592"/>
+      </Position21>
+      <Position22>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="760" Column="68" TopLine="733"/>
+      </Position22>
+      <Position23>
+        <Filename Value="umtimeline.pas"/>
+        <Caret Line="170" Column="66" TopLine="151"/>
+      </Position23>
     </JumpHistory>
   </ProjectSession>
   <Debugging>

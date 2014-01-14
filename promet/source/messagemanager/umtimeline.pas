@@ -621,6 +621,7 @@ begin
                   aTask.FieldByName('SUMMARY').AsString:=tmp;
                   aTask.FieldByName('USER').AsString:=aUser.FieldByName('ACCOUNTNO').AsString;
                   aTask.DataSet.Post;
+                  Data.Users.History.AddItem(aTask.DataSet,Format(strTaskUDelegated,[aTask.FieldByName('SUMMARY').AsString]),Data.BuildLink(aTask.DataSet),'',nil,ACICON_TASKADDED,'',False);;
                   aTask.Free;
                 end;
             end;
