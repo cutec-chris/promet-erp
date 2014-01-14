@@ -10,7 +10,7 @@ SVC_ALIAS="Description of your program"
 SVC_FILENAME="processdaemon"
 
 # Edit SVC_DIR to where you place your compiled service application 
-SVC_DIR="/lib//"
+SVC_DIR="/usr/lib/promet-erp/tools/"
 
 # Edit SVC_SERVICE_SCRIPT to the name of this file without the extension
 SVC_SERVICE_SCRIPT="promet-process"

@@ -43,7 +43,7 @@
   <CompilerOptions>
     <Version Value="11"/>
     <Target>
-      <Filename Value="processdaemon"/>
+      <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/tools/processdaemon"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>

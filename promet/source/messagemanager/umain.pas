@@ -236,37 +236,37 @@ begin
           Data.SetFilter(FHistory,'('+FFilter+' '+FFilter2+') AND ('+Data.QuoteField('TIMESTAMPD')+'>='+Data.DateTimeToFilter(InformRecTime)+')',10,'TIMESTAMPD','DESC');
           History.DataSet.Refresh;
           History.DataSet.First;
-        end;
-      if (FHistory.Count > 0) then
-        begin
-          if Assigned(fmTimeline) and fmTimeline.Visible then
-            fmTimeline.fTimeline.Refresh
-          else
+          if (FHistory.Count > 0) then
             begin
-              TrayIcon.BalloonTitle:=strNewEntrys;
-              tmp := '';
-              while not FHistory.DataSet.EOF do
+              if Assigned(fmTimeline) and fmTimeline.Visible then
+                fmTimeline.fTimeline.Refresh
+              else
                 begin
-                  if FHistory.FieldByName('CHANGEDBY').AsString <> Data.Users.IDCode.AsString then
+                  TrayIcon.BalloonTitle:=strNewEntrys;
+                  tmp := '';
+                  while not FHistory.DataSet.EOF do
                     begin
-                      tmp:=tmp+StripWikiText(FHistory.FieldByName('ACTION').AsString)+' - '+FHistory.FieldByName('REFERENCE').AsString+lineending;
+                      if FHistory.FieldByName('CHANGEDBY').AsString <> Data.Users.IDCode.AsString then
+                        begin
+                          tmp:=tmp+StripWikiText(FHistory.FieldByName('ACTION').AsString)+' - '+FHistory.FieldByName('REFERENCE').AsString+lineending;
+                        end;
+                      FHistory.DataSet.Next;
                     end;
-                  FHistory.DataSet.Next;
-                end;
-              if tmp <> '' then
-                begin
-                  TrayIcon.BalloonHint:=UTF8ToSys(tmp);
-                  TrayIcon.ShowBalloonHint;
-                  TrayIcon.Icons := ImageList2;
-                  TrayIcon.Animate:=True;
-                  InformRecTime:=Now();
-                  with Application as IBaseDBInterface do
-                    DBConfig.WriteString('INFORMRECTIME',DateTimeToStr(InformRecTime));
-                  TrayIcon.Tag := 0;
-                  if Assigned(fmTimeline) then
+                  if tmp <> '' then
                     begin
-                      fmTimeline.fTimeline.DataSet.First;
-                      fmTimeline.fTimeline.Refresh;
+                      TrayIcon.BalloonHint:=UTF8ToSys(tmp);
+                      TrayIcon.ShowBalloonHint;
+                      TrayIcon.Icons := ImageList2;
+                      TrayIcon.Animate:=True;
+                      InformRecTime:=Now();
+                      with Application as IBaseDBInterface do
+                        DBConfig.WriteString('INFORMRECTIME',DateTimeToStr(InformRecTime));
+                      TrayIcon.Tag := 0;
+                      if Assigned(fmTimeline) then
+                        begin
+                          fmTimeline.fTimeline.DataSet.First;
+                          fmTimeline.fTimeline.Refresh;
+                        end;
                     end;
                 end;
             end;

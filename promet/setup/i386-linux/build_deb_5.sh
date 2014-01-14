@@ -21,6 +21,8 @@ echo "creating installation..."
 mkdir -p $BuildDir/usr/share/pixmaps/
 mkdir -p $BuildDir/usr/share/applications
 mkdir -p $BuildDir/usr/bin/
+mkdir -p $BuildDir/etc/
+mkdir -p $BuildDir/etc/init.d/
 mkdir -p $BuildDir/usr/lib/$Program
 echo "copy to builddir..."
 ./copy_to_builddir_web.sh $Archfpc $BuildDir/usr/lib/$Program
