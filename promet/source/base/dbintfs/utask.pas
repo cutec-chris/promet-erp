@@ -107,7 +107,7 @@ type
   public
     constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
-    procedure CheckDependencies;
+    procedure CheckDependencies(aLevel: Integer=0);
     property Links : TTaskLinks read FLinks;
     property Dependencies : TDependencies read FDependencies;
   end;
@@ -238,14 +238,19 @@ begin
   FLinks.Free;
   inherited Destroy;
 end;
-procedure TTask.CheckDependencies;
+procedure TTask.CheckDependencies(aLevel : Integer = 0);
 var
   aTask: TTask;
   aCompCount : Double = 0;
   AllCompleted : String = 'Y';
   aPercentage: Extended;
   aTime: TDateTime;
+  tmp : string = '';
+  i: Integer;
 begin
+  for i := 0 to aLevel-1 do
+  tmp := tmp+' ';
+  //debugln(tmp+'CheckDependencies:'+DataSet.FieldByName('SUMMARY').AsString);
   if not Dependencies.DataSet.Active then
     Dependencies.Open;
   Dependencies.DataSet.First;
@@ -254,9 +259,12 @@ begin
       aTask := TTask.Create(Self,DataModule,Connection);
       aTask.SelectFromLink(Dependencies.FieldByName('LINK').AsString);
       aTask.Open;
-      aTask.CheckDependencies;
       aCompCount:=aCompCount+(aTask.FieldByName('PERCENT').AsInteger/100);
-      if aTask.FieldByName('COMPLETED').AsString <> 'Y' then AllCompleted:='N';
+      if aTask.FieldByName('COMPLETED').AsString <> 'Y' then
+        begin
+          aTask.CheckDependencies(aLevel+1);
+          AllCompleted:='N';
+        end;
       aTask.Free;
       Dependencies.DataSet.Next;
     end;
@@ -286,6 +294,7 @@ var
   AllCompleted : String = 'Y';
   aPercentage: Extended;
 begin
+  //debugln('CheckChilds:'+DataSet.FieldByName('SUMMARY').AsString);
   if Id.IsNull then exit;
   aTasks := TTaskList.Create(Self,DataModule,Connection);
   aTasks.SelectByParent(Id.AsVariant);
@@ -326,6 +335,7 @@ var
   HasTrigger: Boolean;
   aTime: TDateTime;
 begin
+  //debugln('CheckDependtasks:'+DataSet.FieldByName('SUMMARY').AsString);
   HasTrigger := Data.TriggerExists('TASKS_INS_DEPEND');
   aDeps := TDependencies.Create(Self,DataModule,Connection);
   aDeps.SelectByLink(Data.BuildLink(DataSet));
@@ -523,6 +533,7 @@ var
 begin
   if trim(FDS.DataSet.FieldByName('SUMMARY').AsString)<>'' then
     begin
+      //debugln('TasksBeforeDelete:'+FDS.DataSet.FieldByName('SUMMARY').AsString);
       aProject := TProject.Create(Self,Data,Connection);
       aProject.Select(FDS.DataSet.FieldByName('PROJECTID').AsVariant);
       aProject.Open;
@@ -533,7 +544,11 @@ begin
         end;
       aProject.Free;
     end;
-  if  (Data.TriggerExists('TASKS_DEL_CHILD')) then exit;
+  if  (Data.TriggerExists('TASKS_DEL_CHILD')) then
+    begin
+      //debugln('TasksBeforeDelete:using Trigger');
+      exit;
+    end;
   aParent := TTask.Create(Self,DataModule,Connection);
   aParent.Select(DataSet.FieldByName('PARENT').AsVariant);
   aParent.Open;

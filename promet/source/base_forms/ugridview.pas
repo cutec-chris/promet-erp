@@ -1284,7 +1284,9 @@ begin
                       FSetCText(Sender,dgFake.Columns[gList.Col-1],aRow,Value);
                     gList.Cells[gList.Col,aRow] := ct+Value;
                   end
+                {$ifdef DEBUG}
                 else debugln('gotorownumber failed');
+                {$ENDIF}
               end;
           aRect := gList.Selection;
         finally
@@ -1767,12 +1769,16 @@ begin
                           oDate := oDate+0.999;
                         dgFake.Columns[aCol-1].Field.AsDateTime:=oDate;
                       end;
+                    {$ifdef DEBUG}
                     debugln('SetEditDate:'+tmp+' '+dgFake.Columns[aCol-1].Field.AsString);
+                    {$endif}
                   end
                 else
                   begin
                     dgFake.Columns[aCol-1].Field.AsString:=tmp;
+                    {$ifdef debug}
                     debugln('SetEditText:'+tmp);
+                    {$endif}
                   end;
               end
             else
@@ -2779,7 +2785,6 @@ begin
                     a := i+1;
                     while (a < gList.RowCount) and (GetLevel(aCol,a)>=NewLevel) do
                       inc(a);
-//                    debugln('Bookmark=',strBookmark,' a=',IntToStr(a));
                     gList.RowCount:=gList.RowCount+1;
                     gList.Objects[0,gList.RowCount-1] := TRowObject.Create;
                     gList.MoveColRow(False,gList.RowCount-1,a);

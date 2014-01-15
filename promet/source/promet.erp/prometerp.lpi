@@ -379,10 +379,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uAddressFrame"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="41"/>
-        <CursorPos X="3" Y="84"/>
+        <TopLine Value="17"/>
+        <CursorPos X="1" Y="163"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit8>
       <Unit9>
         <Filename Value="../base/uhistoryframe.pas"/>
@@ -514,11 +517,11 @@
       <Unit21>
         <Filename Value="../base/dbintfs/uorder.pas"/>
         <UnitName Value="uOrder"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1094"/>
+        <TopLine Value="1078"/>
         <CursorPos X="1" Y="1134"/>
-        <UsageCount Value="88"/>
+        <UsageCount Value="90"/>
         <Loaded Value="True"/>
       </Unit21>
       <Unit22>
@@ -586,7 +589,7 @@
       <Unit28>
         <Filename Value="../base/dbintfs/ubaseerpdbclasses.pas"/>
         <UnitName Value="uBaseERPDBClasses"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="8"/>
         <CursorPos X="16" Y="28"/>
@@ -1029,27 +1032,31 @@
       <Unit68>
         <Filename Value="../base/dbintfs/utask.pas"/>
         <UnitName Value="utask"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="578"/>
-        <CursorPos X="24" Y="589"/>
-        <UsageCount Value="99"/>
+        <TopLine Value="517"/>
+        <CursorPos X="16" Y="549"/>
+        <UsageCount Value="101"/>
+        <Loaded Value="True"/>
       </Unit68>
       <Unit69>
         <Filename Value="../base/revision.inc"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
-        <UsageCount Value="99"/>
+        <UsageCount Value="101"/>
         <Loaded Value="True"/>
       </Unit69>
       <Unit70>
         <Filename Value="../base/changes.txt"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="82" Y="2"/>
+        <CursorPos X="31" Y="4"/>
         <UsageCount Value="103"/>
+        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit70>
       <Unit71>
@@ -4136,8 +4143,8 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ugridview"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="636"/>
-        <CursorPos X="1" Y="668"/>
+        <TopLine Value="2956"/>
+        <CursorPos X="10" Y="2988"/>
         <UsageCount Value="18"/>
       </Unit438>
       <Unit439>
@@ -4331,7 +4338,68 @@
         <UsageCount Value="10"/>
       </Unit460>
     </Units>
-    <JumpHistory Count="0" HistoryIndex="-1"/>
+    <JumpHistory Count="15" HistoryIndex="14">
+      <Position1>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="330" Column="1" TopLine="310"/>
+      </Position1>
+      <Position2>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="353" Column="22" TopLine="328"/>
+      </Position2>
+      <Position3>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="250" Column="3" TopLine="241"/>
+      </Position3>
+      <Position4>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="248" Column="21" TopLine="231"/>
+      </Position4>
+      <Position5>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="251" Column="7" TopLine="231"/>
+      </Position5>
+      <Position6>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="336" Column="1" TopLine="317"/>
+      </Position6>
+      <Position7>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="337" Column="1" TopLine="317"/>
+      </Position7>
+      <Position8>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="338" Column="1" TopLine="317"/>
+      </Position8>
+      <Position9>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="339" Column="1" TopLine="317"/>
+      </Position9>
+      <Position10>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="358" Column="28" TopLine="335"/>
+      </Position10>
+      <Position11>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="1" Column="5" TopLine="1"/>
+      </Position11>
+      <Position12>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="253" Column="12" TopLine="221"/>
+      </Position12>
+      <Position13>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="297" Column="12" TopLine="265"/>
+      </Position13>
+      <Position14>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="339" Column="5" TopLine="306"/>
+      </Position14>
+      <Position15>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="536" Column="16" TopLine="504"/>
+      </Position15>
+    </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>
       <Item1 Name="SVN repository" Value="/media/Daten/Source/prometheus/source"/>
@@ -4344,7 +4412,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)-$(TargetWidgetset)"/>
+      <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <CodeGeneration>
       <Checks>
@@ -4374,21 +4442,14 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="2">
+    <BreakPoints Count="1">
       <Item1>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="../base/dbintfs/utask.pas"/>
-        <Line Value="350"/>
-      </Item1>
-      <Item2>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
         <Source Value="uorderframe.pas"/>
         <Line Value="955"/>
-      </Item2>
+      </Item1>
     </BreakPoints>
     <Watches Count="2">
       <Item1>
