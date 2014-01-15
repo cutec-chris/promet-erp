@@ -848,6 +848,7 @@ begin
       TreeField:='PARENT';
       ExpandedField:='EXPANDED';
       SortField:='POSNO';
+      NumberField:='POSNO';
       HasChildsField:='HASCHILDS';
       SortDirection:=uBaseDBInterface.TSortDirection.sdAscending;
       ReadOnly:=False;

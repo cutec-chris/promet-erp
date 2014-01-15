@@ -3,6 +3,7 @@
       - Grids:falsche Höhenberechnung korrigiert
       - Aufgaben: schnellere Prüfung von Abhängigkeiten
       - Projekt: bei Statusänderungen wird automatisch Snapshot erstellt
+      - Meeting: verschieben von Zeilen nun wieder möglich (seit ~Build 296)
 Build 302
       - Messagemanager: Timeline wird immer aktualisiert wenn neue Daten ankommen, wenn Timeline nicht sichtbar wird der erste Eintrag markiert
       - Auftragseditor: mehrere kleine Fehler beseitigt
