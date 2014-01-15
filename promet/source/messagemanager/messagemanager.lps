@@ -20,7 +20,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="umain"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="35"/>
         <CursorPos X="63" Y="259"/>
@@ -38,8 +38,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1086"/>
-        <CursorPos X="1" Y="1104"/>
+        <TopLine Value="527"/>
+        <CursorPos X="11" Y="553"/>
         <UsageCount Value="162"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -115,7 +115,7 @@
       <Unit10>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="746"/>
         <CursorPos X="1" Y="771"/>
@@ -218,7 +218,7 @@
       <Unit22>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="191"/>
         <CursorPos X="14" Y="208"/>
@@ -270,7 +270,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="uBaseVisualControls"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="9"/>
         <CursorPos X="45" Y="21"/>
@@ -378,10 +378,12 @@
       <Unit41>
         <Filename Value="../components/zeos/src/dbc/ZDbcPostgreSqlUtils.pas"/>
         <UnitName Value="ZDbcPostgreSqlUtils"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="711"/>
-        <CursorPos X="40" Y="724"/>
-        <UsageCount Value="8"/>
+        <CursorPos X="44" Y="728"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit41>
       <Unit42>
@@ -607,7 +609,7 @@
       <Unit68>
         <Filename Value="../base/dbintfs/utask.pas"/>
         <UnitName Value="utask"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="105"/>
         <CursorPos X="1" Y="139"/>
@@ -885,7 +887,7 @@
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="56" Y="3"/>
+        <CursorPos X="47" Y="2"/>
         <UsageCount Value="47"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
@@ -1272,7 +1274,7 @@
       <Unit152>
         <Filename Value="../base/dbintfs/udocuments.pas"/>
         <UnitName Value="uDocuments"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="34"/>
         <CursorPos X="40" Y="104"/>
@@ -1301,10 +1303,10 @@
       <Unit155>
         <Filename Value="../base/dbintfs/uthumbnails.pas"/>
         <UnitName Value="uthumbnails"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="74"/>
-        <CursorPos X="30" Y="108"/>
+        <TopLine Value="76"/>
+        <CursorPos X="3" Y="86"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit155>
@@ -1438,7 +1440,7 @@
       <Unit172>
         <Filename Value="../base_forms/usearch.pas"/>
         <UnitName Value="uSearch"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="154"/>
         <CursorPos X="1" Y="174"/>
@@ -1526,7 +1528,7 @@
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="19" HistoryIndex="18">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="umain.pas"/>
         <Caret Line="276" Column="1" TopLine="229"/>
@@ -1603,18 +1605,51 @@
         <Filename Value="umtimeline.pas"/>
         <Caret Line="801" Column="1" TopLine="795"/>
       </Position19>
+      <Position20>
+        <Filename Value="umtimeline.pas"/>
+        <Caret Line="20" Column="73" TopLine="12"/>
+      </Position20>
+      <Position21>
+        <Filename Value="umtimeline.pas"/>
+        <Caret Line="401" Column="73" TopLine="376"/>
+      </Position21>
+      <Position22>
+        <Filename Value="umtimeline.pas"/>
+        <Caret Line="6" Column="89" TopLine="1"/>
+      </Position22>
+      <Position23>
+        <Filename Value="umtimeline.pas"/>
+        <Caret Line="388" Column="38" TopLine="360"/>
+      </Position23>
+      <Position24>
+        <Filename Value="umtimeline.pas"/>
+        <Caret Line="391" Column="40" TopLine="363"/>
+      </Position24>
+      <Position25>
+        <Filename Value="umtimeline.pas"/>
+        <Caret Line="393" Column="55" TopLine="374"/>
+      </Position25>
+      <Position26>
+        <Filename Value="umtimeline.pas"/>
+        <Caret Line="396" Column="50" TopLine="374"/>
+      </Position26>
+      <Position27>
+        <Filename Value="umtimeline.pas"/>
+        <Caret Line="406" Column="57" TopLine="374"/>
+      </Position27>
+      <Position28>
+        <Filename Value="umtimeline.pas"/>
+        <Caret Line="759" Column="68" TopLine="734"/>
+      </Position28>
+      <Position29>
+        <Filename Value="umtimeline.pas"/>
+        <Caret Line="554" Column="1" TopLine="523"/>
+      </Position29>
+      <Position30>
+        <Filename Value="../components/zeos/src/dbc/ZDbcPostgreSqlUtils.pas"/>
+        <Caret Line="728" Column="44" TopLine="711"/>
+      </Position30>
     </JumpHistory>
   </ProjectSession>
-  <Debugging>
-    <BreakPoints Count="1">
-      <Item1>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="umtimeline.pas"/>
-        <Line Value="493"/>
-      </Item1>
-    </BreakPoints>
-  </Debugging>
   <EditorMacros Count="0"/>
 </CONFIG>

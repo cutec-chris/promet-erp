@@ -23,7 +23,8 @@ if [ x$BuildDir = x/ ]; then
 fi
 
 export PATH=$PATH:/home/chris/lazarus:/media/2DF0E8714D527894/lazarus
-./build_all_executables.sh $Widgetset $Archfpc
+echo build_all_executables.sh $Widgetset $Archfpc
+sh build_all_executables.sh $Widgetset $Archfpc
 
 if [ ! -f ../../output/$Archfpc-linux/prometerp ];
 then

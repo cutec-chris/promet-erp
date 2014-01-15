@@ -305,6 +305,7 @@ var
   aEn: Boolean;
   cRect: TRect;
   aFactor: Extended;
+  aWidth: Integer;
 begin
   with (Sender as TCustomGrid), Canvas do
     begin
@@ -392,10 +393,15 @@ begin
                   if Assigned(TMGridObject(aObj).Image) then
                     begin
                       cRect := Rect(bRect.Right,bRect.Top,aRect.Right,0);
-                      aFactor := TMGridObject(aObj).Image.Height/TMGridObject(aObj).Image.Width;
+                      if TMGridObject(aObj).Image.Height>TMGridObject(aObj).Image.Width then
+                        aFactor := TMGridObject(aObj).Image.Height/TMGridObject(aObj).Image.Width
+                      else aFactor := TMGridObject(aObj).Image.Width/TMGridObject(aObj).Image.Height;
+                      aWidth := DrawImageWidth;
+                      if TMGridObject(aObj).Image.Width < DrawImageWidth then
+                        aWidth := TMGridObject(aObj).Image.Width;
                       if TMGridObject(aObj).Image.Width>TMGridObject(aObj).Image.Height then
-                        cRect.Bottom:=round(cRect.Top+(DrawImageWidth/aFactor))
-                      else cRect.Bottom:=round(cRect.Top+(DrawImageWidth * aFactor));
+                        cRect.Bottom:=round(cRect.Top+(aWidth/aFactor))
+                      else cRect.Bottom:=round(cRect.Top+(aWidth * aFactor));
                       TStringGrid(Sender).Canvas.StretchDraw(cRect,TMGridObject(aObj).Image);
                     end;
                 end;
@@ -530,6 +536,8 @@ begin
           FUserHist.History.AddParentedItem(FUserHist.DataSet,tmp,FParentItem,'',Data.Users.IDCode.AsString,nil,ACICON_USEREDITED,'',True,True);
         end;
     end;
+  mEntry.SelText := '[[Bild:'+aName+']]';
+  mEntry.SelStart:=mEntry.SelStart+length(mEntry.SelText);
   if not Found then
     begin
       FUserHist.Select(Data.Users.Id.AsVariant);
@@ -542,6 +550,7 @@ begin
   aId := FUserHist.History.Id.AsVariant;
   Application.ProcessMessages;
   Self.Hide;
+  sleep(1000); //wait for hide animations ...
   Application.ProcessMessages;
   //aName := InputBox(strScreenshotName, strEnterAnName, aName);
   Application.ProcessMessages;
@@ -556,8 +565,6 @@ begin
   aDocument.Select(aId,'H',0);
   aDocument.AddFromFile(AppendPathDelim(GetTempDir)+aName);
   aDocument.Free;
-  mEntry.SelText := '[[Bild:'+aName+']]';
-  mEntry.SelStart:=mEntry.SelStart+length(mEntry.SelText);
   Self.Show;
   acSend.Enabled:=True;
 end;

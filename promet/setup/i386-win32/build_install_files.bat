@@ -43,6 +43,7 @@ lazbuild -q ..\..\source\sync\sync_mso.lpi
 If errorlevel 1 goto end
 
 lazbuild -q ..\..\source\tools\cdmenue.lpi
+If errorlevel 1 lazbuild -q -B ..\..\source\tools\cdmenue.lpi
 If errorlevel 1 goto end
 lazbuild -q ..\..\source\tools\helpviewer.lpi
 If errorlevel 1 lazbuild -q -B ..\..\source\tools\helpviewer.lpi

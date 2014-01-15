@@ -1,4 +1,7 @@
-﻿Build 302
+﻿Build 303
+      - Messagemanager: Zeichnen von Vorschaubildern korrigiert
+      - Grids:falsche Höhenberechnung korrigiert
+Build 302
       - Messagemanager: Timeline wird immer aktualisiert wenn neue Daten ankommen, wenn Timeline nicht sichtbar wird der erste Eintrag markiert
       - Auftragseditor: mehrere kleine Fehler beseitigt
 Build 301

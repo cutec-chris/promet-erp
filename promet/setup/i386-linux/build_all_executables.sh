@@ -3,14 +3,14 @@ echo "compiling for $1..."
 cd ../../
 lazbuild --add-package $(pwd)/source/components/promet_components.lpk
 lazbuild --add-package $(pwd)/source/base_help/phelp.lpk
-cd setup/$2-linux
+cd setup/i386-linux
 echo "compiling apps..."
 echo "compiling messagemanager..." > scompile-$2-apps.log
-lazbuild -q -B -r ../../source/messagemanager/messagemanager.lpi >> scompile-$2-apps.log
+lazbuild -B ../../source/messagemanager/messagemanager.lpi >> scompile-$2-apps.log
 echo "compiling promet..." >> scompile-$2-apps.log
 lazbuild -q -B ../../source/promet.erp/prometerp.lpi >> scompile-$2-apps.log
 echo "compiling statistics..." >> scompile-$2-apps.log
-lazbuild -q -r ../../source/statistics/statistics.lpi  >> scompile-$2-apps.log
+lazbuild -q  ../../source/statistics/statistics.lpi  >> scompile-$2-apps.log
 echo "compiling wizardmandant..." >> scompile-$2-apps.log
 lazbuild -q ../../source/tools/wizardmandant.lpi  >> scompile-$2-apps.log
 echo "compiling import/exporters..."
