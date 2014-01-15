@@ -38,6 +38,7 @@ type
     acMakePossible: TAction;
     acAddSubProjects: TAction;
     acAddSnapshot: TAction;
+    acExportToImage: TAction;
     ActionList1: TActionList;
     bCalculate1: TSpeedButton;
     bCalculate2: TSpeedButton;
@@ -49,12 +50,14 @@ type
     Bevel8: TBevel;
     bMonthView: TSpeedButton;
     bMoveBack1: TSpeedButton;
+    bSave1: TSpeedButton;
     bShowTasks: TSpeedButton;
     bMoveFwd: TSpeedButton;
     bShowTasks1: TSpeedButton;
     bToday: TSpeedButton;
     bWeekView: TSpeedButton;
     cbSnapshot: TComboBox;
+    Label4: TLabel;
     Label8: TLabel;
     lDate: TLabel;
     Label3: TLabel;
@@ -64,6 +67,7 @@ type
     MenuItem1: TMenuItem;
     Panel10: TPanel;
     Panel4: TPanel;
+    Panel5: TPanel;
     pCalc: TPanel;
     Panel9: TPanel;
     pgantt: TPanel;
@@ -77,6 +81,7 @@ type
     procedure acAddSnapshotExecute(Sender: TObject);
     procedure acAddSubProjectsExecute(Sender: TObject);
     procedure acCenterTaskExecute(Sender: TObject);
+    procedure acExportToImageExecute(Sender: TObject);
     procedure acMakePossibleExecute(Sender: TObject);
     procedure acOpenExecute(Sender: TObject);
     procedure aIntervalChanged(Sender: TObject);
@@ -500,6 +505,11 @@ begin
         FGantt.StartDate:=aStart-((aDur-((aEnd-aStart)/2)) / 2);
     end;
 end;
+
+procedure TfGanttView.acExportToImageExecute(Sender: TObject);
+begin
+end;
+
 procedure TfGanttView.acAddSubProjectsExecute(Sender: TObject);
 var
   aProjects: TProjectList;

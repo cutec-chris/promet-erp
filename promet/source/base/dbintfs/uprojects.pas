@@ -108,6 +108,7 @@ type
     property Tasks : TProjectTasks read FTasks;
     property Positions : TProjectPositions read FPositions;
     property OnStateChange : TNotifyEvent read FStateChange write FStateChange;
+    procedure Makesnapshot(aName : string);
     procedure Delete; override;
   end;
 implementation
@@ -292,6 +293,7 @@ begin
           FStatus := Field.AsString;
           if Assigned(FStateChange) then
             FStateChange(Self);
+          Makesnapshot(FStatus+' '+DateToStr(Now()));
         end;
       if (Field.FieldName = 'TARGET') then
         begin
@@ -430,6 +432,17 @@ begin
           FieldByName('ID').AsString := Data.Numbers.GetNewNumber('PROJECTS');
       FieldByName('CREATEDBY').AsString := Data.Users.IDCode.AsString;
       FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
+    end;
+end;
+
+procedure TProject.Makesnapshot(aName: string);
+begin
+  Tasks.Open;
+  Tasks.First;
+  while not Tasks.EOF do
+    begin
+      Tasks.MakeSnapshot(aName);
+      Tasks.Next;
     end;
 end;
 

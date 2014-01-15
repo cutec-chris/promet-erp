@@ -2,6 +2,7 @@
       - Messagemanager: Zeichnen von Vorschaubildern korrigiert
       - Grids:falsche Höhenberechnung korrigiert
       - Aufgaben: schnellere Prüfung von Abhängigkeiten
+      - Projekt: bei Statusänderungen wird automatisch Snapshot erstellt
 Build 302
       - Messagemanager: Timeline wird immer aktualisiert wenn neue Daten ankommen, wenn Timeline nicht sichtbar wird der erste Eintrag markiert
       - Auftragseditor: mehrere kleine Fehler beseitigt
