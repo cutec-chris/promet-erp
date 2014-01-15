@@ -60,14 +60,86 @@ begin
   Synchronize(@DoInfo);
 end;
 
+function GetGlobalConfigDir(app : string;Global : Boolean = True) : string;
+{$IFDEF MSWINDOWS}
+const
+  CSIDL_COMMON_APPDATA  = $0023; // All Users\Application Data
+  CSIDL_LOCAL_APPDATA   = $001c;
+  CSIDL_FLAG_CREATE     = $8000; { (force creation of requested folder if it doesn't exist yet)     }
+var
+  Path: array [0..1024] of char;
+  P : Pointer;
+  SHGetFolderPath : PFNSHGetFolderPath = Nil;
+  CFGDLLHandle : THandle = 0;
+{$ENDIF}
+begin
+{$IFDEF MSWINDOWS}
+  CFGDLLHandle:=LoadLibrary('shell32.dll');
+  if (CFGDLLHandle<>0) then
+    begin
+    P:=GetProcAddress(CFGDLLHandle,'SHGetFolderPathA');
+    If (P=Nil) then
+      begin
+      FreeLibrary(CFGDLLHandle);
+      CFGDllHandle:=0;
+      end
+    else
+      SHGetFolderPath:=PFNSHGetFolderPath(P);
+    end;
+  If (P=Nil) then
+    begin
+    CFGDLLHandle:=LoadLibrary('shfolder.dll');
+    if (CFGDLLHandle<>0) then
+      begin
+      P:=GetProcAddress(CFGDLLHandle,'SHGetFolderPathA');
+      If (P=Nil) then
+        begin
+        FreeLibrary(CFGDLLHandle);
+        CFGDllHandle:=0;
+        end
+      else
+        ShGetFolderPath:=PFNSHGetFolderPath(P);
+      end;
+    end;
+  Result := ExtractFilePath(Paramstr(0));
+  If (@ShGetFolderPath<>Nil) then
+    begin
+      if Global then
+        begin
+          if SHGetFolderPath(0,CSIDL_COMMON_APPDATA or CSIDL_FLAG_CREATE,0,0,@PATH[0])=S_OK then
+            Result:=IncludeTrailingPathDelimiter(StrPas(@Path[0]))+app;
+        end
+      else
+        begin
+          if SHGetFolderPath(0,CSIDL_LOCAL_APPDATA or CSIDL_FLAG_CREATE,0,0,@PATH[0])=S_OK then
+            Result:=IncludeTrailingPathDelimiter(StrPas(@Path[0]))+app;
+        end;
+    end;
+{$ELSE}
+  Result:=GetEnvironmentVariable('HOME');
+  If (Result<>'') then
+    Result:=IncludeTrailingPathDelimiter(Result)+'.'+app;
+{$ENDIF}
+  Result := IncludeTrailingPathDelimiter(result);
+end;
+
 procedure TTheThread.Execute;
 var
   aProcess: TProcess;
+  aInfo: TSearchRec;
+  aMandant: String;
+  aFileDir: String;
 begin
   Application.Log(etDebug, 'Thread.Execute');
+  aFileDir := GetGlobalConfigDir(StringReplace(lowercase('prometerp'),'-','',[rfReplaceAll]));
+  If FindFirst (aFileDir+DirectorySeparator+'*.perml',faAnyFile and faDirectory,aInfo)=0 then
+    begin
+      aMandant := copy(aInfo.Name,0,length(aInfo.Name)-6);
+    end;
+  FindClose(aInfo);
   aProcess := TProcess.Create(nil);
   aProcess.CurrentDirectory:=Application.Location;
-  aProcess.CommandLine:='processmanager';
+  aProcess.CommandLine:='processmanager --mandant='+aMandant;
   aProcess.Options:=[poUsePipes,poNoConsole];
   while not Terminated do
     begin
@@ -153,8 +225,8 @@ begin
   inherited Create(AOwner);
   with DaemonDefs.Add as TDaemonDef do
   begin
-    DaemonClassName := 'TProcessDaemon';
-    Name := 'theDaemon.exe';
+    DaemonClassName := 'TTheDaemon';
+    Name := 'processdaemon';
     Description := 'Promet Processmanager Daemon';
     DisplayName := 'Process Daemon';
     Options := [doAllowStop,doAllowPause];
@@ -206,8 +278,12 @@ begin
     Title := 'Processdaemon';
     EventLog.LogType := ltFile;
     EventLog.DefaultEventType := etDebug;
-    EventLog.AppendContent := true;
+    EventLog.AppendContent := false;
+    {$ifndef unix}
     EventLog.FileName := ChangeFileExt(ParamStr(0), '.log');
+    {$else}
+    EventLog.FileName := '/var/log/'+ChangeFileExt(ParamStr(0), '.log');
+    {$endif}
     Initialize;
     Run;
   end;
