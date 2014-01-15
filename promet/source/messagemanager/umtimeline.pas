@@ -518,6 +518,8 @@ var
   Found: Boolean = False;
   aId : Variant;
 begin
+  mEntry.SelText := '[[Bild:'+aName+']]';
+  mEntry.SelStart:=mEntry.SelStart+length(mEntry.SelText);
   tmp := mEntry.Lines.Text;
   aUsers := GetUsersFromString(tmp);
   FUserHist := TUser.Create(nil,Data);
@@ -536,13 +538,11 @@ begin
           FUserHist.History.AddParentedItem(FUserHist.DataSet,tmp,FParentItem,'',Data.Users.IDCode.AsString,nil,ACICON_USEREDITED,'',True,True);
         end;
     end;
-  mEntry.SelText := '[[Bild:'+aName+']]';
-  mEntry.SelStart:=mEntry.SelStart+length(mEntry.SelText);
   if not Found then
     begin
       FUserHist.Select(Data.Users.Id.AsVariant);
       FUserHist.Open;
-      FUserHist.History.AddItem(Data.Users.DataSet,mEntry.Lines.Text,'','',nil,ACICON_USEREDITED,'',True,True);
+      FUserHist.History.AddParentedItem(Data.Users.DataSet,tmp,FParentItem,'',Data.Users.IDCode.AsString,nil,ACICON_USEREDITED,'',True,True);
     end;
   if FUserHist.History.CanEdit then
     FUserHist.History.Post;
@@ -550,6 +550,7 @@ begin
   aId := FUserHist.History.Id.AsVariant;
   Application.ProcessMessages;
   Self.Hide;
+  Application.ProcessMessages;
   sleep(1000); //wait for hide animations ...
   Application.ProcessMessages;
   //aName := InputBox(strScreenshotName, strEnterAnName, aName);
