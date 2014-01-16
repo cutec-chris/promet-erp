@@ -1490,7 +1490,7 @@ begin
             end;
         end;
       try
-        if gList.CanFocus and gList.IsControlVisible and gList.Enabled then
+        if gList.Visible and gList.CanFocus and gList.IsControlVisible and gList.Enabled then
           gList.SetFocus;
       except //badly sometimes the lcl is not able to detect whenever focus can be set or not (during form hide @ example)
       end;

@@ -98,6 +98,7 @@ type
     ToolButton7: TToolButton;
     tsHistory: TTabSheet;
     procedure acAddScreenshotExecute(Sender: TObject);
+    procedure acAddUserExecute(Sender: TObject);
     procedure acAnswerExecute(Sender: TObject);
     procedure acDeleteExecute(Sender: TObject);
     procedure acDetailViewExecute(Sender: TObject);
@@ -115,6 +116,7 @@ type
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormShow(Sender: TObject);
+    function fSearchOpenUser(aLink: string): Boolean;
     procedure fTimelineGetCellText(Sender: TObject; aCol: TColumn;
       aRow: Integer; var NewText: string; aFont: TFont);
     procedure fTimelinegetRowHeight(Sender: TObject; aCol: TColumn;
@@ -167,7 +169,7 @@ const
 implementation
 uses uBaseApplication, uData, uOrder,uMessages,uBaseERPDBClasses,
   uMain,LCLType,utask,uProcessManager,uprometipc,ProcessUtils,ufollow,udetailview,
-  LCLIntf,wikitohtml,uDocuments,uthumbnails,uscreenshotmain,uWiki;
+  LCLIntf,wikitohtml,uDocuments,uthumbnails,uscreenshotmain,uWiki,uSearch;
 resourcestring
   strTo                                  = 'an ';
 
@@ -570,6 +572,27 @@ begin
   acSend.Enabled:=True;
 end;
 
+procedure TfmTimeline.acAddUserExecute(Sender: TObject);
+var
+  i: Integer;
+begin
+  fSearch.SetLanguage;
+  i := 0;
+  while i < fSearch.cbSearchType.Count do
+    begin
+      if (fSearch.cbSearchType.Items[i] <> strUsers)
+      then
+        fSearch.cbSearchType.Items.Delete(i)
+      else
+        inc(i);
+    end;
+  fSearch.eContains.Clear;
+  fSearch.sgResults.RowCount:=1;
+  fSearch.OnOpenItem:=@fSearchOpenUser;
+  fSearch.Execute(True,'MESSA','');
+  fSearch.SetLanguage;
+end;
+
 procedure TfmTimeline.acDetailViewExecute(Sender: TObject);
 begin
   if fTimeline.GotoActiveRow then
@@ -706,6 +729,33 @@ end;
 procedure TfmTimeline.FormShow(Sender: TObject);
 begin
   Timer1.Enabled:=True;
+end;
+
+function TfmTimeline.fSearchOpenUser(aLink: string): Boolean;
+var
+  tmp: String;
+  aUser: TUser;
+begin
+  tmp := copy(mEntry.Text,0,mEntry.SelStart);
+  if pos(' ',tmp)>0 then
+    begin
+      mEntry.Text:=copy(mEntry.Text,pos(' ',mEntry.Text)+1,length(mEntry.Text));
+      tmp := copy(tmp,0,pos(' ',tmp)-1);
+    end
+  else mEntry.Text:='';
+  if copy(tmp,0,1)<>'@' then
+    begin
+      mEntry.Text:=tmp+' '+mEntry.Text;
+      tmp := '@';
+    end;
+  aUser := TUser.Create(nil,Data);
+  aUser.SelectFromLink(aLink);
+  aUser.Open;
+  if aUser.Count>0 then
+    tmp := tmp+aUser.IDCode.AsString;
+  auser.Free;
+  mEntry.Text:=tmp+' '+mEntry.Text;
+  mEntry.SelStart:=length(mEntry.Text);
 end;
 
 procedure TfmTimeline.fTimelineGetCellText(Sender: TObject; aCol: TColumn;
@@ -929,11 +979,12 @@ var
   SearchLocations : TSearchLocations;
   i: Integer;
   aText: TCaption;
+  tmp: String;
 begin
-  if (((key = '@')
-  or ((Key=',') and (pos(' ',mEntry.Text)=0))
-  or ((Key = #8) and (copy(mEntry.Text,mEntry.SelStart,1)='@'))
-  ) and (pSearch.Visible=False))
+  tmp := copy(mEntry.Text,0,mEntry.SelStart)+Key;
+  if (
+    (copy(tmp,1,1) = '@') and (pos(' ',tmp)=0)
+  ) and (pSearch.Visible=False)
   then
     begin
       pSearch.Visible:=True;

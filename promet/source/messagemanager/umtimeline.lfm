@@ -271,7 +271,7 @@ object fmTimeline: TfmTimeline
       Left = 29
       Height = 92
       Top = 9
-      Width = 476
+      Width = 458
       Align = alClient
       BorderSpacing.Left = 20
       BorderSpacing.Around = 8
@@ -281,10 +281,10 @@ object fmTimeline: TfmTimeline
       WantReturns = False
     end
     object bSend: TBitBtn
-      Left = 513
+      Left = 495
       Height = 92
       Top = 9
-      Width = 28
+      Width = 46
       Action = acSend
       Align = alRight
       AutoSize = True
@@ -508,6 +508,31 @@ object fmTimeline: TfmTimeline
       }
       ShowCaption = False
     end
+    object pSearch: TPanel
+      Left = 34
+      Height = 60
+      Top = 40
+      Width = 344
+      BevelOuter = bvNone
+      Caption = 'pSearch'
+      ClientHeight = 60
+      ClientWidth = 344
+      TabOrder = 2
+      Visible = False
+      OnClick = pSearchClick
+      object lbResults: TListBox
+        Left = 0
+        Height = 60
+        Top = 0
+        Width = 344
+        Align = alClient
+        ItemHeight = 0
+        OnDblClick = lbResultsDblClick
+        ScrollWidth = 342
+        TabOrder = 0
+        TabStop = False
+      end
+    end
   end
   object Panel2: TPanel
     Left = 0
@@ -517,32 +542,6 @@ object fmTimeline: TfmTimeline
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
-  end
-  object pSearch: TPanel
-    Left = 34
-    Height = 120
-    Top = 70
-    Width = 344
-    BevelOuter = bvNone
-    Caption = 'pSearch'
-    ClientHeight = 120
-    ClientWidth = 344
-    TabOrder = 3
-    Visible = False
-    OnClick = pSearchClick
-    object lbResults: TListBox
-      Left = 0
-      Height = 120
-      Top = 0
-      Width = 344
-      Align = alClient
-      ItemHeight = 0
-      OnDblClick = lbResultsDblClick
-      ScrollWidth = 342
-      TabOrder = 0
-      TabStop = False
-      TopIndex = -1
-    end
   end
   object ActionList1: TActionList
     Images = fVisualControls.Images
@@ -587,7 +586,9 @@ object fmTimeline: TfmTimeline
     end
     object acAddUser: TAction
       Caption = 'acAddUser'
+      Hint = 'an wen möchten Sie schreiben ?'
       ImageIndex = 73
+      OnExecute = acAddUserExecute
     end
     object acAddImage: TAction
       Caption = 'acAddImage'
@@ -643,4 +644,4 @@ object fmTimeline: TfmTimeline
       Action = acDelete
     end
   end
-end
+end

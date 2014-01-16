@@ -434,6 +434,8 @@ var
   XMLConfig: TXMLPropStorage;
   aUser: String;
   aMandant: String;
+  aUsers: TUser;
+  aUId : Variant;
   function FindSettings(bMandant,aConfig : string) : Boolean;
   var
     aID: LongInt;
@@ -550,7 +552,18 @@ begin
   end;
   if aUser <> '' then
     begin
-      FFilter := '('+Data.QuoteField('REF_ID')+'='+Data.QuoteValue(Data.Users.Id.AsString)+') OR ('+Data.QuoteField('REFERENCE')+'='+Data.QuoteValue(Data.Users.IDCode.AsString)+')';
+      FFilter := '('+Data.QuoteField('REFERENCE')+'='+Data.QuoteValue(Data.Users.IDCode.AsString)+')';
+      aUsers := TUser.Create(nil,Data);
+      aUsers.Select(Data.Users.Id.AsString);
+      aUsers.Open;
+      while aUsers.Count>0 do
+        begin
+          FFilter := FFilter+' OR ('+Data.QuoteField('REF_ID')+'='+Data.QuoteValue(aUsers.Id.AsString)+')';
+          aUId := aUsers.FieldByName('PARENT').AsVariant;
+          aUsers.Select(aUId);
+          aUsers.Open;
+        end;
+      aUsers.Free;
       RefreshFilter2;
     end;
   ProgTimer.Enabled:=True;
