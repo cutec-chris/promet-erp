@@ -20,10 +20,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="umain"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="550"/>
-        <CursorPos X="1" Y="570"/>
+        <TopLine Value="232"/>
+        <CursorPos X="69" Y="254"/>
         <UsageCount Value="170"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -35,10 +36,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="umtimeline"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="723"/>
+        <TopLine Value="724"/>
         <CursorPos X="38" Y="758"/>
         <UsageCount Value="170"/>
         <Loaded Value="True"/>

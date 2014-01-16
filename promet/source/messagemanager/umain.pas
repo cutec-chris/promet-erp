@@ -250,7 +250,9 @@ begin
               tmp := '';
               while not FHistory.DataSet.EOF do
                 begin
-                  if FHistory.FieldByName('CHANGEDBY').AsString <> Data.Users.IDCode.AsString then
+                  if (FHistory.FieldByName('CHANGEDBY').AsString <> Data.Users.IDCode.AsString)
+                  and (FHistory.FieldByName('READ').AsString <> 'Y')
+                  then
                     begin
                       tmp:=tmp+StripWikiText(FHistory.FieldByName('ACTION').AsString)+' - '+FHistory.FieldByName('REFERENCE').AsString+lineending;
                       InformRecTime:=FHistory.TimeStamp.AsDateTime+(1/(MSecsPerDay/MSecsPerSec));
