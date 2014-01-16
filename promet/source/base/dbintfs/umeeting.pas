@@ -29,9 +29,11 @@ type
   TMeetings = class;
   TMeetingEntrys = class(TBaseDBDataSet)
     procedure DataSetAfterCancel(aDataSet: TDataSet);
+    procedure DataSetBeforeCancel(aDataSet: TDataSet);
   private
     FTempUsers : TUser;
     FOldPosNo: Integer;
+    FDoNumber: Boolean;
     FIntDataSource : TDataSource;
     function GetownerName: string;
     function GetPosNo: TField;
@@ -133,6 +135,7 @@ begin
   FIntDataSource := TDataSource.Create(Self);
   FIntDataSource.DataSet := DataSet;
   DataSet.AfterCancel:=@DataSetAfterCancel;
+  DataSet.BeforeCancel:=@DataSetBeforeCancel;
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -208,7 +211,13 @@ end;
 
 procedure TMeetingEntrys.DataSetAfterCancel(aDataSet: TDataSet);
 begin
-  FOldPosNo:=PosNo.AsInteger;
+  if FDoNumber then
+    FOldPosNo:=PosNo.AsInteger;
+end;
+
+procedure TMeetingEntrys.DataSetBeforeCancel(aDataSet: TDataSet);
+begin
+  FDoNumber := DataSet.State=dsInsert;
 end;
 
 function TMeetingEntrys.GetownerName: string;

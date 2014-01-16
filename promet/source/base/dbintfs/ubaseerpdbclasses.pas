@@ -75,6 +75,7 @@ type
     procedure DataSetAfterCancel(aDataSet: TDataSet);
     procedure DataSetAfterDelete(aDataSet: TDataSet);
     procedure DataSetAfterPost(aDataSet: TDataSet);
+    procedure DataSetBeforeCancel(aDataSet: TDataSet);
     procedure DataSetBeforeDelete(aDataSet: TDataSet);
     procedure FIntDataSourceDataChange(Sender: TObject; Field: TField);
     procedure FIntDataSourceStateChange(Sender: TObject);
@@ -83,6 +84,7 @@ type
     FPosTyp : TPositionTyp;
     FIntDataSource : TDataSource;
     FCalculationDisabled : Integer;
+    FDoNumber: Boolean;
     FUseRTF: Boolean;
     OldPosPrice : real;
     OldGrossPrice : real;
@@ -540,7 +542,8 @@ end;
 
 procedure TBaseDBPosition.DataSetAfterCancel(aDataSet: TDataSet);
 begin
-  FOldPosNo:=PosNo.AsInteger;
+  if FDoNumber then
+    FOldPosNo:=PosNo.AsInteger;
 end;
 
 procedure TBaseDBPosition.DataSetAfterDelete(aDataSet: TDataSet);
@@ -582,6 +585,12 @@ begin
       PosWeightChanged(PosPrice);
     end;
 end;
+
+procedure TBaseDBPosition.DataSetBeforeCancel(aDataSet: TDataSet);
+begin
+  FDoNumber := DataSet.State=dsInsert;
+end;
+
 procedure TBaseDBPosition.DataSetBeforeDelete(aDataSet: TDataSet);
 begin
   OldPosPrice := DataSet.FieldByName('POSPRICE').AsFloat;
@@ -965,6 +974,7 @@ begin
   DataSet.BeforeDelete:=@DataSetBeforeDelete;
   DataSet.AfterDelete:=@DataSetAfterDelete;
   DataSet.AfterCancel:=@DataSetAfterCancel;
+  DataSet.BeforeCancel:=@DataSetBeforeCancel;
 end;
 destructor TBaseDBPosition.Destroy;
 begin
