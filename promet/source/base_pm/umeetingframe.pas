@@ -54,6 +54,7 @@ type
     acStartTimeRegistering: TAction;
     acAddTopic: TAction;
     acAppendPos: TAction;
+    acRenumber: TAction;
     Action2: TAction;
     ActionList: TActionList;
     acUnmakeSubTask: TAction;
@@ -63,6 +64,7 @@ type
     bDeletePos: TSpeedButton;
     bDeletePos2: TSpeedButton;
     bDeletePos5: TSpeedButton;
+    bDeletePos6: TSpeedButton;
     Bevel1: TBevel;
     Bevel3: TBevel;
     Bevel4: TBevel;
@@ -121,6 +123,7 @@ type
     procedure acMAkeSubTaskExecute(Sender: TObject);
     procedure acPrintExecute(Sender: TObject);
     procedure acRefreshExecute(Sender: TObject);
+    procedure acRenumberExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
     procedure ActiveSearchEndSearch(Sender: TObject);
     procedure ActiveSearchItemFound(aIdent: string; aName: string;
@@ -776,6 +779,12 @@ end;
 procedure TfMeetingFrame.acRefreshExecute(Sender: TObject);
 begin
   FGridView.Refresh;
+end;
+
+procedure TfMeetingFrame.acRenumberExecute(Sender: TObject);
+begin
+  FGridView.RenumberRows;
+  FGridView.Refresh(False);
 end;
 
 procedure TfMeetingFrame.DoOpen;

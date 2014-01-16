@@ -28,9 +28,13 @@ uses
 type
   TMeetings = class;
   TMeetingEntrys = class(TBaseDBDataSet)
+    procedure DataSetAfterCancel(aDataSet: TDataSet);
   private
     FTempUsers : TUser;
+    FOldPosNo: Integer;
+    FIntDataSource : TDataSource;
     function GetownerName: string;
+    function GetPosNo: TField;
     function GetUserName: string;
   protected
     FMeeting : TMeetings;
@@ -38,12 +42,15 @@ type
     constructor Create(aOwner: TComponent; DM: TComponent;
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     destructor Destroy; override;
+    procedure Open; override;
     procedure Change; override;
     procedure SetDisplayLabels(aDataSet: TDataSet); override;
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure FillDefaults(aDataSet: TDataSet); override;
     property OwnerName : string read GetownerName;
     property UserName : string read GetUserName;
+    //Fields
+    property PosNo : TField read GetPosNo;
   end;
   TMeetingUsers = class(TBaseDBDataSet)
   protected
@@ -123,6 +130,9 @@ constructor TMeetingEntrys.Create(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
   inherited Create(aOwner, DM, aConnection, aMasterdata);
+  FIntDataSource := TDataSource.Create(Self);
+  FIntDataSource.DataSet := DataSet;
+  DataSet.AfterCancel:=@DataSetAfterCancel;
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -138,7 +148,19 @@ end;
 destructor TMeetingEntrys.Destroy;
 begin
   FTempUsers.Destroy;
+  FIntDataSource.Destroy;
   inherited Destroy;
+end;
+
+procedure TMeetingEntrys.Open;
+var
+  aRec: LargeInt;
+begin
+  inherited Open;
+  aRec := GetBookmark;
+  Last;
+  FOldPosNo := PosNo.AsInteger;
+  GotoBookmark(aRec);
 end;
 
 procedure TMeetingEntrys.Change;
@@ -179,8 +201,14 @@ procedure TMeetingEntrys.FillDefaults(aDataSet: TDataSet);
 begin
   with aDataSet,BaseApplication as IBaseDBInterface do
     begin
-      FieldByName('POSNO').AsInteger := (DataSet.RecordCount+1);
+      PosNo.AsInteger := (FOldPosNo+1);
+      FOldPosNo:=PosNo.AsInteger;
     end;
+end;
+
+procedure TMeetingEntrys.DataSetAfterCancel(aDataSet: TDataSet);
+begin
+  FOldPosNo:=PosNo.AsInteger;
 end;
 
 function TMeetingEntrys.GetownerName: string;
@@ -192,6 +220,11 @@ begin
   debugln(FieldByName('OWNER').AsString);
   if FTempUsers.DataSet.Locate('ACCOUNTNO',FieldByName('OWNER').AsString,[loCaseInsensitive]) then
     Result := FTempUsers.FieldByName('NAME').AsString;
+end;
+
+function TMeetingEntrys.GetPosNo: TField;
+begin
+  Result := FieldByName('POSNO');
 end;
 
 function TMeetingEntrys.GetUserName: string;

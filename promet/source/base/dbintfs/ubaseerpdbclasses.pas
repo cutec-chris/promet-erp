@@ -72,6 +72,7 @@ type
     property Position : TBaseDBPosition read FPosition;
   end;
   TBaseDBPosition = class(TBaseDbDataSet)
+    procedure DataSetAfterCancel(aDataSet: TDataSet);
     procedure DataSetAfterDelete(aDataSet: TDataSet);
     procedure DataSetAfterPost(aDataSet: TDataSet);
     procedure DataSetBeforeDelete(aDataSet: TDataSet);
@@ -86,11 +87,14 @@ type
     OldPosPrice : real;
     OldGrossPrice : real;
     OldPosWeight : real;
+    FOldPosNo: Integer;
     function GetIdent: TField;
+    function GetPosNo: TField;
     function GetPosTyp: TPositionTyp;
     function GetOrderTyp : Integer;virtual;
     procedure DoCalcPosPrice(Setprice : Boolean = False);
     procedure DoCalcGrossPosPrice;
+    function GetShorttext: TField;
   protected
     FPosCalc: TPositionCalc;
     function GetAccountNo : string;virtual;
@@ -124,6 +128,9 @@ type
     procedure DisableCalculation;
     procedure EnableCalculation;
     function IsCalculationDisabled : Boolean;
+    //Fields
+    property PosNo : TField read GetPosNo;
+    property Shorttext : TField read GetShorttext;
   end;
   TStorageTyp = class(TBaseDBDataSet)
   public
@@ -530,6 +537,12 @@ begin
           end;
     end;
 end;
+
+procedure TBaseDBPosition.DataSetAfterCancel(aDataSet: TDataSet);
+begin
+  FOldPosNo:=PosNo.AsInteger;
+end;
+
 procedure TBaseDBPosition.DataSetAfterDelete(aDataSet: TDataSet);
 var
   PosPrice: Double;
@@ -631,6 +644,10 @@ end;
 function TBaseDBPosition.GetIdent: TField;
 begin
   Result := DataSet.FieldByName('IDENT');
+end;
+function TBaseDBPosition.GetPosNo: TField;
+begin
+  Result := FieldByName('POSNO');
 end;
 function TBaseDBPosition.GetPosTyp: TPositionTyp;
 begin
@@ -894,6 +911,12 @@ begin
     DoCalcPosPrice(True);
   end;
 end;
+
+function TBaseDBPosition.GetShorttext: TField;
+begin
+  Result := FieldByName('SHORTTEXT');
+end;
+
 function TBaseDBPosition.GetAccountNo: string;
 begin
   Result := '';
@@ -941,6 +964,7 @@ begin
   DataSet.AfterPost:=@DataSetAfterPost;
   DataSet.BeforeDelete:=@DataSetBeforeDelete;
   DataSet.AfterDelete:=@DataSetAfterDelete;
+  DataSet.AfterCancel:=@DataSetAfterCancel;
 end;
 destructor TBaseDBPosition.Destroy;
 begin
@@ -964,9 +988,15 @@ begin
         end;
 end;
 procedure TBaseDBPosition.Open;
+var
+  aRec: LargeInt;
 begin
   inherited Open;
   FPosTyp.Open;
+  aRec := GetBookmark;
+  Last;
+  FOldPosNo := PosNo.AsInteger;
+  GotoBookmark(aRec);
 end;
 procedure TBaseDBPosition.DefineFields(aDataSet: TDataSet);
 begin
@@ -1020,7 +1050,8 @@ begin
     begin
 //      if FieldByName('POSTYP').Required then
       FieldByName('POSTYP').AsString   := PosTyp.FieldByName('NAME').AsString;
-      FieldByName('POSNO').AsString    := Format(PosFormat, [DataSet.RecordCount+1]);
+      PosNo.AsInteger := (FOldPosNo+1);
+      FOldPosNo:=PosNo.AsInteger;
     //      FieldByName('TPOSNO').AsString   := fOrders.TPosNumber;
       FieldByName('TEXTTYPE').AsString := '0';
       FieldByName('VAT').AsString      := '1';
