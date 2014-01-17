@@ -289,7 +289,7 @@ begin
 end;
 procedure TfArticleFrame.mShortTextChange(Sender: TObject);
 var
-  tmp: String;
+  tmp: AnsiString;
 begin
   if mShortText.Lines.Count > 0 then
     TabCaption := mShortText.Lines[0];
@@ -297,7 +297,9 @@ begin
   tmp := StringReplace(tmp,'-','',[rfReplaceAll]);
   if (copy(tmp,0,length(eMatchCode.Text)) = eMatchCode.Text)
   or ((length(tmp) < length(eMatchCode.text)) and (copy(eMatchCode.Text,0,length(tmp)) = tmp)) then
-    eMatchCode.Text := copy(tmp,0,eMatchCode.Field.Size);
+    if Assigned(eMatchCode.Field) then
+      tmp := copy(tmp,0,eMatchCode.Field.Size);
+  eMatchCode.Text := tmp;
   acSave.Enabled := DataSet.CanEdit or DataSet.Changed;
   acCancel.Enabled:= DataSet.CanEdit or DataSet.Changed;
 end;
