@@ -25,12 +25,17 @@ uses
 type
   TfNewStorage = class(TForm)
     ButtonPanel1: TButtonPanel;
+    Label1: TLabel;
+    Storage: TDatasource;
+    gStorage1: TDBGrid;
     StorageType: TDatasource;
     gStorage: TDBGrid;
     lArticlewithoutStorage: TLabel;
+    procedure aStorageTypeDataSetAfterScroll(DataSet: TDataSet);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { private declarations }
+    fStorage : TStorage;
   public
     { public declarations }
     function Execute(aOrder : TOrder;aStorage : TStorage) : Boolean;
@@ -40,7 +45,7 @@ var
   fNewStorage: TfNewStorage;
 implementation
 resourcestring
-  strSelectanStorage            = 'Please select an Storage for the Article %s Version %s Name %s';
+  strSelectanStorage            = 'wählen Sie ein Lager für Artikel %s Version %s Name %s';
 procedure TfNewStorage.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
@@ -50,6 +55,12 @@ begin
       Close;
     end;
 end;
+
+procedure TfNewStorage.aStorageTypeDataSetAfterScroll(DataSet: TDataSet);
+begin
+  fStorage.Filter(Data.QuoteField('STORAGEID')+'='+Data.QuoteValue(StorageType.DataSet.FieldByName('ID').AsString));
+end;
+
 procedure TfNewStorage.SetLanguage;
 begin
   if not Assigned(Self) then
@@ -69,10 +80,13 @@ begin
       Application.CreateForm(TfNewStorage,fNewStorage);
       Self := fNewStorage;
     end;
+  fStorage := aStorage;
   aStorageType := TStorageTyp.Create(Self,Data,aStorage.Connection);
+  StorageType.DataSet := aStorageType.DataSet;
+  aStorageType.DataSet.AfterScroll:=@aStorageTypeDataSetAfterScroll;
   CtrDisabled := aStorageType.DataSet.ControlsDisabled;
   aStorageType.Open;
-  StorageType.DataSet := aStorageType.DataSet;
+  Storage.DataSet := aStorage.DataSet;
   lArticlewithoutStorage.Caption := Format(strSelectanStorage,[aOrder.Positions.FieldByName('IDENT').AsString,
                                                                aOrder.Positions.FieldByName('VERSION').AsString,
                                                                aOrder.Positions.FieldByName('SHORTTEXT').AsString]);

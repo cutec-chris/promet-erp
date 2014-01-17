@@ -141,6 +141,7 @@ type
     procedure tvMainSelectionChanged(Sender: TObject);
   private
     FDragDrop: TDragDropEvent;
+    FNode : TTreeNode;
     FDragOver: TDragOverEvent;
     FLinkNew: TNewLinkEvent;
     FLinkOpen: TLinkEvent;
@@ -628,9 +629,8 @@ begin
       if Data.GotoBookmark(aTree,DataT.Rec) then
         begin
           aTree.DataSet.Delete;
-          DataT := nil;
-//          Application.QueueAsyncCall(@DeleteNodeCall,PtrInt(@aNode));
-          aNode.Free;
+          FNode := aNode;
+          Application.QueueAsyncCall(@DeleteNodeCall,PtrInt(@FNode));
         end;
       aTree.Free;
     end;
@@ -646,24 +646,23 @@ begin
   if not Assigned(DataT) then exit;
   if (DataT.Typ <> etLink)
   then exit;
-  if MessageDlg(strRealdelete,mtInformation,[mbYes,mbNo],0) = mrYes then
+  aLinks := TLinks.Create(nil,Data);
+  aLinks.Select(DataT.Rec);
+  aLinks.Open;
+  if aLinks.Count>0 then
     begin
-      aLinks := TLinks.Create(Self,Data);
-      aLinks.Select(DataT.Rec);
-      aLinks.Open;
-      if Data.GotoBookmark(aLinks,DataT.Rec) then
-        begin
-          aLinks.DataSet.Delete;
-          DataT := nil;
-          aNode.Free;
-        end;
-      aLinks.Free;
+      aLinks.Delete;
+      FNode := aNode;
+      Application.QueueAsyncCall(@DeleteNodeCall,PtrInt(@FNode));
     end;
+  aLinks.Free;
 end;
 
 procedure TfMainTree.acHideEntryExecute(Sender: TObject);
 begin
-  tvMain.Selected.Delete;
+  FNode := tvMain.Selected;
+  Application.QueueAsyncCall(@DeleteNodeCall,PtrInt(@FNode));
+  tvMain.Selected := nil;
   SaveTreeOptions;
 end;
 

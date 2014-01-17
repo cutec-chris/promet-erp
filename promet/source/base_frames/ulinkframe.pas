@@ -247,20 +247,61 @@ var
   aLinkDesc: String;
   aIcon: Integer;
   DataT: TTreeEntry;
+  addToLinked: Boolean;
+  aLinks: String;
+  aDS: TBaseDBList;
+  bLink: String;
 begin
   if Assigned(fSearch) and (Source = fSearch.sgResults) then
     begin
-      aLink := fSearch.GetLink;
-      aLinkDesc := Data.GetLinkDesc(aLink);
-      aIcon := Data.GetLinkIcon(aLink);
-      with DataSet.DataSet do
+      aLinks := fSearch.GetLink(True);
+      addToLinked := MessageDlg(strAddEntryToLinkedItem,mtInformation,[mbYes,mbNo],0) = mrYes;
+      while pos(';',aLinks) > 0 do
         begin
-          Insert;
-          FieldByName('LINK').AsString := aLink;
-          FieldByName('NAME').AsString := aLinkDesc;
-          FieldByName('ICON').AsInteger := aIcon;
-          FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
-          Post;
+          aLink := copy(aLinks,0,pos(';',aLinks)-1);
+          aLinks := copy(aLinks,pos(';',aLinks)+1,length(aLinks));
+          aLinkDesc := Data.GetLinkDesc(aLink);
+          aIcon := Data.GetLinkIcon(aLink);
+          with DataSet.DataSet do
+            begin
+              Insert;
+              FieldByName('LINK').AsString := aLink;
+              FieldByName('NAME').AsString := aLinkDesc;
+              FieldByName('ICON').AsInteger := aIcon;
+              FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
+              Post;
+              if addToLinked then
+                begin
+                  aDS := nil;
+                  bLink := Data.BuildLink(DataSet.Parent.DataSet);
+                  case copy(aLink,0,pos('@',aLink)-1) of
+                  'MASTERDATA',
+                  'MASTERDATA.ID':aDS := TMasterdata.Create(nil,Data);
+                  'PROJECTS',
+                  'PROJECTS.ID':aDS := TProject.Create(nil,Data);
+                  'CUSTOMERS',
+                  'CUSTOMERS.ID':aDS := TPerson.Create(nil,Data);
+                  'MEETINGS':aDS := TMeetings.Create(nil,Data);
+                  'ORDERS':aDS := TOrder.Create(nil,Data);
+                  end;
+                  if Assigned(aDS) then
+                    begin
+                      aDS.SelectFromLink(aLink);
+                      aDS.Open;
+                      Insert;
+                      FieldByName('RREF_ID').AsVariant:=aDS.Id.AsVariant;
+                      aLinkDesc := Data.GetLinkDesc(bLink);
+                      aIcon := Data.GetLinkIcon(bLink);
+                      FieldByName('LINK').AsString := bLink;
+                      FieldByName('NAME').AsString := aLinkDesc;
+                      FieldByName('ICON').AsInteger := aIcon;
+                      FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
+                      Post;
+                      aDS.Free;
+                      DataSet.DataSet.Refresh;
+                    end;
+                end;
+            end;
         end;
     end;
   if Source = uMainTreeFrame.fMainTreeFrame.tvMain then
