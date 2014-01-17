@@ -646,19 +646,16 @@ begin
   if not Assigned(DataT) then exit;
   if (DataT.Typ <> etLink)
   then exit;
-  if MessageDlg(strRealdelete,mtInformation,[mbYes,mbNo],0) = mrYes then
+  aLinks := TLinks.Create(Self,Data);
+  aLinks.Select(DataT.Rec);
+  aLinks.Open;
+  if Data.GotoBookmark(aLinks,DataT.Rec) then
     begin
-      aLinks := TLinks.Create(Self,Data);
-      aLinks.Select(DataT.Rec);
-      aLinks.Open;
-      if Data.GotoBookmark(aLinks,DataT.Rec) then
-        begin
-          aLinks.DataSet.Delete;
-          DataT := nil;
-          aNode.Free;
-        end;
-      aLinks.Free;
+      aLinks.DataSet.Delete;
+      DataT := nil;
+      aNode.Delete;
     end;
+  aLinks.Free;
 end;
 
 procedure TfMainTree.acHideEntryExecute(Sender: TObject);

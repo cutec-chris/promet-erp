@@ -298,8 +298,10 @@ begin
   if (copy(tmp,0,length(eMatchCode.Text)) = eMatchCode.Text)
   or ((length(tmp) < length(eMatchCode.text)) and (copy(eMatchCode.Text,0,length(tmp)) = tmp)) then
     if Assigned(eMatchCode.Field) then
-      tmp := copy(tmp,0,eMatchCode.Field.Size);
-  eMatchCode.Text := tmp;
+      begin
+        tmp := copy(tmp,0,eMatchCode.Field.Size);
+        eMatchCode.Text := tmp;
+      end;
   acSave.Enabled := DataSet.CanEdit or DataSet.Changed;
   acCancel.Enabled:= DataSet.CanEdit or DataSet.Changed;
 end;
