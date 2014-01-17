@@ -52,6 +52,7 @@ type
     cbActive: TDBCheckBox;
     cbLanguage: TComboBox;
     cbNoStorage: TDBCheckBox;
+    cbNoStorage1: TDBCheckBox;
     cbOwnProduction: TDBCheckBox;
     cbQuantityUnit: TDBComboBox;
     cbSaleItem: TDBCheckBox;

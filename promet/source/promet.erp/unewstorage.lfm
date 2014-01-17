@@ -1,31 +1,31 @@
 object fNewStorage: TfNewStorage
-  Left = 559
-  Height = 302
-  Top = 299
-  Width = 321
+  Left = 538
+  Height = 395
+  Top = 292
+  Width = 493
   ActiveControl = gStorage
   Caption = 'Lager auswählen'
-  ClientHeight = 302
-  ClientWidth = 321
+  ClientHeight = 395
+  ClientWidth = 493
   KeyPreview = True
   OnKeyDown = FormKeyDown
   Position = poMainFormCenter
-  LCLVersion = '1.1'
+  LCLVersion = '1.3'
   object lArticlewithoutStorage: TLabel
     Left = 0
-    Height = 17
+    Height = 13
     Top = 0
-    Width = 321
+    Width = 493
     Align = alTop
     Caption = 'lArticlewithoutStorage'
     ParentColor = False
     WordWrap = True
   end
   object gStorage: TDBGrid
-    Left = 8
-    Height = 165
+    Left = 10
+    Height = 144
     Top = 80
-    Width = 297
+    Width = 477
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderStyle = bsNone
     Color = clWindow
@@ -36,7 +36,7 @@ object fNewStorage: TfNewStorage
         FieldName = 'ID'
       end    
       item
-        Title.Caption = 'NAME'
+        Title.Caption = 'Name'
         Width = 200
         FieldName = 'NAME'
       end>
@@ -47,9 +47,9 @@ object fNewStorage: TfNewStorage
   end
   object ButtonPanel1: TButtonPanel
     Left = 6
-    Height = 37
-    Top = 259
-    Width = 309
+    Height = 34
+    Top = 355
+    Width = 481
     OKButton.Name = 'OKButton'
     OKButton.DefaultCaption = True
     HelpButton.Name = 'HelpButton'
@@ -61,8 +61,66 @@ object fNewStorage: TfNewStorage
     TabOrder = 1
     ShowButtons = [pbOK, pbCancel]
   end
+  object gStorage1: TDBGrid
+    Left = 10
+    Height = 96
+    Top = 248
+    Width = 477
+    Anchors = [akLeft, akRight, akBottom]
+    BorderStyle = bsNone
+    Color = clWindow
+    Columns = <    
+      item
+        Title.Caption = 'ID'
+        Width = 40
+        FieldName = 'STORAGEID'
+      end    
+      item
+        Title.Caption = 'Name'
+        Width = 100
+        FieldName = 'STORNAME'
+      end    
+      item
+        Title.Caption = 'Ort'
+        Width = 100
+        FieldName = 'PLACE'
+      end    
+      item
+        Title.Caption = 'Charge'
+        Width = 90
+        FieldName = 'CHARGE'
+      end    
+      item
+        Title.Caption = 'Menge'
+        Width = 50
+        FieldName = 'QUANTITY'
+      end    
+      item
+        Title.Caption = 'reserviert'
+        Width = 60
+        FieldName = 'RESERVED'
+      end>
+    DataSource = Storage
+    ReadOnly = True
+    TabOrder = 2
+    TitleStyle = tsNative
+  end
+  object Label1: TLabel
+    Left = 6
+    Height = 13
+    Top = 227
+    Width = 92
+    Caption = 'Bestand/Charge'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
   object StorageType: TDatasource
     left = 32
     top = 38
+  end
+  object Storage: TDatasource
+    left = 32
+    top = 264
   end
 end

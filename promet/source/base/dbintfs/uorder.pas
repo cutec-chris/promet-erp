@@ -1084,6 +1084,8 @@ var
   Masterdata: TMasterdata;
   aQuantity : real = 0;
   aReserved : real = 0;
+  aBooked: Real;
+  aFirstStorage: Boolean;
 begin
   with BaseApplication as IBaseDbInterface do
     begin
@@ -1125,14 +1127,7 @@ begin
                   or (OrderType.FieldByName('B_RESERVED').AsString = '-')
                   then
                     begin
-                      //Ist Lagerdatensatz gleich zu buchendes Lager
-                      if (not Masterdata.Storage.DataSet.Locate('STORAGEID', trim(copy(aStorage, 0, 3)), [loCaseInsensitive]))
-                      and (not Data.StorageType.DataSet.Locate('ID',trim(copy(aStorage, 0, 3)),[loCaseInsensitive]))
-                      then
-                        Masterdata.Storage.Open;
-                        if Assigned(FOnGetStorage) then
-                          if FOnGetStorage(Self,Masterdata.Storage) then
-                            aStorage := Masterdata.Storage.FieldByName('STORAGEID').AsString;
+                      Masterdata.Storage.Open;
                       if OrderType.FieldByName('B_STORAGE').AsString = '+' then
                         begin
                           aQuantity:=Quantity;
@@ -1152,7 +1147,24 @@ begin
                       begin
                         aReserved:=-Quantity;
                       end;
-                      Result := Masterdata.Storage.DoPost(OrderType,Self,aStorage,aQuantity,aReserved,QuantityUnit,PosNo);
+                      aFirstStorage := True;
+                      while aQuantity <> 0 do
+                        begin
+                          //Ist Lagerdatensatz gleich zu buchendes Lager
+                          if (not Masterdata.Storage.Locate('STORAGEID', trim(copy(aStorage, 0, 3)), [loCaseInsensitive])) or (not aFirstStorage) then
+                            if (not Data.StorageType.Locate('ID',trim(copy(aStorage, 0, 3)),[loCaseInsensitive])) or (not aFirstStorage) then
+                              begin
+                                if Assigned(FOnGetStorage) then
+                                  if FOnGetStorage(Self,Masterdata.Storage) then
+                                    aStorage := Masterdata.Storage.FieldByName('STORAGEID').AsString
+                                  else raise Exception.Create('User aborted');
+                              end;
+                          aBooked := Masterdata.Storage.DoPost(OrderType,Self,aStorage,aQuantity,aReserved,QuantityUnit,PosNo);
+                          if aBooked = 0 then
+                            raise Exception.Create('Post Article failed');
+                          aQuantity := aQuantity-aBooked;
+                        end;
+
                     end
                   else
                     OrderDelivered := False;

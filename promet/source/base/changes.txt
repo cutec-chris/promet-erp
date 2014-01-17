@@ -1,4 +1,6 @@
-﻿Build 303
+﻿Build 304
+      - Chargenverwaltung implementiert
+Build 303
       - Messagemanager: Zeichnen von Vorschaubildern korrigiert
       - Grids:falsche Höhenberechnung korrigiert
       - Aufgaben: schnellere Prüfung von Abhängigkeiten

@@ -7091,7 +7091,7 @@ msgid "%d Neue unbekannte Nachrichten"
 msgstr ""
 
 #: unewstorage.strselectanstorage
-msgid "Please select an Storage for the Article %s Version %s Name %s"
+msgid "wählen Sie ein Lager für Artikel %s Version %s Name %s"
 msgstr ""
 
 #: uorderframe.stradditional

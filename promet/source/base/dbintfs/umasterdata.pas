@@ -68,7 +68,7 @@ type
     procedure DefineFields(aDataSet : TDataSet);override;
     function DoPost(OrderType: TBaseDBDataset; Order: TBaseDBDataset;
       aStorage: string; aQuantity, aReserve: real; QuantityUnit, PosNo: string
-  ): Boolean;
+  ): real;
   end;
   TSupplierPrices = class(TBaseDBDataSet)
   private
@@ -389,22 +389,26 @@ begin
             Add('QUANTITY',ftFloat,0,False);
             Add('RESERVED',ftFloat,0,False);
             Add('QUANTITYU',ftString,10,False);
+            Add('CHARGE',ftInteger,0,False);
           end;
     end;
 end;
 
 function TStorage.DoPost(OrderType: TBaseDBDataset; Order: TBaseDBDataset;
-  aStorage: string; aQuantity, aReserve: real; QuantityUnit,PosNo: string): Boolean;
+  aStorage: string; aQuantity, aReserve: real; QuantityUnit,PosNo: string): real;
 var
   JournalCreated: Boolean;
   r: Real;
   StorageJournal: TStorageJournal;
 begin
-  Result := True;
+  Result := 0;
   try
+    Open;
     //Lager selektieren oder anlegen
     Data.StorageType.Open;
-    if FieldByName('STORAGEID').AsString<>aStorage then
+    if ((FieldByName('STORAGEID').AsString<>trim(copy(aStorage, 0, 3)))
+    and (not Locate('STORAGEID', trim(copy(aStorage, 0, 3)), [loCaseInsensitive])))
+    or ((Parent.FieldByName('USEBATCH').AsString='Y') and (aQuantity>0)) then
       begin
         //Kein Lager vorhanden ? dann Tragen wir das Hauptlager ein (sollte ja nicht zuoft vorkommen)
         Data.StorageType.DataSet.Locate('DEFAULTST', 'Y', [loCaseInsensitive]);
@@ -423,12 +427,22 @@ begin
             FieldByName('STORNAME').AsString := Data.StorageType.FieldByName('NAME').AsString;
             FieldByName('QUANTITY').AsFloat := 0;
             FieldByName('QUANTITYU').AsString := QuantityUnit;
+            if ((Parent.FieldByName('USEBATCH').AsString='Y') and (aQuantity>0)) then
+              begin //new Batch
+                FieldByName('CHARGE').AsString:=Order.FieldByName('ORDERNO').AsString;
+              end;
             aStorage := FieldByName('STORAGEID').AsString;
             Post;
           end;
       end;
     //Buchen
     Edit;
+    if (FieldByName('QUANTITY').AsFloat>0) and (FieldByName('QUANTITY').AsFloat - FieldByName('RESERVED').AsFloat + aQuantity < 0) then
+      begin
+        Result := aQuantity-(FieldByName('QUANTITY').AsFloat - FieldByName('RESERVED').AsFloat + aQuantity);
+        aQuantity:=aQuantity-Result;
+      end
+    else Result := aQuantity;
     FieldByName('QUANTITY').AsFloat := FieldByName('QUANTITY').AsFloat + aQuantity;
     FieldByName('RESERVED').AsFloat := FieldByName('RESERVED').AsFloat + aReserve;
     DataSet.Post;
@@ -516,7 +530,7 @@ begin
           StorageJournal.Free;
         end;
   except
-    result := False;
+    result := 0;
   end;
 end;
 
@@ -796,6 +810,7 @@ begin
             Add('USESERIAL',ftString,1,False);
             Add('OWNPROD',ftString,1,False);
             Add('SALEITEM',ftString,1,False);
+            Add('USEBATCH',ftString,1,False);
             Add('NOSTORAGE',ftString,1,False);
             Add('PTYPE',ftString,1,False);
             Add('WEIGHT',ftFloat,0,False);
