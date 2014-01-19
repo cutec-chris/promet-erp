@@ -418,6 +418,7 @@ end;
 
 procedure TfMain.RefreshFilter2;
 begin
+  Data.Users.Follows.ActualLimit:=0;
   Data.Users.Follows.Open;
   FFilter2:='';
   with Data.Users.Follows do
