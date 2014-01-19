@@ -138,14 +138,22 @@ begin
     end;
   FindClose(aInfo);
   aProcess := TProcess.Create(nil);
+  ChDir(Application.Location);
   aProcess.CurrentDirectory:=Application.Location;
   aProcess.CommandLine:='processmanager --mandant='+aMandant;
   aProcess.Options:=[poUsePipes,poNoConsole];
+  Application.Log(etDebug, 'Executing:'+aProcess.CommandLine);
   while not Terminated do
     begin
-      aProcess.Execute;
-      while aProcess.Active and (not Terminated) do
-        sleep(100);
+      try
+        aProcess.Execute;
+        while aProcess.Active and (not Terminated) do
+          sleep(100);
+      except
+        on e : Exception do
+          Application.Log(etDebug, 'Error: '+e.Message);
+      end;
+      Application.Log(etDebug, 'Exitted: Resultcode '+IntToStr(aProcess.ExitStatus));
     end;
   aProcess.Free;
 end;
@@ -276,13 +284,13 @@ begin
   with Application do
   begin
     Title := 'Processdaemon';
-    EventLog.LogType := ltFile;
+    EventLog.LogType := ltSystem;
     EventLog.DefaultEventType := etDebug;
     EventLog.AppendContent := false;
     {$ifndef unix}
-    EventLog.FileName := ChangeFileExt(ParamStr(0), '.log');
+    //EventLog.FileName := ChangeFileExt(ParamStr(0), '.log');
     {$else}
-    EventLog.FileName := '/var/log/'+ChangeFileExt(ParamStr(0), '.log');
+    //EventLog.FileName := '/var/log/'+ExtractFileName(ChangeFileExt(ParamStr(0), '.log'));
     {$endif}
     Initialize;
     Run;

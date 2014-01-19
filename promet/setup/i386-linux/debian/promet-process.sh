@@ -5,9 +5,9 @@ SVC_START_OPTIONS="-r"
 SVC_STOP_OPTIONS="s"
 
 # Edit SVC_ALIAS to the long description of your service application
-SVC_ALIAS="Description of your program"
+SVC_ALIAS="Service to execute Promet services"
 # Edit SVC_FILENAME to the actual name of your compiled service application
-SVC_FILENAME="processdaemon"
+SVC_FILENAME="promet-process"
 
 # Edit SVC_DIR to where you place your compiled service application 
 SVC_DIR="/usr/lib/promet-erp/tools/"

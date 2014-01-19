@@ -3,7 +3,7 @@ mkdir $2/web
 mkdir $2/tools
 cp ../../output/$1-linux/tools/cmdwizardmandant $2/tools/
 cp ../../output/$1-linux/tools/processmanager $2/tools/
-cp ../../output/$1-linux/tools/processdaemon $2/tools/
+cp ../../output/$1-linux/tools/processdaemon $2/tools/promet-process
 cp ../../output/$1-linux/web/local_appbase $2/tools
 cp ../../output/$1-linux/web/imapserver $2/tools
 cp ../../output/$1-linux/web/mta $2/tools
@@ -18,5 +18,5 @@ cp $2/tools/mta ../executables/$Version/$1
 cp $2/tools/nntpserver ../executables/$Version/$1
 cp $2/tools/svnserver ../executables/$Version/$1
 cp $2/tools/processmanager ../executables/$Version/$1
-cp $2/tools/processdaemon ../executables/$Version/$1
+cp $2/tools/promet-process ../executables/$Version/$1
 cp $2/tools/cmdwizardmandant ../executables/$Version/$1

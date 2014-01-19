@@ -26,7 +26,8 @@ mkdir -p $BuildDir/etc/init.d/
 mkdir -p $BuildDir/usr/lib/$Program
 echo "copy to builddir..."
 ./copy_to_builddir_web.sh $Archfpc $BuildDir/usr/lib/$Program
-cp promet-process.sh $BuildDir/etc/init.d/
+cp debian/promet-process.sh $BuildDir/etc/init.d/promet-process
+chmod 666 $BuildDir/etc/init.d/promet-process
 ln -s /usr/lib/$Program/web/imapserver $BuildDir/usr/bin/promet-erp-imap
 ln -s /usr/lib/$Program/web/local_appbase $BuildDir/usr/bin/promet-erp-appbase
 ln -s /usr/lib/$Program/web/mta $BuildDir/usr/bin/promet-erp-mta
@@ -51,7 +52,11 @@ cat debian/control_services | \
       -e "s/ARCH/$Arch/g" \
       -e "s/DEBSIZE/$DebSize/g" \
   > $BuildDir/DEBIAN/control
+cp debian/prerm $BuildDir/DEBIAN/prerm
 chmod 755 $BuildDir/DEBIAN
+cp debian/postinst $BuildDir/DEBIAN/postinst
+chmod 755 $BuildDir/DEBIAN/prerm
+chmod 755 $BuildDir/DEBIAN/postinst
 echo "building package..."
 sudo -S dpkg-deb --build $BuildDir
 cp $TmpDir/software_build.deb ../output/${Program}-${Subprogram}_${Version}_${Arch}-$Widgetset.deb

@@ -11,8 +11,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="210"/>
-        <CursorPos X="29" Y="228"/>
+        <TopLine Value="129"/>
+        <CursorPos X="29" Y="141"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -29,7 +29,7 @@
         <UnitName Value="processmanager"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="31"/>
+        <TopLine Value="100"/>
         <CursorPos X="1" Y="37"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
