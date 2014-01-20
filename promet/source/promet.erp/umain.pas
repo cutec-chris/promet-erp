@@ -1088,8 +1088,10 @@ begin
                       begin
                         Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
                         TTreeEntry(Node.Data).Typ := etDocuments;
-                        Node := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
+                        Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
                         TTreeEntry(Node.Data).Typ := etFiles;
+                        Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
+                        TTreeEntry(Node.Data).Typ := etImages;
                       end;
                     SomethingFound:=True;
                   end;

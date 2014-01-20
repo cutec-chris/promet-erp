@@ -172,7 +172,7 @@ type
     constructor Create(aDocFrame : TfManageDocFrame);
   end;
 
-procedure AddToMainTree(Node : TTReeNode);
+procedure AddToMainTree(Node : TTReeNode;aType : string = 'D');
 const
   MAX_IMAGES = 50;
 implementation
@@ -184,12 +184,12 @@ resourcestring
   strTag                   = 'Tag';
   strSetTag                = 'durch Klick setzen';
 
-procedure AddToMainTree(Node: TTReeNode);
+procedure AddToMainTree(Node: TTReeNode;aType : string = 'D');
 var
   Node1: TTreeNode;
 begin
   TTreeEntry(Node.Data).Typ := etDocuments;
-  Data.SetFilter(Data.Tree,'(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('D')+'))',0,'','ASC',False,True,True);
+  Data.SetFilter(Data.Tree,'(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType)+'))',0,'','ASC',False,True,True);
   Data.Tree.DataSet.First;
   while not Data.Tree.dataSet.EOF do
     begin

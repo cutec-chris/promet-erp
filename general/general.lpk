@@ -8,8 +8,8 @@
       <Version Value="11"/>
       <PathDelim Value="\"/>
       <SearchPaths>
-        <IncludeFiles Value="src;src_vis"/>
-        <OtherUnitFiles Value="src;src_vis"/>
+        <IncludeFiles Value="src_vis"/>
+        <OtherUnitFiles Value="src_vis"/>
         <UnitOutputDirectory Value="lib\gui\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
       </SearchPaths>
       <Parsing>
