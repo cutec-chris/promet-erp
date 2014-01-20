@@ -40,6 +40,7 @@ type
     FSecModified: Boolean;
     FDoChange:Integer;
     FUseIntegrity : Boolean;
+    function GetActive: Boolean;
     function GetCanEdit: Boolean;
     function GetCaption: string;
     function GetConnection: TComponent;
@@ -50,6 +51,7 @@ type
     function GetLimit: Integer;
     function GetState: TDataSetState;
     function GetTimestamp: TField;
+    procedure SetActive(AValue: Boolean);
     procedure SetFilter(AValue: string);
     procedure SetLimit(AValue: Integer);
   public
@@ -107,6 +109,7 @@ type
     property Parent : TBaseDbDataSet read FParent;
     property UpdateFloatFields : Boolean read FUpdateFloatFields write FUpdateFloatFields;
     property CanEdit : Boolean read GetCanEdit;
+    property Active : Boolean read GetActive write SetActive;
     property OnChange : TNotifyEvent read FOnChanged write FOnChanged;
     property OnRemove : TNotifyEvent read FOnRemoved write FOnRemoved;
   end;
@@ -2099,6 +2102,14 @@ function TBaseDBDataset.GetCanEdit: Boolean;
 begin
   Result := Assigned(Self) and (Self is TbaseDbDataSet) and Assigned(fdataSet) and (FDataSet.State = dsEdit) or (FDataSet.State = dsInsert);
 end;
+
+function TBaseDBDataset.GetActive: Boolean;
+begin
+  Result := False;
+  if Assigned(FDataSet) then
+    Result := FDataSet.Active;
+end;
+
 function TBaseDBDataset.GetCount: Integer;
 begin
   if DataSet.Active then
@@ -2141,6 +2152,14 @@ end;
 function TBaseDBDataset.GetTimestamp: TField;
 begin
   Result := DataSet.FieldByName('TIMESTAMPD');
+end;
+
+procedure TBaseDBDataset.SetActive(AValue: Boolean);
+begin
+  if (not AValue) and Active then
+    Close
+  else if AValue and (not Active) then
+    Open;
 end;
 
 procedure TBaseDBDataset.SetFilter(AValue: string);

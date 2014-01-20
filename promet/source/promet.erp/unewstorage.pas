@@ -21,7 +21,7 @@ unit uNewStorage;
 interface
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, DBGrids, StdCtrls, ExtCtrls, Buttons,
-  uData, db,LCLType, ButtonPanel,uOrder,uMasterdata,uBaseERPDBClasses;
+  uData, db,LCLType, ButtonPanel,uOrder,uMasterdata,uBaseERPDBClasses,LCLProc;
 type
   TfNewStorage = class(TForm)
     ButtonPanel1: TButtonPanel;
@@ -92,23 +92,26 @@ begin
                                                                aOrder.Positions.FieldByName('SHORTTEXT').AsString]);
   Result := ShowModal = mrOK;
   if Result then
-    if not aStorage.Locate('STORAGEID',aStorageType.FieldByName('ID').AsString,[loCaseInsensitive]) then
-      with aStorage do
-        begin
-          Insert;
-          if aStorage.DataSet.FieldDefs.IndexOf('TYPE') > -1 then
-            begin
-              FieldByName('TYPE').AsVariant := aOrder.Positions.FieldByName('TYPE').AsVariant;
-              FieldByName('ID').AsVariant := aOrder.Positions.FieldByName('ID').AsVariant;
-              FieldByName('VERSION').AsVariant := aOrder.Positions.FieldByName('VERSION').Asvariant;
-              FieldByName('LANGUAGE').AsVariant := aOrder.Positions.FieldByName('LANGUAGE').AsVariant;
-            end;
-          FieldByName('STORAGEID').AsVariant := aStorageType.FieldByName('ID').AsVariant;
-          FieldByName('STORNAME').AsVariant := aStorageType.FieldByName('NAME').AsVariant;
-          FieldByName('QUANTITY').AsFloat := 0;
-          FieldByName('QUANTITYU').AsString := aOrder.Positions.FieldByName('QUANTITYU').AsString;
-          Post;
-        end;
+    begin
+      if (aStorageType.FieldByName('ID').AsString<>fStorage.FieldByName('STORAGEID').AsString) and (not aStorage.Locate('STORAGEID',aStorageType.FieldByName('ID').AsString,[loCaseInsensitive])) then
+        with aStorage do
+          begin
+            Insert;
+            if aStorage.DataSet.FieldDefs.IndexOf('TYPE') > -1 then
+              begin
+                FieldByName('TYPE').AsVariant := aOrder.Positions.FieldByName('TYPE').AsVariant;
+                FieldByName('ID').AsVariant := aOrder.Positions.FieldByName('ID').AsVariant;
+                FieldByName('VERSION').AsVariant := aOrder.Positions.FieldByName('VERSION').Asvariant;
+                FieldByName('LANGUAGE').AsVariant := aOrder.Positions.FieldByName('LANGUAGE').AsVariant;
+              end;
+            FieldByName('STORAGEID').AsVariant := aStorageType.FieldByName('ID').AsVariant;
+            FieldByName('STORNAME').AsVariant := aStorageType.FieldByName('NAME').AsVariant;
+            FieldByName('QUANTITY').AsFloat := 0;
+            FieldByName('QUANTITYU').AsString := aOrder.Positions.FieldByName('QUANTITYU').AsString;
+            Post;
+          end;
+    end;
+  aStorageType.DataSet.AfterScroll:=nil;
   StorageType.DataSet := nil;
   aStorageType.Free;
   FreeAndNil(fNewStorage);

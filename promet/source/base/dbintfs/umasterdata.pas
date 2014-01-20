@@ -403,9 +403,10 @@ var
 begin
   Result := 0;
   try
-    Open;
+    if not Active then Open;
     //Lager selektieren oder anlegen
-    Data.StorageType.Open;
+    if not Data.StorageType.Active then
+      Data.StorageType.Open;
     if ((FieldByName('STORAGEID').AsString<>trim(copy(aStorage, 0, 3)))
     and (not Locate('STORAGEID', trim(copy(aStorage, 0, 3)), [loCaseInsensitive])))
     or ((Parent.FieldByName('USEBATCH').AsString='Y') and (aQuantity>0)) then

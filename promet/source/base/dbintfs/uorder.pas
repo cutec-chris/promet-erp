@@ -1151,9 +1151,11 @@ begin
                       while aQuantity <> 0 do
                         begin
                           //Ist Lagerdatensatz gleich zu buchendes Lager
-                          if (not Masterdata.Storage.Locate('STORAGEID', trim(copy(aStorage, 0, 3)), [loCaseInsensitive])) or (not aFirstStorage) then
-                            if (not Data.StorageType.Locate('ID',trim(copy(aStorage, 0, 3)),[loCaseInsensitive])) or (not aFirstStorage) then
+                          if (not Masterdata.Storage.Locate('STORAGEID', trim(copy(aStorage, 0, 3)), [loCaseInsensitive])) or (not aFirstStorage) or (Masterdata.FieldByName('USEBATCH').AsString='Y') then
+                            if (not Data.StorageType.Locate('ID',trim(copy(aStorage, 0, 3)),[loCaseInsensitive])) or (not aFirstStorage) or (Masterdata.FieldByName('USEBATCH').AsString='Y') then
                               begin
+                                if Masterdata.Storage.FieldByName('STORAGEID').AsString<>trim(copy(aStorage, 0, 3)) then
+                                  Masterdata.Storage.Locate('STORAGEID', trim(copy(aStorage, 0, 3)), [loCaseInsensitive]);
                                 if Assigned(FOnGetStorage) then
                                   if FOnGetStorage(Self,Masterdata.Storage) then
                                     aStorage := Masterdata.Storage.FieldByName('STORAGEID').AsString
@@ -1163,6 +1165,7 @@ begin
                           if aBooked = 0 then
                             raise Exception.Create('Post Article failed');
                           aQuantity := aQuantity-aBooked;
+                          aFirstStorage:=False;
                         end;
 
                     end

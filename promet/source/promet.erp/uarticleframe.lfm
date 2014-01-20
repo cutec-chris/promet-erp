@@ -373,6 +373,7 @@ inherited fArticleFrame: TfArticleFrame
           Caption = 'hat kein Lager'
           DataField = 'NOSTORAGE'
           DataSource = Masterdata
+          OnChange = cbNoStorageChange
           TabOrder = 3
           ValueChecked = 'Y'
           ValueUnchecked = 'N'

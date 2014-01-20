@@ -124,6 +124,7 @@ type
     procedure acSaveExecute(Sender: TObject);
     procedure acSetTreeDirExecute(Sender: TObject);
     procedure bChangeNumberClick(Sender: TObject);
+    procedure cbNoStorageChange(Sender: TObject);
     procedure cbStatusSelect(Sender: TObject);
     procedure cbVersionExit(Sender: TObject);
     procedure cbVersionSelect(Sender: TObject);
@@ -208,6 +209,12 @@ begin
           FieldbyName('ID').AsString:=str;
         end;
     end;
+end;
+
+procedure TfArticleFrame.cbNoStorageChange(Sender: TObject);
+begin
+  cbNoStorage1.Enabled:=not cbNoStorage.Checked;
+  cbUseSerial.Enabled:=not cbNoStorage.Checked;
 end;
 
 procedure TfArticleFrame.cbStatusSelect(Sender: TObject);
