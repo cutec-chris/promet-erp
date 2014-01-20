@@ -9,7 +9,7 @@ interface
 uses
   Tapi, TAPIServices, TAPIAddress, TAPIDevices, TAPITrans, AssistedTAPI, 
   CallList, DevConf, TAPICall, TAPICallBack, TAPIConference, TAPICurVer, 
-  TAPIErr, TAPIForward, TAPIHelpfunc, TAPILines, TAPILists, TAPIMediaCtl, 
+  TAPIErr, TAPIForward, tapihelpfunc, TAPILines, TAPILists, TAPIMediaCtl,
   TAPIObj, TAPIPhone, TAPIProv, TAPIRedirect, TAPISystem, TAPIThread, TAPITon, 
   LazarusPackageIntf;
 
