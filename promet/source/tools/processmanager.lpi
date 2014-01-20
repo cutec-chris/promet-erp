@@ -35,7 +35,6 @@
       <local>
         <FormatVersion Value="1"/>
         <CommandLineParams Value="--mandant=Stora"/>
-        <LaunchingApplication PathPlusParams="/usr/bin/xterm -T 'Lazarus Run Output' -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
     <RequiredPackages Count="1">
@@ -52,8 +51,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="198"/>
-        <CursorPos X="1" Y="236"/>
+        <TopLine Value="131"/>
+        <CursorPos X="80" Y="147"/>
         <UsageCount Value="44"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -833,4 +832,4 @@
     </Exceptions>
   </Debugging>
   <EditorMacros Count="0"/>
-</CONFIG>
+</CONFIG>

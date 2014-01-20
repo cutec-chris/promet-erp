@@ -135,11 +135,19 @@ begin
               aRefresh:=RefreshAll;
             end;
           if Data.ProcessClient.DataSet.Locate('NAME',GetSystemName,[]) then
-            if Data.ProcessClient.DataSet.FieldByName('STATUS').AsString <> 'R' then
-              begin
-                Terminate;
-                break;
-              end;
+            begin
+              if Data.ProcessClient.DataSet.FieldByName('STATUS').AsString = 'N' then
+                begin
+                  Terminate;
+                  break;
+                end
+              else if Data.ProcessClient.DataSet.FieldByName('STATUS').AsString <> 'R' then
+                begin
+                  Data.ProcessClient.DataSet.Edit;
+                  Data.ProcessClient.DataSet.FieldByName('STATUS').AsString:='R';
+                  Data.ProcessClient.DataSet.Post;
+                end;
+            end;
           Data.ProcessClient.Processes.DataSet.First;
           while not Data.ProcessClient.Processes.DataSet.EOF do
             begin
