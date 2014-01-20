@@ -5,7 +5,10 @@ program processdaemon;
 uses
 {$IFDEF UNIX}
   CThreads,
-  Cmem,{$ENDIF}
+  Cmem,
+{$ELSE}
+  Windows,
+{$ENDIF}
   Classes, SysUtils, EventLog, DaemonApp,process;
 
 type
@@ -43,6 +46,9 @@ type
     procedure ToDoOnUninstall(Sender: TObject);
     procedure ToDoOnDestroy(Sender: TObject);
   end;
+  {$ifdef WINDOWS}
+  PFNSHGetFolderPath = Function(Ahwnd: HWND; Csidl: Integer; Token: THandle; Flags: DWord; Path: PChar): HRESULT; stdcall;
+  {$endif}
 
 function BoolToStr(AVal: Boolean): String;
 begin
@@ -140,7 +146,7 @@ begin
   aProcess := TProcess.Create(nil);
   ChDir(Application.Location);
   aProcess.CurrentDirectory:=Application.Location;
-  aProcess.CommandLine:='processmanager --mandant='+aMandant;
+  aProcess.CommandLine:='processmanager'+ExtractFileExt(Application.ExeName)+' --mandant='+aMandant;
   aProcess.Options:=[poUsePipes,poNoConsole];
   Application.Log(etDebug, 'Executing:'+aProcess.CommandLine);
   while not Terminated do

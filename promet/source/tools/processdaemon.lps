@@ -11,8 +11,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="129"/>
-        <CursorPos X="29" Y="141"/>
+        <TopLine Value="137"/>
+        <CursorPos X="76" Y="149"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -80,7 +80,7 @@
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="14" HistoryIndex="13">
+    <JumpHistory Count="16" HistoryIndex="15">
       <Position1>
         <Filename Value="processdaemon.lpr"/>
         <Caret Line="197" Column="5" TopLine="161"/>
@@ -137,6 +137,14 @@
         <Filename Value="processdaemon.lpr"/>
         <Caret Line="134" Column="3" TopLine="116"/>
       </Position14>
+      <Position15>
+        <Filename Value="processdaemon.lpr"/>
+        <Caret Line="141" Column="29" TopLine="129"/>
+      </Position15>
+      <Position16>
+        <Filename Value="processdaemon.lpr"/>
+        <Caret Line="69" Column="1" TopLine="49"/>
+      </Position16>
     </JumpHistory>
   </ProjectSession>
   <EditorMacros Count="0"/>
