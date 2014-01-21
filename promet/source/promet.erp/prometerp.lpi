@@ -294,9 +294,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1075"/>
+        <TopLine Value="1221"/>
         <CursorPos X="65" Y="1091"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="3">
@@ -499,7 +500,7 @@
       <Unit19>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="69"/>
         <CursorPos X="23" Y="87"/>
@@ -509,7 +510,7 @@
       <Unit20>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2089"/>
         <CursorPos X="1" Y="2111"/>
@@ -589,7 +590,7 @@
       <Unit28>
         <Filename Value="../base/dbintfs/ubaseerpdbclasses.pas"/>
         <UnitName Value="uBaseERPDBClasses"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="118"/>
         <CursorPos X="28" Y="137"/>
@@ -603,7 +604,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uArticleFrame"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="214"/>
         <CursorPos X="136" Y="241"/>
@@ -651,7 +652,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOrderFrame"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="575"/>
         <CursorPos X="1" Y="594"/>
@@ -713,7 +714,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uNewStorage"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="85"/>
         <CursorPos X="100" Y="96"/>
@@ -3776,12 +3777,10 @@
       <Unit392>
         <Filename Value="../../../../../lazarus/ide/lazarus.pp"/>
         <UnitName Value="Lazarus"/>
-        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="108"/>
         <CursorPos X="1" Y="142"/>
         <UsageCount Value="12"/>
-        <Loaded Value="True"/>
       </Unit392>
       <Unit393>
         <Filename Value="../../../../../lazarus/link.res"/>
@@ -4169,11 +4168,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMainTreeFrame"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="832"/>
-        <CursorPos X="8" Y="827"/>
+        <TopLine Value="823"/>
+        <CursorPos X="17" Y="841"/>
         <UsageCount Value="15"/>
         <Loaded Value="True"/>
       </Unit440>
@@ -4334,7 +4332,7 @@
       <Unit459>
         <Filename Value="../base_frames/uprometframesinplacedb.pas"/>
         <UnitName Value="uPrometFramesInplaceDB"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="19"/>
         <CursorPos X="14" Y="37"/>

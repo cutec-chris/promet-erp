@@ -69,8 +69,7 @@ begin
   FProcess := TProcessLineTalk.Create(nil);
   
   { calculate FProcess.CommandLine }
-//  FProcess.CurrentDirectory := 'D:\Programme\Aspell\bin';
-  FProcess.CommandLine := 'D:\Programme\Aspell\bin\aspell -a';
+  FProcess.CommandLine := 'aspell -a';
   if AspellMode <> '' then
     FProcess.CommandLine := FProcess.CommandLine + ' --mode=' + AspellMode;
   if AspellLanguage <> '' then
