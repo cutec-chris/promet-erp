@@ -389,6 +389,12 @@ begin
                       Entrys.DataSet.Post;
                     Added := True;
                   end
+              end
+            else if (pos('@',FieldByName('LINK').AsString)>0) then
+              begin
+              end
+            else
+              begin
               end;
             Next;
           end;

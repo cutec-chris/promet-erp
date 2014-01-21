@@ -500,7 +500,7 @@
       <Unit19>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="69"/>
         <CursorPos X="23" Y="87"/>
@@ -510,7 +510,7 @@
       <Unit20>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2089"/>
         <CursorPos X="1" Y="2111"/>
@@ -590,7 +590,7 @@
       <Unit28>
         <Filename Value="../base/dbintfs/ubaseerpdbclasses.pas"/>
         <UnitName Value="uBaseERPDBClasses"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="118"/>
         <CursorPos X="28" Y="137"/>
@@ -650,7 +650,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOrderFrame"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="575"/>
         <CursorPos X="1" Y="594"/>
@@ -1303,8 +1303,8 @@
         <UnitName Value="uMeetingFrame"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="753"/>
-        <CursorPos X="22" Y="759"/>
+        <TopLine Value="752"/>
+        <CursorPos X="1" Y="768"/>
         <UsageCount Value="91"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -1337,7 +1337,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="umanagedocframe"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="57"/>
         <CursorPos X="54" Y="58"/>
@@ -1355,7 +1355,7 @@
       <Unit102>
         <Filename Value="../base/dbintfs/ubasedocpages.pas"/>
         <UnitName Value="uBaseDocPages"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="35"/>
         <CursorPos X="54" Y="134"/>
@@ -1938,10 +1938,12 @@
       <Unit171>
         <Filename Value="../base/dbintfs/umeeting.pas"/>
         <UnitName Value="umeeting"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="90"/>
-        <CursorPos X="17" Y="109"/>
+        <TopLine Value="292"/>
+        <CursorPos X="43" Y="372"/>
         <UsageCount Value="75"/>
+        <Loaded Value="True"/>
       </Unit171>
       <Unit172>
         <Filename Value="../base/uselectreport.pas"/>
@@ -4092,10 +4094,10 @@
         <HasResources Value="True"/>
         <UnitName Value="uSelectReport"/>
         <IsVisibleTab Value="True"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="793"/>
-        <CursorPos X="1" Y="822"/>
+        <TopLine Value="881"/>
+        <CursorPos X="15" Y="900"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit432>
@@ -4172,7 +4174,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMainTreeFrame"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="589"/>
         <CursorPos X="66" Y="594"/>
@@ -4372,124 +4374,124 @@
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="245" Column="3" TopLine="226"/>
+        <Filename Value="../base_pm/umeetingframe.pas"/>
+        <Caret Line="112" Column="14" TopLine="96"/>
       </Position1>
       <Position2>
-        <Filename Value="../base_frames/umaintreeframe.pas"/>
-        <Caret Line="605" Column="7" TopLine="577"/>
+        <Filename Value="../base_pm/umeetingframe.pas"/>
+        <Caret Line="179" Column="38" TopLine="147"/>
       </Position2>
       <Position3>
-        <Filename Value="../base_frames/umaintreeframe.pas"/>
-        <Caret Line="604" Column="69" TopLine="585"/>
+        <Filename Value="../base_forms/uselectreport.pas"/>
+        <Caret Line="804" Column="62" TopLine="793"/>
       </Position3>
       <Position4>
-        <Filename Value="../base_frames/umaintreeframe.pas"/>
-        <Caret Line="187" Column="71" TopLine="163"/>
+        <Filename Value="../base_forms/uselectreport.pas"/>
+        <Caret Line="822" Column="1" TopLine="793"/>
       </Position4>
       <Position5>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="716" Column="29" TopLine="696"/>
+        <Filename Value="../base_pm/umeetingframe.pas"/>
+        <Caret Line="179" Column="38" TopLine="147"/>
       </Position5>
       <Position6>
-        <Filename Value="../base_frames/umaintreeframe.pas"/>
-        <Caret Line="164" Column="42" TopLine="171"/>
+        <Filename Value="../base_pm/umeetingframe.pas"/>
+        <Caret Line="767" Column="20" TopLine="753"/>
       </Position6>
       <Position7>
-        <Filename Value="../base_frames/umaintreeframe.pas"/>
-        <Caret Line="8" Column="105" TopLine="1"/>
+        <Filename Value="../base_forms/uselectreport.pas"/>
+        <Caret Line="115" Column="58" TopLine="97"/>
       </Position7>
       <Position8>
-        <Filename Value="../base_frames/umaintreeframe.pas"/>
-        <Caret Line="115" Column="11" TopLine="82"/>
+        <Filename Value="../base_forms/uselectreport.pas"/>
+        <Caret Line="799" Column="63" TopLine="783"/>
       </Position8>
       <Position9>
-        <Filename Value="../base_frames/umaintreeframe.pas"/>
-        <Caret Line="308" Column="58" TopLine="290"/>
+        <Filename Value="../base_forms/uselectreport.pas"/>
+        <Caret Line="822" Column="1" TopLine="804"/>
       </Position9>
       <Position10>
-        <Filename Value="../base_frames/umaintreeframe.pas"/>
-        <Caret Line="316" Column="29" TopLine="290"/>
+        <Filename Value="../base_forms/uselectreport.pas"/>
+        <Caret Line="824" Column="1" TopLine="804"/>
       </Position10>
       <Position11>
-        <Filename Value="../base_frames/umaintreeframe.pas"/>
-        <Caret Line="323" Column="51" TopLine="310"/>
+        <Filename Value="../base_pm/umeetingframe.pas"/>
+        <Caret Line="771" Column="41" TopLine="752"/>
       </Position11>
       <Position12>
-        <Filename Value="../base_frames/umaintreeframe.pas"/>
-        <Caret Line="601" Column="24" TopLine="587"/>
+        <Filename Value="../base_pm/umeetingframe.pas"/>
+        <Caret Line="767" Column="1" TopLine="752"/>
       </Position12>
       <Position13>
-        <Filename Value="../base_frames/umaintreeframe.pas"/>
-        <Caret Line="712" Column="32" TopLine="688"/>
+        <Filename Value="../base_forms/uselectreport.pas"/>
+        <Caret Line="786" Column="1" TopLine="766"/>
       </Position13>
       <Position14>
-        <Filename Value="../base_frames/umaintreeframe.pas"/>
-        <Caret Line="1039" Column="13" TopLine="1023"/>
+        <Filename Value="../base_forms/uselectreport.pas"/>
+        <Caret Line="787" Column="1" TopLine="766"/>
       </Position14>
       <Position15>
-        <Filename Value="../base_frames/umaintreeframe.pas"/>
-        <Caret Line="1053" Column="23" TopLine="1041"/>
+        <Filename Value="../base_forms/uselectreport.pas"/>
+        <Caret Line="788" Column="1" TopLine="766"/>
       </Position15>
       <Position16>
-        <Filename Value="../base_frames/umaintreeframe.pas"/>
-        <Caret Line="6" Column="122" TopLine="1"/>
+        <Filename Value="../base_forms/uselectreport.pas"/>
+        <Caret Line="789" Column="1" TopLine="766"/>
       </Position16>
       <Position17>
-        <Filename Value="../base_frames/umaintreeframe.pas"/>
-        <Caret Line="27" Column="35" TopLine="1"/>
+        <Filename Value="../base_forms/uselectreport.pas"/>
+        <Caret Line="790" Column="1" TopLine="766"/>
       </Position17>
       <Position18>
-        <Filename Value="../base_frames/umaintreeframe.pas"/>
-        <Caret Line="308" Column="13" TopLine="292"/>
+        <Filename Value="../base_forms/uselectreport.pas"/>
+        <Caret Line="791" Column="1" TopLine="766"/>
       </Position18>
       <Position19>
-        <Filename Value="../base_frames/umaintreeframe.pas"/>
-        <Caret Line="315" Column="29" TopLine="292"/>
+        <Filename Value="../base_forms/uselectreport.pas"/>
+        <Caret Line="822" Column="1" TopLine="804"/>
       </Position19>
       <Position20>
-        <Filename Value="../base_frames/umaintreeframe.pas"/>
-        <Caret Line="323" Column="51" TopLine="292"/>
+        <Filename Value="../base_pm/umeetingframe.pas"/>
+        <Caret Line="767" Column="1" TopLine="752"/>
       </Position20>
       <Position21>
-        <Filename Value="../base_frames/umaintreeframe.pas"/>
-        <Caret Line="608" Column="49" TopLine="587"/>
+        <Filename Value="../base_pm/umeetingframe.pas"/>
+        <Caret Line="768" Column="1" TopLine="752"/>
       </Position21>
       <Position22>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="716" Column="29" TopLine="696"/>
+        <Filename Value="../base_forms/uselectreport.pas"/>
+        <Caret Line="889" Column="1" TopLine="869"/>
       </Position22>
       <Position23>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="717" Column="29" TopLine="697"/>
+        <Filename Value="../base_forms/uselectreport.pas"/>
+        <Caret Line="890" Column="1" TopLine="869"/>
       </Position23>
       <Position24>
-        <Filename Value="../base_pm/umeetingframe.pas"/>
-        <Caret Line="807" Column="94" TopLine="778"/>
+        <Filename Value="../base_forms/uselectreport.pas"/>
+        <Caret Line="895" Column="1" TopLine="869"/>
       </Position24>
       <Position25>
-        <Filename Value="../base_pm/umeetingframe.pas"/>
-        <Caret Line="759" Column="22" TopLine="753"/>
+        <Filename Value="../base_forms/uselectreport.pas"/>
+        <Caret Line="896" Column="1" TopLine="869"/>
       </Position25>
       <Position26>
         <Filename Value="../base_forms/uselectreport.pas"/>
-        <Caret Line="10" Column="104" TopLine="1"/>
+        <Caret Line="897" Column="1" TopLine="869"/>
       </Position26>
       <Position27>
         <Filename Value="../base_forms/uselectreport.pas"/>
-        <Caret Line="207" Column="13" TopLine="175"/>
+        <Caret Line="898" Column="1" TopLine="869"/>
       </Position27>
       <Position28>
         <Filename Value="../base_forms/uselectreport.pas"/>
-        <Caret Line="226" Column="43" TopLine="213"/>
+        <Caret Line="899" Column="1" TopLine="869"/>
       </Position28>
       <Position29>
         <Filename Value="../base_forms/uselectreport.pas"/>
-        <Caret Line="458" Column="13" TopLine="435"/>
+        <Caret Line="900" Column="1" TopLine="869"/>
       </Position29>
       <Position30>
         <Filename Value="../base_forms/uselectreport.pas"/>
-        <Caret Line="477" Column="47" TopLine="461"/>
+        <Caret Line="903" Column="1" TopLine="871"/>
       </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">
@@ -4534,7 +4536,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="1">
+    <BreakPoints Count="2">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
@@ -4542,6 +4544,13 @@
         <Source Value="../base/dbintfs/utask.pas"/>
         <Line Value="350"/>
       </Item1>
+      <Item2>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="../base_pm/umeetingframe.pas"/>
+        <Line Value="767"/>
+      </Item2>
     </BreakPoints>
     <Watches Count="2">
       <Item1>

@@ -785,10 +785,7 @@ procedure TfSelectReport.SetDataSet(AValue: TBaseDBDataset);
 begin
   if FDS=AValue then Exit;
   FDS:=AValue;
-  if Assigned(FDS) and Supports(FDS, IPostableDataSet) then
-    bPrint.Caption:=strPrintBook;
-  bBook.Visible:=Assigned(FDS) and Supports(FDS, IPostableDataSet);
-  bShippingOutput.Visible:=Supports(FDS, IShipableDataSet);
+  SetLanguage;
 end;
 
 procedure TfSelectReport.SetLanguage;
@@ -822,6 +819,10 @@ begin
   if Assigned(FDS) and Supports(FDS, IPostableDataSet) then
     bPrint.Caption:=strPrintBook;
   bBook.Visible:=Assigned(FDS) and Supports(FDS, IPostableDataSet);
+  if bBook.Visible then
+    Report.PreviewButtons:=[pbZoom, pbFind, pbExit]
+  else
+    Report.PreviewButtons:=[pbZoom, pbSave, pbPrint, pbFind, pbExit];
 end;
 
 procedure TfSelectReport.SetupDB;
@@ -895,16 +896,6 @@ begin
   FUpdated := False;
   FBooked := False;
   ActControl := Screen.ActiveControl;
-  bBook.Visible := copy(ReportType,0,2) = 'OR';
-  bShippingOutput.Visible:=copy(ReportType,0,2) = 'OR';
-  if copy(ReportType,0,2) = 'OR' then
-    bPrint.Caption:=strPrintBook
-  else
-    bPrint.Caption := strPrint;
-  if bBook.Visible then
-    Report.PreviewButtons:=[pbZoom, pbFind, pbExit]
-  else
-    Report.PreviewButtons:=[pbZoom, pbSave, pbPrint, pbFind, pbExit];
   Show;
   Application.ProcessMessages; // Preview ist meisst Modal unter diversen Umständen gibts Probleme mit 2 Modalen Forms übereinander
   while Visible do
