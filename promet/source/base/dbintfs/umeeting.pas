@@ -90,7 +90,7 @@ type
   end;
 
 implementation
-uses uBaseApplication,uProjects,uData;
+uses uBaseApplication,uProjects,uData,uMasterdata;
 resourcestring
   strPresent                            = 'Anwesend';
 procedure TMeetingLinks.FillDefaults(aDataSet: TDataSet);
@@ -293,7 +293,12 @@ var
   arec: LargeInt;
   Added : Boolean = False;
   aTasks: TTask;
+  aDataSet: TBaseDBDataset = nil;
+  aLink: String;
+  Hist : IBaseHistory;
+  aHist: TBaseHistory;
 begin
+  aLink := '';
   Result := prFailed;
   if not Self.DataSet.FieldByName('DATE').IsNull then
     begin
@@ -308,12 +313,17 @@ begin
         while not EOF do
           begin
             Added := False;
-
+            if aLink <> FieldByName('LINK').AsString then
+              begin
+                aLink := FieldByName('LINK').AsString;
+                FreeAndNil(aDataSet);
+                aDataSet := TBaseDBModule(DataModule).DataSetFromLink(aLink,Connection)
+              end;
             if (copy(FieldByName('LINK').AsString,0,9) = 'PROJECTS@')
             or (copy(FieldByName('LINK').AsString,0,11) = 'PROJECTS.ID')
             then
-              ProjectLink := FieldByName('LINK').AsString
-            else if ProjectLink <> '' then
+              ProjectLink := FieldByName('LINK').AsString;
+            if aLink <> '' then
               begin
                 aProject := TProject.Create(nil,DataModule,Connection);
                 aProject.SelectFromLink(ProjectLink);
@@ -352,11 +362,6 @@ begin
                         if Entrys.CanEdit then
                           Entrys.DataSet.Post;
                         Added := True;
-                      end
-                    else //History
-                      begin
-                        aProject.History.AddItem(Data.Users.DataSet,FieldByName('DESC').AsString,Data.BuildLink(DataSet),Self.DataSet.FieldByName('NAME').AsString,nil,ACICON_USEREDITED,'',True,True);
-                        Added := True;
                       end;
                   end;
                 aProject.Free;
@@ -389,13 +394,17 @@ begin
                     if Entrys.CanEdit then
                       Entrys.DataSet.Post;
                     Added := True;
-                  end
-              end
-            else if (pos('@',FieldByName('LINK').AsString)>0) then
-              begin
-              end
-            else
-              begin
+                  end;
+                if (not Added) and Assigned(aDataSet) and Supports(aDataSet, IBaseHistory, Hist) then
+                  begin
+                    Added := True;
+                    if aDataSet is TProject then
+                      Tproject(aDataSet).History.AddItem(Data.Users.DataSet,FieldByName('DESC').AsString,Data.BuildLink(Self.DataSet),Self.DataSet.FieldByName('NAME').AsString,nil,ACICON_USEREDITED,'',True,True)
+                    else if aDataSet is TMasterdata then
+                      TMasterdata(aDataSet).History.AddItem(Data.Users.DataSet,FieldByName('DESC').AsString,Data.BuildLink(Self.DataSet),Self.DataSet.FieldByName('NAME').AsString,nil,ACICON_USEREDITED,'',True,True)
+                    else
+                      Added:=False;
+                  end;
               end;
             Next;
           end;
@@ -406,6 +415,7 @@ begin
         Data.CommitTransaction(Connection);
         Result:=prSuccess;
       end;
+      FreeAndNil(aDataSet);
     except
       on e : Exception do
         begin

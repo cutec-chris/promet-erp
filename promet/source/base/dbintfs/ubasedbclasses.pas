@@ -1246,46 +1246,43 @@ begin
   Result := False;
   if not DataSet.Active then
     Open;
-  with DataSet do
+  Last;
+  tmp := FieldByName('ACTION').AsString;
+  with BaseApplication as IBaseDbInterface do
     begin
-      Last;
-      tmp := FieldByName('ACTION').AsString;
+      if  (FieldByName('ACTIONICON').AsInteger = aIcon)
+      and (aIcon<>ACICON_USEREDITED)
+      and (FieldByName('LINK').AsString = aLink)
+      and (trunc(FieldByName('TIMESTAMPD').AsDatetime) = trunc(Now()))
+      and (FieldByName('CHANGEDBY').AsString = Data.Users.Idcode.AsString)
+      and ((FieldByName('REFERENCE').AsString = aReference) or (FieldByName('REFERENCE').AsString=Data.Users.IDCode.Asstring))
+      and (CheckDouble)
+      then
+        Delete;
+    end;
+  Append;
+  if aLink <> '' then
+    FieldByName('LINK').AsString      := aLink;
+  with BaseApplication as IBaseDbInterface do
+    FieldByName('OBJECT').AsString := Data.BuildLink(aObject);
+  FieldByName('ACTIONICON').AsInteger := aIcon;
+  FieldByName('ACTION').AsString    := aAction;
+  FieldByName('REFERENCE').AsString := aReference;
+  if Assigned(aRefObject) then
+    begin
       with BaseApplication as IBaseDbInterface do
-        begin
-          if  (FieldByName('ACTIONICON').AsInteger = aIcon)
-          and (aIcon<>ACICON_USEREDITED)
-          and (FieldByName('LINK').AsString = aLink)
-          and (trunc(FieldByName('TIMESTAMPD').AsDatetime) = trunc(Now()))
-          and (FieldByName('CHANGEDBY').AsString = Data.Users.Idcode.AsString)
-          and ((FieldByName('REFERENCE').AsString = aReference) or (FieldByName('REFERENCE').AsString=Data.Users.IDCode.Asstring))
-          and (CheckDouble)
-          then
-            Delete;
-        end;
-      Append;
-      if aLink <> '' then
-        FieldByName('LINK').AsString      := aLink;
-      with BaseApplication as IBaseDbInterface do
-        FieldByName('OBJECT').AsString := Data.BuildLink(aObject);
-      FieldByName('ACTIONICON').AsInteger := aIcon;
-      FieldByName('ACTION').AsString    := aAction;
-      FieldByName('REFERENCE').AsString := aReference;
-      if Assigned(aRefObject) then
-        begin
-          with BaseApplication as IBaseDbInterface do
-            FieldByName('REFOBJECT').AsString := Data.BuildLink(aRefObject);
-        end;
-      with BaseApplication as IBaseDbInterface do
-        FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
-      DataSet.FieldByName('COMMISSION').AsString := aComission;
-      if DoPost then
-        Post;
-      result := True;
-      if DoChange or (not DoPost) then
-        begin
-          FShouldChange := True;
-          Change;
-        end;
+        FieldByName('REFOBJECT').AsString := Data.BuildLink(aRefObject);
+    end;
+  with BaseApplication as IBaseDbInterface do
+    FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
+  DataSet.FieldByName('COMMISSION').AsString := aComission;
+  if DoPost then
+    Post;
+  result := True;
+  if DoChange or (not DoPost) then
+    begin
+      FShouldChange := True;
+      Change;
     end;
 end;
 

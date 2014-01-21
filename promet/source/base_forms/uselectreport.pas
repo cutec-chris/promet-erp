@@ -819,6 +819,7 @@ begin
   if Assigned(FDS) and Supports(FDS, IPostableDataSet) then
     bPrint.Caption:=strPrintBook;
   bBook.Visible:=Assigned(FDS) and Supports(FDS, IPostableDataSet);
+  bShippingOutput.Visible:=Assigned(FDS) and Supports(FDS, IShipableDataSet);
   if bBook.Visible then
     Report.PreviewButtons:=[pbZoom, pbFind, pbExit]
   else
