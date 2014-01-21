@@ -494,7 +494,7 @@ begin
   with Sender as TfManageDocFrame do
     begin
       TabCaption := strDocuments;
-      Open;
+      Open(TfManageDocFrame(Sender).Typ);
       if Assigned(TFrame(Sender).OnEnter) then
         TFrame(Sender).OnEnter(Sender)
     end;
@@ -902,6 +902,7 @@ var
   aItems: TStringList;
   aIt: String;
   SomethingFound: Boolean;
+  Node1: TTreeNode;
   procedure NewNode;
   begin
     Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
@@ -1088,10 +1089,12 @@ begin
                       begin
                         Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
                         TTreeEntry(Node.Data).Typ := etDocuments;
-                        Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
-                        TTreeEntry(Node.Data).Typ := etFiles;
-                        Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
-                        TTreeEntry(Node.Data).Typ := etImages;
+                        Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
+                        TTreeEntry(Node1.Data).Typ := etDocumentsOnly;
+                        Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
+                        TTreeEntry(Node1.Data).Typ := etImages;
+                        Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
+                        TTreeEntry(Node1.Data).Typ := etFiles;
                       end;
                     SomethingFound:=True;
                   end;
@@ -2088,7 +2091,7 @@ begin
       if Assigned(aTNode) then
         begin
           aTreeEntry := TTreeEntry(aTNode.Data);
-          if aTreeEntry.Typ = etDocuments then
+          if aTreeEntry.Typ = etDocumentsOnly then
             begin
               aPages := TDocPages.Create(nil,Data);
               ls := TListView(Source).Selected;
@@ -2206,7 +2209,7 @@ begin
       if Assigned(aTNode) then
         begin
           aTreeEntry := TTreeEntry(aTNode.Data);
-          if aTreeEntry.Typ = etDocuments then
+          if aTreeEntry.Typ = etDocumentsOnly then
             Accept := True;
         end;
     end
@@ -2800,7 +2803,7 @@ begin
             Refresh(1,'D','1',Null,Null);
           end;
     end;
-  etDocuments:
+  etDocumentsOnly,etImages:
     begin
       Application.ProcessMessages;
       for i := 0 to pcPages.PageCount-2 do
@@ -2812,6 +2815,10 @@ begin
       if not Found then
         begin
           aFrame := TfManageDocFrame.Create(Self);
+          if aEntry.Typ=etImages then
+            TfManageDocFrame(aFrame).Typ:='I'
+          else
+            TfManageDocFrame(aFrame).Typ:='D';
           pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('DOCPAGES@'),False);
           AddDocPages(aFrame);
         end;
@@ -3033,7 +3040,7 @@ begin
               Data.Tree.DataSet.Next;
             end;
         end;
-      etDocuments:
+      etDocumentsOnly,etImages:
         begin
           umanagedocframe.AddToMainTree(Node);
         end;

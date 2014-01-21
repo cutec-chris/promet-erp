@@ -55,6 +55,8 @@ type
                  etSalesList,
                etFiles,
                etDocuments,
+               etImages,
+               etDocumentsOnly,
                  etDocumentDir,
                etLists,
                etStorage,
@@ -241,7 +243,8 @@ begin
       or (DataT.Typ = etMessageDir)
       or (DataT.Typ = etMessageBoard)
       or (DataT.Typ = etFavourites)
-      or (DataT.Typ = etDocuments)
+      or (DataT.Typ = etDocumentsOnly)
+      or (DataT.Typ = etImages)
       or (DataT.Typ = etDocumentDir)
       or (DataT.Typ = etClipboard)
       )
@@ -504,14 +507,18 @@ begin
       ParentID := '0';
       Typ := 'Z';
     end
-  else if (DataT.Typ = etDocuments)
+  else if (DataT.Typ = etDocumentsOnly)
+       or (DataT.Typ = etImages)
        or (DataT.Typ = etDocumentDir)
        then
     begin
       Data.GotoBookmark(Data.Tree,DataT.Rec);
       ParentID := Data.Tree.Id.AsString;
       Typ := Data.Tree.FieldByName('TYPE').AsString;
-      Typ := 'D';
+      if DataT.Typ=etImages then
+        Typ := 'I'
+      else
+        Typ := 'D';
       NewTyp := etDocumentDir;
     end
   else
@@ -817,7 +824,7 @@ begin
     begin
       aImageIndex := IMAGE_FAVOURITES;
       aImageList := fVisualControls.ImageListBig;
-    end;
+    end
   end;
   if aImageIndex = -1 then
     case aData.Typ of
@@ -845,7 +852,9 @@ begin
     etProject:aImageIndex := 13;
     etProcess:aImageIndex := 103;
     etFiles:aImageIndex := 19;
+    etDocumentsOnly:aImageIndex := 19;
     etDocuments:aImageIndex := 19;
+    etImages:aImageIndex:=79;
     etLists:aImageIndex := 24;
     etStatistic:aImageIndex := 58;
     etInventory:aImageIndex := 24;
@@ -1879,6 +1888,8 @@ begin
     etStatistics:Celltext := strStatistics;
     etFiles:Celltext := strFiles;
     etDocuments:Celltext := strDocuments;
+    etDocumentsOnly:Celltext := strDocumentsOnly;
+    etImages:Celltext := strImages;
     etLists:Celltext := strLists;
     etFavourites:Celltext := strFavourites;
 //    etStorage:CellText := strStorage;

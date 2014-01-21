@@ -139,6 +139,7 @@ type
     FLast : string;
     FFetchDS : TDataSet;
     FFetchSQL : string;
+    FTyp: string;
     FURL : string;
     aTag: String;
     aDate: String;
@@ -155,10 +156,11 @@ type
     { public declarations }
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    procedure Open;
+    procedure Open(aType : string);
     procedure DoRefresh; override;
     function GotoCurrentItem: Boolean;
     procedure OpenDir(aDir : Variant);
+    property Typ : string read FTyp write FTyp;
   end;
 
   { TImportCheckTherad }
@@ -921,13 +923,15 @@ begin
   PreviewFrame.Free;
   inherited Destroy;
 end;
-procedure TfManageDocFrame.Open;
+procedure TfManageDocFrame.Open(aType: string);
 var
   aRefThread: TImportCheckThread;
 begin
+  FTyp := aType;
   ThumbControl1.ImageLoaderManager.BeforeStartQueue:=@ThumbControl1ImageLoaderManagerBeforeStartQueue;
   DataSet.CreateTable;
   TDocPages(DataSet).PrepareDataSet;
+  DataSet.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType));
   with DataSet.DataSet as IBaseDbFilter do
     begin
       SortFields := 'ORIGDATE';

@@ -149,6 +149,7 @@ begin
         with ManagedFieldDefs do
           begin
             Add('PAGE',ftInteger,0,False);
+            Add('TYPE',ftString,1,False);
             Add('TAGS',ftString,500,False);
             Add('NAME',ftString,100,False);
             Add('ORIGDATE',ftDateTime,0,False);

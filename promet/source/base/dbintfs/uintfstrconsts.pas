@@ -97,6 +97,7 @@ resourcestring
   strStatusChanged              = 'Status geändert von %s zu %s';
   strFiles                      = 'Dateien';
   strDocuments                  = 'Dokumente/Bilder';
+  strDocumentsOnly              = 'Dokumente';
   strFailedtoLoadMandants       = 'Mandanten konnten nicht gelanden werden !';
   strMandantnotSelected         = 'kein Mandant gewählt (--mandant) !';
   strDestinationnotSelected     = 'kein Zielmandant gewählt (--destination) !';
@@ -246,4 +247,4 @@ begin
   nav.Hints.Add(strRefresh);
 end;
 {$ENDIF}
-end.
+end.
