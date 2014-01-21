@@ -23,8 +23,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="223"/>
-        <CursorPos X="1" Y="236"/>
+        <TopLine Value="226"/>
+        <CursorPos X="17" Y="245"/>
         <UsageCount Value="172"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -38,7 +38,7 @@
         <UnitName Value="umtimeline"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="724"/>
+        <TopLine Value="703"/>
         <CursorPos X="38" Y="758"/>
         <UsageCount Value="172"/>
         <Loaded Value="True"/>

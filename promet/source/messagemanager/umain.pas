@@ -241,8 +241,8 @@ begin
         begin
           if Assigned(fmTimeline) and fmTimeline.Visible then
             begin
-              fmTimeline.acRefresh.Execute;
-              InformRecTime := Now()+(1/(MSecsPerDay/MSecsPerSec));
+              //fmTimeline.acRefresh.Execute;
+              //InformRecTime := Now()+(1/(MSecsPerDay/MSecsPerSec));
             end
           else
             begin
