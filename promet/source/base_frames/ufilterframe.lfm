@@ -126,9 +126,9 @@ inherited fFilter: TfFilter
         TabOrder = 0
         object ExtRotatedLabel1: TLabel
           Left = 6
-          Height = 14
+          Height = 11
           Top = 0
-          Width = 60
+          Width = 45
           Caption = 'Navigation'
           Font.Color = clMedGray
           Font.Height = 11
@@ -187,9 +187,9 @@ inherited fFilter: TfFilter
         end
         object ExtRotatedLabel2: TLabel
           Left = 6
-          Height = 14
+          Height = 11
           Top = 0
-          Width = 73
+          Width = 54
           Caption = 'Ansicht/Filter'
           Font.Color = clMedGray
           Font.Height = 11
@@ -200,19 +200,19 @@ inherited fFilter: TfFilter
         object cbFilter: TComboBox
           AnchorSideLeft.Side = asrBottom
           Left = 6
-          Height = 28
+          Height = 21
           Hint = 'hier können Sie eine vordefinierte Ansicht wählen'#10'Wenn Sie eine spezielle Ansicht/Sortierung benötigen wenden Sie sich an Ihren Administrator'
           Top = 12
-          Width = 463
+          Width = 439
           Anchors = [akTop, akLeft, akRight]
           BorderSpacing.Left = 8
-          ItemHeight = 0
+          ItemHeight = 13
           OnSelect = cbFilterSelect
           Style = csDropDownList
           TabOrder = 0
         end
         object bEditFilter: TSpeedButton
-          Left = 473
+          Left = 453
           Height = 21
           Hint = 'zeigt/verbirgt weitere Einstellungen'#10'zu den Ansichten'
           Top = 12
@@ -257,6 +257,54 @@ inherited fFilter: TfFilter
           }
           GroupIndex = 10
           OnClick = bEditFilterClick
+        end
+        object bEditFilter1: TSpeedButton
+          Left = 479
+          Height = 21
+          Top = 12
+          Width = 26
+          Action = acCopyFilterLink
+          AllowAllUp = True
+          Anchors = [akTop, akRight]
+          Glyph.Data = {
+            36040000424D3604000000000000360000002800000010000000100000000100
+            2000000000000004000064000000640000000000000000000000000000000000
+            000000000000000000000000000000000000C77342FFC67747FFCE7747FFC777
+            47FFCE7747FFC77747FFC77747FFCE7746FFC77746FFCE7F53FF000000000000
+            000000000000000000000000000000000000C77B4BFFFFF7EFFFFFF7EFFFFFF7
+            E7FFFFF7EFFFFFF7EFFFFFF7EFFFFFF7EFFFFFF7EFFFCE8456FF000000000000
+            000000000000000000000000000000000000CF8653FFEFF7E7FFFFEFDFFFFFEF
+            DFFFFFEFDFFFFFE7D7FFFFE7D6FFFFE7CFFFEFF7EFFFCE8556FF000000000000
+            000000000000000000000000000000000000CE8752FFFFF7EFFFFFEFDFFFFFEF
+            DFFFFFEFDFFFFFE7D7FFFFE7D6FFFFE7CFFFFFF7EFFFCE8757FFC77B4AFFCE7B
+            4BFFCE7747FFC77747FFCE7747FFC77747FFCE8452FFFFF7F7FFFFEFDFFFFFEF
+            DFFFFFEFDFFFFFE7D7FFFFE7D6FFFFE7CFFFFFF7F7FFCF8557FFCE7F4EFFFFF7
+            EFFFFFF7EFFFFFF7E7FFFFF7EFFFFFF7EFFFE7BF95FFFFF7F7FFFFE7D7FFFFE7
+            D6FFFFE7D6FFFFE7D6FFFFE7CFFFFFDEC6FFFFF7EFFFCE8656FFCF8653FFEFF7
+            E7FFFFEFDFFFFFEFDFFFFFEFDFFFFFE7D7FFE7BF95FFFFF7F7FFFFE7D7FFFFE7
+            D7FFFFE7D7FFFFE7CEFFFFDEC6FFF7DFBDFFFFF7E7FFCE8757FFCE8752FFFFF7
+            EFFFFFEFDFFFFFEFDFFFFFEFDFFFFFE7D7FFE7BF96FFFFF7F7FFFFE7D6FFFFE7
+            D7FFFFE7CEFFFFDFC6FFF7D7BFFFF7D7AFFFFFEFE7FFCE875AFFCE8452FFFFF7
+            F7FFFFEFDFFFFFEFDFFFFFEFDFFFFFE7D7FFE7BF96FFFFF7F7FFFFE7CFFFFFE7
+            CFFFFFDFCEFFF7DFBDFFF7EFDFFFFFF7EFFFFFFFF7FFCE8753FFCF8553FFFFF7
+            F7FFFFE7D7FFFFE7D6FFFFE7D6FFFFE7D6FFE7BF97FFFFF7EFFFFFDEC7FFFFE7
+            C7FFFFDEC6FFF7D7B5FFFFFFF7FFFFE7C6FFEFC797FFC77F4AFFCF8656FFFFF7
+            F7FFFFE7D7FFFFE7D7FFFFE7D7FFFFE7CEFFE7BF96FFFFFFFFFFFFF7EFFFFFF7
+            EFFFFFF7EFFFFFEFE7FFFFF7E7FFEFBF8CFFCF8557FF00000000CF8657FFFFF7
+            F7FFFFE7D6FFFFE7D7FFFFE7CEFFFFDFC6FFEFC79DFFE7BF96FFE7BF96FFE7BF
+            96FFD7A56FFFD69E6FFFCE965FFF000000000000000000000000CF8657FFFFF7
+            F7FFFFE7CFFFFFE7CFFFFFDFCEFFF7DFBDFFF7EFDFFFFFF7EFFFFFFFF7FFCF95
+            67FF000000000000000000000000000000000000000000000000CF8656FFFFF7
+            EFFFFFDEC7FFFFE7C7FFFFDEC6FFF7D7B5FFFFFFF7FFFFE7C6FFEFC797FFC77F
+            4AFF000000000000000000000000000000000000000000000000CE8556FFFFFF
+            FFFFFFF7EFFFFFF7EFFFFFF7EFFFFFEFE7FFFFF7E7FFEFBF8CFFCF8557FF0000
+            0000000000000000000000000000000000000000000000000000C77B47FFCE86
+            57FFCE8C57FFCF8C56FFCE8C56FFCF8757FFCE8752FF00000000000000000000
+            0000000000000000000000000000000000000000000000000000
+          }
+          GroupIndex = 10
+          OnClick = bEditFilterClick
+          ShowCaption = False
         end
       end
       object pToolbar: TPanel
@@ -394,9 +442,9 @@ inherited fFilter: TfFilter
       TabOrder = 1
       object cbMaxResults: TCheckBox
         Left = 9
-        Height = 24
+        Height = 17
         Top = 5
-        Width = 182
+        Width = 149
         Caption = 'Ergebnisse begrenzen auf  '
         Checked = True
         OnChange = seMaxresultsChange
@@ -552,9 +600,9 @@ inherited fFilter: TfFilter
       end
       object lFilterEdit: TLabel
         Left = 9
-        Height = 14
+        Height = 13
         Top = 33
-        Width = 88
+        Width = 74
         Caption = 'Filterbedingung'
         ParentColor = False
       end
@@ -570,7 +618,7 @@ inherited fFilter: TfFilter
       end
       object eFilterIn: TEdit
         Left = 421
-        Height = 24
+        Height = 21
         Hint = 'Wenn Sie über mehrere Tabellen Filtern '#13#10'möchten füllen Sie dieses Feld'#13#10'z.b.'#13#10'Orders,OrderPos'
         Top = 79
         Width = 127
@@ -588,8 +636,8 @@ inherited fFilter: TfFilter
       object seMaxresults: TSpinEdit
         AnchorSideLeft.Control = cbMaxResults
         AnchorSideLeft.Side = asrBottom
-        Left = 191
-        Height = 24
+        Left = 158
+        Height = 21
         Hint = 'hier können Sie die Zahl der maximalen Filterergebnisse angeben'
         Top = 5
         Width = 52
@@ -1630,6 +1678,7 @@ inherited fFilter: TfFilter
     end
   end
   object ActionList: TActionList[7]
+    Images = fVisualControls.Images
     left = 32
     top = 55
     object acSaveFilter: TAction
@@ -1690,6 +1739,11 @@ inherited fFilter: TfFilter
       Caption = 'als Verknüpfungsdatei (.plink) speichern'
       ImageIndex = 70
       OnExecute = acSaveLinkExecute
+    end
+    object acCopyFilterLink: TAction
+      Caption = 'acCopyFilterLink'
+      Hint = 'Filter als Verknüpfung kopieren'
+      ImageIndex = 23
     end
   end
   object DblClickTimer: TIdleTimer[8]
@@ -1770,4 +1824,4 @@ inherited fFilter: TfFilter
     left = 83
     top = 144
   end
-end
+end

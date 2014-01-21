@@ -819,6 +819,9 @@ begin
   cbInfo.Items.Add('<'+strNoOutput+'>');
   if Assigned(FOnSendMessage) then
     cbInfo.Items.Add('<'+streMail+'>');
+  if Assigned(FDS) and Supports(FDS, IPostableDataSet) then
+    bPrint.Caption:=strPrintBook;
+  bBook.Visible:=Assigned(FDS) and Supports(FDS, IPostableDataSet);
 end;
 
 procedure TfSelectReport.SetupDB;

@@ -44,8 +44,10 @@ type
     acPrint: TAction;
     acDefaultFilter: TAction;
     acSaveLink: TAction;
+    acCopyFilterLink: TAction;
     ActionList: TActionList;
     bEditFilter: TSpeedButton;
+    bEditFilter1: TSpeedButton;
     Bevel1: TBevel;
     Bevel2: TBevel;
     Bevel3: TBevel;
