@@ -769,7 +769,7 @@ begin
       DataSetType:=TMessageList;
       Synchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfMessageFrame,strMessages,nil,Data.GetLinkIcon('MESSAGEIDX@'),True);
-      Data.RegisterLinkHandler('MESSAGEIDX',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
+      Data.RegisterLinkHandler('MESSAGEIDX',@fMainTreeFrame.OpenLink,TMessage);
       AddSearchAbleDataSet(TMessageList);
     end;
   Synchronize(@StartReceive);
@@ -777,7 +777,7 @@ begin
   if (Data.Users.Rights.Right('TASKS') > RIGHT_NONE) then
     begin
       Synchronize(@RefreshTasks);
-      Data.RegisterLinkHandler('TASKS',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
+      Data.RegisterLinkHandler('TASKS',@fMainTreeFrame.OpenLink,TTask);
     end;
   //Add PIM Entrys
   if Data.Users.Rights.Right('CALENDAR') > RIGHT_NONE then
@@ -793,7 +793,7 @@ begin
       DataSetType:=TOrder;
       Synchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfFilter,strOrderList,@fMain.AddOrderList,Data.GetLinkIcon('ORDERS@'),True);
-      Data.RegisterLinkHandler('ORDERS',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
+      Data.RegisterLinkHandler('ORDERS',@fMainTreeFrame.OpenLink,Torder);
       AddSearchAbleDataSet(TOrderList);
     end;
   //Add Contacts
@@ -803,7 +803,7 @@ begin
       Synchronize(@DoCreate);
       Data.Countries.CreateTable;
       fMain.pcPages.AddTabClass(TfFilter,strCustomerList,@fMain.AddCustomerList,Data.GetLinkIcon('CUSTOMERS@'),True);
-      Data.RegisterLinkHandler('CUSTOMERS',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
+      Data.RegisterLinkHandler('CUSTOMERS',@fMainTreeFrame.OpenLink,TPerson);
       AddSearchAbleDataSet(TPersonList);
       AddSearchAbleDataSet(TPersonContactData);
       AddSearchAbleDataSet(TPersonAddress);
@@ -814,7 +814,7 @@ begin
       DataSetType:=TMasterdata;
       Synchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfFilter,strArticleList,@fMain.AddMasterdataList,Data.GetLinkIcon('MASTERDATA@'),True);
-      Data.RegisterLinkHandler('MASTERDATA',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
+      Data.RegisterLinkHandler('MASTERDATA',@fMainTreeFrame.OpenLink,TMasterdata);
       AddSearchAbleDataSet(TMasterdataList);
     end;
   //Projects
@@ -823,28 +823,28 @@ begin
       DataSetType:=TProject;
       Synchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfFilter,strProjectList,@fMain.AddProjectList,Data.GetLinkIcon('PROJECTS@'),True);
-      Data.RegisterLinkHandler('PROJECT',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
+      Data.RegisterLinkHandler('PROJECT',@fMainTreeFrame.OpenLink,TProject);
       AddSearchAbleDataSet(TProjectList);
     end;
   //Wiki
   if (Data.Users.Rights.Right('WIKI') > RIGHT_NONE) then
     begin
       fMain.pcPages.AddTabClass(TfWikiFrame,strWiki,@fMain.AddWiki,Data.GetLinkIcon('WIKI@'),True);
-      Data.RegisterLinkHandler('WIKI',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
+      Data.RegisterLinkHandler('WIKI',@fMainTreeFrame.OpenLink,TWikiList);
       AddSearchAbleDataSet(TWikiList);
     end;
   //Documents
   if (Data.Users.Rights.Right('DOCUMENTS') > RIGHT_NONE) then
     begin
-      Data.RegisterLinkHandler('DOCUMENTS',@fMainTreeFrame.OpenLink);
-      Data.RegisterLinkHandler('DOCPAGES',@fMainTreeFrame.OpenLink);
+      Data.RegisterLinkHandler('DOCUMENTS',@fMainTreeFrame.OpenLink,TDocument);
+      Data.RegisterLinkHandler('DOCPAGES',@fMainTreeFrame.OpenLink,TDocPages);
     end;
   //Lists
   if (Data.Users.Rights.Right('LISTS') > RIGHT_NONE) then
     begin
       DataSetType:=TLists;
       Synchronize(@DoCreate);
-      Data.RegisterLinkHandler('LISTS',@fMainTreeFrame.OpenLink);
+      Data.RegisterLinkHandler('LISTS',@fMainTreeFrame.OpenLink,TLists);
       AddSearchAbleDataSet(TLists);
     end;
   //Meetings
@@ -853,7 +853,7 @@ begin
       DataSetType:=TMeetings;
       Synchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfFilter,strMeetingList,@fMain.AddMeetingList,-1,True);
-      Data.RegisterLinkHandler('MEETINGS',@fMainTreeFrame.OpenLink);
+      Data.RegisterLinkHandler('MEETINGS',@fMainTreeFrame.OpenLink,TMeetings);
       AddSearchAbleDataSet(TMeetings);
     end;
   //Inventory
@@ -861,12 +861,12 @@ begin
     begin
       DataSetType:=TInventorys;
       Synchronize(@DoCreate);
-      Data.RegisterLinkHandler('INVENTORY',@fMainTreeFrame.OpenLink);
+      Data.RegisterLinkHandler('INVENTORY',@fMainTreeFrame.OpenLink,TInventorys);
     end;
   //Statistics
   if (Data.Users.Rights.Right('STATISTICS') > RIGHT_NONE) then
     begin
-      Data.RegisterLinkHandler('STATISTICS',@fMainTreeFrame.OpenLink,@fMainTreeFrame.NewFromLink);
+      Data.RegisterLinkHandler('STATISTICS',@fMainTreeFrame.OpenLink,TStatistic);
       AddSearchAbleDataSet(TStatistic);
     end;
   //Timeregistering
@@ -876,7 +876,7 @@ begin
   if Data.Users.Rights.Right('DOCUMENTS') > RIGHT_NONE then
     begin
       AddSearchAbleDataSet(TBaseHistory);
-      Data.RegisterLinkHandler('HISTORY',@fMainTreeFrame.OpenLink);
+      Data.RegisterLinkHandler('HISTORY',@fMainTreeFrame.OpenLink,TBaseHistory);
     end;
   //Expand Tree
   Synchronize(@Expand);
@@ -956,9 +956,9 @@ begin
         aItems.Delimiter:=';';
         aItems.DelimitedText := DBConfig.ReadString('TREEENTRYS:'+ApplicationName,fMainTreeFrame.GetBigIconTexts);
         //Actions
-        Data.RegisterLinkHandler('ACTION',@OpenAction);
+        Data.RegisterLinkHandler('ACTION',@OpenAction,nil);
         //Options
-        Data.RegisterLinkHandler('OPTION',@OpenOption);
+        Data.RegisterLinkHandler('OPTION',@OpenOption,TOptions);
         SomethingFound := False;
         while not SomethingFound do
           begin
@@ -3053,7 +3053,7 @@ begin
         begin
           if Data.Users.Rights.Right('BANKACCNTS') > RIGHT_NONE then
             begin
-              Data.RegisterLinkHandler('ACCOUNTEXCHANGE',@fMainTreeFrame.OpenLink);
+              Data.RegisterLinkHandler('ACCOUNTEXCHANGE',@fMainTreeFrame.OpenLink,TAccountExchange);
               Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
               TTreeEntry(Node1.Data).Typ := etBanking;
               Node2 := fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'',TTreeEntry.Create);

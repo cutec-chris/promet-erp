@@ -275,7 +275,8 @@ begin
         end
       else
         begin
-          bCustomer := TPerson(Data.CreateFromLink(Data.BuildLink(aCustomer.DataSet)));
+          bCustomer := TPerson(Data.DataSetFromLink(Data.BuildLink(aCustomer.DataSet)));
+          bCustomer.Append;
           tmp := FList.DataSet.FieldByName('SENDER').AsString;
           if pos('<',tmp) > 0 then
             begin

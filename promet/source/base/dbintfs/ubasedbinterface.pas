@@ -48,7 +48,7 @@ type
   LinkHandler = record
     aLinkType : string;
     aEvent : TOpenLinkEvent;
-    aNewEvent : TCreateFromLinkEvent;
+    aClass : TBaseDBDatasetClass;
   end;
 
   { TBaseDBModule }
@@ -137,8 +137,8 @@ type
     function GetLinkIcon(aLink : string) : Integer;
     function BuildLink(aDataSet : TDataSet) : string;
     function GotoLink(aLink : string) : Boolean;
-    function CreateFromLink(aLink : string) : TBaseDBDataSet;
-    procedure RegisterLinkHandler(aLink : string;aOpenHandler : TOpenLinkEvent;aNewHandler : TCreateFromLinkEvent = nil);
+    function DataSetFromLink(aLink : string) : TBaseDBDataSet;
+    procedure RegisterLinkHandler(aLink : string;aOpenHandler : TOpenLinkEvent;DataSetClass : TBaseDBDatasetClass);
     function GetBookmark(aDataSet : TBaseDbDataSet) : Variant;
     function GotoBookmark(aDataSet : TBaseDbDataSet;aRec : Variant) : Boolean;
     function Locate(aDataSet : TBaseDbDataSet;const keyfields: string; const keyvalues: Variant; aoptions: TLocateOptions) : boolean;
@@ -1081,7 +1081,7 @@ begin
         end;
     end;
 end;
-function TBaseDBModule.CreateFromLink(aLink: string): TBaseDBDataSet;
+function TBaseDBModule.DataSetFromLink(aLink: string): TBaseDBDataSet;
 var
   i: Integer;
 begin
@@ -1089,19 +1089,20 @@ begin
   for i := 0 to length(FLinkHandlers)-1 do
     if copy(aLink,0,length(FLinkHandlers[i].aLinkType)) = FLinkHandlers[i].aLinkType then
       begin
-        if Assigned(FLinkHandlers[i].aNewEvent) then
-          Result := FLinkHandlers[i].aNewEvent(aLink,Self);
+        if Assigned(FLinkHandlers[i].aClass) then
+          Result := TBaseDbDataSetClass(FLinkHandlers[i].aClass).Create(nil,Self);
         break;
       end;
 end;
-procedure TBaseDBModule.RegisterLinkHandler(aLink: string; aOpenHandler: TOpenLinkEvent; aNewHandler : TCreateFromLinkEvent = nil);
+procedure TBaseDBModule.RegisterLinkHandler(aLink: string;
+  aOpenHandler: TOpenLinkEvent; DataSetClass: TBaseDBDatasetClass);
 begin
   Setlength(FLinkHandlers,length(FLinkHandlers)+1);
   with FLinkHandlers[length(FLinkHandlers)-1] do
     begin
       aLinkType :=aLink;
       aEvent := aOpenHandler;
-      aNewEvent := aNewHandler;
+      aClass := DatasetClass;
     end;
 end;
 function TBaseDBModule.GetBookmark(aDataSet: TBaseDbDataSet): Variant;
@@ -1520,4 +1521,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+

@@ -308,6 +308,7 @@ begin
         while not EOF do
           begin
             Added := False;
+
             if (copy(FieldByName('LINK').AsString,0,9) = 'PROJECTS@')
             or (copy(FieldByName('LINK').AsString,0,11) = 'PROJECTS.ID')
             then
