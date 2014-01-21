@@ -25,7 +25,7 @@
       <BuildNr Value="5"/>
       <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP" ProductVersion=""/>
     </VersionInfo>
-    <BuildModes Count="5" Active="Debug">
+    <BuildModes Count="5" Active="Default">
       <Item1 Name="Default" Default="True"/>
       <Item2 Name="Debug">
         <CompilerOptions>
@@ -183,6 +183,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <CommandLineParams Value="--config-path=/home/chris/.promet-erp-devel"/>
       </local>
     </RunParams>
     <RequiredPackages Count="23">
@@ -296,7 +297,7 @@
         <UnitName Value="uMain"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="3046"/>
+        <TopLine Value="3025"/>
         <CursorPos X="35" Y="3056"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="3">
@@ -492,7 +493,7 @@
       <Unit18>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="891"/>
         <CursorPos X="1" Y="912"/>
@@ -502,20 +503,19 @@
       <Unit19>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1028"/>
-        <CursorPos X="1" Y="1059"/>
+        <TopLine Value="893"/>
+        <CursorPos X="1" Y="914"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
       </Unit19>
       <Unit20>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1245"/>
+        <TopLine Value="1254"/>
         <CursorPos X="1" Y="1263"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
@@ -615,9 +615,9 @@
         <UnitName Value="uMasterdata"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="198"/>
+        <TopLine Value="308"/>
         <CursorPos X="33" Y="342"/>
-        <UsageCount Value="94"/>
+        <UsageCount Value="95"/>
         <Loaded Value="True"/>
       </Unit30>
       <Unit31>
@@ -650,12 +650,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOrderFrame"/>
-        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="575"/>
         <CursorPos X="1" Y="594"/>
         <UsageCount Value="202"/>
-        <Loaded Value="True"/>
       </Unit33>
       <Unit34>
         <Filename Value="uorderadditionalframe.pas"/>
@@ -917,7 +915,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="298"/>
         <CursorPos X="1" Y="319"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
         <Loaded Value="True"/>
       </Unit56>
       <Unit57>
@@ -1152,7 +1150,7 @@
         <UnitName Value="ZAbstractRODataset"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1839"/>
-        <CursorPos X="7" Y="1858"/>
+        <CursorPos X="1" Y="1859"/>
         <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit79>
@@ -1179,11 +1177,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMessageFrame"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="259"/>
         <CursorPos X="44" Y="278"/>
-        <UsageCount Value="29"/>
+        <UsageCount Value="30"/>
         <Loaded Value="True"/>
       </Unit82>
       <Unit83>
@@ -1309,9 +1307,9 @@
         <UnitName Value="uMeetingFrame"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="734"/>
-        <CursorPos X="22" Y="769"/>
-        <UsageCount Value="95"/>
+        <TopLine Value="825"/>
+        <CursorPos X="55" Y="853"/>
+        <UsageCount Value="96"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit96>
@@ -1343,7 +1341,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="umanagedocframe"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="57"/>
         <CursorPos X="54" Y="58"/>
@@ -1363,9 +1361,9 @@
         <UnitName Value="uBaseDocPages"/>
         <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="35"/>
+        <TopLine Value="100"/>
         <CursorPos X="54" Y="134"/>
-        <UsageCount Value="85"/>
+        <UsageCount Value="86"/>
         <Loaded Value="True"/>
       </Unit102>
       <Unit103>
@@ -1687,7 +1685,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="145"/>
         <CursorPos X="3" Y="10"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit139>
       <Unit140>
         <Filename Value="../base/htmltortf.pas"/>
@@ -1695,7 +1693,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="22" Y="8"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit140>
       <Unit141>
         <Filename Value="/usr/share/fpcsrc/2.6.0/packages/fcl-db/src/base/db.pas"/>
@@ -1944,11 +1942,12 @@
       <Unit171>
         <Filename Value="../base/dbintfs/umeeting.pas"/>
         <UnitName Value="umeeting"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="379"/>
-        <CursorPos X="1" Y="402"/>
-        <UsageCount Value="79"/>
+        <TopLine Value="389"/>
+        <CursorPos X="1" Y="405"/>
+        <UsageCount Value="80"/>
         <Loaded Value="True"/>
       </Unit171>
       <Unit172>
@@ -2836,7 +2835,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="143"/>
         <CursorPos X="50" Y="159"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit277>
       <Unit278>
         <Filename Value="../../../../../lazarus/lcl/include/winapih.inc"/>
@@ -2989,7 +2988,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="3224"/>
         <CursorPos X="66" Y="3237"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit296>
       <Unit297>
         <Filename Value="../../../../../lazarus/lcl/actnlist.pas"/>
@@ -3500,7 +3499,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="262"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit359>
       <Unit360>
         <Filename Value="../../../../lkomponenten/acs/Src/classes/acs_cdrom.pas"/>
@@ -3508,7 +3507,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="73"/>
         <CursorPos X="12" Y="93"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit360>
       <Unit361>
@@ -3517,7 +3516,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="32"/>
         <CursorPos X="16" Y="43"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit361>
       <Unit362>
@@ -3525,7 +3524,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="341"/>
         <CursorPos X="13" Y="358"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit362>
       <Unit363>
@@ -3534,21 +3533,21 @@
         <WindowIndex Value="0"/>
         <TopLine Value="4"/>
         <CursorPos X="68" Y="14"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit363>
       <Unit364>
         <Filename Value="../../../../../fpc/trunk/packages/cdrom/src/cdromlin.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="6" Y="4"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit364>
       <Unit365>
         <Filename Value="/usr/share/fpcsrc/2.6.2/rtl/unix/bunxh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="80"/>
         <CursorPos X="15" Y="98"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit365>
       <Unit366>
         <Filename Value="../../../../../fpc/trunk/packages/cdrom/src/lincd.pp"/>
@@ -3556,7 +3555,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="752"/>
         <CursorPos X="17" Y="781"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit366>
       <Unit367>
         <Filename Value="/usr/share/fpcsrc/2.6.2/rtl/unix/baseunix.pp"/>
@@ -3564,7 +3563,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="28"/>
         <CursorPos X="12" Y="45"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit367>
       <Unit368>
         <Filename Value="../../../../lkomponenten/acs/Src/classes/acs_procs.pas"/>
@@ -3572,7 +3571,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="281"/>
         <CursorPos X="5" Y="341"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit368>
       <Unit369>
@@ -3581,7 +3580,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="46"/>
         <CursorPos X="12" Y="62"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit369>
       <Unit370>
@@ -3590,7 +3589,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="25"/>
         <CursorPos X="13" Y="47"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit370>
       <Unit371>
@@ -3599,7 +3598,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="46"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit371>
       <Unit372>
         <Filename Value="../../../../lkomponenten/acs/Src/classes/acs_mixer.pas"/>
@@ -3607,7 +3606,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="76"/>
         <CursorPos X="23" Y="87"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit372>
       <Unit373>
@@ -3615,7 +3614,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="260"/>
         <CursorPos X="7" Y="290"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit373>
       <Unit374>
@@ -3624,7 +3623,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="28"/>
         <CursorPos X="3" Y="45"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit374>
       <Unit375>
         <Filename Value="../../../../lkomponenten/acs/Src/fileformats/acs_allformats.pas"/>
@@ -3632,7 +3631,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="9" Y="6"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit375>
       <Unit376>
@@ -3641,7 +3640,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="58"/>
         <CursorPos X="65" Y="66"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit376>
       <Unit377>
@@ -3650,7 +3649,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="130"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit377>
       <Unit378>
         <Filename Value="../../../../lkomponenten/acs/Src/fileformats/general/vorbisfile.pas"/>
@@ -3658,7 +3657,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="39"/>
         <CursorPos X="14" Y="57"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit378>
       <Unit379>
@@ -3667,7 +3666,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="40"/>
         <CursorPos X="11" Y="58"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit379>
       <Unit380>
@@ -3675,7 +3674,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="50"/>
         <CursorPos X="8" Y="68"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit380>
       <Unit381>
@@ -3684,7 +3683,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="288"/>
         <CursorPos X="35" Y="306"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit381>
       <Unit382>
@@ -3693,7 +3692,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="22"/>
         <CursorPos X="11" Y="40"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit382>
       <Unit383>
         <Filename Value="../../../../lkomponenten/acs/Src/fileformats/general/lame.pas"/>
@@ -3701,7 +3700,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="19"/>
         <CursorPos X="14" Y="46"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit383>
       <Unit384>
@@ -3710,7 +3709,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="26"/>
         <CursorPos X="14" Y="46"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit384>
       <Unit385>
@@ -3719,7 +3718,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="26"/>
         <CursorPos X="14" Y="46"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit385>
       <Unit386>
@@ -3728,7 +3727,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="30"/>
         <CursorPos X="15" Y="42"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit386>
       <Unit387>
@@ -3737,7 +3736,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="33"/>
         <CursorPos X="14" Y="50"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit387>
       <Unit388>
@@ -3746,7 +3745,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="30"/>
         <CursorPos X="14" Y="45"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit388>
       <Unit389>
@@ -3755,7 +3754,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="45"/>
         <CursorPos X="16" Y="62"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit389>
       <Unit390>
@@ -3764,7 +3763,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="37"/>
         <CursorPos X="54" Y="55"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit390>
       <Unit391>
@@ -3773,7 +3772,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="50"/>
         <CursorPos X="11" Y="68"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit391>
       <Unit392>
@@ -3789,7 +3788,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1802"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit393>
       <Unit394>
@@ -3797,7 +3796,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="14248"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit394>
       <Unit395>
@@ -3806,14 +3805,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="44"/>
         <CursorPos X="27" Y="64"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit395>
       <Unit396>
         <Filename Value="../../../../../../Programme/lazarus/lcl/include/customform.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2076"/>
         <CursorPos X="3" Y="2063"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit396>
       <Unit397>
         <Filename Value="../../../../../../Programme/lazarus/lcl/interfaces/win32/win32wsbuttons.pp"/>
@@ -4099,12 +4098,10 @@
         <Filename Value="../base_forms/uselectreport.pas"/>
         <HasResources Value="True"/>
         <UnitName Value="uSelectReport"/>
-        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="790"/>
-        <CursorPos X="76" Y="822"/>
+        <TopLine Value="238"/>
+        <CursorPos X="1" Y="229"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit432>
       <Unit433>
         <Filename Value="../base_forms/uclipp.pas"/>
@@ -4132,7 +4129,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="620"/>
         <CursorPos X="48" Y="721"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="17"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit435>
@@ -4183,7 +4180,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="146"/>
         <CursorPos X="14" Y="165"/>
-        <UsageCount Value="22"/>
+        <UsageCount Value="23"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit440>
@@ -4387,12 +4384,10 @@
       <Unit464>
         <Filename Value="../tools/uhelpviewer.pas"/>
         <UnitName Value="uhelpviewer"/>
-        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="14"/>
         <CursorPos X="14" Y="33"/>
         <UsageCount Value="14"/>
-        <Loaded Value="True"/>
       </Unit464>
       <Unit465>
         <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/rtl/objpas/sysutils/intfh.inc"/>
@@ -4419,124 +4414,124 @@
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../base/dbintfs/umeeting.pas"/>
-        <Caret Line="400" Column="1" TopLine="379"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1248" Column="1" TopLine="1245"/>
       </Position1>
       <Position2>
         <Filename Value="../base/dbintfs/umeeting.pas"/>
-        <Caret Line="401" Column="1" TopLine="379"/>
+        <Caret Line="329" Column="31" TopLine="305"/>
       </Position2>
       <Position3>
         <Filename Value="../base/dbintfs/umeeting.pas"/>
-        <Caret Line="402" Column="1" TopLine="379"/>
+        <Caret Line="326" Column="1" TopLine="305"/>
       </Position3>
       <Position4>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="911" Column="1" TopLine="892"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="327" Column="1" TopLine="305"/>
       </Position4>
       <Position5>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="912" Column="1" TopLine="892"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="328" Column="1" TopLine="305"/>
       </Position5>
       <Position6>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="913" Column="1" TopLine="892"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="329" Column="1" TopLine="305"/>
       </Position6>
       <Position7>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="910" Column="1" TopLine="891"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="330" Column="1" TopLine="305"/>
       </Position7>
       <Position8>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="911" Column="1" TopLine="891"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="417" Column="1" TopLine="400"/>
       </Position8>
       <Position9>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="912" Column="1" TopLine="891"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="314" Column="1" TopLine="297"/>
       </Position9>
       <Position10>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="914" Column="1" TopLine="892"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="316" Column="1" TopLine="297"/>
       </Position10>
       <Position11>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="915" Column="1" TopLine="892"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="317" Column="1" TopLine="297"/>
       </Position11>
       <Position12>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="922" Column="1" TopLine="892"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="318" Column="1" TopLine="297"/>
       </Position12>
       <Position13>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="930" Column="1" TopLine="898"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="321" Column="1" TopLine="297"/>
       </Position13>
       <Position14>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="940" Column="1" TopLine="922"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="337" Column="1" TopLine="320"/>
       </Position14>
       <Position15>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="952" Column="1" TopLine="922"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="339" Column="1" TopLine="320"/>
       </Position15>
       <Position16>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="964" Column="1" TopLine="945"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="375" Column="1" TopLine="358"/>
       </Position16>
       <Position17>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="980" Column="1" TopLine="949"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="405" Column="1" TopLine="388"/>
       </Position17>
       <Position18>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="989" Column="1" TopLine="970"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="407" Column="1" TopLine="388"/>
       </Position18>
       <Position19>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="993" Column="1" TopLine="970"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="408" Column="1" TopLine="388"/>
       </Position19>
       <Position20>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1003" Column="1" TopLine="972"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="409" Column="1" TopLine="388"/>
       </Position20>
       <Position21>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1007" Column="1" TopLine="976"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="411" Column="1" TopLine="388"/>
       </Position21>
       <Position22>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1013" Column="1" TopLine="982"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="412" Column="1" TopLine="388"/>
       </Position22>
       <Position23>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1027" Column="1" TopLine="1008"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="413" Column="1" TopLine="388"/>
       </Position23>
       <Position24>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1047" Column="1" TopLine="1028"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="414" Column="1" TopLine="388"/>
       </Position24>
       <Position25>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1048" Column="1" TopLine="1028"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1263" Column="1" TopLine="1254"/>
       </Position25>
       <Position26>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1050" Column="1" TopLine="1028"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1264" Column="1" TopLine="1254"/>
       </Position26>
       <Position27>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1051" Column="1" TopLine="1028"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1265" Column="1" TopLine="1254"/>
       </Position27>
       <Position28>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1056" Column="1" TopLine="1028"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1266" Column="1" TopLine="1254"/>
       </Position28>
       <Position29>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1057" Column="1" TopLine="1028"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1263" Column="1" TopLine="1254"/>
       </Position29>
       <Position30>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1059" Column="1" TopLine="1028"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="326" Column="1" TopLine="309"/>
       </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">
@@ -4581,7 +4576,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="2">
+    <BreakPoints Count="1">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
@@ -4589,13 +4584,6 @@
         <Source Value="../base/dbintfs/utask.pas"/>
         <Line Value="350"/>
       </Item1>
-      <Item2>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="../base/dbintfs/umeeting.pas"/>
-        <Line Value="401"/>
-      </Item2>
     </BreakPoints>
     <Watches Count="2">
       <Item1>

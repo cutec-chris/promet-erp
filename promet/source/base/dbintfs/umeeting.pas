@@ -288,7 +288,7 @@ end;
 function TMeetings.DoPost: TPostResult;
 var
   ProjectLink: String = '';
-  aProject: TProject;
+  aProject: TProject = nil;
   asl: TStringList;
   arec: LargeInt;
   Added : Boolean = False;
@@ -297,6 +297,7 @@ var
   aLink: String;
   Hist : IBaseHistory;
   aHist: TBaseHistory;
+  aDataSetClass: TBaseDBDatasetClass;
 begin
   aLink := '';
   Result := prFailed;
@@ -305,7 +306,7 @@ begin
       Result:=prAlreadyPosted;
       exit;
     end;
-  Data.StartTransaction(Connection,True);
+  Data.StartTransaction(Connection);
   try
     with Entrys.DataSet do
       begin
@@ -313,22 +314,29 @@ begin
         while not EOF do
           begin
             Added := False;
-            if aLink <> FieldByName('LINK').AsString then
-              begin
-                aLink := FieldByName('LINK').AsString;
-                FreeAndNil(aDataSet);
-                aDataSet := TBaseDBModule(DataModule).DataSetFromLink(aLink,Connection)
-              end;
             if (copy(FieldByName('LINK').AsString,0,9) = 'PROJECTS@')
             or (copy(FieldByName('LINK').AsString,0,11) = 'PROJECTS.ID')
             then
               ProjectLink := FieldByName('LINK').AsString;
-            if aLink <> '' then
+            if (FieldByName('LINK').AsString<>'') and (aLink <> FieldByName('LINK').AsString) then
               begin
-                aProject := TProject.Create(nil,DataModule,Connection);
-                aProject.SelectFromLink(ProjectLink);
-                aProject.Open;
-                if aProject.Count>0 then
+                FreeAndNil(aDataSet);
+                FreeAndNil(aProject);
+                aLink := FieldByName('LINK').AsString;
+                aDataSetClass := TBaseDBModule(DataModule).DataSetFromLink(aLink);
+                aDataSet := aDataSetClass.Create(nil,DataModule,Connection);
+                TBaseDbList(aDataSet).SelectFromLink(aLink);
+                aDataSet.Open;
+                if ProjectLink <> '' then
+                  begin
+                    aProject := TProject.Create(nil,DataModule,Connection);
+                    aProject.SelectFromLink(ProjectLink);
+                    aProject.Open;
+                  end;
+              end
+            else if aLink <> '' then
+              begin
+                if Assigned(aProject) and (aProject.Count>0) then
                   begin
                     if FieldByName('OWNER').AsString <> '' then
                       begin //Task
@@ -364,7 +372,6 @@ begin
                         Added := True;
                       end;
                   end;
-                aProject.Free;
                 if (not Added) and (FieldByName('OWNER').AsString <> '') then
                   begin //Task
                     aTasks := TTask.Create(nil,Data);
@@ -395,15 +402,11 @@ begin
                       Entrys.DataSet.Post;
                     Added := True;
                   end;
-                if (not Added) and Assigned(aDataSet) and Supports(aDataSet, IBaseHistory, Hist) then
+                if (not Added) and Assigned(aDataSet) and Supports(aDataSet, IBaseHistory, Hist) and (aDataSet.Count>0) then
                   begin
                     Added := True;
-                    if aDataSet is TProject then
-                      Tproject(aDataSet).History.AddItem(Data.Users.DataSet,FieldByName('DESC').AsString,Data.BuildLink(Self.DataSet),Self.DataSet.FieldByName('NAME').AsString,nil,ACICON_USEREDITED,'',True,True)
-                    else if aDataSet is TMasterdata then
-                      TMasterdata(aDataSet).History.AddItem(Data.Users.DataSet,FieldByName('DESC').AsString,Data.BuildLink(Self.DataSet),Self.DataSet.FieldByName('NAME').AsString,nil,ACICON_USEREDITED,'',True,True)
-                    else
-                      Added:=False;
+                    aHist := Hist.GetHistory;
+                    aHist.AddItem(Data.Users.DataSet,FieldByName('DESC').AsString,Data.BuildLink(Self.DataSet),Self.DataSet.FieldByName('NAME').AsString,nil,ACICON_USEREDITED,'',True,True)
                   end;
               end;
             Next;
@@ -415,6 +418,7 @@ begin
         Data.CommitTransaction(Connection);
         Result:=prSuccess;
       end;
+      FreeAndNil(aProject);
       FreeAndNil(aDataSet);
     except
       on e : Exception do

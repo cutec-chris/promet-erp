@@ -479,8 +479,8 @@ inherited fMeetingFrame: TfMeetingFrame
     NewTabImageIndex = 0
     object tsMeeting: TTabSheet
       Caption = 'Besprechung'
-      ClientHeight = 413
-      ClientWidth = 697
+      ClientHeight = 853
+      ClientWidth = 1402
       object tbLeft: TPanel
         Left = 0
         Height = 413
@@ -611,8 +611,7 @@ inherited fMeetingFrame: TfMeetingFrame
             Caption = 'Aufgabe/Eintrag'
             Font.Color = clMedGray
             Font.Height = 11
-            Font.Orientation = 900
-            Layout = tlBottom
+            Font.Orientation = -900
             ParentColor = False
             ParentFont = False
           end
@@ -827,8 +826,7 @@ inherited fMeetingFrame: TfMeetingFrame
             Caption = 'Ansicht'
             Font.Color = clMedGray
             Font.Height = 11
-            Font.Orientation = 900
-            Layout = tlBottom
+            Font.Orientation = -900
             ParentColor = False
             ParentFont = False
           end
@@ -910,8 +908,7 @@ inherited fMeetingFrame: TfMeetingFrame
             Caption = 'Thema'
             Font.Color = clMedGray
             Font.Height = 11
-            Font.Orientation = 900
-            Layout = tlBottom
+            Font.Orientation = -900
             ParentColor = False
             ParentFont = False
           end

@@ -137,7 +137,7 @@ type
     function GetLinkIcon(aLink : string) : Integer;
     function BuildLink(aDataSet : TDataSet) : string;
     function GotoLink(aLink : string) : Boolean;
-    function DataSetFromLink(aLink : string;aConnection : TComponent = nil) : TBaseDBDataSet;
+    function DataSetFromLink(aLink: string): TBaseDBDatasetClass;
     procedure RegisterLinkHandler(aLink : string;aOpenHandler : TOpenLinkEvent;DataSetClass : TBaseDBDatasetClass);
     function GetBookmark(aDataSet : TBaseDbDataSet) : Variant;
     function GotoBookmark(aDataSet : TBaseDbDataSet;aRec : Variant) : Boolean;
@@ -1081,8 +1081,7 @@ begin
         end;
     end;
 end;
-function TBaseDBModule.DataSetFromLink(aLink: string; aConnection: TComponent
-  ): TBaseDBDataSet;
+function TBaseDBModule.DataSetFromLink(aLink: string): TBaseDBDatasetClass;
 var
   i: Integer;
 begin
@@ -1091,7 +1090,7 @@ begin
     if copy(aLink,0,length(FLinkHandlers[i].aLinkType)) = FLinkHandlers[i].aLinkType then
       begin
         if Assigned(FLinkHandlers[i].aClass) then
-          Result := TBaseDbDataSetClass(FLinkHandlers[i].aClass).Create(nil,Self,aConnection);
+          Result := FLinkHandlers[i].aClass;
         break;
       end;
 end;
@@ -1522,4 +1521,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+
