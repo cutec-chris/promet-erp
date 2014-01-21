@@ -107,6 +107,7 @@ type
     acDeleteLink: TAction;
     acHideEntry: TAction;
     acRestoreStandard: TAction;
+    acCopyAsLink: TAction;
     ActionList1: TActionList;
     DblClickTimer: TIdleTimer;
     MenuItem1: TMenuItem;
@@ -114,6 +115,7 @@ type
     tvMain: TTreeView;
     procedure acAddBoardExecute(Sender: TObject);
     procedure acAddDirectoryExecute(Sender: TObject);
+    procedure acCopyAsLinkExecute(Sender: TObject);
     procedure acDeleteDirectoryExecute(Sender: TObject);
     procedure acDeleteLinkExecute(Sender: TObject);
     procedure acHideEntryExecute(Sender: TObject);
@@ -182,7 +184,8 @@ var
 implementation
 uses uData,uPrometFrames,LCLType,Dialogs,uIntfStrConsts, FPCanvas,
   uBaseVisualControls, Graphics, Utils, LCLProc, uPerson,uMasterdata,uProjects,
-  uWiki,uSearch,Themes,uFilterFrame,uNRights,uStatistic,uClipp;
+  uWiki,uSearch,Themes,uFilterFrame,uNRights,uStatistic,uClipp,Clipbrd,
+  uBaseVisualApplication;
 resourcestring
   strRestartNessesary                         = 'Starten Sie die Anwendung neu !';
 constructor TTreeEntry.Create;
@@ -295,6 +298,20 @@ begin
              ;
           pmTree.Items.Add(New);
         end;
+      case DataT.Typ of
+      etArticle,
+      etProject,etProcess,
+      etCustomer,etSupplier,
+      etStatistic,
+      etWikiPage,
+      etClipboardItem,
+      etLink:
+        begin
+          New := TMenuItem.Create(nil);
+          New.Action := acCopyAsLink;
+          pmTree.Items.Add(New);
+        end;
+      end;
       if (DataT.Typ = etLink)
       then
         begin
@@ -569,6 +586,45 @@ begin
         end;
     end;
   Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
+end;
+
+procedure TfMainTree.acCopyAsLinkExecute(Sender: TObject);
+var
+  aNode: TTreeNode;
+  DataT: TTreeEntry;
+  aDataSet: TBaseDBDataset;
+  Stream: TStringStream;
+  aLinks: TLinks;
+begin
+  aNode := tvMain.Selected;
+  DataT := TTreeEntry(tvMain.Selected.Data);
+  if not Assigned(DataT) then exit;
+  if DataT.Typ = etLink then
+    begin
+      aLinks := TLinks.Create(nil,Data);
+      aLinks.Select(DataT.Rec);
+      aLinks.Open;
+      if aLinks.Count>0 then
+        begin
+          Stream := TStringStream.Create(aLinks.FieldByName('LINK').AsString);
+          Clipboard.AddFormat(LinkClipboardFormat,Stream);
+          Stream.Free;
+        end;
+      aLinks.Free;
+    end
+  else
+    begin
+      aDataSet := DataT.DataSourceType.Create(Self,Data);
+      aDataSet.ActualFilter := DataT.Filter;
+      aDataSet.Open;
+      if aDataSet.Count > 0 then
+        begin
+          Stream := TStringStream.Create(Data.BuildLink(aDataSet.DataSet));
+          Clipboard.AddFormat(LinkClipboardFormat,Stream);
+          Stream.Free;
+        end;
+      aDataSet.Free;
+    end;
 end;
 
 procedure TfMainTree.acAddBoardExecute(Sender: TObject);
