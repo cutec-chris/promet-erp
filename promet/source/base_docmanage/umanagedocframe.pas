@@ -284,6 +284,7 @@ begin
   FFetchSQL:=copy(FFetchSQL,4,length(FFetchSQL));
   if FFetchSQL <> '' then
     begin
+      debugln('Fetch:'+TThreadedImage(ThumbControl1.ImageLoaderManager.Queue[i]).URL);
       with DataSet.DataSet as IBaseManageDB do
         FFetchSQL:='select '+Data.QuoteField('SQL_ID')+','+Data.QuoteField('THUMBNAIL')+' from '+Data.QuoteField(TableName)+' where '+FFetchSQL;
       FFetchDS := Data.GetNewDataSet(FFetchSQL);
@@ -848,8 +849,18 @@ var
   aTime: DWORD;
 begin
   URL := FURL;
+  {$ifdef DEBUG}
+  debugln('WaitForImage   :'+URL);
+  {$endif}
+  aTime := GetTickCount;
   while (not FileExists(FtempPath+URL)) do
-    Application.ProcessMessages;
+    begin
+      Application.ProcessMessages;
+      if GetTickCount-aTime>1000 then break;
+    end;
+  {$ifdef DEBUG}
+  debugln('WaitForImageEnd:'+URL);
+  {$endif}
 end;
 procedure TfManageDocFrame.RebuidThumb;
 var
@@ -931,12 +942,13 @@ begin
   ThumbControl1.ImageLoaderManager.BeforeStartQueue:=@ThumbControl1ImageLoaderManagerBeforeStartQueue;
   DataSet.CreateTable;
   TDocPages(DataSet).PrepareDataSet;
-  DataSet.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType));
+  FFilter := Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType);
   with DataSet.DataSet as IBaseDbFilter do
     begin
       SortFields := 'ORIGDATE';
       SortDirection:=sdDescending;
       Limit := 0;
+      Filter :=  FFilter;
     end;
   DataSet.Open;
   DataSet.First;
