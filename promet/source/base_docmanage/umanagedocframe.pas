@@ -507,6 +507,7 @@ begin
               TDocPages(DataSet).AddFromFile(NewFileName);
               if not TDocPages(DataSet).CanEdit then TDocPages(DataSet).DataSet.Edit;
               TDocPages(DataSet).FieldByName('TAGS').AsString:=fPicImport.eTags.Text;
+              TDocPages(DataSet).FieldByName('TYPE').AsString:=FTyp;
               TDocPages(DataSet).Post;
               if fPicImport.cbDelete.Checked then
                 begin
@@ -632,7 +633,7 @@ end;
 
 procedure TfManageDocFrame.acImportExecute(Sender: TObject);
 begin
-  if fCameraimport.Execute(Self) then
+  if fCameraimport.Execute(Self,FTyp) then
     acRefresh.Execute;
 end;
 
@@ -941,7 +942,6 @@ begin
   FTyp := aType;
   ThumbControl1.ImageLoaderManager.BeforeStartQueue:=@ThumbControl1ImageLoaderManagerBeforeStartQueue;
   DataSet.CreateTable;
-  TDocPages(DataSet).PrepareDataSet;
   FFilter := Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType);
   with DataSet.DataSet as IBaseDbFilter do
     begin
@@ -950,6 +950,7 @@ begin
       Limit := 0;
       Filter :=  FFilter;
     end;
+//  TDocPages(DataSet).PrepareDataSet;
   DataSet.Open;
   DataSet.First;
   FTimeLine.StartDate:=DataSet.FieldByName('ORIGDATE').AsDateTime;
@@ -975,9 +976,9 @@ end;
 procedure TfManageDocFrame.OpenDir(aDir: Variant);
 begin
   if aDir = Null then
-    FFilter := ''
+    FFilter := Data.QuoteField('TYPE')+'='+Data.QuoteValue(FTyp)
   else
-    FFilter := Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(aDir);
+    FFilter := '('+Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(aDir)+') AND ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue(FTyp)+')';
   with DataSet.DataSet as IBaseDbFilter do
     begin
       SortFields := 'ORIGDATE';
@@ -994,7 +995,8 @@ begin
   FetchNext;
   Application.ProcessMessages;
   ThumbControl1.MultiThreaded:=True;
-  IdleTimer1.Tag:=0;
+  if Assigned(IdleTimer1) then
+    IdleTimer1.Tag:=0;
   ThumbControl1.Invalidate;
 end;
 

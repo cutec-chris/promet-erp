@@ -49,7 +49,7 @@ type
   public
     { public declarations }
     function ImportAvalibe : Boolean;
-    function Execute(aDocMan : TfManageDocFrame) : Boolean;
+    function Execute(aDocMan : TfManageDocFrame;aTyp : string) : Boolean;
   end;
 
 var
@@ -166,6 +166,7 @@ begin
     begin
       TDocPages(FDoc.DataSet).AddFromFile(NewFileName);
       if not TDocPages(FDoc.DataSet).CanEdit then TDocPages(FDoc.DataSet).DataSet.Edit;
+      TDocPages(FDoc.DataSet).FieldByName('TYPE').AsString:=FDoc.Typ;
       TDocPages(FDoc.DataSet).Post;
            aFile := NewFileName;
           extn :=  AnsiString(AnsiLowerCase(ExtractFileExt(aFile)));
@@ -306,7 +307,8 @@ begin
   sl.Free;
 end;
 
-function TfCameraimport.Execute(aDocMan: TfManageDocFrame): Boolean;
+function TfCameraimport.Execute(aDocMan: TfManageDocFrame; aTyp: string
+  ): Boolean;
 begin
   if not Assigned(Self) then
     begin
