@@ -727,7 +727,7 @@ var
 begin
   if Data.Filters.DataSet.Locate('TYPE;NAME',VarArrayOf([FFilterType,cbFilter.Text]),[loCaseInsensitive]) then
     begin
-      aLinks := Data.BuildLink(Data.Filters.DataSet);
+      aLinks := Data.BuildLink(Data.Filters.DataSet)+';';
       Stream := TStringStream.Create(aLinks);
       Clipboard.AddFormat(LinkClipboardFormat,Stream);
       Stream.Free;
