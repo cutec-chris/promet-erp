@@ -576,6 +576,7 @@ procedure TfMain.acHistoryExecute(Sender: TObject);
 begin
   fmTimeline.Execute;
   SwitchAnimationOff;
+  History.DataSet.Refresh;
 end;
 
 procedure TfMain.acMarkReadExecute(Sender: TObject);
