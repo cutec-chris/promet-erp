@@ -26,11 +26,14 @@ type
   private
     FId: Variant;
     FInformed: Boolean;
+    FName: string;
     FTimeout: TDateTime;
     procedure SetTimeout(AValue: TDateTime);
   public
+    aOutput,aBuffer,aLogOutput : string;
     property Timeout : TDateTime read FTimeout write SetTimeout;
     property Informed : Boolean read FInformed write FInformed;
+    property Name : string read FName write FName;
     property Id : Variant read FId write FId;
     procedure Execute; override;
     procedure DoExit;

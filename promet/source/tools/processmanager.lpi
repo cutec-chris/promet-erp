@@ -43,17 +43,17 @@
         <DefaultFilename Value="../base/pcmdprometapp.lpk"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="75">
+    <Units Count="76">
       <Unit0>
         <Filename Value="processmanager.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="processmanager"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="131"/>
-        <CursorPos X="80" Y="147"/>
-        <UsageCount Value="44"/>
+        <TopLine Value="250"/>
+        <CursorPos X="1" Y="288"/>
+        <FoldState Value=" T3j82L@"/>
+        <UsageCount Value="45"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -287,7 +287,7 @@
       <Unit29>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1516"/>
         <CursorPos X="1" Y="1533"/>
@@ -312,7 +312,7 @@
       <Unit32>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2"/>
         <CursorPos X="43" Y="14"/>
@@ -522,7 +522,7 @@
       <Unit59>
         <Filename Value="../base/dbintfs/udocumentprocess.pas"/>
         <UnitName Value="uDocumentProcess"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="34"/>
         <CursorPos X="28" Y="38"/>
@@ -555,10 +555,11 @@
       <Unit63>
         <Filename Value="../base/dbintfs/uprocessmanager.pas"/>
         <UnitName Value="uProcessManager"/>
-        <EditorIndex Value="1"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="27"/>
-        <CursorPos X="54" Y="41"/>
+        <TopLine Value="83"/>
+        <CursorPos X="94" Y="99"/>
         <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit63>
@@ -588,17 +589,17 @@
       <Unit67>
         <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
         <UnitName Value="uProcessManagement"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="28" Y="58"/>
+        <TopLine Value="14"/>
+        <CursorPos X="22" Y="33"/>
         <UsageCount Value="22"/>
         <Loaded Value="True"/>
       </Unit67>
       <Unit68>
         <Filename Value="../base/dbintfs/umasterdata.pas"/>
         <UnitName Value="uMasterdata"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="382"/>
         <CursorPos X="60" Y="396"/>
@@ -648,13 +649,24 @@
       <Unit74>
         <Filename Value="../base/dbintfs/uintfstrconsts.pas"/>
         <UnitName Value="uIntfStrConsts"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="6"/>
-        <CursorPos X="33" Y="22"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="20"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit74>
+      <Unit75>
+        <Filename Value="processdaemon.lpr"/>
+        <UnitName Value="processdaemon"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="88"/>
+        <CursorPos X="1" Y="158"/>
+        <FoldState Value=" T3j10zv"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit75>
     </Units>
     <Build>
       <CleanOutputFileMask Value="*.ppu;*.ppl;*.o;*.or"/>
@@ -662,123 +674,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="processmanager.lpr"/>
-        <Caret Line="247" Column="1" TopLine="226"/>
+        <Caret Line="259" Column="1" TopLine="230"/>
       </Position1>
       <Position2>
         <Filename Value="processmanager.lpr"/>
-        <Caret Line="248" Column="1" TopLine="226"/>
+        <Caret Line="263" Column="1" TopLine="234"/>
       </Position2>
       <Position3>
         <Filename Value="processmanager.lpr"/>
-        <Caret Line="249" Column="1" TopLine="226"/>
+        <Caret Line="205" Column="1" TopLine="187"/>
       </Position3>
       <Position4>
         <Filename Value="processmanager.lpr"/>
-        <Caret Line="250" Column="1" TopLine="226"/>
+        <Caret Line="207" Column="1" TopLine="187"/>
       </Position4>
       <Position5>
         <Filename Value="processmanager.lpr"/>
-        <Caret Line="251" Column="1" TopLine="226"/>
+        <Caret Line="208" Column="1" TopLine="187"/>
       </Position5>
       <Position6>
         <Filename Value="processmanager.lpr"/>
-        <Caret Line="252" Column="1" TopLine="226"/>
+        <Caret Line="262" Column="1" TopLine="244"/>
       </Position6>
       <Position7>
         <Filename Value="processmanager.lpr"/>
-        <Caret Line="253" Column="1" TopLine="226"/>
+        <Caret Line="263" Column="1" TopLine="244"/>
       </Position7>
       <Position8>
         <Filename Value="processmanager.lpr"/>
-        <Caret Line="254" Column="1" TopLine="226"/>
+        <Caret Line="205" Column="1" TopLine="187"/>
       </Position8>
       <Position9>
-        <Filename Value="processmanager.lpr"/>
-        <Caret Line="255" Column="1" TopLine="226"/>
+        <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
+        <Caret Line="40" Column="36" TopLine="6"/>
       </Position9>
       <Position10>
-        <Filename Value="processmanager.lpr"/>
-        <Caret Line="256" Column="1" TopLine="227"/>
+        <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
+        <Caret Line="92" Column="21" TopLine="65"/>
       </Position10>
       <Position11>
         <Filename Value="processmanager.lpr"/>
-        <Caret Line="257" Column="1" TopLine="228"/>
+        <Caret Line="20" Column="1" TopLine="1"/>
       </Position11>
       <Position12>
         <Filename Value="processmanager.lpr"/>
-        <Caret Line="258" Column="1" TopLine="229"/>
+        <Caret Line="62" Column="39" TopLine="44"/>
       </Position12>
       <Position13>
         <Filename Value="processmanager.lpr"/>
-        <Caret Line="259" Column="1" TopLine="230"/>
+        <Caret Line="10" Column="53" TopLine="1"/>
       </Position13>
       <Position14>
         <Filename Value="processmanager.lpr"/>
-        <Caret Line="263" Column="1" TopLine="234"/>
+        <Caret Line="62" Column="41" TopLine="44"/>
       </Position14>
       <Position15>
         <Filename Value="processmanager.lpr"/>
-        <Caret Line="205" Column="1" TopLine="187"/>
+        <Caret Line="60" Column="20" TopLine="44"/>
       </Position15>
       <Position16>
-        <Filename Value="processmanager.lpr"/>
-        <Caret Line="207" Column="1" TopLine="187"/>
+        <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
+        <Caret Line="96" Column="1" TopLine="61"/>
       </Position16>
       <Position17>
         <Filename Value="processmanager.lpr"/>
-        <Caret Line="208" Column="1" TopLine="187"/>
+        <Caret Line="10" Column="59" TopLine="1"/>
       </Position17>
       <Position18>
         <Filename Value="processmanager.lpr"/>
-        <Caret Line="262" Column="1" TopLine="244"/>
+        <Caret Line="236" Column="1" TopLine="85"/>
       </Position18>
       <Position19>
         <Filename Value="processmanager.lpr"/>
-        <Caret Line="263" Column="1" TopLine="244"/>
+        <Caret Line="166" Column="46" TopLine="164"/>
       </Position19>
       <Position20>
         <Filename Value="processmanager.lpr"/>
-        <Caret Line="205" Column="1" TopLine="187"/>
+        <Caret Line="20" Column="32" TopLine="1"/>
       </Position20>
       <Position21>
-        <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
-        <Caret Line="40" Column="36" TopLine="6"/>
+        <Filename Value="processmanager.lpr"/>
+        <Caret Line="85" Column="13" TopLine="60"/>
       </Position21>
       <Position22>
-        <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
-        <Caret Line="92" Column="21" TopLine="65"/>
+        <Filename Value="processmanager.lpr"/>
+        <Caret Line="89" Column="24" TopLine="66"/>
       </Position22>
       <Position23>
-        <Filename Value="processmanager.lpr"/>
-        <Caret Line="20" Column="1" TopLine="1"/>
+        <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
+        <Caret Line="63" Column="1" TopLine="43"/>
       </Position23>
       <Position24>
         <Filename Value="processmanager.lpr"/>
-        <Caret Line="62" Column="39" TopLine="44"/>
+        <Caret Line="79" Column="28" TopLine="66"/>
       </Position24>
       <Position25>
         <Filename Value="processmanager.lpr"/>
-        <Caret Line="10" Column="53" TopLine="1"/>
+        <Caret Line="69" Column="42" TopLine="60"/>
       </Position25>
       <Position26>
-        <Filename Value="processmanager.lpr"/>
-        <Caret Line="62" Column="41" TopLine="44"/>
+        <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
+        <Caret Line="36" Column="49" TopLine="15"/>
       </Position26>
       <Position27>
         <Filename Value="processmanager.lpr"/>
-        <Caret Line="60" Column="20" TopLine="44"/>
+        <Caret Line="69" Column="42" TopLine="60"/>
       </Position27>
       <Position28>
-        <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
-        <Caret Line="96" Column="1" TopLine="61"/>
+        <Filename Value="processmanager.lpr"/>
+        <Caret Line="89" Column="82" TopLine="60"/>
       </Position28>
       <Position29>
         <Filename Value="processmanager.lpr"/>
-        <Caret Line="10" Column="59" TopLine="1"/>
+        <Caret Line="80" Column="31" TopLine="61"/>
       </Position29>
       <Position30>
         <Filename Value="processmanager.lpr"/>
-        <Caret Line="236" Column="1" TopLine="85"/>
+        <Caret Line="210" Column="43" TopLine="192"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -832,4 +844,4 @@
     </Exceptions>
   </Debugging>
   <EditorMacros Count="0"/>
-</CONFIG>
+</CONFIG>

@@ -1,3 +1,22 @@
+{*******************************************************************************
+  Copyright (C) Christian Ulrich info@cu-tec.de
+
+  This source is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 2 of the License, or commercial alternative
+  contact us for more information
+
+  This code is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+  details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+  MA 02111-1307, USA.
+Created 01.10.2013
+*******************************************************************************}
 program processdaemon;
 
 {$mode objfpc}{$H+}
@@ -135,6 +154,37 @@ var
   aInfo: TSearchRec;
   aMandant: String;
   aFileDir: String;
+  Output,Buffer,LogOutput : string;
+
+  procedure ProcessData;
+  var
+    aLine: String;
+    BytesAvailable: System.DWord;
+    BytesRead: Integer;
+  begin
+    BytesAvailable := aProcess.Output.NumBytesAvailable;
+    BytesRead := 0;
+    while BytesAvailable>0 do
+      begin
+        SetLength(Buffer, BytesAvailable);
+        BytesRead := aProcess.OutPut.Read(Buffer[1], BytesAvailable+1);
+        Output := Output+copy(Buffer,0, BytesRead);
+        LogOutput := Logoutput+copy(Buffer,1, BytesRead);
+        while pos(#13,Logoutput) > 0 do
+          begin
+            aLine := copy(Logoutput,0,pos(#13,Logoutput)-1);
+            if copy(aLine,0,5) = '*STEP' then
+              aLine := '*'+aLine;
+            Application.Log(etInfo, aLine);
+            Logoutput := copy(Logoutput,pos(#13,Logoutput)+1,length(Logoutput));
+            if copy(Logoutput,0,1) = #10 then
+              Logoutput := copy(Logoutput,2,length(Logoutput));
+          end;
+        sleep(1);
+        BytesAvailable := aProcess.Output.NumBytesAvailable;
+      end;
+  end;
+
 begin
   Application.Log(etDebug, 'Thread.Execute');
   aFileDir := GetGlobalConfigDir(StringReplace(lowercase('prometerp'),'-','',[rfReplaceAll]));
@@ -154,7 +204,11 @@ begin
       try
         aProcess.Execute;
         while aProcess.Active and (not Terminated) do
-          sleep(100);
+          begin
+            sleep(100);
+            ProcessData;
+          end;
+        ProcessData;
       except
         on e : Exception do
           Application.Log(etDebug, 'Error: '+e.Message);

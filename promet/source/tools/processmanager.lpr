@@ -1,3 +1,22 @@
+{*******************************************************************************
+  Copyright (C) Christian Ulrich info@cu-tec.de
+
+  This source is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 2 of the License, or commercial alternative
+  contact us for more information
+
+  This code is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+  details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+  MA 02111-1307, USA.
+Created 01.06.2010
+*******************************************************************************}
 program processmanager;
 {$mode objfpc}{$H+}
 uses
@@ -47,6 +66,32 @@ var
   aInt: Integer;
   aNow: TDateTime;
   bProcess: TProcProcess;
+  procedure ProcessData(aProcess : TProcProcess);
+  var
+    aLine: String;
+    BytesAvailable: System.DWord;
+    BytesRead: Integer;
+  begin
+    BytesAvailable := aProcess.Output.NumBytesAvailable;
+    BytesRead := 0;
+    while BytesAvailable>0 do
+      begin
+        SetLength(aProcess.aBuffer, BytesAvailable);
+        BytesRead := aProcess.OutPut.Read(aProcess.aBuffer[1], BytesAvailable+1);
+        aProcess.aOutput := aProcess.aOutput+copy(aProcess.aBuffer,0, BytesRead);
+        aProcess.aLogOutput := aProcess.aLogoutput+copy(aProcess.aBuffer,1, BytesRead);
+        while pos(#13,aProcess.aLogoutput) > 0 do
+          begin
+            aLine := copy(aProcess.aLogoutput,0,pos(#13,aProcess.aLogoutput)-1);
+            Log(aLine);
+            aProcess.aLogoutput := copy(aProcess.aLogoutput,pos(#13,aProcess.aLogoutput)+1,length(aProcess.aLogoutput));
+            if copy(aProcess.aLogoutput,0,1) = #10 then
+              aProcess.aLogoutput := copy(aProcess.aLogoutput,2,length(aProcess.aLogoutput));
+          end;
+        sleep(1);
+        BytesAvailable := aProcess.Output.NumBytesAvailable;
+      end;
+  end;
   function BuildCmdLine : string;
   begin
     with Data.ProcessClient.Processes.Parameters.DataSet do
@@ -161,15 +206,14 @@ begin
                       begin
                         bProcess := Processes[i];
                         if bProcess.Active then
-                          Found := True
+                          begin
+                            Found := True;
+                            ProcessData(bProcess);
+                          end
                         else
                           begin
                             tmp := aProcess+BuildCmdLine;
-                            sl := TStringList.Create;
-                            sl.LoadFromStream(bProcess.Output);
-                            for a := 0 to sl.Count-1 do
-                              Log(aprocess+':'+sl[a]);
-                            sl.Free;
+                            ProcessData(bProcess);
                             if not bProcess.Informed then
                               begin
                                 Log(aprocess+':'+strExitted);
