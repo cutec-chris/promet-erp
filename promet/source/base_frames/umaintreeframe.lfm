@@ -97,6 +97,11 @@ object fMainTree: TfMainTree
       ImageIndex = 23
       OnExecute = acCopyAsLinkExecute
     end
+    object acPasteLink: TAction
+      Caption = 'acPasteLink'
+      ImageIndex = 111
+      OnExecute = acPasteLinkExecute
+    end
   end
   object DblClickTimer: TIdleTimer
     Enabled = False

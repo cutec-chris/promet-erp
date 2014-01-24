@@ -302,7 +302,6 @@ inherited fFilter: TfFilter
             57FFCE8C57FFCF8C56FFCE8C56FFCF8757FFCE8752FF00000000000000000000
             0000000000000000000000000000000000000000000000000000
           }
-          GroupIndex = 10
           OnClick = bEditFilterClick
           ShowCaption = False
         end
@@ -1744,6 +1743,7 @@ inherited fFilter: TfFilter
       Caption = 'acCopyFilterLink'
       Hint = 'Filter als Verknüpfung kopieren'
       ImageIndex = 23
+      OnExecute = acCopyFilterLinkExecute
     end
   end
   object DblClickTimer: TIdleTimer[8]

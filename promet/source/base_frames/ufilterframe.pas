@@ -110,6 +110,7 @@ type
     tbMenue1: TToolButton;
     tbToolBar: TToolBar;
     ToolBar: TToolBar;
+    procedure acCopyFilterLinkExecute(Sender: TObject);
     procedure acCopyLinkExecute(Sender: TObject);
     procedure acDefaultFilterExecute(Sender: TObject);
     procedure acDeleteFilterExecute(Sender: TObject);
@@ -718,6 +719,21 @@ begin
   Clipboard.AddFormat(LinkClipboardFormat,Stream);
   Stream.Free;
 end;
+
+procedure TfFilter.acCopyFilterLinkExecute(Sender: TObject);
+var
+  aLinks: String;
+  Stream: TStringStream;
+begin
+  if Data.Filters.DataSet.Locate('TYPE;NAME',VarArrayOf([FFilterType,cbFilter.Text]),[loCaseInsensitive]) then
+    begin
+      aLinks := Data.BuildLink(Data.Filters.DataSet);
+      Stream := TStringStream.Create(aLinks);
+      Clipboard.AddFormat(LinkClipboardFormat,Stream);
+      Stream.Free;
+    end;
+end;
+
 procedure TfFilter.acDefaultFilterExecute(Sender: TObject);
 begin
   if (cbFilter.Text = strNoSelectFilter) or (cbFilter.Text = '') then

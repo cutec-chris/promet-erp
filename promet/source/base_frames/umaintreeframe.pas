@@ -108,6 +108,7 @@ type
     acHideEntry: TAction;
     acRestoreStandard: TAction;
     acCopyAsLink: TAction;
+    acPasteLink: TAction;
     ActionList1: TActionList;
     DblClickTimer: TIdleTimer;
     MenuItem1: TMenuItem;
@@ -120,6 +121,7 @@ type
     procedure acDeleteLinkExecute(Sender: TObject);
     procedure acHideEntryExecute(Sender: TObject);
     procedure acOpenExecute(Sender: TObject);
+    procedure acPasteLinkExecute(Sender: TObject);
     procedure acRenameDirectoryExecute(Sender: TObject);
     procedure acRestoreStandardExecute(Sender: TObject);
     procedure acRightsExecute(Sender: TObject);
@@ -185,7 +187,7 @@ implementation
 uses uData,uPrometFrames,LCLType,Dialogs,uIntfStrConsts, FPCanvas,
   uBaseVisualControls, Graphics, Utils, LCLProc, uPerson,uMasterdata,uProjects,
   uWiki,uSearch,Themes,uFilterFrame,uNRights,uStatistic,uClipp,Clipbrd,
-  uBaseVisualApplication;
+  uBaseVisualApplication,uError;
 resourcestring
   strRestartNessesary                         = 'Starten Sie die Anwendung neu !';
 constructor TTreeEntry.Create;
@@ -298,6 +300,12 @@ begin
              ;
           pmTree.Items.Add(New);
         end;
+      if (DataT.Typ = etDir) and (Typ='F') then
+        begin
+          New := TMenuItem.Create(nil);
+          New.Action := acPasteLink;
+          pmTree.Items.Add(New);
+        end;
       case DataT.Typ of
       etArticle,
       etProject,etProcess,
@@ -386,6 +394,73 @@ begin
       FOpen(DataT);
   end;
   Screen.Cursor:=crDefault;
+end;
+procedure TfMainTree.acPasteLinkExecute(Sender: TObject);
+var
+  DataT2: TTreeEntry;
+  Stream: TStringStream;
+  aLinks: String;
+  aLink: String;
+  aLinkDesc: String;
+  aIcon: Integer;
+  addToLinked: Boolean;
+  aDS: TLinks;
+begin
+  DataT2 := TTreeEntry(tvMain.Selected.Data);
+  if DataT2.Typ<>etDir then exit;
+  Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
+  if Data.Tree.GotoBookmark(DataT2.Rec) then
+    begin
+      aDS := TLinks.Create(nil,Data);
+      Stream := TStringStream.Create('');
+      if (pos('://',ClipBoard.AsText) > 0) then
+        begin
+          aLinks := ClipBoard.AsText;
+          if copy(aLinks,length(aLinks)-1,1)<>';' then aLinks := aLinks+';';
+          while pos(';',aLinks)>0 do
+            begin
+              aLink := copy(aLinks,0,pos(';',aLinks)-1);
+              aLinks := copy(aLinks,pos(';',aLinks)+1,length(aLinks));
+              aLinkDesc := aLink;
+              aIcon := Data.GetLinkIcon(aLink);
+              with aDS do
+                begin
+                  Insert;
+                  FieldByName('LINK').AsString := aLink;
+                  FieldByName('NAME').AsString := aLinkDesc;
+                  FieldByName('ICON').AsInteger := aIcon;
+                  FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
+                  Post;
+                end;
+            end;
+        end
+      else if Clipboard.GetFormat(LinkClipboardFormat,Stream) then
+        begin
+          Stream.Position:=0;
+          aLinks := Stream.DataString;
+        end
+      else
+        fError.ShowWarning(strCantgetClipboardContents);
+      Stream.Free;
+      addToLinked := False;
+      while pos(';',aLinks) > 0 do
+        begin
+          aLink := copy(aLinks,0,pos(';',aLinks)-1);
+          aLinks := copy(aLinks,pos(';',aLinks)+1,length(aLinks));
+          aLinkDesc := Data.GetLinkDesc(aLink);
+          aIcon := Data.GetLinkIcon(aLink);
+          with aDS do
+            begin
+              Insert;
+              FieldByName('LINK').AsString := aLink;
+              FieldByName('NAME').AsString := aLinkDesc;
+              FieldByName('ICON').AsInteger := aIcon;
+              FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
+              Post;
+            end;
+        end;
+      aDS.Free;
+    end;
 end;
 procedure TfMainTree.acRenameDirectoryExecute(Sender: TObject);
 var
