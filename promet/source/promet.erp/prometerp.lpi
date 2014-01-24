@@ -25,7 +25,7 @@
       <BuildNr Value="5"/>
       <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP" ProductVersion=""/>
     </VersionInfo>
-    <BuildModes Count="5" Active="Default">
+    <BuildModes Count="5" Active="Debug">
       <Item1 Name="Default" Default="True"/>
       <Item2 Name="Debug">
         <CompilerOptions>
@@ -42,6 +42,7 @@
           </CodeGeneration>
           <Linking>
             <Debugging>
+              <UseHeaptrc Value="True"/>
               <UseExternalDbgSyms Value="True"/>
             </Debugging>
             <Options>
@@ -183,7 +184,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--config-path=/home/chris/.promet-erp-devel"/>
+        <CommandLineParams Value="--debug"/>
       </local>
     </RunParams>
     <RequiredPackages Count="23">
@@ -295,7 +296,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="491"/>
         <CursorPos X="9" Y="497"/>
@@ -509,10 +510,10 @@
       <Unit20>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="2192"/>
-        <CursorPos X="1" Y="2213"/>
+        <TopLine Value="2093"/>
+        <CursorPos X="1" Y="2116"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
       </Unit20>
@@ -613,7 +614,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="308"/>
         <CursorPos X="33" Y="342"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
         <Loaded Value="True"/>
       </Unit30>
       <Unit31>
@@ -907,7 +908,7 @@
       <Unit56>
         <Filename Value="../base/dbintfs/uprojects.pas"/>
         <UnitName Value="uProjects"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="298"/>
         <CursorPos X="1" Y="319"/>
@@ -939,7 +940,7 @@
       <Unit59>
         <Filename Value="../base/dbintfs/umessages.pas"/>
         <UnitName Value="uMessages"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="55"/>
         <CursorPos X="3" Y="59"/>
@@ -1072,10 +1073,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="utasks"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="237"/>
         <CursorPos X="19" Y="260"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
+        <Loaded Value="True"/>
       </Unit72>
       <Unit73>
         <Filename Value="../base_documents/udocumentframe.pas"/>
@@ -1177,7 +1180,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="259"/>
         <CursorPos X="44" Y="278"/>
-        <UsageCount Value="32"/>
+        <UsageCount Value="33"/>
         <Loaded Value="True"/>
       </Unit82>
       <Unit83>
@@ -1301,11 +1304,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMeetingFrame"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="825"/>
         <CursorPos X="55" Y="853"/>
-        <UsageCount Value="98"/>
+        <UsageCount Value="99"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit96>
@@ -1337,13 +1340,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="umanagedocframe"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="969"/>
+        <TopLine Value="966"/>
         <CursorPos X="3" Y="999"/>
         <UsageCount Value="100"/>
-        <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit100>
       <Unit101>
@@ -1357,12 +1357,10 @@
       <Unit102>
         <Filename Value="../base/dbintfs/ubasedocpages.pas"/>
         <UnitName Value="uBaseDocPages"/>
-        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="116"/>
         <CursorPos X="1" Y="127"/>
         <UsageCount Value="88"/>
-        <Loaded Value="True"/>
       </Unit102>
       <Unit103>
         <Filename Value="../../../../lazarus/lcl/graphics.pp"/>
@@ -1630,10 +1628,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uGanttView"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="527"/>
-        <CursorPos X="67" Y="648"/>
-        <UsageCount Value="95"/>
+        <TopLine Value="434"/>
+        <CursorPos X="55" Y="449"/>
+        <UsageCount Value="96"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit133>
       <Unit134>
         <Filename Value="../../../../lazarus/lcl/include/mouse.inc"/>
@@ -1940,11 +1941,12 @@
       <Unit171>
         <Filename Value="../base/dbintfs/umeeting.pas"/>
         <UnitName Value="umeeting"/>
-        <EditorIndex Value="6"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="389"/>
-        <CursorPos X="9" Y="409"/>
-        <UsageCount Value="82"/>
+        <TopLine Value="408"/>
+        <CursorPos X="1" Y="427"/>
+        <UsageCount Value="83"/>
         <Loaded Value="True"/>
       </Unit171>
       <Unit172>
@@ -3389,7 +3391,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="152"/>
         <CursorPos X="29" Y="169"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit345>
       <Unit346>
@@ -4124,11 +4126,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uFilterFrame"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="620"/>
         <CursorPos X="48" Y="721"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="20"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit435>
@@ -4175,11 +4177,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMainTreeFrame"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="146"/>
         <CursorPos X="14" Y="165"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="26"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit440>
@@ -4413,124 +4415,124 @@
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="945" Column="36" TopLine="926"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="413" Column="1" TopLine="399"/>
       </Position1>
       <Position2>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="952" Column="1" TopLine="935"/>
+        <Filename Value="../base/dbintfs/uprojects.pas"/>
+        <Caret Line="317" Column="1" TopLine="298"/>
       </Position2>
       <Position3>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="953" Column="2" TopLine="935"/>
+        <Filename Value="../base/dbintfs/uprojects.pas"/>
+        <Caret Line="318" Column="1" TopLine="298"/>
       </Position3>
       <Position4>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="952" Column="9" TopLine="935"/>
+        <Filename Value="../base/dbintfs/uprojects.pas"/>
+        <Caret Line="319" Column="1" TopLine="298"/>
       </Position4>
       <Position5>
-        <Filename Value="../base/dbintfs/ubasedocpages.pas"/>
-        <Caret Line="127" Column="3" TopLine="116"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="414" Column="1" TopLine="399"/>
       </Position5>
       <Position6>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="950" Column="7" TopLine="935"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="418" Column="1" TopLine="399"/>
       </Position6>
       <Position7>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="952" Column="3" TopLine="935"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="316" Column="1" TopLine="297"/>
       </Position7>
       <Position8>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="953" Column="1" TopLine="935"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="317" Column="1" TopLine="297"/>
       </Position8>
       <Position9>
-        <Filename Value="../base/dbintfs/ubasedocpages.pas"/>
-        <Caret Line="127" Column="1" TopLine="116"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="318" Column="1" TopLine="297"/>
       </Position9>
       <Position10>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="2212" Column="1" TopLine="2204"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="321" Column="1" TopLine="297"/>
       </Position10>
       <Position11>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="2206" Column="1" TopLine="2199"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="322" Column="1" TopLine="297"/>
       </Position11>
       <Position12>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="2213" Column="1" TopLine="2199"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="324" Column="1" TopLine="309"/>
       </Position12>
       <Position13>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="2214" Column="1" TopLine="2199"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="326" Column="1" TopLine="306"/>
       </Position13>
       <Position14>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="2219" Column="1" TopLine="2199"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="411" Column="1" TopLine="392"/>
       </Position14>
       <Position15>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="2220" Column="1" TopLine="2199"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="413" Column="1" TopLine="392"/>
       </Position15>
       <Position16>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="2222" Column="1" TopLine="2199"/>
+        <Filename Value="../base/dbintfs/uprojects.pas"/>
+        <Caret Line="317" Column="1" TopLine="298"/>
       </Position16>
       <Position17>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="2223" Column="1" TopLine="2199"/>
+        <Filename Value="../base/dbintfs/uprojects.pas"/>
+        <Caret Line="318" Column="1" TopLine="298"/>
       </Position17>
       <Position18>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="2225" Column="1" TopLine="2199"/>
+        <Filename Value="../base/dbintfs/uprojects.pas"/>
+        <Caret Line="319" Column="1" TopLine="298"/>
       </Position18>
       <Position19>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="2235" Column="1" TopLine="2219"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="414" Column="1" TopLine="392"/>
       </Position19>
       <Position20>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="2248" Column="1" TopLine="2192"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="418" Column="1" TopLine="392"/>
       </Position20>
       <Position21>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="953" Column="1" TopLine="935"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="316" Column="1" TopLine="297"/>
       </Position21>
       <Position22>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="2216" Column="37" TopLine="2192"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="317" Column="1" TopLine="297"/>
       </Position22>
       <Position23>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="980" Column="1" TopLine="965"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="318" Column="1" TopLine="297"/>
       </Position23>
       <Position24>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="978" Column="56" TopLine="961"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="321" Column="1" TopLine="297"/>
       </Position24>
       <Position25>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="981" Column="45" TopLine="963"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="322" Column="1" TopLine="297"/>
       </Position25>
       <Position26>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="980" Column="133" TopLine="963"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="324" Column="1" TopLine="297"/>
       </Position26>
       <Position27>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="2213" Column="1" TopLine="2192"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="325" Column="1" TopLine="297"/>
       </Position27>
       <Position28>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="511" Column="1" TopLine="496"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="298" Column="1" TopLine="275"/>
       </Position28>
       <Position29>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="636" Column="25" TopLine="633"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="299" Column="23" TopLine="281"/>
       </Position29>
       <Position30>
-        <Filename Value="../base_docmanage/ucameraimport.pas"/>
-        <Caret Line="169" Column="29" TopLine="152"/>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="414" Column="29" TopLine="395"/>
       </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">

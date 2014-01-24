@@ -295,9 +295,8 @@ var
   aTasks: TTask;
   aDataSet: TBaseDBDataset = nil;
   aLink: String;
-  Hist : IBaseHistory;
-  aHist: TBaseHistory;
   aDataSetClass: TBaseDBDatasetClass;
+  aHist: TBaseHistory;
 begin
   aLink := '';
   Result := prFailed;
@@ -317,7 +316,8 @@ begin
             if (copy(FieldByName('LINK').AsString,0,9) = 'PROJECTS@')
             or (copy(FieldByName('LINK').AsString,0,11) = 'PROJECTS.ID')
             then
-              ProjectLink := FieldByName('LINK').AsString;
+              ProjectLink := FieldByName('LINK').AsString
+            else ProjectLink:='';
             if (FieldByName('LINK').AsString<>'') and (aLink <> FieldByName('LINK').AsString) then
               begin
                 FreeAndNil(aDataSet);
@@ -401,12 +401,17 @@ begin
                     if Entrys.CanEdit then
                       Entrys.DataSet.Post;
                     Added := True;
+                    aTasks.Free;
                   end;
-                if (not Added) and Assigned(aDataSet) and Supports(aDataSet, IBaseHistory, Hist) and (aDataSet.Count>0) then
+                if (not Added) and Assigned(aDataSet) and (aDataSet.Count>0) then
                   begin
                     Added := True;
-                    aHist := Hist.GetHistory;
-                    aHist.AddItem(Data.Users.DataSet,FieldByName('DESC').AsString,Data.BuildLink(Self.DataSet),Self.DataSet.FieldByName('NAME').AsString,nil,ACICON_USEREDITED,'',True,True)
+                    if aDataSet is TMasterdata then
+                      aHist := TMasterdata(aDataSet).History
+                    else if aDataSet is TProject then
+                      aHist := TProject(aDataSet).History;
+                     if Assigned(aHist) then
+                      aHist.AddItem(Data.Users.DataSet,FieldByName('DESC').AsString,Data.BuildLink(Self.DataSet),Self.DataSet.FieldByName('NAME').AsString,nil,ACICON_USEREDITED,'',True,True)
                   end;
               end;
             Next;
