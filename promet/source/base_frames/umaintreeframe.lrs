@@ -36,8 +36,9 @@ LazarusResources.Add('TfMainTree','FORMDATA',[
   +'Caption'#6' Standardansicht wiederherstellen'#10'ImageIndex'#2'8'#9'OnExecu'
   +'te'#7#24'acRestoreStandardExecute'#0#0#7'TAction'#12'acCopyAsLink'#7'Captio'
   +'n'#6#25'Als Verkn'#195#188'pfung kopieren'#10'ImageIndex'#2#23#9'OnExecute'
-  +#7#19'acCopyAsLinkExecute'#0#0#7'TAction'#11'acPasteLink'#7'Caption'#6#11'ac'
-  +'PasteLink'#10'ImageIndex'#2'o'#9'OnExecute'#7#18'acPasteLinkExecute'#0#0#0
-  +#10'TIdleTimer'#13'DblClickTimer'#7'Enabled'#8#8'Interval'#2'd'#7'OnTimer'#7
-  +#18'DblClickTimerTimer'#4'left'#2'X'#3'top'#3#8#1#0#0#0
+  +#7#19'acCopyAsLinkExecute'#0#0#7'TAction'#11'acPasteLink'#7'Caption'#6#22'Ve'
+  +'rkn'#195#188'pfung einf'#195#188'gen'#10'ImageIndex'#2'o'#9'OnExecute'#7#18
+  +'acPasteLinkExecute'#0#0#0#10'TIdleTimer'#13'DblClickTimer'#7'Enabled'#8#8'I'
+  +'nterval'#2'd'#7'OnTimer'#7#18'DblClickTimerTimer'#4'left'#2'X'#3'top'#3#8#1
+  +#0#0#0
 ]);

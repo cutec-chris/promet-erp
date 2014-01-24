@@ -209,6 +209,7 @@ var
   i: Integer;
   New: TMenuItem;
   Typ: String;
+  tmp: String;
 begin
   if not Assigned(tvMain.Selected) then
     begin
@@ -305,6 +306,8 @@ begin
           New := TMenuItem.Create(nil);
           New.Action := acPasteLink;
           pmTree.Items.Add(New);
+          tmp := ClipBoard.AsText;
+          acPasteLink.Enabled:=(Clipboard.HasFormat(LinkClipboardFormat) or (pos('://',tmp) > 0));
         end;
       case DataT.Typ of
       etArticle,
@@ -426,6 +429,7 @@ begin
               with aDS do
                 begin
                   Insert;
+                  FieldByName('RREF_ID').AsVariant := Data.Tree.Id.AsVariant;
                   FieldByName('LINK').AsString := aLink;
                   FieldByName('NAME').AsString := aLinkDesc;
                   FieldByName('ICON').AsInteger := aIcon;
@@ -452,6 +456,7 @@ begin
           with aDS do
             begin
               Insert;
+              FieldByName('RREF_ID').AsVariant := Data.Tree.Id.AsVariant;
               FieldByName('LINK').AsString := aLink;
               FieldByName('NAME').AsString := aLinkDesc;
               FieldByName('ICON').AsInteger := aIcon;

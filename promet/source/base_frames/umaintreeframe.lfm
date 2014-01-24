@@ -98,7 +98,7 @@ object fMainTree: TfMainTree
       OnExecute = acCopyAsLinkExecute
     end
     object acPasteLink: TAction
-      Caption = 'acPasteLink'
+      Caption = 'Verknüpfung einfügen'
       ImageIndex = 111
       OnExecute = acPasteLinkExecute
     end
