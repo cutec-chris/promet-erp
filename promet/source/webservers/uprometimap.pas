@@ -384,7 +384,11 @@ var
 begin
   Result:=False;
   Max := 0;
-  FSelector := aFilter;
+  FSelector:='';
+  if (aFilter<>'HEADER')
+  then
+    FSelector := aFilter
+  else Max := 300;
   FUseUID := aUseUID;
   FMessages.Last;
   Result := SelectNext;
@@ -731,33 +735,49 @@ end;
 function TPIMAPFolder.Search(aParams: string): string;
 var
   tmpRecNo: String;
+  Found: Boolean = False;
   function CheckParams(sParams : string) : Boolean;
+  var
+    tmp: String;
   begin
     Result := (pos('HEADER',aParams)=0)
           and (pos('BODY',aParams)=0)
              ;
+    if (pos('HEADER',aParams)>0) then
+      begin
+        Result := False;
+        if (pos('MESSAGE-ID',aParams)>0) then
+          begin
+            tmp := trim(copy(aParams,pos('MESSAGE-ID',aParams)+11,length(aParams)));
+            if pos(' ',tmp)>0 then
+              tmp := copy(tmp,0,pos(' ',tmp)-1);
+            if copy(tmp,0,1)='<' then
+              tmp:=copy(tmp,2,pos('>',tmp)-2);
+            if tmp=FMessages.FieldByName('ID').AsString then
+              Result := True;
+          end;
+      end;
   end;
 
 begin
   //TODO:more Selections possible
   Result:='* SEARCH';
-  while FSelectCount>0 do
+  FMessages.DataSet.Last;
+  while (FSelectCount>0) and (not FMessages.DataSet.BOF) do
     begin
-      while not FMessages.DataSet.BOF do
+      if FSequenceNumbers.IndexOf(FMessages.Id.AsString)=-1 then
+        tmpRecNo := IntToStr(FSequenceNumbers.Add(FMessages.Id.AsString)+1)
+      else tmpRecNo:=IntToStr(FSequenceNumbers.IndexOf(FMessages.Id.AsString)+1);
+      if CheckParams(aParams) then
         begin
-          if FSequenceNumbers.IndexOf(FMessages.Id.AsString)=-1 then
-            tmpRecNo := IntToStr(FSequenceNumbers.Add(FMessages.Id.AsString)+1)
-          else tmpRecNo:=IntToStr(FSequenceNumbers.IndexOf(FMessages.Id.AsString)+1);
-          if CheckParams(aParams) then
-            begin
-              if FUseUID then
-                Result := Result+' '+FMessages.Id.AsString
-              else
-                Result := Result+' '+tmpRecNo;
-            end;
-          dec(FSelectCount);
-          FMessages.Prior;
+          Found := True;
+          if FUseUID then
+            Result := Result+' '+FMessages.Id.AsString
+          else
+            Result := Result+' '+tmpRecNo;
         end;
+      dec(FSelectCount);
+      FMessages.Prior;
     end;
 end;
 

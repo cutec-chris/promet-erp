@@ -494,7 +494,7 @@ var
                 Answer('NO failed,'+e.Message);
             end;
           end
-        else if not aUseUID then
+        else
           begin
             try
               FGroup.SelectCount:=FGroup.Count;
@@ -507,11 +507,6 @@ var
                 Answer('NO failed,'+e.Message);
             end;
           end
-        else
-          begin
-            DontLog:=False;
-            Answer('NO failed.');
-          end;
       end
     else
       Answer('BAD Comand not implemented.');
