@@ -27,6 +27,14 @@ uses
 {.$DEFINE DEBUG}
 type
 
+  { TPIMAPSocket }
+
+  TPIMAPSocket = class(TLIMAPSocket)
+  public
+    procedure RefreshFolders; override;
+    function SelectUser: Boolean; override;
+  end;
+
   { TPIMAPFolder }
 
   TPIMAPFolder = class(TIMAPFolder)
@@ -68,6 +76,38 @@ type
 implementation
 uses uData,Variants,SynaUtil,uSessionDBClasses,uBaseDBInterface,Utils,
   uPerson,LConvEncoding,uIntfStrConsts;
+
+{ TPIMAPSocket }
+
+procedure TPIMAPSocket.RefreshFolders;
+var
+  aGroup: TPIMAPFolder;
+begin
+  Folders.Clear;
+  Data.SetFilter(Data.Tree,Data.QuoteField('TYPE')+'='+Data.QuoteValue('B')+' or '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('N'),0,'','ASC',False,True,True);
+  with Data.Tree.DataSet do
+    begin
+      First;
+      while not EOF do
+        begin
+          if Data.Tree.Id.AsVariant = TREE_ID_MESSAGES then
+            aGroup := TPIMAPFolder.Create('INBOX',Data.Tree.Id.AsString)
+          else if Data.Tree.Id.AsVariant = TREE_ID_DELETED_MESSAGES then
+            aGroup := TPIMAPFolder.Create('Trash',Data.Tree.Id.AsString)
+          else if Data.Tree.Id.AsVariant = TREE_ID_SEND_MESSAGES then
+            aGroup := TPIMAPFolder.Create('Sent',Data.Tree.Id.AsString)
+          else
+            aGroup := TPIMAPFolder.Create(FieldByName('NAME').AsString,Data.Tree.Id.AsString);
+          Folders.Add(aGroup);
+          next;
+        end;
+    end;
+end;
+
+function TPIMAPSocket.SelectUser : Boolean;
+begin
+  Result := Data.Users.DataSet.Locate('LOGINNAME',User,[]) or Data.Users.DataSet.Locate('NAME',User,[]);
+end;
 
 function TPIMAPFolder.SelectNext: Boolean;
 var

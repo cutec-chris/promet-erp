@@ -1,20 +1,13 @@
 #!/bin/bash
-# Lazarus service application shell script
+# Promet Process Service
 
 SVC_START_OPTIONS="-r"
 SVC_STOP_OPTIONS="s"
-
-# Edit SVC_ALIAS to the long description of your service application
 SVC_ALIAS="Service to execute Promet services"
-# Edit SVC_FILENAME to the actual name of your compiled service application
 SVC_FILENAME="promet-process"
-
-# Edit SVC_DIR to where you place your compiled service application 
 SVC_DIR="/usr/lib/promet-erp/tools/"
-
-# Edit SVC_SERVICE_SCRIPT to the name of this file without the extension
 SVC_SERVICE_SCRIPT="promet-process"
-# this will become your service name.  Ie.) service YourService start
+
 
 SVC_FILE=$SVC_DIR$SVC_FILENAME
 start() {
@@ -84,13 +77,17 @@ case "$1" in
     status)
         status $SVC_SERVICE_SCRIPT
         ;;
+    force-reload)
+        stop
+        start
+        ;;
     restart)
         stop
         start
         ;;
     *)
 	echo $SVC_ALIAS" [Invalid Startup Parameters]"        
-	echo "Usage:  {start|stop|status|restart}"
+	echo "Usage:  {start|stop|status|restart|force-reload}"
         exit 1
         ;;
 esac

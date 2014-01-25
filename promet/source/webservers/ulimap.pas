@@ -78,6 +78,7 @@ type
     procedure LIMAPSocketError(aHandle: TLHandle; const msg: string);
   private
     FBuffer: string;
+    FGroups: TIMAPFolders;
     FId: Integer;
     FShouldSend: Boolean;
     FUser: string;
@@ -105,6 +106,9 @@ type
     property User : string read FUser write FUser;
     property Id : Integer read FId write FId;
     property ShouldSend : Boolean read FShouldSend write FShouldSend;
+    property Folders : TIMAPFolders read FGroups;
+    procedure RefreshFolders;virtual;abstract;
+    function SelectUser : Boolean;virtual;abstract;
     constructor Create;override;
     destructor Destroy;override;
   end;
@@ -116,7 +120,6 @@ type
   TLIMAPServer = class(TLTcp)
     procedure LIMAPServerCanSend(aSocket: TLSocket);
   private
-    FGroups: TIMAPFolders;
     FLog: TLLogEvent;
     FLogin: TLLoginEvent;
     FSocketCounter : Integer;
@@ -130,7 +133,6 @@ type
    procedure Start;
    property OnLogin : TLLoginEvent read FLogin write FLogin;
    property OnLog : TLLogEvent read FLog write FLog;
-   property Folders : TIMAPFolders read FGroups;
    procedure CallAction; override;
   end;
 implementation
@@ -503,7 +505,7 @@ begin
   or (aCommand = 'EXAMINE')
   then
     begin
-      if (FUser = '') then
+      if not SelectUser then
         begin
           Answer('NO Authentication required');
           exit;
@@ -511,11 +513,11 @@ begin
       Found := False;
       if copy(aParams,0,1)='"' then
         aParams := copy(aParams,2,length(aParams)-2);
-      for i := 0 to TLIMAPServer(Creator).Folders.Count-1 do
+      for i := 0 to Folders.Count-1 do
         begin
-          if TLIMAPServer(Creator).Folders.Folder[i].Name = aParams then
+          if Folders.Folder[i].Name = aParams then
             begin
-              aGroup := TLIMAPServer(Creator).Folders.Folder[i];
+              aGroup := Folders.Folder[i];
               FGroup := aGroup;
               Answer('* FLAGS (\Answered \Flagged \Deleted \Seen \Draft)',False);
               Answer('* OK [PERMANENTFLAGS (\Answered \Flagged \Deleted \Seen \Draft \*)] Flags permitted. ',False);
@@ -533,9 +535,9 @@ begin
     end
   else if aCommand = 'APPEND' then
     begin
-      if (FUser = '') then
+      if not SelectUser then
         begin
-          Answer('BAD Authentication required');
+          Answer('NO Authentication required');
           exit;
         end
       else
@@ -548,11 +550,11 @@ begin
           else
             tmp := copy(aParams,0,pos(' ',aParams)-1);
           if Assigned(FGroup) then FGroup := nil;
-          for i := 0 to TLIMAPServer(Creator).Folders.Count-1 do
+          for i := 0 to Folders.Count-1 do
             begin
-              if TLIMAPServer(Creator).Folders.Folder[i].Name = tmp then
+              if Folders.Folder[i].Name = tmp then
                 begin
-                  FGroup := TLIMAPServer(Creator).Folders.Folder[i];
+                  FGroup := Folders.Folder[i];
                 end;
             end;
           if Assigned(FGroup) then
@@ -586,6 +588,11 @@ begin
     end
   else if aCommand = 'LIST' then
     begin
+      if not SelectUser then
+        begin
+          Answer('NO Authentication required');
+          exit;
+        end;
       if copy(tmp,0,1)='"' then
         tmp := copy(tmp,2,length(tmp)-2);
       aParams:=copy(aParams,pos(' ',aParams)+1,length(aParams));
@@ -594,9 +601,9 @@ begin
       //TODO:fix this
       aParams := StringReplace(aParams,'*','',[rfReplaceAll]);
       aParams := StringReplace(aParams,'?','',[rfReplaceAll]);
-      for i := 0 to TLIMAPServer(Creator).Folders.Count-1 do
+      for i := 0 to Folders.Count-1 do
         begin
-          aGroup := TLIMAPServer(Creator).Folders.Folder[i];
+          aGroup := Folders.Folder[i];
           if (pos(aParams,aGroup.Name) >0) or (aParams='') then
             Answer(Format('* LIST (\Noinferiors) "/" "%s"',[aGroup.Name]),False);
         end;
@@ -604,6 +611,11 @@ begin
     end
   else if aCommand = 'LSUB' then
     begin
+      if not SelectUser then
+        begin
+          Answer('NO Authentication required');
+          exit;
+        end;
       if copy(tmp,0,1)='"' then
         tmp := copy(tmp,2,length(tmp)-2);
       aParams:=copy(aParams,pos(' ',aParams)+1,length(aParams));
@@ -612,9 +624,9 @@ begin
       //TODO:fix this
       aParams := StringReplace(aParams,'*','',[rfReplaceAll]);
       aParams := StringReplace(aParams,'?','',[rfReplaceAll]);
-      for i := 0 to TLIMAPServer(Creator).Folders.Count-1 do
+      for i := 0 to Folders.Count-1 do
         begin
-          aGroup := TLIMAPServer(Creator).Folders.Folder[i];
+          aGroup := Folders.Folder[i];
           if (pos(aParams,aGroup.Name) >0) or (aParams='') then
             Answer(Format('* LSUB (\Noinferiors) "/" "%s"',[aGroup.Name]),False);
         end;
@@ -637,11 +649,21 @@ begin
        or (aCommand = 'STORE')
   then
     begin
+      if not SelectUser then
+        begin
+          Answer('NO Authentication required');
+          exit;
+        end;
       aParams := aCommand+' '+aParams;
       DoCommand(aParams,False);
     end
   else if aCommand = 'STATUS' then
     begin
+      if not SelectUser then
+        begin
+          Answer('NO Authentication required');
+          exit;
+        end;
       tmp := copy(aParams,pos('(',aParams),length(aParams));
       if pos('(',aParams)>0 then
         aParams:=copy(aParams,0,pos('(',aParams)-1);
@@ -649,16 +671,16 @@ begin
       if copy(aParams,0,1)='"' then
         aParams := copy(aParams,2,length(aParams)-2);
       Found := False;
-      for i := 0 to TLIMAPServer(Creator).Folders.Count-1 do
+      for i := 0 to Folders.Count-1 do
         begin
-          if TLIMAPServer(Creator).Folders.Folder[i].Name = aParams then
+          if Folders.Folder[i].Name = aParams then
             begin
               aParams := tmp;
               if copy(aParams,0,1)='(' then
                 aParams := copy(aParams,2,length(aParams)-2);
               if aParams = '' then aParams := 'MESSAGES UIDNEXT UNSEEN RECENT';
               aParams := aParams+' ';
-              aGroup := TLIMAPServer(Creator).Folders.Folder[i];
+              aGroup := Folders.Folder[i];
               tmp := '';
               while pos(' ',aParams)>0 do
                 begin
@@ -711,6 +733,7 @@ begin
             begin
               Answer('OK Login Ok.');
               FUser := tmp;
+              RefreshFolders;
             end
           else
             begin
@@ -750,12 +773,14 @@ begin
   FTerminated := False;
   FStopFetching := False;
   Self.OnError:=@LIMAPSocketError;
+  FGroups := TIMAPFolders.Create;
 end;
 destructor TLIMAPSocket.Destroy;
 begin
   FTerminated := True;
 //  if Assigned(FGroup) then fGroup.Destroy;
   FPostMessage.Destroy;
+  FGroups.Free;
   inherited;
 end;
 
@@ -803,13 +828,11 @@ constructor TLIMAPServer.Create(aOwner: TComponent);
 begin
   inherited Create(aOwner);
   FSocketCounter := 0;
-  FGroups := TIMAPFolders.Create;
   SocketClass := TLIMAPSocket;
   OnCanSend:=@LIMAPServerCanSend;
 end;
 destructor TLIMAPServer.Destroy;
 begin
-  FGroups.Destroy;
   inherited Destroy;
 end;
 

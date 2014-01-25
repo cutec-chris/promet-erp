@@ -127,26 +127,9 @@ begin
       getLog.LogType := ltFile;
       GetLog.Active:=True;
     end;
-  Data.SetFilter(Data.Tree,Data.QuoteField('TYPE')+'='+Data.QuoteValue('B')+' or '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('N'),0,'','ASC',False,True,True);
-  with Data.Tree.DataSet do
-    begin
-      First;
-      while not EOF do
-        begin
-          if Data.Tree.Id.AsVariant = TREE_ID_MESSAGES then
-            aGroup := TPIMAPFolder.Create('INBOX',Data.Tree.Id.AsString)
-          else if Data.Tree.Id.AsVariant = TREE_ID_DELETED_MESSAGES then
-            aGroup := TPIMAPFolder.Create('Trash',Data.Tree.Id.AsString)
-          else if Data.Tree.Id.AsVariant = TREE_ID_SEND_MESSAGES then
-            aGroup := TPIMAPFolder.Create('Sent',Data.Tree.Id.AsString)
-          else
-            aGroup := TPIMAPFolder.Create(FieldByName('NAME').AsString,Data.Tree.Id.AsString);
-          IMAPServer.Folders.Add(aGroup);
-          next;
-        end;
-    end;
   IMAPServer.OnLogin :=@ServerLogin;
   IMAPServer.OnLog:=@ServerLog;
+  IMAPServer.SocketClass:=TPIMAPSocket;
   while not Terminated do
     begin
       IMAPServer.CallAction;
