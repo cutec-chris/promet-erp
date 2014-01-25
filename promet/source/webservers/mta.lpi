@@ -68,8 +68,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="561"/>
-        <CursorPos X="1" Y="579"/>
+        <TopLine Value="123"/>
+        <CursorPos X="1" Y="153"/>
         <UsageCount Value="145"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -1172,15 +1172,6 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="1">
-      <Item1>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="mta.lpr"/>
-        <Line Value="420"/>
-      </Item1>
-    </BreakPoints>
     <Watches Count="1">
       <Item1>
         <Expression Value="aFilter"/>

@@ -120,6 +120,7 @@ type
   TLIMAPServer = class(TLTcp)
     procedure LIMAPServerCanSend(aSocket: TLSocket);
   private
+    FDebug: TLLogEvent;
     FLog: TLLogEvent;
     FLogin: TLLoginEvent;
     FSocketCounter : Integer;
@@ -133,6 +134,7 @@ type
    procedure Start;
    property OnLogin : TLLoginEvent read FLogin write FLogin;
    property OnLog : TLLogEvent read FLog write FLog;
+   property OnDebug : TLLogEvent read FDebug write FDebug;
    procedure CallAction; override;
   end;
 implementation
@@ -253,9 +255,9 @@ var
     else
       FSendBuffer += aMsg+CRLF;
     DoSendBuffer;
-    if Assigned(TLIMAPServer(Creator).OnLog) and DoLog then
+    if Assigned(TLIMAPServer(Creator).OnDebug) and DoLog then
       begin
-        TLIMAPServer(Creator).OnLog(Self,True,copy(aMsg,0,100));
+        TLIMAPServer(Creator).OnDebug(Self,True,copy(aMsg,0,100));
       end;
     Answered := True;
   end;
@@ -426,18 +428,28 @@ var
         bRange := aRange;
         if aUseUID and FGroup.SelectMessages(aRange,aUseUID) then
           begin
-            tmp := FGroup.Search(bParams);
-            DontLog:=False;
-            Answer(tmp,False);
-            Answer('OK Success.');
+            try
+              tmp := FGroup.Search(bParams);
+              DontLog:=False;
+              Answer(tmp,False);
+              Answer('OK Success.');
+            except
+              on e : Exception do
+                Answer('NO failed,'+e.Message);
+            end;
           end
         else if not aUseUID then
           begin
-            FGroup.SelectCount:=FGroup.Count;
-            tmp := FGroup.Search(aRange+' '+bParams);
-            DontLog:=False;
-            Answer(tmp,False);
-            Answer('OK Success.');
+            try
+              FGroup.SelectCount:=FGroup.Count;
+              tmp := FGroup.Search(aRange+' '+bParams);
+              DontLog:=False;
+              Answer(tmp,False);
+              Answer('OK Success.');
+            except
+              on e : Exception do
+                Answer('NO failed,'+e.Message);
+            end;
           end
         else
           begin
@@ -449,12 +461,12 @@ var
       Answer('BAD Comand not implemented.');
   end;
 begin
-  if Assigned(TLIMAPServer(Self.Creator).OnLog) and (not FPostMode) then
+  if Assigned(TLIMAPServer(Self.Creator).OnDebug) and (not FPostMode) then
     begin
       if not (pos('LOGIN ',Uppercase(aLine)) > 0) then
-        TLIMAPServer(Self.Creator).OnLog(Self,False,aLine)
+        TLIMAPServer(Self.Creator).OnDebug(Self,False,aLine)
       else
-        TLIMAPServer(Self.Creator).OnLog(Self,False,copy(aLine,0,pos('LOGIN',Uppercase(aLine))+5));
+        TLIMAPServer(Self.Creator).OnDebug(Self,False,copy(aLine,0,pos('LOGIN',Uppercase(aLine))+5));
     end;
   if FAuthMode then
     begin

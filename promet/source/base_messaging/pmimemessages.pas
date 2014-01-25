@@ -7,7 +7,7 @@ unit pmimemessages;
 interface
 
 uses
-  uMimeMessages, mailchck, LazarusPackageIntf;
+  uMimeMessages, mailchck, ureceivemessage, LazarusPackageIntf;
 
 implementation
 

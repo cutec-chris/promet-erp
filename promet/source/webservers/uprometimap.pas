@@ -352,6 +352,7 @@ begin
       with Customers.History.DataSet as IBaseManageDB do
         UpdateStdFields := True;
       Customers.History.Post;
+      {
       if Data.Users.DataSet.Locate('NAME',aUser,[loCaseInsensitive]) then
       Data.Users.History.AddItemWithoutUser(Customers.DataSet,Format(strActionMessageReceived,[aSubject]),
                                     'MESSAGEIDX@'+aMessage.FieldByName('ID').AsString+'{'+aSubject+'}',
@@ -366,6 +367,7 @@ begin
       Data.Users.History.Post;
       with Data.Users.History.DataSet as IBaseManageDB do
         UpdateStdFields := True;
+      }
     end;
   aMsg.Free;
   aMessage.DataSet.Post;

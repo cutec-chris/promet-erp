@@ -20,8 +20,8 @@ uses
   Classes, SysUtils, CustApp, uBaseCustomApplication, pmimemessages, mimemess,
   pop3send, mimepart, uData, uBaseDBInterface, Utils, uMessages, uBaseDBClasses,
   uPerson, synautil, uIntfStrConsts, FileUtil, db, uDocuments, ssl_openssl,
-  uMimeMessages,synaip, laz_synapse,uBaseApplication,LConvEncoding,RegExpr,mailchck,
-  blcksock;
+  uMimeMessages,synaip, laz_synapse,uBaseApplication,LConvEncoding,RegExpr,
+  blcksock,ureceivemessage;
 
 type
   TPOP3Receiver = class(TBaseCustomApplication)
@@ -34,8 +34,6 @@ type
     messageidx: LongInt;
     msg: TMimeMess;
     fullmsg: TMimeMess;
-    NewMessages,
-    NewUnknownMessages : Integer;
     pop: TPOP3Send;
   protected
     procedure DoRun; override;
@@ -117,8 +115,6 @@ var
   mailaccounts : string = '';
   omailaccounts : string = '';
   aTreeEntry: Integer;
-  BMID: LongInt;
-  SpamPoints: real;
   a,b: Integer;
   aMID: String;
   MessageIndex : TMessageList;
@@ -130,12 +126,6 @@ var
   DoDelete : Boolean = False;
   ss: TStringStream;
   tmp: String;
-  lSP: Integer;
-  aChk: Integer;
-  aSendDate: TDateTime;
-  aReceivedDate: TDateTime;
-  aTransmitTime: Integer;
-  aDate: TDateTime;
 
   function DoGetStartValue: Integer;
   var
@@ -296,168 +286,20 @@ begin
                           msg := TMimeMess.Create;
                           msg.Lines.Text:=pop.FullResult.Text;
                           msg.DecodeMessage;
-                          aSender :=  ConvertEncoding(msg.Header.From,GuessEncoding(msg.Header.From),EncodingUTF8);
-                          aSubject := ConvertEncoding(msg.Header.Subject,GuessEncoding(msg.Header.Subject),EncodingUTF8);
                           aMID := copy(MList[messageidx],pos(' ',MList[messageidx])+1,length(MList[messageidx]));
                           Data.SetFilter(MessageIndex,'"ID"='''+aMID+'''');
                           Data.SetFilter(DeletedItems,'"LINK"=''MESSAGEIDX@'+aMID+'''');
                           if (not MessageIndex.DataSet.Locate('ID',aMID,[]))
                           and (not DeletedItems.DataSet.Locate('LINK','MESSAGEIDX@'+aMID,[])) then
                             begin
-                              atmp:=ConvertEncoding(getemailaddr(msg.Header.From),GuessEncoding(getemailaddr(msg.Header.From)),EncodingUTF8);
-                              try
-                                CustomerCont := TPersonContactData.Create(Self,Data);
-                                if Data.IsSQLDb then
-                                  Data.SetFilter(CustomerCont,'UPPER("DATA")=UPPER('''+atmp+''')')
-                                else
-                                  Data.SetFilter(CustomerCont,'"DATA"='''+atmp+'''');
-                              except
-                              end;
-                              Customers := TPerson.Create(Self,Data);
-                              Data.SetFilter(Customers,'"ACCOUNTNO"='+Data.QuoteValue(CustomerCont.DataSet.FieldByName('ACCOUNTNO').AsString));
-                              CustomerCont.Free;
-                              if Customers.Count > 0 then
-                                begin
-                                  Customers.History.Open;
-                                  Customers.History.AddItem(Customers.DataSet,Format(strActionMessageReceived,[aSubject]),
-                                                            'MESSAGEIDX@'+aMID+'{'+aSubject+'}',
-                                                            '',
-                                                            nil,
-                                                            ACICON_MAILNEW);
-                                  aTreeEntry := TREE_ID_MESSAGES;
-                                  inc(NewMessages);
-                                  Data.Users.History.AddItemWithoutUser(Customers.DataSet,Format(strActionMessageReceived,[aSubject]),
-                                                                'MESSAGEIDX@'+aMID+'{'+aSubject+'}',
-                                                                '',
-                                                                nil,
-                                                                ACICON_MAILNEW);
-                                end
-                              else
-                                begin
-                                  aTreeEntry := TREE_ID_UNKNOWN_MESSAGES;
-                                  inc(NewUnknownMessages);
-                                end;
-                              Customers.Free;
-                              if aTreeEntry <> TREE_ID_MESSAGES then
-                                begin
-                                  if msg.Header.ToList.Count > 0 then
-                                    if getemailaddr(trim(msg.Header.ToList[0])) = getemailaddr(trim(msg.Header.From)) then
-                                      aTreeEntry := TREE_ID_SPAM_MESSAGES;
-                                  aSendDate := Now();
-                                  aReceivedDate := 0;
-                                  if aTreeEntry = TREE_ID_UNKNOWN_MESSAGES then
-                                    begin //Filter Spam
-                                      SpamPoints := 0;
-                                      b := 0;
-                                      for a := 0 to msg.Header.CustomHeaders.Count-1 do
-                                        begin
-                                          lSP := 0;
-                                          atmp := msg.Header.CustomHeaders[a];
-                                          if copy(atmp,0,9) = 'Received:' then
-                                            begin
-                                              inc(b);
-                                              lSP := 1;
-                                              atmp := copy(atmp,16,length(atmp));
-                                              aDate := DecodeRfcDateTime(copy(atmp,pos(';',atmp)+1,length(atmp)));
-                                              if aDate > aReceivedDate then aReceivedDate:=aDate;
-                                              if aDate < aSendDate then aSendDate:=aDate;
-                                              atmp := trim(copy(atmp,0,pos('by',lowercase(atmp))-1));
-                                              if copy(atmp,0,1) = '[' then
-                                                lSP := lSP+2;//kein DNS
-                                              if (pos('with esmtps',lowercase(msg.Header.CustomHeaders[a]))>0)//verschlüsselte Verbindung
-                                              or (pos('with local',lowercase(msg.Header.CustomHeaders[a]))>0)//lokal
-                                              then
-                                                lSP := 0;
-                                            end
-                                          else if copy(atmp,0,17)='List-Unsubscribe:' then
-                                            lSP := lSP+5;//Alle Spammer versuchen sich als Mailingliste auszugeben
-                                                         //und pber den List-Unsubscribe nen Button einzublenden "zum abbestellen"
-                                          SpamPoints+=lSP;
-                                        end;
-                                      aTransmitTime := trunc((aReceivedDate-aSendDate)*MinsPerDay);
-                                      if aTransmitTime < 3 then aTransmitTime:=0;
-                                      SpamPoints+=aTransmitTime;
-                                      a := 0;
-                                      if msg.Header.FindHeader('X-Spam-Flag') = 'YES' then
-                                        SpamPoints := SpamPoints+4;
-                                      if  (msg.Header.FindHeader('X-GMX-Antispam') <> '') then
-                                        begin
-                                          if TryStrToInt(trim(copy(trim(msg.Header.FindHeader('X-GMX-Antispam')),0,pos(' ',trim(msg.Header.FindHeader('X-GMX-Antispam')))-1)),a) then
-                                            if a > 0 then
-                                              SpamPoints := SpamPoints+4;
-                                        end;
-                                      atmp := trim(msg.Header.From);
-                                      if (pos('>',atmp) > 0) and (pos('<',atmp) > 0) then
-                                        atmp := getemailaddr(atmp)
-                                      else if atmp = '' then
-                                        SpamPoints := SpamPoints+4   //Kein Absender
-                                      else
-                                        SpamPoints := SpamPoints+1; //Kein Realname
-                                      //Mails mit großer Empfängeranzahl
-                                      SpamPoints := SpamPoints+((msg.Header.ToList.Count*0.5)-0.5);
-                                    end;
-                                  atmp := trim(msg.Header.From);
-                                  if (SpamPoints>0) and (Spampoints<=5) then
-                                    begin
-                                      if (pos('>',atmp) > 0) and (pos('<',atmp) > 0) then
-                                        atmp := getemailaddr(atmp);
-                                      aChk := mailcheck(atmp);
-                                      case aChk of
-                                      1,2,3: aChk := 0;
-                                      end;
-                                      SpamPoints+=aChk;
-                                    end;
-                                  if SpamPoints > 5 then
-                                    begin
-                                      aTreeEntry := TREE_ID_SPAM_MESSAGES;
-                                    end;
-                                end;
+                              ureceivemessage.CheckHeader(aMid,msg);
                               if pop.Retr(MID) then //Naricht holen
                                 begin
-                                  Message.Select(0);
-                                  Message.Open;
-                                  with Message.DataSet do
-                                    begin //Messagenot there
-                                      BMID := Data.GetUniID(nil);
-                                      Insert;
-                                      FieldByName('USER').AsString := Data.Users.DataSet.FieldByName('ACCOUNTNO').AsString;
-                                      FieldByName('ID').AsString := aMID;
-                                      FieldByName('MSG_ID').AsInteger:=BMID;
-                                      FieldByName('TYPE').AsString := 'EMAIL';
-                                      FieldByName('READ').AsString := 'N';
-                                      fullmsg := TMimeMess.Create;
-                                      fullmsg.Lines.Text:=pop.FullResult.Text;
-                                      fullmsg.DecodeMessage;
-                                      Message.DecodeMessage(fullmsg);
-                                      fullmsg.Free;
-                                      FieldByName('TREEENTRY').AsInteger := aTreeEntry;
-                                      if aTreeEntry = TREE_ID_SPAM_MESSAGES then
-                                        FieldByName('READ').AsString := 'Y';
-                                      Post;
-                                      MessageHandler.SendCommand('prometerp','Message.refresh');
-                                      Message.History.Open;
-                                      Message.History.AddItem(Message.DataSet,Format(strActionMessageReceived,[DateTimeToStr(Now())]),
-                                                                'MESSAGEIDX@'+aMID+'{'+aSubject+'}',
-                                                                '',
-                                                                nil,
-                                                                ACICON_MAILNEW);
-                                      if SpamPoints>0 then
-                                        Message.History.AddItem(Message.DataSet,strMessageSpamPoints+' '+FloatToStr(SpamPoints),
-                                                                  'MESSAGEIDX@'+aMID+'{'+aSubject+'}',
-                                                                  '',
-                                                                  nil,
-                                                                  ACICON_MAILNEW);
-                                    end;
+                                  ReceiveMessage(aMID,pop.FullResult,Message);
+                                  MessageHandler.SendCommand('prometerp','Message.refresh');
                                   if DoArchive and Assigned(pop.FullResult) then
                                     begin
-                                      ArchiveMsg := TArchivedMessage.Create(nil,Data);
-                                      ArchiveMsg.CreateTable;
-                                      ArchiveMsg.Insert;
-                                      ArchiveMsg.DataSet.FieldByName('ID').AsString:=aMID;
-                                      ss := TStringStream.Create(pop.FullResult.Text);
-                                      Data.StreamToBlobField(ss,ArchiveMsg.DataSet,'DATA');
-                                      ss.Free;
-                                      ArchiveMsg.DataSet.Post;
+                                      ArchiveMessage(aMID,pop.FullResult);
                                       if DoDelete then
                                         begin
                                           pop.Dele(MID);
@@ -479,14 +321,7 @@ begin
                                 begin
                                   if pop.Retr(MID) then //Naricht holen
                                     begin
-                                      ArchiveMsg := TArchivedMessage.Create(nil,Data);
-                                      ArchiveMsg.CreateTable;
-                                      ArchiveMsg.Insert;
-                                      ArchiveMsg.DataSet.FieldByName('ID').AsString:=aMID;
-                                      ss := TStringStream.Create(pop.FullResult.Text);
-                                      Data.StreamToBlobField(ss,ArchiveMsg.DataSet,'DATA');
-                                      ss.Free;
-                                      ArchiveMsg.DataSet.Post;
+                                      ArchiveMessage(aMID,pop.FullResult);
                                       if DoDelete then
                                         begin
                                           pop.Dele(MID);

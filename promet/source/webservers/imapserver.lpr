@@ -27,7 +27,8 @@ uses
   Classes, SysUtils, pcmdprometapp, CustApp, uBaseCustomApplication, lnetbase,
   lNet, laz_synapse, ulimap, uBaseDBInterface, md5, uData, eventlog,
   uprometimap, ulsmtpsrv, pmimemessages, fileutil, lconvencoding,
-  uBaseApplication,LCLProc;
+  uBaseApplication,LCLProc,uBaseDbClasses,synautil,ureceivemessage,uMimeMessages,
+  mimemess;
 type
 
   { TPIMAPServer }
@@ -53,8 +54,30 @@ type
 
 function TPIMAPServer.ServerAcceptMail(aSocket: TLSMTPSocket; aFrom: string;
   aTo: TStrings): Boolean;
+var
+  aRes: Boolean = false;
+  aUser: TUser;
+  i: Integer;
 begin
-
+  aUser := TUser.Create(nil,Data);
+  for i := 0 to aTo.Count-1 do
+    begin
+      if Data.IsSQLDb then
+        Data.SetFilter(aUser,'UPPER("EMAIL")=UPPER('''+GetmailAddr(aTo[i])+''')')
+      else
+        Data.SetFilter(aUser,'"EMAIL"='''+GetEmailAddr(aTo[i])+'''');
+      aRes := aRes or (aUser.Count>0);
+    end;
+  if not aRes then
+    begin
+      if Data.IsSQLDb then
+        Data.SetFilter(aUser,'UPPER("EMAIL")=UPPER('''+GetmailAddr(aFrom)+''')')
+      else
+        Data.SetFilter(aUser,'"EMAIL"='''+GetmailAddr(afrom)+'''');
+      aRes := aRes or (aUser.Count>0);
+    end;
+  aUser.Free;
+  Result := aRes;
 end;
 
 procedure TPIMAPServer.ServerLog(aSocket: TLSocket; DirectionIn: Boolean;
@@ -85,6 +108,7 @@ function TPIMAPServer.ServerLogin(aSocket: TLSocket; aUser,
   aPasswort: string): Boolean;
 begin
   Result := False;
+  Data.Users.DataSet.Refresh;
   with Self as IBaseDBInterface do
     begin
       if Data.Users.DataSet.Locate('LOGINNAME',aUser,[]) or Data.Users.DataSet.Locate('NAME',aUser,[]) then
@@ -104,8 +128,63 @@ end;
 
 procedure TPIMAPServer.SMTPServerMailreceived(aSocket: TLSMTPSocket;
   aMail: TStrings; aFrom: string; aTo: TStrings);
+var
+  aUser: TUser;
+  i: Integer;
+  Found: Boolean = False;
+  msg: TMimeMess;
+  aUID: String;
+  aMessage: TMimeMessage;
 begin
-
+  aUser := TUser.Create(nil,Data);
+  //mail to an User
+  for i := 0 to aTo.Count-1 do
+    begin
+      if Data.IsSQLDb then
+        Data.SetFilter(aUser,'UPPER("EMAIL")=UPPER('''+GetmailAddr(aTo[i])+''')')
+      else
+        Data.SetFilter(aUser,'"EMAIL"='''+GetmailAddr(aTo[i])+'''');
+      if aUser.Count>0 then
+        begin
+          aMessage := TMimeMessage.Create(nil,Data);
+          msg := TMimeMess.Create;
+          msg.Lines.Text := aMail.Text;
+          msg.DecodeMessage;
+          aUID := msg.Header.MessageID;
+          ureceivemessage.Init;
+          if ureceivemessage.CheckHeader(aUID,msg) then
+            begin
+              ureceivemessage.aTreeEntry:=TREE_ID_MESSAGES;
+              ureceivemessage.ReceiveMessage(aUID,aMail,aMessage);
+            end;
+          aMessage.Free;
+          msg.Free;
+          Found := True;
+        end;
+    end;
+  //mail from an User
+  if not Found then
+    begin
+      if Data.IsSQLDb then
+        Data.SetFilter(aUser,'UPPER("EMAIL")=UPPER('''+GetmailAddr(aFrom)+''')')
+      else
+        Data.SetFilter(aUser,'"EMAIL"='''+GetmailAddr(afrom)+'''');
+      if aUser.Count>0 then
+        begin
+          aMessage := TMimeMessage.Create(nil,Data);
+          msg := TMimeMess.Create;
+          msg.Lines.Text := aMail.Text;
+          msg.DecodeMessage;
+          aUID := msg.Header.MessageID;
+          ureceivemessage.Init;
+          ureceivemessage.aTreeEntry:=TREE_ID_SEND_MESSAGES;
+          ureceivemessage.ReceiveMessage(aUID,aMail,aMessage);
+          aMessage.Free;
+          msg.Free;
+          Found := True;
+        end;
+    end;
+  aUser.Free;
 end;
 
 procedure TPIMAPServer.DoRun;
@@ -117,15 +196,6 @@ begin
     begin
       DBLogout;
       if not Login then exit;
-    end;
-  with Self as IBaseApplication do
-    begin
-      DecodeDate(Now(),y,m,d);
-      DecodeTime(Now(),h,mm,s,ss);
-      GetLog.Active := False;
-      GetLog.FileName := Format('nntp_server_log_%.4d-%.2d-%.2d %.2d_%.2d_%.2d_%.4d.log',[y,m,d,h,mm,s,ss]);
-      getLog.LogType := ltFile;
-      GetLog.Active:=True;
     end;
   IMAPServer.OnLogin :=@ServerLogin;
   IMAPServer.OnLog:=@ServerLog;

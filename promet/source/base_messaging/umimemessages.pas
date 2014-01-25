@@ -38,9 +38,15 @@ type
     function EncodeMessage : TMimeMess;
     procedure DecodeMessage(msg : TMimeMess);
   end;
+  function GetmailAddr(aIn : string) : string;
 implementation
 uses uData, FileUtil, synautil,uBaseDbInterface,uBaseApplication;
-
+function GetmailAddr(aIn : string) : string;
+begin
+  Result := GetEmailAddr(aIn);
+  if copy(result,0,1)='<' then
+    result := copy(Result,2,length(Result)-2);
+end;
 procedure TMimeMessage.DataSetContentDataSetDataSetmsgMessagePartWalkPart(
   const Sender: TMimePart);
 var
