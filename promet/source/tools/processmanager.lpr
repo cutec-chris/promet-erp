@@ -80,12 +80,12 @@ var
         BytesRead := aProcess.OutPut.Read(aProcess.aBuffer[1], BytesAvailable+1);
         aProcess.aOutput := aProcess.aOutput+copy(aProcess.aBuffer,0, BytesRead);
         aProcess.aLogOutput := aProcess.aLogoutput+copy(aProcess.aBuffer,1, BytesRead);
-        while pos(#13,aProcess.aLogoutput) > 0 do
+        while pos(#10,aProcess.aLogoutput) > 0 do
           begin
-            aLine := copy(aProcess.aLogoutput,0,pos(#13,aProcess.aLogoutput)-1);
-            Log(aLine);
-            aProcess.aLogoutput := copy(aProcess.aLogoutput,pos(#13,aProcess.aLogoutput)+1,length(aProcess.aLogoutput));
-            if copy(aProcess.aLogoutput,0,1) = #10 then
+            aLine := copy(aProcess.aLogoutput,0,pos(#10,aProcess.aLogoutput)-1);
+            Log(aProcess.Name+':'+aLine);
+            aProcess.aLogoutput := copy(aProcess.aLogoutput,pos(#10,aProcess.aLogoutput)+1,length(aProcess.aLogoutput));
+            if copy(aProcess.aLogoutput,0,1) = #13 then
               aProcess.aLogoutput := copy(aProcess.aLogoutput,2,length(aProcess.aLogoutput));
           end;
         sleep(1);
@@ -239,6 +239,7 @@ begin
                       Log(aProcess+':'+strStartingProcess+' ('+cmd+')');
                       Process := TProcProcess.Create(Self);
                       Process.Id := Data.ProcessClient.Processes.Id.AsVariant;
+                      Process.Name:=aProcess;
                       Process.Informed:=False;
                       Setlength(Processes,length(Processes)+1);
                       Processes[length(Processes)-1] := Process;
@@ -254,7 +255,7 @@ begin
               Data.ProcessClient.Processes.DataSet.Next;
             end;
         end;
-      sleep(20*1000);
+      sleep(1000);
     end;
   try
     Data.ProcessClient.DataSet.Edit;

@@ -116,10 +116,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="umain"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="90"/>
-        <CursorPos X="61" Y="109"/>
+        <TopLine Value="97"/>
+        <CursorPos X="73" Y="114"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -1414,7 +1415,6 @@
         <TopLine Value="2736"/>
         <CursorPos X="3" Y="2761"/>
         <UsageCount Value="29"/>
-        <LoadedDesigner Value="True"/>
       </Unit165>
       <Unit166>
         <Filename Value="C:\home\chris\lazarus\lcl\dbgrids.pas"/>
@@ -1927,7 +1927,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMeetingFrame"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="693"/>
@@ -2160,11 +2159,15 @@
     <Build>
       <CleanOutputFileMask Value="*.ppu;*.ppl;*.o;*.or"/>
     </Build>
-    <JumpHistory Count="1" HistoryIndex="0">
+    <JumpHistory Count="2" HistoryIndex="1">
       <Position1>
         <Filename Value="..\base_pm\umeetingframe.pas"/>
         <Caret Line="477" Column="32" TopLine="458"/>
       </Position1>
+      <Position2>
+        <Filename Value="umain.pas"/>
+        <Caret Line="109" Column="61" TopLine="90"/>
+      </Position2>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

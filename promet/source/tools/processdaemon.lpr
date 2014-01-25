@@ -170,14 +170,12 @@ var
         BytesRead := aProcess.OutPut.Read(Buffer[1], BytesAvailable+1);
         Output := Output+copy(Buffer,0, BytesRead);
         LogOutput := Logoutput+copy(Buffer,1, BytesRead);
-        while pos(#13,Logoutput) > 0 do
+        while pos(#10,Logoutput) > 0 do
           begin
-            aLine := copy(Logoutput,0,pos(#13,Logoutput)-1);
-            if copy(aLine,0,5) = '*STEP' then
-              aLine := '*'+aLine;
+            aLine := copy(Logoutput,0,pos(#10,Logoutput)-1);
             Application.Log(etInfo, aLine);
-            Logoutput := copy(Logoutput,pos(#13,Logoutput)+1,length(Logoutput));
-            if copy(Logoutput,0,1) = #10 then
+            Logoutput := copy(Logoutput,pos(#10,Logoutput)+1,length(Logoutput));
+            if copy(Logoutput,0,1) = #13 then
               Logoutput := copy(Logoutput,2,length(Logoutput));
           end;
         sleep(1);

@@ -111,7 +111,7 @@ begin
   umeetingframe.AddToMainTree(acNewMeeting,aNode);
   fMainTreeFrame.tvMain.Items[0].Expanded:=True;
   pcPages.AddTabClass(TfFilter,strMeetingList,@AddMeetingList,-1,True);
-  Data.RegisterLinkHandler('MEETINGS',@fMainTreeFrame.OpenLink);
+  Data.RegisterLinkHandler('MEETINGS',@fMainTreeFrame.OpenLink,TMeetings);
   aDS := TMeetings.Create(nil,Data);
   aDS.CreateTable;
   aDS.Free;

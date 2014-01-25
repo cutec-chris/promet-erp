@@ -62,7 +62,7 @@ begin
       uData.Data := Data;
       Data.Users.DataSet.Open;
     end;
-  Data.RegisterLinkHandler('WIKI@',@OpenWikiLink);
+  Data.RegisterLinkHandler('WIKI@',@OpenWikiLink,TWikiList);
   fWikiFrame := TfWikiFrame.Create(Self);
   fWikiFrame.Parent := Self;
   fWikiFrame.Align := alClient;
@@ -94,4 +94,4 @@ begin
 end;
 
 end.
-
+

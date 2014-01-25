@@ -2,23 +2,23 @@
   This source is only used to compile and install the package.
  }
 
-unit laz_tapi; 
+unit laz_tapi;
 
 interface
 
 uses
   Tapi, TAPIServices, TAPIAddress, TAPIDevices, TAPITrans, AssistedTAPI, 
   CallList, DevConf, TAPICall, TAPICallBack, TAPIConference, TAPICurVer, 
-  TAPIErr, TAPIForward, tapihelpfunc, TAPILines, TAPILists, TAPIMediaCtl,
+  TAPIErr, TAPIForward, TAPIHelpFunc, TAPILines, TAPILists, TAPIMediaCtl, 
   TAPIObj, TAPIPhone, TAPIProv, TAPIRedirect, TAPISystem, TAPIThread, TAPITon, 
   LazarusPackageIntf;
 
 implementation
 
-procedure Register; 
+procedure Register;
 begin
-end; 
+end;
 
 initialization
-  RegisterPackage('laz_tapi', @Register); 
+  RegisterPackage('laz_tapi', @Register);
 end.
