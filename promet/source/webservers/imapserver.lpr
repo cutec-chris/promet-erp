@@ -146,6 +146,7 @@ begin
         Data.SetFilter(aUser,'"EMAIL"='''+GetmailAddr(aTo[i])+'''');
       if aUser.Count>0 then
         begin
+          Data.Users.GotoBookmark(aUser.GetBookmark);
           aMessage := TMimeMessage.Create(nil,Data);
           msg := TMimeMess.Create;
           msg.Lines.Text := aMail.Text;
@@ -199,6 +200,8 @@ begin
     end;
   IMAPServer.OnLogin :=@ServerLogin;
   IMAPServer.OnLog:=@ServerLog;
+  if HasOption('server-log') then
+    IMAPServer.OnDebug:=@ServerLog;
   IMAPServer.SocketClass:=TPIMAPSocket;
   while not Terminated do
     begin
@@ -233,7 +236,8 @@ begin
       debugln('using port for smtp:'+GetOptionValue('smtpport'));
     end;
   SMTPServer.OnLogin :=@ServerLogin;
-  SMTPServer.OnLog:=@ServerLog;
+  if HasOption('server-log') then
+    SMTPServer.OnLog:=@ServerLog;
   SMTPServer.OnMailreceived:=@SMTPServerMailreceived;
   SMTPServer.OnAcceptMail:=@ServerAcceptMail;
   try

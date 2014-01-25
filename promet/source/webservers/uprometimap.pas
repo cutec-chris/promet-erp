@@ -67,9 +67,10 @@ type
     function SelectMessages(aFilter : string;aUseUID : Boolean) : Boolean;override;
     function FetchOneEntry(aFetch: string): TStrings; override;
     function StoreOneEntry(aFetch: string): TStrings; override;
+    function CopyOneEntry(aParams: string): TStrings; override;
     function Search(aParams: string): string; override;
   public
-    constructor Create(aName : string;aUID : string);override;
+    constructor Create(aParent : TIMAPFolders;aName : string;aUID : string);override;
     destructor Destroy;override;
   end;
 
@@ -91,13 +92,13 @@ begin
       while not EOF do
         begin
           if Data.Tree.Id.AsVariant = TREE_ID_MESSAGES then
-            aGroup := TPIMAPFolder.Create('INBOX',Data.Tree.Id.AsString)
+            aGroup := TPIMAPFolder.Create(Folders,'INBOX',Data.Tree.Id.AsString)
           else if Data.Tree.Id.AsVariant = TREE_ID_DELETED_MESSAGES then
-            aGroup := TPIMAPFolder.Create('Trash',Data.Tree.Id.AsString)
+            aGroup := TPIMAPFolder.Create(Folders,'Trash',Data.Tree.Id.AsString)
           else if Data.Tree.Id.AsVariant = TREE_ID_SEND_MESSAGES then
-            aGroup := TPIMAPFolder.Create('Sent',Data.Tree.Id.AsString)
+            aGroup := TPIMAPFolder.Create(Folders,'Sent',Data.Tree.Id.AsString)
           else
-            aGroup := TPIMAPFolder.Create(FieldByName('NAME').AsString,Data.Tree.Id.AsString);
+            aGroup := TPIMAPFolder.Create(Folders,FieldByName('NAME').AsString,Data.Tree.Id.AsString);
           Folders.Add(aGroup);
           next;
         end;
@@ -679,6 +680,54 @@ begin
     FreeAndNil(Result);
 end;
 
+function TPIMAPFolder.CopyOneEntry(aParams: string): TStrings;
+var
+  aNewMessage: TMessageList;
+  tmpRecNo: String;
+  i: Integer;
+  tmp: String;
+  aFolder: TIMAPFolder;
+begin
+  if FSelectCount=0 then
+    if not SelectNext then
+      begin
+        Result := nil;
+        exit;
+      end;
+  if copy(aParams,0,1)='"' then
+    begin
+      tmp := copy(aParams,2,length(aParams));
+      tmp := copy(tmp,0,pos('"',tmp)-1);
+    end
+  else
+    tmp := copy(aParams,0,pos(' ',aParams)-1);
+  for i := 0 to Parent.Count-1 do
+    begin
+      if Parent.Folder[i].Name = tmp then
+        begin
+          aFolder := Parent.Folder[i];
+        end;
+    end;
+  Result := TStringList.Create;
+  aNewMessage := TMessageList.Create(nil,Data);
+  if not FMessages.DataSet.BOF then
+    begin
+      if FSequenceNumbers.IndexOf(FMessages.Id.AsString)=-1 then
+        begin
+          tmpRecNo := IntToStr(FSequenceNumbers.Add(FMessages.Id.AsString)+1);
+        end
+      else tmpRecNo:=IntToStr(FSequenceNumbers.IndexOf(FMessages.Id.AsString)+1);
+      aNewMessage.Insert;
+      for i := 1 to FMessages.DataSet.Fields.Count-1 do
+        aNewMessage.DataSet.Fields[i].AsVariant:=FMessages.DataSet.Fields[i].AsVariant;
+      aNewMessage.FieldByName('TREEENTRY').AsVariant:=aFolder.UID;
+      aNewMessage.Post;
+      Fmessages.DataSet.Prior;
+      Dec(FSelectCount,1);
+    end;
+  aNewMessage.Free;
+end;
+
 function TPIMAPFolder.Search(aParams: string): string;
 var
   tmpRecNo: String;
@@ -712,7 +761,8 @@ begin
     end;
 end;
 
-constructor TPIMAPFolder.Create(aName: string;aUID : string);
+constructor TPIMAPFolder.Create(aParent: TIMAPFolders; aName: string;
+  aUID: string);
 begin
   FSequenceNumbers := TStringList.Create;
   FetchSequence := 1;
@@ -723,7 +773,7 @@ begin
     FTreeEntry := Data.Tree.Id.AsString;
   FGroupName := aName;
   RefreshFirstID;
-  inherited Create(FGroupName,FTreeEntry)
+  inherited Create(aParent,FGroupName,FTreeEntry);
 end;
 destructor TPIMAPFolder.Destroy;
 begin

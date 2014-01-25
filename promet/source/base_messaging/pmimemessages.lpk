@@ -14,7 +14,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="2">
+    <Files Count="3">
       <Item1>
         <Filename Value="umimemessages.pas"/>
         <UnitName Value="uMimeMessages"/>
@@ -23,6 +23,10 @@
         <Filename Value="mailchck.pas"/>
         <UnitName Value="mailchck"/>
       </Item2>
+      <Item3>
+        <Filename Value="ureceivemessage.pas"/>
+        <UnitName Value="ureceivemessage"/>
+      </Item3>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="3">

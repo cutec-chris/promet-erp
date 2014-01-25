@@ -23,6 +23,7 @@ interface
 uses
   Classes, SysUtils, lNet, lEvents, mimemess, db, dateutils,base64;
 type
+  TIMAPFolders = class;
 
   { TIMAPFolder }
 
@@ -30,6 +31,7 @@ type
   private
     FMessageIdx: LargeInt;
     FUID: string;
+    FParent : TIMAPFolders;
   protected
     FFirstID: LargeInt;
     FSelectCount : Integer;
@@ -47,9 +49,10 @@ type
     function SelectMessages(aFilter : string;aUseUID : Boolean) : Boolean;virtual;
     function FetchOneEntry(aFetch: string): TStrings; virtual;
     function StoreOneEntry(aFetch: string): TStrings; virtual;
+    function CopyOneEntry(aParams: string): TStrings; virtual;
     function Search(aFetch: string): string; virtual;
   public
-    constructor Create(aName : string;UID : string);virtual;
+    constructor Create(aParent : TIMAPFolders;aName : string;UID : string);virtual;
     destructor Destroy;override;
     property UID : string read FUID;
     property Name : string read FName;
@@ -63,6 +66,7 @@ type
     property MessageIdx : LargeInt read FMessageIdx write FmessageIdx;
     property CreatedAt : TDateTime read GetCreatedAt;
     property SelectCount : Integer read FSelectCount write FSelectCount;
+    property Parent : TIMAPFolders read FParent;
   end;
   TIMAPFolderClass = class of TIMAPFolder;
   TIMAPFolders = class(TList)
@@ -170,7 +174,12 @@ begin
   Result := nil;
 end;
 
-function TIMAPFolder.Search(aFetch: string): String;
+function TIMAPFolder.CopyOneEntry(aParams: string): TStrings;
+begin
+  Result := nil;
+end;
+
+function TIMAPFolder.Search(aFetch: string): string;
 begin
   result := '* SEARCH';
 end;
@@ -202,10 +211,12 @@ function TIMAPFolder.GetMessage(Idx : Integer): TMimeMess;
 begin
   Result := nil;
 end;
-constructor TIMAPFolder.Create(aName: string;UID : string);
+constructor TIMAPFolder.Create(aParent: TIMAPFolders; aName: string; UID: string
+  );
 begin
   FName := aName;
   FUID := UID;
+  FParent := aParent;
 end;
 destructor TIMAPFolder.Destroy;
 begin
@@ -400,11 +411,51 @@ var
             Answer('NO failed.');
           end;
       end
+    else if aCmd = 'COPY' then
+      begin
+        DontLog:=True;
+        aRange := copy(bParams,0,pos(' ',bParams)-1);
+        bParams:=copy(bParams,pos(' ',bParams)+1,length(bParams));
+        if copy(bParams,0,1)='(' then
+          bParams := copy(bParams,2,length(bParams)-2);
+        aFCount := 0;
+        if FGroup.SelectMessages(aRange,aUseUID) then
+          begin
+            aRes := FGroup.CopyOneEntry(bParams);
+            while Assigned(aRes) do
+              begin
+                inc(aFCount);
+                Creator.CallAction;
+                if (not FStopFetching) then
+                  begin
+                    if aRes.text<>'' then Answer(aRes.Text,False);
+                  end
+                else
+                  begin
+                    DontLog:=False;
+                    exit;
+                  end;
+                aRes := FGroup.CopyOneEntry(bParams);
+              end;
+            DontLog:=False;
+            Answer('OK Success '+IntToStr(aFCount)+' results.');
+          end
+        else
+          begin
+            DontLog:=False;
+            Answer('NO failed.');
+          end;
+      end
     else if aCmd = 'SEARCH' then
       begin
         DontLog:=True;
         aRange := copy(bParams,0,pos(' ',bParams)-1);
-        if pos(' ',bParams)>0 then
+        if copy(bParams,0,1)='(' then
+          begin
+            aRange:=copy(bParams,2,pos(')',bParams)-1);
+            bParams:=copy(bParams,pos(')',bParams)+1,length(bParams));
+          end
+        else if pos(' ',bParams)>0 then
           bParams:=copy(bParams,pos(' ',bParams)+1,length(bParams))
         else
           begin
@@ -414,7 +465,12 @@ var
         if aUseUID and (Uppercase(trim(aRange))= 'UID') then
           begin
             aRange := copy(bParams,0,pos(' ',bParams)-1);
-            if pos(' ',bParams)>0 then
+            if copy(bParams,0,1)='(' then
+              begin
+                aRange:=copy(bParams,2,pos(')',bParams)-1);
+                bParams:=copy(bParams,pos(')',bParams)+1,length(bParams));
+              end
+            else if pos(' ',bParams)>0 then
               bParams:=copy(bParams,pos(' ',bParams)+1,length(bParams))
             else
               begin
@@ -659,6 +715,7 @@ begin
   else if (aCommand = 'FETCH')
        or (aCommand = 'SEARCH')
        or (aCommand = 'STORE')
+       or (aCommand = 'COPY')
   then
     begin
       if not SelectUser then

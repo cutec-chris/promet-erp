@@ -1,4 +1,15 @@
 #!/bin/bash
+### BEGIN INIT INFO
+# Provides:          promet-process
+# Required-Start:    $local_fs $remote_fs $network $syslog $named
+# Required-Stop:     $local_fs $remote_fs $network $syslog $named
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# X-Interactive:     true
+# Short-Description: Start/stop promet-process
+# Description:       Start the promet-process to manage processes
+### END INIT INFO
+
 # Promet Process Service
 
 SVC_START_OPTIONS="-r"
