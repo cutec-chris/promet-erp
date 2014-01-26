@@ -384,11 +384,7 @@ var
 begin
   Result:=False;
   Max := 0;
-  FSelector:='';
-  if (aFilter<>'HEADER')
-  then
-    FSelector := aFilter
-  else Max := 300;
+  FSelector := aFilter;
   FUseUID := aUseUID;
   FMessages.Last;
   Result := SelectNext;
@@ -736,46 +732,109 @@ function TPIMAPFolder.Search(aParams: string): string;
 var
   tmpRecNo: String;
   Found: Boolean = False;
-  function CheckParams(sParams : string) : Boolean;
-  var
-    tmp: String;
+  aSQL: String;
+
+  function NextParam(Command : Boolean = True) : string;
   begin
-    Result := (pos('HEADER',aParams)=0)
-          and (pos('BODY',aParams)=0)
-             ;
-    if (pos('HEADER',aParams)>0) then
+    if pos(' ',aParams)>0 then
       begin
-        Result := False;
-        if (pos('MESSAGE-ID',aParams)>0) then
-          begin
-            tmp := trim(copy(aParams,pos('MESSAGE-ID',aParams)+11,length(aParams)));
-            if pos(' ',tmp)>0 then
-              tmp := copy(tmp,0,pos(' ',tmp)-1);
-            if copy(tmp,0,1)='<' then
-              tmp:=copy(tmp,2,pos('>',tmp)-2);
-            if tmp=FMessages.FieldByName('ID').AsString then
-              Result := True;
-          end;
+        Result := copy(aParams,0,pos(' ',aParams)-1);
+        aParams := copy(aParams,pos(' ',aParams)+1,length(aParams));
+      end
+    else
+      begin
+        Result := aParams;
+        aParams := '';
       end;
   end;
 
 begin
   //TODO:more Selections possible
   Result:='* SEARCH';
+  //convert to filter
+  aSQL := '';
+  //unsupported
+  //BODY <string>  Messages that contain the specified string in the body of the message.
+  //CC <string>    Messages that contain the specified string in the envelope structure's CC field.
+  //KEYWORD <flag> Messages with the specified keyword set.
+  //LARGER <n>     Messages with an [RFC-822] size larger than the specified number of octets.
+  //NEW            Messages that have the \Recent flag set but not the \Seen flag.  This is functionally equivalent to "(RECENT UNSEEN)".
+  //OLD            Messages that do not have the \Recent flag set. This is functionally equivalent to "NOT RECENT" (as opposed to "NOT NEW").
+  //OR <search-key1> <search-key2> Messages that match either search key.
+  //RECENT         Messages that have the \Recent flag set.
+  //SMALLER <n>    Messages with an [RFC-822] size smaller than the specified number of octets.
+  //TEXT <string>  Messages that contain the specified string in the header or body of the message.
+  //TO <string>    Messages that contain the specified string in the envelope structure's TO field.
+  //UID <message set> Messages with unique identifiers corresponding to the specified unique identifier set.
+  //UNANSWERED     Messages that do not have the \Answered flag set.
+  //UNDELETED      Messages that do not have the \Deleted flag set.
+  //UNDRAFT        Messages that do not have the \Draft flag set.
+  //UNKEYWORD <flag> Messages that do not have the specified keyword set.
+  //UNSEEN         Messages that do not have the \Seen flag set.
+  while length(aParams)>0 do
+    begin
+      case NextParam of
+      'BEFORE'://BEFORE <date>  Messages whose internal date is earlier than the specified date.
+        aSQL := aSQL+Data.QuoteField('TIMESTAMPD')+'<'+Data.DateTimeToFilter(SynaUtil.DecodeRfcDateTime(NextParam(False)))+' and ';
+      'ON'://ON <date>      Messages whose internal date is within the specified date.
+        aSQL := aSQL+Data.QuoteField('TIMESTAMPD')+'='+Data.DateTimeToFilter(SynaUtil.DecodeRfcDateTime(NextParam(False)))+' and ';
+      'SINCE'://SINCE <date>   Messages whose internal date is within or later than the specified date.
+        aSQL := aSQL+Data.QuoteField('TIMESTAMPD')+'>'+Data.DateTimeToFilter(SynaUtil.DecodeRfcDateTime(NextParam(False)))+' and ';
+      'SENTBEFORE'://SENTBEFORE <date> Messages whose [RFC-822] Date: header is earlier than the specified date.
+        aSQL := aSQL+Data.QuoteField('SENDDATE')+'<'+Data.DateTimeToFilter(SynaUtil.DecodeRfcDateTime(NextParam(False)))+' and ';
+      'SENTON'://SENTON <date>  Messages whose [RFC-822] Date: header is within the specified date.
+        aSQL := aSQL+Data.QuoteField('SENDDATE')+'='+Data.DateTimeToFilter(SynaUtil.DecodeRfcDateTime(NextParam(False)))+' and ';
+      'SENTSINCE'://SENTSINCE <date> Messages whose [RFC-822] Date: header is within or later than the specified date.
+        aSQL := aSQL+Data.QuoteField('SENDDATE')+'>'+Data.DateTimeToFilter(SynaUtil.DecodeRfcDateTime(NextParam(False)))+' and ';
+      'DELETED'://DELETED        Messages with the \Deleted flag set.
+        aSQL := aSQL+Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(IntToStr(TREE_ID_DELETED_MESSAGES))+' and ';
+      'UNDELETED'://DELETED        Messages with the \Deleted flag set.
+        aSQL := aSQL+Data.QuoteField('TREEENTRY')+'<>'+Data.QuoteValue(IntToStr(TREE_ID_DELETED_MESSAGES))+' and ';
+      'DRAFT'://DRAFT          Messages with the \Draft flag set.
+        aSQL := aSQL+Data.QuoteField('DRAFT')+'='+Data.QuoteValue('Y')+' and ';
+      'FLAGGED'://FLAGGED        Messages with the \Flagged flag set.
+        aSQL := aSQL+Data.QuoteField('DRAFT')+'='+Data.QuoteValue('Y')+' and ';
+      'UNFLAGGED'://UNFLAGGED      Messages that do not have the \Flagged flag set.
+        aSQL := aSQL+Data.QuoteField('DRAFT')+'<>'+Data.QuoteValue('Y')+' and ';
+      'SEEN'://SEEN           Messages that have the \Seen flag set.
+        aSQL := aSQL+Data.QuoteField('READ')+'='+Data.QuoteValue('Y')+' and ';
+      'FROM'://FROM <string>  Messages that contain the specified string in the envelope structure's FROM field.
+        aSQL := aSQL+Data.ProcessTerm(Data.QuoteField('SENDER')+'='+Data.QuoteValue('*'+NextParam(False)+'*'))+' and ';
+      'SUBJECT'://SUBJECT <string> Messages that contain the specified string in the envelope structure's SUBJECT field.
+        aSQL := aSQL+Data.ProcessTerm(Data.QuoteField('SUBJECT')+'='+Data.QuoteValue('*'+NextParam(False)+'*'))+' and ';
+      'HEADER'://HEADER <field-name> <string> Messages that have a header with the specified field-name (as defined in [RFC-822]) and that contains the specified string in the [RFC-822] field-body.
+         begin
+           case NextParam of
+           'MESSAGE-ID':
+             aSQL := aSQL+Data.QuoteField('ID')+'='+Data.QuoteValue(GetmailAddr(NextParam(False)))+' and ';
+           else
+             begin
+               raise Exception.Create('criteria not allowed');
+               exit;
+             end;
+           end;
+         end;
+      'NOT'://NOT <search-key> Messages that do not match the specified search key.
+        aSQL := aSQL+' not ';
+      else
+        begin
+          raise Exception.Create('criteria not allowed');
+          exit;
+        end;
+      end;
+    end;
+  FMessages.Filter(copy(aSQL,0,length(aSQL)-4));
   FMessages.DataSet.Last;
   while (FSelectCount>0) and (not FMessages.DataSet.BOF) do
     begin
       if FSequenceNumbers.IndexOf(FMessages.Id.AsString)=-1 then
         tmpRecNo := IntToStr(FSequenceNumbers.Add(FMessages.Id.AsString)+1)
       else tmpRecNo:=IntToStr(FSequenceNumbers.IndexOf(FMessages.Id.AsString)+1);
-      if CheckParams(aParams) then
-        begin
-          Found := True;
-          if FUseUID then
-            Result := Result+' '+FMessages.Id.AsString
-          else
-            Result := Result+' '+tmpRecNo;
-        end;
+      Found := True;
+      if FUseUID then
+        Result := Result+' '+FMessages.Id.AsString
+      else
+        Result := Result+' '+tmpRecNo;
       dec(FSelectCount);
       FMessages.Prior;
     end;

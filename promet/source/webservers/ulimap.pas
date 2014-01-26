@@ -452,7 +452,7 @@ var
         aRange := copy(bParams,0,pos(' ',bParams)-1);
         if copy(bParams,0,1)='(' then
           begin
-            aRange:=copy(bParams,2,pos(')',bParams)-1);
+            aRange:=copy(bParams,2,pos(')',bParams)-2);
             bParams:=copy(bParams,pos(')',bParams)+1,length(bParams));
           end
         else if pos(' ',bParams)>0 then
@@ -467,7 +467,7 @@ var
             aRange := copy(bParams,0,pos(' ',bParams)-1);
             if copy(bParams,0,1)='(' then
               begin
-                aRange:=copy(bParams,2,pos(')',bParams)-1);
+                aRange:=copy(bParams,2,pos(')',bParams)-2);
                 bParams:=copy(bParams,pos(')',bParams)+1,length(bParams));
               end
             else if pos(' ',bParams)>0 then

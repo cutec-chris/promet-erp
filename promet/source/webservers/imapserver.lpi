@@ -67,7 +67,7 @@
         <Filename Value="imapserver.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="imapserver"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="185"/>
         <CursorPos X="27" Y="195"/>
@@ -101,10 +101,12 @@
       <Unit4>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="107"/>
-        <CursorPos X="5" Y="122"/>
+        <TopLine Value="584"/>
+        <CursorPos X="1" Y="605"/>
         <UsageCount Value="87"/>
+        <Loaded Value="True"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\..\..\LKomponenten\lnet\lib\lnet.pp"/>
@@ -152,10 +154,10 @@
         <Filename Value="ulimap.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ulimap"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="484"/>
-        <CursorPos X="1" Y="501"/>
+        <TopLine Value="435"/>
+        <CursorPos X="1" Y="451"/>
         <FoldState Value=" T0ob6d9"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -179,11 +181,11 @@
       <Unit13>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="152"/>
-        <CursorPos X="15" Y="166"/>
-        <UsageCount Value="93"/>
+        <TopLine Value="1129"/>
+        <CursorPos X="1" Y="1157"/>
+        <UsageCount Value="94"/>
         <Loaded Value="True"/>
       </Unit13>
       <Unit14>
@@ -213,10 +215,10 @@
       <Unit17>
         <Filename Value="..\base\dbintfs\umessages.pas"/>
         <UnitName Value="uMessages"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="245"/>
-        <CursorPos X="22" Y="270"/>
+        <TopLine Value="316"/>
+        <CursorPos X="26" Y="334"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
       </Unit17>
@@ -293,8 +295,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="753"/>
-        <CursorPos X="1" Y="773"/>
+        <TopLine Value="733"/>
+        <CursorPos X="1" Y="736"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit26>
@@ -333,11 +335,11 @@
       <Unit31>
         <Filename Value="..\base_messaging\umimemessages.pas"/>
         <UnitName Value="uMimeMessages"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="24"/>
         <CursorPos X="32" Y="47"/>
-        <UsageCount Value="26"/>
+        <UsageCount Value="27"/>
         <Loaded Value="True"/>
       </Unit31>
       <Unit32>
@@ -401,10 +403,10 @@
       </Unit38>
       <Unit39>
         <Filename Value="rfc2060.txt"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="2217"/>
-        <CursorPos X="26" Y="2058"/>
+        <TopLine Value="2213"/>
+        <CursorPos X="1" Y="2236"/>
         <UsageCount Value="101"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
@@ -443,11 +445,11 @@
       </Unit43>
       <Unit44>
         <Filename Value="..\base\changes.txt"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="99" Y="12"/>
-        <UsageCount Value="83"/>
+        <UsageCount Value="84"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit44>
@@ -508,11 +510,11 @@
       <Unit52>
         <Filename Value="idimap4.pas"/>
         <UnitName Value="IdIMAP4"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="4033"/>
         <CursorPos X="35" Y="4065"/>
-        <UsageCount Value="68"/>
+        <UsageCount Value="69"/>
         <Loaded Value="True"/>
       </Unit52>
       <Unit53>
@@ -842,11 +844,11 @@
         <Filename Value="ulsmtpsrv.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ulsmtpsrv"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="91"/>
         <CursorPos X="15" Y="79"/>
-        <UsageCount Value="44"/>
+        <UsageCount Value="46"/>
         <Loaded Value="True"/>
       </Unit94>
       <Unit95>
@@ -885,11 +887,11 @@
       <Unit99>
         <Filename Value="..\base_messaging\ureceivemessage.pas"/>
         <UnitName Value="ureceivemessage"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="188"/>
         <CursorPos X="78" Y="191"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit99>
       <Unit100>
@@ -912,123 +914,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="766" Column="1" TopLine="753"/>
+        <Caret Line="775" Column="1" TopLine="759"/>
       </Position1>
       <Position2>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="768" Column="1" TopLine="753"/>
+        <Caret Line="777" Column="1" TopLine="759"/>
       </Position2>
       <Position3>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="769" Column="1" TopLine="753"/>
+        <Caret Line="796" Column="1" TopLine="779"/>
       </Position3>
       <Position4>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="771" Column="1" TopLine="753"/>
+        <Caret Line="798" Column="1" TopLine="779"/>
       </Position4>
       <Position5>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="779" Column="1" TopLine="753"/>
+        <Caret Line="829" Column="1" TopLine="812"/>
       </Position5>
       <Position6>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="780" Column="1" TopLine="753"/>
+        <Caret Line="831" Column="1" TopLine="812"/>
       </Position6>
       <Position7>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="766" Column="1" TopLine="741"/>
+        <Caret Line="798" Column="1" TopLine="781"/>
       </Position7>
       <Position8>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="751" Column="1" TopLine="742"/>
+        <Caret Line="796" Column="1" TopLine="781"/>
       </Position8>
       <Position9>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="752" Column="1" TopLine="742"/>
+        <Caret Line="848" Column="1" TopLine="831"/>
       </Position9>
       <Position10>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="753" Column="1" TopLine="742"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1141" Column="1" TopLine="1124"/>
       </Position10>
       <Position11>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="754" Column="1" TopLine="742"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1142" Column="1" TopLine="1124"/>
       </Position11>
       <Position12>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="756" Column="1" TopLine="742"/>
+        <Filename Value="ulimap.pas"/>
+        <Caret Line="451" Column="1" TopLine="435"/>
       </Position12>
       <Position13>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="751" Column="1" TopLine="742"/>
+        <Caret Line="831" Column="98" TopLine="821"/>
       </Position13>
       <Position14>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="752" Column="27" TopLine="742"/>
+        <Caret Line="848" Column="1" TopLine="821"/>
       </Position14>
       <Position15>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="751" Column="1" TopLine="742"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1141" Column="1" TopLine="1124"/>
       </Position15>
       <Position16>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="752" Column="1" TopLine="742"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1142" Column="1" TopLine="1124"/>
       </Position16>
       <Position17>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="754" Column="1" TopLine="742"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1144" Column="1" TopLine="1124"/>
       </Position17>
       <Position18>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="755" Column="45" TopLine="742"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1145" Column="1" TopLine="1124"/>
       </Position18>
       <Position19>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="760" Column="1" TopLine="742"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1153" Column="1" TopLine="1125"/>
       </Position19>
       <Position20>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="751" Column="1" TopLine="742"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1154" Column="1" TopLine="1126"/>
       </Position20>
       <Position21>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="752" Column="1" TopLine="742"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1156" Column="1" TopLine="1128"/>
       </Position21>
       <Position22>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="754" Column="1" TopLine="742"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1157" Column="1" TopLine="1129"/>
       </Position22>
       <Position23>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="755" Column="1" TopLine="742"/>
+        <Caret Line="849" Column="1" TopLine="821"/>
       </Position23>
       <Position24>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="756" Column="19" TopLine="742"/>
+        <Caret Line="850" Column="1" TopLine="822"/>
       </Position24>
       <Position25>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="751" Column="1" TopLine="742"/>
+        <Caret Line="852" Column="1" TopLine="824"/>
       </Position25>
       <Position26>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="752" Column="1" TopLine="742"/>
+        <Caret Line="853" Column="1" TopLine="825"/>
       </Position26>
       <Position27>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="754" Column="1" TopLine="742"/>
+        <Caret Line="855" Column="1" TopLine="827"/>
       </Position27>
       <Position28>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="755" Column="1" TopLine="742"/>
+        <Caret Line="857" Column="1" TopLine="829"/>
       </Position28>
       <Position29>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="756" Column="1" TopLine="742"/>
+        <Caret Line="858" Column="1" TopLine="830"/>
       </Position29>
       <Position30>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="760" Column="1" TopLine="754"/>
+        <Caret Line="859" Column="1" TopLine="831"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -1069,7 +1071,7 @@
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
         <Source Value="uprometimap.pas"/>
-        <Line Value="773"/>
+        <Line Value="826"/>
       </Item1>
     </BreakPoints>
     <Watches Count="1">

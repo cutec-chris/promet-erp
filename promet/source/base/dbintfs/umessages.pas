@@ -326,6 +326,8 @@ begin
             Add('GRP_ID',ftLargeint,0,False);
             Add('TYPE',ftString,5,True);
             Add('READ',ftString,1,True);
+            Add('DRAFT',ftString,1,True);
+            Add('FLAGGED',ftString,1,True);
             Add('SENDER',ftString,100,True);
             Add('RECEIVERS',ftMemo,0,False);
             Add('REPLYTO',ftMemo,0,False);
