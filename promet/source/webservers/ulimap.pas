@@ -656,6 +656,7 @@ begin
           Answer('NO Authentication required');
           exit;
         end;
+      RefreshFolders;
       if copy(tmp,0,1)='"' then
         tmp := copy(tmp,2,length(tmp)-2);
       aParams:=copy(aParams,pos(' ',aParams)+1,length(aParams));
@@ -679,6 +680,7 @@ begin
           Answer('NO Authentication required');
           exit;
         end;
+      RefreshFolders;
       if copy(tmp,0,1)='"' then
         tmp := copy(tmp,2,length(tmp)-2);
       aParams:=copy(aParams,pos(' ',aParams)+1,length(aParams));

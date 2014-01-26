@@ -275,6 +275,7 @@ type
     procedure Open; override;
     procedure DefineFields(aDataSet : TDataSet);override;
     property Users : TUser read UserTable write UserTable;
+    procedure ResetCache;
     function Right(Element: string;Recursive : Boolean = True;UseCache : Boolean = True) : Integer;
   end;
   TPermissions = class(TBaseDBDataSet)
@@ -1676,6 +1677,12 @@ begin
           end;
     end;
 end;
+
+procedure TRights.ResetCache;
+begin
+  FCachedRights.Clear;
+end;
+
 function TRights.Right(Element: string; Recursive: Boolean; UseCache: Boolean): Integer;
 var
   aUser : LongInt;
@@ -2560,4 +2567,4 @@ begin
 end;
 initialization
 end.
-
+

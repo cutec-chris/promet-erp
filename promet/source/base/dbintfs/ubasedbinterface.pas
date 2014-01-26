@@ -156,6 +156,7 @@ type
     function GetDBType : string;virtual;
     procedure SetFilter(DataSet : TbaseDBDataSet;aFilter : string;aLimit : Integer = 0;aOrderBy : string = '';aSortDirection : string = 'ASC';aLocalSorting : Boolean = False;aGlobalFilter : Boolean = True;aUsePermissions : Boolean = False;aFilterIn : string = '');
     procedure AppendUserToActiveList;
+    procedure RefreshUsersFilter;
     procedure RemoveUserFromActiveList;
     property IgnoreOpenRequests : Boolean read FIgnoreOpenrequests write FIgnoreOpenrequests;
     property Tables : TStrings read FTables;
@@ -1202,19 +1203,6 @@ begin
   DataSet.Filter(aFilter,aLimit,aOrderBy,aSortDirection,aLocalSorting,aGlobalFilter,aUsePermissions,aFilterIn);
 end;
 procedure TBaseDBModule.AppendUserToActiveList;
-var
-  aUser : Int64;
-  aUsers : string;
-
-  procedure RecursiveGetRight;
-  begin
-    aUsers := aUsers+' or '+QuoteField('PERMISSIONS')+'.'+QuoteField('USER')+'='+QuoteValue(Users.FieldByName('SQL_ID').AsString);
-    if not Users.FieldByName('PARENT').IsNull then
-      begin
-        if Users.GotoBookmark(Users.FieldByName('PARENT').AsInteger) then
-          RecursiveGetRight
-      end;
-  end;
 begin
   ActiveUsers.Select(FSessionID);
   ActiveUsers.Open;
@@ -1255,18 +1243,37 @@ begin
             FSessionID := ActiveUsers.Id.AsVariant;
           end;
       end;
-    if Users.DataSet.Active then
-      begin
-        aUser := Users.GetBookmark;
-        aUsers := '';
-        RecursiveGetRight;
-        FUsersFilter:=copy(aUsers,4,length(aUsers));
-        Users.GotoBookmark(aUser);
-      end;
+    RefreshUsersFilter;
   except
   end;
   ActiveUsers.DataSet.Close;
 end;
+
+procedure TBaseDBModule.RefreshUsersFilter;
+var
+  aUser : Int64;
+  aUsers : string;
+
+  procedure RecursiveGetRight;
+  begin
+    aUsers := aUsers+' or '+QuoteField('PERMISSIONS')+'.'+QuoteField('USER')+'='+QuoteValue(Users.FieldByName('SQL_ID').AsString);
+    if not Users.FieldByName('PARENT').IsNull then
+      begin
+        if Users.GotoBookmark(Users.FieldByName('PARENT').AsInteger) then
+          RecursiveGetRight
+      end;
+  end;
+begin
+  if Users.DataSet.Active then
+    begin
+      aUser := Users.GetBookmark;
+      aUsers := '';
+      RecursiveGetRight;
+      FUsersFilter:=copy(aUsers,4,length(aUsers));
+      Users.GotoBookmark(aUser);
+    end;
+end;
+
 procedure TBaseDBModule.RemoveUserFromActiveList;
 begin
   if FIgnoreOpenRequests then exit;

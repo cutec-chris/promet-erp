@@ -87,7 +87,7 @@ var
 begin
   Folders.Clear;
   SelectUser;
-  Data.SetFilter(Data.Tree,Data.QuoteField('TYPE')+'='+Data.QuoteValue('B')+' or '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('N'),0,'','ASC',False,True,True);
+  Data.SetFilter(Data.Tree,Data.QuoteField('PARENT')+'=0 and '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('N')+' OR '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('B'),0,'','ASC',False,True,True);
   with Data.Tree.DataSet do
     begin
       First;
@@ -110,6 +110,8 @@ end;
 function TPIMAPSocket.SelectUser : Boolean;
 begin
   Result := Data.Users.DataSet.Locate('LOGINNAME',User,[]) or Data.Users.DataSet.Locate('NAME',User,[]);
+  Data.Users.Rights.ResetCache;
+  Data.RefreshUsersFilter;
 end;
 
 function TPIMAPFolder.SelectNext: Boolean;
