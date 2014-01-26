@@ -733,6 +733,7 @@ var
   tmpRecNo: String;
   Found: Boolean = False;
   aSQL: String;
+  aSet: String;
 
   function NextParam(Command : Boolean = True) : string;
   begin
@@ -747,7 +748,15 @@ var
         aParams := '';
       end;
   end;
-
+  procedure ProcessSetEntry(aEntry : string);
+  begin
+    aEntry:=trim(aEntry);
+    if aEntry='' then exit;
+    if pos(':',aEntry) >0 then
+      aSQL := aSQL+'('+Data.QuoteField('SQL_ID')+'>'+Data.QuoteValue(copy(aEntry,0,pos(':',aEntry)-1)+' and '+Data.QuoteField('SQL_ID')+'>'+Data.QuoteValue(copy(aEntry,pos(':',aEntry)+1,length(aEntry))))+') or '
+    else
+      aSQL := aSQL+Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(aEntry)+' or ';
+  end;
 begin
   //TODO:more Selections possible
   Result:='* SEARCH';
@@ -765,7 +774,6 @@ begin
   //SMALLER <n>    Messages with an [RFC-822] size smaller than the specified number of octets.
   //TEXT <string>  Messages that contain the specified string in the header or body of the message.
   //TO <string>    Messages that contain the specified string in the envelope structure's TO field.
-  //UID <message set> Messages with unique identifiers corresponding to the specified unique identifier set.
   //UNANSWERED     Messages that do not have the \Answered flag set.
   //UNDELETED      Messages that do not have the \Deleted flag set.
   //UNDRAFT        Messages that do not have the \Draft flag set.
@@ -814,6 +822,18 @@ begin
              end;
            end;
          end;
+      'UID'://UID <message set> Messages with unique identifiers corresponding to the specified unique identifier set.
+         begin
+           aSQL := aSQL+'(';
+           aSet := NextParam(False);
+           while pos(',',aSet)>0 do
+             begin
+               ProcessSetEntry(copy(aSet,0,pos(',',aSet)-1));
+               aSet := copy(aSet,pos(',',aSet)+1,length(aSet));
+             end;
+           ProcessSetEntry(aSet);
+           aSQL := aSQL+')';
+         end;
       'NOT'://NOT <search-key> Messages that do not match the specified search key.
         aSQL := aSQL+' not ';
       else
@@ -823,7 +843,7 @@ begin
         end;
       end;
     end;
-  FMessages.Filter(copy(aSQL,0,length(aSQL)-4));
+  FMessages.Filter(copy(aSQL,0,length(aSQL)-5));
   FMessages.DataSet.Last;
   while (FSelectCount>0) and (not FMessages.DataSet.BOF) do
     begin
