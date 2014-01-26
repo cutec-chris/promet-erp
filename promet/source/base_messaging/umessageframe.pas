@@ -275,7 +275,7 @@ begin
         end
       else
         begin
-          bCustomer := TPerson(Data.DataSetFromLink(Data.BuildLink(aCustomer.DataSet)));
+          bCustomer := Tperson(Data.DataSetFromLink(Data.BuildLink(aCustomer.DataSet)).Create(nil,Data));
           bCustomer.Append;
           tmp := FList.DataSet.FieldByName('SENDER').AsString;
           if pos('<',tmp) > 0 then
@@ -299,7 +299,7 @@ begin
               Open;
               Insert;
               FieldByName('LINK').AsString := Data.BuildLink(FList.DataSet.DataSet);
-              FieldByName('ACTION').AsString := strActionMessageReceived;
+              FieldByName('ACTION').AsString := Format(strActionMessageReceived,[FList.DataSet.FieldByName('SUBJECT').AsString]);
               FieldByName('ACTIONICON').AsInteger := ACICON_MAILNEW;
               FieldByName('REFERENCE').AsString := FList.DataSet.FieldByName('SUBJECT').AsString;
               FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
