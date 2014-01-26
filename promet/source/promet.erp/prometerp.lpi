@@ -25,7 +25,7 @@
       <BuildNr Value="5"/>
       <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP" ProductVersion=""/>
     </VersionInfo>
-    <BuildModes Count="5" Active="Debug">
+    <BuildModes Count="5" Active="Default">
       <Item1 Name="Default" Default="True"/>
       <Item2 Name="Debug">
         <CompilerOptions>
@@ -903,7 +903,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="28"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit55>
       <Unit56>
         <Filename Value="../base/dbintfs/uprojects.pas"/>
@@ -1238,7 +1238,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="8854"/>
         <CursorPos X="1" Y="8866"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit88>
       <Unit89>
         <Filename Value="../../../../lazarus/lcl/include/control.inc"/>
@@ -1308,7 +1308,6 @@
         <TopLine Value="825"/>
         <CursorPos X="55" Y="853"/>
         <UsageCount Value="98"/>
-        <LoadedDesigner Value="True"/>
       </Unit96>
       <Unit97>
         <Filename Value="../../../../fpc/2.6_fixes/rtl/objpas/classes/streams.inc"/>
@@ -1646,7 +1645,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit135>
       <Unit136>
         <Filename Value="../components/scanning/sanetool.pas"/>
@@ -1975,7 +1974,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="52"/>
         <CursorPos X="1" Y="75"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit175>
       <Unit176>
         <Filename Value="../base_messaging/umessageedit.pas"/>
@@ -1993,7 +1992,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="23"/>
         <CursorPos X="140" Y="57"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit177>
       <Unit178>
@@ -2045,7 +2044,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="2397"/>
         <CursorPos X="1" Y="2414"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit182>
       <Unit183>
         <Filename Value="../base_pm/umeetingusers.pas"/>
@@ -2071,7 +2070,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="94"/>
         <CursorPos X="4" Y="102"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit185>
       <Unit186>
         <Filename Value="../components/zeos/src/dbc/ZDbcIntfs.pas"/>
@@ -2079,7 +2078,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="351"/>
         <CursorPos X="21" Y="275"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit186>
       <Unit187>
@@ -2132,7 +2131,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="344"/>
         <CursorPos X="27" Y="346"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit193>
       <Unit194>
         <Filename Value="../../../../lazarus/lcl/include/customedit.inc"/>
@@ -2955,7 +2954,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="104" Y="3"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit293>
       <Unit294>
         <Filename Value="../base_messaging/uviewmessage.pas"/>
@@ -3313,7 +3312,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="28"/>
         <CursorPos X="15" Y="28"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit336>
       <Unit337>
         <Filename Value="../base/usendmail.pas"/>
@@ -3820,7 +3819,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="74"/>
         <CursorPos X="30" Y="97"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit398>
       <Unit399>
         <Filename Value="../../../../../../Programme/lazarus/lcl/include/pagecontrol.inc"/>
@@ -4171,7 +4170,7 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="397"/>
+        <TopLine Value="426"/>
         <CursorPos X="15" Y="459"/>
         <UsageCount Value="29"/>
         <Loaded Value="True"/>
@@ -4414,7 +4413,7 @@
         <UsageCount Value="9"/>
       </Unit467>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
         <Filename Value="../base/dbintfs/uprojects.pas"/>
         <Caret Line="319" Column="1" TopLine="298"/>
@@ -4505,36 +4504,32 @@
       </Position22>
       <Position23>
         <Filename Value="../base_frames/umaintreeframe.pas"/>
-        <Caret Line="182" Column="95" TopLine="189"/>
+        <Caret Line="310" Column="89" TopLine="275"/>
       </Position23>
       <Position24>
         <Filename Value="../base_frames/umaintreeframe.pas"/>
-        <Caret Line="310" Column="89" TopLine="275"/>
+        <Caret Line="304" Column="74" TopLine="294"/>
       </Position24>
       <Position25>
         <Filename Value="../base_frames/umaintreeframe.pas"/>
-        <Caret Line="304" Column="74" TopLine="294"/>
+        <Caret Line="9" Column="94" TopLine="1"/>
       </Position25>
       <Position26>
         <Filename Value="../base_frames/umaintreeframe.pas"/>
-        <Caret Line="9" Column="94" TopLine="1"/>
+        <Caret Line="1033" Column="156" TopLine="1002"/>
       </Position26>
       <Position27>
         <Filename Value="../base_frames/umaintreeframe.pas"/>
-        <Caret Line="1033" Column="156" TopLine="1002"/>
+        <Caret Line="1009" Column="104" TopLine="1002"/>
       </Position27>
       <Position28>
         <Filename Value="../base_frames/umaintreeframe.pas"/>
-        <Caret Line="1009" Column="104" TopLine="1002"/>
+        <Caret Line="1107" Column="8" TopLine="1075"/>
       </Position28>
       <Position29>
         <Filename Value="../base_frames/umaintreeframe.pas"/>
-        <Caret Line="1107" Column="8" TopLine="1075"/>
-      </Position29>
-      <Position30>
-        <Filename Value="../base_frames/umaintreeframe.pas"/>
         <Caret Line="1204" Column="1" TopLine="1194"/>
-      </Position30>
+      </Position29>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>

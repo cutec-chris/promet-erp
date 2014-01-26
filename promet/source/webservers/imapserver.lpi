@@ -69,8 +69,8 @@
         <UnitName Value="imapserver"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="185"/>
-        <CursorPos X="27" Y="195"/>
+        <TopLine Value="160"/>
+        <CursorPos X="13" Y="163"/>
         <UsageCount Value="201"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -80,7 +80,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="20"/>
-        <UsageCount Value="82"/>
+        <UsageCount Value="81"/>
       </Unit1>
       <Unit2>
         <Filename Value="..\base\pcmdprometapp.pas"/>
@@ -88,7 +88,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit2>
       <Unit3>
         <Filename Value="..\base\dbintfs\uintfstrconsts.pas"/>
@@ -96,16 +96,16 @@
         <WindowIndex Value="0"/>
         <TopLine Value="616"/>
         <CursorPos X="6" Y="635"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit3>
       <Unit4>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="584"/>
-        <CursorPos X="1" Y="605"/>
-        <UsageCount Value="87"/>
+        <TopLine Value="1194"/>
+        <CursorPos X="42" Y="1198"/>
+        <UsageCount Value="94"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
@@ -114,14 +114,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="238"/>
         <CursorPos X="3" Y="346"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit5>
       <Unit6>
         <Filename Value="C:\Programme\lazarus\fpc\2.4.3\source\rtl\inc\socketsh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="60"/>
         <CursorPos X="28" Y="79"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="3"/>
       </Unit6>
       <Unit7>
         <Filename Value="..\..\..\LKomponenten\lnet\lib\levents.pp"/>
@@ -129,7 +129,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="528"/>
         <CursorPos X="1" Y="558"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="13"/>
       </Unit7>
       <Unit8>
         <Filename Value="C:\Dokumente und Einstellungen\ulrich\Eigene Dateien\Hamster\cServerNNTP.pas"/>
@@ -137,7 +137,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="2202"/>
         <CursorPos X="1" Y="2224"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="15"/>
         <Bookmarks Count="1">
           <Item0 X="10" Y="2911" ID="0"/>
         </Bookmarks>
@@ -148,7 +148,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="148"/>
         <CursorPos X="41" Y="169"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
       </Unit9>
       <Unit10>
         <Filename Value="ulimap.pas"/>
@@ -156,9 +156,8 @@
         <UnitName Value="ulimap"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="486"/>
-        <CursorPos X="1" Y="499"/>
-        <FoldState Value=" T0ob6d9"/>
+        <TopLine Value="471"/>
+        <CursorPos X="1" Y="488"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit10>
@@ -168,7 +167,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="35"/>
         <CursorPos X="61" Y="45"/>
-        <UsageCount Value="2"/>
+        <UsageCount Value="1"/>
       </Unit11>
       <Unit12>
         <Filename Value="..\base\dbintfs\udata.pas"/>
@@ -176,16 +175,16 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="16" Y="41"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit12>
       <Unit13>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1129"/>
+        <TopLine Value="1120"/>
         <CursorPos X="1" Y="1157"/>
-        <UsageCount Value="94"/>
+        <UsageCount Value="100"/>
         <Loaded Value="True"/>
       </Unit13>
       <Unit14>
@@ -194,7 +193,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="20"/>
-        <UsageCount Value="78"/>
+        <UsageCount Value="77"/>
       </Unit14>
       <Unit15>
         <Filename Value="C:\Dokumente und Einstellungen\ulrich\Eigene Dateien\Hamster\cArticleFile.pas"/>
@@ -202,7 +201,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="394"/>
         <CursorPos X="18" Y="443"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit15>
       <Unit16>
         <Filename Value="..\..\..\LKomponenten\synapse\mimemess.pas"/>
@@ -210,15 +209,15 @@
         <WindowIndex Value="0"/>
         <TopLine Value="798"/>
         <CursorPos X="3" Y="803"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="4"/>
       </Unit16>
       <Unit17>
         <Filename Value="..\base\dbintfs\umessages.pas"/>
         <UnitName Value="uMessages"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="316"/>
-        <CursorPos X="26" Y="334"/>
+        <TopLine Value="337"/>
+        <CursorPos X="1" Y="355"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
       </Unit17>
@@ -228,7 +227,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1194"/>
         <CursorPos X="15" Y="1201"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit18>
       <Unit19>
@@ -237,7 +236,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="133"/>
         <CursorPos X="24" Y="182"/>
-        <UsageCount Value="31"/>
+        <UsageCount Value="30"/>
       </Unit19>
       <Unit20>
         <Filename Value="..\..\..\LKomponenten\zeos\src\component\ZAbstractRODataset.pas"/>
@@ -245,7 +244,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="2801"/>
         <CursorPos X="1" Y="2818"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit20>
       <Unit21>
@@ -254,7 +253,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1123"/>
         <CursorPos X="1" Y="1141"/>
-        <UsageCount Value="2"/>
+        <UsageCount Value="1"/>
       </Unit21>
       <Unit22>
         <Filename Value="..\..\..\LKomponenten\synapse\synacode.pas"/>
@@ -262,7 +261,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="720"/>
         <CursorPos X="3" Y="726"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit22>
       <Unit23>
         <Filename Value="C:\Dokumente und Einstellungen\ulrich\Eigene Dateien\Hamster\cClientNNTP.pas"/>
@@ -270,7 +269,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="131"/>
         <CursorPos X="1" Y="129"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit23>
       <Unit24>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
@@ -278,7 +277,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="218"/>
         <CursorPos X="1" Y="254"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit24>
       <Unit25>
         <Filename Value="..\base\dbintfs\ubaseapplicationtools.pas"/>
@@ -286,7 +285,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="21"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="10"/>
       </Unit25>
       <Unit26>
         <Filename Value="uprometimap.pas"/>
@@ -295,8 +294,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="815"/>
-        <CursorPos X="61" Y="832"/>
+        <TopLine Value="69"/>
+        <CursorPos X="1" Y="103"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit26>
@@ -306,7 +305,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="35"/>
         <CursorPos X="15" Y="51"/>
-        <UsageCount Value="72"/>
+        <UsageCount Value="71"/>
       </Unit27>
       <Unit28>
         <Filename Value="..\base\dbintfs\usessiondbclasses.pas"/>
@@ -314,7 +313,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="94"/>
         <CursorPos X="3" Y="96"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit28>
       <Unit29>
         <Filename Value="..\..\..\general\src\uerror.pas"/>
@@ -322,7 +321,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="111"/>
         <CursorPos X="41" Y="127"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit29>
       <Unit30>
         <Filename Value="..\..\..\general\src\ugeneralstrconsts.pas"/>
@@ -330,16 +329,16 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="22"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit30>
       <Unit31>
         <Filename Value="..\base_messaging\umimemessages.pas"/>
         <UnitName Value="uMimeMessages"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="24"/>
-        <CursorPos X="32" Y="47"/>
-        <UsageCount Value="27"/>
+        <TopLine Value="335"/>
+        <CursorPos X="1" Y="363"/>
+        <UsageCount Value="34"/>
         <Loaded Value="True"/>
       </Unit31>
       <Unit32>
@@ -348,7 +347,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="65"/>
         <CursorPos X="3" Y="65"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit32>
       <Unit33>
@@ -357,7 +356,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="395"/>
         <CursorPos X="14" Y="167"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit33>
       <Unit34>
@@ -366,7 +365,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="467"/>
         <CursorPos X="23" Y="486"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit34>
       <Unit35>
@@ -375,7 +374,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="313"/>
         <CursorPos X="1" Y="343"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit35>
       <Unit36>
@@ -383,7 +382,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="144"/>
         <CursorPos X="17" Y="162"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit36>
       <Unit37>
         <Filename Value="C:\Programme\lazarus\components\lazutils\lazutf8sysutils.pas"/>
@@ -391,7 +390,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="3"/>
         <CursorPos X="23" Y="90"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit37>
       <Unit38>
         <Filename Value="..\nntpserver\ulsmtpsrv.pas"/>
@@ -399,7 +398,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="3"/>
         <CursorPos X="1" Y="113"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit38>
       <Unit39>
         <Filename Value="rfc2060.txt"/>
@@ -417,7 +416,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="120"/>
         <CursorPos X="14" Y="137"/>
-        <UsageCount Value="48"/>
+        <UsageCount Value="47"/>
       </Unit40>
       <Unit41>
         <Filename Value="..\..\..\lkomponenten\lnet\lib\lcommon.pp"/>
@@ -425,7 +424,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="356"/>
         <CursorPos X="1" Y="376"/>
-        <UsageCount Value="48"/>
+        <UsageCount Value="47"/>
       </Unit41>
       <Unit42>
         <Filename Value="..\..\..\lkomponenten\synapse\imapsend.pas"/>
@@ -433,7 +432,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="383"/>
         <CursorPos X="92" Y="390"/>
-        <UsageCount Value="49"/>
+        <UsageCount Value="48"/>
       </Unit42>
       <Unit43>
         <Filename Value="..\nntpserver\ulnntp.pas"/>
@@ -441,7 +440,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="25"/>
         <CursorPos X="1" Y="20"/>
-        <UsageCount Value="39"/>
+        <UsageCount Value="38"/>
       </Unit43>
       <Unit44>
         <Filename Value="..\base\changes.txt"/>
@@ -449,7 +448,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="99" Y="12"/>
-        <UsageCount Value="84"/>
+        <UsageCount Value="91"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit44>
@@ -458,7 +457,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1408"/>
         <CursorPos X="12" Y="1444"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit45>
       <Unit46>
@@ -467,7 +466,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="20"/>
-        <UsageCount Value="39"/>
+        <UsageCount Value="38"/>
       </Unit46>
       <Unit47>
         <Filename Value="..\..\..\lkomponenten\synapse\synamisc.pas"/>
@@ -475,7 +474,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="85"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="10"/>
       </Unit47>
       <Unit48>
         <Filename Value="..\..\..\lkomponenten\synapse\synautil.pas"/>
@@ -483,21 +482,21 @@
         <WindowIndex Value="0"/>
         <TopLine Value="690"/>
         <CursorPos X="1" Y="711"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="3"/>
       </Unit48>
       <Unit49>
         <Filename Value="..\..\..\..\fpc\2.6_fixes\rtl\objpas\classes\classesh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="680"/>
         <CursorPos X="40" Y="692"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit49>
       <Unit50>
         <Filename Value="..\..\..\..\fpc\2.6_fixes\rtl\inc\systemh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="364"/>
         <CursorPos X="41" Y="376"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit50>
       <Unit51>
         <Filename Value="..\..\..\lkomponenten\synapse\mimemess.pas"/>
@@ -505,7 +504,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="445"/>
         <CursorPos X="26" Y="463"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="3"/>
       </Unit51>
       <Unit52>
         <Filename Value="idimap4.pas"/>
@@ -514,7 +513,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="4033"/>
         <CursorPos X="35" Y="4065"/>
-        <UsageCount Value="69"/>
+        <UsageCount Value="76"/>
         <Loaded Value="True"/>
       </Unit52>
       <Unit53>
@@ -523,7 +522,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="107"/>
         <CursorPos X="3" Y="125"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit53>
       <Unit54>
         <Filename Value="..\..\..\..\lazarus\components\lazutils\lazlogger.pas"/>
@@ -531,14 +530,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="495"/>
         <CursorPos X="37" Y="521"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="3"/>
       </Unit54>
       <Unit55>
         <Filename Value="thunderbird_20140101_223007.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2264"/>
         <CursorPos X="71" Y="2271"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit55>
       <Unit56>
@@ -546,7 +545,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="123"/>
         <CursorPos X="116" Y="140"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="14"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit56>
       <Unit57>
@@ -554,7 +553,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit57>
       <Unit58>
@@ -562,7 +561,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="2837"/>
         <CursorPos X="97" Y="2855"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit58>
       <Unit59>
@@ -570,7 +569,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="527"/>
         <CursorPos X="67" Y="561"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="4"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit59>
       <Unit60>
@@ -578,7 +577,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="298"/>
         <CursorPos X="164" Y="308"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="4"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit60>
       <Unit61>
@@ -586,7 +585,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="18" Y="11"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="4"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit61>
       <Unit62>
@@ -594,7 +593,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="322"/>
         <CursorPos X="64" Y="348"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="4"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit62>
       <Unit63>
@@ -602,7 +601,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="331"/>
         <CursorPos X="72" Y="350"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="4"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit63>
       <Unit64>
@@ -610,7 +609,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="329"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit64>
       <Unit65>
@@ -618,7 +617,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="629"/>
         <CursorPos X="119" Y="657"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit65>
       <Unit66>
@@ -626,7 +625,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="3910"/>
         <CursorPos X="98" Y="2215"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit66>
       <Unit67>
@@ -634,7 +633,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="654"/>
         <CursorPos X="115" Y="672"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit67>
       <Unit68>
@@ -642,7 +641,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="825"/>
         <CursorPos X="78" Y="850"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit68>
       <Unit69>
@@ -650,7 +649,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="517"/>
         <CursorPos X="1" Y="521"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit69>
       <Unit70>
@@ -658,7 +657,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="837"/>
         <CursorPos X="1" Y="885"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit70>
       <Unit71>
@@ -666,7 +665,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="711"/>
         <CursorPos X="63" Y="736"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit71>
       <Unit72>
@@ -674,7 +673,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="548"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit72>
       <Unit73>
@@ -682,7 +681,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="5084"/>
         <CursorPos X="87" Y="5112"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit73>
       <Unit74>
@@ -690,7 +689,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="53" Y="13"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit74>
       <Unit75>
@@ -698,7 +697,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="27239"/>
         <CursorPos X="74" Y="27256"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit75>
       <Unit76>
@@ -707,14 +706,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="843"/>
         <CursorPos X="32" Y="907"/>
-        <UsageCount Value="30"/>
+        <UsageCount Value="29"/>
       </Unit76>
       <Unit77>
         <Filename Value="thunderbird_20140103_072817.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="163"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit77>
       <Unit78>
@@ -722,7 +721,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="87" Y="102519"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit78>
       <Unit79>
@@ -730,7 +729,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="107"/>
         <CursorPos X="76" Y="107"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="19"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit79>
       <Unit80>
@@ -738,21 +737,21 @@
         <WindowIndex Value="0"/>
         <TopLine Value="675"/>
         <CursorPos X="39" Y="692"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit80>
       <Unit81>
         <Filename Value="..\..\..\..\..\..\..\usr\share\fpcsrc\2.6.2\rtl\inc\systemh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="360"/>
         <CursorPos X="41" Y="376"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit81>
       <Unit82>
         <Filename Value="thunderbird_20140103_232322.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="90" Y="1"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit82>
       <Unit83>
@@ -760,7 +759,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1184"/>
         <CursorPos X="73" Y="1202"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit83>
       <Unit84>
@@ -768,7 +767,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="6432"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit84>
       <Unit85>
@@ -776,7 +775,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="397"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit85>
       <Unit86>
@@ -784,7 +783,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="384"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit86>
       <Unit87>
@@ -792,7 +791,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="10"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit87>
       <Unit88>
@@ -801,7 +800,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="876"/>
         <CursorPos X="27" Y="900"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="13"/>
       </Unit88>
       <Unit89>
         <Filename Value="..\components\lnet\lib\lsmtp.pp"/>
@@ -809,7 +808,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="208"/>
         <CursorPos X="15" Y="102"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit89>
       <Unit90>
         <Filename Value="..\components\lnet\lib\lwebserver.pp"/>
@@ -817,28 +816,28 @@
         <WindowIndex Value="0"/>
         <TopLine Value="943"/>
         <CursorPos X="3" Y="845"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit90>
       <Unit91>
         <Filename Value="..\..\..\..\..\..\..\usr\share\fpcsrc\2.6.2\rtl\inc\socketsh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="147"/>
         <CursorPos X="11" Y="164"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit91>
       <Unit92>
         <Filename Value="..\..\..\..\..\..\..\usr\share\fpcsrc\2.6.2\rtl\linux\unixsock.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="154"/>
         <CursorPos X="3" Y="156"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit92>
       <Unit93>
         <Filename Value="..\components\lnet\lib\sys\lepolleventer.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="176"/>
         <CursorPos X="1" Y="199"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="13"/>
       </Unit93>
       <Unit94>
         <Filename Value="ulsmtpsrv.pas"/>
@@ -846,9 +845,9 @@
         <UnitName Value="ulsmtpsrv"/>
         <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="91"/>
+        <TopLine Value="87"/>
         <CursorPos X="15" Y="79"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="61"/>
         <Loaded Value="True"/>
       </Unit94>
       <Unit95>
@@ -857,7 +856,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1370"/>
         <CursorPos X="19" Y="1382"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit95>
       <Unit96>
@@ -865,7 +864,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="151"/>
         <CursorPos X="112" Y="164"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="11"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit96>
       <Unit97>
@@ -874,7 +873,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="22"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit97>
       <Unit98>
         <Filename Value="..\base\dbintfs\uthumbnails.pas"/>
@@ -882,16 +881,16 @@
         <WindowIndex Value="0"/>
         <TopLine Value="10"/>
         <CursorPos X="69" Y="28"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit98>
       <Unit99>
         <Filename Value="..\base_messaging\ureceivemessage.pas"/>
         <UnitName Value="ureceivemessage"/>
         <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="188"/>
-        <CursorPos X="78" Y="191"/>
-        <UsageCount Value="14"/>
+        <TopLine Value="199"/>
+        <CursorPos X="1" Y="229"/>
+        <UsageCount Value="21"/>
         <Loaded Value="True"/>
       </Unit99>
       <Unit100>
@@ -900,7 +899,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1130"/>
         <CursorPos X="3" Y="1134"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit100>
       <Unit101>
         <Filename Value="..\..\..\..\..\..\..\usr\share\fpcsrc\2.6.2\packages\fcl-base\src\custapp.pp"/>
@@ -908,130 +907,126 @@
         <WindowIndex Value="0"/>
         <TopLine Value="47"/>
         <CursorPos X="14" Y="63"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit101>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="850" Column="1" TopLine="822"/>
+        <Caret Line="96" Column="1" TopLine="84"/>
       </Position1>
       <Position2>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="852" Column="1" TopLine="824"/>
+        <Caret Line="98" Column="1" TopLine="84"/>
       </Position2>
       <Position3>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="853" Column="1" TopLine="825"/>
+        <Caret Line="100" Column="1" TopLine="84"/>
       </Position3>
       <Position4>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="855" Column="1" TopLine="827"/>
+        <Caret Line="101" Column="1" TopLine="84"/>
       </Position4>
       <Position5>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="857" Column="1" TopLine="829"/>
+        <Caret Line="104" Column="1" TopLine="84"/>
       </Position5>
       <Position6>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="858" Column="1" TopLine="830"/>
+        <Caret Line="105" Column="1" TopLine="84"/>
       </Position6>
       <Position7>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="859" Column="1" TopLine="831"/>
+        <Caret Line="94" Column="1" TopLine="84"/>
       </Position7>
       <Position8>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="736" Column="1" TopLine="733"/>
+        <Caret Line="96" Column="1" TopLine="84"/>
       </Position8>
       <Position9>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="826" Column="1" TopLine="809"/>
+        <Caret Line="98" Column="1" TopLine="84"/>
       </Position9>
       <Position10>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="827" Column="1" TopLine="809"/>
+        <Caret Line="100" Column="1" TopLine="84"/>
       </Position10>
       <Position11>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="828" Column="1" TopLine="809"/>
+        <Caret Line="103" Column="1" TopLine="84"/>
       </Position11>
       <Position12>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="830" Column="1" TopLine="809"/>
+        <Caret Line="104" Column="1" TopLine="84"/>
       </Position12>
       <Position13>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="831" Column="1" TopLine="809"/>
+        <Caret Line="105" Column="1" TopLine="84"/>
       </Position13>
       <Position14>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="833" Column="1" TopLine="809"/>
+        <Caret Line="94" Column="1" TopLine="84"/>
       </Position14>
       <Position15>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="834" Column="1" TopLine="809"/>
+        <Caret Line="96" Column="1" TopLine="84"/>
       </Position15>
       <Position16>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="835" Column="1" TopLine="809"/>
+        <Caret Line="98" Column="1" TopLine="84"/>
       </Position16>
       <Position17>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="838" Column="1" TopLine="810"/>
+        <Caret Line="100" Column="1" TopLine="84"/>
       </Position17>
       <Position18>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="839" Column="1" TopLine="811"/>
+        <Caret Line="103" Column="1" TopLine="84"/>
       </Position18>
       <Position19>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="828" Column="1" TopLine="811"/>
+        <Caret Line="104" Column="1" TopLine="84"/>
       </Position19>
       <Position20>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="841" Column="1" TopLine="813"/>
+        <Caret Line="105" Column="1" TopLine="84"/>
       </Position20>
       <Position21>
-        <Filename Value="ulimap.pas"/>
-        <Caret Line="502" Column="1" TopLine="486"/>
+        <Filename Value="uprometimap.pas"/>
+        <Caret Line="94" Column="1" TopLine="84"/>
       </Position21>
       <Position22>
-        <Filename Value="ulimap.pas"/>
-        <Caret Line="503" Column="1" TopLine="486"/>
+        <Filename Value="uprometimap.pas"/>
+        <Caret Line="96" Column="1" TopLine="84"/>
       </Position22>
       <Position23>
-        <Filename Value="ulimap.pas"/>
-        <Caret Line="504" Column="1" TopLine="486"/>
+        <Filename Value="uprometimap.pas"/>
+        <Caret Line="98" Column="1" TopLine="84"/>
       </Position23>
       <Position24>
-        <Filename Value="ulimap.pas"/>
-        <Caret Line="499" Column="1" TopLine="486"/>
+        <Filename Value="uprometimap.pas"/>
+        <Caret Line="100" Column="1" TopLine="84"/>
       </Position24>
       <Position25>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="826" Column="1" TopLine="813"/>
+        <Caret Line="96" Column="1" TopLine="84"/>
       </Position25>
       <Position26>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="827" Column="1" TopLine="813"/>
+        <Caret Line="97" Column="1" TopLine="84"/>
       </Position26>
       <Position27>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="753" Column="21" TopLine="725"/>
+        <Caret Line="3" Column="91" TopLine="1"/>
       </Position27>
       <Position28>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="754" Column="27" TopLine="744"/>
+        <Caret Line="205" Column="182" TopLine="177"/>
       </Position28>
       <Position29>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="756" Column="1" TopLine="740"/>
+        <Caret Line="217" Column="247" TopLine="189"/>
       </Position29>
-      <Position30>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="758" Column="72" TopLine="741"/>
-      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -1070,8 +1065,8 @@
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
-        <Source Value="uprometimap.pas"/>
-        <Line Value="827"/>
+        <Source Value="imapserver.lpr"/>
+        <Line Value="139"/>
       </Item1>
     </BreakPoints>
     <Watches Count="1">

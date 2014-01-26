@@ -72,6 +72,7 @@ type
   public
     constructor Create(aParent : TIMAPFolders;aName : string;aUID : string);override;
     destructor Destroy;override;
+    property TreeEntry : string read FTreeEntry;
   end;
 
 implementation
@@ -85,6 +86,7 @@ var
   aGroup: TPIMAPFolder;
 begin
   Folders.Clear;
+  SelectUser;
   Data.SetFilter(Data.Tree,Data.QuoteField('TYPE')+'='+Data.QuoteValue('B')+' or '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('N'),0,'','ASC',False,True,True);
   with Data.Tree.DataSet do
     begin
@@ -288,91 +290,96 @@ begin
   aMsg := TMimeMess.Create;
   aMsg.Lines.Assign(aArticle);
   aMsg.DecodeMessage;
-  randomize;
-  aID := '';
-  for i := 0 to 45 do
+  if aMsg.Header.MessageID='' then
     begin
-      aChr := chr(ord('0')+random(74));
-      if aChr in ['a'..'z','0'..'9','A'..'Z'] then
-        aID := aID+aChr;
+      randomize;
+      aID := '';
+      for i := 0 to 45 do
+        begin
+          aChr := chr(ord('0')+random(74));
+          if aChr in ['a'..'z','0'..'9','A'..'Z'] then
+            aID := aID+aChr;
+        end;
+      aMsg.Header.MessageID := aID;
     end;
-  aMsg.Header.MessageID := aID;
   aMessage := TMimeMessage.Create(Self,Data);
-  aMessage.Select(0);
-  aMessage.Open;
-  aMessage.DataSet.Insert;
-  if Data.Users.DataSet.Locate('NAME',aUser,[loCaseInsensitive]) then
-    aMessage.Dataset.FieldByName('USER').AsString := Data.Users.DataSet.FieldByName('ACCOUNTNO').AsString;
-  aMessage.Dataset.FieldByName('TYPE').AsString := 'EMAIL';
-  aMessage.Dataset.FieldByName('READ').AsString := 'N';
-  aMessage.DecodeMessage(aMsg);
-  aMessage.FieldbyName('TREEENTRY').AsString := FTreeEntry;
-  if FPostDateTime<>'' then
-    aMessage.FieldByName('SENDDATE').AsDateTime:=DecodeRfcDateTime(FPostDateTime);
-
-  aSubject := ConvertEncoding(amsg.Header.Subject,GuessEncoding(amsg.Header.Subject),EncodingUTF8);
-  atmp:=ConvertEncoding(getemailaddr(aMsg.Header.From),GuessEncoding(getemailaddr(aMsg.Header.From)),EncodingUTF8);
-  CustomerCont := TPersonContactData.Create(Self,Data);
-  if Data.IsSQLDb then
-    Data.SetFilter(CustomerCont,'UPPER("DATA")=UPPER('''+atmp+''')')
-  else
-    Data.SetFilter(CustomerCont,'"DATA"='''+atmp+'''');
-  if CustomerCont.Count=0 then
+  amessage.Filter(Data.QuoteField('ID')+'='+Data.QuoteValue(aMsg.Header.MessageID){+' and '+Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)});
+  if aMessage.Count=0 then
     begin
-      atmp := copy(aMsg.Header.From,0,pos('<',aMsg.Header.From)-1);
+      aMessage.Insert;
+      aMessage.FieldByName('ID').Clear;
+      if Data.Users.DataSet.Locate('NAME',aUser,[loCaseInsensitive]) then
+        aMessage.Dataset.FieldByName('USER').AsString := Data.Users.DataSet.FieldByName('ACCOUNTNO').AsString;
+      aMessage.Dataset.FieldByName('TYPE').AsString := 'EMAIL';
+      aMessage.Dataset.FieldByName('READ').AsString := 'N';
+      aMessage.DecodeMessage(aMsg);
+      aMessage.FieldbyName('TREEENTRY').AsString := FTreeEntry;
+      if FPostDateTime<>'' then
+        aMessage.FieldByName('SENDDATE').AsDateTime:=DecodeRfcDateTime(FPostDateTime);
+      aSubject := ConvertEncoding(amsg.Header.Subject,GuessEncoding(amsg.Header.Subject),EncodingUTF8);
+      atmp:=ConvertEncoding(getemailaddr(aMsg.Header.From),GuessEncoding(getemailaddr(aMsg.Header.From)),EncodingUTF8);
+      CustomerCont := TPersonContactData.Create(Self,Data);
       if Data.IsSQLDb then
         Data.SetFilter(CustomerCont,'UPPER("DATA")=UPPER('''+atmp+''')')
       else
         Data.SetFilter(CustomerCont,'"DATA"='''+atmp+'''');
-      if (CustomerCont.Count=0) then
+      if CustomerCont.Count=0 then
         begin
-          if copy(atmp,0,1)='+' then
-            atmp := '0'+copy(atmp,3,length(atmp));
+          atmp := copy(aMsg.Header.From,0,pos('<',aMsg.Header.From)-1);
           if Data.IsSQLDb then
             Data.SetFilter(CustomerCont,'UPPER("DATA")=UPPER('''+atmp+''')')
           else
             Data.SetFilter(CustomerCont,'"DATA"='''+atmp+'''');
+          if (CustomerCont.Count=0) then
+            begin
+              if copy(atmp,0,1)='+' then
+                atmp := '0'+copy(atmp,3,length(atmp));
+              if Data.IsSQLDb then
+                Data.SetFilter(CustomerCont,'UPPER("DATA")=UPPER('''+atmp+''')')
+              else
+                Data.SetFilter(CustomerCont,'"DATA"='''+atmp+'''');
+            end;
         end;
-    end;
-  Customers := TPerson.Create(Self,Data);
-  Data.SetFilter(Customers,'"ACCOUNTNO"='+Data.QuoteValue(CustomerCont.DataSet.FieldByName('ACCOUNTNO').AsString));
-  CustomerCont.Free;
-  if Customers.Count > 0 then
-    begin
-      Customers.History.Open;
-      Customers.History.AddItem(Customers.DataSet,Format(strActionMessageReceived,[aSubject]),
-                                'MESSAGEIDX@'+aMessage.FieldByName('ID').AsString+'{'+aSubject+'}',
-                                '',
-                                nil,
-                                ACICON_MAILNEW);
-      Customers.History.Edit;
-      with Customers.History.DataSet as IBaseManageDB do
-        UpdateStdFields := False;
-      if FPostDateTime<>'' then
-        Customers.History.TimeStamp.AsDateTime:=aMessage.FieldByName('SENDDATE').AsDateTime;
-      with Customers.History.DataSet as IBaseManageDB do
-        UpdateStdFields := True;
-      Customers.History.Post;
-      {
-      if Data.Users.DataSet.Locate('NAME',aUser,[loCaseInsensitive]) then
-      Data.Users.History.AddItemWithoutUser(Customers.DataSet,Format(strActionMessageReceived,[aSubject]),
+      Customers := TPerson.Create(Self,Data);
+      Data.SetFilter(Customers,'"ACCOUNTNO"='+Data.QuoteValue(CustomerCont.DataSet.FieldByName('ACCOUNTNO').AsString));
+      CustomerCont.Free;
+      if Customers.Count > 0 then
+        begin
+          Customers.History.Open;
+          Customers.History.AddItem(Customers.DataSet,Format(strActionMessageReceived,[aSubject]),
                                     'MESSAGEIDX@'+aMessage.FieldByName('ID').AsString+'{'+aSubject+'}',
                                     '',
                                     nil,
                                     ACICON_MAILNEW);
-      Data.Users.History.Edit;
-      with Data.Users.History.DataSet as IBaseManageDB do
-        UpdateStdFields := False;
-      if FPostDateTime<>'' then
-        Data.Users.History.TimeStamp.AsDateTime:=aMessage.FieldByName('SENDDATE').AsDateTime;
-      Data.Users.History.Post;
-      with Data.Users.History.DataSet as IBaseManageDB do
-        UpdateStdFields := True;
-      }
+          Customers.History.Edit;
+          with Customers.History.DataSet as IBaseManageDB do
+            UpdateStdFields := False;
+          if FPostDateTime<>'' then
+            Customers.History.TimeStamp.AsDateTime:=aMessage.FieldByName('SENDDATE').AsDateTime;
+          with Customers.History.DataSet as IBaseManageDB do
+            UpdateStdFields := True;
+          Customers.History.Post;
+          {
+          if Data.Users.DataSet.Locate('NAME',aUser,[loCaseInsensitive]) then
+          Data.Users.History.AddItemWithoutUser(Customers.DataSet,Format(strActionMessageReceived,[aSubject]),
+                                        'MESSAGEIDX@'+aMessage.FieldByName('ID').AsString+'{'+aSubject+'}',
+                                        '',
+                                        nil,
+                                        ACICON_MAILNEW);
+          Data.Users.History.Edit;
+          with Data.Users.History.DataSet as IBaseManageDB do
+            UpdateStdFields := False;
+          if FPostDateTime<>'' then
+            Data.Users.History.TimeStamp.AsDateTime:=aMessage.FieldByName('SENDDATE').AsDateTime;
+          Data.Users.History.Post;
+          with Data.Users.History.DataSet as IBaseManageDB do
+            UpdateStdFields := True;
+          }
+        end;
+      aMessage.DataSet.Post;
+      Result := True;
     end;
   aMsg.Free;
-  aMessage.DataSet.Post;
-  Result := True;
   aMessage.Destroy;
 end;
 
@@ -441,6 +448,16 @@ begin
               if FMessages.FieldByName('READ').AsString='Y' then
                 begin
                   tmp+='\Seen ';
+                  FAdded:=True;
+                end;
+              if FMessages.FieldByName('FLAGGED').AsString='Y' then
+                begin
+                  tmp+='\Flagged ';
+                  FAdded:=True;
+                end;
+              if FMessages.FieldByName('DRAFT').AsString='Y' then
+                begin
+                  tmp+='\Draft ';
                   FAdded:=True;
                 end;
               if FMessages.FieldByName('ANSWERED').AsString='Y' then
@@ -544,8 +561,8 @@ begin
                         Found := True;
                         break;
                       end;
-                  if not Found then
-                    aSL.Add(copy(aFields,0,pos(' ',aFields)-1)+':');
+                  //if not Found then
+                  //  aSL.Add(copy(aFields,0,pos(' ',aFields)-1)+':');
                   aFields := copy(aFields,pos(' ',aFields)+1,length(aFields));
                 end;
               if aFields<>'' then
@@ -558,8 +575,8 @@ begin
                         Found := True;
                         break;
                       end;
-                  if not Found then
-                    aSL.Add(aFields+':');
+                  //if not Found then
+                  //  aSL.Add(aFields+':');
                   aFields := copy(aFields,pos(' ',aFields)+1,length(aFields));
                 end;
               aLen := 0;
@@ -640,12 +657,20 @@ begin
                 FMessages.FieldByName('ANSWERED').AsDateTime:=Now();
               if (pos('\DELETED',aParams)>0) and (bOperator='Y') then
                 FMessages.FieldByName('TREEENTRY').AsVariant:=TREE_ID_DELETED_MESSAGES;
+              if (pos('\FLAGGED',aParams)>0) then
+                FMessages.FieldByName('FLAGGED').AsString:=bOperator;
+              if (pos('\DRAFT',aParams)>0) then
+                FMessages.FieldByName('DRAFT').AsString:=bOperator;
               FMessages.Post;
               if bFetch <> 'FLAGS.SILENT' then
                 begin
                   tmp := tmp+'FLAGS (';
                   if FMessages.FieldByName('READ').AsString='Y' then
                     tmp+='\Seen ';
+                  if FMessages.FieldByName('FLAGGED').AsString='Y' then
+                    tmp+='\Flagged ';
+                  if FMessages.FieldByName('DRAFT').AsString='Y' then
+                    tmp+='\Draft ';
                   if FMessages.FieldByName('ANSWERED').AsString='Y' then
                     tmp+='\Answered ';
                   if FMessages.FieldByName('TREEENTRY').AsVariant=TREE_ID_DELETED_MESSAGES then
@@ -686,8 +711,9 @@ var
   tmpRecNo: String;
   i: Integer;
   tmp: String;
-  aFolder: TIMAPFolder;
+  aFolder: TPIMAPFolder;
 begin
+  //we implement copy as move since that makes in most cases more sense
   if FSelectCount=0 then
     if not SelectNext then
       begin
@@ -705,11 +731,11 @@ begin
     begin
       if Parent.Folder[i].Name = tmp then
         begin
-          aFolder := Parent.Folder[i];
+          aFolder := TPIMAPFolder(Parent.Folder[i]);
         end;
     end;
   Result := TStringList.Create;
-  aNewMessage := TMessageList.Create(nil,Data);
+  //aNewMessage := TMessageList.Create(nil,Data);
   if not FMessages.DataSet.BOF then
     begin
       if FSequenceNumbers.IndexOf(FMessages.Id.AsString)=-1 then
@@ -717,15 +743,18 @@ begin
           tmpRecNo := IntToStr(FSequenceNumbers.Add(FMessages.Id.AsString)+1);
         end
       else tmpRecNo:=IntToStr(FSequenceNumbers.IndexOf(FMessages.Id.AsString)+1);
-      aNewMessage.Insert;
+      FMessages.Edit;
+      Fmessages.FieldByName('TREEENTRY').AsVariant:=aFolder.TreeEntry;
+      FMessages.Post;
+      {aNewMessage.Insert;
       for i := 1 to FMessages.DataSet.Fields.Count-1 do
         aNewMessage.DataSet.Fields[i].AsVariant:=FMessages.DataSet.Fields[i].AsVariant;
-      aNewMessage.FieldByName('TREEENTRY').AsVariant:=aFolder.UID;
-      aNewMessage.Post;
+      aNewMessage.FieldByName('TREEENTRY').AsVariant:=aFolder.FTreeEntry;
+      aNewMessage.Post;}
       Fmessages.DataSet.Prior;
       Dec(FSelectCount,1);
     end;
-  aNewMessage.Free;
+  //aNewMessage.Free;
 end;
 
 function TPIMAPFolder.Search(aParams: string): string;
@@ -760,91 +789,94 @@ var
 begin
   //TODO:more Selections possible
   Result:='* SEARCH';
-  //convert to filter
-  aSQL := '';
-  //unsupported
-  //BODY <string>  Messages that contain the specified string in the body of the message.
-  //CC <string>    Messages that contain the specified string in the envelope structure's CC field.
-  //KEYWORD <flag> Messages with the specified keyword set.
-  //LARGER <n>     Messages with an [RFC-822] size larger than the specified number of octets.
-  //NEW            Messages that have the \Recent flag set but not the \Seen flag.  This is functionally equivalent to "(RECENT UNSEEN)".
-  //OLD            Messages that do not have the \Recent flag set. This is functionally equivalent to "NOT RECENT" (as opposed to "NOT NEW").
-  //OR <search-key1> <search-key2> Messages that match either search key.
-  //RECENT         Messages that have the \Recent flag set.
-  //SMALLER <n>    Messages with an [RFC-822] size smaller than the specified number of octets.
-  //TEXT <string>  Messages that contain the specified string in the header or body of the message.
-  //TO <string>    Messages that contain the specified string in the envelope structure's TO field.
-  //UNANSWERED     Messages that do not have the \Answered flag set.
-  //UNDELETED      Messages that do not have the \Deleted flag set.
-  //UNDRAFT        Messages that do not have the \Draft flag set.
-  //UNKEYWORD <flag> Messages that do not have the specified keyword set.
-  //UNSEEN         Messages that do not have the \Seen flag set.
-  while length(aParams)>0 do
+  if aParams <> '' then
     begin
-      case NextParam of
-      'BEFORE'://BEFORE <date>  Messages whose internal date is earlier than the specified date.
-        aSQL := aSQL+Data.QuoteField('TIMESTAMPD')+'<'+Data.DateTimeToFilter(SynaUtil.DecodeRfcDateTime(NextParam(False)))+' and ';
-      'ON'://ON <date>      Messages whose internal date is within the specified date.
-        aSQL := aSQL+Data.QuoteField('TIMESTAMPD')+'='+Data.DateTimeToFilter(SynaUtil.DecodeRfcDateTime(NextParam(False)))+' and ';
-      'SINCE'://SINCE <date>   Messages whose internal date is within or later than the specified date.
-        aSQL := aSQL+Data.QuoteField('TIMESTAMPD')+'>'+Data.DateTimeToFilter(SynaUtil.DecodeRfcDateTime(NextParam(False)))+' and ';
-      'SENTBEFORE'://SENTBEFORE <date> Messages whose [RFC-822] Date: header is earlier than the specified date.
-        aSQL := aSQL+Data.QuoteField('SENDDATE')+'<'+Data.DateTimeToFilter(SynaUtil.DecodeRfcDateTime(NextParam(False)))+' and ';
-      'SENTON'://SENTON <date>  Messages whose [RFC-822] Date: header is within the specified date.
-        aSQL := aSQL+Data.QuoteField('SENDDATE')+'='+Data.DateTimeToFilter(SynaUtil.DecodeRfcDateTime(NextParam(False)))+' and ';
-      'SENTSINCE'://SENTSINCE <date> Messages whose [RFC-822] Date: header is within or later than the specified date.
-        aSQL := aSQL+Data.QuoteField('SENDDATE')+'>'+Data.DateTimeToFilter(SynaUtil.DecodeRfcDateTime(NextParam(False)))+' and ';
-      'DELETED'://DELETED        Messages with the \Deleted flag set.
-        aSQL := aSQL+Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(IntToStr(TREE_ID_DELETED_MESSAGES))+' and ';
-      'UNDELETED'://DELETED        Messages with the \Deleted flag set.
-        aSQL := aSQL+Data.QuoteField('TREEENTRY')+'<>'+Data.QuoteValue(IntToStr(TREE_ID_DELETED_MESSAGES))+' and ';
-      'DRAFT'://DRAFT          Messages with the \Draft flag set.
-        aSQL := aSQL+Data.QuoteField('DRAFT')+'='+Data.QuoteValue('Y')+' and ';
-      'FLAGGED'://FLAGGED        Messages with the \Flagged flag set.
-        aSQL := aSQL+Data.QuoteField('DRAFT')+'='+Data.QuoteValue('Y')+' and ';
-      'UNFLAGGED'://UNFLAGGED      Messages that do not have the \Flagged flag set.
-        aSQL := aSQL+Data.QuoteField('DRAFT')+'<>'+Data.QuoteValue('Y')+' and ';
-      'SEEN'://SEEN           Messages that have the \Seen flag set.
-        aSQL := aSQL+Data.QuoteField('READ')+'='+Data.QuoteValue('Y')+' and ';
-      'FROM'://FROM <string>  Messages that contain the specified string in the envelope structure's FROM field.
-        aSQL := aSQL+Data.ProcessTerm(Data.QuoteField('SENDER')+'='+Data.QuoteValue('*'+NextParam(False)+'*'))+' and ';
-      'SUBJECT'://SUBJECT <string> Messages that contain the specified string in the envelope structure's SUBJECT field.
-        aSQL := aSQL+Data.ProcessTerm(Data.QuoteField('SUBJECT')+'='+Data.QuoteValue('*'+NextParam(False)+'*'))+' and ';
-      'HEADER'://HEADER <field-name> <string> Messages that have a header with the specified field-name (as defined in [RFC-822]) and that contains the specified string in the [RFC-822] field-body.
-         begin
-           case NextParam of
-           'MESSAGE-ID':
-             aSQL := aSQL+Data.QuoteField('ID')+'='+Data.QuoteValue(GetmailAddr(NextParam(False)))+' and ';
-           else
-             begin
-               raise Exception.Create('criteria not allowed');
-               exit;
-             end;
-           end;
-         end;
-      'UID'://UID <message set> Messages with unique identifiers corresponding to the specified unique identifier set.
-         begin
-           aSQL := aSQL+'(';
-           aSet := NextParam(False);
-           while pos(',',aSet)>0 do
-             begin
-               ProcessSetEntry(copy(aSet,0,pos(',',aSet)-1));
-               aSet := copy(aSet,pos(',',aSet)+1,length(aSet));
-             end;
-           ProcessSetEntry(aSet);
-           aSQL := aSQL+')';
-         end;
-      'NOT'://NOT <search-key> Messages that do not match the specified search key.
-        aSQL := aSQL+' not ';
-      else
+      //convert to filter
+      aSQL := Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(Data.Users.FieldByName('ACCOUNTNO').AsString)+' and ';
+      //unsupported
+      //BODY <string>  Messages that contain the specified string in the body of the message.
+      //CC <string>    Messages that contain the specified string in the envelope structure's CC field.
+      //KEYWORD <flag> Messages with the specified keyword set.
+      //LARGER <n>     Messages with an [RFC-822] size larger than the specified number of octets.
+      //NEW            Messages that have the \Recent flag set but not the \Seen flag.  This is functionally equivalent to "(RECENT UNSEEN)".
+      //OLD            Messages that do not have the \Recent flag set. This is functionally equivalent to "NOT RECENT" (as opposed to "NOT NEW").
+      //OR <search-key1> <search-key2> Messages that match either search key.
+      //RECENT         Messages that have the \Recent flag set.
+      //SMALLER <n>    Messages with an [RFC-822] size smaller than the specified number of octets.
+      //TEXT <string>  Messages that contain the specified string in the header or body of the message.
+      //TO <string>    Messages that contain the specified string in the envelope structure's TO field.
+      //UNANSWERED     Messages that do not have the \Answered flag set.
+      //UNDELETED      Messages that do not have the \Deleted flag set.
+      //UNDRAFT        Messages that do not have the \Draft flag set.
+      //UNKEYWORD <flag> Messages that do not have the specified keyword set.
+      //UNSEEN         Messages that do not have the \Seen flag set.
+      while length(aParams)>0 do
         begin
-          raise Exception.Create('criteria not allowed');
-          exit;
+          case NextParam of
+          'BEFORE'://BEFORE <date>  Messages whose internal date is earlier than the specified date.
+            aSQL := aSQL+Data.QuoteField('TIMESTAMPD')+'<'+Data.DateTimeToFilter(SynaUtil.DecodeRfcDateTime(NextParam(False)))+' and ';
+          'ON'://ON <date>      Messages whose internal date is within the specified date.
+            aSQL := aSQL+Data.QuoteField('TIMESTAMPD')+'='+Data.DateTimeToFilter(SynaUtil.DecodeRfcDateTime(NextParam(False)))+' and ';
+          'SINCE'://SINCE <date>   Messages whose internal date is within or later than the specified date.
+            aSQL := aSQL+Data.QuoteField('TIMESTAMPD')+'>'+Data.DateTimeToFilter(SynaUtil.DecodeRfcDateTime(NextParam(False)))+' and ';
+          'SENTBEFORE'://SENTBEFORE <date> Messages whose [RFC-822] Date: header is earlier than the specified date.
+            aSQL := aSQL+Data.QuoteField('SENDDATE')+'<'+Data.DateTimeToFilter(SynaUtil.DecodeRfcDateTime(NextParam(False)))+' and ';
+          'SENTON'://SENTON <date>  Messages whose [RFC-822] Date: header is within the specified date.
+            aSQL := aSQL+Data.QuoteField('SENDDATE')+'='+Data.DateTimeToFilter(SynaUtil.DecodeRfcDateTime(NextParam(False)))+' and ';
+          'SENTSINCE'://SENTSINCE <date> Messages whose [RFC-822] Date: header is within or later than the specified date.
+            aSQL := aSQL+Data.QuoteField('SENDDATE')+'>'+Data.DateTimeToFilter(SynaUtil.DecodeRfcDateTime(NextParam(False)))+' and ';
+          'DELETED'://DELETED        Messages with the \Deleted flag set.
+            aSQL := aSQL+Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(IntToStr(TREE_ID_DELETED_MESSAGES))+' and ';
+          'UNDELETED'://DELETED        Messages with the \Deleted flag set.
+            aSQL := aSQL+Data.QuoteField('TREEENTRY')+'<>'+Data.QuoteValue(IntToStr(TREE_ID_DELETED_MESSAGES))+' and ';
+          'DRAFT'://DRAFT          Messages with the \Draft flag set.
+            aSQL := aSQL+Data.QuoteField('DRAFT')+'='+Data.QuoteValue('Y')+' and ';
+          'FLAGGED'://FLAGGED        Messages with the \Flagged flag set.
+            aSQL := aSQL+Data.QuoteField('DRAFT')+'='+Data.QuoteValue('Y')+' and ';
+          'UNFLAGGED'://UNFLAGGED      Messages that do not have the \Flagged flag set.
+            aSQL := aSQL+Data.QuoteField('DRAFT')+'<>'+Data.QuoteValue('Y')+' and ';
+          'SEEN'://SEEN           Messages that have the \Seen flag set.
+            aSQL := aSQL+Data.QuoteField('READ')+'='+Data.QuoteValue('Y')+' and ';
+          'FROM'://FROM <string>  Messages that contain the specified string in the envelope structure's FROM field.
+            aSQL := aSQL+Data.ProcessTerm(Data.QuoteField('SENDER')+'='+Data.QuoteValue('*'+NextParam(False)+'*'))+' and ';
+          'SUBJECT'://SUBJECT <string> Messages that contain the specified string in the envelope structure's SUBJECT field.
+            aSQL := aSQL+Data.ProcessTerm(Data.QuoteField('SUBJECT')+'='+Data.QuoteValue('*'+NextParam(False)+'*'))+' and ';
+          'HEADER'://HEADER <field-name> <string> Messages that have a header with the specified field-name (as defined in [RFC-822]) and that contains the specified string in the [RFC-822] field-body.
+             begin
+               case NextParam of
+               'MESSAGE-ID':
+                 aSQL := aSQL+Data.QuoteField('ID')+'='+Data.QuoteValue(GetmailAddr(NextParam(False)))+' and ';
+               else
+                 begin
+                   raise Exception.Create('criteria not allowed');
+                   exit;
+                 end;
+               end;
+             end;
+          'UID'://UID <message set> Messages with unique identifiers corresponding to the specified unique identifier set.
+             begin
+               aSQL := aSQL+'(';
+               aSet := NextParam(False);
+               while pos(',',aSet)>0 do
+                 begin
+                   ProcessSetEntry(copy(aSet,0,pos(',',aSet)-1));
+                   aSet := copy(aSet,pos(',',aSet)+1,length(aSet));
+                 end;
+               ProcessSetEntry(aSet);
+               aSQL := aSQL+')';
+             end;
+          'NOT'://NOT <search-key> Messages that do not match the specified search key.
+            aSQL := aSQL+' not ';
+          else
+            begin
+              raise Exception.Create('criteria not allowed');
+              exit;
+            end;
+          end;
         end;
-      end;
+      FMessages.Filter(copy(aSQL,0,length(aSQL)-5));
+      FMessages.DataSet.Last;
     end;
-  FMessages.Filter(copy(aSQL,0,length(aSQL)-5));
-  FMessages.DataSet.Last;
   while (FSelectCount>0) and (not FMessages.DataSet.BOF) do
     begin
       if FSequenceNumbers.IndexOf(FMessages.Id.AsString)=-1 then
