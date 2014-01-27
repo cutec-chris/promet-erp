@@ -820,10 +820,6 @@ begin
     bPrint.Caption:=strPrintBook;
   bBook.Visible:=Assigned(FDS) and Supports(FDS, IPostableDataSet);
   bShippingOutput.Visible:=Assigned(FDS) and Supports(FDS, IShipableDataSet);
-  if bBook.Visible then
-    Report.PreviewButtons:=[pbZoom, pbFind, pbExit]
-  else
-    Report.PreviewButtons:=[pbZoom, pbSave, pbPrint, pbFind, pbExit];
 end;
 
 procedure TfSelectReport.SetupDB;
@@ -897,6 +893,10 @@ begin
   FUpdated := False;
   FBooked := False;
   ActControl := Screen.ActiveControl;
+  if bBook.Visible and Assigned(Report) then
+    Report.PreviewButtons:=[pbZoom, pbFind, pbExit]
+  else if Assigned(Report) then
+    Report.PreviewButtons:=[pbZoom, pbSave, pbPrint, pbFind, pbExit];
   Show;
   Application.ProcessMessages; // Preview ist meisst Modal unter diversen Umständen gibts Probleme mit 2 Modalen Forms übereinander
   while Visible do
