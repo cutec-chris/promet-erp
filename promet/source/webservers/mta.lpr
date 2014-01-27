@@ -23,9 +23,9 @@ type
   TPMTAServer = class(TBaseCustomApplication)
     function ServerAcceptMail(aSocket: TLSMTPSocket; aFrom: string;
       aTo: TStrings): Boolean;
-    procedure ServerLog(aSocket: TLSMTPSocket; DirectionIn: Boolean;
+    procedure ServerLog(aSocket: TLSocket; DirectionIn: Boolean;
       aMessage: string);
-    function ServerLogin(aSocket: TLSMTPSocket; aUser, aPasswort: string
+    function ServerLogin(aSocket: TLSocket; aUser, aPasswort: string
       ): Boolean;
     procedure ServerMailreceived(aSocket: TLSMTPSocket; aMail: TStrings;aFrom : string;aTo : TStrings);
   private
@@ -83,24 +83,24 @@ begin
       end;
 end;
 
-procedure TPMTAServer.ServerLog(aSocket: TLSMTPSocket; DirectionIn: Boolean;
+procedure TPMTAServer.ServerLog(aSocket: TLSocket; DirectionIn: Boolean;
   aMessage: string);
 begin
   with Self as IBaseApplication do
     begin
       if DirectionIn then
         begin
-          Info(IntToStr(aSocket.Id)+':>'+aMessage);
+          Info(IntToStr(TLSmtpSocket(aSocket).Id)+':>'+aMessage);
         end
       else
         begin
-          Info(IntToStr(aSocket.Id)+':<'+aMessage);
+          Info(IntToStr(TLSmtpSocket(aSocket).Id)+':<'+aMessage);
         end;
     end;
 end;
 
-function TPMTAServer.ServerLogin(aSocket: TLSMTPSocket; aUser,
-  aPasswort: string): Boolean;
+function TPMTAServer.ServerLogin(aSocket: TLSocket; aUser, aPasswort: string
+  ): Boolean;
 begin
   Result := False;
   with Self as IBaseDBInterface do
@@ -433,9 +433,11 @@ begin
                           msg := aMessage.EncodeMessage;
                           msg.Header.ToList.Clear;
                           msg.Header.ToList.Add(aTo);
+                          if copy(msg.Header.ReplyTo,length(msg.Header.ReplyTo),1) = '@' then
+                            msg.Header.ReplyTo := msg.Header.ReplyTo+DefaultDomain;
                           msg.EncodeMessage;
-                          Info('sending Message "'+msg.Header.Subject+'" to '+aTo);
-                          if smtp.MailFrom(msg.Header.ReplyTo,length(msg.ToString)) then
+                          Info('sending Message "'+msg.Header.Subject+'" to '+aTo+' from '+msg.Header.ReplyTo);
+                          if smtp.MailFrom(msg.Header.ReplyTo,length(msg.Lines.Text)) then
                             if smtp.MailTo(msg.Header.ToList[0]) then
                               begin
                                 if smtp.MailData(msg.Lines) then

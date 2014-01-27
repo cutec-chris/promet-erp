@@ -227,7 +227,7 @@ begin
           Application.Log(etDebug, 'Error: '+e.Message);
       end;
       Application.Log(etDebug, 'Exitted: Resultcode '+IntToStr(aProcess.ExitStatus));
-      sleep(60000);
+      sleep(5000);
     end;
   aProcess.Free;
 end;
