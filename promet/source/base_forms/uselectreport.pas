@@ -114,6 +114,7 @@ type
     property Report : TfrReport read FReport write SetReport;
     property DataSet : TBaseDBDataset read FDS write SetDataSet;
     procedure SetLanguage;
+    procedure CheckButtons;
     procedure SetupDB;
     procedure DoSetup;
     property Booked : Boolean read FBooked;
@@ -748,21 +749,6 @@ begin
     begin
       with Data.Reports.DataSet as IBaseDbFilter do
         Filter := Data.QuoteField('TYPE')+'='+Data.QuoteValue(AValue);
-      if AValue = 'ORD' then
-        begin
-          if (FDS is TOrder) and TOrder(FDS).DataSet.Active and (TOrder(FDS).OrderType.Dataset.Locate('STATUS',TOrder(FDS).FieldByName('STATUS').AsString,[loCaseInsensitive])) then
-            begin
-              OrderType := StrToIntDef(trim(copy(TOrder(FDS).OrderType.FieldByName('TYPE').AsString,0,2)),0);
-              fSelectReport.bShippingOutput.Visible:=(OrderType = 2) or (OrderType = 3);
-            end
-          else
-            fSelectReport.bShippingOutput.Visible:=False;
-          bBook.Visible:=AValue = 'ORD';
-          if bBook.Visible then
-            bPrint.Caption := strPrintBook
-          else
-            bprint.Caption:=strPrint;
-        end;
       if Data.Users.Options.DataSet.ControlsDisabled then exit;
       if not Data.Reports.DataSet.Active then
         Data.Reports.DataSet.Open;
@@ -785,7 +771,7 @@ procedure TfSelectReport.SetDataSet(AValue: TBaseDBDataset);
 begin
   if FDS=AValue then Exit;
   FDS:=AValue;
-  SetLanguage;
+  CheckButtons;
 end;
 
 procedure TfSelectReport.SetLanguage;
@@ -816,6 +802,11 @@ begin
   cbInfo.Items.Add('<'+strNoOutput+'>');
   if Assigned(FOnSendMessage) then
     cbInfo.Items.Add('<'+streMail+'>');
+  CheckButtons;
+end;
+
+procedure TfSelectReport.CheckButtons;
+begin
   if Assigned(FDS) and Supports(FDS, IPostableDataSet) then
     bPrint.Caption:=strPrintBook;
   bBook.Visible:=Assigned(FDS) and Supports(FDS, IPostableDataSet);
