@@ -1119,7 +1119,6 @@ begin
           try
             if aDocument.Count > 0 then
               aDocument.CheckoutToStream(aStream,aRevision)
-            else raise Exception.Create(strLinkNotFound);
           finally
             aDocument.Free;
           end;

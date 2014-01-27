@@ -22,7 +22,7 @@ unit uprometimap;
 interface
 uses
   Classes, SysUtils, uLIMAP, uMessages, MimeMess, uMimeMessages, db,cwstring,
-  LCLProc;
+  LCLProc,uBaseDbClasses;
 
 {.$DEFINE DEBUG}
 type
@@ -30,7 +30,11 @@ type
   { TPIMAPSocket }
 
   TPIMAPSocket = class(TLIMAPSocket)
+  private
+    FUser : TUser;
   public
+    constructor Create; override;
+    destructor Destroy; override;
     procedure RefreshFolders; override;
     function SelectUser: Boolean; override;
   end;
@@ -81,12 +85,26 @@ uses uData,Variants,SynaUtil,uSessionDBClasses,uBaseDBInterface,Utils,
 
 { TPIMAPSocket }
 
+constructor TPIMAPSocket.Create;
+begin
+  inherited Create;
+  FUser := TUser.Create(nil,Data);
+end;
+
+destructor TPIMAPSocket.Destroy;
+begin
+  FUser.Free;
+  inherited Destroy;
+end;
+
 procedure TPIMAPSocket.RefreshFolders;
 var
   aGroup: TPIMAPFolder;
 begin
   Folders.Clear;
-  SelectUser;
+  Data.Users.GotoBookmark(FUser.GetBookmark);
+  Data.Users.Rights.ResetCache;
+  Data.RefreshUsersFilter;
   Data.SetFilter(Data.Tree,Data.QuoteField('PARENT')+'=0 and '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('N')+' OR '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('B'),0,'','ASC',False,True,True);
   with Data.Tree.DataSet do
     begin
@@ -109,9 +127,9 @@ end;
 
 function TPIMAPSocket.SelectUser : Boolean;
 begin
-  Result := Data.Users.DataSet.Locate('LOGINNAME',User,[]) or Data.Users.DataSet.Locate('NAME',User,[]);
-  Data.Users.Rights.ResetCache;
-  Data.RefreshUsersFilter;
+  if not FUser.Active then
+    FUser.Open;
+  Result := FUser.Locate('LOGINNAME',User,[]) or FUser.Locate('NAME',User,[]);
 end;
 
 function TPIMAPFolder.SelectNext: Boolean;
@@ -257,13 +275,17 @@ end;
 function TPIMAPFolder.GetMessage(Idx: Integer): TMimeMess;
 begin
   Result := nil;
-  Data.SetFilter(FMessages,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' AND '+Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(IntToStr(Idx)),1);
-  MessageIdx := -1;
-  if FMessages.Count > 0 then
-    begin
-      MessageIdx := Fmessages.Id.AsVariant;
-      Result := GenerateMessage;
-    end;
+  try
+    Data.SetFilter(FMessages,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' AND '+Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(IntToStr(Idx)),1);
+    MessageIdx := -1;
+    if FMessages.Count > 0 then
+      begin
+        MessageIdx := Fmessages.Id.AsVariant;
+        Result := GenerateMessage;
+      end;
+  except
+    Result := nil;
+  end;
 end;
 function TPIMAPFolder.GetMessageByID(Idx: string): TMimeMess;
 begin
@@ -876,7 +898,7 @@ begin
             end;
           end;
         end;
-      FMessages.Filter(copy(aSQL,0,length(aSQL)-5));
+      FMessages.Filter(copy(aSQL,0,length(aSQL)-5),300,'SENDDATE','DESC');
       FMessages.DataSet.Last;
     end;
   while (FSelectCount>0) and (not FMessages.DataSet.BOF) do

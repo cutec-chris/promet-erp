@@ -247,29 +247,32 @@ begin
                   aDocument := TDocument.Create(Self,Data);
                   aDocument.SelectByNumber(Documents.DataSet.FieldByName('NUMBER').AsInteger);
                   aDocument.Open;
-                  aDocument.DataSet.Last;
-                  aMimePart := aMessage.AddPart(MP);
-                  with aMimePart do
+                  if aDocument.Count>0 then
                     begin
-                      //-TODO: goto last revision
-                      aDocument.CheckoutToStream(DecodedLines);
-                      DecodedLines.Position:=0;
-                      FileName := aDocument.DataSet.FieldByName('NAME').AsString+'.'+aDocument.DataSet.FieldByName('EXTENSION').AsString;
-                      MimeTypeFromExt(FileName);
-                      Description := 'Attached file: ' + FileName;
-                      ss := TStringStream.Create('');
-                      Data.BlobFieldToStream(aDocument.DataSet,'FULLTEXT',ss);
-                      if length(ss.DataString)<20 then
-                        ContentID := ss.DataString;
-                      ss.Destroy;
-                      if ContentId='' then
-                        Disposition := 'attachment'
-                      else
-                        Disposition := 'inline';
-                      FileName := FileName;
-                      EncodingCode := ME_BASE64;
-                      EncodePart;
-                      EncodePartHeader;
+                      aDocument.DataSet.Last;
+                      aMimePart := aMessage.AddPart(MP);
+                      with aMimePart do
+                        begin
+                          //-TODO: goto last revision
+                          aDocument.CheckoutToStream(DecodedLines);
+                          DecodedLines.Position:=0;
+                          FileName := aDocument.DataSet.FieldByName('NAME').AsString+'.'+aDocument.DataSet.FieldByName('EXTENSION').AsString;
+                          MimeTypeFromExt(FileName);
+                          Description := 'Attached file: ' + FileName;
+                          ss := TStringStream.Create('');
+                          Data.BlobFieldToStream(aDocument.DataSet,'FULLTEXT',ss);
+                          if length(ss.DataString)<20 then
+                            ContentID := ss.DataString;
+                          ss.Destroy;
+                          if ContentId='' then
+                            Disposition := 'attachment'
+                          else
+                            Disposition := 'inline';
+                          FileName := FileName;
+                          EncodingCode := ME_BASE64;
+                          EncodePart;
+                          EncodePartHeader;
+                        end;
                     end;
                   aDocument.Destroy;
                   Documents.DataSet.Next;

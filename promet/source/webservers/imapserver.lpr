@@ -141,9 +141,9 @@ begin
   for i := 0 to aTo.Count-1 do
     begin
       if Data.IsSQLDb then
-        Data.SetFilter(aUser,'UPPER("EMAIL")=UPPER('''+GetmailAddr(aTo[i])+''')')
+        Data.SetFilter(aUser,'UPPER("EMAIL")=UPPER('''+GetmailAddr(lowercase(aTo[i]))+''')')
       else
-        Data.SetFilter(aUser,'"EMAIL"='''+GetmailAddr(aTo[i])+'''');
+        Data.SetFilter(aUser,'"EMAIL"='''+GetmailAddr(lowercase(aTo[i]))+'''');
       if aUser.Count>0 then
         begin
           Data.Users.GotoBookmark(aUser.GetBookmark);
@@ -167,9 +167,9 @@ begin
   if not Found then
     begin
       if Data.IsSQLDb then
-        Data.SetFilter(aUser,'UPPER("EMAIL")=UPPER('''+GetmailAddr(aFrom)+''')')
+        Data.SetFilter(aUser,'UPPER("EMAIL")=UPPER('''+GetmailAddr(lowercase(aFrom))+''')')
       else
-        Data.SetFilter(aUser,'"EMAIL"='''+GetmailAddr(afrom)+'''');
+        Data.SetFilter(aUser,'"EMAIL"='''+GetmailAddr(lowercase(afrom))+'''');
       if aUser.Count>0 then
         begin
           aMessage := TMimeMessage.Create(nil,Data);
@@ -207,7 +207,7 @@ begin
     begin
       IMAPServer.CallAction;
       SMTPServer.CallAction;
-      sleep(100);
+      sleep(10);
     end;
   // stop program loop
   Terminate;

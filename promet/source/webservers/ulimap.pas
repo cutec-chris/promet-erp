@@ -237,7 +237,8 @@ begin
     while (aSize>0) and (length(FSendBuffer)>0) do
       begin
         aSize := SendMessage(FSendBuffer);
-        if FTerminated then break;
+        if FTerminated then
+          break;
       end;
   except //Client disconnects ??
   end;
