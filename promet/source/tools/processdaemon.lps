@@ -3,16 +3,17 @@
   <ProjectSession>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="8">
+    <Units Count="9">
       <Unit0>
         <Filename Value="processdaemon.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="processdaemon"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="119"/>
-        <CursorPos X="1" Y="138"/>
-        <UsageCount Value="20"/>
+        <TopLine Value="177"/>
+        <CursorPos X="45" Y="190"/>
+        <UsageCount Value="23"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -26,12 +27,11 @@
       <Unit2>
         <Filename Value="processmanager.lpr"/>
         <UnitName Value="processmanager"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
+        <TopLine Value="223"/>
         <CursorPos X="26" Y="10"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -55,7 +55,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="19" Y="10"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit5>
       <Unit6>
@@ -65,7 +65,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="23" Y="17"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
@@ -76,11 +76,18 @@
         <CursorPos X="32" Y="26"/>
         <UsageCount Value="10"/>
       </Unit7>
+      <Unit8>
+        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/rtl/objpas/sysutils/filutilh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="34"/>
+        <CursorPos X="3" Y="53"/>
+        <UsageCount Value="10"/>
+      </Unit8>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="19" HistoryIndex="18">
+    <JumpHistory Count="22" HistoryIndex="21">
       <Position1>
         <Filename Value="processdaemon.lpr"/>
         <Caret Line="197" Column="5" TopLine="161"/>
@@ -157,6 +164,18 @@
         <Filename Value="processmanager.lpr"/>
         <Caret Line="10" Column="37" TopLine="1"/>
       </Position19>
+      <Position20>
+        <Filename Value="processdaemon.lpr"/>
+        <Caret Line="189" Column="1" TopLine="159"/>
+      </Position20>
+      <Position21>
+        <Filename Value="processdaemon.lpr"/>
+        <Caret Line="188" Column="29" TopLine="181"/>
+      </Position21>
+      <Position22>
+        <Filename Value="processdaemon.lpr"/>
+        <Caret Line="190" Column="53" TopLine="177"/>
+      </Position22>
     </JumpHistory>
   </ProjectSession>
   <EditorMacros Count="0"/>

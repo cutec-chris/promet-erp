@@ -28,7 +28,7 @@ uses
 {$ELSE}
   Windows,
 {$ENDIF}
-  Classes, SysUtils, EventLog, DaemonApp,process;
+  Classes, SysUtils, EventLog, DaemonApp,process,IniFiles;
 
 type
 
@@ -155,6 +155,8 @@ var
   aMandant: String;
   aFileDir: String;
   Output,Buffer,LogOutput : string;
+  aIni: TIniFile;
+  aPath: String;
 
   procedure ProcessData;
   var
@@ -185,16 +187,29 @@ var
 
 begin
   Application.Log(etDebug, 'Thread.Execute');
-  aFileDir := GetGlobalConfigDir(StringReplace(lowercase('prometerp'),'-','',[rfReplaceAll]));
-  If FindFirst (aFileDir+DirectorySeparator+'*.perml',faAnyFile and faDirectory,aInfo)=0 then
+  aFileDir := GetGlobalConfigDir('prometerp',False);
+  Application.Log(etDebug, 'Thread.FileDir:'+aFileDir);
+  If FindFirst (aFileDir+'*.perml',faAnyFile,aInfo)=0 then
     begin
       aMandant := copy(aInfo.Name,0,length(aInfo.Name)-6);
     end;
+  if aMandant='' then
+    begin
+      Application.Log(etDebug, 'Using ini File '+ExtractFileDir(Application.Location)+DirectorySeparator+'processdaemon.ini');
+      aIni := TIniFile.Create(ExtractFileDir(Application.Location)+DirectorySeparator+'processdaemon.ini');
+      aMandant := aIni.ReadString('mandant','name','');
+      aPath := aIni.ReadString('mandant','path','');
+      aIni.free;
+    end;
+  Application.Log(etDebug, 'Thread.Mandant:'+aMandant);
   FindClose(aInfo);
   aProcess := TProcess.Create(nil);
   ChDir(Application.Location);
   aProcess.CurrentDirectory:=Application.Location;
-  aProcess.CommandLine:='processmanager'+ExtractFileExt(Application.ExeName)+' --mandant='+aMandant;
+  if aPath = '' then
+    aProcess.CommandLine:='processmanager'+ExtractFileExt(Application.ExeName)+' --mandant='+aMandant
+  else
+    aProcess.CommandLine:='processmanager'+ExtractFileExt(Application.ExeName)+' --mandant='+aMandant+' --config-path='+aPath;
   aProcess.Options:=[poUsePipes,poNoConsole];
   Application.Log(etDebug, 'Executing:'+aProcess.CommandLine);
   while not Terminated do
@@ -212,6 +227,7 @@ begin
           Application.Log(etDebug, 'Error: '+e.Message);
       end;
       Application.Log(etDebug, 'Exitted: Resultcode '+IntToStr(aProcess.ExitStatus));
+      sleep(60000);
     end;
   aProcess.Free;
 end;
@@ -342,12 +358,13 @@ begin
   with Application do
   begin
     Title := 'Processdaemon';
-    EventLog.LogType := ltSystem;
     EventLog.DefaultEventType := etDebug;
     EventLog.AppendContent := false;
     {$ifndef unix}
-    //EventLog.FileName := ChangeFileExt(ParamStr(0), '.log');
+    EventLog.LogType := ltFile;
+    EventLog.FileName := ChangeFileExt(ParamStr(0), '.log');
     {$else}
+    EventLog.LogType := ltSystem;
     //EventLog.FileName := '/var/log/'+ExtractFileName(ChangeFileExt(ParamStr(0), '.log'));
     {$endif}
     Initialize;

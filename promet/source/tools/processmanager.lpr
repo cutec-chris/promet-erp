@@ -99,7 +99,7 @@ var
         First;
         while not EOF do
           begin
-            cmd := cmd+' --'+FieldByName('PARAMETER').AsString+'='+{$IFDEF WINDOWS}'"'+{$ENDIF}FieldByName('VALUE').AsString{$IFDEF WINDOWS}+'"'{$ENDIF};
+            cmd := cmd+' --'+FieldByName('NAME').AsString+'='+{$IFDEF WINDOWS}'"'+{$ENDIF}FieldByName('VALUE').AsString{$IFDEF WINDOWS}+'"'{$ENDIF};
             Next;
           end;
       end;
@@ -111,8 +111,14 @@ var
         cmd := cmd+' --mandant='+GetOptionValue('m','mandant')+'';
         {$ENDIF}
       end;
-//              if Data.Users.DataSet.Active then
-//                cmd := cmd+' --user="'+Data.Users.DataSet.FieldByName('NAME').AsString+'"';
+    if GetOptionValue('config-path')<>'' then
+      begin
+        {$IFDEF WINDOWS}
+        cmd := cmd+' --config-path="'+GetOptionValue('config-path')+'"';
+        {$ELSE}
+        cmd := cmd+' --config-path='+GetOptionValue('config-path')+'';
+        {$ENDIF}
+      end;
   end;
 
 begin
