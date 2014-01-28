@@ -126,7 +126,14 @@ var
   aOF: TfOrderFrame;
   DoR: Boolean = False;
 begin
-  if (DataSet.DataSet.RecordCount = 0) and (DataSet.dataSet.State <> dsInsert) then exit;
+  if (DataSet.DataSet.RecordCount = 0) and (DataSet.dataSet.State <> dsInsert) then
+    begin
+      aOF := TfOrderFrame(Parent.Owner);
+      Parent.RemoveControl(Self);
+      aOF.RefreshAddress;
+      Self.Free;
+      exit;
+    end;
   if (Rec=0) then
     begin
       DataSet.DataSet.Cancel;

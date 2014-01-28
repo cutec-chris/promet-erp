@@ -2037,7 +2037,7 @@ end;
 procedure TUser.LoginWasOK;
 begin
   with DataSet as IBaseManageDB do
-  if Count>0 then
+  if (Count>0) and (FieldByName('LASTLOGIN') <> nil) then
     begin
       UpdateStdFields := False;
       DataSet.Edit;
@@ -2567,4 +2567,4 @@ begin
 end;
 initialization
 end.
-
+

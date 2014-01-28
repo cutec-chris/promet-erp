@@ -11,13 +11,13 @@ object fOrderAddress: TfOrderAddress
   DesignTop = 335
   object cbType: TComboBox
     Left = 28
-    Height = 29
+    Height = 21
     Top = 4
     Width = 198
     Align = alTop
     BorderSpacing.Left = 24
     BorderSpacing.Around = 4
-    ItemHeight = 0
+    ItemHeight = 13
     OnSelect = cbTypeSelect
     Style = csDropDownList
     TabOrder = 1
@@ -25,8 +25,8 @@ object fOrderAddress: TfOrderAddress
   end
   object mAddress: TMemo
     Left = 28
-    Height = 57
-    Top = 37
+    Height = 65
+    Top = 29
     Width = 198
     Align = alClient
     BorderSpacing.Left = 24
