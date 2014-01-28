@@ -77,6 +77,7 @@ type
     acAttPlan: TAction;
     acNewAccount: TAction;
     acRoughPlanning: TAction;
+    acStartPage: TAction;
     acWindowize: TAction;
     acWiki: TAction;
     ActionList1: TActionList;
@@ -86,8 +87,16 @@ type
     Bevel3: TBevel;
     Bevel5: TBevel;
     Bevel6: TBevel;
+    Bevel7: TBevel;
+    Bevel8: TBevel;
+    Bevel9: TBevel;
     bFfwd: TToolButton;
     bPauseTime: TSpeedButton;
+    bPauseTime1: TSpeedButton;
+    bPauseTime2: TSpeedButton;
+    bPauseTime3: TSpeedButton;
+    bPauseTime4: TSpeedButton;
+    bPauseTime5: TSpeedButton;
     bSearch: TSpeedButton;
     eContains: TEdit;
     IPC: TSimpleIPCClient;
@@ -97,6 +106,8 @@ type
     Label4: TLabel;
     Label5: TLabel;
     Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
     MenuItem3: TMenuItem;
     Panel3: TPanel;
     Panel4: TPanel;
@@ -104,6 +115,8 @@ type
     Panel7: TPanel;
     Panel8: TPanel;
     pTimes: TPanel;
+    pTimes1: TPanel;
+    pTimes2: TPanel;
     RefreshTimer: TIdleTimer;
     lbResults: TListBox;
     MenuItem1: TMenuItem;
@@ -129,9 +142,8 @@ type
     SearchTimer: TTimer;
     tbMenue: TToolButton;
     ToolBar1: TToolBar;
-    ToolBar2: TToolBar;
-    ToolButton2: TToolButton;
-    tsHelp: TTabSheet;
+    ToolButton2: TSpeedButton;
+    tsStartpage: TTabSheet;
     tvMain: TPanel;
     procedure acAttPlanExecute(Sender: TObject);
     procedure acBackExecute(Sender: TObject);
@@ -944,7 +956,7 @@ begin
         aWiki.CreateTable;
         aWiki.Free;
         WikiFrame := TfWikiFrame.Create(Self);
-        WikiFrame.Parent := tsHelp;
+        WikiFrame.Parent := tsStartpage;
         WikiFrame.Align := alClient;
         try
           WikiFrame.OpenWikiPage('Promet-ERP-Help/index',True);
@@ -992,6 +1004,7 @@ begin
                         TTreeEntry(Node.Data).Typ := etMessages;
                         fMainTreeFrame.StartupTypes.Add(strMessages);
                         fMain.FMessageNode := Node;
+                        acNewMessage.Visible:=True;
                       end;
                     SomethingFound:=True;
                   end;
@@ -1004,6 +1017,7 @@ begin
                         Node.Height := 34;
                         TTreeEntry(Node.Data).Typ := etTasks;
                         FTaskNode := Node;
+                        acNewTask.Visible:=True;
                       end;
                     SomethingFound:=True;
                   end;
@@ -1018,6 +1032,7 @@ begin
                         Node.Height := 34;
                         TTreeEntry(Node.Data).Typ := etCalendar;
                         FCalendarNode := Node;
+                        acNewTermin.Visible:=True;
                       end;
                     SomethingFound:=True;
                   end;
@@ -1031,7 +1046,8 @@ begin
                         NewNode;
                         Node.Height := 32;
                         TTreeEntry(Node.Data).Typ := etOrders;
-                       end;
+                        acNewOrder.Visible:=True;
+                      end;
                     SomethingFound:=True;
                   end;
                 if aItems[0] = GetEntryText(etCustomers) then
@@ -1044,6 +1060,7 @@ begin
                         NewNode;
                         TTreeEntry(Node.Data).Typ := etCustomers;
                         Node.Height := 34;
+                        acNewContact.Visible:=True;
                       end;
                     SomethingFound:=True;
                   end;
@@ -1057,6 +1074,7 @@ begin
                         NewNode;
                         Node.Height := 32;
                         TTreeEntry(Node.Data).Typ := etMasterdata;
+                        acNewMasterdata.Visible:=True;
                       end;
                     SomethingFound:=True;
                   end;
@@ -1068,6 +1086,7 @@ begin
                         NewNode;
                         Node.Height := 32;
                         TTreeEntry(Node.Data).Typ := etProjects;
+                        acNewProject.Visible:=True;
                       end;
                     SomethingFound:=True;
                   end;
@@ -1440,8 +1459,8 @@ begin
   FreeAndNil(fOptions);
   if Assigned(fHelpContainer) then
     FreeAndNil(fHelpContainer);
-  if Assigned(tsHelp) and (tsHelp.ControlCount > 0) then
-    tsHelp.Controls[0].Destroy;
+  if Assigned(tsStartpage) and (tsStartpage.ControlCount > 0) then
+    tsStartpage.Controls[0].Destroy;
   pcPages.CloseAll;
   with Application as IBaseApplication do
     Logout;
@@ -1853,7 +1872,7 @@ var
 begin
   Application.ProcessMessages;
   for i := 0 to pcPages.PageCount-2 do
-    if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfWikiFrame) and (pcPages.Pages[i] <> tsHelp) then
+    if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfWikiFrame) and (pcPages.Pages[i] <> tsStartpage) then
       begin
         pcPages.PageIndex:=i;
         Found := True;
@@ -3121,8 +3140,8 @@ begin
     FreeAndNil(fOptions);
   if Assigned(fHelpContainer) then
     FreeAndNil(fHelpContainer);
-  if Assigned(tsHelp) and (tsHelp.ControlCount > 0) then
-    tsHelp.Controls[0].Destroy;
+  if Assigned(tsStartpage) and (tsStartpage.ControlCount > 0) then
+    tsStartpage.Controls[0].Destroy;
   pcPages.CloseAll;
   with Application as IBaseApplication do
     begin
