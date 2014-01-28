@@ -86,6 +86,7 @@ type
     pSearch: TPanel;
     PUsers: TfrDBDataSet;
     sbMenue: TSpeedButton;
+    Splitter1: TSplitter;
     ToolBar1: TPanel;
     ToolButton1: TSpeedButton;
     ToolButton2: TSpeedButton;

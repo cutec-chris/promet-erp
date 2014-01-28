@@ -223,10 +223,10 @@ inherited fOrderFrame: TfOrderFrame
             ClientWidth = 660
             TabOrder = 0
             object tsFooter1: TPageControl
-              Left = 208
+              Left = 213
               Height = 101
               Top = 0
-              Width = 452
+              Width = 447
               TabStop = False
               ActivePage = tsNote1
               Align = alClient
@@ -235,12 +235,12 @@ inherited fOrderFrame: TfOrderFrame
               object tsNote1: TTabSheet
                 Caption = 'Notizen'
                 ClientHeight = 75
-                ClientWidth = 444
+                ClientWidth = 439
                 object mOrderNote3: TDBMemo
                   Left = 0
                   Height = 75
                   Top = 0
-                  Width = 444
+                  Width = 439
                   Align = alClient
                   DataField = 'NOTE'
                   DataSource = Orders
@@ -389,6 +389,12 @@ inherited fOrderFrame: TfOrderFrame
               Align = alLeft
               BevelOuter = bvNone
               TabOrder = 2
+            end
+            object Splitter1: TSplitter
+              Left = 208
+              Height = 101
+              Top = 0
+              Width = 5
             end
           end
         end
