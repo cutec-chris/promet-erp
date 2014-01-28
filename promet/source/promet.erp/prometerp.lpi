@@ -520,10 +520,13 @@
       <Unit21>
         <Filename Value="../base/dbintfs/uorder.pas"/>
         <UnitName Value="uOrder"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1138"/>
-        <CursorPos X="1" Y="1164"/>
+        <TopLine Value="983"/>
+        <CursorPos X="1" Y="990"/>
         <UsageCount Value="85"/>
+        <Loaded Value="True"/>
       </Unit21>
       <Unit22>
         <Filename Value="../base/dbintfs/uperson.pas"/>
@@ -649,8 +652,8 @@
         <UnitName Value="uOrderFrame"/>
         <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="575"/>
-        <CursorPos X="1" Y="594"/>
+        <TopLine Value="505"/>
+        <CursorPos X="34" Y="533"/>
         <UsageCount Value="202"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -1065,11 +1068,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uorderaddressframe"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="124"/>
-        <CursorPos X="1" Y="135"/>
+        <TopLine Value="70"/>
+        <CursorPos X="33" Y="134"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -1183,7 +1185,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMessageFrame"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="287"/>
         <CursorPos X="33" Y="300"/>
@@ -1634,8 +1636,8 @@
         <UnitName Value="uGanttView"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="396"/>
-        <CursorPos X="55" Y="449"/>
+        <TopLine Value="397"/>
+        <CursorPos X="32" Y="397"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -4420,51 +4422,127 @@
         <UsageCount Value="9"/>
       </Unit467>
     </Units>
-    <JumpHistory Count="11" HistoryIndex="10">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1320" Column="1" TopLine="1300"/>
+        <Filename Value="uorderframe.pas"/>
+        <Caret Line="200" Column="9" TopLine="168"/>
       </Position1>
       <Position2>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1321" Column="1" TopLine="1300"/>
+        <Filename Value="uorderframe.pas"/>
+        <Caret Line="204" Column="56" TopLine="172"/>
       </Position2>
       <Position3>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1322" Column="1" TopLine="1300"/>
+        <Filename Value="uorderframe.pas"/>
+        <Caret Line="20" Column="12" TopLine="1"/>
       </Position3>
       <Position4>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1312" Column="1" TopLine="1300"/>
+        <Filename Value="uorderframe.pas"/>
+        <Caret Line="27" Column="26" TopLine="1"/>
       </Position4>
       <Position5>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1313" Column="1" TopLine="1300"/>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1224" Column="33" TopLine="1195"/>
       </Position5>
       <Position6>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1314" Column="1" TopLine="1300"/>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1221" Column="1" TopLine="1195"/>
       </Position6>
       <Position7>
-        <Filename Value="umain.pas"/>
-        <Caret Line="2907" Column="176" TopLine="2896"/>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1222" Column="1" TopLine="1195"/>
       </Position7>
       <Position8>
-        <Filename Value="umain.pas"/>
-        <Caret Line="3100" Column="3" TopLine="3094"/>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1224" Column="1" TopLine="1195"/>
       </Position8>
       <Position9>
-        <Filename Value="umain.pas"/>
-        <Caret Line="3135" Column="39" TopLine="3127"/>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1228" Column="1" TopLine="1197"/>
       </Position9>
       <Position10>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1314" Column="1" TopLine="1300"/>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1229" Column="1" TopLine="1198"/>
       </Position10>
       <Position11>
-        <Filename Value="uorderaddressframe.pas"/>
-        <Caret Line="295" Column="1" TopLine="263"/>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1230" Column="1" TopLine="1199"/>
       </Position11>
+      <Position12>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1231" Column="1" TopLine="1200"/>
+      </Position12>
+      <Position13>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1232" Column="1" TopLine="1201"/>
+      </Position13>
+      <Position14>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1233" Column="1" TopLine="1202"/>
+      </Position14>
+      <Position15>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1234" Column="1" TopLine="1203"/>
+      </Position15>
+      <Position16>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1236" Column="1" TopLine="1205"/>
+      </Position16>
+      <Position17>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1237" Column="1" TopLine="1206"/>
+      </Position17>
+      <Position18>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1238" Column="1" TopLine="1207"/>
+      </Position18>
+      <Position19>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1239" Column="1" TopLine="1208"/>
+      </Position19>
+      <Position20>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1240" Column="1" TopLine="1209"/>
+      </Position20>
+      <Position21>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1241" Column="1" TopLine="1210"/>
+      </Position21>
+      <Position22>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1242" Column="1" TopLine="1211"/>
+      </Position22>
+      <Position23>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1243" Column="1" TopLine="1212"/>
+      </Position23>
+      <Position24>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1244" Column="1" TopLine="1213"/>
+      </Position24>
+      <Position25>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1249" Column="1" TopLine="1218"/>
+      </Position25>
+      <Position26>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1256" Column="1" TopLine="1237"/>
+      </Position26>
+      <Position27>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1257" Column="1" TopLine="1237"/>
+      </Position27>
+      <Position28>
+        <Filename Value="../base/dbintfs/uorder.pas"/>
+        <Caret Line="1259" Column="1" TopLine="1237"/>
+      </Position28>
+      <Position29>
+        <Filename Value="uorderframe.pas"/>
+        <Caret Line="22" Column="35" TopLine="19"/>
+      </Position29>
+      <Position30>
+        <Filename Value="uorderframe.pas"/>
+        <Caret Line="533" Column="34" TopLine="505"/>
+      </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>
@@ -4508,7 +4586,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="1">
+    <BreakPoints Count="2">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
@@ -4516,6 +4594,13 @@
         <Source Value="../base/dbintfs/utask.pas"/>
         <Line Value="350"/>
       </Item1>
+      <Item2>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="../base/dbintfs/uorder.pas"/>
+        <Line Value="1221"/>
+      </Item2>
     </BreakPoints>
     <Watches Count="2">
       <Item1>

@@ -103,9 +103,6 @@ type
     property Order : TOrder read FOrder write FOrder;
     property Repair : TOrderRepair read FOrderRepair;
   end;
-
-  { TOrderAddress }
-
   TOrderAddress = class(TBaseDBAddress)
   private
     FOrder: TOrder;
@@ -989,6 +986,7 @@ begin
             FieldByName('ODATE').Clear;
           Post;
         end;
+      Positions.EnableCalculation;
       with Positions.DataSet do
         begin
           First;
@@ -1010,7 +1008,6 @@ begin
               Next;
             end;
         end;
-      Positions.EnableCalculation;
       {$endregion}
       if not (OrderType.FieldByName('ISDERIVATE').AsString = 'Y') then
         begin //Auftrag geändert
