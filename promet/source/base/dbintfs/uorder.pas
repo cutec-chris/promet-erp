@@ -717,9 +717,7 @@ begin
         with Accountingjournal.DataSet as IBaseDBFilter do
           begin
             Data.SetFilter(Accountingjournal,
-            Data.ProcessTerm(Data.QuoteField('ORDERNO')+'>='+Data.QuoteValue(copy(DataSet.FieldByName('ORDERNO').AsString,0,length(DataSet.FieldByName('ORDERNO').AsString)-2)+'00'))
-            +' AND '+
-            Data.ProcessTerm(Data.QuoteField('ORDERNO')+'<='+Data.QuoteValue(copy(DataSet.FieldByName('ORDERNO').AsString,0,length(DataSet.FieldByName('ORDERNO').AsString)-2)+'99'))
+            Data.ProcessTerm(Data.QuoteField('ORDERNO')+'='+Data.QuoteValue(DataSet.FieldByName('ORDERNO').AsString))
             );
           end;
         while Accountingjournal.Count > 1 do
