@@ -32,6 +32,7 @@ type
     acPasteLinks: TAction;
     acShowInOrder: TAction;
     acCopyToClipboard: TAction;
+    acDelete: TAction;
     ActionList1: TActionList;
     Bevel1: TBevel;
     Datasource: TDatasource;
@@ -40,13 +41,16 @@ type
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
+    MenuItem4: TMenuItem;
     miOpen: TMenuItem;
     Panel1: TPanel;
     Panel2: TPanel;
     pCont: TPanel;
     pmPopup: TPopupMenu;
     SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
     procedure acCopyToClipboardExecute(Sender: TObject);
+    procedure acDeleteExecute(Sender: TObject);
     procedure acPasteLinksExecute(Sender: TObject);
     procedure FContListDragDrop(Sender, Source: TObject; X, Y: Integer);
     procedure FContListDragOver(Sender, Source: TObject; X, Y: Integer;
@@ -239,6 +243,13 @@ begin
   Clipboard.AddFormat(LinkClipboardFormat,Stream);
   Stream.Free;
 end;
+
+procedure TfLinkFrame.acDeleteExecute(Sender: TObject);
+begin
+  if MessageDlg(strRealdelete,mtInformation,[mbYes,mbNo],0) = mrYes then
+    DataSet.Delete;
+end;
+
 procedure TfLinkFrame.FContListDragDrop(Sender, Source: TObject; X, Y: Integer);
 var
   aRec: String;
