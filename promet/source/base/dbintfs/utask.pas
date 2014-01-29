@@ -857,6 +857,7 @@ begin
             Add('DUEDATE',ftDateTime,0,False);
             Add('EARLIEST',ftDateTime,0,False);
             Add('PLANED',ftDateTime,0,False);
+            Add('UNPLANNED',ftString,1,False);
             Add('WORKSTATUS',ftString,4,False);
             Add('ORDERNO',ftString,20,False);
             Add('STARTEDAT',ftDateTime,0,False);

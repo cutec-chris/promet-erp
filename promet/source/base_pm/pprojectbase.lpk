@@ -14,7 +14,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="23">
+    <Files Count="24">
       <Item1>
         <Filename Value="gsGantt.res"/>
         <Type Value="Binary"/>
@@ -72,41 +72,45 @@
         <Type Value="LFM"/>
       </Item14>
       <Item15>
-        <Filename Value="utaskedit.pas"/>
-        <UnitName Value="uTaskEdit"/>
+        <Filename Value="uroughpklanningframe.pas"/>
+        <UnitName Value="uroughpklanningframe"/>
       </Item15>
       <Item16>
-        <Filename Value="utaskedit.lfm"/>
+        <Filename Value="uroughpklanningframe.lfm"/>
         <Type Value="LFM"/>
       </Item16>
       <Item17>
-        <Filename Value="utaskplan.lfm"/>
-        <Type Value="LFM"/>
+        <Filename Value="utaskedit.pas"/>
+        <UnitName Value="uTaskEdit"/>
       </Item17>
       <Item18>
-        <Filename Value="utaskplanoptions.pas"/>
-        <UnitName Value="uTaskPlanOptions"/>
+        <Filename Value="utaskedit.lfm"/>
+        <Type Value="LFM"/>
       </Item18>
       <Item19>
-        <Filename Value="utasks.pas"/>
-        <UnitName Value="utasks"/>
+        <Filename Value="utaskplan.lfm"/>
+        <Type Value="LFM"/>
       </Item19>
       <Item20>
-        <Filename Value="utasks.lfm"/>
-        <Type Value="LFM"/>
+        <Filename Value="utaskplanoptions.pas"/>
+        <UnitName Value="uTaskPlanOptions"/>
       </Item20>
       <Item21>
-        <Filename Value="utasks.lrs"/>
-        <Type Value="LRS"/>
+        <Filename Value="utasks.pas"/>
+        <UnitName Value="utasks"/>
       </Item21>
       <Item22>
-        <Filename Value="uroughpklanningframe.lfm"/>
+        <Filename Value="utasks.lfm"/>
         <Type Value="LFM"/>
       </Item22>
       <Item23>
-        <Filename Value="uroughpklanningframe.pas"/>
-        <UnitName Value="uroughpklanningframe"/>
+        <Filename Value="utasks.lrs"/>
+        <Type Value="LRS"/>
       </Item23>
+      <Item24>
+        <Filename Value="utaskplan.pas"/>
+        <UnitName Value="uTaskPlan"/>
+      </Item24>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="5">

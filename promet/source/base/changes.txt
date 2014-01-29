@@ -1,5 +1,5 @@
 ﻿Build 307
-      -
+      - more Context Menu Options
 Build 306
       - Schnellerfassungssymbole in Toolbar
       - Daemon und Service für processmanagement komplett

@@ -1268,8 +1268,9 @@ begin
         begin
           FDataSet := TTaskList.Create(nil,Data);
           TTaskList(FDataSet).SelectByDept(Data.Users.FieldByName('PARENT').AsVariant);
+          TTaskList(FDataSet).ActualFilter := '('+TTaskList(FDataSet).ActualFilter+') AND ('+Data.ProcessTerm(Data.QuoteField('UNPLANNED')+'='+Data.QuoteValue(''))+')';
           FDataSet.Open;
-          FTaskView.GridView.DefaultRows:='GLOBALWIDTH:590;COMPLETED:30;SUMMARY:200;STARTDATE:60;DUEDATE:60;USER:100;OWNER:100;PERCENT:40';
+          FTaskView.GridView.DefaultRows:='GLOBALWIDTH:610;COMPLETED:30;SUMMARY:200;STARTDATE:60;DUEDATE:60;USER:100;OWNER:100;PERCENT:40;UNPLANNED:30;';
           FTaskView.bDelegated1.Down:=True;
           FTaskView.bDependencies1.Down:=True;
           FTaskView.bFuture1.Down:=True;
