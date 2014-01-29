@@ -932,16 +932,6 @@ var
           end;
       end;
   end;
-  function DoUnChange(aInterval : TInterval) : Boolean;
-  var
-    b: Integer;
-  begin
-    Result := False;
-    aIntervalChanged(aInterval);
-    for b := 0 to aInterval.IntervalCount-1 do
-      Result := DoUnChange(aInterval.Interval[b]);
-    aInterval.Changed:=false;
-  end;
 begin
   FGantt.BeginUpdate;
   try
@@ -999,8 +989,6 @@ begin
       end;
     if aRoot.IntervalCount>0 then
       aRoot.Visible:=True;
-    for i := 0 to FGantt.Calendar.IntervalCount-1 do
-      DoUnChange(FGantt.Calendar.Interval[i]);
   finally
     FGantt.EndUpdate;
   end;
