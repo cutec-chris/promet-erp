@@ -30,7 +30,7 @@
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="4">
+    <RequiredPackages Count="2">
       <Item1>
         <PackageName Value="wiki2html_pkg"/>
         <DefaultFilename Value="..\base_wiki\wiki2html_pkg.lpk"/>
@@ -39,12 +39,6 @@
         <PackageName Value="pcmdprometapp"/>
         <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
       </Item2>
-      <Item3>
-        <PackageName Value="general"/>
-      </Item3>
-      <Item4>
-        <PackageName Value="LCL"/>
-      </Item4>
     </RequiredPackages>
     <Units Count="69">
       <Unit0>
@@ -439,8 +433,8 @@
         <UnitName Value="pop3receiver"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="510"/>
-        <CursorPos X="1" Y="528"/>
+        <TopLine Value="406"/>
+        <CursorPos X="1" Y="405"/>
         <UsageCount Value="18"/>
         <Loaded Value="True"/>
       </Unit51>

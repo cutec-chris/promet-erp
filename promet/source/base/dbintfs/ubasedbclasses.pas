@@ -46,6 +46,7 @@ type
     function GetConnection: TComponent;
     function GetCount: Integer;
     function GetFilter: string;
+    function GetFRows: Integer;
     function GetFullCount: Integer;
     function GetID: TField;
     function GetLimit: Integer;
@@ -53,6 +54,7 @@ type
     function GetTimestamp: TField;
     procedure SetActive(AValue: Boolean);
     procedure SetFilter(AValue: string);
+    procedure SetFRows(AValue: Integer);
     procedure SetLimit(AValue: Integer);
   public
     constructor Create(aOwner : TComponent;DM : TComponent;aUseIntegrity : Boolean;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);virtual;
@@ -106,6 +108,7 @@ type
     procedure Filter(aFilter : string;aLimit : Integer = 0;aOrderBy : string = '';aSortDirection : string = 'ASC';aLocalSorting : Boolean = False;aGlobalFilter : Boolean = True;aUsePermissions : Boolean = False;aFilterIn : string = '');virtual;
     property ActualFilter : string read GetFilter write SetFilter;
     property ActualLimit : Integer read GetLimit write SetLimit;
+    property FetchRows : Integer read GetFRows write SetFRows;
     property Parent : TBaseDbDataSet read FParent;
     property UpdateFloatFields : Boolean read FUpdateFloatFields write FUpdateFloatFields;
     property CanEdit : Boolean read GetCanEdit;
@@ -2129,7 +2132,13 @@ begin
   with DataSet as IBaseDbFilter do
     Result := Filter;
 end;
-
+function TBaseDBDataset.GetFRows: Integer;
+begin
+  result := -1;
+  if not Assigned(DataSet) then exit;
+  with DataSet as IBaseDbFilter do
+    Result := FetchRows;
+end;
 function TBaseDBDataset.GetFullCount: Integer;
 var
   aDS: TDataSet;
@@ -2165,11 +2174,15 @@ begin
   else if AValue and (not Active) then
     Open;
 end;
-
 procedure TBaseDBDataset.SetFilter(AValue: string);
 begin
   with DataSet as IBaseDbFilter do
     Filter := AValue;
+end;
+procedure TBaseDBDataset.SetFRows(AValue: Integer);
+begin
+  with DataSet as IBaseDbFilter do
+    FetchRows := aValue;
 end;
 procedure TBaseDBDataset.SetLimit(AValue: Integer);
 begin
@@ -2567,4 +2580,4 @@ begin
 end;
 initialization
 end.
-
+

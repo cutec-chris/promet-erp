@@ -185,7 +185,7 @@ begin
       if (not Result) and (StrToIntDef(Arg2,9999)<9999) then
         begin
           FMessages.Last;
-          FMessages.DataSet.MoveBy(StrToIntDef(Arg2,0));
+          FMessages.DataSet.MoveBy(-StrToIntDef(Arg1,0));
           if StrToIntDef(Arg2,9999)<9999 then
             Max := StrToIntDef(Arg2,0)-StrToIntDef(Arg1,0);
           Result := FMessages.Count>0;
@@ -565,16 +565,15 @@ begin
                   aMessage.Select(FMessages.Id.AsVariant);
                   aMessage.Open;
                 end;
-              if not Assigned(aMime) then
-                aMime := aMessage.EncodeMessage;
-              aMime.Lines.TextLineBreakStyle:=tlbsCRLF;
+              if aMessage.Count>0 then
+                aMessage.Content.Open;
               //BODY.PEEK[HEADER.FIELDS (From To Cc Bcc Subject Date Message-ID Priority X-Priority References Newsgroups In-Reply-To Content-Type)]
               aFields := copy(aFetch,pos('(',aFetch)+1,length(aFetch));
               aFields := copy(aFields,0,pos(')',aFields)-1);
               aSL := TStringList.Create;
               aSL.TextLineBreakStyle:=tlbsCRLF;
               bsl := TStringlist.Create;
-              aMime.Header.EncodeHeaders(bsl);
+              bsl.text := aMessage.Content.FieldByName('HEADER').AsString;
               while pos(' ',aFields)>0 do
                 begin
                   Found := False;
@@ -622,9 +621,9 @@ begin
           end;
         end;
       Result.Add(copy(tmp,0,length(tmp)-1)+')');
-      {$IFDEF DEBUG}
-      debugln('FetchOneEntry:'+FMessages.Id.AsString+' '+FMessages.Subject.AsString+' '+tmpRecNo);
-      {$ENDIF}
+      {.$IFDEF DEBUG}
+      debugln('FetchOneEntry:'+FMessages.Id.AsString+' '+FMessages.Subject.AsString+' '+tmpRecNo+' '+FMessages.FieldByName('SENDDATE').AsString);
+      {.$ENDIF}
       FetchSequence:=FetchSequence+1;
       FreeAndNil(aMessage);
       FreeAndNil(aMime);
@@ -811,6 +810,7 @@ var
       aSQL := aSQL+Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(aEntry)+' or ';
   end;
 begin
+  aParams := StringReplace(aParams,'NOT DELETED','',[]);
   //TODO:more Selections possible
   Result:='* SEARCH';
   if aParams <> '' then
@@ -898,19 +898,21 @@ begin
             end;
           end;
         end;
-      FMessages.Filter(copy(aSQL,0,length(aSQL)-5),300,'SENDDATE','DESC');
+      FMessages.Filter(copy(aSQL,0,length(aSQL)-5),0,'SENDDATE','DESC');
       FMessages.DataSet.Last;
     end;
   while (FSelectCount>0) and (not FMessages.DataSet.BOF) do
     begin
-      if FSequenceNumbers.IndexOf(FMessages.Id.AsString)=-1 then
-        tmpRecNo := IntToStr(FSequenceNumbers.Add(FMessages.Id.AsString)+1)
-      else tmpRecNo:=IntToStr(FSequenceNumbers.IndexOf(FMessages.Id.AsString)+1);
       Found := True;
       if FUseUID then
         Result := Result+' '+FMessages.Id.AsString
       else
-        Result := Result+' '+tmpRecNo;
+        begin
+          if FSequenceNumbers.IndexOf(FMessages.Id.AsString)=-1 then
+            tmpRecNo := IntToStr(FSequenceNumbers.Add(FMessages.Id.AsString)+1)
+          else tmpRecNo:=IntToStr(FSequenceNumbers.IndexOf(FMessages.Id.AsString)+1);
+          Result := Result+' '+tmpRecNo;
+        end;
       dec(FSelectCount);
       FMessages.Prior;
     end;
