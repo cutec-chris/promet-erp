@@ -1,4 +1,6 @@
-﻿Build 306
+﻿Build 307
+      -
+Build 306
       - Schnellerfassungssymbole in Toolbar
       - Daemon und Service für processmanagement komplett
       - IMAP Server stark erweitert

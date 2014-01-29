@@ -668,44 +668,44 @@ object fPosition: TfPosition
     left = 80
     top = 64
     object acAddPos: TAction
-      Caption = 'acAddPos'
+      Caption = 'Position einfügen'
       Hint = 'fügt eine Position an'
       OnExecute = acAddPosExecute
     end
     object acDelPos: TAction
-      Caption = 'acDelPos'
+      Caption = 'Position löschen'
       Hint = 'löscht die gewählte(n) Position(en)'
       OnExecute = acDelPosExecute
     end
     object acGotoArticle: TAction
-      Caption = 'acGotoArticle'
+      Caption = 'zu Artikel gehen/anlegen'
       Hint = 'springt zum Artikel'
       OnExecute = acGotoArticleExecute
     end
     object acSearchArticle: TAction
-      Caption = 'acSearchArticle'
+      Caption = 'Artikel suchen'
       OnExecute = acSearchArticleExecute
       ShortCut = 16454
     end
     object acStartTimeregistering: TAction
-      Caption = 'acStartTimeregistering'
+      Caption = 'Zeiterfassung starten'
       Hint = 'beginnt die zeiterfassung mit der Position'
       ImageIndex = 6
     end
     object acMakeSubPos: TAction
-      Caption = 'acMakeSubPos'
+      Caption = 'einrücken'
       Hint = 'rückt die Position ein'
       ImageIndex = 95
       OnExecute = acMakeSubPosExecute
     end
     object acUnMakeSebPos: TAction
-      Caption = 'acUnMakeSebPos'
+      Caption = 'ausrücken'
       Hint = 'rückt die Position aus'
       ImageIndex = 96
       OnExecute = acUnMakeSebPosExecute
     end
     object acRefresh: TAction
-      Caption = 'acRefresh'
+      Caption = 'aktualisieren'
       ImageIndex = 69
       OnExecute = acRefreshExecute
     end
@@ -724,10 +724,32 @@ object fPosition: TfPosition
     top = 200
   end
   object pmPosition: TPopupMenu
+    Images = fVisualControls.ImageListBig
     left = 192
     top = 64
-    object miSearchArticle: TMenuItem
-      Caption = 'Artikel suchen/einfügen'
+    object MenuItem6: TMenuItem
+      Action = acSearchArticle
+    end
+    object MenuItem5: TMenuItem
+      Action = acGotoArticle
+    end
+    object MenuItem4: TMenuItem
+      Caption = '-'
+    end
+    object MenuItem1: TMenuItem
+      Action = acAddPos
+    end
+    object MenuItem2: TMenuItem
+      Action = acDelPos
+    end
+    object MenuItem3: TMenuItem
+      Caption = '-'
+    end
+    object MenuItem8: TMenuItem
+      Action = acStartTimeregistering
+    end
+    object MenuItem7: TMenuItem
+      Action = acRenumber
     end
   end
   object Datasource1: TDatasource

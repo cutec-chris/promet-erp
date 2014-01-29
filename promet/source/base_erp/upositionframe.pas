@@ -60,7 +60,14 @@ type
     ExtRotatedLabel2: TExtRotatedLabel;
     ExtRotatedLabel3: TExtRotatedLabel;
     lbResults: TListBox;
-    miSearchArticle: TMenuItem;
+    MenuItem1: TMenuItem;
+    MenuItem2: TMenuItem;
+    MenuItem3: TMenuItem;
+    MenuItem4: TMenuItem;
+    MenuItem5: TMenuItem;
+    MenuItem6: TMenuItem;
+    MenuItem7: TMenuItem;
+    MenuItem8: TMenuItem;
     Panel1: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
@@ -810,6 +817,7 @@ begin
   FGridView.WordWrap:=true;
   FGridView.OnSearchKey:=@FGridViewSearchKey;
   FGridView.UseDefaultRowHeight := False;
+  FGridView.gList.PopupMenu:=pmPosition;
 end;
 destructor TfPosition.Destroy;
 var
