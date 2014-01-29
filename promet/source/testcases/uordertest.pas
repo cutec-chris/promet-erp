@@ -72,21 +72,21 @@ end;
 
 procedure OrderTest.CheckPost;
 begin
-  Check(aOrder.Post=prSuccess,'Order post failed');
+  Check(aOrder.DoPost=prSuccess,'Order post failed');
 end;
 
 procedure OrderTest.ConvertAU;
 begin
   aOrder.ChangeStatus('AU');
   Check(aOrder.Count=2,'Order Count='+IntToStr(aOrder.Count));
-  Check(aOrder.Post=prSuccess,'Order post failed');
+  Check(aOrder.DoPost=prSuccess,'Order post failed');
 end;
 
 procedure OrderTest.ConvertLI;
 begin
   aOrder.ChangeStatus('LI');
   Check(aOrder.Count=3,'Order Count='+IntToStr(aOrder.Count));
-  Check(aOrder.Post=prSuccess,'Order post failed');
+  Check(aOrder.DoPost=prSuccess,'Order post failed');
 end;
 
 procedure OrderTest.Free;
