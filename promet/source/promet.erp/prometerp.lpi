@@ -529,7 +529,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="702"/>
         <CursorPos X="49" Y="711"/>
-        <UsageCount Value="86"/>
+        <UsageCount Value="88"/>
         <Loaded Value="True"/>
       </Unit21>
       <Unit22>
@@ -1052,8 +1052,8 @@
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="4" Y="1"/>
-        <UsageCount Value="98"/>
+        <CursorPos X="43" Y="1"/>
+        <UsageCount Value="100"/>
         <Loaded Value="True"/>
       </Unit69>
       <Unit70>
@@ -1631,11 +1631,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uGanttView"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="985"/>
-        <CursorPos X="7" Y="1003"/>
+        <TopLine Value="886"/>
+        <CursorPos X="32" Y="935"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -3156,11 +3155,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uTaskPlan"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1254"/>
-        <CursorPos X="54" Y="1270"/>
-        <UsageCount Value="39"/>
+        <TopLine Value="127"/>
+        <CursorPos X="1" Y="145"/>
+        <UsageCount Value="41"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit316>
@@ -4180,7 +4180,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="338"/>
         <CursorPos X="15" Y="459"/>
-        <UsageCount Value="31"/>
+        <UsageCount Value="33"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit440>
@@ -4418,7 +4418,7 @@
         <UsageCount Value="9"/>
       </Unit467>
     </Units>
-    <JumpHistory Count="24" HistoryIndex="23">
+    <JumpHistory Count="25" HistoryIndex="24">
       <Position1>
         <Filename Value="../base_pm/utaskplan.pas"/>
         <Caret Line="7" Column="133" TopLine="1"/>
@@ -4515,6 +4515,10 @@
         <Filename Value="../base_pm/utaskplan.pas"/>
         <Caret Line="1271" Column="109" TopLine="1254"/>
       </Position24>
+      <Position25>
+        <Filename Value="../base_pm/utaskplan.pas"/>
+        <Caret Line="487" Column="1" TopLine="468"/>
+      </Position25>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>

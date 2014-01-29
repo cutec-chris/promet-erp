@@ -142,7 +142,6 @@ type
     procedure miUserOptionsClick(Sender: TObject);
     procedure pmActionPopup(Sender: TObject);
     procedure TIntervalChanged(Sender: TObject);
-    procedure ToolButton1Click(Sender: TObject);
   private
     { private declarations }
     FGantt: TgsGantt;
@@ -482,11 +481,6 @@ begin
   TInterval(TInterval(Sender).Pointer2).FinishDate:=TInterval(Sender).FinishDate;
   acUse.Enabled:=True;
   acCancel.Enabled:=True;
-end;
-
-procedure TfTaskPlan.ToolButton1Click(Sender: TObject);
-begin
-
 end;
 
 function TfTaskPlan.GetTaskFromCoordinates(Gantt: TgsGantt; X, Y,Index: Integer
