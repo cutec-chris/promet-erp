@@ -295,6 +295,10 @@ begin
             FStateChange(Self);
           Makesnapshot(FStatus+' '+DateToStr(Now()));
         end;
+      if (Field.FieldName = 'ID') then
+        begin
+          History.AddItem(Self.DataSet,Format(strNumberChanged,[Field.AsString]),'','',DataSet,ACICON_EDITED);
+        end;
       if (Field.FieldName = 'TARGET') then
         begin
           History.AddItem(Self.DataSet,Format(strTargetChanged,[FTarget,Field.AsString]),'','',DataSet,ACICON_DATECHANGED);

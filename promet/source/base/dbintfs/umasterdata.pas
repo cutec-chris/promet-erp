@@ -556,6 +556,10 @@ begin
       if Assigned(FStateChange) then
         FStateChange(Self);
     end;
+  if (Field.FieldName = 'ID') then
+    begin
+      History.AddItem(Self.DataSet,Format(strNumberChanged,[Field.AsString]),'','',DataSet,ACICON_EDITED);
+    end;
 end;
 function TMasterdata.GetHistory: TBaseHistory;
 begin
