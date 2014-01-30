@@ -187,6 +187,7 @@ type
     procedure acSalesListPayExecute(Sender: TObject);
     procedure acShowTreeExecute(Sender: TObject);
     procedure acStandartTimeExecute(Sender: TObject);
+    procedure acStartPageExecute(Sender: TObject);
     procedure acTaskPlanExecute(Sender: TObject);
     procedure acTasksExecute(Sender: TObject);
     procedure acTimeRegisteringExecute(Sender: TObject);
@@ -1304,7 +1305,7 @@ end;
 procedure TfMain.acCloseTabExecute(Sender: TObject);
 begin
   if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TPrometMainFrame)
-  and (pcPages.PageCount > 2) then
+  and (pcPages.PageCount > 2) and (pcPages.ActivePage.PageIndex>0) then
     TPrometMainFrame(pcPages.ActivePage.Controls[0]).CloseFrame;
 end;
 
@@ -1794,6 +1795,11 @@ begin
     begin
       FTimeReg.acStartstandartEntry.Execute;
     end;
+end;
+
+procedure TfMain.acStartPageExecute(Sender: TObject);
+begin
+  pcPages.TabIndex:=0;
 end;
 
 procedure TfMain.acTaskPlanExecute(Sender: TObject);

@@ -140,13 +140,16 @@ var
 
 implementation
 uses uData,LCLIntf,uBaseDbClasses,uTaskEdit,variants,LCLProc,uTaskPlan,
-  uIntfStrConsts,uColors,uBaseDBInterface,Grids;
+  uIntfStrConsts,uColors,uBaseDBInterface,Grids,uLogWait;
 {$R *.lfm}
 resourcestring
   strSnapshot                             = 'Snapshot';
   strNoSnapshot                           = '<keiner>';
   strCommitChanges                        = 'Sollen wirklich alle Änderungen in die Aufgaben eingetragen werden ?';
   strCancelChanges                        = 'Sollen wirklich alle Änderungen verworfen werden ?';
+  strCollectingTasks                      = 'Ansicht wird aufgebaut...';
+  strCollectingDependencies               = 'Abhängigkeiten werden ermittelt...';
+  strCollectingresourceTimes              = '... Urlaubszeiten ermitteln';
 
 procedure TfGanttView.FGanttTreeAfterUpdateCommonSettings(Sender: TObject);
 begin
@@ -886,7 +889,7 @@ var
     bInterval: TInterval;
     aUser: TUser;
     aProject: TProject;
-    TaskPlan : TfTaskPlan;
+    TaskPlan : TfTaskPlan = nil;
   begin
     Result := nil;
     if (aTasks.FieldByName('PARENT').AsString <> '') then
@@ -928,12 +931,18 @@ var
           begin
             i := FRessources.Add(TRessource.Create(nil));
             aInterval.Pointer := TRessource(FRessources[i]);
-            TaskPlan.CollectResources(TRessource(FRessources[i]),aTasks.FieldByName('USER').AsString);
+            //fLogWaitForm.ShowInfo(strCollectingresourceTimes);
+            //TCollectThread.Create(FGantt.Calendar,TRessource(FRessources[i]),aTasks.FieldByName('USER').AsString,aInterval);
+            TaskPlan.CollectResources(TRessource(FRessources[i]),aTasks.FieldByName('USER').AsString,nil,False);
           end;
       end;
   end;
 begin
+  Screen.Cursor:=crHourGlass;
   FGantt.BeginUpdate;
+  fLogWaitForm.SetLanguage;
+  fLogWaitForm.Show;
+  fLogWaitForm.ShowInfo(strCollectingTasks);
   try
     if DoClean then
       begin
@@ -950,6 +959,7 @@ begin
         if (aTasks.FieldByName('ACTIVE').AsString<>'N') or AddInactive then
           if IntervalById(aTasks.Id.AsVariant)=nil then
             begin
+              //fLogWaitForm.ShowInfo(aTasks.FieldByName('SUMMARY').AsString);
               aInterval := AddTask(True,aRoot);
               if not aTasks.Snapshots.DataSet.Active then aTasks.Snapshots.Open;
               aTasks.Snapshots.First;
@@ -963,6 +973,7 @@ begin
         aTasks.Next;
       end;
     aTasks.First;
+    fLogWaitForm.ShowInfo(strCollectingDependencies);
     while not aTasks.EOF do
       begin
         if (aTasks.FieldByName('ACTIVE').AsString<>'N') or AddInactive then
@@ -991,6 +1002,8 @@ begin
       aRoot.Visible:=True;
   finally
     FGantt.EndUpdate;
+    fLogWaitForm.Hide;
+    Screen.Cursor:=crDefault;
   end;
   bSave.Enabled:=False;
   bCancel.Enabled:=False;

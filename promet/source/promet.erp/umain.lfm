@@ -170,6 +170,7 @@ object fMain: TfMain
         Width = 29
         Action = acShowTree
         AllowAllUp = True
+        Down = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -206,6 +207,7 @@ object fMain: TfMain
           FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
           FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
         }
+        GroupIndex = 1234
         ShowCaption = False
       end
       object Bevel9: TBevel
@@ -554,7 +556,6 @@ object fMain: TfMain
           4460C88B4DBBC88C4FEEC88C4FF6C88C4FF7C88C4FF7C88D4FF7C98C4FF7C78B
           4FF7C5894BD4C4763B91B3683C06FFFFFF00FFFFFF00FFFFFF00
         }
-        GroupIndex = 55
         Layout = blGlyphTop
         OnClick = acPauseTimeExecute
         ShowCaption = False
@@ -602,7 +603,6 @@ object fMain: TfMain
           FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
           FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
         }
-        GroupIndex = 55
         Layout = blGlyphTop
         OnClick = acPauseTimeExecute
         ShowCaption = False
@@ -650,7 +650,6 @@ object fMain: TfMain
           FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
           FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
         }
-        GroupIndex = 55
         Layout = blGlyphTop
         OnClick = acPauseTimeExecute
         ShowCaption = False
@@ -698,7 +697,6 @@ object fMain: TfMain
           FF000000000129292944919191CA262626480000000400000001000000010000
           00043232323C9B9B9BC72929294400000001FFFFFF00FFFFFF00
         }
-        GroupIndex = 55
         Layout = blGlyphTop
         OnClick = acPauseTimeExecute
         ShowCaption = False
@@ -782,7 +780,6 @@ object fMain: TfMain
           0000000000000000000000000000000000000000000000000000000000000000
           00000000000000000000000000006F9CD6FF6B9ED6FF6797CFFF
         }
-        GroupIndex = 55
         Layout = blGlyphTop
         OnClick = acPauseTimeExecute
         ShowCaption = False
@@ -1128,6 +1125,7 @@ object fMain: TfMain
       AutoCheck = True
       Caption = 'Baum'
       Checked = True
+      GroupIndex = 1234
       Hint = 'Baum anzeigen/ausblenden'
       ImageIndex = 97
       OnExecute = acShowTreeExecute
@@ -1251,6 +1249,7 @@ object fMain: TfMain
     object acStartPage: TAction
       Caption = 'Startseite'
       ImageIndex = 12
+      OnExecute = acStartPageExecute
     end
   end
   object ApplicationProperties1: TApplicationProperties

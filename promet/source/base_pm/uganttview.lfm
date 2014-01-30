@@ -1,12 +1,13 @@
 object fGanttView: TfGanttView
-  Left = 295
+  Left = 299
   Height = 582
-  Top = 181
+  Top = 173
   Width = 994
   Caption = 'Gantt Ansicht'
   ClientHeight = 582
   ClientWidth = 994
   ShowHint = True
+  ShowInTaskBar = stAlways
   LCLVersion = '1.3'
   object tbTop: TPanel
     Left = 0
