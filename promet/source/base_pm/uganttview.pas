@@ -931,13 +931,14 @@ var
           begin
             i := FRessources.Add(TRessource.Create(nil));
             aInterval.Pointer := TRessource(FRessources[i]);
-            fLogWaitForm.ShowInfo(strCollectingresourceTimes);
+            //fLogWaitForm.ShowInfo(strCollectingresourceTimes);
             //TCollectThread.Create(FGantt.Calendar,TRessource(FRessources[i]),aTasks.FieldByName('USER').AsString,aInterval);
-            TaskPlan.CollectResources(TRessource(FRessources[i]),aTasks.FieldByName('USER').AsString);
+            TaskPlan.CollectResources(TRessource(FRessources[i]),aTasks.FieldByName('USER').AsString,nil,False);
           end;
       end;
   end;
 begin
+  Screen.Cursor:=crHourGlass;
   FGantt.BeginUpdate;
   fLogWaitForm.SetLanguage;
   fLogWaitForm.Show;
@@ -958,7 +959,7 @@ begin
         if (aTasks.FieldByName('ACTIVE').AsString<>'N') or AddInactive then
           if IntervalById(aTasks.Id.AsVariant)=nil then
             begin
-              fLogWaitForm.ShowInfo(aTasks.FieldByName('SUMMARY').AsString);
+              //fLogWaitForm.ShowInfo(aTasks.FieldByName('SUMMARY').AsString);
               aInterval := AddTask(True,aRoot);
               if not aTasks.Snapshots.DataSet.Active then aTasks.Snapshots.Open;
               aTasks.Snapshots.First;
@@ -1002,6 +1003,7 @@ begin
   finally
     FGantt.EndUpdate;
     fLogWaitForm.Hide;
+    Screen.Cursor:=crDefault;
   end;
   bSave.Enabled:=False;
   bCancel.Enabled:=False;
