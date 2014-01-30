@@ -1125,6 +1125,7 @@ object fMain: TfMain
       AutoCheck = True
       Caption = 'Baum'
       Checked = True
+      GroupIndex = 1234
       Hint = 'Baum anzeigen/ausblenden'
       ImageIndex = 97
       OnExecute = acShowTreeExecute
@@ -1248,6 +1249,7 @@ object fMain: TfMain
     object acStartPage: TAction
       Caption = 'Startseite'
       ImageIndex = 12
+      OnExecute = acStartPageExecute
     end
   end
   object ApplicationProperties1: TApplicationProperties

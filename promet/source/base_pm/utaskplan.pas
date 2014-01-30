@@ -171,13 +171,13 @@ type
   private
     FResource: uTaskPlan.TRessource;
     FUser: String;
-    FPlan: TfTaskPlan;
+    FPlan: TWinControl;
     FAttatchTo: TInterval;
     procedure Attatch;
     procedure Plan;
   public
     procedure Execute; override;
-    constructor Create(aPlan : TfTaskPlan;aResource : TRessource;asUser : string;AttatchTo : TInterval = nil);
+    constructor Create(aPlan : TWinControl;aResource : TRessource;asUser : string;AttatchTo : TInterval = nil);
   end;
 procedure ChangeTask(aTasks: TTaskList;aTask : TInterval);
 resourcestring
@@ -192,16 +192,18 @@ uses uData,LCLIntf,uBaseDbClasses,uProjects,uTaskEdit,LCLProc,uGanttView,uColors
 procedure TCollectThread.Attatch;
 begin
   FAttatchTo.Pointer:=FResource;
-  FPlan.Invalidate;
+  if Assigned(FPlan) and FPlan.Visible then
+    FPlan.Invalidate;
   Application.ProcessMessages;
 end;
 
 procedure TCollectThread.Plan;
 var
   aConnection: Classes.TComponent;
+  TaskPlan : TfTaskPlan;
 begin
   aConnection := Data.GetNewConnection;
-  FPlan.CollectResources(FResource,FUser,aConnection);
+  TaskPlan.CollectResources(FResource,FUser,aConnection);
   aConnection.Free;
 end;
 
@@ -211,7 +213,8 @@ begin
   Synchronize(@Attatch);
 end;
 
-constructor TCollectThread.Create(aPlan : TfTaskPlan;aResource: TRessource; asUser: string;AttatchTo : TInterval);
+constructor TCollectThread.Create(aPlan: TWinControl; aResource: TRessource;
+  asUser: string; AttatchTo: TInterval);
 begin
   FPlan := aPlan;
   FResource := aResource;
@@ -1345,7 +1348,7 @@ begin
     end;
   bTasks.Free;
   aCalendar := TCalendar.Create(nil,Data,aConnection);
-  aCalendar.SelectPlanedByUser(asUser);
+  aCalendar.SelectPlanedByUserAndTime(asUser,Now()-60,Now()+(3*365));//2 Monate zurück 3 Jahre vorraus
   aCalendar.Open;
   with aCalendar.DataSet do
     begin
