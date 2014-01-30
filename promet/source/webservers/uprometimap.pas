@@ -171,6 +171,7 @@ begin
       Result := False;
       exit;
     end;
+  FMessages.DataSet.Refresh;
   FMessages.DataSet.Last;
   if not FUseUID then
     begin
