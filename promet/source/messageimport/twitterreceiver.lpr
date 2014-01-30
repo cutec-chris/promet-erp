@@ -239,9 +239,12 @@ begin
                                       Customers.CustomerCont.Description.AsString:=asource;
                                       Customers.CustomerCont.Post;
                                       //Follow Customer
-                                      Data.Users.Follows.Insert;
-                                      Data.Users.Follows.Link.AsString:=Data.BuildLink(Customers.DataSet);
-                                      Data.Users.Follows.Post;
+                                      if aRef = '' then
+                                        begin
+                                          Data.Users.Follows.Insert;
+                                          Data.Users.Follows.Link.AsString:=Data.BuildLink(Customers.DataSet);
+                                          Data.Users.Follows.Post;
+                                        end;
                                     end;
                                   Customers.History.Open;
                                   with Customers.History.DataSet as IBaseManageDB do
@@ -284,6 +287,11 @@ begin
                                         begin
                                           inc(Retry,2);
                                           Somethingimported:=True;
+                                          with aHist.DataSet as IBaseManageDB do
+                                            UpdateStdFields := False;
+                                          aHist.Edit;
+                                          aHist.FieldByName('READ').AsString:='N';
+                                          aHist.Post;
                                           WriteLn('new Subentry from '+author);
                                           Customers.History.AddParentedItem(Customers.DataSet,text,aHist.Id.AsVariant,'',author,nil,ACICON_EXTERNALCHANGED,'',False,False);
                                           Customers.History.TimeStamp.AsDateTime:=aTime;
