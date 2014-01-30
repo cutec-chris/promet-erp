@@ -299,6 +299,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1430"/>
@@ -924,11 +925,10 @@
       <Unit56>
         <Filename Value="../base/dbintfs/uprojects.pas"/>
         <UnitName Value="uProjects"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="64"/>
-        <CursorPos X="15" Y="84"/>
+        <TopLine Value="1"/>
+        <CursorPos X="43" Y="75"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
       </Unit56>
