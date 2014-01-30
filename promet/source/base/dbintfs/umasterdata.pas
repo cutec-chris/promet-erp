@@ -548,6 +548,7 @@ end;
 procedure TMasterdata.FDSDataChange(Sender: TObject; Field: TField);
 begin
   if not Assigned(Field) then exit;
+  if DataSet.ControlsDisabled then exit;
   if Field.FieldName = 'STATUS' then
     begin
       History.Open;
@@ -648,6 +649,7 @@ procedure TMasterdata.FillDefaults(aDataSet: TDataSet);
 begin
   with aDataSet,BaseApplication as IBaseDBInterface do
     begin
+      aDataSet.DisableControls;
       if FieldByName('ID').IsNull then
         FieldByName('ID').AsString      := Data.Numbers.GetNewNumber('ARTICLES');
       FieldByName('TYPE').AsString    := 'A';
@@ -663,6 +665,7 @@ begin
       FieldByName('VAT').AsString     := Data.Vat.FieldByName('ID').AsString;
       FieldByName('CREATEDBY').AsString := Data.Users.IDCode.AsString;
       FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
+      aDataSet.EnableControls;
     end;
 end;
 procedure TMasterdata.CascadicPost;
@@ -899,4 +902,4 @@ begin
 end;
 initialization
 end.
-
+

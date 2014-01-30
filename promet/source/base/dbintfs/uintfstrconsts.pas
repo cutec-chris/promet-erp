@@ -95,7 +95,7 @@ resourcestring
   strStart                      = 'Start';
   strSummary                    = 'Zusammenfassung';
   strStatusChanged              = 'Status geändert von %s zu %s';
-  strNumberChanged              = 'Nummer geändert von %s zu %s';
+  strNumberChanged              = 'Nummer geändert zu %s';
   strFiles                      = 'Dateien';
   strDocuments                  = 'Dokumente/Bilder';
   strDocumentsOnly              = 'Dokumente';
@@ -248,4 +248,4 @@ begin
   nav.Hints.Add(strRefresh);
 end;
 {$ENDIF}
-end.
+end.

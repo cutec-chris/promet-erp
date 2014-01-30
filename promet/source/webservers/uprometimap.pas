@@ -621,9 +621,9 @@ begin
           end;
         end;
       Result.Add(copy(tmp,0,length(tmp)-1)+')');
-      {.$IFDEF DEBUG}
+      {$IFDEF DEBUG}
       debugln('FetchOneEntry:'+FMessages.Id.AsString+' '+FMessages.Subject.AsString+' '+tmpRecNo+' '+FMessages.FieldByName('SENDDATE').AsString);
-      {.$ENDIF}
+      {$ENDIF}
       FetchSequence:=FetchSequence+1;
       FreeAndNil(aMessage);
       FreeAndNil(aMime);

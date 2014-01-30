@@ -282,8 +282,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="597"/>
-        <CursorPos X="1" Y="600"/>
+        <TopLine Value="606"/>
+        <CursorPos X="8" Y="626"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit24>
@@ -477,14 +477,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="680"/>
         <CursorPos X="40" Y="692"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit47>
       <Unit48>
         <Filename Value="..\..\..\..\fpc\2.6_fixes\rtl\inc\systemh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="364"/>
         <CursorPos X="41" Y="376"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit48>
       <Unit49>
         <Filename Value="..\..\..\lkomponenten\synapse\mimemess.pas"/>

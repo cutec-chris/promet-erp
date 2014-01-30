@@ -278,6 +278,7 @@ var
   aUsers: TUser;
 begin
   if not Assigned(Field) then exit;
+  if DataSet.ControlsDisabled then exit;
   if (Dataset.State <> dsInsert)
   and ((Field.FieldName = 'STATUS')
    or  (Field.FieldName = 'TARGET')
@@ -428,6 +429,7 @@ begin
   inherited FillDefaults(aDataSet);
   with aDataSet,BaseApplication as IBaseDBInterface do
     begin
+      aDataSet.DisableControls;
       FieldByName('STATUS').AsString := 'A';
       FieldByName('TYPE').AsString := 'P';
       FieldByName('START').AsDateTime := Now();
@@ -436,6 +438,7 @@ begin
           FieldByName('ID').AsString := Data.Numbers.GetNewNumber('PROJECTS');
       FieldByName('CREATEDBY').AsString := Data.Users.IDCode.AsString;
       FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
+      aDataSet.EnableControls;
     end;
 end;
 

@@ -474,6 +474,7 @@ end;
 procedure TPerson.FDSDataChange(Sender: TObject; Field: TField);
 begin
   if not Assigned(Field) then exit;
+  if DataSet.ControlsDisabled then exit;
   if Field.FieldName = 'STATUS' then
     begin
       History.Open;
@@ -545,6 +546,7 @@ procedure TPerson.FillDefaults(aDataSet: TDataSet);
 begin
   with aDataSet,BaseApplication as IBaseDBInterface do
     begin
+      aDataSet.DisableControls;
       FieldByName('ACCOUNTNO').AsString := Data.Numbers.GetNewNumber('CUSTOMERS');
       FieldByName('TYPE').AsString      := 'C';
       FieldByName('DISCOUNT').AsFloat   := 0;
@@ -556,7 +558,7 @@ begin
         FieldByName('CURRENCY').AsString := Data.Currency.FieldByName('SYMBOL').AsString;
       if Data.Languages.DataSet.Active and Data.Languages.DataSet.Locate('DEFAULTLNG', 'Y', []) then
         FieldByName('LANGUAGE').AsString := Data.Languages.FieldByName('ISO6391').AsString;
-
+      aDataSet.EnableControls;
     end;
 end;
 function TPerson.Find(aIdent: string;Unsharp : Boolean = False): Boolean;
@@ -696,4 +698,4 @@ begin
     end;
 end;
 initialization
-end.
+end.
