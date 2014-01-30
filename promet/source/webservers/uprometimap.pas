@@ -501,7 +501,7 @@ begin
             end;
           'INTERNALDATE':
             begin
-              tmp := tmp+'INTERNALDATE "'+Rfc822DateTime(FMessages.FieldByName('SENDDATE').AsDateTime)+'" ';
+              tmp := tmp+'INTERNALDATE "'+Rfc822DateTime(FMessages.TimeStamp.AsDateTime)+'" ';
             end;
           'RFC822.SIZE':
             begin
