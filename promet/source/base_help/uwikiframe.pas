@@ -499,6 +499,7 @@ var
     FSQLScanner := TSQLScanner.Create(FSQLStream);
     FSQLParser := TSQLParser.Create(FSQLScanner);
     try
+      aFilter:='';
       aStmt := FSQLParser.Parse;
       for a := 0 to TSQLSelectStatement(aStmt).Tables.Count-1 do
         begin
@@ -507,10 +508,14 @@ var
             begin
               aDs := TBaseDBDataset(aClass.Create(nil,Data));
               aRight := UpperCase(aTableName);
-              aFilter:=TSQLSelectStatement(aStmt).Where.GetAsSQL([sfoDoubleQuoteIdentifier]);
+              if Assigned(TSQLSelectStatement(aStmt).Where) then
+                aFilter:=TSQLSelectStatement(aStmt).Where.GetAsSQL([sfoDoubleQuoteIdentifier]);
               if (data.Users.Rights.Right(aRight)>RIGHT_READ) and (Assigned(aDS)) then
                 begin
-                  aDs.Filter(aFilter,aLimit);
+                  if (aDs.ActualFilter<>'') and (aFilter<>'') then
+                    aDs.Filter('('+aDs.ActualFilter+') AND ('+aFilter+')',aLimit)
+                  else if (aFilter<>'') then
+                    aDs.Filter(aFilter,aLimit);
                   while not aDS.EOF do
                     begin
                       case aType of

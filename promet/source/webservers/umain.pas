@@ -236,7 +236,8 @@ begin
           begin
             aDs := TBaseDbList(aClass.Create(nil,Data));
             aRight := UpperCase(aList);
-            aFilter:=TSQLSelectStatement(aStmt).Where.GetAsSQL([sfoDoubleQuoteIdentifier]);
+            if Assigned(TSQLSelectStatement(aStmt).Where) then
+              aFilter:=TSQLSelectStatement(aStmt).Where.GetAsSQL([sfoDoubleQuoteIdentifier]);
             if (data.Users.Rights.Right(aRight)>RIGHT_READ) and (Assigned(aDS)) then
               begin
                 if (aDs.ActualFilter<>'') and (aFilter<>'') then
@@ -260,7 +261,8 @@ begin
               end
             else
               AResponse.Code:=403;
-            if Assigned(aDs) then
+            if Assigned(aDs) then                                                           if Assigned(TSQLSelectStatement(aStmt).Where) then
+
               aDS.Free;
           end
         else

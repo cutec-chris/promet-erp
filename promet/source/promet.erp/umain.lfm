@@ -35,12 +35,13 @@ object fMain: TfMain
     ActivePage = tsStartpage
     Align = alClient
     DragMode = dmAutomatic
+    Images = fVisualControls.Images
     TabIndex = 0
     TabOrder = 1
     NewTabImageIndex = 59
     object tsStartpage: TTabSheet
       Caption = 'Startseite'
-      ImageIndex = 54
+      ImageIndex = 12
     end
   end
   object Panel1: TPanel
