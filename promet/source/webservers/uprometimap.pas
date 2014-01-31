@@ -22,7 +22,7 @@ unit uprometimap;
 interface
 uses
   Classes, SysUtils, uLIMAP, uMessages, MimeMess, uMimeMessages, db,cwstring,
-  LCLProc,uBaseDbClasses,lNet;
+  LCLProc,uBaseDbClasses,lNet,mimepart;
 
 {.$DEFINE DEBUG}
 type
@@ -437,6 +437,39 @@ var
   aSize: String;
   tmpRecNo: String;
   FAdded: Boolean;
+
+  function GetBodyStructure(aPart : TMimePart) : string;
+  var
+    c: Integer;
+    aDisp : string;
+    d: Integer;
+    aHead: String;
+  begin
+    for c := 0 to aPart.GetSubPartCount-1 do
+      begin
+        aDisp := aDisp+' '+GetBodyStructure(aPart.GetSubPart(c));
+        aDisp := trim(aDisp);
+      end;
+    Result := Result+'("'+aPart.Primary+'" "'+aPart.Secondary+'" (';
+    for d := 0 to aPart.Headers.Count-1 do
+      begin
+        aHead := aPart.Headers[d];
+        if pos(';',aHead)>0 then
+          aHead := copy(aHead,pos(';',aHead)+1,length(aHead));
+        if copy(aHead,0,8)<>'Content-' then
+          begin
+            if pos('=',aHead)>0 then
+              aHead := '"'+trim(copy(aHead,0,pos('=',aHead)-1))+'" "'+trim(copy(aHead,pos('=',aHead)+1,length(aHead)))+'"'
+            else
+              aHead := '"'+trim(copy(aHead,0,pos(':',aHead)-1))+'" "'+trim(copy(aHead,pos(':',aHead)+1,length(aHead)))+'"';
+            if d > 0 then
+              Result := Result+' ';
+            Result := Result+trim(aHead);
+          end;
+      end;
+    Result := copy(Result,0,length(Result)-1)+')'+' '+aPart.ContentID+' '+aPart.Description+' "'+aPart.Encoding+'" '+IntToStr(length(aPart.Lines.Text))+' NIL'+aDisp+')';
+  end;
+
 begin
   if FSelectCount=0 then
     if not SelectNext then
@@ -557,6 +590,18 @@ begin
                 tmp := tmp+bFetch+' {'+IntToStr(aLen+2)+'}'+#13#10+aSL.Text+#13#10+' ';
               aSL.Free;
             end;
+          'BODYSTRUCTURE':
+            begin
+              if not Assigned(aMessage) then
+                begin
+                  aMessage := TMimeMessage.Create(Self,Data);
+                  aMessage.Select(FMessages.Id.AsVariant);
+                  aMessage.Open;
+                end;
+              if not Assigned(aMime) then
+                aMime := aMessage.EncodeMessage;
+              tmp := tmp+bFetch+' '+GetBodyStructure(aMime.MessagePart);
+            end;
           'BODY.PEEK[HEADER.FIELDS':
             begin
               if not Assigned(aMessage) then
@@ -565,15 +610,15 @@ begin
                   aMessage.Select(FMessages.Id.AsVariant);
                   aMessage.Open;
                 end;
-              if aMessage.Count>0 then
-                aMessage.Content.Open;
+              if not Assigned(aMime) then
+                aMime := aMessage.EncodeMessage;
               //BODY.PEEK[HEADER.FIELDS (From To Cc Bcc Subject Date Message-ID Priority X-Priority References Newsgroups In-Reply-To Content-Type)]
               aFields := copy(aFetch,pos('(',aFetch)+1,length(aFetch));
               aFields := copy(aFields,0,pos(')',aFields)-1);
               aSL := TStringList.Create;
               aSL.TextLineBreakStyle:=tlbsCRLF;
               bsl := TStringlist.Create;
-              bsl.text := aMessage.Content.FieldByName('HEADER').AsString;
+              aMime.Header.EncodeHeaders(bsl);
               while pos(' ',aFields)>0 do
                 begin
                   Found := False;
@@ -584,8 +629,8 @@ begin
                         Found := True;
                         break;
                       end;
-                  //if not Found then
-                  //  aSL.Add(copy(aFields,0,pos(' ',aFields)-1)+':');
+                  if not Found then
+                    aSL.Add(copy(aFields,0,pos(' ',aFields)-1)+':');
                   aFields := copy(aFields,pos(' ',aFields)+1,length(aFields));
                 end;
               if aFields<>'' then
@@ -598,8 +643,8 @@ begin
                         Found := True;
                         break;
                       end;
-                  //if not Found then
-                  //  aSL.Add(aFields+':');
+                  if not Found then
+                    aSL.Add(aFields+':');
                   aFields := copy(aFields,pos(' ',aFields)+1,length(aFields));
                 end;
               aLen := 0;
