@@ -49,6 +49,7 @@ type
     aLinkType : string;
     aEvent : TOpenLinkEvent;
     aClass : TBaseDBDatasetClass;
+    aListClass : TBaseDBDatasetClass;
   end;
 
   { TBaseDBModule }
@@ -138,7 +139,8 @@ type
     function BuildLink(aDataSet : TDataSet) : string;
     function GotoLink(aLink : string) : Boolean;
     function DataSetFromLink(aLink: string;var aClass : TBaseDBDatasetClass): Boolean;
-    procedure RegisterLinkHandler(aLink : string;aOpenHandler : TOpenLinkEvent;DataSetClass : TBaseDBDatasetClass);
+    function ListDataSetFromLink(aLink: string;var aClass : TBaseDBDatasetClass): Boolean;
+    procedure RegisterLinkHandler(aLink : string;aOpenHandler : TOpenLinkEvent;DataSetClass : TBaseDBDatasetClass;DataSetListClass : TBaseDBDatasetClass = nil);
     function GetBookmark(aDataSet : TBaseDbDataSet) : Variant;
     function GotoBookmark(aDataSet : TBaseDbDataSet;aRec : Variant) : Boolean;
     function Locate(aDataSet : TBaseDbDataSet;const keyfields: string; const keyvalues: Variant; aoptions: TLocateOptions) : boolean;
@@ -1099,8 +1101,30 @@ begin
         break;
       end;
 end;
+
+function TBaseDBModule.ListDataSetFromLink(aLink: string;
+  var aClass: TBaseDBDatasetClass): Boolean;
+var
+  i: Integer;
+begin
+  Result := False;
+  for i := 0 to length(FLinkHandlers)-1 do
+    if copy(aLink,0,length(FLinkHandlers[i].aLinkType)) = FLinkHandlers[i].aLinkType then
+      begin
+        if Assigned(FLinkHandlers[i].aClass) then
+          begin
+            aClass := FLinkHandlers[i].aClass;
+            if Assigned(FLinkHandlers[i].aListClass) then
+              aClass := FLinkHandlers[i].aListClass;
+            Result := True;
+          end;
+        break;
+      end;
+end;
+
 procedure TBaseDBModule.RegisterLinkHandler(aLink: string;
-  aOpenHandler: TOpenLinkEvent; DataSetClass: TBaseDBDatasetClass);
+  aOpenHandler: TOpenLinkEvent; DataSetClass: TBaseDBDatasetClass;
+  DataSetListClass: TBaseDBDatasetClass);
 begin
   Setlength(FLinkHandlers,length(FLinkHandlers)+1);
   with FLinkHandlers[length(FLinkHandlers)-1] do
@@ -1108,6 +1132,7 @@ begin
       aLinkType :=aLink;
       aEvent := aOpenHandler;
       aClass := DatasetClass;
+      aListClass := DataSetListClass;
     end;
 end;
 function TBaseDBModule.GetBookmark(aDataSet: TBaseDbDataSet): Variant;

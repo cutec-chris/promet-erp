@@ -1014,6 +1014,8 @@ begin
           BaseSortDirection:=sdAscending;
           Limit := 500;
         end;
+      if Assigned(Data.Users) and Data.Users.Active then
+        SelectActiveByUser(data.Users.FieldByName('ACCOUNTNO').AsString);
     end;
   FTempUsers := TUser.Create(aOwner,DM);
   FHistory := TBaseHistory.Create(Self,DM,aConnection,DataSet);

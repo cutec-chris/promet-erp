@@ -790,7 +790,7 @@ begin
   if (Data.Users.Rights.Right('TASKS') > RIGHT_NONE) then
     begin
       Synchronize(@RefreshTasks);
-      Data.RegisterLinkHandler('TASKS',@fMainTreeFrame.OpenLink,TTask);
+      Data.RegisterLinkHandler('TASKS',@fMainTreeFrame.OpenLink,TTask,TTaskList);
     end;
   //Add PIM Entrys
   if Data.Users.Rights.Right('CALENDAR') > RIGHT_NONE then
@@ -1199,6 +1199,7 @@ begin
             spTree.Visible:=False;
             acShowTree.Checked:=False;
           end;
+        WikiFrame.Refresh;
       end;
     //debugln('LoginTime: '+IntToStr(GetTickCount64-aTime));
   finally

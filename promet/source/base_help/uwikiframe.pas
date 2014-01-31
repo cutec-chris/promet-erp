@@ -247,8 +247,7 @@ begin
 end;
 procedure TfWikiFrame.tsViewShow(Sender: TObject);
 begin
-  if (not Assigned(DataSet)) or (not DataSet.DataSet.Active) then exit;
-  ipHTML.SetHtml(Wiki2HTML(DataSet.FieldByName('DATA').AsString));
+  Refresh;
 end;
 
 procedure TfWikiFrame.WikiDataChange(Sender: TObject; Field: TField);
@@ -272,9 +271,11 @@ begin
       PageName := StringReplace(TIpHtmlNodeA(IpHtml.HotNode).HRef,' ','_',[rfReplaceAll]);
       if OpenWikiPage(PageName) then
       else if (pos('@',PageName)>0) and Data.GotoLink(PageName) then
-      else if ((Pos('://', TIpHtmlNodeA(IpHtml.HotNode).HRef) > 0) or (pos('www',lowercase(TIpHtmlNodeA(IpHtml.HotNode).HRef)) > 0) or (pos('@',PageName)>0)) then
+        begin
+        end
+      else if ((Pos('://', TIpHtmlNodeA(IpHtml.HotNode).HRef) > 0) or (pos('www',lowercase(TIpHtmlNodeA(IpHtml.HotNode).HRef)) > 0)) then
         OpenURL(TIpHtmlNodeA(IpHtml.HotNode).HRef)
-      else
+      else if pos('@',PageName) = 0 then
         begin
           OpenWikiPage(PageName,True);
         end;
@@ -482,7 +483,7 @@ var
   aDs: TBaseDbDataSet;
   aFilter: TSQLStringType;
   aRight: String;
-  aLimit: Integer;
+  aLimit: Integer = 10;
 
   procedure BuildLinkRow;
   var
@@ -505,7 +506,7 @@ var
       for a := 0 to TSQLSelectStatement(aStmt).Tables.Count-1 do
         begin
           aTableName := TSQLSimpleTableReference(TSQLSelectStatement(aStmt).Tables[a]).ObjectName.Name;
-          if Data.DataSetFromLink(aTableName+'@',aClass) then
+          if Data.ListDataSetFromLink(aTableName+'@',aClass) then
             begin
               aDs := TBaseDBDataset(aClass.Create(nil,Data));
               aRight := UpperCase(aTableName);
@@ -702,7 +703,8 @@ end;
 
 procedure TfWikiFrame.Refresh;
 begin
-
+  if (not Assigned(DataSet)) or (not DataSet.DataSet.Active) then exit;
+  ipHTML.SetHtml(Wiki2HTML(DataSet.FieldByName('DATA').AsString));
 end;
 
 {$R *.lfm}
