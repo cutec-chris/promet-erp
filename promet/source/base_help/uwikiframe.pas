@@ -118,6 +118,7 @@ type
     procedure SetLanguage;override;
     procedure SetRights(Editable : Boolean);
     function OpenWikiPage(PageName : string;CreateIfNotExists : Boolean = False) : Boolean;
+    procedure Refresh;
   end;
   TSimpleIpHtml = class(TIpHtml)
   public
@@ -514,7 +515,7 @@ var
                 begin
                   if (aDs.ActualFilter<>'') and (aFilter<>'') then
                     aDs.Filter('('+aDs.ActualFilter+') AND ('+aFilter+')',aLimit)
-                  else if (aFilter<>'') then
+                  else
                     aDs.Filter(aFilter,aLimit);
                   while not aDS.EOF do
                     begin
@@ -698,6 +699,12 @@ begin
       end;
    end;
 end;
+
+procedure TfWikiFrame.Refresh;
+begin
+
+end;
+
 {$R *.lfm}
 end.
 

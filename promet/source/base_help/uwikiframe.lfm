@@ -95,18 +95,19 @@ inherited fWikiFrame: TfWikiFrame
     Width = 685
     ActivePage = tsView
     Align = alClient
+    Images = fVisualControls.Images
     TabIndex = 0
     TabOrder = 1
     NewTabImageIndex = 59
     object tsView: TTabSheet
       Caption = 'Anzeigen'
-      ClientHeight = 461
+      ClientHeight = 460
       ClientWidth = 677
       ImageIndex = 87
       OnShow = tsViewShow
       object ipHTML: TIpHtmlPanel
         Left = 0
-        Height = 461
+        Height = 460
         Top = 0
         Width = 677
         Align = alClient
@@ -125,7 +126,7 @@ inherited fWikiFrame: TfWikiFrame
     object tsEdit: TTabSheet
       Tag = 1
       Caption = 'bearbeiten'
-      ClientHeight = 461
+      ClientHeight = 460
       ClientWidth = 677
       ImageIndex = 67
       object Panel1: TPanel
