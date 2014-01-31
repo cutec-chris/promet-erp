@@ -120,7 +120,7 @@ begin
   with Self as IBaseApplication do
     begin
       if Result then
-        Log('Login:'+aUser)
+        Log(IntToStr(TLIMAPSocket(aSocket).Id)+':Login:'+aUser)
       else
         Error('Login failed:'+aUser);
     end;

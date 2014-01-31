@@ -315,6 +315,12 @@ begin
   aMsg := TMimeMess.Create;
   aMsg.Lines.Assign(aArticle);
   aMsg.DecodeMessage;
+  if pos('@email.android.com',aMsg.Header.MessageID)>0 then
+    begin
+      //Android internal client fails on updating internaldate, dont let them store anything
+      aMsg.Free;
+      exit;
+    end;
   if aMsg.Header.MessageID='' then
     begin
       randomize;
@@ -328,7 +334,7 @@ begin
       aMsg.Header.MessageID := aID;
     end;
   aMessage := TMimeMessage.Create(Self,Data);
-  amessage.Filter(Data.QuoteField('ID')+'='+Data.QuoteValue(aMsg.Header.MessageID){+' and '+Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)});
+  amessage.Filter(Data.QuoteField('ID')+'='+Data.QuoteValue(aMsg.Header.MessageID)+' and '+Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry));
   if aMessage.Count=0 then
     begin
       aMessage.Insert;
@@ -403,6 +409,13 @@ begin
         end;
       aMessage.DataSet.Post;
       Result := True;
+    end
+  else
+    begin
+      aMessage.Edit;
+      aMessage.FieldByName('TIMESTAMPD').AsDateTime:=Now();
+      aMessage.Post;
+      Result := True;
     end;
   aMsg.Free;
   aMessage.Destroy;
@@ -464,12 +477,12 @@ begin
           case Uppercase(bFetch) of
           'UID':
             begin
-              tmp := tmp+'UID '+FMessages.FieldByName('SQL_ID').AsString+' ';
+              tmp := tmp+bFetch+' '+FMessages.FieldByName('SQL_ID').AsString+' ';
             end;
           'FLAGS','(FLAGS)':
             begin
               FAdded := False;
-              tmp := tmp+'FLAGS (';
+              tmp := tmp+bFetch+' (';
               if FMessages.FieldByName('READ').AsString='Y' then
                 begin
                   tmp+='\Seen ';
@@ -501,7 +514,7 @@ begin
             end;
           'INTERNALDATE':
             begin
-              tmp := tmp+'INTERNALDATE "'+Rfc822DateTime(FMessages.TimeStamp.AsDateTime)+'" ';
+              tmp := tmp+bFetch+' "'+Rfc822DateTime(FMessages.TimeStamp.AsDateTime)+'" ';
             end;
           'RFC822.SIZE':
             begin
@@ -517,7 +530,7 @@ begin
               aSize := IntToStr(length(aMime.Lines.Text)+2);
               //aSize := FMessages.FieldByName('SIZE').AsString;
               if aSize = '' then aSize := '0';
-              tmp := tmp+'RFC822.SIZE '+aSize+' ';
+              tmp := tmp+bFetch+' '+aSize+' ';
             end;
           'RFC822.HEADER','BODY[HEADER]':
             begin
@@ -555,7 +568,7 @@ begin
               if (pos('BODY[]',bFetch)>0)
               or (pos('BODY.PEEK[]',bFetch)>0)
               then
-                tmp := tmp+'BODY[] {'+IntToStr(aLen+2)+'}'+#13#10+aSL.Text+#13#10+' ';
+                tmp := tmp+bFetch+' {'+IntToStr(aLen+2)+'}'+#13#10+aSL.Text+#13#10+' ';
               aSL.Free;
             end;
           'BODY.PEEK[HEADER.FIELDS':

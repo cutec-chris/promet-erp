@@ -269,7 +269,7 @@ var
     DoSendBuffer;
     if Assigned(TLIMAPServer(Creator).OnDebug) and DoLog then
       begin
-        TLIMAPServer(Creator).OnDebug(Self,True,copy(aMsg,0,100));
+        TLIMAPServer(Creator).OnDebug(Self,True,IntToStr(Self.Id)+':'+copy(aMsg,0,100));
       end;
     Answered := True;
   end;
