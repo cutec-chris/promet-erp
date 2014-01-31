@@ -56,8 +56,6 @@ type
     procedure DataSetToJSON(ADataSet: TDataSet; AJSON: TJSONArray; const ADateAsString: Boolean; Fields: TSQLElementList = nil);
     procedure JSONToFields(AJSON: TJSONObject; AFields: TFields; const ADateAsString: Boolean);
     procedure ObjectToJSON(AObject : TBaseDBDataSet; AJSON: TJSONObject;const ADateAsString: Boolean);
-    function GetListObject(aName : string) : TBaseDBList;
-    function GetObject(aName : string) : TBaseDBDataset;
   public
     { public declarations }
   end;
@@ -209,6 +207,7 @@ var
   a: Integer;
   aSeq: String;
   http: THTTPSend;
+  aClass: TBaseDBDatasetClass;
 begin
   Handled:=True;
   if not TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True,False) then exit;
@@ -223,7 +222,6 @@ begin
   else
     FSQLStream := TStringStream.Create(ARequest.QueryFields.Values['ql']);
   FSQLScanner := TSQLScanner.Create(FSQLStream);
-  //FSQLScanner.ExcludeKeywords := FExcludeKeywords;
   Json := TJSONArray.Create;
   AResponse.Code:=200;
   AResponse.ContentType:='text/javascript;charset=utf-8';
@@ -234,7 +232,8 @@ begin
     for a := 0 to TSQLSelectStatement(aStmt).Tables.Count-1 do
       begin
         aList := TSQLSimpleTableReference(TSQLSelectStatement(aStmt).Tables[a]).ObjectName.Name;
-        aDs := GetListObject(aList);
+        aClass := Data.DataSetFromLink(aList+'@');
+        aDs := TBaseDbList(aClass.Create(nil,Data));
         aRight := UpperCase(aList);
         aFilter:=TSQLSelectStatement(aStmt).Where.GetAsSQL([sfoDoubleQuoteIdentifier]);
         if (data.Users.Rights.Right(aRight)>RIGHT_READ) and (Assigned(aDS)) then
@@ -308,11 +307,13 @@ var
   aDs: TBaseDBDataset;
   aRight: String;
   aSeq: String;
+  aClass: TBaseDBDatasetClass;
 begin
   Handled:=True;
   if not TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True,False) then exit;
   aList := lowercase(ARequest.QueryFields.Values['name']);
-  aDs := GetObject(aList);
+  aClass := Data.DataSetFromLink(aList+'@');
+  aDs := TBaseDBDataset(aClass.Create(nil,Data));
   aRight := UpperCase(aList);
   if (data.Users.Rights.Right(aRight)>RIGHT_READ) and (Assigned(aDS)) then
     begin
@@ -340,13 +341,15 @@ var
   aList: String;
   aDs: TBaseDBDataset;
   aRight: String;
+  aClass: TBaseDBDatasetClass;
 begin
   Handled:=True;
   AResponse.Code:=500;
   if not TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True,False) then exit;
   aList := lowercase(ARequest.QueryFields.Values['name']);
   aRight := UpperCase(aList);
-  aDs := GetObject(aList);
+  aClass := Data.DataSetFromLink(aList+'@');
+  aDs := TBaseDBDataset(aClass.Create(nil,Data));
   if (data.Users.Rights.Right(aRight)>RIGHT_WRITE) and (Assigned(aDS)) then
     begin
 
@@ -489,65 +492,6 @@ begin
         ObjectToJSON(SubDataSet[i],aNewObj,ADateAsString);
         AJSON.Add(SubDataSet[i].Caption,aNewObj);
       end;
-end;
-function Tappbase.GetListObject(aName: string): TBaseDBList;
-var
-  aList: String;
-begin
-  aList := lowercase(aName);
-  case aList of
-  'contacts','customers':
-     begin
-       aList := 'CUSTOMERS';
-       Result := TPersonList.Create(nil,Data);
-     end;
-  'masterdata':
-     begin
-       Result := TMasterdataList.Create(nil,Data);
-     end;
-  'tasks':
-     begin
-       Result := TTaskList.Create(nil,Data);
-       TTaskList(result).SelectActiveByUser(Data.Users.FieldByName('ACCOUNTNO').AsString);
-     end;
-  'projects':
-     begin
-       result := TProjectList.Create(nil,Data);
-     end;
-  'orders':
-     begin
-       result := TOrderList.Create(nil,Data);
-     end;
-  end;
-end;
-function Tappbase.GetObject(aName: string): TBaseDBDataset;
-var
-  aList: String;
-begin
-  aList := lowercase(aName);
-  case aList of
-  'contacts','customers':
-     begin
-       aList := 'CUSTOMERS';
-       Result := TPerson.Create(nil,Data);
-     end;
-  'masterdata':
-     begin
-       Result := TMasterdata.Create(nil,Data);
-     end;
-  'tasks':
-     begin
-       Result := TTask.Create(nil,Data);
-     end;
-  'projects':
-     begin
-       result := TProject.Create(nil,Data);
-     end;
-  'orders':
-     begin
-       result := TOrder.Create(nil,Data);
-     end;
-  end;
 end;
 initialization
   RegisterHTTPModule('main', Tappbase);

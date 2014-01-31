@@ -916,6 +916,7 @@ var
   aIt: String;
   SomethingFound: Boolean;
   Node1: TTreeNode;
+  aStartPagetext: String;
   procedure NewNode;
   begin
     Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
@@ -955,12 +956,22 @@ begin
         //debugln('BaseLogin: '+IntToStr(GetTickCount64-aTime));
         aWiki := TWikiList.Create(nil,Data);
         aWiki.CreateTable;
+        if aWiki.FindWikiPage('Promet-ERP-Help/users/administrator') then
+          aStartPagetext := aWiki.FieldByName('DATA').AsString
+        else aStartPagetext:='[[Include:Promet-ERP-Help/index]]';
         aWiki.Free;
         WikiFrame := TfWikiFrame.Create(Self);
         WikiFrame.Parent := tsStartpage;
         WikiFrame.Align := alClient;
         try
-          WikiFrame.OpenWikiPage('Promet-ERP-Help/index',True);
+          WikiFrame.SetRights(True);
+          if not WikiFrame.OpenWikiPage('Promet-ERP-Help/users/'+Data.Users.UserName.AsString,True) then
+            begin
+              WikiFrame.DataSet.Edit;
+              WikiFrame.DataSet.FieldByName('DATA').AsString:=aStartPagetext;
+              WikiFrame.DataSet.Post;
+              WikiFrame.OpenWikiPage('Promet-ERP-Help/users/'+Data.Users.UserName.AsString,True);
+            end;
         except
         end;
         WikiFrame.SetRights(Data.Users.Rights.Right('WIKI')>RIGHT_READ);

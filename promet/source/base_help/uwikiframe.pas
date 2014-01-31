@@ -505,6 +505,11 @@ begin
           aList.Free;
         end;
     end
+  if Uppercase(copy(Inp,0,4)) = 'SQL(' then
+    begin
+      Inp := copy(Inp,5,length(Inp));
+
+    end
   else
     begin
       aNewList := TWikiList.Create(Self,Data);

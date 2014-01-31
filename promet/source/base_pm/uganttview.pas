@@ -959,7 +959,6 @@ begin
         if (aTasks.FieldByName('ACTIVE').AsString<>'N') or AddInactive then
           if IntervalById(aTasks.Id.AsVariant)=nil then
             begin
-              //fLogWaitForm.ShowInfo(aTasks.FieldByName('SUMMARY').AsString);
               aInterval := AddTask(True,aRoot);
               if not aTasks.Snapshots.DataSet.Active then aTasks.Snapshots.Open;
               aTasks.Snapshots.First;
