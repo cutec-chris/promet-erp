@@ -30,6 +30,7 @@ type
   TIMAPFolder = class(TComponent)
   private
     FMessageIdx: LargeInt;
+    FSocket: TLSocket;
     FUID: string;
     FParent : TIMAPFolders;
   protected
@@ -52,8 +53,9 @@ type
     function CopyOneEntry(aParams: string): TStrings; virtual;
     function Search(aFetch: string): string; virtual;
   public
-    constructor Create(aParent : TIMAPFolders;aName : string;UID : string);virtual;
+    constructor Create(aParent : TIMAPFolders;aName : string;UID : string;aSocket : TLSocket);virtual;
     destructor Destroy;override;
+    property Socket : TLSocket read FSocket;
     property UID : string read FUID;
     property Name : string read FName;
     property Count : Integer read GetCount;
@@ -211,12 +213,13 @@ function TIMAPFolder.GetMessage(Idx : Integer): TMimeMess;
 begin
   Result := nil;
 end;
-constructor TIMAPFolder.Create(aParent: TIMAPFolders; aName: string; UID: string
-  );
+constructor TIMAPFolder.Create(aParent: TIMAPFolders; aName: string;
+  UID: string; aSocket: TLSocket);
 begin
   FName := aName;
   FUID := UID;
   FParent := aParent;
+  FSocket := aSocket;
 end;
 destructor TIMAPFolder.Destroy;
 begin

@@ -22,7 +22,7 @@ unit uprometimap;
 interface
 uses
   Classes, SysUtils, uLIMAP, uMessages, MimeMess, uMimeMessages, db,cwstring,
-  LCLProc,uBaseDbClasses;
+  LCLProc,uBaseDbClasses,lNet;
 
 {.$DEFINE DEBUG}
 type
@@ -31,12 +31,14 @@ type
 
   TPIMAPSocket = class(TLIMAPSocket)
   private
+    FAccountno: string;
     FUser : TUser;
   public
     constructor Create; override;
     destructor Destroy; override;
     procedure RefreshFolders; override;
     function SelectUser: Boolean; override;
+    property UserAccountNo : string read FAccountno;
   end;
 
   { TPIMAPFolder }
@@ -74,7 +76,7 @@ type
     function CopyOneEntry(aParams: string): TStrings; override;
     function Search(aParams: string): string; override;
   public
-    constructor Create(aParent : TIMAPFolders;aName : string;aUID : string);override;
+    constructor Create(aParent : TIMAPFolders;aName : string;aUID : string;aSocket : TLSocket);override;
     destructor Destroy;override;
     property TreeEntry : string read FTreeEntry;
   end;
@@ -112,13 +114,13 @@ begin
       while not EOF do
         begin
           if Data.Tree.Id.AsVariant = TREE_ID_MESSAGES then
-            aGroup := TPIMAPFolder.Create(Folders,'INBOX',Data.Tree.Id.AsString)
+            aGroup := TPIMAPFolder.Create(Folders,'INBOX',Data.Tree.Id.AsString,Self)
           else if Data.Tree.Id.AsVariant = TREE_ID_DELETED_MESSAGES then
-            aGroup := TPIMAPFolder.Create(Folders,'Trash',Data.Tree.Id.AsString)
+            aGroup := TPIMAPFolder.Create(Folders,'Trash',Data.Tree.Id.AsString,Self)
           else if Data.Tree.Id.AsVariant = TREE_ID_SEND_MESSAGES then
-            aGroup := TPIMAPFolder.Create(Folders,'Sent',Data.Tree.Id.AsString)
+            aGroup := TPIMAPFolder.Create(Folders,'Sent',Data.Tree.Id.AsString,Self)
           else
-            aGroup := TPIMAPFolder.Create(Folders,FieldByName('NAME').AsString,Data.Tree.Id.AsString);
+            aGroup := TPIMAPFolder.Create(Folders,FieldByName('NAME').AsString,Data.Tree.Id.AsString,Self);
           Folders.Add(aGroup);
           next;
         end;
@@ -130,6 +132,7 @@ begin
   if not FUser.Active then
     FUser.Open;
   Result := FUser.Locate('LOGINNAME',User,[]) or FUser.Locate('NAME',User,[]);
+  if Result then FAccountno:=FUser.FieldByName('ACCOUNTNO').AsString;
 end;
 
 function TPIMAPFolder.SelectNext: Boolean;
@@ -223,7 +226,7 @@ begin
 end;
 procedure TPIMAPFolder.RefreshFirstID;
 begin
-  FMessages.Filter(Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(Data.Users.FieldByName('ACCOUNTNO').AsString),300,'SENDDATE','DESC');
+  FMessages.Filter(Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(TPIMAPSocket(Socket).FAccountno),300,'SENDDATE','DESC');
   FMessages.Last;
   if FMessages.Count > 0 then
     FFirstID := FMessages.Id.AsVariant;
@@ -235,9 +238,9 @@ procedure TPIMAPFolder.RefreshCount;
 begin
   FFIrstID := 0;
   FlastID := 0;
-  Data.SetFilter(FMessages,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' and '+Data.QuoteField('READ')+'='+Data.QuoteValue('N')+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(Data.Users.FieldByName('ACCOUNTNO').AsString),300,'SENDDATE','DESC');
+  Data.SetFilter(FMessages,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' and '+Data.QuoteField('READ')+'='+Data.QuoteValue('N')+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(TPIMAPSocket(Socket).FAccountno),300,'SENDDATE','DESC');
   FUnreadCount := FMessages.Count;
-  Data.SetFilter(FMessages,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(Data.Users.FieldByName('ACCOUNTNO').AsString),300,'SENDDATE','DESC');
+  Data.SetFilter(FMessages,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(TPIMAPSocket(Socket).FAccountno),300,'SENDDATE','DESC');
   if FMessages.Count > 0 then
     begin
       FMessages.Last;
@@ -339,8 +342,7 @@ begin
     begin
       aMessage.Insert;
       aMessage.FieldByName('ID').Clear;
-      if Data.Users.DataSet.Locate('NAME',aUser,[loCaseInsensitive]) then
-        aMessage.Dataset.FieldByName('USER').AsString := Data.Users.DataSet.FieldByName('ACCOUNTNO').AsString;
+      aMessage.Dataset.FieldByName('USER').AsString := TPIMAPSocket(Socket).FAccountno;
       aMessage.Dataset.FieldByName('TYPE').AsString := 'EMAIL';
       aMessage.Dataset.FieldByName('READ').AsString := 'N';
       aMessage.DecodeMessage(aMsg);
@@ -390,22 +392,6 @@ begin
           with Customers.History.DataSet as IBaseManageDB do
             UpdateStdFields := True;
           Customers.History.Post;
-          {
-          if Data.Users.DataSet.Locate('NAME',aUser,[loCaseInsensitive]) then
-          Data.Users.History.AddItemWithoutUser(Customers.DataSet,Format(strActionMessageReceived,[aSubject]),
-                                        'MESSAGEIDX@'+aMessage.FieldByName('ID').AsString+'{'+aSubject+'}',
-                                        '',
-                                        nil,
-                                        ACICON_MAILNEW);
-          Data.Users.History.Edit;
-          with Data.Users.History.DataSet as IBaseManageDB do
-            UpdateStdFields := False;
-          if FPostDateTime<>'' then
-            Data.Users.History.TimeStamp.AsDateTime:=aMessage.FieldByName('SENDDATE').AsDateTime;
-          Data.Users.History.Post;
-          with Data.Users.History.DataSet as IBaseManageDB do
-            UpdateStdFields := True;
-          }
         end;
       aMessage.DataSet.Post;
       Result := True;
@@ -830,7 +816,7 @@ begin
   if aParams <> '' then
     begin
       //convert to filter
-      aSQL := Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(Data.Users.FieldByName('ACCOUNTNO').AsString)+' and ';
+      aSQL := Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(TPIMAPSocket(Socket).FAccountno)+' and ';
       //unsupported
       //BODY <string>  Messages that contain the specified string in the body of the message.
       //CC <string>    Messages that contain the specified string in the envelope structure's CC field.
@@ -933,7 +919,7 @@ begin
 end;
 
 constructor TPIMAPFolder.Create(aParent: TIMAPFolders; aName: string;
-  aUID: string);
+  aUID: string; aSocket: TLSocket);
 begin
   FSequenceNumbers := TStringList.Create;
   FetchSequence := 1;
@@ -943,8 +929,8 @@ begin
   else if Data.Tree.DataSet.Locate('NAME',aName,[loCaseInsensitive]) then
     FTreeEntry := Data.Tree.Id.AsString;
   FGroupName := aName;
+  inherited Create(aParent,FGroupName,FTreeEntry,aSocket);
   RefreshFirstID;
-  inherited Create(aParent,FGroupName,FTreeEntry);
 end;
 destructor TPIMAPFolder.Destroy;
 begin
