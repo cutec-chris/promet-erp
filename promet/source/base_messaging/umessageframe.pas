@@ -220,6 +220,7 @@ var
   aCont: TPersonContactData;
   tmp: String;
   bCustomer: TPerson;
+  aClass : TBaseDBDatasetClass;
   function SeparateLeft(const Value, Delimiter: string): string;
   var
     x: Integer;
@@ -275,7 +276,8 @@ begin
         end
       else
         begin
-          bCustomer := Tperson(Data.DataSetFromLink(Data.BuildLink(aCustomer.DataSet)).Create(nil,Data));
+          Data.DataSetFromLink(Data.BuildLink(aCustomer.DataSet),aClass);
+          bCustomer := Tperson(aClass).Create(nil,Data);
           bCustomer.Append;
           tmp := FList.DataSet.FieldByName('SENDER').AsString;
           if pos('<',tmp) > 0 then

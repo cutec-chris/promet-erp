@@ -23,7 +23,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ComCtrls, DbCtrls, Buttons,
   StdCtrls, ExtCtrls, IpHtml, db, uPrometFrames, uExtControls, Graphics,
-  DBGrids, ActnList, Dialogs, Menus, uImageCache,LCLProc;
+  DBGrids, ActnList, Dialogs, Menus, uImageCache, uBaseDbClasses,LCLProc;
 type
   THistory = class(TStringList)
   private
@@ -126,7 +126,8 @@ type
   end;
 implementation
 uses uWiki,uData,WikiToHTML,uDocuments,Utils,LCLIntf,Variants,
-  uBaseDbInterface,uscreenshotmain,uMessages,uDocumentFrame;
+  uBaseDbInterface,uscreenshotmain,uMessages,uDocumentFrame,fpsqlparser,
+  fpsqlscanner, fpsqltree;
 procedure THistory.SetIndex(const AValue: Integer);
 begin
   Move(AValue,Count-1);
@@ -270,7 +271,7 @@ begin
       PageName := StringReplace(TIpHtmlNodeA(IpHtml.HotNode).HRef,' ','_',[rfReplaceAll]);
       if OpenWikiPage(PageName) then
       else if (pos('@',PageName)>0) and Data.GotoLink(PageName) then
-      else if ((Pos('://', TIpHtmlNodeA(IpHtml.HotNode).HRef) > 0) or (pos('www',lowercase(TIpHtmlNodeA(IpHtml.HotNode).HRef)) > 0)) then
+      else if ((Pos('://', TIpHtmlNodeA(IpHtml.HotNode).HRef) > 0) or (pos('www',lowercase(TIpHtmlNodeA(IpHtml.HotNode).HRef)) > 0) or (pos('@',PageName)>0)) then
         OpenURL(TIpHtmlNodeA(IpHtml.HotNode).HRef)
       else
         begin
@@ -462,6 +463,8 @@ begin
     end;
   aDocument.Free;
 end;
+type
+  TPlainProcedure = procedure;
 procedure TfWikiFrame.fWikiFrameWikiInclude(Inp: string; var Outp: string);
 var
   aList: TMessageList;
@@ -469,6 +472,63 @@ var
   aCount : Integer;
   ss: TStringStream;
   aNewList: TWikiList;
+  FSQLStream: TStringStream;
+  FSQLScanner: TSQLScanner;
+  FSQLParser: TSQLParser;
+  aStmt: TSQLElement;
+  aTableName: TSQLStringType;
+  aClass: TBaseDBDatasetClass;
+  aDs: TBaseDbDataSet;
+  aFilter: TSQLStringType;
+  aRight: String;
+  aLimit: Integer;
+
+  procedure BuildLinkRow;
+  var
+    aLink: String;
+  begin
+    aLink := Data.BuildLink(aDs.DataSet);
+    Outp+='<li><a href="'+aLink+'">'+Data.GetLinkDesc(aLink)+'</a></li>';
+  end;
+
+  procedure FilterSQL(aType : Integer);
+  var
+    a: Integer;
+  begin
+    FSQLStream := TStringStream.Create(Inp);
+    FSQLScanner := TSQLScanner.Create(FSQLStream);
+    FSQLParser := TSQLParser.Create(FSQLScanner);
+    try
+      aStmt := FSQLParser.Parse;
+      for a := 0 to TSQLSelectStatement(aStmt).Tables.Count-1 do
+        begin
+          aTableName := TSQLSimpleTableReference(TSQLSelectStatement(aStmt).Tables[a]).ObjectName.Name;
+          if Data.DataSetFromLink(aTableName+'@',aClass) then
+            begin
+              aDs := TBaseDBDataset(aClass.Create(nil,Data));
+              aRight := UpperCase(aTableName);
+              aFilter:=TSQLSelectStatement(aStmt).Where.GetAsSQL([sfoDoubleQuoteIdentifier]);
+              if (data.Users.Rights.Right(aRight)>RIGHT_READ) and (Assigned(aDS)) then
+                begin
+                  aDs.Filter(aFilter,aLimit);
+                  while not aDS.EOF do
+                    begin
+                      case aType of
+                      0:BuildLinkRow;
+                      end;
+                      aDs.Next;
+                    end;
+                end;
+              aDS.Free;
+            end;
+        end;
+    except
+    end;
+    FSQLScanner.Free;
+    FSQLParser.Free;
+    FSQLStream.Free;
+  end;
+
 begin
   if Uppercase(copy(Inp,0,6)) = 'BOARD(' then
     begin
@@ -505,10 +565,17 @@ begin
           aList.Free;
         end;
     end
-  if Uppercase(copy(Inp,0,4)) = 'SQL(' then
+  else if Uppercase(copy(Inp,0,9)) = 'SQLLINKS(' then
     begin
-      Inp := copy(Inp,5,length(Inp));
-
+      Inp := copy(Inp,10,length(Inp)-10);
+      if pos(';',Inp)>0 then
+        begin
+          aLimit := StrToIntDef(copy(Inp,pos(';',Inp)+1,length(Inp)),10);
+          Inp := copy(Inp,0,pos(';',Inp)-1);
+        end;
+      Outp+='<ol>';
+      FilterSQL(0);
+      Outp+='</ol>';
     end
   else
     begin

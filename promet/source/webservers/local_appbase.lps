@@ -26,10 +26,11 @@
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="331"/>
-        <CursorPos X="3" Y="351"/>
+        <CursorPos X="94" Y="361"/>
         <FoldState Value=" T3iQ0K2122113F"/>
         <UsageCount Value="104"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="../../../apps/promet/library.js"/>

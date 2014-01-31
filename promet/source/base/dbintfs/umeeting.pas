@@ -323,7 +323,7 @@ begin
                 FreeAndNil(aDataSet);
                 FreeAndNil(aProject);
                 aLink := FieldByName('LINK').AsString;
-                aDataSetClass := TBaseDBModule(DataModule).DataSetFromLink(aLink);
+                TBaseDBModule(DataModule).DataSetFromLink(aLink,aDataSetClass);
                 aDataSet := aDataSetClass.Create(nil,DataModule,Connection);
                 TBaseDbList(aDataSet).SelectFromLink(aLink);
                 aDataSet.Open;

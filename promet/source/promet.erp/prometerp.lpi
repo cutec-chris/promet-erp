@@ -282,7 +282,7 @@
         <PackageName Value="LCL"/>
       </Item24>
     </RequiredPackages>
-    <Units Count="459">
+    <Units Count="460">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -499,7 +499,7 @@
       <Unit18>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="18"/>
         <WindowIndex Value="0"/>
         <TopLine Value="706"/>
         <CursorPos X="1" Y="727"/>
@@ -509,27 +509,25 @@
       <Unit19>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="357"/>
-        <CursorPos X="16" Y="370"/>
+        <TopLine Value="1083"/>
+        <CursorPos X="18" Y="1090"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
       </Unit19>
       <Unit20>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1927"/>
-        <CursorPos X="3" Y="1930"/>
+        <TopLine Value="142"/>
+        <CursorPos X="27" Y="161"/>
         <UsageCount Value="100"/>
-        <Loaded Value="True"/>
       </Unit20>
       <Unit21>
         <Filename Value="../base/dbintfs/uorder.pas"/>
         <UnitName Value="uOrder"/>
-        <EditorIndex Value="22"/>
+        <EditorIndex Value="23"/>
         <WindowIndex Value="0"/>
         <TopLine Value="702"/>
         <CursorPos X="49" Y="711"/>
@@ -543,7 +541,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="474"/>
         <CursorPos X="35" Y="485"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="21"/>
         <Loaded Value="True"/>
       </Unit22>
       <Unit23>
@@ -615,7 +613,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uArticleFrame"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="190"/>
         <CursorPos X="1" Y="209"/>
@@ -924,7 +922,7 @@
       <Unit56>
         <Filename Value="../base/dbintfs/uprojects.pas"/>
         <UnitName Value="uProjects"/>
-        <EditorIndex Value="20"/>
+        <EditorIndex Value="21"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="43" Y="75"/>
@@ -956,7 +954,7 @@
       <Unit59>
         <Filename Value="../base/dbintfs/umessages.pas"/>
         <UnitName Value="uMessages"/>
-        <EditorIndex Value="19"/>
+        <EditorIndex Value="20"/>
         <WindowIndex Value="0"/>
         <TopLine Value="139"/>
         <CursorPos X="3" Y="59"/>
@@ -966,7 +964,7 @@
       <Unit60>
         <Filename Value="../base/dbintfs/uintfstrconsts.pas"/>
         <UnitName Value="uIntfStrConsts"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="78"/>
         <CursorPos X="41" Y="98"/>
@@ -1014,7 +1012,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uProjectFrame"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="166"/>
         <CursorPos X="17" Y="198"/>
@@ -1063,16 +1061,16 @@
       </Unit68>
       <Unit69>
         <Filename Value="../base/revision.inc"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="43" Y="1"/>
+        <CursorPos X="4" Y="1"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
       </Unit69>
       <Unit70>
         <Filename Value="../base/changes.txt"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="19"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="23" Y="2"/>
@@ -1199,10 +1197,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMessageFrame"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="287"/>
-        <CursorPos X="33" Y="300"/>
+        <TopLine Value="261"/>
+        <CursorPos X="55" Y="280"/>
         <UsageCount Value="37"/>
+        <Loaded Value="True"/>
       </Unit82>
       <Unit83>
         <Filename Value="../base/dbintfs/uwiki.pas"/>
@@ -1211,7 +1211,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="26"/>
         <CursorPos X="35" Y="40"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit83>
       <Unit84>
@@ -1622,7 +1622,6 @@
         <WindowIndex Value="0"/>
         <TopLine Value="989"/>
         <CursorPos X="29" Y="1006"/>
-        <FoldState Value=" T3-E2I1{"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -1932,10 +1931,12 @@
       <Unit167>
         <Filename Value="../base/dbintfs/umeeting.pas"/>
         <UnitName Value="umeeting"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="230"/>
-        <CursorPos X="44" Y="423"/>
+        <TopLine Value="308"/>
+        <CursorPos X="12" Y="326"/>
         <UsageCount Value="81"/>
+        <Loaded Value="True"/>
       </Unit167>
       <Unit168>
         <Filename Value="../base/uselectreport.pas"/>
@@ -3088,7 +3089,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1312"/>
         <CursorPos X="14" Y="1319"/>
-        <UsageCount Value="53"/>
+        <UsageCount Value="54"/>
         <Loaded Value="True"/>
       </Unit305>
       <Unit306>
@@ -4096,11 +4097,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMainTreeFrame"/>
-        <EditorIndex Value="21"/>
+        <EditorIndex Value="22"/>
         <WindowIndex Value="0"/>
         <TopLine Value="338"/>
         <CursorPos X="15" Y="459"/>
-        <UsageCount Value="45"/>
+        <UsageCount Value="46"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit428>
@@ -4142,11 +4143,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uExtControls"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="398"/>
         <CursorPos X="3" Y="417"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="21"/>
         <Loaded Value="True"/>
       </Unit433>
       <Unit434>
@@ -4349,116 +4350,160 @@
       </Unit456>
       <Unit457>
         <Filename Value="../base_help/uwikiframe.pas"/>
+        <ComponentName Value="fWikiFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uWikiFrame"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="456"/>
-        <CursorPos X="7" Y="511"/>
-        <FoldState Value=" T0s04XW"/>
-        <UsageCount Value="12"/>
+        <TopLine Value="487"/>
+        <CursorPos X="1" Y="507"/>
+        <FoldState Value=" T0tH4X/"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit457>
       <Unit458>
         <Filename Value="../base_frames/uimagecache.pas"/>
         <UnitName Value="uImageCache"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2"/>
         <CursorPos X="14" Y="21"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit458>
+      <Unit459>
+        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-db/src/sql/fpsqltree.pp"/>
+        <UnitName Value="fpsqltree"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="126"/>
+        <CursorPos X="40" Y="134"/>
+        <UsageCount Value="10"/>
+      </Unit459>
     </Units>
-    <JumpHistory Count="22" HistoryIndex="21">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="933" Column="21" TopLine="915"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="572" Column="1" TopLine="519"/>
       </Position1>
       <Position2>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="933" Column="31" TopLine="915"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="577" Column="1" TopLine="519"/>
       </Position2>
       <Position3>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="911" Column="14" TopLine="890"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="578" Column="1" TopLine="519"/>
       </Position3>
       <Position4>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="933" Column="32" TopLine="905"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="497" Column="1" TopLine="478"/>
       </Position4>
       <Position5>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="958" Column="1" TopLine="937"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="498" Column="1" TopLine="478"/>
       </Position5>
       <Position6>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="933" Column="23" TopLine="917"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="499" Column="1" TopLine="478"/>
       </Position6>
       <Position7>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="936" Column="32" TopLine="927"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="506" Column="1" TopLine="478"/>
       </Position7>
       <Position8>
-        <Filename Value="../base_pm/utaskplan.pas"/>
-        <Caret Line="1319" Column="14" TopLine="1312"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="507" Column="1" TopLine="478"/>
       </Position8>
       <Position9>
-        <Filename Value="umain.pas"/>
-        <Caret Line="12" Column="121" TopLine="1"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="524" Column="1" TopLine="500"/>
       </Position9>
       <Position10>
-        <Filename Value="umain.pas"/>
-        <Caret Line="54" Column="11" TopLine="22"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="506" Column="1" TopLine="499"/>
       </Position10>
       <Position11>
-        <Filename Value="umain.pas"/>
-        <Caret Line="124" Column="11" TopLine="93"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="507" Column="1" TopLine="499"/>
       </Position11>
       <Position12>
-        <Filename Value="umain.pas"/>
-        <Caret Line="125" Column="11" TopLine="94"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="528" Column="1" TopLine="499"/>
       </Position12>
       <Position13>
-        <Filename Value="umain.pas"/>
-        <Caret Line="161" Column="21" TopLine="130"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="506" Column="1" TopLine="499"/>
       </Position13>
       <Position14>
-        <Filename Value="umain.pas"/>
-        <Caret Line="327" Column="8" TopLine="295"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1088" Column="1" TopLine="1069"/>
       </Position14>
       <Position15>
-        <Filename Value="umain.pas"/>
-        <Caret Line="963" Column="28" TopLine="941"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1089" Column="1" TopLine="1069"/>
       </Position15>
       <Position16>
-        <Filename Value="umain.pas"/>
-        <Caret Line="958" Column="23" TopLine="941"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1090" Column="1" TopLine="1069"/>
       </Position16>
       <Position17>
-        <Filename Value="umain.pas"/>
-        <Caret Line="959" Column="16" TopLine="947"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1091" Column="1" TopLine="1069"/>
       </Position17>
       <Position18>
-        <Filename Value="umain.pas"/>
-        <Caret Line="911" Column="14" TopLine="897"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1093" Column="1" TopLine="1069"/>
       </Position18>
       <Position19>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="45" Column="24" TopLine="25"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1094" Column="1" TopLine="1069"/>
       </Position19>
       <Position20>
-        <Filename Value="../base_help/uwikiframe.pas"/>
-        <Caret Line="529" Column="53" TopLine="509"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1095" Column="1" TopLine="1069"/>
       </Position20>
       <Position21>
-        <Filename Value="../base_help/uwikiframe.pas"/>
-        <Caret Line="234" Column="21" TopLine="225"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1085" Column="60" TopLine="1069"/>
       </Position21>
       <Position22>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="209" Column="1" TopLine="186"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1095" Column="16" TopLine="1069"/>
       </Position22>
+      <Position23>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="506" Column="31" TopLine="499"/>
+      </Position23>
+      <Position24>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="140" Column="86" TopLine="124"/>
+      </Position24>
+      <Position25>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <Caret Line="423" Column="44" TopLine="229"/>
+      </Position25>
+      <Position26>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="506" Column="31" TopLine="499"/>
+      </Position26>
+      <Position27>
+        <Filename Value="../base_messaging/umessageframe.pas"/>
+        <Caret Line="300" Column="33" TopLine="287"/>
+      </Position27>
+      <Position28>
+        <Filename Value="../base_messaging/umessageframe.pas"/>
+        <Caret Line="223" Column="27" TopLine="211"/>
+      </Position28>
+      <Position29>
+        <Filename Value="../base_messaging/umessageframe.pas"/>
+        <Caret Line="279" Column="65" TopLine="260"/>
+      </Position29>
+      <Position30>
+        <Filename Value="../base_messaging/umessageframe.pas"/>
+        <Caret Line="223" Column="31" TopLine="217"/>
+      </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>
@@ -4502,7 +4547,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="1">
+    <BreakPoints Count="2">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
@@ -4510,6 +4555,13 @@
         <Source Value="../base/dbintfs/utask.pas"/>
         <Line Value="350"/>
       </Item1>
+      <Item2>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="../base_help/uwikiframe.pas"/>
+        <Line Value="506"/>
+      </Item2>
     </BreakPoints>
     <Watches Count="2">
       <Item1>
