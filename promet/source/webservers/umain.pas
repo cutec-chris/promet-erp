@@ -232,35 +232,39 @@ begin
     for a := 0 to TSQLSelectStatement(aStmt).Tables.Count-1 do
       begin
         aList := TSQLSimpleTableReference(TSQLSelectStatement(aStmt).Tables[a]).ObjectName.Name;
-        aClass := Data.DataSetFromLink(aList+'@');
-        aDs := TBaseDbList(aClass.Create(nil,Data));
-        aRight := UpperCase(aList);
-        aFilter:=TSQLSelectStatement(aStmt).Where.GetAsSQL([sfoDoubleQuoteIdentifier]);
-        if (data.Users.Rights.Right(aRight)>RIGHT_READ) and (Assigned(aDS)) then
+        if Data.DataSetFromLink(aList+'@',aClass) then
           begin
-            if (aDs.ActualFilter<>'') and (aFilter<>'') then
-              aDs.Filter('('+aDs.ActualFilter+') AND ('+aFilter+')')
-            else if (aFilter<>'') then
-              aDs.Filter(ARequest.QueryFields.Values['filter'])
+            aDs := TBaseDbList(aClass.Create(nil,Data));
+            aRight := UpperCase(aList);
+            aFilter:=TSQLSelectStatement(aStmt).Where.GetAsSQL([sfoDoubleQuoteIdentifier]);
+            if (data.Users.Rights.Right(aRight)>RIGHT_READ) and (Assigned(aDS)) then
+              begin
+                if (aDs.ActualFilter<>'') and (aFilter<>'') then
+                  aDs.Filter('('+aDs.ActualFilter+') AND ('+aFilter+')')
+                else if (aFilter<>'') then
+                  aDs.Filter(ARequest.QueryFields.Values['filter'])
+                else
+                  aDs.Open;
+                DataSetToJSON(aDs.DataSet,Json,True,TSQLSelectStatement(aStmt).Fields);
+              end
+            else if (not Assigned(aDs)) and (pos('.',aList)>0) then
+              begin
+                //TODO:YQL Querys
+                //http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%27http%3A%2F%2Fmashable.com%27
+                http := THTTPSend.Create;
+                http.UserAgent:='Mozilla/5.0 (Windows NT 5.1; rv:6.0.2)';
+                http.HTTPMethod('GET','https://query.yahooapis.com/v1/public/yql?q='+HTTPEncode(FSQLStream.DataString));
+                if http.ResultCode=200 then
+                  http.Document.SaveToFile('document.xml');
+                http.Free;
+              end
             else
-              aDs.Open;
-            DataSetToJSON(aDs.DataSet,Json,True,TSQLSelectStatement(aStmt).Fields);
-          end
-        else if (not Assigned(aDs)) and (pos('.',aList)>0) then
-          begin
-            //TODO:YQL Querys
-            //http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%27http%3A%2F%2Fmashable.com%27
-            http := THTTPSend.Create;
-            http.UserAgent:='Mozilla/5.0 (Windows NT 5.1; rv:6.0.2)';
-            http.HTTPMethod('GET','https://query.yahooapis.com/v1/public/yql?q='+HTTPEncode(FSQLStream.DataString));
-            if http.ResultCode=200 then
-              http.Document.SaveToFile('document.xml');
-            http.Free;
+              AResponse.Code:=403;
+            if Assigned(aDs) then
+              aDS.Free;
           end
         else
           AResponse.Code:=403;
-        if Assigned(aDs) then
-          aDS.Free;
       end;
   except
     on e : ESQLParser do
@@ -312,27 +316,31 @@ begin
   Handled:=True;
   if not TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True,False) then exit;
   aList := lowercase(ARequest.QueryFields.Values['name']);
-  aClass := Data.DataSetFromLink(aList+'@');
-  aDs := TBaseDBDataset(aClass.Create(nil,Data));
-  aRight := UpperCase(aList);
-  if (data.Users.Rights.Right(aRight)>RIGHT_READ) and (Assigned(aDS)) then
+  if Data.DataSetFromLink(aList+'@',aClass) then
     begin
-      aDs.Select(ARequest.QueryFields.Values['id']);
-      aDs.Open;
-      Json := TJSONObject.Create;
-      ObjectToJSON(aDs,Json,True);
-      aSeq := ARequest.QueryFields.Values['sequence'];
-      if aSeq='' then aSeq := '0';
-      Response.Contents.Text := 'DoHandleObject('+aSeq+','+Json.AsJSON+');';
-      Json.Free;
-      AResponse.Code:=200;
-      AResponse.ContentType:='text/javascript;charset=utf-8';
-      AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
+      aDs := TBaseDBDataset(aClass.Create(nil,Data));
+      aRight := UpperCase(aList);
+      if (data.Users.Rights.Right(aRight)>RIGHT_READ) and (Assigned(aDS)) then
+        begin
+          aDs.Select(ARequest.QueryFields.Values['id']);
+          aDs.Open;
+          Json := TJSONObject.Create;
+          ObjectToJSON(aDs,Json,True);
+          aSeq := ARequest.QueryFields.Values['sequence'];
+          if aSeq='' then aSeq := '0';
+          Response.Contents.Text := 'DoHandleObject('+aSeq+','+Json.AsJSON+');';
+          Json.Free;
+          AResponse.Code:=200;
+          AResponse.ContentType:='text/javascript;charset=utf-8';
+          AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
+        end
+      else
+        AResponse.Code:=403;
+      if Assigned(aDs) then
+        aDS.Free;
     end
   else
     AResponse.Code:=403;
-  if Assigned(aDs) then
-    aDS.Free;
   AResponse.SendContent;
 end;
 procedure Tappbase.setobjectRequest(Sender: TObject; ARequest: TRequest;
@@ -348,16 +356,20 @@ begin
   if not TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True,False) then exit;
   aList := lowercase(ARequest.QueryFields.Values['name']);
   aRight := UpperCase(aList);
-  aClass := Data.DataSetFromLink(aList+'@');
-  aDs := TBaseDBDataset(aClass.Create(nil,Data));
-  if (data.Users.Rights.Right(aRight)>RIGHT_WRITE) and (Assigned(aDS)) then
+  if Data.DataSetFromLink(aList+'@',aClass) then
     begin
+      aDs := TBaseDBDataset(aClass.Create(nil,Data));
+      if (data.Users.Rights.Right(aRight)>RIGHT_WRITE) and (Assigned(aDS)) then
+        begin
 
+        end
+      else
+        AResponse.Code:=403;
+      if Assigned(aDs) then
+        aDS.Free;
     end
   else
     AResponse.Code:=403;
-  if Assigned(aDs) then
-    aDS.Free;
   AResponse.SendContent;
 end;
 procedure Tappbase.FieldsToJSON(AFields: TFields; AJSON: TJSONObject;
