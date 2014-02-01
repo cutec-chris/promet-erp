@@ -40,14 +40,13 @@ type
     FmessageIdx : Integer;
     FPostMode : Boolean;
     FPostMessage : TStringList;
-    FSendBuffer : TStrings;
+    FSendBuffer : string;
     FError : Boolean;
     FTerminated : Boolean;
   protected
     procedure DoSendBuffer;
   public
     DontLog : Boolean;
-    property SendBuffer : TStrings read FSendBuffer;
     function Send(const aData; const aSize: Integer): Integer; override;
     property Buffer : string read FBuffer write FBuffer;
     procedure LineReceived(aLine : string);
@@ -99,8 +98,21 @@ begin
 end;
 
 procedure TLSMTPSocket.DoSendBuffer;
+var
+  aSize: Integer;
 begin
-
+  try
+    aSize := SendMessage(FSendBuffer);
+    Delete(FSendBuffer, 1, aSize);
+    while (aSize>0) and (length(FSendBuffer)>0) do
+      begin
+        aSize := SendMessage(FSendBuffer);
+        Delete(FSendBuffer, 1, aSize);
+        if FTerminated then
+          break;
+      end;
+  except //Client disconnects ??
+  end;
 end;
 
 function TLSMTPSocket.Send(const aData; const aSize: Integer): Integer;
@@ -126,8 +138,8 @@ var
 
   procedure Answer(aMsg : string);
   begin
-    if SendMessage(aMsg+CRLF) = 0 then
-      FSendBuffer.Add(aMsg);
+    FSendBuffer := FSendBuffer+aMsg+CRLF;
+    DoSendBuffer;
     Answered := True;
   end;
 begin
@@ -146,7 +158,7 @@ begin
           FPostMode := False;
           if Assigned(TLSMTPServer(Self.Creator).OnMailreceived) then
             TLSMTPServer(Self.Creator).OnMailreceived(Self,FPostMessage,FUser,FTo);
-          Answer('250 Ok');
+          Answer('250 Message queued');
         end
       else FPostMessage.Add(aLine);
       exit;
@@ -169,14 +181,13 @@ begin
     end
   else if aCommand = 'EHLO' then
     begin
-      Answer('250 Hello '+aParams);
-      Answer('250 AUTH CRAM-MD5 TLS LOGIN PLAIN');
+      Answer('250-'+aParams+' Hello '+aParams+CRLF+'250 AUTH LOGIN PLAIN');
     end
   else if aCommand = 'MAIL FROM' then
     begin
       FTo.Clear;
       FUser:=aParams;
-      Answer('250 OK');
+      Answer('250 ok');
     end
   else if aCommand = 'RCPT TO' then
     begin
@@ -187,11 +198,11 @@ begin
       if not Result then
         Answer('550 no such user')
       else
-        Answer('250 OK');
+        Answer('250 ok its for '+FUser);
     end
   else if aCommand = 'DATA' then
     begin
-      Answer('354 End data with <CR><LF>.<CR><LF>');
+      Answer('354 ok, send it; end with <CRLF>.<CRLF>');
       DontLog := True;
       FPostMessage.Clear;
       FPostMode:=True;
@@ -204,7 +215,7 @@ begin
     begin
       FUser:='';
       FTo.Clear;
-      Answer('250 OK');
+      Answer('250 ok');
     end
   else
     Answer('502 Command not implemented');

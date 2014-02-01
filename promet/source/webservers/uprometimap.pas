@@ -859,6 +859,8 @@ var
         Result := aParams;
         aParams := '';
       end;
+    if Command then
+      Result := Uppercase(Result);
   end;
   procedure ProcessSetEntry(aEntry : string);
   begin
@@ -933,7 +935,9 @@ begin
                    aMail := GetmailAddr(NextParam(False));
                    //work around android stock client INTERNALDATE error
                    if (pos('@email.android.com',aMail)=0) and (FTreeEntry=IntToStr(TREE_ID_SEND_MESSAGES)) then
-                     aSQL := aSQL+Data.QuoteField('ID')+'='+Data.QuoteValue(aMail)+' and ';
+                     aSQL := aSQL+Data.QuoteField('ID')+'='+Data.QuoteValue(aMail)+' and '
+                   else
+                     aSQL := aSQL+Data.QuoteField('ID')+'='+Data.QuoteValue('NEVEREXISTINGID')+' and '
                  end
                else
                  begin
