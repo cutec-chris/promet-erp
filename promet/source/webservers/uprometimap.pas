@@ -21,8 +21,8 @@ unit uprometimap;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, uLIMAP, uMessages, MimeMess, uMimeMessages, db,cwstring,
-  LCLProc,uBaseDbClasses,lNet,mimepart;
+  Classes, SysUtils, uLIMAP, uMessages, MimeMess, uMimeMessages, db, cwstring,
+  types, LCLProc, uBaseDbClasses, lNet, mimepart;
 
 {.$DEFINE DEBUG}
 type
@@ -83,7 +83,7 @@ type
 
 implementation
 uses uData,Variants,SynaUtil,uSessionDBClasses,uBaseDBInterface,Utils,
-  uPerson,LConvEncoding,uIntfStrConsts;
+  uPerson,LConvEncoding,uIntfStrConsts,LCLIntf;
 
 { TPIMAPSocket }
 
@@ -141,7 +141,9 @@ var
   Arg1: String;
   Arg2: String;
   Max: Integer;
+  aTime: DWORD;
 begin
+  aTime := GetTickCount;
   Max := 1;
   Result := True;
   if pos(',',FSelector)>0 then
@@ -154,9 +156,6 @@ begin
       aFilter := FSelector;
       FSelector:='';
     end;
-  {$IFDEF DEBUG}
-  debugln('SelectNext:'+aFilter);
-  {$ENDIF}
   if pos(':',aFilter) = 0 then
     begin
       Arg1 := aFilter;
@@ -174,7 +173,6 @@ begin
       Result := False;
       exit;
     end;
-  FMessages.DataSet.Refresh;
   FMessages.DataSet.Last;
   if not FUseUID then
     begin
@@ -211,6 +209,9 @@ begin
       end;
     end;
   FSelectCount:=Max;
+  {$IFDEF DEBUG}
+  debugln('SelectNext:'+aFilter+' in '+IntToStr(GetTickCount-aTime)+' ms');
+  {$ENDIF}
 end;
 
 function TPIMAPFolder.GenerateMessage: TMimeMess;
@@ -225,17 +226,23 @@ begin
   aMessage.Free;
 end;
 procedure TPIMAPFolder.RefreshFirstID;
+var
+  aTime: types.DWORD;
 begin
+  aTime := GetTickCount;
   FMessages.Filter(Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(TPIMAPSocket(Socket).FAccountno),300,'SENDDATE','DESC');
   FMessages.Last;
   if FMessages.Count > 0 then
     FFirstID := FMessages.Id.AsVariant;
   {$IFDEF DEBUG}
-  debugln('RefreshFirstID:'+FMessages.Id.AsString);
+  debugln('RefreshFirstID:'+FMessages.Id.AsString+' in '+IntToStr(GetTickCount-aTime)+' ms');
   {$ENDIF}
 end;
 procedure TPIMAPFolder.RefreshCount;
+var
+  aTime: DWORD;
 begin
+  aTime := GetTickCount;
   FFIrstID := 0;
   FlastID := 0;
   Data.SetFilter(FMessages,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' and '+Data.QuoteField('READ')+'='+Data.QuoteValue('N')+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(TPIMAPSocket(Socket).FAccountno),300,'SENDDATE','DESC');
@@ -249,6 +256,9 @@ begin
       FLastID:=FMessages.Id.AsVariant;
     end;
   FCount := FMessages.Count;
+  {$IFDEF DEBUG}
+  debugln('RefreshCount:'+FMessages.Id.AsString+' in '+IntToStr(GetTickCount-aTime)+' ms');
+  {$ENDIF}
 end;
 function TPIMAPFolder.GetLastID: LargeInt;
 begin
@@ -417,6 +427,7 @@ begin
   Max := 0;
   FSelector := aFilter;
   FUseUID := aUseUID;
+  FMessages.DataSet.Refresh;
   FMessages.Last;
   Result := SelectNext;
 end;
@@ -437,6 +448,7 @@ var
   aSize: String;
   tmpRecNo: String;
   FAdded: Boolean;
+  aTime: DWORD;
 
   function GetBodyStructure(aPart : TMimePart) : string;
   var
@@ -459,9 +471,9 @@ var
         if copy(aHead,0,8)<>'Content-' then
           begin
             if pos('=',aHead)>0 then
-              aHead := '"'+trim(copy(aHead,0,pos('=',aHead)-1))+'" "'+trim(copy(aHead,pos('=',aHead)+1,length(aHead)))+'"'
+              aHead := '"'+StringReplace(trim(copy(aHead,0,pos('=',aHead)-1)),'"','',[rfReplaceAll])+'" "'+StringReplace(trim(copy(aHead,pos('=',aHead)+1,length(aHead))),'"','',[rfReplaceAll])+'"'
             else
-              aHead := '"'+trim(copy(aHead,0,pos(':',aHead)-1))+'" "'+trim(copy(aHead,pos(':',aHead)+1,length(aHead)))+'"';
+              aHead := '"'+StringReplace(trim(copy(aHead,0,pos(':',aHead)-1)),'"','',[rfReplaceAll])+'" "'+Stringreplace(trim(copy(aHead,pos(':',aHead)+1,length(aHead))),'"','',[rfReplaceAll])+'"';
             if d > 0 then
               Result := Result+' ';
             Result := Result+trim(aHead);
@@ -481,6 +493,7 @@ begin
   aFetch := aFetch+' ';
   if not FMessages.DataSet.BOF then
     begin
+      aTime := GetTickCount;
       if FSequenceNumbers.IndexOf(FMessages.Id.AsString)=-1 then
         begin
           tmpRecNo := IntToStr(FSequenceNumbers.Add(FMessages.Id.AsString)+1);
@@ -587,7 +600,7 @@ begin
               if (pos('BODY[]',bFetch)>0)
               or (pos('BODY.PEEK[]',bFetch)>0)
               then
-                tmp := tmp+bFetch+' {'+IntToStr(aLen+2)+'}'+#13#10+aSL.Text+#13#10+' ';
+                tmp := tmp+'BODY[] {'+IntToStr(aLen+2)+'}'+#13#10+aSL.Text+#13#10+' ';
               aSL.Free;
             end;
           'BODYSTRUCTURE':
@@ -666,8 +679,9 @@ begin
           end;
         end;
       Result.Add(copy(tmp,0,length(tmp)-1)+')');
+      //debugln(copy(tmp,0,5000));
       {$IFDEF DEBUG}
-      debugln('FetchOneEntry:'+FMessages.Id.AsString+' '+FMessages.Subject.AsString+' '+tmpRecNo+' '+FMessages.FieldByName('SENDDATE').AsString);
+      debugln('FetchOneEntry:'+FMessages.Id.AsString+' '+FMessages.Subject.AsString+' '+tmpRecNo+' '+FMessages.FieldByName('SENDDATE').AsString+' in '+IntToStr(GetTickCount-aTime)+' ms');
       {$ENDIF}
       FetchSequence:=FetchSequence+1;
       FreeAndNil(aMessage);
@@ -831,6 +845,7 @@ var
   Found: Boolean = False;
   aSQL: String;
   aSet: String;
+  aMail: String;
 
   function NextParam(Command : Boolean = True) : string;
   begin
@@ -914,7 +929,12 @@ begin
              begin
                case NextParam of
                'MESSAGE-ID':
-                 aSQL := aSQL+Data.QuoteField('ID')+'='+Data.QuoteValue(GetmailAddr(NextParam(False)))+' and ';
+                 begin
+                   aMail := GetmailAddr(NextParam(False));
+                   //work around android stock client INTERNALDATE error
+                   if (pos('@email.android.com',aMail)=0) and (FTreeEntry=IntToStr(TREE_ID_SEND_MESSAGES)) then
+                     aSQL := aSQL+Data.QuoteField('ID')+'='+Data.QuoteValue(aMail)+' and ';
+                 end
                else
                  begin
                    raise Exception.Create('criteria not allowed');

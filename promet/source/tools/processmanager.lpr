@@ -270,8 +270,6 @@ begin
   except
   end;
   // stop program loop
-  for i := 0 to length(Processes)-1 do
-    Processes[i].Free;
   Terminate;
 end;
 constructor TProcessManager.Create(TheOwner: TComponent);
@@ -282,7 +280,11 @@ begin
   PowerStateMonitor := TPowerStateMonitor.Create;
 end;
 destructor TProcessManager.Destroy;
+var
+  i: Integer;
 begin
+  for i := 0 to length(Processes)-1 do
+    Processes[i].Free;
   inherited Destroy;
 end;
 var

@@ -21,7 +21,7 @@ unit ulimap;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, lNet, lEvents, mimemess, db, dateutils,base64;
+  Classes, SysUtils, lNet, lEvents, mimemess, db, dateutils, types,base64;
 type
   TIMAPFolders = class;
 
@@ -144,7 +144,7 @@ type
    procedure CallAction; override;
   end;
 implementation
-uses lHTTPUtil;
+  uses lHTTPUtil,LCLIntf;
 const
   CRLF=#13#10;
 function TIMAPFolders.Get(Idx : Integer): TIMAPFolder;
@@ -335,6 +335,7 @@ var
     aFCount: Integer;
     tmp : String;
     bRange: String;
+    aTime: types.DWORD;
   begin
     FStopFetching := False;
     aCmd := Uppercase(copy(bParams,0,pos(' ',bParams)-1));
@@ -353,6 +354,7 @@ var
         if aUseUID and (pos('UID',bParams)=0) then
           bParams:='UID '+bParams;
         aFCount := 0;
+        aTime:=GetTickCount;
         if FGroup.SelectMessages(aRange,aUseUID) then
           begin
             aRes := FGroup.FetchOneEntry(bParams);
@@ -372,7 +374,7 @@ var
                 aRes := FGroup.FetchOneEntry(bParams);
               end;
             DontLog:=False;
-            Answer('OK Success '+IntToStr(aFCount)+' results.');
+            Answer('OK Success '+IntToStr(aFCount)+' results in '+IntToStr(GettickCount-aTime)+' ms.');
           end
         else
           begin
@@ -817,9 +819,11 @@ begin
       Answer('OK Closing connection.');
       Disconnect;
     end
-  else if aCommand = 'NOOP' then
+  else if (aCommand = 'NOOP')
+       or (aCommand = 'CHECK')
+     then
     begin
-      Answer('OK NOOP');
+      Answer('OK '+aCommand);
     end
   else if aCommand = 'CLOSE' then
     begin
