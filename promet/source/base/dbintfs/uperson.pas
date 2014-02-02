@@ -672,6 +672,7 @@ begin
             Add('TYPE',ftString,1,True);
             Add('INFO',ftMemo,0,False);
             Add('CATEGORY',ftString,60,False);
+            Add('ORIGID',ftString,200,False);
             Add('CRDATE',ftDate,0,False);
             Add('CHDATE',ftDate,0,False);
             Add('CREATEDBY',ftString,4,True);

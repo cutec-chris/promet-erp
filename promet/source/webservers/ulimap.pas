@@ -336,6 +336,7 @@ var
     tmp : String;
     bRange: String;
     aTime: types.DWORD;
+    bTime: DWORD;
   begin
     FStopFetching := False;
     aCmd := Uppercase(copy(bParams,0,pos(' ',bParams)-1));
@@ -355,13 +356,18 @@ var
           bParams:='UID '+bParams;
         aFCount := 0;
         aTime:=GetTickCount;
+        bTime := GetTickCount;
         if FGroup.SelectMessages(aRange,aUseUID) then
           begin
             aRes := FGroup.FetchOneEntry(bParams);
             while Assigned(aRes) do
               begin
                 inc(aFCount);
-                Creator.CallAction;
+                if GetTickCount-bTime>100 then
+                  begin
+                    Creator.CallAction;
+                    bTime:=GetTickCount;
+                  end;
                 if aRes.Count=1 then
                   Answer(aRes[0],False,False)
                 else
