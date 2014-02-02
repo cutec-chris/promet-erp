@@ -32,11 +32,14 @@ type
   private
     FHistory: TBaseHistory;
     FDS: TDataSource;
+    FRefID: Variant;
   protected
     function GetTextFieldName: string;override;
     function GetNumberFieldName : string;override;
   public
     procedure DefineFields(aDataSet : TDataSet);override;
+    procedure FillDefaults(aDataSet: TDataSet); override;
+    procedure SelectByUser(AccountNo : string);
     procedure SelectPlanedByUser(AccountNo : string);
     procedure SelectPlanedByUserAndTime(AccountNo : string;aStart,aEnd : TDateTime);
     procedure SelectPlanedByUseridAndTime(User : Variant;aStart,aEnd : TDateTime);
@@ -44,6 +47,7 @@ type
     constructor Create(aOwner: TComponent; DM: TComponent;
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     destructor Destroy; override;
+    property RefId : Variant read FRefID write FRefID;
   end;
   TEventLinks = class(TLinks)
   public
@@ -148,6 +152,7 @@ begin
             Add('REF_ID_ID',ftLargeInt,0,True);
             Add('ID',ftLargeint,0,True);
             Add('CLASS',ftString,1,False); //classification
+            Add('STATUS',ftString,4,False); //classification
             Add('SUMMARY',ftString,120,False);
             Add('PROJECT',ftString,260,False);
             Add('LOCATION',ftString,30,False);
@@ -165,6 +170,8 @@ begin
             Add('ROTATION',ftSmallInt,0,false);
             Add('ROTTO',ftDate,0,false);     //Rotation to
             Add('ROTCUS',ftInteger,0,false);  //Rotation Custom Interval
+            Add('ORIGID',ftString,200,False);
+            Add('BUSYTYPE',ftString,2,False);
             Add('CRDATE',ftDate,0,False);
             Add('CHDATE',ftDate,0,False);
             Add('CREATEDBY',ftString,4,False);
@@ -176,6 +183,40 @@ begin
             Add('REF_ID_ID','REF_ID_ID',[]);
           end;
     end;
+end;
+
+procedure TCalendar.FillDefaults(aDataSet: TDataSet);
+begin
+  inherited FillDefaults(aDataSet);
+  FieldByName('REF_ID_ID').AsVariant:=RefId;
+  FieldByName('ID').AsVariant:=Data.GetUniID;
+end;
+
+procedure TCalendar.SelectByUser(AccountNo: string);
+var
+  aUser: TUser;
+begin
+  aUser := TUser.Create(nil,DataModule);
+  aUser.SelectByAccountno(AccountNo);
+  aUser.Open;
+  if aUser.Count>0 then
+    begin
+      with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
+        begin
+          Filter := '('+QuoteField('REF_ID_ID')+'='+QuoteValue(aUser.Id.AsString)+')';
+        end;
+    end
+  else
+    begin
+      with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
+        Filter := QuoteField('REF_ID_ID')+'='+QuoteValue('0');
+    end;
+  with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
+    begin
+      SortFields:='STARTDATE';
+      SortDirection:=sdDescending;
+    end;
+  aUser.Free;
 end;
 
 procedure TCalendar.SelectPlanedByUser(AccountNo: string);

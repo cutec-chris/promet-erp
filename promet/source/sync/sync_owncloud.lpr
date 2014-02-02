@@ -10,7 +10,8 @@ uses
   Interfaces, // this includes the LCL widgetset
   pcmdprometapp, uData, db, uBaseDBInterface, uBaseApplication,
   uBaseCustomApplication, uBaseDbClasses, uSync, uOrder, uPerson, uMasterdata,
-  LConvEncoding,IniFiles,ZConnection,ZClasses,ZDataset,uProjects;
+  LConvEncoding,IniFiles,ZConnection,ZClasses,ZDataset,uProjects,uCalendar,
+  uimpvcal,uImpVCard;
 type
   TSyncDBApp = class(TBaseCustomApplication)
   private
@@ -64,6 +65,9 @@ var
   DoSync: Boolean;
   aID: Integer;
   rmUser: TZQuery;
+  aCalendar: TCalendar;
+  aSL: TStringList;
+  aContact: TPerson;
 begin
   aGlobalTime := Now();
   FTempDataSet := nil;
@@ -121,6 +125,7 @@ begin
           and (aUID <> 'Administrator')
           then
             begin
+              writeln('Adding User '+aUid);
               rmUser.Insert;
               rmUser.FieldByName('uid').AsString:=aUID;
               rmUser.FieldByName('displayname').AsString:=aUsers.FieldByName('NAME').AsString;
@@ -128,15 +133,17 @@ begin
               rmUser.Post;
             end;
 
+          writeln('Syncing User '+aUID);
           //Sync Calendars
-          rmQuerry.SQL.Text:='select * from oc_clndr_calendars where uid='''+aUID+'''';
+          rmQuerry.SQL.Text:='select * from oc_clndr_calendars where userid='''+aUID+'''';
           rmQuerry.Open;
           while not rmQuerry.EOF do
             begin
-              if rmQuerry.FieldByName('displayname').AsString='Default calendar' then
+              if rmQuerry.FieldByName('uri').AsString='defaultcalendar' then
                 begin
-                  rmQuerryE.SQL.Text:='select * from oc_clndr_objects where calendarid='''+aUID+'''';
+                  rmQuerryE.SQL.Text:='select * from oc_clndr_objects where calendarid='''+rmQuerry.FieldByName('id').AsString+'''';
                   rmQuerryE.Open;
+                  writeln('Syncing Calendar '+rmQuerry.FieldByName('displayname').AsString);
                   while not rmQuerryE.EOF do
                     begin
                       if rmQuerryE.FieldByName('objecttype').AsString='VEVENT' then
@@ -146,11 +153,35 @@ begin
                           DoSync := True;
                           aID := 0;
                           Data.SetFilter(SyncItems,Data.QuoteField('SYNCTYPE')+'='+Data.QuoteValue('OWNCLOUD')+' AND '+Data.QuoteField('REMOTE_ID')+'='+Data.QuoteValue(rmQuerryE.FieldByName('uri').AsString));
+                          aCalendar := TCalendar.Create(nil,Data);
+                          aCalendar.RefId:=aUsers.Id.AsVariant;
                           if SyncItems.Count > 0 then
                             begin
                               DoSync := (not SyncItems.DataSet.FieldByName('LOCAL_ID').IsNull) and (not SyncItems.DataSet.FieldByName('LOCAL_ID').AsInteger = 0);
-
+                              aCalendar.Select(SyncItems.FieldByName('LOCAL_ID').AsVariant);
+                              aCalendar.Open;
+                            end
+                          else
+                            begin
+                              SyncItems.Insert;
+                              SyncItems.FieldByName('SYNCTYPE').AsString:='OWNCLOUD';
+                              SyncItems.FieldByName('REMOTE_ID').AsString:=rmQuerryE.FieldByName('uri').AsString;
                             end;
+                          if DoSync then
+                            begin
+                              writeln('Syncing Event '+rmQuerryE.FieldByName('summary').AsString);
+                              aSL := TStringList.Create;
+                              aSL.Text:=rmQuerryE.FieldByName('calendardata').AsString;
+                              VCalImport(aCalendar,aSL);
+                              aSL.Free;
+                              with SyncItems.DataSet do
+                                begin
+                                  FieldByName('LOCAL_ID').AsVariant:=Data.GetBookmark(aCalendar);
+                                  FieldByName('TIMESTAMPD').AsDateTime:=Now();
+                                  Post;
+                                end;
+                            end;
+                          aCalendar.Free;
                         end;
                       rmQuerryE.Next;
                     end;
@@ -158,6 +189,65 @@ begin
               rmQuerry.Next;
             end;
 
+          //Sync contacts
+
+          rmQuerry.SQL.Text:='select * from oc_contacts_addressbooks where userid='''+aUID+'''';
+          rmQuerry.Open;
+          while not rmQuerry.EOF do
+            begin
+              if rmQuerry.FieldByName('uri').AsString='contacts' then
+                begin
+                  rmQuerryE.SQL.Text:='select * from oc_contacts_cards where addressbookid='''+rmQuerry.FieldByName('id').AsString+'''';
+                  rmQuerryE.Open;
+                  writeln('Syncing Addressbook '+rmQuerry.FieldByName('displayname').AsString);
+                  while not rmQuerryE.EOF do
+                    begin
+                      SyncOut := False;
+                      Collect := False;
+                      DoSync := True;
+                      aID := 0;
+                      Data.SetFilter(SyncItems,Data.QuoteField('SYNCTYPE')+'='+Data.QuoteValue('OWNCLOUD')+' AND '+Data.QuoteField('REMOTE_ID')+'='+Data.QuoteValue(rmQuerryE.FieldByName('uri').AsString));
+                      aContact := TPerson.Create(nil,Data);
+                      if SyncItems.Count > 0 then
+                        begin
+                          DoSync := (not SyncItems.DataSet.FieldByName('LOCAL_ID').IsNull) and (not SyncItems.DataSet.FieldByName('LOCAL_ID').AsInteger = 0);
+                          aCalendar.Select(SyncItems.FieldByName('LOCAL_ID').AsVariant);
+                          aCalendar.Open;
+                        end
+                      else
+                        begin
+                          SyncItems.Insert;
+                          SyncItems.FieldByName('SYNCTYPE').AsString:='OWNCLOUD';
+                          SyncItems.FieldByName('REMOTE_ID').AsString:=rmQuerryE.FieldByName('uri').AsString;
+                        end;
+                      if DoSync then
+                        begin
+                          writeln('Syncing Contact '+rmQuerryE.FieldByName('fullname').AsString);
+                          aSL := TStringList.Create;
+                          aSL.Text:=rmQuerryE.FieldByName('carddata').AsString;
+                          aContact.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(rmQuerryE.FieldByName('fullname').AsString));
+                          if aContact.Count=1 then
+                            begin
+                              DoSync := False;
+                            end;
+                          if DoSync then
+                            begin
+                              VCardImport(aContact,aSL);
+                              with SyncItems.DataSet do
+                                begin
+                                  FieldByName('LOCAL_ID').AsVariant:=Data.GetBookmark(aCalendar);
+                                  FieldByName('TIMESTAMPD').AsDateTime:=Now();
+                                  Post;
+                                end;
+                            end;
+                          aSL.Free;
+                        end;
+                      aContact.Free;
+                      rmQuerryE.Next;
+                    end;
+                end;
+              rmQuerry.Next;
+            end;
         end;
       aUsers.Next;
     end;

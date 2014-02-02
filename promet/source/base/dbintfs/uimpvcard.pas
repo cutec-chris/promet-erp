@@ -37,7 +37,7 @@ begin
   i := 0;
   while i < vIn.Count do
     begin
-      with Customers.DataSet do
+      with Customers do
         begin
           tmp := vIn[i];
           inc(i);
