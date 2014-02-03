@@ -52,8 +52,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="213"/>
-        <CursorPos X="1" Y="228"/>
+        <TopLine Value="222"/>
+        <CursorPos X="1" Y="241"/>
         <FoldState Value=" T3Y03B"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
@@ -123,8 +123,8 @@
         <UnitName Value="uBaseDbClasses"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1095"/>
-        <CursorPos X="5" Y="1101"/>
+        <TopLine Value="1036"/>
+        <CursorPos X="1" Y="1061"/>
         <UsageCount Value="86"/>
         <Loaded Value="True"/>
       </Unit7>
@@ -580,7 +580,6 @@
         <WindowIndex Value="0"/>
         <TopLine Value="131"/>
         <CursorPos X="24" Y="146"/>
-        <FoldState Value=" T3i92% T1iH2@U"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit60>
@@ -589,8 +588,8 @@
         <UnitName Value="uImpVCard"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="43"/>
-        <CursorPos X="1" Y="49"/>
+        <TopLine Value="32"/>
+        <CursorPos X="51" Y="49"/>
         <UsageCount Value="16"/>
         <Loaded Value="True"/>
       </Unit61>
@@ -637,123 +636,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="sync_owncloud.lpr"/>
-        <Caret Line="244" Column="1" TopLine="216"/>
+        <Caret Line="241" Column="1" TopLine="225"/>
       </Position1>
       <Position2>
-        <Filename Value="sync_owncloud.lpr"/>
-        <Caret Line="245" Column="1" TopLine="217"/>
+        <Filename Value="..\base\dbintfs\uimpvcard.pas"/>
+        <Caret Line="35" Column="1" TopLine="28"/>
       </Position2>
       <Position3>
-        <Filename Value="sync_owncloud.lpr"/>
-        <Caret Line="246" Column="1" TopLine="218"/>
+        <Filename Value="..\base\dbintfs\uimpvcard.pas"/>
+        <Caret Line="36" Column="1" TopLine="28"/>
       </Position3>
       <Position4>
-        <Filename Value="sync_owncloud.lpr"/>
-        <Caret Line="249" Column="1" TopLine="221"/>
+        <Filename Value="..\base\dbintfs\uimpvcard.pas"/>
+        <Caret Line="37" Column="1" TopLine="28"/>
       </Position4>
       <Position5>
-        <Filename Value="sync_owncloud.lpr"/>
-        <Caret Line="251" Column="1" TopLine="223"/>
+        <Filename Value="..\base\dbintfs\uimpvcard.pas"/>
+        <Caret Line="38" Column="1" TopLine="28"/>
       </Position5>
       <Position6>
-        <Filename Value="sync_owncloud.lpr"/>
-        <Caret Line="252" Column="1" TopLine="224"/>
+        <Filename Value="..\base\dbintfs\uimpvcard.pas"/>
+        <Caret Line="42" Column="1" TopLine="28"/>
       </Position6>
       <Position7>
-        <Filename Value="sync_owncloud.lpr"/>
-        <Caret Line="204" Column="1" TopLine="187"/>
+        <Filename Value="..\base\dbintfs\uimpvcard.pas"/>
+        <Caret Line="43" Column="1" TopLine="28"/>
       </Position7>
       <Position8>
-        <Filename Value="sync_owncloud.lpr"/>
-        <Caret Line="206" Column="1" TopLine="187"/>
+        <Filename Value="..\base\dbintfs\uimpvcard.pas"/>
+        <Caret Line="44" Column="1" TopLine="28"/>
       </Position8>
       <Position9>
-        <Filename Value="sync_owncloud.lpr"/>
-        <Caret Line="207" Column="1" TopLine="187"/>
+        <Filename Value="..\base\dbintfs\uimpvcard.pas"/>
+        <Caret Line="46" Column="1" TopLine="28"/>
       </Position9>
       <Position10>
-        <Filename Value="sync_owncloud.lpr"/>
-        <Caret Line="208" Column="1" TopLine="187"/>
+        <Filename Value="..\base\dbintfs\uimpvcard.pas"/>
+        <Caret Line="47" Column="1" TopLine="28"/>
       </Position10>
       <Position11>
-        <Filename Value="sync_owncloud.lpr"/>
-        <Caret Line="209" Column="1" TopLine="187"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1054" Column="1" TopLine="1036"/>
       </Position11>
       <Position12>
-        <Filename Value="sync_owncloud.lpr"/>
-        <Caret Line="210" Column="1" TopLine="187"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1055" Column="1" TopLine="1036"/>
       </Position12>
       <Position13>
-        <Filename Value="sync_owncloud.lpr"/>
-        <Caret Line="228" Column="1" TopLine="211"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1060" Column="1" TopLine="1036"/>
       </Position13>
       <Position14>
-        <Filename Value="sync_owncloud.lpr"/>
-        <Caret Line="229" Column="1" TopLine="211"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1061" Column="1" TopLine="1036"/>
       </Position14>
       <Position15>
-        <Filename Value="sync_owncloud.lpr"/>
-        <Caret Line="230" Column="1" TopLine="211"/>
+        <Filename Value="..\base\dbintfs\uimpvcard.pas"/>
+        <Caret Line="49" Column="1" TopLine="28"/>
       </Position15>
       <Position16>
-        <Filename Value="sync_owncloud.lpr"/>
-        <Caret Line="231" Column="1" TopLine="211"/>
+        <Filename Value="..\base\dbintfs\uimpvcard.pas"/>
+        <Caret Line="38" Column="1" TopLine="28"/>
       </Position16>
       <Position17>
-        <Filename Value="sync_owncloud.lpr"/>
-        <Caret Line="233" Column="1" TopLine="211"/>
+        <Filename Value="..\base\dbintfs\uimpvcard.pas"/>
+        <Caret Line="42" Column="1" TopLine="28"/>
       </Position17>
       <Position18>
-        <Filename Value="sync_owncloud.lpr"/>
-        <Caret Line="234" Column="1" TopLine="211"/>
+        <Filename Value="..\base\dbintfs\uimpvcard.pas"/>
+        <Caret Line="43" Column="1" TopLine="28"/>
       </Position18>
       <Position19>
-        <Filename Value="sync_owncloud.lpr"/>
-        <Caret Line="239" Column="1" TopLine="211"/>
+        <Filename Value="..\base\dbintfs\uimpvcard.pas"/>
+        <Caret Line="44" Column="1" TopLine="28"/>
       </Position19>
       <Position20>
-        <Filename Value="sync_owncloud.lpr"/>
-        <Caret Line="241" Column="1" TopLine="213"/>
+        <Filename Value="..\base\dbintfs\uimpvcard.pas"/>
+        <Caret Line="51" Column="1" TopLine="28"/>
       </Position20>
       <Position21>
         <Filename Value="..\base\dbintfs\uimpvcard.pas"/>
-        <Caret Line="49" Column="1" TopLine="32"/>
+        <Caret Line="56" Column="1" TopLine="28"/>
       </Position21>
       <Position22>
         <Filename Value="..\base\dbintfs\uimpvcard.pas"/>
-        <Caret Line="38" Column="1" TopLine="32"/>
+        <Caret Line="58" Column="1" TopLine="31"/>
       </Position22>
       <Position23>
         <Filename Value="..\base\dbintfs\uimpvcard.pas"/>
-        <Caret Line="42" Column="1" TopLine="32"/>
+        <Caret Line="49" Column="51" TopLine="32"/>
       </Position23>
       <Position24>
-        <Filename Value="..\base\dbintfs\uimpvcard.pas"/>
-        <Caret Line="43" Column="1" TopLine="32"/>
+        <Filename Value="sync_owncloud.lpr"/>
+        <Caret Line="228" Column="1" TopLine="222"/>
       </Position24>
       <Position25>
-        <Filename Value="..\base\dbintfs\uimpvcard.pas"/>
-        <Caret Line="44" Column="1" TopLine="32"/>
+        <Filename Value="sync_owncloud.lpr"/>
+        <Caret Line="229" Column="1" TopLine="222"/>
       </Position25>
       <Position26>
-        <Filename Value="..\base\dbintfs\uimpvcard.pas"/>
-        <Caret Line="51" Column="1" TopLine="32"/>
+        <Filename Value="sync_owncloud.lpr"/>
+        <Caret Line="230" Column="1" TopLine="222"/>
       </Position26>
       <Position27>
-        <Filename Value="..\base\dbintfs\uimpvcard.pas"/>
-        <Caret Line="178" Column="55" TopLine="167"/>
+        <Filename Value="sync_owncloud.lpr"/>
+        <Caret Line="231" Column="1" TopLine="222"/>
       </Position27>
       <Position28>
-        <Filename Value="..\base\dbintfs\uimpvcard.pas"/>
-        <Caret Line="58" Column="53" TopLine="44"/>
+        <Filename Value="sync_owncloud.lpr"/>
+        <Caret Line="233" Column="1" TopLine="222"/>
       </Position28>
       <Position29>
         <Filename Value="sync_owncloud.lpr"/>
-        <Caret Line="228" Column="1" TopLine="213"/>
+        <Caret Line="234" Column="1" TopLine="222"/>
       </Position29>
       <Position30>
-        <Filename Value="..\base\dbintfs\uimpvcard.pas"/>
-        <Caret Line="49" Column="1" TopLine="43"/>
+        <Filename Value="sync_owncloud.lpr"/>
+        <Caret Line="239" Column="1" TopLine="222"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -788,14 +787,21 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="1">
+    <BreakPoints Count="2">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
         <Source Value="sync_owncloud.lpr"/>
-        <Line Value="228"/>
+        <Line Value="241"/>
       </Item1>
+      <Item2>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="sync_owncloud.lpr"/>
+        <Line Value="228"/>
+      </Item2>
     </BreakPoints>
     <Watches Count="1">
       <Item1>

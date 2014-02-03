@@ -44,7 +44,10 @@ begin
           if IsField('BEGIN',tmp) then
             begin
               if not (DoChange) then
-                Append
+                begin
+                  Append;
+                  FieldByName('NAME').AsString:='';
+                end
               else Customers.Edit;
               InBody := True
             end
