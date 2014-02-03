@@ -944,6 +944,7 @@ var
         if (TableName = aNode.Attributes.GetNamedItem('NAME').NodeValue) then
           begin
             ThisDataSet.Open;
+            ThisDataSet.Tag:=111;
             cNode := aNode.ChildNodes[i];
             for c := 0 to cNode.ChildNodes.Count-1 do
               if copy(cNode.ChildNodes[c].NodeName,0,4) = 'ROW.' then
@@ -982,6 +983,7 @@ var
                     ThisDataSet.Post;
                 end;
             Result := True;
+            ThisDataSet.Tag:=0;
           end;
     end;
   begin
@@ -1248,6 +1250,7 @@ var
   tmp: String;
 begin
   Result := False;
+  if DataSet.Tag=111 then exit; //Copy XML
   if not DataSet.Active then
     Open;
   Last;
@@ -2580,4 +2583,4 @@ begin
 end;
 initialization
 end.
-
+

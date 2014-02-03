@@ -989,7 +989,7 @@ var
           // draw an arrow. down for collapse and right for expand
           R := Rect(ALeft, ATop, ARight, ABottom);
           GetMem(Points, SizeOf(TPoint) * 3);
-          if CollapseSign then
+          if CollapseSign tMovehen
           begin
             // draw an arrow down
             Points[0] := Point(R.Left, MidY);
@@ -1664,9 +1664,9 @@ begin
     if Assigned(OnCellChanged) then
       OnCellChanged(Self,Point(aCol,aRow),Point(OldCol,OldRow));
     OldCol := aCol;
-  finally
-    EndUpdate;
+  except
   end;
+  EndUpdate;
 end;
 procedure TfGridView.gListSelectEditor(Sender: TObject; aCol,
   aRow: Integer; var Editor: TWinControl);

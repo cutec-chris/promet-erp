@@ -474,7 +474,7 @@ begin
     end;
   if FAddProjectOnPost then
     begin
-      if trim(FDS.DataSet.FieldByName('SUMMARY').AsString)<>'' then
+      if (trim(FDS.DataSet.FieldByName('SUMMARY').AsString)<>'') and (DataSet.Tag<>111) then
         begin
           aProject := TProject.Create(Self,Data,Connection);
           aProject.Select(FDS.DataSet.FieldByName('PROJECTID').AsVariant);
@@ -741,7 +741,7 @@ begin
       if aProject.Count>0 then
         begin
           aProject.History.Open;
-          if FDS.DataSet.FieldByName('SUMMARY').AsString<>'' then
+          if (FDS.DataSet.FieldByName('SUMMARY').AsString<>'') and (DataSet.Tag<>111) then
             aProject.History.AddItem(aProject.DataSet,Format(strTaskAdded,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',aProject.DataSet,ACICON_TASKADDED);
           History.AddItem(Self.DataSet,strProjectChanged,Data.BuildLink(aProject.DataSet),Field.AsString,aProject.DataSet,ACICON_EDITED);
         end;
@@ -757,7 +757,7 @@ begin
     begin
       DataSet.DisableControls;
       DataSet.FieldByName('SEEN').AsString:='N';
-      if DataSet.FieldByName('USER').AsString<>DataSet.FieldByName('OWNER').AsString then
+      if (DataSet.FieldByName('USER').AsString<>DataSet.FieldByName('OWNER').AsString) and (FDS.DataSet.FieldByName('SUMMARY').AsString<>'') and (DataSet.Tag<>111) then
         begin
           aUser := TUser.Create(Self,Data,Connection);
           aUser.SelectByAccountno(DataSet.FieldByName('USER').AsString);
