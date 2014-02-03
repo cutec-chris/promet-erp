@@ -623,24 +623,15 @@ begin
                   aMessage.Select(FMessages.Id.AsVariant);
                   aMessage.Open;
                 end;
+              if not Assigned(aMime) then
+                aMime := aMessage.EncodeMessage;
               //BODY.PEEK[HEADER.FIELDS (From To Cc Bcc Subject Date Message-ID Priority X-Priority References Newsgroups In-Reply-To Content-Type)]
               aFields := copy(aFetch,pos('(',aFetch)+1,length(aFetch));
               aFields := copy(aFields,0,pos(')',aFields)-1);
               aSL := TStringList.Create;
               aSL.TextLineBreakStyle:=tlbsCRLF;
               bsl := TStringlist.Create;
-              tmp := aMessage.Content.FieldByName('HEADER').AsString;
-              if trim(tmp)='' then
-                begin
-                  if not Assigned(aMime) then
-                    aMime := aMessage.EncodeMessage;
-                  aMime.Header.EncodeHeaders(bsl);
-                  aMessage.Content.Edit;
-                  aMessage.Content.FieldByName('HEADER').AsString := bsl.Text;
-                  aMessage.Content.Post;
-                end
-              else
-                bsl.Text:=tmp;
+              aMime.Header.EncodeHeaders(bsl);
               while pos(' ',aFields)>0 do
                 begin
                   Found := False;
@@ -1018,4 +1009,5 @@ begin
   inherited Destroy;
 end;
 end.
+
 
