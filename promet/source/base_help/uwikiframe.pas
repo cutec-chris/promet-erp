@@ -493,6 +493,24 @@ var
     aLink := Data.BuildLink(aDs.DataSet);
     Outp+='<li><a href="'+aLink+'" title="'+Data.GetLinkDesc(aLink)+#10+Data.GetLinkLongDesc(aLink)+'">'+HTMLEncode(Data.GetLinkDesc(aLink))+'</a></li>';
   end;
+  procedure BuildTableRow;
+  var
+    aLink: String;
+    i: Integer;
+    a: Integer;
+  begin
+    aLink := Data.BuildLink(aDs.DataSet);
+    Outp+='|';
+    for i := 0 to TSQLSelectStatement(aStmt).Fields.Count-1 do
+      if (aDS.DataSet.FieldDefs.IndexOf(TSQLIdentifierName(TSQLSelectStatement(aStmt).Fields[i]).Name)>0) then
+        Outp := Outp+aDS.DataSet.Fields[i].AsString+'||'
+      else if TSQLIdentifierName(TSQLSelectStatement(aStmt).Fields[i]).Name='*' then
+        begin
+          for a := 0 to aDS.DataSet.FieldCount-1 do
+            Outp := Outp+aDS.DataSet.Fields[a].AsString+'||'
+        end;
+    Outp+=#10+'|-';
+  end;
 
   procedure FilterSQL(aType : Integer);
   var
@@ -539,6 +557,7 @@ var
                     begin
                       case aType of
                       0:BuildLinkRow;
+                      1:BuildTableRow;
                       end;
                       aDs.Next;
                     end;
@@ -600,6 +619,18 @@ begin
       Outp+='<ol>';
       FilterSQL(0);
       Outp+='</ol>';
+    end
+  else if Uppercase(copy(Inp,0,9)) = 'SQLTABLE(' then
+    begin
+      Inp := copy(Inp,10,length(Inp)-10);
+      if pos(';',Inp)>0 then
+        begin
+          aLimit := StrToIntDef(copy(Inp,pos(';',Inp)+1,length(Inp)),10);
+          Inp := copy(Inp,0,pos(';',Inp)-1);
+        end;
+      Outp+='{|'+#10;
+      FilterSQL(1);
+      Outp+=#10+'|}';
     end
   else
     begin
