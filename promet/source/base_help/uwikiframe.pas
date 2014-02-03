@@ -490,7 +490,7 @@ var
     aLink: String;
   begin
     aLink := Data.BuildLink(aDs.DataSet);
-    Outp+='<li><a href="'+aLink+'">'+Data.GetLinkDesc(aLink)+'</a></li>';
+    Outp+='<li><a href="'+aLink+'">'+UTF8ToSys(Data.GetLinkDesc(aLink))+'</a></li>';
   end;
 
   procedure FilterSQL(aType : Integer);
@@ -516,6 +516,8 @@ var
                 begin
                   if (aDs.ActualFilter<>'') and (aFilter<>'') then
                     aDs.Filter('('+aDs.ActualFilter+') AND ('+aFilter+')',aLimit)
+                  else if (aFilter = '') then
+                    aDs.Filter('('+aDs.ActualFilter+')',aLimit)
                   else
                     aDs.Filter(aFilter,aLimit);
                   while not aDS.EOF do

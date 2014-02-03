@@ -251,6 +251,7 @@ type
     procedure TfFilteracOpenExecute(Sender: TObject);
   private
     { private declarations }
+    WikiFrame: TfWikiFrame;
     FHistory: THistory;
     SearchText: String;
     ActiveSearch : TSearch;
@@ -308,6 +309,7 @@ type
     procedure DoCreate;
     procedure RefreshTasks;
     procedure Expand;
+    procedure RefreshWiki;
   public
     constructor Create(aSuspended : Boolean = False);
     procedure Execute; override;
@@ -752,6 +754,11 @@ begin
   fMainTreeFrame.RestoreExpands;
 end;
 
+procedure TStarterThread.RefreshWiki;
+begin
+  fMain.WikiFrame.Refresh;
+end;
+
 constructor TStarterThread.Create(aSuspended: Boolean);
 begin
   FreeOnTerminate:=True;
@@ -845,6 +852,7 @@ begin
       fMain.pcPages.AddTabClass(TfWikiFrame,strWiki,@fMain.AddWiki,Data.GetLinkIcon('WIKI@'),True);
       Data.RegisterLinkHandler('WIKI',@fMainTreeFrame.OpenLink,TWikiList);
       AddSearchAbleDataSet(TWikiList);
+      Synchronize(@RefreshWiki);
     end;
   //Documents
   if (Data.Users.Rights.Right('DOCUMENTS') > RIGHT_NONE) then
@@ -909,7 +917,6 @@ var
   Node: TTreeNode;
   miNew: TMenuItem;
   aWiki: TWikiList;
-  WikiFrame: TfWikiFrame;
   aDocuments: TDocument;
   bStart: TStarterThread;
   aItems: TStringList;
@@ -1199,7 +1206,6 @@ begin
             spTree.Visible:=False;
             acShowTree.Checked:=False;
           end;
-        WikiFrame.Refresh;
       end;
     //debugln('LoginTime: '+IntToStr(GetTickCount64-aTime));
   finally
@@ -2524,9 +2530,11 @@ begin
     end
   else if (copy(aLink,0,6) = 'TASKS@') then
     begin
+      Screen.Cursor:=crDefault;
       FTaskEdit := TfTaskEdit.Create(Self);
       FTaskEdit.Execute(aLink);
       FTaskEdit.Free;
+      Result := True;
     end
   else if (copy(aLink,0,16) = 'ACCOUNTEXCHANGE@') then
     begin

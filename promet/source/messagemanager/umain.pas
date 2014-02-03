@@ -239,10 +239,10 @@ begin
         end;
       if (not FHistory.EOF) then
         begin
-          if Assigned(fmTimeline) and fmTimeline.Visible then
+          if Assigned(fmTimeline) and fmTimeline.Visible and ((fmTimeline.WindowState=wsMinimized) or (not fmTimeline.Focused)) then
             begin
-              //fmTimeline.acRefresh.Execute;
-              //InformRecTime := Now()+(1/(MSecsPerDay/MSecsPerSec));
+              fmTimeline.acRefresh.Execute;
+              InformRecTime := Now()+(1/(MSecsPerDay/MSecsPerSec));
             end
           else
             begin
