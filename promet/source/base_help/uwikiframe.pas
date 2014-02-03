@@ -498,17 +498,23 @@ var
     aLink: String;
     i: Integer;
     a: Integer;
+    aName: TSQLStringType;
+    aElem: TSQLElement;
   begin
     aLink := Data.BuildLink(aDs.DataSet);
     Outp+='|';
     for i := 0 to TSQLSelectStatement(aStmt).Fields.Count-1 do
-      if (aDS.DataSet.FieldDefs.IndexOf(TSQLIdentifierName(TSQLSelectStatement(aStmt).Fields[i]).Name)>0) then
-        Outp := Outp+aDS.DataSet.Fields[i].AsString+'||'
-      else if TSQLIdentifierName(TSQLSelectStatement(aStmt).Fields[i]).Name='*' then
-        begin
-          for a := 0 to aDS.DataSet.FieldCount-1 do
-            Outp := Outp+aDS.DataSet.Fields[a].AsString+'||'
-        end;
+      begin
+        aElem := TSQLSelectStatement(aStmt).Fields[i];
+        aName := aElem.GetAsSQL([]);
+        if (aDS.DataSet.FieldDefs.IndexOf(aName)>0) then
+          Outp := Outp+aDS.DataSet.Fields[i].AsString+'||'
+        else if aName='*' then
+          begin
+            for a := 0 to aDS.DataSet.FieldCount-1 do
+              Outp := Outp+aDS.DataSet.Fields[a].AsString+'||'
+          end;
+      end;
     Outp+=#10+'|-';
   end;
 

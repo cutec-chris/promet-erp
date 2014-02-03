@@ -381,8 +381,6 @@ begin
         end;
       except
         DeleteFile(Properties.FileName);
-        Config.Save;
-        fError.ShowError(strConfigNotreadable);
       end;
     end;
 end;

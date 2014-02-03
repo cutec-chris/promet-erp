@@ -218,7 +218,10 @@ begin
       fTimeline.WordWrap:=True;
       Data.SetFilter(fTimeline.DataSet,fMain.Filter+' '+fMain.Filter2,300);
       with Application as IBaseApplication do
-        Config.ReadRect('TIMELINERECT',aBoundsRect,BoundsRect);
+        begin
+          RestoreConfig;
+          Config.ReadRect('TIMELINERECT',aBoundsRect,BoundsRect);
+        end;
       fTimeline.Show;
       Show;
       BoundsRect := aBoundsRect;
@@ -392,7 +395,7 @@ begin
                 begin
                   fVisualControls.Images.Draw(TStringGrid(Sender).Canvas,aRect.Left-16,aRect.Top,70);
                   bRect.Right:=bRect.Right-DrawImageWidth;
-                  if Assigned(TMGridObject(aObj).Image) then
+                  if Assigned(TMGridObject(aObj).Image) and (TMGridObject(aObj).Image.Height>0) and (TMGridObject(aObj).Image.Width>0) then
                     begin
                       cRect := Rect(bRect.Right,bRect.Top,aRect.Right,0);
                       if TMGridObject(aObj).Image.Height>TMGridObject(aObj).Image.Width then
