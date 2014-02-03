@@ -76,6 +76,7 @@ type
     procedure acSearchContainedExecute(Sender: TObject);
     procedure ActiveSearchBeginItemSearch(Sender: TObject);
     procedure ActiveSearchEndItemSearch(Sender: TObject);
+    procedure ActiveSearchEndSearch(Sender: TObject);
     procedure bCloseClick(Sender: TObject);
     procedure bEditFilterClick(Sender: TObject);
     procedure DoSearch(Sender: TObject);
@@ -139,6 +140,7 @@ uses uBaseDBInterface,uBaseApplication,uBaseVisualControls,uFormAnimate,
   ;
 resourcestring
   strSearchfromOrderMode        = 'Diese Suche wurde aus der Vorgangsverwaltung gestartet, wenn Sie einen Eintrag öffnen, wird dieser automatisch in den aktuellen Vorgang übernommen.';
+  strDoSearch                   = 'suchen';
 procedure TfSearch.bCloseClick(Sender: TObject);
 begin
   Close;
@@ -248,7 +250,16 @@ procedure TfSearch.ActiveSearchEndItemSearch(Sender: TObject);
 begin
   sgResults.EndUpdate;
 end;
-
+procedure TfSearch.ActiveSearchEndSearch(Sender: TObject);
+begin
+  bOpen.Enabled:=True;
+  bSearch.Caption:=strDoSearch;
+  if sgResults.RowCount > 1 then
+    begin
+      bSearch.Default:=False;
+      bOpen.Default:=True;
+    end;
+end;
 procedure TfSearch.acCopyLinkExecute(Sender: TObject);
 var
   Stream: TStringStream;
@@ -269,13 +280,17 @@ begin
       SearchText := '';
       if Assigned(ActiveSearch) then
         ActiveSearch.Abort;
-      bSearch.Caption := strSearch;
+      bSearch.Caption := strDoSearch;
+      bOpen.Enabled:=True;
       {$IFDEF MAINAPP}
       if (fsSerial in SearchTypes) then
         fOrders.acViewList.Execute;
       {$ENDIF}
       exit;
     end;
+  bOpen.Enabled:=False;
+  bSearch.Caption := strAbort;
+  Application.ProcessMessages;
   for i := low(uBaseSearch.SearchLocations) to High(uBaseSearch.SearchLocations) do
     if cbSearchIn.Items.IndexOf(uBaseSearch.SearchLocations[i]) >= 0 then
       if cbSearchIn.Checked[cbSearchIn.Items.IndexOf(uBaseSearch.SearchLocations[i])] then
@@ -287,7 +302,6 @@ begin
         SearchLocations[length(SearchLocations)-1] := cbSearchType.Items[i];
       end;
   sgResults.RowCount := sgResults.FixedRows;
-  bSearch.Caption := strAbort;
   SearchText := eContains.Text;
   if cbMaxResults.Checked then
     ActiveSearch := TSearch.Create(SearchTypes,SearchLocations,cbContains.Checked,seMaxResults.Value)
@@ -296,14 +310,8 @@ begin
   ActiveSearch.OnItemFound:=@DataSearchresultItem;
   ActiveSearch.OnBeginItemSearch:=@ActiveSearchBeginItemSearch;
   ActiveSearch.OnEndItemSearch:=@ActiveSearchEndItemSearch;
+  ActiveSearch.OnEndSearch:=@ActiveSearchEndSearch;
   ActiveSearch.Start(eContains.Text);
-  while ActiveSearch.Active do Application.ProcessMessages;
-  bSearch.Caption:=strSearch;
-  if sgResults.RowCount > 1 then
-    begin
-      bSearch.Default:=False;
-      bOpen.Default:=True;
-    end;
 end;
 procedure TfSearch.cbAutomaticsearchChange(Sender: TObject);
 begin

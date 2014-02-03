@@ -601,6 +601,7 @@ object fSearch: TfSearch
     top = 304
     object acOpen: TAction
       Caption = 'Öffnen'
+      ImageIndex = 19
       OnExecute = acOpenExecute
       ShortCut = 16463
     end
@@ -757,7 +758,7 @@ object fSearch: TfSearch
     Enabled = False
     Interval = 200
     OnTimer = IdleTimerTimer
-    left = 96
+    left = 88
     top = 304
   end
   object LinkSaveDialog: TSaveDialog

@@ -434,6 +434,12 @@ begin
             Add('COLOR',ftString,8,false);
             Add('ICON',ftInteger,0,false);
           end;
+      if Assigned(ManagedIndexdefs) then
+        with ManagedIndexDefs do
+          begin
+            Add('TYPE','TYPE',[]);
+            Add('STATUS','STATUS',[]);
+          end;
     end;
 end;
 procedure TVat.DefineFields(aDataSet: TDataSet);
