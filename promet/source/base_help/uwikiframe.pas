@@ -502,20 +502,26 @@ var
     aElem: TSQLElement;
   begin
     aLink := Data.BuildLink(aDs.DataSet);
-    Outp+='|';
-    for i := 0 to TSQLSelectStatement(aStmt).Fields.Count-1 do
+    Outp+='<tr>';
+    if TSQLSelectStatement(aStmt).All then
       begin
-        aElem := TSQLSelectStatement(aStmt).Fields[i];
-        aName := aElem.GetAsSQL([]);
-        if (aDS.DataSet.FieldDefs.IndexOf(aName)>0) then
-          Outp := Outp+aDS.DataSet.Fields[i].AsString+'||'
-        else if aName='*' then
+        for a := 0 to aDS.DataSet.FieldCount-1 do
+          Outp := Outp+'<td>'+aDS.DataSet.Fields[a].AsString+'</td>'
+      end
+    else
+      begin
+        for i := 0 to TSQLSelectStatement(aStmt).Fields.Count-1 do
           begin
-            for a := 0 to aDS.DataSet.FieldCount-1 do
-              Outp := Outp+aDS.DataSet.Fields[a].AsString+'||'
+            aElem := TSQLSelectStatement(aStmt).Fields[i];
+            if aElem is TSQLSelectField then
+              begin
+                aName := TSQLSelectField(aElem).Expression.GetAsSQL([]);
+                if (aDS.DataSet.FieldDefs.IndexOf(aName)>0) then
+                  Outp := Outp+'<td>'+aDS.DataSet.Fields[i].AsString+'</td>'
+              end;
           end;
       end;
-    Outp+=#10+'|-';
+    Outp+='</tr>';
   end;
 
   procedure FilterSQL(aType : Integer);
@@ -524,6 +530,8 @@ var
     aOrderDir: TSQLOrderDirection;
     aOrder: string = '';
     aOrderDirStr: String = 'ASC';
+    aRDS: TDataSet;
+    i: Integer;
   begin
     FSQLStream := TStringStream.Create(Inp);
     FSQLScanner := TSQLScanner.Create(FSQLStream);
@@ -536,39 +544,56 @@ var
           aTableName := TSQLSimpleTableReference(TSQLSelectStatement(aStmt).Tables[a]).ObjectName.Name;
           if Data.ListDataSetFromLink(aTableName+'@',aClass) then
             begin
-              aDs := TBaseDBDataset(aClass.Create(nil,Data));
               aRight := UpperCase(aTableName);
-              if Assigned(TSQLSelectStatement(aStmt).Where) then
-                aFilter:=TSQLSelectStatement(aStmt).Where.GetAsSQL([sfoDoubleQuoteIdentifier]);
-              if Assigned(TSQLSelectStatement(aStmt).Orderby) and (TSQLSelectStatement(aStmt).Orderby.Count>0) then
+              if aType <> 3 then
                 begin
-                  aOrder:=TSQLIdentifierName(TSQLOrderByElement(TSQLSelectStatement(aStmt).Orderby.Elements[0]).Field).Name;
-                  aOrderDir := TSQLOrderByElement(TSQLSelectStatement(aStmt).Orderby.Elements[0]).OrderBy;
-                end;
-              if (data.Users.Rights.Right(aRight)>RIGHT_READ) and (Assigned(aDS)) then
+                  aDs := TBaseDBDataset(aClass.Create(nil,Data));
+                  if Assigned(TSQLSelectStatement(aStmt).Where) then
+                    aFilter:=TSQLSelectStatement(aStmt).Where.GetAsSQL([sfoDoubleQuoteIdentifier]);
+                  if Assigned(TSQLSelectStatement(aStmt).Orderby) and (TSQLSelectStatement(aStmt).Orderby.Count>0) then
+                    begin
+                      aOrder:=TSQLIdentifierName(TSQLOrderByElement(TSQLSelectStatement(aStmt).Orderby.Elements[0]).Field).Name;
+                      aOrderDir := TSQLOrderByElement(TSQLSelectStatement(aStmt).Orderby.Elements[0]).OrderBy;
+                    end;
+                  if (data.Users.Rights.Right(aRight)>RIGHT_READ) and (Assigned(aDS)) then
+                    begin
+                      if aOrder<>'' then
+                        begin
+                          if aOrderDir=obAscending then
+                            aOrderDirStr := 'ASC'
+                          else aOrderDirStr := 'DESC';
+                        end;
+                      if (aDs.ActualFilter<>'') and (aFilter<>'') then
+                        aDs.Filter('('+aDs.ActualFilter+') AND ('+aFilter+')',aLimit)
+                      else if (aFilter = '') and (aDs.ActualFilter<>'') then
+                        aDs.Filter('('+aDs.ActualFilter+')',aLimit,aOrder,aOrderDirStr)
+                      else
+                        aDs.Filter(aFilter,aLimit,aOrder,aOrderDirStr);
+                      while not aDS.EOF do
+                        begin
+                          case aType of
+                          0:BuildLinkRow;
+                          1:BuildTableRow;
+                          end;
+                          aDs.Next;
+                        end;
+                    end;
+                  aDS.Free;
+                end
+              else
                 begin
-                  if aOrder<>'' then
+                  aRDS := Data.GetNewDataSet(TSQLSelectStatement(aStmt).GetAsSQL([sfoDoubleQuoteIdentifier]));
+                  if (data.Users.Rights.Right(aRight)>RIGHT_READ) and (Assigned(aRDS)) then
                     begin
-                      if aOrderDir=obAscending then
-                        aOrderDirStr := 'ASC'
-                      else aOrderDirStr := 'DESC';
+                      for i := 0 to aRDS.FieldCount-1 do
+                        begin
+                          if i>0 then Outp+=',';
+                          Outp += aRDS.Fields[i].AsString;
+                        end;
+                      aRDs.Next;
                     end;
-                  if (aDs.ActualFilter<>'') and (aFilter<>'') then
-                    aDs.Filter('('+aDs.ActualFilter+') AND ('+aFilter+')',aLimit)
-                  else if (aFilter = '') and (aDs.ActualFilter<>'') then
-                    aDs.Filter('('+aDs.ActualFilter+')',aLimit,aOrder,aOrderDirStr)
-                  else
-                    aDs.Filter(aFilter,aLimit,aOrder,aOrderDirStr);
-                  while not aDS.EOF do
-                    begin
-                      case aType of
-                      0:BuildLinkRow;
-                      1:BuildTableRow;
-                      end;
-                      aDs.Next;
-                    end;
+                  aRDS.Free;
                 end;
-              aDS.Free;
             end;
         end;
     except
@@ -634,9 +659,19 @@ begin
           aLimit := StrToIntDef(copy(Inp,pos(';',Inp)+1,length(Inp)),10);
           Inp := copy(Inp,0,pos(';',Inp)-1);
         end;
-      Outp+='{|'+#10;
+      Outp+='<table>';
       FilterSQL(1);
-      Outp+=#10+'|}';
+      Outp+='</table>';
+    end
+  else if Uppercase(copy(Inp,0,4)) = 'SQL(' then
+    begin
+      Inp := copy(Inp,5,length(Inp)-5);
+      if pos(';',Inp)>0 then
+        begin
+          aLimit := StrToIntDef(copy(Inp,pos(';',Inp)+1,length(Inp)),10);
+          Inp := copy(Inp,0,pos(';',Inp)-1);
+        end;
+      FilterSQL(3);
     end
   else
     begin

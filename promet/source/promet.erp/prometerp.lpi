@@ -497,7 +497,7 @@
       <Unit18>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="19"/>
         <WindowIndex Value="0"/>
         <TopLine Value="746"/>
         <CursorPos X="1" Y="771"/>
@@ -527,7 +527,7 @@
       <Unit21>
         <Filename Value="../base/dbintfs/uorder.pas"/>
         <UnitName Value="uOrder"/>
-        <EditorIndex Value="24"/>
+        <EditorIndex Value="25"/>
         <WindowIndex Value="0"/>
         <TopLine Value="702"/>
         <CursorPos X="49" Y="711"/>
@@ -611,7 +611,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uArticleFrame"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="190"/>
         <CursorPos X="1" Y="209"/>
@@ -918,7 +918,7 @@
       <Unit56>
         <Filename Value="../base/dbintfs/uprojects.pas"/>
         <UnitName Value="uProjects"/>
-        <EditorIndex Value="22"/>
+        <EditorIndex Value="23"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="43" Y="75"/>
@@ -950,7 +950,7 @@
       <Unit59>
         <Filename Value="../base/dbintfs/umessages.pas"/>
         <UnitName Value="uMessages"/>
-        <EditorIndex Value="21"/>
+        <EditorIndex Value="22"/>
         <WindowIndex Value="0"/>
         <TopLine Value="139"/>
         <CursorPos X="3" Y="59"/>
@@ -960,7 +960,7 @@
       <Unit60>
         <Filename Value="../base/dbintfs/uintfstrconsts.pas"/>
         <UnitName Value="uIntfStrConsts"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="78"/>
         <CursorPos X="41" Y="98"/>
@@ -1008,7 +1008,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uProjectFrame"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="166"/>
         <CursorPos X="17" Y="198"/>
@@ -1052,14 +1052,14 @@
         <UnitName Value="utask"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="833"/>
+        <TopLine Value="832"/>
         <CursorPos X="3" Y="827"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
       </Unit68>
       <Unit69>
         <Filename Value="../base/revision.inc"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="18"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
@@ -1068,7 +1068,7 @@
       </Unit69>
       <Unit70>
         <Filename Value="../base/changes.txt"/>
-        <EditorIndex Value="20"/>
+        <EditorIndex Value="21"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="23" Y="2"/>
@@ -1166,11 +1166,11 @@
       <Unit79>
         <Filename Value="../components/zeos/src/component/ZAbstractRODataset.pas"/>
         <UnitName Value="ZAbstractRODataset"/>
-        <EditorIndex Value="19"/>
+        <EditorIndex Value="20"/>
         <WindowIndex Value="0"/>
         <TopLine Value="609"/>
         <CursorPos X="1" Y="629"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit79>
@@ -1205,11 +1205,11 @@
       <Unit83>
         <Filename Value="../base/dbintfs/uwiki.pas"/>
         <UnitName Value="uWiki"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="127"/>
         <CursorPos X="23" Y="153"/>
-        <UsageCount Value="18"/>
+        <UsageCount Value="19"/>
         <Loaded Value="True"/>
       </Unit83>
       <Unit84>
@@ -2379,11 +2379,11 @@
       <Unit219>
         <Filename Value="../../../general/src/Utils.pas"/>
         <UnitName Value="Utils"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="483"/>
         <CursorPos X="3" Y="485"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit219>
       <Unit220>
@@ -3087,7 +3087,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="16"/>
         <CursorPos X="59" Y="28"/>
-        <UsageCount Value="59"/>
+        <UsageCount Value="60"/>
         <Loaded Value="True"/>
       </Unit305>
       <Unit306>
@@ -4098,11 +4098,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMainTreeFrame"/>
-        <EditorIndex Value="23"/>
+        <EditorIndex Value="24"/>
         <WindowIndex Value="0"/>
         <TopLine Value="337"/>
         <CursorPos X="1" Y="369"/>
-        <UsageCount Value="51"/>
+        <UsageCount Value="52"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit428>
@@ -4353,34 +4353,34 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uWikiFrame"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="490"/>
-        <CursorPos X="49" Y="508"/>
-        <FoldState Value=" T0uN4XP"/>
-        <UsageCount Value="18"/>
+        <TopLine Value="480"/>
+        <CursorPos X="1" Y="489"/>
+        <FoldState Value=" T0v54X@"/>
+        <UsageCount Value="19"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit457>
       <Unit458>
         <Filename Value="../base_frames/uimagecache.pas"/>
         <UnitName Value="uImageCache"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2"/>
         <CursorPos X="14" Y="21"/>
-        <UsageCount Value="18"/>
+        <UsageCount Value="19"/>
         <Loaded Value="True"/>
       </Unit458>
       <Unit459>
         <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-db/src/sql/fpsqltree.pp"/>
         <UnitName Value="fpsqltree"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1185"/>
-        <CursorPos X="20" Y="1193"/>
-        <UsageCount Value="12"/>
+        <TopLine Value="20"/>
+        <CursorPos X="36" Y="31"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit459>
       <Unit460>
@@ -4402,11 +4402,11 @@
       <Unit462>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
         <UnitName Value="wikitohtml"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="445"/>
         <CursorPos X="40" Y="452"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit462>
       <Unit463>
@@ -4415,11 +4415,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPrometFrames"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="23"/>
         <CursorPos X="38" Y="30"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit463>
       <Unit464>
@@ -4433,132 +4433,134 @@
       <Unit465>
         <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-db/src/sql/fpsqlparser.pas"/>
         <UnitName Value="fpsqlparser"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="2440"/>
-        <CursorPos X="3" Y="2443"/>
-        <UsageCount Value="12"/>
+        <TopLine Value="389"/>
+        <CursorPos X="33" Y="415"/>
+        <UsageCount Value="13"/>
+        <Loaded Value="True"/>
       </Unit465>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-db/src/sql/fpsqltree.pp"/>
-        <Caret Line="2152" Column="38" TopLine="2120"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="511" Column="19" TopLine="498"/>
       </Position1>
       <Position2>
-        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-db/src/sql/fpsqltree.pp"/>
-        <Caret Line="2166" Column="37" TopLine="2134"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="513" Column="1" TopLine="498"/>
       </Position2>
       <Position3>
-        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-db/src/sql/fpsqltree.pp"/>
-        <Caret Line="2201" Column="73" TopLine="2170"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="515" Column="1" TopLine="498"/>
       </Position3>
       <Position4>
-        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-db/src/sql/fpsqltree.pp"/>
-        <Caret Line="2205" Column="43" TopLine="2174"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="516" Column="1" TopLine="498"/>
       </Position4>
       <Position5>
-        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-db/src/sql/fpsqltree.pp"/>
-        <Caret Line="2207" Column="68" TopLine="2176"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="524" Column="1" TopLine="498"/>
       </Position5>
       <Position6>
-        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-db/src/sql/fpsqltree.pp"/>
-        <Caret Line="2209" Column="72" TopLine="2178"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="525" Column="1" TopLine="498"/>
       </Position6>
       <Position7>
-        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-db/src/sql/fpsqltree.pp"/>
-        <Caret Line="2221" Column="40" TopLine="2189"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="506" Column="1" TopLine="498"/>
       </Position7>
       <Position8>
-        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-db/src/sql/fpsqltree.pp"/>
-        <Caret Line="2225" Column="29" TopLine="2193"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="513" Column="1" TopLine="498"/>
       </Position8>
       <Position9>
-        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-db/src/sql/fpsqltree.pp"/>
-        <Caret Line="2238" Column="38" TopLine="2206"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="515" Column="1" TopLine="498"/>
       </Position9>
       <Position10>
-        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-db/src/sql/fpsqltree.pp"/>
-        <Caret Line="2242" Column="29" TopLine="2210"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="516" Column="1" TopLine="498"/>
       </Position10>
       <Position11>
-        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-db/src/sql/fpsqltree.pp"/>
-        <Caret Line="2263" Column="39" TopLine="2231"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="524" Column="1" TopLine="498"/>
       </Position11>
       <Position12>
-        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-db/src/sql/fpsqltree.pp"/>
-        <Caret Line="4770" Column="27" TopLine="4763"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="506" Column="1" TopLine="498"/>
       </Position12>
       <Position13>
-        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-db/src/sql/fpsqltree.pp"/>
-        <Caret Line="1750" Column="46" TopLine="1731"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="513" Column="1" TopLine="498"/>
       </Position13>
       <Position14>
-        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-db/src/sql/fpsqltree.pp"/>
-        <Caret Line="1734" Column="38" TopLine="1715"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="515" Column="1" TopLine="498"/>
       </Position14>
       <Position15>
-        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-db/src/sql/fpsqltree.pp"/>
-        <Caret Line="1722" Column="37" TopLine="1703"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="516" Column="1" TopLine="498"/>
       </Position15>
       <Position16>
-        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-db/src/sql/fpsqltree.pp"/>
-        <Caret Line="573" Column="30" TopLine="563"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="524" Column="1" TopLine="498"/>
       </Position16>
       <Position17>
         <Filename Value="../base_help/uwikiframe.pas"/>
-        <Caret Line="509" Column="35" TopLine="490"/>
+        <Caret Line="506" Column="1" TopLine="498"/>
       </Position17>
       <Position18>
         <Filename Value="../base_help/uwikiframe.pas"/>
-        <Caret Line="508" Column="1" TopLine="490"/>
+        <Caret Line="513" Column="1" TopLine="498"/>
       </Position18>
       <Position19>
         <Filename Value="../base_help/uwikiframe.pas"/>
-        <Caret Line="509" Column="1" TopLine="490"/>
+        <Caret Line="515" Column="1" TopLine="498"/>
       </Position19>
       <Position20>
-        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-db/src/sql/fpsqltree.pp"/>
-        <Caret Line="113" Column="63" TopLine="108"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="516" Column="1" TopLine="498"/>
       </Position20>
       <Position21>
-        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-db/src/sql/fpsqltree.pp"/>
-        <Caret Line="469" Column="20" TopLine="437"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="524" Column="1" TopLine="498"/>
       </Position21>
       <Position22>
-        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-db/src/sql/fpsqltree.pp"/>
-        <Caret Line="471" Column="18" TopLine="439"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="506" Column="1" TopLine="498"/>
       </Position22>
       <Position23>
-        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-db/src/sql/fpsqltree.pp"/>
-        <Caret Line="483" Column="55" TopLine="451"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="518" Column="1" TopLine="498"/>
       </Position23>
       <Position24>
-        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-db/src/sql/fpsqltree.pp"/>
-        <Caret Line="490" Column="59" TopLine="458"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="519" Column="1" TopLine="498"/>
       </Position24>
       <Position25>
-        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-db/src/sql/fpsqltree.pp"/>
-        <Caret Line="497" Column="59" TopLine="465"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="520" Column="1" TopLine="498"/>
       </Position25>
       <Position26>
-        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-db/src/sql/fpsqltree.pp"/>
-        <Caret Line="716" Column="12" TopLine="684"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="515" Column="1" TopLine="498"/>
       </Position26>
       <Position27>
-        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-db/src/sql/fpsqltree.pp"/>
-        <Caret Line="735" Column="51" TopLine="722"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="516" Column="1" TopLine="498"/>
       </Position27>
       <Position28>
-        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-db/src/sql/fpsqltree.pp"/>
-        <Caret Line="765" Column="12" TopLine="748"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="591" Column="79" TopLine="561"/>
       </Position28>
       <Position29>
         <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-db/src/sql/fpsqltree.pp"/>
-        <Caret Line="773" Column="65" TopLine="748"/>
+        <Caret Line="732" Column="42" TopLine="715"/>
       </Position29>
       <Position30>
-        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-db/src/sql/fpsqltree.pp"/>
-        <Caret Line="1187" Column="12" TopLine="1173"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="597" Column="49" TopLine="576"/>
       </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">
