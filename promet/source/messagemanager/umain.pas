@@ -79,7 +79,8 @@ type
 var
   fMain: TfMain;
 implementation
-uses uData,Utils,Forms,uBaseApplication,uIntfStrConsts,math,eventlog,uBaseDBInterface,
+uses {$ifdef WINDOWS}Windows,{$endif}
+  uData,Utils,Forms,uBaseApplication,uIntfStrConsts,math,eventlog,uBaseDBInterface,
   umTimeLine,XMLPropStorage,LCLProc,uprometipc,wikitohtml;
 {$R *.lfm}
 const
@@ -243,6 +244,9 @@ begin
             begin
               fmTimeline.acRefresh.Execute;
               InformRecTime := Now()+(1/(MSecsPerDay/MSecsPerSec));
+              {$IFDEF WINDOWS}
+              FlashWindow(fmTimeline.Handle,True);
+              {$ENDIF}
             end
           else
             begin
