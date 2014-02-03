@@ -50,6 +50,8 @@ type
   private
     FProject: TProjectList;
   public
+    constructor Create(aOwner: TComponent; DM: TComponent;
+      aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     procedure FillDefaults(aDataSet : TDataSet);override;
     procedure Open;override;
     property Project : TProjectList read FProject;
@@ -230,6 +232,14 @@ begin
   SetDisplayLabelName(aDataSet,'REALPRICE',strRealPrice);
   SetDisplayLabelName(aDataSet,'ORIGDATE',strInvoiceDate);
 end;
+
+constructor TProjectTasks.Create(aOwner: TComponent; DM: TComponent;
+  aConnection: TComponent; aMasterdata: TDataSet);
+begin
+  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  ActualFilter:='';
+end;
+
 procedure TProjectTasks.FillDefaults(aDataSet: TDataSet);
 var aID : Variant;
 begin
