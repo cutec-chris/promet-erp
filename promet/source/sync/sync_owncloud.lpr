@@ -68,6 +68,7 @@ var
   aCalendar: TCalendar;
   aSL: TStringList;
   aContact: TPerson;
+  Found: Boolean;
 begin
   aGlobalTime := Now();
   FTempDataSet := nil;
@@ -205,14 +206,16 @@ begin
                       SyncOut := False;
                       Collect := False;
                       DoSync := True;
+                      Found := False;
                       aID := 0;
                       Data.SetFilter(SyncItems,Data.QuoteField('SYNCTYPE')+'='+Data.QuoteValue('OWNCLOUD')+' AND '+Data.QuoteField('REMOTE_ID')+'='+Data.QuoteValue(rmQuerryE.FieldByName('uri').AsString));
                       aContact := TPerson.Create(nil,Data);
                       if SyncItems.Count > 0 then
                         begin
                           DoSync := (not SyncItems.DataSet.FieldByName('LOCAL_ID').IsNull) and (not SyncItems.DataSet.FieldByName('LOCAL_ID').AsInteger = 0);
-                          aCalendar.Select(SyncItems.FieldByName('LOCAL_ID').AsVariant);
-                          aCalendar.Open;
+                          aContact.Select(SyncItems.FieldByName('LOCAL_ID').AsVariant);
+                          aContact.Open;
+                          Found := True;
                         end
                       else
                         begin
@@ -225,17 +228,20 @@ begin
                           writeln('Syncing Contact '+rmQuerryE.FieldByName('fullname').AsString);
                           aSL := TStringList.Create;
                           aSL.Text:=rmQuerryE.FieldByName('carddata').AsString;
-                          aContact.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(rmQuerryE.FieldByName('fullname').AsString));
-                          if aContact.Count=1 then
+                          if not aContact.Active then
                             begin
-                              DoSync := False;
+                              aContact.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(rmQuerryE.FieldByName('fullname').AsString));
+                              if aContact.Count=1 then
+                                begin
+                                  Found := True;
+                                end;
                             end;
                           if DoSync then
                             begin
-                              VCardImport(aContact,aSL);
+                              VCardImport(aContact,aSL,Found);
                               with SyncItems.DataSet do
                                 begin
-                                  FieldByName('LOCAL_ID').AsVariant:=Data.GetBookmark(aCalendar);
+                                  FieldByName('LOCAL_ID').AsVariant:=Data.GetBookmark(aContact);
                                   FieldByName('TIMESTAMPD').AsDateTime:=Now();
                                   Post;
                                 end;

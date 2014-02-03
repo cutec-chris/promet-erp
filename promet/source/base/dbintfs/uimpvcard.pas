@@ -43,8 +43,9 @@ begin
           inc(i);
           if IsField('BEGIN',tmp) then
             begin
-              if not (DoChange and Customers.CanEdit) then
-                Append;
+              if not (DoChange) then
+                Append
+              else Customers.Edit;
               InBody := True
             end
           else if IsField('END',tmp) then
@@ -54,7 +55,10 @@ begin
             end
           else if InBody then
             begin
-              if IsField('N',tmp) then
+              Customers.CustomerCont.Active := True;
+              if IsField('UID',tmp) then
+                FieldByName('ORIGID').AsString := GetValue(tmp)
+              else if IsField('N',tmp) then
                 NField := GetValue(tmp)
               else if IsField('FN',tmp) then
                 FieldByName('NAME').AsString := GetValue(tmp)
@@ -63,72 +67,72 @@ begin
                   if HasAttrib('WORK',tmp) and HasAttrib('CELL',tmp) then
                     begin
                       if not Customers.CustomerCont.Locate('DATA',GetValue(tmp),[]) then
-                        Customers.CustomerCont.DataSet.Append
+                        Customers.CustomerCont.Append
                       else
-                        Customers.CustomerCont.DataSet.Edit;
+                        Customers.CustomerCont.Edit;
                       Customers.CustomerCont.FieldByName('TYPE').AsString := 'CELB';
                       Customers.CustomerCont.FieldByName('DATA').AsString := GetValue(tmp);
-                      Customers.CustomerCont.DataSet.Post;
+                      Customers.CustomerCont.Post;
                     end
                   else if HasAttrib('HOME',tmp) and HasAttrib('CELL',tmp) then
                     begin
                       if not Customers.CustomerCont.Locate('DATA',GetValue(tmp),[]) then
-                        Customers.CustomerCont.DataSet.Append
+                        Customers.CustomerCont.Append
                       else
-                        Customers.CustomerCont.DataSet.Edit;
+                        Customers.CustomerCont.Edit;
                       Customers.CustomerCont.FieldByName('TYPE').AsString := 'CELP';
                       Customers.CustomerCont.FieldByName('DATA').AsString := GetValue(tmp);
-                      Customers.CustomerCont.DataSet.Post;
+                      Customers.CustomerCont.Post;
                     end
                   else if HasAttrib('HOME',tmp) and HasAttrib('VOICE',tmp) then
                     begin
                       if not Customers.CustomerCont.Locate('DATA',GetValue(tmp),[]) then
-                        Customers.CustomerCont.DataSet.Append
+                        Customers.CustomerCont.Append
                       else
-                        Customers.CustomerCont.DataSet.Edit;
+                        Customers.CustomerCont.Edit;
                       Customers.CustomerCont.FieldByName('TYPE').AsString := 'TELP';
                       Customers.CustomerCont.FieldByName('DATA').AsString := GetValue(tmp);
-                      Customers.CustomerCont.DataSet.Post;
+                      Customers.CustomerCont.Post;
                     end
                   else if HasAttrib('WORK',tmp) and HasAttrib('VOICE',tmp) then
                     begin
                       if not Customers.CustomerCont.Locate('DATA',GetValue(tmp),[]) then
-                        Customers.CustomerCont.DataSet.Append
+                        Customers.CustomerCont.Append
                       else
-                        Customers.CustomerCont.DataSet.Edit;
+                        Customers.CustomerCont.Edit;
                       Customers.CustomerCont.FieldByName('TYPE').AsString := 'TELB';
                       Customers.CustomerCont.FieldByName('DATA').AsString := GetValue(tmp);
-                      Customers.CustomerCont.DataSet.Post;
+                      Customers.CustomerCont.Post;
                     end
                   else if HasAttrib('CELL',tmp) then
                     begin
                       if not Customers.CustomerCont.Locate('DATA',GetValue(tmp),[]) then
-                        Customers.CustomerCont.DataSet.Append
+                        Customers.CustomerCont.Append
                       else
-                        Customers.CustomerCont.DataSet.Edit;
+                        Customers.CustomerCont.Edit;
                       Customers.CustomerCont.FieldByName('TYPE').AsString := 'CEL';
                       Customers.CustomerCont.FieldByName('DATA').AsString := GetValue(tmp);
-                      Customers.CustomerCont.DataSet.Post;
+                      Customers.CustomerCont.Post;
                     end
                   else if HasAttrib('FAX',tmp) then
                     begin
                       if not Customers.CustomerCont.Locate('DATA',GetValue(tmp),[]) then
-                        Customers.CustomerCont.DataSet.Append
+                        Customers.CustomerCont.Append
                       else
-                        Customers.CustomerCont.DataSet.Edit;
+                        Customers.CustomerCont.Edit;
                       Customers.CustomerCont.FieldByName('TYPE').AsString := 'FAX';
                       Customers.CustomerCont.FieldByName('DATA').AsString := GetValue(tmp);
-                      Customers.CustomerCont.DataSet.Post;
+                      Customers.CustomerCont.Post;
                     end
                   else
                     begin
                       if not Customers.CustomerCont.Locate('DATA',GetValue(tmp),[]) then
-                        Customers.CustomerCont.DataSet.Append
+                        Customers.CustomerCont.Append
                       else
-                        Customers.CustomerCont.DataSet.Edit;
+                        Customers.CustomerCont.Edit;
                       Customers.CustomerCont.FieldByName('TYPE').AsString := 'TEL';
                       Customers.CustomerCont.FieldByName('DATA').AsString := GetValue(tmp);
-                      Customers.CustomerCont.DataSet.Post;
+                      Customers.CustomerCont.Post;
                     end;
                 end
               else if IsField('ADR',tmp) then
@@ -137,9 +141,9 @@ begin
                   tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
                   tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
                   if not Customers.Address.Locate('ADDRESS',VDecodeString(copy(tmp,0,pos(';',tmp)-1)),[]) then
-                    Customers.Address.DataSet.Append
+                    Customers.Address.Append
                   else
-                    Customers.Address.DataSet.Edit;
+                    Customers.Address.Edit;
                   Customers.Address.FieldByName('ADDRESS').AsString := VDecodeString(copy(tmp,0,pos(';',tmp)-1));
                   tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
                   Customers.Address.FieldByName('CITY').AsString := VDecodeString(copy(tmp,0,pos(';',tmp)-1));
@@ -156,50 +160,50 @@ begin
                   tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
                   tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
                   Customers.Address.FieldByName('TITLE').AsString := VDecodeString(tmp);
-                  Customers.Address.DataSet.Post;
+                  Customers.Address.Post;
                 end
               else if IsField('EMAIL',tmp) then
                 begin
                   if HasAttrib('WORK',tmp) then
                     begin
                       if not Customers.CustomerCont.Locate('DATA',GetValue(tmp),[]) then
-                        Customers.CustomerCont.DataSet.Append
+                        Customers.CustomerCont.Append
                       else
-                        Customers.CustomerCont.DataSet.Edit;
+                        Customers.CustomerCont.Edit;
                       Customers.CustomerCont.FieldByName('TYPE').AsString := 'MLB';
                       Customers.CustomerCont.FieldByName('DATA').AsString := GetValue(tmp);
-                      Customers.CustomerCont.DataSet.Post;
+                      Customers.CustomerCont.Post;
                     end
                   else if HasAttrib('HOME',tmp) then
                     begin
                       if not Customers.CustomerCont.Locate('DATA',GetValue(tmp),[]) then
-                        Customers.CustomerCont.DataSet.Append
+                        Customers.CustomerCont.Append
                       else
-                        Customers.CustomerCont.DataSet.Edit;
+                        Customers.CustomerCont.Edit;
                       Customers.CustomerCont.FieldByName('TYPE').AsString := 'MLP';
                       Customers.CustomerCont.FieldByName('DATA').AsString := GetValue(tmp);
-                      Customers.CustomerCont.DataSet.Post;
+                      Customers.CustomerCont.Post;
                     end
                   else
                     begin
                       if not Customers.CustomerCont.Locate('DATA',GetValue(tmp),[]) then
-                        Customers.CustomerCont.DataSet.Append
+                        Customers.CustomerCont.Append
                       else
-                        Customers.CustomerCont.DataSet.Edit;
+                        Customers.CustomerCont.Edit;
                       Customers.CustomerCont.FieldByName('TYPE').AsString := 'MAIL';
                       Customers.CustomerCont.FieldByName('DATA').AsString := GetValue(tmp);
-                      Customers.CustomerCont.DataSet.Post;
+                      Customers.CustomerCont.Post;
                     end;
                 end
               else if IsField('INTERNET',tmp) then
                 begin
                   if not Customers.CustomerCont.Locate('DATA',GetValue(tmp),[]) then
-                    Customers.CustomerCont.DataSet.Append
+                    Customers.CustomerCont.Append
                   else
-                    Customers.CustomerCont.DataSet.Edit;
+                    Customers.CustomerCont.Edit;
                   Customers.CustomerCont.FieldByName('TYPE').AsString := 'INT';
                   Customers.CustomerCont.FieldByName('DATA').AsString := GetValue(tmp);
-                  Customers.CustomerCont.DataSet.Post;
+                  Customers.CustomerCont.Post;
                 end
               else debugln('Field not found:'+tmp);
             end;
@@ -228,7 +232,7 @@ var
   end;
 
 begin
-  with Customers.DataSet do
+  with Customers do
     begin
       vOut.Add('BEGIN:VCARD');
       WriteField('VERSION','2.1','','');
@@ -239,8 +243,8 @@ begin
       WriteField('FN',FieldByName('NAME').AsString);
       if not FieldByName('INFO').IsNull then
         WriteField('NOTE',VEncodeString(FieldByName('INFO').AsString),'QUOTED-PRINTABLE');
-      Customers.CustomerCont.DataSet.First;
-      while not Customers.CustomerCont.DataSet.EOF do
+      Customers.CustomerCont.First;
+      while not Customers.CustomerCont.EOF do
         begin
           if trim(Customers.CustomerCont.FieldByName('TYPE').AsString) = 'TEL' then
             WriteField('TEL;VOICE',Customers.CustomerCont.FieldByName('DATA').AsString)
@@ -265,18 +269,18 @@ begin
           else if trim(Customers.CustomerCont.FieldByName('TYPE').AsString) = 'INT' then
             WriteField('INTERNET',Customers.CustomerCont.FieldByName('DATA').AsString)
           ;
-          Customers.CustomerCont.DataSet.Next;
+          Customers.CustomerCont.Next;
         end;
-      Customers.Address.DataSet.First;
+      Customers.Address.First;
       WriteField('N',Customers.Address.FieldByName('NAME').AsString+';'+Customers.Address.FieldByName('CNAME').AsString+';;'+Customers.Address.FieldByName('TITLE').AsString);
-      while not Customers.Address.DataSet.EOF do
+      while not Customers.Address.EOF do
         begin
           if Customers.Address.FieldByName('ACTIVE').AsString <> 'N' then
             WriteField('ADR;TYPE=HOME',';;'+VEncodeString(Customers.Address.FieldByName('ADDRESS').AsString)+';'
                     +VEncodeString(Customers.Address.FieldByName('CITY').AsString)+';'
                     +VEncodeString(Customers.Address.FieldByName('STATE').AsString)+';'
                     +VEncodeString(Customers.Address.FieldByName('ZIP').AsString),'QUOTED-PRINTABLE','');
-          Customers.Address.DataSet.Next;
+          Customers.Address.Next;
         end;
       with Customers.Images do
         begin

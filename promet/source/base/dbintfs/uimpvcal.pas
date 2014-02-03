@@ -210,7 +210,10 @@ begin
       while not EOF do
         begin
           vOut.Add('BEGIN:VEVENT');
-          vOut.Add('UID:'+FieldByName('SQL_ID').AsString);
+          if FieldByName('ORIGID').IsNull then
+            vOut.Add('UID:'+FieldByName('SQL_ID').AsString)
+          else
+            vOut.Add('UID:'+FieldByName('ORIGID').AsString);
           vOut.Add('DTSTAMP:'+BuildISODate(FieldByName('TIMESTAMPD').AsDateTime));
           vOut.Add('DTSTART:'+BuildISODate(FieldByName('STARTDATE').AsDateTime));
           vOut.Add('DTEND:'+BuildISODate(FieldByName('ENDDATE').AsDateTime));
