@@ -119,6 +119,7 @@ type
     procedure SetRights(Editable : Boolean);
     function OpenWikiPage(PageName : string;CreateIfNotExists : Boolean = False) : Boolean;
     procedure Refresh;
+    procedure DoRefresh; override;
   end;
   TSimpleIpHtml = class(TIpHtml)
   public
@@ -490,12 +491,15 @@ var
     aLink: String;
   begin
     aLink := Data.BuildLink(aDs.DataSet);
-    Outp+='<li><a href="'+aLink+'">'+UTF8ToSys(Data.GetLinkDesc(aLink))+'</a></li>';
+    Outp+='<li><a href="'+aLink+'" title="'+Data.GetLinkDesc(aLink)+#10+Data.GetLinkLongDesc(aLink)+'">'+HTMLEncode(Data.GetLinkDesc(aLink))+'</a></li>';
   end;
 
   procedure FilterSQL(aType : Integer);
   var
     a: Integer;
+    aOrderDir: TSQLOrderDirection;
+    aOrder: string = '';
+    aOrderDirStr: String = 'ASC';
   begin
     FSQLStream := TStringStream.Create(Inp);
     FSQLScanner := TSQLScanner.Create(FSQLStream);
@@ -512,14 +516,25 @@ var
               aRight := UpperCase(aTableName);
               if Assigned(TSQLSelectStatement(aStmt).Where) then
                 aFilter:=TSQLSelectStatement(aStmt).Where.GetAsSQL([sfoDoubleQuoteIdentifier]);
+              if Assigned(TSQLSelectStatement(aStmt).Orderby) and (TSQLSelectStatement(aStmt).Orderby.Count>0) then
+                begin
+                  aOrder:=TSQLIdentifierName(TSQLOrderByElement(TSQLSelectStatement(aStmt).Orderby.Elements[0]).Field).Name;
+                  aOrderDir := TSQLOrderByElement(TSQLSelectStatement(aStmt).Orderby.Elements[0]).OrderBy;
+                end;
               if (data.Users.Rights.Right(aRight)>RIGHT_READ) and (Assigned(aDS)) then
                 begin
+                  if aOrder<>'' then
+                    begin
+                      if aOrderDir=obAscending then
+                        aOrderDirStr := 'ASC'
+                      else aOrderDirStr := 'DESC';
+                    end;
                   if (aDs.ActualFilter<>'') and (aFilter<>'') then
                     aDs.Filter('('+aDs.ActualFilter+') AND ('+aFilter+')',aLimit)
-                  else if (aFilter = '') then
-                    aDs.Filter('('+aDs.ActualFilter+')',aLimit)
+                  else if (aFilter = '') and (aDs.ActualFilter<>'') then
+                    aDs.Filter('('+aDs.ActualFilter+')',aLimit,aOrder,aOrderDirStr)
                   else
-                    aDs.Filter(aFilter,aLimit);
+                    aDs.Filter(aFilter,aLimit,aOrder,aOrderDirStr);
                   while not aDS.EOF do
                     begin
                       case aType of
@@ -642,14 +657,18 @@ var
   aDocFrame: TfDocumentFrame;
   aPageIndex: Integer;
   aDocPage: TTabSheet;
+  aWiki: TWikiList;
 begin
-  Result := TWikiList(DataSet).FindWikiPage(pageName);
-  aParent := TWikiList(DataSet).ActiveTreeID;
-  pcPages.ClearTabClasses;
-  if FEditable then
-    pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
+  aWiki := TWikiList.Create(nil,Data);
+  Result := aWiki.FindWikiPage(pageName);
+  aWiki.Free;
   if Result then
     begin
+      TWikiList(DataSet).FindWikiPage(PageName);
+      aParent := TWikiList(DataSet).ActiveTreeID;
+      pcPages.ClearTabClasses;
+      if FEditable then
+        pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
       tsView.Show;
       Screen.Cursor := crHourglass;
       ipHTML.SetHtml(Wiki2HTML(DataSet.FieldByName('DATA').AsString));
@@ -691,6 +710,7 @@ begin
     end
   else if CreateIfNotExists then
     begin
+      pcPages.ClearTabClasses;
       DataSet.DataSet.Insert;
       DataSet.FieldByName('NAME').AsString := copy(PageName,rpos('/',PageName)+1,length(PageName));
       if aParent = 0 then
@@ -707,6 +727,13 @@ procedure TfWikiFrame.Refresh;
 begin
   if (not Assigned(DataSet)) or (not DataSet.DataSet.Active) then exit;
   ipHTML.SetHtml(Wiki2HTML(DataSet.FieldByName('DATA').AsString));
+end;
+
+procedure TfWikiFrame.DoRefresh;
+begin
+  inherited DoRefresh;
+  if TWikiList(DataSet).isDynamic then
+    Refresh;
 end;
 
 {$R *.lfm}

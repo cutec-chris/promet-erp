@@ -442,12 +442,9 @@ begin
               aLink := linkoffset+UTF8ToSys(HTMLDecode(linkcontent));
               if copy(aLink,0,length(RemoveLinkOffset)) = RemoveLinkOffset then
                 aLink := copy(aLink,length(RemoveLinkOffset),length(aLink));
-              if pos('::',linkcontent) > 0 then
-                ostr := ostr+'<a href="'+aLink+'">'
-              else
-                ostr := ostr+'<a href="'+aLink+'">';
+              ostr := ostr+'<a href="'+aLink+'"';
               istr := copy(istr,pos('|',istr)+1,length(istr));
-              ostr := ostr+copy(istr,0,pos(']]',istr)-1)+'</a>';
+              ostr := ostr+' title="'+copy(istr,0,pos(']]',istr)-1)+'">'+copy(istr,0,pos(']]',istr)-1)+'</a>';
               istr := copy(istr,pos(']]',istr)+2,length(istr));
         end
       else
@@ -459,7 +456,7 @@ begin
               if pos('::',linkcontent) > 0 then
                 ostr := ostr+'<a href="'+aLink+'">'
               else
-                ostr := ostr+'<a href="'+aLink+'">'+copy(istr,0,pos(']]',istr)-1)+'</a>';
+                ostr := ostr+'<a href="'+aLink+'" title="'+copy(istr,0,pos(']]',istr)-1)+'">'+copy(istr,0,pos(']]',istr)-1)+'</a>';
               istr := copy(istr,pos(']]',istr)+2,length(istr));
         end;
     end;
@@ -544,4 +541,4 @@ end;
 
 
 end.
-
+

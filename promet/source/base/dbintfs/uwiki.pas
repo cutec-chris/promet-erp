@@ -41,6 +41,7 @@ type
     function GetNumberFieldName : string;override;
     function GetDescriptionFieldName: string;override;
     function FindWikiPage(PageName : string;Docreate : Boolean = False) : Boolean;
+    function isDynamic : Boolean;
     function PageAsText : string;
     property ActiveTreeID : Variant read FActiveTreeID;
     constructor Create(aOwner: TComponent; DM: TComponent;
@@ -200,6 +201,14 @@ begin
   FActiveTreeID := aParent;
   aTree.Free;
 end;
+
+function TWikiList.isDynamic: Boolean;
+begin
+  Result := False;
+  if not Active then exit;
+  Result := pos('[[INCLUDE:',FieldByName('DATA').AsString)>0;
+end;
+
 function TWikiList.PageAsText: string;
 begin
   Result := StripHTML(WikiText2HTML(DataSet.FieldByName('DATA').AsString,'',''));

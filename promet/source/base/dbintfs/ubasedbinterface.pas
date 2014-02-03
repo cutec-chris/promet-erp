@@ -847,6 +847,13 @@ begin
           Result := aTable.FieldByName('DESCRIPTION').AsString;
           FreeAndNil(aTable);
         end
+      else if copy(aLink, 0, pos('@', aLink) - 1) = 'TASKS' then
+        begin
+          aTable := Data.GetNewDataSet('select "DESC" from "'+copy(aLink, 0, pos('@', aLink) - 1)+'" where "SQL_ID"='+Data.QuoteValue(copy(aLink, pos('@', aLink) + 1, length(aLink))));
+          aTable.Open;
+          Result := aTable.FieldByName('DESC').AsString;
+          FreeAndNil(aTable);
+        end
       else if copy(aLink, 0, pos('@', aLink) - 1) = 'WIKI' then
         begin
           if IsNumeric(copy(aLink, pos('@', aLink) + 1, length(aLink))) then
