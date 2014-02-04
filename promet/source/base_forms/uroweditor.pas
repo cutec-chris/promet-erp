@@ -225,7 +225,7 @@ begin
       end;
 end;
 const
-  SBWidth = 30;
+  SBWidth = 31;
   MIN_WIDTH = 15;
 procedure TfRowEditor.SetGridSizes(aConfigName : string;DataSource: TDataSource; Grid: TDBGrid; Filter : string = '');
 var
@@ -308,9 +308,8 @@ begin
       GridWidth := Grid.Width;
       if copy(s,0,12) = 'GLOBALWIDTH:' then
         begin
-          Percentage := copy(s,0,pos(';',s)-1)='%';
           s := copy(s,pos(':',s)+1,length(s));
-          Percentage := s='%';
+          Percentage := copy(s,0,pos(';',s)-1)='%';
           GlobalWidth := StrToIntDef(copy(s,0,pos(';',s)-1),0);
           s := copy(s,pos(';',s)+1,length(s));
           if GlobalWidth <> 0 then
@@ -325,7 +324,7 @@ begin
           FullWidth := FullWidth+StrToIntDef(copy(s,0,pos(';',s)-1),64);
           s := copy(s,pos(';',s)+1,length(s));
         end;
-      if FullWidth>Grid.Width then
+      if (FullWidth>Grid.Width) or Percentage then
         Factor := Factor+(((Grid.Width-SBWidth)/FullWidth)-1);
       if Factor < 0.2 then Factor := 1;
       s := s1;

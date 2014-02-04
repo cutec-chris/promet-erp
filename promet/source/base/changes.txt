@@ -1,9 +1,10 @@
 ﻿Build 309
-      -
+      - Startseite: erste voll arbeitende Version
+      - Grids: Spaltenbreite kann prozentual gespeichert werden so das alle Grids immer die volle Breite ausnutzen unabhängig von Bildschirmauflösung
 Build 308
-      - Startpage with owner createable filters and actions
+      - Startseite: erste Version
 Build 307
-      - more Context Menu Options
+      - mehr Context Menu Options
 Build 306
       - Schnellerfassungssymbole in Toolbar
       - Daemon und Service für processmanagement komplett
