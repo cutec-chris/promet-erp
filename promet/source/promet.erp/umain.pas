@@ -852,8 +852,8 @@ begin
       fMain.pcPages.AddTabClass(TfWikiFrame,strWiki,@fMain.AddWiki,Data.GetLinkIcon('WIKI@'),True);
       Data.RegisterLinkHandler('WIKI',@fMainTreeFrame.OpenLink,TWikiList);
       AddSearchAbleDataSet(TWikiList);
-      Synchronize(@RefreshWiki);
     end;
+  Synchronize(@RefreshWiki);
   //Documents
   if (Data.Users.Rights.Right('DOCUMENTS') > RIGHT_NONE) then
     begin
