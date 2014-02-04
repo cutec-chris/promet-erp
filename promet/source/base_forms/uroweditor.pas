@@ -30,6 +30,7 @@ type
 
   TfRowEditor = class(TForm)
     bpButtons: TButtonPanel;
+    cbProcent: TCheckBox;
     lbSource: TListBox;
     lbDestination: TListBox;
     bRemoveRow: TBitBtn;
@@ -182,14 +183,19 @@ begin
   if not Assigned(DataSource) then exit;
   if not Assigned(Grid) then exit;
   for i := 0 to DataSource.DataSet.FieldCount-1 do
-//    if DataSource.DataSet.Fields[i].FieldName <> 'SQL_ID' then
-      lbSource.Items.Add(BuildFieldDesc(DataSource.DataSet.Fields[i]));
+    lbSource.Items.Add(BuildFieldDesc(DataSource.DataSet.Fields[i]));
   for i := 0 to Grid.Columns.Count-1 do
     begin
       lbDestination.Items.Add(BuildFieldDesc(TColumn(Grid.Columns[i]).Field));
       if lbSource.Items.IndexOf(BuildFieldDesc(TColumn(Grid.Columns[i]).Field)) > -1 then
         lbSource.Items.Delete(lbSource.Items.IndexOf(BuildFieldDesc(TColumn(Grid.Columns[i]).Field)));
     end;
+  tmp := aConfigName;
+  if Filter <> '' then
+    tmp := tmp+','+Filter;
+  with Application as IBaseDbInterface do
+    s := DBConfig.ReadString('GRID:'+Uppercase(tmp),'GLOBALWIDTH:%;');
+  cbProcent.Checked:=copy(s,0,14)='GLOBALWIDTH:%;';
   OK := False;
   OK := Showmodal = mrOK;
   Result := OK;
@@ -197,13 +203,13 @@ begin
     if Assigned(ActControl) and ActControl.CanFocus then ActControl.SetFocus;
   except
   end;
-  tmp := aConfigName;
-  if Filter <> '' then
-    tmp := tmp+','+Filter;
   if Result then
     with Application as IBaseDbInterface do
       begin
-        s := 'GLOBALWIDTH:'+IntToStr(Grid.Width)+';';
+        if cbProcent.Checked then
+          s := 'GLOBALWIDTH:%;'
+        else
+          s := 'GLOBALWIDTH:'+IntToStr(Grid.Width)+';';
         for i := 0 to lbDestination.Items.Count-1 do
           begin
             s := s+ExtractFieldName(lbDestination.Items[i])+':';
@@ -234,7 +240,12 @@ begin
   tmp := aConfigName;
   if Filter <> '' then
     tmp := tmp+','+Filter;
-  s := 'GLOBALWIDTH:'+IntToStr(Grid.Width)+';';
+  with Application as IBaseDbInterface do
+    s := DBConfig.ReadString('GRID:'+Uppercase(tmp),'GLOBALWIDTH:%;');
+  if copy(s,0,14)='GLOBALWIDTH:%;' then
+    s := 'GLOBALWIDTH:%;'
+  else
+    s := 'GLOBALWIDTH:'+IntToStr(Grid.Width)+';';
   for i := 0 to Grid.Columns.Count-1 do
     begin
       s := s+TColumn(Grid.Columns[i]).FieldName+':'+IntToStr(TColumn(Grid.Columns[i]).Width)+';';
@@ -265,6 +276,7 @@ var
   FullWidth: Integer;
   s1: String;
   GridWidth: Integer;
+  Percentage: Boolean;
 begin
   Result := False;
   if not Assigned(DataSource) then exit;
@@ -296,7 +308,9 @@ begin
       GridWidth := Grid.Width;
       if copy(s,0,12) = 'GLOBALWIDTH:' then
         begin
+          Percentage := copy(s,0,pos(';',s)-1)='%';
           s := copy(s,pos(':',s)+1,length(s));
+          Percentage := s='%';
           GlobalWidth := StrToIntDef(copy(s,0,pos(';',s)-1),0);
           s := copy(s,pos(';',s)+1,length(s));
           if GlobalWidth <> 0 then

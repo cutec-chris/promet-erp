@@ -783,7 +783,9 @@ begin
   else if CreateIfNotExists then
     begin
       pcPages.ClearTabClasses;
-      DataSet.DataSet.Insert;
+      TWikiList(DataSet).FindWikiPage(PageName);
+      aParent := TWikiList(DataSet).ActiveTreeID;
+      DataSet.Insert;
       DataSet.FieldByName('NAME').AsString := copy(PageName,rpos('/',PageName)+1,length(PageName));
       if aParent = 0 then
         aParent := TREE_ID_WIKI_UNSORTED;

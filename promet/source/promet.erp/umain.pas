@@ -977,11 +977,10 @@ begin
               WikiFrame.DataSet.Edit;
               WikiFrame.DataSet.FieldByName('DATA').AsString:=aStartPagetext;
               WikiFrame.DataSet.Post;
-              WikiFrame.OpenWikiPage('Promet-ERP-Help/users/'+Data.Users.UserName.AsString,True);
+              WikiFrame.OpenWikiPage('Promet-ERP-Help/users/'+Data.Users.UserName.AsString,False);
             end;
         except
         end;
-        WikiFrame.SetRights(Data.Users.Rights.Right('WIKI')>RIGHT_READ);
         //debugln('Wiki: '+IntToStr(GetTickCount64-aTime));
         aItems := TStringList.Create;
         aItems.Delimiter:=';';

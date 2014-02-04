@@ -989,7 +989,7 @@ var
           // draw an arrow. down for collapse and right for expand
           R := Rect(ALeft, ATop, ARight, ABottom);
           GetMem(Points, SizeOf(TPoint) * 3);
-          if CollapseSign tMovehen
+          if CollapseSign then
           begin
             // draw an arrow down
             Points[0] := Point(R.Left, MidY);
