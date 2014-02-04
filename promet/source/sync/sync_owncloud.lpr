@@ -162,6 +162,13 @@ begin
                               DoSync := (not SyncItems.DataSet.FieldByName('LOCAL_ID').IsNull) and (not SyncItems.DataSet.FieldByName('LOCAL_ID').AsInteger = 0);
                               aCalendar.Select(SyncItems.FieldByName('LOCAL_ID').AsVariant);
                               aCalendar.Open;
+                              Found := True;
+                              DoSync:=SyncItems.TimeStamp.AsDateTime<LastModified;
+                              if aCalendar.TimeStamp.AsDateTime>SyncItems.TimeStamp.AsDateTime then
+                                begin
+                                  DoSync:=True;
+                                  SyncOut:=True;
+                                end;
                             end
                           else
                             begin
@@ -173,16 +180,37 @@ begin
                             begin
                               writeln('Syncing Event '+rmQuerryE.FieldByName('summary').AsString);
                               aSL := TStringList.Create;
-                              aSL.Text:=rmQuerryE.FieldByName('calendardata').AsString;
-                              VCalImport(aCalendar,aSL);
-                              aSL.Free;
-                              with SyncItems do
+                              if DoSync and (not SyncOut) then
                                 begin
-                                  Edit;
-                                  FieldByName('USER_ID').AsVariant:=aUsers.Id.AsVariant;
-                                  FieldByName('LOCAL_ID').AsVariant:=Data.GetBookmark(aCalendar);
-                                  FieldByName('TIMESTAMPD').AsDateTime:=Now();
-                                  Post;
+                                  aSL.Text:=rmQuerryE.FieldByName('calendardata').AsString;
+                                  VCalImport(aCalendar,aSL);
+                                  aSL.Free;
+                                  with SyncItems do
+                                    begin
+                                      Edit;
+                                      FieldByName('USER_ID').AsVariant:=aUsers.Id.AsVariant;
+                                      FieldByName('LOCAL_ID').AsVariant:=Data.GetBookmark(aCalendar);
+                                      FieldByName('TIMESTAMPD').AsDateTime:=Now();
+                                      Post;
+                                    end;
+                                end
+                              else if DoSync then
+                                begin
+                                  if VCalExport(aCalendar,aSL) then
+                                    begin
+                                      rmQuerryE.Edit;
+                                      rmQuerryE.FieldByName('calendardata').AsString:=aSL.Text;
+                                      rmQuerryE.FieldByName('lastmodified').AsInteger := ((Trunc(Now()) - 25569) * 86400) + Trunc(86400 * (Now() - Trunc(Now()))) - 7200;
+                                      rmQuerryE.Post;
+                                      with SyncItems do
+                                        begin
+                                          Edit;
+                                          FieldByName('USER_ID').AsVariant:=aUsers.Id.AsVariant;
+                                          FieldByName('LOCAL_ID').AsVariant:=Data.GetBookmark(aContact);
+                                          FieldByName('TIMESTAMPD').AsDateTime:=Now();
+                                          Post;
+                                        end;
+                                    end;
                                 end;
                             end;
                           aCalendar.Free;
