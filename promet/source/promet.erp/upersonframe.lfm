@@ -28,7 +28,7 @@ inherited fPersonFrame: TfPersonFrame
     end
     object eMatchCode: TExtDBEdit
       Left = 297
-      Height = 22
+      Height = 21
       Hint = 'Hier können Sie einen Suchbegriff angeben, '#13#10'um den Eintrag besser zu finden'
       Top = 20
       Width = 128
@@ -49,18 +49,18 @@ inherited fPersonFrame: TfPersonFrame
       Anchors = [akTop, akRight]
       DataField = 'LANGUAGE'
       DataSource = Customers
-      ItemHeight = 0
+      ItemHeight = 13
       MaxLength = 0
       Sorted = True
       TabOrder = 1
       TabStop = False
     end
     object cbSupplier: TDBCheckBox
-      Left = 422
-      Height = 18
+      Left = 437
+      Height = 17
       Hint = 'setzen Sie dieses Feld wenn der Kontakt ein Lieferant ist'
       Top = 52
-      Width = 76
+      Width = 61
       Anchors = [akTop, akRight]
       AutoSize = True
       Caption = 'Lieferant'
@@ -77,8 +77,8 @@ inherited fPersonFrame: TfPersonFrame
       Width = 65
       Anchors = [akTop, akRight]
       Caption = 'Baum'
-      ClientHeight = 26
-      ClientWidth = 57
+      ClientHeight = 30
+      ClientWidth = 61
       TabOrder = 2
       object bAssignTree: TSpeedButton
         Left = 2
@@ -157,7 +157,7 @@ inherited fPersonFrame: TfPersonFrame
         ShowCaption = False
       end
     end
-    object eCustomerName: TDBMemo
+    object eName: TDBMemo
       Left = 64
       Height = 48
       Hint = 'geben Sie hier den namen des Kontaktes an'
@@ -166,15 +166,15 @@ inherited fPersonFrame: TfPersonFrame
       Anchors = [akTop, akLeft, akRight]
       DataField = 'NAME'
       DataSource = Customers
-      OnChange = eCustomerNameChange
-      OnExit = eCustomerNameExit
+      OnChange = eNameChange
+      OnExit = eNameExit
       TabOrder = 4
     end
     object lCustomerName: TLabel
       Left = 64
-      Height = 16
+      Height = 13
       Top = 4
-      Width = 84
+      Width = 63
       Caption = 'Kontaktname'
       ParentColor = False
     end
@@ -344,9 +344,9 @@ inherited fPersonFrame: TfPersonFrame
     end
     object lCustomerof: TLabel
       Left = 4
-      Height = 16
+      Height = 13
       Top = 68
-      Width = 153
+      Width = 113
       Caption = 'Mitglied/Mitarbeiter von'
       ParentColor = False
       Visible = False
@@ -355,10 +355,10 @@ inherited fPersonFrame: TfPersonFrame
       AnchorSideLeft.Control = lCustomerof
       AnchorSideLeft.Side = asrBottom
       Cursor = crHandPoint
-      Left = 161
-      Height = 16
+      Left = 121
+      Height = 13
       Top = 68
-      Width = 68
+      Width = 49
       BorderSpacing.Left = 4
       Caption = 'lFirmName'
       Font.Color = clHighlight
@@ -381,26 +381,26 @@ inherited fPersonFrame: TfPersonFrame
     NewTabImageIndex = 59
     object tsCustomerCont: TTabSheet
       Caption = 'Kontaktdaten'
-      ClientHeight = 325
-      ClientWidth = 608
+      ClientHeight = 337
+      ClientWidth = 606
       ImageIndex = 51
       object pCont: TPanel
         Left = 44
-        Height = 325
+        Height = 337
         Top = 0
-        Width = 564
+        Width = 562
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 0
       end
       object Panel1: TPanel
         Left = 0
-        Height = 325
+        Height = 337
         Top = 0
         Width = 44
         Align = alLeft
         BevelOuter = bvNone
-        ClientHeight = 325
+        ClientHeight = 337
         ClientWidth = 44
         TabOrder = 1
         object Panel2: TPanel
@@ -434,7 +434,8 @@ inherited fPersonFrame: TfPersonFrame
             Caption = 'Navigation'
             Font.Color = clMedGray
             Font.Height = 11
-            Font.Orientation = -900
+            Font.Orientation = 900
+            Layout = tlBottom
             ParentColor = False
             ParentFont = False
           end
@@ -823,7 +824,7 @@ inherited fPersonFrame: TfPersonFrame
       end
       object eCustomerNumber: TDBEdit
         Left = 4
-        Height = 22
+        Height = 21
         Top = 12
         Width = 88
         DataField = 'ACCOUNTNO'
@@ -880,11 +881,11 @@ inherited fPersonFrame: TfPersonFrame
       end
       object cbStatus: TComboBox
         Left = 1
-        Height = 20
+        Height = 21
         Hint = 'hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu überführen'
         Top = 12
         Width = 128
-        ItemHeight = 0
+        ItemHeight = 13
         OnSelect = cbStatusSelect
         Style = csDropDownList
         TabOrder = 0
@@ -964,14 +965,14 @@ inherited fPersonFrame: TfPersonFrame
     BevelOuter = bvNone
     BorderStyle = bsSingle
     Caption = 'kein Bild'
-    ClientHeight = 122
-    ClientWidth = 98
+    ClientHeight = 118
+    ClientWidth = 94
     TabOrder = 0
     object iPerson: TImage
       Left = 0
-      Height = 122
+      Height = 118
       Top = 0
-      Width = 98
+      Width = 94
       Align = alClient
       AutoSize = True
       Proportional = True
@@ -1062,12 +1063,20 @@ inherited fPersonFrame: TfPersonFrame
       OnExecute = acPrintExecute
       ShortCut = 16464
     end
+    object acCombineItems: TAction
+      Caption = 'Personen verschmelzen'
+      ImageIndex = 70
+      OnExecute = acCombineItemsExecute
+    end
   end
   object pmAction: TPopupMenu[6]
     left = 204
     top = 32
     object miStartTimeregistering: TMenuItem
       Action = acStartTimeRegistering
+    end
+    object MenuItem7: TMenuItem
+      Action = acCombineItems
     end
     object MenuItem1: TMenuItem
       Caption = '-'

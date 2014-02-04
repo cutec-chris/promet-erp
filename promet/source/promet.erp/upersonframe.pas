@@ -45,6 +45,7 @@ type
     acImport: TAction;
     acRights: TAction;
     acPrint: TAction;
+    acCombineItems: TAction;
     ActionList1: TActionList;
     bAssignTree: TSpeedButton;
     bChangeNumber: TButton;
@@ -61,7 +62,7 @@ type
     cbSupplier: TDBCheckBox;
     Customers: TDatasource;
     dnNavigator: TDBNavigator;
-    eCustomerName: TDBMemo;
+    eName: TDBMemo;
     eCustomerNumber: TDBEdit;
     eMatchCode: TExtDBEdit;
     ExportDialog: TSaveDialog;
@@ -84,6 +85,7 @@ type
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
+    MenuItem7: TMenuItem;
     miCopy: TMenuItem;
     miDelete: TMenuItem;
     miPaste: TMenuItem;
@@ -115,6 +117,7 @@ type
     procedure acAddAsOrderExecute(Sender: TObject);
     procedure acCancelExecute(Sender: TObject);
     procedure acCloseExecute(Sender: TObject);
+    procedure acCombineItemsExecute(Sender: TObject);
     procedure acDeleteExecute(Sender: TObject);
     procedure acExportExecute(Sender: TObject);
     procedure acImportExecute(Sender: TObject);
@@ -128,10 +131,12 @@ type
     procedure cbStatusSelect(Sender: TObject);
     procedure CustomersDataChange(Sender: TObject; Field: TField);
     procedure CustomersStateChange(Sender: TObject);
-    procedure eCustomerNameChange(Sender: TObject);
-    procedure eCustomerNameExit(Sender: TObject);
+    procedure eNameChange(Sender: TObject);
+    procedure eNameExit(Sender: TObject);
     procedure FContListDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure FContListgListEditButtonClick(Sender: TObject);
+    function fSearchOpenItem(aLink: string): Boolean;
+    function fSearchValidateItem(aLink: string): Boolean;
     procedure lFirmNameClick(Sender: TObject);
     procedure sbMenueClick(Sender: TObject);
     procedure TfListFrameFListDragDrop(Sender, Source: TObject; X, Y: Integer);
@@ -267,6 +272,17 @@ begin
          fEditMail.SendMailTo('"'+TPerson(DataSet).FieldByName('NAME').AsString+'" <'+TPerson(DataSet).CustomerCont.FieldByName('DATA').AsString+'>');
        end;
 end;
+
+function TfPersonFrame.fSearchOpenItem(aLink: string): Boolean;
+begin
+  if MessageDlg(Format(strCombiteItems,[Data.GetLinkDesc(Data.BuildLink(Dataset.DataSet)),Data.GetLinkDesc(aLink)]),mtConfirmation,[mbYes,mbNo],0) = mrNo then exit;
+end;
+
+function TfPersonFrame.fSearchValidateItem(aLink: string): Boolean;
+begin
+  Result := aLink <> Data.BuildLink(DataSet.DataSet);
+end;
+
 procedure TfPersonFrame.lFirmNameClick(Sender: TObject);
 var
   aPerson: TPerson;
@@ -413,12 +429,12 @@ begin
   acSave.Enabled := DataSet.CanEdit or DataSet.Changed;
   acCancel.Enabled:= DataSet.CanEdit or DataSet.Changed;
 end;
-procedure TfPersonFrame.eCustomerNameChange(Sender: TObject);
+procedure TfPersonFrame.eNameChange(Sender: TObject);
 var
   tmp: String;
 begin
-  TabCaption := eCustomerName.Text;
-  tmp := StringReplace(UpperCase(StringReplace(ValidateFileName(eCustomerName.Text),'_','',[rfReplaceAll])),' ','',[rfReplaceAll]);
+  TabCaption := eName.Text;
+  tmp := StringReplace(UpperCase(StringReplace(ValidateFileName(eName.Text),'_','',[rfReplaceAll])),' ','',[rfReplaceAll]);
   tmp := StringReplace(tmp,'-','',[rfReplaceAll]);
   if DataSet.CanEdit and DataSet.Changed then
     begin
@@ -429,7 +445,7 @@ begin
   acSave.Enabled := DataSet.CanEdit or DataSet.Changed;
   acCancel.Enabled:= DataSet.CanEdit or DataSet.Changed;
 end;
-procedure TfPersonFrame.eCustomerNameExit(Sender: TObject);
+procedure TfPersonFrame.eNameExit(Sender: TObject);
 begin
   if pcPages.CanFocus then
     pcPages.SetFocus;
@@ -523,7 +539,7 @@ begin
       TPerson(aFrame.DataSet).CustomerCont.FieldByName('TYPE').AsString:='MAIL';
       TPerson(aFrame.DataSet).CustomerCont.FieldByName('DATA').AsString:=Mail;
     end;
-  aFrame.eCustomerName.SetFocus;
+  aFrame.eName.SetFocus;
   aFrame.pcPages.PageIndex:=0;
   aFrame.EmployeeOf := aCust;
 end;
@@ -581,6 +597,26 @@ procedure TfPersonFrame.acCloseExecute(Sender: TObject);
 begin
   CloseFrame;
 end;
+
+procedure TfPersonFrame.acCombineItemsExecute(Sender: TObject);
+var
+  i: Integer;
+begin
+  fSearch.SetLanguage;
+  fSearch.OnOpenItem:=@fSearchOpenItem;
+  fSearch.OnValidateItem:=@fSearchValidateItem;
+  i := 0;
+  while i < fSearch.cbSearchType.Count do
+    begin
+      if fSearch.cbSearchType.Items[i] <> strContact then
+        fSearch.cbSearchType.Items.Delete(i)
+      else
+        inc(i);
+    end;
+  fSearch.eContains.Text:=eName.Text;
+  fSearch.Execute(True,'COMBPERSON','');
+end;
+
 procedure TfPersonFrame.acDeleteExecute(Sender: TObject);
 begin
   if MessageDlg(strRealdelete,mtInformation,[mbYes,mbNo],0) = mrYes then
@@ -679,7 +715,7 @@ begin
   FContList.OnDrawColumnCell:=@FContListDrawColumnCell;
   cbLanguage.Items.Clear;
   Data.Languages.Open;
-  eCustomerName.WantTabs:=False;
+  eName.WantTabs:=False;
   with Data.Languages.DataSet do
     begin
       First;
@@ -979,7 +1015,7 @@ begin
     pcPages.PageIndex:=1
   else
     pcPages.PageIndex:=0;
-  eCustomerName.SetFocus;
+  eName.SetFocus;
   inherited DoOpen;
 end;
 function TfPersonFrame.SetRights: Boolean;

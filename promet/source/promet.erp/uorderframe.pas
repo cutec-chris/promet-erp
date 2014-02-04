@@ -664,7 +664,7 @@ begin
       aFrame.SetLanguage;
       aFrame.OpenFromLink(Data.BuildLink(aPerson.DataSet));
       aFrame.AddAddress;
-      aFrame.eCustomerName.SetFocus;
+      aFrame.eName.SetFocus;
       aFrame.CustomerOf := Data.BuildLink(DataSet.DataSet);
     end;
 end;

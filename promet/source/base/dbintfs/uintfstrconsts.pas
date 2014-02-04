@@ -26,6 +26,7 @@ uses
     {$ENDIF}
     LCLStrConsts;
 resourcestring
+  strCombiteItems               = 'Sollen die Elemente "%s" und "%s" wirklich verschmolzen werden ?';
   strClipboard                  = 'Zwischenablage';
   strCategoryChanged            = 'Kategorie geändetr auf %s';
   strDueDateChanged             = 'Zieldatum geändert zu %s';
@@ -248,4 +249,4 @@ begin
   nav.Hints.Add(strRefresh);
 end;
 {$ENDIF}
-end.
+end.

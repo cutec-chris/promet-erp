@@ -97,7 +97,7 @@ begin
   fMainTreeFrame.pcPages.AddTab(aFrame);
   aFrame.SetLanguage;
   aFrame.New;
-  aFrame.eCustomerName.SetFocus;
+  aFrame.eName.SetFocus;
   aFrame.CustomerOf := FDataSet.Order.FieldByName('ORDERNO').AsString;// Data.BuildLink(DataSet.DataSet);
   if mAddress.Font.Color=clDefault then
     begin

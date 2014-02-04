@@ -105,6 +105,7 @@ type
     procedure sgResultsResize(Sender: TObject);
   private
     FOpenItem: TOpenItemEvent;
+    FValidItem: TOpenItemEvent;
     { private declarations }
     SearchText: String;
     HintY: LongInt;
@@ -121,6 +122,7 @@ type
     procedure LoadOptions(OptionSet : string);
     function GetLink(Multi : Boolean = False) : string;
     property OnOpenItem : TOpenItemEvent read FOpenItem write FOpenItem;
+    property OnValidateItem : TOpenItemEvent read FValidItem write FValidItem;
   end;
   TSearchHintWindow = class(THintWindow)
   private
@@ -343,6 +345,8 @@ var
   aRec: String;
   gSel: TGridRect;
 begin
+  if Assigned(FValidItem) then
+    if not FValidItem(aLink) then exit;
   for i := 1 to sgResults.RowCount-1 do
     if sgResults.Cells[4,i] = aLink then
       exit;
@@ -624,6 +628,7 @@ begin
       cbSearchType.Items.Add(aLocations[i]);
       cbSearchType.Checked[cbSearchType.Items.Count-1] := True;
     end;
+  OnValidateItem:=nil;
 end;
 procedure TfSearch.LoadOptions(OptionSet : string);
 var
