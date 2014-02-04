@@ -9,7 +9,7 @@ object fDataImport: TfDataImport
   OnCreate = FormCreate
   OnShow = FormShow
   Position = poMainFormCenter
-  LCLVersion = '0.9.31'
+  LCLVersion = '1.3'
   object Panel1: TPanel
     Left = 0
     Height = 212
@@ -18,32 +18,32 @@ object fDataImport: TfDataImport
     Align = alClient
     Anchors = [akLeft, akBottom]
     BevelOuter = bvNone
-    ClientHeight = 208
-    ClientWidth = 353
+    ClientHeight = 212
+    ClientWidth = 357
     TabOrder = 0
     object cbFormat: TComboBox
-      Left = 8
-      Height = 29
-      Top = 75
-      Width = 252
+      Left = 6
+      Height = 21
+      Top = 93
+      Width = 256
       Anchors = [akTop, akLeft, akRight]
-      ItemHeight = 0
+      ItemHeight = 13
       OnSelect = cbFormatChange
       TabOrder = 0
     end
     object Label2: TLabel
-      Left = 8
-      Height = 18
-      Top = 56
-      Width = 89
+      Left = 6
+      Height = 13
+      Top = 72
+      Width = 61
       Caption = 'Datenformat'
       ParentColor = False
     end
     object lInfo: TLabel
       Left = 8
-      Height = 18
+      Height = 13
       Top = 8
-      Width = 337
+      Width = 341
       Align = alTop
       BorderSpacing.Around = 8
       Caption = 'Bitte wählen Sie ein Datenformat'
@@ -56,17 +56,17 @@ object fDataImport: TfDataImport
       WordWrap = True
     end
     object lDesteny: TLabel
-      Left = 8
-      Height = 18
-      Top = 120
-      Width = 82
+      Left = 6
+      Height = 13
+      Top = 133
+      Width = 57
       Caption = 'Datenquelle'
       ParentColor = False
     end
     object bChangeFormat: TBitBtn
-      Left = 268
+      Left = 270
       Height = 26
-      Top = 75
+      Top = 91
       Width = 45
       Anchors = [akTop, akRight]
       Glyph.Data = {
@@ -109,10 +109,10 @@ object fDataImport: TfDataImport
       TabOrder = 1
     end
     object bSourceOptions: TBitBtn
-      Left = 104
-      Height = 29
-      Top = 115
-      Width = 43
+      Left = 88
+      Height = 26
+      Top = 128
+      Width = 58
       AutoSize = True
       Caption = '...'
       Glyph.Data = {
@@ -155,9 +155,9 @@ object fDataImport: TfDataImport
       TabOrder = 2
     end
     object SpeedButton1: TSpeedButton
-      Left = 320
+      Left = 314
       Height = 26
-      Top = 75
+      Top = 91
       Width = 27
       Anchors = [akTop, akRight]
       Glyph.Data = {
@@ -196,26 +196,25 @@ object fDataImport: TfDataImport
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
       }
-      NumGlyphs = 0
       OnClick = SpeedButton1Click
     end
     object bpButtons: TButtonPanel
       Left = 6
-      Height = 37
-      Top = 165
-      Width = 341
+      Height = 34
+      Top = 172
+      Width = 345
       OKButton.Name = 'OKButton'
-      OKButton.Caption = '&Ok'
+      OKButton.DefaultCaption = True
       HelpButton.Name = 'HelpButton'
-      HelpButton.Caption = '&Hilfe'
+      HelpButton.DefaultCaption = True
       HelpButton.Enabled = False
       CloseButton.Name = 'CloseButton'
-      CloseButton.Caption = '&Schließen'
+      CloseButton.DefaultCaption = True
       CloseButton.Enabled = False
       CancelButton.Name = 'CancelButton'
-      CancelButton.Caption = 'Abbrechen'
+      CancelButton.DefaultCaption = True
       TabOrder = 3
       ShowButtons = [pbOK, pbCancel]
     end
   end
-end
+end

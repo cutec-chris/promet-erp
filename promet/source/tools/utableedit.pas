@@ -1,3 +1,22 @@
+{*******************************************************************************
+  Copyright (C) Christian Ulrich info@cu-tec.de
+
+  This source is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 2 of the License, or commercial alternative
+  contact us for more information
+
+  This code is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+  details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+  MA 02111-1307, USA.
+Created 01.06.2012
+*******************************************************************************}
 unit utableedit;
 
 {$mode objfpc}{$H+}
@@ -16,12 +35,10 @@ type
   TfMain = class(TForm)
     acLogin: TAction;
     acLogout: TAction;
-    acImport: TAction;
     acDelete: TAction;
     ActionList1: TActionList;
     Datasource: TDatasource;
     MainMenu: TMainMenu;
-    MenuItem1: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
@@ -36,7 +53,6 @@ type
     miRegister: TMenuItem;
     Properties: TXMLPropStorage;
     procedure acDeleteExecute(Sender: TObject);
-    procedure acImportExecute(Sender: TObject);
     procedure acLoginExecute(Sender: TObject);
     procedure acLogoutExecute(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -118,14 +134,6 @@ begin
     end;
 end;
 
-procedure TfMain.acImportExecute(Sender: TObject);
-begin
-  fDataImport.BaseDir:='ACCIMP';
-  fDataImport.Target := DataSource;
-  fDataImport.Execute(icImport);
-  DataSource.DataSet.Refresh;
-end;
-
 procedure TfMain.acDeleteExecute(Sender: TObject);
 begin
   Datasource.DataSet.Delete;
@@ -166,4 +174,4 @@ end;
 initialization
   {$I utableedit.lrs}
 
-end.
+end.

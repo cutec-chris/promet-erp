@@ -145,6 +145,7 @@ begin
       if leDecimal.Text <> '<system>' then
         lbResult.Items.Insert(0,'DT:'+leDecimal.Text);
       lbResult.Items.SaveToFile(AppendPathDelim(AppendPathDelim(FConfigDir+'importconfig')+FFilter)+Configname+'.cfg');
+      SetFilter(FFilter);
     end;
 end;
 
@@ -528,11 +529,10 @@ begin
       Application.CreateForm(TfDataInput,fDataInput);
       Self := fDataInput;
     end;
-  if (FFilter=AValue) and (AValue <> '') then exit;
-  FFilter:=AValue;
   if not DirectoryExists(AppendPathDelim(FConfigDir+'importconfig')+FFilter) then
     ForceDirectories(AppendPathDelim(FConfigDir+'importconfig')+FFilter);
   FConfigs.Clear;
+  FFilter:=AValue;
   if FindFirst(AppendPathDelim(AppendPathDelim(FConfigDir+'importconfig')+FFilter)+'*.cfg',faAnyFile,Info)=0 then
     repeat
       With Info do
@@ -542,4 +542,4 @@ begin
 end;
 
 end.
-
+

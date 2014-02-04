@@ -16,7 +16,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="10">
+    <Files Count="13">
       <Item1>
         <Filename Value="uprometframes.lfm"/>
         <Type Value="LFM"/>
@@ -57,19 +57,42 @@
         <Filename Value="uimagecache.pas"/>
         <UnitName Value="uImageCache"/>
       </Item10>
+      <Item11>
+        <Filename Value="ufilterframe.lfm"/>
+        <Type Value="LFM"/>
+      </Item11>
+      <Item12>
+        <Filename Value="ufilterframe.lrs"/>
+        <Type Value="LRS"/>
+      </Item12>
+      <Item13>
+        <Filename Value="ufilterframe.pas"/>
+        <UnitName Value="uFilterFrame"/>
+      </Item13>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="3">
+    <RequiredPkgs Count="6">
       <Item1>
-        <PackageName Value="general"/>
-        <DefaultFilename Value="..\..\..\general\general.lpk"/>
+        <PackageName Value="pvisualforms"/>
+        <DefaultFilename Value="..\base_forms\pvisualforms.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="pPrometDBIntfs"/>
+        <PackageName Value="lazreport"/>
       </Item2>
       <Item3>
-        <PackageName Value="LCL"/>
+        <PackageName Value="SynEdit"/>
       </Item3>
+      <Item4>
+        <PackageName Value="general"/>
+        <DefaultFilename Value="..\..\..\general\general.lpk"/>
+      </Item4>
+      <Item5>
+        <PackageName Value="pPrometDBIntfs"/>
+        <DefaultFilename Value="..\base\dbintfs\pprometdbintfs.lpk"/>
+      </Item5>
+      <Item6>
+        <PackageName Value="LCL"/>
+      </Item6>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

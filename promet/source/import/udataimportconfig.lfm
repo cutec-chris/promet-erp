@@ -9,7 +9,7 @@ object fDataInput: TfDataInput
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   Position = poScreenCenter
-  LCLVersion = '0.9.31'
+  LCLVersion = '1.3'
   object lbDestColumns: TListBox
     Left = 8
     Height = 110
@@ -18,7 +18,6 @@ object fDataInput: TfDataInput
     ItemHeight = 0
     ScrollWidth = 134
     TabOrder = 0
-    TopIndex = -1
   end
   object lbSourceColumns: TListBox
     Left = 160
@@ -29,35 +28,34 @@ object fDataInput: TfDataInput
     ItemHeight = 0
     ScrollWidth = 136
     TabOrder = 1
-    TopIndex = -1
   end
   object Label1: TLabel
     Left = 8
-    Height = 18
+    Height = 13
     Top = 120
-    Width = 75
+    Width = 51
     Caption = 'Zielspalten'
     ParentColor = False
   end
   object Label2: TLabel
     Left = 160
-    Height = 18
+    Height = 13
     Top = 120
-    Width = 86
+    Width = 59
     Caption = 'Quellspalten'
     ParentColor = False
   end
   object Label3: TLabel
     Left = 160
-    Height = 18
+    Height = 13
     Top = 208
-    Width = 81
+    Width = 58
     Caption = 'Fester Wert'
     ParentColor = False
   end
   object eFixValue: TEdit
     Left = 160
-    Height = 27
+    Height = 21
     Top = 224
     Width = 138
     Anchors = [akTop, akLeft, akRight]
@@ -164,15 +162,15 @@ object fDataInput: TfDataInput
     Items.Strings = (
       'APPEND'
     )
-    ItemHeight = 23
+    ItemHeight = 13
     ScrollWidth = 288
     TabOrder = 5
   end
   object ButtonPanel1: TButtonPanel
-    Left = 309
+    Left = 315
     Height = 459
     Top = 6
-    Width = 112
+    Width = 106
     Align = alRight
     OKButton.Name = 'OKButton'
     OKButton.DefaultCaption = True
@@ -189,11 +187,11 @@ object fDataInput: TfDataInput
   end
   object cbCommand: TComboBox
     Left = 8
-    Height = 29
-    Top = 432
+    Height = 21
+    Top = 440
     Width = 148
     Anchors = [akLeft, akRight, akBottom]
-    ItemHeight = 0
+    ItemHeight = 13
     Items.Strings = (
       'INSERT'
       'APPEND'
@@ -250,19 +248,19 @@ object fDataInput: TfDataInput
   end
   object Label4: TLabel
     Left = 8
-    Height = 18
+    Height = 13
     Top = 8
-    Width = 82
+    Width = 57
     Caption = 'Datenquelle'
     ParentColor = False
   end
   object cbDataSource: TComboBox
     Left = 8
-    Height = 29
+    Height = 21
     Top = 25
     Width = 236
     Anchors = [akTop, akLeft, akRight]
-    ItemHeight = 0
+    ItemHeight = 13
     Items.Strings = (
       'Textdatei'
     )
@@ -272,9 +270,9 @@ object fDataInput: TfDataInput
   end
   object rbFirstrecord: TRadioButton
     Left = 8
-    Height = 24
+    Height = 17
     Top = 56
-    Width = 236
+    Width = 169
     Caption = 'Mit erstem Datensatz anfangen'
     Checked = True
     TabOrder = 10
@@ -282,9 +280,9 @@ object fDataInput: TfDataInput
   end
   object rbLastrecord: TRadioButton
     Left = 8
-    Height = 24
+    Height = 17
     Top = 80
-    Width = 240
+    Width = 171
     Caption = 'Mit letztem Datensatz anfangen'
     TabOrder = 11
   end
@@ -336,7 +334,7 @@ object fDataInput: TfDataInput
   end
   object leDecimal: TLabeledEdit
     Left = 224
-    Height = 27
+    Height = 21
     Top = 96
     Width = 68
     Anchors = [akTop, akRight]
@@ -345,12 +343,12 @@ object fDataInput: TfDataInput
     EditLabel.AnchorSideRight.Side = asrBottom
     EditLabel.AnchorSideBottom.Control = leDecimal
     EditLabel.Left = 224
-    EditLabel.Height = 38
-    EditLabel.Top = 55
+    EditLabel.Height = 26
+    EditLabel.Top = 67
     EditLabel.Width = 68
     EditLabel.Caption = 'Fliesskomma-'#13#10'trennzeichen'
     EditLabel.ParentColor = False
     TabOrder = 13
     Text = '<system>'
   end
-end
+end

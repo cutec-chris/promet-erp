@@ -84,9 +84,9 @@ resourcestring
   strPleaseenteranFormatName            = 'Bitte geben Sie einen Namen für das Format an !';
   strImporterclassnotFound              = 'Datenquellenklasse wurde nicht gefunden !';
   strPleasSelectanImportfilebeforeEdit  = 'Bitte wählen Sie eine Datenquellenklasse !';
-  strSelectAnFormat                     = 'Bitte wählen Sie ein Datenformat';
+  strSelectAnFormat                     = 'Bitte wählen Sie ein Datenformat, oder erstellen Sie ein neues. Geben Sie dazu einen Namen für das neue Format ein, und klicken Sie den Konfigurieren Knopf.';
   strSelectAnDataSource                 = 'Bitte wählen Sie eine Datenquelle';
-  strCreateAnFormat                     = 'Bitte erstellen Sei ein Datenformat';
+  strCreateAnFormat                     = 'Bitte erstellen Sei ein Datenformat. Geben Sie dazu einen Namen für das neue Format ein, und klicken Sie den Konfigurieren Knopf.';
   strConfigureDataSource                = 'Setzen Sie die Quelle / Einstellungen der Datenquelle und klicken Sie OK';
   strDataImport                         = 'Datenimport';
   strDataExport                         = 'Datenexport';
@@ -287,4 +287,4 @@ finalization
   ImportSources.Destroy;
 
 end.
-
+
