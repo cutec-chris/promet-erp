@@ -69,6 +69,7 @@ var
   aSL: TStringList;
   aContact: TPerson;
   Found: Boolean;
+  LastModified: TDateTime;
 begin
   aGlobalTime := Now();
   FTempDataSet := nil;
@@ -175,8 +176,10 @@ begin
                               aSL.Text:=rmQuerryE.FieldByName('calendardata').AsString;
                               VCalImport(aCalendar,aSL);
                               aSL.Free;
-                              with SyncItems.DataSet do
+                              with SyncItems do
                                 begin
+                                  Edit;
+                                  FieldByName('USER_ID').AsVariant:=aUsers.Id.AsVariant;
                                   FieldByName('LOCAL_ID').AsVariant:=Data.GetBookmark(aCalendar);
                                   FieldByName('TIMESTAMPD').AsDateTime:=Now();
                                   Post;
@@ -207,6 +210,7 @@ begin
                       Collect := False;
                       DoSync := True;
                       Found := False;
+                      LastModified := ((rmQuerryE.FieldByName('lastmodified').AsInteger + 7200) / 86400) + 25569;
                       aID := 0;
                       Data.SetFilter(SyncItems,Data.QuoteField('SYNCTYPE')+'='+Data.QuoteValue('OWNCLOUD')+' AND '+Data.QuoteField('REMOTE_ID')+'='+Data.QuoteValue(rmQuerryE.FieldByName('uri').AsString));
                       aContact := TPerson.Create(nil,Data);
@@ -216,6 +220,7 @@ begin
                           aContact.Select(SyncItems.FieldByName('LOCAL_ID').AsVariant);
                           aContact.Open;
                           Found := True;
+                          DoSync:=SyncItems.TimeStamp.AsDateTime<LastModified;
                         end
                       else
                         begin
@@ -239,8 +244,10 @@ begin
                           if DoSync then
                             begin
                               VCardImport(aContact,aSL,Found);
-                              with SyncItems.DataSet do
+                              with SyncItems do
                                 begin
+                                  Edit;
+                                  FieldByName('USER_ID').AsVariant:=aUsers.Id.AsVariant;
                                   FieldByName('LOCAL_ID').AsVariant:=Data.GetBookmark(aContact);
                                   FieldByName('TIMESTAMPD').AsDateTime:=Now();
                                   Post;
