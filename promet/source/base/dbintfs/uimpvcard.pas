@@ -46,7 +46,6 @@ begin
               if not (DoChange) then
                 begin
                   Append;
-                  FieldByName('NAME').AsString:='';
                 end
               else Customers.Edit;
               InBody := True
@@ -59,6 +58,7 @@ begin
           else if InBody then
             begin
               Customers.CustomerCont.Active := True;
+              Customers.Address.Active := True;
               if IsField('UID',tmp) then
                 FieldByName('ORIGID').AsString := GetValue(tmp)
               else if IsField('N',tmp) then
@@ -70,7 +70,7 @@ begin
                   if HasAttrib('WORK',tmp) and HasAttrib('CELL',tmp) then
                     begin
                       if not Customers.CustomerCont.Locate('DATA',GetValue(tmp),[]) then
-                        Customers.CustomerCont.Append
+                        Customers.CustomerCont.DataSet.Append
                       else
                         Customers.CustomerCont.Edit;
                       Customers.CustomerCont.FieldByName('TYPE').AsString := 'CELB';
@@ -80,7 +80,7 @@ begin
                   else if HasAttrib('HOME',tmp) and HasAttrib('CELL',tmp) then
                     begin
                       if not Customers.CustomerCont.Locate('DATA',GetValue(tmp),[]) then
-                        Customers.CustomerCont.Append
+                        Customers.CustomerCont.DataSet.Append
                       else
                         Customers.CustomerCont.Edit;
                       Customers.CustomerCont.FieldByName('TYPE').AsString := 'CELP';
@@ -90,7 +90,7 @@ begin
                   else if HasAttrib('HOME',tmp) and HasAttrib('VOICE',tmp) then
                     begin
                       if not Customers.CustomerCont.Locate('DATA',GetValue(tmp),[]) then
-                        Customers.CustomerCont.Append
+                        Customers.CustomerCont.DataSet.Append
                       else
                         Customers.CustomerCont.Edit;
                       Customers.CustomerCont.FieldByName('TYPE').AsString := 'TELP';
@@ -100,7 +100,7 @@ begin
                   else if HasAttrib('WORK',tmp) and HasAttrib('VOICE',tmp) then
                     begin
                       if not Customers.CustomerCont.Locate('DATA',GetValue(tmp),[]) then
-                        Customers.CustomerCont.Append
+                        Customers.CustomerCont.DataSet.Append
                       else
                         Customers.CustomerCont.Edit;
                       Customers.CustomerCont.FieldByName('TYPE').AsString := 'TELB';
@@ -110,7 +110,7 @@ begin
                   else if HasAttrib('CELL',tmp) then
                     begin
                       if not Customers.CustomerCont.Locate('DATA',GetValue(tmp),[]) then
-                        Customers.CustomerCont.Append
+                        Customers.CustomerCont.DataSet.Append
                       else
                         Customers.CustomerCont.Edit;
                       Customers.CustomerCont.FieldByName('TYPE').AsString := 'CEL';
@@ -120,7 +120,7 @@ begin
                   else if HasAttrib('FAX',tmp) then
                     begin
                       if not Customers.CustomerCont.Locate('DATA',GetValue(tmp),[]) then
-                        Customers.CustomerCont.Append
+                        Customers.CustomerCont.DataSet.Append
                       else
                         Customers.CustomerCont.Edit;
                       Customers.CustomerCont.FieldByName('TYPE').AsString := 'FAX';
@@ -130,7 +130,7 @@ begin
                   else
                     begin
                       if not Customers.CustomerCont.Locate('DATA',GetValue(tmp),[]) then
-                        Customers.CustomerCont.Append
+                        Customers.CustomerCont.DataSet.Append
                       else
                         Customers.CustomerCont.Edit;
                       Customers.CustomerCont.FieldByName('TYPE').AsString := 'TEL';
@@ -170,7 +170,7 @@ begin
                   if HasAttrib('WORK',tmp) then
                     begin
                       if not Customers.CustomerCont.Locate('DATA',GetValue(tmp),[]) then
-                        Customers.CustomerCont.Append
+                        Customers.CustomerCont.DataSet.Append
                       else
                         Customers.CustomerCont.Edit;
                       Customers.CustomerCont.FieldByName('TYPE').AsString := 'MLB';
@@ -180,7 +180,7 @@ begin
                   else if HasAttrib('HOME',tmp) then
                     begin
                       if not Customers.CustomerCont.Locate('DATA',GetValue(tmp),[]) then
-                        Customers.CustomerCont.Append
+                        Customers.CustomerCont.DataSet.Append
                       else
                         Customers.CustomerCont.Edit;
                       Customers.CustomerCont.FieldByName('TYPE').AsString := 'MLP';
@@ -190,7 +190,7 @@ begin
                   else
                     begin
                       if not Customers.CustomerCont.Locate('DATA',GetValue(tmp),[]) then
-                        Customers.CustomerCont.Append
+                        Customers.CustomerCont.DataSet.Append
                       else
                         Customers.CustomerCont.Edit;
                       Customers.CustomerCont.FieldByName('TYPE').AsString := 'MAIL';
@@ -201,7 +201,7 @@ begin
               else if IsField('INTERNET',tmp) then
                 begin
                   if not Customers.CustomerCont.Locate('DATA',GetValue(tmp),[]) then
-                    Customers.CustomerCont.Append
+                    Customers.CustomerCont.DataSet.Append
                   else
                     Customers.CustomerCont.Edit;
                   Customers.CustomerCont.FieldByName('TYPE').AsString := 'INT';
