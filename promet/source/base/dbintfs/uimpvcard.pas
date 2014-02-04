@@ -246,6 +246,7 @@ begin
       WriteField('FN',FieldByName('NAME').AsString);
       if not FieldByName('INFO').IsNull then
         WriteField('NOTE',VEncodeString(FieldByName('INFO').AsString),'QUOTED-PRINTABLE');
+      Customers.CustomerCont.Open;
       Customers.CustomerCont.First;
       while not Customers.CustomerCont.EOF do
         begin
@@ -274,6 +275,7 @@ begin
           ;
           Customers.CustomerCont.Next;
         end;
+      Customers.Address.Open;
       Customers.Address.First;
       WriteField('N',Customers.Address.FieldByName('NAME').AsString+';'+Customers.Address.FieldByName('CNAME').AsString+';;'+Customers.Address.FieldByName('TITLE').AsString);
       while not Customers.Address.EOF do

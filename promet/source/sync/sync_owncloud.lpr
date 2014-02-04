@@ -221,6 +221,11 @@ begin
                           aContact.Open;
                           Found := True;
                           DoSync:=SyncItems.TimeStamp.AsDateTime<LastModified;
+                          if aContact.TimeStamp.AsDateTime>SyncItems.TimeStamp.AsDateTime then
+                            begin
+                              DoSync:=True;
+                              SyncOut:=True;
+                            end;
                         end
                       else
                         begin
@@ -241,7 +246,7 @@ begin
                                   Found := True;
                                 end;
                             end;
-                          if DoSync then
+                          if DoSync and (not SyncOut) then
                             begin
                               VCardImport(aContact,aSL,Found);
                               with SyncItems do
@@ -251,6 +256,24 @@ begin
                                   FieldByName('LOCAL_ID').AsVariant:=Data.GetBookmark(aContact);
                                   FieldByName('TIMESTAMPD').AsDateTime:=Now();
                                   Post;
+                                end;
+                            end
+                          else if DoSync then
+                            begin
+                              if VCardExport(aContact,aSL) then
+                                begin
+                                  rmQuerryE.Edit;
+                                  rmQuerryE.FieldByName('carddata').AsString:=aSL.Text;
+                                  rmQuerryE.FieldByName('lastmodified').AsInteger := ((Trunc(Now()) - 25569) * 86400) + Trunc(86400 * (Now() - Trunc(Now()))) - 7200;
+                                  rmQuerryE.Post;
+                                  with SyncItems do
+                                    begin
+                                      Edit;
+                                      FieldByName('USER_ID').AsVariant:=aUsers.Id.AsVariant;
+                                      FieldByName('LOCAL_ID').AsVariant:=Data.GetBookmark(aContact);
+                                      FieldByName('TIMESTAMPD').AsDateTime:=Now();
+                                      Post;
+                                    end;
                                 end;
                             end;
                           aSL.Free;
