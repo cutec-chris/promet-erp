@@ -453,7 +453,7 @@ begin
     begin
       TabCaption := strCustomerList;
       FilterType:='C';
-      DefaultRows:='GLOBALWIDTH:680;ACCOUNTNO:100;NAME:400;MATCHCODE:200;';
+      DefaultRows:='GLOBALWIDTH:%;ACCOUNTNO:100;NAME:400;MATCHCODE:200;';
       Dataset := TPersonList.Create(nil,Data);
       //gList.OnDrawColumnCell:=nil;
       if Data.Users.Rights.Right('CUSTOMERS') > RIGHT_READ then
@@ -466,7 +466,7 @@ begin
     begin
       TabCaption := strArticleList;
       FilterType:='M';
-      DefaultRows:='GLOBALWIDTH:910;ID:150;VERSION:100;LANGUAGE:60;MATCHCODE:200;SHORTTEXT:400;';
+      DefaultRows:='GLOBALWIDTH:%;ID:150;VERSION:100;LANGUAGE:60;MATCHCODE:200;SHORTTEXT:400;';
       Dataset := TMasterdataList.Create(nil,Data);
       //gList.OnDrawColumnCell:=nil;
       if (Data.Users.Rights.Right('MASTERDATA') > RIGHT_READ) or (Data.Users.Rights.Right('ARTICLES') > RIGHT_READ) or (Data.Users.Rights.Right('BENEFITS') > RIGHT_READ) or (Data.Users.Rights.Right('PARTSLIST') > RIGHT_READ) then
@@ -481,7 +481,7 @@ begin
     begin
       TabCaption := strOrderList;
       FilterType:='O';
-      DefaultRows:='GLOBALWIDTH:659;STATUS:50;NUMBER:100;CUSTNO:100;CUSTNAME:300;PAYEDON:28;DELIVERED:28;DONE:28;';
+      DefaultRows:='GLOBALWIDTH:%;STATUS:50;NUMBER:100;CUSTNO:100;CUSTNAME:300;PAYEDON:28;DELIVERED:28;DONE:28;';
       Dataset := TOrderList.Create(nil,Data);
       OnDrawColumnCell:=@fOrderFrame.gListDrawColumnCell;
       if Data.Users.Rights.Right('ORDERS') > RIGHT_READ then
@@ -496,7 +496,7 @@ begin
     begin
       TabCaption := strLists;
       FilterType:='L';
-      DefaultRows:='GLOBALWIDTH:100;NAME:100;';
+      DefaultRows:='GLOBALWIDTH:%;NAME:100;';
       Dataset := TLists.Create(nil,Data);
       //gList.OnDrawColumnCell:=nil;
       Editable:=True;
@@ -521,7 +521,7 @@ begin
     begin
       TabCaption := strInventorys;
       FilterType:='INV';
-      DefaultRows:='GLOBALWIDTH:240;INVNO:40;DESC:100;DATE:70;CREATEDBY:30;';
+      DefaultRows:='GLOBALWIDTH:%;INVNO:40;DESC:100;DATE:70;CREATEDBY:30;';
       Dataset := TInventorys.Create(nil,Data);
       //gList.OnDrawColumnCell:=nil;
       Editable:=True;
@@ -536,7 +536,7 @@ begin
     begin
       TabCaption := strSalesList;
       FilterType:='S';
-      DefaultRows:='GLOBALWIDTH:825;PAYEDON:100;ORDERNO:100;STATUS:30;NUMBER:100;CUSTNO:70;CUSTNAME:100;NETPRICE:50;DISCOUNT:50;VATH:50;VATF:50;GROSSPRICE:100;';
+      DefaultRows:='GLOBALWIDTH:%;PAYEDON:100;ORDERNO:100;STATUS:30;NUMBER:100;CUSTNO:70;CUSTNAME:100;NETPRICE:50;DISCOUNT:50;VATH:50;VATF:50;GROSSPRICE:100;';
       ads := TAccountingJournal.Create(nil,Data);
       ads.CreateTable;
       Dataset := ads;
@@ -562,7 +562,7 @@ begin
     begin
       TabCaption := strProjectList;
       FilterType:='P';
-      DefaultRows:='GLOBALWIDTH:280;TYPE:30;ID:70;NAME:100;STATUS:60;';
+      DefaultRows:='GLOBALWIDTH:%;TYPE:30;ID:70;NAME:100;STATUS:60;';
       Dataset := TProjectList.Create(nil,Data);
       OnDrawColumnCell:=@SenderTfFiltergListDrawColumnCell;
       if Data.Users.Rights.Right('PROJECTS') > RIGHT_READ then
@@ -597,7 +597,7 @@ begin
     begin
       TabCaption := strMeetingList;
       FilterType:='E';
-      DefaultRows:='GLOBALWIDTH:180;NAME:100;STATUS:60;';
+      DefaultRows:='GLOBALWIDTH:%;NAME:100;STATUS:60;';
       Dataset := TMeetings.Create(nil,Data);
       //gList.OnDrawColumnCell:=nil;
       AddToolbarAction(acNewMeeting);
@@ -2570,7 +2570,7 @@ begin
         begin
           TabCaption := aList.FieldByName('NAME').AsString;
           FilterType:='LE';
-          DefaultRows:='GLOBALWIDTH:125;ACTIVE:25;NAME:100;';
+          DefaultRows:='GLOBALWIDTH:%;ACTIVE:25;NAME:100;';
           Dataset := aList.Entrys;
           DestroyDataSet:=False;
           TfFilter(aFrame).acOpen.OnExecute:=@TfFilteracOpenExecute;
@@ -2674,7 +2674,7 @@ begin
         begin
           TabCaption := aInv.FieldByName('DESC').AsString;
           FilterType:='INVPOS';
-          DefaultRows:='GLOBALWIDTH:355;PONO:25;IDENT:70;SHORTTEXT:120;STORAGE:30;QUANTITY:30;QUANTITYC:30;QUANTITYU:50;';
+          DefaultRows:='GLOBALWIDTH:%;PONO:25;IDENT:70;SHORTTEXT:120;STORAGE:30;QUANTITY:30;QUANTITYC:30;QUANTITYU:50;';
           Dataset := aInv.Positions;
           DestroyDataSet:=False;
           TfFilter(aFrame).OnClose:=@aInvPosCloseClose;

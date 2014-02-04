@@ -390,7 +390,7 @@ begin
   with FContList do
     begin
       FilterType:='PLINK';
-      DefaultRows:='GLOBALWIDTH:330;ICON:30;NAME:200;REFERENCE:100;';
+      DefaultRows:='GLOBALWIDTH:%;ICON:30;NAME:200;REFERENCE:100;';
       Parent := pCont;
       Align := alClient;
       PTop.Visible := False;

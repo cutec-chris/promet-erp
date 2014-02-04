@@ -308,7 +308,7 @@ begin
     begin
       TabCaption := strMeetingList;
       FilterType:='E';
-      DefaultRows:='GLOBALWIDTH:180;NAME:100;STATUS:60;';
+      DefaultRows:='GLOBALWIDTH:%;NAME:100;STATUS:60;CHANGEDBY:60;DATE:100;';
       Dataset := TMeetings.Create(nil,Data);
       gList.OnDrawColumnCell:=nil;
       AddToolbarAction(acNewMeeting);
@@ -317,4 +317,4 @@ end;
 
 initialization
   {$I umain.lrs}
-end.
+end.

@@ -1391,7 +1391,7 @@ begin
   FGridView.Parent := Self;
   FIgnoreUser:=False;
   FGridView.Align:=alClient;
-  FGridView.DefaultRows:='GLOBALWIDTH:770;COMPLETED:30;SUMMARY:200;PROJECT:200;STARTDATE:60;DUEDATE:60;USER:100;OWNER:100';
+  FGridView.DefaultRows:='GLOBALWIDTH:%;COMPLETED:30;SUMMARY:200;PROJECT:200;STARTDATE:60;DUEDATE:60;USER:100;OWNER:100';
   BaseName := 'TASKS';
   FGridView.TreeField := 'PARENT';
   FGridView.IdentField := 'SUMMARY';

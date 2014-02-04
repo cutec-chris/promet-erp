@@ -196,7 +196,7 @@ begin
       Self := fmTimeline;
       fTimeline.Parent := Panel2;
       fTimeline.Align := alClient;
-      fTimeline.DefaultRows:='GLOBALWIDTH:430;TIMESTAMPD:100;ACTIONICON:30;ACTION:250;REFERENCE:50;';
+      fTimeline.DefaultRows:='GLOBALWIDTH:%;TIMESTAMPD:100;ACTIONICON:30;ACTION:250;REFERENCE:50;';
       fTimeline.BaseName:='PTLINE';
       fTimeline.SortDirection:=sdDescending;
       fTimeline.SortField:='TIMESTAMPD';

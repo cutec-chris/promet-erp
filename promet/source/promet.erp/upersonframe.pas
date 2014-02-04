@@ -669,7 +669,7 @@ begin
     begin
       FilterType:='CL';
       PTop.Visible := False;
-      DefaultRows:='GLOBALWIDTH:474;TYPE:141;DATA:141;DESCR:142;ACTIVE:25;';
+      DefaultRows:='GLOBALWIDTH:%;TYPE:141;DATA:141;DESCR:142;ACTIVE:25;';
       Parent := pCont;
       Align := alClient;
       Show;
@@ -1002,7 +1002,7 @@ begin
   with TfListFrame(Sender) do
     begin
       FList.FilterType:='EMPLOYEES';
-      FList.DefaultRows:='GLOBALWIDTH:425;NAME:200;DEPARTMENT:100;POSITION:100;';
+      FList.DefaultRows:='GLOBALWIDTH:%;NAME:200;DEPARTMENT:100;POSITION:100;';
       FList.pTop.Visible:=False;
       FList.DataSet := TPerson(DataSet).Employees;
       DataSource.DataSet := TPerson(DataSet).Employees.DataSet;

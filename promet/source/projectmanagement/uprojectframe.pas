@@ -346,7 +346,7 @@ end;
 procedure TfProjectFrame.AddTasks(Sender: TObject);
 begin
   TfTaskFrame(Sender).BaseName:='PROJECTTASKS';
-  TfTaskFrame(Sender).GridView.DefaultRows:='GLOBALWIDTH:590;COMPLETED:30;SUMMARY:200;STARTDATE:60;DUEDATE:60;USER:100;OWNER:100;PERCENT:40';
+  TfTaskFrame(Sender).GridView.DefaultRows:='GLOBALWIDTH:%;COMPLETED:30;SUMMARY:200;STARTDATE:60;DUEDATE:60;USER:100;OWNER:100;PERCENT:40';
   TfTaskFrame(Sender).bDelegated1.Down:=True;
   TfTaskFrame(Sender).bDependencies1.Down:=True;
   TfTaskFrame(Sender).bFuture1.Down:=True;

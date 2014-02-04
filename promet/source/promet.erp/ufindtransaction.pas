@@ -97,7 +97,7 @@ begin
   with FList do
     begin
       FilterType:='SA';
-      DefaultRows:='GLOBALWIDTH:670;PAYEDON:100;ORDERNO:100;STATUS:30;NUMBER:100;ODATE:70;CUSTNO:70;CUSTNAME:100;GROSSPRICE:100;';
+      DefaultRows:='GLOBALWIDTH:%;PAYEDON:100;ORDERNO:100;STATUS:30;NUMBER:100;ODATE:70;CUSTNO:70;CUSTNAME:100;GROSSPRICE:100;';
       Parent := Self;
       Align := alClient;
       Editable:=False;

@@ -591,7 +591,7 @@ begin
       with TfListFrame(Sender) do
         begin
           FList.FilterType:='MDPRICES';
-          FList.DefaultRows:='GLOBALWIDTH:620;PTYPE:60;PRICE:120;CURRENCY:70;CUSTOMER:70;MINCOUNT:70;MAXCOUNT:70;VALIDFROM:80;VALIDTO:80;';
+          FList.DefaultRows:='GLOBALWIDTH:%;PTYPE:60;PRICE:120;CURRENCY:70;CUSTOMER:70;MINCOUNT:70;MAXCOUNT:70;VALIDFROM:80;VALIDTO:80;';
           FList.DestroyDataSet:=False;
           TMasterdata(DataSet).Prices.Open;
           FList.DataSet := TMasterdata(DataSet).Prices;
@@ -637,7 +637,7 @@ begin
       with TfListFrame(Sender) do
         begin
           FList.FilterType:='MDPROPERTIES';
-          FList.DefaultRows:='GLOBALWIDTH:430;PROPERTY:150;VALUE:200;UNIT:70;';
+          FList.DefaultRows:='GLOBALWIDTH:%;PROPERTY:150;VALUE:200;UNIT:70;';
           FList.DestroyDataSet:=False;
           TMasterdata(DataSet).Properties.Open;
           FList.DataSet := TMasterdata(DataSet).Properties;
@@ -654,7 +654,7 @@ begin
   with TfArticleStorageFrame(Sender) do
     begin
       FList.FilterType:='STORAGE';
-      FList.DefaultRows:='GLOBALWIDTH:500;STORAGEID:70;STORNAME:120;PLACE:100;QUANTITY:70;RESERVED:70;QUANTITYU:70';
+      FList.DefaultRows:='GLOBALWIDTH:%;STORAGEID:70;STORNAME:120;PLACE:100;QUANTITY:70;RESERVED:70;QUANTITYU:70';
       FList.pTop.Visible:=False;
       FList.DataSet := TMasterdata(DataSet).Storage;
       DataSource.DataSet := TMasterdata(DataSet).Properties.DataSet;

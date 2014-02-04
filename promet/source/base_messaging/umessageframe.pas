@@ -344,7 +344,7 @@ begin
   with FList do
     begin
       FilterType:='I';
-      DefaultRows:='GLOBALWIDTH:795;TYPE:70;SUBJECT:400;SENDER:200;TIMESTAMPD:100;';
+      DefaultRows:='GLOBALWIDTH:%;TYPE:70;SUBJECT:400;SENDER:200;TIMESTAMPD:100;';
       Parent := psItems;
       Align := alClient;
       aItem := TMenuItem.Create(Self);

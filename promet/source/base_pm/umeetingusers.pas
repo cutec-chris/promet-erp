@@ -169,7 +169,7 @@ begin
   with FContList do
     begin
       FilterType:='PUSER';
-      DefaultRows:='GLOBALWIDTH:450;NAME:200;ACTIVE:30;NOTE:200;';
+      DefaultRows:='GLOBALWIDTH:%;NAME:200;ACTIVE:30;NOTE:200;';
       Parent := pCont;
       Align := alClient;
       PTop.Visible := False;

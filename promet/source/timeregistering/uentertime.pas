@@ -807,7 +807,7 @@ begin
       FTimes.DataSet.AfterPost:=@FTimesAfterPost;
 //      FTimes.DataSet.BeforeEdit:=@FTimesBeforeEdit;
 //      FTimes.DataSet.BeforeInsert:=@FTimesBeforeEdit;
-      FList.DefaultRows:='GLOBALWIDTH:565;START:100;END:60;LINK:100;PROJECT:100;JOB:150;ISPAUSE:30;';
+      FList.DefaultRows:='GLOBALWIDTH:%;START:100;END:60;LINK:100;PROJECT:100;JOB:150;ISPAUSE:30;';
       FList.FilterType:='T';
       FList.Editable:=True;
       FList.Align:=alClient;

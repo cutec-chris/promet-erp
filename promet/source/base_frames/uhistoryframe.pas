@@ -274,7 +274,7 @@ begin
   with FGridView do
     begin
       BaseName:='PHIST';
-      DefaultRows:='GLOBALWIDTH:570;ACTIONICON:30;ACTION:200;REFERENCE:100;COMMISSION:100;TIMESTAMPD:100;CHANGEDBY:40;';
+      DefaultRows:='GLOBALWIDTH:%;ACTIONICON:30;ACTION:200;REFERENCE:100;COMMISSION:100;TIMESTAMPD:100;CHANGEDBY:40;';
       Parent := pCont;
       Align := alClient;
       SortDirection:=sdDescending;

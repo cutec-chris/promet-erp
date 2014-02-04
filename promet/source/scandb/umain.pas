@@ -261,7 +261,7 @@ begin
     begin
       Caption := strProjectList;
       FilterType:='P';
-      DefaultRows:='GLOBALWIDTH:250;ID:70;NAME:100;STATUS:60;';
+      DefaultRows:='GLOBALWIDTH:%;ID:70;NAME:100;STATUS:60;';
       Dataset := TProjectList.Create(nil,Data);
       gList.OnDrawColumnCell:=nil;
       AddToolbarAction(acNewStatistic);
@@ -270,4 +270,4 @@ end;
 
 initialization
   {$I umain.lrs}
-end.
+end.

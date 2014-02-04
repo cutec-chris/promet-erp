@@ -850,7 +850,7 @@ begin
   with FGridView do
     begin
       BaseName:='PMEMIS';
-      DefaultRows:='GLOBALWIDTH:520;DESC:300;OWNER:70;USER:70;DUEDATE:60;';
+      DefaultRows:='GLOBALWIDTH:%;DESC:300;OWNER:70;USER:70;DUEDATE:60;';
       Align := alClient;
       SortField:='TIMESTAMPD';
       //ShortTextField:='DESC';

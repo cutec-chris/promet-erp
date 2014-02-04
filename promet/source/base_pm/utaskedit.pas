@@ -420,7 +420,7 @@ begin
       with TfListFrame(Sender) do
         begin
           FList.FilterType:='TSKDEP';
-          FList.DefaultRows:='GLOBALWIDTH:200;ICON:25;NAME:175;';
+          FList.DefaultRows:='GLOBALWIDTH:%;ICON:25;NAME:175;';
           FList.DestroyDataSet:=False;
           TTask(FDataSet).Dependencies.Open;
           FList.DataSet := TTask(FDataSet).Dependencies;
