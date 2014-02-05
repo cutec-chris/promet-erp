@@ -131,6 +131,7 @@ var
   i: Integer;
   tmp: String;
   InBody: Boolean = false;
+  StartTimed: Boolean;
 begin
   Result := False;
   i := 0;
@@ -155,9 +156,16 @@ begin
               if IsField('UID',tmp) then
                 FieldByName('ORIGID').AsString := GetValue(tmp)
               else if IsField('DTSTART',tmp) then
-                FieldByName('STARTDATE').AsDateTime := GMTToLocalTime(ConvertISODate(GetValue(tmp)))
+                begin
+                  FieldByName('STARTDATE').AsDateTime := GMTToLocalTime(ConvertISODate(GetValue(tmp)));
+                  StartTimed := ConvertISODate(GetValue(tmp))=trunc(ConvertISODate(GetValue(tmp)));
+                end
               else if IsField('DTEND',tmp) then
-                FieldByName('ENDDATE').AsDateTime := GMTToLocalTime(ConvertISODate(GetValue(tmp)))
+                begin
+                  FieldByName('ENDDATE').AsDateTime := GMTToLocalTime(ConvertISODate(GetValue(tmp)));
+                  if StartTimed and (ConvertISODate(GetValue(tmp))=trunc(ConvertISODate(GetValue(tmp)))) then
+                    FieldByName('ALLDAY').AsString:='Y';
+                end
               else if IsField('SUMMARY',tmp) then
                 FieldByName('SUMMARY').AsString := GetValue(tmp)
               else if IsField('LOCATION',tmp) then
@@ -215,8 +223,16 @@ begin
           else
             vOut.Add('UID:'+FieldByName('ORIGID').AsString);
           vOut.Add('DTSTAMP:'+BuildISODate(FieldByName('TIMESTAMPD').AsDateTime));
-          vOut.Add('DTSTART:'+BuildISODate(FieldByName('STARTDATE').AsDateTime));
-          vOut.Add('DTEND:'+BuildISODate(FieldByName('ENDDATE').AsDateTime));
+          if FieldByName('ALLDAY').AsString='Y' then
+            begin
+              vOut.Add('DTSTART:'+BuildISODate(trunc(FieldByName('STARTDATE').AsDateTime)));
+              vOut.Add('DTEND:'+BuildISODate(trunc(FieldByName('ENDDATE').AsDateTime)));
+            end
+          else
+            begin
+              vOut.Add('DTSTART:'+BuildISODate(FieldByName('STARTDATE').AsDateTime));
+              vOut.Add('DTEND:'+BuildISODate(FieldByName('ENDDATE').AsDateTime));
+            end;
           vOut.Add('SUMMARY:'+FieldByName('SUMMARY').AsString);
           if FieldByName('LOCATION').AsString <> '' then
             vOut.Add('LOCATION:'+FieldByName('LOCATION').AsString);
