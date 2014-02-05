@@ -40,6 +40,7 @@ type
       aMasterdata: TDataSet=nil); override;
     procedure CascadicPost;override;
     procedure CascadicCancel; override;
+    function CombineItems(aRemoteLink : string) : Boolean;virtual;
   end;
   TStorageTypes = class(TBaseDBDataSet)
   public
@@ -322,6 +323,45 @@ begin
   if Supports(Self, IBaseHistory, Hist) then
     Hist.History.ChangedDuringSession := False;
 end;
+
+function TBaseERPList.CombineItems(aRemoteLink: string): Boolean;
+var
+  aClass: TBaseDBDatasetClass;
+  aObject: TBaseDBDataset;
+  Hist,OwnHist : IBaseHistory;
+begin
+  if TBaseDBModule(DataModule).DataSetFromLink(aRemoteLink,aClass) then
+    begin
+      aObject := aClass.Create(nil,DataModule);
+      TBaseDbList(aObject).SelectFromLink(aRemoteLink);
+      aObject.Open;
+      if aObject.Count>0 then
+        begin
+          //Combine History
+          if Supports(aObject, IBaseHistory, Hist)
+          and Supports(Self, IBaseHistory, OwnHist)
+          then
+            begin
+              with Hist.GetHistory.DataSet as IBaseManageDB do
+                UpdateStdFields := False;
+              with Hist.GetHistory do
+                begin
+                  while not EOF do
+                    begin
+                      Edit;
+                      FieldByName('REF_ID').AsVariant:=Self.Id.AsVariant;
+                      Post;
+                      Next;
+                    end;
+                end;
+            end;
+          //Combine Documents
+          //Combine SyncItems
+        end;
+      aObject.Free;
+    end;
+end;
+
 procedure TTextTypes.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do

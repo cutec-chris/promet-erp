@@ -276,6 +276,7 @@ end;
 function TfPersonFrame.fSearchOpenItem(aLink: string): Boolean;
 begin
   if MessageDlg(Format(strCombiteItems,[Data.GetLinkDesc(Data.BuildLink(Dataset.DataSet)),Data.GetLinkDesc(aLink)]),mtConfirmation,[mbYes,mbNo],0) = mrNo then exit;
+
 end;
 
 function TfPersonFrame.fSearchValidateItem(aLink: string): Boolean;
@@ -608,7 +609,7 @@ begin
   i := 0;
   while i < fSearch.cbSearchType.Count do
     begin
-      if fSearch.cbSearchType.Items[i] <> strContact then
+      if fSearch.cbSearchType.Items[i] <> strCustomers then
         fSearch.cbSearchType.Items.Delete(i)
       else
         inc(i);
