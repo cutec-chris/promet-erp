@@ -829,6 +829,7 @@ var
   aDep: TInterval;
   i: Integer;
   aRoot: TInterval;
+  deps : array of LargeInt;
   function FindInterval(aParent : TInterval;aId : Variant) : TInterval;
   var
     i: Integer;
@@ -938,6 +939,7 @@ var
       end;
   end;
 begin
+  setlength(deps,0);
   Screen.Cursor:=crHourGlass;
   FGantt.BeginUpdate;
   fLogWaitForm.SetLanguage;
@@ -960,6 +962,12 @@ begin
           if IntervalById(aTasks.Id.AsVariant)=nil then
             begin
               aInterval := AddTask(True,aRoot);
+              aTasks.Dependencies.Open;
+              if aTasks.Dependencies.Count>0 then
+                begin
+                  setlength(deps,length(deps)+1);
+                  deps[length(deps)-1] := aTasks.GetBookmark;
+                end;
               if not aTasks.Snapshots.DataSet.Active then aTasks.Snapshots.Open;
               aTasks.Snapshots.First;
               while not aTasks.Snapshots.EOF do
@@ -971,31 +979,27 @@ begin
             end;
         aTasks.Next;
       end;
-    aTasks.First;
     fLogWaitForm.ShowInfo(strCollectingDependencies);
-    while not aTasks.EOF do
+    for i := low(deps) to high(deps) do
       begin
-        if (aTasks.FieldByName('ACTIVE').AsString<>'N') or AddInactive then
+        aTasks.GotoBookmark(deps[i]);
+        aTask := TTask.Create(nil,Data);
+        aTask.CreateTable;
+        aTask.Select(aTasks.Id.AsVariant);
+        aTask.Open;
+        aTask.Dependencies.Open;
+        aTask.Dependencies.First;
+        while not aTask.Dependencies.DataSet.EOF do
           begin
-            aTask := TTask.Create(nil,Data);
-            aTask.CreateTable;
-            aTask.Select(aTasks.Id.AsVariant);
-            aTask.Open;
-            aTask.Dependencies.Open;
-            aTask.Dependencies.First;
-            while not aTask.Dependencies.DataSet.EOF do
+            aDep := IntervalById(aTask.Dependencies.FieldByName('REF_ID_ID').AsVariant);
+            if Assigned(aDep) then
               begin
-                aDep := IntervalById(aTask.Dependencies.FieldByName('REF_ID_ID').AsVariant);
-                if Assigned(aDep) then
-                  begin
-                    aInterval := IntervalById(aTasks.Id.AsVariant);
-                    aDep.AddConnection(aInterval,aTask.FieldByName('STARTDATE').IsNull and aTask.FieldByName('DUEDATE').IsNull);
-                  end;
-                aTask.Dependencies.Next;
+                aInterval := IntervalById(aTasks.Id.AsVariant);
+                aDep.AddConnection(aInterval,aTask.FieldByName('STARTDATE').IsNull and aTask.FieldByName('DUEDATE').IsNull);
               end;
-            aTask.Free;
+            aTask.Dependencies.Next;
           end;
-        aTasks.Next;
+        aTask.Free;
       end;
     if aRoot.IntervalCount>0 then
       aRoot.Visible:=True;

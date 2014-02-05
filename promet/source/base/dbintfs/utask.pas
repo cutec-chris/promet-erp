@@ -76,6 +76,7 @@ type
     property History : TBaseHistory read FHistory;
     property UserID : String read FUserID write FUserID;
     property Snapshots : TTaskSnapshots read FSnapshots;
+    property Dependencies : TDependencies read FDependencies;
   end;
 
   { TTaskLinks }
@@ -109,7 +110,6 @@ type
     destructor Destroy;override;
     procedure CheckDependencies(aLevel: Integer=0);
     property Links : TTaskLinks read FLinks;
-    property Dependencies : TDependencies read FDependencies;
   end;
   TMoveTasksEvent = procedure(Sender: TObject;var Allowed : Boolean);
 
