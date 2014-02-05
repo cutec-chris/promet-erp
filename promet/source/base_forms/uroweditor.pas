@@ -256,8 +256,7 @@ begin
   if s <> '' then
     with Application as IBaseDbInterface do
       DBConfig.WriteString('GRID:'+Uppercase(tmp),s);
-  if FullWidth>Grid.Width-SBWidth then
-    GetGridSizes(aConfigName,DataSource,Grid,'',IsReadOnly,Filter);
+  GetGridSizes(aConfigName,DataSource,Grid,'',IsReadOnly,Filter);
 end;
 function TfRowEditor.GetGridSizes(aConfigName : string;DataSource: TDataSource; Grid: TDBGrid;Defaults : string = '';MakereadOnly : Boolean = False; Filter : string = '') : Boolean;
 var
@@ -324,7 +323,7 @@ begin
           FullWidth := FullWidth+StrToIntDef(copy(s,0,pos(';',s)-1),64);
           s := copy(s,pos(';',s)+1,length(s));
         end;
-      if (FullWidth>Grid.Width) or Percentage then
+      if Percentage then
         Factor := Factor+(((Grid.Width-SBWidth)/FullWidth)-1);
       if Factor < 0.2 then Factor := 1;
       s := s1;

@@ -134,6 +134,7 @@ type
     procedure deInplaceKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure dgFakeTitleClick(Column: TColumn);
+    procedure DoAsyncRefresh(Data: PtrInt);
     procedure FDataSourceDataChange(Sender: TObject; Field: TField);
     procedure FDataSourceStateChange(Sender: TObject);
     procedure fGridViewEnter(Sender: TObject);
@@ -293,6 +294,7 @@ type
     procedure DoInvalidate(Data : PtrInt);
     procedure CleanList(AddRows : Integer);
     procedure CleanRow(aRow : Integer;aIdentCol : Integer);
+    procedure Asyncrefresh;
     property FEditPrefix : string read FFEditPrefix write SetEditPrefix;
   public
     { public declarations }
@@ -437,12 +439,7 @@ end;
 procedure TfGridView.bEditRowsClick(Sender: TObject);
 begin
   fRowEditor.Execute(FBaseName,FDataSource,dgFake,FBaseName);
-  gHeader.Columns.Assign(gList.Columns);
-  Self.ClearFilters;
-  gListHeaderSized(nil,True,1);
-  SyncDataSource;
-  SetRights(FEditable);
-  UpdateTitle;
+  Asyncrefresh;
 end;
 procedure TfGridView.deInplaceEditingDone(Sender: TObject);
 begin
@@ -509,6 +506,12 @@ begin
   UpdateTitle;
   acFilter.Execute;
 end;
+
+procedure TfGridView.DoAsyncRefresh(Data: PtrInt);
+begin
+  Refresh(False);
+end;
+
 procedure TfGridView.acFilterExecute(Sender: TObject);
 begin
   SetBaseFilter(FbaseFilter);
@@ -580,9 +583,10 @@ procedure TfGridView.gHeaderColRowMoved(Sender: TObject; IsColumn: Boolean;
 begin
   if IsColumn then
     begin
-      gList.Columns[sIndex-1].Index:=tIndex-1;
       dgFake.Columns[sIndex-1].Index:=tIndex-1;
+      //gList.Columns[sIndex-1].Index:=tIndex-1;
       fRowEditor.SetGridSizes(FBaseName,dgFake.DataSource,dgFake,FBaseName);
+      AsyncRefresh;
     end;
 end;
 procedure TfGridView.gHeaderDrawCell(Sender: TObject; aCol, aRow: Integer;
@@ -861,6 +865,7 @@ begin
     begin
       dgFake.Columns[sIndex-1].Index:=tIndex-1;
       fRowEditor.SetGridSizes(FBaseName,dgFake.DataSource,dgFake,FBaseName);
+      Asyncrefresh;
     end
   else if (sIndex <> tIndex) then
     begin
@@ -1320,7 +1325,10 @@ begin
   if (dgFake.Columns.Count > Index-1) and (gList.Columns.Count > Index-1) then
     dgFake.Columns[Index-1].Width:=gList.Columns[Index-1].Width;
   if Assigned(Sender) then
-    fRowEditor.SetGridSizes(FBaseName,dgFake.DataSource,dgFake,FBaseName);
+    begin
+      fRowEditor.SetGridSizes(FBaseName,dgFake.DataSource,dgFake,FBaseName);
+      Asyncrefresh;
+    end;
 end;
 procedure TfGridView.gListKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
@@ -2563,7 +2571,6 @@ begin
         end;
     end;
 end;
-
 procedure TfGridView.DoSetEdit(Data: PtrInt);
 var
   aKey : Word = VK_ESCAPE;
@@ -2575,7 +2582,6 @@ begin exit;
     if Assigned(FSearchKey) then
       FSearchKey(Self,aRect.Left,aRect.Bottom,dgFake.Columns[gList.Col-1],aKey,[],'');
 end;
-
 procedure TfGridView.DoSetEditDD(Data: PtrInt);
 var
   aKey : Word = VK_ESCAPE;
@@ -2589,13 +2595,11 @@ begin
   if gList.Editor is TComboBox then
     TComboBox(gList.Editor).DroppedDown:=True;
 end;
-
 procedure TfGridView.DoInvalidate(Data: PtrInt);
 begin
   if Assigned(Self) then
     gList.Invalidate;
 end;
-
 procedure TfGridView.CleanList(AddRows: Integer);
 var
   i: Integer;
@@ -2613,7 +2617,6 @@ begin
   for i := gList.FixedRows to gList.RowCount-1 do
     gList.Objects[0,i] := TRowObject.Create;
 end;
-
 procedure TfGridView.CleanRow(aRow: Integer; aIdentCol: Integer);
 var
   i: Integer;
@@ -2633,6 +2636,11 @@ begin
   for i := 1 to gList.ColCount-1 do
     if Assigned(gList.Objects[i,aRow]) then
       gList.Objects[i,aRow].Free;
+end;
+
+procedure TfGridView.Asyncrefresh;
+begin
+  Application.QueueAsyncCall(@DoAsyncRefresh,0);
 end;
 
 constructor TfGridView.Create(AOwner: TComponent);
@@ -3329,18 +3337,13 @@ begin
   if DataSet.State = dsInsert then exit;
   aTopRow := gList.TopRow;
   aCol := gList.Col;
+  GotoActiveRow;
+  aRec := FDataSet.GetBookmark;
   if RefreshDS then
-    begin
-      GotoActiveRow;
-      aRec := FDataSet.GetBookmark;
-      FDataSet.DataSet.Refresh;
-    end;
+    FDataSet.DataSet.Refresh;
   SyncDataSource;
-  if RefreshDS then
-    begin
-      FDataSet.GotoBookmark(aRec);
-      GotoDataSetRow;
-    end;
+  FDataSet.GotoBookmark(aRec);
+  GotoDataSetRow;
   gList.TopRow := aTopRow;
   try
     gList.Col:=aCol;
