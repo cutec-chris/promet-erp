@@ -401,7 +401,6 @@ var
             while Assigned(aRes) do
               begin
                 inc(aFCount);
-                Creator.CallAction;
                 if (not FStopFetching) then
                   begin
                     if aRes.text<>'' then Answer(aRes.Text,False);
@@ -411,6 +410,8 @@ var
                     DontLog:=False;
                     exit;
                   end;
+                if length(FSendBuffer)>0 then
+                Creator.CallAction;
                 aRes := FGroup.StoreOneEntry(bParams);
               end;
             DontLog:=False;
@@ -419,7 +420,7 @@ var
         else
           begin
             DontLog:=False;
-            Answer('NO failed.');
+            Answer('OK failed.');//nothing to see here (we dont implement copy correct so it can be that delete after copy for move fails)
           end;
       end
     else if aCmd = 'COPY' then
@@ -587,6 +588,7 @@ begin
       Found := False;
       if copy(aParams,0,1)='"' then
         aParams := copy(aParams,2,length(aParams)-2);
+      DontLog:=True;
       for i := 0 to Folders.Count-1 do
         begin
           if Folders.Folder[i].Name = aParams then
@@ -605,6 +607,7 @@ begin
               break;
             end;
         end;
+      DontLog:=False;
       if not Found then Answer('NO Folder not Found.');
     end
   else if aCommand = 'APPEND' then
@@ -676,12 +679,14 @@ begin
       //TODO:fix this
       aParams := StringReplace(aParams,'*','',[rfReplaceAll]);
       aParams := StringReplace(aParams,'?','',[rfReplaceAll]);
+      DontLog:=True;
       for i := 0 to Folders.Count-1 do
         begin
           aGroup := Folders.Folder[i];
           if (pos(aParams,aGroup.Name) >0) or (aParams='') then
             Answer(Format('* LIST (\Noinferiors) "/" "%s"',[aGroup.Name]),False);
         end;
+      DontLog:=False;
       Answer('OK LIST completed.');
     end
   else if aCommand = 'LSUB' then
@@ -700,12 +705,14 @@ begin
       //TODO:fix this
       aParams := StringReplace(aParams,'*','',[rfReplaceAll]);
       aParams := StringReplace(aParams,'?','',[rfReplaceAll]);
+      DontLog:=True;
       for i := 0 to Folders.Count-1 do
         begin
           aGroup := Folders.Folder[i];
           if (pos(aParams,aGroup.Name) >0) or (aParams='') then
             Answer(Format('* LSUB (\Noinferiors) "/" "%s"',[aGroup.Name]),False);
         end;
+      DontLog:=False;
       Answer('OK Lsub completed.');
     end
   else if aCommand = 'UID' then

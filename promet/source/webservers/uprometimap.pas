@@ -55,6 +55,7 @@ type
     FSelector: String;
     FUseUID : Boolean;
     FSequenceNumbers : TStringList;
+    FlastCopied : string;
     function SelectNext : Boolean;
     function GenerateMessage : TMimeMess;
     procedure RefreshFirstID;
@@ -605,6 +606,7 @@ begin
             end;
           'BODYSTRUCTURE':
             begin
+              {
               if not Assigned(aMessage) then
                 begin
                   aMessage := TMimeMessage.Create(Self,Data);
@@ -614,6 +616,7 @@ begin
               if not Assigned(aMime) then
                 aMime := aMessage.EncodeMessage;
               tmp := tmp+bFetch+' '+GetBodyStructure(aMime.MessagePart);
+              }
             end;
           'BODY.PEEK[HEADER.FIELDS':
             begin
@@ -707,6 +710,7 @@ begin
         Result := nil;
         exit;
       end;
+  FlastCopied:='';
   Result := TStringList.Create;
   aFetch := aFetch+' ';
   if not FMessages.DataSet.BOF then
@@ -825,6 +829,7 @@ begin
           tmpRecNo := IntToStr(FSequenceNumbers.Add(FMessages.Id.AsString)+1);
         end
       else tmpRecNo:=IntToStr(FSequenceNumbers.IndexOf(FMessages.Id.AsString)+1);
+      FlastCopied:=FMessages.Id.AsString;
       FMessages.Edit;
       Fmessages.FieldByName('TREEENTRY').AsVariant:=aFolder.TreeEntry;
       FMessages.Post;
@@ -933,8 +938,12 @@ begin
                'MESSAGE-ID':
                  begin
                    aMail := GetmailAddr(NextParam(False));
+                   if copy(aMail,0,1)='"' then
+                     aMail := copy(aMail,2,length(aMail)-2);
+                   if copy(aMail,0,1)='<' then
+                     aMail := copy(aMail,2,length(aMail)-2);
                    //work around android stock client INTERNALDATE error
-                   if (pos('@email.android.com',aMail)=0) and (FTreeEntry=IntToStr(TREE_ID_SEND_MESSAGES)) then
+                   if not ((pos('@email.android.com',aMail)=0) and (FTreeEntry=IntToStr(TREE_ID_SEND_MESSAGES))) then
                      aSQL := aSQL+Data.QuoteField('ID')+'='+Data.QuoteValue(aMail)+' and '
                    else
                      aSQL := aSQL+Data.QuoteField('ID')+'='+Data.QuoteValue('NEVEREXISTINGID')+' and '
