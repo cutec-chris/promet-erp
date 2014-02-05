@@ -19,19 +19,23 @@ type
     function CreateTable : Boolean;override;
     property Tables : TSyncTable read FTables;
   end;
+
+  { TSyncItems }
+
   TSyncItems = class(TBaseDBDataSet)
   private
     function GetSyncTime: TField;
   public
     procedure DefineFields(aDataSet : TDataSet);override;
     property SyncTime : TField read GetSyncTime;
+    procedure SelectByReference(aID : Variant);
   end;
   TSyncStamps = class(TBaseDbDataSet)
     procedure DefineFields(aDataSet : TDataSet);override;
   end;
 
 implementation
-
+uses Variants;
 { TSyncStamps }
 
 procedure TSyncStamps.DefineFields(aDataSet: TDataSet);
@@ -73,6 +77,30 @@ begin
           end;
     end;
 end;
+
+procedure TSyncItems.SelectByReference(aID: Variant);
+var
+  aField: String = '';
+begin
+  with BaseApplication as IBaseDBInterface do
+    with DataSet as IBaseDBFilter do
+      begin
+        aField := 'LOCAL_ID';
+        if (VarIsNumeric(aID) and (aID = 0))
+        or (VarIsStr(aID) and (aID = ''))
+        or (aID = Null)  then
+          begin
+            with DataSet as IBaseManageDb do
+              Filter := Data.QuoteField(TableName)+'.'+Data.QuoteField(aField)+'='+Data.QuoteValue('0');
+          end
+        else
+          begin
+            with DataSet as IBaseManageDb do
+              Filter := Data.QuoteField(TableName)+'.'+Data.QuoteField(aField)+'='+Data.QuoteValue(Format('%d',[Int64(aID)]));
+          end;
+      end;
+end;
+
 constructor TSyncTable.Create(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
@@ -146,4 +174,4 @@ begin
 end;
 
 end.
-
+

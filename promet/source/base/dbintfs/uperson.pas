@@ -37,6 +37,7 @@ type
        aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure SelectByAccountNo(aAccountNo : string);overload;
+    function CombineItems(aRemoteLink: string): Boolean; override;
   end;
   TPersonHistory = class(TBaseHistory)
   end;
@@ -698,5 +699,74 @@ begin
         end;
     end;
 end;
+
+function TPersonList.CombineItems(aRemoteLink: string): Boolean;
+var
+  aClass: TBaseDBDatasetClass;
+  aObject: TBaseDBDataset;
+begin
+  Result := True;
+  if TBaseDBModule(DataModule).DataSetFromLink(aRemoteLink,aClass) then
+    begin
+      aObject := aClass.Create(nil,DataModule);
+      if not (aObject is TPersonList) then
+        begin
+          aObject.Free;
+          exit;
+        end;
+      TBaseDbList(aObject).SelectFromLink(aRemoteLink);
+      aObject.Open;
+      if aObject.Count>0 then
+        begin
+          with TPerson(aObject).Address do
+            begin
+              Open;
+              while not EOF do
+                begin
+                  Edit;
+                  FieldByName('REF_ID').AsVariant:=Self.Id.AsVariant;
+                  Post;
+                  Next;
+                end;
+            end;
+          with TPerson(aObject).CustomerCont do
+            begin
+              Open;
+              while not EOF do
+                begin
+                  Edit;
+                  FieldByName('REF_ID').AsVariant:=Self.Id.AsVariant;
+                  Post;
+                  Next;
+                end;
+            end;
+          with TPerson(aObject).Banking do
+            begin
+              Open;
+              while not EOF do
+                begin
+                  Edit;
+                  FieldByName('REF_ID').AsVariant:=Self.Id.AsVariant;
+                  Post;
+                  Next;
+                end;
+            end;
+          with TPerson(aObject).Images do
+            begin
+              Open;
+              while not EOF do
+                begin
+                  Edit;
+                  FieldByName('REF_ID').AsVariant:=Self.Id.AsVariant;
+                  Post;
+                  Next;
+                end;
+            end;
+        end;
+      aObject.Free;
+    end;
+  Result:=Result and inherited CombineItems(aRemoteLink);
+end;
+
 initialization
 end.

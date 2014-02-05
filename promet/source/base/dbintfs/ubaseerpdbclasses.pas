@@ -189,7 +189,8 @@ type
   end;
   function InternalRound(Value: Extended): Extended;
 implementation
-uses uBaseDBInterface,uMasterdata, uBaseApplication,Math,Variants,uRTFtoTXT;
+uses uBaseDBInterface,uMasterdata, uBaseApplication,Math,Variants,uRTFtoTXT,
+  uDocuments,usync;
 resourcestring
   strEdited                        = 'bearbeitet';
   strCreated                       = 'erstellt';
@@ -329,6 +330,8 @@ var
   aClass: TBaseDBDatasetClass;
   aObject: TBaseDBDataset;
   Hist,OwnHist : IBaseHistory;
+  aDoc: TDocuments;
+  aSync: TSyncItems;
 begin
   if TBaseDBModule(DataModule).DataSetFromLink(aRemoteLink,aClass) then
     begin
@@ -356,8 +359,31 @@ begin
                 end;
             end;
           //Combine Documents
+          aDoc := TDocuments.Create(nil,DataModule);
+          aDoc.SelectByReference(aObject.Id.AsVariant);
+          aDoc.Open;
+          while not aDoc.EOF do
+            begin
+              aDoc.Edit;
+              aDoc.FieldByName('REF_ID').AsVariant:=Self.Id.AsVariant;
+              aDoc.Post;
+              aDoc.Next;
+            end;
+          aDoc.Free;
           //Combine SyncItems
+          aSync:= TSyncItems.Create(nil,DataModule);
+          aSync.SelectByReference(aObject.Id.AsVariant);
+          aSync.Open;
+          while not aDoc.EOF do
+            begin
+              aSync.Edit;
+              aSync.FieldByName('LOCAL_ID').AsVariant:=Self.Id.AsVariant;
+              aSync.Post;
+              aSync.Next;
+            end;
+          aSync.Free;
         end;
+      aObject.Delete;
       aObject.Free;
     end;
 end;
@@ -1319,4 +1345,4 @@ begin
 end;
 initialization
 end.
-
+

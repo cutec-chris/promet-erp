@@ -23,6 +23,9 @@ interface
 uses
   Classes, SysUtils, db, uBaseDBClasses, Utils;
 type
+
+  { TDocuments }
+
   TDocuments = class(TBaseDBList)
   private
     FBaseID: string;
@@ -57,6 +60,7 @@ type
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure Select(aID : LargeInt;aType : string;aParent : LargeInt);overload;virtual;
     procedure Select(aID : largeInt;aType : string;aTID : string;aVersion : Variant;aLanguage : Variant;aParent : LargeInt = 0);overload;virtual;
+    procedure SelectByReference(aID : Variant);
     function OpenPath(aPath : string;aPathDelim : string = PathDelim) : Boolean;
     property IsDir : Boolean read GetIsDir;
     property IsLink : Boolean read GetIsLink;
@@ -910,6 +914,30 @@ begin
   FBaseLanguage := aLanguage;
   ParentID := aParent;
 end;
+
+procedure TDocuments.SelectByReference(aID: Variant);
+var
+  aField: String = '';
+begin
+  with BaseApplication as IBaseDBInterface do
+    with DataSet as IBaseDBFilter do
+      begin
+        aField := 'REF_ID_ID';
+        if (VarIsNumeric(aID) and (aID = 0))
+        or (VarIsStr(aID) and (aID = ''))
+        or (aID = Null)  then
+          begin
+            with DataSet as IBaseManageDb do
+              Filter := Data.QuoteField(TableName)+'.'+Data.QuoteField(aField)+'='+Data.QuoteValue('0');
+          end
+        else
+          begin
+            with DataSet as IBaseManageDb do
+              Filter := Data.QuoteField(TableName)+'.'+Data.QuoteField(aField)+'='+Data.QuoteValue(Format('%d',[Int64(aID)]));
+          end;
+      end;
+end;
+
 function TDocuments.OpenPath(aPath: string; aPathDelim: string): Boolean;
   function RecourseDirs(tmpDocs : TDocuments;nPath : string) : Boolean;
   var

@@ -276,7 +276,7 @@ end;
 function TfPersonFrame.fSearchOpenItem(aLink: string): Boolean;
 begin
   if MessageDlg(Format(strCombiteItems,[Data.GetLinkDesc(Data.BuildLink(Dataset.DataSet)),Data.GetLinkDesc(aLink)]),mtConfirmation,[mbYes,mbNo],0) = mrNo then exit;
-
+  TPerson(DataSet).CombineItems(aLink);
 end;
 
 function TfPersonFrame.fSearchValidateItem(aLink: string): Boolean;
