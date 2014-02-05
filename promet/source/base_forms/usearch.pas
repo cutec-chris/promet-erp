@@ -79,6 +79,8 @@ type
     procedure ActiveSearchEndSearch(Sender: TObject);
     procedure bCloseClick(Sender: TObject);
     procedure bEditFilterClick(Sender: TObject);
+    procedure cbSearchInClickCheck(Sender: TObject);
+    procedure cbSearchTypeClickCheck(Sender: TObject);
     procedure DoSearch(Sender: TObject);
     procedure cbAutomaticsearchChange(Sender: TObject);
     procedure cbWildgardsChange(Sender: TObject);
@@ -161,6 +163,17 @@ begin
   bEditFilter.Enabled:=True;
   Animate.Free;
 end;
+
+procedure TfSearch.cbSearchInClickCheck(Sender: TObject);
+begin
+  DoSearch(nil);
+end;
+
+procedure TfSearch.cbSearchTypeClickCheck(Sender: TObject);
+begin
+  DoSearch(nil);
+end;
+
 procedure TfSearch.acOpenExecute(Sender: TObject);
 begin
   SearchText := '';

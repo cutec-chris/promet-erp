@@ -178,7 +178,7 @@ resourcestring
   strUnknownDbType              = 'Unbekannter Datenbanktyp';
   strProject                    = 'Projekt';
   strUserNotFound               = 'benutzer nicht gefunden !';
-  strErrorDatabaseStructurenotActual = 'Die Struktur Ihrer Datenbank ist nicht aktuell, bitte wenden Sie sich an Ihren Administrator order updaten Sie dies emit dem Updatedatabase Tool.';
+  strErrorDatabaseStructurenotActual = 'Die Struktur Ihrer Datenbank ist nicht aktuell, bitte wenden Sie sich an Ihren Administrator order updaten Sie diese mit dem Updatedatabase Tool.';
   strNotSupported               = 'nicht unterstützt ! (Interner Fehler)';
   strDelete                     = 'löschen';
   strFinished                   = 'beendet';

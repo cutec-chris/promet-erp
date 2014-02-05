@@ -371,6 +371,7 @@ object fSearch: TfSearch
         Align = alClient
         BorderSpacing.Around = 8
         ItemHeight = 0
+        OnClickCheck = cbSearchInClickCheck
         TabOrder = 0
         TabStop = False
       end
@@ -394,6 +395,7 @@ object fSearch: TfSearch
         Align = alClient
         BorderSpacing.Around = 8
         ItemHeight = 0
+        OnClickCheck = cbSearchTypeClickCheck
         TabOrder = 0
         TabStop = False
       end
