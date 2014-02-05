@@ -294,6 +294,8 @@ type
     Node,Node1,Node2,Node3,aNode : TTreeNode;
     miNew: TMenuItem;
     aConn: TComponent;
+    aRightIn : string;
+    aRightOut : Integer;
     DataSetType : TBaseDBDatasetClass;
     procedure NewNode;
     procedure NewNode1;
@@ -310,6 +312,8 @@ type
     procedure RefreshTasks;
     procedure Expand;
     procedure RefreshWiki;
+    procedure DoGetRight;
+    function GetRight(aRight : string) : Integer;
   public
     constructor Create(aSuspended : Boolean = False);
     procedure Execute; override;
@@ -759,6 +763,18 @@ begin
   fMain.WikiFrame.Refresh;
 end;
 
+procedure TStarterThread.DoGetRight;
+begin
+  aRightOut := Data.Users.Rights.Right(aRightIN)
+end;
+
+function TStarterThread.GetRight(aRight: string): Integer;
+begin
+  aRightIn := aRight;
+  Synchronize(@DoGetRight);
+  Result := aRightOut;
+end;
+
 constructor TStarterThread.Create(aSuspended: Boolean);
 begin
   FreeOnTerminate:=True;
@@ -784,7 +800,7 @@ begin
   DataSetType:=TDocuments;
   Synchronize(@DoCreate);
   //Messages
-  if Data.Users.Rights.Right('MESSAGES') > RIGHT_NONE then
+  if GetRight('MESSAGES') > RIGHT_NONE then
     begin
       DataSetType:=TMessageList;
       Synchronize(@DoCreate);
@@ -794,13 +810,13 @@ begin
     end;
   Synchronize(@StartReceive);
   //Tasks
-  if (Data.Users.Rights.Right('TASKS') > RIGHT_NONE) then
+  if (GetRight('TASKS') > RIGHT_NONE) then
     begin
       Synchronize(@RefreshTasks);
       Data.RegisterLinkHandler('TASKS',@fMainTreeFrame.OpenLink,TTask,TTaskList);
     end;
   //Add PIM Entrys
-  if Data.Users.Rights.Right('CALENDAR') > RIGHT_NONE then
+  if GetRight('CALENDAR') > RIGHT_NONE then
     begin
       DataSetType:=TCalendar;
       Synchronize(@DoCreate);
@@ -808,7 +824,7 @@ begin
       fMain.RefreshCalendar;
     end;
   //Orders
-  if Data.Users.Rights.Right('ORDERS') > RIGHT_NONE then
+  if GetRight('ORDERS') > RIGHT_NONE then
     begin
       DataSetType:=TOrder;
       Synchronize(@DoCreate);
@@ -817,7 +833,7 @@ begin
       AddSearchAbleDataSet(TOrderList);
     end;
   //Add Contacts
-  if Data.Users.Rights.Right('CUSTOMERS') > RIGHT_NONE then
+  if GetRight('CUSTOMERS') > RIGHT_NONE then
     begin
       DataSetType:=TPerson;
       Synchronize(@DoCreate);
@@ -829,7 +845,7 @@ begin
       AddSearchAbleDataSet(TPersonAddress);
     end;
   //Add Masterdata stuff
-  if (Data.Users.Rights.Right('MASTERDATA') > RIGHT_NONE) then
+  if (GetRight('MASTERDATA') > RIGHT_NONE) then
     begin
       DataSetType:=TMasterdata;
       Synchronize(@DoCreate);
@@ -838,7 +854,7 @@ begin
       AddSearchAbleDataSet(TMasterdataList);
     end;
   //Projects
-  if (Data.Users.Rights.Right('PROJECTS') > RIGHT_NONE) then
+  if (GetRight('PROJECTS') > RIGHT_NONE) then
     begin
       DataSetType:=TProject;
       Synchronize(@DoCreate);
@@ -847,7 +863,7 @@ begin
       AddSearchAbleDataSet(TProjectList);
     end;
   //Wiki
-  if (Data.Users.Rights.Right('WIKI') > RIGHT_NONE) then
+  if (GetRight('WIKI') > RIGHT_NONE) then
     begin
       fMain.pcPages.AddTabClass(TfWikiFrame,strWiki,@fMain.AddWiki,Data.GetLinkIcon('WIKI@'),True);
       Data.RegisterLinkHandler('WIKI',@fMainTreeFrame.OpenLink,TWikiList);
@@ -855,13 +871,13 @@ begin
     end;
   Synchronize(@RefreshWiki);
   //Documents
-  if (Data.Users.Rights.Right('DOCUMENTS') > RIGHT_NONE) then
+  if (GetRight('DOCUMENTS') > RIGHT_NONE) then
     begin
       Data.RegisterLinkHandler('DOCUMENTS',@fMainTreeFrame.OpenLink,TDocument);
       Data.RegisterLinkHandler('DOCPAGES',@fMainTreeFrame.OpenLink,TDocPages);
     end;
   //Lists
-  if (Data.Users.Rights.Right('LISTS') > RIGHT_NONE) then
+  if (GetRight('LISTS') > RIGHT_NONE) then
     begin
       DataSetType:=TLists;
       Synchronize(@DoCreate);
@@ -869,7 +885,7 @@ begin
       AddSearchAbleDataSet(TLists);
     end;
   //Meetings
-  if (Data.Users.Rights.Right('MEETINGS') > RIGHT_NONE) then
+  if (GetRight('MEETINGS') > RIGHT_NONE) then
     begin
       DataSetType:=TMeetings;
       Synchronize(@DoCreate);
@@ -878,14 +894,14 @@ begin
       AddSearchAbleDataSet(TMeetings);
     end;
   //Inventory
-  if (Data.Users.Rights.Right('INVENTORY') > RIGHT_NONE) then
+  if (GetRight('INVENTORY') > RIGHT_NONE) then
     begin
       DataSetType:=TInventorys;
       Synchronize(@DoCreate);
       Data.RegisterLinkHandler('INVENTORY',@fMainTreeFrame.OpenLink,TInventorys);
     end;
   //Statistics
-  if (Data.Users.Rights.Right('STATISTICS') > RIGHT_NONE) then
+  if (GetRight('STATISTICS') > RIGHT_NONE) then
     begin
       Data.RegisterLinkHandler('STATISTICS',@fMainTreeFrame.OpenLink,TStatistic);
       AddSearchAbleDataSet(TStatistic);
@@ -894,7 +910,7 @@ begin
   Synchronize(@AddTimeReg2);
   AddSearchAbleDataSet(TUser);
   //History
-  if Data.Users.Rights.Right('DOCUMENTS') > RIGHT_NONE then
+  if GetRight('DOCUMENTS') > RIGHT_NONE then
     begin
       AddSearchAbleDataSet(TBaseHistory);
       Data.RegisterLinkHandler('HISTORY',@fMainTreeFrame.OpenLink,TBaseHistory);

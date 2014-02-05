@@ -126,6 +126,8 @@ type
     procedure cbFilterSelect(Sender: TObject);
     procedure DatasetAfterScroll(aDataSet: TDataSet);
     procedure DblClickTimerTimer(Sender: TObject);
+    procedure DoAsyncRefresh(Data: PtrInt);
+    procedure DoAsyncResize(Data: PtrInt);
     procedure eFilterEditChange(Sender: TObject);
     procedure gHeaderColRowMoved(Sender: TObject; IsColumn: Boolean; sIndex,
       tIndex: Integer);
@@ -199,9 +201,11 @@ type
     procedure SetSortField(const AValue: string);
     procedure SetStdFilter(const AValue: string);
     procedure UpdateTitle;
+    procedure SetupHeader;
     procedure DoFilterFocus;
     procedure DoUpdateTimeLine;
     procedure DoUpdateDSCount;
+    procedure Asyncrefresh;
     { private declarations }
   public
     { public declarations }
@@ -520,6 +524,7 @@ begin
     begin
       gList.Columns[sIndex-1].Index:=tIndex-1;
       fRowEditor.SetGridSizes('FILTER'+FFilterType,gList.DataSource,gList,cbFilter.Text);
+      AsyncRefresh;
     end;
 end;
 procedure TfFilter.gHeaderDrawCell(Sender: TObject; aCol, aRow: Integer;
@@ -562,12 +567,9 @@ var
   i: Integer;
 begin
   if not IsColumn then exit;
-  if gList.Columns.Count > Index-1 then
+  if Sender = gHeader then
     gList.Columns[Index-1].Width:=gHeader.Columns[Index-1].Width;
-  for i := 0 to gHeader.Columns.Count-1 do
-    gHeader.Columns[i].ReadOnly:=false;
-  if Assigned(Sender) then
-    fRowEditor.SetGridSizes('FILTER'+FFilterType,gList.DataSource,gList,cbFilter.Text);
+  Application.QueueAsyncCall(@DoAsyncResize,0);
 end;
 procedure TfFilter.gHeaderKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
@@ -596,9 +598,7 @@ procedure TfFilter.bEditRowsClick(Sender: TObject);
 begin
   fRowEditor.Execute     ('FILTER'+FFilterType,gList.DataSource,gList,cbFilter.Text);
   fRowEditor.GetGridSizes('FILTER'+FFilterType,List,gList,FDefaultRows,not FEditable,cbFilter.Text);
-  gHeader.Columns.Assign(gList.Columns);
-  Self.ClearFilters;
-  gHeaderHeaderSized(nil,True,1);
+  SetupHeader;
   UpdateTitle;
 end;
 procedure TfFilter.acSaveFilterExecute(Sender: TObject);
@@ -957,6 +957,17 @@ begin
   DblClickTimer.Enabled:=False;
   acOpen.Execute;
 end;
+procedure TfFilter.DoAsyncRefresh(Data: PtrInt);
+begin
+  fRowEditor.GetGridSizes('FILTER'+FFilterType,List,gList,FDefaultRows,not FEditable,cbFilter.Text);
+  gHeader.Columns.Assign(gList.Columns);
+  UpdateTitle;
+end;
+procedure TfFilter.DoAsyncResize(Data: PtrInt);
+begin
+  fRowEditor.SetGridSizes('FILTER'+FFilterType,gList.DataSource,gList,cbFilter.Text);
+  Asyncrefresh;
+end;
 procedure TfFilter.gListColumnMoved(Sender: TObject; FromIndex, ToIndex: Integer
   );
 begin
@@ -1018,6 +1029,7 @@ begin
   for i := 0 to gList.Columns.Count-1 do
     begin
       gHeader.Columns[i].ButtonStyle:=cbsAuto;
+      gHeader.Columns[i].Width:=TColumn(gList.Columns[i]).Width;
       if SortField = TColumn(gList.Columns[i]).FieldName then
         begin
           if SortDirection = sdAscending then
@@ -1042,8 +1054,17 @@ begin
           gHeader.Columns[i].Title.ImageIndex := -1;
         end;
     end;
-  gHeaderHeaderSized(nil,True,1);
+  for i := 0 to gHeader.Columns.Count-1 do
+    gHeader.Columns[i].ReadOnly:=false;
 end;
+
+procedure TfFilter.SetupHeader;
+begin
+  gHeader.Columns.Assign(gList.Columns);
+  //Self.ClearFilters;
+  UpdateTitle;
+end;
+
 procedure TfFilter.DoFilterFocus;
 var
   aControl: TControl;
@@ -1142,6 +1163,12 @@ begin
   else
     pBottom.Caption:=Format(strRecordCount,[DataSet.Count]);
 end;
+
+procedure TfFilter.Asyncrefresh;
+begin
+  Application.QueueAsyncCall(@DoAsyncRefresh,0);
+end;
+
 constructor TfFilter.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
@@ -1321,7 +1348,6 @@ begin
   fRowEditor.GetGridSizes('FILTER'+FFilterType,gList.DataSource,gList,FDefaultRows,not FEditable,cbFilter.Text);
   gHeader.Columns.Assign(gList.Columns);
   Self.ClearFilters;
-  gHeaderHeaderSized(nil,True,1);
   UpdateTitle;
 end;
 procedure TfFilter.SetDistinct(const AValue: Boolean);
@@ -1484,7 +1510,6 @@ begin
         end;
       FAutoFilter := BuildAutoFilter(gList,gHeader);
       aFilter.Free;
-      gHeaderHeaderSized(nil,True,1);
       UpdateTitle;
     end;
   try

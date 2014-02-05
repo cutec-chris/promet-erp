@@ -234,6 +234,7 @@ var
   tmp: String;
   FullWidth : Integer = 0;
   IsReadOnly: Boolean = True;
+  a: Integer;
 begin
   if not Assigned(DataSource) then exit;
   if not Assigned(Grid) then exit;
@@ -246,17 +247,21 @@ begin
     s := 'GLOBALWIDTH:%;'
   else
     s := 'GLOBALWIDTH:'+IntToStr(Grid.Width)+';';
+
   for i := 0 to Grid.Columns.Count-1 do
     begin
-      s := s+TColumn(Grid.Columns[i]).FieldName+':'+IntToStr(TColumn(Grid.Columns[i]).Width)+';';
-      FullWidth := FullWidth+TColumn(Grid.Columns[i]).Width;
-      if not TColumn(Grid.Columns[i]).ReadOnly then
-        IsReadOnly := false;
+      for a := 0 to Grid.Columns.Count-1 do
+        if Grid.Columns[a].Index = i then
+          begin
+            s := s+TColumn(Grid.Columns[a]).FieldName+':'+IntToStr(TColumn(Grid.Columns[a]).Width)+';';
+            FullWidth := FullWidth+TColumn(Grid.Columns[i]).Width;
+            if not TColumn(Grid.Columns[a]).ReadOnly then
+              IsReadOnly := false;
+          end;
     end;
   if s <> '' then
     with Application as IBaseDbInterface do
       DBConfig.WriteString('GRID:'+Uppercase(tmp),s);
-  GetGridSizes(aConfigName,DataSource,Grid,'',IsReadOnly,Filter);
 end;
 function TfRowEditor.GetGridSizes(aConfigName : string;DataSource: TDataSource; Grid: TDBGrid;Defaults : string = '';MakereadOnly : Boolean = False; Filter : string = '') : Boolean;
 var
