@@ -937,6 +937,7 @@ var
             TaskPlan.CollectResources(TRessource(FRessources[i]),aTasks.FieldByName('USER').AsString,nil,False);
           end;
       end;
+    aInterval.Changed:=False;
   end;
 begin
   setlength(deps,0);
@@ -950,6 +951,8 @@ begin
       begin
         CleanIntervals;
       end;
+    bSave.Enabled:=False;
+    bCancel.Enabled:=False;
     aTasks.First;
     aRoot := TInterval.Create(FGantt);
     FGantt.AddInterval(aRoot);
@@ -1008,8 +1011,6 @@ begin
     fLogWaitForm.Hide;
     Screen.Cursor:=crDefault;
   end;
-  bSave.Enabled:=False;
-  bCancel.Enabled:=False;
   FGantt.Tree.TopRow:=1;
   FGantt.StartDate:=Now();
   FindCriticalPath;

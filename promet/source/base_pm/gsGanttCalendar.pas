@@ -1251,7 +1251,6 @@ begin
 
     FConnections.Add(AConnection);
     FGantt.UpdateInterval;
-    Change;
   end;
 end;
 
@@ -1390,6 +1389,7 @@ begin
       FFinishDate := FFinishDate + Delta;
       FIntervalDone := FIntervalDone + Delta;
       FCanUpdate := False;
+      Change;
     end;  
   end;
 end;
