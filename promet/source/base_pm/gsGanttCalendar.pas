@@ -181,7 +181,7 @@ type
     constructor Create(AGantt: TgsGantt);virtual;
     destructor Destroy; override;
 
-    procedure AddConnection(AConnection: TInterval;DoUpdateIntervalStart : Boolean);
+    procedure AddConnection(AConnection: TInterval;DoUpdateIntervalStart : Boolean;DoChange : Boolean);
     procedure DeleteConnection(AnIndex: Integer);
     procedure RemoveConnection(AConnection: TInterval);
 
@@ -1239,7 +1239,8 @@ begin
   inherited Destroy;
 end;
 
-procedure TInterval.AddConnection(AConnection: TInterval;DoUpdateIntervalStart : Boolean);
+procedure TInterval.AddConnection(AConnection: TInterval;
+  DoUpdateIntervalStart: Boolean; DoChange: Boolean = True);
 begin
   if FConnections.IndexOf(AConnection) = -1 then
   begin
@@ -1248,9 +1249,10 @@ begin
 
     if (AConnection.StartDate < FinishDate) and DoUpdateIntervalStart then
       AConnection.UpdateIntervalStart((FinishDate + Buffer) - AConnection.StartDate);
-
     FConnections.Add(AConnection);
     FGantt.UpdateInterval;
+    if DoChange then
+      Change;
   end;
 end;
 

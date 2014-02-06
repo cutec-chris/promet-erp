@@ -998,7 +998,7 @@ begin
             if Assigned(aDep) then
               begin
                 aInterval := IntervalById(aTasks.Id.AsVariant);
-                aDep.AddConnection(aInterval,aTask.FieldByName('STARTDATE').IsNull and aTask.FieldByName('DUEDATE').IsNull);
+                aDep.AddConnection(aInterval,aTask.FieldByName('STARTDATE').IsNull and aTask.FieldByName('DUEDATE').IsNull,False);
               end;
             aTask.Dependencies.Next;
           end;
