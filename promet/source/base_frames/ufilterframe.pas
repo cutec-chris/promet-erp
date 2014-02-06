@@ -1544,7 +1544,7 @@ begin
       if gc.y = HintY then exit;
       HintY := gc.y;
       gList.BeginUpdate;
-//      gList.DataSource.Enabled:=False;
+      gList.DataSource.Enabled:=False;
       aDataSet := gList.DataSource.DataSet;
 //      gList.DataSource.DataSet := nil;
       Rec := aDataSet.GetBookmark;
@@ -1562,9 +1562,9 @@ begin
       {$IFDEF MAINAPP}
       Data.GetLinkIcon(aLink);
       {$ENDIF}
-//      aDataSet.GotoBookmark(Rec);
+      aDataSet.GotoBookmark(Rec);
 //      gList.DataSource.DataSet := aDataSet;
-//      gList.DataSource.Enabled:=True;
+      gList.DataSource.Enabled:=True;
       gList.EndUpdate;
       HintInfo.HideTimeout:=15000;
     end;

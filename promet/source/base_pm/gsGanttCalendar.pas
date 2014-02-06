@@ -3191,7 +3191,7 @@ begin
         begin
           for I := 0 to IntervalCount - 1 do
             Interval[I].PrepareToUpdate;
-          FDragInterval.AddConnection(FConnectInterval,True);
+          FDragInterval.AddConnection(FConnectInterval,True,True);
         end;
       end;
     end;

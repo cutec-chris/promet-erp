@@ -804,7 +804,7 @@ begin
           if aSubInt.StartDate>aSubInt.FinishDate then
             aSubInt.StartDate:=aSubInt.FinishDate;
           if Assigned(aOldSubInt) then
-              aOldSubInt.AddConnection(aSubInt,False);
+            aOldSubInt.AddConnection(aSubInt,False,False);
           aInt.AddInterval(aSubInt);
           aWK := aProject.Tasks.FieldByName('WORKSTATUS').AsString;
           if Data.IsSQLDB then
