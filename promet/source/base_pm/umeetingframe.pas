@@ -383,7 +383,9 @@ begin
     begin
       if Assigned(aFont) then
         begin
-          if pos('('+strProjectProcess,NewText)>0 then
+          if (pos('('+strProjectProcess,NewText)>0)
+          or (pos('('+strMasterdata,NewText)>0)
+          then
             aFont.Style := [fsBold]
           else
             aFont.Style := [];

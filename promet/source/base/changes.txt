@@ -1,6 +1,10 @@
 ﻿Build 309
       - Startseite: erste voll arbeitende Version
+      - Kontakte:Dublettensuche/kombinieren von Kontakten
       - Grids: Spaltenbreite kann prozentual gespeichert werden so das alle Grids immer die volle Breite ausnutzen unabhängig von Bildschirmauflösung
+      - Projekte:beim dublizieren von prozessen konnte es vorkommen das Abhängigkeiten auf altes sowie neues Projekt erstellt wurden
+      - Gantt Ansicht: besseres verhalten beim aufbauen der Ansicht (Statusdialog, Button Status stimmt nun nach dem öffnen)
+      - Besprechungen: Artikel werden auch als Themen fett dargestellt
 Build 308
       - Startseite: erste Version
 Build 307
