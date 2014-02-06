@@ -21,12 +21,12 @@ unit umtimeline;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, DBGrids,
-  Buttons, Menus, ActnList, XMLPropStorage, StdCtrls, Utils, ZVDateTimePicker,
-  uIntfStrConsts, db, memds, FileUtil, Translations, md5,
-  ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage,ugridview,
-  uExtControls,uBaseVisualControls,uBaseDbClasses,uFormAnimate,uBaseSearch,
-  ImgList,uBaseDbInterface,uQuickHelpFrame;
+  Classes, SysUtils, types, LResources, Forms, Controls, Graphics, Dialogs,
+  DBGrids, Buttons, Menus, ActnList, XMLPropStorage, StdCtrls, Utils,
+  ZVDateTimePicker, uIntfStrConsts, db, memds, FileUtil, Translations, md5,
+  ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage, ugridview, uExtControls,
+  uBaseVisualControls, uBaseDbClasses, uFormAnimate, uBaseSearch, ImgList,
+  uBaseDbInterface, uQuickHelpFrame;
 type
 
   { TMGridObject }
@@ -110,7 +110,6 @@ type
     procedure ActiveSearchEndItemSearch(Sender: TObject);
     procedure ActiveSearchItemFound(aIdent: string; aName: string;
       aStatus: string; aActive: Boolean; aLink: string; aItem: TBaseDBList=nil);
-    procedure bSendClick(Sender: TObject);
     function FContListDrawColumnCell(Sender: TObject; const aRect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState): Boolean;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -128,7 +127,6 @@ type
     procedure lbResultsDblClick(Sender: TObject);
     procedure mEntryKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure mEntryKeyPress(Sender: TObject; var Key: char);
-    procedure pSearchClick(Sender: TObject);
     procedure tbThreadClick(Sender: TObject);
     procedure tbUserClick(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
@@ -159,9 +157,22 @@ type
     procedure Execute;
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
-    procedure ShowFrame;
     procedure AddHelp;
   end;
+
+  { TImagingThread }
+
+  TImagingThread = class(TThread)
+  private
+    FId : Variant;
+    FObj: TMGridObject;
+    procedure AddThumb;
+    procedure DoRefresh;
+  public
+    constructor Create(aId : Variant;aObj : TMGridObject);
+    procedure Execute; override;
+  end;
+
 var
   fmTimeline: TfmTimeline;
 const
@@ -169,23 +180,64 @@ const
 implementation
 uses uBaseApplication, uData, uOrder,uMessages,uBaseERPDBClasses,
   uMain,LCLType,utask,uProcessManager,uprometipc,ProcessUtils,ufollow,udetailview,
-  LCLIntf,wikitohtml,uDocuments,uthumbnails,uscreenshotmain,uWiki,uSearch;
+  LCLIntf,wikitohtml,uDocuments,uthumbnails,uscreenshotmain,uWiki,uSearch,
+  LCLProc;
 resourcestring
   strTo                                  = 'an ';
+
+{ TImagingThread }
+
+procedure TImagingThread.AddThumb;
+var
+  aDocument: TDocument;
+  mTime: DWORD;
+begin
+  mTime:=GetTickCount;
+  aDocument := TDocument.Create(nil,Data);
+  aDocument.Select(FId,'H',0);
+  aDocument.ActualLimit:=1;
+  aDocument.Open;
+  debugln('DocumentOpen:'+IntToStr(GetTickCount-mTime)+'ms');
+  mTime := GetTickCount;
+  TMGridObject(FObj).HasAttachment := aDocument.Count>0;
+  if aDocument.Count>0 then
+    begin
+      TMGridObject(FObj).Image := GetThumbnailBitmap(aDocument);
+    end;
+  debugln('Thumb:'+IntToStr(GetTickCount-mTime)+'ms');
+  aDocument.Free;
+end;
+
+procedure TImagingThread.DoRefresh;
+begin
+  fmTimeline.fTimeline.gList.Invalidate;
+end;
+
+constructor TImagingThread.Create(aId: Variant; aObj: TMGridObject);
+begin
+  FreeOnTerminate:=True;
+  Fid := aId;
+  FObj := aObj;
+  inherited Create(False);
+end;
+
+procedure TImagingThread.Execute;
+begin
+  Synchronize(@AddThumb);
+  Synchronize(@DoRefresh);
+end;
 
 constructor TMGridObject.Create;
 begin
   Bold := False;
   Image := nil;
 end;
-
 destructor TMGridObject.Destroy;
 begin
   if Assigned(Image) then
     Image.Free;
   inherited Destroy;
 end;
-
 procedure TfmTimeline.Execute;
 var
   aBoundsRect: TRect;
@@ -236,23 +288,16 @@ begin
   fTimeline.SetActive;
   fTimeline.gList.TopRow:=0;
 end;
-
 constructor TfmTimeline.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   fTimeline := TfGridView.Create(Self);
   fTimeline.ShowHint:=True;
 end;
-
 destructor TfmTimeline.Destroy;
 begin
   inherited Destroy;
 end;
-
-procedure TfmTimeline.ShowFrame;
-begin
-end;
-
 procedure TfmTimeline.AddHelp;
 var
   aWiki: TWikiList;
@@ -274,7 +319,6 @@ begin
     end;
   aWiki.Free;
 end;
-
 function TfmTimeline.FContListDrawColumnCell(Sender: TObject; const aRect: TRect;
   DataCol: Integer; Column: TColumn; State: TGridDrawState): Boolean;
 const
@@ -311,7 +355,9 @@ var
   cRect: TRect;
   aFactor: Extended;
   aWidth: Integer;
+  mTime: DWORD;
 begin
+//  mTime := GetTickCount;
   with (Sender as TCustomGrid), Canvas do
     begin
       Result := True;
@@ -433,13 +479,14 @@ begin
           Result := False;
         end;
     end;
+//  mTime := GetTickCount-mTime;
+//  if mTime>0 then
+//    debugln('DrawColumnCellEnd:'+IntToStr(mTime)+'ms');
 end;
-
 procedure TfmTimeline.acRefreshExecute(Sender: TObject);
 begin
   FTimeLine.Refresh(True);
 end;
-
 procedure TfmTimeline.acFollowExecute(Sender: TObject);
 begin
   if fFollow.Execute then
@@ -452,7 +499,6 @@ begin
       acRefresh.Execute;
     end;
 end;
-
 procedure TfmTimeline.acMarkAllasReadExecute(Sender: TObject);
 begin
   fTimeline.DataSet.First;
@@ -462,13 +508,11 @@ begin
       fTimeline.DataSet.Next;
     end;
 end;
-
 procedure TfmTimeline.acMarkasReadExecute(Sender: TObject);
 begin
   if fTimeline.GotoActiveRow then
     MarkAsRead;
 end;
-
 procedure TfmTimeline.acAnswerExecute(Sender: TObject);
 var
   tmp: String;
@@ -501,7 +545,6 @@ begin
       MarkAsRead;
     end;
 end;
-
 procedure TfmTimeline.acDeleteExecute(Sender: TObject);
 begin
   if fTimeline.GotoActiveRow then
@@ -509,7 +552,6 @@ begin
       fTimeline.Delete;
     end;
 end;
-
 procedure TfmTimeline.acAddScreenshotExecute(Sender: TObject);
 var
   aDocuments: TDocuments;
@@ -574,7 +616,6 @@ begin
   Self.Show;
   acSend.Enabled:=True;
 end;
-
 procedure TfmTimeline.acAddUserExecute(Sender: TObject);
 var
   i: Integer;
@@ -595,13 +636,11 @@ begin
   fSearch.Execute(True,'MESSA','');
   fSearch.SetLanguage;
 end;
-
 procedure TfmTimeline.acDetailViewExecute(Sender: TObject);
 begin
   if fTimeline.GotoActiveRow then
     fDetailView.Execute(TBaseHistory(fTimeline.DataSet));
 end;
-
 procedure TfmTimeline.acSendExecute(Sender: TObject);
 var
   tmp: String;
@@ -684,7 +723,6 @@ begin
       fTimeline.SetActive;
     end;
 end;
-
 procedure TfmTimeline.ActiveSearchEndItemSearch(Sender: TObject);
 begin
   if not ActiveSearch.Active then
@@ -693,7 +731,6 @@ begin
         pSearch.Visible:=False;
     end;
 end;
-
 procedure TfmTimeline.ActiveSearchItemFound(aIdent: string; aName: string;
   aStatus: string; aActive: Boolean; aLink: string; aItem: TBaseDBList=nil);
 begin
@@ -705,11 +742,6 @@ begin
   if aActive then
     lbResults.Items.AddObject(aName,TLinkObject.Create(aLink));
 end;
-
-procedure TfmTimeline.bSendClick(Sender: TObject);
-begin
-
-end;
 procedure TfmTimeline.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   IdleTimer1.Enabled:=False;
@@ -717,7 +749,6 @@ begin
     Config.WriteRect('TIMELINERECT',BoundsRect);
   CloseAction:=caHide;
 end;
-
 procedure TfmTimeline.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
@@ -728,12 +759,10 @@ begin
       Close;
     end;
 end;
-
 procedure TfmTimeline.FormShow(Sender: TObject);
 begin
   Timer1.Enabled:=True;
 end;
-
 function TfmTimeline.fSearchOpenUser(aLink: string): Boolean;
 var
   tmp: String;
@@ -760,7 +789,6 @@ begin
   mEntry.Text:=tmp+' '+mEntry.Text;
   mEntry.SelStart:=length(mEntry.Text);
 end;
-
 procedure TfmTimeline.fTimelineGetCellText(Sender: TObject; aCol: TColumn;
   aRow: Integer; var NewText: string; aFont: TFont);
 var
@@ -770,6 +798,7 @@ var
   aObj: TObject;
   arec: LargeInt;
   aDocument: TDocument;
+  mTime: types.DWORD;
 begin
   if aCol.FieldName='LINK' then
     NewText := Data.GetLinkDesc(NewText)
@@ -803,17 +832,8 @@ begin
                   TMGridObject(aObj).Bold:=(fTimeline.dgFake.DataSource.DataSet.FieldByName('READ').AsString<>'Y');
                   if fTimeline.dgFake.DataSource.DataSet.RecordCount>0 then
                     begin
-                      aDocument := TDocument.Create(nil,Data);
-                      aDocument.Select(fTimeline.dgFake.DataSource.DataSet.FieldByName('SQL_ID').AsVariant,'H',0);
-                      aDocument.ActualLimit:=1;
-                      aDocument.Open;
-                      TMGridObject(aObj).HasAttachment := aDocument.Count>0;
                       TMGridObject(aObj).IsThreaded:=not fTimeline.dgFake.DataSource.DataSet.FieldByName('PARENT').IsNull;
-                      if aDocument.Count>0 then
-                        begin
-                          TMGridObject(aObj).Image := GetThumbnailBitmap(aDocument);
-                        end;
-                      aDocument.Free;
+                      TImagingThread.Create(fTimeline.dgFake.DataSource.DataSet.FieldByName('SQL_ID').AsVariant,TMGridObject(aObj));
                     end;
                 end;
               fTimeline.DataSet.GotoBookmark(aRec);
@@ -843,7 +863,6 @@ begin
         end;
     end;
 end;
-
 procedure TfmTimeline.fTimelinegetRowHeight(Sender: TObject; aCol: TColumn;
   aRow: Integer; var aHeight: Integer; var aWidth: Integer);
 var
@@ -863,12 +882,10 @@ begin
         end;
     end;
 end;
-
 procedure TfmTimeline.fTimelinegListDblClick(Sender: TObject);
 begin
   acAnswerExecute(nil);
 end;
-
 procedure TfmTimeline.fTimelinegListKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 var
@@ -889,12 +906,11 @@ begin
         end;
     end;
 end;
-
 procedure TfmTimeline.IdleTimer1Timer(Sender: TObject);
 begin
+  debugln('Refresh Timeline idle');
   FTimeLine.Refresh(True);
 end;
-
 procedure TfmTimeline.lbResultsDblClick(Sender: TObject);
 var
   aUser: TUser;
@@ -915,7 +931,6 @@ begin
   pSearch.Visible:=False;
   aUser.Free;
 end;
-
 procedure TfmTimeline.mEntryKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
@@ -975,7 +990,6 @@ begin
         end;
     end;
 end;
-
 procedure TfmTimeline.mEntryKeyPress(Sender: TObject; var Key: char);
 var
   SearchTypes : TFullTextSearchTypes = [];
@@ -1018,12 +1032,6 @@ begin
       Application.ProcessMessages;
     end;
 end;
-
-procedure TfmTimeline.pSearchClick(Sender: TObject);
-begin
-
-end;
-
 procedure TfmTimeline.tbThreadClick(Sender: TObject);
 var
   FRoot : Variant;
@@ -1077,7 +1085,6 @@ begin
   acMarkAllasRead.Visible:=tbThread.Down or tbUser.Down;
   Screen.Cursor:=crDefault;
 end;
-
 procedure TfmTimeline.tbUserClick(Sender: TObject);
 var
   FUser: String;
@@ -1117,13 +1124,12 @@ begin
   acMarkAllasRead.Visible:=tbThread.Down or tbUser.Down;
   Screen.Cursor:=crDefault;
 end;
-
 procedure TfmTimeline.Timer1Timer(Sender: TObject);
 begin
+  debugln('Refresh Timeline Timer');
   Timer1.Enabled:=False;
   acRefresh.Execute;
 end;
-
 procedure TfmTimeline.ToolButton2Click(Sender: TObject);
 var
   aController: TAnimationController;
@@ -1151,7 +1157,6 @@ begin
     end;
   aController.Free;
 end;
-
 procedure TfmTimeline.tbRootEntrysClick(Sender: TObject);
 var
   FRoot : Variant;
@@ -1173,7 +1178,6 @@ begin
     fTimeline.BaseFilter:='';
   Screen.Cursor:=crDefault;
 end;
-
 function TfmTimeline.GetUsersFromString(var tmp: string): TStringList;
 begin
   Result := TStringList.Create;
@@ -1186,7 +1190,6 @@ begin
     result.Add(copy(tmp,0,pos(' ',tmp)-1));
   tmp := copy(tmp,pos(' ',tmp)+1,length(tmp));
 end;
-
 procedure TfmTimeline.MarkAsRead;
 var
   i: Integer;
@@ -1207,7 +1210,6 @@ begin
       end;
   fTimeline.gList.Invalidate;
 end;
-
 initialization
   {$I umtimeline.lrs}
   AddSearchAbleDataSet(TUser);

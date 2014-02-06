@@ -54,7 +54,6 @@ type
     procedure IPCTimerTimer(Sender: TObject);
     procedure ProgTimerTimer(Sender: TObject);
     procedure TrayIconClick(Sender: TObject);
-    procedure TrayIconDblClick(Sender: TObject);
   private
     { private declarations }
     aNow: TDateTime;
@@ -240,13 +239,17 @@ begin
         end;
       if (not FHistory.EOF) then
         begin
-          if Assigned(fmTimeline) and fmTimeline.Visible and ((fmTimeline.WindowState=wsMinimized) or (not fmTimeline.Focused)) then
+          if Assigned(fmTimeline) and fmTimeline.Visible then
             begin
-              fmTimeline.acRefresh.Execute;
-              InformRecTime := Now()+(1/(MSecsPerDay/MSecsPerSec));
-              {$IFDEF WINDOWS}
-              FlashWindow(fmTimeline.Handle,True);
-              {$ENDIF}
+              if (fmTimeline.WindowState=wsMinimized) then
+                begin
+                  debugln('Refresh visible Timeline');
+                  fmTimeline.acRefresh.Execute;
+                  InformRecTime := Now()+(1/(MSecsPerDay/MSecsPerSec));
+                  {$IFDEF WINDOWS}
+                  FlashWindow(fmTimeline.Handle,True);
+                  {$ENDIF}
+                end;
             end
           else
             begin
@@ -276,6 +279,7 @@ begin
                   TrayIcon.Tag := 0;
                   if Assigned(fmTimeline) then
                     begin
+                      debugln('Refresh invisible Timeline');
                       fmTimeline.acRefresh.Execute;
                       fmTimeline.fTimeline.DataSet.First;
                       fmTimeline.fTimeline.GotoDataSetRow;
@@ -290,7 +294,6 @@ begin
   {$ENDIF}
   ProgTimer.Enabled:=True;
 end;
-
 procedure TfMain.TrayIconClick(Sender: TObject);
 begin
   if (not Assigned(fmTimeline)) or (not fmTimeline.Visible) then
@@ -300,12 +303,6 @@ begin
     end
   else fmTimeline.Close;
 end;
-
-procedure TfMain.TrayIconDblClick(Sender: TObject);
-begin
-
-end;
-
 function TfMain.CommandReceived(Sender: TObject; aCommand: string
   ): Boolean;
 var
@@ -384,19 +381,16 @@ begin
       Result := True;
     end;
 end;
-
 procedure TfMain.SetFilter(AValue: string);
 begin
   if FFilter=AValue then Exit;
   FFilter:=AValue;
 end;
-
 procedure TfMain.SetFilter2(AValue: string);
 begin
   if FFilter2=AValue then Exit;
   FFilter2:=AValue;
 end;
-
 procedure TfMain.SwitchAnimationOff;
 begin
   if TrayIcon.Tag=0 then
@@ -407,7 +401,6 @@ begin
       TrayIcon.Tag := 1;
     end;
 end;
-
 procedure TfMain.DoExit;
 begin
   try

@@ -52,7 +52,6 @@ object fMain: TfMain
     }
     Visible = True
     OnClick = TrayIconClick
-    OnDblClick = TrayIconDblClick
     left = 16
     top = 21
   end
