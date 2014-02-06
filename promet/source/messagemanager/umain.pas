@@ -276,8 +276,9 @@ begin
                   TrayIcon.Tag := 0;
                   if Assigned(fmTimeline) then
                     begin
-                      fmTimeline.fTimeline.DataSet.First;
                       fmTimeline.acRefresh.Execute;
+                      fmTimeline.fTimeline.DataSet.First;
+                      fmTimeline.fTimeline.GotoDataSetRow;
                     end;
                 end;
             end;

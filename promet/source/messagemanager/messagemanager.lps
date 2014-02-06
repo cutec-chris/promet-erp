@@ -20,10 +20,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="umain"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="121"/>
-        <CursorPos X="156" Y="271"/>
+        <TopLine Value="250"/>
+        <CursorPos X="58" Y="281"/>
         <UsageCount Value="173"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -114,7 +114,7 @@
       <Unit10>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="746"/>
         <CursorPos X="1" Y="771"/>
@@ -177,10 +177,9 @@
       <Unit17>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="359"/>
+        <TopLine Value="220"/>
         <CursorPos X="1" Y="384"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
@@ -220,7 +219,7 @@
       <Unit22>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="588"/>
         <CursorPos X="1" Y="609"/>
@@ -272,7 +271,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="uBaseVisualControls"/>
-        <EditorIndex Value="4"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="9"/>
         <CursorPos X="45" Y="21"/>
@@ -317,7 +317,7 @@
       <Unit33>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="809"/>
         <CursorPos X="1" Y="841"/>
@@ -810,7 +810,7 @@
       <Unit93>
         <Filename Value="../../../../../../Programme/lazarus/lcl/dbgrids.pas"/>
         <UnitName Value="DBGrids"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="3513"/>
         <CursorPos X="19" Y="3534"/>
@@ -831,7 +831,7 @@
       <Unit95>
         <Filename Value="../../../../../../Programme/lazarus/lcl/propertystorage.pas"/>
         <UnitName Value="PropertyStorage"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="528"/>
         <CursorPos X="36" Y="551"/>
@@ -1280,12 +1280,10 @@
       <Unit152>
         <Filename Value="../base/dbintfs/udocuments.pas"/>
         <UnitName Value="uDocuments"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="34"/>
         <CursorPos X="40" Y="104"/>
         <UsageCount Value="18"/>
-        <Loaded Value="True"/>
       </Unit152>
       <Unit153>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
@@ -1537,7 +1535,7 @@
       <Unit183>
         <Filename Value="../base/dbintfs/fpthumbresize.pas"/>
         <UnitName Value="fpthumbresize"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="39"/>
         <CursorPos X="41" Y="55"/>
@@ -1547,7 +1545,7 @@
       <Unit184>
         <Filename Value="../../../general/src/uerror.pas"/>
         <UnitName Value="uError"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="124"/>
         <CursorPos X="3" Y="128"/>
