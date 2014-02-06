@@ -3307,6 +3307,8 @@ begin
     end;
   OldRow := gList.Row;
   SyncDataSource;
+  gList.Row:=OldRow;
+  GotoActiveRow;
 end;
 procedure TfGridView.First;
 var
