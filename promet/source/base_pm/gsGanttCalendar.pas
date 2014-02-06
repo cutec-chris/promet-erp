@@ -2160,11 +2160,11 @@ begin
     end;
 
   for I := aTop to List.Count - 1 do
-  begin
-    CurrInterval := TInterval(List[I]);
-    for K := 0 to CurrInterval.ConnectionCount - 1 do
-      ConnectIntervals(CurrInterval, CurrInterval.Connection[K]);
-  end;
+    begin
+      CurrInterval := TInterval(List[I]);
+      for K := 0 to CurrInterval.ConnectionCount - 1 do
+        ConnectIntervals(CurrInterval, CurrInterval.Connection[K]);
+    end;
 
   finally
     for bri := low(BMP) to high(BMP) do
