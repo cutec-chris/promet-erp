@@ -162,12 +162,15 @@ begin
                               DoSync := (not SyncItems.DataSet.FieldByName('LOCAL_ID').IsNull) and (not SyncItems.DataSet.FieldByName('LOCAL_ID').AsInteger = 0);
                               aCalendar.Select(SyncItems.FieldByName('LOCAL_ID').AsVariant);
                               aCalendar.Open;
-                              Found := True;
-                              DoSync:=SyncItems.TimeStamp.AsDateTime<LastModified;
-                              if aCalendar.TimeStamp.AsDateTime>SyncItems.TimeStamp.AsDateTime then
+                              if aCalendar.Count>0 then
                                 begin
-                                  DoSync:=True;
-                                  SyncOut:=True;
+                                  Found := True;
+                                  DoSync:=SyncItems.TimeStamp.AsDateTime<LastModified;
+                                  if aCalendar.TimeStamp.AsDateTime>SyncItems.TimeStamp.AsDateTime then
+                                    begin
+                                      DoSync:=True;
+                                      SyncOut:=True;
+                                    end;
                                 end;
                             end
                           else
@@ -247,12 +250,15 @@ begin
                           DoSync := (not SyncItems.DataSet.FieldByName('LOCAL_ID').IsNull) and (not SyncItems.DataSet.FieldByName('LOCAL_ID').AsInteger = 0);
                           aContact.Select(SyncItems.FieldByName('LOCAL_ID').AsVariant);
                           aContact.Open;
-                          Found := True;
-                          DoSync:=SyncItems.TimeStamp.AsDateTime<LastModified;
-                          if aContact.TimeStamp.AsDateTime>SyncItems.TimeStamp.AsDateTime then
+                          if aContact.Count>0 then
                             begin
-                              DoSync:=True;
-                              SyncOut:=True;
+                              Found := True;
+                              DoSync:=SyncItems.TimeStamp.AsDateTime<LastModified;
+                              if aContact.TimeStamp.AsDateTime>SyncItems.TimeStamp.AsDateTime then
+                                begin
+                                  DoSync:=True;
+                                  SyncOut:=True;
+                                end;
                             end;
                         end
                       else
