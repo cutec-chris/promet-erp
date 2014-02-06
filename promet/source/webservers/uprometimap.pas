@@ -569,12 +569,16 @@ begin
             begin
               if not Assigned(aMessage) then
                 begin
+                  Socket.Creator.CallAction;
                   aMessage := TMimeMessage.Create(Self,Data);
                   aMessage.Select(FMessages.Id.AsVariant);
                   aMessage.Open;
                 end;
               if aMessage.Count>0 then
-                aMessage.Content.Open;
+                begin
+                  Socket.Creator.CallAction;
+                  aMessage.Content.Open;
+                end;
               aSL := TStringList.Create;
               aSL.text := aMessage.Content.FieldByName('HEADER').AsString;
               aSL.TextLineBreakStyle:=tlbsCRLF;
@@ -586,12 +590,16 @@ begin
             begin
               if not Assigned(aMessage) then
                 begin
+                  Socket.Creator.CallAction;
                   aMessage := TMimeMessage.Create(Self,Data);
                   aMessage.Select(FMessages.Id.AsVariant);
                   aMessage.Open;
                 end;
               if not Assigned(aMime) then
-                aMime := aMessage.EncodeMessage;
+                begin
+                  Socket.Creator.CallAction;
+                  aMime := aMessage.EncodeMessage;
+                end;
               aMime.Lines.TextLineBreakStyle:=tlbsCRLF;
               aSL := TStringList.Create;
               aSL.text := aMime.Lines.Text;
@@ -622,18 +630,23 @@ begin
             begin
               if not Assigned(aMessage) then
                 begin
+                  Socket.Creator.CallAction;
                   aMessage := TMimeMessage.Create(Self,Data);
                   aMessage.Select(FMessages.Id.AsVariant);
                   aMessage.Open;
                 end;
               if not Assigned(aMime) then
-                aMime := aMessage.EncodeMessage;
+                begin
+                  Socket.Creator.CallAction;
+                  aMime := aMessage.EncodeMessage;
+                end;
               //BODY.PEEK[HEADER.FIELDS (From To Cc Bcc Subject Date Message-ID Priority X-Priority References Newsgroups In-Reply-To Content-Type)]
               aFields := copy(aFetch,pos('(',aFetch)+1,length(aFetch));
               aFields := copy(aFields,0,pos(')',aFields)-1);
               aSL := TStringList.Create;
               aSL.TextLineBreakStyle:=tlbsCRLF;
               bsl := TStringlist.Create;
+              Socket.Creator.CallAction;
               aMime.Header.EncodeHeaders(bsl);
               while pos(' ',aFields)>0 do
                 begin
