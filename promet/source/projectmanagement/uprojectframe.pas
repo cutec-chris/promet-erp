@@ -537,6 +537,9 @@ begin
                           bTask := TTask.Create(nil,Data);
                           bTask.Select(bProject.Tasks.Id.AsVariant);
                           bTask.Open;
+                          bTask.Dependencies.Open;
+                          while bTask.Dependencies.Locate('LINK',FieldByName('LINK').AsString,[]) do
+                            bTask.Dependencies.Delete;
                           bTask.Dependencies.Add(Data.BuildLink(cProject.Tasks.DataSet));
                           bTask.Free;
                         end;
