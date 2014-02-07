@@ -94,6 +94,7 @@ type
     FIntervalStyle: TIntervalStyle;
     FMovedBack: Boolean;
     FMovedFwd: Boolean;
+    FNetDuration: TDateTime;
     FNetTime: TDateTime;
     FOnChanged: TNotifyEvent;
     FOnOpen: TNotifyEvent;
@@ -176,7 +177,7 @@ type
     procedure SetNetTime(AValue: TDateTime);virtual;
     function GetUsage: Extended;virtual;
     function GetPercentMoveRect: TRect;virtual;
-    procedure PrepareDrawRect;
+    procedure PrepareDrawRect;virtual;
   public
     constructor Create(AGantt: TgsGantt);virtual;
     destructor Destroy; override;
@@ -205,6 +206,7 @@ type
     property FinishDate: TDateTime read GetFinishDate write SetFinishDate;
     property Earliest: TDateTime read GetEarliestDate write SetEarliestDate;
     property Duration: TDateTime read GetDuration write SetDuration;
+    property NetDuration: TDateTime read FNetDuration write FNetDuration;
     property NetTime: TDateTime read FNetTime write SetNetTime;
     property Buffer: TDateTime read FBuffer write SetBuffer;
     property StampDuration: TTimeStamp read GetStampDuration;
@@ -527,6 +529,7 @@ type
     destructor Destroy; override;
 
     procedure MakeIntervalList(AList: TList);
+    procedure MakeIntervalListWithDeps(AList: TList);
     procedure AddInterval(AnInterval: TInterval);
     procedure InsertInterval(AnIndex: Integer; AnInterval: TInterval);
     procedure DeleteInterval(AnIndex: Integer);
@@ -1560,6 +1563,8 @@ procedure TInterval.SetNetTime(AValue: TDateTime);
 begin
   if FNetTime=AValue then Exit;
   FNetTime:=AValue;
+  if FNetDuration<AValue then
+    FNetDuration:=AValue;
 end;
 
 procedure TInterval.SetTask(const Value: String);
@@ -1999,26 +2004,13 @@ begin
     Canvas.Brush.Color := FMajorColor;
     Canvas.FillRect(Rect(0, MajorScaleHeight, Width, MajorScaleHeight + MinorScaleHeight));
 
-    FGantt.MakeIntervalList(List);
+    FGantt.MakeIntervalListwithDeps(List);
 
     for I := 0 to List.Count - 1 do
-      TInterval(List[I]).ClearDrawRect;
-
-    FCurrentDate := VisibleStart;
-
-    while FCurrentDate < VisibleFinish do
-    begin
-      DrawMinorScale;
-      FCurrentDate := IncTime(FCurrentDate, MinorScale, 1);
-    end;
-
-    FCurrentDate := ClearToPeriodStart(MajorScale, VisibleStart);
-
-    while FCurrentDate < VisibleFinish do
-    begin
-      DrawMajorScale;
-      FCurrentDate := IncTime(FCurrentDate, MajorScale, 1);
-    end;
+      begin
+        CurrInterval := TInterval(List[I]);
+        CurrInterval.ClearDrawRect;
+      end;
 
     for I := aTop to List.Count - 1 do TInterval(List[I]).PrepareDrawRect;
 
@@ -2159,12 +2151,28 @@ begin
       end;
     end;
 
-  for I := aTop to List.Count - 1 do
+  for I := 0 to List.Count - 1 do
     begin
       CurrInterval := TInterval(List[I]);
       for K := 0 to CurrInterval.ConnectionCount - 1 do
         ConnectIntervals(CurrInterval, CurrInterval.Connection[K]);
     end;
+
+  FCurrentDate := VisibleStart;
+
+  while FCurrentDate < VisibleFinish do
+  begin
+    DrawMinorScale;
+    FCurrentDate := IncTime(FCurrentDate, MinorScale, 1);
+  end;
+
+  FCurrentDate := ClearToPeriodStart(MajorScale, VisibleStart);
+
+  while FCurrentDate < VisibleFinish do
+  begin
+    DrawMajorScale;
+    FCurrentDate := IncTime(FCurrentDate, MajorScale, 1);
+  end;
 
   finally
     for bri := low(BMP) to high(BMP) do
@@ -2646,8 +2654,8 @@ begin
     Canvas.Pen.Color := clWhite;
     Canvas.Brush.Color := clBlack;
 
-    MoveTo(R.Left, MajorScaleHeight + MinorScaleHeight);
-    LineTo(R.Left, Height);
+    //MoveTo(R.Left, MajorScaleHeight + MinorScaleHeight);
+    //LineTo(R.Left, Height);
   end;
 end;
 
@@ -2902,6 +2910,8 @@ begin
         if Assigned(FOverInterval) then
           FOverInterval(Self,nil,Message.XPos,Message.YPos);
         Cursor := crDefault;
+        if Assigned(FDragInterval) then
+          FDragInterval.EndUpdate;
         FDragInterval := nil;
         FDragType := ditNone;
         FDragRect := Rect(-1, -1, -1, -1);
@@ -2914,6 +2924,7 @@ begin
         begin
           if FDragInterval.IntervalType = itPeriod then
           begin
+            {
             R := FDragInterval.DoneRect;
 
             FDragInterval.StartDate :=
@@ -2929,6 +2940,7 @@ begin
                 MinorScale,
                 (FDragRect.Left + (R.Right - R.Left)) / PixelsPerMinorScale
               );
+              }
           end else begin
             FDragInterval.StartDate :=
               IncTimeEx(
@@ -2941,6 +2953,7 @@ begin
         end;
         ditRightMove:
         begin
+          {
           NewDate :=
             IncTimeEx(VisibleStart, MinorScale, FDragRect.Right / PixelsPerMinorScale);
 
@@ -2948,9 +2961,11 @@ begin
             FDragInterval.FinishDate := FDragInterval.StartDate
           else
             FDragInterval.FinishDate := NewDate;
+          }
         end;
         ditLeftMove:
         begin
+          {
           NewDate := IncTimeEx(VisibleStart, MinorScale, FDragRect.Left / PixelsPerMinorScale);
 
           if FDragInterval.FinishDate < NewDate then
@@ -2958,6 +2973,7 @@ begin
             FDragInterval.StartDate := FDragInterval.FinishDate;
           end else
             FDragInterval.StartDate := NewDate;
+          }
         end;
         ditPercent:
         begin
@@ -3097,6 +3113,8 @@ begin
   if Assigned(FDragInterval) and (FDragType <> ditNone) and not FDragStarted then
   begin
     FDragStarted := True;
+    if Assigned(FDragInterval) then
+      FDragInterval.beginUpdate;
     FFromDragPoint := Message.XPos - FDragRect.Left;
 
     FConnectFromPoint := Point(Message.XPos, Message.YPos);
@@ -3168,7 +3186,10 @@ begin
         if FDragInterval.StartDate > NewDate then
           FDragInterval.FinishDate := FDragInterval.StartDate
         else
-          FDragInterval.FinishDate := NewDate;
+          begin
+            FDragInterval.NetDuration:=FDragInterval.NetDuration+(NewDate-FDragInterval.FinishDate);
+            FDragInterval.FinishDate := NewDate;
+          end;
       end;
       ditLeftMove:
       begin
@@ -3202,6 +3223,8 @@ begin
     FConnectInterval := nil;
     FConnectFromPoint := Point(-1, -1);
     FConnectToPoint := Point(-1, -1);
+    if Assigned(FDragInterval) then
+      FDragInterval.EndUpdate;
     FDragInterval := nil;
     FDragType := ditNone;
     FDragStarted := False;
@@ -4082,6 +4105,24 @@ begin
     end;
   end;
 end;
+
+procedure TgsGantt.MakeIntervalListWithDeps(AList: TList);
+var
+  I: Integer;
+  FirstVisible: Boolean;
+begin
+  FirstVisible := False;
+  for I := 0 to IntervalCount - 1 do
+  begin
+    if Interval[I].Visible or (not FirstVisible) then
+    begin
+      FirstVisible:=FirstVisible or Interval[I].Visible;
+      AList.Add(Interval[I]);
+      Interval[I].MakeIntervalList(AList);
+    end;
+  end;
+end;
+
 
 {
   ************************

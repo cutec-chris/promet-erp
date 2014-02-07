@@ -2693,6 +2693,7 @@ begin
   except
   end;
   inherited Destroy;
+  Self := nil;
 end;
 function TfGridView.FindRow(aTreeBM: LargeInt): Integer;
 var
