@@ -26,6 +26,9 @@ uses
   Classes,SysUtils,uDocuments,uBaseDbClasses,uBaseDBInterface,db,uIntfStrConsts,
   Utils;
 type
+
+  { TDocPages }
+
   TDocPages = class(TBaseDBDataset)
   private
     FUsedFields : string;
@@ -99,7 +102,7 @@ begin
               Open;
               for i := 0 to DataSet.FieldDefs.Count-1 do
                 if  (DataSet.FieldDefs[i].Name <> 'THUMBNAIL')
-                and (DataSet.FieldDefs[i].Name <> 'FULLTEXT') then
+                then
                   tmpfields := tmpfields+','+Data.QuoteField(TableName)+'.'+Data.QuoteField(DataSet.FieldDefs[i].Name);
               tmpFields := copy(tmpFields,2,length(tmpFields));
               FUsedFields := tmpFields;
@@ -297,5 +300,6 @@ begin
       aDocument.Free;
     end;
 end;
+
 end.
 

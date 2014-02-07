@@ -414,8 +414,8 @@ procedure TDocument.AddFromFile(aFilename: string; aText: string;
 var
   aStream: TFileStream;
 begin
+  aStream := TFileStream.Create(UTF8ToSys(aFilename),fmOpenRead);
   try
-    aStream := TFileStream.Create(UTF8ToSys(aFilename),fmOpenRead);
     if rpos('.',ExtractFileName(aFileName)) > 0 then
       AddFromStream(copy(ExtractFileName(aFileName),0,rpos('.',ExtractFileName(aFileName))-1),copy(ExtractFileExt(aFileName),2,length(aFileName)),aStream,aText,AddDate)
     else

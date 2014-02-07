@@ -46,15 +46,16 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="82">
+    <Units Count="85">
       <Unit0>
         <Filename Value="helpviewer.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="helpviewer"/>
-        <EditorIndex Value="9"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="1" Y="4"/>
+        <CursorPos X="1" Y="19"/>
         <UsageCount Value="49"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -65,8 +66,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uhelpviewer"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="6"/>
         <CursorPos X="39" Y="25"/>
@@ -95,7 +95,7 @@
       <Unit4>
         <Filename Value="..\base\dbintfs\ubaseapplication.pas"/>
         <UnitName Value="uBaseApplication"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="20"/>
         <CursorPos X="59" Y="35"/>
@@ -124,12 +124,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uWikiFrame"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="1" Y="20"/>
+        <CursorPos X="20" Y="15"/>
         <UsageCount Value="20"/>
-        <Loaded Value="True"/>
       </Unit7>
       <Unit8>
         <Filename Value="..\base\ubasevisualcontrols.pas"/>
@@ -148,9 +146,9 @@
       <Unit9>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="602"/>
+        <TopLine Value="1"/>
         <CursorPos X="1" Y="622"/>
         <UsageCount Value="18"/>
         <Loaded Value="True"/>
@@ -363,10 +361,10 @@
       <Unit35>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
         <UnitName Value="uDocuments"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="556"/>
-        <CursorPos X="1" Y="573"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="19"/>
         <UsageCount Value="19"/>
         <Loaded Value="True"/>
       </Unit35>
@@ -429,7 +427,7 @@
       <Unit43>
         <Filename Value="..\base\ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="122"/>
         <CursorPos X="12" Y="131"/>
@@ -490,8 +488,8 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uDocumentFrame"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="6"/>
-        <CursorPos X="29" Y="25"/>
+        <TopLine Value="232"/>
+        <CursorPos X="35" Y="247"/>
         <UsageCount Value="11"/>
       </Unit50>
       <Unit51>
@@ -516,12 +514,10 @@
       <Unit53>
         <Filename Value="..\base\uimagecache.pas"/>
         <UnitName Value="uImageCache"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="53"/>
+        <TopLine Value="56"/>
         <CursorPos X="1" Y="89"/>
         <UsageCount Value="13"/>
-        <Loaded Value="True"/>
       </Unit53>
       <Unit54>
         <Filename Value="D:\lazarus\lcl\include\picture.inc"/>
@@ -662,7 +658,7 @@
       <Unit70>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
         <UnitName Value="wikitohtml"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="506"/>
         <CursorPos X="64" Y="523"/>
@@ -707,10 +703,12 @@
       <Unit75>
         <Filename Value="..\..\..\..\..\lazarus\components\turbopower_ipro\iphtml.pas"/>
         <UnitName Value="IpHtml"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="19419"/>
-        <CursorPos X="21" Y="19425"/>
+        <TopLine Value="14143"/>
+        <CursorPos X="1" Y="14161"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit75>
       <Unit76>
         <Filename Value="..\base\uprometframes.pas"/>
@@ -722,6 +720,9 @@
       </Unit76>
       <Unit77>
         <Filename Value="..\base_frames\uprometframes.pas"/>
+        <ComponentName Value="PrometMainFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPrometFrames"/>
         <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
@@ -740,13 +741,12 @@
       </Unit78>
       <Unit79>
         <Filename Value="..\base_help\uwikiframe.pas"/>
+        <HasResources Value="True"/>
         <UnitName Value="uWikiFrame"/>
-        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="110"/>
-        <CursorPos X="46" Y="129"/>
+        <TopLine Value="413"/>
+        <CursorPos X="1" Y="430"/>
         <UsageCount Value="12"/>
-        <Loaded Value="True"/>
       </Unit79>
       <Unit80>
         <Filename Value="..\base_help\uquickhelpframe.pas"/>
@@ -766,124 +766,87 @@
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit81>
+      <Unit82>
+        <Filename Value="..\..\..\..\..\lazarus\components\turbopower_ipro\ipanim.pas"/>
+        <UnitName Value="IpAnim"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="175"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit82>
+      <Unit83>
+        <Filename Value="..\..\..\..\..\lazarus\lcl\include\customcontrol.inc"/>
+        <EditorIndex Value="10"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="97"/>
+        <CursorPos X="1" Y="128"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit83>
+      <Unit84>
+        <Filename Value="..\base_frames\uimagecache.pas"/>
+        <UnitName Value="uImageCache"/>
+        <EditorIndex Value="8"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="89"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit84>
     </Units>
-    <JumpHistory Count="29" HistoryIndex="28">
+    <JumpHistory Count="13" HistoryIndex="12">
       <Position1>
-        <Filename Value="..\base\ubasevisualapplication.pas"/>
-        <Caret Line="535" Column="34" TopLine="504"/>
+        <Filename Value="..\base_frames\uimagecache.pas"/>
+        <Caret Line="35" Column="1" TopLine="6"/>
       </Position1>
       <Position2>
-        <Filename Value="..\base\ubasevisualapplication.pas"/>
-        <Caret Line="548" Column="53" TopLine="517"/>
+        <Filename Value="..\base_frames\uimagecache.pas"/>
+        <Caret Line="65" Column="1" TopLine="48"/>
       </Position2>
       <Position3>
-        <Filename Value="..\base\ubasevisualapplication.pas"/>
-        <Caret Line="97" Column="15" TopLine="79"/>
+        <Filename Value="..\base_frames\uimagecache.pas"/>
+        <Caret Line="67" Column="1" TopLine="48"/>
       </Position3>
       <Position4>
-        <Filename Value="..\base\ubasevisualapplication.pas"/>
-        <Caret Line="132" Column="24" TopLine="99"/>
+        <Filename Value="..\base_frames\uimagecache.pas"/>
+        <Caret Line="68" Column="1" TopLine="48"/>
       </Position4>
       <Position5>
-        <Filename Value="..\base\ubasevisualapplication.pas"/>
-        <Caret Line="429" Column="37" TopLine="396"/>
+        <Filename Value="..\base_frames\uimagecache.pas"/>
+        <Caret Line="69" Column="1" TopLine="48"/>
       </Position5>
       <Position6>
-        <Filename Value="..\base\ubasevisualapplication.pas"/>
-        <Caret Line="440" Column="9" TopLine="407"/>
+        <Filename Value="..\base_frames\uimagecache.pas"/>
+        <Caret Line="70" Column="1" TopLine="48"/>
       </Position6>
       <Position7>
-        <Filename Value="..\base\ubasevisualapplication.pas"/>
-        <Caret Line="518" Column="21" TopLine="486"/>
+        <Filename Value="..\base_frames\uimagecache.pas"/>
+        <Caret Line="71" Column="1" TopLine="48"/>
       </Position7>
       <Position8>
-        <Filename Value="..\base\ubasevisualapplication.pas"/>
-        <Caret Line="523" Column="36" TopLine="491"/>
+        <Filename Value="..\base_frames\uimagecache.pas"/>
+        <Caret Line="73" Column="1" TopLine="48"/>
       </Position8>
       <Position9>
-        <Filename Value="..\base\ubasevisualapplication.pas"/>
-        <Caret Line="528" Column="27" TopLine="496"/>
+        <Filename Value="..\base_frames\uimagecache.pas"/>
+        <Caret Line="77" Column="1" TopLine="49"/>
       </Position9>
       <Position10>
-        <Filename Value="..\base\ubasevisualapplication.pas"/>
-        <Caret Line="536" Column="34" TopLine="504"/>
+        <Filename Value="..\base_frames\uimagecache.pas"/>
+        <Caret Line="79" Column="1" TopLine="51"/>
       </Position10>
       <Position11>
-        <Filename Value="..\base\ubasevisualapplication.pas"/>
-        <Caret Line="550" Column="9" TopLine="517"/>
+        <Filename Value="..\base_frames\uimagecache.pas"/>
+        <Caret Line="89" Column="1" TopLine="57"/>
       </Position11>
       <Position12>
-        <Filename Value="..\base\ubasevisualapplication.pas"/>
-        <Caret Line="570" Column="23" TopLine="560"/>
+        <Filename Value="..\..\..\..\..\lazarus\components\turbopower_ipro\iphtml.pas"/>
+        <Caret Line="8594" Column="1" TopLine="8578"/>
       </Position12>
       <Position13>
-        <Filename Value="..\base\ubasevisualapplication.pas"/>
-        <Caret Line="571" Column="13" TopLine="560"/>
+        <Filename Value="..\..\..\..\..\lazarus\components\turbopower_ipro\iphtml.pas"/>
+        <Caret Line="14161" Column="1" TopLine="14143"/>
       </Position13>
-      <Position14>
-        <Filename Value="..\base\ubasevisualapplication.pas"/>
-        <Caret Line="575" Column="28" TopLine="560"/>
-      </Position14>
-      <Position15>
-        <Filename Value="..\base\ubasevisualapplication.pas"/>
-        <Caret Line="579" Column="26" TopLine="560"/>
-      </Position15>
-      <Position16>
-        <Filename Value="..\base\ubasevisualapplication.pas"/>
-        <Caret Line="582" Column="30" TopLine="560"/>
-      </Position16>
-      <Position17>
-        <Filename Value="..\base\ubasevisualapplication.pas"/>
-        <Caret Line="695" Column="46" TopLine="681"/>
-      </Position17>
-      <Position18>
-        <Filename Value="..\base\ubasevisualapplication.pas"/>
-        <Caret Line="701" Column="46" TopLine="681"/>
-      </Position18>
-      <Position19>
-        <Filename Value="..\base\ubasevisualapplication.pas"/>
-        <Caret Line="707" Column="46" TopLine="693"/>
-      </Position19>
-      <Position20>
-        <Filename Value="..\base\ubasevisualapplication.pas"/>
-        <Caret Line="747" Column="33" TopLine="736"/>
-      </Position20>
-      <Position21>
-        <Filename Value="..\base_help\uwikiframe.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
-      </Position21>
-      <Position22>
-        <Filename Value="..\base_help\uwikiframe.pas"/>
-        <Caret Line="25" Column="23" TopLine="6"/>
-      </Position22>
-      <Position23>
-        <Filename Value="..\base_frames\uprometframes.pas"/>
-        <Caret Line="25" Column="31" TopLine="6"/>
-      </Position23>
-      <Position24>
-        <Filename Value="..\base_frames\uprometframes.pas"/>
-        <Caret Line="24" Column="63" TopLine="5"/>
-      </Position24>
-      <Position25>
-        <Filename Value="..\base_frames\uprometframes.pas"/>
-        <Caret Line="25" Column="39" TopLine="24"/>
-      </Position25>
-      <Position26>
-        <Filename Value="..\base_frames\uquickhelpframe.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
-      </Position26>
-      <Position27>
-        <Filename Value="..\base_help\uwikiframe.pas"/>
-        <Caret Line="48" Column="33" TopLine="42"/>
-      </Position27>
-      <Position28>
-        <Filename Value="..\base_help\uwikiframe.pas"/>
-        <Caret Line="129" Column="20" TopLine="110"/>
-      </Position28>
-      <Position29>
-        <Filename Value="uhelpviewer.pas"/>
-        <Caret Line="25" Column="39" TopLine="6"/>
-      </Position29>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -905,6 +868,9 @@
       <SmartLinkUnit Value="True"/>
     </CodeGeneration>
     <Linking>
+      <Debugging>
+        <UseExternalDbgSyms Value="True"/>
+      </Debugging>
       <LinkSmart Value="True"/>
       <Options>
         <Win32>
@@ -936,4 +902,4 @@
     </Exceptions>
   </Debugging>
   <EditorMacros Count="0"/>
-</CONFIG>
+</CONFIG>

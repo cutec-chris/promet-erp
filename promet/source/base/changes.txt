@@ -1,4 +1,6 @@
-﻿Build 309
+﻿Build 310
+      - Projekt:Gantt Berechnungen verbessert, Wochenenden werden "on the fly" beim verschieben von Aufgaben eingerechnet
+Build 309
       - Startseite: erste voll arbeitende Version
       - Kontakte:Dublettensuche/kombinieren von Kontakten
       - Grids: Spaltenbreite kann prozentual gespeichert werden so das alle Grids immer die volle Breite ausnutzen unabhängig von Bildschirmauflösung

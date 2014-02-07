@@ -1,7 +1,7 @@
 object fMain: TfMain
-  Left = 403
+  Left = 411
   Height = 504
-  Top = 236
+  Top = 262
   Width = 638
   Caption = 'Hilfeansicht'
   OnClose = FormClose
