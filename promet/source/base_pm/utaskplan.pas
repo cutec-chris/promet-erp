@@ -342,7 +342,9 @@ end;
 procedure TPInterval.PrepareDrawRect;
 begin
   inherited PrepareDrawRect;
-  IntervalDone:=StartDate+(NetTime*(1/ResourceTimePerDay));
+  if ResourceTimePerDay > 0 then
+    IntervalDone:=StartDate+(NetTime*(1/ResourceTimePerDay))
+  else IntervalDone := StartDate;
 end;
 
 procedure ChangeTask(aTasks: TTaskList;aTask : TInterval);

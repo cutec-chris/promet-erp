@@ -650,7 +650,7 @@ object fGanttView: TfGanttView
       object bMoveBack1: TSpeedButton
         Left = 112
         Height = 24
-        Hint = 'Plan zusammenrücken (minimale Bearbeitungszeit)'
+        Hint = 'Plan zusammenrücken (minimale Bearbeitungszeit)'#13#10'rückt den Plan auf die minimale Dauer zusammen '#13#10'Achtung: nicht auf die Nettozeit !'
         Top = 14
         Width = 24
         Glyph.Data = {

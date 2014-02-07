@@ -94,6 +94,7 @@ type
     FIntervalStyle: TIntervalStyle;
     FMovedBack: Boolean;
     FMovedFwd: Boolean;
+    FNetDuration: TDateTime;
     FNetTime: TDateTime;
     FOnChanged: TNotifyEvent;
     FOnOpen: TNotifyEvent;
@@ -205,6 +206,7 @@ type
     property FinishDate: TDateTime read GetFinishDate write SetFinishDate;
     property Earliest: TDateTime read GetEarliestDate write SetEarliestDate;
     property Duration: TDateTime read GetDuration write SetDuration;
+    property NetDuration: TDateTime read FNetDuration write FNetDuration;
     property NetTime: TDateTime read FNetTime write SetNetTime;
     property Buffer: TDateTime read FBuffer write SetBuffer;
     property StampDuration: TTimeStamp read GetStampDuration;
@@ -1561,6 +1563,8 @@ procedure TInterval.SetNetTime(AValue: TDateTime);
 begin
   if FNetTime=AValue then Exit;
   FNetTime:=AValue;
+  if FNetDuration<AValue then
+    FNetDuration:=AValue;
 end;
 
 procedure TInterval.SetTask(const Value: String);
@@ -2906,6 +2910,8 @@ begin
         if Assigned(FOverInterval) then
           FOverInterval(Self,nil,Message.XPos,Message.YPos);
         Cursor := crDefault;
+        if Assigned(FDragInterval) then
+          FDragInterval.EndUpdate;
         FDragInterval := nil;
         FDragType := ditNone;
         FDragRect := Rect(-1, -1, -1, -1);
@@ -2918,6 +2924,7 @@ begin
         begin
           if FDragInterval.IntervalType = itPeriod then
           begin
+            {
             R := FDragInterval.DoneRect;
 
             FDragInterval.StartDate :=
@@ -2933,6 +2940,7 @@ begin
                 MinorScale,
                 (FDragRect.Left + (R.Right - R.Left)) / PixelsPerMinorScale
               );
+              }
           end else begin
             FDragInterval.StartDate :=
               IncTimeEx(
@@ -2945,6 +2953,7 @@ begin
         end;
         ditRightMove:
         begin
+          {
           NewDate :=
             IncTimeEx(VisibleStart, MinorScale, FDragRect.Right / PixelsPerMinorScale);
 
@@ -2952,9 +2961,11 @@ begin
             FDragInterval.FinishDate := FDragInterval.StartDate
           else
             FDragInterval.FinishDate := NewDate;
+          }
         end;
         ditLeftMove:
         begin
+          {
           NewDate := IncTimeEx(VisibleStart, MinorScale, FDragRect.Left / PixelsPerMinorScale);
 
           if FDragInterval.FinishDate < NewDate then
@@ -2962,6 +2973,7 @@ begin
             FDragInterval.StartDate := FDragInterval.FinishDate;
           end else
             FDragInterval.StartDate := NewDate;
+          }
         end;
         ditPercent:
         begin
@@ -3101,6 +3113,8 @@ begin
   if Assigned(FDragInterval) and (FDragType <> ditNone) and not FDragStarted then
   begin
     FDragStarted := True;
+    if Assigned(FDragInterval) then
+      FDragInterval.beginUpdate;
     FFromDragPoint := Message.XPos - FDragRect.Left;
 
     FConnectFromPoint := Point(Message.XPos, Message.YPos);
@@ -3172,7 +3186,10 @@ begin
         if FDragInterval.StartDate > NewDate then
           FDragInterval.FinishDate := FDragInterval.StartDate
         else
-          FDragInterval.FinishDate := NewDate;
+          begin
+            FDragInterval.NetDuration:=FDragInterval.NetDuration+(NewDate-FDragInterval.FinishDate);
+            FDragInterval.FinishDate := NewDate;
+          end;
       end;
       ditLeftMove:
       begin
@@ -3206,6 +3223,8 @@ begin
     FConnectInterval := nil;
     FConnectFromPoint := Point(-1, -1);
     FConnectToPoint := Point(-1, -1);
+    if Assigned(FDragInterval) then
+      FDragInterval.EndUpdate;
     FDragInterval := nil;
     FDragType := ditNone;
     FDragStarted := False;
