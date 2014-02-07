@@ -176,7 +176,7 @@ type
     procedure SetNetTime(AValue: TDateTime);virtual;
     function GetUsage: Extended;virtual;
     function GetPercentMoveRect: TRect;virtual;
-    procedure PrepareDrawRect;
+    procedure PrepareDrawRect;virtual;
   public
     constructor Create(AGantt: TgsGantt);virtual;
     destructor Destroy; override;
@@ -527,6 +527,7 @@ type
     destructor Destroy; override;
 
     procedure MakeIntervalList(AList: TList);
+    procedure MakeIntervalListWithDeps(AList: TList);
     procedure AddInterval(AnInterval: TInterval);
     procedure InsertInterval(AnIndex: Integer; AnInterval: TInterval);
     procedure DeleteInterval(AnIndex: Integer);
@@ -1999,26 +2000,13 @@ begin
     Canvas.Brush.Color := FMajorColor;
     Canvas.FillRect(Rect(0, MajorScaleHeight, Width, MajorScaleHeight + MinorScaleHeight));
 
-    FGantt.MakeIntervalList(List);
+    FGantt.MakeIntervalListwithDeps(List);
 
     for I := 0 to List.Count - 1 do
-      TInterval(List[I]).ClearDrawRect;
-
-    FCurrentDate := VisibleStart;
-
-    while FCurrentDate < VisibleFinish do
-    begin
-      DrawMinorScale;
-      FCurrentDate := IncTime(FCurrentDate, MinorScale, 1);
-    end;
-
-    FCurrentDate := ClearToPeriodStart(MajorScale, VisibleStart);
-
-    while FCurrentDate < VisibleFinish do
-    begin
-      DrawMajorScale;
-      FCurrentDate := IncTime(FCurrentDate, MajorScale, 1);
-    end;
+      begin
+        CurrInterval := TInterval(List[I]);
+        CurrInterval.ClearDrawRect;
+      end;
 
     for I := aTop to List.Count - 1 do TInterval(List[I]).PrepareDrawRect;
 
@@ -2159,12 +2147,28 @@ begin
       end;
     end;
 
-  for I := aTop to List.Count - 1 do
+  for I := 0 to List.Count - 1 do
     begin
       CurrInterval := TInterval(List[I]);
       for K := 0 to CurrInterval.ConnectionCount - 1 do
         ConnectIntervals(CurrInterval, CurrInterval.Connection[K]);
     end;
+
+  FCurrentDate := VisibleStart;
+
+  while FCurrentDate < VisibleFinish do
+  begin
+    DrawMinorScale;
+    FCurrentDate := IncTime(FCurrentDate, MinorScale, 1);
+  end;
+
+  FCurrentDate := ClearToPeriodStart(MajorScale, VisibleStart);
+
+  while FCurrentDate < VisibleFinish do
+  begin
+    DrawMajorScale;
+    FCurrentDate := IncTime(FCurrentDate, MajorScale, 1);
+  end;
 
   finally
     for bri := low(BMP) to high(BMP) do
@@ -2646,8 +2650,8 @@ begin
     Canvas.Pen.Color := clWhite;
     Canvas.Brush.Color := clBlack;
 
-    MoveTo(R.Left, MajorScaleHeight + MinorScaleHeight);
-    LineTo(R.Left, Height);
+    //MoveTo(R.Left, MajorScaleHeight + MinorScaleHeight);
+    //LineTo(R.Left, Height);
   end;
 end;
 
@@ -4082,6 +4086,24 @@ begin
     end;
   end;
 end;
+
+procedure TgsGantt.MakeIntervalListWithDeps(AList: TList);
+var
+  I: Integer;
+  FirstVisible: Boolean;
+begin
+  FirstVisible := False;
+  for I := 0 to IntervalCount - 1 do
+  begin
+    if Interval[I].Visible or (not FirstVisible) then
+    begin
+      FirstVisible:=FirstVisible or Interval[I].Visible;
+      AList.Add(Interval[I]);
+      Interval[I].MakeIntervalList(AList);
+    end;
+  end;
+end;
+
 
 {
   ************************

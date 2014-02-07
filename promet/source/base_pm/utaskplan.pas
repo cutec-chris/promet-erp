@@ -47,6 +47,7 @@ type
     procedure SetNetTime(AValue: TDateTime); override;
     function GetPercentMoveRect: TRect; override;
     function GetUsage: Extended; override;
+    procedure PrepareDrawRect; override;
   public
     procedure SetUser(AValue: string;aConnection : TComponent);
     property User : string read FUser;
@@ -336,6 +337,12 @@ begin
   if FCalcUsage = -1 then
     CalcUsage(nil);
   Result:=FCalcUsage;
+end;
+
+procedure TPInterval.PrepareDrawRect;
+begin
+  inherited PrepareDrawRect;
+  IntervalDone:=StartDate+(NetTime*(1/ResourceTimePerDay));
 end;
 
 procedure ChangeTask(aTasks: TTaskList;aTask : TInterval);
