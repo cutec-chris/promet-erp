@@ -197,14 +197,12 @@ begin
   aDocument.Select(FId,'H',0);
   aDocument.ActualLimit:=1;
   aDocument.Open;
-  debugln('DocumentOpen:'+IntToStr(GetTickCount-mTime)+'ms');
   mTime := GetTickCount;
   TMGridObject(FObj).HasAttachment := aDocument.Count>0;
   if aDocument.Count>0 then
     begin
       TMGridObject(FObj).Image := GetThumbnailBitmap(aDocument);
     end;
-  debugln('Thumb:'+IntToStr(GetTickCount-mTime)+'ms');
   aDocument.Free;
 end;
 
@@ -908,7 +906,7 @@ begin
 end;
 procedure TfmTimeline.IdleTimer1Timer(Sender: TObject);
 begin
-  debugln('Refresh Timeline idle');
+  //debugln('Refresh Timeline idle');
   FTimeLine.Refresh(True);
 end;
 procedure TfmTimeline.lbResultsDblClick(Sender: TObject);
@@ -1126,7 +1124,7 @@ begin
 end;
 procedure TfmTimeline.Timer1Timer(Sender: TObject);
 begin
-  debugln('Refresh Timeline Timer');
+  //debugln('Refresh Timeline Timer');
   Timer1.Enabled:=False;
   acRefresh.Execute;
 end;

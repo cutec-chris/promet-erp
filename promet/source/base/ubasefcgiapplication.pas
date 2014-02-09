@@ -244,17 +244,6 @@ end;
 procedure TBaseFCGIApplication.Log(aType: string; aMsg: string);
 begin
   writeln(aType+':'+aMsg);
-  {
-  if Assigned(FLogger) then
-    begin
-      if aType = 'INFO' then
-        FLogger.Info(aMsg)
-      else if aType = 'WARNING' then
-        FLogger.Warning(aMsg)
-      else if aType = 'ERROR' then
-        FLogger.Error(aMsg);
-    end;
-  }
 end;
 procedure TBaseFCGIApplication.Log(aMsg: string);
 begin
@@ -300,7 +289,6 @@ begin
         aMandant := Properties.ReadString('MANDANT','');
       if not DBLogin(aMandant,'') then
         begin
-          FLogger.Error(strLoginFailed+':'+LastError);
           raise Exception.Create(strLoginFailed+':'+LastError);
         end;
       uData.Data := Data;

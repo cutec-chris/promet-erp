@@ -52,11 +52,12 @@
         <Filename Value="import_document.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="import_document"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="73"/>
-        <CursorPos X="70" Y="83"/>
-        <UsageCount Value="59"/>
+        <TopLine Value="37"/>
+        <CursorPos X="1" Y="56"/>
+        <UsageCount Value="60"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit0>
@@ -441,7 +442,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="406"/>
         <CursorPos X="1" Y="405"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit51>
       <Unit52>
@@ -459,7 +460,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1066"/>
         <CursorPos X="1" Y="1085"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit53>
       <Unit54>
@@ -469,7 +470,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="292"/>
         <CursorPos X="1" Y="309"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit54>
       <Unit55>
@@ -479,7 +480,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="77"/>
         <CursorPos X="1" Y="105"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit55>
       <Unit56>
@@ -502,12 +503,11 @@
       <Unit58>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
         <UnitName Value="uDocuments"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="406"/>
+        <TopLine Value="388"/>
         <CursorPos X="1" Y="416"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit58>
       <Unit59>
@@ -542,11 +542,11 @@
         <WindowIndex Value="0"/>
         <TopLine Value="588"/>
         <CursorPos X="1" Y="612"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit62>
     </Units>
-    <JumpHistory Count="11" HistoryIndex="10">
+    <JumpHistory Count="19" HistoryIndex="18">
       <Position1>
         <Filename Value="import_document.lpr"/>
         <Caret Line="87" Column="1" TopLine="70"/>
@@ -591,6 +591,38 @@
         <Filename Value="import_document.lpr"/>
         <Caret Line="83" Column="70" TopLine="73"/>
       </Position11>
+      <Position12>
+        <Filename Value="import_document.lpr"/>
+        <Caret Line="54" Column="39" TopLine="37"/>
+      </Position12>
+      <Position13>
+        <Filename Value="import_document.lpr"/>
+        <Caret Line="56" Column="1" TopLine="37"/>
+      </Position13>
+      <Position14>
+        <Filename Value="import_document.lpr"/>
+        <Caret Line="57" Column="1" TopLine="37"/>
+      </Position14>
+      <Position15>
+        <Filename Value="import_document.lpr"/>
+        <Caret Line="59" Column="1" TopLine="37"/>
+      </Position15>
+      <Position16>
+        <Filename Value="import_document.lpr"/>
+        <Caret Line="61" Column="1" TopLine="37"/>
+      </Position16>
+      <Position17>
+        <Filename Value="import_document.lpr"/>
+        <Caret Line="62" Column="1" TopLine="37"/>
+      </Position17>
+      <Position18>
+        <Filename Value="import_document.lpr"/>
+        <Caret Line="63" Column="1" TopLine="37"/>
+      </Position18>
+      <Position19>
+        <Filename Value="import_document.lpr"/>
+        <Caret Line="64" Column="1" TopLine="37"/>
+      </Position19>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

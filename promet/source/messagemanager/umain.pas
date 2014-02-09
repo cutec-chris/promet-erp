@@ -243,7 +243,7 @@ begin
             begin
               if (fmTimeline.WindowState=wsMinimized) then
                 begin
-                  debugln('Refresh visible Timeline');
+                  //debugln('Refresh visible Timeline');
                   fmTimeline.acRefresh.Execute;
                   InformRecTime := Now()+(1/(MSecsPerDay/MSecsPerSec));
                   {$IFDEF WINDOWS}
@@ -279,7 +279,7 @@ begin
                   TrayIcon.Tag := 0;
                   if Assigned(fmTimeline) then
                     begin
-                      debugln('Refresh invisible Timeline');
+                      //debugln('Refresh invisible Timeline');
                       fmTimeline.acRefresh.Execute;
                       fmTimeline.fTimeline.DataSet.First;
                       fmTimeline.fTimeline.GotoDataSetRow;
@@ -314,7 +314,7 @@ var
   i: Integer;
   aMessage: String;
 begin
-  debugln('CommdReceived:'+aCommand);
+  //debugln('CommdReceived:'+aCommand);
   Result := False;
   aMessage := aCommand;
   if copy(aMessage,0,9) = 'AddMenue(' then
@@ -496,13 +496,13 @@ begin
           Info('login...');
           if aMandant = '' then
             begin
-              debugln(strMandantnotSelected);
+              //debugln(strMandantnotSelected);
               acHistory.Enabled:=False;
               exit;
             end;
           if not DBLogin(aMandant,aUser,False,False) then
             begin
-              debugln(strLoginFailed+' '+LastError);
+              //debugln(strLoginFailed+' '+LastError);
               acHistory.Enabled:=False;
               aUser := '';
               aMandant := '';
@@ -514,7 +514,7 @@ begin
               Info('relogin...');
               if not DBLogin(aMandant,aUser,False,False) then
                 begin
-                  debugln(strLoginFailed+' '+LastError);
+                  //debugln(strLoginFailed+' '+LastError);
                   acHistory.Enabled:=False;
                   exit;
                 end;

@@ -184,7 +184,6 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--config-path=/home/chris/.promet-erp-devel"/>
       </local>
     </RunParams>
     <RequiredPackages Count="24">
@@ -325,6 +324,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="uBaseVisualControls"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -351,9 +351,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPersonFrame"/>
-        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="244"/>
+        <TopLine Value="226"/>
         <CursorPos X="43" Y="278"/>
         <UsageCount Value="202"/>
         <Loaded Value="True"/>
@@ -1312,7 +1311,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="umanagedocframe"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="104"/>
@@ -1577,7 +1575,6 @@
         <TopLine Value="343"/>
         <CursorPos X="1" Y="349"/>
         <UsageCount Value="100"/>
-        <LoadedDesigner Value="True"/>
       </Unit126>
       <Unit127>
         <Filename Value="../../../../lazarus/lcl/include/mouse.inc"/>
@@ -3843,7 +3840,7 @@
         <LoadedDesigner Value="True"/>
       </Unit394>
     </Units>
-    <JumpHistory Count="14" HistoryIndex="13">
+    <JumpHistory Count="13" HistoryIndex="12">
       <Position1>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
         <Caret Line="162" Column="62" TopLine="152"/>
@@ -3890,16 +3887,12 @@
       </Position11>
       <Position12>
         <Filename Value="../base_documents/udocumentacquire.pas"/>
-        <Caret Line="1" Column="1" TopLine="55"/>
+        <Caret Line="58" Column="53" TopLine="45"/>
       </Position12>
       <Position13>
         <Filename Value="../base_documents/udocumentacquire.pas"/>
-        <Caret Line="58" Column="53" TopLine="45"/>
-      </Position13>
-      <Position14>
-        <Filename Value="../base_documents/udocumentacquire.pas"/>
         <Caret Line="95" Column="18" TopLine="67"/>
-      </Position14>
+      </Position13>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>

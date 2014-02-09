@@ -1510,7 +1510,7 @@ begin
   except
     on e : Exception do
       begin
-        writeln(e.Message);
+        debugln(e.Message);
         Result := False;
       end;
   end;
@@ -1564,4 +1564,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+

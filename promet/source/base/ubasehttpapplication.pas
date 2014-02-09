@@ -278,7 +278,6 @@ function TBaseHTTPApplication.Login: Boolean;
 var
   aMandant: String;
 begin
-  writeln('Login...');
   Result := False;
   with Self as IBaseDbInterface do
     begin

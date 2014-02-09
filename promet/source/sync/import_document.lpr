@@ -41,6 +41,7 @@ var
   aUnpaper: TUnPaperProcess;
   i: Integer;
   ss: TStringStream;
+  aFolder: String;
 begin
   with BaseApplication as IBaseApplication do
     begin
@@ -51,8 +52,11 @@ begin
   //Your logged in here on promet DB
 
   aType := GetOptionValue('t','type');
+  aFolder :=GetOptionValue('f','folder');
   if aType = '' then aType := 'D';
-  while FindFirstUTF8('*.jpg',faAnyFile,AInfo)=0 do
+  if aFolder<>'' then
+    aFolder := AppendPathDelim(aFolder);
+  while FindFirstUTF8(aFolder+'*.jpg',faAnyFile,AInfo)=0 do
     begin
       writeln('importing File '+AInfo.Name);
       aDocPage := TDocPages.Create(nil,Data);

@@ -194,7 +194,7 @@ begin
     begin
       AResponse.Code := 404;
       AResponse.CodeText := 'Not found '+aPath;
-      writeln('uerror:file not found'+aPath)
+      //writeln('uerror:file not found'+aPath)
     end
   else if lowercase(ARequest.PathInfo) = '/sitemap.xml' then
     begin
@@ -242,7 +242,7 @@ begin
       AResponse.Code := 404;
       AResponse.CodeText := 'Not found';
       AResponse.SendContent;
-      writeln('uerror:file not found'+aPath)
+      //writeln('uerror:file not found'+aPath)
     end;
   Handled := True;
 end;
