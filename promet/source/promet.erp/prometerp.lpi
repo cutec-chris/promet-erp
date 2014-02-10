@@ -1840,10 +1840,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ustatisticframe"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1222"/>
-        <CursorPos X="3" Y="1251"/>
+        <TopLine Value="1231"/>
+        <CursorPos X="28" Y="1264"/>
         <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit157>
@@ -3707,7 +3708,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uWikiFrame"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="262"/>

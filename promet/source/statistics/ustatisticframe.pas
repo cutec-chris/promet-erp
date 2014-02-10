@@ -1220,6 +1220,7 @@ var
   aParams: String = '';
   aName: String;
   aValue: String;
+  DoExec: Boolean = False;
 begin
   Result := False;
   if not ((copy(aLink,0,pos('@',aLink)-1) = 'STATISTICS')) then exit;
@@ -1240,18 +1241,28 @@ begin
     begin
       TabCaption := TStatistic(FDataSet).Text.AsString;
       aParams := copy(aParams,2,length(aParams)-2);
-      aParams := aParams+',';
-      while pos(',',aParams)>0 do
+      if trim(aParams)<>'' then
         begin
-          aName := copy(aParams,0,pos('=',aParams)-1);
-          aValue := copy(aParams,pos('=',aParams)+1,length(aParams));
-          aValue := copy(aValue,0,pos(',',aValue)-1);
-          aParams := copy(aParams,pos(',',aParams)+1,length(aParams));
-          if aName <> '' then
-            FVariables.Values['TBE'+MD5Print(MD5String(aName))] := aValue;
+          FVariables.Clear;
+          aParams := aParams+',';
+          while pos(',',aParams)>0 do
+            begin
+              aName := copy(aParams,0,pos('=',aParams)-1);
+              aValue := copy(aParams,pos('=',aParams)+1,length(aParams));
+              aValue := copy(aValue,0,pos(',',aValue)-1);
+              aParams := copy(aParams,pos(',',aParams)+1,length(aParams));
+              if aName <> '' then
+                FVariables.Values['TBE'+MD5Print(MD5String(aName))] := aValue;
+            end;
+          DoExec := True;
         end;
       DoOpen;
       Result := True;
+      if DoExec then
+        begin
+          Application.ProcessMessages;
+          acExecute.Execute;
+        end;
     end;
 end;
 procedure TfStatisticFrame.New;
