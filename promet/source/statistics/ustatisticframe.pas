@@ -1216,13 +1216,20 @@ begin
   inherited;
 end;
 function TfStatisticFrame.OpenFromLink(aLink: string) : Boolean;
+var
+  aParams: String = '';
+  aName: String;
+  aValue: String;
 begin
   Result := False;
   if not ((copy(aLink,0,pos('@',aLink)-1) = 'STATISTICS')) then exit;
   if rpos('{',aLink) > 0 then
     aLink := copy(aLink,0,rpos('{',aLink)-1)
   else if rpos('(',aLink) > 0 then
-    aLink := copy(aLink,0,rpos('(',aLink)-1);
+    begin
+      aParams := copy(aLink,rpos('(',aLink),length(aLink));
+      aLink := copy(aLink,0,rpos('(',aLink)-1);
+    end;
   CloseConnection;
   if not Assigned(FConnection) then
     FConnection := Data.GetNewConnection;
@@ -1231,7 +1238,17 @@ begin
   Data.SetFilter(FDataSet,Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink))),1);
   if FDataSet.Count > 0 then
     begin
-      TabCaption := TProject(FDataSet).Text.AsString;
+      TabCaption := TStatistic(FDataSet).Text.AsString;
+      aParams := copy(aParams,2,length(aParams)-2);
+      aParams := aParams+',';
+      while pos(',',aParams)>0 do
+        begin
+          aName := copy(aParams,0,pos('=',aParams)-1);
+          aValue := copy(aParams,pos('=',aParams)+1,length(aParams));
+          aValue := copy(aValue,0,pos(',',aValue)-1);
+          aParams := copy(aParams,pos(',',aParams)+1,length(aParams));
+          FVariables.Values['TBE'+MD5Print(MD5String(aName))] := aValue;
+        end;
       DoOpen;
       Result := True;
     end;

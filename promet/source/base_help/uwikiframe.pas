@@ -107,6 +107,7 @@ type
     FCache: TFileCache;
     FActNode: TIpHtmlNode;
     FEditable: Boolean;
+    FVariables: TStrings;
     function Wiki2HTML(input: string): TIPHtml;
     procedure AddDocuments(Sender: TObject);
   public
@@ -120,6 +121,7 @@ type
     function OpenWikiPage(PageName : string;CreateIfNotExists : Boolean = False) : Boolean;
     procedure Refresh;
     procedure DoRefresh; override;
+    property Variables : TStrings read FVariables;
   end;
   TSimpleIpHtml = class(TIpHtml)
   public
@@ -199,6 +201,7 @@ begin
   inherited Create(AOwner);
   FCache := TFileCache.Create(30);
   FCache.OnGetFile:=@FCacheGetFile;
+  FVariables := TStringList.Create;
   DataSet := TWikiList.Create(Self,Data);
   FHistory := THistory.Create;
   FHistory.FFFWdAction := acForward;
@@ -210,6 +213,7 @@ destructor TfWikiFrame.Destroy;
 begin
   FCache.Destroy;
   FHistory.Destroy;
+  FVariables.Free;
   try
     DataSet.Destroy;
     DataSet := nil;

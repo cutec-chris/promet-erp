@@ -41,6 +41,7 @@ type
     function GetNumberFieldName : string;override;
     function GetDescriptionFieldName: string;override;
     function FindWikiPage(PageName : string;Docreate : Boolean = False) : Boolean;
+    function FindWikiFolder(PageName : string) : Boolean;
     function isDynamic : Boolean;
     function PageAsText : string;
     property ActiveTreeID : Variant read FActiveTreeID;
@@ -199,6 +200,46 @@ begin
     end;
   if Result then Keywords.Open;
   FActiveTreeID := aParent;
+  aTree.Free;
+end;
+
+function TWikiList.FindWikiFolder(PageName: string): Boolean;
+var
+  aParent: Variant;
+  aTree: TTree;
+begin
+  Result := False;
+  aParent := 0;
+  aTree := TTree.Create(Self,Data);
+  if copy(PageName,0,7) = 'http://' then exit;
+  while pos('/',PageName) > 0 do
+    begin
+      aTree.Open;
+      if aTree.DataSet.Locate('NAME;PARENT',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent]),[])
+      or aTree.DataSet.Locate('NAME;PARENT',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent]),[loCaseInSensitive]) then
+        begin
+          PageName := copy(PageName,pos('/',PageName)+1,length(PageName));
+          aParent := aTree.Id.AsVariant;
+        end
+      else
+        begin
+          Data.SetFilter(aTree,'',0);
+          if aTree.DataSet.Locate('NAME;PARENT',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent]),[])
+          or aTree.DataSet.Locate('NAME;PARENT',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent]),[loCaseInSensitive]) then
+            begin
+              PageName := copy(PageName,pos('/',PageName)+1,length(PageName));
+              aParent := aTree.Id.AsVariant;
+            end
+          else
+            begin
+              result := False;
+              aTree.Free;
+              exit;
+            end;
+        end;
+    end;
+  Data.SetFilter(Self,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(VarToStr(aParent)));
+  Result := Count>0;
   aTree.Free;
 end;
 

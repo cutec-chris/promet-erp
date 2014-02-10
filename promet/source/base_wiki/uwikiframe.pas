@@ -14,7 +14,6 @@
   at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
-}
 Created 01.07.2006
 *******************************************************************************}
 unit uWikiFrame;

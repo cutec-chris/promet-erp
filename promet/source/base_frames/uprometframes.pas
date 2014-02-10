@@ -184,6 +184,7 @@ function TPrometMainFrame.OpenFromLink(aLink: string): Boolean;
 begin
   FLink := aLink;
 end;
+
 procedure TPrometMainFrame.CloseFrame;
 begin
   if (Parent is TTabSheet) and (TTabSheet(Parent).Visible) and (TTabSheet(Parent).PageControl is TExtMenuPageControl) then

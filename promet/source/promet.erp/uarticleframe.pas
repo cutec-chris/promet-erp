@@ -164,7 +164,7 @@ uses uMasterdata,uData,uArticlePositionFrame,uDocuments,uDocumentFrame,
   uHistoryFrame,uImageFrame,uLinkFrame,uBaseDbInterface,uListFrame,
   uArticleStorageFrame,uArticleRepairFrame,uArticleText,uCopyArticleData,
   uMainTreeFrame,uPrometFramesInplace,uBaseDBClasses,uarticlesupplierframe,
-  uNRights,uSelectReport,uBaseVisualApplication;
+  uNRights,uSelectReport,uBaseVisualApplication,uWikiFrame,uWiki;
 resourcestring
   strPrices                                  = 'Preise';
   strProperties                              = 'Eigenschaften';
@@ -418,6 +418,8 @@ var
   aType: Char;
   tmp: String;
   aFound: Boolean;
+  aWiki: TWikiList;
+  aWikiPage: TfWikiFrame;
 begin
   pcPages.CloseAll;
   TabCaption := TMasterdata(FDataSet).Text.AsString;
@@ -563,6 +565,24 @@ begin
     AddTabClasses('ART',pcPages);
   with Application as TBaseVisualApplication do
     AddTabs(pcPages);
+  aWiki := TWikiList.Create(nil,Data);
+  if aWiki.FindWikiFolder('Promet-ERP-Help/forms/'+Self.ClassName+'/') then
+    begin
+      while not aWiki.EOF do
+        begin
+          aWikiPage := TfWikiFrame.Create(Self);
+          aWikiPage.Variables.Values['SQL_ID'] := DataSet.Id.AsString;
+          aWikiPage.Variables.Values['ID'] := TBaseDbList(DataSet).Number.AsString;
+          aWikiPage.Variables.Values['TEXT'] := TBaseDbList(DataSet).Text.AsString;
+          if Assigned(TBaseDbList(DataSet).Status) then
+            aWikiPage.Variables.Values['STATUS'] := TBaseDbList(DataSet).Status.AsString;
+          if aWikiPage.OpenWikiPage('Promet-ERP-Help/forms/'+Self.ClassName+'/'+aWiki.Text.AsString) then
+            pcPages.AddTab(aWikiPage,False,aWiki.FieldByName('CAPTION').AsString)
+          else aWikiPage.Free;
+          aWiki.Next;
+        end;
+    end;
+  aWiki.Free;
   inherited DoOpen;
 end;
 function TfArticleFrame.SetRights: Boolean;
