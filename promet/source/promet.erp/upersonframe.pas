@@ -179,7 +179,7 @@ uses uData, uPerson, uBaseVisualControls, uBaseDBInterface, uAddressFrame,
   uHistoryFrame, uImageFrame, uPersonFinance, uLinkFrame, uMessageEdit,
   LCLIntf,uDocuments,uListFrame,uTextFrame,uMainTreeFrame,uSearch,
   uOrderFrame,uOrder,VpData,uCalendarFrame, uImpVCard,uPrometFramesInplace,
-  uNRights,uSelectReport,uBaseVisualApplication;
+  uNRights,uSelectReport,uBaseVisualApplication,uWiki,uWikiFrame;
 {$R *.lfm}
 resourcestring
   strAddress                    = 'Adresse';
@@ -864,6 +864,8 @@ var
   aType: Char;
   tmp: String;
   aFound: Boolean;
+  aWiki: TWikiList;
+  aWikiPage: TfWikiFrame;
 begin
   FContList.pTop.Hide;
   FContList.Editable:=True;
@@ -1010,6 +1012,24 @@ begin
     AddTabClasses('PER',pcPages);
   with Application as TBaseVisualApplication do
     AddTabs(pcPages);
+  aWiki := TWikiList.Create(nil,Data);
+  if aWiki.FindWikiFolder('Promet-ERP-Help/forms/'+Self.ClassName+'/') then
+    begin
+      while not aWiki.EOF do
+        begin
+          aWikiPage := TfWikiFrame.Create(Self);
+          aWikiPage.Variables.Values['SQL_ID'] := DataSet.Id.AsString;
+          aWikiPage.Variables.Values['ID'] := TBaseDbList(DataSet).Number.AsString;
+          aWikiPage.Variables.Values['TEXT'] := TBaseDbList(DataSet).Text.AsString;
+          if Assigned(TBaseDbList(DataSet).Status) then
+            aWikiPage.Variables.Values['STATUS'] := TBaseDbList(DataSet).Status.AsString;
+          if aWikiPage.OpenWikiPage('Promet-ERP-Help/forms/'+Self.ClassName+'/'+aWiki.Text.AsString) then
+            pcPages.AddTab(aWikiPage,False,aWiki.FieldByName('CAPTION').AsString)
+          else aWikiPage.Free;
+          aWiki.Next;
+        end;
+    end;
+  aWiki.Free;
 
   acNewOrder.Visible:=Data.Users.Rights.Right('ORDERS') > RIGHT_READ;
   if FDataSet.State = dsInsert then

@@ -199,7 +199,7 @@ uses uData,uProjects,uHistoryFrame,uLinkFrame,uImageFrame,uDocuments,
   uDocumentFrame,uIntfStrConsts,uMainTreeFrame,uBaseDBInterface,uEditableTab,
   uFilterFrame,uBaseSearch,Utils,uprojectimport,uBaseERPDBClasses,uSelectReport,
   uNRights,uprojectpositions,uSearch,LCLProc,utask,uprojectoverview,uBaseVisualApplication,
-  uGanttView;
+  uGanttView,uWikiFrame,uWiki;
 {$R *.lfm}
 resourcestring
   strNoParent                     = '<kein Vorfahr>';
@@ -795,6 +795,8 @@ var
   aFound: Boolean;
   aTasks: TfTaskFrame;
   aParentU: TUser;
+  aWiki: TWikiList;
+  aWikiPage: TfWikiFrame;
 begin
   SetRights;
   pcPages.ClearTabClasses;
@@ -944,6 +946,24 @@ begin
     AddTabs(pcPages);
   SetRights;
   RefreshFlow;
+  aWiki := TWikiList.Create(nil,Data);
+  if aWiki.FindWikiFolder('Promet-ERP-Help/forms/'+Self.ClassName+'/') then
+    begin
+      while not aWiki.EOF do
+        begin
+          aWikiPage := TfWikiFrame.Create(Self);
+          aWikiPage.Variables.Values['SQL_ID'] := DataSet.Id.AsString;
+          aWikiPage.Variables.Values['ID'] := TBaseDbList(DataSet).Number.AsString;
+          aWikiPage.Variables.Values['TEXT'] := TBaseDbList(DataSet).Text.AsString;
+          if Assigned(TBaseDbList(DataSet).Status) then
+            aWikiPage.Variables.Values['STATUS'] := TBaseDbList(DataSet).Status.AsString;
+          if aWikiPage.OpenWikiPage('Promet-ERP-Help/forms/'+Self.ClassName+'/'+aWiki.Text.AsString) then
+            pcPages.AddTab(aWikiPage,False,aWiki.FieldByName('CAPTION').AsString)
+          else aWikiPage.Free;
+          aWiki.Next;
+        end;
+    end;
+  aWiki.Free;
   pcPages.AddTabClass(TfTaskFrame,strTasks,@AddTasks);
   TProject(DataSet).Tasks.Open;
   if TProject(DataSet).Tasks.Count > 0 then
