@@ -202,6 +202,8 @@ begin
   FCache := TFileCache.Create(30);
   FCache.OnGetFile:=@FCacheGetFile;
   FVariables := TStringList.Create;
+  FVariables.Values['USER'] := Data.Users.Id.AsString;
+  FVariables.Values['ACCOUNTNO'] := Data.Users.FieldByName('ACCOUNTNO').AsString;
   DataSet := TWikiList.Create(Self,Data);
   FHistory := THistory.Create;
   FHistory.FFFWdAction := acForward;
@@ -489,6 +491,7 @@ var
   aFilter: TSQLStringType;
   aRight: String;
   aLimit: Integer = 10;
+  i: Integer;
 
   procedure BuildLinkRow;
   var
@@ -608,6 +611,8 @@ var
   end;
 
 begin
+  for i := 0 to FVariables.Count-1 do
+    StringReplace(Inp,'VARIABLES.'+FVariables.Names[i],FVariables.ValueFromIndex[i],[rfReplaceAll]);
   if Uppercase(copy(Inp,0,6)) = 'BOARD(' then
     begin
       Inp := copy(Inp,7,length(Inp));
