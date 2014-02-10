@@ -93,10 +93,10 @@ inherited fWikiFrame: TfWikiFrame
     Height = 487
     Top = 42
     Width = 685
-    ActivePage = tsView
+    ActivePage = tsEdit
     Align = alClient
     Images = fVisualControls.Images
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 1
     NewTabImageIndex = 59
     object tsView: TTabSheet
@@ -160,7 +160,7 @@ inherited fWikiFrame: TfWikiFrame
           VisibleButtons = [nbDelete, nbPost, nbCancel]
         end
         object bItalic: TSpeedButton
-          Left = 94
+          Left = 84
           Height = 25
           Hint = 'Setzt den markierten Text '#10'auf Kursiv'
           Top = 16
@@ -213,7 +213,7 @@ inherited fWikiFrame: TfWikiFrame
           ShowCaption = False
         end
         object SpeedButton2: TSpeedButton
-          Left = 120
+          Left = 108
           Height = 25
           Hint = 'Setzt den markierten Text '#10'auf Fett'
           Top = 16
@@ -266,7 +266,7 @@ inherited fWikiFrame: TfWikiFrame
           ShowCaption = False
         end
         object SpeedButton4: TSpeedButton
-          Left = 150
+          Left = 140
           Height = 25
           Hint = 'fügt eine Verknüpfung ein'
           Top = 16
@@ -319,7 +319,7 @@ inherited fWikiFrame: TfWikiFrame
           ShowCaption = False
         end
         object SpeedButton3: TSpeedButton
-          Left = 176
+          Left = 164
           Height = 25
           Hint = 'fügt eine externe Verknüpfung ein'
           Top = 16
@@ -364,7 +364,7 @@ inherited fWikiFrame: TfWikiFrame
           ShowCaption = False
         end
         object SpeedButton6: TSpeedButton
-          Left = 206
+          Left = 220
           Height = 25
           Hint = 'fügt ein Bild ein'
           Top = 16
@@ -409,7 +409,7 @@ inherited fWikiFrame: TfWikiFrame
           ShowCaption = False
         end
         object SpeedButton7: TSpeedButton
-          Left = 254
+          Left = 268
           Height = 25
           Top = 16
           Width = 25
@@ -492,7 +492,7 @@ inherited fWikiFrame: TfWikiFrame
           TabOrder = 2
         end
         object SpeedButton8: TSpeedButton
-          Left = 230
+          Left = 244
           Height = 25
           Hint = 'fügt ein Bildschirmfoto ein'
           Top = 16
@@ -563,6 +563,51 @@ inherited fWikiFrame: TfWikiFrame
           AutoSize = False
           Caption = 'Suchbegriffe'
           ParentColor = False
+        end
+        object SpeedButton9: TSpeedButton
+          Left = 188
+          Height = 25
+          Hint = 'fügt eine Verknüpfung auf ein Promet-Element ein'
+          Top = 16
+          Width = 25
+          Glyph.Data = {
+            36040000424D3604000000000000360000002800000010000000100000000100
+            2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+            FF00FFFFFF00262626033F3F3F304A4A4ADF646464F46B6B6BF76B6B6BF95757
+            575E575757436B6B6BF26B6B6BF7646464F44A4A4ADF3F3F3F30FFFFFF00FFFF
+            FF00FFFFFF00292929294D4D4DD78D8D8DEFAAAAAAEDAEAEAEFF979797FF7171
+            71FF787878FF979797FFAEAEAEFFAAAAAAED8D8D8DEF4D4D4DD7A97151A9C38E
+            68FFC08B66FF82634DFF6C6967FFD3D3CEFF6D5E55FF434241FF464646FF5151
+            51FF515151FF464646FF434241FF6A5B52FFC4C4C4FF676767EFC8926CFFFFFF
+            FFFFFFFFFFFF909090FF868686FFD3D3CEFFF8F8F8FF484848FFBDBDBDFFCECE
+            CEFFC2C2C2FFADADADFF484848FFF8F8F8FFC4C4C4FF828282F7CA946EFFFFFF
+            FFFFFFFFFFFFC0C0BFFF7B7B7BFFD3D3CEFF888887FF4D4D4DFF656565FF9292
+            92FF797979FF656565FF4D4D4DFF888888FFC4C4C4FF737373F0CC976FFFFFFF
+            FFFFFFFFFCFFFAFAF8FF9E9E9DFF919191FFE8E8E8FFDDDDDDFFC1C1C1FF9191
+            91FF9A9A99FFDADADAFFDDDDDDFFC4C4C4FF919191FF4C4C4C8AD19C73FFFFFF
+            FFFFFEFEFCFFFEFEFCFFF6F6F4FFBABAB8FF8D8D8DFF9E9E9EFF8B8B8BFFDCDC
+            DBFFEEEDEAFF8D8D8CFF9E9E9EFF8D8D8DFF907360FF3E3E3E0BD49E75FFFFFF
+            FFFFFEFEFCFFFDFDFBFFFDFDFCFFFDFDFBFFFDFDF9FFFCFCF8FFFBF9F7FFFBF9
+            F5FFFBF8F4FFFBF7F2FFFBF5F2FFFFFFFFFFB27C5AFFFFFFFF00D5A076FFFFFF
+            FFFFFDFDFCFFFDFDFBFFFDFDFAFFFCFCF9FFFCFBF7FFFBF9F5FFFBF8F4FFFBF7
+            F3FFFBF5F2FFFAF3EFFFF8F2ECFFFFFFFFFFB57E5CFFFFFFFF00D8A279FFFFFF
+            FFFFFDFDFAFFFCFCFAFFFCFBF9FFFBFAF6FFFBF8F5FFFBF7F4FFFBF6F1FFF8F4
+            EEFFF7F2EBFFF7F0EAFFF6ECE8FFFFFFFFFFB7815EFFFFFFFF00D9A379FFFFFF
+            FFFFFCFBF9FFFCFBF8FFFBF9F7FFFBF7F4FFFAF7F2FFF9F5F0FFF7F3EDFFF6EF
+            EAFFF5EBE7FFF3EAE4FFF2E7DEFFFFFFFFFFBA8560FFFFFFFF00DBA47AFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFBD8763FFFFFFFF00DCA77BFFDCA7
+            7BFFDCA77BFFDCA77BFFDCA77BFFDCA77BFFDCA77BFFDCA77BFFDCA77BFFDCA7
+            7BFFDCA77BFFDCA77BFFDCA77BFFDCA77BFFC08B66FFFFFFFF00DDAC85FDE8B9
+            92FFE8B992FFE8B992FFE8B992FFE8B992FFE8B992FFE8B992FFE8B992FFE8B9
+            92FFE8B992FFE8B992FFE8B992FFE8B992FFC1906FFDFFFFFF00A971516BDDB1
+            8DF4DCA77BFFDCA67AFFDAA47AFFD8A279FFD5A076FFD49E75FFD29D73FFCF9A
+            72FFCE9970FFCB966FFFC9946CFFC49A7AF4A971516BFFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+          }
+          OnClick = SpeedButton9Click
+          ShowCaption = False
         end
       end
     end

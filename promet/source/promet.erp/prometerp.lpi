@@ -505,7 +505,7 @@
       <Unit19>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="961"/>
         <CursorPos X="3" Y="922"/>
@@ -1088,10 +1088,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uDocumentFrame"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="786"/>
-        <CursorPos X="69" Y="804"/>
+        <TopLine Value="479"/>
+        <CursorPos X="1" Y="509"/>
         <UsageCount Value="163"/>
+        <Loaded Value="True"/>
       </Unit73>
       <Unit74>
         <Filename Value="uarticlesupplierframe.pas"/>
@@ -3657,7 +3659,7 @@
       <Unit372>
         <Filename Value="../base/dbintfs/udata.pas"/>
         <UnitName Value="uData"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="16" Y="30"/>
@@ -3711,10 +3713,11 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="600"/>
-        <CursorPos X="101" Y="614"/>
+        <TopLine Value="339"/>
+        <CursorPos X="54" Y="351"/>
         <UsageCount Value="23"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit378>
       <Unit379>
         <Filename Value="../base_frames/uimagecache.pas"/>
@@ -3751,7 +3754,7 @@
       <Unit383>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
         <UnitName Value="wikitohtml"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="258"/>
         <CursorPos X="50" Y="398"/>
@@ -3878,7 +3881,7 @@
         <UsageCount Value="10"/>
       </Unit397>
     </Units>
-    <JumpHistory Count="14" HistoryIndex="13">
+    <JumpHistory Count="19" HistoryIndex="18">
       <Position1>
         <Filename Value="uarticleframe.pas"/>
         <Caret Line="575" Column="1" TopLine="557"/>
@@ -3935,6 +3938,26 @@
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
         <Caret Line="954" Column="38" TopLine="934"/>
       </Position14>
+      <Position15>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="614" Column="101" TopLine="600"/>
+      </Position15>
+      <Position16>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="616" Column="101" TopLine="602"/>
+      </Position16>
+      <Position17>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="615" Column="101" TopLine="601"/>
+      </Position17>
+      <Position18>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="336" Column="1" TopLine="330"/>
+      </Position18>
+      <Position19>
+        <Filename Value="../base_documents/udocumentframe.pas"/>
+        <Caret Line="804" Column="69" TopLine="786"/>
+      </Position19>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>
@@ -3978,7 +4001,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="1">
+    <BreakPoints Count="2">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
@@ -3986,6 +4009,13 @@
         <Source Value="../base/dbintfs/utask.pas"/>
         <Line Value="350"/>
       </Item1>
+      <Item2>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="../base_help/uwikiframe.pas"/>
+        <Line Value="636"/>
+      </Item2>
     </BreakPoints>
     <Exceptions Count="20">
       <Item1>

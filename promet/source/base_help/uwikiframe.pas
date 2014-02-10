@@ -71,6 +71,7 @@ type
     SpeedButton6: TSpeedButton;
     SpeedButton7: TSpeedButton;
     SpeedButton8: TSpeedButton;
+    SpeedButton9: TSpeedButton;
     Wiki: TDatasource;
     ipHTML: TIpHtmlPanel;
     Panel4: TPanel;
@@ -96,6 +97,7 @@ type
     procedure SpeedButton2Click(Sender: TObject);
     procedure SpeedButton3Click(Sender: TObject);
     procedure SpeedButton4Click(Sender: TObject);
+    procedure SpeedButton9Click(Sender: TObject);
     procedure TSimpleIpHtmlGetImageX(Sender: TIpHtmlNode; const URL: string;
       var Picture: TPicture);
     procedure tsViewShow(Sender: TObject);
@@ -333,6 +335,26 @@ begin
   eWikiPage.SelText := '[[]]';
   eWikiPage.SelStart:=eWikiPage.SelStart+2;
 end;
+
+procedure TfWikiFrame.SpeedButton9Click(Sender: TObject);
+var
+  Stream: TStringStream;
+begin
+  if Clipboard.HasFormat(LinkClipboardFormat) then
+    begin
+      Stream := TStringstream.Create('');
+      if Clipboard.GetFormat(LinkClipboardFormat,Stream) then
+        begin
+          if (DataSet.DataSet.State <> dsEdit)
+          and (DataSet.DataSet.State <> dsInsert) then
+            DataSet.DataSet.Edit;
+          eWikiPage.SelText := '[['+Stream.DataString+']]';
+          eWikiPage.SelStart:=eWikiPage.SelStart+2;
+        end;
+      Stream.Free;
+    end;
+end;
+
 procedure TfWikiFrame.acBackExecute(Sender: TObject);
 begin
   FHistory.GoBack;
