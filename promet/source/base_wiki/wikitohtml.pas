@@ -373,8 +373,8 @@ begin
       intd := False;
       while length(tstr) > 2 do
         begin
-          if ((tstr[1] = #13) and (tstr[2] = '|'))
-          or ((tstr[1] = #13) and (tstr[2] = '!')) then
+          if ((tstr[1] = #13) and (tstr[2] = '|') and ((length(tstr)=2) or (tstr[3] <> '|')))
+          or ((tstr[1] = #13) and (tstr[2] = '!') and ((length(tstr)=2) or (tstr[3] <> '!'))) then
             begin
               if inTD then
                 ostr := ostr+'</td>'
@@ -399,13 +399,7 @@ begin
             end
           else
             begin
-              if (tstr[1] = #13) and InTD then
-                begin
-                  ostr := ostr+'</td>';
-                  InTD := False;
-                end
-              else
-                ostr := ostr+tstr[1];
+              ostr := ostr+tstr[1];
               tstr := copy(tstr,2,length(tstr));
             end;
         end;

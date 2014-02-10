@@ -298,9 +298,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="2866"/>
+        <TopLine Value="2854"/>
         <CursorPos X="32" Y="2881"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="3">
@@ -324,11 +324,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="uBaseVisualControls"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="52" Y="15"/>
+        <CursorPos X="44" Y="22"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -522,22 +521,18 @@
       <Unit21>
         <Filename Value="../base/dbintfs/uorder.pas"/>
         <UnitName Value="uOrder"/>
-        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="100"/>
-        <Loaded Value="True"/>
       </Unit21>
       <Unit22>
         <Filename Value="../base/dbintfs/uperson.pas"/>
         <UnitName Value="uPerson"/>
-        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="688"/>
         <CursorPos X="1" Y="708"/>
         <UsageCount Value="35"/>
-        <Loaded Value="True"/>
       </Unit22>
       <Unit23>
         <Filename Value="ubankingdialog.pas"/>
@@ -1146,8 +1141,8 @@
         <Filename Value="../components/zeos/src/component/ZAbstractRODataset.pas"/>
         <UnitName Value="ZAbstractRODataset"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="609"/>
-        <CursorPos X="1" Y="629"/>
+        <TopLine Value="885"/>
+        <CursorPos X="42" Y="917"/>
         <UsageCount Value="11"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit79>
@@ -1311,12 +1306,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="umanagedocframe"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="104"/>
         <CursorPos X="15" Y="121"/>
         <UsageCount Value="95"/>
-        <Loaded Value="True"/>
       </Unit97>
       <Unit98>
         <Filename Value="../components/thumbs/thumbcontrol.pas"/>
@@ -1368,12 +1361,10 @@
       <Unit104>
         <Filename Value="../base_ocr/uocr.pas"/>
         <UnitName Value="uOCR"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="10" Y="61"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit104>
       <Unit105>
         <Filename Value="../base_docmanage/umanagedocframe.lfm"/>
@@ -3699,10 +3690,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uWikiFrame"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="767"/>
-        <CursorPos X="1" Y="798"/>
-        <UsageCount Value="19"/>
+        <TopLine Value="115"/>
+        <CursorPos X="24" Y="130"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit378>
       <Unit379>
         <Filename Value="../base_frames/uimagecache.pas"/>
@@ -3739,10 +3733,14 @@
       <Unit383>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
         <UnitName Value="wikitohtml"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="445"/>
-        <CursorPos X="40" Y="452"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="371"/>
+        <CursorPos X="93" Y="376"/>
+        <FoldState Value=" T0nD4d061}"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
       </Unit383>
       <Unit384>
         <Filename Value="../base_frames/uprometframes.pas"/>
@@ -3831,68 +3829,133 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uDocumentAcquire"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="223"/>
         <CursorPos X="1" Y="231"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit394>
     </Units>
-    <JumpHistory Count="13" HistoryIndex="12">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="162" Column="62" TopLine="152"/>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="370" Column="1" TopLine="268"/>
       </Position1>
       <Position2>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="405" Column="4" TopLine="377"/>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="371" Column="1" TopLine="268"/>
       </Position2>
       <Position3>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="63" Column="92" TopLine="60"/>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="372" Column="1" TopLine="268"/>
       </Position3>
       <Position4>
-        <Filename Value="umain.pas"/>
-        <Caret Line="323" Column="41" TopLine="306"/>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="373" Column="1" TopLine="268"/>
       </Position4>
       <Position5>
-        <Filename Value="umain.pas"/>
-        <Caret Line="338" Column="54" TopLine="309"/>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="374" Column="1" TopLine="316"/>
       </Position5>
       <Position6>
-        <Filename Value="umain.pas"/>
-        <Caret Line="517" Column="27" TopLine="501"/>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="376" Column="1" TopLine="316"/>
       </Position6>
       <Position7>
-        <Filename Value="umain.pas"/>
-        <Caret Line="877" Column="77" TopLine="864"/>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="379" Column="1" TopLine="316"/>
       </Position7>
       <Position8>
-        <Filename Value="umain.pas"/>
-        <Caret Line="2143" Column="20" TopLine="2130"/>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="382" Column="1" TopLine="316"/>
       </Position8>
       <Position9>
-        <Filename Value="umain.pas"/>
-        <Caret Line="2154" Column="34" TopLine="2130"/>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="383" Column="1" TopLine="316"/>
       </Position9>
       <Position10>
-        <Filename Value="umain.pas"/>
-        <Caret Line="2807" Column="67" TopLine="2803"/>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="384" Column="1" TopLine="316"/>
       </Position10>
       <Position11>
-        <Filename Value="umain.pas"/>
-        <Caret Line="2808" Column="22" TopLine="2802"/>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="376" Column="1" TopLine="316"/>
       </Position11>
       <Position12>
-        <Filename Value="../base_documents/udocumentacquire.pas"/>
-        <Caret Line="58" Column="53" TopLine="45"/>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="377" Column="1" TopLine="316"/>
       </Position12>
       <Position13>
-        <Filename Value="../base_documents/udocumentacquire.pas"/>
-        <Caret Line="95" Column="18" TopLine="67"/>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="386" Column="1" TopLine="316"/>
       </Position13>
+      <Position14>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="387" Column="1" TopLine="368"/>
+      </Position14>
+      <Position15>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="402" Column="1" TopLine="377"/>
+      </Position15>
+      <Position16>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="403" Column="1" TopLine="377"/>
+      </Position16>
+      <Position17>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="376" Column="1" TopLine="318"/>
+      </Position17>
+      <Position18>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="377" Column="1" TopLine="318"/>
+      </Position18>
+      <Position19>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="386" Column="1" TopLine="366"/>
+      </Position19>
+      <Position20>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="387" Column="1" TopLine="366"/>
+      </Position20>
+      <Position21>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="402" Column="1" TopLine="371"/>
+      </Position21>
+      <Position22>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="403" Column="1" TopLine="372"/>
+      </Position22>
+      <Position23>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="376" Column="1" TopLine="369"/>
+      </Position23>
+      <Position24>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="377" Column="1" TopLine="369"/>
+      </Position24>
+      <Position25>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="386" Column="1" TopLine="369"/>
+      </Position25>
+      <Position26>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="387" Column="1" TopLine="369"/>
+      </Position26>
+      <Position27>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="402" Column="1" TopLine="371"/>
+      </Position27>
+      <Position28>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="403" Column="1" TopLine="381"/>
+      </Position28>
+      <Position29>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="365" Column="1" TopLine="268"/>
+      </Position29>
+      <Position30>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="408" Column="1" TopLine="389"/>
+      </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>
