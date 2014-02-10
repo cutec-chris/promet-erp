@@ -27,7 +27,6 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TestPG --user=Administrator"/>
       </local>
     </RunParams>
     <RequiredPackages Count="8">
@@ -127,7 +126,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="10">
+    <Exceptions Count="11">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -158,6 +157,9 @@
       <Item10>
         <Name Value="EFCreateError"/>
       </Item10>
+      <Item11>
+        <Name Value="EInvalidGraphic"/>
+      </Item11>
     </Exceptions>
   </Debugging>
 </CONFIG>

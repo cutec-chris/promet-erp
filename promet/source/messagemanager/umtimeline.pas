@@ -832,7 +832,7 @@ begin
                       fTimeline.gList.RowHeights[aRow] := fTimeline.gList.RowHeights[aRow]+12;
                     end;
                   TMGridObject(aObj).Bold:=(fTimeline.dgFake.DataSource.DataSet.FieldByName('READ').AsString<>'Y');
-                  if (fTimeline.dgFake.DataSource.DataSet.RecordCount>0) and (pos('#nsfw',NewText)=0) then
+                  if (fTimeline.dgFake.DataSource.DataSet.RecordCount>0) and (pos('nsfw',lowercase(NewText))=0) then
                     begin
                       TMGridObject(aObj).IsThreaded:=not fTimeline.dgFake.DataSource.DataSet.FieldByName('PARENT').IsNull;
                       TImagingThread.Create(fTimeline.dgFake.DataSource.DataSet.FieldByName('SQL_ID').AsVariant,TMGridObject(aObj),aRow);
@@ -843,7 +843,7 @@ begin
           NewText := TMGridObject(aObj).Caption+lineending+NewText;
           if length(NewText)>1000 then
             NewText:=copy(NewText,0,1000)+LineEnding+'...';
-          if (pos('#nsfw',NewText)>0) then
+          if (pos('nsfw',lowercase(NewText))>0) then
             NewText := 'NSFW';
         end;
     end
