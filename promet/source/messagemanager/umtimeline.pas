@@ -166,10 +166,11 @@ type
   private
     FId : Variant;
     FObj: TMGridObject;
+    FRow : Integer;
     procedure AddThumb;
     procedure DoRefresh;
   public
-    constructor Create(aId : Variant;aObj : TMGridObject);
+    constructor Create(aId : Variant;aObj : TMGridObject;aRow : Integer);
     procedure Execute; override;
   end;
 
@@ -208,14 +209,17 @@ end;
 
 procedure TImagingThread.DoRefresh;
 begin
+  TRowObject(fmTimeline.fTimeline.gList.Objects[0,FRow]).RefreshHeight:=True;
   fmTimeline.fTimeline.gList.Invalidate;
 end;
 
-constructor TImagingThread.Create(aId: Variant; aObj: TMGridObject);
+constructor TImagingThread.Create(aId: Variant; aObj: TMGridObject;
+  aRow: Integer);
 begin
   FreeOnTerminate:=True;
   Fid := aId;
   FObj := aObj;
+  FRow := aRow;
   inherited Create(False);
 end;
 
@@ -828,10 +832,10 @@ begin
                       fTimeline.gList.RowHeights[aRow] := fTimeline.gList.RowHeights[aRow]+12;
                     end;
                   TMGridObject(aObj).Bold:=(fTimeline.dgFake.DataSource.DataSet.FieldByName('READ').AsString<>'Y');
-                  if fTimeline.dgFake.DataSource.DataSet.RecordCount>0 then
+                  if (fTimeline.dgFake.DataSource.DataSet.RecordCount>0) and (pos('#nsfw',NewText)=0) then
                     begin
                       TMGridObject(aObj).IsThreaded:=not fTimeline.dgFake.DataSource.DataSet.FieldByName('PARENT').IsNull;
-                      TImagingThread.Create(fTimeline.dgFake.DataSource.DataSet.FieldByName('SQL_ID').AsVariant,TMGridObject(aObj));
+                      TImagingThread.Create(fTimeline.dgFake.DataSource.DataSet.FieldByName('SQL_ID').AsVariant,TMGridObject(aObj),aRow);
                     end;
                 end;
               fTimeline.DataSet.GotoBookmark(aRec);
@@ -839,6 +843,8 @@ begin
           NewText := TMGridObject(aObj).Caption+lineending+NewText;
           if length(NewText)>1000 then
             NewText:=copy(NewText,0,1000)+LineEnding+'...';
+          if (pos('#nsfw',NewText)>0) then
+            NewText := 'NSFW';
         end;
     end
   else if aCol.FieldName='TIMESTAMPD' then
