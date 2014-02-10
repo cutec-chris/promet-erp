@@ -125,6 +125,7 @@ type
     StatisticResults: TDatasource;
     SubDetail: TDatasource;
     SynSQLSyn1: TSynSQLSyn;
+    ExecuteTimer: TTimer;
     tsDescription: TTabSheet;
     ToolBar: TToolBar;
     ToolBar1: TPanel;
@@ -150,6 +151,7 @@ type
     procedure BtZoomOutClick(Sender: TObject);
     procedure DataSetRemove(Sender: TObject);
     procedure DatasourceStateChange(Sender: TObject);
+    procedure ExecuteTimerTimer(Sender: TObject);
     procedure FrameEnter(Sender: TObject);
     procedure FrameExit(Sender: TObject);
     procedure FSynCompletionExecute(Sender: TObject);
@@ -953,6 +955,12 @@ begin
 
 end;
 
+procedure TfStatisticFrame.ExecuteTimerTimer(Sender: TObject);
+begin
+  ExecuteTimer.Enabled:=False;
+  acExecute.Execute;
+end;
+
 procedure TfStatisticFrame.FrameEnter(Sender: TObject);
 begin
   //ActionList1.State:=asNormal;
@@ -1261,7 +1269,7 @@ begin
       if DoExec then
         begin
           Application.ProcessMessages;
-          acExecute.Execute;
+          ExecuteTimer.Enabled := True;
         end;
     end;
 end;

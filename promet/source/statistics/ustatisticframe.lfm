@@ -5,8 +5,8 @@ inherited fStatisticFrame: TfStatisticFrame
   ClientWidth = 864
   OnEnter = FrameEnter
   OnExit = FrameExit
-  DesignLeft = 317
-  DesignTop = 139
+  DesignLeft = 257
+  DesignTop = 151
   object ToolBar1: TPanel[0]
     Left = 0
     Height = 44
@@ -3388,5 +3388,12 @@ inherited fStatisticFrame: TfStatisticFrame
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00
     }
+  end
+  object ExecuteTimer: TTimer[23]
+    Enabled = False
+    Interval = 200
+    OnTimer = ExecuteTimerTimer
+    left = 507
+    top = 297
   end
 end

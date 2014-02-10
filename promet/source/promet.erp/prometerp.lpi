@@ -1000,8 +1000,8 @@
         <UnitName Value="uProjectFrame"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="934"/>
-        <CursorPos X="38" Y="954"/>
+        <TopLine Value="946"/>
+        <CursorPos X="40" Y="961"/>
         <UsageCount Value="102"/>
         <Loaded Value="True"/>
       </Unit64>
@@ -1840,13 +1840,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ustatisticframe"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1231"/>
-        <CursorPos X="28" Y="1264"/>
+        <TopLine Value="957"/>
+        <CursorPos X="30" Y="960"/>
         <UsageCount Value="14"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit157>
       <Unit158>
         <Filename Value="../projectmanagement/uprojectoverview.pas"/>
@@ -3708,10 +3708,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uWikiFrame"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="262"/>
-        <CursorPos X="127" Y="272"/>
+        <TopLine Value="200"/>
+        <CursorPos X="64" Y="209"/>
         <UsageCount Value="24"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -3766,8 +3767,8 @@
         <UnitName Value="uPrometFrames"/>
         <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="30"/>
-        <CursorPos X="34" Y="50"/>
+        <TopLine Value="161"/>
+        <CursorPos X="34" Y="183"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -3881,123 +3882,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1076" Column="1" TopLine="1054"/>
+        <Caret Line="1084" Column="1" TopLine="1054"/>
       </Position1>
       <Position2>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1082" Column="1" TopLine="1054"/>
+        <Caret Line="1088" Column="1" TopLine="1056"/>
       </Position2>
       <Position3>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1084" Column="1" TopLine="1054"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="282" Column="45" TopLine="256"/>
       </Position3>
       <Position4>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1088" Column="1" TopLine="1056"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="137" Column="36" TopLine="111"/>
       </Position4>
       <Position5>
         <Filename Value="../base_help/uwikiframe.pas"/>
-        <Caret Line="282" Column="45" TopLine="256"/>
+        <Caret Line="662" Column="52" TopLine="631"/>
       </Position5>
       <Position6>
-        <Filename Value="../base_help/uwikiframe.pas"/>
-        <Caret Line="137" Column="36" TopLine="111"/>
+        <Filename Value="../statistics/ustatisticframe.pas"/>
+        <Caret Line="1247" Column="11" TopLine="1220"/>
       </Position6>
       <Position7>
-        <Filename Value="../base_help/uwikiframe.pas"/>
-        <Caret Line="662" Column="52" TopLine="631"/>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="435" Column="1" TopLine="424"/>
       </Position7>
       <Position8>
         <Filename Value="../statistics/ustatisticframe.pas"/>
-        <Caret Line="1247" Column="11" TopLine="1220"/>
+        <Caret Line="1244" Column="1" TopLine="1220"/>
       </Position8>
       <Position9>
-        <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="435" Column="1" TopLine="424"/>
+        <Filename Value="../statistics/ustatisticframe.pas"/>
+        <Caret Line="1246" Column="1" TopLine="1220"/>
       </Position9>
       <Position10>
         <Filename Value="../statistics/ustatisticframe.pas"/>
-        <Caret Line="1244" Column="1" TopLine="1220"/>
+        <Caret Line="1247" Column="1" TopLine="1220"/>
       </Position10>
       <Position11>
         <Filename Value="../statistics/ustatisticframe.pas"/>
-        <Caret Line="1246" Column="1" TopLine="1220"/>
+        <Caret Line="1248" Column="1" TopLine="1220"/>
       </Position11>
       <Position12>
         <Filename Value="../statistics/ustatisticframe.pas"/>
-        <Caret Line="1247" Column="1" TopLine="1220"/>
+        <Caret Line="1249" Column="1" TopLine="1220"/>
       </Position12>
       <Position13>
         <Filename Value="../statistics/ustatisticframe.pas"/>
-        <Caret Line="1248" Column="1" TopLine="1220"/>
+        <Caret Line="1250" Column="1" TopLine="1220"/>
       </Position13>
       <Position14>
         <Filename Value="../statistics/ustatisticframe.pas"/>
-        <Caret Line="1249" Column="1" TopLine="1220"/>
+        <Caret Line="1252" Column="1" TopLine="1221"/>
       </Position14>
       <Position15>
         <Filename Value="../statistics/ustatisticframe.pas"/>
-        <Caret Line="1250" Column="1" TopLine="1220"/>
+        <Caret Line="1244" Column="1" TopLine="1221"/>
       </Position15>
       <Position16>
         <Filename Value="../statistics/ustatisticframe.pas"/>
-        <Caret Line="1252" Column="1" TopLine="1221"/>
+        <Caret Line="1246" Column="1" TopLine="1221"/>
       </Position16>
       <Position17>
         <Filename Value="../statistics/ustatisticframe.pas"/>
-        <Caret Line="1244" Column="1" TopLine="1221"/>
+        <Caret Line="1247" Column="1" TopLine="1221"/>
       </Position17>
       <Position18>
         <Filename Value="../statistics/ustatisticframe.pas"/>
-        <Caret Line="1246" Column="1" TopLine="1221"/>
+        <Caret Line="1248" Column="1" TopLine="1221"/>
       </Position18>
       <Position19>
         <Filename Value="../statistics/ustatisticframe.pas"/>
-        <Caret Line="1247" Column="1" TopLine="1221"/>
+        <Caret Line="1249" Column="1" TopLine="1221"/>
       </Position19>
       <Position20>
         <Filename Value="../statistics/ustatisticframe.pas"/>
-        <Caret Line="1248" Column="1" TopLine="1221"/>
+        <Caret Line="1250" Column="1" TopLine="1221"/>
       </Position20>
       <Position21>
         <Filename Value="../statistics/ustatisticframe.pas"/>
-        <Caret Line="1249" Column="1" TopLine="1221"/>
+        <Caret Line="1252" Column="1" TopLine="1221"/>
       </Position21>
       <Position22>
         <Filename Value="../statistics/ustatisticframe.pas"/>
-        <Caret Line="1250" Column="1" TopLine="1221"/>
+        <Caret Line="1253" Column="1" TopLine="1222"/>
       </Position22>
       <Position23>
-        <Filename Value="../statistics/ustatisticframe.pas"/>
-        <Caret Line="1252" Column="1" TopLine="1221"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="180" Column="44" TopLine="166"/>
       </Position23>
       <Position24>
-        <Filename Value="../statistics/ustatisticframe.pas"/>
-        <Caret Line="1253" Column="1" TopLine="1222"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="207" Column="13" TopLine="175"/>
       </Position24>
       <Position25>
         <Filename Value="../base_help/uwikiframe.pas"/>
-        <Caret Line="180" Column="44" TopLine="166"/>
+        <Caret Line="208" Column="13" TopLine="176"/>
       </Position25>
       <Position26>
         <Filename Value="../base_help/uwikiframe.pas"/>
-        <Caret Line="207" Column="13" TopLine="175"/>
+        <Caret Line="220" Column="13" TopLine="188"/>
       </Position26>
       <Position27>
         <Filename Value="../base_help/uwikiframe.pas"/>
-        <Caret Line="208" Column="13" TopLine="176"/>
+        <Caret Line="636" Column="1" TopLine="604"/>
       </Position27>
       <Position28>
         <Filename Value="../base_help/uwikiframe.pas"/>
-        <Caret Line="220" Column="13" TopLine="188"/>
+        <Caret Line="284" Column="17" TopLine="271"/>
       </Position28>
       <Position29>
-        <Filename Value="../base_help/uwikiframe.pas"/>
-        <Caret Line="636" Column="1" TopLine="604"/>
+        <Filename Value="../statistics/ustatisticframe.pas"/>
+        <Caret Line="1264" Column="11" TopLine="1231"/>
       </Position29>
       <Position30>
-        <Filename Value="../base_help/uwikiframe.pas"/>
-        <Caret Line="284" Column="17" TopLine="271"/>
+        <Filename Value="../statistics/ustatisticframe.pas"/>
+        <Caret Line="1271" Column="11" TopLine="1238"/>
       </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">

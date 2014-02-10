@@ -206,6 +206,7 @@ begin
   FVariables := TStringList.Create;
   FVariables.Values['USER'] := Data.Users.Id.AsString;
   FVariables.Values['ACCOUNTNO'] := Data.Users.FieldByName('ACCOUNTNO').AsString;
+  FVariables.Values['IDCODE'] := Data.Users.FieldByName('IDCODE').AsString;
   DataSet := TWikiList.Create(Self,Data);
   FHistory := THistory.Create;
   FHistory.FFFWdAction := acForward;
