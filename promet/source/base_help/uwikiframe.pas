@@ -23,7 +23,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ComCtrls, DbCtrls, Buttons,
   StdCtrls, ExtCtrls, IpHtml, db, uPrometFrames, uExtControls, Graphics,
-  DBGrids, ActnList, Dialogs, Menus, uImageCache, uBaseDbClasses,LCLProc;
+  DBGrids, ActnList, Dialogs, Menus, uImageCache, uBaseDbClasses,LCLProc,Clipbrd;
 type
   THistory = class(TStringList)
   private
@@ -133,7 +133,7 @@ type
 implementation
 uses uWiki,uData,WikiToHTML,uDocuments,Utils,LCLIntf,Variants,
   uBaseDbInterface,uscreenshotmain,uMessages,uDocumentFrame,fpsqlparser,
-  fpsqlscanner, fpsqltree;
+  fpsqlscanner, fpsqltree,uBaseVisualApplication;
 procedure THistory.SetIndex(const AValue: Integer);
 begin
   Move(AValue,Count-1);
@@ -274,11 +274,14 @@ var
   PageName: String;
   aParent : Integer = TREE_ID_WIKI_UNSORTED;
   ID: Integer;
+  i: Integer;
 begin
   if ipHTML.HotNode is TIpHtmlNodeA then
     begin
       PageName := StringReplace(TIpHtmlNodeA(IpHtml.HotNode).HRef,' ','_',[rfReplaceAll]);
-      if OpenWikiPage(PageName) then
+      for i := 0 to FVariables.Count-1 do
+        pageName := StringReplace(PageName,'VARIABLES.'+FVariables.Names[i],FVariables.ValueFromIndex[i],[rfReplaceAll]);
+      if OpenWikiPage(PageName) or OpenWikiPage(lowercase(PageName)) then
       else if (pos('@',PageName)>0) and Data.GotoLink(PageName) then
         begin
         end
@@ -619,7 +622,6 @@ var
                           if i>0 then Outp+=',';
                           Outp += aRDS.Fields[i].AsString;
                         end;
-                      aRDs.Next;
                     end;
                   aRDS.Free;
                 end;
@@ -634,7 +636,7 @@ var
 
 begin
   for i := 0 to FVariables.Count-1 do
-    StringReplace(Inp,'VARIABLES.'+FVariables.Names[i],FVariables.ValueFromIndex[i],[rfReplaceAll]);
+    Inp := StringReplace(Inp,'VARIABLES.'+FVariables.Names[i],FVariables.ValueFromIndex[i],[rfReplaceAll]);
   if Uppercase(copy(Inp,0,6)) = 'BOARD(' then
     begin
       Inp := copy(Inp,7,length(Inp));

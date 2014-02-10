@@ -444,7 +444,7 @@ begin
       else
         begin
           linkcontent := copy(istr,0,pos(']]',istr)-1);
-              aLink := linkoffset+lowercase(linkcontent);
+              aLink := linkoffset+linkcontent;
               if copy(aLink,0,length(RemoveLinkOffset)) = RemoveLinkOffset then
                 aLink := copy(aLink,length(RemoveLinkOffset),length(aLink));
               if pos('::',linkcontent) > 0 then

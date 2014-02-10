@@ -1247,7 +1247,8 @@ begin
           aValue := copy(aParams,pos('=',aParams)+1,length(aParams));
           aValue := copy(aValue,0,pos(',',aValue)-1);
           aParams := copy(aParams,pos(',',aParams)+1,length(aParams));
-          FVariables.Values['TBE'+MD5Print(MD5String(aName))] := aValue;
+          if aName <> '' then
+            FVariables.Values['TBE'+MD5Print(MD5String(aName))] := aValue;
         end;
       DoOpen;
       Result := True;

@@ -93,10 +93,10 @@ inherited fWikiFrame: TfWikiFrame
     Height = 487
     Top = 42
     Width = 685
-    ActivePage = tsEdit
+    ActivePage = tsView
     Align = alClient
     Images = fVisualControls.Images
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 1
     NewTabImageIndex = 59
     object tsView: TTabSheet
