@@ -26,7 +26,7 @@ interface
 uses
   Classes, SysUtils, simpleipc, FileUtil, ExtCtrls, Menus, Controls, ActnList,
   uProcessManagement,process, XMLConf,uSystemMessage,uBaseDbClasses,uBaseERPDBClasses,
-  Graphics, LCLType,umashineid,uBaseVisualApplication;
+  Graphics, LCLType, db,umashineid,uBaseVisualApplication;
 
 type
   TfMain = class(TDataModule)
@@ -104,6 +104,7 @@ var
   a: Integer;
   Process: TProcProcess;
   aLog: TStringList;
+  aRec: LargeInt;
   procedure DoLog(aStr: string;bLog : TStringList);
   begin
     with Application as IBaseApplication do
@@ -239,6 +240,9 @@ begin
         end;
       if (not FHistory.EOF) then
         begin
+          aRec := FHistory.GetBookmark;
+          FHistory.DataSet.Refresh;
+          FHistory.GotoBookmark(aRec);
           if Assigned(fmTimeline) and fmTimeline.Visible then
             begin
               if (fmTimeline.WindowState=wsMinimized) then
@@ -413,7 +417,6 @@ begin
   except
   end;
 end;
-
 procedure TfMain.RefreshFilter2;
 begin
   Data.Users.Follows.ActualLimit:=0;
@@ -429,7 +432,6 @@ begin
         end;
     end;
 end;
-
 procedure TfMain.DataModuleCreate(Sender: TObject);
 var
   XMLConfig: TXMLPropStorage;

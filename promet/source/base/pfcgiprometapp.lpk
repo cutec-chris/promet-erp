@@ -43,6 +43,7 @@
     <RequiredPkgs Count="2">
       <Item1>
         <PackageName Value="pPrometDBIntfs"/>
+        <DefaultFilename Value="dbintfs/pprometdbintfs.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="FCL"/>

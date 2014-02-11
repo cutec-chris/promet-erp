@@ -198,7 +198,7 @@
       </Item4>
       <Item5>
         <PackageName Value="wiki2html_pkg"/>
-        <DefaultFilename Value="..\wiki2html_pkg.lpk"/>
+        <DefaultFilename Value="..\..\base_wiki\wiki2html_pkg.lpk"/>
       </Item5>
     </RequiredPkgs>
     <UsageOptions>
