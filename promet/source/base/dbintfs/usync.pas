@@ -1,8 +1,29 @@
+{*******************************************************************************
+  Copyright (C) Christian Ulrich info@cu-tec.de
+
+  This source is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 2 of the License, or commercial alternative
+  contact us for more information
+
+  This code is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+  details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+  MA 02111-1307, USA.
+
+info@cu-tec.de
+*******************************************************************************}
 unit usync;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, uBaseDbClasses, db, uBaseDbInterface,uBaseApplication;
+  Classes, SysUtils, uBaseDbClasses, db, uBaseDbInterface,uBaseApplication,
+  fpjson,fpsqltree,LConvEncoding;
 type
   TSyncTable = class(TBaseDBDataSet)
   public
@@ -24,18 +45,128 @@ type
 
   TSyncItems = class(TBaseDBDataSet)
   private
+    function GetLocalID: TField;
+    function GetRemoteID: TField;
     function GetSyncTime: TField;
+    function GetType: TField;
   public
     procedure DefineFields(aDataSet : TDataSet);override;
     property SyncTime : TField read GetSyncTime;
+    property LocalID : TField read GetLocalID;
+    property RemoteID : TField read GetRemoteID;
+    property Typ : TField read GetType;
     procedure SelectByReference(aID : Variant);
+    function SyncDataSet(aInternal : TBaseDBDataset;aExternal : TJSONArray;SyncType : string) : TJSONArray;
   end;
   TSyncStamps = class(TBaseDbDataSet)
-    procedure DefineFields(aDataSet : TDataSet);override;
+    procedure DefineFields(aDataSet: TDataSet); override;
   end;
+procedure FieldsToJSON(AFields: TFields; AJSON: TJSONObject; const ADateAsString: Boolean; bFields: TSQLElementList = nil);
+procedure JSONToFields(AJSON: TJSONObject; AFields: TFields; const ADateAsString: Boolean);
 
 implementation
 uses Variants;
+procedure FieldsToJSON(AFields: TFields; AJSON: TJSONObject;
+  const ADateAsString: Boolean; bFields: TSQLElementList);
+var
+  I: Integer;
+  VField: TField;
+  VFieldName: ShortString;
+  function FindField(aName : string) : Boolean;
+  var
+    a: Integer;
+    aFName: string;
+    aF: TSQLElement;
+  begin
+    Result := False;
+    if not Assigned(aFields) then
+      begin
+        Result := True;
+        exit;
+      end;
+    for a := 0 to bFields.Count-1 do
+      begin
+        aF := bFields[a];
+        if af is TSQLSelectAsterisk then
+          begin
+            aFName:='*';
+            Result := True;
+            exit;
+          end
+        else if af is TSQLSelectField then
+          aFName := aF.GetAsSQL([],0);
+        if (UpperCase(aName) = Uppercase(aFName))
+        or (UpperCase(aName) = 'ID') and (Uppercase(aFName)='SQL_ID')
+        then
+          begin
+            if aName <> '*' then
+              VFieldName:=aFName;
+            Result := True;
+            exit;
+          end;
+      end;
+  end;
+begin
+  for I := 0 to Pred(AFields.Count) do
+  begin
+    VField := AFields[I];
+    VFieldName := VField.FieldName;
+    if (FindField(VFieldName) or (FindField('*'))) then
+      begin
+        if VField.DataType = ftBoolean then
+          AJSON.Add(lowercase(VFieldName), VField.AsBoolean)
+        else if VField.DataType = ftDateTime then
+          begin
+          if ADateAsString then
+            AJSON.Add(lowercase(VFieldName), VField.AsString)
+          else
+            AJSON.Add(lowercase(VFieldName), VField.AsFloat);
+          end
+        else if VField.DataType = ftFloat then
+          AJSON.Add(lowercase(VFieldName), VField.AsFloat)
+        else if (VField.DataType = ftInteger) or (VField.DataType = ftLargeint) then
+          AJSON.Add(lowercase(VFieldName), VField.AsInteger)
+        else
+          AJSON.Add(lowercase(VFieldName), ConvertEncoding(VField.AsString,guessEncoding(VField.AsString),EncodingUTF8))
+      end;
+  end;
+end;
+procedure JSONToFields(AJSON: TJSONObject; AFields: TFields;
+  const ADateAsString: Boolean);
+var
+  I: Integer;
+  VName: string;
+  VField: TField;
+  VData: TJSONData;
+begin
+  for I := 0 to Pred(AJSON.Count) do
+  begin
+    VName := AJSON.Names[I];
+    VField := AFields.FindField(uppercase(VName));
+    if not Assigned(VField) then
+      Continue;
+    VData := AJSON.Items[I];
+    VField.Clear;
+    if VData.IsNull then
+      Exit;
+    if (VField is TStringField) or (VField is TBinaryField) or
+      (VField is TBlobField) or (VField is TVariantField) then
+      VField.AsString := VData.AsString;
+    if (VField is TLongintField) or (VField is TLargeintField) then
+      VField.AsInteger := VData.AsInteger;
+    if (VField is TFloatField) or (VField is TBCDField) or
+      (VField is TFMTBCDField) then
+      VField.AsFloat := VData.AsFloat;
+    if VField is TBooleanField then
+      VField.AsBoolean := VData.AsBoolean;
+    if VField is TDateTimeField then
+      if ADateAsString then
+        VField.AsDateTime := StrToDateTime(VData.AsString)
+      else
+        VField.AsDateTime := VData.AsFloat;
+  end;
+end;
+
 { TSyncStamps }
 
 procedure TSyncStamps.DefineFields(aDataSet: TDataSet);
@@ -53,9 +184,24 @@ begin
     end;
 end;
 
+function TSyncItems.GetLocalID: TField;
+begin
+  Result := FieldByName('LOCAL_ID');
+end;
+
+function TSyncItems.GetRemoteID: TField;
+begin
+  Result := FieldByName('REMOTE_ID');
+end;
+
 function TSyncItems.GetSyncTime: TField;
 begin
   Result := FieldByName('SYNC_TIME');
+end;
+
+function TSyncItems.GetType: TField;
+begin
+  Result := FieldByName('SYNCTYPE');
 end;
 
 procedure TSyncItems.DefineFields(aDataSet: TDataSet);
@@ -100,7 +246,73 @@ begin
           end;
       end;
 end;
+function TSyncItems.SyncDataSet(aInternal: TBaseDBDataset;
+  aExternal: TJSONArray; SyncType: string): TJSONArray;
+var
+  LastSync: TDateTime;
+  VJSON: TJSONObject;
+  aObj: TJSONObject;
+  aField: TJSONData;
+  aTime: TJSONData;
+  DoSync: Boolean;
+  i: Integer;
 
+  function GetField(aObject : TJSONObject;aName : string) : TJSONData;
+  begin
+    Result := nil;
+    if (not Assigned(result)) and (aObject.IndexOfName(aName,True) > -1) then
+      Result := aObject.Items[aObject.IndexOfName(aName,True)];
+  end;
+
+begin
+  Result := TJSONArray.Create;
+  //Find Last Sync Time
+  Filter(TBaseDBModule(DataModule).QuoteField('SYNCTYPE')+'='+TBaseDBModule(DataModule).QuoteValue(SyncType),0,'SYNC_TIME');
+  Last;
+  LastSync := SyncTime.AsDateTime;
+  //Sync internal items that are newer than last sync out
+  aInternal.First;
+  while not aInternal.EOF do
+    begin
+      if aInternal.TimeStamp.AsDateTime>LastSync then
+        begin
+          DoSync := True;
+          //check if newer version of row is in aExternal
+          for i := 0 to aExternal.Count-1 do
+            begin
+              aObj := aExternal.Items[i] as TJSONObject;
+              aField := GetField(aObj,'sql_id');
+              aTime := GetField(aObj,'timestampd');
+              if Assigned(aField) and Assigned(aTime)
+              and (aField.Value=aInternal.Id.AsVariant)
+              and (StrToDateTime(aTime.AsString)>aInternal.TimeStamp.AsDateTime)
+              then
+                DoSync := False;
+            end;
+          if DoSync then
+            begin
+              SelectByReference(aInternal.Id.AsVariant);
+              Open;
+              if Count = 0 then
+                Insert
+              else Edit;
+              LocalID.AsVariant:=aInternal.Id.AsVariant;
+              Typ.AsString:=SyncType;
+              SyncTime.AsDateTime:=Now();
+              Post;
+              VJSON := TJSONObject.Create;
+              FieldsToJSON(aInternal.DataSet.Fields, VJSON, True);
+              Result.Add(VJSON);
+            end;
+        end;
+      aInternal.Next;
+    end;
+  //Sync external Items that are newer than internal in
+  for i := 0 to aExternal.Count-1 do
+    begin
+
+    end;
+end;
 constructor TSyncTable.Create(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin

@@ -52,9 +52,7 @@ type
       AResponse: TResponse; var Handled: Boolean);
   private
     { private declarations }
-    procedure FieldsToJSON(AFields: TFields; AJSON: TJSONObject; const ADateAsString: Boolean; bFields: TSQLElementList = nil);
     procedure DataSetToJSON(ADataSet: TDataSet; AJSON: TJSONArray; const ADateAsString: Boolean; Fields: TSQLElementList = nil);
-    procedure JSONToFields(AJSON: TJSONObject; AFields: TFields; const ADateAsString: Boolean);
     procedure ObjectToJSON(AObject : TBaseDBDataSet; AJSON: TJSONObject;const ADateAsString: Boolean);
   public
     { public declarations }
@@ -65,7 +63,7 @@ var
 
 implementation
 uses uStatistic,uData,uBaseWebSession,uPerson,uOrder,uMasterdata,utask,uProjects,
-  uBaseDbDataSet;
+  uBaseDbDataSet,usync;
 {$R *.lfm}
 procedure Tappbase.checkloginRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
@@ -374,72 +372,6 @@ begin
     AResponse.Code:=403;
   AResponse.SendContent;
 end;
-procedure Tappbase.FieldsToJSON(AFields: TFields; AJSON: TJSONObject;
-  const ADateAsString: Boolean; bFields: TSQLElementList);
-var
-  I: Integer;
-  VField: TField;
-  VFieldName: ShortString;
-  function FindField(aName : string) : Boolean;
-  var
-    a: Integer;
-    aFName: string;
-    aF: TSQLElement;
-  begin
-    Result := False;
-    if not Assigned(aFields) then
-      begin
-        Result := True;
-        exit;
-      end;
-    for a := 0 to bFields.Count-1 do
-      begin
-        aF := bFields[a];
-        if af is TSQLSelectAsterisk then
-          begin
-            aFName:='*';
-            Result := True;
-            exit;
-          end
-        else if af is TSQLSelectField then
-          aFName := aF.GetAsSQL([],0);
-        if (UpperCase(aName) = Uppercase(aFName))
-        or (UpperCase(aName) = 'ID') and (Uppercase(aFName)='SQL_ID')
-        then
-          begin
-            if aName <> '*' then
-              VFieldName:=aFName;
-            Result := True;
-            exit;
-          end;
-      end;
-  end;
-
-begin
-  for I := 0 to Pred(AFields.Count) do
-  begin
-    VField := AFields[I];
-    VFieldName := VField.FieldName;
-    if (FindField(VFieldName) or (FindField('*'))) then
-      begin
-        if VField.DataType = ftBoolean then
-          AJSON.Add(lowercase(VFieldName), VField.AsBoolean)
-        else if VField.DataType = ftDateTime then
-          begin
-          if ADateAsString then
-            AJSON.Add(lowercase(VFieldName), VField.AsString)
-          else
-            AJSON.Add(lowercase(VFieldName), VField.AsFloat);
-          end
-        else if VField.DataType = ftFloat then
-          AJSON.Add(lowercase(VFieldName), VField.AsFloat)
-        else if (VField.DataType = ftInteger) or (VField.DataType = ftLargeint) then
-          AJSON.Add(lowercase(VFieldName), VField.AsInteger)
-        else
-          AJSON.Add(lowercase(VFieldName), ConvertEncoding(VField.AsString,guessEncoding(VField.AsString),EncodingUTF8))
-      end;
-  end;
-end;
 procedure Tappbase.DataSetToJSON(ADataSet: TDataSet; AJSON: TJSONArray;
   const ADateAsString: Boolean; Fields: TSQLElementList);
 var
@@ -452,41 +384,6 @@ begin
     FieldsToJSON(ADataSet.Fields, VJSON, ADateAsString, Fields);
     AJSON.Add(VJSON);
     ADataSet.Next;
-  end;
-end;
-procedure Tappbase.JSONToFields(AJSON: TJSONObject; AFields: TFields;
-  const ADateAsString: Boolean);
-var
-  I: Integer;
-  VName: string;
-  VField: TField;
-  VData: TJSONData;
-begin
-  for I := 0 to Pred(AJSON.Count) do
-  begin
-    VName := AJSON.Names[I];
-    VField := AFields.FindField(uppercase(VName));
-    if not Assigned(VField) then
-      Continue;
-    VData := AJSON.Items[I];
-    VField.Clear;
-    if VData.IsNull then
-      Exit;
-    if (VField is TStringField) or (VField is TBinaryField) or
-      (VField is TBlobField) or (VField is TVariantField) then
-      VField.AsString := VData.AsString;
-    if (VField is TLongintField) or (VField is TLargeintField) then
-      VField.AsInteger := VData.AsInteger;
-    if (VField is TFloatField) or (VField is TBCDField) or
-      (VField is TFMTBCDField) then
-      VField.AsFloat := VData.AsFloat;
-    if VField is TBooleanField then
-      VField.AsBoolean := VData.AsBoolean;
-    if VField is TDateTimeField then
-      if ADateAsString then
-        VField.AsDateTime := StrToDateTime(VData.AsString)
-      else
-        VField.AsDateTime := VData.AsFloat;
   end;
 end;
 procedure Tappbase.ObjectToJSON(AObject: TBaseDBDataSet; AJSON: TJSONObject;

@@ -299,7 +299,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="951"/>
         <CursorPos X="54" Y="982"/>
@@ -325,7 +325,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="uBaseVisualControls"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -3793,10 +3792,13 @@
       <Unit390>
         <Filename Value="../base/dbintfs/usync.pas"/>
         <UnitName Value="usync"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="22"/>
-        <CursorPos X="44" Y="22"/>
-        <UsageCount Value="7"/>
+        <TopLine Value="259"/>
+        <CursorPos X="7" Y="283"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit390>
       <Unit391>
         <Filename Value="../../../../../../Programme/lazarus/lcl/include/speedbutton.inc"/>
@@ -3856,7 +3858,12 @@
         <UsageCount Value="10"/>
       </Unit397>
     </Units>
-    <JumpHistory Count="0" HistoryIndex="-1"/>
+    <JumpHistory Count="1" HistoryIndex="0">
+      <Position1>
+        <Filename Value="../base/dbintfs/usync.pas"/>
+        <Caret Line="22" Column="44" TopLine="22"/>
+      </Position1>
+    </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>
       <Item1 Name="SVN repository" Value="/media/Daten/Source/prometheus/source"/>
