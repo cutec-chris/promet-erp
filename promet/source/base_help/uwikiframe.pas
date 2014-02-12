@@ -72,6 +72,7 @@ type
     SpeedButton7: TSpeedButton;
     SpeedButton8: TSpeedButton;
     SpeedButton9: TSpeedButton;
+    RefreshTimer: TTimer;
     Wiki: TDatasource;
     ipHTML: TIpHtmlPanel;
     Panel4: TPanel;
@@ -94,6 +95,7 @@ type
     procedure ipHTMLHotClick(Sender: TObject);
     procedure OpenHistoryItemClick(Sender: TObject);
     procedure pmHistoryPopup(Sender: TObject);
+    procedure RefreshTimerTimer(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure SpeedButton3Click(Sender: TObject);
     procedure SpeedButton4Click(Sender: TObject);
@@ -122,6 +124,7 @@ type
     procedure SetRights(Editable : Boolean);
     function OpenWikiPage(PageName : string;CreateIfNotExists : Boolean = False) : Boolean;
     procedure Refresh;
+    procedure ShowFrame;override;
     procedure DoRefresh; override;
     property Variables : TStrings read FVariables;
   end;
@@ -315,6 +318,13 @@ begin
       pmHistory.Items.Add(aItem);
     end;
 end;
+
+procedure TfWikiFrame.RefreshTimerTimer(Sender: TObject);
+begin
+  RefreshTimer.Enabled:=False;
+  DoRefresh;
+end;
+
 procedure TfWikiFrame.SpeedButton2Click(Sender: TObject);
 begin
   if (DataSet.DataSet.State <> dsEdit)
@@ -518,6 +528,9 @@ var
   aRight: String;
   aLimit: Integer = 10;
   i: Integer;
+  aLimitS: String;
+  aElem: TSQLElement;
+  aName: TSQLStringType;
 
   procedure BuildLinkRow;
   var
@@ -549,15 +562,27 @@ var
             if aElem is TSQLSelectField then
               begin
                 aName := TSQLSelectField(aElem).Expression.GetAsSQL([]);
-                if (aDS.DataSet.FieldDefs.IndexOf(aName)>0) then
-                  Outp := Outp+'<td>'+aDS.DataSet.Fields[i].AsString+'</td>'
+                if copy(uppercase(aName),0,5)='LINK(' then
+                  begin
+                    aName := copy(aName,6,length(aName)-6);
+                    if (aDS.DataSet.FieldDefs.IndexOf(aName)>-1) then
+                      Outp := Outp+'<td><a href="'+aLink+'" title="'+Data.GetLinkDesc(aLink)+#10+Data.GetLinkLongDesc(aLink)+'">'+HTMLEncode(aDS.DataSet.Fields[aDS.DataSet.FieldDefs.IndexOf(aName)].AsString)+'</a></td>'
+                  end
+                else if (aDS.DataSet.FieldDefs.IndexOf(aName)>-1) then
+                  Outp := Outp+'<td>'+HTMLEncode(aDS.DataSet.Fields[aDS.DataSet.FieldDefs.IndexOf(aName)].AsString)+'</td>'
+                else if Assigned(TSQLSelectField(aElem).AliasName) then
+                  begin
+                    aName := TSQLSelectField(aElem).AliasName.GetAsSQL([]);
+                    if (aDS.DataSet.FieldDefs.IndexOf(aName)>-1) then
+                      Outp := Outp+'<td>'+HTMLEncode(aDS.DataSet.Fields[aDS.DataSet.FieldDefs.IndexOf(aName)].AsString)+'</td>'
+                  end;
               end;
           end;
       end;
     Outp+='</tr>';
   end;
 
-  procedure FilterSQL(aType : Integer);
+  procedure FilterSQL(aType : Integer;IncHeader : Boolean = False);
   var
     a: Integer;
     aOrderDir: TSQLOrderDirection;
@@ -580,6 +605,25 @@ var
               aRight := UpperCase(aTableName);
               if aType <> 3 then
                 begin
+                  if IncHeader then
+                    begin
+                      Outp+='<tr>';
+                      for i := 0 to TSQLSelectStatement(aStmt).Fields.Count-1 do
+                        begin
+                          aElem := TSQLSelectStatement(aStmt).Fields[i];
+                          if aElem is TSQLSelectField then
+                            begin
+                              if Assigned(TSQLSelectField(aElem).AliasName) then
+                                Outp+='<td><b>'+HTMLEncode(StringReplace(TSQLSelectField(aElem).AliasName.GetAsSQL([sfoSingleQuoteIdentifier]),'''','',[rfReplaceAll]))+'</b></td>'
+                              else
+                                begin
+                                  aName := TSQLSelectField(aElem).Expression.GetAsSQL([sfoSingleQuoteIdentifier]);
+                                  Outp+='<td><b>'+HTMLEncode(StringReplace(aName,'''','',[rfReplaceAll]))+'</b></td>';
+                                end;
+                            end;
+                        end;
+                      Outp+='</tr>';
+                    end;
                   aDs := TBaseDBDataset(aClass.Create(nil,Data));
                   if Assigned(TSQLSelectStatement(aStmt).Where) then
                     aFilter:=TSQLSelectStatement(aStmt).Where.GetAsSQL([sfoDoubleQuoteIdentifier]);
@@ -616,19 +660,27 @@ var
               else
                 begin
                   aRDS := Data.GetNewDataSet(TSQLSelectStatement(aStmt).GetAsSQL([sfoDoubleQuoteIdentifier]));
-                  if (data.Users.Rights.Right(aRight)>RIGHT_READ) and (Assigned(aRDS)) then
+                  aRDS.Open;
+                  while not aRDS.EOF do
                     begin
-                      for i := 0 to aRDS.FieldCount-1 do
+                      if (data.Users.Rights.Right(aRight)>RIGHT_READ) and (Assigned(aRDS)) then
                         begin
-                          if i>0 then Outp+=',';
-                          Outp += aRDS.Fields[i].AsString;
+                          for i := 0 to aRDS.FieldCount-1 do
+                            begin
+                              if i>0 then Outp+=',';
+                              Outp += aRDS.Fields[i].AsString;
+                            end;
                         end;
+                      Outp+=#13;
+                      aRDS.Next;
                     end;
                   aRDS.Free;
                 end;
             end;
         end;
     except
+      on e : Exception do
+        Outp+='error:'+e.Message+'<br>';
     end;
     FSQLScanner.Free;
     FSQLParser.Free;
@@ -678,8 +730,12 @@ begin
       Inp := copy(Inp,10,length(Inp)-10);
       if pos(';',Inp)>0 then
         begin
-          aLimit := StrToIntDef(copy(Inp,pos(';',Inp)+1,length(Inp)),10);
-          Inp := copy(Inp,0,pos(';',Inp)-1);
+          aLimitS := copy(Inp,rpos(';',Inp)+1,length(Inp));
+          if IsNumeric(aLimitS) then
+            begin
+              Inp := copy(Inp,0,rpos(';',Inp)-1);
+              aLimit := StrToIntDef(aLimitS,10);
+            end;
         end;
       Outp+='<ol>';
       FilterSQL(0);
@@ -690,11 +746,31 @@ begin
       Inp := copy(Inp,10,length(Inp)-10);
       if pos(';',Inp)>0 then
         begin
-          aLimit := StrToIntDef(copy(Inp,pos(';',Inp)+1,length(Inp)),10);
-          Inp := copy(Inp,0,pos(';',Inp)-1);
+          aLimitS := copy(Inp,rpos(';',Inp)+1,length(Inp));
+          if IsNumeric(aLimitS) then
+            begin
+              Inp := copy(Inp,0,rpos(';',Inp)-1);
+              aLimit := StrToIntDef(aLimitS,10);
+            end;
         end;
       Outp+='<table>';
       FilterSQL(1);
+      Outp+='</table>';
+    end
+  else if Uppercase(copy(Inp,0,10)) = 'SQLTABLEH(' then
+    begin
+      Inp := copy(Inp,11,length(Inp)-11);
+      if pos(';',Inp)>0 then
+        begin
+          aLimitS := copy(Inp,rpos(';',Inp)+1,length(Inp));
+          if IsNumeric(aLimitS) then
+            begin
+              Inp := copy(Inp,0,rpos(';',Inp)-1);
+              aLimit := StrToIntDef(aLimitS,10);
+            end;
+        end;
+      Outp+='<table>';
+      FilterSQL(1,True);
       Outp+='</table>';
     end
   else if Uppercase(copy(Inp,0,4)) = 'SQL(' then
@@ -702,8 +778,12 @@ begin
       Inp := copy(Inp,5,length(Inp)-5);
       if pos(';',Inp)>0 then
         begin
-          aLimit := StrToIntDef(copy(Inp,pos(';',Inp)+1,length(Inp)),10);
-          Inp := copy(Inp,0,pos(';',Inp)-1);
+          aLimitS := copy(Inp,rpos(';',Inp)+1,length(Inp));
+          if IsNumeric(aLimitS) then
+            begin
+              Inp := copy(Inp,0,rpos(';',Inp)-1);
+              aLimit := StrToIntDef(aLimitS,10);
+            end;
         end;
       FilterSQL(3);
     end
@@ -837,11 +917,17 @@ begin
   ipHTML.SetHtml(Wiki2HTML(DataSet.FieldByName('DATA').AsString));
 end;
 
+procedure TfWikiFrame.ShowFrame;
+begin
+  inherited ShowFrame;
+  DoRefresh;
+end;
+
 procedure TfWikiFrame.DoRefresh;
 begin
   inherited DoRefresh;
   if TWikiList(DataSet).isDynamic then
-    Refresh;
+    RefreshTimer.Enabled:=True;
 end;
 
 {$R *.lfm}

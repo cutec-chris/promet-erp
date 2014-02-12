@@ -247,7 +247,7 @@ function TWikiList.isDynamic: Boolean;
 begin
   Result := False;
   if not Active then exit;
-  Result := pos('[[INCLUDE:',FieldByName('DATA').AsString)>0;
+  Result := pos('[[INCLUDE:',Uppercase(FieldByName('DATA').AsString))>0;
 end;
 
 function TWikiList.PageAsText: string;

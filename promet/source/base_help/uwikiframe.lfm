@@ -657,4 +657,11 @@ inherited fWikiFrame: TfWikiFrame
     left = 88
     top = 152
   end
+  object RefreshTimer: TTimer[6]
+    Enabled = False
+    Interval = 200
+    OnTimer = RefreshTimerTimer
+    left = 152
+    top = 168
+  end
 end
