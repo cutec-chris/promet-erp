@@ -237,6 +237,7 @@ type
     procedure miOptionsClick(Sender: TObject);
     procedure miSettingsClick(Sender: TObject);
     function OpenAction(aLink: string; Sender: TObject): Boolean;
+    function OpenFilter(aLink: string; Sender: TObject): Boolean;
     function OpenOption(aLink: string; Sender: TObject): Boolean;
     procedure pmHistoryPopup(Sender: TObject);
     procedure DoRefreshActiveTab(Sender: TObject);
@@ -1003,6 +1004,8 @@ begin
         aItems.DelimitedText := DBConfig.ReadString('TREEENTRYS:'+ApplicationName,fMainTreeFrame.GetBigIconTexts);
         //Actions
         Data.RegisterLinkHandler('ACTION',@OpenAction,nil);
+        //Actions
+        Data.RegisterLinkHandler('FILTER',@OpenFilter,nil);
         //Options
         Data.RegisterLinkHandler('OPTION',@OpenOption,TOptions);
         SomethingFound := False;
@@ -3370,7 +3373,58 @@ begin
       Result := True;
     end;
 end;
-
+function TfMain.OpenFilter(aLink: string; Sender: TObject): Boolean;
+var
+  aFrame: TfFilter;
+  aName: String;
+begin
+  if pos('{',aLink) > 0 then
+    aLink := copy(aLink,0,pos('{',aLink)-1)
+  else if rpos('(',aLink) > 0 then
+    aLink := copy(aLink,0,rpos('(',aLink)-1);
+  if IsNumeric(copy(aLink,pos('@',aLink)+1,length(aLink))) then
+    begin
+      Data.Filters.Filter('',0);
+      if Data.Filters.GotoBookmark(StrToInt64(copy(aLink,pos('@',aLink)+1,length(aLink)))) then
+        begin
+          aName := Data.Filters.FieldByName('NAME').AsString;
+          case Data.Filters.FieldByName('TYPE').AsString of
+          'C':
+            begin
+              aFrame := TfFilter.Create(Self);
+              pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('CUSTOMERS@'),False);
+              AddCustomerList(aFrame);
+              aFrame.cbFilter.Text:=aName;
+              aFrame.cbFilterSelect(nil);
+            end;
+          'M':
+            begin
+              aFrame := TfFilter.Create(Self);
+              pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('MASTERDATA@'),False);
+              AddMasterdataList(aFrame);
+              aFrame.cbFilter.Text:=aName;
+              aFrame.cbFilterSelect(nil);
+            end;
+          'O':
+            begin
+              aFrame := TfFilter.Create(Self);
+              pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('ORDERS@'),False);
+              AddOrderList(aFrame);
+              aFrame.cbFilter.Text:=aName;
+              aFrame.cbFilterSelect(nil);
+            end;
+          'P':
+            begin
+              aFrame := TfFilter.Create(Self);
+              pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('PROJECTS@'),False);
+              AddProjectList(aFrame);
+              aFrame.cbFilter.Text:=aName;
+              aFrame.cbFilterSelect(nil);
+            end;
+          end;
+        end;
+    end;
+end;
 function TfMain.OpenOption(aLink: string; Sender: TObject): Boolean;
 var
   i: Integer;
