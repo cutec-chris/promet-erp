@@ -129,7 +129,11 @@ begin
       ST_NAME:
         begin
           if copy(aQuerry,0,1)[1] in [#10,#13] then
-            aState:=ST_NEXTCHAR
+            begin
+              aState:=ST_NEXTCHAR;
+              bQuerry:=bQuerry+'@'+aName+copy(aQuerry,0,1)[1];
+              aName := '';
+            end
           else if copy(aQuerry,0,1) =':' then
             begin
               aState:=ST_TYPE;

@@ -846,11 +846,20 @@ begin
         if aStatistic.Count>0 then
           begin
             aRDs := Data.GetNewDataSet(aStatistic.BuildQuerry(Variables));
-            aRDS.Open;
+            try
+              aRDS.Open;
+            except
+              begin
+                aRDS.Free;
+                aRDs := Data.GetNewDataSet(aStatistic.FieldByName('QUERRY').AsString);
+                aRDS.Open;
+              end;
+            end;
             Outp+='<table>';
-            while not aRDS.EOF do
+            while (not aRDS.EOF) and (aLimit>0) do
               begin
                 BuildTableRow(aRDs);
+                dec(aLimit,1);
                 aRDS.Next;
               end;
             Outp+='</table>';
