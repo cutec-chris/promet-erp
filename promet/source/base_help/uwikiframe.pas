@@ -136,7 +136,7 @@ type
 implementation
 uses uWiki,uData,WikiToHTML,uDocuments,Utils,LCLIntf,Variants,
   uBaseDbInterface,uscreenshotmain,uMessages,uDocumentFrame,fpsqlparser,
-  fpsqlscanner, fpsqltree,uBaseVisualApplication;
+  fpsqlscanner, fpsqltree,uBaseVisualApplication,uStatistic;
 procedure THistory.SetIndex(const AValue: Integer);
 begin
   Move(AValue,Count-1);
@@ -323,7 +323,7 @@ end;
 procedure TfWikiFrame.RefreshTimerTimer(Sender: TObject);
 begin
   RefreshTimer.Enabled:=False;
-  DoRefresh;
+  Refresh;
 end;
 
 procedure TfWikiFrame.SpeedButton2Click(Sender: TObject);
@@ -363,7 +363,10 @@ begin
           if (DataSet.DataSet.State <> dsEdit)
           and (DataSet.DataSet.State <> dsInsert) then
             DataSet.DataSet.Edit;
-          eWikiPage.SelText := '[['+Stream.DataString+']]';
+          if pos('{',Stream.DataString)>0 then
+            eWikiPage.SelText := '[['+copy(Stream.DataString,0,pos('{',Stream.DataString)-1)+'|'+Data.GetLinkDesc(Stream.DataString)+']]'
+          else
+            eWikiPage.SelText := '[['+Stream.DataString+']]';
           eWikiPage.SelStart:=eWikiPage.SelStart+2;
         end;
       Stream.Free;
@@ -532,6 +535,9 @@ var
   aLimitS: String;
   aElem: TSQLElement;
   aName: TSQLStringType;
+  aStatistic: TStatistic;
+  aSQL: String;
+  aRDs: TDataSet;
 
   procedure BuildLinkRow;
   var
@@ -582,7 +588,48 @@ var
       end;
     Outp+='</tr>';
   end;
-
+  procedure BuildTableRow(aBDS : TDataSet);
+  var
+    aLink: String;
+    i: Integer;
+    a: Integer;
+    aName: TSQLStringType;
+    aElem: TSQLElement;
+  begin
+    aLink := Data.BuildLink(aBDS);
+    Outp+='<tr>';
+    if TSQLSelectStatement(aStmt).All then
+      begin
+        for a := 0 to aDS.DataSet.FieldCount-1 do
+          Outp := Outp+'<td>'+aBDS.Fields[a].AsString+'</td>'
+      end
+    else
+      begin
+        for i := 0 to TSQLSelectStatement(aStmt).Fields.Count-1 do
+          begin
+            aElem := TSQLSelectStatement(aStmt).Fields[i];
+            if aElem is TSQLSelectField then
+              begin
+                aName := TSQLSelectField(aElem).Expression.GetAsSQL([]);
+                if copy(uppercase(aName),0,5)='LINK(' then
+                  begin
+                    aName := copy(aName,6,length(aName)-6);
+                    if (aBDS.FieldDefs.IndexOf(aName)>-1) then
+                      Outp := Outp+'<td><a href="'+aLink+'" title="'+Data.GetLinkDesc(aLink)+#10+Data.GetLinkLongDesc(aLink)+'">'+HTMLEncode(aBDS.Fields[aBDS.FieldDefs.IndexOf(aName)].AsString)+'</a></td>'
+                  end
+                else if (aBDS.FieldDefs.IndexOf(aName)>-1) then
+                  Outp := Outp+'<td>'+HTMLEncode(aBDS.Fields[aBDS.FieldDefs.IndexOf(aName)].AsString)+'</td>'
+                else if Assigned(TSQLSelectField(aElem).AliasName) then
+                  begin
+                    aName := TSQLSelectField(aElem).AliasName.GetAsSQL([]);
+                    if (aBDS.FieldDefs.IndexOf(aName)>-1) then
+                      Outp := Outp+'<td>'+HTMLEncode(aBDS.Fields[aBDS.FieldDefs.IndexOf(aName)].AsString)+'</td>'
+                  end;
+              end;
+          end;
+      end;
+    Outp+='</tr>';
+  end;
   procedure FilterSQL(aType : Integer;IncHeader : Boolean = False);
   var
     a: Integer;
@@ -650,7 +697,7 @@ var
                     begin
                       case aType of
                       0:BuildLinkRow;
-                      1:BuildTableRow;
+                      1:BuildTableRow(aDs.DataSet);
                       end;
                       aDs.Next;
                     end;
@@ -685,7 +732,6 @@ var
     FSQLParser.Free;
     FSQLStream.Free;
   end;
-
 begin
   for i := 0 to FVariables.Count-1 do
     Inp := StringReplace(Inp,'VARIABLES.'+FVariables.Names[i],FVariables.ValueFromIndex[i],[rfReplaceAll]);
@@ -771,6 +817,50 @@ begin
       Outp+='<table>';
       FilterSQL(1,True);
       Outp+='</table>';
+    end
+  else if Uppercase(copy(Inp,0,10)) = 'STATISTIC(' then
+    begin
+      Inp := copy(Inp,11,length(Inp)-11);
+      if pos(';',Inp)>0 then
+        begin
+          aLimitS := copy(Inp,rpos(';',Inp)+1,length(Inp));
+          if IsNumeric(aLimitS) then
+            begin
+              Inp := copy(Inp,0,rpos(';',Inp)-1);
+              aLimit := StrToIntDef(aLimitS,10);
+            end;
+        end;
+      aSQL := copy(Inp,0,rpos(' ',Inp)-1);
+      if aSQL <> '' then
+        aSQL := aSQL+' STATISTICS';
+      FSQLStream := TStringStream.Create(aSQL);
+      FSQLScanner := TSQLScanner.Create(FSQLStream);
+      FSQLParser := TSQLParser.Create(FSQLScanner);
+      Inp := copy(Inp,rpos(' ',Inp)+1,length(Inp));
+      try
+        aFilter:='';
+        aStmt := FSQLParser.Parse;
+        aStatistic := TStatistic.Create(nil,Data);
+        aStatistic.SelectFromLink(Inp);
+        aStatistic.Open;
+        if aStatistic.Count>0 then
+          begin
+            aRDs := Data.GetNewDataSet(aStatistic.BuildQuerry(Variables));
+            aRDS.Open;
+            Outp+='<table>';
+            while not aRDS.EOF do
+              begin
+                BuildTableRow(aRDs);
+                aRDS.Next;
+              end;
+            Outp+='</table>';
+          end;
+        aStatistic.Free;
+      finally
+      end;
+      FSQLScanner.Free;
+      FSQLParser.Free;
+      FSQLStream.Free;
     end
   else if Uppercase(copy(Inp,0,4)) = 'SQL(' then
     begin

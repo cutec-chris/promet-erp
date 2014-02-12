@@ -38,6 +38,7 @@ type
     procedure DefineFields(aDataSet : TDataSet);override;
     constructor Create(aOwner: TComponent; DM: TComponent;
        aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
+    function BuildQuerry(aVariables : TStrings) : string;
   end;
 
 implementation
@@ -95,6 +96,72 @@ begin
           Limit := 0;
         end;
     end;
+end;
+const
+  ST_NEXTCHAR = 1;
+  ST_NAME = 2;
+  ST_TYPE=3;
+function TStatistic.BuildQuerry(aVariables: TStrings): string;
+var
+  aQuerry: String;
+  bQuerry : string = '';
+  aState: Integer;
+  aName: String;
+  aType: String;
+begin
+  aQuerry := FieldByName('QUERRY').AsString;
+  aState := 1;
+  while length(aQuerry)>0 do
+    begin
+      case aState of
+      ST_NEXTCHAR:
+        begin
+          if copy(aQuerry,0,1)='@' then
+            begin
+              aState:=ST_NAME;
+              aName := '';
+            end
+          else
+            begin
+              bQuerry:=bQuerry+copy(aQuerry,0,1);
+            end;
+        end;
+      ST_NAME:
+        begin
+          if copy(aQuerry,0,1)[1] in [#10,#13] then
+            aState:=ST_NEXTCHAR
+          else if copy(aQuerry,0,1) =':' then
+            begin
+              aState:=ST_TYPE;
+              aType := '';
+            end
+          else
+            begin
+              aName:=aName+copy(aQuerry,0,1);
+            end;
+        end;
+      ST_TYPE:
+        begin
+          if copy(aQuerry,0,1)[1] in [#10,#13,'@'] then
+            begin
+              aState:=ST_NEXTCHAR;
+              if copy(aQuerry,0,1)='@' then
+                begin
+                  //Auswertung
+                  if aVariables.Values[aName] <> '' then
+                    bQuerry:=bQuerry+aVariables.Values[aName];
+                end;
+            end
+          else
+            begin
+              aType:=aType+copy(aQuerry,0,1);
+            end;
+        end;
+      else aState := ST_NEXTCHAR;
+      end;
+      aQuerry:=copy(aQuerry,2,length(aQuerry));
+    end;
+  Result := bQuerry;
 end;
 
 end.

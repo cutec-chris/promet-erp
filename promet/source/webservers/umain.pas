@@ -105,10 +105,6 @@ var
   bQuerry: String;
   aName: String;
   aType: String;
-const
-  ST_NEXTCHAR = 1;
-  ST_NAME = 2;
-  ST_TYPE=3;
 begin
   Handled:=True;
   if not TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True) then exit;
@@ -117,60 +113,7 @@ begin
   aStat := ARequest.QueryFields.Values['name'];
   if aStatistic.DataSet.Locate('NAME',aStat,[loCaseInsensitive]) then
     begin
-      aQuerry := aStatistic.FieldByName('QUERRY').AsString;
-      bQuerry := '';
-      aState := 1;
-      while length(aQuerry)>0 do
-        begin
-          case aState of
-          ST_NEXTCHAR:
-            begin
-              if copy(aQuerry,0,1)='@' then
-                begin
-                  aState:=ST_NAME;
-                  aName := '';
-                end
-              else
-                begin
-                  bQuerry:=bQuerry+copy(aQuerry,0,1);
-                end;
-            end;
-          ST_NAME:
-            begin
-              if copy(aQuerry,0,1)[1] in [#10,#13] then
-                aState:=ST_NEXTCHAR
-              else if copy(aQuerry,0,1) =':' then
-                begin
-                  aState:=ST_TYPE;
-                  aType := '';
-                end
-              else
-                begin
-                  aName:=aName+copy(aQuerry,0,1);
-                end;
-            end;
-          ST_TYPE:
-            begin
-              if copy(aQuerry,0,1)[1] in [#10,#13,'@'] then
-                begin
-                  aState:=ST_NEXTCHAR;
-                  if copy(aQuerry,0,1)='@' then
-                    begin
-                      //Auswertung
-                      if ARequest.QueryFields.Values[aName] <> '' then
-                        bQuerry:=bQuerry+ARequest.QueryFields.Values[aName];
-                    end;
-                end
-              else
-                begin
-                  aType:=aType+copy(aQuerry,0,1);
-                end;
-            end;
-          else aState := ST_NEXTCHAR;
-          end;
-          aQuerry:=copy(aQuerry,2,length(aQuerry));
-        end;
-      aDS := Data.GetNewDataSet(bQuerry);
+      aDS := Data.GetNewDataSet(aStatistic.BuildQuerry(Arequest.QueryFields));
       aDS.Open;
       Json := TJSONArray.Create;
       DataSetToJSON(aDs,Json,True);

@@ -1052,7 +1052,7 @@ begin
       else
         Result := 'WIKI@'+Result+'{'+aDataSet.FieldByName('NAME').AsString+'}'
     end
-  else
+  else if aDataSet.FieldDefs.IndexOf('SQL_ID')>-1 then
     begin
       Result := Result+aDataSet.FieldByName('SQL_ID').AsString;
       if aDataSet.FieldDefs.IndexOf('SUBJECT') > -1 then
@@ -1564,4 +1564,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+
