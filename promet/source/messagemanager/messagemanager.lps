@@ -20,7 +20,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="umain"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="225"/>
@@ -28,6 +27,7 @@
         <FoldState Value=" T3ng081 piYj1045I"/>
         <UsageCount Value="175"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="umtimeline.pas"/>
@@ -36,9 +36,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="umtimeline"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="792"/>
+        <TopLine Value="791"/>
         <CursorPos X="108" Y="835"/>
         <FoldState Value=" T3mG0411317V"/>
         <UsageCount Value="175"/>
