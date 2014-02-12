@@ -210,6 +210,7 @@ begin
   FVariables.Values['USER'] := Data.Users.Id.AsString;
   FVariables.Values['ACCOUNTNO'] := Data.Users.FieldByName('ACCOUNTNO').AsString;
   FVariables.Values['IDCODE'] := Data.Users.FieldByName('IDCODE').AsString;
+  FVariables.Values['GROUPID'] := Data.Users.FieldByName('PARENT').AsString;
   DataSet := TWikiList.Create(Self,Data);
   FHistory := THistory.Create;
   FHistory.FFFWdAction := acForward;
@@ -597,86 +598,84 @@ var
     try
       aFilter:='';
       aStmt := FSQLParser.Parse;
-      for a := 0 to TSQLSelectStatement(aStmt).Tables.Count-1 do
+      a := 0;
+      aTableName := TSQLSimpleTableReference(TSQLSelectStatement(aStmt).Tables[a]).ObjectName.Name;
+      aRight := UpperCase(aTableName);
+      if aType <> 3 then
         begin
-          aTableName := TSQLSimpleTableReference(TSQLSelectStatement(aStmt).Tables[a]).ObjectName.Name;
           if Data.ListDataSetFromLink(aTableName+'@',aClass) then
             begin
-              aRight := UpperCase(aTableName);
-              if aType <> 3 then
+              if IncHeader then
                 begin
-                  if IncHeader then
+                  Outp+='<tr>';
+                  for i := 0 to TSQLSelectStatement(aStmt).Fields.Count-1 do
                     begin
-                      Outp+='<tr>';
-                      for i := 0 to TSQLSelectStatement(aStmt).Fields.Count-1 do
+                      aElem := TSQLSelectStatement(aStmt).Fields[i];
+                      if aElem is TSQLSelectField then
                         begin
-                          aElem := TSQLSelectStatement(aStmt).Fields[i];
-                          if aElem is TSQLSelectField then
+                          if Assigned(TSQLSelectField(aElem).AliasName) then
+                            Outp+='<td><b>'+HTMLEncode(StringReplace(TSQLSelectField(aElem).AliasName.GetAsSQL([sfoSingleQuoteIdentifier]),'''','',[rfReplaceAll]))+'</b></td>'
+                          else
                             begin
-                              if Assigned(TSQLSelectField(aElem).AliasName) then
-                                Outp+='<td><b>'+HTMLEncode(StringReplace(TSQLSelectField(aElem).AliasName.GetAsSQL([sfoSingleQuoteIdentifier]),'''','',[rfReplaceAll]))+'</b></td>'
-                              else
-                                begin
-                                  aName := TSQLSelectField(aElem).Expression.GetAsSQL([sfoSingleQuoteIdentifier]);
-                                  Outp+='<td><b>'+HTMLEncode(StringReplace(aName,'''','',[rfReplaceAll]))+'</b></td>';
-                                end;
+                              aName := TSQLSelectField(aElem).Expression.GetAsSQL([sfoSingleQuoteIdentifier]);
+                              Outp+='<td><b>'+HTMLEncode(StringReplace(aName,'''','',[rfReplaceAll]))+'</b></td>';
                             end;
                         end;
-                      Outp+='</tr>';
                     end;
-                  aDs := TBaseDBDataset(aClass.Create(nil,Data));
-                  if Assigned(TSQLSelectStatement(aStmt).Where) then
-                    aFilter:=TSQLSelectStatement(aStmt).Where.GetAsSQL([sfoDoubleQuoteIdentifier]);
-                  if Assigned(TSQLSelectStatement(aStmt).Orderby) and (TSQLSelectStatement(aStmt).Orderby.Count>0) then
-                    begin
-                      aOrder:=TSQLIdentifierName(TSQLOrderByElement(TSQLSelectStatement(aStmt).Orderby.Elements[0]).Field).Name;
-                      aOrderDir := TSQLOrderByElement(TSQLSelectStatement(aStmt).Orderby.Elements[0]).OrderBy;
-                    end;
-                  if (data.Users.Rights.Right(aRight)>RIGHT_READ) and (Assigned(aDS)) then
-                    begin
-                      if aOrder<>'' then
-                        begin
-                          if aOrderDir=obAscending then
-                            aOrderDirStr := 'ASC'
-                          else aOrderDirStr := 'DESC';
-                        end;
-                      if (aDs.ActualFilter<>'') and (aFilter<>'') then
-                        aDs.Filter('('+aDs.ActualFilter+') AND ('+aFilter+')',aLimit)
-                      else if (aFilter = '') and (aDs.ActualFilter<>'') then
-                        aDs.Filter('('+aDs.ActualFilter+')',aLimit,aOrder,aOrderDirStr)
-                      else
-                        aDs.Filter(aFilter,aLimit,aOrder,aOrderDirStr);
-                      while not aDS.EOF do
-                        begin
-                          case aType of
-                          0:BuildLinkRow;
-                          1:BuildTableRow;
-                          end;
-                          aDs.Next;
-                        end;
-                    end;
-                  aDS.Free;
-                end
-              else
-                begin
-                  aRDS := Data.GetNewDataSet(TSQLSelectStatement(aStmt).GetAsSQL([sfoDoubleQuoteIdentifier]));
-                  aRDS.Open;
-                  while not aRDS.EOF do
-                    begin
-                      if (data.Users.Rights.Right(aRight)>RIGHT_READ) and (Assigned(aRDS)) then
-                        begin
-                          for i := 0 to aRDS.FieldCount-1 do
-                            begin
-                              if i>0 then Outp+=',';
-                              Outp += aRDS.Fields[i].AsString;
-                            end;
-                        end;
-                      Outp+=#13;
-                      aRDS.Next;
-                    end;
-                  aRDS.Free;
+                  Outp+='</tr>';
                 end;
+              aDs := TBaseDBDataset(aClass.Create(nil,Data));
+              if Assigned(TSQLSelectStatement(aStmt).Where) then
+                aFilter:=TSQLSelectStatement(aStmt).Where.GetAsSQL([sfoDoubleQuoteIdentifier]);
+              if Assigned(TSQLSelectStatement(aStmt).Orderby) and (TSQLSelectStatement(aStmt).Orderby.Count>0) then
+                begin
+                  aOrder:=TSQLIdentifierName(TSQLOrderByElement(TSQLSelectStatement(aStmt).Orderby.Elements[0]).Field).Name;
+                  aOrderDir := TSQLOrderByElement(TSQLSelectStatement(aStmt).Orderby.Elements[0]).OrderBy;
+                end;
+              if ((data.Users.Rights.Right(aRight)>RIGHT_READ) or (data.Users.Rights.Right(aRight)=-1)) and (Assigned(aDS)) then
+                begin
+                  if aOrder<>'' then
+                    begin
+                      if aOrderDir=obAscending then
+                        aOrderDirStr := 'ASC'
+                      else aOrderDirStr := 'DESC';
+                    end;
+                  if (aDs.ActualFilter<>'') and (aFilter<>'') then
+                    aDs.Filter('('+aDs.ActualFilter+') AND ('+aFilter+')',aLimit)
+                  else if (aFilter = '') and (aDs.ActualFilter<>'') then
+                    aDs.Filter('('+aDs.ActualFilter+')',aLimit,aOrder,aOrderDirStr)
+                  else
+                    aDs.Filter(aFilter,aLimit,aOrder,aOrderDirStr);
+                  while not aDS.EOF do
+                    begin
+                      case aType of
+                      0:BuildLinkRow;
+                      1:BuildTableRow;
+                      end;
+                      aDs.Next;
+                    end;
+                end;
+              aDS.Free;
             end;
+        end
+      else
+        begin
+          aRDS := Data.GetNewDataSet(TSQLSelectStatement(aStmt).GetAsSQL([sfoDoubleQuoteIdentifier]));
+          aRDS.Open;
+          while not aRDS.EOF do
+            begin
+              if ((data.Users.Rights.Right(aRight)>RIGHT_READ) or (data.Users.Rights.Right(aRight)=-1)) and (Assigned(aRDS)) then
+                begin
+                  for i := 0 to aRDS.FieldCount-1 do
+                    begin
+                      if i>0 then Outp+=',';
+                      Outp += aRDS.Fields[i].AsString;
+                    end;
+                end;
+              Outp+=#13;
+              aRDS.Next;
+            end;
+          aRDS.Free;
         end;
     except
       on e : Exception do
