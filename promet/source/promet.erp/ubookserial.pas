@@ -58,7 +58,6 @@ begin
       Self := fBookSerial;
     end;
   eSerial.Clear;
-  eSerial.SetFocus;
   Label2.Caption:=Format(strBookSerial,[aOrder.Positions.PosNo.AsString,aOrder.Positions.Ident.AsString]);
   result := ShowModal=mrOK;
   if Result then
@@ -67,11 +66,13 @@ begin
         begin
           aMasterdata.Serials.Insert;
           aMasterdata.Serials.FieldByName('SERIAL').AsString:=eSerial.Text;
-          aMasterdata.Serials.FieldByName('COMMENT').AsString:=mComment.Text;
+          aMasterdata.Serials.FieldByName('NOTE').AsString:=mComment.Text;
           aMasterdata.Serials.Post;
         end
       else
-        Result := aMasterdata.Serials.Locate('SERIAL',eSerial.Text,[]);
+        begin
+          Result := aMasterdata.Serials.Locate('SERIAL',eSerial.Text,[]);
+        end;
     end;
 end;
 

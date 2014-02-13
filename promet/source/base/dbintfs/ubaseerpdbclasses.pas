@@ -578,6 +578,7 @@ begin
             Add('VERSION',ftString,8,False);
             Add('LANGUAGE',ftString,3,False);
             Add('SERIAL',ftString,30,False);
+            Add('NOTE',ftString,500,False);
             Add('QUANTITY',ftFloat,0,False);
             Add('QUANTITYU',ftString,10,False);
           end;
@@ -1345,4 +1346,4 @@ begin
 end;
 initialization
 end.
-
+

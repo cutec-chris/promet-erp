@@ -6553,6 +6553,10 @@ msgstr ""
 msgid "MwSt"
 msgstr ""
 
+#: ubookserial.strbookserial
+msgid "Scannen Sie die Seriennummer für Position %s, Artikel %s"
+msgstr ""
+
 #: ucalendar.streventsthisweek
 msgid "Termine diese Woche: %d"
 msgstr ""
