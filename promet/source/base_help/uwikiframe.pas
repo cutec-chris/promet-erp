@@ -538,6 +538,7 @@ var
   aStatistic: TStatistic;
   aSQL: String;
   aRDs: TDataSet;
+  tmp: String;
 
   procedure BuildLinkRow;
   var
@@ -546,7 +547,7 @@ var
     aLink := Data.BuildLink(aDs.DataSet);
     Outp+='<li><a href="'+aLink+'" title="'+Data.GetLinkDesc(aLink)+#10+Data.GetLinkLongDesc(aLink)+'">'+HTMLEncode(Data.GetLinkDesc(aLink))+'</a></li>';
   end;
-  procedure BuildTableRow;
+  function BuildTableRow(aBDS : TDataSet) : string;
   var
     aLink: String;
     i: Integer;
@@ -554,54 +555,13 @@ var
     aName: TSQLStringType;
     aElem: TSQLElement;
   begin
-    aLink := Data.BuildLink(aDs.DataSet);
-    Outp+='<tr>';
-    if TSQLSelectStatement(aStmt).All then
-      begin
-        for a := 0 to aDS.DataSet.FieldCount-1 do
-          Outp := Outp+'<td>'+aDS.DataSet.Fields[a].AsString+'</td>'
-      end
-    else
-      begin
-        for i := 0 to TSQLSelectStatement(aStmt).Fields.Count-1 do
-          begin
-            aElem := TSQLSelectStatement(aStmt).Fields[i];
-            if aElem is TSQLSelectField then
-              begin
-                aName := TSQLSelectField(aElem).Expression.GetAsSQL([]);
-                if copy(uppercase(aName),0,5)='LINK(' then
-                  begin
-                    aName := copy(aName,6,length(aName)-6);
-                    if (aDS.DataSet.FieldDefs.IndexOf(aName)>-1) then
-                      Outp := Outp+'<td><a href="'+aLink+'" title="'+Data.GetLinkDesc(aLink)+#10+Data.GetLinkLongDesc(aLink)+'">'+HTMLEncode(aDS.DataSet.Fields[aDS.DataSet.FieldDefs.IndexOf(aName)].AsString)+'</a></td>'
-                  end
-                else if (aDS.DataSet.FieldDefs.IndexOf(aName)>-1) then
-                  Outp := Outp+'<td>'+HTMLEncode(aDS.DataSet.Fields[aDS.DataSet.FieldDefs.IndexOf(aName)].AsString)+'</td>'
-                else if Assigned(TSQLSelectField(aElem).AliasName) then
-                  begin
-                    aName := TSQLSelectField(aElem).AliasName.GetAsSQL([]);
-                    if (aDS.DataSet.FieldDefs.IndexOf(aName)>-1) then
-                      Outp := Outp+'<td>'+HTMLEncode(aDS.DataSet.Fields[aDS.DataSet.FieldDefs.IndexOf(aName)].AsString)+'</td>'
-                  end;
-              end;
-          end;
-      end;
-    Outp+='</tr>';
-  end;
-  procedure BuildTableRow(aBDS : TDataSet);
-  var
-    aLink: String;
-    i: Integer;
-    a: Integer;
-    aName: TSQLStringType;
-    aElem: TSQLElement;
-  begin
+    result := '';
     aLink := Data.BuildLink(aBDS);
-    Outp+='<tr>';
+    Result+='<tr>';
     if TSQLSelectStatement(aStmt).All then
       begin
         for a := 0 to aDS.DataSet.FieldCount-1 do
-          Outp := Outp+'<td>'+aBDS.Fields[a].AsString+'</td>'
+          Result+='<td>'+aBDS.Fields[a].AsString+'</td>'
       end
     else
       begin
@@ -615,20 +575,20 @@ var
                   begin
                     aName := copy(aName,6,length(aName)-6);
                     if (aBDS.FieldDefs.IndexOf(aName)>-1) then
-                      Outp := Outp+'<td><a href="'+aLink+'" title="'+Data.GetLinkDesc(aLink)+#10+Data.GetLinkLongDesc(aLink)+'">'+HTMLEncode(aBDS.Fields[aBDS.FieldDefs.IndexOf(aName)].AsString)+'</a></td>'
+                      Result+='<td><a href="'+aLink+'" title="'+Data.GetLinkDesc(aLink)+#10+Data.GetLinkLongDesc(aLink)+'">'+HTMLEncode(aBDS.Fields[aBDS.FieldDefs.IndexOf(aName)].AsString)+'</a></td>'
                   end
                 else if (aBDS.FieldDefs.IndexOf(aName)>-1) then
-                  Outp := Outp+'<td>'+HTMLEncode(aBDS.Fields[aBDS.FieldDefs.IndexOf(aName)].AsString)+'</td>'
+                  Result+='<td>'+HTMLEncode(aBDS.Fields[aBDS.FieldDefs.IndexOf(aName)].AsString)+'</td>'
                 else if Assigned(TSQLSelectField(aElem).AliasName) then
                   begin
                     aName := TSQLSelectField(aElem).AliasName.GetAsSQL([]);
                     if (aBDS.FieldDefs.IndexOf(aName)>-1) then
-                      Outp := Outp+'<td>'+HTMLEncode(aBDS.Fields[aBDS.FieldDefs.IndexOf(aName)].AsString)+'</td>'
+                     Result+='<td>'+HTMLEncode(aBDS.Fields[aBDS.FieldDefs.IndexOf(aName)].AsString)+'</td>'
                   end;
               end;
           end;
       end;
-    Outp+='</tr>';
+    Result+='</tr>';
   end;
   procedure FilterSQL(aType : Integer;IncHeader : Boolean = False);
   var
@@ -697,7 +657,7 @@ var
                     begin
                       case aType of
                       0:BuildLinkRow;
-                      1:BuildTableRow(aDs.DataSet);
+                      1:Outp+=BuildTableRow(aDs.DataSet);
                       end;
                       aDs.Next;
                     end;
@@ -849,20 +809,65 @@ begin
             try
               aRDS.Open;
             except
-              begin
-                aRDS.Free;
-                aRDs := Data.GetNewDataSet(aStatistic.FieldByName('QUERRY').AsString);
-                aRDS.Open;
-              end;
+              on e : Exception do
+                Outp+='error:'+e.Message+'<br>';
             end;
             Outp+='<table>';
             while (not aRDS.EOF) and (aLimit>0) do
               begin
-                BuildTableRow(aRDs);
+                Outp+=BuildTableRow(aRDs);
                 dec(aLimit,1);
                 aRDS.Next;
               end;
             Outp+='</table>';
+          end;
+        aStatistic.Free;
+      finally
+      end;
+      FSQLScanner.Free;
+      FSQLParser.Free;
+      FSQLStream.Free;
+    end
+  else if Uppercase(copy(Inp,0,15)) = 'STATISTICVALUE(' then
+    begin
+      Inp := copy(Inp,16,length(Inp)-16);
+      if pos(';',Inp)>0 then
+        begin
+          aLimitS := copy(Inp,rpos(';',Inp)+1,length(Inp));
+          if IsNumeric(aLimitS) then
+            begin
+              Inp := copy(Inp,0,rpos(';',Inp)-1);
+              aLimit := StrToIntDef(aLimitS,10);
+            end;
+        end;
+      aSQL := copy(Inp,0,rpos(' ',Inp)-1);
+      if aSQL <> '' then
+        aSQL := aSQL+' STATISTICS';
+      FSQLStream := TStringStream.Create(aSQL);
+      FSQLScanner := TSQLScanner.Create(FSQLStream);
+      FSQLParser := TSQLParser.Create(FSQLScanner);
+      Inp := copy(Inp,rpos(' ',Inp)+1,length(Inp));
+      try
+        aFilter:='';
+        aStmt := FSQLParser.Parse;
+        aStatistic := TStatistic.Create(nil,Data);
+        aStatistic.SelectFromLink(Inp);
+        aStatistic.Open;
+        if aStatistic.Count>0 then
+          begin
+            aRDs := Data.GetNewDataSet(aStatistic.BuildQuerry(Variables));
+            try
+              aRDS.Open;
+            except
+              on e : Exception do
+                Outp+='error:'+e.Message+'<br>';
+            end;
+            tmp := BuildTableRow(aRDs);
+            tmp := StringReplace(tmp,'<tr>','',[rfReplaceall]);
+            tmp := StringReplace(tmp,'</tr>','',[rfReplaceall]);
+            tmp := StringReplace(tmp,'<td>','',[rfReplaceall]);
+            tmp := StringReplace(tmp,'</td>','',[rfReplaceall]);
+            Outp+=tmp;
           end;
         aStatistic.Free;
       finally
