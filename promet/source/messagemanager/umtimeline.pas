@@ -463,9 +463,9 @@ begin
               if TMGridObject(aObj).Bold then
                 TStringGrid(Sender).Canvas.Font.Style := [fsBold];
               if fTimeline.WordWrap then
-                TStringGrid(Sender).Canvas.TextRect(bRect,aRect.Left+3,bRect.Top,UTF8ToSys(aText),aTextStyleW)
+                TStringGrid(Sender).Canvas.TextRect(bRect,aRect.Left+3,bRect.Top,aText,aTextStyleW)
               else
-                TStringGrid(Sender).Canvas.TextRect(bRect,aRect.Left+3,bRect.Top,UTF8ToSys(aText),aTextStyle);
+                TStringGrid(Sender).Canvas.TextRect(bRect,aRect.Left+3,bRect.Top,aText,aTextStyle);
               bRect := aRect;
               TStringGrid(Sender).Canvas.Font.Color:=clGray;
               brect.Bottom := aRect.Top+Canvas.TextExtent('A').cy;
