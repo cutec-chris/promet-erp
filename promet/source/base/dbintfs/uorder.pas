@@ -132,7 +132,7 @@ type
     procedure FillDefaults(aDataSet : TDataSet);override;
   end;
   TOnGetStorageEvent = function(Sender : TOrder;aStorage : TStorage) : Boolean of object;
-  TOnGetSerialEvent = function(Sender : TOrder;aMasterdata : TMasterdata) : Boolean of object;
+  TOnGetSerialEvent = function(Sender : TOrder;aMasterdata : TMasterdata;aQuantity : Integer) : Boolean of object;
   TOrder = class(TOrderList,IPostableDataSet,IShipableDataSet)
   private
     FLinks: TOrderLinks;

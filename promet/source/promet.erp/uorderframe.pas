@@ -156,6 +156,8 @@ type
     procedure SenderTComboBoxActiveSearchItemFound(aIdent: string;
       aName: string; aStatus: string;aActive : Boolean; aLink: string; aItem: TBaseDBList=nil);
     procedure spPreviewMoved(Sender: TObject);
+    function TOrderGetSerial(Sender: TOrder; aMasterdata: TMasterdata;
+      aQuantity: Integer): Boolean;
     function TOrderGetStorage(Sender: TOrder; aStorage: TStorage): Boolean;
   private
     { private declarations }
@@ -203,7 +205,7 @@ uses uData,uBaseVisualControls,uOrderAdditionalFrame,uOverviewFrame,
   uSelectReport,uNewStorage,uMainTreeFrame,uRepairPositionFrame,uQSPositionFrame,
   uDetailPositionFrame,uBaseVisualApplication,uPersonFrame,uPersonFinance,
   uAccountingTransfer,uPrometFramesInplace,Utils,uorderaddressframe,uMessageEdit,
-  uNRights;
+  uNRights,uBookSerial;
 resourcestring
   strAdditional                       = 'Zusätzlich';
   strDates                            = 'Datum';
@@ -377,6 +379,7 @@ begin
   fSelectReport.OnSendMessage:=@OnSendMessage;
   fSelectReport.SetLanguage;
   TOrder(DataSet).OnGetStorage:=@TOrderGetStorage;
+  TOrder(DataSet).OnGetSerial:=@TOrderGetSerial;
   fSelectReport.ReportType := 'OR'+DataSet.FieldByName('STATUS').AsString;
   fSelectReport.Report := frReport;
   MandantDetails.DataSet := Data.MandantDetails.DataSet;
@@ -588,6 +591,12 @@ begin
   with Application as IBaseDbInterface do
     DBConfig.WriteInteger('ORDERPREVIEWWIDTH',pPreviewT.Width);
 end;
+
+function TfOrderFrame.TOrderGetSerial(Sender: TOrder; aMasterdata: TMasterdata;aQuantity : Integer): Boolean;
+begin
+  Result := fBookSerial.Execute(Sender,aMasterdata,aQuantity);
+end;
+
 function TfOrderFrame.TOrderGetStorage(Sender: TOrder; aStorage: TStorage
   ): Boolean;
 begin
