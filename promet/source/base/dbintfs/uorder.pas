@@ -135,6 +135,7 @@ type
   TOnGetSerialEvent = function(Sender : TOrder;aMasterdata : TMasterdata;aQuantity : Integer) : Boolean of object;
   TOrder = class(TOrderList,IPostableDataSet,IShipableDataSet)
   private
+    FFailMessage: string;
     FLinks: TOrderLinks;
     FOnGetSerial: TOnGetSerialEvent;
     FOnGetStorage: TOnGetStorageEvent;
@@ -158,6 +159,7 @@ type
     property OnGetSerial : TOnGetSerialEvent read FOnGetSerial write FOnGetSerial;
     procedure Recalculate;
     function DoPost: TPostResult;
+    function FailMessage : string;
     function ChangeStatus(aNewStatus : string) : Boolean;
     procedure ShippingOutput;
     function PostArticle(aTyp, aID, aVersion, aLanguage: variant; Quantity: real; QuantityUnit, PosNo: string; var aStorage: string; var OrderDelivered: boolean) : Boolean;
@@ -665,6 +667,7 @@ var
   aNumbers: TNumbersets = nil;
   aMainOrder: TOrder;
 begin
+  FFailMessage:='';
   Result := prFailed;
   CascadicPost;
   Recalculate;
@@ -900,6 +903,7 @@ begin
           begin
             Result := prFailed;
             Data.RollbackTransaction(Connection);
+            FFailMessage := e.Message;
             debugln(e.Message);
             DataSet.Refresh;
           end;
@@ -912,6 +916,12 @@ begin
   FreeAndNil(Person);
   FreeAndNil(aNumbers);
 end;
+
+function TOrder.FailMessage: string;
+begin
+  Result := FFailMessage;
+end;
+
 function TOrder.ChangeStatus(aNewStatus: string): Boolean;
 var
   aOrderType: LongInt;

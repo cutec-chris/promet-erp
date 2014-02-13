@@ -26,6 +26,7 @@ type
   TPostResult = (prSuccess,prAlreadyPosted,prFailed);
   IPostableDataSet = interface['{26EC4496-0D5A-4BFC-A712-C9001F5A0599}']
     function DoPost : TPostResult;
+    function FailMessage : string;
   end;
   IShipableDataSet = interface['{1B460C3D-F5C3-4CD6-BD09-01F54683D661}']
     procedure ShippingOutput;

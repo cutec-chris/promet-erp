@@ -68,6 +68,7 @@ type
   end;
   TMeetings = class(TBaseDbList,IPostableDataSet)
   private
+    FFailMessage : string;
     FEntrys: TMeetingEntrys;
     FLinks: TMeetingLinks;
     FUsers: TMeetingUsers;
@@ -79,6 +80,7 @@ type
     procedure CascadicPost; override;
     procedure CascadicCancel; override;
     function DoPost: TPostResult;
+    function FailMessage : string;
     procedure FillDefaults(aDataSet : TDataSet);override;
     function GetTextFieldName: string;override;
     function GetStatusFieldName : string;override;
@@ -299,6 +301,7 @@ var
   aHist: TBaseHistory;
 begin
   aLink := '';
+  FFailMessage:='';
   Result := prFailed;
   if not Self.DataSet.FieldByName('DATE').IsNull then
     begin
@@ -428,12 +431,19 @@ begin
     except
       on e : Exception do
         begin
+          FFailMessage:=e.Message;
           Result := prFailed;
           Data.RollbackTransaction(Connection);
           debugln(e.Message);
         end;
     end;
 end;
+
+function TMeetings.FailMessage: string;
+begin
+  result := FFailMessage;
+end;
+
 procedure TMeetings.FillDefaults(aDataSet: TDataSet);
 begin
   with aDataSet,BaseApplication as IBaseDBInterface do

@@ -230,7 +230,7 @@ begin
       FBooked := Res = prSuccess;
       if Res = prFailed then
         begin
-          fError.ShowError(strPostingFailed);
+          fError.ShowError(strPostingFailed+' '+SH.FailMessage);
           close;
           exit;
         end
