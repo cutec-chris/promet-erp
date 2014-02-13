@@ -509,6 +509,12 @@ begin
                         FieldByName('QUANTITYU').AsString := QuantityUnit;
                         Post;
                         dec(IntSerial);
+                        with TMasterdata(Parent).Serials do
+                          begin
+                            Insert;
+                            FieldByName('SERIAL').AsString:=TOrder(Order).Positions.FieldByName('SERIAL').AsString;
+                            Post;
+                          end;
                         r := r - 1;
                         JournalCreated := True;
                       end;
@@ -542,7 +548,7 @@ begin
                             FieldByName('QUANTITY').AsFloat := -1;
                             FieldByName('QUANTITYU').AsString := QuantityUnit;
                             Post;
-                            if TMasterdata(Parent).Serials.Locate('SERIAL',TOrder(Order).Positions.FieldByName('SERIAL').AsString,[]) then
+                            if TMasterdata(Parent).Serials.Locate('SERIAL',TMasterdata(Parent).Serials.FieldByName('SERIAL').AsString,[]) then
                               TMasterdata(Parent).Serials.Delete;
                             r := r - 1;
                             JournalCreated := True;
@@ -584,7 +590,7 @@ begin
     if (OrderType.FieldByName('B_STORAGE').AsString <> '0') then
       if not JournalCreated and (OrderType.FieldByName('B_STORAGE').AsString <> '0') then
         begin
-          with StorageJournal.DataSet do
+          with StorageJournal do
             begin
               Insert;
               FieldByName('STORAGEID').AsString := FieldByName('STORAGEID').AsString;
