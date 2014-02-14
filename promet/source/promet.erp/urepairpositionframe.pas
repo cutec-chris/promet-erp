@@ -32,12 +32,10 @@ type
     cbOperation: TDBComboBox;
     cbVersion1: TDBComboBox;
     cbWarrenty: TDBCheckBox;
-    RepairDetail: TDatasource;
-    Repair: TDatasource;
-    Position: TDatasource;
     dnRepairPos: TDBNavigator;
     eSerial1: TDBEdit;
     gProblems: TExtDBGrid;
+    lInfo: TLabel;
     lErrordescription: TLabel;
     lFoundProblems: TLabel;
     lInternalNotes: TLabel;
@@ -48,6 +46,11 @@ type
     mErrordesc: TDBMemo;
     mInternalNotes: TDBMemo;
     mNotes: TDBMemo;
+    Panel1: TPanel;
+    Position: TDatasource;
+    Repair: TDatasource;
+    RepairDetail: TDatasource;
+    procedure eSerial1Exit(Sender: TObject);
     procedure FrameEnter(Sender: TObject);
     procedure gProblemsColExit(Sender: TObject);
     procedure gProblemsColumnMoved(Sender: TObject; FromIndex, ToIndex: Integer
@@ -68,7 +71,7 @@ type
 
 implementation
 {$R *.lfm}
-uses uOrder,uPositionFrame,uData,Variants,uRowEditor;
+uses uOrder,uPositionFrame,uData,Variants,uRowEditor,uBaseERPDBClasses;
 resourcestring
   strRepaired                   = 'repariert';
   strDiscarded                  = 'entsorgt';
@@ -80,6 +83,8 @@ begin
   if TfPosition(Owner).Dataset is TOrderPos then
     with TfPosition(Owner).DataSet as TOrderPos do
       begin
+        lInfo.Visible:=False;
+        eSerial1Exit(eSerial1);
         if Self.Repair.DataSet = Repair.DataSet then exit;
         Position.DataSet := DataSet;
         Repair.Open;
@@ -89,6 +94,25 @@ begin
         fRowEditor.GetGridSizes('REPAIR',gProblems.DataSource,gProblems);
       end;
 end;
+
+procedure TfRepairPositionFrame.eSerial1Exit(Sender: TObject);
+var
+  aStorageJournal: TStorageJournal;
+begin
+  lInfo.Visible:=False;
+  if trim(eSerial1.Text)<>'' then
+    begin
+      aStorageJournal := TStorageJournal.Create(nil,Data);
+      aStorageJournal.Filter(Data.QuoteField('ID')+'='+Data.QuoteValue(Position.DataSet.FieldByName('IDENT').AsString)+' AND '+Data.QuoteField('SERIAL')+'='+Data.QuoteValue(trim(eSerial1.Text))+' AND NOT '+Data.ProcessTerm(Data.QuoteField('NOTE')+'='+Data.QuoteValue('')));
+      if aStorageJournal.Count>0 then
+        begin
+          lInfo.Caption:=aStorageJournal.FieldByName('NOTE').AsString;
+          lInfo.Visible:=True;
+        end;
+      aStorageJournal.Free;
+    end;
+end;
+
 procedure TfRepairPositionFrame.gProblemsColExit(Sender: TObject);
 var
   i: Integer;

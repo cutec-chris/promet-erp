@@ -491,7 +491,7 @@ begin
                           Journal.FieldByName('VERSION').AsString := Parent.FieldByName('VERSION').AsString;
                           Journal.FieldByName('LANGUAGE').AsString := Parent.FieldByName('LANGUAGE').AsString;
                           Journal.FieldByName('SERIAL').AsString  := TMasterdata(Parent).Serials.FieldByName('SERIAL').AsString;
-                          if Assigned(Journal.FieldByName('NOTE')) then
+                          if Assigned(Journal.FieldByName('NOTE')) and (not Journal.FieldByName('NOTE').ReadOnly) then
                             Journal.FieldByName('NOTE').AsString  := TMasterdata(Parent).Serials.FieldByName('NOTE').AsString;
                           Journal.FieldByName('QUANTITY').AsFloat := 1;
                           Journal.FieldByName('QUANTITYU').AsString := QuantityUnit;
