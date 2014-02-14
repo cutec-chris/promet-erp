@@ -166,6 +166,7 @@ begin
       aQuerry:=copy(aQuerry,2,length(aQuerry));
     end;
   Result := bQuerry;
+  result := StringReplace(Result,'@USERID@',TBaseDBModule(DataModule).Users.Id.AsString,[rfReplaceAll]);
 end;
 
 end.
