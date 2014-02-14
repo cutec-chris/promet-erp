@@ -3371,6 +3371,7 @@ function TfMain.OpenAction(aLink: string; Sender: TObject): Boolean;
 var
   aAction: String;
   aAc: TContainedAction;
+  aFrame: TfOrderFrame;
 begin
   Result := False;
   aAction := copy(aLink,pos('@',aLink)+1,length(aLink));
@@ -3379,6 +3380,15 @@ begin
     begin
       aAc.Execute;
       Result := True;
+    end
+  else if Uppercase(copy(aLink,0,18))='ACTION@ACNEWORDER(' then
+    begin
+      aLink := copy(aLink,19,length(aLink)-19);
+      Application.ProcessMessages;
+      aFrame := TfOrderFrame.Create(Self);
+      pcPages.AddTab(aFrame);
+      aFrame.SetLanguage;
+      aFrame.New(aLink);
     end;
 end;
 function TfMain.OpenFilter(aLink: string; Sender: TObject): Boolean;
