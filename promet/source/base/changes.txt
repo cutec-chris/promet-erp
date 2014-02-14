@@ -1,4 +1,11 @@
-﻿Build 310
+﻿Build 311
+      - Startseite:weitere Erweiterungen, auch Statistiken oder Teile davon können jetzt eingebunden werden
+      - Startseite:Links sind nun auf beliebige Auftragstypen zum neu erstellen möglich
+      - Serienummernverwaltung: Serienummern werden nun korrekt verbucht. Zusätzlich ist die Eingabe von Kommentaren bei der Buchung möglich die dann in der Reparaturverwaltung beim wiederaufrufen der Serienummer angezeigt werden
+      - Serienummernverwaltung: Serienummernpflicht kann nun nicht nur durch Artikel sondern auch durch Auftragstypen bestimmt werden
+      - Baum: Promet merkt sich nun ob der Baum ein oder ausgeblendet war
+      - Auftrag: es werden bessere Fehlermeldungen ausgegeben, wenn das buchen fehlschlägt
+Build 310
       - Projekt:Gantt Berechnungen verbessert, Wochenenden werden "on the fly" beim verschieben von Aufgaben eingerechnet
 Build 309
       - Startseite: erste voll arbeitende Version
