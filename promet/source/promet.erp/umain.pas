@@ -1223,6 +1223,12 @@ begin
             tvMain.Visible:=False;
             spTree.Visible:=False;
             acShowTree.Checked:=False;
+          end
+        else
+          begin
+            with Application as IBaseDbInterface do
+              acShowTree.Checked := DBConfig.ReadBoolean('SHOWTREE',True);
+            acShowTreeExecute(nil);
           end;
       end;
     //debugln('LoginTime: '+IntToStr(GetTickCount64-aTime));
@@ -1823,6 +1829,8 @@ procedure TfMain.acShowTreeExecute(Sender: TObject);
 begin
   tvMain.Visible:=acShowTree.Checked;
   spTree.Visible:=acShowTree.Checked;
+  with Application as IBaseDbInterface do
+    DBConfig.WriteBoolean('SHOWTREE',acShowTree.Checked);
 end;
 
 procedure TfMain.acStandartTimeExecute(Sender: TObject);
