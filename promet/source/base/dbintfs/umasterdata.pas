@@ -466,9 +466,11 @@ begin
     DataSet.Post;
     JournalCreated := False;
     //Serienummern buchen
-    if (OrderType.FieldByName('B_STORAGE').AsString <> '0') and ((TMasterdata(Parent).FieldByName('USESERIAL').AsString = 'Y') or (TOrder(Order).Positions.FieldByName('SERIAL').AsString<>'')) then
+    if (OrderType.FieldByName('B_STORAGE').AsString <> '0') and ((TMasterdata(Parent).FieldByName('USESERIAL').AsString = 'Y') or (TOrder(Order).Positions.FieldByName('SERIAL').AsString<>'') or (OrderType.FieldByName('B_SERIALS').AsString = 'P')) then
       begin
-        if OrderType.FieldByName('B_SERIALS').AsString = '+' then
+        if (OrderType.FieldByName('B_SERIALS').AsString = '+')
+        or (OrderType.FieldByName('B_SERIALS').AsString = 'P')
+        then
           begin
             r := aQuantity;
             while r >= 1 do

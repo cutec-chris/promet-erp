@@ -20,8 +20,8 @@ unit uOrderTypeOptions;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, DBGrids, Buttons,
-  DbCtrls, ExtCtrls, ComCtrls, db, uBaseDBClasses, uBaseERPDBClasses,
+  Classes, SysUtils, FileUtil, DividerBevel, Forms, Controls, StdCtrls, DBGrids,
+  Buttons, DbCtrls, ExtCtrls, ComCtrls, db, uBaseDBClasses, uBaseERPDBClasses,
   uOptionsFrame, uOrder;
 type
 
@@ -37,12 +37,15 @@ type
     cbSIProd: TDBCheckBox;
     cbTextTyp: TComboBox;
     DBNavigator1: TDBNavigator;
+    DividerBevel1: TDividerBevel;
     eDefaultPosTyp: TDBEdit;
     eDerivates: TDBEdit;
     eNumberset: TDBEdit;
     eOrderType: TDBComboBox;
     gbVisibility: TGroupBox;
     gOrderStatus: TDBGrid;
+    Label1: TLabel;
+    Label2: TLabel;
     lDefaultPosTyp: TLabel;
     lDerivates: TLabel;
     lvImages: TListView;
