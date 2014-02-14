@@ -56,6 +56,7 @@ type
     property RemoteID : TField read GetRemoteID;
     property Typ : TField read GetType;
     procedure SelectByReference(aID : Variant);
+    procedure SelectByRemoteReference(aID : Variant);
     function SyncDataSet(aInternal : TBaseDBDataset;aExternal : TJSONArray;SyncType : string) : TJSONArray;
   end;
   TSyncStamps = class(TBaseDbDataSet)
@@ -246,6 +247,18 @@ begin
           end;
       end;
 end;
+
+procedure TSyncItems.SelectByRemoteReference(aID: Variant);
+var
+  aField: String = '';
+begin
+  with BaseApplication as IBaseDBInterface do
+    with DataSet as IBaseDBFilter do
+      begin
+        Filter := Data.QuoteField('REMOTE_ID')+'='+Data.QuoteValue(aID);
+      end;
+end;
+
 function TSyncItems.SyncDataSet(aInternal: TBaseDBDataset;
   aExternal: TJSONArray; SyncType: string): TJSONArray;
 var
@@ -256,6 +269,8 @@ var
   aTime: TJSONData;
   DoSync: Boolean;
   i: Integer;
+  aID: TJSONData;
+  aSyncTime: TDateTime;
 
   function GetField(aObject : TJSONObject;aName : string) : TJSONData;
   begin
@@ -281,8 +296,12 @@ begin
           for i := 0 to aExternal.Count-1 do
             begin
               aObj := aExternal.Items[i] as TJSONObject;
-              aField := GetField(aObj,'sql_id');
+              aID := GetField(aObj,'sql_id');
+              if not Assigned(aID) then
+                aID := GetField(aObj,'id');
               aTime := GetField(aObj,'timestampd');
+              if not Assigned(aTime) then
+                aTime := GetField(aObj,'timestamp');
               if Assigned(aField) and Assigned(aTime)
               and (aField.Value=aInternal.Id.AsVariant)
               and (StrToDateTime(aTime.AsString)>aInternal.TimeStamp.AsDateTime)
@@ -310,7 +329,33 @@ begin
   //Sync external Items that are newer than internal in
   for i := 0 to aExternal.Count-1 do
     begin
-
+      aObj := aExternal.Items[i] as TJSONObject;
+      aID := GetField(aObj,'id');
+      aTime := GetField(aObj,'timestampd');
+      if not Assigned(aTime) then
+        aTime := GetField(aObj,'timestamp');
+      aSyncTime := StrToDateDef(aTime.AsString,0);
+      DoSync := Assigned(aID) and Assigned(aTime) and (aSyncTime>LastSync);
+      if DoSync then
+        begin
+          SelectByRemoteReference(aID.AsString);
+          Open;
+          if Count = 0 then
+            Insert
+          else Edit;
+          aInternal.Select(LocalID.AsVariant);
+          aInternal.Open;
+          if aInternal.Count=0 then
+            aInternal.Insert
+          else aInternal.Edit;
+          JSONToFields(aObj,aInternal.DataSet.Fields,True);
+          aInternal.Post;
+          LocalID.AsVariant:=aInternal.Id.AsVariant;
+          RemoteID.AsVariant:=aID.AsString;
+          Typ.AsString:=SyncType;
+          SyncTime.AsDateTime:=Now();
+          Post;
+        end;
     end;
 end;
 constructor TSyncTable.Create(aOwner: TComponent; DM: TComponent;
