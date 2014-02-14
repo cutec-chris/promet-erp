@@ -298,7 +298,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="3338"/>
         <CursorPos X="38" Y="3384"/>
@@ -522,7 +522,7 @@
       <Unit21>
         <Filename Value="../base/dbintfs/uorder.pas"/>
         <UnitName Value="uOrder"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="867"/>
         <CursorPos X="42" Y="889"/>
@@ -594,7 +594,7 @@
       <Unit28>
         <Filename Value="../base/dbintfs/ubaseerpdbclasses.pas"/>
         <UnitName Value="uBaseERPDBClasses"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="565"/>
         <CursorPos X="3" Y="567"/>
@@ -618,7 +618,7 @@
       <Unit30>
         <Filename Value="../base/dbintfs/umasterdata.pas"/>
         <UnitName Value="uMasterdata"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="52"/>
         <CursorPos X="30" Y="72"/>
@@ -655,7 +655,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOrderFrame"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="545"/>
         <CursorPos X="41" Y="563"/>
@@ -742,7 +742,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uRepairPositionFrame"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="10"/>
         <CursorPos X="47" Y="88"/>
@@ -791,7 +791,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOrderTypeOptions"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="60"/>
         <CursorPos X="12" Y="67"/>
@@ -1055,7 +1055,6 @@
       </Unit68>
       <Unit69>
         <Filename Value="../base/revision.inc"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -1155,7 +1154,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPositionFrame"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="789"/>
         <CursorPos X="27" Y="807"/>
@@ -1203,12 +1202,10 @@
       <Unit83>
         <Filename Value="../base/dbintfs/uwiki.pas"/>
         <UnitName Value="uWiki"/>
-        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="229"/>
         <CursorPos X="15" Y="241"/>
         <UsageCount Value="27"/>
-        <Loaded Value="True"/>
       </Unit83>
       <Unit84>
         <Filename Value="../base_calendar/ucalendarframe.pas"/>
@@ -1790,7 +1787,7 @@
       <Unit150>
         <Filename Value="../base/dbintfs/umeeting.pas"/>
         <UnitName Value="umeeting"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="411"/>
         <CursorPos X="34" Y="434"/>
@@ -1981,12 +1978,10 @@
       <Unit171>
         <Filename Value="../base/dbintfs/ustatistic.pas"/>
         <UnitName Value="uStatistic"/>
-        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="136"/>
         <CursorPos X="20" Y="142"/>
         <UsageCount Value="13"/>
-        <Loaded Value="True"/>
       </Unit171>
       <Unit172>
         <Filename Value="ustateoptions.pas"/>
@@ -3392,7 +3387,7 @@
         <Filename Value="../base_forms/uselectreport.pas"/>
         <HasResources Value="True"/>
         <UnitName Value="uSelectReport"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="452"/>
         <CursorPos X="29" Y="485"/>
@@ -3424,12 +3419,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uFilterFrame"/>
-        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="721"/>
         <CursorPos X="10" Y="731"/>
         <UsageCount Value="36"/>
-        <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit344>
       <Unit345>
@@ -3518,12 +3511,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uExtControls"/>
-        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="520"/>
+        <TopLine Value="502"/>
         <CursorPos X="1" Y="502"/>
         <UsageCount Value="32"/>
-        <Loaded Value="True"/>
       </Unit354>
       <Unit355>
         <Filename Value="../base_forms/uroweditor.pas"/>
@@ -3833,9 +3824,10 @@
       <Unit390>
         <Filename Value="../base/dbintfs/usync.pas"/>
         <UnitName Value="usync"/>
-        <EditorIndex Value="8"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="262"/>
+        <TopLine Value="285"/>
         <CursorPos X="40" Y="274"/>
         <UsageCount Value="18"/>
         <Loaded Value="True"/>
@@ -3914,7 +3906,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="42"/>
         <CursorPos X="1" Y="77"/>
-        <UsageCount Value="27"/>
+        <UsageCount Value="28"/>
       </Unit399>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
