@@ -14,8 +14,14 @@
     <VersionInfo>
       <StringTable ProductVersion=""/>
     </VersionInfo>
+    <MacroValues Count="1">
+      <Macro1 Name="LCLWidgetType" Value="nogui"/>
+    </MacroValues>
     <BuildModes Count="1">
       <Item1 Name="default" Default="True"/>
+      <SharedMatrixOptions Count="1">
+        <Item1 ID="815385418059" Modes="default" Type="IDEMacro" MacroName="LCLWidgetType" Value="nogui"/>
+      </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
@@ -31,7 +37,7 @@
         <WorkingDirectory Value="\media\stora\MeineFotos\scan"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="4">
+    <RequiredPackages Count="3">
       <Item1>
         <PackageName Value="pOCR"/>
         <DefaultFilename Value="..\base_ocr\pocr.lpk"/>
@@ -43,21 +49,17 @@
       <Item3>
         <PackageName Value="general"/>
       </Item3>
-      <Item4>
-        <PackageName Value="LCL"/>
-      </Item4>
     </RequiredPackages>
-    <Units Count="63">
+    <Units Count="64">
       <Unit0>
         <Filename Value="import_document.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="import_document"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="37"/>
-        <CursorPos X="1" Y="56"/>
-        <UsageCount Value="60"/>
+        <TopLine Value="49"/>
+        <CursorPos X="6" Y="60"/>
+        <UsageCount Value="61"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit0>
@@ -438,7 +440,7 @@
       <Unit51>
         <Filename Value="..\messageimport\pop3receiver.lpr"/>
         <UnitName Value="pop3receiver"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="406"/>
         <CursorPos X="1" Y="405"/>
@@ -456,7 +458,7 @@
       <Unit53>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1066"/>
         <CursorPos X="1" Y="1085"/>
@@ -466,7 +468,7 @@
       <Unit54>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
         <UnitName Value="uBaseCustomApplication"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="292"/>
         <CursorPos X="1" Y="309"/>
@@ -476,7 +478,7 @@
       <Unit55>
         <Filename Value="..\base\dbintfs\ubasedocpages.pas"/>
         <UnitName Value="uBaseDocPages"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="77"/>
         <CursorPos X="1" Y="105"/>
@@ -503,7 +505,7 @@
       <Unit58>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
         <UnitName Value="uDocuments"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="388"/>
         <CursorPos X="1" Y="416"/>
@@ -538,15 +540,26 @@
       <Unit62>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="588"/>
         <CursorPos X="1" Y="612"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit62>
+      <Unit63>
+        <Filename Value="..\base\dbintfs\uwiki.pas"/>
+        <UnitName Value="uWiki"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="16"/>
+        <CursorPos X="21" Y="55"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit63>
     </Units>
-    <JumpHistory Count="19" HistoryIndex="18">
+    <JumpHistory Count="20" HistoryIndex="19">
       <Position1>
         <Filename Value="import_document.lpr"/>
         <Caret Line="87" Column="1" TopLine="70"/>
@@ -623,14 +636,21 @@
         <Filename Value="import_document.lpr"/>
         <Caret Line="64" Column="1" TopLine="37"/>
       </Position19>
+      <Position20>
+        <Filename Value="..\base\dbintfs\uwiki.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position20>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
+    <Target>
+      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\tools\import_document"/>
+    </Target>
     <SearchPaths>
       <OtherUnitFiles Value="..\base"/>
-      <UnitOutputDirectory Value="..\..\output\$(TargetCPU)-$(TargetOS)\tools"/>
+      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>
