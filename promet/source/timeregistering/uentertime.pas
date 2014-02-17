@@ -51,28 +51,28 @@ type
     bStop: TBitBtn;
     bPause: TBitBtn;
     bStart: TBitBtn;
-    cbCategory: TComboBox;
     cbShowDialog: TCheckBox;
-    eJob: TComboBox;
+    cbCategory: TComboBox;
+    eJob: TEdit;
     eLink: TEditButton;
     eProject: TEditButton;
     iLink: TImage;
     iLink1: TImage;
-    iLink2: TImage;
-    Label1: TLabel;
+    iLink3: TImage;
     lActiveEntry: TLabel;
     lEntry: TLabel;
     lJob1: TLabel;
+    lJob2: TLabel;
     lNotes: TLabel;
     lProject: TLabel;
     lTimelist: TLabel;
     mNotes: TMemo;
     Panel1: TPanel;
     Panel2: TPanel;
-    Panel3: TPanel;
     Panel4: TPanel;
     Panel5: TPanel;
     Panel6: TPanel;
+    Panel7: TPanel;
     TimeList: TDatasource;
     PTimes: TfrDBDataSet;
     frReport1: TfrReport;
@@ -223,16 +223,16 @@ begin
 end;
 procedure TfEnterTime.bAddJobClick(Sender: TObject);
 begin
-  eJob.Items.Add(eJob.Text);
+  cbCategory.Items.Add(cbCategory.Text);
   with Application as IBaseDBInterface do
-    DBConfig.WriteString('JOBS',eJob.Items.Text);
+    DBConfig.WriteString('JOBS',cbCategory.Items.Text);
 end;
 procedure TfEnterTime.bDeleteJobClick(Sender: TObject);
 begin
-  if eJob.Items.IndexOf(eJob.Text) > -1 then
-    eJob.Items.Delete(eJob.Items.IndexOf(eJob.Text));
+  if cbCategory.Items.IndexOf(cbCategory.Text) > -1 then
+    cbCategory.Items.Delete(cbCategory.Items.IndexOf(cbCategory.Text));
   with Application as IBaseDBInterface do
-    DBConfig.WriteString('JOBS',eJob.Items.Text);
+    DBConfig.WriteString('JOBS',cbCategory.Items.Text);
 end;
 procedure TfEnterTime.seMaxresultsChange(Sender: TObject);
 begin
@@ -361,10 +361,10 @@ begin
   FTask:=AValue;
   with Application as IBaseDBInterface do
     begin
-      eJob.Text:=Data.GetLinkDesc(FTask);
+      cbCategory.Text:=Data.GetLinkDesc(FTask);
       if Data.GetLinkIcon(FTask) <> -1 then
-        fVisualControls.Images.GetBitmap(Data.GetLinkIcon(FTask),iLink2.Picture.Bitmap)
-      else iLink2.Picture.Clear;
+        fVisualControls.Images.GetBitmap(Data.GetLinkIcon(FTask),iLink3.Picture.Bitmap)
+      else iLink3.Picture.Clear;
     end;
 end;
 procedure TfEnterTime.UpdateEditors;
@@ -378,8 +378,8 @@ begin
           if (gList.Columns[i].FieldName = 'LINK')
           or (gList.Columns[i].FieldName = 'PROJECT') then
             gList.Columns[i].ButtonStyle:=cbsEllipsis;
-          if gList.Columns[i].FieldName = 'JOB' then
-            gList.Columns[i].PickList.Assign(eJob.Items);
+          if gList.Columns[i].FieldName = 'CATEGORY' then
+            gList.Columns[i].PickList.Assign(cbCategory.Items);
           if gList.Columns[i].FieldName = 'NOTE' then
             gList.Columns[i].ReadOnly:=False;
         end;
@@ -535,7 +535,7 @@ begin
       Link := DBConfig.ReadString('TIMELINK','');
       Project := DBConfig.ReadString('TIMEPROJECT','');
       cbCategory.Text := DBConfig.ReadString('TIMECATEGORY','');
-      eJob.Text:=DBConfig.ReadString('TIMEJOB','');
+      cbCategory.Text:=DBConfig.ReadString('TIMEJOB','');
       mNotes.Lines.Text:=DBConfig.ReadString('TIMENOTES','');
     end;
   acStartExecute(nil);
@@ -566,6 +566,7 @@ begin
     Times.dataSet.Edit;
   Times.FieldByName('PROJECT').AsString := FProject;
   Times.FieldByName('LINK').AsString := FLink;
+  Times.FieldByName('CATEGORY').AsString := cbCategory.text;
   Times.FieldByName('JOB').AsString := eJob.text;
   Times.FieldByName('NOTE').AsString := mNotes.Lines.Text;
   Times.DataSet.Post;
@@ -828,7 +829,7 @@ begin
   FTimes.FieldByName('END').OnSetText:=@DatasourceSetText;
   with Application as IBaseDBInterface do
     begin
-      eJob.Items.Text:=DBConfig.ReadString('JOBS','');
+      cbCategory.Items.Text:=DBConfig.ReadString('JOBS','');
       seShowDialog.OnChange:=nil;
       cbShowDialog.OnChange:=nil;
       seShowDialog.Value := DBConfig.ReadInteger('TIMEREGDLG',20);
@@ -1045,7 +1046,7 @@ procedure TfEnterTime.StarttimeRegistering(aLink: string);
 begin
   //TODO: Start Timeregistering
   Link := aLink;
-  eJob.Text:='';
+  cbCategory.Text:='';
   mNotes.Lines.Clear;
   Calculate;
   acStart.Execute;
@@ -1062,7 +1063,7 @@ begin
       else
         begin
           TTreeEntry(FNode.Data).SubText.Add(Data.GetLinkDesc(FProject));
-          TTreeEntry(FNode.Data).SubText.Add(eJob.Text);
+          TTreeEntry(FNode.Data).SubText.Add(cbCategory.Text);
         end;
       FNode.TreeView.Invalidate;
     end;
