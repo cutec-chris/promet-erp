@@ -1,6 +1,9 @@
 msgid "persönlichen Aufgabenliste (Dropdownliste)persönlichen Aufgabenliste (Dropdownliste)persönlichen Aufgabenliste (Dropdownliste)persönlichen Aufgabenliste (Dropdownliste)"
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
+msgid "persönlichen Aufgabenliste (Dropdownliste)"
+msgstr ""
+
 #: tfmain.acchangepasswort.caption
 msgid "Passwort ändern"
 msgstr ""

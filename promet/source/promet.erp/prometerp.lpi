@@ -1050,10 +1050,11 @@
       </Unit69>
       <Unit70>
         <Filename Value="../base/changes.txt"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="42" Y="3"/>
+        <CursorPos X="48" Y="4"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
@@ -2002,7 +2003,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uEnterTime"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="542"/>

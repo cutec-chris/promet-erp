@@ -1646,6 +1646,7 @@ begin
 end;
 procedure TfFilter.SetRights;
 begin
+  if not Assigned(Data) then exit;
   acFilterRights.Enabled:=Data.Users.Rights.Right('EDITFILTER') >= RIGHT_PERMIT;
   acDeleteFilter.Enabled:=Data.Users.Rights.Right('EDITFILTER') >= RIGHT_DELETE;
 end;

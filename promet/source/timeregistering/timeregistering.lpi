@@ -12,6 +12,7 @@
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
       <Icon Value="0"/>
+      <ActiveWindowIndexAtStart Value="0"/>
     </General>
     <i18n>
       <EnableI18N Value="True"/>
@@ -63,7 +64,7 @@
         <PackageName Value="LCL"/>
       </Item8>
     </RequiredPackages>
-    <Units Count="288">
+    <Units Count="289">
       <Unit0>
         <Filename Value="timeregistering.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -80,8 +81,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="umain"/>
-        <IsVisibleTab Value="True"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="194"/>
         <CursorPos X="18" Y="211"/>
         <UsageCount Value="200"/>
@@ -710,10 +709,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uEnterTime"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="586"/>
-        <CursorPos X="1" Y="609"/>
+        <TopLine Value="389"/>
+        <CursorPos X="19" Y="408"/>
         <UsageCount Value="127"/>
+        <Loaded Value="True"/>
       </Unit84>
       <Unit85>
         <Filename Value="..\base\ubasedatamodule.pas"/>
@@ -2393,8 +2394,28 @@
         <CursorPos X="1" Y="56"/>
         <UsageCount Value="16"/>
       </Unit287>
+      <Unit288>
+        <Filename Value="..\base_frames\ufilterframe.pas"/>
+        <UnitName Value="uFilterFrame"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1630"/>
+        <CursorPos X="74" Y="1654"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit288>
     </Units>
-    <JumpHistory Count="0" HistoryIndex="-1"/>
+    <JumpHistory Count="2" HistoryIndex="1">
+      <Position1>
+        <Filename Value="..\base_frames\ufilterframe.pas"/>
+        <Caret Line="1647" Column="27" TopLine="1630"/>
+      </Position1>
+      <Position2>
+        <Filename Value="uentertime.pas"/>
+        <Caret Line="408" Column="19" TopLine="389"/>
+      </Position2>
+    </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
