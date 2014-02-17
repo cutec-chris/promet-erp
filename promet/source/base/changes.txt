@@ -1,5 +1,6 @@
 ﻿Build 312
-      -
+      - Wiki:Statistiken mit Header
+      - Fensterstatus wird zusammen mit Fensterposition gespeichert/hergestellt
 Build 311
       - Startseite:weitere Erweiterungen, auch Statistiken oder Teile davon können jetzt eingebunden werden
       - Startseite:Links sind nun auf beliebige Auftragstypen zum neu erstellen möglich

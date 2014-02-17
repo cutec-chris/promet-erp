@@ -864,10 +864,10 @@ begin
       AddSearchAbleDataSet(TProjectList);
     end;
   //Wiki
+  Data.RegisterLinkHandler('WIKI',@fMainTreeFrame.OpenLink,TWikiList);
   if (GetRight('WIKI') > RIGHT_NONE) then
     begin
       fMain.pcPages.AddTabClass(TfWikiFrame,strWiki,@fMain.AddWiki,Data.GetLinkIcon('WIKI@'),True);
-      Data.RegisterLinkHandler('WIKI',@fMainTreeFrame.OpenLink,TWikiList);
       AddSearchAbleDataSet(TWikiList);
     end;
   Synchronize(@RefreshWiki);
