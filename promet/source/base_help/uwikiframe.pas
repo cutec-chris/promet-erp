@@ -539,7 +539,29 @@ var
   aSQL: String;
   aRDs: TDataSet;
   tmp: String;
-
+  IncHeader: Boolean;
+  aConn: TComponent;
+  procedure AddHeader;
+  var
+    b: Integer;
+  begin
+    Outp+='<tr>';
+    for b := 0 to TSQLSelectStatement(aStmt).Fields.Count-1 do
+      begin
+        aElem := TSQLSelectStatement(aStmt).Fields[b];
+        if aElem is TSQLSelectField then
+          begin
+            if Assigned(TSQLSelectField(aElem).AliasName) then
+              Outp+='<td><b>'+HTMLEncode(StringReplace(TSQLSelectField(aElem).AliasName.GetAsSQL([sfoSingleQuoteIdentifier]),'''','',[rfReplaceAll]))+'</b></td>'
+            else
+              begin
+                aName := TSQLSelectField(aElem).Expression.GetAsSQL([sfoSingleQuoteIdentifier]);
+                Outp+='<td><b>'+HTMLEncode(StringReplace(aName,'''','',[rfReplaceAll]))+'</b></td>';
+              end;
+          end;
+      end;
+    Outp+='</tr>';
+  end;
   procedure BuildLinkRow;
   var
     aLink: String;
@@ -613,24 +635,7 @@ var
           if Data.ListDataSetFromLink(aTableName+'@',aClass) then
             begin
               if IncHeader then
-                begin
-                  Outp+='<tr>';
-                  for i := 0 to TSQLSelectStatement(aStmt).Fields.Count-1 do
-                    begin
-                      aElem := TSQLSelectStatement(aStmt).Fields[i];
-                      if aElem is TSQLSelectField then
-                        begin
-                          if Assigned(TSQLSelectField(aElem).AliasName) then
-                            Outp+='<td><b>'+HTMLEncode(StringReplace(TSQLSelectField(aElem).AliasName.GetAsSQL([sfoSingleQuoteIdentifier]),'''','',[rfReplaceAll]))+'</b></td>'
-                          else
-                            begin
-                              aName := TSQLSelectField(aElem).Expression.GetAsSQL([sfoSingleQuoteIdentifier]);
-                              Outp+='<td><b>'+HTMLEncode(StringReplace(aName,'''','',[rfReplaceAll]))+'</b></td>';
-                            end;
-                        end;
-                    end;
-                  Outp+='</tr>';
-                end;
+                AddHeader;
               aDs := TBaseDBDataset(aClass.Create(nil,Data));
               if Assigned(TSQLSelectStatement(aStmt).Where) then
                 aFilter:=TSQLSelectStatement(aStmt).Where.GetAsSQL([sfoDoubleQuoteIdentifier]);
@@ -778,9 +783,17 @@ begin
       FilterSQL(1,True);
       Outp+='</table>';
     end
-  else if Uppercase(copy(Inp,0,10)) = 'STATISTIC(' then
+  else if (Uppercase(copy(Inp,0,10)) = 'STATISTIC(')
+       or (Uppercase(copy(Inp,0,11)) = 'STATISTICH(')
+  then
     begin
       Inp := copy(Inp,11,length(Inp)-11);
+      IncHeader := False;
+      if copy(Inp,0,1)='(' then
+        begin
+          Inp := copy(Inp,2,length(Inp));
+          IncHeader := True;
+        end;
       if pos(';',Inp)>0 then
         begin
           aLimitS := copy(Inp,rpos(';',Inp)+1,length(Inp));
@@ -805,7 +818,8 @@ begin
         aStatistic.Open;
         if aStatistic.Count>0 then
           begin
-            aRDs := Data.GetNewDataSet(aStatistic.BuildQuerry(Variables));
+            aConn := Data.GetNewConnection;
+            aRDs := Data.GetNewDataSet(aStatistic.BuildQuerry(Variables),aConn);
             try
               aRDS.Open;
             except
@@ -813,6 +827,8 @@ begin
                 Outp+='error:'+e.Message+'<br>';
             end;
             Outp+='<table>';
+            if IncHeader then
+              AddHeader;
             while (not aRDS.EOF) and (aLimit>0) do
               begin
                 Outp+=BuildTableRow(aRDs);
@@ -820,6 +836,8 @@ begin
                 aRDS.Next;
               end;
             Outp+='</table>';
+            aRds.Free;
+            aConn.Free;
           end;
         aStatistic.Free;
       finally
