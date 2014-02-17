@@ -510,28 +510,34 @@ inherited fTaskPlan: TfTaskPlan
     end
   end
   object ActionList1: TActionList[3]
+    Images = fVisualControls.Images
     left = 48
     top = 56
     object acShowProject: TAction
       Caption = 'Projekt anzeigen'
+      ImageIndex = 13
       OnExecute = acShowProjectExecute
     end
     object acShowInProjectGantt: TAction
       Caption = 'In Gantt Ansicht des Projektes anzeigen'
+      ImageIndex = 104
       OnExecute = acShowInProjectGanttExecute
     end
     object acOpen: TAction
       Caption = 'Öffnen'
+      ImageIndex = 19
       OnExecute = acOpenExecute
     end
     object acUse: TAction
       Caption = 'acUse'
       Hint = 'Änderungen in Aufgaben übernehmen'
+      ImageIndex = 74
       OnExecute = acUseExecute
     end
     object acCancel: TAction
       Caption = 'acCancel'
       Hint = 'Ändrungen verwerfen'
+      ImageIndex = 75
       OnExecute = acCancelExecute
     end
   end

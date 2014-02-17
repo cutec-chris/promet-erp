@@ -1,4 +1,6 @@
-﻿Build 311
+﻿Build 312
+      -
+Build 311
       - Startseite:weitere Erweiterungen, auch Statistiken oder Teile davon können jetzt eingebunden werden
       - Startseite:Links sind nun auf beliebige Auftragstypen zum neu erstellen möglich
       - Serienummernverwaltung: Serienummern werden nun korrekt verbucht. Zusätzlich ist die Eingabe von Kommentaren bei der Buchung möglich die dann in der Reparaturverwaltung beim wiederaufrufen der Serienummer angezeigt werden

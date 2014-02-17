@@ -369,6 +369,7 @@ end;
 procedure TBaseVisualApplication.RestoreConfig;
 var
   NewRect : TRect;
+  aWS: TWindowState;
 begin
   with Self as IBaseApplication do
     begin
@@ -376,8 +377,10 @@ begin
       Properties.Restore;
       if Assigned(MainForm) then
         begin
+          aWS := TWindowState(Config.ReadInteger('MainFormState',Integer(wsNormal)));
           Config.ReadRect('MainFormPos',NewRect,MainForm.BoundsRect);
           MainForm.BoundsRect := NewRect;
+          Mainform.WindowState:=aWS;
         end;
       except
         DeleteFile(Properties.FileName);
@@ -390,7 +393,9 @@ begin
     begin
       if Assigned(MainForm) then
         begin
-          Config.WriteRect('MainFormPos',MainForm.BoundsRect);
+          Config.WriteInteger('MainFormState',Integer(Mainform.WindowState));
+          if Mainform.WindowState<> wsMaximized then
+            Config.WriteRect('MainFormPos',MainForm.BoundsRect);
         end;
       Properties.Save;
     end;
