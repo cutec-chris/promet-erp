@@ -276,8 +276,7 @@ begin
         end
       else
         begin
-          Data.DataSetFromLink(Data.BuildLink(aCustomer.DataSet),aClass);
-          bCustomer := Tperson(aClass).Create(nil,Data);
+          bCustomer := TPerson.Create(nil,Data);
           bCustomer.Append;
           tmp := FList.DataSet.FieldByName('SENDER').AsString;
           if pos('<',tmp) > 0 then
