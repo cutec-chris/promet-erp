@@ -2733,6 +2733,7 @@ var
   aFrame: TPrometMainFrame;
   aIFrame: TPrometInplaceDBFrame;
   New: TMenuItem;
+  tmp: Char;
 begin
   case aEntry.Typ of
   etCustomerList,etCustomers:
@@ -2803,7 +2804,8 @@ begin
   etDocumentDir:
     begin
       Application.ProcessMessages;
-      if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfManageDocFrame) then
+      tmp := 'I';
+      if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfManageDocFrame) and (TfManageDocFrame(pcPages.ActivePage.Controls[0]).Typ=tmp) then
         Found := True;
       if not Found then
         for i := 0 to pcPages.PageCount-2 do

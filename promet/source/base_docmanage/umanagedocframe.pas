@@ -941,16 +941,16 @@ var
 begin
   FTyp := aType;
   ThumbControl1.ImageLoaderManager.BeforeStartQueue:=@ThumbControl1ImageLoaderManagerBeforeStartQueue;
-  DataSet.CreateTable;
   FFilter := Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType);
   with DataSet.DataSet as IBaseDbFilter do
     begin
       SortFields := 'ORIGDATE';
       SortDirection:=sdDescending;
       Limit := 0;
+      FetchRows:=5;
       Filter :=  FFilter;
     end;
-//  TDocPages(DataSet).PrepareDataSet;
+  TDocPages(DataSet).PrepareDataSet;
   DataSet.Open;
   DataSet.First;
   FTimeLine.StartDate:=DataSet.FieldByName('ORIGDATE').AsDateTime;

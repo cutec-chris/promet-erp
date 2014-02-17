@@ -300,24 +300,24 @@
         <UnitName Value="uMain"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="872"/>
-        <CursorPos X="23" Y="869"/>
+        <TopLine Value="499"/>
+        <CursorPos X="1" Y="517"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="3">
           <Item0 X="1" Y="797" ID="0"/>
           <Item1 X="6" Y="1028" ID="1"/>
-          <Item2 X="1" Y="3167" ID="2"/>
+          <Item2 X="1" Y="3169" ID="2"/>
         </Bookmarks>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="374"/>
-        <CursorPos X="3" Y="398"/>
-        <UsageCount Value="95"/>
+        <TopLine Value="617"/>
+        <CursorPos X="31" Y="635"/>
+        <UsageCount Value="96"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -505,12 +505,10 @@
       <Unit19>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1061"/>
         <CursorPos X="1" Y="1093"/>
         <UsageCount Value="100"/>
-        <Loaded Value="True"/>
       </Unit19>
       <Unit20>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
@@ -562,10 +560,12 @@
       <Unit25>
         <Filename Value="../base/dbintfs/udocuments.pas"/>
         <UnitName Value="uDocuments"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="63"/>
-        <CursorPos X="46" Y="63"/>
+        <TopLine Value="1214"/>
+        <CursorPos X="1" Y="1231"/>
         <UsageCount Value="76"/>
+        <Loaded Value="True"/>
       </Unit25>
       <Unit26>
         <Filename Value="uarticlestorageframe.pas"/>
@@ -1041,16 +1041,13 @@
       </Unit68>
       <Unit69>
         <Filename Value="../base/revision.inc"/>
-        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="59" Y="1"/>
         <UsageCount Value="100"/>
-        <Loaded Value="True"/>
       </Unit69>
       <Unit70>
         <Filename Value="../base/changes.txt"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -1182,7 +1179,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="214"/>
         <CursorPos X="40" Y="282"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit82>
@@ -1318,10 +1315,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="umanagedocframe"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="104"/>
-        <CursorPos X="15" Y="121"/>
-        <UsageCount Value="94"/>
+        <TopLine Value="704"/>
+        <CursorPos X="1" Y="731"/>
+        <UsageCount Value="95"/>
+        <Loaded Value="True"/>
       </Unit97>
       <Unit98>
         <Filename Value="../components/thumbs/thumbcontrol.pas"/>
@@ -1334,10 +1333,12 @@
       <Unit99>
         <Filename Value="../base/dbintfs/ubasedocpages.pas"/>
         <UnitName Value="uBaseDocPages"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="12"/>
-        <CursorPos X="3" Y="29"/>
-        <UsageCount Value="82"/>
+        <TopLine Value="112"/>
+        <CursorPos X="1" Y="126"/>
+        <UsageCount Value="83"/>
+        <Loaded Value="True"/>
       </Unit99>
       <Unit100>
         <Filename Value="../../../../lazarus/lcl/graphics.pp"/>
@@ -1574,12 +1575,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uGanttView"/>
-        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1130"/>
         <CursorPos X="39" Y="1164"/>
         <UsageCount Value="100"/>
-        <Loaded Value="True"/>
       </Unit126>
       <Unit127>
         <Filename Value="../../../../lazarus/lcl/include/mouse.inc"/>
@@ -2003,12 +2002,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uEnterTime"/>
-        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="542"/>
         <CursorPos X="7" Y="556"/>
         <UsageCount Value="30"/>
-        <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit175>
       <Unit176>
@@ -2472,12 +2469,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uTaskPlan"/>
-        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1129"/>
         <CursorPos X="53" Y="1163"/>
         <UsageCount Value="69"/>
-        <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit230>
       <Unit231>
@@ -3226,10 +3221,13 @@
       <Unit322>
         <Filename Value="../components/zeos/src/dbc/ZDbcLogging.pas"/>
         <UnitName Value="ZDbcLogging"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="61"/>
-        <CursorPos X="19" Y="84"/>
-        <UsageCount Value="1"/>
+        <TopLine Value="99"/>
+        <CursorPos X="1" Y="117"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit322>
       <Unit323>
@@ -3713,12 +3711,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uWikiFrame"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="682"/>
+        <TopLine Value="664"/>
         <CursorPos X="67" Y="706"/>
         <FoldState Value=" T3uC2g T0y74E02121C1D"/>
-        <UsageCount Value="30"/>
+        <UsageCount Value="31"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit378>
@@ -3817,12 +3815,10 @@
       <Unit390>
         <Filename Value="../base/dbintfs/usync.pas"/>
         <UnitName Value="usync"/>
-        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="285"/>
         <CursorPos X="40" Y="274"/>
         <UsageCount Value="19"/>
-        <Loaded Value="True"/>
       </Unit390>
       <Unit391>
         <Filename Value="../../../../../../Programme/lazarus/lcl/include/speedbutton.inc"/>
@@ -3898,126 +3894,130 @@
         <WindowIndex Value="0"/>
         <TopLine Value="42"/>
         <CursorPos X="1" Y="77"/>
-        <UsageCount Value="29"/>
+        <UsageCount Value="31"/>
       </Unit399>
     </Units>
-    <JumpHistory Count="29" HistoryIndex="28">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="814" Column="40" TopLine="802"/>
+        <Filename Value="../base/dbintfs/udocuments.pas"/>
+        <Caret Line="1279" Column="1" TopLine="1251"/>
       </Position1>
       <Position2>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="813" Column="40" TopLine="801"/>
+        <Filename Value="../base/dbintfs/udocuments.pas"/>
+        <Caret Line="1285" Column="1" TopLine="1268"/>
       </Position2>
       <Position3>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="812" Column="40" TopLine="800"/>
+        <Filename Value="../base/dbintfs/udocuments.pas"/>
+        <Caret Line="1286" Column="1" TopLine="1268"/>
       </Position3>
       <Position4>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="811" Column="40" TopLine="799"/>
+        <Filename Value="../base/dbintfs/udocuments.pas"/>
+        <Caret Line="1287" Column="1" TopLine="1268"/>
       </Position4>
       <Position5>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="810" Column="40" TopLine="798"/>
+        <Filename Value="../base/dbintfs/udocuments.pas"/>
+        <Caret Line="1288" Column="1" TopLine="1268"/>
       </Position5>
       <Position6>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="809" Column="40" TopLine="797"/>
+        <Filename Value="../base/dbintfs/udocuments.pas"/>
+        <Caret Line="1289" Column="1" TopLine="1268"/>
       </Position6>
       <Position7>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="815" Column="40" TopLine="803"/>
+        <Filename Value="../base/dbintfs/udocuments.pas"/>
+        <Caret Line="1290" Column="1" TopLine="1268"/>
       </Position7>
       <Position8>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="814" Column="40" TopLine="802"/>
+        <Filename Value="../base/dbintfs/udocuments.pas"/>
+        <Caret Line="1291" Column="1" TopLine="1268"/>
       </Position8>
       <Position9>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="813" Column="40" TopLine="801"/>
+        <Filename Value="../base/dbintfs/udocuments.pas"/>
+        <Caret Line="1292" Column="1" TopLine="1268"/>
       </Position9>
       <Position10>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="812" Column="40" TopLine="800"/>
+        <Filename Value="../base/dbintfs/udocuments.pas"/>
+        <Caret Line="1293" Column="1" TopLine="1268"/>
       </Position10>
       <Position11>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="813" Column="40" TopLine="801"/>
+        <Filename Value="../base/dbintfs/udocuments.pas"/>
+        <Caret Line="1294" Column="1" TopLine="1268"/>
       </Position11>
       <Position12>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="812" Column="40" TopLine="800"/>
+        <Filename Value="../base/dbintfs/udocuments.pas"/>
+        <Caret Line="1295" Column="1" TopLine="1268"/>
       </Position12>
       <Position13>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="226" Column="5" TopLine="224"/>
+        <Filename Value="../base/dbintfs/udocuments.pas"/>
+        <Caret Line="1296" Column="1" TopLine="1268"/>
       </Position13>
       <Position14>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="52" Column="115" TopLine="50"/>
+        <Filename Value="../base/dbintfs/udocuments.pas"/>
+        <Caret Line="1297" Column="1" TopLine="1269"/>
       </Position14>
       <Position15>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="382" Column="52" TopLine="349"/>
+        <Filename Value="../base/dbintfs/udocuments.pas"/>
+        <Caret Line="1298" Column="1" TopLine="1270"/>
       </Position15>
       <Position16>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="508" Column="1" TopLine="475"/>
+        <Filename Value="../base/dbintfs/udocuments.pas"/>
+        <Caret Line="1299" Column="1" TopLine="1271"/>
       </Position16>
       <Position17>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="557" Column="42" TopLine="524"/>
+        <Filename Value="../base/dbintfs/udocuments.pas"/>
+        <Caret Line="1301" Column="1" TopLine="1273"/>
       </Position17>
       <Position18>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="569" Column="26" TopLine="537"/>
+        <Filename Value="../base/dbintfs/udocuments.pas"/>
+        <Caret Line="1303" Column="1" TopLine="1275"/>
       </Position18>
       <Position19>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="680" Column="31" TopLine="663"/>
+        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="712" Column="1" TopLine="704"/>
       </Position19>
       <Position20>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="998" Column="221" TopLine="966"/>
+        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="713" Column="1" TopLine="704"/>
       </Position20>
       <Position21>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="1000" Column="221" TopLine="968"/>
+        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="714" Column="1" TopLine="704"/>
       </Position21>
       <Position22>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="1018" Column="38" TopLine="987"/>
+        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="717" Column="1" TopLine="704"/>
       </Position22>
       <Position23>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="366" Column="72" TopLine="347"/>
+        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="720" Column="1" TopLine="704"/>
       </Position23>
       <Position24>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="367" Column="18" TopLine="348"/>
+        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="722" Column="1" TopLine="704"/>
       </Position24>
       <Position25>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="507" Column="59" TopLine="489"/>
+        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="723" Column="1" TopLine="704"/>
       </Position25>
       <Position26>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="506" Column="59" TopLine="506"/>
+        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="725" Column="1" TopLine="704"/>
       </Position26>
       <Position27>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="569" Column="55" TopLine="559"/>
+        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="726" Column="1" TopLine="704"/>
       </Position27>
       <Position28>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="484" Column="3" TopLine="480"/>
+        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="729" Column="1" TopLine="704"/>
       </Position28>
       <Position29>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="561" Column="3" TopLine="559"/>
+        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="731" Column="1" TopLine="704"/>
       </Position29>
+      <Position30>
+        <Filename Value="../base/dbintfs/udocuments.pas"/>
+        <Caret Line="1231" Column="1" TopLine="1214"/>
+      </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">
       <Item0 Name="SVN active" Value="-1"/>
@@ -4061,7 +4061,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="2">
+    <BreakPoints Count="3">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
@@ -4076,6 +4076,13 @@
         <Source Value="urepairpositionframe.pas"/>
         <Line Value="121"/>
       </Item2>
+      <Item3>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="umain.pas"/>
+        <Line Value="2806"/>
+      </Item3>
     </BreakPoints>
     <Exceptions Count="21">
       <Item1>

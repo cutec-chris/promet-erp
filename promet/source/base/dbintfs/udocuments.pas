@@ -1269,9 +1269,12 @@ begin
       FieldByName('TIMESTAMPD').AsdateTime := Now();
       if FieldDefs.IndexOf('TIMESTAMPT') <> -1 then
         FieldByName('TIMESTAMPT').AsFloat := Frac(Now());
-      Post;
       //add the complete file
-      Append;
+      if State <> dsInsert then
+        begin
+          Post;
+          Append;
+        end;
       FieldByName('TYPE').AsString := aTyp;
       if FieldDefs.IndexOf('ID') > -1 then
         begin
