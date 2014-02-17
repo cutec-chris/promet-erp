@@ -206,9 +206,9 @@ begin
               if FileExists(aProcess+ExtractFileExt(ExeName)) then
                 begin
                   Found := False;
-                  tmp := aProcess;
+                  tmp := aProcess+BuildCmdLine;
                   for i := 0 to length(Processes)-1 do
-                    if copy(Processes[i].CommandLine,0,length(tmp)) = tmp then
+                    if Processes[i].CommandLine = tmp then
                       begin
                         bProcess := Processes[i];
                         if bProcess.Active then
@@ -218,7 +218,6 @@ begin
                           end
                         else
                           begin
-                            tmp := aProcess+BuildCmdLine;
                             ProcessData(bProcess);
                             if not bProcess.Informed then
                               begin
