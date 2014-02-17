@@ -1048,10 +1048,11 @@
       </Unit69>
       <Unit70>
         <Filename Value="../base/changes.txt"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="48" Y="4"/>
+        <CursorPos X="45" Y="5"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
@@ -2006,7 +2007,6 @@
         <TopLine Value="542"/>
         <CursorPos X="7" Y="556"/>
         <UsageCount Value="30"/>
-        <LoadedDesigner Value="True"/>
       </Unit175>
       <Unit176>
         <Filename Value="utimeframe.pas"/>
@@ -2473,7 +2473,6 @@
         <TopLine Value="1129"/>
         <CursorPos X="53" Y="1163"/>
         <UsageCount Value="69"/>
-        <LoadedDesigner Value="True"/>
       </Unit230>
       <Unit231>
         <Filename Value="../../../../../lazarus/lcl/extctrls.pp"/>
@@ -3221,7 +3220,6 @@
       <Unit322>
         <Filename Value="../components/zeos/src/dbc/ZDbcLogging.pas"/>
         <UnitName Value="ZDbcLogging"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="99"/>
@@ -3715,7 +3713,6 @@
         <WindowIndex Value="0"/>
         <TopLine Value="664"/>
         <CursorPos X="67" Y="706"/>
-        <FoldState Value=" T3uC2g T0y74E02121C1D"/>
         <UsageCount Value="31"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
