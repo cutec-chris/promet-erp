@@ -725,13 +725,13 @@ begin
     try
       if Assigned(StatisticResults.DataSet) then
         StatisticResults.DataSet.Free;
-      StatisticResults.DataSet := Data.GetNewDataSet(BuildSQL(DataSet.FieldByName('QUERRY').AsString));
+      StatisticResults.DataSet := Data.GetNewDataSet(BuildSQL(DataSet.FieldByName('QUERRY').AsString),FConnection);
       StatisticResults.DataSet.Open;
       if trim(smQuerry1.Lines.Text) <> '' then
         begin
           if Assigned(Detail.DataSet) then
             Detail.DataSet.Free;
-          Detail.DataSet := Data.GetNewDataSet(BuildSQL(smQuerry1.Lines.Text),Data.MainConnection,StatisticResults.DataSet);
+          Detail.DataSet := Data.GetNewDataSet(BuildSQL(smQuerry1.Lines.Text),FConnection,StatisticResults.DataSet);
           Detail.DataSet.Open;
           pDetails.Visible:=True;
           spDetails.Visible:=True;
@@ -739,7 +739,7 @@ begin
             begin
               if Assigned(SubDetail.DataSet) then
                 SubDetail.DataSet.Free;
-              SubDetail.DataSet := Data.GetNewDataSet(BuildSQL(smQuerry2.Lines.Text),Data.MainConnection,Detail.DataSet);
+              SubDetail.DataSet := Data.GetNewDataSet(BuildSQL(smQuerry2.Lines.Text),FConnection,Detail.DataSet);
               SubDetail.DataSet.Open;
               pSubDetails.Visible:=True;
               spSubDetails.Visible:=True;
@@ -1211,11 +1211,15 @@ begin
 end;
 destructor TfStatisticFrame.Destroy;
 begin
+  Datasource.DataSet.Free;
+  Datasource.DataSet:=nil;
+  Detail.DataSet.Free;
+  Detail.DataSet:=nil;
+  SubDetail.DataSet.Free;
+  SubDetail.DataSet:=nil;
   if Assigned(FConnection) then
     begin
       CloseConnection(acSave.Enabled);
-      DataSet.Destroy;
-      DataSet := nil;
       FreeAndNil(FConnection);
     end;
   FTables.Free;

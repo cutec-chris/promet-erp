@@ -373,6 +373,7 @@ end;
 
 {$ENDIF}
 {$ENDIF}
+finalization
 
 end.
-
+

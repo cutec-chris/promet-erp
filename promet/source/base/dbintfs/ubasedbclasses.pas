@@ -1485,6 +1485,7 @@ begin
           BaseSortFields := 'SQL_ID';
           SortFields := 'SQL_ID';
           SortDirection := sdAscending;
+          Limit:=0;
         end;
     end;
 end;

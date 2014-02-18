@@ -81,6 +81,7 @@ type
     MenuItem6: TMenuItem;
     MenuItem7: TMenuItem;
     MenuItem8: TMenuItem;
+    MenuItem9: TMenuItem;
     Panel10: TPanel;
     Panel11: TPanel;
     pNav2: TPanel;

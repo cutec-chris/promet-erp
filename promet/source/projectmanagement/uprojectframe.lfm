@@ -1392,5 +1392,8 @@ inherited fprojectFrame: TfprojectFrame
         E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FF
       }
     end
+    object MenuItem9: TMenuItem
+      Action = acCalculatePlan
+    end
   end
 end

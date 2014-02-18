@@ -52,7 +52,7 @@ type
     property Keywords : TKeywords read FKeywords;
   end;
 implementation
-uses uData,Variants,WikiToHtml,htmltowiki;
+uses Variants,WikiToHtml,htmltowiki;
 
 procedure TKeywords.DefineFields(aDataSet: TDataSet);
 begin
@@ -144,27 +144,30 @@ var
   aTree: TTree;
   aParent : Variant;
   aID: Variant;
+  tmp: String;
 begin
   with Keywords.DataSet as IBaseDbFilter do
     Filter := '';
   aParent := 0;
   FActiveTreeID := aParent;
-  aTree := TTree.Create(Self,Data);
+  aTree := TTree.Create(Self,DataModule);
+  aTree.Filter(TBaseDBModule(DataModule).QuoteField('TYPE')+'='+TBaseDBModule(DataModule).QuoteValue('W'));
   if copy(PageName,0,7) = 'http://' then exit;
   while pos('/',PageName) > 0 do
     begin
       aTree.Open;
-      if aTree.DataSet.Locate('NAME;PARENT',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent]),[])
-      or aTree.DataSet.Locate('NAME;PARENT',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent]),[loCaseInSensitive]) then
+      if aTree.DataSet.Locate('NAME;PARENT;TYPE',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent,'W']),[])
+      or aTree.DataSet.Locate('NAME;PARENT;TYPE',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent,'W']),[loCaseInSensitive]) then
         begin
+          tmp := aTree.FieldByName('NAME').AsString;
           PageName := copy(PageName,pos('/',PageName)+1,length(PageName));
           aParent := aTree.Id.AsVariant;
         end
       else
         begin
-          Data.SetFilter(aTree,'',0);
-          if aTree.DataSet.Locate('NAME;PARENT',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent]),[])
-          or aTree.DataSet.Locate('NAME;PARENT',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent]),[loCaseInSensitive]) then
+          TBaseDBModule(DataModule).SetFilter(aTree,'',0);
+          if aTree.DataSet.Locate('NAME;PARENT;TYPE',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent,'W']),[])
+          or aTree.DataSet.Locate('NAME;PARENT;TYPE',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent,'W']),[loCaseInSensitive]) then
             begin
               PageName := copy(PageName,pos('/',PageName)+1,length(PageName));
               aParent := aTree.Id.AsVariant;
@@ -190,11 +193,11 @@ begin
   Result := DataSet.Active and DataSet.Locate('TREEENTRY;NAME',VarArrayOf([aParent,PageName]),[]);
   if not Result then
     begin
-      Data.SetFilter(Self,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(VarToStr(aParent)));
+      TBaseDBModule(DataModule).SetFilter(Self,TBaseDBModule(DataModule).QuoteField('TREEENTRY')+'='+TBaseDBModule(DataModule).QuoteValue(VarToStr(aParent)));
       Result := DataSet.Locate('TREEENTRY;NAME',VarArrayOf([aParent,PageName]),[loCaseInsensitive]);
       if not Result then
         begin
-          Data.SetFilter(Self,Data.QuoteField('NAME')+'='+Data.QuoteValue(PageName));
+          TBaseDBModule(DataModule).SetFilter(Self,TBaseDBModule(DataModule).QuoteField('NAME')+'='+TBaseDBModule(DataModule).QuoteValue(PageName));
           Result := DataSet.Locate('TREEENTRY;NAME',VarArrayOf([Null,PageName]),[loCaseInsensitive]);
         end;
     end;
@@ -210,7 +213,7 @@ var
 begin
   Result := False;
   aParent := 0;
-  aTree := TTree.Create(Self,Data);
+  aTree := TTree.Create(Self,TBaseDBModule(DataModule));
   if copy(PageName,0,7) = 'http://' then exit;
   while pos('/',PageName) > 0 do
     begin
@@ -223,7 +226,7 @@ begin
         end
       else
         begin
-          Data.SetFilter(aTree,'',0);
+          TBaseDBModule(DataModule).SetFilter(aTree,'',0);
           if aTree.DataSet.Locate('NAME;PARENT',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent]),[])
           or aTree.DataSet.Locate('NAME;PARENT',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent]),[loCaseInSensitive]) then
             begin
@@ -238,7 +241,7 @@ begin
             end;
         end;
     end;
-  Data.SetFilter(Self,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(VarToStr(aParent)));
+  TBaseDBModule(DataModule).SetFilter(Self,TBaseDBModule(DataModule).QuoteField('TREEENTRY')+'='+TBaseDBModule(DataModule).QuoteValue(VarToStr(aParent)));
   Result := Count>0;
   aTree.Free;
 end;

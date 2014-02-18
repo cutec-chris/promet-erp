@@ -836,11 +836,11 @@ begin
                 aRDS.Next;
               end;
             Outp+='</table>';
-            aRds.Free;
-            aConn.Free;
           end;
-        aStatistic.Free;
       finally
+        FreeAndNil(aRds);
+        FreeAndNil(aConn);
+        FreeAndNil(aStatistic);
       end;
       FSQLScanner.Free;
       FSQLParser.Free;
@@ -873,7 +873,8 @@ begin
         aStatistic.Open;
         if aStatistic.Count>0 then
           begin
-            aRDs := Data.GetNewDataSet(aStatistic.BuildQuerry(Variables));
+            aConn := Data.GetNewConnection;
+            aRDs := Data.GetNewDataSet(aStatistic.BuildQuerry(Variables),aConn);
             try
               aRDS.Open;
             except
@@ -887,8 +888,10 @@ begin
             tmp := StringReplace(tmp,'</td>','',[rfReplaceall]);
             Outp+=tmp;
           end;
-        aStatistic.Free;
       finally
+        FreeAndNil(aRds);
+        FreeAndNil(aConn);
+        FreeAndNil(aStatistic);
       end;
       FSQLScanner.Free;
       FSQLParser.Free;
