@@ -1216,6 +1216,11 @@ inherited fprojectFrame: TfprojectFrame
       ImageIndex = 104
       OnExecute = acInactiveGanttExecute
     end
+    object acCalculatePlan: TAction
+      Caption = 'Plan berechnen'
+      ImageIndex = 95
+      OnExecute = acCalculatePlanExecute
+    end
   end
   object Projects: TDatasource[6]
     OnStateChange = ProjectsStateChange

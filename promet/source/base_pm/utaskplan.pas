@@ -181,9 +181,10 @@ type
     procedure Execute; override;
     constructor Create(aPlan : TWinControl;aResource : TRessource;asUser : string;AttatchTo : TInterval = nil);
   end;
-procedure ChangeTask(aTasks: TTaskList;aTask : TInterval);
+procedure ChangeTask(aTasks: TTaskList;aTask : TInterval;DoChangeMilestones : Boolean = False);
 resourcestring
   strSaveTaskChanges                      = 'Um die Aufgabe zu bearbeiten müssen alle Änderungen gespeichert werden, Sollen alle Änderungen gespeichert werden ?';
+  strChangeMilestones                     = 'Sollen Meilensteintermine auch geändert werden ?';
 implementation
 uses uData,LCLIntf,uBaseDbClasses,uProjects,uTaskEdit,LCLProc,uGanttView,uColors,
   uCalendar,uTaskPlanOptions;
@@ -347,7 +348,7 @@ begin
   else IntervalDone := StartDate;
 end;
 
-procedure ChangeTask(aTasks: TTaskList;aTask : TInterval);
+procedure ChangeTask(aTasks: TTaskList;aTask : TInterval;DoChangeMilestones : Boolean = False);
 var
   aTaskI: TTask;
   aTaskI2: TTask;
@@ -371,7 +372,7 @@ begin
             end;
           aTaskI2.Free;
         end;
-      if (aTasks.FieldByName('CLASS').AsString<>'M') and (aTasks.FieldByName('COMPLETED').AsString<>'Y') then
+      if ((aTasks.FieldByName('CLASS').AsString<>'M') or DoChangeMilestones) and (aTasks.FieldByName('COMPLETED').AsString<>'Y') then
         begin
           if not aTasks.CanEdit then
             aTasks.DataSet.Edit;
@@ -778,6 +779,9 @@ begin
 end;
 
 procedure TfTaskPlan.acUseExecute(Sender: TObject);
+var
+  SetMileStones : Boolean = True;
+  Asked : Boolean = False;
   procedure RecoursiveChange(aParent : TInterval);
   var
     i: Integer;
@@ -797,7 +801,12 @@ procedure TfTaskPlan.acUseExecute(Sender: TObject);
                 aTasks.Select(TRessource(aParent.Pointer).Interval[i].Id);
                 aTasks.Open;
                 debugln('changing '+TRessource(aParent.Pointer).Interval[i].Task);
-                ChangeTask(aTasks,TRessource(aParent.Pointer).Interval[i]);
+                if (aTasks.FieldByName('TYPE').AsString='Y') and (not Asked) then
+                  begin
+                    SetMileStones:=MessageDlg('',strChangeMilestones,mtConfirmation,[mbYes,mbNo],0) = mrYes;
+                    Asked:=True;
+                  end;
+                ChangeTask(aTasks,TRessource(aParent.Pointer).Interval[i],SetMileStones);
                 aTasks.Free;
               end;
           end;

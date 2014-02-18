@@ -78,6 +78,7 @@ type
     RecalcTimer: TTimer;
     bSave: TSpeedButton;
     bCancel: TSpeedButton;
+    ToolButton3: TSpeedButton;
     procedure acAddSnapshotExecute(Sender: TObject);
     procedure acAddSubProjectsExecute(Sender: TObject);
     procedure acCenterTaskExecute(Sender: TObject);
@@ -110,6 +111,7 @@ type
     procedure RecalcTimerTimer(Sender: TObject);
     procedure bSaveClick(Sender: TObject);
     procedure bCancelClick(Sender: TObject);
+    procedure ToolButton3Click(Sender: TObject);
   private
     { private declarations }
     FGantt: TgsGantt;
@@ -132,6 +134,7 @@ type
     procedure FillInterval(aInterval : TInterval;aTasks : TTaskList);
     procedure GotoTask(aLink : string);
     function Execute(aProject : TProject;aLink : string = ''; DoClean: Boolean=True;AddInactive : Boolean = False) : Boolean;
+    function Calculate(aProject : TProject;DoClean: Boolean=True;AddInactive : Boolean = False) : Boolean;
     procedure SetRights;
   end;
 
@@ -196,6 +199,12 @@ procedure TfGanttView.bCancelClick(Sender: TObject);
 begin
   if (MessageDlg(strCancelChanges,mtInformation,[mbYes,mbNo],0) = mrYes) then
     bRefreshClick(nil);
+end;
+
+procedure TfGanttView.ToolButton3Click(Sender: TObject);
+begin
+  bSave.Click;
+  Close;
 end;
 
 procedure TfGanttView.bDayViewClick(Sender: TObject);
@@ -1170,6 +1179,23 @@ begin
   Result := ModalResult = mrOK;
   CleanIntervals;
 end;
+
+function TfGanttView.Calculate(aProject: TProject; DoClean: Boolean;
+  AddInactive: Boolean): Boolean;
+begin
+  if not Assigned(Self) then
+    begin
+      Application.CreateForm(TfGanttView,fGanttView);
+      Self := fGanttView;
+    end;
+  FProject := aproject;
+  FTasks := aProject.Tasks;
+  Populate(FTasks,DoClean,AddInactive);
+  SetRights;
+  bMoveFwdClick(nil);
+  bSave.Click;
+end;
+
 procedure TfGanttView.SetRights;
 begin
   acMakePossible.Enabled := Data.Users.Rights.Right('PROJECTS') > RIGHT_READ;

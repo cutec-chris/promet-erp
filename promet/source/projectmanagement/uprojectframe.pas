@@ -47,6 +47,7 @@ type
     acGotoParent: TAction;
     acGantt: TAction;
     acInactiveGantt: TAction;
+    acCalculatePlan: TAction;
     ActionList1: TActionList;
     bAssignTree: TSpeedButton;
     bDelegated2: TSpeedButton;
@@ -136,6 +137,7 @@ type
     ToolButton2: TSpeedButton;
     tsInfo: TTabSheet;
     Users: TDatasource;
+    procedure acCalculatePlanExecute(Sender: TObject);
     procedure acCancelExecute(Sender: TObject);
     procedure acCloseExecute(Sender: TObject);
     procedure acDeleteExecute(Sender: TObject);
@@ -590,6 +592,12 @@ begin
       FDataSet.CascadicCancel;
     end;
 end;
+
+procedure TfProjectFrame.acCalculatePlanExecute(Sender: TObject);
+begin
+  fGanttView.Calculate(TProject(DataSet));
+end;
+
 procedure TfProjectFrame.acSaveExecute(Sender: TObject);
 begin
   if Assigned(FConnection) then
