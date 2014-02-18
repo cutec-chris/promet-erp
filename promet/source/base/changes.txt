@@ -2,6 +2,7 @@
       - Wiki:Statistiken mit Header
       - Fensterstatus wird zusammen mit Fensterposition gespeichert/hergestellt
       - Zeiterfassung:Feld Kategorie eingeführt
+      - Documents/Images:fix rotating Images
 Build 311
       - Startseite:weitere Erweiterungen, auch Statistiken oder Teile davon können jetzt eingebunden werden
       - Startseite:Links sind nun auf beliebige Auftragstypen zum neu erstellen möglich

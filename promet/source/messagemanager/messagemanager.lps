@@ -20,10 +20,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="umain"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="225"/>
-        <CursorPos X="11" Y="243"/>
+        <TopLine Value="149"/>
+        <CursorPos X="1" Y="175"/>
         <UsageCount Value="175"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -1215,10 +1216,9 @@
       <Unit146>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
         <UnitName Value="wikitohtml"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="500"/>
+        <TopLine Value="320"/>
         <CursorPos X="1" Y="535"/>
         <UsageCount Value="22"/>
         <Loaded Value="True"/>

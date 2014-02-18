@@ -17,6 +17,7 @@ type
   { PrometCmdApp }
 
   PrometCmdApp = class(TBaseCustomApplication)
+    procedure PrometCmdAppException(Sender: TObject; E: Exception);
   private
     mailaccounts : string;
   protected
@@ -27,6 +28,11 @@ type
   end;
 
 { PrometCmdApp }
+
+procedure PrometCmdApp.PrometCmdAppException(Sender: TObject; E: Exception);
+begin
+  writeln('Exception'+e.Message);
+end;
 
 procedure PrometCmdApp.DoRun;
 var
@@ -59,11 +65,20 @@ begin
   while FindFirstUTF8(aFolder+'*.jpg',faAnyFile,AInfo)=0 do
     begin
       writeln('importing File '+AInfo.Name);
-      aDocPage := TDocPages.Create(nil,Data);
-      aDocPage.AddFromFile(AInfo.Name);
-      aDocPage.Edit;
-      aDocPage.FieldByName('TYPE').AsString:=aType;
-      aDocPage.Post;
+      try
+        aDocPage := TDocPages.Create(nil,Data);
+        aDocPage.AddFromFile(aFolder+AInfo.Name);
+        aDocPage.Edit;
+        aDocPage.FieldByName('TYPE').AsString:=aType;
+        aDocPage.Post;
+      except
+        on e : Exception do
+          begin
+            writeln('Error:'+e.Message);
+            Application.Terminate;
+            exit;
+          end;
+      end;
 
       Texts := TOCRPages.Create;
       aPic := TPicture.Create;
@@ -77,7 +92,6 @@ begin
           aFullStream.Position:=0;
           aPic.LoadFromStreamWithFileExt(aFullStream,ExtractFileExt(aDoc.FileName));
           aFullStream.Free;
-//          aUnpaper := TUnPaperProcess.Create(aPic);
           writeln('OCR on '+AInfo.Name);
           StartOCR(Texts,aPic);
           aText := TStringList.Create;
@@ -98,7 +112,7 @@ begin
       Texts.Count;
 
       aDocPage.Free;
-      DeleteFileUTF8(AInfo.Name);
+      DeleteFileUTF8(aFolder+AInfo.Name);
       FindCloseUTF8(AInfo);
     end;
 
@@ -110,6 +124,7 @@ constructor PrometCmdApp.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   StopOnException:=True;
+  OnException:=@PrometCmdAppException;
 end;
 
 destructor PrometCmdApp.Destroy;

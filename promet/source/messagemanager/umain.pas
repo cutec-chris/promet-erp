@@ -163,16 +163,16 @@ begin
               if FileExistsUTF8(ExpandFileNameUTF8(AppendPathDelim(Application.Location)+aProcess+ExtractFileExt(Application.ExeName))) then
                 begin
                   Found := False;
-                  tmp := AppendPathDelim(Application.Location)+aProcess;
+                  cmd := AppendPathDelim(Application.Location)+aProcess+ExtractFileExt(Application.ExeName);
+                  cmd := cmd+BuildCmdLine;
                   for i := 0 to length(Processes)-1 do
-                    if copy(Processes[i].CommandLine,0,length(tmp)) = tmp then
+                    if Processes[i].CommandLine = cmd then
                       begin
                         bProcess := Processes[i];
                         if bProcess.Active then
                           Found := True
                         else
                           begin
-                            tmp := tmp+BuildCmdLine;
                             sl := TStringList.Create;
                             sl.LoadFromStream(bProcess.Output);
                             for a := 0 to sl.Count-1 do
