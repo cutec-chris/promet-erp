@@ -118,6 +118,7 @@ type
     procedure bTag1Click(Sender: TObject);
     procedure bZoomInClick(Sender: TObject);
     procedure bZoomOutClick(Sender: TObject);
+    procedure DoAOpen(Data: PtrInt);
     procedure DoOnDropFiles(Sender: TObject; const FileNames: array of String);
     procedure eSearchChange(Sender: TObject);
     procedure FDocFrameAftercheckInFiles(Sender: TObject);
@@ -822,6 +823,15 @@ begin
   ThumbControl1.ThumbWidth:=ThumbControl1.ThumbWidth-20;
   acRefresh.Execute;
 end;
+
+procedure TfManageDocFrame.DoAOpen(Data: PtrInt);
+var
+  aRefThread: TImportCheckThread;
+begin
+  FetchNext;
+  aRefThread := TImportCheckThread.Create(Self);
+end;
+
 procedure TfManageDocFrame.FetchNext;
 var
   i: Integer;
@@ -957,10 +967,9 @@ begin
   ThumbControl1.URLList:='';
   SelectedItem:=nil;
   Datasource1.DataSet := DataSet.DataSet;
-  FetchNext;
   bExecute1.Down:=False;
   bExecute1Click(nil);
-  aRefThread := TImportCheckThread.Create(Self);
+  Application.QueueAsyncCall(@DoAOpen,0);
 end;
 procedure TfManageDocFrame.DoRefresh;
 begin

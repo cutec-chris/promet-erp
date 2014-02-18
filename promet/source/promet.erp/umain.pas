@@ -516,7 +516,7 @@ begin
       TabCaption := strDocuments;
       Open(TfManageDocFrame(Sender).Typ);
       if Assigned(TFrame(Sender).OnEnter) then
-        TFrame(Sender).OnEnter(Sender)
+        TFrame(Sender).OnEnter(Sender);
     end;
 end;
 
@@ -2879,9 +2879,14 @@ begin
   etDocumentsOnly,etImages:
     begin
       Application.ProcessMessages;
+      if aEntry.Typ=etImages then
+        tmp := 'I'
+      else tmp := 'D';
+      aFrame := nil;
       for i := 0 to pcPages.PageCount-2 do
-        if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfManageDocFrame)  then
+        if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfManageDocFrame)  and (TfManageDocFrame(pcPages.ActivePage.Controls[0]).Typ=tmp) then
           begin
+            aFrame := TPrometmainFrame(pcPages.Pages[i].Controls[0]);
             pcPages.PageIndex:=i;
             Found := True;
           end;
@@ -2895,7 +2900,8 @@ begin
           pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('DOCPAGES@'),False);
           AddDocPages(aFrame);
         end;
-      TfManageDocFrame(pcPages.ActivePage.Controls[0]).OpenDir(Null);
+      if Assigned(aFrame) then
+        TfManageDocFrame(aFrame).OpenDir(Null);
     end;
   etLists:
     begin
