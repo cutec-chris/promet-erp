@@ -801,7 +801,7 @@ var
                 aTasks.Select(TRessource(aParent.Pointer).Interval[i].Id);
                 aTasks.Open;
                 debugln('changing '+TRessource(aParent.Pointer).Interval[i].Task);
-                if (aTasks.FieldByName('TYPE').AsString='Y') and (not Asked) then
+                if (aTasks.FieldByName('CLASS').AsString='M') and (not Asked) then
                   begin
                     SetMileStones:=MessageDlg('',strChangeMilestones,mtConfirmation,[mbYes,mbNo],0) = mrYes;
                     Asked:=True;

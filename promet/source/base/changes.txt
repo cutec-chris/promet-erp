@@ -1,4 +1,8 @@
-﻿Build 312
+﻿Build 314
+      -
+Build 313
+      - Statistics:use separate Connection to make calls to different DB´s possible
+Build 312
       - Wiki:Statistiken mit Header
       - Fensterstatus wird zusammen mit Fensterposition gespeichert/hergestellt
       - Zeiterfassung:Feld Kategorie eingeführt

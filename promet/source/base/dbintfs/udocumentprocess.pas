@@ -131,7 +131,10 @@ begin
                 goto DelRetry;
           end;
       end;
-    end;
+    end
+  else if aDoDelete then
+    if ShowMessage(strCheckinFailed) then
+
 {
   {$IFDEF MAINAPP}
   if (fCheckin.Visible) and (FCheckin.Rec = FRec) then exit;
@@ -237,4 +240,4 @@ initialization
 finalization
   ProcessList.Destroy;
 end.
-
+
