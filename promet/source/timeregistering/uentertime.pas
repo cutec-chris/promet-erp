@@ -361,7 +361,7 @@ begin
   FTask:=AValue;
   with Application as IBaseDBInterface do
     begin
-      cbCategory.Text:=Data.GetLinkDesc(FTask);
+      eJob.Text:=Data.GetLinkDesc(FTask);
       if Data.GetLinkIcon(FTask) <> -1 then
         fVisualControls.Images.GetBitmap(Data.GetLinkIcon(FTask),iLink3.Picture.Bitmap)
       else iLink3.Picture.Clear;

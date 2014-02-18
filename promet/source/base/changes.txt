@@ -1,5 +1,5 @@
 ﻿Build 314
-      -
+      - Dokumentenverwaltung:Fehlernachricht beim Fehler wärend einchecken
 Build 313
       - Statistics:use separate Connection to make calls to different DB´s possible
 Build 312
