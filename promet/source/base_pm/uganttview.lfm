@@ -421,7 +421,7 @@ object fGanttView: TfGanttView
       object ToolButton3: TSpeedButton
         Left = 4
         Height = 28
-        Hint = 'Änderungen in Aufgaben übernehmen'
+        Hint = 'Änderungen übernehmen und Fenster schließen'
         Top = 12
         Width = 28
         Caption = 'acUse'
