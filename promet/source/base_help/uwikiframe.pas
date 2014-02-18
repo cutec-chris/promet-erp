@@ -537,10 +537,10 @@ var
   aName: TSQLStringType;
   aStatistic: TStatistic;
   aSQL: String;
-  aRDs: TDataSet;
+  aRDs: TDataSet = nil;
   tmp: String;
   IncHeader: Boolean;
-  aConn: TComponent;
+  aConn: TComponent = nil;
   procedure AddHeader;
   var
     b: Integer;
