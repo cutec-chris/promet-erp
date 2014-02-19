@@ -25,8 +25,8 @@ interface
 
 uses
   Classes, SysUtils, db, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, Buttons, Menus, ActnList, Spin, gsGanttCalendar, uTask, Math,
-  uProjects;
+  StdCtrls, Buttons, Menus, ActnList, Spin, ExtDlgs, gsGanttCalendar, uTask,
+  Math, uProjects;
 
 type
 
@@ -73,12 +73,13 @@ type
     pgantt: TPanel;
     Panel7: TPanel;
     PopupMenu1: TPopupMenu;
+    SavePictureDialog1: TSavePictureDialog;
     seBuffer: TSpinEdit;
     tbTop: TPanel;
     RecalcTimer: TTimer;
     bSave: TSpeedButton;
     bCancel: TSpeedButton;
-    ToolButton3: TSpeedButton;
+    bCSave: TSpeedButton;
     procedure acAddSnapshotExecute(Sender: TObject);
     procedure acAddSubProjectsExecute(Sender: TObject);
     procedure acCenterTaskExecute(Sender: TObject);
@@ -111,7 +112,7 @@ type
     procedure RecalcTimerTimer(Sender: TObject);
     procedure bSaveClick(Sender: TObject);
     procedure bCancelClick(Sender: TObject);
-    procedure ToolButton3Click(Sender: TObject);
+    procedure bCSaveClick(Sender: TObject);
   private
     { private declarations }
     FGantt: TgsGantt;
@@ -201,7 +202,7 @@ begin
     bRefreshClick(nil);
 end;
 
-procedure TfGanttView.ToolButton3Click(Sender: TObject);
+procedure TfGanttView.bCSaveClick(Sender: TObject);
 begin
   bSave.Click;
   Close;
@@ -224,6 +225,7 @@ var
   oD2: TDateTime;
 begin
   bSave.Enabled:=True;
+  bCSave.Enabled:=True;
   bCancel.Enabled:=true;
   with TInterval(Sender) do
     begin
@@ -494,7 +496,55 @@ begin
 end;
 
 procedure TfGanttView.acExportToImageExecute(Sender: TObject);
+var
+  aStartTime: TDateTime;
+  aEndTime: TDateTime;
+  aList: TList;
+  aBitmap: TBitmap;
+  aTreeWidth: Integer;
+  aGraphic: TGraphic;
+  i: Integer;
+  aDays: Extended;
+  aPic: TPicture;
 begin
+  if SavePictureDialog1.Execute then
+    begin
+      aStartTime := Now()+999999;
+      aEndTime := 0;
+      for i := 0 to FGantt.IntervalCount-1 do
+        begin
+          if FGantt.Interval[i].StartDate<aStartTime then
+            aStartTime := FGantt.Interval[i].StartDate;
+          if FGantt.Interval[i].FinishDate>aEndTime then
+            aEndTime := FGantt.Interval[i].FinishDate;
+        end;
+      aStartTime:=trunc(aStartTime)-1;
+      aEndTime:=trunc(aEndTime)+1;
+      FGantt.Align:=alNone;
+      aList := TList.Create;
+      Fgantt.MakeIntervalList(aList);
+      aTreeWidth := FGantt.Tree.Width;
+      FGantt.Tree.Width:=0;
+      aBitmap := TBitmap.Create;
+      aBitmap.Height := FGantt.Calendar.IntervalHeight*(aList.Count+3);
+      FGantt.Height:=aBitmap.Height;
+      aList.Free;
+      aDays := (aEndTime-aStartTime);
+      aBitmap.Width := round(UnitsBetweenDates(aStartTime,aEndTime+1,FGantt.MinorScale))*FGantt.PixelsPerMinorScale;
+      Fgantt.Width:=aBitmap.Width;
+      FGantt.StartDate:=aStartTime;
+      FGantt.Tree.TopRow := 0;
+      aBitmap.Canvas.Brush.Color:=clWhite;
+      aBitmap.Canvas.FillRect(0,0,aBitmap.Width,aBitmap.Height);
+      FGantt.Calendar.PaintToCanvas(aBitmap.Canvas,False);
+      aPic := TPicture.Create;
+      aPic.Bitmap.Assign(aBitmap);
+      aPic.SaveToFile(SavePictureDialog1.FileName);
+      aPic.Free;
+      aBitmap.Free;
+      FGantt.Tree.Width:=aTreeWidth;
+      FGantt.Align:=alClient;
+    end;
 end;
 
 procedure TfGanttView.acAddSubProjectsExecute(Sender: TObject);
@@ -936,6 +986,7 @@ begin
         CleanIntervals;
       end;
     bSave.Enabled:=False;
+    bCSave.Enabled:=False;
     bCancel.Enabled:=False;
     aTasks.First;
     aRoot := TInterval.Create(FGantt);

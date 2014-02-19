@@ -335,11 +335,11 @@ type
     function GetInterval(AnIndex: Integer): TInterval;
 
     // Other usefull methods
-    procedure DrawHeaderLines;
-    procedure ConnectIntervals(FromInterval, ToInterval: TInterval);
+    procedure DrawHeaderLines(aCanvas : TCanvas);
+    procedure ConnectIntervals(aCanvas : TCanvas;FromInterval, ToInterval: TInterval);
 
-    procedure DrawMinorScale;
-    procedure DrawMajorScale;
+    procedure DrawMinorScale(aCanvas : TCanvas);
+    procedure DrawMajorScale(aCanvas : TCanvas);
 
     function IsNewPeriod(AScale: TTimeScale; AUseSub: Boolean = False): Boolean;
 
@@ -366,6 +366,7 @@ type
     constructor Create(AnOwner: TgsGantt); reintroduce;
     destructor Destroy; override;
 
+    procedure PaintToCanvas(aCanvas: TCanvas; DoClip: Boolean=True);
     function GetStartDrawIntervals: Integer;
     function GetIntervalHeight: Integer;
     function GetIntervalWidth: Double;
@@ -1959,6 +1960,11 @@ end;
 
 {DONE 2 -oDenis -cDrawing: ????????? ?????????}
 procedure TGanttCalendar.Paint;
+begin
+  PaintToCanvas(Canvas);
+end;
+
+procedure TGanttCalendar.PaintToCanvas(aCanvas: TCanvas;DoClip : Boolean = True);
 var
   ClipRgn: hRgn;
   List: TList;
@@ -1980,29 +1986,40 @@ var
                              RightToLeft:False);
 begin
   aTop := FGantt.Tree.TopRow-1;
-  ClipRgn := CreateRectRgn
-  (
-    0,
-    0,
-    Width - FVertScrollBar.Width * Integer(FVertScrollBar.Visible),
-    Height - FHorzScrollBar.Height * Integer(FHorzScrollBar.Visible)
-  );
+  if DoClip then
+    begin
+      ClipRgn := CreateRectRgn
+      (
+        0,
+        0,
+        Width - FVertScrollBar.Width * Integer(FVertScrollBar.Visible),
+        Height - FHorzScrollBar.Height * Integer(FHorzScrollBar.Visible)
+      );
+    end;
 
   List := TList.Create;
 
   try
-    SelectClipRgn(Canvas.Handle, ClipRgn);
+    if DoClip then
+      SelectClipRgn(aCanvas.Handle, ClipRgn);
 
     Brush.Color := Color;
-    Canvas.FillRect(Rect(
-      0, Width - FVertScrollBar.Width * Integer(FVertScrollBar.Visible),
-      0, Height - FHorzScrollBar.Height * Integer(FHorzScrollBar.Visible)));
+    if Doclip then
+      begin
+        aCanvas.FillRect(Rect(
+          0, Width - FVertScrollBar.Width * Integer(FVertScrollBar.Visible),
+          0, Height - FHorzScrollBar.Height * Integer(FHorzScrollBar.Visible)));
+      end
+    else
+    aCanvas.FillRect(Rect(
+      0, aCanvas.Width,
+      0, aCanvas.Height));
 
-    Canvas.Brush.Color := FMajorColor;
-    Canvas.FillRect(Rect(0, 0, Width, MajorScaleHeight));
+    aCanvas.Brush.Color := FMajorColor;
+    aCanvas.FillRect(Rect(0, 0, aCanvas.Width, MajorScaleHeight));
 
-    Canvas.Brush.Color := FMajorColor;
-    Canvas.FillRect(Rect(0, MajorScaleHeight, Width, MajorScaleHeight + MinorScaleHeight));
+    aCanvas.Brush.Color := FMajorColor;
+    aCanvas.FillRect(Rect(0, MajorScaleHeight, aCanvas.Width, MajorScaleHeight + MinorScaleHeight));
 
     FGantt.MakeIntervalListwithDeps(List);
 
@@ -2016,9 +2033,9 @@ begin
 
     for I := aTop to List.Count - 1 do
       if Assigned(TInterval(List[I]).FBP) then
-        TInterval(List[I]).FBP(TInterval(List[I]),Canvas,Rect(0,(I-aTop) * PixelsPerLine + 1 + StartDrawIntervals,Width,((I-aTop) * PixelsPerLine)+PixelsPerLine+StartDrawIntervals+1),VisibleStart,VisibleFinish,UnitsBetweenDates(VisibleStart,VisibleStart+1,MinorScale)*PixelsPerMinorScale);
+        TInterval(List[I]).FBP(TInterval(List[I]),aCanvas,Rect(0,(I-aTop) * PixelsPerLine + 1 + StartDrawIntervals,aCanvas.Width,((I-aTop) * PixelsPerLine)+PixelsPerLine+StartDrawIntervals+1),VisibleStart,VisibleFinish,UnitsBetweenDates(VisibleStart,VisibleStart+1,MinorScale)*PixelsPerMinorScale);
 
-    DrawHeaderLines;
+    DrawHeaderLines(aCanvas);
 
     for I := aTop to List.Count - 1 do
     begin
@@ -2026,7 +2043,7 @@ begin
 
       if not CurrInterval.IsDrawRectClear then
       begin
-        with Canvas do
+        with aCanvas do
         begin
           if (CurrInterval.IntervalType = itAction) and (CurrInterval.Style = isDefault) then
           begin
@@ -2155,14 +2172,14 @@ begin
     begin
       CurrInterval := TInterval(List[I]);
       for K := 0 to CurrInterval.ConnectionCount - 1 do
-        ConnectIntervals(CurrInterval, CurrInterval.Connection[K]);
+        ConnectIntervals(aCanvas,CurrInterval, CurrInterval.Connection[K]);
     end;
 
   FCurrentDate := VisibleStart;
 
   while FCurrentDate < VisibleFinish do
   begin
-    DrawMinorScale;
+    DrawMinorScale(aCanvas);
     FCurrentDate := IncTime(FCurrentDate, MinorScale, 1);
   end;
 
@@ -2170,7 +2187,7 @@ begin
 
   while FCurrentDate < VisibleFinish do
   begin
-    DrawMajorScale;
+    DrawMajorScale(aCanvas);
     FCurrentDate := IncTime(FCurrentDate, MajorScale, 1);
   end;
 
@@ -2179,8 +2196,11 @@ begin
       BMP[bri].Free;
     Setlength(BMP,0);
     List.Free;
-    SelectClipRgn(Canvas.Handle, 0);
-    DeleteObject(ClipRgn);
+    if DoClip then
+      begin
+        SelectClipRgn(aCanvas.Handle, 0);
+        DeleteObject(ClipRgn);
+      end;
   end;
 end;
 
@@ -2410,27 +2430,27 @@ begin
   Result := UnitsBetweenDates(VisibleStart,VisibleStart+1,MinorScale)*PixelsPerMinorScale;
 end;
 
-procedure TGanttCalendar.DrawHeaderLines;
+procedure TGanttCalendar.DrawHeaderLines(aCanvas: TCanvas);
 begin
-  with Canvas do
+  with aCanvas do
   begin
-    Canvas.Pen.Style := psSolid;
-    Canvas.Pen.Color := clBlack;
+    aCanvas.Pen.Style := psSolid;
+    aCanvas.Pen.Color := clBlack;
 
     MoveTo(0, MajorScaleHeight);
-    LineTo(ClientWidth, MajorScaleHeight);
+    LineTo(aCanvas.Width, MajorScaleHeight);
 
     MoveTo(0, MajorScaleHeight + MinorScaleHeight);
-    LineTo(ClientWidth, MajorScaleHeight + MinorScaleHeight);
+    LineTo(aCanvas.Width, MajorScaleHeight + MinorScaleHeight);
   end;
 end;
 
-procedure TGanttCalendar.ConnectIntervals(FromInterval, ToInterval: TInterval);
+procedure TGanttCalendar.ConnectIntervals(aCanvas : TCanvas;FromInterval, ToInterval: TInterval);
 var
   Plus: Integer;
   FromRect, ToRect: TRect;
 begin
-  with Canvas do
+  with aCanvas do
   begin
     Brush.Style := bsSolid;
     Brush.Color := clBlack;
@@ -2561,12 +2581,12 @@ begin
   end;
 end;
 
-procedure TGanttCalendar.DrawMinorScale;
+procedure TGanttCalendar.DrawMinorScale(aCanvas: TCanvas);
 var
   R, TextR: TRect;
   OldTransparent: Integer;
 begin
-  with Canvas do
+  with aCanvas do
   begin
     if IsNewPeriod(MinorScale) then
     begin
@@ -2596,8 +2616,8 @@ begin
 
       SetBKMode(Handle, OldTransparent);
 
-      Canvas.Pen.Style := psSolid;
-      Canvas.Pen.Color := clBlack;
+      aCanvas.Pen.Style := psSolid;
+      aCanvas.Pen.Color := clBlack;
 
       MoveTo(R.Left, MajorScaleHeight);
       LineTo(R.Left, MajorScaleHeight + MinorScaleHeight);
@@ -2605,13 +2625,13 @@ begin
   end;
 end;
 
-procedure TGanttCalendar.DrawMajorScale;
+procedure TGanttCalendar.DrawMajorScale(aCanvas: TCanvas);
 var
   OldTransparent: Integer;
   R: TRect;
   TextR: TRect;
 begin
-  with Canvas do
+  with aCanvas do
   begin
     OldTransparent := SetBKMode(Handle, TRANSPARENT);
 
@@ -2644,15 +2664,15 @@ begin
 
     SetBKMode(Handle, OldTransparent);
 
-    Canvas.Pen.Style := psSolid;
-    Canvas.Pen.Color := clBlack;
+    aCanvas.Pen.Style := psSolid;
+    aCanvas.Pen.Color := clBlack;
 
     MoveTo(R.Left, 0);
     LineTo(R.Left, MajorScaleHeight);
 
-    Canvas.Pen.Style := psDot;
-    Canvas.Pen.Color := clWhite;
-    Canvas.Brush.Color := clBlack;
+    aCanvas.Pen.Style := psDot;
+    aCanvas.Pen.Color := clWhite;
+    aCanvas.Brush.Color := clBlack;
 
     //MoveTo(R.Left, MajorScaleHeight + MinorScaleHeight);
     //LineTo(R.Left, Height);

@@ -418,7 +418,7 @@ object fGanttView: TfGanttView
         OnClick = bCancelClick
         ShowCaption = False
       end
-      object ToolButton3: TSpeedButton
+      object bCSave: TSpeedButton
         Left = 4
         Height = 28
         Hint = 'Änderungen übernehmen und Fenster schließen'
@@ -461,7 +461,7 @@ object fGanttView: TfGanttView
           0000000000000000000000000000000000000000000000000000000000000000
           0000000000000000000000000000000000000000000000000000
         }
-        OnClick = ToolButton3Click
+        OnClick = bCSaveClick
         ShowCaption = False
       end
     end
@@ -952,7 +952,6 @@ object fGanttView: TfGanttView
           FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
           FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
         }
-        OnClick = bSaveClick
         ShowCaption = False
       end
     end
@@ -1004,7 +1003,6 @@ object fGanttView: TfGanttView
     end
     object acExportToImage: TAction
       Caption = 'acExportToImage'
-      Enabled = False
       ImageIndex = 79
       OnExecute = acExportToImageExecute
     end
@@ -1014,6 +1012,10 @@ object fGanttView: TfGanttView
     Interval = 500
     OnTimer = RecalcTimerTimer
     left = 120
+    top = 56
+  end
+  object SavePictureDialog1: TSavePictureDialog
+    left = 208
     top = 56
   end
 end
