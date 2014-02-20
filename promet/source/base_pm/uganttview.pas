@@ -1098,8 +1098,8 @@ var
     Result := False;
     for i := 0 to aInterval.ConnectionCount-1 do
       Result := Result
-      or (DoPath(aInterval.Connection[i]) and (aInterval.Connection[i].StartDate<=aInterval.FinishDate));
-    if (aInterval.ConnectionCount = 0) and (aInterval.IntervalCount = 0) and (aInterval.FinishDate>=aLastDate) then
+      or (DoPath(aInterval.Connection[i]) and (aInterval.Connection[i].StartDate<=(aInterval.FinishDate+aInterval.Buffer)));
+    if (aInterval.ConnectionCount = 0) and (aInterval.IntervalCount = 0) and (aInterval.FinishDate+aInterval.Buffer>=aLastDate) then
       begin
         aRes := aInterval;
         Result := True;

@@ -375,10 +375,10 @@ object fGanttView: TfGanttView
       end
       object bCancel: TSpeedButton
         Left = 60
-        Height = 28
+        Height = 24
         Hint = 'Änderungen verwerfen'
-        Top = 12
-        Width = 32
+        Top = 14
+        Width = 28
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF

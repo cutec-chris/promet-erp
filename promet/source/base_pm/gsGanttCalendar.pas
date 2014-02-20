@@ -2129,9 +2129,11 @@ begin
             Brush.Bitmap := nil;
             Brush.Style := bsSolid;
             Brush.Color := CurrInterval.Color;
+            if CurrInterval.InCriticalPath then
+              Brush.Color := clRed;
             {$IFDEF WINDOWS}
             for bri := low(BMP) to high(BMP) do
-              if BMP[bri].Canvas.Pixels[0,0] = CurrInterval.Color then
+              if BMP[bri].Canvas.Pixels[0,0] = Brush.Color then
                 Brush.Bitmap := BMP[bri];
             if (not Assigned(Brush.Bitmap)) then
               begin
@@ -2141,14 +2143,16 @@ begin
                 BMP[high(BMP)].Height := 2;
                 BMP[high(BMP)].Canvas.Pixels[0, 1] := Color;
                 BMP[high(BMP)].Canvas.Pixels[1, 0] := Color;
-                BMP[high(BMP)].Canvas.Pixels[0, 0] := CurrInterval.Color;
-                BMP[high(BMP)].Canvas.Pixels[1, 1] := CurrInterval.Color;
+                BMP[high(BMP)].Canvas.Pixels[0, 0] := Brush.Color;
+                BMP[high(BMP)].Canvas.Pixels[1, 1] := Brush.Color;
                 Brush.Bitmap := BMP[high(BMP)];
               end;
             {$ENDIF}
             FillRect(CurrInterval.DrawRect);
             Brush.Bitmap := nil;
             Brush.Color := CurrInterval.Color;
+              if CurrInterval.InCriticalPath then
+                Brush.Color := clRed;
             Brush.Style := bsSolid;
             FrameRect(CurrInterval.DrawRect);
 
