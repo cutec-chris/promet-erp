@@ -15,7 +15,7 @@
       </Other>
     </CompilerOptions>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="11">
+    <RequiredPkgs Count="9">
       <Item1>
         <PackageName Value="jvRuntimeDesign"/>
         <DefaultFilename Value="jvdesign/jvRuntimeDesign.lpk"/>
@@ -37,28 +37,20 @@
         <DefaultFilename Value="../base_erp/perp.lpk"/>
       </Item5>
       <Item6>
-        <PackageName Value="pDocManage"/>
-        <DefaultFilename Value="../base_docmanage/pdocmanage.lpk"/>
-      </Item6>
-      <Item7>
-        <PackageName Value="pmessaging"/>
-        <DefaultFilename Value="../base_messaging/pmessaging.lpk"/>
-      </Item7>
-      <Item8>
         <PackageName Value="pPhones"/>
         <DefaultFilename Value="../base_phone/pphones.lpk"/>
-      </Item8>
-      <Item9>
+      </Item6>
+      <Item7>
         <PackageName Value="pcmdprometapp"/>
         <DefaultFilename Value="../base/pcmdprometapp.lpk"/>
-      </Item9>
-      <Item10>
+      </Item7>
+      <Item8>
         <PackageName Value="pVisualPrometApp"/>
         <DefaultFilename Value="../base/pvisualprometapp.lpk"/>
-      </Item10>
-      <Item11>
+      </Item8>
+      <Item9>
         <PackageName Value="FCL"/>
-      </Item11>
+      </Item9>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

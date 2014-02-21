@@ -25,7 +25,7 @@ uses
   Classes, SysUtils, LResources, Forms, Controls, Dialogs, Buttons, StdCtrls,
   ExtCtrls, ComCtrls, Utils, db, uIntfStrConsts, md5, mimepart, mimemess,
   Variants, uExtControls, uViewMessage, FileUtil, LCLType,
-  ActnList, uRichFrame, RichMemo, LCLProc, ClipBrd, Menus, DbCtrls, EditBtn,
+  ActnList, urichframe, RichMemo, LCLProc, ClipBrd, Menus, DbCtrls, EditBtn,
   htmltortf, uMessages, uDocumentFrame, uBaseSearch, uBaseDbClasses;
 type
   THackComboBox = class(TComboBox);

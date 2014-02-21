@@ -84,8 +84,6 @@ var
 
 implementation
 
-{$R *.lfm}
-
 { TfRichFrame }
 
 procedure TfRichFrame.rmTextClick(Sender: TObject);
@@ -264,5 +262,6 @@ begin
   rmText.Clear;
 end;
 
+initialization
 end.
-
+

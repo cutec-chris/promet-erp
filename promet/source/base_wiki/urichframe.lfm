@@ -5,7 +5,6 @@ object fRichFrame: TfRichFrame
   Width = 465
   ClientHeight = 249
   ClientWidth = 465
-  LCLVersion = '0.9.31'
   TabOrder = 0
   DesignLeft = 441
   DesignTop = 286
@@ -83,7 +82,6 @@ object fRichFrame: TfRichFrame
       FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
     }
     GroupIndex = 1
-    NumGlyphs = 0
     ShowCaption = False
   end
   object bBold: TSpeedButton
@@ -139,7 +137,6 @@ object fRichFrame: TfRichFrame
       FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
     }
     GroupIndex = 2
-    NumGlyphs = 0
     ShowCaption = False
   end
   object bUnderline: TSpeedButton
@@ -195,7 +192,6 @@ object fRichFrame: TfRichFrame
       FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
     }
     GroupIndex = 3
-    NumGlyphs = 0
     ShowCaption = False
   end
   object cbFontColor: TColorButton
@@ -261,12 +257,11 @@ object fRichFrame: TfRichFrame
       FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
     }
     GroupIndex = 4
-    NumGlyphs = 0
     ShowCaption = False
   end
   object seFontSize: TSpinEdit
     Left = 336
-    Height = 15
+    Height = 21
     Top = 5
     Width = 48
     MaxValue = 45
@@ -299,4 +294,4 @@ object fRichFrame: TfRichFrame
       OnExecute = acStrikeOutExecute
     end
   end
-end
+end

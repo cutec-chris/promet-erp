@@ -18,12 +18,15 @@
     <RequiredPkgs Count="6">
       <Item1>
         <PackageName Value="general"/>
+        <DefaultFilename Value="../../../general/general.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="ZVDateTimeCtrls"/>
+        <DefaultFilename Value="ZVDateTimeCtrls/zvdatetimectrls.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="v103_lazarus"/>
+        <DefaultFilename Value="tvplanit/packages/v103_lazarus.lpk"/>
       </Item3>
       <Item4>
         <PackageName Value="richmemopackage"/>

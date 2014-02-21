@@ -42,9 +42,11 @@
     <RequiredPkgs Count="4">
       <Item1>
         <PackageName Value="pOptions"/>
+        <DefaultFilename Value="../base_options/poptions.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="pvisualframes"/>
+        <DefaultFilename Value="../base_frames/pvisualframes.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="lcl"/>
