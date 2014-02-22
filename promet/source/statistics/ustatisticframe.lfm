@@ -6,7 +6,7 @@ inherited fStatisticFrame: TfStatisticFrame
   OnEnter = FrameEnter
   OnExit = FrameExit
   DesignLeft = 257
-  DesignTop = 151
+  DesignTop = 142
   object ToolBar1: TPanel[0]
     Left = 0
     Height = 44
@@ -179,7 +179,7 @@ inherited fStatisticFrame: TfStatisticFrame
       end
     end
     object Panel6: TPanel
-      Left = 250
+      Left = 348
       Height = 44
       Top = 0
       Width = 56
@@ -299,7 +299,7 @@ inherited fStatisticFrame: TfStatisticFrame
       end
     end
     object pNav1: TPanel
-      Left = 306
+      Left = 404
       Height = 44
       Top = 0
       Width = 43
@@ -363,7 +363,7 @@ inherited fStatisticFrame: TfStatisticFrame
       end
     end
     object pNav2: TPanel
-      Left = 349
+      Left = 447
       Height = 44
       Top = 0
       Width = 43
@@ -485,15 +485,15 @@ inherited fStatisticFrame: TfStatisticFrame
       end
     end
     object Panel7: TPanel
-      Left = 392
+      Left = 490
       Height = 44
       Top = 0
-      Width = 460
+      Width = 362
       Align = alLeft
       Anchors = [akTop, akLeft, akRight, akBottom]
       BevelOuter = bvNone
       ClientHeight = 44
-      ClientWidth = 460
+      ClientWidth = 362
       TabOrder = 5
       object Label6: TLabel
         Left = 8
@@ -521,9 +521,9 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object eName: TDBEdit
         Left = 8
-        Height = 21
+        Height = 24
         Top = 16
-        Width = 452
+        Width = 354
         DataField = 'NAME'
         DataSource = Datasource
         Anchors = [akTop, akLeft, akRight]
@@ -532,21 +532,136 @@ inherited fStatisticFrame: TfStatisticFrame
         TabOrder = 0
       end
     end
+    object pTools: TPanel
+      Left = 250
+      Height = 44
+      Top = 0
+      Width = 98
+      Align = alLeft
+      BevelOuter = bvNone
+      ClientHeight = 44
+      ClientWidth = 98
+      TabOrder = 6
+      Visible = False
+      object Label7: TLabel
+        Left = 4
+        Height = 15
+        Top = 0
+        Width = 90
+        Alignment = taCenter
+        Anchors = [akLeft, akRight, akBottom]
+        AutoSize = False
+        BorderSpacing.Left = 5
+        Caption = 'Werkzeuge'
+        Font.Color = clMedGray
+        Font.Height = 11
+        ParentColor = False
+        ParentFont = False
+      end
+      object ToolButton3: TSpeedButton
+        Left = 4
+        Height = 28
+        Top = 12
+        Width = 28
+        Action = acFormatSQL
+        Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000064000000640000000000000000000000905B3114905B
+          3184905B31A3905B31B6905B31C9905B31DA905B31EB905B31FA956139FF9A69
+          41FFA3744FFFAD825FFF905B31D9905B3134FFFFFF00FFFFFF00945F3368B890
+          6DFFD6BAA3FFDFC6B3FFE7D4C3FFEEDFD3FFF5EAE2FFFBF4EFFFFDFAF6FFFFFE
+          FDFFFBEBDFFFFBEFE6FFC19D80FF945F336FFFFFFF00FFFFFF0099643689C7A4
+          85FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFCFFFEFBF7FFFEF7F1FFFEF6
+          F1FFE4AE86FFFAE8DBFFCEAF95FF9964368BFFFFFF00FFFFFF009E6939579E69
+          39F6B48559FFD9A57BFFD89E6FFFD79B6AFFD89663FFD6925DFFD48F59FFD38E
+          57FFE29D69FFFAE3D1FFD8BBA2FF9E69399EFFFFFF00FFFFFF00A46F3C14A46F
+          3CABD5AE8CFFFDF0E5FFF7C7A2FFF7CFADFFF9D5B5FFF8DABDFFF8DEC2FFFAE1
+          C6FFFAE4CCFFFDF5ECFFE2CEBAFFA46F3CB3FFFFFF00FFFFFF00FFFFFF00AA75
+          4028B78656FFFEFEFDFFFADEC2FFFADCBFFFF9DBC0FFF9DBC0FFF9DDC1FFFADB
+          C0FFFADCC3FFFDEBDEFFECDCCDFFAA7540CAFFFFFF00FFFFFF00FFFFFF00B17B
+          431EB98652FFFEFCF9FFF9DCBFFFF8DBBFFFF8DCC0FFF9DBC2FFF9DCC1FFF9DD
+          C2FFFADDC3FFFBE7D4FFF5EDE2FFB17B43E4FFFFFF00FFFFFF00FFFFFF00B782
+          4709B9854BFFFEFBF7FFF9DCC1FFF8DCBFFFF8DCBFFFF8DBC0FFF9DDC0FFF9DD
+          C0FFF9DDC3FFFBE2CBFFFCF9F5FFB78247FBB7824701FFFFFF00FFFFFF00FFFF
+          FF00BD884BF9FCF6F0FFF9DFC7FFF9DCBDFFFADCBFFFFADBC1FFFADDC3FFFADD
+          C2FFF9DDC4FFFBE0C9FFFFFCFAFFC18D53FFBD884B0FFFFFFF00FFFFFF00FFFF
+          FF00C48E4EDAF5E7D8FFFAE5D2FFF9DABCFFF9DBBCFFFADBBFFFFADDC1FFFADD
+          C1FFF9DDC4FFFBE1C8FFFFFDFBFFC89457FFC48E4E12FFFFFF00FFFFFF00FFFF
+          FF00CA9452BBF0D9C1FFFBEDE1FFF9DAC0FFF9DCC2FFF9DEC5FFFAE0C7FFFAE2
+          CAFFFAE2CDFFFAE5D0FFFFFEFDFFCB8F5AFFCA9452F1CA945245FFFFFF00FFFF
+          FF00D09A55A4EDD0B2FFFFF6F0FFFAE1CAFFFBE3CCFFFBE3D0FFFBE6D3FFFBE9
+          D5FFFCE9D8FFFCEADBFFFFFFFDFFD29D71FFEED9C1FFD09A55E5FFFFFF00FFFF
+          FF00D59F5892EBCAA5FFFFFDFBFFFDE9D5FFFDEBD8FFFDEADBFFFDEDDFFFFDF0
+          E2FFFDF1E4FFFCF0E4FFFFFFFFFFE0A070FFFFFBF9FFDFB887FFFFFFFF00FFFF
+          FF00DAA45B84EBC69AFFFFFFFFFFFCEFE2FFFDF0E7FFFDF1EBFFFDF5EEFFFDF8
+          F1FFFDFAF7FFFFFCFAFFFFFFFFFFFEFBF7FFF4DAC0FFDAA45BEAFFFFFF00FFFF
+          FF00DEA85D6DEAC08CFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDF9F4FFFBF3
+          EAFFF8EBD9FFF8E6D3FFF5DFC6FFE9CBA6FFDEA85DEDDEA85D5DFFFFFF00FFFF
+          FF00E2AC5F36E2AC5FC6EABC81FFE8B777FFE6B26DFFE4B068FFE2AC5FF0E2AC
+          5FE3E2AC5FCFE2AC5FCCE2AC5FBBE2AC5FA8E2AC5F4BE2AC5F05
+        }
+        ShowCaption = False
+      end
+      object ToolButton4: TSpeedButton
+        Left = 32
+        Height = 28
+        Top = 12
+        Width = 28
+        Action = acCopyToNewTable
+        Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000064000000640000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          000000000000000000000000000000000000000000000000000000000000D69E
+          73FFD79D6FFFD7966BFFCE9663FFCF8E5EFFCF8E5BFFC78756FFC78452FFC784
+          52FFC78452FFC78452FFC78452FFC78452FFBF7742FF0000000000000000D7A5
+          77FFFFF7EFFFF7F7EFFFF7EFE7FFF7EFE7FFF7E7DEFFF7E7DFFFF7E7DEFFF7E7
+          DEFFF7E7DEFFF7E7DEFFF7E7DEFFF7E7DEFFC78E5FFF0000000000000000DFA5
+          7BFFFFF7EFFFEFD6BFFFFFFFFFFFEFD7BFFFFFFFFFFFFFFFFFFFFFFFFFFFEFC7
+          ADFFFFFFFFFFFFFFFFFFFFFFFFFFF7E7DEFFC68C5FFF0000000000000000DFAD
+          7FFFFFF7EFFFEFD6BFFFEFD6BFFFEFD6BFFFEFD6BFFFEFD6BFFFEFD7BDFFEFCF
+          B5FFEFCFB5FFEFCFB5FFEFCFB5FFF7E7DEFFC68E5EFF0000000000000000DFAF
+          86FFFFF7EFFFEFCEB7FFFFFFFFFFEFD6BFFFFFFFFFFFFFFFFFFFFFFFFFFFEFCF
+          BFFFFFF7F7FFFFFFFFFFFFFFFFFFF7E7DEFFCE8D5FFF0000000000000000E7AF
+          87FFFFF7F7FFEFCFB7FFEFCEB7FFEFCEB7FFEFCEB7FFEFCEB7FFEFCEB7FFEFC7
+          ADFFEFC7ADFFEFCEB5FFEFCEAFFFF7E7DEFFC68656FF0000000000000000E7B5
+          8CFFFFF7F7FFEFCFAFFFFFFFFFFFEFCFB5FFFFFFFFFFFFFFFFFFFFFFFFFFEFC7
+          ADFFFFFFFFFFFFFFFFFFFFFFFFFFF7E7DFFFC68657FF0000000000000000E7B5
+          8FFFFFF7F7FFEFC6AFFFEFC6ADFFEFC7ADFFEFC7ADFFEFCFAFFFEFCFB5FFEFC7
+          ADFFEFCFB5FFEFCEB5FFEFCEB5FFF7E7DEFFCE8E5BFF0000000000000000E7B7
+          94FFFFF7F7FFEFC7A7FFFFFFFFFFEFC6ADFFFFFFFFFFFFFFFFFFFFFFFFFFEFC7
+          ADFFFFFFFFFFFFFFFFFFFFFFFFFFF7F7EFFFCF8F5FFF0000000000000000EFBF
+          9CFFFFF7F7FFEFC7A7FFEFC7A7FFEFC7A7FFEFC7A7FFEFC7A7FFEFC7A7FFEFC7
+          A7FFEFC7A7FFEFC7A7FFEFC7A7FFFFF7F7FFCE9767FF0000000000000000EFBD
+          9FFFFFF7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7F7FFD7976BFF0000000000000000EFBF
+          9EFFFFF7F7FF9CD7A5FF9CD7A5FF94D69DFF94CE9CFF8FCF97FF87CF8EFF86C6
+          8DFF7FC784FF7BC784FF77BF7FFFFFF7F7FFD69F6FFF0000000000000000EFC7
+          A5FFFFF7F7FFFFF7F7FFFFF7F7FFFFF7F7FFFFF7F7FFFFF7F7FFFFF7F7FFFFF7
+          F7FFFFF7F7FFFFF7F7FFFFF7F7FFFFF7F7FFD7A577FF00000000000000000000
+          0000EFC7A7FFEFC69FFFEFBF9DFFEFBD9EFFEFBF96FFE7B797FFE7B594FFE7B7
+          8CFFE7AF8CFFE7AD84FFDFAD84FFDEA57FFFDEA77BFF00000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000
+        }
+        ShowCaption = False
+      end
+    end
   end
   object pTop: TPanel[1]
     Left = 0
-    Height = 200
+    Height = 336
     Top = 44
     Width = 864
     Align = alTop
     BevelOuter = bvNone
-    ClientHeight = 200
+    ClientHeight = 336
     ClientWidth = 864
     TabOrder = 1
     Visible = False
     object PageControl1: TPageControl
       Left = 0
-      Height = 200
+      Height = 336
       Top = 0
       Width = 864
       ActivePage = tsMaster
@@ -555,12 +670,12 @@ inherited fStatisticFrame: TfStatisticFrame
       TabOrder = 0
       object tsMaster: TTabSheet
         Caption = 'Master'
-        ClientHeight = 174
+        ClientHeight = 300
         ClientWidth = 856
         inline smQuerry: TSynMemo
           Cursor = crIBeam
           Left = 0
-          Height = 117
+          Height = 248
           Top = 0
           Width = 856
           Align = alClient
@@ -1167,29 +1282,20 @@ inherited fStatisticFrame: TfStatisticFrame
         object lbErrors: TListBox
           Left = 0
           Height = 52
-          Top = 122
+          Top = 248
           Width = 856
           Align = alBottom
           ItemHeight = 0
-          ScrollWidth = 866
+          ScrollWidth = 854
           TabOrder = 1
-          Visible = False
-        end
-        object Splitter3: TSplitter
-          Cursor = crVSplit
-          Left = 0
-          Height = 5
-          Top = 117
-          Width = 856
-          Align = alBottom
-          ResizeAnchor = akBottom
+          TopIndex = -1
           Visible = False
         end
       end
       object tsDetail: TTabSheet
         Caption = 'Detail'
-        ClientHeight = 164
-        ClientWidth = 868
+        ClientHeight = 300
+        ClientWidth = 856
         inline smQuerry1: TSynMemo
           Cursor = crIBeam
           Left = 0
@@ -1800,8 +1906,8 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object tsSubDetail: TTabSheet
         Caption = 'Sub Detail'
-        ClientHeight = 164
-        ClientWidth = 868
+        ClientHeight = 300
+        ClientWidth = 856
         inline smQuerry2: TSynMemo
           Cursor = crIBeam
           Left = 0
@@ -2416,7 +2522,7 @@ inherited fStatisticFrame: TfStatisticFrame
     Cursor = crVSplit
     Left = 0
     Height = 5
-    Top = 244
+    Top = 380
     Width = 864
     Align = alTop
     ResizeAnchor = akTop
@@ -2425,8 +2531,8 @@ inherited fStatisticFrame: TfStatisticFrame
   end
   object pcTabs: TPageControl[3]
     Left = 8
-    Height = 432
-    Top = 258
+    Height = 296
+    Top = 394
     Width = 848
     ActivePage = tsDescription
     Align = alClient
@@ -2435,7 +2541,7 @@ inherited fStatisticFrame: TfStatisticFrame
     TabOrder = 3
     object tsReport: TTabSheet
       Caption = 'Report'
-      ClientHeight = 406
+      ClientHeight = 260
       ClientWidth = 840
       object Panel2: TPanel
         Left = 0
@@ -2604,23 +2710,23 @@ inherited fStatisticFrame: TfStatisticFrame
     end
     object tsResults: TTabSheet
       Caption = 'Ergebnisliste'
-      ClientHeight = 406
+      ClientHeight = 260
       ClientWidth = 840
       object Panel1: TPanel
         Left = 0
-        Height = 377
+        Height = 224
         Top = 0
         Width = 840
         Align = alClient
         BevelOuter = bvNone
         Caption = 'Panel1'
-        ClientHeight = 377
+        ClientHeight = 224
         ClientWidth = 840
         TabOrder = 0
         object gList: TDBGrid
           Left = 4
-          Height = 73
-          Top = 21
+          Height = 1
+          Top = 20
           Width = 832
           Align = alClient
           BorderSpacing.Around = 4
@@ -2637,7 +2743,7 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object Label1: TLabel
           Left = 4
-          Height = 13
+          Height = 14
           Top = 4
           Width = 832
           Align = alTop
@@ -2650,7 +2756,7 @@ inherited fStatisticFrame: TfStatisticFrame
         object pDetails: TPanel
           Left = 0
           Height = 274
-          Top = 103
+          Top = -50
           Width = 840
           Align = alBottom
           BevelOuter = bvNone
@@ -2670,7 +2776,7 @@ inherited fStatisticFrame: TfStatisticFrame
             TabOrder = 0
             object Label5: TLabel
               Left = 4
-              Height = 13
+              Height = 14
               Top = 4
               Width = 832
               Align = alTop
@@ -2682,8 +2788,8 @@ inherited fStatisticFrame: TfStatisticFrame
             end
             object gSubDetail: TDBGrid
               Left = 4
-              Height = 145
-              Top = 21
+              Height = 144
+              Top = 22
               Width = 832
               Align = alClient
               BorderSpacing.Around = 4
@@ -2708,7 +2814,7 @@ inherited fStatisticFrame: TfStatisticFrame
           end
           object Label2: TLabel
             Left = 4
-            Height = 13
+            Height = 14
             Top = 4
             Width = 832
             Align = alTop
@@ -2720,8 +2826,8 @@ inherited fStatisticFrame: TfStatisticFrame
           end
           object gDetail: TDBGrid
             Left = 4
-            Height = 74
-            Top = 21
+            Height = 73
+            Top = 22
             Width = 832
             Align = alClient
             BorderSpacing.Around = 4
@@ -2738,7 +2844,7 @@ inherited fStatisticFrame: TfStatisticFrame
           Cursor = crVSplit
           Left = 0
           Height = 5
-          Top = 98
+          Top = 17
           Width = 840
           Align = alBottom
           ResizeAnchor = akBottom
@@ -2748,8 +2854,8 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object lStatus: TLabel
         Left = 8
-        Height = 13
-        Top = 385
+        Height = 14
+        Top = 232
         Width = 824
         Align = alBottom
         BorderSpacing.Around = 8
@@ -2762,14 +2868,14 @@ inherited fStatisticFrame: TfStatisticFrame
     end
     object tsDescription: TTabSheet
       Caption = 'Beschreibung'
-      ClientHeight = 406
+      ClientHeight = 260
       ClientWidth = 840
       object DBMemo1: TDBMemo
-        Left = 4
-        Height = 392
-        Top = 8
-        Width = 824
-        Anchors = [akTop, akLeft, akRight, akBottom]
+        Left = 0
+        Height = 260
+        Top = 0
+        Width = 840
+        Align = alClient
         DataField = 'DESCRIPTION'
         DataSource = Datasource
         Font.Height = -16
@@ -2781,7 +2887,7 @@ inherited fStatisticFrame: TfStatisticFrame
   object ToolBar: TToolBar[4]
     Left = 0
     Height = 1
-    Top = 249
+    Top = 385
     Width = 864
     AutoSize = True
     ButtonHeight = 32
@@ -2789,6 +2895,7 @@ inherited fStatisticFrame: TfStatisticFrame
     TabOrder = 4
   end
   object ActionList1: TActionList[5]
+    Images = fVisualControls.Images
     left = 196
     top = 64
     object acSave: TAction
@@ -2840,6 +2947,17 @@ inherited fStatisticFrame: TfStatisticFrame
     object acExecute: TAction
       Caption = 'Ausführen'
       OnExecute = acExecuteExecute
+    end
+    object acFormatSQL: TAction
+      Caption = 'SQL Formatieren'
+      Hint = 'formatiert den SQL Code neu'
+      ImageIndex = 62
+      OnExecute = acFormatSQLExecute
+    end
+    object acCopyToNewTable: TAction
+      Caption = 'in Tabelle kopieren'
+      Hint = 'kopiert den Inhalt der aktuellen Abfrage in eine Tabelle auf die Sie später zugreifen können'
+      ImageIndex = 24
     end
   end
   object pmAction: TPopupMenu[6]

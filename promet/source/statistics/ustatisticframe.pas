@@ -43,6 +43,8 @@ type
     acRestart: TAction;
     acGotoParent: TAction;
     acExecute: TAction;
+    acFormatSQL: TAction;
+    acCopyToNewTable: TAction;
     ActionList1: TActionList;
     bEditFilter: TSpeedButton;
     Bevel3: TBevel;
@@ -70,6 +72,7 @@ type
     Label2: TLabel;
     Label5: TLabel;
     Label6: TLabel;
+    Label7: TLabel;
     lbErrors: TListBox;
     lStatus: TLabel;
     miCopy: TMenuItem;
@@ -96,6 +99,7 @@ type
     Panel1: TPanel;
     Panel2: TPanel;
     Panel4: TPanel;
+    pTools: TPanel;
     Panel6: TPanel;
     Panel7: TPanel;
     pcTabs: TPageControl;
@@ -119,13 +123,14 @@ type
     smQuerry2: TSynMemo;
     spDetails: TSplitter;
     Splitter2: TSplitter;
-    Splitter3: TSplitter;
     spSubDetails: TSplitter;
     StatisticDS: TDatasource;
     StatisticResults: TDatasource;
     SubDetail: TDatasource;
     SynSQLSyn1: TSynSQLSyn;
     ExecuteTimer: TTimer;
+    ToolButton3: TSpeedButton;
+    ToolButton4: TSpeedButton;
     tsDescription: TTabSheet;
     ToolBar: TToolBar;
     ToolBar1: TPanel;
@@ -142,10 +147,12 @@ type
     procedure acDeleteExecute(Sender: TObject);
     procedure acExecuteExecute(Sender: TObject);
     procedure acExportExecute(Sender: TObject);
+    procedure acFormatSQLExecute(Sender: TObject);
     procedure acPrintExecute(Sender: TObject);
     procedure acRightsExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
     procedure acSetTreeDirExecute(Sender: TObject);
+    procedure aStmtException(e: Exception;aCol,aRow : Integer);
     procedure bEditFilterClick(Sender: TObject);
     procedure BtZoomInClick(Sender: TObject);
     procedure BtZoomOutClick(Sender: TObject);
@@ -180,7 +187,7 @@ type
     FTables : TStringList;
     FTreeNode : TTreeNode;
     procedure ParseForms(Filter: string);
-    procedure CheckSQL;
+    function CheckSQL(DoFormat : Boolean = False) : Boolean;
     function BuildSQL(aIn : string) : string;
   protected
     procedure SetDataSet(const AValue: TBaseDBDataset);override;
@@ -194,8 +201,6 @@ type
     procedure New;override;
     procedure SetLanguage;override;
     procedure ShowFrame; override;
-  end;
-  TOwnSQLParser = class(TSQLParser)
   end;
 procedure AddToMainTree(aAction : TAction;Node : TTreeNode);
 var
@@ -331,7 +336,6 @@ begin
   N7.Visible := False;
   ProcMenu.Popup(pt.x + 4, pt.y + 6);
 end;
-
 procedure TfStatisticFrame.ParseForms(Filter: string);
 var
   aControl : TControl;
@@ -458,115 +462,21 @@ begin
         end;
     end;
 end;
-
-procedure TfStatisticFrame.CheckSQL;
+function TfStatisticFrame.CheckSQL(DoFormat: Boolean): Boolean;
 var
-  FStatementList: TSQLElementList;
-  i: Integer;
-  aStmt: TSQLElement = nil;
-  FExcludeKeywords: TStringList;
-  FToken: TSQLToken;
-  FSQLStream : TStringStream;
-  FSQLParser : TOwnSQLParser;
-  FSQLScanner : TSQLScanner;
+  aStmt: TSQLStatemnt;
   m: TSynEditMark;
-  FStmtCount : Integer = 0;
-  ErrVisible : Boolean = False;
-
-  procedure GetStmtTables;
-  var
-    aList: TSQLElementList;
-    a: Integer;
-  begin
-    FTables.Clear;
-    if aStmt is TSQLSelectStatement then
-      begin
-        aList := TSQLSelectStatement(aStmt).Tables;
-        for a := 0 to aList.Count-1 do
-          if aList[a] is TSQLSimpleTableReference then
-            FTables.Add(TSQLSimpleTableReference(aList[a]).ObjectName.Name);
-      end;
-  end;
 begin
-  FSQLStream := TStringStream.Create(BuildSQL(DataSet.FieldByName('QUERRY').AsString));
-  FExcludeKeywords := TStringList.Create;
-  FExcludeKeywords.Add('SUBSTRING');
-  FExcludeKeywords.Add('REPLACE');
-  FExcludeKeywords.Add('CHARINDEX');
-  FExcludeKeywords.Add('CHARINDEX');
-  FExcludeKeywords.Add('CHARINDEX');
-  FSQLScanner := TSQLScanner.Create(FSQLStream);
-  FSQLScanner.ExcludeKeywords := FExcludeKeywords;
-  FToken := FSQLScanner.FetchToken;
+  Result := True;
+  aStmt := TSQLStatemnt.Create;
+  aStmt.SQL:=BuildSQL(DataSet.FieldByName('QUERRY').AsString);
+  aStmt.OnException:=@aStmtException;
   lbErrors.Clear;
-  if trim(FSQLStream.DataString) <> '' then inc(FStmtCount);
-  try
-    while (FToken <> tsqlEOF) do
-      begin
-        if FToken = tsqlSEMICOLON then inc(FStmtCount);
-//        lbErrors.Items.Add('Token:'+IntToStr(FSQLScanner.CurRow)+':'+IntToStr(FSQLScanner.CurColumn)+' '+FSQLScanner.CurTokenString+' Info:'+TokenInfos[FSQLScanner.CurToken]);
-        FToken := FSQLScanner.FetchToken;
-      end;
-  except
-    on e : Exception do
-      begin
-        m := TSynEditMark.Create(smQuerry);
-        m.Line := FSQLScanner.CurRow;
-        m.ImageList := GutterImages;
-        m.ImageIndex := 0;
-        m.Column:=FSQLScanner.CurColumn;
-        m.Visible := true;
-        smQuerry.Marks.Add(m);
-        lbErrors.Items.Add('['+IntToStr(FSQLScanner.CurRow)+':'+IntToStr(FSQLScanner.CurColumn)+'] '+e.Message);
-        ErrVisible := True;
-      end;
-  end;
-  FreeAndNil(FSQLScanner);
-  FSQLStream.Position:=0;
-  FSQLScanner := TSQLScanner.Create(FSQLStream);
-  FSQLScanner.ExcludeKeywords := FExcludeKeywords;
-  FSQLParser := TOwnSQLParser.Create(FSQLScanner);
-  if not ErrVisible then
-    begin
-      while smQuerry.Marks.Count > 0 do
-        smQuerry.Marks.Delete(0);
-      try
-        aStmt := FSQLParser.Parse;
-        dec(FStmtCount);
-        GetStmtTables;
-        while (FStmtCount > 0) and (FSQLScanner.CurToken <> tsqlEOF) do
-          begin
-            aStmt := FSQLParser.Parse;
-            dec(FStmtCount);
-          end;
-
-      except
-        on e : ESQLParser do
-          begin
-            if e.Col > 0 then
-              begin
-                m := TSynEditMark.Create(smQuerry);
-                m.Line := e.Line;
-                m.ImageList := GutterImages;
-                m.ImageIndex := 0;
-                m.Column:=e.Col;
-                m.Visible := true;
-                smQuerry.Marks.Add(m);
-                lbErrors.Items.Add('['+IntToStr(e.Line)+':'+IntToStr(e.Col)+'] '+e.Message+','+FSQLParser.CurSource);
-                ErrVisible := True;
-              end;
-          end;
-      end;
-    end;
-  FSQLParser.Free;
-  FSQLScanner.Free;
-  FExcludeKeywords.Free;
-  FSQLStream.Free;
-  if lbErrors.Visible <> ErrVisible then
-    begin
-      lbErrors.Visible:=ErrVisible;
-      Splitter3.Visible:=ErrVisible;
-    end;
+  while smQuerry.Marks.Count > 0 do
+    smQuerry.Marks.Delete(0);
+  if not aStmt.Parse then
+    lbErrors.Visible:=True;
+  aStmt.Free;
 end;
 
 function MSecToTimeStr(mSec : Int64) : string;
@@ -721,6 +631,7 @@ begin
   aTime := GetTickCount;
   frPreview.Caption:=strGenerating;
   tsResults.TabVisible:=False;
+  tsDescription.TabVisible:=False;
   try
     try
       if Assigned(StatisticResults.DataSet) then
@@ -749,6 +660,7 @@ begin
       lStatus.Caption:=Format(strQueryTime,[MSecToTimeStr(aTime),StatisticResults.DataSet.RecordCount]);
       lStatus.Visible:=True;
       fSelectReport.ReportType:= copy(DataSet.Id.AsString,length(DataSet.Id.AsString)-3,4);
+      tsResults.TabVisible:=True;
       pcTabs.ActivePage := tsResults;
       if Data.Reports.Count > 0 then
         begin
@@ -763,7 +675,9 @@ begin
               pcTabs.ActivePage := tsReport;
             end;
         end
-      else pcTabs.ActivePage:=tsResults;
+      else
+        pcTabs.ActivePage:=tsResults;
+      Application.ProcessMessages;
       if tsReport.TabVisible then
         begin
           if frReport.PrepareReport then
@@ -772,8 +686,13 @@ begin
             frPreview.TwoPages
           else frPreview.Zoom:=100;
         end;
-      if pcTabs.ActivePage = tsResults then
-        gList.SetFocus;
+      if (pcTabs.ActivePage = tsResults) and Visible then
+        begin
+          gList.SetFocus;
+        end;
+      acExecute.Enabled:=True;
+      bExecute1.Action := acExecute;
+      exit;
     except
       on E : Exception do
         begin
@@ -783,7 +702,6 @@ begin
         end;
     end;
   finally
-    tsResults.TabVisible:=True;
   end;
   acExecute.Enabled:=True;
   bExecute1.Action := acExecute;
@@ -859,6 +777,12 @@ begin
     end;
 end;
 
+procedure TfStatisticFrame.acFormatSQLExecute(Sender: TObject);
+begin
+  if CheckSQL then
+    CheckSQL(True);
+end;
+
 procedure TfStatisticFrame.acPrintExecute(Sender: TObject);
 var
   ID: String;
@@ -905,6 +829,20 @@ begin
     end;
 end;
 
+procedure TfStatisticFrame.aStmtException(e: Exception;aCol,aRow : Integer);
+var
+  m: TSynEditMark;
+begin
+  m := TSynEditMark.Create(smQuerry);
+  m.Line := aRow;
+  m.ImageList := GutterImages;
+  m.ImageIndex := 0;
+  m.Column:=aCol;
+  m.Visible := true;
+  smQuerry.Marks.Add(m);
+  lbErrors.Items.Add('['+IntToStr(aRow)+':'+IntToStr(aCol)+'] '+e.Message);
+end;
+
 procedure TfStatisticFrame.bEditFilterClick(Sender: TObject);
 var
   Animate: TAnimationController;
@@ -933,6 +871,7 @@ begin
   smQuerry.EndUpdate;
   bEditFilter.Enabled:=True;
   Splitter2.Visible:=bEditFilter.Down;
+  pTools.Visible:=bEditFilter.Down;
 end;
 
 procedure TfStatisticFrame.BtZoomInClick(Sender: TObject);

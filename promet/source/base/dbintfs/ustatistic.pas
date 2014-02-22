@@ -24,9 +24,32 @@ unit uStatistic;
 interface
 
 uses
-  Classes, SysUtils, uBaseDbClasses, db, uBaseDbInterface,uIntfStrConsts;
+  Classes, SysUtils, uBaseDbClasses, db, uBaseDbInterface,uIntfStrConsts,
+  fpsqlparser,fpsqlscanner,fpsqltree;
 
 type
+  TOwnSQLParser = class(TSQLParser)
+  end;
+  TSQLExceptionEvent = procedure(e : Exception;aCol,aRow : Integer) of object;
+
+  { TSQLStatemnt }
+
+  TSQLStatemnt = class
+  private
+    FExcept: TSQLExceptionEvent;
+    FFormated: string;
+    FSQL: string;
+    FStatememt: TSQLElementList;
+    procedure SetSQL(AValue: string);
+  public
+    property SQL : string read FSQL write SetSQL;
+    property FormatedSQL : string read FFormated;
+    property Statements : TSQLElementList read FStatememt;
+    property OnException : TSQLExceptionEvent read FExcept write FExcept;
+    function Parse : Boolean;
+    constructor Create;
+    destructor Destroy; override;
+  end;
 
   { TStatistic }
 
@@ -42,7 +65,125 @@ type
   end;
 
 implementation
-uses uBaseApplication;
+uses uBaseApplication,uData;
+
+{ TSQLStatement }
+
+procedure TSQLStatemnt.SetSQL(AValue: string);
+begin
+  FSQL := AValue;
+end;
+
+function TSQLStatemnt.Parse: Boolean;
+var
+  FStatementList: TSQLElementList;
+  i: Integer;
+  aStmt: TSQLElement = nil;
+  FExcludeKeywords: TStringList;
+  FToken: TSQLToken;
+  FSQLStream : TStringStream;
+  FSQLParser : TOwnSQLParser;
+  FSQLScanner : TSQLScanner;
+  FStmtCount : Integer = 0;
+  ErrVisible : Boolean = False;
+  aOut : string = '';
+  FTables: TStringList;
+
+  function CheckStmtTables : Boolean;
+  var
+    aList: TSQLElementList;
+    a: Integer;
+    aName: TSQLStringType;
+  begin
+    Result := True;
+    FTables.Clear;
+    if aStmt is TSQLSelectStatement then
+      begin
+        aList := TSQLSelectStatement(aStmt).Tables;
+        for a := 0 to aList.Count-1 do
+          if aList[a] is TSQLSimpleTableReference then
+            begin
+              aName := TSQLSimpleTableReference(aList[a]).ObjectName.Name;
+              FTables.Add(aName);
+              if Assigned(Data) then
+                if Data.Users.Rights.Right(aName)<RIGHT_READ then
+                  Result := False;
+            end;
+      end;
+  end;
+begin
+  Result := True;
+  FSQLStream := TStringStream.Create(FSQL);
+  FTables := TStringList.Create;
+  FExcludeKeywords := TStringList.Create;
+  FExcludeKeywords.Add('SUBSTRING');
+  FExcludeKeywords.Add('REPLACE');
+  FExcludeKeywords.Add('CHARINDEX');
+  FExcludeKeywords.Add('CHARINDEX');
+  FExcludeKeywords.Add('CHARINDEX');
+  FSQLScanner := TSQLScanner.Create(FSQLStream);
+  FSQLScanner.ExcludeKeywords := FExcludeKeywords;
+  FToken := FSQLScanner.FetchToken;
+  if trim(FSQLStream.DataString) <> '' then inc(FStmtCount);
+  //Scan
+  try
+    while (FToken <> tsqlEOF) do
+      begin
+        if FToken = tsqlSEMICOLON then inc(FStmtCount);
+        FToken := FSQLScanner.FetchToken;
+      end;
+  except
+    on e : Exception do
+      begin
+        if Assigned(OnException) then
+          OnException(e,FSQLScanner.CurColumn,FSQLScanner.CurRow);
+        Result := False;
+      end;
+  end;
+  FSQLScanner.Free;
+  //Parse
+  FSQLStream.Position:=0;
+  FSQLScanner := TSQLScanner.Create(FSQLStream);
+  FSQLScanner.ExcludeKeywords := FExcludeKeywords;
+  FSQLParser := TOwnSQLParser.Create(FSQLScanner);
+  try
+    while (FStmtCount>0) and (FSQLScanner.CurToken <> tsqlEOF) do
+      begin
+        aStmt := FSQLParser.Parse;
+        FStatememt.Add(aStmt);
+        dec(FStmtCount);
+        if not CheckStmtTables then
+          begin
+            if Assigned(OnException) then
+              begin
+                OnException(Exception.Create('Table Access not allowed or Table not found'),FSQLScanner.CurColumn,FSQLScanner.CurRow);
+              end;
+          end;
+      end;
+  except
+    on e : Exception do
+      begin
+        if Assigned(OnException) then
+          OnException(e,FSQLScanner.CurColumn,FSQLScanner.CurRow);
+        Result := False;
+      end;
+  end;
+  FreeAndNil(FSQLParser);
+  FreeAndNil(FSQLScanner);
+  FreeAndNil(FSQLStream);
+end;
+
+constructor TSQLStatemnt.Create;
+begin
+  FStatememt := TSQLElementList.create(true);
+end;
+
+destructor TSQLStatemnt.Destroy;
+begin
+  FStatememt.Free;
+  inherited Destroy;
+end;
+
 { TStatistic }
 
 function TStatistic.GetTextFieldName: string;
@@ -170,4 +311,4 @@ begin
 end;
 
 end.
-
+
