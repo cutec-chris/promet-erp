@@ -289,7 +289,7 @@ begin
             AddList('ORDER BY',OrderBy,(sfoOneOrderByFieldPerLine in Options),(sfoIndentOrderByFields in Options));
           end;
       end
-    else
+    else if Assigned(aStatement) then
       Result := aStatement.GetAsSQL(Options);
   except
   end;

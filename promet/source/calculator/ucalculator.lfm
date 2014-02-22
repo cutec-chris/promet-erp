@@ -10,6 +10,8 @@ object fMain: TfMain
   Color = clWindow
   Menu = MainMenu
   OnClose = FormClose
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
   OnShow = FormShow
   Position = poScreenCenter
   LCLVersion = '1.3'

@@ -9,7 +9,7 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms, uerror, richmemopackage
   { you can add units after this },
-umain, pvisualprometapp, uBaseVisualApplication;
+ucalculator, pvisualprometapp, uBaseVisualApplication;
 
 {$R *.res}
 
