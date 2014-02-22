@@ -47,6 +47,7 @@ type
     property Statements : TSQLElementList read FStatememt;
     property OnException : TSQLExceptionEvent read FExcept write FExcept;
     function Parse : Boolean;
+    function BuildFormatedOuput(aStatement : TSQLStatement) : string;
     constructor Create;
     destructor Destroy; override;
   end;
@@ -106,7 +107,7 @@ var
               aName := TSQLSimpleTableReference(aList[a]).ObjectName.Name;
               FTables.Add(aName);
               if Assigned(Data) then
-                if Data.Users.Rights.Right(aName)<RIGHT_READ then
+                if (Data.Users.Rights.Right(aName)>-1) and (Data.Users.Rights.Right(aName)<RIGHT_READ) then
                   Result := False;
             end;
       end;
@@ -146,6 +147,7 @@ begin
   FSQLScanner := TSQLScanner.Create(FSQLStream);
   FSQLScanner.ExcludeKeywords := FExcludeKeywords;
   FSQLParser := TOwnSQLParser.Create(FSQLScanner);
+  FFormated:='';
   try
     while (FStmtCount>0) and (FSQLScanner.CurToken <> tsqlEOF) do
       begin
@@ -156,9 +158,10 @@ begin
           begin
             if Assigned(OnException) then
               begin
-                OnException(Exception.Create('Table Access not allowed or Table not found'),FSQLScanner.CurColumn,FSQLScanner.CurRow);
+                OnException(Exception.Create('Table Access not allowed'),FSQLScanner.CurColumn,FSQLScanner.CurRow);
               end;
-          end;
+          end
+        else FFormated := FFormated+BuildFormatedOuput(TSQLStatement(aStmt));
       end;
   except
     on e : Exception do
@@ -171,6 +174,125 @@ begin
   FreeAndNil(FSQLParser);
   FreeAndNil(FSQLScanner);
   FreeAndNil(FSQLStream);
+end;
+
+function TSQLStatemnt.BuildFormatedOuput(aStatement: TSQLStatement): string;
+var
+  Options: TSQLFormatOptions;
+  NewLinePending: Boolean;
+  Procedure AddList(Const AKeyWord : String; List : TSQLElementList; UseNewLine,UseIndent : boolean);
+
+  Var
+    S,Pref,Sep : TSQLStringType;
+    I,Ind : Integer;
+    aElem: TSQLElement;
+    aXPr: TSQLExpression;
+
+  begin
+    S:='';
+    if Not Assigned(List) or (List.Count=0) then
+      exit;
+    If (AkeyWord<>'') then
+      If NewlinePending then
+        Result:=Result+sLinebreak+SQLKeyWord(AKeyWord,Options)
+      else
+        Result:=Result+' '+SQLKeyWord(AKeyWord,Options);
+    GetSepPrefixIndent(UseNewLine,UseIndent,Sep,Pref,Ind);
+    For I:=0 to List.Count-1 do
+      begin
+        aElem := List[I];
+        if (aElem is TSQLSelectField)
+        then
+          begin
+            If (S<>'') then
+              S:=S+Sep;
+            if (pos('''',TSQLSelectField(aElem).Expression.GetAsSQL([]))=0)
+            and (not Assigned(TSQLSelectField(aElem).AliasName))
+            then
+              S:=S+Pref+Data.QuoteField(aElem.GetAsSQL([],2+Ind))
+            else
+              S:=S+Pref+aElem.GetAsSQL(Options,2+Ind);
+          end
+        else if (aElem is TSQLExpression)
+             or (aElem is TSQLSimpleTableReference)
+             or (aElem is TSQLJoinTableReference)
+        then
+          begin
+            S:=S+Pref+aElem.GetAsSQL(Options,2+Ind);
+          end
+        else if (aElem is TSQLStatement) then
+          begin
+            If (S<>'') then
+              S:=S+Sep;
+            S := S+Pref+BuildFormatedOuput(TSQLStatement(aElem));
+          end
+        else if (aElem is TSQLElement) then
+          begin
+            If (S<>'') then
+              S:=S+Sep;
+            S := S+Pref+'*';
+          end;
+      end;
+    NewLinePending:=UseNewLine;
+    If UseNewline then
+      Result:=Result+sLinebreak+S
+    else
+      Result:=Result+' '+S;
+  end;
+
+  Procedure AddExpression(Const AKeyWord : TSQLStringType;AExpression  : TSQLElement; UseNewLine,UseIndent : boolean);
+
+  Var
+    S,Pref,Sep : TSQLStringType;
+    Ind : Integer;
+
+  begin
+    If Not Assigned(AExpression) then
+      Exit;
+    If NewlinePending then
+      S:=slineBreak
+    else
+      S:=' ';
+    Result:=Result+S;
+    If UseNewline then
+      S:=slineBreak
+    else
+      S:=' ';
+    Result:=Result+SQLKeyWord(AKeyword,Options)+S;
+    GetSepPrefixIndent(UseNewLine,UseIndent,Sep,Pref,Ind);
+    Result:=Result+Pref+AExpression.GetAsSQL(Options,0{AIndent+Ind});
+    NewLinePending:=UseNewLine;
+  end;
+begin
+  Result := '';
+  Options := [sfoDoubleQuoteIdentifier];
+  try
+    if aStatement is TSQLSelectStatement then
+      begin
+        with aStatement as TSQLSelectStatement do
+          begin
+            Result:=SQLKeyWord('SELECT',Options);
+            If Distinct then
+              Result:=Result+' '+SQLKeyword('DISTINCT',Options);
+            NewLinePending:=(sfoOneFieldPerLine in Options);
+            AddList('',Fields,(sfoOneFieldPerLine in Options),(sfoIndentFields in Options));
+            AddList('FROM',Tables,(sfoOneTablePerLine in Options),(sfoIndentTables in Options));
+            AddExpression('WHERE',Where,(sfoWhereOnSeparateLine in Options),(sfoIndentWhere in Options));
+            AddList('GROUP BY',GroupBy,(sfoOneGroupByFieldPerLine in Options),(sfoIndentGroupByFields in Options));
+            AddExpression('HAVING',Having,(sfoHavingOnSeparateLine in Options),(sfoIndentHaving in Options));
+            If Assigned(Union) then
+              NewLinePending:=NewLinePending or (sfoUnionOnSeparateLine in Options);
+            AddExpression('UNION',Union,(sfoUnionOnSeparateLine in Options),False);
+            If Assigned(Plan) then
+              NewLinePending:=NewLinePending or (sfoPlanOnSeparateLine in Options);
+            AddExpression('PLAN',Plan,(sfoPlanOnSeparateLine in Options),(sfoIndentPlan in Options));
+            AddList('ORDER BY',OrderBy,(sfoOneOrderByFieldPerLine in Options),(sfoIndentOrderByFields in Options));
+          end;
+      end
+    else
+      Result := aStatement.GetAsSQL(Options);
+  except
+  end;
 end;
 
 constructor TSQLStatemnt.Create;

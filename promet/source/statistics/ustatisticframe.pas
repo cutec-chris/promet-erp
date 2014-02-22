@@ -475,7 +475,9 @@ begin
   while smQuerry.Marks.Count > 0 do
     smQuerry.Marks.Delete(0);
   if not aStmt.Parse then
-    lbErrors.Visible:=True;
+    lbErrors.Visible:=True
+  else if DoFormat and (aStmt.FormatedSQL<>'') then
+    smQuerry.Text:=aStmt.FormatedSQL;
   aStmt.Free;
 end;
 
@@ -779,8 +781,7 @@ end;
 
 procedure TfStatisticFrame.acFormatSQLExecute(Sender: TObject);
 begin
-  if CheckSQL then
-    CheckSQL(True);
+  CheckSQL(True);
 end;
 
 procedure TfStatisticFrame.acPrintExecute(Sender: TObject);
