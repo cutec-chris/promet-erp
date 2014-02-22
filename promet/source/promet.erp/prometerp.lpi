@@ -297,10 +297,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="0"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="103"/>
+        <TopLine Value="88"/>
         <CursorPos X="55" Y="88"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
@@ -321,7 +320,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uAddressFrame"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
         <UsageCount Value="20"/>
+        <Loaded Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="upersonfinance.pas"/>

@@ -20,7 +20,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="umain"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="149"/>
@@ -36,11 +35,15 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="umtimeline"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="426"/>
-        <CursorPos X="32" Y="451"/>
+        <TopLine Value="360"/>
+        <CursorPos X="32" Y="441"/>
         <FoldState Value=" T3mG0411317V"/>
         <UsageCount Value="175"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="ufollow.pas"/>
@@ -214,7 +217,7 @@
       <Unit22>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1497"/>
         <CursorPos X="11" Y="1513"/>
@@ -1199,7 +1202,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ugridview"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="772"/>
         <CursorPos X="76" Y="801"/>
@@ -1216,7 +1219,7 @@
       <Unit146>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
         <UnitName Value="wikitohtml"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="320"/>
         <CursorPos X="1" Y="535"/>
@@ -1226,7 +1229,7 @@
       <Unit147>
         <Filename Value="../base_wiki/htmltowiki.pas"/>
         <UnitName Value="htmltowiki"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="267"/>
         <CursorPos X="1" Y="297"/>

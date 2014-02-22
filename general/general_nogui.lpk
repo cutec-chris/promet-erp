@@ -22,7 +22,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="8">
+    <Files Count="9">
       <Item1>
         <Filename Value="src\Utils.pas"/>
         <UnitName Value="Utils"/>
@@ -55,6 +55,10 @@
         <Filename Value="src\urtftotxt.pas"/>
         <UnitName Value="uRTFtoTXT"/>
       </Item8>
+      <Item9>
+        <Filename Value="src\mathparser.pas"/>
+        <UnitName Value="MathParser"/>
+      </Item9>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="2">
