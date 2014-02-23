@@ -58,6 +58,28 @@ implementation
 
 { TCalcVariables }
 
+function ConvertTausend(LeftArg, RightArg: Extended;
+  AssignedArguments: TMPArguments; var Error: TMPError;
+  var ErrorDescription: string; var InvalidArguments: TMPArguments): Extended;
+begin
+  if (AssignedArguments=[]) then Begin
+    InvalidArguments:=[];
+    Error:=mpeMissingArgument;
+    ErrorDescription:='left argument is missing';
+  end else result:=LeftArg*1000;
+end;
+
+function ConvertHundert(LeftArg, RightArg: Extended;
+  AssignedArguments: TMPArguments; var Error: TMPError;
+  var ErrorDescription: string; var InvalidArguments: TMPArguments): Extended;
+begin
+  if (AssignedArguments=[]) then Begin
+    InvalidArguments:=[];
+    Error:=mpeMissingArgument;
+    ErrorDescription:='left argument is missing';
+  end else result:=LeftArg*100;
+end;
+
 procedure TCalcVariables.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do
@@ -145,6 +167,9 @@ begin
       aIn := copy(aIn,0,RPos('=',aIn)-1);
     end;
   aParser := TMathParser.Create;
+  aParser.AddOperatorEx('kilo',@ConvertKilo,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
+  aParser.AddOperatorEx('tausend',@ConvertTausend,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
+  aParser.AddOperatorEx('hundert',@ConvertHundert,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
   with Variables do
     begin
       Active:=True;
