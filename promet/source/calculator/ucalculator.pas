@@ -24,7 +24,7 @@ uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, DBGrids,
   Buttons, Menus, ActnList, XMLPropStorage, StdCtrls, Utils, uIntfStrConsts, db,
   memds, FileUtil, SynEdit, SynMemo, SynHighlighterSQL, Translations, md5,
-  ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage;
+  ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage,ucalc;
 type
 
   { TfMain }
@@ -33,6 +33,9 @@ type
     acLogin: TAction;
     acLogout: TAction;
     ActionList1: TActionList;
+    cbEnviroment: TComboBox;
+    Enviroment: TDatasource;
+    Label1: TLabel;
     MainMenu: TMainMenu;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
@@ -44,16 +47,17 @@ type
     SynSQLSyn1: TSynSQLSyn;
     procedure acLoginExecute(Sender: TObject);
     procedure acLogoutExecute(Sender: TObject);
+    procedure cbEnviromentExit(Sender: TObject);
+    procedure cbEnviromentSelect(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
-    procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure InputKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { private declarations }
   public
     { public declarations }
-    Variables : TStringlist;
+    CalcEnviroment : TCalcEnviroments;
     procedure DoCreate;
   end;
 var
@@ -80,14 +84,62 @@ begin
       end;
   acLogin.Enabled:=False;
   acLogout.Enabled:=True;
+  CalcEnviroment := TCalcEnviroments.Create(nil,Data);
+  CalcEnviroment.CreateTable;
+  CalcEnviroment.Typ := 'CALC';
+  CalcEnviroment.Open;
+  if CalcEnviroment.Count=0 then
+    begin
+      CalcEnviroment.Insert;
+      CalcEnviroment.FieldByName('NAME').AsString:=strStandard;
+      CalcEnviroment.Post;
+    end;
+  cbEnviroment.Items.Clear;
+  while not CalcEnviroment.EOF do
+    begin
+      cbEnviroment.AddItem(CalcEnviroment.FieldByName('NAME').AsString,nil);
+      CalcEnviroment.Next;
+    end;
+  cbEnviroment.ItemIndex:=0;
+  cbEnviromentSelect(nil);
 end;
 procedure TfMain.acLogoutExecute(Sender: TObject);
 begin
   with Application as IBaseApplication do
     Logout;
 end;
+
+procedure TfMain.cbEnviromentExit(Sender: TObject);
+begin
+  if not CalcEnviroment.Locate('NAME',cbEnviroment.Text,[]) then
+    begin
+      CalcEnviroment.Insert;
+      CalcEnviroment.FieldByName('NAME').AsString:=cbEnviroment.Text;
+      CalcEnviroment.Post;
+      cbEnviroment.Items.Add(cbEnviroment.Text);
+    end;
+  cbEnviromentSelect(nil);
+end;
+
+procedure TfMain.cbEnviromentSelect(Sender: TObject);
+begin
+  with CalcEnviroment.Variables do
+    begin
+      Active:=True;
+      First;
+      Output.Clear;
+      while not EOF do
+        begin
+          Output.Append(FieldByName('NAME').AsString+'='+FieldByName('FORMULA').AsString+'='+FieldByName('RESULT').AsString);
+          Next;
+        end;
+    end;
+  Input.SetFocus;
+end;
+
 procedure TfMain.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
+  FreeAndNil(CalcEnviroment);
   with Application as IBaseApplication do
     begin
       Data.ActiveUsers.DataSet.AfterScroll:=nil;
@@ -98,12 +150,7 @@ end;
 
 procedure TfMain.FormCreate(Sender: TObject);
 begin
-  Variables := TStringList.Create;
-end;
-
-procedure TfMain.FormDestroy(Sender: TObject);
-begin
-  Variables.Free;
+  CalcEnviroment := nil;
 end;
 
 procedure TfMain.FormShow(Sender: TObject);
@@ -112,84 +159,23 @@ begin
   with Application as IBaseApplication do
     RestoreConfig; //Must be called when Mainform is Visible
   acLogin.Execute;
-  if Assigned(Data) then
-    begin
-    end;
 end;
 
 procedure TfMain.InputKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState
   );
 var
-  Stmt: TSQLStatemnt;
-  aParser: TMathParser;
-  aTree: PTTermTreeNode;
-  aIn: String;
-  aVar: String;
-  aOut: String;
-  aDS: TDataSet;
+  sl: TStringList;
+  i: Integer;
 begin
   if Key = VK_RETURN then
     begin
       Key := 0;
-      if copy(Input.Text,0,2)='--' then
-        begin
-          Output.Append(Input.Text);
-          Input.Text:='';
-          exit;
-        end;
-      aIn := Input.text;
-      if RPos('=',aIn)>0 then
-        begin
-          aVar := copy(aIn,RPos('=',aIn)+1,length(aIn));
-          aIn := copy(aIn,0,RPos('=',aIn)-1);
-        end;
-      aParser := TMathParser.Create;
-      try
-        aTree := aParser.ParseTerm(aIn);
-      except
-        aTree := nil;
-      end;
-      if Assigned(aTree) then
-        begin
-          try
-            Output.Append(aParser.FormatTerm(aTree));
-            aOut := FloatToStr(aParser.CalcTree(aTree));
-            if aVar<>'' then
-              Output.Append('='+aOut+'='+aVar)
-            else
-              Output.Append('='+aOut);
-            if aVar <> '' then
-              Variables.Values[aVar] := aIn;
-          except
-            on e : Exception do
-              Output.Append('='+e.Message);
-          end;
-        end
-      else
-        begin
-          Stmt := TSQLStatemnt.Create;
-          Stmt.SQL:=aIn;
-          if Stmt.Parse then
-            begin
-              aDS := Data.GetNewDataSet(Stmt.SQL);
-              try
-                aDS.Open;
-                Output.Append(Stmt.SQL);
-                aOut := aDS.Fields[0].AsString;
-                if aVar<>'' then
-                  Output.Append('='+aOut+'='+aVar)
-                else
-                  Output.Append('='+aOut);
-                if aVar <> '' then
-                  Variables.Values[aVar] := aIn;
-              except
-              end;
-              aDS.Free;
-            end;
-          Stmt.Free;
-        end;
-      aParser.Free;
+      sl := TStringList.Create;
+      CalcEnviroment.Calculate(Input.Text,sl);
+      for i := 0 to sl.Count-1 do
+        Output.Append(sl[i]);
       Input.Clear;
+      sl.Free;
     end;
 end;
 
