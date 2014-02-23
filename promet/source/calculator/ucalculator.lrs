@@ -196,27 +196,65 @@ LazarusResources.Add('TfMain','FORMDATA',[
   ,'nsCollapsed'#14#0#0#0#0#0#6'TLabel'#6'Label1'#4'Left'#2#8#6'Height'#2#14#3
   +'Top'#2#16#5'Width'#2'='#7'Caption'#6#8'Umgebung'#11'ParentColor'#8#0#0#9'TC'
   +'omboBox'#12'cbEnviroment'#4'Left'#2'P'#6'Height'#2#27#3'Top'#2#8#5'Width'#3
-  +#224#1#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#0#10'ItemHeight'#2#0#6'On'
+  +#200#1#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#0#10'ItemHeight'#2#0#6'On'
   +'Exit'#7#16'cbEnviromentExit'#8'OnSelect'#7#18'cbEnviromentSelect'#8'TabOrde'
-  +'r'#2#2#4'Text'#6#12'cbEnviroment'#0#0#11'TActionList'#11'ActionList1'#4'lef'
-  +'t'#2#16#3'top'#2'x'#0#7'TAction'#7'acLogin'#7'Caption'#6#8'Anmelden'#9'OnEx'
-  +'ecute'#7#14'acLoginExecute'#0#0#7'TAction'#8'acLogout'#7'Caption'#6#8'Abmel'
-  +'den'#7'Enabled'#8#9'OnExecute'#7#15'acLogoutExecute'#0#0#0#9'TMainMenu'#8'M'
-  +'ainMenu'#4'left'#2#16#3'top'#2'H'#0#9'TMenuItem'#9'miMandant'#7'Caption'#6#7
-  +'Mandant'#0#9'TMenuItem'#9'MenuItem4'#6'Action'#7#7'acLogin'#7'OnClick'#7#14
-  +'acLoginExecute'#0#0#9'TMenuItem'#9'MenuItem3'#6'Action'#7#8'acLogout'#7'OnC'
-  +'lick'#7#15'acLogoutExecute'#0#0#0#9'TMenuItem'#9'miOptions'#7'Caption'#6#8
-  +'Optionen'#0#9'TMenuItem'#10'miLanguage'#7'Caption'#6#7'Sprache'#0#0#0#0#10
-  +'TSynSQLSyn'#10'SynSQLSyn1'#13'DefaultFilter'#6#25'SQL-Dateien (*.sql)|*.sql'
-  +#7'Enabled'#8#23'CommentAttri.FrameEdges'#7#9'sfeAround'#24'DataTypeAttri.Fr'
-  +'ameEdges'#7#9'sfeAround'#30'DefaultPackageAttri.FrameEdges'#7#9'sfeAround'
-  +#25'ExceptionAttri.FrameEdges'#7#9'sfeAround'#24'FunctionAttri.FrameEdges'#7
-  +#9'sfeAround'#26'IdentifierAttri.FrameEdges'#7#9'sfeAround'#19'KeyAttri.Fram'
-  +'eEdges'#7#9'sfeAround'#22'NumberAttri.FrameEdges'#7#9'sfeAround'#21'PLSQLAt'
-  +'tri.FrameEdges'#7#9'sfeAround'#21'SpaceAttri.FrameEdges'#7#9'sfeAround'#23
-  +'SQLPlusAttri.FrameEdges'#7#9'sfeAround'#22'StringAttri.FrameEdges'#7#9'sfeA'
-  +'round'#22'SymbolAttri.FrameEdges'#7#9'sfeAround'#25'TableNameAttri.FrameEdg'
-  +'es'#7#9'sfeAround'#24'VariableAttri.FrameEdges'#7#9'sfeAround'#10'SQLDialec'
-  +'t'#7#9'sqlSybase'#4'left'#2#16#3'top'#3#144#1#0#0#11'TDatasource'#10'Enviro'
-  +'ment'#4'left'#2'P'#3'top'#2'H'#0#0#0
+  +'r'#2#2#4'Text'#6#12'cbEnviroment'#0#0#12'TSpeedButton'#12'SpeedButton1'#4'L'
+  +'eft'#3#29#2#6'Height'#2#24#3'Top'#2#9#5'Width'#2#27#6'Action'#7#18'acDelete'
+  +'Enviroment'#7'Anchors'#11#5'akTop'#7'akRight'#0#10'Glyph.Data'#10':'#4#0#0
+  +'6'#4#0#0'BM6'#4#0#0#0#0#0#0'6'#0#0#0'('#0#0#0#16#0#0#0#16#0#0#0#1#0' '#0#0#0
+  +#0#0#0#4#0#0'd'#0#0#0'd'#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
+  +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
+  +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
+  +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
+  +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
+  +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
+  +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
+  +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
+  +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
+  +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
+  +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#164'e'
+  +'4'#204#164'e4'#255#164'e4'#255#164'e4'#255#164'e4'#255#164'e4'#255#164'e4'
+  +#255#164'e4'#255#164'e4'#255#164'e4'#255#164'e4'#255#164'e4'#204#0#0#0#0#0#0
+  +#0#0#0#0#0#0#0#0#0#0#164'e4'#255#229#204#180#255#219#183#149#255#219#182#148
+  +#255#218#180#146#255#218#179#144#255#217#173#134#255#216#170#131#255#215#168
+  +#127#255#215#166'}'#255#224#190#159#255#164'e4'#255#0#0#0#0#0#0#0#0#0#0#0#0#0
+  +#0#0#0#164'e4'#255#232#211#192#255#231#209#187#255#231#209#188#255#230#206
+  +#183#255#230#206#183#255#230#206#183#255#230#206#183#255#230#205#182#255#230
+  +#204#181#255#230#204#182#255#164'e4'#255#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#164
+  +'e4'#204#164'e4'#255#164'e4'#255#164'e4'#255#164'e4'#255#164'e4'#255#164'e4'
+  +#255#164'e4'#255#164'e4'#255#164'e4'#255#164'e4'#255#164'e4'#204#0#0#0#0#0#0
+  +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
+  +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
+  +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
+  +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
+  +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
+  +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
+  +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
+  +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
+  +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
+  +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
+  +#0#0#0#0#0#0#11'ShowCaption'#8#0#0#11'TActionList'#11'ActionList1'#6'Images'
+  +#7#22'fVisualControls.Images'#4'left'#2#16#3'top'#2'x'#0#7'TAction'#7'acLogi'
+  +'n'#7'Caption'#6#8'Anmelden'#10'ImageIndex'#2#12#9'OnExecute'#7#14'acLoginEx'
+  +'ecute'#0#0#7'TAction'#8'acLogout'#7'Caption'#6#8'Abmelden'#7'Enabled'#8#10
+  +'ImageIndex'#2#17#9'OnExecute'#7#15'acLogoutExecute'#0#0#7'TAction'#18'acDel'
+  +'eteEnviroment'#7'Caption'#6#18'acDeleteEnviroment'#10'ImageIndex'#2'<'#9'On'
+  +'Execute'#7#25'acDeleteEnviromentExecute'#0#0#0#9'TMainMenu'#8'MainMenu'#4'l'
+  +'eft'#2#16#3'top'#2'H'#0#9'TMenuItem'#9'miMandant'#7'Caption'#6#7'Mandant'#0
+  +#9'TMenuItem'#9'MenuItem4'#6'Action'#7#7'acLogin'#7'OnClick'#7#14'acLoginExe'
+  +'cute'#0#0#9'TMenuItem'#9'MenuItem3'#6'Action'#7#8'acLogout'#7'OnClick'#7#15
+  +'acLogoutExecute'#0#0#0#9'TMenuItem'#9'miOptions'#7'Caption'#6#8'Optionen'#0
+  +#9'TMenuItem'#10'miLanguage'#7'Caption'#6#7'Sprache'#0#0#0#0#10'TSynSQLSyn'
+  +#10'SynSQLSyn1'#13'DefaultFilter'#6#25'SQL-Dateien (*.sql)|*.sql'#7'Enabled'
+  +#8#23'CommentAttri.FrameEdges'#7#9'sfeAround'#24'DataTypeAttri.FrameEdges'#7
+  +#9'sfeAround'#30'DefaultPackageAttri.FrameEdges'#7#9'sfeAround'#25'Exception'
+  +'Attri.FrameEdges'#7#9'sfeAround'#24'FunctionAttri.FrameEdges'#7#9'sfeAround'
+  +#26'IdentifierAttri.FrameEdges'#7#9'sfeAround'#19'KeyAttri.FrameEdges'#7#9's'
+  +'feAround'#22'NumberAttri.FrameEdges'#7#9'sfeAround'#21'PLSQLAttri.FrameEdge'
+  +'s'#7#9'sfeAround'#21'SpaceAttri.FrameEdges'#7#9'sfeAround'#23'SQLPlusAttri.'
+  +'FrameEdges'#7#9'sfeAround'#22'StringAttri.FrameEdges'#7#9'sfeAround'#22'Sym'
+  +'bolAttri.FrameEdges'#7#9'sfeAround'#25'TableNameAttri.FrameEdges'#7#9'sfeAr'
+  +'ound'#24'VariableAttri.FrameEdges'#7#9'sfeAround'#10'SQLDialect'#7#9'sqlSyb'
+  +'ase'#4'left'#2#16#3'top'#3#144#1#0#0#11'TDatasource'#10'Enviroment'#4'left'
+  +#2'P'#3'top'#2'H'#0#0#0
 ]);

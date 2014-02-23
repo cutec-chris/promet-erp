@@ -32,6 +32,7 @@ type
   TfMain = class(TForm)
     acLogin: TAction;
     acLogout: TAction;
+    acDeleteEnviroment: TAction;
     ActionList1: TActionList;
     cbEnviroment: TComboBox;
     Enviroment: TDatasource;
@@ -44,7 +45,9 @@ type
     miOptions: TMenuItem;
     Output: TSynMemo;
     Input: TSynMemo;
+    SpeedButton1: TSpeedButton;
     SynSQLSyn1: TSynSQLSyn;
+    procedure acDeleteEnviromentExecute(Sender: TObject);
     procedure acLoginExecute(Sender: TObject);
     procedure acLogoutExecute(Sender: TObject);
     procedure cbEnviromentExit(Sender: TObject);
@@ -103,6 +106,13 @@ begin
   cbEnviroment.ItemIndex:=0;
   cbEnviromentSelect(nil);
 end;
+
+procedure TfMain.acDeleteEnviromentExecute(Sender: TObject);
+begin
+  cbEnviroment.Items.Delete(cbEnviroment.ItemIndex);
+  CalcEnviroment.Delete;
+end;
+
 procedure TfMain.acLogoutExecute(Sender: TObject);
 begin
   with Application as IBaseApplication do

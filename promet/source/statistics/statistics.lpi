@@ -77,7 +77,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="10" Y="10"/>
-        <UsageCount Value="194"/>
+        <UsageCount Value="196"/>
       </Unit0>
       <Unit1>
         <Filename Value="umain.pas"/>
@@ -90,7 +90,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="115"/>
         <CursorPos X="22" Y="134"/>
-        <UsageCount Value="194"/>
+        <UsageCount Value="196"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -1099,7 +1099,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="137"/>
         <CursorPos X="41" Y="154"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <Loaded Value="True"/>
       </Unit134>
       <Unit135>
@@ -1109,7 +1109,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1631"/>
         <CursorPos X="45" Y="1641"/>
-        <UsageCount Value="38"/>
+        <UsageCount Value="39"/>
         <Loaded Value="True"/>
       </Unit135>
       <Unit136>
@@ -1171,7 +1171,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="89" Y="4"/>
-        <UsageCount Value="40"/>
+        <UsageCount Value="41"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit141>
@@ -1190,7 +1190,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1858"/>
         <CursorPos X="1" Y="1882"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <Loaded Value="True"/>
       </Unit143>
       <Unit144>
@@ -1294,7 +1294,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="47" Y="19"/>
-        <UsageCount Value="37"/>
+        <UsageCount Value="38"/>
         <Loaded Value="True"/>
       </Unit155>
       <Unit156>
@@ -1429,24 +1429,24 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ustatisticframe"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="336"/>
+        <TopLine Value="279"/>
         <CursorPos X="52" Y="474"/>
         <FoldState Value=" T3ob0{iT"/>
-        <UsageCount Value="63"/>
+        <UsageCount Value="65"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit170>
       <Unit171>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
         <UnitName Value="uStatistic"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="194"/>
-        <CursorPos X="64" Y="210"/>
-        <UsageCount Value="32"/>
+        <TopLine Value="177"/>
+        <CursorPos X="17" Y="211"/>
+        <UsageCount Value="33"/>
         <Loaded Value="True"/>
       </Unit171>
       <Unit172>
@@ -1494,7 +1494,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="18"/>
         <CursorPos X="26" Y="54"/>
-        <UsageCount Value="48"/>
+        <UsageCount Value="50"/>
       </Unit176>
       <Unit177>
         <Filename Value="..\..\..\..\lazarus\lcl\include\tabsheet.inc"/>
@@ -1770,7 +1770,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="162"/>
         <CursorPos X="3" Y="167"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="15"/>
         <Loaded Value="True"/>
       </Unit208>
       <Unit209>

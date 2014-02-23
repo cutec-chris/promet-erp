@@ -80,6 +80,105 @@ begin
   end else result:=LeftArg*100;
 end;
 
+function ConvertDzehn(LeftArg, RightArg: Extended;
+  AssignedArguments: TMPArguments; var Error: TMPError;
+  var ErrorDescription: string; var InvalidArguments: TMPArguments): Extended;
+begin
+  if (AssignedArguments=[]) then Begin
+    InvalidArguments:=[];
+    Error:=mpeMissingArgument;
+    ErrorDescription:='left argument is missing';
+  end else result:=LeftArg/10;
+end;
+
+function ConvertDTausend(LeftArg, RightArg: Extended;
+  AssignedArguments: TMPArguments; var Error: TMPError;
+  var ErrorDescription: string; var InvalidArguments: TMPArguments): Extended;
+begin
+  if (AssignedArguments=[]) then Begin
+    InvalidArguments:=[];
+    Error:=mpeMissingArgument;
+    ErrorDescription:='left argument is missing';
+  end else result:=LeftArg/1000;
+end;
+
+function ConvertDHundert(LeftArg, RightArg: Extended;
+  AssignedArguments: TMPArguments; var Error: TMPError;
+  var ErrorDescription: string; var InvalidArguments: TMPArguments): Extended;
+begin
+  if (AssignedArguments=[]) then Begin
+    InvalidArguments:=[];
+    Error:=mpeMissingArgument;
+    ErrorDescription:='left argument is missing';
+  end else result:=LeftArg/100;
+end;
+
+function ConvertMillion(LeftArg, RightArg: Extended;
+  AssignedArguments: TMPArguments; var Error: TMPError;
+  var ErrorDescription: string; var InvalidArguments: TMPArguments): Extended;
+begin
+  if (AssignedArguments=[]) then Begin
+    InvalidArguments:=[];
+    Error:=mpeMissingArgument;
+    ErrorDescription:='left argument is missing';
+  end else result:=LeftArg*1000000;
+end;
+
+function ConvertMilliarde(LeftArg, RightArg: Extended;
+  AssignedArguments: TMPArguments; var Error: TMPError;
+  var ErrorDescription: string; var InvalidArguments: TMPArguments): Extended;
+begin
+  if (AssignedArguments=[]) then Begin
+    InvalidArguments:=[];
+    Error:=mpeMissingArgument;
+    ErrorDescription:='left argument is missing';
+  end else result:=LeftArg*1000000000;
+end;
+
+function ConvertBillion(LeftArg, RightArg: Extended;
+  AssignedArguments: TMPArguments; var Error: TMPError;
+  var ErrorDescription: string; var InvalidArguments: TMPArguments): Extended;
+begin
+  if (AssignedArguments=[]) then Begin
+    InvalidArguments:=[];
+    Error:=mpeMissingArgument;
+    ErrorDescription:='left argument is missing';
+  end else result:=LeftArg*1000000000000;
+end;
+
+function ConvertBilliarde(LeftArg, RightArg: Extended;
+  AssignedArguments: TMPArguments; var Error: TMPError;
+  var ErrorDescription: string; var InvalidArguments: TMPArguments): Extended;
+begin
+  if (AssignedArguments=[]) then Begin
+    InvalidArguments:=[];
+    Error:=mpeMissingArgument;
+    ErrorDescription:='left argument is missing';
+  end else result:=LeftArg*1000000000000000;
+end;
+
+function ConvertTrillion(LeftArg, RightArg: Extended;
+  AssignedArguments: TMPArguments; var Error: TMPError;
+  var ErrorDescription: string; var InvalidArguments: TMPArguments): Extended;
+begin
+  if (AssignedArguments=[]) then Begin
+    InvalidArguments:=[];
+    Error:=mpeMissingArgument;
+    ErrorDescription:='left argument is missing';
+  end else result:=LeftArg*1000000000000000000;
+end;
+
+function ConvertTrilliarde(LeftArg, RightArg: Extended;
+  AssignedArguments: TMPArguments; var Error: TMPError;
+  var ErrorDescription: string; var InvalidArguments: TMPArguments): Extended;
+begin
+  if (AssignedArguments=[]) then Begin
+    InvalidArguments:=[];
+    Error:=mpeMissingArgument;
+    ErrorDescription:='left argument is missing';
+  end else result:=LeftArg*1000000000000000000000;
+end;
+
 procedure TCalcVariables.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do
@@ -164,12 +263,23 @@ begin
   if RPos('=',aIn)>0 then
     begin
       aVar := copy(aIn,RPos('=',aIn)+1,length(aIn));
+      aVar := StringReplace(aVar,#10,'',[rfReplaceAll]);
+      aVar := trim(StringReplace(aVar,#13,'',[rfReplaceAll]));
       aIn := copy(aIn,0,RPos('=',aIn)-1);
     end;
   aParser := TMathParser.Create;
-  aParser.AddOperatorEx('kilo',@ConvertKilo,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
-  aParser.AddOperatorEx('tausend',@ConvertTausend,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
+  aParser.AddOperatorEx('milli',@ConvertDTausend,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
+  aParser.AddOperatorEx('zenti',@ConvertDHundert,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
+  aParser.AddOperatorEx('dezi',@ConvertDzehn,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
+  aParser.AddOperatorEx('kilo',@ConvertTausend,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
   aParser.AddOperatorEx('hundert',@ConvertHundert,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
+  aParser.AddOperatorEx('tausend',@ConvertTausend,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
+  aParser.AddOperatorEx('million',@ConvertMillion,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
+  aParser.AddOperatorEx('milliarde',@ConvertMilliarde,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
+  aParser.AddOperatorEx('billion',@ConvertBillion,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
+  aParser.AddOperatorEx('billiarde',@ConvertBilliarde,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
+  aParser.AddOperatorEx('trillion',@ConvertTrillion,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
+  aParser.AddOperatorEx('trilliarde',@ConvertTrilliarde,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
   with Variables do
     begin
       Active:=True;
