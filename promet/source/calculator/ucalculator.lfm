@@ -17,7 +17,7 @@ object fMain: TfMain
   inline Output: TSynMemo
     Cursor = crIBeam
     Left = 0
-    Height = 334
+    Height = 304
     Top = 50
     Width = 572
     Align = alClient
@@ -1027,6 +1027,22 @@ object fMain: TfMain
       0000000000000000000000000000000000000000000000000000
     }
     ShowCaption = False
+  end
+  object lInfo: TLabel
+    Left = 8
+    Height = 14
+    Top = 362
+    Width = 556
+    Align = alBottom
+    BorderSpacing.Around = 8
+    Caption = 'lInfo'
+    Color = clInfoBk
+    Font.Color = clInfoText
+    Font.Pitch = fpFixed
+    ParentColor = False
+    ParentFont = False
+    Transparent = False
+    Visible = False
   end
   object ActionList1: TActionList
     Images = fVisualControls.Images

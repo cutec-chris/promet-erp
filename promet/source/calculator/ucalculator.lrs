@@ -6,7 +6,7 @@ LazarusResources.Add('TfMain','FORMDATA',[
   +'ClientHeight'#3#203#1#11'ClientWidth'#3'<'#2#5'Color'#7#8'clWindow'#4'Menu'
   +#7#8'MainMenu'#7'OnClose'#7#9'FormClose'#8'OnCreate'#7#10'FormCreate'#6'OnSh'
   +'ow'#7#8'FormShow'#8'Position'#7#14'poScreenCenter'#10'LCLVersion'#6#3'1.3'#0
-  +#244#8'TSynMemo'#6'Output'#6'Cursor'#7#7'crIBeam'#4'Left'#2#0#6'Height'#3'N'
+  +#244#8'TSynMemo'#6'Output'#6'Cursor'#7#7'crIBeam'#4'Left'#2#0#6'Height'#3'0'
   +#1#3'Top'#2'2'#5'Width'#3'<'#2#5'Align'#7#8'alClient'#17'BorderSpacing.Top'#2
   +'2'#11'Font.Height'#2#243#9'Font.Name'#6#11'Courier New'#10'Font.Pitch'#7#7
   +'fpFixed'#12'Font.Quality'#7#16'fqNonAntialiased'#11'ParentColor'#8#10'Paren'
@@ -233,7 +233,11 @@ LazarusResources.Add('TfMain','FORMDATA',[
   +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
   +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
   +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
-  +#0#0#0#0#0#0#11'ShowCaption'#8#0#0#11'TActionList'#11'ActionList1'#6'Images'
+  +#0#0#0#0#0#0#11'ShowCaption'#8#0#0#6'TLabel'#5'lInfo'#4'Left'#2#8#6'Height'#2
+  +#14#3'Top'#3'j'#1#5'Width'#3','#2#5'Align'#7#8'alBottom'#20'BorderSpacing.Ar'
+  +'ound'#2#8#7'Caption'#6#5'lInfo'#5'Color'#7#8'clInfoBk'#10'Font.Color'#7#10
+  +'clInfoText'#10'Font.Pitch'#7#7'fpFixed'#11'ParentColor'#8#10'ParentFont'#8
+  +#11'Transparent'#8#7'Visible'#8#0#0#11'TActionList'#11'ActionList1'#6'Images'
   +#7#22'fVisualControls.Images'#4'left'#2#16#3'top'#2'x'#0#7'TAction'#7'acLogi'
   +'n'#7'Caption'#6#8'Anmelden'#10'ImageIndex'#2#12#9'OnExecute'#7#14'acLoginEx'
   +'ecute'#0#0#7'TAction'#8'acLogout'#7'Caption'#6#8'Abmelden'#7'Enabled'#8#10
@@ -253,7 +257,7 @@ LazarusResources.Add('TfMain','FORMDATA',[
   +'feAround'#22'NumberAttri.FrameEdges'#7#9'sfeAround'#21'PLSQLAttri.FrameEdge'
   +'s'#7#9'sfeAround'#21'SpaceAttri.FrameEdges'#7#9'sfeAround'#23'SQLPlusAttri.'
   +'FrameEdges'#7#9'sfeAround'#22'StringAttri.FrameEdges'#7#9'sfeAround'#22'Sym'
-  +'bolAttri.FrameEdges'#7#9'sfeAround'#25'TableNameAttri.FrameEdges'#7#9'sfeAr'
+  ,'bolAttri.FrameEdges'#7#9'sfeAround'#25'TableNameAttri.FrameEdges'#7#9'sfeAr'
   +'ound'#24'VariableAttri.FrameEdges'#7#9'sfeAround'#10'SQLDialect'#7#9'sqlSyb'
   +'ase'#4'left'#2#16#3'top'#3#144#1#0#0#11'TDatasource'#10'Enviroment'#4'left'
   +#2'P'#3'top'#2'H'#0#0#0

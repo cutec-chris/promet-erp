@@ -255,6 +255,7 @@ var
   bOut: String;
   aDS: TDataSet;
 begin
+  Result := True;
   if copy(aIn,0,2)='--' then
     begin
       aOut.Add(aIn);
@@ -293,7 +294,12 @@ begin
   try
     aTree := aParser.ParseTerm(aIn);
   except
-    aTree := nil;
+    on e : Exception do
+      begin
+        aTree := nil;
+        aOut.add(e.Message);
+        Result:=False;
+      end;
   end;
   if Assigned(aTree) then
     begin
@@ -315,11 +321,15 @@ begin
           aOut.Add('='+bOut);
       except
         on e : Exception do
-          aOut.Add('='+e.Message);
+          begin
+            aOut.Add(e.Message);
+            Result:=False;
+          end;
       end;
     end
   else
     begin
+      Result := True;
       Stmt := TSQLStatemnt.Create;
       Stmt.SQL:=aIn;
       if Stmt.Parse then
@@ -329,6 +339,7 @@ begin
             aDS.Open;
             aOut.Add(Stmt.SQL);
             bOut := aDS.Fields[0].AsString;
+            aOut.Clear;
             if (aVar <> '') and (aDs.Fields.Count=1) and (aDS.RecordCount=1) and (aDS.Fields[0].ClassType = TFloatField) then
               begin
                 if Variables.Locate('NAME',aVar,[]) then
@@ -343,9 +354,15 @@ begin
             else
               aOut.Add('='+bOut);
           except
+            on e : Exception do
+              begin
+                aOut.Add(e.Message);
+                Result:=False;
+              end;
           end;
           aDS.Free;
-        end;
+        end
+      else Result:=false;
       Stmt.Free;
     end;
   aParser.Free;

@@ -37,6 +37,7 @@ type
     cbEnviroment: TComboBox;
     Enviroment: TDatasource;
     Label1: TLabel;
+    lInfo: TLabel;
     MainMenu: TMainMenu;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
@@ -104,6 +105,7 @@ begin
       CalcEnviroment.Next;
     end;
   cbEnviroment.ItemIndex:=0;
+  CalcEnviroment.First;
   cbEnviromentSelect(nil);
 end;
 
@@ -179,12 +181,20 @@ var
 begin
   if Key = VK_RETURN then
     begin
+      lInfo.Visible:=False;
       Key := 0;
       sl := TStringList.Create;
-      CalcEnviroment.Calculate(Input.Text,sl);
-      for i := 0 to sl.Count-1 do
-        Output.Append(sl[i]);
-      Input.Clear;
+      if CalcEnviroment.Calculate(Input.Text,sl) then
+        begin
+          for i := 0 to sl.Count-1 do
+            Output.Append(sl[i]);
+          Input.Clear;
+        end
+      else
+        begin
+          lInfo.Caption:=sl.Text;
+          lInfo.Visible:=True;
+        end;
       sl.Free;
     end;
 end;
