@@ -4,7 +4,7 @@
     <Version Value="9"/>
     <General>
       <Flags>
-        <SaveOnlyProjectUnits Value="True"/>
+        <SaveClosedFiles Value="False"/>
         <MainUnitHasUsesSectionForAllUnits Value="False"/>
       </Flags>
       <MainUnit Value="0"/>
@@ -283,7 +283,7 @@
         <PackageName Value="LCL"/>
       </Item24>
     </RequiredPackages>
-    <Units Count="40">
+    <Units Count="41">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -300,7 +300,7 @@
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="88"/>
-        <CursorPos X="55" Y="88"/>
+        <CursorPos X="22" Y="92"/>
         <UsageCount Value="23"/>
         <Loaded Value="True"/>
       </Unit1>
@@ -642,7 +642,23 @@
         <UnitName Value="uBookSerial"/>
         <UsageCount Value="23"/>
       </Unit39>
+      <Unit40>
+        <Filename Value="../base/ubasevisualcontrols.pas"/>
+        <ComponentName Value="fVisualControls"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="uBaseVisualControls"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit40>
     </Units>
+    <JumpHistory Count="0" HistoryIndex="-1"/>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
