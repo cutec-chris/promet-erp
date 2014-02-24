@@ -115,6 +115,7 @@ type
     procedure bCSaveClick(Sender: TObject);
   private
     { private declarations }
+    FResourcesRead : Boolean;
     FGantt: TgsGantt;
     Fproject : TProject;
     FTasks : TTaskList;
@@ -685,6 +686,14 @@ begin
 end;
 procedure TfGanttView.bShowTasksClick(Sender: TObject);
 begin
+  if (bShowTasks.Down) and (not FResourcesRead) then
+    begin
+      if (MessageDlg(strCancelChanges,mtInformation,[mbYes,mbNo],0) = mrYes) then
+        begin
+          bRefreshClick(nil);
+          FResourcesRead:=True;
+        end;
+    end;
   FGantt.Calendar.Invalidate;
 end;
 procedure TfGanttView.bTodayClick(Sender: TObject);
@@ -968,7 +977,7 @@ var
             aInterval.Pointer := TRessource(FRessources[i]);
             //fLogWaitForm.ShowInfo(strCollectingresourceTimes);
             //TCollectThread.Create(FGantt.Calendar,TRessource(FRessources[i]),aTasks.FieldByName('USER').AsString,aInterval);
-            TaskPlan.CollectResources(TRessource(FRessources[i]),aTasks.FieldByName('USER').AsString,nil,False);
+            TaskPlan.CollectResources(TRessource(FRessources[i]),aTasks.FieldByName('USER').AsString,nil,bShowTasks.Down);
           end;
       end;
     aInterval.Changed:=False;
@@ -1156,7 +1165,8 @@ begin
     begin
       DoPath(aLastInterval);
     end;
-  aLastInterval.InCriticalPath:=True;
+  if Assigned(aLastInterval) then
+    aLastInterval.InCriticalPath:=True;
   aIntervals.Free;
   Result := aLastInterval;
   FGantt.Calendar.Invalidate;
@@ -1246,6 +1256,7 @@ end;
 function TfGanttView.Execute(aProject: TProject; aLink: string;
   DoClean: Boolean; AddInactive: Boolean): Boolean;
 begin
+  FResourcesRead := False;
   if not Assigned(Self) then
     begin
       Application.CreateForm(TfGanttView,fGanttView);
