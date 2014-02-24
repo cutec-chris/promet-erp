@@ -126,6 +126,7 @@ type
 
     // property procedures and functions
     function GetEarliestDate: TDateTime;
+    function GetLatest: TDateTime;
     function GetStartDate: TDateTime;
     function GetFinishDate: TDateTime;
     procedure SetBuffer(AValue: TDateTime);
@@ -204,6 +205,7 @@ type
 
     property StartDate: TDateTime read GetStartDate write SetStartDate;
     property FinishDate: TDateTime read GetFinishDate write SetFinishDate;
+    property Latest : TDateTime read GetLatest;
     property Earliest: TDateTime read GetEarliestDate write SetEarliestDate;
     property Duration: TDateTime read GetDuration write SetDuration;
     property NetDuration: TDateTime read FNetDuration write FNetDuration;
@@ -1470,6 +1472,13 @@ end;
 function TInterval.GetEarliestDate: TDateTime;
 begin
   Result := FEarliestDate;
+end;
+
+function TInterval.GetLatest: TDateTime;
+begin
+  if Assigned(Self) and (not IsCollection) then
+    Result := FinishDate+Buffer
+  else Result := 0;
 end;
 
 function TInterval.GetFinishDate: TDateTime;

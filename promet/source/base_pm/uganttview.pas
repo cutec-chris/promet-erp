@@ -1088,39 +1088,77 @@ begin
 end;
 function TfGanttView.FindCriticalPath : TInterval;
 var
+  aLastInterval: TInterval;
+  bTmp: TInterval;
   y: Integer;
-  aLastDate : TDateTime;
-  aRes : TInterval;
-  function DoPath(aInterval : TInterval) : Boolean;
+  aIntervals : TList;
+
+  function FindLastConn(aInterval : TInterval) : TInterval;
   var
+    aTmp: TInterval;
     i: Integer;
   begin
-    Result := False;
+    Result := nil;
+    for i := 0 to aInterval.IntervalCount-1 do
+      begin
+        if aIntervals.IndexOf(aInterval.Interval[i])=-1 then
+          aIntervals.Add(aInterval.Interval[i]);
+        aInterval.Interval[i].InCriticalPath:=False;
+        aTmp := FindLastConn(aInterval.Interval[i]);
+        if aTmp.Latest>Result.Latest then
+          Result := aTmp;
+      end;
     for i := 0 to aInterval.ConnectionCount-1 do
-      Result := Result
-      or (DoPath(aInterval.Connection[i]) and (aInterval.Connection[i].StartDate<=(aInterval.FinishDate+aInterval.Buffer)));
-    if (aInterval.ConnectionCount = 0) and (aInterval.IntervalCount = 0) and (aInterval.FinishDate+aInterval.Buffer>=aLastDate) then
       begin
-        aRes := aInterval;
-        Result := True;
+        if aIntervals.IndexOf(aInterval.Connection[i])=-1 then
+          aIntervals.Add(aInterval.Connection[i]);
+        aTmp := aInterval.Connection[i];
+        if aTmp.Latest>Result.Latest then
+          Result := aTmp;
       end;
-    if (aInterval.ConnectionCount = 0) and (aInterval.IntervalCount > 0) then
-      for i := 0 to aInterval.IntervalCount-1 do
-        Result := Result or DoPath(aInterval.Interval[i]);
-    aInterval.InCriticalPath := Result;
+    if aIntervals.IndexOf(aInterval)=-1 then
+      aIntervals.Add(aInterval);
+    if aInterval.Latest>Result.Latest then
+      Result := aInterval;
   end;
-begin
-  aLastDate := 0;
-  aRes := nil;
-  for y := 0 to fGantt.IntervalCount-1 do
-    if FGantt.Interval[y].FinishDate>aLastDate then
+
+  procedure DoPath(aInterval : TInterval);
+  var
+    aLatestConn: TInterval;
+    i: Integer;
+  begin
+    aLatestConn := nil;
+    for i := 0 to aIntervals.Count-1 do
+      if TInterval(aIntervals[i]).ConnectionExists(aInterval) then
+        if TInterval(aIntervals[i]).Latest>aLatestconn.Latest then
+          begin
+            aLatestConn := TInterval(aIntervals[i]);
+          end;
+    if Assigned(aLatestConn) then
       begin
-        aLastDate := FGantt.Interval[y].FinishDate;
+        aLatestConn.InCriticalPath:=True;
+        DoPath(aLatestConn);
       end;
+  end;
+
+begin
+  aLastInterval := nil;
+  aIntervals := TList.Create;
   for y := 0 to fGantt.IntervalCount-1 do
-    if not Assigned(FGantt.Interval[y].Parent) then
-      DoPath(FGantt.Interval[y]);
-  Result := aRes;
+    begin
+      bTmp := FindLastConn(FGantt.Interval[y]);
+      if bTmp.Latest>aLastInterval.Latest then
+        aLastInterval := bTmp;
+    end;
+  for y := 0 to aIntervals.Count-1 do
+    TInterval(aIntervals[y]).InCriticalPath:=False;
+  if Assigned(aLastInterval) then
+    begin
+      DoPath(aLastInterval);
+    end;
+  aLastInterval.InCriticalPath:=True;
+  aIntervals.Free;
+  Result := aLastInterval;
   FGantt.Calendar.Invalidate;
 end;
 procedure TfGanttView.FillInterval(aInterval : TInterval; aTasks: TTaskList);
