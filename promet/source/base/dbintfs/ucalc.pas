@@ -254,6 +254,10 @@ var
   aVar: String;
   bOut: String;
   aDS: TDataSet;
+  aFStart: String;
+  aTmp2: String;
+  aTmp: String;
+  toCalc: String;
 begin
   Result := True;
   if copy(aIn,0,2)='--' then
@@ -261,12 +265,25 @@ begin
       aOut.Add(aIn);
       exit;
     end;
-  if RPos('=',aIn)>0 then
+  if Pos('=',aIn)>0 then
     begin
-      aVar := copy(aIn,RPos('=',aIn)+1,length(aIn));
+      aVar := copy(aIn,0,RPos('=',aIn)-1);
       aVar := StringReplace(aVar,#10,'',[rfReplaceAll]);
       aVar := trim(StringReplace(aVar,#13,'',[rfReplaceAll]));
-      aIn := copy(aIn,0,RPos('=',aIn)-1);
+      aIn := copy(aIn,Pos('=',aIn)+1,length(aIn));
+    end;
+  if pos('(',aVar)>0 then
+    begin
+      if Variables.Locate('NAME',aVar,[]) then
+        Variables.Edit
+      else Variables.Insert;
+      Variables.FieldByName('NAME').AsString:=aVar;
+      Variables.FieldByName('FORMULA').AsString:=aIn;
+      Variables.FieldByName('RESULT').AsFloat:=aParser.CalcTree(aTree);
+      Variables.Post;
+      aOut.Add(aVar+'='+aIn+' gespeichert');
+      Result := True;
+      exit;
     end;
   aParser := TMathParser.Create;
   aParser.AddOperatorEx('milli',@ConvertDTausend,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
@@ -288,6 +305,41 @@ begin
       while not EOF do
         begin
           aParser.AddConstant(Variables.FieldByName('NAME').AsString,Variables.FieldByName('RESULT').AsFloat);
+          aFStart := copy(Variables.FieldByName('NAME').AsString,0,pos('(',Variables.FieldByName('NAME').AsString));
+          while pos(aFStart,aIn)>0 do
+            begin
+              aTmp := aIn;
+              aTmp2 := copy(Variables.FieldByName('NAME').AsString,length(aFStart)+1,length(Variables.FieldByName('NAME').AsString));
+              aTmp2 := StringReplace(aTmp2,')',',',[rfReplaceAll]);
+              aIn := copy(aTmp,0,pos(aFStart,aTmp)-1);
+              aTmp := copy(aTmp,pos(aFStart,aTmp)+length(aFStart),length(aTmp));
+              bOut := copy(atmp,pos(')',aTmp)+1,length(aTmp));
+              aTmp := copy(aTmp,0,pos(')',aTmp));
+              aTmp := StringReplace(aTmp,')',',',[rfReplaceAll]);
+              toCalc := Variables.FieldByName('FORMULA').AsString;
+              while pos(',',aTmp2)>0 do
+                begin
+                  toCalc := StringReplace(toCalc,'@'+copy(aTmp2,0,pos(',',aTmp2)-1)+'@',copy(aTmp,0,pos(',',aTmp)-1),[rfReplaceAll]);
+                  aTmp2 := copy(aTmp2,pos(',',aTmp2)+1,length(aTmp2));
+                  aTmp :=  copy(aTmp ,pos(',',aTmp )+1,length(aTmp ));
+                end;
+              if Calculate(toCalc,aOut) then
+                begin
+                  if copy(aOut[aOut.Count-1],0,1) = '=' then
+                    aIn += trim(copy(aOut[aOut.Count-1],2,length(aOut[aOut.Count-1])))
+                   else
+                     begin
+                       Result := False;
+                       exit;
+                     end;
+                end
+              else
+                begin
+                  Result := False;
+                  exit;
+                end;
+              aIn+=bOut;
+            end;
           Next;
         end;
     end;
@@ -315,7 +367,7 @@ begin
             Variables.FieldByName('FORMULA').AsString:=aIn;
             Variables.FieldByName('RESULT').AsFloat:=aParser.CalcTree(aTree);
             Variables.Post;
-            aOut.Add('='+bOut+'='+aVar)
+            aOut.Add('='+aVar+'='+bOut);
           end
         else
           aOut.Add('='+bOut);
@@ -349,7 +401,7 @@ begin
                 Variables.FieldByName('FORMULA').AsString:=aIn;
                 Variables.FieldByName('RESULT').AsFloat:=aDS.Fields[0].AsFloat;
                 Variables.Post;
-                aOut.Add('='+bOut+'='+aVar)
+                aOut.Add('='+aVar+'='+bOut);
               end
             else
               aOut.Add('='+bOut);
