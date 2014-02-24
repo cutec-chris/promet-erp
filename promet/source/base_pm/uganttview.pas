@@ -1256,12 +1256,12 @@ end;
 function TfGanttView.Execute(aProject: TProject; aLink: string;
   DoClean: Boolean; AddInactive: Boolean): Boolean;
 begin
-  FResourcesRead := False;
   if not Assigned(Self) then
     begin
       Application.CreateForm(TfGanttView,fGanttView);
       Self := fGanttView;
     end;
+  FResourcesRead := False;
   FProject := aproject;
   FTasks := aProject.Tasks;
   Populate(FTasks,DoClean,AddInactive);
