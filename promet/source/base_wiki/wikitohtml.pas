@@ -368,8 +368,8 @@ begin
       istr := copy(istr,pos(#13,istr)-1,length(istr));
       tstr := copy(istr,0,pos(#13+'|}',istr)-1);
       istr := copy(istr,pos(#13+'|}',istr)+3,length(istr));
-      ostr := ostr+'<table><tr>';
-      tstr := StringReplace(tstr,'|-','</tr><tr>',[rfReplaceAll]);
+      ostr := ostr+'<table><tr valign="top" align="left">';
+      tstr := StringReplace(tstr,'|-','</tr><tr valign="top" align="left">',[rfReplaceAll]);
       intd := False;
       while length(tstr) > 2 do
         begin

@@ -545,22 +545,22 @@ var
   var
     b: Integer;
   begin
-    Outp+='<tr>';
+    Outp+='<thead><tr>';
     for b := 0 to TSQLSelectStatement(aStmt).Fields.Count-1 do
       begin
         aElem := TSQLSelectStatement(aStmt).Fields[b];
         if aElem is TSQLSelectField then
           begin
             if Assigned(TSQLSelectField(aElem).AliasName) then
-              Outp+='<td><b>'+HTMLEncode(StringReplace(TSQLSelectField(aElem).AliasName.GetAsSQL([sfoSingleQuoteIdentifier]),'''','',[rfReplaceAll]))+'</b></td>'
+              Outp+='<th><b>'+HTMLEncode(StringReplace(TSQLSelectField(aElem).AliasName.GetAsSQL([sfoSingleQuoteIdentifier]),'''','',[rfReplaceAll]))+'</b></th>'
             else
               begin
                 aName := TSQLSelectField(aElem).Expression.GetAsSQL([sfoSingleQuoteIdentifier]);
-                Outp+='<td><b>'+HTMLEncode(StringReplace(aName,'''','',[rfReplaceAll]))+'</b></td>';
+                Outp+='<th><b>'+HTMLEncode(StringReplace(aName,'''','',[rfReplaceAll]))+'</b></th>';
               end;
           end;
       end;
-    Outp+='</tr>';
+    Outp+='</tr></thead>';
   end;
   procedure BuildLinkRow;
   var
@@ -579,7 +579,7 @@ var
   begin
     result := '';
     aLink := Data.BuildLink(aBDS);
-    Result+='<tr>';
+    Result+='<tr valign="top" align="left">';
     if TSQLSelectStatement(aStmt).All then
       begin
         for a := 0 to aDS.DataSet.FieldCount-1 do
@@ -636,6 +636,7 @@ var
             begin
               if IncHeader then
                 AddHeader;
+              if aType=1 then Outp+='<tbody align="left" valign="top">';
               aDs := TBaseDBDataset(aClass.Create(nil,Data));
               if Assigned(TSQLSelectStatement(aStmt).Where) then
                 aFilter:=TSQLSelectStatement(aStmt).Where.GetAsSQL([sfoDoubleQuoteIdentifier]);
@@ -668,6 +669,7 @@ var
                     end;
                 end;
               aDS.Free;
+              if aType=1 then Outp+='</tbody>';
             end;
         end
       else
@@ -829,12 +831,14 @@ begin
             Outp+='<table>';
             if IncHeader then
               AddHeader;
+            Outp+='<tbody align="left" valign="top">';
             while (not aRDS.EOF) and (aLimit>0) do
               begin
                 Outp+=BuildTableRow(aRDs);
                 dec(aLimit,1);
                 aRDS.Next;
               end;
+            Outp+='</tbody>';
             Outp+='</table>';
           end;
       finally
