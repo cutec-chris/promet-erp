@@ -443,6 +443,15 @@ procedure TfGanttView.bMoveFwdClick(Sender: TObject);
         aBuffer := Buffer;
         if aBuffer < (aDur*(seBuffer.Value/100)) then
           aBuffer := (aDur*(seBuffer.Value/100));
+        //Add Weekends to Buffer
+        i := trunc(TInterval(Sender).FinishDate);
+        while i < TInterval(Sender).FinishDate+aBuffer do
+          begin
+            if ((DayOfWeek(i)=1) or (DayOfWeek(i)=7)) then
+              aBuffer := aBuffer+1;
+            inc(i,1);
+          end;
+
         for i := 0 to ConnectionCount-1 do
           begin
             Connection[i].BeginUpdate;
