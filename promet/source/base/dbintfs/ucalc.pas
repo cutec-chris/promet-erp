@@ -293,11 +293,17 @@ begin
   aParser.AddOperatorEx('hundert',@ConvertHundert,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
   aParser.AddOperatorEx('tausend',@ConvertTausend,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
   aParser.AddOperatorEx('million',@ConvertMillion,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
+  aParser.AddOperatorEx('millionen',@ConvertMillion,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
   aParser.AddOperatorEx('milliarde',@ConvertMilliarde,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
+  aParser.AddOperatorEx('milliarden',@ConvertMilliarde,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
   aParser.AddOperatorEx('billion',@ConvertBillion,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
+  aParser.AddOperatorEx('billionen',@ConvertBillion,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
   aParser.AddOperatorEx('billiarde',@ConvertBilliarde,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
+  aParser.AddOperatorEx('billiarden',@ConvertBilliarde,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
   aParser.AddOperatorEx('trillion',@ConvertTrillion,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
+  aParser.AddOperatorEx('trillionen',@ConvertTrillion,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
   aParser.AddOperatorEx('trilliarde',@ConvertTrilliarde,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
+  aParser.AddOperatorEx('trilliarden',@ConvertTrilliarde,[mpaLeft],MPOP_OPERATOR_LEFTONLY);
   with Variables do
     begin
       Active:=True;
