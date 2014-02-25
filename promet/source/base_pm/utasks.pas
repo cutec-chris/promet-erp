@@ -563,9 +563,7 @@ begin
       if DataSet is TProjectTasks then
         if not TProjectTasks(DataSet).Project.CanEdit then
           TProjectTasks(DataSet).Project.DataSet.Edit;
-      RefreshTasks(FTaskNode);
       acDelPos.Enabled := acAddPos.Enabled and ((FGridView.Count > 0) and (DataSet.State <> dsInsert));
-      FGridView.Refresh;
     end;
 end;
 procedure TfTaskFrame.acFilterExecute(Sender: TObject);
@@ -1310,7 +1308,7 @@ begin
                 pSearch.Left:=tbLeft.Width+X
               else pSearch.Left:=X;
               pSearch.Top:=Y;
-              if FGridView.gHeader.Visible then
+              if tbTop.Visible then
                 pSearch.Top:=pSearch.Top+FGridView.gHeader.Height;
             end;
           if Assigned(ActiveSearch) then

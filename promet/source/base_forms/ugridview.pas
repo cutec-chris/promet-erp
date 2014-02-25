@@ -3295,6 +3295,8 @@ begin
 end;
 
 procedure TfGridView.Delete;
+var
+  aOldRow: Integer;
 begin
   if not GotoActiveRow then exit;
   if (FDataSource.DataSet.State <> dsInsert) and ((TRowObject(gList.Objects[0,gList.Row]).Rec = 0) or (not FDataSet.GotoBookmark(TRowObject(gList.Objects[0,gList.Row]).Rec))) then
@@ -3306,9 +3308,9 @@ begin
     begin
       CleanList(1);
     end;
-  OldRow := gList.Row;
+  aOldRow := gList.Row;
   SyncDataSource;
-  gList.Row:=OldRow;
+  gList.Row:=aOldRow;
   GotoActiveRow;
 end;
 procedure TfGridView.First;

@@ -609,7 +609,6 @@ begin
           TfTaskFrame(pcPages.ActivePage.Controls[0]).acRefresh.Execute;
         end;
       FDataSet.CascadicPost;
-
     end;
 end;
 procedure TfProjectFrame.acSetTreeDirExecute(Sender: TObject);
