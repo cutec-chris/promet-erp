@@ -283,7 +283,7 @@
         <PackageName Value="LCL"/>
       </Item24>
     </RequiredPackages>
-    <Units Count="49">
+    <Units Count="50">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -559,11 +559,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMailOptions"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="182"/>
-        <CursorPos X="9" Y="210"/>
+        <CursorPos X="37" Y="202"/>
         <UsageCount Value="26"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -669,7 +668,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uGanttView"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="278"/>
         <CursorPos X="129" Y="298"/>
@@ -680,7 +679,7 @@
       <Unit42>
         <Filename Value="../../../general/src/ucolors.pas"/>
         <UnitName Value="uColors"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="38" Y="19"/>
@@ -690,7 +689,7 @@
       <Unit43>
         <Filename Value="../base_pm/utaskplan.pas"/>
         <UnitName Value="uTaskPlan"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1335"/>
         <CursorPos X="1" Y="1347"/>
@@ -700,7 +699,7 @@
       <Unit44>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1096"/>
         <CursorPos X="1" Y="1120"/>
@@ -732,7 +731,7 @@
       <Unit47>
         <Filename Value="../../../../../../Programme/lazarus/lcl/graphutil.pp"/>
         <UnitName Value="GraphUtil"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
@@ -748,8 +747,19 @@
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit48>
+      <Unit49>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <UnitName Value="uEnterTime"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="6"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="9"/>
+        <CursorPos X="3" Y="28"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit49>
     </Units>
-    <JumpHistory Count="10" HistoryIndex="9">
+    <JumpHistory Count="11" HistoryIndex="10">
       <Position1>
         <Filename Value="../../../general/src/ucolors.pas"/>
         <Caret Line="8" Column="43" TopLine="4"/>
@@ -790,6 +800,10 @@
         <Filename Value="umailoptions.pas"/>
         <Caret Line="184" Column="9" TopLine="165"/>
       </Position10>
+      <Position11>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position11>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

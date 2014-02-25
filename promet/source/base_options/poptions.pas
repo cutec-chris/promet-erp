@@ -7,8 +7,8 @@ unit pOptions;
 interface
 
 uses
-  uMandantOptions, uOptions, uOptionsFrame, uPersonalOptions, uProcessOptions, 
-  uuseroptions, uSyncOptions, uUserfieldDefOptions, LazarusPackageIntf;
+  uMandantOptions, uOptions, uOptionsFrame, uProcessOptions, uuseroptions, 
+  uSyncOptions, uUserfieldDefOptions, LazarusPackageIntf;
 
 implementation
 

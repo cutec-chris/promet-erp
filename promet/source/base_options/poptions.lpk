@@ -16,7 +16,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="18">
+    <Files Count="15">
       <Item1>
         <Filename Value="umandantoptions.lfm"/>
         <Type Value="LFM"/>
@@ -46,49 +46,37 @@
         <UnitName Value="uOptionsFrame"/>
       </Item7>
       <Item8>
-        <Filename Value="upersonaloptions.lfm"/>
+        <Filename Value="uprocessoptions.lfm"/>
         <Type Value="LFM"/>
       </Item8>
       <Item9>
-        <Filename Value="upersonaloptions.lrs"/>
-        <Type Value="LRS"/>
-      </Item9>
-      <Item10>
-        <Filename Value="upersonaloptions.pas"/>
-        <UnitName Value="uPersonalOptions"/>
-      </Item10>
-      <Item11>
-        <Filename Value="uprocessoptions.lfm"/>
-        <Type Value="LFM"/>
-      </Item11>
-      <Item12>
         <Filename Value="uprocessoptions.pas"/>
         <UnitName Value="uProcessOptions"/>
-      </Item12>
-      <Item13>
+      </Item9>
+      <Item10>
         <Filename Value="uuseroptions.lfm"/>
         <Type Value="LFM"/>
-      </Item13>
-      <Item14>
+      </Item10>
+      <Item11>
         <Filename Value="uuseroptions.pas"/>
         <UnitName Value="uuseroptions"/>
-      </Item14>
-      <Item15>
+      </Item11>
+      <Item12>
         <Filename Value="usyncoptions.lfm"/>
         <Type Value="LFM"/>
-      </Item15>
-      <Item16>
+      </Item12>
+      <Item13>
         <Filename Value="usyncoptions.pas"/>
         <UnitName Value="uSyncOptions"/>
-      </Item16>
-      <Item17>
+      </Item13>
+      <Item14>
         <Filename Value="uuserfielddefoptions.lfm"/>
         <Type Value="LFM"/>
-      </Item17>
-      <Item18>
+      </Item14>
+      <Item15>
         <Filename Value="uuserfielddefoptions.pas"/>
         <UnitName Value="uUserfieldDefOptions"/>
-      </Item18>
+      </Item15>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="2">
