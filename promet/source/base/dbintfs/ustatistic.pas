@@ -203,7 +203,7 @@ var
         aElem := List[I];
         if (aElem is TSQLSelectField)
         then
-          begin
+          begin //Fields are always upper cased in promet
             If (S<>'') then
               S:=S+Sep;
             if (pos('''',TSQLSelectField(aElem).Expression.GetAsSQL([]))=0)
@@ -213,8 +213,18 @@ var
             else
               S:=S+Pref+aElem.GetAsSQL(Options,2+Ind);
           end
+        else if (aElem is TSQLSimpleTableReference) then
+          begin //Tables are always upper cased in promet
+            If (S<>'') then
+              S:=S+Sep;
+            if (pos('''',TSQLSimpleTableReference(aElem).ObjectName.Name)=0)
+            and (not Assigned(TSQLSimpleTableReference(aElem).AliasName))
+            then
+              S:=S+Pref+Data.QuoteField(aElem.GetAsSQL([],2+Ind))
+            else
+              S:=S+Pref+aElem.GetAsSQL(Options,2+Ind);
+          end
         else if (aElem is TSQLExpression)
-             or (aElem is TSQLSimpleTableReference)
              or (aElem is TSQLJoinTableReference)
         then
           begin

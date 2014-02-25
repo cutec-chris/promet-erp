@@ -378,9 +378,10 @@ begin
         else
           aOut.Add('='+bOut);
       except
-        on e : Exception do
+        on e : EMathParserException do
           begin
-            aOut.Add(e.Message);
+            aTmp := e.ErrorDescription;
+            aOut.Add(aTmp);
             Result:=False;
           end;
       end;
@@ -390,37 +391,50 @@ begin
       Result := True;
       Stmt := TSQLStatemnt.Create;
       Stmt.SQL:=aIn;
-      if Stmt.Parse then
-        begin
-          aDS := TBaseDBModule(DataModule).GetNewDataSet(Stmt.SQL);
-          try
-            aDS.Open;
+      try
+        aOut.Clear;
+        if Stmt.Parse then
+          begin
+            aDS := TBaseDBModule(DataModule).GetNewDataSet(Stmt.FormatedSQL);
+            aOut.Add(Stmt.FormatedSQL);
+          end
+        else if (TBaseDBModule(DataModule).Users.Rights.Right('STATISTIC')>=RIGHT_READ)
+             and (not TBaseDBModule(DataModule).CheckForInjection(Stmt.SQL))
+        then
+          begin
+            aDS := TBaseDBModule(DataModule).GetNewDataSet(Stmt.SQL);
             aOut.Add(Stmt.SQL);
-            bOut := aDS.Fields[0].AsString;
-            aOut.Clear;
-            if (aVar <> '') and (aDs.Fields.Count=1) and (aDS.RecordCount=1) and (aDS.Fields[0].ClassType = TFloatField) then
-              begin
-                if Variables.Locate('NAME',aVar,[]) then
-                  Variables.Edit
-                else Variables.Insert;
-                Variables.FieldByName('NAME').AsString:=aVar;
-                Variables.FieldByName('FORMULA').AsString:=aIn;
-                Variables.FieldByName('RESULT').AsFloat:=aDS.Fields[0].AsFloat;
-                Variables.Post;
-                aOut.Add('='+aVar+'='+bOut);
-              end
+          end;
+        aDS.Open;
+        bOut := aDS.Fields[0].AsString;
+        if (aVar <> '') and (aDs.Fields.Count=1) and (aDS.RecordCount=1) and (aDS.Fields[0].ClassType = TFloatField) then
+          begin
+            if Variables.Locate('NAME',aVar,[]) then
+              Variables.Edit
+            else Variables.Insert;
+            Variables.FieldByName('NAME').AsString:=aVar;
+            Variables.FieldByName('FORMULA').AsString:=aIn;
+            Variables.FieldByName('RESULT').AsFloat:=aDS.Fields[0].AsFloat;
+            Variables.Post;
+            aOut.Add('='+aVar+'='+bOut);
+          end
+        else
+          begin
+            if (aDs.Fields.Count=1) and (aDS.RecordCount=1) and (aDS.Fields[0].ClassType = TFloatField) then
+              aOut.Add('='+bOut)
             else
-              aOut.Add('='+bOut);
-          except
-            on e : Exception do
               begin
-                aOut.Add(e.Message);
-                Result:=False;
+
               end;
           end;
-          aDS.Free;
-        end
-      else Result:=false;
+      except
+        on e : Exception do
+          begin
+            aOut.Add(e.Message);
+            Result:=False;
+          end;
+      end;
+      aDS.Free;
       Stmt.Free;
     end;
   aParser.Free;
