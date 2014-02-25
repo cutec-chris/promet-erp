@@ -50,7 +50,7 @@
         <DefaultFilename Value="..\base\pvisualprometapp.lpk"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="118">
+    <Units Count="119">
       <Unit0>
         <Filename Value="calculator.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -58,7 +58,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="20"/>
-        <UsageCount Value="174"/>
+        <UsageCount Value="175"/>
       </Unit0>
       <Unit1>
         <Filename Value="ucalculator.pas"/>
@@ -71,7 +71,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="149"/>
         <CursorPos X="21" Y="183"/>
-        <UsageCount Value="174"/>
+        <UsageCount Value="175"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -847,7 +847,7 @@
         <UnitName Value="uBaseVisualApplication"/>
         <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="28"/>
+        <TopLine Value="20"/>
         <CursorPos X="1" Y="20"/>
         <UsageCount Value="30"/>
         <Loaded Value="True"/>
@@ -907,7 +907,7 @@
         <UnitName Value="uZeosDBDM"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1331"/>
+        <TopLine Value="1334"/>
         <CursorPos X="1" Y="1368"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
@@ -934,8 +934,8 @@
         <UnitName Value="uStatistic"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="204"/>
-        <CursorPos X="73" Y="220"/>
+        <TopLine Value="339"/>
+        <CursorPos X="42" Y="365"/>
         <UsageCount Value="29"/>
         <Loaded Value="True"/>
       </Unit112>
@@ -945,8 +945,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="382"/>
-        <CursorPos X="78" Y="398"/>
+        <TopLine Value="400"/>
+        <CursorPos X="1" Y="424"/>
         <UsageCount Value="29"/>
         <Loaded Value="True"/>
       </Unit113>
@@ -991,127 +991,136 @@
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit117>
+      <Unit118>
+        <Filename Value="..\components\zeos\src\dbc\ZDbcPostgreSqlUtils.pas"/>
+        <UnitName Value="ZDbcPostgreSqlUtils"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="712"/>
+        <CursorPos X="1" Y="729"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit118>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="270" Column="1" TopLine="251"/>
+        <Caret Line="120" Column="1" TopLine="104"/>
       </Position1>
       <Position2>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="272" Column="1" TopLine="251"/>
+        <Caret Line="81" Column="1" TopLine="63"/>
       </Position2>
       <Position3>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="274" Column="1" TopLine="251"/>
+        <Caret Line="121" Column="1" TopLine="105"/>
       </Position3>
       <Position4>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="275" Column="1" TopLine="251"/>
+        <Caret Line="122" Column="1" TopLine="105"/>
       </Position4>
       <Position5>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="277" Column="1" TopLine="251"/>
+        <Caret Line="123" Column="1" TopLine="105"/>
       </Position5>
       <Position6>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="278" Column="1" TopLine="251"/>
+        <Caret Line="124" Column="1" TopLine="105"/>
       </Position6>
       <Position7>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="279" Column="1" TopLine="251"/>
+        <Caret Line="125" Column="1" TopLine="105"/>
       </Position7>
       <Position8>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="191" Column="1" TopLine="173"/>
+        <Caret Line="126" Column="1" TopLine="105"/>
       </Position8>
       <Position9>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="192" Column="1" TopLine="173"/>
+        <Caret Line="127" Column="1" TopLine="105"/>
       </Position9>
       <Position10>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="193" Column="1" TopLine="173"/>
+        <Caret Line="128" Column="1" TopLine="105"/>
       </Position10>
       <Position11>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="195" Column="1" TopLine="173"/>
+        <Caret Line="129" Column="1" TopLine="105"/>
       </Position11>
       <Position12>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="196" Column="1" TopLine="173"/>
+        <Caret Line="130" Column="1" TopLine="105"/>
       </Position12>
       <Position13>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="199" Column="1" TopLine="173"/>
+        <Caret Line="131" Column="1" TopLine="105"/>
       </Position13>
       <Position14>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="200" Column="1" TopLine="173"/>
+        <Caret Line="132" Column="1" TopLine="105"/>
       </Position14>
       <Position15>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="201" Column="1" TopLine="173"/>
+        <Caret Line="134" Column="1" TopLine="106"/>
       </Position15>
       <Position16>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="203" Column="1" TopLine="175"/>
+        <Caret Line="135" Column="1" TopLine="107"/>
       </Position16>
       <Position17>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="204" Column="1" TopLine="176"/>
+        <Caret Line="137" Column="1" TopLine="109"/>
       </Position17>
       <Position18>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="216" Column="1" TopLine="201"/>
+        <Caret Line="138" Column="1" TopLine="110"/>
       </Position18>
       <Position19>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="217" Column="1" TopLine="201"/>
+        <Caret Line="135" Column="1" TopLine="110"/>
       </Position19>
       <Position20>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="221" Column="55" TopLine="207"/>
+        <Caret Line="135" Column="1" TopLine="318"/>
       </Position20>
       <Position21>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="220" Column="73" TopLine="204"/>
+        <Caret Line="342" Column="1" TopLine="319"/>
       </Position21>
       <Position22>
-        <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="395" Column="1" TopLine="380"/>
+        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
+        <Caret Line="344" Column="1" TopLine="319"/>
       </Position22>
       <Position23>
-        <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="396" Column="1" TopLine="380"/>
+        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
+        <Caret Line="348" Column="1" TopLine="320"/>
       </Position23>
       <Position24>
-        <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="401" Column="1" TopLine="380"/>
+        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
+        <Caret Line="351" Column="1" TopLine="323"/>
       </Position24>
       <Position25>
-        <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="402" Column="1" TopLine="380"/>
+        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
+        <Caret Line="352" Column="1" TopLine="324"/>
       </Position25>
       <Position26>
-        <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="403" Column="1" TopLine="380"/>
+        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
+        <Caret Line="353" Column="1" TopLine="325"/>
       </Position26>
       <Position27>
-        <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="404" Column="1" TopLine="398"/>
+        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
+        <Caret Line="354" Column="1" TopLine="326"/>
       </Position27>
       <Position28>
-        <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="405" Column="1" TopLine="398"/>
+        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
+        <Caret Line="349" Column="1" TopLine="328"/>
       </Position28>
       <Position29>
-        <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="418" Column="1" TopLine="398"/>
+        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
+        <Caret Line="365" Column="42" TopLine="339"/>
       </Position29>
       <Position30>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="396" Column="1" TopLine="388"/>
+        <Caret Line="432" Column="29" TopLine="405"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -1153,7 +1162,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="3">
+    <Exceptions Count="4">
       <Item1>
         <Name Value="EConvertError"/>
       </Item1>
@@ -1163,6 +1172,9 @@
       <Item3>
         <Name Value="ESQLParser"/>
       </Item3>
+      <Item4>
+        <Name Value="EZSQLException"/>
+      </Item4>
     </Exceptions>
   </Debugging>
   <EditorMacros Count="0"/>

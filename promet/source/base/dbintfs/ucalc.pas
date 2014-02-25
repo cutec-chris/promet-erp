@@ -258,6 +258,7 @@ var
   aTmp2: String;
   aTmp: String;
   toCalc: String;
+  aSQL: string;
 begin
   Result := True;
   if copy(aIn,0,2)='--' then
@@ -265,7 +266,9 @@ begin
       aOut.Add(aIn);
       exit;
     end;
-  if Pos('=',aIn)>0 then
+  if (Pos('=',aIn)>0)
+  and ((pos('select',lowercase(aIn))>Pos('=',aIn)) or (pos('select',lowercase(aIn))=0))
+  then
     begin
       aVar := copy(aIn,0,RPos('=',aIn)-1);
       aVar := StringReplace(aVar,#10,'',[rfReplaceAll]);
@@ -393,39 +396,32 @@ begin
       Stmt.SQL:=aIn;
       try
         aOut.Clear;
-        if Stmt.Parse then
+        aDS := Stmt.GetDataSet(aSQL);
+        aOut.Add(aSQL);
+        if Assigned(aDS) then
           begin
-            aDS := TBaseDBModule(DataModule).GetNewDataSet(Stmt.FormatedSQL);
-            aOut.Add(Stmt.FormatedSQL);
-          end
-        else if (TBaseDBModule(DataModule).Users.Rights.Right('STATISTIC')>=RIGHT_READ)
-             and (not TBaseDBModule(DataModule).CheckForInjection(Stmt.SQL))
-        then
-          begin
-            aDS := TBaseDBModule(DataModule).GetNewDataSet(Stmt.SQL);
-            aOut.Add(Stmt.SQL);
-          end;
-        aDS.Open;
-        bOut := aDS.Fields[0].AsString;
-        if (aVar <> '') and (aDs.Fields.Count=1) and (aDS.RecordCount=1) and (aDS.Fields[0].ClassType = TFloatField) then
-          begin
-            if Variables.Locate('NAME',aVar,[]) then
-              Variables.Edit
-            else Variables.Insert;
-            Variables.FieldByName('NAME').AsString:=aVar;
-            Variables.FieldByName('FORMULA').AsString:=aIn;
-            Variables.FieldByName('RESULT').AsFloat:=aDS.Fields[0].AsFloat;
-            Variables.Post;
-            aOut.Add('='+aVar+'='+bOut);
-          end
-        else
-          begin
-            if (aDs.Fields.Count=1) and (aDS.RecordCount=1) and (aDS.Fields[0].ClassType = TFloatField) then
-              aOut.Add('='+bOut)
+            bOut := aDS.Fields[0].AsString;
+            if (aVar <> '') and (aDs.Fields.Count=1) and (aDS.RecordCount=1) and (aDS.Fields[0].ClassType = TFloatField) then
+              begin
+                if Variables.Locate('NAME',aVar,[]) then
+                  Variables.Edit
+                else Variables.Insert;
+                Variables.FieldByName('NAME').AsString:=aVar;
+                Variables.FieldByName('FORMULA').AsString:=aIn;
+                Variables.FieldByName('RESULT').AsFloat:=aDS.Fields[0].AsFloat;
+                Variables.Post;
+                aOut.Add('='+aVar+'='+bOut);
+              end
             else
               begin
+                if (aDs.Fields.Count=1) and (aDS.RecordCount=1) and (aDS.Fields[0].ClassType = TFloatField) then
+                  aOut.Add('='+bOut)
+                else
+                  begin
 
+                  end;
               end;
+            if Assigned(aDs) then aDS.Free;
           end;
       except
         on e : Exception do
@@ -434,7 +430,6 @@ begin
             Result:=False;
           end;
       end;
-      aDS.Free;
       Stmt.Free;
     end;
   aParser.Free;

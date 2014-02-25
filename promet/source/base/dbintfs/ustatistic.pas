@@ -25,7 +25,7 @@ interface
 
 uses
   Classes, SysUtils, uBaseDbClasses, db, uBaseDbInterface,uIntfStrConsts,
-  fpsqlparser,fpsqlscanner,fpsqltree;
+  fpsqlparser,fpsqlscanner,fpsqltree,httpsend,Utils;
 
 type
   TOwnSQLParser = class(TSQLParser)
@@ -39,6 +39,7 @@ type
     FExcept: TSQLExceptionEvent;
     FFormated: string;
     FSQL: string;
+    FTables: TStringList;
     FStatememt: TSQLElementList;
     procedure SetSQL(AValue: string);
   public
@@ -48,6 +49,7 @@ type
     property OnException : TSQLExceptionEvent read FExcept write FExcept;
     function Parse : Boolean;
     function BuildFormatedOuput(aStatement : TSQLStatement) : string;
+    function GetDataSet(var aSQL: string): TDataSet;
     constructor Create;
     destructor Destroy; override;
   end;
@@ -67,7 +69,8 @@ type
 
 implementation
 uses uBaseApplication,uData;
-
+resourcestring
+  strYQLFail                = 'YQL Abfrage fehlgeschlagen:';
 { TSQLStatement }
 
 procedure TSQLStatemnt.SetSQL(AValue: string);
@@ -88,7 +91,6 @@ var
   FStmtCount : Integer = 0;
   ErrVisible : Boolean = False;
   aOut : string = '';
-  FTables: TStringList;
 
   function CheckStmtTables : Boolean;
   var
@@ -108,14 +110,17 @@ var
               FTables.Add(aName);
               if Assigned(Data) then
                 if (Data.Users.Rights.Right(aName)>-1) and (Data.Users.Rights.Right(aName)<RIGHT_READ) then
-                  Result := False;
+                  Result := False
+                else if (Data.Users.Rights.Right(aName)=-1) then
+                  begin //try to check yql and local file selects
+
+                  end;
             end;
       end;
   end;
 begin
   Result := True;
   FSQLStream := TStringStream.Create(FSQL);
-  FTables := TStringList.Create;
   FExcludeKeywords := TStringList.Create;
   FExcludeKeywords.Add('SUBSTRING');
   FExcludeKeywords.Add('REPLACE');
@@ -305,13 +310,67 @@ begin
   end;
 end;
 
+function TSQLStatemnt.GetDataSet(var aSQL : string): TDataSet;
+var
+  eMsg: String = 'not enougth rights to access these tables';
+  http: THTTPSend;
+begin
+  Result := nil;
+  if Parse then
+    begin
+      Result := TBaseDBModule(Data).GetNewDataSet(FormatedSQL);
+      aSQL := FormatedSQL;
+    end
+  else if (TBaseDBModule(Data).Users.Rights.Right('STATISTIC')>=RIGHT_READ)
+       and (not TBaseDBModule(Data).CheckForInjection(SQL))
+  then
+    begin
+      Result := TBaseDBModule(Data).GetNewDataSet(SQL);
+      aSQL := SQL;
+    end;
+  if Assigned(Result) then
+    begin
+      try
+        Result.Open;
+      except
+        on e : Exception do
+          begin
+            eMsg := e.Message;
+            FreeAndNil(Result);
+          end;
+      end;
+    end;
+  if not Assigned(Result) then
+    begin
+      if (FTables.Count=1) and (aSQL = FormatedSQL) and FileExists(FTables[0]) then
+        begin //local file
+          eMsg:='not implemented';
+        end
+      else if (FTables.Count=1) and (aSQL = FormatedSQL) then//yql??
+        begin
+          //http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%27http%3A%2F%2Fmashable.com%27
+          http := THTTPSend.Create;
+          http.UserAgent:='Mozilla/5.0 (Windows NT 5.1; rv:6.0.2)';
+          http.HTTPMethod('GET','https://query.yahooapis.com/v1/public/yql?q='+HTTPEncode(aSQL));
+          if http.ResultCode=200 then
+            http.Document.SaveToFile('document.xml')
+          else eMsg:=strYQLFail+http.ResultString;
+          http.Free;
+        end;
+    end;
+  if not Assigned(Result) then
+    raise Exception.Create(eMsg);
+end;
+
 constructor TSQLStatemnt.Create;
 begin
   FStatememt := TSQLElementList.create(true);
+  FTables := TStringList.Create;
 end;
 
 destructor TSQLStatemnt.Destroy;
 begin
+  FTables.Free;
   FStatememt.Free;
   inherited Destroy;
 end;
