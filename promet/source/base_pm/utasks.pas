@@ -593,7 +593,7 @@ begin
       if aBaseFilter <> '' then
         aBaseFilter += ' AND ';
       with DataSet.DataSet as IBaseDbFilter do
-        aBaseFilter += '('+Data.QuoteField('DEPDONE')+'='+Data.QuoteValue('Y')+')';
+        aBaseFilter += '(('+Data.QuoteField('DEPDONE')+'='+Data.QuoteValue('Y')+') OR ((('+Data.QuoteField('STARTDATE')+'<='+Data.DateTimeToFilter(Now())+') or ('+Data.QuoteField('ENDDATE')+'<='+Data.DateTimeToFilter(Now())+'))))';
     end;
   if (not bFuture.Down) and (not bFuture1.Down) and (pos('STARTDATE',FFilter) = 0) then
     begin
