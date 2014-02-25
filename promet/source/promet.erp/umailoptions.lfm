@@ -6,38 +6,17 @@ inherited fMessageOptions: TfMessageOptions
   TabOrder = 0
   DesignLeft = 481
   DesignTop = 204
-  object lCheckForMailevery: TLabel[0]
+  object clbMailAccounts: TCheckListBox[0]
     Left = 8
-    Height = 14
-    Top = 192
-    Width = 211
-    Anchors = [akLeft, akBottom]
-    Caption = 'alle x Minuten nach Narichten prüfen'
-    ParentColor = False
-    Visible = False
-  end
-  object clbMailAccounts: TCheckListBox[1]
-    Left = 8
-    Height = 165
+    Height = 394
     Top = 6
     Width = 331
     Anchors = [akTop, akLeft, akRight, akBottom]
     ItemHeight = 0
     OnDblClick = clbMailAccountsDblClick
     TabOrder = 0
-    TopIndex = -1
   end
-  object seMailCheckTime: TSpinEdit[2]
-    Left = 285
-    Height = 24
-    Top = 187
-    Width = 54
-    Anchors = [akRight, akBottom]
-    TabOrder = 1
-    Value = 7
-    Visible = False
-  end
-  object bAdd: TBitBtn[3]
+  object bAdd: TBitBtn[1]
     Left = 353
     Height = 32
     Top = 6
@@ -81,9 +60,9 @@ inherited fMessageOptions: TfMessageOptions
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
     }
     OnClick = bAddClick
-    TabOrder = 2
+    TabOrder = 1
   end
-  object bDelete: TBitBtn[4]
+  object bDelete: TBitBtn[2]
     Left = 353
     Height = 32
     Top = 40
@@ -127,32 +106,6 @@ inherited fMessageOptions: TfMessageOptions
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
     }
     OnClick = bDeleteClick
-    TabOrder = 3
-  end
-  object lSignature: TLabel[5]
-    Left = 8
-    Height = 14
-    Top = 216
-    Width = 47
-    Anchors = [akLeft, akBottom]
-    Caption = 'Signatur'
-    ParentColor = False
-  end
-  inline fSignature: TfRichFrame[6]
-    Height = 176
-    Top = 233
-    Width = 467
-    Align = alBottom
-    ClientHeight = 176
-    ClientWidth = 467
-    TabOrder = 4
-    inherited rmText: TRichMemo
-      Height = 138
-      Top = 32
-      Width = 451
-    end
-    inherited seFontSize: TSpinEdit
-      Height = 24
-    end
+    TabOrder = 2
   end
 end

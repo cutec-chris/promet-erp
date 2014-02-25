@@ -283,7 +283,7 @@
         <PackageName Value="LCL"/>
       </Item24>
     </RequiredPackages>
-    <Units Count="48">
+    <Units Count="49">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -297,10 +297,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="88"/>
-        <CursorPos X="22" Y="92"/>
+        <TopLine Value="3335"/>
+        <CursorPos X="49" Y="3355"/>
         <UsageCount Value="26"/>
         <Loaded Value="True"/>
       </Unit1>
@@ -559,7 +559,14 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMailOptions"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="5"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="182"/>
+        <CursorPos X="9" Y="210"/>
         <UsageCount Value="26"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit30>
       <Unit31>
         <Filename Value="umaileditoptions.pas"/>
@@ -662,7 +669,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uGanttView"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="278"/>
         <CursorPos X="129" Y="298"/>
@@ -673,7 +680,7 @@
       <Unit42>
         <Filename Value="../../../general/src/ucolors.pas"/>
         <UnitName Value="uColors"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="38" Y="19"/>
@@ -683,7 +690,7 @@
       <Unit43>
         <Filename Value="../base_pm/utaskplan.pas"/>
         <UnitName Value="uTaskPlan"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1335"/>
         <CursorPos X="1" Y="1347"/>
@@ -693,7 +700,7 @@
       <Unit44>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1096"/>
         <CursorPos X="1" Y="1120"/>
@@ -702,11 +709,12 @@
       </Unit44>
       <Unit45>
         <Filename Value="../base_help/uwikiframe.pas"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uWikiFrame"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="582"/>
+        <TopLine Value="514"/>
         <CursorPos X="43" Y="582"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
@@ -714,7 +722,7 @@
       <Unit46>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
         <UnitName Value="wikitohtml"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="361"/>
         <CursorPos X="57" Y="371"/>
@@ -724,15 +732,24 @@
       <Unit47>
         <Filename Value="../../../../../../Programme/lazarus/lcl/graphutil.pp"/>
         <UnitName Value="GraphUtil"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit47>
+      <Unit48>
+        <Filename Value="../../../../../../Programme/lazarus/lcl/include/customframe.inc"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="151"/>
+        <CursorPos X="47" Y="165"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit48>
     </Units>
-    <JumpHistory Count="3" HistoryIndex="2">
+    <JumpHistory Count="10" HistoryIndex="9">
       <Position1>
         <Filename Value="../../../general/src/ucolors.pas"/>
         <Caret Line="8" Column="43" TopLine="4"/>
@@ -745,6 +762,34 @@
         <Filename Value="../base_pm/uganttview.pas"/>
         <Caret Line="279" Column="71" TopLine="267"/>
       </Position3>
+      <Position4>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="582" Column="43" TopLine="514"/>
+      </Position4>
+      <Position5>
+        <Filename Value="../../../../../../Programme/lazarus/lcl/include/customframe.inc"/>
+        <Caret Line="165" Column="47" TopLine="151"/>
+      </Position5>
+      <Position6>
+        <Filename Value="umain.pas"/>
+        <Caret Line="3355" Column="49" TopLine="3335"/>
+      </Position6>
+      <Position7>
+        <Filename Value="umailoptions.pas"/>
+        <Caret Line="30" Column="3" TopLine="11"/>
+      </Position7>
+      <Position8>
+        <Filename Value="umailoptions.pas"/>
+        <Caret Line="27" Column="25" TopLine="11"/>
+      </Position8>
+      <Position9>
+        <Filename Value="umailoptions.pas"/>
+        <Caret Line="192" Column="4" TopLine="171"/>
+      </Position9>
+      <Position10>
+        <Filename Value="umailoptions.pas"/>
+        <Caret Line="184" Column="9" TopLine="165"/>
+      </Position10>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

@@ -24,17 +24,13 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, CheckLst, Spin,
-  Buttons, uOptionsFrame, uRichFrame;
+  Buttons, uOptionsFrame;
 
 type
   TfMessageOptions = class(TOptionsFrame)
     bAdd: TBitBtn;
     bDelete: TBitBtn;
     clbMailAccounts: TCheckListBox;
-    fSignature: TfRichFrame;
-    lCheckForMailevery: TLabel;
-    lSignature: TLabel;
-    seMailCheckTime: TSpinEdit;
     procedure bAddClick(Sender: TObject);
     procedure bDeleteClick(Sender: TObject);
     procedure clbMailAccountsDblClick(Sender: TObject);
@@ -179,11 +175,13 @@ var
   atmp: String;
 begin
   inherited StartTransaction;
+  {
   fSignature.rmText.HandleNeeded;
   fSignature.AsText:='%MESSAGE%';
+  }
   with Application as IBaseDBInterface do
     begin
-      fSignature.AsRichText := DBConfig.ReadString('SIGNATURE','%MESSAGE%');
+      //fSignature.AsRichText := DBConfig.ReadString('SIGNATURE','%MESSAGE%');
       FMailAccounts := DBConfig.ReadString('MAILACCOUNTS','');
     end;
   clbMailAccounts.Items.Clear;
@@ -209,7 +207,7 @@ begin
   with Application as IBaseDBInterface do
     begin
       DBConfig.WriteString('MAILACCOUNTS',FMailAccounts);
-      DBConfig.WriteString('SIGNATURE',fSignature.AsRichText);
+      //DBConfig.WriteString('SIGNATURE',fSignature.AsRichText);
     end;
 end;
 
