@@ -258,6 +258,7 @@ var
   aTmp2: String;
   aTmp: String;
   toCalc: String;
+  aSQL: string;
 begin
   Result := True;
   if copy(aIn,0,2)='--' then
@@ -265,7 +266,9 @@ begin
       aOut.Add(aIn);
       exit;
     end;
-  if Pos('=',aIn)>0 then
+  if (Pos('=',aIn)>0)
+  and ((pos('select',lowercase(aIn))>Pos('=',aIn)) or (pos('select',lowercase(aIn))=0))
+  then
     begin
       aVar := copy(aIn,0,RPos('=',aIn)-1);
       aVar := StringReplace(aVar,#10,'',[rfReplaceAll]);
@@ -378,9 +381,10 @@ begin
         else
           aOut.Add('='+bOut);
       except
-        on e : Exception do
+        on e : EMathParserException do
           begin
-            aOut.Add(e.Message);
+            aTmp := e.ErrorDescription;
+            aOut.Add(aTmp);
             Result:=False;
           end;
       end;
@@ -390,14 +394,13 @@ begin
       Result := True;
       Stmt := TSQLStatemnt.Create;
       Stmt.SQL:=aIn;
-      if Stmt.Parse then
-        begin
-          aDS := TBaseDBModule(DataModule).GetNewDataSet(Stmt.SQL);
-          try
-            aDS.Open;
-            aOut.Add(Stmt.SQL);
+      try
+        aOut.Clear;
+        aDS := Stmt.GetDataSet(aSQL);
+        aOut.Add(aSQL);
+        if Assigned(aDS) then
+          begin
             bOut := aDS.Fields[0].AsString;
-            aOut.Clear;
             if (aVar <> '') and (aDs.Fields.Count=1) and (aDS.RecordCount=1) and (aDS.Fields[0].ClassType = TFloatField) then
               begin
                 if Variables.Locate('NAME',aVar,[]) then
@@ -410,17 +413,23 @@ begin
                 aOut.Add('='+aVar+'='+bOut);
               end
             else
-              aOut.Add('='+bOut);
-          except
-            on e : Exception do
               begin
-                aOut.Add(e.Message);
-                Result:=False;
+                if (aDs.Fields.Count=1) and (aDS.RecordCount=1) and (aDS.Fields[0].ClassType = TFloatField) then
+                  aOut.Add('='+bOut)
+                else
+                  begin
+
+                  end;
               end;
+            if Assigned(aDs) then aDS.Free;
           end;
-          aDS.Free;
-        end
-      else Result:=false;
+      except
+        on e : Exception do
+          begin
+            aOut.Add(e.Message);
+            Result:=False;
+          end;
+      end;
       Stmt.Free;
     end;
   aParser.Free;

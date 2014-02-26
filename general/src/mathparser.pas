@@ -449,7 +449,7 @@ var AError: TMPError;
            if OpError<>mpeNone then Begin
              Error:=OpError;
              ParseError:=OpError;                        
-             ParseErrorDescription:=OpErrorDesc;
+             //ParseErrorDescription:=OpErrorDesc;
              // assign error pos
              if (mpaRight in OpInvalidArgs) then Begin           // right argument is incorrect
                ParseErrorPos:=ATreeRootNode^.RightArgPos;
