@@ -63,7 +63,7 @@ type
     procedure DefineFields(aDataSet: TDataSet); override;
   end;
 procedure FieldsToJSON(AFields: TFields; AJSON: TJSONObject; const ADateAsString: Boolean; bFields: TSQLElementList = nil);
-procedure JSONToFields(AJSON: TJSONObject; AFields: TFields; const ADateAsString: Boolean);
+procedure JSONToFields(AJSON: TJSONObject; AFields: TFields; const ADateAsString: Boolean; const AddFields: Boolean = True);
 
 implementation
 uses Variants;
@@ -133,7 +133,7 @@ begin
   end;
 end;
 procedure JSONToFields(AJSON: TJSONObject; AFields: TFields;
-  const ADateAsString: Boolean);
+  const ADateAsString: Boolean; const AddFields: Boolean);
 var
   I: Integer;
   VName: string;

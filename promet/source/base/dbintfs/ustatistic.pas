@@ -70,7 +70,7 @@ type
   end;
 
 implementation
-uses uBaseApplication,uData;
+uses uBaseApplication,uData,usync;
 resourcestring
   strYQLFail                = 'YQL Abfrage fehlgeschlagen:';
 { TSQLStatement }
@@ -334,6 +334,7 @@ var
   i: Integer;
   aItem: TJSONObject;
   aTable: TJSONArray;
+  aObj: TJSONObject;
 begin
   Result := nil;
   aSQL := FSQL;
@@ -390,9 +391,21 @@ begin
                 begin
                   aItem := TJSONObject(aData.Items[0]);
                   aTable := TJSONArray(aItem.Elements['results']);
-
+                  Result := TMemDataset.Create(nil);
+                  if aTable.Count>0 then
+                    begin
+                      aObj := aTable.Items[0] as TJSONObject;
+                      for I := 0 to Pred(aObj.Count) do
+                        begin
+                          Result.FieldDefs.Add(Uppercase(aObj.Names[I]),ftString,500);
+                        end;
+                      for i := 0 to aTable.Count-1 do
+                        begin
+                          aObj := aTable.Items[i] as TJSONObject;
+                          JSONToFields(aObj,Result.Fields,True);
+                        end;
+                    end;
                 end;
-              Result := TMemDataset.Create(nil);
             end
           else eMsg:=strYQLFail+http.ResultString;
           http.Free;
@@ -542,4 +555,4 @@ begin
 end;
 
 end.
-
+

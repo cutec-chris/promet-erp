@@ -26,9 +26,6 @@ uses
   memds, FileUtil, SynEdit, SynMemo, SynHighlighterSQL, Translations, md5,
   ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage,ucalc;
 type
-
-  { TfMain }
-
   TfMain = class(TForm)
     acLogin: TAction;
     acLogout: TAction;
@@ -55,10 +52,13 @@ type
     procedure cbEnviromentSelect(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure InputKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { private declarations }
+    FHistory : TStringList;
+    FHistoryIndex : Integer;
   public
     { public declarations }
     CalcEnviroment : TCalcEnviroments;
@@ -107,20 +107,21 @@ begin
   cbEnviroment.ItemIndex:=0;
   CalcEnviroment.First;
   cbEnviromentSelect(nil);
+  with Application as IBaseDBInterface do
+    begin
+      FHistory.Text := DBConfig.ReadString('CALCHISTORY','');
+    end;
 end;
-
 procedure TfMain.acDeleteEnviromentExecute(Sender: TObject);
 begin
   cbEnviroment.Items.Delete(cbEnviroment.ItemIndex);
   CalcEnviroment.Delete;
 end;
-
 procedure TfMain.acLogoutExecute(Sender: TObject);
 begin
   with Application as IBaseApplication do
     Logout;
 end;
-
 procedure TfMain.cbEnviromentExit(Sender: TObject);
 begin
   if not CalcEnviroment.Locate('NAME',cbEnviroment.Text,[]) then
@@ -132,7 +133,6 @@ begin
     end;
   cbEnviromentSelect(nil);
 end;
-
 procedure TfMain.cbEnviromentSelect(Sender: TObject);
 begin
   with CalcEnviroment.Variables do
@@ -148,23 +148,29 @@ begin
     end;
   Input.SetFocus;
 end;
-
 procedure TfMain.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   FreeAndNil(CalcEnviroment);
   with Application as IBaseApplication do
     begin
+      with Application as IBaseDBInterface do
+        begin
+          DBConfig.WriteString('CALCHISTORY',FHistory.Text);
+        end;
       Data.ActiveUsers.DataSet.AfterScroll:=nil;
       SaveConfig;
       DoExit;
     end;
 end;
-
 procedure TfMain.FormCreate(Sender: TObject);
 begin
   CalcEnviroment := nil;
+  FHistory := TStringList.Create;
 end;
-
+procedure TfMain.FormDestroy(Sender: TObject);
+begin
+  FHistory.Free;
+end;
 procedure TfMain.FormShow(Sender: TObject);
 begin
   if not acLogin.Enabled then exit;
@@ -172,7 +178,6 @@ begin
     RestoreConfig; //Must be called when Mainform is Visible
   acLogin.Execute;
 end;
-
 procedure TfMain.InputKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState
   );
 var
@@ -186,6 +191,7 @@ begin
       sl := TStringList.Create;
       if CalcEnviroment.Calculate(Input.Text,sl) then
         begin
+          FHistoryIndex := FHistory.Add(Input.Text)+1;
           for i := 0 to sl.Count-1 do
             Output.Append(sl[i]);
           Input.Clear;
@@ -196,9 +202,26 @@ begin
           lInfo.Visible:=True;
         end;
       sl.Free;
+    end
+  else if Key = VK_UP then
+    begin
+      if FHistoryIndex>0 then
+        begin
+          dec(FHistoryIndex);
+          Input.Text := FHistory[FHistoryIndex];
+        end
+      else FHistoryIndex := 0;
+    end
+  else if Key = VK_DOWN then
+    begin
+      if FHistoryIndex<FHistory.Count-1 then
+        begin
+          inc(FHistoryIndex);
+          Input.Text := FHistory[FHistoryIndex];
+        end
+      else FHistoryIndex := 0;
     end;
 end;
-
 initialization
   {$I ucalculator.lrs}
 end.
