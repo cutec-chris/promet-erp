@@ -147,6 +147,8 @@ begin
     if not Assigned(VField) then
       Continue;
     VData := AJSON.Items[I];
+    if VData is TJSONArray then Continue;
+    if VData is TJSONObject then Continue;
     VField.Clear;
     if VData.IsNull then
       Exit;

@@ -335,6 +335,7 @@ var
   aItem: TJSONObject;
   aTable: TJSONArray;
   aObj: TJSONObject;
+  aDat: TJSONData;
 begin
   Result := nil;
   aSQL := FSQL;
@@ -394,15 +395,29 @@ begin
                   Result := TMemDataset.Create(nil);
                   if aTable.Count>0 then
                     begin
-                      aObj := aTable.Items[0] as TJSONObject;
-                      for I := 0 to Pred(aObj.Count) do
+                      aDat := aTable.Items[0];
+                      if aDat is TJSONArray then
                         begin
-                          Result.FieldDefs.Add(Uppercase(aObj.Names[I]),ftString,500);
+                          aTable := TJsonArray(aDat);
+                          if aTable.Count>0 then
+                            aDat := aTable.Items[0];
                         end;
-                      for i := 0 to aTable.Count-1 do
+                      if aDat is TJSONObject then
                         begin
-                          aObj := aTable.Items[i] as TJSONObject;
-                          JSONToFields(aObj,Result.Fields,True);
+                          aObj := aTable.Items[0] as TJSONObject;
+                          for I := 0 to Pred(aObj.Count) do
+                            Result.FieldDefs.Add(Uppercase(aObj.Names[I]),ftString,500);
+                          TMemDataset(Result).CreateTable;
+                          Result.Open;
+                          for i := 0 to aTable.Count-1 do
+                            begin
+                              aObj := TJSONObject(aTable.Items[i]);
+                              Result.Append;
+                              JSONToFields(aObj,Result.Fields,True);
+                              Result.Post;
+                              aObj := nil;
+                            end;
+                          Result.First;
                         end;
                     end;
                 end;

@@ -110,6 +110,7 @@ begin
   with Application as IBaseDBInterface do
     begin
       FHistory.Text := DBConfig.ReadString('CALCHISTORY','');
+      FHistoryIndex:=FHistory.Count;
     end;
 end;
 procedure TfMain.acDeleteEnviromentExecute(Sender: TObject);
@@ -208,9 +209,11 @@ begin
       if FHistoryIndex>0 then
         begin
           dec(FHistoryIndex);
+          if FHistoryIndex>FHistory.Count-1 then
+            FHistoryIndex:=FHistory.Count-1;
           Input.Text := FHistory[FHistoryIndex];
         end
-      else FHistoryIndex := 0;
+      else FHistoryIndex := FHistory.Count;
     end
   else if Key = VK_DOWN then
     begin
