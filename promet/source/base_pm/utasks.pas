@@ -526,7 +526,7 @@ procedure TfTaskFrame.ReportGetValue(const ParName: String;
 begin
   if Uppercase(ParName) = 'USER' then
     begin
-      if trim(FUsers.Values[DataSet.FieldByName('USER').AsString]) = '' then
+      if trim(FUDUEDATEsers.Values[DataSet.FieldByName('USER').AsString]) = '' then
         FUsers.Values[DataSet.FieldByName('USER').AsString] := TTaskList(FDataSet).UserName;
       ParValue := FUsers.Values[DataSet.FieldByName('USER').AsString]
     end
@@ -593,7 +593,7 @@ begin
       if aBaseFilter <> '' then
         aBaseFilter += ' AND ';
       with DataSet.DataSet as IBaseDbFilter do
-        aBaseFilter += '(('+Data.QuoteField('DEPDONE')+'='+Data.QuoteValue('Y')+') OR ((('+Data.QuoteField('STARTDATE')+'<='+Data.DateTimeToFilter(Now())+') or ('+Data.QuoteField('ENDDATE')+'<='+Data.DateTimeToFilter(Now())+'))))';
+        aBaseFilter += '(('+Data.QuoteField('DEPDONE')+'='+Data.QuoteValue('Y')+') OR ((('+Data.QuoteField('STARTDATE')+'<='+Data.DateTimeToFilter(Now())+') or ('+Data.QuoteField('DUEDATE')+'<='+Data.DateTimeToFilter(Now())+'))))';
     end;
   if (not bFuture.Down) and (not bFuture1.Down) and (pos('STARTDATE',FFilter) = 0) then
     begin
