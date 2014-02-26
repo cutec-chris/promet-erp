@@ -25,7 +25,7 @@ interface
 
 uses
   Classes, SysUtils, uBaseDbClasses, db, uBaseDbInterface,uIntfStrConsts,
-  fpsqlparser,fpsqlscanner,fpsqltree,httpsend,Utils;
+  fpsqlparser,fpsqlscanner,fpsqltree,httpsend,ssl_openssl,Utils;
 
 type
   TOwnSQLParser = class(TSQLParser)
@@ -41,6 +41,7 @@ type
     FSQL: string;
     FTables: TStringList;
     FStatememt: TSQLElementList;
+    FParseException : string;
     procedure SetSQL(AValue: string);
   public
     property SQL : string read FSQL write SetSQL;
@@ -91,6 +92,8 @@ var
   FStmtCount : Integer = 0;
   ErrVisible : Boolean = False;
   aOut : string = '';
+  aSQL: String;
+  yqlQ: Boolean;
 
   function CheckStmtTables : Boolean;
   var
@@ -119,8 +122,15 @@ var
       end;
   end;
 begin
+  FParseException:='';
   Result := True;
-  FSQLStream := TStringStream.Create(FSQL);
+  aSQL:=FSQL;
+  if copy(lowercase(trim(aSQL)),0,4)='yql ' then
+    begin
+      yqlQ := True;
+      aSQL:=copy(trim(aSQL),5,length(aSQL));
+    end;
+  FSQLStream := TStringStream.Create(aSQL);
   FExcludeKeywords := TStringList.Create;
   FExcludeKeywords.Add('SUBSTRING');
   FExcludeKeywords.Add('REPLACE');
@@ -141,6 +151,7 @@ begin
   except
     on e : Exception do
       begin
+        FParseException:=e.Message;
         if Assigned(OnException) then
           OnException(e,FSQLScanner.CurColumn,FSQLScanner.CurRow);
         Result := False;
@@ -171,6 +182,7 @@ begin
   except
     on e : Exception do
       begin
+        FParseException:=e.Message;
         if Assigned(OnException) then
           OnException(e,FSQLScanner.CurColumn,FSQLScanner.CurRow);
         Result := False;
@@ -314,8 +326,15 @@ function TSQLStatemnt.GetDataSet(var aSQL : string): TDataSet;
 var
   eMsg: String = 'not enougth rights to access these tables';
   http: THTTPSend;
+  yqlQ: Boolean = false;
 begin
   Result := nil;
+  aSQL := FSQL;
+  if copy(lowercase(trim(aSQL)),0,4)='yql ' then
+    begin
+      yqlQ := True;
+      aSQL:=copy(trim(aSQL),5,length(aSQL));
+    end;
   if Parse then
     begin
       Result := TBaseDBModule(Data).GetNewDataSet(FormatedSQL);
@@ -327,7 +346,8 @@ begin
     begin
       Result := TBaseDBModule(Data).GetNewDataSet(SQL);
       aSQL := SQL;
-    end;
+    end
+  else if FParseException<>'' then eMsg:=FParseException;
   if Assigned(Result) then
     begin
       try
@@ -346,14 +366,14 @@ begin
         begin //local file
           eMsg:='not implemented';
         end
-      else if (FTables.Count=1) and (aSQL = FormatedSQL) then//yql??
+      else if ((FTables.Count=1) and (aSQL = FormatedSQL)) or yqlQ then//yql??
         begin
           //http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%27http%3A%2F%2Fmashable.com%27
           http := THTTPSend.Create;
           http.UserAgent:='Mozilla/5.0 (Windows NT 5.1; rv:6.0.2)';
-          http.HTTPMethod('GET','https://query.yahooapis.com/v1/public/yql?q='+HTTPEncode(aSQL));
+          http.HTTPMethod('GET','https://query.yahooapis.com/v1/public/yql?q='+HTTPEncode(aSQL)+'&format=json');
           if http.ResultCode=200 then
-            http.Document.SaveToFile('document.xml')
+            http.Document.SaveToFile('document.json')
           else eMsg:=strYQLFail+http.ResultString;
           http.Free;
         end;
