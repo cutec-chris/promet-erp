@@ -254,7 +254,7 @@ begin
               if TMGridObject(aObj).Bold then
                 TStringGrid(Sender).Canvas.Font.Style := [fsBold];
               tmpSize := GetFontData(TStringGrid(Sender).Canvas.Font.Handle).Height;
-              TStringGrid(Sender).Canvas.Font.Height :=tmpSize+TMGridObject(aObj).FontSize;
+              TStringGrid(Sender).Canvas.Font.Height :=tmpSize-TMGridObject(aObj).FontSize;
               if not (gdSelected in State) then
                 begin
                   TStringGrid(Sender).Canvas.Font.Color:=TMGridObject(aObj).TextColor;
@@ -409,7 +409,10 @@ begin
                   if length(HistryPrio)>aI then
                     begin
                       aLight := 0.8-((1*HistryPrio[aI]/10)*0.8);
-                      TMGridObject(aObj).FontSize := round(3-((HistryPrio[aI]/10)*3))-3;
+                      if HistryPrio[aI]<4 then
+                        TMGridObject(aObj).FontSize := -1;
+                      if HistryPrio[aI]>6 then
+                        TMGridObject(aObj).FontSize := 1;
                     end;
                   TMGridObject(aObj).TextColor:=Ligthen(TMGridObject(aObj).TextColor,aLight);
                 end;
