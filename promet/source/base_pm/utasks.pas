@@ -526,7 +526,7 @@ procedure TfTaskFrame.ReportGetValue(const ParName: String;
 begin
   if Uppercase(ParName) = 'USER' then
     begin
-      if trim(FUDUEDATEsers.Values[DataSet.FieldByName('USER').AsString]) = '' then
+      if trim(FUsers.Values[DataSet.FieldByName('USER').AsString]) = '' then
         FUsers.Values[DataSet.FieldByName('USER').AsString] := TTaskList(FDataSet).UserName;
       ParValue := FUsers.Values[DataSet.FieldByName('USER').AsString]
     end
