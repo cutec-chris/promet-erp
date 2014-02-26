@@ -266,16 +266,20 @@ LazarusResources.Add('TfGridView','FORMDATA',[
   +#140#255#207#133'W'#255#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
   +#0#199'{G'#255#206#134'W'#255#206#140'W'#255#207#140'V'#255#206#140'V'#255
   +#207#135'W'#255#206#135'R'#255#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
-  +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#11'TActionList'#10'ActionList'#4'left'#3#208
-  +#0#3'top'#2'a'#0#7'TAction'#8'acFilter'#7'Caption'#6#7'Filtern'#4'Hint'#6'za'
-  +'ktiviert den gew'#195#164'hlten Filter, '#13#10'w'#195#164'hlen Sie den ers'
-  +'ten Eintrag (leereintrag) '#13#10'und klicken Sie hier um nicht zu filtern'
-  +#9'OnExecute'#7#15'acFilterExecute'#8'ShortCut'#3'F@'#0#0#7'TAction'#6'acOpe'
-  +'n'#7'Caption'#6#7#195#150'ffnen'#9'OnExecute'#7#13'acOpenExecute'#8'ShortCu'
-  +'t'#3'O@'#7'Visible'#8#0#0#7'TAction'#10'acCopyLink'#7'Caption'#6#20'als Ver'
-  +'weis kopieren'#10'ImageIndex'#2#23#9'OnExecute'#7#17'acCopyLinkExecute'#0#0
-  +#7'TAction'#8'acSearch'#7'Caption'#6#8'acSearch'#9'OnExecute'#7#15'acSearchE'
-  +'xecute'#8'ShortCut'#3'F@'#0#0#0#11'TDatasource'#11'FDataSource'#13'OnStateC'
-  +'hange'#7#22'FDataSourceStateChange'#12'OnDataChange'#7#21'FDataSourceDataCh'
-  +'ange'#4'left'#2'l'#3'top'#2'$'#0#0#0
+  +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#9'TMenuItem'#9'MenuItem2'#6'Action'#7#17'acCo'
+  +'pyToClipboard'#0#0#0#11'TActionList'#10'ActionList'#6'Images'#7#22'fVisualC'
+  +'ontrols.Images'#4'left'#3#208#0#3'top'#2'a'#0#7'TAction'#8'acFilter'#7'Capt'
+  +'ion'#6#7'Filtern'#4'Hint'#6'zaktiviert den gew'#195#164'hlten Filter, '#13
+  +#10'w'#195#164'hlen Sie den ersten Eintrag (leereintrag) '#13#10'und klicken'
+  +' Sie hier um nicht zu filtern'#9'OnExecute'#7#15'acFilterExecute'#8'ShortCu'
+  +'t'#3'F@'#0#0#7'TAction'#6'acOpen'#7'Caption'#6#7#195#150'ffnen'#10'ImageInd'
+  +'ex'#2#19#9'OnExecute'#7#13'acOpenExecute'#8'ShortCut'#3'O@'#7'Visible'#8#0#0
+  +#7'TAction'#10'acCopyLink'#7'Caption'#6#20'als Verweis kopieren'#10'ImageInd'
+  +'ex'#2#23#9'OnExecute'#7#17'acCopyLinkExecute'#0#0#7'TAction'#8'acSearch'#7
+  +'Caption'#6#8'acSearch'#10'ImageIndex'#2#8#9'OnExecute'#7#15'acSearchExecute'
+  +#8'ShortCut'#3'F@'#0#0#7'TAction'#17'acCopyToClipboard'#7'Caption'#6#26'in Z'
+  +'wischenablage kopieren'#10'ImageIndex'#2#23#9'OnExecute'#7#24'acCopyToClipb'
+  +'oardExecute'#0#0#0#11'TDatasource'#11'FDataSource'#13'OnStateChange'#7#22'F'
+  +'DataSourceStateChange'#12'OnDataChange'#7#21'FDataSourceDataChange'#4'left'
+  +#2'l'#3'top'#2'$'#0#0#0
 ]);

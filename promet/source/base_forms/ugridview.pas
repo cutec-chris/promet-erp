@@ -106,6 +106,7 @@ type
     acFilter: TAction;
     acOpen: TAction;
     acSearch: TAction;
+    acCopyToClipboard: TAction;
     ActionList: TActionList;
     ActionList1: TActionList;
     bRowEditor: TSpeedButton;
@@ -115,6 +116,7 @@ type
     gHeader: TExtStringgrid;
     ImageList1: TImageList;
     MenuItem1: TMenuItem;
+    MenuItem2: TMenuItem;
     miExport: TMenuItem;
     miImport: TMenuItem;
     miOpen: TMenuItem;
@@ -126,6 +128,7 @@ type
     sbGrids: TPanel;
     gList: TExtStringgrid;
     procedure acCopyLinkExecute(Sender: TObject);
+    procedure acCopyToClipboardExecute(Sender: TObject);
     procedure acFilterExecute(Sender: TObject);
     procedure acOpenExecute(Sender: TObject);
     procedure acSearchExecute(Sender: TObject);
@@ -540,6 +543,14 @@ begin
       Stream.Free;
     end;
 end;
+
+procedure TfGridView.acCopyToClipboardExecute(Sender: TObject);
+begin
+  if (gList.Col>0)
+  and (gList.Row>0) then
+    Clipboard.AsText := gList.Cells[gList.Col,gList.Row];
+end;
+
 procedure TfGridView.FDataSourceDataChange(Sender: TObject; Field: TField);
 begin
   FieldModified(Field);

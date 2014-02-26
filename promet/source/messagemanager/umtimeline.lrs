@@ -530,14 +530,17 @@ LazarusResources.Add('TfmTimeline','FORMDATA',[
   +'ption'#6#15'acAddScreenshot'#9'OnExecute'#7#22'acAddScreenshotExecute'#0#0#7
   +'TAction'#8'acRights'#7'Caption'#6#8'acRights'#10'ImageIndex'#2'd'#0#0#7'TAc'
   +'tion'#8'acDelete'#7'Caption'#6#8'l'#195#182'schen'#10'ImageIndex'#2'<'#9'On'
-  +'Execute'#7#15'acDeleteExecute'#0#0#0#22'TSelectDirectoryDialog'#22'SelectDi'
-  +'rectoryDialog1'#4'left'#3#136#1#3'top'#3#224#0#0#0#10'TIdleTimer'#10'IdleTi'
-  +'mer1'#7'Enabled'#8#8'Interval'#3#136#19#7'OnTimer'#7#15'IdleTimer1Timer'#4
-  +'left'#3#136#1#3'top'#3#128#0#0#0#6'TTimer'#6'Timer1'#7'Enabled'#8#8'Interva'
-  +'l'#3#144#1#7'OnTimer'#7#11'Timer1Timer'#4'left'#3#136#1#3'top'#3#176#0#0#0
-  +#10'TPopupMenu'#10'PopupMenu1'#4'left'#3#192#1#3'top'#3#128#0#0#9'TMenuItem'
-  +#9'MenuItem2'#6'Action'#7#12'acDetailView'#0#0#9'TMenuItem'#9'MenuItem3'#6'A'
-  +'ction'#7#12'acViewThread'#0#0#9'TMenuItem'#9'MenuItem4'#6'Action'#7#12'acMa'
-  +'rkasRead'#0#0#9'TMenuItem'#9'MenuItem1'#6'Action'#7#8'acAnswer'#0#0#9'TMenu'
-  +'Item'#9'MenuItem5'#6'Action'#7#8'acDelete'#0#0#0#0
+  +'Execute'#7#15'acDeleteExecute'#0#0#7'TAction'#17'acCopyToClipboard'#7'Capti'
+  +'on'#6#26'in Zwischenablage kopieren'#10'ImageIndex'#2#23#9'OnExecute'#7#24
+  +'acCopyToClipboardExecute'#8'ShortCut'#3'C@'#0#0#0#22'TSelectDirectoryDialog'
+  +#22'SelectDirectoryDialog1'#4'left'#3#136#1#3'top'#3#224#0#0#0#10'TIdleTimer'
+  +#10'IdleTimer1'#7'Enabled'#8#8'Interval'#3#136#19#7'OnTimer'#7#15'IdleTimer1'
+  +'Timer'#4'left'#3#136#1#3'top'#3#128#0#0#0#6'TTimer'#6'Timer1'#7'Enabled'#8#8
+  +'Interval'#3#144#1#7'OnTimer'#7#11'Timer1Timer'#4'left'#3#136#1#3'top'#3#176
+  +#0#0#0#10'TPopupMenu'#10'PopupMenu1'#4'left'#3#192#1#3'top'#3#128#0#0#9'TMen'
+  +'uItem'#9'MenuItem2'#6'Action'#7#12'acDetailView'#0#0#9'TMenuItem'#9'MenuIte'
+  +'m3'#6'Action'#7#12'acViewThread'#0#0#9'TMenuItem'#9'MenuItem4'#6'Action'#7
+  +#12'acMarkasRead'#0#0#9'TMenuItem'#9'MenuItem6'#6'Action'#7#17'acCopyToClipb'
+  +'oard'#0#0#9'TMenuItem'#9'MenuItem1'#6'Action'#7#8'acAnswer'#0#0#9'TMenuItem'
+  +#9'MenuItem5'#6'Action'#7#8'acDelete'#0#0#0#0
 ]);

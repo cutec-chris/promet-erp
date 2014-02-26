@@ -21,8 +21,8 @@ unit uHistoryFrame;
 interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, DbCtrls, ExtCtrls,
-  uPrometFramesInplaceDB, uExtControls, uBaseDbClasses, uFilterFrame, Grids, DBGrids,
-  Buttons, ActnList, ugridview,Clipbrd;
+  uPrometFramesInplaceDB, uExtControls, db, uBaseDbClasses, uFilterFrame, Grids,
+  DBGrids, Buttons, ActnList, ugridview, Clipbrd, Graphics;
 type
 
   { TfHistoryFrame }
@@ -53,14 +53,17 @@ type
     procedure acAddLinkedExecute(Sender: TObject);
     procedure acDeleteExecute(Sender: TObject);
     procedure bRefresh1Click(Sender: TObject);
-    function FContListDrawColumnCell(Sender: TObject; const Rect: TRect;
+    function FContListDrawColumnCell(Sender: TObject; const aRect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState) : Boolean;
     procedure FContListViewDetails(Sender: TObject);
+    procedure FTimeLineGetCellText(Sender: TObject; aCol: TColumn;
+      aRow: Integer; var NewText: string; aFont: TFont);
   private
+    FDrawnDate : TDateTime;
     fBaseName: string;
     { private declarations }
 //    FContList: TfFilter;
-    FGridView : TfGridView;
+    FTimeLine : TfGridView;
     FOnAddUserMessage: TNotifyEvent;
     procedure SetBaseName(const AValue: string);
     procedure RestoreButtons;
@@ -75,9 +78,46 @@ type
     procedure ShowFrame; override;
     property OnAddUserMessage : TNotifyEvent read FOnAddUserMessage write FOnAddUserMessage;
   end;
+  { TMGridObject }
+
+  TMGridObject = class(TObject)
+  public
+    Caption : string;
+    Bold : Boolean;
+    Text : string;
+    TextColor : tColor;
+    FontSize : Integer;
+    HasAttachment : Boolean;
+    IsThreaded : Boolean;
+    Image : TBitmap;
+    constructor Create;
+    destructor Destroy; override;
+  end;
+const
+  DrawImageWidth = 100;
+  aTextStyle : TTextStyle = (Alignment:taLeftJustify;
+                             Layout : tlTop;
+                             SingleLine : False;
+                             Clipping  : True;
+                             ExpandTabs:False;
+                             ShowPrefix:False;
+                             Wordbreak:false;
+                             Opaque:True;
+                             SystemFont:False;
+                             RightToLeft:False);
+  aTextStyleW : TTextStyle = (Alignment:taLeftJustify;
+                             Layout : tlTop;
+                             SingleLine : false;
+                             Clipping  : false;
+                             ExpandTabs:False;
+                             ShowPrefix:False;
+                             Wordbreak:true;
+                             Opaque:false;
+                             SystemFont:False;
+                             RightToLeft:False);
 implementation
-uses uBaseVisualControls,Graphics,uData,uBaseDbInterface,uHistoryAddItem,
-  uBaseERPDBClasses,uBaseVisualApplication;
+uses uBaseVisualControls,uData,uBaseDbInterface,uHistoryAddItem,
+  uBaseERPDBClasses,uBaseVisualApplication,wikitohtml,uColors;
 {$R *.lfm}
 resourcestring
   strHistory0                              = 'bearbeitet';
@@ -95,25 +135,149 @@ resourcestring
   strHistory12                             = 'umbenannt';
   strHistory13                             = 'aus Office geändert';
   strHistory14                             = 'extern geändert';
+const HistryPrio : array[0..14] of byte = (1,4,3,5,2,1,4,5,7,3,2,4,1,2,5);
+constructor TMGridObject.Create;
+begin
+  Bold := False;
+  TextColor:=clWindowText;
+  Image := nil;
+  FontSize:=0;
+end;
+destructor TMGridObject.Destroy;
+begin
+  if Assigned(Image) then
+    Image.Free;
+  inherited Destroy;
+end;
 function TfHistoryFrame.FContListDrawColumnCell(Sender: TObject;
-  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState) : Boolean;
+  const aRect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState) : Boolean;
+var
+  aColor: TColor;
+  aMiddle: Integer;
+  aHeight: Integer;
+  aRRect: TRect;
+  aObj: TObject;
+  bRect: TRect;
+  atext: String;
+  cRect: TRect;
+  aFactor: Extended;
+  aWidth: Integer;
+  tmpSize: Integer;
 begin
   if not Assigned(Self) then exit;
   with (Sender as TCustomGrid), Canvas do
     begin
       Result := True;
-      Canvas.FillRect(Rect);
+      Canvas.Font.Style := [];
+      Canvas.FillRect(aRect);
       if gdSelected in State then
         Canvas.Font.Color:=clHighlightText
       else
         Canvas.Font.Color:=clWindowText;
+      aColor := Column.Color;
+      if (not (gdFixed in State)) and (TStringGrid(Sender).AlternateColor<>AColor) then
+        begin
+          if (TStringGrid(Sender).AltColorStartNormal and Odd(DataCol-TStringGrid(Sender).FixedRows)) {(1)} or
+             (not TStringGrid(Sender).AltColorStartNormal and Odd(DataCol)) {(2)} then
+            AColor := TStringGrid(Sender).AlternateColor;
+        end;
+      if (gdSelected in State) then
+        begin
+          aColor := TStringGrid(Sender).SelectedColor;
+          TStringGrid(Sender).Canvas.Font.Color:=clHighlightText;
+        end;
       if (Column.FieldName = 'ACTIONICON') and Assigned(Column.Field) then
         begin
-          if not Column.Field.IsNull then
-            fVisualControls.HistoryImages.Draw(Canvas,Rect.Left,Rect.Top,StrToIntDef(TExtStringGrid(Sender).Cells[Column.Index+1,DataCol],-1));
+          Canvas.Brush.Color:=aColor;
+          Canvas.FillRect(aRect);
+          Canvas.Pen.Color:=clGray;
+          aMiddle :=((aRect.Right-aRect.Left) div 2);
+          Canvas.MoveTo(aRect.Left+aMiddle,aRect.Top);
+          Canvas.LineTo(aRect.Left+aMiddle,aRect.Bottom);
+          aHeight := 14;
+          aRRect := Rect(aRect.left+(aMiddle-(aHeight div 2)),
+                         aRect.Top+((aRect.Bottom-aRect.Top) div 2)-(aHeight div 2),
+                         aRect.left+(aMiddle+(aHeight div 2)),
+                         aRect.Top+((aRect.Bottom-aRect.Top) div 2)+(aHeight div 2));
+          Canvas.Ellipse(aRRect);
+          if not (TExtStringGrid(Sender).Cells[Column.Index+1,DataCol] = '') then
+            begin
+              aObj := fTimeline.gList.Objects[Column.Index+1,DataCol];
+              fVisualControls.HistoryImages.StretchDraw(Canvas,StrToIntDef(TExtStringGrid(Sender).Cells[Column.Index+1,DataCol],-1),aRRect);// Draw(Canvas,Rect.Left,Rect.Top,);
+            end;
+          if (gdSelected in State) and TStringGrid(Sender).Focused then
+            TStringGrid(Sender).Canvas.DrawFocusRect(arect);
+        end
+      else if (Column.FieldName='ACTION') then
+        begin
+          aObj := fTimeline.gList.Objects[Column.Index+1,DataCol];
+          if Assigned(aObj) then
+            begin
+              result := True;
+              if TMGridObject(aObj).Bold then
+                begin
+                  Canvas.Brush.Color := clHighlight;
+                  bRect := aRRect;
+                  bRect.Right := bRect.Left+4;
+                  Canvas.Rectangle(bRect);
+                end;
+              if TMGridObject(aObj).Text='' then
+                TMGridObject(aObj).Text := copy(StripWikiText(TExtStringGrid(Sender).Cells[Column.Index+1,DataCol]),0,1000);
+              atext := TMGridObject(aObj).Text;
+              TStringGrid(Sender).Canvas.Brush.Color:=aColor;
+              TStringGrid(Sender).Canvas.FillRect(aRect);
+              TStringGrid(Sender).Canvas.Brush.Style:=bsClear;
+              bRect := aRect;
+              if TMGridObject(aObj).IsThreaded then
+                fVisualControls.Images.Draw(TStringGrid(Sender).Canvas,aRect.Left-16,aRect.Top+16,112);
+              if TMGridObject(aObj).HasAttachment then
+                begin
+                  fVisualControls.Images.Draw(TStringGrid(Sender).Canvas,aRect.Left-16,aRect.Top,70);
+                  bRect.Right:=bRect.Right-DrawImageWidth;
+                  if Assigned(TMGridObject(aObj).Image) and (TMGridObject(aObj).Image.Height>0) and (TMGridObject(aObj).Image.Width>0) then
+                    begin
+                      cRect := Rect(bRect.Right,bRect.Top,aRect.Right,0);
+                      if TMGridObject(aObj).Image.Height>TMGridObject(aObj).Image.Width then
+                        aFactor := TMGridObject(aObj).Image.Height/TMGridObject(aObj).Image.Width
+                      else aFactor := TMGridObject(aObj).Image.Width/TMGridObject(aObj).Image.Height;
+                      aWidth := DrawImageWidth;
+                      if TMGridObject(aObj).Image.Width < DrawImageWidth then
+                        aWidth := TMGridObject(aObj).Image.Width;
+                      if TMGridObject(aObj).Image.Width>TMGridObject(aObj).Image.Height then
+                        cRect.Bottom:=round(cRect.Top+(aWidth/aFactor))
+                      else cRect.Bottom:=round(cRect.Top+(aWidth * aFactor));
+                      TStringGrid(Sender).Canvas.StretchDraw(cRect,TMGridObject(aObj).Image);
+                    end;
+                end;
+              if TMGridObject(aObj).Caption <> '' then
+                brect.Top := bRect.Top+TStringGrid(Sender).Canvas.TextExtent('A').cy;
+              if TMGridObject(aObj).Bold then
+                TStringGrid(Sender).Canvas.Font.Style := [fsBold];
+              tmpSize := GetFontData(TStringGrid(Sender).Canvas.Font.Handle).Height;
+              TStringGrid(Sender).Canvas.Font.Height :=tmpSize+TMGridObject(aObj).FontSize;
+              if not (gdSelected in State) then
+                begin
+                  TStringGrid(Sender).Canvas.Font.Color:=TMGridObject(aObj).TextColor;
+                end;
+              if fTimeline.WordWrap then
+                TStringGrid(Sender).Canvas.TextRect(bRect,aRect.Left+3,bRect.Top,aText,aTextStyleW)
+              else
+                TStringGrid(Sender).Canvas.TextRect(bRect,aRect.Left+3,bRect.Top,aText,aTextStyle);
+              TStringGrid(Sender).Canvas.Font.Height := tmpSize;
+              bRect := aRect;
+              TStringGrid(Sender).Canvas.Font.Color:=clGray;
+              brect.Bottom := aRect.Top+Canvas.TextExtent('A').cy;
+              TStringGrid(Sender).Canvas.Font.Style := [];
+              TStringGrid(Sender).Canvas.TextOut(arect.Left+3,aRect.Top,TMGridObject(aObj).Caption);
+              if (gdSelected in State) and TStringGrid(Sender).Focused then
+                TStringGrid(Sender).Canvas.DrawFocusRect(arect);
+            end
+          else result := False;
         end
       else
-        Result := False;
+        begin
+          Result := False;
+        end;
     end;
 end;
 procedure TfHistoryFrame.acAddExecute(Sender: TObject);
@@ -124,7 +288,7 @@ begin
         TBaseHistory(DataSet).AddItem(Data.Users.DataSet,fHistoryAddItem.eAction.Text,'',fHistoryAddItem.eReference.Text,TBaseHistory(DataSet).Parent.DataSet,ACICON_USEREDITED,'',True,True)
       else
         TBaseHistory(DataSet).AddItem(Data.Users.DataSet,fHistoryAddItem.eAction.Text,'',fHistoryAddItem.eReference.Text,nil,ACICON_USEREDITED,'',True,True);
-      FGridView.Refresh;
+      FTimeLine.Refresh;
       if Assigned(FOnAddUserMessage) then
         FOnAddUserMessage(fHistoryAddItem);
     end;
@@ -140,7 +304,7 @@ begin
   for i := 0 to pButtons.ComponentCount-1 do
     if TSpeedButton(pButtons.Components[i]).Down then
     aFilter += ' OR '+Data.QuoteField('ACTIONICON')+'='+Data.QuoteValue(IntToStr(TSpeedButton(pButtons.Components[i]).Tag));
-  FGridView.BaseFilter:='('+aFilter+')';
+  FTimeLine.BaseFilter:='('+aFilter+')';
   s := '';
   for i := 0 to pButtons.ComponentCount-1 do
     if TSpeedButton(pButtons.Components[i]).Down then
@@ -171,22 +335,22 @@ begin
       TBaseHistory(DataSet).AddItem(Data.Users.DataSet,fHistoryAddItem.eAction.Text,aLink,fHistoryAddItem.eReference.Text,nil,ACICON_USEREDITED,'',True,True);
       if Assigned(FOnAddUserMessage) then
         FOnAddUserMessage(fHistoryAddItem);
-      FGridView.Refresh;
+      FTimeLine.Refresh;
     end;
 end;
 procedure TfHistoryFrame.acDeleteExecute(Sender: TObject);
 begin
-  FGridView.Delete;
+  FTimeLine.Delete;
 end;
 
 procedure TfHistoryFrame.bRefresh1Click(Sender: TObject);
 begin
-  FGridView.Refresh(True);
+  FTimeLine.Refresh(True);
 end;
 
 procedure TfHistoryFrame.FContListViewDetails(Sender: TObject);
 begin
-  if FGridView.GotoActiveRow then
+  if FTimeLine.GotoActiveRow then
     begin
       if DataSet.FieldByName('LINK').AsString='' then
         begin
@@ -207,6 +371,76 @@ begin
         Data.GotoLink(DataSet.FieldByName('LINK').AsString);
     end;
 end;
+
+procedure TfHistoryFrame.FTimeLineGetCellText(Sender: TObject; aCol: TColumn;
+  aRow: Integer; var NewText: string; aFont: TFont);
+var
+  fHasObject: Boolean;
+  i: Integer;
+  aObj: TObject;
+  arec: LargeInt;
+  aTime: TDateTime;
+  aI: Integer;
+  aLight: Extended;
+begin
+  if aCol.FieldName='LINK' then
+    NewText := Data.GetLinkDesc(NewText)
+  else if aCol.FieldName='OBJECT' then
+    NewText := Data.GetLinkDesc(NewText)
+  else if (aCol.FieldName='ACTION') then
+    begin
+      fHasObject := False;
+      for i := 0 to fTimeline.dgFake.Columns.Count-1 do
+        if fTimeline.dgFake.Columns[i].FieldName='OBJECT' then
+          FHasObject := True;
+      NewText := StripWikiText(NewText);
+      if (not fHasObject) and (aRow>=fTimeLine.gList.FixedRows) then
+        begin
+          aObj := fTimeline.gList.Objects[aCol.Index+1,aRow];
+          if not Assigned(aObj) then
+            begin
+              fTimeline.gList.Objects[aCol.Index+1,aRow] := TMGridObject.Create;
+              arec := fTimeline.DataSet.GetBookmark;
+              aObj := fTimeline.gList.Objects[aCol.Index+1,aRow];
+              if fTimeline.GotoRowNumber(aRow) then
+                begin
+                  aI := FTimeLine.DataSet.FieldByName('ACTIONICON').AsInteger;
+                  aLight:=0;
+                  if length(HistryPrio)>aI then
+                    begin
+                      aLight := 0.8-((1*HistryPrio[aI]/10)*0.8);
+                      TMGridObject(aObj).FontSize := round(3-((HistryPrio[aI]/10)*3))-3;
+                    end;
+                  TMGridObject(aObj).TextColor:=Ligthen(TMGridObject(aObj).TextColor,aLight);
+                end;
+              fTimeline.DataSet.GotoBookmark(aRec);
+            end;
+          NewText := TMGridObject(aObj).Caption+lineending+NewText;
+          if length(NewText)>1000 then
+            NewText:=copy(NewText,0,1000)+LineEnding+'...';
+        end;
+    end
+  else if aCol.FieldName='TIMESTAMPD' then
+    begin
+      aObj := fTimeline.gList.Objects[aCol.Index+1,aRow];
+      if Assigned(aObj) then
+        begin
+          if TMGridObject(aObj).Bold then
+            TStringGrid(Sender).Canvas.Font.Style:=[fsBold]
+          else
+            TStringGrid(Sender).Canvas.Font.Style:=[];
+        end;
+      if TryStrToDateTime(NewText,aTime) then
+        begin
+          if (trunc(aTime) = FDrawnDate) or (trunc(aTime) = trunc(Now())) then
+            NewText:=TimeToStr(frac(aTime))
+          else
+            FDrawnDate:=trunc(aTime);
+          aCol.Alignment:=taRightJustify;
+        end;
+    end;
+end;
+
 procedure TfHistoryFrame.SetBaseName(const AValue: string);
 var
   TopVisible: Boolean;
@@ -214,7 +448,7 @@ begin
   if fBaseName=AValue then exit;
   fBaseName:=AValue;
 //  TopVisible := FContList.pTop.Visible;
-  FGridView.BaseName:='PHIST'+AValue;
+  FTimeLine.BaseName:='PHIST'+AValue;
 //  FContList.pTop.Visible := TopVisible;
   RestoreButtons;
 end;
@@ -270,8 +504,8 @@ end;
 constructor TfHistoryFrame.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  FGridView := TfGridView.Create(Self);
-  with FGridView do
+  FTimeLine := TfGridView.Create(Self);
+  with FTimeLine do
     begin
       BaseName:='PHIST';
       DefaultRows:='GLOBALWIDTH:%;ACTIONICON:30;ACTION:200;REFERENCE:100;COMMISSION:100;TIMESTAMPD:100;CHANGEDBY:40;';
@@ -281,22 +515,23 @@ begin
       SortField:='TIMESTAMPD';
       TextField:='ACTION';
       ReadOnly:=True;
-      FGridView.FilterRow:=True;
+      FTimeLine.FilterRow:=True;
       Show;
     end;
-  FGridView.OnDrawColumnCell:=@FContListDrawColumnCell;
-  FGridView.OnDblClick:=@FContListViewDetails;
-  FGridView.WordWrap:=true;
+  FTimeLine.OnDrawColumnCell:=@FContListDrawColumnCell;
+  FTimeLine.OnDblClick:=@FContListViewDetails;
+  FTimeLine.OnGetCellText:=@FTimeLineGetCellText;
+  FTimeLine.WordWrap:=true;
   Panel3.Visible:=Data.Users.Rights.Right('HISTORY') > RIGHT_WRITE;
   RestoreButtons;
 end;
 destructor TfHistoryFrame.Destroy;
 begin
-  if Assigned(FGridView) then
+  if Assigned(FTimeLine) then
     begin
-      FGridView.DataSet := nil;
-      FGridView.Free;
-      FGridView := nil;
+      FTimeLine.DataSet := nil;
+      FTimeLine.Free;
+      FTimeLine := nil;
     end;
   DataSet := nil;
   inherited Destroy;
@@ -304,8 +539,8 @@ end;
 procedure TfHistoryFrame.SetDataSet(const AValue: TBaseDBDataSet);
 begin
   inherited SetDataSet(AValue);
-  if not Assigned(FGridView) then exit;
-  FGridView.DataSet := AValue;
+  if not Assigned(FTimeLine) then exit;
+  FTimeLine.DataSet := AValue;
   aButtonClick(nil);
 end;
 procedure TfHistoryFrame.SetRights(Editable : Boolean);
@@ -314,8 +549,8 @@ end;
 procedure TfHistoryFrame.ShowFrame;
 begin
   inherited ShowFrame;
-  FGridView.Refresh(True);
-  FGridView.SetActive;
+  FTimeLine.Refresh(True);
+  FTimeLine.SetActive;
 end;
 
 end.

@@ -378,8 +378,12 @@ object fGridView: TfGridView
         0000000000000000000000000000000000000000000000000000
       }
     end
+    object MenuItem2: TMenuItem
+      Action = acCopyToClipboard
+    end
   end
   object ActionList: TActionList
+    Images = fVisualControls.Images
     left = 208
     top = 97
     object acFilter: TAction
@@ -390,6 +394,7 @@ object fGridView: TfGridView
     end
     object acOpen: TAction
       Caption = 'Öffnen'
+      ImageIndex = 19
       OnExecute = acOpenExecute
       ShortCut = 16463
       Visible = False
@@ -401,8 +406,14 @@ object fGridView: TfGridView
     end
     object acSearch: TAction
       Caption = 'acSearch'
+      ImageIndex = 8
       OnExecute = acSearchExecute
       ShortCut = 16454
+    end
+    object acCopyToClipboard: TAction
+      Caption = 'in Zwischenablage kopieren'
+      ImageIndex = 23
+      OnExecute = acCopyToClipboardExecute
     end
   end
   object FDataSource: TDatasource

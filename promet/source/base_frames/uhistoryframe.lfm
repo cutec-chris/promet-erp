@@ -328,6 +328,7 @@ inherited fHistoryFrame: TfHistoryFrame
     end
   end
   object ActionList1: TActionList[2]
+    Images = fVisualControls.Images
     left = 56
     top = 104
     object acAdd: TAction

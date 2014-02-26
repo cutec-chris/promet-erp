@@ -26,22 +26,8 @@ uses
   ZVDateTimePicker, uIntfStrConsts, db, memds, FileUtil, Translations, md5,
   ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage, ugridview, uExtControls,
   uBaseVisualControls, uBaseDbClasses, uFormAnimate, uBaseSearch, ImgList,
-  uBaseDbInterface, uQuickHelpFrame;
+  uBaseDbInterface, uQuickHelpFrame,uHistoryFrame;
 type
-
-  { TMGridObject }
-
-  TMGridObject = class(TObject)
-  public
-    Caption : string;
-    Bold : Boolean;
-    Text : string;
-    HasAttachment : Boolean;
-    IsThreaded : Boolean;
-    Image : TBitmap;
-    constructor Create;
-    destructor Destroy; override;
-  end;
 
   { TfmTimeline }
 
@@ -58,6 +44,7 @@ type
     acAddScreenshot: TAction;
     acRights: TAction;
     acDelete: TAction;
+    acCopyToClipboard: TAction;
     acViewThread: TAction;
     ActionList1: TActionList;
     bSend: TBitBtn;
@@ -69,6 +56,7 @@ type
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
+    MenuItem6: TMenuItem;
     MenuItem7: TMenuItem;
     miBugtracker: TMenuItem;
     miDeletemandant: TMenuItem;
@@ -100,6 +88,7 @@ type
     procedure acAddScreenshotExecute(Sender: TObject);
     procedure acAddUserExecute(Sender: TObject);
     procedure acAnswerExecute(Sender: TObject);
+    procedure acCopyToClipboardExecute(Sender: TObject);
     procedure acDeleteExecute(Sender: TObject);
     procedure acDetailViewExecute(Sender: TObject);
     procedure acFollowExecute(Sender: TObject);
@@ -228,18 +217,6 @@ begin
   Synchronize(@AddThumb);
   Synchronize(@DoRefresh);
 end;
-
-constructor TMGridObject.Create;
-begin
-  Bold := False;
-  Image := nil;
-end;
-destructor TMGridObject.Destroy;
-begin
-  if Assigned(Image) then
-    Image.Free;
-  inherited Destroy;
-end;
 procedure TfmTimeline.Execute;
 var
   aBoundsRect: TRect;
@@ -323,27 +300,6 @@ begin
 end;
 function TfmTimeline.FContListDrawColumnCell(Sender: TObject; const aRect: TRect;
   DataCol: Integer; Column: TColumn; State: TGridDrawState): Boolean;
-const
-  aTextStyle : TTextStyle = (Alignment:taLeftJustify;
-                             Layout : tlTop;
-                             SingleLine : False;
-                             Clipping  : True;
-                             ExpandTabs:False;
-                             ShowPrefix:False;
-                             Wordbreak:false;
-                             Opaque:True;
-                             SystemFont:False;
-                             RightToLeft:False);
-  aTextStyleW : TTextStyle = (Alignment:taLeftJustify;
-                             Layout : tlTop;
-                             SingleLine : false;
-                             Clipping  : false;
-                             ExpandTabs:False;
-                             ShowPrefix:False;
-                             Wordbreak:true;
-                             Opaque:false;
-                             SystemFont:False;
-                             RightToLeft:False);
 var
   aColor: TColor;
   aText: String;
@@ -547,6 +503,12 @@ begin
       MarkAsRead;
     end;
 end;
+
+procedure TfmTimeline.acCopyToClipboardExecute(Sender: TObject);
+begin
+  fTimeline.acCopyToClipboard.Execute;
+end;
+
 procedure TfmTimeline.acDeleteExecute(Sender: TObject);
 begin
   if fTimeline.GotoActiveRow then

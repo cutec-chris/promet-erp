@@ -606,6 +606,12 @@ object fmTimeline: TfmTimeline
       ImageIndex = 60
       OnExecute = acDeleteExecute
     end
+    object acCopyToClipboard: TAction
+      Caption = 'in Zwischenablage kopieren'
+      ImageIndex = 23
+      OnExecute = acCopyToClipboardExecute
+      ShortCut = 16451
+    end
   end
   object SelectDirectoryDialog1: TSelectDirectoryDialog
     left = 392
@@ -636,6 +642,9 @@ object fmTimeline: TfmTimeline
     end
     object MenuItem4: TMenuItem
       Action = acMarkasRead
+    end
+    object MenuItem6: TMenuItem
+      Action = acCopyToClipboard
     end
     object MenuItem1: TMenuItem
       Action = acAnswer
