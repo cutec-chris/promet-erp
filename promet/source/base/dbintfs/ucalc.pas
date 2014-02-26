@@ -259,6 +259,8 @@ var
   aTmp: String;
   toCalc: String;
   aSQL: string;
+  field: Integer;
+  aRec: Integer;
 begin
   Result := True;
   if copy(aIn,0,2)='--' then
@@ -400,9 +402,9 @@ begin
         aOut.Add(aSQL);
         if Assigned(aDS) then
           begin
-            bOut := aDS.Fields[0].AsString;
-            if (aVar <> '') and (aDs.Fields.Count=1) and (aDS.RecordCount=1) and (aDS.Fields[0].ClassType = TFloatField) then
+            if (aVar <> '') and (aDs.Fields.Count=1) and (aDS.RecordCount=1) and (IsNumeric(aDS.Fields[0].AsString)) then
               begin
+                bOut := aDS.Fields[0].AsString;
                 if Variables.Locate('NAME',aVar,[]) then
                   Variables.Edit
                 else Variables.Insert;
@@ -414,10 +416,34 @@ begin
               end
             else
               begin
-                if (aDs.Fields.Count=1) and (aDS.RecordCount=1) and (aDS.Fields[0].ClassType = TFloatField) then
-                  aOut.Add('='+bOut)
+                if  (aDs.Fields.Count=1)
+                and (aDS.RecordCount=1)
+                and (IsNumeric(aDS.Fields[0].AsString)) then
+                  begin
+                    bOut := aDS.Fields[0].AsString;
+                    aOut.Add('='+bOut)
+                  end
                 else
                   begin
+                    atmp := '';
+                    for field := 0 to aDs.Fields.Count-1 do
+                      atmp += aDs.FieldDefs[field].Name+#9;
+                    aOut.Add(atmp);
+                    atmp := '';
+                    aRec := 0;
+                    while not aDS.EOF do
+                      begin
+                        for field := 0 to aDs.Fields.Count-1 do
+                          atmp += aDs.Fields[field].AsString+#9;
+                        aOut.Add(atmp);
+                        inc(aRec);
+                        if arec > 5 then
+                          begin
+                            aOut.Add('... '+IntToStr(aDS.RecordCount-5)+' records follows');
+                            break;
+                          end;
+                        aDs.Next;
+                      end;
 
                   end;
               end;

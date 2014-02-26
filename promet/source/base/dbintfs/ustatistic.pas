@@ -25,7 +25,8 @@ interface
 
 uses
   Classes, SysUtils, uBaseDbClasses, db, uBaseDbInterface,uIntfStrConsts,
-  fpsqlparser,fpsqlscanner,fpsqltree,httpsend,ssl_openssl,Utils;
+  fpsqlparser,fpsqlscanner,fpsqltree,httpsend,ssl_openssl,Utils,jsonparser,fpjson,
+  memds;
 
 type
   TOwnSQLParser = class(TSQLParser)
@@ -224,6 +225,7 @@ var
             If (S<>'') then
               S:=S+Sep;
             if (pos('''',TSQLSelectField(aElem).Expression.GetAsSQL([]))=0)
+            and (pos('(',TSQLSelectField(aElem).Expression.GetAsSQL([]))=0)
             and (not Assigned(TSQLSelectField(aElem).AliasName))
             then
               S:=S+Pref+Data.QuoteField(aElem.GetAsSQL([],2+Ind))
@@ -327,6 +329,11 @@ var
   eMsg: String = 'not enougth rights to access these tables';
   http: THTTPSend;
   yqlQ: Boolean = false;
+  aParser: TJSONParser;
+  aData: TJSONData;
+  i: Integer;
+  aItem: TJSONObject;
+  aTable: TJSONArray;
 begin
   Result := nil;
   aSQL := FSQL;
@@ -366,14 +373,27 @@ begin
         begin //local file
           eMsg:='not implemented';
         end
-      else if ((FTables.Count=1) and (aSQL = FormatedSQL)) or yqlQ then//yql??
+      else if ((FTables.Count<2) and yqlQ) then//yql??
         begin
           //http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%27http%3A%2F%2Fmashable.com%27
           http := THTTPSend.Create;
           http.UserAgent:='Mozilla/5.0 (Windows NT 5.1; rv:6.0.2)';
           http.HTTPMethod('GET','https://query.yahooapis.com/v1/public/yql?q='+HTTPEncode(aSQL)+'&format=json');
           if http.ResultCode=200 then
-            http.Document.SaveToFile('document.json')
+            begin
+              http.Document.SaveToFile('document.json');
+              http.Document.Position:=0;
+              aParser := TJSONParser.Create(http.Document);
+              aData := aParser.Parse;
+              aParser.Free;
+              if aData.Count=1 then
+                begin
+                  aItem := TJSONObject(aData.Items[0]);
+                  aTable := TJSONArray(aItem.Elements['results']);
+
+                end;
+              Result := TMemDataset.Create(nil);
+            end
           else eMsg:=strYQLFail+http.ResultString;
           http.Free;
         end;
@@ -522,4 +542,4 @@ begin
 end;
 
 end.
-
+
