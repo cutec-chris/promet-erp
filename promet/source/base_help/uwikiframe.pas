@@ -556,6 +556,15 @@ var
             else
               begin
                 aName := TSQLSelectField(aElem).Expression.GetAsSQL([sfoSingleQuoteIdentifier]);
+                if copy(uppercase(aName),0,5)='LINK(' then
+                  begin
+                    aName := copy(aName,6,length(aName)-6);
+                    if pos('(',aName)>0 then
+                      begin
+                        aName := copy(aName,pos('(',aName)+1,length(aname));
+                        aName := copy(aName,0,length(aName)-1);
+                      end;
+                  end;
                 Outp+='<th><b>'+HTMLEncode(StringReplace(aName,'''','',[rfReplaceAll]))+'</b></th>';
               end;
           end;
@@ -576,6 +585,7 @@ var
     a: Integer;
     aName: TSQLStringType;
     aElem: TSQLElement;
+    aLinkBase: String;
   begin
     result := '';
     aLink := Data.BuildLink(aBDS);
@@ -596,6 +606,13 @@ var
                 if copy(uppercase(aName),0,5)='LINK(' then
                   begin
                     aName := copy(aName,6,length(aName)-6);
+                    if pos('(',aName)>0 then
+                      begin
+                        aLinkBase := copy(aName,0,pos('(',aName)-1);
+                        aName := copy(aName,pos('(',aName)+1,length(aname));
+                        aName := copy(aName,0,length(aName)-1);
+                        aLink := aLinkBase+copy(aLink,pos('@',aLink),length(aLink));
+                      end;
                     if (aBDS.FieldDefs.IndexOf(aName)>-1) then
                       Result+='<td><a href="'+aLink+'" title="'+Data.GetLinkDesc(aLink)+#10+Data.GetLinkLongDesc(aLink)+'">'+HTMLEncode(aBDS.Fields[aBDS.FieldDefs.IndexOf(aName)].AsString)+'</a></td>'
                   end
@@ -812,6 +829,7 @@ begin
       FSQLScanner := TSQLScanner.Create(FSQLStream);
       FSQLParser := TSQLParser.Create(FSQLScanner);
       Inp := copy(Inp,rpos(' ',Inp)+1,length(Inp));
+      aStatistic := nil;
       try
         aFilter:='';
         aStmt := FSQLParser.Parse;

@@ -35,7 +35,7 @@ type
       aMasterdata: TDataSet=nil); override;
     function GetTyp: string; override;
     procedure DefineFields(aDataSet : TDataSet);override;
-    procedure SelectFromLink(aLink: string); override;
+    function SelectFromLink(aLink: string) : Boolean; override;
     procedure SelectFromParent(aParent : Variant);virtual;
   end;
   TProjectHistory = class(TBaseHistory)
@@ -579,8 +579,9 @@ begin
           end;
     end;
 end;
-procedure TProjectList.SelectFromLink(aLink: string);
+function TProjectList.SelectFromLink(aLink: string): Boolean;
 begin
+  Result := False;
   Select(0);
   if rpos('{',aLink) > 0 then
     aLink := copy(aLink,0,rpos('{',aLink)-1)
@@ -593,11 +594,12 @@ begin
           with DataSet as IBaseDBFilter do
             begin
               Filter := Data.ProcessTerm(Data.QuoteField('ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink))));
+              Result := True;
             end;
         end;
     end
   else
-    inherited SelectFromLink(aLink);
+    Result := inherited SelectFromLink(aLink);
 end;
 procedure TProjectList.SelectFromParent(aParent: Variant);
 begin

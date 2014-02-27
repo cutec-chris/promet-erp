@@ -156,7 +156,7 @@ type
     property Status : TField read GetStatus;
     property Typ : string read GetTyp;
     property Matchcode : TField read GetMatchcode;
-    procedure SelectFromLink(aLink : string);virtual;
+    function SelectFromLink(aLink : string) : Boolean;virtual;
   end;
   TBaseDBDatasetClass = class of TBaseDBDataset;
   TBaseDBListClass = class of TBaseDBList;
@@ -1020,19 +1020,33 @@ begin
   Stream.Free;
   Doc.Free;
 end;
-procedure TBaseDbList.SelectFromLink(aLink: string);
+function TBaseDbList.SelectFromLink(aLink: string): Boolean;
 begin
+  Result := False;
   Select(0);
   if pos('{',aLink) > 0 then
     aLink := copy(aLink,0,pos('{',aLink)-1)
   else if rpos('(',aLink) > 0 then
     aLink := copy(aLink,0,rpos('(',aLink)-1);
   with DataSet as IBaseManageDB do
-    if copy(aLink,0,pos('@',aLink)-1) = TableName then
-      if IsNumeric(copy(aLink,pos('@',aLink)+1,length(aLink))) then
+    begin
+      if copy(aLink,0,pos('@',aLink)-1) = TableName then
         begin
-          Select(StrToInt64(copy(aLink,pos('@',aLink)+1,length(aLink))));
+          if IsNumeric(copy(aLink,pos('@',aLink)+1,length(aLink))) then
+            begin
+              Select(StrToInt64(copy(aLink,pos('@',aLink)+1,length(aLink))));
+              result := True;
+            end;
+        end
+      else if copy(aLink,0,pos('.ID@',aLink)-1) = TableName then
+        begin
+          if IsNumeric(copy(aLink,pos('.ID@',aLink)+4,length(aLink))) then
+            begin
+              Select(StrToInt64(copy(aLink,pos('.ID@',aLink)+4,length(aLink))));
+              Result := True;
+            end;
         end;
+    end;
 end;
 procedure TBaseDBDataset.Delete;
 begin

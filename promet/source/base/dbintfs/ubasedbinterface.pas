@@ -924,10 +924,20 @@ begin
   if not aDataSet.Active then exit;
   if (Result = 'MASTERDATA@') then
     begin
-      Result := Result + aDataSet.FieldByName('ID').AsString + '&&';
-      Result := Result + aDataSet.FieldByName('VERSION').AsString + '&&';
-      Result := Result + aDataSet.FieldByName('LANGUAGE').AsString;
-      Result := result+'{'+aDataSet.FieldByName('SHORTTEXT').AsString+'}';
+      if (aDataSet.FieldDefs.IndexOf('ID')>0)
+      and (aDataSet.FieldDefs.IndexOf('VERSION')>0)
+      and (aDataSet.FieldDefs.IndexOf('LANGUAGE')>0)
+      and (aDataSet.FieldDefs.IndexOf('SHORTTEXT')>0)
+      then
+        begin
+          Result := Result + aDataSet.FieldByName('ID').AsString + '&&';
+          Result := Result + aDataSet.FieldByName('VERSION').AsString + '&&';
+          Result := Result + aDataSet.FieldByName('LANGUAGE').AsString;
+        end
+      else
+        Result := 'MASTERDATA.ID@'+ aDataSet.FieldByName('SQL_ID').AsString;
+      if (aDataSet.FieldDefs.IndexOf('SHORTTEXT')>0) then
+        Result := result+'{'+aDataSet.FieldByName('SHORTTEXT').AsString+'}';
     end
   else  if (Result = 'MDPOSITIONS@') then
     begin

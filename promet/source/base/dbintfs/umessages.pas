@@ -76,7 +76,7 @@ type
     property Content : TMessageContent read FMessageContent;
     property Documents : TDocuments read FDocuments;
     property SubMessages : TMessageList read GetSubMessages;
-    procedure SelectFromLink(aLink: string); override;
+    function SelectFromLink(aLink: string) : Boolean; override;
     property History : TBaseHistory read FHistory;
     procedure Next; override;
     procedure Prior; override;
@@ -278,8 +278,9 @@ function TMessage.BuildMessageID(aID: Variant): string;
 begin
 
 end;
-procedure TMessage.SelectFromLink(aLink: string);
+function TMessage.SelectFromLink(aLink: string): Boolean;
 begin
+  Result := False;
   Select(0);
   if rpos('{',aLink) > 0 then
     aLink := copy(aLink,0,rpos('{',aLink)-1)
@@ -287,7 +288,10 @@ begin
     aLink := copy(aLink,0,rpos('(',aLink)-1);
   with DataSet as IBaseManageDB do
     if copy(aLink,0,pos('@',aLink)-1) = TableName then
-      SelectByID(copy(aLink,pos('@',aLink)+1,length(aLink)));
+      begin
+        SelectByID(copy(aLink,pos('@',aLink)+1,length(aLink)));
+        Result := True;
+      end;
 end;
 procedure TMessage.Next;
 begin

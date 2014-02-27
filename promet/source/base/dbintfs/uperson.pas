@@ -117,7 +117,7 @@ type
     property Banking : TPersonBanking read FBanking;
     property Links : TPersonLinks read FLinks;
     property Employees : TPersonEmployees read FEmployees;
-    procedure SelectFromLink(aLink : string);override;
+    function SelectFromLink(aLink : string) : Boolean;override;
     property OnStateChange : TNotifyEvent read FStateChange write FStateChange;
   end;
 
@@ -576,23 +576,28 @@ begin
       Result := Count > 0;
     end;
 end;
-procedure TPerson.SelectFromLink(aLink: string);
+function TPerson.SelectFromLink(aLink: string): Boolean;
 begin
-  inherited SelectFromLink(aLink);
-  if (not (copy(aLink,0,pos('@',aLink)-1) = 'CUSTOMERS'))
-  and (not (copy(aLink,0,pos('@',aLink)-1) = 'CUSTOMERS.ID')) then exit;
-  if rpos('{',aLink) > 0 then
-    aLink := copy(aLink,0,rpos('{',aLink)-1)
-  else if rpos('(',aLink) > 0 then
-    aLink := copy(aLink,0,rpos('(',aLink)-1);
-  if (copy(aLink,0,pos('@',aLink)-1) = 'CUSTOMERS') then
+  Result := inherited SelectFromLink(aLink);
+  if not Result then
     begin
-      with DataSet as IBaseDBFilter do
-        Filter := Data.QuoteField('ACCOUNTNO')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink)));
-    end
-  else
-    begin
-      Select(copy(aLink,pos('@',aLink)+1,length(aLink)));
+      if (not (copy(aLink,0,pos('@',aLink)-1) = 'CUSTOMERS'))
+      and (not (copy(aLink,0,pos('@',aLink)-1) = 'CUSTOMERS.ID')) then exit;
+      if rpos('{',aLink) > 0 then
+        aLink := copy(aLink,0,rpos('{',aLink)-1)
+      else if rpos('(',aLink) > 0 then
+        aLink := copy(aLink,0,rpos('(',aLink)-1);
+      if (copy(aLink,0,pos('@',aLink)-1) = 'CUSTOMERS') then
+        begin
+          with DataSet as IBaseDBFilter do
+            Filter := Data.QuoteField('ACCOUNTNO')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink)));
+          Result := True;
+        end
+      else
+        begin
+          Select(copy(aLink,pos('@',aLink)+1,length(aLink)));
+          Result := True;
+        end;
     end;
 end;
 procedure TPerson.CascadicPost;
@@ -769,4 +774,4 @@ begin
 end;
 
 initialization
-end.
+end.

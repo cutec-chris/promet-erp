@@ -2496,7 +2496,7 @@ begin
       aMessageEdit := TfMessageEdit.Create(Self);
       aMessageEdit.OpenFromLink(aLink);
     end
-  else if copy(aLink,0,11) = 'MASTERDATA@' then
+  else if copy(aLink,0,10) = 'MASTERDATA' then
     begin
       aFrame := TfArticleFrame.Create(Self);
       aFrame.SetLanguage;

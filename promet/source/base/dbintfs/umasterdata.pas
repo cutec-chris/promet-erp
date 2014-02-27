@@ -39,7 +39,7 @@ type
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure Select(aID : string);overload;
     procedure Select(aID : string;aVersion : Variant;aLanguage : Variant);overload;
-    procedure SelectFromLink(aLink : string);override;
+    function SelectFromLink(aLink: string): Boolean; override;
   end;
   TMasterdataHistory = class(TBaseHistory)
   end;
@@ -954,7 +954,7 @@ begin
         end;
     end;
 end;
-procedure TMasterdataList.SelectFromLink(aLink: string);
+function TMasterdataList.SelectFromLink(aLink: string) : Boolean;
 var
   tmp1: String;
   tmp2: String;
@@ -962,23 +962,27 @@ var
   tmp2v : Variant;
   tmp3v : Variant;
 begin
-  inherited SelectFromLink(aLink);
-  tmp2v := Null;
-  tmp3v := Null;
-  if not (copy(aLink,0,pos('@',aLink)-1) = 'MASTERDATA') then exit;
-  if rpos('{',aLink) > 0 then
-    aLink := copy(aLink,0,rpos('{',aLink)-1)
-  else if rpos('(',aLink) > 0 then
-    aLink := copy(aLink,0,rpos('(',aLink)-1);
-  aLink   := copy(aLink, pos('@', aLink) + 1, length(aLink));
-  tmp1 := copy(aLink, 0, pos('&&', aLink) - 1);
-  aLink   := copy(aLink, pos('&&', aLink) + 2, length(aLink));
-  tmp2 := copy(aLink, 0, pos('&&', aLink) - 1);
-  aLink   := copy(aLink, pos('&&', aLink) + 2, length(aLink));
-  tmp3 := aLink;
-  if tmp2 <> '' then tmp2v := tmp2;
-  if tmp3 <> '' then tmp3v := tmp3;
-  Select(tmp1,tmp2v,tmp3v);
+  Result := inherited SelectFromLink(aLink);
+  if not Result then
+    begin
+      tmp2v := Null;
+      tmp3v := Null;
+      if not (copy(aLink,0,pos('@',aLink)-1) = 'MASTERDATA') then exit;
+      if rpos('{',aLink) > 0 then
+        aLink := copy(aLink,0,rpos('{',aLink)-1)
+      else if rpos('(',aLink) > 0 then
+        aLink := copy(aLink,0,rpos('(',aLink)-1);
+      aLink   := copy(aLink, pos('@', aLink) + 1, length(aLink));
+      tmp1 := copy(aLink, 0, pos('&&', aLink) - 1);
+      aLink   := copy(aLink, pos('&&', aLink) + 2, length(aLink));
+      tmp2 := copy(aLink, 0, pos('&&', aLink) - 1);
+      aLink   := copy(aLink, pos('&&', aLink) + 2, length(aLink));
+      tmp3 := aLink;
+      if tmp2 <> '' then tmp2v := tmp2;
+      if tmp3 <> '' then tmp3v := tmp3;
+      Select(tmp1,tmp2v,tmp3v);
+      Result := True;
+    end;
 end;
 initialization
 end.
