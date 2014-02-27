@@ -236,6 +236,7 @@ object fRichFrame: TfRichFrame
     BorderWidth = 2
     ButtonColorSize = 16
     ButtonColor = clBlack
+    OnColorChanged = cbFontColorColorChanged
   end
   object seFontSize: TSpinEdit
     Left = 336
@@ -244,14 +245,16 @@ object fRichFrame: TfRichFrame
     Width = 48
     MaxValue = 45
     MinValue = 7
+    OnChange = seFontSizeChange
     TabOrder = 0
     Value = 7
   end
   object rmText: TRichMemo
-    Left = 8
-    Height = 224
+    Left = 0
+    Height = 228
     Top = 40
-    Width = 434
+    Width = 447
+    Align = alBottom
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderStyle = bsNone
     HideSelection = False
@@ -261,6 +264,9 @@ object fRichFrame: TfRichFrame
       'asdasdAHJSGDHkajshdkjAHSDHkas'
       'ASJDHajhsdkj'
     )
+    OnClick = rmTextClick
+    OnExit = rmTextExit
+    OnKeyPress = rmTextKeyPress
     ScrollBars = ssAutoBoth
     TabOrder = 1
     WantTabs = True
@@ -271,18 +277,22 @@ object fRichFrame: TfRichFrame
     object acItalic: TAction
       Caption = 'acItalic'
       GroupIndex = 1
+      OnExecute = acItalicExecute
     end
     object acBold: TAction
       Caption = 'acBold'
       GroupIndex = 2
+      OnExecute = acBoldExecute
     end
     object acUnderline: TAction
       Caption = 'acUnderline'
       GroupIndex = 3
+      OnExecute = acUnderlineExecute
     end
     object acStrikeOut: TAction
       Caption = 'acStrikeOut'
       GroupIndex = 4
+      OnExecute = acStrikeOutExecute
     end
   end
 end

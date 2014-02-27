@@ -41,11 +41,7 @@ type
     cbFontColor: TColorButton;
     rmText: TRichMemo;
     seFontSize: TSpinEdit;
-  private
-    actAttributes: TFontParams;
-    OldSelStart : Integer;
-    cbFont : TFontComboBox;
-    FRichText : string;
+    procedure rmTextExit(Sender: TObject);
     procedure acBoldExecute(Sender: TObject);
     procedure acItalicExecute(Sender: TObject);
     procedure acStrikeOutExecute(Sender: TObject);
@@ -57,9 +53,13 @@ type
     function GetRichText: string;
     procedure PositionChanged;
     procedure rmTextClick(Sender: TObject);
-    procedure rmTextExit(Sender: TObject);
     procedure rmTextKeyPress(Sender: TObject; var Key: char);
     procedure seFontSizeChange(Sender: TObject);
+  private
+    actAttributes: TFontParams;
+    OldSelStart : Integer;
+    cbFont : TFontComboBox;
+    FRichText : string;
     procedure SetPlainText(const AValue: string);
     procedure SetReadOnly(const AValue: Boolean);
     procedure SetRichText(const AValue: string);
