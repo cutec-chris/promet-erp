@@ -7,7 +7,7 @@ unit rtfconvert_pkg_vis;
 interface
 
 uses
-  htmltortf, FontComboBox, uRichFrame, LazarusPackageIntf;
+  htmltortf, FontComboBox, urichframe_old, urichframe, LazarusPackageIntf;
 
 implementation
 

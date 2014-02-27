@@ -15,59 +15,55 @@
   at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
-Created 01.06.2006
+Created 27.02.2014
 *******************************************************************************}
-unit uRichFrame;
+unit urichframe;
 
 {$mode objfpc}{$H+}
 
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
-  Buttons, ActnList, Spin, StdCtrls, RichMemo, FontComboBox;
+  Classes, SysUtils, FileUtil, Forms, Controls, Dialogs, Buttons, Spin,
+  ActnList, RichMemo,FontComboBox,Graphics;
 
 type
-
-  { TfRichFrame }
-
   TfRichFrame = class(TFrame)
-    acItalic: TAction;
     acBold: TAction;
+    acItalic: TAction;
     acStrikeOut: TAction;
-    acUnderline: TAction;
     ActionList: TActionList;
+    acUnderline: TAction;
+    bBold: TSpeedButton;
+    bItalic: TSpeedButton;
     bStrikeout: TSpeedButton;
+    bUnderline: TSpeedButton;
     cbFontColor: TColorButton;
     rmText: TRichMemo;
-    bItalic: TSpeedButton;
-    bBold: TSpeedButton;
-    bUnderline: TSpeedButton;
     seFontSize: TSpinEdit;
+  private
+    actAttributes: TFontParams;
+    OldSelStart : Integer;
+    cbFont : TFontComboBox;
+    FRichText : string;
     procedure acBoldExecute(Sender: TObject);
     procedure acItalicExecute(Sender: TObject);
     procedure acStrikeOutExecute(Sender: TObject);
     procedure acUnderlineExecute(Sender: TObject);
     procedure cbFontChange(Sender: TObject);
     procedure cbFontColorColorChanged(Sender: TObject);
-    procedure rmTextClick(Sender: TObject);
-    procedure rmTextExit(Sender: TObject);
-    procedure rmTextKeyPress(Sender: TObject; var Key: char);
-    procedure seFontSizeChange(Sender: TObject);
-  private
-    { private declarations }
-    actAttributes: TFontParams;
-    OldSelStart : Integer;
-    cbFont : TFontComboBox;
-    FRichText : string;
     function GetPlainText: string;
     function GetReadOnly: Boolean;
     function GetRichText: string;
     procedure PositionChanged;
-    procedure SetReadOnly(const AValue: Boolean);
+    procedure rmTextClick(Sender: TObject);
+    procedure rmTextExit(Sender: TObject);
+    procedure rmTextKeyPress(Sender: TObject; var Key: char);
+    procedure seFontSizeChange(Sender: TObject);
     procedure SetPlainText(const AValue: string);
+    procedure SetReadOnly(const AValue: Boolean);
     procedure SetRichText(const AValue: string);
-  protected
+    { private declarations }
   public
     { public declarations }
     constructor Create(AOwner : TComponent);override;
@@ -79,12 +75,9 @@ type
     procedure Clear;
   end;
 
-var
-  fRichFrame: TfRichFrame;
-
 implementation
 
-{ TfRichFrame }
+{$R *.lfm}
 
 procedure TfRichFrame.rmTextClick(Sender: TObject);
 begin
@@ -262,6 +255,5 @@ begin
   rmText.Clear;
 end;
 
-initialization
 end.
 

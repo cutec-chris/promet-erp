@@ -1,34 +1,13 @@
 object fRichFrame: TfRichFrame
   Left = 0
-  Height = 249
+  Height = 268
   Top = 0
-  Width = 465
-  ClientHeight = 249
-  ClientWidth = 465
+  Width = 447
+  ClientHeight = 268
+  ClientWidth = 447
   TabOrder = 0
-  DesignLeft = 441
-  DesignTop = 286
-  object rmText: TRichMemo
-    Left = 8
-    Height = 203
-    Top = 40
-    Width = 449
-    Anchors = [akTop, akLeft, akRight, akBottom]
-    BorderStyle = bsNone
-    HideSelection = False
-    Lines.Strings = (
-      'rmText'
-      'asjhdkjahsklJASdkhA'
-      'asdasdAHJSGDHkajshdkjAHSDHkas'
-      'ASJDHajhsdkj'
-    )
-    OnClick = rmTextClick
-    OnExit = rmTextExit
-    OnKeyPress = rmTextKeyPress
-    ScrollBars = ssAutoBoth
-    TabOrder = 0
-    WantTabs = True
-  end
+  DesignLeft = 433
+  DesignTop = 355
   object bItalic: TSpeedButton
     Left = 8
     Height = 25
@@ -194,16 +173,6 @@ object fRichFrame: TfRichFrame
     GroupIndex = 3
     ShowCaption = False
   end
-  object cbFontColor: TColorButton
-    Left = 128
-    Height = 25
-    Top = 5
-    Width = 32
-    BorderWidth = 2
-    ButtonColorSize = 16
-    ButtonColor = clBlack
-    OnColorChanged = cbFontColorColorChanged
-  end
   object bStrikeout: TSpeedButton
     Left = 90
     Height = 25
@@ -259,6 +228,15 @@ object fRichFrame: TfRichFrame
     GroupIndex = 4
     ShowCaption = False
   end
+  object cbFontColor: TColorButton
+    Left = 128
+    Height = 25
+    Top = 5
+    Width = 32
+    BorderWidth = 2
+    ButtonColorSize = 16
+    ButtonColor = clBlack
+  end
   object seFontSize: TSpinEdit
     Left = 336
     Height = 21
@@ -266,32 +244,45 @@ object fRichFrame: TfRichFrame
     Width = 48
     MaxValue = 45
     MinValue = 7
-    OnChange = seFontSizeChange
-    TabOrder = 1
+    TabOrder = 0
     Value = 7
   end
+  object rmText: TRichMemo
+    Left = 8
+    Height = 224
+    Top = 40
+    Width = 434
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    BorderStyle = bsNone
+    HideSelection = False
+    Lines.Strings = (
+      'rmText'
+      'asjhdkjahsklJASdkhA'
+      'asdasdAHJSGDHkajshdkjAHSDHkas'
+      'ASJDHajhsdkj'
+    )
+    ScrollBars = ssAutoBoth
+    TabOrder = 1
+    WantTabs = True
+  end
   object ActionList: TActionList
-    left = 24
-    top = 88
+    left = 80
+    top = 144
     object acItalic: TAction
       Caption = 'acItalic'
       GroupIndex = 1
-      OnExecute = acItalicExecute
     end
     object acBold: TAction
       Caption = 'acBold'
       GroupIndex = 2
-      OnExecute = acBoldExecute
     end
     object acUnderline: TAction
       Caption = 'acUnderline'
       GroupIndex = 3
-      OnExecute = acUnderlineExecute
     end
     object acStrikeOut: TAction
       Caption = 'acStrikeOut'
       GroupIndex = 4
-      OnExecute = acStrikeOutExecute
     end
   end
 end
