@@ -578,27 +578,26 @@ begin
 end;
 function TPerson.SelectFromLink(aLink: string): Boolean;
 begin
-  Result := inherited SelectFromLink(aLink);
-  if not Result then
+  Result := False;
+  if (not (copy(aLink,0,pos('@',aLink)-1) = 'CUSTOMERS'))
+  and (not (copy(aLink,0,pos('@',aLink)-1) = 'CUSTOMERS.ID')) then exit;
+  if rpos('{',aLink) > 0 then
+    aLink := copy(aLink,0,rpos('{',aLink)-1)
+  else if rpos('(',aLink) > 0 then
+    aLink := copy(aLink,0,rpos('(',aLink)-1);
+  if (copy(aLink,0,pos('@',aLink)-1) = 'CUSTOMERS') then
     begin
-      if (not (copy(aLink,0,pos('@',aLink)-1) = 'CUSTOMERS'))
-      and (not (copy(aLink,0,pos('@',aLink)-1) = 'CUSTOMERS.ID')) then exit;
-      if rpos('{',aLink) > 0 then
-        aLink := copy(aLink,0,rpos('{',aLink)-1)
-      else if rpos('(',aLink) > 0 then
-        aLink := copy(aLink,0,rpos('(',aLink)-1);
-      if (copy(aLink,0,pos('@',aLink)-1) = 'CUSTOMERS') then
-        begin
-          with DataSet as IBaseDBFilter do
-            Filter := Data.QuoteField('ACCOUNTNO')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink)));
-          Result := True;
-        end
-      else
-        begin
-          Select(copy(aLink,pos('@',aLink)+1,length(aLink)));
-          Result := True;
-        end;
+      with DataSet as IBaseDBFilter do
+        Filter := Data.QuoteField('ACCOUNTNO')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink)));
+      Result := True;
+    end
+  else
+    begin
+      Select(copy(aLink,pos('@',aLink)+1,length(aLink)));
+      Result := True;
     end;
+  if not Result then
+    Result := inherited SelectFromLink(aLink);
 end;
 procedure TPerson.CascadicPost;
 begin
@@ -774,4 +773,4 @@ begin
 end;
 
 initialization
-end.
+end.
