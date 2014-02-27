@@ -50,7 +50,7 @@
         <DefaultFilename Value="..\base\pvisualprometapp.lpk"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="124">
+    <Units Count="126">
       <Unit0>
         <Filename Value="calculator.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -58,7 +58,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="20"/>
-        <UsageCount Value="177"/>
+        <UsageCount Value="182"/>
       </Unit0>
       <Unit1>
         <Filename Value="ucalculator.pas"/>
@@ -69,9 +69,10 @@
         <UnitName Value="ucalculator"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="149"/>
-        <CursorPos X="21" Y="183"/>
-        <UsageCount Value="177"/>
+        <TopLine Value="98"/>
+        <CursorPos X="36" Y="113"/>
+        <FoldState Value=" T4iQ01 T3iS08014130"/>
+        <UsageCount Value="182"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -845,11 +846,11 @@
       <Unit102>
         <Filename Value="..\base\ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="20"/>
         <CursorPos X="1" Y="20"/>
-        <UsageCount Value="32"/>
+        <UsageCount Value="34"/>
         <Loaded Value="True"/>
       </Unit102>
       <Unit103>
@@ -895,21 +896,21 @@
       <Unit108>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1207"/>
         <CursorPos X="3" Y="1211"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit108>
       <Unit109>
         <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1334"/>
         <CursorPos X="1" Y="1368"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit109>
       <Unit110>
@@ -935,9 +936,9 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="368"/>
-        <CursorPos X="19" Y="393"/>
-        <UsageCount Value="31"/>
+        <TopLine Value="395"/>
+        <CursorPos X="52" Y="418"/>
+        <UsageCount Value="33"/>
         <Loaded Value="True"/>
       </Unit112>
       <Unit113>
@@ -945,19 +946,19 @@
         <UnitName Value="ucalc"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="398"/>
-        <CursorPos X="2" Y="435"/>
-        <UsageCount Value="31"/>
+        <TopLine Value="411"/>
+        <CursorPos X="1" Y="430"/>
+        <UsageCount Value="33"/>
         <Loaded Value="True"/>
       </Unit113>
       <Unit114>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1097"/>
         <CursorPos X="1" Y="1120"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="21"/>
         <Loaded Value="True"/>
       </Unit114>
       <Unit115>
@@ -987,7 +988,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="16"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit117>
@@ -1012,161 +1013,173 @@
         <Filename Value="..\..\output\x86_64-linux\document.json"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="88" Y="1"/>
+        <CursorPos X="89" Y="1"/>
         <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit120>
       <Unit121>
         <Filename Value="C:\Programme\lazarus\fpc\2.6.2\source\packages\fcl-json\src\jsonparser.pp"/>
         <UnitName Value="jsonparser"/>
-        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit121>
       <Unit122>
         <Filename Value="C:\Programme\lazarus\fpc\2.6.2\source\packages\fcl-json\src\fpjson.pp"/>
         <UnitName Value="fpjson"/>
-        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="405"/>
         <CursorPos X="3" Y="49"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit122>
       <Unit123>
         <Filename Value="..\..\output\i386-win32\document.json"/>
-        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="77" Y="1"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit123>
+      <Unit124>
+        <Filename Value="..\timeregistering\utimeoptions.pas"/>
+        <UnitName Value="uTimeOptions"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="89"/>
+        <CursorPos X="72" Y="106"/>
+        <UsageCount Value="12"/>
+      </Unit124>
+      <Unit125>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <UnitName Value="usync"/>
+        <EditorIndex Value="4"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="143"/>
+        <CursorPos X="1" Y="171"/>
+        <UsageCount Value="12"/>
+        <Loaded Value="True"/>
+      </Unit125>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="351" Column="1" TopLine="344"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="163" Column="1" TopLine="139"/>
       </Position1>
       <Position2>
-        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="352" Column="1" TopLine="344"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="165" Column="1" TopLine="139"/>
       </Position2>
       <Position3>
-        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="364" Column="1" TopLine="359"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="143" Column="1" TopLine="137"/>
       </Position3>
       <Position4>
-        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="366" Column="1" TopLine="359"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="145" Column="1" TopLine="137"/>
       </Position4>
       <Position5>
-        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="370" Column="1" TopLine="359"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="146" Column="1" TopLine="137"/>
       </Position5>
       <Position6>
-        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="373" Column="1" TopLine="359"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="147" Column="1" TopLine="137"/>
       </Position6>
       <Position7>
-        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="374" Column="1" TopLine="359"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="149" Column="1" TopLine="137"/>
       </Position7>
       <Position8>
-        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="375" Column="1" TopLine="359"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="150" Column="1" TopLine="137"/>
       </Position8>
       <Position9>
-        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="376" Column="1" TopLine="359"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="151" Column="1" TopLine="137"/>
       </Position9>
       <Position10>
-        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="378" Column="1" TopLine="359"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="152" Column="1" TopLine="137"/>
       </Position10>
       <Position11>
-        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="381" Column="6" TopLine="359"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="153" Column="1" TopLine="137"/>
       </Position11>
       <Position12>
-        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="28" Column="72" TopLine="1"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="155" Column="1" TopLine="137"/>
       </Position12>
       <Position13>
-        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="385" Column="1" TopLine="366"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="157" Column="1" TopLine="137"/>
       </Position13>
       <Position14>
-        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="333" Column="16" TopLine="323"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="158" Column="1" TopLine="140"/>
       </Position14>
       <Position15>
-        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="386" Column="43" TopLine="360"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="160" Column="1" TopLine="140"/>
       </Position15>
       <Position16>
-        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="385" Column="19" TopLine="365"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="171" Column="1" TopLine="143"/>
       </Position16>
       <Position17>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="388" Column="19" TopLine="368"/>
+        <Caret Line="417" Column="1" TopLine="395"/>
       </Position17>
       <Position18>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="391" Column="1" TopLine="370"/>
+        <Caret Line="412" Column="1" TopLine="395"/>
       </Position18>
       <Position19>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="388" Column="1" TopLine="370"/>
+        <Caret Line="414" Column="1" TopLine="395"/>
       </Position19>
       <Position20>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="396" Column="45" TopLine="370"/>
+        <Caret Line="418" Column="43" TopLine="395"/>
       </Position20>
       <Position21>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="394" Column="1" TopLine="370"/>
+        <Caret Line="416" Column="1" TopLine="395"/>
       </Position21>
       <Position22>
-        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="397" Column="1" TopLine="370"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="171" Column="1" TopLine="143"/>
       </Position22>
       <Position23>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="399" Column="1" TopLine="370"/>
+        <Caret Line="416" Column="40" TopLine="395"/>
       </Position23>
       <Position24>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="384" Column="40" TopLine="364"/>
+        <Caret Line="414" Column="1" TopLine="395"/>
       </Position24>
       <Position25>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="391" Column="52" TopLine="364"/>
+        <Caret Line="415" Column="1" TopLine="395"/>
       </Position25>
       <Position26>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="392" Column="19" TopLine="372"/>
+        <Caret Line="414" Column="1" TopLine="395"/>
       </Position26>
       <Position27>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="406" Column="3" TopLine="404"/>
+        <Caret Line="415" Column="1" TopLine="395"/>
       </Position27>
       <Position28>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="389" Column="1" TopLine="371"/>
+        <Caret Line="414" Column="1" TopLine="395"/>
       </Position28>
       <Position29>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="391" Column="1" TopLine="371"/>
+        <Caret Line="415" Column="1" TopLine="395"/>
       </Position29>
       <Position30>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="392" Column="1" TopLine="371"/>
+        <Caret Line="414" Column="1" TopLine="395"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
