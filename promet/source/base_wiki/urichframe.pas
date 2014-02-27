@@ -18,11 +18,8 @@
 Created 27.02.2014
 *******************************************************************************}
 unit urichframe;
-
 {$mode objfpc}{$H+}
-
 interface
-
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Dialogs, Buttons, Spin,
   ActnList, RichMemo,FontComboBox,Graphics;

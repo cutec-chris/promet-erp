@@ -23,7 +23,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="7"/>
-      <BuildNr Value="315"/>
+      <BuildNr Value="316"/>
       <Attributes pvaPreRelease="True"/>
       <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP" ProductVersion=""/>
     </VersionInfo>
@@ -866,14 +866,14 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="221"/>
-        <CursorPos X="7" Y="165"/>
+        <TopLine Value="1"/>
+        <CursorPos X="38" Y="16"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit58>
     </Units>
-    <JumpHistory Count="23" HistoryIndex="22">
+    <JumpHistory Count="25" HistoryIndex="24">
       <Position1>
         <Filename Value="../base_wiki/urichframe.pas"/>
         <Caret Line="87" Column="20" TopLine="69"/>
@@ -966,6 +966,14 @@
         <Filename Value="../base_wiki/urichframe.pas"/>
         <Caret Line="88" Column="1" TopLine="75"/>
       </Position23>
+      <Position24>
+        <Filename Value="../base_wiki/urichframe.pas"/>
+        <Caret Line="240" Column="27" TopLine="221"/>
+      </Position24>
+      <Position25>
+        <Filename Value="../base_wiki/urichframe.pas"/>
+        <Caret Line="145" Column="62" TopLine="142"/>
+      </Position25>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
