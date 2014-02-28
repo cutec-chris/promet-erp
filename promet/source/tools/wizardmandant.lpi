@@ -29,29 +29,32 @@
         <CommandLineParams Value="--config-path=/home/chris/.promet-erp-devel"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="4">
+    <RequiredPackages Count="5">
       <Item1>
-        <PackageName Value="FCL"/>
-        <MinVersion Major="1" Release="1" Valid="True"/>
+        <PackageName Value="pOptions"/>
+        <DefaultFilename Value="../base_options/poptions.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="LCLBase"/>
+        <PackageName Value="FCL"/>
         <MinVersion Major="1" Release="1" Valid="True"/>
       </Item2>
       <Item3>
-        <PackageName Value="pVisualPrometApp"/>
-        <DefaultFilename Value="../base/pvisualprometapp.lpk"/>
+        <PackageName Value="LCLBase"/>
+        <MinVersion Major="1" Release="1" Valid="True"/>
       </Item3>
       <Item4>
-        <PackageName Value="LCL"/>
+        <PackageName Value="pVisualPrometApp"/>
+        <DefaultFilename Value="../base/pvisualprometapp.lpk"/>
       </Item4>
+      <Item5>
+        <PackageName Value="LCL"/>
+      </Item5>
     </RequiredPackages>
     <Units Count="113">
       <Unit0>
         <Filename Value="wizardmandant.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="wizardmandant"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -76,10 +79,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uWizardNewMandant"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="476"/>
-        <CursorPos X="1" Y="493"/>
+        <TopLine Value="138"/>
+        <CursorPos X="47" Y="155"/>
         <UsageCount Value="140"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>

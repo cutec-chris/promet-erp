@@ -140,7 +140,7 @@
       </Item1>
       <Item2>
         <PackageName Value="pOptions"/>
-        <DefaultFilename Value="../base/poptions.lpk"/>
+        <DefaultFilename Value="../base_options/poptions.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="pOCR"/>

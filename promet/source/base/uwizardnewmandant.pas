@@ -766,4 +766,4 @@ end;
 initialization
   {$I uwizardnewmandant.lrs}
 end.
-
+
