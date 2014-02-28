@@ -29,35 +29,39 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="8">
+    <RequiredPackages Count="9">
       <Item1>
-        <PackageName Value="phelp"/>
-        <DefaultFilename Value="../base_help/phelp.lpk"/>
+        <PackageName Value="pvisualframes"/>
+        <DefaultFilename Value="../base_frames/pvisualframes.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="wiki2html_pkg"/>
-        <DefaultFilename Value="../base_wiki/wiki2html_pkg.lpk"/>
+        <PackageName Value="phelp"/>
+        <DefaultFilename Value="../base_help/phelp.lpk"/>
       </Item2>
       <Item3>
-        <PackageName Value="pvisualforms"/>
-        <DefaultFilename Value="../base_forms/pvisualforms.lpk"/>
+        <PackageName Value="wiki2html_pkg"/>
+        <DefaultFilename Value="../base_wiki/wiki2html_pkg.lpk"/>
       </Item3>
       <Item4>
-        <PackageName Value="TurboPowerIPro"/>
+        <PackageName Value="pvisualforms"/>
+        <DefaultFilename Value="../base_forms/pvisualforms.lpk"/>
       </Item4>
       <Item5>
-        <PackageName Value="general"/>
-        <DefaultFilename Value="../../../general/general.lpk"/>
+        <PackageName Value="TurboPowerIPro"/>
       </Item5>
       <Item6>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="general"/>
+        <DefaultFilename Value="../../../general/general.lpk"/>
       </Item6>
       <Item7>
-        <PackageName Value="FCL"/>
+        <PackageName Value="richmemopackage"/>
       </Item7>
       <Item8>
-        <PackageName Value="LCL"/>
+        <PackageName Value="FCL"/>
       </Item8>
+      <Item9>
+        <PackageName Value="LCL"/>
+      </Item9>
     </RequiredPackages>
     <Units Count="5">
       <Unit0>
