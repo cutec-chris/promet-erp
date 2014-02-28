@@ -9,7 +9,7 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms, uerror, richmemopackage
   { you can add units after this },
-ucalculator, pvisualprometapp, uBaseVisualApplication;
+ucalculator, pvisualprometapp, uBaseVisualApplication, uDataSet;
 
 {$R *.res}
 
@@ -19,6 +19,7 @@ begin
   Application.Initialize;
   Application.CreateForm(TfMain, fMain);
   fMain.DoCreate;
+  Application.CreateForm(TfDataSet, fDataSet);
   Application.Run;
 end.
 

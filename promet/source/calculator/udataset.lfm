@@ -1,0 +1,48 @@
+object fDataSet: TfDataSet
+  Left = 295
+  Height = 423
+  Top = 206
+  Width = 555
+  Caption = 'Daten'
+  ClientHeight = 423
+  ClientWidth = 555
+  OnDestroy = FormDestroy
+  LCLVersion = '1.3'
+  object DBGrid1: TDBGrid
+    Left = 0
+    Height = 383
+    Top = 40
+    Width = 555
+    Align = alBottom
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Color = clWindow
+    Columns = <>
+    DataSource = Datasource
+    ReadOnly = True
+    TabOrder = 0
+    TitleStyle = tsNative
+  end
+  object DBNavigator1: TDBNavigator
+    Left = 8
+    Height = 25
+    Top = 8
+    Width = 160
+    BevelOuter = bvNone
+    ChildSizing.EnlargeHorizontal = crsScaleChilds
+    ChildSizing.EnlargeVertical = crsScaleChilds
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 100
+    ClientHeight = 25
+    ClientWidth = 160
+    DataSource = Datasource
+    Options = []
+    TabOrder = 1
+    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbRefresh]
+  end
+  object Datasource: TDatasource
+    left = 208
+    top = 24
+  end
+end

@@ -50,12 +50,12 @@ type
     property Variables : TCalcVariables read FVariables;
     procedure FillDefaults(aDataSet: TDataSet); override;
     property Typ : string read FType write Settype;
-    function Calculate(aIn : string;aOut : TStrings) : Boolean;
+    function Calculate(aIn: string; aOut: TStrings; var aData: TDataSet;
+      var aValue: Extended): Boolean;
   end;
 
 
 implementation
-
 { TCalcVariables }
 
 function ConvertTausend(LeftArg, RightArg: Extended;
@@ -246,7 +246,7 @@ begin
   FieldByName('TYPE').AsString:=FType;
 end;
 
-function TCalcEnviroments.Calculate(aIn: string; aOut: TStrings): Boolean;
+function TCalcEnviroments.Calculate(aIn: string; aOut: TStrings;var aData : TDataSet;var aValue : Extended): Boolean;
 var
   aParser: TMathParser;
   aTree: PTTermTreeNode;
@@ -262,6 +262,8 @@ var
   field: Integer;
   aRec: Integer;
 begin
+  aData:=nil;
+  aValue:=0;
   Result := True;
   if copy(aIn,0,2)='--' then
     begin
@@ -334,7 +336,7 @@ begin
                   aTmp2 := copy(aTmp2,pos(',',aTmp2)+1,length(aTmp2));
                   aTmp :=  copy(aTmp ,pos(',',aTmp )+1,length(aTmp ));
                 end;
-              if Calculate(toCalc,aOut) then
+              if Calculate(toCalc,aOut,aData,aValue) then
                 begin
                   if copy(aOut[aOut.Count-1],0,1) = '=' then
                     aIn += trim(copy(aOut[aOut.Count-1],2,length(aOut[aOut.Count-1])))
@@ -437,7 +439,7 @@ begin
                           atmp += aDs.Fields[field].AsString+#9;
                         aOut.Add(atmp);
                         inc(aRec);
-                        if arec > 5 then
+                        if arec > 0 then
                           begin
                             aOut.Add('... '+IntToStr(aDS.RecordCount-5)+' records follows');
                             break;
@@ -447,7 +449,7 @@ begin
 
                   end;
               end;
-            if Assigned(aDs) then aDS.Free;
+            if Assigned(aDs) then aData := aDS;
           end;
       except
         on e : Exception do

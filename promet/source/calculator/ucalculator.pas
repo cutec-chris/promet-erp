@@ -68,7 +68,7 @@ var
   fMain: TfMain;
 implementation
 uses uBaseApplication, uData, uBaseDbInterface, uOrder,uStatistic,LCLType,
-  MathParser;
+  MathParser,uDataSet;
 procedure TfMain.DoCreate;
 begin
   with Application as IBaseApplication do
@@ -184,18 +184,31 @@ procedure TfMain.InputKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState
 var
   sl: TStringList;
   i: Integer;
+  aData: TDataSet;
+  aValue: Extended;
 begin
   if Key = VK_RETURN then
     begin
       lInfo.Visible:=False;
       Key := 0;
       sl := TStringList.Create;
-      if CalcEnviroment.Calculate(Input.Text,sl) then
+      if CalcEnviroment.Calculate(Input.Text,sl,aData,aValue) then
         begin
+          while FHistory.IndexOf(Input.Text)>0 do
+            FHistory.Delete(FHistory.IndexOf(Input.Text));
           FHistoryIndex := FHistory.Add(Input.Text)+1;
           for i := 0 to sl.Count-1 do
             Output.Append(sl[i]);
           Input.Clear;
+          if Assigned(aData) and (aData.RecordCount>0) then
+            begin
+              fDataSet := TfDataSet.Create(nil);
+              fDataSet.Show;
+              fDataSet.DataSet:=aData;
+            end
+          else if Assigned(aData) then aData.Free
+          else if aValue <> 0 then
+            Input.Text:=StringReplace(FloatToStr(aValue),DecimalSeparator,'.',[rfReplaceAll]);
         end
       else
         begin
