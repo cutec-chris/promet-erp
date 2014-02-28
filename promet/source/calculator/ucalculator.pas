@@ -200,7 +200,7 @@ begin
           for i := 0 to sl.Count-1 do
             Output.Append(sl[i]);
           Input.Clear;
-          if Assigned(aData) and (aData.RecordCount>0) then
+          if Assigned(aData) and (aData.Active) and (aData.RecordCount>0) then
             begin
               fDataSet := TfDataSet.Create(nil);
               fDataSet.Show;
