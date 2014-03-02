@@ -45,6 +45,7 @@ type
       sbImage: TPanel;
       ScrollBar1: TScrollBar;
       ScrollBar2: TScrollBar;
+      ScaleTimer: TTimer;
       ToolBar2: TToolBar;
       tsImage: TTabSheet;
       tsText: TTabSheet;
@@ -62,6 +63,7 @@ type
       procedure iPreviewMouseWheelUp(Sender: TObject; Shift: TShiftState;
         MousePos: TPoint; var Handled: Boolean);
       procedure PaintBox1Paint(Sender: TObject);
+      procedure ScaleTimerTimer(Sender: TObject);
       procedure ScrollBar2Change(Sender: TObject);
       procedure tsImageShow(Sender: TObject);
     private
@@ -77,6 +79,7 @@ type
       FID : LargeInt;
       FImage : TBitmap;
       FScaledImage : TBitmap;
+      FScaled : Boolean;
       aThread: TLoadThread;
       procedure DoScalePreview;
     public
@@ -334,12 +337,33 @@ var
   RectDest, RectSource: TRect;
 begin
   RectDest:=Rect(0, 0, PaintBox1.Width, PaintBox1.Height);
-  RectSource:=Rect(
-    ScrollBar1.Position,
-    ScrollBar2.Position,
-    Scrollbar1.Position+round(PaintBox1.Width),
-    ScrollBar2.Position+round(PaintBox1.Height));
-  PaintBox1.Canvas.CopyRect(RectDest, FScaledImage.Canvas, RectSource);
+  if FScaled then
+    begin
+      RectSource:=Rect(
+        ScrollBar1.Position,
+        ScrollBar2.Position,
+        Scrollbar1.Position+round(PaintBox1.Width),
+        ScrollBar2.Position+round(PaintBox1.Height));
+      PaintBox1.Canvas.CopyRect(RectDest, FScaledImage.Canvas, RectSource);
+    end
+  else
+    begin
+      RectSource:=Rect(
+        ScrollBar1.Position,
+        ScrollBar2.Position,
+        Scrollbar1.Position+round(PaintBox1.Width/FScale),
+        ScrollBar2.Position+round(PaintBox1.Height/FScale));
+      PaintBox1.Canvas.CopyRect(RectDest, FImage.Canvas, RectSource);
+    end;
+end;
+
+procedure TfPreview.ScaleTimerTimer(Sender: TObject);
+begin
+  ScaleTimer.Enabled:=False;
+  FScaledImage.Width:=round(FImage.Width*FScale);
+  FScaledImage.Height:=round(FImage.Height*FScale);
+  FScaledImage.Canvas.StretchDraw(Rect(0,0,FScaledImage.Width,FScaledImage.Height),FImage);
+  FScaled:=True;
 end;
 
 procedure TfPreview.ScrollBar2Change(Sender: TObject);
@@ -357,9 +381,8 @@ procedure TfPreview.DoScalePreview;
 var
   amax: Integer;
 begin
-  FScaledImage.Width:=round(FImage.Width*FScale);
-  FScaledImage.Height:=round(FImage.Height*FScale);
-  FScaledImage.Canvas.StretchDraw(Rect(0,0,FScaledImage.Width,FScaledImage.Height),FImage);
+  FScaled := False;
+  ScaleTimer.Enabled:=True;
   amax := round(FImage.Width-1-PaintBox1.Width*FScale);
   if aMax >0 then
     ScrollBar1.Max:=aMax;
