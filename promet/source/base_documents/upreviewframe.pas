@@ -22,7 +22,8 @@ unit uPreviewFrame;
 interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, ComCtrls, Buttons,
-  ActnList, StdCtrls, LR_View, LR_Class, uPrometFrames, uDocuments, db, uEditor;
+  ActnList, StdCtrls, LR_View, LR_Class, uPrometFrames, uDocuments, db, uEditor,
+  Graphics;
 type
 
   { TfPreview }
@@ -34,14 +35,16 @@ type
       frPreview: TfrPreview;
       frReport: TfrReport;
       iHourglass: TImage;
-      iPreview: TImage;
       Label1: TLabel;
       mText: TMemo;
+      PaintBox1: TPaintBox;
       pcPages: TPageControl;
       pfrPreview: TPanel;
       pToolbar: TToolBar;
       pImageControls: TPanel;
-      sbImage: TScrollBox;
+      sbImage: TPanel;
+      ScrollBar1: TScrollBar;
+      ScrollBar2: TScrollBar;
       ToolBar2: TToolBar;
       tsImage: TTabSheet;
       tsText: TTabSheet;
@@ -58,6 +61,8 @@ type
         MousePos: TPoint; var Handled: Boolean);
       procedure iPreviewMouseWheelUp(Sender: TObject; Shift: TShiftState;
         MousePos: TPoint; var Handled: Boolean);
+      procedure PaintBox1Paint(Sender: TObject);
+      procedure ScrollBar2Change(Sender: TObject);
       procedure tsImageShow(Sender: TObject);
     private
       { private declarations }
@@ -65,11 +70,13 @@ type
       StartY,
       MoveX,
       MoveY: Integer;
+      PVX,PVY : Integer;
       IsMoved: Boolean;
       FScale : real;
       aLoading : Boolean;
       FEditor : TfEditor;
       FID : LargeInt;
+      FImage : TBitmap;
       aThread: TLoadThread;
       procedure DoScalePreview;
     public
@@ -273,25 +280,21 @@ begin
       StartY  := Y;
       MoveX   := X;
       MoveY   := Y;
-      sbImage.DoubleBuffered := True;
+      //sbImage.DoubleBuffered := True;
     end;
 end;
 procedure TfPreview.frPreviewMouseMove(Sender: TObject; Shift: TShiftState; X,
   Y: Integer);
 begin
+  if not (ssLeft in Shift) then
+    begin
+      IsMoved:=False;
+      exit;
+    end;
   if isMoved then
     begin
-      if (X < MoveX) and ((iPreview.Left + iPreview.Width + 25) > sbImage.Width) then
-        iPreview.Left := iPreview.Left + (X - StartX);
-
-      if (X > MoveX) and (iPreview.Left < 0) then
-        iPreview.Left := iPreview.Left + (X - StartX);
-
-      if (Y < MoveY) and ((iPreview.Top + iPreview.Height + 25) > sbImage.Height) then
-        iPreview.Top := iPreview.Top + (Y - StartY);
-
-      if (Y > MoveY) and (iPreview.Top < 0) then
-        iPreview.Top := iPreview.Top + (Y - StartY);
+      ScrollBar1.Position:=ScrollBar1.Position-round((X - StartX)*FScale);
+      ScrollBar2.Position:=ScrollBar2.Position-round((Y - StartY)*FScale);
       MoveX := X;
       MoveY := Y;
     end;
@@ -302,7 +305,7 @@ begin
   if Button = mbLeft then
     begin
       IsMoved := False;
-      sbImage.DoubleBuffered := False;
+      //sbImage.DoubleBuffered := False;
     end;
 end;
 procedure TfPreview.iPreviewMouseWheelDown(Sender: TObject; Shift: TShiftState;
@@ -328,6 +331,24 @@ begin
     end;
 end;
 
+procedure TfPreview.PaintBox1Paint(Sender: TObject);
+var
+  RectDest, RectSource: TRect;
+begin
+  RectDest:=Rect(0, 0, PaintBox1.Width, PaintBox1.Height);
+  RectSource:=Rect(
+    ScrollBar1.Position,
+    ScrollBar2.Position,
+    Scrollbar1.Position+round(PaintBox1.Width/FScale),
+    ScrollBar2.Position+round(PaintBox1.Height/FScale));
+  PaintBox1.Canvas.CopyRect(RectDest, FImage.Canvas, RectSource);
+end;
+
+procedure TfPreview.ScrollBar2Change(Sender: TObject);
+begin
+  PaintBox1.Invalidate;
+end;
+
 procedure TfPreview.tsImageShow(Sender: TObject);
 begin
   pfrPreview.Visible:=not pfrpreview.Visible;
@@ -335,19 +356,28 @@ begin
 end;
 
 procedure TfPreview.DoScalePreview;
+var
+  amax: Integer;
 begin
-  iPreview.Height:=round(iPreview.Picture.Height*FScale);
-  iPreview.Width:=round(iPreview.Picture.Width*FScale);
+  PaintBox1.Invalidate;
+  amax := round(FImage.Width-1-PaintBox1.Width*FScale);
+  if aMax >0 then
+    ScrollBar1.Max:=aMax;
+  amax := round(FImage.Height-1-PaintBox1.Height*FScale);
+  if aMax > 0 then
+    ScrollBar2.Max:=aMax;
 end;
 
 constructor TfPreview.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   FEditor := TfEditor.Create(Self);
+  FImage := TBitmap.Create;
 end;
 
 destructor TfPreview.Destroy;
 begin
+  FImage.Free;
   FEditor.Free;
   inherited Destroy;
 end;
@@ -391,6 +421,7 @@ var
   aFStream: TFileStream;
   aFilename: String;
   aProcess: TProcessUTF8;
+  aPic: TPicture;
 begin
   Result := false;
   if aLoading and Assigned(aThread) then
@@ -409,18 +440,21 @@ begin
     begin
       aStream.Position:=0;
       try
-        iPreview.Picture.LoadFromStreamWithFileExt(aStream,aExtension);
-        if iPreview.Picture.Width > iPreview.Picture.Height then
-          FScale := Width/iPreview.Picture.Width
+        aPic := TPicture.Create;
+        aPic.LoadFromStreamWithFileExt(aStream,aExtension);
+        if APic.Width > aPic.Height then
+          FScale := Width/aPic.Width
         else
-          FScale := Height/iPreview.Picture.Height;
+          FScale := Height/aPic.Height;
+        FImage.Assign(aPic.Bitmap);
+        aPic.Free;
         sbImage.Visible:=True;
         pImageControls.Visible:=True;
         FEditor.Hide;
         pfrPreview.Visible:=False;
         Result := True;
-        iPreview.Left:=0;
-        iPreview.Top:=0;
+        PVX:=0;
+        PVY:=0;
         tsImage.TabVisible:=True;
         tsText.TabVisible:=False;
       except
@@ -463,17 +497,20 @@ begin
         aProcess.Execute;
         aProcess.Free;
         SysUtils.DeleteFile(aFileName);
-        iPreview.Picture.LoadFromFile(aFileName+'.bmp');
+        aPic := TPicture.Create;
+        aPic.LoadFromFile(aFileName+'.bmp');
+        if APic.Width > aPic.Height then
+          FScale := Width/aPic.Width
+        else
+          FScale := Height/aPic.Height;
+        FImage.Assign(aPic.Bitmap);
+        aPic.Free;
         pImageControls.Visible:=True;
         SysUtils.DeleteFile(aFileName+'.bmp');
         Result := True;
         sbImage.Visible:=True;
         FEditor.Hide;
         pfrPreview.Visible:=False;
-        if iPreview.Picture.Width > iPreview.Picture.Height then
-          FScale := Width/iPreview.Picture.Width
-        else
-          FScale := Height/iPreview.Picture.Height;
         tsImage.TabVisible:=True;
         tsText.TabVisible:=False;
       except
@@ -518,16 +555,19 @@ begin
         aProcess.Execute;
         aProcess.Free;
         SysUtils.DeleteFile(aFileName);
-        iPreview.Picture.LoadFromFile(afileName+'.bmp');
+        aPic := TPicture.Create;
+        aPic.LoadFromFile(afileName+'.bmp');
+        if APic.Width > aPic.Height then
+          FScale := Width/aPic.Width
+        else
+          FScale := Height/aPic.Height;
+        FImage.Assign(aPic.Bitmap);
+        aPic.Free;
         SysUtils.DeleteFile(aFileName+'.bmp');
         sbImage.Visible:=True;
         pImageControls.Visible:=True;
         pfrPreview.Visible:=False;
         FEditor.Hide;
-        if iPreview.Picture.Width > iPreview.Picture.Height then
-          FScale := Width/iPreview.Picture.Width
-        else
-          FScale := Height/iPreview.Picture.Height;
         tsImage.TabVisible:=True;
         tsText.TabVisible:=False;
         Result := True;
@@ -542,7 +582,6 @@ procedure TfPreview.Clear;
 begin
   pcPages.ShowTabs:=False;
   tsText.TabVisible := False;
-  iPreview.Picture.Clear;
 end;
 function TfPreview.ExtractText(aStream: TStream; aExtension: string): Boolean;
 var
@@ -582,10 +621,6 @@ begin
         sbImage.Visible:=True;
         FEditor.Hide;
         pfrPreview.Visible:=False;
-        if iPreview.Picture.Width > iPreview.Picture.Height then
-          FScale := Width/iPreview.Picture.Width
-        else
-          FScale := Height/iPreview.Picture.Height;
       except
         SysUtils.DeleteFile(aFileName);
         SysUtils.DeleteFile(aFileName+'.txt');

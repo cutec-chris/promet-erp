@@ -1,14 +1,14 @@
 inherited fPreview: TfPreview
-  Height = 290
-  Width = 434
-  ClientHeight = 290
-  ClientWidth = 434
-  DesignLeft = 833
-  DesignTop = 280
+  Height = 556
+  Width = 758
+  ClientHeight = 556
+  ClientWidth = 758
+  DesignLeft = 564
+  DesignTop = 193
   object ToolBar2: TToolBar[0]
     Left = 0
     Top = 0
-    Width = 434
+    Width = 758
     ButtonHeight = 25
     Caption = 'ToolBar2'
     TabOrder = 0
@@ -136,7 +136,7 @@ inherited fPreview: TfPreview
       end
     end
     object iHourglass: TImage
-      Left = 418
+      Left = 742
       Height = 30
       Top = 2
       Width = 16
@@ -190,17 +190,17 @@ inherited fPreview: TfPreview
   end
   object pcPages: TPageControl[1]
     Left = 0
-    Height = 258
+    Height = 524
     Top = 32
-    Width = 434
+    Width = 758
     ActivePage = tsImage
     Align = alClient
     TabIndex = 1
     TabOrder = 1
     object tsText: TTabSheet
       Caption = 'Text'
-      ClientHeight = 222
-      ClientWidth = 426
+      ClientHeight = 488
+      ClientWidth = 750
       TabVisible = False
       object mText: TMemo
         Left = 0
@@ -216,57 +216,75 @@ inherited fPreview: TfPreview
     end
     object tsImage: TTabSheet
       Caption = 'Inhalt'
-      ClientHeight = 222
-      ClientWidth = 426
+      ClientHeight = 488
+      ClientWidth = 750
       OnShow = tsImageShow
-      object sbImage: TScrollBox
-        Left = 0
-        Height = 222
-        Top = 0
-        Width = 426
-        HorzScrollBar.Page = 410
-        VertScrollBar.Page = 222
-        Align = alClient
-        BorderStyle = bsNone
-        ClientHeight = 222
-        ClientWidth = 410
-        TabOrder = 0
-        object iPreview: TImage
-          Cursor = crHandPoint
-          Left = 0
-          Height = 292
-          Top = 0
-          Width = 289
-          OnMouseDown = frPreviewMouseDown
-          OnMouseMove = frPreviewMouseMove
-          OnMouseUp = frPreviewMouseUp
-          OnMouseWheelDown = iPreviewMouseWheelDown
-          OnMouseWheelUp = iPreviewMouseWheelUp
-          Stretch = True
-        end
-      end
       object pfrPreview: TPanel
         Left = 0
-        Height = 222
+        Height = 488
         Top = 0
-        Width = 426
+        Width = 750
         Align = alClient
         BevelOuter = bvNone
         Caption = 'pfrPreview'
-        ClientHeight = 222
-        ClientWidth = 426
-        TabOrder = 1
+        ClientHeight = 488
+        ClientWidth = 750
+        TabOrder = 0
         Visible = False
         object frPreview: TfrPreview
           Left = 0
-          Height = 222
+          Height = 488
           Top = 0
-          Width = 426
+          Width = 750
           Align = alClient
           BevelOuter = bvNone
           Caption = 'keine Vorschau'
           TabOrder = 0
           ScrollBars = ssBoth
+        end
+      end
+      object sbImage: TPanel
+        Left = 0
+        Height = 488
+        Top = 0
+        Width = 750
+        Align = alClient
+        BevelOuter = bvNone
+        ClientHeight = 488
+        ClientWidth = 750
+        TabOrder = 1
+        object PaintBox1: TPaintBox
+          Left = 0
+          Height = 472
+          Top = 0
+          Width = 734
+          Align = alClient
+          OnMouseDown = frPreviewMouseDown
+          OnMouseMove = frPreviewMouseMove
+          OnMouseUp = frPreviewMouseUp
+          OnPaint = PaintBox1Paint
+        end
+        object ScrollBar2: TScrollBar
+          Left = 734
+          Height = 472
+          Top = 0
+          Width = 16
+          Align = alRight
+          Kind = sbVertical
+          PageSize = 0
+          TabOrder = 0
+          OnChange = ScrollBar2Change
+        end
+        object ScrollBar1: TScrollBar
+          Left = 0
+          Height = 16
+          Top = 472
+          Width = 735
+          Align = alBottom
+          BorderSpacing.Right = 15
+          PageSize = 0
+          TabOrder = 1
+          OnChange = ScrollBar2Change
         end
       end
     end
