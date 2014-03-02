@@ -29,6 +29,9 @@ uses
   Graphics, LCLType, db,umashineid,uBaseVisualApplication;
 
 type
+
+  { TfMain }
+
   TfMain = class(TDataModule)
     acHistory: TAction;
     acExit: TAction;
@@ -58,12 +61,14 @@ type
     { private declarations }
     aNow: TDateTime;
     aRefresh : Integer;
+    FBaseRef: LargeInt;
     FFilter: string;
     FFilter2: string;
     InformRecTime : TDateTime;
     FHistory : TBaseHistory;
     Processes : array of TProcProcess;
     function CommandReceived(Sender : TObject;aCommand : string) : Boolean;
+    procedure SetBaseref(AValue: LargeInt);
     procedure SetFilter(AValue: string);
     procedure SetFilter2(AValue: string);
     procedure SwitchAnimationOff;
@@ -74,6 +79,7 @@ type
     property History : TBaseHistory read FHistory;
     property Filter : string read FFilter write SetFilter;
     property Filter2 : string read FFilter2 write SetFilter2;
+    property BaseRef : LargeInt read FBaseRef write SetBaseref;
   end;
 var
   fMain: TfMain;
@@ -385,6 +391,13 @@ begin
       Result := True;
     end;
 end;
+
+procedure TfMain.SetBaseref(AValue: LargeInt);
+begin
+  if FBaseRef=AValue then Exit;
+  FBaseRef:=AValue;
+end;
+
 procedure TfMain.SetFilter(AValue: string);
 begin
   if FFilter=AValue then Exit;
@@ -462,7 +475,6 @@ var
           XMLConfig.Free;
         end;
   end;
-
 begin
   TrayIcon.AnimateInterval:=200;
   aRefresh:=0;

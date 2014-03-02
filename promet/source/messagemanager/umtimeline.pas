@@ -45,9 +45,11 @@ type
     acRights: TAction;
     acDelete: TAction;
     acCopyToClipboard: TAction;
+    acDeleteENviroment: TAction;
     acViewThread: TAction;
     ActionList1: TActionList;
     bSend: TBitBtn;
+    cbEnviroment: TComboBox;
     lbResults: TListBox;
     mEntry: TMemo;
     IdleTimer1: TIdleTimer;
@@ -63,16 +65,19 @@ type
     miNewMandant: TMenuItem;
     miProperties: TMenuItem;
     miRegister: TMenuItem;
+    pEnviroment: TPanel;
+    pTop: TPanel;
     pInput: TPanel;
-    Panel2: TPanel;
+    pMessages: TPanel;
     PopupMenu1: TPopupMenu;
     pSearch: TPanel;
     sbAddScreenshot1: TSpeedButton;
     SelectDirectoryDialog1: TSelectDirectoryDialog;
     sbAddFile: TSpeedButton;
     sbAddScreenshot: TSpeedButton;
-    tbRootEntrys: TSpeedButton;
     sbAddUser: TSpeedButton;
+    SpeedButton1: TSpeedButton;
+    tbRootEntrys: TSpeedButton;
     tbThread: TSpeedButton;
     tbUser: TSpeedButton;
     Timer1: TTimer;
@@ -174,7 +179,7 @@ uses uBaseApplication, uData, uOrder,uMessages,uBaseERPDBClasses,
   LCLProc;
 resourcestring
   strTo                                  = 'an ';
-
+{$R *.lfm}
 { TImagingThread }
 
 procedure TImagingThread.AddThumb;
@@ -183,6 +188,7 @@ var
   mTime: DWORD;
 begin
   mTime:=GetTickCount;
+  if not assigned(Data) then exit;
   aDocument := TDocument.Create(nil,Data);
   aDocument.Select(FId,'H',0);
   aDocument.ActualLimit:=1;
@@ -225,7 +231,7 @@ begin
     begin
       Application.CreateForm(TfmTimeline,fmTimeline);
       Self := fmTimeline;
-      fTimeline.Parent := Panel2;
+      fTimeline.Parent := pMessages;
       fTimeline.Align := alClient;
       fTimeline.DefaultRows:='GLOBALWIDTH:%;TIMESTAMPD:100;ACTIONICON:30;ACTION:250;REFERENCE:50;';
       fTimeline.BaseName:='PTLINE';
@@ -1177,7 +1183,6 @@ begin
   fTimeline.gList.Invalidate;
 end;
 initialization
-  {$I umtimeline.lrs}
   AddSearchAbleDataSet(TUser);
 
 end.

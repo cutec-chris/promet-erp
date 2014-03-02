@@ -130,7 +130,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="11">
+    <Exceptions Count="12">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -164,6 +164,9 @@
       <Item11>
         <Name Value="EInvalidGraphic"/>
       </Item11>
+      <Item12>
+        <Name Value="EGridException"/>
+      </Item12>
     </Exceptions>
   </Debugging>
 </CONFIG>

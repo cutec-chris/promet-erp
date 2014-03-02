@@ -797,6 +797,8 @@ begin
   miNew.Action := fMainTreeFrame.acSearch;
   //Timeregistering
   Synchronize(@AddTimeReg);
+  //Expand Tree
+  Synchronize(@Expand);
   //Documents
   DataSetType:=TDocuments;
   Synchronize(@DoCreate);
@@ -916,8 +918,6 @@ begin
       AddSearchAbleDataSet(TBaseHistory);
       Data.RegisterLinkHandler('HISTORY',@fMainTreeFrame.OpenLink,TBaseHistory);
     end;
-  //Expand Tree
-  Synchronize(@Expand);
   {$IFDEF CPU32}
   uSkypePhone.RegisterPhoneLines;
   {$ENDIF}
@@ -1214,7 +1214,6 @@ begin
           end;
         aItems.free;
         fSplash.AddText(strRefresh);
-        Application.ProcessMessages;
         bStart := TStarterThread.Create(False);
 
         with Application as IBaseDbInterface do
