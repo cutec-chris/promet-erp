@@ -1214,6 +1214,7 @@ begin
           end;
         aItems.free;
         fSplash.AddText(strRefresh);
+        Application.ProcessMessages;
         bStart := TStarterThread.Create(False);
 
         with Application as IBaseDbInterface do

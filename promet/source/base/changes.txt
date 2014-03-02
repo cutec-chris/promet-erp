@@ -1,6 +1,7 @@
-﻿Build 315
+﻿Build 316
+      - Dokumentenverwaltung:schnelleres Zoomen und Scrollen für volle Darstellungen von Bildern und Dokumenten
+Build 315
       - Verlauf:Darstellung überarbeitet wichtige Einträge werden nun hervorgehoben unwichtige zurückgestellt
-      -
 Build 314
       - Dokumentenverwaltung:Fehlernachricht beim Fehler wärend einchecken
 Build 313

@@ -318,7 +318,9 @@ begin
       FScale := FScale/1.1;
       DoScalepreview;
       Handled := True;
-    end;
+    end
+  else
+    ScrollBar2.Position:=ScrollBar2.Position+15;
 end;
 procedure TfPreview.iPreviewMouseWheelUp(Sender: TObject; Shift: TShiftState;
   MousePos: TPoint; var Handled: Boolean);
@@ -329,7 +331,9 @@ begin
       FScale := FScale*1.1;
       DoScalepreview;
       Handled := True;
-    end;
+    end
+  else
+    ScrollBar2.Position:=ScrollBar2.Position-15;
 end;
 
 procedure TfPreview.PaintBox1Paint(Sender: TObject);
@@ -364,6 +368,7 @@ begin
   FScaledImage.Height:=round(FImage.Height*FScale);
   FScaledImage.Canvas.StretchDraw(Rect(0,0,FScaledImage.Width,FScaledImage.Height),FImage);
   FScaled:=True;
+  iHourglass.Visible:=False;
 end;
 
 procedure TfPreview.ScrollBar2Change(Sender: TObject);
@@ -381,6 +386,7 @@ procedure TfPreview.DoScalePreview;
 var
   amax: Integer;
 begin
+  iHourglass.Visible:=True;
   FScaled := False;
   ScaleTimer.Enabled:=True;
   amax := round(FImage.Width-1-PaintBox1.Width*FScale);
