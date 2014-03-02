@@ -23,7 +23,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, ComCtrls, Buttons,
   ActnList, StdCtrls, LR_View, LR_Class, uPrometFrames, uDocuments, db, uEditor,
-  Graphics;
+  Graphics, types;
 type
 
   { TfPreview }
@@ -70,13 +70,13 @@ type
       StartY,
       MoveX,
       MoveY: Integer;
-      PVX,PVY : Integer;
       IsMoved: Boolean;
       FScale : real;
       aLoading : Boolean;
       FEditor : TfEditor;
       FID : LargeInt;
       FImage : TBitmap;
+      FScaledImage : TBitmap;
       aThread: TLoadThread;
       procedure DoScalePreview;
     public
@@ -280,7 +280,6 @@ begin
       StartY  := Y;
       MoveX   := X;
       MoveY   := Y;
-      //sbImage.DoubleBuffered := True;
     end;
 end;
 procedure TfPreview.frPreviewMouseMove(Sender: TObject; Shift: TShiftState; X,
@@ -293,8 +292,8 @@ begin
     end;
   if isMoved then
     begin
-      ScrollBar1.Position:=ScrollBar1.Position-round((X - StartX)*FScale);
-      ScrollBar2.Position:=ScrollBar2.Position-round((Y - StartY)*FScale);
+      ScrollBar1.Position:=ScrollBar1.Position-round((X - MoveX));
+      ScrollBar2.Position:=ScrollBar2.Position-round((Y - MoveY));
       MoveX := X;
       MoveY := Y;
     end;
@@ -305,7 +304,6 @@ begin
   if Button = mbLeft then
     begin
       IsMoved := False;
-      //sbImage.DoubleBuffered := False;
     end;
 end;
 procedure TfPreview.iPreviewMouseWheelDown(Sender: TObject; Shift: TShiftState;
@@ -339,9 +337,9 @@ begin
   RectSource:=Rect(
     ScrollBar1.Position,
     ScrollBar2.Position,
-    Scrollbar1.Position+round(PaintBox1.Width/FScale),
-    ScrollBar2.Position+round(PaintBox1.Height/FScale));
-  PaintBox1.Canvas.CopyRect(RectDest, FImage.Canvas, RectSource);
+    Scrollbar1.Position+round(PaintBox1.Width),
+    ScrollBar2.Position+round(PaintBox1.Height));
+  PaintBox1.Canvas.CopyRect(RectDest, FScaledImage.Canvas, RectSource);
 end;
 
 procedure TfPreview.ScrollBar2Change(Sender: TObject);
@@ -359,13 +357,16 @@ procedure TfPreview.DoScalePreview;
 var
   amax: Integer;
 begin
-  PaintBox1.Invalidate;
+  FScaledImage.Width:=round(FImage.Width*FScale);
+  FScaledImage.Height:=round(FImage.Height*FScale);
+  FScaledImage.Canvas.StretchDraw(Rect(0,0,FScaledImage.Width,FScaledImage.Height),FImage);
   amax := round(FImage.Width-1-PaintBox1.Width*FScale);
   if aMax >0 then
     ScrollBar1.Max:=aMax;
   amax := round(FImage.Height-1-PaintBox1.Height*FScale);
   if aMax > 0 then
     ScrollBar2.Max:=aMax;
+  PaintBox1.Invalidate;
 end;
 
 constructor TfPreview.Create(AOwner: TComponent);
@@ -373,10 +374,12 @@ begin
   inherited Create(AOwner);
   FEditor := TfEditor.Create(Self);
   FImage := TBitmap.Create;
+  FScaledImage := TBitmap.Create;
 end;
 
 destructor TfPreview.Destroy;
 begin
+  FScaledImage.Free;
   FImage.Free;
   FEditor.Free;
   inherited Destroy;
@@ -453,8 +456,8 @@ begin
         FEditor.Hide;
         pfrPreview.Visible:=False;
         Result := True;
-        PVX:=0;
-        PVY:=0;
+        ScrollBar1.Position:=0;
+        ScrollBar2.Position:=0;
         tsImage.TabVisible:=True;
         tsText.TabVisible:=False;
       except

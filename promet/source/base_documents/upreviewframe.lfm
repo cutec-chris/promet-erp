@@ -262,6 +262,8 @@ inherited fPreview: TfPreview
           OnMouseDown = frPreviewMouseDown
           OnMouseMove = frPreviewMouseMove
           OnMouseUp = frPreviewMouseUp
+          OnMouseWheelDown = iPreviewMouseWheelDown
+          OnMouseWheelUp = iPreviewMouseWheelUp
           OnPaint = PaintBox1Paint
         end
         object ScrollBar2: TScrollBar
