@@ -178,7 +178,11 @@ end;
 
 function TThreadedImage.GetImage: TFPMemoryImage;
 begin
-  Result := FImage;
+  try
+    Result := FImage;
+  except
+    Result := nil;
+  end;
 end;
 
 function TThreadedImage.GetName: string;

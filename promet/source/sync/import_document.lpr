@@ -9,7 +9,7 @@ uses
   Classes, SysUtils, CustApp,
   Interfaces
   { you can add units after this },db, Utils, FileUtil, Forms, uData,
-  uIntfStrConsts, pcmdprometapp, uBaseCustomApplication, pocr, uBaseApplication,
+  uIntfStrConsts, pcmdprometapp, uBaseCustomApplication, uBaseApplication,
   uDocuments, uBaseDocPages,uOCR,Graphics;
 
 type
@@ -80,20 +80,13 @@ begin
           end;
       end;
 
-      Texts := TOCRPages.Create;
-      aPic := TPicture.Create;
       aDoc := TDocument.Create(nil,Data);
       aDoc.SelectByReference(aDocPage.Id.AsVariant);
       aDoc.Open;
       if aDoc.Count>0 then
         begin
-          aFullstream := TMemoryStream.Create;
-          aDoc.CheckoutToStream(aFullStream);
-          aFullStream.Position:=0;
-          aPic.LoadFromStreamWithFileExt(aFullStream,ExtractFileExt(aDoc.FileName));
-          aFullStream.Free;
           writeln('OCR on '+AInfo.Name);
-          StartOCR(Texts,aPic);
+          Texts := aDoc.DoOCR;
           aText := TStringList.Create;
           for i := 0 to Texts.Count-1 do
             begin
@@ -106,10 +99,9 @@ begin
           aText.Free;
           for i := 0 to Texts.Count-1 do
             TStringList(Texts[i]).Free;
+          Texts.Free;
         end;
-      aPic.Free;
       aDoc.Free;
-      Texts.Count;
 
       aDocPage.Free;
       DeleteFileUTF8(aFolder+AInfo.Name);

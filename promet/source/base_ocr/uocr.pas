@@ -46,6 +46,16 @@ type
     procedure Execute; override;
     constructor Create(Pages : TOCRPages;Image : TPicture);
   end;
+  TTesseractProcess = class(TExtendedProcess)
+  private
+    FPages: TOCRPages;
+    FNumber : Integer;
+    OldDone : TNotifyEvent;
+    procedure ProcessDone(Sender: TObject);
+  public
+    procedure Execute; override;
+    constructor Create(Pages : TOCRPages;Image : TPicture);
+  end;
   TUnPaperProcess = class(TExtendedProcess)
   private
     FImage: TPicture;
@@ -67,9 +77,13 @@ var
 procedure StartOCR(Pages: TOCRPages;Image : TPicture);
 begin
   try
-    TCuneIFormProcess.Create(Pages,Image);
+    TTesseractProcess.Create(Pages,Image);
   except
-    TGOCRProcess.Create(Pages,Image);
+    try
+      TCuneIFormProcess.Create(Pages,Image);
+    except
+      TGOCRProcess.Create(Pages,Image);
+    end;
   end;
 end;
 function FixText(aText: TStrings): Integer;
@@ -81,9 +95,20 @@ var
     i: Integer;
   begin
     for i := 1 to length(Line) do
-      if IsNumeric(Line[i]) or (Line[i] in ['a'..'z']) or (Line[i] in ['A'..'Z']) or (Line[i] = ' ') or (Line[i] = '.') then
+      if IsNumeric(Line[i])
+      or (Line[i] in ['a'..'z'])
+      or (Line[i] in ['A'..'Z'])
+      or (Line[i] = ' ')
+      or (Line[i] = '.')
+      or (Line[i] = '/')
+      or (Line[i] = '-')
+      then
         Result := Result+Line[i]
-      else inc(BadChars);
+      else
+        begin
+          Result := Result+' ';
+          inc(BadChars);
+        end;
   end;
 begin
   for i := 0 to aText.Count-1 do
@@ -329,6 +354,58 @@ begin
         end;
     end;
 end;
+
+{ TTesseractProcess }
+
+procedure TTesseractProcess.ProcessDone(Sender: TObject);
+var
+  aSList: TStringList;
+begin
+  SysUtils.DeleteFile(GetTempDir+IntToStr(FNumber)+'export.jpg');
+  aSList := TStringList.Create;
+  FPages.Add(aSList);
+  if FileExists(GetTempDir+IntToStr(FNumber)+'export.txt') then
+    begin
+      aSList.LoadFromFile(GetTempDir+IntToStr(FNumber)+'export.txt');
+      aSList.Text := ConvertEncoding(aSList.Text,GuessEncoding(aSList.Text),EncodingUTF8);
+      SysUtils.DeleteFile(GetTempDir+IntToStr(FNumber)+'export.txt');
+    end;
+  if Processes.IndexOf(Self) > -1 then
+    Processes.Remove(Self);
+  if Assigned(OnallprocessDone) then
+    begin
+      if Processes.Count = 0 then
+        OnallprocessDone(nil);
+    end;
+  if Assigned(OldDone) then
+    OldDone(Self);
+end;
+
+procedure TTesseractProcess.Execute;
+begin
+  inherited Execute;
+  while Running do
+    ;
+  ProcessDone(nil);
+end;
+
+constructor TTesseractProcess.Create(Pages: TOCRPages; Image: TPicture);
+var
+  aPath: String;
+begin
+  aPath := 'tesseract'+ExtractFileExt(Application.ExeName);
+  {$IFDEF WINDOWS}
+  aPath := AppendPathDelim(AppendPathDelim(Application.Location)+'tools'+DirectorySeparator+'tesseract')+aPath;
+  {$ENDIF}
+  FNumber := Processes.Add(Self);
+  Image.SaveToFile(GetTempDir+IntToStr(FNumber)+'export.jpg');
+  aPath := aPath+' '+GetTempDir+IntToStr(FNumber)+'export.jpg '+GetTempDir+IntToStr(FNumber)+'export -l deu';
+  OldDone := Self.OnDone;
+  Self.OnDone:=@ProcessDone;
+  FPages := Pages;
+  inherited Create(aPath);
+end;
+
 procedure TUnPaperProcess.UnpaperProcessDone(Sender: TObject);
 begin
   FImage.LoadFromFile(GetTempDir+'unpaperexport.pnm');

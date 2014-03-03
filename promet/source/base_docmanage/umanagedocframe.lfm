@@ -839,11 +839,11 @@ inherited fManageDocFrame: TfManageDocFrame
         Left = 0
         Height = 531
         Top = 0
-        Width = 611
+        Width = 632
         Align = alClient
         BevelOuter = bvNone
         ClientHeight = 531
-        ClientWidth = 611
+        ClientWidth = 632
         TabOrder = 0
         object iNoThumbnail: TImage
           Left = 0
@@ -1002,6 +1002,113 @@ inherited fManageDocFrame: TfManageDocFrame
         end
       end
     end
+    object tstext: TTabSheet
+      Caption = 'Text'
+      ClientHeight = 531
+      ClientWidth = 632
+      object DBMemo1: TDBMemo
+        Left = 44
+        Height = 531
+        Top = 0
+        Width = 588
+        Align = alClient
+        DataField = 'FULLTEXT'
+        DataSource = Datasource1
+        TabOrder = 0
+      end
+      object pLeft: TPanel
+        Left = 0
+        Height = 531
+        Top = 0
+        Width = 44
+        Align = alLeft
+        BevelOuter = bvNone
+        ClientHeight = 531
+        ClientWidth = 44
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 1
+        object Panel2: TPanel
+          Left = 0
+          Height = 78
+          Top = 0
+          Width = 44
+          Align = alTop
+          BevelOuter = bvNone
+          ClientHeight = 78
+          ClientWidth = 44
+          TabOrder = 0
+          object Bevel1: TBevel
+            Left = 4
+            Height = 4
+            Top = 0
+            Width = 36
+            Align = alTop
+            BorderSpacing.Left = 4
+            BorderSpacing.Right = 4
+            Shape = bsTopLine
+          end
+          object ExtRotatedLabel8: TExtRotatedLabel
+            Left = 0
+            Height = 74
+            Top = 4
+            Width = 14
+            Align = alLeft
+            AutoSize = False
+            Caption = 'Text'
+            Font.Color = clMedGray
+            Font.Height = 11
+            Font.Orientation = -900
+            ParentColor = False
+            ParentFont = False
+          end
+          object SpeedButton1: TSpeedButton
+            Left = 17
+            Height = 22
+            Top = 4
+            Width = 23
+            Action = acOCR
+            Glyph.Data = {
+              36040000424D3604000000000000360000002800000010000000100000000100
+              2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF0000A8E91500A4E615FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF003B3B3BA93B3B3BC13B3B3CC22286AAF900A4E69C00A0E327FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF0000ADED9640B3D9FF27B3EBFF00A1E3CF009C
+              E0A20098DD8D008ED515FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF0000B1F06666CEF4FFA0E1F3FF99E3FAFF9FDC
+              F5FF48B9E9FF0C93CE4EFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF0000B5F45A5ACDF6FF95EAFCFF60DEFCFFA2EB
+              FDFF6CC9EFFF4A747DDA934B1C09FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF0000B8F65151CDF7FFC2F3FDFF99EAFDFFA8E4
+              F9FF05A6E6FF8B8477FF934B1CBC934B1C09FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF0000BCF94B18C0F8FF51CDF7FF8ADCF9FF0BB0
+              EDFF9BAAA7FFE5B89EFFBD7F56FF985020BC934B1C09FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000BCF91821B4DF5F59A7B1ECC0B1
+              97FFEDD1BCFFDFAA88FFE5B89EFFC1835AFF9F5825BC98502009FFFFFF00FFFF
+              FF006D6D6D755F5F5F754E4E4E753C3C3C7529292975181818752E221780CC8C
+              4FE9E4B58BFFEDD1BCFFDFAA88FFE5B89EFFC6895EFFA8602CA5FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00E39E
+              5A15E39E5AD6E7B98EFFEDD1BCFFE9C4ADFFD7A077FFBB753BB1FFFFFF00FFFF
+              FF00777777FF777777FF6D6D6DFF5F5F5FFF4E4E4EFF3C3C3CFF292929FF1818
+              18FF1C1611FFBF854CFFEABB90FFE7B991FFD79151EBCE894A2AFFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00E39E5A15E39E5AD6E39E5AEDE39E5A2AFFFFFF00FFFFFF00FFFF
+              FF00777777FF777777FF777777FF777777FF6D6D6DFF5F5F5FFF4E4E4EFF3C3C
+              3CFF292929FF181818FF1C1611FF23180EFFFFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+            }
+            ShowCaption = False
+          end
+        end
+      end
+    end
   end
   object Panel1: TPanel[2]
     Left = 0
@@ -1115,6 +1222,11 @@ inherited fManageDocFrame: TfManageDocFrame
       ImageIndex = 109
       OnExecute = acRotateExecute
     end
+    object acOCR: TAction
+      Caption = 'OCR ausführen'
+      ImageIndex = 115
+      OnExecute = acOCRExecute
+    end
   end
   object pmPopup: TPopupMenu[6]
     Images = fVisualControls.Images
@@ -1168,8 +1280,8 @@ inherited fManageDocFrame: TfManageDocFrame
     Enabled = False
     Interval = 300
     OnTimer = IdleTimer1Timer
-    left = 352
-    top = 72
+    left = 344
+    top = 88
   end
   object SelectDirectoryDialog1: TSelectDirectoryDialog[8]
     left = 21

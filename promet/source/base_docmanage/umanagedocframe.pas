@@ -28,7 +28,7 @@ uses
   Buttons, ComCtrls, ActnList, thumbcontrol, uPrometFrames, uBaseDocPages,
   uBaseDBInterface, threadedimageLoader, uDocumentFrame, DBZVDateTimePicker,
   Dialogs, PairSplitter, Menus, uIntfStrConsts, variants, types, uTimeLine,
-  uPreviewFrame;
+  uPreviewFrame, uOCR, uExtControls;
 
 type
 
@@ -44,8 +44,10 @@ type
     acSave: TAction;
     acImport: TAction;
     acRotate: TAction;
+    acOCR: TAction;
     ActionList1: TActionList;
     bEditFilter: TSpeedButton;
+    Bevel1: TBevel;
     Bevel3: TBevel;
     Bevel4: TBevel;
     Bevel5: TBevel;
@@ -65,6 +67,7 @@ type
     cbFilter: TComboBox;
     Datasource1: TDatasource;
     DBEdit1: TDBEdit;
+    DBMemo1: TDBMemo;
     DBZVDateTimePicker1: TDBZVDateTimePicker;
     eSearch: TEdit;
     ExtRotatedLabel1: TLabel;
@@ -74,6 +77,7 @@ type
     ExtRotatedLabel5: TLabel;
     ExtRotatedLabel6: TLabel;
     ExtRotatedLabel7: TLabel;
+    ExtRotatedLabel8: TExtRotatedLabel;
     IdleTimer1: TIdleTimer;
     iNoThumbnail: TImage;
     Label1: TLabel;
@@ -81,6 +85,7 @@ type
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
+    Panel2: TPanel;
     pcPages: TPageControl;
     PairSplitter1: TPairSplitter;
     PairSplitterSide1: TPairSplitterSide;
@@ -89,6 +94,7 @@ type
     Panel4: TPanel;
     Panel5: TPanel;
     pDocFrame: TPanel;
+    pLeft: TPanel;
     pNav: TPanel;
     pNav1: TPanel;
     pmPopup: TPopupMenu;
@@ -99,7 +105,9 @@ type
     pThumb: TPanel;
     pToolbar: TPanel;
     SelectDirectoryDialog1: TSelectDirectoryDialog;
+    SpeedButton1: TSpeedButton;
     spPages: TSplitter;
+    tstext: TTabSheet;
     tbMenue1: TToolButton;
     tbToolBar: TToolBar;
     ThumbControl1: TThumbControl;
@@ -108,6 +116,7 @@ type
     procedure acDeleteExecute(Sender: TObject);
     procedure acEditExecute(Sender: TObject);
     procedure acImportExecute(Sender: TObject);
+    procedure acOCRExecute(Sender: TObject);
     procedure acRebuildThumbExecute(Sender: TObject);
     procedure acRefreshExecute(Sender: TObject);
     procedure acRotateExecute(Sender: TObject);
@@ -636,6 +645,36 @@ procedure TfManageDocFrame.acImportExecute(Sender: TObject);
 begin
   if fCameraimport.Execute(Self,FTyp) then
     acRefresh.Execute;
+end;
+
+procedure TfManageDocFrame.acOCRExecute(Sender: TObject);
+var
+  aDoc: TDocument;
+  Texts: TOCRPages;
+  aText: TStringList;
+  i: Integer;
+begin
+  aDoc := TDocument.Create(nil,Data);
+  aDoc.SelectByReference(TDocPages(DataSet).Id.AsVariant);
+  aDoc.Open;
+  if aDoc.Count>0 then
+    begin
+      Texts := aDoc.DoOCR;
+      aText := TStringList.Create;
+      for i := 0 to Texts.Count-1 do
+        begin
+          FixText(TStringList(Texts[i]));
+          atext.AddStrings(TStringList(Texts[i]));
+        end;
+      TDocPages(DataSet).Edit;
+      TDocPages(DataSet).FieldByName('FULLTEXT').AsString:=aText.Text;
+      TDocPages(DataSet).Post;
+      aText.Free;
+      for i := 0 to Texts.Count-1 do
+        TStringList(Texts[i]).Free;
+      Texts.Free;
+    end;
+  aDoc.Free;
 end;
 
 procedure TfManageDocFrame.acRebuildThumbExecute(Sender: TObject);

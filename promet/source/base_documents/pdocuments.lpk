@@ -133,7 +133,7 @@
       </Item29>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="5">
+    <RequiredPkgs Count="4">
       <Item1>
         <PackageName Value="pvisualbaseframes"/>
         <DefaultFilename Value="../base_frames/pvisualbaseframes.lpk"/>
@@ -143,15 +143,11 @@
         <DefaultFilename Value="../base_options/poptions.lpk"/>
       </Item2>
       <Item3>
-        <PackageName Value="pOCR"/>
-        <DefaultFilename Value="../base_ocr/pocr.lpk"/>
+        <PackageName Value="LCL"/>
       </Item3>
       <Item4>
-        <PackageName Value="LCL"/>
-      </Item4>
-      <Item5>
         <PackageName Value="FCL"/>
-      </Item5>
+      </Item4>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

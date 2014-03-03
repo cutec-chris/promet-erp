@@ -183,27 +183,31 @@
       </Item40>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="5">
+    <RequiredPkgs Count="6">
       <Item1>
-        <PackageName Value="dexif_package"/>
-        <DefaultFilename Value="..\..\components\dexif\dexif_package.lpk"/>
+        <PackageName Value="pocr"/>
+        <DefaultFilename Value="..\..\base_ocr\pocr.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="laz_synapse"/>
-        <DefaultFilename Value="..\..\components\synapse\laz_synapse.lpk"/>
+        <PackageName Value="dexif_package"/>
+        <DefaultFilename Value="..\..\components\dexif\dexif_package.lpk"/>
       </Item2>
       <Item3>
-        <PackageName Value="zcomponent"/>
-        <DefaultFilename Value="..\..\components\zeos\packages\lazarus\zcomponent.lpk"/>
+        <PackageName Value="laz_synapse"/>
+        <DefaultFilename Value="..\..\components\synapse\laz_synapse.lpk"/>
       </Item3>
       <Item4>
-        <PackageName Value="lnetbase"/>
-        <DefaultFilename Value="..\..\components\lnet\lazaruspackage\lnetbase.lpk"/>
+        <PackageName Value="zcomponent"/>
+        <DefaultFilename Value="..\..\components\zeos\packages\lazarus\zcomponent.lpk"/>
       </Item4>
       <Item5>
+        <PackageName Value="lnetbase"/>
+        <DefaultFilename Value="..\..\components\lnet\lazaruspackage\lnetbase.lpk"/>
+      </Item5>
+      <Item6>
         <PackageName Value="wiki2html_pkg"/>
         <DefaultFilename Value="..\..\base_wiki\wiki2html_pkg.lpk"/>
-      </Item5>
+      </Item6>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>
