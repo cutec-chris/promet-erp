@@ -589,7 +589,8 @@ begin
 end;
 procedure TBaseVisualApplication.Log(aType: string; aMsg: string);
 begin
-  debugln(aType+':'+aMsg);
+  //debugln(aType+':'+aMsg);
+  try
   if Assigned(FLogger) then
     begin
       if aType = 'INFO' then
@@ -599,6 +600,8 @@ begin
       else if aType = 'ERROR' then
         FLogger.Error(aMsg);
     end;
+  except
+  end;
 end;
 procedure TBaseVisualApplication.Log(aMsg: string);
 begin
@@ -989,4 +992,4 @@ initialization
   RegisterClass(TDBComboBox);
   RegisterClass(TPanel);
 end.
-
+

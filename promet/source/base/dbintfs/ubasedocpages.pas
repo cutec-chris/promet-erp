@@ -31,6 +31,7 @@ type
 
   TDocPages = class(TBaseDBDataset)
   private
+    FTyp: string;
     FUsedFields : string;
     procedure SetParamsFromExif(extn : string;aFullStream : TStream);
   public
@@ -41,6 +42,7 @@ type
     procedure DefineFields(aDataSet: TDataSet); override;
     procedure Add(aDocuments: TDocuments);
     procedure AddFromFile(aFile : UTF8String);
+    property Typ : string read FTyp write FTyp;
   end;
 
 implementation
@@ -157,7 +159,7 @@ begin
             Add('NAME',ftString,100,False);
             Add('ORIGDATE',ftDateTime,0,False);
             Add('CHANGEDBY',ftString,4,False);
-            Add('FULLTEXT',ftString,500,False);
+            Add('FULLTEXT',ftMemo,0,False);
             Add('TREEENTRY',ftLargeint,0,False);
             Add('THUMBNAIL',ftBlob,0,False);
           end;
@@ -180,6 +182,8 @@ begin
     begin
       Insert;
       FieldByName('NAME').AsString:=aDocuments.FileName;
+      if FTyp <> '' then
+        FieldByName('TYPE').AsString:=FTyp;
       aStream := TMemoryStream.Create;
       aFullStream := TMemoryStream.Create;
       aDocument.CheckoutToStream(aFullStream);
@@ -220,6 +224,8 @@ begin
     begin
       Insert;
       FieldByName('NAME').AsString:=ExtractFileName(aFile);
+      if FTyp <> '' then
+        FieldByName('TYPE').AsString:=FTyp;
       Post;
       DataSet.Edit;
       aDocument := TDocument.Create(nil,Data);

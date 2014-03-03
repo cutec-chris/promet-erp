@@ -23,32 +23,40 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, ComCtrls, Buttons,
   ActnList, StdCtrls, LR_View, LR_Class, uPrometFrames, uDocuments, db, uEditor,
-  Graphics, types;
+  uExtControls, Graphics, types;
 type
 
   { TfPreview }
   TLoadThread = class;
   TfPreview = class(TPrometMainFrame)
+      acOCR: TAction;
+      ActionList1: TActionList;
+      Bevel1: TBevel;
       bZoomIn: TSpeedButton;
       bZoomOut: TSpeedButton;
       cbRevision: TComboBox;
+      ExtRotatedLabel8: TExtRotatedLabel;
       frPreview: TfrPreview;
       frReport: TfrReport;
       iHourglass: TImage;
       Label1: TLabel;
       mText: TMemo;
       PaintBox1: TPaintBox;
+      Panel2: TPanel;
       pcPages: TPageControl;
       pfrPreview: TPanel;
+      pLeft: TPanel;
       pToolbar: TToolBar;
       pImageControls: TPanel;
       sbImage: TPanel;
       ScrollBar1: TScrollBar;
       ScrollBar2: TScrollBar;
       ScaleTimer: TTimer;
+      SpeedButton1: TSpeedButton;
       ToolBar2: TToolBar;
       tsImage: TTabSheet;
       tsText: TTabSheet;
+      procedure acOCRExecute(Sender: TObject);
       procedure bZoomInClick(Sender: TObject);
       procedure bZoomOutClick(Sender: TObject);
       procedure cbRevisionSelect(Sender: TObject);
@@ -114,7 +122,7 @@ type
     property DoAbort : Boolean read FAbort write SetAbort;
   end;
 implementation
-uses uData, UTF8Process, Process;
+uses uData, UTF8Process, Process,uOCR;
 procedure TLoadThread.StartLoading;
 begin
   FFrame.iHourglass.Visible:=True;
@@ -254,6 +262,37 @@ begin
       frPreview.Zoom:=frPreview.Zoom*1.1;
     end;
 end;
+
+procedure TfPreview.acOCRExecute(Sender: TObject);
+var
+  aDoc: TDocument;
+  Texts: TOCRPages;
+  aText: TStringList;
+  i: Integer;
+begin
+  aDoc := TDocument.Create(nil,Data);
+  aDoc.SelectByID(FID);
+  aDoc.Open;
+  if aDoc.Count>0 then
+    begin
+      Texts := aDoc.DoOCR;
+      aText := TStringList.Create;
+      for i := 0 to Texts.Count-1 do
+        begin
+          FixText(TStringList(Texts[i]));
+          atext.AddStrings(TStringList(Texts[i]));
+        end;
+      aDoc.Edit;
+      aDoc.FieldByName('FULLTEXT').AsString:=aText.Text;
+      aDoc.Post;
+      aText.Free;
+      for i := 0 to Texts.Count-1 do
+        TStringList(Texts[i]).Free;
+      Texts.Free;
+    end;
+  aDoc.Free;
+end;
+
 procedure TfPreview.bZoomOutClick(Sender: TObject);
 begin
   if sbImage.Visible then
@@ -487,8 +526,6 @@ begin
         Result := True;
         ScrollBar1.Position:=0;
         ScrollBar2.Position:=0;
-        tsImage.TabVisible:=True;
-        tsText.TabVisible:=False;
       except
         sbImage.Visible:=False;
       end;
@@ -543,8 +580,6 @@ begin
         sbImage.Visible:=True;
         FEditor.Hide;
         pfrPreview.Visible:=False;
-        tsImage.TabVisible:=True;
-        tsText.TabVisible:=False;
       except
         SysUtils.DeleteFile(aFileName);
         SysUtils.DeleteFile(aFileName+'.bmp');

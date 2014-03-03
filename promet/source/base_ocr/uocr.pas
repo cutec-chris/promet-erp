@@ -96,12 +96,8 @@ var
   begin
     for i := 1 to length(Line) do
       if IsNumeric(Line[i])
-      or (Line[i] in ['a'..'z'])
-      or (Line[i] in ['A'..'Z'])
-      or (Line[i] = ' ')
-      or (Line[i] = '.')
-      or (Line[i] = '/')
-      or (Line[i] = '-')
+      or ((ord(Line[i])>=34)
+      and (ord(Line[i])<=254))
       then
         Result := Result+Line[i]
       else
@@ -112,13 +108,8 @@ var
   end;
 begin
   for i := 0 to aText.Count-1 do
-    aText[i] := RemoveBadChars(aText[i]);
-  i := 0;
-  while (i < aText.Count-2) do
     begin
-      if (trim(aText[i]) = '') and (trim(aText[i+1]) = '') then
-        aText.Delete(i)
-      else inc(i);
+      aText[i] := AnsiToUtf8(RemoveBadChars(Utf8ToAnsi(aText[i])));
     end;
   Result := BadChars;
 end;
@@ -368,7 +359,7 @@ begin
     begin
       aSList.LoadFromFile(GetTempDir+IntToStr(FNumber)+'export.txt');
       aSList.Text := ConvertEncoding(aSList.Text,GuessEncoding(aSList.Text),EncodingUTF8);
-      SysUtils.DeleteFile(GetTempDir+IntToStr(FNumber)+'export.txt');
+      //SysUtils.DeleteFile(GetTempDir+IntToStr(FNumber)+'export.txt');
     end;
   if Processes.IndexOf(Self) > -1 then
     Processes.Remove(Self);

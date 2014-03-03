@@ -882,8 +882,8 @@ begin
       finally
         CSImg.Release;
       end;
-    finally
       IRes.free;
+    finally
       Img.free;
     end;
   end;
@@ -921,4 +921,4 @@ initialization
 finalization
   frame.free;
 
-end.
+end.

@@ -1,4 +1,7 @@
-﻿Build 316
+﻿Build 317
+      - OCR Funktionen überarbeitet, Tesseract,Cuniform und GOCR werden nun unterstützt Sonderzeichen werden zugelassen
+        manuelle OCR nachträglich möglich
+Build 316
       - Dokumentenverwaltung:schnelleres Zoomen und Scrollen für volle Darstellungen von Bildern und Dokumenten
 Build 315
       - Verlauf:Darstellung überarbeitet wichtige Einträge werden nun hervorgehoben unwichtige zurückgestellt

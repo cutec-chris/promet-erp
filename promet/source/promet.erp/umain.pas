@@ -2160,9 +2160,15 @@ begin
       if Assigned(aTNode) then
         begin
           aTreeEntry := TTreeEntry(aTNode.Data);
-          if aTreeEntry.Typ = etDocumentsOnly then
+          if (aTreeEntry.Typ = etDocumentsOnly)
+          or (aTreeEntry.Typ = etImages)
+          then
             begin
               aPages := TDocPages.Create(nil,Data);
+              if (aTreeEntry.Typ = etDocumentsOnly) then
+                aPages.Typ:='D'
+              else
+                aPages.Typ:='I';
               ls := TListView(Source).Selected;
               fWaitForm.ShowInfo(ls.Caption);
               fWaitform.ProgressBar1.Max:=TListView(Source).SelCount;
@@ -2278,7 +2284,9 @@ begin
       if Assigned(aTNode) then
         begin
           aTreeEntry := TTreeEntry(aTNode.Data);
-          if aTreeEntry.Typ = etDocumentsOnly then
+          if (aTreeEntry.Typ = etDocumentsOnly)
+          or (aTreeEntry.Typ = etImages)
+          then
             Accept := True;
         end;
     end
