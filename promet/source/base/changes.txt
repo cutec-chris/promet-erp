@@ -1,6 +1,7 @@
 ﻿Build 317
       - OCR Funktionen überarbeitet, Tesseract,Cuniform und GOCR werden nun unterstützt Sonderzeichen werden zugelassen
         manuelle OCR nachträglich möglich
+      - Dokumentenmanagement:laden von Bildern in Threads abgeschaltet da es zum stocken führt
 Build 316
       - Dokumentenverwaltung:schnelleres Zoomen und Scrollen für volle Darstellungen von Bildern und Dokumenten
 Build 315
