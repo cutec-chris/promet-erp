@@ -473,6 +473,7 @@ begin
   and pPreviewT.Visible
   and (not (FDataSet.FieldByName('ISDIR').AsString = 'Y'))
   and GotoSelected
+  and (lvDocuments.SelCount=1)
   and (PreviewFrame.CanHandleType(Uppercase(FDataSet.FieldByName('EXTENSION').AsString)))
   then
     begin
@@ -1727,4 +1728,4 @@ begin
 end;
 
 end.
-
+
