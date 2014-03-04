@@ -98,7 +98,9 @@ type
     PageControl1: TPageControl;
     Panel1: TPanel;
     Panel2: TPanel;
+    Panel3: TPanel;
     Panel4: TPanel;
+    Panel5: TPanel;
     pTools: TPanel;
     Panel6: TPanel;
     Panel7: TPanel;
@@ -849,18 +851,21 @@ var
   Animate: TAnimationController;
 begin
   bEditFilter.Enabled:=False;
-  Animate := TAnimationController.Create(pTop);
+  Animate := TAnimationController.Create(Panel5);
   smQuerry.BeginUpdate;
   smQuerry1.BeginUpdate;
   smQuerry2.BeginUpdate;
   if bEditFilter.Down then
     begin
       pTop.Visible:=True;
-      Animate.AnimateControlHeight(244)
+      with Application as IBaseDbInterface do
+        Animate.AnimateControlHeight(DBConfig.ReadInteger('STATISTICEDITHEIGHT',244));
     end
   else
     begin
-      Animate.AnimateControlHeight(0);
+      with Application as IBaseDbInterface do
+        DBConfig.WriteInteger('STATISTICEDITHEIGHT',Panel5.Height);
+      Animate.AnimateControlHeight(45);
       if pos('WHERE',Uppercase(smQuerry.Lines.Text)) > 0 then
         ParseForms(copy(smQuerry.Lines.Text,pos('WHERE',Uppercase(smQuerry.Lines.Text)),length(smQuerry.Lines.Text)))
       else
@@ -1140,6 +1145,7 @@ begin
   FVariables := TStringList.Create;
   FTables := TStringList.Create;
   pTop.Height := 0;
+  Panel5.Height:=45;
 end;
 
 procedure TfStatisticFrame.SetDataSet(const AValue: TBaseDBDataset);
