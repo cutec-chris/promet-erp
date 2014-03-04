@@ -435,13 +435,11 @@ begin
     end;
   DataSet.Open;
   FLast:='';
-  ThumbControl1.MultiThreaded:=False;
   ThumbControl1.URLList:='';
   SelectedItem:=nil;
   Datasource1.DataSet := DataSet.DataSet;
   FetchNext;
   //Application.ProcessMessages;
-  ThumbControl1.MultiThreaded:=True;
   IdleTimer1.Tag:=0;
 end;
 procedure TfManageDocFrame.pmPopupPopup(Sender: TObject);
@@ -1037,13 +1035,11 @@ begin
     end;
   DataSet.Open;
   FLast:='';
-  ThumbControl1.MultiThreaded:=False;
   ThumbControl1.URLList:='';
   SelectedItem:=nil;
   Datasource1.DataSet := DataSet.DataSet;
   FetchNext;
   Application.ProcessMessages;
-  ThumbControl1.MultiThreaded:=True;
   if Assigned(IdleTimer1) then
     IdleTimer1.Tag:=0;
   ThumbControl1.Invalidate;

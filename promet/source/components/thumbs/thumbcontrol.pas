@@ -480,7 +480,6 @@ var i, tlen: integer;
   Cim: TThreadedImage;
   aTime: DWORD;
 begin
-  debugln('PaintStarted');
   aTime := GetTickCount;
   Canvas.Lock;
   begin
@@ -570,7 +569,7 @@ begin
   end;
   Canvas.Unlock;
   inherited Paint;
-  debugln('PaintTime:'+IntToStr(aTime-getTickCount));
+  //debugln('PaintTime:'+IntToStr(aTime-getTickCount));
 end;
 
 function GetFPReaderMask: string;
@@ -821,7 +820,8 @@ end;
 
 procedure TThumbControl.ImgLoadURL(Sender: TObject);
 var Ext, Fn: string;
-  Img, IRes: TFPMemoryImage;
+  Img  : TFPMemoryImage = nil;
+  IRes : TFPMemoryImage = nil;
   rdjpegthumb: TFPReaderJPEG;
   area: TRect;
   Strm: TStream;
@@ -885,7 +885,8 @@ begin
         CSImg.Release;
       end;
     finally
-      IRes.free;
+      if Assigned(IRes) then
+        IRes.free;
       Img.free;
     end;
     except
