@@ -23,7 +23,7 @@ interface
 uses
   Classes, SysUtils, ProcessUtils, Forms, FileUtil, Graphics,
   FPImage, FPWritePNM, IntfGraphics, Utils, SynaUtil,
-  lconvencoding;
+  lconvencoding,uDocuments;
 type
   TOCRPages = TList;
   TGOCRProcess = class(TExtendedProcess)
@@ -65,6 +65,7 @@ type
     procedure Execute; override;
     constructor Create(Image : TPicture);
   end;
+function DoOCR(aDoc : TDocument) : TOCRPages;
 procedure StartOCR(Pages : TOCRPages;Image : TPicture);
 function FixText(aText : TStrings) : Integer;
 function GetTitle(aText : TStrings;aBase : Int64 = 0) : string;
@@ -74,6 +75,23 @@ var
 implementation
 var
   Processes : TList;
+
+function DoOCR(aDoc: TDocument): TOCRPages;
+var
+  aFullstream: TMemoryStream;
+  aPic: TPicture;
+begin
+  aFullstream := TMemoryStream.Create;
+  aDoc.CheckoutToStream(aFullStream);
+  aFullStream.Position:=0;
+  aPic := TPicture.Create;
+  aPic.LoadFromStreamWithFileExt(aFullStream,ExtractFileExt(aDoc.FileName));
+  aFullStream.Free;
+  Result := TOCRPages.Create;
+  StartOCR(Result,aPic);
+  aPic.Free;
+end;
+
 procedure StartOCR(Pages: TOCRPages;Image : TPicture);
 begin
   try

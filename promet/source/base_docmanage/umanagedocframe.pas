@@ -657,7 +657,7 @@ begin
   aDoc.Open;
   if aDoc.Count>0 then
     begin
-      Texts := aDoc.DoOCR;
+      Texts := DoOCR(aDoc);
       aText := TStringList.Create;
       for i := 0 to Texts.Count-1 do
         begin

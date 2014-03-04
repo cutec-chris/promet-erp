@@ -21,7 +21,7 @@ unit uDocuments;
 {$H+}
 interface
 uses
-  Classes, SysUtils, db, uBaseDBClasses, Utils, uocr,Graphics;
+  Classes, SysUtils, db, uBaseDBClasses, Utils, Graphics;
 type
 
   { TDocuments }
@@ -135,7 +135,6 @@ type
     procedure Delete;override;
     property MimeTypes : TMimeTypes read FMimeTypes;
     property DocumentActions : TDocumentActions read FDocumentActions;
-    function DoOCR : TOCRPages;
   end;
 implementation
 uses uBaseDBInterface,uBaseApplication, uBaseApplicationTools, FileUtil,md5,
@@ -878,22 +877,6 @@ begin
   aDocument.Delete;
   aDocument.Free;
   DataSet.Refresh;
-end;
-
-function TDocument.DoOCR: TOCRPages;
-var
-  aFullstream: TMemoryStream;
-  aPic: TPicture;
-begin
-  aFullstream := TMemoryStream.Create;
-  CheckoutToStream(aFullStream);
-  aFullStream.Position:=0;
-  aPic := TPicture.Create;
-  aPic.LoadFromStreamWithFileExt(aFullStream,ExtractFileExt(FileName));
-  aFullStream.Free;
-  Result := TOCRPages.Create;
-  StartOCR(Result,aPic);
-  aPic.Free;
 end;
 
 procedure TDocuments.Select(aID: largeInt; aType: string; aTID: string;
