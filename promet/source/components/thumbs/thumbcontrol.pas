@@ -480,6 +480,7 @@ var i, tlen: integer;
   Cim: TThreadedImage;
   aTime: DWORD;
 begin
+  debugln('PaintStarted');
   aTime := GetTickCount;
   Canvas.Lock;
   begin
@@ -569,7 +570,7 @@ begin
   end;
   Canvas.Unlock;
   inherited Paint;
-  //debugln('PaintTime:'+IntToStr(aTime-getTickCount));
+  debugln('PaintTime:'+IntToStr(aTime-getTickCount));
 end;
 
 function GetFPReaderMask: string;
@@ -865,6 +866,7 @@ begin
     Img := TFPMemoryImage.Create(0, 0);
     Img.UsePalette := false;
     try
+    try
       if Assigned(FOnLoadFile) then OnLoadFile(Sender, Fn, Strm);
       if Strm <> nil then
       begin
@@ -882,9 +884,11 @@ begin
       finally
         CSImg.Release;
       end;
-      IRes.free;
     finally
+      IRes.free;
       Img.free;
+    end;
+    except
     end;
   end;
   TThreadedImage(Sender).LoadState := lsLoading;

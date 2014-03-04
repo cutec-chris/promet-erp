@@ -376,7 +376,9 @@ procedure TTesseractProcess.Execute;
 begin
   inherited Execute;
   while Running do
-    ;
+    begin
+      sleep(100);
+    end;
   ProcessDone(nil);
 end;
 
@@ -408,7 +410,9 @@ procedure TUnPaperProcess.Execute;
 begin
   inherited Execute;
   while Running do
-    ;
+    begin
+      sleep(100);
+    end;
   UnpaperProcessDone(nil);
 end;
 constructor TUnPaperProcess.Create(Image: TPicture);
@@ -468,7 +472,9 @@ procedure TCuneIFormProcess.Execute;
 begin
   inherited Execute;
   while Running do
-    ;
+    begin
+      sleep(100);
+    end;
   GOCRProcessDone(nil);
 end;
 constructor TCuneIFormProcess.Create(Pages: TOCRPages; Image: TPicture);
@@ -514,7 +520,9 @@ procedure TGOCRProcess.Execute;
 begin
   inherited Execute;
   while Running do
-    ;
+    begin
+      sleep(100);
+    end;
   GOCRProcessDone(nil);
 end;
 constructor TGOCRProcess.Create(Pages: TOCRPages; Image: TPicture);

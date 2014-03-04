@@ -762,9 +762,9 @@ inherited fManageDocFrame: TfManageDocFrame
     Height = 567
     Top = 42
     Width = 640
-    ActivePage = tsDocument
+    ActivePage = tstext
     Align = alClient
-    TabIndex = 0
+    TabIndex = 2
     TabOrder = 2
     object tsDocument: TTabSheet
       Caption = 'Dokument'
@@ -1014,6 +1014,7 @@ inherited fManageDocFrame: TfManageDocFrame
         Align = alClient
         DataField = 'FULLTEXT'
         DataSource = Datasource1
+        ScrollBars = ssAutoBoth
         TabOrder = 0
       end
       object pLeft: TPanel
@@ -1141,7 +1142,7 @@ inherited fManageDocFrame: TfManageDocFrame
       ThumbWidth = 130
       ThumbHeight = 130
       ThumbDistance = 10
-      MultiThreaded = False
+      MultiThreaded = True
       ShowCaptions = True
       ShowPictureFrame = False
       Layout = LsGrid

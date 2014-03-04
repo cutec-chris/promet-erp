@@ -440,7 +440,7 @@ begin
   SelectedItem:=nil;
   Datasource1.DataSet := DataSet.DataSet;
   FetchNext;
-  Application.ProcessMessages;
+  //Application.ProcessMessages;
   ThumbControl1.MultiThreaded:=True;
   IdleTimer1.Tag:=0;
 end;
@@ -905,8 +905,8 @@ begin
   aTime := GetTickCount;
   while (not FileExists(FtempPath+URL)) do
     begin
-      Application.ProcessMessages;
       if GetTickCount-aTime>1000 then break;
+      Application.ProcessMessages;
     end;
   {$ifdef DEBUG}
   debugln('WaitForImageEnd:'+URL);
@@ -983,6 +983,7 @@ begin
   FDocFrame.Free;
   PreviewFrame.Free;
   inherited Destroy;
+  ClearThumbDir;
 end;
 procedure TfManageDocFrame.Open(aType: string);
 var

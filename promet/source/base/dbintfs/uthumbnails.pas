@@ -31,6 +31,7 @@ uses
 function GetThumbnailPath(aDocument : TDocuments;aWidth : Integer=310;aHeight : Integer=428) : string;
 function GetThumbnailBitmap(aDocument : TDocuments;aWidth : Integer=310;aHeight : Integer=428) : TBitmap;
 function GetThumbTempDir : string;
+function ClearThumbDir : Boolean;
 function GenerateThumbNail(aName : string;aFullStream,aStream : TStream;aWidth : Integer=310;aHeight : Integer=428) : Boolean;
 
 implementation
@@ -106,6 +107,11 @@ function GetThumbTempDir: string;
 begin
   Result := GetTempDir+'promet_thumbs';
   ForceDirectoriesUTF8(Result);
+end;
+
+function ClearThumbDir: Boolean;
+begin
+  Result := RemoveDirUTF8(GetThumbTempDir);
 end;
 
 function GenerateThumbNail(aName: string; aFullStream, aStream: TStream;

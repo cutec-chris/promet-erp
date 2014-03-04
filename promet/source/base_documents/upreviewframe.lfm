@@ -193,9 +193,9 @@ inherited fPreview: TfPreview
     Height = 524
     Top = 32
     Width = 758
-    ActivePage = tsImage
+    ActivePage = tsText
     Align = alClient
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 1
     object tsImage: TTabSheet
       Caption = 'Inhalt'
@@ -286,6 +286,7 @@ inherited fPreview: TfPreview
         Lines.Strings = (
           'mText'
         )
+        ScrollBars = ssAutoBoth
         TabOrder = 0
       end
       object pLeft: TPanel
