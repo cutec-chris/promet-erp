@@ -294,7 +294,6 @@ begin
   FFetchSQL:=copy(FFetchSQL,4,length(FFetchSQL));
   if FFetchSQL <> '' then
     begin
-      debugln('Fetch:'+TThreadedImage(ThumbControl1.ImageLoaderManager.Queue[i]).URL);
       with DataSet.DataSet as IBaseManageDB do
         FFetchSQL:='select '+Data.QuoteField('SQL_ID')+','+Data.QuoteField('THUMBNAIL')+' from '+Data.QuoteField(TableName)+' where '+FFetchSQL;
       FFetchDS := Data.GetNewDataSet(FFetchSQL);
