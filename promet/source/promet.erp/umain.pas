@@ -2363,7 +2363,7 @@ begin
     begin
       fMainTreeFrame.OpenLink(aEntry.Link,Self);
     end;
-  etCustomer,etEmployee,etArticle,etProject,etProcess,etStatistic:
+  etCustomer,etEmployee,etSupplier,etArticle,etProject,etProcess,etStatistic:
     begin
       aDataSet := aEntry.DataSourceType.Create(Self,Data);
       with aDataSet.DataSet as IBaseDBFilter do
