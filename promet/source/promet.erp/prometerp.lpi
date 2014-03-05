@@ -754,10 +754,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPreviewFrame"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="545"/>
-        <CursorPos X="1" Y="569"/>
+        <CursorPos X="172" Y="564"/>
         <UsageCount Value="23"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -823,11 +824,10 @@
       <Unit54>
         <Filename Value="../base/dbintfs/uthumbnails.pas"/>
         <UnitName Value="uthumbnails"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="181"/>
-        <CursorPos X="1" Y="205"/>
+        <TopLine Value="193"/>
+        <CursorPos X="97" Y="215"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit54>
