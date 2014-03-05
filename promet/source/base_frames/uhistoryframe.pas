@@ -253,8 +253,10 @@ begin
                 brect.Top := bRect.Top+TStringGrid(Sender).Canvas.TextExtent('A').cy;
               if TMGridObject(aObj).Bold then
                 TStringGrid(Sender).Canvas.Font.Style := [fsBold];
+              {$IFDEF WINDOWS}
               tmpSize := GetFontData(TStringGrid(Sender).Canvas.Font.Handle).Height;
               TStringGrid(Sender).Canvas.Font.Height :=tmpSize-TMGridObject(aObj).FontSize;
+              {$ENDIF}
               if not (gdSelected in State) then
                 begin
                   TStringGrid(Sender).Canvas.Font.Color:=TMGridObject(aObj).TextColor;
@@ -263,7 +265,9 @@ begin
                 TStringGrid(Sender).Canvas.TextRect(bRect,aRect.Left+3,bRect.Top,aText,aTextStyleW)
               else
                 TStringGrid(Sender).Canvas.TextRect(bRect,aRect.Left+3,bRect.Top,aText,aTextStyle);
+              {$IFDEF WINDOWS}
               TStringGrid(Sender).Canvas.Font.Height := tmpSize;
+              {$ENDIF}
               bRect := aRect;
               TStringGrid(Sender).Canvas.Font.Color:=clGray;
               brect.Bottom := aRect.Top+Canvas.TextExtent('A').cy;

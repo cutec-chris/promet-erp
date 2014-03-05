@@ -22,7 +22,7 @@ interface
 uses
   Classes, SysUtils, types, FileUtil, LR_DBSet, Forms, Controls, uPrometFrames,
   uAccounting, db, uFilterFrame, Dialogs, uBaseDBInterface, DBGrids, Grids,
-  Graphics, ActnList, ExtCtrls,Variants;
+  Graphics, ActnList, ExtCtrls, ComCtrls, StdCtrls, Buttons, DbCtrls,Variants;
 type
 
   { TfAccountingFrame }
@@ -36,6 +36,18 @@ type
     acPasteLinkasVoucher: TAction;
     acSingleLineView: TAction;
     ActionList1: TActionList;
+    Bevel3: TBevel;
+    dsAccount: TDatasource;
+    DBMemo1: TDBMemo;
+    DBText1: TDBText;
+    DBText2: TDBText;
+    eSearch: TDBEdit;
+    ExtRotatedLabel1: TLabel;
+    ExtRotatedLabel2: TLabel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Panel4: TPanel;
+    pNav: TPanel;
     procedure acFindTransactionExecute(Sender: TObject);
     procedure acGotoVoucherExecute(Sender: TObject);
     procedure acOnlineUpdateExecute(Sender: TObject);
@@ -269,9 +281,10 @@ begin
     begin
       TabCaption := TAccounts(DataSet).FieldByName('NAME').AsString;
       FList.SortField:='VALUEDATE';
-      FList.SortDirection:=sdDescending;
+      FList.SortDirection:=uBaseDBInterface.sdDescending;
       FList.acFilter.Execute;
       FAccount := aID;
+      dsAccount.DataSet := DataSet.DataSet;
     end;
   FList.SetActive;
 end;
