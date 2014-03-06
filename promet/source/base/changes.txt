@@ -1,5 +1,5 @@
 ﻿Build 318
-      -
+      - deutlich verbesserte OCR erkennungsraten durch vorverarbeitung der Bilder
 Build 317
       - OCR Funktionen überarbeitet, Tesseract,Cuniform und GOCR werden nun unterstützt Sonderzeichen werden zugelassen
         manuelle OCR nachträglich möglich
