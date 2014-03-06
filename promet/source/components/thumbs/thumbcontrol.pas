@@ -9,7 +9,7 @@ interface
 uses
   Classes, SysUtils, scrollingcontrol, ThreadedImageLoader, types,
   Graphics, fpImage, FPReadJPEGthumb, fpthumbresize, LResources,
-  FileUtil, Dialogs, GraphType, LCLIntf,LCLProc;
+  FileUtil, Dialogs, GraphType, LCLIntf,LCLProc,Messages;
 
 
 type
@@ -62,6 +62,9 @@ type
     procedure SetThumbWidth(const AValue: integer);
     procedure AsyncFocus(Data: PtrInt);
     procedure SetURLList(const AValue: UTF8String);
+    procedure ScrollBy(DeltaX, DeltaY: Integer); override;
+    procedure VScroll(var Msg: TWMScroll); override;
+    procedure HScroll(var Msg: TWMScroll); override;
   protected
     class function GetControlClassDefaultSize: TSize; override;
     procedure BoundsChanged; override;
@@ -246,6 +249,25 @@ begin
   for i := 0 to FURLList.Count - 1 do fMngr.AddImage(FURLList[i]);
   fMngr.Sort(0);
   Arrange;
+end;
+
+procedure TThumbControl.ScrollBy(DeltaX, DeltaY: Integer);
+begin
+  inherited ScrollBy(DeltaX, DeltaY);
+end;
+
+procedure TThumbControl.VScroll(var Msg: TWMScroll);
+begin
+  inherited VScroll(Msg);
+  if Assigned(FOnScrolled) then
+    FOnScrolled(Self);
+end;
+
+procedure TThumbControl.HScroll(var Msg: TWMScroll);
+begin
+  inherited HScroll(Msg);
+  if Assigned(FOnScrolled) then
+    FOnScrolled(Self);
 end;
 
 

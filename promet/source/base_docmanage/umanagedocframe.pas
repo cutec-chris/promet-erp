@@ -247,8 +247,21 @@ begin
 end;
 
 procedure TfManageDocFrame.ThumbControl1Scrolled(Sender: TObject);
+var
+  aItem: TThreadedImage;
+  ItemPos: Integer;
+  DayHeight: Extended;
 begin
-  ThumbControl1.Invalidate;
+  aItem := ThumbControl1.ItemFromPoint(point(ThumbControl1.Left+(ThumbControl1.ThumbWidth div 2),ThumbControl1.Top+(ThumbControl1.ThumbHeight div 2)));
+  if Assigned(aItem) then
+    begin
+      if DataSet.DataSet.Locate('SQL_ID',copy(aItem.URL,0,pos('.',aItem.URL)-1),[]) then
+        begin
+          ItemPos := aItem.Area.Top+((aItem.Area.Bottom-aItem.Area.Top) div 2);
+          DayHeight := (FTimeLine.Height/FTimeLine.DateRange);
+          FTimeLine.StartDate:=DataSet.FieldByName('ORIGDATE').AsDateTime+round((ItemPos/DayHeight));
+        end;
+    end;
 end;
 
 procedure TfManageDocFrame.ThumbControl1SelectItem(Sender: TObject;
@@ -256,11 +269,24 @@ procedure TfManageDocFrame.ThumbControl1SelectItem(Sender: TObject;
 var
   i: Integer;
   tmp: String;
+  ItemPos: Integer;
+  DayHeight: Extended;
+  aItem: TThreadedImage;
 begin
   SelectedItem := Item;
   FDocFrame.Refresh(copy(Item.URL,0,pos('.',Item.URL)-1),'S');
+  aItem := ThumbControl1.ItemFromPoint(point(ThumbControl1.Left+(ThumbControl1.ThumbWidth div 2),ThumbControl1.Top+(ThumbControl1.ThumbHeight div 2)));
+  if Assigned(aItem) then
+    begin
+      if DataSet.DataSet.Locate('SQL_ID',copy(aItem.URL,0,pos('.',aItem.URL)-1),[]) then
+        begin
+          ItemPos := aItem.Area.Top+((aItem.Area.Bottom-aItem.Area.Top) div 2);
+          DayHeight := (FTimeLine.Height/FTimeLine.DateRange);
+          FTimeLine.StartDate:=DataSet.FieldByName('ORIGDATE').AsDateTime+round((ItemPos/DayHeight));
+        end;
+    end;
   DataSet.DataSet.Locate('SQL_ID',copy(Item.URL,0,pos('.',Item.URL)-1),[]);
-  FTimeLine.StartDate:=DataSet.FieldByName('ORIGDATE').AsDateTime+60;
+  //FTimeLine.StartDate:=DataSet.FieldByName('ORIGDATE').AsDateTime+round((ItemPos/DayHeight));
   FTimeLine.MarkerDate:=DataSet.FieldByName('ORIGDATE').AsDateTime;
   if (aTag <> '') and bTag.Down and (pos(aTag,DataSet.FieldByName('TAGS').AsString)=0) then
     begin

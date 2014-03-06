@@ -33,7 +33,7 @@ type
 
   TTimeLine = class(TCustomControl)
   private
-    FInc: Integer;
+    FInc: real;
     FMarkerDate: TDateTime;
     FOnSetMarker: TNotifyEvent;
     Forientation: TTLOrientation;
@@ -43,6 +43,7 @@ type
     FDayWidth : Integer;
     Bitmap : TBitmap;
     FUseLongMonth: Boolean;
+    function GetDateRange: Integer;
     procedure SetDate(const AValue: TDateTime);
     procedure SetMarkerDate(const AValue: TDateTime);
     procedure DoRefreshImage;
@@ -60,10 +61,11 @@ type
   published
     property StartDate : TDateTime read FDate write SetDate;
     property MarkerDate : TDateTime read FMarkerDate write SetMarkerDate;
-    property Increment : Integer read FInc write FInc;
+    property Increment : real read FInc write FInc;
     property Orientation : TTLOrientation read Forientation write FOrientation;
     property OnSetMarker : TNotifyEvent read FOnSetMarker write FOnSetMarker;
     property UseLongMonth : Boolean read FUseLongMonth write SetUseLongMonth;
+    property DateRange : Integer read GetDateRange;
   end;
 
 implementation
@@ -79,6 +81,17 @@ begin
   Invalidate;
 end;
 
+function TTimeLine.GetDateRange: Integer;
+var
+  CtrlWidth: Integer;
+begin
+  if FOrientation = toHorizontal then
+    CtrlWidth := Height
+  else
+    CtrlWidth := Width;
+  Result := round(CtrlWidth/FDayWidth);
+end;
+
 procedure TTimeLine.SetMarkerDate(const AValue: TDateTime);
 begin
   if FMarkerDate=AValue then exit;
@@ -91,7 +104,7 @@ procedure TTimeLine.DoRefreshImage;
 const
   FontColor = clGrayText;//clHighlightText;
 var
-  x: Integer = 0;
+  x: real = 0;
   y: Integer = 0;
   CtrlWidth: LongInt;
   Year: word = 0;
@@ -101,6 +114,7 @@ var
   aMonth: word;
   aDay: word;
   Markerthere : Boolean = False;
+  Day: Word;
 begin
 //  if not Visible then exit;
   // Initializes the Bitmap Size
@@ -111,7 +125,7 @@ begin
     begin
       Font.Height:=11;
       Font.Style:=[];
-      fDayWidth := TextExtent('31').cx+4;
+      fDayWidth := TextExtent('33').cx+4;
       Brush.Color := Color;
       Pen.Color := Color;
       Bitmap.Canvas.Rectangle(0, 0, Bitmap.Width, Bitmap.Height);
@@ -132,9 +146,9 @@ begin
           if aYear <> Year then
             begin
               if FOrientation = toHorizontal then
-                TextOut(y,x+TextExtent(IntToStr(aYear)).cx,IntToStr(aYear))
+                TextOut(y,round(x+TextExtent(IntToStr(aYear)).cx),IntToStr(aYear))
               else
-                TextOut(x,y,IntToStr(aYear));
+                TextOut(round(x),y,IntToStr(aYear));
               Year := aYear;
             end;
           inc(y,TextExtent('HY').cy);
@@ -144,56 +158,65 @@ begin
               if (FOrientation = toHorizontal) then
                 begin
                   if FUseLongMonth then
-                    TextOut(y,x+TextExtent(SysToUTF8(LongMonthNames[aMonth])).cx,SysToUTF8(LongMonthNames[aMonth]))
+                    TextOut(y,round(x+TextExtent(SysToUTF8(LongMonthNames[aMonth])).cx),SysToUTF8(LongMonthNames[aMonth]))
                   else
-                    TextOut(y,x+TextExtent(SysToUTF8(ShortMonthNames[aMonth])).cx,SysToUTF8(ShortMonthNames[aMonth]));
+                    TextOut(y,round(x+TextExtent(SysToUTF8(ShortMonthNames[aMonth])).cx),SysToUTF8(ShortMonthNames[aMonth]));
                 end
               else
-                TextOut(x,y,SysToUTF8(ShortMonthNames[aMonth]));
+                TextOut(round(x),y,SysToUTF8(ShortMonthNames[aMonth]));
               Month := aMonth;
             end;
           inc(y,TextExtent('HY').cy);
           Font.Height:=11;
           Font.Color:=FontColor;
           Font.Style:=[];
-          inc(x,1);
-          if FOrientation = toHorizontal then
-            TextOut(y,x,IntToStr(aDay))
-          else
-            TextOut(x,y,IntToStr(aDay));
-          if ((ActDate >= FMarkerDate) and (ActDate+FInc <= FMarkerDate)) and not MarkerThere then
+          if aDay <> Day then
             begin
-              Markerthere:=True;
-              Pen.Color := clHighlight;
-              if FOrientation = toHorizontal then
+              if (aDay = 1)
+              or (aDay = 10)
+              or (aDay = 20)
+              or (aDay = 30)
+              then
                 begin
-                  MoveTo(0,x-1);
-                  LineTo(y+TextExtent('HY').cy,x-1);
-                  MoveTo(0,x);
-                  LineTo(y+TextExtent('HY').cy,x);
-                end
-              else
-                begin
-                  MoveTo(x-1,0);
-                  LineTo(x-1,y+TextExtent('HY').cy);
-                  MoveTo(x,0);
-                  LineTo(x,y+TextExtent('HY').cy);
+                  if FOrientation = toHorizontal then
+                    TextOut(y,round(x),IntToStr(aDay))
+                  else
+                    TextOut(round(x),y,IntToStr(aDay));
                 end;
-              Pen.Color := clBtnFace;
+              if ((ActDate >= FMarkerDate) and (ActDate+FInc <= FMarkerDate)) and not MarkerThere then
+                begin
+                  Markerthere:=True;
+                  Pen.Color := clHighlight;
+                  if FOrientation = toHorizontal then
+                    begin
+                      MoveTo(0,round(x)-1);
+                      LineTo(y+TextExtent('HY').cy,round(x)-1);
+                      MoveTo(0,round(x));
+                      LineTo(y+TextExtent('HY').cy,round(x));
+                    end
+                  else
+                    begin
+                      MoveTo(round(x)-1,0);
+                      LineTo(round(x)-1,y+TextExtent('HY').cy);
+                      MoveTo(round(x),0);
+                      LineTo(round(x),y+TextExtent('HY').cy);
+                    end;
+                  Pen.Color := clBtnFace;
+                end;
+              Day := aDay;
             end;
-          inc(x,fDayWidth);
+          x += FDayWidth+FInc;
           if FOrientation = toHorizontal then
             begin
-              MoveTo(y-3,x-2);
-              LineTo(y+TextExtent('HY').cy,x-2);
+              MoveTo(y-3,round(x)-2);
+              LineTo(y+TextExtent('HY').cy,round(x)-2);
             end
           else
             begin
-              MoveTo(x-2,y-3);
-              LineTo(x-2,y+TextExtent('HY').cy);
+              MoveTo(round(x)-2,y-3);
+              LineTo(round(x)-2,y+TextExtent('HY').cy);
             end;
-          ActDate := ActDate+FInc;
-
+          ActDate := ActDate-1;
         end;
     end;
 end;
@@ -235,19 +258,16 @@ procedure TTimeLine.MouseDown(Button: TMouseButton; Shift: TShiftState; X,
   Y: Integer);
 begin
   inherited MouseDown(Button, Shift, X, Y);
+  if FOrientation = toHorizontal then
+    FDownPos := y
+  else
+    FDownPos := x;
   if ssRight in Shift then
     begin
-      if FOrientation = toHorizontal then
-        FDownPos := y
-      else
-        FDownPos := x;
     end
   else if (ssLeft in Shift) then
     begin
-      if FOrientation = toHorizontal then
-        FMarkerDate := FDate-(round((FDownPos-Y)/FDayWidth)*FInc)+1
-      else
-        FMarkerDate := FDate-(round((FDownPos-X)/FDayWidth)*FInc)+1;
+      FMarkerDate := FDate-round(FDownPos/(FDayWidth+FInc))-15;
       DoRefreshImage;
       Invalidate;
       if Assigned(FOnSetMarker) then
@@ -283,7 +303,7 @@ end;
 function TTimeLine.DoMouseWheel(Shift: TShiftState; WheelDelta: Integer;
   MousePos: TPoint): Boolean;
 begin
-  FTmpDate := FtmpDate+((WheelDelta div 15))*(-(FInc div 4));
+  FTmpDate := FtmpDate+((WheelDelta div 15))*round(-(FInc / 4));
   FDate := FTmpDate;
   DoRefreshImage;
   Invalidate;
