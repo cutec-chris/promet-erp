@@ -23,7 +23,7 @@ interface
 uses
   Classes, SysUtils, ProcessUtils, Forms, FileUtil, Graphics,
   FPImage, FPWritePNM, IntfGraphics, Utils, SynaUtil,
-  lconvencoding,uDocuments;
+  lconvencoding,uDocuments,uImaging;
 type
   TOCRPages = TList;
   TGOCRProcess = class(TExtendedProcess)
@@ -65,8 +65,8 @@ type
     procedure Execute; override;
     constructor Create(Image : TPicture);
   end;
-function DoOCR(aDoc : TDocument) : TOCRPages;
-procedure StartOCR(Pages : TOCRPages;Image : TPicture);
+function DoOCR(aDoc : TDocument;reworkImage : Boolean = True) : TOCRPages;
+procedure StartOCR(Pages : TOCRPages;Image : TPicture;reworkImage : Boolean = True);
 function FixText(aText : TStrings) : Integer;
 function GetTitle(aText : TStrings;aBase : Int64 = 0) : string;
 function GetDate(aText: TStrings): TDateTime;
@@ -76,7 +76,7 @@ implementation
 var
   Processes : TList;
 
-function DoOCR(aDoc: TDocument): TOCRPages;
+function DoOCR(aDoc: TDocument;reworkImage : Boolean = True): TOCRPages;
 var
   aFullstream: TMemoryStream;
   aPic: TPicture;
@@ -88,12 +88,14 @@ begin
   aPic.LoadFromStreamWithFileExt(aFullStream,ExtractFileExt(aDoc.FileName));
   aFullStream.Free;
   Result := TOCRPages.Create;
-  StartOCR(Result,aPic);
+  StartOCR(Result,aPic,reworkImage);
   aPic.Free;
 end;
 
-procedure StartOCR(Pages: TOCRPages;Image : TPicture);
+procedure StartOCR(Pages: TOCRPages;Image : TPicture;reworkImage : Boolean = True);
 begin
+  if reworkImage then
+    uImaging.Delight(Image.Bitmap);
   try
     TTesseractProcess.Create(Pages,Image);
   except

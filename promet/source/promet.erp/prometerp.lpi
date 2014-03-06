@@ -283,7 +283,7 @@
         <PackageName Value="LCL"/>
       </Item24>
     </RequiredPackages>
-    <Units Count="56">
+    <Units Count="55">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -345,7 +345,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uAccountingFrame"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="257"/>
         <CursorPos X="45" Y="284"/>
@@ -698,8 +698,7 @@
       </Unit42>
       <Unit43>
         <Filename Value="../base/revision.inc"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
@@ -722,10 +721,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPreviewFrame"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="545"/>
-        <CursorPos X="172" Y="564"/>
+        <TopLine Value="112"/>
+        <CursorPos X="46" Y="561"/>
         <UsageCount Value="23"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -738,8 +738,8 @@
         <UnitName Value="umanagedocframe"/>
         <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="287"/>
-        <CursorPos X="44" Y="307"/>
+        <TopLine Value="910"/>
+        <CursorPos X="15" Y="938"/>
         <UsageCount Value="21"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -783,7 +783,7 @@
         <UnitName Value="uthumbnails"/>
         <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="194"/>
+        <TopLine Value="151"/>
         <CursorPos X="21" Y="213"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
@@ -794,7 +794,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uDocumentAcquire"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="31"/>
         <CursorPos X="57" Y="31"/>
@@ -829,144 +829,134 @@
       <Unit54>
         <Filename Value="../base/dbintfs/uaccounting.pas"/>
         <UnitName Value="uAccounting"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="145"/>
         <CursorPos X="27" Y="165"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit54>
-      <Unit55>
-        <Filename Value="../base/dbintfs/fpthumbresize.pas"/>
-        <UnitName Value="fpthumbresize"/>
-        <EditorIndex Value="14"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="19"/>
-        <CursorPos X="1" Y="38"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-      </Unit55>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../base/dbintfs/uthumbnails.pas"/>
-        <Caret Line="204" Column="1" TopLine="177"/>
-      </Position1>
-      <Position2>
-        <Filename Value="../base/dbintfs/uthumbnails.pas"/>
-        <Caret Line="205" Column="1" TopLine="177"/>
-      </Position2>
-      <Position3>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
         <Caret Line="660" Column="69" TopLine="642"/>
+      </Position1>
+      <Position2>
+        <Filename Value="umain.pas"/>
+        <Caret Line="9" Column="95" TopLine="1"/>
+      </Position2>
+      <Position3>
+        <Filename Value="umain.pas"/>
+        <Caret Line="380" Column="16" TopLine="348"/>
       </Position3>
       <Position4>
         <Filename Value="umain.pas"/>
-        <Caret Line="9" Column="95" TopLine="1"/>
+        <Caret Line="416" Column="47" TopLine="402"/>
       </Position4>
       <Position5>
         <Filename Value="umain.pas"/>
-        <Caret Line="380" Column="16" TopLine="348"/>
+        <Caret Line="442" Column="14" TopLine="414"/>
       </Position5>
       <Position6>
-        <Filename Value="umain.pas"/>
-        <Caret Line="416" Column="47" TopLine="402"/>
-      </Position6>
-      <Position7>
-        <Filename Value="umain.pas"/>
-        <Caret Line="442" Column="14" TopLine="414"/>
-      </Position7>
-      <Position8>
         <Filename Value="../base_frames/umaintreeframe.pas"/>
         <Caret Line="390" Column="3" TopLine="386"/>
-      </Position8>
-      <Position9>
+      </Position6>
+      <Position7>
         <Filename Value="../base_frames/umaintreeframe.pas"/>
         <Caret Line="397" Column="1" TopLine="386"/>
+      </Position7>
+      <Position8>
+        <Filename Value="umain.pas"/>
+        <Caret Line="2346" Column="1" TopLine="2329"/>
+      </Position8>
+      <Position9>
+        <Filename Value="umain.pas"/>
+        <Caret Line="2339" Column="1" TopLine="2329"/>
       </Position9>
       <Position10>
         <Filename Value="umain.pas"/>
-        <Caret Line="2346" Column="1" TopLine="2329"/>
+        <Caret Line="2347" Column="1" TopLine="2329"/>
       </Position10>
       <Position11>
         <Filename Value="umain.pas"/>
-        <Caret Line="2339" Column="1" TopLine="2329"/>
+        <Caret Line="2349" Column="1" TopLine="2329"/>
       </Position11>
       <Position12>
         <Filename Value="umain.pas"/>
-        <Caret Line="2347" Column="1" TopLine="2329"/>
+        <Caret Line="2350" Column="1" TopLine="2329"/>
       </Position12>
       <Position13>
         <Filename Value="umain.pas"/>
-        <Caret Line="2349" Column="1" TopLine="2329"/>
+        <Caret Line="2351" Column="1" TopLine="2329"/>
       </Position13>
       <Position14>
         <Filename Value="umain.pas"/>
-        <Caret Line="2350" Column="1" TopLine="2329"/>
+        <Caret Line="2459" Column="1" TopLine="2443"/>
       </Position14>
       <Position15>
-        <Filename Value="umain.pas"/>
-        <Caret Line="2351" Column="1" TopLine="2329"/>
-      </Position15>
-      <Position16>
-        <Filename Value="umain.pas"/>
-        <Caret Line="2459" Column="1" TopLine="2443"/>
-      </Position16>
-      <Position17>
         <Filename Value="../base_frames/umaintreeframe.pas"/>
         <Caret Line="399" Column="1" TopLine="386"/>
-      </Position17>
-      <Position18>
+      </Position15>
+      <Position16>
         <Filename Value="../base_frames/umaintreeframe.pas"/>
         <Caret Line="397" Column="1" TopLine="386"/>
+      </Position16>
+      <Position17>
+        <Filename Value="umain.pas"/>
+        <Caret Line="2346" Column="1" TopLine="2328"/>
+      </Position17>
+      <Position18>
+        <Filename Value="umain.pas"/>
+        <Caret Line="2339" Column="1" TopLine="2328"/>
       </Position18>
       <Position19>
         <Filename Value="umain.pas"/>
-        <Caret Line="2346" Column="1" TopLine="2328"/>
+        <Caret Line="2347" Column="1" TopLine="2328"/>
       </Position19>
       <Position20>
         <Filename Value="umain.pas"/>
-        <Caret Line="2339" Column="1" TopLine="2328"/>
+        <Caret Line="2349" Column="1" TopLine="2328"/>
       </Position20>
       <Position21>
         <Filename Value="umain.pas"/>
-        <Caret Line="2347" Column="1" TopLine="2328"/>
+        <Caret Line="2350" Column="1" TopLine="2337"/>
       </Position21>
       <Position22>
         <Filename Value="umain.pas"/>
-        <Caret Line="2349" Column="1" TopLine="2328"/>
+        <Caret Line="2351" Column="1" TopLine="2337"/>
       </Position22>
       <Position23>
         <Filename Value="umain.pas"/>
-        <Caret Line="2350" Column="1" TopLine="2337"/>
+        <Caret Line="2366" Column="35" TopLine="2347"/>
       </Position23>
       <Position24>
-        <Filename Value="umain.pas"/>
-        <Caret Line="2351" Column="1" TopLine="2337"/>
+        <Filename Value="uaccountingframe.pas"/>
+        <Caret Line="19" Column="43" TopLine="11"/>
       </Position24>
       <Position25>
-        <Filename Value="umain.pas"/>
-        <Caret Line="2366" Column="35" TopLine="2347"/>
+        <Filename Value="uaccountingframe.pas"/>
+        <Caret Line="24" Column="10" TopLine="11"/>
       </Position25>
       <Position26>
         <Filename Value="uaccountingframe.pas"/>
-        <Caret Line="19" Column="43" TopLine="11"/>
+        <Caret Line="286" Column="11" TopLine="257"/>
       </Position26>
       <Position27>
         <Filename Value="uaccountingframe.pas"/>
-        <Caret Line="24" Column="10" TopLine="11"/>
+        <Caret Line="287" Column="43" TopLine="258"/>
       </Position27>
       <Position28>
-        <Filename Value="uaccountingframe.pas"/>
-        <Caret Line="286" Column="11" TopLine="257"/>
-      </Position28>
-      <Position29>
-        <Filename Value="uaccountingframe.pas"/>
-        <Caret Line="287" Column="43" TopLine="258"/>
-      </Position29>
-      <Position30>
         <Filename Value="../base/dbintfs/uthumbnails.pas"/>
         <Caret Line="213" Column="21" TopLine="194"/>
+      </Position28>
+      <Position29>
+        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="307" Column="44" TopLine="287"/>
+      </Position29>
+      <Position30>
+        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="679" Column="9" TopLine="676"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>

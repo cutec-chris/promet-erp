@@ -10,7 +10,7 @@ uses
   Interfaces
   { you can add units after this },db, Utils, FileUtil, Forms, uData,
   uIntfStrConsts, pcmdprometapp, uBaseCustomApplication, uBaseApplication,
-  uDocuments, uBaseDocPages,uOCR,Graphics;
+  uDocuments, uBaseDocPages,uOCR, pocr,Graphics;
 
 type
 
@@ -86,7 +86,7 @@ begin
       if aDoc.Count>0 then
         begin
           writeln('OCR on '+AInfo.Name);
-          Texts := aDoc.DoOCR;
+          Texts := DoOCR(aDoc);
           aText := TStringList.Create;
           for i := 0 to Texts.Count-1 do
             begin
