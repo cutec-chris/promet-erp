@@ -34,5 +34,6 @@ rm -f -r ../source/statistics/lib
 rm -f -r ../source/sync/lib
 rm -f -r ../source/timeregistering/lib
 rm -f -r ../source/tools/lib
+rm -f -r ../../general/lib
 find ../ -type f -iname "*.compiled" -exec rm -f {} \;
 find ../ -type f -iname "*.bak" -exec rm -f {} \;

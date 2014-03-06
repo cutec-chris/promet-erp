@@ -205,7 +205,9 @@ begin
                 end;
               Day := aDay;
             end;
-          x += FDayWidth+FInc;
+          if (FDayWidth+FInc)>0 then
+            x += FDayWidth+FInc
+          else x+=1;
           if FOrientation = toHorizontal then
             begin
               MoveTo(y-3,round(x)-2);
@@ -256,6 +258,8 @@ end;
 
 procedure TTimeLine.MouseDown(Button: TMouseButton; Shift: TShiftState; X,
   Y: Integer);
+var
+  aFact: Extended;
 begin
   inherited MouseDown(Button, Shift, X, Y);
   if FOrientation = toHorizontal then
@@ -267,7 +271,9 @@ begin
     end
   else if (ssLeft in Shift) then
     begin
-      FMarkerDate := FDate-round(FDownPos/(FDayWidth+FInc))-15;
+      aFact := (FDayWidth+FInc);
+      if aFact <= 0 then aFact := 1;
+      FMarkerDate := FDate-round(FDownPos/aFact)-15;
       DoRefreshImage;
       Invalidate;
       if Assigned(FOnSetMarker) then

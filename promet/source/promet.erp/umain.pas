@@ -235,7 +235,6 @@ type
     procedure lbResultsExit(Sender: TObject);
     procedure lbResultsKeyPress(Sender: TObject; var Key: char);
     procedure miOptionsClick(Sender: TObject);
-    procedure miSettingsClick(Sender: TObject);
     function OpenAction(aLink: string; Sender: TObject): Boolean;
     function OpenFilter(aLink: string; Sender: TObject): Boolean;
     function OpenOption(aLink: string; Sender: TObject): Boolean;
@@ -3351,14 +3350,9 @@ begin
 end;
 procedure TfMain.miOptionsClick(Sender: TObject);
 begin
-  fOptions.ShowModal;
-end;
-
-procedure TfMain.miSettingsClick(Sender: TObject);
-begin
   Screen.Cursor:=crHourGlass;
   Application.ProcessMessages;
-  if not miOptions.Enabled then
+  if not miOptions.Tag=1 then
     begin
       fOptions.RegisterOptionsFrame(TfMessageOptions.Create(fOptions),strMessageAccounts,strPersonalOptions);
       fOptions.RegisterOptionsFrame(TfDocumentOptions.Create(fOptions),strFiles,strPersonalOptions);
@@ -3379,10 +3373,12 @@ begin
           fOptions.RegisterOptionsFrame(TfLanguageOptions.Create(fOptions),strLanguages,strGeneralOptions);
           fOptions.RegisterOptionsFrame(TfRepairOptions.Create(fOptions),strRepair,strGeneralOptions);
         end;
-      miOptions.Enabled:=True;
+      miOptions.Tag:=1;
     end;
   Screen.Cursor:=crDefault;
+  fOptions.ShowModal;
 end;
+
 function TfMain.OpenAction(aLink: string; Sender: TObject): Boolean;
 var
   aAction: String;

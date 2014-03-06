@@ -958,13 +958,11 @@ object fMain: TfMain
     end
     object miSettings: TMenuItem
       Caption = 'Einstellungen'
-      OnClick = miSettingsClick
       object miLanguage: TMenuItem
         Caption = 'Sprache'
       end
       object miOptions: TMenuItem
         Caption = 'Optionen'
-        Enabled = False
         OnClick = miOptionsClick
       end
       object MenuItem3: TMenuItem
