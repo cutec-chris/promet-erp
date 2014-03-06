@@ -1281,8 +1281,7 @@ inherited fManageDocFrame: TfManageDocFrame
     Enabled = False
     Interval = 300
     OnTimer = IdleTimer1Timer
-    left = 344
-    top = 88
+    left = 400
   end
   object SelectDirectoryDialog1: TSelectDirectoryDialog[8]
     left = 21

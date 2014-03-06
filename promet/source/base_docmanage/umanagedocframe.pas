@@ -458,7 +458,7 @@ begin
           Filter :=  aFilter;
         end
       else
-        Filter := '';
+        Filter := Data.QuoteField('TYPE')+'='+Data.QuoteValue(TDocPages(DataSet).Typ);
     end;
   DataSet.Open;
   FLast:='';

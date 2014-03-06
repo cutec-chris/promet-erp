@@ -283,7 +283,7 @@
         <PackageName Value="LCL"/>
       </Item24>
     </RequiredPackages>
-    <Units Count="58">
+    <Units Count="55">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -345,7 +345,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uAccountingFrame"/>
-        <EditorIndex Value="19"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="257"/>
         <CursorPos X="45" Y="284"/>
@@ -698,7 +698,7 @@
       </Unit42>
       <Unit43>
         <Filename Value="../base/revision.inc"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
@@ -735,10 +735,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="umanagedocframe"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="388"/>
-        <CursorPos X="1" Y="416"/>
+        <TopLine Value="445"/>
+        <CursorPos X="86" Y="461"/>
         <UsageCount Value="24"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -746,7 +747,7 @@
       <Unit47>
         <Filename Value="../base/dbintfs/udocuments.pas"/>
         <UnitName Value="uDocuments"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="572"/>
         <CursorPos X="1" Y="598"/>
@@ -769,7 +770,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uDocumentFrame"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="466"/>
         <CursorPos X="8" Y="476"/>
@@ -780,7 +781,7 @@
       <Unit50>
         <Filename Value="../base/dbintfs/uthumbnails.pas"/>
         <UnitName Value="uthumbnails"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="174"/>
         <CursorPos X="1" Y="174"/>
@@ -793,7 +794,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uDocumentAcquire"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="31"/>
         <CursorPos X="57" Y="31"/>
@@ -828,166 +829,35 @@
       <Unit54>
         <Filename Value="../base/dbintfs/uaccounting.pas"/>
         <UnitName Value="uAccounting"/>
-        <EditorIndex Value="20"/>
+        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="145"/>
         <CursorPos X="27" Y="165"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit54>
-      <Unit55>
-        <Filename Value="../base_forms/utimeline.pas"/>
-        <UnitName Value="uTimeLine"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="13"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="249"/>
-        <CursorPos X="63" Y="270"/>
-        <UsageCount Value="13"/>
-        <Loaded Value="True"/>
-      </Unit55>
-      <Unit56>
-        <Filename Value="../components/thumbs/thumbcontrol.pas"/>
-        <UnitName Value="thumbcontrol"/>
-        <EditorIndex Value="11"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="901"/>
-        <CursorPos X="1" Y="823"/>
-        <UsageCount Value="13"/>
-        <Loaded Value="True"/>
-      </Unit56>
-      <Unit57>
-        <Filename Value="../components/thumbs/threadedimageloader.pas"/>
-        <UnitName Value="threadedimageLoader"/>
-        <EditorIndex Value="12"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="385"/>
-        <CursorPos X="1" Y="408"/>
-        <UsageCount Value="13"/>
-        <Loaded Value="True"/>
-      </Unit57>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="5" HistoryIndex="4">
       <Position1>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="412" Column="1" TopLine="384"/>
+        <Caret Line="414" Column="1" TopLine="386"/>
       </Position1>
       <Position2>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="413" Column="1" TopLine="385"/>
+        <Caret Line="415" Column="1" TopLine="387"/>
       </Position2>
       <Position3>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="414" Column="1" TopLine="386"/>
+        <Caret Line="416" Column="1" TopLine="388"/>
       </Position3>
       <Position4>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="415" Column="1" TopLine="387"/>
+        <Caret Line="416" Column="1" TopLine="385"/>
       </Position4>
       <Position5>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="416" Column="1" TopLine="388"/>
+        <Caret Line="623" Column="3" TopLine="621"/>
       </Position5>
-      <Position6>
-        <Filename Value="../base_forms/utimeline.pas"/>
-        <Caret Line="261" Column="1" TopLine="254"/>
-      </Position6>
-      <Position7>
-        <Filename Value="../base_forms/utimeline.pas"/>
-        <Caret Line="262" Column="1" TopLine="254"/>
-      </Position7>
-      <Position8>
-        <Filename Value="../base_forms/utimeline.pas"/>
-        <Caret Line="265" Column="1" TopLine="254"/>
-      </Position8>
-      <Position9>
-        <Filename Value="../base_forms/utimeline.pas"/>
-        <Caret Line="268" Column="1" TopLine="254"/>
-      </Position9>
-      <Position10>
-        <Filename Value="../base_forms/utimeline.pas"/>
-        <Caret Line="270" Column="1" TopLine="254"/>
-      </Position10>
-      <Position11>
-        <Filename Value="../base_forms/utimeline.pas"/>
-        <Caret Line="271" Column="27" TopLine="254"/>
-      </Position11>
-      <Position12>
-        <Filename Value="../base_forms/utimeline.pas"/>
-        <Caret Line="176" Column="36" TopLine="164"/>
-      </Position12>
-      <Position13>
-        <Filename Value="../base_forms/utimeline.pas"/>
-        <Caret Line="64" Column="30" TopLine="52"/>
-      </Position13>
-      <Position14>
-        <Filename Value="../base_forms/utimeline.pas"/>
-        <Caret Line="36" Column="15" TopLine="34"/>
-      </Position14>
-      <Position15>
-        <Filename Value="../base_forms/utimeline.pas"/>
-        <Caret Line="306" Column="51" TopLine="280"/>
-      </Position15>
-      <Position16>
-        <Filename Value="../base_forms/utimeline.pas"/>
-        <Caret Line="205" Column="31" TopLine="182"/>
-      </Position16>
-      <Position17>
-        <Filename Value="../base_forms/utimeline.pas"/>
-        <Caret Line="151" Column="33" TopLine="133"/>
-      </Position17>
-      <Position18>
-        <Filename Value="../base_forms/utimeline.pas"/>
-        <Caret Line="166" Column="33" TopLine="162"/>
-      </Position18>
-      <Position19>
-        <Filename Value="../base_forms/utimeline.pas"/>
-        <Caret Line="214" Column="30" TopLine="192"/>
-      </Position19>
-      <Position20>
-        <Filename Value="../base_forms/utimeline.pas"/>
-        <Caret Line="205" Column="31" TopLine="188"/>
-      </Position20>
-      <Position21>
-        <Filename Value="../base_forms/utimeline.pas"/>
-        <Caret Line="206" Column="27" TopLine="191"/>
-      </Position21>
-      <Position22>
-        <Filename Value="../base_forms/utimeline.pas"/>
-        <Caret Line="209" Column="1" TopLine="191"/>
-      </Position22>
-      <Position23>
-        <Filename Value="../base_forms/utimeline.pas"/>
-        <Caret Line="8" Column="91" TopLine="1"/>
-      </Position23>
-      <Position24>
-        <Filename Value="../base_forms/utimeline.pas"/>
-        <Caret Line="37" Column="9" TopLine="8"/>
-      </Position24>
-      <Position25>
-        <Filename Value="../base_forms/utimeline.pas"/>
-        <Caret Line="64" Column="51" TopLine="37"/>
-      </Position25>
-      <Position26>
-        <Filename Value="../base_forms/utimeline.pas"/>
-        <Caret Line="183" Column="61" TopLine="167"/>
-      </Position26>
-      <Position27>
-        <Filename Value="../base_forms/utimeline.pas"/>
-        <Caret Line="205" Column="30" TopLine="177"/>
-      </Position27>
-      <Position28>
-        <Filename Value="../base_forms/utimeline.pas"/>
-        <Caret Line="236" Column="7" TopLine="208"/>
-      </Position28>
-      <Position29>
-        <Filename Value="../base_forms/utimeline.pas"/>
-        <Caret Line="205" Column="14" TopLine="190"/>
-      </Position29>
-      <Position30>
-        <Filename Value="../base_forms/utimeline.pas"/>
-        <Caret Line="267" Column="63" TopLine="251"/>
-      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
