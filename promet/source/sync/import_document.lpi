@@ -50,15 +50,16 @@
         <DefaultFilename Value="..\..\..\general\general.lpk"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="65">
+    <Units Count="66">
       <Unit0>
         <Filename Value="import_document.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="import_document"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="31" Y="13"/>
+        <CursorPos X="19" Y="18"/>
         <UsageCount Value="62"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -440,7 +441,7 @@
       <Unit51>
         <Filename Value="..\messageimport\pop3receiver.lpr"/>
         <UnitName Value="pop3receiver"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="370"/>
         <CursorPos X="97" Y="387"/>
@@ -458,7 +459,7 @@
       <Unit53>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1066"/>
         <CursorPos X="1" Y="1085"/>
@@ -468,7 +469,7 @@
       <Unit54>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
         <UnitName Value="uBaseCustomApplication"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="71"/>
         <CursorPos X="14" Y="87"/>
@@ -478,7 +479,7 @@
       <Unit55>
         <Filename Value="..\base\dbintfs\ubasedocpages.pas"/>
         <UnitName Value="uBaseDocPages"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="26"/>
         <CursorPos X="27" Y="26"/>
@@ -488,11 +489,10 @@
       <Unit56>
         <Filename Value="..\base_ocr\uocr.pas"/>
         <UnitName Value="uOCR"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="95"/>
-        <CursorPos X="34" Y="98"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="20"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit56>
@@ -508,7 +508,7 @@
       <Unit58>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
         <UnitName Value="uDocuments"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="874"/>
         <CursorPos X="61" Y="891"/>
@@ -543,7 +543,7 @@
       <Unit62>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="588"/>
         <CursorPos X="1" Y="612"/>
@@ -553,7 +553,7 @@
       <Unit63>
         <Filename Value="..\base\dbintfs\uwiki.pas"/>
         <UnitName Value="uWiki"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="21"/>
         <CursorPos X="21" Y="55"/>
@@ -568,127 +568,137 @@
         <CursorPos X="87" Y="1420"/>
         <UsageCount Value="10"/>
       </Unit64>
+      <Unit65>
+        <Filename Value="..\..\..\general\src\uimaging.pas"/>
+        <UnitName Value="uImaging"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="19" Y="18"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit65>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="import_document.lpr"/>
-        <Caret Line="100" Column="1" TopLine="72"/>
+        <Caret Line="101" Column="1" TopLine="73"/>
       </Position1>
       <Position2>
         <Filename Value="import_document.lpr"/>
-        <Caret Line="101" Column="1" TopLine="73"/>
+        <Caret Line="98" Column="1" TopLine="73"/>
       </Position2>
       <Position3>
         <Filename Value="import_document.lpr"/>
-        <Caret Line="98" Column="1" TopLine="73"/>
+        <Caret Line="103" Column="1" TopLine="75"/>
       </Position3>
       <Position4>
         <Filename Value="import_document.lpr"/>
-        <Caret Line="103" Column="1" TopLine="75"/>
+        <Caret Line="104" Column="1" TopLine="76"/>
       </Position4>
       <Position5>
         <Filename Value="import_document.lpr"/>
-        <Caret Line="104" Column="1" TopLine="76"/>
+        <Caret Line="105" Column="1" TopLine="77"/>
       </Position5>
       <Position6>
         <Filename Value="import_document.lpr"/>
-        <Caret Line="105" Column="1" TopLine="77"/>
+        <Caret Line="106" Column="1" TopLine="78"/>
       </Position6>
       <Position7>
         <Filename Value="import_document.lpr"/>
-        <Caret Line="106" Column="1" TopLine="78"/>
+        <Caret Line="107" Column="1" TopLine="79"/>
       </Position7>
       <Position8>
         <Filename Value="import_document.lpr"/>
-        <Caret Line="107" Column="1" TopLine="79"/>
+        <Caret Line="108" Column="1" TopLine="80"/>
       </Position8>
       <Position9>
         <Filename Value="import_document.lpr"/>
-        <Caret Line="108" Column="1" TopLine="80"/>
+        <Caret Line="107" Column="1" TopLine="80"/>
       </Position9>
       <Position10>
         <Filename Value="import_document.lpr"/>
-        <Caret Line="107" Column="1" TopLine="80"/>
+        <Caret Line="110" Column="1" TopLine="82"/>
       </Position10>
       <Position11>
         <Filename Value="import_document.lpr"/>
-        <Caret Line="110" Column="1" TopLine="82"/>
+        <Caret Line="111" Column="1" TopLine="83"/>
       </Position11>
       <Position12>
         <Filename Value="import_document.lpr"/>
-        <Caret Line="111" Column="1" TopLine="83"/>
+        <Caret Line="112" Column="1" TopLine="84"/>
       </Position12>
       <Position13>
         <Filename Value="import_document.lpr"/>
-        <Caret Line="112" Column="1" TopLine="84"/>
+        <Caret Line="114" Column="1" TopLine="86"/>
       </Position13>
       <Position14>
         <Filename Value="import_document.lpr"/>
-        <Caret Line="114" Column="1" TopLine="86"/>
+        <Caret Line="115" Column="1" TopLine="87"/>
       </Position14>
       <Position15>
         <Filename Value="import_document.lpr"/>
-        <Caret Line="115" Column="1" TopLine="87"/>
+        <Caret Line="116" Column="1" TopLine="88"/>
       </Position15>
       <Position16>
         <Filename Value="import_document.lpr"/>
-        <Caret Line="116" Column="1" TopLine="88"/>
+        <Caret Line="65" Column="1" TopLine="48"/>
       </Position16>
       <Position17>
         <Filename Value="import_document.lpr"/>
-        <Caret Line="65" Column="1" TopLine="48"/>
+        <Caret Line="69" Column="27" TopLine="60"/>
       </Position17>
       <Position18>
-        <Filename Value="import_document.lpr"/>
-        <Caret Line="69" Column="27" TopLine="60"/>
-      </Position18>
-      <Position19>
         <Filename Value="..\base\dbintfs\ubasedocpages.pas"/>
         <Caret Line="26" Column="27" TopLine="20"/>
+      </Position18>
+      <Position19>
+        <Filename Value="..\base\dbintfs\udocuments.pas"/>
+        <Caret Line="72" Column="32" TopLine="54"/>
       </Position19>
       <Position20>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
-        <Caret Line="72" Column="32" TopLine="54"/>
+        <Caret Line="893" Column="9" TopLine="870"/>
       </Position20>
       <Position21>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
-        <Caret Line="893" Column="9" TopLine="870"/>
+        <Caret Line="139" Column="5" TopLine="119"/>
       </Position21>
       <Position22>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
-        <Caret Line="139" Column="5" TopLine="119"/>
+        <Caret Line="883" Column="19" TopLine="866"/>
       </Position22>
       <Position23>
-        <Filename Value="..\base\dbintfs\udocuments.pas"/>
-        <Caret Line="883" Column="19" TopLine="866"/>
+        <Filename Value="import_document.lpr"/>
+        <Caret Line="89" Column="23" TopLine="74"/>
       </Position23>
       <Position24>
         <Filename Value="import_document.lpr"/>
-        <Caret Line="89" Column="23" TopLine="74"/>
+        <Caret Line="13" Column="31" TopLine="1"/>
       </Position24>
       <Position25>
-        <Filename Value="import_document.lpr"/>
-        <Caret Line="13" Column="31" TopLine="1"/>
+        <Filename Value="..\base_ocr\uocr.pas"/>
+        <Caret Line="79" Column="32" TopLine="77"/>
       </Position25>
       <Position26>
         <Filename Value="..\base_ocr\uocr.pas"/>
-        <Caret Line="79" Column="32" TopLine="77"/>
+        <Caret Line="68" Column="32" TopLine="68"/>
       </Position26>
       <Position27>
         <Filename Value="..\base_ocr\uocr.pas"/>
-        <Caret Line="68" Column="32" TopLine="68"/>
+        <Caret Line="79" Column="60" TopLine="79"/>
       </Position27>
       <Position28>
         <Filename Value="..\base_ocr\uocr.pas"/>
-        <Caret Line="79" Column="60" TopLine="79"/>
+        <Caret Line="91" Column="4" TopLine="79"/>
       </Position28>
       <Position29>
         <Filename Value="..\base_ocr\uocr.pas"/>
-        <Caret Line="91" Column="4" TopLine="79"/>
+        <Caret Line="69" Column="83" TopLine="53"/>
       </Position29>
       <Position30>
         <Filename Value="..\base_ocr\uocr.pas"/>
-        <Caret Line="69" Column="83" TopLine="53"/>
+        <Caret Line="98" Column="16" TopLine="95"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
