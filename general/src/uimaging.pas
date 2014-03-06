@@ -32,7 +32,7 @@ type
   PRGBTripleArray = ^TRGBTripleArray;
 
 procedure Sharpen(Input: TLazIntfImage; Correction: integer);
-procedure Delight(Input : TBitmap);
+procedure Delight(Input: TFPCustomImage);
 
 implementation
 
@@ -131,18 +131,18 @@ begin
   end;
 end;
 
-procedure Delight(Input: TBitmap);
+procedure Delight(Input: TFPCustomImage);
 var
-  aImage: TLazIntfImage;
+  aImage: TFPMemoryImage;
   aCanvas: TFPImageCanvas;
-  bImage: TLazIntfImage;
+  bImage: TFPCustomImage;
   H: Byte;
   L: Byte;
   S: Byte;
   y: Integer;
   x: Integer;
   aPic: TPicture;
-  cImage: TLazIntfImage;
+  cImage: TFPMemoryImage;
   cH: Byte;
   cL: Byte;
   cS: Byte;
@@ -152,11 +152,12 @@ var
   aBlockY: Integer;
   Row1: PRGBTripleArray;
   Row0: PRGBTripleArray;
-  dImage: TLazIntfImage;
 begin
-  bImage := Input.CreateIntfImage;
-  aImage := TLazIntfImage.CreateCompatible(bImage,round((100*bImage.Width)/bImage.Height),100);
-  cImage := Input.CreateIntfImage;
+  bImage := Input;
+  aImage := TFPMemoryImage.Create(round((100*bImage.Width)/bImage.Height),100);
+  cImage := TFPMemoryImage.Create(bImage.Width,bImage.Height);
+  cImage.Assign(bImage);
+  Input.SaveToFile(GetTempDir+'rpv2.jpg');
   BlockX := bImage.Width/aImage.Width;
   BlockY := bImage.Height/aImage.Height;
   aCanvas := TFPImageCanvas.Create(aImage);
@@ -164,13 +165,11 @@ begin
   aCanvas.StretchDraw(0,0,aImage.Width,aImage.Height,bImage);
   for y := 1 to aImage.Height-1 do
     begin
-      Row0 := aImage.GetDataLineStart(y-1);
-      Row1 := aImage.GetDataLineStart(y);
       for x := 0 to aImage.Width-1 do
         begin
-          RGBtoHLS(Row0^[x].rgbtRed,Row0^[x].rgbtGreen,Row0^[x].rgbtBlue,H,L,S);
-          RGBtoHLS(Row1^[x].rgbtRed,Row1^[x].rgbtGreen,Row1^[x].rgbtBlue,cH,cL,cS);
-          HLStoRGB(cH,L+round(Cl-L),cS,Row1^[x].rgbtRed,Row1^[x].rgbtGreen,Row1^[x].rgbtBlue);
+          ColorToHLS(FPColorToTColor(aImage.Colors[x,y-1]),H,L,S);
+          ColorToHLS(FPColorToTColor(aImage.Colors[x,y]),cH,cL,cS);
+          aImage.Colors[x,y] := TColorToFPColor(HLStoColor(cH,L+round(Cl-L),cS));
         end;
     end;
   GaussianBlur(aImage,6,Rect(0,0,aImage.Width,aImage.Height));

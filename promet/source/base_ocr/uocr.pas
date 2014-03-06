@@ -23,7 +23,7 @@ interface
 uses
   Classes, SysUtils, ProcessUtils, Forms, FileUtil, Graphics,
   FPImage, FPWritePNM, IntfGraphics, Utils, SynaUtil,
-  lconvencoding,uDocuments,uImaging;
+  lconvencoding,uDocuments,uImaging,LCLProc,FPReadJPEG,FPReadPNG;
 type
   TOCRPages = TList;
   TGOCRProcess = class(TExtendedProcess)
@@ -93,9 +93,26 @@ begin
 end;
 
 procedure StartOCR(Pages: TOCRPages;Image : TPicture;reworkImage : Boolean = True);
+var
+  aImage: TFPMemoryImage;
+  r: TFPReaderJPEG;
 begin
-  if reworkImage then
-    uImaging.Delight(Image.Bitmap);
+  try
+    if reworkImage then
+      begin
+        aImage := TFPMemoryImage.Create(1,1);
+        Image.SaveToFile(GetTempDir+'rpv.jpg');
+        r := TFPReaderJPEG.Create;
+        aImage.LoadFromFile(GetTempDir+'rpv.jpg',r);
+        r.Free;
+        uImaging.Delight(aImage);
+        aImage.SaveToFile(GetTempDir+'rpv.jpg');
+        Image.LoadFromFile(GetTempDir+'rpv.jpg');
+      end;
+  except
+    on e : Exception do
+      debugln(e.Message);
+  end;
   try
     TTesseractProcess.Create(Pages,Image);
   except
