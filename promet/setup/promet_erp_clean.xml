@@ -114,7 +114,7 @@ In der Aufgaben und Projektverwaltung können Aufgaben über mehrere Projekte un
 			<Application_XML_File_URL>http://www.free-erp.de/downloads/promet_erp.xml</Application_XML_File_URL>
 		</Application_URLs>
 		<Download_URLs>
-			<Primary_Download_URL>http://www.free-erp.de/downloads/promet-erp_PROGVERSION_i386-win32.exe</Primary_Download_URL>
+			<Primary_Download_URL>http://downloads.free-erp.de/promet-erp_PROGVERSION_i386-win32.exe</Primary_Download_URL>
 			<Secondary_Download_URL />
 			<Additional_Download_URL_1 />
 			<Additional_Download_URL_2 />
