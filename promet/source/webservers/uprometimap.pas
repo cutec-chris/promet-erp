@@ -77,7 +77,7 @@ type
     function CopyOneEntry(aParams: string): TStrings; override;
     function Search(aParams: string): string; override;
   public
-    constructor Create(aParent : TIMAPFolders;aName : string;aUID : string;aSocket : TLSocket);override;
+    constructor Create(aParent : TIMAPFolders;aName,aSubname : string;aUID : string;aSocket : TLSocket);override;
     destructor Destroy;override;
     property TreeEntry : string read FTreeEntry;
   end;
@@ -115,13 +115,13 @@ begin
       while not EOF do
         begin
           if Data.Tree.Id.AsVariant = TREE_ID_MESSAGES then
-            aGroup := TPIMAPFolder.Create(Folders,'INBOX',Data.Tree.Id.AsString,Self)
+            aGroup := TPIMAPFolder.Create(Folders,'INBOX','Posteingang',Data.Tree.Id.AsString,Self)
           else if Data.Tree.Id.AsVariant = TREE_ID_DELETED_MESSAGES then
-            aGroup := TPIMAPFolder.Create(Folders,'Trash',Data.Tree.Id.AsString,Self)
+            aGroup := TPIMAPFolder.Create(Folders,'Trash','Papierkorb',Data.Tree.Id.AsString,Self)
           else if Data.Tree.Id.AsVariant = TREE_ID_SEND_MESSAGES then
-            aGroup := TPIMAPFolder.Create(Folders,'Sent',Data.Tree.Id.AsString,Self)
+            aGroup := TPIMAPFolder.Create(Folders,'Sent','SENT',Data.Tree.Id.AsString,Self)
           else
-            aGroup := TPIMAPFolder.Create(Folders,FieldByName('NAME').AsString,Data.Tree.Id.AsString,Self);
+            aGroup := TPIMAPFolder.Create(Folders,FieldByName('NAME').AsString,'',Data.Tree.Id.AsString,Self);
           Folders.Add(aGroup);
           next;
         end;
@@ -828,7 +828,7 @@ begin
     tmp := copy(aParams,0,pos(' ',aParams)-1);
   for i := 0 to Parent.Count-1 do
     begin
-      if Parent.Folder[i].Name = tmp then
+      if (Parent.Folder[i].Name = tmp) or (Parent.Folder[i].SubName = tmp) then
         begin
           aFolder := TPIMAPFolder(Parent.Folder[i]);
         end;
@@ -1009,7 +1009,7 @@ begin
     end;
 end;
 
-constructor TPIMAPFolder.Create(aParent: TIMAPFolders; aName: string;
+constructor TPIMAPFolder.Create(aParent: TIMAPFolders; aName, aSubname: string;
   aUID: string; aSocket: TLSocket);
 begin
   FSequenceNumbers := TStringList.Create;
@@ -1020,7 +1020,7 @@ begin
   else if Data.Tree.DataSet.Locate('NAME',aName,[loCaseInsensitive]) then
     FTreeEntry := Data.Tree.Id.AsString;
   FGroupName := aName;
-  inherited Create(aParent,FGroupName,FTreeEntry,aSocket);
+  inherited Create(aParent,FGroupName,aSubname,FTreeEntry,aSocket);
   RefreshFirstID;
 end;
 destructor TPIMAPFolder.Destroy;

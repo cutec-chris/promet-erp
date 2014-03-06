@@ -207,7 +207,7 @@ begin
     begin
       IMAPServer.CallAction;
       SMTPServer.CallAction;
-      sleep(10);
+      sleep(100);
     end;
   // stop program loop
   Terminate;

@@ -21,7 +21,8 @@ unit ulimap;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, lNet, lEvents, mimemess, db, dateutils, types,base64;
+  Classes, SysUtils, lNet, lEvents, mimemess, db, dateutils, types,base64,
+  LCLProc;
 type
   TIMAPFolders = class;
 
@@ -31,6 +32,7 @@ type
   private
     FMessageIdx: LargeInt;
     FSocket: TLSocket;
+    FSubName: string;
     FUID: string;
     FParent : TIMAPFolders;
   protected
@@ -53,11 +55,12 @@ type
     function CopyOneEntry(aParams: string): TStrings; virtual;
     function Search(aFetch: string): string; virtual;
   public
-    constructor Create(aParent : TIMAPFolders;aName : string;UID : string;aSocket : TLSocket);virtual;
+    constructor Create(aParent : TIMAPFolders;aName,aSubname : string;UID : string;aSocket : TLSocket);virtual;
     destructor Destroy;override;
     property Socket : TLSocket read FSocket;
     property UID : string read FUID;
     property Name : string read FName;
+    property SubName : string read FSubName;
     property Count : Integer read GetCount;
     property FirstID : LargeInt read GetFirstID;
     property NextID  : LargeInt read GetNextID;
@@ -213,10 +216,11 @@ function TIMAPFolder.GetMessage(Idx : Integer): TMimeMess;
 begin
   Result := nil;
 end;
-constructor TIMAPFolder.Create(aParent: TIMAPFolders; aName: string;
+constructor TIMAPFolder.Create(aParent: TIMAPFolders; aName, aSubname: string;
   UID: string; aSocket: TLSocket);
 begin
   FName := aName;
+  FSubName:=aSubname;
   FUID := UID;
   FParent := aParent;
   FSocket := aSocket;
@@ -420,7 +424,7 @@ var
         else
           begin
             DontLog:=False;
-            Answer('OK failed.');//nothing to see here (we dont implement copy correct so it can be that delete after copy for move fails)
+            Answer('OK not moved.');//nothing to see here (we dont implement copy correct so it can be that delete after copy for move fails)
           end;
       end
     else if aCmd = 'COPY' then
@@ -591,7 +595,7 @@ begin
       DontLog:=True;
       for i := 0 to Folders.Count-1 do
         begin
-          if Folders.Folder[i].Name = aParams then
+          if (Folders.Folder[i].Name = aParams) or ((Folders.Folder[i].SubName<>'') and (Folders.Folder[i].SubName=aParams)) then
             begin
               aGroup := Folders.Folder[i];
               FGroup := aGroup;
@@ -750,14 +754,16 @@ begin
         end;
       tmp := copy(aParams,pos('(',aParams),length(aParams));
       if pos('(',aParams)>0 then
-        aParams:=copy(aParams,0,pos('(',aParams)-1);
+        begin
+          aParams := trim(copy(aParams,0,pos('(',aParams)-1));
+        end;
       aParams:=trim(aParams);
       if copy(aParams,0,1)='"' then
         aParams := copy(aParams,2,length(aParams)-2);
       Found := False;
       for i := 0 to Folders.Count-1 do
         begin
-          if Folders.Folder[i].Name = aParams then
+          if (Folders.Folder[i].Name = aParams) or ((Folders.Folder[i].SubName<>'') and (Folders.Folder[i].SubName=aParams)) then
             begin
               aParams := tmp;
               if copy(aParams,0,1)='(' then
