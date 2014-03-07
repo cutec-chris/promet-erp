@@ -36,6 +36,8 @@ type
     Done : Boolean;
   end;
 
+  { TfManageDocFrame }
+
   TfManageDocFrame = class(TPrometMainFrame)
     acDelete: TAction;
     acRefresh: TAction;
@@ -48,6 +50,8 @@ type
     acRotate: TAction;
     acOCR: TAction;
     acMarkAsDone: TAction;
+    acFindSubject: TAction;
+    acFindDate: TAction;
     ActionList1: TActionList;
     bEditFilter: TSpeedButton;
     Bevel1: TBevel;
@@ -70,7 +74,7 @@ type
     cbFilter: TComboBox;
     Datasource1: TDatasource;
     DBEdit1: TDBEdit;
-    DBMemo1: TDBMemo;
+    mText: TDBMemo;
     DBZVDateTimePicker1: TDBZVDateTimePicker;
     eSearch: TEdit;
     ExtRotatedLabel1: TLabel;
@@ -109,6 +113,8 @@ type
     pToolbar: TPanel;
     SelectDirectoryDialog1: TSelectDirectoryDialog;
     SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    SpeedButton3: TSpeedButton;
     spPages: TSplitter;
     tstext: TTabSheet;
     tbMenue1: TToolButton;
@@ -118,6 +124,7 @@ type
     tsFiles: TTabSheet;
     procedure acDeleteExecute(Sender: TObject);
     procedure acEditExecute(Sender: TObject);
+    procedure acFindSubjectExecute(Sender: TObject);
     procedure acImportExecute(Sender: TObject);
     procedure acMarkAsDoneExecute(Sender: TObject);
     procedure acOCRExecute(Sender: TObject);
@@ -682,6 +689,20 @@ begin
           end;
         break;
       end;
+end;
+
+procedure TfManageDocFrame.acFindSubjectExecute(Sender: TObject);
+var
+  aStart: Integer;
+  aLen: Integer;
+  aText: String;
+begin
+  aText := uOCR.GetTitleEx(mText.Lines,0,aStart,aLen);
+  if aText <> '' then
+    begin
+      mtext.SelStart:=aStart;
+      mText.SelLength:=aLen;
+    end;
 end;
 
 procedure TfManageDocFrame.acImportExecute(Sender: TObject);

@@ -30,6 +30,8 @@ type
   TLoadThread = class;
   TfPreview = class(TPrometMainFrame)
       acOCR: TAction;
+      acFindSubject: TAction;
+      acFindDate: TAction;
       ActionList1: TActionList;
       Bevel1: TBevel;
       bZoomIn: TSpeedButton;
@@ -53,9 +55,13 @@ type
       ScrollBar2: TScrollBar;
       ScaleTimer: TTimer;
       SpeedButton1: TSpeedButton;
+      SpeedButton2: TSpeedButton;
+      SpeedButton3: TSpeedButton;
       ToolBar2: TToolBar;
       tsImage: TTabSheet;
       tsText: TTabSheet;
+      procedure acFindDateExecute(Sender: TObject);
+      procedure acFindSubjectExecute(Sender: TObject);
       procedure acOCRExecute(Sender: TObject);
       procedure bZoomInClick(Sender: TObject);
       procedure bZoomOutClick(Sender: TObject);
@@ -293,6 +299,34 @@ begin
   aDoc.Free;
 end;
 
+procedure TfPreview.acFindSubjectExecute(Sender: TObject);
+var
+  aStart: Integer;
+  aLen: Integer;
+  aText: String;
+begin
+  aText := uOCR.GetTitleEx(mText.Lines,0,aStart,aLen);
+  if aText <> '' then
+    begin
+      mtext.SelStart:=aStart;
+      mText.SelLength:=aLen;
+    end;
+end;
+
+procedure TfPreview.acFindDateExecute(Sender: TObject);
+var
+  aDate: TDateTime;
+  aStart: Integer;
+  aLen: Integer;
+begin
+  aDate := uOCR.GetDateEx(mText.Lines,aStart,aLen);
+  if aDate > 0 then
+    begin
+      mtext.SelStart:=aStart;
+      mText.SelLength:=aLen;
+    end;
+end;
+
 procedure TfPreview.bZoomOutClick(Sender: TObject);
 begin
   if sbImage.Visible then
@@ -443,6 +477,7 @@ begin
   FEditor := TfEditor.Create(Self);
   FImage := TBitmap.Create;
   FScaledImage := TBitmap.Create;
+  Clear;
 end;
 
 destructor TfPreview.Destroy;
@@ -647,6 +682,7 @@ begin
 end;
 procedure TfPreview.Clear;
 begin
+  pcPages.ActivePage:=tsImage;
   pcPages.ShowTabs:=False;
   tsText.TabVisible := False;
 end;

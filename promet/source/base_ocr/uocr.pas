@@ -69,7 +69,9 @@ function DoOCR(aDoc : TDocument;reworkImage : Boolean = True) : TOCRPages;
 procedure StartOCR(Pages : TOCRPages;Image : TPicture;reworkImage : Boolean = True);
 function FixText(aText : TStrings) : Integer;
 function GetTitle(aText : TStrings;aBase : Int64 = 0) : string;
+function GetTitleEx(aText : TStrings;aBase : Int64;var aStart,aLen : Integer) : string;
 function GetDate(aText: TStrings): TDateTime;
+function GetDateEx(aText: TStrings;var aStart,aLen : Integer): TDateTime;
 var
   OnallprocessDone : TNotifyEvent;
 implementation
@@ -164,72 +166,10 @@ begin
 end;
 function GetTitle(aText: TStrings;aBase : Int64 = 0): string;
 var
-  i: Integer;
-  Res: Boolean = False;
-
-  function ExtractSpecial(line,ident : string) : string;
-  begin
-    Result := '';
-    if pos(Uppercase(ident),Uppercase(line)) > 0 then
-      Result := copy(line,pos(Uppercase(ident),Uppercase(line)),length(line));
-    if pos('  ',Result) > 0 then
-      Result := copy(Result,0,pos('   ',Result)-1);
-    Result := trim(Result);
-  end;
+  aStart: Integer;
+  aLen: Integer;
 begin
-  for i := 0 to aText.Count-1 do
-    begin
-      Result := ExtractSpecial(aText[i],'Rechnung');
-      if Result <> '' then exit;
-      Result := ExtractSpecial(aText[i],'Lieferschein');
-      if Result <> '' then exit;
-      Result := ExtractSpecial(aText[i],'Auftrag');
-      if Result <> '' then exit;
-      Result := ExtractSpecial(aText[i],'Auftragsbestätigung');
-      if Result <> '' then exit;
-      Result := ExtractSpecial(aText[i],'Invoice');
-      if Result <> '' then exit;
-      Result := ExtractSpecial(aText[i],'Bill');
-      if Result <> '' then exit;
-    end;
-  if aBase = 0 then
-    aBase := round(aText.Count*0.25);
-  for i := 0 to round(aText.Count*0.1) do
-    begin
-      if (aBase+i+2) >= aText.Count then break;
-      if  (trim(aText[aBase+i]) = '')
-      and (trim(aText[aBase+(i+1)]) <> '')
-      and (trim(aText[aBase+(i+2)]) = '')
-      then
-        begin
-          aBase := aBase+i+1;
-          Res := True;
-          break;
-        end;
-      if (aBase-i-2) <= 0 then break;
-      if  (trim(aText[aBase-i]) = '')
-      and (trim(aText[aBase-(i+1)]) <> '')
-      and (trim(aText[aBase-(i+2)]) = '')
-      then
-        begin
-          aBase := aBase-i-1;
-          res := True;
-          break;
-        end;
-    end;
-  if Res then
-    begin
-      Result := aText[aBase];
-      if (pos('SEHR',Uppercase(Result)) > 0)
-      or (pos('GEEHRTE',Uppercase(Result)) > 0)
-      or (pos('DEAR',Uppercase(Result)) > 0)
-      or (pos('HERR',Uppercase(Result)) > 0)
-      or (pos('FRAU',Uppercase(Result)) > 0)
-      or (pos('MR',Uppercase(Result)) > 0)
-      or (pos('MRS',Uppercase(Result)) > 0)
-      then
-        Result := GetTitle(aText,aBase div 2);
-    end;
+  Result := GetTitleEx(aText,aBase,aStart,aLen);
 end;
 function StrToSysDate(s : string) : TDateTime;
 var
@@ -351,12 +291,93 @@ begin
     Result := 0;
   end;
 end;
+
+function GetTitleEx(aText: TStrings; aBase: Int64; var aStart, aLen: Integer
+  ): string;
+var
+  i: Integer;
+  Res: Boolean = False;
+
+  function ExtractSpecial(line,ident : string) : string;
+  begin
+    Result := '';
+    if pos(Uppercase(ident),Uppercase(line)) > 0 then
+      Result := copy(line,pos(Uppercase(ident),Uppercase(line)),length(line));
+    if pos('  ',Result) > 0 then
+      Result := copy(Result,0,pos('   ',Result)-1);
+    Result := trim(Result);
+  end;
+begin
+  for i := 0 to aText.Count-1 do
+    begin
+      Result := ExtractSpecial(aText[i],'Rechnung');
+      if Result <> '' then exit;
+      Result := ExtractSpecial(aText[i],'Lieferschein');
+      if Result <> '' then exit;
+      Result := ExtractSpecial(aText[i],'Auftrag');
+      if Result <> '' then exit;
+      Result := ExtractSpecial(aText[i],'Auftragsbestätigung');
+      if Result <> '' then exit;
+      Result := ExtractSpecial(aText[i],'Invoice');
+      if Result <> '' then exit;
+      Result := ExtractSpecial(aText[i],'Bill');
+      if Result <> '' then exit;
+    end;
+  if aBase = 0 then
+    aBase := round(aText.Count*0.25);
+  for i := 0 to round(aText.Count*0.1) do
+    begin
+      if (aBase+i+2) >= aText.Count then break;
+      if  (trim(aText[aBase+i]) = '')
+      and (trim(aText[aBase+(i+1)]) <> '')
+      and (trim(aText[aBase+(i+2)]) = '')
+      then
+        begin
+          aBase := aBase+i+1;
+          Res := True;
+          break;
+        end;
+      if (aBase-i-2) <= 0 then break;
+      if  (trim(aText[aBase-i]) = '')
+      and (trim(aText[aBase-(i+1)]) <> '')
+      and (trim(aText[aBase-(i+2)]) = '')
+      then
+        begin
+          aBase := aBase-i-1;
+          res := True;
+          break;
+        end;
+    end;
+  if Res then
+    begin
+      Result := aText[aBase];
+      if (pos('SEHR',Uppercase(Result)) > 0)
+      or (pos('GEEHRTE',Uppercase(Result)) > 0)
+      or (pos('DEAR',Uppercase(Result)) > 0)
+      or (pos('HERR',Uppercase(Result)) > 0)
+      or (pos('FRAU',Uppercase(Result)) > 0)
+      or (pos('MR',Uppercase(Result)) > 0)
+      or (pos('MRS',Uppercase(Result)) > 0)
+      then
+        Result := GetTitle(aText,aBase div 2);
+    end;
+end;
+
 function GetDate(aText: TStrings): TDateTime;
+var
+  aPos: Integer;
+  aStart: Integer;
+begin
+  Result := GetDateEx(aText,aStart,aPos);
+end;
+
+function GetDateEx(aText: TStrings; var aStart, aLen: Integer): TDateTime;
 var
   tmp: string;
   i: Integer;
   mon: Integer;
   a: Integer;
+  aDate: String;
   function IsDate(Str : string) : TDateTime;
   var
     OD : TDateTime;
@@ -375,8 +396,14 @@ begin
         tmp := Stringreplace(tmp,Shortmonthnames[mon],IntToStr(mon),[]);
       for a := 1 to length(tmp)-4 do
         begin
-          Result := IsDate(copy(tmp,a,length(tmp)));
-          if Result <> 0 then exit;
+          aDate := copy(tmp,a,length(tmp));
+          Result := IsDate(aDate);
+          if Result <> 0 then
+            begin
+              aStart:=pos(aDate,aText.Text);
+              aLen:=length(aDate);
+              exit;
+            end;
         end;
     end;
   for i := 0 to aText.Count-1 do
@@ -389,8 +416,14 @@ begin
         tmp := Stringreplace(tmp,Shortmonthnames[mon],IntToStr(mon),[]);
       for a := 1 to length(tmp)-4 do
         begin
-          Result := IsDate(copy(tmp,a,length(tmp)));
-          if Result <> 0 then exit;
+          aDate := copy(tmp,a,length(tmp));
+          Result := IsDate(aDate);
+          if Result <> 0 then
+            begin
+              aStart:=pos(aDate,aText.text);
+              aLen:=length(aDate);
+              exit;
+            end;
         end;
     end;
 end;
@@ -610,4 +643,5 @@ initialization
 finalization
   Processes.Free;
 end.
+
 
