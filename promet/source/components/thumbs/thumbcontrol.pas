@@ -539,14 +539,21 @@ begin
         else
           begin
             InflateRect(BorderRect, 1, 1);
+            BorderRect := Cim.Area;
+            OffSetRect(BorderRect, -HScrollPosition + Cim.Rect.Left,
+              -VScrollPosition + Cim.Rect.Top);
+            Canvas.Brush.Style := bsClear;
+            Canvas.Pen.Color := clLtGray;
+            Canvas.Rectangle(BorderRect);
+            Canvas.Brush.Style := bsSolid;
           end;
 
         if Cim.LoadState = lsLoaded then
-        begin
-          Canvas.Draw(Cim.Left + Cim.Area.Left - HScrollPosition,
-            Cim.Top + Cim.Area.Top - VScrollPosition,
-            Cim.Bitmap);
-           if i = fMngr.ActiveIndex then
+          begin
+            Canvas.Draw(Cim.Left + Cim.Area.Left - HScrollPosition,
+              Cim.Top + Cim.Area.Top - VScrollPosition,
+              Cim.Bitmap);
+            if i = fMngr.ActiveIndex then
               begin
                 BorderRect := Cim.Area;
                 OffSetRect(BorderRect, -HScrollPosition + Cim.Rect.Left,
@@ -558,16 +565,8 @@ begin
                 Canvas.Rectangle(BorderRect);
                 Canvas.Pen.Width := 1;
                 Canvas.Brush.Style := bsSolid;
-              end
-           else
-             begin
-               BorderRect := Cim.Area;
-               Canvas.Brush.Style := bsClear;
-               Canvas.Pen.Color := clLtGray;
-               Canvas.Rectangle(BorderRect);
-               Canvas.Brush.Style := bsSolid;
-             end;
-        end;
+              end;
+          end;
 
         if fShowCaptions then
         begin
