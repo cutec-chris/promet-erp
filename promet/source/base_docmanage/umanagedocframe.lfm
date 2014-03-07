@@ -1228,12 +1228,20 @@ inherited fManageDocFrame: TfManageDocFrame
       ImageIndex = 115
       OnExecute = acOCRExecute
     end
+    object acMarkAsDone: TAction
+      Caption = 'als Fertig markieren'
+      ImageIndex = 74
+      OnExecute = acMarkAsDoneExecute
+    end
   end
   object pmPopup: TPopupMenu[6]
     Images = fVisualControls.Images
     OnPopup = pmPopupPopup
     left = 16
     top = 96
+    object MenuItem2: TMenuItem
+      Action = acMarkAsDone
+    end
     object MenuItem3: TMenuItem
       Action = acRebuildThumb
     end

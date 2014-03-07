@@ -166,6 +166,7 @@ begin
             Add('TAGS',ftString,500,False);
             Add('NAME',ftString,100,False);
             Add('ORIGDATE',ftDateTime,0,False);
+            Add('DONE',ftString,1,False);
             Add('CHANGEDBY',ftString,4,False);
             Add('FULLTEXT',ftMemo,0,False);
             Add('TREEENTRY',ftLargeint,0,False);

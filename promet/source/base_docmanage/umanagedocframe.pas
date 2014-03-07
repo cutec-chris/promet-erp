@@ -45,6 +45,7 @@ type
     acImport: TAction;
     acRotate: TAction;
     acOCR: TAction;
+    acMarkAsDone: TAction;
     ActionList1: TActionList;
     bEditFilter: TSpeedButton;
     Bevel1: TBevel;
@@ -116,6 +117,7 @@ type
     procedure acDeleteExecute(Sender: TObject);
     procedure acEditExecute(Sender: TObject);
     procedure acImportExecute(Sender: TObject);
+    procedure acMarkAsDoneExecute(Sender: TObject);
     procedure acOCRExecute(Sender: TObject);
     procedure acRebuildThumbExecute(Sender: TObject);
     procedure acRefreshExecute(Sender: TObject);
@@ -657,6 +659,13 @@ procedure TfManageDocFrame.acImportExecute(Sender: TObject);
 begin
   if fCameraimport.Execute(Self,FTyp) then
     acRefresh.Execute;
+end;
+
+procedure TfManageDocFrame.acMarkAsDoneExecute(Sender: TObject);
+begin
+  TDocPages(DataSet).Edit;
+  TDocPages(DataSet).FieldByName('DONE').AsString:='Y';
+  TDocPages(DataSet).Post;
 end;
 
 procedure TfManageDocFrame.acOCRExecute(Sender: TObject);
