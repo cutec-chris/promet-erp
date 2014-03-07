@@ -80,15 +80,22 @@ function DoOCR(aDoc: TDocument;reworkImage : Boolean = True): TOCRPages;
 var
   aFullstream: TMemoryStream;
   aPic: TPicture;
+  Fail: Boolean;
 begin
   aFullstream := TMemoryStream.Create;
   aDoc.CheckoutToStream(aFullStream);
   aFullStream.Position:=0;
   aPic := TPicture.Create;
-  aPic.LoadFromStreamWithFileExt(aFullStream,ExtractFileExt(aDoc.FileName));
-  aFullStream.Free;
   Result := TOCRPages.Create;
-  StartOCR(Result,aPic,reworkImage);
+  Fail := False;
+  try
+    aPic.LoadFromStreamWithFileExt(aFullStream,ExtractFileExt(aDoc.FileName));
+  except
+    Fail := True;
+  end;
+  aFullStream.Free;
+  if not Fail then
+    StartOCR(Result,aPic,reworkImage);
   aPic.Free;
 end;
 
@@ -96,6 +103,7 @@ procedure StartOCR(Pages: TOCRPages;Image : TPicture;reworkImage : Boolean = Tru
 var
   aImage: TFPMemoryImage;
   r: TFPReaderJPEG;
+  aP: TExtendedProcess;
 begin
   try
     if reworkImage then
@@ -107,6 +115,7 @@ begin
         r.Free;
         uImaging.Delight(aImage);
         aImage.SaveToFile(GetTempDir+'rpv.jpg');
+        aImage.Free;
         Image.LoadFromFile(GetTempDir+'rpv.jpg');
       end;
   except
@@ -114,12 +123,15 @@ begin
       debugln(e.Message);
   end;
   try
-    TTesseractProcess.Create(Pages,Image);
+    aP := TTesseractProcess.Create(Pages,Image);
+    FreeAndNil(aP);
   except
     try
-      TCuneIFormProcess.Create(Pages,Image);
+      aP := TCuneIFormProcess.Create(Pages,Image);
+      FreeAndNil(aP);
     except
-      TGOCRProcess.Create(Pages,Image);
+      aP := TGOCRProcess.Create(Pages,Image);
+      FreeAndNil(aP);
     end;
   end;
 end;

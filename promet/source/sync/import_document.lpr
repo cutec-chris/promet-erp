@@ -79,19 +79,24 @@ var
     if aDoc.Count>0 then
       begin
         writeln('OCR on '+aDocPage.FieldByName('NAME').AsString);
-        Texts := DoOCR(aDoc);
-        aText := TStringList.Create;
-        for a := 0 to Texts.Count-1 do
-          begin
-            FixText(TStringList(Texts[a]));
-            atext.AddStrings(TStringList(Texts[a]));
-          end;
-        aDocPage.Edit;
-        aDocPage.FieldByName('FULLTEXT').AsString:=aText.Text;
-        aDocPage.Post;
-        aDoc.Edit;
-        aDoc.FieldByName('FULLTEXT').AsString:=aText.Text;
-        aDoc.Post;
+        try
+          Texts := DoOCR(aDoc);
+          aText := TStringList.Create;
+          for a := 0 to Texts.Count-1 do
+            begin
+              FixText(TStringList(Texts[a]));
+              atext.AddStrings(TStringList(Texts[a]));
+            end;
+          aDocPage.Edit;
+          aDocPage.FieldByName('FULLTEXT').AsString:=aText.Text;
+          aDocPage.Post;
+          aDoc.Edit;
+          aDoc.FieldByName('FULLTEXT').AsString:=aText.Text;
+          aDoc.Post;
+        except
+          on e : Exception do
+            writeln('Error:'+e.Message);
+        end;
         aText.Free;
         for a := 0 to Texts.Count-1 do
           TStringList(Texts[a]).Free;
@@ -119,8 +124,11 @@ begin
       while not aDocPage.EOF do
         begin
           DoOCROnActualDoc;
+          break;
           aDocPage.Next;
         end;
+
+      aDocPage.Free;
     end
   else
     begin

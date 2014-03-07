@@ -190,6 +190,9 @@ begin
         cImage.Colors[x,y] := TColorToFPColor(HLStoColor(cH,210+min(round(cL-L),255),cS));
       end;
   Input.Assign(cImage);
+  aCanvas.Free;
+  aImage.Free;
+  cImage.Free;
 end;
 
 
