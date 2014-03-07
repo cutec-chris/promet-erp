@@ -210,6 +210,7 @@ uses uData,udocuments,uWait,LCLIntf,Utils,uFormAnimate,uImportImages,
 resourcestring
   strTag                   = 'Tag';
   strSetTag                = 'durch Klick setzen';
+  strSetDate               = 'Soll das Datum %s als Belegdatum gesetzt werden ?';
 
 procedure AddToMainTree(Node: TTReeNode;aType : string = 'D');
 var
@@ -266,16 +267,19 @@ var
   aItem: TThreadedImage;
   ItemPos: Integer;
   DayHeight: Extended;
+  aRec: db.LargeInt;
 begin
   aItem := ThumbControl1.ItemFromPoint(point(ThumbControl1.Left+(ThumbControl1.ThumbWidth div 2),ThumbControl1.Top+(ThumbControl1.ThumbHeight div 2)));
   if Assigned(aItem) then
     begin
+      aRec := DataSet.GetBookmark;
       if DataSet.DataSet.Locate('SQL_ID',copy(aItem.URL,0,pos('.',aItem.URL)-1),[]) then
         begin
           ItemPos := aItem.Area.Top+((aItem.Area.Bottom-aItem.Area.Top) div 2);
           DayHeight := (FTimeLine.Height/FTimeLine.DateRange);
           FTimeLine.StartDate:=DataSet.FieldByName('ORIGDATE').AsDateTime+round((ItemPos/DayHeight));
         end;
+      DataSet.GotoBookmark(aRec);
     end;
 end;
 
@@ -530,7 +534,6 @@ begin
       bExecute1.Down:=True;
       bExecute1Click(nil);
     end;
-  ShowDocument;
 end;
 procedure TfManageDocFrame.DoOnDropFiles(Sender: TObject;
   const FileNames: array of String);
@@ -703,6 +706,12 @@ begin
     begin
       mtext.SelStart:=aStart;
       mText.SelLength:=aLen;
+      if MessageDlg(Format(strSetDate,[DateToStr(bDate)]),mtInformation,[mbYes,mbNo],0) = mrYes then
+        begin
+          TDocPages(DataSet).Edit;
+          TDocPages(DataSet).FieldByName('ORIGDATE').AsDateTime:=bDate;
+          TDocPages(DataSet).Post;
+        end;
     end;
 end;
 
@@ -941,6 +950,7 @@ begin
     end;
   ThumbControl1.Arrange;
   ThumbControl1.Invalidate;
+  ShowDocument;
 end;
 procedure TfManageDocFrame.bTag1Click(Sender: TObject);
 begin

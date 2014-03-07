@@ -23,7 +23,8 @@ interface
 uses
   Classes, SysUtils, ProcessUtils, Forms, FileUtil, Graphics,
   FPImage, FPWritePNM, IntfGraphics, Utils, SynaUtil,
-  lconvencoding,uDocuments,uImaging,LCLProc,FPReadJPEG,FPReadPNG;
+  lconvencoding,uDocuments,uImaging,LCLProc,FPReadJPEG,FPReadPNG,
+  dateutils;
 type
   TOCRPages = TList;
   TGOCRProcess = class(TExtendedProcess)
@@ -111,6 +112,7 @@ begin
     if reworkImage then
       begin
         aImage := TFPMemoryImage.Create(1,1);
+        DeleteFileUTF8(GetTempDir+'rpv.jpg');
         Image.SaveToFile(GetTempDir+'rpv.jpg');
         r := TFPReaderJPEG.Create;
         aImage.LoadFromFile(GetTempDir+'rpv.jpg',r);
@@ -119,6 +121,7 @@ begin
         aImage.SaveToFile(GetTempDir+'rpv.jpg');
         aImage.Free;
         Image.LoadFromFile(GetTempDir+'rpv.jpg');
+        DeleteFileUTF8(GetTempDir+'rpv.jpg');
       end;
   except
     on e : Exception do
@@ -292,74 +295,118 @@ begin
   end;
 end;
 
+function WordsCount(s: string ): integer;
+var
+  ps: PChar;
+  nSpaces, n: integer;
+begin
+  n := 0;
+  // make it a string that ends with value zero
+  s := s + #0;
+  // point to start of string s
+  ps := @s[ 1 ];
+  // keep loop going up to zero ending
+  while( #0 <> ps^ ) do
+  begin
+    // checks for space = ' '
+    while((' ' = ps^) and (#0 <> ps^)) do
+    begin
+      inc( ps );
+    end;
+    nSpaces := 0;
+    while((' ' <> ps^) and (#0 <> ps^)) do
+    begin
+      inc(nSpaces);
+      inc(ps);
+    end;
+    if (nSpaces > 0) then
+    begin
+      inc( n );
+    end;
+  end;
+  Result := n;
+end;
+
 function GetTitleEx(aText: TStrings; aBase: Int64; var aStart, aLen: Integer
   ): string;
 var
   i: Integer;
   Res: Boolean = False;
+  aBase2: Integer;
+  aLine: String;
 
   function ExtractSpecial(line,ident : string) : string;
   begin
     Result := '';
-    if pos(Uppercase(ident),Uppercase(line)) > 0 then
+    if pos(Uppercase(ident),Uppercase(line)) = 1 then
+      Result := copy(line,pos(Uppercase(ident),Uppercase(line)),length(line))
+    else if pos(Uppercase(' '+ident),Uppercase(line)) > 0 then
       Result := copy(line,pos(Uppercase(ident),Uppercase(line)),length(line));
     if pos('  ',Result) > 0 then
       Result := copy(Result,0,pos('   ',Result)-1);
     Result := trim(Result);
   end;
 begin
+  result := '';
   for i := 0 to aText.Count-1 do
     begin
-      Result := ExtractSpecial(aText[i],'Rechnung');
-      if Result <> '' then exit;
-      Result := ExtractSpecial(aText[i],'Lieferschein');
-      if Result <> '' then exit;
-      Result := ExtractSpecial(aText[i],'Auftrag');
-      if Result <> '' then exit;
-      Result := ExtractSpecial(aText[i],'Auftragsbestätigung');
-      if Result <> '' then exit;
-      Result := ExtractSpecial(aText[i],'Invoice');
-      if Result <> '' then exit;
-      Result := ExtractSpecial(aText[i],'Bill');
-      if Result <> '' then exit;
-    end;
-  if aBase = 0 then
-    aBase := round(aText.Count*0.25);
-  for i := 0 to round(aText.Count*0.1) do
-    begin
-      if (aBase+i+2) >= aText.Count then break;
-      if  (trim(aText[aBase+i]) = '')
-      and (trim(aText[aBase+(i+1)]) <> '')
-      and (trim(aText[aBase+(i+2)]) = '')
-      then
+      aLine := aText[i];
+      Result := ExtractSpecial(aLine,'Rechnung');
+      if Result='' then
+        Result := ExtractSpecial(aLine,'Lieferschein');
+      if Result='' then
+        Result := ExtractSpecial(aLine,'Auftrag');
+      if Result='' then
+        Result := ExtractSpecial(aLine,'Auftragsbestätigung');
+      if Result='' then
+        Result := ExtractSpecial(aLine,'Invoice');
+      if Result='' then
+      Result := ExtractSpecial(aLine,'Bill');
+      if Result <> '' then
         begin
-          aBase := aBase+i+1;
-          Res := True;
-          break;
-        end;
-      if (aBase-i-2) <= 0 then break;
-      if  (trim(aText[aBase-i]) = '')
-      and (trim(aText[aBase-(i+1)]) <> '')
-      and (trim(aText[aBase-(i+2)]) = '')
-      then
-        begin
-          aBase := aBase-i-1;
-          res := True;
-          break;
+          aStart:=UTF8Pos(Result,atext.Text)-1;
+          aLen:=length(Result);
+          exit;
         end;
     end;
-  if Res then
+  GetDateEx(aText,aStart,aLen);
+  i := 0;
+  while aStart>UTF8Length(aText[i]) do
     begin
-      Result := aText[aBase];
-      if (pos('SEHR',Uppercase(Result)) > 0)
-      or (pos('GEEHRTE',Uppercase(Result)) > 0)
-      or (pos('DEAR',Uppercase(Result)) > 0)
-      or (pos('HERR',Uppercase(Result)) > 0)
-      or (pos('FRAU',Uppercase(Result)) > 0)
-      or (pos('MR',Uppercase(Result)) > 0)
-      or (pos('MRS',Uppercase(Result)) > 0)
+      aStart := aStart-UTF8Length(aText[i]);
+      inc(i);
+    end;
+  aBase := i;
+  aBase2 := 0;
+  for i := aBase to aText.Count-1 do
+    begin
+      if (pos('SEHR',Uppercase(aText[i])) > 0)
+      or (pos('GEEHRTE',Uppercase(aText[i])) > 0)
+      or (pos('DEAR',Uppercase(aText[i])) > 0)
       then
-        Result := GetTitle(aText,aBase div 2);
+        aBase2 := i;
+    end;
+  for i := aBase2-1 downto aBase do
+    begin
+      if (trim(aText[i])='') and (Result <>'') then break;
+      if (WordsCount(aText[i])>0) and (WordsCount(aText[i])<5) then
+        begin
+          Result := aText[i];
+          aStart:=UTF8Pos(Result,atext.Text)-1;
+          aLen:=length(Result);
+        end;
+    end;
+  if Result = '' then
+    begin
+      i := 0;
+      while trim(aText[i])='' do
+        inc(i);
+      if (WordsCount(aText[i])>0) and (WordsCount(aText[i])<5) then
+        begin
+          Result := aText[i];
+          aStart:=UTF8Pos(Result,atext.Text)-1;
+          aLen:=length(Result);
+        end;
     end;
 end;
 
@@ -371,6 +418,16 @@ begin
   Result := GetDateEx(aText,aStart,aPos);
 end;
 
+{ Returns a count of the number of occurences of SubText in Text }
+function CountOccurences( const SubText: string;
+                          const Text: string): Integer;
+begin
+  if (SubText = '') OR (Text = '') OR (Pos(SubText, Text) = 0) then
+    Result := 0
+  else
+    Result := (Length(Text) - Length(StringReplace(Text, SubText, '', [rfReplaceAll]))) div  Length(subtext);
+end;  { CountOccurences }
+
 function GetDateEx(aText: TStrings; var aStart, aLen: Integer): TDateTime;
 var
   tmp: string;
@@ -378,13 +435,14 @@ var
   mon: Integer;
   a: Integer;
   aDate: String;
+  b: Integer;
   function IsDate(Str : string) : TDateTime;
   var
     OD : TDateTime;
   begin
     Result := 0;
-    if (Result=0) and (StrToSysDate(Str) > 0) then Result := StrToSysDate(Str);
-    if (Result=0) and (GetDateMDYFromStr(Str) > 0) then Result := GetDateMDYFromStr(Str);
+    if (Result=0) and (StrToSysDate(Str) > 0) and (CountOccurences(DateSeparator,Str)=2) then Result := StrToSysDate(Str);
+    if (Result=0) and (GetDateMDYFromStr(Str) > 0) and (CountOccurences(DateSeparator,Str)=2) then Result := GetDateMDYFromStr(Str);
   end;
 
 begin
@@ -398,9 +456,9 @@ begin
         begin
           aDate := copy(tmp,a,length(tmp));
           Result := IsDate(aDate);
-          if Result <> 0 then
+          if (Result<IncYear(Now,15)) and (Result>IncYear(Now,-15)) then
             begin
-              aStart:=pos(aDate,aText.Text);
+              aStart := UTF8Pos(aDate,aText.Text)-1;
               aLen:=length(aDate);
               exit;
             end;
@@ -418,9 +476,9 @@ begin
         begin
           aDate := copy(tmp,a,length(tmp));
           Result := IsDate(aDate);
-          if Result <> 0 then
+          if (Result<IncYear(Now,15)) and (Result>IncYear(Now,-15)) then
             begin
-              aStart:=pos(aDate,aText.text);
+              aStart := UTF8Pos(aDate,aText.Text)-1;
               aLen:=length(aDate);
               exit;
             end;
