@@ -18,11 +18,13 @@ type
 
   TSelectItemEvent = procedure(Sender: TObject; Item: TThreadedImage) of object;
   TLoadFileEvent = procedure(Sender: TObject; URL: string; out Stream: TStream) of object;
+  TDrawItemEvent = procedure(Sender: TObject; Item: TThreadedImage) of object;
 
 { TThumbControl }
 
   TThumbControl = class(TScrollingControl)
   private
+    FAfterDraw: TDrawItemEvent;
     FArrangeStyle: TLayoutStyle;
     FIls: TInternalLayoutStyle;
     fContentWidth: integer;
@@ -111,6 +113,7 @@ type
       Warning: if MultiThreaded=true, this happens in a separate thread context.}
     property OnLoadFile: TLoadFileEvent read FOnLoadFile write FOnLoadFile;
     property OnScrolled : TNotifyEvent read FOnScrolled write FOnScrolled;
+    property AfterDraw : TDrawItemEvent read FAfterDraw write FAfterDraw;
     property ScrollBars;
     property Align;
     property Anchors;
@@ -536,10 +539,6 @@ begin
         else
           begin
             InflateRect(BorderRect, 1, 1);
-            Canvas.Brush.Style := bsClear;
-            Canvas.Pen.Color := clLtGray;
-            Canvas.Rectangle(BorderRect);
-            Canvas.Brush.Style := bsSolid;
           end;
 
         if Cim.LoadState = lsLoaded then
@@ -548,18 +547,26 @@ begin
             Cim.Top + Cim.Area.Top - VScrollPosition,
             Cim.Bitmap);
            if i = fMngr.ActiveIndex then
-          begin
-            BorderRect := Cim.Area;
-            OffSetRect(BorderRect, -HScrollPosition + Cim.Rect.Left,
-              -VScrollPosition + Cim.Rect.Top);
-            InflateRect(BorderRect, 1, 1);
-            Canvas.Brush.Style := bsClear;
-            Canvas.Pen.Color := $448FA2;
-            Canvas.Pen.Width := 2;
-            Canvas.Rectangle(BorderRect);
-            Canvas.Pen.Width := 1;
-            Canvas.Brush.Style := bsSolid;
-          end;
+              begin
+                BorderRect := Cim.Area;
+                OffSetRect(BorderRect, -HScrollPosition + Cim.Rect.Left,
+                  -VScrollPosition + Cim.Rect.Top);
+                InflateRect(BorderRect, 1, 1);
+                Canvas.Brush.Style := bsClear;
+                Canvas.Pen.Color := $448FA2;
+                Canvas.Pen.Width := 2;
+                Canvas.Rectangle(BorderRect);
+                Canvas.Pen.Width := 1;
+                Canvas.Brush.Style := bsSolid;
+              end
+           else
+             begin
+               BorderRect := Cim.Area;
+               Canvas.Brush.Style := bsClear;
+               Canvas.Pen.Color := clLtGray;
+               Canvas.Rectangle(BorderRect);
+               Canvas.Brush.Style := bsSolid;
+             end;
         end;
 
         if fShowCaptions then
