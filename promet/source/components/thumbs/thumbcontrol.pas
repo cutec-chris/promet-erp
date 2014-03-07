@@ -593,6 +593,8 @@ begin
             UrlStr);
           Canvas.Brush.Style := bsSolid;
         end;
+        if Assigned(AfterDraw) then
+          AfterDraw(Self,Cim);
       end;
     end;
   end;
