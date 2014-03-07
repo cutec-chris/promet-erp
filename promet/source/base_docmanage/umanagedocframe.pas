@@ -162,6 +162,7 @@ type
     procedure FetchNext;
     procedure WaitForImage;
     procedure RebuidThumb;
+    procedure ShowDocument;
   public
     { public declarations }
     constructor Create(AOwner: TComponent); override;
@@ -304,6 +305,8 @@ begin
         DataSet.DataSet.Edit;
       DataSet.FieldByName('ORIGDATE').AsString := aDate;
     end;
+  if bExecute1.Down then
+    ShowDocument;
 end;
 procedure TfManageDocFrame.ThumbControl1ImageLoaderManagerBeforeStartQueue(
   Sender: TObject);
@@ -488,25 +491,7 @@ begin
       bExecute1.Down:=True;
       bExecute1Click(nil);
     end;
-  if Assigned(ThumbControl1.ImageLoaderManager.ActiveItem) then
-    begin
-      try
-        aStream := TFileStream.Create(FtempPath+ThumbControl1.ImageLoaderManager.ActiveItem.URL,fmOpenRead);
-        PreviewFrame.LoadFromStream(aStream,'JPG');
-        aStream.Free;
-      except
-      end;
-    end;
-  Application.ProcessMessages;
-  for i := 0 to FDocFrame.lvDocuments.Items.Count-1 do
-    begin
-      if FDocFrame.GotoEntry(FDocFrame.lvDocuments.Items[i]) then
-        if PreviewFrame.CanHandleType(Uppercase(FDocFrame.DataSet.FieldByName('EXTENSION').AsString)) then
-          begin
-            PreviewFrame.LoadFromDocuments(TDocuments(FDocFrame.DataSet).Id.AsVariant);
-            break;
-          end;
-    end;
+  ShowDocument;
 end;
 procedure TfManageDocFrame.DoOnDropFiles(Sender: TObject;
   const FileNames: array of String);
@@ -975,6 +960,33 @@ begin
     end;
   acRefresh.Execute;
 end;
+
+procedure TfManageDocFrame.ShowDocument;
+var
+  aStream: TFileStream;
+  i: Integer;
+begin
+  if Assigned(ThumbControl1.ImageLoaderManager.ActiveItem) then
+    begin
+      try
+        aStream := TFileStream.Create(FtempPath+ThumbControl1.ImageLoaderManager.ActiveItem.URL,fmOpenRead);
+        PreviewFrame.LoadFromStream(aStream,'JPG');
+        aStream.Free;
+      except
+      end;
+    end;
+  Application.ProcessMessages;
+  for i := 0 to FDocFrame.lvDocuments.Items.Count-1 do
+    begin
+      if FDocFrame.GotoEntry(FDocFrame.lvDocuments.Items[i]) then
+        if PreviewFrame.CanHandleType(Uppercase(FDocFrame.DataSet.FieldByName('EXTENSION').AsString)) then
+          begin
+            PreviewFrame.LoadFromDocuments(TDocuments(FDocFrame.DataSet).Id.AsVariant);
+            break;
+          end;
+    end;
+end;
+
 constructor TfManageDocFrame.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
