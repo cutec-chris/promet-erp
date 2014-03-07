@@ -466,6 +466,7 @@ begin
   SelectedItem:=nil;
   Datasource1.DataSet := DataSet.DataSet;
   FetchNext;
+  ThumbControl1.Invalidate;
   //Application.ProcessMessages;
   IdleTimer1.Tag:=0;
 end;
@@ -639,6 +640,7 @@ begin
       ThumbControl1.ImageLoaderManager.List.Delete(ThumbControl1.ImageLoaderManager.ActiveIndex);
 //      aItem.Free;
       ThumbControl1.Arrange;
+      ThumbControl1.Invalidate;
     end;
 end;
 procedure TfManageDocFrame.acEditExecute(Sender: TObject);

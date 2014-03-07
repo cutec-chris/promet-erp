@@ -283,7 +283,7 @@
         <PackageName Value="LCL"/>
       </Item24>
     </RequiredPackages>
-    <Units Count="57">
+    <Units Count="54">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -346,7 +346,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uAccountingFrame"/>
-        <EditorIndex Value="19"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="257"/>
         <CursorPos X="45" Y="284"/>
@@ -694,18 +694,17 @@
       </Unit41>
       <Unit42>
         <Filename Value="../base/changes.txt"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="56" Y="4"/>
+        <CursorPos X="7" Y="2"/>
         <UsageCount Value="26"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit42>
       <Unit43>
         <Filename Value="../base/revision.inc"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
@@ -742,25 +741,16 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="umanagedocframe"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="445"/>
-        <CursorPos X="86" Y="461"/>
+        <TopLine Value="629"/>
+        <CursorPos X="1" Y="644"/>
         <UsageCount Value="24"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit46>
       <Unit47>
-        <Filename Value="../base/dbintfs/udocuments.pas"/>
-        <UnitName Value="uDocuments"/>
-        <EditorIndex Value="14"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="572"/>
-        <CursorPos X="1" Y="598"/>
-        <UsageCount Value="22"/>
-        <Loaded Value="True"/>
-      </Unit47>
-      <Unit48>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
         <EditorIndex Value="9"/>
@@ -769,46 +759,22 @@
         <CursorPos X="52" Y="605"/>
         <UsageCount Value="19"/>
         <Loaded Value="True"/>
-      </Unit48>
-      <Unit49>
-        <Filename Value="../base_documents/udocumentframe.pas"/>
-        <ComponentName Value="fDocumentFrame"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uDocumentFrame"/>
-        <EditorIndex Value="15"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="466"/>
-        <CursorPos X="8" Y="476"/>
-        <UsageCount Value="16"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
-      </Unit49>
-      <Unit50>
-        <Filename Value="../base/dbintfs/uthumbnails.pas"/>
-        <UnitName Value="uthumbnails"/>
-        <EditorIndex Value="16"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="174"/>
-        <CursorPos X="1" Y="174"/>
-        <UsageCount Value="16"/>
-        <Loaded Value="True"/>
-      </Unit50>
-      <Unit51>
+      </Unit47>
+      <Unit48>
         <Filename Value="../base_documents/udocumentacquire.pas"/>
         <ComponentName Value="fAcquire"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uDocumentAcquire"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="31"/>
         <CursorPos X="57" Y="31"/>
         <UsageCount Value="15"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
-      </Unit51>
-      <Unit52>
+      </Unit48>
+      <Unit49>
         <Filename Value="../base/dbintfs/ubasedocpages.pas"/>
         <UnitName Value="uBaseDocPages"/>
         <EditorIndex Value="8"/>
@@ -817,8 +783,8 @@
         <CursorPos X="1" Y="193"/>
         <UsageCount Value="15"/>
         <Loaded Value="True"/>
-      </Unit52>
-      <Unit53>
+      </Unit49>
+      <Unit50>
         <Filename Value="../base_frames/umaintreeframe.pas"/>
         <ComponentName Value="fMainTree"/>
         <HasResources Value="True"/>
@@ -831,18 +797,18 @@
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
-      </Unit53>
-      <Unit54>
+      </Unit50>
+      <Unit51>
         <Filename Value="../base/dbintfs/uaccounting.pas"/>
         <UnitName Value="uAccounting"/>
-        <EditorIndex Value="20"/>
+        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="145"/>
         <CursorPos X="27" Y="165"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
-      </Unit54>
-      <Unit55>
+      </Unit51>
+      <Unit52>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
         <EditorIndex Value="5"/>
@@ -851,8 +817,8 @@
         <CursorPos X="5" Y="1725"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
-      </Unit55>
-      <Unit56>
+      </Unit52>
+      <Unit53>
         <Filename Value="../base_forms/utimeline.pas"/>
         <UnitName Value="uTimeLine"/>
         <EditorIndex Value="6"/>
@@ -861,9 +827,9 @@
         <CursorPos X="48" Y="276"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
-      </Unit56>
+      </Unit53>
     </Units>
-    <JumpHistory Count="15" HistoryIndex="14">
+    <JumpHistory Count="17" HistoryIndex="16">
       <Position1>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
         <Caret Line="414" Column="1" TopLine="386"/>
@@ -924,6 +890,14 @@
         <Filename Value="../base_forms/utimeline.pas"/>
         <Caret Line="210" Column="23" TopLine="191"/>
       </Position15>
+      <Position16>
+        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="461" Column="86" TopLine="445"/>
+      </Position16>
+      <Position17>
+        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="470" Column="1" TopLine="441"/>
+      </Position17>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -969,7 +943,7 @@
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
         <Source Value="../base_docmanage/umanagedocframe.pas"/>
-        <Line Value="707"/>
+        <Line Value="709"/>
       </Item1>
     </BreakPoints>
     <Watches Count="2">

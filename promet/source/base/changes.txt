@@ -1,4 +1,6 @@
-﻿Build 319
+﻿Build 320
+
+Build 319
       - Timeline wird besser gezeichnet und lässt sich schöner bedienen (punktgenaues Klicken)
       - Timeline scrollt in Dokumenten und Bildansichten mit
       - Unity spezisches hängen beseitigt (hoffentlich)
