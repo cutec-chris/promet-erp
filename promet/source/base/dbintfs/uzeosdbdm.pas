@@ -532,6 +532,7 @@ begin
             GeneralQuery.ExecSQL;
             GeneralQuery.Free;
             Changed := True;
+            Result := True;
           end;
       aSQL := '';
       if Assigned(FManagedIndexDefs) then
@@ -554,6 +555,7 @@ begin
                     aSQL := '';
                   end;
                 end;
+              Result := True;
             end;
     end;
 end;
@@ -1832,4 +1834,4 @@ begin
 end;
 
 end.
-
+

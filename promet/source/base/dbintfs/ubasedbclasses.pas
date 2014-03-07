@@ -2256,7 +2256,7 @@ begin
     end;
   with FDataSet as IBaseManageDB do
     if (Assigned(Data)) and (Data.ShouldCheckTable(TableName,False)) then
-      CreateTable;
+      Self.CreateTable;
   try
     with DataSet as IBaseManageDB do
       begin
@@ -2598,4 +2598,4 @@ begin
 end;
 initialization
 end.
-
+
