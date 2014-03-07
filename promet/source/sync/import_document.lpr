@@ -67,6 +67,39 @@ var
   i: Integer;
   ss: TStringStream;
   aFolder: String;
+  aDocs: TDocPages;
+
+  procedure DoOCROnActualDoc;
+  var
+    a: Integer;
+  begin
+    aDoc := TDocument.Create(nil,Data);
+    aDoc.SelectByReference(aDocPage.Id.AsVariant);
+    aDoc.Open;
+    if aDoc.Count>0 then
+      begin
+        writeln('OCR on '+aDocPage.FieldByName('NAME').AsString);
+        Texts := DoOCR(aDoc);
+        aText := TStringList.Create;
+        for a := 0 to Texts.Count-1 do
+          begin
+            FixText(TStringList(Texts[a]));
+            atext.AddStrings(TStringList(Texts[a]));
+          end;
+        aDocPage.Edit;
+        aDocPage.FieldByName('FULLTEXT').AsString:=aText.Text;
+        aDocPage.Post;
+        aDoc.Edit;
+        aDoc.FieldByName('FULLTEXT').AsString:=aText.Text;
+        aDoc.Post;
+        aText.Free;
+        for a := 0 to Texts.Count-1 do
+          TStringList(Texts[a]).Free;
+        Texts.Free;
+      end;
+    aDoc.Free;
+  end;
+
 begin
   with BaseApplication as IBaseApplication do
     begin
@@ -77,54 +110,48 @@ begin
   //Your logged in here on promet DB
 
   aType := GetOptionValue('t','type');
-  aFolder :=GetOptionValue('f','folder');
-  if aType = '' then aType := 'D';
-  if aFolder<>'' then
-    aFolder := AppendPathDelim(aFolder);
-  while FindFirstUTF8(aFolder+'*.jpg',faAnyFile,AInfo)=0 do
+  if HasOption('doocr') then
     begin
-      writeln('importing File '+AInfo.Name);
-      try
-        aDocPage := TDocPages.Create(nil,Data);
-        aDocPage.AddFromFile(aFolder+AInfo.Name);
-        aDocPage.Edit;
-        aDocPage.FieldByName('TYPE').AsString:=aType;
-        aDocPage.Post;
-      except
-        on e : Exception do
-          begin
-            writeln('Error:'+e.Message);
-            Application.Terminate;
-            exit;
-          end;
-      end;
+      aDocPage := TDocPages.Create(nil,Data);
+      aDocPage.Typ:='D';
+      aDocPage.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue('D')+' AND '+Data.ProcessTerm(Data.QuoteField('FULLTEXT')+'='+Data.QuoteValue('')));
 
-      aDoc := TDocument.Create(nil,Data);
-      aDoc.SelectByReference(aDocPage.Id.AsVariant);
-      aDoc.Open;
-      if aDoc.Count>0 then
+      while not aDocPage.EOF do
         begin
-          writeln('OCR on '+AInfo.Name);
-          Texts := DoOCR(aDoc);
-          aText := TStringList.Create;
-          for i := 0 to Texts.Count-1 do
-            begin
-              FixText(TStringList(Texts[i]));
-              atext.AddStrings(TStringList(Texts[i]));
-            end;
-          aDocPage.Edit;
-          aDocPage.FieldByName('FULLTEXT').AsString:=aText.Text;
-          aDocPage.Post;
-          aText.Free;
-          for i := 0 to Texts.Count-1 do
-            TStringList(Texts[i]).Free;
-          Texts.Free;
+          DoOCROnActualDoc;
+          aDocPage.Next;
         end;
-      aDoc.Free;
+    end
+  else
+    begin
+      aFolder :=GetOptionValue('f','folder');
+      if aType = '' then aType := 'D';
+      if aFolder<>'' then
+        aFolder := AppendPathDelim(aFolder);
+      while FindFirstUTF8(aFolder+'*.jpg',faAnyFile,AInfo)=0 do
+        begin
+          writeln('importing File '+AInfo.Name);
+          try
+            aDocPage := TDocPages.Create(nil,Data);
+            aDocPage.AddFromFile(aFolder+AInfo.Name);
+            aDocPage.Edit;
+            aDocPage.FieldByName('TYPE').AsString:=aType;
+            aDocPage.Post;
+          except
+            on e : Exception do
+              begin
+                writeln('Error:'+e.Message);
+                Application.Terminate;
+                exit;
+              end;
+          end;
 
-      aDocPage.Free;
-      DeleteFileUTF8(aFolder+AInfo.Name);
-      FindCloseUTF8(AInfo);
+          DoOCRonActualDoc;
+
+          aDocPage.Free;
+          DeleteFileUTF8(aFolder+AInfo.Name);
+          FindCloseUTF8(AInfo);
+        end;
     end;
 
   // stop program loop

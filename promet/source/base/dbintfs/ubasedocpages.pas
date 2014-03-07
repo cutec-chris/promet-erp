@@ -34,6 +34,7 @@ type
     FTyp: string;
     FUsedFields : string;
     procedure SetParamsFromExif(extn : string;aFullStream : TStream);
+    procedure SetType(AValue: string);
   public
     function GetUsedFields : string;
     procedure PrepareDataSet;
@@ -42,7 +43,7 @@ type
     procedure DefineFields(aDataSet: TDataSet); override;
     procedure Add(aDocuments: TDocuments);
     procedure AddFromFile(aFile : UTF8String);
-    property Typ : string read FTyp write FTyp;
+    property Typ : string read FTyp write SetType;
   end;
 
 implementation
@@ -80,6 +81,13 @@ begin
         FieldByName('ORIGDATE').AsDateTime:=aTime;
     end;
   exif.Free;
+end;
+
+procedure TDocPages.SetType(AValue: string);
+begin
+  if FTyp=AValue then Exit;
+  FTyp:=AValue;
+  ActualFilter := TBaseDBModule(DataModule).QuoteField('TYPE')+'='+TBaseDBModule(DataModule).QuoteValue(FTyp);
 end;
 
 function TDocPages.GetUsedFields: string;

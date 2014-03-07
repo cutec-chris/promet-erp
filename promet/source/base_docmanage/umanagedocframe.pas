@@ -868,6 +868,8 @@ begin
       pcPages.Visible:=False;
       spPages.Visible:=False;
     end;
+  ThumbControl1.Arrange;
+  ThumbControl1.Invalidate;
 end;
 procedure TfManageDocFrame.bTag1Click(Sender: TObject);
 begin
