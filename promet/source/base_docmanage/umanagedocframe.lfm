@@ -1332,6 +1332,7 @@ inherited fManageDocFrame: TfManageDocFrame
       Caption = 'acFindDate'
       Hint = 'Datum finden'
       ImageIndex = 4
+      OnExecute = acFindDateExecute
     end
   end
   object pmPopup: TPopupMenu[6]

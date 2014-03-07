@@ -124,6 +124,7 @@ type
     tsFiles: TTabSheet;
     procedure acDeleteExecute(Sender: TObject);
     procedure acEditExecute(Sender: TObject);
+    procedure acFindDateExecute(Sender: TObject);
     procedure acFindSubjectExecute(Sender: TObject);
     procedure acImportExecute(Sender: TObject);
     procedure acMarkAsDoneExecute(Sender: TObject);
@@ -689,6 +690,20 @@ begin
           end;
         break;
       end;
+end;
+
+procedure TfManageDocFrame.acFindDateExecute(Sender: TObject);
+var
+  bDate: TDateTime;
+  aStart: Integer;
+  aLen: Integer;
+begin
+  bDate := uOCR.GetDateEx(mText.Lines,aStart,aLen);
+  if bDate > 0 then
+    begin
+      mtext.SelStart:=aStart;
+      mText.SelLength:=aLen;
+    end;
 end;
 
 procedure TfManageDocFrame.acFindSubjectExecute(Sender: TObject);
