@@ -124,7 +124,6 @@ begin
       while not aDocPage.EOF do
         begin
           DoOCROnActualDoc;
-          break;
           aDocPage.Next;
         end;
 
