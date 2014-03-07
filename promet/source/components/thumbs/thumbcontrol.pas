@@ -18,7 +18,7 @@ type
 
   TSelectItemEvent = procedure(Sender: TObject; Item: TThreadedImage) of object;
   TLoadFileEvent = procedure(Sender: TObject; URL: string; out Stream: TStream) of object;
-  TDrawItemEvent = procedure(Sender: TObject; Item: TThreadedImage) of object;
+  TDrawItemEvent = procedure(Sender: TObject; Item: TThreadedImage;aRect : TRect) of object;
 
 { TThumbControl }
 
@@ -539,9 +539,17 @@ begin
         else
           begin
             InflateRect(BorderRect, 1, 1);
-            BorderRect := Cim.Area;
-            OffSetRect(BorderRect, -HScrollPosition + Cim.Rect.Left,
-              -VScrollPosition + Cim.Rect.Top);
+            if Cim.LoadState = lsLoaded then
+              begin
+                BorderRect := Cim.Area;
+                OffSetRect(BorderRect, -HScrollPosition + Cim.Rect.Left,
+                  -VScrollPosition + Cim.Rect.Top);
+              end
+            else
+              begin
+                BorderRect := Cim.Rect;
+                OffSetRect(BorderRect, -HScrollPosition, -VScrollPosition);
+              end;
             Canvas.Brush.Style := bsClear;
             Canvas.Pen.Color := clLtGray;
             Canvas.Rectangle(BorderRect);
@@ -593,7 +601,11 @@ begin
           Canvas.Brush.Style := bsSolid;
         end;
         if Assigned(AfterDraw) then
-          AfterDraw(Self,Cim);
+          begin
+            BorderRect := Cim.Rect;
+            OffSetRect(BorderRect, -HScrollPosition, -VScrollPosition);
+            AfterDraw(Self,Cim,BorderRect);
+          end;
       end;
     end;
   end;

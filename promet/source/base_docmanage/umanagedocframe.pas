@@ -31,8 +31,10 @@ uses
   uPreviewFrame, uOCR, uExtControls;
 
 type
-
-  { TfManageDocFrame }
+  TImageItem = class
+  public
+    Done : Boolean;
+  end;
 
   TfManageDocFrame = class(TPrometMainFrame)
     acDelete: TAction;
@@ -139,6 +141,8 @@ type
     procedure IdleTimer1Timer(Sender: TObject);
     procedure pmPopupPopup(Sender: TObject);
     procedure tbMenue1Click(Sender: TObject);
+    procedure ThumbControl1AfterDraw(Sender: TObject; Item: TThreadedImage;
+      aRect: Trect);
     procedure ThumbControl1DblClick(Sender: TObject);
     procedure ThumbControl1ImageLoaderManagerBeforeStartQueue(Sender: TObject);
     procedure ThumbControl1ImageLoaderManagerSetItemIndex(Sender: TObject);
@@ -194,7 +198,7 @@ implementation
 {$R *.lfm}
 uses uData,udocuments,uWait,LCLIntf,Utils,uFormAnimate,uImportImages,
   ProcessUtils,uMainTreeFrame,ucameraimport,FPimage,FPReadJPEG,FPCanvas,
-  FPWriteJPEG,LCLProc,uthumbnails;
+  FPWriteJPEG,LCLProc,uthumbnails,uBaseVisualControls;
 resourcestring
   strTag                   = 'Tag';
   strSetTag                = 'durch Klick setzen';
@@ -483,6 +487,31 @@ procedure TfManageDocFrame.tbMenue1Click(Sender: TObject);
 begin
   TSpeedButton(Sender).PopupMenu.PopUp(TSpeedButton(Sender).ClientOrigin.x,TSpeedButton(Sender).ClientOrigin.y+TSpeedButton(Sender).Height);
 end;
+
+procedure TfManageDocFrame.ThumbControl1AfterDraw(Sender: TObject;
+  Item: TThreadedImage;aRect : Trect);
+var
+  aDoc: TDocPages;
+begin
+  if not Assigned(Item.Pointer) then
+    begin
+      aDoc := TDocPages.Create(nil,Data);
+      aDoc.Select(copy(Item.URL,0,pos('.',Item.URL)-1));
+      aDoc.Open;
+      if aDoc.Count>0 then
+        begin
+          Item.Pointer := TImageItem.Create;
+          TImageItem(Item.Pointer).Done:=aDoc.FieldByName('DONE').AsString='Y';
+        end;
+      aDoc.Free;
+    end;
+  if Assigned(Item.Pointer) then
+    begin
+      if TImageItem(Item.Pointer).Done then
+        fVisualControls.Images.Draw(TThumbControl(Sender).Canvas,aRect.Right-16,aRect.Bottom-16,74);
+    end;
+end;
+
 procedure TfManageDocFrame.ThumbControl1DblClick(Sender: TObject);
 var
   i: Integer;
@@ -663,9 +692,21 @@ end;
 
 procedure TfManageDocFrame.acMarkAsDoneExecute(Sender: TObject);
 begin
-  TDocPages(DataSet).Edit;
-  TDocPages(DataSet).FieldByName('DONE').AsString:='Y';
-  TDocPages(DataSet).Post;
+  if GotoCurrentItem then
+    begin
+      TDocPages(DataSet).Edit;
+      if TDocPages(DataSet).FieldByName('DONE').AsString='Y' then
+        TDocPages(DataSet).FieldByName('DONE').Clear
+      else
+        TDocPages(DataSet).FieldByName('DONE').AsString:='Y';
+      TDocPages(DataSet).Post;
+      if Assigned(ThumbControl1.ImageLoaderManager.ActiveItem.Pointer) then
+        begin
+          TImageItem(ThumbControl1.ImageLoaderManager.ActiveItem.Pointer).Free;
+          ThumbControl1.ImageLoaderManager.ActiveItem.Pointer := nil;
+          ThumbControl1.Invalidate;
+        end;
+    end;
 end;
 
 procedure TfManageDocFrame.acOCRExecute(Sender: TObject);

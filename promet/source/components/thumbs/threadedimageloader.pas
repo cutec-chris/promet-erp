@@ -19,6 +19,7 @@ type
 
   TThreadedImage = class
   private
+    FDone: Boolean;
     FName: string;
     FOnThreadDone: TNotifyEvent;
     FOnThreadStart: TNotifyEvent;
@@ -28,6 +29,7 @@ type
     FImage: TFPMemoryImage;
     FOnLoaded: TNotifyEvent;
     FOnLoadURL: TNotifyEvent;
+    FPointer: Pointer;
     FURL: UTF8String;
     FLoadState: TLoadState;
     FThread: TLoaderThread;
@@ -58,6 +60,7 @@ type
     property Rect: TRect read GetRect;
     property Area: TRect read fArea write fArea;
     property Thread : TLoaderThread read FThread;
+    property Pointer : Pointer read FPointer write FPointer;
   published
     property OnLoaded: TNotifyEvent read FOnLoaded write FOnLoaded;
     property OnLoadURL: TNotifyEvent read FOnLoadURL write FOnLoadURL;
@@ -199,6 +202,7 @@ begin
   FBitmap := nil;
   Fimage := nil;
   FThread := nil;
+  FPointer:=nil;
 end;
 
 constructor TThreadedImage.Create(URL: UTF8String);
