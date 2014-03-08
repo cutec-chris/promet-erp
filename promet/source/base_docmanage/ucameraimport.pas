@@ -92,10 +92,11 @@ begin
           tmp := sl[i];
           tmp := trim(copy(tmp,pos(' ',tmp)+1,length(tmp)));
           tmp := copy(tmp,0,pos(' ',tmp)-1);
-          Data.SetFilter(aDS,Data.ProcessTerm('UPPER('+Data.QuoteField('NAME')+')='+Data.QuoteValue('*'+Uppercase(tmp))));
+          //Data.SetFilter(aDS,Data.ProcessTerm('UPPER('+Data.QuoteField('NAME')+')='+Data.QuoteValue('*'+Uppercase(tmp))));
           aItem := lvPhotos.Items.Add;
-          Data.SetFilter(aDS2,Data.ProcessTerm('UPPER('+Data.QuoteField('LINK')+')='+Data.QuoteValue('*'+Uppercase(tmp)+'*')));
-          aItem.Checked:=(aDS.Count=0) and (aDS2.Count=0);
+          //Data.SetFilter(aDS2,Data.ProcessTerm('UPPER('+Data.QuoteField('LINK')+')='+Data.QuoteValue('*'+Uppercase(tmp)+'*')));
+          //aItem.Checked:=(aDS.Count=0) and (aDS2.Count=0);
+          aItem.Checked:=True;
           aItem.Caption:=sl[i];
           inc(i);
         end
