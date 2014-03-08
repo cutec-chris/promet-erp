@@ -329,11 +329,11 @@ begin
           FieldByName('SORTCODE').AsString := copy(tmp,0,pos(' ',tmp)-1);
           tmp := copy(tmp,pos(' ',tmp)+1,length(tmp));
           FieldByName('ACCOUNTNO').AsString := tmp;
-          FieldByName('NAME').AsString := aName;
+          FieldByName('NAME').AsString := trim(aName);
           Post;
-          TN := fMainTreeFrame.tvMain.Items.AddChildObject(fMainTreeFrame.tvMain.Selected.Parent,'',TTreeEntry);
+          TN := fMainTreeFrame.tvMain.Items.AddChildObject(fMainTreeFrame.tvMain.Selected.Parent,'',TTreeEntry.Create);
           TTreeEntry(TN.Data).Rec := aAccounts.GetBookmark;
-          TTreeEntry(TN.Data).Text[0] := aName;
+          TTreeEntry(TN.Data).Text[0] := trim(aName);
           TTreeEntry(TN.Data).Typ := etAccount;
         end;
     end
@@ -349,11 +349,11 @@ begin
           FieldByName('SORTCODE').AsString := copy(tmp,0,pos(' ',tmp)-1);
           tmp := copy(tmp,pos(' ',tmp)+1,length(tmp));
           FieldByName('ACCOUNTNO').AsString := tmp;
-          FieldByName('NAME').AsString := aName;
+          FieldByName('NAME').AsString := trim(aName);
           Post;
-          TN := fMainTreeFrame.tvMain.Items.AddChildObject(fMainTreeFrame.tvMain.Selected.Parent,'',TTreeEntry);
+          TN := fMainTreeFrame.tvMain.Items.AddChildObject(fMainTreeFrame.tvMain.Selected.Parent,'',TTreeEntry.Create);
           TTreeEntry(TN.Data).Rec := aAccounts.GetBookmark;
-          TTreeEntry(TN.Data).Text[0] := aName;
+          TTreeEntry(TN.Data).Text[0] := trim(aName);
           TTreeEntry(TN.Data).Typ := etAccount;
         end;
     end;
