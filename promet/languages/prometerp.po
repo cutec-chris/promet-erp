@@ -7212,6 +7212,14 @@ msgctxt "uorders.strwaitingforcustomer"
 msgid "wartet auf Kunden"
 msgstr ""
 
+#: upersonfinance.stribannotvalid
+msgid "Die IBAN Nummer ist UNGÜLTIG !"
+msgstr ""
+
+#: upersonfinance.stribanvalid
+msgid "Die IBAN Nummer scheint GÜLTIG zu sein oder keine IBAN Nummer !"
+msgstr ""
+
 #: upersonframe.scbirthday
 msgid "BIR  Geburtstag"
 msgstr ""

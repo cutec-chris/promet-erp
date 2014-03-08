@@ -21,12 +21,17 @@ unit uPersonFinance;
 interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, DbCtrls, DBGrids,
-  Buttons, ExtCtrls, db, uExtControls, uBaseDbClasses, uPrometFramesInplaceDB;
+  Buttons, ExtCtrls, db, uExtControls, uBaseDbClasses, uPrometFramesInplaceDB,
+  Dialogs;
 type
+
+  { TfPersonFinance }
+
   TfPersonFinance = class(TPrometInplaceDBFrame)
     Bevel1: TBevel;
     Bevel2: TBevel;
     bTransfer: TSpeedButton;
+    bTransfer1: TSpeedButton;
     cbCurrency: TExtDBCombobox;
     cbDiscontGroup: TExtDBCombobox;
     cbPaymenttarget: TExtDBCombobox;
@@ -45,6 +50,7 @@ type
     Panel1: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
+    procedure bTransfer1Click(Sender: TObject);
     procedure bTransferClick(Sender: TObject);
   private
     { private declarations }
@@ -56,6 +62,9 @@ type
 implementation
 uses uPerson,uAccountingTransfer;
 {$R *.lfm}
+resourcestring
+  strIBANValid                   = 'Die IBAN Nummer scheint GÜLTIG zu sein oder keine IBAN Nummer !';
+  strIBANNotValid                = 'Die IBAN Nummer ist UNGÜLTIG !';
 procedure TfPersonFinance.bTransferClick(Sender: TObject);
 begin
   fTransfer.SetLanguage;
@@ -63,6 +72,14 @@ begin
   fTransfer.eRSortCode.Text := TPerson(FDataSet).Banking.FieldByName('SORTCODE').AsString;
   fTransfer.eRAccount.Text := TPerson(FDataSet).Banking.FieldByName('ACCOUNT').AsString;
   fTransfer.Show;
+end;
+
+procedure TfPersonFinance.bTransfer1Click(Sender: TObject);
+begin
+  if TPerson(FDataSet).Banking.CheckAccount then
+    ShowMessage(strIBANValid)
+  else
+    Showmessage(strIBANnotValid);
 end;
 
 procedure TfPersonFinance.SetDataSet(const AValue: TBaseDBDataSet);

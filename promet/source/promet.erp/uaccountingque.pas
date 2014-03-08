@@ -325,20 +325,30 @@ begin
         end
       else if aItem.Caption = strTransfer then
         begin
-          CmdLn := 'aqbanking-cli transfer ';
-          CmdLn := CmdLn+'--account='+aItem.SubItems[2];
-          CmdLn := CmdLn+' --bank='+aItem.SubItems[3];
-          CmdLn := CmdLn+' --raccount='+aItem.SubItems[0];
-          CmdLn := CmdLn+' --rbank='+aItem.SubItems[1];
-          CmdLn := CmdLn+' --rname="'+aItem.SubItems[4]+'"';
+          if IsNumeric(aItem.SubItems[1]) then
+            begin
+              CmdLn := 'aqbanking-cli transfer ';
+              CmdLn := CmdLn+'--account='+aItem.SubItems[2];
+              CmdLn := CmdLn+' --bank='+aItem.SubItems[3];
+              CmdLn := CmdLn+' --raccount='+aItem.SubItems[0];
+              CmdLn := CmdLn+' --rbank='+aItem.SubItems[1];
+              CmdLn := CmdLn+' --textkey='+aItem.SubItems[8];
+            end
+          else //IBAN/BIC
+            begin
+              CmdLn := 'aqbanking-cli sepatransfer ';
+              CmdLn := CmdLn+'--account='+aItem.SubItems[2];
+              CmdLn := CmdLn+' --bank='+aItem.SubItems[3];
+              CmdLn := CmdLn+' --riban='+aItem.SubItems[0];
+              CmdLn := CmdLn+' --rbic='+aItem.SubItems[1];
+            end;
+          CmdLn := CmdLn+' "--rname='+aItem.SubItems[4]+'"';
           CmdLn := CmdLn+' --value='+FormatFloat('0000.00',StrToFloat(aItem.SubItems[5]))+':'+aItem.SubItems[6];
-          CmdLn := CmdLn+' --textkey='+aItem.SubItems[8];
           sl := TStringList.Create;
           sl.text := aItem.SubItems[7];
           for i := 0 to sl.Count-1 do
             CmdLn := CmdLn+' --purpose="'+sl[i]+'"';
           sl.Free;
-          CmdLn := CmdLn+' --force-check';
           if FileExists(AppendPathDelim(AppendPathDelim(AppendPathDelim(AppendPathDelim(ExtractFilePath(Application.Exename))+'tools')+'aqbanking')+'bin')+'aqbanking-cli'+ExtractFileExt(Application.Exename)) then
             CmdLn := AppendPathDelim(AppendPathDelim(AppendPathDelim(AppendPathDelim(ExtractFilePath(Application.Exename))+'tools')+'aqbanking')+'bin')+CmdLn;
           Proc := TExtendedProcess.Create(Cmdln);

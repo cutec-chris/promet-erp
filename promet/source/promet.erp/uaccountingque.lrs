@@ -1,21 +1,23 @@
+{ This is an automatically generated lazarus resource file }
+
 LazarusResources.Add('TfAccountingQue','FORMDATA',[
   'TPF0'#15'TfAccountingQue'#14'fAccountingQue'#4'Left'#3#21#1#6'Height'#3#244#0
   +#3'Top'#3#16#1#5'Width'#3'?'#3#7'Caption'#6#13'Warteschlange'#12'ClientHeigh'
   +'t'#3#244#0#11'ClientWidth'#3'?'#3#10'KeyPreview'#9#8'OnCreate'#7#10'FormCre'
   +'ate'#9'OnDestroy'#7#11'FormDestroy'#9'OnKeyDown'#7#11'FormKeyDown'#8'Positi'
   +'on'#7#16'poMainFormCenter'#13'ShowInTaskBar'#7#8'stAlways'#10'LCLVersion'#6
-  +#6'0.9.31'#0#7'TButton'#5'bSend'#4'Left'#3'T'#2#6'Height'#2'!'#4'Hint'#6#20
-  +'sendet alle Abfragen'#3'Top'#3#206#0#5'Width'#2's'#7'Anchors'#11#7'akRight'
-  +#8'akBottom'#0#25'BorderSpacing.InnerBorder'#2#4#7'Caption'#6#6'Senden'#7'On'
-  +'Click'#7#10'bSendClick'#8'TabOrder'#2#0#0#0#9'TListView'#5'lvQue'#4'Left'#2
-  +#8#6'Height'#3#192#0#4'Hint'#6'&Die Liste mit auszuf'#195#188'hrenden Abfrag'
-  +'en'#3'Top'#2#8#5'Width'#3'/'#3#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#8
-  +'akBottom'#0#7'Columns'#14#1#7'Caption'#6#3'Typ'#5'Width'#2'd'#0#1#7'Caption'
-  +#6#7'Account'#5'Width'#2'd'#0#1#7'Caption'#6#9'Bank Code'#5'Width'#2'd'#0#1#7
+  +#3'1.3'#0#7'TButton'#5'bSend'#4'Left'#3'T'#2#6'Height'#2'!'#4'Hint'#6#20'sen'
+  +'det alle Abfragen'#3'Top'#3#206#0#5'Width'#2's'#7'Anchors'#11#7'akRight'#8
+  +'akBottom'#0#25'BorderSpacing.InnerBorder'#2#4#7'Caption'#6#6'Senden'#7'OnCl'
+  +'ick'#7#10'bSendClick'#8'TabOrder'#2#0#0#0#9'TListView'#5'lvQue'#4'Left'#2#8
+  +#6'Height'#3#192#0#4'Hint'#6'&Die Liste mit auszuf'#195#188'hrenden Abfragen'
+  +#3'Top'#2#8#5'Width'#3'/'#3#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#8'ak'
+  +'Bottom'#0#7'Columns'#14#1#7'Caption'#6#3'Typ'#5'Width'#2'd'#0#1#7'Caption'#6
+  +#7'Account'#5'Width'#2'd'#0#1#7'Caption'#6#9'Bank Code'#5'Width'#2'd'#0#1#7
   +'Caption'#6#13'Local Account'#5'Width'#2'd'#0#1#7'Caption'#6#15'Local Bank C'
   +'ode'#5'Width'#2'd'#0#1#7'Caption'#6#4'Name'#5'Width'#3'9'#1#0#0#8'TabOrder'
   +#2#1#9'ViewStyle'#7#8'vsReport'#0#0#7'TBitBtn'#6'bClose'#4'Left'#3#204#2#6'H'
   +'eight'#2'!'#3'Top'#3#206#0#5'Width'#2'k'#7'Anchors'#11#7'akRight'#8'akBotto'
   +'m'#0#25'BorderSpacing.InnerBorder'#2#4#7'Caption'#6#11'&Schlie'#195#159'en'
   +#4'Kind'#7#7'bkClose'#7'OnClick'#7#11'bCloseClick'#8'TabOrder'#2#2#0#0#0
-]);
+]);

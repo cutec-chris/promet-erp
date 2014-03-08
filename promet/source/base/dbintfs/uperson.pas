@@ -72,9 +72,13 @@ type
     property Data : TField read GetData;
     property Description : TField read Getcomment;
   end;
+
+  { TPersonBanking }
+
   TPersonBanking = class(TBaseDBDataSet)
   public
     procedure DefineFields(aDataSet : TDataSet);override;
+    function CheckAccount : Boolean;
   end;
   TPersonLinks = class(TLinks)
   public
@@ -153,6 +157,101 @@ begin
             Add('INSTITUTE',ftString,60,false);
           end;
     end;
+end;
+
+function TPersonBanking.CheckAccount: Boolean;
+  function Modulo97(const aIBAN:string):Integer;
+  const
+     m36:string = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  var
+     nCounter, nPruef : Integer;
+  begin
+     Result := 0;
+
+     for nCounter := 1 to Length(aIBAN) do
+     begin
+        nPruef := Pos(aIBAN[nCounter], m36) ;
+
+        if (nPruef = 0) then
+           raise Exception.CreateFmt('Modulo97PruefZiffer(%s): invalid data', [aIBAN]);
+
+        Dec(nPruef);
+
+        if (nPruef > 9) then
+        begin
+           Result := Result * 10 + (nPruef div 10);
+           nPruef := nPruef mod 10;
+        end;
+
+        Result := Result * 10 + nPruef;
+        Result := Result mod 97;
+     end;
+  end;
+
+  function EncodeCountry(const aLand: string): string;
+  var
+    sLetter: Char;
+  begin
+    for sLetter in aLand do
+      case sLetter of
+        'A': Result := Result + '10';
+        'B': Result := Result + '11';
+        'C': Result := Result + '12';
+        'D': Result := Result + '13';
+        'E': Result := Result + '14';
+        'F': Result := Result + '15';
+        'G': Result := Result + '16';
+        'H': Result := Result + '17';
+        'I': Result := Result + '18';
+        'J': Result := Result + '19';
+        'K': Result := Result + '20';
+        'L': Result := Result + '21';
+        'M': Result := Result + '22';
+        'N': Result := Result + '23';
+        'O': Result := Result + '24';
+        'P': Result := Result + '25';
+        'Q': Result := Result + '26';
+        'R': Result := Result + '27';
+        'S': Result := Result + '28';
+        'T': Result := Result + '29';
+        'U': Result := Result + '30';
+        'V': Result := Result + '31';
+        'W': Result := Result + '32';
+        'X': Result := Result + '33';
+        'Y': Result := Result + '34';
+        'Z': Result := Result + '35';
+      else
+        Result := Result + EmptyStr;
+      end;
+  end;
+
+  function TestIBAN(const aIBAN: string): boolean;
+  var
+    sBLZ: string;
+    sKTO: string;
+    sIBAN: string;
+    sLand: string;
+    sLand2: string;
+    sControl: string;
+  begin
+      sLand := Copy(aIBAN, 1, 2);
+
+      if (sLand <> 'DE') then
+      begin
+        Result := true;
+        Exit;
+      end;
+
+      sControl := Copy(aIBAN, 3, 2);
+      sBLZ := Copy(aIBAN, 5, 8);
+      sKTO := Copy(aIBAN, 13, 10);
+      sLand2 := EncodeCountry(sLand);
+      sIBAN := sBLZ + sKTO + sLand2 + sControl;
+
+      Result := (Modulo97(sIBAN) = 1);
+  end;
+begin
+  Result := TestIBAN(FieldByName('ACCOUNT').AsString);
 end;
 
 function TPersonContactData.Getcomment: TField;

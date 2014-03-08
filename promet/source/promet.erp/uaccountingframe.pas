@@ -232,7 +232,7 @@ begin
       FConnection.Free;
     end;
   FList.Free;
-  DataSet.Free;
+  FreeAndNil(FDataSet);
   inherited Destroy;
 end;
 function TfAccountingFrame.OpenFromLink(aLink: string) : Boolean;
