@@ -1,5 +1,5 @@
 ﻿Build 320
-
+      - Tools um in Dokumenten Datum und Subjekt zu finden der Oberfläche hinzugefügt und verbessert
 Build 319
       - Timeline wird besser gezeichnet und lässt sich schöner bedienen (punktgenaues Klicken)
       - Timeline scrollt in Dokumenten und Bildansichten mit

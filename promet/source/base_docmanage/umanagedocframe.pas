@@ -173,6 +173,7 @@ type
     PreviewFrame: TfPreview;
     SelectedItem: TThreadedImage;
     FFilter: String;
+    loadedDocument: UTF8String;
     procedure FetchNext;
     procedure WaitForImage;
     procedure RebuidThumb;
@@ -1064,9 +1065,11 @@ var
 begin
   if Assigned(ThumbControl1.ImageLoaderManager.ActiveItem) then
     begin
+      if loadedDocument=ThumbControl1.ImageLoaderManager.ActiveItem.URL then exit;
       try
         aStream := TFileStream.Create(FtempPath+ThumbControl1.ImageLoaderManager.ActiveItem.URL,fmOpenRead);
         PreviewFrame.LoadFromStream(aStream,'JPG');
+        loadedDocument:=ThumbControl1.ImageLoaderManager.ActiveItem.URL;
         aStream.Free;
       except
       end;
