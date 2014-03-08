@@ -328,7 +328,7 @@ begin
           tmp := copy(tmp,pos(' ',tmp)+1,length(tmp));
           FieldByName('SORTCODE').AsString := copy(tmp,0,pos(' ',tmp)-1);
           tmp := copy(tmp,pos(' ',tmp)+1,length(tmp));
-          FieldByName('ACCOUNTNO').AsString := copy(tmp,0,pos(' ',tmp)-1);
+          FieldByName('ACCOUNTNO').AsString := tmp;
           FieldByName('NAME').AsString := aName;
           Post;
           TN := fMainTreeFrame.tvMain.Items.AddChildObject(fMainTreeFrame.tvMain.Selected.Parent,'',TTreeEntry);
@@ -348,7 +348,7 @@ begin
           tmp := copy(tmp,pos(' ',tmp)+1,length(tmp));
           FieldByName('SORTCODE').AsString := copy(tmp,0,pos(' ',tmp)-1);
           tmp := copy(tmp,pos(' ',tmp)+1,length(tmp));
-          FieldByName('ACCOUNTNO').AsString := copy(tmp,0,pos(' ',tmp)-1);
+          FieldByName('ACCOUNTNO').AsString := tmp;
           FieldByName('NAME').AsString := aName;
           Post;
           TN := fMainTreeFrame.tvMain.Items.AddChildObject(fMainTreeFrame.tvMain.Selected.Parent,'',TTreeEntry);
