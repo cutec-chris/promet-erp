@@ -35,6 +35,7 @@ type
   TfCameraimport = class(TForm)
     Button1: TButton;
     bImport: TButton;
+    Button2: TButton;
     ButtonPanel1: TButtonPanel;
     cbCamera: TComboBox;
     cbDelete: TCheckBox;
@@ -42,6 +43,7 @@ type
     lvPhotos: TListView;
     procedure bImportClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
     procedure cbCameraSelect(Sender: TObject);
   private
     { private declarations }
@@ -67,9 +69,7 @@ var
   sl: TStringList;
   i: Integer;
   aItem: TListItem;
-  aDS: TDocPages;
   tmp: String;
-  aDS2: TDeletedItems;
 begin
   aProcess := TProcessUTF8.Create(nil);
   sl := TStringList.Create;
@@ -83,8 +83,6 @@ begin
   end;
   i := 0;
   lvPhotos.Clear;
-  aDS := TDocPages.Create(nil,Data);
-  aDS2 := TDeletedItems.Create(nil,Data);
   while i < sl.Count do
     begin
       if (copy(sl[i],0,1)='#') and (pos('image/',sl[i])>0) then
@@ -92,10 +90,7 @@ begin
           tmp := sl[i];
           tmp := trim(copy(tmp,pos(' ',tmp)+1,length(tmp)));
           tmp := copy(tmp,0,pos(' ',tmp)-1);
-          //Data.SetFilter(aDS,Data.ProcessTerm('UPPER('+Data.QuoteField('NAME')+')='+Data.QuoteValue('*'+Uppercase(tmp))));
           aItem := lvPhotos.Items.Add;
-          //Data.SetFilter(aDS2,Data.ProcessTerm('UPPER('+Data.QuoteField('LINK')+')='+Data.QuoteValue('*'+Uppercase(tmp)+'*')));
-          //aItem.Checked:=(aDS.Count=0) and (aDS2.Count=0);
           aItem.Checked:=True;
           aItem.Caption:=sl[i];
           inc(i);
@@ -103,9 +98,6 @@ begin
       else
         sl.Delete(i);
     end;
-  aDS2.Free;
-  aDS.Free;
-
 end;
 
 procedure TfCameraimport.bImportClick(Sender: TObject);
@@ -275,6 +267,34 @@ begin
         end;
     end;
   cbDelete.Checked:=oldDelete;
+end;
+
+procedure TfCameraimport.Button2Click(Sender: TObject);
+var
+  i: Integer;
+  tmp: String;
+  aDS: TDocPages;
+  aDS2: TDeletedItems;
+begin
+  Button2.Enabled := False;
+  aDS := TDocPages.Create(nil,Data);
+  aDS2 := TDeletedItems.Create(nil,Data);
+  for i := 0 to lvPhotos.Items.Count-1 do
+    begin
+      if lvPhotos.Items[i].Checked then
+        begin
+          lvPhotos.Selected := lvPhotos.Items[i];
+          lvPhotos.Selected.MakeVisible(True);
+          Application.ProcessMessages;
+          tmp := lvPhotos.Items[i].Caption;
+          Data.SetFilter(aDS,Data.ProcessTerm('UPPER('+Data.QuoteField('NAME')+')='+Data.QuoteValue('*'+Uppercase(tmp))));
+          //Data.SetFilter(aDS2,Data.ProcessTerm('UPPER('+Data.QuoteField('LINK')+')='+Data.QuoteValue('*'+Uppercase(tmp)+'*')));
+          lvPhotos.Items[i].Checked:=(aDS.Count=0) and (aDS2.Count=0);
+        end;
+    end;
+  aDS.Free;
+  aDS2.Free;
+  Button2.Enabled := True;
 end;
 
 function TfCameraimport.ImportAvalibe: Boolean;

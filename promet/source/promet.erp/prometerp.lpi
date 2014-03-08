@@ -283,7 +283,7 @@
         <PackageName Value="LCL"/>
       </Item24>
     </RequiredPackages>
-    <Units Count="56">
+    <Units Count="55">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -427,7 +427,7 @@
         <UnitName Value="uOrderFrame"/>
         <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
+        <TopLine Value="43"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="81"/>
         <Loaded Value="True"/>
@@ -710,7 +710,7 @@
       </Unit42>
       <Unit43>
         <Filename Value="../base/revision.inc"/>
-        <EditorIndex Value="19"/>
+        <EditorIndex Value="18"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
@@ -747,10 +747,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="umanagedocframe"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="734"/>
-        <CursorPos X="17" Y="736"/>
+        <TopLine Value="672"/>
+        <CursorPos X="3" Y="680"/>
         <UsageCount Value="29"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -804,8 +805,8 @@
         <UnitName Value="uBaseDbClasses"/>
         <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="828"/>
-        <CursorPos X="1" Y="848"/>
+        <TopLine Value="561"/>
+        <CursorPos X="1" Y="576"/>
         <UsageCount Value="15"/>
         <Loaded Value="True"/>
       </Unit51>
@@ -822,7 +823,7 @@
       <Unit53>
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
         <UnitName Value="uProjectFrame"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="253"/>
         <CursorPos X="29" Y="268"/>
@@ -832,150 +833,91 @@
       <Unit54>
         <Filename Value="../base_forms/utimeline.pas"/>
         <UnitName Value="uTimeLine"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="209"/>
         <CursorPos X="1" Y="209"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit54>
-      <Unit55>
-        <Filename Value="../base_docmanage/ucameraimport.pas"/>
-        <ComponentName Value="fCameraimport"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="ucameraimport"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="16"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="76"/>
-        <CursorPos X="30" Y="99"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
-      </Unit55>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="19" HistoryIndex="18">
       <Position1>
         <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="38" Column="12" TopLine="20"/>
+        <Caret Line="436" Column="57" TopLine="405"/>
       </Position1>
       <Position2>
         <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="8" Column="89" TopLine="1"/>
+        <Caret Line="443" Column="9" TopLine="414"/>
       </Position2>
       <Position3>
         <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="91" Column="13" TopLine="63"/>
+        <Caret Line="445" Column="50" TopLine="415"/>
       </Position3>
       <Position4>
         <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="96" Column="13" TopLine="68"/>
+        <Caret Line="466" Column="9" TopLine="437"/>
       </Position4>
       <Position5>
         <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="97" Column="13" TopLine="69"/>
+        <Caret Line="471" Column="54" TopLine="439"/>
       </Position5>
       <Position6>
         <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="265" Column="23" TopLine="237"/>
+        <Caret Line="483" Column="9" TopLine="454"/>
       </Position6>
       <Position7>
         <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="336" Column="23" TopLine="308"/>
+        <Caret Line="489" Column="9" TopLine="460"/>
       </Position7>
       <Position8>
         <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="393" Column="23" TopLine="365"/>
+        <Caret Line="557" Column="1" TopLine="540"/>
       </Position8>
       <Position9>
         <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="406" Column="23" TopLine="378"/>
+        <Caret Line="560" Column="21" TopLine="540"/>
       </Position9>
       <Position10>
         <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="419" Column="12" TopLine="391"/>
+        <Caret Line="618" Column="1" TopLine="586"/>
       </Position10>
       <Position11>
         <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="427" Column="49" TopLine="398"/>
+        <Caret Line="112" Column="60" TopLine="87"/>
       </Position11>
       <Position12>
         <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="436" Column="57" TopLine="405"/>
+        <Caret Line="686" Column="78" TopLine="672"/>
       </Position12>
       <Position13>
-        <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="443" Column="9" TopLine="414"/>
-      </Position13>
-      <Position14>
-        <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="445" Column="50" TopLine="415"/>
-      </Position14>
-      <Position15>
-        <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="466" Column="9" TopLine="437"/>
-      </Position15>
-      <Position16>
-        <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="471" Column="54" TopLine="439"/>
-      </Position16>
-      <Position17>
-        <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="483" Column="9" TopLine="454"/>
-      </Position17>
-      <Position18>
-        <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="489" Column="9" TopLine="460"/>
-      </Position18>
-      <Position19>
-        <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="557" Column="1" TopLine="540"/>
-      </Position19>
-      <Position20>
-        <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="560" Column="21" TopLine="540"/>
-      </Position20>
-      <Position21>
-        <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="618" Column="1" TopLine="586"/>
-      </Position21>
-      <Position22>
-        <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="112" Column="60" TopLine="87"/>
-      </Position22>
-      <Position23>
-        <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="686" Column="78" TopLine="672"/>
-      </Position23>
-      <Position24>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
         <Caret Line="1133" Column="35" TopLine="1099"/>
-      </Position24>
-      <Position25>
+      </Position13>
+      <Position14>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
         <Caret Line="281" Column="104" TopLine="260"/>
-      </Position25>
-      <Position26>
+      </Position14>
+      <Position15>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
         <Caret Line="281" Column="24" TopLine="266"/>
-      </Position26>
-      <Position27>
+      </Position15>
+      <Position16>
         <Filename Value="../base_forms/utimeline.pas"/>
         <Caret Line="66" Column="66" TopLine="47"/>
-      </Position27>
-      <Position28>
+      </Position16>
+      <Position17>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
         <Caret Line="281" Column="24" TopLine="266"/>
-      </Position28>
-      <Position29>
+      </Position17>
+      <Position18>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
         <Caret Line="736" Column="17" TopLine="734"/>
-      </Position29>
-      <Position30>
-        <Filename Value="../base_docmanage/ucameraimport.pas"/>
-        <Caret Line="319" Column="14" TopLine="290"/>
-      </Position30>
+      </Position18>
+      <Position19>
+        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="747" Column="15" TopLine="650"/>
+      </Position19>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -1015,6 +957,15 @@
     </Other>
   </CompilerOptions>
   <Debugging>
+    <BreakPoints Count="1">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="../base_docmanage/umanagedocframe.pas"/>
+        <Line Value="692"/>
+      </Item1>
+    </BreakPoints>
     <Exceptions Count="21">
       <Item1>
         <Name Value="EVariantError"/>
