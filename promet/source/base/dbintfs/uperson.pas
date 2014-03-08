@@ -58,9 +58,6 @@ type
     function GetNumberFieldName : string;override;
     function GetDescriptionFieldName : string;override;
   end;
-
-  { TPersonContactData }
-
   TPersonContactData = class(TBaseDBList)
   private
     function Getcomment: TField;
@@ -151,9 +148,9 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
-            Add('SORTCODE',ftString,8,False);
-            Add('ACCOUNT',ftString,10,False);
-            Add('INSTITUTE',ftString,40,false);
+            Add('SORTCODE',ftString,20,False);
+            Add('ACCOUNT',ftString,200,False);
+            Add('INSTITUTE',ftString,60,false);
           end;
     end;
 end;

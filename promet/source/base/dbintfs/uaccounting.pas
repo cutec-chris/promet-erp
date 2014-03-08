@@ -110,8 +110,8 @@ begin
         with ManagedFieldDefs do
           begin
             Add('TYPE',ftString,1,True);
-            Add('RSORTCODE',ftString,12,False);
-            Add('RACCOUNTNO',ftString,40,True);
+            Add('RSORTCODE',ftString,20,False);
+            Add('RACCOUNTNO',ftString,200,True);
             Add('VALUE',ftFloat,0,True);
             Add('CURRENCY',ftString,5,False);
             Add('BALLANCE',ftFloat,0,False);
@@ -161,8 +161,8 @@ begin
         with ManagedFieldDefs do
           begin
             Add('TYPE',ftString,3,True);
-            Add('SORTCODE',ftString,12,True);
-            Add('ACCOUNTNO',ftString,40,True);
+            Add('SORTCODE',ftString,20,True);
+            Add('ACCOUNTNO',ftString,200,True);
             Add('NAME',ftString,30,False);
             Add('NOTES',ftMemo,0,False);
             Add('FTSNAME',ftString,30,False);
