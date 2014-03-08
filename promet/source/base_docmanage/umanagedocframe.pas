@@ -1130,6 +1130,7 @@ var
 begin
   FTyp := aType;
   ThumbControl1.ImageLoaderManager.BeforeStartQueue:=@ThumbControl1ImageLoaderManagerBeforeStartQueue;
+  PreviewFrame.ZoomWidth:=aType='D';
   TDocPages(DataSet).Typ:=aType;
   FFilter := Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType);
   with DataSet.DataSet as IBaseDbFilter do

@@ -81,6 +81,8 @@ type
       procedure ScrollBar2Change(Sender: TObject);
       procedure tsImageShow(Sender: TObject);
     private
+      FResetZoom: Boolean;
+      FZoomW: Boolean;
       { private declarations }
       StartX,
       StartY,
@@ -106,6 +108,8 @@ type
       procedure Clear;
       function ExtractText(aStream : TStream;aExtension : string) : Boolean;
       procedure AddToolbarAction(aAction : TAction);
+      property ResetZoom : Boolean read FResetZoom write FResetZoom;
+      property ZoomWidth : Boolean read FZoomW write FZoomW;
     end;
   TLoadThread = class(TThread)
   private
@@ -475,6 +479,8 @@ constructor TfPreview.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   FEditor := TfEditor.Create(Self);
+  FResetZoom:=True;
+  FScale:=1;
   FImage := TBitmap.Create;
   FScaledImage := TBitmap.Create;
   Clear;
@@ -548,10 +554,13 @@ begin
       try
         aPic := TPicture.Create;
         aPic.LoadFromStreamWithFileExt(aStream,aExtension);
-        if APic.Width > aPic.Height then
-          FScale := Width/aPic.Width
-        else
-          FScale := Height/aPic.Height;
+        if FResetZoom then
+          begin
+            if (APic.Width > aPic.Height) or FZoomW then
+              FScale := Width/aPic.Width
+            else
+              FScale := Height/aPic.Height;
+          end;
         FImage.Assign(aPic.Bitmap);
         aPic.Free;
         sbImage.Visible:=True;
@@ -603,10 +612,13 @@ begin
         SysUtils.DeleteFile(aFileName);
         aPic := TPicture.Create;
         aPic.LoadFromFile(aFileName+'.bmp');
-        if APic.Width > aPic.Height then
-          FScale := Width/aPic.Width
-        else
-          FScale := Height/aPic.Height;
+        if FResetZoom then
+          begin
+            if (APic.Width > aPic.Height) or FZoomW then
+              FScale := Width/aPic.Width
+            else
+              FScale := Height/aPic.Height;
+          end;
         FImage.Assign(aPic.Bitmap);
         aPic.Free;
         pImageControls.Visible:=True;
@@ -659,10 +671,13 @@ begin
         SysUtils.DeleteFile(aFileName);
         aPic := TPicture.Create;
         aPic.LoadFromFile(afileName+'.bmp');
-        if APic.Width > aPic.Height then
-          FScale := Width/aPic.Width
-        else
-          FScale := Height/aPic.Height;
+        if FResetZoom then
+          begin
+            if (APic.Width > aPic.Height) or FZoomW then
+              FScale := Width/aPic.Width
+            else
+              FScale := Height/aPic.Height;
+          end;
         FImage.Assign(aPic.Bitmap);
         aPic.Free;
         SysUtils.DeleteFile(aFileName+'.bmp');
