@@ -88,12 +88,14 @@ type
     procedure cbExistingSelect(Sender: TObject);
     procedure CheckBox1Change(Sender: TObject);
     procedure ProcLineWritten(Line: string);
+    procedure rbExistingUserChange(Sender: TObject);
   private
     { private declarations }
     Steps : array of Integer;
     Dialog1,Dialog2 : string;
     LastDialogTime : LongWord;
     DontHide: Boolean;
+    procedure ListAccounts;
   public
     { public declarations }
     procedure SetLanguage;
@@ -107,7 +109,7 @@ var
 
 implementation
 
-uses uData,uMain,uLogWait,LCLIntf,uAccountingque;
+uses uData,uMain,uLogWait,LCLIntf,uAccountingque,uMainTreeFrame;
 resourcestring
   strAQBankingisnotinstalled                     = 'aqBanking ist nicht installiert ! aqBanking muss installiert sein um Online Banking zu bretreiben';
 { TfWizardNewAccount }
@@ -223,6 +225,56 @@ begin
   //Output.Add(line);
 end;
 
+procedure TfWizardNewAccount.rbExistingUserChange(Sender: TObject);
+begin
+  ListAccounts;
+  cbExistingUser.Items.Assign(cbAccount.Items);
+end;
+
+procedure TfWizardNewAccount.ListAccounts;
+var
+  CmdLn: String;
+  tmp: String;
+  atmp: String;
+  btmp: String;
+begin
+  cbAccount.Items.Clear;
+  try
+    CmdLn := 'aqbanking-cli listaccs';
+    {$IFDEF MSWINDOWS}
+    CmdLn := AppendPathDelim(AppendPathDelim(ExtractFilePath(Application.Exename))+'tools')+CmdLn;
+    {$ENDIF}
+    tmp := ExecProcessEx(CmdLn,AppendPathDelim(ExtractFileDir(Application.Exename))+'tools');
+  except
+    tmp := '';
+  end;
+  while length(tmp) > 0 do
+    begin
+      if pos(#10,tmp) > 0 then
+        begin
+          atmp := copy(tmp,0,pos(#10,tmp)-1);
+          tmp := copy(tmp,pos(#10,tmp)+1,length(tmp));
+        end
+      else
+        begin
+          atmp := tmp;
+          tmp := '';
+        end;
+      atmp := copy(atmp,pos(#9,atmp)+1,length(atmp));
+      btmp := copy(atmp,0,pos(#9,atmp)-1);
+      btmp := btmp+' ';
+      atmp := trim(copy(atmp,pos(#9,atmp)+1,length(atmp)));
+
+      btmp := btmp+copy(atmp,0,pos(#9,atmp)-1);
+      btmp := btmp;
+      atmp := trim(copy(atmp,pos(#9,atmp)+1,length(atmp)));
+      atmp := trim(copy(atmp,pos(#9,atmp)+1,length(atmp)));
+
+      btmp := StringReplace(atmp,' ','-',[rfReplaceAll])+' '+btmp;
+      cbAccount.Items.Add(btmp);
+    end;
+end;
+
 procedure TfWizardNewAccount.SetLanguage;
 var
   i: Integer;
@@ -260,29 +312,52 @@ var
   TN: TTreeNode;
   tmp: String;
   aAccounts: TAccounts;
+  aName: String;
 begin
   //Wizard finished, use the made settings
   aAccounts := TAccounts.Create(nil,Data);
   aAccounts.CreateTable;
   if Steps[length(Steps)-2] = 1 then
-    with aAccounts.DataSet do
-      begin
-        Insert;
-        FieldByName('TYPE').AsString := 'BNC';
-        tmp := cbAccount.text;
-        tmp := copy(tmp,pos(' ',tmp)+1,length(tmp));
-        FieldByName('SORTCODE').AsString := copy(tmp,0,pos(' ',tmp)-1);
-        tmp := copy(tmp,pos(' ',tmp)+1,length(tmp));
-        FieldByName('ACCOUNTNO').AsString := copy(tmp,0,pos(' ',tmp)-1);
-        FieldByName('NAME').AsString := eName.text;
-        Post;
-        {
-        TN := fMain.tvMain.Items.AddChildObject(fMain.tvMain.Selected.Parent,'',TTreeEntry);
-        TTreeEntry(TN.Data).Rec := Data.GetBookmark(Data.Accounts);
-        TTreeEntry(TN.Data).Text[0] := eName.text;
-        TTreeEntry(TN.Data).Typ := etAccount;
-        }
-      end;
+    begin
+      with aAccounts do
+        begin
+          Insert;
+          FieldByName('TYPE').AsString := 'BNC';
+          tmp := cbAccount.text;
+          aName := copy(tmp,0,pos(' ',tmp)-1);
+          tmp := copy(tmp,pos(' ',tmp)+1,length(tmp));
+          FieldByName('SORTCODE').AsString := copy(tmp,0,pos(' ',tmp)-1);
+          tmp := copy(tmp,pos(' ',tmp)+1,length(tmp));
+          FieldByName('ACCOUNTNO').AsString := copy(tmp,0,pos(' ',tmp)-1);
+          FieldByName('NAME').AsString := aName;
+          Post;
+          TN := fMainTreeFrame.tvMain.Items.AddChildObject(fMainTreeFrame.tvMain.Selected.Parent,'',TTreeEntry);
+          TTreeEntry(TN.Data).Rec := aAccounts.GetBookmark;
+          TTreeEntry(TN.Data).Text[0] := aName;
+          TTreeEntry(TN.Data).Typ := etAccount;
+        end;
+    end
+  else if rbExistingUser.Checked then
+    begin
+      with aAccounts do
+        begin
+          Insert;
+          FieldByName('TYPE').AsString := 'BNC';
+          tmp := cbExistingUser.text;
+          aName := copy(tmp,0,pos(' ',tmp)-1);
+          tmp := copy(tmp,pos(' ',tmp)+1,length(tmp));
+          FieldByName('SORTCODE').AsString := copy(tmp,0,pos(' ',tmp)-1);
+          tmp := copy(tmp,pos(' ',tmp)+1,length(tmp));
+          FieldByName('ACCOUNTNO').AsString := copy(tmp,0,pos(' ',tmp)-1);
+          FieldByName('NAME').AsString := aName;
+          Post;
+          TN := fMainTreeFrame.tvMain.Items.AddChildObject(fMainTreeFrame.tvMain.Selected.Parent,'',TTreeEntry);
+          TTreeEntry(TN.Data).Rec := aAccounts.GetBookmark;
+          TTreeEntry(TN.Data).Text[0] := aName;
+          TTreeEntry(TN.Data).Typ := etAccount;
+        end;
+    end;
+  aAccounts.Free;
 end;
 
 function TfWizardNewAccount.DoExecStep(Step: Integer): Integer;
@@ -303,6 +378,10 @@ begin
         begin
           Result := 1;
         end
+      else if rbExistingUser.Checked then
+        begin
+          Result := 4;
+        end;
     end;
   1:
     begin
@@ -345,41 +424,7 @@ begin
           Result := 1;
           exit;
         end;
-      cbAccount.Items.Clear;
-      try
-        CmdLn := 'aqbanking-cli listaccs';
-        {$IFDEF MSWINDOWS}
-        CmdLn := AppendPathDelim(AppendPathDelim(ExtractFilePath(Application.Exename))+'tools')+CmdLn;
-        {$ENDIF}
-        tmp := ExecProcessEx(CmdLn,AppendPathDelim(ExtractFileDir(Application.Exename))+'tools');
-      except
-        tmp := '';
-      end;
-      while length(tmp) > 0 do
-        begin
-          if pos(#13,tmp) > 0 then
-            begin
-              atmp := copy(tmp,0,pos(#13,tmp)-1);
-              tmp := copy(tmp,pos(#13,tmp)+1,length(tmp));
-            end
-          else
-            begin
-              atmp := tmp;
-              tmp := '';
-            end;
-          atmp := copy(atmp,pos(#9,atmp)+1,length(atmp));
-          btmp := copy(atmp,0,pos(#9,atmp)-1);
-          btmp := btmp+' ';
-          atmp := trim(copy(atmp,pos(#9,atmp)+1,length(atmp)));
-
-          btmp := btmp+copy(atmp,0,pos(#9,atmp)-1);
-          btmp := btmp;
-          atmp := trim(copy(atmp,pos(#9,atmp)+1,length(atmp)));
-          atmp := trim(copy(atmp,pos(#9,atmp)+1,length(atmp)));
-
-          btmp := atmp+' '+btmp;
-          cbAccount.Items.Add(btmp);
-        end;
+      ListAccounts;
     end;
   2:Result := 3;
   end;

@@ -364,6 +364,7 @@ object fWizardNewAccount: TfWizardNewAccount
       Top = 104
       Width = 300
       Caption = 'Konto von bestehendem Online Banking Zugang'
+      OnClick = rbExistingUserChange
       TabOrder = 3
     end
     object cbExistingUser: TComboBox
