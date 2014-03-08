@@ -37,6 +37,7 @@ type
     FMarkerDate: TDateTime;
     FOnSetMarker: TNotifyEvent;
     Forientation: TTLOrientation;
+    FPDate: TDateTime;
     FTmpDate: TDateTime;
     FDate: TDateTime;
     FDownPos : Integer;
@@ -47,6 +48,7 @@ type
     procedure SetDate(const AValue: TDateTime);
     procedure SetMarkerDate(const AValue: TDateTime);
     procedure DoRefreshImage;
+    procedure SetPointerDate(AValue: TDateTime);
     procedure SetUseLongMonth(AValue: Boolean);
   protected
     procedure AllAutoSized; override;
@@ -61,6 +63,7 @@ type
   published
     property StartDate : TDateTime read FDate write SetDate;
     property MarkerDate : TDateTime read FMarkerDate write SetMarkerDate;
+    property PointerDate : TDateTime read FPDate write SetPointerDate;
     property Increment : real read FInc write FInc;
     property Orientation : TTLOrientation read Forientation write FOrientation;
     property OnSetMarker : TNotifyEvent read FOnSetMarker write FOnSetMarker;
@@ -218,9 +221,24 @@ begin
               MoveTo(round(x)-2,y-3);
               LineTo(round(x)-2,y+TextExtent('HY').cy);
             end;
+          if ActDate = FPDate then
+            begin
+              Brush.Color:=clBlack;
+              Pen.Color:=clBtnFace;
+              Polygon([Point(0, y-5), Point(8, y), Point(0, y+5)]);
+              Brush.Color := Color;
+            end;
           ActDate := ActDate-1;
         end;
     end;
+end;
+
+procedure TTimeLine.SetPointerDate(AValue: TDateTime);
+begin
+  if FPDate=AValue then Exit;
+  FPDate:=AValue;
+  DoRefreshImage;
+  Invalidate;
 end;
 
 procedure TTimeLine.SetUseLongMonth(AValue: Boolean);

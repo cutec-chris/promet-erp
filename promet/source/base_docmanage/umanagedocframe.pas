@@ -278,7 +278,8 @@ begin
         begin
           ItemPos := aItem.Area.Top+((aItem.Area.Bottom-aItem.Area.Top) div 2);
           DayHeight := (FTimeLine.Height/FTimeLine.DateRange);
-          FTimeLine.StartDate:=DataSet.FieldByName('ORIGDATE').AsDateTime+round((ItemPos/DayHeight));
+          FTimeLine.StartDate:=DataSet.FieldByName('ORIGDATE').AsDateTime+round((ItemPos/DayHeight))+30;
+          FTimeLine.PointerDate:=DataSet.FieldByName('ORIGDATE').AsDateTime+round((ItemPos/DayHeight));
         end;
       DataSet.GotoBookmark(aRec);
     end;
@@ -302,11 +303,11 @@ begin
         begin
           ItemPos := aItem.Area.Top+((aItem.Area.Bottom-aItem.Area.Top) div 2);
           DayHeight := (FTimeLine.Height/FTimeLine.DateRange);
-          FTimeLine.StartDate:=DataSet.FieldByName('ORIGDATE').AsDateTime+round((ItemPos/DayHeight));
+          FTimeLine.StartDate:=DataSet.FieldByName('ORIGDATE').AsDateTime+round((ItemPos/DayHeight))+30;
+          FTimeLine.PointerDate:=DataSet.FieldByName('ORIGDATE').AsDateTime+round((ItemPos/DayHeight));
         end;
     end;
   DataSet.DataSet.Locate('SQL_ID',copy(Item.URL,0,pos('.',Item.URL)-1),[]);
-  //FTimeLine.StartDate:=DataSet.FieldByName('ORIGDATE').AsDateTime+round((ItemPos/DayHeight));
   FTimeLine.MarkerDate:=DataSet.FieldByName('ORIGDATE').AsDateTime;
   if (aTag <> '') and bTag.Down and (pos(aTag,DataSet.FieldByName('TAGS').AsString)=0) then
     begin
