@@ -50,6 +50,7 @@ var
   intd: Boolean;
   linkcontent: String;
   aLink: String;
+  otstr: String;
   procedure DoReplace(var InStr,OutStr : string;ReplaceTag,NewTag : string;MustbeInOneLine : Boolean = False);
   var
     NewLine: String;
@@ -368,18 +369,27 @@ begin
       istr := copy(istr,pos(#13,istr)-1,length(istr));
       tstr := copy(istr,0,pos(#13+'|}',istr)-1);
       istr := copy(istr,pos(#13+'|}',istr)+3,length(istr));
-      ostr := ostr+'<table><tr valign="top" align="left">';
-      tstr := StringReplace(tstr,'|-','</tr><tr valign="top" align="left">',[rfReplaceAll]);
+      otstr := '<table><tr valign="top" align="left">';
+      //tstr := StringReplace(tstr,'|-','</tr><tr valign="top" align="left">',[rfReplaceAll]);
       intd := False;
       while length(tstr) > 2 do
         begin
-          if ((tstr[1] = #13) and (tstr[2] = '|') and ((length(tstr)=2) or (tstr[3] <> '|')))
+          if ((tstr[1] = #13) and (tstr[2] = '|') and ((length(tstr)=2) or (tstr[3] = '-')))
+          or ((tstr[1] = #13) and (tstr[2] = '!') and ((length(tstr)=2) or (tstr[3] = '-'))) then
+            begin
+              if inTD then
+                otstr := otstr+'</td>';
+              inTD := False;
+              otstr := otstr+'</tr><tr valign="top" align="left">';
+              tstr := copy(tstr,4,length(tstr));
+            end
+          else if ((tstr[1] = #13) and (tstr[2] = '|') and ((length(tstr)=2) or (tstr[3] <> '|')))
           or ((tstr[1] = #13) and (tstr[2] = '!') and ((length(tstr)=2) or (tstr[3] <> '!'))) then
             begin
               if inTD then
-                ostr := ostr+'</td>'
+                otstr := otstr+'</td>'
               else
-                ostr := ostr+'<td>';
+                otstr := otstr+'<td>';
               inTD := not inTD;
               tstr := copy(tstr,3,length(tstr));
             end
@@ -388,24 +398,24 @@ begin
             begin
               if inTD then
                 begin
-                  ostr := ostr+'</td><td>'
+                  otstr := otstr+'</td><td>'
                 end
               else //Schould never happen
                 begin
-                  ostr := ostr+'<td>';
+                  otstr := otstr+'<td>';
                   inTD := True;
                 end;
               tstr := copy(tstr,3,length(tstr));
             end
           else
             begin
-              ostr := ostr+tstr[1];
+              otstr := otstr+tstr[1];
               tstr := copy(tstr,2,length(tstr));
             end;
         end;
-      ostr := ostr+tstr+'</tr></table>';
+      otstr := otstr+tstr+'</tr></table>';
     end;
-  ostr := ostr+istr;
+  ostr := ostr+otstr+istr;
   istr := ostr;
   ostr := '';
   //Replace Images
@@ -535,4 +545,4 @@ end;
 
 
 end.
-
+

@@ -1,4 +1,6 @@
-﻿Build 320
+﻿Build 321
+      - SEPA Überweisungen und Kontenabrufe mit aktueller AqBanking Version sind nun möglich
+Build 320
       - Tools um in Dokumenten Datum und Subjekt zu finden der Oberfläche hinzugefügt und verbessert
 Build 319
       - Timeline wird besser gezeichnet und lässt sich schöner bedienen (punktgenaues Klicken)
