@@ -723,7 +723,6 @@
       </Unit41>
       <Unit42>
         <Filename Value="../base/changes.txt"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -824,26 +823,16 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="umanagedocframe"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="922"/>
-        <CursorPos X="32" Y="952"/>
+        <TopLine Value="931"/>
+        <CursorPos X="1" Y="948"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit51>
       <Unit52>
-        <Filename Value="../components/powerpdf/PRJpegImage.pas"/>
-        <UnitName Value="PRJpegImage"/>
-        <EditorIndex Value="11"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="36"/>
-        <CursorPos X="1" Y="58"/>
-        <UsageCount Value="11"/>
-        <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit52>
-      <Unit53>
         <Filename Value="../base_docmanage/updfexport.pas"/>
         <ComponentName Value="fpdfexport"/>
         <HasResources Value="True"/>
@@ -851,130 +840,81 @@
         <UnitName Value="updfexport"/>
         <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="11"/>
-        <CursorPos X="4" Y="19"/>
+        <TopLine Value="2"/>
+        <CursorPos X="13" Y="19"/>
         <UsageCount Value="21"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
+      </Unit52>
+      <Unit53>
+        <Filename Value="../components/powerpdf/PReport.pas"/>
+        <UnitName Value="PReport"/>
+        <EditorIndex Value="11"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1216"/>
+        <CursorPos X="3" Y="1224"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit53>
     </Units>
-    <JumpHistory Count="29" HistoryIndex="28">
+    <JumpHistory Count="14" HistoryIndex="13">
       <Position1>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="941" Column="1" TopLine="922"/>
+        <Caret Line="942" Column="1" TopLine="922"/>
       </Position1>
       <Position2>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="942" Column="1" TopLine="922"/>
+        <Caret Line="943" Column="1" TopLine="922"/>
       </Position2>
       <Position3>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="943" Column="1" TopLine="922"/>
+        <Caret Line="944" Column="1" TopLine="922"/>
       </Position3>
       <Position4>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="944" Column="1" TopLine="922"/>
+        <Caret Line="945" Column="1" TopLine="922"/>
       </Position4>
       <Position5>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="945" Column="1" TopLine="922"/>
+        <Caret Line="946" Column="1" TopLine="922"/>
       </Position5>
       <Position6>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="946" Column="1" TopLine="922"/>
+        <Caret Line="947" Column="1" TopLine="922"/>
       </Position6>
       <Position7>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="947" Column="1" TopLine="922"/>
+        <Caret Line="948" Column="1" TopLine="922"/>
       </Position7>
       <Position8>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="948" Column="1" TopLine="922"/>
+        <Caret Line="949" Column="1" TopLine="922"/>
       </Position8>
       <Position9>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="949" Column="1" TopLine="922"/>
+        <Caret Line="950" Column="1" TopLine="922"/>
       </Position9>
       <Position10>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="950" Column="1" TopLine="922"/>
+        <Caret Line="946" Column="20" TopLine="922"/>
       </Position10>
       <Position11>
-        <Filename Value="../components/powerpdf/PRJpegImage.pas"/>
-        <Caret Line="54" Column="1" TopLine="45"/>
-      </Position11>
-      <Position12>
-        <Filename Value="../components/powerpdf/PRJpegImage.pas"/>
-        <Caret Line="55" Column="1" TopLine="45"/>
-      </Position12>
-      <Position13>
-        <Filename Value="../components/powerpdf/PRJpegImage.pas"/>
-        <Caret Line="57" Column="1" TopLine="45"/>
-      </Position13>
-      <Position14>
-        <Filename Value="../components/powerpdf/PRJpegImage.pas"/>
-        <Caret Line="58" Column="1" TopLine="45"/>
-      </Position14>
-      <Position15>
-        <Filename Value="../components/powerpdf/PRJpegImage.pas"/>
-        <Caret Line="60" Column="1" TopLine="45"/>
-      </Position15>
-      <Position16>
-        <Filename Value="../components/powerpdf/PRJpegImage.pas"/>
-        <Caret Line="61" Column="1" TopLine="45"/>
-      </Position16>
-      <Position17>
-        <Filename Value="../components/powerpdf/PRJpegImage.pas"/>
-        <Caret Line="62" Column="1" TopLine="45"/>
-      </Position17>
-      <Position18>
-        <Filename Value="../components/powerpdf/PRJpegImage.pas"/>
-        <Caret Line="75" Column="1" TopLine="48"/>
-      </Position18>
-      <Position19>
-        <Filename Value="../components/powerpdf/PRJpegImage.pas"/>
-        <Caret Line="76" Column="1" TopLine="48"/>
-      </Position19>
-      <Position20>
-        <Filename Value="../components/powerpdf/PRJpegImage.pas"/>
-        <Caret Line="77" Column="1" TopLine="49"/>
-      </Position20>
-      <Position21>
-        <Filename Value="../components/powerpdf/PRJpegImage.pas"/>
-        <Caret Line="78" Column="1" TopLine="50"/>
-      </Position21>
-      <Position22>
-        <Filename Value="../components/powerpdf/PRJpegImage.pas"/>
-        <Caret Line="79" Column="1" TopLine="51"/>
-      </Position22>
-      <Position23>
-        <Filename Value="../components/powerpdf/PRJpegImage.pas"/>
-        <Caret Line="81" Column="1" TopLine="53"/>
-      </Position23>
-      <Position24>
-        <Filename Value="../components/powerpdf/PRJpegImage.pas"/>
-        <Caret Line="87" Column="1" TopLine="68"/>
-      </Position24>
-      <Position25>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="946" Column="20" TopLine="922"/>
-      </Position25>
-      <Position26>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
         <Caret Line="952" Column="32" TopLine="922"/>
-      </Position26>
-      <Position27>
-        <Filename Value="../components/powerpdf/PRJpegImage.pas"/>
-        <Caret Line="54" Column="1" TopLine="36"/>
-      </Position27>
-      <Position28>
-        <Filename Value="../components/powerpdf/PRJpegImage.pas"/>
-        <Caret Line="55" Column="1" TopLine="36"/>
-      </Position28>
-      <Position29>
-        <Filename Value="../components/powerpdf/PRJpegImage.pas"/>
-        <Caret Line="57" Column="1" TopLine="36"/>
-      </Position29>
+      </Position11>
+      <Position12>
+        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="948" Column="29" TopLine="922"/>
+      </Position12>
+      <Position13>
+        <Filename Value="../base_docmanage/updfexport.pas"/>
+        <Caret Line="19" Column="13" TopLine="2"/>
+      </Position13>
+      <Position14>
+        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="948" Column="29" TopLine="922"/>
+      </Position14>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
