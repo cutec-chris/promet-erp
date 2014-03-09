@@ -3352,7 +3352,7 @@ procedure TfMain.miOptionsClick(Sender: TObject);
 begin
   Screen.Cursor:=crHourGlass;
   Application.ProcessMessages;
-  if not miOptions.Tag=1 then
+  if not (miOptions.Tag=1) then
     begin
       fOptions.RegisterOptionsFrame(TfMessageOptions.Create(fOptions),strMessageAccounts,strPersonalOptions);
       fOptions.RegisterOptionsFrame(TfDocumentOptions.Create(fOptions),strFiles,strPersonalOptions);
