@@ -51,7 +51,6 @@
         <Filename Value="helpviewer.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="helpviewer"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -85,7 +84,7 @@
       <Unit3>
         <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1038"/>
         <CursorPos X="135" Y="1055"/>
@@ -487,10 +486,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uDocumentFrame"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="232"/>
+        <TopLine Value="229"/>
         <CursorPos X="35" Y="247"/>
         <UsageCount Value="11"/>
+        <Loaded Value="True"/>
       </Unit50>
       <Unit51>
         <Filename Value="..\base\ubasevisualapplicationtools.pas"/>
@@ -703,7 +705,7 @@
       <Unit75>
         <Filename Value="..\..\..\..\..\lazarus\components\turbopower_ipro\iphtml.pas"/>
         <UnitName Value="IpHtml"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="14143"/>
         <CursorPos X="1" Y="14161"/>
@@ -724,7 +726,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPrometFrames"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="6"/>
         <CursorPos X="31" Y="25"/>
@@ -759,7 +761,7 @@
       <Unit81>
         <Filename Value="..\base_frames\uquickhelpframe.pas"/>
         <UnitName Value="uQuickHelpFrame"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="30" Y="9"/>
@@ -776,7 +778,7 @@
       </Unit82>
       <Unit83>
         <Filename Value="..\..\..\..\..\lazarus\lcl\include\customcontrol.inc"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="97"/>
         <CursorPos X="1" Y="128"/>
@@ -786,7 +788,7 @@
       <Unit84>
         <Filename Value="..\base_frames\uimagecache.pas"/>
         <UnitName Value="uImageCache"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="89"/>
@@ -794,7 +796,7 @@
         <Loaded Value="True"/>
       </Unit84>
     </Units>
-    <JumpHistory Count="13" HistoryIndex="12">
+    <JumpHistory Count="14" HistoryIndex="13">
       <Position1>
         <Filename Value="..\base_frames\uimagecache.pas"/>
         <Caret Line="35" Column="1" TopLine="6"/>
@@ -847,6 +849,10 @@
         <Filename Value="..\..\..\..\..\lazarus\components\turbopower_ipro\iphtml.pas"/>
         <Caret Line="14161" Column="1" TopLine="14143"/>
       </Position13>
+      <Position14>
+        <Filename Value="..\base_documents\udocumentframe.pas"/>
+        <Caret Line="247" Column="35" TopLine="232"/>
+      </Position14>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

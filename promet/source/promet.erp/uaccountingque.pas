@@ -230,11 +230,12 @@ begin
       if aItem.Caption = strRequest then
         begin
           Accounts.Exchange.DataSet.First;
-          CmdLn := 'aqbanking-cli request --transactions --balance --sto';
-          CmdLn := CmdLn+' --bank='+Accounts.FieldByName('SORTCODE').AsString;
-          CmdLn := CmdLn+' --account='+Accounts.FieldByName('ACCOUNTNO').AsString;
+          CmdLn := 'aqbanking-cli request --transactions --balance';
+          CmdLn := CmdLn+' --bank='+trim(Accounts.FieldByName('SORTCODE').AsString);
+          CmdLn := CmdLn+' --account='+trim(Accounts.FieldByName('ACCOUNTNO').AsString);
           CmdLn := CmdLn+' --ctxfile='+AppendPathDelim(GetTempDir)+'output.ctx';
-          CmdLn := CmdLn+' --fromdate='+FormatDateTime('YYYYMMDD',Accounts.Exchange.FieldByName('VALUEDATE').AsDateTime-1);
+          if Accounts.Exchange.Count>0 then
+            CmdLn := CmdLn+' --fromdate='+FormatDateTime('YYYYMMDD',Accounts.Exchange.FieldByName('VALUEDATE').AsDateTime-1);
           if FileExists(AppendPathDelim(AppendPathDelim(AppendPathDelim(AppendPathDelim(ExtractFilePath(Application.Exename))+'tools')+'aqbanking')+'bin')+'aqbanking-cli'+ExtractFileExt(Application.Exename)) then
             CmdLn := AppendPathDelim(AppendPathDelim(AppendPathDelim(AppendPathDelim(ExtractFilePath(Application.Exename))+'tools')+'aqbanking')+'bin')+CmdLn;
           Proc := TExtendedProcess.Create(Cmdln);
