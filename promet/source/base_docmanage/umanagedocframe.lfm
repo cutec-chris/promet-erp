@@ -762,9 +762,9 @@ inherited fManageDocFrame: TfManageDocFrame
     Height = 567
     Top = 42
     Width = 640
-    ActivePage = tstext
+    ActivePage = tsDocument
     Align = alClient
-    TabIndex = 2
+    TabIndex = 0
     TabOrder = 2
     object tsDocument: TTabSheet
       Caption = 'Dokument'
@@ -1334,6 +1334,11 @@ inherited fManageDocFrame: TfManageDocFrame
       ImageIndex = 4
       OnExecute = acFindDateExecute
     end
+    object acSaveasPDF: TAction
+      Caption = 'als PDF speichern'
+      ImageIndex = 76
+      OnExecute = acSaveasPDFExecute
+    end
   end
   object pmPopup: TPopupMenu[6]
     Images = fVisualControls.Images
@@ -1378,6 +1383,9 @@ inherited fManageDocFrame: TfManageDocFrame
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
       }
+    end
+    object MenuItem4: TMenuItem
+      Action = acSaveasPDF
     end
     object MenuItem3: TMenuItem
       Action = acRebuildThumb
@@ -1429,7 +1437,13 @@ inherited fManageDocFrame: TfManageDocFrame
     left = 400
   end
   object SelectDirectoryDialog1: TSelectDirectoryDialog[8]
-    left = 21
-    top = 155
+    left = 16
+    top = 152
+  end
+  object SaveDialog1: TSaveDialog[9]
+    Filter = 'Portable Document Format (*.pdf)|*.pdf'
+    Options = [ofNoTestFileCreate, ofEnableSizing, ofViewDetail]
+    left = 16
+    top = 208
   end
 end

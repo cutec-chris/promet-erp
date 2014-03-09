@@ -1,15 +1,17 @@
-﻿Build 321
-      - SEPA Überweisungen und Kontenabrufe mit aktueller AqBanking Version sind nun möglich
+﻿Build 322
+      - Dokumentenverwaltung:PDF Export für Dokumente
+Build 321
+      - Banking:SEPA Überweisungen und Kontenabrufe mit aktueller AqBanking Version sind nun möglich
 Build 320
-      - Tools um in Dokumenten Datum und Subjekt zu finden der Oberfläche hinzugefügt und verbessert
+      - Dokumentenverwaltung:Tools um in Dokumenten Datum und Subjekt zu finden der Oberfläche hinzugefügt und verbessert
 Build 319
-      - Timeline wird besser gezeichnet und lässt sich schöner bedienen (punktgenaues Klicken)
-      - Timeline scrollt in Dokumenten und Bildansichten mit
+      - Dokumentenverwaltung:Timeline wird besser gezeichnet und lässt sich schöner bedienen (punktgenaues Klicken)
+      - Dokumentenverwaltung:Timeline scrollt in Dokumenten und Bildansichten mit
       - Unity spezisches hängen beseitigt (hoffentlich)
 Build 318
       - deutlich verbesserte OCR erkennungsraten durch vorverarbeitung der Bilder
 Build 317
-      - OCR Funktionen überarbeitet, Tesseract,Cuniform und GOCR werden nun unterstützt Sonderzeichen werden zugelassen
+      - Dokumentenverwaltung:OCR Funktionen überarbeitet, Tesseract,Cuniform und GOCR werden nun unterstützt Sonderzeichen werden zugelassen
         manuelle OCR nachträglich möglich
       - Dokumentenmanagement:laden von Bildern in Threads abgeschaltet da es zum stocken führt
 Build 316

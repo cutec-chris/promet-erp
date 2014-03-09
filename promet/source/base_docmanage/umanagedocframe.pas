@@ -27,8 +27,8 @@ uses
   Classes, SysUtils, db, FileUtil, Forms, Controls, ExtCtrls, StdCtrls, DbCtrls,
   Buttons, ComCtrls, ActnList, thumbcontrol, uPrometFrames, uBaseDocPages,
   uBaseDBInterface, threadedimageLoader, uDocumentFrame, DBZVDateTimePicker,
-  Dialogs, PairSplitter, Menus, uIntfStrConsts, variants, types, uTimeLine,
-  uPreviewFrame, uOCR, uExtControls;
+  PReport, Dialogs, PairSplitter, Menus, uIntfStrConsts, variants, types,
+  uTimeLine, uPreviewFrame, uOCR, uExtControls;
 
 type
   TImageItem = class
@@ -52,6 +52,7 @@ type
     acMarkAsDone: TAction;
     acFindSubject: TAction;
     acFindDate: TAction;
+    acSaveasPDF: TAction;
     ActionList1: TActionList;
     bEditFilter: TSpeedButton;
     Bevel1: TBevel;
@@ -74,6 +75,7 @@ type
     cbFilter: TComboBox;
     Datasource1: TDatasource;
     DBEdit1: TDBEdit;
+    MenuItem4: TMenuItem;
     mText: TDBMemo;
     DBZVDateTimePicker1: TDBZVDateTimePicker;
     eSearch: TEdit;
@@ -111,6 +113,7 @@ type
     pRight: TPanel;
     pThumb: TPanel;
     pToolbar: TPanel;
+    SaveDialog1: TSaveDialog;
     SelectDirectoryDialog1: TSelectDirectoryDialog;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
@@ -133,6 +136,7 @@ type
     procedure acRefreshExecute(Sender: TObject);
     procedure acRotateExecute(Sender: TObject);
     procedure acSaveAllExecute(Sender: TObject);
+    procedure acSaveasPDFExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
     procedure acSetTagExecute(Sender: TObject);
     procedure bExecute1Click(Sender: TObject);
@@ -207,7 +211,7 @@ implementation
 {$R *.lfm}
 uses uData,udocuments,uWait,LCLIntf,Utils,uFormAnimate,uImportImages,
   ProcessUtils,uMainTreeFrame,ucameraimport,FPimage,FPReadJPEG,FPCanvas,
-  FPWriteJPEG,LCLProc,uthumbnails,uBaseVisualControls;
+  FPWriteJPEG,LCLProc,uthumbnails,uBaseVisualControls,updfexport;
 resourcestring
   strTag                   = 'Tag';
   strSetTag                = 'durch Klick setzen';
@@ -911,6 +915,46 @@ begin
   fWaitForm.Hide;
 end;
 
+procedure TfManageDocFrame.acSaveasPDFExecute(Sender: TObject);
+var
+  aDocument: TDocument;
+  aNumber: String;
+  aFullStream: TMemoryStream;
+  i: Integer;
+begin
+  if SaveDialog1.Execute then
+    begin
+      if not Assigned(fpdfexport) then
+        Application.CreateForm(Tfpdfexport,fpdfexport);
+      for i := 0 to FDocFrame.lvDocuments.Items.Count-1 do
+        begin
+          if (lowercase(copy(FDocFrame.lvDocuments.Items[i].SubItems[0],0,4)) = 'jpg ')
+          or (lowercase(copy(FDocFrame.lvDocuments.Items[i].SubItems[0],0,5)) = 'jpeg ')
+          then
+          if FDocFrame.GotoEntry(FDocFrame.lvDocuments.Items[i]) then
+            begin
+              aDocument := TDocument.Create(nil,Data);
+              aDocument.SelectByID(FDocFrame.DataSet.Id.AsVariant);
+              aDocument.Open;
+              aNumber := aDocument.FieldByName('NUMBER').AsString;
+              aDocument.SelectByNumber(aNumber);
+              aDocument.Open;
+              aFullStream := TMemoryStream.Create;
+              aDocument.CheckoutToStream(aFullStream);
+              aFullStream.Position:=0;
+              aDocument.Free;
+              fpdfexport.Image.Picture.LoadFromStreamWithFileExt(aFullStream,'.jpg');
+              fpdfexport.Image.Repaint;
+              fpdfexport.Pdf.FileName:=SaveDialog1.FileName;
+              fpdfexport.Pdf.BeginDoc;
+              fpdfexport.pdf.Print(fpdfexport.Page);
+              fpdfexport.Pdf.EndDoc;
+              aFullStream.Free;
+            end;
+        end;
+    end;
+end;
+
 procedure TfManageDocFrame.acSaveExecute(Sender: TObject);
 var
   a: Integer;
@@ -1034,6 +1078,10 @@ var
 begin
   for i := 0 to FDocFrame.lvDocuments.Items.Count-1 do
     begin
+      if (lowercase(copy(FDocFrame.lvDocuments.Items[i].SubItems[0],0,4)) = 'jpg ')
+      or (lowercase(copy(FDocFrame.lvDocuments.Items[i].SubItems[0],0,5)) = 'jpeg ')
+      or (lowercase(copy(FDocFrame.lvDocuments.Items[i].SubItems[0],0,4)) = 'pdf ')
+      then
       if FDocFrame.GotoEntry(FDocFrame.lvDocuments.Items[i]) then
         begin
           aDocument := TDocument.Create(nil,Data);
