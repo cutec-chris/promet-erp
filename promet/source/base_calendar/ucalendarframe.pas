@@ -323,9 +323,13 @@ procedure TfCalendarFrame.WeekViewMouseWheel(Sender: TObject;
   Shift: TShiftState; Delta, XPos, YPos: Word);
 begin
   if  (Delta = 120) then
-    DataStore.Date:=DataStore.Date+1
+    DataStore.Date:=DataStore.Date-1
   else if (Delta > 120) or (Delta < 0) then
-    DataStore.Date:=DataStore.Date-1;
+    DataStore.Date:=DataStore.Date+1;
+  if Sender = WeekView then
+    WeekView.Date:=DataStore.Date
+  else if Sender = MonthView then
+    MonthView.Date:=DataStore.Date
 end;
 
 procedure TfCalendarFrame.DoOpen;
