@@ -259,7 +259,7 @@ resourcestring
 implementation
 uses uRowEditor,uTask,ubasevisualapplicationtools,uData,uMainTreeFrame,
   uSearch,uProjects,uTaskEdit,uBaseApplication,LCLType,uBaseERPDBClasses,
-  uSelectReport,uFormAnimate,md5,uNRights;
+  uSelectReport,uFormAnimate,md5,uNRights,uBaseVisualControls;
 procedure TfTaskFrame.SetDataSet(const AValue: TBaseDBDataSet);
 var
   aFilter: String = '';
@@ -1029,6 +1029,8 @@ begin
       TExtStringGrid(Sender).Objects[0,TExtStringGrid(Sender).Row] := TRowObject.Create;
     if Assigned(FDataSet.FieldByName('SEEN')) then
       TRowObject(TExtStringGrid(Sender).Objects[0,TExtStringGrid(Sender).Row]).Seen:=FDataSet.FieldByName('SEEN').AsString;
+    if Assigned(FDataSet.FieldByName('DEPDONE')) then
+      TRowObject(TExtStringGrid(Sender).Objects[0,TExtStringGrid(Sender).Row]).Dependencies:=FDataSet.FieldByName('DEPDONE').AsString<>'Y';
     TRowObject(TExtStringGrid(Sender).Objects[0,TExtStringGrid(Sender).Row]).ShouldStart:=0;
     if FDataSet.FieldByName('PLANTIME').AsString <> '' then
       TRowObject(TExtStringGrid(Sender).Objects[0,TExtStringGrid(Sender).Row]).ShouldStart:=FDataSet.FieldByName('DUEDATE').AsDateTime-FDataSet.FieldByName('PLANTIME').AsFloat
@@ -1184,8 +1186,14 @@ begin
                 end;
             end;
           if Assigned(TExtStringGrid(Sender).Objects[0,DataCol]) and (TExtStringGrid(Sender).Objects[0,DataCol] is TRowObject) then
-            if TRowObject(TExtStringGrid(Sender).Objects[0,DataCol]).Seen <> 'Y' then
-              aFont.Style:=aFont.Style+[fsBold];
+            begin
+              if TRowObject(TExtStringGrid(Sender).Objects[0,DataCol]).Seen <> 'Y' then
+                aFont.Style:=aFont.Style+[fsBold];
+              if TRowObject(TExtStringGrid(Sender).Objects[0,DataCol]).Dependencies then
+                begin
+                  aFont.Color:=clGrayText;
+                end;
+            end;
         end;
       if Assigned(TExtStringGrid(Sender).Objects[Column.Index,DataCol]) and (TExtStringGrid(Sender).Objects[Column.Index,DataCol] is TFont) then
         begin

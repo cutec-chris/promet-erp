@@ -77,6 +77,7 @@ type
     Childs : Char;
     Level : Integer;
     Seen : string;
+    Dependencies : Boolean;
     ShouldStart : TDateTime;
     RefreshHeight : Boolean;
     Extends : TPoint;
@@ -397,6 +398,7 @@ begin
   Rec := 0;
   Childs:=' ';
   RefreshHeight := True;
+  Dependencies:=False;
 end;
 
 procedure TInplaceDateEdit.Change;
