@@ -84,6 +84,8 @@ type
       Resource: TVpResource; var AllowIt: Boolean);
     procedure MonthViewDblClick(Sender: TObject);
     procedure MonthViewEventDblClick(Sender: TObject; Event: TVpEvent);
+    procedure WeekViewMouseWheel(Sender: TObject; Shift: TShiftState; Delta,
+      XPos, YPos: Word);
   private
     { private declarations }
     procedure DoOpen;override;
@@ -315,6 +317,15 @@ begin
   AllowIt := aEventEdit.Execute(Event,DataStore.Resource,DataStore.FDirectory,DataStore);
   aEventEdit.Free;
   RefreshCalendar(FCalendarNode);
+end;
+
+procedure TfCalendarFrame.WeekViewMouseWheel(Sender: TObject;
+  Shift: TShiftState; Delta, XPos, YPos: Word);
+begin
+  if  (Delta = 120) then
+    DataStore.Date:=DataStore.Date+1
+  else if (Delta > 120) or (Delta < 0) then
+    DataStore.Date:=DataStore.Date-1;
 end;
 
 procedure TfCalendarFrame.DoOpen;

@@ -1455,11 +1455,11 @@ var
 
 begin
   inherited;
+  wvSetDateByCoord(Point(Msg.XPos, Msg.YPos));
   if not Assigned (PopupMenu) then begin
 //    if not focused then
 //      SetFocus;
     { The mouse click landed inside the client area }
-    wvSetDateByCoord(Point(Msg.XPos, Msg.YPos));
     EventAtCoord (Point (Msg.XPos, Msg.YPos));
     wvClickTimer.Enabled := false;
     ClientOrigin := GetClientOrigin;

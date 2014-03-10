@@ -523,6 +523,7 @@ inherited FCalendarFrame: TFCalendarFrame
       Top = 44
       Width = 663
       Color = clWindow
+      OnMouseWheel = WeekViewMouseWheel
       Align = alClient
       TabStop = True
       TabOrder = 1
@@ -605,6 +606,7 @@ inherited FCalendarFrame: TFCalendarFrame
       Color = clWindow
       Font.Height = -12
       ParentFont = False
+      OnMouseWheel = WeekViewMouseWheel
       AllDayEventAttributes.BackgroundColor = clWindow
       AllDayEventAttributes.EventBorderColor = clActiveBorder
       AllDayEventAttributes.EventBackgroundColor = cl3DLight
