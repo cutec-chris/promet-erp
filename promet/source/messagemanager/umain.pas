@@ -567,7 +567,10 @@ begin
   end;
   if aUser <> '' then
     begin
-      FFilter := '('+Data.QuoteField('REFERENCE')+'='+Data.QuoteValue(Data.Users.IDCode.AsString)+')';
+      if Data.Users.IDCode.AsString<>'' then
+        FFilter := '('+Data.QuoteField('REFERENCE')+'='+Data.QuoteValue(Data.Users.IDCode.AsString)+')'
+      else
+        FFilter := '('+Data.QuoteField('REFERENCE')+'='+Data.QuoteValue('BLDS')+')';
       aUsers := TUser.Create(nil,Data);
       aUsers.Select(Data.Users.Id.AsString);
       aUsers.Open;
