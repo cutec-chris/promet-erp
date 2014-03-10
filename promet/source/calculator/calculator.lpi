@@ -58,7 +58,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="20"/>
-        <UsageCount Value="185"/>
+        <UsageCount Value="186"/>
       </Unit0>
       <Unit1>
         <Filename Value="ucalculator.pas"/>
@@ -67,12 +67,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ucalculator"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="112"/>
-        <CursorPos X="14" Y="152"/>
-        <UsageCount Value="185"/>
+        <TopLine Value="19"/>
+        <CursorPos X="57" Y="27"/>
+        <UsageCount Value="186"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -846,7 +845,7 @@
       <Unit102>
         <Filename Value="..\base\ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="20"/>
         <CursorPos X="1" Y="20"/>
@@ -896,7 +895,7 @@
       <Unit108>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1207"/>
         <CursorPos X="3" Y="1211"/>
@@ -906,7 +905,7 @@
       <Unit109>
         <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="698"/>
         <CursorPos X="1" Y="716"/>
@@ -933,7 +932,7 @@
       <Unit112>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
         <UnitName Value="uStatistic"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="55"/>
         <CursorPos X="14" Y="48"/>
@@ -943,17 +942,18 @@
       <Unit113>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
         <UnitName Value="ucalc"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="243"/>
-        <CursorPos X="6" Y="275"/>
+        <TopLine Value="392"/>
+        <CursorPos X="71" Y="321"/>
         <UsageCount Value="35"/>
         <Loaded Value="True"/>
       </Unit113>
       <Unit114>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1097"/>
         <CursorPos X="1" Y="1120"/>
@@ -972,10 +972,12 @@
       <Unit116>
         <Filename Value="..\..\..\general\src\mathparser.pas"/>
         <UnitName Value="MathParser"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="415"/>
-        <CursorPos X="21" Y="458"/>
+        <TopLine Value="779"/>
+        <CursorPos X="68" Y="967"/>
         <UsageCount Value="14"/>
+        <Loaded Value="True"/>
       </Unit116>
       <Unit117>
         <Filename Value="..\base\ubasevisualcontrols.pas"/>
@@ -1051,7 +1053,7 @@
       <Unit125>
         <Filename Value="..\base\dbintfs\usync.pas"/>
         <UnitName Value="usync"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="46"/>
         <CursorPos X="11" Y="66"/>
@@ -1068,7 +1070,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="17"/>
         <CursorPos X="30" Y="45"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="24"/>
       </Unit126>
       <Unit127>
         <Filename Value="C:\usr\share\fpcsrc\2.6.2\packages\fcl-db\src\base\db.pas"/>
@@ -1089,123 +1091,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="356" Column="1" TopLine="337"/>
+        <Caret Line="321" Column="1" TopLine="301"/>
       </Position1>
       <Position2>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="320" Column="1" TopLine="301"/>
+        <Caret Line="322" Column="1" TopLine="301"/>
       </Position2>
       <Position3>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="321" Column="1" TopLine="301"/>
+        <Caret Line="356" Column="1" TopLine="337"/>
       </Position3>
       <Position4>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="322" Column="1" TopLine="301"/>
+        <Caret Line="320" Column="1" TopLine="301"/>
       </Position4>
       <Position5>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="356" Column="1" TopLine="337"/>
+        <Caret Line="321" Column="1" TopLine="301"/>
       </Position5>
       <Position6>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="320" Column="1" TopLine="301"/>
+        <Caret Line="322" Column="1" TopLine="301"/>
       </Position6>
       <Position7>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="321" Column="1" TopLine="301"/>
+        <Caret Line="356" Column="1" TopLine="337"/>
       </Position7>
       <Position8>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="322" Column="1" TopLine="301"/>
+        <Caret Line="320" Column="1" TopLine="301"/>
       </Position8>
       <Position9>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="356" Column="1" TopLine="337"/>
+        <Caret Line="321" Column="1" TopLine="301"/>
       </Position9>
       <Position10>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="320" Column="1" TopLine="301"/>
+        <Caret Line="322" Column="1" TopLine="301"/>
       </Position10>
       <Position11>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="321" Column="1" TopLine="301"/>
+        <Caret Line="324" Column="1" TopLine="301"/>
       </Position11>
       <Position12>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="322" Column="1" TopLine="301"/>
+        <Caret Line="325" Column="1" TopLine="313"/>
       </Position12>
       <Position13>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="324" Column="1" TopLine="301"/>
+        <Caret Line="326" Column="1" TopLine="313"/>
       </Position13>
       <Position14>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="325" Column="1" TopLine="313"/>
+        <Caret Line="327" Column="1" TopLine="313"/>
       </Position14>
       <Position15>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="326" Column="1" TopLine="313"/>
+        <Caret Line="328" Column="1" TopLine="313"/>
       </Position15>
       <Position16>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="327" Column="1" TopLine="313"/>
+        <Caret Line="329" Column="1" TopLine="313"/>
       </Position16>
       <Position17>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="328" Column="1" TopLine="313"/>
+        <Caret Line="330" Column="1" TopLine="313"/>
       </Position17>
       <Position18>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="329" Column="1" TopLine="313"/>
+        <Caret Line="331" Column="1" TopLine="313"/>
       </Position18>
       <Position19>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="330" Column="1" TopLine="313"/>
+        <Caret Line="332" Column="1" TopLine="313"/>
       </Position19>
       <Position20>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="331" Column="1" TopLine="313"/>
+        <Caret Line="333" Column="1" TopLine="322"/>
       </Position20>
       <Position21>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="332" Column="1" TopLine="313"/>
+        <Caret Line="335" Column="1" TopLine="322"/>
       </Position21>
       <Position22>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="333" Column="1" TopLine="322"/>
+        <Caret Line="336" Column="29" TopLine="310"/>
       </Position22>
       <Position23>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="335" Column="1" TopLine="322"/>
+        <Caret Line="333" Column="1" TopLine="310"/>
       </Position23>
       <Position24>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="336" Column="29" TopLine="310"/>
+        <Caret Line="335" Column="1" TopLine="310"/>
       </Position24>
       <Position25>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="333" Column="1" TopLine="310"/>
+        <Caret Line="336" Column="1" TopLine="310"/>
       </Position25>
       <Position26>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="335" Column="1" TopLine="310"/>
+        <Caret Line="284" Column="24" TopLine="249"/>
       </Position26>
       <Position27>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="336" Column="1" TopLine="310"/>
+        <Caret Line="288" Column="3" TopLine="271"/>
       </Position27>
       <Position28>
-        <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="284" Column="24" TopLine="249"/>
-      </Position28>
-      <Position29>
-        <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="288" Column="3" TopLine="271"/>
-      </Position29>
-      <Position30>
         <Filename Value="ucalculator.pas"/>
         <Caret Line="201" Column="26" TopLine="37"/>
+      </Position28>
+      <Position29>
+        <Filename Value="ucalculator.pas"/>
+        <Caret Line="27" Column="57" TopLine="19"/>
+      </Position29>
+      <Position30>
+        <Filename Value="..\base\dbintfs\ucalc.pas"/>
+        <Caret Line="28" Column="10" TopLine="22"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
