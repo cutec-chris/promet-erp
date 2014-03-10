@@ -346,7 +346,7 @@ begin
       yqlQ := True;
       aSQL:=copy(trim(aSQL),5,length(aSQL));
     end;
-  if Parse then
+  if Parse and (not TBaseDBModule(Data).CheckForInjection(SQL)) then
     begin
       Result := TBaseDBModule(Data).GetNewDataSet(FormatedSQL);
       aSQL := FormatedSQL;
@@ -591,4 +591,4 @@ begin
 end;
 
 end.
-
+

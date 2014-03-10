@@ -67,11 +67,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ucalculator"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="189"/>
-        <CursorPos X="1" Y="200"/>
+        <TopLine Value="22"/>
+        <CursorPos X="26" Y="201"/>
         <UsageCount Value="183"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -846,7 +845,7 @@
       <Unit102>
         <Filename Value="..\base\ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="20"/>
         <CursorPos X="1" Y="20"/>
@@ -896,7 +895,7 @@
       <Unit108>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1207"/>
         <CursorPos X="3" Y="1211"/>
@@ -906,7 +905,7 @@
       <Unit109>
         <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="698"/>
         <CursorPos X="1" Y="716"/>
@@ -933,10 +932,11 @@
       <Unit112>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
         <UnitName Value="uStatistic"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="381"/>
-        <CursorPos X="1" Y="438"/>
+        <TopLine Value="334"/>
+        <CursorPos X="69" Y="349"/>
         <UsageCount Value="34"/>
         <Loaded Value="True"/>
       </Unit112>
@@ -953,7 +953,7 @@
       <Unit114>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1097"/>
         <CursorPos X="1" Y="1120"/>
@@ -1051,10 +1051,10 @@
       <Unit125>
         <Filename Value="..\base\dbintfs\usync.pas"/>
         <UnitName Value="usync"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="143"/>
-        <CursorPos X="1" Y="171"/>
+        <TopLine Value="46"/>
+        <CursorPos X="11" Y="66"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit125>
@@ -1071,7 +1071,7 @@
         <UsageCount Value="21"/>
       </Unit126>
       <Unit127>
-        <Filename Value="..\..\..\..\..\..\..\usr\share\fpcsrc\2.6.2\packages\fcl-db\src\base\db.pas"/>
+        <Filename Value="C:\usr\share\fpcsrc\2.6.2\packages\fcl-db\src\base\db.pas"/>
         <UnitName Value="db"/>
         <WindowIndex Value="0"/>
         <TopLine Value="179"/>
@@ -1079,135 +1079,133 @@
         <UsageCount Value="10"/>
       </Unit127>
       <Unit128>
-        <Filename Value="..\..\..\..\..\..\..\usr\share\fpcsrc\2.6.2\packages\fcl-db\src\base\fields.inc"/>
-        <EditorIndex Value="4"/>
+        <Filename Value="C:\usr\share\fpcsrc\2.6.2\packages\fcl-db\src\base\fields.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="139"/>
         <CursorPos X="3" Y="141"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit128>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="436" Column="1" TopLine="423"/>
+        <Caret Line="440" Column="1" TopLine="423"/>
       </Position1>
       <Position2>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="437" Column="1" TopLine="423"/>
+        <Caret Line="445" Column="1" TopLine="423"/>
       </Position2>
       <Position3>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="436" Column="1" TopLine="423"/>
+        <Caret Line="434" Column="1" TopLine="423"/>
       </Position3>
       <Position4>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="438" Column="1" TopLine="423"/>
+        <Caret Line="53" Column="14" TopLine="36"/>
       </Position4>
       <Position5>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="439" Column="1" TopLine="423"/>
+        <Caret Line="338" Column="40" TopLine="321"/>
       </Position5>
       <Position6>
         <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="440" Column="1" TopLine="423"/>
+        <Caret Line="339" Column="24" TopLine="318"/>
       </Position6>
       <Position7>
-        <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="445" Column="1" TopLine="423"/>
-      </Position7>
-      <Position8>
-        <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="434" Column="1" TopLine="423"/>
-      </Position8>
-      <Position9>
-        <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="53" Column="14" TopLine="36"/>
-      </Position9>
-      <Position10>
-        <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="338" Column="40" TopLine="321"/>
-      </Position10>
-      <Position11>
-        <Filename Value="..\base\dbintfs\ucalc.pas"/>
-        <Caret Line="339" Column="24" TopLine="318"/>
-      </Position11>
-      <Position12>
         <Filename Value="ucalculator.pas"/>
         <Caret Line="205" Column="30" TopLine="166"/>
-      </Position12>
-      <Position13>
+      </Position7>
+      <Position8>
         <Filename Value="ucalculator.pas"/>
         <Caret Line="203" Column="1" TopLine="166"/>
-      </Position13>
-      <Position14>
+      </Position8>
+      <Position9>
         <Filename Value="ucalculator.pas"/>
         <Caret Line="204" Column="1" TopLine="166"/>
-      </Position14>
-      <Position15>
+      </Position9>
+      <Position10>
         <Filename Value="ucalculator.pas"/>
         <Caret Line="203" Column="45" TopLine="166"/>
+      </Position10>
+      <Position11>
+        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
+        <Caret Line="418" Column="44" TopLine="392"/>
+      </Position11>
+      <Position12>
+        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
+        <Caret Line="428" Column="68" TopLine="404"/>
+      </Position12>
+      <Position13>
+        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
+        <Caret Line="412" Column="74" TopLine="395"/>
+      </Position13>
+      <Position14>
+        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
+        <Caret Line="423" Column="47" TopLine="404"/>
+      </Position14>
+      <Position15>
+        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
+        <Caret Line="422" Column="35" TopLine="404"/>
       </Position15>
       <Position16>
         <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="418" Column="44" TopLine="392"/>
+        <Caret Line="418" Column="50" TopLine="404"/>
       </Position16>
       <Position17>
-        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="428" Column="68" TopLine="404"/>
+        <Filename Value="ucalculator.pas"/>
+        <Caret Line="209" Column="1" TopLine="185"/>
       </Position17>
       <Position18>
-        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="412" Column="74" TopLine="395"/>
+        <Filename Value="ucalculator.pas"/>
+        <Caret Line="201" Column="52" TopLine="184"/>
       </Position18>
       <Position19>
-        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="423" Column="47" TopLine="404"/>
+        <Filename Value="ucalculator.pas"/>
+        <Caret Line="198" Column="57" TopLine="176"/>
       </Position19>
       <Position20>
-        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="422" Column="35" TopLine="404"/>
+        <Filename Value="ucalculator.pas"/>
+        <Caret Line="211" Column="35" TopLine="189"/>
       </Position20>
       <Position21>
-        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
-        <Caret Line="418" Column="50" TopLine="404"/>
+        <Filename Value="ucalculator.pas"/>
+        <Caret Line="203" Column="49" TopLine="189"/>
       </Position21>
       <Position22>
         <Filename Value="ucalculator.pas"/>
-        <Caret Line="209" Column="1" TopLine="185"/>
+        <Caret Line="197" Column="1" TopLine="189"/>
       </Position22>
       <Position23>
         <Filename Value="ucalculator.pas"/>
-        <Caret Line="201" Column="52" TopLine="184"/>
+        <Caret Line="198" Column="1" TopLine="189"/>
       </Position23>
       <Position24>
         <Filename Value="ucalculator.pas"/>
-        <Caret Line="198" Column="57" TopLine="176"/>
+        <Caret Line="197" Column="1" TopLine="189"/>
       </Position24>
       <Position25>
         <Filename Value="ucalculator.pas"/>
-        <Caret Line="211" Column="35" TopLine="189"/>
+        <Caret Line="199" Column="1" TopLine="189"/>
       </Position25>
       <Position26>
-        <Filename Value="ucalculator.pas"/>
-        <Caret Line="203" Column="49" TopLine="189"/>
+        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
+        <Caret Line="355" Column="10" TopLine="324"/>
       </Position26>
       <Position27>
-        <Filename Value="ucalculator.pas"/>
-        <Caret Line="197" Column="1" TopLine="189"/>
+        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
+        <Caret Line="342" Column="1" TopLine="324"/>
       </Position27>
       <Position28>
-        <Filename Value="ucalculator.pas"/>
-        <Caret Line="198" Column="1" TopLine="189"/>
+        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
+        <Caret Line="343" Column="1" TopLine="324"/>
       </Position28>
       <Position29>
-        <Filename Value="ucalculator.pas"/>
-        <Caret Line="197" Column="1" TopLine="189"/>
+        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
+        <Caret Line="344" Column="1" TopLine="324"/>
       </Position29>
       <Position30>
-        <Filename Value="ucalculator.pas"/>
-        <Caret Line="199" Column="1" TopLine="189"/>
+        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
+        <Caret Line="349" Column="1" TopLine="324"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -1248,6 +1246,15 @@
     </Other>
   </CompilerOptions>
   <Debugging>
+    <BreakPoints Count="1">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="..\base\dbintfs\ustatistic.pas"/>
+        <Line Value="342"/>
+      </Item1>
+    </BreakPoints>
     <Exceptions Count="5">
       <Item1>
         <Name Value="EConvertError"/>

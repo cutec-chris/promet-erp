@@ -55,6 +55,7 @@ type
     acAddTopic: TAction;
     acAppendPos: TAction;
     acRenumber: TAction;
+    acRestart: TAction;
     Action2: TAction;
     ActionList: TActionList;
     acUnmakeSubTask: TAction;
@@ -71,7 +72,9 @@ type
     Bevel5: TBevel;
     Bevel6: TBevel;
     Bevel7: TBevel;
+    Bevel9: TBevel;
     bExecute: TSpeedButton;
+    bExecute1: TSpeedButton;
     bRefresh1: TSpeedButton;
     cbStatus: TComboBox;
     Datasource: TDatasource;
@@ -81,6 +84,7 @@ type
     Entrys: TDatasource;
     miDelete: TMenuItem;
     pmAction: TPopupMenu;
+    pNav2: TPanel;
     Users: TDatasource;
     ExtRotatedLabel1: TExtRotatedLabel;
     ExtRotatedLabel3: TExtRotatedLabel;
@@ -124,6 +128,7 @@ type
     procedure acPrintExecute(Sender: TObject);
     procedure acRefreshExecute(Sender: TObject);
     procedure acRenumberExecute(Sender: TObject);
+    procedure acRestartExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
     procedure ActiveSearchEndSearch(Sender: TObject);
     procedure ActiveSearchItemFound(aIdent: string; aName: string;
@@ -175,6 +180,7 @@ type
 procedure AddToMainTree(aAction : TAction;Node : TTreeNode);
 var
   MainNode : TTreeNode;
+  aNewName: String;
 implementation
 uses uMainTreeFrame,Utils,uData,umeeting,uBaseDBInterface,uSearch,
   LCLType,uSelectReport,uDocuments,uDocumentFrame,uLinkFrame,umeetingusers,
@@ -184,6 +190,8 @@ resourcestring
   strSearchFromMeetings                    = 'Mit Öffnen wird das gewählte Projekt in die Liste übernommen';
   strMeetingUsers                          = 'Teilnehmer';
   strNewMeeting                            = 'neue Besprechung';
+  strEnterMeetingName                      = 'geben Sie einen neuen Namen für die Besprechung an';
+  strMeetingName                           = 'Besprechungsname';
 procedure AddToMainTree(aAction: TAction; Node: TTreeNode);
 var
   Node1: TTreeNode;
@@ -193,6 +201,17 @@ begin
   TTreeEntry(Node1.Data).Action := aAction;
   Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
   TTreeEntry(Node1.Data).Typ := etMeetingList;
+end;
+
+procedure ReplaceField(aField: TField; aOldValue: string; var aNewValue: string
+  );
+begin
+  if aField.FieldName='NAME' then
+    begin
+      with aField.DataSet as IBaseManageDB do
+        if TableName='MEETINGS' then
+          aNewValue := aNewName;
+    end;
 end;
 
 procedure TfMeetingFrame.acSaveExecute(Sender: TObject);
@@ -789,6 +808,21 @@ procedure TfMeetingFrame.acRenumberExecute(Sender: TObject);
 begin
   FGridView.RenumberRows;
   FGridView.Refresh(False);
+end;
+
+procedure TfMeetingFrame.acRestartExecute(Sender: TObject);
+var
+  bMeeting: TMeetings;
+  aMeeting: TMeetings;
+  aLink: String;
+begin
+  aMeeting := DataSet as TMeetings;
+  aNewName := InputBox(strMeetingName,strEnterMeetingName,aMeeting.Text.AsString);
+  bMeeting := TMeetings.Create(nil,Data);
+  bMeeting.ImportFromXML(aMeeting.ExportToXML,False,@ReplaceField);
+  aLink := Data.BuildLink(bMeeting.DataSet);
+  Data.GotoLink(aLink);
+  bMeeting.Free;
 end;
 
 procedure TfMeetingFrame.DoOpen;
