@@ -23,7 +23,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="7"/>
-      <RevisionNr Value="319"/>
+      <RevisionNr Value="322"/>
       <BuildNr Value="318"/>
       <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP" ProductVersion=""/>
     </VersionInfo>
@@ -295,7 +295,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="20"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -309,7 +309,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="3348"/>
         <CursorPos X="31" Y="3363"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -323,7 +323,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="192"/>
         <CursorPos X="18" Y="178"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit2>
       <Unit3>
         <Filename Value="uaddressframe.pas"/>
@@ -335,7 +335,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit3>
       <Unit4>
         <Filename Value="upersonfinance.pas"/>
@@ -347,7 +347,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="43"/>
         <CursorPos X="98" Y="66"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit4>
       <Unit5>
         <Filename Value="uaccountingframe.pas"/>
@@ -359,7 +359,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="218"/>
         <CursorPos X="15" Y="235"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit5>
       <Unit6>
         <Filename Value="uaccountingque.pas"/>
@@ -371,7 +371,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="223"/>
         <CursorPos X="1" Y="241"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit6>
       <Unit7>
         <Filename Value="ubankingdialog.pas"/>
@@ -379,7 +379,7 @@
         <ComponentName Value="fbankingDialog"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uBankingDialog"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit7>
       <Unit8>
         <Filename Value="uaccountingtransfer.pas"/>
@@ -391,7 +391,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="98"/>
         <CursorPos X="31" Y="122"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit8>
       <Unit9>
         <Filename Value="uarticlestorageframe.pas"/>
@@ -400,7 +400,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uArticleStorageFrame"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit9>
       <Unit10>
         <Filename Value="utextframe.pas"/>
@@ -408,7 +408,7 @@
         <ComponentName Value="fTextFrame"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uTextFrame"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit10>
       <Unit11>
         <Filename Value="uarticleframe.pas"/>
@@ -420,7 +420,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="763"/>
         <CursorPos X="1" Y="779"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit11>
       <Unit12>
         <Filename Value="uarticlepositionframe.pas"/>
@@ -429,7 +429,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uArticlePositionFrame"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit12>
       <Unit13>
         <Filename Value="uorderframe.pas"/>
@@ -442,7 +442,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit13>
@@ -453,7 +453,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOrderAdditionalFrame"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit14>
       <Unit15>
         <Filename Value="uoverviewframe.pas"/>
@@ -462,7 +462,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOverviewFrame"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit15>
       <Unit16>
         <Filename Value="uorderdateframe.pas"/>
@@ -471,7 +471,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOrderDateFrame"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit16>
       <Unit17>
         <Filename Value="uchangestatus.pas"/>
@@ -480,7 +480,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uChangeStatus"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit17>
       <Unit18>
         <Filename Value="unewstorage.pas"/>
@@ -489,7 +489,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uNewStorage"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit18>
       <Unit19>
         <Filename Value="ubookaccounting.pas"/>
@@ -501,7 +501,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="7"/>
         <CursorPos X="44" Y="29"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit19>
       <Unit20>
         <Filename Value="urepairpositionframe.pas"/>
@@ -510,7 +510,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uRepairPositionFrame"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit20>
       <Unit21>
         <Filename Value="uarticlerepairframe.pas"/>
@@ -518,7 +518,7 @@
         <ComponentName Value="FArticlerepairFrame"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uarticlerepairframe"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit21>
       <Unit22>
         <Filename Value="usystemoptions.pas"/>
@@ -526,7 +526,7 @@
         <ComponentName Value="fSystemOptions"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uSystemOptions"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit22>
       <Unit23>
         <Filename Value="ucategoryoptions.pas"/>
@@ -535,7 +535,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ucategoryoptions"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit23>
       <Unit24>
         <Filename Value="uordertypeoptions.pas"/>
@@ -544,7 +544,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOrderTypeOptions"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit24>
       <Unit25>
         <Filename Value="ustoragetypeoptions.pas"/>
@@ -552,7 +552,7 @@
         <ComponentName Value="fStorageTypeOptions"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uStorageTypeOptions"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit25>
       <Unit26>
         <Filename Value="ucurrencyoptions.pas"/>
@@ -560,7 +560,7 @@
         <ComponentName Value="fCurrencyOptions"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uCurrencyOptions"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit26>
       <Unit27>
         <Filename Value="ulanguageoptions.pas"/>
@@ -569,7 +569,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uLanguageOptions"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit27>
       <Unit28>
         <Filename Value="urepairoptions.pas"/>
@@ -578,7 +578,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uRepairOptions"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit28>
       <Unit29>
         <Filename Value="uphoneoptions.pas"/>
@@ -587,7 +587,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPhoneOptions"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit29>
       <Unit30>
         <Filename Value="umailoptions.pas"/>
@@ -599,7 +599,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="64"/>
         <CursorPos X="37" Y="202"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit30>
       <Unit31>
         <Filename Value="umaileditoptions.pas"/>
@@ -608,7 +608,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMailEditoptions"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit31>
       <Unit32>
         <Filename Value="uarticletext.pas"/>
@@ -620,7 +620,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit32>
       <Unit33>
         <Filename Value="ucopyarticledata.pas"/>
@@ -629,7 +629,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uCopyArticleData"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit33>
       <Unit34>
         <Filename Value="ufindtransaction.pas"/>
@@ -638,7 +638,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uFindTransaction"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit34>
       <Unit35>
         <Filename Value="uorderaddressframe.pas"/>
@@ -647,7 +647,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uorderaddressframe"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit35>
       <Unit36>
         <Filename Value="uarticlesupplierframe.pas"/>
@@ -656,7 +656,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uarticlesupplierframe"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit36>
       <Unit37>
         <Filename Value="utimeframe.pas"/>
@@ -665,7 +665,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uTimeFrame"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit37>
       <Unit38>
         <Filename Value="uwizardnewaccount.pas"/>
@@ -677,7 +677,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="327"/>
         <CursorPos X="82" Y="348"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit38>
       <Unit39>
         <Filename Value="ubookserial.pas"/>
@@ -686,7 +686,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uBookSerial"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="98"/>
       </Unit39>
       <Unit40>
         <Filename Value="../base/ubasevisualcontrols.pas"/>
@@ -829,8 +829,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="348"/>
-        <CursorPos X="15" Y="363"/>
+        <TopLine Value="353"/>
+        <CursorPos X="17" Y="372"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit52>
@@ -838,123 +838,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="../base_help/uwikiframe.pas"/>
-        <Caret Line="95" Column="20" TopLine="63"/>
+        <Caret Line="108" Column="19" TopLine="75"/>
       </Position1>
       <Position2>
         <Filename Value="../base_help/uwikiframe.pas"/>
-        <Caret Line="108" Column="19" TopLine="75"/>
+        <Caret Line="953" Column="130" TopLine="947"/>
       </Position2>
       <Position3>
-        <Filename Value="../base_help/uwikiframe.pas"/>
-        <Caret Line="953" Column="130" TopLine="947"/>
+        <Filename Value="../base_wiki/wikitohtml.pas"/>
+        <Caret Line="236" Column="3" TopLine="361"/>
       </Position3>
       <Position4>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="236" Column="3" TopLine="361"/>
+        <Caret Line="374" Column="1" TopLine="362"/>
       </Position4>
       <Position5>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="374" Column="1" TopLine="362"/>
+        <Caret Line="375" Column="1" TopLine="362"/>
       </Position5>
       <Position6>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="375" Column="1" TopLine="362"/>
+        <Caret Line="377" Column="1" TopLine="362"/>
       </Position6>
       <Position7>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="377" Column="1" TopLine="362"/>
+        <Caret Line="378" Column="1" TopLine="362"/>
       </Position7>
       <Position8>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="378" Column="1" TopLine="362"/>
+        <Caret Line="386" Column="1" TopLine="362"/>
       </Position8>
       <Position9>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="386" Column="1" TopLine="362"/>
+        <Caret Line="389" Column="1" TopLine="377"/>
       </Position9>
       <Position10>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="389" Column="1" TopLine="377"/>
+        <Caret Line="392" Column="1" TopLine="377"/>
       </Position10>
       <Position11>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="392" Column="1" TopLine="377"/>
+        <Caret Line="393" Column="1" TopLine="377"/>
       </Position11>
       <Position12>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="393" Column="1" TopLine="377"/>
+        <Caret Line="394" Column="1" TopLine="377"/>
       </Position12>
       <Position13>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="394" Column="1" TopLine="377"/>
+        <Caret Line="377" Column="1" TopLine="358"/>
       </Position13>
       <Position14>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="377" Column="1" TopLine="358"/>
+        <Caret Line="378" Column="1" TopLine="367"/>
       </Position14>
       <Position15>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="378" Column="1" TopLine="367"/>
+        <Caret Line="386" Column="1" TopLine="367"/>
       </Position15>
       <Position16>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="386" Column="1" TopLine="367"/>
+        <Caret Line="387" Column="1" TopLine="367"/>
       </Position16>
       <Position17>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="387" Column="1" TopLine="367"/>
+        <Caret Line="396" Column="1" TopLine="367"/>
       </Position17>
       <Position18>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="396" Column="1" TopLine="367"/>
+        <Caret Line="397" Column="1" TopLine="367"/>
       </Position18>
       <Position19>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="397" Column="1" TopLine="367"/>
+        <Caret Line="412" Column="1" TopLine="393"/>
       </Position19>
       <Position20>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="412" Column="1" TopLine="393"/>
+        <Caret Line="413" Column="1" TopLine="393"/>
       </Position20>
       <Position21>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="413" Column="1" TopLine="393"/>
+        <Caret Line="377" Column="1" TopLine="358"/>
       </Position21>
       <Position22>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="377" Column="1" TopLine="358"/>
+        <Caret Line="378" Column="1" TopLine="358"/>
       </Position22>
       <Position23>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="378" Column="1" TopLine="358"/>
+        <Caret Line="386" Column="1" TopLine="358"/>
       </Position23>
       <Position24>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="386" Column="1" TopLine="358"/>
+        <Caret Line="387" Column="1" TopLine="358"/>
       </Position24>
       <Position25>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="387" Column="1" TopLine="358"/>
+        <Caret Line="396" Column="1" TopLine="377"/>
       </Position25>
       <Position26>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="396" Column="1" TopLine="377"/>
+        <Caret Line="397" Column="1" TopLine="377"/>
       </Position26>
       <Position27>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="397" Column="1" TopLine="377"/>
+        <Caret Line="412" Column="1" TopLine="396"/>
       </Position27>
       <Position28>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="412" Column="1" TopLine="396"/>
+        <Caret Line="374" Column="1" TopLine="355"/>
       </Position28>
       <Position29>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="374" Column="1" TopLine="355"/>
+        <Caret Line="365" Column="8" TopLine="357"/>
       </Position29>
       <Position30>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
-        <Caret Line="365" Column="8" TopLine="357"/>
+        <Caret Line="372" Column="16" TopLine="351"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
