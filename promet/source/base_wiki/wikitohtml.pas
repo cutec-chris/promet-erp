@@ -360,6 +360,7 @@ begin
   ostr := ostr+istr;
   istr := ostr;
   ostr := '';
+  otstr := '';
   //Replace Tables
   while pos('{|',istr) > 0 do
     begin
@@ -369,7 +370,7 @@ begin
       istr := copy(istr,pos(#13,istr)-1,length(istr));
       tstr := copy(istr,0,pos(#13+'|}',istr)-1);
       istr := copy(istr,pos(#13+'|}',istr)+3,length(istr));
-      otstr := '<table><tr valign="top" align="left">';
+      otstr := otStr+'<table><tr valign="top" align="left">';
       //tstr := StringReplace(tstr,'|-','</tr><tr valign="top" align="left">',[rfReplaceAll]);
       intd := False;
       while length(tstr) > 2 do
@@ -545,4 +546,4 @@ end;
 
 
 end.
-
+
