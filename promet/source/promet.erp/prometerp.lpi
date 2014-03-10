@@ -286,7 +286,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="55">
+    <Units Count="56">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -305,7 +305,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="3348"/>
         <CursorPos X="31" Y="3363"/>
@@ -438,7 +438,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOrderFrame"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
@@ -715,7 +715,7 @@
       <Unit42>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="601"/>
         <CursorPos X="52" Y="605"/>
@@ -725,7 +725,7 @@
       <Unit43>
         <Filename Value="../base/dbintfs/ubasedocpages.pas"/>
         <UnitName Value="uBaseDocPages"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="155"/>
         <CursorPos X="26" Y="168"/>
@@ -738,7 +738,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMainTreeFrame"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1032"/>
         <CursorPos X="40" Y="1048"/>
@@ -749,7 +749,7 @@
       <Unit45>
         <Filename Value="../base/dbintfs/uorder.pas"/>
         <UnitName Value="uOrder"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1503"/>
         <CursorPos X="93" Y="1518"/>
@@ -786,7 +786,7 @@
       <Unit48>
         <Filename Value="../base_documents/upreviewframe.pas"/>
         <UnitName Value="uPreviewFrame"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="388"/>
         <CursorPos X="3" Y="392"/>
@@ -830,7 +830,7 @@
       <Unit52>
         <Filename Value="../base_forms/ugridview.pas"/>
         <UnitName Value="ugridview"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="396"/>
         <CursorPos X="22" Y="401"/>
@@ -843,11 +843,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMeetingFrame"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="803"/>
-        <CursorPos X="3" Y="823"/>
+        <TopLine Value="801"/>
+        <CursorPos X="21" Y="821"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -858,7 +857,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uProjectFrame"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="267"/>
         <CursorPos X="12" Y="282"/>
@@ -866,6 +865,17 @@
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit54>
+      <Unit55>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <UnitName Value="umeeting"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="8"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="454"/>
+        <CursorPos X="21" Y="484"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit55>
     </Units>
     <JumpHistory Count="24" HistoryIndex="23">
       <Position1>
@@ -930,39 +940,39 @@
       </Position15>
       <Position16>
         <Filename Value="../base_pm/umeetingframe.pas"/>
-        <Caret Line="210" Column="28" TopLine="246"/>
+        <Caret Line="166" Column="1" TopLine="151"/>
       </Position16>
       <Position17>
         <Filename Value="../base_pm/umeetingframe.pas"/>
-        <Caret Line="166" Column="1" TopLine="151"/>
+        <Caret Line="179" Column="29" TopLine="155"/>
       </Position17>
       <Position18>
         <Filename Value="../base_pm/umeetingframe.pas"/>
-        <Caret Line="179" Column="29" TopLine="155"/>
+        <Caret Line="184" Column="1" TopLine="162"/>
       </Position18>
       <Position19>
         <Filename Value="../base_pm/umeetingframe.pas"/>
-        <Caret Line="184" Column="1" TopLine="162"/>
+        <Caret Line="193" Column="85" TopLine="173"/>
       </Position19>
       <Position20>
         <Filename Value="../base_pm/umeetingframe.pas"/>
-        <Caret Line="193" Column="85" TopLine="173"/>
+        <Caret Line="825" Column="1" TopLine="800"/>
       </Position20>
       <Position21>
-        <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="287" Column="1" TopLine="354"/>
+        <Filename Value="../base_pm/umeetingframe.pas"/>
+        <Caret Line="819" Column="67" TopLine="800"/>
       </Position21>
       <Position22>
-        <Filename Value="../base_pm/umeetingframe.pas"/>
-        <Caret Line="825" Column="1" TopLine="800"/>
+        <Filename Value="../projectmanagement/uprojectframe.pas"/>
+        <Caret Line="580" Column="1" TopLine="557"/>
       </Position22>
       <Position23>
         <Filename Value="../base_pm/umeetingframe.pas"/>
-        <Caret Line="819" Column="67" TopLine="800"/>
+        <Caret Line="823" Column="3" TopLine="779"/>
       </Position23>
       <Position24>
-        <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="580" Column="1" TopLine="557"/>
+        <Filename Value="../base_pm/umeetingframe.pas"/>
+        <Caret Line="821" Column="21" TopLine="801"/>
       </Position24>
     </JumpHistory>
   </ProjectOptions>

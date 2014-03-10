@@ -820,6 +820,9 @@ begin
   aNewName := InputBox(strMeetingName,strEnterMeetingName,aMeeting.Text.AsString);
   bMeeting := TMeetings.Create(nil,Data);
   bMeeting.ImportFromXML(aMeeting.ExportToXML,False,@ReplaceField);
+  bMeeting.Edit;
+  bMeeting.FieldByName('DATE').Clear;
+  bMeeting.Post;
   aLink := Data.BuildLink(bMeeting.DataSet);
   Data.GotoLink(aLink);
   bMeeting.Free;
