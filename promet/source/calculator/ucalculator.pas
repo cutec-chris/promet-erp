@@ -200,15 +200,20 @@ begin
           for i := 0 to sl.Count-1 do
             Output.Append(sl[i]);
           Input.Clear;
-          if Assigned(aData) and (aData.Active) and (aData.RecordCount>0) then
+          if Assigned(aData) and (aData.Active) and (aData.RecordCount>0) and (aData.FieldDefs.Count>1) then
             begin
               fDataSet := TfDataSet.Create(nil);
               fDataSet.Show;
               fDataSet.DataSet:=aData;
             end
-          else if Assigned(aData) then aData.Free
           else if aValue <> 0 then
-            Input.Text:=StringReplace(FloatToStr(aValue),DecimalSeparator,'.',[rfReplaceAll]);
+            begin
+              if Assigned(aData) then aData.Free;
+              Output.Append('='+FloatToStr(aValue));
+              Input.Text:=StringReplace(FloatToStr(aValue),DecimalSeparator,'.',[rfReplaceAll]);
+              Input.CaretX := length(Input.Text);
+            end
+          else if Assigned(aData) then aData.Free;
         end
       else
         begin

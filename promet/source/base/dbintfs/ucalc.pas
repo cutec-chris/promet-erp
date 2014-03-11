@@ -358,21 +358,12 @@ begin
                   aTmp2 := copy(aTmp2,pos(',',aTmp2)+1,length(aTmp2));
                   aTmp :=  copy(aTmp ,pos(',',aTmp )+1,length(aTmp ));
                 end;
-              if Calculate(toCalc,aOut,aData,aValue) then
-                begin
-                  if copy(aOut[aOut.Count-1],0,1) = '=' then
-                    aIn += trim(copy(aOut[aOut.Count-1],2,length(aOut[aOut.Count-1])))
-                   else
-                     begin
-                       Result := False;
-                       exit;
-                     end;
-                end
-              else
+              if not Calculate(toCalc,aOut,aData,aValue) then
                 begin
                   Result := False;
                   exit;
-                end;
+                end
+              else bOut := StringReplace(FloatToStr(aValue),DecimalSeparator,'.',[]);
               aIn+=bOut;
             end;
           Next;
@@ -392,7 +383,8 @@ begin
     begin
       try
         aOut.Add(aParser.FormatTerm(aTree));
-        bOut := FloatToStr(aParser.CalcTree(aTree));
+        aValue := aParser.CalcTree(aTree);
+        bOut := StringReplace(FloatToStr(aValue),DecimalSeparator,'.',[]);
         if aVar <> '' then
           begin
             if Variables.Locate('NAME',aVar,[]) then
@@ -402,10 +394,8 @@ begin
             Variables.FieldByName('FORMULA').AsString:=aIn;
             Variables.FieldByName('RESULT').AsFloat:=aParser.CalcTree(aTree);
             Variables.Post;
-            aOut.Add('='+aVar+'='+bOut);
-          end
-        else
-          aOut.Add('='+bOut);
+            aOut.Add('='+aVar);
+          end;
       except
         on e : EMathParserException do
           begin
@@ -426,9 +416,10 @@ begin
         aOut.Add(aSQL);
         if Assigned(aDS) then
           begin
-            if (aVar <> '') and (aDs.Fields.Count=1) and (aDS.RecordCount=1) and (IsNumeric(aDS.Fields[0].AsString)) then
+            if (aVar <> '') and (aDs.Fields.Count=1) and (aDS.RecordCount=1) and (TryStrToFloat(aDS.Fields[0].AsString,aValue)) then
               begin
-                bOut := aDS.Fields[0].AsString;
+                aValue := aDS.Fields[0].AsFloat;
+                bOut := StringReplace(FloatToStr(aValue),DecimalSeparator,'.',[]);
                 if Variables.Locate('NAME',aVar,[]) then
                   Variables.Edit
                 else Variables.Insert;
@@ -442,10 +433,10 @@ begin
               begin
                 if  (aDs.Fields.Count=1)
                 and (aDS.RecordCount=1)
-                and (IsNumeric(aDS.Fields[0].AsString)) then
+                and (TryStrToFloat(aDS.Fields[0].AsString,aValue)) then
                   begin
-                    bOut := aDS.Fields[0].AsString;
-                    aOut.Add('='+bOut)
+                    aValue := aDS.Fields[0].AsFloat;
+                    bOut := StringReplace(FloatToStr(aValue),DecimalSeparator,'.',[]);
                   end
                 else
                   begin
