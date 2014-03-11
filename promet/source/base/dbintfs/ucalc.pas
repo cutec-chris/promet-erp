@@ -272,22 +272,25 @@ begin
     end;
   if lowercase(copy(aIn,0,7))='delete ' then
     begin
+      aIn := copy(aIn,8,length(aIn));
       with Variables do
         begin
           Active:=True;
           First;
           while not EOF do
             begin
-              aFStart := copy(Variables.FieldByName('NAME').AsString,0,pos('(',Variables.FieldByName('NAME').AsString));
+              aFStart := Variables.FieldByName('NAME').AsString;
               if pos(aFStart,aIn)>0 then
                 begin
                   aOut.Add(Variables.FieldByName('NAME').AsString+' deleted');
                   Variables.Delete;
+                  Result := True;
                 end
               else
                 Next;
             end;
         end;
+      exit;
     end;
   if (Pos('=',aIn)>0)
   and ((pos('select',lowercase(aIn))>Pos('=',aIn)) or (pos('select',lowercase(aIn))=0))
