@@ -15,5 +15,7 @@ Alle untenstehenden Installationen sind Version VERSION erstellt CREATEDDATE.<br
 |-
 |Datenbank Zusätze||[http://downloads.free-erp.de/db_setup_postgres.exe Setup für Postgres Client Bibliotheken (32 bit) WIN_PDB_SIZE]
 |-
+|Webservices||||[http://downloads.free-erp.de/promet-erp-webservices_VERSION_amd64-gtk2.deb Webservices Debian Package für Ubuntu,Debian Linux (64 bit)]<br><br>[http://downloads.free-erp.de/promet-erp-webservices_VERSION_i386-gtk2.deb Webservices Debian Package für Ubuntu,Debian Linux (32 bit)]||[http://downloads.free-erp.de/promet-erp-webservices-VERSION-2.x86_64.rpm Webservices RPM Package für Suse,Redhat Linux (64 bit)]<br><br>[http://downloads.free-erp.de/promet-erp-webservices-VERSION-2.i386.rpm Webservices RPM Package für Suse,Redhat Linux (32 bit) TIMEREGISTERINGR32_SIZE]||
+|-
 |Tools||[http://downloads.free-erp.de/promet-erp-tools_VERSION_i386-win32.exe Zusatzprogramme (Statistik,Besprechungsprogramm) Setup für Windows WIN_TOOLS_SIZE] ||[http://downloads.free-erp.de/promet-erp-tools_VERSION_amd64-gtk2.deb Admin Tools Debian Package für Ubuntu,Debian Linux (64 bit) TOOLSD64_SIZE]<br><br>[http://downloads.free-erp.de/promet-erp-tools_VERSION_i386-gtk2.deb Admin Tools Debian Package für Ubuntu,Debian Linux (32 bit) TOOLSD32_SIZE]||[http://downloads.free-erp.de/promet-erp-tools-VERSION-2.x86_64.rpm Admin Tools RPM Package für Suse,Redhat Linux (64 bit) TOOLSR64_SIZE]<br><br>[http://downloads.free-erp.de/promet-erp-tools-VERSION-2.i386.rpm Admin Tools RPM Package für Suse,Redhat Linux (32 bit) TOOLSR32_SIZE]||
 |}
