@@ -7,7 +7,7 @@ unit phelp;
 interface
 
 uses
-  uWikiFrame, uHelpContainer, uWikiMessage, LazarusPackageIntf;
+  uWikiFrame, uHelpContainer, uWikiMessage, uspelling, LazarusPackageIntf;
 
 implementation
 

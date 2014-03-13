@@ -141,7 +141,7 @@ type
 implementation
 uses uWiki,uData,WikiToHTML,uDocuments,Utils,LCLIntf,Variants,
   uBaseDbInterface,uscreenshotmain,uMessages,uDocumentFrame,fpsqlparser,
-  fpsqlscanner, fpsqltree,uBaseVisualApplication,uStatistic;
+  fpsqlscanner, fpsqltree,uBaseVisualApplication,uStatistic,uspelling;
 procedure THistory.SetIndex(const AValue: Integer);
 begin
   Move(AValue,Count-1);
@@ -462,20 +462,8 @@ begin
 end;
 
 procedure TfWikiFrame.acSpellCheckExecute(Sender: TObject);
-var
-  aProc: TAspellProcess;
-  aList: TObjectList;
-  i: Integer;
 begin
-  aProc := TAspellProcess.Create('none','de');
-  aList := TObjectList.create;
-  aProc.CheckString(eWikiPage.Text,aList);
-  for i := 0 to aList.Count-1 do
-    begin
-      Showmessage(TSpellingError(aList[i]).Word);
-    end;
-  aList.Free;
-  aProc.Free;
+  fSpellCheck.Execute(eWikiPage);
 end;
 
 procedure TfWikiFrame.aProcMessage(const MessageType: TMessageType;

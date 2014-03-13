@@ -11,7 +11,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="6">
+    <Files Count="8">
       <Item1>
         <Filename Value="uwikiframe.lfm"/>
         <Type Value="LFM"/>
@@ -36,6 +36,14 @@
         <Filename Value="uwikimessage.pas"/>
         <UnitName Value="uWikiMessage"/>
       </Item6>
+      <Item7>
+        <Filename Value="uspelling.lfm"/>
+        <Type Value="LFM"/>
+      </Item7>
+      <Item8>
+        <Filename Value="uspelling.pas"/>
+        <UnitName Value="uspelling"/>
+      </Item8>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="5">
