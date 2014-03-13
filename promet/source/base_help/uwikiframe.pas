@@ -23,7 +23,8 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ComCtrls, DbCtrls, Buttons,
   StdCtrls, ExtCtrls, IpHtml, db, uPrometFrames, uExtControls, Graphics,
-  DBGrids, ActnList, Dialogs, Menus, uImageCache, uBaseDbClasses,LCLProc,Clipbrd;
+  DBGrids, ActnList, Dialogs, Menus, uImageCache, uBaseDbClasses, LCLProc,
+  Clipbrd, contnrs,Aspell;
 type
   THistory = class(TStringList)
   private
@@ -51,6 +52,7 @@ type
     acIndex: TAction;
     acScreenshot: TAction;
     acImage: TAction;
+    acSpellCheck: TAction;
     ActionList: TActionList;
     bItalic: TSpeedButton;
     Keywords: TDatasource;
@@ -69,7 +71,7 @@ type
     SpeedButton3: TSpeedButton;
     SpeedButton4: TSpeedButton;
     SpeedButton6: TSpeedButton;
-    SpeedButton7: TSpeedButton;
+    sbSpellcheck: TSpeedButton;
     SpeedButton8: TSpeedButton;
     SpeedButton9: TSpeedButton;
     RefreshTimer: TTimer;
@@ -89,6 +91,9 @@ type
     procedure acImageExecute(Sender: TObject);
     procedure acIndexExecute(Sender: TObject);
     procedure acScreenshotExecute(Sender: TObject);
+    procedure acSpellCheckExecute(Sender: TObject);
+    procedure aProcMessage(const MessageType: TMessageType;
+      const AMessage: string; const AVerbosity: Cardinal);
     procedure bItalicClick(Sender: TObject);
     function FCacheGetFile(Path: string;var NewPath : string): TStream;
     procedure fWikiFrameWikiInclude(Inp: string; var Outp: string);
@@ -455,6 +460,30 @@ begin
 
   Application.MainForm.Show;
 end;
+
+procedure TfWikiFrame.acSpellCheckExecute(Sender: TObject);
+var
+  aProc: TAspellProcess;
+  aList: TObjectList;
+  i: Integer;
+begin
+  aProc := TAspellProcess.Create('none','de');
+  aList := TObjectList.create;
+  aProc.CheckString(eWikiPage.Text,aList);
+  for i := 0 to aList.Count-1 do
+    begin
+      Showmessage(TSpellingError(aList[i]).Word);
+    end;
+  aList.Free;
+  aProc.Free;
+end;
+
+procedure TfWikiFrame.aProcMessage(const MessageType: TMessageType;
+  const AMessage: string; const AVerbosity: Cardinal);
+begin
+  showmessage(AMessage);
+end;
+
 procedure TfWikiFrame.bItalicClick(Sender: TObject);
 begin
   if (DataSet.DataSet.State <> dsEdit)

@@ -75,10 +75,10 @@ inherited fWikiFrame: TfWikiFrame
       end
     end
     object DBText1: TDBText
-      Left = 585
+      Left = 576
       Height = 30
       Top = 6
-      Width = 94
+      Width = 103
       Align = alRight
       BorderSpacing.Around = 6
       DataField = 'CAPTION'
@@ -93,21 +93,21 @@ inherited fWikiFrame: TfWikiFrame
     Height = 487
     Top = 42
     Width = 685
-    ActivePage = tsView
+    ActivePage = tsEdit
     Align = alClient
     Images = fVisualControls.Images
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 1
     NewTabImageIndex = 59
     object tsView: TTabSheet
       Caption = 'Anzeigen'
-      ClientHeight = 920
-      ClientWidth = 1354
+      ClientHeight = 449
+      ClientWidth = 677
       ImageIndex = 87
       OnShow = tsViewShow
       object ipHTML: TIpHtmlPanel
         Left = 0
-        Height = 460
+        Height = 449
         Top = 0
         Width = 677
         Align = alClient
@@ -127,17 +127,17 @@ inherited fWikiFrame: TfWikiFrame
     object tsEdit: TTabSheet
       Tag = 1
       Caption = 'bearbeiten'
-      ClientHeight = 3680
-      ClientWidth = 5416
+      ClientHeight = 449
+      ClientWidth = 677
       ImageIndex = 67
       object Panel1: TPanel
         Left = 0
-        Height = 460
+        Height = 449
         Top = 0
         Width = 677
         Align = alClient
         BevelOuter = bvNone
-        ClientHeight = 460
+        ClientHeight = 449
         ClientWidth = 677
         TabOrder = 0
         object dnEdit: TDBNavigator
@@ -368,7 +368,7 @@ inherited fWikiFrame: TfWikiFrame
           Height = 25
           Hint = 'fügt ein Bild ein'
           Top = 16
-          Width = 25
+          Width = 23
           Action = acImage
           Glyph.Data = {
             36040000424D3604000000000000360000002800000010000000100000000100
@@ -408,12 +408,12 @@ inherited fWikiFrame: TfWikiFrame
           }
           ShowCaption = False
         end
-        object SpeedButton7: TSpeedButton
-          Left = 268
+        object sbSpellcheck: TSpeedButton
+          Left = 276
           Height = 25
           Top = 16
           Width = 25
-          Enabled = False
+          Action = acSpellCheck
           Glyph.Data = {
             36050000424D3605000000000000360400002800000010000000100000000100
             08000000000000010000130B0000130B00000001000000010000000000000101
@@ -462,7 +462,7 @@ inherited fWikiFrame: TfWikiFrame
         end
         object eTitle: TDBEdit
           Left = 326
-          Height = 21
+          Height = 24
           Top = 16
           Width = 346
           DataField = 'CAPTION'
@@ -474,15 +474,15 @@ inherited fWikiFrame: TfWikiFrame
         end
         object lTitle: TLabel
           Left = 326
-          Height = 13
+          Height = 14
           Top = 1
-          Width = 48
+          Width = 56
           Caption = 'Seitentitel'
           ParentColor = False
         end
         object eWikiPage: TDBMemo
           Left = 6
-          Height = 394
+          Height = 383
           Top = 51
           Width = 468
           Anchors = [akTop, akLeft, akRight, akBottom]
@@ -492,11 +492,11 @@ inherited fWikiFrame: TfWikiFrame
           TabOrder = 2
         end
         object SpeedButton8: TSpeedButton
-          Left = 244
+          Left = 242
           Height = 25
           Hint = 'fügt ein Bildschirmfoto ein'
           Top = 16
-          Width = 25
+          Width = 23
           Action = acScreenshot
           Glyph.Data = {
             36040000424D3604000000000000360000002800000010000000100000000100
@@ -538,7 +538,7 @@ inherited fWikiFrame: TfWikiFrame
         end
         object DBGrid1: TDBGrid
           Left = 484
-          Height = 378
+          Height = 367
           Top = 75
           Width = 188
           Anchors = [akTop, akRight, akBottom]
@@ -547,7 +547,7 @@ inherited fWikiFrame: TfWikiFrame
           Columns = <          
             item
               Title.Caption = 'Suchbegriff'
-              Width = 176
+              Width = 158
               FieldName = 'KEYWORD'
             end>
           DataSource = Keywords
@@ -637,6 +637,11 @@ inherited fWikiFrame: TfWikiFrame
     object acImage: TAction
       Caption = 'acImage'
       OnExecute = acImageExecute
+    end
+    object acSpellCheck: TAction
+      Caption = 'acSpellCheck'
+      Hint = 'Rechtschreibprüfung durchführen'
+      OnExecute = acSpellCheckExecute
     end
   end
   object Wiki: TDatasource[3]

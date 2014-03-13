@@ -22,7 +22,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="10">
+    <Files Count="12">
       <Item1>
         <Filename Value="src\Utils.pas"/>
         <UnitName Value="Utils"/>
@@ -63,6 +63,14 @@
         <Filename Value="src\uimaging.pas"/>
         <UnitName Value="uImaging"/>
       </Item10>
+      <Item11>
+        <Filename Value="src\aspell.pas"/>
+        <UnitName Value="Aspell"/>
+      </Item11>
+      <Item12>
+        <Filename Value="src\processlinetalk.pas"/>
+        <UnitName Value="processlinetalk"/>
+      </Item12>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="2">

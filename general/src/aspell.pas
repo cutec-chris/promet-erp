@@ -69,7 +69,7 @@ begin
   FProcess := TProcessLineTalk.Create(nil);
   
   { calculate FProcess.CommandLine }
-  FProcess.CommandLine := 'aspell -a';
+  FProcess.CommandLine := {$IFDEF WINDOWS}AppendPathDelim(Application.Location+'tools')+{$ENDIF}'aspell -a';
   if AspellMode <> '' then
     FProcess.CommandLine := FProcess.CommandLine + ' --mode=' + AspellMode;
   if AspellLanguage <> '' then
@@ -171,4 +171,4 @@ begin
     FOnMessage(MessageType, AMessage, AVerbosity);
 end;
 
-end.
+end.
