@@ -30,7 +30,8 @@ uses
   Process, LR_Prntr, LR_ChBox, LR_Shape, LR_RRect, LR_BarC, LR_E_TXT, LR_E_HTM,
   LR_E_CSV, lr_e_pdf, LR_DB_Zeos, LRDialogControls, Variants, UTF8process,
   ExtCtrls, DbCtrls, LCLType, uExtControls, FileUtil, uBaseApplication, uOrder,
-  lr_richview, lr_tachart, SynBeautifier, PrintersDlgs,uBaseERPDBClasses,uBaseDbClasses;
+  lr_richview, lr_tachart, SynBeautifier, PrintersDlgs,uBaseERPDBClasses,uBaseDbClasses,
+  Utils;
 
 type
   TfrDesignerHackForm = TfrDesignerForm;
@@ -460,6 +461,7 @@ var
   eMail: String;
   aUser: TUser;
   a: Integer;
+  aFile: String;
 begin
   Res := false;
   if not Assigned(fLogWaitForm) then
@@ -617,8 +619,10 @@ begin
               if isPrepared or Report.PrepareReport then
                 begin
                   isPrepared := True;
-                  Report.ExportTo(frFilters[i].ClassRef,Utf8ToSys(GetTempDir+Report.Title+'.pdf'));
-                  DoSendMail(Report.Title,Data.Reports.FieldByName('TEXT').AsString,Utf8ToSys(GetTempDir+Report.Title+'.pdf'),'','','',eMail);
+                  aFile := Utf8ToSys(GetTempDir+Report.Title+'.pdf');
+                  aFile := ValidateFileName(aFile);
+                  Report.ExportTo(frFilters[i].ClassRef,aFile);
+                  DoSendMail(Report.Title,Data.Reports.FieldByName('TEXT').AsString, aFile,'','','',eMail);
                   res := True;
                 end
               else fError.ShowWarning(strCantPrepareReport);

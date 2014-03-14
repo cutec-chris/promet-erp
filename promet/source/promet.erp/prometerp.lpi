@@ -885,7 +885,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uspelling"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="68"/>
@@ -898,15 +897,16 @@
         <Filename Value="../base_forms/uselectreport.pas"/>
         <HasResources Value="True"/>
         <UnitName Value="uSelectReport"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="588"/>
-        <CursorPos X="126" Y="621"/>
+        <TopLine Value="563"/>
+        <CursorPos X="1" Y="622"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit57>
     </Units>
-    <JumpHistory Count="26" HistoryIndex="25">
+    <JumpHistory Count="27" HistoryIndex="26">
       <Position1>
         <Filename Value="../base_help/uspelling.pas"/>
         <Caret Line="78" Column="1" TopLine="65"/>
@@ -1011,6 +1011,10 @@
         <Filename Value="../base_help/uspelling.pas"/>
         <Caret Line="87" Column="17" TopLine="66"/>
       </Position26>
+      <Position27>
+        <Filename Value="../base_forms/uselectreport.pas"/>
+        <Caret Line="622" Column="52" TopLine="594"/>
+      </Position27>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
