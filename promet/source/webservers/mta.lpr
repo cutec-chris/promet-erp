@@ -8,7 +8,7 @@ uses
   lNet, uBaseDBInterface, md5,uData,eventlog,
   pmimemessages, fileutil,lconvencoding,uBaseApplication, ulsmtpsrv,
   dnssend,smtpsend,synamisc,uBaseDbClasses,uMimeMessages,mimemess,laz_synapse,
-  synautil,uPerson,db,Utils,variants,uMessages,LCLProc,LCLIntf;
+  synautil,uPerson,db,Utils,variants, types,uMessages,LCLProc,LCLIntf;
 resourcestring
   strActionMessageReceived                   = '%s';
 type
@@ -511,6 +511,7 @@ var
   smtp: TSMTPSend;
   DNSServers: TStringList;
   i: Integer;
+  aTime: types.DWORD;
 begin
   debugln('starting...');
   with Self as IBaseDBInterface do
@@ -545,6 +546,7 @@ begin
   NextSendTime := Now();
   Server.Start;
   i := 0;
+  aTime := GetTickCount;
   while not Terminated do
     begin
       inc(i);
@@ -557,6 +559,7 @@ begin
           sleep(100);
           i := 0;
         end;
+      if aTime > (60*60*1000) then break;
     end;
   // stop program loop
   Subscribers.Free;
