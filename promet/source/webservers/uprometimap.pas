@@ -21,7 +21,7 @@ unit uprometimap;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, uLIMAP, uMessages, MimeMess, uMimeMessages, db, cwstring,
+  Classes, SysUtils, uLIMAP, uMessages, MimeMess, uMimeMessages, db, {$IFDEF UNIX}cwstring,{$ENDIF}
   types, LCLProc, uBaseDbClasses, lNet, mimepart;
 
 {.$DEFINE DEBUG}

@@ -62,15 +62,16 @@
         <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="109">
+    <Units Count="108">
       <Unit0>
         <Filename Value="imapserver.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="imapserver"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="239"/>
-        <CursorPos X="39" Y="194"/>
+        <TopLine Value="187"/>
+        <CursorPos X="3" Y="207"/>
         <UsageCount Value="201"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -268,11 +269,10 @@
         <Filename Value="uprometimap.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uprometimap"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="671"/>
-        <CursorPos X="27" Y="684"/>
+        <TopLine Value="5"/>
+        <CursorPos X="100" Y="24"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit23>
@@ -388,38 +388,30 @@
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit36>
       <Unit37>
-        <Filename Value="..\..\..\lkomponenten\lnet\lib\lnet.pp"/>
-        <UnitName Value="lNet"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="120"/>
-        <CursorPos X="14" Y="137"/>
-        <UsageCount Value="43"/>
-      </Unit37>
-      <Unit38>
         <Filename Value="..\..\..\lkomponenten\lnet\lib\lcommon.pp"/>
         <UnitName Value="lCommon"/>
         <WindowIndex Value="0"/>
         <TopLine Value="356"/>
         <CursorPos X="1" Y="376"/>
         <UsageCount Value="43"/>
-      </Unit38>
-      <Unit39>
+      </Unit37>
+      <Unit38>
         <Filename Value="..\..\..\lkomponenten\synapse\imapsend.pas"/>
         <UnitName Value="imapsend"/>
         <WindowIndex Value="0"/>
         <TopLine Value="383"/>
         <CursorPos X="92" Y="390"/>
         <UsageCount Value="44"/>
-      </Unit39>
-      <Unit40>
+      </Unit38>
+      <Unit39>
         <Filename Value="..\nntpserver\ulnntp.pas"/>
         <UnitName Value="uLNNTP"/>
         <WindowIndex Value="0"/>
         <TopLine Value="25"/>
         <CursorPos X="1" Y="20"/>
         <UsageCount Value="34"/>
-      </Unit40>
-      <Unit41>
+      </Unit39>
+      <Unit40>
         <Filename Value="..\base\changes.txt"/>
         <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
@@ -428,369 +420,369 @@
         <UsageCount Value="101"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit41>
-      <Unit42>
+      </Unit40>
+      <Unit41>
         <Filename Value="..\base\changes.en.txt"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1408"/>
         <CursorPos X="12" Y="1444"/>
         <UsageCount Value="5"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit42>
-      <Unit43>
+      </Unit41>
+      <Unit42>
         <Filename Value="..\nntpserver\uprometnntp.pas"/>
         <UnitName Value="uprometnntp"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="20"/>
         <UsageCount Value="34"/>
-      </Unit43>
-      <Unit44>
+      </Unit42>
+      <Unit43>
         <Filename Value="..\..\..\lkomponenten\synapse\synamisc.pas"/>
         <UnitName Value="synamisc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="85"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="6"/>
-      </Unit44>
-      <Unit45>
+      </Unit43>
+      <Unit44>
         <Filename Value="..\..\..\..\fpc\2.6_fixes\rtl\objpas\classes\classesh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="680"/>
         <CursorPos X="40" Y="692"/>
         <UsageCount Value="8"/>
-      </Unit45>
-      <Unit46>
+      </Unit44>
+      <Unit45>
         <Filename Value="..\..\..\..\fpc\2.6_fixes\rtl\inc\systemh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="364"/>
         <CursorPos X="41" Y="376"/>
         <UsageCount Value="8"/>
-      </Unit46>
-      <Unit47>
+      </Unit45>
+      <Unit46>
         <Filename Value="idimap4.pas"/>
         <UnitName Value="IdIMAP4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="4033"/>
         <CursorPos X="35" Y="4065"/>
         <UsageCount Value="90"/>
-      </Unit47>
-      <Unit48>
+      </Unit46>
+      <Unit47>
         <Filename Value="..\..\..\lkomponenten\synapse\blcksock.pas"/>
         <UnitName Value="blcksock"/>
         <WindowIndex Value="0"/>
         <TopLine Value="107"/>
         <CursorPos X="3" Y="125"/>
         <UsageCount Value="1"/>
-      </Unit48>
-      <Unit49>
+      </Unit47>
+      <Unit48>
         <Filename Value="thunderbird_20140101_223007.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2264"/>
         <CursorPos X="71" Y="2271"/>
         <UsageCount Value="1"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit49>
-      <Unit50>
+      </Unit48>
+      <Unit49>
         <Filename Value="thunderbird_20140102_113828.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="123"/>
         <CursorPos X="116" Y="140"/>
         <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit50>
-      <Unit51>
+      </Unit49>
+      <Unit50>
         <Filename Value="thunderbird_20140102_114339.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="4"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit51>
-      <Unit52>
+      </Unit50>
+      <Unit51>
         <Filename Value="thunderbird_20140102_133945.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2837"/>
         <CursorPos X="97" Y="2855"/>
         <UsageCount Value="2"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit52>
-      <Unit53>
+      </Unit51>
+      <Unit52>
         <Filename Value="thunderbird_20140102_144754.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="527"/>
         <CursorPos X="67" Y="561"/>
         <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit53>
-      <Unit54>
+      </Unit52>
+      <Unit53>
         <Filename Value="thunderbird_20140102_151103.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="298"/>
         <CursorPos X="164" Y="308"/>
         <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit54>
-      <Unit55>
+      </Unit53>
+      <Unit54>
         <Filename Value="thunderbird_20140102_151848.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="18" Y="11"/>
         <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit55>
-      <Unit56>
+      </Unit54>
+      <Unit55>
         <Filename Value="thunderbird_20140102_152046.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="322"/>
         <CursorPos X="64" Y="348"/>
         <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit56>
-      <Unit57>
+      </Unit55>
+      <Unit56>
         <Filename Value="thunderbird_20140102_152523.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="331"/>
         <CursorPos X="72" Y="350"/>
         <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit57>
-      <Unit58>
+      </Unit56>
+      <Unit57>
         <Filename Value="thunderbird_20140102_153205.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="329"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="4"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit58>
-      <Unit59>
+      </Unit57>
+      <Unit58>
         <Filename Value="thunderbird_20140102_153909.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="629"/>
         <CursorPos X="119" Y="657"/>
         <UsageCount Value="6"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit59>
-      <Unit60>
+      </Unit58>
+      <Unit59>
         <Filename Value="thunderbird_20140102_191824.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="3910"/>
         <CursorPos X="98" Y="2215"/>
         <UsageCount Value="1"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit60>
-      <Unit61>
+      </Unit59>
+      <Unit60>
         <Filename Value="thunderbird_20140102_193004.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="654"/>
         <CursorPos X="115" Y="672"/>
         <UsageCount Value="2"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit61>
-      <Unit62>
+      </Unit60>
+      <Unit61>
         <Filename Value="thunderbird_20140102_202129.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="825"/>
         <CursorPos X="78" Y="850"/>
         <UsageCount Value="1"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit62>
-      <Unit63>
+      </Unit61>
+      <Unit62>
         <Filename Value="thunderbird_20140102_202424.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="517"/>
         <CursorPos X="1" Y="521"/>
         <UsageCount Value="2"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit63>
-      <Unit64>
+      </Unit62>
+      <Unit63>
         <Filename Value="thunderbird_20140102_211125.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="837"/>
         <CursorPos X="1" Y="885"/>
         <UsageCount Value="1"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit64>
-      <Unit65>
+      </Unit63>
+      <Unit64>
         <Filename Value="thunderbird_20140102_212358.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="711"/>
         <CursorPos X="63" Y="736"/>
         <UsageCount Value="1"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit65>
-      <Unit66>
+      </Unit64>
+      <Unit65>
         <Filename Value="thunderbird_20140102_212522.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="548"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="1"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit66>
-      <Unit67>
+      </Unit65>
+      <Unit66>
         <Filename Value="thunderbird_20140102_212956.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="5084"/>
         <CursorPos X="87" Y="5112"/>
         <UsageCount Value="1"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit67>
-      <Unit68>
+      </Unit66>
+      <Unit67>
         <Filename Value="thunderbird_20140102_213259.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="53" Y="13"/>
         <UsageCount Value="1"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit68>
-      <Unit69>
+      </Unit67>
+      <Unit68>
         <Filename Value="thunderbird_20140102_213436.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="27239"/>
         <CursorPos X="74" Y="27256"/>
         <UsageCount Value="2"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit69>
-      <Unit70>
+      </Unit68>
+      <Unit69>
         <Filename Value="IdIMAP4Server.pas"/>
         <UnitName Value="IdIMAP4Server"/>
         <WindowIndex Value="0"/>
         <TopLine Value="843"/>
         <CursorPos X="32" Y="907"/>
         <UsageCount Value="25"/>
-      </Unit70>
-      <Unit71>
+      </Unit69>
+      <Unit70>
         <Filename Value="thunderbird_20140103_072817.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="163"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="2"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit71>
-      <Unit72>
+      </Unit70>
+      <Unit71>
         <Filename Value="thunderbird_20140103_074204.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="87" Y="102519"/>
         <UsageCount Value="2"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit72>
-      <Unit73>
+      </Unit71>
+      <Unit72>
         <Filename Value="thunderbird_20140103_222700.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="107"/>
         <CursorPos X="76" Y="107"/>
         <UsageCount Value="15"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit73>
-      <Unit74>
-        <Filename Value="..\..\..\..\..\..\..\usr\share\fpcsrc\2.6.2\rtl\objpas\classes\classesh.inc"/>
+      </Unit72>
+      <Unit73>
+        <Filename Value="C:\usr\share\fpcsrc\2.6.2\rtl\objpas\classes\classesh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="312"/>
         <CursorPos X="14" Y="346"/>
         <UsageCount Value="12"/>
-      </Unit74>
-      <Unit75>
-        <Filename Value="..\..\..\..\..\..\..\usr\share\fpcsrc\2.6.2\rtl\inc\systemh.inc"/>
+      </Unit73>
+      <Unit74>
+        <Filename Value="C:\usr\share\fpcsrc\2.6.2\rtl\inc\systemh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="360"/>
         <CursorPos X="41" Y="376"/>
         <UsageCount Value="3"/>
-      </Unit75>
-      <Unit76>
+      </Unit74>
+      <Unit75>
         <Filename Value="thunderbird_20140103_232322.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="90" Y="1"/>
         <UsageCount Value="3"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit76>
-      <Unit77>
+      </Unit75>
+      <Unit76>
         <Filename Value="thunderbird_20140103_232901.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1184"/>
         <CursorPos X="73" Y="1202"/>
         <UsageCount Value="3"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit77>
-      <Unit78>
+      </Unit76>
+      <Unit77>
         <Filename Value="thunderbird_20140103_233318.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="6432"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="3"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit78>
-      <Unit79>
+      </Unit77>
+      <Unit78>
         <Filename Value="thunderbird_20140103_234702.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="397"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="3"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit79>
-      <Unit80>
+      </Unit78>
+      <Unit79>
         <Filename Value="thunderbird_20140103_234845.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="384"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="3"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit80>
-      <Unit81>
+      </Unit79>
+      <Unit80>
         <Filename Value="thunderbird_20140103_235009.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="10"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="3"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit81>
-      <Unit82>
+      </Unit80>
+      <Unit81>
         <Filename Value="..\components\lnet\lib\lnet.pp"/>
         <UnitName Value="lNet"/>
         <WindowIndex Value="0"/>
         <TopLine Value="57"/>
         <CursorPos X="3" Y="74"/>
         <UsageCount Value="9"/>
-      </Unit82>
-      <Unit83>
+      </Unit81>
+      <Unit82>
         <Filename Value="..\components\lnet\lib\lsmtp.pp"/>
         <UnitName Value="lsmtp"/>
         <WindowIndex Value="0"/>
         <TopLine Value="208"/>
         <CursorPos X="15" Y="102"/>
         <UsageCount Value="3"/>
-      </Unit83>
-      <Unit84>
+      </Unit82>
+      <Unit83>
         <Filename Value="..\components\lnet\lib\lwebserver.pp"/>
         <UnitName Value="lwebserver"/>
         <WindowIndex Value="0"/>
         <TopLine Value="943"/>
         <CursorPos X="3" Y="845"/>
         <UsageCount Value="3"/>
-      </Unit84>
-      <Unit85>
-        <Filename Value="..\..\..\..\..\..\..\usr\share\fpcsrc\2.6.2\rtl\inc\socketsh.inc"/>
+      </Unit83>
+      <Unit84>
+        <Filename Value="C:\usr\share\fpcsrc\2.6.2\rtl\inc\socketsh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="147"/>
         <CursorPos X="11" Y="164"/>
         <UsageCount Value="3"/>
-      </Unit85>
-      <Unit86>
-        <Filename Value="..\..\..\..\..\..\..\usr\share\fpcsrc\2.6.2\rtl\linux\unixsock.inc"/>
+      </Unit84>
+      <Unit85>
+        <Filename Value="C:\usr\share\fpcsrc\2.6.2\rtl\linux\unixsock.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="154"/>
         <CursorPos X="3" Y="156"/>
         <UsageCount Value="3"/>
-      </Unit86>
-      <Unit87>
+      </Unit85>
+      <Unit86>
         <Filename Value="..\components\lnet\lib\sys\lepolleventer.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="176"/>
         <CursorPos X="1" Y="199"/>
         <UsageCount Value="9"/>
-      </Unit87>
-      <Unit88>
+      </Unit86>
+      <Unit87>
         <Filename Value="ulsmtpsrv.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ulsmtpsrv"/>
@@ -800,8 +792,8 @@
         <CursorPos X="61" Y="184"/>
         <UsageCount Value="121"/>
         <Loaded Value="True"/>
-      </Unit88>
-      <Unit89>
+      </Unit87>
+      <Unit88>
         <Filename Value="..\components\zeos\src\component\ZAbstractRODataset.pas"/>
         <UnitName Value="ZAbstractRODataset"/>
         <WindowIndex Value="0"/>
@@ -809,32 +801,32 @@
         <CursorPos X="19" Y="1382"/>
         <UsageCount Value="4"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit89>
-      <Unit90>
+      </Unit88>
+      <Unit89>
         <Filename Value="log\thunderbird_20140107_230124.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="151"/>
         <CursorPos X="112" Y="164"/>
         <UsageCount Value="7"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit90>
-      <Unit91>
+      </Unit89>
+      <Unit90>
         <Filename Value="..\..\..\..\..\lazarus\ide\sourcefilemanager.pas"/>
         <UnitName Value="SourceFileManager"/>
         <WindowIndex Value="0"/>
         <TopLine Value="22"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="4"/>
-      </Unit91>
-      <Unit92>
+      </Unit90>
+      <Unit91>
         <Filename Value="..\base\dbintfs\uthumbnails.pas"/>
         <UnitName Value="uthumbnails"/>
         <WindowIndex Value="0"/>
         <TopLine Value="10"/>
         <CursorPos X="69" Y="28"/>
         <UsageCount Value="4"/>
-      </Unit92>
-      <Unit93>
+      </Unit91>
+      <Unit92>
         <Filename Value="..\base_messaging\ureceivemessage.pas"/>
         <UnitName Value="ureceivemessage"/>
         <EditorIndex Value="7"/>
@@ -843,247 +835,247 @@
         <CursorPos X="1" Y="229"/>
         <UsageCount Value="52"/>
         <Loaded Value="True"/>
-      </Unit93>
-      <Unit94>
+      </Unit92>
+      <Unit93>
         <Filename Value="..\components\synapse\synautil.pas"/>
         <UnitName Value="synautil"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1130"/>
-        <CursorPos X="3" Y="1134"/>
-        <UsageCount Value="5"/>
-      </Unit94>
-      <Unit95>
-        <Filename Value="..\..\..\..\..\..\..\usr\share\fpcsrc\2.6.2\packages\fcl-base\src\custapp.pp"/>
+        <TopLine Value="820"/>
+        <CursorPos X="3" Y="827"/>
+        <UsageCount Value="10"/>
+      </Unit93>
+      <Unit94>
+        <Filename Value="C:\usr\share\fpcsrc\2.6.2\packages\fcl-base\src\custapp.pp"/>
         <UnitName Value="CustApp"/>
         <WindowIndex Value="0"/>
         <TopLine Value="47"/>
         <CursorPos X="14" Y="63"/>
         <UsageCount Value="5"/>
-      </Unit95>
-      <Unit96>
+      </Unit94>
+      <Unit95>
         <Filename Value="..\components\synapse\mimemess.pas"/>
         <UnitName Value="mimemess"/>
         <WindowIndex Value="0"/>
         <TopLine Value="260"/>
         <CursorPos X="33" Y="276"/>
         <UsageCount Value="13"/>
-      </Unit96>
-      <Unit97>
-        <Filename Value="..\..\..\..\..\..\..\usr\share\fpcsrc\2.6.2\packages\fcl-db\src\base\db.pas"/>
+      </Unit95>
+      <Unit96>
+        <Filename Value="C:\usr\share\fpcsrc\2.6.2\packages\fcl-db\src\base\db.pas"/>
         <UnitName Value="db"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1602"/>
         <CursorPos X="14" Y="1602"/>
         <UsageCount Value="7"/>
-      </Unit97>
-      <Unit98>
-        <Filename Value="..\..\..\..\..\..\..\usr\share\fpcsrc\2.6.2\packages\fcl-db\src\base\dataset.inc"/>
+      </Unit96>
+      <Unit97>
+        <Filename Value="C:\usr\share\fpcsrc\2.6.2\packages\fcl-db\src\base\dataset.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1979"/>
         <CursorPos X="3" Y="1988"/>
         <UsageCount Value="7"/>
-      </Unit98>
-      <Unit99>
+      </Unit97>
+      <Unit98>
         <Filename Value="..\components\synapse\mimepart.pas"/>
         <UnitName Value="mimepart"/>
         <WindowIndex Value="0"/>
         <TopLine Value="266"/>
         <CursorPos X="34" Y="287"/>
         <UsageCount Value="13"/>
-      </Unit99>
-      <Unit100>
-        <Filename Value="..\..\..\..\..\..\..\home\chris\my-logfile.txt"/>
+      </Unit98>
+      <Unit99>
+        <Filename Value="C:\home\chris\my-logfile.txt"/>
         <WindowIndex Value="0"/>
         <TopLine Value="450"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit100>
-      <Unit101>
-        <Filename Value="..\..\..\..\..\..\..\tmp\thunderbird_20140201_165040.log"/>
+      </Unit99>
+      <Unit100>
+        <Filename Value="C:\tmp\thunderbird_20140201_165040.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="482"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit101>
-      <Unit102>
-        <Filename Value="..\..\..\..\..\..\..\tmp\thunderbird_20140201_165628.log"/>
+      </Unit100>
+      <Unit101>
+        <Filename Value="C:\tmp\thunderbird_20140201_165628.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="45"/>
         <CursorPos X="77" Y="74"/>
         <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit102>
-      <Unit103>
-        <Filename Value="..\..\..\..\..\..\..\tmp\thunderbird_20140201_170420.log"/>
+      </Unit101>
+      <Unit102>
+        <Filename Value="C:\tmp\thunderbird_20140201_170420.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="78" Y="30"/>
         <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit103>
-      <Unit104>
-        <Filename Value="..\..\..\..\..\..\..\tmp\thunderbird_20140201_170959.log"/>
+      </Unit102>
+      <Unit103>
+        <Filename Value="C:\tmp\thunderbird_20140201_170959.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="40" Y="16"/>
         <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit104>
-      <Unit105>
-        <Filename Value="..\..\..\..\..\..\..\tmp\thunderbird_20140201_171629.log"/>
+      </Unit103>
+      <Unit104>
+        <Filename Value="C:\tmp\thunderbird_20140201_171629.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="44" Y="7"/>
         <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit105>
-      <Unit106>
-        <Filename Value="..\..\..\..\..\..\..\tmp\thunderbird_20140201_171838.log"/>
+      </Unit104>
+      <Unit105>
+        <Filename Value="C:\tmp\thunderbird_20140201_171838.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="20"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit106>
-      <Unit107>
-        <Filename Value="..\..\..\..\..\..\..\tmp\thunderbird_20140201_173339.log"/>
+      </Unit105>
+      <Unit106>
+        <Filename Value="C:\tmp\thunderbird_20140201_173339.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit107>
-      <Unit108>
-        <Filename Value="..\..\..\..\..\..\..\tmp\thunderbird_20140201_173622.log"/>
+      </Unit106>
+      <Unit107>
+        <Filename Value="C:\tmp\thunderbird_20140201_173622.log"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="70" Y="8"/>
         <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit108>
+      </Unit107>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2098" Column="1" TopLine="2080"/>
+        <Caret Line="2101" Column="1" TopLine="2080"/>
       </Position1>
       <Position2>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2099" Column="1" TopLine="2080"/>
+        <Filename Value="uprometimap.pas"/>
+        <Caret Line="1014" Column="1" TopLine="997"/>
       </Position2>
       <Position3>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2100" Column="1" TopLine="2080"/>
+        <Filename Value="uprometimap.pas"/>
+        <Caret Line="1025" Column="1" TopLine="997"/>
       </Position3>
       <Position4>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2101" Column="1" TopLine="2080"/>
+        <Filename Value="uprometimap.pas"/>
+        <Caret Line="1014" Column="1" TopLine="997"/>
       </Position4>
       <Position5>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="1014" Column="1" TopLine="997"/>
+        <Caret Line="1015" Column="1" TopLine="997"/>
       </Position5>
       <Position6>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="1025" Column="1" TopLine="997"/>
+        <Caret Line="1016" Column="1" TopLine="997"/>
       </Position6>
       <Position7>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="1014" Column="1" TopLine="997"/>
+        <Caret Line="1017" Column="1" TopLine="997"/>
       </Position7>
       <Position8>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="1015" Column="1" TopLine="997"/>
+        <Caret Line="1018" Column="1" TopLine="997"/>
       </Position8>
       <Position9>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="1016" Column="1" TopLine="997"/>
+        <Caret Line="1019" Column="1" TopLine="997"/>
       </Position9>
       <Position10>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="1017" Column="1" TopLine="997"/>
+        <Caret Line="1022" Column="1" TopLine="997"/>
       </Position10>
       <Position11>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="1018" Column="1" TopLine="997"/>
+        <Caret Line="1023" Column="1" TopLine="997"/>
       </Position11>
       <Position12>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="1019" Column="1" TopLine="997"/>
+        <Caret Line="1024" Column="1" TopLine="997"/>
       </Position12>
       <Position13>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="1022" Column="1" TopLine="997"/>
+        <Caret Line="1025" Column="1" TopLine="997"/>
       </Position13>
       <Position14>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="1023" Column="1" TopLine="997"/>
+        <Caret Line="125" Column="1" TopLine="109"/>
       </Position14>
       <Position15>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="1024" Column="1" TopLine="997"/>
-      </Position15>
-      <Position16>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="1025" Column="1" TopLine="997"/>
-      </Position16>
-      <Position17>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="125" Column="1" TopLine="109"/>
-      </Position17>
-      <Position18>
         <Filename Value="ulimap.pas"/>
         <Caret Line="270" Column="1" TopLine="247"/>
+      </Position15>
+      <Position16>
+        <Filename Value="ulimap.pas"/>
+        <Caret Line="595" Column="1" TopLine="580"/>
+      </Position16>
+      <Position17>
+        <Filename Value="ulimap.pas"/>
+        <Caret Line="599" Column="1" TopLine="581"/>
+      </Position17>
+      <Position18>
+        <Filename Value="uprometimap.pas"/>
+        <Caret Line="7" Column="90" TopLine="1"/>
       </Position18>
       <Position19>
         <Filename Value="ulimap.pas"/>
-        <Caret Line="595" Column="1" TopLine="580"/>
+        <Caret Line="768" Column="58" TopLine="756"/>
       </Position19>
       <Position20>
         <Filename Value="ulimap.pas"/>
-        <Caret Line="599" Column="1" TopLine="581"/>
+        <Caret Line="769" Column="22" TopLine="756"/>
       </Position20>
       <Position21>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="7" Column="90" TopLine="1"/>
+        <Filename Value="ulimap.pas"/>
+        <Caret Line="771" Column="32" TopLine="756"/>
       </Position21>
       <Position22>
         <Filename Value="ulimap.pas"/>
-        <Caret Line="768" Column="58" TopLine="756"/>
+        <Caret Line="440" Column="33" TopLine="427"/>
       </Position22>
       <Position23>
-        <Filename Value="ulimap.pas"/>
-        <Caret Line="769" Column="22" TopLine="756"/>
+        <Filename Value="uprometimap.pas"/>
+        <Caret Line="65" Column="71" TopLine="60"/>
       </Position23>
       <Position24>
-        <Filename Value="ulimap.pas"/>
-        <Caret Line="771" Column="32" TopLine="756"/>
+        <Filename Value="uprometimap.pas"/>
+        <Caret Line="454" Column="19" TopLine="426"/>
       </Position24>
       <Position25>
-        <Filename Value="ulimap.pas"/>
-        <Caret Line="440" Column="33" TopLine="427"/>
+        <Filename Value="uprometimap.pas"/>
+        <Caret Line="463" Column="35" TopLine="451"/>
       </Position25>
       <Position26>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="65" Column="71" TopLine="60"/>
+        <Caret Line="568" Column="32" TopLine="552"/>
       </Position26>
       <Position27>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="454" Column="19" TopLine="426"/>
+        <Caret Line="589" Column="34" TopLine="570"/>
       </Position27>
       <Position28>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="463" Column="35" TopLine="451"/>
+        <Filename Value="imapserver.lpr"/>
+        <Caret Line="206" Column="16" TopLine="181"/>
       </Position28>
       <Position29>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="568" Column="32" TopLine="552"/>
+        <Caret Line="684" Column="27" TopLine="688"/>
       </Position29>
       <Position30>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="589" Column="34" TopLine="570"/>
+        <Filename Value="imapserver.lpr"/>
+        <Caret Line="31" Column="19" TopLine="17"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -1142,4 +1134,4 @@
     </Exceptions>
   </Debugging>
   <EditorMacros Count="0"/>
-</CONFIG>
+</CONFIG>

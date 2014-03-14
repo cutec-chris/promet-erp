@@ -24,11 +24,11 @@ uses
   {$IFDEF UNIX}{$IFDEF UseCThreads}
   cthreads,
   {$ENDIF}{$ENDIF}
-  Classes, SysUtils, pcmdprometapp, CustApp, uBaseCustomApplication, lnetbase,
-  lNet, laz_synapse, ulimap, uBaseDBInterface, md5, uData, eventlog,
+  Classes, SysUtils, types, pcmdprometapp, CustApp, uBaseCustomApplication,
+  lnetbase, lNet, laz_synapse, ulimap, uBaseDBInterface, md5, uData, eventlog,
   uprometimap, ulsmtpsrv, pmimemessages, fileutil, lconvencoding,
-  uBaseApplication,LCLProc,uBaseDbClasses,synautil,ureceivemessage,uMimeMessages,
-  mimemess;
+  uBaseApplication, LCLProc, uBaseDbClasses, synautil, ureceivemessage,
+  uMimeMessages, mimemess, LCLIntf;
 type
 
   { TPIMAPServer }
@@ -192,6 +192,7 @@ procedure TPIMAPServer.DoRun;
 var
   y,m,d,h,mm,s,ss: word;
   aGroup: TIMAPFolder;
+  aTime: types.DWORD;
 begin
   with Self as IBaseDBInterface do
     begin
@@ -203,11 +204,13 @@ begin
   if HasOption('server-log') then
     IMAPServer.OnDebug:=@ServerLog;
   IMAPServer.SocketClass:=TPIMAPSocket;
+  aTime := GetTickCount;
   while not Terminated do
     begin
       IMAPServer.CallAction;
       SMTPServer.CallAction;
       sleep(100);
+      if aTime > (60*60*1000) then break;
     end;
   // stop program loop
   Terminate;
