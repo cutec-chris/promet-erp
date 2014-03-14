@@ -617,8 +617,8 @@ begin
               if isPrepared or Report.PrepareReport then
                 begin
                   isPrepared := True;
-                  Report.ExportTo(frFilters[i].ClassRef,GetTempDir+Report.Title+'.pdf');
-                  DoSendMail(Report.Title,Data.Reports.FieldByName('TEXT').AsString,GetTempDir+Report.Title+'.pdf','','','',eMail);
+                  Report.ExportTo(frFilters[i].ClassRef,Utf8ToSys(GetTempDir+Report.Title+'.pdf'));
+                  DoSendMail(Report.Title,Data.Reports.FieldByName('TEXT').AsString,Utf8ToSys(GetTempDir+Report.Title+'.pdf'),'','','',eMail);
                   res := True;
                 end
               else fError.ShowWarning(strCantPrepareReport);

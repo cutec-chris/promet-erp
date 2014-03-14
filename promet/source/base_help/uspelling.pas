@@ -70,12 +70,14 @@ begin
 end;
 
 function TfSpellCheck.Execute(aMemo: TCustomMemo): Boolean;
+{
 var
   aProc: TAspellProcess;
   aList: TObjectList;
   i: Integer;
-  aEntry: TSpellingError;
+  aEntry: TSpellingError;             }
 begin
+  {
   if not Assigned(Self) then
     begin
       Application.CreateForm(TfSpellCheck,fSpellCheck);
@@ -98,6 +100,7 @@ begin
     end;
   aList.Free;
   aProc.Free;
+  }
 end;
 
 end.

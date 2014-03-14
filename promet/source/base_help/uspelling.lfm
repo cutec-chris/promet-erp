@@ -11,11 +11,11 @@ object fSpellCheck: TfSpellCheck
   LCLVersion = '1.3'
   object cbWords: TComboBox
     Left = 8
-    Height = 27
+    Height = 21
     Top = 8
     Width = 248
     Anchors = [akTop, akLeft, akRight]
-    ItemHeight = 0
+    ItemHeight = 13
     TabOrder = 0
     Text = 'cbWords'
   end

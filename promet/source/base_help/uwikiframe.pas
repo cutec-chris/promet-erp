@@ -92,8 +92,6 @@ type
     procedure acIndexExecute(Sender: TObject);
     procedure acScreenshotExecute(Sender: TObject);
     procedure acSpellCheckExecute(Sender: TObject);
-    procedure aProcMessage(const MessageType: TMessageType;
-      const AMessage: string; const AVerbosity: Cardinal);
     procedure bItalicClick(Sender: TObject);
     function FCacheGetFile(Path: string;var NewPath : string): TStream;
     procedure fWikiFrameWikiInclude(Inp: string; var Outp: string);
@@ -464,12 +462,6 @@ end;
 procedure TfWikiFrame.acSpellCheckExecute(Sender: TObject);
 begin
   fSpellCheck.Execute(eWikiPage);
-end;
-
-procedure TfWikiFrame.aProcMessage(const MessageType: TMessageType;
-  const AMessage: string; const AVerbosity: Cardinal);
-begin
-  showmessage(AMessage);
 end;
 
 procedure TfWikiFrame.bItalicClick(Sender: TObject);
