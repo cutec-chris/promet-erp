@@ -23,10 +23,10 @@ uses
   {$IFDEF UNIX}{$IFDEF UseCThreads}
   cthreads,
   {$ENDIF}{$ENDIF}
-  Classes, SysUtils, pcmdprometapp, CustApp, uBaseCustomApplication, lnetbase,
-  lNet, uLNNTP, uBaseDBInterface, md5, uData, eventlog, pmimemessages,
+  Classes, SysUtils, types, pcmdprometapp, CustApp, uBaseCustomApplication,
+  lnetbase, lNet, uLNNTP, uBaseDBInterface, md5, uData, eventlog, pmimemessages,
   uprometnntp, fileutil, lconvencoding, uBaseApplication, ulsmtpsrv,
-  laz_synapse;
+  laz_synapse, LCLIntf;
 type
   TPNNTPServer = class(TBaseCustomApplication)
     procedure ServerLog(aSocket: TLNNTPSocket; DirectionIn: Boolean;
@@ -84,6 +84,7 @@ procedure TPNNTPServer.DoRun;
 var
   aGroup: TPNNTPGroup;
   y,m,d,h,mm,s,ss: word;
+  aTime: types.DWORD;
 begin
   writeln('starting...');
   with Self as IBaseDBInterface do
@@ -119,7 +120,12 @@ begin
   Server.OnLogin :=@ServerLogin;
   Server.OnLog:=@ServerLog;
   writeln('server running...');
-  while not Terminated do Server.CallAction;
+  aTime := GetTickCount;
+  while not Terminated do
+    begin
+      Server.CallAction;
+      if aTime > (60*60*1000) then break;
+    end;
   // stop program loop
   Terminate;
 end;

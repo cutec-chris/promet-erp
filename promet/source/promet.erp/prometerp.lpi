@@ -286,7 +286,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="61">
+    <Units Count="58">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -305,7 +305,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="3348"/>
         <CursorPos X="31" Y="3363"/>
@@ -438,7 +438,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOrderFrame"/>
-        <EditorIndex Value="21"/>
+        <EditorIndex Value="18"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
@@ -705,7 +705,8 @@
       <Unit41>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="7"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1339"/>
         <CursorPos X="1" Y="1360"/>
@@ -715,7 +716,7 @@
       <Unit42>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="22"/>
+        <EditorIndex Value="19"/>
         <WindowIndex Value="0"/>
         <TopLine Value="601"/>
         <CursorPos X="52" Y="605"/>
@@ -725,7 +726,7 @@
       <Unit43>
         <Filename Value="../base/dbintfs/ubasedocpages.pas"/>
         <UnitName Value="uBaseDocPages"/>
-        <EditorIndex Value="19"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="155"/>
         <CursorPos X="26" Y="168"/>
@@ -738,7 +739,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMainTreeFrame"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1032"/>
         <CursorPos X="40" Y="1048"/>
@@ -749,7 +750,7 @@
       <Unit45>
         <Filename Value="../base/dbintfs/uorder.pas"/>
         <UnitName Value="uOrder"/>
-        <EditorIndex Value="20"/>
+        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1503"/>
         <CursorPos X="93" Y="1518"/>
@@ -786,7 +787,7 @@
       <Unit48>
         <Filename Value="../base_documents/upreviewframe.pas"/>
         <UnitName Value="uPreviewFrame"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="591"/>
         <CursorPos X="119" Y="608"/>
@@ -809,7 +810,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="utasks"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1179"/>
         <CursorPos X="1" Y="1194"/>
@@ -820,7 +821,7 @@
       <Unit51>
         <Filename Value="../base_forms/ugridview.pas"/>
         <UnitName Value="ugridview"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="396"/>
         <CursorPos X="22" Y="401"/>
@@ -833,7 +834,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMeetingFrame"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="801"/>
         <CursorPos X="21" Y="821"/>
@@ -847,7 +848,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uProjectFrame"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="267"/>
         <CursorPos X="12" Y="282"/>
@@ -858,7 +859,7 @@
       <Unit54>
         <Filename Value="../base/dbintfs/umeeting.pas"/>
         <UnitName Value="umeeting"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="454"/>
         <CursorPos X="21" Y="484"/>
@@ -871,7 +872,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uWikiFrame"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="79"/>
         <CursorPos X="1" Y="95"/>
@@ -885,7 +886,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uspelling"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="68"/>
         <CursorPos X="4" Y="103"/>
@@ -894,47 +895,15 @@
         <LoadedDesigner Value="True"/>
       </Unit56>
       <Unit57>
-        <Filename Value="../base_forms/uselectreport.pas"/>
-        <HasResources Value="True"/>
-        <UnitName Value="uSelectReport"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="4"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="608"/>
-        <CursorPos X="91" Y="624"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-      </Unit57>
-      <Unit58>
-        <Filename Value="../../../general/src/Utils.pas"/>
-        <UnitName Value="Utils"/>
-        <EditorIndex Value="6"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="697"/>
-        <CursorPos X="72" Y="724"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-      </Unit58>
-      <Unit59>
-        <Filename Value="../../../../../../Programme/lazarus/components/lazreport/source/lr_class.pas"/>
-        <UnitName Value="LR_Class"/>
-        <EditorIndex Value="5"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="9697"/>
-        <CursorPos X="1" Y="9718"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-      </Unit59>
-      <Unit60>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1110"/>
         <CursorPos X="1" Y="1134"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
-      </Unit60>
+      </Unit57>
     </Units>
     <JumpHistory Count="0" HistoryIndex="-1"/>
   </ProjectOptions>
