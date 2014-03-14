@@ -619,8 +619,7 @@ begin
               if isPrepared or Report.PrepareReport then
                 begin
                   isPrepared := True;
-                  aFile := Utf8ToSys(GetTempDir+Report.Title+'.pdf');
-                  aFile := ValidateFileName(aFile);
+                  aFile := GetTempDir+ValidateFileName(Report.Title)+'.pdf';
                   Report.ExportTo(frFilters[i].ClassRef,aFile);
                   DoSendMail(Report.Title,Data.Reports.FieldByName('TEXT').AsString, aFile,'','','',eMail);
                   res := True;
