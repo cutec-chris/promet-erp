@@ -12,4 +12,15 @@ TYPE;NAME;ACTIVE;COLOR;
 "C";"Gleitzeit";;clGreen;
 "C";"Schule";;clYellow;
 "C";"geplant";;clOlive;
-
+"B";"Gehalt";;;
+"B";"Auto";;;
+"B";"Computer";;;
+"B";"Kind";;;
+"B";"Telefon";;;
+"B";"Lebenserhaltung";;;
+"B";"Freizeit";;;
+"B";"Geschenke";;;
+"B";"Gebühren";;;
+"B";"Versicherungen";;;
+"B";"Gewinne aus Geldanlagen";;;
+"B";"Verluste aus Geldanlagen";;;
