@@ -2151,8 +2151,10 @@ var
   aTask: TTask;
   ls: TListItem;
   aPages: TDocPages;
+  aLinks: String;
 begin
   if not Assigned(Source) then exit;
+  Screen.Cursor:=crHourGlass;
   if (Source is TListView) and (TListView(Source).Owner is TfDocumentFrame) then
     begin
       aTNode := fMainTreeFrame.tvMain.GetNodeAt(X,Y);
@@ -2193,7 +2195,8 @@ begin
     end
   else if (Source is TExtDBGrid) and (TComponent(Source).Owner is TfFilter) then
     begin
-      aLink := TfFilter(TComponent(Source).Owner).GetLink;
+      aLinks := TfFilter(TComponent(Source).Owner).GetLink(False);
+      aLink := copy(aLinks,0,pos(';',aLinks)-1);
       aFilter := TfFilter(TComponent(Source).Owner);
       if aFilter.DataSet is TMessageList then
         begin
@@ -2208,14 +2211,19 @@ begin
                   Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
                   Data.Tree.GotoBookmark(aTreeEntry.Rec);
                   aMessage := TMessage.Create(Self,Data);
-                  aMessage.SelectFromLink(aLink);
-                  aMessage.Open;
-                  if aMessage.Count > 0 then
+                  while pos(';',aLinks)>0 do
                     begin
-                      aMessage.DataSet.Edit;
-                      aMessage.FieldByName('TREEENTRY').AsVariant:=Data.Tree.Id.AsVariant;
-                      aMessage.DataSet.Post;
-                      DoRefreshActiveTab(nil);
+                      aLink := copy(aLinks,0,pos(';',aLinks)-1);
+                      aLinks := copy(aLinks,pos(';',aLinks)+1,length(aLinks));
+                      aMessage.SelectFromLink(aLink);
+                      aMessage.Open;
+                      if aMessage.Count > 0 then
+                        begin
+                          aMessage.DataSet.Edit;
+                          aMessage.FieldByName('TREEENTRY').AsVariant:=Data.Tree.Id.AsVariant;
+                          aMessage.DataSet.Post;
+                          DoRefreshActiveTab(nil);
+                        end;
                     end;
                   aMessage.Free;
                 end
@@ -2264,6 +2272,7 @@ begin
             end;
         end;
     end;
+  Screen.Cursor:=crDefault;
 end;
 procedure TfMain.fMainTreeFrameDragOver(Sender, Source: TObject; X, Y: Integer;
   State: TDragState; var Accept: Boolean);

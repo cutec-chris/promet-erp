@@ -94,8 +94,8 @@ LazarusResources.Add('TfFilter','FORMDATA',[
   +'ht'#2'*'#11'ClientWidth'#3#158#2#8'TabOrder'#2#0#0#6'TPanel'#4'pNav'#4'Left'
   +#2' '#6'Height'#2'*'#3'Top'#2#0#5'Width'#2'P'#5'Align'#7#6'alLeft'#10'BevelO'
   +'uter'#7#6'bvNone'#12'ClientHeight'#2'*'#11'ClientWidth'#2'P'#8'TabOrder'#2#0
-  +#0#6'TLabel'#16'ExtRotatedLabel1'#4'Left'#2#6#6'Height'#2#11#3'Top'#2#0#5'Wi'
-  +'dth'#2'-'#7'Caption'#6#10'Navigation'#10'Font.Color'#7#9'clMedGray'#11'Font'
+  +#0#6'TLabel'#16'ExtRotatedLabel1'#4'Left'#2#6#6'Height'#2#14#3'Top'#2#0#5'Wi'
+  +'dth'#2'<'#7'Caption'#6#10'Navigation'#10'Font.Color'#7#9'clMedGray'#11'Font'
   +'.Height'#2#11#6'Layout'#7#8'tlBottom'#11'ParentColor'#8#10'ParentFont'#8#0#0
   +#12'TDBNavigator'#12'DBNavigator1'#4'Left'#2#6#6'Height'#2#22#3'Top'#2#14#5
   +'Width'#2'G'#10'BevelOuter'#7#6'bvNone'#29'ChildSizing.EnlargeHorizontal'#7
@@ -112,18 +112,18 @@ LazarusResources.Add('TfFilter','FORMDATA',[
   +'tWidth'#3#3#2#20'Constraints.MaxWidth'#3#188#2#8'TabOrder'#2#1#0#6'TBevel'#6
   +'Bevel4'#4'Left'#2#0#6'Height'#2'&'#3'Top'#2#4#5'Width'#2#16#5'Align'#7#6'al'
   +'Left'#17'BorderSpacing.Top'#2#4#5'Shape'#7#10'bsLeftLine'#0#0#6'TLabel'#16
-  +'ExtRotatedLabel2'#4'Left'#2#6#6'Height'#2#11#3'Top'#2#0#5'Width'#2'6'#7'Cap'
+  +'ExtRotatedLabel2'#4'Left'#2#6#6'Height'#2#14#3'Top'#2#0#5'Width'#2'I'#7'Cap'
   +'tion'#6#14'Ansicht/Filter'#10'Font.Color'#7#9'clMedGray'#11'Font.Height'#2
   +#11#6'Layout'#7#8'tlBottom'#11'ParentColor'#8#10'ParentFont'#8#0#0#9'TComboB'
   +'ox'#8'cbFilter'#19'AnchorSideLeft.Side'#7#9'asrBottom'#4'Left'#2#6#6'Height'
-  +#2#21#4'Hint'#6#144'hier k'#195#182'nnen Sie eine vordefinierte Ansicht w'
+  +#2#28#4'Hint'#6#144'hier k'#195#182'nnen Sie eine vordefinierte Ansicht w'
   +#195#164'hlen'#10'Wenn Sie eine spezielle Ansicht/Sortierung ben'#195#182'ti'
   +'gen wenden Sie sich an Ihren Administrator'#3'Top'#2#12#5'Width'#3#183#1#7
   +'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#0#18'BorderSpacing.Left'#2#8#10'I'
-  +'temHeight'#2#13#8'OnSelect'#7#14'cbFilterSelect'#5'Style'#7#14'csDropDownLi'
-  +'st'#8'TabOrder'#2#0#0#0#12'TSpeedButton'#11'bEditFilter'#4'Left'#3#197#1#6
-  +'Height'#2#21#4'Hint'#6'5zeigt/verbirgt weitere Einstellungen'#10'zu den Ans'
-  +'ichten'#3'Top'#2#12#5'Width'#2#26#10'AllowAllUp'#9#7'Anchors'#11#5'akTop'#7
+  +'temHeight'#2#0#8'OnSelect'#7#14'cbFilterSelect'#5'Style'#7#14'csDropDownLis'
+  +'t'#8'TabOrder'#2#0#0#0#12'TSpeedButton'#11'bEditFilter'#4'Left'#3#197#1#6'H'
+  +'eight'#2#21#4'Hint'#6'5zeigt/verbirgt weitere Einstellungen'#10'zu den Ansi'
+  +'chten'#3'Top'#2#12#5'Width'#2#26#10'AllowAllUp'#9#7'Anchors'#11#5'akTop'#7
   +'akRight'#0#10'Glyph.Data'#10':'#4#0#0'6'#4#0#0'BM6'#4#0#0#0#0#0#0'6'#0#0#0
   +'('#0#0#0#16#0#0#0#16#0#0#0#1#0' '#0#0#0#0#0#0#4#0#0'd'#0#0#0'd'#0#0#0#0#0#0
   +#0#0#0#0#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255
@@ -303,7 +303,7 @@ LazarusResources.Add('TfFilter','FORMDATA',[
   +#5'Width'#3'#'#2#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#0#10'BevelOuter'
   +#7#6'bvNone'#12'ClientHeight'#3#143#0#11'ClientWidth'#3'#'#2#20'Constraints.'
   +'MaxWidth'#3#188#2#8'TabOrder'#2#1#0#9'TCheckBox'#12'cbMaxResults'#4'Left'#2
-  +#9#6'Height'#2#17#3'Top'#2#5#5'Width'#3#149#0#7'Caption'#6#26'Ergebnisse beg'
+  +#9#6'Height'#2#24#3'Top'#2#5#5'Width'#3#182#0#7'Caption'#6#26'Ergebnisse beg'
   +'renzen auf  '#7'Checked'#9#8'OnChange'#7#18'seMaxresultsChange'#5'State'#7#9
   +'cbChecked'#8'TabOrder'#2#0#7'TabStop'#8#0#0#6'TBevel'#6'Bevel1'#4'Left'#2#0
   +#6'Height'#2#12#3'Top'#2#0#5'Width'#3#27#2#7'Anchors'#11#5'akTop'#6'akLeft'#7
@@ -449,19 +449,19 @@ LazarusResources.Add('TfFilter','FORMDATA',[
   +#255#255#0#255#255#255#0#255#255#255#0#165#165#165#12#163#163#163#129#160#160
   +#160#186#157#157#157#204#154#154#154#204#151#151#151#186#148#148#148#129#144
   +#144#144#12#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#11'ShowC'
-  ,'aption'#8#0#0#6'TLabel'#11'lFilterEdit'#4'Left'#2#9#6'Height'#2#13#3'Top'#2
-  +'!'#5'Width'#2'J'#7'Caption'#6#15'Filterbedingung'#11'ParentColor'#8#0#0#6'T'
+  ,'aption'#8#0#0#6'TLabel'#11'lFilterEdit'#4'Left'#2#9#6'Height'#2#14#3'Top'#2
+  +'!'#5'Width'#2'X'#7'Caption'#6#15'Filterbedingung'#11'ParentColor'#8#0#0#6'T'
   +'Label'#9'lFilterIn'#4'Left'#3#165#1#6'Height'#2#16#3'Top'#2'?'#5'Width'#2
   +#127#7'Anchors'#11#5'akTop'#7'akRight'#0#8'AutoSize'#8#7'Caption'#6#19'in Ta'
   +'bellen Filtern'#11'ParentColor'#8#0#0#5'TEdit'#9'eFilterIn'#4'Left'#3#165#1
-  +#6'Height'#2#21#4'Hint'#6'aWenn Sie '#195#188'ber mehrere Tabellen Filtern '
+  +#6'Height'#2#24#4'Hint'#6'aWenn Sie '#195#188'ber mehrere Tabellen Filtern '
   +#13#10'm'#195#182'chten f'#195#188'llen Sie dieses Feld'#13#10'z.b.'#13#10'O'
   +'rders,OrderPos'#3'Top'#2'O'#5'Width'#2#127#7'Anchors'#11#5'akTop'#7'akRight'
   +#0#8'TabOrder'#2#1#0#0#6'TBevel'#6'Bevel2'#4'Left'#2#0#6'Height'#2#12#3'Top'
   +#3#140#0#5'Width'#3#16#2#7'Anchors'#11#6'akLeft'#7'akRight'#8'akBottom'#0#5
   +'Shape'#7#9'bsTopLine'#0#0#9'TSpinEdit'#12'seMaxresults'#22'AnchorSideLeft.C'
   +'ontrol'#7#12'cbMaxResults'#19'AnchorSideLeft.Side'#7#9'asrBottom'#4'Left'#3
-  +#158#0#6'Height'#2#21#4'Hint'#6'@hier k'#195#182'nnen Sie die Zahl der maxim'
+  +#191#0#6'Height'#2#24#4'Hint'#6'@hier k'#195#182'nnen Sie die Zahl der maxim'
   +'alen Filterergebnisse angeben'#3'Top'#2#5#5'Width'#2'4'#9'Increment'#2#20#8
   +'MaxValue'#3#136#19#8'OnChange'#7#18'seMaxresultsChange'#7'TabStop'#8#8'TabO'
   +'rder'#2#2#5'Value'#2'd'#0#0#244#8'TSynMemo'#11'eFilterEdit'#6'Cursor'#7#7'c'

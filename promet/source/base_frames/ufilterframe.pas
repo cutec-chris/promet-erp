@@ -241,7 +241,7 @@ type
     procedure ClearFilters;
     procedure DoRefresh;override;
     procedure SetRights;
-    function GetLink : string;
+    function GetLink(onlyOne: Boolean=True): string;
     procedure ShowFrame;override;
     property OnClose: TCloseEvent read FOnClose write FOnClose;
     procedure Open;
@@ -1650,11 +1650,29 @@ begin
   acFilterRights.Enabled:=Data.Users.Rights.Right('EDITFILTER') >= RIGHT_PERMIT;
   acDeleteFilter.Enabled:=Data.Users.Rights.Right('EDITFILTER') >= RIGHT_DELETE;
 end;
-function TfFilter.GetLink: string;
+function TfFilter.GetLink(onlyOne : Boolean = True): string;
+var
+  i: Integer;
 begin
   Result := '';
   if Assigned(FDataSet) then
-    Result := Data.BuildLink(DataSet.DataSet);
+    begin
+      Result := '';
+      if onlyOne or (gList.SelectedRows.Count=0) then
+        begin
+          Result := Result+Data.BuildLink(DataSet.DataSet)+';';
+        end
+      else
+        begin
+          for i := 0 to gList.SelectedRows.Count-1 do
+            begin
+              DataSet.DataSet.GotoBookmark(gList.SelectedRows[i]);
+              Result := Result+Data.BuildLink(DataSet.DataSet)+';';
+              if onlyOne then break;
+            end;
+          gList.SelectedRows.Clear;
+        end;
+    end;
 end;
 procedure TfFilter.ShowFrame;
 var

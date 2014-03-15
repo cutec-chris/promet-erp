@@ -283,7 +283,7 @@ inherited FCalendarFrame: TFCalendarFrame
           ShowCaption = False
         end
         object bDayView: TSpeedButton
-          Left = 37
+          Left = 36
           Height = 25
           Hint = 'zeigt die Tagesansicht'
           Top = 15
@@ -333,7 +333,7 @@ inherited FCalendarFrame: TFCalendarFrame
           ShowCaption = False
         end
         object bWeekView: TSpeedButton
-          Left = 62
+          Left = 60
           Height = 25
           Hint = 'zeigt die Wochenansicht'
           Top = 15
@@ -384,7 +384,7 @@ inherited FCalendarFrame: TFCalendarFrame
           ShowCaption = False
         end
         object bMonthView: TSpeedButton
-          Left = 87
+          Left = 84
           Height = 25
           Hint = 'zeigt die Monatsansicht'
           Top = 15
