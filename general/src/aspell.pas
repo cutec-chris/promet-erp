@@ -1,6 +1,5 @@
 unit Aspell;
 interface
-{
 
 uses SysUtils, Classes, ProcessLineTalk, Contnrs;
 
@@ -170,6 +169,5 @@ begin
   if Assigned(FOnMessage) then
     FOnMessage(MessageType, AMessage, AVerbosity);
 end;
-}
-implementation
-end.
+
+end.
