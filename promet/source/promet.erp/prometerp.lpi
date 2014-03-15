@@ -775,24 +775,28 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="utasks"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1179"/>
-        <CursorPos X="1" Y="1194"/>
+        <TopLine Value="1"/>
+        <CursorPos X="53" Y="27"/>
         <UsageCount Value="21"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit47>
       <Unit48>
         <Filename Value="../base_forms/ugridview.pas"/>
+        <ComponentName Value="fGridView"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ugridview"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="396"/>
-        <CursorPos X="22" Y="401"/>
+        <TopLine Value="549"/>
+        <CursorPos X="3" Y="551"/>
         <UsageCount Value="21"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit48>
       <Unit49>
         <Filename Value="../base_pm/umeetingframe.pas"/>
@@ -846,7 +850,7 @@
         <Loaded Value="True"/>
       </Unit52>
     </Units>
-    <JumpHistory Count="9" HistoryIndex="8">
+    <JumpHistory Count="13" HistoryIndex="12">
       <Position1>
         <Filename Value="../base_help/uwikiframe.pas"/>
         <Caret Line="20" Column="1" TopLine="1"/>
@@ -883,6 +887,22 @@
         <Filename Value="../base_help/uspelling.pas"/>
         <Caret Line="87" Column="63" TopLine="70"/>
       </Position9>
+      <Position10>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="6" Column="74" TopLine="1"/>
+      </Position10>
+      <Position11>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="27" Column="53" TopLine="1"/>
+      </Position11>
+      <Position12>
+        <Filename Value="../base_forms/ugridview.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position12>
+      <Position13>
+        <Filename Value="../base_forms/ugridview.pas"/>
+        <Caret Line="552" Column="3" TopLine="550"/>
+      </Position13>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
