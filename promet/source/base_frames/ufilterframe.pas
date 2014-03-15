@@ -188,6 +188,7 @@ type
     FFirstMove : Boolean;
     HintY: LongInt;
     aSelectedIndex : LongInt;
+    function GetAutoFiltered: Boolean;
     function GetFilterIn: string;
     procedure SetBaseFilter(const AValue: string);
     procedure SetDataSet(const AValue: TBaseDBDataSet);override;
@@ -234,6 +235,7 @@ type
     property DestroyDataSet : Boolean read FDestroyDataSet write FDestroyDataSet;
     property OnGetCellText : TOnGetCellTextEvent read FOnGetCellText write FOnGetCellText;
     property OnDrawColumnCell : TDrawColumnCellEvent read FOnDrawColumnCell write FOnDrawColumnCell;
+    property AutoFiltered : Boolean read GetAutoFiltered;
     procedure AddToolbarAction(aAction : TAction);
     procedure AddToolbarToggle(aAction : TAction);
     procedure AddContextAction(aAction : TAction);
@@ -513,6 +515,12 @@ begin
   with FDataSet.DataSet as IBaseDBFilter do
     Result := FilterTables;
 end;
+
+function TfFilter.GetAutoFiltered: Boolean;
+begin
+  Result := FAutoFilter<>'';
+end;
+
 procedure TfFilter.eFilterEditChange(Sender: TObject);
 begin
   ParseForms(eFilterEdit.lines.Text);

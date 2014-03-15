@@ -157,6 +157,12 @@ inherited fAccountingFrame: TfAccountingFrame
       ImageIndex = 24
       OnExecute = acSingleLineViewExecute
     end
+    object acSetCategory: TAction
+      Caption = 'Kategorie nach Bechreibung zuweisen'
+      Hint = 'weist allen Buchungen mit dieser Beschreibung diese Kategorie zu'
+      ImageIndex = 24
+      OnExecute = acSetCategoryExecute
+    end
   end
   object dsAccount: TDatasource[2]
     left = 24

@@ -35,6 +35,7 @@ type
     acGotoVoucher: TAction;
     acPasteLinkasVoucher: TAction;
     acSingleLineView: TAction;
+    acSetCategory: TAction;
     ActionList1: TActionList;
     Bevel3: TBevel;
     dsAccount: TDatasource;
@@ -52,6 +53,7 @@ type
     procedure acGotoVoucherExecute(Sender: TObject);
     procedure acOnlineUpdateExecute(Sender: TObject);
     procedure acPasteLinkasVoucherExecute(Sender: TObject);
+    procedure acSetCategoryExecute(Sender: TObject);
     procedure acSingleLineViewExecute(Sender: TObject);
     procedure FListDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
@@ -153,7 +155,8 @@ begin
               Data.Categories.DataSet.Next;
             end;
         end
-      else FList.gList.Columns[i].ReadOnly:=True;
+      else
+        FList.gList.Columns[i].ReadOnly:=True;
     end;
 end;
 
@@ -203,6 +206,30 @@ begin
         end;
     end;
 end;
+
+procedure TfAccountingFrame.acSetCategoryExecute(Sender: TObject);
+var
+  aCat: String;
+  aDesc: String;
+begin
+  with TAccounts(DataSet).Exchange do
+    begin
+      aCat := FieldByName('CATEGORY').AsString;
+      aDesc := FieldByName('PURPOSE').AsString;
+      First;
+      while not EOF do
+        begin
+          if (aDesc = FieldByName('PURPOSE').AsString) or (FList.AutoFiltered) then
+            begin
+              Edit;
+              FieldByName('CATEGORY').AsString:=aCat;
+              Post;
+            end;
+          Next;
+        end;
+    end;
+end;
+
 procedure TfAccountingFrame.acSingleLineViewExecute(Sender: TObject);
 var
   lines: Integer;
@@ -246,6 +273,7 @@ begin
   FList.AddContextAction(acGotoVoucher);
   FList.AddContextAction(acPasteLinkAsVoucher);
   FList.AddToolbarToggle(acSingleLineView);
+  FList.AddContextAction(acSetCategory);
   aFDS := TfrDBDataSet.Create(FList);
   aFDS.Name:='DAccounts';
   aDS := TDataSource.Create(FList);
