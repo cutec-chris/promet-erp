@@ -190,6 +190,7 @@ uses uData,uPrometFrames,LCLType,Dialogs,uIntfStrConsts, FPCanvas,
   uBaseVisualApplication,uError;
 resourcestring
   strRestartNessesary                         = 'Starten Sie die Anwendung neu !';
+  strRealMove                                 = 'Verzeichnis wirklich verschieben ?';
 constructor TTreeEntry.Create;
 begin
   Action := nil;
@@ -1278,27 +1279,30 @@ begin
             or (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etMessageBoard)
             then
               begin
-                DataT2 := TTreeEntry(tvMain.GetNodeAt(X,Y).Data);
-                Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
-                Data.Tree.GotoBookmark(DataT2.Rec);
-                if Data.Tree.FieldByName('TYPE').AsString <> 'F' then
+                if MessageDlg(strRealMove,mtInformation,[mbYes,mbNo],0) = mrYes then
                   begin
-                    aNewParent := Data.Tree.id.AsVariant;
-                    Data.SetFilter(Data.Tree,'',0,'','ASC');
-                    Data.Tree.GotoBookmark(DataT.Rec);
-                    with Data.Tree.DataSet do
+                    DataT2 := TTreeEntry(tvMain.GetNodeAt(X,Y).Data);
+                    Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
+                    Data.Tree.GotoBookmark(DataT2.Rec);
+                    if Data.Tree.FieldByName('TYPE').AsString <> 'F' then
                       begin
-                        Edit;
-                        FieldByName('PARENT').AsInteger:=aNewParent;
-                        Post;
+                        aNewParent := Data.Tree.id.AsVariant;
+                        Data.SetFilter(Data.Tree,'',0,'','ASC');
+                        Data.Tree.GotoBookmark(DataT.Rec);
+                        with Data.Tree.DataSet do
+                          begin
+                            Edit;
+                            FieldByName('PARENT').AsInteger:=aNewParent;
+                            Post;
+                          end;
+                        tvMain.GetNodeAt(X,Y).Collapse(True);
+                        tvMain.GetNodeAt(X,Y).HasChildren:=True;
+                        tvMain.GetNodeAt(X,Y).Expand(False);
+                        try
+                          tvMain.Selected.Delete;
+                        except
+                        end;
                       end;
-                    tvMain.GetNodeAt(X,Y).Collapse(True);
-                    tvMain.GetNodeAt(X,Y).HasChildren:=True;
-                    tvMain.GetNodeAt(X,Y).Expand(False);
-                    try
-                      tvMain.Selected.Delete;
-                    except
-                    end;
                   end;
               end;
         end;
@@ -1674,7 +1678,7 @@ var
   Node2: TTreeNode;
   aListL: TLinks;
   aProject: TProject;
-
+  bTree: TTree;
   function GetHasChildren(aNode : TTreeNode) : Boolean;
   begin
     Result := False;
@@ -1687,7 +1691,6 @@ var
         aProject.Free;
       end;
   end;
-
   procedure AddEntry;
   var
     i: Integer;
@@ -1730,6 +1733,7 @@ begin
       Data.SetFilter(Data.Tree,Data.QuoteField('PARENT')+'='+ID,0,'','ASC',False,True,True);
       Node.DeleteChildren;
       //Add directories
+      bTree := TTree.Create(nil,Data);
       while not Data.Tree.DataSet.EOF do
         begin
           Node1 := tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
@@ -1737,12 +1741,34 @@ begin
           TTreeEntry(Node1.Data).DataSource := Data.Tree;
           TTreeEntry(Node1.Data).Text[0] := Data.Tree.FieldByName('NAME').AsString;
           if Typ = 'D' then
-            TTreeEntry(Node1.Data).Typ := etDocumentDir
+            begin
+              TTreeEntry(Node1.Data).Typ := etDocumentDir;
+              bTree.Filter(Data.QuoteField('PARENT')+'='+Data.QuoteValue(Data.Tree.Id.AsVariant));
+              if bTree.Count>0 then
+                tvMain.Items.AddChild(Node1,'');
+            end
+          else if Typ = 'B' then
+            begin
+              TTreeEntry(Node1.Data).Typ := etMessageBoard;
+              bTree.Filter(Data.QuoteField('PARENT')+'='+Data.QuoteValue(Data.Tree.Id.AsVariant));
+              if bTree.Count>0 then
+                tvMain.Items.AddChild(Node1,'');
+            end
+          else if Typ = 'N' then
+            begin
+              TTreeEntry(Node1.Data).Typ := etMessageDir;
+              bTree.Filter(Data.QuoteField('PARENT')+'='+Data.QuoteValue(Data.Tree.Id.AsVariant));
+              if bTree.Count>0 then
+                tvMain.Items.AddChild(Node1,'');
+            end
           else
-            TTreeEntry(Node1.Data).Typ := etDir;
-          tvMain.Items.AddChild(Node1,'');
+            begin
+              TTreeEntry(Node1.Data).Typ := etDir;
+              tvMain.Items.AddChild(Node1,'');
+            end;
           Data.Tree.DataSet.Next;
         end;
+      bTree.Free;
       //Add Entrys
       if (Typ = 'C') and (Data.Users.Rights.Right('CUSTOMERS') > RIGHT_NONE) then //Contacts
         begin

@@ -2351,6 +2351,12 @@ var
   aFrame2: TfCalendarFrame;
   Found: Boolean = False;
   i: Integer;
+  aMFrame: TfMessageFrame;
+  aNew: TMenuItem;
+  tmp: Char;
+  aDFrame: TfManageDocFrame;
+  aAFrame: TfAccountingFrame;
+  aIFrame: TfDocumentFrame;
 begin
   if not Assigned(aEntry) then
     exit;
@@ -2363,10 +2369,6 @@ begin
     end;
   etCustomerList,etCustomers,etArticleList,etOrderList,
   etTasks,etMyTasks,etProjects,etCalendar,etMyCalendar,
-  etMessages,etMessageDir,etMessageBoard:
-    begin
-      pcPages.SetFocus;
-    end;
   etLink:
     begin
       fMainTreeFrame.OpenLink(aEntry.Link,Self);
@@ -2462,6 +2464,114 @@ begin
       if aDataSet.Count > 0 then
         fMainTreeFrame.OpenLink(Data.BuildLink(aDataSet.DataSet),Self);
       aDataSet.Free;
+    end;
+  etMessageDir,etMessageBoard:
+    begin
+      Application.ProcessMessages;
+      if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfMessageFrame) then
+        Found := True;
+      if not Found then
+        for i := 0 to pcPages.PageCount-2 do
+          if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfMessageFrame) then
+            begin
+              pcPages.PageIndex:=i;
+              Found := True;
+            end;
+      if not Found then
+        begin
+          aMFrame := TfmessageFrame.Create(Self);
+          pcPages.AddTab(aMFrame);
+          TfMessageFrame(aMFrame).FMessageNode := FMessageNode;
+        end;
+      if not Data.GotoBookmark(Data.Tree,aEntry.Rec) then
+        begin
+          Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
+          if not Data.GotoBookmark(Data.Tree,aEntry.Rec) then
+            exit;
+        end;
+      if Data.Tree.Id.AsInteger = TREE_ID_DELETED_MESSAGES then
+        begin
+          aNew := TMenuItem.Create(nil);
+          aNew.Action := acDeleteWholeMessageDir;
+          fMainTreeFrame.pmTree.Items.Add(aNew);
+        end;
+      if (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfMessageFrame) then
+        TfMessageFrame(pcPages.ActivePage.Controls[0]).OpenDir(Data.Tree.Id.AsVariant);
+    end;
+  etDocumentDir:
+    begin
+      Application.ProcessMessages;
+      tmp := 'I';
+      if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfManageDocFrame) and (TfManageDocFrame(pcPages.ActivePage.Controls[0]).Typ=tmp) then
+        Found := True;
+      if not Found then
+        for i := 0 to pcPages.PageCount-2 do
+          if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfManageDocFrame) then
+            begin
+              pcPages.PageIndex:=i;
+              Found := True;
+            end;
+      if not Found then
+        begin
+          aDFrame := TfManageDocFrame.Create(Self);
+          pcPages.AddTab(aDFrame,True,'',Data.GetLinkIcon('DOCPAGES@'),False);
+          AddDocPages(aDFrame);
+        end;
+      if not Data.GotoBookmark(Data.Tree,aEntry.Rec) then
+        begin
+          Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
+          if not Data.GotoBookmark(Data.Tree,aEntry.Rec) then
+            exit;
+        end;
+      if (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfManageDocFrame) then
+        TfManageDocFrame(pcPages.ActivePage.Controls[0]).OpenDir(Data.Tree.Id.AsVariant);
+    end;
+  etAccount:
+    begin
+      Application.ProcessMessages;
+      if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfAccountingFrame) then
+        Found := True;
+      if not Found then
+        for i := 0 to pcPages.PageCount-2 do
+          if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfAccountingFrame) then
+            begin
+              pcPages.PageIndex:=i;
+              Found := True;
+            end;
+      if not Found then
+        begin
+          aAFrame := TfAccountingFrame.Create(Self);
+          pcPages.AddTab(aAFrame);
+        end;
+      if (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfAccountingFrame) then
+        TfAccountingFrame(pcPages.ActivePage.Controls[0]).OpenAccount(aEntry.Rec);
+    end;
+  etFiles:
+    begin
+      Application.ProcessMessages;
+      if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfDocumentFrame) then
+        Found := True;
+      if not Found then
+        for i := 0 to pcPages.PageCount-2 do
+          if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfDocumentFrame) then
+            begin
+              pcPages.PageIndex:=i;
+              Found := True;
+            end;
+      if not Found then
+        begin
+          aIFrame := TfDocumentFrame.Create(Self);
+          pcPages.AddTab(aIFrame);
+        end;
+      if (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfDocumentFrame) then
+        with TfDocumentFrame(pcPages.ActivePage.Controls[0]) do
+          begin
+            TabCaption := strFiles;
+            pHeader.Visible := True;
+            pLeft.Visible := False;
+            DataSet := TDocuments.Create(nil,Data);
+            Refresh(1,'D','1',Null,Null);
+          end;
     end;
   end;
 end;
@@ -2784,114 +2894,6 @@ begin
     begin
       acWiki.Execute;
     end;
-  etMessageDir,etMessageBoard:
-    begin
-      Application.ProcessMessages;
-      if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfMessageFrame) then
-        Found := True;
-      if not Found then
-        for i := 0 to pcPages.PageCount-2 do
-          if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfMessageFrame) then
-            begin
-              pcPages.PageIndex:=i;
-              Found := True;
-            end;
-      if not Found then
-        begin
-          aFrame := TfmessageFrame.Create(Self);
-          pcPages.AddTab(aFrame);
-          TfMessageFrame(aFrame).FMessageNode := FMessageNode;
-        end;
-      if not Data.GotoBookmark(Data.Tree,aEntry.Rec) then
-        begin
-          Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
-          if not Data.GotoBookmark(Data.Tree,aEntry.Rec) then
-            exit;
-        end;
-      if Data.Tree.Id.AsInteger = TREE_ID_DELETED_MESSAGES then
-        begin
-          New := TMenuItem.Create(nil);
-          New.Action := acDeleteWholeMessageDir;
-          fMainTreeFrame.pmTree.Items.Add(New);
-        end;
-      if (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfMessageFrame) then
-        TfMessageFrame(pcPages.ActivePage.Controls[0]).OpenDir(Data.Tree.Id.AsVariant);
-    end;
-  etDocumentDir:
-    begin
-      Application.ProcessMessages;
-      tmp := 'I';
-      if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfManageDocFrame) and (TfManageDocFrame(pcPages.ActivePage.Controls[0]).Typ=tmp) then
-        Found := True;
-      if not Found then
-        for i := 0 to pcPages.PageCount-2 do
-          if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfManageDocFrame) then
-            begin
-              pcPages.PageIndex:=i;
-              Found := True;
-            end;
-      if not Found then
-        begin
-          aFrame := TfManageDocFrame.Create(Self);
-          pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('DOCPAGES@'),False);
-          AddDocPages(aFrame);
-        end;
-      if not Data.GotoBookmark(Data.Tree,aEntry.Rec) then
-        begin
-          Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
-          if not Data.GotoBookmark(Data.Tree,aEntry.Rec) then
-            exit;
-        end;
-      if (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfManageDocFrame) then
-        TfManageDocFrame(pcPages.ActivePage.Controls[0]).OpenDir(Data.Tree.Id.AsVariant);
-    end;
-  etAccount:
-    begin
-      Application.ProcessMessages;
-      if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfAccountingFrame) then
-        Found := True;
-      if not Found then
-        for i := 0 to pcPages.PageCount-2 do
-          if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfAccountingFrame) then
-            begin
-              pcPages.PageIndex:=i;
-              Found := True;
-            end;
-      if not Found then
-        begin
-          aFrame := TfAccountingFrame.Create(Self);
-          pcPages.AddTab(aFrame);
-        end;
-      if (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfAccountingFrame) then
-        TfAccountingFrame(pcPages.ActivePage.Controls[0]).OpenAccount(aEntry.Rec);
-    end;
-  etFiles:
-    begin
-      Application.ProcessMessages;
-      if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfDocumentFrame) then
-        Found := True;
-      if not Found then
-        for i := 0 to pcPages.PageCount-2 do
-          if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfDocumentFrame) then
-            begin
-              pcPages.PageIndex:=i;
-              Found := True;
-            end;
-      if not Found then
-        begin
-          aIFrame := TfDocumentFrame.Create(Self);
-          pcPages.AddTab(aIFrame);
-        end;
-      if (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfDocumentFrame) then
-        with TfDocumentFrame(pcPages.ActivePage.Controls[0]) do
-          begin
-            TabCaption := strFiles;
-            pHeader.Visible := True;
-            pLeft.Visible := False;
-            DataSet := TDocuments.Create(nil,Data);
-            Refresh(1,'D','1',Null,Null);
-          end;
-    end;
   etDocumentsOnly,etImages:
     begin
       Application.ProcessMessages;
@@ -2974,6 +2976,7 @@ var
   Node2: TTreeNode;
   Accounts: TAccounts;
   Node3: TTreeNode;
+  bTree: TTree;
 begin
   DataT := TTreeEntry(Node.Data);
   if not Assigned(DataT) then
@@ -3001,6 +3004,7 @@ begin
         begin
           Data.SetFilter(Data.Tree,Data.QuoteField('PARENT')+'=0 and '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('N')+' OR '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('B'),0,'','ASC',False,True,True);
           Data.Tree.DataSet.First;
+          bTree := TTree.Create(nil,Data);
           while not Data.Tree.dataSet.EOF do
             begin
               Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
@@ -3008,11 +3012,22 @@ begin
               TTreeEntry(Node1.Data).DataSource := Data.Tree;
               TTreeEntry(Node1.Data).Text[0] := Data.Tree.FieldByName('NAME').AsString;
               if Data.Tree.FieldByName('TYPE').AsString = 'N' then
-                TTreeEntry(Node1.Data).Typ := etMessageDir
+                begin
+                  TTreeEntry(Node1.Data).Typ := etMessageDir;
+                  bTree.Filter(Data.QuoteField('PARENT')+'='+Data.QuoteValue(Data.Tree.Id.AsVariant));
+                  if bTree.Count>0 then
+                    fMainTreeFrame.tvMain.Items.AddChild(Node1,'');
+                end
               else if Data.Tree.FieldByName('TYPE').AsString = 'B' then
-                TTreeEntry(Node1.Data).Typ := etMessageBoard;
+                begin
+                  TTreeEntry(Node1.Data).Typ := etMessageBoard;
+                  bTree.Filter(Data.QuoteField('PARENT')+'='+Data.QuoteValue(Data.Tree.Id.AsVariant));
+                  if bTree.Count>0 then
+                    fMainTreeFrame.tvMain.Items.AddChild(Node1,'');
+                end;
               Data.Tree.DataSet.Next;
             end;
+          bTree.Free;
         end;
       etTasks:
         begin

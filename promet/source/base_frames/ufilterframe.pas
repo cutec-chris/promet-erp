@@ -1330,6 +1330,8 @@ begin
       FDefaultSortDirection:=SortDirection;
       FDefaultSorting:=SortField;
     end;
+  if Assigned(FOnFilterChanged) then
+    FOnFilterChanged(Self);
 end;
 procedure TfFilter.SetBaseFilter(const AValue: string);
 begin

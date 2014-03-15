@@ -20,6 +20,7 @@ inherited fCategoryOptions: TfCategoryOptions
           'P   Project'
           'T   Task'
           'M  Article'
+          'B  Banking'
         )
         Title.Caption = 'Typ'
         Width = 40

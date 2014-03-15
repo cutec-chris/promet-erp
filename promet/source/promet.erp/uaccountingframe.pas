@@ -55,6 +55,7 @@ type
     procedure acSingleLineViewExecute(Sender: TObject);
     procedure FListDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure FListFilterChanged(Sender: TObject);
   private
     { private declarations }
     FList: TfFilter;
@@ -126,6 +127,36 @@ begin
         DefaultDrawColumnCell(Rect, DataCol, Column, State);
       end;
 end;
+
+procedure TfAccountingFrame.FListFilterChanged(Sender: TObject);
+var
+  i: Integer;
+  aType: Char;
+begin
+  FList.gList.ReadOnly:=False;
+  FList.gList.Enabled:=True;
+  for i := 0 to FList.gList.Columns.Count-1 do
+    begin
+      if FList.gList.Columns[i].FieldName='CHECKED' then
+        FList.gList.Columns[i].ReadOnly:=False
+      else if FList.gList.Columns[i].FieldName='CATEGORY' then
+        begin
+          FList.gList.Columns[i].ReadOnly:=False;
+          FList.gList.Columns[i].PickList.Clear;
+          aType := 'B';
+          Data.SetFilter(Data.Categories,Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType));
+          Data.Categories.First;
+          while not Data.Categories.EOF do
+            begin
+              if Data.Categories.FieldByName('ACTIVE').AsString<>'N' then
+                FList.gList.Columns[i].PickList.Add(Data.Categories.FieldByName('NAME').AsString);
+              Data.Categories.DataSet.Next;
+            end;
+        end
+      else FList.gList.Columns[i].ReadOnly:=True;
+    end;
+end;
+
 procedure TfAccountingFrame.acOnlineUpdateExecute(Sender: TObject);
 begin
   fAccountingQue.Setlanguage;
@@ -221,7 +252,8 @@ begin
   aDS.DataSet := TAccounts(DataSet).DataSet;
   aDS.Name:='Accounts';
   aFDS.DataSource := aDS;
-
+  FList.Editable:=True;
+  FList.OnFilterChanged:=@FListFilterChanged;
 end;
 destructor TfAccountingFrame.Destroy;
 begin
