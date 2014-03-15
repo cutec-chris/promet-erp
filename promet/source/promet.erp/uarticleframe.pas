@@ -451,6 +451,7 @@ begin
     end;
 
   aType := 'M';
+  cbStatus.Items.Clear;
   if not Data.States.DataSet.Locate('TYPE;STATUS',VarArrayOf([aType,FDataSet.FieldByName('STATUS').AsString]),[loCaseInsensitive]) then
     begin
       Data.SetFilter(Data.States,'');
