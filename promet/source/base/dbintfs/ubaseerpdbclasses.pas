@@ -215,8 +215,8 @@ begin
         with ManagedFieldDefs do
           begin
             Add('TYPE',ftString,1,false);
-            Add('NAME',ftString,30,True);
-            Add('COLOR',ftString,30,True);
+            Add('NAME',ftString,60,True);
+            Add('COLOR',ftString,30,False);
             Add('ACTIVE',ftString,1,false);
           end;
     end;
@@ -1347,4 +1347,4 @@ begin
 end;
 initialization
 end.
-
+
