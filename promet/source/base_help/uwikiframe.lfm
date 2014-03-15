@@ -101,8 +101,8 @@ inherited fWikiFrame: TfWikiFrame
     NewTabImageIndex = 59
     object tsView: TTabSheet
       Caption = 'Anzeigen'
-      ClientHeight = 898
-      ClientWidth = 1354
+      ClientHeight = 449
+      ClientWidth = 677
       ImageIndex = 87
       OnShow = tsViewShow
       object ipHTML: TIpHtmlPanel
@@ -127,8 +127,8 @@ inherited fWikiFrame: TfWikiFrame
     object tsEdit: TTabSheet
       Tag = 1
       Caption = 'bearbeiten'
-      ClientHeight = 898
-      ClientWidth = 1354
+      ClientHeight = 449
+      ClientWidth = 677
       ImageIndex = 67
       object Panel1: TPanel
         Left = 0
@@ -547,7 +547,7 @@ inherited fWikiFrame: TfWikiFrame
           Columns = <          
             item
               Title.Caption = 'Suchbegriff'
-              Width = 176
+              Width = 158
               FieldName = 'KEYWORD'
             end>
           DataSource = Keywords

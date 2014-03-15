@@ -46,7 +46,7 @@ type
     FMemo: TCustomMemo;
   public
     { public declarations }
-    function Execute(aMemo : TCustomMemo) : Boolean;
+    function Execute(aMemo : TCustomMemo;aStart : Integer) : Boolean;
   end;
 
 var
@@ -69,15 +69,13 @@ begin
   ModalResult:=mrAbort;
 end;
 
-function TfSpellCheck.Execute(aMemo: TCustomMemo): Boolean;
-{
+function TfSpellCheck.Execute(aMemo: TCustomMemo; aStart: Integer): Boolean;
 var
   aProc: TAspellProcess;
   aList: TObjectList;
   i: Integer;
   aEntry: TSpellingError;             }
 begin
-  {
   if not Assigned(Self) then
     begin
       Application.CreateForm(TfSpellCheck,fSpellCheck);
@@ -86,7 +84,7 @@ begin
   FMemo := aMemo;
   aProc := TAspellProcess.Create('none','de');
   aList := TObjectList.create;
-  aProc.CheckString(aMemo.Text,aList);
+  aProc.CheckString(copy(aMemo.Text,aStart,length(amemo.Text)),aList);
   for i := 0 to aList.Count-1 do
     begin
       aEntry := TSpellingError(aList[i]);
@@ -100,7 +98,6 @@ begin
     end;
   aList.Free;
   aProc.Free;
-  }
 end;
 
 end.

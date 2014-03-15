@@ -461,7 +461,9 @@ end;
 
 procedure TfWikiFrame.acSpellCheckExecute(Sender: TObject);
 begin
-  fSpellCheck.Execute(eWikiPage);
+  SetFocus;
+  eWikiPage.SetFocus;
+  fSpellCheck.Execute(eWikiPage,eWikiPage.SelStart);
 end;
 
 procedure TfWikiFrame.bItalicClick(Sender: TObject);
