@@ -74,7 +74,7 @@ var
   aProc: TAspellProcess;
   aList: TObjectList;
   i: Integer;
-  aEntry: TSpellingError;             }
+  aEntry: TSpellingError;
 begin
   if not Assigned(Self) then
     begin

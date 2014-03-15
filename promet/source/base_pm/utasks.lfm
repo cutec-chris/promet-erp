@@ -157,8 +157,7 @@ inherited fTaskFrame: TfTaskFrame
         Caption = 'Aufgabe'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
@@ -373,8 +372,7 @@ inherited fTaskFrame: TfTaskFrame
         Caption = 'Zeit'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
@@ -409,8 +407,7 @@ inherited fTaskFrame: TfTaskFrame
         Caption = 'Ansicht'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
@@ -699,8 +696,7 @@ inherited fTaskFrame: TfTaskFrame
         Caption = 'zusätzlich'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
@@ -743,10 +739,10 @@ inherited fTaskFrame: TfTaskFrame
         ParentFont = False
       end
       object bAddPos1: TSpeedButton
-        Left = 8
-        Height = 24
-        Top = 15
-        Width = 24
+        Left = 3
+        Height = 35
+        Top = 3
+        Width = 36
         Action = acAddPos
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
@@ -788,9 +784,9 @@ inherited fTaskFrame: TfTaskFrame
         ShowCaption = False
       end
       object bDeletePos1: TSpeedButton
-        Left = 128
+        Left = 132
         Height = 24
-        Top = 15
+        Top = 14
         Width = 24
         Action = acDelPos
         Glyph.Data = {
@@ -833,9 +829,9 @@ inherited fTaskFrame: TfTaskFrame
         ShowCaption = False
       end
       object bDeletePos3: TSpeedButton
-        Left = 56
+        Left = 63
         Height = 24
-        Top = 15
+        Top = 14
         Width = 24
         Action = acMAkeSubTask
         Glyph.Data = {
@@ -878,9 +874,9 @@ inherited fTaskFrame: TfTaskFrame
         ShowCaption = False
       end
       object bDeletePos4: TSpeedButton
-        Left = 80
+        Left = 86
         Height = 24
-        Top = 15
+        Top = 14
         Width = 24
         Action = acUnmakeSubTask
         Glyph.Data = {
@@ -923,9 +919,9 @@ inherited fTaskFrame: TfTaskFrame
         ShowCaption = False
       end
       object bDeletePos7: TSpeedButton
-        Left = 104
+        Left = 109
         Height = 24
-        Top = 15
+        Top = 14
         Width = 24
         Action = acLink
         Glyph.Data = {
@@ -968,10 +964,10 @@ inherited fTaskFrame: TfTaskFrame
         ShowCaption = False
       end
       object bDeletePos8: TSpeedButton
-        Left = 32
+        Left = 39
         Height = 24
-        Top = 15
-        Width = 24
+        Top = 14
+        Width = 25
         Action = acMarkSeen
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
@@ -1051,7 +1047,7 @@ inherited fTaskFrame: TfTaskFrame
       object bEnterTime1: TSpeedButton
         Left = 4
         Height = 24
-        Top = 15
+        Top = 14
         Width = 24
         Action = acStartTime
         Glyph.Data = {
@@ -1133,7 +1129,7 @@ inherited fTaskFrame: TfTaskFrame
         Left = 4
         Height = 24
         Hint = 'zeigt/versteckt'#10'erledigte Aufgaben'
-        Top = 15
+        Top = 14
         Width = 24
         AllowAllUp = True
         Glyph.Data = {
@@ -1165,7 +1161,7 @@ inherited fTaskFrame: TfTaskFrame
       object bRefresh: TSpeedButton
         Left = 100
         Height = 24
-        Top = 15
+        Top = 14
         Width = 24
         Action = acRefresh
         AllowAllUp = True
@@ -1212,7 +1208,7 @@ inherited fTaskFrame: TfTaskFrame
         Left = 52
         Height = 24
         Hint = 'zeigt/versteckt '#10'delegierte Aufgaben'
-        Top = 15
+        Top = 14
         Width = 24
         AllowAllUp = True
         Glyph.Data = {
@@ -1260,7 +1256,7 @@ inherited fTaskFrame: TfTaskFrame
         Left = 28
         Height = 24
         Hint = 'zeigt/versteckt'#10'abhängige Aufgaben'
-        Top = 15
+        Top = 14
         Width = 24
         AllowAllUp = True
         Glyph.Data = {
@@ -1308,7 +1304,7 @@ inherited fTaskFrame: TfTaskFrame
         Left = 76
         Height = 24
         Hint = 'zeigt/versteckt '#10'Aufgaben die in der Zukunft starten'
-        Top = 15
+        Top = 14
         Width = 24
         AllowAllUp = True
         Glyph.Data = {
@@ -1360,7 +1356,7 @@ inherited fTaskFrame: TfTaskFrame
       object bExecute: TSpeedButton
         Left = 4
         Height = 35
-        Top = 4
+        Top = 3
         Width = 36
         Action = acPrint
         Glyph.Data = {
@@ -1424,9 +1420,9 @@ inherited fTaskFrame: TfTaskFrame
       end
       object ExtRotatedLabel4: TLabel
         Left = 6
-        Height = 11
+        Height = 14
         Top = 0
-        Width = 21
+        Width = 28
         Caption = 'Filter'
         Font.Color = clMedGray
         Font.Height = 11
@@ -1437,13 +1433,13 @@ inherited fTaskFrame: TfTaskFrame
       object cbFilter: TComboBox
         AnchorSideLeft.Side = asrBottom
         Left = 6
-        Height = 21
+        Height = 27
         Hint = 'hier können Sie einen Filter wählen um die Liste einzuschränken'
         Top = 12
         Width = 241
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Left = 8
-        ItemHeight = 13
+        ItemHeight = 0
         OnSelect = cbFilterSelect
         TabOrder = 0
       end
@@ -1533,7 +1529,7 @@ inherited fTaskFrame: TfTaskFrame
       object bDelegated2: TSpeedButton
         Left = 4
         Height = 24
-        Top = 15
+        Top = 14
         Width = 24
         Action = acGotoProject
         AllowAllUp = True
@@ -1601,6 +1597,7 @@ inherited fTaskFrame: TfTaskFrame
       ScrollWidth = 450
       TabOrder = 0
       TabStop = False
+      TopIndex = -1
     end
   end
   object pFilterOptions: TPanel[4]
@@ -1627,9 +1624,9 @@ inherited fTaskFrame: TfTaskFrame
       TabOrder = 0
       object cbMaxResults: TCheckBox
         Left = 9
-        Height = 17
+        Height = 24
         Top = 5
-        Width = 173
+        Width = 209
         Caption = 'Filterergebnisse begrenzen auf  '
         Checked = True
         OnChange = seMaxresultsChange
@@ -1782,9 +1779,9 @@ inherited fTaskFrame: TfTaskFrame
       end
       object lFilterEdit: TLabel
         Left = 9
-        Height = 13
+        Height = 14
         Top = 33
-        Width = 74
+        Width = 88
         Caption = 'Filterbedingung'
         ParentColor = False
       end
@@ -1800,7 +1797,7 @@ inherited fTaskFrame: TfTaskFrame
       end
       object eFilterIn: TEdit
         Left = 435
-        Height = 21
+        Height = 24
         Hint = 'Wenn Sie über mehrere Tabellen Filtern '#13#10'möchten füllen Sie dieses Feld'#13#10'z.b.'#13#10'Orders,OrderPos'
         Top = 80
         Width = 152
@@ -1818,8 +1815,8 @@ inherited fTaskFrame: TfTaskFrame
       object seMaxresults: TSpinEdit
         AnchorSideLeft.Control = cbMaxResults
         AnchorSideLeft.Side = asrBottom
-        Left = 182
-        Height = 21
+        Left = 218
+        Height = 24
         Hint = 'hier können Sie die Zahl der maximalen Filterergebnisse angeben'
         Top = 5
         Width = 52
@@ -2550,6 +2547,7 @@ inherited fTaskFrame: TfTaskFrame
     TabOrder = 6
   end
   object ActionList: TActionList[7]
+    Images = fVisualControls.Images
     left = 208
     top = 112
     object acImport: TAction
