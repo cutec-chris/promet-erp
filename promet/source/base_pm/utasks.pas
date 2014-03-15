@@ -96,8 +96,14 @@ type
     cbMaxResults: TCheckBox;
     Datasource: TDatasource;
     ExtRotatedLabel5: TExtRotatedLabel;
+    MenuItem2: TMenuItem;
+    MenuItem3: TMenuItem;
+    MenuItem4: TMenuItem;
+    MenuItem5: TMenuItem;
+    MenuItem6: TMenuItem;
     Panel9: TPanel;
     pBottom: TPanel;
+    pmGrid: TPopupMenu;
     PUsers: TfrDBDataSet;
     Users: TDatasource;
     eFilterEdit: TSynMemo;
@@ -1420,12 +1426,7 @@ begin
   FGridView.OnFilterCell:=@FGridViewFilterCell;
   FGridView.OnAddRow:=@FGridViewAddRow;
   FGridView.OnDelete:=@FGridViewDelete;
-  aItem := TMenuItem.Create(FGridView.pmPopup);
-  aItem.Action:=acOpen;
-  FGridView.pmPopup.Items.Insert(0,aItem);
-  aItem := TMenuItem.Create(FGridView.pmPopup);
-  aItem.Action:=acMarkSeen;
-  FGridView.pmPopup.Items.Add(aItem);
+  FGridView.PopupMenu := pmGrid;
   pFilterOptions.Height:=0;
 end;
 destructor TfTaskFrame.Destroy;

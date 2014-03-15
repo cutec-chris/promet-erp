@@ -2557,13 +2557,13 @@ inherited fTaskFrame: TfTaskFrame
       Caption = 'Exportieren'
     end
     object acDelPos: TAction
-      Caption = 'acDelPos'
+      Caption = 'Aufgabe löschen'
       Hint = 'löscht die Aufgabe'
       ImageIndex = 60
       OnExecute = acDelPosExecute
     end
     object acAddPos: TAction
-      Caption = 'acAddPos'
+      Caption = 'neue Aufgabe'
       Hint = 'fügt eine Aufgabe ein'
       ImageIndex = 59
       OnExecute = acAddPosExecute
@@ -2575,19 +2575,19 @@ inherited fTaskFrame: TfTaskFrame
       OnExecute = acMAkeSubTaskExecute
     end
     object acUnmakeSubTask: TAction
-      Caption = 'acUnmakeSubTask'
+      Caption = 'Aufgabe ausrücken'
       Hint = 'rückt die Aufgabe aus'
       ImageIndex = 96
       OnExecute = acUnmakeSubTaskExecute
     end
     object acRefresh: TAction
-      Caption = 'acRefresh'
+      Caption = 'aktualisieren'
       Hint = 'aktualisiert die Ansicht'
       ImageIndex = 69
       OnExecute = acRefreshExecute
     end
     object acLink: TAction
-      Caption = 'acLink'
+      Caption = 'Aufgaben verknüpfen'
       Hint = 'verknüpft die selektierten Aufgaben'
       ImageIndex = 70
       OnExecute = acLinkExecute
@@ -2626,7 +2626,7 @@ inherited fTaskFrame: TfTaskFrame
       OnExecute = acDeleteFilterExecute
     end
     object acGotoProject: TAction
-      Caption = 'acGotoProject'
+      Caption = 'zu Projekt gehen'
       Hint = 'Projekt der Aufgabe öffnen'
       ImageIndex = 101
       OnExecute = acGotoProjectExecute
@@ -2720,5 +2720,28 @@ inherited fTaskFrame: TfTaskFrame
     DataSource = Users
     left = 156
     top = 216
+  end
+  object pmGrid: TPopupMenu[18]
+    Images = fVisualControls.Images
+    left = 64
+    top = 89
+    object MenuItem6: TMenuItem
+      Action = acOpen
+    end
+    object MenuItem1: TMenuItem
+      Action = acAddPos
+    end
+    object MenuItem4: TMenuItem
+      Action = acMarkSeen
+    end
+    object MenuItem5: TMenuItem
+      Action = acGotoProject
+    end
+    object MenuItem2: TMenuItem
+      Action = acStartTime
+    end
+    object MenuItem3: TMenuItem
+      Action = fGridView.acCopyLink
+    end
   end
 end

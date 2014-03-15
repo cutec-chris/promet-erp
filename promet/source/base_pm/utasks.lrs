@@ -1856,63 +1856,70 @@ LazarusResources.Add('TfTaskFrame','FORMDATA',[
   +#6#9'Anzahl: 0'#8'TabOrder'#2#6#0#0#242#2#7#11'TActionList'#10'ActionList'#6
   +'Images'#7#22'fVisualControls.Images'#4'left'#3#208#0#3'top'#2'p'#0#7'TActio'
   +'n'#8'acImport'#7'Caption'#6#11'Importieren'#0#0#7'TAction'#8'acExport'#7'Ca'
-  +'ption'#6#11'Exportieren'#0#0#7'TAction'#8'acDelPos'#7'Caption'#6#8'acDelPos'
-  ,#4'Hint'#6#19'l'#195#182'scht die Aufgabe'#10'ImageIndex'#2'<'#9'OnExecute'#7
-  +#15'acDelPosExecute'#0#0#7'TAction'#8'acAddPos'#7'Caption'#6#8'acAddPos'#4'H'
-  +'int'#6#22'f'#195#188'gt eine Aufgabe ein'#10'ImageIndex'#2';'#9'OnExecute'#7
-  +#15'acAddPosExecute'#0#0#7'TAction'#13'acMAkeSubTask'#7'Caption'#6#24'Aufgab'
-  +'e als Unteraufgabe'#4'Hint'#6#22'r'#195#188'ckt die Aufgabe ein'#10'ImageIn'
-  +'dex'#2'_'#9'OnExecute'#7#20'acMAkeSubTaskExecute'#0#0#7'TAction'#15'acUnmak'
-  +'eSubTask'#7'Caption'#6#15'acUnmakeSubTask'#4'Hint'#6#22'r'#195#188'ckt die '
-  +'Aufgabe aus'#10'ImageIndex'#2'`'#9'OnExecute'#7#22'acUnmakeSubTaskExecute'#0
-  +#0#7'TAction'#9'acRefresh'#7'Caption'#6#9'acRefresh'#4'Hint'#6#24'aktualisie'
-  +'rt die Ansicht'#10'ImageIndex'#2'E'#9'OnExecute'#7#16'acRefreshExecute'#0#0
-  +#7'TAction'#6'acLink'#7'Caption'#6#6'acLink'#4'Hint'#6'$verkn'#195#188'pft d'
-  +'ie selektierten Aufgaben'#10'ImageIndex'#2'F'#9'OnExecute'#7#13'acLinkExecu'
-  +'te'#0#0#7'TAction'#11'acStartTime'#7'Caption'#6#21'Zeiterfassung starten'#4
-  +'Hint'#6#15'Aufgabe starten'#10'ImageIndex'#2'@'#9'OnExecute'#7#18'acStartTi'
-  +'meExecute'#0#0#7'TAction'#10'acStopTime'#7'Caption'#6#10'acStopTime'#4'Hint'
-  +#6#15'Aufgabe beenden'#10'ImageIndex'#2'B'#9'OnExecute'#7#17'acStopTimeExecu'
-  +'te'#0#0#7'TAction'#7'acPrint'#7'Caption'#6#7'Drucken'#9'OnExecute'#7#14'acP'
-  +'rintExecute'#0#0#7'TAction'#8'acFilter'#7'Caption'#6#7'Filtern'#9'OnExecute'
-  +#7#15'acFilterExecute'#0#0#7'TAction'#12'acSaveFilter'#7'Caption'#6#12'acSav'
-  +'eFilter'#9'OnExecute'#7#19'acSaveFilterExecute'#0#0#7'TAction'#14'acFilterR'
-  +'ights'#7'Caption'#6#14'acFilterRights'#10'ImageIndex'#2'd'#9'OnExecute'#7#21
-  +'acFilterRightsExecute'#0#0#7'TAction'#14'acDeleteFilter'#7'Caption'#6#14'ac'
-  +'DeleteFilter'#9'OnExecute'#7#21'acDeleteFilterExecute'#0#0#7'TAction'#13'ac'
-  +'GotoProject'#7'Caption'#6#13'acGotoProject'#4'Hint'#6#27'Projekt der Aufgab'
-  +'e '#195#182'ffnen'#10'ImageIndex'#2'e'#9'OnExecute'#7#20'acGotoProjectExecu'
-  +'te'#0#0#7'TAction'#15'acDefaultFilter'#7'Caption'#6#15'acDefaultFilter'#4'H'
-  +'int'#6'dsetzt den Filter f'#195#188'r diese Ansicht als Standard'#10'die An'
-  +'sicht wird ab nun mit diesem Filter ge'#195#182'ffnet'#10'ImageIndex'#2'\'#9
-  +'OnExecute'#7#22'acDefaultFilterExecute'#0#0#7'TAction'#10'acMarkSeen'#7'Cap'
-  +'tion'#6#21'als gelesen markieren'#4'Hint'#6#21'Als gesehen markieren'#10'Im'
-  +'ageIndex'#2'W'#9'OnExecute'#7#17'acMarkSeenExecute'#0#0#7'TAction'#6'acOpen'
-  +#7'Caption'#6#7#195#150'ffnen'#10'ImageIndex'#2#19#9'OnExecute'#7#13'acOpenE'
-  +'xecute'#8'ShortCut'#3'O@'#0#0#0#242#2#8#11'TDatasource'#10'Datasource'#13'O'
-  +'nStateChange'#7#21'DatasourceStateChange'#12'OnDataChange'#7#20'DatasourceD'
-  +'ataChange'#4'left'#3#208#0#3'top'#2'8'#0#0#242#2#9#16'TSimpleIPCClient'#3'I'
-  +'PC'#6'Active'#8#8'ServerID'#6#18'PMSTimeregistering'#4'left'#4#184#144#0#0#0
-  +#0#242#2#10#12'TfrDBDataSet'#8'PHistory'#10'DataSource'#7#7'History'#4'left'
-  +#3#156#0#3'top'#3#180#0#0#0#242#2#11#11'TDatasource'#7'History'#4'left'#3#212
-  +#0#3'top'#3#180#0#0#0#242#2#12#12'TfrDBDataSet'#5'PList'#10'DataSource'#7#10
-  +'Datasource'#4'left'#3#156#0#3'top'#2'S'#0#0#242#2#13#9'TfrReport'#6'Report'
-  +#7'Dataset'#7#5'PList'#13'DefaultCopies'#2#0#11'InitialZoom'#7#9'pzDefault'#7
-  +'Options'#11#0#14'PreviewButtons'#11#6'pbZoom'#6'pbSave'#7'pbPrint'#6'pbFind'
-  +#6'pbExit'#0#8'DataType'#7#12'dtDataSource'#10'OnGetValue'#7#14'ReportGetVal'
-  +'ue'#4'left'#3#156#0#3'top'#3#136#0#0#0#242#2#14#11'TDatasource'#14'MandantD'
-  +'etails'#8'AutoEdit'#8#4'left'#3'80'#0#0#242#2#15#10'TSynSQLSyn'#10'SynSQLSy'
-  +'n2'#13'DefaultFilter'#6#25'SQL-Dateien (*.sql)|*.sql'#7'Enabled'#8#23'Comme'
-  +'ntAttri.FrameEdges'#7#9'sfeAround'#24'DataTypeAttri.FrameEdges'#7#9'sfeArou'
-  +'nd'#30'DefaultPackageAttri.FrameEdges'#7#9'sfeAround'#25'ExceptionAttri.Fra'
-  +'meEdges'#7#9'sfeAround'#24'FunctionAttri.FrameEdges'#7#9'sfeAround'#26'Iden'
-  +'tifierAttri.FrameEdges'#7#9'sfeAround'#19'KeyAttri.FrameEdges'#7#9'sfeAroun'
-  +'d'#22'NumberAttri.FrameEdges'#7#9'sfeAround'#21'PLSQLAttri.FrameEdges'#7#9
-  +'sfeAround'#21'SpaceAttri.FrameEdges'#7#9'sfeAround'#23'SQLPlusAttri.FrameEd'
-  +'ges'#7#9'sfeAround'#22'StringAttri.FrameEdges'#7#9'sfeAround'#22'SymbolAttr'
-  +'i.FrameEdges'#7#9'sfeAround'#25'TableNameAttri.FrameEdges'#7#9'sfeAround'#24
-  +'VariableAttri.FrameEdges'#7#9'sfeAround'#10'SQLDialect'#7#9'sqlSybase'#4'le'
-  +'ft'#3'p'#1#3'top'#3#128#0#0#0#242#2#16#11'TDatasource'#5'Users'#4'left'#3
-  +#212#0#3'top'#3#216#0#0#0#242#2#17#12'TfrDBDataSet'#6'PUsers'#10'DataSource'
-  +#7#5'Users'#4'left'#3#156#0#3'top'#3#216#0#0#0#0
+  +'ption'#6#11'Exportieren'#0#0#7'TAction'#8'acDelPos'#7'Caption'#6#16'Aufgabe'
+  ,' l'#195#182'schen'#4'Hint'#6#19'l'#195#182'scht die Aufgabe'#10'ImageIndex'
+  +#2'<'#9'OnExecute'#7#15'acDelPosExecute'#0#0#7'TAction'#8'acAddPos'#7'Captio'
+  +'n'#6#12'neue Aufgabe'#4'Hint'#6#22'f'#195#188'gt eine Aufgabe ein'#10'Image'
+  +'Index'#2';'#9'OnExecute'#7#15'acAddPosExecute'#0#0#7'TAction'#13'acMAkeSubT'
+  +'ask'#7'Caption'#6#24'Aufgabe als Unteraufgabe'#4'Hint'#6#22'r'#195#188'ckt '
+  +'die Aufgabe ein'#10'ImageIndex'#2'_'#9'OnExecute'#7#20'acMAkeSubTaskExecute'
+  +#0#0#7'TAction'#15'acUnmakeSubTask'#7'Caption'#6#18'Aufgabe ausr'#195#188'ck'
+  +'en'#4'Hint'#6#22'r'#195#188'ckt die Aufgabe aus'#10'ImageIndex'#2'`'#9'OnEx'
+  +'ecute'#7#22'acUnmakeSubTaskExecute'#0#0#7'TAction'#9'acRefresh'#7'Caption'#6
+  +#13'aktualisieren'#4'Hint'#6#24'aktualisiert die Ansicht'#10'ImageIndex'#2'E'
+  +#9'OnExecute'#7#16'acRefreshExecute'#0#0#7'TAction'#6'acLink'#7'Caption'#6#20
+  +'Aufgaben verkn'#195#188'pfen'#4'Hint'#6'$verkn'#195#188'pft die selektierte'
+  +'n Aufgaben'#10'ImageIndex'#2'F'#9'OnExecute'#7#13'acLinkExecute'#0#0#7'TAct'
+  +'ion'#11'acStartTime'#7'Caption'#6#21'Zeiterfassung starten'#4'Hint'#6#15'Au'
+  +'fgabe starten'#10'ImageIndex'#2'@'#9'OnExecute'#7#18'acStartTimeExecute'#0#0
+  +#7'TAction'#10'acStopTime'#7'Caption'#6#10'acStopTime'#4'Hint'#6#15'Aufgabe '
+  +'beenden'#10'ImageIndex'#2'B'#9'OnExecute'#7#17'acStopTimeExecute'#0#0#7'TAc'
+  +'tion'#7'acPrint'#7'Caption'#6#7'Drucken'#9'OnExecute'#7#14'acPrintExecute'#0
+  +#0#7'TAction'#8'acFilter'#7'Caption'#6#7'Filtern'#9'OnExecute'#7#15'acFilter'
+  +'Execute'#0#0#7'TAction'#12'acSaveFilter'#7'Caption'#6#12'acSaveFilter'#9'On'
+  +'Execute'#7#19'acSaveFilterExecute'#0#0#7'TAction'#14'acFilterRights'#7'Capt'
+  +'ion'#6#14'acFilterRights'#10'ImageIndex'#2'd'#9'OnExecute'#7#21'acFilterRig'
+  +'htsExecute'#0#0#7'TAction'#14'acDeleteFilter'#7'Caption'#6#14'acDeleteFilte'
+  +'r'#9'OnExecute'#7#21'acDeleteFilterExecute'#0#0#7'TAction'#13'acGotoProject'
+  +#7'Caption'#6#16'zu Projekt gehen'#4'Hint'#6#27'Projekt der Aufgabe '#195#182
+  +'ffnen'#10'ImageIndex'#2'e'#9'OnExecute'#7#20'acGotoProjectExecute'#0#0#7'TA'
+  +'ction'#15'acDefaultFilter'#7'Caption'#6#15'acDefaultFilter'#4'Hint'#6'dsetz'
+  +'t den Filter f'#195#188'r diese Ansicht als Standard'#10'die Ansicht wird a'
+  +'b nun mit diesem Filter ge'#195#182'ffnet'#10'ImageIndex'#2'\'#9'OnExecute'
+  +#7#22'acDefaultFilterExecute'#0#0#7'TAction'#10'acMarkSeen'#7'Caption'#6#21
+  +'als gelesen markieren'#4'Hint'#6#21'Als gesehen markieren'#10'ImageIndex'#2
+  +'W'#9'OnExecute'#7#17'acMarkSeenExecute'#0#0#7'TAction'#6'acOpen'#7'Caption'
+  +#6#7#195#150'ffnen'#10'ImageIndex'#2#19#9'OnExecute'#7#13'acOpenExecute'#8'S'
+  +'hortCut'#3'O@'#0#0#0#242#2#8#11'TDatasource'#10'Datasource'#13'OnStateChang'
+  +'e'#7#21'DatasourceStateChange'#12'OnDataChange'#7#20'DatasourceDataChange'#4
+  +'left'#3#208#0#3'top'#2'8'#0#0#242#2#9#16'TSimpleIPCClient'#3'IPC'#6'Active'
+  +#8#8'ServerID'#6#18'PMSTimeregistering'#4'left'#4#184#144#0#0#0#0#242#2#10#12
+  +'TfrDBDataSet'#8'PHistory'#10'DataSource'#7#7'History'#4'left'#3#156#0#3'top'
+  +#3#180#0#0#0#242#2#11#11'TDatasource'#7'History'#4'left'#3#212#0#3'top'#3#180
+  +#0#0#0#242#2#12#12'TfrDBDataSet'#5'PList'#10'DataSource'#7#10'Datasource'#4
+  +'left'#3#156#0#3'top'#2'S'#0#0#242#2#13#9'TfrReport'#6'Report'#7'Dataset'#7#5
+  +'PList'#13'DefaultCopies'#2#0#11'InitialZoom'#7#9'pzDefault'#7'Options'#11#0
+  +#14'PreviewButtons'#11#6'pbZoom'#6'pbSave'#7'pbPrint'#6'pbFind'#6'pbExit'#0#8
+  +'DataType'#7#12'dtDataSource'#10'OnGetValue'#7#14'ReportGetValue'#4'left'#3
+  +#156#0#3'top'#3#136#0#0#0#242#2#14#11'TDatasource'#14'MandantDetails'#8'Auto'
+  +'Edit'#8#4'left'#3'80'#0#0#242#2#15#10'TSynSQLSyn'#10'SynSQLSyn2'#13'Default'
+  +'Filter'#6#25'SQL-Dateien (*.sql)|*.sql'#7'Enabled'#8#23'CommentAttri.FrameE'
+  +'dges'#7#9'sfeAround'#24'DataTypeAttri.FrameEdges'#7#9'sfeAround'#30'Default'
+  +'PackageAttri.FrameEdges'#7#9'sfeAround'#25'ExceptionAttri.FrameEdges'#7#9's'
+  +'feAround'#24'FunctionAttri.FrameEdges'#7#9'sfeAround'#26'IdentifierAttri.Fr'
+  +'ameEdges'#7#9'sfeAround'#19'KeyAttri.FrameEdges'#7#9'sfeAround'#22'NumberAt'
+  +'tri.FrameEdges'#7#9'sfeAround'#21'PLSQLAttri.FrameEdges'#7#9'sfeAround'#21
+  +'SpaceAttri.FrameEdges'#7#9'sfeAround'#23'SQLPlusAttri.FrameEdges'#7#9'sfeAr'
+  +'ound'#22'StringAttri.FrameEdges'#7#9'sfeAround'#22'SymbolAttri.FrameEdges'#7
+  +#9'sfeAround'#25'TableNameAttri.FrameEdges'#7#9'sfeAround'#24'VariableAttri.'
+  +'FrameEdges'#7#9'sfeAround'#10'SQLDialect'#7#9'sqlSybase'#4'left'#3'p'#1#3't'
+  +'op'#3#128#0#0#0#242#2#16#11'TDatasource'#5'Users'#4'left'#3#212#0#3'top'#3
+  +#216#0#0#0#242#2#17#12'TfrDBDataSet'#6'PUsers'#10'DataSource'#7#5'Users'#4'l'
+  +'eft'#3#156#0#3'top'#3#216#0#0#0#242#2#18#10'TPopupMenu'#6'pmGrid'#6'Images'
+  +#7#22'fVisualControls.Images'#4'left'#2'@'#3'top'#2'Y'#0#9'TMenuItem'#9'Menu'
+  +'Item6'#6'Action'#7#6'acOpen'#0#0#9'TMenuItem'#9'MenuItem1'#6'Action'#7#8'ac'
+  +'AddPos'#0#0#9'TMenuItem'#9'MenuItem4'#6'Action'#7#10'acMarkSeen'#0#0#9'TMen'
+  +'uItem'#9'MenuItem5'#6'Action'#7#13'acGotoProject'#0#0#9'TMenuItem'#9'MenuIt'
+  +'em2'#6'Action'#7#11'acStartTime'#0#0#9'TMenuItem'#9'MenuItem3'#6'Action'#7
+  ,#20'fGridView.acCopyLink'#0#0#0#0
 ]);
