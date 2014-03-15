@@ -1269,10 +1269,14 @@ begin
                 aPProject.Free;
               end;
         end;
-      etDir,etDocumentDir:
+      etDir,etDocumentDir,etMessageDir,etMessageBoard:
         begin
           if Assigned(tvMain.GetNodeAt(X,Y)) and Assigned(tvMain.GetNodeAt(X,Y).Data) then
-            if (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etDir) or (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etDocumentDir) then
+            if (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etDir)
+            or (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etDocumentDir)
+            or (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etMessageDir)
+            or (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etMessageBoard)
+            then
               begin
                 DataT2 := TTreeEntry(tvMain.GetNodeAt(X,Y).Data);
                 Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
@@ -1514,17 +1518,16 @@ begin
       etArticle,
       etProject,
       etProcess,
-      etDir,
-      etDocumentDir,
+      etDir,etDocumentDir,etMessageDir,
       etLink,
       etWikiPage,
       etStatistic:
         begin
           if Assigned(tvMain.GetNodeAt(X,Y)) and Assigned(tvMain.GetNodeAt(X,Y).Data) then
-            if (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etDir) or (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etDocumentDir) then
+            if (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etDir) or (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etDocumentDir) or (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etMessageDir) or (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etMessageBoard) then
               if DataT.Rec <> TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Rec then
                 begin
-                  if ((DataT.Typ = etDir) or (DataT.Typ = etDocumentDir))
+                  if ((DataT.Typ = etDir) or (DataT.Typ = etDocumentDir) or (DataT.Typ = etMessageDir) or (DataT.Typ = etMessageBoard))
                   and ((TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etDir) or (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etDocumentDir)) then
                     begin
                       DataT2 := TTreeEntry(tvMain.GetNodeAt(X,Y).Data);
@@ -1716,6 +1719,8 @@ begin
   Screen.Cursor:=crHourglass;
   if (DataT.Typ = etDir)
   or (DataT.Typ = etDocumentDir)
+  or (DataT.Typ = etMessageDir)
+  or (DataT.Typ = etMessageBoard)
   then
     begin
       Data.SetFilter(Data.Tree,'',0,'','DESC',False,True,True);
