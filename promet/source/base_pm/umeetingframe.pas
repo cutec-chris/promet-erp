@@ -65,7 +65,7 @@ type
     bDeletePos: TSpeedButton;
     bDeletePos2: TSpeedButton;
     bDeletePos5: TSpeedButton;
-    bDeletePos6: TSpeedButton;
+    bRenumber: TSpeedButton;
     Bevel1: TBevel;
     Bevel3: TBevel;
     Bevel4: TBevel;
@@ -954,6 +954,7 @@ begin
   dtEnd.Enabled:=DataSet.FieldByName('DATE').IsNull;
   cbStatus.Enabled:=DataSet.FieldByName('DATE').IsNull;
   acDelete.Enabled:=DataSet.FieldByName('DATE').IsNull;
+  bRenumber.Enabled:=DataSet.FieldByName('DATE').IsNull;
 end;
 
 procedure TfMeetingFrame.AddDocuments(Sender: TObject);

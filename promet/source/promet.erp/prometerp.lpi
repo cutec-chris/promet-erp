@@ -286,7 +286,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="53">
+    <Units Count="52">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -303,7 +303,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="80" Y="8"/>
@@ -440,7 +440,6 @@
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="120"/>
-        <LoadedDesigner Value="True"/>
       </Unit13>
       <Unit14>
         <Filename Value="uorderadditionalframe.pas"/>
@@ -711,7 +710,7 @@
       <Unit42>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="483"/>
         <CursorPos X="52" Y="605"/>
@@ -724,7 +723,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMainTreeFrame"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1032"/>
         <CursorPos X="40" Y="1048"/>
@@ -762,7 +761,7 @@
       <Unit46>
         <Filename Value="../base_documents/upreviewframe.pas"/>
         <UnitName Value="uPreviewFrame"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="591"/>
         <CursorPos X="119" Y="608"/>
@@ -770,87 +769,73 @@
         <Loaded Value="True"/>
       </Unit46>
       <Unit47>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <ComponentName Value="fTaskFrame"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="utasks"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="3"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1414"/>
-        <CursorPos X="1" Y="1430"/>
-        <UsageCount Value="21"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
-      </Unit47>
-      <Unit48>
         <Filename Value="../base_forms/ugridview.pas"/>
         <ComponentName Value="fGridView"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ugridview"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="549"/>
         <CursorPos X="3" Y="551"/>
         <UsageCount Value="21"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
-      </Unit48>
-      <Unit49>
+      </Unit47>
+      <Unit48>
         <Filename Value="../base_pm/umeetingframe.pas"/>
         <ComponentName Value="fMeetingFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMeetingFrame"/>
-        <EditorIndex Value="4"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="801"/>
-        <CursorPos X="21" Y="821"/>
+        <TopLine Value="940"/>
+        <CursorPos X="56" Y="957"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
-      </Unit49>
-      <Unit50>
+      </Unit48>
+      <Unit49>
         <Filename Value="../base/dbintfs/umeeting.pas"/>
         <UnitName Value="umeeting"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="454"/>
         <CursorPos X="21" Y="484"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
-      </Unit50>
-      <Unit51>
+      </Unit49>
+      <Unit50>
         <Filename Value="../base_help/uwikiframe.pas"/>
         <ComponentName Value="fWikiFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uWikiFrame"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="462"/>
         <CursorPos X="16" Y="466"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
-      </Unit51>
-      <Unit52>
+      </Unit50>
+      <Unit51>
         <Filename Value="../base_help/uspelling.pas"/>
         <ComponentName Value="fSpellCheck"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uspelling"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="60"/>
         <CursorPos X="67" Y="70"/>
         <UsageCount Value="21"/>
         <Loaded Value="True"/>
-      </Unit52>
+      </Unit51>
     </Units>
-    <JumpHistory Count="27" HistoryIndex="26">
+    <JumpHistory Count="10" HistoryIndex="9">
       <Position1>
         <Filename Value="../base_help/uwikiframe.pas"/>
         <Caret Line="20" Column="1" TopLine="1"/>
@@ -865,100 +850,32 @@
       </Position3>
       <Position4>
         <Filename Value="../base_help/uwikiframe.pas"/>
-        <Caret Line="63" Column="20" TopLine="67"/>
+        <Caret Line="464" Column="27" TopLine="462"/>
       </Position4>
       <Position5>
         <Filename Value="../base_help/uwikiframe.pas"/>
-        <Caret Line="464" Column="27" TopLine="462"/>
+        <Caret Line="63" Column="5" TopLine="46"/>
       </Position5>
       <Position6>
         <Filename Value="../base_help/uwikiframe.pas"/>
-        <Caret Line="63" Column="5" TopLine="46"/>
+        <Caret Line="471" Column="22" TopLine="462"/>
       </Position6>
       <Position7>
         <Filename Value="../base_help/uwikiframe.pas"/>
-        <Caret Line="471" Column="22" TopLine="462"/>
+        <Caret Line="466" Column="16" TopLine="462"/>
       </Position7>
       <Position8>
-        <Filename Value="../base_help/uwikiframe.pas"/>
-        <Caret Line="466" Column="16" TopLine="462"/>
-      </Position8>
-      <Position9>
         <Filename Value="../base_help/uspelling.pas"/>
         <Caret Line="87" Column="63" TopLine="70"/>
-      </Position9>
-      <Position10>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="6" Column="74" TopLine="1"/>
-      </Position10>
-      <Position11>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="27" Column="53" TopLine="1"/>
-      </Position11>
-      <Position12>
+      </Position8>
+      <Position9>
         <Filename Value="../base_forms/ugridview.pas"/>
         <Caret Line="1" Column="1" TopLine="1"/>
-      </Position12>
-      <Position13>
+      </Position9>
+      <Position10>
         <Filename Value="../base_forms/ugridview.pas"/>
         <Caret Line="552" Column="3" TopLine="550"/>
-      </Position13>
-      <Position14>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="27" Column="53" TopLine="1"/>
-      </Position14>
-      <Position15>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="52" Column="30" TopLine="25"/>
-      </Position15>
-      <Position16>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="181" Column="24" TopLine="152"/>
-      </Position16>
-      <Position17>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="183" Column="24" TopLine="154"/>
-      </Position17>
-      <Position18>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="186" Column="24" TopLine="157"/>
-      </Position18>
-      <Position19>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="188" Column="24" TopLine="159"/>
-      </Position19>
-      <Position20>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="191" Column="24" TopLine="162"/>
-      </Position20>
-      <Position21>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="193" Column="24" TopLine="164"/>
-      </Position21>
-      <Position22>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="195" Column="23" TopLine="166"/>
-      </Position22>
-      <Position23>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="196" Column="24" TopLine="168"/>
-      </Position23>
-      <Position24>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="215" Column="24" TopLine="182"/>
-      </Position24>
-      <Position25>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="252" Column="35" TopLine="219"/>
-      </Position25>
-      <Position26>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="267" Column="64" TopLine="256"/>
-      </Position26>
-      <Position27>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="1428" Column="1" TopLine="1413"/>
-      </Position27>
+      </Position10>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
