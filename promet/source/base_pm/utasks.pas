@@ -1426,7 +1426,7 @@ begin
   FGridView.OnFilterCell:=@FGridViewFilterCell;
   FGridView.OnAddRow:=@FGridViewAddRow;
   FGridView.OnDelete:=@FGridViewDelete;
-  FGridView.PopupMenu := pmGrid;
+  FGridView.gList.PopupMenu := pmGrid;
   pFilterOptions.Height:=0;
 end;
 destructor TfTaskFrame.Destroy;

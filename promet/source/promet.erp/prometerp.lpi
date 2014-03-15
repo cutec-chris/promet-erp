@@ -286,7 +286,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="52">
+    <Units Count="51">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -303,7 +303,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="80" Y="8"/>
@@ -710,7 +710,7 @@
       <Unit42>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="483"/>
         <CursorPos X="52" Y="605"/>
@@ -723,7 +723,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMainTreeFrame"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1032"/>
         <CursorPos X="40" Y="1048"/>
@@ -761,7 +761,7 @@
       <Unit46>
         <Filename Value="../base_documents/upreviewframe.pas"/>
         <UnitName Value="uPreviewFrame"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="591"/>
         <CursorPos X="119" Y="608"/>
@@ -774,7 +774,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ugridview"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="549"/>
         <CursorPos X="3" Y="551"/>
@@ -783,59 +783,49 @@
         <LoadedDesigner Value="True"/>
       </Unit47>
       <Unit48>
-        <Filename Value="../base_pm/umeetingframe.pas"/>
-        <ComponentName Value="fMeetingFrame"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uMeetingFrame"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="3"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="940"/>
-        <CursorPos X="56" Y="957"/>
-        <UsageCount Value="20"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
-      </Unit48>
-      <Unit49>
-        <Filename Value="../base/dbintfs/umeeting.pas"/>
-        <UnitName Value="umeeting"/>
-        <EditorIndex Value="4"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="454"/>
-        <CursorPos X="21" Y="484"/>
-        <UsageCount Value="20"/>
-        <Loaded Value="True"/>
-      </Unit49>
-      <Unit50>
         <Filename Value="../base_help/uwikiframe.pas"/>
         <ComponentName Value="fWikiFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uWikiFrame"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="462"/>
-        <CursorPos X="16" Y="466"/>
+        <TopLine Value="474"/>
+        <CursorPos X="26" Y="491"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
-      </Unit50>
-      <Unit51>
+      </Unit48>
+      <Unit49>
         <Filename Value="../base_help/uspelling.pas"/>
         <ComponentName Value="fSpellCheck"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uspelling"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="60"/>
         <CursorPos X="67" Y="70"/>
         <UsageCount Value="21"/>
         <Loaded Value="True"/>
-      </Unit51>
+      </Unit49>
+      <Unit50>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <ComponentName Value="fTaskFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="utasks"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="6"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1401"/>
+        <CursorPos X="18" Y="1429"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit50>
     </Units>
-    <JumpHistory Count="10" HistoryIndex="9">
+    <JumpHistory Count="11" HistoryIndex="10">
       <Position1>
         <Filename Value="../base_help/uwikiframe.pas"/>
         <Caret Line="20" Column="1" TopLine="1"/>
@@ -876,6 +866,10 @@
         <Filename Value="../base_forms/ugridview.pas"/>
         <Caret Line="552" Column="3" TopLine="550"/>
       </Position10>
+      <Position11>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="1429" Column="17" TopLine="1401"/>
+      </Position11>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

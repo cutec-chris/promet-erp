@@ -613,6 +613,7 @@ inherited fWikiFrame: TfWikiFrame
     end
   end
   object ActionList: TActionList[2]
+    Images = fVisualControls.Images
     left = 296
     top = 8
     object acBack: TAction
