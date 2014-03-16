@@ -1,4 +1,13 @@
-﻿Build 322
+﻿Build 323
+      - Artikel:nur wandelbare Statusnamen werden angezeigt
+      - Online-Banking:Kategorien implementiert und entsprechende Funktionen um alle Buchungen mit bestimmten Texten zuzuweisen
+      - Nachrichten:mehrere Nachrichten können nun mit einem mal in Ordner verschoben werden
+      - Aufgaben:kleinere Optimierungen an der Oberfläche
+      - Wiki:Rechtschreibprüfung
+      - Rechner:Umgang mit Variablen überarbeitet
+      - Meetings:Meeting kann nun dubliziert werden
+      - Kalendar:scrollen mit Mausrad
+Build 322
       - Dokumentenverwaltung:PDF Export für Dokumente
 Build 321
       - Banking:SEPA Überweisungen und Kontenabrufe mit aktueller AqBanking Version sind nun möglich
