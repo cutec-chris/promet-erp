@@ -598,7 +598,6 @@ object fSearch: TfSearch
     end
   end
   object ActionList1: TActionList
-    Images = fVisualControls.Images
     left = 32
     top = 304
     object acOpen: TAction
@@ -624,7 +623,6 @@ object fSearch: TfSearch
     end
   end
   object PopupMenu1: TPopupMenu
-    Images = fVisualControls.Images
     OnPopup = PopupMenu1Popup
     left = 184
     top = 304
@@ -794,7 +792,7 @@ object fSearch: TfSearch
   end
   object IdleTimer: TTimer
     Enabled = False
-    Interval = 200
+    Interval = 100
     OnTimer = IdleTimerTimer
     left = 88
     top = 304
@@ -803,5 +801,12 @@ object fSearch: TfSearch
     Filter = 'Verknüpfungsdatei|.plink'
     left = 144
     top = 304
+  end
+  object IdleTimer1: TIdleTimer
+    Enabled = False
+    Interval = 400
+    OnTimer = IdleTimer1Timer
+    left = 87
+    top = 256
   end
 end

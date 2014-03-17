@@ -41,6 +41,7 @@ type
     bOpen: TBitBtn;
     cbMaxResults: TCheckBox;
     IdleTimer: TTimer;
+    IdleTimer1: TIdleTimer;
     lHint: TLabel;
     cbSearchIn: TCheckListBox;
     cbSearchType: TCheckListBox;
@@ -89,10 +90,12 @@ type
     procedure eContainsChange(Sender: TObject);
     procedure eContainsKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure FastSearchEnd(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormHide(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormShow(Sender: TObject);
+    procedure IdleTimer1Timer(Sender: TObject);
     procedure IdleTimerTimer(Sender: TObject);
     procedure PopupMenu1Popup(Sender: TObject);
     procedure seMaxresultsChange(Sender: TObject);
@@ -325,8 +328,8 @@ begin
   ActiveSearch.OnItemFound:=@DataSearchresultItem;
   ActiveSearch.OnBeginItemSearch:=@ActiveSearchBeginItemSearch;
   ActiveSearch.OnEndItemSearch:=@ActiveSearchEndItemSearch;
-  ActiveSearch.OnEndSearch:=@ActiveSearchEndSearch;
-  ActiveSearch.Start(eContains.Text);
+  ActiveSearch.OnEndSearch:=@FastSearchEnd;
+  ActiveSearch.Start(eContains.Text,False);
 end;
 procedure TfSearch.cbAutomaticsearchChange(Sender: TObject);
 begin
@@ -409,6 +412,21 @@ begin
     end;
   end;
 end;
+
+procedure TfSearch.FastSearchEnd(Sender: TObject);
+begin
+  IdleTimer1.Enabled:=false;
+  ActiveSearch.OnEndSearch := @ActiveSearchEndSearch;
+  acOpen.Enabled:=True;
+  Application.ProcessMessages;
+  if not ActiveSearch.Active then
+    ActiveSearchEndSearch(ActiveSearch)
+  else
+    begin
+      IdleTimer1.Enabled:=True;
+    end;
+end;
+
 procedure TfSearch.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 var
   Options: String;
@@ -464,6 +482,13 @@ begin
       eContains.SelectAll;
     end;
 end;
+
+procedure TfSearch.IdleTimer1Timer(Sender: TObject);
+begin
+  IdleTimer1.Enabled:=false;
+  ActiveSearch.Start(eContains.Text)
+end;
+
 procedure TfSearch.IdleTimerTimer(Sender: TObject);
 begin
   if eContains.Text = '' then exit;

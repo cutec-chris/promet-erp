@@ -52,7 +52,7 @@ type
   public
     constructor Create(aSearchTypes : TFullTextSearchTypes;aSearchLocations : TSearchLocations;aUseContains : Boolean = False;aMaxresults : Integer = 0);
     destructor Destroy;override;
-    procedure Start(SearchText : string);
+    procedure Start(SearchText: string; SearchUnsharp: Boolean=True);
     procedure Abort;
     property Active : Boolean read FActive;
     property OnBeginItemSearch : TNotifyEvent read FBeginSearch write FBeginSearch;
@@ -140,7 +140,7 @@ begin
     Lists[i].Free;
   inherited Destroy;
 end;
-procedure TSearch.Start(SearchText : string);
+procedure TSearch.Start(SearchText : string;SearchUnsharp : Boolean = True);
   function EncodeField(Data : TBaseDBModule;Val : string) : string;
   begin
     Result := 'UPPER('+Data.QuoteField(Val)+')';
@@ -148,7 +148,7 @@ procedure TSearch.Start(SearchText : string);
 
   function EncodeValue(Data : TBaseDBModule;Val : string) : string;
   begin
-    if FUseContains then
+    if FUseContains and SearchUnsharp then
       Result := Data.QuoteValue('*'+Data.EscapeString(Val)+'*')
     else
       Result := Data.QuoteValue(Data.EscapeString(Val));
@@ -191,8 +191,6 @@ begin
                     end;
                   if (aType = fsMatchcode) and (fsMatchcode in FSearchTypes) and (Lists[i].GetMatchcodeFieldName <> '') then
                     aFilter += ' OR ('+Data.ProcessTerm(EncodeField(Data,Lists[i].GetMatchcodeFieldName)+' = '+EncodeValue(Data,SearchText))+')';
-                  if (aType = fsShortnames) and (aType = fsShortnames) and (fsShortnames in FSearchTypes) then
-                    aFilter += ' OR ('+Data.ProcessTerm(CastText(Data,Lists[i].GetTextFieldName)+' = '+EncodeValue(Data,SearchText))+')';
                   if (aType = fsIdents) and (fsIdents in FSearchTypes) then
                     begin
                       aFilter += ' OR ('+Data.ProcessTerm(CastText(Data,Lists[i].GetNumberFieldName)+' = '+EncodeValue(Data,SearchText))+')';
@@ -203,10 +201,15 @@ begin
                     aFilter += ' OR ('+Data.ProcessTerm(CastText(Data,Lists[i].GetBarcodeFieldName)+' = '+EncodeValue(Data,SearchText))+')';
                   if (aType = fsCommission) and (fsCommission in FSearchTypes) and (Lists[i].GetCommissionFieldName <> '') then
                     aFilter += ' OR ('+Data.ProcessTerm(EncodeField(Data,Lists[i].GetCommissionFieldName)+' = '+EncodeValue(Data,SearchText))+')';
-                  if (aType = fsDescription) and (fsDescription in FSearchTypes) and (Lists[i].GetDescriptionFieldName <> '') then
-                    aFilter += ' OR ('+Data.ProcessTerm(CastText(Data,Lists[i].GetDescriptionFieldName)+' = '+EncodeValue(Data,SearchText))+')';
-                  if Lists[i] is TBaseHistory then
-                    aFilter += ' AND (('+Data.ProcessTerm(Data.QuoteField('OBJECT')+'='+Data.QuoteValue('PROJECTS@*'))+') OR ('+Data.ProcessTerm(Data.QuoteField('OBJECT')+'='+Data.QuoteValue('MASTERDATA@*'))+'))';
+                  if SearchUnsharp then
+                    begin
+                      if (aType = fsShortnames) and (aType = fsShortnames) and (fsShortnames in FSearchTypes) then
+                        aFilter += ' OR ('+Data.ProcessTerm(CastText(Data,Lists[i].GetTextFieldName)+' = '+EncodeValue(Data,SearchText))+')';
+                      if (aType = fsDescription) and (fsDescription in FSearchTypes) and (Lists[i].GetDescriptionFieldName <> '') then
+                        aFilter += ' OR ('+Data.ProcessTerm(CastText(Data,Lists[i].GetDescriptionFieldName)+' = '+EncodeValue(Data,SearchText))+')';
+                      if Lists[i] is TBaseHistory then
+                        aFilter += ' AND (('+Data.ProcessTerm(Data.QuoteField('OBJECT')+'='+Data.QuoteValue('PROJECTS@*'))+') OR ('+Data.ProcessTerm(Data.QuoteField('OBJECT')+'='+Data.QuoteValue('MASTERDATA@*'))+'))';
+                    end;
                   aFilter := copy(aFilter,pos(' ',aFilter)+1,length(aFilter));
                   aFilter := copy(aFilter,pos(' ',aFilter)+1,length(aFilter));
                   if aFilter <> '' then
@@ -264,8 +267,8 @@ begin
         end;
 
     end;
-  FActive := False;
   if Assigned(FFullEndSearch) then FFullEndSearch(Self);
+  FActive := False;
 end;
 procedure TSearch.Abort;
 begin

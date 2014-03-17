@@ -2610,8 +2610,11 @@ begin
 end;
 procedure TfGridView.DoInvalidate(Data: PtrInt);
 begin
-  if Assigned(Self) then
-    gList.Invalidate;
+  try
+    if Assigned(Self) then
+      gList.Invalidate;
+  except
+  end;
 end;
 procedure TfGridView.CleanList(AddRows: Integer);
 var
