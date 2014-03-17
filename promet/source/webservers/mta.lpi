@@ -68,7 +68,7 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="420"/>
+        <TopLine Value="417"/>
         <CursorPos X="80" Y="436"/>
         <UsageCount Value="146"/>
         <Loaded Value="True"/>
@@ -1168,6 +1168,7 @@
     </Parsing>
     <Linking>
       <Debugging>
+        <UseHeaptrc Value="True"/>
         <UseExternalDbgSyms Value="True"/>
       </Debugging>
     </Linking>
