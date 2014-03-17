@@ -120,18 +120,18 @@ begin
           mailaccounts := copy(mailaccounts,pos(';',mailaccounts)+1,length(mailaccounts));
           SMTP.Password := copy(mailaccounts,0,pos(';',mailaccounts)-1);
           mailaccounts := copy(mailaccounts,pos(';',mailaccounts)+1,length(mailaccounts));
-          Data.SetFilter(MessageIndex,'LOWER('+Data.QuoteField('SENDER')+')=LOWER('+Data.QuoteValue(smtp.UserName)+') and '+Data.QuoteField('READ')+'='+Data.QuoteValue('N'));
+          Data.SetFilter(MessageIndex,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(IntToStr(TREE_ID_SEND_MESSAGES))+' AND ('+Data.ProcessTerm(Data.QuoteField('SENDER')+'='+Data.QuoteValue('*'+smtp.UserName+'*'))+') and '+Data.QuoteField('READ')+'='+Data.QuoteValue('N'));
           if (MessageIndex.Count > 0) and (copy(mailaccounts,0,pos(';',mailaccounts)-1)= 'YES') then
             if SMTP.Login then
               begin
                 while not MessageIndex.DataSet.EOF do
                   begin
-                    aMessage.Select(MessageIndex.Id.AsInteger);
+                    aMessage.SelectFromLink(Data.BuildLink(MessageIndex.DataSet));
                     aMessage.Open;
                     if aMessage.Count>0 then
                     with aMessage.DataSet do
                       begin
-                        if SMTP.MailFrom(FieldByName('SENDER').AsString,0) then
+                        if SMTP.MailFrom(GetemailAddr(FieldByName('SENDER').AsString),0) then
                           begin
                             Mime := TMimeMess.Create;
                             Mime := aMessage.EncodeMessage;

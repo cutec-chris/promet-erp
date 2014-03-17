@@ -384,8 +384,12 @@ end;
 procedure TLoadHTMLProcess.Execute;
 begin
   FHTML.OnGetImageX:=@FView.OnGetImage;
-  FHTML.LoadFromStream(ss);
-  FDone := True;
+  try
+    FHTML.LoadFromStream(ss);
+    FDone := True;
+  except
+    FDone := False;
+  end;
 end;
 initialization
   {$I uviewmessage.lrs}
