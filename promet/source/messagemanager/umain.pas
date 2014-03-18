@@ -93,6 +93,7 @@ const
 resourcestring
   strNewEntrys        = 'Neue Einträge in Verlauf';
   strNewEntrysC       = 'Sie haben %d neue Einträge in Ihrem Verlauf';
+  strHint             = 'Promet Nachrichtenzentrale';
 
 function OnMessageReceived(aMessage: string): Boolean;
 begin
@@ -536,6 +537,7 @@ begin
           uData.Data := Data;
         end;
       Info('processmanager login successful');
+      TrayIcon.Hint:=strHint+LineEnding+aMandant+' '+aUser;
       Data.ProcessClient.CreateTable;
       Data.ProcessClient.Open;
       if not Data.ProcessClient.DataSet.Locate('NAME',GetSystemName,[]) then

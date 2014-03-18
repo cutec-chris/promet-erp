@@ -122,98 +122,110 @@ begin
           mailaccounts := copy(mailaccounts,pos(';',mailaccounts)+1,length(mailaccounts));
           Data.SetFilter(MessageIndex,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(IntToStr(TREE_ID_SEND_MESSAGES))+' AND ('+Data.ProcessTerm(Data.QuoteField('SENDER')+'='+Data.QuoteValue('*'+smtp.UserName+'*'))+') and '+Data.QuoteField('READ')+'='+Data.QuoteValue('N'));
           if (MessageIndex.Count > 0) and (copy(mailaccounts,0,pos(';',mailaccounts)-1)= 'YES') then
-            if SMTP.Login then
-              begin
-                while not MessageIndex.DataSet.EOF do
-                  begin
-                    aMessage.SelectFromLink(Data.BuildLink(MessageIndex.DataSet));
-                    aMessage.Open;
-                    if aMessage.Count>0 then
-                    with aMessage.DataSet do
-                      begin
-                        if SMTP.MailFrom(GetemailAddr(FieldByName('SENDER').AsString),0) then
-                          begin
-                            Mime := TMimeMess.Create;
-                            Mime := aMessage.EncodeMessage;
-                            aDomain := GetEmailAddr(FieldByName('SENDER').AsString);
-                            aDomain := copy(aDomain,pos('@',aDomain),length(aDomain));
-                            if aDomain <> '' then
-                              Mime.Header.MessageID := StringReplace(Mime.Header.MessageID,'@inv.local',aDomain,[rfReplaceAll]);
-                            ReceiversOK := True;
-                            for i := 0 to Mime.Header.ToList.Count-1 do
-                              begin
-                                if  (getemailaddr(Mime.Header.ToList[i]) <> '')
-                                and (pos('@',getemailaddr(Mime.Header.ToList[i])) > 0) then
-                                  begin
-                                    if not SMTP.MailTo(lowercase(getemailaddr(Mime.Header.ToList[i]))) then
-                                      begin
-                                        ReceiversOk := False;
-                                        res := SMTP.FullResult.Text;
-                                      end;
-                                  end;
-                              end;
-                            if ReceiversOK and (Mime.Header.ToList.Count > 0) then
-                              begin
-                                Mime.EncodeMessage;
-                                Edit;
-                                FieldbyName('READ').AsString:='Y';
-                                Post;
-                                if SMTP.MailData(Mime.Lines) then
-                                  begin
-                                    ArchiveMsg := TArchivedMessage.Create(nil,Data);
-                                    ArchiveMsg.CreateTable;
-                                    ArchiveMsg.Insert;
-                                    ArchiveMsg.DataSet.FieldByName('ID').AsString:=Mime.Header.MessageID;
-                                    ss := TStringStream.Create(Mime.Lines.Text);
-                                    Data.StreamToBlobField(ss,ArchiveMsg.DataSet,'DATA');
-                                    ss.Free;
-                                    ArchiveMsg.DataSet.Post;
-                                    ArchiveMsg.Free;
-                                    for i := 0 to Mime.Header.ToList.Count-1 do
-                                      begin
-                                        CustomerCont := TPersonContactData.Create(Self,Data);
-                                        if Data.IsSQLDb then
-                                          Data.SetFilter(CustomerCont,'UPPER("DATA")=UPPER('''+getemailaddr(Mime.Header.ToList[i])+''')')
-                                        else
-                                          Data.SetFilter(CustomerCont,'"DATA"='''+getemailaddr(Mime.Header.ToList[i])+'''');
-                                        Customers := TPerson.Create(Self,Data);
-                                        Data.SetFilter(Customers,'"ACCOUNTNO"='+Data.QuoteValue(CustomerCont.DataSet.FieldByName('ACCOUNTNO').AsString));
-                                        CustomerCont.Free;
-                                        if Customers.Count > 0 then
-                                          begin
-                                            Customers.History.Open;
-                                            atmp := ConvertEncoding(Mime.Header.Subject,GuessEncoding(Mime.Header.Subject),EncodingUTF8);
-                                            Customers.History.AddItem(Customers.DataSet,Format(strActionMessageSend,[atmp]),
-                                                                      Data.BuildLink(MessageIndex.DataSet),
-                                                                      '',
-                                                                      nil,
-                                                                      ACICON_MAILANSWERED);
-                                          end;
-                                        Data.Users.History.AddItem(Customers.DataSet,Format(strActionMessageSend,[atmp]),
-                                                                  Data.BuildLink(MessageIndex.DataSet),
-                                                                  '',
-                                                                  nil,
-                                                                  ACICON_MAILANSWERED);
-                                        Customers.Free;
-                                      end;
-                                    MessageHandler.SendCommand('prometerp','Message.refresh');
-                                  end
-                                else
-                                  begin
-                                    Edit;
-                                    FieldbyName('READ').AsString:='N';
-                                    Post;
-                                  end;
-                              end;
-                            Mime.Destroy;
-                          end;
-                      end;
-                    SMTP.Reset;
-                    MessageIndex.DataSet.Next;
-                  end;
-                SMTP.Logout;
-              end;
-          SMTP.Free;
+            begin
+              WriteLn('Login to Server:'+SMTP.TargetHost+' user:'+smtp.UserName);
+              if SMTP.Login then
+                begin
+                  WriteLn('Login OK');
+                  while not MessageIndex.DataSet.EOF do
+                    begin
+                      aMessage.SelectFromLink(Data.BuildLink(MessageIndex.DataSet));
+                      aMessage.Open;
+                      if aMessage.Count>0 then
+                      with aMessage.DataSet do
+                        begin
+                          WriteLn('Mail from:'+GetemailAddr(FieldByName('SENDER').AsString));
+                          if SMTP.MailFrom(GetemailAddr(FieldByName('SENDER').AsString),0) then
+                            begin
+                              Mime := TMimeMess.Create;
+                              Mime := aMessage.EncodeMessage;
+                              aDomain := GetEmailAddr(FieldByName('SENDER').AsString);
+                              aDomain := copy(aDomain,pos('@',aDomain),length(aDomain));
+                              if aDomain <> '' then
+                                Mime.Header.MessageID := StringReplace(Mime.Header.MessageID,'@inv.local',aDomain,[rfReplaceAll]);
+                              ReceiversOK := True;
+                              for i := 0 to Mime.Header.ToList.Count-1 do
+                                begin
+                                  WriteLn('Mail To:'+getemailaddr(Mime.Header.ToList[i]));
+                                  if  (getemailaddr(Mime.Header.ToList[i]) <> '')
+                                  and (pos('@',getemailaddr(Mime.Header.ToList[i])) > 0) then
+                                    begin
+                                      if not SMTP.MailTo(lowercase(getemailaddr(Mime.Header.ToList[i]))) then
+                                        begin
+                                          ReceiversOk := False;
+                                          res := SMTP.FullResult.Text;
+                                          WriteLn('failed:'+res);
+                                        end;
+                                    end;
+                                end;
+                              if ReceiversOK and (Mime.Header.ToList.Count > 0) then
+                                begin
+                                  Mime.EncodeMessage;
+                                  Edit;
+                                  FieldbyName('READ').AsString:='Y';
+                                  Post;
+                                  if SMTP.MailData(Mime.Lines) then
+                                    begin
+                                      ArchiveMsg := TArchivedMessage.Create(nil,Data);
+                                      ArchiveMsg.CreateTable;
+                                      ArchiveMsg.Insert;
+                                      ArchiveMsg.DataSet.FieldByName('ID').AsString:=Mime.Header.MessageID;
+                                      ss := TStringStream.Create(Mime.Lines.Text);
+                                      Data.StreamToBlobField(ss,ArchiveMsg.DataSet,'DATA');
+                                      ss.Free;
+                                      ArchiveMsg.DataSet.Post;
+                                      ArchiveMsg.Free;
+                                      for i := 0 to Mime.Header.ToList.Count-1 do
+                                        begin
+                                          CustomerCont := TPersonContactData.Create(Self,Data);
+                                          if Data.IsSQLDb then
+                                            Data.SetFilter(CustomerCont,'UPPER("DATA")=UPPER('''+getemailaddr(Mime.Header.ToList[i])+''')')
+                                          else
+                                            Data.SetFilter(CustomerCont,'"DATA"='''+getemailaddr(Mime.Header.ToList[i])+'''');
+                                          Customers := TPerson.Create(Self,Data);
+                                          Data.SetFilter(Customers,'"ACCOUNTNO"='+Data.QuoteValue(CustomerCont.DataSet.FieldByName('ACCOUNTNO').AsString));
+                                          CustomerCont.Free;
+                                          if Customers.Count > 0 then
+                                            begin
+                                              Customers.History.Open;
+                                              atmp := ConvertEncoding(Mime.Header.Subject,GuessEncoding(Mime.Header.Subject),EncodingUTF8);
+                                              Customers.History.AddItem(Customers.DataSet,Format(strActionMessageSend,[atmp]),
+                                                                        Data.BuildLink(MessageIndex.DataSet),
+                                                                        '',
+                                                                        nil,
+                                                                        ACICON_MAILANSWERED);
+                                            end;
+                                          Data.Users.History.AddItem(Customers.DataSet,Format(strActionMessageSend,[atmp]),
+                                                                    Data.BuildLink(MessageIndex.DataSet),
+                                                                    '',
+                                                                    nil,
+                                                                    ACICON_MAILANSWERED);
+                                          Customers.Free;
+                                        end;
+                                      MessageHandler.SendCommand('prometerp','Message.refresh');
+                                    end
+                                  else
+                                    begin
+                                      Edit;
+                                      FieldbyName('READ').AsString:='N';
+                                      Post;
+                                    end;
+                                end;
+                              Mime.Destroy;
+                            end
+                          else
+                            begin
+                              res := SMTP.FullResult.Text;
+                              WriteLn('failed:'+res);
+                            end;
+                        end;
+                      SMTP.Reset;
+                      MessageIndex.DataSet.Next;
+                    end;
+                  SMTP.Logout;
+                end;
+              SMTP.Free;
+            end;
         end;
       mailaccounts := copy(mailaccounts,pos('|',mailaccounts)+1,length(mailaccounts));
     end;

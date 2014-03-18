@@ -32,12 +32,12 @@ uses
 
 function StartMessageManager(Mandant : string;User : string = '') : TExtendedProcess;
 function StartProcessManager(Mandant : string;User : string = '';aProcess : string = 'processmanager') : TExtendedProcess;
-function ProcessExists(cmd: string): Boolean;
+function ProcessExists(cmd,cmdln: string): Boolean;
 
 implementation
 
 {$IFDEF WINDOWS}
-function ProcessExists(cmd: string): Boolean;
+function ProcessExists(cmd,cmdln: string): Boolean;
 var
   ContinueLoop: BOOL;
   FSnapshotHandle: THandle;
@@ -60,7 +60,7 @@ begin
   CloseHandle(FSnapshotHandle);
 end;
 {$ELSE}
-function ProcessExists(cmd:String):Boolean;
+function ProcessExists(cmd,cmdln:String):Boolean;
 var
   t:TProcess;
   s:TStringList;
@@ -69,7 +69,7 @@ var
 begin
   Result:=false;
   t:=tprocess.create(nil);
-  t.CommandLine:='ps -C '+cmd;
+  t.CommandLine:='ps -f -C '+cmd;
   t.Options:=[poUsePipes,poWaitonexit];
   try
     t.Execute;
@@ -83,7 +83,7 @@ begin
            s.Delete(i);
            break;
          end;
-     Result:=Pos(cmd,s.Text)>0;
+     Result:=Pos(cmd+cmdln,s.Text)>0;
     finally
     s.free;
     end;
@@ -101,19 +101,21 @@ var
   cmd: String;
   tmp: String;
   aDir: String;
+  cmdln: String;
 begin
   Result := nil;
   cmd := aProcess+ExtractFileExt(BaseApplication.ExeName);
-  if ProcessExists(aProcess+ExtractFileExt(BaseApplication.ExeName)) then exit;
+  cmdln := ' "--mandant='+Mandant+'"';
+  if User <> '' then
+    cmdln := cmdln+' "--user='+User+'"';
+  if ProcessExists(cmd,cmdln) then exit;
   aDir := AppendPathDelim(AppendPathDelim(AppendPathDelim(BaseApplication.Location)+'tools'));
   if (not FileExistsUTF8(cmd)) and (not FileExistsUTF8(aDir+cmd)) then
     begin
       aDir := AppendPathDelim(AppendPathDelim(GetCurrentDirUTF8)+'tools');
       if not FileExistsUTF8(aDir+cmd) then exit;
     end;
-  cmd := cmd+' "--mandant='+Mandant+'"';
-  if User <> '' then
-    cmd := cmd+' "--user='+User+'"';
+  cmd += cmdln;
   Result := TExtendedProcess.Create(aDir+cmd,True,aDir);
 end;
 

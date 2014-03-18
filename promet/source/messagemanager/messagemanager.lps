@@ -20,10 +20,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="umain"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="554"/>
-        <CursorPos X="78" Y="573"/>
+        <TopLine Value="521"/>
+        <CursorPos X="59" Y="540"/>
         <UsageCount Value="179"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -1612,10 +1613,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uHistoryFrame"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="318"/>
+        <TopLine Value="337"/>
         <CursorPos X="7" Y="371"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>

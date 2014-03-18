@@ -1451,7 +1451,7 @@ begin
   with BaseApplication as IBaseApplication do
     if SingleInstance
     and FDB.ActiveUsers.DataSet.Locate('CLIENT',ExtractFileName(ParamStr(0)),[])
-    and ((FDB.ActiveUsers.FieldByName('HOST').AsString = GetSystemName) and (ProcessExists(ExtractFileName(ParamStr(0)))))
+    and ((FDB.ActiveUsers.FieldByName('HOST').AsString = GetSystemName) and (ProcessExists(ExtractFileName(ParamStr(0)),'')))
     then
       begin
         Result := False;
@@ -1574,4 +1574,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+
