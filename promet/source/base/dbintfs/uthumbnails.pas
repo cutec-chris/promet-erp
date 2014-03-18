@@ -207,6 +207,44 @@ begin
               FreeAndNil(Img);
             end;
           end;
+      end
+    else
+      begin
+        try
+          aFilename := getTempDir+'rpv.'+e;
+          aFStream := TFileStream.Create(getTempDir+'rpv.'+e,fmCreate);
+          aStream.Position:=0;
+          aFStream.CopyFrom(aStream,aStream.Size);
+          aFStream.Free;
+          aProcess := TProcessUTF8.Create(nil);
+          {$IFDEF WINDOWS}
+          aProcess.Options:= [poNoConsole, poWaitonExit,poNewConsole, poStdErrToOutPut, poNewProcessGroup];
+          {$ELSE}
+          aProcess.Options:= [poWaitonExit,poStdErrToOutPut];
+          {$ENDIF}
+          aProcess.ShowWindow := swoHide;
+          aProcess.CommandLine := Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(ParamStrUTF8(0)))+'tools')+{$ENDIF}'convert %s[1] -resize %d -alpha off +antialias "%s"',[aFileName,500,afileName+'.bmp']);
+          aProcess.CurrentDirectory := AppendPathDelim(ExtractFileDir(ParamStrUTF8(0)))+'tools';
+          aProcess.Execute;
+          aProcess.Free;
+          SysUtils.DeleteFile(aFileName);
+          if Result then
+            begin
+              Img := TFPMemoryImage.Create(0, 0);
+              Img.UsePalette := false;
+              try
+                Img.LoadFromFile(aFileName+'.bmp');
+                SysUtils.DeleteFile(aFileName+'.bmp');
+              except
+                FreeAndNil(Img);
+              end;
+            end;
+          Result := True;
+        except
+          Result := False;
+          SysUtils.DeleteFile(aFileName);
+          SysUtils.DeleteFile(aFileName+'.bmp');
+        end;
       end;
     if Assigned(Img) then
       begin

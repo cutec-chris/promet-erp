@@ -511,6 +511,17 @@ begin
     Result := True
   else if FEditor.CanHandleFile('.'+aExtension) then
     Result := True
+  else  if (aExtension = 'AVI')
+    or (aExtension = 'FLV')
+    or (aExtension = 'MPG')
+    or (aExtension = 'MP4')
+    or (aExtension = 'WEBM')
+    or (aExtension = '3GP')
+    or (aExtension = 'MOV')
+    or (aExtension = 'WMV')
+    or (aExtension = 'RM')
+    then
+      Result := True
   ;
 end;
 function TfPreview.LoadFromDocuments(aID: LargeInt): Boolean;
@@ -664,7 +675,7 @@ begin
         aProcess.Options:= [poWaitonExit,poStdErrToOutPut];
         {$ENDIF}
         aProcess.ShowWindow := swoHide;
-        aProcess.CommandLine := Format({$IFDEF WINDOWS}AppendPathDelim(Application.Location+'tools')+{$ENDIF}'convert "%s" -resize %d -alpha off +antialias "%s"',[aFileName,500,afileName+'.bmp']);
+        aProcess.CommandLine := Format({$IFDEF WINDOWS}AppendPathDelim(Application.Location+'tools')+{$ENDIF}'convert %s[1] -resize %d -alpha off +antialias "%s"',[aFileName,500,afileName+'.bmp']);
         aProcess.CurrentDirectory := Application.Location+'tools';
         aProcess.Execute;
         aProcess.Free;

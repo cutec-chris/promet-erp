@@ -260,7 +260,11 @@ procedure TfManageDocFrame.ThumbControl1LoadFile(Sender: TObject; URL: string;
 begin
   FUrl := URL;
   if FLast=URL then
-    fetchNext;
+    begin
+      if Assigned(TThreadedImage(Sender).Thread) then
+        TThread(TThreadedImage(Sender).Thread).Synchronize(TThreadedImage(Sender).Thread,@FetchNext)
+      else fetchNext;
+    end;
   if Assigned(TThreadedImage(Sender).Thread) then
     TThread(TThreadedImage(Sender).Thread).Synchronize(TThreadedImage(Sender).Thread,@WaitForImage)
   else WaitForImage;
@@ -1078,10 +1082,6 @@ var
 begin
   for i := 0 to FDocFrame.lvDocuments.Items.Count-1 do
     begin
-      if (lowercase(copy(FDocFrame.lvDocuments.Items[i].SubItems[0],0,4)) = 'jpg ')
-      or (lowercase(copy(FDocFrame.lvDocuments.Items[i].SubItems[0],0,5)) = 'jpeg ')
-      or (lowercase(copy(FDocFrame.lvDocuments.Items[i].SubItems[0],0,4)) = 'pdf ')
-      then
       if FDocFrame.GotoEntry(FDocFrame.lvDocuments.Items[i]) then
         begin
           aDocument := TDocument.Create(nil,Data);

@@ -768,8 +768,8 @@ inherited fManageDocFrame: TfManageDocFrame
     TabOrder = 2
     object tsDocument: TTabSheet
       Caption = 'Dokument'
-      ClientHeight = 1062
-      ClientWidth = 1264
+      ClientHeight = 531
+      ClientWidth = 632
       object pThumb: TPanel
         Left = 0
         Height = 50
@@ -833,8 +833,8 @@ inherited fManageDocFrame: TfManageDocFrame
     end
     object tsFiles: TTabSheet
       Caption = 'Dateien'
-      ClientHeight = 1062
-      ClientWidth = 1264
+      ClientHeight = 531
+      ClientWidth = 632
       object pDocFrame: TPanel
         Left = 0
         Height = 531
@@ -1004,8 +1004,8 @@ inherited fManageDocFrame: TfManageDocFrame
     end
     object tstext: TTabSheet
       Caption = 'Text'
-      ClientHeight = 1062
-      ClientWidth = 1264
+      ClientHeight = 531
+      ClientWidth = 632
       object mText: TDBMemo
         Left = 44
         Height = 531
@@ -1230,7 +1230,7 @@ inherited fManageDocFrame: TfManageDocFrame
       ThumbWidth = 130
       ThumbHeight = 130
       ThumbDistance = 10
-      MultiThreaded = False
+      MultiThreaded = True
       ShowCaptions = True
       ShowPictureFrame = False
       Layout = LsGrid

@@ -839,7 +839,8 @@ begin
     begin
       DataSetType:=TPerson;
       Synchronize(@DoCreate);
-      Data.Countries.CreateTable;
+      DataSetType:=TCountries;
+      Synchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfFilter,strCustomerList,@fMain.AddCustomerList,Data.GetLinkIcon('CUSTOMERS@'),True);
       Data.RegisterLinkHandler('CUSTOMERS',@fMainTreeFrame.OpenLink,TPerson);
       AddSearchAbleDataSet(TPersonList);
