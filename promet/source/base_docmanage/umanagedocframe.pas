@@ -1080,6 +1080,7 @@ var
   aStream: TMemoryStream;
   aNumber: String;
 begin
+  Screen.Cursor:=crHourGlass;
   for i := 0 to FDocFrame.lvDocuments.Items.Count-1 do
     begin
       if FDocFrame.GotoEntry(FDocFrame.lvDocuments.Items[i]) then
@@ -1105,6 +1106,7 @@ begin
         end;
     end;
   acRefresh.Execute;
+  Screen.Cursor:=crDefault;
 end;
 
 procedure TfManageDocFrame.ShowDocument;

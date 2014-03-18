@@ -286,7 +286,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="56">
+    <Units Count="57">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -294,7 +294,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="20"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit0>
       <Unit1>
         <Filename Value="umain.pas"/>
@@ -307,7 +307,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="848"/>
         <CursorPos X="1" Y="844"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -321,7 +321,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1005"/>
         <CursorPos X="26" Y="1018"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit2>
       <Unit3>
         <Filename Value="uaddressframe.pas"/>
@@ -333,7 +333,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit3>
       <Unit4>
         <Filename Value="upersonfinance.pas"/>
@@ -345,7 +345,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="43"/>
         <CursorPos X="98" Y="66"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit4>
       <Unit5>
         <Filename Value="uaccountingframe.pas"/>
@@ -357,7 +357,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="208"/>
         <CursorPos X="78" Y="222"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit5>
       <Unit6>
         <Filename Value="uaccountingque.pas"/>
@@ -369,7 +369,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="223"/>
         <CursorPos X="1" Y="241"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit6>
       <Unit7>
         <Filename Value="ubankingdialog.pas"/>
@@ -377,7 +377,7 @@
         <ComponentName Value="fbankingDialog"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uBankingDialog"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit7>
       <Unit8>
         <Filename Value="uaccountingtransfer.pas"/>
@@ -389,7 +389,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="98"/>
         <CursorPos X="31" Y="122"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit8>
       <Unit9>
         <Filename Value="uarticlestorageframe.pas"/>
@@ -398,7 +398,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uArticleStorageFrame"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit9>
       <Unit10>
         <Filename Value="utextframe.pas"/>
@@ -406,7 +406,7 @@
         <ComponentName Value="fTextFrame"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uTextFrame"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit10>
       <Unit11>
         <Filename Value="uarticleframe.pas"/>
@@ -418,7 +418,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="446"/>
         <CursorPos X="23" Y="454"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit11>
       <Unit12>
         <Filename Value="uarticlepositionframe.pas"/>
@@ -427,7 +427,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uArticlePositionFrame"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit12>
       <Unit13>
         <Filename Value="uorderframe.pas"/>
@@ -439,7 +439,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit13>
       <Unit14>
         <Filename Value="uorderadditionalframe.pas"/>
@@ -448,7 +448,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOrderAdditionalFrame"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit14>
       <Unit15>
         <Filename Value="uoverviewframe.pas"/>
@@ -457,7 +457,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOverviewFrame"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit15>
       <Unit16>
         <Filename Value="uorderdateframe.pas"/>
@@ -466,7 +466,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOrderDateFrame"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit16>
       <Unit17>
         <Filename Value="uchangestatus.pas"/>
@@ -475,7 +475,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uChangeStatus"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit17>
       <Unit18>
         <Filename Value="unewstorage.pas"/>
@@ -484,7 +484,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uNewStorage"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit18>
       <Unit19>
         <Filename Value="ubookaccounting.pas"/>
@@ -496,7 +496,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="7"/>
         <CursorPos X="44" Y="29"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit19>
       <Unit20>
         <Filename Value="urepairpositionframe.pas"/>
@@ -505,7 +505,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uRepairPositionFrame"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit20>
       <Unit21>
         <Filename Value="uarticlerepairframe.pas"/>
@@ -513,7 +513,7 @@
         <ComponentName Value="FArticlerepairFrame"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uarticlerepairframe"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit21>
       <Unit22>
         <Filename Value="usystemoptions.pas"/>
@@ -521,7 +521,7 @@
         <ComponentName Value="fSystemOptions"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uSystemOptions"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit22>
       <Unit23>
         <Filename Value="ucategoryoptions.pas"/>
@@ -533,7 +533,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit23>
       <Unit24>
         <Filename Value="uordertypeoptions.pas"/>
@@ -542,7 +542,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOrderTypeOptions"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit24>
       <Unit25>
         <Filename Value="ustoragetypeoptions.pas"/>
@@ -550,7 +550,7 @@
         <ComponentName Value="fStorageTypeOptions"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uStorageTypeOptions"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit25>
       <Unit26>
         <Filename Value="ucurrencyoptions.pas"/>
@@ -558,7 +558,7 @@
         <ComponentName Value="fCurrencyOptions"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uCurrencyOptions"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit26>
       <Unit27>
         <Filename Value="ulanguageoptions.pas"/>
@@ -567,7 +567,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uLanguageOptions"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit27>
       <Unit28>
         <Filename Value="urepairoptions.pas"/>
@@ -576,7 +576,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uRepairOptions"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit28>
       <Unit29>
         <Filename Value="uphoneoptions.pas"/>
@@ -585,7 +585,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPhoneOptions"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit29>
       <Unit30>
         <Filename Value="umailoptions.pas"/>
@@ -597,7 +597,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="64"/>
         <CursorPos X="37" Y="202"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit30>
       <Unit31>
         <Filename Value="umaileditoptions.pas"/>
@@ -606,7 +606,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMailEditoptions"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit31>
       <Unit32>
         <Filename Value="uarticletext.pas"/>
@@ -618,7 +618,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit32>
       <Unit33>
         <Filename Value="ucopyarticledata.pas"/>
@@ -627,7 +627,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uCopyArticleData"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit33>
       <Unit34>
         <Filename Value="ufindtransaction.pas"/>
@@ -636,7 +636,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uFindTransaction"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit34>
       <Unit35>
         <Filename Value="uorderaddressframe.pas"/>
@@ -645,7 +645,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uorderaddressframe"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit35>
       <Unit36>
         <Filename Value="uarticlesupplierframe.pas"/>
@@ -654,7 +654,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uarticlesupplierframe"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit36>
       <Unit37>
         <Filename Value="utimeframe.pas"/>
@@ -663,7 +663,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uTimeFrame"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit37>
       <Unit38>
         <Filename Value="uwizardnewaccount.pas"/>
@@ -675,7 +675,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="327"/>
         <CursorPos X="82" Y="348"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit38>
       <Unit39>
         <Filename Value="ubookserial.pas"/>
@@ -684,7 +684,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uBookSerial"/>
-        <UsageCount Value="146"/>
+        <UsageCount Value="147"/>
       </Unit39>
       <Unit40>
         <Filename Value="../base/ubasevisualcontrols.pas"/>
@@ -696,7 +696,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="94" Y="24"/>
-        <UsageCount Value="69"/>
+        <UsageCount Value="70"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit40>
@@ -707,7 +707,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="451"/>
         <CursorPos X="57" Y="686"/>
-        <UsageCount Value="56"/>
+        <UsageCount Value="57"/>
         <Loaded Value="True"/>
       </Unit41>
       <Unit42>
@@ -720,7 +720,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="162"/>
         <CursorPos X="15" Y="142"/>
-        <UsageCount Value="50"/>
+        <UsageCount Value="51"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit42>
@@ -733,9 +733,9 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1077"/>
-        <CursorPos X="1" Y="1105"/>
-        <UsageCount Value="39"/>
+        <TopLine Value="1080"/>
+        <CursorPos X="1" Y="1108"/>
+        <UsageCount Value="40"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit43>
@@ -749,7 +749,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="298"/>
         <CursorPos X="111" Y="302"/>
-        <UsageCount Value="38"/>
+        <UsageCount Value="39"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit44>
@@ -763,7 +763,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="474"/>
         <CursorPos X="26" Y="491"/>
-        <UsageCount Value="33"/>
+        <UsageCount Value="34"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit45>
@@ -774,7 +774,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1449"/>
         <CursorPos X="123" Y="1454"/>
-        <UsageCount Value="18"/>
+        <UsageCount Value="19"/>
         <Loaded Value="True"/>
       </Unit46>
       <Unit47>
@@ -784,7 +784,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="113"/>
         <CursorPos X="84" Y="128"/>
-        <UsageCount Value="18"/>
+        <UsageCount Value="19"/>
         <Loaded Value="True"/>
       </Unit47>
       <Unit48>
@@ -793,7 +793,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
-        <UsageCount Value="17"/>
+        <UsageCount Value="18"/>
         <Loaded Value="True"/>
       </Unit48>
       <Unit49>
@@ -802,7 +802,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="25" Y="10"/>
-        <UsageCount Value="17"/>
+        <UsageCount Value="18"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit49>
@@ -816,7 +816,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="480"/>
         <CursorPos X="22" Y="502"/>
-        <UsageCount Value="17"/>
+        <UsageCount Value="18"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit50>
@@ -827,7 +827,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="143"/>
         <CursorPos X="1" Y="275"/>
-        <UsageCount Value="17"/>
+        <UsageCount Value="18"/>
         <Loaded Value="True"/>
       </Unit51>
       <Unit52>
@@ -837,17 +837,17 @@
         <WindowIndex Value="0"/>
         <TopLine Value="359"/>
         <CursorPos X="20" Y="391"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="16"/>
         <Loaded Value="True"/>
       </Unit52>
       <Unit53>
         <Filename Value="../base/dbintfs/uprocessmanager.pas"/>
         <UnitName Value="uProcessManager"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="53"/>
         <CursorPos X="1" Y="119"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="16"/>
         <Loaded Value="True"/>
       </Unit53>
       <Unit54>
@@ -859,141 +859,150 @@
         <WindowIndex Value="0"/>
         <TopLine Value="496"/>
         <CursorPos X="25" Y="522"/>
-        <FoldState Value=" T0u34O012;"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit54>
       <Unit55>
         <Filename Value="../base/dbintfs/uthumbnails.pas"/>
         <UnitName Value="uthumbnails"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="120"/>
-        <CursorPos X="122" Y="226"/>
-        <UsageCount Value="12"/>
+        <TopLine Value="133"/>
+        <CursorPos X="9" Y="231"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit55>
+      <Unit56>
+        <Filename Value="../base/dbintfs/udocuments.pas"/>
+        <UnitName Value="uDocuments"/>
+        <EditorIndex Value="15"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="571"/>
+        <CursorPos X="1" Y="598"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit56>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="676" Column="1" TopLine="659"/>
+        <Filename Value="../base/dbintfs/uthumbnails.pas"/>
+        <Caret Line="223" Column="1" TopLine="210"/>
       </Position1>
       <Position2>
-        <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="673" Column="1" TopLine="659"/>
+        <Filename Value="../base/dbintfs/uthumbnails.pas"/>
+        <Caret Line="225" Column="1" TopLine="210"/>
       </Position2>
       <Position3>
-        <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="674" Column="1" TopLine="659"/>
+        <Filename Value="../base/dbintfs/uthumbnails.pas"/>
+        <Caret Line="226" Column="1" TopLine="210"/>
       </Position3>
       <Position4>
-        <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="675" Column="1" TopLine="659"/>
+        <Filename Value="../base/dbintfs/uthumbnails.pas"/>
+        <Caret Line="227" Column="1" TopLine="210"/>
       </Position4>
       <Position5>
-        <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="676" Column="1" TopLine="659"/>
+        <Filename Value="../base/dbintfs/uthumbnails.pas"/>
+        <Caret Line="228" Column="1" TopLine="210"/>
       </Position5>
       <Position6>
-        <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="677" Column="1" TopLine="659"/>
+        <Filename Value="../base/dbintfs/uthumbnails.pas"/>
+        <Caret Line="229" Column="1" TopLine="210"/>
       </Position6>
       <Position7>
-        <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="678" Column="1" TopLine="659"/>
+        <Filename Value="../base/dbintfs/uthumbnails.pas"/>
+        <Caret Line="230" Column="1" TopLine="210"/>
       </Position7>
       <Position8>
-        <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="679" Column="1" TopLine="659"/>
+        <Filename Value="../base/dbintfs/uthumbnails.pas"/>
+        <Caret Line="231" Column="1" TopLine="210"/>
       </Position8>
       <Position9>
-        <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="680" Column="1" TopLine="659"/>
+        <Filename Value="../base/dbintfs/uthumbnails.pas"/>
+        <Caret Line="233" Column="1" TopLine="210"/>
       </Position9>
       <Position10>
-        <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="682" Column="1" TopLine="659"/>
+        <Filename Value="../base/dbintfs/uthumbnails.pas"/>
+        <Caret Line="234" Column="1" TopLine="210"/>
       </Position10>
       <Position11>
-        <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="683" Column="1" TopLine="659"/>
+        <Filename Value="../base/dbintfs/uthumbnails.pas"/>
+        <Caret Line="235" Column="1" TopLine="210"/>
       </Position11>
       <Position12>
-        <Filename Value="../base_documents/upreviewframe.pas"/>
-        <Caret Line="687" Column="1" TopLine="659"/>
+        <Filename Value="../base/dbintfs/uthumbnails.pas"/>
+        <Caret Line="236" Column="1" TopLine="210"/>
       </Position12>
       <Position13>
         <Filename Value="../base/dbintfs/uthumbnails.pas"/>
-        <Caret Line="214" Column="11" TopLine="200"/>
+        <Caret Line="216" Column="1" TopLine="204"/>
       </Position13>
       <Position14>
         <Filename Value="../base/dbintfs/uthumbnails.pas"/>
-        <Caret Line="216" Column="20" TopLine="212"/>
+        <Caret Line="217" Column="1" TopLine="204"/>
       </Position14>
       <Position15>
         <Filename Value="../base/dbintfs/uthumbnails.pas"/>
-        <Caret Line="244" Column="27" TopLine="200"/>
+        <Caret Line="218" Column="1" TopLine="204"/>
       </Position15>
       <Position16>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="263" Column="11" TopLine="257"/>
+        <Filename Value="../base/dbintfs/uthumbnails.pas"/>
+        <Caret Line="219" Column="1" TopLine="204"/>
       </Position16>
       <Position17>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="184" Column="15" TopLine="168"/>
+        <Filename Value="../base/dbintfs/uthumbnails.pas"/>
+        <Caret Line="223" Column="1" TopLine="204"/>
       </Position17>
       <Position18>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="274" Column="37" TopLine="260"/>
+        <Filename Value="../base/dbintfs/uthumbnails.pas"/>
+        <Caret Line="225" Column="1" TopLine="204"/>
       </Position18>
       <Position19>
-        <Filename Value="umain.pas"/>
-        <Caret Line="836" Column="17" TopLine="825"/>
+        <Filename Value="../base/dbintfs/uthumbnails.pas"/>
+        <Caret Line="226" Column="1" TopLine="204"/>
       </Position19>
       <Position20>
-        <Filename Value="umain.pas"/>
-        <Caret Line="841" Column="23" TopLine="828"/>
+        <Filename Value="../base/dbintfs/uthumbnails.pas"/>
+        <Caret Line="227" Column="1" TopLine="204"/>
       </Position20>
       <Position21>
-        <Filename Value="umain.pas"/>
-        <Caret Line="311" Column="15" TopLine="296"/>
+        <Filename Value="../base/dbintfs/uthumbnails.pas"/>
+        <Caret Line="228" Column="1" TopLine="204"/>
       </Position21>
       <Position22>
-        <Filename Value="umain.pas"/>
-        <Caret Line="844" Column="1" TopLine="848"/>
+        <Filename Value="../base/dbintfs/uthumbnails.pas"/>
+        <Caret Line="229" Column="1" TopLine="204"/>
       </Position22>
       <Position23>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="324" Column="50" TopLine="306"/>
+        <Filename Value="../base/dbintfs/uthumbnails.pas"/>
+        <Caret Line="235" Column="51" TopLine="204"/>
       </Position23>
       <Position24>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="799" Column="1" TopLine="792"/>
+        <Filename Value="../base/dbintfs/uthumbnails.pas"/>
+        <Caret Line="231" Column="1" TopLine="204"/>
       </Position24>
       <Position25>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="1082" Column="1" TopLine="1065"/>
+        <Filename Value="../base/dbintfs/uthumbnails.pas"/>
+        <Caret Line="233" Column="1" TopLine="205"/>
       </Position25>
       <Position26>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="1083" Column="1" TopLine="1065"/>
+        <Filename Value="../base/dbintfs/uthumbnails.pas"/>
+        <Caret Line="234" Column="1" TopLine="206"/>
       </Position26>
       <Position27>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="1085" Column="1" TopLine="1065"/>
+        <Filename Value="../base/dbintfs/uthumbnails.pas"/>
+        <Caret Line="235" Column="1" TopLine="207"/>
       </Position27>
       <Position28>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="1086" Column="1" TopLine="1065"/>
+        <Caret Line="1086" Column="1" TopLine="1071"/>
       </Position28>
       <Position29>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="1087" Column="1" TopLine="1065"/>
+        <Caret Line="1083" Column="1" TopLine="1071"/>
       </Position29>
       <Position30>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="1083" Column="1" TopLine="1065"/>
+        <Caret Line="1084" Column="1" TopLine="1071"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -1034,23 +1043,16 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="2">
+    <BreakPoints Count="1">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
         <Source Value="../base/dbintfs/uthumbnails.pas"/>
-        <Line Value="214"/>
+        <Line Value="216"/>
       </Item1>
-      <Item2>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="../base_docmanage/umanagedocframe.pas"/>
-        <Line Value="799"/>
-      </Item2>
     </BreakPoints>
-    <Exceptions Count="21">
+    <Exceptions Count="22">
       <Item1>
         <Name Value="EVariantError"/>
       </Item1>
@@ -1115,6 +1117,9 @@
       <Item21>
         <Name Value="ESQLScannerError"/>
       </Item21>
+      <Item22>
+        <Name Value="FPImageException"/>
+      </Item22>
     </Exceptions>
   </Debugging>
   <EditorMacros Count="0"/>

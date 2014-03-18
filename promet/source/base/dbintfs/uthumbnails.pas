@@ -213,8 +213,8 @@ begin
         try
           aFilename := getTempDir+'rpv.'+e;
           aFStream := TFileStream.Create(getTempDir+'rpv.'+e,fmCreate);
-          aStream.Position:=0;
-          aFStream.CopyFrom(aStream,aStream.Size);
+          aFullStream.Position:=0;
+          aFStream.CopyFrom(aFullStream,aFullStream.Size);
           aFStream.Free;
           aProcess := TProcessUTF8.Create(nil);
           {$IFDEF WINDOWS}
