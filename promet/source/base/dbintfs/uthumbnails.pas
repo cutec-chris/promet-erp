@@ -33,6 +33,7 @@ function GetThumbnailBitmap(aDocument : TDocuments;aWidth : Integer=310;aHeight 
 function GetThumbTempDir : string;
 function ClearThumbDir : Boolean;
 function GenerateThumbNail(aName : string;aFullStream,aStream : TStream;aWidth : Integer=310;aHeight : Integer=428) : Boolean;
+function GenerateThumbNail(aName : string;aFileName : string;aStream : TStream;aWidth : Integer=310;aHeight : Integer=428) : Boolean;
 
 implementation
 
@@ -117,23 +118,78 @@ end;
 function GenerateThumbNail(aName: string; aFullStream, aStream: TStream;
   aWidth: Integer; aHeight: Integer): Boolean;
 var
-  Img: TFPMemoryImage = nil;
-  i: Integer;
   e: String;
   r: Integer;
   s: String;
   d: TIHData;
+  aFStream: TFileStream;
+  aFilename: String;
+begin
+  Result := True;
+  e := lowercase (ExtractFileExt(aName));
+  if (e <> '') and (e[1] = '.') then
+    System.delete (e,1,1);
+  s := e + ';';
+  aFilename := getTempDir+'rpv.'+e;
+  aFStream := TFileStream.Create(getTempDir+'rpv.'+e,fmCreate);
+  aFullStream.Position:=0;
+  aFStream.CopyFrom(aFullStream,aFullStream.Size);
+  aFStream.Free;
+  Result := GenerateThumbNail(aName,aFilename,aStream,aWidth,aHeight);
+  SysUtils.DeleteFile(aFileName);
+end;
+
+function GenerateThumbNail(aName: string; aFileName: string; aStream: TStream;
+  aWidth: Integer; aHeight: Integer): Boolean;
+var
+  Img: TFPMemoryImage = nil;
+  e: String;
+  s: String;
   h: TFPCustomImageReaderClass = nil;
   reader: TFPCustomImageReader;
   Msg: String;
   iOut: TFPMemoryImage;
   wr: TFPWriterJPEG;
   area: TRect;
-  aFStream: TFileStream;
   aProcess: TProcessUTF8;
-  aFilename: String;
+  i: Integer;
+
+  function ConvertExec(aCmd,aExt : string) : Boolean;
+  begin
+    aProcess := TProcessUTF8.Create(nil);
+    {$IFDEF WINDOWS}
+    aProcess.Options:= [poNoConsole, poWaitonExit,poNewConsole, poStdErrToOutPut, poNewProcessGroup];
+    {$ELSE}
+    aProcess.Options:= [poWaitonExit,poStdErrToOutPut];
+    {$ENDIF}
+    aProcess.ShowWindow := swoHide;
+    aProcess.CommandLine := aCmd;
+    aProcess.CurrentDirectory := AppendPathDelim(ExtractFileDir(ParamStrUTF8(0)))+'tools';
+    try
+      aProcess.Execute;
+    except
+      on e : Exception do
+        begin
+          debugln(e.Message);
+          result := False;
+        end;
+    end;
+    Result := FileExists(aFileName+aExt);
+    aProcess.Free;
+    if Result then
+      begin
+        Img := TFPMemoryImage.Create(0, 0);
+        Img.UsePalette := false;
+        try
+          Img.LoadFromFile(aFileName+aExt);
+          SysUtils.DeleteFile(aFileName+aExt);
+        except
+          FreeAndNil(Img);
+        end;
+      end;
+  end;
+
 begin
-  Result := True;
   try
     e := lowercase (ExtractFileExt(aName));
     if (e <> '') and (e[1] = '.') then
@@ -159,7 +215,7 @@ begin
             TFPReaderJPEG(reader).MinWidth:=aWidth;
           end;
         try
-          Img.LoadFromStream(aFullStream, reader);
+          Img.LoadFromFile(aFilename, reader);
           if reader is TFPReaderJPEG then
             begin
             end;
@@ -170,82 +226,15 @@ begin
       end
     else if (s = 'pdf;') then
       begin
-        aFilename := getTempDir+'rpv.'+e;
-        aFStream := TFileStream.Create(getTempDir+'rpv.'+e,fmCreate);
-        aStream.Position:=0;
-        aFStream.CopyFrom(aFullStream,aFullStream.Size);
-        aFStream.Free;
-        aProcess := TProcessUTF8.Create(nil);
-        {$IFDEF WINDOWS}
-        aProcess.Options:= [poNoConsole, poWaitonExit,poNewConsole, poStdErrToOutPut, poNewProcessGroup];
-        {$ELSE}
-        aProcess.Options:= [poWaitonExit,poStdErrToOutPut];
-        {$ENDIF}
-        aProcess.ShowWindow := swoHide;
-        aProcess.CommandLine := Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(ParamStrUTF8(0)))+'tools')+'gswin32'+{$ELSE}'gs'+{$ENDIF}' -q -dBATCH -dMaxBitmap=300000000 -dNOPAUSE -dSAFER -sDEVICE=bmp16m -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -dFirstPage=1 -dLastPage=1 -sOutputFile=%s %s -c quit',[aFileName+'.bmp',aFileName]);
-        aProcess.CurrentDirectory := AppendPathDelim(ExtractFileDir(ParamStrUTF8(0)))+'tools';
-        try
-        aProcess.Execute;
-
-        except
-          on e : Exception do
-            begin
-              debugln(e.Message);
-              result := False;
-            end;
-        end;
-        aProcess.Free;
-        SysUtils.DeleteFile(aFileName);
-        if Result then
-          begin
-            Img := TFPMemoryImage.Create(0, 0);
-            Img.UsePalette := false;
-            try
-              Img.LoadFromFile(aFileName+'.bmp');
-              SysUtils.DeleteFile(aFileName+'.bmp');
-            except
-              FreeAndNil(Img);
-            end;
-          end;
+        Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(ParamStrUTF8(0)))+'tools')+'gswin32'+{$ELSE}'gs'+{$ENDIF}' -q -dBATCH -dMaxBitmap=300000000 -dNOPAUSE -dSAFER -sDEVICE=bmp16m -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -dFirstPage=1 -dLastPage=1 -sOutputFile=%s %s -c quit',[aFileName+'.bmp',aFileName]),'.bmp');
       end
     else
       begin
-        try
-          aFilename := getTempDir+'rpv.'+e;
-          aFStream := TFileStream.Create(getTempDir+'rpv.'+e,fmCreate);
-          aFullStream.Position:=0;
-          aFStream.CopyFrom(aFullStream,aFullStream.Size);
-          aFStream.Free;
-          aProcess := TProcessUTF8.Create(nil);
-          {$IFDEF WINDOWS}
-          aProcess.Options:= [poNoConsole, poWaitonExit,poNewConsole, poStdErrToOutPut, poNewProcessGroup];
-          {$ELSE}
-          aProcess.Options:= [poWaitonExit,poStdErrToOutPut];
-          {$ENDIF}
-          aProcess.ShowWindow := swoHide;
-          aProcess.CommandLine := Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(ParamStrUTF8(0)))+'tools')+{$ENDIF}'convert %s[1] -resize %d -alpha off +antialias "%s"',[aFileName,500,afileName+'.bmp']);
-          aProcess.CurrentDirectory := AppendPathDelim(ExtractFileDir(ParamStrUTF8(0)))+'tools';
-          aProcess.Execute;
-          aProcess.Free;
-          SysUtils.DeleteFile(aFileName);
-          if Result then
-            begin
-              Img := TFPMemoryImage.Create(0, 0);
-              Img.UsePalette := false;
-              try
-                Img.LoadFromFile(aFileName+'.bmp');
-                SysUtils.DeleteFile(aFileName+'.bmp');
-              except
-                FreeAndNil(Img);
-              end;
-            end;
-          Result := True;
-        except
-          Result := False;
-          SysUtils.DeleteFile(aFileName);
-          SysUtils.DeleteFile(aFileName+'.bmp');
-        end;
+        Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(ParamStrUTF8(0)))+'tools')+{$ENDIF}'convert %s[1] -resize %d -alpha off +antialias "%s"',[aFileName,500,afileName+'.bmp']),'.bmp');
+        if not Result then
+          Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(ParamStrUTF8(0)))+'tools')+{$ENDIF}'ffmpeg -i "%s" -sameq -vframes 1 "%s"',[aFileName,aFileName+'.bmp']),'.bmp');
       end;
+    SysUtils.DeleteFile(aFileName);
     if Assigned(Img) then
       begin
         iOut := ThumbResize(Img, aWidth, aHeight, area);

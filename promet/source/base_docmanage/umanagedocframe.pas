@@ -684,6 +684,7 @@ procedure TfManageDocFrame.acEditExecute(Sender: TObject);
 var
   i: Integer;
   a: Integer;
+  Found: Boolean = False;
 begin
   for i := 0 to FDocFrame.lvDocuments.Items.Count-1 do
     if (lowercase(copy(FDocFrame.lvDocuments.Items[i].SubItems[0],0,4)) = 'jpg ')
@@ -701,8 +702,13 @@ begin
                   break;
                 end;
           end;
+        Found := True;
         break;
       end;
+  if not Found then
+    begin
+      FDocFrame.acViewFile.Execute;
+    end;
 end;
 
 procedure TfManageDocFrame.acFindDateExecute(Sender: TObject);
@@ -1129,11 +1135,12 @@ begin
   for i := 0 to FDocFrame.lvDocuments.Items.Count-1 do
     begin
       if FDocFrame.GotoEntry(FDocFrame.lvDocuments.Items[i]) then
-        if PreviewFrame.CanHandleType(Uppercase(FDocFrame.DataSet.FieldByName('EXTENSION').AsString)) then
-          begin
-            PreviewFrame.LoadFromDocuments(TDocuments(FDocFrame.DataSet).Id.AsVariant);
-            break;
-          end;
+        if FDocFrame.DataSet.FieldByName('SIZE').AsInteger<(2*1024*1024) then
+          if PreviewFrame.CanHandleType(Uppercase(FDocFrame.DataSet.FieldByName('EXTENSION').AsString)) then
+            begin
+              PreviewFrame.LoadFromDocuments(TDocuments(FDocFrame.DataSet).Id.AsVariant);
+              break;
+            end;
     end;
 end;
 

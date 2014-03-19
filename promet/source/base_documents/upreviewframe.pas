@@ -111,6 +111,9 @@ type
       property ResetZoom : Boolean read FResetZoom write FResetZoom;
       property ZoomWidth : Boolean read FZoomW write FZoomW;
     end;
+
+  { TLoadThread }
+
   TLoadThread = class(TThread)
   private
     FAbort: Boolean;
@@ -120,12 +123,14 @@ type
     aSStream: TStringStream;
     FFrame : TfPreview;
     aDocument: TDocument;
+    aTransaction: TComponent;
     procedure SetAbort(AValue: Boolean);
     procedure StartLoading;
     procedure LoadFromStream;
     procedure LoadText;
     procedure FillRevision;
     procedure EndLoading;
+    procedure getConnection;
   public
     procedure Execute;override;
     constructor Create(aFrame: TfPreview; aID: Int64;aRevision : Integer = -1);
@@ -206,13 +211,17 @@ begin
   Application.ProcessMessages;
 end;
 
+procedure TLoadThread.getConnection;
+begin
+  aTransaction := Data.GetNewConnection;
+end;
+
 procedure TLoadThread.Execute;
 var
-  aTransaction: TComponent;
   aNumber: Integer;
 label aExit;
 begin
-  aTransaction := Data.GetNewConnection;
+  Synchronize(@getConnection);
   aDocument := TDocument.Create(nil,Data,aTransaction);
   aDocument.SelectByID(FID);
   aDocument.Open;
@@ -511,7 +520,7 @@ begin
     Result := True
   else if FEditor.CanHandleFile('.'+aExtension) then
     Result := True
-  else  if (aExtension = 'AVI')
+  else if (aExtension = 'AVI')
     or (aExtension = 'FLV')
     or (aExtension = 'MPG')
     or (aExtension = 'MP4')
