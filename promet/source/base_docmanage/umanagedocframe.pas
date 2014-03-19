@@ -476,15 +476,22 @@ begin
       Limit := 0;
       if trim(eSearch.Text)<>'' then
         begin
-          tmp := eSearch.Text;
-          aFilter := '';
-          while pos(',',tmp) > 0 do
+          if Uppercase(eSearch.Text)='NULL' then
             begin
-              AddFilter(copy(tmp,0,pos(',',tmp)-1));
-              tmp := copy(tmp,pos(',',tmp)+1,length(tmp));
+              aFilter := '('+Data.ProcessTerm(Data.QuoteField('TAGS')+'='+Data.QuoteValue(''))+') AND ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue(TDocPages(DataSet).Typ)+')';
+            end
+          else
+            begin
+              tmp := eSearch.Text;
+              aFilter := '';
+              while pos(',',tmp) > 0 do
+                begin
+                  AddFilter(copy(tmp,0,pos(',',tmp)-1));
+                  tmp := copy(tmp,pos(',',tmp)+1,length(tmp));
+                end;
+              AddFilter(tmp);
+              aFilter := '('+aFilter+') AND ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue(TDocPages(DataSet).Typ)+')';
             end;
-          AddFilter(tmp);
-          aFilter := '('+aFilter+') AND ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue(TDocPages(DataSet).Typ)+')';
 
           Filter :=  aFilter;
         end
