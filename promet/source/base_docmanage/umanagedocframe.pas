@@ -455,7 +455,7 @@ var
     if atmp <> '' then
       begin
         if aFilter <> '' then
-          aFilter := aFilter+' OR ';
+          aFilter := aFilter+' AND ';
         with DataSet.DataSet as IBaseDbFilter do
           aFilter := aFilter+Data.ProcessTerm(Data.QuoteField('TAGS')+'='+Data.QuoteValue('*'+atmp+'*'))+' OR '+
                      Data.ProcessTerm(Data.QuoteField('FULLTEXT')+'='+Data.QuoteValue('*'+atmp+'*'));

@@ -32,7 +32,7 @@ begin
     begin
       if FileExists(ParamStr(1)) and (lowercase(ExtractFileExt(ParamStr(1))) = '.plink') then
         begin
-          if not ProcessExists('prometerp'+ExtractFileExt(ExeName)) then
+          if not ProcessExists('prometerp'+ExtractFileExt(ExeName),'') then
             begin
               ExecProcess(AppendPathDelim(ExpandFileName(AppendPathdelim(Location) + '..'))+'prometerp'+ExtractFileExt(ExeName));
             end;
@@ -43,7 +43,7 @@ begin
         end
       else if pos('@',ParamStr(1))>0 then
         begin
-          if not ProcessExists('prometerp'+ExtractFileExt(ExeName)) then
+          if not ProcessExists('prometerp'+ExtractFileExt(ExeName),'') then
             begin
               ExecProcess(AppendPathDelim(ExpandFileName(AppendPathdelim(Location) + '..'))+'prometerp'+ExtractFileExt(ExeName));
             end;

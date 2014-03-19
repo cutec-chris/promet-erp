@@ -489,7 +489,7 @@ begin
       and (Sender = nil)
       then
         begin
-          if not ProcessExists('prometerp'+ExtractFileExt(Application.ExeName)) then
+          if not ProcessExists('prometerp'+ExtractFileExt(Application.ExeName),'') then
             begin
               ExecProcess(AppendPathDelim(ExpandFileName(AppendPathdelim(Application.Location) + '..'))+'prometerp'+ExtractFileExt(Application.ExeName),'',False);
             end;

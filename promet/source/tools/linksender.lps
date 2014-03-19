@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectSession>
     <Version Value="9"/>
@@ -11,8 +11,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="36"/>
-        <CursorPos X="33" Y="52"/>
+        <TopLine Value="30"/>
+        <CursorPos X="70" Y="46"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -50,7 +50,7 @@
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="6" HistoryIndex="5">
+    <JumpHistory Count="8" HistoryIndex="7">
       <Position1>
         <Filename Value="../base/dbintfs/uprometipc.pas"/>
         <Caret Line="1" Column="1" TopLine="1"/>
@@ -75,6 +75,14 @@
         <Filename Value="linksender.lpr"/>
         <Caret Line="53" Column="43" TopLine="19"/>
       </Position6>
+      <Position7>
+        <Filename Value="linksender.lpr"/>
+        <Caret Line="52" Column="33" TopLine="36"/>
+      </Position7>
+      <Position8>
+        <Filename Value="linksender.lpr"/>
+        <Caret Line="35" Column="70" TopLine="18"/>
+      </Position8>
     </JumpHistory>
   </ProjectSession>
   <EditorMacros Count="0"/>
