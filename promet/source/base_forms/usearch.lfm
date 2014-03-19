@@ -20,7 +20,7 @@ object fSearch: TfSearch
   object pTop: TPanel
     Left = 0
     Height = 111
-    Top = 29
+    Top = 30
     Width = 566
     Align = alTop
     BevelOuter = bvNone
@@ -29,7 +29,7 @@ object fSearch: TfSearch
     TabOrder = 0
     object eContains: TEdit
       Left = 72
-      Height = 21
+      Height = 24
       Top = 9
       Width = 333
       Anchors = [akTop, akLeft, akRight]
@@ -171,9 +171,9 @@ object fSearch: TfSearch
     end
     object cbContains: TRadioButton
       Left = 72
-      Height = 17
+      Height = 24
       Top = 55
-      Width = 52
+      Width = 65
       Caption = 'enthält'
       Checked = True
       TabOrder = 4
@@ -181,18 +181,18 @@ object fSearch: TfSearch
     end
     object cbWildgards: TRadioButton
       Left = 160
-      Height = 17
+      Height = 24
       Top = 55
-      Width = 137
+      Width = 165
       Caption = 'Jokerzeichen verwenden'
       OnChange = cbWildgardsChange
       TabOrder = 1
     end
     object cbAutomaticsearch: TCheckBox
-      Left = 412
-      Height = 17
+      Left = 381
+      Height = 24
       Top = 55
-      Width = 146
+      Width = 177
       Anchors = [akTop, akRight]
       Caption = 'Suche wärend des Tippens'
       Checked = True
@@ -250,7 +250,7 @@ object fSearch: TfSearch
     end
     object seMaxresults: TSpinEdit
       Left = 500
-      Height = 21
+      Height = 24
       Top = 83
       Width = 58
       Anchors = [akTop, akRight]
@@ -263,10 +263,10 @@ object fSearch: TfSearch
       Value = 10
     end
     object cbMaxResults: TCheckBox
-      Left = 328
-      Height = 17
+      Left = 292
+      Height = 24
       Top = 83
-      Width = 166
+      Width = 202
       Anchors = [akTop, akRight]
       Caption = 'Anzahl Ergebnisse pro Suchtyp'
       Checked = True
@@ -326,19 +326,19 @@ object fSearch: TfSearch
   end
   object Panel2: TPanel
     Left = 420
-    Height = 252
-    Top = 140
+    Height = 251
+    Top = 141
     Width = 146
     Align = alRight
     BevelOuter = bvNone
-    ClientHeight = 252
+    ClientHeight = 251
     ClientWidth = 146
     TabOrder = 1
     object Splitter2: TSplitter
       Cursor = crVSplit
       Left = 0
       Height = 5
-      Top = 138
+      Top = 137
       Width = 146
       Align = alBottom
       ResizeAnchor = akBottom
@@ -346,7 +346,7 @@ object fSearch: TfSearch
     object Panel1: TPanel
       Left = 0
       Height = 109
-      Top = 143
+      Top = 142
       Width = 146
       Align = alBottom
       BevelOuter = bvNone
@@ -355,7 +355,7 @@ object fSearch: TfSearch
       TabOrder = 1
       object lSearchIn: TLabel
         Left = 4
-        Height = 13
+        Height = 14
         Top = 4
         Width = 138
         Align = alTop
@@ -365,8 +365,8 @@ object fSearch: TfSearch
       end
       object cbSearchIn: TCheckListBox
         Left = 8
-        Height = 76
-        Top = 25
+        Height = 75
+        Top = 26
         Width = 130
         Align = alClient
         BorderSpacing.Around = 8
@@ -374,23 +374,24 @@ object fSearch: TfSearch
         OnClickCheck = cbSearchInClickCheck
         TabOrder = 0
         TabStop = False
+        TopIndex = -1
       end
     end
     object Panel5: TPanel
       Left = 0
-      Height = 138
+      Height = 137
       Top = 0
       Width = 146
       Align = alClient
       BevelOuter = bvNone
       Caption = 'Panel5'
-      ClientHeight = 138
+      ClientHeight = 137
       ClientWidth = 146
       TabOrder = 2
       object cbSearchType: TCheckListBox
         Left = 8
-        Height = 105
-        Top = 25
+        Height = 103
+        Top = 26
         Width = 130
         Align = alClient
         BorderSpacing.Around = 8
@@ -398,10 +399,11 @@ object fSearch: TfSearch
         OnClickCheck = cbSearchTypeClickCheck
         TabOrder = 0
         TabStop = False
+        TopIndex = -1
       end
       object lSearchtype: TLabel
         Left = 4
-        Height = 13
+        Height = 14
         Top = 4
         Width = 138
         Align = alTop
@@ -413,8 +415,8 @@ object fSearch: TfSearch
   end
   object Splitter1: TSplitter
     Left = 415
-    Height = 252
-    Top = 140
+    Height = 251
+    Top = 141
     Width = 5
     Align = alRight
     ResizeAnchor = akRight
@@ -422,19 +424,19 @@ object fSearch: TfSearch
   end
   object Panel3: TPanel
     Left = 0
-    Height = 252
-    Top = 140
+    Height = 251
+    Top = 141
     Width = 415
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 252
+    ClientHeight = 251
     ClientWidth = 415
     TabOrder = 3
     object lResults: TLabel
       Left = 8
-      Height = 13
+      Height = 14
       Top = 0
-      Width = 89
+      Width = 103
       Caption = 'Suchergebnisse'
       Font.Style = [fsBold]
       ParentColor = False
@@ -442,7 +444,7 @@ object fSearch: TfSearch
     end
     object sgResults: TStringGrid
       Left = 8
-      Height = 228
+      Height = 227
       Top = 20
       Width = 399
       Anchors = [akTop, akLeft, akRight, akBottom]
@@ -499,7 +501,7 @@ object fSearch: TfSearch
   end
   object lHint: TLabel
     Left = 8
-    Height = 13
+    Height = 14
     Top = 8
     Width = 550
     Align = alTop
@@ -524,10 +526,10 @@ object fSearch: TfSearch
     ClientWidth = 566
     TabOrder = 4
     object bClose: TBitBtn
-      Left = 445
+      Left = 454
       Height = 34
       Top = 14
-      Width = 99
+      Width = 90
       HelpType = htKeyword
       Anchors = [akRight, akBottom]
       AutoSize = True
@@ -547,10 +549,10 @@ object fSearch: TfSearch
     end
     object bOpen: TBitBtn
       AnchorSideRight.Control = bClose
-      Left = 349
-      Height = 34
-      Top = 14
-      Width = 91
+      Left = 366
+      Height = 36
+      Top = 12
+      Width = 83
       Action = acOpen
       Anchors = [akRight, akBottom]
       AutoSize = True
@@ -792,7 +794,7 @@ object fSearch: TfSearch
   end
   object IdleTimer: TTimer
     Enabled = False
-    Interval = 100
+    Interval = 200
     OnTimer = IdleTimerTimer
     left = 88
     top = 304
@@ -804,7 +806,7 @@ object fSearch: TfSearch
   end
   object IdleTimer1: TIdleTimer
     Enabled = False
-    Interval = 400
+    Interval = 200
     OnTimer = IdleTimer1Timer
     left = 87
     top = 256

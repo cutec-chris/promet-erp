@@ -143,7 +143,7 @@ var
   fSearch: TfSearch;
 implementation
 uses uBaseDBInterface,uBaseApplication,uBaseVisualControls,uFormAnimate,
-  uBaseVisualApplication,uData,uBaseERPDBClasses,uMasterdata
+  uBaseVisualApplication,uData,uBaseERPDBClasses,uMasterdata,LCLProc
   ;
 resourcestring
   strSearchfromOrderMode        = 'Diese Suche wurde aus der Vorgangsverwaltung gestartet, wenn Sie einen Eintrag öffnen, wird dieser automatisch in den aktuellen Vorgang übernommen.';
@@ -306,6 +306,7 @@ begin
       {$ENDIF}
       exit;
     end;
+  IdleTimer1.Enabled:=False;
   bOpen.Enabled:=False;
   bSearch.Caption := strAbort;
   Application.ProcessMessages;
@@ -339,7 +340,11 @@ begin
       if cbAutomaticsearch.Checked then
         Config.WriteString('SEARCHWHILETYPING','YES')
       else
-        Config.WriteString('SEARCHWHILETYPING','NO');
+        begin
+          Config.WriteString('SEARCHWHILETYPING','NO');
+          bSearch.Default:=True;
+          bOpen.Default:=True;
+        end;
     end;
 end;
 procedure TfSearch.cbWildgardsChange(Sender: TObject);
@@ -374,7 +379,7 @@ begin
     end
   else
     i := sgResults.RowCount;
-  if i<0 then i := 0;
+  if i<1 then i := 1;
   if i>sgResults.RowCount then
     i := sgResults.RowCount;
   sgResults.InsertColRow(False,i);
@@ -389,6 +394,7 @@ begin
 end;
 procedure TfSearch.eContainsChange(Sender: TObject);
 begin
+  if Assigned(ActiveSearch) then ActiveSearch.Abort;
   IdleTimer.Enabled:=False;
   IdleTimer.Enabled:=True;
 end;
@@ -540,11 +546,12 @@ end;
 procedure TfSearch.sgResultsKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  IF Key = VK_RETURN then
+  {
+  IF (Key = VK_RETURN) then
     begin
       acOpen.Execute;
       Key := 0;
-    end;
+    end;}
 end;
 procedure TfSearch.sgResultsMouseLeave(Sender: TObject);
 begin

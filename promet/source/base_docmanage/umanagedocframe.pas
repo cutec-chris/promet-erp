@@ -707,6 +707,7 @@ begin
       end;
   if not Found then
     begin
+      FDocFrame.lvDocuments.ItemIndex:=0;
       FDocFrame.acViewFile.Execute;
     end;
 end;

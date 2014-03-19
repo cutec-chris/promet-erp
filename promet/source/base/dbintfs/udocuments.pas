@@ -602,9 +602,30 @@ begin
   Result := DataSet.FieldByName('DATE').AsDateTime;
 end;
 function TDocuments.GetFileSize: Int64;
+var
+  aDocument: TDocument;
+  ss: TStringStream;
 begin
   if Count = 0 then exit;
-  Result := DataSet.FieldByName('SIZE').AsInteger;
+  if DataSet.FieldByName('ISLINK').AsString = 'Y' then
+    begin
+      DataSet.Last;
+      ss := TStringStream.Create('');
+      with BaseApplication as IBaseDbInterface do
+        Data.BlobFieldToStream(DataSet,'DOCUMENT',ss);
+      aDocument := TDocument.Create(Self,DataModule,Connection);
+      aDocument.SelectByLink(ss.DataString);
+      ss.Free;
+      aDocument.Open;
+      try
+        if aDocument.Count > 0 then
+          Result := aDocument.GetFileSize;
+      finally
+        aDocument.Free;
+      end;
+    end
+  else
+    Result := DataSet.FieldByName('SIZE').AsInteger;
 end;
 function TDocuments.GetIsDir: Boolean;
 begin
