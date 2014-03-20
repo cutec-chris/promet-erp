@@ -62,33 +62,28 @@ end;
 {$ELSE}
 function ProcessExists(cmd,cmdln:String):Boolean;
 var
-  t:TProcess;
   s:TStringList;
   i: Integer;
   tmp: String;
+  tmp1: String;
 begin
   Result:=false;
-  t:=tprocess.create(nil);
-  t.CommandLine:='ps -f -C '+cmd;
-  t.Options:=[poUsePipes,poWaitonexit];
+  s:=tstringlist.Create;
   try
-    t.Execute;
-    s:=tstringlist.Create;
-    try
-     s.LoadFromStream(t.Output);
-     tmp := s.Text;
-     for i := 0 to s.Count-1 do
-       if copy(trim(s[i]),0,pos(' ',trim(s[i]))-1) = IntToStr(GetProcessID) then
-         begin
-           s.Delete(i);
-           break;
-         end;
-     Result:=Pos(cmd+cmdln,s.Text)>0;
-    finally
-    s.free;
-    end;
+   s.Text:=ExecProcessEx('ps -f --width=10000 -C '+cmd);
+   tmp := s.Text;
+   for i := 0 to s.Count-1 do
+     if copy(trim(s[i]),0,pos(' ',trim(s[i]))-1) = IntToStr(GetProcessID) then
+       begin
+         s.Delete(i);
+         break;
+       end;
+   tmp1 := StringReplace(cmd+' '+cmdln,'"','',[rfReplaceAll]);
+   tmp1 := StringReplace(tmp1,' ','',[rfReplaceAll]);
+   tmp := StringReplace(tmp,' ','',[rfReplaceAll]);
+   Result:=(Pos(tmp1,tmp)>0);
   finally
-    t.Free;
+    s.free;
   end;
 end;
 {$ENDIF}
