@@ -86,6 +86,7 @@ inherited fMessageFrame: TfMessageFrame
           object bAnswer: TSpeedButton
             Left = 15
             Height = 26
+            Hint = 'auf die gewählte nachricht antworten'
             Top = 4
             Width = 26
             Action = acAnswer
@@ -134,6 +135,7 @@ inherited fMessageFrame: TfMessageFrame
           object bForward: TSpeedButton
             Left = 15
             Height = 26
+            Hint = 'die gewählte Nachricht weiterleiten'
             Top = 30
             Width = 26
             Action = acForward
@@ -300,6 +302,7 @@ inherited fMessageFrame: TfMessageFrame
           object bPrint: TSpeedButton
             Left = 15
             Height = 26
+            Hint = 'Drucken'
             Top = 3
             Width = 26
             Action = acPrint
