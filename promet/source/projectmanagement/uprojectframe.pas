@@ -805,6 +805,7 @@ var
   aParentU: TUser;
   aWiki: TWikiList;
   aWikiPage: TfWikiFrame;
+  aWikiIdx: Integer;
 begin
   SetRights;
   pcPages.ClearTabClasses;
@@ -954,24 +955,6 @@ begin
     AddTabs(pcPages);
   SetRights;
   RefreshFlow;
-  aWiki := TWikiList.Create(nil,Data);
-  if aWiki.FindWikiFolder('Promet-ERP-Help/forms/'+Self.ClassName+'/') then
-    begin
-      while not aWiki.EOF do
-        begin
-          aWikiPage := TfWikiFrame.Create(Self);
-          aWikiPage.Variables.Values['SQL_ID'] := DataSet.Id.AsString;
-          aWikiPage.Variables.Values['ID'] := TBaseDbList(DataSet).Number.AsString;
-          aWikiPage.Variables.Values['TEXT'] := TBaseDbList(DataSet).Text.AsString;
-          if Assigned(TBaseDbList(DataSet).Status) then
-            aWikiPage.Variables.Values['STATUS'] := TBaseDbList(DataSet).Status.AsString;
-          if aWikiPage.OpenWikiPage('Promet-ERP-Help/forms/'+Self.ClassName+'/'+aWiki.Text.AsString) then
-            pcPages.AddTab(aWikiPage,False,aWiki.FieldByName('CAPTION').AsString)
-          else aWikiPage.Free;
-          aWiki.Next;
-        end;
-    end;
-  aWiki.Free;
   pcPages.AddTabClass(TfTaskFrame,strTasks,@AddTasks);
   TProject(DataSet).Tasks.Open;
   if TProject(DataSet).Tasks.Count > 0 then
@@ -982,6 +965,31 @@ begin
     end
   else
     pcPages.PageIndex:=0;
+  aWiki := TWikiList.Create(nil,Data);
+  if aWiki.FindWikiFolder('Promet-ERP-Help/forms/'+Self.ClassName+'/') then
+    begin
+      while not aWiki.EOF do
+        begin
+          aWikiPage := TfWikiFrame.Create(Self);
+          aWikiPage.Variables.Values['SQL_ID'] := DataSet.Id.AsString;
+          aWikiPage.Variables.Values['ID'] := TBaseDbList(DataSet).Number.AsString;
+          aWikiPage.Variables.Values['TEXT'] := TBaseDbList(DataSet).Text.AsString;
+          aWikiIdx := -1;
+          if Assigned(TBaseDbList(DataSet).Status) then
+            aWikiPage.Variables.Values['STATUS'] := TBaseDbList(DataSet).Status.AsString;
+          if aWikiPage.OpenWikiPage('Promet-ERP-Help/forms/'+Self.ClassName+'/'+aWiki.Text.AsString) then
+            aWikiIdx := pcPages.AddTab(aWikiPage,False,aWiki.FieldByName('CAPTION').AsString)
+          else aWikiPage.Free;
+          if aWiki.FieldByName('CAPTION').AsString = strOverview then
+            begin
+              pcPages.Pages[aWikiIdx+1].PageIndex:=0;
+              pcPages.PageIndex:=0;
+            end;
+          aWikiPage.LeftBar:=True;
+          aWiki.Next;
+        end;
+    end;
+  aWiki.Free;
 end;
 function TfProjectFrame.SetRights: Boolean;
 begin

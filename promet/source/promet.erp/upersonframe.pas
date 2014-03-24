@@ -866,6 +866,7 @@ var
   aFound: Boolean;
   aWiki: TWikiList;
   aWikiPage: TfWikiFrame;
+  aWikiIdx: Integer;
 begin
   FContList.pTop.Hide;
   FContList.Editable:=True;
@@ -1012,6 +1013,11 @@ begin
     AddTabClasses('PER',pcPages);
   with Application as TBaseVisualApplication do
     AddTabs(pcPages);
+  acNewOrder.Visible:=Data.Users.Rights.Right('ORDERS') > RIGHT_READ;
+  if FDataSet.State = dsInsert then
+    pcPages.PageIndex:=1
+  else
+    pcPages.PageIndex:=0;
   aWiki := TWikiList.Create(nil,Data);
   if aWiki.FindWikiFolder('Promet-ERP-Help/forms/'+Self.ClassName+'/') then
     begin
@@ -1021,21 +1027,22 @@ begin
           aWikiPage.Variables.Values['SQL_ID'] := DataSet.Id.AsString;
           aWikiPage.Variables.Values['ID'] := TBaseDbList(DataSet).Number.AsString;
           aWikiPage.Variables.Values['TEXT'] := TBaseDbList(DataSet).Text.AsString;
+          aWikiIdx := -1;
           if Assigned(TBaseDbList(DataSet).Status) then
             aWikiPage.Variables.Values['STATUS'] := TBaseDbList(DataSet).Status.AsString;
           if aWikiPage.OpenWikiPage('Promet-ERP-Help/forms/'+Self.ClassName+'/'+aWiki.Text.AsString) then
-            pcPages.AddTab(aWikiPage,False,aWiki.FieldByName('CAPTION').AsString)
+            aWikiIdx := pcPages.AddTab(aWikiPage,False,aWiki.FieldByName('CAPTION').AsString)
           else aWikiPage.Free;
+          if aWiki.FieldByName('CAPTION').AsString = strOverview then
+            begin
+              pcPages.Pages[aWikiIdx+1].PageIndex:=0;
+              pcPages.PageIndex:=0;
+            end;
+          aWikiPage.LeftBar:=True;
           aWiki.Next;
         end;
     end;
   aWiki.Free;
-
-  acNewOrder.Visible:=Data.Users.Rights.Right('ORDERS') > RIGHT_READ;
-  if FDataSet.State = dsInsert then
-    pcPages.PageIndex:=1
-  else
-    pcPages.PageIndex:=0;
   eName.SetFocus;
   inherited DoOpen;
 end;

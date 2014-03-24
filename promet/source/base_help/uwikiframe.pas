@@ -54,7 +54,9 @@ type
     acImage: TAction;
     acSpellCheck: TAction;
     ActionList: TActionList;
+    Bevel1: TBevel;
     bItalic: TSpeedButton;
+    ExtRotatedLabel1: TExtRotatedLabel;
     Keywords: TDatasource;
     DBGrid1: TDBGrid;
     DBText1: TDBText;
@@ -66,6 +68,8 @@ type
     lTitle: TLabel;
     MenuItem1: TMenuItem;
     Panel1: TPanel;
+    pLeft: TPanel;
+    Panel3: TPanel;
     pmHistory: TPopupMenu;
     SpeedButton2: TSpeedButton;
     SpeedButton3: TSpeedButton;
@@ -75,9 +79,13 @@ type
     SpeedButton8: TSpeedButton;
     SpeedButton9: TSpeedButton;
     RefreshTimer: TTimer;
+    tbMenue1: TToolButton;
+    tbToolBar1: TToolBar;
+    ToolButton3: TToolButton;
+    ToolButton4: TToolButton;
     Wiki: TDatasource;
     ipHTML: TIpHtmlPanel;
-    Panel4: TPanel;
+    pTop: TPanel;
     pcPages: TExtMenuPageControl;
     pToolbar: TPanel;
     tbMenue: TToolButton;
@@ -115,6 +123,8 @@ type
     FActNode: TIpHtmlNode;
     FEditable: Boolean;
     FVariables: TStrings;
+    function GetLeftBar: Boolean;
+    procedure SetLeftBar(AValue: Boolean);
     function Wiki2HTML(input: string): TIPHtml;
     procedure AddDocuments(Sender: TObject);
   public
@@ -130,6 +140,7 @@ type
     procedure ShowFrame;override;
     procedure DoRefresh; override;
     property Variables : TStrings read FVariables;
+    property LeftBar : Boolean read GetLeftBar write SetLeftBar;
   end;
   TSimpleIpHtml = class(TIpHtml)
   public
@@ -971,6 +982,18 @@ begin
     ss.Free;
   end;
 end;
+
+procedure TfWikiFrame.SetLeftBar(AValue: Boolean);
+begin
+  pLeft.Visible:=aValue;
+  pTop.Visible:=not AValue;
+end;
+
+function TfWikiFrame.GetLeftBar: Boolean;
+begin
+  Result := pLeft.Visible;
+end;
+
 procedure TfWikiFrame.AddDocuments(Sender: TObject);
 var
   aDocuments: TDocuments;

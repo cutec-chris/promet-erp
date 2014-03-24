@@ -605,7 +605,6 @@ begin
     end;
   if not SetActive then
     PageIndex := OldIndex;
-  Result := Self.PageIndex;
   FNewPage.ImageIndex:=FNewTabImageIndex;
   Visible := True;
   FNewPage.ImageIndex:=FNewTabImageIndex;
@@ -614,6 +613,7 @@ begin
   if (aFrame is TExtControlFrame) then
     TExtControlFrame(aFrame).FrameAdded;
   RefreshMenue;
+  Result := Self.PageIndex;
 end;
 function TExtMenuPageControl.GetTab(aFrameClass: TFrameClass): TTabSheet;
 var
@@ -1145,4 +1145,4 @@ begin
   FCanvas.Free;
 end;
 end.
-
+

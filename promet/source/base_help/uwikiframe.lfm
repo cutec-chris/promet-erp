@@ -5,7 +5,7 @@ inherited fWikiFrame: TfWikiFrame
   ClientWidth = 685
   DesignLeft = 337
   DesignTop = 162
-  object Panel4: TPanel[0]
+  object pTop: TPanel[0]
     Left = 0
     Height = 42
     Top = 0
@@ -89,27 +89,27 @@ inherited fWikiFrame: TfWikiFrame
     end
   end
   object pcPages: TExtMenuPageControl[1]
-    Left = 0
+    Left = 44
     Height = 487
     Top = 42
-    Width = 685
-    ActivePage = tsEdit
+    Width = 641
+    ActivePage = tsView
     Align = alClient
     Images = fVisualControls.Images
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 1
     NewTabImageIndex = 59
     object tsView: TTabSheet
       Caption = 'Anzeigen'
       ClientHeight = 449
-      ClientWidth = 677
+      ClientWidth = 633
       ImageIndex = 87
       OnShow = tsViewShow
       object ipHTML: TIpHtmlPanel
         Left = 0
         Height = 449
         Top = 0
-        Width = 677
+        Width = 633
         Align = alClient
         FixedTypeface = 'Courier New'
         DefaultTypeFace = 'arial'
@@ -128,7 +128,7 @@ inherited fWikiFrame: TfWikiFrame
       Tag = 1
       Caption = 'bearbeiten'
       ClientHeight = 449
-      ClientWidth = 677
+      ClientWidth = 633
       ImageIndex = 67
       object Panel1: TPanel
         Left = 0
@@ -612,7 +612,88 @@ inherited fWikiFrame: TfWikiFrame
       end
     end
   end
-  object ActionList: TActionList[2]
+  object pLeft: TPanel[2]
+    Left = 0
+    Height = 487
+    Top = 42
+    Width = 44
+    Align = alLeft
+    BevelOuter = bvNone
+    ClientHeight = 487
+    ClientWidth = 44
+    TabOrder = 2
+    Visible = False
+    object Panel3: TPanel
+      Left = 0
+      Height = 156
+      Top = 20
+      Width = 44
+      Align = alTop
+      BorderSpacing.Top = 20
+      BevelOuter = bvNone
+      ClientHeight = 156
+      ClientWidth = 44
+      TabOrder = 0
+      object Bevel1: TBevel
+        Left = 4
+        Height = 4
+        Top = 0
+        Width = 36
+        Align = alTop
+        BorderSpacing.Left = 4
+        BorderSpacing.Right = 4
+        Shape = bsTopLine
+      end
+      object ExtRotatedLabel1: TExtRotatedLabel
+        Left = 0
+        Height = 152
+        Top = 4
+        Width = 14
+        Align = alLeft
+        AutoSize = False
+        Caption = 'Navigation'
+        Font.Color = clMedGray
+        Font.Height = 11
+        Font.Orientation = -900
+        ParentColor = False
+        ParentFont = False
+      end
+      object tbToolBar1: TToolBar
+        Left = 12
+        Height = 80
+        Top = 1
+        Width = 32
+        Align = alNone
+        BorderSpacing.Top = 14
+        ButtonHeight = 26
+        ButtonWidth = 31
+        Caption = 'tbToolBar1'
+        EdgeInner = esNone
+        EdgeOuter = esNone
+        Flat = False
+        Images = fVisualControls.Images
+        TabOrder = 0
+        object tbMenue1: TToolButton
+          Left = 1
+          Top = 0
+          Action = acBack
+          DropdownMenu = pmHistory
+          Style = tbsDropDown
+        end
+        object ToolButton3: TToolButton
+          Left = 1
+          Top = 26
+          Action = acIndex
+        end
+        object ToolButton4: TToolButton
+          Left = 1
+          Top = 52
+          Action = acForward
+        end
+      end
+    end
+  end
+  object ActionList: TActionList[3]
     Images = fVisualControls.Images
     left = 296
     top = 8
@@ -645,13 +726,13 @@ inherited fWikiFrame: TfWikiFrame
       OnExecute = acSpellCheckExecute
     end
   end
-  object Wiki: TDatasource[3]
+  object Wiki: TDatasource[4]
     OnStateChange = WikiStateChange
     OnDataChange = WikiDataChange
     left = 32
     top = 152
   end
-  object pmHistory: TPopupMenu[4]
+  object pmHistory: TPopupMenu[5]
     OnPopup = pmHistoryPopup
     left = 120
     top = 8
@@ -659,11 +740,11 @@ inherited fWikiFrame: TfWikiFrame
       Caption = 'New Item1'
     end
   end
-  object Keywords: TDatasource[5]
+  object Keywords: TDatasource[6]
     left = 88
     top = 152
   end
-  object RefreshTimer: TTimer[6]
+  object RefreshTimer: TTimer[7]
     Enabled = False
     Interval = 200
     OnTimer = RefreshTimerTimer
