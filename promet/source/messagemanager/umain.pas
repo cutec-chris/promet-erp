@@ -300,8 +300,8 @@ begin
         end;
     end;
   {$IFDEF LINUX}
-  Trayicon.visible := False;
-  TrayIcon.Visible:=True;
+  //Trayicon.visible := False;
+  //TrayIcon.Visible:=True;
   {$ENDIF}
   ProgTimer.Enabled:=True;
 end;

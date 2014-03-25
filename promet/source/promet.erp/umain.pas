@@ -1244,6 +1244,7 @@ var
   Found: Boolean = false;
   aFrame: TfFilter;
 begin
+  if Data.Users.Rights.Right('CUSTOMERS') < RIGHT_READ then exit;
   Application.ProcessMessages;
   for i := 0 to pcPages.PageCount-2 do
     if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfFilter) and (TfFilter(pcPages.Pages[i].Controls[0]).Dataset is TPersonList) then
@@ -1514,6 +1515,7 @@ var
   Found: Boolean = false;
   aFrame: TfFilter;
 begin
+  if Data.Users.Rights.Right('MASTERDATA') < RIGHT_READ then exit;
   Application.ProcessMessages;
   for i := 0 to pcPages.PageCount-2 do
     if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfFilter) and (TfFilter(pcPages.Pages[i].Controls[0]).Dataset is TMasterdataList) then
@@ -1556,6 +1558,7 @@ var
   Found: Boolean = false;
   aFrame: TfMessageFrame;
 begin
+  if Data.Users.Rights.Right('MESSAGES') < RIGHT_READ then exit;
   Screen.Cursor:=crHourglass;
   for i := 0 to pcPages.PageCount-2 do
     if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfMessageFrame) then
@@ -1585,6 +1588,7 @@ procedure TfMain.acNewContactExecute(Sender: TObject);
 var
   aFrame: TfPersonFrame;
 begin
+  if Data.Users.Rights.Right('CUSTOMERS') < RIGHT_WRITE then exit;
   Application.ProcessMessages;
   aFrame := TfPersonFrame.Create(Self);
   pcPages.AddTab(aFrame);
@@ -1624,6 +1628,7 @@ procedure TfMain.acNewMasterdataExecute(Sender: TObject);
 var
   aFrame: TfArticleFrame;
 begin
+  if Data.Users.Rights.Right('MASTERDATA') < RIGHT_WRITE then exit;
   Application.ProcessMessages;
   aFrame := TfArticleFrame.Create(Self);
   pcPages.AddTab(aFrame);
@@ -1646,6 +1651,7 @@ procedure TfMain.acNewMessageExecute(Sender: TObject);
 var
   fMessageEdit: TfMessageEdit;
 begin
+  if Data.Users.Rights.Right('MESSAGES') < RIGHT_WRITE then exit;
   fMessageEdit := TfMessageEdit.Create(Self);
   fMessageEdit.SendMailTo('');
 end;
@@ -1688,6 +1694,7 @@ var
   Found: Boolean = false;
   aFrame: TfCalendarFrame;
 begin
+  if Data.Users.Rights.Right('CALENDAR') < RIGHT_WRITE then exit;
   Application.ProcessMessages;
   for i := 0 to pcPages.PageCount-2 do
     if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfCalendarFrame) then
@@ -1747,6 +1754,7 @@ var
   Found: Boolean = False;
   aFrame: TfFilter;
 begin
+  if Data.Users.Rights.Right('PROJECTS') < RIGHT_READ then exit;
   Application.ProcessMessages;
   for i := 0 to pcPages.PageCount-2 do
     if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfFilter) and (TfFilter(pcPages.Pages[i].Controls[0]).Dataset is TProjectList) then
