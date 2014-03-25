@@ -713,7 +713,9 @@ var
         end
       else
         begin
-          aRDS := Data.GetNewDataSet(TSQLSelectStatement(aStmt).GetAsSQL([sfoDoubleQuoteIdentifier]));
+          aSQL := TSQLSelectStatement(aStmt).GetAsSQL([sfoDoubleQuoteIdentifier]);
+          aSQL := ReplaceSQLFunctions(aSQL);
+          aRDS := Data.GetNewDataSet(aSQL);
           aRDS.Open;
           while not aRDS.EOF do
             begin
@@ -725,7 +727,6 @@ var
                       Outp += aRDS.Fields[i].AsString;
                     end;
                 end;
-              Outp+=#13;
               aRDS.Next;
             end;
           aRDS.Free;
@@ -861,7 +862,9 @@ begin
         if aStatistic.Count>0 then
           begin
             aConn := Data.GetNewConnection;
-            aRDs := Data.GetNewDataSet(aStatistic.BuildQuerry(Variables),aConn);
+            aSQL := aStatistic.BuildQuerry(Variables);
+            aSQL := ReplaceSQLFunctions(aSQL);
+            aRDs := Data.GetNewDataSet(aSQL,aConn);
             try
               aRDS.Open;
             except

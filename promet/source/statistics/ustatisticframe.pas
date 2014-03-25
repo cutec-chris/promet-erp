@@ -494,30 +494,6 @@ begin
     Result := FormatDateTime('hh:mm:ss.zzz',dt);
 end;
 function TfStatisticFrame.BuildSQL(aIn: string): string;
-function ReplaceFunctions(Str : string) : string;
-begin
-  Result := Str;
-  if Data.GetDBType='postgres' then
-    begin
-      Result := StringReplace(Str,'CHARINDEX(','strpos(',[rfReplaceAll,rfIgnoreCase]);
-      Result := StringReplace(Str,'MONTH(','EXTRACT(MONTH FROM ',[rfReplaceAll,rfIgnoreCase]);
-      Result := StringReplace(Str,'YEAR(','EXTRACT(YEAR FROM ',[rfReplaceAll,rfIgnoreCase]);
-      Result := StringReplace(Str,'DAY(','EXTRACT(DAY FROM ',[rfReplaceAll,rfIgnoreCase]);
-      Result := StringReplace(Str,'DAYOFWEEK(','EXTRACT(DOW FROM ',[rfReplaceAll,rfIgnoreCase]);
-      Result := StringReplace(Str,'GETDATE()','CURRENT_DATE',[rfReplaceAll,rfIgnoreCase]);
-
-    end
-  else if Data.GetDBType='sqlite' then
-    begin
-      Result := StringReplace(Str,'CHARINDEX(','instr(',[rfReplaceAll,rfIgnoreCase]);
-      Result := StringReplace(Str,'MONTH(','strftime("%m",',[rfReplaceAll,rfIgnoreCase]);
-      Result := StringReplace(Str,'YEAR(','strftime("%Y",',[rfReplaceAll,rfIgnoreCase]);
-      Result := StringReplace(Str,'DAY(','strftime("%d",',[rfReplaceAll,rfIgnoreCase]);
-      Result := StringReplace(Str,'DAYOFWEEK(','strftime("%w",',[rfReplaceAll,rfIgnoreCase]);
-      Result := StringReplace(Str,'GETDATE()','date("now")',[rfReplaceAll,rfIgnoreCase]);
-
-    end;
-end;
 
 function CheckWildgards(Str : string) : string;
 begin
@@ -588,7 +564,7 @@ begin
         end;
       cFilter := StringReplace(cFilter,'@USERID@',Data.Users.Id.AsString,[rfReplaceAll]);
     end;
-  Result := ReplaceFunctions(cFilter);
+  Result := ReplaceSQLFunctions(cFilter);
 end;
 
 procedure TfStatisticFrame.acCloseExecute(Sender: TObject);
