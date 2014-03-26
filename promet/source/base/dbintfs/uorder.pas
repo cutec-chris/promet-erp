@@ -929,7 +929,7 @@ var
   newnumber: String;
   BM: LongInt;
   OldFilter: String;
-  OldRec: LongInt;
+  OldRec: Variant;
 begin
   Result := False;
   if not OrderType.DataSet.Locate('STATUS',aNewStatus,[loCaseInsensitive]) then
@@ -1552,4 +1552,4 @@ begin
 end;
 initialization
 end.
-
+

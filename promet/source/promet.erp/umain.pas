@@ -285,11 +285,6 @@ type
     property TimeReg : TfEnterTime read FTimeReg;
     function DoCreate : Boolean;
   end;
-
-  { TStaarterThread }
-
-  { TStarterThread }
-
   TStarterThread = class(TThread)
   private
     Node,Node1,Node2,Node3,aNode : TTreeNode;
@@ -805,39 +800,52 @@ begin
   //Messages
   if GetRight('MESSAGES') > RIGHT_NONE then
     begin
-      DataSetType:=TMessageList;
-      Synchronize(@DoCreate);
-      fMain.pcPages.AddTabClass(TfMessageFrame,strMessages,nil,Data.GetLinkIcon('MESSAGEIDX@'),True);
-      Data.RegisterLinkHandler('MESSAGEIDX',@fMainTreeFrame.OpenLink,TMessage);
-      AddSearchAbleDataSet(TMessageList);
+      try
+        DataSetType:=TMessageList;
+        Synchronize(@DoCreate);
+        fMain.pcPages.AddTabClass(TfMessageFrame,strMessages,nil,Data.GetLinkIcon('MESSAGEIDX@'),True);
+        Data.RegisterLinkHandler('MESSAGEIDX',@fMainTreeFrame.OpenLink,TMessage);
+        AddSearchAbleDataSet(TMessageList);
+      except
+      end;
     end;
   Synchronize(@StartReceive);
   //Tasks
   if (GetRight('TASKS') > RIGHT_NONE) then
     begin
+      try
       Synchronize(@RefreshTasks);
       Data.RegisterLinkHandler('TASKS',@fMainTreeFrame.OpenLink,TTask,TTaskList);
+      except
+      end;
     end;
   //Add PIM Entrys
   if GetRight('CALENDAR') > RIGHT_NONE then
     begin
+      try
       DataSetType:=TCalendar;
       Synchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfCalendarFrame,strCalendar,@fMain.AddCalendar,Data.GetLinkIcon('CALENDAR@'),True);
       fMain.RefreshCalendar;
+      except
+      end;
     end;
   //Orders
   if GetRight('ORDERS') > RIGHT_NONE then
     begin
+      try
       DataSetType:=TOrder;
       Synchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfFilter,strOrderList,@fMain.AddOrderList,Data.GetLinkIcon('ORDERS@'),True);
       Data.RegisterLinkHandler('ORDERS',@fMainTreeFrame.OpenLink,Torder);
       AddSearchAbleDataSet(TOrderList);
+      except
+      end;
     end;
   //Add Contacts
   if GetRight('CUSTOMERS') > RIGHT_NONE then
     begin
+      try
       DataSetType:=TPerson;
       Synchronize(@DoCreate);
       DataSetType:=TCountries;
@@ -847,68 +855,94 @@ begin
       AddSearchAbleDataSet(TPersonList);
       AddSearchAbleDataSet(TPersonContactData);
       AddSearchAbleDataSet(TPersonAddress);
+      except
+      end;
     end;
   //Add Masterdata stuff
   if (GetRight('MASTERDATA') > RIGHT_NONE) then
     begin
+      try
       DataSetType:=TMasterdata;
       Synchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfFilter,strArticleList,@fMain.AddMasterdataList,Data.GetLinkIcon('MASTERDATA@'),True);
       Data.RegisterLinkHandler('MASTERDATA',@fMainTreeFrame.OpenLink,TMasterdata);
       AddSearchAbleDataSet(TMasterdataList);
+      except
+      end;
     end;
   //Projects
   if (GetRight('PROJECTS') > RIGHT_NONE) then
     begin
+      try
       DataSetType:=TProject;
       Synchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfFilter,strProjectList,@fMain.AddProjectList,Data.GetLinkIcon('PROJECTS@'),True);
       Data.RegisterLinkHandler('PROJECT',@fMainTreeFrame.OpenLink,TProject);
       AddSearchAbleDataSet(TProjectList);
+      except
+      end;
     end;
   //Wiki
   Data.RegisterLinkHandler('WIKI',@fMainTreeFrame.OpenLink,TWikiList);
   if (GetRight('WIKI') > RIGHT_NONE) then
     begin
+      try
       fMain.pcPages.AddTabClass(TfWikiFrame,strWiki,@fMain.AddWiki,Data.GetLinkIcon('WIKI@'),True);
       AddSearchAbleDataSet(TWikiList);
+      except
+      end;
     end;
   Synchronize(@RefreshWiki);
   //Documents
   if (GetRight('DOCUMENTS') > RIGHT_NONE) then
     begin
+      try
       Data.RegisterLinkHandler('DOCUMENTS',@fMainTreeFrame.OpenLink,TDocument);
       Data.RegisterLinkHandler('DOCPAGES',@fMainTreeFrame.OpenLink,TDocPages);
+      except
+      end;
     end;
   //Lists
   if (GetRight('LISTS') > RIGHT_NONE) then
     begin
+      try
       DataSetType:=TLists;
       Synchronize(@DoCreate);
       Data.RegisterLinkHandler('LISTS',@fMainTreeFrame.OpenLink,TLists);
       AddSearchAbleDataSet(TLists);
+      except
+      end;
     end;
   //Meetings
   if (GetRight('MEETINGS') > RIGHT_NONE) then
     begin
+      try
       DataSetType:=TMeetings;
       Synchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfFilter,strMeetingList,@fMain.AddMeetingList,-1,True);
       Data.RegisterLinkHandler('MEETINGS',@fMainTreeFrame.OpenLink,TMeetings);
       AddSearchAbleDataSet(TMeetings);
+      except
+      end;
     end;
   //Inventory
   if (GetRight('INVENTORY') > RIGHT_NONE) then
     begin
+      try
       DataSetType:=TInventorys;
       Synchronize(@DoCreate);
       Data.RegisterLinkHandler('INVENTORY',@fMainTreeFrame.OpenLink,TInventorys);
+      except
+      end;
     end;
   //Statistics
   if (GetRight('STATISTICS') > RIGHT_NONE) then
     begin
+      try
       Data.RegisterLinkHandler('STATISTICS',@fMainTreeFrame.OpenLink,TStatistic);
       AddSearchAbleDataSet(TStatistic);
+      except
+      end;
     end;
   //Timeregistering
   Synchronize(@AddTimeReg2);
@@ -916,8 +950,11 @@ begin
   //History
   if GetRight('DOCUMENTS') > RIGHT_NONE then
     begin
+      try
       AddSearchAbleDataSet(TBaseHistory);
       Data.RegisterLinkHandler('HISTORY',@fMainTreeFrame.OpenLink,TBaseHistory);
+      except
+      end;
     end;
   {$IFDEF CPU32}
   uSkypePhone.RegisterPhoneLines;

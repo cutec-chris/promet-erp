@@ -295,7 +295,7 @@ var
   ID: Integer;
   i: Integer;
 begin
-  if ipHTML.HotNode is TIpHtmlNodeA then
+  if Assigned(IpHtml.HotNode) and (ipHTML.HotNode is TIpHtmlNodeA) then
     begin
       PageName := StringReplace(TIpHtmlNodeA(IpHtml.HotNode).HRef,' ','_',[rfReplaceAll]);
       for i := 0 to FVariables.Count-1 do

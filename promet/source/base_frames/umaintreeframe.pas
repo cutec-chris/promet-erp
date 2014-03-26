@@ -1114,6 +1114,7 @@ var
   aNewDS: TBaseDBDataset;
   aNode: TTreeNode;
   tmp: String;
+  aNode1: TTreeNode;
 begin
   if Assigned(FDragDrop) then
     begin
@@ -1170,9 +1171,13 @@ begin
                               end;
                           end;
                         tvMain.Selected.Delete;
-                        tvMain.GetNodeAt(X,Y).Collapse(True);
-                        tvMain.GetNodeAt(X,Y).HasChildren:=True;
-                        tvMain.GetNodeAt(X,Y).Expand(False);
+                        aNode1 := tvMain.GetNodeAt(X,Y);
+                        if Assigned(aNode1) then
+                          begin
+                            aNode1.Collapse(True);
+                            aNode1.HasChildren:=True;
+                            aNode1.Expand(False);
+                          end;
                       end
                     else if  (DataT.Typ = etLink) then
                       begin

@@ -3,6 +3,7 @@
       - Nachrichtenzentrale:wird unter Linux nun pro Mandant gestartet
       - Dokumenten/Bildverwaltung:Suche sucht mit und und nicht mit oder
       - Wiki:Wikiframes die mit "Übersicht" betitelt werden werden als erstes Tab eingesetzt
+      - Wiki:erweiterte Unterstützung für SQL Abfragen in Wikis
 Build 323
       - Artikel:nur wandelbare Statusnamen werden angezeigt
       - Online-Banking:Kategorien implementiert und entsprechende Funktionen um alle Buchungen mit bestimmten Texten zuzuweisen
