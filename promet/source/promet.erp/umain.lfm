@@ -1058,6 +1058,7 @@ object fMain: TfMain
     end
     object acNewTermin: TAction
       Caption = 'Neuen Termin erfassen'
+      Hint = 'Neuen Termin erfassen'
       ImageIndex = 90
       OnExecute = acNewTerminExecute
       ShortCut = 24641
@@ -1106,6 +1107,7 @@ object fMain: TfMain
     end
     object acNewMessage: TAction
       Caption = 'Neue Nachricht'
+      Hint = 'Neue Nachricht schreiben'
       ImageIndex = 53
       OnExecute = acNewMessageExecute
       ShortCut = 24653
@@ -1119,6 +1121,7 @@ object fMain: TfMain
     object acNewTask: TAction
       Caption = 'neue Aufgabe'
       ImageIndex = 88
+      OnExecute = acNewTaskExecute
       ShortCut = 24660
     end
     object acShowTree: TAction

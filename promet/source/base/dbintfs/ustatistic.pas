@@ -82,22 +82,22 @@ begin
   Result := Str;
   if Data.GetDBType='postgres' then
     begin
-      Result := StringReplace(Str,'CHARINDEX(','strpos(',[rfReplaceAll,rfIgnoreCase]);
-      Result := StringReplace(Str,'MONTH(','EXTRACT(MONTH FROM ',[rfReplaceAll,rfIgnoreCase]);
-      Result := StringReplace(Str,'YEAR(','EXTRACT(YEAR FROM ',[rfReplaceAll,rfIgnoreCase]);
-      Result := StringReplace(Str,'DAY(','EXTRACT(DAY FROM ',[rfReplaceAll,rfIgnoreCase]);
-      Result := StringReplace(Str,'DAYOFWEEK(','EXTRACT(DOW FROM ',[rfReplaceAll,rfIgnoreCase]);
-      Result := StringReplace(Str,'GETDATE()','CURRENT_DATE',[rfReplaceAll,rfIgnoreCase]);
+      Result := StringReplace(Result,'CHARINDEX(','strpos(',[rfReplaceAll,rfIgnoreCase]);
+      Result := StringReplace(Result,'MONTH(','EXTRACT(MONTH FROM ',[rfReplaceAll,rfIgnoreCase]);
+      Result := StringReplace(Result,'YEAR(','EXTRACT(YEAR FROM ',[rfReplaceAll,rfIgnoreCase]);
+      Result := StringReplace(Result,'DAY(','EXTRACT(DAY FROM ',[rfReplaceAll,rfIgnoreCase]);
+      Result := StringReplace(Result,'DAYOFWEEK(','EXTRACT(DOW FROM ',[rfReplaceAll,rfIgnoreCase]);
+      Result := StringReplace(Result,'GETDATE()','CURRENT_DATE',[rfReplaceAll,rfIgnoreCase]);
 
     end
   else if Data.GetDBType='sqlite' then
     begin
-      Result := StringReplace(Str,'CHARINDEX(','instr(',[rfReplaceAll,rfIgnoreCase]);
-      Result := StringReplace(Str,'MONTH(','strftime("%m",',[rfReplaceAll,rfIgnoreCase]);
-      Result := StringReplace(Str,'YEAR(','strftime("%Y",',[rfReplaceAll,rfIgnoreCase]);
-      Result := StringReplace(Str,'DAY(','strftime("%d",',[rfReplaceAll,rfIgnoreCase]);
-      Result := StringReplace(Str,'DAYOFWEEK(','strftime("%w",',[rfReplaceAll,rfIgnoreCase]);
-      Result := StringReplace(Str,'GETDATE()','date("now")',[rfReplaceAll,rfIgnoreCase]);
+      Result := StringReplace(Result,'CHARINDEX(','instr(',[rfReplaceAll,rfIgnoreCase]);
+      Result := StringReplace(Result,'MONTH(','strftime("%m",',[rfReplaceAll,rfIgnoreCase]);
+      Result := StringReplace(Result,'YEAR(','strftime("%Y",',[rfReplaceAll,rfIgnoreCase]);
+      Result := StringReplace(Result,'DAY(','strftime("%d",',[rfReplaceAll,rfIgnoreCase]);
+      Result := StringReplace(Result,'DAYOFWEEK(','strftime("%w",',[rfReplaceAll,rfIgnoreCase]);
+      Result := StringReplace(Result,'GETDATE()','date("now")',[rfReplaceAll,rfIgnoreCase]);
 
     end;
 end;

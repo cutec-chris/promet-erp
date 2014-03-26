@@ -1659,7 +1659,7 @@ begin
   Result:=TZConnection(MainConnection).Protocol;
   if copy(Result,0,8)='postgres' then Result := 'postgres';
   if Result='interbase' then Result := 'firebird';
-  if Result='sqlite3' then Result := 'sqlite';
+  if Result='sqlite-3' then Result := 'sqlite';
 end;
 
 function TZeosDBDM.CreateTrigger(aTriggerName: string; aTableName: string;

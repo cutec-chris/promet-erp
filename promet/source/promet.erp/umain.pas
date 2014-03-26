@@ -175,6 +175,7 @@ type
     procedure acNewOrderExecute(Sender: TObject);
     procedure acNewProjectExecute(Sender: TObject);
     procedure acNewStatisticsExecute(Sender: TObject);
+    procedure acNewTaskExecute(Sender: TObject);
     procedure acNewTerminExecute(Sender: TObject);
     procedure acOpenExecute(Sender: TObject);
     procedure acOrdersExecute(Sender: TObject);
@@ -1686,6 +1687,23 @@ begin
   pcPages.AddTab(aFrame);
   aFrame.SetLanguage;
   aFrame.New;
+end;
+
+procedure TfMain.acNewTaskExecute(Sender: TObject);
+var
+  aTask: TTask;
+  aEditor: TfTaskEdit;
+begin
+  if Data.Users.Rights.Right('TASKS') < RIGHT_WRITE then exit;
+  Application.ProcessMessages;
+  aTask := TTask.Create(nil,Data);
+  aTask.Insert;
+  aTask.FieldByName('USER').AsString := Data.Users.FieldByName('ACCOUNTNO').AsString;
+  aTask.Post;
+  aEditor := TfTaskEdit.Create(Self);
+  aEditor.Execute(Data.BuildLink(aTask.DataSet));
+  aEditor.Free;
+  aTask.Free;
 end;
 
 procedure TfMain.acNewTerminExecute(Sender: TObject);
