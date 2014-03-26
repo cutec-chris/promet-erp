@@ -61,6 +61,7 @@ end;
 
 destructor TfListFrame.Destroy;
 begin
+  FList.DataSet:=nil;
   FList.Free;
   inherited Destroy;
 end;
