@@ -33,8 +33,8 @@ type
       var LogTrace: Boolean);
   private
     FMainConnection : TZConnection;
-    LimitAfterSelect : Boolean;
-    LimitSTMT : string;
+    FLimitAfterSelect : Boolean;
+    FLimitSTMT : string;
     FDBTyp : string;
     FProperties : string;
     Monitor : TZSQLMonitor;
@@ -44,6 +44,8 @@ type
     Sequence : TZSequence;
     function GetSyncOffset: Integer;override;
     procedure SetSyncOffset(const AValue: Integer);override;
+    function GetLimitAfterSelect: Boolean;override;
+    function GetLimitSTMT: string;override;
   public
     constructor Create(AOwner : TComponent);override;
     destructor Destroy;override;
@@ -1040,6 +1042,17 @@ function TZeosDBDM.DBExists: Boolean;
 begin
   Result := TableExists('USERS') and TableExists('GEN_SQL_ID') and TableExists('GEN_AUTO_ID');
 end;
+
+function TZeosDBDM.GetLimitAfterSelect: Boolean;
+begin
+  Result := FLimitAfterSelect;
+end;
+
+function TZeosDBDM.GetLimitSTMT: string;
+begin
+  Result := FLimitSTMT;
+end;
+
 function TZeosDBDM.GetSyncOffset: Integer;
 var
   Statement: IZStatement;
@@ -1180,8 +1193,8 @@ begin
         FConnection.TransactIsolationLevel:=tiReadCommitted;
       end;
     FConnection.Connected:=True;
-    LimitAfterSelect := False;
-    LimitSTMT := 'LIMIT %d';
+    FLimitAfterSelect := False;
+    FLimitSTMT := 'LIMIT %d';
     FDBTyp := FConnection.Protocol;
     if FConnection.Protocol = 'sqlite-3' then
       begin
@@ -1196,7 +1209,7 @@ begin
          or (copy(FConnection.Protocol,0,9) = 'interbase') then
       begin
         FDBTyp := 'firebird';
-        LimitSTMT := 'ROWS 1 TO %d';
+        FLimitSTMT := 'ROWS 1 TO %d';
         if not Assigned(Sequence) then
           begin
             Sequence := TZSequence.Create(Owner);
@@ -1204,8 +1217,8 @@ begin
       end
     else if FConnection.Protocol = 'mssql' then
       begin
-        LimitAfterSelect := True;
-        LimitSTMT := 'TOP %d';
+        FLimitAfterSelect := True;
+        FLimitSTMT := 'TOP %d';
       end;
   except on e : Exception do
     begin

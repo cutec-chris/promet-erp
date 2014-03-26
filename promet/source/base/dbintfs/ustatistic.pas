@@ -25,7 +25,7 @@ interface
 
 uses
   Classes, SysUtils, uBaseDbClasses, db, uBaseDbInterface,uIntfStrConsts,
-  fpsqlparser,fpsqlscanner,fpsqltree,httpsend,ssl_openssl,Utils,jsonparser,fpjson,
+  sqlparser,sqlscanner,sqltree,httpsend,ssl_openssl,Utils,jsonparser,fpjson,
   memds;
 
 type
@@ -70,6 +70,7 @@ type
   end;
 
   function ReplaceSQLFunctions(Str : string) : string;
+  function AddSQLLimit(Str : string;aLimit : Integer) : string;
 
 implementation
 uses uBaseApplication,uData,usync;
@@ -100,6 +101,14 @@ begin
       Result := StringReplace(Result,'GETDATE()','date("now")',[rfReplaceAll,rfIgnoreCase]);
 
     end;
+end;
+
+function AddSQLLimit(Str: string; aLimit: Integer): string;
+begin
+  if Data.LimitAfterSelect then
+    Result := StringReplace(Str,'select','SELECT '+Format(Data.LimitSTMT,[aLimit]),[rfReplaceAll])
+  else
+    Result := StringReplace(Str,';','',[rfReplaceAll])+' '+Format(Data.LimitSTMT,[aLimit]);
 end;
 
 procedure TSQLStatemnt.SetSQL(AValue: string);

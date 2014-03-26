@@ -149,8 +149,8 @@ type
   end;
 implementation
 uses uWiki,uData,WikiToHTML,uDocuments,Utils,LCLIntf,Variants,
-  uBaseDbInterface,uscreenshotmain,uMessages,uDocumentFrame,fpsqlparser,
-  fpsqlscanner, fpsqltree,uBaseVisualApplication,uStatistic,uspelling;
+  uBaseDbInterface,uscreenshotmain,uMessages,uDocumentFrame,sqlparser,
+  sqlscanner, sqltree,uBaseVisualApplication,uStatistic,uspelling;
 procedure THistory.SetIndex(const AValue: Integer);
 begin
   Move(AValue,Count-1);
@@ -659,6 +659,8 @@ var
     aOrderDirStr: String = 'ASC';
     aRDS: TDataSet;
     i: Integer;
+    aTable: TSQLElement;
+    NoRights: Boolean;
   begin
     FSQLStream := TStringStream.Create(Inp);
     FSQLScanner := TSQLScanner.Create(FSQLStream);
@@ -667,8 +669,12 @@ var
       aFilter:='';
       aStmt := FSQLParser.Parse;
       a := 0;
-      aTableName := TSQLSimpleTableReference(TSQLSelectStatement(aStmt).Tables[a]).ObjectName.Name;
-      aRight := UpperCase(aTableName);
+      aTable := TSQLSelectStatement(aStmt).Tables[a];
+      if aTable is TSQLSimpleTableReference then
+       begin
+         aTableName := TSQLSimpleTableReference(aTable).ObjectName.Name;
+         aRight := UpperCase(aTableName);
+       end;
       if aType <> 3 then
         begin
           if Data.ListDataSetFromLink(aTableName+'@',aClass) then
@@ -709,12 +715,54 @@ var
                 end;
               aDS.Free;
               if aType=1 then Outp+='</tbody>';
+            end
+          else //pure SQL
+            begin //TODO:better rights check ??
+              NoRights := False;
+              for a := 0 to TSQLSelectStatement(aStmt).Tables.Count-1 do
+                begin
+                  aTable := TSQLSelectStatement(aStmt).Tables[a];
+                  if aTable is TSQLSimpleTableReference then
+                    begin
+                      aTableName := TSQLSimpleTableReference(aTable).ObjectName.Name;
+                      aRight := UpperCase(aTableName);
+                      if Data.Users.Rights.Right(aRight)<RIGHT_READ then
+                        NoRights := True;
+                    end;
+                end;
+              if not NoRights then
+                begin
+                  aSQL := TSQLSelectStatement(aStmt).GetAsSQL([sfoDoubleQuoteIdentifier]);
+                  aSQL := ReplaceSQLFunctions(aSQL);
+                  if aLimit>0 then
+                    aSQL := AddSQLLimit(aSQL,aLimit);
+                  aRDS := Data.GetNewDataSet(aSQL);
+                  try
+                    aRDS.Open;
+                    if IncHeader then
+                      AddHeader;
+                    if aType=1 then Outp+='<tbody align="left" valign="top">';
+                    while not aRDS.EOF do
+                      begin
+                        case aType of
+                        0:BuildLinkRow;
+                        1:Outp+=BuildTableRow(aRDs);
+                        end;
+                        aRDs.Next;
+                      end;
+                  except
+                    on e : Exception do
+                      Outp+='error:'+e.Message+'<br>';
+                  end;
+                end;
             end;
         end
       else
         begin
           aSQL := TSQLSelectStatement(aStmt).GetAsSQL([sfoDoubleQuoteIdentifier]);
           aSQL := ReplaceSQLFunctions(aSQL);
+          if aLimit>0 then
+            aSQL := AddSQLLimit(aSQL,aLimit);
           aRDS := Data.GetNewDataSet(aSQL);
           aRDS.Open;
           while not aRDS.EOF do

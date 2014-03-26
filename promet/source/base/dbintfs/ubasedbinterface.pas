@@ -72,6 +72,8 @@ type
     function GetConnection: TComponent;virtual;abstract;
     function GetSyncOffset: Integer;virtual;abstract;
     procedure SetSyncOffset(const AValue: Integer);virtual;abstract;
+    function GetLimitAfterSelect: Boolean;virtual;
+    function GetLimitSTMT: string;virtual;
   public
     Users : TUser;
     ActiveUsers : TActiveUsers;
@@ -163,6 +165,8 @@ type
     property IgnoreOpenRequests : Boolean read FIgnoreOpenrequests write FIgnoreOpenrequests;
     property Tables : TStrings read FTables;
     property Triggers : TStrings read FTriggers;
+    property LimitAfterSelect : Boolean read GetLimitAfterSelect;
+    property LimitSTMT : string read GetLimitSTMT;
     property SyncOffset : Integer read GetSyncOffset write SetSyncOffset;
     property OnConnectionLost : TNotifyEvent read FConnectionLost write FConnectionLost;
     property OnConnect : TNotifyEvent read FConnect write FConnect;
@@ -475,6 +479,17 @@ begin
     aFilter := StringReplace(aFilter,'=',' like ',[rfReplaceAll]);
   Result := aFilter;
 end;
+
+function TBaseDBModule.GetLimitAfterSelect: Boolean;
+begin
+  Result := False;
+end;
+
+function TBaseDBModule.GetLimitSTMT: string;
+begin
+  Result := '';
+end;
+
 constructor TBaseDBModule.Create(AOwner: TComponent);
 begin
   FIgnoreOpenrequests := False;
