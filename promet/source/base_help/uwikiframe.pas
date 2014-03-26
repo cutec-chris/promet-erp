@@ -546,7 +546,7 @@ var
   FSQLStream: TStringStream;
   FSQLScanner: TSQLScanner;
   FSQLParser: TSQLParser;
-  aStmt: TSQLElement;
+  bStmt: TSQLElement;
   aTableName: TSQLStringType;
   aClass: TBaseDBDatasetClass;
   aDs: TBaseDbDataSet;
@@ -563,36 +563,6 @@ var
   tmp: String;
   IncHeader: Boolean;
   aConn: TComponent = nil;
-  procedure AddHeader;
-  var
-    b: Integer;
-  begin
-    Outp+='<thead><tr>';
-    for b := 0 to TSQLSelectStatement(aStmt).Fields.Count-1 do
-      begin
-        aElem := TSQLSelectStatement(aStmt).Fields[b];
-        if aElem is TSQLSelectField then
-          begin
-            if Assigned(TSQLSelectField(aElem).AliasName) then
-              Outp+='<th><b>'+HTMLEncode(StringReplace(TSQLSelectField(aElem).AliasName.GetAsSQL([sfoSingleQuoteIdentifier]),'''','',[rfReplaceAll]))+'</b></th>'
-            else
-              begin
-                aName := TSQLSelectField(aElem).Expression.GetAsSQL([sfoSingleQuoteIdentifier]);
-                if copy(uppercase(aName),0,5)='LINK(' then
-                  begin
-                    aName := copy(aName,6,length(aName)-6);
-                    if pos('(',aName)>0 then
-                      begin
-                        aName := copy(aName,pos('(',aName)+1,length(aname));
-                        aName := copy(aName,0,length(aName)-1);
-                      end;
-                  end;
-                Outp+='<th><b>'+HTMLEncode(StringReplace(aName,'''','',[rfReplaceAll]))+'</b></th>';
-              end;
-          end;
-      end;
-    Outp+='</tr></thead>';
-  end;
   procedure BuildLinkRow;
   var
     aLink: String;
@@ -600,7 +570,7 @@ var
     aLink := Data.BuildLink(aDs.DataSet);
     Outp+='<li><a href="'+aLink+'" title="'+Data.GetLinkDesc(aLink)+#10+Data.GetLinkLongDesc(aLink)+'">'+HTMLEncode(Data.GetLinkDesc(aLink))+'</a></li>';
   end;
-  function BuildTableRow(aBDS : TDataSet) : string;
+  function BuildTableRow(aBDS : TDataSet;aStmt : TSQLElement) : string;
   var
     aLink: String;
     i: Integer;
@@ -635,11 +605,17 @@ var
                         aName := copy(aName,0,length(aName)-1);
                         aLink := aLinkBase+copy(aLink,pos('@',aLink),length(aLink));
                       end;
+                    if pos('.',aName)>0 then
+                      aName := copy(aName,rpos('.',aName)+1,length(aName));
                     if (aBDS.FieldDefs.IndexOf(aName)>-1) then
                       Result+='<td><a href="'+aLink+'" title="'+Data.GetLinkDesc(aLink)+#10+Data.GetLinkLongDesc(aLink)+'">'+HTMLEncode(aBDS.Fields[aBDS.FieldDefs.IndexOf(aName)].AsString)+'</a></td>'
                   end
-                else if (aBDS.FieldDefs.IndexOf(aName)>-1) then
-                  Result+='<td>'+HTMLEncode(aBDS.Fields[aBDS.FieldDefs.IndexOf(aName)].AsString)+'</td>'
+                else if (aBDS.FieldDefs.IndexOf(copy(aName,rpos('.',aName)+1,length(aName)))>-1) then
+                  begin
+                    if pos('.',aName)>0 then
+                      aName := copy(aName,rpos('.',aName)+1,length(aName));
+                    Result+='<td>'+HTMLEncode(aBDS.Fields[aBDS.FieldDefs.IndexOf(aName)].AsString)+'</td>';
+                  end
                 else if Assigned(TSQLSelectField(aElem).AliasName) then
                   begin
                     aName := TSQLSelectField(aElem).AliasName.GetAsSQL([]);
@@ -651,6 +627,38 @@ var
       end;
     Result+='</tr>';
   end;
+  procedure AddHeader(aStmt : TSQLElement);
+  var
+    b: Integer;
+  begin
+    Outp+='<thead><tr>';
+    for b := 0 to TSQLSelectStatement(aStmt).Fields.Count-1 do
+      begin
+        aElem := TSQLSelectStatement(aStmt).Fields[b];
+        if aElem is TSQLSelectField then
+          begin
+            if Assigned(TSQLSelectField(aElem).AliasName) then
+              Outp+='<th><b>'+HTMLEncode(StringReplace(TSQLSelectField(aElem).AliasName.GetAsSQL([sfoSingleQuoteIdentifier]),'''','',[rfReplaceAll]))+'</b></th>'
+            else
+              begin
+                aName := TSQLSelectField(aElem).Expression.GetAsSQL([sfoSingleQuoteIdentifier]);
+                if copy(uppercase(aName),0,5)='LINK(' then
+                  begin
+                    aName := copy(aName,6,length(aName)-6);
+                    if pos('(',aName)>0 then
+                      begin
+                        aName := copy(aName,pos('(',aName)+1,length(aname));
+                        aName := copy(aName,0,length(aName)-1);
+                      end;
+                  end;
+                if pos('.',aName)>0 then
+                  aName := copy(aName,pos('.',aName)+1,length(aName));
+                Outp+='<th><b>'+HTMLEncode(StringReplace(aName,'''','',[rfReplaceAll]))+'</b></th>';
+              end;
+          end;
+      end;
+    Outp+='</tr></thead>';
+  end;
   procedure FilterSQL(aType : Integer;IncHeader : Boolean = False);
   var
     a: Integer;
@@ -661,6 +669,7 @@ var
     i: Integer;
     aTable: TSQLElement;
     NoRights: Boolean;
+    aStmt: TSQLElement;
   begin
     FSQLStream := TStringStream.Create(Inp);
     FSQLScanner := TSQLScanner.Create(FSQLStream);
@@ -680,7 +689,7 @@ var
           if Data.ListDataSetFromLink(aTableName+'@',aClass) then
             begin
               if IncHeader then
-                AddHeader;
+                AddHeader(aStmt);
               if aType=1 then Outp+='<tbody align="left" valign="top">';
               aDs := TBaseDBDataset(aClass.Create(nil,Data));
               if Assigned(TSQLSelectStatement(aStmt).Where) then
@@ -708,7 +717,7 @@ var
                     begin
                       case aType of
                       0:BuildLinkRow;
-                      1:Outp+=BuildTableRow(aDs.DataSet);
+                      1:Outp+=BuildTableRow(aDs.DataSet,aStmt);
                       end;
                       aDs.Next;
                     end;
@@ -740,13 +749,13 @@ var
                   try
                     aRDS.Open;
                     if IncHeader then
-                      AddHeader;
+                      AddHeader(aStmt);
                     if aType=1 then Outp+='<tbody align="left" valign="top">';
                     while not aRDS.EOF do
                       begin
                         case aType of
                         0:BuildLinkRow;
-                        1:Outp+=BuildTableRow(aRDs);
+                        1:Outp+=BuildTableRow(aRDs,aStmt);
                         end;
                         aRDs.Next;
                       end;
@@ -779,6 +788,7 @@ var
             end;
           aRDS.Free;
         end;
+      FreeAndNil(aStmt);
     except
       on e : Exception do
         Outp+='error:'+e.Message+'<br>';
@@ -856,6 +866,8 @@ begin
       Outp+='<table>';
       FilterSQL(1);
       Outp+='</table>';
+      if pos('error:',Outp)>0 then
+        Outp := StringReplace(Outp,'table>','p>',[rfReplaceAll]);
     end
   else if Uppercase(copy(Inp,0,10)) = 'SQLTABLEH(' then
     begin
@@ -872,6 +884,8 @@ begin
       Outp+='<table>';
       FilterSQL(1,True);
       Outp+='</table>';
+      if pos('error:',Outp)>0 then
+        Outp := StringReplace(Outp,'table>','p>',[rfReplaceAll]);
     end
   else if (Uppercase(copy(Inp,0,10)) = 'STATISTIC(')
        or (Uppercase(copy(Inp,0,11)) = 'STATISTICH(')
@@ -903,7 +917,7 @@ begin
       aStatistic := nil;
       try
         aFilter:='';
-        aStmt := FSQLParser.Parse;
+        bStmt := FSQLParser.Parse;
         aStatistic := TStatistic.Create(nil,Data);
         aStatistic.SelectFromLink(Inp);
         aStatistic.Open;
@@ -921,11 +935,11 @@ begin
             end;
             Outp+='<table>';
             if IncHeader then
-              AddHeader;
+              AddHeader(bStmt);
             Outp+='<tbody align="left" valign="top">';
             while (not aRDS.EOF) and (aLimit>0) do
               begin
-                Outp+=BuildTableRow(aRDs);
+                Outp+=BuildTableRow(aRDs,bStmt);
                 dec(aLimit,1);
                 aRDS.Next;
               end;
@@ -937,6 +951,7 @@ begin
         FreeAndNil(aConn);
         FreeAndNil(aStatistic);
       end;
+      FreeAndNil(bStmt);
       FSQLScanner.Free;
       FSQLParser.Free;
       FSQLStream.Free;
@@ -962,7 +977,7 @@ begin
       Inp := copy(Inp,rpos(' ',Inp)+1,length(Inp));
       try
         aFilter:='';
-        aStmt := FSQLParser.Parse;
+        bStmt := FSQLParser.Parse;
         aStatistic := TStatistic.Create(nil,Data);
         aStatistic.SelectFromLink(Inp);
         aStatistic.Open;
@@ -976,7 +991,7 @@ begin
               on e : Exception do
                 Outp+='error:'+e.Message+'<br>';
             end;
-            tmp := BuildTableRow(aRDs);
+            tmp := BuildTableRow(aRDs,bStmt);
             tmp := StringReplace(tmp,'<tr>','',[rfReplaceall]);
             tmp := StringReplace(tmp,'</tr>','',[rfReplaceall]);
             tmp := StringReplace(tmp,'<td>','',[rfReplaceall]);
@@ -988,6 +1003,7 @@ begin
         FreeAndNil(aConn);
         FreeAndNil(aStatistic);
       end;
+      FreeAndNil(bStmt);
       FSQLScanner.Free;
       FSQLParser.Free;
       FSQLStream.Free;
