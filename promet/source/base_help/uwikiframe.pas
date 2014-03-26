@@ -671,7 +671,7 @@ var
     NoRights: Boolean;
     aStmt: TSQLElement;
   begin
-    FSQLStream := TStringStream.Create(Inp);
+    FSQLStream := TStringStream.Create(Inp+';');
     FSQLScanner := TSQLScanner.Create(FSQLStream);
     FSQLParser := TSQLParser.Create(FSQLScanner);
     try
