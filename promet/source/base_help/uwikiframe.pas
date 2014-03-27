@@ -123,6 +123,7 @@ type
     FActNode: TIpHtmlNode;
     FEditable: Boolean;
     FVariables: TStrings;
+    aDataThere : Boolean;
     function GetLeftBar: Boolean;
     procedure SetLeftBar(AValue: Boolean);
     function Wiki2HTML(input: string): TIPHtml;
@@ -563,7 +564,6 @@ var
   tmp: String;
   IncHeader: Boolean;
   aConn: TComponent = nil;
-  aDataThere : Boolean = False;
   aConditionOK : Boolean = True;
   aCondition: String = '';
   aTmpFloat: Extended;
@@ -767,7 +767,10 @@ var
                       end;
                   except
                     on e : Exception do
-                      Outp+='error:'+e.Message+'<br>';
+                      begin
+                        Outp+='error:'+e.Message+'<br>';
+                        aDataThere:=True;
+                      end;
                   end;
                 end;
             end;
@@ -803,13 +806,18 @@ var
       FreeAndNil(aStmt);
     except
       on e : Exception do
-        Outp+='error:'+e.Message+'<br>';
+        begin
+          Outp+='error:'+e.Message+'<br>';
+          aDataThere:=True;
+        end;
     end;
     FSQLScanner.Free;
     FSQLParser.Free;
     FSQLStream.Free;
   end;
 begin
+  if pos('datathere(',lowercase(Inp))>0 then
+    aDataThere:=False;
   if copy(lowercase(Inp),0,3)='if(' then
     begin
       aCondition := copy(Inp,4,pos(';',Inp)-4);
@@ -961,7 +969,10 @@ begin
               aRDS.Open;
             except
               on e : Exception do
-                Outp+='error:'+e.Message+'<br>';
+                begin
+                  Outp+='error:'+e.Message+'<br>';
+                  aDataThere:=True;
+                end;
             end;
             Outp+='<table>';
             if IncHeader then
@@ -1020,7 +1031,10 @@ begin
               aRDS.Open;
             except
               on e : Exception do
-                Outp+='error:'+e.Message+'<br>';
+                begin
+                  Outp+='error:'+e.Message+'<br>';
+                  aDataThere:=True;
+                end;
             end;
             tmp := BuildTableRow(aRDs,bStmt);
             tmp := StringReplace(tmp,'<tr>','',[rfReplaceall]);
@@ -1076,6 +1090,7 @@ function TfWikiFrame.Wiki2HTML(input: string): TIPHtml;
 var
   ss: TStringStream;
 begin
+  aDataThere:=False;
   WikiToHTML.OnWikiInclude:=@fWikiFrameWikiInclude;
   ss:=TStringStream.Create(UTF8ToSys('<html><head><title>'+DataSet.FieldByName('CAPTION').AsString+'</title></head><body>'+WikiText2HTML(input,'','',True)+'<br><br><br></body></html>'));
   ss.Position := 0;
