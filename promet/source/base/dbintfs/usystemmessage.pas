@@ -150,7 +150,7 @@ var
   ResSleepTime: LongInt;
 const
   MinsleepTime = 700;
-  MaxSleepTime = 8000;
+  MaxSleepTime = 30000;
 begin
   while not Terminated do
     begin
@@ -185,7 +185,7 @@ begin
           aSleepTime := MinSleepTime;
         end
       else if aSleepTime < MaxSleepTime then
-        inc(aSleepTime,100);
+        inc(aSleepTime,300);
       ResSleepTime := aSleepTime;
       while ResSleepTime > 0 do
         begin

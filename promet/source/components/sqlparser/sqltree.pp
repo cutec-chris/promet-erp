@@ -124,10 +124,10 @@ Type
 
   TSQLIntegerLiteral = Class(TSQLLiteral)
   private
-    FValue: Integer;
+    FValue: Int64;
   Public
     function GetAsSQL(Options : TSQLFormatOptions; AIndent : Integer = 0): TSQLStringType; override;
-    Property Value : Integer Read FValue Write FValue;
+    Property Value : Int64 Read FValue Write FValue;
   end;
 
   { TSQLFloatLiteral }

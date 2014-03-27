@@ -1992,7 +1992,7 @@ begin
     tsqlIntegerNumber:
       begin
       Result:=TSQLLiteral(CreateElement(TSQLIntegerLiteral,AParent));
-      TSQLIntegerLiteral(Result).Value:=StrToInt(CurrentTokenString);
+      TSQLIntegerLiteral(Result).Value:=StrToInt64(CurrentTokenString);
       end;
     tsqlString:
       begin

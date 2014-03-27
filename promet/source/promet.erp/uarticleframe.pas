@@ -421,6 +421,7 @@ var
   aWiki: TWikiList;
   aWikiPage: TfWikiFrame;
   aWikiIdx: Integer;
+  aID: String;
 begin
   pcPages.CloseAll;
   TabCaption := TMasterdata(FDataSet).Text.AsString;

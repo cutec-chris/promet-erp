@@ -60,7 +60,7 @@ type
     FConnectionLost: TNotifyEvent;
     FKeepAlive: TNotifyEvent;
     FLastStmt: string;
-    FSessionID: Variant;
+    FSessionID: LargeInt;
     FTables: TStrings;
     FTriggers: TStrings;
     FUsersFilter: string;
@@ -107,7 +107,7 @@ type
     ProcessClient : TProcessClient;
     constructor Create(AOwner : TComponent);virtual;
     destructor Destroy;override;
-    property SessionID : Variant read FSessionID write FSessionID;
+    property SessionID : LargeInt read FSessionID write FSessionID;
     property MainConnection : TComponent read GetConnection;
     property UsersFilter : string read FUsersFilter;
     function GetNewConnection: TComponent;virtual;abstract;
