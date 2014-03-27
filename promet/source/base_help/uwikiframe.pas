@@ -942,6 +942,13 @@ begin
         aFilter:='';
         bStmt := FSQLParser.Parse;
         aStatistic := TStatistic.Create(nil,Data);
+        if pos('(',Inp)>0 then
+          begin
+            tmp := copy(Inp,pos('(',Inp)+1,length(Inp)-1);
+            tmp := copy(tmp,0,length(tmp)-1);
+            Variables.Values[copy(tmp,0,pos('=',tmp)-1)] := copy(tmp,pos('=',tmp)+1,length(tmp));
+            Inp := copy(Inp,0,pos('(',Inp)-1);
+          end;
         aStatistic.SelectFromLink(Inp);
         aStatistic.Open;
         if aStatistic.Count>0 then
