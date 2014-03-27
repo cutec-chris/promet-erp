@@ -76,7 +76,7 @@ type
     property TimeStamp : TField read GetTimestamp;
     property Count : Integer read GetCount;
     property FullCount : Integer read GetFullCount;
-    function GetBookmark: Variant;
+    function GetBookmark: LargeInt;
     function GotoBookmark(aRec : Variant) : Boolean;
     procedure FreeBookmark(aRec : Variant);
     procedure DuplicateRecord(DoPost : Boolean = False);
@@ -2516,7 +2516,7 @@ begin
   SetDisplayLabelName(aDataSet,'AVALIBLE',strAvalible);
   SetDisplayLabelName(aDataSet,'ICON',' ');
 end;
-function TBaseDBDataset.GetBookmark: Variant;
+function TBaseDBDataset.GetBookmark: LargeInt;
 begin
   if (not Assigned(Id)) or Id.IsNull then
     Result := 0

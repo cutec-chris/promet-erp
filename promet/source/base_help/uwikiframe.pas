@@ -563,6 +563,10 @@ var
   tmp: String;
   IncHeader: Boolean;
   aConn: TComponent = nil;
+  aDataThere : Boolean = False;
+  aConditionOK : Boolean = True;
+  aCondition: String = '';
+  aTmpFloat: Extended;
   procedure BuildLinkRow;
   var
     aLink: String;
@@ -719,6 +723,7 @@ var
                       0:BuildLinkRow;
                       1:Outp+=BuildTableRow(aDs.DataSet,aStmt);
                       end;
+                      aDataThere:=True;
                       aDs.Next;
                     end;
                 end;
@@ -757,6 +762,7 @@ var
                         0:BuildLinkRow;
                         1:Outp+=BuildTableRow(aRDs,aStmt);
                         end;
+                        aDataThere:=True;
                         aRDs.Next;
                       end;
                   except
@@ -782,6 +788,12 @@ var
                     begin
                       if i>0 then Outp+=',';
                       Outp += aRDS.Fields[i].AsString;
+                      if TryStrToFloat(tmp,aTmpFloat) then
+                        begin
+                          if aTmpFloat<>0 then
+                            aDataThere:=True;
+                        end
+                      else aDataThere:=True;
                     end;
                 end;
               aRDS.Next;
@@ -798,6 +810,17 @@ var
     FSQLStream.Free;
   end;
 begin
+  if copy(lowercase(Inp),0,3)='if(' then
+    begin
+      aCondition := copy(Inp,4,pos(';',Inp)-4);
+      Inp := copy(Inp,pos(';',Inp)+1,length(Inp));
+      Inp := copy(Inp,0,length(Inp)-1);
+      if copy(lowercase(aCondition),0,6)='right(' then
+        begin
+          aConditionOK:=Data.Users.Rights.Right(copy(aCondition,7,length(aCondition)-7))>=RIGHT_READ;
+        end;
+    end;
+  if not aConditionOK then exit;
   for i := 0 to FVariables.Count-1 do
     Inp := StringReplace(Inp,'VARIABLES.'+FVariables.Names[i],FVariables.ValueFromIndex[i],[rfReplaceAll]);
   if Uppercase(copy(Inp,0,6)) = 'BOARD(' then
@@ -939,6 +962,7 @@ begin
             Outp+='<tbody align="left" valign="top">';
             while (not aRDS.EOF) and (aLimit>0) do
               begin
+                aDataThere:=True;
                 Outp+=BuildTableRow(aRDs,bStmt);
                 dec(aLimit,1);
                 aRDS.Next;
@@ -997,6 +1021,9 @@ begin
             tmp := StringReplace(tmp,'<td>','',[rfReplaceall]);
             tmp := StringReplace(tmp,'</td>','',[rfReplaceall]);
             Outp+=tmp;
+            if TryStrToFloat(tmp,aTmpFloat) then
+              if aTmpFloat<>0 then
+                aDataThere:=True;
           end;
       finally
         FreeAndNil(aRds);
@@ -1032,6 +1059,10 @@ begin
           Outp := Outp+WikiText2HTML(aNewList.FieldByName('DATA').AsString,'','',True);
         end;
       aNewList.Free;
+    end;
+  if copy(lowercase(aCondition),0,10)='datathere(' then
+    begin
+      if not aDataThere then Outp := '';
     end;
 end;
 function TfWikiFrame.Wiki2HTML(input: string): TIPHtml;
