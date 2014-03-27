@@ -6,20 +6,20 @@ inherited fArticleSupplierFrame: TfArticleSupplierFrame
   HelpType = htKeyword
   ClientHeight = 418
   ClientWidth = 581
-  DesignLeft = 495
-  DesignTop = 64872
+  DesignLeft = 461
+  DesignTop = 284
   object lDelivertime: TLabel[0]
     Left = 248
-    Height = 18
-    Top = 17
-    Width = 66
+    Height = 14
+    Top = 36
+    Width = 52
     Caption = 'Lieferzeit'
     ParentColor = False
   end
   object eDelivertime: TDBEdit[1]
     Left = 439
-    Height = 27
-    Top = 8
+    Height = 24
+    Top = 30
     Width = 72
     DataField = 'DELIVERTM'
     DataSource = Supplier
@@ -29,8 +29,8 @@ inherited fArticleSupplierFrame: TfArticleSupplierFrame
   end
   object eArticleNumberSupplier: TDBEdit[2]
     Left = 383
-    Height = 27
-    Top = 46
+    Height = 24
+    Top = 60
     Width = 128
     DataField = 'EID'
     DataSource = Supplier
@@ -40,24 +40,24 @@ inherited fArticleSupplierFrame: TfArticleSupplierFrame
   end
   object lArticleNumberSupplier: TLabel[3]
     Left = 248
-    Height = 18
-    Top = 46
-    Width = 103
+    Height = 14
+    Top = 64
+    Width = 85
     Caption = 'Artikelnummer'
     ParentColor = False
   end
   object lTransportSupplier: TLabel[4]
     Left = 248
-    Height = 18
-    Top = 80
-    Width = 102
+    Height = 14
+    Top = 96
+    Width = 84
     Caption = 'Versandkosten'
     ParentColor = False
   end
   object eSupplierTransportPrice: TDBEdit[5]
     Left = 383
-    Height = 27
-    Top = 80
+    Height = 24
+    Top = 92
     Width = 56
     DataField = 'TRANSPORT'
     DataSource = Supplier
@@ -67,8 +67,8 @@ inherited fArticleSupplierFrame: TfArticleSupplierFrame
   end
   object cbSupplierTransportCurrency: TDBComboBox[6]
     Left = 445
-    Height = 29
-    Top = 80
+    Height = 27
+    Top = 92
     Width = 66
     DataField = 'TRANSCUR'
     DataSource = Supplier
@@ -78,16 +78,16 @@ inherited fArticleSupplierFrame: TfArticleSupplierFrame
   end
   object lPrices: TLabel[7]
     Left = 248
-    Height = 18
-    Top = 112
-    Width = 43
+    Height = 14
+    Top = 136
+    Width = 35
     Caption = 'Preise'
     ParentColor = False
   end
   object gSupplierPrices: TDBGrid[8]
     Left = 248
-    Height = 283
-    Top = 130
+    Height = 259
+    Top = 154
     Width = 322
     AlternateColor = 16770790
     Anchors = [akTop, akLeft, akRight, akBottom]
@@ -125,8 +125,8 @@ inherited fArticleSupplierFrame: TfArticleSupplierFrame
   end
   object gSupplier: TDBGrid[9]
     Left = 52
-    Height = 402
-    Top = 8
+    Height = 380
+    Top = 30
     Width = 184
     Align = alLeft
     AlternateColor = 16770790
@@ -148,12 +148,12 @@ inherited fArticleSupplierFrame: TfArticleSupplierFrame
   end
   object Panel1: TPanel[10]
     Left = 0
-    Height = 418
-    Top = 0
+    Height = 388
+    Top = 30
     Width = 44
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 418
+    ClientHeight = 388
     ClientWidth = 44
     TabOrder = 6
     object Panel2: TPanel
@@ -213,11 +213,25 @@ inherited fArticleSupplierFrame: TfArticleSupplierFrame
       end
     end
   end
-  object Supplier: TDatasource[11]
+  object lDelivertime1: TLabel[11]
+    Left = 8
+    Height = 14
+    Top = 8
+    Width = 565
+    Align = alTop
+    BorderSpacing.Around = 8
+    Caption = 'fügen Sie weitere Lieferanten per Drag&Drop aus der Suche ein'
+    Color = clInfoBk
+    Font.Color = clInfoText
+    ParentColor = False
+    ParentFont = False
+    Transparent = False
+  end
+  object Supplier: TDatasource[12]
     left = 89
     top = 87
   end
-  object SupplierPrices: TDatasource[12]
+  object SupplierPrices: TDatasource[13]
     left = 322
     top = 242
   end

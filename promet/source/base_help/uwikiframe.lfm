@@ -98,11 +98,12 @@ inherited fWikiFrame: TfWikiFrame
     Images = fVisualControls.Images
     TabIndex = 0
     TabOrder = 1
+    TabPosition = tpBottom
     NewTabImageIndex = 59
     object tsView: TTabSheet
       Caption = 'Anzeigen'
-      ClientHeight = 2397
-      ClientWidth = 3197
+      ClientHeight = 449
+      ClientWidth = 633
       ImageIndex = 87
       OnShow = tsViewShow
       object ipHTML: TIpHtmlPanel
@@ -127,8 +128,8 @@ inherited fWikiFrame: TfWikiFrame
     object tsEdit: TTabSheet
       Tag = 1
       Caption = 'bearbeiten'
-      ClientHeight = 2397
-      ClientWidth = 3197
+      ClientHeight = 449
+      ClientWidth = 633
       ImageIndex = 67
       object Panel1: TPanel
         Left = 0
@@ -547,7 +548,7 @@ inherited fWikiFrame: TfWikiFrame
           Columns = <          
             item
               Title.Caption = 'Suchbegriff'
-              Width = 176
+              Width = 172
               FieldName = 'KEYWORD'
             end>
           DataSource = Keywords

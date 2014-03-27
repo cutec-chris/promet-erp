@@ -30,6 +30,7 @@ type
   TfArticleSupplierFrame = class(TPrometInplaceFrame)
     Bevel1: TBevel;
     cbSupplierTransportCurrency: TDBComboBox;
+    lDelivertime1: TLabel;
     Supplier: TDatasource;
     SupplierPrices: TDatasource;
     dnNavigator: TDBNavigator;
