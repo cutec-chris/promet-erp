@@ -2555,7 +2555,7 @@ begin
         end;
       if Data.Tree.Id.AsInteger = TREE_ID_DELETED_MESSAGES then
         begin
-          aNew := TMenuItem.Create(nil);
+          aNew := TMenuItem.Create(fMainTreeFrame.pmTree);
           aNew.Action := acDeleteWholeMessageDir;
           fMainTreeFrame.pmTree.Items.Add(aNew);
         end;
@@ -3271,6 +3271,7 @@ end;
 
 procedure TfMain.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
+  fMain.Hide;
   IPCTimer.Enabled:=False;
   RefreshTimer.Enabled:=False;
   try
@@ -3359,7 +3360,7 @@ begin
         sl.LoadFromFile(UTF8ToSys(AppendPathDelim(AppendPathDelim(ProgramDirectory) + 'languages')+'languages.txt'));
       for i := 0 to sl.Count-1 do
         begin
-          aNewItem := TMenuItem.Create(nil);
+          aNewItem := TMenuItem.Create(miLanguage);
           aNewItem.Caption := sl[i];
           aNewItem.AutoCheck := True;
           aNewItem.OnClick :=@LanguageItemClick;
@@ -3572,7 +3573,7 @@ begin
   pmHistory.Items.Clear;
   for i := FHistory.Count-1 downto 0 do
     begin
-      aItem := TMenuItem.Create(nil);
+      aItem := TMenuItem.Create(pmHistory);
       aItem.Caption:=Data.GetLinkDesc(FHistory[i]);
       aItem.OnClick:=@aItemClick;
       if i = FHistory.HistoryIndex then

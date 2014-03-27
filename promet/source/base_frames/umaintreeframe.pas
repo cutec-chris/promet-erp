@@ -215,7 +215,7 @@ begin
   if not Assigned(tvMain.Selected) then
     begin
       pmTree.Items.Clear;
-      New := TMenuItem.Create(nil);
+      New := TMenuItem.Create(pmTree);
       New.Action := acRestoreStandard;
       pmTree.Items.Add(New);
       exit;
@@ -257,7 +257,7 @@ begin
       )
       then
         begin
-          New := TMenuItem.Create(nil);
+          New := TMenuItem.Create(pmTree);
           New.Action := acAddDirectory;
           acAddDirectory.Enabled:=(Data.Users.Rights.Right('TREE') > RIGHT_READ) or (DataT.Typ = etFavourites) or (Typ='F');
           pmTree.Items.Add(New);
@@ -267,7 +267,7 @@ begin
       or (DataT.Typ = etMessageBoard)
       then
         begin
-          New := TMenuItem.Create(nil);
+          New := TMenuItem.Create(pmTree);
           New.Action := acAddBoard;
           acAddBoard.Enabled:=Data.Users.Rights.Right('TREE') > RIGHT_READ;
           pmTree.Items.Add(New);
@@ -278,11 +278,11 @@ begin
       or (DataT.Typ = etDocumentDir)
       then
         begin
-          New := TMenuItem.Create(nil);
+          New := TMenuItem.Create(pmTree);
           New.Action := acRenameDirectory;
           acRenameDirectory.Enabled:=(Data.Users.Rights.Right('TREE') > RIGHT_READ) or (DataT.Typ = etFavourites) or (Typ='F');
           pmTree.Items.Add(New);
-          New := TMenuItem.Create(nil);
+          New := TMenuItem.Create(pmTree);
           New.Action := acDeleteDirectory;
           acDeleteDirectory.Enabled:=(Data.Users.Rights.Right('TREE') > RIGHT_WRITE) or (DataT.Typ = etFavourites) or (Typ='F');
           pmTree.Items.Add(New);
@@ -294,7 +294,7 @@ begin
       or (DataT.Typ = etDocumentDir)
       then
         begin
-          New := TMenuItem.Create(nil);
+          New := TMenuItem.Create(pmTree);
           New.Action := acRights;
           acRights.Enabled:= (((DataT.Typ = etMessageDir) or (DataT.Typ = etMessageBoard) or (DataT.Typ = etStatistic)) and (Data.Users.Rights.Right('TREE') >= RIGHT_PERMIT))
              or (DataT.Typ = etFavourites) or (Typ='F')
@@ -304,7 +304,7 @@ begin
         end;
       if (DataT.Typ = etDir) and (Typ='F') then
         begin
-          New := TMenuItem.Create(nil);
+          New := TMenuItem.Create(pmTree);
           New.Action := acPasteLink;
           pmTree.Items.Add(New);
           tmp := ClipBoard.AsText;
@@ -319,7 +319,7 @@ begin
       etClipboardItem,
       etLink:
         begin
-          New := TMenuItem.Create(nil);
+          New := TMenuItem.Create(pmTree);
           New.Action := acCopyAsLink;
           pmTree.Items.Add(New);
         end;
@@ -327,14 +327,14 @@ begin
       if (DataT.Typ = etLink)
       then
         begin
-          New := TMenuItem.Create(nil);
+          New := TMenuItem.Create(pmTree);
           New.Action := acDeleteLink;
           pmTree.Items.Add(New);
         end;
     end
   else if Assigned(DataT) and ((DataT.Typ = etLink)) then
     begin
-      New := TMenuItem.Create(nil);
+      New := TMenuItem.Create(pmTree);
       New.Action := acDeleteLink;
       pmTree.Items.Add(New);
     end;
@@ -342,10 +342,10 @@ begin
     begin
       if pmTree.Items.Count>0 then
         begin
-          New := TMenuItem.Create(nil);
+          New := TMenuItem.Create(pmTree);
           New.Caption:='-';
         end;
-      New := TMenuItem.Create(nil);
+      New := TMenuItem.Create(pmTree);
       New.Action := acHideEntry;
       pmTree.Items.Add(New);
     end;

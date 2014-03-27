@@ -134,7 +134,7 @@ begin
         sl.LoadFromFile(UTF8ToSys(AppendPathDelim(AppendPathDelim(ProgramDirectory) + 'languages')+'languages.txt'));
       for i := 0 to sl.Count-1 do
         begin
-          aNewItem := TMenuItem.Create(nil);
+          aNewItem := TMenuItem.Create(miLanguage);
           aNewItem.Caption := sl[i];
           aNewItem.AutoCheck := True;
           aNewItem.OnClick :=@LanguageItemClick;

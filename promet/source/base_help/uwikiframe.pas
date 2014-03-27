@@ -324,7 +324,7 @@ begin
   pmHistory.Items.Clear;
   for i := FHistory.Count-1 downto 0 do
     begin
-      aItem := TMenuItem.Create(nil);
+      aItem := TMenuItem.Create(pmHistory);
       aItem.Caption:=Data.GetLinkDesc(FHistory[i]);
       aItem.OnClick:=@OpenHistoryItemClick;
       if i = FHistory.HistoryIndex then

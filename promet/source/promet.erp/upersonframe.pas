@@ -826,7 +826,7 @@ begin
       TfDocumentFrame(Sender).Refresh(DataSet.Id.AsInteger,'C',DataSet.FieldByName('ACCOUNTNO').AsString,Null,Null);
     end;
   FDocumentFrame := TfDocumentFrame(Sender);
-  aItem := TMenuItem.Create(nil);
+  aItem := TMenuItem.Create(TfDocumentFrame(Sender).pmDocumentAction);
   aItem.Caption:=strVoucher;
   TfDocumentFrame(Sender).pmDocumentAction.Items.Add(aItem);
   aOrderType := TOrderTyp.Create(Self,Data);
@@ -835,7 +835,7 @@ begin
   aOrderType.DataSet.First;
   while not aOrderType.DataSet.EOF do
     begin
-      bItem := TMenuItem.Create(nil);
+      bItem := TMenuItem.Create(aItem);
       bItem.Caption:=strNewOrder+aOrderType.FieldByName('STATUSNAME').AsString;
       bItem.OnClick:=@acAddAsOrderExecute;
       aItem.Add(bItem);

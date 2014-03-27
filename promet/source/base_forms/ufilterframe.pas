@@ -1555,7 +1555,7 @@ procedure TfFilter.AddContextAction(aAction: TAction);
 var
   Item : TMenuItem;
 begin
-  Item := TMenuItem.Create(nil);
+  Item := TMenuItem.Create(pmPopup);
   Item.Action := aAction;
   pmPopup.Items.Add(Item);
 end;
