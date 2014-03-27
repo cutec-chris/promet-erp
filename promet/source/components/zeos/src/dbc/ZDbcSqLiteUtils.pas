@@ -254,6 +254,7 @@ begin
     {$ENDIF}
   {$ENDIF}
     PlainDriver.FreeMem(ErrorMessage);
+    ErrorMessage:=nil;
   end
   else
     Error := '';

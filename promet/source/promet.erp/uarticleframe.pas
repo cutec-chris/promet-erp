@@ -573,7 +573,8 @@ begin
       while not aWiki.EOF do
         begin
           aWikiPage := TfWikiFrame.Create(Self);
-          aWikiPage.Variables.Values['SQL_ID'] := DataSet.Id.AsString;
+          aID := IntToStr(DataSet.Id.AsLargeInt);
+          aWikiPage.Variables.Values['SQL_ID'] := aID;
           aWikiPage.Variables.Values['ID'] := TBaseDbList(DataSet).Number.AsString;
           aWikiPage.Variables.Values['TEXT'] := TBaseDbList(DataSet).Text.AsString;
           aWikiIdx := -1;
