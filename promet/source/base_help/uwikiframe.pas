@@ -798,13 +798,14 @@ var
                       if aType=3 then
                         begin
                           if i>0 then Outp+=',';
-                          Outp += aRDS.Fields[i].AsString;
+                          tmp := aRDS.Fields[i].AsString;
+                          Outp += tmp;
                           if TryStrToFloat(tmp,aTmpFloat) then
                             begin
                               if aTmpFloat<>0 then
                                 aDataThere:=True;
                             end
-                          else aDataThere:=True;
+                          else if tmp<>'' then aDataThere:=True;
                         end
                       else if (aType=4) then
                         begin
