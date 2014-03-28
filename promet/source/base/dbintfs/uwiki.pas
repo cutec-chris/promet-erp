@@ -146,6 +146,7 @@ var
   aID: Variant;
   tmp: String;
 begin
+  Result := False;
   with Keywords.DataSet as IBaseDbFilter do
     Filter := '';
   aParent := 0;

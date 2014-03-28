@@ -300,7 +300,7 @@ begin
     begin
       PageName := StringReplace(TIpHtmlNodeA(IpHtml.HotNode).HRef,' ','_',[rfReplaceAll]);
       for i := 0 to FVariables.Count-1 do
-        pageName := StringReplace(PageName,'VARIABLES.'+FVariables.Names[i],FVariables.ValueFromIndex[i],[rfReplaceAll]);
+        pageName := StringReplace(PageName,'@VARIABLES.'+FVariables.Names[i]+'@',FVariables.ValueFromIndex[i],[rfReplaceAll,rfIgnoreCase]);
       if OpenWikiPage(PageName) or OpenWikiPage(lowercase(PageName)) then
       else if (pos('@',PageName)>0) and Data.GotoLink(PageName) then
         begin
@@ -567,6 +567,8 @@ var
   aConditionOK : Boolean = True;
   aCondition: String = '';
   aTmpFloat: Extended;
+  IsForm: Boolean;
+  aInclude: String;
   procedure BuildLinkRow;
   var
     aLink: String;
@@ -689,7 +691,9 @@ var
          aTableName := TSQLSimpleTableReference(aTable).ObjectName.Name;
          aRight := UpperCase(aTableName);
        end;
-      if aType <> 3 then
+      if  (aType <> 3)
+      and (aType <> 4)
+      then
         begin
           if Data.ListDataSetFromLink(aTableName+'@',aClass) then
             begin
@@ -791,15 +795,39 @@ var
                 begin
                   for i := 0 to aRDS.FieldCount-1 do
                     begin
-                      if i>0 then Outp+=',';
-                      Outp += aRDS.Fields[i].AsString;
-                      if TryStrToFloat(tmp,aTmpFloat) then
+                      if aType=3 then
                         begin
-                          if aTmpFloat<>0 then
-                            aDataThere:=True;
+                          if i>0 then Outp+=',';
+                          Outp += aRDS.Fields[i].AsString;
+                          if TryStrToFloat(tmp,aTmpFloat) then
+                            begin
+                              if aTmpFloat<>0 then
+                                aDataThere:=True;
+                            end
+                          else aDataThere:=True;
                         end
-                      else aDataThere:=True;
+                      else if (aType=4) then
+                        begin
+                          tmp := aRDS.Fields[i].FieldName;
+                          Variables.Values[tmp]:=aRDS.Fields[i].AsString;
+                          aDataThere:=True;
+                        end;
                     end;
+                end;
+              if aType = 4 then
+                begin
+                  aNewList := TWikiList.Create(Self,Data);
+                  if aNewList.FindWikiPage(aInclude) then
+                    begin
+                      Inp := aNewList.FieldByName('DATA').AsString;
+                      for i := 0 to FVariables.Count-1 do
+                        begin
+                          Inp := StringReplace(Inp,'@VARIABLES.'+FVariables.Names[i]+'@',FVariables.ValueFromIndex[i],[rfReplaceAll,rfIgnoreCase]);
+                          Inp := StringReplace(Inp,'@VARIABLES.'+FVariables.Names[i]+':HTTP@',HTTPEncode(FVariables.ValueFromIndex[i]),[rfReplaceAll,rfIgnoreCase]);
+                        end;
+                      Outp:=Outp+WikiText2HTML(Inp,'','',True);
+                    end;
+                  aNewList.Free;
                 end;
               aRDS.Next;
             end;
@@ -832,7 +860,10 @@ begin
     end;
   if not aConditionOK then exit;
   for i := 0 to FVariables.Count-1 do
-    Inp := StringReplace(Inp,'VARIABLES.'+FVariables.Names[i],FVariables.ValueFromIndex[i],[rfReplaceAll]);
+    begin
+      Inp := StringReplace(Inp,'@VARIABLES.'+FVariables.Names[i]+'@',FVariables.ValueFromIndex[i],[rfReplaceAll,rfIgnoreCase]);
+      Inp := StringReplace(Inp,'@VARIABLES.'+FVariables.Names[i]+':HTTP@',HTTPEncode(FVariables.ValueFromIndex[i]),[rfReplaceAll,rfIgnoreCase]);
+    end;
   if Uppercase(copy(Inp,0,6)) = 'BOARD(' then
     begin
       Inp := copy(Inp,7,length(Inp));
@@ -1058,9 +1089,16 @@ begin
       FSQLParser.Free;
       FSQLStream.Free;
     end
-  else if Uppercase(copy(Inp,0,4)) = 'SQL(' then
+  else if (Uppercase(copy(Inp,0,4)) = 'SQL(')
+       or (Uppercase(copy(Inp,0,5)) = 'FORM(') then
     begin
-      Inp := copy(Inp,5,length(Inp)-5);
+      IsForm := (Uppercase(copy(Inp,0,5)) = 'FORM(');
+      Inp := copy(Inp,pos('(',Inp)+1,length(Inp)-(pos('(',Inp)+1));
+      if IsForm then
+        begin
+          aInclude := copy(Inp,0,pos(';',Inp)-1);
+          Inp := copy(Inp,pos(';',Inp)+1,length(Inp));
+        end;
       if pos(';',Inp)>0 then
         begin
           aLimitS := copy(Inp,rpos(';',Inp)+1,length(Inp));
@@ -1070,7 +1108,12 @@ begin
               aLimit := StrToIntDef(aLimitS,10);
             end;
         end;
-      FilterSQL(3);
+      if not IsForm then
+        FilterSQL(3)
+      else
+        begin
+          FilterSQL(4);
+        end;
     end
   else
     begin
