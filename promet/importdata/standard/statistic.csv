@@ -1,4 +1,5 @@
-SQL_ID;NAME;QUERRY;STATFIELD;STATNFIELD;CHARTTYPE;
-40;"Rechnungen nach Monat";"STATISTICS_QUERRY0.dat";"";"";"";
-41;"Reparaturen nach Monat";"STATISTICS_QUERRY1.dat";"";"";"";
-42;"offene Aufträge nach Monat";"STATISTICS_QUERRY2.dat";"";"";
+SQL_ID;NAME;QUERRY;STATFIELD;STATNFIELD;CHARTTYPE;TREEENTRY;
+40;"Rechnungen nach Monat";"STATISTICS_QUERRY0.dat";"";"";"";;
+41;"Reparaturen nach Monat";"STATISTICS_QUERRY1.dat";"";"";"";;
+42;"offene Aufträge nach Monat";"STATISTICS_QUERRY2.dat";"";"";;
+43;"Umsatz nach Jahr";"STATISTICS_QUERRY2.dat";"";"";32997;

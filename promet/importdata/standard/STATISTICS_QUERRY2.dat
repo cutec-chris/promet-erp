@@ -1,0 +1,11 @@
+SELECT
+  YEAR("ORDERS"."DATE") as Jahr,
+  MONTH("ORDERS"."DATE") as Monat,
+  sum("ORDERPOS"."GROSSPRICE") as Umsatz
+FROM
+  "ORDERPOS"
+  INNER JOIN "ORDERS" ON ("ORDERS"."SQL_ID" = "ORDERPOS"."REF_ID")
+WHERE ("ORDERS"."STATUS" = 'RS') OR ("ORDERS"."STATUS" = 'TR') OR ("ORDERS"."STATUS" = 'SR')
+AND "ORDERPOS"."IDENT"='@Artikelnummer:TEXT@'
+GROUP BY Monat,Jahr
+ORDER BY Jahr,Monat

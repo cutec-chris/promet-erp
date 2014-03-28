@@ -1,11 +1,12 @@
 select
-strftime('%Y-%m',ORDERS.DATE) as Monat,
+YEAR("ORDERS"."DATE") s Jahr,
+MONTH("ORDERS"."DATE") as Monat,
 Count(*) as Rechnungen,
-sum(GROSSPRICE) as Wert,
-avg(GROSSPRICE) as Durchschnitt
-from ORDERS
-where ORDERS.STATUS='RS'
-and date(ORDERS.DATE) > '2009-04-01'
-group by Monat
-order by Monat desc
+sum("GROSSPRICE") as Wert,
+avg("GROSSPRICE") as Durchschnitt
+from "ORDERS"
+where "ORDERS"."STATUS"='RS'
+and date("ORDERS"."DATE") > '2009-04-01'
+group by Jahr,Monat
+order by Jahr,Monat desc
 
