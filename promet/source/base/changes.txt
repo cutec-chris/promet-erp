@@ -4,6 +4,8 @@
       - Dokumenten/Bildverwaltung:Suche sucht mit und und nicht mit oder
       - Wiki:Wikiframes die mit "Übersicht" betitelt werden werden als erstes Tab eingesetzt
       - Wiki:erweiterte Unterstützung für SQL Abfragen in Wikis
+      - SQL:Netwerklast gesenkt (Kommandos werden nocht mehr so oft gepollt)
+      - Übersichten:einfache Übersichten für Artikel,Kontakte und Projekte erstellt
 Build 323
       - Artikel:nur wandelbare Statusnamen werden angezeigt
       - Online-Banking:Kategorien implementiert und entsprechende Funktionen um alle Buchungen mit bestimmten Texten zuzuweisen

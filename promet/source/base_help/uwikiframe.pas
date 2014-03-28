@@ -674,6 +674,7 @@ var
     aTable: TSQLElement;
     NoRights: Boolean;
     aStmt: TSQLElement;
+    aRightInt: Integer;
   begin
     FSQLStream := TStringStream.Create(Inp+';');
     FSQLScanner := TSQLScanner.Create(FSQLStream);
@@ -740,7 +741,8 @@ var
                     begin
                       aTableName := TSQLSimpleTableReference(aTable).ObjectName.Name;
                       aRight := UpperCase(aTableName);
-                      if Data.Users.Rights.Right(aRight)<RIGHT_READ then
+                      aRightInt := Data.Users.Rights.Right(aRight);
+                      if (aRightInt>-1) and (aRightInt<RIGHT_READ) then
                         NoRights := True;
                     end;
                 end;
