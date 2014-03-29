@@ -468,6 +468,7 @@ var
           aFilter := aFilter+
                  '('+Data.ProcessTerm(Data.QuoteField('TAGS')+'='+Data.QuoteValue('*'+atmp+'*'))+' OR '+
                      Data.ProcessTerm(Data.QuoteField('NAME')+'='+Data.QuoteValue('*'+atmp+'*'))+' OR '+
+                     Data.ProcessTerm(Data.QuoteField('LINK')+'='+Data.QuoteValue('*'+atmp+'*'))+' OR '+
                      Data.ProcessTerm(Data.QuoteField('FULLTEXT')+'='+Data.QuoteValue('*'+atmp+'*'))+')';
       end;
   end;
