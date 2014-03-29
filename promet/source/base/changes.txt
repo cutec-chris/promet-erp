@@ -1,4 +1,6 @@
-﻿Build 324
+﻿Build 325
+      - Dokumente:suche schließt nun Dateinamen mit ein
+Build 324
       - Suche:schnellere 2 Stufige Suche die sich besser anfühlt
       - Nachrichtenzentrale:wird unter Linux nun pro Mandant gestartet
       - Dokumenten/Bildverwaltung:Suche sucht mit und und nicht mit oder

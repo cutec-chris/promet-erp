@@ -53,6 +53,7 @@ type
     acFindSubject: TAction;
     acFindDate: TAction;
     acSaveasPDF: TAction;
+    acRename: TAction;
     ActionList1: TActionList;
     bEditFilter: TSpeedButton;
     Bevel1: TBevel;
@@ -76,6 +77,7 @@ type
     Datasource1: TDatasource;
     DBEdit1: TDBEdit;
     MenuItem4: TMenuItem;
+    MenuItem5: TMenuItem;
     mText: TDBMemo;
     DBZVDateTimePicker1: TDBZVDateTimePicker;
     eSearch: TEdit;
@@ -134,6 +136,7 @@ type
     procedure acOCRExecute(Sender: TObject);
     procedure acRebuildThumbExecute(Sender: TObject);
     procedure acRefreshExecute(Sender: TObject);
+    procedure acRenameExecute(Sender: TObject);
     procedure acRotateExecute(Sender: TObject);
     procedure acSaveAllExecute(Sender: TObject);
     procedure acSaveasPDFExecute(Sender: TObject);
@@ -457,7 +460,9 @@ var
         if aFilter <> '' then
           aFilter := aFilter+' AND ';
         with DataSet.DataSet as IBaseDbFilter do
-          aFilter := aFilter+'('+Data.ProcessTerm(Data.QuoteField('TAGS')+'='+Data.QuoteValue('*'+atmp+'*'))+' OR '+
+          aFilter := aFilter+
+                 '('+Data.ProcessTerm(Data.QuoteField('TAGS')+'='+Data.QuoteValue('*'+atmp+'*'))+' OR '+
+                     Data.ProcessTerm(Data.QuoteField('NAME')+'='+Data.QuoteValue('*'+atmp+'*'))+' OR '+
                      Data.ProcessTerm(Data.QuoteField('FULLTEXT')+'='+Data.QuoteValue('*'+atmp+'*'))+')';
       end;
   end;
@@ -827,6 +832,20 @@ begin
     FetchNext;
   ThumbControl1.ImageLoaderManager.ActiveIndex:=OldIdx;
   ThumbControl1.ScrollIntoView;
+end;
+
+procedure TfManageDocFrame.acRenameExecute(Sender: TObject);
+var
+  aValue: String;
+begin
+  if GotoCurrentItem then
+    if InputQuery(strRename,strName,aValue) then
+      begin
+        TDocPages(DataSet).Edit;
+        TDocPages(DataSet).FieldByName('NAME').AsString:=aValue;
+        TDocPages(DataSet).Post;
+        SelectedItem.Name:=aValue;
+      end;
 end;
 
 procedure TfManageDocFrame.acRotateExecute(Sender: TObject);

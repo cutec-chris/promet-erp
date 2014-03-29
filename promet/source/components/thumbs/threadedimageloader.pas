@@ -142,7 +142,7 @@ var aW, aH: integer;
 begin
   try
   FLoadState := lsEmpty;
-    if FImage <> nil then
+  if FImage <> nil then
     begin
       aW := fImage.Width;
       aH := fImage.Height;
@@ -233,17 +233,20 @@ begin
 
     if not fMultiThreaded then
     begin
-      if Assigned(fOnLoadURL) then OnLoadURL(Self) else Image.LoadFromFile(URL);
+      if Assigned(fOnLoadURL) then
+        OnLoadURL(Self)
+      else
+        Image.LoadFromFile(URL);
       ThreadTerm(self);
     end else
-    begin
-      fThread := TLoaderThread.Create(true);
-      if Assigned(fOnThreadStart) then OnThreadStart(Self);
-      fThread.fRef := Self;
-      fThread.FreeOnTerminate := true;
-      fThread.OnTerminate := @ThreadTerm;
-      fThread.Resume;
-    end;
+      begin
+        fThread := TLoaderThread.Create(true);
+        if Assigned(fOnThreadStart) then OnThreadStart(Self);
+        fThread.fRef := Self;
+        fThread.FreeOnTerminate := true;
+        fThread.OnTerminate := @ThreadTerm;
+        fThread.Resume;
+      end;
   end else Result := false;
 end;
 

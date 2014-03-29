@@ -1339,6 +1339,11 @@ inherited fManageDocFrame: TfManageDocFrame
       ImageIndex = 76
       OnExecute = acSaveasPDFExecute
     end
+    object acRename: TAction
+      Caption = 'umbenennen'
+      OnExecute = acRenameExecute
+      ShortCut = 113
+    end
   end
   object pmPopup: TPopupMenu[6]
     Images = fVisualControls.Images
@@ -1383,6 +1388,9 @@ inherited fManageDocFrame: TfManageDocFrame
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
       }
+    end
+    object MenuItem5: TMenuItem
+      Action = acRename
     end
     object MenuItem4: TMenuItem
       Action = acSaveasPDF
