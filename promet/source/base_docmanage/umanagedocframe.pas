@@ -531,6 +531,7 @@ var
   aDocument: TDocument;
   aDocLink: String;
   i: Integer;
+  aName: String;
 begin
   TDocPages(DataSet).Edit;
   TDocPages(DataSet).FieldByName('LINK').AsString:=aLink;
@@ -566,6 +567,12 @@ begin
                         end;
                     end;
                   aDocument.AddFromLink(aDocLink);
+                  aDocument.Edit;
+                  aName := TDocPages(DataSet).FieldByName('NAME').AsString;
+                  if rpos('.',aName)>0 then
+                    aName := copy(aName,0,rpos('.',aName)-1);
+                  aDocument.FieldByName('NAME').AsString:=aName;
+                  aDocument.Post;
                   aDocument.Free;
                 end;
             end;
