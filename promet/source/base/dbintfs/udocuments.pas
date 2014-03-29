@@ -608,22 +608,7 @@ var
 begin
   if Count = 0 then exit;
   if DataSet.FieldByName('ISLINK').AsString = 'Y' then
-    begin
-      DataSet.Last;
-      ss := TStringStream.Create('');
-      with BaseApplication as IBaseDbInterface do
-        Data.BlobFieldToStream(DataSet,'DOCUMENT',ss);
-      aDocument := TDocument.Create(Self,DataModule,Connection);
-      aDocument.SelectByLink(ss.DataString);
-      ss.Free;
-      aDocument.Open;
-      try
-        if aDocument.Count > 0 then
-          Result := aDocument.GetFileSize;
-      finally
-        aDocument.Free;
-      end;
-    end
+    Result := -1
   else
     Result := DataSet.FieldByName('SIZE').AsInteger;
 end;

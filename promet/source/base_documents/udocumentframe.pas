@@ -210,7 +210,7 @@ TfDocumentFrame = class(TPrometInplaceDBFrame{$IFDEF WINDOWS},IDropSource{$ENDIF
     function GiveFeedback(dwEffect: DWORD): HResult; stdcall;
     {$ENDIF}
     procedure DoRefresh;
-    procedure AddActualItem(Insert : Boolean = False);
+    procedure AddActualItem(aInsert: Boolean=False);
     function GotoSelected : Boolean;
     procedure DoEditDocument(Method : string = 'EDIT';ShowEditor : Boolean = False);
     procedure SetHasPreview(AValue: Boolean);
@@ -1267,14 +1267,14 @@ begin
     lvDocuments.Items[i].Selected:=False;
   lvDocuments.SortColumn:=lvDocuments.SortColumn;
 end;
-procedure TfDocumentFrame.AddActualItem(Insert : Boolean = False);
+procedure TfDocumentFrame.AddActualItem(aInsert : Boolean = False);
 var
   aNew: TListItem;
   Stream : TMemoryStream;
   TargetBitmap: TBitmap;
   TmpImg: TPicture;
 begin
-  if Insert then
+  if aInsert then
     begin
       if (lvDocuments.Items.Count>0) and (lvDocuments.Items[0].Caption='..') then
         aNew := lvDocuments.Items.Insert(1)
@@ -1292,7 +1292,10 @@ begin
     begin
       aNew.SubItems.Add('');
     end;
-  aNew.SubItems.Add(Utils.SizeToText(TDocuments(DataSet).Size));
+  if TDocuments(DataSet).Size >-1 then
+    aNew.SubItems.Add(Utils.SizeToText(TDocuments(DataSet).Size))
+  else
+    aNew.SubItems.Add('');
   aNew.SubItems.Add(DateTimeToStr(TDocuments(DataSet).LastModified));
   if DataSet.FieldByName('ISLINK').AsString = 'Y' then
     begin
