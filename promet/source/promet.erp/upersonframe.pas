@@ -1019,32 +1019,35 @@ begin
     pcPages.PageIndex:=1
   else
     pcPages.PageIndex:=0;
-  aWiki := TWikiList.Create(nil,Data);
-  if aWiki.FindWikiFolder('Promet-ERP-Help/forms/'+Self.ClassName+'/') then
+  if DataSet.State<> dsInsert then
     begin
-      while not aWiki.EOF do
+      aWiki := TWikiList.Create(nil,Data);
+      if aWiki.FindWikiFolder('Promet-ERP-Help/forms/'+Self.ClassName+'/') then
         begin
-          aWikiPage := TfWikiFrame.Create(Self);
-          aID := IntToStr(DataSet.Id.AsLargeInt);
-          aWikiPage.Variables.Values['SQL_ID'] := aID;
-          aWikiPage.Variables.Values['ID'] := TBaseDbList(DataSet).Number.AsString;
-          aWikiPage.Variables.Values['TEXT'] := TBaseDbList(DataSet).Text.AsString;
-          aWikiIdx := -1;
-          if Assigned(TBaseDbList(DataSet).Status) then
-            aWikiPage.Variables.Values['STATUS'] := TBaseDbList(DataSet).Status.AsString;
-          if aWikiPage.OpenWikiPage('Promet-ERP-Help/forms/'+Self.ClassName+'/'+aWiki.Text.AsString) then
-            aWikiIdx := pcPages.AddTab(aWikiPage,False,aWiki.FieldByName('CAPTION').AsString)
-          else aWikiPage.Free;
-          if aWiki.FieldByName('CAPTION').AsString = strOverview then
+          while not aWiki.EOF do
             begin
-              pcPages.Pages[aWikiIdx+1].PageIndex:=0;
-              pcPages.PageIndex:=0;
+              aWikiPage := TfWikiFrame.Create(Self);
+              aID := IntToStr(DataSet.Id.AsLargeInt);
+              aWikiPage.Variables.Values['SQL_ID'] := aID;
+              aWikiPage.Variables.Values['ID'] := TBaseDbList(DataSet).Number.AsString;
+              aWikiPage.Variables.Values['TEXT'] := TBaseDbList(DataSet).Text.AsString;
+              aWikiIdx := -1;
+              if Assigned(TBaseDbList(DataSet).Status) then
+                aWikiPage.Variables.Values['STATUS'] := TBaseDbList(DataSet).Status.AsString;
+              if aWikiPage.OpenWikiPage('Promet-ERP-Help/forms/'+Self.ClassName+'/'+aWiki.Text.AsString) then
+                aWikiIdx := pcPages.AddTab(aWikiPage,False,aWiki.FieldByName('CAPTION').AsString)
+              else aWikiPage.Free;
+              if aWiki.FieldByName('CAPTION').AsString = strOverview then
+                begin
+                  pcPages.Pages[aWikiIdx+1].PageIndex:=0;
+                  pcPages.PageIndex:=0;
+                end;
+              aWikiPage.LeftBar:=True;
+              aWiki.Next;
             end;
-          aWikiPage.LeftBar:=True;
-          aWiki.Next;
         end;
+      aWiki.Free;
     end;
-  aWiki.Free;
   eName.SetFocus;
   inherited DoOpen;
 end;

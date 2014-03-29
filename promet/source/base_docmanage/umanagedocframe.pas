@@ -27,8 +27,8 @@ uses
   Classes, SysUtils, db, FileUtil, Forms, Controls, ExtCtrls, StdCtrls, DbCtrls,
   Buttons, ComCtrls, ActnList, thumbcontrol, uPrometFrames, uBaseDocPages,
   uBaseDBInterface, threadedimageLoader, uDocumentFrame, DBZVDateTimePicker,
-  PReport, Dialogs, PairSplitter, Menus, uIntfStrConsts, variants, types,
-  uTimeLine, uPreviewFrame, uOCR, uExtControls;
+  PReport, Dialogs, PairSplitter, Menus, uIntfStrConsts, uBaseDbClasses,
+  variants, types, uTimeLine, uPreviewFrame, uOCR, uExtControls;
 
 type
   TImageItem = class
@@ -54,6 +54,7 @@ type
     acFindDate: TAction;
     acSaveasPDF: TAction;
     acRename: TAction;
+    acSetLink: TAction;
     ActionList1: TActionList;
     bEditFilter: TSpeedButton;
     Bevel1: TBevel;
@@ -78,6 +79,7 @@ type
     DBEdit1: TDBEdit;
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
+    MenuItem6: TMenuItem;
     mText: TDBMemo;
     DBZVDateTimePicker1: TDBZVDateTimePicker;
     eSearch: TEdit;
@@ -141,6 +143,7 @@ type
     procedure acSaveAllExecute(Sender: TObject);
     procedure acSaveasPDFExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
+    procedure acSetLinkExecute(Sender: TObject);
     procedure acSetTagExecute(Sender: TObject);
     procedure bExecute1Click(Sender: TObject);
     procedure bTag1Click(Sender: TObject);
@@ -155,6 +158,7 @@ type
     procedure FTimeLineSetMarker(Sender: TObject);
     procedure IdleTimer1Timer(Sender: TObject);
     procedure pmPopupPopup(Sender: TObject);
+    function SetLinkfromSearch(aLink: string): Boolean;
     procedure tbMenue1Click(Sender: TObject);
     procedure ThumbControl1AfterDraw(Sender: TObject; Item: TThreadedImage;
       aRect: Trect);
@@ -214,11 +218,12 @@ implementation
 {$R *.lfm}
 uses uData,udocuments,uWait,LCLIntf,Utils,uFormAnimate,uImportImages,
   ProcessUtils,uMainTreeFrame,ucameraimport,FPimage,FPReadJPEG,FPCanvas,
-  FPWriteJPEG,LCLProc,uthumbnails,uBaseVisualControls,updfexport;
+  FPWriteJPEG,LCLProc,uthumbnails,uBaseVisualControls,updfexport,uSearch;
 resourcestring
   strTag                   = 'Tag';
   strSetTag                = 'durch Klick setzen';
   strSetDate               = 'Soll das Datum %s als Belegdatum gesetzt werden ?';
+  strMakeLinkToDocuments   = 'Soll eine Verknüpfung in dne Dateien des Eintrags angelegt werden ?'+LineEnding+'So können Sie auch vom Eintrag aus das Dokument schnell finden';
 
 procedure AddToMainTree(Node: TTReeNode;aType : string = 'D');
 var
@@ -517,6 +522,57 @@ procedure TfManageDocFrame.pmPopupPopup(Sender: TObject);
 begin
   ThumbControl1.Click;
 end;
+
+function TfManageDocFrame.SetLinkfromSearch(aLink: string): Boolean;
+var
+  aEntryClass: TBaseDBDatasetClass;
+  aEntry: TBaseDBDataset;
+  aDocument: TDocument;
+  aDocLink: String;
+  i: Integer;
+begin
+  TDocPages(DataSet).Edit;
+  TDocPages(DataSet).FieldByName('LINK').AsString:=aLink;
+  TDocPages(DataSet).Post;
+  SelectedItem.Name:=TDocPages(DataSet).FieldByName('NAME').AsString+LineEnding+Data.GetLinkDesc(TDocPages(DataSet).FieldByName('LINK').AsString);
+  if Data.DataSetFromLink(aLink,aEntryClass) then
+    begin
+      if MessageDlg(strMakeLinkToDocuments,mtInformation,[mbYes,mbNo],0) = mrYes then
+        begin
+          aEntry := aEntryClass.Create(nil,Data);
+          if aEntry is TBaseDbList then
+            begin
+              TBaseDbList(aEntry).SelectFromLink(aLink);
+              TBaseDbList(aEntry).Open;
+              if TBaseDbList(aEntry).Count>0 then
+                begin
+                  aDocument := TDocument.Create(Self,Data);
+                  aDocument.Select(0);
+                  aDocument.Open;
+                  aDocument.Ref_ID:=aEntry.Id.AsVariant;
+                  aDocument.BaseID:=aEntry.Id.AsVariant;
+                  aDocument.BaseTyp:=TBaseDbList(aEntry).GetTyp;
+                  if Assigned(TBaseDbList(aEntry).FieldByName('LANGUAGE')) then
+                    aDocument.BaseLanguage:=TBaseDbList(aEntry).FieldByName('LANGUAGE').AsString;
+                  if Assigned(TBaseDbList(aEntry).FieldByName('VERSION')) then
+                    aDocument.BaseLanguage:=TBaseDbList(aEntry).FieldByName('VERSION').AsString;
+                  for i := 0 to FDocFrame.lvDocuments.Items.Count-1 do
+                    begin
+                      if FDocFrame.GotoEntry(FDocFrame.lvDocuments.Items[i]) then
+                        begin
+                          aDocLink := Data.BuildLink(FDocFrame.DataSet.DataSet);
+                          break;
+                        end;
+                    end;
+                  aDocument.AddFromLink(aDocLink);
+                  aDocument.Free;
+                end;
+            end;
+          aEntry.Free;
+        end;
+    end;
+end;
+
 procedure TfManageDocFrame.tbMenue1Click(Sender: TObject);
 begin
   TSpeedButton(Sender).PopupMenu.PopUp(TSpeedButton(Sender).ClientOrigin.x,TSpeedButton(Sender).ClientOrigin.y+TSpeedButton(Sender).Height);
@@ -844,7 +900,7 @@ begin
         TDocPages(DataSet).Edit;
         TDocPages(DataSet).FieldByName('NAME').AsString:=aValue;
         TDocPages(DataSet).Post;
-        SelectedItem.Name:=aValue;
+        SelectedItem.Name:=TDocPages(DataSet).FieldByName('NAME').AsString+LineEnding+Data.GetLinkDesc(TDocPages(DataSet).FieldByName('LINK').AsString);
       end;
 end;
 
@@ -1007,6 +1063,16 @@ begin
       end;
 end;
 
+procedure TfManageDocFrame.acSetLinkExecute(Sender: TObject);
+begin
+  if GotoCurrentItem then
+    begin
+      fSearch.SetLanguage;
+      fSearch.OnOpenItem:=@SetLinkfromSearch;
+      fSearch.Execute(True,'DOCLINK',strSearchfromDocumentsMode);
+    end;
+end;
+
 procedure TfManageDocFrame.acSetTagExecute(Sender: TObject);
 begin
   if bTag.Down then
@@ -1079,7 +1145,7 @@ begin
       inc(i);
       FLast := DataSet.Id.AsString+'.jpg';
       aItem := ThumbControl1.ImageLoaderManager.AddImage(FLast);
-      aItem.Name:=DataSet.FieldByName('NAME').AsString;
+      aItem.Name:=TDocPages(DataSet).FieldByName('NAME').AsString+LineEnding+Data.GetLinkDesc(TDocPages(DataSet).FieldByName('LINK').AsString);
       if not Assigned(SelectedItem) then
         SelectedItem := aItem;
       DataSet.Next;

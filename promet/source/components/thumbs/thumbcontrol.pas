@@ -889,12 +889,11 @@ begin
       IRes := ThumbResize(Img, fThumbWidth, fThumbHeight, area);
       try
         CSImg.Acquire;
-        if TThreadedImage(Sender).Image <> nil
-          then
-        begin
-          TThreadedImage(Sender).Image.Assign(IRes);
-          TThreadedImage(Sender).Area := Area;
-        end;
+        if Assigned(TThreadedImage(Sender).Image) and Assigned(IRes) then
+          begin
+            TThreadedImage(Sender).Image.Assign(IRes);
+            TThreadedImage(Sender).Area := Area;
+          end;
       finally
         CSImg.Release;
       end;

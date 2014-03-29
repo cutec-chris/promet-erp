@@ -1,4 +1,6 @@
-﻿Build 325
+﻿Build 326
+      - Dokumente:Eintrag kann zugewiesen werden um Personen oder andere Objekte an Dokumente gebunden werden können
+Build 325
       - Dokumente:suche schließt nun Dateinamen mit ein
 Build 324
       - Suche:schnellere 2 Stufige Suche die sich besser anfühlt

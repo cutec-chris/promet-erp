@@ -178,7 +178,7 @@ begin
         with ManagedFieldDefs do
           begin
             Add('REF_ID_ID',ftLargeint,0,False);
-            Add('LINK',ftString,120,False); //Link
+            Add('LINK',ftString,200,False); //Link
             Add('ICON',ftInteger,0,False); //LinkIcon
             Add('NAME',ftString,100,True);
           end;
@@ -849,6 +849,7 @@ begin
             Add('LPARENT',ftLargeInt,0,False);
             Add('PROJECTID',ftLargeInt,0,False);
             Add('PROJECT',ftString,260,False);
+            Add('LINK',ftString,200,False);
             Add('ORIGID',ftLargeInt,0,False);
             Add('CLASS',ftString,1,True);
             Add('DEPDONE',ftString,1,True);

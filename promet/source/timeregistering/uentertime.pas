@@ -1124,4 +1124,4 @@ end;
 initialization
   {$I uentertime.lrs}
 end.
-
+

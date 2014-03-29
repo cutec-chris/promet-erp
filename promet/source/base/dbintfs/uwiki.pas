@@ -34,6 +34,7 @@ type
     FActiveTreeID: Variant;
     FKeywords: TKeywords;
     FKeywordDS : TDataSource;
+  protected
   public
     function GetTyp: string;override;
     procedure DefineFields(aDataSet : TDataSet);override;

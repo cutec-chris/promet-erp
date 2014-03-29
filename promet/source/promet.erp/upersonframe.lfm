@@ -381,8 +381,8 @@ inherited fPersonFrame: TfPersonFrame
     NewTabImageIndex = 59
     object tsCustomerCont: TTabSheet
       Caption = 'Kontaktdaten'
-      ClientHeight = 690
-      ClientWidth = 1220
+      ClientHeight = 1054
+      ClientWidth = 1834
       ImageIndex = 51
       object pCont: TPanel
         Left = 44

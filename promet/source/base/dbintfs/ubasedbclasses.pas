@@ -478,7 +478,7 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
-            Add('LINK',ftString,160,True);
+            Add('LINK',ftString,200,True);
           end;
     end;
 end;
@@ -513,7 +513,7 @@ begin
           begin
             Add('ACTIVE',ftString,1,False);
             Add('NAME',ftString,60,False);
-            Add('LINK',ftString,250,False);
+            Add('LINK',ftString,200,False);
             Add('ICON',ftInteger,0,False);
           end;
     end;

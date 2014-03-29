@@ -1230,7 +1230,7 @@ inherited fManageDocFrame: TfManageDocFrame
       ThumbWidth = 130
       ThumbHeight = 130
       ThumbDistance = 10
-      MultiThreaded = True
+      MultiThreaded = False
       ShowCaptions = True
       ShowPictureFrame = False
       Layout = LsGrid
@@ -1344,12 +1344,20 @@ inherited fManageDocFrame: TfManageDocFrame
       OnExecute = acRenameExecute
       ShortCut = 113
     end
+    object acSetLink: TAction
+      Caption = 'Eintrag zuweisen'
+      ImageIndex = 70
+      OnExecute = acSetLinkExecute
+    end
   end
   object pmPopup: TPopupMenu[6]
     Images = fVisualControls.Images
     OnPopup = pmPopupPopup
     left = 16
     top = 96
+    object MenuItem6: TMenuItem
+      Action = acSetLink
+    end
     object MenuItem2: TMenuItem
       Action = acMarkAsDone
       Bitmap.Data = {

@@ -142,7 +142,7 @@ var aW, aH: integer;
 begin
   try
   FLoadState := lsEmpty;
-  if FImage <> nil then
+  if Assigned(FImage) then
     begin
       aW := fImage.Width;
       aH := fImage.Height;
@@ -254,6 +254,7 @@ procedure TThreadedImage.FreeImage;
 begin
   fLoadState := lsEmpty;
   FreeAndNil(fBitmap);
+  FreeAndNil(FImage);
 end;
 
 
