@@ -862,6 +862,17 @@ begin
                   Next;
                 end;
             end;
+          with TPerson(aObject).History do
+            begin
+              Open;
+              while not EOF do
+                begin
+                  Edit;
+                  FieldByName('REF_ID').AsVariant:=Self.Id.AsVariant;
+                  Post;
+                  Next;
+                end;
+            end;
         end;
       aObject.Free;
     end;
