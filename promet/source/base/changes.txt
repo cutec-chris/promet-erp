@@ -1,5 +1,7 @@
 ﻿Build 326
       - Dokumente:Eintrag kann zugewiesen werden um Personen oder andere Objekte an Dokumente gebunden werden können
+      - Kontakte:Kontakte verschmelzen verschmilzt nun auch den Verlauf
+      - Dokumente:Suche sucht nun auch nach Eintrag (Verweis)
 Build 325
       - Dokumente:suche schließt nun Dateinamen mit ein
 Build 324
