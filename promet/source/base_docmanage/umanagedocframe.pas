@@ -572,6 +572,7 @@ begin
                   if rpos('.',aName)>0 then
                     aName := copy(aName,0,rpos('.',aName)-1);
                   aDocument.FieldByName('NAME').AsString:=aName;
+                  aDocument.FieldByName('DATE').AsVariant:=TDocPages(DataSet).FieldByName('ORIGDATE').AsVariant;
                   aDocument.Post;
                   aDocument.Free;
                 end;
