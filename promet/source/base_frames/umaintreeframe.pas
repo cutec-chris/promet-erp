@@ -1733,10 +1733,11 @@ begin
     begin
       Data.SetFilter(Data.Tree,'',0,'','DESC',False,True,True);
       Data.Tree.GotoBookmark(DataT.Rec);
-      ID := Data.Tree.Id.AsString;
+      ID := IntToStr(Data.Tree.Id.AsLargeInt);
       Typ := Data.Tree.FieldByName('TYPE').AsString;
       Data.SetFilter(Data.Tree,Data.QuoteField('PARENT')+'='+ID,0,'','ASC',False,True,True);
       Node.DeleteChildren;
+      try
       //Add directories
       bTree := TTree.Create(nil,Data);
       while not Data.Tree.DataSet.EOF do
@@ -1914,6 +1915,9 @@ begin
             end;
           aList.Free;
         end
+      except
+
+      end;
     end
   else if (DataT.Typ=etProject) or (DataT.Typ=etProcess) then
     begin

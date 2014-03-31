@@ -116,7 +116,7 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
-            Add('TREEENTRY',ftLargeint,0,false);
+            Add('TREEENTRY',ftLargeInt,0,false);
             Add('NAME',ftString,40,True);
             Add('CAPTION',ftString,120,False);
             Add('LANGUAGE',ftString,3,False);
@@ -195,7 +195,7 @@ begin
   Result := DataSet.Active and DataSet.Locate('TREEENTRY;NAME',VarArrayOf([aParent,PageName]),[]);
   if not Result then
     begin
-      TBaseDBModule(DataModule).SetFilter(Self,TBaseDBModule(DataModule).QuoteField('TREEENTRY')+'='+TBaseDBModule(DataModule).QuoteValue(VarToStr(aParent)));
+      TBaseDBModule(DataModule).SetFilter(Self,TBaseDBModule(DataModule).QuoteField('TREEENTRY')+'='+TBaseDBModule(DataModule).QuoteValue(IntToStr(aParent)));
       Result := DataSet.Locate('TREEENTRY;NAME',VarArrayOf([aParent,PageName]),[loCaseInsensitive]);
       if not Result then
         begin
