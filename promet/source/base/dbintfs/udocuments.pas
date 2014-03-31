@@ -21,7 +21,7 @@ unit uDocuments;
 {$H+}
 interface
 uses
-  Classes, SysUtils, db, uBaseDBClasses, Utils, Graphics;
+  Classes, SysUtils, db, uBaseDBClasses, Utils, Graphics, fpolebasic,LConvEncoding;
 type
 
   { TDocuments }
@@ -128,6 +128,8 @@ type
     function CollectCheckInFiles(Directory : string) : TStrings;
     function CheckCheckInFiles(aFiles : TStrings;Directory: string) : Boolean;
     function CheckinFiles(aFiles : TStrings;Directory: string;Desc : string = '') : Boolean;
+    function GetText(aStream : TStream;aExt : string;aText : string) : Boolean;
+    function GetWordText(aStream : TStream;aExt : string;aText : string) : Boolean;
     property BaseParent : TDocuments read FBaseParent write SetbaseParent;
     property OnCheckCheckinFiles : TCheckCheckinFilesEvent read FOnCheckCheckinFiles write FOnCheckCheckinFiles;
     property AftercheckInFiles : TNotifyEvent read FAfterCheckinFiles write FAfterCheckInFiles;
@@ -394,6 +396,8 @@ begin
           FieldByName('SIZE').AsInteger := Stream.Size;
           FieldByName('FULL').AsString:='Y';
           Data.StreamToBlobField(Stream,DataSet,'DOCUMENT');
+          if (aText = '') then
+            GetText(Stream,Extension,aText);
           if aText <> '' then
             begin
               ss := TStringStream.Create(aText);
@@ -1729,6 +1733,80 @@ begin
   if aChanged then
     if Assigned(FAfterCheckinFiles) then
       FAfterCheckinFiles(Self);
+end;
+
+function TDocument.GetText(aStream: TStream; aExt: string; aText: string
+  ): Boolean;
+var
+  i: Integer;
+begin
+  Result := True;
+  for i := 0 to 1500 do
+    if (length(copy(aText,i,1))>0) and (ord(copy(aText,i,1)[1]) > 127) then
+      begin
+        Result := False;
+        break;
+      end;
+  if Result then
+    begin
+      aText := copy(aText,0,1500);
+    end
+  else if aExt = '.doc' then
+    begin
+      Result := GetWordText(aStream,aExt,aText);
+    end;
+end;
+
+function TDocument.GetWordText(aStream: TStream; aExt: string; aText: string
+  ): Boolean;
+var
+  MemStream: TMemoryStream;
+  OLEStorage: TOLEStorage;
+  OLEDocument : TOLEDocument;
+  aStringStream: TStringStream;
+  aContent : string;
+  aContent2: String;
+  aFile: TFileStream;
+  aFileName: String;
+  function StripUnwantedChar(Text: string):string;
+  var
+    Allowed: Set of Char;
+    i, LeftOvers: Integer;
+  begin
+    Allowed := [' ', '0'..'9', 'a'..'z', 'A'..'Z', '~'..')', '-', '.', '\', ':', '`', '/', '<', ',', '>', ';', '{', '}',#13,#9];
+
+    SetLength(Result, Length(Text));
+    LeftOvers := 1;
+    for i := 1 to Length(Text) do begin
+      if Text[i] in Allowed then begin
+        Result[LeftOvers]:= Text[i];
+        Inc(LeftOvers);
+      end
+    end;
+    SetLength(Result, LeftOvers-1);
+  end;
+begin
+  MemStream := TMemoryStream.Create;
+  OLEStorage := TOLEStorage.Create;
+  try
+    // Only one stream is necessary for any number of worksheets
+    OLEDocument.Stream := MemStream;
+    aFileName := GetTempDir+'wf.tmp';
+    aFile := TFileStream.Create(aFileName,fmCreate);
+    aFile.CopyFrom(aStream,aStream.Size);
+    aFile.Free;
+    OLEStorage.ReadOLEFile(aFileName, OLEDocument,'WordDocument');
+    if MemStream.Seek($800,soFromBeginning) = $800 then
+      begin
+        Setlength(aContent,MemStream.Size-$800);
+        MemStream.Read(aContent[1],MemStream.Size-$800);
+        aContent2 := ConvertEncoding(aContent,EncodingUCS2LE,EncodingUTF8);
+        aText:=StripUnwantedChar(aContent2);
+      end;
+    DeleteFileUTF8(aFileName);
+  finally
+    OLEStorage.Free;
+  end;
 end;
 
 procedure TDocument.Delete;
