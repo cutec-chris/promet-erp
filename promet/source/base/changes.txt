@@ -1,5 +1,7 @@
 ﻿Build 327
       - Dateien:Text für Volltextsuche kann nun auch aus Word Dateien extrahiert werden
+      - Dokumentenverwaltung:Beim ersten Zugriff auf Dokumente oder Bilder gab es einen Fehler
+      - Mandanten:Standartrechte überarbeitet
 Build 326
       - Dokumente:Eintrag kann zugewiesen werden um Personen oder andere Objekte an Dokumente gebunden werden können
       - Kontakte:Kontakte verschmelzen verschmilzt nun auch den Verlauf
