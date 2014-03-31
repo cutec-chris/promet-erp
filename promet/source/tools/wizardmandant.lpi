@@ -59,7 +59,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="53" Y="21"/>
-        <UsageCount Value="140"/>
+        <UsageCount Value="141"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -82,9 +82,9 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="477"/>
-        <CursorPos X="1" Y="493"/>
-        <UsageCount Value="140"/>
+        <TopLine Value="518"/>
+        <CursorPos X="1" Y="535"/>
+        <UsageCount Value="141"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -118,7 +118,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1352"/>
         <CursorPos X="1" Y="1369"/>
-        <UsageCount Value="59"/>
+        <UsageCount Value="60"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
@@ -132,11 +132,11 @@
       <Unit8>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1668"/>
         <CursorPos X="1" Y="1685"/>
-        <UsageCount Value="60"/>
+        <UsageCount Value="61"/>
         <Loaded Value="True"/>
       </Unit8>
       <Unit9>
@@ -158,10 +158,12 @@
       <Unit11>
         <Filename Value="../base/dbintfs/uimpcsv.pas"/>
         <UnitName Value="uImpCSV"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="52"/>
-        <CursorPos X="107" Y="86"/>
-        <UsageCount Value="57"/>
+        <TopLine Value="131"/>
+        <CursorPos X="31" Y="157"/>
+        <UsageCount Value="58"/>
+        <Loaded Value="True"/>
       </Unit11>
       <Unit12>
         <Filename Value="../../../LKomponenten/zeos/src/dbc/ZDbcSqLiteUtils.pas"/>
@@ -1006,124 +1008,124 @@
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1419" Column="1" TopLine="1391"/>
+        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
+        <Caret Line="94" Column="1" TopLine="70"/>
       </Position1>
       <Position2>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1420" Column="1" TopLine="1392"/>
+        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
+        <Caret Line="95" Column="1" TopLine="70"/>
       </Position2>
       <Position3>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1421" Column="1" TopLine="1393"/>
+        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
+        <Caret Line="96" Column="1" TopLine="70"/>
       </Position3>
       <Position4>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1422" Column="1" TopLine="1394"/>
+        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
+        <Caret Line="97" Column="1" TopLine="70"/>
       </Position4>
       <Position5>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1423" Column="1" TopLine="1395"/>
+        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
+        <Caret Line="98" Column="1" TopLine="70"/>
       </Position5>
       <Position6>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1424" Column="1" TopLine="1396"/>
+        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
+        <Caret Line="99" Column="1" TopLine="71"/>
       </Position6>
       <Position7>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1425" Column="1" TopLine="1397"/>
+        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
+        <Caret Line="100" Column="1" TopLine="72"/>
       </Position7>
       <Position8>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1426" Column="1" TopLine="1398"/>
+        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
+        <Caret Line="102" Column="1" TopLine="74"/>
       </Position8>
       <Position9>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1427" Column="1" TopLine="1399"/>
+        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
+        <Caret Line="103" Column="1" TopLine="75"/>
       </Position9>
       <Position10>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1428" Column="1" TopLine="1400"/>
+        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
+        <Caret Line="104" Column="1" TopLine="76"/>
       </Position10>
       <Position11>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1429" Column="1" TopLine="1401"/>
+        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
+        <Caret Line="122" Column="1" TopLine="106"/>
       </Position11>
       <Position12>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1430" Column="1" TopLine="1402"/>
+        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
+        <Caret Line="123" Column="1" TopLine="106"/>
       </Position12>
       <Position13>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1431" Column="1" TopLine="1403"/>
+        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
+        <Caret Line="145" Column="1" TopLine="128"/>
       </Position13>
       <Position14>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1432" Column="1" TopLine="1404"/>
+        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
+        <Caret Line="151" Column="1" TopLine="128"/>
       </Position14>
       <Position15>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1433" Column="1" TopLine="1405"/>
+        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
+        <Caret Line="100" Column="1" TopLine="83"/>
       </Position15>
       <Position16>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1434" Column="1" TopLine="1406"/>
+        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
+        <Caret Line="102" Column="1" TopLine="83"/>
       </Position16>
       <Position17>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1435" Column="1" TopLine="1407"/>
+        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
+        <Caret Line="103" Column="1" TopLine="83"/>
       </Position17>
       <Position18>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1436" Column="1" TopLine="1408"/>
+        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
+        <Caret Line="104" Column="1" TopLine="83"/>
       </Position18>
       <Position19>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1437" Column="1" TopLine="1409"/>
+        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
+        <Caret Line="122" Column="1" TopLine="105"/>
       </Position19>
       <Position20>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1438" Column="1" TopLine="1410"/>
+        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
+        <Caret Line="123" Column="1" TopLine="105"/>
       </Position20>
       <Position21>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1439" Column="1" TopLine="1411"/>
+        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
+        <Caret Line="125" Column="1" TopLine="105"/>
       </Position21>
       <Position22>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="1923" Column="1" TopLine="1906"/>
+        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
+        <Caret Line="127" Column="1" TopLine="105"/>
       </Position22>
       <Position23>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="1924" Column="1" TopLine="1906"/>
+        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
+        <Caret Line="129" Column="1" TopLine="105"/>
       </Position23>
       <Position24>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="1925" Column="1" TopLine="1906"/>
+        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
+        <Caret Line="130" Column="1" TopLine="105"/>
       </Position24>
       <Position25>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="1926" Column="39" TopLine="1906"/>
+        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
+        <Caret Line="135" Column="1" TopLine="107"/>
       </Position25>
       <Position26>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="438" Column="1" TopLine="421"/>
+        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
+        <Caret Line="139" Column="1" TopLine="111"/>
       </Position26>
       <Position27>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1369" Column="1" TopLine="1352"/>
+        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
+        <Caret Line="140" Column="1" TopLine="112"/>
       </Position27>
       <Position28>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="1925" Column="6" TopLine="1906"/>
+        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
+        <Caret Line="100" Column="1" TopLine="83"/>
       </Position28>
       <Position29>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="493" Column="1" TopLine="476"/>
+        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
+        <Caret Line="102" Column="1" TopLine="83"/>
       </Position29>
       <Position30>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="157" Column="34" TopLine="282"/>
+        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
+        <Caret Line="157" Column="31" TopLine="131"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>

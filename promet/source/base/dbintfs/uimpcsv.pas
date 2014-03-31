@@ -153,7 +153,10 @@ begin
     end;
   except
     on e : Exception do
-      debugln(e.Message);
+      begin
+        debugln('Zeile:'+tmp);
+        debugln(e.Message);
+      end;
   end;
   CloseFile(f);
   if DataSet.State = dsInsert then
