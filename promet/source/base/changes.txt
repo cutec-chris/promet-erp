@@ -1,4 +1,6 @@
-﻿Build 326
+﻿Build 327
+      - Dateien:Text für Volltextsuche kann nun auch aus Word Dateien extrahiert werden
+Build 326
       - Dokumente:Eintrag kann zugewiesen werden um Personen oder andere Objekte an Dokumente gebunden werden können
       - Kontakte:Kontakte verschmelzen verschmilzt nun auch den Verlauf
       - Dokumente:Suche sucht nun auch nach Eintrag (Verweis)

@@ -870,24 +870,24 @@ inherited fOrderFrame: TfOrderFrame
   end
   object pSearch: TPanel[4]
     Left = 46
-    Height = 120
+    Height = 72
     Top = 96
-    Width = 240
+    Width = 202
     Anchors = [akTop, akRight]
     BevelOuter = bvNone
-    ClientHeight = 120
-    ClientWidth = 240
+    ClientHeight = 72
+    ClientWidth = 202
     TabOrder = 4
     Visible = False
     object lbResults: TListBox
       Left = 0
-      Height = 120
+      Height = 72
       Top = 0
-      Width = 240
+      Width = 202
       Align = alClient
       ItemHeight = 0
       OnDblClick = lbResultsDblClick
-      ScrollWidth = 238
+      ScrollWidth = 200
       TabOrder = 0
       TabStop = False
       TopIndex = -1
