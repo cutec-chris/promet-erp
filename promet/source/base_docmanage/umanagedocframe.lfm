@@ -1230,7 +1230,7 @@ inherited fManageDocFrame: TfManageDocFrame
       ThumbWidth = 130
       ThumbHeight = 130
       ThumbDistance = 10
-      MultiThreaded = False
+      MultiThreaded = True
       ShowCaptions = True
       ShowPictureFrame = False
       Layout = LsGrid

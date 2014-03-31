@@ -93,10 +93,10 @@ inherited fWikiFrame: TfWikiFrame
     Height = 487
     Top = 42
     Width = 641
-    ActivePage = tsView
+    ActivePage = tsEdit
     Align = alClient
     Images = fVisualControls.Images
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 1
     TabPosition = tpBottom
     NewTabImageIndex = 59
@@ -135,11 +135,11 @@ inherited fWikiFrame: TfWikiFrame
         Left = 0
         Height = 449
         Top = 0
-        Width = 677
+        Width = 633
         Align = alClient
         BevelOuter = bvNone
         ClientHeight = 449
-        ClientWidth = 677
+        ClientWidth = 633
         TabOrder = 0
         object dnEdit: TDBNavigator
           Left = 0
@@ -465,7 +465,7 @@ inherited fWikiFrame: TfWikiFrame
           Left = 326
           Height = 24
           Top = 16
-          Width = 346
+          Width = 302
           DataField = 'CAPTION'
           DataSource = Wiki
           Anchors = [akTop, akLeft, akRight]
@@ -485,12 +485,13 @@ inherited fWikiFrame: TfWikiFrame
           Left = 6
           Height = 383
           Top = 51
-          Width = 468
+          Width = 424
           Anchors = [akTop, akLeft, akRight, akBottom]
           DataField = 'DATA'
           DataSource = Wiki
           ScrollBars = ssAutoBoth
           TabOrder = 2
+          WordWrap = False
         end
         object SpeedButton8: TSpeedButton
           Left = 242
@@ -538,7 +539,7 @@ inherited fWikiFrame: TfWikiFrame
           ShowCaption = False
         end
         object DBGrid1: TDBGrid
-          Left = 484
+          Left = 440
           Height = 367
           Top = 75
           Width = 188
@@ -548,7 +549,7 @@ inherited fWikiFrame: TfWikiFrame
           Columns = <          
             item
               Title.Caption = 'Suchbegriff'
-              Width = 172
+              Width = 158
               FieldName = 'KEYWORD'
             end>
           DataSource = Keywords
@@ -556,7 +557,7 @@ inherited fWikiFrame: TfWikiFrame
           TitleStyle = tsNative
         end
         object Label1: TLabel
-          Left = 484
+          Left = 440
           Height = 17
           Top = 51
           Width = 188

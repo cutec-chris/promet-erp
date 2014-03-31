@@ -140,33 +140,33 @@ var CS: TCriticalSection;
 procedure TThreadedImage.ThreadTerm(Sender: TObject);
 var aW, aH: integer;
 begin
-  try
   FLoadState := lsEmpty;
-  if Assigned(FImage) then
-    begin
-      aW := fImage.Width;
-      aH := fImage.Height;
-      if (aW > 0) and (aH > 0) then
+  try
+    if Assigned(FImage) and (FImage is TFPMemoryImage) then
       begin
-        if fBitmap = nil then fBitmap := TBitmap.Create;
-        try
+        aW := fImage.Width;
+        aH := fImage.Height;
+        if (aW > 0) and (aH > 0) then
+        begin
+          if fBitmap = nil then fBitmap := TBitmap.Create;
           try
-            CSImg.Acquire;
-            fBitmap.Assign(fImage);
-            fBitmap.Transparent:=false;
-            FLoadState := lsError;
-            FreeAndNil(fImage);
-          except
-            if fMultiThreaded then if Assigned(fOnThreadDone) then OnThreadDone(Self);
+            try
+              CSImg.Acquire;
+              fBitmap.Assign(fImage);
+              fBitmap.Transparent:=false;
+              FLoadState := lsError;
+              FreeAndNil(fImage);
+            except
+              if fMultiThreaded then if Assigned(fOnThreadDone) then OnThreadDone(Self);
+            end;
+          finally
+            CSImg.Release;
           end;
-        finally
-          CSImg.Release;
+          FLoadState := lsLoaded;
+          if fMultiThreaded then if Assigned(fOnLoaded) then OnLoaded(Self);
         end;
-        FLoadState := lsLoaded;
-        if fMultiThreaded then if Assigned(fOnLoaded) then OnLoaded(Self);
       end;
-    end;
-    if fMultiThreaded then if Assigned(fOnThreadDone) then OnThreadDone(Self);
+      if fMultiThreaded then if Assigned(fOnThreadDone) then OnThreadDone(Self);
   except
   end;
 end;
