@@ -832,6 +832,9 @@ end;
 function TBaseVisualApplication.Login: Boolean;
 var
   aID: LongInt;
+  rMandant: String;
+  rUser: String;
+  rAutoLogin: String;
 begin
   Result := True;
   if not Assigned(fPassword) then
@@ -846,8 +849,11 @@ begin
       with Self as IBaseApplication do
         begin
           aID := CreateUserID;
+          rMandant := Config.ReadString('LOGINMANDANT','');
+          rUser := Config.ReadString('LOGINUSER','');
+          rAutoLogin := Config.ReadString('AUTOMATICLOGIN','T');
           if ((Config.ReadInteger('AUTOMATICLOGIN',0)=aID) and (aID <> 0))
-          or ((Config.ReadString('LOGINMANDANT','')='Standard') and (Config.ReadString('LOGINUSER','')='Administrator') and (Config.ReadString('AUTOMATICLOGIN','T')='')) then
+          or ((rMandant='Standart') and (rUser='Administrator') and (rAutoLogin='')) then
             with Self as IBaseDBInterface do
               if DBLogin(Config.ReadString('LOGINMANDANT',''),Config.ReadString('LOGINUSER',''),True) then
                 begin
