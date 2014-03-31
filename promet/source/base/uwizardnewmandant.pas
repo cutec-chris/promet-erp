@@ -23,7 +23,7 @@ interface
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   StdCtrls, Buttons, ComCtrls, uIntfStrConsts, EditBtn,
-  {VirtualStringTree, }FileUtil,db, ZConnection, DbCtrls, dbf, uData, uEncrypt,
+  {VirtualStringTree, }FileUtil,db, ZConnection, DbCtrls, uData, uEncrypt,
   ClipBrd, Spin,ProcessUtils,UTF8Process,process,lclproc;
 type
   TDirNode = record
@@ -52,9 +52,6 @@ type
     cbSyncHelp: TCheckBox;
     DirectoryEdit1: TFileNameEdit;
     eMandantname: TComboBox;
-    dbDocumentActions: TDbf;
-    dbMandant: TDbf;
-    dbMimeTypes: TDbf;
     eSQLPassword: TEdit;
     eSQLUser: TEdit;
     eSQLServer: TEdit;
@@ -766,4 +763,4 @@ end;
 initialization
   {$I uwizardnewmandant.lrs}
 end.
-
+

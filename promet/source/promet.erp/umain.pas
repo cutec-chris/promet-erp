@@ -899,6 +899,8 @@ begin
       try
       Data.RegisterLinkHandler('DOCUMENTS',@fMainTreeFrame.OpenLink,TDocument);
       Data.RegisterLinkHandler('DOCPAGES',@fMainTreeFrame.OpenLink,TDocPages);
+      DataSetType:=TDocPages;
+      Synchronize(@DoCreate);
       except
       end;
     end;
