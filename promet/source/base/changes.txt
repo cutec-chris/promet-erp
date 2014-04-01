@@ -1,4 +1,6 @@
-﻿Build 327
+﻿Build 328
+      -
+Build 327
       - Dateien:Text für Volltextsuche kann nun auch aus Word Dateien extrahiert werden
       - Dokumentenverwaltung:Beim ersten Zugriff auf Dokumente oder Bilder gab es einen Fehler
       - Mandanten:Standartrechte überarbeitet

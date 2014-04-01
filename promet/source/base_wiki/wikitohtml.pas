@@ -26,19 +26,20 @@ interface
 uses
   Classes, SysUtils, Utils, FileUtil,RegExpr,htmltowiki,LConvEncoding;
 
-function WikiText2HTML(input: string;LinkOffset : string = '';RemoveLinkOffset : string = '';IproChanges : Boolean = False): string;
+function WikiText2HTML(input: string;LinkOffset : string = '';RemoveLinkOffset : string = '';IproChanges : Boolean = False;aLevel : Integer = 0): string;
 function StripWikiText(input : string) : string;
 
 type
   TImageConvertFunc = procedure(Image : string;var OutFile : string; var aLinkTags,aHref,aTags,aWidth : string) of Object;
-  TWikiIncludeFunc = procedure(Inp : string;var Outp : string) of Object;
+  TWikiIncludeFunc = procedure(Inp : string;var Outp : string;aLevel : Integer = 0) of Object;
 var
   OnConvertImage : TImageConvertFunc;
   OnWikiInclude : TWikiIncludeFunc;
 
 implementation
 
-function WikiText2HTML(input: string;LinkOffset : string;RemoveLinkOffset : string = '';IproChanges : Boolean = False): string;
+function WikiText2HTML(input: string; LinkOffset: string;
+  RemoveLinkOffset: string; IproChanges: Boolean; aLevel: Integer): string;
 var
   output : string;
   istr: String;
@@ -207,7 +208,7 @@ var
           if Assigned(OnWikiInclude) then
             begin
               tmp := '';
-              OnWikiInclude(ImageFile,tmp);
+              OnWikiInclude(ImageFile,tmp,aLevel+1);
               ostr+=tmp;
             end;
         end;

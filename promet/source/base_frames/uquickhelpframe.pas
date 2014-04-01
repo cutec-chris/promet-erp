@@ -20,7 +20,7 @@ type
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     function FCacheGetFile(Path: string; var NewPath: string): TStream;
-    procedure fQuickHelpFrameWikiInclude(Inp: string; var Outp: string);
+    procedure fQuickHelpFrameWikiInclude(Inp: string; var Outp: string;aLevel : Integer);
     procedure ipHTMLHotClick(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
     procedure TSimpleIpHtmlGetImageX(Sender: TIpHtmlNode; const URL: string;
@@ -68,7 +68,7 @@ end;
 { TfQuickHelpFrame }
 
 procedure TfQuickHelpFrame.fQuickHelpFrameWikiInclude(Inp: string;
-  var Outp: string);
+  var Outp: string; aLevel: Integer);
 var
   aNewList: TWikiList;
 begin
@@ -76,7 +76,7 @@ begin
   if pos('|',Inp) > 0 then Inp := copy(Inp,0,pos('|',Inp)-1);
   if aNewList.FindWikiPage(Inp) then
     begin
-      Outp := Outp+WikiText2HTML(aNewList.FieldByName('DATA').AsString,'','',True);
+      Outp := Outp+WikiText2HTML(aNewList.FieldByName('DATA').AsString,'','',True,aLevel+1);
     end;
   aNewList.Free;
 end;

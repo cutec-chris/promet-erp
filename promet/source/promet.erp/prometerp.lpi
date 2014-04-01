@@ -285,7 +285,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="56">
+    <Units Count="55">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -304,8 +304,8 @@
         <UnitName Value="uMain"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="2568"/>
-        <CursorPos X="59" Y="511"/>
+        <TopLine Value="2547"/>
+        <CursorPos X="28" Y="2578"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -317,10 +317,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPersonFrame"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1021"/>
-        <CursorPos X="1" Y="1037"/>
+        <CursorPos X="1" Y="1031"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -416,10 +417,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uArticleFrame"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="568"/>
-        <CursorPos X="1" Y="573"/>
+        <TopLine Value="562"/>
+        <CursorPos X="1" Y="579"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
       </Unit11>
       <Unit12>
         <Filename Value="uarticlepositionframe.pas"/>
@@ -723,11 +726,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMainTreeFrame"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1900"/>
-        <CursorPos X="40" Y="1916"/>
-        <UsageCount Value="96"/>
+        <TopLine Value="1727"/>
+        <CursorPos X="1" Y="1737"/>
+        <UsageCount Value="98"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit42>
@@ -737,7 +740,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
-        <UsageCount Value="63"/>
+        <UsageCount Value="65"/>
         <Loaded Value="True"/>
       </Unit43>
       <Unit44>
@@ -745,19 +748,19 @@
         <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="32" Y="9"/>
-        <UsageCount Value="63"/>
+        <CursorPos X="9" Y="2"/>
+        <UsageCount Value="65"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit44>
       <Unit45>
         <Filename Value="../base/dbintfs/uintfstrconsts.pas"/>
         <UnitName Value="uIntfStrConsts"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="184"/>
+        <TopLine Value="7"/>
         <CursorPos X="176" Y="202"/>
-        <UsageCount Value="43"/>
+        <UsageCount Value="45"/>
         <Loaded Value="True"/>
       </Unit45>
       <Unit46>
@@ -766,11 +769,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uWikiFrame"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1188"/>
-        <CursorPos X="1" Y="1195"/>
-        <UsageCount Value="42"/>
+        <TopLine Value="561"/>
+        <CursorPos X="51" Y="571"/>
+        <FoldState Value=" T3uE262 pj1jA2}Dr"/>
+        <UsageCount Value="44"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit46>
@@ -781,7 +785,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="569"/>
         <CursorPos X="2" Y="602"/>
-        <UsageCount Value="42"/>
+        <UsageCount Value="44"/>
         <Loaded Value="True"/>
       </Unit47>
       <Unit48>
@@ -789,203 +793,192 @@
         <UnitName Value="wikitohtml"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="458"/>
-        <CursorPos X="1" Y="486"/>
-        <UsageCount Value="22"/>
+        <TopLine Value="17"/>
+        <CursorPos X="83" Y="34"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit48>
       <Unit49>
         <Filename Value="../base/dbintfs/uwiki.pas"/>
         <UnitName Value="uWiki"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="179"/>
-        <CursorPos X="1" Y="196"/>
-        <UsageCount Value="19"/>
+        <TopLine Value="138"/>
+        <CursorPos X="21" Y="146"/>
+        <UsageCount Value="21"/>
         <Loaded Value="True"/>
       </Unit49>
       <Unit50>
-        <Filename Value="../base_documents/upreviewframe.pas"/>
-        <UnitName Value="uPreviewFrame"/>
-        <EditorIndex Value="10"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="719"/>
-        <CursorPos X="88" Y="736"/>
-        <UsageCount Value="13"/>
-        <Loaded Value="True"/>
-      </Unit50>
-      <Unit51>
         <Filename Value="../base/dbintfs/udocuments.pas"/>
         <UnitName Value="uDocuments"/>
         <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="297"/>
         <CursorPos X="39" Y="314"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="15"/>
         <Loaded Value="True"/>
-      </Unit51>
-      <Unit52>
-        <Filename Value="../base_documents/ueditor.pas"/>
-        <UnitName Value="ueditor"/>
-        <EditorIndex Value="9"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="238"/>
-        <CursorPos X="19" Y="250"/>
-        <UsageCount Value="13"/>
-        <Loaded Value="True"/>
-      </Unit52>
-      <Unit53>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <UnitName Value="umanagedocframe"/>
-        <EditorIndex Value="2"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1277"/>
-        <CursorPos X="1" Y="1296"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-      </Unit53>
-      <Unit54>
+      </Unit50>
+      <Unit51>
         <Filename Value="../base/dbintfs/ubasedocpages.pas"/>
         <UnitName Value="uBaseDocPages"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="111"/>
         <CursorPos X="1" Y="136"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
-      </Unit54>
-      <Unit55>
+      </Unit51>
+      <Unit52>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
         <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="717"/>
-        <CursorPos X="1" Y="741"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="2079"/>
+        <CursorPos X="1" Y="2101"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
-      </Unit55>
+      </Unit52>
+      <Unit53>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <UnitName Value="uBaseDBInterface"/>
+        <EditorIndex Value="5"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1189"/>
+        <CursorPos X="48" Y="1198"/>
+        <UsageCount Value="12"/>
+        <Loaded Value="True"/>
+      </Unit53>
+      <Unit54>
+        <Filename Value="../projectmanagement/uprojectframe.pas"/>
+        <UnitName Value="uProjectFrame"/>
+        <EditorIndex Value="12"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="959"/>
+        <CursorPos X="1" Y="978"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit54>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="149" Column="1" TopLine="132"/>
+        <Filename Value="upersonframe.pas"/>
+        <Caret Line="1037" Column="1" TopLine="1021"/>
       </Position1>
       <Position2>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="150" Column="1" TopLine="132"/>
+        <Filename Value="upersonframe.pas"/>
+        <Caret Line="1034" Column="141" TopLine="1021"/>
       </Position2>
       <Position3>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="151" Column="1" TopLine="132"/>
+        <Filename Value="../base_frames/umaintreeframe.pas"/>
+        <Caret Line="1735" Column="9" TopLine="1721"/>
       </Position3>
       <Position4>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="152" Column="1" TopLine="132"/>
+        <Filename Value="../base_frames/umaintreeframe.pas"/>
+        <Caret Line="1729" Column="1" TopLine="1721"/>
       </Position4>
       <Position5>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="153" Column="1" TopLine="132"/>
+        <Filename Value="../base_frames/umaintreeframe.pas"/>
+        <Caret Line="1730" Column="1" TopLine="1721"/>
       </Position5>
       <Position6>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="154" Column="1" TopLine="132"/>
+        <Filename Value="../base_frames/umaintreeframe.pas"/>
+        <Caret Line="1731" Column="1" TopLine="1721"/>
       </Position6>
       <Position7>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="155" Column="1" TopLine="132"/>
+        <Filename Value="../base_frames/umaintreeframe.pas"/>
+        <Caret Line="1925" Column="1" TopLine="1906"/>
       </Position7>
       <Position8>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="156" Column="1" TopLine="132"/>
+        <Filename Value="../base_frames/umaintreeframe.pas"/>
+        <Caret Line="1944" Column="1" TopLine="1925"/>
       </Position8>
       <Position9>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="157" Column="1" TopLine="132"/>
+        <Filename Value="../base_frames/umaintreeframe.pas"/>
+        <Caret Line="1945" Column="1" TopLine="1925"/>
       </Position9>
       <Position10>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="158" Column="1" TopLine="132"/>
+        <Filename Value="../base_frames/umaintreeframe.pas"/>
+        <Caret Line="1728" Column="1" TopLine="1709"/>
       </Position10>
       <Position11>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="160" Column="1" TopLine="132"/>
+        <Filename Value="../base_frames/umaintreeframe.pas"/>
+        <Caret Line="1734" Column="1" TopLine="1709"/>
       </Position11>
       <Position12>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="161" Column="1" TopLine="133"/>
+        <Filename Value="../base_frames/umaintreeframe.pas"/>
+        <Caret Line="1735" Column="1" TopLine="1709"/>
       </Position12>
       <Position13>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="164" Column="1" TopLine="136"/>
+        <Filename Value="../base_frames/umaintreeframe.pas"/>
+        <Caret Line="1736" Column="1" TopLine="1709"/>
       </Position13>
       <Position14>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="165" Column="1" TopLine="137"/>
+        <Filename Value="../base_frames/umaintreeframe.pas"/>
+        <Caret Line="1739" Column="1" TopLine="1724"/>
       </Position14>
       <Position15>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="166" Column="1" TopLine="138"/>
+        <Filename Value="../base_frames/umaintreeframe.pas"/>
+        <Caret Line="1736" Column="25" TopLine="1724"/>
       </Position15>
       <Position16>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="158" Column="1" TopLine="138"/>
+        <Filename Value="../base_frames/umaintreeframe.pas"/>
+        <Caret Line="1745" Column="40" TopLine="1727"/>
       </Position16>
       <Position17>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="160" Column="1" TopLine="138"/>
+        <Filename Value="../base_frames/umaintreeframe.pas"/>
+        <Caret Line="1736" Column="1" TopLine="1727"/>
       </Position17>
       <Position18>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="161" Column="1" TopLine="138"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="2098" Column="1" TopLine="2079"/>
       </Position18>
       <Position19>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="164" Column="1" TopLine="138"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="2099" Column="1" TopLine="2079"/>
       </Position19>
       <Position20>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="165" Column="1" TopLine="138"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="2100" Column="1" TopLine="2079"/>
       </Position20>
       <Position21>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="166" Column="1" TopLine="138"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="2101" Column="1" TopLine="2079"/>
       </Position21>
       <Position22>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="158" Column="1" TopLine="138"/>
+        <Filename Value="../base_frames/umaintreeframe.pas"/>
+        <Caret Line="1739" Column="1" TopLine="1727"/>
       </Position22>
       <Position23>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="160" Column="1" TopLine="138"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="2098" Column="1" TopLine="2079"/>
       </Position23>
       <Position24>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="161" Column="1" TopLine="138"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="2099" Column="1" TopLine="2079"/>
       </Position24>
       <Position25>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="162" Column="1" TopLine="138"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="2100" Column="1" TopLine="2079"/>
       </Position25>
       <Position26>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="164" Column="1" TopLine="138"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="2101" Column="1" TopLine="2079"/>
       </Position26>
       <Position27>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="165" Column="1" TopLine="138"/>
+        <Filename Value="../base_frames/umaintreeframe.pas"/>
+        <Caret Line="1739" Column="41" TopLine="1727"/>
       </Position27>
       <Position28>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="166" Column="1" TopLine="138"/>
+        <Filename Value="../base_frames/umaintreeframe.pas"/>
+        <Caret Line="1737" Column="20" TopLine="1727"/>
       </Position28>
       <Position29>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="158" Column="1" TopLine="138"/>
+        <Filename Value="../base_frames/umaintreeframe.pas"/>
+        <Caret Line="1736" Column="1" TopLine="1727"/>
       </Position29>
       <Position30>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <Caret Line="195" Column="1" TopLine="179"/>
+        <Filename Value="../base_frames/umaintreeframe.pas"/>
+        <Caret Line="1737" Column="1" TopLine="1727"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -1026,7 +1019,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="2">
+    <BreakPoints Count="1">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
@@ -1034,13 +1027,6 @@
         <Source Value="../../../../../lazarus/lcl/include/application.inc"/>
         <Line Value="1572"/>
       </Item1>
-      <Item2>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="../base_help/uwikiframe.pas"/>
-        <Line Value="1195"/>
-      </Item2>
     </BreakPoints>
     <Exceptions Count="22">
       <Item1>

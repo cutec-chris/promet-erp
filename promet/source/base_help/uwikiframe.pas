@@ -102,7 +102,8 @@ type
     procedure acSpellCheckExecute(Sender: TObject);
     procedure bItalicClick(Sender: TObject);
     function FCacheGetFile(Path: string;var NewPath : string): TStream;
-    procedure fWikiFrameWikiInclude(Inp: string; var Outp: string);
+    procedure fWikiFrameWikiInclude(Inp: string; var Outp: string; aLevel: Integer=0
+      );
     procedure ipHTMLHotClick(Sender: TObject);
     procedure OpenHistoryItemClick(Sender: TObject);
     procedure pmHistoryPopup(Sender: TObject);
@@ -537,7 +538,7 @@ begin
 end;
 type
   TPlainProcedure = procedure;
-procedure TfWikiFrame.fWikiFrameWikiInclude(Inp: string; var Outp: string);
+procedure TfWikiFrame.fWikiFrameWikiInclude(Inp: string; var Outp: string;aLevel : Integer = 0);
 var
   aList: TMessageList;
   aMessage: TMessage;
@@ -569,6 +570,7 @@ var
   aTmpFloat: Extended;
   IsForm: Boolean;
   aInclude: String;
+  nInp: String;
   procedure BuildLinkRow;
   var
     aLink: String;
@@ -1119,11 +1121,11 @@ begin
   else
     begin
       aNewList := TWikiList.Create(Self,Data);
-      if pos('|',Inp) > 0 then Inp := copy(Inp,0,pos('|',Inp)-1);
-      Inp := StringReplace(Inp,'%username%',Data.Users.Text.AsString,[]);
-      if aNewList.FindWikiPage(Inp) then
+      if pos('|',nInp) > 0 then Inp := copy(nInp,0,pos('|',nInp)-1);
+      nInp := StringReplace(nInp,'%username%',Data.Users.Text.AsString,[]);
+      if aNewList.FindWikiPage(nInp) and (aLevel < 10) then
         begin
-          Outp := Outp+WikiText2HTML(aNewList.FieldByName('DATA').AsString,'','',True);
+          Outp := Outp+WikiText2HTML(aNewList.FieldByName('DATA').AsString,'','',True,aLevel+1);
         end;
       aNewList.Free;
     end;
@@ -1201,7 +1203,7 @@ begin
       pcPages.ClearTabClasses;
       if FEditable then
         pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
-      tsView.Show;
+      //tsView.Show;
       Screen.Cursor := crHourglass;
       ipHTML.SetHtml(Wiki2HTML(DataSet.FieldByName('DATA').AsString));
       while pcPages.PageCount > 3 do

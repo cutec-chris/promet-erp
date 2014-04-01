@@ -1733,7 +1733,7 @@ begin
     begin
       Data.SetFilter(Data.Tree,'',0,'','DESC',False,True,True);
       Data.Tree.GotoBookmark(DataT.Rec);
-      ID := IntToStr(Data.Tree.Id.AsLargeInt);
+      ID := IntToStr(Int64(Data.Tree.Id.AsVariant));
       Typ := Data.Tree.FieldByName('TYPE').AsString;
       Data.SetFilter(Data.Tree,Data.QuoteField('PARENT')+'='+ID,0,'','ASC',False,True,True);
       Node.DeleteChildren;
