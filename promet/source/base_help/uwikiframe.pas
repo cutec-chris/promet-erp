@@ -571,11 +571,11 @@ var
   IsForm: Boolean;
   aInclude: String;
   nInp: String;
-  procedure BuildLinkRow;
+  procedure BuildLinkRow(aBDS : TDataSet);
   var
     aLink: String;
   begin
-    aLink := Data.BuildLink(aDs.DataSet);
+    aLink := Data.BuildLink(aBDS);
     Outp+='<li><a href="'+aLink+'" title="'+Data.GetLinkDesc(aLink)+#10+Data.GetLinkLongDesc(aLink)+'">'+HTMLEncode(Data.GetLinkDesc(aLink))+'</a></li>';
   end;
   function BuildTableRow(aBDS : TDataSet;aStmt : TSQLElement) : string;
@@ -727,7 +727,7 @@ var
                   while not aDS.EOF do
                     begin
                       case aType of
-                      0:BuildLinkRow;
+                      0:BuildLinkRow(aDs.DataSet);
                       1:Outp+=BuildTableRow(aDs.DataSet,aStmt);
                       end;
                       aDataThere:=True;
@@ -767,7 +767,7 @@ var
                     while not aRDS.EOF do
                       begin
                         case aType of
-                        0:BuildLinkRow;
+                        0:BuildLinkRow(aRDS);
                         1:Outp+=BuildTableRow(aRDs,aStmt);
                         end;
                         aDataThere:=True;
@@ -1123,7 +1123,7 @@ begin
       aNewList := TWikiList.Create(Self,Data);
       if pos('|',nInp) > 0 then Inp := copy(nInp,0,pos('|',nInp)-1);
       nInp := StringReplace(nInp,'%username%',Data.Users.Text.AsString,[]);
-      if aNewList.FindWikiPage(nInp) and (aLevel < 10) then
+      if aNewList.FindWikiPage(nInp) and (aLevel < 50) then
         begin
           Outp := Outp+WikiText2HTML(aNewList.FieldByName('DATA').AsString,'','',True,aLevel+1);
         end;
