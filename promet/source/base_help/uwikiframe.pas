@@ -1121,7 +1121,8 @@ begin
   else
     begin
       aNewList := TWikiList.Create(Self,Data);
-      if pos('|',nInp) > 0 then Inp := copy(nInp,0,pos('|',nInp)-1);
+      nInp := Inp;
+      if pos('|',nInp) > 0 then nInp := copy(nInp,0,pos('|',nInp)-1);
       nInp := StringReplace(nInp,'%username%',Data.Users.Text.AsString,[]);
       if aNewList.FindWikiPage(nInp) and (aLevel < 150) then
         begin
