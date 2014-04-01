@@ -293,8 +293,9 @@ var
   SearchLocations : TSearchLocations;
   i: Integer;
 begin
-  if bSearch.Caption = strAbort then
+  if (bSearch.Caption = strAbort) then
     begin
+      if Sender = nil then exit;
       SearchText := '';
       if Assigned(ActiveSearch) then
         ActiveSearch.Abort;
@@ -394,7 +395,12 @@ begin
 end;
 procedure TfSearch.eContainsChange(Sender: TObject);
 begin
-  if Assigned(ActiveSearch) then ActiveSearch.Abort;
+  if Assigned(ActiveSearch) then
+    begin
+      ActiveSearch.Abort;
+      if bSearch.Caption=strAbort then
+        bSearch.Click;
+    end;
   IdleTimer.Enabled:=False;
   IdleTimer.Enabled:=True;
 end;
@@ -425,12 +431,8 @@ begin
   ActiveSearch.OnEndSearch := @ActiveSearchEndSearch;
   acOpen.Enabled:=True;
   Application.ProcessMessages;
-  if not ActiveSearch.Active then
-    ActiveSearchEndSearch(ActiveSearch)
-  else
-    begin
-      IdleTimer1.Enabled:=True;
-    end;
+  if bSearch.Caption=strAbort then
+    IdleTimer1.Enabled:=True;
 end;
 
 procedure TfSearch.FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -492,7 +494,9 @@ end;
 procedure TfSearch.IdleTimer1Timer(Sender: TObject);
 begin
   IdleTimer1.Enabled:=false;
-  ActiveSearch.Start(eContains.Text)
+  Application.ProcessMessages;
+  if bSearch.Caption=strAbort then
+    ActiveSearch.Start(eContains.Text)
 end;
 
 procedure TfSearch.IdleTimerTimer(Sender: TObject);
