@@ -1036,13 +1036,16 @@ begin
                 aWikiPage.Variables.Values['STATUS'] := TBaseDbList(DataSet).Status.AsString;
               if aWikiPage.OpenWikiPage('Promet-ERP-Help/forms/'+Self.ClassName+'/'+aWiki.Text.AsString) then
                 aWikiIdx := pcPages.AddTab(aWikiPage,False,aWiki.FieldByName('CAPTION').AsString)
-              else aWikiPage.Free;
-              if aWiki.FieldByName('CAPTION').AsString = strOverview then
+              else FreeAndNil(aWikiPage);
+              if Assigned(aWikiPage) then
                 begin
-                  pcPages.Pages[aWikiIdx+1].PageIndex:=0;
-                  pcPages.PageIndex:=0;
+                  if aWiki.FieldByName('CAPTION').AsString = strOverview then
+                    begin
+                      pcPages.Pages[aWikiIdx+1].PageIndex:=0;
+                      pcPages.PageIndex:=0;
+                    end;
+                  aWikiPage.LeftBar:=True;
                 end;
-              aWikiPage.LeftBar:=True;
               aWiki.Next;
             end;
         end;
