@@ -1123,7 +1123,7 @@ begin
       aNewList := TWikiList.Create(Self,Data);
       if pos('|',nInp) > 0 then Inp := copy(nInp,0,pos('|',nInp)-1);
       nInp := StringReplace(nInp,'%username%',Data.Users.Text.AsString,[]);
-      if aNewList.FindWikiPage(nInp) and (aLevel < 50) then
+      if aNewList.FindWikiPage(nInp) and (aLevel < 150) then
         begin
           Outp := Outp+WikiText2HTML(aNewList.FieldByName('DATA').AsString,'','',True,aLevel+1);
         end;
