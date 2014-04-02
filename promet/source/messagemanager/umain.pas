@@ -392,13 +392,11 @@ begin
       Result := True;
     end;
 end;
-
 procedure TfMain.SetBaseref(AValue: LargeInt);
 begin
   if FBaseRef=AValue then Exit;
   FBaseRef:=AValue;
 end;
-
 procedure TfMain.SetFilter(AValue: string);
 begin
   if FFilter=AValue then Exit;

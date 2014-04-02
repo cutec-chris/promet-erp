@@ -2093,6 +2093,12 @@ begin
         aFirstFilter := aFilter
       else aFilter := aFirstFilter;
       }
+      if pos(') AND ('+FActAutoFilter+')',aFilter) > 0 then
+        begin
+          System.Delete(aFilter,pos(') AND ('+FActAutoFilter+')',aFilter),length(aFilter));
+          System.Delete(aFilter,1,1);
+          FActAutoFilter:='';
+        end;
       if pos(') AND ('+FbaseFilter+')',aFilter) > 0 then
         begin
           System.Delete(aFilter,pos(') AND ('+FbaseFilter+')',aFilter),length(aFilter));

@@ -1,5 +1,7 @@
-﻿Build 328
+﻿Build 329
       -
+Build 328
+      - keinere Bugfixes für die letzten 2 Releases
 Build 327
       - Dateien:Text für Volltextsuche kann nun auch aus Word Dateien extrahiert werden
       - Dokumentenverwaltung:Beim ersten Zugriff auf Dokumente oder Bilder gab es einen Fehler
