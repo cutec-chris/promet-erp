@@ -124,7 +124,7 @@ begin
   while not Terminated do
     begin
       Server.CallAction;
-      if aTime > (60*60*1000) then break;
+      if aTime > (MSecsPerDay) then break;
     end;
   // stop program loop
   Terminate;
