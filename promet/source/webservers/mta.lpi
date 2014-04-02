@@ -21,7 +21,7 @@
     <MacroValues Count="1">
       <Macro2 Name="LCLWidgetType" Value="nogui"/>
     </MacroValues>
-    <BuildModes Count="2" Active="Debug">
+    <BuildModes Count="2" Active="Default">
       <Item1 Name="Default" Default="True"/>
       <Item2 Name="Debug">
         <MacroValues Count="1">
@@ -112,8 +112,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="417"/>
-        <CursorPos X="46" Y="426"/>
+        <TopLine Value="548"/>
+        <CursorPos X="1" Y="571"/>
         <UsageCount Value="146"/>
         <Loaded Value="True"/>
       </Unit0>

@@ -567,8 +567,8 @@ begin
           DoSendMails;
           sleep(100);
           i := 0;
-          break;
         end;
+      if aTime>(MSecsPerDay) then break;//stop once a day
     end;
   // stop program loop
   Subscribers.Free;
