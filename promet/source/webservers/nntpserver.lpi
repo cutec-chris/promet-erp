@@ -19,8 +19,9 @@
     <VersionInfo>
       <StringTable ProductVersion=""/>
     </VersionInfo>
-    <MacroValues Count="1">
+    <MacroValues Count="2">
       <Macro1 Name="LCLWidgetType" Value="nogui"/>
+      <Macro2 Name="LCLWidgetType" Value="nogui"/>
     </MacroValues>
     <BuildModes Count="2" Active="Default">
       <Item1 Name="Default" Default="True"/>
@@ -72,7 +73,7 @@
       </Item2>
       <SharedMatrixOptions Count="2">
         <Item1 ID="367675269827" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="nogui"/>
-        <Item2 ID="605250278567" Modes="Debug" Type="IDEMacro" MacroName="LCLWidgetType" Value="nogui"/>
+        <Item2 ID="605250278567" Modes="Debug,Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="nogui"/>
       </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>
@@ -117,7 +118,7 @@
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="115"/>
-        <CursorPos X="17" Y="127"/>
+        <CursorPos X="1" Y="129"/>
         <UsageCount Value="119"/>
         <Loaded Value="True"/>
       </Unit0>

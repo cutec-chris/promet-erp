@@ -1,5 +1,5 @@
 ﻿Build 329
-      -
+      - Fehler in der Filterzeile bei mehrfachem Filtern unter bestimmten Umständen behoben
 Build 328
       - keinere Bugfixes für die letzten 2 Releases
 Build 327

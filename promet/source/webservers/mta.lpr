@@ -34,8 +34,8 @@ type
     NextCollectTime : TDateTime;
     NextSendTime : TDateTime;
     Defaultdomain : string;
-    procedure DoCollectGroupMessages;
-    procedure DoSendMails;
+    function DoCollectGroupMessages: Boolean;
+    function DoSendMails: Boolean;
     procedure DoSendMail(aTo,aFrom,aSubject,aText : string);
   protected
     procedure DoRun; override;
@@ -327,13 +327,15 @@ begin
     end;
 end;
 
-procedure TPMTAServer.DoCollectGroupMessages;
+function TPMTAServer.DoCollectGroupMessages : Boolean;
 var
   aMessage: TMessage;
   aFilter: String;
   bMessages: TMessageList;
 begin
+  Result := False;
   if NextCollectTime>Now() then exit;
+  Result := True;
   NextCollectTime:=Now+((1/MinsPerDay)*0.5);
   aMessage := TMessage.Create(nil,Data);
   bMessages := TMessageList.Create(nil,Data);
@@ -392,7 +394,7 @@ begin
   end;
 end;
 
-procedure TPMTAServer.DoSendMails;
+function TPMTAServer.DoSendMails : Boolean;
 var
   aServers: TStringList;
   DNSServers: TStringList;
@@ -403,8 +405,10 @@ var
   msg: TMimeMess;
   aTo: String;
 begin
+  Result := False;
   if NextSendTime>Now() then exit;
   NextSendTime:=Now+((1/MinsPerDay)*1);
+  Result := True;
   aServers := tStringList.Create;
   DNSServers := TStringList.Create;
   MessageIndex := TmessageList.Create(nil,data);
@@ -568,7 +572,8 @@ begin
           sleep(100);
           i := 0;
         end;
-      if aTime>(MSecsPerDay) then break;//stop once a day
+      if (GetTickCount-aTime)>(60*MSecsPerSec) then break;
+      if (GetTickCount-aTime)>(MSecsPerDay) then break;//stop once a day
     end;
   // stop program loop
   Subscribers.Free;

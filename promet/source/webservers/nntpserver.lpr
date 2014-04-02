@@ -125,7 +125,7 @@ begin
     begin
       Server.CallAction;
       sleep(10);
-      if aTime > (MSecsPerDay) then break;
+      if (GetTickCount-aTime)>(MSecsPerDay) then break;//stop once a day
     end;
   // stop program loop
   Terminate;
