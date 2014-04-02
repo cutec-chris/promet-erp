@@ -124,6 +124,7 @@ begin
   while not Terminated do
     begin
       Server.CallAction;
+      sleep(10);
       if aTime > (MSecsPerDay) then break;
     end;
   // stop program loop
