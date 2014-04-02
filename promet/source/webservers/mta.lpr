@@ -572,8 +572,7 @@ begin
           sleep(100);
           i := 0;
         end;
-      if (GetTickCount-aTime)>(60*MSecsPerSec) then break;
-      if (GetTickCount-aTime)>(MSecsPerDay) then break;//stop once a day
+      if (GetTickCount-aTime)>(60*60*MSecsPerSec) then break;
     end;
   // stop program loop
   Subscribers.Free;

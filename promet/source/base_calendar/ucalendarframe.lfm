@@ -15,6 +15,38 @@ inherited FCalendarFrame: TFCalendarFrame
     ClientHeight = 474
     ClientWidth = 663
     TabOrder = 0
+    object WeekView: TVpWeekView
+      Left = 0
+      Height = 430
+      Top = 44
+      Width = 663
+      Color = clWindow
+      Font.Height = -12
+      ParentFont = False
+      OnMouseWheel = WeekViewMouseWheel
+      AllDayEventAttributes.BackgroundColor = clWindow
+      AllDayEventAttributes.EventBorderColor = clActiveBorder
+      AllDayEventAttributes.EventBackgroundColor = cl3DLight
+      AllDayEventAttributes.Font.Height = -12
+      Align = alClient
+      TabStop = True
+      TabOrder = 0
+      DateLabelFormat = 'dddd, dd.mm.yyyy'
+      DayHeadAttributes.Color = clBtnFace
+      DayHeadAttributes.DateFormat = 'dddd mmmm, dd'
+      DayHeadAttributes.Font.Height = -14
+      DayHeadAttributes.Font.Name = 'Default'
+      DayHeadAttributes.Bordered = False
+      DrawingStyle = dsNone
+      EventFont.Height = -12
+      HeadAttributes.Font.Height = -14
+      HeadAttributes.Color = clWindow
+      LineColor = clActiveBorder
+      TimeFormat = tf24Hour
+      ShowEventTime = True
+      WeekStartsOn = dtMonday
+      OnOwnerEditEvent = DayViewOwnerEditEvent
+    end
     object ToolBar1: TPanel
       Left = 0
       Height = 44
@@ -597,38 +629,6 @@ inherited FCalendarFrame: TFCalendarFrame
         WrapStyle = wsNoFlow
         OnOwnerEditEvent = DayViewOwnerEditEvent
       end
-    end
-    object WeekView: TVpWeekView
-      Left = 0
-      Height = 430
-      Top = 44
-      Width = 663
-      Color = clWindow
-      Font.Height = -12
-      ParentFont = False
-      OnMouseWheel = WeekViewMouseWheel
-      AllDayEventAttributes.BackgroundColor = clWindow
-      AllDayEventAttributes.EventBorderColor = clActiveBorder
-      AllDayEventAttributes.EventBackgroundColor = cl3DLight
-      AllDayEventAttributes.Font.Height = -12
-      Align = alClient
-      TabStop = True
-      TabOrder = 0
-      DateLabelFormat = 'dddd, dd.mm.yyyy'
-      DayHeadAttributes.Color = clBtnFace
-      DayHeadAttributes.DateFormat = 'dddd mmmm, dd'
-      DayHeadAttributes.Font.Height = -14
-      DayHeadAttributes.Font.Name = 'Default'
-      DayHeadAttributes.Bordered = False
-      DrawingStyle = dsNone
-      EventFont.Height = -12
-      HeadAttributes.Font.Height = -14
-      HeadAttributes.Color = clWindow
-      LineColor = clActiveBorder
-      TimeFormat = tf24Hour
-      ShowEventTime = True
-      WeekStartsOn = dtMonday
-      OnOwnerEditEvent = DayViewOwnerEditEvent
     end
   end
   object ActionList1: TActionList[1]

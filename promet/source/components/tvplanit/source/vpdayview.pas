@@ -742,13 +742,11 @@ begin
   dvDayUpBtn.Transparent         := true;
   dvWeekUpBtn.Transparent        := true;
   { load their images }
-  {
   dvDayUpBtn.Glyph.LoadFromResourceName(HINSTANCE,'VPRIGHTARROW');
   dvDayDownBtn.Glyph.LoadFromResourceName(HINSTANCE,'VPLEFTARROW');
   dvTodayBtn.Glyph.LoadFromResourceName(HINSTANCE,'VPTODAY');
   dvWeekUpBtn.Glyph.LoadFromResourceName(HINSTANCE,'VPRIGHTARROWS');
   dvWeekDownBtn.Glyph.LoadFromResourceName(HINSTANCE,'VPLEFTARROWS');
-  }
   { set their OnClick handler }
   dvDayUpBtn.OnClick             := dvNavButtonsClick;
   dvDayDownBtn.OnClick           := dvNavButtonsClick;
@@ -4591,4 +4589,4 @@ begin
 end;
 {=====}
 
-end.
+end.

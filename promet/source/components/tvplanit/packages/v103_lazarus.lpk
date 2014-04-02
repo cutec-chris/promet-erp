@@ -19,7 +19,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="61">
+    <Files Count="62">
       <Item1>
         <Filename Value="../source/vpabout.pas"/>
         <UnitName Value="VpAbout"/>
@@ -265,6 +265,10 @@
         <Filename Value="../source/vpbase.lrs"/>
         <Type Value="LRS"/>
       </Item61>
+      <Item62>
+        <Filename Value="../source/vpruntime.res"/>
+        <Type Value="Binary"/>
+      </Item62>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="1">
