@@ -337,56 +337,59 @@ begin
   NextCollectTime:=Now+((1/MinsPerDay)*0.5);
   aMessage := TMessage.Create(nil,Data);
   bMessages := TMessageList.Create(nil,Data);
-  with Data.Tree.DataSet do
-    begin
-      First;
-      while not EOF do
-        begin
-          Subscribers.SelectByRef(Data.Tree.id.AsVariant);
-          Subscribers.Open;
-          Subscribers.First;
-          while not Subscribers.EOF do
-            begin
-              if Data.Tree.DataSet.FieldDefs.IndexOf('ID')>-1 then
-                aFilter := Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(Data.Tree.FieldByName('ID').AsString)+' AND '+Data.QuoteField('SENDDATE')+' >= '+Data.DateTimeToFilter(Subscribers.FieldByName('LASTMESSAGE').AsDateTime)
-              else
-                aFilter := Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(Data.Tree.Id.AsString)+' AND '+Data.QuoteField('SENDDATE')+' >= '+Data.DateTimeToFilter(Subscribers.FieldByName('LASTMESSAGE').AsDateTime);
-              Data.SetFilter(aMessage,aFilter,100,'GRP_ID','ASC');
-              if aMessage.Count>0 then
-                begin
-                  if not Subscribers.CanEdit then Subscribers.DataSet.Edit;
-                  Subscribers.FieldByName('LASTMESSAGE').AsDateTime:=Now();
-                  Subscribers.Post;
-                  aMessage.First;
-                  while not aMessage.EOF do
-                    begin
-                      bMessages.Append;
-                      bMessages.DataSet.FieldByName('USER').AsString:='*';
-                      bMessages.DataSet.FieldByName('TREEENTRY').AsInteger:=TREE_ID_SEND_MESSAGES;
-                      bMessages.DataSet.FieldByName('ID').AsVariant:=aMessage.DataSet.FieldByName('ID').AsVariant;
-                      bMessages.DataSet.FieldByName('MSG_ID').AsVariant:=aMessage.DataSet.FieldByName('MSG_ID').AsVariant;
-                      bMessages.DataSet.FieldByName('GRP_ID').AsVariant:=aMessage.DataSet.FieldByName('GRP_ID').AsVariant;
-                      bMessages.DataSet.FieldByName('TYPE').AsVariant:=aMessage.DataSet.FieldByName('TYPE').AsVariant;
-                      bMessages.DataSet.FieldByName('READ').AsString:='N';
-                      bMessages.DataSet.FieldByName('SENDER').AsVariant:=aMessage.DataSet.FieldByName('REPLYTO').AsVariant;
-                      if bMessages.DataSet.FieldByName('SENDER').AsString='' then
-                        bMessages.DataSet.FieldByName('SENDER').AsVariant := aMessage.DataSet.FieldByName('SENDER').AsVariant;
-                      bMessages.DataSet.FieldByName('SENDDATE').AsDateTime:=Now();
-                      bMessages.DataSet.FieldByName('RECEIVERS').AsString:=Subscribers.FieldByName('EMAIL').AsString;
-                      bMessages.DataSet.FieldByName('REPLYTO').AsVariant:=Data.Tree.FieldByName('NAME').AsString+'@'+defaultdomain;
-                      bMessages.DataSet.FieldByName('SUBJECT').AsVariant:='['+Data.Tree.FieldByName('NAME').AsString+'] '+aMessage.DataSet.FieldByName('SUBJECT').AsVariant;
-                      bMessages.DataSet.FieldByName('PARENT').AsVariant:=aMessage.DataSet.FieldByName('PARENT').AsVariant;
-                      bMessages.DataSet.Post;
-                      aMessage.Next;
-                    end;
-                end;
-              Subscribers.Next;
-            end;
-          Next;
-        end;
-    end;
-  aMessage.Free;
-  bMessages.Free;
+  try
+    with Data.Tree.DataSet do
+      begin
+        First;
+        while not EOF do
+          begin
+            Subscribers.SelectByRef(Data.Tree.id.AsVariant);
+            Subscribers.Open;
+            Subscribers.First;
+            while not Subscribers.EOF do
+              begin
+                if Data.Tree.DataSet.FieldDefs.IndexOf('ID')>-1 then
+                  aFilter := Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(Data.Tree.FieldByName('ID').AsString)+' AND '+Data.QuoteField('SENDDATE')+' >= '+Data.DateTimeToFilter(Subscribers.FieldByName('LASTMESSAGE').AsDateTime)
+                else
+                  aFilter := Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(Data.Tree.Id.AsString)+' AND '+Data.QuoteField('SENDDATE')+' >= '+Data.DateTimeToFilter(Subscribers.FieldByName('LASTMESSAGE').AsDateTime);
+                Data.SetFilter(aMessage,aFilter,100,'GRP_ID','ASC');
+                if aMessage.Count>0 then
+                  begin
+                    if not Subscribers.CanEdit then Subscribers.DataSet.Edit;
+                    Subscribers.FieldByName('LASTMESSAGE').AsDateTime:=Now();
+                    Subscribers.Post;
+                    aMessage.First;
+                    while not aMessage.EOF do
+                      begin
+                        bMessages.Append;
+                        bMessages.DataSet.FieldByName('USER').AsString:='*';
+                        bMessages.DataSet.FieldByName('TREEENTRY').AsInteger:=TREE_ID_SEND_MESSAGES;
+                        bMessages.DataSet.FieldByName('ID').AsVariant:=aMessage.DataSet.FieldByName('ID').AsVariant;
+                        bMessages.DataSet.FieldByName('MSG_ID').AsVariant:=aMessage.DataSet.FieldByName('MSG_ID').AsVariant;
+                        bMessages.DataSet.FieldByName('GRP_ID').AsVariant:=aMessage.DataSet.FieldByName('GRP_ID').AsVariant;
+                        bMessages.DataSet.FieldByName('TYPE').AsVariant:=aMessage.DataSet.FieldByName('TYPE').AsVariant;
+                        bMessages.DataSet.FieldByName('READ').AsString:='N';
+                        bMessages.DataSet.FieldByName('SENDER').AsVariant:=aMessage.DataSet.FieldByName('REPLYTO').AsVariant;
+                        if bMessages.DataSet.FieldByName('SENDER').AsString='' then
+                          bMessages.DataSet.FieldByName('SENDER').AsVariant := aMessage.DataSet.FieldByName('SENDER').AsVariant;
+                        bMessages.DataSet.FieldByName('SENDDATE').AsDateTime:=Now();
+                        bMessages.DataSet.FieldByName('RECEIVERS').AsString:=Subscribers.FieldByName('EMAIL').AsString;
+                        bMessages.DataSet.FieldByName('REPLYTO').AsVariant:=Data.Tree.FieldByName('NAME').AsString+'@'+defaultdomain;
+                        bMessages.DataSet.FieldByName('SUBJECT').AsVariant:='['+Data.Tree.FieldByName('NAME').AsString+'] '+aMessage.DataSet.FieldByName('SUBJECT').AsVariant;
+                        bMessages.DataSet.FieldByName('PARENT').AsVariant:=aMessage.DataSet.FieldByName('PARENT').AsVariant;
+                        bMessages.DataSet.Post;
+                        aMessage.Next;
+                      end;
+                  end;
+                Subscribers.Next;
+              end;
+            Next;
+          end;
+      end;
+  finally
+    aMessage.Free;
+    bMessages.Free;
+  end;
 end;
 
 procedure TPMTAServer.DoSendMails;
@@ -405,64 +408,70 @@ begin
   aServers := tStringList.Create;
   DNSServers := TStringList.Create;
   MessageIndex := TmessageList.Create(nil,data);
-  Data.SetFilter(MessageIndex,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(IntToStr(TREE_ID_SEND_MESSAGES))+' AND '+Data.QuoteField('READ')+'='+Data.QuoteValue('N'));
-  if MessageIndex.Count>0 then
-    begin
-      DNSServers.CommaText:=GetDNS;
-      while not MessageIndex.DataSet.EOF do
-        begin
-          aMessage := TMimeMessage.Create(nil,Data);
-          aMessage.Select(MessageIndex.ID.AsVariant);
-          aMessage.Open;
-          if aMessage.Count>0 then
-            begin
-              aTo := GetEmailAddr(aMessage.FieldByName('RECEIVERS').AsString);
-              for i := 0 to DNSServers.Count-1 do
+  try
+    Data.SetFilter(MessageIndex,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(IntToStr(TREE_ID_SEND_MESSAGES))+' AND '+Data.QuoteField('READ')+'='+Data.QuoteValue('N'));
+    if MessageIndex.Count>0 then
+      begin
+        DNSServers.CommaText:=GetDNS;
+        while not MessageIndex.DataSet.EOF do
+          begin
+            aMessage := TMimeMessage.Create(nil,Data);
+            try
+              aMessage.Select(MessageIndex.ID.AsVariant);
+              aMessage.Open;
+              if aMessage.Count>0 then
                 begin
-                  GetMailServers(DNSServers[i],copy(aTo,pos('@',aTo)+1,length(aTo)),aServers);
-                  if aServers.Count>0 then break;
-                end;
-              if aServers.Count>0 then
-                begin
-                  smtp := TSMTPSend.Create;
-                  smtp.TargetHost := aServers[0];
-                  if SMTP.Login then
+                  aTo := GetEmailAddr(aMessage.FieldByName('RECEIVERS').AsString);
+                  for i := 0 to DNSServers.Count-1 do
                     begin
-                      with aMessage.DataSet do
-                        begin
-                          msg := aMessage.EncodeMessage;
-                          msg.Header.ToList.Clear;
-                          msg.Header.ToList.Add(aTo);
-                          if copy(msg.Header.ReplyTo,length(msg.Header.ReplyTo),1) = '@' then
-                            msg.Header.ReplyTo := msg.Header.ReplyTo+DefaultDomain;
-                          msg.EncodeMessage;
-                          Info('sending Message "'+msg.Header.Subject+'" to '+aTo+' from '+msg.Header.ReplyTo);
-                          if smtp.MailFrom(msg.Header.ReplyTo,length(msg.Lines.Text)) then
-                            if smtp.MailTo(msg.Header.ToList[0]) then
-                              begin
-                                if smtp.MailData(msg.Lines) then
-                                  begin
-                                    if not aMessage.CanEdit then amessage.DataSet.Edit;
-                                    aMessage.FieldByName('READ').AsString:='Y';
-                                    aMessage.Post;
-                                    Info('->ok');
-                                  end;
-                              end;
-                         if aMessage.FieldByName('READ').AsString <> 'Y' then
-                           Info('->failed '+smtp.FullResult.Text);
-                        end;
-                      smtp.Logout;
+                      GetMailServers(DNSServers[i],copy(aTo,pos('@',aTo)+1,length(aTo)),aServers);
+                      if aServers.Count>0 then break;
                     end;
-                  smtp.Free;
+                  if aServers.Count>0 then
+                    begin
+                      smtp := TSMTPSend.Create;
+                      smtp.TargetHost := aServers[0];
+                      if SMTP.Login then
+                        begin
+                          with aMessage.DataSet do
+                            begin
+                              msg := aMessage.EncodeMessage;
+                              msg.Header.ToList.Clear;
+                              msg.Header.ToList.Add(aTo);
+                              if copy(msg.Header.ReplyTo,length(msg.Header.ReplyTo),1) = '@' then
+                                msg.Header.ReplyTo := msg.Header.ReplyTo+DefaultDomain;
+                              msg.EncodeMessage;
+                              Info('sending Message "'+msg.Header.Subject+'" to '+aTo+' from '+msg.Header.ReplyTo);
+                              if smtp.MailFrom(msg.Header.ReplyTo,length(msg.Lines.Text)) then
+                                if smtp.MailTo(msg.Header.ToList[0]) then
+                                  begin
+                                    if smtp.MailData(msg.Lines) then
+                                      begin
+                                        if not aMessage.CanEdit then amessage.DataSet.Edit;
+                                        aMessage.FieldByName('READ').AsString:='Y';
+                                        aMessage.Post;
+                                        Info('->ok');
+                                      end;
+                                  end;
+                             if aMessage.FieldByName('READ').AsString <> 'Y' then
+                               Info('->failed '+smtp.FullResult.Text);
+                            end;
+                          smtp.Logout;
+                        end;
+                      smtp.Free;
+                    end;
                 end;
+            finally
+              aMessage.Free;
+              MessageIndex.Next;
             end;
-          aMessage.Free;
-          MessageIndex.Next;
-        end;
-    end;
-  DNSServers.Free;
-  aServers.Free;
-  MessageIndex.Free;
+          end;
+      end;
+  finally
+    DNSServers.Free;
+    aServers.Free;
+    MessageIndex.Free;
+  end;
 end;
 
 procedure TPMTAServer.DoSendMail(aTo, aFrom, aSubject, aText: string);
@@ -558,8 +567,8 @@ begin
           DoSendMails;
           sleep(100);
           i := 0;
+          break;
         end;
-      if aTime > (60*60*1000) then break;
     end;
   // stop program loop
   Subscribers.Free;
