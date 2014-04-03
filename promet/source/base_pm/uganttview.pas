@@ -611,7 +611,7 @@ procedure TfGanttView.acMakePossibleExecute(Sender: TObject);
     aDur: TDateTime;
   begin
     Result := False;
-    if (aInterval.StartDate<Now()) and (not aInterval.Started) then
+    if (aInterval.StartDate<Now()) and (not aInterval.Started) and (not aInterval.Fixed) then
       begin
         aDur := aInterval.Duration;
         aInterval.FinishDate:=Now()+aDur;
