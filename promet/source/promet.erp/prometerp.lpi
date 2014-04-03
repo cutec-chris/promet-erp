@@ -285,7 +285,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="52">
+    <Units Count="53">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -723,7 +723,7 @@
       </Unit41>
       <Unit42>
         <Filename Value="../base/revision.inc"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
@@ -732,7 +732,7 @@
       </Unit42>
       <Unit43>
         <Filename Value="../base/changes.txt"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="30" Y="9"/>
@@ -813,140 +813,154 @@
         <UnitName Value="uGanttView"/>
         <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1228"/>
-        <CursorPos X="23" Y="1255"/>
+        <TopLine Value="204"/>
+        <CursorPos X="29" Y="226"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit50>
       <Unit51>
         <Filename Value="../base/dbintfs/utask.pas"/>
         <UnitName Value="utask"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="405"/>
-        <CursorPos X="14" Y="420"/>
+        <TopLine Value="392"/>
+        <CursorPos X="95" Y="406"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit51>
+      <Unit52>
+        <Filename Value="../base_pm/gsGanttCalendar.pas"/>
+        <UnitName Value="gsGanttCalendar"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="11"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2916"/>
+        <CursorPos X="52" Y="2946"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit52>
     </Units>
-    <JumpHistory Count="29" HistoryIndex="28">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../base/ubasevisualcontrols.pas"/>
-        <Caret Line="24" Column="94" TopLine="1"/>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="416" Column="1" TopLine="405"/>
       </Position1>
       <Position2>
-        <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="978" Column="1" TopLine="923"/>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="418" Column="1" TopLine="405"/>
       </Position2>
       <Position3>
-        <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="410" Column="19" TopLine="402"/>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="420" Column="14" TopLine="405"/>
       </Position3>
       <Position4>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="1255" Column="23" TopLine="1228"/>
+        <Filename Value="../base/dbintfs/utask.pas"/>
+        <Caret Line="412" Column="1" TopLine="405"/>
       </Position4>
       <Position5>
         <Filename Value="../base/dbintfs/utask.pas"/>
-        <Caret Line="431" Column="35" TopLine="417"/>
+        <Caret Line="413" Column="1" TopLine="405"/>
       </Position5>
       <Position6>
         <Filename Value="../base/dbintfs/utask.pas"/>
-        <Caret Line="429" Column="1" TopLine="417"/>
+        <Caret Line="414" Column="1" TopLine="405"/>
       </Position6>
       <Position7>
         <Filename Value="../base/dbintfs/utask.pas"/>
-        <Caret Line="430" Column="1" TopLine="417"/>
+        <Caret Line="415" Column="1" TopLine="405"/>
       </Position7>
       <Position8>
         <Filename Value="../base/dbintfs/utask.pas"/>
-        <Caret Line="431" Column="1" TopLine="417"/>
+        <Caret Line="416" Column="1" TopLine="405"/>
       </Position8>
       <Position9>
         <Filename Value="../base/dbintfs/utask.pas"/>
-        <Caret Line="432" Column="1" TopLine="417"/>
+        <Caret Line="418" Column="1" TopLine="405"/>
       </Position9>
       <Position10>
         <Filename Value="../base/dbintfs/utask.pas"/>
-        <Caret Line="434" Column="1" TopLine="417"/>
+        <Caret Line="420" Column="1" TopLine="405"/>
       </Position10>
       <Position11>
         <Filename Value="../base/dbintfs/utask.pas"/>
-        <Caret Line="439" Column="1" TopLine="417"/>
+        <Caret Line="424" Column="1" TopLine="405"/>
       </Position11>
       <Position12>
         <Filename Value="../base/dbintfs/utask.pas"/>
-        <Caret Line="444" Column="1" TopLine="414"/>
+        <Caret Line="425" Column="1" TopLine="405"/>
       </Position12>
       <Position13>
         <Filename Value="../base/dbintfs/utask.pas"/>
-        <Caret Line="445" Column="1" TopLine="414"/>
+        <Caret Line="438" Column="1" TopLine="419"/>
       </Position13>
       <Position14>
         <Filename Value="../base/dbintfs/utask.pas"/>
-        <Caret Line="431" Column="9" TopLine="409"/>
+        <Caret Line="443" Column="1" TopLine="428"/>
       </Position14>
       <Position15>
         <Filename Value="../base/dbintfs/utask.pas"/>
-        <Caret Line="434" Column="19" TopLine="397"/>
+        <Caret Line="445" Column="1" TopLine="428"/>
       </Position15>
       <Position16>
         <Filename Value="../base/dbintfs/utask.pas"/>
-        <Caret Line="412" Column="1" TopLine="397"/>
+        <Caret Line="447" Column="1" TopLine="434"/>
       </Position16>
       <Position17>
         <Filename Value="../base/dbintfs/utask.pas"/>
-        <Caret Line="413" Column="1" TopLine="397"/>
+        <Caret Line="452" Column="1" TopLine="434"/>
       </Position17>
       <Position18>
         <Filename Value="../base/dbintfs/utask.pas"/>
-        <Caret Line="414" Column="1" TopLine="397"/>
+        <Caret Line="412" Column="1" TopLine="392"/>
       </Position18>
       <Position19>
         <Filename Value="../base/dbintfs/utask.pas"/>
-        <Caret Line="415" Column="1" TopLine="397"/>
+        <Caret Line="413" Column="1" TopLine="392"/>
       </Position19>
       <Position20>
-        <Filename Value="../base/dbintfs/utask.pas"/>
-        <Caret Line="416" Column="1" TopLine="397"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="131" Column="15" TopLine="119"/>
       </Position20>
       <Position21>
-        <Filename Value="../base/dbintfs/utask.pas"/>
-        <Caret Line="421" Column="37" TopLine="397"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="154" Column="18" TopLine="121"/>
       </Position21>
       <Position22>
-        <Filename Value="../base/dbintfs/utask.pas"/>
-        <Caret Line="420" Column="1" TopLine="406"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="197" Column="33" TopLine="164"/>
       </Position22>
       <Position23>
-        <Filename Value="../base/dbintfs/utask.pas"/>
-        <Caret Line="436" Column="1" TopLine="406"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="203" Column="33" TopLine="170"/>
       </Position23>
       <Position24>
-        <Filename Value="../base/dbintfs/utask.pas"/>
-        <Caret Line="412" Column="1" TopLine="405"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="220" Column="38" TopLine="187"/>
       </Position24>
       <Position25>
-        <Filename Value="../base/dbintfs/utask.pas"/>
-        <Caret Line="413" Column="1" TopLine="405"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="235" Column="34" TopLine="204"/>
       </Position25>
       <Position26>
-        <Filename Value="../base/dbintfs/utask.pas"/>
-        <Caret Line="414" Column="1" TopLine="405"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="226" Column="29" TopLine="204"/>
       </Position26>
       <Position27>
-        <Filename Value="../base/dbintfs/utask.pas"/>
-        <Caret Line="415" Column="1" TopLine="405"/>
+        <Filename Value="../base_pm/gsGanttCalendar.pas"/>
+        <Caret Line="357" Column="15" TopLine="339"/>
       </Position27>
       <Position28>
-        <Filename Value="../base/dbintfs/utask.pas"/>
-        <Caret Line="416" Column="1" TopLine="405"/>
+        <Filename Value="../base_pm/gsGanttCalendar.pas"/>
+        <Caret Line="1924" Column="16" TopLine="1893"/>
       </Position28>
       <Position29>
-        <Filename Value="../base/dbintfs/utask.pas"/>
-        <Caret Line="418" Column="1" TopLine="405"/>
+        <Filename Value="../base_pm/gsGanttCalendar.pas"/>
+        <Caret Line="2932" Column="23" TopLine="2900"/>
       </Position29>
+      <Position30>
+        <Filename Value="../base_pm/gsGanttCalendar.pas"/>
+        <Caret Line="2930" Column="23" TopLine="2912"/>
+      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -991,8 +1005,8 @@
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
-        <Source Value="../base/dbintfs/utask.pas"/>
-        <Line Value="412"/>
+        <Source Value="../base_pm/uganttview.pas"/>
+        <Line Value="231"/>
       </Item1>
     </BreakPoints>
     <Exceptions Count="22">

@@ -2943,7 +2943,7 @@ begin
         if Assigned(FOverInterval) then
           FOverInterval(Self,nil,Message.XPos,Message.YPos);
         Cursor := crDefault;
-        if Assigned(FDragInterval) then
+        if Assigned(FDragInterval) and FMoveStarted then
           FDragInterval.EndUpdate;
         FDragInterval := nil;
         FDragType := ditNone;
