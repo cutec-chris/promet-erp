@@ -1,5 +1,6 @@
 ﻿Build 329
       - Fehler in der Filterzeile bei mehrfachem Filtern unter bestimmten Umständen behoben
+      - fehlende Icons an einigen Buttons im Calenderframe jetzt sichtbar
 Build 328
       - keinere Bugfixes für die letzten 2 Releases
 Build 327

@@ -415,21 +415,25 @@ begin
   if (aStart>0) and (aDue>0) then
     aDur := aDue-aStart
   else aDur := MinimalTaskLength;
-  if (aStart < Now()) and (aDue=0) then
-    aStart := Now();
-  if aStart < FieldByName('EARLIEST').AsDateTime then
-    begin
-      aStart := FieldByName('EARLIEST').AsDateTime;
-      Result := True;
-    end;
   if FieldByName('COMPLETED').AsString = 'Y' then
     begin
-      if FieldByName('STARTEDAT').AsDAteTime > 0 then
-        aStart := FieldByName('STARTEDAT').AsDateTime
-      else if (FieldByName('COMPLETEDAT').AsDAteTime > 0) then
-        aStart := 0;
+      if FieldByName('STARTEDAT').AsDateTime > 0 then
+        aStart := FieldByName('STARTEDAT').AsDateTime;
+      //else if (FieldByName('COMPLETEDAT').AsDAteTime > 0) then
+      //  aStart := 0;
       if FieldByName('COMPLETEDAT').AsDAteTime > 0 then
         aDue := FieldByName('COMPLETEDAT').AsDAteTime;
+    end
+  else
+    begin
+      if aDur>MinimalTaskLength then MinimalTaskLength:=aDur;
+      if (aStart < Now()) and (aDue=0) then
+        aStart := Now();
+      if aStart < FieldByName('EARLIEST').AsDateTime then
+        begin
+          aStart := FieldByName('EARLIEST').AsDateTime;
+          Result := True;
+        end;
     end;
   if (aDue=0) and (aStart=0) then
     begin
@@ -440,7 +444,6 @@ begin
     aStart := aDue-StrToFloatDef(FieldByName('PLANTIME').AsString,1)
   else if aDue=0 then
     aDue := aStart+StrToFloatDef(FieldByName('PLANTIME').AsString,1);
-  if aDur>MinimalTaskLength then MinimalTaskLength:=aDur;
   if aDue<aStart+MinimalTaskLength then
     begin
       aDue := aStart+MinimalTaskLength;
