@@ -88,6 +88,7 @@ type
     FColor: TColor;
     FDepDone: Boolean;
     FDontChange: Boolean;
+    FFixed: Boolean;
     FGantt: TgsGantt;
     Fid: Variant;
     FInCriticalPath: Boolean;
@@ -263,6 +264,7 @@ type
     property Styles : TFontStyles read FStyle write FStyle;
     property Gantt : TgsGantt read FGantt;
     property OnOpen : TNotifyEvent read FOnOpen write FOnOpen;
+    property Fixed : Boolean read FFixed write FFixed;
   end;
   TMouseOverInterval = procedure(Sender : TObject;aInterval : TInterval;X,Y : Integer) of object;
 
@@ -1229,6 +1231,7 @@ begin
   FPointer:=nil;
   FColor:=clBlue;
   FUpdating:=0;
+  FFixed:=False;
 
   FIntervals := TList.Create;
   FConnections := Tlist.Create;
@@ -2895,12 +2898,9 @@ begin
 
         if CurrInterval.IsCollection then Continue;
 
-        if IsInRect(Message.XPos,  Message.YPos, CurrInterval.DrawRect) then
+        if IsInRect(Message.XPos,  Message.YPos, CurrInterval.DrawRect) and not CurrInterval.Fixed then
         begin
-          if
-            (CurrInterval.IntervalType = itPeriod)
-              and
-            IsInRect(Message.XPos,  Message.YPos, CurrInterval.PercentMoveRect)
+          if (CurrInterval.IntervalType = itPeriod) and IsInRect(Message.XPos,  Message.YPos, CurrInterval.PercentMoveRect)
           then begin
             Cursor := crGanttPercent;
             FDragType := ditPercent;
@@ -2950,7 +2950,7 @@ begin
         FDragRect := Rect(-1, -1, -1, -1);
         FDragStarted := False;
       end;
-    end else if Assigned(FDragInterval) and (FDragType <> ditNone) and FDragStarted and (abs(Message.XPos-FConnectFromPoint.X)>5) then
+    end else if Assigned(FDragInterval) and (FDragType <> ditNone) and FDragStarted and (abs(Message.XPos-FConnectFromPoint.X)>5) and (not FDragInterval.Fixed) then
     begin
       case FDragType of
         ditMiddle:

@@ -230,6 +230,7 @@ begin
   bCancel.Enabled:=true;
   with TInterval(Sender) do
     begin
+      if TInterval(Sender).Fixed then exit;
       TInterval(Sender).BeginUpdate;
       //if TInterval(Sender).MovedFwd then
         begin
@@ -1195,7 +1196,10 @@ begin
   aInterval.Project:=aTasks.FieldByName('PROJECT').AsString;
   aInterval.Started:=not aTasks.FieldByName('STARTEDAT').IsNull;
   if aTasks.FieldByName('COMPLETED').AsString='Y' then
-    aInterval.Color:=clGray;
+    begin
+      aInterval.Color:=clGray;
+      aInterval.Fixed:=True;
+    end;
   aInterval.Id:=aTasks.Id.AsVariant;
   aInterval.DepDone := aTasks.FieldByName('DEPDONE').AsString <> 'N';
   if not aTasks.FieldByName('PLANTIME').IsNull then

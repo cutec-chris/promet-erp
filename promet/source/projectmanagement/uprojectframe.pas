@@ -408,6 +408,7 @@ begin
       TfTaskFrame(pcPages.ActivePage.Controls[0]).acRefresh.Execute;
     end;
   fGanttView.Execute(TProject(DataSet));
+  if not Assigned(Self) then exit;
   if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
     begin
       TfTaskFrame(pcPages.ActivePage.Controls[0]).DataSet.CascadicCancel;
