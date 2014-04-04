@@ -334,6 +334,7 @@ var
   a: Integer;
   aSyncType: String;
   aSeq: String;
+  aParser: TJSONParser;
 begin
   Handled:=True;
   AResponse.Code:=500;

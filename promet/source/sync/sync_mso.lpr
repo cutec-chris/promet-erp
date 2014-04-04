@@ -8,7 +8,7 @@ uses
   { you can add units after this }, FileUtil,Forms, uData,db,
   Dialogs,Controls,uBaseCustomApplication, pcmdprometapp,Variants,LConvEncoding,
   dateutils,Graphics,uSync,uPerson,uCalendar,utask,Windows,comobj, ActiveX,Utils,
-  uBaseDBInterface,LazLogger,
+  uBaseDBInterface,LazLogger,fpJSON,
   MapiServices,MapiDefs,MAPIUtil,MapiTags,MapiGuid;
 type
 
@@ -117,12 +117,10 @@ begin
     DefaultMessageStore := nil;
   end;
 end;
-
 procedure TGenericFolder.PopulateContentItems;
 begin
   inherited PopulateContentItems;
 end;
-
 constructor TGenericFolder.Create(const Connection: TMapiConnection;
   EntryTyp: Cardinal);
 begin
@@ -251,6 +249,11 @@ var
   OldSeen: String;
   DoDelete: Boolean;
   SyncOutF: Boolean;
+  aJsonList: TJSONArray;
+  aObj: TJSONObject;
+  aStart,aEnd : TDateTime;
+  aAllday: Boolean;
+  sl: TStringList;
   function RoundToSecond(aDate : TDateTime) : TDateTime;
   begin
     Result := Round(aDate * SecsPerDay) / SecsPerDay;
@@ -778,6 +781,78 @@ begin
         //Termine syncronisieren
         aCalendar := TCalendar.Create(nil,Data);
         aFolder := TGenericFolder.Create(aConnection,PR_IPM_APPOINTMENT_ENTRYID);
+        //Build Appointment List
+        aJsonList := TJSONArray.Create;
+        aItem := aFolder.GetFirst;
+        while Assigned(aItem) do
+          begin
+            aObj := TJSONObject.Create;
+            aObj.Add('ID',EntryIdToString(aItem.EntryID));
+            aObj.Add('PRIVATE',Boolean(aItem.PropertiesDirect[aItem.GetPropertyDispId($8506, PT_BOOLEAN, False, @PSETID_Common),ptBoolean]));
+            aObj.Add('TIMESTAMPD',DateTimeToStr(aItem.LastModificationTime));
+            aObj.Add('SUMMARY',EncodingIn(aItem.PropertiesDirect[PR_SUBJECT,ptString]));
+            SStream := TStringStream.Create('');
+            try
+              if aItem.CoMessage.OpenProperty(PR_BODY, IStream, STGM_READ, 0, IInterface(StreamIntf)) = S_OK then
+                begin
+                  StreamIntf.Stat(StreamInfo, STATFLAG_NONAME);
+                  OLEStream := TOleStream.Create(StreamIntf);
+                  try
+                    SSTream.CopyFrom(OLEStream,StreamInfo.cbSize);
+                  finally
+                    OLEStream.Free;
+                  end;
+                  if SStream.DataString <> '' then
+                    aObj.Add('DESCR',SStream.DataString);
+                end;
+            finally
+              StreamIntf := nil;
+            end;
+            if not Assigned(aObj.Find('DESCR')) then
+              aObj.Add('DESCR',EncodingIn(aItem.PropertiesDirect[PR_BODY,ptString]));
+            aObj.Add('LOCATION',EncodingIn(aItem.PropertiesDirect[PR_LOCATION,ptString]));
+            aStart := aItem.PropertiesDirect[aItem.GetPropertyDispId($820D, PT_SYSTIME, False, @PSETID_Appointment),ptTime];
+            aEnd := aItem.PropertiesDirect[aItem.GetPropertyDispId($820E, PT_SYSTIME, False, @PSETID_Appointment),ptTime];
+            aAllday := Boolean(aItem.PropertiesDirect[aItem.GetPropertyDispId($8215, PT_BOOLEAN, False, @PSETID_Appointment),ptBoolean]);
+            aObj.Add('ALLDAY',aAllday);
+            aObj.Add('STARTDATE',DateTimeToStr(aStart));
+            aObj.Add('ENDDATE',DateTimeToStr(aEnd));
+            if aItem.PropertiesDirect[aItem.GetPropertyDispId($8223, PT_BOOLEAN, False, @PSETID_Appointment),ptBoolean] then  //PR_ISRECURRING
+              begin
+                aPattern := aItem.PropertiesDirect[aItem.GetPropertyDispId($8232, PT_STRING8, False, @PSETID_Appointment),ptString];
+                case aItem.PropertiesDirect[aItem.GetPropertyDispId($8231, PT_LONG, False, @PSETID_Appointment),ptInteger] of //RecurenceType    (1=Täglich=1,2=Wöchentlich=2,3=Monatlich=4,4=Jährlich=6)
+                1:
+                  begin
+                    aObj.Add('ROTATION',1);
+//                            aCalendar.DataSet.FieldByName('ROTCUS').AsInteger := aItem.PropertiesDirect[(PT_I2) or ($8075 shl 16),ptInteger]; //DayInterval
+                  end;
+                2:
+                  begin
+                    aObj.Add('ROTATION',2);
+//                            aCalendar.DataSet.FieldByName('ROTCUS').AsInteger := (aItem.PropertiesDirect[(PT_I2) or ($808D shl 16),ptInteger]); //WeekInterval
+                  end;
+                3:
+                  begin
+                    aObj.Add('ROTATION',4);
+//                            aCalendar.DataSet.FieldByName('ROTCUS').AsInteger := (aItem.PropertiesDirect[(PT_I2) or ($8080 shl 16),ptInteger]); //MonthInterval
+                  end;
+                4:
+                  begin
+                    aObj.Add('ROTATION',6);
+//                            aCalendar.DataSet.FieldByName('ROTCUS').AsInteger := (aItem.PropertiesDirect[(PT_I2) or ($808F shl 16),ptInteger]); //YearInterval
+                  end;
+                end;
+                aObj.Add('ROTTO',DateTimeToStr(aItem.PropertiesDirect[aItem.GetPropertyDispId($8236, PT_SYSTIME, False, @PSETID_Appointment),ptTime]));
+              end;
+            aItem.Free;
+            aItem := aFolder.GetNext;
+            aJsonList.Add(aObj);
+          end;
+        sl := TStringList.Create;
+        sl.Text:=aJsonList.AsJSON;
+        sl.SaveToFile('c:\cal.json');
+        sl.Free;
+
         try
           aItem := aFolder.GetFirst;
           while Assigned(aItem) do

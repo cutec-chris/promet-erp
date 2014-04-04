@@ -35,6 +35,7 @@
         <FormatVersion Value="1"/>
         <CommandLineParams Value="--mandant=&quot;TCS-Times2&quot; --user=&quot;Christian Ulrich&quot;"/>
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
+        <WorkingDirectory Value="C:\"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">
@@ -48,16 +49,21 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="146">
+    <Units Count="149">
       <Unit0>
         <Filename Value="sync_mso.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="traceimport"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1070"/>
-        <CursorPos X="30" Y="1088"/>
+        <TopLine Value="838"/>
+        <CursorPos X="27" Y="853"/>
+        <FoldState Value=" T3iS0l21112 pjPne2{F T0sDEB1v"/>
         <UsageCount Value="200"/>
+        <Bookmarks Count="1">
+          <Item0 X="1" Y="782" ID="0"/>
+        </Bookmarks>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -370,9 +376,9 @@
         <Filename Value="C:\Programme\lazarus\lcl\interfaces\win32\win32wscontrols.pp"/>
         <UnitName Value="Win32WSControls"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="248"/>
-        <CursorPos X="1" Y="259"/>
-        <UsageCount Value="9"/>
+        <TopLine Value="246"/>
+        <CursorPos X="1" Y="253"/>
+        <UsageCount Value="10"/>
       </Unit43>
       <Unit44>
         <Filename Value="..\..\..\LKomponenten\zeos\src\component\ZConnection.pas"/>
@@ -469,11 +475,11 @@
       <Unit55>
         <Filename Value="mapi\MapiServices.pas"/>
         <UnitName Value="MapiServices"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1849"/>
-        <CursorPos X="1" Y="1868"/>
-        <UsageCount Value="55"/>
+        <TopLine Value="324"/>
+        <CursorPos X="14" Y="341"/>
+        <UsageCount Value="56"/>
         <Loaded Value="True"/>
       </Unit55>
       <Unit56>
@@ -781,9 +787,9 @@
         <Filename Value="usyncdb.pas"/>
         <UnitName Value="usyncdb"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="252"/>
-        <CursorPos X="1" Y="281"/>
-        <UsageCount Value="9"/>
+        <TopLine Value="31"/>
+        <CursorPos X="21" Y="21"/>
+        <UsageCount Value="10"/>
       </Unit94>
       <Unit95>
         <Filename Value="..\base\dbintfs\uperson.pas"/>
@@ -804,31 +810,31 @@
       <Unit97>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1216"/>
         <CursorPos X="58" Y="1234"/>
-        <UsageCount Value="24"/>
+        <UsageCount Value="25"/>
         <Loaded Value="True"/>
       </Unit97>
       <Unit98>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1054"/>
         <CursorPos X="1" Y="1079"/>
-        <UsageCount Value="22"/>
+        <UsageCount Value="23"/>
         <Loaded Value="True"/>
       </Unit98>
       <Unit99>
         <Filename Value="..\base\dbintfs\usync.pas"/>
         <UnitName Value="usync"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="49"/>
-        <CursorPos X="22" Y="69"/>
-        <UsageCount Value="15"/>
+        <TopLine Value="318"/>
+        <CursorPos X="3" Y="285"/>
+        <UsageCount Value="16"/>
         <Loaded Value="True"/>
       </Unit99>
       <Unit100>
@@ -983,11 +989,11 @@
       <Unit119>
         <Filename Value="..\base\dbintfs\utask.pas"/>
         <UnitName Value="utask"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="55"/>
         <CursorPos X="26" Y="72"/>
-        <UsageCount Value="22"/>
+        <UsageCount Value="23"/>
         <Loaded Value="True"/>
       </Unit119>
       <Unit120>
@@ -1050,11 +1056,11 @@
       <Unit127>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
         <UnitName Value="uBaseCustomApplication"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="34"/>
         <CursorPos X="3" Y="28"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit127>
       <Unit128>
@@ -1189,25 +1195,50 @@
       <Unit144>
         <Filename Value="..\components\zeos\src\plain\ZPlainDbLibDriver.pas"/>
         <UnitName Value="ZPlainDbLibDriver"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="571"/>
         <CursorPos X="33" Y="599"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit144>
       <Unit145>
         <Filename Value="..\..\..\..\..\lazarus\lcl\interfaces\win32\win32wsdialogs.pp"/>
         <UnitName Value="Win32WSDialogs"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="14"/>
         <CursorPos X="3" Y="32"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit145>
+      <Unit146>
+        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
+        <UnitName Value="uStatistic"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="58"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit146>
+      <Unit147>
+        <Filename Value="C:\Programme\lazarus\fpc\2.6.2\source\packages\fcl-json\src\jsonparser.pp"/>
+        <UnitName Value="jsonparser"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="28" Y="22"/>
+        <UsageCount Value="10"/>
+      </Unit147>
+      <Unit148>
+        <Filename Value="C:\Programme\lazarus\fpc\2.6.2\source\packages\fcl-json\src\fpjson.pp"/>
+        <UnitName Value="fpjson"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="397"/>
+        <CursorPos X="60" Y="410"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit148>
     </Units>
     <Build>
       <CleanOutputFileMask Value="*.ppu;*.ppl;*.o;*.or;*.rc"/>
@@ -1215,123 +1246,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1063" Column="1" TopLine="1049"/>
+        <Caret Line="784" Column="1" TopLine="774"/>
       </Position1>
       <Position2>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1064" Column="1" TopLine="1049"/>
+        <Caret Line="785" Column="1" TopLine="774"/>
       </Position2>
       <Position3>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1067" Column="1" TopLine="1049"/>
+        <Caret Line="786" Column="1" TopLine="774"/>
       </Position3>
       <Position4>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1068" Column="1" TopLine="1049"/>
+        <Caret Line="788" Column="1" TopLine="774"/>
       </Position4>
       <Position5>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1069" Column="1" TopLine="1049"/>
+        <Caret Line="789" Column="1" TopLine="774"/>
       </Position5>
       <Position6>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1070" Column="1" TopLine="1049"/>
+        <Caret Line="790" Column="1" TopLine="774"/>
       </Position6>
       <Position7>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1095" Column="1" TopLine="1077"/>
+        <Caret Line="791" Column="1" TopLine="774"/>
       </Position7>
       <Position8>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1097" Column="1" TopLine="1077"/>
+        <Caret Line="792" Column="1" TopLine="774"/>
       </Position8>
       <Position9>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1104" Column="1" TopLine="1077"/>
+        <Caret Line="793" Column="1" TopLine="774"/>
       </Position9>
       <Position10>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1105" Column="1" TopLine="1077"/>
+        <Caret Line="794" Column="1" TopLine="774"/>
       </Position10>
       <Position11>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1107" Column="1" TopLine="1077"/>
+        <Caret Line="795" Column="1" TopLine="774"/>
       </Position11>
       <Position12>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1125" Column="1" TopLine="1107"/>
+        <Caret Line="810" Column="1" TopLine="779"/>
       </Position12>
       <Position13>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1127" Column="1" TopLine="1107"/>
+        <Caret Line="811" Column="1" TopLine="780"/>
       </Position13>
       <Position14>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1128" Column="1" TopLine="1107"/>
+        <Caret Line="812" Column="1" TopLine="793"/>
       </Position14>
       <Position15>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1129" Column="1" TopLine="1107"/>
+        <Caret Line="813" Column="1" TopLine="793"/>
       </Position15>
       <Position16>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1237" Column="73" TopLine="1002"/>
+        <Caret Line="814" Column="1" TopLine="793"/>
       </Position16>
       <Position17>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1020" Column="1" TopLine="1003"/>
+        <Caret Line="815" Column="1" TopLine="793"/>
       </Position17>
       <Position18>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1021" Column="1" TopLine="1003"/>
+        <Caret Line="816" Column="1" TopLine="793"/>
       </Position18>
       <Position19>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1022" Column="1" TopLine="1003"/>
+        <Caret Line="817" Column="1" TopLine="793"/>
       </Position19>
       <Position20>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1029" Column="151" TopLine="1011"/>
+        <Caret Line="818" Column="1" TopLine="793"/>
       </Position20>
       <Position21>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1199" Column="54" TopLine="1166"/>
+        <Caret Line="819" Column="1" TopLine="793"/>
       </Position21>
       <Position22>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1087" Column="73" TopLine="1063"/>
+        <Caret Line="846" Column="1" TopLine="827"/>
       </Position22>
       <Position23>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1057" Column="88" TopLine="1037"/>
+        <Caret Line="847" Column="1" TopLine="827"/>
       </Position23>
       <Position24>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1129" Column="3" TopLine="1111"/>
+        <Caret Line="848" Column="1" TopLine="827"/>
       </Position24>
       <Position25>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="543" Column="48" TopLine="527"/>
+        <Caret Line="788" Column="1" TopLine="769"/>
       </Position25>
       <Position26>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="542" Column="1" TopLine="484"/>
+        <Caret Line="789" Column="1" TopLine="769"/>
       </Position26>
       <Position27>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1234" Column="58" TopLine="1216"/>
+        <Filename Value="sync_mso.lpr"/>
+        <Caret Line="790" Column="1" TopLine="769"/>
       </Position27>
       <Position28>
         <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1088" Column="30" TopLine="1070"/>
+        <Caret Line="791" Column="1" TopLine="837"/>
       </Position28>
       <Position29>
-        <Filename Value="..\base\dbintfs\utask.pas"/>
-        <Caret Line="72" Column="26" TopLine="55"/>
+        <Filename Value="sync_mso.lpr"/>
+        <Caret Line="850" Column="1" TopLine="838"/>
       </Position29>
       <Position30>
-        <Filename Value="..\..\..\..\..\lazarus\lcl\interfaces\win32\win32wsdialogs.pp"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Filename Value="sync_mso.lpr"/>
+        <Caret Line="854" Column="17" TopLine="838"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -1363,7 +1394,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="4">
+    <BreakPoints Count="5">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsGlobal"/>
@@ -1392,6 +1423,13 @@
         <Source Value="E:\umessages.pas"/>
         <Line Value="922"/>
       </Item4>
+      <Item5>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="sync_mso.lpr"/>
+        <Line Value="854"/>
+      </Item5>
     </BreakPoints>
     <Watches Count="1">
       <Item1>
@@ -1405,4 +1443,4 @@
     </Exceptions>
   </Debugging>
   <EditorMacros Count="0"/>
-</CONFIG>
+</CONFIG>
