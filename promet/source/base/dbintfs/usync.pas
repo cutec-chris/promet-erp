@@ -58,6 +58,7 @@ type
     procedure SelectByReference(aID : Variant);
     procedure SelectByRemoteReference(aID : Variant);
     function SyncDataSet(aInternal : TBaseDBDataset;aExternal : TJSONArray;SyncType : string) : TJSONArray;
+    function LastSync(SyncType : string) : TDateTime;
   end;
   TSyncStamps = class(TBaseDbDataSet)
     procedure DefineFields(aDataSet: TDataSet); override;
@@ -264,7 +265,7 @@ end;
 function TSyncItems.SyncDataSet(aInternal: TBaseDBDataset;
   aExternal: TJSONArray; SyncType: string): TJSONArray;
 var
-  LastSync: TDateTime;
+  aLastSync: TDateTime;
   VJSON: TJSONObject;
   aObj: TJSONObject;
   aField: TJSONData;
@@ -286,12 +287,12 @@ begin
   //Find Last Sync Time
   Filter(TBaseDBModule(DataModule).QuoteField('SYNCTYPE')+'='+TBaseDBModule(DataModule).QuoteValue(SyncType),0,'SYNC_TIME');
   Last;
-  LastSync := SyncTime.AsDateTime;
+  aLastSync := SyncTime.AsDateTime;
   //Sync internal items that are newer than last sync out
   aInternal.First;
   while not aInternal.EOF do
     begin
-      if aInternal.TimeStamp.AsDateTime>LastSync then
+      if aInternal.TimeStamp.AsDateTime>aLastSync then
         begin
           DoSync := True;
           //check if newer version of row is in aExternal
@@ -337,7 +338,7 @@ begin
       if not Assigned(aTime) then
         aTime := GetField(aObj,'timestamp');
       aSyncTime := StrToDateDef(aTime.AsString,0);
-      DoSync := Assigned(aID) and Assigned(aTime) and (aSyncTime>LastSync);
+      DoSync := Assigned(aID) and Assigned(aTime) and (aSyncTime>aLastSync);
       if DoSync then
         begin
           SelectByRemoteReference(aID.AsString);
@@ -360,6 +361,14 @@ begin
         end;
     end;
 end;
+
+function TSyncItems.LastSync(SyncType: string): TDateTime;
+begin
+  Filter(TBaseDBModule(DataModule).QuoteField('SYNCTYPE')+'='+TBaseDBModule(DataModule).QuoteValue(SyncType),0,'SYNC_TIME');
+  Last;
+  Result := SyncTime.AsDateTime;
+end;
+
 constructor TSyncTable.Create(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
