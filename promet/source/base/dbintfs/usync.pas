@@ -66,7 +66,9 @@ type
   end;
 procedure FieldsToJSON(AFields: TFields; AJSON: TJSONObject; const ADateAsString: Boolean; bFields: TSQLElementList = nil);
 procedure JSONToFields(AJSON: TJSONObject; AFields: TFields; const ADateAsString: Boolean; const AddFields: Boolean = True);
-
+resourcestring
+  strSynchedOut                                      = 'Synchronisation ausgehend %s';
+  strSynchedIn                                       = 'Synchronisation eingehend %s';
 implementation
 uses Variants;
 procedure FieldsToJSON(AFields: TFields; AJSON: TJSONObject;

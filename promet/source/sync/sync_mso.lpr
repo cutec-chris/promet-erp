@@ -40,8 +40,6 @@ resourcestring
   strCollect                                         = 'Zusammenführen';
   strCollectItems                                    = 'Sollen der MAPI Eintrag "%s" und der Promet-ERP Eintrag "%s" zusammengeführt werden ?';
   strSyncItems                                       = 'Sollen der MAPI Eintrag "%s" ins Promet-ERP übernommen werden ?';
-  strSynchedOut                                      = 'Synchronisation ausgehend %s';
-  strSynchedIn                                       = 'Synchronisation eingehend %s';
 const
  PR_IPM_APPOINTMENT_ENTRYID                   = (PT_BINARY) or (($36D0) shl 16);
  PR_IPM_CONTACT_ENTRYID                       = (PT_BINARY) or (($36D1) shl 16);
@@ -907,10 +905,19 @@ begin
         //Aufgaben syncronisieren
         aTasks := TTaskList.Create(nil,Data);
         aFolder := TGenericFolder.Create(aConnection,PR_IPM_TASK_ENTRYID);
+        aJsonList := TJSONArray.Create;
         try
           aItem := aFolder.GetFirst;
           while Assigned(aItem) do
             begin
+              aObj := TJSONObject.Create;
+              aObj.Add('ID',EntryIdToString(aItem.EntryID));
+              aObj.Add('TIMESTAMPD',Rfc822DateTime(aItem.LastModificationTime));
+
+
+
+
+
               DoDelete := false;
               SyncOut := False;
               Collect := False;
