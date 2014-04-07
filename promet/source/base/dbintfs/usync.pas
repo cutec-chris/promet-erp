@@ -23,7 +23,7 @@ unit usync;
 interface
 uses
   Classes, SysUtils, uBaseDbClasses, db, uBaseDbInterface,uBaseApplication,
-  fpjson,fpsqltree,LConvEncoding;
+  fpjson,fpsqltree,LConvEncoding,synautil;
 type
   TSyncTable = class(TBaseDBDataSet)
   public
@@ -58,6 +58,7 @@ type
     procedure SelectByReference(aID : Variant);
     procedure SelectByRemoteReference(aID : Variant);
     function SyncDataSet(aInternal : TBaseDBDataset;aExternal : TJSONArray;SyncType : string) : TJSONArray;
+    function GetField(aObject: TJSONData; aName: string): TJSONData;
     function LastSync(SyncType : string) : TDateTime;
   end;
   TSyncStamps = class(TBaseDbDataSet)
@@ -262,6 +263,19 @@ begin
       end;
 end;
 
+function TSyncItems.GetField(aObject : TJSONData;aName : string) : TJSONData;
+begin
+  Result := nil;
+  if aObject is TJSONObject then
+    begin
+      if (not Assigned(result)) and (TJSONObject(aObject).IndexOfName(aName,True) > -1) then
+        Result := aObject.Items[TJSONObject(aObject).IndexOfName(aName,True)];
+    end;
+end;
+{
+You have to push an JSON List with Data in aExternal with ID,TIMESTAMPD or TIMESTAMP filled
+and get an List with changed Data since Lastsync with ID and TIMESTAMPD
+}
 function TSyncItems.SyncDataSet(aInternal: TBaseDBDataset;
   aExternal: TJSONArray; SyncType: string): TJSONArray;
 var
@@ -274,13 +288,7 @@ var
   i: Integer;
   aID: TJSONData;
   aSyncTime: TDateTime;
-
-  function GetField(aObject : TJSONObject;aName : string) : TJSONData;
-  begin
-    Result := nil;
-    if (not Assigned(result)) and (aObject.IndexOfName(aName,True) > -1) then
-      Result := aObject.Items[aObject.IndexOfName(aName,True)];
-  end;
+  tmp: TJSONStringType;
 
 begin
   Result := TJSONArray.Create;
@@ -307,7 +315,7 @@ begin
                 aTime := GetField(aObj,'timestamp');
               if Assigned(aField) and Assigned(aTime)
               and (aField.Value=aInternal.Id.AsVariant)
-              and (StrToDateTime(aTime.AsString)>aInternal.TimeStamp.AsDateTime)
+              and (DecodeRfcDateTime(aTime.AsString)>aInternal.TimeStamp.AsDateTime)
               then
                 DoSync := False;
             end;
@@ -324,6 +332,7 @@ begin
               Post;
               VJSON := TJSONObject.Create;
               FieldsToJSON(aInternal.DataSet.Fields, VJSON, True);
+              VJSON.Add('ID',RemoteID.AsString);
               Result.Add(VJSON);
             end;
         end;
@@ -337,7 +346,8 @@ begin
       aTime := GetField(aObj,'timestampd');
       if not Assigned(aTime) then
         aTime := GetField(aObj,'timestamp');
-      aSyncTime := StrToDateDef(aTime.AsString,0);
+      tmp := aTime.AsString;
+      aSyncTime := DecodeRfcDateTime(tmp);
       DoSync := Assigned(aID) and Assigned(aTime) and (aSyncTime>aLastSync);
       if DoSync then
         begin
@@ -442,4 +452,4 @@ begin
 end;
 
 end.
-
+

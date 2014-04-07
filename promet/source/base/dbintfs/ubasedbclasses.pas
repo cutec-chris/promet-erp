@@ -203,6 +203,7 @@ type
     FOptions: TOptions;
     FRights: TRights;
     FHistory: TBaseHistory;
+    function GetAcc: TField;
     function GetIDCode: TField;
     function GetLeaved: TField;
     function GetPasswort: TField;
@@ -223,6 +224,7 @@ type
     procedure SelectByParent(aParent : Variant);
     function CreateTable : Boolean;override;
     property UserName : TField read GetUser;
+    property Accountno : TField read GetAcc;
     property Leaved : TField read GetLeaved;
     property Passwort : TField read GetPasswort;
     property Salt : TField read GetSalt;
@@ -1857,6 +1859,11 @@ begin
   Result := FieldByName('IDCODE');
 end;
 
+function TUser.GetAcc: TField;
+begin
+  Result := DataSet.FieldByName('ACCOUNTNO');
+end;
+
 function TUser.GetPasswort: TField;
 begin
   Result := DataSet.FieldByName('PASSWORD');
@@ -2598,4 +2605,4 @@ begin
 end;
 initialization
 end.
-
+

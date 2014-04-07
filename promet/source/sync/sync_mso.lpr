@@ -8,7 +8,7 @@ uses
   { you can add units after this }, FileUtil,Forms, uData,db,
   Dialogs,Controls,uBaseCustomApplication, pcmdprometapp,Variants,LConvEncoding,
   dateutils,Graphics,uSync,uPerson,uCalendar,utask,Windows,comobj, ActiveX,Utils,
-  uBaseDBInterface,LazLogger,fpJSON,
+  uBaseDBInterface,LazLogger,fpJSON,synautil,
   MapiServices,MapiDefs,MAPIUtil,MapiTags,MapiGuid;
 type
 
@@ -254,6 +254,8 @@ var
   aStart,aEnd : TDateTime;
   aAllday: Boolean;
   sl: TStringList;
+  aJsonOutList: TJSONArray;
+  aField: TJSONData;
   function RoundToSecond(aDate : TDateTime) : TDateTime;
   begin
     Result := Round(aDate * SecsPerDay) / SecsPerDay;
@@ -783,274 +785,97 @@ begin
         aFolder := TGenericFolder.Create(aConnection,PR_IPM_APPOINTMENT_ENTRYID);
         //Build Appointment List
         aJsonList := TJSONArray.Create;
-        aItem := aFolder.GetFirst;
-        while Assigned(aItem) do
-          begin
-            aObj := TJSONObject.Create;
-            aObj.Add('ID',EntryIdToString(aItem.EntryID));
-            aObj.Add('PRIVATE',Boolean(aItem.PropertiesDirect[aItem.GetPropertyDispId($8506, PT_BOOLEAN, False, @PSETID_Common),ptBoolean]));
-            aObj.Add('TIMESTAMPD',DateTimeToStr(aItem.LastModificationTime));
-            aObj.Add('SUMMARY',EncodingIn(aItem.PropertiesDirect[PR_SUBJECT,ptString]));
-            SStream := TStringStream.Create('');
-            try
-              if aItem.CoMessage.OpenProperty(PR_BODY, IStream, STGM_READ, 0, IInterface(StreamIntf)) = S_OK then
-                begin
-                  StreamIntf.Stat(StreamInfo, STATFLAG_NONAME);
-                  OLEStream := TOleStream.Create(StreamIntf);
-                  try
-                    SSTream.CopyFrom(OLEStream,StreamInfo.cbSize);
-                  finally
-                    OLEStream.Free;
-                  end;
-                  if SStream.DataString <> '' then
-                    aObj.Add('DESCR',SStream.DataString);
-                end;
-            finally
-              StreamIntf := nil;
-            end;
-            if not Assigned(aObj.Find('DESCR')) then
-              aObj.Add('DESCR',EncodingIn(aItem.PropertiesDirect[PR_BODY,ptString]));
-            aObj.Add('LOCATION',EncodingIn(aItem.PropertiesDirect[PR_LOCATION,ptString]));
-            aStart := aItem.PropertiesDirect[aItem.GetPropertyDispId($820D, PT_SYSTIME, False, @PSETID_Appointment),ptTime];
-            aEnd := aItem.PropertiesDirect[aItem.GetPropertyDispId($820E, PT_SYSTIME, False, @PSETID_Appointment),ptTime];
-            aAllday := Boolean(aItem.PropertiesDirect[aItem.GetPropertyDispId($8215, PT_BOOLEAN, False, @PSETID_Appointment),ptBoolean]);
-            aObj.Add('ALLDAY',aAllday);
-            aObj.Add('STARTDATE',DateTimeToStr(aStart));
-            aObj.Add('ENDDATE',DateTimeToStr(aEnd));
-            if aItem.PropertiesDirect[aItem.GetPropertyDispId($8223, PT_BOOLEAN, False, @PSETID_Appointment),ptBoolean] then  //PR_ISRECURRING
-              begin
-                aPattern := aItem.PropertiesDirect[aItem.GetPropertyDispId($8232, PT_STRING8, False, @PSETID_Appointment),ptString];
-                case aItem.PropertiesDirect[aItem.GetPropertyDispId($8231, PT_LONG, False, @PSETID_Appointment),ptInteger] of //RecurenceType    (1=Täglich=1,2=Wöchentlich=2,3=Monatlich=4,4=Jährlich=6)
-                1:
-                  begin
-                    aObj.Add('ROTATION',1);
-//                            aCalendar.DataSet.FieldByName('ROTCUS').AsInteger := aItem.PropertiesDirect[(PT_I2) or ($8075 shl 16),ptInteger]; //DayInterval
-                  end;
-                2:
-                  begin
-                    aObj.Add('ROTATION',2);
-//                            aCalendar.DataSet.FieldByName('ROTCUS').AsInteger := (aItem.PropertiesDirect[(PT_I2) or ($808D shl 16),ptInteger]); //WeekInterval
-                  end;
-                3:
-                  begin
-                    aObj.Add('ROTATION',4);
-//                            aCalendar.DataSet.FieldByName('ROTCUS').AsInteger := (aItem.PropertiesDirect[(PT_I2) or ($8080 shl 16),ptInteger]); //MonthInterval
-                  end;
-                4:
-                  begin
-                    aObj.Add('ROTATION',6);
-//                            aCalendar.DataSet.FieldByName('ROTCUS').AsInteger := (aItem.PropertiesDirect[(PT_I2) or ($808F shl 16),ptInteger]); //YearInterval
-                  end;
-                end;
-                aObj.Add('ROTTO',DateTimeToStr(aItem.PropertiesDirect[aItem.GetPropertyDispId($8236, PT_SYSTIME, False, @PSETID_Appointment),ptTime]));
-              end;
-            aItem.Free;
-            aItem := aFolder.GetNext;
-            aJsonList.Add(aObj);
-          end;
-        sl := TStringList.Create;
-        sl.Text:=aJsonList.AsJSON;
-        sl.SaveToFile('c:\cal.json');
-        sl.Free;
-
         try
           aItem := aFolder.GetFirst;
           while Assigned(aItem) do
             begin
-              SyncOut := False;
-              Collect := False;
-              DoSync := True;
-              aID := 0;
-              Data.SetFilter(SyncItems,Data.QuoteField('SYNCTYPE')+'='+Data.QuoteValue(Synctype)+' AND '+Data.QuoteField('REMOTE_ID')+'='+Data.QuoteValue(EntryIdToString(aItem.EntryID)));
-              while SyncItems.Count > 0 do
-                begin
-                  DoSync := not SyncItems.DataSet.FieldByName('LOCAL_ID').IsNull;
-                  aCalendar.Select(SyncItems.DataSet.FieldByName('LOCAL_ID').AsVariant);
-                  aCalendar.Open;
-                  if aCalendar.DataSet.RecordCount > 0 then
-                    begin
-                      DoSync := SyncItems.SyncTime.IsNull;
-                      DoSync := DoSync or (RoundToSecond(IncHour(aItem.LastModificationTime,TimeOffset))>RoundToSecond(SyncItems.SyncTime.AsDateTime));
-                      DoSync := DoSync or (RoundToSecond(aCalendar.Timestamp.AsDateTime)>RoundToSecond(SyncItems.SyncTime.AsDateTime));
-                      aID := aCalendar.Id.AsVariant;
-                      break;
-                    end
-                  else
-                    begin
-                      SyncItems.Delete;
+              aObj := TJSONObject.Create;
+              aObj.Add('ID',EntryIdToString(aItem.EntryID));
+              aObj.Add('PRIVATE',Boolean(aItem.PropertiesDirect[aItem.GetPropertyDispId($8506, PT_BOOLEAN, False, @PSETID_Common),ptBoolean]));
+              aObj.Add('TIMESTAMPD',Rfc822DateTime(aItem.LastModificationTime));
+              aObj.Add('SUMMARY',EncodingIn(aItem.PropertiesDirect[PR_SUBJECT,ptString]));
+              SStream := TStringStream.Create('');
+              try
+                if aItem.CoMessage.OpenProperty(PR_BODY, IStream, STGM_READ, 0, IInterface(StreamIntf)) = S_OK then
+                  begin
+                    StreamIntf.Stat(StreamInfo, STATFLAG_NONAME);
+                    OLEStream := TOleStream.Create(StreamIntf);
+                    try
+                      SSTream.CopyFrom(OLEStream,StreamInfo.cbSize);
+                    finally
+                      OLEStream.Free;
                     end;
+                    if SStream.DataString <> '' then
+                      aObj.Add('DESCR',SStream.DataString);
+                  end;
+              finally
+                StreamIntf := nil;
+              end;
+              if not Assigned(aObj.Find('DESCR')) then
+                aObj.Add('DESCR',EncodingIn(aItem.PropertiesDirect[PR_BODY,ptString]));
+              aObj.Add('LOCATION',EncodingIn(aItem.PropertiesDirect[PR_LOCATION,ptString]));
+              aStart := aItem.PropertiesDirect[aItem.GetPropertyDispId($820D, PT_SYSTIME, False, @PSETID_Appointment),ptTime];
+              aEnd := aItem.PropertiesDirect[aItem.GetPropertyDispId($820E, PT_SYSTIME, False, @PSETID_Appointment),ptTime];
+              aStart := IncHour(aStart,TimeOffset);
+              aEnd := IncHour(aEnd,TimeOffset);
+              aAllday := Boolean(aItem.PropertiesDirect[aItem.GetPropertyDispId($8215, PT_BOOLEAN, False, @PSETID_Appointment),ptBoolean]);
+              aObj.Add('ALLDAY',aAllday);
+              aObj.Add('STARTDATE',Rfc822DateTime(aStart));
+              aObj.Add('ENDDATE',Rfc822DateTime(aEnd));
+              if aItem.PropertiesDirect[aItem.GetPropertyDispId($8223, PT_BOOLEAN, False, @PSETID_Appointment),ptBoolean] then  //PR_ISRECURRING
+                begin
+                  aPattern := aItem.PropertiesDirect[aItem.GetPropertyDispId($8232, PT_STRING8, False, @PSETID_Appointment),ptString];
+                  case aItem.PropertiesDirect[aItem.GetPropertyDispId($8231, PT_LONG, False, @PSETID_Appointment),ptInteger] of //RecurenceType    (1=Täglich=1,2=Wöchentlich=2,3=Monatlich=4,4=Jährlich=6)
+                  1:aObj.Add('ROTATION',1);
+                  2:aObj.Add('ROTATION',2);
+                  3:aObj.Add('ROTATION',4);
+                  4:aObj.Add('ROTATION',6);
+                  end;
+                  aObj.Add('ROTTO',Rfc822DateTime(aItem.PropertiesDirect[aItem.GetPropertyDispId($8236, PT_SYSTIME, False, @PSETID_Appointment),ptTime]));
                 end;
-              if aID <> 0 then
+              aItem.Free;
+              aItem := aFolder.GetNext;
+              aJsonList.Add(aObj);
+            end;
+          aCalendar.SelectByUser(Data.Users.Accountno.AsString);
+          aCalendar.Open;
+
+          aJsonOutList := SyncItems.SyncDataSet(aCalendar,aJsonList,SyncType);
+
+          aJsonList.Free;
+          aItem := aFolder.GetFirst;
+          //change existing Items
+          while Assigned(aItem) do
+            begin
+              for i := 0 to aJsonOutList.Count-1 do
                 begin
-                  aCalendar.Select(aID);
-                  aCalendar.Open;
-                  if (aCalendar.Timestamp.AsDateTime>SyncItems.SyncTime.AsDateTime) then
-                    SyncOut := True;
-                end;
-              if (aID = 0) and DoSync then
-                begin
-                  aCalendar.Append;
-                  aCalendar.DataSet.FieldByName('ID').AsInteger := 99799;
-                  aCalendar.DataSet.FieldByName('REF_ID_ID').AsVariant:=Data.Users.Id.AsVariant;
-                  aCalendar.DataSet.Post;
-                  aCalendar.DataSet.Edit;
-                  aCalendar.DataSet.FieldByName('ID').AsInteger:=Data.GetUniID(aCalendar.DataSet);
-                  aID := aCalendar.Id.AsVariant;
-                  SyncOut := False;
-                  with SyncItems.DataSet do
+                  aField := SyncItems.GetField(aJsonOutList[i],'ID');
+                  if Assigned(aField) and (aField.AsString = EntryIdToString(aItem.EntryID)) then
                     begin
-                      Insert;
-                      FieldByName('SYNCTYPE').AsString:=SyncType;
-                      FieldByName('REMOTE_ID').AsString:=EntryIdToString(aItem.EntryID);
-                      FieldByName('LOCAL_ID').AsVariant:=aCalendar.Id.AsVariant;
-                      FieldByName('TIMESTAMPD').AsDateTime:=Now();
-                      Post;
-                    end;
-                end;
-              //dont sync private
-              DoSync := DoSync and (not aItem.PropertiesDirect[aItem.GetPropertyDispId($8506, PT_BOOLEAN, False, @PSETID_Common),ptBoolean]);
-              if (aID <> 0) and DoSync then
-                begin
-                  if SyncOut then
-                    if not aCalendar.CanEdit then aCalendar.DataSet.Edit;
-                  SyncProperty(aItem,PR_SUBJECT,ptString,aCalendar.DataSet.FieldByName('SUMMARY'),SyncOut,Collect);
-                  WritelnMessage('Syncing '+aCalendar.DataSet.FieldByName('SUMMARY').AsString+' ...');
-                  WritelnMessage('OE Time:'+DateTimeToStr(RoundToSecond(IncHour(aItem.LastModificationTime,TimeOffset)))+' PE Time:'+DateTimeToStr(RoundToSecond(aCalendar.Timestamp.AsDateTime)));
-                  SyncProperty(aItem,PR_BODY,ptString,aCalendar.DataSet.FieldByName('DESCR'),SyncOut,Collect);
-                  if not SyncOut then
-                    begin
-                      SyncProperty(aItem,PR_BODY,ptString,aCalendar.DataSet.FieldByName('DESCR'),SyncOut,Collect);
-                      if (not SyncOut) and aCalendar.DataSet.FieldByName('DESCR').IsNull then
-                        begin
-//                          RTFSync(aItem.CoMessage,RTF_SYNC_BODY_CHANGED,RtfIsUpdated);
-//                          if RTFIsUpdated then
-//                            SyncProperty(aItem,PR_BODY,ptString,aTasks.DataSet.FieldByName('DESC'),SyncOut,Collect);
-                          SStream := TStringStream.Create('');
-                          if aItem.CoMessage.OpenProperty(PR_BODY, IStream, STGM_READ, 0, IInterface(StreamIntf)) = S_OK then
-                          try
-                            StreamIntf.Stat(StreamInfo, STATFLAG_NONAME);
-                            OLEStream := TOleStream.Create(StreamIntf);
-                            try
-                              SSTream.CopyFrom(OLEStream,StreamInfo.cbSize);
-                            finally
-                              OLEStream.Free;
-                            end;
-                          finally
-                            StreamIntf := nil;
-                          end;
-                          aCalendar.DataSet.FieldByName('DESCR').AsString := SStream.DataString;
-                          SStream.Free;
-                        end;
-                    end;
-                  SyncProperty(aItem,PR_LOCATION,ptString,aCalendar.DataSet.FieldByName('LOCATION'),SyncOut,Collect);
-                  if Frac(aCalendar.DataSet.FieldByName('STARTDATE').AsFloat) = 0 then
-                    begin
-                      if not aCalendar.CanEdit then aCalendar.DataSet.Edit;
-                      aCalendar.DataSet.FieldByName('STARTDATE').AsFloat := aCalendar.DataSet.FieldByName('STARTDATE').AsFloat+aCalendar.DataSet.FieldByName('STARTTIME').AsFloat;
-                    end;
-                  if Frac(aCalendar.DataSet.FieldByName('ENDDATE').AsFloat) = 0 then
-                    begin
-                      if not aCalendar.CanEdit then aCalendar.DataSet.Edit;
-                      aCalendar.DataSet.FieldByName('ENDDATE').AsFloat := aCalendar.DataSet.FieldByName('ENDDATE').AsFloat+aCalendar.DataSet.FieldByName('ENDTIME').AsFloat;
-                    end;
-                  if not Syncout then //Securely dont Syncout times at time
-                    begin
-                      SyncProperty(aItem,aItem.GetPropertyDispId($820D, PT_SYSTIME, False, @PSETID_Appointment),ptTime,aCalendar.DataSet.FieldByName('STARTDATE'),SyncOut,Collect);
-                      SyncProperty(aItem,aItem.GetPropertyDispId($820E, PT_SYSTIME, False, @PSETID_Appointment),ptTime,aCalendar.DataSet.FieldByName('ENDDATE'),SyncOut,Collect);
-                    end;
-                  if SyncOut then
-                    aItem.PropertiesDirect[aItem.GetPropertyDispId($8215, PT_BOOLEAN, False, @PSETID_Appointment),ptBoolean] := aCalendar.DataSet.FieldByName('ALLDAY').AsString = 'Y'
-                  else
-                    begin
-                      if aItem.PropertiesDirect[aItem.GetPropertyDispId($8215, PT_BOOLEAN, False, @PSETID_Appointment),ptBoolean] then
-                        begin
-                          aCalendar.DataSet.FieldByName('ALLDAY').AsString := 'Y';
-                          aCalendar.DataSet.FieldByName('STARTDATE').AsFloat:=Trunc(aCalendar.DataSet.FieldByName('STARTDATE').AsFloat)+1;
-                        end
-                      else
-                        aCalendar.DataSet.FieldByName('ALLDAY').AsString := 'N';
-                    end;
-                  //TODO: Alarm
-                  //TODO:reccuring (dont work with standart props)
-                  if SyncOut then
-                    begin
-  {                    case aCalendar.DataSet.FieldByName('ROTATION').AsInteger of
-                      0:
-                        begin
-                          aItem.PropertiesDirect[(PT_BOOLEAN) or ($8014 shl 16),ptBoolean] := False;
-                        end;
-                      1:
-                        begin
-                          aItem.PropertiesDirect[(PT_LONG) or ($803A shl 16),ptInteger] := 1;
-                          aItem.PropertiesDirect[(PT_I2) or ($8075 shl 16),ptInteger] := aCalendar.DataSet.FieldByName('ROTCUS').AsInteger; //DayInterval
-                        end;
-                      2:
-                        begin
-                          aItem.PropertiesDirect[(PT_LONG) or ($803A shl 16),ptInteger] := 2;
-                          aItem.PropertiesDirect[(PT_I2) or ($808D shl 16),ptInteger] := aCalendar.DataSet.FieldByName('ROTCUS').AsInteger; //WeekInterval
-                        end;
-                      3,4:
-                        begin
-                          aItem.PropertiesDirect[(PT_LONG) or ($803A shl 16),ptInteger] := 3;
-                          aItem.PropertiesDirect[(PT_I2) or ($8080 shl 16),ptInteger] := aCalendar.DataSet.FieldByName('ROTCUS').AsInteger; //MonthInterval
-                        end;
-                      5,6:
-                        begin
-                          aItem.PropertiesDirect[(PT_LONG) or ($803A shl 16),ptInteger] := 4;
-                          aItem.PropertiesDirect[(PT_I2) or ($808F shl 16),ptInteger] := aCalendar.DataSet.FieldByName('ROTCUS').AsInteger; //YearInterval
-                        end;
-                      end;
-                      if aCalendar.DataSet.FieldByName('ROTATION').AsInteger > 0 then
-                        aItem.PropertiesDirect[(PT_BOOLEAN) or ($8014 shl 16),ptBoolean] := True;
-                      }
-                    end
-                  else if (not SyncOut) or Collect then
-                    begin
-                      if aItem.PropertiesDirect[aItem.GetPropertyDispId($8223, PT_BOOLEAN, False, @PSETID_Appointment),ptBoolean] then  //PR_ISRECURRING
-                        begin
-//                          SyncProperty(aItem,aItem.GetPropertyDispId($8235, PT_SYSTIME, False, @PSETID_Appointment),ptTime,aCalendar.DataSet.FieldByName('STARTDATE'),SyncOut,Collect);
-                          SyncProperty(aItem,aItem.GetPropertyDispId($8236, PT_SYSTIME, False, @PSETID_Appointment),ptTime,aCalendar.DataSet.FieldByName('ROTTO'),SyncOut,Collect);
-                          aPattern := aItem.PropertiesDirect[aItem.GetPropertyDispId($8232, PT_STRING8, False, @PSETID_Appointment),ptString];
-                          case aItem.PropertiesDirect[aItem.GetPropertyDispId($8231, PT_LONG, False, @PSETID_Appointment),ptInteger] of //RecurenceType    (1=Täglich=1,2=Wöchentlich=2,3=Monatlich=4,4=Jährlich=6)
-                          1:
-                            begin
-                              aCalendar.DataSet.FieldByName('ROTATION').AsInteger := 1;
-  //                            aCalendar.DataSet.FieldByName('ROTCUS').AsInteger := aItem.PropertiesDirect[(PT_I2) or ($8075 shl 16),ptInteger]; //DayInterval
-                            end;
-                          2:
-                            begin
-                              aCalendar.DataSet.FieldByName('ROTATION').AsInteger := 2;
-  //                            aCalendar.DataSet.FieldByName('ROTCUS').AsInteger := (aItem.PropertiesDirect[(PT_I2) or ($808D shl 16),ptInteger]); //WeekInterval
-                            end;
-                          3:
-                            begin
-                              aCalendar.DataSet.FieldByName('ROTATION').AsInteger := 4;
-  //                            aCalendar.DataSet.FieldByName('ROTCUS').AsInteger := (aItem.PropertiesDirect[(PT_I2) or ($8080 shl 16),ptInteger]); //MonthInterval
-                            end;
-                          4:
-                            begin
-                              aCalendar.DataSet.FieldByName('ROTATION').AsInteger := 6;
-  //                            aCalendar.DataSet.FieldByName('ROTCUS').AsInteger := (aItem.PropertiesDirect[(PT_I2) or ($808F shl 16),ptInteger]); //YearInterval
-                            end;
-                          end;
-                        end;
-                    end;
-                  if SyncOut then
-                    begin
+                      aField := SyncItems.GetField(aJsonOutList[i],'SUMMARY');
+                      aItem.PropertiesDirect[PR_SUBJECT,ptString] := EncodingOut(aField.AsString);
+                      aField := SyncItems.GetField(aJsonOutList[i],'LOCATION');
+                      aItem.PropertiesDirect[PR_LOCATION,ptString] := EncodingOut(aField.AsString);
+                      aField := SyncItems.GetField(aJsonOutList[i],'ALLDAY');
+                      aItem.PropertiesDirect[aItem.GetPropertyDispId($8215, PT_BOOLEAN, False, @PSETID_Appointment),ptBoolean] := aField.AsString = 'Y';
                       aItem.LastModificationTime := Now;
                       aItem.CoMessage.SaveChanges(0);
+                      aJsonOutList[i].Free;
+                      aJsonOutList[i] := nil;
                     end;
-                  if aCalendar.canEdit then
-                    aCalendar.DataSet.Post;
-                  if not SyncItems.CanEdit then
-                    SyncItems.DataSet.Edit;
-                  SyncItems.FieldByName('SYNC_TIME').AsDateTime:=Now();
-                  SyncItems.FieldByName('USER_ID').AsVariant:=Data.Users.Id.AsVariant;
-                  SyncItems.DataSet.Post;
                 end;
               aItem.Free;
               aItem := aFolder.GetNext;
             end;
+          for i := 0 to aJsonOutList.Count-1 do
+            begin
+              //TODO:add new Calendar entrys
+              if Assigned(aJsonOutList[i]) then
+                begin
+
+                end;
+            end;
+          aJsonOutList.Free;
         finally
           aCalendar.Free;
           aFolder.Free;
