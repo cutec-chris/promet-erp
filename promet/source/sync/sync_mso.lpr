@@ -851,14 +851,18 @@ begin
                   if Assigned(aField) and (aField.AsString = EntryIdToString(aItem.EntryID)) then
                     begin
                       aField := SyncItems.GetField(aJsonOutList[i],'SUMMARY');
-                      aItem.PropertiesDirect[PR_SUBJECT,ptString] := EncodingOut(aField.AsString);
-                      aField := SyncItems.GetField(aJsonOutList[i],'DESC');
-                      if aItem.PropertiesDirect[PR_BODY,ptString] = '' then
-                        aItem.PropertiesDirect[PR_BODY,ptString] := EncodingOut(aField.AsString);
+                      if Assigned(aField) then
+                        aItem.PropertiesDirect[PR_SUBJECT,ptString] := EncodingOut(aField.AsString);
+                      aField := SyncItems.GetField(aJsonOutList[i],'DESCR');
+                      if Assigned(aField) then
+                        if aItem.PropertiesDirect[PR_BODY,ptString] = '' then
+                          aItem.PropertiesDirect[PR_BODY,ptString] := EncodingOut(aField.AsString);
                       aField := SyncItems.GetField(aJsonOutList[i],'LOCATION');
-                      aItem.PropertiesDirect[PR_LOCATION,ptString] := EncodingOut(aField.AsString);
+                      if Assigned(aField) then
+                        aItem.PropertiesDirect[PR_LOCATION,ptString] := EncodingOut(aField.AsString);
                       aField := SyncItems.GetField(aJsonOutList[i],'ALLDAY');
-                      aItem.PropertiesDirect[aItem.GetPropertyDispId($8215, PT_BOOLEAN, False, @PSETID_Appointment),ptBoolean] := aField.AsString = 'Y';
+                      if Assigned(aField) then
+                        aItem.PropertiesDirect[aItem.GetPropertyDispId($8215, PT_BOOLEAN, False, @PSETID_Appointment),ptBoolean] := aField.AsString = 'Y';
                       aItem.LastModificationTime := Now;
                       aItem.CoMessage.SaveChanges(0);
                       aJsonOutList[i].Free;
@@ -868,6 +872,7 @@ begin
               aItem.Free;
               aItem := aFolder.GetNext;
             end;
+          //Create new Items
           for i := 0 to aJsonOutList.Count-1 do
             begin
               //TODO:add new Calendar entrys
@@ -964,46 +969,61 @@ begin
                   aField := SyncItems.GetField(aJsonOutList[i],'EXTERNAL_ID');
                   if Assigned(aField) and (aField.AsString = EntryIdToString(aItem.EntryID)) then
                     begin
-                      if aFolder.Folder.CreateMessage(IMapiMessage, 0, MapiMessage) = S_OK then
-                        begin
-                          aItem := TMapiMailItem.Create(aFolder, MapiMessage, False);
-                          aItem.MessageClass:='IPM.Task';
-                          aField := SyncItems.GetField(aJsonOutList[i],'SUBJECT');
-                          aItem.PropertiesDirect[PR_SUBJECT,ptString] := EncodingOut(aField.AsString);
-                          aField := SyncItems.GetField(aJsonOutList[i],'DESC');
-                          if aItem.PropertiesDirect[PR_BODY,ptString] = '' then
-                            aItem.PropertiesDirect[PR_BODY,ptString] := EncodingOut(aField.AsString);
-                          aField := SyncItems.GetField(aJsonOutList[i],'COMPLETED');
-                          aItem.PropertiesDirect[aItem.GetPropertyDispId($811c, PT_BOOLEAN, False, @PSETID_Task),ptBoolean] := aField.AsString = 'Y';
-                          aField := SyncItems.GetField(aJsonOutList[i],'DUEDATE');
-                          aItem.PropertiesDirect[aItem.GetPropertyDispId($8105, PT_SYSTIME, False, @PSETID_Task),ptTime] := DecodeRfcDateTime(aField.AsString);
-                          aField := SyncItems.GetField(aJsonOutList[i],'STARTDATE');
-                          aItem.PropertiesDirect[aItem.GetPropertyDispId($8104, PT_SYSTIME, False, @PSETID_Task),ptTime] := DecodeRfcDateTime(aField.AsString);
-                          aItem.CoMessage.SaveChanges(0);
-                          aFolder.Free;
-                          aFolder := TGenericFolder.Create(aConnection,PR_IPM_TASK_ENTRYID);
-                          bItem := aFolder.GetFirst;
-                          while Assigned(bItem) do
-                            begin
-                              if EncodingIn(bItem.Subject)=aTasks.DataSet.FieldByName('SUMMARY').AsString then
-                                break
-                              else
-                                begin
-                                  bItem.Free;
-                                  bItem := aFolder.GetNext;
-                                end;
-                            end;
-                          FreeAndNil(aItem);
-                          aItem := bItem;
-                        end;
+                      aField := SyncItems.GetField(aJsonOutList[i],'SUBJECT');
+                      if Assigned(aField) then
+                        aItem.PropertiesDirect[PR_SUBJECT,ptString] := EncodingOut(aField.AsString);
+                      aField := SyncItems.GetField(aJsonOutList[i],'DESC');
+                      if Assigned(aField) then
+                        if aItem.PropertiesDirect[PR_BODY,ptString] = '' then
+                          aItem.PropertiesDirect[PR_BODY,ptString] := EncodingOut(aField.AsString);
+                      aField := SyncItems.GetField(aJsonOutList[i],'COMPLETED');
+                      if Assigned(aField) then
+                        aItem.PropertiesDirect[aItem.GetPropertyDispId($811c, PT_BOOLEAN, False, @PSETID_Task),ptBoolean] := aField.AsString = 'Y';
+                      aField := SyncItems.GetField(aJsonOutList[i],'DUEDATE');
+                      if Assigned(aField) then
+                        aItem.PropertiesDirect[aItem.GetPropertyDispId($8105, PT_SYSTIME, False, @PSETID_Task),ptTime] := DecodeRfcDateTime(aField.AsString);
+                      aField := SyncItems.GetField(aJsonOutList[i],'STARTDATE');
+                      if Assigned(aField) then
+                        aItem.PropertiesDirect[aItem.GetPropertyDispId($8104, PT_SYSTIME, False, @PSETID_Task),ptTime] := DecodeRfcDateTime(aField.AsString);
+                      aItem.CoMessage.SaveChanges(0);
                     end;
                 end;
-              if not Assigned(bItem) then
+              FreeAndNil(aItem);
+              aItem := aFolder.GetNext;
+            end;
+          //Create new Items
+          for i := 0 to aJsonOutList.Count-1 do
+            begin
+              //TODO:add new Calendar entrys
+              if Assigned(aJsonOutList[i]) then
                 begin
-                  FreeAndNil(aItem);
-                  aItem := aFolder.GetNext;
+                  if aFolder.Folder.CreateMessage(IMapiMessage, 0, MapiMessage) = S_OK then
+                    begin
+                      aItem := TMapiMailItem.Create(aFolder, MapiMessage, False);
+                      aItem.MessageClass:='IPM.Task';
+                      aField := SyncItems.GetField(aJsonOutList[i],'SUBJECT');
+                      if Assigned(aField) then
+                        aItem.PropertiesDirect[PR_SUBJECT,ptString] := EncodingOut(aField.AsString);
+                      aField := SyncItems.GetField(aJsonOutList[i],'DESC');
+                      if Assigned(aField) then
+                        if aItem.PropertiesDirect[PR_BODY,ptString] = '' then
+                          aItem.PropertiesDirect[PR_BODY,ptString] := EncodingOut(aField.AsString);
+                      aField := SyncItems.GetField(aJsonOutList[i],'COMPLETED');
+                      if Assigned(aField) then
+                        aItem.PropertiesDirect[aItem.GetPropertyDispId($811c, PT_BOOLEAN, False, @PSETID_Task),ptBoolean] := aField.AsString = 'Y';
+                      aField := SyncItems.GetField(aJsonOutList[i],'DUEDATE');
+                      if Assigned(aField) then
+                        aItem.PropertiesDirect[aItem.GetPropertyDispId($8105, PT_SYSTIME, False, @PSETID_Task),ptTime] := DecodeRfcDateTime(aField.AsString);
+                      aField := SyncItems.GetField(aJsonOutList[i],'STARTDATE');
+                      if Assigned(aField) then
+                        aItem.PropertiesDirect[aItem.GetPropertyDispId($8104, PT_SYSTIME, False, @PSETID_Task),ptTime] := DecodeRfcDateTime(aField.AsString);
+                      aItem.CoMessage.SaveChanges(0);
+                      aItem.Free;
+                    end;
+
                 end;
             end;
+          aJsonOutList.Free;
         finally
           aTasks.Free;
           aFolder.Free;
