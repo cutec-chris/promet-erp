@@ -864,7 +864,10 @@ begin
                       if Assigned(aField) then
                         aItem.PropertiesDirect[aItem.GetPropertyDispId($8215, PT_BOOLEAN, False, @PSETID_Appointment),ptBoolean] := aField.AsString = 'Y';
                       aItem.LastModificationTime := Now;
-                      aItem.CoMessage.SaveChanges(0);
+                      try
+                        aItem.CoMessage.SaveChanges(0);
+                      except
+                      end;
                       aJsonOutList[i].Free;
                       aJsonOutList[i] := nil;
                     end;
@@ -985,7 +988,10 @@ begin
                       aField := SyncItems.GetField(aJsonOutList[i],'STARTDATE');
                       if Assigned(aField) then
                         aItem.PropertiesDirect[aItem.GetPropertyDispId($8104, PT_SYSTIME, False, @PSETID_Task),ptTime] := DecodeRfcDateTime(aField.AsString);
-                      aItem.CoMessage.SaveChanges(0);
+                      try
+                        aItem.CoMessage.SaveChanges(0);
+                      except
+                      end;
                     end;
                 end;
               FreeAndNil(aItem);
@@ -1017,7 +1023,10 @@ begin
                       aField := SyncItems.GetField(aJsonOutList[i],'STARTDATE');
                       if Assigned(aField) then
                         aItem.PropertiesDirect[aItem.GetPropertyDispId($8104, PT_SYSTIME, False, @PSETID_Task),ptTime] := DecodeRfcDateTime(aField.AsString);
-                      aItem.CoMessage.SaveChanges(0);
+                      try
+                        aItem.CoMessage.SaveChanges(0);
+                      except
+                      end;
                       aItem.Free;
                     end;
 
