@@ -89,25 +89,33 @@ var
         Result := True;
         exit;
       end;
-    for a := 0 to bFields.Count-1 do
+    if Assigned(bFields) then
       begin
-        aF := bFields[a];
-        if af is TSQLSelectAsterisk then
+        for a := 0 to bFields.Count-1 do
           begin
-            aFName:='*';
-            Result := True;
-            exit;
-          end
-        else if af is TSQLSelectField then
-          aFName := aF.GetAsSQL([],0);
-        if (UpperCase(aName) = Uppercase(aFName))
-        then
-          begin
-            if aName <> '*' then
-              VFieldName:=aFName;
-            Result := True;
-            exit;
+            aF := bFields[a];
+            if af is TSQLSelectAsterisk then
+              begin
+                aFName:='*';
+                Result := True;
+                exit;
+              end
+            else if af is TSQLSelectField then
+              aFName := aF.GetAsSQL([],0);
+            if (UpperCase(aName) = Uppercase(aFName))
+            then
+              begin
+                if aName <> '*' then
+                  VFieldName:=aFName;
+                Result := True;
+                exit;
+              end;
           end;
+      end
+    else
+      begin
+        Result := True;
+        exit;
       end;
   end;
 begin
@@ -121,10 +129,10 @@ begin
           AJSON.Add(lowercase(VFieldName), VField.AsBoolean)
         else if VField.DataType = ftDateTime then
           begin
-          if ADateAsString then
-            AJSON.Add(lowercase(VFieldName), VField.AsString)
-          else
-            AJSON.Add(lowercase(VFieldName), VField.AsFloat);
+            if ADateAsString then
+              AJSON.Add(lowercase(VFieldName), VField.AsString)
+            else
+              AJSON.Add(lowercase(VFieldName), VField.AsFloat);
           end
         else if VField.DataType = ftFloat then
           AJSON.Add(lowercase(VFieldName), VField.AsFloat)

@@ -27,12 +27,13 @@ type
 
   { TCalendar }
 
-  TCalendar = class(TBaseDbList)
+  TCalendar = class(TBaseDbList,IBaseHistory)
     procedure FDSDataChange(Sender: TObject; Field: TField);
   private
     FHistory: TBaseHistory;
     FDS: TDataSource;
     FRefID: Variant;
+    function GetHistory: TBaseHistory;
   protected
     function GetTextFieldName: string;override;
     function GetNumberFieldName : string;override;
@@ -43,7 +44,7 @@ type
     procedure SelectPlanedByUser(AccountNo : string);
     procedure SelectPlanedByUserAndTime(AccountNo : string;aStart,aEnd : TDateTime);
     procedure SelectPlanedByUseridAndTime(User : Variant;aStart,aEnd : TDateTime);
-    property History : TBaseHistory read FHistory;
+    property History : TBaseHistory read GetHistory;
     constructor Create(aOwner: TComponent; DM: TComponent;
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     destructor Destroy; override;
@@ -130,6 +131,11 @@ begin
       History.AddItem(Self.DataSet,Format(strCategoryChanged,[Field.AsString]),'','',nil,ACICON_ORERSTATUSCH);
       DataSet.EnableControls;
     end;
+end;
+
+function TCalendar.GetHistory: TBaseHistory;
+begin
+  Result := FHistory;
 end;
 
 function TCalendar.GetTextFieldName: string;

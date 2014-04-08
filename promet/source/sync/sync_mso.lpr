@@ -904,7 +904,7 @@ begin
         #define dispidTaskDelegationState			0x812A	//PT_LONG}
 
 
-        WritelnMessage('Syncing Tasks in...');
+        WritelnMessage('Syncing Tasks');
         //Aufgaben syncronisieren
         aFolder := TGenericFolder.Create(aConnection,PR_IPM_TASK_ENTRYID);
         aJsonList := TJSONArray.Create;
