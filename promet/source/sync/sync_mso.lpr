@@ -903,7 +903,6 @@ begin
 
         WritelnMessage('Syncing Tasks in...');
         //Aufgaben syncronisieren
-        aTasks := TTaskList.Create(nil,Data);
         aFolder := TGenericFolder.Create(aConnection,PR_IPM_TASK_ENTRYID);
         aJsonList := TJSONArray.Create;
         try
@@ -913,170 +912,57 @@ begin
               aObj := TJSONObject.Create;
               aObj.Add('ID',EntryIdToString(aItem.EntryID));
               aObj.Add('TIMESTAMPD',Rfc822DateTime(aItem.LastModificationTime));
+              aObj.Add('SUBJECT',EncodingIn(aItem.PropertiesDirect[PR_SUBJECT,ptString]));
+              SStream := TStringStream.Create('');
+              try
+                if aItem.CoMessage.OpenProperty(PR_BODY, IStream, STGM_READ, 0, IInterface(StreamIntf)) = S_OK then
+                  begin
+                    StreamIntf.Stat(StreamInfo, STATFLAG_NONAME);
+                    OLEStream := TOleStream.Create(StreamIntf);
+                    try
+                      SSTream.CopyFrom(OLEStream,StreamInfo.cbSize);
+                    finally
+                      OLEStream.Free;
+                    end;
+                    if SStream.DataString <> '' then
+                      aObj.Add('DESC',SStream.DataString);
+                  end;
+              finally
+                StreamIntf := nil;
+              end;
+              if not Assigned(aObj.Find('DESC')) then
+                aObj.Add('DESC',EncodingIn(aItem.PropertiesDirect[PR_BODY,ptString]));
+              aObj.Add('COMPLETED',aItem.PropertiesDirect[aItem.GetPropertyDispId($811c, PT_BOOLEAN, False, @PSETID_Task),ptBoolean]);
+              aStart := aItem.PropertiesDirect[aItem.GetPropertyDispId($8105, PT_SYSTIME, False, @PSETID_Task),ptTime];
+              aEnd := aItem.PropertiesDirect[aItem.GetPropertyDispId($8104, PT_SYSTIME, False, @PSETID_Task),ptTime];
+              aStart := IncHour(aStart,TimeOffset);
+              aEnd := IncHour(aEnd,TimeOffset);
+              aObj.Add('STARTDATE',Rfc822DateTime(aStart));
+              aObj.Add('DUEDATE',Rfc822DateTime(aEnd));
 
-
-
-
-
-              DoDelete := false;
-              SyncOut := False;
-              Collect := False;
-              DoSync := True;
-              SyncOutF := False;
-              aID := 0;
-              Data.SetFilter(SyncItems,Data.QuoteField('SYNCTYPE')+'='+Data.QuoteValue(Synctype)+' AND '+Data.QuoteField('REMOTE_ID')+'='+Data.QuoteValue(EntryIdToString(aItem.EntryID)));
-              while SyncItems.Count > 0 do
-                begin
-                  DoSync := not SyncItems.DataSet.FieldByName('LOCAL_ID').IsNull;
-                  aTasks.Select(SyncItems.DataSet.FieldByName('LOCAL_ID').AsVariant);
-                  aTasks.Open;
-                  if aTasks.DataSet.RecordCount > 0 then
-                    begin
-                      DoSync := SyncItems.SyncTime.IsNull;
-                      if not SyncItems.FieldByName('REMOTE_TIME').IsNull then
-                        DoSync := DoSync or (RoundToSecond(aItem.LastModificationTime)>RoundToSecond(SyncItems.FieldByName('REMOTE_TIME').AsDateTime))
-                      else
-                        begin
-                          DoSync := DoSync or (RoundToSecond(IncHour(aItem.LastModificationTime,TimeOffset))>RoundToSecond(SyncItems.SyncTime.AsDateTime));
-                          if not SyncItems.CanEdit then SyncItems.DataSet.Edit;
-                          SyncItems.FieldByName('REMOTE_TIME').AsDateTime:=aItem.LastModificationTime;
-                        end;
-                      DoSync := DoSync or (RoundToSecond(aTasks.Timestamp.AsDateTime)>RoundToSecond(SyncItems.SyncTime.AsDateTime));
-                      if not DoSync and (aItem.PropertiesDirect[aItem.GetPropertyDispId($811c, PT_BOOLEAN, False, @PSETID_Task),ptBoolean] <> (aTasks.DataSet.FieldByName('COMPLETED').AsString = 'Y')) then
-                        begin
-                          DoSync := True;
-                          SyncOutF := True;
-                          SyncOut := False;
-                        end;
-                      aID := aTasks.Id.AsVariant;
-                      break;
-                    end
-                  else
-                    begin
-                      SyncItems.Delete;
-                    end;
-                end;
-              if aID <> 0 then
-                begin
-                  aTasks.Select(aID);
-                  aTasks.Open;
-                  if (aTasks.Timestamp.AsDateTime>SyncItems.SyncTime.AsDateTime) and (not SyncOutF) then
-                    begin
-                      SyncOut := True;
-                    end;
-                end;
-              if (aID = 0) and DoSync then
-                begin
-                  aTasks.Append;
-                  aTasks.DataSet.FieldByName('OWNER').AsVariant:=Data.Users.DataSet.FieldByName('ACCOUNTNO').AsVariant;
-                  aTasks.DataSet.FieldByName('USER').AsVariant:=Data.Users.DataSet.FieldByName('ACCOUNTNO').AsVariant;
-                  aTasks.DataSet.Post;
-                  aTasks.DataSet.Edit;
-                  aID := aTasks.Id.AsVariant;
-                  SyncOut := False;
-                  with SyncItems.DataSet do
-                    begin
-                      Insert;
-                      FieldByName('SYNCTYPE').AsString:=SyncType;
-                      FieldByName('REMOTE_ID').AsString:=EntryIdToString(aItem.EntryID);
-                      FieldByName('LOCAL_ID').AsVariant:=aTasks.Id.AsVariant;
-                      FieldByName('TIMESTAMPD').AsDateTime:=Now();
-                      Post;
-                    end;
-                end;
-              if (aID <> 0) and DoSync then
-                begin
-                  if SyncOut then
-                    if not aTasks.CanEdit then aTasks.DataSet.Edit;
-                  OldSeen := aTasks.FieldByName('SEEN').AsString;
-                  if SyncOut then
-                    aTasks.History.AddItem(aTasks.DataSet,Format(strSynchedOut,['OE:'+DateTimeToStr(RoundToSecond(IncHour(aItem.LastModificationTime,TimeOffset)))+' PE:'+DateTimeToStr(RoundToSecond(aTasks.TimeStamp.AsDateTime))+' ST:'+DateTimeToStr(RoundToSecond(SyncItems.SyncTime.AsDateTime))]))
-                  else
-                    aTasks.History.AddItem(aTasks.DataSet,Format(strSynchedIn,['OE:'+DateTimeToStr(RoundToSecond(IncHour(aItem.LastModificationTime,TimeOffset)))+' PE:'+DateTimeToStr(RoundToSecond(aTasks.TimeStamp.AsDateTime))+' ST:'+DateTimeToStr(RoundToSecond(SyncItems.SyncTime.AsDateTime))]));
-                  SyncProperty(aItem,PR_SUBJECT,ptString,aTasks.DataSet.FieldByName('SUMMARY'),SyncOut,Collect);
-                  WritelnMessage('Syncing '+aTasks.DataSet.FieldByName('SUMMARY').AsString+' ...');
-                  WritelnMessage('OE Time:'+DateTimeToStr(roundto(IncHour(aItem.LastModificationTime,TimeOffset),-3))+' PE Time:'+DateTimeToStr(roundto(SyncItems.SyncTime.AsDateTime,-3)));
-                  if not SyncOut then
-                    begin
-                      SyncProperty(aItem,PR_BODY,ptString,aTasks.DataSet.FieldByName('DESC'),SyncOut,Collect);
-                      if (not SyncOut) and aTasks.DataSet.FieldByName('DESC').IsNull then
-                        begin
-//                          RTFSync(aItem.CoMessage,RTF_SYNC_BODY_CHANGED,RtfIsUpdated);
-//                          if RTFIsUpdated then
-//                            SyncProperty(aItem,PR_BODY,ptString,aTasks.DataSet.FieldByName('DESC'),SyncOut,Collect);
-                          SStream := TStringStream.Create('');
-                          if aItem.CoMessage.OpenProperty(PR_BODY, IStream, STGM_READ, 0, IInterface(StreamIntf)) = S_OK then
-                          try
-                            StreamIntf.Stat(StreamInfo, STATFLAG_NONAME);
-                            OLEStream := TOleStream.Create(StreamIntf);
-                            try
-                              SSTream.CopyFrom(OLEStream,StreamInfo.cbSize);
-                            finally
-                              OLEStream.Free;
-                            end;
-                          finally
-                            StreamIntf := nil;
-                          end;
-                          aTasks.DataSet.FieldByName('DESC').AsString := EncodingIn(SStream.DataString);
-                          SStream.Free;
-                        end;
-                    end;
-                  if SyncOut then
-                    begin
-                      if aTasks.DataSet.FieldByName('COMPLETED').AsString = 'Y' then
-                        begin
-//                          aItem.PropertiesDirect[aItem.GetPropertyDispId($8102, PT_DOUBLE, False, @PSETID_Task),ptInteger] := 1.0;
-//                          aItem.PropertiesDirect[aItem.GetPropertyDispId($810f, PT_SYSTIME, False, @PSETID_Task),ptTime] := Now();
-                          DoDelete := True;
-                        end
-                      else
-                        begin
-//                          aItem.PropertiesDirect[aItem.GetPropertyDispId($8102, PT_DOUBLE, False, @PSETID_Task),ptInteger] := 0;
-//                          aItem.PropertiesDirect[aItem.GetPropertyDispId($810f, PT_SYSTIME, False, @PSETID_Task),ptTime] := 0;
-                        end;
-                      aItem.PropertiesDirect[aItem.GetPropertyDispId($811c, PT_BOOLEAN, False, @PSETID_Task),ptBoolean] := aTasks.DataSet.FieldByName('COMPLETED').AsString = 'Y';
-                    end
-                  else
-                    begin
-                      if aItem.PropertiesDirect[aItem.GetPropertyDispId($811c, PT_BOOLEAN, False, @PSETID_Task),ptBoolean] then
-                        begin
-                          if aTasks.DataSet.FieldByName('COMPLETED').AsString <> 'Y' then
-                            aTasks.DataSet.FieldByName('COMPLETED').AsString := 'Y'
-                        end
-                      else
-                        begin
-                          if aTasks.DataSet.FieldByName('COMPLETED').AsString <> 'N' then
-                            aTasks.DataSet.FieldByName('COMPLETED').AsString := 'N';
-                        end
-                    end;
-                  //SyncProperty(aItem,aItem.GetPropertyDispId($8105, PT_SYSTIME, False, @PSETID_Task),ptTime,aTasks.DataSet.FieldByName('DUEDATE'),SyncOut,Collect);
-                  //SyncProperty(aItem,aItem.GetPropertyDispId($8104, PT_SYSTIME, False, @PSETID_Task),ptTime,aTasks.DataSet.FieldByName('STARTDATE'),SyncOut,Collect);
-                  if SyncOut then
-                    begin
-                      aItem.LastModificationTime := Now;
-                      aItem.CoMessage.SaveChanges(0);
-                      if not SyncItems.CanEdit then
-                        SyncItems.DataSet.Edit;
-                      SyncItems.FieldByName('REMOTE_TIME').Clear;
-                      if DoDelete then aItem.Delete;
-                    end;
-                  if aTasks.canEdit then
-                    begin
-                      aTasks.FieldByName('SEEN').AsString := OldSeen;
-                      aTasks.DataSet.Post;
-                    end;
-                  if not SyncItems.CanEdit then
-                    SyncItems.DataSet.Edit;
-                  SyncItems.FieldByName('REMOTE_ID').AsString:=EntryIdToString(aItem.EntryID);
-                  SyncItems.FieldByName('SYNC_TIME').AsDateTime:=Now();
-                  SyncItems.FieldByName('USER_ID').AsVariant:=Data.Users.Id.AsVariant;
-                  SyncItems.DataSet.Post;
-                end;
               aItem.Free;
               aItem := aFolder.GetNext;
              end;
-          aTasks.Free;
+
           aTasks := TTaskList.Create(nil,Data);
+          aTasks.SelectByUser(Data.Users.Accountno.AsString);
+          aTasks.Open;
+
+          aJsonOutList := SyncItems.SyncDataSet(aTasks,aJsonList,SyncType);
+
+          aJsonList.Free;
+          aItem := aFolder.GetFirst;
+          //change existing Items
+          while Assigned(aItem) do
+            begin
+              for i := 0 to aJsonOutList.Count-1 do
+                begin
+
+                end;
+            end;
+
+          aTasks := TTaskList.Create(nil,Data);
+
           Data.SetFilter(aTasks,'(('+Data.QuoteField('USER')+'='+Data.QuoteValue(Data.Users.FieldByName('ACCOUNTNO').AsString)+')) AND '+Data.QuoteField('DEPDONE')+'='+Data.QuoteValue('Y')+'AND'+Data.QuoteField('COMPLETED')+'='+Data.QuoteValue('N')+'AND'+Data.QuoteField('ACTIVE')+'='+Data.QuoteValue('Y'));
           WritelnMessage('Syncing new Tasks ...('+IntToStr(atasks.Count)+')');
           aTasks.DataSet.First;

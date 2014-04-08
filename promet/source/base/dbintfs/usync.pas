@@ -291,6 +291,11 @@ var
   aID: TJSONData;
   aSyncTime: TDateTime;
   tmp: TJSONStringType;
+  Hist : IBaseHistory;
+  function RoundToSecond(aDate : TDateTime) : TDateTime;
+  begin
+    Result := Round(aDate * SecsPerDay) / SecsPerDay;
+  end;
 
 begin
   Result := TJSONArray.Create;
@@ -336,6 +341,8 @@ begin
               FieldsToJSON(aInternal.DataSet.Fields, VJSON, True);
               VJSON.Add('ID',RemoteID.AsString);
               Result.Add(VJSON);
+              if Supports(aInternal, IBaseHistory, Hist) then
+                Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
             end;
         end;
       aInternal.Next;
@@ -370,6 +377,8 @@ begin
           Typ.AsString:=SyncType;
           SyncTime.AsDateTime:=Now();
           Post;
+          if Supports(aInternal, IBaseHistory, Hist) then
+            Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
         end;
     end;
 end;
