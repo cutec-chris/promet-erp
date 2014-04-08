@@ -101,7 +101,6 @@ var
         else if af is TSQLSelectField then
           aFName := aF.GetAsSQL([],0);
         if (UpperCase(aName) = Uppercase(aFName))
-        or (UpperCase(aName) = 'ID') and (Uppercase(aFName)='SQL_ID')
         then
           begin
             if aName <> '*' then
@@ -143,6 +142,7 @@ var
   VName: string;
   VField: TField;
   VData: TJSONData;
+  VdataStr: TJSONStringType;
 begin
   for I := 0 to Pred(AJSON.Count) do
   begin
@@ -156,21 +156,35 @@ begin
     VField.Clear;
     if VData.IsNull then
       Exit;
+    VdataStr := VData.AsString;
     if (VField is TStringField) or (VField is TBinaryField) or
-      (VField is TBlobField) or (VField is TVariantField) then
-      VField.AsString := VData.AsString;
-    if (VField is TLongintField) or (VField is TLargeintField) then
-      VField.AsInteger := VData.AsInteger;
-    if (VField is TFloatField) or (VField is TBCDField) or
+      (VField is TBlobField) or (VField is TVariantField)
+    then
+      begin
+        if VData.JSONType=jtBoolean then
+          begin
+            if VData.AsBoolean then
+              VField.AsString := 'Y'
+            else
+              VField.AsString := 'Y';
+          end
+        else
+          VField.AsString := VdataStr
+      end
+    else if (VField is TLongintField) or (VField is TLargeintField) then
+      VField.AsInteger := VData.AsInteger
+    else if (VField is TFloatField) or (VField is TBCDField) or
       (VField is TFMTBCDField) then
-      VField.AsFloat := VData.AsFloat;
-    if VField is TBooleanField then
-      VField.AsBoolean := VData.AsBoolean;
-    if VField is TDateTimeField then
-      if ADateAsString then
-        VField.AsDateTime := StrToDateTime(VData.AsString)
-      else
-        VField.AsDateTime := VData.AsFloat;
+      VField.AsFloat := VData.AsFloat
+    else if VField is TBooleanField then
+      VField.AsBoolean := VData.AsBoolean
+    else if VField is TDateTimeField then
+      begin
+        if ADateAsString then
+          VField.AsDateTime := DecodeRfcDateTime(VdataStr)
+        else
+          VField.AsDateTime := VData.AsFloat;
+      end;
   end;
 end;
 
@@ -275,8 +289,8 @@ begin
     end;
 end;
 {
-You have to push an JSON List with Data in aExternal with ID,TIMESTAMPD or TIMESTAMP filled
-and get an List with changed Data since Lastsync with ID and TIMESTAMPD
+You have to push an JSON List with Data in aExternal with EXTERNAL_ID,TIMESTAMPD or TIMESTAMP filled
+and get an List with changed Data since Lastsync with EXTERNAL_ID and TIMESTAMPD
 }
 function TSyncItems.SyncDataSet(aInternal: TBaseDBDataset;
   aExternal: TJSONArray; SyncType: string): TJSONArray;
@@ -315,8 +329,6 @@ begin
             begin
               aObj := aExternal.Items[i] as TJSONObject;
               aID := GetField(aObj,'sql_id');
-              if not Assigned(aID) then
-                aID := GetField(aObj,'id');
               aTime := GetField(aObj,'timestampd');
               if not Assigned(aTime) then
                 aTime := GetField(aObj,'timestamp');
@@ -339,7 +351,7 @@ begin
               Post;
               VJSON := TJSONObject.Create;
               FieldsToJSON(aInternal.DataSet.Fields, VJSON, True);
-              VJSON.Add('ID',RemoteID.AsString);
+              VJSON.Add('EXTERNAL_ID',RemoteID.AsString);
               Result.Add(VJSON);
               if Supports(aInternal, IBaseHistory, Hist) then
                 Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
@@ -351,7 +363,7 @@ begin
   for i := 0 to aExternal.Count-1 do
     begin
       aObj := aExternal.Items[i] as TJSONObject;
-      aID := GetField(aObj,'id');
+      aID := GetField(aObj,'external_id');
       aTime := GetField(aObj,'timestampd');
       if not Assigned(aTime) then
         aTime := GetField(aObj,'timestamp');

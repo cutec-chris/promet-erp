@@ -788,7 +788,7 @@ begin
           while Assigned(aItem) do
             begin
               aObj := TJSONObject.Create;
-              aObj.Add('ID',EntryIdToString(aItem.EntryID));
+              aObj.Add('EXTERNAL_ID',EntryIdToString(aItem.EntryID));
               aObj.Add('PRIVATE',Boolean(aItem.PropertiesDirect[aItem.GetPropertyDispId($8506, PT_BOOLEAN, False, @PSETID_Common),ptBoolean]));
               aObj.Add('TIMESTAMPD',Rfc822DateTime(aItem.LastModificationTime));
               aObj.Add('SUMMARY',EncodingIn(aItem.PropertiesDirect[PR_SUBJECT,ptString]));
@@ -847,7 +847,7 @@ begin
             begin
               for i := 0 to aJsonOutList.Count-1 do
                 begin
-                  aField := SyncItems.GetField(aJsonOutList[i],'ID');
+                  aField := SyncItems.GetField(aJsonOutList[i],'EXTERNAL_ID');
                   if Assigned(aField) and (aField.AsString = EntryIdToString(aItem.EntryID)) then
                     begin
                       aField := SyncItems.GetField(aJsonOutList[i],'SUMMARY');
@@ -913,7 +913,7 @@ begin
           while Assigned(aItem) do
             begin
               aObj := TJSONObject.Create;
-              aObj.Add('ID',EntryIdToString(aItem.EntryID));
+              aObj.Add('EXTERNAL_ID',EntryIdToString(aItem.EntryID));
               aObj.Add('TIMESTAMPD',Rfc822DateTime(aItem.LastModificationTime));
               aObj.Add('SUBJECT',EncodingIn(aItem.PropertiesDirect[PR_SUBJECT,ptString]));
               SStream := TStringStream.Create('');
@@ -960,7 +960,7 @@ begin
             begin
               for i := 0 to aJsonOutList.Count-1 do
                 begin
-                  aField := SyncItems.GetField(aJsonOutList[i],'ID');
+                  aField := SyncItems.GetField(aJsonOutList[i],'EXTERNAL_ID');
                   if Assigned(aField) and (aField.AsString = EntryIdToString(aItem.EntryID)) then
                     begin
                       if aFolder.Folder.CreateMessage(IMapiMessage, 0, MapiMessage) = S_OK then
