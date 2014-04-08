@@ -11,7 +11,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="28"/>
-        <UsageCount Value="144"/>
+        <UsageCount Value="146"/>
       </Unit0>
       <Unit1>
         <Filename Value="umain.pas"/>
@@ -20,13 +20,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="umain"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="349"/>
-        <CursorPos X="1" Y="366"/>
+        <TopLine Value="495"/>
+        <CursorPos X="39" Y="512"/>
         <FoldState Value=" T3j60631211O"/>
-        <UsageCount Value="144"/>
+        <UsageCount Value="146"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -36,7 +35,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="2" Y="26"/>
-        <UsageCount Value="117"/>
+        <UsageCount Value="119"/>
         <DefaultSyntaxHighlighter Value="JScript"/>
       </Unit2>
       <Unit3>
@@ -70,7 +69,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="43"/>
         <CursorPos X="14" Y="54"/>
-        <UsageCount Value="27"/>
+        <UsageCount Value="28"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
@@ -282,7 +281,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="341"/>
         <CursorPos X="59" Y="372"/>
-        <UsageCount Value="24"/>
+        <UsageCount Value="25"/>
         <Loaded Value="True"/>
       </Unit32>
       <Unit33>
@@ -384,11 +383,12 @@
       <Unit45>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="130"/>
-        <CursorPos X="34" Y="145"/>
-        <UsageCount Value="23"/>
+        <TopLine Value="1107"/>
+        <CursorPos X="107" Y="1126"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit45>
       <Unit46>
@@ -489,7 +489,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="305"/>
         <CursorPos X="6" Y="302"/>
-        <UsageCount Value="30"/>
+        <UsageCount Value="31"/>
         <Loaded Value="True"/>
       </Unit57>
       <Unit58>
@@ -538,124 +538,124 @@
     </General>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="umain.pas"/>
-        <Caret Line="359" Column="1" TopLine="331"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1125" Column="1" TopLine="1107"/>
       </Position1>
       <Position2>
-        <Filename Value="umain.pas"/>
-        <Caret Line="360" Column="1" TopLine="332"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1126" Column="1" TopLine="1107"/>
       </Position2>
       <Position3>
-        <Filename Value="umain.pas"/>
-        <Caret Line="361" Column="1" TopLine="333"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1125" Column="1" TopLine="1107"/>
       </Position3>
       <Position4>
-        <Filename Value="umain.pas"/>
-        <Caret Line="362" Column="1" TopLine="334"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1126" Column="1" TopLine="1107"/>
       </Position4>
       <Position5>
-        <Filename Value="umain.pas"/>
-        <Caret Line="363" Column="1" TopLine="335"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1125" Column="1" TopLine="1107"/>
       </Position5>
       <Position6>
-        <Filename Value="umain.pas"/>
-        <Caret Line="364" Column="1" TopLine="336"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1126" Column="1" TopLine="1107"/>
       </Position6>
       <Position7>
-        <Filename Value="umain.pas"/>
-        <Caret Line="365" Column="1" TopLine="337"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1125" Column="1" TopLine="1107"/>
       </Position7>
       <Position8>
-        <Filename Value="umain.pas"/>
-        <Caret Line="367" Column="1" TopLine="339"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1126" Column="1" TopLine="1107"/>
       </Position8>
       <Position9>
-        <Filename Value="umain.pas"/>
-        <Caret Line="368" Column="1" TopLine="340"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1125" Column="1" TopLine="1107"/>
       </Position9>
       <Position10>
-        <Filename Value="umain.pas"/>
-        <Caret Line="395" Column="12" TopLine="335"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1126" Column="1" TopLine="1107"/>
       </Position10>
       <Position11>
-        <Filename Value="umain.pas"/>
-        <Caret Line="365" Column="35" TopLine="340"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1125" Column="1" TopLine="1107"/>
       </Position11>
       <Position12>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1123" Column="1" TopLine="1104"/>
+        <Caret Line="1126" Column="1" TopLine="1107"/>
       </Position12>
       <Position13>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1124" Column="1" TopLine="1104"/>
+        <Caret Line="1125" Column="1" TopLine="1107"/>
       </Position13>
       <Position14>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1125" Column="1" TopLine="1107"/>
+        <Caret Line="1126" Column="1" TopLine="1107"/>
       </Position14>
       <Position15>
-        <Filename Value="umain.pas"/>
-        <Caret Line="245" Column="34" TopLine="79"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1125" Column="1" TopLine="1107"/>
       </Position15>
       <Position16>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="1125" Column="29" TopLine="1107"/>
+        <Caret Line="1135" Column="1" TopLine="1107"/>
       </Position16>
       <Position17>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="15" Column="53" TopLine="13"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="534" Column="1" TopLine="517"/>
       </Position17>
       <Position18>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="48" Column="10" TopLine="20"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="502" Column="1" TopLine="485"/>
       </Position18>
       <Position19>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="68" Column="37" TopLine="40"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="547" Column="1" TopLine="530"/>
       </Position19>
       <Position20>
         <Filename Value="umain.pas"/>
-        <Caret Line="253" Column="52" TopLine="86"/>
+        <Caret Line="548" Column="1" TopLine="530"/>
       </Position20>
       <Position21>
         <Filename Value="umain.pas"/>
-        <Caret Line="262" Column="45" TopLine="247"/>
+        <Caret Line="550" Column="1" TopLine="530"/>
       </Position21>
       <Position22>
         <Filename Value="umain.pas"/>
-        <Caret Line="249" Column="20" TopLine="89"/>
+        <Caret Line="551" Column="1" TopLine="530"/>
       </Position22>
       <Position23>
         <Filename Value="umain.pas"/>
-        <Caret Line="374" Column="35" TopLine="343"/>
+        <Caret Line="552" Column="1" TopLine="530"/>
       </Position23>
       <Position24>
         <Filename Value="umain.pas"/>
-        <Caret Line="70" Column="45" TopLine="54"/>
+        <Caret Line="250" Column="64" TopLine="88"/>
       </Position24>
       <Position25>
         <Filename Value="umain.pas"/>
-        <Caret Line="258" Column="1" TopLine="60"/>
+        <Caret Line="507" Column="1" TopLine="491"/>
       </Position25>
       <Position26>
         <Filename Value="umain.pas"/>
-        <Caret Line="70" Column="51" TopLine="53"/>
+        <Caret Line="508" Column="13" TopLine="498"/>
       </Position26>
       <Position27>
         <Filename Value="umain.pas"/>
-        <Caret Line="321" Column="1" TopLine="304"/>
+        <Caret Line="512" Column="39" TopLine="495"/>
       </Position27>
       <Position28>
-        <Filename Value="umain.pas"/>
-        <Caret Line="70" Column="62" TopLine="60"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1123" Column="1" TopLine="1107"/>
       </Position28>
       <Position29>
-        <Filename Value="umain.pas"/>
-        <Caret Line="326" Column="13" TopLine="309"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1124" Column="1" TopLine="1107"/>
       </Position29>
       <Position30>
-        <Filename Value="umain.pas"/>
-        <Caret Line="70" Column="89" TopLine="56"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1125" Column="1" TopLine="1107"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>
@@ -666,9 +666,14 @@
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
         <Source Value="umain.pas"/>
-        <Line Value="505"/>
+        <Line Value="507"/>
       </Item1>
     </BreakPoints>
+    <Watches Count="1">
+      <Item1>
+        <Expression Value="FLinkHandlers[i].aLinkType"/>
+      </Item1>
+    </Watches>
   </Debugging>
   <EditorMacros Count="0"/>
 </CONFIG>

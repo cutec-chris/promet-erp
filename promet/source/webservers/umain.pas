@@ -247,6 +247,8 @@ begin
   if AResponse.Code=200 then
     begin
       //Messages
+      Data.RegisterLinkHandler('HISTORY',@OpenLink,TBaseHistory);
+      //Messages
       if Data.Users.Rights.Right('MESSAGES') > RIGHT_NONE then
         begin
           try

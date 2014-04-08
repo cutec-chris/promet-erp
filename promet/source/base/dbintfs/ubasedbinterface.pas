@@ -1123,7 +1123,7 @@ var
 begin
   Result := False;
   for i := 0 to length(FLinkHandlers)-1 do
-    if copy(aLink,0,length(FLinkHandlers[i].aLinkType)) = FLinkHandlers[i].aLinkType then
+    if copy(Uppercase(aLink),0,length(FLinkHandlers[i].aLinkType)) = Uppercase(FLinkHandlers[i].aLinkType) then
       begin
         if Assigned(FLinkHandlers[i].aClass) then
           begin
@@ -1589,4 +1589,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+
