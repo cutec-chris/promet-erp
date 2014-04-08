@@ -408,8 +408,9 @@ end;
 function TBaseWebSession.CheckLogin(ARequest : TRequest;AResponse : TResponse;JSRequest : Boolean = false;aRedirect: Boolean = True): Boolean;
 var
   aLogin: String;
-  aResult: Boolean;
+  aResult: Boolean = false;
 begin
+  Result := false;
   aLogin := Variables['LOGIN'];
   aResult := aLogin <> '';
   if (not Result) and aRedirect then
@@ -429,7 +430,7 @@ begin
   and ((Data.Users.DataSet.Locate('NAME',aLogin,[loCaseInsensitive]))
   or (Data.Users.DataSet.Locate('LOGINNAME',aLogin,[loCaseInsensitive])))) then
     aResult:=False;
-  if not result then
+  if not aResult then
     debugln('Login:failed!');
   Result := aResult;
 end;
