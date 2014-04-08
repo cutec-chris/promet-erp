@@ -852,6 +852,9 @@ begin
                     begin
                       aField := SyncItems.GetField(aJsonOutList[i],'SUMMARY');
                       aItem.PropertiesDirect[PR_SUBJECT,ptString] := EncodingOut(aField.AsString);
+                      aField := SyncItems.GetField(aJsonOutList[i],'DESC');
+                      if aItem.PropertiesDirect[PR_BODY,ptString] = '' then
+                        aItem.PropertiesDirect[PR_BODY,ptString] := EncodingOut(aField.AsString);
                       aField := SyncItems.GetField(aJsonOutList[i],'LOCATION');
                       aItem.PropertiesDirect[PR_LOCATION,ptString] := EncodingOut(aField.AsString);
                       aField := SyncItems.GetField(aJsonOutList[i],'ALLDAY');
@@ -932,7 +935,7 @@ begin
               end;
               if not Assigned(aObj.Find('DESC')) then
                 aObj.Add('DESC',EncodingIn(aItem.PropertiesDirect[PR_BODY,ptString]));
-              aObj.Add('COMPLETED',aItem.PropertiesDirect[aItem.GetPropertyDispId($811c, PT_BOOLEAN, False, @PSETID_Task),ptBoolean]);
+              aObj.Add('COMPLETED',Boolean(aItem.PropertiesDirect[aItem.GetPropertyDispId($811c, PT_BOOLEAN, False, @PSETID_Task),ptBoolean]));
               aStart := aItem.PropertiesDirect[aItem.GetPropertyDispId($8105, PT_SYSTIME, False, @PSETID_Task),ptTime];
               aEnd := aItem.PropertiesDirect[aItem.GetPropertyDispId($8104, PT_SYSTIME, False, @PSETID_Task),ptTime];
               aStart := IncHour(aStart,TimeOffset);
@@ -957,57 +960,43 @@ begin
             begin
               for i := 0 to aJsonOutList.Count-1 do
                 begin
-
-                end;
-            end;
-
-          aTasks := TTaskList.Create(nil,Data);
-
-          Data.SetFilter(aTasks,'(('+Data.QuoteField('USER')+'='+Data.QuoteValue(Data.Users.FieldByName('ACCOUNTNO').AsString)+')) AND '+Data.QuoteField('DEPDONE')+'='+Data.QuoteValue('Y')+'AND'+Data.QuoteField('COMPLETED')+'='+Data.QuoteValue('N')+'AND'+Data.QuoteField('ACTIVE')+'='+Data.QuoteValue('Y'));
-          WritelnMessage('Syncing new Tasks ...('+IntToStr(atasks.Count)+')');
-          aTasks.DataSet.First;
-          while not aTasks.DataSet.EOF do
-            begin
-              Data.SetFilter(SyncItems,Data.QuoteField('SYNCTYPE')+'='+Data.QuoteValue(Synctype)+' AND '+Data.QuoteField('LOCAL_ID')+'='+Data.QuoteValue(aTasks.Id.AsVariant));
-              if SyncItems.Count=0 then
-                begin
-                  if aFolder.Folder.CreateMessage(IMapiMessage, 0, MapiMessage) = S_OK then
+                  aField := SyncItems.GetField(aJsonOutList[i],'ID');
+                  if Assigned(aField) and (aField.AsString = EntryIdToString(aItem.EntryID)) then
                     begin
-                      aItem := TMapiMailItem.Create(aFolder, MapiMessage, False);
-                      aItem.MessageClass:='IPM.Task';
-                      syncout := True;
-                      Collect := false;
-                      SyncProperty(aItem,PR_SUBJECT,ptString,aTasks.DataSet.FieldByName('SUMMARY'),True,False);
-                      SyncProperty(aItem,PR_BODY,ptString,aTasks.DataSet.FieldByName('DESC'),SyncOut,Collect);
-                      aItem.PropertiesDirect[aItem.GetPropertyDispId($811c, PT_BOOLEAN, False, @PSETID_Task),ptBoolean] := aTasks.DataSet.FieldByName('COMPLETED').AsString = 'Y';
-                      SyncProperty(aItem,aItem.GetPropertyDispId($8105, PT_SYSTIME, False, @PSETID_Task),ptTime,aTasks.DataSet.FieldByName('DUEDATE'),SyncOut,Collect);
-                      SyncProperty(aItem,aItem.GetPropertyDispId($8104, PT_SYSTIME, False, @PSETID_Task),ptTime,aTasks.DataSet.FieldByName('STARTDATE'),SyncOut,Collect);
-                      aItem.CoMessage.SaveChanges(0);
-                      aFolder.Free;
-                      aFolder := TGenericFolder.Create(aConnection,PR_IPM_TASK_ENTRYID);
-                      bItem := aFolder.GetFirst;
-                      while Assigned(bItem) do
+                      if aFolder.Folder.CreateMessage(IMapiMessage, 0, MapiMessage) = S_OK then
                         begin
-                          if EncodingIn(bItem.Subject)=aTasks.DataSet.FieldByName('SUMMARY').AsString then
-                            break
-                          else bItem := aFolder.GetNext;
+                          aItem := TMapiMailItem.Create(aFolder, MapiMessage, False);
+                          aItem.MessageClass:='IPM.Task';
+                          aField := SyncItems.GetField(aJsonOutList[i],'SUBJECT');
+                          aItem.PropertiesDirect[PR_SUBJECT,ptString] := EncodingOut(aField.AsString);
+                          aField := SyncItems.GetField(aJsonOutList[i],'DESC');
+                          if aItem.PropertiesDirect[PR_BODY,ptString] = '' then
+                            aItem.PropertiesDirect[PR_BODY,ptString] := EncodingOut(aField.AsString);
+                          aField := SyncItems.GetField(aJsonOutList[i],'COMPLETED');
+                          aItem.PropertiesDirect[aItem.GetPropertyDispId($811c, PT_BOOLEAN, False, @PSETID_Task),ptBoolean] := aField.AsString = 'Y';
+                          aField := SyncItems.GetField(aJsonOutList[i],'DUEDATE');
+                          aItem.PropertiesDirect[aItem.GetPropertyDispId($8105, PT_SYSTIME, False, @PSETID_Task),ptTime] := DecodeRfcDateTime(aField.AsString);
+                          aField := SyncItems.GetField(aJsonOutList[i],'STARTDATE');
+                          aItem.PropertiesDirect[aItem.GetPropertyDispId($8104, PT_SYSTIME, False, @PSETID_Task),ptTime] := DecodeRfcDateTime(aField.AsString);
+                          aItem.CoMessage.SaveChanges(0);
+                          aFolder.Free;
+                          aFolder := TGenericFolder.Create(aConnection,PR_IPM_TASK_ENTRYID);
+                          bItem := aFolder.GetFirst;
+                          while Assigned(bItem) do
+                            begin
+                              if EncodingIn(bItem.Subject)=aTasks.DataSet.FieldByName('SUMMARY').AsString then
+                                break
+                              else
+                                begin
+                                  bItem.Free;
+                                  bItem := aFolder.GetNext;
+                                end;
+                            end;
+                          aItem.Free;
+                          aItem := bItem;
                         end;
-                      if Assigned(bItem) then
-                        with SyncItems.DataSet do
-                          begin
-                            Insert;
-                            FieldByName('SYNCTYPE').AsString:=SyncType;
-                            FieldByName('REMOTE_ID').AsString:=EntryIdToString(bItem.EntryID);
-                            FieldByName('LOCAL_ID').AsVariant:=aTasks.Id.AsVariant;
-                            FieldByName('TIMESTAMPD').AsDateTime:=Now();
-                            FieldByName('SYNC_TIME').AsDateTime:=Now();
-                            FieldByName('USER_ID').AsVariant:=Data.Users.Id.AsVariant;
-                            Post;
-                          end;
-                      aItem.Free;
                     end;
                 end;
-              aTasks.DataSet.Next;
             end;
         finally
           aTasks.Free;
