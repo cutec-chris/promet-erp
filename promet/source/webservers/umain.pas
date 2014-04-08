@@ -38,6 +38,7 @@ type
       AResponse: TResponse; var Handled: Boolean);
     procedure connectionavalibeRequest(Sender: TObject; ARequest: TRequest;
       AResponse: TResponse; var Handled: Boolean);
+    procedure DataModuleBeforeRequest(Sender: TObject; ARequest: TRequest);
     procedure getstatisticRequest(Sender: TObject; ARequest: TRequest;
       AResponse: TResponse; var Handled: Boolean);
     procedure listRequest(Sender: TObject; ARequest: TRequest;
@@ -95,6 +96,12 @@ begin
   AResponse.SendContent;
   Handled:=True;
 end;
+
+procedure Tappbase.DataModuleBeforeRequest(Sender: TObject; ARequest: TRequest);
+begin
+  debugln('Request:'+ARequest.URL);
+end;
+
 procedure Tappbase.getstatisticRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 var
