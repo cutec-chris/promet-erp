@@ -955,6 +955,7 @@ begin
 
           aJsonList.Free;
           aItem := aFolder.GetFirst;
+          bItem := nil;
           //change existing Items
           while Assigned(aItem) do
             begin
@@ -992,10 +993,15 @@ begin
                                   bItem := aFolder.GetNext;
                                 end;
                             end;
-                          aItem.Free;
+                          FreeAndNil(aItem);
                           aItem := bItem;
                         end;
                     end;
+                end;
+              if not Assigned(bItem) then
+                begin
+                  FreeAndNil(aItem);
+                  aItem := aFolder.GetNext;
                 end;
             end;
         finally

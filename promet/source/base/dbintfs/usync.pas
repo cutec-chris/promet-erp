@@ -298,7 +298,6 @@ var
   aLastSync: TDateTime;
   VJSON: TJSONObject;
   aObj: TJSONObject;
-  aField: TJSONData;
   aTime: TJSONData;
   DoSync: Boolean;
   i: Integer;
@@ -332,8 +331,8 @@ begin
               aTime := GetField(aObj,'timestampd');
               if not Assigned(aTime) then
                 aTime := GetField(aObj,'timestamp');
-              if Assigned(aField) and Assigned(aTime)
-              and (aField.Value=aInternal.Id.AsVariant)
+              if Assigned(aID) and Assigned(aTime)
+              and (aID.AsString=IntToStr(aInternal.Id.AsLargeInt))
               and (DecodeRfcDateTime(aTime.AsString)>aInternal.TimeStamp.AsDateTime)
               then
                 DoSync := False;
@@ -345,16 +344,16 @@ begin
               if Count = 0 then
                 Insert
               else Edit;
-              LocalID.AsVariant:=aInternal.Id.AsVariant;
-              Typ.AsString:=SyncType;
-              SyncTime.AsDateTime:=Now();
-              Post;
               VJSON := TJSONObject.Create;
               FieldsToJSON(aInternal.DataSet.Fields, VJSON, True);
               VJSON.Add('EXTERNAL_ID',RemoteID.AsString);
               Result.Add(VJSON);
               if Supports(aInternal, IBaseHistory, Hist) then
                 Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+              LocalID.AsVariant:=aInternal.Id.AsVariant;
+              Typ.AsString:=SyncType;
+              SyncTime.AsDateTime:=Now();
+              Post;
             end;
         end;
       aInternal.Next;
