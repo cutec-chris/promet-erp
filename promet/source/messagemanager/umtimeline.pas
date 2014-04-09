@@ -46,6 +46,7 @@ type
     acDelete: TAction;
     acCopyToClipboard: TAction;
     acDeleteENviroment: TAction;
+    acSetLink: TAction;
     acViewThread: TAction;
     ActionList1: TActionList;
     bSend: TBitBtn;
@@ -60,6 +61,7 @@ type
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
     MenuItem7: TMenuItem;
+    MenuItem8: TMenuItem;
     miBugtracker: TMenuItem;
     miDeletemandant: TMenuItem;
     miNewMandant: TMenuItem;
@@ -101,6 +103,7 @@ type
     procedure acMarkasReadExecute(Sender: TObject);
     procedure acRefreshExecute(Sender: TObject);
     procedure acSendExecute(Sender: TObject);
+    procedure acSetLinkExecute(Sender: TObject);
     procedure ActiveSearchEndItemSearch(Sender: TObject);
     procedure ActiveSearchItemFound(aIdent: string; aName: string;
       aStatus: string; aActive: Boolean; aLink: string; aItem: TBaseDBList=nil);
@@ -121,6 +124,7 @@ type
     procedure lbResultsDblClick(Sender: TObject);
     procedure mEntryKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure mEntryKeyPress(Sender: TObject; var Key: char);
+    function SetLinkfromSearch(aLink: string): Boolean;
     procedure tbThreadClick(Sender: TObject);
     procedure tbUserClick(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
@@ -693,6 +697,17 @@ begin
       fTimeline.SetActive;
     end;
 end;
+
+procedure TfmTimeline.acSetLinkExecute(Sender: TObject);
+begin
+  if fTimeline.GotoActiveRow then
+    begin
+      fSearch.SetLanguage;
+      fSearch.OnOpenItem:=@SetLinkfromSearch;
+      fSearch.Execute(True,'MESSLINK',strSearchfromHistoryMode);
+    end;
+end;
+
 procedure TfmTimeline.ActiveSearchEndItemSearch(Sender: TObject);
 begin
   if not ActiveSearch.Active then
@@ -1004,6 +1019,17 @@ begin
       Application.ProcessMessages;
     end;
 end;
+
+function TfmTimeline.SetLinkfromSearch(aLink: string): Boolean;
+begin
+  if fTimeline.GotoActiveRow then
+    begin
+      fTimeline.DataSet.Edit;
+      fTimeline.DataSet.FieldByName('LINK').AsString:=aLink;
+      fTimeline.DataSet.Post;
+    end;
+end;
+
 procedure TfmTimeline.tbThreadClick(Sender: TObject);
 var
   FRoot : Variant;

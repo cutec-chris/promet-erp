@@ -1,4 +1,9 @@
-﻿Build 329
+﻿Build 330
+      - Outlook Synchronisation:auf generische Synchronisationsroutinen umgestellt (werden in Zukunft immer für Synchronisation eingesetzt so das die Entwicklung vereinheitlicht/vereinfacht wird)
+      - Appbasis:Synchronisationsroutionen für Apps angepasst
+      - Verläufe:auf Objekt verlinkte Verlaufseinträge an anderen Objekten werden nun  auch im Verlauf des Objektes mit angezeigt so werden Unterhaltungen zu einem Objekt automatisch auch in dessen Verlauf angezeigt
+      - Nachrichtenzentrale: Unterhaltungen können Objekt manuell zugewiesen werden
+Build 329
       - Fehler in der Filterzeile bei mehrfachem Filtern unter bestimmten Umständen behoben
       - fehlende Icons an einigen Buttons im Calenderframe jetzt sichtbar
 Build 328

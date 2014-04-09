@@ -639,6 +639,7 @@ object fmTimeline: TfmTimeline
     end
     object acAnswer: TAction
       Caption = 'Antworten'
+      ImageIndex = 72
       OnExecute = acAnswerExecute
     end
     object acDetailView: TAction
@@ -647,6 +648,7 @@ object fmTimeline: TfmTimeline
     end
     object acViewThread: TAction
       Caption = 'Unterhaltung anzeigen'
+      ImageIndex = 112
     end
     object acMarkAllasRead: TAction
       Caption = 'alles als gelesen markieren'
@@ -692,6 +694,11 @@ object fmTimeline: TfmTimeline
       Caption = 'Umgebung löschen'
       ImageIndex = 60
     end
+    object acSetLink: TAction
+      Caption = 'Verknüpfung zuweisen'
+      ImageIndex = 70
+      OnExecute = acSetLinkExecute
+    end
   end
   object SelectDirectoryDialog1: TSelectDirectoryDialog
     left = 392
@@ -728,6 +735,12 @@ object fmTimeline: TfmTimeline
     end
     object MenuItem1: TMenuItem
       Action = acAnswer
+    end
+    object MenuItem8: TMenuItem
+      Caption = '-'
+    end
+    object MenuItem7: TMenuItem
+      Action = acSetLink
     end
     object MenuItem5: TMenuItem
       Action = acDelete

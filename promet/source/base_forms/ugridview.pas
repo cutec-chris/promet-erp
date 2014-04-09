@@ -3319,18 +3319,19 @@ end;
 procedure TfGridView.Delete;
 var
   aOldRow: Integer;
+  aRow: Integer;
 begin
-  if not GotoActiveRow then exit;
-  if (FDataSource.DataSet.State <> dsInsert) and ((TRowObject(gList.Objects[0,gList.Row]).Rec = 0) or (not FDataSet.GotoBookmark(TRowObject(gList.Objects[0,gList.Row]).Rec))) then
-      exit;
-  FDataSet.Delete;
-  CleanRow(gList.Row,-2);
-  gList.DeleteColRow(False,gList.Row);
+  for aRow := gList.Selection.Bottom+1 downto gList.Selection.Top+1 do
+    begin
+      if GotoRowNumber(aRow-1) then
+        FDataSet.Delete;
+    end;
   if gList.RowCount = gList.FixedRows then
     begin
       CleanList(1);
     end;
   aOldRow := gList.Row;
+  gList.Clean(gList.Selection,[]);
   SyncDataSource;
   gList.Row:=aOldRow;
   GotoActiveRow;

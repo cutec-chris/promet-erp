@@ -59,7 +59,6 @@ type
     procedure FTimeLineGetCellText(Sender: TObject; aCol: TColumn;
       aRow: Integer; var NewText: string; aFont: TFont);
   private
-    FDrawnDate : TDateTime;
     fBaseName: string;
     { private declarations }
 //    FContList: TfFilter;
@@ -439,10 +438,6 @@ begin
         end;
       if TryStrToDateTime(NewText,aTime) then
         begin
-          if (trunc(aTime) = FDrawnDate) or (trunc(aTime) = trunc(Now())) then
-            NewText:=TimeToStr(frac(aTime))
-          else
-            FDrawnDate:=trunc(aTime);
           aCol.Alignment:=taRightJustify;
         end;
     end;

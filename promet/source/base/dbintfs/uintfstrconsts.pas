@@ -200,6 +200,7 @@ resourcestring
   strFinance                    = 'Finanzen';
   strSearchfromTimeregisteringMode = 'Diese Suche wurde aus der Zeiterfassung gestartet, wenn Sie einen Eintrag öffnen, wird dieser automatisch in die Zeiterfassung übernommen.';
   strSearchfromDocumentsMode    =  'Diese Suche wurde aus der Dokumentenverwaltung gestartet, wenn Sie einen Eintrag öffnen, wird dieser automatisch mit dem Dokument verknüpft.';
+  strSearchfromHistoryMode      =  'Diese Suche wurde aus einem Verlauf gestartet, wenn Sie einen Eintrag öffnen, wird dieser automatisch mit dem Verlaufseintrag verknüpft.';
   strError                      = 'Error';
 
   strIADAddress                 = 'IAD Rechnungsadresse';
@@ -250,4 +251,4 @@ begin
   nav.Hints.Add(strRefresh);
 end;
 {$ENDIF}
-end.
+end.

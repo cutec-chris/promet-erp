@@ -55,6 +55,7 @@ type
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
     procedure IPCTimerTimer(Sender: TObject);
+    function OpenLink(aLink: string; Sender: TObject): Boolean;
     procedure ProgTimerTimer(Sender: TObject);
     procedure TrayIconClick(Sender: TObject);
   private
@@ -86,7 +87,8 @@ var
 implementation
 uses {$ifdef WINDOWS}Windows,{$endif}
   uData,Utils,Forms,uBaseApplication,uIntfStrConsts,math,eventlog,uBaseDBInterface,
-  umTimeLine,XMLPropStorage,LCLProc,uprometipc,wikitohtml;
+  umTimeLine,XMLPropStorage,LCLProc,uprometipc,wikitohtml,uMessages,uBaseSearch,
+  utask,uOrder,uPerson,uMasterdata,uProjects,uWiki,uDocuments,umeeting,uStatistic;
 {$R *.lfm}
 const
   RefreshAll = 30;//5 mins refresh
@@ -555,6 +557,135 @@ begin
         end;
       Data.ProcessClient.Processes.Open;
       Data.ProcessClient.Processes.Parameters.Open;
+      //Messages
+      Data.RegisterLinkHandler('HISTORY',@OpenLink,TBaseHistory);
+      //Messages
+      if Data.Users.Rights.Right('MESSAGES') > RIGHT_NONE then
+        begin
+          try
+            Data.RegisterLinkHandler('MESSAGEIDX',@OpenLink,TMessage);
+            AddSearchAbleDataSet(TMessageList);
+          except
+          end;
+        end;
+      //Tasks
+      if (Data.Users.Rights.Right('TASKS') > RIGHT_NONE) then
+        begin
+          try
+          Data.RegisterLinkHandler('TASKS',@OpenLink,TTask,TTaskList);
+          except
+          end;
+        end;
+      //Add PIM Entrys
+      if Data.Users.Rights.Right('CALENDAR') > RIGHT_NONE then
+        begin
+          try
+            Data.RegisterLinkHandler('CALENDAR',@OpenLink,TTask,TTaskList);
+          except
+          end;
+        end;
+      //Orders
+      if Data.Users.Rights.Right('ORDERS') > RIGHT_NONE then
+        begin
+          try
+          Data.RegisterLinkHandler('ORDERS',@OpenLink,Torder);
+          AddSearchAbleDataSet(TOrderList);
+          except
+          end;
+        end;
+      //Add Contacts
+      if Data.Users.Rights.Right('CUSTOMERS') > RIGHT_NONE then
+        begin
+          try
+          Data.RegisterLinkHandler('CUSTOMERS',@OpenLink,TPerson);
+          AddSearchAbleDataSet(TPersonList);
+          AddSearchAbleDataSet(TPersonContactData);
+          AddSearchAbleDataSet(TPersonAddress);
+          except
+          end;
+        end;
+      //Add Masterdata stuff
+      if (Data.Users.Rights.Right('MASTERDATA') > RIGHT_NONE) then
+        begin
+          try
+          Data.RegisterLinkHandler('MASTERDATA',@OpenLink,TMasterdata);
+          AddSearchAbleDataSet(TMasterdataList);
+          except
+          end;
+        end;
+      //Projects
+      if (Data.Users.Rights.Right('PROJECTS') > RIGHT_NONE) then
+        begin
+          try
+          Data.RegisterLinkHandler('PROJECT',@OpenLink,TProject);
+          AddSearchAbleDataSet(TProjectList);
+          except
+          end;
+        end;
+      //Wiki
+      Data.RegisterLinkHandler('WIKI',@OpenLink,TWikiList);
+      if (Data.Users.Rights.Right('WIKI') > RIGHT_NONE) then
+        begin
+          try
+          AddSearchAbleDataSet(TWikiList);
+          except
+          end;
+        end;
+      //Documents
+      if (Data.Users.Rights.Right('DOCUMENTS') > RIGHT_NONE) then
+        begin
+          try
+          Data.RegisterLinkHandler('DOCUMENTS',@OpenLink,TDocument);
+          //Data.RegisterLinkHandler('DOCPAGES',@OpenLink,TDocPages);
+          except
+          end;
+        end;
+      //Lists
+      if (Data.Users.Rights.Right('LISTS') > RIGHT_NONE) then
+        begin
+          try
+          Data.RegisterLinkHandler('LISTS',@OpenLink,TLists);
+          AddSearchAbleDataSet(TLists);
+          except
+          end;
+        end;
+      //Meetings
+      if (Data.Users.Rights.Right('MEETINGS') > RIGHT_NONE) then
+        begin
+          try
+          Data.RegisterLinkHandler('MEETINGS',@OpenLink,TMeetings);
+          AddSearchAbleDataSet(TMeetings);
+          except
+          end;
+        end;
+      //Inventory
+      if (Data.Users.Rights.Right('INVENTORY') > RIGHT_NONE) then
+        begin
+          try
+          Data.RegisterLinkHandler('INVENTORY',@OpenLink,TInventorys);
+          except
+          end;
+        end;
+      //Statistics
+      if (Data.Users.Rights.Right('STATISTICS') > RIGHT_NONE) then
+        begin
+          try
+          Data.RegisterLinkHandler('STATISTICS',@OpenLink,TStatistic);
+          AddSearchAbleDataSet(TStatistic);
+          except
+          end;
+        end;
+      //Timeregistering
+      AddSearchAbleDataSet(TUser);
+      //History
+      if Data.Users.Rights.Right('DOCUMENTS') > RIGHT_NONE then
+        begin
+          try
+          AddSearchAbleDataSet(TBaseHistory);
+          Data.RegisterLinkHandler('HISTORY',@OpenLink,TBaseHistory);
+          except
+          end;
+        end;
     end;
   acHistory.Enabled:=aUser <> '';
   FHistory := TBaseHistory.Create(Self,Data);
@@ -642,6 +773,8 @@ procedure TfMain.IPCTimerTimer(Sender: TObject);
 begin
   PeekIPCMessages;
 end;
-
+function TfMain.OpenLink(aLink: string; Sender: TObject): Boolean;
+begin
+end;
 end.
 

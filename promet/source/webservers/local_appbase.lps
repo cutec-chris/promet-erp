@@ -20,10 +20,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="umain"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="391"/>
-        <CursorPos X="1" Y="410"/>
+        <TopLine Value="458"/>
+        <CursorPos X="1" Y="479"/>
         <FoldState Value=" T3jE0601314N"/>
         <UsageCount Value="148"/>
         <Loaded Value="True"/>
@@ -451,10 +452,9 @@
       <Unit53>
         <Filename Value="../components/zeos/src/dbc/ZDbcPostgreSqlUtils.pas"/>
         <UnitName Value="ZDbcPostgreSqlUtils"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="712"/>
+        <TopLine Value="715"/>
         <CursorPos X="1" Y="729"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
