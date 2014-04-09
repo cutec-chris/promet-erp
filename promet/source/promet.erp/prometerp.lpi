@@ -185,6 +185,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <CommandLineParams Value="--config-path=/home/chris/.promet-erp-devel"/>
       </local>
     </RunParams>
     <RequiredPackages Count="25">
@@ -814,10 +815,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uGanttView"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="406"/>
+        <TopLine Value="430"/>
         <CursorPos X="36" Y="462"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
@@ -836,25 +836,26 @@
       <Unit52>
         <Filename Value="../base_pm/gsGanttCalendar.pas"/>
         <UnitName Value="gsGanttCalendar"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2953"/>
         <CursorPos X="99" Y="2901"/>
-        <FoldState Value=" T0i@T4}3!"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit52>
       <Unit53>
-        <Filename Value="../../../../../../Programme/lazarus/lcl/include/customnotebook.inc"/>
-        <EditorIndex Value="12"/>
+        <Filename Value="../components/tvplanit/source/vpbase.pas"/>
+        <UnitName Value="VpBase"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="489"/>
-        <CursorPos X="87" Y="501"/>
+        <TopLine Value="15"/>
+        <CursorPos X="15" Y="34"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit53>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
         <Filename Value="../base_pm/uganttview.pas"/>
         <Caret Line="154" Column="18" TopLine="121"/>
@@ -956,25 +957,21 @@
         <Caret Line="2908" Column="19" TopLine="2877"/>
       </Position25>
       <Position26>
-        <Filename Value="../base_pm/gsGanttCalendar.pas"/>
-        <Caret Line="2901" Column="99" TopLine="2953"/>
-      </Position26>
-      <Position27>
-        <Filename Value="../../../../../../Programme/lazarus/lcl/include/customnotebook.inc"/>
-        <Caret Line="501" Column="87" TopLine="489"/>
-      </Position27>
-      <Position28>
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
         <Caret Line="414" Column="68" TopLine="402"/>
-      </Position28>
-      <Position29>
+      </Position26>
+      <Position27>
         <Filename Value="../base_pm/uganttview.pas"/>
         <Caret Line="233" Column="43" TopLine="225"/>
-      </Position29>
-      <Position30>
+      </Position27>
+      <Position28>
         <Filename Value="../base_pm/uganttview.pas"/>
         <Caret Line="614" Column="88" TopLine="606"/>
-      </Position30>
+      </Position28>
+      <Position29>
+        <Filename Value="../components/tvplanit/source/vpbase.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position29>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
