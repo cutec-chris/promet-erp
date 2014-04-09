@@ -57,6 +57,7 @@ type
       AResponse: TResponse; var Handled: Boolean);
   private
     { private declarations }
+    FirstUse : Boolean;
     procedure DataSetToJSON(ADataSet: TDataSet; AJSON: TJSONArray; const ADateAsString: Boolean; Fields: TSQLElementList = nil);
     procedure ObjectToJSON(AObject : TBaseDBDataSet; AJSON: TJSONObject;const ADateAsString: Boolean);
     procedure RegisterContent;
@@ -77,6 +78,11 @@ begin
   Handled:=True;
   if TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True,False) then
     begin
+      if FirstUse then
+        begin
+          FirstUse := False;
+          RegisterContent;
+        end;
       AResponse.Code:=200;
       AResponse.ContentType:='text/javascript;charset=utf-8';
       AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
@@ -101,11 +107,8 @@ begin
 end;
 procedure Tappbase.DataModuleAfterInitModule(Sender: TObject; ARequest: TRequest
   );
-var
-  aResponse : TResponse;
 begin
-  if TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True,False) then
-    RegisterContent;
+  FirstUse := True;
 end;
 procedure Tappbase.DataModuleBeforeRequest(Sender: TObject; ARequest: TRequest);
 begin
