@@ -968,6 +968,7 @@ var
                       or (bNode.Attributes.Item[d].NodeName = 'DEPDONE')
                       or (bNode.Attributes.Item[d].NodeName = 'CHECKED')
                       or (bNode.Attributes.Item[d].NodeName = 'HASCHILDS')
+                      or (bNode.Attributes.Item[d].NodeName = 'OWNER')
                       then
                         begin
                           aNewValue := bNode.Attributes.Item[d].NodeValue;
