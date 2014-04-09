@@ -38,6 +38,7 @@ type
       AResponse: TResponse; var Handled: Boolean);
     procedure connectionavalibeRequest(Sender: TObject; ARequest: TRequest;
       AResponse: TResponse; var Handled: Boolean);
+    procedure DataModuleAfterInitModule(Sender: TObject; ARequest: TRequest);
     procedure DataModuleBeforeRequest(Sender: TObject; ARequest: TRequest);
     procedure getstatisticRequest(Sender: TObject; ARequest: TRequest;
       AResponse: TResponse; var Handled: Boolean);
@@ -58,6 +59,7 @@ type
     { private declarations }
     procedure DataSetToJSON(ADataSet: TDataSet; AJSON: TJSONArray; const ADateAsString: Boolean; Fields: TSQLElementList = nil);
     procedure ObjectToJSON(AObject : TBaseDBDataSet; AJSON: TJSONObject;const ADateAsString: Boolean);
+    procedure RegisterContent;
   public
     { public declarations }
   end;
@@ -96,6 +98,14 @@ begin
   TBaseWebSession(Session).ConnectionAvalible(ARequest,AResponse);
   AResponse.SendContent;
   Handled:=True;
+end;
+procedure Tappbase.DataModuleAfterInitModule(Sender: TObject; ARequest: TRequest
+  );
+var
+  aResponse : TResponse;
+begin
+  if TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True,False) then
+    RegisterContent;
 end;
 procedure Tappbase.DataModuleBeforeRequest(Sender: TObject; ARequest: TRequest);
 begin
@@ -246,135 +256,7 @@ begin
   TBaseWebSession(Session).DoLogin(Arequest,AResponse);
   if AResponse.Code=200 then
     begin
-      //Messages
-      Data.RegisterLinkHandler('HISTORY',@OpenLink,TBaseHistory);
-      //Messages
-      if Data.Users.Rights.Right('MESSAGES') > RIGHT_NONE then
-        begin
-          try
-            Data.RegisterLinkHandler('MESSAGEIDX',@OpenLink,TMessage);
-            AddSearchAbleDataSet(TMessageList);
-          except
-          end;
-        end;
-      //Tasks
-      if (Data.Users.Rights.Right('TASKS') > RIGHT_NONE) then
-        begin
-          try
-          Data.RegisterLinkHandler('TASKS',@OpenLink,TTask,TTaskList);
-          except
-          end;
-        end;
-      //Add PIM Entrys
-      if Data.Users.Rights.Right('CALENDAR') > RIGHT_NONE then
-        begin
-          try
-            Data.RegisterLinkHandler('CALENDAR',@OpenLink,TTask,TTaskList);
-          except
-          end;
-        end;
-      //Orders
-      if Data.Users.Rights.Right('ORDERS') > RIGHT_NONE then
-        begin
-          try
-          Data.RegisterLinkHandler('ORDERS',@OpenLink,Torder);
-          AddSearchAbleDataSet(TOrderList);
-          except
-          end;
-        end;
-      //Add Contacts
-      if Data.Users.Rights.Right('CUSTOMERS') > RIGHT_NONE then
-        begin
-          try
-          Data.RegisterLinkHandler('CUSTOMERS',@OpenLink,TPerson);
-          AddSearchAbleDataSet(TPersonList);
-          AddSearchAbleDataSet(TPersonContactData);
-          AddSearchAbleDataSet(TPersonAddress);
-          except
-          end;
-        end;
-      //Add Masterdata stuff
-      if (Data.Users.Rights.Right('MASTERDATA') > RIGHT_NONE) then
-        begin
-          try
-          Data.RegisterLinkHandler('MASTERDATA',@OpenLink,TMasterdata);
-          AddSearchAbleDataSet(TMasterdataList);
-          except
-          end;
-        end;
-      //Projects
-      if (Data.Users.Rights.Right('PROJECTS') > RIGHT_NONE) then
-        begin
-          try
-          Data.RegisterLinkHandler('PROJECT',@OpenLink,TProject);
-          AddSearchAbleDataSet(TProjectList);
-          except
-          end;
-        end;
-      //Wiki
-      Data.RegisterLinkHandler('WIKI',@OpenLink,TWikiList);
-      if (Data.Users.Rights.Right('WIKI') > RIGHT_NONE) then
-        begin
-          try
-          AddSearchAbleDataSet(TWikiList);
-          except
-          end;
-        end;
-      //Documents
-      if (Data.Users.Rights.Right('DOCUMENTS') > RIGHT_NONE) then
-        begin
-          try
-          Data.RegisterLinkHandler('DOCUMENTS',@OpenLink,TDocument);
-          //Data.RegisterLinkHandler('DOCPAGES',@OpenLink,TDocPages);
-          except
-          end;
-        end;
-      //Lists
-      if (Data.Users.Rights.Right('LISTS') > RIGHT_NONE) then
-        begin
-          try
-          Data.RegisterLinkHandler('LISTS',@OpenLink,TLists);
-          AddSearchAbleDataSet(TLists);
-          except
-          end;
-        end;
-      //Meetings
-      if (Data.Users.Rights.Right('MEETINGS') > RIGHT_NONE) then
-        begin
-          try
-          Data.RegisterLinkHandler('MEETINGS',@OpenLink,TMeetings);
-          AddSearchAbleDataSet(TMeetings);
-          except
-          end;
-        end;
-      //Inventory
-      if (Data.Users.Rights.Right('INVENTORY') > RIGHT_NONE) then
-        begin
-          try
-          Data.RegisterLinkHandler('INVENTORY',@OpenLink,TInventorys);
-          except
-          end;
-        end;
-      //Statistics
-      if (Data.Users.Rights.Right('STATISTICS') > RIGHT_NONE) then
-        begin
-          try
-          Data.RegisterLinkHandler('STATISTICS',@OpenLink,TStatistic);
-          AddSearchAbleDataSet(TStatistic);
-          except
-          end;
-        end;
-      //Timeregistering
-      AddSearchAbleDataSet(TUser);
-      //History
-      if Data.Users.Rights.Right('DOCUMENTS') > RIGHT_NONE then
-        begin
-          try
-          AddSearchAbleDataSet(TBaseHistory);
-          Data.RegisterLinkHandler('HISTORY',@OpenLink,TBaseHistory);
-          except
-          end;
-        end;
+      RegisterContent;
     end;
   AResponse.SendContent;
   Handled:=True;
@@ -426,12 +308,10 @@ begin
     AResponse.Code:=403;
   AResponse.SendContent;
 end;
-
 function Tappbase.OpenLink(aLink: string; Sender: TObject): Boolean;
 begin
 
 end;
-
 procedure Tappbase.setobjectRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 var
@@ -590,6 +470,140 @@ begin
         AJSON.Add(SubDataSet[i].Caption,aNewObj);
       end;
 end;
+
+procedure Tappbase.RegisterContent;
+begin
+  //Messages
+  Data.RegisterLinkHandler('HISTORY',@OpenLink,TBaseHistory);
+  //Messages
+  if Data.Users.Rights.Right('MESSAGES') > RIGHT_NONE then
+    begin
+      try
+        Data.RegisterLinkHandler('MESSAGEIDX',@OpenLink,TMessage);
+        AddSearchAbleDataSet(TMessageList);
+      except
+      end;
+    end;
+  //Tasks
+  if (Data.Users.Rights.Right('TASKS') > RIGHT_NONE) then
+    begin
+      try
+      Data.RegisterLinkHandler('TASKS',@OpenLink,TTask,TTaskList);
+      except
+      end;
+    end;
+  //Add PIM Entrys
+  if Data.Users.Rights.Right('CALENDAR') > RIGHT_NONE then
+    begin
+      try
+        Data.RegisterLinkHandler('CALENDAR',@OpenLink,TTask,TTaskList);
+      except
+      end;
+    end;
+  //Orders
+  if Data.Users.Rights.Right('ORDERS') > RIGHT_NONE then
+    begin
+      try
+      Data.RegisterLinkHandler('ORDERS',@OpenLink,Torder);
+      AddSearchAbleDataSet(TOrderList);
+      except
+      end;
+    end;
+  //Add Contacts
+  if Data.Users.Rights.Right('CUSTOMERS') > RIGHT_NONE then
+    begin
+      try
+      Data.RegisterLinkHandler('CUSTOMERS',@OpenLink,TPerson);
+      AddSearchAbleDataSet(TPersonList);
+      AddSearchAbleDataSet(TPersonContactData);
+      AddSearchAbleDataSet(TPersonAddress);
+      except
+      end;
+    end;
+  //Add Masterdata stuff
+  if (Data.Users.Rights.Right('MASTERDATA') > RIGHT_NONE) then
+    begin
+      try
+      Data.RegisterLinkHandler('MASTERDATA',@OpenLink,TMasterdata);
+      AddSearchAbleDataSet(TMasterdataList);
+      except
+      end;
+    end;
+  //Projects
+  if (Data.Users.Rights.Right('PROJECTS') > RIGHT_NONE) then
+    begin
+      try
+      Data.RegisterLinkHandler('PROJECT',@OpenLink,TProject);
+      AddSearchAbleDataSet(TProjectList);
+      except
+      end;
+    end;
+  //Wiki
+  Data.RegisterLinkHandler('WIKI',@OpenLink,TWikiList);
+  if (Data.Users.Rights.Right('WIKI') > RIGHT_NONE) then
+    begin
+      try
+      AddSearchAbleDataSet(TWikiList);
+      except
+      end;
+    end;
+  //Documents
+  if (Data.Users.Rights.Right('DOCUMENTS') > RIGHT_NONE) then
+    begin
+      try
+      Data.RegisterLinkHandler('DOCUMENTS',@OpenLink,TDocument);
+      //Data.RegisterLinkHandler('DOCPAGES',@OpenLink,TDocPages);
+      except
+      end;
+    end;
+  //Lists
+  if (Data.Users.Rights.Right('LISTS') > RIGHT_NONE) then
+    begin
+      try
+      Data.RegisterLinkHandler('LISTS',@OpenLink,TLists);
+      AddSearchAbleDataSet(TLists);
+      except
+      end;
+    end;
+  //Meetings
+  if (Data.Users.Rights.Right('MEETINGS') > RIGHT_NONE) then
+    begin
+      try
+      Data.RegisterLinkHandler('MEETINGS',@OpenLink,TMeetings);
+      AddSearchAbleDataSet(TMeetings);
+      except
+      end;
+    end;
+  //Inventory
+  if (Data.Users.Rights.Right('INVENTORY') > RIGHT_NONE) then
+    begin
+      try
+      Data.RegisterLinkHandler('INVENTORY',@OpenLink,TInventorys);
+      except
+      end;
+    end;
+  //Statistics
+  if (Data.Users.Rights.Right('STATISTICS') > RIGHT_NONE) then
+    begin
+      try
+      Data.RegisterLinkHandler('STATISTICS',@OpenLink,TStatistic);
+      AddSearchAbleDataSet(TStatistic);
+      except
+      end;
+    end;
+  //Timeregistering
+  AddSearchAbleDataSet(TUser);
+  //History
+  if Data.Users.Rights.Right('DOCUMENTS') > RIGHT_NONE then
+    begin
+      try
+      AddSearchAbleDataSet(TBaseHistory);
+      Data.RegisterLinkHandler('HISTORY',@OpenLink,TBaseHistory);
+      except
+      end;
+    end;
+end;
+
 initialization
   RegisterHTTPModule('main', Tappbase);
 end.

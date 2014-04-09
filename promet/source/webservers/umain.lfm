@@ -59,6 +59,7 @@ object appbase: Tappbase
   BeforeRequest = DataModuleBeforeRequest
   DefActionWhenUnknown = False
   CreateSession = True
+  AfterInitModule = DataModuleAfterInitModule
   Height = 328
   HorizontalOffset = 357
   VerticalOffset = 292
