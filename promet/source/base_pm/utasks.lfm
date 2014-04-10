@@ -2652,6 +2652,16 @@ inherited fTaskFrame: TfTaskFrame
       OnExecute = acOpenExecute
       ShortCut = 16463
     end
+    object acSetOwner: TAction
+      Caption = 'Verantwortlichen zuweisen'
+      ImageIndex = 8
+      Visible = False
+    end
+    object acSetUser: TAction
+      Caption = 'Bearbeiter zuweisen'
+      ImageIndex = 8
+      Visible = False
+    end
   end
   object Datasource: TDatasource[8]
     OnStateChange = DatasourceStateChange
@@ -2728,6 +2738,12 @@ inherited fTaskFrame: TfTaskFrame
     Images = fVisualControls.Images
     left = 64
     top = 89
+    object MenuItem3: TMenuItem
+      Action = acSetOwner
+    end
+    object MenuItem7: TMenuItem
+      Action = acSetUser
+    end
     object MenuItem6: TMenuItem
       Action = acOpen
       Bitmap.Data = {

@@ -50,6 +50,8 @@ type
     acDefaultFilter: TAction;
     acMarkSeen: TAction;
     acOpen: TAction;
+    acSetOwner: TAction;
+    acSetUser: TAction;
     acUnmakeSubTask: TAction;
     ActionList: TActionList;
     ActionList1: TActionList;
@@ -97,6 +99,8 @@ type
     Datasource: TDatasource;
     ExtRotatedLabel5: TExtRotatedLabel;
     MenuItem2: TMenuItem;
+    MenuItem3: TMenuItem;
+    MenuItem7: TMenuItem;
     miCopyLink: TMenuItem;
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
@@ -563,8 +567,9 @@ end;
 procedure TfTaskFrame.acDelPosExecute(Sender: TObject);
 begin
   if not FGridView.GotoActiveRow then exit;
-  if (DataSet.FieldByName('OWNER').AsString <> aUsers.FieldByName('ACCOUNTNO').AsString)
-  and (not DataSet.FieldByName('OWNER').IsNull) then
+  if ((DataSet.FieldByName('OWNER').AsString <> aUsers.FieldByName('ACCOUNTNO').AsString)
+  and (not DataSet.FieldByName('OWNER').IsNull))
+  and (not (DataSet is TProjectTasks)) then
     exit;
   if MessageDlg(strRealdelete,mtInformation,[mbYes,mbNo],0) = mrYes then
     begin
