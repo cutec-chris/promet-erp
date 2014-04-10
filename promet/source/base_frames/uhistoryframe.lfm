@@ -344,7 +344,7 @@ inherited fHistoryFrame: TfHistoryFrame
     end
     object acAddLinked: TAction
       Caption = 'acAddLinked'
-      Hint = 'manuell neuen Verlaufseintrag erzeugen'#10'und Verknüpfung aus Zwischenablage anhängen'
+      Hint = 'manuell neuen Verlaufseintrag erzeugen'#10'und Verweis aus Zwischenablage anhängen'
       OnExecute = acAddLinkedExecute
     end
   end

@@ -608,7 +608,7 @@ object fEnterTime: TfEnterTime
         object iLink: TImage
           Left = 62
           Height = 16
-          Hint = 'Zeigt an ob eine gültige verknüpfung '#13#10'in Eintrag/Projekt enthalten ist'
+          Hint = 'Zeigt an ob ein gültiger Verweis '#13#10'in Eintrag/Projekt enthalten ist'
           Top = 8
           Width = 17
           OnClick = iLinkClick
@@ -694,7 +694,7 @@ object fEnterTime: TfEnterTime
         object iLink1: TImage
           Left = 62
           Height = 16
-          Hint = 'Zeigt an ob eine gültige verknüpfung '#13#10'in Eintrag/Projekt enthalten ist'
+          Hint = 'Zeigt an ob eine gültiger Verweis '#13#10'in Eintrag/Projekt enthalten ist'
           Top = 3
           Width = 17
           OnClick = iLinkClick
@@ -723,7 +723,7 @@ object fEnterTime: TfEnterTime
         object iLink3: TImage
           Left = 62
           Height = 16
-          Hint = 'Zeigt an ob eine gültige verknüpfung '#13#10'in Eintrag/Projekt enthalten ist'
+          Hint = 'Zeigt an ob eine gültiger Verweis '#13#10'in Eintrag/Projekt enthalten ist'
           Top = 3
           Width = 17
           OnClick = iLinkClick
@@ -944,4 +944,4 @@ object fEnterTime: TfEnterTime
     left = 256
     top = 240
   end
-end
+end

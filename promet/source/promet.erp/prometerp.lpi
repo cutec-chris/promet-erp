@@ -285,7 +285,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="60">
+    <Units Count="73">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -721,7 +721,7 @@
       </Unit41>
       <Unit42>
         <Filename Value="../base/revision.inc"/>
-        <EditorIndex Value="19"/>
+        <EditorIndex Value="32"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
@@ -730,7 +730,7 @@
       </Unit42>
       <Unit43>
         <Filename Value="../base/changes.txt"/>
-        <EditorIndex Value="20"/>
+        <EditorIndex Value="33"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="23" Y="6"/>
@@ -757,11 +757,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uProjectFrame"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="450"/>
-        <CursorPos X="30" Y="469"/>
+        <TopLine Value="451"/>
+        <CursorPos X="30" Y="470"/>
         <UsageCount Value="22"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -893,26 +892,16 @@
         <Loaded Value="True"/>
       </Unit56>
       <Unit57>
-        <Filename Value="../base_docmanage/umanagedocframe.lfm"/>
-        <EditorIndex Value="17"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1330"/>
-        <CursorPos X="25" Y="1349"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="LFM"/>
-      </Unit57>
-      <Unit58>
         <Filename Value="../base_docmanage/umanagedocframe.pas"/>
         <UnitName Value="umanagedocframe"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="207"/>
         <CursorPos X="47" Y="226"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
-      </Unit58>
-      <Unit59>
+      </Unit57>
+      <Unit58>
         <Filename Value="../base_pm/uganttview.pas"/>
         <ComponentName Value="fGanttView"/>
         <HasResources Value="True"/>
@@ -925,128 +914,269 @@
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
+      </Unit58>
+      <Unit59>
+        <Filename Value="../base_documents/udocumentframe.lfm"/>
+        <EditorIndex Value="18"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="3662"/>
+        <CursorPos X="25" Y="3681"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit59>
+      <Unit60>
+        <Filename Value="../base_documents/lib/i386-win32-win32/udocumentframe.lfm"/>
+        <EditorIndex Value="19"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="3662"/>
+        <CursorPos X="25" Y="3681"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="LFM"/>
+      </Unit60>
+      <Unit61>
+        <Filename Value="../base_forms/usearch.lfm"/>
+        <EditorIndex Value="20"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="774"/>
+        <CursorPos X="22" Y="801"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="LFM"/>
+      </Unit61>
+      <Unit62>
+        <Filename Value="../base_frames/ufilterframe.lfm"/>
+        <EditorIndex Value="21"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1789"/>
+        <CursorPos X="22" Y="1823"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="LFM"/>
+      </Unit62>
+      <Unit63>
+        <Filename Value="../base_frames/uhistoryframe.lfm"/>
+        <EditorIndex Value="22"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="313"/>
+        <CursorPos X="69" Y="347"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="LFM"/>
+      </Unit63>
+      <Unit64>
+        <Filename Value="../base_frames/umaintreeframe.lfm"/>
+        <EditorIndex Value="23"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="76"/>
+        <CursorPos X="18" Y="102"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="LFM"/>
+      </Unit64>
+      <Unit65>
+        <Filename Value="../base_frames/lib/i386-win32/uhistoryframe.lfm"/>
+        <EditorIndex Value="24"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="313"/>
+        <CursorPos X="69" Y="347"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="LFM"/>
+      </Unit65>
+      <Unit66>
+        <Filename Value="../base_help/uwikiframe.lfm"/>
+        <EditorIndex Value="25"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="553"/>
+        <CursorPos X="37" Y="572"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="LFM"/>
+      </Unit66>
+      <Unit67>
+        <Filename Value="../base_help/lib/i386-win32-win32/uwikiframe.lfm"/>
+        <EditorIndex Value="26"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="553"/>
+        <CursorPos X="37" Y="572"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="LFM"/>
+      </Unit67>
+      <Unit68>
+        <Filename Value="../base_pm/utasks.lfm"/>
+        <EditorIndex Value="27"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2649"/>
+        <CursorPos X="25" Y="2668"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="LFM"/>
+      </Unit68>
+      <Unit69>
+        <Filename Value="../messagemanager/umtimeline.lfm"/>
+        <EditorIndex Value="28"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="679"/>
+        <CursorPos X="25" Y="698"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="LFM"/>
+      </Unit69>
+      <Unit70>
+        <Filename Value="../projectmanagement/lib/i386-win32-win32/uhistoryframe.lfm"/>
+        <EditorIndex Value="29"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="799"/>
+        <CursorPos X="69" Y="833"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="LFM"/>
+      </Unit70>
+      <Unit71>
+        <Filename Value="../timeregistering/uentertime.lfm"/>
+        <EditorIndex Value="30"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="707"/>
+        <CursorPos X="52" Y="726"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="LFM"/>
+      </Unit71>
+      <Unit72>
+        <Filename Value="../timeregistering/utimeoptions.lfm"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="31"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="165"/>
+        <CursorPos X="49" Y="184"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="LFM"/>
+      </Unit72>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="904" Column="27" TopLine="899"/>
+        <Filename Value="../projectmanagement/uprojectframe.pas"/>
+        <Caret Line="469" Column="22" TopLine="450"/>
       </Position1>
       <Position2>
-        <Filename Value="../base_documents/udocumentframe.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="140" Column="21" TopLine="121"/>
       </Position2>
       <Position3>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="9" Column="101" TopLine="1"/>
+        <Filename Value="../projectmanagement/uprojectframe.pas"/>
+        <Caret Line="469" Column="30" TopLine="450"/>
       </Position3>
       <Position4>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="548" Column="1" TopLine="545"/>
+        <Filename Value="../base_documents/udocumentframe.lfm"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position4>
       <Position5>
-        <Filename Value="../base_pm/utaskedit.pas"/>
-        <Caret Line="11" Column="134" TopLine="1"/>
+        <Filename Value="../base_documents/udocumentframe.lfm"/>
+        <Caret Line="1266" Column="29" TopLine="1247"/>
       </Position5>
       <Position6>
-        <Filename Value="../base_pm/utaskedit.pas"/>
-        <Caret Line="138" Column="11" TopLine="106"/>
+        <Filename Value="../base_documents/udocumentframe.lfm"/>
+        <Caret Line="1317" Column="25" TopLine="1298"/>
       </Position6>
       <Position7>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="83" Column="79" TopLine="80"/>
+        <Filename Value="../base_documents/lib/i386-win32-win32/udocumentframe.lfm"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position7>
       <Position8>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="294" Column="25" TopLine="262"/>
+        <Filename Value="../base_documents/lib/i386-win32-win32/udocumentframe.lfm"/>
+        <Caret Line="1266" Column="29" TopLine="1247"/>
       </Position8>
       <Position9>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="319" Column="10" TopLine="288"/>
+        <Filename Value="../base_documents/lib/i386-win32-win32/udocumentframe.lfm"/>
+        <Caret Line="1317" Column="25" TopLine="1298"/>
       </Position9>
       <Position10>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="321" Column="50" TopLine="290"/>
+        <Filename Value="../base_forms/usearch.lfm"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position10>
       <Position11>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="556" Column="66" TopLine="539"/>
+        <Filename Value="../base_forms/usearch.lfm"/>
+        <Caret Line="615" Column="22" TopLine="591"/>
       </Position11>
       <Position12>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="1446" Column="31" TopLine="1424"/>
+        <Filename Value="../base_frames/ufilterframe.lfm"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position12>
       <Position13>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="544" Column="77" TopLine="528"/>
+        <Filename Value="../base_frames/ufilterframe.lfm"/>
+        <Caret Line="1744" Column="33" TopLine="1719"/>
       </Position13>
       <Position14>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="28" Column="66" TopLine="1"/>
+        <Filename Value="../base_frames/uhistoryframe.lfm"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position14>
       <Position15>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="280" Column="32" TopLine="263"/>
+        <Filename Value="../base_frames/umaintreeframe.lfm"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position15>
       <Position16>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="976" Column="151" TopLine="935"/>
+        <Filename Value="../base_frames/umaintreeframe.lfm"/>
+        <Caret Line="102" Column="25" TopLine="76"/>
       </Position16>
       <Position17>
-        <Filename Value="../base/dbintfs/udocuments.pas"/>
+        <Filename Value="../base_frames/lib/i386-win32/uhistoryframe.lfm"/>
         <Caret Line="1" Column="1" TopLine="1"/>
       </Position17>
       <Position18>
-        <Filename Value="../base_docmanage/umanagedocframe.lfm"/>
+        <Filename Value="../base_help/uwikiframe.lfm"/>
         <Caret Line="1" Column="1" TopLine="1"/>
       </Position18>
       <Position19>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Filename Value="../base_help/uwikiframe.lfm"/>
+        <Caret Line="272" Column="38" TopLine="253"/>
       </Position19>
       <Position20>
-        <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="482" Column="11" TopLine="463"/>
+        <Filename Value="../base_help/uwikiframe.lfm"/>
+        <Caret Line="325" Column="39" TopLine="306"/>
       </Position20>
       <Position21>
-        <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="601" Column="13" TopLine="598"/>
+        <Filename Value="../base_help/lib/i386-win32-win32/uwikiframe.lfm"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position21>
       <Position22>
-        <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="600" Column="9" TopLine="576"/>
+        <Filename Value="../base_help/lib/i386-win32-win32/uwikiframe.lfm"/>
+        <Caret Line="272" Column="38" TopLine="253"/>
       </Position22>
       <Position23>
-        <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="601" Column="9" TopLine="577"/>
+        <Filename Value="../base_help/lib/i386-win32-win32/uwikiframe.lfm"/>
+        <Caret Line="325" Column="47" TopLine="306"/>
       </Position23>
       <Position24>
-        <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="608" Column="9" TopLine="584"/>
+        <Filename Value="../base_pm/utasks.lfm"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position24>
       <Position25>
-        <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="452" Column="13" TopLine="447"/>
+        <Filename Value="../messagemanager/umtimeline.lfm"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position25>
       <Position26>
-        <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="617" Column="1" TopLine="591"/>
+        <Filename Value="../projectmanagement/lib/i386-win32-win32/uhistoryframe.lfm"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position26>
       <Position27>
-        <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="469" Column="18" TopLine="450"/>
+        <Filename Value="../timeregistering/uentertime.lfm"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position27>
       <Position28>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="139" Column="14" TopLine="121"/>
+        <Filename Value="../timeregistering/uentertime.lfm"/>
+        <Caret Line="611" Column="52" TopLine="592"/>
       </Position28>
       <Position29>
-        <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="469" Column="22" TopLine="450"/>
+        <Filename Value="../timeregistering/uentertime.lfm"/>
+        <Caret Line="697" Column="53" TopLine="678"/>
       </Position29>
       <Position30>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <Caret Line="140" Column="21" TopLine="121"/>
+        <Filename Value="../timeregistering/utimeoptions.lfm"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>

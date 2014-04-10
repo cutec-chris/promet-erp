@@ -1735,13 +1735,13 @@ inherited fFilter: TfFilter
       OnExecute = acDefaultFilterExecute
     end
     object acSaveLink: TAction
-      Caption = 'als Verknüpfungsdatei (.plink) speichern'
+      Caption = 'als Verweisdatei (.plink) speichern'
       ImageIndex = 70
       OnExecute = acSaveLinkExecute
     end
     object acCopyFilterLink: TAction
       Caption = 'acCopyFilterLink'
-      Hint = 'Filter als Verknüpfung kopieren'
+      Hint = 'Filter als Verweis kopieren'
       ImageIndex = 23
       OnExecute = acCopyFilterLinkExecute
     end
@@ -1820,7 +1820,7 @@ inherited fFilter: TfFilter
     top = 126
   end
   object LinkSaveDialog: TSaveDialog[17]
-    Filter = 'Verknüpfungsdatei|.plink'
+    Filter = 'Verweisdatei|.plink'
     left = 83
     top = 144
   end

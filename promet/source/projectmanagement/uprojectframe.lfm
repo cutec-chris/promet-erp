@@ -1397,6 +1397,9 @@ inherited fprojectFrame: TfprojectFrame
         E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FF
       }
     end
+    object MenuItem11: TMenuItem
+      Caption = '-'
+    end
     object MenuItem9: TMenuItem
       Action = acCalculatePlan
       Bitmap.Data = {

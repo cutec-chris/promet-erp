@@ -94,12 +94,12 @@ object fMainTree: TfMainTree
       OnExecute = acRestoreStandardExecute
     end
     object acCopyAsLink: TAction
-      Caption = 'Als Verknüpfung kopieren'
+      Caption = 'Als Verweis kopieren'
       ImageIndex = 23
       OnExecute = acCopyAsLinkExecute
     end
     object acPasteLink: TAction
-      Caption = 'Verknüpfung einfügen'
+      Caption = 'Verweis einfügen'
       ImageIndex = 111
       OnExecute = acPasteLinkExecute
     end

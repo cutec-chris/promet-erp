@@ -607,12 +607,12 @@ object fSearch: TfSearch
       ShortCut = 16463
     end
     object acCopyLink: TAction
-      Caption = 'Als Verknüpfung kopieren'
+      Caption = 'Als Verweis kopieren'
       ImageIndex = 23
       OnExecute = acCopyLinkExecute
     end
     object acSaveToLink: TAction
-      Caption = 'als Verknüpfungsdatei (.plink) speichern'
+      Caption = 'als Verweisdatei (.plink) speichern'
       ImageIndex = 70
       OnExecute = acSaveToLinkExecute
     end
@@ -798,7 +798,7 @@ object fSearch: TfSearch
     top = 304
   end
   object LinkSaveDialog: TSaveDialog
-    Filter = 'Verknüpfungsdatei|.plink'
+    Filter = 'Verweisdatei|.plink'
     left = 144
     top = 304
   end

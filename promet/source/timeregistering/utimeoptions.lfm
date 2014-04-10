@@ -181,7 +181,7 @@ inherited fTimeOptions: TfTimeOptions
       object iLink: TImage
         Left = 56
         Height = 16
-        Hint = 'Zeigt an ob eine gültige verknüpfung '#13#10'in Eintrag/Projekt enthalten ist'
+        Hint = 'Zeigt an ob ein gültiger Verweis '#13#10'in Eintrag/Projekt enthalten ist'
         Top = 6
         Width = 17
         Stretch = True

@@ -80,6 +80,7 @@ type
     Label9: TLabel;
     lVAT1: TLabel;
     MenuItem10: TMenuItem;
+    MenuItem11: TMenuItem;
     MenuItem6: TMenuItem;
     MenuItem7: TMenuItem;
     MenuItem8: TMenuItem;

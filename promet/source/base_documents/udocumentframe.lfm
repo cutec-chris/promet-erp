@@ -1263,7 +1263,7 @@ inherited fDocumentFrame: TfDocumentFrame
     end
     object acCopyAsLink: TAction
       Category = 'Documents'
-      Caption = 'als Verknüpfung kopieren'
+      Caption = 'als Verweis kopieren'
       OnExecute = acCopyAsLinkExecute
     end
     object acPasteAsLink: TAction
@@ -1314,7 +1314,7 @@ inherited fDocumentFrame: TfDocumentFrame
       OnExecute = acMoveLinkExecute
     end
     object acCopyTextLink: TAction
-      Caption = 'Verknüpfung als Text kopieren'
+      Caption = 'Verweis als Text kopieren'
       OnExecute = acCopyTextLinkExecute
     end
     object acRights: TAction
@@ -3678,7 +3678,7 @@ inherited fDocumentFrame: TfDocumentFrame
       Action = acMoveLink
     end
     object miLink: TMenuItem
-      Caption = 'Verknüpfung'
+      Caption = 'Verweis'
       object MenuItem5: TMenuItem
         Action = acCopyTextLink
       end
@@ -3728,4 +3728,4 @@ inherited fDocumentFrame: TfDocumentFrame
     left = 168
     top = 128
   end
-end
+end

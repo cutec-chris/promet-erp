@@ -2665,7 +2665,7 @@ inherited fTaskFrame: TfTaskFrame
       Visible = False
     end
     object acAppendLinkToDependencies: TAction
-      Caption = 'Verknüpfung als Abhängigkeit einfügen'
+      Caption = 'Verweis als Abhängigkeit einfügen'
       ImageIndex = 70
       OnExecute = acAppendLinkToDependenciesExecute
     end

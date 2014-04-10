@@ -269,7 +269,7 @@ inherited fWikiFrame: TfWikiFrame
         object SpeedButton4: TSpeedButton
           Left = 140
           Height = 25
-          Hint = 'fügt eine Verknüpfung ein'
+          Hint = 'fügt einen Verweis ein'
           Top = 16
           Width = 25
           Glyph.Data = {
@@ -322,7 +322,7 @@ inherited fWikiFrame: TfWikiFrame
         object SpeedButton3: TSpeedButton
           Left = 164
           Height = 25
-          Hint = 'fügt eine externe Verknüpfung ein'
+          Hint = 'fügt einen externen Verweis ein'
           Top = 16
           Width = 25
           Glyph.Data = {
@@ -569,7 +569,7 @@ inherited fWikiFrame: TfWikiFrame
         object SpeedButton9: TSpeedButton
           Left = 188
           Height = 25
-          Hint = 'fügt eine Verknüpfung auf ein Promet-Element ein'
+          Hint = 'fügt einen Verweis auf ein Promet-Element ein'
           Top = 16
           Width = 25
           Glyph.Data = {
