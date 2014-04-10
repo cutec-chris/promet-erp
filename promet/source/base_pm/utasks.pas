@@ -97,7 +97,7 @@ type
     Datasource: TDatasource;
     ExtRotatedLabel5: TExtRotatedLabel;
     MenuItem2: TMenuItem;
-    MenuItem3: TMenuItem;
+    miCopyLink: TMenuItem;
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
@@ -1433,6 +1433,7 @@ begin
   FGridView.OnAddRow:=@FGridViewAddRow;
   FGridView.OnDelete:=@FGridViewDelete;
   FGridView.gList.PopupMenu := pmGrid;
+  miCopyLink.Action := FGridView.acCopyLink;
   pFilterOptions.Height:=0;
 end;
 destructor TfTaskFrame.Destroy;

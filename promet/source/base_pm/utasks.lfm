@@ -2923,7 +2923,7 @@ inherited fTaskFrame: TfTaskFrame
         FF0000B5F41700B5F4D100B5F4C900B5F427FFFFFF00FFFFFF00
       }
     end
-    object MenuItem3: TMenuItem
+    object miCopyLink: TMenuItem
       Action = fGridView.acCopyLink
     end
   end

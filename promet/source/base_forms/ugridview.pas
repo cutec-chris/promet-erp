@@ -3331,7 +3331,10 @@ begin
       CleanList(1);
     end;
   aOldRow := gList.Row;
-  gList.Clean(gList.Selection,[]);
+  try
+    gList.Clean(gList.Selection,[]);
+  except
+  end;
   SyncDataSource;
   gList.Row:=aOldRow;
   GotoActiveRow;

@@ -6,6 +6,7 @@ object fGridView: TfGridView
   ClientHeight = 354
   ClientWidth = 581
   Color = clBtnFace
+  LCLVersion = '1.3'
   OnResize = FrameResize
   ParentColor = False
   ParentShowHint = False
