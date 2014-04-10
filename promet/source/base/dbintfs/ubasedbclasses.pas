@@ -458,7 +458,7 @@ resourcestring
   strPaid                       = 'bezahlt';
   strDelivered                  = 'geliefert';
   strActive                     = 'Aktiv';
-  strLink                       = 'Verknüpfung';
+  strLink                       = 'Verweis';
   strTask                       = 'Aufgabe';
   strEnd                        = 'Ende';
   strPause                      = 'Pause';

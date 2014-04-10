@@ -273,7 +273,7 @@ object fTreeView: TfTreeView
       ShortCut = 16463
     end
     object acCopyLink: TAction
-      Caption = 'als Verknüpfung kopieren'
+      Caption = 'als Verweis kopieren'
     end
   end
   object DblClickTimer: TIdleTimer

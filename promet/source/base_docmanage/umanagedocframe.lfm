@@ -1346,7 +1346,7 @@ inherited fManageDocFrame: TfManageDocFrame
       ShortCut = 113
     end
     object acSetLink: TAction
-      Caption = 'Verknüpfung zuweisen'
+      Caption = 'Verweis zuweisen'
       ImageIndex = 70
       OnExecute = acSetLinkExecute
     end

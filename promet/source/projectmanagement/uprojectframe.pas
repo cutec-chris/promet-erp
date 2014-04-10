@@ -597,7 +597,15 @@ end;
 
 procedure TfProjectFrame.acCalculatePlanExecute(Sender: TObject);
 begin
+  if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
+    TfTaskFrame(pcPages.ActivePage.Controls[0]).GridView.BeginUpdate;
   fGanttView.Calculate(TProject(DataSet));
+  if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
+    begin
+      TfTaskFrame(pcPages.ActivePage.Controls[0]).acRefresh.Execute;
+    end;
+  if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
+    TfTaskFrame(pcPages.ActivePage.Controls[0]).GridView.EndUpdate;
 end;
 
 procedure TfProjectFrame.acSaveExecute(Sender: TObject);

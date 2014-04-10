@@ -223,7 +223,7 @@ resourcestring
   strTag                   = 'Tag';
   strSetTag                = 'durch Klick setzen';
   strSetDate               = 'Soll das Datum %s als Belegdatum gesetzt werden ?';
-  strMakeLinkToDocuments   = 'Soll eine Verknüpfung in dne Dateien des Eintrags angelegt werden ?'+LineEnding+'So können Sie auch vom Eintrag aus das Dokument schnell finden';
+  strMakeLinkToDocuments   = 'Soll ein Verweis in dne Dateien des Eintrags angelegt werden ?'+LineEnding+'So können Sie auch vom Eintrag aus das Dokument schnell finden';
 
 procedure AddToMainTree(Node: TTReeNode;aType : string = 'D');
 var

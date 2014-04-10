@@ -144,7 +144,7 @@ uses uBaseDBInterface,uBaseApplication, uBaseApplicationTools, FileUtil,md5,
 resourcestring
   strFailedCreatingDiff         = 'konnte Differenzdatei von Datei %s nicht erstellen';
   strInvalidLink                = 'Dieser Link ist auf dieser Datenbank ungültig !';
-  strLinkNotFound               = 'Verknüpfungsziel konnte nicht gefunden werden !';
+  strLinkNotFound               = 'Verweis konnte nicht gefunden werden !';
 var FUsedFields : string;
 procedure TDocumentActions.DefineFields(aDataSet: TDataSet);
 begin
