@@ -626,7 +626,8 @@ begin
     end;
   with Application as IBaseDbInterface do
     begin
-      Data.SetFilter(Data.Filters,'');
+      with Data.Filters.DataSet as IBaseDBFilter,Data.Filters.DataSet as IbaseManageDB do
+        Data.SetFilter(Data.Filters,Data.ProcessTerm(Data.QuoteField('TYPE')+'='+Data.QuoteValue(FFilterType)),0,'','ASC',False,True,True);
       if Data.Filters.DataSet.Locate('TYPE;NAME',VarArrayOf([FFilterType,cbFilter.Text]),[loCaseInsensitive,loPartialKey]) then
         Data.Filters.DataSet.Edit
       else
@@ -687,7 +688,8 @@ procedure TfFilter.acDeleteFilterExecute(Sender: TObject);
 begin
   with Application as IBaseDbInterface do
     begin
-      Data.SetFilter(Data.Filters,'');
+      with Data.Filters.DataSet as IBaseDBFilter,Data.Filters.DataSet as IbaseManageDB do
+        Data.SetFilter(Data.Filters,Data.ProcessTerm(Data.QuoteField('TYPE')+'='+Data.QuoteValue(FFilterType)),0,'','ASC',False,True,True);
       if Data.Filters.DataSet.Locate('TYPE;NAME',VarArrayOf([FFilterType,cbFilter.Text]),[loCaseInsensitive,loPartialKey]) then
         if MessageDlg(strRealdelete,mtInformation,[mbYes,mbNo],0) = mrYes then
           begin

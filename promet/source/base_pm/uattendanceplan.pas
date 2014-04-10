@@ -119,9 +119,12 @@ uses uData,LCLIntf,uBaseDbClasses,uProjects,uTaskEdit,LCLProc,uGanttView,uColors
 procedure TCollectThread.Attatch;
 begin
   FAttatchTo.Pointer:=FResource;
-  FPlan.Invalidate;
-  FPlan.iHourglass.Visible:=False;
-  Application.ProcessMessages;
+  try
+    FPlan.Invalidate;
+    FPlan.iHourglass.Visible:=False;
+    Application.ProcessMessages;
+  except
+  end;
 end;
 
 procedure TCollectThread.Plan;
