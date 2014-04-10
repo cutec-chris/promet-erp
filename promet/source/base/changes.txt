@@ -2,6 +2,9 @@
       - Listen:Filter wurden u.U. nicht gefunden wenn viele Filter in der Datenbank gespeichert wurden
       - Aufgaben:Focus fehler behoben (Aufgabenliste hatte Focus nach öffnen des Tabs nicht)
       - Aufgaben:Im projekt können nun auch Aufgaben gelöscht sind deren Verantwortlicher man nicht ist
+      - Projekte:Plan errechnen aus dem Projekt heraus, aktualisiert die Aufgabenansicht wenn vorhanden
+      - Projekte:Abhängigkeiten können über Kontextmenü eingefügt werden
+      - Projekte:Plan aktualisieren ist nun vom Projekt aus erreichbar
 Build 330
       - Outlook Synchronisation:auf generische Synchronisationsroutinen umgestellt (werden in Zukunft immer für Synchronisation eingesetzt so das die Entwicklung vereinheitlicht/vereinfacht wird)
       - Appbasis:Synchronisationsroutionen für Apps angepasst
