@@ -1437,7 +1437,7 @@ inherited fprojectFrame: TfprojectFrame
       }
     end
     object MenuItem10: TMenuItem
-      Caption = 'New Item4'
+      Action = acMoveOldTasks
     end
   end
 end
