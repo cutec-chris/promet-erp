@@ -16,6 +16,7 @@ type
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
     procedure DoRefresh; override;
+    procedure ShowFrame; override;
   end;
 
 implementation
@@ -45,6 +46,11 @@ end;
 procedure TfMainTaskFrame.DoRefresh;
 begin
   FTasks.DoRefresh;
+end;
+
+procedure TfMainTaskFrame.ShowFrame;
+begin
+  FTasks.ShowFrame;
 end;
 
 end.

@@ -285,7 +285,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="56">
+    <Units Count="60">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -304,8 +304,8 @@
         <UnitName Value="uMain"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="2624"/>
-        <CursorPos X="28" Y="2560"/>
+        <TopLine Value="1923"/>
+        <CursorPos X="18" Y="1947"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -414,7 +414,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uArticleFrame"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="562"/>
         <CursorPos X="1" Y="579"/>
@@ -713,7 +713,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMainTreeFrame"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1727"/>
         <CursorPos X="1" Y="1737"/>
@@ -723,7 +723,7 @@
       </Unit41>
       <Unit42>
         <Filename Value="../base/revision.inc"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="20"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
@@ -732,10 +732,10 @@
       </Unit42>
       <Unit43>
         <Filename Value="../base/changes.txt"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="21"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="39" Y="21"/>
+        <CursorPos X="19" Y="13"/>
         <UsageCount Value="73"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
@@ -746,18 +746,17 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uWikiFrame"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1115"/>
-        <CursorPos X="51" Y="1139"/>
+        <TopLine Value="1246"/>
+        <CursorPos X="1" Y="1271"/>
         <UsageCount Value="52"/>
         <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit44>
       <Unit45>
         <Filename Value="../base_wiki/wikitohtml.pas"/>
         <UnitName Value="wikitohtml"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="17"/>
         <CursorPos X="83" Y="34"/>
@@ -767,7 +766,7 @@
       <Unit46>
         <Filename Value="../base/dbintfs/uwiki.pas"/>
         <UnitName Value="uWiki"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="72"/>
         <CursorPos X="35" Y="80"/>
@@ -780,7 +779,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uProjectFrame"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="463"/>
         <CursorPos X="11" Y="482"/>
@@ -794,7 +793,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uGanttView"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="18"/>
         <WindowIndex Value="0"/>
         <TopLine Value="430"/>
         <CursorPos X="36" Y="462"/>
@@ -805,7 +804,7 @@
       <Unit49>
         <Filename Value="../base_pm/gsGanttCalendar.pas"/>
         <UnitName Value="gsGanttCalendar"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="19"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2951"/>
         <CursorPos X="152" Y="2951"/>
@@ -818,7 +817,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uHistoryFrame"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="136"/>
         <CursorPos X="16" Y="166"/>
@@ -829,17 +828,17 @@
       <Unit51>
         <Filename Value="../base_pm/utasks.pas"/>
         <UnitName Value="utasks"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="745"/>
-        <CursorPos X="1" Y="763"/>
+        <TopLine Value="14"/>
+        <CursorPos X="24" Y="243"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit51>
       <Unit52>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="937"/>
         <CursorPos X="151" Y="976"/>
@@ -849,7 +848,7 @@
       <Unit53>
         <Filename Value="../base/dbintfs/uprojects.pas"/>
         <UnitName Value="uProjects"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="36"/>
         <CursorPos X="28" Y="49"/>
@@ -862,7 +861,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uFilterFrame"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1227"/>
         <CursorPos X="66" Y="1244"/>
@@ -873,136 +872,175 @@
       <Unit55>
         <Filename Value="../base_pm/uattendanceplan.pas"/>
         <UnitName Value="uattendanceplan"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="103"/>
         <CursorPos X="8" Y="122"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit55>
+      <Unit56>
+        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
+        <ComponentName Value="ExtControlFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uExtControls"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="548"/>
+        <CursorPos X="1" Y="565"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit56>
+      <Unit57>
+        <Filename Value="../base_forms/ugridview.pas"/>
+        <UnitName Value="ugridview"/>
+        <EditorIndex Value="9"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2297"/>
+        <CursorPos X="6" Y="2310"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit57>
+      <Unit58>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <UnitName Value="uBaseDBInterface"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="900"/>
+        <CursorPos X="1" Y="932"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit58>
+      <Unit59>
+        <Filename Value="../base_pm/umaintasks.pas"/>
+        <UnitName Value="umaintasks"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="7"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="19"/>
+        <CursorPos X="19" Y="53"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit59>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="747" Column="15" TopLine="683"/>
+        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
+        <Caret Line="601" Column="1" TopLine="580"/>
       </Position1>
       <Position2>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="698" Column="33" TopLine="686"/>
+        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
+        <Caret Line="603" Column="1" TopLine="580"/>
       </Position2>
       <Position3>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="736" Column="78" TopLine="716"/>
+        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
+        <Caret Line="606" Column="1" TopLine="580"/>
       </Position3>
       <Position4>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="747" Column="54" TopLine="731"/>
+        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
+        <Caret Line="608" Column="1" TopLine="595"/>
       </Position4>
       <Position5>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="755" Column="64" TopLine="747"/>
+        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
+        <Caret Line="609" Column="1" TopLine="595"/>
       </Position5>
       <Position6>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="902" Column="28" TopLine="894"/>
+        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
+        <Caret Line="610" Column="1" TopLine="595"/>
       </Position6>
       <Position7>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="949" Column="51" TopLine="922"/>
+        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
+        <Caret Line="611" Column="1" TopLine="595"/>
       </Position7>
       <Position8>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="970" Column="94" TopLine="938"/>
+        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
+        <Caret Line="612" Column="1" TopLine="595"/>
       </Position8>
       <Position9>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="976" Column="79" TopLine="962"/>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="243" Column="20" TopLine="225"/>
       </Position9>
       <Position10>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="982" Column="79" TopLine="962"/>
+        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
+        <Caret Line="158" Column="15" TopLine="139"/>
       </Position10>
       <Position11>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="986" Column="67" TopLine="968"/>
+        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
+        <Caret Line="613" Column="1" TopLine="595"/>
       </Position11>
       <Position12>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="1002" Column="47" TopLine="986"/>
+        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
+        <Caret Line="614" Column="1" TopLine="595"/>
       </Position12>
       <Position13>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="942" Column="136" TopLine="918"/>
+        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
+        <Caret Line="358" Column="1" TopLine="338"/>
       </Position13>
       <Position14>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="1569" Column="72" TopLine="1551"/>
+        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
+        <Caret Line="615" Column="1" TopLine="597"/>
       </Position14>
       <Position15>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="630" Column="39" TopLine="617"/>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="243" Column="22" TopLine="225"/>
       </Position15>
       <Position16>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="635" Column="26" TopLine="617"/>
+        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
+        <Caret Line="158" Column="22" TopLine="139"/>
       </Position16>
       <Position17>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="695" Column="28" TopLine="663"/>
+        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
+        <Caret Line="150" Column="30" TopLine="139"/>
       </Position17>
       <Position18>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="995" Column="18" TopLine="963"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="1139" Column="51" TopLine="1115"/>
       </Position18>
       <Position19>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="38" Column="30" TopLine="23"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="1271" Column="3" TopLine="1246"/>
       </Position19>
       <Position20>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="198" Column="24" TopLine="168"/>
+        <Filename Value="../base_help/uwikiframe.pas"/>
+        <Caret Line="1265" Column="38" TopLine="1246"/>
       </Position20>
       <Position21>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="199" Column="24" TopLine="169"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="1947" Column="18" TopLine="1923"/>
       </Position21>
       <Position22>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="200" Column="24" TopLine="170"/>
+        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
+        <Caret Line="557" Column="3" TopLine="548"/>
       </Position22>
       <Position23>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="220" Column="58" TopLine="188"/>
+        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
+        <Caret Line="558" Column="1" TopLine="548"/>
       </Position23>
       <Position24>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="223" Column="66" TopLine="191"/>
+        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
+        <Caret Line="560" Column="1" TopLine="548"/>
       </Position24>
       <Position25>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="631" Column="1" TopLine="597"/>
+        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
+        <Caret Line="561" Column="1" TopLine="548"/>
       </Position25>
       <Position26>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="693" Column="1" TopLine="659"/>
+        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
+        <Caret Line="562" Column="1" TopLine="548"/>
       </Position26>
       <Position27>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="990" Column="29" TopLine="979"/>
+        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
+        <Caret Line="563" Column="1" TopLine="548"/>
       </Position27>
       <Position28>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="1004" Column="27" TopLine="979"/>
+        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
+        <Caret Line="564" Column="1" TopLine="548"/>
       </Position28>
       <Position29>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="1228" Column="29" TopLine="1214"/>
+        <Filename Value="../base_pm/umaintasks.pas"/>
+        <Caret Line="19" Column="35" TopLine="1"/>
       </Position29>
-      <Position30>
-        <Filename Value="../base_frames/ufilterframe.pas"/>
-        <Caret Line="1244" Column="66" TopLine="1227"/>
-      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -1042,6 +1080,22 @@
     </Other>
   </CompilerOptions>
   <Debugging>
+    <BreakPoints Count="2">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="../base_pm/utasks.pas"/>
+        <Line Value="1454"/>
+      </Item1>
+      <Item2>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="../../../general/src_vis/uextcontrols.pas"/>
+        <Line Value="558"/>
+      </Item2>
+    </BreakPoints>
     <Exceptions Count="22">
       <Item1>
         <Name Value="EVariantError"/>
