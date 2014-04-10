@@ -619,7 +619,7 @@ begin
         aStream.Position:=0;
         aFStream.CopyFrom(aStream,aStream.Size);
         aFStream.Free;
-        aProcess := TProcessUTF8.Create(nil);
+        aProcess := TProcessUTF8.Create(Self);
         {$IFDEF WINDOWS}
         aProcess.Options:= [poNoConsole, poWaitonExit,poNewConsole, poStdErrToOutPut, poNewProcessGroup];
         {$ELSE}
@@ -678,7 +678,7 @@ begin
         aStream.Position:=0;
         aFStream.CopyFrom(aStream,aStream.Size);
         aFStream.Free;
-        aProcess := TProcessUTF8.Create(nil);
+        aProcess := TProcessUTF8.Create(Self);
         {$IFDEF WINDOWS}
         aProcess.Options:= [poNoConsole, poWaitonExit,poNewConsole, poStdErrToOutPut, poNewProcessGroup];
         {$ELSE}
@@ -737,7 +737,7 @@ begin
         aStream.Position:=0;
         aFStream.CopyFrom(aStream,aStream.Size);
         aFStream.Free;
-        aProcess := TProcessUTF8.Create(nil);
+        aProcess := TProcessUTF8.Create(Self);
         {$IFDEF WINDOWS}
         aProcess.Options:= [poNoConsole, poWaitonExit,poNewConsole, poStdErrToOutPut, poNewProcessGroup];
         {$ELSE}
@@ -777,4 +777,4 @@ begin
 end;
 
 end.
-
+

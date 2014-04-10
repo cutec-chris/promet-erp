@@ -202,7 +202,7 @@ begin
           Input.Clear;
           if Assigned(aData) and (aData.Active) and (aData.RecordCount>0) and (aData.FieldDefs.Count>1) then
             begin
-              fDataSet := TfDataSet.Create(nil);
+              fDataSet := TfDataSet.Create(Self);
               fDataSet.Show;
               fDataSet.DataSet:=aData;
             end

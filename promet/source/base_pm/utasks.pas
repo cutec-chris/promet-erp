@@ -805,7 +805,7 @@ begin
   if DataSet is TProjectTasks then
     FTaskEdit := TfTaskEdit.Create(nil,TProjectTasks(DataSet).Project.Connection)
   else
-    FTaskEdit := TfTaskEdit.Create(nil);
+    FTaskEdit := TfTaskEdit.Create(Self);
   if FTaskEdit.Execute(Data.BuildLink(FGridView.DataSet.DataSet)) then
     begin
       DataSet.Change;

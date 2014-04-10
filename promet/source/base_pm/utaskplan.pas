@@ -948,7 +948,7 @@ var
 begin
   if Assigned(FSelectedInt) then
     begin
-      aEdit :=TfTaskEdit.Create(nil);
+      aEdit :=TfTaskEdit.Create(Self);
       if aEdit.Execute('TASKS@'+VarToStr(FSelectedInt.Id)) then
         begin
           bRefresh.Click;
@@ -1338,7 +1338,6 @@ begin
   aUser.SelectByAccountno(asUser);
   aUser.Open;
   aResource.Resource := aUser.Text.AsString;
-  aUser.Free;
   aResource.Accountno := asUSer;
   if aUser.FieldByName('TYPE').AsString<>'G' then
     begin
@@ -1396,6 +1395,7 @@ begin
       aCalendar.Free;
       aResource.Sort;
     end;
+  aUser.Free;
 end;
 
 function TfTaskPlan.GetIntervalFromCoordinates(Gantt: TgsGantt; X, Y,Index : Integer): TInterval;

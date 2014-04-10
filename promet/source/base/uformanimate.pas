@@ -78,7 +78,7 @@ begin
   {.$IFDEF LCLgtk2}
   //TControl(Owner).Height := TargetHeight;
   {.$ELSE}
-  aTimer := TTimer.Create(nil);
+  aTimer := TTimer.Create(Self);
   aTimer.Interval:=20;
   FSteps := FAnimationTime div aTimer.Interval;
   FTargetHeight := TargetHeight;

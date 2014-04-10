@@ -343,7 +343,7 @@ var
   Metadata: TZSQLMetadata;
   CustomQuery: TZQuery;
 begin
-  CustomQuery := TZQuery.Create(nil);
+  CustomQuery := TZQuery.Create(Self);
   CustomQuery.Connection := Connection;
   if (copy(TZConnection(TBaseDBModule(Owner).MainConnection).Protocol,0,8) = 'firebird')
   or (copy(TZConnection(TBaseDBModule(Owner).MainConnection).Protocol,0,9) = 'interbase') then
@@ -1276,7 +1276,7 @@ var
   aUser: String;
   aDatabase: String;
 begin
-  FConnection := TZConnection.Create(nil);
+  FConnection := TZConnection.Create(Self);
   if Assigned(BaseApplication) then
     with BaseApplication as IBaseDBInterface do
       LastError := '';
@@ -1535,7 +1535,7 @@ begin
 end;
 function TZeosDBDM.GetNewConnection: TComponent;
 begin
-  Result := TZConnection.Create(nil);
+  Result := TZConnection.Create(Self);
   with Result as TZConnection do
     begin
       Setproperties(FProperties,Result);
@@ -1847,4 +1847,4 @@ begin
 end;
 
 end.
-
+

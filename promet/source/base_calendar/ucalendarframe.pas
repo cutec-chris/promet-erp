@@ -129,7 +129,7 @@ begin
   TTreeEntry(FNode.Data).SubText := TStringlist.Create;
   Cal := TCalendar.Create(nil,Data);
   Cal.CreateTable;
-  aDataStore := TCustomPrometheusDataStore.Create(nil);
+  aDataStore := TCustomPrometheusDataStore.Create(Application);
   Data.SetFilter(Cal,Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(Data.Users.Id.AsString)+' AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheWeek(Now())+1)+') AND ("ENDDATE" > '+Data.DateToFilter(StartOfTheWeek(Now())-1)+' OR "ROTATION" > 0)');
   aDataStore.DataSet := Cal;
   aDataStore.Resource := TVpResource.Create(aDataStore.Resources);

@@ -430,7 +430,7 @@ begin
                 begin
                   aItem := TJSONObject(aData.Items[0]);
                   aTable := TJSONArray(aItem.Elements['results']);
-                  Result := TMemDataset.Create(nil);
+                  Result := TMemDataset.Create(BaseApplication);
                   if aTable.Count>0 then
                     begin
                       aDat := aTable.Items[0];
@@ -627,4 +627,4 @@ begin
 end;
 
 end.
-
+

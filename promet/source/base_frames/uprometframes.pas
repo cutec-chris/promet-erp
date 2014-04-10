@@ -240,7 +240,7 @@ begin
   with BaseApplication as IBaseApplication do
   if aWiki.FindWikiPage(Appname+'-Help/workflows/'+lowercase(ClassName)) then
     begin
-      FQuickHelpFrame := TfQuickHelpFrame.Create(nil);
+      FQuickHelpFrame := TfQuickHelpFrame.Create(Self);
       if not FQuickHelpFrame.OpenWikiPage(aWiki) then
         FreeAndNil(FQuickHelpFrame)
       else

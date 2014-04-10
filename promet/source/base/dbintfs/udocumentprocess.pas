@@ -60,7 +60,7 @@ begin
         begin
           ACmd := StringReplace(copy(ACmd,6,length(ACmd)),#13,'',[rfReplaceAll]);
           ACmd := StringReplace(ACmd,#10,'',[rfReplaceAll]);
-          Proc := TProcessUTF8.Create(nil);
+          Proc := TProcessUTF8.Create(BaseApplication);
           if UseStarter then
             {$IFNDEF DARWIN}
             Proc.CommandLine := AppendPathDelim(ExtractFilePath(BaseApplication.Exename))+'pstarter'+ExtractFileExt(BaseApplication.Exename)+' '+Language+' '+ACmd

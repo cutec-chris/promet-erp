@@ -1053,7 +1053,7 @@ begin
   or   (OrderTyp = 3)) //Rechnung
   then
     begin
-      aProcess := TProcessUTF8.Create(nil);
+      aProcess := TProcessUTF8.Create(Self);
       aProcess.ShowWindow := swoHide;
       aProcess.Options:= [poNoConsole,poWaitOnExit];
       aProcess.CommandLine := '"'+ExtractFileDir(ParamStr(0))+DirectorySeparator+'plugins'+DirectorySeparator;
@@ -1552,4 +1552,4 @@ begin
 end;
 initialization
 end.
-
+

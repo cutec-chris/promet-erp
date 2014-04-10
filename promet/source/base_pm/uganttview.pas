@@ -662,7 +662,7 @@ begin
             begin
               if aInt.Changed then
                 ChangeTask(FTasks,aInt);
-              aEdit :=TfTaskEdit.Create(nil);
+              aEdit :=TfTaskEdit.Create(Self);
               if aEdit.Execute(aLink) then
                 begin
                   aTask := TTask.Create(nil,Data);

@@ -515,7 +515,7 @@ begin
             begin
               pcPages.Visible:=False;
               OldIndex := pcPages.TabIndex;
-              aTab := TTabSheet.Create(nil);
+              aTab := TTabSheet.Create(pcPages);
               aTab.Caption := FieldByName('NAME').AsString;
               aFrame := TFrame.Create(Self);
               aFrame.Parent := aTab;
@@ -567,7 +567,7 @@ begin
         end;
       PC.Visible:=False;
       OldIndex := PC.TabIndex;
-      aTab := TTabSheet.Create(nil);
+      aTab := TTabSheet.Create(PC);
       with Data.Data.Forms do
         aTab.Caption := FieldByName('NAME').AsString;
       aFrame := TFrame.Create(Self);
@@ -998,4 +998,4 @@ initialization
   RegisterClass(TDBComboBox);
   RegisterClass(TPanel);
 end.
-
+

@@ -407,7 +407,7 @@ begin
   with Application as IBaseDbInterface do
     begin
       LoadReport;
-      pv := TfrPreviewForm.Create(nil);
+      pv := TfrPreviewForm.Create(Self);
       pv.WindowState:=wsNormal;
       BaseApplication.Config.ReadRect('ReportPreview',NewRect,pv.BoundsRect);
 

@@ -71,7 +71,7 @@ var
   aItem: TListItem;
   tmp: String;
 begin
-  aProcess := TProcessUTF8.Create(nil);
+  aProcess := TProcessUTF8.Create(Self);
   sl := TStringList.Create;
   try
     aProcess.CommandLine:='gphoto2 -L';
@@ -124,7 +124,7 @@ begin
   atmp := lvPhotos.Selected.Caption;
   atmp := copy(atmp,2,pos(' ',atmp)-2);
   sl := TStringList.Create;
-  aProcess := TProcessUTF8.Create(nil);
+  aProcess := TProcessUTF8.Create(Self);
   aProcess.CurrentDirectory:=GetTempDir;
   try
     aProcess.CommandLine:='gphoto2 --get-raw-data='+atmp;
@@ -227,7 +227,7 @@ begin
      if cbDelete.Checked then
         begin
           sl := TStringList.Create;
-          aProcess := TProcessUTF8.Create(nil);
+          aProcess := TProcessUTF8.Create(Self);
           aProcess.CurrentDirectory:=GetTempDir;
           try
             aProcess.CommandLine:='gphoto2 --delete-file='+atmp;
@@ -308,7 +308,7 @@ begin
       Self := fCameraimport;
     end;
   Result := False;
-  aProcess := TProcessUTF8.Create(nil);
+  aProcess := TProcessUTF8.Create(Self);
   sl := TStringList.Create;
   try
     aProcess.CommandLine:='gphoto2 --auto-detect';

@@ -563,13 +563,16 @@ end;
 procedure TfGridView.fGridViewEnter(Sender: TObject);
 begin
   if FEntered then exit;
-  FEntered := True;
-  SyncDataSource;
-  if Assigned(DataSet) then
-    begin
-      DataSet.First;
-      GotoDataSetRow;
-    end;
+  try
+    FEntered := True;
+    SyncDataSource;
+    if Assigned(DataSet) then
+      begin
+        DataSet.First;
+        GotoDataSetRow;
+      end;
+  except
+  end;
 end;
 procedure TfGridView.FrameResize(Sender: TObject);
 var

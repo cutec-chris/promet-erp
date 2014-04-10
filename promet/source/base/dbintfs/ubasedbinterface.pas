@@ -1366,7 +1366,7 @@ begin
   if (FDbTyp = AValue) and Assigned(FDB) then exit;
   FreeAndNil(FDB);
   if Uppercase(trim(AValue)) = 'SQL' then
-    FDB := TZeosDBDM.Create(nil);
+    FDB := TZeosDBDM.Create(BaseApplication);
   FDbTyp := AValue;
 end;
 function TBaseDBInterface.GetDB: TBaseDBModule;
@@ -1589,4 +1589,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+

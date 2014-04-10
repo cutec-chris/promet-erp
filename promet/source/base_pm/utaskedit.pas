@@ -375,7 +375,7 @@ begin
   pcPages.AddTabClass(TfListFrame,strDependencies,@AddList);
   TTask(FDataSet).Dependencies.Open;
   if TTask(FDataSet).Dependencies.Count > 0 then
-    pcPages.AddTab(TfListFrame.Create(nil),False,strDependencies);
+    pcPages.AddTab(TfListFrame.Create(Self),False,strDependencies);
   TTask(FDataSet).History.Open;
   FHistoryFrame.BaseName:='TASK';
   if TryStrToFloat(FDataSet.FieldByName('PLANTIME').AsString,nF) then
