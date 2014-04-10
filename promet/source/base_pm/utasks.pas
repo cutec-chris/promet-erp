@@ -25,7 +25,7 @@ uses
   LResources, Forms, Controls, DBGrids, ValEdit, ExtCtrls, Buttons, ComCtrls,
   uPrometFramesInplaceDB, uExtControls, db, Grids, ActnList, Menus, StdCtrls,
   simpleipc, uBaseDBClasses, uBaseDbInterface, uGridView, uIntfStrConsts,
-  Variants, uBaseSearch, Graphics, Spin, EditBtn, Dialogs;
+  Variants, uBaseSearch, Graphics, Spin, EditBtn, Dialogs,Clipbrd;
 type
   TOnStartTime = procedure(Sender : TObject;aProject,aTask : string) of object;
 
@@ -52,6 +52,7 @@ type
     acOpen: TAction;
     acSetOwner: TAction;
     acSetUser: TAction;
+    acAppendLinkToDependencies: TAction;
     acUnmakeSubTask: TAction;
     ActionList: TActionList;
     ActionList1: TActionList;
@@ -101,6 +102,7 @@ type
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem7: TMenuItem;
+    MenuItem8: TMenuItem;
     miCopyLink: TMenuItem;
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
@@ -157,6 +159,7 @@ type
     ToolBar: TToolBar;
     tbTop: TPanel;
     procedure acAddPosExecute(Sender: TObject);
+    procedure acAppendLinkToDependenciesExecute(Sender: TObject);
     procedure acDefaultFilterExecute(Sender: TObject);
     procedure acDeleteFilterExecute(Sender: TObject);
     procedure acDelPosExecute(Sender: TObject);
@@ -171,6 +174,8 @@ type
     procedure acFilterRightsExecute(Sender: TObject);
     procedure acSaveFilterExecute(Sender: TObject);
     procedure acSearchExecute(Sender: TObject);
+    procedure acSetOwnerExecute(Sender: TObject);
+    procedure acSetUserExecute(Sender: TObject);
     procedure acStartTimeExecute(Sender: TObject);
     procedure acStopTimeExecute(Sender: TObject);
     procedure ActiveSearchEndSearch(Sender: TObject);
@@ -188,6 +193,7 @@ type
     procedure FGridViewBeforeInsert(Sender: TObject);
     procedure FGridViewCellButtonClick(Sender: TObject; Cell: TPoint;
       Field: TColumn);
+    procedure FGridViewCellChanged(Sender: TObject; NewCell, OldCell: TPoint);
     procedure FGridViewCheckBoxColumnToggle(Field: TColumn);
     procedure FGridViewDblClick(Sender: TObject);
     procedure FGridViewDelete(Sender: TObject);
@@ -207,6 +213,7 @@ type
     function fSearchOpenUserItem(aLink: string): Boolean;
     procedure lbResultsDblClick(Sender: TObject);
     procedure DoInsertInplaceSearch(Data : PtrInt);
+    procedure pmGridPopup(Sender: TObject);
     procedure ReportGetValue(const ParName: String; var ParValue: Variant);
     procedure seMaxresultsChange(Sender: TObject);
   private
@@ -269,7 +276,8 @@ resourcestring
 implementation
 uses uRowEditor,uTask,ubasevisualapplicationtools,uData,uMainTreeFrame,
   uSearch,uProjects,uTaskEdit,uBaseApplication,LCLType,uBaseERPDBClasses,
-  uSelectReport,uFormAnimate,md5,uNRights,uBaseVisualControls;
+  uSelectReport,uFormAnimate,md5,uNRights,uBaseVisualControls,
+  uBaseVisualApplication,uError;
 procedure TfTaskFrame.SetDataSet(const AValue: TBaseDBDataSet);
 var
   aFilter: String = '';
@@ -534,6 +542,12 @@ procedure TfTaskFrame.DoInsertInplaceSearch(Data: PtrInt);
 begin
   lbResultsDblClick(nil);
 end;
+
+procedure TfTaskFrame.pmGridPopup(Sender: TObject);
+begin
+  acAppendLinkToDependencies.Enabled := Clipboard.HasFormat(LinkClipboardFormat);
+end;
+
 procedure TfTaskFrame.ReportGetValue(const ParName: String;
   var ParValue: Variant);
 begin
@@ -878,6 +892,47 @@ end;
 procedure TfTaskFrame.acSearchExecute(Sender: TObject);
 begin
 end;
+
+procedure TfTaskFrame.acSetOwnerExecute(Sender: TObject);
+var
+  i: Integer;
+begin
+  fSearch.SetLanguage;
+  i := 0;
+  while i < fSearch.cbSearchType.Count do
+    begin
+      if fSearch.cbSearchType.Items[i] <> strUsers then
+        fSearch.cbSearchType.Items.Delete(i)
+      else
+        inc(i);
+    end;
+  fSearch.eContains.Clear;
+  fSearch.sgResults.RowCount:=1;
+  fSearch.OnOpenItem:=@fSearchOpenOwnerItem;
+  fSearch.Execute(True,'TASKSU',strSearchFromTasks);
+  fSearch.SetLanguage;
+end;
+
+procedure TfTaskFrame.acSetUserExecute(Sender: TObject);
+var
+  i: Integer;
+begin
+  fSearch.SetLanguage;
+  i := 0;
+  while i < fSearch.cbSearchType.Count do
+    begin
+      if fSearch.cbSearchType.Items[i] <> strUsers then
+        fSearch.cbSearchType.Items.Delete(i)
+      else
+        inc(i);
+    end;
+  fSearch.eContains.Clear;
+  fSearch.sgResults.RowCount:=1;
+  fSearch.OnOpenItem:=@fSearchOpenUserItem;
+  fSearch.Execute(True,'TASKSU',strSearchFromTasks);
+  fSearch.SetLanguage;
+end;
+
 procedure TfTaskFrame.acStartTimeExecute(Sender: TObject);
 var
   aProject: TProject;
@@ -1100,38 +1155,33 @@ begin
     end
   else if Field.FieldName = 'USER' then
     begin
-      fSearch.SetLanguage;
-      while i < fSearch.cbSearchType.Count do
-        begin
-          if fSearch.cbSearchType.Items[i] <> strUsers then
-            fSearch.cbSearchType.Items.Delete(i)
-          else
-            inc(i);
-        end;
-      fSearch.eContains.Clear;
-      fSearch.sgResults.RowCount:=1;
-      fSearch.OnOpenItem:=@fSearchOpenUserItem;
-      fSearch.Execute(True,'TASKSU',strSearchFromTasks);
-      fSearch.SetLanguage;
+      acSetUser.Execute;
     end
   else if Field.FieldName = 'OWNER' then
     begin
-      fSearch.SetLanguage;
-      while i < fSearch.cbSearchType.Count do
-        begin
-          if fSearch.cbSearchType.Items[i] <> strUsers then
-            fSearch.cbSearchType.Items.Delete(i)
-          else
-            inc(i);
-        end;
-      fSearch.eContains.Clear;
-      fSearch.sgResults.RowCount:=1;
-      fSearch.OnOpenItem:=@fSearchOpenOwnerItem;
-      fSearch.Execute(True,'TASKSU',strSearchFromTasks);
-      fSearch.SetLanguage;
+      acSetOwner.Execute;
     end
   ;
 end;
+
+procedure TfTaskFrame.FGridViewCellChanged(Sender: TObject; NewCell,
+  OldCell: TPoint);
+var
+  aCell: TColumn;
+begin
+  acSetOwner.Visible:=False;
+  acSetUser.Visible:=False;
+  try
+    aCell := FGridView.dgFake.Columns[FGridView.gList.Col-1];
+    if Assigned(aCell) then
+      begin
+        acSetOwner.Visible := aCell.FieldName = 'OWNER';
+        acSetUser.Visible := aCell.FieldName = 'USER';
+      end;
+  except
+  end;
+end;
+
 procedure TfTaskFrame.FGridViewCheckBoxColumnToggle(Field: TColumn);
 begin
   Screen.Cursor:=crHourGlass;
@@ -1371,6 +1421,34 @@ procedure TfTaskFrame.acAddPosExecute(Sender: TObject);
 begin
   FGridView.InsertAfter(True);
 end;
+
+procedure TfTaskFrame.acAppendLinkToDependenciesExecute(Sender: TObject);
+var
+  Stream: TStringStream;
+  aLinks: String;
+  aLink: String;
+begin
+  if FGridView.GotoActiveRow then
+    begin
+      Stream := TStringStream.Create('');
+      if Clipboard.GetFormat(LinkClipboardFormat,Stream) then
+        begin
+          Stream.Position:=0;
+          aLinks := Stream.DataString;
+        end
+      else
+        fError.ShowWarning(strCantgetClipboardContents);
+      Stream.Free;
+      TTaskList(FDataSet).Dependencies.Open;
+      while pos(';',aLinks) > 0 do
+        begin
+          aLink := copy(aLinks,0,pos(';',aLinks)-1);
+          TTaskList(FDataSet).Dependencies.Add(aLink);
+          aLinks := copy(aLinks,pos(';',aLinks)+1,length(aLinks));
+        end;
+    end;
+end;
+
 procedure TfTaskFrame.acDefaultFilterExecute(Sender: TObject);
 begin
   if (cbFilter.Text = strNoSelectFilter) or (cbFilter.Text = '') then
@@ -1423,6 +1501,7 @@ begin
   FGridView.WorkStatusField:='WORKSTATUS';
   FGridView.OnSetupPosition:=@FGridViewSetupPosition;
   FGridView.OnCellButtonClick:=@FGridViewCellButtonClick;
+  FGridView.OnCellChanged:=@FGridViewCellChanged;
   FgridView.OnDblClick:=@FGridViewDblClick;
   FGridView.OnGetCellText:=@FGridViewGetCellText;
   FGridView.OnSetCellText:=@FGridViewSetCellText;

@@ -2655,12 +2655,19 @@ inherited fTaskFrame: TfTaskFrame
     object acSetOwner: TAction
       Caption = 'Verantwortlichen zuweisen'
       ImageIndex = 8
+      OnExecute = acSetOwnerExecute
       Visible = False
     end
     object acSetUser: TAction
       Caption = 'Bearbeiter zuweisen'
       ImageIndex = 8
+      OnExecute = acSetUserExecute
       Visible = False
+    end
+    object acAppendLinkToDependencies: TAction
+      Caption = 'Verknüpfung als Abhängigkeit einfügen'
+      ImageIndex = 70
+      OnExecute = acAppendLinkToDependenciesExecute
     end
   end
   object Datasource: TDatasource[8]
@@ -2736,8 +2743,9 @@ inherited fTaskFrame: TfTaskFrame
   end
   object pmGrid: TPopupMenu[18]
     Images = fVisualControls.Images
-    left = 64
-    top = 89
+    OnPopup = pmGridPopup
+    left = 112
+    top = 83
     object MenuItem3: TMenuItem
       Action = acSetOwner
     end
@@ -2938,6 +2946,9 @@ inherited fTaskFrame: TfTaskFrame
         F40200B5F48000B5F4D100B5F4CA00B5F407FFFFFF00FFFFFF00FFFFFF00FFFF
         FF0000B5F41700B5F4D100B5F4C900B5F427FFFFFF00FFFFFF00
       }
+    end
+    object MenuItem8: TMenuItem
+      Action = acAppendLinkToDependencies
     end
     object miCopyLink: TMenuItem
       Action = fGridView.acCopyLink

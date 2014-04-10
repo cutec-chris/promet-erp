@@ -1892,43 +1892,47 @@ LazarusResources.Add('TfTaskFrame','FORMDATA',[
   +'W'#9'OnExecute'#7#17'acMarkSeenExecute'#0#0#7'TAction'#6'acOpen'#7'Caption'
   +#6#7#195#150'ffnen'#10'ImageIndex'#2#19#9'OnExecute'#7#13'acOpenExecute'#8'S'
   +'hortCut'#3'O@'#0#0#7'TAction'#10'acSetOwner'#7'Caption'#6#25'Verantwortlich'
-  +'en zuweisen'#10'ImageIndex'#2#8#7'Visible'#8#0#0#7'TAction'#9'acSetUser'#7
-  +'Caption'#6#19'Bearbeiter zuweisen'#10'ImageIndex'#2#8#7'Visible'#8#0#0#0#242
-  +#2#8#11'TDatasource'#10'Datasource'#13'OnStateChange'#7#21'DatasourceStateCh'
-  +'ange'#12'OnDataChange'#7#20'DatasourceDataChange'#4'left'#3#208#0#3'top'#2
-  +'8'#0#0#242#2#9#16'TSimpleIPCClient'#3'IPC'#6'Active'#8#8'ServerID'#6#18'PMS'
-  +'Timeregistering'#4'left'#4#184#144#0#0#0#0#242#2#10#12'TfrDBDataSet'#8'PHis'
-  +'tory'#10'DataSource'#7#7'History'#4'left'#3#156#0#3'top'#3#180#0#0#0#242#2
-  +#11#11'TDatasource'#7'History'#4'left'#3#212#0#3'top'#3#180#0#0#0#242#2#12#12
-  +'TfrDBDataSet'#5'PList'#10'DataSource'#7#10'Datasource'#4'left'#3#156#0#3'to'
-  +'p'#2'S'#0#0#242#2#13#9'TfrReport'#6'Report'#7'Dataset'#7#5'PList'#13'Defaul'
-  +'tCopies'#2#0#11'InitialZoom'#7#9'pzDefault'#7'Options'#11#0#14'PreviewButto'
-  +'ns'#11#6'pbZoom'#6'pbSave'#7'pbPrint'#6'pbFind'#6'pbExit'#0#8'DataType'#7#12
-  +'dtDataSource'#10'OnGetValue'#7#14'ReportGetValue'#4'left'#3#156#0#3'top'#3
-  +#136#0#0#0#242#2#14#11'TDatasource'#14'MandantDetails'#8'AutoEdit'#8#4'left'
-  +#3'80'#0#0#242#2#15#10'TSynSQLSyn'#10'SynSQLSyn2'#13'DefaultFilter'#6#25'SQL'
-  +'-Dateien (*.sql)|*.sql'#7'Enabled'#8#23'CommentAttri.FrameEdges'#7#9'sfeAro'
-  +'und'#24'DataTypeAttri.FrameEdges'#7#9'sfeAround'#30'DefaultPackageAttri.Fra'
-  +'meEdges'#7#9'sfeAround'#25'ExceptionAttri.FrameEdges'#7#9'sfeAround'#24'Fun'
-  +'ctionAttri.FrameEdges'#7#9'sfeAround'#26'IdentifierAttri.FrameEdges'#7#9'sf'
-  +'eAround'#19'KeyAttri.FrameEdges'#7#9'sfeAround'#22'NumberAttri.FrameEdges'#7
-  +#9'sfeAround'#21'PLSQLAttri.FrameEdges'#7#9'sfeAround'#21'SpaceAttri.FrameEd'
-  +'ges'#7#9'sfeAround'#23'SQLPlusAttri.FrameEdges'#7#9'sfeAround'#22'StringAtt'
-  +'ri.FrameEdges'#7#9'sfeAround'#22'SymbolAttri.FrameEdges'#7#9'sfeAround'#25
-  +'TableNameAttri.FrameEdges'#7#9'sfeAround'#24'VariableAttri.FrameEdges'#7#9
-  +'sfeAround'#10'SQLDialect'#7#9'sqlSybase'#4'left'#3'p'#1#3'top'#3#128#0#0#0
-  +#242#2#16#11'TDatasource'#5'Users'#4'left'#3#212#0#3'top'#3#216#0#0#0#242#2
-  +#17#12'TfrDBDataSet'#6'PUsers'#10'DataSource'#7#5'Users'#4'left'#3#156#0#3't'
-  +'op'#3#216#0#0#0#242#2#18#10'TPopupMenu'#6'pmGrid'#6'Images'#7#22'fVisualCon'
-  +'trols.Images'#4'left'#2'@'#3'top'#2'Y'#0#9'TMenuItem'#9'MenuItem3'#6'Action'
-  ,#7#10'acSetOwner'#0#0#9'TMenuItem'#9'MenuItem7'#6'Action'#7#9'acSetUser'#0#0
-  +#9'TMenuItem'#9'MenuItem6'#6'Action'#7#6'acOpen'#11'Bitmap.Data'#10':'#4#0#0
-  +'6'#4#0#0'BM6'#4#0#0#0#0#0#0'6'#0#0#0'('#0#0#0#16#0#0#0#16#0#0#0#1#0' '#0#0#0
-  +#0#0#0#4#0#0'd'#0#0#0'd'#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
+  +'en zuweisen'#10'ImageIndex'#2#8#9'OnExecute'#7#17'acSetOwnerExecute'#7'Visi'
+  +'ble'#8#0#0#7'TAction'#9'acSetUser'#7'Caption'#6#19'Bearbeiter zuweisen'#10
+  +'ImageIndex'#2#8#9'OnExecute'#7#16'acSetUserExecute'#7'Visible'#8#0#0#7'TAct'
+  +'ion'#26'acAppendLinkToDependencies'#7'Caption'#6'(Verkn'#195#188'pfung als '
+  +'Abh'#195#164'ngigkeit einf'#195#188'gen'#10'ImageIndex'#2'F'#9'OnExecute'#7
+  +'!acAppendLinkToDependenciesExecute'#0#0#0#242#2#8#11'TDatasource'#10'Dataso'
+  +'urce'#13'OnStateChange'#7#21'DatasourceStateChange'#12'OnDataChange'#7#20'D'
+  +'atasourceDataChange'#4'left'#3#208#0#3'top'#2'8'#0#0#242#2#9#16'TSimpleIPCC'
+  +'lient'#3'IPC'#6'Active'#8#8'ServerID'#6#18'PMSTimeregistering'#4'left'#4#184
+  +#144#0#0#0#0#242#2#10#12'TfrDBDataSet'#8'PHistory'#10'DataSource'#7#7'Histor'
+  +'y'#4'left'#3#156#0#3'top'#3#180#0#0#0#242#2#11#11'TDatasource'#7'History'#4
+  +'left'#3#212#0#3'top'#3#180#0#0#0#242#2#12#12'TfrDBDataSet'#5'PList'#10'Data'
+  +'Source'#7#10'Datasource'#4'left'#3#156#0#3'top'#2'S'#0#0#242#2#13#9'TfrRepo'
+  +'rt'#6'Report'#7'Dataset'#7#5'PList'#13'DefaultCopies'#2#0#11'InitialZoom'#7
+  +#9'pzDefault'#7'Options'#11#0#14'PreviewButtons'#11#6'pbZoom'#6'pbSave'#7'pb'
+  +'Print'#6'pbFind'#6'pbExit'#0#8'DataType'#7#12'dtDataSource'#10'OnGetValue'#7
+  +#14'ReportGetValue'#4'left'#3#156#0#3'top'#3#136#0#0#0#242#2#14#11'TDatasour'
+  +'ce'#14'MandantDetails'#8'AutoEdit'#8#4'left'#3'80'#0#0#242#2#15#10'TSynSQLS'
+  +'yn'#10'SynSQLSyn2'#13'DefaultFilter'#6#25'SQL-Dateien (*.sql)|*.sql'#7'Enab'
+  +'led'#8#23'CommentAttri.FrameEdges'#7#9'sfeAround'#24'DataTypeAttri.FrameEdg'
+  +'es'#7#9'sfeAround'#30'DefaultPackageAttri.FrameEdges'#7#9'sfeAround'#25'Exc'
+  +'eptionAttri.FrameEdges'#7#9'sfeAround'#24'FunctionAttri.FrameEdges'#7#9'sfe'
+  +'Around'#26'IdentifierAttri.FrameEdges'#7#9'sfeAround'#19'KeyAttri.FrameEdge'
+  +'s'#7#9'sfeAround'#22'NumberAttri.FrameEdges'#7#9'sfeAround'#21'PLSQLAttri.F'
+  +'rameEdges'#7#9'sfeAround'#21'SpaceAttri.FrameEdges'#7#9'sfeAround'#23'SQLPl'
+  +'usAttri.FrameEdges'#7#9'sfeAround'#22'StringAttri.FrameEdges'#7#9'sfeAround'
+  +#22'SymbolAttri.FrameEdges'#7#9'sfeAround'#25'TableNameAttri.FrameEdges'#7#9
+  +'sfeAround'#24'VariableAttri.FrameEdges'#7#9'sfeAround'#10'SQLDialect'#7#9's'
+  +'qlSybase'#4'left'#3'p'#1#3'top'#3#128#0#0#0#242#2#16#11'TDatasource'#5'User'
+  ,'s'#4'left'#3#212#0#3'top'#3#216#0#0#0#242#2#17#12'TfrDBDataSet'#6'PUsers'#10
+  +'DataSource'#7#5'Users'#4'left'#3#156#0#3'top'#3#216#0#0#0#242#2#18#10'TPopu'
+  +'pMenu'#6'pmGrid'#6'Images'#7#22'fVisualControls.Images'#7'OnPopup'#7#11'pmG'
+  +'ridPopup'#4'left'#2'p'#3'top'#2'S'#0#9'TMenuItem'#9'MenuItem3'#6'Action'#7
+  +#10'acSetOwner'#0#0#9'TMenuItem'#9'MenuItem7'#6'Action'#7#9'acSetUser'#0#0#9
+  +'TMenuItem'#9'MenuItem6'#6'Action'#7#6'acOpen'#11'Bitmap.Data'#10':'#4#0#0'6'
+  +#4#0#0'BM6'#4#0#0#0#0#0#0'6'#0#0#0'('#0#0#0#16#0#0#0#16#0#0#0#1#0' '#0#0#0#0
+  +#0#0#4#0#0'd'#0#0#0'd'#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
   +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
   +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
   +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
-  +#0#0#0#0#0#0#0'-'#140#222#255'-'#135#222#255'-'#140#222#255'-'#140#222#255'-'
+  +#0#0#0#0#0#0'-'#140#222#255'-'#135#222#255'-'#140#222#255'-'#140#222#255'-'
   +#140#222#255'-'#140#222#255'-'#140#222#255'-'#140#222#255'-'#140#222#255'-'
   +#140#222#255'-'#135#222#255'-'#140#222#255'-'#134#222#255#0#0#0#0#0#0#0#0'3'
   +#142#223#255#222#247#255#255#167#223#247#255#158#223#247#255#150#222#247#255
@@ -1981,11 +1985,11 @@ LazarusResources.Add('TfTaskFrame','FORMDATA',[
   +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#164'e4'#255#230#206#183#255
   +#217#173#134#255#164'e4'#255#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
   +#0#0#0#0#0#0#0#0#164'e4'#204#164'e4'#255#164'e4'#255#164'e4'#255#164'e4'#255
-  +#217#173#134#255#217#173#134#255#164'e4'#255#164'e4'#255#164'e4'#255#164'e4'
+  ,#217#173#134#255#217#173#134#255#164'e4'#255#164'e4'#255#164'e4'#255#164'e4'
   +#255#164'e4'#204#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#164'e4'#255#229#204#180#255
   +#219#183#149#255#219#182#148#255#218#180#146#255#218#179#144#255#217#173#134
   +#255#216#170#131#255#215#168#127#255#215#166'}'#255#224#190#159#255#164'e4'
-  ,#255#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#164'e4'#255#232#211#192#255#231#209#187
+  +#255#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#164'e4'#255#232#211#192#255#231#209#187
   +#255#231#209#188#255#230#206#183#255#230#206#183#255#230#206#183#255#230#206
   +#183#255#230#205#182#255#230#204#181#255#230#204#182#255#164'e4'#255#0#0#0#0
   +#0#0#0#0#0#0#0#0#0#0#0#0#164'e4'#204#164'e4'#255#164'e4'#255#164'e4'#255#164
@@ -2045,11 +2049,11 @@ LazarusResources.Add('TfTaskFrame','FORMDATA',[
   +#255#129#157#192#255#148#186#236#255#145#184#238#255#191#210#236#210#255#255
   +#255#0#255#255#255#0#255#255#255#0#227#227#227#161#205#218#230#249#186#211
   +#232#255#190#213#238#255#182#207#233#255#165#190#217#255#159#184#213#255#159
-  +#187#220#255#170#200#241#255#163#195#238#255#162#193#234#254#211#220#233#178
+  ,#187#220#255#170#200#241#255#163#195#238#255#162#193#234#254#211#220#233#178
   +#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#225
   +#225#225'<'#216#223#228#181#198#214#229#246#188#208#229#255#184#206#230#255
   +#180#203#230#255#177#201#230#255#180#202#231#248#199#213#231#196#229#229#229
-  ,'<'#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255
+  +'<'#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255
   +#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255
   +#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0
   +#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255
@@ -2109,11 +2113,11 @@ LazarusResources.Add('TfTaskFrame','FORMDATA',[
   +#255#0#162#162#162#12#162#162#162#216#162#162#162#249#162#162#162'+'#255#255
   +#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0';'#136'B'#238
   +'C'#144'J'#255'3z8'#255#134#151#136#235#162#162#162#24#255#255#255#0#255#255
-  +#255#0#180#180#180#21#180#180#180#243#219#219#219#255#179#179#178#237'|Z/'
+  ,#255#0#180#180#180#21#180#180#180#243#219#219#219#255#179#179#178#237'|Z/'
   +#129'{X,'#192'{X,'#237'{X,'#237'{X,'#192'E'#145'J'#247'x'#202#129#255'`'#177
   +'h'#255'3{8'#255'Z'#138'^R'#255#255#255#0#255#255#255#0#255#255#255#0#198#198
   +#198'A'#211#211#211#255#194#191#189#252#156'k;'#255#166'l5'#255#174'o7'#255
-  ,#174'o7'#255#166'l5'#255'Q'#155'R'#255#127#206#137#255'~'#207#136#255'b'#178
+  +#174'o7'#255#166'l5'#255'Q'#155'R'#255#127#206#137#255'~'#207#136#255'b'#178
   +'j'#255'4~:'#250'.v36'#255#255#255#0#255#255#255#0#140'e6g'#163#136'i'#245
   +#175'xD'#255#187#140'^'#255#194#147'q'#255#196#145't'#255#195#143'q'#255#191
   +#144'l'#255'Y'#166'\'#255#134#210#144#255'n'#202'z'#255#130#209#139#255'd'
@@ -2155,6 +2159,7 @@ LazarusResources.Add('TfTaskFrame','FORMDATA',[
   +#174#239#201#0#174#239#29#255#255#255#0#255#255#255#0#0#181#244#2#0#181#244
   +#128#0#181#244#209#0#181#244#202#0#181#244#7#255#255#255#0#255#255#255#0#255
   +#255#255#0#255#255#255#0#0#181#244#23#0#181#244#209#0#181#244#201#0#181#244
-  +''''#255#255#255#0#255#255#255#0#0#0#9'TMenuItem'#10'miCopyLink'#6'Action'#7
-  +#20'fGridView.acCopyLink'#0#0#0#0
+  +''''#255#255#255#0#255#255#255#0#0#0#9'TMenuItem'#9'MenuItem8'#6'Action'#7#26
+  +'acAppendLinkToDependencies'#0#0#9'TMenuItem'#10'miCopyLink'#6'Action'#7#20
+  +'fGridView.acCopyLink'#0#0#0#0
 ]);
