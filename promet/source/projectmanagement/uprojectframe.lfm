@@ -1221,6 +1221,11 @@ inherited fprojectFrame: TfprojectFrame
       ImageIndex = 95
       OnExecute = acCalculatePlanExecute
     end
+    object acMoveOldTasks: TAction
+      Caption = 'Plan aktualisieren (verschiebt überzogene Aufgaben)'
+      ImageIndex = 104
+      OnExecute = acMoveOldTasksExecute
+    end
   end
   object Projects: TDatasource[6]
     OnStateChange = ProjectsStateChange
@@ -1430,6 +1435,9 @@ inherited fprojectFrame: TfprojectFrame
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
       }
+    end
+    object MenuItem10: TMenuItem
+      Caption = 'New Item4'
     end
   end
 end

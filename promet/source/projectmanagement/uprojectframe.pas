@@ -48,6 +48,7 @@ type
     acGantt: TAction;
     acInactiveGantt: TAction;
     acCalculatePlan: TAction;
+    acMoveOldTasks: TAction;
     ActionList1: TActionList;
     bAssignTree: TSpeedButton;
     bDelegated2: TSpeedButton;
@@ -78,6 +79,7 @@ type
     Label8: TLabel;
     Label9: TLabel;
     lVAT1: TLabel;
+    MenuItem10: TMenuItem;
     MenuItem6: TMenuItem;
     MenuItem7: TMenuItem;
     MenuItem8: TMenuItem;
@@ -147,6 +149,7 @@ type
     procedure acGotoParentExecute(Sender: TObject);
     procedure acImportExecute(Sender: TObject);
     procedure acInactiveGanttExecute(Sender: TObject);
+    procedure acMoveOldTasksExecute(Sender: TObject);
     procedure acPrintExecute(Sender: TObject);
     procedure acRestartExecute(Sender: TObject);
     procedure acRightsExecute(Sender: TObject);
@@ -457,6 +460,19 @@ begin
       TfTaskFrame(pcPages.ActivePage.Controls[0]).DataSet.CascadicCancel;
       TfTaskFrame(pcPages.ActivePage.Controls[0]).acRefresh.Execute;
     end;
+end;
+
+procedure TfProjectFrame.acMoveOldTasksExecute(Sender: TObject);
+begin
+  if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
+    TfTaskFrame(pcPages.ActivePage.Controls[0]).GridView.BeginUpdate;
+  fGanttView.MoveAndCalculate(TProject(DataSet));
+  if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
+    begin
+      TfTaskFrame(pcPages.ActivePage.Controls[0]).acRefresh.Execute;
+    end;
+  if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
+    TfTaskFrame(pcPages.ActivePage.Controls[0]).GridView.EndUpdate;
 end;
 
 procedure TfProjectFrame.acPrintExecute(Sender: TObject);

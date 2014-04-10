@@ -137,6 +137,7 @@ type
     procedure GotoTask(aLink : string);
     function Execute(aProject : TProject;aLink : string = ''; DoClean: Boolean=True;AddInactive : Boolean = False) : Boolean;
     function Calculate(aProject : TProject;DoClean: Boolean=True;AddInactive : Boolean = False) : Boolean;
+    function MoveAndCalculate(aProject : TProject;DoClean: Boolean=True;AddInactive : Boolean = False) : Boolean;
     procedure SetRights;
   end;
 
@@ -1306,6 +1307,22 @@ begin
   Populate(FTasks,DoClean,AddInactive);
   SetRights;
   bMoveFwdClick(nil);
+  bSave.Click;
+end;
+
+function TfGanttView.MoveAndCalculate(aProject: TProject; DoClean: Boolean;
+  AddInactive: Boolean): Boolean;
+begin
+  if not Assigned(Self) then
+    begin
+      Application.CreateForm(TfGanttView,fGanttView);
+      Self := fGanttView;
+    end;
+  FProject := aproject;
+  FTasks := aProject.Tasks;
+  Populate(FTasks,DoClean,AddInactive);
+  SetRights;
+  acMakePossible.Execute;
   bSave.Click;
 end;
 
