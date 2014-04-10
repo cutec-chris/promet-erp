@@ -735,7 +735,7 @@
         <EditorIndex Value="21"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="19" Y="13"/>
+        <CursorPos X="23" Y="13"/>
         <UsageCount Value="73"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
@@ -827,13 +827,18 @@
       </Unit50>
       <Unit51>
         <Filename Value="../base_pm/utasks.pas"/>
+        <ComponentName Value="fTaskFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
         <UnitName Value="utasks"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="14"/>
-        <CursorPos X="24" Y="243"/>
+        <TopLine Value="1322"/>
+        <CursorPos X="50" Y="1339"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit51>
       <Unit52>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
@@ -888,12 +893,15 @@
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="548"/>
-        <CursorPos X="1" Y="565"/>
+        <CursorPos X="1" Y="558"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit56>
       <Unit57>
         <Filename Value="../base_forms/ugridview.pas"/>
+        <ComponentName Value="fGridView"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ugridview"/>
         <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
@@ -915,7 +923,6 @@
       <Unit59>
         <Filename Value="../base_pm/umaintasks.pas"/>
         <UnitName Value="umaintasks"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="19"/>
@@ -924,123 +931,127 @@
         <Loaded Value="True"/>
       </Unit59>
     </Units>
-    <JumpHistory Count="29" HistoryIndex="28">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
-        <Caret Line="601" Column="1" TopLine="580"/>
+        <Caret Line="562" Column="1" TopLine="548"/>
       </Position1>
       <Position2>
         <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
-        <Caret Line="603" Column="1" TopLine="580"/>
+        <Caret Line="563" Column="1" TopLine="548"/>
       </Position2>
       <Position3>
         <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
-        <Caret Line="606" Column="1" TopLine="580"/>
+        <Caret Line="564" Column="1" TopLine="548"/>
       </Position3>
       <Position4>
-        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
-        <Caret Line="608" Column="1" TopLine="595"/>
+        <Filename Value="../base_pm/umaintasks.pas"/>
+        <Caret Line="19" Column="35" TopLine="1"/>
       </Position4>
       <Position5>
-        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
-        <Caret Line="609" Column="1" TopLine="595"/>
+        <Filename Value="../base_pm/umaintasks.pas"/>
+        <Caret Line="53" Column="19" TopLine="19"/>
       </Position5>
       <Position6>
         <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
-        <Caret Line="610" Column="1" TopLine="595"/>
+        <Caret Line="558" Column="1" TopLine="548"/>
       </Position6>
       <Position7>
-        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
-        <Caret Line="611" Column="1" TopLine="595"/>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="8" Column="102" TopLine="1"/>
       </Position7>
       <Position8>
-        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
-        <Caret Line="612" Column="1" TopLine="595"/>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="340" Column="162" TopLine="307"/>
       </Position8>
       <Position9>
         <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="243" Column="20" TopLine="225"/>
+        <Caret Line="401" Column="63" TopLine="368"/>
       </Position9>
       <Position10>
-        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
-        <Caret Line="158" Column="15" TopLine="139"/>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="488" Column="33" TopLine="475"/>
       </Position10>
       <Position11>
-        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
-        <Caret Line="613" Column="1" TopLine="595"/>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="498" Column="33" TopLine="475"/>
       </Position11>
       <Position12>
-        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
-        <Caret Line="614" Column="1" TopLine="595"/>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="533" Column="33" TopLine="522"/>
       </Position12>
       <Position13>
-        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
-        <Caret Line="358" Column="1" TopLine="338"/>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="535" Column="55" TopLine="522"/>
       </Position13>
       <Position14>
-        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
-        <Caret Line="615" Column="1" TopLine="597"/>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="536" Column="49" TopLine="522"/>
       </Position14>
       <Position15>
         <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="243" Column="22" TopLine="225"/>
+        <Caret Line="537" Column="59" TopLine="522"/>
       </Position15>
       <Position16>
-        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
-        <Caret Line="158" Column="22" TopLine="139"/>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="604" Column="53" TopLine="573"/>
       </Position16>
       <Position17>
-        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
-        <Caret Line="150" Column="30" TopLine="139"/>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="775" Column="41" TopLine="750"/>
       </Position17>
       <Position18>
-        <Filename Value="../base_help/uwikiframe.pas"/>
-        <Caret Line="1139" Column="51" TopLine="1115"/>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="865" Column="29" TopLine="833"/>
       </Position18>
       <Position19>
-        <Filename Value="../base_help/uwikiframe.pas"/>
-        <Caret Line="1271" Column="3" TopLine="1246"/>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="1123" Column="33" TopLine="1095"/>
       </Position19>
       <Position20>
-        <Filename Value="../base_help/uwikiframe.pas"/>
-        <Caret Line="1265" Column="38" TopLine="1246"/>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="1251" Column="32" TopLine="1227"/>
       </Position20>
       <Position21>
-        <Filename Value="umain.pas"/>
-        <Caret Line="1947" Column="18" TopLine="1923"/>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="1343" Column="52" TopLine="1312"/>
       </Position21>
       <Position22>
-        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
-        <Caret Line="557" Column="3" TopLine="548"/>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="929" Column="3" TopLine="925"/>
       </Position22>
       <Position23>
-        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
-        <Caret Line="558" Column="1" TopLine="548"/>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="515" Column="10" TopLine="508"/>
       </Position23>
       <Position24>
-        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
-        <Caret Line="560" Column="1" TopLine="548"/>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="534" Column="33" TopLine="508"/>
       </Position24>
       <Position25>
-        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
-        <Caret Line="561" Column="1" TopLine="548"/>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="553" Column="41" TopLine="526"/>
       </Position25>
       <Position26>
-        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
-        <Caret Line="562" Column="1" TopLine="548"/>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="596" Column="63" TopLine="565"/>
       </Position26>
       <Position27>
-        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
-        <Caret Line="563" Column="1" TopLine="548"/>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="782" Column="63" TopLine="751"/>
       </Position27>
       <Position28>
-        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
-        <Caret Line="564" Column="1" TopLine="548"/>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="866" Column="29" TopLine="834"/>
       </Position28>
       <Position29>
-        <Filename Value="../base_pm/umaintasks.pas"/>
-        <Caret Line="19" Column="35" TopLine="1"/>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="1094" Column="35" TopLine="1062"/>
       </Position29>
+      <Position30>
+        <Filename Value="../base_pm/utasks.pas"/>
+        <Caret Line="1238" Column="35" TopLine="1206"/>
+      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -1080,22 +1091,6 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="2">
-      <Item1>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="../base_pm/utasks.pas"/>
-        <Line Value="1454"/>
-      </Item1>
-      <Item2>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="../../../general/src_vis/uextcontrols.pas"/>
-        <Line Value="558"/>
-      </Item2>
-    </BreakPoints>
     <Exceptions Count="22">
       <Item1>
         <Name Value="EVariantError"/>

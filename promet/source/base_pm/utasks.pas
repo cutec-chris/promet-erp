@@ -512,7 +512,10 @@ begin
   Application.ProcessMessages;
   if copy(TLinkObject(lbResults.Items.Objects[lbResults.ItemIndex]).Link,0,5) = 'USERS' then
     begin
-      fSearchOpenUserItem(TLinkObject(lbResults.Items.Objects[lbResults.ItemIndex]).Link);
+      if pSearch.Caption='USER' then
+        fSearchOpenUserItem(TLinkObject(lbResults.Items.Objects[lbResults.ItemIndex]).Link)
+      else
+        fSearchOpenOwnerItem(TLinkObject(lbResults.Items.Objects[lbResults.ItemIndex]).Link);
     end
   else if copy(TLinkObject(lbResults.Items.Objects[lbResults.ItemIndex]).Link,0,8) = 'PROJECTS' then
     begin
@@ -1265,7 +1268,7 @@ var
   tmp: TCaption;
 begin
   Result := False;
-  if Assigned(Field) and ((Field.FieldName='PROJECT') or (Field.FieldName='USER')) then
+  if Assigned(Field) and ((Field.FieldName='PROJECT') or (Field.FieldName='USER') or (Field.FieldName='OWNER')) then
     begin
       if SearchString = '' then
         begin
@@ -1333,8 +1336,11 @@ begin
           SetLength(SearchLocations,length(SearchLocations)+1);
           if (Field.FieldName='PROJECT') then
             SearchLocations[length(SearchLocations)-1] := strProjects;
-          if (Field.FieldName='USER') then
-            SearchLocations[length(SearchLocations)-1] := strUsers;
+          if (Field.FieldName='USER') or (Field.FieldName='OWNER') then
+            begin
+              pSearch.Caption := Field.FieldName;
+              SearchLocations[length(SearchLocations)-1] := strUsers;
+            end;
           lbResults.Items.Clear;
           if Assigned(ActiveSearch) then
             ActiveSearch.Free;
