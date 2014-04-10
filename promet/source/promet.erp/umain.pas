@@ -429,6 +429,7 @@ begin
             end
           else break;
         end;
+      aLinks.Free;
       aList.Free;
     end;
 end;
