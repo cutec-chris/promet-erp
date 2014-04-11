@@ -69,6 +69,7 @@ type
     cbCategory: TExtDBCombobox;
     DBCheckBox1: TDBCheckBox;
     DBCheckBox2: TDBCheckBox;
+    DBCheckBox3: TDBCheckBox;
     DBZVDateTimePicker4: TDBZVDateTimePicker;
     eParent: TEditButton;
     eManager: TEditButton;

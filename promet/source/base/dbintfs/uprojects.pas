@@ -566,6 +566,7 @@ begin
             Add('PMANAGER',ftString,20,False);
             Add('INFORMLEADER',ftString,1,False);
             Add('INFORMPMANAGER',ftString,1,False);
+            Add('GROSSPLANNING',ftString,1,False);
             Add('CATEGORY',ftString,60,False);
             Add('CHANGEDBY',ftString,4,false);
             Add('CREATEDBY',ftString,4,false);

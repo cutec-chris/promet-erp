@@ -140,8 +140,8 @@ inherited fprojectFrame: TfprojectFrame
       ImageIndex = 62
       object mInfo: TDBMemo
         Left = 8
-        Height = 224
-        Top = 95
+        Height = 201
+        Top = 118
         Width = 784
         Align = alBottom
         Anchors = [akTop, akLeft, akRight, akBottom]
@@ -375,7 +375,7 @@ inherited fprojectFrame: TfprojectFrame
         Left = 601
         Height = 17
         Hint = 'schickt eine Nachricht an den Vorgesetzten '#13#10'wenn Aufgaben erledigt oder wiedereröffnet werden'
-        Top = 51
+        Top = 65
         Width = 133
         AutoSize = True
         Caption = 'Vorgesetzte informieren'
@@ -389,7 +389,7 @@ inherited fprojectFrame: TfprojectFrame
         Left = 601
         Height = 17
         Hint = 'schickt eine Nachricht an den Projektleiter'#13#10'wenn Aufgaben erledigt oder wiedereröffnet werde'
-        Top = 68
+        Top = 82
         Width = 133
         AutoSize = True
         Caption = 'Projektleiter informieren'
@@ -408,6 +408,7 @@ inherited fprojectFrame: TfprojectFrame
         Brush.Color = clRed
         Pen.Color = 10329501
         Shape = stEllipse
+        Visible = False
       end
       object Shape2: TShape
         Left = 623
@@ -418,6 +419,7 @@ inherited fprojectFrame: TfprojectFrame
         Brush.Color = clYellow
         Pen.Color = 10329501
         Shape = stEllipse
+        Visible = False
       end
       object Shape3: TShape
         Left = 645
@@ -428,6 +430,7 @@ inherited fprojectFrame: TfprojectFrame
         Brush.Color = clLime
         Pen.Color = 10329501
         Shape = stEllipse
+        Visible = False
       end
       object Label13: TLabel
         Left = 601
@@ -436,6 +439,7 @@ inherited fprojectFrame: TfprojectFrame
         Width = 29
         Caption = 'Ampel'
         ParentColor = False
+        Visible = False
       end
       object Shape4: TShape
         Left = 715
@@ -446,6 +450,21 @@ inherited fprojectFrame: TfprojectFrame
         Brush.Color = clBtnFace
         Pen.Color = 10329501
         Shape = stEllipse
+        Visible = False
+      end
+      object DBCheckBox3: TDBCheckBox
+        Left = 601
+        Height = 17
+        Hint = 'schickt eine Nachricht an den Vorgesetzten '#13#10'wenn Aufgaben erledigt oder wiedereröffnet werden'
+        Top = 47
+        Width = 151
+        AutoSize = True
+        Caption = 'in Grobplanung einschließen'
+        DataField = 'GROSSPLANNING'
+        DataSource = Projects
+        TabOrder = 10
+        ValueChecked = 'Y'
+        ValueUnchecked = 'N'
       end
     end
   end
