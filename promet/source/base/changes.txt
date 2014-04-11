@@ -1,4 +1,6 @@
-﻿Build 331
+﻿Build 332
+      - Projekte: Status wird beim dublizieren nciht geändert, Aufgaben werden nicht aktiviert
+Build 331
       - Listen:Filter wurden u.U. nicht gefunden wenn viele Filter in der Datenbank gespeichert wurden
       - Aufgaben:Focus fehler behoben (Aufgabenliste hatte Focus nach öffnen des Tabs nicht)
       - Aufgaben:Im projekt können nun auch Aufgaben gelöscht sind deren Verantwortlicher man nicht ist

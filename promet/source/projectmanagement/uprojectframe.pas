@@ -76,6 +76,7 @@ type
     Label10: TLabel;
     Label11: TLabel;
     Label12: TLabel;
+    Label13: TLabel;
     Label8: TLabel;
     Label9: TLabel;
     lVAT1: TLabel;
@@ -95,6 +96,10 @@ type
     PTasks: TfrDBDataSet;
     dExport: TSaveDialog;
     sePriority: TSpinEdit;
+    Shape1: TShape;
+    Shape2: TShape;
+    Shape3: TShape;
+    Shape4: TShape;
     Tasks: TDatasource;
     DBZVDateTimePicker1: TDBZVDateTimePicker;
     DBZVDateTimePicker2: TDBZVDateTimePicker;
@@ -411,7 +416,8 @@ begin
       TfTaskFrame(pcPages.ActivePage.Controls[0]).DataSet.CascadicCancel;
       TfTaskFrame(pcPages.ActivePage.Controls[0]).acRefresh.Execute;
     end;
-  fGanttView.Execute(TProject(DataSet));
+
+  fGanttView.Execute(TProject(DataSet),'',True,(Sender = bExecute2) and );
   if not Assigned(Self) then exit;
   if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
     begin

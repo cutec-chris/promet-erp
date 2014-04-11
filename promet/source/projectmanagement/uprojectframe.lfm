@@ -3,8 +3,8 @@ inherited fprojectFrame: TfprojectFrame
   Width = 808
   ClientHeight = 493
   ClientWidth = 808
-  DesignLeft = 449
-  DesignTop = 180
+  DesignLeft = 445
+  DesignTop = 182
   object pComponents: TPanel[0]
     Left = 0
     Height = 48
@@ -398,6 +398,54 @@ inherited fprojectFrame: TfprojectFrame
         TabOrder = 9
         ValueChecked = 'Y'
         ValueUnchecked = 'N'
+      end
+      object Shape1: TShape
+        Left = 601
+        Height = 19
+        Hint = 'Ampel auf rot stellen'#13#10'und Vermerk hinzufügen'
+        Top = 17
+        Width = 19
+        Brush.Color = clRed
+        Pen.Color = 10329501
+        Shape = stEllipse
+      end
+      object Shape2: TShape
+        Left = 623
+        Height = 19
+        Hint = 'Ampel auf gelb stellen'#13#10'und Vermerk hinzufügen'
+        Top = 17
+        Width = 19
+        Brush.Color = clYellow
+        Pen.Color = 10329501
+        Shape = stEllipse
+      end
+      object Shape3: TShape
+        Left = 645
+        Height = 19
+        Hint = 'Ampel auf grün stellen'#13#10'und Vermerk hinzufügen'
+        Top = 17
+        Width = 19
+        Brush.Color = clLime
+        Pen.Color = 10329501
+        Shape = stEllipse
+      end
+      object Label13: TLabel
+        Left = 601
+        Height = 13
+        Top = -1
+        Width = 29
+        Caption = 'Ampel'
+        ParentColor = False
+      end
+      object Shape4: TShape
+        Left = 715
+        Height = 19
+        Hint = 'Vermerk hinzufügen'
+        Top = 17
+        Width = 19
+        Brush.Color = clBtnFace
+        Pen.Color = 10329501
+        Shape = stEllipse
       end
     end
   end
@@ -926,17 +974,17 @@ inherited fprojectFrame: TfprojectFrame
       Left = 605
       Height = 44
       Top = 0
-      Width = 171
+      Width = 194
       Align = alLeft
       BevelOuter = bvNone
       ClientHeight = 44
-      ClientWidth = 171
+      ClientWidth = 194
       TabOrder = 7
       object Label12: TLabel
         Left = 4
         Height = 15
         Top = 0
-        Width = 163
+        Width = 186
         Anchors = [akLeft, akRight, akBottom]
         AutoSize = False
         BorderSpacing.Left = 5
@@ -961,7 +1009,7 @@ inherited fprojectFrame: TfprojectFrame
         Height = 21
         Hint = 'der Vohrfahr des Projektes/Prozesses'
         Top = 14
-        Width = 111
+        Width = 130
         ButtonWidth = 23
         CharCase = ecNormal
         Glyph.Data = {
@@ -1007,9 +1055,9 @@ inherited fprojectFrame: TfprojectFrame
         TabOrder = 0
       end
       object bDelegated2: TSpeedButton
-        Left = 143
+        Left = 162
         Height = 28
-        Top = 13
+        Top = 7
         Width = 28
         Action = acGotoParent
         AllowAllUp = True
@@ -1441,6 +1489,42 @@ inherited fprojectFrame: TfprojectFrame
     end
     object MenuItem10: TMenuItem
       Action = acMoveOldTasks
+      Bitmap.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000064000000640000000000000000000000FEFDFD00FDFD
+        FDFF676766FFFCFCFCFFFBFBFCFFFAFAFAFFFAFAFAFFFAF9F9FFF9F8F8FFF7F7
+        F7FFF7F7F7FFF5F5F6FFF5F5F5FFF4F4F4FFF3F3F3FFF3F3F3FFFEFEFEFFC7A8
+        12FFC6A212FFC49B13FFC29313FFC08A14FFBF8114FFBC7714FFBA6F15FFB866
+        15FFB65E16FFB55716FFB35216FFF5F5F5FFF4F4F4FFF3F3F3FFFFFFFFFFFEF6
+        01FFFBEC01FFF9E001FFF5D202FFF1C203FFEDB204FFEAA104FFE68F05FFE27F
+        06FFDE7106FFDB6407FFB45316FFF5F6F6FFF5F5F5FFF4F4F4FFE1E1E1FFE1E1
+        E1FF666665FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1
+        E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFFFFFFFFFFFFF
+        FFFF767776FFFEFEFEFFFEFEFDFFFDFDFDFFFDFDFDFFFCFCFCFFFCFCFBFFF8F6
+        EDFFC59E13FFC29313FFC08714FFBD7A15FFBA6F15FFB76215FFFFFFFFFFFFFF
+        FFFF7D7C7DFFFFFFFFFFFEFEFFFFFEFEFDFFFEFDFEFFFDFDFDFFFDFDFDFFFBFC
+        EDFFFAE801FFF5D501FFF1BE03FFEBA704FFE59005FFE07906FFFFFFFFFFFFFF
+        FFFF818181FFFFFFFFFFFFFFFFFFFEFEFEFFFEFEFEFFFEFDFEFFFDFDFDFFFCFC
+        FCFFFCFCFCFF000085FFFAFAFAFFFAFAFAFFFAF9F9FFF9F8F8FFE1E1E1FFE1E1
+        E1FF7B7B7BFFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FF1622
+        A8FF0D159AFF05098DFF000085FFDFDED5FFC59C13FFC18F14FFFFFFFFFFFFFF
+        FFFF8D8D8DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFEFEFFFEFEFEFF1F31
+        B8FFFEFDFD000D1499FFFCFCFCFFFBFCEDFFF9E401FFF4CE02FFFFFFFFFFFFFF
+        FFFF939394FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF2941
+        C9FFFEFEFDFFFDFDFEFFFDFDFDFFFCFCFCFFFCFCFBFFFBFBFBFFFFFFFFFFFFFF
+        FFFF9A9A9AFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF3351
+        D8FFFEFEFEFFFEFEFDFFFDFDFDFFFDFDFDFFFCFCFCFFFBFBFBFFE1E1E1FFE1E1
+        E1FF949394FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FF3D62
+        E5FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFFEFEFFFFFEFE
+        FFFFA5A6A5FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF4670
+        F0FFFFFFFFFFFEFEFEFFFEFEFEFFFEFEFEFFFEFDFD00FDFDFDFFFEFEFEFFC7A6
+        12FFC59C13FFC18F13FFBF8114FFBB7315FFB76415FFB55916FF7AC4FEFF5F98
+        FCFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFEFEFFFEFDFEFFFDFDFDFFFDF5
+        00FFF9E401FFF4CE02FFEEB403FFE89A05FFE28006FFB65C16FFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFEFEFFFEFEFEFFE1E1E1FFE1E1
+        E1FFA9A8A9FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1
+        E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FF
+      }
     end
   end
 end
