@@ -1139,10 +1139,20 @@ inherited fprojectFrame: TfprojectFrame
         object bExecute2: TToolButton
           Left = 1
           Top = 0
-          Action = acGantt
+          Caption = 'Gantt Ansicht'
           DropdownMenu = PopupMenu1
+          ImageIndex = 104
+          OnClick = acGanttExecute
           ShowCaption = False
           Style = tbsDropDown
+        end
+        object GroupBox1: TGroupBox
+          Left = 1
+          Height = 35
+          Top = 35
+          Width = 185
+          Caption = 'GroupBox1'
+          TabOrder = 0
         end
       end
     end

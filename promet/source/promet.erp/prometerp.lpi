@@ -297,7 +297,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="52">
+    <Units Count="54">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -733,31 +733,31 @@
       </Unit41>
       <Unit42>
         <Filename Value="../base/revision.inc"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
-        <UsageCount Value="89"/>
+        <UsageCount Value="90"/>
         <Loaded Value="True"/>
       </Unit42>
       <Unit43>
         <Filename Value="../base/changes.txt"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="62" Y="2"/>
-        <UsageCount Value="89"/>
+        <UsageCount Value="90"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit43>
       <Unit44>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="953"/>
-        <CursorPos X="85" Y="977"/>
-        <UsageCount Value="28"/>
+        <TopLine Value="1114"/>
+        <CursorPos X="1" Y="1139"/>
+        <UsageCount Value="29"/>
         <Loaded Value="True"/>
       </Unit44>
       <Unit45>
@@ -767,7 +767,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="87"/>
         <CursorPos X="15" Y="86"/>
-        <UsageCount Value="28"/>
+        <UsageCount Value="29"/>
         <Loaded Value="True"/>
       </Unit45>
       <Unit46>
@@ -777,17 +777,17 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1552"/>
         <CursorPos X="38" Y="1571"/>
-        <UsageCount Value="26"/>
+        <UsageCount Value="27"/>
         <Loaded Value="True"/>
       </Unit46>
       <Unit47>
         <Filename Value="../base_documents/udocumentframe.pas"/>
         <UnitName Value="uDocumentFrame"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="394"/>
         <CursorPos X="1" Y="501"/>
-        <UsageCount Value="24"/>
+        <UsageCount Value="25"/>
         <Loaded Value="True"/>
       </Unit47>
       <Unit48>
@@ -795,21 +795,21 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="umanagedocframe"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="17"/>
         <CursorPos X="24" Y="34"/>
-        <UsageCount Value="24"/>
+        <UsageCount Value="25"/>
         <Loaded Value="True"/>
       </Unit48>
       <Unit49>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="557"/>
-        <CursorPos X="34" Y="570"/>
-        <UsageCount Value="23"/>
+        <TopLine Value="739"/>
+        <CursorPos X="1" Y="758"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit49>
       <Unit50>
@@ -819,7 +819,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="44"/>
         <CursorPos X="54" Y="63"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit50>
       <Unit51>
@@ -831,90 +831,153 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="663"/>
-        <CursorPos X="29" Y="676"/>
-        <UsageCount Value="11"/>
+        <TopLine Value="412"/>
+        <CursorPos X="73" Y="430"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit51>
+      <Unit52>
+        <Filename Value="../../../../../../Programme/lazarus/lcl/include/control.inc"/>
+        <EditorIndex Value="8"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="3148"/>
+        <CursorPos X="65" Y="3163"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit52>
+      <Unit53>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <UnitName Value="uGanttView"/>
+        <EditorIndex Value="7"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1253"/>
+        <CursorPos X="1" Y="1272"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit53>
     </Units>
-    <JumpHistory Count="19" HistoryIndex="18">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="230" Column="55" TopLine="207"/>
+        <Filename Value="../projectmanagement/uprojectframe.pas"/>
+        <Caret Line="692" Column="45" TopLine="680"/>
       </Position1>
       <Position2>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="602" Column="34" TopLine="585"/>
+        <Filename Value="../projectmanagement/uprojectframe.pas"/>
+        <Caret Line="694" Column="53" TopLine="680"/>
       </Position2>
       <Position3>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="602" Column="13" TopLine="585"/>
+        <Filename Value="../projectmanagement/uprojectframe.pas"/>
+        <Caret Line="696" Column="48" TopLine="680"/>
       </Position3>
       <Position4>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="591" Column="17" TopLine="574"/>
+        <Filename Value="../projectmanagement/uprojectframe.pas"/>
+        <Caret Line="894" Column="1" TopLine="876"/>
       </Position4>
       <Position5>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="602" Column="29" TopLine="580"/>
+        <Filename Value="../projectmanagement/uprojectframe.pas"/>
+        <Caret Line="425" Column="48" TopLine="411"/>
       </Position5>
       <Position6>
-        <Filename Value="../base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="34" Column="24" TopLine="17"/>
+        <Filename Value="../../../../../../Programme/lazarus/lcl/include/control.inc"/>
+        <Caret Line="3163" Column="65" TopLine="3148"/>
       </Position6>
       <Position7>
-        <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <Caret Line="758" Column="1" TopLine="739"/>
       </Position7>
       <Position8>
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="529" Column="18" TopLine="513"/>
+        <Caret Line="429" Column="1" TopLine="411"/>
       </Position8>
       <Position9>
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="526" Column="38" TopLine="513"/>
+        <Caret Line="430" Column="1" TopLine="411"/>
       </Position9>
       <Position10>
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="409" Column="1" TopLine="395"/>
+        <Caret Line="429" Column="1" TopLine="411"/>
       </Position10>
       <Position11>
-        <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="414" Column="3" TopLine="391"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="1272" Column="1" TopLine="1253"/>
       </Position11>
       <Position12>
-        <Filename Value="../base/dbintfs/uprojects.pas"/>
-        <Caret Line="30" Column="43" TopLine="20"/>
+        <Filename Value="../projectmanagement/uprojectframe.pas"/>
+        <Caret Line="429" Column="1" TopLine="411"/>
       </Position12>
       <Position13>
-        <Filename Value="../base/dbintfs/uprojects.pas"/>
-        <Caret Line="32" Column="23" TopLine="20"/>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="1272" Column="1" TopLine="1253"/>
       </Position13>
       <Position14>
-        <Filename Value="../base/dbintfs/uprojects.pas"/>
-        <Caret Line="95" Column="12" TopLine="63"/>
+        <Filename Value="../projectmanagement/uprojectframe.pas"/>
+        <Caret Line="429" Column="62" TopLine="411"/>
       </Position14>
       <Position15>
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="656" Column="3" TopLine="652"/>
+        <Caret Line="430" Column="1" TopLine="412"/>
       </Position15>
       <Position16>
-        <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="657" Column="3" TopLine="653"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1134" Column="1" TopLine="1114"/>
       </Position16>
       <Position17>
-        <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="658" Column="3" TopLine="654"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1135" Column="1" TopLine="1114"/>
       </Position17>
       <Position18>
-        <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="659" Column="3" TopLine="655"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1136" Column="1" TopLine="1114"/>
       </Position18>
       <Position19>
-        <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="660" Column="3" TopLine="656"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1137" Column="1" TopLine="1114"/>
       </Position19>
+      <Position20>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1138" Column="1" TopLine="1114"/>
+      </Position20>
+      <Position21>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1139" Column="1" TopLine="1114"/>
+      </Position21>
+      <Position22>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="1272" Column="1" TopLine="1253"/>
+      </Position22>
+      <Position23>
+        <Filename Value="../projectmanagement/uprojectframe.pas"/>
+        <Caret Line="430" Column="1" TopLine="412"/>
+      </Position23>
+      <Position24>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1134" Column="1" TopLine="1114"/>
+      </Position24>
+      <Position25>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1135" Column="1" TopLine="1114"/>
+      </Position25>
+      <Position26>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1136" Column="1" TopLine="1114"/>
+      </Position26>
+      <Position27>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1137" Column="1" TopLine="1114"/>
+      </Position27>
+      <Position28>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1138" Column="1" TopLine="1114"/>
+      </Position28>
+      <Position29>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1139" Column="1" TopLine="1114"/>
+      </Position29>
+      <Position30>
+        <Filename Value="../base_pm/uganttview.pas"/>
+        <Caret Line="1272" Column="1" TopLine="1253"/>
+      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -968,7 +1031,7 @@
         <Expression Value="FImage"/>
       </Item1>
     </Watches>
-    <Exceptions Count="22">
+    <Exceptions Count="23">
       <Item1>
         <Name Value="EVariantError"/>
       </Item1>
@@ -1036,6 +1099,9 @@
       <Item22>
         <Name Value="FPImageException"/>
       </Item22>
+      <Item23>
+        <Name Value="EComponentError"/>
+      </Item23>
     </Exceptions>
   </Debugging>
   <EditorMacros Count="0"/>

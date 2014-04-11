@@ -72,6 +72,7 @@ type
     DBZVDateTimePicker4: TDBZVDateTimePicker;
     eParent: TEditButton;
     eManager: TEditButton;
+    GroupBox1: TGroupBox;
     iProject: TImage;
     Label10: TLabel;
     Label11: TLabel;
@@ -410,14 +411,23 @@ begin
 end;
 
 procedure TfProjectFrame.acGanttExecute(Sender: TObject);
+var
+  aType: Char;
+  aFound: Boolean;
 begin
   if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
     begin
       TfTaskFrame(pcPages.ActivePage.Controls[0]).DataSet.CascadicCancel;
       TfTaskFrame(pcPages.ActivePage.Controls[0]).acRefresh.Execute;
     end;
-
-  fGanttView.Execute(TProject(DataSet),'',True,(Sender = bExecute2) and );
+  aType := 'P';
+  if not Data.States.DataSet.Locate('TYPE;STATUS',VarArrayOf([aType,FDataSet.FieldByName('STATUS').AsString]),[loCaseInsensitive]) then
+    begin
+      Data.SetFilter(Data.States,'');
+      aFound := Data.States.DataSet.Locate('TYPE;STATUS',VarArrayOf([aType,FDataSet.FieldByName('STATUS').AsString]),[loCaseInsensitive]);
+    end
+  else aFound := True;
+  fGanttView.Execute(TProject(DataSet),'',True,(Sender = bExecute2) and (not (aFound and (Data.States.FieldByName('ACTIVE').AsString='Y'))));
   if not Assigned(Self) then exit;
   if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
     begin
