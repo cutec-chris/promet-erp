@@ -130,7 +130,7 @@ type
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
     procedure Populate(aTasks: TTaskList; DoClean: Boolean=True;AddInactive : Boolean = False);
-    procedure DoSave;
+    procedure DoSave(aChangeMilestones : Boolean);
     procedure CleanIntervals;
     function FindCriticalPath: TInterval;
     procedure FillInterval(aInterval : TInterval;aTasks : TTaskList);
@@ -156,6 +156,7 @@ resourcestring
   strCollectingTasks                      = 'Ansicht wird aufgebaut...';
   strCollectingDependencies               = 'Abhängigkeiten werden ermittelt...';
   strCollectingresourceTimes              = '... Urlaubszeiten ermitteln';
+  strChangeMilestones                     = 'Meilensteine ändern';
 
 procedure TfGanttView.FGanttTreeAfterUpdateCommonSettings(Sender: TObject);
 begin
@@ -193,9 +194,25 @@ begin
 end;
 
 procedure TfGanttView.bSaveClick(Sender: TObject);
+var
+  aDialog: TForm;
+  aCheckBox: TCheckBox;
 begin
-  if (MessageDlg(strCommitChanges,mtInformation,[mbYes,mbNo],0) = mrYes) then
-    DoSave;
+  aDialog := CreateMessageDialog(strCommitChanges,mtInformation,[mbYes,mbNo]);
+  aCheckBox := TCheckBox.Create(aDialog) ;
+  with ACheckBox do
+    begin
+     Parent := aDialog;
+     Caption := strChangeMilestones;
+     Checked:=True;
+     Visible := True;
+     Left := 0;
+     Top := aDialog.Height-aCheckBox.Height;
+
+    end;
+  if (aDialog.ShowModal = mrYes) then
+    DoSave(aCheckBox.Checked);
+  aDialog.Free;
 end;
 
 procedure TfGanttView.bCancelClick(Sender: TObject);
@@ -1070,7 +1087,7 @@ begin
   FGantt.StartDate:=Now();
   FindCriticalPath;
 end;
-procedure TfGanttView.DoSave;
+procedure TfGanttView.DoSave(aChangeMilestones: Boolean);
   procedure RecoursiveChange(aParent : TInterval);
   var
     i: Integer;
@@ -1079,7 +1096,7 @@ procedure TfGanttView.DoSave;
       begin
         if aParent.Interval[i].Changed then
           begin
-            ChangeTask(FProject.Tasks,aParent.Interval[i]);
+            ChangeTask(FProject.Tasks,aParent.Interval[i],aChangeMilestones);
           end;
         RecoursiveChange(aParent.Interval[i]);
       end;
@@ -1089,8 +1106,11 @@ procedure TfGanttView.DoSave;
 var
   i: Integer;
 begin
+  Application.ProcessMessages;
+  Screen.Cursor:=crHourGlass;
   for i := 0 to FGantt.IntervalCount-1 do
     RecoursiveChange(FGantt.Interval[i]);
+  Screen.Cursor:=crDefault;
 end;
 procedure TfGanttView.CleanIntervals;
 var

@@ -69,6 +69,8 @@ type
     ActionList1: TActionList;
     acUse: TAction;
     bDayView: TSpeedButton;
+    bDelegated2: TSpeedButton;
+    Bevel10: TBevel;
     Bevel5: TBevel;
     Bevel7: TBevel;
     bMonthView: TSpeedButton;
@@ -77,8 +79,10 @@ type
     bWeekView: TSpeedButton;
     Label3: TLabel;
     Label5: TLabel;
+    Label6: TLabel;
     Label7: TLabel;
     lDate: TLabel;
+    MenuItem1: TMenuItem;
     miCopy: TMenuItem;
     MenuItem6: TMenuItem;
     MenuItem3: TMenuItem;
@@ -101,7 +105,9 @@ type
     Panel1: TPanel;
     Panel4: TPanel;
     Panel7: TPanel;
+    Panel8: TPanel;
     Panel9: TPanel;
+    pmTree: TPopupMenu;
     tbTop: TPanel;
     Timer1: TTimer;
     ToolButton1: TSpeedButton;
@@ -109,6 +115,7 @@ type
     procedure acCancelExecute(Sender: TObject);
     procedure acUseExecute(Sender: TObject);
     procedure bDayViewClick(Sender: TObject);
+    procedure bDelegated2Click(Sender: TObject);
     procedure bMonthViewClick(Sender: TObject);
     procedure bRefreshClick(Sender: TObject);
     procedure bTodayClick(Sender: TObject);
@@ -157,7 +164,6 @@ type
 procedure AddToMainTree(aAction : TAction;Node : TTreeNode);
 var
   MainNode : TTreeNode;
-
 implementation
 uses uData,uBaseDBInterface,uBaseERPDBClasses,uCalendar,uMainTreeFrame;
 resourcestring
@@ -178,17 +184,14 @@ constructor TIntDepartment.Create;
 begin
   FullTime:=-1;
 end;
-
 function TProjectInterval.getDepartment(aDepartment : Integer): TIntDepartment;
 begin
   Result := TIntDepartment(FList[aDepartment]);
 end;
-
 function TProjectInterval.GetDeptCount: Integer;
 begin
   result := FList.Count;
 end;
-
 procedure TProjectInterval.AddTime(aAccountNo,aDept,aShortName: string; aTime: Real);
 var
   Found: Boolean = False;
@@ -210,19 +213,16 @@ begin
       TIntDepartment(FList[Flist.Count-1]).FullTime:=-1;
     end;
 end;
-
 constructor TProjectInterval.Create(AGantt: TgsGantt);
 begin
   FList := TList.Create;
   inherited Create(AGantt);
 end;
-
 destructor TProjectInterval.Destroy;
 begin
   FList.Free;
   inherited Destroy;
 end;
-
 procedure TfRoughPlanningFrame.aSubIntChanged(Sender: TObject);
 var
   i: Integer;
@@ -247,18 +247,15 @@ begin
       FRough.Calendar.Invalidate;
     end;
 end;
-
 procedure TFillingThread.AddInterval;
 begin
   FFrame.FRough.AddInterval(aInt);
 end;
-
 procedure TFillingThread.RoughVisible;
 begin
   FFrame.FRough.Visible:=True;
   Application.ProcessMessages;
 end;
-
 procedure TFillingThread.Execute;
 var
   aConn: TComponent;
@@ -274,7 +271,7 @@ begin
   aConn := Data.GetNewConnection;
   aProjects :=  TProjectList.Create(nil,Data,aConn);
   with aProjects.DataSet as IBaseDbFilter do
-    Data.SetFilter(aProjects,Data.ProcessTerm(Data.QuoteField('GPRIORITY')+'<>'+Data.QuoteValue('0')),0,'GPRIORITY','ASC');
+    Data.SetFilter(aProjects,Data.ProcessTerm(Data.QuoteField('GROSSPLANNING')+'='+Data.QuoteValue('Y')),0,'GPRIORITY','ASC');
   aState := TStates.Create(nil,Data,aConn);
   aState.Open;
   aUsers := TUser.Create(nil,Data,aConn);
@@ -315,7 +312,6 @@ begin
   Synchronize(@RoughVisible);
   FFrame.aThread:=nil;
 end;
-
 constructor TFillingThread.Create(aFrame: TfRoughPlanningFrame);
 begin
   FFrame := aFrame;
@@ -324,7 +320,6 @@ begin
   //Free;
   inherited Create(False)
 end;
-
 procedure TfRoughPlanningFrame.aIntDrawBackground(Sender: TObject; aCanvas: TCanvas;
   aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
 var
@@ -438,12 +433,10 @@ begin
         end;
     end;
 end;
-
 procedure TfRoughPlanningFrame.RefreshTimes(Data: PtrInt);
 begin
   Timer1.Enabled := True;
 end;
-
 procedure TfRoughPlanningFrame.Timer1Timer(Sender: TObject);
 var
   i: Integer;
@@ -453,24 +446,25 @@ begin
   fRefreshList.Clear;
   FRough.Calendar.Invalidate;
 end;
-
 procedure TfRoughPlanningFrame.bDayViewClick(Sender: TObject);
 begin
   FRough.MinorScale:=tsDay;
   FRough.MajorScale:=tsWeekNum;
   FRough.Calendar.StartDate:=FRough.Calendar.StartDate;
 end;
-
+procedure TfRoughPlanningFrame.bDelegated2Click(Sender: TObject);
+begin
+  if Assigned(FRough.Tree.Objects[0,FGantt.Tree.Row]) then
+    Data.GotoLink('PROJECTS.ID@'+IntToStr(TInterval(FRough.Tree.Objects[0,FGantt.Tree.Row]).Id));
+end;
 procedure TfRoughPlanningFrame.acUseExecute(Sender: TObject);
 begin
 
 end;
-
 procedure TfRoughPlanningFrame.acCancelExecute(Sender: TObject);
 begin
   StartFilling;
 end;
-
 procedure TfRoughPlanningFrame.bMonthViewClick(Sender: TObject);
 begin
   FRough.MinorScale:=tsDay;
@@ -478,7 +472,6 @@ begin
   FRough.MinorScale:=tsMonth;
   FRough.Calendar.StartDate:=FRough.Calendar.StartDate;
 end;
-
 procedure TfRoughPlanningFrame.bRefreshClick(Sender: TObject);
 var
   CurrInterval: TInterval;
@@ -500,12 +493,10 @@ begin
       aProjects.Free;
     end;
 end;
-
 procedure TfRoughPlanningFrame.bTodayClick(Sender: TObject);
 begin
   FRough.StartDate:=Now();
 end;
-
 procedure TfRoughPlanningFrame.bWeekViewClick(Sender: TObject);
 begin
   FRough.MinorScale:=tsDay;
@@ -513,13 +504,11 @@ begin
   FRough.MinorScale:=tsWeekNumPlain;
   FRough.Calendar.StartDate:=FRough.Calendar.StartDate;
 end;
-
 procedure TfRoughPlanningFrame.FRoughCalendarMouseMove(Sender: TObject;
   Shift: TShiftState; X, Y: Integer);
 begin
   lDate.Caption := DateToStr(FRough.Calendar.VisibleStart+trunc((X/FRough.Calendar.GetIntervalWidth)));
 end;
-
 procedure TfRoughPlanningFrame.FRoughCalendarShowHint(Sender: TObject;
   HintInfo: PHintInfo);
 var
@@ -580,7 +569,6 @@ begin
 
     end;
 end;
-
 procedure TfRoughPlanningFrame.FRoughTreeAfterUpdateCommonSettings(
   Sender: TObject);
 begin
@@ -594,8 +582,8 @@ begin
   FRough.Tree.ColWidths[6]:=0;
   FRough.Tree.ColWidths[7]:=0;
   FRough.Tree.Width:=310;
+  FRough.Tree.PopupMenu := pmTree;
 end;
-
 function TfRoughPlanningFrame.SetRights: Boolean;
 begin
 
