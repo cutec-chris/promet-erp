@@ -31,7 +31,7 @@ uses
   variants, types, uTimeLine, uPreviewFrame, uOCR, uExtControls;
 
 type
-  TImageItem = class
+  TImageItem = class(TObject)
   public
     Done : Boolean;
   end;

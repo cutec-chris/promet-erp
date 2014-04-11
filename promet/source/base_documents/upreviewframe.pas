@@ -267,6 +267,7 @@ begin
   FID := aID;
   FRev := aRevision;
   FFrame := aFrame;
+  FreeOnTerminate:=True;
   inherited Create(False);
 end;
 {$R *.lfm}
@@ -777,4 +778,4 @@ begin
 end;
 
 end.
-
+

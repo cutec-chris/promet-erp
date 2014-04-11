@@ -214,6 +214,8 @@ end;
 destructor TThreadedImage.Destroy;
 begin
   fBitmap.free;
+  if Assigned(Pointer) then
+    TObject(Pointer).Destroy;
   inherited Destroy;
 end;
 
