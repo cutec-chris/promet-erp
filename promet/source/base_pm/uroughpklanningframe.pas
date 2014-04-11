@@ -455,7 +455,7 @@ end;
 procedure TfRoughPlanningFrame.bDelegated2Click(Sender: TObject);
 begin
   if Assigned(FRough.Tree.Objects[0,FRough.Tree.Row]) then
-    Data.GotoLink('PROJECTS.ID@'+IntToStr(TInterval(FRough.Tree.Objects[0,FRough.Tree.Row]).Id));
+    Data.GotoLink('PROJECTS@'+IntToStr(TInterval(FRough.Tree.Objects[0,FRough.Tree.Row]).Id));
 end;
 procedure TfRoughPlanningFrame.acUseExecute(Sender: TObject);
 begin
