@@ -297,7 +297,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="56">
+    <Units Count="54">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -733,7 +733,7 @@
       </Unit41>
       <Unit42>
         <Filename Value="../base/revision.inc"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
@@ -742,7 +742,7 @@
       </Unit42>
       <Unit43>
         <Filename Value="../base/changes.txt"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="51" Y="2"/>
@@ -753,7 +753,7 @@
       <Unit44>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1114"/>
         <CursorPos X="1" Y="1139"/>
@@ -783,7 +783,7 @@
       <Unit47>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="739"/>
         <CursorPos X="1" Y="758"/>
@@ -793,7 +793,7 @@
       <Unit48>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="750"/>
         <CursorPos X="1" Y="770"/>
@@ -835,11 +835,11 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uroughpklanningframe"/>
         <IsVisibleTab Value="True"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="323"/>
         <CursorPos X="18" Y="455"/>
-        <FoldState Value=" T4M07 T5U0{p T3kg0AA pjakE071]9QjZ03218h"/>
+        <FoldState Value=" T4M07 T3kg0AA pjakE071]9QjZ03218$"/>
         <UsageCount Value="14"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -847,7 +847,7 @@
       <Unit52>
         <Filename Value="../base_pm/utaskplan.pas"/>
         <UnitName Value="uTaskPlan"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="165"/>
         <CursorPos X="11" Y="184"/>
@@ -855,39 +855,19 @@
         <Loaded Value="True"/>
       </Unit52>
       <Unit53>
-        <Filename Value="../../../../../../Programme/lazarus/lcl/dialogs.pp"/>
-        <UnitName Value="Dialogs"/>
-        <EditorIndex Value="7"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="482"/>
-        <CursorPos X="11" Y="501"/>
-        <UsageCount Value="13"/>
-        <Loaded Value="True"/>
-      </Unit53>
-      <Unit54>
         <Filename Value="../base_pm/utasks.pas"/>
         <ComponentName Value="fTaskFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="utasks"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
-      </Unit54>
-      <Unit55>
-        <Filename Value="../../../../../../Programme/lazarus/lcl/grids.pas"/>
-        <UnitName Value="Grids"/>
-        <EditorIndex Value="10"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="9907"/>
-        <CursorPos X="1" Y="9929"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-      </Unit55>
+      </Unit53>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
