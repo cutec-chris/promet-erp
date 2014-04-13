@@ -356,17 +356,18 @@ begin
               FieldsToJSON(aInternal.DataSet.Fields, VJSON, True);
               if RemoteID.AsString <> '' then
                 VJSON.Add('EXTERNAL_ID',RemoteID.AsString)
-              else RemoteID.AsString := '';
+              else if State=dsInsert then
+                Cancel;
               Result.Add(VJSON);
-              if Supports(aInternal, IBaseHistory, Hist) then
-                Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
-              LocalID.AsVariant:=aInternal.Id.AsVariant;
-              Typ.AsString:=SyncType;
-              SyncTime.AsDateTime:=Now();
-              try
-                Post;
-              except
-              end;
+              if CanEdit then
+                begin
+                  if Supports(aInternal, IBaseHistory, Hist) then
+                    Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                  LocalID.AsVariant:=aInternal.Id.AsVariant;
+                  Typ.AsString:=SyncType;
+                  SyncTime.AsDateTime:=Now();
+                  Post;
+                end;
             end;
         end;
       aInternal.Next;
