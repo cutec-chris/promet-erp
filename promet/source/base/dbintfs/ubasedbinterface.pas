@@ -1478,7 +1478,7 @@ begin
     else if FDB.ActiveUsers.DataSet.Locate('CLIENT;HOST',VarArrayOf([ExtractFileName(ParamStr(0)),GetSystemName]),[]) then
       begin
         while FDB.ActiveUsers.DataSet.Locate('CLIENT;HOST',VarArrayOf([ExtractFileName(ParamStr(0)),GetSystemName]),[]) do
-          FDB.ActiveUsers.DataSet.Delete;
+          FDB.ActiveUsers.Delete;
       end;
 
   FCategory := TCategory.Create(nil,FDB,FDB.MainConnection);
@@ -1589,4 +1589,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+

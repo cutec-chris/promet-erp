@@ -242,9 +242,13 @@ type
     property WorkTime : Extended read GetWorktime;
     property IDCode : TField read GetIDCode;
   end;
+
+  { TActiveUsers }
+
   TActiveUsers = class(TBaseDBDataSet)
   public
     procedure DefineFields(aDataSet : TDataSet);override;
+    procedure Delete; override;
   end;
   TUserfielddefs = class(TBaseDBDataSet)
   public
@@ -1419,6 +1423,16 @@ begin
           end;
     end;
 end;
+
+procedure TActiveUsers.Delete;
+begin
+  with DataSet as IBaseManageDB do
+    UpdateStdFields := False;
+  DataSet.Delete;
+  with DataSet as IBaseManageDB do
+    UpdateStdFields := True;
+end;
+
 procedure TPermissions.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do
@@ -2608,4 +2622,4 @@ begin
 end;
 initialization
 end.
-
+

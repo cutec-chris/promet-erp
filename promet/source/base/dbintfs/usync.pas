@@ -356,7 +356,7 @@ begin
               FieldsToJSON(aInternal.DataSet.Fields, VJSON, True);
               if RemoteID.AsString <> '' then
                 VJSON.Add('EXTERNAL_ID',RemoteID.AsString)
-              else ResmoteID := '';
+              else RemoteID.AsString := '';
               Result.Add(VJSON);
               if Supports(aInternal, IBaseHistory, Hist) then
                 Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
