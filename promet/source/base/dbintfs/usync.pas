@@ -354,14 +354,19 @@ begin
               else Edit;
               VJSON := TJSONObject.Create;
               FieldsToJSON(aInternal.DataSet.Fields, VJSON, True);
-              VJSON.Add('EXTERNAL_ID',RemoteID.AsString);
+              if RemoteID.AsString <> '' then
+                VJSON.Add('EXTERNAL_ID',RemoteID.AsString)
+              else ResmoteID := '';
               Result.Add(VJSON);
               if Supports(aInternal, IBaseHistory, Hist) then
                 Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
               LocalID.AsVariant:=aInternal.Id.AsVariant;
               Typ.AsString:=SyncType;
               SyncTime.AsDateTime:=Now();
-              Post;
+              try
+                Post;
+              except
+              end;
             end;
         end;
       aInternal.Next;
@@ -382,7 +387,18 @@ begin
           SelectByRemoteReference(aID.AsString);
           Open;
           if Count = 0 then
-            Insert
+            begin
+              aID := GetField(aObj,'sql_id');
+              if Assigned(aID) then
+                begin
+                  SelectByReference(aID.Value);
+                  Open;
+                  if Count = 0 then
+                    Insert;
+                end
+              else
+                Insert;
+            end
           else Edit;
           aInternal.Select(LocalID.AsVariant);
           aInternal.Open;
@@ -482,4 +498,4 @@ begin
 end;
 
 end.
-
+
