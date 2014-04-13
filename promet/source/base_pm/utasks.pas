@@ -541,6 +541,7 @@ end;
 procedure TfTaskFrame.DoInsertInplaceSearch(Data: PtrInt);
 begin
   lbResultsDblClick(nil);
+  Screen.Cursor:=crDefault;
 end;
 
 procedure TfTaskFrame.pmGridPopup(Sender: TObject);
@@ -1358,6 +1359,7 @@ begin
                 end;
               VK_RETURN:
                 begin
+                  Screen.Cursor:=crHourGlass;
                   Application.QueueAsyncCall(@DoInsertInplaceSearch,0);
                   Result := True;
                   Key := 0;

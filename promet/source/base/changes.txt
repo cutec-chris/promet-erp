@@ -2,6 +2,8 @@
       - Projekte: Status wird beim dublizieren nicht geändert, Aufgaben werden nicht aktiviert
       - Projekte: Gantt Knopf ziegt bei inaktivem Projekt Gantt mit inaktiven Aufgaben und bei Aktivem keine inaktiven Aufgaben
       - Grobplanung: separates Flag im Projekt um manuell zu steuern welches Projekt in Grobplanung zu sehen ist
+      - Nachrichten: Sanduhr wärend löschen einblenden (kann bei vielen Nachrichten ein paar Sekunden dauern)
+      -
 Build 331
       - Listen:Filter wurden u.U. nicht gefunden wenn viele Filter in der Datenbank gespeichert wurden
       - Aufgaben:Focus fehler behoben (Aufgabenliste hatte Focus nach öffnen des Tabs nicht)
