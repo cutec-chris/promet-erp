@@ -57,7 +57,7 @@ type
     property Typ : TField read GetType;
     procedure SelectByReference(aID : Variant);
     procedure SelectByRemoteReference(aID : Variant);
-    function SyncDataSet(aInternal : TBaseDBDataset;aExternal : TJSONArray;SyncType : string) : TJSONArray;
+    function SyncDataSet(aInternal : TBaseDBDataset;aExternal : TJSONData;SyncType : string) : TJSONArray;
     function GetField(aObject: TJSONData; aName: string): TJSONData;
     function LastSync(SyncType : string) : TDateTime;
   end;
@@ -301,7 +301,7 @@ You have to push an JSON List with Data in aExternal with EXTERNAL_ID,TIMESTAMPD
 and get an List with changed Data since Lastsync with EXTERNAL_ID and TIMESTAMPD
 }
 function TSyncItems.SyncDataSet(aInternal: TBaseDBDataset;
-  aExternal: TJSONArray; SyncType: string): TJSONArray;
+  aExternal: TJSONData; SyncType: string): TJSONArray;
 var
   aLastSync: TDateTime;
   VJSON: TJSONObject;

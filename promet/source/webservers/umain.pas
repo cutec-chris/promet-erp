@@ -352,7 +352,7 @@ var
   aClass: TBaseDBDatasetClass;
   Sync: TSyncItems;
   Json: TJSONArray;
-  JsonIn: TJSONArray;
+  JsonIn: TJSONData;
   aFilter: String;
   FSQLStream: TStringStream;
   FSQLScanner: TSQLScanner;
@@ -362,6 +362,7 @@ var
   aSyncType: String;
   aSeq: String;
   aParser: TJSONParser;
+  aInpData: String;
 begin
   Handled:=True;
   AResponse.Code:=500;
@@ -402,12 +403,15 @@ begin
                 else
                   aDs.Open;
                 Sync := TSyncItems.Create(nil,Data);
-                JsonIn := TJSONArray.Create;
                 aSyncType := ARequest.QueryFields.Values['synctype'];
-                aParser := TJSONParser.Create(ARequest.QueryFields.Values['data']);
+                aInpData := ARequest.QueryFields.Values['data'];
+                aParser := TJSONParser.Create(aInpData);
+                JsonIn := aParser.Parse;
                 if aSyncType = '' then
                   aSyncType:='JS.'+aRight;
                 Json := Sync.SyncDataSet(aDs,JsonIn,aSyncType);
+                if not Assigned(Json) then
+                  AResponse.Code:=500;
                 JsonIn.Free;
                 Sync.Free;
               end
