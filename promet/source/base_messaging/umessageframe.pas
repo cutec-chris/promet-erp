@@ -132,6 +132,7 @@ var
   Rec: LongInt;
   i: Integer;
 begin
+  Screen.Cursor:=crHourGlass;
   acDelete.Enabled := False;
   Application.ProcessMessages;
   if FList.gList.SelectedRows.Count > 0 then
@@ -151,6 +152,7 @@ begin
   RefreshTimer.Enabled:=True;
   FList.DataSet.GotoBookmark(Rec);
   acDelete.Enabled := True;
+  Screen.Cursor:=crDefault;
 end;
 procedure TfMessageFrame.acForwardExecute(Sender: TObject);
 var

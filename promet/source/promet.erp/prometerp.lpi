@@ -297,7 +297,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="54">
+    <Units Count="55">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -733,7 +733,7 @@
       </Unit41>
       <Unit42>
         <Filename Value="../base/revision.inc"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
@@ -742,7 +742,7 @@
       </Unit42>
       <Unit43>
         <Filename Value="../base/changes.txt"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="51" Y="2"/>
@@ -753,7 +753,7 @@
       <Unit44>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1114"/>
         <CursorPos X="1" Y="1139"/>
@@ -783,7 +783,7 @@
       <Unit47>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="739"/>
         <CursorPos X="1" Y="758"/>
@@ -793,7 +793,7 @@
       <Unit48>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="750"/>
         <CursorPos X="1" Y="770"/>
@@ -834,11 +834,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uroughpklanningframe"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="323"/>
-        <CursorPos X="18" Y="455"/>
+        <CursorPos X="35" Y="577"/>
         <FoldState Value=" T4M07 T3kg0AA pjakE071]9QjZ03218$"/>
         <UsageCount Value="14"/>
         <Loaded Value="True"/>
@@ -860,7 +859,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="utasks"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
@@ -868,127 +867,142 @@
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit53>
+      <Unit54>
+        <Filename Value="../base_messaging/umessageframe.pas"/>
+        <ComponentName Value="fMessageFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uMessageFrame"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="9"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="130"/>
+        <CursorPos X="27" Y="155"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit54>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="umain.pas"/>
-        <Caret Line="2667" Column="1" TopLine="2640"/>
+        <Caret Line="2668" Column="1" TopLine="2640"/>
       </Position1>
       <Position2>
         <Filename Value="umain.pas"/>
-        <Caret Line="2668" Column="1" TopLine="2640"/>
+        <Caret Line="2667" Column="1" TopLine="2640"/>
       </Position2>
       <Position3>
         <Filename Value="umain.pas"/>
-        <Caret Line="2667" Column="1" TopLine="2640"/>
+        <Caret Line="2676" Column="1" TopLine="2644"/>
       </Position3>
       <Position4>
         <Filename Value="umain.pas"/>
-        <Caret Line="2676" Column="1" TopLine="2644"/>
+        <Caret Line="2687" Column="1" TopLine="2669"/>
       </Position4>
       <Position5>
         <Filename Value="umain.pas"/>
-        <Caret Line="2687" Column="1" TopLine="2669"/>
+        <Caret Line="2692" Column="1" TopLine="2669"/>
       </Position5>
       <Position6>
         <Filename Value="umain.pas"/>
-        <Caret Line="2692" Column="1" TopLine="2669"/>
+        <Caret Line="2703" Column="1" TopLine="2672"/>
       </Position6>
       <Position7>
         <Filename Value="umain.pas"/>
-        <Caret Line="2703" Column="1" TopLine="2672"/>
+        <Caret Line="2715" Column="1" TopLine="2696"/>
       </Position7>
       <Position8>
         <Filename Value="umain.pas"/>
-        <Caret Line="2715" Column="1" TopLine="2696"/>
+        <Caret Line="2729" Column="1" TopLine="2716"/>
       </Position8>
       <Position9>
         <Filename Value="umain.pas"/>
-        <Caret Line="2729" Column="1" TopLine="2716"/>
+        <Caret Line="2737" Column="1" TopLine="2716"/>
       </Position9>
       <Position10>
         <Filename Value="umain.pas"/>
-        <Caret Line="2737" Column="1" TopLine="2716"/>
+        <Caret Line="2738" Column="1" TopLine="2716"/>
       </Position10>
       <Position11>
         <Filename Value="umain.pas"/>
-        <Caret Line="2738" Column="1" TopLine="2716"/>
+        <Caret Line="2740" Column="1" TopLine="2716"/>
       </Position11>
       <Position12>
         <Filename Value="umain.pas"/>
-        <Caret Line="2740" Column="1" TopLine="2716"/>
+        <Caret Line="2741" Column="1" TopLine="2716"/>
       </Position12>
       <Position13>
         <Filename Value="umain.pas"/>
-        <Caret Line="2741" Column="1" TopLine="2716"/>
+        <Caret Line="2742" Column="1" TopLine="2716"/>
       </Position13>
       <Position14>
         <Filename Value="umain.pas"/>
-        <Caret Line="2742" Column="1" TopLine="2716"/>
+        <Caret Line="2743" Column="1" TopLine="2716"/>
       </Position14>
       <Position15>
-        <Filename Value="umain.pas"/>
-        <Caret Line="2743" Column="1" TopLine="2716"/>
+        <Filename Value="../projectmanagement/uprojectframe.pas"/>
+        <Caret Line="1091" Column="1" TopLine="1072"/>
       </Position15>
       <Position16>
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="1091" Column="1" TopLine="1072"/>
+        <Caret Line="1092" Column="1" TopLine="1072"/>
       </Position16>
       <Position17>
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="1092" Column="1" TopLine="1072"/>
+        <Caret Line="1093" Column="1" TopLine="1072"/>
       </Position17>
       <Position18>
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="1093" Column="1" TopLine="1072"/>
+        <Caret Line="1094" Column="1" TopLine="1072"/>
       </Position18>
       <Position19>
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="1094" Column="1" TopLine="1072"/>
+        <Caret Line="1095" Column="1" TopLine="1072"/>
       </Position19>
       <Position20>
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="1095" Column="1" TopLine="1072"/>
+        <Caret Line="1097" Column="1" TopLine="1072"/>
       </Position20>
       <Position21>
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="1097" Column="1" TopLine="1072"/>
+        <Caret Line="1099" Column="1" TopLine="1072"/>
       </Position21>
       <Position22>
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="1099" Column="1" TopLine="1072"/>
+        <Caret Line="1100" Column="1" TopLine="1072"/>
       </Position22>
       <Position23>
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="1100" Column="1" TopLine="1072"/>
+        <Caret Line="1101" Column="1" TopLine="1072"/>
       </Position23>
       <Position24>
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="1101" Column="1" TopLine="1072"/>
+        <Caret Line="1103" Column="1" TopLine="1072"/>
       </Position24>
       <Position25>
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="1103" Column="1" TopLine="1072"/>
+        <Caret Line="1104" Column="1" TopLine="1084"/>
       </Position25>
       <Position26>
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="1104" Column="1" TopLine="1084"/>
+        <Caret Line="1105" Column="1" TopLine="1084"/>
       </Position26>
       <Position27>
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="1105" Column="1" TopLine="1084"/>
+        <Caret Line="1106" Column="1" TopLine="1084"/>
       </Position27>
       <Position28>
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="1106" Column="1" TopLine="1084"/>
+        <Caret Line="1107" Column="1" TopLine="1084"/>
       </Position28>
       <Position29>
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="1107" Column="1" TopLine="1084"/>
+        <Caret Line="1109" Column="1" TopLine="1084"/>
       </Position29>
       <Position30>
-        <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <Caret Line="1109" Column="1" TopLine="1084"/>
+        <Filename Value="../base_messaging/umessageframe.pas"/>
+        <Caret Line="1" Column="1" TopLine="61"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
