@@ -368,7 +368,7 @@ var
 begin
   Result := TJSONArray.Create;
   //Find Last Sync Time
-  Filter(TBaseDBModule(DataModule).QuoteField('SYNCTYPE')+'='+TBaseDBModule(DataModule).QuoteValue(SyncType),0,'SYNC_TIME');
+  Filter(TBaseDBModule(DataModule).QuoteField('SYNCTYPE')+'='+TBaseDBModule(DataModule).QuoteValue(SyncType)+' AND '+TBaseDBModule(DataModule).QuoteField('USER_ID')+'='+TBaseDBModule(DataModule).QuoteValue(TBaseDBModule(DataModule).Users.ID.AsString),0,'SYNC_TIME');
   Last;
   aLastSync := SyncTime.AsDateTime;
   //Sync internal items that are newer than last sync out
@@ -420,6 +420,8 @@ begin
                     end;
                   LocalID.AsVariant:=aInternal.Id.AsVariant;
                   Typ.AsString:=SyncType;
+                  if FieldByName('SYNCTABLE').IsNull then
+                    FieldByName('SYNCTABLE').AsString:=aInternal.TableName;
                   SyncTime.AsDateTime:=Now();
                   Post;
                 end;
@@ -472,6 +474,8 @@ begin
             end;
           if LocalID.IsNull then
             LocalID.AsVariant:=aInternal.Id.AsVariant;
+          if FieldByName('SYNCTABLE').IsNull then
+            FieldByName('SYNCTABLE').AsString:=aInternal.TableName;
           RemoteID.AsVariant:=aID.AsString;
           Typ.AsString:=SyncType;
           SyncTime.AsDateTime:=Now();

@@ -51,6 +51,7 @@ type
     function GetID: TField;
     function GetLimit: Integer;
     function GetState: TDataSetState;
+    function GetTableName: string;
     function GetTimestamp: TField;
     procedure SetActive(AValue: Boolean);
     procedure SetFilter(AValue: string);
@@ -83,6 +84,7 @@ type
     property Connection : TComponent read GetConnection;
     property State : TDataSetState read GetState;
     property Caption : string read GetCaption;
+    property TableName : string read GetTableName;
     property Changed : Boolean read FChanged;
     procedure DisableChanges;
     procedure EnableChanges;
@@ -2137,6 +2139,13 @@ begin
   if Assigned(FDataSet) then
     Result := FDataSet.State;
 end;
+
+function TBaseDBDataset.GetTableName: string;
+begin
+  with FDataSet as IBaseManageDB do
+    Result := GetTableName;
+end;
+
 function TBaseDBDataset.GetConnection: TComponent;
 begin
   with FDataSet as IBaseManageDB do
@@ -2622,4 +2631,4 @@ begin
 end;
 initialization
 end.
-
+
