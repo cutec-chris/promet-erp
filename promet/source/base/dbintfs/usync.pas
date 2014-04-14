@@ -474,6 +474,8 @@ begin
             end;
           if LocalID.IsNull then
             LocalID.AsVariant:=aInternal.Id.AsVariant;
+          if Assigned(aTime) then
+            FieldByName('REMOTE_TIME').AsDateTime:=DecodeRfcDateTime(aTime.AsString);
           if FieldByName('SYNCTABLE').IsNull then
             FieldByName('SYNCTABLE').AsString:=aInternal.TableName;
           RemoteID.AsVariant:=aID.AsString;
