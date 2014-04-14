@@ -118,7 +118,7 @@ begin
         end;
     end;
   Server.OnLogin :=@ServerLogin;
-  Server.OnLog:=@ServerLog();
+  Server.OnLog:=@ServerLog;
   writeln('server running...');
   aTime := GetTickCount64();
   while not Terminated do
