@@ -136,7 +136,6 @@ type
   protected
     aThread: TFillingThread;
     fRefreshList : TList;
-    FDayTimes : TStringList;
     function SetRights : Boolean;
   public
     { public declarations }
@@ -609,7 +608,6 @@ constructor TfRoughPlanningFrame.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   FUpdateCount:=0;
-  FDayTimes := TStringList.Create;
   TabCaption:=strRoughPlanning;
   frefreshList := TList.Create;
   FRough := TgsGantt.Create(Self);
@@ -630,7 +628,6 @@ begin
       aThread.Terminate;
       aThread.WaitFor;
     end;
-  FDayTimes.Free;
   FRough.Free;
   fRefreshList.Free;
   inherited Destroy;
@@ -668,25 +665,16 @@ begin
   aUser.Open;
   if aUser.FieldByName('TYPE').AsString='G' then
     begin
-      if FDayTimes.Values[aUser.FieldByName('ACCOUNTNO').AsString]='' then
+      aUsers := TUser.Create(nil,Data);
+      with aUsers.DataSet as IBaseDbFilter do
+        Filter := Data.QuoteField('PARENT')+'='+Data.QuoteValue(aUser.Id.AsString);
+      aUsers.Open;
+      while not aUsers.EOF do
         begin
-          aUsers := TUser.Create(nil,Data);
-          with aUsers.DataSet as IBaseDbFilter do
-            Filter := Data.QuoteField('PARENT')+'='+Data.QuoteValue(aUser.Id.AsString);
-          aUsers.Open;
-          aTimes := 0;
-          while not aUsers.EOF do
-            begin
-              aTime := GetAvalibeTimeInRange(aUsers.FieldByName('ACCOUNTNO').AsString,aStart,aEnd);
-              FDayTimes.Values[aUsers.FieldByName('ACCOUNTNO').AsString]:=FloatToStr(aTime/(aEnd-aStart));
-              aTimes := aTimes+aTime/(aEnd-aStart);
-              Result := Result+aTime;
-              aUsers.Next;
-            end;
-          aUsers.Free;
-          FDayTimes.Values[aUser.FieldByName('ACCOUNTNO').AsString]:=FloatToStr(aTimes);
-        end
-      else Result := Result+StrToFloat(aUser.FieldByName('ACCOUNTNO').AsString)*(aEnd-aStart);
+          Result := Result+GetAvalibeTimeInRange(aUsers.FieldByName('ACCOUNTNO').AsString,aStart,aEnd);
+          aUsers.Next;
+        end;
+      aUsers.Free;
     end
   else
     begin
