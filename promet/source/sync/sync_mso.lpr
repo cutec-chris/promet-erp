@@ -787,53 +787,57 @@ begin
           aItem := aFolder.GetFirst;
           while Assigned(aItem) do
             begin
-              aObj := TJSONObject.Create;
-              aObj.Add('EXTERNAL_ID',EntryIdToString(aItem.EntryID));
-              aObj.Add('PRIVATE',Boolean(aItem.PropertiesDirect[aItem.GetPropertyDispId($8506, PT_BOOLEAN, False, @PSETID_Common),ptBoolean]));
-              aObj.Add('TIMESTAMPD',Rfc822DateTime(aItem.LastModificationTime));
-              aObj.Add('SUMMARY',EncodingIn(aItem.PropertiesDirect[PR_SUBJECT,ptString]));
-              SStream := TStringStream.Create('');
-              try
-                if aItem.CoMessage.OpenProperty(PR_BODY, IStream, STGM_READ, 0, IInterface(StreamIntf)) = S_OK then
-                  begin
-                    StreamIntf.Stat(StreamInfo, STATFLAG_NONAME);
-                    OLEStream := TOleStream.Create(StreamIntf);
-                    try
-                      SSTream.CopyFrom(OLEStream,StreamInfo.cbSize);
-                    finally
-                      OLEStream.Free;
-                    end;
-                    if SStream.DataString <> '' then
-                      aObj.Add('DESCR',SStream.DataString);
-                  end;
-              finally
-                StreamIntf := nil;
-              end;
-              if not Assigned(aObj.Find('DESCR')) then
-                aObj.Add('DESCR',EncodingIn(aItem.PropertiesDirect[PR_BODY,ptString]));
-              aObj.Add('LOCATION',EncodingIn(aItem.PropertiesDirect[PR_LOCATION,ptString]));
-              aStart := aItem.PropertiesDirect[aItem.GetPropertyDispId($820D, PT_SYSTIME, False, @PSETID_Appointment),ptTime];
-              aEnd := aItem.PropertiesDirect[aItem.GetPropertyDispId($820E, PT_SYSTIME, False, @PSETID_Appointment),ptTime];
-              aStart := IncHour(aStart,TimeOffset);
-              aEnd := IncHour(aEnd,TimeOffset);
-              aAllday := Boolean(aItem.PropertiesDirect[aItem.GetPropertyDispId($8215, PT_BOOLEAN, False, @PSETID_Appointment),ptBoolean]);
-              aObj.Add('ALLDAY',aAllday);
-              aObj.Add('STARTDATE',Rfc822DateTime(aStart));
-              aObj.Add('ENDDATE',Rfc822DateTime(aEnd));
-              if aItem.PropertiesDirect[aItem.GetPropertyDispId($8223, PT_BOOLEAN, False, @PSETID_Appointment),ptBoolean] then  //PR_ISRECURRING
+              aPrivate := Boolean(aItem.PropertiesDirect[aItem.GetPropertyDispId($8506, PT_BOOLEAN, False, @PSETID_Common),ptBoolean];
+              if not aPrivate then
                 begin
-                  aPattern := aItem.PropertiesDirect[aItem.GetPropertyDispId($8232, PT_STRING8, False, @PSETID_Appointment),ptString];
-                  case aItem.PropertiesDirect[aItem.GetPropertyDispId($8231, PT_LONG, False, @PSETID_Appointment),ptInteger] of //RecurenceType    (1=Täglich=1,2=Wöchentlich=2,3=Monatlich=4,4=Jährlich=6)
-                  1:aObj.Add('ROTATION',1);
-                  2:aObj.Add('ROTATION',2);
-                  3:aObj.Add('ROTATION',4);
-                  4:aObj.Add('ROTATION',6);
+                  aObj := TJSONObject.Create;
+                  aObj.Add('EXTERNAL_ID',EntryIdToString(aItem.EntryID));
+                  aObj.Add('PRIVATE',aPrivate));
+                  aObj.Add('TIMESTAMPD',Rfc822DateTime(aItem.LastModificationTime));
+                  aObj.Add('SUMMARY',EncodingIn(aItem.PropertiesDirect[PR_SUBJECT,ptString]));
+                  SStream := TStringStream.Create('');
+                  try
+                    if aItem.CoMessage.OpenProperty(PR_BODY, IStream, STGM_READ, 0, IInterface(StreamIntf)) = S_OK then
+                      begin
+                        StreamIntf.Stat(StreamInfo, STATFLAG_NONAME);
+                        OLEStream := TOleStream.Create(StreamIntf);
+                        try
+                          SSTream.CopyFrom(OLEStream,StreamInfo.cbSize);
+                        finally
+                          OLEStream.Free;
+                        end;
+                        if SStream.DataString <> '' then
+                          aObj.Add('DESCR',SStream.DataString);
+                      end;
+                  finally
+                    StreamIntf := nil;
                   end;
-                  aObj.Add('ROTTO',Rfc822DateTime(aItem.PropertiesDirect[aItem.GetPropertyDispId($8236, PT_SYSTIME, False, @PSETID_Appointment),ptTime]));
+                  if not Assigned(aObj.Find('DESCR')) then
+                    aObj.Add('DESCR',EncodingIn(aItem.PropertiesDirect[PR_BODY,ptString]));
+                  aObj.Add('LOCATION',EncodingIn(aItem.PropertiesDirect[PR_LOCATION,ptString]));
+                  aStart := aItem.PropertiesDirect[aItem.GetPropertyDispId($820D, PT_SYSTIME, False, @PSETID_Appointment),ptTime];
+                  aEnd := aItem.PropertiesDirect[aItem.GetPropertyDispId($820E, PT_SYSTIME, False, @PSETID_Appointment),ptTime];
+                  aStart := IncHour(aStart,TimeOffset);
+                  aEnd := IncHour(aEnd,TimeOffset);
+                  aAllday := Boolean(aItem.PropertiesDirect[aItem.GetPropertyDispId($8215, PT_BOOLEAN, False, @PSETID_Appointment),ptBoolean]);
+                  aObj.Add('ALLDAY',aAllday);
+                  aObj.Add('STARTDATE',Rfc822DateTime(aStart));
+                  aObj.Add('ENDDATE',Rfc822DateTime(aEnd));
+                  if aItem.PropertiesDirect[aItem.GetPropertyDispId($8223, PT_BOOLEAN, False, @PSETID_Appointment),ptBoolean] then  //PR_ISRECURRING
+                    begin
+                      aPattern := aItem.PropertiesDirect[aItem.GetPropertyDispId($8232, PT_STRING8, False, @PSETID_Appointment),ptString];
+                      case aItem.PropertiesDirect[aItem.GetPropertyDispId($8231, PT_LONG, False, @PSETID_Appointment),ptInteger] of //RecurenceType    (1=Täglich=1,2=Wöchentlich=2,3=Monatlich=4,4=Jährlich=6)
+                      1:aObj.Add('ROTATION',1);
+                      2:aObj.Add('ROTATION',2);
+                      3:aObj.Add('ROTATION',4);
+                      4:aObj.Add('ROTATION',6);
+                      end;
+                      aObj.Add('ROTTO',Rfc822DateTime(aItem.PropertiesDirect[aItem.GetPropertyDispId($8236, PT_SYSTIME, False, @PSETID_Appointment),ptTime]));
+                    end;
+                  aItem.Free;
+                  aItem := aFolder.GetNext;
+                  aJsonList.Add(aObj);
                 end;
-              aItem.Free;
-              aItem := aFolder.GetNext;
-              aJsonList.Add(aObj);
             end;
           aCalendar.SelectByUser(Data.Users.Accountno.AsString);
           aCalendar.Open;

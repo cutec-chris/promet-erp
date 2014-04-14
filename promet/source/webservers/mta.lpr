@@ -559,7 +559,7 @@ begin
   NextSendTime := Now();
   Server.Start;
   i := 0;
-  aTime := GetTickCount;
+  aTime := GetTickCount64();
   while not Terminated do
     begin
       inc(i);
@@ -572,7 +572,7 @@ begin
           sleep(100);
           i := 0;
         end;
-      if (GetTickCount-aTime)>(60*60*MSecsPerSec) then break;
+      if (GetTickCount64()-aTime)>(60*60*MSecsPerSec) then break;
     end;
   // stop program loop
   Subscribers.Free;
