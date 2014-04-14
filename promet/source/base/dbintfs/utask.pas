@@ -917,7 +917,7 @@ procedure TTaskList.SelectActiveByUser(AccountNo: string);
 begin
   with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
     begin
-      Filter := '('+QuoteField('USER')+'='+QuoteValue(AccountNo)+') and ('+QuoteField('COMPLETED')+'='+QuoteValue('N')+') and ('+QuoteField('ACTIVE')+'='+QuoteValue('Y')+')';
+      Filter := '('+QuoteField('USER')+'='+QuoteValue(AccountNo)+') and ('+QuoteField('COMPLETED')+'='+QuoteValue('N')+') and ('+QuoteField('ACTIVE')+'='+QuoteValue('Y')+') and ('+QuoteField('DEPDONE')+'='+QuoteValue('Y')+')';
     end;
 end;
 

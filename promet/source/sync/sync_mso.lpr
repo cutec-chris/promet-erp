@@ -965,7 +965,7 @@ begin
              end;
 
           aTasks := TTaskList.Create(nil,Data);
-          aTasks.SelectByUser(Data.Users.Accountno.AsString);
+          aTasks.SelectActiveByUser(Data.Users.Accountno.AsString);
           aTasks.Open;
 
           aJsonOutList := SyncItems.SyncDataSet(aTasks,aJsonList,SyncType);
@@ -992,10 +992,10 @@ begin
                       if Assigned(aField) then
                         aItem.PropertiesDirect[aItem.GetPropertyDispId($811c, PT_BOOLEAN, False, @PSETID_Task),ptBoolean] := aField.AsString = 'Y';
                       aField := SyncItems.GetField(aJsonOutList[i],'DUEDATE');
-                      if Assigned(aField) then
+                      if Assigned(aField) and (aField.AsString<>'') then
                         aItem.PropertiesDirect[aItem.GetPropertyDispId($8105, PT_SYSTIME, False, @PSETID_Task),ptTime] := DecodeRfcDateTime(aField.AsString);
                       aField := SyncItems.GetField(aJsonOutList[i],'STARTDATE');
-                      if Assigned(aField) then
+                      if Assigned(aField) and (aField.AsString<>'') then
                         aItem.PropertiesDirect[aItem.GetPropertyDispId($8104, PT_SYSTIME, False, @PSETID_Task),ptTime] := DecodeRfcDateTime(aField.AsString);
                       try
                         aItem.CoMessage.SaveChanges(0);
@@ -1027,10 +1027,10 @@ begin
                       if Assigned(aField) then
                         aItem.PropertiesDirect[aItem.GetPropertyDispId($811c, PT_BOOLEAN, False, @PSETID_Task),ptBoolean] := aField.AsString = 'Y';
                       aField := SyncItems.GetField(aJsonOutList[i],'DUEDATE');
-                      if Assigned(aField) then
+                      if Assigned(aField) and (aField.AsString<>'') then
                         aItem.PropertiesDirect[aItem.GetPropertyDispId($8105, PT_SYSTIME, False, @PSETID_Task),ptTime] := DecodeRfcDateTime(aField.AsString);
                       aField := SyncItems.GetField(aJsonOutList[i],'STARTDATE');
-                      if Assigned(aField) then
+                      if Assigned(aField) and (aField.AsString<>'') then
                         aItem.PropertiesDirect[aItem.GetPropertyDispId($8104, PT_SYSTIME, False, @PSETID_Task),ptTime] := DecodeRfcDateTime(aField.AsString);
                       try
                         aItem.CoMessage.SaveChanges(0);
