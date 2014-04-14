@@ -118,14 +118,14 @@ begin
         end;
     end;
   Server.OnLogin :=@ServerLogin;
-  Server.OnLog:=@ServerLog;
+  Server.OnLog:=@ServerLog();
   writeln('server running...');
-  aTime := GetTickCount;
+  aTime := GetTickCount64();
   while not Terminated do
     begin
       Server.CallAction;
       sleep(10);
-      if (GetTickCount-aTime)>(MSecsPerDay) then break;//stop once a day
+      if (GetTickCount64()-aTime)>(MSecsPerDay) then break;//stop once a day
     end;
   // stop program loop
   Terminate;
