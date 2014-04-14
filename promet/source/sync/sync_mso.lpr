@@ -254,6 +254,7 @@ var
   sl: TStringList;
   aJsonOutList: TJSONArray;
   aField: TJSONData;
+  aPrivate: Boolean;
   function RoundToSecond(aDate : TDateTime) : TDateTime;
   begin
     Result := Round(aDate * SecsPerDay) / SecsPerDay;
@@ -787,12 +788,12 @@ begin
           aItem := aFolder.GetFirst;
           while Assigned(aItem) do
             begin
-              aPrivate := Boolean(aItem.PropertiesDirect[aItem.GetPropertyDispId($8506, PT_BOOLEAN, False, @PSETID_Common),ptBoolean];
+              aPrivate := Boolean(aItem.PropertiesDirect[aItem.GetPropertyDispId($8506, PT_BOOLEAN, False, @PSETID_Common),ptBoolean]);
               if not aPrivate then
                 begin
                   aObj := TJSONObject.Create;
                   aObj.Add('EXTERNAL_ID',EntryIdToString(aItem.EntryID));
-                  aObj.Add('PRIVATE',aPrivate));
+                  aObj.Add('PRIVATE',aPrivate);
                   aObj.Add('TIMESTAMPD',Rfc822DateTime(aItem.LastModificationTime));
                   aObj.Add('SUMMARY',EncodingIn(aItem.PropertiesDirect[PR_SUBJECT,ptString]));
                   SStream := TStringStream.Create('');
@@ -835,9 +836,9 @@ begin
                       aObj.Add('ROTTO',Rfc822DateTime(aItem.PropertiesDirect[aItem.GetPropertyDispId($8236, PT_SYSTIME, False, @PSETID_Appointment),ptTime]));
                     end;
                   aItem.Free;
-                  aItem := aFolder.GetNext;
                   aJsonList.Add(aObj);
                 end;
+              aItem := aFolder.GetNext;
             end;
           aCalendar.SelectByUser(Data.Users.Accountno.AsString);
           aCalendar.Open;

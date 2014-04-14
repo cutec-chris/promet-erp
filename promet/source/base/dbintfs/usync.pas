@@ -313,6 +313,7 @@ var
   aSyncTime: TDateTime;
   tmp: TJSONStringType;
   Hist : IBaseHistory;
+  aSQLID: TJSONData;
   function RoundToSecond(aDate : TDateTime) : TDateTime;
   begin
     Result := Round(aDate * SecsPerDay) / SecsPerDay;
@@ -389,10 +390,10 @@ begin
           Open;
           if Count = 0 then
             begin
-              aID := GetField(aObj,'sql_id');
-              if Assigned(aID) then
+              aSQLID := GetField(aObj,'sql_id');
+              if Assigned(aSQLID) then
                 begin
-                  SelectByReference(aID.Value);
+                  SelectByReference(aSQLID.Value);
                   Open;
                   if Count = 0 then
                     Insert;
@@ -499,4 +500,4 @@ begin
 end;
 
 end.
-
+
