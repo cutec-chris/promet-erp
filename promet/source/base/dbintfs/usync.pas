@@ -176,7 +176,7 @@ begin
               begin
                 if VField.AsString <> 'Y' then
                   begin
-                    VField.AsString := 'Y'
+                    VField.AsString := 'Y';
                     Result := True;
                   end;
               end
@@ -184,14 +184,14 @@ begin
               begin
                 if VField.AsString <> 'N' then
                   begin
-                    VField.AsString := 'N'
+                    VField.AsString := 'N';
                     Result := True;
                   end;
               end;
           end
         else if VField.AsString <> VdataStr then
           begin
-            VField.AsString := VdataStr
+            VField.AsString := VdataStr;
             Result := True;
           end;
       end
@@ -199,7 +199,7 @@ begin
       begin
         if VField.AsInteger <> VData.AsInteger then
           begin
-            VField.AsInteger := VData.AsInteger
+            VField.AsInteger := VData.AsInteger;
             Result := True;
           end;
       end
@@ -208,7 +208,7 @@ begin
         begin
           if VField.AsFloat <> VData.AsFloat then
             begin
-              VField.AsFloat := VData.AsFloat
+              VField.AsFloat := VData.AsFloat;
               Result := True;
             end;
         end
@@ -216,7 +216,7 @@ begin
       begin
         if VField.AsBoolean <> VData.AsBoolean then
           begin
-            VField.AsBoolean := VData.AsBoolean
+            VField.AsBoolean := VData.AsBoolean;
             Result := True;
           end;
       end
@@ -226,7 +226,7 @@ begin
           begin
             if VField.AsDateTime <> DecodeRfcDateTime(VdataStr) then
               begin
-                VField.AsDateTime := DecodeRfcDateTime(VdataStr)
+                VField.AsDateTime := DecodeRfcDateTime(VdataStr);
                 Result := True;
               end;
           end
@@ -464,16 +464,18 @@ begin
           if aInternal.Count=0 then
             aInternal.Insert
           else aInternal.Edit;
-          JSONToFields(aObj,aInternal.DataSet.Fields,True);
-          aInternal.Post;
+          if JSONToFields(aObj,aInternal.DataSet.Fields,True) then
+            begin
+              aInternal.Post;
+              if Supports(aInternal, IBaseHistory, Hist) then
+                Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+            end;
           if LocalID.IsNull then
             LocalID.AsVariant:=aInternal.Id.AsVariant;
           RemoteID.AsVariant:=aID.AsString;
           Typ.AsString:=SyncType;
           SyncTime.AsDateTime:=Now();
           Post;
-          if Supports(aInternal, IBaseHistory, Hist) then
-            Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
         end;
     end;
 end;
