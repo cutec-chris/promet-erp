@@ -65,7 +65,7 @@ type
     procedure DefineFields(aDataSet: TDataSet); override;
   end;
 procedure FieldsToJSON(AFields: TFields; AJSON: TJSONObject; const ADateAsString: Boolean; bFields: TSQLElementList = nil);
-procedure JSONToFields(AJSON: TJSONObject; AFields: TFields; const ADateAsString: Boolean; const AddFields: Boolean = True);
+function JSONToFields(AJSON: TJSONObject; AFields: TFields; const ADateAsString: Boolean; const AddFields: Boolean = True) : Boolean;
 resourcestring
   strSynchedOut                                      = 'Synchronisation ausgehend %s';
   strSynchedIn                                       = 'Synchronisation eingehend %s';
@@ -143,8 +143,8 @@ begin
       end;
   end;
 end;
-procedure JSONToFields(AJSON: TJSONObject; AFields: TFields;
-  const ADateAsString: Boolean; const AddFields: Boolean);
+function JSONToFields(AJSON: TJSONObject; AFields: TFields;
+  const ADateAsString: Boolean; const AddFields: Boolean): Boolean;
 var
   I: Integer;
   VName: string;
@@ -152,6 +152,7 @@ var
   VData: TJSONData;
   VdataStr: TJSONStringType;
 begin
+  Result := False;
   for I := 0 to Pred(AJSON.Count) do
   begin
     VName := AJSON.Names[I];
@@ -172,26 +173,71 @@ begin
         if VData.JSONType=jtBoolean then
           begin
             if VData.AsBoolean then
-              VField.AsString := 'Y'
+              begin
+                if VField.AsString <> 'Y' then
+                  begin
+                    VField.AsString := 'Y'
+                    Result := True;
+                  end;
+              end
             else
-              VField.AsString := 'Y';
+              begin
+                if VField.AsString <> 'N' then
+                  begin
+                    VField.AsString := 'N'
+                    Result := True;
+                  end;
+              end;
           end
-        else
-          VField.AsString := VdataStr
+        else if VField.AsString <> VdataStr then
+          begin
+            VField.AsString := VdataStr
+            Result := True;
+          end;
       end
     else if (VField is TLongintField) or (VField is TLargeintField) then
-      VField.AsInteger := VData.AsInteger
+      begin
+        if VField.AsInteger <> VData.AsInteger then
+          begin
+            VField.AsInteger := VData.AsInteger
+            Result := True;
+          end;
+      end
     else if (VField is TFloatField) or (VField is TBCDField) or
       (VField is TFMTBCDField) then
-      VField.AsFloat := VData.AsFloat
+        begin
+          if VField.AsFloat <> VData.AsFloat then
+            begin
+              VField.AsFloat := VData.AsFloat
+              Result := True;
+            end;
+        end
     else if VField is TBooleanField then
-      VField.AsBoolean := VData.AsBoolean
+      begin
+        if VField.AsBoolean <> VData.AsBoolean then
+          begin
+            VField.AsBoolean := VData.AsBoolean
+            Result := True;
+          end;
+      end
     else if VField is TDateTimeField then
       begin
         if ADateAsString then
-          VField.AsDateTime := DecodeRfcDateTime(VdataStr)
+          begin
+            if VField.AsDateTime <> DecodeRfcDateTime(VdataStr) then
+              begin
+                VField.AsDateTime := DecodeRfcDateTime(VdataStr)
+                Result := True;
+              end;
+          end
         else
-          VField.AsDateTime := VData.AsFloat;
+          begin
+            if VField.AsDateTime <> VData.AsFloat then
+              begin
+                VField.AsDateTime := VData.AsFloat;
+                Result := True;
+              end;
+          end;
       end;
   end;
 end;
@@ -404,7 +450,10 @@ begin
                   SelectByReference(aSQLID.Value);
                   Open;
                   if Count = 0 then
-                    Insert;
+                    begin
+                      Insert;
+                      LocalID.AsVariant:=aSQLID.Value;
+                    end;
                 end
               else
                 Insert;
@@ -417,7 +466,8 @@ begin
           else aInternal.Edit;
           JSONToFields(aObj,aInternal.DataSet.Fields,True);
           aInternal.Post;
-          LocalID.AsVariant:=aInternal.Id.AsVariant;
+          if LocalID.IsNull then
+            LocalID.AsVariant:=aInternal.Id.AsVariant;
           RemoteID.AsVariant:=aID.AsString;
           Typ.AsString:=SyncType;
           SyncTime.AsDateTime:=Now();
