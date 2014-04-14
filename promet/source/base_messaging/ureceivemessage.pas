@@ -36,7 +36,7 @@ var
   aReceivedDate: TDateTime;
 
 procedure Init;
-function CheckHeader(mID : string;msg : TMimeMess) : Boolean;
+function CheckHeader(mID : string;msg : TMimeMess;aUser : string) : Boolean;
 procedure ArchiveMessage(mID: string; aMsg: TStrings);
 procedure ReceiveMessage(aMID : string; aMSG : TStrings;aMessage : TMimeMessage);
 
@@ -50,7 +50,7 @@ begin
   aTreeEntry:=TREE_ID_MESSAGES;
 end;
 
-function CheckHeader(mID: string; msg: TMimeMess): Boolean;
+function CheckHeader(mID: string; msg: TMimeMess; aUser: string): Boolean;
 var
   atmp: String;
   CustomerCont: TPersonContactData;
@@ -61,6 +61,8 @@ var
   aDate: TDateTime;
   aTransmitTime: Int64;
   aChk: Integer;
+  aUserThere: Boolean;
+  i: Integer;
 begin
   Result := True;
   aSender :=  ConvertEncoding(msg.Header.From,GuessEncoding(msg.Header.From),EncodingUTF8);
@@ -97,16 +99,28 @@ begin
       aTreeEntry := TREE_ID_UNKNOWN_MESSAGES;
     end;
   Customers.Free;
+  SpamPoints := 0;
+  if msg.Header.ToList.Count > 0 then
+    begin
+      if getemailaddr(trim(msg.Header.ToList[0])) = getemailaddr(trim(msg.Header.From)) then
+        aTreeEntry := TREE_ID_SPAM_MESSAGES;
+      for i := 0 to msg.Header.ToList.Count-1 do
+        if getemailaddr(trim(msg.Header.ToList[i])) = getemailaddr(trim(aUser)) then
+          aUserThere:=True;
+    end;
+  if not aUserThere then
+    Spampoints:=Spampoints+5;
+  if Spampoints>0 then
+    aTreeEntry:=TREE_ID_UNKNOWN_MESSAGES;
   if aTreeEntry <> TREE_ID_MESSAGES then
     begin
-      if msg.Header.ToList.Count > 0 then
-        if getemailaddr(trim(msg.Header.ToList[0])) = getemailaddr(trim(msg.Header.From)) then
-          aTreeEntry := TREE_ID_SPAM_MESSAGES;
+      aUserThere := True;
+      if pos('@',aUser)>0 then
+        aUserThere := False;
       aSendDate := Now();
       aReceivedDate := 0;
       if aTreeEntry = TREE_ID_UNKNOWN_MESSAGES then
         begin //Filter Spam
-          SpamPoints := 0;
           b := 0;
           for a := 0 to msg.Header.CustomHeaders.Count-1 do
             begin

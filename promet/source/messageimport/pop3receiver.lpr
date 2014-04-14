@@ -292,7 +292,7 @@ begin
                           if (not MessageIndex.DataSet.Locate('ID',aMID,[]))
                           and (not DeletedItems.DataSet.Locate('LINK','MESSAGEIDX@'+aMID,[])) then
                             begin
-                              ureceivemessage.CheckHeader(aMid,msg);
+                              ureceivemessage.CheckHeader(aMid,msg,pop.UserName);
                               if pop.Retr(MID) then //Naricht holen
                                 begin
                                   ReceiveMessage(aMID,pop.FullResult,Message);
