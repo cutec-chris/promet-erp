@@ -130,7 +130,7 @@ begin
         else if VField.DataType = ftDateTime then
           begin
             if ADateAsString then
-              AJSON.Add(lowercase(VFieldName), VField.AsString)
+              AJSON.Add(lowercase(VFieldName), Rfc822DateTime(VField.AsDateTime))
             else
               AJSON.Add(lowercase(VFieldName), VField.AsFloat);
           end
@@ -333,6 +333,8 @@ begin
         begin
           DoSync := True;
           //check if newer version of row is in aExternal
+          aTime := nil;
+          aID := nil;
           for i := 0 to aExternal.Count-1 do
             begin
               aObj := aExternal.Items[i] as TJSONObject;
@@ -341,7 +343,8 @@ begin
               if not Assigned(aTime) then
                 aTime := GetField(aObj,'timestamp');
               if Assigned(aID) and Assigned(aTime)
-              and (aID.AsString=IntToStr(aInternal.Id.AsLargeInt))
+              and (not aInternal.Id.IsNull)
+              and (aID.AsString=IntToStr(Int64(aInternal.Id.AsVariant)))
               and (DecodeRfcDateTime(aTime.AsString)>aInternal.TimeStamp.AsDateTime)
               then
                 DoSync := False;
@@ -363,7 +366,12 @@ begin
               if CanEdit then
                 begin
                   if Supports(aInternal, IBaseHistory, Hist) then
-                    Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                    begin
+                      if Assigned(aTime) then
+                        Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]))
+                      else
+                        Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,['New, Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                    end;
                   LocalID.AsVariant:=aInternal.Id.AsVariant;
                   Typ.AsString:=SyncType;
                   SyncTime.AsDateTime:=Now();

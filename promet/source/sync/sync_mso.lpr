@@ -255,6 +255,7 @@ var
   aJsonOutList: TJSONArray;
   aField: TJSONData;
   aPrivate: Boolean;
+  bFolder: TGenericFolder;
   function RoundToSecond(aDate : TDateTime) : TDateTime;
   begin
     Result := Round(aDate * SecsPerDay) / SecsPerDay;
@@ -818,9 +819,12 @@ begin
                   aObj.Add('LOCATION',EncodingIn(aItem.PropertiesDirect[PR_LOCATION,ptString]));
                   aStart := aItem.PropertiesDirect[aItem.GetPropertyDispId($820D, PT_SYSTIME, False, @PSETID_Appointment),ptTime];
                   aEnd := aItem.PropertiesDirect[aItem.GetPropertyDispId($820E, PT_SYSTIME, False, @PSETID_Appointment),ptTime];
-                  aStart := IncHour(aStart,TimeOffset);
-                  aEnd := IncHour(aEnd,TimeOffset);
                   aAllday := Boolean(aItem.PropertiesDirect[aItem.GetPropertyDispId($8215, PT_BOOLEAN, False, @PSETID_Appointment),ptBoolean]);
+                  if not aAllday then
+                    begin
+                      aStart := IncHour(aStart,TimeOffset);
+                      aEnd := IncHour(aEnd,TimeOffset);
+                    end;
                   aObj.Add('ALLDAY',aAllday);
                   aObj.Add('STARTDATE',Rfc822DateTime(aStart));
                   aObj.Add('ENDDATE',Rfc822DateTime(aEnd));
@@ -928,7 +932,7 @@ begin
               aObj := TJSONObject.Create;
               aObj.Add('EXTERNAL_ID',EntryIdToString(aItem.EntryID));
               aObj.Add('TIMESTAMPD',Rfc822DateTime(aItem.LastModificationTime));
-              aObj.Add('SUBJECT',EncodingIn(aItem.PropertiesDirect[PR_SUBJECT,ptString]));
+              aObj.Add('SUMMARY',EncodingIn(aItem.PropertiesDirect[PR_SUBJECT,ptString]));
               SStream := TStringStream.Create('');
               try
                 if aItem.CoMessage.OpenProperty(PR_BODY, IStream, STGM_READ, 0, IInterface(StreamIntf)) = S_OK then
@@ -977,7 +981,7 @@ begin
                   aField := SyncItems.GetField(aJsonOutList[i],'EXTERNAL_ID');
                   if Assigned(aField) and (aField.AsString = EntryIdToString(aItem.EntryID)) then
                     begin
-                      aField := SyncItems.GetField(aJsonOutList[i],'SUBJECT');
+                      aField := SyncItems.GetField(aJsonOutList[i],'SUMMARY');
                       if Assigned(aField) then
                         aItem.PropertiesDirect[PR_SUBJECT,ptString] := EncodingOut(aField.AsString);
                       aField := SyncItems.GetField(aJsonOutList[i],'DESC');
@@ -1012,7 +1016,7 @@ begin
                     begin
                       aItem := TMapiMailItem.Create(aFolder, MapiMessage, False);
                       aItem.MessageClass:='IPM.Task';
-                      aField := SyncItems.GetField(aJsonOutList[i],'SUBJECT');
+                      aField := SyncItems.GetField(aJsonOutList[i],'SUMMARY');
                       if Assigned(aField) then
                         aItem.PropertiesDirect[PR_SUBJECT,ptString] := EncodingOut(aField.AsString);
                       aField := SyncItems.GetField(aJsonOutList[i],'DESC');
@@ -1030,6 +1034,11 @@ begin
                         aItem.PropertiesDirect[aItem.GetPropertyDispId($8104, PT_SYSTIME, False, @PSETID_Task),ptTime] := DecodeRfcDateTime(aField.AsString);
                       try
                         aItem.CoMessage.SaveChanges(0);
+                        bFolder := TGenericFolder.Create(aConnection,aFolder.FEntryTyp);
+                        bItem := aFolder.GetFirst;
+                        TJSONObject(aJsonOutList[i]).Add('EXTERNAL_ID',EntryIdToString(bItem.EntryID));
+                        bItem.Free;
+                        bFolder.Free;
                       except
                       end;
                       aItem.Free;
@@ -1037,6 +1046,8 @@ begin
 
                 end;
             end;
+          //tell System the new Entryid´s
+          SyncItems.SyncDataSet(aTasks,aJsonOutList,SyncType);
           aJsonOutList.Free;
         finally
           aTasks.Free;
