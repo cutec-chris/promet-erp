@@ -136,6 +136,7 @@ type
   protected
     aThread: TFillingThread;
     fRefreshList : TList;
+    FDayTimes : TStringList;
     function SetRights : Boolean;
   public
     { public declarations }
@@ -156,6 +157,7 @@ type
     aInt: TInterval;
     procedure AddInterval;
     procedure RoughVisible;
+    procedure StartFilling;
   public
     procedure Execute;override;
     constructor Create(aFrame : TfRoughPlanningFrame);
@@ -254,8 +256,18 @@ end;
 procedure TFillingThread.RoughVisible;
 begin
   FFrame.FRough.Visible:=True;
+  FFrame.FRough.Invalidate;
+  FFrame.bRefresh.Enabled := True;
+  Screen.Cursor:=crDefault;
   Application.ProcessMessages;
 end;
+
+procedure TFillingThread.StartFilling;
+begin
+  Screen.Cursor:=crHourGlass;
+  FFrame.bRefresh.Enabled := False;
+end;
+
 procedure TFillingThread.Execute;
 var
   aConn: TComponent;
@@ -268,6 +280,7 @@ var
   aSubInt: TProjectInterval;
   aDepartment: TIntDepartment;
 begin
+  Synchronize(@StartFilling);
   aConn := Data.GetNewConnection;
   aProjects :=  TProjectList.Create(nil,Data,aConn);
   with aProjects.DataSet as IBaseDbFilter do
@@ -478,6 +491,7 @@ var
   aProjects: TProjectList;
   aUsers: TUser;
 begin
+  Screen.Cursor:=crHourGlass;
   CurrInterval := TInterval(FRough.Tree.Objects[0, FRough.Tree.Row]);
   if Assigned(CurrInterval) then
     begin
@@ -492,6 +506,8 @@ begin
       aUsers.Free;
       aProjects.Free;
     end;
+  FRough.Invalidate;
+  Screen.Cursor:=crDefault;
 end;
 procedure TfRoughPlanningFrame.bTodayClick(Sender: TObject);
 begin
@@ -593,6 +609,7 @@ constructor TfRoughPlanningFrame.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   FUpdateCount:=0;
+  FDayTimes := TStringList.Create;
   TabCaption:=strRoughPlanning;
   frefreshList := TList.Create;
   FRough := TgsGantt.Create(Self);
@@ -603,7 +620,7 @@ begin
   FRough.Calendar.OnShowHint:=@FRoughCalendarShowHint;
   FRough.Calendar.ShowHint:=True;
   FRough.Calendar.OnMouseMove:=@FRoughCalendarMouseMove;
-  FRough.Visible:=False;
+  //FRough.Visible:=False;
 end;
 
 destructor TfRoughPlanningFrame.Destroy;
@@ -613,6 +630,7 @@ begin
       aThread.Terminate;
       aThread.WaitFor;
     end;
+  FDayTimes.Free;
   FRough.Free;
   fRefreshList.Free;
   inherited Destroy;
@@ -650,16 +668,25 @@ begin
   aUser.Open;
   if aUser.FieldByName('TYPE').AsString='G' then
     begin
-      aUsers := TUser.Create(nil,Data);
-      with aUsers.DataSet as IBaseDbFilter do
-        Filter := Data.QuoteField('PARENT')+'='+Data.QuoteValue(aUser.Id.AsString);
-      aUsers.Open;
-      while not aUsers.EOF do
+      if FDayTimes.Values[aUser.FieldByName('ACCOUNTNO').AsString]='' then
         begin
-          Result := Result+GetAvalibeTimeInRange(aUsers.FieldByName('ACCOUNTNO').AsString,aStart,aEnd);
-          aUsers.Next;
-        end;
-      aUsers.Free;
+          aUsers := TUser.Create(nil,Data);
+          with aUsers.DataSet as IBaseDbFilter do
+            Filter := Data.QuoteField('PARENT')+'='+Data.QuoteValue(aUser.Id.AsString);
+          aUsers.Open;
+          aTimes := 0;
+          while not aUsers.EOF do
+            begin
+              aTime := GetAvalibeTimeInRange(aUsers.FieldByName('ACCOUNTNO').AsString,aStart,aEnd);
+              FDayTimes.Values[aUsers.FieldByName('ACCOUNTNO').AsString]:=FloatToStr(aTime/(aEnd-aStart));
+              aTimes := aTimes+aTime/(aEnd-aStart);
+              Result := Result+aTime;
+              aUsers.Next;
+            end;
+          aUsers.Free;
+          FDayTimes.Values[aUser.FieldByName('ACCOUNTNO').AsString]:=FloatToStr(aTimes);
+        end
+      else Result := Result+StrToFloat(aUser.FieldByName('ACCOUNTNO').AsString)*(aEnd-aStart);
     end
   else
     begin
@@ -678,6 +705,7 @@ begin
         end;
       Result := aDayT*(aEnd-aStart-aWeekEnds);
       //Kalender Abzüge
+      {
       aCalendar := TCalendar.Create(nil,Data);
       aCalendar.SelectPlanedByUserAndTime(asUser,aStart,aEnd);
       aCalendar.Open;
@@ -698,6 +726,7 @@ begin
             end;
         end;
       aCalendar.Free;
+      }
     end;
   aUser.Free;
 end;
