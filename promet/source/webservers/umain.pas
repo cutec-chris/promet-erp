@@ -408,7 +408,7 @@ begin
                 aParser := TJSONParser.Create(aInpData);
                 JsonIn := aParser.Parse;
                 if aSyncType = '' then
-                  aSyncType:='JS.'+aRight;
+                  aSyncType:='App';
                 Json := Sync.SyncDataSet(aDs,JsonIn,aSyncType);
                 if not Assigned(Json) then
                   AResponse.Code:=500;
