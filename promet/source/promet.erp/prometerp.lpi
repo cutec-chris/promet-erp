@@ -342,8 +342,8 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uAddressFrame"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
+        <TopLine Value="60"/>
+        <CursorPos X="15" Y="78"/>
         <UsageCount Value="200"/>
       </Unit3>
       <Unit4>
@@ -659,7 +659,14 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uorderaddressframe"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="18"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="227"/>
+        <CursorPos X="47" Y="245"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit35>
       <Unit36>
         <Filename Value="uarticlesupplierframe.pas"/>
@@ -737,17 +744,16 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
-        <UsageCount Value="94"/>
+        <UsageCount Value="97"/>
         <Loaded Value="True"/>
       </Unit42>
       <Unit43>
         <Filename Value="../base/changes.txt"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="104" Y="6"/>
-        <UsageCount Value="94"/>
+        <UsageCount Value="97"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit43>
@@ -758,7 +764,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="524"/>
         <CursorPos X="1" Y="570"/>
-        <UsageCount Value="33"/>
+        <UsageCount Value="36"/>
         <Loaded Value="True"/>
       </Unit44>
       <Unit45>
@@ -768,7 +774,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1055"/>
         <CursorPos X="1" Y="1104"/>
-        <UsageCount Value="31"/>
+        <UsageCount Value="34"/>
         <Loaded Value="True"/>
       </Unit45>
       <Unit46>
@@ -778,7 +784,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="739"/>
         <CursorPos X="85" Y="745"/>
-        <UsageCount Value="28"/>
+        <UsageCount Value="31"/>
         <Loaded Value="True"/>
       </Unit46>
       <Unit47>
@@ -788,7 +794,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="750"/>
         <CursorPos X="1" Y="775"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="26"/>
         <Loaded Value="True"/>
       </Unit47>
       <Unit48>
@@ -801,7 +807,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1084"/>
         <CursorPos X="1" Y="1115"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="19"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit48>
@@ -815,7 +821,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="489"/>
         <CursorPos X="1" Y="519"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="17"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit49>
@@ -829,7 +835,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="646"/>
         <CursorPos X="1" Y="668"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="18"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit50>
@@ -840,7 +846,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="165"/>
         <CursorPos X="11" Y="184"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="17"/>
         <Loaded Value="True"/>
       </Unit51>
       <Unit52>
@@ -853,7 +859,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="519"/>
         <CursorPos X="26" Y="542"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="15"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit52>
@@ -865,9 +871,9 @@
         <UnitName Value="ugridview"/>
         <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="335"/>
+        <TopLine Value="333"/>
         <CursorPos X="15" Y="323"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit53>
@@ -881,7 +887,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="130"/>
         <CursorPos X="27" Y="155"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit54>
@@ -892,7 +898,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1595"/>
         <CursorPos X="1" Y="1615"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit55>
       <Unit56>
@@ -902,127 +908,131 @@
         <WindowIndex Value="0"/>
         <TopLine Value="255"/>
         <CursorPos X="3" Y="270"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit56>
     </Units>
-    <JumpHistory Count="29" HistoryIndex="28">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
-        <Caret Line="682" Column="1" TopLine="663"/>
+        <Caret Line="683" Column="1" TopLine="663"/>
       </Position1>
       <Position2>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
-        <Caret Line="683" Column="1" TopLine="663"/>
+        <Caret Line="684" Column="1" TopLine="663"/>
       </Position2>
       <Position3>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
-        <Caret Line="684" Column="1" TopLine="663"/>
+        <Caret Line="685" Column="1" TopLine="663"/>
       </Position3>
       <Position4>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
-        <Caret Line="685" Column="1" TopLine="663"/>
+        <Caret Line="681" Column="1" TopLine="663"/>
       </Position4>
       <Position5>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
-        <Caret Line="681" Column="1" TopLine="663"/>
+        <Caret Line="669" Column="1" TopLine="662"/>
       </Position5>
       <Position6>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
-        <Caret Line="669" Column="1" TopLine="662"/>
+        <Caret Line="670" Column="1" TopLine="662"/>
       </Position6>
       <Position7>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
-        <Caret Line="670" Column="1" TopLine="662"/>
+        <Caret Line="695" Column="1" TopLine="664"/>
       </Position7>
       <Position8>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
-        <Caret Line="695" Column="1" TopLine="664"/>
+        <Caret Line="696" Column="1" TopLine="665"/>
       </Position8>
       <Position9>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
-        <Caret Line="696" Column="1" TopLine="665"/>
+        <Caret Line="698" Column="1" TopLine="667"/>
       </Position9>
       <Position10>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
-        <Caret Line="698" Column="1" TopLine="667"/>
+        <Caret Line="699" Column="1" TopLine="668"/>
       </Position10>
       <Position11>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
-        <Caret Line="699" Column="1" TopLine="668"/>
+        <Caret Line="701" Column="1" TopLine="670"/>
       </Position11>
       <Position12>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
-        <Caret Line="701" Column="1" TopLine="670"/>
+        <Caret Line="702" Column="1" TopLine="671"/>
       </Position12>
       <Position13>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
-        <Caret Line="702" Column="1" TopLine="671"/>
+        <Caret Line="704" Column="1" TopLine="673"/>
       </Position13>
       <Position14>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
-        <Caret Line="704" Column="1" TopLine="673"/>
+        <Caret Line="705" Column="1" TopLine="674"/>
       </Position14>
       <Position15>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
-        <Caret Line="705" Column="1" TopLine="674"/>
+        <Caret Line="704" Column="1" TopLine="674"/>
       </Position15>
       <Position16>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
-        <Caret Line="704" Column="1" TopLine="674"/>
+        <Caret Line="705" Column="1" TopLine="674"/>
       </Position16>
       <Position17>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
-        <Caret Line="705" Column="1" TopLine="674"/>
+        <Caret Line="704" Column="1" TopLine="674"/>
       </Position17>
       <Position18>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
-        <Caret Line="704" Column="1" TopLine="674"/>
+        <Caret Line="705" Column="1" TopLine="674"/>
       </Position18>
       <Position19>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
-        <Caret Line="705" Column="1" TopLine="674"/>
+        <Caret Line="704" Column="1" TopLine="674"/>
       </Position19>
       <Position20>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
-        <Caret Line="704" Column="1" TopLine="674"/>
+        <Caret Line="705" Column="1" TopLine="674"/>
       </Position20>
       <Position21>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
-        <Caret Line="705" Column="1" TopLine="674"/>
+        <Caret Line="704" Column="1" TopLine="674"/>
       </Position21>
       <Position22>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
-        <Caret Line="704" Column="1" TopLine="674"/>
+        <Caret Line="705" Column="1" TopLine="674"/>
       </Position22>
       <Position23>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
-        <Caret Line="705" Column="1" TopLine="674"/>
+        <Caret Line="704" Column="1" TopLine="674"/>
       </Position23>
       <Position24>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
-        <Caret Line="704" Column="1" TopLine="674"/>
+        <Caret Line="705" Column="1" TopLine="674"/>
       </Position24>
       <Position25>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
-        <Caret Line="705" Column="1" TopLine="674"/>
+        <Caret Line="704" Column="1" TopLine="674"/>
       </Position25>
       <Position26>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
-        <Caret Line="704" Column="1" TopLine="674"/>
+        <Caret Line="705" Column="1" TopLine="674"/>
       </Position26>
       <Position27>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
-        <Caret Line="705" Column="1" TopLine="674"/>
+        <Caret Line="704" Column="1" TopLine="674"/>
       </Position27>
       <Position28>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
-        <Caret Line="704" Column="1" TopLine="674"/>
+        <Caret Line="705" Column="1" TopLine="674"/>
       </Position28>
       <Position29>
-        <Filename Value="../base_pm/uroughpklanningframe.pas"/>
-        <Caret Line="705" Column="1" TopLine="674"/>
+        <Filename Value="uorderaddressframe.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position29>
+      <Position30>
+        <Filename Value="uorderaddressframe.pas"/>
+        <Caret Line="71" Column="15" TopLine="53"/>
+      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
