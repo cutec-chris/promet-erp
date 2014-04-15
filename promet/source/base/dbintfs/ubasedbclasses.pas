@@ -976,7 +976,6 @@ var
                       or (bNode.Attributes.Item[d].NodeName = 'HASCHILDS')
                       or (bNode.Attributes.Item[d].NodeName = 'OWNER')
                       or (bNode.Attributes.Item[d].NodeName = 'ACTIVE')
-                      or (bNode.Attributes.Item[d].NodeName = 'STATUS')
                       then
                         begin
                           aNewValue := bNode.Attributes.Item[d].NodeValue;
