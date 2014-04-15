@@ -297,7 +297,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="58">
+    <Units Count="57">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -733,7 +733,7 @@
       </Unit41>
       <Unit42>
         <Filename Value="../base/revision.inc"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
@@ -742,26 +742,16 @@
       </Unit42>
       <Unit43>
         <Filename Value="../base/changes.txt"/>
-        <EditorIndex Value="17"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="50" Y="6"/>
+        <CursorPos X="104" Y="6"/>
         <UsageCount Value="94"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit43>
       <Unit44>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <UnitName Value="uBaseDbClasses"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="14"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="952"/>
-        <CursorPos X="59" Y="971"/>
-        <UsageCount Value="33"/>
-        <Loaded Value="True"/>
-      </Unit44>
-      <Unit45>
         <Filename Value="../base/dbintfs/uprojects.pas"/>
         <UnitName Value="uProjects"/>
         <EditorIndex Value="4"/>
@@ -770,8 +760,8 @@
         <CursorPos X="1" Y="570"/>
         <UsageCount Value="33"/>
         <Loaded Value="True"/>
-      </Unit45>
-      <Unit46>
+      </Unit44>
+      <Unit45>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
         <EditorIndex Value="2"/>
@@ -780,18 +770,18 @@
         <CursorPos X="1" Y="1104"/>
         <UsageCount Value="31"/>
         <Loaded Value="True"/>
-      </Unit46>
-      <Unit47>
+      </Unit45>
+      <Unit46>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="739"/>
-        <CursorPos X="1" Y="758"/>
+        <CursorPos X="85" Y="745"/>
         <UsageCount Value="28"/>
         <Loaded Value="True"/>
-      </Unit47>
-      <Unit48>
+      </Unit46>
+      <Unit47>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
         <EditorIndex Value="12"/>
@@ -800,8 +790,8 @@
         <CursorPos X="1" Y="775"/>
         <UsageCount Value="23"/>
         <Loaded Value="True"/>
-      </Unit48>
-      <Unit49>
+      </Unit47>
+      <Unit48>
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
         <ComponentName Value="fprojectFrame"/>
         <HasResources Value="True"/>
@@ -814,8 +804,8 @@
         <UsageCount Value="16"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
-      </Unit49>
-      <Unit50>
+      </Unit48>
+      <Unit49>
         <Filename Value="../base_pm/uganttview.pas"/>
         <ComponentName Value="fGanttView"/>
         <HasResources Value="True"/>
@@ -828,8 +818,8 @@
         <UsageCount Value="14"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
-      </Unit50>
-      <Unit51>
+      </Unit49>
+      <Unit50>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
         <ComponentName Value="fRoughPlanningFrame"/>
         <HasResources Value="True"/>
@@ -839,12 +829,11 @@
         <WindowIndex Value="0"/>
         <TopLine Value="646"/>
         <CursorPos X="1" Y="668"/>
-        <FoldState Value=" T4M07 T3l00A832~"/>
         <UsageCount Value="15"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
-      </Unit51>
-      <Unit52>
+      </Unit50>
+      <Unit51>
         <Filename Value="../base_pm/utaskplan.pas"/>
         <UnitName Value="uTaskPlan"/>
         <EditorIndex Value="7"/>
@@ -853,8 +842,8 @@
         <CursorPos X="11" Y="184"/>
         <UsageCount Value="14"/>
         <Loaded Value="True"/>
-      </Unit52>
-      <Unit53>
+      </Unit51>
+      <Unit52>
         <Filename Value="../base_pm/utasks.pas"/>
         <ComponentName Value="fTaskFrame"/>
         <HasResources Value="True"/>
@@ -867,22 +856,22 @@
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
-      </Unit53>
-      <Unit54>
+      </Unit52>
+      <Unit53>
         <Filename Value="../base_forms/ugridview.pas"/>
         <ComponentName Value="fGridView"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ugridview"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="335"/>
         <CursorPos X="15" Y="323"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
-      </Unit54>
-      <Unit55>
+      </Unit53>
+      <Unit54>
         <Filename Value="../base_messaging/umessageframe.pas"/>
         <ComponentName Value="fMessageFrame"/>
         <HasResources Value="True"/>
@@ -895,8 +884,8 @@
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
-      </Unit55>
-      <Unit56>
+      </Unit54>
+      <Unit55>
         <Filename Value="../base_pm/gsGanttCalendar.pas"/>
         <UnitName Value="gsGanttCalendar"/>
         <EditorIndex Value="10"/>
@@ -905,8 +894,8 @@
         <CursorPos X="1" Y="1615"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
-      </Unit56>
-      <Unit57>
+      </Unit55>
+      <Unit56>
         <Filename Value="../base/dbintfs/ucalendar.pas"/>
         <UnitName Value="uCalendar"/>
         <EditorIndex Value="9"/>
@@ -915,9 +904,9 @@
         <CursorPos X="3" Y="270"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
-      </Unit57>
+      </Unit56>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
         <Caret Line="682" Column="1" TopLine="663"/>
@@ -1034,10 +1023,6 @@
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
         <Caret Line="705" Column="1" TopLine="674"/>
       </Position29>
-      <Position30>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="22" Column="63" TopLine="1"/>
-      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

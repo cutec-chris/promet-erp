@@ -229,6 +229,7 @@ procedure TfOrderAddress.mAddressDragOver(Sender, Source: TObject; X,
   Y: Integer; State: TDragState; var Accept: Boolean);
 begin
   Accept := False;
+  if not cbType.Enabled then exit;
   if Assigned(uMainTreeFrame.fMainTreeFrame)
   and (Source = uMainTreeFrame.fMainTreeFrame.tvMain)
   and ((TTreeEntry(uMainTreeFrame.fMainTreeFrame.tvMain.Selected.Data).Typ = etCustomer)
