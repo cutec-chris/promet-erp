@@ -403,7 +403,7 @@ begin
           VJSON := TJSONObject.Create;
           FieldsToJSON(aInternal.DataSet.Fields, VJSON, True);
           if RemoteID.AsString <> '' then
-            VJSON.Add('EXTERNAL_ID',RemoteID.AsString)
+            VJSON.Add('external_id',RemoteID.AsString)
           else if State=dsInsert then
             Cancel;
           Result.Add(VJSON);
@@ -465,12 +465,23 @@ begin
           else aInternal.Edit;
           if JSONToFields(aObj,aInternal.DataSet.Fields,True) then
             begin
-              aInternal.Post;
-              if Supports(aInternal, IBaseHistory, Hist) then
-                Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+              try
+                aInternal.Post;
+                if Supports(aInternal, IBaseHistory, Hist) then
+                  Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+              except
+                FieldByName('ERROR').AsString:='Y';
+              end;
             end;
           if LocalID.IsNull then
             LocalID.AsVariant:=aInternal.Id.AsVariant;
+          if LocalID.AsString <> '' then
+            begin
+              if Assigned(VJSON.Elements['sql_id']) then
+                VJSON.Elements['sql_id'].AsString:=LocalID.AsString
+              else
+                VJSON.Add('sql_id',LocalID.AsString);
+            end;
           if Assigned(aTime) then
             FieldByName('REMOTE_TIME').AsDateTime:=DecodeRfcDateTime(aTime.AsString);
           if FieldByName('SYNCTABLE').IsNull then
@@ -563,4 +574,4 @@ begin
 end;
 
 end.
-
+
