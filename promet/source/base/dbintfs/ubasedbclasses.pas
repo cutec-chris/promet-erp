@@ -1231,7 +1231,10 @@ begin
             Add('PARENT','PARENT',[]);
             Add('SUMMARY','SUMMARY',[]);
             Add('REFERENCE','REFERENCE',[]);
+            Add('COMMISSION','COMMISSION',[]);
             Add('LINK','LINK',[]);
+            Add('READ','READ',[]);
+            Add('SOURCE','SOURCE',[]);
             Add('CHANGEDBY','CHANGEDBY',[]);
             Add('TIMESTAMPD','TIMESTAMPD',[]);
           end;
