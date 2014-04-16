@@ -54,10 +54,11 @@
         <Filename Value="sync_mso.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="traceimport"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1015"/>
-        <CursorPos X="60" Y="1035"/>
+        <TopLine Value="978"/>
+        <CursorPos X="57" Y="969"/>
         <FoldState Value=" T3iQ0l21121 T0sFEB1Y"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="1">
@@ -827,11 +828,10 @@
       <Unit99>
         <Filename Value="..\base\dbintfs\usync.pas"/>
         <UnitName Value="usync"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="116"/>
-        <CursorPos X="28" Y="127"/>
+        <CursorPos X="102" Y="134"/>
         <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit99>
