@@ -297,7 +297,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="56">
+    <Units Count="57">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -661,7 +661,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uorderaddressframe"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="227"/>
         <CursorPos X="97" Y="237"/>
@@ -750,7 +750,6 @@
       </Unit42>
       <Unit43>
         <Filename Value="../base/changes.txt"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -847,7 +846,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ugridview"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="287"/>
         <CursorPos X="15" Y="323"/>
@@ -858,7 +857,7 @@
       <Unit52>
         <Filename Value="../base_frames/uhistoryframe.pas"/>
         <UnitName Value="uHistoryFrame"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="18"/>
         <WindowIndex Value="0"/>
         <TopLine Value="42"/>
         <CursorPos X="15" Y="75"/>
@@ -868,7 +867,7 @@
       <Unit53>
         <Filename Value="../base_calendar/ueventedit.pas"/>
         <UnitName Value="uEventEdit"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="19"/>
         <WindowIndex Value="0"/>
         <TopLine Value="330"/>
         <CursorPos X="57" Y="349"/>
@@ -895,6 +894,17 @@
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit55>
+      <Unit56>
+        <Filename Value="../../../README.md"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="15"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="23" Y="12"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit56>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
