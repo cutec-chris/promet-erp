@@ -854,7 +854,8 @@ begin
           //change existing Items
           while Assigned(aItem) do
             begin
-              for i := 0 to aJsonOutList.Count-1 do
+              i := 0;
+              while i < aJsonOutList.Count-1 do
                 begin
                   aField := SyncItems.GetField(aJsonOutList[i],'EXTERNAL_ID');
                   if Assigned(aField) and (aField.AsString = EntryIdToString(aItem.EntryID)) then
@@ -877,9 +878,10 @@ begin
                         aItem.CoMessage.SaveChanges(0);
                       except
                       end;
-                      aJsonOutList[i].Free;
-                      aJsonOutList[i] := nil;
-                    end;
+                      aJsonOutList.Delete(i);
+                      break;
+                    end
+                  else inc(i);
                 end;
               aItem.Free;
               aItem := aFolder.GetNext;
@@ -976,7 +978,8 @@ begin
           //change existing Items
           while Assigned(aItem) do
             begin
-              for i := 0 to aJsonOutList.Count-1 do
+              i := 0;
+              while i < aJsonOutList.Count do
                 begin
                   aField := SyncItems.GetField(aJsonOutList[i],'EXTERNAL_ID');
                   if Assigned(aField) and (aField.AsString = EntryIdToString(aItem.EntryID)) then
@@ -1001,7 +1004,10 @@ begin
                         aItem.CoMessage.SaveChanges(0);
                       except
                       end;
-                    end;
+                      aJsonOutList.Delete(i);
+                      break;
+                    end
+                  else inc(i);
                 end;
               FreeAndNil(aItem);
               aItem := aFolder.GetNext;
@@ -1036,6 +1042,7 @@ begin
                         aItem.CoMessage.SaveChanges(0);
                         bFolder := TGenericFolder.Create(aConnection,aFolder.FEntryTyp);
                         bItem := aFolder.GetFirst;
+                        writeln(bItem.Subject);
                         TJSONObject(aJsonOutList[i]).Add('EXTERNAL_ID',EntryIdToString(bItem.EntryID));
                         bItem.Free;
                         bFolder.Free;

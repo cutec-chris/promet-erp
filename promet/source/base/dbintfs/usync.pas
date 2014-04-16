@@ -123,7 +123,9 @@ begin
   begin
     VField := AFields[I];
     VFieldName := VField.FieldName;
-    if (FindField(VFieldName) or (FindField('*'))) then
+    if (FindField(VFieldName) or (FindField('*')))
+    and (not VField.IsNull)
+    then
       begin
         if VField.DataType = ftBoolean then
           AJSON.Add(lowercase(VFieldName), VField.AsBoolean)
@@ -574,4 +576,4 @@ begin
 end;
 
 end.
-
+
