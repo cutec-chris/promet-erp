@@ -1,9 +1,17 @@
-promet-erp
+Promet-ERP
 ==========
 
-Promet is an management system for nearly any type of data you or your company needs.
+Promet is an management system.
 
+Functions
+* Contactmanagement
+* Ordermanagement
+* Projectmanagement
+* Storage and Resource Planning
+* Online Banking
+* Document Managemnent
 
+Development
+===========
 
-
-Actual tested with lazarus rev. 42850 later revisions are untested !
+Actual tested with Lazarus rev. 42850.

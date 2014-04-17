@@ -857,7 +857,7 @@
       <Unit52>
         <Filename Value="../base_frames/uhistoryframe.pas"/>
         <UnitName Value="uHistoryFrame"/>
-        <EditorIndex Value="19"/>
+        <EditorIndex Value="18"/>
         <WindowIndex Value="0"/>
         <TopLine Value="42"/>
         <CursorPos X="15" Y="75"/>
@@ -895,27 +895,16 @@
         <Loaded Value="True"/>
       </Unit55>
       <Unit56>
-        <Filename Value="../base_help/uwikiframe.pas"/>
-        <UnitName Value="uWikiFrame"/>
+        <Filename Value="../../../README.md"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="742"/>
-        <CursorPos X="1" Y="760"/>
-        <FoldState Value=" T6tP0V T3uL2u1 T0+A4XF"/>
+        <TopLine Value="1"/>
+        <CursorPos X="23" Y="12"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="None"/>
       </Unit56>
-      <Unit57>
-        <Filename Value="../base/dbintfs/ustatistic.pas"/>
-        <UnitName Value="uStatistic"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="16"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="100"/>
-        <CursorPos X="89" Y="111"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-      </Unit57>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
