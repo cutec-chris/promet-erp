@@ -438,7 +438,7 @@ begin
                   if FieldByName('SYNCTABLE').IsNull then
                     FieldByName('SYNCTABLE').AsString:=aInternal.TableName;
                   if FieldByName('USER_ID').IsNull then
-                    FieldByName('USER_ID').AsString:=TBaseDBModule(DataModule).QuoteValue(TBaseDBModule(DataModule).Users.ID.AsString;
+                    FieldByName('USER_ID').AsString:=TBaseDBModule(DataModule).Users.ID.AsString;
                   SyncTime.AsDateTime:=Now();
                   Post;
                 end;
@@ -513,7 +513,7 @@ begin
                 LocalID.AsVariant:=aInternal.Id.AsVariant;
               if LocalID.AsString <> '' then
                 begin
-                  if Assigned(aObj.Elements['sql_id']) then
+                  if aObj.IndexOfName('sql_id')>-1 then
                     aObj.Elements['sql_id'].AsString:=LocalID.AsString
                   else
                     aObj.Add('sql_id',LocalID.AsString);
@@ -523,7 +523,7 @@ begin
               if FieldByName('SYNCTABLE').IsNull then
                 FieldByName('SYNCTABLE').AsString:=aInternal.TableName;
               if FieldByName('USER_ID').IsNull then
-                FieldByName('USER_ID').AsString:=TBaseDBModule(DataModule).QuoteValue(TBaseDBModule(DataModule).Users.ID.AsString;
+                FieldByName('USER_ID').AsString:=TBaseDBModule(DataModule).Users.ID.AsString;
               RemoteID.AsVariant:=aID.AsString;
               Typ.AsString:=SyncType;
               SyncTime.AsDateTime:=Now();

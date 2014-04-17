@@ -987,6 +987,7 @@ begin
               i := 0;
               while i < aJsonOutList.Count do
                 begin
+                  DoDelete := False;
                   aField := SyncItems.GetField(aJsonOutList[i],'EXTERNAL_ID');
                   if Assigned(aField) and (aField.AsString = EntryIdToString(aItem.EntryID)) then
                     begin
@@ -999,7 +1000,10 @@ begin
                           aItem.PropertiesDirect[PR_BODY,ptString] := EncodingOut(aField.AsString);
                       aField := SyncItems.GetField(aJsonOutList[i],'COMPLETED');
                       if Assigned(aField) then
-                        aItem.PropertiesDirect[aItem.GetPropertyDispId($811c, PT_BOOLEAN, False, @PSETID_Task),ptBoolean] := aField.AsString = 'Y';
+                        begin
+                          aItem.PropertiesDirect[aItem.GetPropertyDispId($811c, PT_BOOLEAN, False, @PSETID_Task),ptBoolean] := aField.AsString = 'Y';
+                          DoDelete := aField.AsString = 'Y';
+                        end;
                       aField := SyncItems.GetField(aJsonOutList[i],'DUEDATE');
                       if Assigned(aField) and (aField.AsString<>'') then
                         aItem.PropertiesDirect[aItem.GetPropertyDispId($8105, PT_SYSTIME, False, @PSETID_Task),ptTime] := DecodeRfcDateTime(aField.AsString)
@@ -1009,6 +1013,7 @@ begin
                         aItem.PropertiesDirect[aItem.GetPropertyDispId($8104, PT_SYSTIME, False, @PSETID_Task),ptTime] := DecodeRfcDateTime(aField.AsString)
                       else aItem.PropertiesDirect[aItem.GetPropertyDispId($8104, PT_SYSTIME, False, @PSETID_Task),ptTime] := -1;
                       try
+                        if DoDelete then aItem.Delete; //Delete Done Tasks couse we cant set them correctly done at time
                         aItem.CoMessage.SaveChanges(0);
                       except
                       end;
@@ -1048,7 +1053,8 @@ begin
                       try
                         aItem.CoMessage.SaveChanges(0);
                         bFolder := TGenericFolder.Create(aConnection,aFolder.FEntryTyp);
-                        bItem := aFolder.GetFirst;
+                        bItem := bFolder.GetFirst;
+                        debugln(bItem.Subject);
                         if Assigned(bItem) then
                           TJSONObject(aJsonOutList[i]).Add('EXTERNAL_ID',EntryIdToString(bItem.EntryID));
                         bItem.Free;
