@@ -56,8 +56,8 @@
         <UnitName Value="traceimport"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="978"/>
-        <CursorPos X="1" Y="979"/>
+        <TopLine Value="1018"/>
+        <CursorPos X="66" Y="1062"/>
         <FoldState Value=" T3iQ0l21121 pjMo12{F T0sFEB1!"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="1">
@@ -478,7 +478,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1881"/>
         <CursorPos X="1" Y="1900"/>
-        <UsageCount Value="66"/>
+        <UsageCount Value="67"/>
         <Loaded Value="True"/>
       </Unit55>
       <Unit56>
@@ -488,7 +488,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1133"/>
         <CursorPos X="36" Y="1153"/>
-        <UsageCount Value="66"/>
+        <UsageCount Value="67"/>
         <Loaded Value="True"/>
       </Unit56>
       <Unit57>
@@ -815,7 +815,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1353"/>
         <CursorPos X="1" Y="1383"/>
-        <UsageCount Value="37"/>
+        <UsageCount Value="38"/>
         <Loaded Value="True"/>
       </Unit97>
       <Unit98>
@@ -825,7 +825,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="35"/>
         <CursorPos X="14" Y="53"/>
-        <UsageCount Value="33"/>
+        <UsageCount Value="34"/>
         <Loaded Value="True"/>
       </Unit98>
       <Unit99>
@@ -834,9 +834,9 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="477"/>
-        <CursorPos X="25" Y="495"/>
-        <UsageCount Value="28"/>
+        <TopLine Value="401"/>
+        <CursorPos X="1" Y="442"/>
+        <UsageCount Value="29"/>
         <Loaded Value="True"/>
       </Unit99>
       <Unit100>
@@ -854,7 +854,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="288"/>
         <CursorPos X="1" Y="300"/>
-        <UsageCount Value="21"/>
+        <UsageCount Value="22"/>
         <Loaded Value="True"/>
       </Unit101>
       <Unit102>
@@ -920,7 +920,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="620"/>
         <CursorPos X="1" Y="641"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit109>
       <Unit110>
@@ -930,7 +930,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="112"/>
         <CursorPos X="1" Y="139"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="26"/>
         <Loaded Value="True"/>
       </Unit110>
       <Unit111>
@@ -1001,7 +1001,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="805"/>
         <CursorPos X="1" Y="827"/>
-        <UsageCount Value="33"/>
+        <UsageCount Value="34"/>
         <Loaded Value="True"/>
       </Unit119>
       <Unit120>
@@ -1068,7 +1068,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="288"/>
         <CursorPos X="1" Y="320"/>
-        <UsageCount Value="26"/>
+        <UsageCount Value="27"/>
         <Loaded Value="True"/>
       </Unit127>
       <Unit128>
@@ -1240,7 +1240,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="2023"/>
         <CursorPos X="3" Y="2036"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="16"/>
         <Loaded Value="True"/>
       </Unit148>
       <Unit149>
@@ -1275,123 +1275,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="446" Column="1" TopLine="418"/>
+        <Caret Line="426" Column="50" TopLine="407"/>
       </Position1>
       <Position2>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="447" Column="1" TopLine="418"/>
+        <Caret Line="498" Column="50" TopLine="469"/>
       </Position2>
       <Position3>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="448" Column="1" TopLine="418"/>
+        <Caret Line="430" Column="225" TopLine="413"/>
       </Position3>
       <Position4>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="441" Column="1" TopLine="418"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position4>
       <Position5>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="442" Column="1" TopLine="418"/>
+        <Caret Line="501" Column="52" TopLine="477"/>
       </Position5>
       <Position6>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="443" Column="1" TopLine="418"/>
+        <Caret Line="500" Column="140" TopLine="481"/>
       </Position6>
       <Position7>
-        <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="444" Column="1" TopLine="418"/>
+        <Filename Value="sync_mso.lpr"/>
+        <Caret Line="979" Column="1" TopLine="954"/>
       </Position7>
       <Position8>
-        <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="446" Column="1" TopLine="418"/>
+        <Filename Value="sync_mso.lpr"/>
+        <Caret Line="1062" Column="66" TopLine="1045"/>
       </Position8>
       <Position9>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="447" Column="1" TopLine="418"/>
+        <Caret Line="372" Column="1" TopLine="352"/>
       </Position9>
       <Position10>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="448" Column="1" TopLine="418"/>
+        <Caret Line="373" Column="1" TopLine="352"/>
       </Position10>
       <Position11>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="441" Column="1" TopLine="418"/>
+        <Caret Line="375" Column="1" TopLine="352"/>
       </Position11>
       <Position12>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="442" Column="1" TopLine="418"/>
+        <Caret Line="376" Column="1" TopLine="352"/>
       </Position12>
       <Position13>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="443" Column="1" TopLine="418"/>
+        <Caret Line="377" Column="1" TopLine="352"/>
       </Position13>
       <Position14>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="444" Column="1" TopLine="418"/>
+        <Caret Line="378" Column="1" TopLine="352"/>
       </Position14>
       <Position15>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="446" Column="1" TopLine="418"/>
+        <Caret Line="379" Column="1" TopLine="352"/>
       </Position15>
       <Position16>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="447" Column="1" TopLine="418"/>
+        <Caret Line="381" Column="1" TopLine="352"/>
       </Position16>
       <Position17>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="448" Column="1" TopLine="418"/>
+        <Caret Line="382" Column="1" TopLine="352"/>
       </Position17>
       <Position18>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="441" Column="1" TopLine="418"/>
+        <Caret Line="384" Column="1" TopLine="352"/>
       </Position18>
       <Position19>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="442" Column="1" TopLine="418"/>
+        <Caret Line="386" Column="1" TopLine="355"/>
       </Position19>
       <Position20>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="443" Column="1" TopLine="418"/>
+        <Caret Line="387" Column="1" TopLine="356"/>
       </Position20>
       <Position21>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="444" Column="1" TopLine="418"/>
+        <Caret Line="388" Column="1" TopLine="357"/>
       </Position21>
       <Position22>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="446" Column="1" TopLine="418"/>
+        <Caret Line="390" Column="1" TopLine="430"/>
       </Position22>
       <Position23>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="447" Column="1" TopLine="418"/>
+        <Caret Line="448" Column="1" TopLine="431"/>
       </Position23>
       <Position24>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="448" Column="1" TopLine="418"/>
+        <Caret Line="450" Column="1" TopLine="431"/>
       </Position24>
       <Position25>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="443" Column="37" TopLine="424"/>
+        <Caret Line="451" Column="1" TopLine="431"/>
       </Position25>
       <Position26>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="451" Column="1" TopLine="424"/>
+        <Caret Line="452" Column="1" TopLine="431"/>
       </Position26>
       <Position27>
-        <Filename Value="sync_mso.lpr"/>
-        <Caret Line="979" Column="1" TopLine="960"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="453" Column="1" TopLine="431"/>
       </Position27>
       <Position28>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="493" Column="1" TopLine="474"/>
+        <Caret Line="455" Column="1" TopLine="431"/>
       </Position28>
       <Position29>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="495" Column="1" TopLine="474"/>
+        <Caret Line="456" Column="1" TopLine="431"/>
       </Position29>
       <Position30>
-        <Filename Value="sync_mso.lpr"/>
-        <Caret Line="1065" Column="38" TopLine="1045"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="457" Column="1" TopLine="431"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -1423,7 +1423,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="4">
+    <BreakPoints Count="7">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsGlobal"/>
@@ -1452,6 +1452,27 @@
         <Source Value="E:\umessages.pas"/>
         <Line Value="922"/>
       </Item4>
+      <Item5>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="sync_mso.lpr"/>
+        <Line Value="1064"/>
+      </Item5>
+      <Item6>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="sync_mso.lpr"/>
+        <Line Value="1052"/>
+      </Item6>
+      <Item7>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="sync_mso.lpr"/>
+        <Line Value="1031"/>
+      </Item7>
     </BreakPoints>
     <Watches Count="2">
       <Item1>

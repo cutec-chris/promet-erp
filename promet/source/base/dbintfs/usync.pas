@@ -23,7 +23,7 @@ unit usync;
 interface
 uses
   Classes, SysUtils, uBaseDbClasses, db, uBaseDbInterface,uBaseApplication,
-  fpjson,fpsqltree,LConvEncoding,synautil;
+  fpjson,fpsqltree,LConvEncoding,synautil,lclproc;
 type
   TSyncTable = class(TBaseDBDataSet)
   public
@@ -363,6 +363,7 @@ var
   tmp: TJSONStringType;
   Hist : IBaseHistory;
   aSQLID: TJSONData;
+  aSyncFilter: String;
   function RoundToSecond(aDate : TDateTime) : TDateTime;
   begin
     Result := Round(aDate * SecsPerDay) / SecsPerDay;
@@ -371,9 +372,11 @@ var
 begin
   Result := TJSONArray.Create;
   //Find Last Sync Time
-  Filter(TBaseDBModule(DataModule).QuoteField('SYNCTYPE')+'='+TBaseDBModule(DataModule).QuoteValue(SyncType)+' AND '+TBaseDBModule(DataModule).QuoteField('USER_ID')+'='+TBaseDBModule(DataModule).QuoteValue(TBaseDBModule(DataModule).Users.ID.AsString)+' AND '+TBaseDBModule(DataModule).QuoteField('SYNCTABLE')+'='+TBaseDBModule(DataModule).QuoteValue(aInternal.TableName),0,'SYNC_TIME');
+  aSyncFilter := TBaseDBModule(DataModule).QuoteField('SYNCTYPE')+'='+TBaseDBModule(DataModule).QuoteValue(SyncType)+' AND '+TBaseDBModule(DataModule).QuoteField('USER_ID')+'='+TBaseDBModule(DataModule).QuoteValue(TBaseDBModule(DataModule).Users.ID.AsString)+' AND '+TBaseDBModule(DataModule).QuoteField('SYNCTABLE')+'='+TBaseDBModule(DataModule).QuoteValue(aInternal.TableName);
+  Filter(aSyncFilter,0,'SYNC_TIME');
   Last;
   aLastSync := SyncTime.AsDateTime;
+  debugln('Sync started, '+DateTimeToStr(aLastSync)+' last sync, Filter:'+aSyncFilter);
   //Sync internal items that are newer than last sync out
   aInternal.First;
   while not aInternal.EOF do
@@ -418,9 +421,15 @@ begin
                   if Supports(aInternal, IBaseHistory, Hist) then
                     begin
                       if State=dsInsert then
-                        Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,[strSyncNewRecord]))
-                      else if (aInternal.TimeStamp.AsDateTime>aLastSync) then
-                        Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,['Internal '+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]))
+                        begin
+                          Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,[strSyncNewRecord]));
+                          debugln(aInternal.Id.AsString+':'+Format(strSynchedOut,[strSyncNewRecord]));
+                        end
+                      else if (aInternal.TimeStamp.AsDateTime>SyncTime.AsDateTime) then
+                        begin
+                          Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,['Internal '+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                          debugln(aInternal.Id.AsString+':'+Format(strSynchedOut,['Internal '+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                        end
                       else
                         Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
                     end;
@@ -428,6 +437,8 @@ begin
                   Typ.AsString:=SyncType;
                   if FieldByName('SYNCTABLE').IsNull then
                     FieldByName('SYNCTABLE').AsString:=aInternal.TableName;
+                  if FieldByName('USER_ID').IsNull then
+                    FieldByName('USER_ID').AsString:=TBaseDBModule(DataModule).QuoteValue(TBaseDBModule(DataModule).Users.ID.AsString;
                   SyncTime.AsDateTime:=Now();
                   Post;
                 end;
@@ -480,7 +491,20 @@ begin
                   try
                     aInternal.Post;
                     if Supports(aInternal, IBaseHistory, Hist) then
-                      Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                      begin
+                        if State=dsInsert then
+                          begin
+                            Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,[strSyncNewRecord]));
+                            debugln(aID.AsString+':'+Format(strSynchedIn,[strSyncNewRecord]));
+                          end
+                        else if (aSyncTime>SyncTime.AsDateTime) then
+                          begin
+                            Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,['Remote '+DateTimeToStr(RoundToSecond(aSyncTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                            debugln(aID.AsString+':'+Format(strSynchedIn,['Remote '+DateTimeToStr(RoundToSecond(aSyncTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                          end
+                        else
+                          Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                      end;
                   except
                     FieldByName('ERROR').AsString:='Y';
                   end;
@@ -498,6 +522,8 @@ begin
                 FieldByName('REMOTE_TIME').AsDateTime:=DecodeRfcDateTime(aTime.AsString);
               if FieldByName('SYNCTABLE').IsNull then
                 FieldByName('SYNCTABLE').AsString:=aInternal.TableName;
+              if FieldByName('USER_ID').IsNull then
+                FieldByName('USER_ID').AsString:=TBaseDBModule(DataModule).QuoteValue(TBaseDBModule(DataModule).Users.ID.AsString;
               RemoteID.AsVariant:=aID.AsString;
               Typ.AsString:=SyncType;
               SyncTime.AsDateTime:=Now();
