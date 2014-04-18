@@ -196,7 +196,10 @@ begin
         aList := TSQLSimpleTableReference(TSQLSelectStatement(aStmt).Tables[a]).ObjectName.Name;
         if Data.DataSetFromLink(aList+'@',aClass) then
           begin
-            aDs := TBaseDbList(aClass.Create(nil,Data));
+            if aClass = TBaseHistory then
+              aDs := TBaseDbList(aClass.Create(nil,Data,nil,Data.Users.DataSet)) //Use User History when History
+            else
+              aDs := TBaseDbList(aClass.Create(nil,Data));
             aRight := UpperCase(aList);
             if Assigned(TSQLSelectStatement(aStmt).Where) then
               aFilter:=TSQLSelectStatement(aStmt).Where.GetAsSQL([sfoDoubleQuoteIdentifier]);
