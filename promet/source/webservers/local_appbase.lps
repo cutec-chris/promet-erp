@@ -11,7 +11,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="28"/>
-        <UsageCount Value="165"/>
+        <UsageCount Value="168"/>
       </Unit0>
       <Unit1>
         <Filename Value="umain.pas"/>
@@ -23,11 +23,10 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="371"/>
-        <CursorPos X="59" Y="412"/>
-        <UsageCount Value="165"/>
+        <TopLine Value="377"/>
+        <CursorPos X="79" Y="394"/>
+        <UsageCount Value="168"/>
         <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="../../../apps/promet/library.js"/>
@@ -35,7 +34,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="2" Y="26"/>
-        <UsageCount Value="138"/>
+        <UsageCount Value="141"/>
         <DefaultSyntaxHighlighter Value="JScript"/>
       </Unit2>
       <Unit3>
@@ -60,7 +59,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit5>
       <Unit6>
         <Filename Value="../base/dbintfs/ustatistic.pas"/>
@@ -69,7 +68,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="43"/>
         <CursorPos X="14" Y="54"/>
-        <UsageCount Value="37"/>
+        <UsageCount Value="38"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
@@ -78,7 +77,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="236"/>
         <CursorPos X="34" Y="248"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit7>
       <Unit8>
         <Filename Value="../../../../fpc/2.6_fixes/packages/fcl-db/src/base/db.pas"/>
@@ -86,7 +85,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="93"/>
         <CursorPos X="3" Y="110"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit8>
       <Unit9>
         <Filename Value="../../../../../Programme/lazarus/fpc/2.6.1/source/packages/fcl-web/src/base/httpdefs.pp"/>
@@ -94,7 +93,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="200"/>
         <CursorPos X="95" Y="197"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit9>
       <Unit10>
         <Filename Value="../../../../../Programme/lazarus/fpc/2.6.1/source/packages/fcl-web/src/base/custhttpapp.pp"/>
@@ -102,7 +101,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit10>
       <Unit11>
         <Filename Value="../base/ubasefcgiapplication.pas"/>
@@ -118,7 +117,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="583"/>
         <CursorPos X="1" Y="601"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit12>
       <Unit13>
@@ -127,7 +126,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="2744"/>
         <CursorPos X="1" Y="2769"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit13>
       <Unit14>
@@ -137,7 +136,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="139"/>
         <CursorPos X="14" Y="172"/>
-        <UsageCount Value="28"/>
+        <UsageCount Value="29"/>
         <Loaded Value="True"/>
       </Unit14>
       <Unit15>
@@ -153,9 +152,9 @@
         <UnitName Value="uBaseDbClasses"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="840"/>
-        <CursorPos X="1" Y="856"/>
-        <UsageCount Value="29"/>
+        <TopLine Value="824"/>
+        <CursorPos X="42" Y="845"/>
+        <UsageCount Value="30"/>
         <Loaded Value="True"/>
       </Unit16>
       <Unit17>
@@ -172,7 +171,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="88"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit18>
       <Unit19>
         <Filename Value="../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-web/src/base/httpdefs.pp"/>
@@ -180,7 +179,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="80"/>
         <CursorPos X="22" Y="90"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit19>
       <Unit20>
         <Filename Value="../base/ubasehttpapplication.pas"/>
@@ -220,7 +219,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="69"/>
         <CursorPos X="14" Y="86"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit24>
       <Unit25>
         <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.1/source/packages/fcl-web/src/base/fphttpserver.pp"/>
@@ -243,7 +242,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="JScript"/>
       </Unit27>
       <Unit28>
@@ -285,7 +284,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="404"/>
         <CursorPos X="1" Y="432"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <Loaded Value="True"/>
       </Unit32>
       <Unit33>
@@ -389,9 +388,9 @@
         <UnitName Value="uBaseDBInterface"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1465"/>
-        <CursorPos X="29" Y="1481"/>
-        <UsageCount Value="33"/>
+        <TopLine Value="1117"/>
+        <CursorPos X="4" Y="1128"/>
+        <UsageCount Value="34"/>
         <Loaded Value="True"/>
       </Unit45>
       <Unit46>
@@ -490,9 +489,9 @@
         <UnitName Value="usync"/>
         <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="432"/>
-        <CursorPos X="1" Y="469"/>
-        <UsageCount Value="40"/>
+        <TopLine Value="376"/>
+        <CursorPos X="1" Y="404"/>
+        <UsageCount Value="41"/>
         <Loaded Value="True"/>
       </Unit57>
       <Unit58>
@@ -542,7 +541,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="383"/>
         <CursorPos X="1" Y="401"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="17"/>
         <Loaded Value="True"/>
       </Unit63>
     </Units>
@@ -551,124 +550,124 @@
     </General>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="833" Column="1" TopLine="818"/>
+        <Filename Value="../base/dbintfs/usync.pas"/>
+        <Caret Line="447" Column="1" TopLine="434"/>
       </Position1>
       <Position2>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="836" Column="1" TopLine="818"/>
+        <Filename Value="../base/dbintfs/usync.pas"/>
+        <Caret Line="458" Column="1" TopLine="434"/>
       </Position2>
       <Position3>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="837" Column="1" TopLine="818"/>
+        <Filename Value="../base/dbintfs/usync.pas"/>
+        <Caret Line="461" Column="1" TopLine="434"/>
       </Position3>
       <Position4>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="839" Column="1" TopLine="818"/>
+        <Filename Value="../base/dbintfs/usync.pas"/>
+        <Caret Line="462" Column="1" TopLine="434"/>
       </Position4>
       <Position5>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="840" Column="1" TopLine="818"/>
+        <Filename Value="../base/dbintfs/usync.pas"/>
+        <Caret Line="463" Column="1" TopLine="435"/>
       </Position5>
       <Position6>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="842" Column="1" TopLine="818"/>
+        <Filename Value="../base/dbintfs/usync.pas"/>
+        <Caret Line="464" Column="1" TopLine="436"/>
       </Position6>
       <Position7>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="843" Column="1" TopLine="818"/>
+        <Filename Value="../base/dbintfs/usync.pas"/>
+        <Caret Line="466" Column="1" TopLine="438"/>
       </Position7>
       <Position8>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="844" Column="1" TopLine="818"/>
+        <Filename Value="../base/dbintfs/usync.pas"/>
+        <Caret Line="468" Column="1" TopLine="440"/>
       </Position8>
       <Position9>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="845" Column="1" TopLine="818"/>
+        <Filename Value="../base/dbintfs/usync.pas"/>
+        <Caret Line="469" Column="1" TopLine="441"/>
       </Position9>
       <Position10>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="847" Column="1" TopLine="819"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="385" Column="56" TopLine="379"/>
       </Position10>
       <Position11>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="848" Column="1" TopLine="820"/>
+        <Filename Value="../base/dbintfs/usync.pas"/>
+        <Caret Line="376" Column="1" TopLine="365"/>
       </Position11>
       <Position12>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="856" Column="1" TopLine="840"/>
+        <Filename Value="../base/dbintfs/usync.pas"/>
+        <Caret Line="377" Column="1" TopLine="365"/>
       </Position12>
       <Position13>
         <Filename Value="../base/dbintfs/usync.pas"/>
-        <Caret Line="462" Column="1" TopLine="446"/>
+        <Caret Line="378" Column="1" TopLine="365"/>
       </Position13>
       <Position14>
         <Filename Value="../base/dbintfs/usync.pas"/>
-        <Caret Line="463" Column="1" TopLine="446"/>
+        <Caret Line="379" Column="1" TopLine="365"/>
       </Position14>
       <Position15>
         <Filename Value="../base/dbintfs/usync.pas"/>
-        <Caret Line="465" Column="1" TopLine="446"/>
+        <Caret Line="376" Column="44" TopLine="374"/>
       </Position15>
       <Position16>
         <Filename Value="../base/dbintfs/usync.pas"/>
-        <Caret Line="464" Column="33" TopLine="446"/>
+        <Caret Line="382" Column="1" TopLine="374"/>
       </Position16>
       <Position17>
         <Filename Value="../base/dbintfs/usync.pas"/>
-        <Caret Line="380" Column="22" TopLine="374"/>
+        <Caret Line="384" Column="1" TopLine="374"/>
       </Position17>
       <Position18>
         <Filename Value="../base/dbintfs/usync.pas"/>
-        <Caret Line="442" Column="1" TopLine="434"/>
+        <Caret Line="386" Column="1" TopLine="374"/>
       </Position18>
       <Position19>
         <Filename Value="../base/dbintfs/usync.pas"/>
-        <Caret Line="443" Column="1" TopLine="434"/>
+        <Caret Line="387" Column="1" TopLine="374"/>
       </Position19>
       <Position20>
         <Filename Value="../base/dbintfs/usync.pas"/>
-        <Caret Line="444" Column="1" TopLine="434"/>
+        <Caret Line="388" Column="1" TopLine="374"/>
       </Position20>
       <Position21>
         <Filename Value="../base/dbintfs/usync.pas"/>
-        <Caret Line="446" Column="1" TopLine="434"/>
+        <Caret Line="390" Column="1" TopLine="374"/>
       </Position21>
       <Position22>
         <Filename Value="../base/dbintfs/usync.pas"/>
-        <Caret Line="447" Column="1" TopLine="434"/>
+        <Caret Line="391" Column="1" TopLine="374"/>
       </Position22>
       <Position23>
         <Filename Value="../base/dbintfs/usync.pas"/>
-        <Caret Line="458" Column="1" TopLine="434"/>
+        <Caret Line="392" Column="1" TopLine="374"/>
       </Position23>
       <Position24>
         <Filename Value="../base/dbintfs/usync.pas"/>
-        <Caret Line="461" Column="1" TopLine="434"/>
+        <Caret Line="393" Column="1" TopLine="374"/>
       </Position24>
       <Position25>
         <Filename Value="../base/dbintfs/usync.pas"/>
-        <Caret Line="462" Column="1" TopLine="434"/>
+        <Caret Line="395" Column="1" TopLine="374"/>
       </Position25>
       <Position26>
         <Filename Value="../base/dbintfs/usync.pas"/>
-        <Caret Line="463" Column="1" TopLine="435"/>
+        <Caret Line="388" Column="1" TopLine="374"/>
       </Position26>
       <Position27>
         <Filename Value="../base/dbintfs/usync.pas"/>
-        <Caret Line="464" Column="1" TopLine="436"/>
+        <Caret Line="402" Column="1" TopLine="374"/>
       </Position27>
       <Position28>
-        <Filename Value="../base/dbintfs/usync.pas"/>
-        <Caret Line="466" Column="1" TopLine="438"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="391" Column="29" TopLine="374"/>
       </Position28>
       <Position29>
-        <Filename Value="../base/dbintfs/usync.pas"/>
-        <Caret Line="468" Column="1" TopLine="440"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="394" Column="105" TopLine="377"/>
       </Position29>
       <Position30>
-        <Filename Value="../base/dbintfs/usync.pas"/>
-        <Caret Line="469" Column="1" TopLine="441"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="393" Column="24" TopLine="376"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>
