@@ -70,7 +70,8 @@ var
 
 implementation
 uses uStatistic,uData,uBaseWebSession,uPerson,uOrder,uMasterdata,utask,uProjects,
-  uBaseDbDataSet,usync,uMessages,uBaseSearch,uWiki,uDocuments,umeeting,uBaseERPDBClasses;
+  uBaseDbDataSet,usync,uMessages,uBaseSearch,uWiki,uDocuments,umeeting,uBaseERPDBClasses,
+  uBaseApplication;
 {$R *.lfm}
 procedure Tappbase.checkloginRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
@@ -278,6 +279,9 @@ begin
   Handled:=True;
   TBaseWebSession(Session).DoLogout(ARequest,AResponse);
   AResponse.SendContent;
+  {$ifdef DEBUG}
+  BaseApplication.Terminate;
+  {$endif}
 end;
 procedure Tappbase.objectRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
@@ -427,6 +431,7 @@ begin
                     aInpData := ARequest.QueryFields.Values['data'];
                     aParser := TJSONParser.Create(aInpData);
                     JsonIn := aParser.Parse;
+                    aParser.Free;
                     if aSyncType = '' then
                       aSyncType:='App';
                     Json := Sync.SyncDataSet(aDs,JsonIn,aSyncType);
@@ -442,6 +447,7 @@ begin
             else
               AResponse.Code:=403;
           end;
+        aStmt.Free;
       except
         on e : ESQLParser do
           begin
