@@ -370,7 +370,7 @@ var
   aRight: String;
   aClass: TBaseDBDatasetClass;
   Sync: TSyncItems;
-  Json: TJSONArray;
+  Json: TJSONArray = nil;
   JsonIn: TJSONData;
   aFilter: String;
   FSQLStream: TStringStream;
@@ -399,7 +399,6 @@ begin
       else
         FSQLStream := TStringStream.Create(ARequest.QueryFields.Values['ql']);
       FSQLScanner := TSQLScanner.Create(FSQLStream);
-      Json := TJSONArray.Create;
       AResponse.Code:=200;
       AResponse.ContentType:='text/javascript;charset=utf-8';
       AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
@@ -461,9 +460,11 @@ begin
 
       FSQLParser.Free;
       FSQLScanner.Free;
+      FSQLStream.Free;
 
       aSeq := ARequest.QueryFields.Values['sequence'];
       if aSeq='' then aSeq := '0';
+      if not Assigned(Json) then Json := TJSONArray.Create;
       Response.Contents.Text := 'DoHandleObject('+aSeq+','+Json.AsJSON+');';
       if AResponse.Code=200 then
         Response.Contents.Text := 'DoHandleList('+aSeq+','+Json.AsJSON+');';
