@@ -343,6 +343,7 @@ procedure TBaseWebSession.DoLogin(ARequest: TRequest; AResponse: TResponse);
 begin
   if ARequest.QueryFields.Values['step']='1' then
     begin
+      Data.Users.Active:=True;
       if (Data.Users.DataSet.Locate('NAME',ARequest.QueryFields.Values['name'],[loCaseInsensitive]))
       or (Data.Users.DataSet.Locate('LOGINNAME',ARequest.QueryFields.Values['name'],[loCaseInsensitive]))
       then
@@ -425,7 +426,7 @@ begin
       else
         AResponse.SendRedirect('login.html');
     end;
-  Data.Users.Open;
+  Data.Users.Active:=True;
   if not (aResult
   and ((Data.Users.DataSet.Locate('NAME',aLogin,[loCaseInsensitive]))
   or (Data.Users.DataSet.Locate('LOGINNAME',aLogin,[loCaseInsensitive])))) then
