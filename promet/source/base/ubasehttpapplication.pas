@@ -144,6 +144,7 @@ begin
   Port := 8080;
   if Properties.ReadInteger('PORT',-1) <> -1 then
     Port:=Properties.ReadInteger('PORT',8080);
+  Threaded:=False;
 end;
 destructor TBaseHTTPApplication.Destroy;
 begin

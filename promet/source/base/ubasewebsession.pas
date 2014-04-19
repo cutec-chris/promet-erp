@@ -128,7 +128,7 @@ begin
   Result := '';
   if FSession.Count = 0 then exit;
   FSession.Variables.Select(Varname);
-  FSession.Variables.Open;
+  FSession.Variables.Active:=True;
   if FSession.Variables.Count > 0 then
     Result := FSession.Variables.FieldByName('VALUE').AsString;
 end;
@@ -137,7 +137,7 @@ procedure TBaseWebSession.SetSessionVariable(VarName: String;
 begin
   if FSession.Count = 0 then exit;
   FSession.Variables.Select(Varname);
-  FSession.Variables.Open;
+  FSession.Variables.Active:=True;
   try
     if FSession.Variables.Count = 0 then
       FSession.Variables.DataSet.Insert
