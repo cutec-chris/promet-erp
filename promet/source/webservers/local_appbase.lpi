@@ -48,7 +48,7 @@
           </CodeGeneration>
           <Linking>
             <Debugging>
-              <DebugInfoType Value="dsDwarf2Set"/>
+              <DebugInfoType Value="dsDwarf2"/>
               <UseHeaptrc Value="True"/>
               <TrashVariables Value="True"/>
               <UseExternalDbgSyms Value="True"/>
@@ -173,7 +173,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="5">
+    <Exceptions Count="6">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -189,6 +189,9 @@
       <Item5>
         <Name Value="EAccessViolation"/>
       </Item5>
+      <Item6>
+        <Name Value="RunError(216)"/>
+      </Item6>
     </Exceptions>
   </Debugging>
 </CONFIG>

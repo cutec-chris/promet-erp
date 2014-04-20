@@ -578,6 +578,7 @@ begin
         inherited InternalOpen;
       end;
   end;
+  try
   if Assigned(FOrigTable) then
     begin
       FOrigTable.SetDisplayLabels(Self);
@@ -607,6 +608,9 @@ begin
           EnableControls;
         end;
     end;
+  except
+    FOrigTable:=nil;
+  end;
 end;
 
 procedure TZeosDBDataSet.InternalRefresh;
