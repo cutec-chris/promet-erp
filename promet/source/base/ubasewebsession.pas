@@ -158,6 +158,9 @@ begin
 end;
 destructor TBaseWebSession.Destroy;
 begin
+  {$ifdef DEBUG}
+  debugln('Session '+SessionID+' Destroy');
+  {$endif}
   try
     FSession.Destroy;
   except
@@ -286,6 +289,9 @@ begin
     begin
       Self.Variables['Forwarded'] := AnsiToUTF8(ARequest.GetFieldByName('HTTP_X_FORWARDED_FOR'));
     end;
+  {$ifdef DEBUG}
+  debugln('Session '+SessionID+' Init');
+  {$endif}
 end;
 procedure TBaseWebSession.InitResponse(AResponse: TResponse);
 Var
@@ -411,6 +417,9 @@ var
   aLogin: String;
   aResult: Boolean = false;
 begin
+  {$ifdef DEBUG}
+  debugln('Session '+SessionID+' '+CheckLogin);
+  {$endif}
   Result := false;
   aLogin := Variables['LOGIN'];
   aResult := aLogin <> '';
