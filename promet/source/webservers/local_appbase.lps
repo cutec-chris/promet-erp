@@ -3,7 +3,7 @@
   <ProjectSession>
     <Version Value="9"/>
     <BuildModes Active="Debug"/>
-    <Units Count="47">
+    <Units Count="42">
       <Unit0>
         <Filename Value="local_appbase.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -22,11 +22,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="umain"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="157"/>
-        <CursorPos X="37" Y="172"/>
+        <TopLine Value="418"/>
+        <CursorPos X="1" Y="435"/>
         <FoldState Value=" T3tf0{ox"/>
         <UsageCount Value="209"/>
         <Loaded Value="True"/>
@@ -38,7 +37,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="2" Y="26"/>
-        <UsageCount Value="186"/>
+        <UsageCount Value="210"/>
         <DefaultSyntaxHighlighter Value="JScript"/>
       </Unit2>
       <Unit3>
@@ -47,16 +46,16 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="2"/>
       </Unit3>
       <Unit4>
         <Filename Value="../base/dbintfs/ustatistic.pas"/>
         <UnitName Value="uStatistic"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="43"/>
         <CursorPos X="14" Y="54"/>
-        <UsageCount Value="61"/>
+        <UsageCount Value="76"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
@@ -65,7 +64,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="236"/>
         <CursorPos X="34" Y="248"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="2"/>
       </Unit5>
       <Unit6>
         <Filename Value="../../../../fpc/2.6_fixes/packages/fcl-db/src/base/db.pas"/>
@@ -73,7 +72,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="93"/>
         <CursorPos X="3" Y="110"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="2"/>
       </Unit6>
       <Unit7>
         <Filename Value="../../../../../Programme/lazarus/fpc/2.6.1/source/packages/fcl-web/src/base/httpdefs.pp"/>
@@ -81,7 +80,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="200"/>
         <CursorPos X="95" Y="197"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="2"/>
       </Unit7>
       <Unit8>
         <Filename Value="../../../../../Programme/lazarus/fpc/2.6.1/source/packages/fcl-web/src/base/custhttpapp.pp"/>
@@ -89,7 +88,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="2"/>
       </Unit8>
       <Unit9>
         <Filename Value="../../../LKomponenten/zeos/src/plain/ZPlainDbLibDriver.pas"/>
@@ -97,7 +96,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="583"/>
         <CursorPos X="1" Y="601"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="2"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit9>
       <Unit10>
@@ -106,17 +105,18 @@
         <WindowIndex Value="0"/>
         <TopLine Value="2744"/>
         <CursorPos X="1" Y="2769"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="2"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit10>
       <Unit11>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="6"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="561"/>
-        <CursorPos X="1" Y="583"/>
-        <UsageCount Value="52"/>
+        <TopLine Value="586"/>
+        <CursorPos X="24" Y="588"/>
+        <UsageCount Value="67"/>
         <Loaded Value="True"/>
       </Unit11>
       <Unit12>
@@ -125,16 +125,16 @@
         <WindowIndex Value="0"/>
         <TopLine Value="46"/>
         <CursorPos X="1" Y="74"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="12"/>
       </Unit12>
       <Unit13>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2221"/>
         <CursorPos X="3" Y="2225"/>
-        <UsageCount Value="53"/>
+        <UsageCount Value="68"/>
         <Loaded Value="True"/>
       </Unit13>
       <Unit14>
@@ -143,7 +143,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="88"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="2"/>
       </Unit14>
       <Unit15>
         <Filename Value="../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-web/src/base/httpdefs.pp"/>
@@ -151,16 +151,16 @@
         <WindowIndex Value="0"/>
         <TopLine Value="80"/>
         <CursorPos X="22" Y="90"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="2"/>
       </Unit15>
       <Unit16>
         <Filename Value="../base/ubasehttpapplication.pas"/>
         <UnitName Value="ubasehttpapplication"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="120"/>
-        <CursorPos X="18" Y="147"/>
-        <UsageCount Value="36"/>
+        <TopLine Value="135"/>
+        <CursorPos X="2" Y="158"/>
+        <UsageCount Value="51"/>
         <Loaded Value="True"/>
       </Unit16>
       <Unit17>
@@ -169,382 +169,362 @@
         <WindowIndex Value="0"/>
         <TopLine Value="746"/>
         <CursorPos X="1" Y="779"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="12"/>
       </Unit17>
       <Unit18>
-        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.1/source/packages/fcl-web/src/base/custhttpapp.pp"/>
-        <UnitName Value="custhttpapp"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="27"/>
-        <CursorPos X="14" Y="193"/>
-        <UsageCount Value="2"/>
-      </Unit18>
-      <Unit19>
-        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.1/source/packages/fcl-web/src/base/custweb.pp"/>
-        <UnitName Value="custweb"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="323"/>
-        <CursorPos X="22" Y="330"/>
-        <UsageCount Value="2"/>
-      </Unit19>
-      <Unit20>
         <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.1/source/packages/fcl-base/src/custapp.pp"/>
         <UnitName Value="CustApp"/>
         <WindowIndex Value="0"/>
         <TopLine Value="69"/>
         <CursorPos X="14" Y="86"/>
-        <UsageCount Value="5"/>
-      </Unit20>
-      <Unit21>
-        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.1/source/packages/fcl-web/src/base/fphttpserver.pp"/>
-        <UnitName Value="fphttpserver"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="27"/>
-        <CursorPos X="22" Y="54"/>
         <UsageCount Value="2"/>
-      </Unit21>
-      <Unit22>
+      </Unit18>
+      <Unit19>
         <Filename Value="W:/6_Öffentliche Daten/05_JavaStat/js/addsollist.js"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="2"/>
         <DefaultSyntaxHighlighter Value="JScript"/>
-      </Unit22>
-      <Unit23>
+      </Unit19>
+      <Unit20>
         <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-web/src/base/fphttp.pp"/>
         <UnitName Value="fphttp"/>
         <WindowIndex Value="0"/>
         <TopLine Value="112"/>
         <CursorPos X="29" Y="129"/>
-        <UsageCount Value="10"/>
-      </Unit23>
-      <Unit24>
+        <UsageCount Value="7"/>
+      </Unit20>
+      <Unit21>
         <Filename Value="../base/ubasewebsession.pas"/>
         <UnitName Value="uBaseWebSession"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="31"/>
-        <CursorPos X="29" Y="34"/>
-        <UsageCount Value="58"/>
+        <TopLine Value="403"/>
+        <CursorPos X="1" Y="431"/>
+        <UsageCount Value="73"/>
         <Loaded Value="True"/>
-      </Unit24>
-      <Unit25>
-        <Filename Value="../../../apps/promet/login.html"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="25"/>
-        <CursorPos X="19" Y="57"/>
-        <UsageCount Value="2"/>
-        <DefaultSyntaxHighlighter Value="HTML"/>
-      </Unit25>
-      <Unit26>
+      </Unit21>
+      <Unit22>
         <Filename Value="../../../apps/promet/js/framework.js"/>
         <WindowIndex Value="0"/>
         <TopLine Value="47"/>
         <CursorPos X="21" Y="81"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="2"/>
         <DefaultSyntaxHighlighter Value="JScript"/>
-      </Unit26>
-      <Unit27>
-        <Filename Value="../../../apps/promet/js/library.js"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="18" Y="8"/>
-        <UsageCount Value="3"/>
-        <DefaultSyntaxHighlighter Value="JScript"/>
-      </Unit27>
-      <Unit28>
+      </Unit22>
+      <Unit23>
         <Filename Value="../../../apps/promet/index.html"/>
         <WindowIndex Value="0"/>
         <TopLine Value="15"/>
         <CursorPos X="34" Y="15"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="3"/>
         <DefaultSyntaxHighlighter Value="HTML"/>
-      </Unit28>
-      <Unit29>
+      </Unit23>
+      <Unit24>
         <Filename Value="../../../apps/promet/tasks.html"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="55" Y="22"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="1"/>
         <DefaultSyntaxHighlighter Value="HTML"/>
-      </Unit29>
-      <Unit30>
-        <Filename Value="../../../apps/promet/history.html"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="73" Y="10"/>
-        <UsageCount Value="3"/>
-        <DefaultSyntaxHighlighter Value="HTML"/>
-      </Unit30>
-      <Unit31>
-        <Filename Value="../../../apps/promet/timeregistering.html"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="75" Y="11"/>
-        <UsageCount Value="3"/>
-        <DefaultSyntaxHighlighter Value="HTML"/>
-      </Unit31>
-      <Unit32>
+      </Unit24>
+      <Unit25>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1117"/>
         <CursorPos X="4" Y="1128"/>
-        <UsageCount Value="57"/>
+        <UsageCount Value="72"/>
         <Loaded Value="True"/>
-      </Unit32>
-      <Unit33>
+      </Unit25>
+      <Unit26>
         <Filename Value="../components/zeos/src/component/ZAbstractRODataset.pas"/>
         <UnitName Value="ZAbstractRODataset"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="887"/>
         <CursorPos X="1" Y="904"/>
-        <UsageCount Value="32"/>
+        <UsageCount Value="47"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit33>
-      <Unit34>
+      </Unit26>
+      <Unit27>
         <Filename Value="../components/zeos/src/component/ZAbstractConnection.pas"/>
         <UnitName Value="ZAbstractConnection"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1113"/>
         <CursorPos X="1" Y="1145"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="7"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit34>
-      <Unit35>
+      </Unit27>
+      <Unit28>
         <Filename Value="../base/dbintfs/uprojects.pas"/>
         <UnitName Value="uProjects"/>
         <WindowIndex Value="0"/>
         <TopLine Value="498"/>
         <CursorPos X="31" Y="522"/>
-        <UsageCount Value="11"/>
-      </Unit35>
-      <Unit36>
+        <UsageCount Value="8"/>
+      </Unit28>
+      <Unit29>
         <Filename Value="/usr/share/fpcsrc/2.6.2/packages/fcl-db/src/sql/fpsqltree.pp"/>
         <UnitName Value="fpsqltree"/>
         <WindowIndex Value="0"/>
         <TopLine Value="75"/>
         <CursorPos X="3" Y="92"/>
-        <UsageCount Value="9"/>
-      </Unit36>
-      <Unit37>
+        <UsageCount Value="6"/>
+      </Unit29>
+      <Unit30>
         <Filename Value="../components/zeos/src/dbc/ZDbcPostgreSqlUtils.pas"/>
         <UnitName Value="ZDbcPostgreSqlUtils"/>
         <WindowIndex Value="0"/>
         <TopLine Value="709"/>
         <CursorPos X="38" Y="724"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="7"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit37>
-      <Unit38>
+      </Unit30>
+      <Unit31>
         <Filename Value="../base/dbintfs/usync.pas"/>
         <UnitName Value="usync"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="478"/>
         <CursorPos X="1" Y="534"/>
-        <UsageCount Value="64"/>
+        <UsageCount Value="79"/>
         <Loaded Value="True"/>
-      </Unit38>
-      <Unit39>
+      </Unit31>
+      <Unit32>
         <Filename Value="/usr/share/fpcsrc/2.6.2/packages/fcl-js/src/jstree.pp"/>
         <UnitName Value="jstree"/>
         <WindowIndex Value="0"/>
         <TopLine Value="124"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
-      </Unit39>
-      <Unit40>
+        <UsageCount Value="7"/>
+      </Unit32>
+      <Unit33>
         <Filename Value="/usr/share/fpcsrc/2.6.2/packages/fcl-json/src/jsonparser.pp"/>
         <UnitName Value="jsonparser"/>
         <WindowIndex Value="0"/>
         <TopLine Value="22"/>
         <CursorPos X="14" Y="28"/>
-        <UsageCount Value="7"/>
-      </Unit40>
-      <Unit41>
+        <UsageCount Value="4"/>
+      </Unit33>
+      <Unit34>
         <Filename Value="/usr/share/fpcsrc/2.6.2/packages/fcl-json/src/jsonscanner.pp"/>
         <UnitName Value="jsonscanner"/>
         <WindowIndex Value="0"/>
         <TopLine Value="40"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
-      </Unit41>
-      <Unit42>
+        <UsageCount Value="7"/>
+      </Unit34>
+      <Unit35>
         <Filename Value="/usr/share/fpcsrc/2.6.2/packages/fcl-json/src/fpjson.pp"/>
         <UnitName Value="fpjson"/>
         <WindowIndex Value="0"/>
         <TopLine Value="457"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="7"/>
-      </Unit42>
-      <Unit43>
+        <UsageCount Value="4"/>
+      </Unit35>
+      <Unit36>
         <Filename Value="/usr/share/fpcsrc/2.6.2/packages/fcl-base/src/contnrs.pp"/>
         <UnitName Value="contnrs"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1841"/>
         <CursorPos X="3" Y="1844"/>
-        <UsageCount Value="10"/>
-      </Unit43>
-      <Unit44>
+        <UsageCount Value="7"/>
+      </Unit36>
+      <Unit37>
         <Filename Value="uprometimap.pas"/>
         <UnitName Value="uprometimap"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="383"/>
         <CursorPos X="1" Y="401"/>
-        <UsageCount Value="40"/>
+        <UsageCount Value="55"/>
         <Loaded Value="True"/>
-      </Unit44>
-      <Unit45>
+      </Unit37>
+      <Unit38>
         <Filename Value="../components/zeos/src/dbc/ZDbcCache.pas"/>
         <UnitName Value="ZDbcCache"/>
         <WindowIndex Value="0"/>
         <TopLine Value="668"/>
         <CursorPos X="62" Y="677"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="7"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit45>
-      <Unit46>
+      </Unit38>
+      <Unit39>
         <Filename Value="/usr/share/fpcsrc/2.6.2/packages/fcl-web/src/base/custhttpapp.pp"/>
         <UnitName Value="custhttpapp"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="77"/>
-        <CursorPos X="19" Y="82"/>
-        <UsageCount Value="11"/>
+        <TopLine Value="22"/>
+        <CursorPos X="41" Y="32"/>
+        <UsageCount Value="26"/>
         <Loaded Value="True"/>
-      </Unit46>
+      </Unit39>
+      <Unit40>
+        <Filename Value="/usr/share/fpcsrc/2.6.2/packages/fcl-web/src/base/custweb.pp"/>
+        <UnitName Value="custweb"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="93"/>
+        <CursorPos X="14" Y="109"/>
+        <UsageCount Value="7"/>
+      </Unit40>
+      <Unit41>
+        <Filename Value="/usr/share/fpcsrc/2.6.2/packages/fcl-web/src/base/fphttpserver.pp"/>
+        <UnitName Value="fphttpserver"/>
+        <EditorIndex Value="4"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="643"/>
+        <CursorPos X="3" Y="651"/>
+        <UsageCount Value="25"/>
+        <Loaded Value="True"/>
+      </Unit41>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../base/ubasewebsession.pas"/>
-        <Caret Line="194" Column="16" TopLine="186"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="435" Column="1" TopLine="418"/>
       </Position1>
       <Position2>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="569" Column="1" TopLine="561"/>
+        <Filename Value="../base/ubasewebsession.pas"/>
+        <Caret Line="413" Column="1" TopLine="396"/>
       </Position2>
       <Position3>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="568" Column="1" TopLine="561"/>
+        <Filename Value="../base/ubasewebsession.pas"/>
+        <Caret Line="410" Column="1" TopLine="396"/>
       </Position3>
       <Position4>
-        <Filename Value="local_appbase.lpr"/>
-        <Caret Line="26" Column="1" TopLine="1"/>
+        <Filename Value="../base/ubasewebsession.pas"/>
+        <Caret Line="414" Column="1" TopLine="396"/>
       </Position4>
       <Position5>
         <Filename Value="../base/ubasewebsession.pas"/>
-        <Caret Line="267" Column="9" TopLine="311"/>
+        <Caret Line="415" Column="1" TopLine="396"/>
       </Position5>
       <Position6>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="568" Column="1" TopLine="561"/>
+        <Filename Value="../base/ubasewebsession.pas"/>
+        <Caret Line="416" Column="1" TopLine="396"/>
       </Position6>
       <Position7>
         <Filename Value="../base/ubasewebsession.pas"/>
-        <Caret Line="264" Column="1" TopLine="236"/>
+        <Caret Line="417" Column="1" TopLine="396"/>
       </Position7>
       <Position8>
         <Filename Value="../base/ubasewebsession.pas"/>
-        <Caret Line="140" Column="34" TopLine="140"/>
+        <Caret Line="429" Column="1" TopLine="401"/>
       </Position8>
       <Position9>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="577" Column="33" TopLine="561"/>
+        <Filename Value="../base/ubasewebsession.pas"/>
+        <Caret Line="430" Column="1" TopLine="402"/>
       </Position9>
       <Position10>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="576" Column="13" TopLine="561"/>
+        <Filename Value="../base/ubasewebsession.pas"/>
+        <Caret Line="433" Column="1" TopLine="405"/>
       </Position10>
       <Position11>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="568" Column="1" TopLine="561"/>
+        <Filename Value="../base/ubasewebsession.pas"/>
+        <Caret Line="434" Column="1" TopLine="406"/>
       </Position11>
       <Position12>
-        <Filename Value="../components/zeos/src/component/ZAbstractRODataset.pas"/>
-        <Caret Line="535" Column="1" TopLine="518"/>
+        <Filename Value="../base/ubasewebsession.pas"/>
+        <Caret Line="435" Column="1" TopLine="406"/>
       </Position12>
       <Position13>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="576" Column="15" TopLine="561"/>
+        <Filename Value="../base/ubasewebsession.pas"/>
+        <Caret Line="436" Column="1" TopLine="406"/>
       </Position13>
       <Position14>
-        <Filename Value="../components/zeos/src/component/ZAbstractRODataset.pas"/>
-        <Caret Line="536" Column="1" TopLine="518"/>
+        <Filename Value="../base/ubasewebsession.pas"/>
+        <Caret Line="437" Column="1" TopLine="406"/>
       </Position14>
       <Position15>
-        <Filename Value="../base/ubasewebsession.pas"/>
-        <Caret Line="107" Column="1" TopLine="91"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="520" Column="1" TopLine="503"/>
       </Position15>
       <Position16>
-        <Filename Value="../base/ubasewebsession.pas"/>
-        <Caret Line="108" Column="1" TopLine="91"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="435" Column="1" TopLine="418"/>
       </Position16>
       <Position17>
-        <Filename Value="../base/ubasewebsession.pas"/>
-        <Caret Line="109" Column="1" TopLine="91"/>
+        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
+        <Caret Line="583" Column="1" TopLine="561"/>
       </Position17>
       <Position18>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="568" Column="1" TopLine="561"/>
+        <Filename Value="../components/zeos/src/component/ZAbstractRODataset.pas"/>
+        <Caret Line="904" Column="1" TopLine="887"/>
       </Position18>
       <Position19>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="569" Column="1" TopLine="561"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="435" Column="1" TopLine="418"/>
       </Position19>
       <Position20>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="570" Column="1" TopLine="561"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="520" Column="1" TopLine="503"/>
       </Position20>
       <Position21>
-        <Filename Value="../base/ubasewebsession.pas"/>
-        <Caret Line="59" Column="15" TopLine="42"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="435" Column="1" TopLine="418"/>
       </Position21>
       <Position22>
         <Filename Value="../base/ubasewebsession.pas"/>
-        <Caret Line="85" Column="1" TopLine="68"/>
+        <Caret Line="413" Column="1" TopLine="406"/>
       </Position22>
       <Position23>
         <Filename Value="../base/ubasewebsession.pas"/>
-        <Caret Line="87" Column="1" TopLine="68"/>
+        <Caret Line="410" Column="1" TopLine="403"/>
       </Position23>
       <Position24>
         <Filename Value="../base/ubasewebsession.pas"/>
-        <Caret Line="76" Column="1" TopLine="68"/>
+        <Caret Line="414" Column="1" TopLine="403"/>
       </Position24>
       <Position25>
         <Filename Value="../base/ubasewebsession.pas"/>
-        <Caret Line="34" Column="29" TopLine="31"/>
+        <Caret Line="415" Column="1" TopLine="403"/>
       </Position25>
       <Position26>
-        <Filename Value="umain.pas"/>
-        <Caret Line="333" Column="34" TopLine="308"/>
+        <Filename Value="../base/ubasewebsession.pas"/>
+        <Caret Line="416" Column="1" TopLine="403"/>
       </Position26>
       <Position27>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="583" Column="1" TopLine="561"/>
+        <Filename Value="../base/ubasewebsession.pas"/>
+        <Caret Line="417" Column="1" TopLine="403"/>
       </Position27>
       <Position28>
-        <Filename Value="umain.pas"/>
-        <Caret Line="333" Column="34" TopLine="308"/>
+        <Filename Value="../base/ubasewebsession.pas"/>
+        <Caret Line="429" Column="1" TopLine="403"/>
       </Position28>
       <Position29>
-        <Filename Value="umain.pas"/>
-        <Caret Line="297" Column="36" TopLine="282"/>
+        <Filename Value="../base/ubasewebsession.pas"/>
+        <Caret Line="430" Column="1" TopLine="403"/>
       </Position29>
       <Position30>
-        <Filename Value="umain.pas"/>
-        <Caret Line="349" Column="39" TopLine="334"/>
+        <Filename Value="../base/ubasewebsession.pas"/>
+        <Caret Line="431" Column="1" TopLine="403"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>
+  <Debugging>
+    <BreakPoints Count="2">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="../base/ubasehttpapplication.pas"/>
+        <Line Value="160"/>
+      </Item1>
+      <Item2>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="umain.pas"/>
+        <Line Value="435"/>
+      </Item2>
+    </BreakPoints>
+  </Debugging>
   <EditorMacros Count="0"/>
 </CONFIG>
