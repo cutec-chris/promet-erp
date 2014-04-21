@@ -41,15 +41,34 @@ type
   end;
   TPersonHistory = class(TBaseHistory)
   end;
+
+  { TBaseDbAddress }
+
   TBaseDbAddress = class(TBaseDBList)
+  private
+    function GetAddress: TField;
+    function GetCity: TField;
+    function GetCountry: TField;
+    function GetName: TField;
+    function GetTitle: TField;
+    function GetZip: TField;
   public
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure Assign(Source: TPersistent); override;
     procedure FillDefaults(aDataSet : TDataSet);override;
     function ToString: ansistring;override;
     procedure FromString(aStr : AnsiString);
+    property Title : TField read GetTitle;
+    property AdressName : TField read GetName;
+    property Address : TField read GetAddress;
+    property Country : TField read GetCountry;
+    property City : TField read GetCity;
+    property Zip : TField read GetZip;
   end;
   TPerson = class;
+
+  { TPersonAddress }
+
   TPersonAddress = class(TBaseDBAddress)
   public
     procedure DefineFields(aDataSet : TDataSet);override;
@@ -101,7 +120,9 @@ type
     FSTatus : string;
     FDS : TDataSource;
     FStateChange: TNotifyEvent;
+    function GetAccountNo: TField;
     function GetHistory: TBaseHistory;
+    function GetInfo: TField;
   public
     constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
@@ -118,6 +139,8 @@ type
     property Banking : TPersonBanking read FBanking;
     property Links : TPersonLinks read FLinks;
     property Employees : TPersonEmployees read FEmployees;
+    property AccountNo : TField read GetAccountNo;
+    property Info : TField read GetInfo;
     function SelectFromLink(aLink : string) : Boolean;override;
     property OnStateChange : TNotifyEvent read FStateChange write FStateChange;
   end;
@@ -312,6 +335,7 @@ function TPersonContactData.GetTextFieldName: string;
 begin
   Result := 'DATA';
 end;
+
 procedure TPersonAddress.DefineFields(aDataSet: TDataSet);
 begin
   inherited DefineFields(aDataSet);
@@ -350,6 +374,37 @@ function TPersonAddress.GetDescriptionFieldName: string;
 begin
   Result:= 'ADDRESS';
 end;
+
+function TBaseDbAddress.GetAddress: TField;
+begin
+  Result := DataSet.FindField('ADDRESS');
+end;
+
+function TBaseDbAddress.GetCity: TField;
+begin
+  Result := DataSet.FindField('CITY');
+end;
+
+function TBaseDbAddress.GetCountry: TField;
+begin
+  Result := DataSet.FindField('COUNTRY');
+end;
+
+function TBaseDbAddress.GetName: TField;
+begin
+  Result := DataSet.FindField('NAME');
+end;
+
+function TBaseDbAddress.GetTitle: TField;
+begin
+  Result := DataSet.FindField('TITLE');
+end;
+
+function TBaseDbAddress.GetZip: TField;
+begin
+  Result := DataSet.FindField('ZIP');
+end;
+
 procedure TBaseDbAddress.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do
@@ -374,22 +429,22 @@ begin
 end;
 procedure TBaseDbAddress.Assign(Source: TPersistent);
 var
-  Address: TBaseDbAddress;
+  aAddress: TBaseDbAddress;
   Person: TPerson;
 begin
   if Source is TBaseDBAddress then
     begin
       if (DataSet.State <> dsInsert) and (DataSet.State <> dsEdit) then
         DataSet.Edit;
-      Address := Source as TBaseDbAddress;
-      DataSet.FieldByName('TITLE').AsString := Address.FieldByName('TITLE').AsString;
-      DataSet.FieldByName('NAME').AsString := Address.FieldByName('NAME').AsString;
-      DataSet.FieldByName('ADDITIONAL').AsString := Address.FieldByName('ADDITIONAL').AsString;
-      DataSet.FieldByName('ADDRESS').AsString := Address.FieldByName('ADDRESS').AsString;
-      DataSet.FieldByName('CITY').AsString := Address.FieldByName('CITY').AsString;
-      DataSet.FieldByName('ZIP').AsString := Address.FieldByName('ZIP').AsString;
-      DataSet.FieldByName('STATE').AsString := Address.FieldByName('STATE').AsString;
-      DataSet.FieldByName('COUNTRY').AsString := Address.FieldByName('COUNTRY').AsString;
+      aAddress := Source as TBaseDbAddress;
+      DataSet.FieldByName('TITLE').AsString := aAddress.FieldByName('TITLE').AsString;
+      DataSet.FieldByName('NAME').AsString := aAddress.FieldByName('NAME').AsString;
+      DataSet.FieldByName('ADDITIONAL').AsString := aAddress.FieldByName('ADDITIONAL').AsString;
+      DataSet.FieldByName('ADDRESS').AsString := aAddress.FieldByName('ADDRESS').AsString;
+      DataSet.FieldByName('CITY').AsString := aAddress.FieldByName('CITY').AsString;
+      DataSet.FieldByName('ZIP').AsString := aAddress.FieldByName('ZIP').AsString;
+      DataSet.FieldByName('STATE').AsString := aAddress.FieldByName('STATE').AsString;
+      DataSet.FieldByName('COUNTRY').AsString := aAddress.FieldByName('COUNTRY').AsString;
     end
   else if Source is TPerson then
     begin
@@ -588,6 +643,16 @@ end;
 function TPerson.GetHistory: TBaseHistory;
 begin
   Result := History;
+end;
+
+function TPerson.GetInfo: TField;
+begin
+  Result := DataSet.FieldByName('INFO');
+end;
+
+function TPerson.GetAccountNo: TField;
+begin
+  Result := DataSet.FieldByName('ACCOUNTNO');
 end;
 constructor TPerson.Create(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
   aMasterdata: TDataSet);
