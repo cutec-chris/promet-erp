@@ -1410,12 +1410,15 @@ end;
 
 procedure TZeosDBDM.DestroyDataSet(DataSet: TDataSet);
 begin
-  if Assigned(TZeosDBDataSet(DataSet).MasterSource) then
+  try
+  if Assigned(DataSet) and Assigned(TZeosDBDataSet(DataSet).MasterSource) then
     begin
       TZeosDBDataSet(DataSet).MasterSource.DataSet.DataSource.Free;
       TZeosDBDataSet(DataSet).MasterSource := nil;
       TZeosDBDataSet(DataSet).DataSource := nil;
     end;
+  except
+  end;
 end;
 
 function TZeosDBDM.Ping(aConnection: TComponent): Boolean;

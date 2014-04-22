@@ -627,6 +627,7 @@ begin
   finally
     s.Free;
   end;
+  Post;
 end;
 
 constructor TLinks.Create(aOwner: TComponent; DM: TComponent;
