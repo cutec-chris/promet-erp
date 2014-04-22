@@ -19,7 +19,7 @@ begin
     P:=AddPackage('lnet') as TLazPackage;
     p.AfterInstall := @TLazInstaller(Installer).DoRegisterLazarusPackages;
 
-    P.Version:='0.6.4-2527';
+    P.Version:='0.6.6-2596';
     P.OSes:=AllUnixOSes+[Win32,Win64];
     P.Author := 'Aleš Katona';
     P.License := 'LGPL with modification, Examples: GPL2';
@@ -31,7 +31,9 @@ begin
 {$ELSE VER_2_4_0}
     P.Options.add('-Sm');
 {$ENDIF VER_2_4_0}
+    P.SupportBuildModes:=[bmOneByOne];
 
+    P.Dependencies.Add('lazmkunit');
     P.Dependencies.Add('fcl-net');
     P.Dependencies.Add('fcl-base');
     P.Dependencies.Add('fcl-process');
@@ -39,9 +41,11 @@ begin
 //    P.NeedLibC:= true;  // true for headers that indirectly link to libc?
 
     T:=P.Targets.AddUnit('lib/lws2tcpip.pp',AllOSes-AllUnixOSes);
+    T:=P.Targets.AddUnit('lib/lws2override.pp',AllOSes-AllUnixOSes);
     T:=P.Targets.AddUnit('lib/lcommon.pp');
     with T.Dependencies do
       begin
+      AddUnit('lws2override',AllOSes-AllUnixOSes);
       AddUnit('lws2tcpip',AllOSes-AllUnixOSes);
       AddInclude('lib/sys/osunits.inc');
       end;

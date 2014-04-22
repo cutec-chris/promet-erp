@@ -40,7 +40,7 @@ type
 
   TLFTPStatus = (fsNone, fsCon, fsUser, fsPass, fsPasv, fsPort, fsList, fsRetr,
                  fsStor, fsType, fsCWD, fsMKD, fsRMD, fsDEL, fsRNFR, fsRNTO,
-                 fsSYS, fsFeat, fsPWD, fsHelp, fsLast);
+                 fsSYS, fsFeat, fsPWD, fsHelp, fsQuit, fsLast);
                  
   TLFTPStatusSet = set of TLFTPStatus;
                  
@@ -213,7 +213,9 @@ type
     procedure ListFeatures;
     procedure PresentWorkingDirectory;
     procedure Help(const Arg: string);
-    
+    // Kiewitz
+    procedure Quit;
+
     procedure Disconnect(const Forced: Boolean = False); override;
     
     procedure CallAction; override;
@@ -254,7 +256,7 @@ const
                                                 'Store', 'Type', 'CWD', 'MKDIR',
                                                 'RMDIR', 'Delete', 'RenameFrom',
                                                 'RenameTo', 'System', 'Features',
-                                                'PWD', 'HELP', 'LAST');
+                                                'PWD', 'HELP', 'QUIT', 'LAST');
 
 procedure Writedbg(const ar: array of const);
 {$ifdef debug}
@@ -654,8 +656,11 @@ procedure TLFTPClient.EvaluateAnswer(const Ans: string);
         aPort := 0;
       end;
       Writedbg(['Server PASV addr/port - ', aIP, ' : ', aPort]);
-      if (aPort > 0) and FData.Connect(aIP, aPort) then
+      if (aPort > 0) and FData.Connect(aIP, aPort) then begin
         Writedbg(['Connected after PASV']);
+        // Short delay for Windows CE, had aborted connection errors w/o it
+        //Sleep(50);
+      end;
       sl.Free;
       FStatus.Remove;
     end;
@@ -917,6 +922,17 @@ begin
                    else
                      begin
                        FFeatureString := '';
+                       Eventize(FStatus.First.Status, False);
+                     end;
+                 end;
+        fsQUIT : case x of
+                   221:
+                     begin
+                       FStatusFlags[FStatus.First.Status] := True;
+                       Eventize(FStatus.First.Status, True);
+                     end;
+                   else
+                     begin
                        Eventize(FStatus.First.Status, False);
                      end;
                  end;
@@ -1230,6 +1246,14 @@ begin
   if CanContinue(fsHelp, Arg, '') then begin
     FStatus.Insert(MakeStatusRec(fsHelp, Arg, ''));
     FControl.SendMessage('HELP ' + Arg + FLE);
+  end;
+end;
+
+procedure TLFTPClient.Quit;
+begin
+  if CanContinue(fsQuit, '', '') then begin
+    FStatus.Insert(MakeStatusRec(fsQuit, '', ''));
+    FControl.SendMessage('QUIT' + FLE);
   end;
 end;
 

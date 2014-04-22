@@ -45,6 +45,7 @@ function THTTPHandler.ClientInput(ASocket: TLHTTPClientSocket;
 begin
   blockwrite(outputfile, ABuffer^, ASize, Result);
   write(IntToStr(ASize) + '...');
+  Result := ASize;
 end;
 
 procedure THTTPHandler.ClientProcessHeaders(ASocket: TLHTTPClientSocket);
