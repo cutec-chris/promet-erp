@@ -7,6 +7,6 @@ Installation
 ------------
 1) open the pack_powerpdf.lpi file in Lazarus.
 2) click compile button
-3) if compiling went OK, click install button
+3) if compiling went OK, click the "Use >>" button and select "install"
 4) restart the IDE, if that doesn't happen automaticaly
 
