@@ -128,11 +128,11 @@
     <RequiredPkgs Count="5">
       <Item1>
         <PackageName Value="pVisualPrometApp"/>
-        <DefaultFilename Value="../base/pvisualprometapp.lpk"/>
+        <DefaultFilename Value="../pvisualprometapp.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="lazreport_addons"/>
-        <DefaultFilename Value="../components/lazreport/lazreport_addons.lpk"/>
+        <DefaultFilename Value="../../components/lazreport/lazreport_addons.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="lr_DialogDesign"/>

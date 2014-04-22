@@ -36,7 +36,7 @@
       </Item2>
       <Item3>
         <PackageName Value="pvisualbaseframes"/>
-        <DefaultFilename Value="../base_frames/pvisualbaseframes.lpk"/>
+        <DefaultFilename Value="../base/base_frames/pvisualbaseframes.lpk"/>
       </Item3>
       <Item4>
         <PackageName Value="jvRuntimeDesign"/>

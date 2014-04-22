@@ -38,15 +38,15 @@
     <RequiredPkgs Count="4">
       <Item1>
         <PackageName Value="pVisualPrometApp"/>
-        <DefaultFilename Value="../base/pvisualprometapp.lpk"/>
+        <DefaultFilename Value="../pvisualprometapp.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="laz_tapi"/>
-        <DefaultFilename Value="../components/tapi/laz_tapi.lpk"/>
+        <DefaultFilename Value="../../components/tapi/laz_tapi.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="general_nogui"/>
-        <DefaultFilename Value="../../../general/general_nogui.lpk"/>
+        <DefaultFilename Value="../../../../general/general_nogui.lpk"/>
       </Item3>
       <Item4>
         <PackageName Value="FCL"/>

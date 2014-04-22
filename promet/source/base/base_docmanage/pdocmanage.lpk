@@ -40,6 +40,7 @@
     <RequiredPkgs Count="4">
       <Item1>
         <PackageName Value="pvisualframes"/>
+        <DefaultFilename Value="../base_frames/pvisualframes.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="pdocuments"/>
@@ -47,7 +48,7 @@
       </Item2>
       <Item3>
         <PackageName Value="thumbctrl"/>
-        <DefaultFilename Value="../components/thumbs/thumbctrl.lpk"/>
+        <DefaultFilename Value="../../components/thumbs/thumbctrl.lpk"/>
       </Item3>
       <Item4>
         <PackageName Value="FCL"/>

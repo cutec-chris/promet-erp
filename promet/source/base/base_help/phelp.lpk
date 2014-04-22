@@ -46,10 +46,10 @@
       </Item8>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="6">
+    <RequiredPkgs Count="5">
       <Item1>
         <PackageName Value="sql_parser"/>
-        <DefaultFilename Value="../components/sqlparser/sql_parser.lpk"/>
+        <DefaultFilename Value="../../components/sqlparser/sql_parser.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="pDocuments"/>
@@ -66,10 +66,6 @@
       <Item5>
         <PackageName Value="TurboPowerIPro"/>
       </Item5>
-      <Item6>
-        <PackageName Value="wiki2html_pkg"/>
-        <DefaultFilename Value="../base_wiki/wiki2html_pkg.lpk"/>
-      </Item6>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

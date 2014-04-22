@@ -183,34 +183,38 @@
       </Item40>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="7">
+    <RequiredPkgs Count="8">
       <Item1>
-        <PackageName Value="laz_fpspreadsheet"/>
+        <PackageName Value="wiki2html_pkg"/>
+        <DefaultFilename Value="..\base_wiki\wiki2html_pkg.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="sql_parser"/>
-        <DefaultFilename Value="..\..\components\sqlparser\sql_parser.lpk"/>
+        <PackageName Value="general_nogui"/>
+        <DefaultFilename Value="..\..\..\..\general\general_nogui.lpk"/>
       </Item2>
       <Item3>
-        <PackageName Value="dexif_package"/>
-        <DefaultFilename Value="..\..\components\dexif\dexif_package.lpk"/>
+        <PackageName Value="laz_fpspreadsheet"/>
       </Item3>
       <Item4>
-        <PackageName Value="laz_synapse"/>
-        <DefaultFilename Value="..\..\components\synapse\laz_synapse.lpk"/>
+        <PackageName Value="sql_parser"/>
+        <DefaultFilename Value="..\..\components\sqlparser\sql_parser.lpk"/>
       </Item4>
       <Item5>
-        <PackageName Value="zcomponent"/>
-        <DefaultFilename Value="..\..\components\zeos\packages\lazarus\zcomponent.lpk"/>
+        <PackageName Value="dexif_package"/>
+        <DefaultFilename Value="..\..\components\dexif\dexif_package.lpk"/>
       </Item5>
       <Item6>
-        <PackageName Value="lnetbase"/>
-        <DefaultFilename Value="..\..\components\lnet\lazaruspackage\lnetbase.lpk"/>
+        <PackageName Value="laz_synapse"/>
+        <DefaultFilename Value="..\..\components\synapse\laz_synapse.lpk"/>
       </Item6>
       <Item7>
-        <PackageName Value="wiki2html_pkg"/>
-        <DefaultFilename Value="..\..\base_wiki\wiki2html_pkg.lpk"/>
+        <PackageName Value="zcomponent"/>
+        <DefaultFilename Value="..\..\components\zeos\packages\lazarus\zcomponent.lpk"/>
       </Item7>
+      <Item8>
+        <PackageName Value="lnetbase"/>
+        <DefaultFilename Value="..\..\components\lnet\lazaruspackage\lnetbase.lpk"/>
+      </Item8>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

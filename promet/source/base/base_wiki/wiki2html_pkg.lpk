@@ -42,7 +42,7 @@
     <RequiredPkgs Count="1">
       <Item1>
         <PackageName Value="general_nogui"/>
-        <DefaultFilename Value="..\..\..\general\general_nogui.lpk"/>
+        <DefaultFilename Value="..\..\..\..\general\general_nogui.lpk"/>
       </Item1>
     </RequiredPkgs>
     <UsageOptions>

@@ -84,11 +84,11 @@
       </Item3>
       <Item4>
         <PackageName Value="general"/>
-        <DefaultFilename Value="..\..\..\general\general.lpk"/>
+        <DefaultFilename Value="..\..\..\..\general\general.lpk"/>
       </Item4>
       <Item5>
         <PackageName Value="pPrometDBIntfs"/>
-        <DefaultFilename Value="..\base\dbintfs\pprometdbintfs.lpk"/>
+        <DefaultFilename Value="..\dbintfs\pprometdbintfs.lpk"/>
       </Item5>
       <Item6>
         <PackageName Value="LCL"/>

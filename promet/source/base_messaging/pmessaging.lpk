@@ -63,23 +63,23 @@
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="6">
       <Item1>
-        <PackageName Value="pvisualframes"/>
-        <DefaultFilename Value="../base_frames/pvisualframes.lpk"/>
+        <PackageName Value="rtfconvert_pkg_vis"/>
+        <DefaultFilename Value="../base/base_wiki/rtfconvert_pkg_vis.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="rtfconvert_pkg_vis"/>
-        <DefaultFilename Value="../base_wiki/rtfconvert_pkg_vis.lpk"/>
+        <PackageName Value="pvisualframes"/>
+        <DefaultFilename Value="../base/base_frames/pvisualframes.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="MemDSLaz"/>
       </Item3>
       <Item4>
         <PackageName Value="phelp"/>
-        <DefaultFilename Value="../base/phelp.lpk"/>
+        <DefaultFilename Value="../base/base_help/phelp.lpk"/>
       </Item4>
       <Item5>
         <PackageName Value="pdocuments"/>
-        <DefaultFilename Value="../base_documents/pdocuments.lpk"/>
+        <DefaultFilename Value="../base/base_documents/pdocuments.lpk"/>
       </Item5>
       <Item6>
         <PackageName Value="FCL"/>
