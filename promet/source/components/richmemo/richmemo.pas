@@ -207,13 +207,15 @@ end;
 procedure TCustomRichMemo.SetTextAttributes(TextStart, TextLen: Integer;  
   {SetMask: TTextStyleMask;} const TextParams: TFontParams);
 begin
-  if HandleAllocated then  
+  if not HandleAllocated then HandleNeeded;
+  if HandleAllocated then
     TWSCustomRichMemoClass(WidgetSetClass).SetTextAttributes(Self, TextStart, TextLen, {SetMask,} TextParams);
 end;
 
 function TCustomRichMemo.GetTextAttributes(TextStart: Integer; var TextParams: TFontParams): Boolean; 
 begin
-  if HandleAllocated then  
+  if not HandleAllocated then HandleNeeded;
+  if HandleAllocated then
     Result := TWSCustomRichMemoClass(WidgetSetClass).GetTextAttributes(Self, TextStart, TextParams)
   else
     Result := false;
@@ -245,6 +247,7 @@ procedure TCustomRichMemo.SetSelText(const SelTextUTF8: string);
 var
   st  : Integer;
 begin
+  if not HandleAllocated then HandleNeeded;
   Lines.BeginUpdate;
   try
     st := SelStart;
@@ -288,6 +291,8 @@ var
   l : Integer;
   p : TFontParams;
 begin
+  if not HandleAllocated then HandleNeeded;
+
   if (ModifyMask = []) or (TextLength = 0) then Exit;
 
   i := TextStart;
@@ -311,6 +316,7 @@ end;
 
 function TCustomRichMemo.LoadRichText(Source: TStream): Boolean;
 begin
+  if not HandleAllocated then HandleNeeded;
   if Assigned(Source) and HandleAllocated then begin
     Result := TWSCustomRichMemoClass(WidgetSetClass).LoadRichText(Self, Source);
     if not Result and Assigned(RTFLoadStream) then begin
