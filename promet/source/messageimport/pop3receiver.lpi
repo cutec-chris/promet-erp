@@ -59,8 +59,8 @@
         <UnitName Value="pop3receiver"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="281"/>
-        <CursorPos X="47" Y="298"/>
+        <TopLine Value="256"/>
+        <CursorPos X="51" Y="205"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <WindowIndex Value="0"/>
@@ -679,8 +679,8 @@
         <UnitName Value="uBaseDbClasses"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="144"/>
-        <CursorPos X="23" Y="154"/>
+        <TopLine Value="171"/>
+        <CursorPos X="15" Y="188"/>
         <UsageCount Value="30"/>
         <Loaded Value="True"/>
       </Unit78>
@@ -846,8 +846,8 @@
         <UnitName Value="uMimeMessages"/>
         <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="3" Y="1"/>
+        <TopLine Value="13"/>
+        <CursorPos X="3" Y="30"/>
         <UsageCount Value="18"/>
         <Loaded Value="True"/>
       </Unit98>
@@ -1008,10 +1008,9 @@
       <Unit117>
         <Filename Value="..\components\synapse\mimemess.pas"/>
         <UnitName Value="mimemess"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="491"/>
+        <TopLine Value="446"/>
         <CursorPos X="1" Y="519"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
@@ -1019,10 +1018,11 @@
       <Unit118>
         <Filename Value="..\base_messaging\ureceivemessage.pas"/>
         <UnitName Value="ureceivemessage"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="89"/>
-        <CursorPos X="5" Y="114"/>
+        <TopLine Value="65"/>
+        <CursorPos X="45" Y="90"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit118>
@@ -1048,123 +1048,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="576" Column="30" TopLine="562"/>
+        <Caret Line="647" Column="1" TopLine="625"/>
       </Position1>
       <Position2>
         <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="582" Column="30" TopLine="562"/>
+        <Caret Line="649" Column="1" TopLine="625"/>
       </Position2>
       <Position3>
         <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="584" Column="1" TopLine="562"/>
+        <Caret Line="650" Column="1" TopLine="625"/>
       </Position3>
       <Position4>
         <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="676" Column="1" TopLine="660"/>
+        <Caret Line="642" Column="1" TopLine="625"/>
       </Position4>
       <Position5>
         <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="642" Column="1" TopLine="625"/>
+        <Caret Line="691" Column="1" TopLine="674"/>
       </Position5>
       <Position6>
         <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="644" Column="1" TopLine="625"/>
+        <Caret Line="693" Column="1" TopLine="674"/>
       </Position6>
       <Position7>
         <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="645" Column="1" TopLine="625"/>
+        <Caret Line="695" Column="1" TopLine="674"/>
       </Position7>
       <Position8>
         <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="647" Column="1" TopLine="625"/>
+        <Caret Line="697" Column="1" TopLine="674"/>
       </Position8>
       <Position9>
         <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="649" Column="1" TopLine="625"/>
+        <Caret Line="699" Column="1" TopLine="674"/>
       </Position9>
       <Position10>
         <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="650" Column="1" TopLine="625"/>
+        <Caret Line="700" Column="1" TopLine="674"/>
       </Position10>
       <Position11>
         <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="642" Column="1" TopLine="625"/>
+        <Caret Line="702" Column="1" TopLine="674"/>
       </Position11>
       <Position12>
         <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="691" Column="1" TopLine="674"/>
+        <Caret Line="703" Column="1" TopLine="675"/>
       </Position12>
       <Position13>
         <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="693" Column="1" TopLine="674"/>
+        <Caret Line="704" Column="1" TopLine="676"/>
       </Position13>
       <Position14>
         <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="695" Column="1" TopLine="674"/>
+        <Caret Line="705" Column="1" TopLine="677"/>
       </Position14>
       <Position15>
         <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="697" Column="1" TopLine="674"/>
+        <Caret Line="706" Column="1" TopLine="678"/>
       </Position15>
       <Position16>
         <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="699" Column="1" TopLine="674"/>
+        <Caret Line="707" Column="1" TopLine="679"/>
       </Position16>
       <Position17>
         <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="700" Column="1" TopLine="674"/>
+        <Caret Line="708" Column="1" TopLine="680"/>
       </Position17>
       <Position18>
         <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="702" Column="1" TopLine="674"/>
+        <Caret Line="710" Column="1" TopLine="682"/>
       </Position18>
       <Position19>
         <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="703" Column="1" TopLine="675"/>
+        <Caret Line="711" Column="1" TopLine="683"/>
       </Position19>
       <Position20>
-        <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="704" Column="1" TopLine="676"/>
-      </Position20>
-      <Position21>
-        <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="705" Column="1" TopLine="677"/>
-      </Position21>
-      <Position22>
-        <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="706" Column="1" TopLine="678"/>
-      </Position22>
-      <Position23>
-        <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="707" Column="1" TopLine="679"/>
-      </Position23>
-      <Position24>
-        <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="708" Column="1" TopLine="680"/>
-      </Position24>
-      <Position25>
-        <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="710" Column="1" TopLine="682"/>
-      </Position25>
-      <Position26>
-        <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="711" Column="1" TopLine="683"/>
-      </Position26>
-      <Position27>
         <Filename Value="..\components\synapse\mimemess.pas"/>
         <Caret Line="464" Column="1" TopLine="445"/>
-      </Position27>
-      <Position28>
+      </Position20>
+      <Position21>
         <Filename Value="..\components\synapse\mimemess.pas"/>
         <Caret Line="504" Column="1" TopLine="487"/>
-      </Position28>
-      <Position29>
+      </Position21>
+      <Position22>
         <Filename Value="..\components\synapse\mimemess.pas"/>
         <Caret Line="516" Column="1" TopLine="487"/>
-      </Position29>
-      <Position30>
+      </Position22>
+      <Position23>
         <Filename Value="..\components\synapse\mimemess.pas"/>
         <Caret Line="518" Column="1" TopLine="490"/>
+      </Position23>
+      <Position24>
+        <Filename Value="..\base_messaging\ureceivemessage.pas"/>
+        <Caret Line="62" Column="34" TopLine="52"/>
+      </Position24>
+      <Position25>
+        <Filename Value="..\base_messaging\ureceivemessage.pas"/>
+        <Caret Line="84" Column="24" TopLine="57"/>
+      </Position25>
+      <Position26>
+        <Filename Value="..\base_messaging\ureceivemessage.pas"/>
+        <Caret Line="85" Column="24" TopLine="58"/>
+      </Position26>
+      <Position27>
+        <Filename Value="..\base_messaging\ureceivemessage.pas"/>
+        <Caret Line="91" Column="25" TopLine="64"/>
+      </Position27>
+      <Position28>
+        <Filename Value="..\base_messaging\ureceivemessage.pas"/>
+        <Caret Line="210" Column="5" TopLine="201"/>
+      </Position28>
+      <Position29>
+        <Filename Value="..\base_messaging\ureceivemessage.pas"/>
+        <Caret Line="205" Column="68" TopLine="188"/>
+      </Position29>
+      <Position30>
+        <Filename Value="..\base_messaging\ureceivemessage.pas"/>
+        <Caret Line="91" Column="32" TopLine="71"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -1195,7 +1195,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="4">
+    <BreakPoints Count="3">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsGlobal"/>
@@ -1217,13 +1217,6 @@
         <Source Value="umessages.pas"/>
         <Line Value="921"/>
       </Item3>
-      <Item4>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="..\base_messaging\ureceivemessage.pas"/>
-        <Line Value="114"/>
-      </Item4>
     </BreakPoints>
     <Exceptions Count="1">
       <Item1>
