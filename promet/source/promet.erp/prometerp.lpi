@@ -228,7 +228,7 @@
       </Item7>
       <Item8>
         <PackageName Value="pDocManage"/>
-        <DefaultFilename Value="../base_docmanage/pdocmanage.lpk" Prefer="True"/>
+        <DefaultFilename Value="../base/base_docmanage/pdocmanage.lpk"/>
       </Item8>
       <Item9>
         <PackageName Value="tabeditor"/>
@@ -298,7 +298,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="51">
+    <Units Count="53">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -660,7 +660,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uorderaddressframe"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="227"/>
         <CursorPos X="97" Y="237"/>
@@ -735,7 +735,6 @@
       </Unit41>
       <Unit42>
         <Filename Value="../base/changes.txt"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -819,7 +818,7 @@
       <Unit49>
         <Filename Value="../base_calendar/ueventedit.pas"/>
         <UnitName Value="uEventEdit"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="330"/>
         <CursorPos X="57" Y="349"/>
@@ -828,7 +827,7 @@
       </Unit49>
       <Unit50>
         <Filename Value="../../../README.md"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="23" Y="12"/>
@@ -836,8 +835,30 @@
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit50>
+      <Unit51>
+        <Filename Value="../components/zeos/src/component/ZAbstractDataset.pas"/>
+        <UnitName Value="ZAbstractDataset"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="10"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="471"/>
+        <CursorPos X="22" Y="490"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit51>
+      <Unit52>
+        <Filename Value="C:/lazarus/fpc/2.6.1/source/packages/fcl-db/src/base/db.pas"/>
+        <UnitName Value="db"/>
+        <EditorIndex Value="11"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1600"/>
+        <CursorPos X="14" Y="1616"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit52>
     </Units>
-    <JumpHistory Count="4" HistoryIndex="3">
+    <JumpHistory Count="8" HistoryIndex="7">
       <Position1>
         <Filename Value="../base/ubasevisualcontrols.pas"/>
         <Caret Line="26" Column="34" TopLine="9"/>
@@ -854,6 +875,22 @@
         <Filename Value="../base/ubasevisualcontrols.pas"/>
         <Caret Line="20" Column="1" TopLine="1"/>
       </Position4>
+      <Position5>
+        <Filename Value="../components/zeos/src/component/ZAbstractDataset.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position5>
+      <Position6>
+        <Filename Value="../components/zeos/src/component/ZAbstractDataset.pas"/>
+        <Caret Line="475" Column="8" TopLine="459"/>
+      </Position6>
+      <Position7>
+        <Filename Value="../components/zeos/src/component/ZAbstractDataset.pas"/>
+        <Caret Line="446" Column="1" TopLine="431"/>
+      </Position7>
+      <Position8>
+        <Filename Value="../components/zeos/src/component/ZAbstractDataset.pas"/>
+        <Caret Line="478" Column="19" TopLine="459"/>
+      </Position8>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

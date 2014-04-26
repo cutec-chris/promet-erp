@@ -472,7 +472,11 @@ begin
       FreeFieldBuffers;
       SetState(dsBrowse);
       Resync([]);
+      {$IFDEF WITH_TBOOKMARK}
       BM := GetBookmark;
+      {$ELSE}
+      BM := Bookmark;
+      {$ENDIF}
       if BookmarkValid({$IFDEF WITH_TBOOKMARK}BM{$ELSE}@BM{$ENDIF}) Then
       begin
         InternalGotoBookmark({$IFDEF WITH_TBOOKMARK}BM{$ELSE}@BM{$ENDIF});
@@ -480,7 +484,11 @@ begin
       end; 
       DisableControls;
       InternalSort;
+      {$IFDEF WITH_TBOOKMARK}
       GotoBookmark(BM);
+      {$ELSE}
+      Bookmark := BM;
+      {$ENDIF}
       UpdateCursorPos;
       EnableControls;
     end;
