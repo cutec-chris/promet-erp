@@ -24,8 +24,11 @@ uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, DBGrids,
   Buttons, Menus, ActnList, XMLPropStorage, StdCtrls, Utils, uIntfStrConsts, db,
   memds, FileUtil, SynEdit, SynMemo, SynHighlighterSQL, Translations, md5,
-  ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage,ucalc;
+  ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage,ucalc,SynCompletion;
 type
+
+  { TfMain }
+
   TfMain = class(TForm)
     acLogin: TAction;
     acLogout: TAction;
@@ -54,11 +57,13 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FSynCompletionExecute(Sender: TObject);
     procedure InputKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { private declarations }
     FHistory : TStringList;
     FHistoryIndex : Integer;
+    FSynCompletion: TSynCompletion;
   public
     { public declarations }
     CalcEnviroment : TCalcEnviroments;
@@ -167,9 +172,16 @@ procedure TfMain.FormCreate(Sender: TObject);
 begin
   CalcEnviroment := nil;
   FHistory := TStringList.Create;
+  FSynCompletion := TSynCompletion.Create(Self);
+  FSynCompletion.CaseSensitive := False;
+  FSynCompletion.AddEditor(Input);
+  FSynCompletion.OnExecute:=@FSynCompletionExecute;
+  //FSynCompletion.OnUTF8KeyPress:=@FSynCompletionUTF8KeyPress;
+  //FSynCompletion.OnSearchPosition:=@FSynCompletionSearchPosition;
 end;
 procedure TfMain.FormDestroy(Sender: TObject);
 begin
+  FSynCompletion.Free;
   FHistory.Free;
 end;
 procedure TfMain.FormShow(Sender: TObject);
@@ -179,6 +191,51 @@ begin
     RestoreConfig; //Must be called when Mainform is Visible
   acLogin.Execute;
 end;
+
+procedure TfMain.FSynCompletionExecute(Sender: TObject);
+function GetCurWord:string;
+var
+  S:string;
+  i,j:integer;
+begin
+  Result:='';
+  with TSynCompletion(Sender).Editor do
+    begin
+      S:=Trim(Copy(LineText, 1, CaretX));
+      I:=Length(S);
+      while (i>0) and (S[i]<>'.') do Dec(I);
+      if (I>0) then
+      begin
+        J:=i-1;
+        //Get table name
+        while (j>0) and (S[j] in ['A'..'z','"']) do Dec(j);
+        Result:=trim(Copy(S, j+1, i-j-1));
+      end;
+    end;
+end;
+var
+  s: String;
+begin
+  with FSynCompletion.ItemList do
+    begin
+      Clear;
+      s := GetCurWord;
+      with CalcEnviroment.Variables do
+        begin
+          Active:=True;
+          First;
+          Output.Clear;
+          while not EOF do
+            begin
+              if copy(lowercase(FieldByName('NAME').AsString),0,length(s))=lowercase(s) then
+                Add(FieldByName('NAME').AsString);
+              Next;
+            end;
+        end;
+
+    end;
+end;
+
 procedure TfMain.InputKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState
   );
 var

@@ -1109,7 +1109,7 @@ object fMain: TfMain
     left = 16
     top = 400
   end
-  object Enviroment: TDatasource
+  object Enviroment: TDataSource
     left = 80
     top = 72
   end

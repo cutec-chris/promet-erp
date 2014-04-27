@@ -260,5 +260,5 @@ LazarusResources.Add('TfMain','FORMDATA',[
   ,'ound'#22'StringAttri.FrameEdges'#7#9'sfeAround'#22'SymbolAttri.FrameEdges'#7
   +#9'sfeAround'#25'TableNameAttri.FrameEdges'#7#9'sfeAround'#24'VariableAttri.'
   +'FrameEdges'#7#9'sfeAround'#10'SQLDialect'#7#9'sqlSybase'#4'left'#2#16#3'top'
-  +#3#144#1#0#0#11'TDatasource'#10'Enviroment'#4'left'#2'P'#3'top'#2'H'#0#0#0
+  +#3#144#1#0#0#11'TDataSource'#10'Enviroment'#4'left'#2'P'#3'top'#2'H'#0#0#0
 ]);
