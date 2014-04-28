@@ -317,8 +317,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="434"/>
-        <CursorPos X="14" Y="453"/>
+        <TopLine Value="426"/>
+        <CursorPos X="1" Y="446"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -895,8 +895,8 @@
         <UnitName Value="uEnterTime"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1050"/>
-        <CursorPos X="1" Y="1073"/>
+        <TopLine Value="1051"/>
+        <CursorPos X="1" Y="1079"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit56>
@@ -915,119 +915,127 @@
         <LoadedDesigner Value="True"/>
       </Unit57>
     </Units>
-    <JumpHistory Count="28" HistoryIndex="27">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../base/dbintfs/ustatistic.pas"/>
-        <Caret Line="108" Column="1" TopLine="89"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="453" Column="14" TopLine="434"/>
       </Position1>
       <Position2>
-        <Filename Value="../base/base_help/uwikiframe.pas"/>
-        <Caret Line="760" Column="1" TopLine="743"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="3659" Column="1" TopLine="3634"/>
       </Position2>
       <Position3>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="4" Column="102" TopLine="1"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="445" Column="1" TopLine="426"/>
       </Position3>
       <Position4>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="945" Column="16" TopLine="913"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="446" Column="1" TopLine="426"/>
       </Position4>
       <Position5>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="947" Column="17" TopLine="915"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="447" Column="1" TopLine="426"/>
       </Position5>
       <Position6>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="949" Column="17" TopLine="917"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="452" Column="1" TopLine="426"/>
       </Position6>
       <Position7>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="950" Column="17" TopLine="918"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="453" Column="1" TopLine="426"/>
       </Position7>
       <Position8>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="89" Column="92" TopLine="82"/>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <Caret Line="1058" Column="1" TopLine="1050"/>
       </Position8>
       <Position9>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="945" Column="23" TopLine="913"/>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <Caret Line="1059" Column="1" TopLine="1050"/>
       </Position9>
       <Position10>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <Caret Line="945" Column="23" TopLine="913"/>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <Caret Line="1060" Column="1" TopLine="1050"/>
       </Position10>
       <Position11>
-        <Filename Value="umain.pas"/>
-        <Caret Line="1000" Column="25" TopLine="993"/>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <Caret Line="1062" Column="1" TopLine="1050"/>
       </Position11>
       <Position12>
-        <Filename Value="umain.pas"/>
-        <Caret Line="1002" Column="25" TopLine="995"/>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <Caret Line="1063" Column="1" TopLine="1050"/>
       </Position12>
       <Position13>
         <Filename Value="umain.pas"/>
-        <Caret Line="8" Column="109" TopLine="1"/>
+        <Caret Line="453" Column="29" TopLine="426"/>
       </Position13>
       <Position14>
-        <Filename Value="umain.pas"/>
-        <Caret Line="45" Column="22" TopLine="13"/>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <Caret Line="1075" Column="7" TopLine="1055"/>
       </Position14>
       <Position15>
         <Filename Value="umain.pas"/>
-        <Caret Line="195" Column="32" TopLine="164"/>
+        <Caret Line="446" Column="1" TopLine="426"/>
       </Position15>
       <Position16>
         <Filename Value="umain.pas"/>
-        <Caret Line="677" Column="61" TopLine="651"/>
+        <Caret Line="447" Column="1" TopLine="426"/>
       </Position16>
       <Position17>
         <Filename Value="umain.pas"/>
-        <Caret Line="794" Column="22" TopLine="779"/>
+        <Caret Line="452" Column="1" TopLine="426"/>
       </Position17>
       <Position18>
         <Filename Value="umain.pas"/>
-        <Caret Line="793" Column="18" TopLine="785"/>
+        <Caret Line="453" Column="1" TopLine="426"/>
       </Position18>
       <Position19>
-        <Filename Value="umain.pas"/>
-        <Caret Line="953" Column="22" TopLine="939"/>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <Caret Line="1058" Column="1" TopLine="1051"/>
       </Position19>
       <Position20>
-        <Filename Value="umain.pas"/>
-        <Caret Line="684" Column="33" TopLine="669"/>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <Caret Line="1059" Column="1" TopLine="1051"/>
       </Position20>
       <Position21>
-        <Filename Value="umain.pas"/>
-        <Caret Line="3657" Column="10" TopLine="3632"/>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <Caret Line="1060" Column="1" TopLine="1051"/>
       </Position21>
       <Position22>
-        <Filename Value="umain.pas"/>
-        <Caret Line="452" Column="23" TopLine="442"/>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <Caret Line="1062" Column="1" TopLine="1051"/>
       </Position22>
       <Position23>
-        <Filename Value="umain.pas"/>
-        <Caret Line="265" Column="19" TopLine="247"/>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <Caret Line="1063" Column="1" TopLine="1051"/>
       </Position23>
       <Position24>
-        <Filename Value="../timeregistering/umain.pas"/>
-        <Caret Line="1" Column="1" TopLine="28"/>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <Caret Line="1064" Column="1" TopLine="1051"/>
       </Position24>
       <Position25>
-        <Filename Value="../timeregistering/umain.pas"/>
-        <Caret Line="186" Column="13" TopLine="184"/>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <Caret Line="1065" Column="1" TopLine="1051"/>
       </Position25>
       <Position26>
         <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="187" Column="5" TopLine="165"/>
+        <Caret Line="1066" Column="1" TopLine="1051"/>
       </Position26>
       <Position27>
         <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="1093" Column="1" TopLine="1055"/>
+        <Caret Line="1067" Column="1" TopLine="1051"/>
       </Position27>
       <Position28>
-        <Filename Value="umain.pas"/>
-        <Caret Line="265" Column="19" TopLine="247"/>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <Caret Line="1068" Column="1" TopLine="1051"/>
       </Position28>
+      <Position29>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <Caret Line="1069" Column="1" TopLine="1051"/>
+      </Position29>
+      <Position30>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <Caret Line="1079" Column="1" TopLine="1051"/>
+      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -1067,7 +1075,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="3">
+    <BreakPoints Count="2">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
@@ -1082,13 +1090,6 @@
         <Source Value="../timeregistering/umain.pas"/>
         <Line Value="165"/>
       </Item2>
-      <Item3>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="umain.pas"/>
-        <Line Value="3659"/>
-      </Item3>
     </BreakPoints>
     <Watches Count="1">
       <Item1>

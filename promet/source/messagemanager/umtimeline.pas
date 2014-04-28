@@ -185,7 +185,7 @@ implementation
 uses uBaseApplication, uData, uOrder,uMessages,uBaseERPDBClasses,
   uMain,LCLType,utask,uProcessManager,uprometipc,ProcessUtils,ufollow,udetailview,
   LCLIntf,wikitohtml,uDocuments,uthumbnails,uscreenshotmain,uWiki,uSearch,
-  LCLProc;
+  LCLProc,uProjects;
 resourcestring
   strTo                                  = 'an ';
 {$R *.lfm}
@@ -734,12 +734,25 @@ end;
 procedure TfmTimeline.acStartTimeRegisteringExecute(Sender: TObject);
 var
   tmp: String;
+  aTask: TTask;
+  aProject: TProject;
+  aLink: String;
 begin
   if fTimeline.GotoActiveRow then
     if IPC.ServerRunning then
       begin
         IPC.Connect;
-        tmp := 'Time.enter(;'+fTimeline.DataSet.FieldByName('LINK').AsString+';)';
+        aTask := TTask.Create(nil,Data);
+        aTask.SelectFromLink(fTimeline.DataSet.FieldByName('LINK').AsString);
+        aTask.Open;
+        aProject := TProject.Create(nil,Data);
+        aProject.Select(aTask.FieldByName('PROJECTID').AsString);
+        aProject.Open;
+        if aProject.Count>0 then
+          aLink := Data.BuildLink(aProject.DataSet);
+        aProject.Free;
+        aTask.Free;
+        tmp := 'Time.enter('+aLink+';'+fTimeline.DataSet.FieldByName('LINK').AsString+';)';
         IPC.SendStringMessage(tmp);
         IPC.SendStringMessage('Time.start');
         IPC.Disconnect;

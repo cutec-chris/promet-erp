@@ -1060,19 +1060,19 @@ begin
   if copy(aCommand,0,10) = 'Time.enter' then
     begin
       aCommand := copy(aCommand,12,length(aCommand));
-      fEnterTime.Project:=copy(aCommand,0,pos(';',aCommand)-1);
+      Project:=copy(aCommand,0,pos(';',aCommand)-1);
       aCommand := copy(aCommand,pos(';',aCommand)+1,length(aCommand));
-      fEnterTime.Task:=copy(aCommand,0,pos(';',aCommand)-1);
+      Task:=copy(aCommand,0,pos(';',aCommand)-1);
       aCommand := copy(aCommand,pos(';',aCommand)+1,length(aCommand));
-      fEnterTime.Link:=copy(aCommand,0,pos(')',aCommand)-1);
-      fEnterTime.mNotes.Clear;
+      Link:=copy(aCommand,0,pos(')',aCommand)-1);
+      mNotes.Clear;
       Result := True;
     end
   else if aCommand = 'Time.start' then
-    fEnterTime.acStart.Execute
+    acStart.Execute
   else if aCommand = 'OnClick(/Zeiterfassung/Standardeintrag starten)' then
     begin
-      fEnterTime.acStartstandartEntry.Execute;
+      acStartstandartEntry.Execute;
       Result := True;
     end
   else if copy(aCommand,0,23)='OnClick(/Zeiterfassung)' then Result := True;
