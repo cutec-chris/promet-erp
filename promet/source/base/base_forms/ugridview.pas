@@ -61,11 +61,11 @@ type
     FGrid: TCustomGrid;
     FCol,FRow: Integer;
   protected
-    {$IF (FPC_FULLVERSION>20604)}
+    {.$IF (FPC_FULLVERSION>20604)}
     procedure EditChange;override;
-    {$ELSE}
-    procedure Change;override;
-    {$ENDIF}
+    {.$ELSE}
+    //procedure Change;override;
+    {.$ENDIF}
     procedure msg_SetGrid(var Msg: TGridMessage); message GM_SETGRID;
     procedure msg_SetBounds(var Msg: TGridMessage); message GM_SETBOUNDS;
     procedure msg_SetValue(var Msg: TGridMessage); message GM_SETVALUE;
@@ -405,11 +405,11 @@ begin
   Dependencies:=False;
 end;
 
-{$IF (FPC_FULLVERSION>20604)}
+{.$IF (FPC_FULLVERSION>20604)}
 procedure TInplaceDateEdit.EditChange;
-{$ELSE}
-procedure TInplaceDateEdit.Change;
-{$ENDIF}
+{.$ELSE}
+//procedure TInplaceDateEdit.Change;
+{.$ENDIF}
 begin
   inherited;
   if (FGrid<>nil) and Visible then

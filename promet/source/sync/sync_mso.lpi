@@ -41,6 +41,7 @@
     <RequiredPackages Count="3">
       <Item1>
         <PackageName Value="pcmdprometapp"/>
+        <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="general"/>
@@ -58,7 +59,6 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1051"/>
         <CursorPos X="1" Y="1070"/>
-        <FoldState Value=" T3iQ0l21121 pjMo12{F T0sFEB1!"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="1">
           <Item0 X="1" Y="784" ID="0"/>
@@ -590,7 +590,7 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="400"/>
+        <TopLine Value="399"/>
         <CursorPos X="31" Y="376"/>
         <UsageCount Value="30"/>
         <Loaded Value="True"/>

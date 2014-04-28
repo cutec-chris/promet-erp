@@ -197,7 +197,6 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--config-path=/home/chris/.promet-erp-devel"/>
       </local>
     </RunParams>
     <RequiredPackages Count="25">
@@ -298,7 +297,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="58">
+    <Units Count="54">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -660,7 +659,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uorderaddressframe"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="227"/>
         <CursorPos X="97" Y="237"/>
@@ -750,7 +749,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="537"/>
         <CursorPos X="1" Y="570"/>
-        <UsageCount Value="40"/>
+        <UsageCount Value="41"/>
         <Loaded Value="True"/>
       </Unit43>
       <Unit44>
@@ -760,7 +759,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="7"/>
         <CursorPos X="44" Y="24"/>
-        <UsageCount Value="38"/>
+        <UsageCount Value="39"/>
         <Loaded Value="True"/>
       </Unit44>
       <Unit45>
@@ -770,7 +769,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="921"/>
         <CursorPos X="1" Y="940"/>
-        <UsageCount Value="35"/>
+        <UsageCount Value="36"/>
         <Loaded Value="True"/>
       </Unit45>
       <Unit46>
@@ -783,7 +782,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1084"/>
         <CursorPos X="1" Y="1115"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit46>
@@ -797,7 +796,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="489"/>
         <CursorPos X="1" Y="519"/>
-        <UsageCount Value="21"/>
+        <UsageCount Value="22"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit47>
@@ -811,27 +810,27 @@
         <WindowIndex Value="0"/>
         <TopLine Value="519"/>
         <CursorPos X="26" Y="542"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="20"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit48>
       <Unit49>
         <Filename Value="../base_calendar/ueventedit.pas"/>
         <UnitName Value="uEventEdit"/>
-        <EditorIndex Value="19"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="330"/>
         <CursorPos X="57" Y="349"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="15"/>
         <Loaded Value="True"/>
       </Unit49>
       <Unit50>
         <Filename Value="../../../README.md"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="23" Y="12"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit50>
@@ -844,10 +843,11 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="397"/>
-        <CursorPos X="12" Y="414"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="395"/>
+        <CursorPos X="50" Y="412"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit51>
       <Unit52>
         <Filename Value="../components/zeos/src/component/ZAbstractDataset.pas"/>
@@ -856,62 +856,22 @@
         <WindowIndex Value="0"/>
         <TopLine Value="471"/>
         <CursorPos X="22" Y="490"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit52>
       <Unit53>
-        <Filename Value="C:/lazarus/fpc/2.6.1/source/packages/fcl-db/src/base/db.pas"/>
-        <UnitName Value="db"/>
-        <EditorIndex Value="16"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1600"/>
-        <CursorPos X="14" Y="1616"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-      </Unit53>
-      <Unit54>
-        <Filename Value="C:/lazarus/lcl/editbtn.pas"/>
-        <UnitName Value="EditBtn"/>
-        <EditorIndex Value="15"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="611"/>
-        <CursorPos X="3" Y="613"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-      </Unit54>
-      <Unit55>
-        <Filename Value="../../../../../lazarus/lcl/intfgraphics.pas"/>
-        <UnitName Value="IntfGraphics"/>
+        <Filename Value="../base/dbintfs/uwiki.pas"/>
+        <UnitName Value="uWiki"/>
         <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="6264"/>
-        <CursorPos X="75" Y="6281"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="38"/>
+        <CursorPos X="34" Y="54"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
-      </Unit55>
-      <Unit56>
-        <Filename Value="../../../../../lazarus/lcl/lclproc.pas"/>
-        <UnitName Value="LCLProc"/>
-        <EditorIndex Value="13"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="4"/>
-        <CursorPos X="12" Y="22"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-      </Unit56>
-      <Unit57>
-        <Filename Value="../../../../../lazarus/lcl/lclversion.pas"/>
-        <UnitName Value="LCLVersion"/>
-        <EditorIndex Value="14"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="9"/>
-        <CursorPos X="1" Y="26"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-      </Unit57>
+      </Unit53>
     </Units>
-    <JumpHistory Count="16" HistoryIndex="15">
+    <JumpHistory Count="17" HistoryIndex="16">
       <Position1>
         <Filename Value="../base/ubasevisualcontrols.pas"/>
         <Caret Line="26" Column="34" TopLine="9"/>
@@ -953,29 +913,33 @@
         <Caret Line="59" Column="30" TopLine="47"/>
       </Position10>
       <Position11>
-        <Filename Value="../../../../../lazarus/lcl/intfgraphics.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Filename Value="../base/base_forms/ugridview.pas"/>
+        <Caret Line="67" Column="1" TopLine="47"/>
       </Position11>
       <Position12>
-        <Filename Value="../../../../../lazarus/lcl/intfgraphics.pas"/>
-        <Caret Line="6281" Column="75" TopLine="6264"/>
+        <Filename Value="../base/base_forms/ugridview.pas"/>
+        <Caret Line="411" Column="28" TopLine="408"/>
       </Position12>
       <Position13>
-        <Filename Value="../../../../../lazarus/lcl/lclproc.pas"/>
-        <Caret Line="22" Column="12" TopLine="5"/>
+        <Filename Value="../base/dbintfs/uwiki.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position13>
       <Position14>
-        <Filename Value="../../../../../lazarus/lcl/lclversion.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Filename Value="../base/base_forms/ugridview.pas"/>
+        <Caret Line="424" Column="63" TopLine="397"/>
       </Position14>
       <Position15>
         <Filename Value="../base/base_forms/ugridview.pas"/>
-        <Caret Line="67" Column="1" TopLine="47"/>
+        <Caret Line="67" Column="19" TopLine="48"/>
       </Position15>
       <Position16>
         <Filename Value="../base/base_forms/ugridview.pas"/>
-        <Caret Line="411" Column="28" TopLine="408"/>
+        <Caret Line="65" Column="21" TopLine="48"/>
       </Position16>
+      <Position17>
+        <Filename Value="../base/base_forms/ugridview.pas"/>
+        <Caret Line="67" Column="7" TopLine="62"/>
+      </Position17>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
