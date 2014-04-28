@@ -394,14 +394,6 @@ procedure TfMain.RefreshTasks;
 begin
   uTasks.RefreshTasks(FTaskNode);
 end;
-procedure TfMain.IntSetLanguage(aLang: string);
-begin
-  try
-    LoadLanguage(aLang);
-    fOptions.SetLanguage;
-  except
-  end;
-end;
 procedure TfMain.ImportFavorites;
 var
   aList : TStrings;
@@ -3357,29 +3349,9 @@ begin
   fMainTreeFrame.OnSelectionChanged:=@fMainTreeFrameSelectionChanged;
   fMainTreeFrame.OnDragOver:=@fMainTreeFrameDragOver;
   fMainTreeFrame.OnDragDrop:=@fMainTreeFrameDragDrop;
-  with BaseApplication as IBaseApplication do
+  with BaseApplication as TBaseVisualApplication do
     begin
-      if Language = '' then
-        Language := 'Deutsch';
-      IntSetLanguage(Language);
-      miLanguage.Clear;
-      sl := TStringList.Create;
-      if FileExistsUTF8(AppendPathDelim(AppendPathDelim(ProgramDirectory) + 'languages')+'languages.txt') then
-        sl.LoadFromFile(UTF8ToSys(AppendPathDelim(AppendPathDelim(ProgramDirectory) + 'languages')+'languages.txt'));
-      for i := 0 to sl.Count-1 do
-        begin
-          aNewItem := TMenuItem.Create(miLanguage);
-          aNewItem.Caption := sl[i];
-          aNewItem.AutoCheck := True;
-          aNewItem.OnClick :=@LanguageItemClick;
-          aNewItem.GroupIndex := 11;
-          miLanguage.Add(aNewItem);
-          if UpperCase(aNewItem.Caption) = UpperCase(Language) then
-            begin
-              aNewItem.Checked := True;
-            end;
-        end;
-      sl.Free;
+      LoadLanguages(miLanguage);
     end;
   uprometipc.OnMessageReceived:=@OnMessageReceived;
 end;
@@ -3402,21 +3374,6 @@ begin
   IPCTimer.Enabled:=True;
 end;
 
-procedure TfMain.LanguageItemClick(Sender: TObject);
-var
-  i: Integer;
-begin
-  with BaseApplication as IBaseApplication do
-    begin
-      for i := 0 to miLanguage.Count-1 do
-        if miLanguage[i].Caption = Language then
-          miLanguage[i].Checked := false;
-      TmenuItem(Sender).Checked := True;
-      Language := TmenuItem(Sender).Caption;
-      IntSetLanguage(Language);
-    end;
-  tvMain.Invalidate;
-end;
 procedure TfMain.lbResultsDblClick(Sender: TObject);
 begin
   if lbResults.ItemIndex < 0 then exit;

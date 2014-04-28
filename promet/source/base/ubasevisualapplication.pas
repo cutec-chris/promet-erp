@@ -45,6 +45,7 @@ type
     procedure DataDataConnect(Sender: TObject);
     procedure DataDataConnectionLost(Sender: TObject);
     procedure DataDataDisconnectKeepAlive(Sender: TObject);
+    procedure LanguageItemClick(Sender: TObject);
     procedure MessageHandlerExit(Sender: TObject);
     procedure ReaderReferenceName(Reader: TReader; var aName: string);
     procedure SenderTFrameReaderAncestorNotFound(Reader: TReader;
@@ -55,6 +56,7 @@ type
     procedure SenderTFrameReaderReadStringProperty(Sender: TObject;
       const Instance: TPersistent; PropInfo: PPropInfo; var Content: string);
   private
+    miLanguage : TMenuItem;
     FDBInterface: IBaseDBInterface;
     FOnUserTabAdded: TNotifyEvent;
     Properties: TXMLPropStorage;
@@ -114,6 +116,7 @@ type
     procedure SetAppname(AValue: string);virtual;
     procedure SetAppRevision(AValue: Integer);virtual;
     procedure SetAppVersion(AValue: real);virtual;
+    procedure LoadLanguageMenu(amiLanguage : TMenuItem);
 
     function Login : Boolean;
     function ChangePasswort: Boolean;
@@ -231,6 +234,22 @@ end;
 procedure TBaseVisualApplication.DataDataDisconnectKeepAlive(Sender: TObject);
 begin
   Application.ProcessMessages;
+end;
+
+procedure TBaseVisualApplication.LanguageItemClick(Sender: TObject);
+var
+  i: Integer;
+begin
+  with BaseApplication as IBaseApplication do
+    begin
+      for i := 0 to miLanguage.Count-1 do
+        if miLanguage[i].Caption = Language then
+          miLanguage[i].Checked := false;
+      TmenuItem(Sender).Checked := True;
+      Language := TmenuItem(Sender).Caption;
+      LoadLanguage(Language);
+    end;
+  MainForm.Invalidate;
 end;
 
 procedure TBaseVisualApplication.MessageHandlerExit(Sender: TObject);
@@ -675,6 +694,37 @@ procedure TBaseVisualApplication.SetAppVersion(AValue: real);
 begin
   FAppVersion:=AValue;
 end;
+
+procedure TBaseVisualApplication.LoadLanguageMenu(amiLanguage: TMenuItem);
+var
+  aNewItem: TMenuItem;
+  sl: TStringList;
+  i: Integer;
+begin
+  miLanguage := amiLanguage;
+  if GetLanguage = '' then
+    SetLanguage('Deutsch');
+  LoadLanguage(GetLanguage);
+  miLanguage.Clear;
+  sl := TStringList.Create;
+  if FileExistsUTF8(AppendPathDelim(AppendPathDelim(ProgramDirectory) + 'languages')+'languages.txt') then
+    sl.LoadFromFile(UTF8ToSys(AppendPathDelim(AppendPathDelim(ProgramDirectory) + 'languages')+'languages.txt'));
+  for i := 0 to sl.Count-1 do
+    begin
+      aNewItem := TMenuItem.Create(miLanguage);
+      aNewItem.Caption := sl[i];
+      aNewItem.AutoCheck := True;
+      aNewItem.OnClick:=@LanguageItemClick;
+      aNewItem.GroupIndex := 11;
+      miLanguage.Add(aNewItem);
+      if UpperCase(aNewItem.Caption) = UpperCase(GetLanguage) then
+        begin
+          aNewItem.Checked := True;
+        end;
+    end;
+  sl.Free;
+end;
+
 procedure TBaseVisualApplication.StartProcessManager;
 begin
   FMessagehandler := TMessageHandler.Create(Data.Data);
@@ -998,4 +1048,4 @@ initialization
   RegisterClass(TDBComboBox);
   RegisterClass(TPanel);
 end.
-
+

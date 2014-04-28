@@ -314,11 +314,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="426"/>
-        <CursorPos X="1" Y="446"/>
+        <TopLine Value="395"/>
+        <CursorPos X="1" Y="397"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -746,7 +745,7 @@
       <Unit43>
         <Filename Value="../base/dbintfs/uprojects.pas"/>
         <UnitName Value="uProjects"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="537"/>
         <CursorPos X="1" Y="570"/>
@@ -756,7 +755,7 @@
       <Unit44>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="901"/>
         <CursorPos X="25" Y="929"/>
@@ -766,10 +765,11 @@
       <Unit45>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="11"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="846"/>
-        <CursorPos X="54" Y="864"/>
+        <TopLine Value="704"/>
+        <CursorPos X="53" Y="720"/>
         <UsageCount Value="37"/>
         <Loaded Value="True"/>
       </Unit45>
@@ -779,7 +779,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uProjectFrame"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1084"/>
         <CursorPos X="1" Y="1115"/>
@@ -793,7 +793,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uGanttView"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="489"/>
         <CursorPos X="1" Y="519"/>
@@ -807,7 +807,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="utasks"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="934"/>
         <CursorPos X="46" Y="950"/>
@@ -873,7 +873,7 @@
       <Unit54>
         <Filename Value="../base/base_help/uwikiframe.pas"/>
         <UnitName Value="uWikiFrame"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="743"/>
         <CursorPos X="1" Y="760"/>
@@ -883,7 +883,7 @@
       <Unit55>
         <Filename Value="../base/dbintfs/ustatistic.pas"/>
         <UnitName Value="uStatistic"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="89"/>
         <CursorPos X="1" Y="108"/>
@@ -901,140 +901,136 @@
         <Loaded Value="True"/>
       </Unit56>
       <Unit57>
-        <Filename Value="../timeregistering/umain.pas"/>
-        <ComponentName Value="fMain"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="umain"/>
-        <EditorIndex Value="3"/>
+        <Filename Value="../base/dbintfs/ubaseapplication.pas"/>
+        <UnitName Value="uBaseApplication"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="198"/>
-        <CursorPos X="7" Y="215"/>
+        <TopLine Value="40"/>
+        <CursorPos X="14" Y="58"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit57>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="umain.pas"/>
-        <Caret Line="453" Column="14" TopLine="434"/>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <Caret Line="1059" Column="1" TopLine="1051"/>
       </Position1>
       <Position2>
-        <Filename Value="umain.pas"/>
-        <Caret Line="3659" Column="1" TopLine="3634"/>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <Caret Line="1060" Column="1" TopLine="1051"/>
       </Position2>
       <Position3>
-        <Filename Value="umain.pas"/>
-        <Caret Line="445" Column="1" TopLine="426"/>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <Caret Line="1062" Column="1" TopLine="1051"/>
       </Position3>
       <Position4>
-        <Filename Value="umain.pas"/>
-        <Caret Line="446" Column="1" TopLine="426"/>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <Caret Line="1063" Column="1" TopLine="1051"/>
       </Position4>
       <Position5>
-        <Filename Value="umain.pas"/>
-        <Caret Line="447" Column="1" TopLine="426"/>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <Caret Line="1064" Column="1" TopLine="1051"/>
       </Position5>
       <Position6>
-        <Filename Value="umain.pas"/>
-        <Caret Line="452" Column="1" TopLine="426"/>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <Caret Line="1065" Column="1" TopLine="1051"/>
       </Position6>
       <Position7>
-        <Filename Value="umain.pas"/>
-        <Caret Line="453" Column="1" TopLine="426"/>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <Caret Line="1066" Column="1" TopLine="1051"/>
       </Position7>
       <Position8>
         <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="1058" Column="1" TopLine="1050"/>
+        <Caret Line="1067" Column="1" TopLine="1051"/>
       </Position8>
       <Position9>
         <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="1059" Column="1" TopLine="1050"/>
+        <Caret Line="1068" Column="1" TopLine="1051"/>
       </Position9>
       <Position10>
         <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="1060" Column="1" TopLine="1050"/>
+        <Caret Line="1069" Column="1" TopLine="1051"/>
       </Position10>
       <Position11>
         <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="1062" Column="1" TopLine="1050"/>
+        <Caret Line="1079" Column="1" TopLine="1051"/>
       </Position11>
       <Position12>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="1063" Column="1" TopLine="1050"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="434" Column="11" TopLine="427"/>
       </Position12>
       <Position13>
         <Filename Value="umain.pas"/>
-        <Caret Line="453" Column="29" TopLine="426"/>
+        <Caret Line="3360" Column="38" TopLine="3353"/>
       </Position13>
       <Position14>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="1075" Column="7" TopLine="1055"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="3360" Column="42" TopLine="3353"/>
       </Position14>
       <Position15>
-        <Filename Value="umain.pas"/>
-        <Caret Line="446" Column="1" TopLine="426"/>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <Caret Line="117" Column="52" TopLine="100"/>
       </Position15>
       <Position16>
-        <Filename Value="umain.pas"/>
-        <Caret Line="447" Column="1" TopLine="426"/>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <Caret Line="684" Column="13" TopLine="678"/>
       </Position16>
       <Position17>
-        <Filename Value="umain.pas"/>
-        <Caret Line="452" Column="1" TopLine="426"/>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <Caret Line="694" Column="27" TopLine="673"/>
       </Position17>
       <Position18>
-        <Filename Value="umain.pas"/>
-        <Caret Line="453" Column="1" TopLine="426"/>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <Caret Line="702" Column="44" TopLine="683"/>
       </Position18>
       <Position19>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="1058" Column="1" TopLine="1051"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="3360" Column="42" TopLine="3353"/>
       </Position19>
       <Position20>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="1059" Column="1" TopLine="1051"/>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <Caret Line="251" Column="22" TopLine="220"/>
       </Position20>
       <Position21>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="1060" Column="1" TopLine="1051"/>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <Caret Line="702" Column="28" TopLine="696"/>
       </Position21>
       <Position22>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="1062" Column="1" TopLine="1051"/>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <Caret Line="119" Column="29" TopLine="104"/>
       </Position22>
       <Position23>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="1063" Column="1" TopLine="1051"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="3378" Column="79" TopLine="3366"/>
       </Position23>
       <Position24>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="1064" Column="1" TopLine="1051"/>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <Caret Line="250" Column="13" TopLine="233"/>
       </Position24>
       <Position25>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="1065" Column="1" TopLine="1051"/>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <Caret Line="702" Column="3" TopLine="696"/>
       </Position25>
       <Position26>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="1066" Column="1" TopLine="1051"/>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <Caret Line="703" Column="11" TopLine="686"/>
       </Position26>
       <Position27>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="1067" Column="1" TopLine="1051"/>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <Caret Line="704" Column="27" TopLine="687"/>
       </Position27>
       <Position28>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="1068" Column="1" TopLine="1051"/>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <Caret Line="705" Column="19" TopLine="701"/>
       </Position28>
       <Position29>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="1069" Column="1" TopLine="1051"/>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <Caret Line="708" Column="3" TopLine="690"/>
       </Position29>
       <Position30>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="1079" Column="1" TopLine="1051"/>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <Caret Line="712" Column="7" TopLine="694"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
