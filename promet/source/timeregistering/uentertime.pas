@@ -184,6 +184,7 @@ type
     procedure DoSetup;
     procedure SetLanguage;
     procedure StarttimeRegistering(aLink : string);
+    function CommandReceived(Sender : TObject;aCommand : string) : Boolean;
     property Link : string read FLink write SetLink;
     property Project : string read FProject write SetProject;
     property Task : string read FTask write SetTask;
@@ -1052,6 +1053,31 @@ begin
   acStart.Execute;
 end;
 
+function TfEnterTime.CommandReceived(Sender: TObject; aCommand: string
+  ): Boolean;
+begin
+  Result := False;
+  if copy(aCommand,0,10) = 'Time.enter' then
+    begin
+      aCommand := copy(aCommand,12,length(aCommand));
+      fEnterTime.Project:=copy(aCommand,0,pos(';',aCommand)-1);
+      aCommand := copy(aCommand,pos(';',aCommand)+1,length(aCommand));
+      fEnterTime.Task:=copy(aCommand,0,pos(';',aCommand)-1);
+      aCommand := copy(aCommand,pos(';',aCommand)+1,length(aCommand));
+      fEnterTime.Link:=copy(aCommand,0,pos(')',aCommand)-1);
+      fEnterTime.mNotes.Clear;
+      Result := True;
+    end
+  else if aCommand = 'Time.start' then
+    fEnterTime.acStart.Execute
+  else if aCommand = 'OnClick(/Zeiterfassung/Standardeintrag starten)' then
+    begin
+      fEnterTime.acStartstandartEntry.Execute;
+      Result := True;
+    end
+  else if copy(aCommand,0,23)='OnClick(/Zeiterfassung)' then Result := True;
+end;
+
 procedure TfEnterTime.refreshNode;
 begin
   if Assigned(FNode) and Assigned(FNode.Data) then
@@ -1124,4 +1150,4 @@ end;
 initialization
   {$I uentertime.lrs}
 end.
-
+

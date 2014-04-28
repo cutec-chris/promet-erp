@@ -448,7 +448,9 @@ begin
     begin
       RefreshMessages;
       Result := True;
-    end;
+    end
+  else if Assigned(FTimeReg) then
+    Result :=FTimeReg.CommandReceived(Sender,aCommand);
 end;
 procedure TfMain.AddCustomerList(Sender : TObject);
 begin

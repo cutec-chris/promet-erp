@@ -297,7 +297,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="57">
+    <Units Count="58">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -317,8 +317,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="669"/>
-        <CursorPos X="46" Y="680"/>
+        <TopLine Value="434"/>
+        <CursorPos X="14" Y="453"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -660,7 +660,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uorderaddressframe"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="18"/>
         <WindowIndex Value="0"/>
         <TopLine Value="227"/>
         <CursorPos X="97" Y="237"/>
@@ -726,7 +726,7 @@
       </Unit40>
       <Unit41>
         <Filename Value="../base/revision.inc"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
@@ -735,7 +735,7 @@
       </Unit41>
       <Unit42>
         <Filename Value="../base/changes.txt"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="55" Y="2"/>
@@ -746,7 +746,7 @@
       <Unit43>
         <Filename Value="../base/dbintfs/uprojects.pas"/>
         <UnitName Value="uProjects"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="537"/>
         <CursorPos X="1" Y="570"/>
@@ -756,7 +756,7 @@
       <Unit44>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="901"/>
         <CursorPos X="25" Y="929"/>
@@ -766,7 +766,7 @@
       <Unit45>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="846"/>
         <CursorPos X="54" Y="864"/>
@@ -779,7 +779,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uProjectFrame"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1084"/>
         <CursorPos X="1" Y="1115"/>
@@ -793,7 +793,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uGanttView"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="489"/>
         <CursorPos X="1" Y="519"/>
@@ -807,7 +807,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="utasks"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="934"/>
         <CursorPos X="46" Y="950"/>
@@ -818,7 +818,7 @@
       <Unit49>
         <Filename Value="../base_calendar/ueventedit.pas"/>
         <UnitName Value="uEventEdit"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="19"/>
         <WindowIndex Value="0"/>
         <TopLine Value="330"/>
         <CursorPos X="57" Y="349"/>
@@ -827,7 +827,7 @@
       </Unit49>
       <Unit50>
         <Filename Value="../../../README.md"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="23" Y="12"/>
@@ -841,7 +841,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ugridview"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="395"/>
         <CursorPos X="51" Y="410"/>
@@ -852,7 +852,7 @@
       <Unit52>
         <Filename Value="../components/zeos/src/component/ZAbstractDataset.pas"/>
         <UnitName Value="ZAbstractDataset"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="471"/>
         <CursorPos X="22" Y="490"/>
@@ -863,7 +863,7 @@
       <Unit53>
         <Filename Value="../base/dbintfs/uwiki.pas"/>
         <UnitName Value="uWiki"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="38"/>
         <CursorPos X="34" Y="54"/>
@@ -873,7 +873,7 @@
       <Unit54>
         <Filename Value="../base/base_help/uwikiframe.pas"/>
         <UnitName Value="uWikiFrame"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="743"/>
         <CursorPos X="1" Y="760"/>
@@ -883,7 +883,7 @@
       <Unit55>
         <Filename Value="../base/dbintfs/ustatistic.pas"/>
         <UnitName Value="uStatistic"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="89"/>
         <CursorPos X="1" Y="108"/>
@@ -891,21 +891,31 @@
         <Loaded Value="True"/>
       </Unit55>
       <Unit56>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <UnitName Value="uEnterTime"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1050"/>
+        <CursorPos X="1" Y="1073"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit56>
+      <Unit57>
         <Filename Value="../timeregistering/umain.pas"/>
         <ComponentName Value="fMain"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="umain"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="184"/>
-        <CursorPos X="1" Y="187"/>
-        <UsageCount Value="11"/>
+        <TopLine Value="198"/>
+        <CursorPos X="7" Y="215"/>
+        <UsageCount Value="10"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
-      </Unit56>
+      </Unit57>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="28" HistoryIndex="27">
       <Position1>
         <Filename Value="../base/dbintfs/ustatistic.pas"/>
         <Caret Line="108" Column="1" TopLine="89"/>
@@ -947,85 +957,77 @@
         <Caret Line="945" Column="23" TopLine="913"/>
       </Position10>
       <Position11>
-        <Filename Value="../timeregistering/umain.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="1000" Column="25" TopLine="993"/>
       </Position11>
       <Position12>
-        <Filename Value="../timeregistering/umain.pas"/>
-        <Caret Line="7" Column="93" TopLine="1"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="1002" Column="25" TopLine="995"/>
       </Position12>
       <Position13>
-        <Filename Value="../timeregistering/umain.pas"/>
-        <Caret Line="97" Column="29" TopLine="66"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="8" Column="109" TopLine="1"/>
       </Position13>
       <Position14>
-        <Filename Value="../timeregistering/umain.pas"/>
-        <Caret Line="8" Column="93" TopLine="1"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="45" Column="22" TopLine="13"/>
       </Position14>
       <Position15>
-        <Filename Value="../timeregistering/umain.pas"/>
-        <Caret Line="77" Column="39" TopLine="46"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="195" Column="32" TopLine="164"/>
       </Position15>
       <Position16>
-        <Filename Value="../timeregistering/umain.pas"/>
-        <Caret Line="92" Column="30" TopLine="60"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="677" Column="61" TopLine="651"/>
       </Position16>
       <Position17>
-        <Filename Value="../timeregistering/umain.pas"/>
-        <Caret Line="165" Column="25" TopLine="133"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="794" Column="22" TopLine="779"/>
       </Position17>
       <Position18>
-        <Filename Value="../timeregistering/umain.pas"/>
-        <Caret Line="166" Column="20" TopLine="134"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="793" Column="18" TopLine="785"/>
       </Position18>
       <Position19>
-        <Filename Value="../timeregistering/umain.pas"/>
-        <Caret Line="184" Column="33" TopLine="152"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="953" Column="22" TopLine="939"/>
       </Position19>
       <Position20>
-        <Filename Value="../timeregistering/umain.pas"/>
-        <Caret Line="186" Column="39" TopLine="154"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="684" Column="33" TopLine="669"/>
       </Position20>
       <Position21>
-        <Filename Value="../timeregistering/umain.pas"/>
-        <Caret Line="250" Column="62" TopLine="246"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="3657" Column="10" TopLine="3632"/>
       </Position21>
       <Position22>
         <Filename Value="umain.pas"/>
-        <Caret Line="1000" Column="25" TopLine="993"/>
+        <Caret Line="452" Column="23" TopLine="442"/>
       </Position22>
       <Position23>
         <Filename Value="umain.pas"/>
-        <Caret Line="1002" Column="25" TopLine="995"/>
+        <Caret Line="265" Column="19" TopLine="247"/>
       </Position23>
       <Position24>
-        <Filename Value="umain.pas"/>
-        <Caret Line="8" Column="109" TopLine="1"/>
+        <Filename Value="../timeregistering/umain.pas"/>
+        <Caret Line="1" Column="1" TopLine="28"/>
       </Position24>
       <Position25>
-        <Filename Value="umain.pas"/>
-        <Caret Line="45" Column="22" TopLine="13"/>
+        <Filename Value="../timeregistering/umain.pas"/>
+        <Caret Line="186" Column="13" TopLine="184"/>
       </Position25>
       <Position26>
-        <Filename Value="umain.pas"/>
-        <Caret Line="195" Column="32" TopLine="164"/>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <Caret Line="187" Column="5" TopLine="165"/>
       </Position26>
       <Position27>
-        <Filename Value="umain.pas"/>
-        <Caret Line="677" Column="61" TopLine="651"/>
+        <Filename Value="../timeregistering/uentertime.pas"/>
+        <Caret Line="1093" Column="1" TopLine="1055"/>
       </Position27>
       <Position28>
         <Filename Value="umain.pas"/>
-        <Caret Line="794" Column="22" TopLine="779"/>
+        <Caret Line="265" Column="19" TopLine="247"/>
       </Position28>
-      <Position29>
-        <Filename Value="umain.pas"/>
-        <Caret Line="793" Column="18" TopLine="785"/>
-      </Position29>
-      <Position30>
-        <Filename Value="umain.pas"/>
-        <Caret Line="953" Column="22" TopLine="939"/>
-      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -1065,7 +1067,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="2">
+    <BreakPoints Count="3">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
@@ -1080,6 +1082,13 @@
         <Source Value="../timeregistering/umain.pas"/>
         <Line Value="165"/>
       </Item2>
+      <Item3>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="umain.pas"/>
+        <Line Value="3659"/>
+      </Item3>
     </BreakPoints>
     <Watches Count="1">
       <Item1>

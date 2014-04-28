@@ -290,7 +290,10 @@ begin
 end;
 destructor TfmTimeline.Destroy;
 begin
-  inherited Destroy;
+  try
+    inherited Destroy;
+  except
+  end;
 end;
 procedure TfmTimeline.AddHelp;
 var

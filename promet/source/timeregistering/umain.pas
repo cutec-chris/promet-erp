@@ -209,40 +209,24 @@ begin
 end;
 function TfMain.CommandReceived(Sender: TObject; aCommand: string): Boolean;
 begin
-  Result := False;
-  if copy(aCommand,0,10) = 'Time.enter' then
+  Result := fEnterTime.CommandReceived(Sender,aCommand);
+  if not Result then
     begin
-      aCommand := copy(aCommand,12,length(aCommand));
-      fEnterTime.Project:=copy(aCommand,0,pos(';',aCommand)-1);
-      aCommand := copy(aCommand,pos(';',aCommand)+1,length(aCommand));
-      fEnterTime.Task:=copy(aCommand,0,pos(';',aCommand)-1);
-      aCommand := copy(aCommand,pos(';',aCommand)+1,length(aCommand));
-      fEnterTime.Link:=copy(aCommand,0,pos(')',aCommand)-1);
-      fEnterTime.mNotes.Clear;
-      Result := True;
-    end
-  else if aCommand = 'Time.start' then
-    fEnterTime.acStart.Execute
-  else if aCommand = 'OnClick(/Zeiterfassung/zeigen\verstecken)' then
-    begin
-      if FMain.Visible then
+      if aCommand = 'OnClick(/Zeiterfassung/zeigen\verstecken)' then
         begin
-          if fMain.WindowState=wsMinimized then fMain.WindowState:=wsNormal;
-          fMain.Hide
+          if FMain.Visible then
+            begin
+              if fMain.WindowState=wsMinimized then fMain.WindowState:=wsNormal;
+              fMain.Hide
+            end
+          else
+            begin
+              fMain.Show;
+              if fMain.WindowState=wsMinimized then fMain.WindowState:=wsNormal;
+            end;
+          Result := True;
         end
-      else
-        begin
-          fMain.Show;
-          if fMain.WindowState=wsMinimized then fMain.WindowState:=wsNormal;
-        end;
-      Result := True;
-    end
-  else if aCommand = 'OnClick(/Zeiterfassung/Standardeintrag starten)' then
-    begin
-      fEnterTime.acStartstandartEntry.Execute;
-      Result := True;
-    end
-  else if copy(aCommand,0,23)='OnClick(/Zeiterfassung)' then Result := True;
+    end;
 end;
 procedure TfMain.acLoginExecute(Sender: TObject);
 begin
@@ -401,4 +385,4 @@ end;
 initialization
   {$I umain.lrs}
 
-end.
+end.
