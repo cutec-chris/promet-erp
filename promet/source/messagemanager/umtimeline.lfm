@@ -563,6 +563,7 @@ object fmTimeline: TfmTimeline
       ClientHeight = 30
       ClientWidth = 308
       TabOrder = 1
+      Visible = False
       object cbEnviroment: TComboBox
         Left = 75
         Height = 21

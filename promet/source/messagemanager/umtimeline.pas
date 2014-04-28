@@ -630,6 +630,11 @@ begin
     begin
       tmp := trim(copy(tmp,5,length(tmp)));
       AddTask := True;
+    end
+  else if lowercase(copy(tmp,0,7)) = 'aufgabe' then
+    begin
+      tmp := trim(copy(tmp,8,length(tmp)));
+      AddTask := True;
     end;
   if copy(tmp,0,1) = '@' then
     begin
@@ -668,14 +673,14 @@ begin
                   aTask.FieldByName('SUMMARY').AsString:=tmp;
                   aTask.FieldByName('USER').AsString:=aUser.FieldByName('ACCOUNTNO').AsString;
                   aTask.DataSet.Post;
-                  Data.Users.History.AddItem(aTask.DataSet,Format(strTaskUDelegated,[aTask.FieldByName('SUMMARY').AsString]),Data.BuildLink(aTask.DataSet),'',nil,ACICON_TASKADDED,'',False);;
+                  Data.Users.History.AddItem(aTask.DataSet,aTask.FieldByName('SUMMARY').AsString,Data.BuildLink(aTask.DataSet),'',nil,ACICON_TASKADDED,'',False);;
                   aTask.Free;
                 end;
             end;
         end;
       aUser.Free;
     end
-  else
+  else if (not AddTask) then
     begin
       if Assigned(FUserHist) then
         begin
@@ -687,6 +692,16 @@ begin
       else
         Data.Users.History.AddItem(Data.Users.DataSet,mEntry.Lines.Text,'','',nil,ACICON_USEREDITED,'',True,True);
       Found := True;
+    end
+  else
+    begin
+      aTask := TTask.Create(nil,Data);
+      aTask.Insert;
+      aTask.FieldByName('SUMMARY').AsString:=tmp;
+      aTask.FieldByName('USER').AsString:=Data.Users.FieldByName('ACCOUNTNO').AsString;
+      aTask.DataSet.Post;
+      Data.Users.History.AddItem(aTask.DataSet,aTask.FieldByName('SUMMARY').AsString,Data.BuildLink(aTask.DataSet),'',nil,ACICON_TASKADDED,'',False);;
+      aTask.Free;
     end;
   fTimeline.Refresh;
   if Found then
@@ -953,10 +968,11 @@ begin
           lbResultsDblClick(nil);
           Key := 0;
         end;
-      VK_ESCAPE:
+      VK_ESCAPE,VK_SPACE:
         begin
           pSearch.Visible:=False;
-          Key := 0;
+          if Key = VK_ESCAPE then
+            Key := 0;
         end;
       end;
     end
