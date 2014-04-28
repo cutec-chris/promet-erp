@@ -230,7 +230,6 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure IPCTimerTimer(Sender: TObject);
-    procedure LanguageItemClick(Sender: TObject);
     procedure lbResultsDblClick(Sender: TObject);
     procedure lbResultsDrawItem(Control: TWinControl; Index: Integer;
       ARect: TRect; State: TOwnerDrawState);
@@ -280,7 +279,6 @@ type
     procedure RefreshCalendar;
     procedure RefreshMessages;
     procedure RefreshTasks;
-    procedure IntSetLanguage(aLang : string);
     procedure ImportFavorites;
   public
     { public declarations }
@@ -3351,7 +3349,7 @@ begin
   fMainTreeFrame.OnDragDrop:=@fMainTreeFrameDragDrop;
   with BaseApplication as TBaseVisualApplication do
     begin
-      LoadLanguages(miLanguage);
+      LoadLanguageMenu(miLanguage);
     end;
   uprometipc.OnMessageReceived:=@OnMessageReceived;
 end;
