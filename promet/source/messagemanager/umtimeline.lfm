@@ -312,7 +312,7 @@ object fmTimeline: TfmTimeline
     object ToolBar1: TToolBar
       Left = 0
       Top = 0
-      Width = 256
+      Width = 280
       Align = alNone
       ButtonHeight = 30
       ButtonWidth = 30
@@ -553,15 +553,15 @@ object fmTimeline: TfmTimeline
       end
     end
     object pEnviroment: TPanel
-      Left = 246
+      Left = 254
       Height = 30
       Top = 2
-      Width = 308
+      Width = 300
       Alignment = taLeftJustify
       BevelOuter = bvNone
       Caption = '  Umgebung'
       ClientHeight = 30
-      ClientWidth = 308
+      ClientWidth = 300
       TabOrder = 1
       Visible = False
       object cbEnviroment: TComboBox
@@ -700,6 +700,12 @@ object fmTimeline: TfmTimeline
       ImageIndex = 70
       OnExecute = acSetLinkExecute
     end
+    object acStartTimeRegistering: TAction
+      Caption = 'Zeiterfassung starten'
+      Hint = 'Zeiterfassung starten'
+      ImageIndex = 64
+      OnExecute = acStartTimeRegisteringExecute
+    end
   end
   object SelectDirectoryDialog1: TSelectDirectoryDialog
     left = 392
@@ -720,6 +726,7 @@ object fmTimeline: TfmTimeline
     top = 176
   end
   object PopupMenu1: TPopupMenu
+    OnPopup = PopupMenu1Popup
     left = 448
     top = 128
     object MenuItem2: TMenuItem
@@ -730,6 +737,9 @@ object fmTimeline: TfmTimeline
     end
     object MenuItem4: TMenuItem
       Action = acMarkasRead
+    end
+    object MenuItem9: TMenuItem
+      Action = acStartTimeRegistering
     end
     object MenuItem6: TMenuItem
       Action = acCopyToClipboard
@@ -746,5 +756,11 @@ object fmTimeline: TfmTimeline
     object MenuItem5: TMenuItem
       Action = acDelete
     end
+  end
+  object IPC: TSimpleIPCClient
+    Active = False
+    ServerID = 'PMSTimeregistering'
+    left = 16
+    top = 160
   end
 end

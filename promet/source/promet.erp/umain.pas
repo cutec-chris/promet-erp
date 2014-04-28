@@ -136,6 +136,7 @@ type
     miLogout: TMenuItem;
     miLogin: TMenuItem;
     miMandant: TMenuItem;
+    SimpleIPCServer1: TSimpleIPCServer;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
     spTree: TSplitter;
@@ -249,6 +250,7 @@ type
 
       procedure SenderTfMainTaskFrameControlsSenderTfMainTaskFrameTfTaskFrameStartTime
       (Sender: TObject; aProject, aTask: string);
+      procedure SimpleIPCServer1Message(Sender: TObject);
     procedure TfFilteracOpenExecute(Sender: TObject);
   private
     { private declarations }
@@ -675,6 +677,7 @@ begin
           TTreeEntry(MainNode.Data).Typ := etTimeRegistering;
           fMain.FTimeReg.Node := MainNode;
           fMain.FTimeReg.RefreshNode;
+          fMain.SimpleIPCServer1.Active:=True;
         end;
     end;
 end;
@@ -3647,6 +3650,11 @@ begin
       FTimereg.mNotes.Clear;
       FTimereg.acStartExecute(nil);
     end;
+end;
+
+procedure TfMain.SimpleIPCServer1Message(Sender: TObject);
+begin
+  CommandReceived(nil,TSimpleIPCServer(Sender).StringMessage);
 end;
 
 procedure TfMain.TfFilteracOpenExecute(Sender: TObject);

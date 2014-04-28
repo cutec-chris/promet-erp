@@ -2,20 +2,20 @@ inherited fTaskFrame: TfTaskFrame
   Left = 0
   Height = 588
   Top = 0
-  Width = 707
+  Width = 689
   ClientHeight = 588
-  ClientWidth = 707
+  ClientWidth = 689
   Color = clBtnFace
   ParentColor = False
   ParentShowHint = False
   ShowHint = True
-  DesignLeft = 450
+  DesignLeft = 471
   DesignTop = 195
   object ToolBar: TToolBar[0]
     Left = 0
     Height = 1
     Top = 0
-    Width = 707
+    Width = 689
     AutoSize = True
     ButtonHeight = 32
     Caption = 'ToolBar'
@@ -157,7 +157,8 @@ inherited fTaskFrame: TfTaskFrame
         Caption = 'Aufgabe'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = -900
+        Font.Orientation = 900
+        Layout = tlBottom
         ParentColor = False
         ParentFont = False
       end
@@ -372,7 +373,8 @@ inherited fTaskFrame: TfTaskFrame
         Caption = 'Zeit'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = -900
+        Font.Orientation = 900
+        Layout = tlBottom
         ParentColor = False
         ParentFont = False
       end
@@ -407,7 +409,8 @@ inherited fTaskFrame: TfTaskFrame
         Caption = 'Ansicht'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = -900
+        Font.Orientation = 900
+        Layout = tlBottom
         ParentColor = False
         ParentFont = False
       end
@@ -696,7 +699,8 @@ inherited fTaskFrame: TfTaskFrame
         Caption = 'zusätzlich'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = -900
+        Font.Orientation = 900
+        Layout = tlBottom
         ParentColor = False
         ParentFont = False
       end
@@ -706,11 +710,11 @@ inherited fTaskFrame: TfTaskFrame
     Left = 0
     Height = 42
     Top = 1
-    Width = 707
+    Width = 689
     Align = alTop
     BevelOuter = bvNone
     ClientHeight = 42
-    ClientWidth = 707
+    ClientWidth = 689
     TabOrder = 2
     Visible = False
     object Panel4: TPanel
@@ -1402,11 +1406,11 @@ inherited fTaskFrame: TfTaskFrame
       Left = 415
       Height = 42
       Top = 0
-      Width = 292
+      Width = 274
       Align = alClient
       BevelOuter = bvNone
       ClientHeight = 42
-      ClientWidth = 292
+      ClientWidth = 274
       Constraints.MaxWidth = 700
       TabOrder = 4
       object Bevel7: TBevel
@@ -1420,9 +1424,9 @@ inherited fTaskFrame: TfTaskFrame
       end
       object ExtRotatedLabel4: TLabel
         Left = 6
-        Height = 14
+        Height = 11
         Top = 0
-        Width = 28
+        Width = 21
         Caption = 'Filter'
         Font.Color = clMedGray
         Font.Height = 11
@@ -1433,18 +1437,18 @@ inherited fTaskFrame: TfTaskFrame
       object cbFilter: TComboBox
         AnchorSideLeft.Side = asrBottom
         Left = 6
-        Height = 27
+        Height = 21
         Hint = 'hier können Sie einen Filter wählen um die Liste einzuschränken'
         Top = 12
-        Width = 241
+        Width = 223
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Left = 8
-        ItemHeight = 0
+        ItemHeight = 13
         OnSelect = cbFilterSelect
         TabOrder = 0
       end
       object bEditFilter: TSpeedButton
-        Left = 250
+        Left = 232
         Height = 21
         Hint = 'zeigt/verbirgt den Filtereditor'
         Top = 12
@@ -1575,7 +1579,7 @@ inherited fTaskFrame: TfTaskFrame
     end
   end
   object pSearch: TPanel[3]
-    Left = 186
+    Left = 168
     Height = 72
     Top = 216
     Width = 452
@@ -1597,36 +1601,35 @@ inherited fTaskFrame: TfTaskFrame
       ScrollWidth = 450
       TabOrder = 0
       TabStop = False
-      TopIndex = -1
     end
   end
   object pFilterOptions: TPanel[4]
     Left = 0
     Height = 143
     Top = 43
-    Width = 707
+    Width = 689
     Align = alTop
     BevelOuter = bvNone
     ClientHeight = 143
-    ClientWidth = 707
+    ClientWidth = 689
     TabOrder = 4
     object pFilterOpt: TPanel
       Left = 112
       Height = 143
       Top = 0
-      Width = 595
+      Width = 577
       Align = alRight
       Anchors = [akTop, akLeft, akRight]
       BevelOuter = bvNone
       ClientHeight = 143
-      ClientWidth = 595
+      ClientWidth = 577
       Constraints.MaxWidth = 700
       TabOrder = 0
       object cbMaxResults: TCheckBox
         Left = 9
-        Height = 24
+        Height = 17
         Top = 5
-        Width = 209
+        Width = 173
         Caption = 'Filterergebnisse begrenzen auf  '
         Checked = True
         OnChange = seMaxresultsChange
@@ -1638,12 +1641,12 @@ inherited fTaskFrame: TfTaskFrame
         Left = 0
         Height = 12
         Top = 2
-        Width = 587
+        Width = 569
         Anchors = [akTop, akLeft, akRight]
         Shape = bsTopLine
       end
       object sbSave: TSpeedButton
-        Left = 509
+        Left = 491
         Height = 28
         Top = 34
         Width = 26
@@ -1688,7 +1691,7 @@ inherited fTaskFrame: TfTaskFrame
         ShowCaption = False
       end
       object sbDelete: TSpeedButton
-        Left = 561
+        Left = 543
         Height = 28
         Top = 34
         Width = 26
@@ -1733,7 +1736,7 @@ inherited fTaskFrame: TfTaskFrame
         ShowCaption = False
       end
       object sbSavePublic: TSpeedButton
-        Left = 535
+        Left = 517
         Height = 28
         Top = 34
         Width = 26
@@ -1779,14 +1782,14 @@ inherited fTaskFrame: TfTaskFrame
       end
       object lFilterEdit: TLabel
         Left = 9
-        Height = 14
+        Height = 13
         Top = 33
-        Width = 88
+        Width = 74
         Caption = 'Filterbedingung'
         ParentColor = False
       end
       object lFilterIn: TLabel
-        Left = 435
+        Left = 417
         Height = 16
         Top = 63
         Width = 151
@@ -1796,8 +1799,8 @@ inherited fTaskFrame: TfTaskFrame
         ParentColor = False
       end
       object eFilterIn: TEdit
-        Left = 435
-        Height = 24
+        Left = 417
+        Height = 21
         Hint = 'Wenn Sie über mehrere Tabellen Filtern '#13#10'möchten füllen Sie dieses Feld'#13#10'z.b.'#13#10'Orders,OrderPos'
         Top = 80
         Width = 152
@@ -1808,15 +1811,15 @@ inherited fTaskFrame: TfTaskFrame
         Left = 8
         Height = 12
         Top = 141
-        Width = 576
+        Width = 558
         Anchors = [akLeft, akRight, akBottom]
         Shape = bsTopLine
       end
       object seMaxresults: TSpinEdit
         AnchorSideLeft.Control = cbMaxResults
         AnchorSideLeft.Side = asrBottom
-        Left = 218
-        Height = 24
+        Left = 182
+        Height = 21
         Hint = 'hier können Sie die Zahl der maximalen Filterergebnisse angeben'
         Top = 5
         Width = 52
@@ -1832,7 +1835,7 @@ inherited fTaskFrame: TfTaskFrame
         Left = 9
         Height = 88
         Top = 47
-        Width = 421
+        Width = 403
         Anchors = [akTop, akLeft, akRight]
         Font.Height = -13
         Font.Name = 'Courier New'
@@ -2317,7 +2320,7 @@ inherited fTaskFrame: TfTaskFrame
         end
       end
       object sbSave1: TSpeedButton
-        Left = 561
+        Left = 543
         Height = 28
         Top = 5
         Width = 26
@@ -2361,8 +2364,8 @@ inherited fTaskFrame: TfTaskFrame
         }
         ShowCaption = False
       end
-      object sbSave2: TSpeedButton
-        Left = 483
+      object bFilter: TSpeedButton
+        Left = 465
         Height = 28
         Top = 34
         Width = 26
@@ -2448,105 +2451,18 @@ inherited fTaskFrame: TfTaskFrame
       end
     end
   end
-  object bFilter: TBitBtn[5]
-    Left = 6
-    Height = 34
-    Top = 48
-    Width = 100
-    Action = acFilter
-    Anchors = [akTop, akRight]
-    Default = True
-    Glyph.Data = {
-      36090000424D3609000000000000360000002800000018000000180000000100
-      2000000000000009000064000000640000000000000000000000000000000000
-      000000000000000000000000000000000000000000000000000000000000702A
-      002A935F3DEA9E540DF8702900966824000C0000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000007C39
-      00A0FDEB98FFFFB222FFBE6502FF88400BD76821000865220000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000007B38
-      0095F8E187FFFFA71EFFC16603FECE7622FF7E35078100000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000007B37
-      0095F8DD7CFFFFA61BFFC16503FFDE8227FF7D34089600000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000007B37
-      0095F8D871FFFFA318FFC16403FFDD8227FF7D35089500000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000007B38
-      0095F8D466FFFFA116FFC16303FFDD8227FF7D35089500000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000007B37
-      0195F8CF5CFFFF9F13FFC16203FFDD8227FF7D35089500000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000007B37
-      0195F8CB52FFFF9D11FFC16103FFDD8227FF7D35089500000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000007B37
-      0195F8C648FFFF990FFFC16203FFDD8227FF7D35089500000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000007B37
-      0295F8C13FFFFF980CFFC16103FFDD8227FF7D35089500000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000007C37
-      0293F7BC36FFFF960AFFC16003FFDC8025FF7E35089300000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000000000006C26000000000000702A
-      02ADFDBD2CFFFF9307FFC05E00FFE07A15FF722B04B300000000692500000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000005E190000000000005E150044C18A
-      10FFFFC238FEFF8D01FFD36800FFBC5D00FEC36714FF5D1C004C000000005616
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000032000024A86403F8FFE9
-      53FEFEAD15FFFE8500FFEE7400FF924700FFD06D06FEB75E12F82C0000260000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000712B000038000007914100B0EFC762FFFEE1
-      79FFFFBD3EFFFEA744FFF89736FFB1671DFF813E00FFDA7411FF9F4E11B12F00
-      0007712C00000000000000000000000000000000000000000000000000000000
-      00000000000000000000652300000000000079310157C88F4FFFFBE49FFEFFDC
-      68FEFEBB3FFFFFA33CFFFC9C3CFFCC853FFFA87441FE8F5E2CFECE6F17FF7D35
-      0455000000005F1D000000000000000000000000000000000000000000000000
-      0000000000006B270000000000004A150039A4541DFFFBD7A2FEFAE39CFFFFD5
-      4BFFFFB532FFFE9C30FFFF9830FFD68330FF9E6730FF8D6135FFC78E50FEB360
-      1AFF37000036000000006B260000000000000000000000000000000000000000
-      00000000000000000000381A000D872500DFEFC19DFFF6DDB7FEFADB77FFFFD4
-      50FFFFAC1EFFFF9523FFFF9123FFE58523FF9D6123FF845322FF846240FEF0AA
-      63FF984B0FDD0800000900000000000000000000000000000000000000000000
-      0000662600000000000074230099D9896BFFF2D5BCFFF7DFB7FFFADB70FFFFCC
-      3CFFFFA716FFFF8E19FFFF8A19FFFA8919FF9B5919FF7E4B19FF704113FF9E83
-      69FFF4AD5DFF7B31029400000000632100000000000000000000000000007028
-      0000000000006821004EB05631FFF1D1C3FEF6E4D2FFF6D9A5FFFBE28AFFFFC0
-      13FFFFA20EFFFE880FFFFE850FFFFF8A0FFFA5590FFF78420FFF6D3D0EFF7345
-      17FECDB091FFCB7F3CFF6A25004400000000712B000000000000000000000000
-      00005639020689310CFEEBBAB0FFF7EFF8FEF8F0F7FFF7DFB6FFFEE482FFFFB8
-      00FFFFA106FFFF8B05FFFF8A05FFFF8A06FFD57106FF733B06FF582906FF5324
-      03FF795337FEF2D4B5FF95470EFD000000000000000000000000000000000000
-      0000762D00E0E77D21FEFBCD5BFFF0AA16FEE49500FFDC8C00FED38700FFCE89
-      00FFCD8900FFCD8A00FFCD8A00FFCD8B00FFD29000FFE29C00FFEEA600FFEFA2
-      00FEE09602FFEAB23EFFFFC359FE712A00D60000000000000000000000004703
-      0022AB6400D7C17B00FFBF7700FFD08900FFDF9700FFDC9400FFD99200FFD791
-      00FFD69000FFD68F00FED68F00FED69000FFD89100FFD99100FFDB9400FFDE96
-      00FFD08900FFBF7800FFC07600FFA05800CD3A00001100000000000000000000
-      0000510D0013914A00257F3A007078330097773200BA8A4400D5974F00E79F56
-      00F4A25900FDA35A00FFA35A00FFA15900FC9F5600F4954F00E6894200D37731
-      00B779330092803B006B8D4600244E0C0010000000006A250000
-    }
-    TabOrder = 5
-    Visible = False
-  end
-  object pBottom: TPanel[6]
+  object pBottom: TPanel[5]
     Left = 0
     Height = 20
     Top = 568
-    Width = 707
+    Width = 689
     Align = alBottom
     Alignment = taRightJustify
     BevelOuter = bvNone
     Caption = 'Anzahl: 0'
-    TabOrder = 6
+    TabOrder = 5
   end
-  object ActionList: TActionList[7]
+  object ActionList: TActionList[6]
     Images = fVisualControls.Images
     left = 208
     top = 112
@@ -2667,32 +2583,32 @@ inherited fTaskFrame: TfTaskFrame
       OnExecute = acAppendLinkToDependenciesExecute
     end
   end
-  object Datasource: TDatasource[8]
+  object Datasource: TDatasource[7]
     OnStateChange = DatasourceStateChange
     OnDataChange = DatasourceDataChange
     left = 208
     top = 56
   end
-  object IPC: TSimpleIPCClient[9]
+  object IPC: TSimpleIPCClient[8]
     Active = False
     ServerID = 'PMSTimeregistering'
     left = 37048
   end
-  object PHistory: TfrDBDataSet[10]
+  object PHistory: TfrDBDataSet[9]
     DataSource = History
     left = 156
     top = 180
   end
-  object History: TDatasource[11]
+  object History: TDatasource[10]
     left = 212
     top = 180
   end
-  object PList: TfrDBDataSet[12]
+  object PList: TfrDBDataSet[11]
     DataSource = Datasource
     left = 156
     top = 83
   end
-  object Report: TfrReport[13]
+  object Report: TfrReport[12]
     Dataset = PList
     DefaultCopies = 0
     InitialZoom = pzDefault
@@ -2703,11 +2619,11 @@ inherited fTaskFrame: TfTaskFrame
     left = 156
     top = 136
   end
-  object MandantDetails: TDatasource[14]
+  object MandantDetails: TDatasource[13]
     AutoEdit = False
     left = 12344
   end
-  object SynSQLSyn2: TSynSQLSyn[15]
+  object SynSQLSyn2: TSynSQLSyn[14]
     DefaultFilter = 'SQL-Dateien (*.sql)|*.sql'
     Enabled = False
     CommentAttri.FrameEdges = sfeAround
@@ -2729,16 +2645,16 @@ inherited fTaskFrame: TfTaskFrame
     left = 368
     top = 128
   end
-  object Users: TDatasource[16]
+  object Users: TDatasource[15]
     left = 212
     top = 216
   end
-  object PUsers: TfrDBDataSet[17]
+  object PUsers: TfrDBDataSet[16]
     DataSource = Users
     left = 156
     top = 216
   end
-  object pmGrid: TPopupMenu[18]
+  object pmGrid: TPopupMenu[17]
     Images = fVisualControls.Images
     OnPopup = pmGridPopup
     left = 112

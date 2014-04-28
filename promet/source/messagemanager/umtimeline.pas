@@ -24,9 +24,9 @@ uses
   Classes, SysUtils, types, LResources, Forms, Controls, Graphics, Dialogs,
   DBGrids, Buttons, Menus, ActnList, XMLPropStorage, StdCtrls, Utils,
   ZVDateTimePicker, uIntfStrConsts, db, memds, FileUtil, Translations, md5,
-  ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage, ugridview, uExtControls,
-  uBaseVisualControls, uBaseDbClasses, uFormAnimate, uBaseSearch, ImgList,
-  uBaseDbInterface, uQuickHelpFrame,uHistoryFrame;
+  simpleipc, ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage, ugridview,
+  uExtControls, uBaseVisualControls, uBaseDbClasses, uFormAnimate, uBaseSearch,
+  ImgList, uBaseDbInterface, uQuickHelpFrame, uHistoryFrame;
 type
 
   { TfmTimeline }
@@ -47,10 +47,12 @@ type
     acCopyToClipboard: TAction;
     acDeleteENviroment: TAction;
     acSetLink: TAction;
+    acStartTimeRegistering: TAction;
     acViewThread: TAction;
     ActionList1: TActionList;
     bSend: TBitBtn;
     cbEnviroment: TComboBox;
+    IPC: TSimpleIPCClient;
     lbResults: TListBox;
     mEntry: TMemo;
     IdleTimer1: TIdleTimer;
@@ -62,6 +64,7 @@ type
     MenuItem6: TMenuItem;
     MenuItem7: TMenuItem;
     MenuItem8: TMenuItem;
+    MenuItem9: TMenuItem;
     miBugtracker: TMenuItem;
     miDeletemandant: TMenuItem;
     miNewMandant: TMenuItem;
@@ -104,6 +107,7 @@ type
     procedure acRefreshExecute(Sender: TObject);
     procedure acSendExecute(Sender: TObject);
     procedure acSetLinkExecute(Sender: TObject);
+    procedure acStartTimeRegisteringExecute(Sender: TObject);
     procedure ActiveSearchEndItemSearch(Sender: TObject);
     procedure ActiveSearchItemFound(aIdent: string; aName: string;
       aStatus: string; aActive: Boolean; aLink: string; aItem: TBaseDBList=nil);
@@ -124,6 +128,7 @@ type
     procedure lbResultsDblClick(Sender: TObject);
     procedure mEntryKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure mEntryKeyPress(Sender: TObject; var Key: char);
+    procedure PopupMenu1Popup(Sender: TObject);
     function SetLinkfromSearch(aLink: string): Boolean;
     procedure tbThreadClick(Sender: TObject);
     procedure tbUserClick(Sender: TObject);
@@ -723,6 +728,21 @@ begin
     end;
 end;
 
+procedure TfmTimeline.acStartTimeRegisteringExecute(Sender: TObject);
+var
+  tmp: String;
+begin
+  if fTimeline.GotoActiveRow then
+    if IPC.ServerRunning then
+      begin
+        IPC.Connect;
+        tmp := 'Time.enter(;'+fTimeline.DataSet.FieldByName('LINK').AsString+';)';
+        IPC.SendStringMessage(tmp);
+        IPC.SendStringMessage('Time.start');
+        IPC.Disconnect;
+      end;
+end;
+
 procedure TfmTimeline.ActiveSearchEndItemSearch(Sender: TObject);
 begin
   if not ActiveSearch.Active then
@@ -1034,6 +1054,13 @@ begin
       ActiveSearch.Start(aText+Key);
       Application.ProcessMessages;
     end;
+end;
+
+procedure TfmTimeline.PopupMenu1Popup(Sender: TObject);
+begin
+  acStartTimeRegistering.Visible := False;
+  if fTimeline.GotoActiveRow then
+    acStartTimeRegistering.Visible := (Data.GetLinkIcon(fTimeline.DataSet.FieldByName('LINK').AsString) = IMAGE_TASK) and IPC.ServerRunning;
 end;
 
 function TfmTimeline.SetLinkfromSearch(aLink: string): Boolean;

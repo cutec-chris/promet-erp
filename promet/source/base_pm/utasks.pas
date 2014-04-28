@@ -82,7 +82,6 @@ type
     Bevel8: TBevel;
     Bevel9: TBevel;
     bExecute: TSpeedButton;
-    bFilter: TBitBtn;
     bOldTasks1: TSpeedButton;
     bDelegated1: TSpeedButton;
     bDependencies: TSpeedButton;
@@ -151,7 +150,7 @@ type
     sbDelete: TSpeedButton;
     sbSave: TSpeedButton;
     sbSave1: TSpeedButton;
-    sbSave2: TSpeedButton;
+    bFilter: TSpeedButton;
     sbSavePublic: TSpeedButton;
     seMaxresults: TSpinEdit;
     SynSQLSyn2: TSynSQLSyn;
@@ -360,8 +359,6 @@ begin
 end;
 procedure TfTaskFrame.DoFilterFocus;
 begin
-  if bFilter.Visible then
-    bFilter.SetFocus;
 end;
 procedure TfTaskFrame.SetUserID(AValue: Variant);
 begin
@@ -1064,7 +1061,7 @@ begin
         end;
       DoFilterFocus;
 //      UpdateTitle;
-      if (bFilter.Focused and bFilter.Visible) or (not bFilter.Visible) then
+//      if (bFilter.Focused and bFilter.Visible) or (not bFilter.Visible) then
         acFilter.Execute;
     end;
 end;
