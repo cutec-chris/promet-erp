@@ -904,7 +904,7 @@ begin
       FieldByName('GPRIORITY').AsString := '999999';
       if (not (Self is TProjectTasks)) then
         begin
-          if FUserID = Null then
+          if FUserID = '' then
             FieldByName('USER').AsString := Data.Users.FieldByName('ACCOUNTNO').AsString
           else
             FieldByName('USER').AsString := FUserID;

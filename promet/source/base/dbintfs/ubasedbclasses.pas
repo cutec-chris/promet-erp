@@ -22,7 +22,7 @@ unit uBaseDbClasses;
 interface
 uses
   Classes, SysUtils, db, uBaseDbDataSet, Variants, uIntfStrConsts, DOM,
-  Contnrs,LCLProc;
+  Contnrs,LCLProc,Graphics;
 type
 
   { TBaseDBDataset }
@@ -362,9 +362,13 @@ type
     function GetNumberFieldName : string;override;
     property Entrys : TListEntrys read FEntrys;
   end;
+
+  { TImages }
+
   TImages = class(TBaseDBDataSet)
   public
     procedure DefineFields(aDataSet : TDataSet);override;
+    function AddFromFile(aFile : string) : Boolean;
   end;
   TDeletedItems = class(TBaseDBDataSet)
   public
@@ -599,6 +603,33 @@ begin
           end;
     end;
 end;
+
+function TImages.AddFromFile(aFile: string): Boolean;
+var
+  aPicture: TPicture;
+  fe: String;
+  s: TStream;
+  i: SizeInt;
+begin
+  Insert;
+  aPicture := TPicture.Create;
+  aPicture.LoadFromFile(aFile);
+
+  fe := aPicture.Graphic.GetFileExtensions;
+  s := DataSet.CreateBlobStream(FieldByName('IMAGE'),bmwrite);
+  try
+    i := pos(';',fe);
+    if i > 0 then fe := copy(fe,1,i-1);
+      begin
+        s.WriteAnsiString(fe);  //otherwise write file extension to stream
+      end;
+    aPicture.Graphic.SaveToStream(s);
+  finally
+    s.Free;
+  end;
+  Post;
+end;
+
 constructor TLinks.Create(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
@@ -2272,8 +2303,9 @@ begin
 end;
 destructor TBaseDBDataset.Destroy;
 begin
+  TBaseDBModule(DataModule).DestroyDataSet(FDataSet);
   if not TBaseDBModule(DataModule).IgnoreOpenRequests then
-  inherited Destroy;
+    inherited Destroy;
 end;
 procedure TBaseDBDataset.Open;
 var
@@ -2633,4 +2665,4 @@ begin
 end;
 initialization
 end.
-
+

@@ -106,7 +106,7 @@ end;
 function AddSQLLimit(Str: string; aLimit: Integer): string;
 begin
   if Data.LimitAfterSelect then
-    Result := StringReplace(Str,'select','SELECT '+Format(Data.LimitSTMT,[aLimit]),[rfReplaceAll])
+    Result := StringReplace(Str,'select','SELECT '+Format(Data.LimitSTMT,[aLimit]),[rfReplaceAll,rfIgnoreCase])
   else
     Result := StringReplace(Str,';','',[rfReplaceAll])+' '+Format(Data.LimitSTMT,[aLimit]);
 end;

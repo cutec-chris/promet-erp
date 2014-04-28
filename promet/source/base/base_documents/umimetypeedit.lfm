@@ -1,0 +1,132 @@
+object fMimeTypeEdit: TfMimeTypeEdit
+  Left = 390
+  Height = 368
+  Top = 283
+  Width = 501
+  ActiveControl = gMimes
+  Caption = 'Öffnen mit...'
+  ClientHeight = 368
+  ClientWidth = 501
+  KeyPreview = True
+  OnKeyDown = FormKeyDown
+  OnShow = FormShow
+  Position = poMainFormCenter
+  LCLVersion = '1.1'
+  object lMimeTypes: TLabel
+    Left = 8
+    Height = 20
+    Top = 152
+    Width = 479
+    Anchors = [akTop, akLeft, akRight]
+    AutoSize = False
+    Caption = 'Mime Typen'
+    ParentColor = False
+    WordWrap = True
+  end
+  object lOpenWith: TLabel
+    Left = 8
+    Height = 17
+    Top = 104
+    Width = 383
+    Anchors = [akTop, akLeft, akRight]
+    Caption = 'Öffnen mit (%s wird dabei durch den Dateinamen ersetzt)'
+    ParentColor = False
+  end
+  object gMimes: TDBGrid
+    Left = 40
+    Height = 129
+    Hint = 'Eie Liste mit Mime Typen,'#10'Wenn Sie eine Eintrag auswählen wird die aktuelle'#10'Dateierweiterung zu den Erweiterungen für diesen'#10'Mime Typen hinzugefügt'
+    Top = 176
+    Width = 447
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    BorderStyle = bsNone
+    Color = clWindow
+    Columns = <    
+      item
+        Title.Caption = 'MIME'
+        Width = 100
+        FieldName = 'MIME'
+      end    
+      item
+        Title.Caption = 'DESC'
+        Width = 100
+        FieldName = 'DESC'
+      end    
+      item
+        Title.Caption = 'EXTENSIONS'
+        Width = 200
+        FieldName = 'EXTENSIONS'
+      end>
+    DataSource = MimeTypes
+    ShowHint = True
+    TabOrder = 0
+    TitleStyle = tsNative
+  end
+  object eOpenWith: TDBEdit
+    Left = 8
+    Height = 27
+    Top = 119
+    Width = 479
+    DataField = 'EDIT'
+    DataSource = MimeTypes
+    Anchors = [akTop, akLeft, akRight]
+    CharCase = ecNormal
+    MaxLength = 0
+    TabOrder = 1
+  end
+  object ButtonPanel1: TButtonPanel
+    Left = 6
+    Height = 43
+    Top = 319
+    Width = 489
+    OKButton.Name = 'OKButton'
+    OKButton.DefaultCaption = True
+    HelpButton.Name = 'HelpButton'
+    HelpButton.DefaultCaption = True
+    HelpButton.Enabled = False
+    CloseButton.Name = 'CloseButton'
+    CloseButton.DefaultCaption = True
+    CloseButton.Enabled = False
+    CancelButton.Name = 'CancelButton'
+    CancelButton.DefaultCaption = True
+    TabOrder = 2
+    Spacing = 12
+    ShowButtons = [pbOK, pbCancel]
+  end
+  object DBNavigator1: TDBNavigator
+    Left = 8
+    Height = 96
+    Top = 200
+    Width = 23
+    BevelOuter = bvNone
+    ChildSizing.EnlargeHorizontal = crsScaleChilds
+    ChildSizing.EnlargeVertical = crsScaleChilds
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclTopToBottomThenLeftToRight
+    ChildSizing.ControlsPerLine = 100
+    ClientHeight = 96
+    ClientWidth = 23
+    DataSource = MimeTypes
+    Direction = nbdVertical
+    Options = []
+    TabOrder = 3
+    VisibleButtons = [nbInsert, nbDelete, nbPost, nbCancel, nbRefresh]
+  end
+  object Label1: TLabel
+    Left = 8
+    Height = 96
+    Top = 8
+    Width = 479
+    AutoSize = False
+    Caption = 'In diesem Dialog können Sie festlegen, mit welchem Programm die Dateiverwaltung den gewählten Dokumententyp/Mimetyp öffnet. Sollten Sie unsicher sein, lassen Sie die automatisch vorgeschlagene Einstellung und klicken Sie OK.'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+    WordWrap = True
+  end
+  object MimeTypes: TDatasource
+    left = 56
+    top = 56
+  end
+end

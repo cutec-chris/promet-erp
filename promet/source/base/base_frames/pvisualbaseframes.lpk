@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="4">
+    <PathDelim Value="\"/>
+    <Name Value="pvisualbaseframes"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <PathDelim Value="\"/>
+      <SearchPaths>
+        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+      <Other>
+        <CompilerMessages>
+          <MsgFileName Value=""/>
+        </CompilerMessages>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
+    </CompilerOptions>
+    <Files Count="13">
+      <Item1>
+        <Filename Value="uprometframes.lfm"/>
+        <Type Value="LFM"/>
+      </Item1>
+      <Item2>
+        <Filename Value="uprometframes.lrs"/>
+        <Type Value="LRS"/>
+      </Item2>
+      <Item3>
+        <Filename Value="uprometframes.pas"/>
+        <UnitName Value="uPrometFrames"/>
+      </Item3>
+      <Item4>
+        <Filename Value="uprometframesinplace.lfm"/>
+        <Type Value="LFM"/>
+      </Item4>
+      <Item5>
+        <Filename Value="uprometframesinplace.pas"/>
+        <UnitName Value="uprometframesinplace"/>
+      </Item5>
+      <Item6>
+        <Filename Value="uprometframesinplacedb.lfm"/>
+        <Type Value="LFM"/>
+      </Item6>
+      <Item7>
+        <Filename Value="uprometframesinplacedb.pas"/>
+        <UnitName Value="uPrometFramesInplaceDB"/>
+      </Item7>
+      <Item8>
+        <Filename Value="uquickhelpframe.lfm"/>
+        <Type Value="LFM"/>
+      </Item8>
+      <Item9>
+        <Filename Value="uquickhelpframe.pas"/>
+        <UnitName Value="uQuickHelpFrame"/>
+      </Item9>
+      <Item10>
+        <Filename Value="uimagecache.pas"/>
+        <UnitName Value="uImageCache"/>
+      </Item10>
+      <Item11>
+        <Filename Value="ufilterframe.lfm"/>
+        <Type Value="LFM"/>
+      </Item11>
+      <Item12>
+        <Filename Value="ufilterframe.lrs"/>
+        <Type Value="LRS"/>
+      </Item12>
+      <Item13>
+        <Filename Value="ufilterframe.pas"/>
+        <UnitName Value="uFilterFrame"/>
+      </Item13>
+    </Files>
+    <Type Value="RunAndDesignTime"/>
+    <RequiredPkgs Count="6">
+      <Item1>
+        <PackageName Value="pvisualforms"/>
+        <DefaultFilename Value="..\base_forms\pvisualforms.lpk"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="lazreport"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="SynEdit"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="general"/>
+        <DefaultFilename Value="..\..\..\..\general\general.lpk"/>
+      </Item4>
+      <Item5>
+        <PackageName Value="pPrometDBIntfs"/>
+        <DefaultFilename Value="..\dbintfs\pprometdbintfs.lpk"/>
+      </Item5>
+      <Item6>
+        <PackageName Value="LCL"/>
+      </Item6>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

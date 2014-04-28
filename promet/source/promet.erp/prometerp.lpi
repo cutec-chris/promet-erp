@@ -24,7 +24,7 @@
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="7"/>
       <RevisionNr Value="323"/>
-      <BuildNr Value="323"/>
+      <BuildNr Value="324"/>
       <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP" ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="5" Active="Default">
@@ -197,6 +197,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <CommandLineParams Value="--config-path=/home/chris/.promet-erp-devel"/>
       </local>
     </RunParams>
     <RequiredPackages Count="25">
@@ -205,18 +206,18 @@
       </Item1>
       <Item2>
         <PackageName Value="pOptions"/>
-        <DefaultFilename Value="../base_options/poptions.lpk"/>
+        <DefaultFilename Value="../base/base_options/poptions.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="lazreport"/>
       </Item3>
       <Item4>
         <PackageName Value="pvisualframes"/>
-        <DefaultFilename Value="../base_frames/pvisualframes.lpk"/>
+        <DefaultFilename Value="../base/base_frames/pvisualframes.lpk"/>
       </Item4>
       <Item5>
         <PackageName Value="pvisualforms"/>
-        <DefaultFilename Value="../base/pvisualforms.lpk"/>
+        <DefaultFilename Value="../base/base_forms/pvisualforms.lpk"/>
       </Item5>
       <Item6>
         <PackageName Value="LazControls"/>
@@ -227,7 +228,7 @@
       </Item7>
       <Item8>
         <PackageName Value="pDocManage"/>
-        <DefaultFilename Value="../base_docmanage/pdocmanage.lpk" Prefer="True"/>
+        <DefaultFilename Value="../base/base_docmanage/pdocmanage.lpk"/>
       </Item8>
       <Item9>
         <PackageName Value="tabeditor"/>
@@ -239,7 +240,7 @@
       </Item10>
       <Item11>
         <PackageName Value="base_inet"/>
-        <DefaultFilename Value="../base_inet/base_inet.lpk" Prefer="True"/>
+        <DefaultFilename Value="../base/base_inet/base_inet.lpk"/>
       </Item11>
       <Item12>
         <PackageName Value="prepair"/>
@@ -271,7 +272,7 @@
       </Item18>
       <Item19>
         <PackageName Value="pPhones"/>
-        <DefaultFilename Value="../base_phone/pphones.lpk"/>
+        <DefaultFilename Value="../base/base_phone/pphones.lpk"/>
       </Item19>
       <Item20>
         <PackageName Value="TurboPowerIPro"/>
@@ -297,7 +298,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="57">
+    <Units Count="58">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -317,7 +318,7 @@
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="993"/>
-        <CursorPos X="1" Y="1012"/>
+        <CursorPos X="17" Y="1019"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -330,8 +331,8 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPersonFrame"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1021"/>
-        <CursorPos X="14" Y="1037"/>
+        <TopLine Value="796"/>
+        <CursorPos X="10" Y="799"/>
         <UsageCount Value="200"/>
       </Unit2>
       <Unit3>
@@ -426,12 +427,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uArticleFrame"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="511"/>
         <CursorPos X="27" Y="538"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
       </Unit11>
       <Unit12>
         <Filename Value="uarticlepositionframe.pas"/>
@@ -661,7 +660,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uorderaddressframe"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="18"/>
         <WindowIndex Value="0"/>
         <TopLine Value="227"/>
         <CursorPos X="97" Y="237"/>
@@ -719,314 +718,264 @@
         <UnitName Value="uBaseVisualControls"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="9"/>
-        <CursorPos X="28" Y="19"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="20"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit40>
       <Unit41>
-        <Filename Value="../base_frames/umaintreeframe.pas"/>
-        <ComponentName Value="fMainTree"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uMainTreeFrame"/>
-        <EditorIndex Value="7"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="347"/>
-        <CursorPos X="1" Y="370"/>
-        <UsageCount Value="100"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
-      </Unit41>
-      <Unit42>
         <Filename Value="../base/revision.inc"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
-        <UsageCount Value="98"/>
+        <UsageCount Value="100"/>
         <Loaded Value="True"/>
-      </Unit42>
-      <Unit43>
+      </Unit41>
+      <Unit42>
         <Filename Value="../base/changes.txt"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="104" Y="6"/>
-        <UsageCount Value="98"/>
+        <CursorPos X="55" Y="2"/>
+        <UsageCount Value="100"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit43>
-      <Unit44>
+      </Unit42>
+      <Unit43>
         <Filename Value="../base/dbintfs/uprojects.pas"/>
         <UnitName Value="uProjects"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="524"/>
+        <TopLine Value="537"/>
         <CursorPos X="1" Y="570"/>
-        <UsageCount Value="37"/>
+        <UsageCount Value="40"/>
+        <Loaded Value="True"/>
+      </Unit43>
+      <Unit44>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <UnitName Value="uBaseDBInterface"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="7"/>
+        <CursorPos X="44" Y="24"/>
+        <UsageCount Value="38"/>
         <Loaded Value="True"/>
       </Unit44>
       <Unit45>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="5"/>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <UnitName Value="uBaseVisualApplication"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1353"/>
-        <CursorPos X="1" Y="1375"/>
+        <TopLine Value="921"/>
+        <CursorPos X="1" Y="940"/>
         <UsageCount Value="35"/>
         <Loaded Value="True"/>
       </Unit45>
       <Unit46>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="12"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="921"/>
-        <CursorPos X="1" Y="940"/>
-        <UsageCount Value="32"/>
-        <Loaded Value="True"/>
-      </Unit46>
-      <Unit47>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="6"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="780"/>
-        <CursorPos X="1" Y="806"/>
-        <UsageCount Value="27"/>
-        <Loaded Value="True"/>
-      </Unit47>
-      <Unit48>
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
         <ComponentName Value="fprojectFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uProjectFrame"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1084"/>
         <CursorPos X="1" Y="1115"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="23"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
-      </Unit48>
-      <Unit49>
+      </Unit46>
+      <Unit47>
         <Filename Value="../base_pm/uganttview.pas"/>
         <ComponentName Value="fGanttView"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uGanttView"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="489"/>
         <CursorPos X="1" Y="519"/>
-        <UsageCount Value="18"/>
+        <UsageCount Value="21"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
-      </Unit49>
-      <Unit50>
+      </Unit47>
+      <Unit48>
         <Filename Value="../base_pm/utasks.pas"/>
         <ComponentName Value="fTaskFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="utasks"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="519"/>
         <CursorPos X="26" Y="542"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="19"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
-      </Unit50>
-      <Unit51>
-        <Filename Value="../base_forms/ugridview.pas"/>
-        <ComponentName Value="fGridView"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="ugridview"/>
-        <EditorIndex Value="16"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="287"/>
-        <CursorPos X="15" Y="323"/>
-        <UsageCount Value="15"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
-      </Unit51>
-      <Unit52>
-        <Filename Value="../base_frames/uhistoryframe.pas"/>
-        <UnitName Value="uHistoryFrame"/>
-        <EditorIndex Value="18"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="42"/>
-        <CursorPos X="15" Y="75"/>
-        <UsageCount Value="11"/>
-        <Loaded Value="True"/>
-      </Unit52>
-      <Unit53>
+      </Unit48>
+      <Unit49>
         <Filename Value="../base_calendar/ueventedit.pas"/>
         <UnitName Value="uEventEdit"/>
         <EditorIndex Value="19"/>
         <WindowIndex Value="0"/>
         <TopLine Value="330"/>
         <CursorPos X="57" Y="349"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
-      </Unit53>
-      <Unit54>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="4"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1174"/>
-        <CursorPos X="1" Y="1195"/>
-        <UsageCount Value="11"/>
-        <Loaded Value="True"/>
-      </Unit54>
-      <Unit55>
-        <Filename Value="../base/dbintfs/umasterdata.pas"/>
-        <UnitName Value="uMasterdata"/>
-        <EditorIndex Value="3"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="652"/>
-        <CursorPos X="1" Y="669"/>
-        <UsageCount Value="11"/>
-        <Loaded Value="True"/>
-      </Unit55>
-      <Unit56>
+      </Unit49>
+      <Unit50>
         <Filename Value="../../../README.md"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="23" Y="12"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
+      </Unit50>
+      <Unit51>
+        <Filename Value="../base/base_forms/ugridview.pas"/>
+        <ComponentName Value="fGridView"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="ugridview"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="11"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="397"/>
+        <CursorPos X="12" Y="414"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit51>
+      <Unit52>
+        <Filename Value="../components/zeos/src/component/ZAbstractDataset.pas"/>
+        <UnitName Value="ZAbstractDataset"/>
+        <EditorIndex Value="10"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="471"/>
+        <CursorPos X="22" Y="490"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit52>
+      <Unit53>
+        <Filename Value="C:/lazarus/fpc/2.6.1/source/packages/fcl-db/src/base/db.pas"/>
+        <UnitName Value="db"/>
+        <EditorIndex Value="16"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1600"/>
+        <CursorPos X="14" Y="1616"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit53>
+      <Unit54>
+        <Filename Value="C:/lazarus/lcl/editbtn.pas"/>
+        <UnitName Value="EditBtn"/>
+        <EditorIndex Value="15"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="611"/>
+        <CursorPos X="3" Y="613"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit54>
+      <Unit55>
+        <Filename Value="../../../../../lazarus/lcl/intfgraphics.pas"/>
+        <UnitName Value="IntfGraphics"/>
+        <EditorIndex Value="12"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="6264"/>
+        <CursorPos X="75" Y="6281"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit55>
+      <Unit56>
+        <Filename Value="../../../../../lazarus/lcl/lclproc.pas"/>
+        <UnitName Value="LCLProc"/>
+        <EditorIndex Value="13"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="4"/>
+        <CursorPos X="12" Y="22"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit56>
+      <Unit57>
+        <Filename Value="../../../../../lazarus/lcl/lclversion.pas"/>
+        <UnitName Value="LCLVersion"/>
+        <EditorIndex Value="14"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="9"/>
+        <CursorPos X="1" Y="26"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit57>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="16" HistoryIndex="15">
       <Position1>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="793" Column="1" TopLine="774"/>
+        <Filename Value="../base/ubasevisualcontrols.pas"/>
+        <Caret Line="26" Column="34" TopLine="9"/>
       </Position1>
       <Position2>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="794" Column="1" TopLine="774"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="1375" Column="1" TopLine="1353"/>
       </Position2>
       <Position3>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="795" Column="1" TopLine="774"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="24" Column="44" TopLine="7"/>
       </Position3>
       <Position4>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="796" Column="1" TopLine="774"/>
+        <Filename Value="../base/ubasevisualcontrols.pas"/>
+        <Caret Line="20" Column="1" TopLine="1"/>
       </Position4>
       <Position5>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="797" Column="1" TopLine="774"/>
+        <Filename Value="../components/zeos/src/component/ZAbstractDataset.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position5>
       <Position6>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="2267" Column="1" TopLine="2235"/>
+        <Filename Value="../components/zeos/src/component/ZAbstractDataset.pas"/>
+        <Caret Line="475" Column="8" TopLine="459"/>
       </Position6>
       <Position7>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="2272" Column="1" TopLine="2240"/>
+        <Filename Value="../components/zeos/src/component/ZAbstractDataset.pas"/>
+        <Caret Line="446" Column="1" TopLine="431"/>
       </Position7>
       <Position8>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="763" Column="1" TopLine="744"/>
+        <Filename Value="../components/zeos/src/component/ZAbstractDataset.pas"/>
+        <Caret Line="478" Column="19" TopLine="459"/>
       </Position8>
       <Position9>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="765" Column="1" TopLine="744"/>
+        <Filename Value="../base/base_forms/ugridview.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position9>
       <Position10>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="767" Column="1" TopLine="744"/>
+        <Filename Value="../base/base_forms/ugridview.pas"/>
+        <Caret Line="59" Column="30" TopLine="47"/>
       </Position10>
       <Position11>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="818" Column="1" TopLine="799"/>
+        <Filename Value="../../../../../lazarus/lcl/intfgraphics.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position11>
       <Position12>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="819" Column="1" TopLine="799"/>
+        <Filename Value="../../../../../lazarus/lcl/intfgraphics.pas"/>
+        <Caret Line="6281" Column="75" TopLine="6264"/>
       </Position12>
       <Position13>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="820" Column="1" TopLine="799"/>
+        <Filename Value="../../../../../lazarus/lcl/lclproc.pas"/>
+        <Caret Line="22" Column="12" TopLine="5"/>
       </Position13>
       <Position14>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="768" Column="1" TopLine="744"/>
+        <Filename Value="../../../../../lazarus/lcl/lclversion.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position14>
       <Position15>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="808" Column="1" TopLine="799"/>
+        <Filename Value="../base/base_forms/ugridview.pas"/>
+        <Caret Line="67" Column="1" TopLine="47"/>
       </Position15>
       <Position16>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="809" Column="1" TopLine="799"/>
+        <Filename Value="../base/base_forms/ugridview.pas"/>
+        <Caret Line="411" Column="28" TopLine="408"/>
       </Position16>
-      <Position17>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="810" Column="1" TopLine="799"/>
-      </Position17>
-      <Position18>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="769" Column="1" TopLine="744"/>
-      </Position18>
-      <Position19>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="799" Column="1" TopLine="780"/>
-      </Position19>
-      <Position20>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="800" Column="1" TopLine="780"/>
-      </Position20>
-      <Position21>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="801" Column="1" TopLine="780"/>
-      </Position21>
-      <Position22>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="803" Column="1" TopLine="780"/>
-      </Position22>
-      <Position23>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="804" Column="1" TopLine="780"/>
-      </Position23>
-      <Position24>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="806" Column="1" TopLine="780"/>
-      </Position24>
-      <Position25>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="772" Column="1" TopLine="744"/>
-      </Position25>
-      <Position26>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="773" Column="1" TopLine="744"/>
-      </Position26>
-      <Position27>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="1193" Column="1" TopLine="1174"/>
-      </Position27>
-      <Position28>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="1194" Column="1" TopLine="1174"/>
-      </Position28>
-      <Position29>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="1195" Column="1" TopLine="1174"/>
-      </Position29>
-      <Position30>
-        <Filename Value="../base/dbintfs/umasterdata.pas"/>
-        <Caret Line="668" Column="1" TopLine="652"/>
-      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -1066,7 +1015,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="3">
+    <BreakPoints Count="5">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
@@ -1088,13 +1037,27 @@
         <Source Value="../base_pm/uroughpklanningframe.pas"/>
         <Line Value="307"/>
       </Item3>
+      <Item4>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="../base_help/uwikiframe.pas"/>
+        <Line Value="760"/>
+      </Item4>
+      <Item5>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="../base/dbintfs/ustatistic.pas"/>
+        <Line Value="108"/>
+      </Item5>
     </BreakPoints>
     <Watches Count="1">
       <Item1>
         <Expression Value="FImage"/>
       </Item1>
     </Watches>
-    <Exceptions Count="23">
+    <Exceptions Count="24">
       <Item1>
         <Name Value="EVariantError"/>
       </Item1>
@@ -1165,6 +1128,9 @@
       <Item23>
         <Name Value="EComponentError"/>
       </Item23>
+      <Item24>
+        <Name Value="RunError(216)"/>
+      </Item24>
     </Exceptions>
   </Debugging>
   <EditorMacros Count="0"/>

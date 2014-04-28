@@ -209,6 +209,7 @@ begin
   Result := false;
   if (RichEditWnd = 0) then Exit;
   
+  FillChar(textlen, sizeof(textlen), 0);
   textlen.flags := GTL_NUMCHARS or GTL_USECRLF or GTL_PRECISE;
   textlen.codepage := CP_UNICODE;
   len := SendMessage(RichEditWnd, EM_GETTEXTLENGTHEX, WPARAM(@textlen), 0);
@@ -320,7 +321,7 @@ begin
 end;
 
 type
-  TEditStream_ = record
+  TEditStream_ = packed record
     dwCookie    : PDWORD;
     dwError     : DWORD;
     pfnCallback : EDITSTREAMCALLBACK;

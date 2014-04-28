@@ -1,0 +1,32 @@
+TFSELECTREPORT.FSELECTREPORT.CAPTION=Druckbeleg
+TFSELECTREPORT.LPRINTER.CAPTION=Drucker
+TFSELECTREPORT.LPAGES.CAPTION=Seiten
+TFSELECTREPORT.LCOPIES.CAPTION=Kopien
+TFSELECTREPORT.LINFOOUTPUT.CAPTION=Zusätzliche Ausgabe
+TFSELECTREPORT.BCLOSE.HINT=schließt das Fenster
+TFSELECTREPORT.BCLOSE.CAPTION=&Schließen
+TFSELECTREPORT.BPRINT.HINT=Bucht und Druckt den Report
+TFSELECTREPORT.BPRINT.CAPTION=Drucken/Buchen
+TFSELECTREPORT.BDESIGN.HINT=hiermit können Sie den Report bearbeiten
+TFSELECTREPORT.BDESIGN.CAPTION=Bearbeiten
+TFSELECTREPORT.GREPORTS.HINT=wählen Sie hier einen Report zum Drucken / ausgeben aus.
+TFSELECTREPORT.GREPORTS.COLUMNS[0].TCOLUMNTITLE.CAPTION=NAME
+TFSELECTREPORT.GREPORTS.COLUMNS[1].TCOLUMNTITLE.CAPTION=LANGUAGE
+TFSELECTREPORT.BPREVIEW.HINT=zeigt den Report in einer Vorschau an
+TFSELECTREPORT.BPREVIEW.CAPTION=Vorschau
+TFSELECTREPORT.CBPRINTER.HINT=wählen Sie hier den Drucker auf dem der Report gedruckt werden soll
+Die Einstellung wird abhängig vom Report gespeichert
+TFSELECTREPORT.EPAGES.HINT=hier können Sie festlegen, welche Seiten gedruckt werden sollen,
+dies kann im Format 1-8 oder 1,2,5 erfolgen.
+TFSELECTREPORT.ECOPIES.HINT=Stellen Sie hier ein, wie viele Kopien des Reports gedruckt werden sollen
+Die Einstellung wird abhängig vom Report gespeichert
+TFSELECTREPORT.CBINFO.HINT=Wählen Sie hier eine zusätzliche Ausgabe aus, 
+so können Sie z.b. e-Mail Benachrichtigungen für bestimmte Reports erzeugen.
+Die Einstellung wird abhängig vom Report gespeichert
+TFSELECTREPORT.BSHIPPINGOUTPUT.HINT=startet die Versandausgabe für die gewählte Versandart
+(muss eingerichtet sein)
+TFSELECTREPORT.BSHIPPINGOUTPUT.CAPTION=Versandausgabe
+TFSELECTREPORT.BEDITTEXT.HINT=hiermit können Sie den Text der zusätzlichen Ausgabe (e-Mail, SMS) bearbeiten.
+TFSELECTREPORT.BEDITTEXT.CAPTION=Text bearbeiten
+TFSELECTREPORT.BBOOK.HINT=bucht den Report
+TFSELECTREPORT.BBOOK.CAPTION=direkt Buchen

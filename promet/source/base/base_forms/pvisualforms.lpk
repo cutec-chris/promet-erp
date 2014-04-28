@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="4">
+    <Name Value="pvisualforms"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <SearchPaths>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+      </SearchPaths>
+      <Other>
+        <CompilerMessages>
+          <MsgFileName Value=""/>
+        </CompilerMessages>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
+    </CompilerOptions>
+    <Files Count="27">
+      <Item1>
+        <Filename Value="uselectreport.lfm"/>
+        <Type Value="LFM"/>
+      </Item1>
+      <Item2>
+        <Filename Value="uselectreport.lrs"/>
+        <Type Value="LRS"/>
+      </Item2>
+      <Item3>
+        <Filename Value="uselectreport.pas"/>
+        <UnitName Value="uSelectReport"/>
+      </Item3>
+      <Item4>
+        <Filename Value="ulogwait.lfm"/>
+        <Type Value="LFM"/>
+      </Item4>
+      <Item5>
+        <Filename Value="ulogwait.lrs"/>
+        <Type Value="LRS"/>
+      </Item5>
+      <Item6>
+        <Filename Value="ulogwait.pas"/>
+        <UnitName Value="uLogWait"/>
+      </Item6>
+      <Item7>
+        <Filename Value="usendmail.pas"/>
+        <UnitName Value="uSendMail"/>
+      </Item7>
+      <Item8>
+        <Filename Value="usearch.lfm"/>
+        <Type Value="LFM"/>
+      </Item8>
+      <Item9>
+        <Filename Value="usearch.lrs"/>
+        <Type Value="LRS"/>
+      </Item9>
+      <Item10>
+        <Filename Value="usearch.pas"/>
+        <UnitName Value="uSearch"/>
+      </Item10>
+      <Item11>
+        <Filename Value="uedittext.lfm"/>
+        <Type Value="LFM"/>
+      </Item11>
+      <Item12>
+        <Filename Value="uedittext.pas"/>
+        <UnitName Value="uEditText"/>
+      </Item12>
+      <Item13>
+        <Filename Value="uwait.lfm"/>
+        <Type Value="LFM"/>
+      </Item13>
+      <Item14>
+        <Filename Value="uwait.lrs"/>
+        <Type Value="LRS"/>
+      </Item14>
+      <Item15>
+        <Filename Value="uwait.pas"/>
+        <UnitName Value="uwait"/>
+      </Item15>
+      <Item16>
+        <Filename Value="unrights.lfm"/>
+        <Type Value="LFM"/>
+      </Item16>
+      <Item17>
+        <Filename Value="unrights.lrs"/>
+        <Type Value="LRS"/>
+      </Item17>
+      <Item18>
+        <Filename Value="unrights.pas"/>
+        <UnitName Value="uNRights"/>
+      </Item18>
+      <Item19>
+        <Filename Value="utimeline.pas"/>
+        <UnitName Value="uTimeLine"/>
+      </Item19>
+      <Item20>
+        <Filename Value="uroweditor.lfm"/>
+        <Type Value="LFM"/>
+      </Item20>
+      <Item21>
+        <Filename Value="uroweditor.lrs"/>
+        <Type Value="LRS"/>
+      </Item21>
+      <Item22>
+        <Filename Value="uroweditor.pas"/>
+        <UnitName Value="uRowEditor"/>
+      </Item22>
+      <Item23>
+        <Filename Value="ugridview.lfm"/>
+        <Type Value="LFM"/>
+      </Item23>
+      <Item24>
+        <Filename Value="ugridview.lrs"/>
+        <Type Value="LRS"/>
+      </Item24>
+      <Item25>
+        <Filename Value="ugridview.pas"/>
+        <UnitName Value="ugridview"/>
+      </Item25>
+      <Item26>
+        <Filename Value="uscreenshotmain.lfm"/>
+        <Type Value="LFM"/>
+      </Item26>
+      <Item27>
+        <Filename Value="uscreenshotmain.pas"/>
+        <UnitName Value="uscreenshotmain"/>
+      </Item27>
+    </Files>
+    <Type Value="RunAndDesignTime"/>
+    <RequiredPkgs Count="5">
+      <Item1>
+        <PackageName Value="pVisualPrometApp"/>
+        <DefaultFilename Value="../pvisualprometapp.lpk"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="lazreport_addons"/>
+        <DefaultFilename Value="../../components/lazreport/lazreport_addons.lpk"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="lr_DialogDesign"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="LR_ZeosDB"/>
+      </Item4>
+      <Item5>
+        <PackageName Value="lazreportpdfexport"/>
+      </Item5>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

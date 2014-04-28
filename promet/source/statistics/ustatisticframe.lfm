@@ -1,13 +1,12 @@
-inherited fStatisticFrame: TfStatisticFrame
+object fStatisticFrame: TfStatisticFrame
+  Left = 331
   Height = 698
+  Top = 121
   Width = 864
   ClientHeight = 698
   ClientWidth = 864
-  OnEnter = FrameEnter
-  OnExit = FrameExit
-  DesignLeft = 257
-  DesignTop = 142
-  object Splitter2: TSplitter[0]
+  LCLVersion = '1.3'
+  object Splitter2: TSplitter
     Cursor = crVSplit
     Left = 0
     Height = 5
@@ -18,7 +17,7 @@ inherited fStatisticFrame: TfStatisticFrame
     ResizeStyle = rsLine
     Visible = False
   end
-  object Panel3: TPanel[1]
+  object Panel3: TPanel
     Left = 0
     Height = 354
     Top = 344
@@ -198,7 +197,7 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object frPreview: TfrPreview
           Left = 0
-          Height = 279
+          Height = 275
           Top = 27
           Width = 840
           Align = alClient
@@ -213,13 +212,13 @@ inherited fStatisticFrame: TfStatisticFrame
         ClientWidth = 840
         object Panel1: TPanel
           Left = 0
-          Height = 276
+          Height = 272
           Top = 0
           Width = 840
           Align = alClient
           BevelOuter = bvNone
           Caption = 'Panel1'
-          ClientHeight = 276
+          ClientHeight = 272
           ClientWidth = 840
           TabOrder = 0
           object gList: TDBGrid
@@ -255,7 +254,7 @@ inherited fStatisticFrame: TfStatisticFrame
           object pDetails: TPanel
             Left = 0
             Height = 274
-            Top = 2
+            Top = -2
             Width = 840
             Align = alBottom
             BevelOuter = bvNone
@@ -364,7 +363,7 @@ inherited fStatisticFrame: TfStatisticFrame
         object lStatus: TLabel
           Left = 8
           Height = 14
-          Top = 284
+          Top = 280
           Width = 824
           Align = alBottom
           BorderSpacing.Around = 8
@@ -394,7 +393,7 @@ inherited fStatisticFrame: TfStatisticFrame
       end
     end
   end
-  object Panel5: TPanel[2]
+  object Panel5: TPanel
     Left = 0
     Height = 339
     Top = 0
@@ -1055,9 +1054,9 @@ inherited fStatisticFrame: TfStatisticFrame
           inline smQuerry1: TSynMemo
             Cursor = crIBeam
             Left = 0
-            Height = 169
+            Height = 259
             Top = 0
-            Width = 872
+            Width = 856
             Align = alClient
             Font.Height = -13
             Font.Name = 'Courier New'
@@ -1667,9 +1666,9 @@ inherited fStatisticFrame: TfStatisticFrame
           inline smQuerry2: TSynMemo
             Cursor = crIBeam
             Left = 0
-            Height = 169
+            Height = 259
             Top = 0
-            Width = 872
+            Width = 856
             Align = alClient
             Font.Height = -13
             Font.Name = 'Courier New'
@@ -2916,7 +2915,7 @@ inherited fStatisticFrame: TfStatisticFrame
       end
     end
   end
-  object ActionList1: TActionList[3]
+  object ActionList1: TActionList
     Images = fVisualControls.Images
     left = 196
     top = 64
@@ -2982,7 +2981,7 @@ inherited fStatisticFrame: TfStatisticFrame
       ImageIndex = 24
     end
   end
-  object pmAction: TPopupMenu[4]
+  object pmAction: TPopupMenu
     left = 232
     top = 64
     object MenuItem4: TMenuItem
@@ -2998,7 +2997,7 @@ inherited fStatisticFrame: TfStatisticFrame
       Action = acRights
     end
   end
-  object SynSQLSyn1: TSynSQLSyn[5]
+  object SynSQLSyn1: TSynSQLSyn
     DefaultFilter = 'SQL-Dateien (*.sql)|*.sql'
     Enabled = False
     CommentAttri.FrameEdges = sfeAround
@@ -3020,14 +3019,14 @@ inherited fStatisticFrame: TfStatisticFrame
     left = 272
     top = 296
   end
-  object IdleSQLTimer: TIdleTimer[6]
+  object IdleSQLTimer: TIdleTimer
     Enabled = False
     Interval = 500
     OnTimer = IdleSQLTimerTimer
     left = 423
     top = 296
   end
-  object frReport: TfrReport[7]
+  object frReport: TfrReport
     DefaultCopies = 0
     InitialZoom = pzDefault
     Options = []
@@ -3038,7 +3037,7 @@ inherited fStatisticFrame: TfStatisticFrame
     left = 272
     top = 240
   end
-  object GutterImages: TImageList[8]
+  object GutterImages: TImageList
     left = 423
     top = 240
     Bitmap = {
@@ -3301,41 +3300,41 @@ inherited fStatisticFrame: TfStatisticFrame
       FF00FFFFFF00FFFFFF00FFFFFF00
     }
   end
-  object StatisticDS: TDatasource[9]
+  object StatisticDS: TDataSource
     left = 280
     top = 184
   end
-  object StatisticResults: TDatasource[10]
+  object StatisticResults: TDataSource
     AutoEdit = False
     left = 280
     top = 116
   end
-  object PStatisticresults: TfrDBDataSet[11]
+  object PStatisticresults: TfrDBDataSet
     DataSource = StatisticResults
     left = 280
     top = 64
   end
-  object PDetail: TfrDBDataSet[12]
+  object PDetail: TfrDBDataSet
     DataSource = Detail
     left = 360
     top = 64
   end
-  object PSubDetail: TfrDBDataSet[13]
+  object PSubDetail: TfrDBDataSet
     DataSource = SubDetail
     left = 440
     top = 64
   end
-  object SubDetail: TDatasource[14]
+  object SubDetail: TDataSource
     AutoEdit = False
     left = 440
     top = 116
   end
-  object Detail: TDatasource[15]
+  object Detail: TDataSource
     AutoEdit = False
     left = 360
     top = 116
   end
-  object ProcMenu: TPopupMenu[16]
+  object ProcMenu: TPopupMenu
     left = 80
     top = 304
     object N2001: TMenuItem
@@ -3436,19 +3435,19 @@ inherited fStatisticFrame: TfStatisticFrame
       GroupIndex = 1
     end
   end
-  object SaveDialog: TSaveDialog[17]
+  object SaveDialog: TSaveDialog
     Filter = 'Excel 2.0 Datei (*.xls)|*.xls|Excel 3.0 Datei (*.xls)|*.xls|Excel 4.0 Datei (*.xls)|*.xls|Excel 5.0 Datei (*.xls)|*.xls|Excel 2007-2009 (*.xls)|*.xls|Open Office XML (*.xlsx)|*.xlsx|Open Document Format (*.ods)|*.ods|Kommagetrennte Datei (*.csv)|*.csv'
     FilterIndex = 4
     Options = [ofOverwritePrompt, ofEnableSizing, ofViewDetail]
     left = 176
     top = 184
   end
-  object Datasource: TDatasource[18]
+  object Datasource: TDataSource
     OnStateChange = ProjectsStateChange
     left = 203
     top = 121
   end
-  object pmGrid: TPopupMenu[19]
+  object pmGrid: TPopupMenu
     OnPopup = pmGridPopup
     left = 120
     top = 304
@@ -3458,7 +3457,7 @@ inherited fStatisticFrame: TfStatisticFrame
       OnClick = miCopyClick
     end
   end
-  object ImageList1: TImageList[20]
+  object ImageList1: TImageList
     left = 120
     top = 176
     Bitmap = {
@@ -3529,7 +3528,7 @@ inherited fStatisticFrame: TfStatisticFrame
       FF00FFFFFF00FFFFFF00FFFFFF00
     }
   end
-  object ExecuteTimer: TTimer[21]
+  object ExecuteTimer: TTimer
     Enabled = False
     Interval = 200
     OnTimer = ExecuteTimerTimer

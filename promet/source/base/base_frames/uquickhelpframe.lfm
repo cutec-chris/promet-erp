@@ -1,0 +1,58 @@
+object fQuickHelpFrame: TfQuickHelpFrame
+  Left = 0
+  Height = 96
+  Top = 0
+  Width = 840
+  ClientHeight = 96
+  ClientWidth = 840
+  Color = 13434879
+  ParentColor = False
+  TabOrder = 0
+  DesignLeft = 325
+  DesignTop = 225
+  object ipHTML: TIpHtmlPanel
+    Left = 128
+    Height = 96
+    Top = 0
+    Width = 712
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    FixedTypeface = 'Courier New'
+    DefaultTypeFace = 'verdana'
+    DefaultFontSize = 10
+    FlagErrors = False
+    PrintSettings.MarginLeft = 0.5
+    PrintSettings.MarginTop = 0.5
+    PrintSettings.MarginRight = 0.5
+    PrintSettings.MarginBottom = 0.5
+    TabOrder = 2
+    OnHotClick = ipHTMLHotClick
+  end
+  object Button1: TButton
+    Left = 8
+    Height = 34
+    Top = 54
+    Width = 112
+    Anchors = [akLeft, akBottom]
+    BorderSpacing.InnerBorder = 4
+    Caption = 'nächster Tipp'
+    OnClick = Button1Click
+    TabOrder = 0
+  end
+  object Button2: TButton
+    Left = 8
+    Height = 26
+    Top = 8
+    Width = 112
+    HelpType = htKeyword
+    Caption = 'Tipps ausblenden'
+    OnClick = Button2Click
+    TabOrder = 1
+  end
+  object Timer1: TTimer
+    Enabled = False
+    Interval = 50
+    OnTimer = Timer1Timer
+    left = 14
+    top = 14
+  end
+end

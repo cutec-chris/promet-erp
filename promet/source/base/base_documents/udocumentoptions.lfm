@@ -1,0 +1,63 @@
+inherited fDocumentOptions: TfDocumentOptions
+  Height = 350
+  Width = 466
+  ClientHeight = 350
+  ClientWidth = 466
+  TabOrder = 0
+  DesignLeft = 434
+  DesignTop = 212
+  object eTempDirectory: TDirectoryEdit[0]
+    Left = 12
+    Height = 27
+    Top = 48
+    Width = 407
+    ShowHidden = False
+    ButtonWidth = 23
+    NumGlyphs = 1
+    Anchors = [akTop, akLeft, akRight]
+    MaxLength = 0
+    TabOrder = 0
+  end
+  object ltempDirectory: TLabel[1]
+    Left = 12
+    Height = 18
+    Top = 24
+    Width = 161
+    Caption = 'Temporäres Verzeichnis'
+    ParentColor = False
+  end
+  object rbDeleteNormal: TRadioButton[2]
+    Left = 36
+    Height = 24
+    Top = 112
+    Width = 128
+    Caption = 'normal löschen'
+    Checked = True
+    TabOrder = 1
+    TabStop = True
+  end
+  object rbOverride: TRadioButton[3]
+    Left = 36
+    Height = 24
+    Top = 141
+    Width = 141
+    Caption = '1x überschreiben'
+    TabOrder = 2
+  end
+  object rbDeleteDoD522022: TRadioButton[4]
+    Left = 36
+    Height = 24
+    Top = 170
+    Width = 383
+    Caption = 'nach DoD522022 methode löschen (7x überschreiben)'
+    TabOrder = 3
+  end
+  object rbDeleteSecure: TRadioButton[5]
+    Left = 36
+    Height = 24
+    Top = 199
+    Width = 257
+    Caption = 'Sicher löschen (35x überschreiben)'
+    TabOrder = 4
+  end
+end

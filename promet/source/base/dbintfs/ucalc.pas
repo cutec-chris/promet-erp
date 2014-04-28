@@ -251,7 +251,7 @@ var
   aParser: TMathParser;
   aTree: PTTermTreeNode;
   Stmt: TSQLStatemnt;
-  aVar: String;
+  aVar: String = '';
   bOut: String;
   aDS: TDataSet;
   aFStart: String;
@@ -299,6 +299,7 @@ begin
       aVar := copy(aIn,0,RPos('=',aIn)-1);
       aVar := StringReplace(aVar,#10,'',[rfReplaceAll]);
       aVar := trim(StringReplace(aVar,#13,'',[rfReplaceAll]));
+      aVar := StringReplace(aVar,'.','_',[rfReplaceAll]);
       aIn := copy(aIn,Pos('=',aIn)+1,length(aIn));
     end;
   if pos('(',aVar)>0 then
@@ -375,7 +376,9 @@ begin
     on e : Exception do
       begin
         aTree := nil;
-        aOut.add(e.Message+' ('+aIn+')');
+        if trim(e.Message)<>'' then
+          aOut.add(trim(e.Message)+' ('+aIn+')')
+        else aOut.add(e.ClassName+' ('+aIn+')');
         Result:=False;
       end;
   end;
@@ -405,7 +408,7 @@ begin
           end;
       end;
     end
-  else
+  else if (pos('select',lowercase(aIn))>0) then
     begin
       Result := True;
       Stmt := TSQLStatemnt.Create;

@@ -493,8 +493,8 @@ uses
   lCommon;
 
 const
-  RequestBufferSize = 1024;
-  DataBufferSize = 16*1024;
+  RequestBufferSize = 4*1024;
+  DataBufferSize = 32*1024;
 
   BufferEmptyToWriteStatus: array[boolean] of TWriteBlockStatus =
     (wsPendingData, wsDone);

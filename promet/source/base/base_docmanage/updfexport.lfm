@@ -1,0 +1,48 @@
+object fpdfexport: Tfpdfexport
+  Left = 373
+  Height = 798
+  Top = 42
+  Width = 714
+  Caption = 'fpdfexport'
+  ClientHeight = 798
+  ClientWidth = 714
+  LCLVersion = '1.3'
+  object Page: TPRPage
+    Left = 0
+    Height = 841
+    Top = 0
+    Width = 594
+    OnPrintPage = PagePrintPage
+    MarginTop = 0
+    MarginLeft = 0
+    MarginRight = 0
+    MarginBottom = 0
+    object PRLayoutPanel1: TPRLayoutPanel
+      Left = 1
+      Height = 839
+      Top = 1
+      Width = 592
+      Align = alClient
+      object Image: TPRJpegImage
+        Left = 0
+        Height = 839
+        Top = 0
+        Width = 592
+        Align = alClient
+        SharedImage = True
+        Proportional = True
+      end
+    end
+  end
+  object Pdf: TPReport
+    FileName = 'default.pdf'
+    CreationDate = 41707.7900922106
+    Creator = 'Promet-ERP'
+    ModDate = 0
+    CompressionMethod = cmFlateDecode
+    UseOutlines = False
+    ViewerPreference = []
+    left = 52
+    top = 20
+  end
+end

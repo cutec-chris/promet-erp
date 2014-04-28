@@ -21,8 +21,77 @@
     <MacroValues Count="1">
       <Macro1 Name="LCLWidgetType" Value="nogui"/>
     </MacroValues>
-    <BuildModes Count="1">
+    <BuildModes Count="3">
       <Item1 Name="Default" Default="True"/>
+      <Item2 Name="Debug">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <Target>
+            <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/tools/local_appbase"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+          </SearchPaths>
+          <Parsing>
+            <SyntaxOptions>
+              <IncludeAssertionCode Value="True"/>
+            </SyntaxOptions>
+          </Parsing>
+          <CodeGeneration>
+            <Checks>
+              <IOChecks Value="True"/>
+              <RangeChecks Value="True"/>
+              <OverflowChecks Value="True"/>
+              <StackChecks Value="True"/>
+            </Checks>
+            <VerifyObjMethodCallValidity Value="True"/>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <DebugInfoType Value="dsDwarf2"/>
+              <UseHeaptrc Value="True"/>
+              <TrashVariables Value="True"/>
+              <UseExternalDbgSyms Value="True"/>
+            </Debugging>
+          </Linking>
+          <Other>
+            <CompilerMessages>
+              <MsgFileName Value=""/>
+            </CompilerMessages>
+            <CustomOptions Value="-dDEBUG"/>
+            <CompilerPath Value="$(CompPath)"/>
+          </Other>
+        </CompilerOptions>
+      </Item2>
+      <Item3 Name="Release">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <Target>
+            <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/tools/local_appbase"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <SmartLinkUnit Value="True"/>
+            <Optimizations>
+              <OptimizationLevel Value="3"/>
+            </Optimizations>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+            </Debugging>
+            <LinkSmart Value="True"/>
+          </Linking>
+          <Other>
+            <CompilerMessages>
+              <MsgFileName Value=""/>
+            </CompilerMessages>
+            <CompilerPath Value="$(CompPath)"/>
+          </Other>
+        </CompilerOptions>
+      </Item3>
       <SharedMatrixOptions Count="1">
         <Item1 ID="606720739756" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="nogui"/>
       </SharedMatrixOptions>
@@ -92,7 +161,6 @@
     </CodeGeneration>
     <Linking>
       <Debugging>
-        <TrashVariables Value="True"/>
         <UseExternalDbgSyms Value="True"/>
       </Debugging>
       <LinkSmart Value="True"/>
@@ -105,7 +173,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="4">
+    <Exceptions Count="6">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -118,6 +186,12 @@
       <Item4>
         <Name Value="EZDatabaseError"/>
       </Item4>
+      <Item5>
+        <Name Value="EAccessViolation"/>
+      </Item5>
+      <Item6>
+        <Name Value="RunError(216)"/>
+      </Item6>
     </Exceptions>
   </Debugging>
 </CONFIG>

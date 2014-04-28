@@ -297,7 +297,7 @@ end;
 
 procedure TOrderAddress.Assign(Source: TPersistent);
 var
-  Address: TBaseDbAddress;
+  aAddress: TBaseDbAddress;
   Person: TPerson;
 begin
   if not Order.CanEdit then
@@ -305,8 +305,8 @@ begin
   inherited Assign(Source);
   if Source is TBaseDBAddress then
     begin
-      Address := Source as TBaseDbAddress;
-      Order.FieldByName('CUSTNAME').AsString := Address.FieldByName('NAME').AsString;
+      aAddress := Source as TBaseDbAddress;
+      Order.FieldByName('CUSTNAME').AsString := aAddress.FieldByName('NAME').AsString;
     end
   else if Source is TPerson then
     begin
@@ -1552,4 +1552,4 @@ begin
 end;
 initialization
 end.
-
+

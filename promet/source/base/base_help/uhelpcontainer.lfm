@@ -1,0 +1,10 @@
+object fHelpContainer: TfHelpContainer
+  Left = 462
+  Height = 555
+  Top = 189
+  Width = 679
+  Caption = 'Hilfe'
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  LCLVersion = '1.3'
+end

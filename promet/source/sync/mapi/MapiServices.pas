@@ -408,6 +408,8 @@ function EntryIdToString(const EntryId: TSBINARY): string;
 function StringToEntryId(const EntryId: string): TSBINARY;  // Caller must release buffer
 
 // MAPI property access
+function ClearMapiProperty(
+  const MapiProp: IMapiProp; PropertyId: ULONG): Boolean;
 function GetMapiBinaryProperty(
   const MapiProp: IMapiProp; PropertyId: ULONG): TSBINARY;
 function GetMapiBooleanProperty(
@@ -582,6 +584,34 @@ begin
   Result := ulPropTag and $FFFF;
 end;
 
+function ClearMapiProperty(const MapiProp: IMapiProp; PropertyId: ULONG
+  ): Boolean;
+var NewProperty: TSPropValue;
+    Problems: PSPropProblemArray;
+    SetPropResult: HRESULT;
+begin
+  Problems := nil;
+
+  // Initialise and set the details of the property we want to modify
+  FillChar(NewProperty, SizeOf(TSPropValue), 0);
+  NewProperty.ulPropTag := PropertyId;
+
+  // Update said property
+  SetPropResult := MapiProp.DeleteProps(@NewProperty, Problems);
+  try
+    // Check for errors
+    if SetPropResult <> S_OK then
+      raise EMapiProperty.Create(
+        Format('error deleting property %d', [PropertyId]), MapiProp, SetPropResult)
+    else if Assigned(Problems) then
+      raise EMapiProperty.Create(
+        Format('error deleting property %d', [PropertyId]), Problems);
+  finally
+    if Assigned(Problems) then
+      MapiFreeBuffer(Problems);
+  end;
+end;
+
 function GetMapiBinaryProperty(
   const MapiProp: IMapiProp; PropertyId: ULONG): TSBINARY;
 var Properties: TSPropTagArray;
@@ -731,7 +761,7 @@ var Properties: TSPropTagArray;
     lppPropArray: PSPropValue;
 begin
   // Default output value
-  Result := Now;
+  Result := -1;
   lppPropArray := nil;
 
   // Get the actual property value
@@ -1946,7 +1976,16 @@ begin
   case PropType of
     ptBoolean: SetMapiBooleanProperty(FMessage,aPropType, aValue);
     ptInteger: SetMapiIntProperty(FMessage,aPropType, aValue);
-    ptTime: SetMapiTimeProperty(FMessage,aPropType, aValue);
+    ptTime:
+      begin
+        if (AValue = -1) then
+          begin
+            if GetMapiTimeProperty(FMessage,aPropType)<>-1 then
+              ClearMapiProperty(FMessage,aPropType)
+          end
+        else
+          SetMapiTimeProperty(FMessage,aPropType, aValue);
+      end
   else
     SetMapiStringProperty(FMessage,aPropType, aValue);
   end;

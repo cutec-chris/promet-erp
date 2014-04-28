@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="4">
+    <Name Value="phelp"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <SearchPaths>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+      </SearchPaths>
+      <Other>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
+    </CompilerOptions>
+    <Files Count="8">
+      <Item1>
+        <Filename Value="uwikiframe.lfm"/>
+        <Type Value="LFM"/>
+      </Item1>
+      <Item2>
+        <Filename Value="uwikiframe.pas"/>
+        <UnitName Value="uWikiFrame"/>
+      </Item2>
+      <Item3>
+        <Filename Value="uhelpcontainer.lfm"/>
+        <Type Value="LFM"/>
+      </Item3>
+      <Item4>
+        <Filename Value="uhelpcontainer.lrs"/>
+        <Type Value="LRS"/>
+      </Item4>
+      <Item5>
+        <Filename Value="uhelpcontainer.pas"/>
+        <UnitName Value="uHelpContainer"/>
+      </Item5>
+      <Item6>
+        <Filename Value="uwikimessage.pas"/>
+        <UnitName Value="uWikiMessage"/>
+      </Item6>
+      <Item7>
+        <Filename Value="uspelling.lfm"/>
+        <Type Value="LFM"/>
+      </Item7>
+      <Item8>
+        <Filename Value="uspelling.pas"/>
+        <UnitName Value="uspelling"/>
+      </Item8>
+    </Files>
+    <Type Value="RunAndDesignTime"/>
+    <RequiredPkgs Count="5">
+      <Item1>
+        <PackageName Value="sql_parser"/>
+        <DefaultFilename Value="../../components/sqlparser/sql_parser.lpk"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="pDocuments"/>
+        <DefaultFilename Value="../base_documents/pdocuments.lpk"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="pvisualforms"/>
+        <DefaultFilename Value="../base_forms/pvisualforms.lpk"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="pvisualbaseframes"/>
+        <DefaultFilename Value="../base_frames/pvisualbaseframes.lpk"/>
+      </Item4>
+      <Item5>
+        <PackageName Value="TurboPowerIPro"/>
+      </Item5>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

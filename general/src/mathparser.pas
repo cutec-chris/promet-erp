@@ -33,7 +33,7 @@ of this file under either the MPL or the GPL.
 
 unit MathParser;
 
-{$mode delphi}
+{$mode delphi}{$H+}
 
 interface
 

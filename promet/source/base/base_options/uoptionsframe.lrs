@@ -1,0 +1,6 @@
+{ This is an automatically generated lazarus resource file }
+
+LazarusResources.Add('TOptionsFrame','FORMDATA',[
+  'TPF0'#13'TOptionsFrame'#12'OptionsFrame'#4'Left'#2#0#6'Height'#3#240#0#3'Top'
+  +#2#0#5'Width'#3'@'#1#10'LCLVersion'#6#6'0.9.31'#0#0
+]);

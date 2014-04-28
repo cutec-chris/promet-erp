@@ -10,6 +10,8 @@ uses
   uDocuments,uMimeMessages,uBaseApplication,LConvEncoding;
 resourcestring
   strActionMessageSend             = '%s - gesendet';
+  strActionMessageSend2            = 'Nachricht gesendet';
+  strActionMessageSendFailed       = 'senden der Nachricht fehlgeschlagen %s';
 type
   TSMTPSender = class(TBaseCustomApplication)
   protected
@@ -203,12 +205,24 @@ begin
                                           Customers.Free;
                                         end;
                                       MessageHandler.SendCommand('prometerp','Message.refresh');
+                                      aMessage.History.Open;
+                                      aMessage.History.AddItem(aMessage.DataSet,Format(strActionMessageSend2,[]),
+                                                                Data.BuildLink(MessageIndex.DataSet),
+                                                                '',
+                                                                nil,
+                                                                ACICON_MAILANSWERED);
                                     end
                                   else
                                     begin
                                       Edit;
                                       FieldbyName('READ').AsString:='N';
                                       Post;
+                                      aMessage.History.Open;
+                                      aMessage.History.AddItem(aMessage.DataSet,Format(strActionMessageSendFailed,[]),
+                                                                Data.BuildLink(MessageIndex.DataSet),
+                                                                '',
+                                                                nil,
+                                                                ACICON_MAILANSWERED);
                                     end;
                                 end;
                               Mime.Destroy;
@@ -217,6 +231,12 @@ begin
                             begin
                               res := SMTP.FullResult.Text;
                               WriteLn('failed:'+res);
+                              aMessage.History.Open;
+                              aMessage.History.AddItem(aMessage.DataSet,Format(strActionMessageSendFailed,[res]),
+                                                        Data.BuildLink(MessageIndex.DataSet),
+                                                        '',
+                                                        nil,
+                                                        ACICON_MAILANSWERED);
                             end;
                         end;
                       SMTP.Reset;

@@ -1,0 +1,6 @@
+{ This is an automatically generated lazarus resource file }
+
+LazarusResources.Add('TPrometMainFrame','FORMDATA',[
+  'TPF0'#241#16'TPrometMainFrame'#15'PrometMainFrame'#6'Height'#3#238#0#5'Width'
+  +#3'B'#1#14'ParentShowHint'#8#8'ShowHint'#9#0#0
+]);

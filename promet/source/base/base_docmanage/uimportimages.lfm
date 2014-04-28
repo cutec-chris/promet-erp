@@ -1,0 +1,49 @@
+object fPicImport: TfPicImport
+  Left = 456
+  Height = 135
+  Top = 293
+  Width = 327
+  Caption = 'Bildimport'
+  ClientHeight = 135
+  ClientWidth = 327
+  LCLVersion = '1.1'
+  object cbDelete: TCheckBox
+    Left = 6
+    Height = 24
+    Top = 56
+    Width = 216
+    Caption = 'Dateien nach Import löschen'
+    TabOrder = 0
+  end
+  object eTags: TEdit
+    Left = 6
+    Height = 27
+    Top = 24
+    Width = 312
+    TabOrder = 1
+  end
+  object ButtonPanel1: TButtonPanel
+    Left = 6
+    Height = 37
+    Top = 92
+    Width = 315
+    OKButton.Name = 'OKButton'
+    OKButton.DefaultCaption = True
+    HelpButton.Name = 'HelpButton'
+    HelpButton.DefaultCaption = True
+    CloseButton.Name = 'CloseButton'
+    CloseButton.DefaultCaption = True
+    CancelButton.Name = 'CancelButton'
+    CancelButton.DefaultCaption = True
+    TabOrder = 2
+    ShowButtons = [pbOK, pbCancel]
+  end
+  object Label1: TLabel
+    Left = 6
+    Height = 17
+    Top = 8
+    Width = 30
+    Caption = 'Tags'
+    ParentColor = False
+  end
+end

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="4">
+    <Name Value="pDocManage"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <SearchPaths>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+      <Other>
+        <CompilerMessages>
+          <MsgFileName Value=""/>
+        </CompilerMessages>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
+    </CompilerOptions>
+    <Files Count="5">
+      <Item1>
+        <Filename Value="umanagedocframe.lfm"/>
+        <Type Value="LFM"/>
+      </Item1>
+      <Item2>
+        <Filename Value="umanagedocframe.pas"/>
+        <UnitName Value="umanagedocframe"/>
+      </Item2>
+      <Item3>
+        <Filename Value="uimportimages.pas"/>
+        <UnitName Value="uImportImages"/>
+      </Item3>
+      <Item4>
+        <Filename Value="ucameraimport.pas"/>
+        <UnitName Value="ucameraimport"/>
+      </Item4>
+      <Item5>
+        <Filename Value="pdocmanage.pas"/>
+        <UnitName Value="pDocManage"/>
+      </Item5>
+    </Files>
+    <Type Value="RunAndDesignTime"/>
+    <RequiredPkgs Count="4">
+      <Item1>
+        <PackageName Value="pvisualframes"/>
+        <DefaultFilename Value="../base_frames/pvisualframes.lpk"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="pdocuments"/>
+        <DefaultFilename Value="../base_documents/pdocuments.lpk"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="thumbctrl"/>
+        <DefaultFilename Value="../../components/thumbs/thumbctrl.lpk"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="FCL"/>
+      </Item4>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

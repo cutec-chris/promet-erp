@@ -70,11 +70,15 @@ var
 
 implementation
 uses uStatistic,uData,uBaseWebSession,uPerson,uOrder,uMasterdata,utask,uProjects,
-  uBaseDbDataSet,usync,uMessages,uBaseSearch,uWiki,uDocuments,umeeting,uBaseERPDBClasses;
+  uBaseDbDataSet,usync,uMessages,uBaseSearch,uWiki,uDocuments,umeeting,uBaseERPDBClasses,
+  uBaseApplication;
 {$R *.lfm}
 procedure Tappbase.checkloginRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 begin
+  {$ifdef DEBUG}
+  debugln('CheckLoginRequest:started');
+  {$endif}
   Handled:=True;
   if TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True,False) then
     begin
@@ -83,27 +87,32 @@ begin
           FirstUse := False;
           RegisterContent;
         end;
-      AResponse.Code:=200;
-      AResponse.ContentType:='text/javascript;charset=utf-8';
-      AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
       AResponse.Contents.Text := 'OnLoggedIn();';
-      AResponse.SendContent;
     end
   else
     begin
-      AResponse.Code:=200;
-      AResponse.ContentType:='text/javascript;charset=utf-8';
-      AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
       AResponse.Contents.Text := '';
-      AResponse.SendContent;
     end;
+  AResponse.Code:=200;
+  AResponse.ContentType:='text/javascript;charset=utf-8';
+  AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
+  AResponse.SendContent;
+  {$ifdef DEBUG}
+  debugln('CheckLoginRequest:ended');
+  {$endif}
 end;
 procedure Tappbase.connectionavalibeRequest(Sender: TObject;
   ARequest: TRequest; AResponse: TResponse; var Handled: Boolean);
 begin
+  {$ifdef DEBUG}
+  debugln('ConnectionAvalibleRequest:started');
+  {$endif}
   TBaseWebSession(Session).ConnectionAvalible(ARequest,AResponse);
   AResponse.SendContent;
   Handled:=True;
+  {$ifdef DEBUG}
+  debugln('ConnectionAvalibleRequest:ended');
+  {$endif}
 end;
 procedure Tappbase.DataModuleAfterInitModule(Sender: TObject; ARequest: TRequest
   );
@@ -127,32 +136,41 @@ var
   aName: String;
   aType: String;
 begin
+  {$ifdef DEBUG}
+  debugln('GetStatisticRequest:started');
+  {$endif}
   Handled:=True;
-  if not TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True) then exit;
-  aStatistic := TStatistic.Create(nil,Data);
-  aStatistic.Open;
-  aStat := ARequest.QueryFields.Values['name'];
-  if aStatistic.DataSet.Locate('NAME',aStat,[loCaseInsensitive]) then
+  AResponse.Code:=403;
+  if TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True) then
     begin
-      aDS := Data.GetNewDataSet(aStatistic.BuildQuerry(Arequest.QueryFields));
-      aDS.Open;
-      Json := TJSONArray.Create;
-      DataSetToJSON(aDs,Json,True);
-      Response.Contents.Text := 'handleData('+Json.AsJSON+');';
-      Json.Free;
-      aDS.Free;
-      AResponse.Code:=200;
-      AResponse.ContentType:='text/javascript;charset=utf-8';
-      AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
-      AResponse.SendContent;
-    end
-  else
-    begin
-      AResponse.Code:=404;
-      AResponse.CodeText:='Document not found';
-      AResponse.SendContent;
+      AResponse.Code:=500;
+      aStatistic := TStatistic.Create(nil,Data);
+      aStatistic.Open;
+      aStat := ARequest.QueryFields.Values['name'];
+      if aStatistic.DataSet.Locate('NAME',aStat,[loCaseInsensitive]) then
+        begin
+          aDS := Data.GetNewDataSet(aStatistic.BuildQuerry(Arequest.QueryFields));
+          aDS.Open;
+          Json := TJSONArray.Create;
+          DataSetToJSON(aDs,Json,True);
+          Response.Contents.Text := 'handleData('+Json.AsJSON+');';
+          Json.Free;
+          aDS.Free;
+          AResponse.Code:=200;
+          AResponse.ContentType:='text/javascript;charset=utf-8';
+          AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
+        end
+      else
+        begin
+          AResponse.Code:=404;
+          AResponse.CodeText:='Document not found';
+        end;
+      aStatistic.Free;
     end;
-  aStatistic.Free;
+  AResponse.SendContent;
+  {$ifdef DEBUG}
+  debugln('GetStatisticRequest:ended');
+  {$endif}
 end;
 procedure Tappbase.listRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
@@ -171,91 +189,105 @@ var
   http: THTTPSend;
   aClass: TBaseDBDatasetClass;
 begin
+  {$ifdef DEBUG}
+  debugln('ListRequest:started');
+  {$endif}
   Handled:=True;
-  if not TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True,False) then exit;
-  aList := lowercase(ARequest.QueryFields.Values['name']);
-  aFilter := ARequest.QueryFields.Values['filter'];
-  if aList <> '' then
+  AResponse.Code:=403;
+  if TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True,False) then
     begin
-      if aFilter<>'' then
-        aList := aList+' where '+aFilter;
-      FSQLStream := TStringStream.Create('select * from '+aList);
-    end
-  else
-    FSQLStream := TStringStream.Create(ARequest.QueryFields.Values['ql']);
-  FSQLScanner := TSQLScanner.Create(FSQLStream);
-  Json := TJSONArray.Create;
-  AResponse.Code:=200;
-  AResponse.ContentType:='text/javascript;charset=utf-8';
-  AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
-  FSQLParser := TSQLParser.Create(FSQLScanner);
-  try
-    aStmt := FSQLParser.Parse;
-    for a := 0 to TSQLSelectStatement(aStmt).Tables.Count-1 do
-      begin
-        aList := TSQLSimpleTableReference(TSQLSelectStatement(aStmt).Tables[a]).ObjectName.Name;
-        if Data.DataSetFromLink(aList+'@',aClass) then
+      aList := lowercase(ARequest.QueryFields.Values['name']);
+      aFilter := ARequest.QueryFields.Values['filter'];
+      if aList <> '' then
+        begin
+          if aFilter<>'' then
+            aList := aList+' where '+aFilter;
+          FSQLStream := TStringStream.Create('select * from '+aList);
+        end
+      else
+        FSQLStream := TStringStream.Create(ARequest.QueryFields.Values['ql']);
+      FSQLScanner := TSQLScanner.Create(FSQLStream);
+      Json := TJSONArray.Create;
+      AResponse.Code:=200;
+      AResponse.ContentType:='text/javascript;charset=utf-8';
+      AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
+      FSQLParser := TSQLParser.Create(FSQLScanner);
+      try
+        aStmt := FSQLParser.Parse;
+        for a := 0 to TSQLSelectStatement(aStmt).Tables.Count-1 do
           begin
-            aDs := TBaseDbList(aClass.Create(nil,Data));
-            aRight := UpperCase(aList);
-            if Assigned(TSQLSelectStatement(aStmt).Where) then
-              aFilter:=TSQLSelectStatement(aStmt).Where.GetAsSQL([sfoDoubleQuoteIdentifier]);
-            if (data.Users.Rights.Right(aRight)>RIGHT_READ) and (Assigned(aDS)) then
+            aList := TSQLSimpleTableReference(TSQLSelectStatement(aStmt).Tables[a]).ObjectName.Name;
+            if Data.DataSetFromLink(aList+'@',aClass) then
               begin
-                if (aDs.ActualFilter<>'') and (aFilter<>'') then
-                  aDs.Filter('('+aDs.ActualFilter+') AND ('+aFilter+')')
-                else if (aFilter<>'') then
-                  aDs.Filter(ARequest.QueryFields.Values['filter'])
+                if aClass = TBaseHistory then
+                  aDs := TBaseDbList(aClass.Create(nil,Data,nil,Data.Users.DataSet)) //Use User History when History
                 else
-                  aDs.Open;
-                DataSetToJSON(aDs.DataSet,Json,True,TSQLSelectStatement(aStmt).Fields);
-              end
-            else if (not Assigned(aDs)) and (pos('.',aList)>0) then
-              begin
-                //TODO:YQL Querys
-                //http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%27http%3A%2F%2Fmashable.com%27
-                http := THTTPSend.Create;
-                http.UserAgent:='Mozilla/5.0 (Windows NT 5.1; rv:6.0.2)';
-                http.HTTPMethod('GET','https://query.yahooapis.com/v1/public/yql?q='+HTTPEncode(FSQLStream.DataString));
-                if http.ResultCode=200 then
-                  http.Document.SaveToFile('document.xml');
-                http.Free;
+                  aDs := TBaseDbList(aClass.Create(nil,Data));
+                aRight := UpperCase(aList);
+                if Assigned(TSQLSelectStatement(aStmt).Where) then
+                  aFilter:=TSQLSelectStatement(aStmt).Where.GetAsSQL([sfoDoubleQuoteIdentifier]);
+                if (data.Users.Rights.Right(aRight)>RIGHT_READ) and (Assigned(aDS)) then
+                  begin
+                    if (aDs.ActualFilter<>'') and (aFilter<>'') then
+                      aDs.Filter('('+aDs.ActualFilter+') AND ('+aFilter+')')
+                    else if (aFilter<>'') then
+                      aDs.Filter(ARequest.QueryFields.Values['filter'])
+                    else
+                      aDs.Open;
+                    DataSetToJSON(aDs.DataSet,Json,True,TSQLSelectStatement(aStmt).Fields);
+                  end
+                else if (not Assigned(aDs)) and (pos('.',aList)>0) then
+                  begin
+                    //TODO:YQL Querys
+                    //http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%27http%3A%2F%2Fmashable.com%27
+                    http := THTTPSend.Create;
+                    http.UserAgent:='Mozilla/5.0 (Windows NT 5.1; rv:6.0.2)';
+                    http.HTTPMethod('GET','https://query.yahooapis.com/v1/public/yql?q='+HTTPEncode(FSQLStream.DataString));
+                    if http.ResultCode=200 then
+                      http.Document.SaveToFile('document.xml');
+                    http.Free;
+                  end
+                else
+                  AResponse.Code:=403;
+                if Assigned(aDs) then
+                  aDS.Free;
               end
             else
               AResponse.Code:=403;
-            if Assigned(aDs) then                                                           if Assigned(TSQLSelectStatement(aStmt).Where) then
-
-              aDS.Free;
-          end
-        else
-          AResponse.Code:=403;
-      end;
-  except
-    on e : ESQLParser do
-      begin
-        if e.Col > 0 then
+          end;
+        aStmt.Free
+      except
+        on e : ESQLParser do
           begin
-            AResponse.Code := 401;
-            AResponse.Contents.Text:='['+IntToStr(e.Line)+':'+IntToStr(e.Col)+'] '+e.Message+','+FSQLParser.CurSource;
+            if e.Col > 0 then
+              begin
+                AResponse.Code := 401;
+                AResponse.Contents.Text:='['+IntToStr(e.Line)+':'+IntToStr(e.Col)+'] '+e.Message+','+FSQLParser.CurSource;
+              end;
           end;
       end;
-  end;
 
-  FSQLParser.Free;
-  FSQLScanner.Free;
+      FSQLParser.Free;
+      FSQLScanner.Free;
 
-  aSeq := ARequest.QueryFields.Values['sequence'];
-  if aSeq='' then aSeq := '0';
-  Response.Contents.Text := 'DoHandleObject('+aSeq+','+Json.AsJSON+');';
-  if AResponse.Code=200 then
-    Response.Contents.Text := 'DoHandleList('+aSeq+','+Json.AsJSON+');';
-  Json.Free;
-
+      aSeq := ARequest.QueryFields.Values['sequence'];
+      if aSeq='' then aSeq := '0';
+      Response.Contents.Text := 'DoHandleObject('+aSeq+','+Json.AsJSON+');';
+      if AResponse.Code=200 then
+        Response.Contents.Text := 'DoHandleList('+aSeq+','+Json.AsJSON+');';
+      Json.Free;
+    end;
   AResponse.SendContent;
+  {$ifdef DEBUG}
+  debugln('ListRequest:ended');
+  {$endif}
 end;
 procedure Tappbase.loginRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 begin
+  {$ifdef DEBUG}
+  debugln('LoginRequest:started');
+  {$endif}
   TBaseWebSession(Session).DoLogin(Arequest,AResponse);
   if AResponse.Code=200 then
     begin
@@ -263,13 +295,25 @@ begin
     end;
   AResponse.SendContent;
   Handled:=True;
+  {$ifdef DEBUG}
+  debugln('LoginRequest:ended');
+  {$endif}
 end;
 procedure Tappbase.logoutRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 begin
+  {$ifdef DEBUG}
+  debugln('LogoutRequest:started');
+  {$endif}
   Handled:=True;
   TBaseWebSession(Session).DoLogout(ARequest,AResponse);
   AResponse.SendContent;
+  {$ifdef DEBUG}
+  BaseApplication.Terminate;
+  {$endif}
+  {$ifdef DEBUG}
+  debugln('LogoutRequest:ended');
+  {$endif}
 end;
 procedure Tappbase.objectRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
@@ -281,35 +325,45 @@ var
   aSeq: String;
   aClass: TBaseDBDatasetClass;
 begin
+  {$ifdef DEBUG}
+  debugln('ObjectRequest:started');
+  {$endif}
   Handled:=True;
-  if not TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True,False) then exit;
-  aList := lowercase(ARequest.QueryFields.Values['name']);
-  if Data.DataSetFromLink(aList+'@',aClass) then
+  AResponse.Code:=403;
+  if not TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True,False) then
     begin
-      aDs := TBaseDBDataset(aClass.Create(nil,Data));
-      aRight := UpperCase(aList);
-      if (data.Users.Rights.Right(aRight)>RIGHT_READ) and (Assigned(aDS)) then
+      AResponse.Code:=500;
+      aList := lowercase(ARequest.QueryFields.Values['name']);
+      if Data.DataSetFromLink(aList+'@',aClass) then
         begin
-          aDs.Select(ARequest.QueryFields.Values['id']);
-          aDs.Open;
-          Json := TJSONObject.Create;
-          ObjectToJSON(aDs,Json,True);
-          aSeq := ARequest.QueryFields.Values['sequence'];
-          if aSeq='' then aSeq := '0';
-          Response.Contents.Text := 'DoHandleObject('+aSeq+','+Json.AsJSON+');';
-          Json.Free;
-          AResponse.Code:=200;
-          AResponse.ContentType:='text/javascript;charset=utf-8';
-          AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
+          aDs := TBaseDBDataset(aClass.Create(nil,Data));
+          aRight := UpperCase(aList);
+          if (data.Users.Rights.Right(aRight)>RIGHT_READ) and (Assigned(aDS)) then
+            begin
+              aDs.Select(ARequest.QueryFields.Values['id']);
+              aDs.Open;
+              Json := TJSONObject.Create;
+              ObjectToJSON(aDs,Json,True);
+              aSeq := ARequest.QueryFields.Values['sequence'];
+              if aSeq='' then aSeq := '0';
+              Response.Contents.Text := 'DoHandleObject('+aSeq+','+Json.AsJSON+');';
+              Json.Free;
+              AResponse.Code:=200;
+              AResponse.ContentType:='text/javascript;charset=utf-8';
+              AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
+            end
+          else
+            AResponse.Code:=403;
+          if Assigned(aDs) then
+            aDS.Free;
         end
       else
         AResponse.Code:=403;
-      if Assigned(aDs) then
-        aDS.Free;
-    end
-  else
-    AResponse.Code:=403;
+    end;
   AResponse.SendContent;
+  {$ifdef DEBUG}
+  debugln('ObjectRequest:ended');
+  {$endif}
 end;
 function Tappbase.OpenLink(aLink: string; Sender: TObject): Boolean;
 begin
@@ -323,25 +377,34 @@ var
   aRight: String;
   aClass: TBaseDBDatasetClass;
 begin
+  {$ifdef DEBUG}
+  debugln('setObjectRequest:started');
+  {$endif}
   Handled:=True;
-  AResponse.Code:=500;
-  if not TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True,False) then exit;
-  aList := lowercase(ARequest.QueryFields.Values['name']);
-  aRight := UpperCase(aList);
-  if Data.DataSetFromLink(aList+'@',aClass) then
+  AResponse.Code:=403;
+  if TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True,False) then
     begin
-      aDs := TBaseDBDataset(aClass.Create(nil,Data));
-      if (data.Users.Rights.Right(aRight)>RIGHT_WRITE) and (Assigned(aDS)) then
+      AResponse.Code:=500;
+      aList := lowercase(ARequest.QueryFields.Values['name']);
+      aRight := UpperCase(aList);
+      if Data.DataSetFromLink(aList+'@',aClass) then
         begin
+          aDs := TBaseDBDataset(aClass.Create(nil,Data));
+          if (data.Users.Rights.Right(aRight)>RIGHT_WRITE) and (Assigned(aDS)) then
+            begin
+            end
+          else
+            AResponse.Code:=403;
+          if Assigned(aDs) then
+            aDS.Free;
         end
       else
         AResponse.Code:=403;
-      if Assigned(aDs) then
-        aDS.Free;
-    end
-  else
-    AResponse.Code:=403;
+    end;
   AResponse.SendContent;
+  {$ifdef DEBUG}
+  debugln('setObjectRequest:ended')
+  {$endif}
 end;
 procedure Tappbase.syncRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
@@ -351,7 +414,7 @@ var
   aRight: String;
   aClass: TBaseDBDatasetClass;
   Sync: TSyncItems;
-  Json: TJSONArray;
+  Json: TJSONArray = nil;
   JsonIn: TJSONData;
   aFilter: String;
   FSQLStream: TStringStream;
@@ -364,86 +427,100 @@ var
   aParser: TJSONParser;
   aInpData: String;
 begin
+  {$ifdef DEBUG}
+  debugln('SyncRequest:started');
+  {$endif}
   Handled:=True;
-  AResponse.Code:=500;
-  if not TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True,False) then exit;
-  aList := lowercase(ARequest.QueryFields.Values['name']);
-  aFilter := ARequest.QueryFields.Values['filter'];
-  if aList <> '' then
+  AResponse.Code:=403;
+  if TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True,False) then
     begin
-      if aFilter<>'' then
-        aList := aList+' where '+aFilter;
-      FSQLStream := TStringStream.Create('select * from '+aList);
-    end
-  else
-    FSQLStream := TStringStream.Create(ARequest.QueryFields.Values['ql']);
-  FSQLScanner := TSQLScanner.Create(FSQLStream);
-  Json := TJSONArray.Create;
-  AResponse.Code:=200;
-  AResponse.ContentType:='text/javascript;charset=utf-8';
-  AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
-  FSQLParser := TSQLParser.Create(FSQLScanner);
-  try
-    aStmt := FSQLParser.Parse;
-    for a := 0 to TSQLSelectStatement(aStmt).Tables.Count-1 do
-      begin
-        aList := TSQLSimpleTableReference(TSQLSelectStatement(aStmt).Tables[a]).ObjectName.Name;
-        if Data.DataSetFromLink(aList+'@',aClass) then
+      AResponse.Code:=500;
+      aList := lowercase(ARequest.QueryFields.Values['name']);
+      aFilter := ARequest.QueryFields.Values['filter'];
+      if aList <> '' then
+        begin
+          if aFilter<>'' then
+            aList := aList+' where '+aFilter;
+          FSQLStream := TStringStream.Create('select * from '+aList);
+        end
+      else
+        FSQLStream := TStringStream.Create(ARequest.QueryFields.Values['ql']);
+      FSQLScanner := TSQLScanner.Create(FSQLStream);
+      AResponse.Code:=200;
+      AResponse.ContentType:='text/javascript;charset=utf-8';
+      AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
+      FSQLParser := TSQLParser.Create(FSQLScanner);
+      try
+        aStmt := FSQLParser.Parse;
+        for a := 0 to TSQLSelectStatement(aStmt).Tables.Count-1 do
           begin
-            aDs := TBaseDbList(aClass.Create(nil,Data));
-            aRight := UpperCase(aList);
-            if Assigned(TSQLSelectStatement(aStmt).Where) then
-              aFilter:=TSQLSelectStatement(aStmt).Where.GetAsSQL([sfoDoubleQuoteIdentifier]);
-            if (data.Users.Rights.Right(aRight)>RIGHT_READ) and (Assigned(aDS)) then
+            aList := TSQLSimpleTableReference(TSQLSelectStatement(aStmt).Tables[a]).ObjectName.Name;
+            if Data.DataSetFromLink(aList+'@',aClass) then
               begin
-                if (aDs.ActualFilter<>'') and (aFilter<>'') then
-                  aDs.Filter('('+aDs.ActualFilter+') AND ('+aFilter+')')
-                else if (aFilter<>'') then
-                  aDs.Filter(ARequest.QueryFields.Values['filter'])
+                if aClass = TBaseHistory then
+                  aDs := TBaseDbList(aClass.Create(nil,Data,nil,Data.Users.DataSet)) //Use User History when History
                 else
-                  aDs.Open;
-                Sync := TSyncItems.Create(nil,Data);
-                aSyncType := ARequest.QueryFields.Values['synctype'];
-                aInpData := ARequest.QueryFields.Values['data'];
-                aParser := TJSONParser.Create(aInpData);
-                JsonIn := aParser.Parse;
-                if aSyncType = '' then
-                  aSyncType:='App';
-                Json := Sync.SyncDataSet(aDs,JsonIn,aSyncType);
-                if not Assigned(Json) then
-                  AResponse.Code:=500;
-                JsonIn.Free;
-                Sync.Free;
+                  aDs := TBaseDbList(aClass.Create(nil,Data));
+                aRight := UpperCase(aList);
+                if Assigned(TSQLSelectStatement(aStmt).Where) then
+                  aFilter:=TSQLSelectStatement(aStmt).Where.GetAsSQL([sfoDoubleQuoteIdentifier]);
+                if (data.Users.Rights.Right(aRight)>RIGHT_READ) and (Assigned(aDS)) then
+                  begin
+                    if (aDs.ActualFilter<>'') and (aFilter<>'') then
+                      aDs.Filter('('+aDs.ActualFilter+') AND ('+aFilter+')')
+                    else if (aFilter<>'') then
+                      aDs.Filter(ARequest.QueryFields.Values['filter'])
+                    else
+                      aDs.Open;
+                    Sync := TSyncItems.Create(nil,Data);
+                    aSyncType := ARequest.QueryFields.Values['synctype'];
+                    aInpData := ARequest.QueryFields.Values['data'];
+                    aParser := TJSONParser.Create(aInpData);
+                    JsonIn := aParser.Parse;
+                    aParser.Free;
+                    if aSyncType = '' then
+                      aSyncType:='App';
+                    Json := Sync.SyncDataSet(aDs,JsonIn,aSyncType);
+                    if not Assigned(Json) then
+                      AResponse.Code:=500;
+                    JsonIn.Free;
+                    Sync.Free;
+                  end
+                else
+                  AResponse.Code:=403;
+                aDS.Free;
               end
             else
               AResponse.Code:=403;
-            aDS.Free;
-          end
-        else
-          AResponse.Code:=403;
-      end;
-  except
-    on e : ESQLParser do
-      begin
-        if e.Col > 0 then
+          end;
+        aStmt.Free;
+      except
+        on e : ESQLParser do
           begin
-            AResponse.Code := 401;
-            AResponse.Contents.Text:='['+IntToStr(e.Line)+':'+IntToStr(e.Col)+'] '+e.Message+','+FSQLParser.CurSource;
+            if e.Col > 0 then
+              begin
+                AResponse.Code := 401;
+                AResponse.Contents.Text:='['+IntToStr(e.Line)+':'+IntToStr(e.Col)+'] '+e.Message+','+FSQLParser.CurSource;
+              end;
           end;
       end;
-  end;
 
-  FSQLParser.Free;
-  FSQLScanner.Free;
+      FSQLParser.Free;
+      FSQLScanner.Free;
+      FSQLStream.Free;
 
-  aSeq := ARequest.QueryFields.Values['sequence'];
-  if aSeq='' then aSeq := '0';
-  Response.Contents.Text := 'DoHandleObject('+aSeq+','+Json.AsJSON+');';
-  if AResponse.Code=200 then
-    Response.Contents.Text := 'DoHandleList('+aSeq+','+Json.AsJSON+');';
-  Json.Free;
-
+      aSeq := ARequest.QueryFields.Values['sequence'];
+      if aSeq='' then aSeq := '0';
+      if not Assigned(Json) then Json := TJSONArray.Create;
+      Response.Contents.Text := 'DoHandleObject('+aSeq+','+Json.AsJSON+');';
+      if AResponse.Code=200 then
+        Response.Contents.Text := 'DoHandleList('+aSeq+','+Json.AsJSON+');';
+      Json.Free;
+    end;
   AResponse.SendContent;
+  {$ifdef DEBUG}
+  debugln('SyncRequest:ended')
+  {$endif}
 end;
 procedure Tappbase.DataSetToJSON(ADataSet: TDataSet; AJSON: TJSONArray;
   const ADateAsString: Boolean; Fields: TSQLElementList);

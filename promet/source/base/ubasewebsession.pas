@@ -128,7 +128,7 @@ begin
   Result := '';
   if FSession.Count = 0 then exit;
   FSession.Variables.Select(Varname);
-  FSession.Variables.Open;
+  FSession.Variables.Active:=True;
   if FSession.Variables.Count > 0 then
     Result := FSession.Variables.FieldByName('VALUE').AsString;
 end;
@@ -137,7 +137,7 @@ procedure TBaseWebSession.SetSessionVariable(VarName: String;
 begin
   if FSession.Count = 0 then exit;
   FSession.Variables.Select(Varname);
-  FSession.Variables.Open;
+  FSession.Variables.Active:=True;
   try
     if FSession.Variables.Count = 0 then
       FSession.Variables.DataSet.Insert
@@ -158,6 +158,9 @@ begin
 end;
 destructor TBaseWebSession.Destroy;
 begin
+  {$ifdef DEBUG}
+  debugln('Session '+SessionID+' Destroy');
+  {$endif}
   try
     FSession.Destroy;
   except
@@ -286,6 +289,9 @@ begin
     begin
       Self.Variables['Forwarded'] := AnsiToUTF8(ARequest.GetFieldByName('HTTP_X_FORWARDED_FOR'));
     end;
+  {$ifdef DEBUG}
+  debugln('Session '+SessionID+' Init');
+  {$endif}
 end;
 procedure TBaseWebSession.InitResponse(AResponse: TResponse);
 Var
@@ -343,6 +349,7 @@ procedure TBaseWebSession.DoLogin(ARequest: TRequest; AResponse: TResponse);
 begin
   if ARequest.QueryFields.Values['step']='1' then
     begin
+      Data.Users.Active:=True;
       if (Data.Users.DataSet.Locate('NAME',ARequest.QueryFields.Values['name'],[loCaseInsensitive]))
       or (Data.Users.DataSet.Locate('LOGINNAME',ARequest.QueryFields.Values['name'],[loCaseInsensitive]))
       then
@@ -410,6 +417,9 @@ var
   aLogin: String;
   aResult: Boolean = false;
 begin
+  {$ifdef DEBUG}
+  debugln('Session '+SessionID+' '+CheckLogin);
+  {$endif}
   Result := false;
   aLogin := Variables['LOGIN'];
   aResult := aLogin <> '';
@@ -425,7 +435,7 @@ begin
       else
         AResponse.SendRedirect('login.html');
     end;
-  Data.Users.Open;
+  Data.Users.Active:=True;
   if not (aResult
   and ((Data.Users.DataSet.Locate('NAME',aLogin,[loCaseInsensitive]))
   or (Data.Users.DataSet.Locate('LOGINNAME',aLogin,[loCaseInsensitive])))) then

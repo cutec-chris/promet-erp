@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="4">
+    <Name Value="pPhones"/>
+    <AddToProjectUsesSection Value="True"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <SearchPaths>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+      </SearchPaths>
+      <Other>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
+    </CompilerOptions>
+    <Files Count="5">
+      <Item1>
+        <Filename Value="uphone.pas"/>
+        <UnitName Value="uPhone"/>
+      </Item1>
+      <Item2>
+        <Filename Value="uphones.pas"/>
+        <UnitName Value="uPhones"/>
+      </Item2>
+      <Item3>
+        <Filename Value="uskypephone.pas"/>
+        <UnitName Value="uSkypePhone"/>
+      </Item3>
+      <Item4>
+        <Filename Value="utapiphone.pas"/>
+        <UnitName Value="uTAPIPhone"/>
+      </Item4>
+      <Item5>
+        <Filename Value="uskype.pas"/>
+        <UnitName Value="uSkype"/>
+      </Item5>
+    </Files>
+    <Type Value="RunAndDesignTime"/>
+    <RequiredPkgs Count="4">
+      <Item1>
+        <PackageName Value="pVisualPrometApp"/>
+        <DefaultFilename Value="../pvisualprometapp.lpk"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="laz_tapi"/>
+        <DefaultFilename Value="../../components/tapi/laz_tapi.lpk"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="general_nogui"/>
+        <DefaultFilename Value="../../../../general/general_nogui.lpk"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="FCL"/>
+        <MinVersion Major="1" Valid="True"/>
+      </Item4>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

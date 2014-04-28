@@ -54,6 +54,7 @@ type
     function IsSQLDB : Boolean;override;
     function GetNewDataSet(aTable : TBaseDbDataSet;aConnection : TComponent = nil;MasterData : TDataSet = nil;aTables : string = '') : TDataSet;override;
     function GetNewDataSet(aSQL : string;aConnection : TComponent = nil;MasterData : TDataSet = nil;aOrigtable : TBaseDBDataSet = nil) : TDataSet;override;
+    procedure DestroyDataSet(DataSet : TDataSet);override;
     function Ping(aConnection : TComponent) : Boolean;override;
     function DateToFilter(aValue : TDateTime) : string;override;
     function DateTimeToFilter(aValue : TDateTime) : string;override;
@@ -578,6 +579,7 @@ begin
         inherited InternalOpen;
       end;
   end;
+  try
   if Assigned(FOrigTable) then
     begin
       FOrigTable.SetDisplayLabels(Self);
@@ -607,6 +609,11 @@ begin
           EnableControls;
         end;
     end;
+  except
+    begin
+      FOrigTable:=nil;
+    end;
+  end;
 end;
 
 procedure TZeosDBDataSet.InternalRefresh;
@@ -1400,6 +1407,20 @@ begin
         end;
     end;
 end;
+
+procedure TZeosDBDM.DestroyDataSet(DataSet: TDataSet);
+begin
+  try
+  if Assigned(DataSet) and Assigned(TZeosDBDataSet(DataSet).MasterSource) then
+    begin
+      TZeosDBDataSet(DataSet).MasterSource.DataSet.DataSource.Free;
+      TZeosDBDataSet(DataSet).MasterSource := nil;
+      TZeosDBDataSet(DataSet).DataSource := nil;
+    end;
+  except
+  end;
+end;
+
 function TZeosDBDM.Ping(aConnection: TComponent): Boolean;
 var
   atime: Integer;
@@ -1847,4 +1868,4 @@ begin
 end;
 
 end.
-
+
