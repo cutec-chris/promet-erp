@@ -297,7 +297,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="47">
+    <Units Count="51">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -744,7 +744,7 @@
       <Unit43>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="76"/>
         <CursorPos X="61" Y="85"/>
@@ -753,7 +753,7 @@
       </Unit43>
       <Unit44>
         <Filename Value="../base/revision.inc"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
@@ -766,7 +766,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uOptions"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
@@ -780,8 +780,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uProcessOptions"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
@@ -789,8 +788,53 @@
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit46>
+      <Unit47>
+        <Filename Value="../base/base_options/umandantoptions.pas"/>
+        <ComponentName Value="fMandantOptions"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uMandantOptions"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="136"/>
+        <CursorPos X="24" Y="146"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit47>
+      <Unit48>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <UnitName Value="uBaseDbClasses"/>
+        <EditorIndex Value="4"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1811"/>
+        <CursorPos X="39" Y="1824"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit48>
+      <Unit49>
+        <Filename Value="../base/dbintfs/uaccounting.pas"/>
+        <UnitName Value="uAccounting"/>
+        <EditorIndex Value="6"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="146"/>
+        <CursorPos X="34" Y="166"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit49>
+      <Unit50>
+        <Filename Value="../base/dbintfs/uperson.pas"/>
+        <UnitName Value="uPerson"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="5"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="161"/>
+        <CursorPos X="18" Y="178"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit50>
     </Units>
-    <JumpHistory Count="19" HistoryIndex="18">
+    <JumpHistory Count="24" HistoryIndex="23">
       <Position1>
         <Filename Value="../base/base_frames/ufilterframe.pas"/>
         <Caret Line="15" Column="27" TopLine="2"/>
@@ -867,6 +911,26 @@
         <Filename Value="../base/base_frames/ufilterframe.pas"/>
         <Caret Line="1542" Column="18" TopLine="1523"/>
       </Position19>
+      <Position20>
+        <Filename Value="../base/base_options/umandantoptions.pas"/>
+        <Caret Line="146" Column="24" TopLine="136"/>
+      </Position20>
+      <Position21>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1822" Column="26" TopLine="1811"/>
+      </Position21>
+      <Position22>
+        <Filename Value="../base/dbintfs/uaccounting.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position22>
+      <Position23>
+        <Filename Value="../base/dbintfs/uaccounting.pas"/>
+        <Caret Line="114" Column="42" TopLine="96"/>
+      </Position23>
+      <Position24>
+        <Filename Value="../base/dbintfs/uperson.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position24>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

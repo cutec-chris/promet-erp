@@ -95,11 +95,20 @@ begin
       CSVExport(OutputDir+DirectorySeparator+'numbers.csv',';',Data.Numbers.DataSet);
       CSVExport(OutputDir+DirectorySeparator+'pricetypes.csv',';',Data.Pricetypes.DataSet);
       CSVExport(OutputDir+DirectorySeparator+'reports.csv',';',Data.Reports.DataSet);
-//      CSVExport(OutputDir+DirectorySeparator+'templates.csv',';',Data.Templates.DataSet);
+      try
+        CSVExport(OutputDir+DirectorySeparator+'templates.csv',';',Data.Templates.DataSet);
+      except
+      end;
       CSVExport(OutputDir+DirectorySeparator+'texttyp.csv',';',Data.Texttyp.DataSet);
-//      CSVExport(OutputDir+DirectorySeparator+'userfielddefs.csv',';',Data.Userfielddefs.DataSet);
+      try
+        CSVExport(OutputDir+DirectorySeparator+'userfielddefs.csv',';',Data.Userfielddefs.DataSet);
+      except
+      end;
       CSVExport(OutputDir+DirectorySeparator+'vat.csv',';',Data.Vat.DataSet);
-//      CSVExport(OutputDir+DirectorySeparator+'statistic.csv',';',Data.Statistic.DataSet);
+      try
+        CSVExport(OutputDir+DirectorySeparator+'statistic.csv',';',Data.Statistic.DataSet);
+      except
+      end;
       CSVExport(OutputDir+DirectorySeparator+'states.csv',';',Data.States.DataSet);
       CSVExport(OutputDir+DirectorySeparator+'units.csv',';',Data.Units.DataSet);
       CSVExport(OutputDir+DirectorySeparator+'storagetype.csv',';',Data.StorageType.DataSet);

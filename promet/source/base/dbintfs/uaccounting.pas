@@ -163,7 +163,7 @@ begin
             Add('TYPE',ftString,3,True);
             Add('SORTCODE',ftString,20,True);
             Add('ACCOUNTNO',ftString,200,True);
-            Add('NAME',ftString,30,False);
+            Add('NAME',ftString,60,False);
             Add('NOTES',ftMemo,0,False);
             Add('FTSNAME',ftString,30,False);
           end;

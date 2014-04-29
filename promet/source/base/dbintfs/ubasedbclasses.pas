@@ -1819,9 +1819,9 @@ begin
           begin
             Add('NAME',ftString,30,False);
             Add('ADRESS',ftMemo,0,False);
-            Add('SORTCODE',ftString,8,False);
-            Add('ACCOUNT',ftString,10,False);
-            Add('INSTITUTE',ftString,40,false);
+            Add('SORTCODE',ftString,20,False);
+            Add('ACCOUNT',ftString,200,False);
+            Add('INSTITUTE',ftString,60,false);
             Add('SWIFT',ftString,11,false);
             Add('IBAN',ftString,34,false);
             Add('TEL1',ftString,30,false);
