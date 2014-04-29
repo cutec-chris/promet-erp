@@ -730,7 +730,7 @@
       <Unit42>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="5"/>
         <CursorPos X="42" Y="33"/>
@@ -754,7 +754,7 @@
       <Unit44>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="76"/>
         <CursorPos X="61" Y="85"/>
@@ -763,7 +763,7 @@
       </Unit44>
       <Unit45>
         <Filename Value="../base/revision.inc"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
@@ -785,13 +785,13 @@
         <LoadedDesigner Value="True"/>
       </Unit46>
       <Unit47>
-        <Filename Value="../base/base_forms/uedittext.pas"/>
-        <ComponentName Value="fEditText"/>
+        <Filename Value="../base/base_forms/unrights.pas"/>
+        <ComponentName Value="fNRights"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uEditText"/>
+        <UnitName Value="uNRights"/>
         <IsVisibleTab Value="True"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>

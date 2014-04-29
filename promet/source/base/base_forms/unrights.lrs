@@ -3,40 +3,41 @@
 LazarusResources.Add('TfNRights','FORMDATA',[
   'TPF0'#9'TfNRights'#8'fNRights'#4'Left'#3#6#2#6'Height'#3#246#0#3'Top'#3':'#1
   +#5'Width'#3'j'#1#7'Caption'#6#6'Rechte'#12'ClientHeight'#3#246#0#11'ClientWi'
-  +'dth'#3'j'#1#8'OnCreate'#7#10'FormCreate'#9'OnDestroy'#7#11'FormDestroy'#10
-  +'LCLVersion'#6#3'1.1'#0#6'TLabel'#6'Label1'#4'Left'#2#8#6'Height'#2#17#3'Top'
-  +#2#24#5'Width'#2'<'#7'Caption'#6#8'Benutzer'#11'ParentColor'#8#0#0#12'TButto'
-  +'nPanel'#12'ButtonPanel1'#4'Left'#2#6#6'Height'#2'%'#3'Top'#3#203#0#5'Width'
-  +#3'^'#1#13'OKButton.Name'#6#8'OKButton'#23'OKButton.DefaultCaption'#9#15'Hel'
-  +'pButton.Name'#6#10'HelpButton'#25'HelpButton.DefaultCaption'#9#18'HelpButto'
-  +'n.Enabled'#8#16'CloseButton.Name'#6#11'CloseButton'#26'CloseButton.DefaultC'
-  +'aption'#9#19'CloseButton.Enabled'#8#17'CancelButton.Name'#6#12'CancelButton'
-  +#27'CancelButton.DefaultCaption'#9#8'TabOrder'#2#0#11'ShowButtons'#11#4'pbOK'
-  +#8'pbCancel'#0#0#0#9'TComboBox'#6'cbUser'#4'Left'#2'U'#6'Height'#2#29#3'Top'
-  +#2'N'#5'Width'#2'd'#10'ItemHeight'#2#0#8'OnSelect'#7#12'cbUserSelect'#6'Sort'
-  +'ed'#9#8'TabOrder'#2#1#4'Text'#6#6'cbUser'#7'Visible'#8#0#0#9'TComboBox'#7'c'
-  +'bRight'#4'Left'#3#231#0#6'Height'#2#29#3'Top'#2'N'#5'Width'#2'd'#10'ItemHei'
-  +'ght'#2#0#13'Items.Strings'#1#6#5'keins'#6#5'lesen'#6#15'lesen/schreiben'#6#8
-  +'l'#195#182'schen'#6#14'Rechte '#195#164'ndern'#0#8'OnSelect'#7#13'cbRightSe'
-  +'lect'#8'TabOrder'#2#2#4'Text'#6#7'cbRight'#7'Visible'#8#0#0#12'TDBNavigator'
-  +#10'dnStandart'#4'Left'#3#231#0#6'Height'#2#24#3'Top'#2#8#5'Width'#2'}'#7'An'
-  +'chors'#11#5'akTop'#7'akRight'#0#10'BevelOuter'#7#6'bvNone'#29'ChildSizing.E'
-  +'nlargeHorizontal'#7#14'crsScaleChilds'#27'ChildSizing.EnlargeVertical'#7#14
-  +'crsScaleChilds'#28'ChildSizing.ShrinkHorizontal'#7#14'crsScaleChilds'#26'Ch'
-  +'ildSizing.ShrinkVertical'#7#14'crsScaleChilds'#18'ChildSizing.Layout'#7#29
-  +'cclLeftToRightThenTopToBottom'#27'ChildSizing.ControlsPerLine'#2'd'#12'Clie'
-  +'ntHeight'#2#24#11'ClientWidth'#2'}'#10'DataSource'#7#11'Permissions'#7'Opti'
-  +'ons'#11#0#8'TabOrder'#2#3#14'VisibleButtons'#11#8'nbInsert'#8'nbDelete'#6'n'
-  +'bPost'#8'nbCancel'#9'nbRefresh'#0#0#0#10'TExtDBGrid'#8'dgRights'#4'Left'#2#8
-  +#6'Height'#3#160#0#3'Top'#2'('#5'Width'#3'\'#1#7'Anchors'#11#5'akTop'#6'akLe'
-  +'ft'#7'akRight'#8'akBottom'#0#5'Color'#7#8'clWindow'#7'Columns'#14#1#11'Butt'
-  +'onStyle'#7#11'cbsPickList'#13'Title.Caption'#6#4'USER'#5'Width'#3#220#0#9'F'
-  +'ieldName'#6#4'USER'#0#1#13'Title.Caption'#6#5'RIGHT'#5'Width'#2'Z'#9'FieldN'
-  +'ame'#6#5'RIGHT'#0#0#10'DataSource'#7#11'Permissions'#16'DefaultRowHeight'#2
-  +#24#7'Options'#11#9'dgEditing'#8'dgTitles'#11'dgIndicator'#14'dgColumnResize'
-  +#12'dgColumnMove'#10'dgColLines'#10'dgRowLines'#6'dgTabs'#15'dgConfirmDelete'
-  +#14'dgCancelOnExit'#0#8'TabOrder'#2#4#10'TitleStyle'#7#8'tsNative'#16'OnDraw'
-  +'ColumnCell'#7#22'dgRightsDrawColumnCell'#14'OnSelectEditor'#7#20'dgRightsSe'
-  +'lectEditor'#11'WantReturns'#8#13'CachedEditing'#9#0#0#11'TDatasource'#11'Pe'
-  +'rmissions'#4'left'#2'('#3'top'#2'p'#0#0#0
+  +'dth'#3'j'#1#8'OnCreate'#7#10'FormCreate'#9'OnDestroy'#7#11'FormDestroy'#8'P'
+  +'osition'#7#16'poMainFormCenter'#10'LCLVersion'#6#3'1.3'#0#6'TLabel'#6'Label'
+  +'1'#4'Left'#2#8#6'Height'#2#14#3'Top'#2#24#5'Width'#2'3'#7'Caption'#6#8'Benu'
+  +'tzer'#11'ParentColor'#8#0#0#12'TButtonPanel'#12'ButtonPanel1'#4'Left'#2#6#6
+  +'Height'#2'$'#3'Top'#3#204#0#5'Width'#3'^'#1#13'OKButton.Name'#6#8'OKButton'
+  +#23'OKButton.DefaultCaption'#9#15'HelpButton.Name'#6#10'HelpButton'#25'HelpB'
+  +'utton.DefaultCaption'#9#18'HelpButton.Enabled'#8#16'CloseButton.Name'#6#11
+  +'CloseButton'#26'CloseButton.DefaultCaption'#9#19'CloseButton.Enabled'#8#17
+  +'CancelButton.Name'#6#12'CancelButton'#27'CancelButton.DefaultCaption'#9#8'T'
+  +'abOrder'#2#0#11'ShowButtons'#11#4'pbOK'#8'pbCancel'#0#0#0#9'TComboBox'#6'cb'
+  +'User'#4'Left'#2'U'#6'Height'#2#27#3'Top'#2'N'#5'Width'#2'd'#10'ItemHeight'#2
+  +#0#8'OnSelect'#7#12'cbUserSelect'#6'Sorted'#9#8'TabOrder'#2#1#4'Text'#6#6'cb'
+  +'User'#7'Visible'#8#0#0#9'TComboBox'#7'cbRight'#4'Left'#3#231#0#6'Height'#2
+  +#27#3'Top'#2'N'#5'Width'#2'd'#10'ItemHeight'#2#0#13'Items.Strings'#1#6#5'kei'
+  +'ns'#6#5'lesen'#6#15'lesen/schreiben'#6#8'l'#195#182'schen'#6#14'Rechte '#195
+  +#164'ndern'#0#8'OnSelect'#7#13'cbRightSelect'#8'TabOrder'#2#2#4'Text'#6#7'cb'
+  +'Right'#7'Visible'#8#0#0#12'TDBNavigator'#10'dnStandart'#4'Left'#3#231#0#6'H'
+  +'eight'#2#24#3'Top'#2#8#5'Width'#2'}'#7'Anchors'#11#5'akTop'#7'akRight'#0#10
+  +'BevelOuter'#7#6'bvNone'#29'ChildSizing.EnlargeHorizontal'#7#14'crsScaleChil'
+  +'ds'#27'ChildSizing.EnlargeVertical'#7#14'crsScaleChilds'#28'ChildSizing.Shr'
+  +'inkHorizontal'#7#14'crsScaleChilds'#26'ChildSizing.ShrinkVertical'#7#14'crs'
+  +'ScaleChilds'#18'ChildSizing.Layout'#7#29'cclLeftToRightThenTopToBottom'#27
+  +'ChildSizing.ControlsPerLine'#2'd'#12'ClientHeight'#2#24#11'ClientWidth'#2'}'
+  +#10'DataSource'#7#11'Permissions'#7'Options'#11#0#8'TabOrder'#2#3#14'Visible'
+  +'Buttons'#11#8'nbInsert'#8'nbDelete'#6'nbPost'#8'nbCancel'#9'nbRefresh'#0#0#0
+  +#10'TExtDBGrid'#8'dgRights'#4'Left'#2#8#6'Height'#3#160#0#3'Top'#2'('#5'Widt'
+  +'h'#3'\'#1#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#8'akBottom'#0#5'Color'
+  +#7#8'clWindow'#7'Columns'#14#1#11'ButtonStyle'#7#11'cbsPickList'#13'Title.Ca'
+  +'ption'#6#4'USER'#5'Width'#3#220#0#9'FieldName'#6#4'USER'#0#1#13'Title.Capti'
+  +'on'#6#5'RIGHT'#5'Width'#2'Z'#9'FieldName'#6#5'RIGHT'#0#0#10'DataSource'#7#11
+  +'Permissions'#16'DefaultRowHeight'#2#24#7'Options'#11#9'dgEditing'#8'dgTitle'
+  +'s'#11'dgIndicator'#14'dgColumnResize'#12'dgColumnMove'#10'dgColLines'#10'dg'
+  +'RowLines'#6'dgTabs'#15'dgConfirmDelete'#14'dgCancelOnExit'#0#8'TabOrder'#2#4
+  +#10'TitleStyle'#7#8'tsNative'#16'OnDrawColumnCell'#7#22'dgRightsDrawColumnCe'
+  +'ll'#14'OnSelectEditor'#7#20'dgRightsSelectEditor'#11'WantReturns'#8#13'Cach'
+  +'edEditing'#9#0#0#11'TDataSource'#11'Permissions'#4'left'#2'('#3'top'#2'p'#0
+  +#0#0
 ]);
