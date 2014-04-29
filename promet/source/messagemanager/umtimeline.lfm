@@ -754,6 +754,9 @@ object fmTimeline: TfmTimeline
     object MenuItem8: TMenuItem
       Caption = '-'
     end
+    object MenuItem10: TMenuItem
+      Action = acAddTag
+    end
     object MenuItem7: TMenuItem
       Action = acSetLink
     end

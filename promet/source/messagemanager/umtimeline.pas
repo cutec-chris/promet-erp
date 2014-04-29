@@ -58,6 +58,7 @@ type
     mEntry: TMemo;
     IdleTimer1: TIdleTimer;
     MenuItem1: TMenuItem;
+    MenuItem10: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
