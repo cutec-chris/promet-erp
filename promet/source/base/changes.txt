@@ -4,6 +4,9 @@
       - Listenansichten:Hints werden nur angezeigt wenn die Liste nicht gescrollt wurde (workaround um Lazarus springen im DBGrid zu vermeiden)
       - Tags/Stichworte können zu Nachrichtenzentraleneinträgen hinzugefügt werden
       - Bei Aufgaben aus der Nachrichtenzentrale wird automatisch der erste hashtag als Kategorie benutzt
+      - einige Formulare werden nun ins Hauptformular zentriwrt statt zum Desktop (damit sie nicht zwischen Monitoren dargestellt werden)
+      - Setup:Lieferschein im Vorgang sichtbar
+      - Setup:benötigt nun Hauptbenutzer Rechte (in Windows 8.1 benötigt)
 Build 332
       - Projekte: Status wird beim dublizieren nicht geändert, Aufgaben werden nicht aktiviert
       - Projekte: Gantt Knopf ziegt bei inaktivem Projekt Gantt mit inaktiven Aufgaben und bei Aktivem keine inaktiven Aufgaben

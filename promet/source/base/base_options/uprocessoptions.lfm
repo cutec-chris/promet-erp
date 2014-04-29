@@ -8,8 +8,8 @@ inherited fProcessOptions: TfProcessOptions
   DesignTop = 355
   object gProcesses: TDBGrid[0]
     Left = 8
-    Height = 106
-    Top = 27
+    Height = 107
+    Top = 26
     Width = 501
     Align = alTop
     Anchors = [akTop, akLeft, akRight, akBottom]
@@ -45,7 +45,7 @@ inherited fProcessOptions: TfProcessOptions
   end
   object lProcesses: TLabel[2]
     Left = 4
-    Height = 15
+    Height = 14
     Top = 4
     Width = 509
     Align = alTop
@@ -57,7 +57,7 @@ inherited fProcessOptions: TfProcessOptions
   end
   object Label1: TLabel[3]
     Left = 4
-    Height = 15
+    Height = 14
     Top = 298
     Width = 509
     Align = alTop
@@ -69,7 +69,7 @@ inherited fProcessOptions: TfProcessOptions
   end
   object lProcesses1: TLabel[4]
     Left = 4
-    Height = 15
+    Height = 14
     Top = 150
     Width = 509
     Align = alTop
@@ -81,8 +81,8 @@ inherited fProcessOptions: TfProcessOptions
   end
   object gProcesses1: TDBGrid[5]
     Left = 8
-    Height = 108
-    Top = 173
+    Height = 109
+    Top = 172
     Width = 501
     Align = alTop
     Anchors = [akTop, akLeft, akRight, akBottom]
@@ -90,6 +90,16 @@ inherited fProcessOptions: TfProcessOptions
     Color = clWindow
     Columns = <    
       item
+        PickList.Strings = (
+          'pop3receiver'
+          'smtpsender'
+          'rssreceiver'
+          'twitterreceiver'
+          'sync_db'
+          'sync_mso'
+          'sync_owncloud'
+          'sync_redmine'
+        )
         Title.Caption = 'Prozess'
         Width = 300
         FieldName = 'NAME'
@@ -150,17 +160,17 @@ inherited fProcessOptions: TfProcessOptions
   end
   object Panel1: TPanel[8]
     Left = 0
-    Height = 108
-    Top = 317
+    Height = 109
+    Top = 316
     Width = 517
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 108
+    ClientHeight = 109
     ClientWidth = 517
     TabOrder = 5
     object DBGrid1: TDBGrid
       Left = 0
-      Height = 108
+      Height = 109
       Top = 0
       Width = 296
       Align = alLeft
@@ -182,7 +192,7 @@ inherited fProcessOptions: TfProcessOptions
     end
     object DBMemo1: TDBMemo
       Left = 296
-      Height = 108
+      Height = 109
       Top = 0
       Width = 221
       Align = alClient
@@ -202,15 +212,15 @@ inherited fProcessOptions: TfProcessOptions
     Align = alTop
     ResizeAnchor = akTop
   end
-  object Processes: TDatasource[10]
+  object Processes: TDataSource[10]
     left = 32
     top = 232
   end
-  object ProcessParameters: TDatasource[11]
+  object ProcessParameters: TDataSource[11]
     left = 24
     top = 328
   end
-  object Clients: TDatasource[12]
+  object Clients: TDataSource[12]
     left = 32
     top = 48
   end
