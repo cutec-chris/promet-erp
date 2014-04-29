@@ -1536,7 +1536,13 @@ begin
 end;
 type
   THackDBGrid = class(TDBGrid);
-
+  THackGrid=Class( TCustomGrid)
+  published
+    property Row;
+    property RowCount;
+    property TopRow;
+    property DefaultRowHeight;
+  End;
 function TfFilter.ShowHint(var HintStr: string; var CanShow: Boolean;
   var HintInfo: THintInfo): Boolean;
 var
@@ -1548,9 +1554,8 @@ var
   aSRow: Integer;
 begin
   Result := False;
-  if HintInfo.HintControl = gList then
+  if (HintInfo.HintControl = gList) then
     begin
-      Result := True;
       HintInfo.HintWindowClass:=TSearchHintWindow;
       gc:= gList.MouseCoord(HintInfo.CursorPos.x,HintInfo.CursorPos.y);
       if gc.y = HintY then exit;
@@ -1558,24 +1563,23 @@ begin
       gList.BeginUpdate;
       gList.DataSource.Enabled:=False;
       aDataSet := gList.DataSource.DataSet;
-//      gList.DataSource.DataSet := nil;
       Rec := aDataSet.GetBookmark;
       aSRow := gc.Y - gList.MouseCoord(0,THackDBGrid(gList).SelectedFieldRect.Top+1).Y;// - THackDBGrid(gList).DataLink.ActiveRecord;
-      aDataSet.MoveBy(aSRow);
-      aSelectedIndex := aSelectedIndex + aSRow;
-      with Application as IBaseDbInterface do
+      if aSRow = 0 then
         begin
-          aLink := Data.BuildLink(aDataSet);
-          HintInfo.HintStr := Data.GetLinkDesc(aLink);
-          aLongDesc := Data.GetLinkLongDesc(aLink);
+          with Application as IBaseDbInterface do
+            begin
+              aLink := Data.BuildLink(aDataSet);
+              HintInfo.HintStr := Data.GetLinkDesc(aLink);
+              aLongDesc := Data.GetLinkLongDesc(aLink);
+            end;
+          if aLongDesc <> '' then
+            HintInfo.HintStr := HintInfo.HintStr +lineending+ aLongDesc;
+          {$IFDEF MAINAPP}
+          Data.GetLinkIcon(aLink);
+          {$ENDIF}
+          Result := True;
         end;
-      if aLongDesc <> '' then
-        HintInfo.HintStr := HintInfo.HintStr +lineending+ aLongDesc;
-      {$IFDEF MAINAPP}
-      Data.GetLinkIcon(aLink);
-      {$ENDIF}
-      aDataSet.GotoBookmark(Rec);
-//      gList.DataSource.DataSet := aDataSet;
       gList.DataSource.Enabled:=True;
       gList.EndUpdate;
       HintInfo.HideTimeout:=15000;

@@ -297,7 +297,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="58">
+    <Units Count="47">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -314,14 +314,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="267"/>
         <CursorPos X="1" Y="282"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="upersonframe.pas"/>
@@ -660,12 +656,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uorderaddressframe"/>
-        <EditorIndex Value="18"/>
         <WindowIndex Value="0"/>
         <TopLine Value="227"/>
         <CursorPos X="97" Y="237"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit35>
       <Unit36>
@@ -725,312 +719,191 @@
         <LoadedDesigner Value="True"/>
       </Unit40>
       <Unit41>
-        <Filename Value="../base/revision.inc"/>
-        <EditorIndex Value="12"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="4" Y="1"/>
-        <UsageCount Value="100"/>
-        <Loaded Value="True"/>
-      </Unit41>
-      <Unit42>
         <Filename Value="../base/changes.txt"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="55" Y="2"/>
+        <CursorPos X="143" Y="4"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit42>
-      <Unit43>
-        <Filename Value="../base/dbintfs/uprojects.pas"/>
-        <UnitName Value="uProjects"/>
-        <EditorIndex Value="4"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="537"/>
-        <CursorPos X="1" Y="570"/>
-        <UsageCount Value="42"/>
-        <Loaded Value="True"/>
-      </Unit43>
-      <Unit44>
+      </Unit41>
+      <Unit42>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="901"/>
-        <CursorPos X="25" Y="929"/>
-        <UsageCount Value="40"/>
+        <TopLine Value="5"/>
+        <CursorPos X="42" Y="33"/>
+        <UsageCount Value="41"/>
+        <Loaded Value="True"/>
+      </Unit42>
+      <Unit43>
+        <Filename Value="../base/base_frames/ufilterframe.pas"/>
+        <ComponentName Value="fFilter"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uFilterFrame"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1554"/>
+        <CursorPos X="1" Y="1582"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit43>
+      <Unit44>
+        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
+        <UnitName Value="uZeosDBDM"/>
+        <EditorIndex Value="5"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="76"/>
+        <CursorPos X="61" Y="85"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit44>
       <Unit45>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="10"/>
+        <Filename Value="../../../../../../Programme/lazarus/lcl/dbgrids.pas"/>
+        <UnitName Value="DBGrids"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="704"/>
-        <CursorPos X="53" Y="720"/>
-        <UsageCount Value="37"/>
+        <TopLine Value="262"/>
+        <CursorPos X="32" Y="281"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit45>
       <Unit46>
-        <Filename Value="../projectmanagement/uprojectframe.pas"/>
-        <ComponentName Value="fprojectFrame"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uProjectFrame"/>
-        <EditorIndex Value="5"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1084"/>
-        <CursorPos X="1" Y="1115"/>
-        <UsageCount Value="25"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
-      </Unit46>
-      <Unit47>
-        <Filename Value="../base_pm/uganttview.pas"/>
-        <ComponentName Value="fGanttView"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uGanttView"/>
-        <EditorIndex Value="6"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="489"/>
-        <CursorPos X="1" Y="519"/>
-        <UsageCount Value="23"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
-      </Unit47>
-      <Unit48>
-        <Filename Value="../base_pm/utasks.pas"/>
-        <ComponentName Value="fTaskFrame"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="utasks"/>
-        <EditorIndex Value="7"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="934"/>
-        <CursorPos X="46" Y="950"/>
-        <UsageCount Value="21"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
-      </Unit48>
-      <Unit49>
-        <Filename Value="../base_calendar/ueventedit.pas"/>
-        <UnitName Value="uEventEdit"/>
-        <EditorIndex Value="19"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="330"/>
-        <CursorPos X="57" Y="349"/>
-        <UsageCount Value="16"/>
-        <Loaded Value="True"/>
-      </Unit49>
-      <Unit50>
-        <Filename Value="../../../README.md"/>
-        <EditorIndex Value="17"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="23" Y="12"/>
-        <UsageCount Value="15"/>
-        <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="None"/>
-      </Unit50>
-      <Unit51>
-        <Filename Value="../base/base_forms/ugridview.pas"/>
-        <ComponentName Value="fGridView"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="ugridview"/>
-        <EditorIndex Value="15"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="395"/>
-        <CursorPos X="51" Y="410"/>
-        <UsageCount Value="12"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
-      </Unit51>
-      <Unit52>
-        <Filename Value="../components/zeos/src/component/ZAbstractDataset.pas"/>
-        <UnitName Value="ZAbstractDataset"/>
-        <EditorIndex Value="14"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="471"/>
-        <CursorPos X="22" Y="490"/>
-        <UsageCount Value="12"/>
-        <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit52>
-      <Unit53>
-        <Filename Value="../base/dbintfs/uwiki.pas"/>
-        <UnitName Value="uWiki"/>
-        <EditorIndex Value="16"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="38"/>
-        <CursorPos X="34" Y="54"/>
-        <UsageCount Value="12"/>
-        <Loaded Value="True"/>
-      </Unit53>
-      <Unit54>
-        <Filename Value="../base/base_help/uwikiframe.pas"/>
-        <UnitName Value="uWikiFrame"/>
-        <EditorIndex Value="8"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="743"/>
-        <CursorPos X="1" Y="760"/>
-        <UsageCount Value="11"/>
-        <Loaded Value="True"/>
-      </Unit54>
-      <Unit55>
-        <Filename Value="../base/dbintfs/ustatistic.pas"/>
-        <UnitName Value="uStatistic"/>
-        <EditorIndex Value="9"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="89"/>
-        <CursorPos X="1" Y="108"/>
-        <UsageCount Value="11"/>
-        <Loaded Value="True"/>
-      </Unit55>
-      <Unit56>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <UnitName Value="uEnterTime"/>
+        <Filename Value="../../../../../../Programme/lazarus/lcl/grids.pas"/>
+        <UnitName Value="Grids"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1051"/>
-        <CursorPos X="1" Y="1079"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="3162"/>
+        <CursorPos X="16" Y="3170"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
-      </Unit56>
-      <Unit57>
-        <Filename Value="../base/dbintfs/ubaseapplication.pas"/>
-        <UnitName Value="uBaseApplication"/>
-        <EditorIndex Value="11"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="40"/>
-        <CursorPos X="14" Y="58"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-      </Unit57>
+      </Unit46>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="1063" Column="1" TopLine="1051"/>
+        <Filename Value="../base/base_frames/ufilterframe.pas"/>
+        <Caret Line="15" Column="27" TopLine="2"/>
       </Position1>
       <Position2>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="1064" Column="1" TopLine="1051"/>
+        <Filename Value="../base/base_frames/ufilterframe.pas"/>
+        <Caret Line="1557" Column="67" TopLine="1536"/>
       </Position2>
       <Position3>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="1065" Column="1" TopLine="1051"/>
+        <Filename Value="../base/base_frames/ufilterframe.pas"/>
+        <Caret Line="1544" Column="1" TopLine="1544"/>
       </Position3>
       <Position4>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="1066" Column="1" TopLine="1051"/>
+        <Filename Value="../base/base_frames/ufilterframe.pas"/>
+        <Caret Line="1556" Column="1" TopLine="1543"/>
       </Position4>
       <Position5>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="1067" Column="1" TopLine="1051"/>
+        <Filename Value="../../../../../../Programme/lazarus/lcl/grids.pas"/>
+        <Caret Line="1973" Column="1" TopLine="1953"/>
       </Position5>
       <Position6>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="1068" Column="1" TopLine="1051"/>
+        <Filename Value="../../../../../../Programme/lazarus/lcl/grids.pas"/>
+        <Caret Line="1974" Column="1" TopLine="1953"/>
       </Position6>
       <Position7>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="1069" Column="1" TopLine="1051"/>
+        <Filename Value="../base/base_frames/ufilterframe.pas"/>
+        <Caret Line="1558" Column="1" TopLine="1543"/>
       </Position7>
       <Position8>
-        <Filename Value="../timeregistering/uentertime.pas"/>
-        <Caret Line="1079" Column="1" TopLine="1051"/>
+        <Filename Value="../base/base_frames/ufilterframe.pas"/>
+        <Caret Line="1559" Column="1" TopLine="1543"/>
       </Position8>
       <Position9>
-        <Filename Value="umain.pas"/>
-        <Caret Line="434" Column="11" TopLine="427"/>
+        <Filename Value="../base/base_frames/ufilterframe.pas"/>
+        <Caret Line="1560" Column="1" TopLine="1543"/>
       </Position9>
       <Position10>
-        <Filename Value="umain.pas"/>
-        <Caret Line="3360" Column="38" TopLine="3353"/>
+        <Filename Value="../base/base_frames/ufilterframe.pas"/>
+        <Caret Line="1561" Column="1" TopLine="1543"/>
       </Position10>
       <Position11>
-        <Filename Value="umain.pas"/>
-        <Caret Line="3360" Column="42" TopLine="3353"/>
+        <Filename Value="../base/base_frames/ufilterframe.pas"/>
+        <Caret Line="1562" Column="1" TopLine="1543"/>
       </Position11>
       <Position12>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="117" Column="52" TopLine="100"/>
+        <Filename Value="../base/base_frames/ufilterframe.pas"/>
+        <Caret Line="1563" Column="1" TopLine="1543"/>
       </Position12>
       <Position13>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="684" Column="13" TopLine="678"/>
+        <Filename Value="../base/base_frames/ufilterframe.pas"/>
+        <Caret Line="1564" Column="1" TopLine="1543"/>
       </Position13>
       <Position14>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="694" Column="27" TopLine="673"/>
+        <Filename Value="../base/base_frames/ufilterframe.pas"/>
+        <Caret Line="1565" Column="1" TopLine="1543"/>
       </Position14>
       <Position15>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="702" Column="44" TopLine="683"/>
+        <Filename Value="../base/base_frames/ufilterframe.pas"/>
+        <Caret Line="1567" Column="1" TopLine="1543"/>
       </Position15>
       <Position16>
-        <Filename Value="umain.pas"/>
-        <Caret Line="3360" Column="42" TopLine="3353"/>
+        <Filename Value="../base/base_frames/ufilterframe.pas"/>
+        <Caret Line="1568" Column="1" TopLine="1543"/>
       </Position16>
       <Position17>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="251" Column="22" TopLine="220"/>
+        <Filename Value="../base/base_frames/ufilterframe.pas"/>
+        <Caret Line="1569" Column="1" TopLine="1543"/>
       </Position17>
       <Position18>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="702" Column="28" TopLine="696"/>
+        <Filename Value="../base/base_frames/ufilterframe.pas"/>
+        <Caret Line="1570" Column="1" TopLine="1543"/>
       </Position18>
       <Position19>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="119" Column="29" TopLine="104"/>
+        <Filename Value="../base/base_frames/ufilterframe.pas"/>
+        <Caret Line="1571" Column="1" TopLine="1543"/>
       </Position19>
       <Position20>
-        <Filename Value="umain.pas"/>
-        <Caret Line="3378" Column="79" TopLine="3366"/>
+        <Filename Value="../base/base_frames/ufilterframe.pas"/>
+        <Caret Line="1556" Column="60" TopLine="1543"/>
       </Position20>
       <Position21>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="250" Column="13" TopLine="233"/>
+        <Filename Value="../base/base_frames/ufilterframe.pas"/>
+        <Caret Line="1542" Column="18" TopLine="1523"/>
       </Position21>
       <Position22>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="702" Column="3" TopLine="696"/>
+        <Filename Value="../../../../../../Programme/lazarus/lcl/grids.pas"/>
+        <Caret Line="791" Column="15" TopLine="791"/>
       </Position22>
       <Position23>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="703" Column="11" TopLine="686"/>
+        <Filename Value="../../../../../../Programme/lazarus/lcl/grids.pas"/>
+        <Caret Line="599" Column="27" TopLine="567"/>
       </Position23>
       <Position24>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="704" Column="27" TopLine="687"/>
+        <Filename Value="../../../../../../Programme/lazarus/lcl/grids.pas"/>
+        <Caret Line="628" Column="53" TopLine="596"/>
       </Position24>
       <Position25>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="705" Column="19" TopLine="701"/>
+        <Filename Value="../../../../../../Programme/lazarus/lcl/grids.pas"/>
+        <Caret Line="629" Column="54" TopLine="597"/>
       </Position25>
       <Position26>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="708" Column="3" TopLine="690"/>
+        <Filename Value="../../../../../../Programme/lazarus/lcl/grids.pas"/>
+        <Caret Line="702" Column="15" TopLine="672"/>
       </Position26>
       <Position27>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="712" Column="7" TopLine="694"/>
+        <Filename Value="../../../../../../Programme/lazarus/lcl/grids.pas"/>
+        <Caret Line="837" Column="27" TopLine="813"/>
       </Position27>
       <Position28>
-        <Filename Value="umain.pas"/>
-        <Caret Line="397" Column="1" TopLine="395"/>
+        <Filename Value="../../../../../../Programme/lazarus/lcl/grids.pas"/>
+        <Caret Line="7216" Column="19" TopLine="7205"/>
       </Position28>
       <Position29>
-        <Filename Value="umain.pas"/>
-        <Caret Line="3354" Column="23" TopLine="3337"/>
+        <Filename Value="../../../../../../Programme/lazarus/lcl/grids.pas"/>
+        <Caret Line="7115" Column="14" TopLine="7106"/>
       </Position29>
       <Position30>
-        <Filename Value="umain.pas"/>
-        <Caret Line="233" Column="1" TopLine="218"/>
+        <Filename Value="../../../../../../Programme/lazarus/lcl/grids.pas"/>
+        <Caret Line="3170" Column="16" TopLine="3162"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>

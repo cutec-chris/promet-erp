@@ -1816,8 +1816,8 @@ inherited fFilter: TfFilter
     TableNameAttri.FrameEdges = sfeAround
     VariableAttri.FrameEdges = sfeAround
     SQLDialect = sqlSybase
-    left = 331
-    top = 126
+    left = 256
+    top = 152
   end
   object LinkSaveDialog: TSaveDialog[17]
     Filter = 'Verweisdatei|.plink'

@@ -1070,35 +1070,35 @@ LazarusResources.Add('TfFilter','FORMDATA',[
   +'ion'#15'acDefaultFilter'#7'Caption'#6#14'Standardfilter'#4'Hint'#6'dsetzt d'
   +'en Filter f'#195#188'r diese Ansicht als Standard'#10'die Ansicht wird ab n'
   +'un mit diesem Filter ge'#195#182'ffnet'#10'ImageIndex'#2'W'#9'OnExecute'#7
-  +#22'acDefaultFilterExecute'#0#0#7'TAction'#10'acSaveLink'#7'Caption'#6')als '
-  +'Verkn'#195#188'pfungsdatei (.plink) speichern'#10'ImageIndex'#2'F'#9'OnExec'
-  +'ute'#7#17'acSaveLinkExecute'#0#0#7'TAction'#16'acCopyFilterLink'#7'Caption'
-  +#6#16'acCopyFilterLink'#4'Hint'#6' Filter als Verkn'#195#188'pfung kopieren'
-  +#10'ImageIndex'#2#23#9'OnExecute'#7#23'acCopyFilterLinkExecute'#0#0#0#242#2#8
-  +#10'TIdleTimer'#13'DblClickTimer'#7'Enabled'#8#8'Interval'#2'd'#7'OnTimer'#7
-  +#18'DblClickTimerTimer'#4'left'#2'-'#3'top'#3#214#0#0#0#242#2#9#10'TPopupMen'
-  +'u'#8'pmAction'#4'left'#2' '#3'top'#3#144#0#0#9'TMenuItem'#8'miExport'#6'Act'
-  +'ion'#7#8'acExport'#0#0#9'TMenuItem'#8'miImport'#6'Action'#7#8'acImport'#0#0
-  +#0#242#2#10#12'TfrDBDataSet'#5'PList'#10'DataSource'#7#4'List'#4'left'#3#128
-  +#0#3'top'#2'7'#0#0#242#2#11#9'TfrReport'#6'Report'#7'Dataset'#7#5'PList'#13
-  +'DefaultCopies'#2#0#11'InitialZoom'#7#9'pzDefault'#7'Options'#11#0#14'Previe'
-  +'wButtons'#11#6'pbZoom'#6'pbSave'#7'pbPrint'#6'pbFind'#6'pbExit'#0#8'DataTyp'
-  +'e'#7#12'dtDataSource'#4'left'#3#128#0#3'top'#2'`'#0#0#242#2#12#11'TDatasour'
-  +'ce'#14'MandantDetails'#8'AutoEdit'#8#4'left'#3#184#0#3'top'#2'`'#0#0#242#2
-  +#13#11'TDatasource'#5'Users'#8'AutoEdit'#8#4'left'#3#0#1#3'top'#2'`'#0#0#242
-  +#2#14#11'TDatasource'#7'History'#4'left'#3#184#0#3'top'#3#152#0#0#0#242#2#15
-  +#12'TfrDBDataSet'#8'PHistory'#10'DataSource'#7#7'History'#4'left'#3#128#0#3
-  +'top'#3#152#0#0#0#242#2#16#10'TSynSQLSyn'#10'SynSQLSyn1'#13'DefaultFilter'#6
-  ,#25'SQL-Dateien (*.sql)|*.sql'#7'Enabled'#8#23'CommentAttri.FrameEdges'#7#9
-  +'sfeAround'#24'DataTypeAttri.FrameEdges'#7#9'sfeAround'#30'DefaultPackageAtt'
-  +'ri.FrameEdges'#7#9'sfeAround'#25'ExceptionAttri.FrameEdges'#7#9'sfeAround'
-  +#24'FunctionAttri.FrameEdges'#7#9'sfeAround'#26'IdentifierAttri.FrameEdges'#7
-  +#9'sfeAround'#19'KeyAttri.FrameEdges'#7#9'sfeAround'#22'NumberAttri.FrameEdg'
-  +'es'#7#9'sfeAround'#21'PLSQLAttri.FrameEdges'#7#9'sfeAround'#21'SpaceAttri.F'
-  +'rameEdges'#7#9'sfeAround'#23'SQLPlusAttri.FrameEdges'#7#9'sfeAround'#22'Str'
-  +'ingAttri.FrameEdges'#7#9'sfeAround'#22'SymbolAttri.FrameEdges'#7#9'sfeAroun'
-  +'d'#25'TableNameAttri.FrameEdges'#7#9'sfeAround'#24'VariableAttri.FrameEdges'
-  +#7#9'sfeAround'#10'SQLDialect'#7#9'sqlSybase'#4'left'#3'K'#1#3'top'#2'~'#0#0
-  +#242#2#17#11'TSaveDialog'#14'LinkSaveDialog'#6'Filter'#6#25'Verkn'#195#188'p'
-  +'fungsdatei|.plink'#4'left'#2'S'#3'top'#3#144#0#0#0#0
+  +#22'acDefaultFilterExecute'#0#0#7'TAction'#10'acSaveLink'#7'Caption'#6'#als '
+  +'Verweisdatei (.plink) speichern'#10'ImageIndex'#2'F'#9'OnExecute'#7#17'acSa'
+  +'veLinkExecute'#0#0#7'TAction'#16'acCopyFilterLink'#7'Caption'#6#16'acCopyFi'
+  +'lterLink'#4'Hint'#6#27'Filter als Verweis kopieren'#10'ImageIndex'#2#23#9'O'
+  +'nExecute'#7#23'acCopyFilterLinkExecute'#0#0#0#242#2#8#10'TIdleTimer'#13'Dbl'
+  +'ClickTimer'#7'Enabled'#8#8'Interval'#2'd'#7'OnTimer'#7#18'DblClickTimerTime'
+  +'r'#4'left'#2'-'#3'top'#3#214#0#0#0#242#2#9#10'TPopupMenu'#8'pmAction'#4'lef'
+  +'t'#2' '#3'top'#3#144#0#0#9'TMenuItem'#8'miExport'#6'Action'#7#8'acExport'#0
+  +#0#9'TMenuItem'#8'miImport'#6'Action'#7#8'acImport'#0#0#0#242#2#10#12'TfrDBD'
+  +'ataSet'#5'PList'#10'DataSource'#7#4'List'#4'left'#3#128#0#3'top'#2'7'#0#0
+  +#242#2#11#9'TfrReport'#6'Report'#7'Dataset'#7#5'PList'#13'DefaultCopies'#2#0
+  +#11'InitialZoom'#7#9'pzDefault'#7'Options'#11#0#14'PreviewButtons'#11#6'pbZo'
+  +'om'#6'pbSave'#7'pbPrint'#6'pbFind'#6'pbExit'#0#8'DataType'#7#12'dtDataSourc'
+  +'e'#4'left'#3#128#0#3'top'#2'`'#0#0#242#2#12#11'TDatasource'#14'MandantDetai'
+  +'ls'#8'AutoEdit'#8#4'left'#3#184#0#3'top'#2'`'#0#0#242#2#13#11'TDatasource'#5
+  +'Users'#8'AutoEdit'#8#4'left'#3#0#1#3'top'#2'`'#0#0#242#2#14#11'TDatasource'
+  +#7'History'#4'left'#3#184#0#3'top'#3#152#0#0#0#242#2#15#12'TfrDBDataSet'#8'P'
+  +'History'#10'DataSource'#7#7'History'#4'left'#3#128#0#3'top'#3#152#0#0#0#242
+  +#2#16#10'TSynSQLSyn'#10'SynSQLSyn1'#13'DefaultFilter'#6#25'SQL-Dateien (*.sq'
+  ,'l)|*.sql'#7'Enabled'#8#23'CommentAttri.FrameEdges'#7#9'sfeAround'#24'DataTy'
+  +'peAttri.FrameEdges'#7#9'sfeAround'#30'DefaultPackageAttri.FrameEdges'#7#9's'
+  +'feAround'#25'ExceptionAttri.FrameEdges'#7#9'sfeAround'#24'FunctionAttri.Fra'
+  +'meEdges'#7#9'sfeAround'#26'IdentifierAttri.FrameEdges'#7#9'sfeAround'#19'Ke'
+  +'yAttri.FrameEdges'#7#9'sfeAround'#22'NumberAttri.FrameEdges'#7#9'sfeAround'
+  +#21'PLSQLAttri.FrameEdges'#7#9'sfeAround'#21'SpaceAttri.FrameEdges'#7#9'sfeA'
+  +'round'#23'SQLPlusAttri.FrameEdges'#7#9'sfeAround'#22'StringAttri.FrameEdges'
+  +#7#9'sfeAround'#22'SymbolAttri.FrameEdges'#7#9'sfeAround'#25'TableNameAttri.'
+  +'FrameEdges'#7#9'sfeAround'#24'VariableAttri.FrameEdges'#7#9'sfeAround'#10'S'
+  +'QLDialect'#7#9'sqlSybase'#4'left'#3#0#1#3'top'#3#152#0#0#0#242#2#17#11'TSav'
+  +'eDialog'#14'LinkSaveDialog'#6'Filter'#6#19'Verweisdatei|.plink'#4'left'#2'S'
+  +#3'top'#3#144#0#0#0#0
 ]);
