@@ -10,13 +10,13 @@ AppID=CUPROMETERP7
 AppName={#AppName}-Tools
 AppVersion={#AppVersion}
 AppVerName={#AppName} {#AppVersion}
-DefaultDirName={pf}\Promet-ERP
+DefaultDirName={code:DefDirRoot}\Promet-ERP
 DefaultGroupName=Promet-ERP
 UninstallDisplayIcon={app}\prometerp.exe
 OutputBaseFilename=promet-erp_{#AppVersion}_{#FullTarget}
 OutputDir=../output
 InternalCompressLevel=ultra
-PrivilegesRequired=poweruser
+PrivilegesRequired=none
 TimeStampsInUTC=true
 Encryption=false
 Compression=bzip
@@ -94,6 +94,19 @@ Name: de; MessagesFile: German.isl
 
 [Code]
 #include "feedback.iss"
+
+function IsRegularUser(): Boolean;
+begin
+  Result := not (IsAdminLoggedOn or IsPowerUserLoggedOn);
+end;
+
+function DefDirRoot(Param: String): String;
+begin
+  if IsRegularUser then
+    Result := ExpandConstant('{localappdata}')
+  else
+    Result := ExpandConstant('{pf}')
+end;
 
 {
 function InitializeSetup : Boolean;

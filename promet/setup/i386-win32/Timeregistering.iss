@@ -10,7 +10,7 @@ AppID=CUPROMETHEUS7
 AppName={#AppName}
 AppVersion={#AppVersion}
 AppVerName={#AppName} {#AppVersion}
-DefaultDirName={pf}\Promet-ERP
+DefaultDirName={code:DefDirRoot}\Promet-ERP
 DefaultGroupName=Promet-ERP
 UninstallDisplayIcon={app}\timeregistering.exe
 OutputBaseFilename=promet-erp-timeregistering_{#AppVersion}_{#FullTarget}
@@ -68,7 +68,20 @@ Name: de; MessagesFile: German.isl
 [Code]
 //#include "fixfonts.iss" // see http://www.gerixsoft.com/blog/delphi/system-font-innosetup
 #include "feedback.iss"
- 
+
+function IsRegularUser(): Boolean;
+begin
+  Result := not (IsAdminLoggedOn or IsPowerUserLoggedOn);
+end;
+
+function DefDirRoot(Param: String): String;
+begin
+  if IsRegularUser then
+    Result := ExpandConstant('{localappdata}')
+  else
+    Result := ExpandConstant('{pf}')
+end;
+
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
 begin
 if CurUninstallStep = usUninstall then

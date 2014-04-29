@@ -10,7 +10,7 @@ AppID=CUPROMETERP7
 AppName={#AppName}
 AppVersion={#AppVersion}
 AppVerName={#AppName} {#AppVersion}
-DefaultDirName={pf}\Promet-ERP
+DefaultDirName={code:DefDirRoot}\Promet-ERP
 DefaultGroupName=Promet-ERP
 UninstallDisplayIcon={app}\prometerp.exe
 OutputBaseFilename=promet-erp-tools_{#AppVersion}_{#FullTarget}
@@ -77,3 +77,16 @@ Name: {userdesktop}\Besprechungsprotokoll; Filename: {app}\meetingminutes.exe; T
 Name: en; MessagesFile: compiler:Default.isl
 Name: de; MessagesFile: German.isl
 
+[Code]
+function IsRegularUser(): Boolean;
+begin
+  Result := not (IsAdminLoggedOn or IsPowerUserLoggedOn);
+end;
+
+function DefDirRoot(Param: String): String;
+begin
+  if IsRegularUser then
+    Result := ExpandConstant('{localappdata}')
+  else
+    Result := ExpandConstant('{pf}')
+end;
