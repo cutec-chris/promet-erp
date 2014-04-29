@@ -706,6 +706,10 @@ object fmTimeline: TfmTimeline
       ImageIndex = 64
       OnExecute = acStartTimeRegisteringExecute
     end
+    object acAddTag: TAction
+      Caption = 'Stichwort/Tag hinzufügen'
+      OnExecute = acAddTagExecute
+    end
   end
   object SelectDirectoryDialog1: TSelectDirectoryDialog
     left = 392

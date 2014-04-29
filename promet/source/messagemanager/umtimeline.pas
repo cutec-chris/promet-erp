@@ -48,6 +48,7 @@ type
     acDeleteENviroment: TAction;
     acSetLink: TAction;
     acStartTimeRegistering: TAction;
+    acAddTag: TAction;
     acViewThread: TAction;
     ActionList1: TActionList;
     bSend: TBitBtn;
@@ -96,6 +97,7 @@ type
     ToolButton7: TToolButton;
     tsHistory: TTabSheet;
     procedure acAddScreenshotExecute(Sender: TObject);
+    procedure acAddTagExecute(Sender: TObject);
     procedure acAddUserExecute(Sender: TObject);
     procedure acAnswerExecute(Sender: TObject);
     procedure acCopyToClipboardExecute(Sender: TObject);
@@ -154,6 +156,7 @@ type
     FUserHist : TUser;
     function GetUsersFromString(var tmp : string) : TStringList;
     procedure MarkAsRead;
+    procedure AddTag(aTag : string);
   public
     { public declarations }
     fTimeline : TfGridView;
@@ -188,6 +191,7 @@ uses uBaseApplication, uData, uOrder,uMessages,uBaseERPDBClasses,
   LCLProc,uProjects;
 resourcestring
   strTo                                  = 'an ';
+  strTag                                 = 'Tag';
 {$R *.lfm}
 { TImagingThread }
 
@@ -598,6 +602,28 @@ begin
   Self.Show;
   acSend.Enabled:=True;
 end;
+
+procedure TfmTimeline.acAddTagExecute(Sender: TObject);
+var
+  aValue: String;
+  aTag: String;
+begin
+  if fTimeline.GotoActiveRow then
+    if InputQuery(strTag,strName,aValue) then
+      begin
+        aValue := aValue+',';
+        while pos(',',aValue)>0 do
+          begin
+            aTag := copy(aValue,0,pos(',',aValue)-1);
+            aValue := copy(aValue,pos(',',aValue)+1,length(aValue));
+            if copy(trim(aTag),0,1)<>'#' then
+              aTag := '#'+trim(aTag);
+            if aTag <> '#' then
+              AddTag(aTag);
+          end;
+      end;
+end;
+
 procedure TfmTimeline.acAddUserExecute(Sender: TObject);
 var
   i: Integer;
@@ -632,6 +658,7 @@ var
   Found: Boolean;
   AddTask: Boolean = False;
   aTask: TTask;
+  aTag: String;
 begin
   tmp := trim(mEntry.Lines.Text);
   if lowercase(copy(tmp,0,4)) = 'task' then
@@ -706,6 +733,13 @@ begin
       aTask := TTask.Create(nil,Data);
       aTask.Insert;
       aTask.FieldByName('SUMMARY').AsString:=tmp;
+      aTag := '';
+      if pos('#',tmp)>0 then
+        begin
+          aTag := copy(tmp,pos('#',tmp)+1,length(tmp));
+          aTag := copy(aTag,0,pos(' ',aTag)-1);
+          aTask.FieldByName('CATEGORY').AsString:=aTag;
+        end;
       aTask.FieldByName('USER').AsString:=Data.Users.FieldByName('ACCOUNTNO').AsString;
       aTask.DataSet.Post;
       Data.Users.History.AddItem(aTask.DataSet,aTask.FieldByName('SUMMARY').AsString,Data.BuildLink(aTask.DataSet),'',nil,ACICON_TASKADDED,'',False);;
@@ -754,7 +788,11 @@ begin
         aTask.Free;
         tmp := 'Time.enter('+aLink+';'+fTimeline.DataSet.FieldByName('LINK').AsString+';)';
         IPC.SendStringMessage(tmp);
+        sleep(100);
+        Application.ProcessMessages;
         IPC.SendStringMessage('Time.start');
+        sleep(100);
+        Application.ProcessMessages;
         IPC.Disconnect;
       end;
 end;
@@ -1267,6 +1305,20 @@ begin
       end;
   fTimeline.gList.Invalidate;
 end;
+
+procedure TfmTimeline.AddTag(aTag: string);
+begin
+  with fTimeline.DataSet.DataSet as IBaseManageDB do
+    UpdateStdFields:=False;
+  if not fTimeline.DataSet.CanEdit then
+    fTimeline.DataSet.DataSet.Edit;
+  fTimeline.DataSet.FieldByName('ACTION').AsString:=fTimeline.DataSet.FieldByName('ACTION').AsString+' '+aTag;
+  fTimeline.DataSet.post;
+  with fTimeline.DataSet.DataSet as IBaseManageDB do
+    UpdateStdFields:=True;
+  fTimeline.gList.Invalidate;
+end;
+
 initialization
   AddSearchAbleDataSet(TUser);
 
