@@ -7,7 +7,7 @@
     <KeyWords Value=""/>
     <Comments Value=""/>
     <ReportCreateDate Value="2012-07-01 07:52:52"/>
-    <ReportLastChange Value="2014-04-29 20:54:38"/>
+    <ReportLastChange Value="2014-04-29 21:02:20"/>
     <ReportVersionBuild Value=""/>
     <ReportVersionMajor Value=""/>
     <ReportVersionMinor Value=""/>
@@ -107,144 +107,6 @@
           <DatasetStr Value="PList"/>
         </Object3>
         <Object4>
-          <Name Value="Memo7"/>
-          <ClassName Value="TfrMemoView"/>
-          <Visible Value="True"/>
-          <Typ Value="gtMemo"/>
-          <StreamMode Value="0"/>
-          <Size>
-            <Left Value="0"/>
-            <Top Value="992"/>
-            <Width Value="756"/>
-            <Height Value="70"/>
-          </Size>
-          <Flags Value="3"/>
-          <FillColor Value="clWhite"/>
-          <Frames>
-            <FrameColor Value="clBlack"/>
-            <FrameStyle Value="frsSolid"/>
-            <FrameWidth Value="1"/>
-            <FrameBorders Value=""/>
-          </Frames>
-          <Data>
-            <Format Value="556"/>
-            <FormatStr Value=""/>
-            <Memo Value=""/>
-            <Script Value=""/>
-          </Data>
-          <Tag Value=""/>
-          <FURLInfo Value=""/>
-          <Font>
-            <Name Value="Arial"/>
-            <Size Value="10"/>
-            <Color Value="clBlack"/>
-            <Charset Value="0"/>
-            <Style Value=""/>
-          </Font>
-          <Highlight>
-            <FontStyle Value="2"/>
-            <FontColor Value="clBlack"/>
-            <FillColor Value="clWhite"/>
-            <HighlightStr Value=""/>
-          </Highlight>
-          <Alignment Value="taLeftJustify"/>
-          <Layout Value="tlTop"/>
-          <Angle Value="0"/>
-          <Justify Value="False"/>
-        </Object4>
-        <Object5>
-          <Name Value="Memo13"/>
-          <ClassName Value="TfrMemoView"/>
-          <Visible Value="True"/>
-          <Typ Value="gtMemo"/>
-          <StreamMode Value="0"/>
-          <Size>
-            <Left Value="28"/>
-            <Top Value="992"/>
-            <Width Value="212"/>
-            <Height Value="70"/>
-          </Size>
-          <Flags Value="3"/>
-          <FillColor Value="clWhite"/>
-          <Frames>
-            <FrameColor Value="clBlack"/>
-            <FrameStyle Value="frsSolid"/>
-            <FrameWidth Value="1"/>
-            <FrameBorders Value=""/>
-          </Frames>
-          <Data>
-            <Format Value="556"/>
-            <FormatStr Value=""/>
-            <Memo Value="Adresse&#xA;[MandantDetails.&quot;ADRESS&quot;]&#xA;"/>
-            <Script Value=""/>
-          </Data>
-          <Tag Value=""/>
-          <FURLInfo Value=""/>
-          <Font>
-            <Name Value="Verdana"/>
-            <Size Value="7"/>
-            <Color Value="clBlack"/>
-            <Charset Value="0"/>
-            <Style Value=""/>
-          </Font>
-          <Highlight>
-            <FontStyle Value="2"/>
-            <FontColor Value="clBlack"/>
-            <FillColor Value="clWhite"/>
-            <HighlightStr Value=""/>
-          </Highlight>
-          <Alignment Value="taLeftJustify"/>
-          <Layout Value="tlTop"/>
-          <Angle Value="0"/>
-          <Justify Value="False"/>
-        </Object5>
-        <Object6>
-          <Name Value="Memo14"/>
-          <ClassName Value="TfrMemoView"/>
-          <Visible Value="True"/>
-          <Typ Value="gtMemo"/>
-          <StreamMode Value="0"/>
-          <Size>
-            <Left Value="240"/>
-            <Top Value="992"/>
-            <Width Value="204"/>
-            <Height Value="70"/>
-          </Size>
-          <Flags Value="3"/>
-          <FillColor Value="clWhite"/>
-          <Frames>
-            <FrameColor Value="clBlack"/>
-            <FrameStyle Value="frsSolid"/>
-            <FrameWidth Value="1"/>
-            <FrameBorders Value=""/>
-          </Frames>
-          <Data>
-            <Format Value="556"/>
-            <FormatStr Value=""/>
-            <Memo Value="Bank&#xA;&#xA;Name: [MandantDetails.&quot;INSTITUTE&quot;]&#xA;BIC    : [MandantDetails.&quot;SORTCODE&quot;]&#xA;IBAN  : [MandantDetails.&quot;ACCOUNT&quot;]&#xA;"/>
-            <Script Value=""/>
-          </Data>
-          <Tag Value=""/>
-          <FURLInfo Value=""/>
-          <Font>
-            <Name Value="Verdana"/>
-            <Size Value="7"/>
-            <Color Value="clBlack"/>
-            <Charset Value="0"/>
-            <Style Value=""/>
-          </Font>
-          <Highlight>
-            <FontStyle Value="2"/>
-            <FontColor Value="clBlack"/>
-            <FillColor Value="clWhite"/>
-            <HighlightStr Value=""/>
-          </Highlight>
-          <Alignment Value="taLeftJustify"/>
-          <Layout Value="tlTop"/>
-          <Angle Value="0"/>
-          <Justify Value="False"/>
-        </Object6>
-        <Object7>
           <Name Value="Memo2"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -289,8 +151,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object7>
-        <Object8>
+        </Object4>
+        <Object5>
           <Name Value="Memo3"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -335,8 +197,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object8>
-        <Object9>
+        </Object5>
+        <Object6>
           <Name Value="Memo4"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -381,8 +243,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object9>
-        <Object10>
+        </Object6>
+        <Object7>
           <Name Value="Memo5"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -427,8 +289,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object10>
-        <Object11>
+        </Object7>
+        <Object8>
           <Name Value="Memo8"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -473,8 +335,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object11>
-        <Object12>
+        </Object8>
+        <Object9>
           <Name Value="Memo9"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -519,8 +381,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object12>
-        <Object13>
+        </Object9>
+        <Object10>
           <Name Value="Memo10"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -565,8 +427,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object13>
-        <Object14>
+        </Object10>
+        <Object11>
           <Name Value="Memo15"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -611,8 +473,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object14>
-        <Object15>
+        </Object11>
+        <Object12>
           <Name Value="Memo17"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -657,8 +519,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object15>
-        <Object16>
+        </Object12>
+        <Object13>
           <Name Value="Memo18"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -703,8 +565,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object16>
-        <Object17>
+        </Object13>
+        <Object14>
           <Name Value="Memo19"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -749,8 +611,8 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
-        </Object17>
-        <Object18>
+        </Object14>
+        <Object15>
           <Name Value="Picture1"/>
           <ClassName Value="TfrPictureView"/>
           <Visible Value="True"/>
@@ -780,8 +642,8 @@
             <SharedName Value=""/>
             <Type Value="0"/>
           </Picture>
-        </Object18>
-        <Object19>
+        </Object15>
+        <Object16>
           <Name Value="Memo20"/>
           <ClassName Value="TfrMemoView"/>
           <Visible Value="True"/>
@@ -823,6 +685,144 @@
             <HighlightStr Value=""/>
           </Highlight>
           <Alignment Value="taRightJustify"/>
+          <Layout Value="tlTop"/>
+          <Angle Value="0"/>
+          <Justify Value="False"/>
+        </Object16>
+        <Object17>
+          <Name Value="Memo7"/>
+          <ClassName Value="TfrMemoView"/>
+          <Visible Value="True"/>
+          <Typ Value="gtMemo"/>
+          <StreamMode Value="0"/>
+          <Size>
+            <Left Value="0"/>
+            <Top Value="984"/>
+            <Width Value="756"/>
+            <Height Value="70"/>
+          </Size>
+          <Flags Value="3"/>
+          <FillColor Value="clSilver"/>
+          <Frames>
+            <FrameColor Value="clBlack"/>
+            <FrameStyle Value="frsSolid"/>
+            <FrameWidth Value="1"/>
+            <FrameBorders Value=""/>
+          </Frames>
+          <Data>
+            <Format Value="556"/>
+            <FormatStr Value=""/>
+            <Memo Value=""/>
+            <Script Value=""/>
+          </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
+          <Font>
+            <Name Value="Arial"/>
+            <Size Value="10"/>
+            <Color Value="clBlack"/>
+            <Charset Value="0"/>
+            <Style Value=""/>
+          </Font>
+          <Highlight>
+            <FontStyle Value="2"/>
+            <FontColor Value="clBlack"/>
+            <FillColor Value="clWhite"/>
+            <HighlightStr Value=""/>
+          </Highlight>
+          <Alignment Value="taLeftJustify"/>
+          <Layout Value="tlTop"/>
+          <Angle Value="0"/>
+          <Justify Value="False"/>
+        </Object17>
+        <Object18>
+          <Name Value="Memo13"/>
+          <ClassName Value="TfrMemoView"/>
+          <Visible Value="True"/>
+          <Typ Value="gtMemo"/>
+          <StreamMode Value="0"/>
+          <Size>
+            <Left Value="28"/>
+            <Top Value="984"/>
+            <Width Value="212"/>
+            <Height Value="70"/>
+          </Size>
+          <Flags Value="3"/>
+          <FillColor Value="clNone"/>
+          <Frames>
+            <FrameColor Value="clBlack"/>
+            <FrameStyle Value="frsSolid"/>
+            <FrameWidth Value="1"/>
+            <FrameBorders Value=""/>
+          </Frames>
+          <Data>
+            <Format Value="556"/>
+            <FormatStr Value=""/>
+            <Memo Value="Adresse&#xA;[MandantDetails.&quot;ADRESS&quot;]&#xA;"/>
+            <Script Value=""/>
+          </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
+          <Font>
+            <Name Value="Verdana"/>
+            <Size Value="7"/>
+            <Color Value="clBlack"/>
+            <Charset Value="0"/>
+            <Style Value=""/>
+          </Font>
+          <Highlight>
+            <FontStyle Value="2"/>
+            <FontColor Value="clBlack"/>
+            <FillColor Value="clWhite"/>
+            <HighlightStr Value=""/>
+          </Highlight>
+          <Alignment Value="taLeftJustify"/>
+          <Layout Value="tlTop"/>
+          <Angle Value="0"/>
+          <Justify Value="False"/>
+        </Object18>
+        <Object19>
+          <Name Value="Memo14"/>
+          <ClassName Value="TfrMemoView"/>
+          <Visible Value="True"/>
+          <Typ Value="gtMemo"/>
+          <StreamMode Value="0"/>
+          <Size>
+            <Left Value="240"/>
+            <Top Value="984"/>
+            <Width Value="204"/>
+            <Height Value="70"/>
+          </Size>
+          <Flags Value="3"/>
+          <FillColor Value="clNone"/>
+          <Frames>
+            <FrameColor Value="clBlack"/>
+            <FrameStyle Value="frsSolid"/>
+            <FrameWidth Value="1"/>
+            <FrameBorders Value=""/>
+          </Frames>
+          <Data>
+            <Format Value="556"/>
+            <FormatStr Value=""/>
+            <Memo Value="Bank&#xA;&#xA;Name: [MandantDetails.&quot;INSTITUTE&quot;]&#xA;BIC    : [MandantDetails.&quot;SORTCODE&quot;]&#xA;IBAN  : [MandantDetails.&quot;ACCOUNT&quot;]&#xA;"/>
+            <Script Value=""/>
+          </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
+          <Font>
+            <Name Value="Verdana"/>
+            <Size Value="7"/>
+            <Color Value="clBlack"/>
+            <Charset Value="0"/>
+            <Style Value=""/>
+          </Font>
+          <Highlight>
+            <FontStyle Value="2"/>
+            <FontColor Value="clBlack"/>
+            <FillColor Value="clWhite"/>
+            <HighlightStr Value=""/>
+          </Highlight>
+          <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>

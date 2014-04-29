@@ -1,27 +1,31 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <CONFIG>
   <LazReport>
-    <Version Value="24"/>
-    <Title Value=""/>
+    <Version Value="26"/>
+    <Title Value="PrometERP-Schlussrechnung 101229"/>
     <Subject Value=""/>
     <KeyWords Value=""/>
     <Comments Value=""/>
+    <ReportCreateDate Value="2014-04-29 20:59:08"/>
+    <ReportLastChange Value="2014-04-29 20:59:16"/>
     <ReportVersionBuild Value=""/>
     <ReportVersionMajor Value=""/>
     <ReportVersionMinor Value=""/>
     <ReportVersionRelease Value=""/>
     <ReportAutor Value=""/>
+    <Script Value=""/>
     <Pages>
       <PrintToDefault Value="False"/>
       <DoublePass Value="True"/>
-      <SelectedPrinter Value="EPSON Stylus Photo R200 Series"/>
+      <SelectedPrinter Value="Lexmark-E350d"/>
       <PageCount Value="1"/>
       <Page1>
         <Name Value="Page1"/>
         <ClassName Value="TfrPageReport"/>
-        <Visible Value="1"/>
-        <Width Value="1"/>
-        <Height Value="1" PageType="0"/>
+        <Visible Value="True"/>
+        <Width Value="595"/>
+        <Height Value="842"/>
+        <Script Value=""/>
         <PgSize Value="9"/>
         <Margins>
           <left Value="0"/>
@@ -35,11 +39,11 @@
         <ColCount Value="1"/>
         <ColGap Value="0"/>
         <LayoutOrder Value="loColumns"/>
-        <ObjectCount Value="31"/>
+        <ObjectCount Value="29"/>
         <Object1>
           <Name Value="ReportTitle1"/>
           <ClassName Value="TfrBandView"/>
-          <Visible Value="1"/>
+          <Visible Value="True"/>
           <Typ Value="gtBand"/>
           <StreamMode Value="0"/>
           <Size>
@@ -52,6 +56,8 @@
           <Data>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <BandType Value="btReportTitle"/>
           <Condition Value=""/>
           <DatasetStr Value=""/>
@@ -59,7 +65,7 @@
         <Object2>
           <Name Value="PageHeader1"/>
           <ClassName Value="TfrBandView"/>
-          <Visible Value="1"/>
+          <Visible Value="True"/>
           <Typ Value="gtBand"/>
           <StreamMode Value="0"/>
           <Size>
@@ -72,6 +78,8 @@
           <Data>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <BandType Value="btPageHeader"/>
           <Condition Value=""/>
           <DatasetStr Value=""/>
@@ -79,7 +87,7 @@
         <Object3>
           <Name Value="MasterData1"/>
           <ClassName Value="TfrBandView"/>
-          <Visible Value="1"/>
+          <Visible Value="True"/>
           <Typ Value="gtBand"/>
           <StreamMode Value="0"/>
           <Size>
@@ -92,6 +100,8 @@
           <Data>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <BandType Value="btMasterData"/>
           <Condition Value=""/>
           <DatasetStr Value="POrderPos"/>
@@ -99,7 +109,7 @@
         <Object4>
           <Name Value="PageFooter1"/>
           <ClassName Value="TfrBandView"/>
-          <Visible Value="1"/>
+          <Visible Value="True"/>
           <Typ Value="gtBand"/>
           <StreamMode Value="0"/>
           <Size>
@@ -110,8 +120,10 @@
           </Size>
           <Flags Value="48"/>
           <Data>
-            <Script Value="if [Page#] = [TotalPages] then&#xD;&#xA;  Visible := 1&#xD;&#xA;else&#xD;&#xA;  Visible := 0;     &#xD;&#xA;"/>
+            <Script Value="if [Page#] = [TotalPages] then&#xA;  Visible := 1&#xA;else&#xA;  Visible := 0;     &#xA;"/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <BandType Value="btPageFooter"/>
           <Condition Value=""/>
           <DatasetStr Value=""/>
@@ -119,7 +131,7 @@
         <Object5>
           <Name Value="DetailData2"/>
           <ClassName Value="TfrBandView"/>
-          <Visible Value="1"/>
+          <Visible Value="True"/>
           <Typ Value="gtBand"/>
           <StreamMode Value="0"/>
           <Size>
@@ -132,6 +144,8 @@
           <Data>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <BandType Value="btDetailData"/>
           <Condition Value=""/>
           <DatasetStr Value="POrderRepair"/>
@@ -139,7 +153,7 @@
         <Object6>
           <Name Value="SubdetailData1"/>
           <ClassName Value="TfrBandView"/>
-          <Visible Value="1"/>
+          <Visible Value="True"/>
           <Typ Value="gtBand"/>
           <StreamMode Value="0"/>
           <Size>
@@ -152,6 +166,8 @@
           <Data>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <BandType Value="btSubDetailData"/>
           <Condition Value=""/>
           <DatasetStr Value="POrderRepairDetail"/>
@@ -159,7 +175,7 @@
         <Object7>
           <Name Value="Memo1"/>
           <ClassName Value="TfrMemoView"/>
-          <Visible Value="1"/>
+          <Visible Value="True"/>
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
@@ -179,9 +195,11 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value="Pos.&#xD;&#xA;"/>
+            <Memo Value="Pos.&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="10"/>
@@ -198,11 +216,12 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object7>
         <Object8>
           <Name Value="Memo2"/>
           <ClassName Value="TfrMemoView"/>
-          <Visible Value="1"/>
+          <Visible Value="True"/>
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
@@ -222,9 +241,11 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value="Bezeichnung&#xD;&#xA;"/>
+            <Memo Value="Bezeichnung&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="10"/>
@@ -241,11 +262,12 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object8>
         <Object9>
           <Name Value="Memo3"/>
           <ClassName Value="TfrMemoView"/>
-          <Visible Value="1"/>
+          <Visible Value="True"/>
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
@@ -265,9 +287,11 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value="Menge&#xD;&#xA;"/>
+            <Memo Value="Menge&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="10"/>
@@ -284,11 +308,12 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object9>
         <Object10>
           <Name Value="Memo4"/>
           <ClassName Value="TfrMemoView"/>
-          <Visible Value="1"/>
+          <Visible Value="True"/>
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
@@ -308,9 +333,11 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value="  [OrderAddress.&quot;TITLE&quot;]&#xD;&#xA;  [OrderAddress.&quot;NAME&quot;]&#xD;&#xA;  [OrderAddress.&quot;ADDITIONAL&quot;]&#xD;&#xA;  [OrderAddress.&quot;ADDRESS&quot;]&#xD;&#xA;  [OrderAddress.&quot;ZIP&quot;] [OrderAddress.&quot;CITY&quot;]&#xD;&#xA;  [Addresses.&quot;COUNTRY&quot;]&#xD;&#xA;"/>
+            <Memo Value="  [OrderAddress.&quot;TITLE&quot;]&#xA;  [OrderAddress.&quot;NAME&quot;]&#xA;  [OrderAddress.&quot;ADDITIONAL&quot;]&#xA;  [OrderAddress.&quot;ADDRESS&quot;]&#xA;  [OrderAddress.&quot;ZIP&quot;] [OrderAddress.&quot;CITY&quot;]&#xA;  [Addresses.&quot;COUNTRY&quot;]&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="10"/>
@@ -327,11 +354,12 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object10>
         <Object11>
           <Name Value="Memo5"/>
           <ClassName Value="TfrMemoView"/>
-          <Visible Value="1"/>
+          <Visible Value="True"/>
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
@@ -351,9 +379,11 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value="[MandantDetails.&quot;ADRESS&quot;]&#xD;&#xA;"/>
+            <Memo Value="[MandantDetails.&quot;ADRESS&quot;]&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="8"/>
@@ -370,11 +400,12 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object11>
         <Object12>
           <Name Value="Memo8"/>
           <ClassName Value="TfrMemoView"/>
-          <Visible Value="1"/>
+          <Visible Value="True"/>
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
@@ -394,9 +425,11 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value="[OrderPos.&quot;POSNO&quot;]&#xD;&#xA;"/>
+            <Memo Value="[OrderPos.&quot;POSNO&quot;]&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="10"/>
@@ -413,11 +446,12 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object12>
         <Object13>
           <Name Value="Memo9"/>
           <ClassName Value="TfrMemoView"/>
-          <Visible Value="1"/>
+          <Visible Value="True"/>
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
@@ -437,9 +471,11 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value="[OrderPos.&quot;SHORTTEXT&quot;]&#xD;&#xA;Serienummer: [OrderPos.Serial]&#xD;&#xA;"/>
+            <Memo Value="[OrderPos.&quot;SHORTTEXT&quot;]&#xA;Serienummer: [OrderPos.Serial]&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="10"/>
@@ -456,11 +492,12 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object13>
         <Object14>
           <Name Value="Memo10"/>
           <ClassName Value="TfrMemoView"/>
-          <Visible Value="1"/>
+          <Visible Value="True"/>
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
@@ -480,9 +517,11 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value="[OrderPos.&quot;QUANTITY&quot;] [OrderPos.&quot;QUANTITYU&quot;]&#xD;&#xA;"/>
+            <Memo Value="[OrderPos.&quot;QUANTITY&quot;] [OrderPos.&quot;QUANTITYU&quot;]&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="10"/>
@@ -499,11 +538,12 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object14>
         <Object15>
           <Name Value="Memo23"/>
           <ClassName Value="TfrMemoView"/>
-          <Visible Value="1"/>
+          <Visible Value="True"/>
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
@@ -523,9 +563,11 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value="Reparaturbericht&#xD;&#xA;"/>
+            <Memo Value="Reparaturbericht&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="14"/>
@@ -542,11 +584,12 @@
           <Alignment Value="taRightJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object15>
         <Object16>
           <Name Value="Memo24"/>
           <ClassName Value="TfrMemoView"/>
-          <Visible Value="1"/>
+          <Visible Value="True"/>
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
@@ -566,9 +609,11 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value="[Orders.&quot;NUMBER&quot;]&#xD;&#xA;"/>
+            <Memo Value="[Orders.&quot;NUMBER&quot;]&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="14"/>
@@ -585,11 +630,12 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object16>
         <Object17>
           <Name Value="Memo25"/>
           <ClassName Value="TfrMemoView"/>
-          <Visible Value="1"/>
+          <Visible Value="True"/>
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
@@ -609,9 +655,11 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value="Datum&#xD;&#xA;"/>
+            <Memo Value="Datum&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="10"/>
@@ -628,11 +676,12 @@
           <Alignment Value="taRightJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object17>
         <Object18>
           <Name Value="Memo26"/>
           <ClassName Value="TfrMemoView"/>
-          <Visible Value="1"/>
+          <Visible Value="True"/>
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
@@ -652,9 +701,11 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value="[Orders.&quot;DATE&quot;]&#xD;&#xA;"/>
+            <Memo Value="[Orders.&quot;DATE&quot;]&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="10"/>
@@ -671,11 +722,12 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object18>
         <Object19>
           <Name Value="Memo27"/>
           <ClassName Value="TfrMemoView"/>
-          <Visible Value="1"/>
+          <Visible Value="True"/>
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
@@ -695,9 +747,11 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value="Kundennummer&#xD;&#xA;"/>
+            <Memo Value="Kundennummer&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="10"/>
@@ -714,11 +768,12 @@
           <Alignment Value="taRightJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object19>
         <Object20>
           <Name Value="Memo28"/>
           <ClassName Value="TfrMemoView"/>
-          <Visible Value="1"/>
+          <Visible Value="True"/>
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
@@ -738,9 +793,11 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value="[Customers.&quot;ACCOUNTNO&quot;]&#xD;&#xA;"/>
+            <Memo Value="[Customers.&quot;ACCOUNTNO&quot;]&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="10"/>
@@ -757,54 +814,12 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object20>
         <Object21>
-          <Name Value="Memo6"/>
-          <ClassName Value="TfrMemoView"/>
-          <Visible Value="1"/>
-          <Typ Value="gtMemo"/>
-          <StreamMode Value="0"/>
-          <Size>
-            <Left Value="8"/>
-            <Top Value="68"/>
-            <Width Value="752"/>
-            <Height Value="38"/>
-          </Size>
-          <Flags Value="3"/>
-          <FillColor Value="clSilver"/>
-          <Frames>
-            <FrameColor Value="clBlack"/>
-            <FrameStyle Value="frsSolid"/>
-            <FrameWidth Value="1"/>
-            <FrameBorders Value=""/>
-          </Frames>
-          <Data>
-            <Format Value="556"/>
-            <FormatStr Value=""/>
-            <Memo Value="[MandantDetails.&quot;NAME&quot;]       &#xD;&#xA;  &#xD;&#xA;"/>
-            <Script Value=""/>
-          </Data>
-          <Font>
-            <Name Value="Arial"/>
-            <Size Value="22"/>
-            <Color Value="clBlack"/>
-            <Charset Value="0"/>
-            <Style Value="fsBold"/>
-          </Font>
-          <Highlight>
-            <FontStyle Value="2"/>
-            <FontColor Value="clBlack"/>
-            <FillColor Value="clWhite"/>
-            <HighlightStr Value=""/>
-          </Highlight>
-          <Alignment Value="taRightJustify"/>
-          <Layout Value="tlTop"/>
-          <Angle Value="0"/>
-        </Object21>
-        <Object22>
           <Name Value="Memo7"/>
           <ClassName Value="TfrMemoView"/>
-          <Visible Value="1"/>
+          <Visible Value="True"/>
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
@@ -827,6 +842,8 @@
             <Memo Value=""/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
             <Size Value="10"/>
@@ -843,11 +860,12 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
-        </Object22>
-        <Object23>
+          <Justify Value="False"/>
+        </Object21>
+        <Object22>
           <Name Value="Memo13"/>
           <ClassName Value="TfrMemoView"/>
-          <Visible Value="1"/>
+          <Visible Value="True"/>
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
@@ -867,9 +885,11 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value="Adresse&#xD;&#xA;[MandantDetails.&quot;ADRESS&quot;]&#xD;&#xA;"/>
+            <Memo Value="Adresse&#xA;[MandantDetails.&quot;ADRESS&quot;]&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="7"/>
@@ -886,11 +906,12 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
-        </Object23>
-        <Object24>
+          <Justify Value="False"/>
+        </Object22>
+        <Object23>
           <Name Value="Memo14"/>
           <ClassName Value="TfrMemoView"/>
-          <Visible Value="1"/>
+          <Visible Value="True"/>
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
@@ -910,9 +931,11 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value="Bank&#xD;&#xA;&#xD;&#xA;Name: [MandantDetails.&quot;INSTITUTE&quot;]&#xD;&#xA;BLZ   : [MandantDetails.&quot;SORTCODE&quot;]&#xD;&#xA;Kto.  : [MandantDetails.&quot;ACCOUNT&quot;]&#xD;&#xA;"/>
+            <Memo Value="Bank&#xA;&#xA;Name: [MandantDetails.&quot;INSTITUTE&quot;]&#xA;BLZ   : [MandantDetails.&quot;SORTCODE&quot;]&#xA;Kto.  : [MandantDetails.&quot;ACCOUNT&quot;]&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="7"/>
@@ -929,11 +952,12 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
-        </Object24>
-        <Object25>
+          <Justify Value="False"/>
+        </Object23>
+        <Object24>
           <Name Value="Memo16"/>
           <ClassName Value="TfrMemoView"/>
-          <Visible Value="1"/>
+          <Visible Value="True"/>
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
@@ -953,9 +977,11 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value="Seite [PAGE#] von [TOTALPAGES]&#xD;&#xA;"/>
+            <Memo Value="Seite [PAGE#] von [TOTALPAGES]&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="10"/>
@@ -972,59 +998,12 @@
           <Alignment Value="taRightJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
-        </Object25>
-        <Object26>
-          <Name Value="Shape1"/>
-          <ClassName Value="TfrShapeView"/>
-          <Visible Value="1"/>
-          <Typ Value="gtAddIn"/>
-          <StreamMode Value="0"/>
-          <Size>
-            <Left Value="16"/>
-            <Top Value="40"/>
-            <Width Value="24"/>
-            <Height Value="22"/>
-          </Size>
-          <Flags Value="1"/>
-          <FillColor Value="clSilver"/>
-          <ShapeType Value="frstRoundRect"/>
-        </Object26>
-        <Object27>
-          <Name Value="Shape2"/>
-          <ClassName Value="TfrShapeView"/>
-          <Visible Value="1"/>
-          <Typ Value="gtAddIn"/>
-          <StreamMode Value="0"/>
-          <Size>
-            <Left Value="24"/>
-            <Top Value="52"/>
-            <Width Value="40"/>
-            <Height Value="42"/>
-          </Size>
-          <Flags Value="1"/>
-          <FillColor Value="clSilver"/>
-          <ShapeType Value="frstRoundRect"/>
-        </Object27>
-        <Object28>
-          <Name Value="Shape3"/>
-          <ClassName Value="TfrShapeView"/>
-          <Visible Value="1"/>
-          <Typ Value="gtAddIn"/>
-          <StreamMode Value="0"/>
-          <Size>
-            <Left Value="52"/>
-            <Top Value="44"/>
-            <Width Value="24"/>
-            <Height Value="22"/>
-          </Size>
-          <Flags Value="1"/>
-          <FillColor Value="clSilver"/>
-          <ShapeType Value="frstRoundRect"/>
-        </Object28>
-        <Object29>
+          <Justify Value="False"/>
+        </Object24>
+        <Object25>
           <Name Value="Memo11"/>
           <ClassName Value="TfrMemoView"/>
-          <Visible Value="1"/>
+          <Visible Value="True"/>
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
@@ -1044,9 +1023,11 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value="| Anschrift&#xD;&#xA;"/>
+            <Memo Value="| Anschrift&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="9"/>
@@ -1063,11 +1044,12 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
-        </Object29>
-        <Object30>
+          <Justify Value="False"/>
+        </Object25>
+        <Object26>
           <Name Value="Memo15"/>
           <ClassName Value="TfrMemoView"/>
-          <Visible Value="1"/>
+          <Visible Value="True"/>
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
@@ -1087,9 +1069,11 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value="Verfahren: [ORDERREPAIR.OPERATION]&#xD;&#xA;"/>
+            <Memo Value="Verfahren: [ORDERREPAIR.OPERATION]&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
             <Size Value="10"/>
@@ -1106,11 +1090,12 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
-        </Object30>
-        <Object31>
+          <Justify Value="False"/>
+        </Object26>
+        <Object27>
           <Name Value="Memo17"/>
           <ClassName Value="TfrMemoView"/>
-          <Visible Value="1"/>
+          <Visible Value="True"/>
           <Typ Value="gtMemo"/>
           <StreamMode Value="0"/>
           <Size>
@@ -1130,9 +1115,11 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value="Baugruppe: [ORDERREPAIRDETAIL.ASSEMBLY]&#xD;&#xA;Bauteil:        [ORDERREPAIRDETAIL.PART]&#xD;&#xA;Problem:      [ORDERREPAIRDETAIL.ERROR]&#xD;&#xA;"/>
+            <Memo Value="Baugruppe: [ORDERREPAIRDETAIL.ASSEMBLY]&#xA;Bauteil:        [ORDERREPAIRDETAIL.PART]&#xA;Problem:      [ORDERREPAIRDETAIL.ERROR]&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
             <Size Value="10"/>
@@ -1149,7 +1136,85 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
-        </Object31>
+          <Justify Value="False"/>
+        </Object27>
+        <Object28>
+          <Name Value="Picture1"/>
+          <ClassName Value="TfrPictureView"/>
+          <Visible Value="True"/>
+          <Typ Value="gtPicture"/>
+          <StreamMode Value="0"/>
+          <Size>
+            <Left Value="580"/>
+            <Top Value="44"/>
+            <Width Value="136"/>
+            <Height Value="90"/>
+          </Size>
+          <Flags Value="5"/>
+          <FillColor Value="clWindow"/>
+          <Frames>
+            <FrameColor Value="clBlack"/>
+            <FrameStyle Value="frsSolid"/>
+            <FrameWidth Value="1"/>
+            <FrameBorders Value=""/>
+          </Frames>
+          <Data>
+            <Memo Value="[MandantDetails.&quot;IMAGE&quot;]&#xA;"/>
+            <Script Value=""/>
+          </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
+          <Picture>
+            <SharedName Value=""/>
+            <Type Value="0"/>
+          </Picture>
+        </Object28>
+        <Object29>
+          <Name Value="Memo41"/>
+          <ClassName Value="TfrMemoView"/>
+          <Visible Value="True"/>
+          <Typ Value="gtMemo"/>
+          <StreamMode Value="0"/>
+          <Size>
+            <Left Value="120"/>
+            <Top Value="44"/>
+            <Width Value="436"/>
+            <Height Value="38"/>
+          </Size>
+          <Flags Value="3"/>
+          <FillColor Value="clNone"/>
+          <Frames>
+            <FrameColor Value="clBlack"/>
+            <FrameStyle Value="frsSolid"/>
+            <FrameWidth Value="1"/>
+            <FrameBorders Value=""/>
+          </Frames>
+          <Data>
+            <Format Value="556"/>
+            <FormatStr Value=""/>
+            <Memo Value="[MandantDetails.&quot;NAME&quot;]&#xA;"/>
+            <Script Value=""/>
+          </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
+          <Font>
+            <Name Value="helvetica [urw]"/>
+            <Size Value="18"/>
+            <Color Value="clBlack"/>
+            <Charset Value="0"/>
+            <Style Value=""/>
+          </Font>
+          <Highlight>
+            <FontStyle Value="2"/>
+            <FontColor Value="clBlack"/>
+            <FillColor Value="clWhite"/>
+            <HighlightStr Value=""/>
+          </Highlight>
+          <Alignment Value="taRightJustify"/>
+          <Layout Value="tlTop"/>
+          <Angle Value="0"/>
+          <Justify Value="False"/>
+        </Object29>
       </Page1>
       <FVal>
         <Count Value="0"/>
