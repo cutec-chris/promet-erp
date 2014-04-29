@@ -1,4 +1,6 @@
-﻿Build 333
+﻿Build 334
+      - Mandantoptionen:IBAN/BIC Felder umbenannt, vergrößert
+Build 333
       - SMTP Sender:erzeugt Verlaufseintrage an der Nachricht
       - Nachrichtenzentrale:Zeiterfassung auf Hinweisen zu Aufgaben zu dieser Aufgabe startbar
       - Listenansichten:Hints werden nur angezeigt wenn die Liste nicht gescrollt wurde (workaround um Lazarus springen im DBGrid zu vermeiden)

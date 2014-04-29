@@ -719,10 +719,11 @@
       </Unit40>
       <Unit41>
         <Filename Value="../base/changes.txt"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="73" Y="9"/>
+        <CursorPos X="62" Y="2"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
@@ -825,11 +826,10 @@
       <Unit50>
         <Filename Value="../base/dbintfs/uperson.pas"/>
         <UnitName Value="uPerson"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="161"/>
-        <CursorPos X="18" Y="178"/>
+        <CursorPos X="92" Y="177"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit50>
