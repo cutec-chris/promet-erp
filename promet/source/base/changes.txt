@@ -2,6 +2,8 @@
       - SMTP Sender:erzeugt Verlaufseintrage an der Nachricht
       - Nachrichtenzentrale:Zeiterfassung auf Hinweisen zu Aufgaben zu dieser Aufgabe startbar
       - Listenansichten:Hints werden nur angezeigt wenn die Liste nicht gescrollt wurde (workaround um Lazarus springen im DBGrid zu vermeiden)
+      - Tags/Stichworte können zu Nachrichtenzentraleneinträgen hinzugefügt werden
+      - Bei Aufgaben aus der Nachrichtenzentrale wird automatisch der erste hashtag als Kategorie benutzt
 Build 332
       - Projekte: Status wird beim dublizieren nicht geändert, Aufgaben werden nicht aktiviert
       - Projekte: Gantt Knopf ziegt bei inaktivem Projekt Gantt mit inaktiven Aufgaben und bei Aktivem keine inaktiven Aufgaben
