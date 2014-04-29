@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CONFIG>
   <LazReport>
-    <Version Value="25"/>
+    <Version Value="26"/>
     <Title Value="PrometERP-Schlussrechnung 101229"/>
     <Subject Value=""/>
     <KeyWords Value=""/>
     <Comments Value=""/>
     <ReportCreateDate Value="2012-09-24 18:43:27"/>
-    <ReportLastChange Value="2012-09-24 18:45:35"/>
+    <ReportLastChange Value="2014-04-29 21:05:15"/>
     <ReportVersionBuild Value=""/>
     <ReportVersionMajor Value=""/>
     <ReportVersionMinor Value=""/>
     <ReportVersionRelease Value=""/>
     <ReportAutor Value=""/>
+    <Script Value=""/>
     <Pages>
       <PrintToDefault Value="False"/>
       <DoublePass Value="True"/>
-      <SelectedPrinter Value="e350d"/>
+      <SelectedPrinter Value="Lexmark-E350d"/>
       <PageCount Value="1"/>
       <Page1>
         <Name Value="Page1"/>
         <ClassName Value="TfrPageReport"/>
         <Visible Value="True"/>
-        <Width Value="1"/>
-        <Height Value="1"/>
+        <Width Value="595"/>
+        <Height Value="842"/>
         <Script Value=""/>
         <PgSize Value="9"/>
         <Margins>
@@ -55,6 +56,8 @@
           <Data>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <BandType Value="btPageHeader"/>
           <Condition Value=""/>
           <DatasetStr Value=""/>
@@ -75,6 +78,8 @@
           <Data>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <BandType Value="btMasterData"/>
           <Condition Value=""/>
           <DatasetStr Value="POrderPos"/>
@@ -95,6 +100,8 @@
           <Data>
             <Script Value="if [Page#] = [TotalPages] then&#xA;  Visible := 1&#xA;else&#xA;  Visible := 0;     &#xA;"/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <BandType Value="btPageFooter"/>
           <Condition Value=""/>
           <DatasetStr Value=""/>
@@ -115,6 +122,8 @@
           <Data>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <BandType Value="btReportSummary"/>
           <Condition Value=""/>
           <DatasetStr Value=""/>
@@ -135,6 +144,8 @@
           <Data>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <BandType Value="btReportTitle"/>
           <Condition Value=""/>
           <DatasetStr Value=""/>
@@ -165,6 +176,8 @@
             <Memo Value="Rechnung&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="14"/>
@@ -181,6 +194,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object6>
         <Object7>
           <Name Value="Memo24"/>
@@ -208,6 +222,8 @@
             <Memo Value="[Orders.&quot;NUMBER&quot;]&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="14"/>
@@ -224,6 +240,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object7>
         <Object8>
           <Name Value="Memo25"/>
@@ -251,6 +268,8 @@
             <Memo Value="Datum&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="10"/>
@@ -267,6 +286,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object8>
         <Object9>
           <Name Value="Memo26"/>
@@ -294,6 +314,8 @@
             <Memo Value="[Orders.&quot;DATE&quot;]&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="10"/>
@@ -310,6 +332,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object9>
         <Object10>
           <Name Value="Memo27"/>
@@ -337,6 +360,8 @@
             <Memo Value="Kundennummer&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="10"/>
@@ -353,6 +378,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object10>
         <Object11>
           <Name Value="Memo28"/>
@@ -380,6 +406,8 @@
             <Memo Value="[OrderAddress.&quot;ACCOUNTNO&quot;]&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="10"/>
@@ -396,6 +424,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object11>
         <Object12>
           <Name Value="Memo7"/>
@@ -423,6 +452,8 @@
             <Memo Value=""/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
             <Size Value="10"/>
@@ -439,6 +470,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object12>
         <Object13>
           <Name Value="Memo13"/>
@@ -466,6 +498,8 @@
             <Memo Value="Adresse&#xA;[MandantDetails.&quot;ADRESS&quot;]&#xA;&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="7"/>
@@ -482,6 +516,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object13>
         <Object14>
           <Name Value="Memo14"/>
@@ -506,9 +541,11 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value="Bank&#xA;&#xA;Name: [MandantDetails.&quot;INSTITUTE&quot;]&#xA;BLZ   : [MandantDetails.&quot;SORTCODE&quot;]&#xA;Kto.  : [MandantDetails.&quot;ACCOUNT&quot;]&#xA;"/>
+            <Memo Value="Bank&#xA;&#xA;Name: [MandantDetails.&quot;INSTITUTE&quot;]&#xA;BIC    : [MandantDetails.&quot;SORTCODE&quot;]&#xA;IBAN  : [MandantDetails.&quot;ACCOUNT&quot;]&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="7"/>
@@ -525,6 +562,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object14>
         <Object15>
           <Name Value="Memo16"/>
@@ -552,6 +590,8 @@
             <Memo Value="Seite [PAGE#] von [TOTALPAGES]&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="10"/>
@@ -568,6 +608,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object15>
         <Object16>
           <Name Value="Memo12"/>
@@ -595,6 +636,8 @@
             <Memo Value="Hiermit erlauben wir uns, Ihnen wie folgt zu berechnen:&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
             <Size Value="10"/>
@@ -611,6 +654,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object16>
         <Object17>
           <Name Value="Memo15"/>
@@ -638,6 +682,8 @@
             <Memo Value="Pos.&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
             <Size Value="10"/>
@@ -654,6 +700,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object17>
         <Object18>
           <Name Value="Memo17"/>
@@ -681,6 +728,8 @@
             <Memo Value="Bezeichnung&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
             <Size Value="10"/>
@@ -697,6 +746,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object18>
         <Object19>
           <Name Value="Memo18"/>
@@ -724,6 +774,8 @@
             <Memo Value="Menge&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
             <Size Value="10"/>
@@ -740,6 +792,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object19>
         <Object20>
           <Name Value="Memo19"/>
@@ -767,6 +820,8 @@
             <Memo Value="Preis&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
             <Size Value="10"/>
@@ -783,6 +838,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object20>
         <Object21>
           <Name Value="Memo20"/>
@@ -810,6 +866,8 @@
             <Memo Value="Gesamtpreis&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
             <Size Value="10"/>
@@ -826,6 +884,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object21>
         <Object22>
           <Name Value="Memo21"/>
@@ -853,6 +912,8 @@
             <Memo Value="[OrderPos.&quot;POSNO&quot;]&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
             <Size Value="10"/>
@@ -869,6 +930,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object22>
         <Object23>
           <Name Value="Memo22"/>
@@ -896,6 +958,8 @@
             <Memo Value="[OrderPos.&quot;SHORTTEXT&quot;]&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
             <Size Value="10"/>
@@ -912,6 +976,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object23>
         <Object24>
           <Name Value="Memo29"/>
@@ -939,6 +1004,8 @@
             <Memo Value="[OrderPos.&quot;QUANTITY&quot;] [OrderPos.&quot;QUANTITYU&quot;]&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
             <Size Value="10"/>
@@ -955,6 +1022,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object24>
         <Object25>
           <Name Value="Memo30"/>
@@ -982,6 +1050,8 @@
             <Memo Value="[OrderPos.&quot;SELLPRICE&quot;]  [Orders.&quot;CURRENCY&quot;]&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
             <Size Value="10"/>
@@ -998,6 +1068,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object25>
         <Object26>
           <Name Value="Memo31"/>
@@ -1025,6 +1096,8 @@
             <Memo Value="[OrderPos.&quot;POSPRICE&quot;] [Orders.&quot;CURRENCY&quot;]&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
             <Size Value="10"/>
@@ -1041,6 +1114,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object26>
         <Object27>
           <Name Value="Memo1"/>
@@ -1068,6 +1142,8 @@
             <Memo Value="MwSt&#xA;"/>
             <Script Value="if [Page#] = [TotalPages] then&#xA;  Visible := 1&#xA;else&#xA;  Visible := 0;&#xA;"/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
             <Size Value="10"/>
@@ -1084,6 +1160,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object27>
         <Object28>
           <Name Value="Memo2"/>
@@ -1111,6 +1188,8 @@
             <Memo Value="[[Orders.&quot;GROSSPRICE&quot;]-[Orders.&quot;NETPRICE&quot;]] [Orders.&quot;CURRENCY&quot;]&#xA;"/>
             <Script Value="if [Page#] = [TotalPages] then&#xA;  Visible := 1&#xA;else&#xA;  Visible := 0;&#xA;"/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
             <Size Value="10"/>
@@ -1127,6 +1206,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object28>
         <Object29>
           <Name Value="Memo3"/>
@@ -1154,6 +1234,8 @@
             <Memo Value="Gesamtpreis&#xA;"/>
             <Script Value="if [Page#] = [TotalPages] then&#xA;  Visible := 1&#xA;else&#xA;  Visible := 0;&#xA;"/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
             <Size Value="10"/>
@@ -1170,6 +1252,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object29>
         <Object30>
           <Name Value="Memo8"/>
@@ -1197,6 +1280,8 @@
             <Memo Value="[Orders.&quot;GROSSPRICE&quot;] [Orders.&quot;CURRENCY&quot;]&#xA;"/>
             <Script Value="if [Page#] = [TotalPages] then&#xA;  Visible := 1&#xA;else&#xA;  Visible := 0;&#xA;"/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
             <Size Value="10"/>
@@ -1213,6 +1298,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object30>
         <Object31>
           <Name Value="Memo9"/>
@@ -1240,6 +1326,8 @@
             <Memo Value=" &#xA;"/>
             <Script Value="if [Page#] = [TotalPages] then&#xA;  Visible := 1&#xA;else&#xA;  Visible := 0;&#xA;"/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
             <Size Value="10"/>
@@ -1256,6 +1344,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object31>
         <Object32>
           <Name Value="Memo10"/>
@@ -1283,6 +1372,8 @@
             <Memo Value="Nettopreis&#xA;"/>
             <Script Value="if [Page#] = [TotalPages] then&#xA;  Visible := 1&#xA;else&#xA;  Visible := 0;&#xA;&#xA;&#xA;&#xA;"/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
             <Size Value="10"/>
@@ -1299,6 +1390,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object32>
         <Object33>
           <Name Value="Memo32"/>
@@ -1326,6 +1418,8 @@
             <Memo Value="[Orders.&quot;NETPRICE&quot;] [Orders.&quot;CURRENCY&quot;]&#xA;"/>
             <Script Value="if [Page#] = [TotalPages] then&#xA;  Visible := 1&#xA;else&#xA;  Visible := 0;&#xA;"/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
             <Size Value="10"/>
@@ -1342,6 +1436,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object33>
         <Object34>
           <Name Value="Memo33"/>
@@ -1369,6 +1464,8 @@
             <Memo Value="Vielen Dank für Ihr Vertrauen.&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
             <Size Value="10"/>
@@ -1385,6 +1482,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object34>
         <Object35>
           <Name Value="Memo34"/>
@@ -1412,6 +1510,8 @@
             <Memo Value="Steuernummer: [MandantDetails.&quot;ADDITION1&quot;]&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
             <Size Value="7"/>
@@ -1428,6 +1528,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object35>
         <Object36>
           <Name Value="Memo35"/>
@@ -1455,6 +1556,8 @@
             <Memo Value="Sofern nicht anders angegeben gilt Lieferdatum = Rechnungsdatum.&#xA;Diese Rechnung ist umsatzsteuerbefreit gemäß § 19 (1) UStG&#xA;Es gelten unsere AGB&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
             <Size Value="9"/>
@@ -1471,6 +1574,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object36>
         <Object37>
           <Name Value="Memo36"/>
@@ -1498,6 +1602,8 @@
             <Memo Value="Kommission&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
             <Size Value="10"/>
@@ -1514,6 +1620,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object37>
         <Object38>
           <Name Value="Memo37"/>
@@ -1541,6 +1648,8 @@
             <Memo Value="[Orders.&quot;COMMISSION&quot;]&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Arial"/>
             <Size Value="10"/>
@@ -1557,6 +1666,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object38>
         <Object39>
           <Name Value="Memo4"/>
@@ -1584,6 +1694,8 @@
             <Memo Value="  [OrderAddress.&quot;TITLE&quot;]&#xA;  [OrderAddress.&quot;NAME&quot;]&#xA;  [OrderAddress.&quot;ADDITIONAL&quot;]&#xA;  [OrderAddress.&quot;ADDRESS&quot;]&#xA;  [OrderAddress.&quot;COUNTRY&quot;] [OrderAddress.&quot;ZIP&quot;] [OrderAddress.&quot;CITY&quot;]&#xA;&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="10"/>
@@ -1600,6 +1712,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object39>
         <Object40>
           <Name Value="Memo5"/>
@@ -1627,6 +1740,8 @@
             <Memo Value="[MandantDetails.&quot;ADRESS&quot;]&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="8"/>
@@ -1643,6 +1758,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object40>
         <Object41>
           <Name Value="Memo11"/>
@@ -1670,6 +1786,8 @@
             <Memo Value="| Anschrift&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="9"/>
@@ -1686,6 +1804,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object41>
         <Object42>
           <Name Value="Memo6"/>
@@ -1713,6 +1832,8 @@
             <Memo Value="Internet&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="10"/>
@@ -1729,6 +1850,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object42>
         <Object43>
           <Name Value="Memo38"/>
@@ -1756,6 +1878,8 @@
             <Memo Value="[MandantDetails.&quot;INTERNET&quot;]&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="10"/>
@@ -1772,6 +1896,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object43>
         <Object44>
           <Name Value="Memo39"/>
@@ -1799,6 +1924,8 @@
             <Memo Value="e-Mail&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="10"/>
@@ -1815,6 +1942,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object44>
         <Object45>
           <Name Value="Memo40"/>
@@ -1842,6 +1970,8 @@
             <Memo Value="[MandantDetails.&quot;MAIL&quot;]&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="Verdana"/>
             <Size Value="10"/>
@@ -1858,6 +1988,7 @@
           <Alignment Value="taLeftJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object45>
         <Object46>
           <Name Value="Picture1"/>
@@ -1872,6 +2003,7 @@
             <Height Value="90"/>
           </Size>
           <Flags Value="5"/>
+          <FillColor Value="clWindow"/>
           <Frames>
             <FrameColor Value="clBlack"/>
             <FrameStyle Value="frsSolid"/>
@@ -1882,6 +2014,8 @@
             <Memo Value="[MandantDetails.&quot;IMAGE&quot;]&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Picture>
             <SharedName Value=""/>
             <Type Value="0"/>
@@ -1913,6 +2047,8 @@
             <Memo Value="[MandantDetails.&quot;NAME&quot;]&#xA;"/>
             <Script Value=""/>
           </Data>
+          <Tag Value=""/>
+          <FURLInfo Value=""/>
           <Font>
             <Name Value="helvetica [urw]"/>
             <Size Value="18"/>
@@ -1929,6 +2065,7 @@
           <Alignment Value="taRightJustify"/>
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
+          <Justify Value="False"/>
         </Object47>
       </Page1>
       <FVal>

@@ -7,7 +7,7 @@
     <KeyWords Value=""/>
     <Comments Value=""/>
     <ReportCreateDate Value="2014-04-29 20:59:08"/>
-    <ReportLastChange Value="2014-04-29 20:59:16"/>
+    <ReportLastChange Value="2014-04-29 21:07:34"/>
     <ReportVersionBuild Value=""/>
     <ReportVersionMajor Value=""/>
     <ReportVersionMinor Value=""/>
@@ -931,7 +931,7 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value="Bank&#xA;&#xA;Name: [MandantDetails.&quot;INSTITUTE&quot;]&#xA;BLZ   : [MandantDetails.&quot;SORTCODE&quot;]&#xA;Kto.  : [MandantDetails.&quot;ACCOUNT&quot;]&#xA;"/>
+            <Memo Value="Bank&#xA;&#xA;Name: [MandantDetails.&quot;INSTITUTE&quot;]&#xA;BIC    : [MandantDetails.&quot;SORTCODE&quot;]&#xA;IBAN  : [MandantDetails.&quot;ACCOUNT&quot;]&#xA;"/>
             <Script Value=""/>
           </Data>
           <Tag Value=""/>
