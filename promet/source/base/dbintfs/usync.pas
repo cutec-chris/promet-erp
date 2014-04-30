@@ -504,7 +504,7 @@ begin
                           end
                         else if (aSyncTime>SyncTime.AsDateTime) then
                           begin
-                            if Assigned(aSQLID) then //geänderter Datensatz
+                            if SyncTime.AsDateTime>0 then //geänderter Datensatz
                               begin
                                 Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,['Remote '+DateTimeToStr(RoundToSecond(aSyncTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
                                 debugln(aID.AsString+':'+Format(strSynchedIn,['Remote '+DateTimeToStr(RoundToSecond(aSyncTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));

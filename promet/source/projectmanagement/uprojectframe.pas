@@ -173,12 +173,14 @@ type
     function fSearchOpenItemL(aLink: string): Boolean;
     procedure pcPagesChange(Sender: TObject);
     procedure ProjectsStateChange(Sender: TObject);
+    procedure ReportGetValue(const ParName: String; var ParValue: Variant);
     procedure sbMenueClick(Sender: TObject);
     procedure sePriorityChange(Sender: TObject);
     procedure TProjectStateChange(Sender: TObject);
   private
     { private declarations }
     FEditable : Boolean;
+    FOwners : TStringList;
     FOnStartTime: TOnStartTime;
     FProjectFlow: TProjectFlow;
     procedure AddHistory(Sender: TObject);
@@ -255,6 +257,28 @@ begin
   acSave.Enabled := aEnabled;
   acCancel.Enabled:= aEnabled;
 end;
+
+procedure TfProjectFrame.ReportGetValue(const ParName: String;
+  var ParValue: Variant);
+var
+  aKey: String;
+begin
+  if Uppercase(ParName) = 'USER' then
+    begin
+      aKey := StringReplace(TMeetings(FDataSet).Entrys.FieldByName('USER').AsString,'=','',[rfReplaceAll]);
+      if trim(FOwners.Values[aKey]) = '' then
+        FOwners.Values[aKey] := TMeetings(FDataSet).Entrys.UserName;
+      ParValue := FOwners.Values[aKey]
+    end
+  else if Uppercase(ParName) = 'OWNER' then
+    begin
+      aKey := StringReplace(TMeetings(FDataSet).Entrys.FieldByName('OWNER').AsString,'=','',[rfReplaceAll]);
+      if trim(FOwners.Values[aKey]) = '' then
+        FOwners.Values[aKey] := TMeetings(FDataSet).Entrys.OwnerName;
+      ParValue := FOwners.Values[aKey]
+    end;
+end;
+
 procedure TfProjectFrame.sbMenueClick(Sender: TObject);
 begin
   TSpeedButton(Sender).PopupMenu.PopUp(TSpeedButton(Sender).ClientOrigin.x,TSpeedButton(Sender).ClientOrigin.y+TSpeedButton(Sender).Height);
@@ -1067,6 +1091,7 @@ end;
 constructor TfProjectFrame.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
+  FOwners := TStringList.Create;
   {
   FProjectFlow := TProjectFlow.Create(Self);
   FprojectFlow.Parent:=pStatus;
@@ -1077,6 +1102,7 @@ begin
 end;
 destructor TfProjectFrame.Destroy;
 begin
+  FOwners.Destroy;
   if Assigned(FConnection) then
     begin
       CloseConnection(acSave.Enabled);

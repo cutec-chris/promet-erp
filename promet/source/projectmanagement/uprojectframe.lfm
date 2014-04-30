@@ -1365,6 +1365,7 @@ inherited fprojectFrame: TfprojectFrame
     Options = []
     PreviewButtons = [pbZoom, pbSave, pbPrint, pbFind, pbExit]
     DataType = dtDataSource
+    OnGetValue = ReportGetValue
     left = 144
     top = 141
   end

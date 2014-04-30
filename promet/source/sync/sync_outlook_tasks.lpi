@@ -58,8 +58,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="29"/>
-        <CursorPos X="1" Y="52"/>
+        <TopLine Value="270"/>
+        <CursorPos X="1" Y="339"/>
         <FoldState Value=" T3i803113 T0ja6O0B1_"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="1">
@@ -597,8 +597,8 @@
         <UnitName Value="usync"/>
         <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="455"/>
-        <CursorPos X="3" Y="480"/>
+        <TopLine Value="491"/>
+        <CursorPos X="52" Y="507"/>
         <UsageCount Value="34"/>
         <Loaded Value="True"/>
       </Unit68>
@@ -1031,7 +1031,7 @@
     <Build>
       <CleanOutputFileMask Value="*.ppu;*.ppl;*.o;*.or;*.rc"/>
     </Build>
-    <JumpHistory Count="9" HistoryIndex="8">
+    <JumpHistory Count="11" HistoryIndex="10">
       <Position1>
         <Filename Value="..\base\dbintfs\usync.pas"/>
         <Caret Line="414" Column="1" TopLine="384"/>
@@ -1068,6 +1068,14 @@
         <Filename Value="sync_outlook_tasks.lpr"/>
         <Caret Line="54" Column="17" TopLine="32"/>
       </Position9>
+      <Position10>
+        <Filename Value="sync_outlook_tasks.lpr"/>
+        <Caret Line="51" Column="76" TopLine="268"/>
+      </Position10>
+      <Position11>
+        <Filename Value="sync_outlook_tasks.lpr"/>
+        <Caret Line="334" Column="98" TopLine="270"/>
+      </Position11>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -1131,8 +1139,8 @@
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
-        <Source Value="sync_mso.lpr"/>
-        <Line Value="331"/>
+        <Source Value="sync_outlook_tasks.lpr"/>
+        <Line Value="339"/>
       </Item5>
     </BreakPoints>
     <Watches Count="2">

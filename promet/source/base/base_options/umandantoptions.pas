@@ -96,7 +96,7 @@ begin
       CSVExport(OutputDir+DirectorySeparator+'pricetypes.csv',';',Data.Pricetypes.DataSet);
       CSVExport(OutputDir+DirectorySeparator+'reports.csv',';',Data.Reports.DataSet);
       try
-        CSVExport(OutputDir+DirectorySeparator+'templates.csv',';',Data.Templates.DataSet);
+        //CSVExport(OutputDir+DirectorySeparator+'templates.csv',';',Data.Templates.DataSet);
       except
       end;
       CSVExport(OutputDir+DirectorySeparator+'texttyp.csv',';',Data.Texttyp.DataSet);
@@ -106,7 +106,7 @@ begin
       end;
       CSVExport(OutputDir+DirectorySeparator+'vat.csv',';',Data.Vat.DataSet);
       try
-        CSVExport(OutputDir+DirectorySeparator+'statistic.csv',';',Data.Statistic.DataSet);
+        //CSVExport(OutputDir+DirectorySeparator+'statistic.csv',';',Data.Statistic.DataSet);
       except
       end;
       CSVExport(OutputDir+DirectorySeparator+'states.csv',';',Data.States.DataSet);
