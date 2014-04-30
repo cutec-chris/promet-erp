@@ -796,7 +796,7 @@ begin
                   aObj := TJSONObject.Create;
                   aObj.Add('EXTERNAL_ID',EntryIdToString(aItem.EntryID));
                   aObj.Add('PRIVATE',aPrivate);
-                  aObj.Add('TIMESTAMPD',Rfc822DateTime(aItem.LastModificationTime));
+                  aObj.Add('TIMESTAMPD',Rfc822DateTime(IncHour(aItem.LastModificationTime,TimeOffset)));
                   aObj.Add('SUMMARY',EncodingIn(aItem.PropertiesDirect[PR_SUBJECT,ptString]));
                   SStream := TStringStream.Create('');
                   try
@@ -935,7 +935,7 @@ begin
             begin
               aObj := TJSONObject.Create;
               aObj.Add('EXTERNAL_ID',EntryIdToString(aItem.EntryID));
-              aObj.Add('TIMESTAMPD',Rfc822DateTime(aItem.LastModificationTime));
+              aObj.Add('TIMESTAMPD',Rfc822DateTime(IncHour(aItem.LastModificationTime,TimeOffset)));
               aObj.Add('SUMMARY',EncodingIn(aItem.PropertiesDirect[PR_SUBJECT,ptString]));
               SStream := TStringStream.Create('');
               try
@@ -975,7 +975,7 @@ begin
              end;
 
           aTasks := TTaskList.Create(nil,Data);
-          aLastSync := SyncItems.LastSync(SyncType);
+          aLastSync := SyncItems.LastSync(SyncType,aTasks.TableName);
           if aLastSync>0 then
             aTasks.SelectByUserChangedSince(Data.Users.Accountno.AsString,aLastSync)
           else

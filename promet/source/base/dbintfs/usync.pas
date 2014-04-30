@@ -59,7 +59,7 @@ type
     procedure SelectByRemoteReference(aID : Variant);
     function SyncDataSet(aInternal : TBaseDBDataset;aExternal : TJSONData;SyncType : string) : TJSONArray;
     function GetField(aObject: TJSONData; aName: string): TJSONData;
-    function LastSync(SyncType : string) : TDateTime;
+    function LastSync(SyncType,SyncTable : string) : TDateTime;
   end;
   TSyncStamps = class(TBaseDbDataSet)
     procedure DefineFields(aDataSet: TDataSet); override;
@@ -364,6 +364,8 @@ var
   Hist : IBaseHistory;
   aSQLID: TJSONData;
   aSyncFilter: String;
+  aLastSyncedItemTime: TDateTime;
+  tmp1: String;
   function RoundToSecond(aDate : TDateTime) : TDateTime;
   begin
     Result := Round(aDate * SecsPerDay) / SecsPerDay;
@@ -455,7 +457,10 @@ begin
       if not Assigned(aTime) then
         aTime := GetField(aObj,'timestamp');
       tmp := aTime.AsString;
-      aSyncTime := DecodeRfcDateTime(tmp);
+      aSyncTime :=  DecodeRfcDateTime(tmp);
+      aLastSyncedItemTime := SyncTime.AsDateTime;
+      tmp := DateTimeToStr(aSyncTime);
+      tmp1 := DateTimeToStr(aLastSyncedItemTime);
       if Assigned(aID) and Assigned(aTime) then
         begin
           //Get our Sync Item or insert one
@@ -471,12 +476,14 @@ begin
                   if Count = 0 then Insert
                   else Edit;
                   LocalID.AsVariant:=aSQLID.Value;
+                  if State = dsEdit then
+                    Post;
                 end
               else
                 Insert;
             end
           else Edit;
-          DoSync := (aSyncTime>SyncTime.AsDateTime) or (State=dsInsert); //sync only when Chnged ot New
+          DoSync := (aSyncTime>aLastSyncedItemTime) or (State=dsInsert); //sync only when Chnged ot New
           if DoSync then
             begin
               aInternal.Select(LocalID.AsVariant);
@@ -497,15 +504,15 @@ begin
                           end
                         else if (aSyncTime>SyncTime.AsDateTime) then
                           begin
-                            if Assigned(aSQLID) then //Neuer Datensatz der ausgehend synchronisiert wurde und nun eine external_id bekommen hat
-                              begin
-                                Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,[strSyncNewRecord]));
-                                debugln(aID.AsString+':'+Format(strSynchedOut,[strSyncNewRecord]));
-                              end
-                            else //geänderter Datensatz
+                            if Assigned(aSQLID) then //geänderter Datensatz
                               begin
                                 Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,['Remote '+DateTimeToStr(RoundToSecond(aSyncTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
                                 debugln(aID.AsString+':'+Format(strSynchedIn,['Remote '+DateTimeToStr(RoundToSecond(aSyncTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                              end
+                            else //Neuer Datensatz der ausgehend synchronisiert wurde und nun eine external_id bekommen hat
+                              begin
+                                Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,[strSyncNewRecord]));
+                                debugln(aID.AsString+':'+Format(strSynchedOut,[strSyncNewRecord]));
                               end;
                           end
                         else
@@ -532,19 +539,19 @@ begin
                 FieldByName('USER_ID').AsString:=TBaseDBModule(DataModule).Users.ID.AsString;
               RemoteID.AsVariant:=aID.AsString;
               Typ.AsString:=SyncType;
-            end;
-          if Canedit then
-            begin
-              SyncTime.AsDateTime:=Now();
-              Post;
+              if Canedit then
+                begin
+                  SyncTime.AsDateTime:=Now();
+                  Post;
+                end;
             end;
         end;
     end;
 end;
 
-function TSyncItems.LastSync(SyncType: string): TDateTime;
+function TSyncItems.LastSync(SyncType, SyncTable: string): TDateTime;
 begin
-  Filter(TBaseDBModule(DataModule).QuoteField('SYNCTYPE')+'='+TBaseDBModule(DataModule).QuoteValue(SyncType),0,'SYNC_TIME');
+  Filter(TBaseDBModule(DataModule).QuoteField('SYNCTYPE')+'='+TBaseDBModule(DataModule).QuoteValue(SyncType)+' AND '+TBaseDBModule(DataModule).QuoteField('SYNCTABLE')+'='+TBaseDBModule(DataModule).QuoteValue(SyncTable),0,'SYNC_TIME');
   Last;
   Result := SyncTime.AsDateTime;
 end;
