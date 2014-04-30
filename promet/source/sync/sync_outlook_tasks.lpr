@@ -243,6 +243,7 @@ begin
                   if Assigned(aField) and (aField.AsString = EntryIdToString(aItem.EntryID)) then
                     begin
                       aField := SyncItems.GetField(aJsonOutList[i],'SUMMARY');
+                      debugln('Updated:'+aItem.Subject);
                       if Assigned(aField) then
                         aItem.PropertiesDirect[PR_SUBJECT,ptString] := EncodingOut(aField.AsString);
                       aField := SyncItems.GetField(aJsonOutList[i],'DESC');
@@ -305,7 +306,7 @@ begin
                         aItem.CoMessage.SaveChanges(0);
                         bFolder := TGenericFolder.Create(aConnection,aFolder.FEntryTyp);
                         bItem := bFolder.GetFirst;
-                        debugln(bItem.Subject);
+                        debugln('Created:'+bItem.Subject);
                         if Assigned(bItem) then
                           TJSONObject(aJsonOutList[i]).Add('EXTERNAL_ID',EntryIdToString(bItem.EntryID));
                         bItem.Free;
@@ -319,7 +320,7 @@ begin
             end;
           //tell System the new external_id´s
           if aJsonOutList.Count>0 then
-            SyncItems.SyncDataSet(aTasks,aJsonOutList,SyncType);
+            SyncItems.SyncDataSet(aTasks,aJsonOutList,SyncType,True);
           aJsonOutList.Free;
         finally
           aTasks.Free;

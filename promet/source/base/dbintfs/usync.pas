@@ -57,7 +57,11 @@ type
     property Typ : TField read GetType;
     procedure SelectByReference(aID : Variant);
     procedure SelectByRemoteReference(aID : Variant);
-    function SyncDataSet(aInternal : TBaseDBDataset;aExternal : TJSONData;SyncType : string) : TJSONArray;
+    //Routine to sync 2 Dataset with Json Data, must be called trice in first Step
+    //the Routine get the Remote JSON data and return the New/Changed Data from internal DataSet
+    //in Second Setp the Routine gets called with Notify=True and gets the same Data that it has Send with external_id set
+    //To store the external_id and Changed Date
+    function SyncDataSet(aInternal : TBaseDBDataset;aExternal : TJSONData;SyncType : string;Notify : Boolean = False) : TJSONArray;
     function GetField(aObject: TJSONData; aName: string): TJSONData;
     function LastSync(SyncType,SyncTable : string) : TDateTime;
   end;
@@ -350,7 +354,7 @@ You have to push an JSON List with Data in aExternal with EXTERNAL_ID,TIMESTAMPD
 and get an List with changed Data since Lastsync with EXTERNAL_ID and TIMESTAMPD
 }
 function TSyncItems.SyncDataSet(aInternal: TBaseDBDataset;
-  aExternal: TJSONData; SyncType: string): TJSONArray;
+  aExternal: TJSONData; SyncType: string; Notify: Boolean): TJSONArray;
 var
   aLastSync: TDateTime = 0;
   VJSON: TJSONObject;
@@ -372,177 +376,226 @@ var
   end;
 
 begin
-  Result := TJSONArray.Create;
-  //Find Last Sync Time
-  aSyncFilter := TBaseDBModule(DataModule).QuoteField('SYNCTYPE')+'='+TBaseDBModule(DataModule).QuoteValue(SyncType)+' AND '+TBaseDBModule(DataModule).QuoteField('USER_ID')+'='+TBaseDBModule(DataModule).QuoteValue(TBaseDBModule(DataModule).Users.ID.AsString)+' AND '+TBaseDBModule(DataModule).QuoteField('SYNCTABLE')+'='+TBaseDBModule(DataModule).QuoteValue(aInternal.TableName);
-  Filter(aSyncFilter,0,'SYNC_TIME');
-  Last;
-  aLastSync := SyncTime.AsDateTime;
-  debugln('Sync started, '+DateTimeToStr(aLastSync)+' last sync, Filter:'+aSyncFilter);
-  //Sync internal items that are newer than last sync out
-  aInternal.First;
-  while not aInternal.EOF do
+  //First Step, of sync
+  if not Notify then
     begin
-      DoSync := True;
-      //check if newer version of row is in aExternal
-      aTime := nil;
-      aID := nil;
+      Result := TJSONArray.Create;
+      //Find Last Sync Time
+      aSyncFilter := TBaseDBModule(DataModule).QuoteField('SYNCTYPE')+'='+TBaseDBModule(DataModule).QuoteValue(SyncType)+' AND '+TBaseDBModule(DataModule).QuoteField('USER_ID')+'='+TBaseDBModule(DataModule).QuoteValue(TBaseDBModule(DataModule).Users.ID.AsString)+' AND '+TBaseDBModule(DataModule).QuoteField('SYNCTABLE')+'='+TBaseDBModule(DataModule).QuoteValue(aInternal.TableName);
+      Filter(aSyncFilter,0,'SYNC_TIME');
+      Last;
+      aLastSync := SyncTime.AsDateTime;
+      debugln('Sync started, '+DateTimeToStr(aLastSync)+' last sync, Filter:'+aSyncFilter);
+      //Sync internal items that are newer than last sync out
+      aInternal.First;
+      while not aInternal.EOF do
+        begin
+          DoSync := True;
+          //check if newer version of row is in aExternal
+          aTime := nil;
+          aID := nil;
+          for i := 0 to aExternal.Count-1 do
+            begin
+              aObj := aExternal.Items[i] as TJSONObject;
+              aID := GetField(aObj,'sql_id');
+              aTime := GetField(aObj,'timestampd');
+              if not Assigned(aTime) then
+                aTime := GetField(aObj,'timestamp');
+              if Assigned(aID) and Assigned(aTime)
+              and (not aInternal.Id.IsNull)
+              and (aID.AsString=IntToStr(Int64(aInternal.Id.AsVariant)))
+              and (DecodeRfcDateTime(aTime.AsString)>aInternal.TimeStamp.AsDateTime)
+              then
+                DoSync := False;
+            end;
+          if DoSync then
+            begin
+              SelectByReference(aInternal.Id.AsVariant);
+              Open;
+              if Count = 0 then
+                Insert
+              else Edit;
+              DoSync := (aInternal.TimeStamp.AsDateTime>SyncTime.AsDateTime) or (State=dsInsert); //sync only when Chnged ot New
+              if DoSync then
+                begin
+                  VJSON := TJSONObject.Create;
+                  FieldsToJSON(aInternal.DataSet.Fields, VJSON, True);
+                  if RemoteID.AsString <> '' then
+                    VJSON.Add('external_id',RemoteID.AsString)
+                  else if State=dsInsert then
+                    Cancel;  //wir warten bis der 2. sync aufruf kommt und erstellen dann unseren syncitem
+                  Result.Add(VJSON);
+                end;
+            end;
+          aInternal.Next;
+        end;
+      //Sync external Items that are newer than internal in
       for i := 0 to aExternal.Count-1 do
         begin
           aObj := aExternal.Items[i] as TJSONObject;
-          aID := GetField(aObj,'sql_id');
+          aID := GetField(aObj,'external_id');
           aTime := GetField(aObj,'timestampd');
           if not Assigned(aTime) then
             aTime := GetField(aObj,'timestamp');
-          if Assigned(aID) and Assigned(aTime)
-          and (not aInternal.Id.IsNull)
-          and (aID.AsString=IntToStr(Int64(aInternal.Id.AsVariant)))
-          and (DecodeRfcDateTime(aTime.AsString)>aInternal.TimeStamp.AsDateTime)
-          then
-            DoSync := False;
-        end;
-      if DoSync then
-        begin
-          SelectByReference(aInternal.Id.AsVariant);
-          Open;
-          if Count = 0 then
-            Insert
-          else Edit;
-          DoSync := (aInternal.TimeStamp.AsDateTime>SyncTime.AsDateTime) or (State=dsInsert); //sync only when Chnged ot New
-          if DoSync then
+          tmp := aTime.AsString;
+          aSyncTime :=  DecodeRfcDateTime(tmp);
+          aLastSyncedItemTime := SyncTime.AsDateTime;
+          tmp := DateTimeToStr(aSyncTime);
+          tmp1 := DateTimeToStr(aLastSyncedItemTime);
+          if Assigned(aID) and Assigned(aTime) then
             begin
-              VJSON := TJSONObject.Create;
-              FieldsToJSON(aInternal.DataSet.Fields, VJSON, True);
-              if RemoteID.AsString <> '' then
-                VJSON.Add('external_id',RemoteID.AsString)
-              else if State=dsInsert then
-                Cancel;  //wir warten bis der 2. sync aufruf kommt und erstellen dann unseren syncitem
-              Result.Add(VJSON);
-              if CanEdit then
+              //Get our Sync Item or insert one
+              SelectByRemoteReference(aID.AsString);
+              Open;
+              if Count = 0 then
                 begin
-                  if Supports(aInternal, IBaseHistory, Hist) then
+                  aSQLID := GetField(aObj,'sql_id');
+                  if Assigned(aSQLID) then
                     begin
-                      if State=dsInsert then
-                        begin
-                          Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,[strSyncNewRecord]));
-                          debugln(aInternal.Id.AsString+':'+Format(strSynchedOut,[strSyncNewRecord]));
-                        end
-                      else if (aInternal.TimeStamp.AsDateTime>SyncTime.AsDateTime) then
-                        begin
-                          Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,['Internal '+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
-                          debugln(aInternal.Id.AsString+':'+Format(strSynchedOut,['Internal '+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
-                        end
-                      else
-                        Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                      SelectByReference(aSQLID.Value);
+                      Open;
+                      if Count = 0 then Insert
+                      else Edit;
+                      LocalID.AsVariant:=aSQLID.Value;
+                      if State = dsEdit then
+                        Post;
+                    end
+                  else
+                    Insert;
+                end
+              else Edit;
+              DoSync := (aSyncTime>aLastSyncedItemTime) or (State=dsInsert); //sync only when Chnged ot New
+              if DoSync then
+                begin
+                  aInternal.Select(LocalID.AsVariant);
+                  aInternal.Open;
+                  if aInternal.Count=0 then
+                    aInternal.Insert
+                  else aInternal.Edit;
+                  if JSONToFields(aObj,aInternal.DataSet.Fields,True) then
+                    begin
+                      try
+                        aInternal.Post;
+                        if Supports(aInternal, IBaseHistory, Hist) then
+                          begin
+                            if aInternal.State=dsInsert then
+                              begin //neuer externer Datensatz
+                                Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,[strSyncNewRecord]));
+                                debugln(aID.AsString+':'+Format(strSynchedIn,[strSyncNewRecord]));
+                              end
+                            else if (aSyncTime>SyncTime.AsDateTime) then
+                              begin
+                                if SyncTime.AsDateTime>0 then //geänderter Datensatz
+                                  begin
+                                    Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,['Remote '+DateTimeToStr(RoundToSecond(aSyncTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                                    debugln(aID.AsString+':'+Format(strSynchedIn,['Remote '+DateTimeToStr(RoundToSecond(aSyncTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                                  end
+                                else //Neuer Datensatz der ausgehend synchronisiert wurde und nun eine external_id bekommen hat
+                                  begin
+                                    Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,[strSyncNewRecord]));
+                                    debugln(aID.AsString+':'+Format(strSynchedOut,[strSyncNewRecord]));
+                                  end;
+                              end
+                            else
+                              Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                          end;
+                      except
+                        FieldByName('ERROR').AsString:='Y';
+                      end;
                     end;
-                  LocalID.AsVariant:=aInternal.Id.AsVariant;
-                  Typ.AsString:=SyncType;
+                  if LocalID.IsNull then
+                    LocalID.AsVariant:=aInternal.Id.AsVariant;
+                  if LocalID.AsString <> '' then
+                    begin
+                      if aObj.IndexOfName('sql_id')>-1 then
+                        aObj.Elements['sql_id'].AsString:=LocalID.AsString
+                      else
+                        aObj.Add('sql_id',LocalID.AsString);
+                    end;
+                  if Assigned(aTime) then
+                    FieldByName('REMOTE_TIME').AsDateTime:=DecodeRfcDateTime(aTime.AsString);
                   if FieldByName('SYNCTABLE').IsNull then
                     FieldByName('SYNCTABLE').AsString:=aInternal.TableName;
                   if FieldByName('USER_ID').IsNull then
                     FieldByName('USER_ID').AsString:=TBaseDBModule(DataModule).Users.ID.AsString;
-                  SyncTime.AsDateTime:=Now();
-                  Post;
+                  RemoteID.AsVariant:=aID.AsString;
+                  Typ.AsString:=SyncType;
+                  if Canedit then
+                    begin
+                      SyncTime.AsDateTime:=Now();
+                      Post;
+                    end;
                 end;
             end;
         end;
-      aInternal.Next;
-    end;
-  //Sync external Items that are newer than internal in
-  for i := 0 to aExternal.Count-1 do
+    end
+  else
+  //Second Step, of sync Notify about new ID´s and successful sync
     begin
-      aObj := aExternal.Items[i] as TJSONObject;
-      aID := GetField(aObj,'external_id');
-      aTime := GetField(aObj,'timestampd');
-      if not Assigned(aTime) then
-        aTime := GetField(aObj,'timestamp');
-      tmp := aTime.AsString;
-      aSyncTime :=  DecodeRfcDateTime(tmp);
-      aLastSyncedItemTime := SyncTime.AsDateTime;
-      tmp := DateTimeToStr(aSyncTime);
-      tmp1 := DateTimeToStr(aLastSyncedItemTime);
-      if Assigned(aID) and Assigned(aTime) then
+      for i := 0 to aExternal.Count-1 do
         begin
-          //Get our Sync Item or insert one
-          SelectByRemoteReference(aID.AsString);
-          Open;
-          if Count = 0 then
+          aObj := aExternal.Items[i] as TJSONObject;
+          aID := GetField(aObj,'external_id');
+          aTime := GetField(aObj,'timestampd');
+          if not Assigned(aTime) then
+            aTime := GetField(aObj,'timestamp');
+          tmp := aTime.AsString;
+          aSyncTime :=  DecodeRfcDateTime(tmp);
+          aLastSyncedItemTime := SyncTime.AsDateTime;
+          tmp := DateTimeToStr(aSyncTime);
+          tmp1 := DateTimeToStr(aLastSyncedItemTime);
+          if Assigned(aID) and Assigned(aTime) then
             begin
-              aSQLID := GetField(aObj,'sql_id');
-              if Assigned(aSQLID) then
+              //Get our Sync Item or insert one
+              SelectByRemoteReference(aID.AsString);
+              Open;
+              if Count = 0 then
                 begin
-                  SelectByReference(aSQLID.Value);
-                  Open;
-                  if Count = 0 then Insert
-                  else Edit;
-                  LocalID.AsVariant:=aSQLID.Value;
-                  if State = dsEdit then
-                    Post;
+                  aSQLID := GetField(aObj,'sql_id');
+                  if Assigned(aSQLID) then
+                    begin
+                      SelectByReference(aSQLID.Value);
+                      Open;
+                      if Count = 0 then Insert
+                      else Edit;
+                      LocalID.AsVariant:=aSQLID.Value;
+                      if State = dsEdit then
+                        Post;
+                    end
+                  else
+                    Insert;
                 end
-              else
-                Insert;
-            end
-          else Edit;
-          DoSync := (aSyncTime>aLastSyncedItemTime) or (State=dsInsert); //sync only when Chnged ot New
-          if DoSync then
-            begin
+              else Edit;
               aInternal.Select(LocalID.AsVariant);
               aInternal.Open;
-              if aInternal.Count=0 then
-                aInternal.Insert
-              else aInternal.Edit;
-              if JSONToFields(aObj,aInternal.DataSet.Fields,True) then
+              if aInternal.Count>0 then
                 begin
-                  try
-                    aInternal.Post;
-                    if Supports(aInternal, IBaseHistory, Hist) then
-                      begin
-                        if aInternal.State=dsInsert then
-                          begin //neuer externer Datensatz
-                            Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,[strSyncNewRecord]));
-                            debugln(aID.AsString+':'+Format(strSynchedIn,[strSyncNewRecord]));
-                          end
-                        else if (aSyncTime>SyncTime.AsDateTime) then
-                          begin
-                            if SyncTime.AsDateTime>0 then //geänderter Datensatz
-                              begin
-                                Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,['Remote '+DateTimeToStr(RoundToSecond(aSyncTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
-                                debugln(aID.AsString+':'+Format(strSynchedIn,['Remote '+DateTimeToStr(RoundToSecond(aSyncTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
-                              end
-                            else //Neuer Datensatz der ausgehend synchronisiert wurde und nun eine external_id bekommen hat
-                              begin
-                                Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,[strSyncNewRecord]));
-                                debugln(aID.AsString+':'+Format(strSynchedOut,[strSyncNewRecord]));
-                              end;
-                          end
-                        else
-                          Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
-                      end;
-                  except
-                    FieldByName('ERROR').AsString:='Y';
-                  end;
-                end;
-              if LocalID.IsNull then
-                LocalID.AsVariant:=aInternal.Id.AsVariant;
-              if LocalID.AsString <> '' then
-                begin
-                  if aObj.IndexOfName('sql_id')>-1 then
-                    aObj.Elements['sql_id'].AsString:=LocalID.AsString
-                  else
-                    aObj.Add('sql_id',LocalID.AsString);
-                end;
-              if Assigned(aTime) then
-                FieldByName('REMOTE_TIME').AsDateTime:=DecodeRfcDateTime(aTime.AsString);
-              if FieldByName('SYNCTABLE').IsNull then
-                FieldByName('SYNCTABLE').AsString:=aInternal.TableName;
-              if FieldByName('USER_ID').IsNull then
-                FieldByName('USER_ID').AsString:=TBaseDBModule(DataModule).Users.ID.AsString;
-              RemoteID.AsVariant:=aID.AsString;
-              Typ.AsString:=SyncType;
-              if Canedit then
-                begin
-                  SyncTime.AsDateTime:=Now();
-                  Post;
+                  if CanEdit then
+                    begin
+                      if Supports(aInternal, IBaseHistory, Hist) then
+                        begin
+                          if State=dsInsert then
+                            begin
+                              Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,[strSyncNewRecord]));
+                              debugln(aInternal.Id.AsString+':'+Format(strSynchedOut,[strSyncNewRecord]));
+                            end
+                          else if (aInternal.TimeStamp.AsDateTime>SyncTime.AsDateTime) then
+                            begin
+                              Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,['Internal '+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                              debugln(aInternal.Id.AsString+':'+Format(strSynchedOut,['Internal '+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                            end
+                          else
+                            Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                        end;
+                      LocalID.AsVariant:=aInternal.Id.AsVariant;
+                      Typ.AsString:=SyncType;
+                      if FieldByName('SYNCTABLE').IsNull then
+                        FieldByName('SYNCTABLE').AsString:=aInternal.TableName;
+                      if FieldByName('USER_ID').IsNull then
+                        FieldByName('USER_ID').AsString:=TBaseDBModule(DataModule).Users.ID.AsString;
+                      SyncTime.AsDateTime:=Now();
+                      Post;
+                    end;
                 end;
             end;
         end;
