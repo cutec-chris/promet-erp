@@ -1971,7 +1971,9 @@ end;
 }
 function TZAbstractRODataset.GetMasterDataSource: TDataSource;
 begin
-  Result := MasterLink.DataSource;
+  if Assigned(MasterLink) then
+    Result := MasterLink.DataSource
+  else Result:=nil;
 end;
 
 {**

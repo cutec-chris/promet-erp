@@ -143,6 +143,7 @@ var
       cmd := cmd+' '+{$IFNDEF WINDOWS}'"'+{$ENDIF}'--user='+{$IFDEF WINDOWS}'"'+{$ENDIF}Data.Users.FieldByName('NAME').AsString+'"';
   end;
 begin
+  if not Assigned(Data) then exit;
   if not Data.Ping(Data.MainConnection) then exit;
   ProgTimer.Enabled:=False;
   try

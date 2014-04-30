@@ -944,8 +944,9 @@ procedure TfmTimeline.fTimelinegetRowHeight(Sender: TObject; aCol: TColumn;
   aRow: Integer; var aHeight: Integer; var aWidth: Integer);
 var
   aObj: TObject;
+  aFactor: Extended;
 begin
-  aHeight := aHeight+3;
+  aHeight := aHeight+5;
   aObj := fTimeline.gList.Objects[aCol.Index+1,aRow];
   if Assigned(aObj) then
     begin
@@ -953,9 +954,11 @@ begin
       and Assigned(TMGridObject(aObj).Image)
       and (TMGridObject(aObj).Image.Width>0) then
         begin
-          aWidth := aWidth-TMGridObject(aObj).Image.Width div 2;
-          if aHeight < TMGridObject(aObj).Image.Height then
-            aHeight:=TMGridObject(aObj).Image.Height div 2;
+          if TMGridObject(aObj).Image.Height>TMGridObject(aObj).Image.Width then
+            aFactor := TMGridObject(aObj).Image.Height/TMGridObject(aObj).Image.Width
+          else aFactor := TMGridObject(aObj).Image.Width/TMGridObject(aObj).Image.Height;
+          aWidth := aWidth-DrawImageWidth;
+          aHeight:=round((DrawImageWidth/aFactor));
         end;
     end;
 end;
@@ -1302,7 +1305,11 @@ begin
     if fTimeline.dgFake.Columns[i].FieldName='ACTION' then
       begin
         if Assigned(fTimeline.gList.Objects[i+1,fTimeline.gList.Row]) then
-          TMGridObject(fTimeline.gList.Objects[i+1,fTimeline.gList.Row]).Bold:=False;
+          begin
+            TMGridObject(fTimeline.gList.Objects[i+1,fTimeline.gList.Row]).Bold:=False;
+            if Assigned(fTimeline.gList.Objects[i+1,0]) then
+              TRowObject(fTimeline.gList.Objects[i+1,0]).RefreshHeight:=True;
+          end;
       end;
   fTimeline.gList.Invalidate;
 end;

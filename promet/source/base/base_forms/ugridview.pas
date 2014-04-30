@@ -1140,6 +1140,7 @@ begin
               if Assigned(gList.Objects[0,i]) and TRowObject(gList.Objects[0,i]).RefreshHeight then
                 begin
                   TRowObject(gList.Objects[0,i]).Extends := GetRowHeight(i);
+                  debugln('Refreshing Row '+IntToStr(i)+ 'Height='+IntToStr(TRowObject(gList.Objects[0,i]).Extends.Y));
                   if TRowObject(gList.Objects[0,i]).Extends.Y <> RowHeights[i] then
                     begin
                       RowHeights[i] := TRowObject(gList.Objects[0,i]).Extends.Y;
@@ -2040,7 +2041,7 @@ begin
                 if Assigned(FGetRowHeight) then
                   begin
                     FGetRowHeight(Self,dgFake.Columns[i],aRow,Result.Y,TextWidth);
-                    //DontCall := True;
+                    DontCall := True;
                   end;
                 if gList.Canvas.HandleAllocated then
                   begin

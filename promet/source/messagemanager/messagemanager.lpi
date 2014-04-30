@@ -130,7 +130,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="12">
+    <Exceptions Count="14">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -167,6 +167,12 @@
       <Item12>
         <Name Value="EGridException"/>
       </Item12>
+      <Item13>
+        <Name Value="RunError(216)"/>
+      </Item13>
+      <Item14>
+        <Name Value="EAccessViolation"/>
+      </Item14>
     </Exceptions>
   </Debugging>
 </CONFIG>

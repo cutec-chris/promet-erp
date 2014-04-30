@@ -2318,9 +2318,14 @@ begin
 end;
 destructor TBaseDBDataset.Destroy;
 begin
-  TBaseDBModule(DataModule).DestroyDataSet(FDataSet);
   if not TBaseDBModule(DataModule).IgnoreOpenRequests then
-    inherited Destroy;
+    begin
+      try
+        TBaseDBModule(DataModule).DestroyDataSet(FDataSet);
+      except
+      end;
+      inherited Destroy;
+    end;
 end;
 procedure TBaseDBDataset.Open;
 var
@@ -2680,4 +2685,4 @@ begin
 end;
 initialization
 end.
-
+

@@ -1411,12 +1411,12 @@ end;
 procedure TZeosDBDM.DestroyDataSet(DataSet: TDataSet);
 begin
   try
-  if Assigned(DataSet) and Assigned(TZeosDBDataSet(DataSet).MasterSource) then
-    begin
-      TZeosDBDataSet(DataSet).MasterSource.DataSet.DataSource.Free;
-      TZeosDBDataSet(DataSet).MasterSource := nil;
-      TZeosDBDataSet(DataSet).DataSource := nil;
-    end;
+    if Assigned(DataSet) and Assigned(TZeosDBDataSet(DataSet).MasterSource) then
+      begin
+        TZeosDBDataSet(DataSet).MasterSource.DataSet.DataSource.Free;
+        TZeosDBDataSet(DataSet).MasterSource := nil;
+        TZeosDBDataSet(DataSet).DataSource := nil;
+      end;
   except
   end;
 end;
