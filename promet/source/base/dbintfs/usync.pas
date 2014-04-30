@@ -468,11 +468,9 @@ begin
                 begin
                   SelectByReference(aSQLID.Value);
                   Open;
-                  if Count = 0 then
-                    begin
-                      Insert;
-                      LocalID.AsVariant:=aSQLID.Value;
-                    end;
+                  if Count = 0 then Insert
+                  else Edit;
+                  LocalID.AsVariant:=aSQLID.Value;
                 end
               else
                 Insert;
@@ -492,7 +490,7 @@ begin
                     aInternal.Post;
                     if Supports(aInternal, IBaseHistory, Hist) then
                       begin
-                        if State=dsInsert then
+                        if aInternal.State=dsInsert then
                           begin
                             Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,[strSyncNewRecord]));
                             debugln(aID.AsString+':'+Format(strSynchedIn,[strSyncNewRecord]));
@@ -526,6 +524,9 @@ begin
                 FieldByName('USER_ID').AsString:=TBaseDBModule(DataModule).Users.ID.AsString;
               RemoteID.AsVariant:=aID.AsString;
               Typ.AsString:=SyncType;
+            end;
+          if Canedit then
+            begin
               SyncTime.AsDateTime:=Now();
               Post;
             end;
