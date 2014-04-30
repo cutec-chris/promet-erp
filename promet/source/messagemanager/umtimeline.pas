@@ -422,20 +422,24 @@ begin
                 begin
                   fVisualControls.Images.Draw(TStringGrid(Sender).Canvas,aRect.Left-16,aRect.Top,70);
                   bRect.Right:=bRect.Right-DrawImageWidth;
-                  if Assigned(TMGridObject(aObj).Image) and (TMGridObject(aObj).Image.Height>0) and (TMGridObject(aObj).Image.Width>0) then
-                    begin
-                      cRect := Rect(bRect.Right,bRect.Top,aRect.Right,0);
-                      if TMGridObject(aObj).Image.Height>TMGridObject(aObj).Image.Width then
-                        aFactor := TMGridObject(aObj).Image.Height/TMGridObject(aObj).Image.Width
-                      else aFactor := TMGridObject(aObj).Image.Width/TMGridObject(aObj).Image.Height;
-                      aWidth := DrawImageWidth;
-                      if TMGridObject(aObj).Image.Width < DrawImageWidth then
-                        aWidth := TMGridObject(aObj).Image.Width;
-                      if TMGridObject(aObj).Image.Width>TMGridObject(aObj).Image.Height then
-                        cRect.Bottom:=round(cRect.Top+(aWidth/aFactor))
-                      else cRect.Bottom:=round(cRect.Top+(aWidth * aFactor));
-                      TStringGrid(Sender).Canvas.StretchDraw(cRect,TMGridObject(aObj).Image);
-                    end;
+                  try
+                    if Assigned(TMGridObject(aObj).Image) and (TMGridObject(aObj).Image.Height>0) and (TMGridObject(aObj).Image.Width>0) then
+                      begin
+                        cRect := Rect(bRect.Right,bRect.Top,aRect.Right,0);
+                        if TMGridObject(aObj).Image.Height>TMGridObject(aObj).Image.Width then
+                          aFactor := TMGridObject(aObj).Image.Height/TMGridObject(aObj).Image.Width
+                        else aFactor := TMGridObject(aObj).Image.Width/TMGridObject(aObj).Image.Height;
+                        aWidth := DrawImageWidth;
+                        if TMGridObject(aObj).Image.Width < DrawImageWidth then
+                          aWidth := TMGridObject(aObj).Image.Width;
+                        if TMGridObject(aObj).Image.Width>TMGridObject(aObj).Image.Height then
+                          cRect.Bottom:=round(cRect.Top+(aWidth/aFactor))
+                        else cRect.Bottom:=round(cRect.Top+(aWidth * aFactor));
+                        TStringGrid(Sender).Canvas.StretchDraw(cRect,TMGridObject(aObj).Image);
+                      end;
+                  except
+                    TMGridObject(aObj).Image := nil;
+                  end;
                 end;
               if TMGridObject(aObj).Caption <> '' then
                 brect.Top := bRect.Top+TStringGrid(Sender).Canvas.TextExtent('A').cy;

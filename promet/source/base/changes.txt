@@ -1,5 +1,6 @@
 ﻿Build 334
       - Mandantoptionen:IBAN/BIC Felder umbenannt, vergrößert
+      - Nachrichtenzentrale:Beitragshöhenberechnung korrigiert
 Build 333
       - SMTP Sender:erzeugt Verlaufseintrage an der Nachricht
       - Nachrichtenzentrale:Zeiterfassung auf Hinweisen zu Aufgaben zu dieser Aufgabe startbar

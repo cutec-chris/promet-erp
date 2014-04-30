@@ -85,20 +85,24 @@ var
 begin
   Result := TBitmap.Create;
   try
-    aFilename := GetThumbNailPath(aDocument,aWidth,aHeight);
-    if aFilename='' then exit;
-    aJpg := TJPEGImage.Create;
     try
-      aJpg.LoadFromFile(aFilename);
-    except
-      begin
-        aJpg.Free;
-        exit;
+      aFilename := GetThumbNailPath(aDocument,aWidth,aHeight);
+      if aFilename='' then exit;
+      aJpg := TJPEGImage.Create;
+      try
+        aJpg.LoadFromFile(aFilename);
+      except
+        begin
+          aJpg.Free;
+          exit;
+        end;
       end;
+      Result.Width:=aJpg.Width;
+      Result.Height:=aJpg.Height;
+      Result.Canvas.Draw(0,0,aJpg);
+    except
+      FreeAndNil(Result);
     end;
-    Result.Width:=aJpg.Width;
-    Result.Height:=aJpg.Height;
-    Result.Canvas.Draw(0,0,aJpg);
   finally
     aJpg.Free;
   end;
