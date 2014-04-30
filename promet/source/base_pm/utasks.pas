@@ -942,7 +942,7 @@ begin
         aProject := TProject.Create(nil,Data);
         aProject.Select(DataSet.FieldByName('PROJECTID').AsVariant);
         aProject.Open;
-        if IPC.ServerRunning then
+        if IPC.ServerRunning and (not Assigned(OnStartTime)) then
           begin
             IPC.Connect;
             tmp := 'Time.enter('+Data.BuildLink(aProject.DataSet)+';'+Data.BuildLink(DataSet.DataSet)+';)';
