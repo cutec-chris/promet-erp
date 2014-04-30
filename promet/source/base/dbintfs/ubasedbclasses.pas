@@ -71,6 +71,7 @@ type
     procedure DefineUserFields(aDataSet: TDataSet);
     procedure FillDefaults(aDataSet : TDataSet);virtual;
     procedure Select(aID : Variant);virtual;
+    procedure SelectChangedSince(aDate : TDateTime);virtual;
     procedure SetDisplayLabelName(aDataSet: TDataSet;aField, aName: string);
     procedure SetDisplayLabels(aDataSet : TDataSet);virtual;
     property Id : TField read GetID;
@@ -876,13 +877,27 @@ begin
         or (aID = Null)  then
           begin
             with DataSet as IBaseManageDb do
-              Filter := Data.QuoteField(TableName)+'.'+Data.QuoteField(aField)+'='+Data.QuoteValue('0');
+              Filter := TBaseDBModule(DataModule).QuoteField(TableName)+'.'+Data.QuoteField(aField)+'='+Data.QuoteValue('0');
           end
         else
           begin
             with DataSet as IBaseManageDb do
-              Filter := Data.QuoteField(TableName)+'.'+Data.QuoteField(aField)+'='+Data.QuoteValue(Format('%d',[Int64(aID)]));
+              Filter := TBaseDBModule(DataModule).QuoteField(TableName)+'.'+Data.QuoteField(aField)+'='+Data.QuoteValue(Format('%d',[Int64(aID)]));
           end;
+      end;
+end;
+
+procedure TBaseDBDataset.SelectChangedSince(aDate: TDateTime);
+var
+  aFilter: String;
+begin
+  with BaseApplication as IBaseDBInterface do
+    with DataSet as IBaseDBFilter do
+      begin
+        aFilter := '('+TBaseDBModule(DataModule).QuoteField('TIMESTAMPD')+'>';
+        aFilter := aFilter+TBaseDBModule(DataModule).DateTimeToFilter(aDate);
+        aFilter := aFilter+')';
+        Filter := aFilter;
       end;
 end;
 
@@ -2665,4 +2680,4 @@ begin
 end;
 initialization
 end.
-
+

@@ -414,7 +414,7 @@ begin
               if RemoteID.AsString <> '' then
                 VJSON.Add('external_id',RemoteID.AsString)
               else if State=dsInsert then
-                Cancel;
+                Cancel;  //wir warten bis der 2. sync aufruf kommt und erstellen dann unseren syncitem
               Result.Add(VJSON);
               if CanEdit then
                 begin
@@ -491,14 +491,22 @@ begin
                     if Supports(aInternal, IBaseHistory, Hist) then
                       begin
                         if aInternal.State=dsInsert then
-                          begin
+                          begin //neuer externer Datensatz
                             Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,[strSyncNewRecord]));
                             debugln(aID.AsString+':'+Format(strSynchedIn,[strSyncNewRecord]));
                           end
                         else if (aSyncTime>SyncTime.AsDateTime) then
                           begin
-                            Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,['Remote '+DateTimeToStr(RoundToSecond(aSyncTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
-                            debugln(aID.AsString+':'+Format(strSynchedIn,['Remote '+DateTimeToStr(RoundToSecond(aSyncTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                            if Assigned(aSQLID) then //Neuer Datensatz der ausgehend synchronisiert wurde und nun eine external_id bekommen hat
+                              begin
+                                Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,[strSyncNewRecord]));
+                                debugln(aID.AsString+':'+Format(strSynchedOut,[strSyncNewRecord]));
+                              end
+                            else //geänderter Datensatz
+                              begin
+                                Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,['Remote '+DateTimeToStr(RoundToSecond(aSyncTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                                debugln(aID.AsString+':'+Format(strSynchedIn,['Remote '+DateTimeToStr(RoundToSecond(aSyncTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                              end;
                           end
                         else
                           Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));

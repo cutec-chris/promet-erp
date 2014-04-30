@@ -53,6 +53,7 @@ type
     procedure SelectActiveByUser(AccountNo : string);
     procedure SelectActive;
     procedure SelectByUser(AccountNo : string);
+    procedure SelectByUserChangedSince(AccountNo : string;aDate : TdateTime);
     procedure SelectByDept(aDept : Variant);
     procedure SelectByParent(aParent : Variant);
     procedure SelectUncompletedByParent(aParent : Variant);
@@ -936,6 +937,16 @@ begin
   with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
     begin
       Filter := '('+QuoteField('USER')+'='+QuoteValue(AccountNo)+') or ('+QuoteField('OWNER')+'='+QuoteValue(AccountNo)+')';
+    end;
+end;
+
+procedure TTaskList.SelectByUserChangedSince(AccountNo: string; aDate: TdateTime
+  );
+begin
+  SelectChangedSince(aDate);
+  with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
+    begin
+      Filter := Filter+' AND (('+QuoteField('USER')+'='+QuoteValue(AccountNo)+') or ('+QuoteField('OWNER')+'='+QuoteValue(AccountNo)+'))';
     end;
 end;
 

@@ -256,6 +256,7 @@ var
   aField: TJSONData;
   aPrivate: Boolean;
   bFolder: TGenericFolder;
+  aLastSync: TDateTime;
   function RoundToSecond(aDate : TDateTime) : TDateTime;
   begin
     Result := Round(aDate * SecsPerDay) / SecsPerDay;
@@ -926,6 +927,7 @@ begin
         WritelnMessage('Syncing Tasks');
         //Aufgaben syncronisieren
         aFolder := TGenericFolder.Create(aConnection,PR_IPM_TASK_ENTRYID);
+        //Create Item List
         aJsonList := TJSONArray.Create;
         try
           aItem := aFolder.GetFirst;
@@ -973,11 +975,14 @@ begin
              end;
 
           aTasks := TTaskList.Create(nil,Data);
-          aTasks.SelectActiveByUser(Data.Users.Accountno.AsString);
+          aLastSync := SyncItems.LastSync(SyncType);
+          if aLastSync>0 then
+            aTasks.SelectByUserChangedSince(Data.Users.Accountno.AsString,aLastSync)
+          else
+            aTasks.SelectActiveByUser(Data.Users.Accountno.AsString);
           aTasks.Open;
-
+          //Sync Item List
           aJsonOutList := SyncItems.SyncDataSet(aTasks,aJsonList,SyncType);
-
           aJsonList.Free;
           aItem := aFolder.GetFirst;
           bItem := nil;
@@ -1066,8 +1071,9 @@ begin
 
                 end;
             end;
-          //tell System the new Entryid´s
-          SyncItems.SyncDataSet(aTasks,aJsonOutList,SyncType);
+          //tell System the new external_id´s
+          if aJsonOutList.Count>0 then
+            SyncItems.SyncDataSet(aTasks,aJsonOutList,SyncType);
           aJsonOutList.Free;
         finally
           aTasks.Free;
