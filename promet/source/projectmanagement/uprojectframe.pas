@@ -265,16 +265,16 @@ var
 begin
   if Uppercase(ParName) = 'USER' then
     begin
-      aKey := StringReplace(TMeetings(FDataSet).Entrys.FieldByName('USER').AsString,'=','',[rfReplaceAll]);
+      aKey := StringReplace(TProject(FDataSet).Tasks.FieldByName('USER').AsString,'=','',[rfReplaceAll]);
       if trim(FOwners.Values[aKey]) = '' then
-        FOwners.Values[aKey] := TMeetings(FDataSet).Entrys.UserName;
+        FOwners.Values[aKey] := TProject(FDataSet).Tasks.UserName;
       ParValue := FOwners.Values[aKey]
     end
   else if Uppercase(ParName) = 'OWNER' then
     begin
-      aKey := StringReplace(TMeetings(FDataSet).Entrys.FieldByName('OWNER').AsString,'=','',[rfReplaceAll]);
+      aKey := StringReplace(TProject(FDataSet).Tasks.FieldByName('OWNER').AsString,'=','',[rfReplaceAll]);
       if trim(FOwners.Values[aKey]) = '' then
-        FOwners.Values[aKey] := TMeetings(FDataSet).Entrys.OwnerName;
+        FOwners.Values[aKey] := TProject(FDataSet).Tasks.OwnerName;
       ParValue := FOwners.Values[aKey]
     end;
 end;
