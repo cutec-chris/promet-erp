@@ -1,4 +1,6 @@
-﻿Build 334
+﻿Build 335
+      -
+Build 334
       - Mandantoptionen:IBAN/BIC Felder umbenannt, vergrößert
       - Nachrichtenzentrale:Beitragshöhenberechnung korrigiert
 Build 333

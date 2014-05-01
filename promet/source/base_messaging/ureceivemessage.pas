@@ -71,9 +71,9 @@ begin
   try
     CustomerCont := TPersonContactData.Create(nil,Data);
     if Data.IsSQLDb then
-      Data.SetFilter(CustomerCont,'UPPER("DATA")=UPPER('''+atmp+''')')
+      Data.SetFilter(CustomerCont,Data.ProcessTerm('UPPER("DATA")=UPPER('''+atmp+''')'))
     else
-      Data.SetFilter(CustomerCont,'"DATA"='''+atmp+'''');
+      Data.SetFilter(CustomerCont,Data.ProcessTerm('"DATA"='''+atmp+''''));
   except
   end;
   Customers := TPerson.Create(nil,Data);
