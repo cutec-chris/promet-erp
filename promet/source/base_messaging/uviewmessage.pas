@@ -382,12 +382,20 @@ begin
   inherited Create(false);
 end;
 procedure TLoadHTMLProcess.Execute;
+var
+  aBitmap : TBitmap;
 begin
   FHTML.OnGetImageX:=@FView.OnGetImage;
   try
+    aBitmap := TBitmap.Create;
     FHTML.LoadFromStream(ss);
+    aBitmap.Width:=100;
+    aBitmap.Height:=100;
+    FHTML.Render(aBitmap.Canvas,Rect(0,0,100,100),True,Point(0,10));
+    aBitmap.free;
     FDone := True;
   except
+    FreeAndNil(FHTML);
     FDone := False;
   end;
 end;

@@ -4,6 +4,7 @@
       - Auftrag:Neuer Button um Kontakt direkt aus Suche einzufügen
       - Listenantabs:Comboboxen werden automatisch ausgeklappt beim editieren
       - Positionen:Comboboxen werden automatisch ausgeklappt beim editieren
+      - Kontakt:Wildgards (*,?) werden nun in Mail Adressen akzeptiert so können z.b. alle Mails in einer Domain automatisch einem Kontakt zugeordnet werden ohne jede Adresse einzeln dem Kontakt zuordnen zu müssen
 Build 334
       - Mandantoptionen:IBAN/BIC Felder umbenannt, vergrößert
       - Nachrichtenzentrale:Beitragshöhenberechnung korrigiert
