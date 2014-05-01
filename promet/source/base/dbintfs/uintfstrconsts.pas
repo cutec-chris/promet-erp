@@ -26,6 +26,7 @@ uses
     {$ENDIF}
     LCLStrConsts;
 resourcestring
+  strSearchFromOrder            = 'Mit Öffnen wird der gewählte Eintrag in den Auftrag übernommen';
   strCombiteItems               = 'Sollen die Elemente "%s" und "%s" wirklich verschmolzen werden ?';
   strClipboard                  = 'Zwischenablage';
   strCategoryChanged            = 'Kategorie geändetr auf %s';
@@ -251,4 +252,4 @@ begin
   nav.Hints.Add(strRefresh);
 end;
 {$ENDIF}
-end.
+end.

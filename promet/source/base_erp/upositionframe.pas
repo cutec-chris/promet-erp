@@ -156,8 +156,6 @@ implementation
 uses uRowEditor, uSearch, uBaseDbInterface, uOrder, uDocumentFrame, uDocuments,
   uData,uMasterdata,uBaseVisualApplication,uMainTreeFrame;
 {$R *.lfm}
-resourcestring
-  strSearchFromOrder                       = 'Mit Öffnen wird der gewählte Eintrag in die Position übernommen';
 procedure TfPosition.FDataSourceStateChange(Sender: TObject);
 begin
   acDelPos.Enabled := acAddPos.Enabled and (FGridView.Count > 0);

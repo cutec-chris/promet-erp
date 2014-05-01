@@ -1,5 +1,9 @@
 ﻿Build 335
-      -
+      - Positionen:Artikel Suchen korrigiert
+      - Positionen:Neuer Button um Position direkt aus Artikelsuche einzufügen
+      - Auftrag:Neuer Button um Kontakt direkt aus Suche einzufügen
+      - Listenantabs:Comboboxen werden automatisch ausgeklappt beim editieren
+      - Positionen:Comboboxen werden automatisch ausgeklappt beim editieren
 Build 334
       - Mandantoptionen:IBAN/BIC Felder umbenannt, vergrößert
       - Nachrichtenzentrale:Beitragshöhenberechnung korrigiert

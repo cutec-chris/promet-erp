@@ -11,13 +11,13 @@ object fOrderAddress: TfOrderAddress
   DesignTop = 335
   object cbType: TComboBox
     Left = 28
-    Height = 21
+    Height = 28
     Top = 4
     Width = 198
     Align = alTop
     BorderSpacing.Left = 24
     BorderSpacing.Around = 4
-    ItemHeight = 13
+    ItemHeight = 0
     OnSelect = cbTypeSelect
     Style = csDropDownList
     TabOrder = 1
@@ -25,8 +25,8 @@ object fOrderAddress: TfOrderAddress
   end
   object mAddress: TMemo
     Left = 28
-    Height = 65
-    Top = 29
+    Height = 58
+    Top = 36
     Width = 198
     Align = alClient
     BorderSpacing.Left = 24
@@ -49,8 +49,8 @@ object fOrderAddress: TfOrderAddress
   end
   object bAddressDelete1: TSpeedButton
     Left = 2
-    Height = 22
-    Top = 53
+    Height = 23
+    Top = 72
     Width = 24
     Action = acDeleteAddress
     Glyph.Data = {
@@ -94,8 +94,8 @@ object fOrderAddress: TfOrderAddress
   end
   object bAdressNew2: TSpeedButton
     Left = 2
-    Height = 22
-    Top = 30
+    Height = 23
+    Top = 49
     Width = 24
     Action = acGotoAddress
     Glyph.Data = {
@@ -139,8 +139,8 @@ object fOrderAddress: TfOrderAddress
   end
   object bAdressNew1: TSpeedButton
     Left = 2
-    Height = 25
-    Top = 4
+    Height = 23
+    Top = 26
     Width = 24
     Action = acInsertAddress
     Glyph.Data = {
@@ -182,7 +182,52 @@ object fOrderAddress: TfOrderAddress
     Layout = blGlyphTop
     ShowCaption = False
   end
-  object Datasource: TDatasource
+  object bAdressNew3: TSpeedButton
+    Left = 2
+    Height = 23
+    Top = 4
+    Width = 24
+    Action = acSearchAddress
+    Glyph.Data = {
+      36040000424D3604000000000000360000002800000010000000100000000100
+      2000000000000004000064000000640000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000B75221FFA5421FFFAF4723FFAD4623FFAF4623FFA743
+      21FF9F3D1FFFB74F25FF00000000000000000000000000000000000000000000
+      0000257BCFFF866363FFBF6335FFFFBD63FFFFBD63FFFFBD63FFFFBD63FFFFBD
+      63FFFFBD63FFB54B25FF7B676FFF2F7FCEFF6FA7D7FF0000000000000000297F
+      D7FF86BFEFFF9F675AFFF7BF84FFFFAD5BFFFFAD5AFFFFA757FFFF9C53FFFFA7
+      57FFFF9F52FFFFAF7BFFA55E4AFF87BDEFFF2B77CEFF0000000000000000297F
+      CEFF7BB7EFFFB79E94FFFFB763FFFFB763FFFFB763FFFFAD5FFFFFA55BFFFF9E
+      53FFFF974EFFFF8D43FFBD8F86FF7FBDEFFF2977C7FF00000000000000000000
+      00008E5646FFFFCEAFFFFFD79CFFFFC76FFFFFBF6BFFFFBD67FFFFB55EFFFFAD
+      5BFFFFA556FFFFB77BFFFFAD84FF8C5242FF0000000000000000000000000000
+      000000000000C64E1FFFF7E7D6FFFFE7A5FFFFD673FFFFCF6BFFFFC663FFFFB7
+      5FFFFFC784FFF7D7C6FFC74B1FFF000000000000000000000000000000000000
+      00000000000000000000BD4A1CFFF7E7D6FF4E7BADFF4F7BADFF4F7BADFF4E7B
+      ADFFF7D6C7FFBF461CFF00000000000000000000000000000000000000000000
+      000000000000000000006B3D25FF356FA7FF9CCEFFFFAFD6F7FFAFD6F7FFA5CF
+      F7FF3577AFFF6B3F2DFF00000000000000000000000000000000000000000000
+      000000000000000000002B5B96FFA7CEEFFFAFCEEFFFA7D6F7FFADD6F7FFAFCE
+      EFFFA7CFEFFF2D639EFF00000000000000000000000000000000000000000000
+      000000000000000000001F5E9FFFDFEFF7FF97C7F7FF8EBFE7FF7FADD7FF8DB5
+      DFFFCFDFEFFF236BA7FF00000000000000000000000000000000000000000000
+      000000000000000000000C3F87FF7F97BDFF8EB7E7FF739CCEFF15426FFF1946
+      73FF23476BFF113B67FF00000000000000000000000000000000000000000000
+      000000000000000000000F4B97FF125A9FFF0F4A8EFF0F4B87FF114B87FF154E
+      85FF124377FF0F335EFF00000000000000000000000000000000000000000000
+      0000000000000000000000000000114E96FF125A9FFF125A9DFF115397FF0F4A
+      87FF0E3F73FF132F4BFF00000000000000000000000000000000000000000000
+      000000000000000000000000000000000000124A8DFF104B94FF0F4A8EFF1142
+      7FFF15335BFF0000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000
+    }
+    Layout = blGlyphTop
+    ShowCaption = False
+  end
+  object Datasource: TDataSource
     OnStateChange = DatasourceStateChange
     left = 40
     top = 56
@@ -193,17 +238,25 @@ object fOrderAddress: TfOrderAddress
     top = 56
     object acInsertAddress: TAction
       Caption = 'acInsertAddress'
+      Hint = 'Neunen Kontakt anlegen'#10'beim speichern im Kontakteditor wird dieser sofort in den Auftrag übernommen'
       ImageIndex = 73
       OnExecute = acInsertAddressExecute
     end
     object acDeleteAddress: TAction
       Caption = 'acDeleteAddress'
+      Hint = 'Adresse löschen'
       ImageIndex = 60
       OnExecute = acDeleteAddressExecute
     end
     object acGotoAddress: TAction
       Caption = 'acGotoAddress'
       OnExecute = acGotoAddressExecute
+    end
+    object acSearchAddress: TAction
+      Caption = 'acSerachAddress'
+      Hint = 'Adresse/Kontakt suchen und einfügen'
+      ImageIndex = 1
+      OnExecute = acSearchAddressExecute
     end
   end
   object SearchTimer: TTimer
