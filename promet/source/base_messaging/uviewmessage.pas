@@ -391,7 +391,7 @@ begin
     FHTML.LoadFromStream(ss);
     aBitmap.Width:=100;
     aBitmap.Height:=100;
-    FHTML.Render(aBitmap.Canvas,Rect(0,0,100,100),True,Point(0,10));
+    //FHTML.Render(aBitmap.Canvas,Rect(0,0,100,100),True,Point(0,10));
     aBitmap.free;
     FDone := True;
   except
