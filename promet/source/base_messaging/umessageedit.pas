@@ -821,6 +821,7 @@ begin
       inc(i);
   fRichEdit.AsText:=sl.Text;
   sl.Free;
+  FDataSet.FieldByName('PARENT').AsVariant:=AnswerMessage.Id.AsVariant;
   AddSignature;
   MarkReadWrite;
   pcTabs.AddTabClass(TfDocumentFrame,strAttatchments,@AddDocuments);
