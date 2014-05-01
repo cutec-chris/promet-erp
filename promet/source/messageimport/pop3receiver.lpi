@@ -52,7 +52,7 @@
         <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="121">
+    <Units Count="122">
       <Unit0>
         <Filename Value="pop3receiver.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -67,7 +67,7 @@
           <TopLine Value="1"/>
           <CursorPos X="25" Y="12"/>
         </ExtraEditor1>
-        <UsageCount Value="142"/>
+        <UsageCount Value="146"/>
         <Bookmarks Count="2">
           <Item0 X="1" Y="118" ID="0"/>
           <Item1 X="1" Y="96" ID="1"/>
@@ -677,20 +677,23 @@
       <Unit78>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="7"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="173"/>
-        <CursorPos X="15" Y="189"/>
+        <TopLine Value="1450"/>
+        <CursorPos X="40" Y="1455"/>
         <UsageCount Value="31"/>
         <Loaded Value="True"/>
       </Unit78>
       <Unit79>
         <Filename Value="..\base\dbintfs\umessages.pas"/>
         <UnitName Value="uMessages"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="71"/>
-        <CursorPos X="3" Y="88"/>
+        <TopLine Value="312"/>
+        <CursorPos X="1" Y="321"/>
         <UsageCount Value="46"/>
+        <Loaded Value="True"/>
       </Unit79>
       <Unit80>
         <Filename Value="..\components\zeos\src\dbc\ZDbcCache.pas"/>
@@ -741,9 +744,9 @@
         <UnitName Value="uDocuments"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="996"/>
+        <TopLine Value="882"/>
         <CursorPos X="1" Y="882"/>
-        <UsageCount Value="43"/>
+        <UsageCount Value="44"/>
         <Loaded Value="True"/>
       </Unit85>
       <Unit86>
@@ -811,21 +814,21 @@
       <Unit94>
         <Filename Value="..\base\dbintfs\uintfstrconsts.pas"/>
         <UnitName Value="uIntfStrConsts"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="100"/>
+        <TopLine Value="46"/>
         <CursorPos X="3" Y="117"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="17"/>
         <Loaded Value="True"/>
       </Unit94>
       <Unit95>
         <Filename Value="..\base\dbintfs\uperson.pas"/>
         <UnitName Value="uPerson"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="140"/>
         <CursorPos X="1" Y="155"/>
-        <UsageCount Value="26"/>
+        <UsageCount Value="27"/>
         <Loaded Value="True"/>
       </Unit95>
       <Unit96>
@@ -846,11 +849,11 @@
       <Unit98>
         <Filename Value="..\base_messaging\umimemessages.pas"/>
         <UnitName Value="uMimeMessages"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="13"/>
-        <CursorPos X="3" Y="30"/>
-        <UsageCount Value="19"/>
+        <TopLine Value="335"/>
+        <CursorPos X="1" Y="349"/>
+        <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit98>
       <Unit99>
@@ -956,11 +959,11 @@
       <Unit111>
         <Filename Value="..\base_messaging\mailchck.pas"/>
         <UnitName Value="mailchck"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="8"/>
         <CursorPos X="19" Y="23"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="17"/>
         <Loaded Value="True"/>
       </Unit111>
       <Unit112>
@@ -974,11 +977,11 @@
       <Unit113>
         <Filename Value="..\components\synapse\smtpsend.pas"/>
         <UnitName Value="smtpsend"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="458"/>
         <CursorPos X="1" Y="474"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="17"/>
         <Loaded Value="True"/>
       </Unit113>
       <Unit114>
@@ -1004,28 +1007,25 @@
         <WindowIndex Value="0"/>
         <TopLine Value="172"/>
         <CursorPos X="1" Y="181"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit116>
       <Unit117>
         <Filename Value="..\components\synapse\mimemess.pas"/>
         <UnitName Value="mimemess"/>
-        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="446"/>
-        <CursorPos X="1" Y="519"/>
-        <UsageCount Value="12"/>
-        <Loaded Value="True"/>
+        <TopLine Value="73"/>
+        <CursorPos X="14" Y="145"/>
+        <UsageCount Value="13"/>
       </Unit117>
       <Unit118>
         <Filename Value="..\base_messaging\ureceivemessage.pas"/>
         <UnitName Value="ureceivemessage"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="75"/>
-        <CursorPos X="19" Y="92"/>
-        <UsageCount Value="12"/>
+        <TopLine Value="227"/>
+        <CursorPos X="10" Y="239"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit118>
       <Unit119>
@@ -1039,134 +1039,140 @@
       <Unit120>
         <Filename Value="..\components\synapse\synautil.pas"/>
         <UnitName Value="synautil"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="683"/>
         <CursorPos X="1" Y="711"/>
-        <UsageCount Value="12"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="13"/>
       </Unit120>
+      <Unit121>
+        <Filename Value="..\components\synapse\ssl_openssl_lib.pas"/>
+        <UnitName Value="ssl_openssl_lib"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1181"/>
+        <CursorPos X="78" Y="1189"/>
+        <UsageCount Value="10"/>
+      </Unit121>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="703" Column="1" TopLine="675"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1453" Column="1" TopLine="1441"/>
       </Position1>
       <Position2>
-        <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="704" Column="1" TopLine="676"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1454" Column="1" TopLine="1441"/>
       </Position2>
       <Position3>
-        <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="705" Column="1" TopLine="677"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1458" Column="1" TopLine="1441"/>
       </Position3>
       <Position4>
-        <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="706" Column="1" TopLine="678"/>
+        <Filename Value="..\base_messaging\ureceivemessage.pas"/>
+        <Caret Line="243" Column="1" TopLine="234"/>
       </Position4>
       <Position5>
-        <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="707" Column="1" TopLine="679"/>
+        <Filename Value="..\base_messaging\ureceivemessage.pas"/>
+        <Caret Line="259" Column="1" TopLine="234"/>
       </Position5>
       <Position6>
-        <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="708" Column="1" TopLine="680"/>
+        <Filename Value="..\base\dbintfs\umessages.pas"/>
+        <Caret Line="330" Column="1" TopLine="312"/>
       </Position6>
       <Position7>
-        <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="710" Column="1" TopLine="682"/>
+        <Filename Value="..\base\dbintfs\umessages.pas"/>
+        <Caret Line="331" Column="1" TopLine="312"/>
       </Position7>
       <Position8>
-        <Filename Value="..\components\synapse\synautil.pas"/>
-        <Caret Line="711" Column="1" TopLine="683"/>
+        <Filename Value="..\base\dbintfs\umessages.pas"/>
+        <Caret Line="320" Column="1" TopLine="312"/>
       </Position8>
       <Position9>
-        <Filename Value="..\components\synapse\mimemess.pas"/>
-        <Caret Line="464" Column="1" TopLine="445"/>
+        <Filename Value="..\base\dbintfs\umessages.pas"/>
+        <Caret Line="321" Column="1" TopLine="312"/>
       </Position9>
       <Position10>
-        <Filename Value="..\components\synapse\mimemess.pas"/>
-        <Caret Line="504" Column="1" TopLine="487"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1452" Column="1" TopLine="1441"/>
       </Position10>
       <Position11>
-        <Filename Value="..\components\synapse\mimemess.pas"/>
-        <Caret Line="516" Column="1" TopLine="487"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1453" Column="1" TopLine="1441"/>
       </Position11>
       <Position12>
-        <Filename Value="..\components\synapse\mimemess.pas"/>
-        <Caret Line="518" Column="1" TopLine="490"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1454" Column="1" TopLine="1441"/>
       </Position12>
       <Position13>
-        <Filename Value="..\base_messaging\ureceivemessage.pas"/>
-        <Caret Line="62" Column="34" TopLine="52"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1326" Column="1" TopLine="1309"/>
       </Position13>
       <Position14>
-        <Filename Value="..\base_messaging\ureceivemessage.pas"/>
-        <Caret Line="84" Column="24" TopLine="57"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1327" Column="1" TopLine="1309"/>
       </Position14>
       <Position15>
-        <Filename Value="..\base_messaging\ureceivemessage.pas"/>
-        <Caret Line="85" Column="24" TopLine="58"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1328" Column="1" TopLine="1309"/>
       </Position15>
       <Position16>
-        <Filename Value="..\base_messaging\ureceivemessage.pas"/>
-        <Caret Line="91" Column="25" TopLine="64"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1329" Column="1" TopLine="1309"/>
       </Position16>
       <Position17>
-        <Filename Value="..\base_messaging\ureceivemessage.pas"/>
-        <Caret Line="210" Column="5" TopLine="201"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1331" Column="1" TopLine="1309"/>
       </Position17>
       <Position18>
-        <Filename Value="..\base_messaging\ureceivemessage.pas"/>
-        <Caret Line="205" Column="68" TopLine="188"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1332" Column="1" TopLine="1309"/>
       </Position18>
       <Position19>
-        <Filename Value="..\base_messaging\ureceivemessage.pas"/>
-        <Caret Line="91" Column="32" TopLine="71"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1333" Column="1" TopLine="1309"/>
       </Position19>
       <Position20>
-        <Filename Value="..\base_messaging\ureceivemessage.pas"/>
-        <Caret Line="85" Column="21" TopLine="73"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1335" Column="1" TopLine="1309"/>
       </Position20>
       <Position21>
-        <Filename Value="..\base\dbintfs\uperson.pas"/>
-        <Caret Line="137" Column="33" TopLine="121"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1336" Column="1" TopLine="1309"/>
       </Position21>
       <Position22>
-        <Filename Value="..\base\dbintfs\uperson.pas"/>
-        <Caret Line="43" Column="42" TopLine="26"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1337" Column="1" TopLine="1309"/>
       </Position22>
       <Position23>
-        <Filename Value="..\base\dbintfs\uperson.pas"/>
-        <Caret Line="44" Column="5" TopLine="26"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1345" Column="1" TopLine="1329"/>
       </Position23>
       <Position24>
-        <Filename Value="..\base\dbintfs\uperson.pas"/>
-        <Caret Line="47" Column="14" TopLine="27"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1346" Column="1" TopLine="1329"/>
       </Position24>
       <Position25>
-        <Filename Value="..\base\dbintfs\uperson.pas"/>
-        <Caret Line="45" Column="34" TopLine="30"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1347" Column="1" TopLine="1329"/>
       </Position25>
       <Position26>
-        <Filename Value="..\base_messaging\ureceivemessage.pas"/>
-        <Caret Line="91" Column="21" TopLine="73"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1348" Column="1" TopLine="1329"/>
       </Position26>
       <Position27>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="244" Column="31" TopLine="227"/>
+        <Caret Line="1349" Column="1" TopLine="1329"/>
       </Position27>
       <Position28>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="190" Column="5" TopLine="165"/>
+        <Caret Line="1350" Column="1" TopLine="1329"/>
       </Position28>
       <Position29>
-        <Filename Value="..\base\dbintfs\uperson.pas"/>
-        <Caret Line="47" Column="1" TopLine="30"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1351" Column="1" TopLine="1329"/>
       </Position29>
       <Position30>
         <Filename Value="..\base_messaging\ureceivemessage.pas"/>
-        <Caret Line="91" Column="21" TopLine="73"/>
+        <Caret Line="240" Column="1" TopLine="234"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -1197,7 +1203,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="3">
+    <BreakPoints Count="4">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsGlobal"/>
@@ -1219,6 +1225,13 @@
         <Source Value="umessages.pas"/>
         <Line Value="921"/>
       </Item3>
+      <Item4>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="..\base_messaging\umimemessages.pas"/>
+        <Line Value="349"/>
+      </Item4>
     </BreakPoints>
     <Exceptions Count="1">
       <Item1>

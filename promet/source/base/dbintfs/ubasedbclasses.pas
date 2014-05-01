@@ -1451,9 +1451,10 @@ procedure TBaseHistory.AddMessageItem(aObject: TDataSet; aMessage, aSubject,
   aSource, aLink: string; aParent: LargeInt);
 begin
   if aParent=0 then
-    AddItem(aObject,aMessage,aLink,'',nil,ACICON_MAILNEW)
+    AddItem(aObject,aSubject+LineEnding+aMessage,aLink,'',nil,ACICON_MAILNEW)
   else
     AddParentedItem(aObject,aMessage,aParent,aLink,'',nil,ACICON_MAILNEW);
+
 end;
 
 function TBaseHistory.GetTextFieldName: string;

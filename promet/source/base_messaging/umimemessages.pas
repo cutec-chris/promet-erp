@@ -304,6 +304,7 @@ var
   sl: TStringList;
   aMsgList: TMessageList;
   aTree: TTree;
+  aMessages: TMessageList;
 begin
   atmp := SysToUTF8(msg.Header.From);
   if not CanEdit then
@@ -346,11 +347,13 @@ begin
           aMsgList := TMessageList.Create(Self,Data,Connection);
           atmp := msg.Header.FindHeader('References');
           while pos('<',atmp) > 0 do
-            atmp := copy(atmp,pos('<',atmp)+1,length(atmp));
-          aMsgList.SelectByID(copy(atmp,0,pos('>',atmp)-1));
-          aMsgList.Open;
-          if aMsgList.Count > 0 then
-            FieldbyName('PARENT').AsInteger := aMsgList.Number.AsInteger;
+            begin
+              atmp := copy(atmp,pos('<',atmp)+1,length(atmp));
+              aMsgList.SelectByID(copy(atmp,0,pos('>',atmp)-1));
+              aMsgList.Open;
+              if aMsgList.Count > 0 then
+                FieldbyName('PARENT').AsInteger := aMsgList.Number.AsInteger;
+            end;
           aMsgList.Destroy;
         end;
       Post;

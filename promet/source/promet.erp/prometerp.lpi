@@ -721,6 +721,7 @@
       </Unit40>
       <Unit41>
         <Filename Value="../base/changes.txt"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -905,11 +906,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uViewMessage"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="373"/>
-        <CursorPos X="7" Y="394"/>
+        <CursorPos X="33" Y="393"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>

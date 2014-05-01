@@ -1255,4 +1255,4 @@ begin
   Result := newFormOutput;
 end;
 
-end.
+end.

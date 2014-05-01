@@ -25,7 +25,7 @@ interface
 
 uses
   Classes, SysUtils,mimemess,uPerson,LConvEncoding,synautil,uData,uIntfStrConsts,
-  uBaseDBInterface,mailchck,uMessages,uMimeMessages,db;
+  uBaseDBInterface,mailchck,uMessages,uMimeMessages,db,uBaseDbClasses;
 
 var
   Spampoints : real;
@@ -204,6 +204,8 @@ var
   Customers: TPerson;
   CustomerCont: TPersonContactData;
   atmp: String;
+  aMessageL: TMessageList;
+  aHist: TBaseHistory;
 begin
   aMessage.Select(0);
   aMessage.Open;
@@ -234,12 +236,26 @@ begin
       CustomerCont.Free;
       fullmsg.Free;
       FieldByName('TREEENTRY').AsInteger := aTreeEntry;
-      if ((aTreeEntry = TREE_ID_MESSAGES)
-      or (aTreeEntry = TREE_ID_UNKNOWN_MESSAGES))
-      and (Customers.Count>0)
+      if (aTreeEntry = TREE_ID_MESSAGES)
       then
         begin
-          Data.Users.History.AddMessageItem(Customers.DataSet,aMessage.ToString,aMessage.Subject.AsString,'e-Mail','MESSAGEIDX@'+aMID+'{'+aSubject+'}');
+          if FieldByName('PARENT').AsString<>'' then
+            begin
+              aMessageL := TMessageList.Create(nil,aMessage.DataModule);
+              aMessageL.Select(FieldByName('PARENT').AsVariant);
+              aMessageL.Open;
+              if aMessageL.Count>0 then
+                begin
+                  aHist := TBaseHistory.Create(nil,aMessageL.DataModule);
+                  aHist.Filter(Data.ProcessTerm(Data.QuoteField('LINK')+'='+Data.QuoteValue('MESSAGEIDX@'+aMessageL.FieldByName('ID').AsString+'*')));
+                  if aHist.Count>0 then
+                    Data.Users.History.AddMessageItem(Customers.DataSet,aMessage.ToString,aMessage.Subject.AsString,'e-Mail','MESSAGEIDX@'+aMID+'{'+aSubject+'}',aHist.Id.AsVariant)
+                  else
+                    Data.Users.History.AddMessageItem(Customers.DataSet,aMessage.ToString,aMessage.Subject.AsString,'e-Mail','MESSAGEIDX@'+aMID+'{'+aSubject+'}');
+                end;
+            end
+          else
+            Data.Users.History.AddMessageItem(Customers.DataSet,aMessage.ToString,aMessage.Subject.AsString,'e-Mail','MESSAGEIDX@'+aMID+'{'+aSubject+'}');
         end;
       if aTreeEntry = TREE_ID_SPAM_MESSAGES then
         FieldByName('READ').AsString := 'Y';
