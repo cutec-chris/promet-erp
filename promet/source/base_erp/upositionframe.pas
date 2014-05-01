@@ -170,19 +170,7 @@ var
 begin
   if Field.FieldName = 'IDENT' then
     begin
-      fSearch.SetLanguage;
-      while i < fSearch.cbSearchType.Count do
-        begin
-          if fSearch.cbSearchType.Items[i] <> strMasterdata then
-            fSearch.cbSearchType.Items.Delete(i)
-          else
-            inc(i);
-        end;
-      fSearch.eContains.Clear;
-      fSearch.sgResults.RowCount:=1;
-      fSearch.OnOpenItem:=@fSearchOpenItem;
-      fSearch.Execute(True,'POSITION',strSearchFromOrder);
-      fSearch.SetLanguage;
+      acSearchArticle.Execute;
     end;
 end;
 procedure TfPosition.FGridViewCellChanging(Sender: TObject);
@@ -494,7 +482,19 @@ var
   aIdx: Integer = -1;
 begin
   FGridView.SelectCol('TEXT');
-  FGridView.gListButtonClick(FGridView.gList,FGridView.gList.Col,FGridView.gList.Row);
+  fSearch.SetLanguage;
+  while i < fSearch.cbSearchType.Count do
+    begin
+      if fSearch.cbSearchType.Items[i] <> strMasterdata then
+        fSearch.cbSearchType.Items.Delete(i)
+      else
+        inc(i);
+    end;
+  fSearch.eContains.Clear;
+  fSearch.sgResults.RowCount:=1;
+  fSearch.OnOpenItem:=@fSearchOpenItem;
+  fSearch.Execute(True,'POSITION',strSearchFromOrder);
+  fSearch.SetLanguage;
 end;
 procedure TfPosition.ActiveSearchEndItemSearch(Sender: TObject);
 begin
