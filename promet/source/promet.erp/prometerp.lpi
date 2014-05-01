@@ -733,10 +733,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uFilterFrame"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="402"/>
-        <CursorPos X="49" Y="410"/>
+        <TopLine Value="468"/>
+        <CursorPos X="31" Y="476"/>
         <UsageCount Value="16"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -805,7 +806,6 @@
       <Unit48>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="176"/>
@@ -936,123 +936,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="../base/base_forms/ugridview.pas"/>
-        <Caret Line="703" Column="36" TopLine="689"/>
+        <Caret Line="1271" Column="36" TopLine="1264"/>
       </Position1>
       <Position2>
         <Filename Value="../base/base_forms/ugridview.pas"/>
-        <Caret Line="706" Column="21" TopLine="689"/>
+        <Caret Line="1272" Column="35" TopLine="1264"/>
       </Position2>
       <Position3>
-        <Filename Value="../base/base_forms/ugridview.pas"/>
-        <Caret Line="1271" Column="36" TopLine="1264"/>
-      </Position3>
-      <Position4>
-        <Filename Value="../base/base_forms/ugridview.pas"/>
-        <Caret Line="1272" Column="35" TopLine="1264"/>
-      </Position4>
-      <Position5>
         <Filename Value="../base/base_frames/ulistframe.pas"/>
         <Caret Line="52" Column="17" TopLine="39"/>
-      </Position5>
-      <Position6>
+      </Position3>
+      <Position4>
         <Filename Value="../base/base_frames/ufilterframe.pas"/>
         <Caret Line="40" Column="30" TopLine="18"/>
-      </Position6>
-      <Position7>
+      </Position4>
+      <Position5>
         <Filename Value="../base_messaging/ureceivemessage.pas"/>
         <Caret Line="1" Column="1" TopLine="1"/>
-      </Position7>
-      <Position8>
+      </Position5>
+      <Position6>
         <Filename Value="../base_messaging/ureceivemessage.pas"/>
         <Caret Line="91" Column="37" TopLine="68"/>
+      </Position6>
+      <Position7>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="190" Column="19" TopLine="171"/>
+      </Position7>
+      <Position8>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="1455" Column="53" TopLine="1448"/>
       </Position8>
       <Position9>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="190" Column="19" TopLine="171"/>
+        <Caret Line="1449" Column="24" TopLine="1432"/>
       </Position9>
       <Position10>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="1455" Column="53" TopLine="1448"/>
+        <Caret Line="191" Column="1" TopLine="175"/>
       </Position10>
       <Position11>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="1449" Column="24" TopLine="1432"/>
+        <Filename Value="../base_messaging/ureceivemessage.pas"/>
+        <Caret Line="91" Column="37" TopLine="68"/>
       </Position11>
       <Position12>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="191" Column="1" TopLine="175"/>
+        <Filename Value="../base_messaging/ureceivemessage.pas"/>
+        <Caret Line="70" Column="1" TopLine="63"/>
       </Position12>
       <Position13>
         <Filename Value="../base_messaging/ureceivemessage.pas"/>
-        <Caret Line="91" Column="37" TopLine="68"/>
+        <Caret Line="225" Column="69" TopLine="196"/>
       </Position13>
       <Position14>
         <Filename Value="../base_messaging/ureceivemessage.pas"/>
-        <Caret Line="70" Column="1" TopLine="63"/>
+        <Caret Line="200" Column="71" TopLine="183"/>
       </Position14>
       <Position15>
-        <Filename Value="../base_messaging/ureceivemessage.pas"/>
-        <Caret Line="225" Column="69" TopLine="196"/>
-      </Position15>
-      <Position16>
-        <Filename Value="../base_messaging/ureceivemessage.pas"/>
-        <Caret Line="200" Column="71" TopLine="183"/>
-      </Position16>
-      <Position17>
         <Filename Value="../base_messaging/umimemessages.pas"/>
         <Caret Line="30" Column="27" TopLine="13"/>
+      </Position15>
+      <Position16>
+        <Filename Value="../base/dbintfs/umessages.pas"/>
+        <Caret Line="83" Column="45" TopLine="61"/>
+      </Position16>
+      <Position17>
+        <Filename Value="../base/dbintfs/umessages.pas"/>
+        <Caret Line="310" Column="17" TopLine="305"/>
       </Position17>
       <Position18>
         <Filename Value="../base/dbintfs/umessages.pas"/>
-        <Caret Line="83" Column="45" TopLine="61"/>
+        <Caret Line="76" Column="28" TopLine="59"/>
       </Position18>
       <Position19>
         <Filename Value="../base/dbintfs/umessages.pas"/>
-        <Caret Line="310" Column="17" TopLine="305"/>
+        <Caret Line="61" Column="45" TopLine="43"/>
       </Position19>
       <Position20>
-        <Filename Value="../base/dbintfs/umessages.pas"/>
-        <Caret Line="76" Column="28" TopLine="59"/>
+        <Filename Value="../base_messaging/ureceivemessage.pas"/>
+        <Caret Line="200" Column="71" TopLine="183"/>
       </Position20>
       <Position21>
-        <Filename Value="../base/dbintfs/umessages.pas"/>
-        <Caret Line="61" Column="45" TopLine="43"/>
+        <Filename Value="../base_messaging/ureceivemessage.pas"/>
+        <Caret Line="208" Column="3" TopLine="190"/>
       </Position21>
       <Position22>
         <Filename Value="../base_messaging/ureceivemessage.pas"/>
-        <Caret Line="200" Column="71" TopLine="183"/>
+        <Caret Line="235" Column="1" TopLine="210"/>
       </Position22>
       <Position23>
         <Filename Value="../base_messaging/ureceivemessage.pas"/>
-        <Caret Line="208" Column="3" TopLine="190"/>
+        <Caret Line="223" Column="97" TopLine="207"/>
       </Position23>
       <Position24>
         <Filename Value="../base_messaging/ureceivemessage.pas"/>
-        <Caret Line="235" Column="1" TopLine="210"/>
+        <Caret Line="242" Column="38" TopLine="231"/>
       </Position24>
       <Position25>
-        <Filename Value="../base_messaging/ureceivemessage.pas"/>
-        <Caret Line="223" Column="97" TopLine="207"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="190" Column="68" TopLine="173"/>
       </Position25>
       <Position26>
         <Filename Value="../base_messaging/ureceivemessage.pas"/>
-        <Caret Line="242" Column="38" TopLine="231"/>
+        <Caret Line="242" Column="36" TopLine="229"/>
       </Position26>
       <Position27>
-        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
-        <Caret Line="190" Column="68" TopLine="173"/>
+        <Filename Value="../base_messaging/ureceivemessage.pas"/>
+        <Caret Line="245" Column="1" TopLine="217"/>
       </Position27>
       <Position28>
         <Filename Value="../base_messaging/ureceivemessage.pas"/>
-        <Caret Line="242" Column="36" TopLine="229"/>
+        <Caret Line="242" Column="39" TopLine="226"/>
       </Position28>
       <Position29>
-        <Filename Value="../base_messaging/ureceivemessage.pas"/>
-        <Caret Line="245" Column="1" TopLine="217"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="191" Column="52" TopLine="176"/>
       </Position29>
       <Position30>
-        <Filename Value="../base_messaging/ureceivemessage.pas"/>
-        <Caret Line="242" Column="39" TopLine="226"/>
+        <Filename Value="../base/base_frames/ufilterframe.pas"/>
+        <Caret Line="411" Column="62" TopLine="403"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -1093,7 +1093,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="2">
+    <BreakPoints Count="1">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
@@ -1101,13 +1101,6 @@
         <Source Value="../timeregistering/umain.pas"/>
         <Line Value="165"/>
       </Item1>
-      <Item2>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="../base/base_frames/ufilterframe.pas"/>
-        <Line Value="410"/>
-      </Item2>
     </BreakPoints>
     <Watches Count="1">
       <Item1>

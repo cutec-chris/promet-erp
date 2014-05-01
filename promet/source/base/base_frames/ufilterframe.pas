@@ -163,6 +163,7 @@ type
     procedure sbGridsResize(Sender: TObject);
     procedure seMaxresultsChange(Sender: TObject);
     procedure tbMenueClick(Sender: TObject);
+    procedure TCustomComboBoxEnter(Sender: TObject);
     procedure TimeLineSetMarker(Sender: TObject);
     procedure TWinControlKeyPress(Sender: TObject; var Key: char);
   private
@@ -407,7 +408,7 @@ procedure TfFilter.gListSelectEditor(Sender: TObject; Column: TColumn;
 begin
   if Editor is TCustomComboBox then
     begin
-      TCustomComboBox(Editor).AutoDropDown:=True;
+      TCustomComboBox(Editor).OnEnter:=@TCustomComboBoxEnter;
     end;
 end;
 
@@ -469,6 +470,13 @@ procedure TfFilter.tbMenueClick(Sender: TObject);
 begin
   TSpeedButton(Sender).PopupMenu.PopUp(TSpeedButton(Sender).ClientOrigin.x,TSpeedButton(Sender).ClientOrigin.y+TSpeedButton(Sender).Height);
 end;
+
+procedure TfFilter.TCustomComboBoxEnter(Sender: TObject);
+begin
+  Application.ProcessMessages;
+  TCustomComboBox(Sender).DroppedDown:=True;
+end;
+
 procedure TfFilter.TimeLineSetMarker(Sender: TObject);
 var
   a: Integer;
