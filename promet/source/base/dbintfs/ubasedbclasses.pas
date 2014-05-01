@@ -189,6 +189,8 @@ type
     procedure AddItemWithoutUser(aObject : TDataSet;aAction : string;aLink : string = '';aReference : string = '';aRefObject : TDataSet = nil;aIcon : Integer = 0;aComission : string = '';CheckDouble: Boolean=True;DoPost : Boolean = True;DoChange : Boolean = False);virtual;
     procedure AddMessageItem(aObject: TDataSet; aMessage, aSubject,
       aSource, aLink: string; aParent: LargeInt = 0);
+    procedure AddAnsweredMessageItem(aObject: TDataSet; aMessage, aSubject,
+      aSource, aLink: string; aParent: LargeInt = 0);
     function GetTextFieldName: string;override;
     function GetNumberFieldName : string;override;
   end;
@@ -1454,7 +1456,15 @@ begin
     AddItem(aObject,aSubject+LineEnding+aMessage,aLink,'',nil,ACICON_MAILNEW)
   else
     AddParentedItem(aObject,aMessage,aParent,aLink,'',nil,ACICON_MAILNEW);
+end;
 
+procedure TBaseHistory.AddAnsweredMessageItem(aObject: TDataSet; aMessage,
+  aSubject, aSource, aLink: string; aParent: LargeInt);
+begin
+  if aParent=0 then
+    AddItem(aObject,aSubject+LineEnding+aMessage,aLink,'',nil,ACICON_MAILANSWERED)
+  else
+    AddParentedItem(aObject,aMessage,aParent,aLink,'',nil,ACICON_MAILANSWERED);
 end;
 
 function TBaseHistory.GetTextFieldName: string;

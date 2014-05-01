@@ -62,9 +62,9 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="208"/>
-        <CursorPos X="111" Y="235"/>
-        <UsageCount Value="59"/>
+        <TopLine Value="181"/>
+        <CursorPos X="51" Y="210"/>
+        <UsageCount Value="60"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -249,11 +249,11 @@
       <Unit23>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="72"/>
-        <CursorPos X="15" Y="91"/>
-        <UsageCount Value="25"/>
+        <TopLine Value="1459"/>
+        <CursorPos X="78" Y="1467"/>
+        <UsageCount Value="26"/>
         <Loaded Value="True"/>
       </Unit23>
       <Unit24>
@@ -267,11 +267,11 @@
       <Unit25>
         <Filename Value="../base/dbintfs/umessages.pas"/>
         <UnitName Value="uMessages"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="379"/>
         <CursorPos X="14" Y="37"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="26"/>
         <Loaded Value="True"/>
       </Unit25>
       <Unit26>
@@ -312,21 +312,21 @@
       <Unit30>
         <Filename Value="../base/dbintfs/udocuments.pas"/>
         <UnitName Value="uDocuments"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="682"/>
         <CursorPos X="1" Y="710"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit30>
       <Unit31>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="320"/>
         <CursorPos X="22" Y="339"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit31>
       <Unit32>
@@ -340,31 +340,31 @@
       <Unit33>
         <Filename Value="../base/ubasecustomapplication.pas"/>
         <UnitName Value="uBaseCustomApplication"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="265"/>
         <CursorPos X="17" Y="275"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit33>
       <Unit34>
         <Filename Value="../base/dbintfs/ubaseapplication.pas"/>
         <UnitName Value="uBaseApplication"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="3" Y="24"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit34>
       <Unit35>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1092"/>
         <CursorPos X="1" Y="1121"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit35>
       <Unit36>
@@ -386,21 +386,21 @@
       <Unit38>
         <Filename Value="../base/dbintfs/uperson.pas"/>
         <UnitName Value="uPerson"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="8"/>
         <CursorPos X="147" Y="29"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit38>
       <Unit39>
         <Filename Value="../base_messaging/umimemessages.pas"/>
         <UnitName Value="uMimeMessages"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="257"/>
         <CursorPos X="36" Y="270"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit39>
       <Unit40>
@@ -424,144 +424,142 @@
       <Unit42>
         <Filename Value="../components/synapse/synautil.pas"/>
         <UnitName Value="synautil"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1115"/>
         <CursorPos X="1" Y="1137"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit42>
       <Unit43>
         <Filename Value="../components/synapse/smtpsend.pas"/>
         <UnitName Value="smtpsend"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="493"/>
         <CursorPos X="1" Y="510"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit43>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="../components/synapse/smtpsend.pas"/>
-        <Caret Line="332" Column="1" TopLine="308"/>
+        <Caret Line="337" Column="1" TopLine="309"/>
       </Position1>
       <Position2>
         <Filename Value="../components/synapse/smtpsend.pas"/>
-        <Caret Line="334" Column="1" TopLine="308"/>
+        <Caret Line="338" Column="1" TopLine="310"/>
       </Position2>
       <Position3>
         <Filename Value="../components/synapse/smtpsend.pas"/>
-        <Caret Line="335" Column="1" TopLine="308"/>
+        <Caret Line="339" Column="1" TopLine="311"/>
       </Position3>
       <Position4>
         <Filename Value="../components/synapse/smtpsend.pas"/>
-        <Caret Line="336" Column="1" TopLine="308"/>
+        <Caret Line="340" Column="1" TopLine="312"/>
       </Position4>
       <Position5>
         <Filename Value="../components/synapse/smtpsend.pas"/>
-        <Caret Line="337" Column="1" TopLine="309"/>
+        <Caret Line="510" Column="1" TopLine="493"/>
       </Position5>
       <Position6>
-        <Filename Value="../components/synapse/smtpsend.pas"/>
-        <Caret Line="338" Column="1" TopLine="310"/>
+        <Filename Value="smtpsender.lpr"/>
+        <Caret Line="150" Column="1" TopLine="131"/>
       </Position6>
       <Position7>
-        <Filename Value="../components/synapse/smtpsend.pas"/>
-        <Caret Line="339" Column="1" TopLine="311"/>
+        <Filename Value="smtpsender.lpr"/>
+        <Caret Line="151" Column="1" TopLine="131"/>
       </Position7>
       <Position8>
-        <Filename Value="../components/synapse/smtpsend.pas"/>
-        <Caret Line="340" Column="1" TopLine="312"/>
+        <Filename Value="smtpsender.lpr"/>
+        <Caret Line="143" Column="1" TopLine="131"/>
       </Position8>
       <Position9>
-        <Filename Value="../components/synapse/smtpsend.pas"/>
-        <Caret Line="510" Column="1" TopLine="493"/>
+        <Filename Value="smtpsender.lpr"/>
+        <Caret Line="145" Column="1" TopLine="131"/>
       </Position9>
       <Position10>
         <Filename Value="smtpsender.lpr"/>
-        <Caret Line="150" Column="1" TopLine="131"/>
+        <Caret Line="146" Column="1" TopLine="131"/>
       </Position10>
       <Position11>
         <Filename Value="smtpsender.lpr"/>
-        <Caret Line="151" Column="1" TopLine="131"/>
+        <Caret Line="148" Column="1" TopLine="131"/>
       </Position11>
       <Position12>
         <Filename Value="smtpsender.lpr"/>
-        <Caret Line="143" Column="1" TopLine="131"/>
+        <Caret Line="150" Column="1" TopLine="131"/>
       </Position12>
       <Position13>
         <Filename Value="smtpsender.lpr"/>
-        <Caret Line="145" Column="1" TopLine="131"/>
+        <Caret Line="151" Column="1" TopLine="131"/>
       </Position13>
       <Position14>
         <Filename Value="smtpsender.lpr"/>
-        <Caret Line="146" Column="1" TopLine="131"/>
+        <Caret Line="143" Column="1" TopLine="131"/>
       </Position14>
       <Position15>
         <Filename Value="smtpsender.lpr"/>
-        <Caret Line="148" Column="1" TopLine="131"/>
+        <Caret Line="155" Column="1" TopLine="131"/>
       </Position15>
       <Position16>
         <Filename Value="smtpsender.lpr"/>
-        <Caret Line="150" Column="1" TopLine="131"/>
+        <Caret Line="208" Column="1" TopLine="191"/>
       </Position16>
       <Position17>
         <Filename Value="smtpsender.lpr"/>
-        <Caret Line="151" Column="1" TopLine="131"/>
+        <Caret Line="211" Column="1" TopLine="191"/>
       </Position17>
       <Position18>
         <Filename Value="smtpsender.lpr"/>
-        <Caret Line="143" Column="1" TopLine="131"/>
+        <Caret Line="212" Column="1" TopLine="191"/>
       </Position18>
       <Position19>
         <Filename Value="smtpsender.lpr"/>
-        <Caret Line="155" Column="1" TopLine="131"/>
+        <Caret Line="127" Column="1" TopLine="110"/>
       </Position19>
       <Position20>
         <Filename Value="smtpsender.lpr"/>
-        <Caret Line="208" Column="1" TopLine="191"/>
+        <Caret Line="214" Column="1" TopLine="197"/>
       </Position20>
       <Position21>
         <Filename Value="smtpsender.lpr"/>
-        <Caret Line="211" Column="1" TopLine="191"/>
+        <Caret Line="216" Column="1" TopLine="197"/>
       </Position21>
       <Position22>
         <Filename Value="smtpsender.lpr"/>
-        <Caret Line="212" Column="1" TopLine="191"/>
+        <Caret Line="218" Column="1" TopLine="192"/>
       </Position22>
       <Position23>
         <Filename Value="smtpsender.lpr"/>
-        <Caret Line="127" Column="1" TopLine="110"/>
+        <Caret Line="156" Column="63" TopLine="140"/>
       </Position23>
       <Position24>
         <Filename Value="smtpsender.lpr"/>
-        <Caret Line="214" Column="1" TopLine="197"/>
+        <Caret Line="218" Column="51" TopLine="201"/>
       </Position24>
       <Position25>
         <Filename Value="smtpsender.lpr"/>
-        <Caret Line="216" Column="1" TopLine="197"/>
+        <Caret Line="207" Column="92" TopLine="195"/>
       </Position25>
       <Position26>
         <Filename Value="smtpsender.lpr"/>
-        <Caret Line="218" Column="1" TopLine="192"/>
+        <Caret Line="208" Column="81" TopLine="191"/>
       </Position26>
       <Position27>
         <Filename Value="smtpsender.lpr"/>
-        <Caret Line="156" Column="63" TopLine="140"/>
+        <Caret Line="209" Column="51" TopLine="194"/>
       </Position27>
       <Position28>
         <Filename Value="smtpsender.lpr"/>
-        <Caret Line="218" Column="51" TopLine="201"/>
+        <Caret Line="212" Column="83" TopLine="200"/>
       </Position28>
       <Position29>
-        <Filename Value="smtpsender.lpr"/>
-        <Caret Line="207" Column="92" TopLine="195"/>
+        <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
+        <Caret Line="193" Column="7" TopLine="173"/>
       </Position29>
       <Position30>
         <Filename Value="smtpsender.lpr"/>
-        <Caret Line="208" Column="81" TopLine="191"/>
+        <Caret Line="223" Column="91" TopLine="200"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>

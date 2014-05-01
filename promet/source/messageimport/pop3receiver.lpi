@@ -59,7 +59,7 @@
         <UnitName Value="pop3receiver"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="205"/>
+        <TopLine Value="210"/>
         <CursorPos X="51" Y="205"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
@@ -677,11 +677,10 @@
       <Unit78>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1450"/>
-        <CursorPos X="40" Y="1455"/>
+        <CursorPos X="19" Y="1466"/>
         <UsageCount Value="31"/>
         <Loaded Value="True"/>
       </Unit78>
@@ -1021,10 +1020,11 @@
       <Unit118>
         <Filename Value="..\base_messaging\ureceivemessage.pas"/>
         <UnitName Value="ureceivemessage"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="227"/>
-        <CursorPos X="10" Y="239"/>
+        <TopLine Value="233"/>
+        <CursorPos X="1" Y="257"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit118>

@@ -7,7 +7,7 @@ uses
   Classes, SysUtils, CustApp, uBaseCustomApplication, pcmdprometapp,
   pmimemessages, synautil, smtpsend, mimemess, mimepart, uMessages,
   uData, uBaseDBInterface, uPerson, ssl_openssl, laz_synapse,
-  uDocuments,uMimeMessages,uBaseApplication,LConvEncoding;
+  uDocuments,uMimeMessages,uBaseApplication,LConvEncoding,uBaseDbClasses;
 resourcestring
   strActionMessageSend             = '%s - gesendet';
   strActionMessageSend2            = 'Nachricht gesendet';
@@ -102,6 +102,8 @@ var
   aDocument: TDocument;
   ArchiveMsg: TArchivedMessage;
   aDomain: String;
+  aMessageL: TMessageList;
+  aHist: TBaseHistory;
 begin
   MessageIndex := TMessageList.Create(Self,Data);
   MessageIndex.CreateTable;
@@ -197,11 +199,29 @@ begin
                                                                         nil,
                                                                         ACICON_MAILANSWERED);
                                             end;
-                                          Data.Users.History.AddItem(Customers.DataSet,Format(strActionMessageSend,[atmp]),
+
+                                          if FieldByName('PARENT').AsString<>'' then
+                                            begin
+                                              aMessageL := TMessageList.Create(nil,aMessage.DataModule);
+                                              aMessageL.Select(FieldByName('PARENT').AsVariant);
+                                              aMessageL.Open;
+                                              if aMessageL.Count>0 then
+                                                begin
+                                                  aHist := TBaseHistory.Create(nil,aMessageL.DataModule);
+                                                  aHist.Filter(Data.ProcessTerm(Data.QuoteField('LINK')+'='+Data.QuoteValue('MESSAGEIDX@'+aMessageL.FieldByName('ID').AsString+'*')));
+                                                  if aHist.Count>0 then
+                                                    Data.Users.History.AddAnsweredMessageItem(Customers.DataSet,aMessage.ToString,aMessage.Subject.AsString,'e-Mail',Data.BuildLink(MessageIndex.DataSet),aHist.Id.AsVariant)
+                                                  else
+                                                    Data.Users.History.AddAnsweredMessageItem(Customers.DataSet,aMessage.ToString,aMessage.Subject.AsString,'e-Mail',Data.BuildLink(MessageIndex.DataSet));
+                                                end;
+                                            end
+                                          else
+                                            Data.Users.History.AddAnsweredMessageItem(Customers.DataSet,aMessage.ToString,aMessage.Subject.AsString,'e-Mail',Data.BuildLink(MessageIndex.DataSet));
+                                          {Data.Users.History.AddItem(Customers.DataSet,Format(strActionMessageSend,[atmp]),
                                                                     Data.BuildLink(MessageIndex.DataSet),
                                                                     '',
                                                                     nil,
-                                                                    ACICON_MAILANSWERED);
+                                                                    ACICON_MAILANSWERED);}
                                           Customers.Free;
                                         end;
                                       MessageHandler.SendCommand('prometerp','Message.refresh');
