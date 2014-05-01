@@ -156,6 +156,8 @@ type
       );
     procedure gListMouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure gListSelectEditor(Sender: TObject; Column: TColumn;
+      var Editor: TWinControl);
     procedure gListTitleClick(Column: TColumn);
     procedure RefreshTimerTimer(Sender: TObject);
     procedure sbGridsResize(Sender: TObject);
@@ -399,6 +401,16 @@ procedure TfFilter.gListMouseUp(Sender: TObject; Button: TMouseButton;
 begin
   aSelectedIndex:=gList.MouseCoord(0,Y+1).Y;
 end;
+
+procedure TfFilter.gListSelectEditor(Sender: TObject; Column: TColumn;
+  var Editor: TWinControl);
+begin
+  if Editor is TCustomComboBox then
+    begin
+      TCustomComboBox(Editor).AutoDropDown:=True;
+    end;
+end;
+
 procedure TfFilter.gListTitleClick(Column: TColumn);
 begin
   if (Column.Field.DataType = ftMemo)

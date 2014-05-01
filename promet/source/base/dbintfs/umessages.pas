@@ -45,6 +45,9 @@ type
     property MsgID : TField read GetMsgID;
     property Subject : TField read GetSubject;
   end;
+
+  { TMessageContent }
+
   TMessageContent = class(TBaseDBDataSet)
   private
     FMessage: TMessageList;
@@ -55,6 +58,7 @@ type
     procedure Select(aId : string);overload;
     property Message : TMessageList read FMessage write FMessage;
     property AsString : string read GetText;
+    function ToString: ansistring; override;
   end;
   TMessage = class(TMessageList,IBaseHistory)
   private
@@ -80,6 +84,7 @@ type
     property History : TBaseHistory read FHistory;
     procedure Next; override;
     procedure Prior; override;
+    function ToString: ansistring; override;
   end;
   TSpecialMessage = class(TMessage)
   public
@@ -180,6 +185,12 @@ begin
         Limit := 1;
       end;
 end;
+
+function TMessageContent.ToString: ansistring;
+begin
+  Result:=AsString;
+end;
+
 function TMessage.GetSubMessages: TMessageList;
 begin
   if not Assigned(FSubMessages) then
@@ -302,6 +313,11 @@ procedure TMessage.Prior;
 begin
   inherited Prior;
   Content.Select(DataSet.FieldbyName('ID').AsString);
+end;
+
+function TMessage.ToString: ansistring;
+begin
+  Result := Content.ToString;
 end;
 
 function TMessageList.GetMsgID: TField;

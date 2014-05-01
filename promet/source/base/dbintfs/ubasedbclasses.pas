@@ -187,6 +187,8 @@ type
     procedure SelectByParent(aParent: Variant);
     procedure SelectByRoot(aParent: Variant);
     procedure AddItemWithoutUser(aObject : TDataSet;aAction : string;aLink : string = '';aReference : string = '';aRefObject : TDataSet = nil;aIcon : Integer = 0;aComission : string = '';CheckDouble: Boolean=True;DoPost : Boolean = True;DoChange : Boolean = False);virtual;
+    procedure AddMessageItem(aObject: TDataSet; aMessage, aSubject,
+      aSource, aLink: string; aParent: LargeInt = 0);
     function GetTextFieldName: string;override;
     function GetNumberFieldName : string;override;
   end;
@@ -1443,6 +1445,15 @@ begin
           Change;
         end;
     end;
+end;
+
+procedure TBaseHistory.AddMessageItem(aObject: TDataSet; aMessage, aSubject,
+  aSource, aLink: string; aParent: LargeInt);
+begin
+  if aParent=0 then
+    AddItem(aObject,aMessage,aLink,'',nil,ACICON_MAILNEW)
+  else
+    AddParentedItem(aObject,aMessage,aParent,aLink,'',nil,ACICON_MAILNEW);
 end;
 
 function TBaseHistory.GetTextFieldName: string;

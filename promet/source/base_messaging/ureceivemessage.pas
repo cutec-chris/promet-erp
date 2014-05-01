@@ -88,11 +88,6 @@ begin
                                 nil,
                                 ACICON_MAILNEW);
       aTreeEntry := TREE_ID_MESSAGES;
-      Data.Users.History.AddItemWithoutUser(Customers.DataSet,Format(strActionMessageReceived,[aSubject]),
-                                    'MESSAGEIDX@'+mID+'{'+aSubject+'}',
-                                    '',
-                                    nil,
-                                    ACICON_MAILNEW);
     end
   else
     begin
@@ -206,6 +201,9 @@ procedure ReceiveMessage(aMID: string; aMSG: TStrings; aMessage: TMimeMessage);
 var
   BMID: LargeInt;
   fullmsg: TMimeMess;
+  Customers: TPerson;
+  CustomerCont: TPersonContactData;
+  atmp: String;
 begin
   aMessage.Select(0);
   aMessage.Open;
@@ -222,8 +220,27 @@ begin
       fullmsg.Lines.Text:=aMSG.Text;
       fullmsg.DecodeMessage;
       aMessage.DecodeMessage(fullmsg);
+      atmp:=ConvertEncoding(getemailaddr(fullmsg.Header.From),GuessEncoding(getemailaddr(fullmsg.Header.From)),EncodingUTF8);
+      try
+        CustomerCont := TPersonContactData.Create(nil,Data);
+        if Data.IsSQLDb then
+          Data.SetFilter(CustomerCont,Data.ProcessTerm('UPPER("DATA")=UPPER('''+atmp+''')'))
+        else
+          Data.SetFilter(CustomerCont,Data.ProcessTerm('"DATA"='''+atmp+''''));
+      except
+      end;
+      Customers := TPerson.Create(nil,Data);
+      Data.SetFilter(Customers,'"ACCOUNTNO"='+Data.QuoteValue(CustomerCont.DataSet.FieldByName('ACCOUNTNO').AsString));
+      CustomerCont.Free;
       fullmsg.Free;
       FieldByName('TREEENTRY').AsInteger := aTreeEntry;
+      if ((aTreeEntry = TREE_ID_MESSAGES)
+      or (aTreeEntry = TREE_ID_UNKNOWN_MESSAGES))
+      and (Customers.Count>0)
+      then
+        begin
+          Data.Users.History.AddMessageItem(Customers.DataSet,aMessage.ToString,aMessage.Subject.AsString,'e-Mail','MESSAGEIDX@'+aMID+'{'+aSubject+'}');
+        end;
       if aTreeEntry = TREE_ID_SPAM_MESSAGES then
         FieldByName('READ').AsString := 'Y';
       Post;
@@ -239,6 +256,7 @@ begin
                                   '',
                                   nil,
                                   ACICON_MAILNEW);
+      Customers.Free;
     end;
 end;
 

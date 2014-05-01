@@ -39,7 +39,11 @@ type
     procedure SelectByAccountNo(aAccountNo : string);overload;
     function CombineItems(aRemoteLink: string): Boolean; override;
   end;
+
+  { TPersonHistory }
+
   TPersonHistory = class(TBaseHistory)
+  public
   end;
 
   { TBaseDbAddress }
@@ -147,6 +151,7 @@ type
 
 implementation
 uses uBaseDBInterface, uBaseSearch, uBaseApplication, uData, Utils;
+
 procedure TPersonEmployees.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do
