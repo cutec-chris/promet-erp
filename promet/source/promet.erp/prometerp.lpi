@@ -912,7 +912,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="111"/>
         <CursorPos X="25" Y="108"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit56>
       <Unit57>
@@ -954,8 +954,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="472"/>
-        <CursorPos X="1" Y="490"/>
+        <TopLine Value="425"/>
+        <CursorPos X="26" Y="446"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -1080,7 +1080,7 @@
       </Position29>
       <Position30>
         <Filename Value="../base_erp/upositionframe.pas"/>
-        <Caret Line="489" Column="17" TopLine="476"/>
+        <Caret Line="489" Column="10" TopLine="479"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>

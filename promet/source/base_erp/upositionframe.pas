@@ -40,7 +40,7 @@ type
     acMakeSubPos: TAction;
     acRefresh: TAction;
     acRenumber: TAction;
-    Action1: TAction;
+    acAddfromArticle: TAction;
     acUnMakeSebPos: TAction;
     ActionList1: TActionList;
     bAddPos: TSpeedButton;
@@ -51,7 +51,7 @@ type
     bDeletePos6: TSpeedButton;
     bDetailsVisible: TSpeedButton;
     bEnterTime: TSpeedButton;
-    bEnterTime1: TSpeedButton;
+    bGotoArticle: TSpeedButton;
     Bevel1: TBevel;
     Bevel2: TBevel;
     Bevel4: TBevel;
@@ -84,6 +84,7 @@ type
     pPosControls: TPanel;
     spDetails: TSplitter;
     tsDetails: TTabSheet;
+    procedure acAddfromArticleExecute(Sender: TObject);
     procedure acAddPosExecute(Sender: TObject);
     procedure acDelPosExecute(Sender: TObject);
     procedure acGotoArticleExecute(Sender: TObject);
@@ -438,6 +439,13 @@ begin
   FGridView.SetFocus;
   FGridView.InsertAfter;
 end;
+
+procedure TfPosition.acAddfromArticleExecute(Sender: TObject);
+begin
+  acAddPos.Execute;
+  acSearchArticle.Execute;
+end;
+
 procedure TfPosition.acDelPosExecute(Sender: TObject);
 begin
   FGridView.Delete;
