@@ -40,9 +40,11 @@ type
     acMakeSubPos: TAction;
     acRefresh: TAction;
     acRenumber: TAction;
+    Action1: TAction;
     acUnMakeSebPos: TAction;
     ActionList1: TActionList;
     bAddPos: TSpeedButton;
+    bAddPos1: TSpeedButton;
     bDeletePos: TSpeedButton;
     bDeletePos2: TSpeedButton;
     bDeletePos5: TSpeedButton;
@@ -484,7 +486,7 @@ var
   aIdx: Integer = -1;
 begin
   FGridView.SelectCol('TEXT');
-//TODO:  sgPositionsButtonClick(sgPositions, sgPositions.Col, sgPositions.Row);
+  FGridView.gListButtonClick(FGridView.gList,FGridView.gList.Col,FGridView.gList.Row);
 end;
 procedure TfPosition.ActiveSearchEndItemSearch(Sender: TObject);
 begin

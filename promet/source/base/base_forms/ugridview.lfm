@@ -60,6 +60,7 @@ object fGridView: TfGridView
       OnSelectCell = gListSelectCell
       OnSetEditText = gListSetEditText
       CachedEditing = True
+      OnEnterEdit = gListEnterEdit
     end
   end
   object dgFake: TDBGrid
@@ -416,7 +417,7 @@ object fGridView: TfGridView
       OnExecute = acCopyToClipboardExecute
     end
   end
-  object FDataSource: TDatasource
+  object FDataSource: TDataSource
     OnStateChange = FDataSourceStateChange
     OnDataChange = FDataSourceDataChange
     left = 108

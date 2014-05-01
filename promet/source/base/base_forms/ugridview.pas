@@ -674,7 +674,11 @@ end;
 
 procedure TfGridView.gListEnterEdit(Sender: TObject);
 begin
-  GotoActiveRow;
+  if gList.Editor is TCustomComboBox then
+    begin
+      Application.ProcessMessages;
+      TCustomComboBox(gList.Editor).DroppedDown:=True;
+    end;
 end;
 
 procedure TfGridView.gListExit(Sender: TObject);
