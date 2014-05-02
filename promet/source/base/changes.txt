@@ -1,4 +1,6 @@
-﻿Build 335
+﻿Build 336
+      - e-Mails werden mit korrekter Referenz gesendet und empfangen, zudem werden in der Narichtenzentrale richtige Threads aus e-Mails angelegt
+Build 335
       - Positionen:Artikel Suchen korrigiert
       - Positionen:Neuer Button um Position direkt aus Artikelsuche einzufügen
       - Auftrag:Neuer Button um Kontakt direkt aus Suche einzufügen
