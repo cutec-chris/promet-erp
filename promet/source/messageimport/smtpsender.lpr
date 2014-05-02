@@ -203,7 +203,7 @@ begin
                                           if FieldByName('PARENT').AsString<>'' then
                                             begin
                                               aMessageL := TMessageList.Create(nil,aMessage.DataModule);
-                                              aMessageL.Select(FieldByName('PARENT').AsVariant);
+                                              aMessageL.SelectByMsgID(FieldByName('PARENT').AsVariant);
                                               aMessageL.Open;
                                               if aMessageL.Count>0 then
                                                 begin

@@ -144,8 +144,11 @@ begin
 end;
 destructor TMGridObject.Destroy;
 begin
-  if Assigned(Image) then
-    Image.Free;
+  try
+    if Assigned(Image) then
+      Image.Free;
+  except
+  end;
   inherited Destroy;
 end;
 function TfHistoryFrame.FContListDrawColumnCell(Sender: TObject;

@@ -922,26 +922,22 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="810"/>
-        <CursorPos X="71" Y="824"/>
+        <TopLine Value="819"/>
+        <CursorPos X="65" Y="824"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit57>
     </Units>
-    <JumpHistory Count="3" HistoryIndex="2">
+    <JumpHistory Count="2" HistoryIndex="1">
       <Position1>
         <Filename Value="../base_messaging/umessageframe.pas"/>
-        <Caret Line="89" Column="90" TopLine="104"/>
+        <Caret Line="164" Column="22" TopLine="157"/>
       </Position1>
       <Position2>
         <Filename Value="../base_messaging/umessageframe.pas"/>
-        <Caret Line="164" Column="22" TopLine="157"/>
-      </Position2>
-      <Position3>
-        <Filename Value="../base_messaging/umessageframe.pas"/>
         <Caret Line="216" Column="22" TopLine="209"/>
-      </Position3>
+      </Position2>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

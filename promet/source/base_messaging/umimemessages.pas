@@ -189,6 +189,7 @@ var
   MP: TMimePart;
   aDocument: TDocument;
   aMimePart: TMimePart;
+  aParent: TMessageList;
 begin
   Result := nil;
   aMessage := TMimeMess.Create;
@@ -202,6 +203,17 @@ begin
   aMessage.Header.Date := DataSet.FieldByName('SENDDATE').AsDateTime;
   if not DataSet.FieldByName('REPLYTO').IsNull then
     aMessage.Header.ReplyTo:=DataSet.FieldByName('REPLYTO').AsString;
+  if not DataSet.FieldByName('PARENT').IsNull then
+    begin
+      aParent := TMessageList.Create(nil,DataModule);
+      aParent.SelectByMsgID(DataSet.FieldByName('PARENT').AsVariant);
+      aParent.Open;
+      if aParent.Count>0 then
+        begin
+          aMessage.Header.CustomHeaders.Add('References: <'+aParent.FieldByName('ID').AsString+'>');
+        end;
+      aParent.Free;
+    end;
   aMessage.Header.Subject := CharsetConversion(DataSet.FieldByName('SUBJECT').AsString,UTF_8,amessage.Header.CharsetCode);
   aMessage.Header.MessageID := DataSet.FieldByName('ID').AsString;
   MailAddressesFromString(Content.DataSet.FieldByName('RECEIVERS').AsString,aMessage.Header.ToList);

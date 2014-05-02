@@ -242,7 +242,7 @@ begin
           if FieldByName('PARENT').AsString<>'' then
             begin
               aMessageL := TMessageList.Create(nil,aMessage.DataModule);
-              aMessageL.Select(FieldByName('PARENT').AsVariant);
+              aMessageL.SelectByMsgID(FieldByName('PARENT').AsVariant);
               aMessageL.Open;
               if aMessageL.Count>0 then
                 begin
@@ -262,13 +262,13 @@ begin
       Post;
       aMessage.History.Open;
       aMessage.History.AddItem(aMessage.DataSet,Format(strActionMessageReceived,[DateTimeToStr(Now())]),
-                                'MESSAGEIDX@'+aMID+'{'+aSubject+'}',
+                                '',
                                 '',
                                 nil,
                                 ACICON_MAILNEW);
       if SpamPoints>0 then
         aMessage.History.AddItem(aMessage.DataSet,strMessageSpamPoints+' '+FloatToStr(SpamPoints),
-                                  'MESSAGEIDX@'+aMID+'{'+aSubject+'}',
+                                  '',
                                   '',
                                   nil,
                                   ACICON_MAILNEW);
