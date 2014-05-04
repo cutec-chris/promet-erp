@@ -6,7 +6,7 @@ Priority: optional
 Maintainer: Christian Ulrich <info@free-erp.de>
 Architecture: ARCH
 Installed-Size: DEBSIZE
-Depends: libc6,libgtk2.0-dev (>=2.6.0),promet-erp
+Depends: libc6,libgtk2.0 (>=2.6.0),promet-erp
 Description: Statistics Tool for Promet-ERP
  with this tool, you can create and view statistics
  also view, generate reports and export lists from the statistics data
