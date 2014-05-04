@@ -12,6 +12,373 @@ object fWizardNewMandant: TfWizardNewMandant
   OnShow = FormShow
   Position = poMainFormCenter
   LCLVersion = '1.3'
+  object pResult: TPanel
+    Left = 128
+    Height = 344
+    Top = 0
+    Width = 422
+    Align = alClient
+    BevelOuter = bvNone
+    ClientHeight = 344
+    ClientWidth = 422
+    FullRepaint = False
+    TabOrder = 4
+    Visible = False
+    object lCreatingDatabase: TLabel
+      Left = 40
+      Height = 13
+      Top = 9
+      Width = 166
+      Caption = 'erstelle Tabellen (wenn nötig)'
+      ParentColor = False
+    end
+    object lFillingDefaultValues: TLabel
+      Left = 40
+      Height = 13
+      Top = 32
+      Width = 137
+      Caption = 'Vorgabewerte einsetzen'
+      ParentColor = False
+    end
+    object lUpdatingDatabase: TLabel
+      Left = 40
+      Height = 13
+      Top = 56
+      Width = 83
+      Caption = 'Hilfe einsetzen'
+      ParentColor = False
+    end
+    object iDatabaseCreated: TImage
+      Left = 8
+      Height = 21
+      Top = 9
+      Width = 23
+      Picture.Data = {
+        1754506F727461626C654E6574776F726B47726170686963E401000089504E47
+        0D0A1A0A0000000D49484452000000100000001008060000001FF3FF61000001
+        AB4944415478DABD93D92E436114857BE738EF626ED5185342AA865427EAE829
+        45298D1BAAA7AD56AB434A0CC7A5186A8EC414942012975AD58667102FA1BAFC
+        9568C285181217FFDDBFD6DEFBDB6B0B0008FEF204FF6EA05E6BE25B96EA9DBF
+        3250AD36F2A6633DFA0F5848F82AEE4706CA60033F78D485D97B37BC3756E8B6
+        D4A8F014D9BE2556AC4879E3A10ED37117A6E24E746EB7A2D25B8C1287904A7F
+        325EB2358633A6E7B358BE2CE5532D4FC69C08C41C6F95CBDDE244F15801951E
+        C178C196F59E324FDCB509ECAE72E85D4C60F17DFB5A04EEC6E0BFB383DD54A1
+        CC559828B2E7536988FDE7DADADE50FBA32FCC613A360ECD962C41600DC91625
+        53863D06BEA81DDE5B0E1D1B0A948E8B12625B1EF5618D3D279A4CFD611BCC57
+        03987BF0C01BB6C278A483E9448F89B005EE5B0B9875394A9CC29742EB47717A
+        0466474E93CA3085F46F73FAA336B82266B8C26668D65A52B092222E97FA3248
+        04162D5B90A07BB71DEEC8281C37C3680BCA40602545961CEA5B4994CC57D375
+        3395A46505D42BCD20B092C2D16CEA475126FBA5CB27C420B09E0BCCD919BFBA
+        05028BCE1FC9CAF8976B7C05BEA2A93C4F441D810000000049454E44AE426082
+      }
+      Visible = False
+    end
+    object iDatabaseFilled: TImage
+      Left = 8
+      Height = 21
+      Top = 32
+      Width = 23
+      Picture.Data = {
+        1754506F727461626C654E6574776F726B47726170686963E401000089504E47
+        0D0A1A0A0000000D49484452000000100000001008060000001FF3FF61000001
+        AB4944415478DABD93D92E436114857BE738EF626ED5185342AA865427EAE829
+        45298D1BAAA7AD56AB434A0CC7A5186A8EC414942012975AD58667102FA1BAFC
+        9568C285181217FFDDBFD6DEFBDB6B0B0008FEF204FF6EA05E6BE25B96EA9DBF
+        3250AD36F2A6633DFA0F5848F82AEE4706CA60033F78D485D97B37BC3756E8B6
+        D4A8F014D9BE2556AC4879E3A10ED37117A6E24E746EB7A2D25B8C1287904A7F
+        325EB2358633A6E7B358BE2CE5532D4FC69C08C41C6F95CBDDE244F15801951E
+        C178C196F59E324FDCB509ECAE72E85D4C60F17DFB5A04EEC6E0BFB383DD54A1
+        CC559828B2E7536988FDE7DADADE50FBA32FCC613A360ECD962C41600DC91625
+        53863D06BEA81DDE5B0E1D1B0A948E8B12625B1EF5618D3D279A4CFD611BCC57
+        03987BF0C01BB6C278A483E9448F89B005EE5B0B9875394A9CC29742EB47717A
+        0466474E93CA3085F46F73FAA336B82266B8C26668D65A52B092222E97FA3248
+        04162D5B90A07BB71DEEC8281C37C3680BCA40602545961CEA5B4994CC57D375
+        3395A46505D42BCD20B092C2D16CEA475126FBA5CB27C420B09E0BCCD919BFBA
+        05028BCE1FC9CAF8976B7C05BEA2A93C4F441D810000000049454E44AE426082
+      }
+      Visible = False
+    end
+    object iDatabaseUpdated: TImage
+      Left = 8
+      Height = 21
+      Top = 56
+      Width = 23
+      Picture.Data = {
+        1754506F727461626C654E6574776F726B47726170686963E401000089504E47
+        0D0A1A0A0000000D49484452000000100000001008060000001FF3FF61000001
+        AB4944415478DABD93D92E436114857BE738EF626ED5185342AA865427EAE829
+        45298D1BAAA7AD56AB434A0CC7A5186A8EC414942012975AD58667102FA1BAFC
+        9568C285181217FFDDBFD6DEFBDB6B0B0008FEF204FF6EA05E6BE25B96EA9DBF
+        3250AD36F2A6633DFA0F5848F82AEE4706CA60033F78D485D97B37BC3756E8B6
+        D4A8F014D9BE2556AC4879E3A10ED37117A6E24E746EB7A2D25B8C1287904A7F
+        325EB2358633A6E7B358BE2CE5532D4FC69C08C41C6F95CBDDE244F15801951E
+        C178C196F59E324FDCB509ECAE72E85D4C60F17DFB5A04EEC6E0BFB383DD54A1
+        CC559828B2E7536988FDE7DADADE50FBA32FCC613A360ECD962C41600DC91625
+        53863D06BEA81DDE5B0E1D1B0A948E8B12625B1EF5618D3D279A4CFD611BCC57
+        03987BF0C01BB6C278A483E9448F89B005EE5B0B9875394A9CC29742EB47717A
+        0466474E93CA3085F46F73FAA336B82266B8C26668D65A52B092222E97FA3248
+        04162D5B90A07BB71DEEC8281C37C3680BCA40602545961CEA5B4994CC57D375
+        3395A46505D42BCD20B092C2D16CEA475126FBA5CB27C420B09E0BCCD919BFBA
+        05028BCE1FC9CAF8976B7C05BEA2A93C4F441D810000000049454E44AE426082
+      }
+      Visible = False
+    end
+    object bvleft1: TBevel
+      Left = 0
+      Height = 50
+      Top = 294
+      Width = 422
+      Align = alBottom
+      Shape = bsTopLine
+    end
+    object pDetails: TPanel
+      Left = 12
+      Height = 200
+      Top = 88
+      Width = 396
+      BevelOuter = bvNone
+      ClientHeight = 200
+      ClientWidth = 396
+      TabOrder = 0
+      Visible = False
+      object Button1: TButton
+        Left = 180
+        Height = 25
+        Top = 168
+        Width = 149
+        AutoSize = True
+        Caption = 'Mandanteneinstellungen'
+        OnClick = Button1Click
+        TabOrder = 0
+      end
+      object Label2: TLabel
+        Left = 0
+        Height = 141
+        Top = 0
+        Width = 396
+        Align = alTop
+        Caption = 'Das erstellen der Datenbank wurde beendet, Sie können '#10'nun wenn gewünscht noch Details zum Mandanten '#10'eingeben (Name,Adresse,Telefonnummern u.ä.). '#10'Die dann auf allen Druckbelegen mitverwendet werden.'#10#10'Auch andere Gelobale Einstellungen sind direkt von '#10'hier möglich.'#10'Sie können die Einstellungen auch jederzeit in den '#10'Optionen nachholen'
+        ParentColor = False
+      end
+    end
+    object bAbort5: TButton
+      Left = 272
+      Height = 25
+      Top = 304
+      Width = 146
+      Anchors = [akTop, akLeft, akRight]
+      BorderSpacing.InnerBorder = 4
+      Caption = 'Schliessen'
+      OnClick = bAbort0Click
+      TabOrder = 1
+    end
+    object lDefaultValue: TLabel
+      AnchorSideLeft.Control = lFillingDefaultValues
+      AnchorSideLeft.Side = asrBottom
+      Left = 184
+      Height = 1
+      Top = 32
+      Width = 1
+      BorderSpacing.Left = 7
+      ParentColor = False
+    end
+  end
+  object pCont0: TPanel
+    Left = 128
+    Height = 344
+    Top = 0
+    Width = 422
+    Align = alClient
+    BevelOuter = bvNone
+    ClientHeight = 344
+    ClientWidth = 422
+    FullRepaint = False
+    TabOrder = 6
+    object lDescription0: TLabel
+      Left = 4
+      Height = 77
+      Top = 4
+      Width = 414
+      Align = alTop
+      Alignment = taCenter
+      BorderSpacing.Around = 4
+      Caption = 'Mit diesem Assistenten können Sie einen neuen Mandanten erstellen, wählen Sie dazu im ersten Schritt eine Sprache für den mandanten aus, und geben Sie darunter einen Namen an. Weiterhin müssen Sie hier auswählen ob die Datenbank mit Vorgabedaten gefüllt werden soll oder nicht.'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      WordWrap = True
+    end
+    object lMandantname: TLabel
+      AnchorSideTop.Control = cbLanguage
+      AnchorSideTop.Side = asrBottom
+      Left = 8
+      Height = 13
+      Top = 131
+      Width = 94
+      BorderSpacing.Top = 10
+      Caption = 'Mandantenname'
+      ParentColor = False
+    end
+    object lLanguage: TLabel
+      AnchorSideTop.Control = lDescription0
+      AnchorSideTop.Side = asrBottom
+      Left = 8
+      Height = 13
+      Top = 94
+      Width = 46
+      BorderSpacing.Top = 13
+      Caption = 'Sprache'
+      ParentColor = False
+    end
+    object pButtons0: TPanel
+      Left = 0
+      Height = 50
+      Top = 294
+      Width = 422
+      Align = alBottom
+      BevelOuter = bvNone
+      ClientHeight = 50
+      ClientWidth = 422
+      TabOrder = 5
+      object bvRight0: TBevel
+        Left = 0
+        Height = 2
+        Top = 0
+        Width = 422
+        Align = alTop
+        Shape = bsTopLine
+      end
+      object bNext0: TButton
+        Left = 120
+        Height = 30
+        Top = 10
+        Width = 100
+        BorderSpacing.InnerBorder = 4
+        Caption = 'bNext0'
+        OnClick = bNext0Click
+        TabOrder = 0
+      end
+      object bPrev0: TButton
+        Left = 21
+        Height = 30
+        Top = 10
+        Width = 99
+        BorderSpacing.InnerBorder = 4
+        Caption = 'bPrev0'
+        OnClick = bPrev0Click
+        TabOrder = 1
+      end
+      object bAbort0: TButton
+        Left = 264
+        Height = 29
+        Top = 10
+        Width = 156
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.InnerBorder = 4
+        Caption = 'bAbort0'
+        OnClick = bAbort0Click
+        TabOrder = 2
+      end
+    end
+    object cbLanguage: TComboBox
+      AnchorSideTop.Control = lDescription0
+      AnchorSideTop.Side = asrBottom
+      Left = 144
+      Height = 27
+      Top = 94
+      Width = 263
+      BorderSpacing.Top = 13
+      ItemHeight = 0
+      ItemIndex = 0
+      Items.Strings = (
+        'Deutsch'
+      )
+      OnSelect = cbLanguageSelect
+      TabOrder = 4
+      TabStop = False
+      Text = 'Deutsch'
+    end
+    object cbNewdatabase: TRadioButton
+      AnchorSideTop.Control = cbLanguage
+      AnchorSideBottom.Control = cbExistingdatabase
+      Left = 4
+      Height = 24
+      Hint = 'Benutzen Sie diese Einstellung, wenn sie eine neue Datenbank anlegen möchten'#10'Im folgenden Dialog können Sie ein Profil mit Standardeinstellungen für diese'#10'Datenbank wählen'
+      Top = 160
+      Width = 263
+      BorderSpacing.Top = 66
+      Caption = 'Neue Datenbank (mit Einstellungen füllen)'
+      Checked = True
+      TabOrder = 1
+      TabStop = True
+    end
+    object cbExistingdatabase: TRadioButton
+      AnchorSideTop.Control = cbNewdatabase
+      AnchorSideTop.Side = asrBottom
+      Left = 4
+      Height = 24
+      Hint = 'wählen Sie diese Einstellung, wenn Sie eine Datenbankverknüpfung'#10'zu einer schon existierenden Datenbank anlegen möchten,'#10'z.b. wenn Sie einen weiteren Client-PC einrichten möchten.'
+      Top = 191
+      Width = 328
+      BorderSpacing.Top = 7
+      Caption = 'exitierende Datenbank (keine Einstellungen einfügen)'
+      TabOrder = 2
+    end
+    object eMandantname: TComboBox
+      AnchorSideTop.Control = cbLanguage
+      AnchorSideTop.Side = asrBottom
+      Left = 144
+      Height = 27
+      Top = 129
+      Width = 264
+      Anchors = [akTop, akLeft, akRight]
+      BorderSpacing.Top = 8
+      ItemHeight = 0
+      OnSelect = eMandantnameSelect
+      TabOrder = 0
+    end
+    object rbDelete: TRadioButton
+      AnchorSideTop.Control = cbNewdatabase
+      AnchorSideTop.Side = asrBottom
+      Left = 4
+      Height = 24
+      Hint = 'Mit deiser Einstellung können Sie eine Datenbankverknüpfung löschen'#10'(löscht nicht die Datenbank !!)'
+      Top = 256
+      Width = 204
+      BorderSpacing.Top = 72
+      Caption = 'Datenbankverknüpfung löschen'
+      Enabled = False
+      TabOrder = 3
+    end
+    object rbFromFile: TRadioButton
+      AnchorSideTop.Control = cbExistingdatabase
+      Left = 4
+      Height = 24
+      Hint = 'Mit dieser Einstellung können Sie die Datenbankeinstellungen aus einer Datei (.perml) laden.'#10'Sie finden diese Dateien nach einer Einrichrung mit diesem Assistenten'#10'unter Windows in'#10'Benuterprofil\Lokale Einstellungen\Anwendungsdaten\prometerp\*.perml'#10'Unter Unix in'#10'Benuterprofil\.prometerp\*.perml'
+      Top = 225
+      Width = 132
+      BorderSpacing.Top = 34
+      Caption = 'aus Datei erstellen'
+      TabOrder = 6
+    end
+    object DirectoryEdit1: TFileNameEdit
+      AnchorSideTop.Control = rbFromFile
+      Left = 168
+      Height = 23
+      Top = 225
+      Width = 216
+      OnAcceptFileName = DirectoryEdit1AcceptFileName
+      Filter = 'Promet-ERP Mandant File|*.perml'
+      FilterIndex = 0
+      DefaultExt = 'perml'
+      HideDirectories = False
+      ButtonWidth = 23
+      DirectInput = False
+      NumGlyphs = 1
+      MaxLength = 0
+      TabOrder = 7
+    end
+  end
   object pCont1: TPanel
     Left = 128
     Height = 344
@@ -437,6 +804,7 @@ object fWizardNewMandant: TfWizardNewMandant
         'postgresql-7'
       )
       MaxLength = 65535
+      OnChange = cbSQLTypeChange
       TabOrder = 0
       Text = 'sqlite-3'
     end
@@ -480,6 +848,7 @@ object fWizardNewMandant: TfWizardNewMandant
     object bCopyConnectionString: TSpeedButton
       Left = 288
       Height = 28
+      Hint = 'Mit diesem Knopf können Sie den Datenbankverbindungsstring'#10'in die Zwischenablage kopieren um ihn z.b. für die Synchronisationseinstellungen '#10'parat zu haben.'
       Top = 88
       Width = 32
       Glyph.Data = {
@@ -532,182 +901,12 @@ object fWizardNewMandant: TfWizardNewMandant
     object seSyncID: TSpinEdit
       Left = 342
       Height = 23
+      Hint = 'Die SyncID sollte bei Synchronisierten Datenbanken'#10'zwischen den Datenbanken unterschiedlich sein'#10'damit werden dann unterschiedliche Nummernkreise '#10'für die Datensatznummern (SQL_ID) verwendet '#10'damit es keine Überschneidungen gibt'
       Top = 120
       Width = 50
       Anchors = [akTop, akRight]
       MaxValue = 187
       TabOrder = 6
-    end
-  end
-  object pResult: TPanel
-    Left = 128
-    Height = 344
-    Top = 0
-    Width = 422
-    Align = alClient
-    BevelOuter = bvNone
-    ClientHeight = 344
-    ClientWidth = 422
-    FullRepaint = False
-    TabOrder = 4
-    Visible = False
-    object lCreatingDatabase: TLabel
-      Left = 40
-      Height = 13
-      Top = 9
-      Width = 166
-      Caption = 'erstelle Tabellen (wenn nötig)'
-      ParentColor = False
-    end
-    object lFillingDefaultValues: TLabel
-      Left = 40
-      Height = 13
-      Top = 32
-      Width = 137
-      Caption = 'Vorgabewerte einsetzen'
-      ParentColor = False
-    end
-    object lUpdatingDatabase: TLabel
-      Left = 40
-      Height = 13
-      Top = 56
-      Width = 83
-      Caption = 'Hilfe einsetzen'
-      ParentColor = False
-    end
-    object iDatabaseCreated: TImage
-      Left = 8
-      Height = 21
-      Top = 9
-      Width = 23
-      Picture.Data = {
-        1754506F727461626C654E6574776F726B47726170686963E401000089504E47
-        0D0A1A0A0000000D49484452000000100000001008060000001FF3FF61000001
-        AB4944415478DABD93D92E436114857BE738EF626ED5185342AA865427EAE829
-        45298D1BAAA7AD56AB434A0CC7A5186A8EC414942012975AD58667102FA1BAFC
-        9568C285181217FFDDBFD6DEFBDB6B0B0008FEF204FF6EA05E6BE25B96EA9DBF
-        3250AD36F2A6633DFA0F5848F82AEE4706CA60033F78D485D97B37BC3756E8B6
-        D4A8F014D9BE2556AC4879E3A10ED37117A6E24E746EB7A2D25B8C1287904A7F
-        325EB2358633A6E7B358BE2CE5532D4FC69C08C41C6F95CBDDE244F15801951E
-        C178C196F59E324FDCB509ECAE72E85D4C60F17DFB5A04EEC6E0BFB383DD54A1
-        CC559828B2E7536988FDE7DADADE50FBA32FCC613A360ECD962C41600DC91625
-        53863D06BEA81DDE5B0E1D1B0A948E8B12625B1EF5618D3D279A4CFD611BCC57
-        03987BF0C01BB6C278A483E9448F89B005EE5B0B9875394A9CC29742EB47717A
-        0466474E93CA3085F46F73FAA336B82266B8C26668D65A52B092222E97FA3248
-        04162D5B90A07BB71DEEC8281C37C3680BCA40602545961CEA5B4994CC57D375
-        3395A46505D42BCD20B092C2D16CEA475126FBA5CB27C420B09E0BCCD919BFBA
-        05028BCE1FC9CAF8976B7C05BEA2A93C4F441D810000000049454E44AE426082
-      }
-      Visible = False
-    end
-    object iDatabaseFilled: TImage
-      Left = 8
-      Height = 21
-      Top = 32
-      Width = 23
-      Picture.Data = {
-        1754506F727461626C654E6574776F726B47726170686963E401000089504E47
-        0D0A1A0A0000000D49484452000000100000001008060000001FF3FF61000001
-        AB4944415478DABD93D92E436114857BE738EF626ED5185342AA865427EAE829
-        45298D1BAAA7AD56AB434A0CC7A5186A8EC414942012975AD58667102FA1BAFC
-        9568C285181217FFDDBFD6DEFBDB6B0B0008FEF204FF6EA05E6BE25B96EA9DBF
-        3250AD36F2A6633DFA0F5848F82AEE4706CA60033F78D485D97B37BC3756E8B6
-        D4A8F014D9BE2556AC4879E3A10ED37117A6E24E746EB7A2D25B8C1287904A7F
-        325EB2358633A6E7B358BE2CE5532D4FC69C08C41C6F95CBDDE244F15801951E
-        C178C196F59E324FDCB509ECAE72E85D4C60F17DFB5A04EEC6E0BFB383DD54A1
-        CC559828B2E7536988FDE7DADADE50FBA32FCC613A360ECD962C41600DC91625
-        53863D06BEA81DDE5B0E1D1B0A948E8B12625B1EF5618D3D279A4CFD611BCC57
-        03987BF0C01BB6C278A483E9448F89B005EE5B0B9875394A9CC29742EB47717A
-        0466474E93CA3085F46F73FAA336B82266B8C26668D65A52B092222E97FA3248
-        04162D5B90A07BB71DEEC8281C37C3680BCA40602545961CEA5B4994CC57D375
-        3395A46505D42BCD20B092C2D16CEA475126FBA5CB27C420B09E0BCCD919BFBA
-        05028BCE1FC9CAF8976B7C05BEA2A93C4F441D810000000049454E44AE426082
-      }
-      Visible = False
-    end
-    object iDatabaseUpdated: TImage
-      Left = 8
-      Height = 21
-      Top = 56
-      Width = 23
-      Picture.Data = {
-        1754506F727461626C654E6574776F726B47726170686963E401000089504E47
-        0D0A1A0A0000000D49484452000000100000001008060000001FF3FF61000001
-        AB4944415478DABD93D92E436114857BE738EF626ED5185342AA865427EAE829
-        45298D1BAAA7AD56AB434A0CC7A5186A8EC414942012975AD58667102FA1BAFC
-        9568C285181217FFDDBFD6DEFBDB6B0B0008FEF204FF6EA05E6BE25B96EA9DBF
-        3250AD36F2A6633DFA0F5848F82AEE4706CA60033F78D485D97B37BC3756E8B6
-        D4A8F014D9BE2556AC4879E3A10ED37117A6E24E746EB7A2D25B8C1287904A7F
-        325EB2358633A6E7B358BE2CE5532D4FC69C08C41C6F95CBDDE244F15801951E
-        C178C196F59E324FDCB509ECAE72E85D4C60F17DFB5A04EEC6E0BFB383DD54A1
-        CC559828B2E7536988FDE7DADADE50FBA32FCC613A360ECD962C41600DC91625
-        53863D06BEA81DDE5B0E1D1B0A948E8B12625B1EF5618D3D279A4CFD611BCC57
-        03987BF0C01BB6C278A483E9448F89B005EE5B0B9875394A9CC29742EB47717A
-        0466474E93CA3085F46F73FAA336B82266B8C26668D65A52B092222E97FA3248
-        04162D5B90A07BB71DEEC8281C37C3680BCA40602545961CEA5B4994CC57D375
-        3395A46505D42BCD20B092C2D16CEA475126FBA5CB27C420B09E0BCCD919BFBA
-        05028BCE1FC9CAF8976B7C05BEA2A93C4F441D810000000049454E44AE426082
-      }
-      Visible = False
-    end
-    object bvleft1: TBevel
-      Left = 0
-      Height = 50
-      Top = 294
-      Width = 422
-      Align = alBottom
-      Shape = bsTopLine
-    end
-    object pDetails: TPanel
-      Left = 12
-      Height = 200
-      Top = 88
-      Width = 396
-      BevelOuter = bvNone
-      ClientHeight = 200
-      ClientWidth = 396
-      TabOrder = 0
-      Visible = False
-      object Button1: TButton
-        Left = 180
-        Height = 25
-        Top = 168
-        Width = 149
-        AutoSize = True
-        Caption = 'Mandanteneinstellungen'
-        OnClick = Button1Click
-        TabOrder = 0
-      end
-      object Label2: TLabel
-        Left = 0
-        Height = 141
-        Top = 0
-        Width = 396
-        Align = alTop
-        Caption = 'Das erstellen der Datenbank wurde beendet, Sie können '#10'nun wenn gewünscht noch Details zum Mandanten '#10'eingeben (Name,Adresse,Telefonnummern u.ä.). '#10'Die dann auf allen Druckbelegen mitverwendet werden.'#10#10'Auch andere Gelobale Einstellungen sind direkt von '#10'hier möglich.'#10'Sie können die Einstellungen auch jederzeit in den '#10'Optionen nachholen'
-        ParentColor = False
-      end
-    end
-    object bAbort5: TButton
-      Left = 272
-      Height = 25
-      Top = 304
-      Width = 146
-      Anchors = [akTop, akLeft, akRight]
-      BorderSpacing.InnerBorder = 4
-      Caption = 'Schliessen'
-      OnClick = bAbort0Click
-      TabOrder = 1
-    end
-    object lDefaultValue: TLabel
-      AnchorSideLeft.Control = lFillingDefaultValues
-      AnchorSideLeft.Side = asrBottom
-      Left = 184
-      Height = 1
-      Top = 32
-      Width = 1
-      BorderSpacing.Left = 7
-      ParentColor = False
     end
   end
   object pLeft: TPanel
@@ -921,202 +1120,6 @@ object fWizardNewMandant: TfWizardNewMandant
       Kind = bkHelp
       OnClick = BitBtn1Click
       TabOrder = 1
-    end
-  end
-  object pCont0: TPanel
-    Left = 128
-    Height = 344
-    Top = 0
-    Width = 422
-    Align = alClient
-    BevelOuter = bvNone
-    ClientHeight = 344
-    ClientWidth = 422
-    FullRepaint = False
-    TabOrder = 6
-    object lDescription0: TLabel
-      Left = 4
-      Height = 77
-      Top = 4
-      Width = 414
-      Align = alTop
-      Alignment = taCenter
-      BorderSpacing.Around = 4
-      Caption = 'Mit diesem Assistenten können Sie einen neuen Mandanten erstellen, wählen Sie dazu im ersten Schritt eine Sprache für den mandanten aus, und geben Sie darunter einen Namen an. Weiterhin müssen Sie hier auswählen ob die Datenbank mit Vorgabedaten gefüllt werden soll oder nicht.'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      WordWrap = True
-    end
-    object lMandantname: TLabel
-      AnchorSideTop.Control = cbLanguage
-      AnchorSideTop.Side = asrBottom
-      Left = 8
-      Height = 13
-      Top = 131
-      Width = 94
-      BorderSpacing.Top = 10
-      Caption = 'Mandantenname'
-      ParentColor = False
-    end
-    object lLanguage: TLabel
-      AnchorSideTop.Control = lDescription0
-      AnchorSideTop.Side = asrBottom
-      Left = 8
-      Height = 13
-      Top = 94
-      Width = 46
-      BorderSpacing.Top = 13
-      Caption = 'Sprache'
-      ParentColor = False
-    end
-    object pButtons0: TPanel
-      Left = 0
-      Height = 50
-      Top = 294
-      Width = 422
-      Align = alBottom
-      BevelOuter = bvNone
-      ClientHeight = 50
-      ClientWidth = 422
-      TabOrder = 5
-      object bvRight0: TBevel
-        Left = 0
-        Height = 2
-        Top = 0
-        Width = 422
-        Align = alTop
-        Shape = bsTopLine
-      end
-      object bNext0: TButton
-        Left = 120
-        Height = 30
-        Top = 10
-        Width = 100
-        BorderSpacing.InnerBorder = 4
-        Caption = 'bNext0'
-        OnClick = bNext0Click
-        TabOrder = 0
-      end
-      object bPrev0: TButton
-        Left = 21
-        Height = 30
-        Top = 10
-        Width = 99
-        BorderSpacing.InnerBorder = 4
-        Caption = 'bPrev0'
-        OnClick = bPrev0Click
-        TabOrder = 1
-      end
-      object bAbort0: TButton
-        Left = 264
-        Height = 29
-        Top = 10
-        Width = 156
-        Anchors = [akTop, akLeft, akRight]
-        BorderSpacing.InnerBorder = 4
-        Caption = 'bAbort0'
-        OnClick = bAbort0Click
-        TabOrder = 2
-      end
-    end
-    object cbLanguage: TComboBox
-      AnchorSideTop.Control = lDescription0
-      AnchorSideTop.Side = asrBottom
-      Left = 144
-      Height = 27
-      Top = 94
-      Width = 263
-      BorderSpacing.Top = 13
-      ItemHeight = 0
-      ItemIndex = 0
-      Items.Strings = (
-        'Deutsch'
-      )
-      OnSelect = cbLanguageSelect
-      TabOrder = 4
-      TabStop = False
-      Text = 'Deutsch'
-    end
-    object cbNewdatabase: TRadioButton
-      AnchorSideTop.Control = cbLanguage
-      AnchorSideBottom.Control = cbExistingdatabase
-      Left = 4
-      Height = 24
-      Hint = 'Benutzen Sie diese Einstellung, wenn sie eine neue Datenbank anlegen möchten'#10'Im folgenden Dialog können Sie ein Profil mit Standardeinstellungen für diese'#10'Datenbank wählen'
-      Top = 160
-      Width = 263
-      BorderSpacing.Top = 66
-      Caption = 'Neue Datenbank (mit Einstellungen füllen)'
-      Checked = True
-      TabOrder = 1
-      TabStop = True
-    end
-    object cbExistingdatabase: TRadioButton
-      AnchorSideTop.Control = cbNewdatabase
-      AnchorSideTop.Side = asrBottom
-      Left = 4
-      Height = 24
-      Hint = 'wählen Sie diese Einstellung, wenn Sie eine Datenbankverknüpfung'#10'zu einer schon existierenden Datenbank anlegen möchten,'#10'z.b. wenn Sie einen weiteren Client-PC einrichten möchten.'
-      Top = 191
-      Width = 328
-      BorderSpacing.Top = 7
-      Caption = 'exitierende Datenbank (keine Einstellungen einfügen)'
-      TabOrder = 2
-    end
-    object eMandantname: TComboBox
-      AnchorSideTop.Control = cbLanguage
-      AnchorSideTop.Side = asrBottom
-      Left = 144
-      Height = 27
-      Top = 129
-      Width = 264
-      Anchors = [akTop, akLeft, akRight]
-      BorderSpacing.Top = 8
-      ItemHeight = 0
-      OnSelect = eMandantnameSelect
-      TabOrder = 0
-    end
-    object rbDelete: TRadioButton
-      AnchorSideTop.Control = cbNewdatabase
-      AnchorSideTop.Side = asrBottom
-      Left = 4
-      Height = 24
-      Hint = 'Mit deiser Einstellung können Sie eine Datenbankverknüpfung löschen'#10'(löscht nicht die Datenbank !!)'
-      Top = 256
-      Width = 204
-      BorderSpacing.Top = 72
-      Caption = 'Datenbankverknüpfung löschen'
-      Enabled = False
-      TabOrder = 3
-    end
-    object rbFromFile: TRadioButton
-      AnchorSideTop.Control = cbExistingdatabase
-      Left = 4
-      Height = 24
-      Hint = 'Mit dieser Einstellung können Sie die Datenbankeinstellungen aus einer Datei (.perml) laden.'#10'Sie finden diese Dateien nach einer Einrichrung mit diesem Assistenten'#10'unter Windows in'#10'Benuterprofil\Lokale Einstellungen\Anwendungsdaten\prometerp\*.perml'#10'Unter Unix in'#10'Benuterprofil\.prometerp\*.perml'
-      Top = 225
-      Width = 132
-      BorderSpacing.Top = 34
-      Caption = 'aus Datei erstellen'
-      TabOrder = 6
-    end
-    object DirectoryEdit1: TFileNameEdit
-      AnchorSideTop.Control = rbFromFile
-      Left = 168
-      Height = 23
-      Top = 225
-      Width = 216
-      OnAcceptFileName = DirectoryEdit1AcceptFileName
-      Filter = 'Promet-ERP Mandant File|*.perml'
-      FilterIndex = 0
-      DefaultExt = 'perml'
-      HideDirectories = False
-      ButtonWidth = 23
-      DirectInput = False
-      NumGlyphs = 1
-      MaxLength = 0
-      TabOrder = 7
     end
   end
   object md: TDatasource

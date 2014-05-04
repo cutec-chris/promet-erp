@@ -6,292 +6,371 @@ LazarusResources.Add('TfWizardNewMandant','FORMDATA',[
   +'llen'#12'ClientHeight'#3'X'#1#11'ClientWidth'#3'&'#2#12'OnCloseQuery'#7#14
   +'FormCloseQuery'#8'OnCreate'#7#10'FormCreate'#9'OnDestroy'#7#11'FormDestroy'
   +#6'OnShow'#7#8'FormShow'#8'Position'#7#16'poMainFormCenter'#10'LCLVersion'#6
-  +#3'1.3'#0#6'TPanel'#6'pCont1'#4'Left'#3#128#0#6'Height'#3'X'#1#3'Top'#2#0#5
+  +#3'1.3'#0#6'TPanel'#7'pResult'#4'Left'#3#128#0#6'Height'#3'X'#1#3'Top'#2#0#5
   +'Width'#3#166#1#5'Align'#7#8'alClient'#10'BevelOuter'#7#6'bvNone'#12'ClientH'
-  +'eight'#3'X'#1#11'ClientWidth'#3#166#1#11'FullRepaint'#8#8'TabOrder'#2#5#0#6
-  +'TLabel'#13'lDescription1'#4'Left'#2#0#6'Height'#2#13#3'Top'#2#0#5'Width'#3
-  +#166#1#5'Align'#7#5'alTop'#7'Caption'#6'1W'#195#164'hlen Sie hier ein Profil'
-  +' mit Vorgabewerten aus'#10'Font.Style'#11#6'fsBold'#0#11'ParentColor'#8#10
-  +'ParentFont'#8#8'WordWrap'#9#0#0#6'TLabel'#8'lProfile'#4'Left'#2#12#6'Height'
-  +#2#13#3'Top'#2#24#5'Width'#2#29#7'Caption'#6#6'Profil'#11'ParentColor'#8#0#0
-  +#6'TPanel'#9'pButtons1'#4'Left'#2#0#6'Height'#2'2'#3'Top'#3'&'#1#5'Width'#3
-  +#166#1#5'Align'#7#8'alBottom'#10'BevelOuter'#7#6'bvNone'#12'ClientHeight'#2
-  +'2'#11'ClientWidth'#3#166#1#8'TabOrder'#2#0#0#6'TBevel'#8'bvRight1'#4'Left'#2
-  +#0#6'Height'#2#2#3'Top'#2#0#5'Width'#3#166#1#5'Align'#7#5'alTop'#5'Shape'#7#9
-  +'bsTopLine'#0#0#7'TButton'#6'bNext1'#4'Left'#2'x'#6'Height'#2#25#3'Top'#2#14
-  +#5'Width'#2'd'#25'BorderSpacing.InnerBorder'#2#4#7'Caption'#6#6'bNext0'#7'On'
-  +'Click'#7#11'bNext0Click'#8'TabOrder'#2#0#0#0#7'TButton'#6'bPrev1'#4'Left'#2
-  +#21#6'Height'#2#25#3'Top'#2#14#5'Width'#2'c'#25'BorderSpacing.InnerBorder'#2
-  +#4#7'Caption'#6#6'bPrev0'#7'OnClick'#7#11'bPrev0Click'#8'TabOrder'#2#1#0#0#7
-  +'TButton'#7'bAbort1'#4'Left'#3#8#1#6'Height'#2#25#3'Top'#2#14#5'Width'#3#152
-  +#0#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#0#25'BorderSpacing.InnerBorde'
-  +'r'#2#4#7'Caption'#6#7'bAbort0'#7'OnClick'#7#12'bAbort0Click'#8'TabOrder'#2#2
-  +#0#0#0#9'TTreeView'#9'tvProfile'#4'Left'#2#12#6'Height'#3#187#0#3'Top'#2'0'#5
-  +'Width'#3#140#1#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#8'akBottom'#0#17
-  +'DefaultItemHeight'#2#16#8'ReadOnly'#9#8'TabOrder'#2#1#7'Options'#11#17'tvoA'
-  +'utoItemHeight'#16'tvoHideSelection'#21'tvoKeepCollapsedNodes'#11'tvoReadOnl'
-  +'y'#14'tvoShowButtons'#12'tvoShowLines'#11'tvoShowRoot'#11'tvoToolTips'#0#0#0
-  +#9'TCheckBox'#10'cbSyncHelp'#4'Left'#2#12#6'Height'#2#24#4'Hint'#6#213'Wenn '
-  +'Diese Option gesetzt ist, '#10'wird auf der Datenbank ein Synchronisationse'
-  +'intrag'#10'f'#195#188'r eine mitgelieferte Hilfe Datenbank erstellt'#10'Bei'
-  +' Updates der Hilfedatenbank werden die '#195#132'nderungen'#10'automatisch '
-  +'synchronisiert.'#3'Top'#3#248#0#5'Width'#3#223#0#7'Caption'#6'"Hilfe in Dat'
-  +'enbank synchronisieren'#7'Checked'#9#5'State'#7#9'cbChecked'#8'TabOrder'#2#2
-  +#0#0#0#6'TPanel'#6'pCont2'#4'Left'#3#128#0#6'Height'#3'X'#1#3'Top'#2#0#5'Wid'
-  +'th'#3#166#1#5'Align'#7#8'alClient'#10'BevelOuter'#7#6'bvNone'#12'ClientHeig'
-  +'ht'#3'X'#1#11'ClientWidth'#3#166#1#11'FullRepaint'#8#8'TabOrder'#2#1#0#6'TL'
-  +'abel'#13'lDescription2'#4'Left'#2#0#6'Height'#2#13#3'Top'#2#0#5'Width'#3#166
-  +#1#5'Align'#7#5'alTop'#7'Caption'#6'"Geben Sie hier den Datenbanktyp an'#10
-  +'Font.Style'#11#6'fsBold'#0#11'ParentColor'#8#10'ParentFont'#8#8'WordWrap'#9
-  +#0#0#6'TLabel'#12'Datenbanktyp'#4'Left'#2#12#6'Height'#2#13#3'Top'#3#140#0#5
-  +'Width'#2'N'#7'Caption'#6#12'Datenbanktyp'#11'ParentColor'#8#0#0#6'TPanel'#9
-  +'pButtons2'#4'Left'#2#0#6'Height'#2'2'#3'Top'#3'&'#1#5'Width'#3#166#1#5'Alig'
-  +'n'#7#8'alBottom'#10'BevelOuter'#7#6'bvNone'#12'ClientHeight'#2'2'#11'Client'
-  +'Width'#3#166#1#8'TabOrder'#2#0#0#6'TBevel'#8'bvRight2'#4'Left'#2#0#6'Height'
-  +#2#2#3'Top'#2#0#5'Width'#3#166#1#5'Align'#7#5'alTop'#5'Shape'#7#9'bsTopLine'
-  +#0#0#7'TButton'#6'bNext2'#4'Left'#2'x'#6'Height'#2#25#3'Top'#2#14#5'Width'#2
-  +'d'#25'BorderSpacing.InnerBorder'#2#4#7'Caption'#6#6'bNext0'#7'OnClick'#7#11
-  +'bNext0Click'#8'TabOrder'#2#0#0#0#7'TButton'#6'bPrev2'#4'Left'#2#21#6'Height'
-  +#2#25#3'Top'#2#14#5'Width'#2'c'#25'BorderSpacing.InnerBorder'#2#4#7'Caption'
-  +#6#6'bPrev0'#7'OnClick'#7#11'bPrev0Click'#8'TabOrder'#2#1#0#0#7'TButton'#7'b'
-  +'Abort2'#4'Left'#3#8#1#6'Height'#2#25#3'Top'#2#14#5'Width'#3#156#0#7'Anchors'
-  +#11#5'akTop'#6'akLeft'#7'akRight'#0#25'BorderSpacing.InnerBorder'#2#4#7'Capt'
-  +'ion'#6#7'bAbort0'#7'OnClick'#7#12'bAbort0Click'#8'TabOrder'#2#2#0#0#0#9'TCo'
-  +'mboBox'#14'cbDatabaseType'#4'Left'#3#152#0#6'Height'#2#27#3'Top'#3#136#0#5
-  +'Width'#3#204#0#10'ItemHeight'#2#0#8'TabOrder'#2#1#0#0#0#6'TPanel'#6'pCont3'
-  +#4'Left'#3#128#0#6'Height'#3'X'#1#3'Top'#2#0#5'Width'#3#166#1#5'Align'#7#8'a'
-  +'lClient'#10'BevelOuter'#7#6'bvNone'#12'ClientHeight'#3'X'#1#11'ClientWidth'
-  +#3#166#1#11'FullRepaint'#8#8'TabOrder'#2#2#0#6'TLabel'#13'lDescription3'#4'L'
-  +'eft'#2#0#6'Height'#2#13#3'Top'#2#0#5'Width'#3#166#1#5'Align'#7#5'alTop'#7'C'
-  +'aption'#6'*Geben Sie hier das Datenbankverzeichnis an'#10'Font.Style'#11#6
-  +'fsBold'#0#11'ParentColor'#8#10'ParentFont'#8#8'WordWrap'#9#0#0#6'TLabel'#18
-  ,'lDatabaseDirectory'#4'Left'#2#4#6'Height'#2#13#3'Top'#2't'#5'Width'#2'|'#7
-  +'Caption'#6#20'Datenbankverzeichnis'#11'ParentColor'#8#0#0#6'TPanel'#9'pButt'
-  +'ons3'#4'Left'#2#0#6'Height'#2'2'#3'Top'#3'&'#1#5'Width'#3#166#1#5'Align'#7#8
-  +'alBottom'#10'BevelOuter'#7#6'bvNone'#12'ClientHeight'#2'2'#11'ClientWidth'#3
-  +#166#1#8'TabOrder'#2#0#0#6'TBevel'#8'bvRight3'#4'Left'#2#0#6'Height'#2#2#3'T'
+  +'eight'#3'X'#1#11'ClientWidth'#3#166#1#11'FullRepaint'#8#8'TabOrder'#2#4#7'V'
+  +'isible'#8#0#6'TLabel'#17'lCreatingDatabase'#4'Left'#2'('#6'Height'#2#13#3'T'
+  +'op'#2#9#5'Width'#3#166#0#7'Caption'#6#31'erstelle Tabellen (wenn n'#195#182
+  +'tig)'#11'ParentColor'#8#0#0#6'TLabel'#21'lFillingDefaultValues'#4'Left'#2'('
+  +#6'Height'#2#13#3'Top'#2' '#5'Width'#3#137#0#7'Caption'#6#22'Vorgabewerte ei'
+  +'nsetzen'#11'ParentColor'#8#0#0#6'TLabel'#17'lUpdatingDatabase'#4'Left'#2'('
+  +#6'Height'#2#13#3'Top'#2'8'#5'Width'#2'S'#7'Caption'#6#15'Hilfe einsetzen'#11
+  +'ParentColor'#8#0#0#6'TImage'#16'iDatabaseCreated'#4'Left'#2#8#6'Height'#2#21
+  +#3'Top'#2#9#5'Width'#2#23#12'Picture.Data'#10#0#2#0#0#23'TPortableNetworkGra'
+  +'phic'#228#1#0#0#137'PNG'#13#10#26#10#0#0#0#13'IHDR'#0#0#0#16#0#0#0#16#8#6#0
+  +#0#0#31#243#255'a'#0#0#1#171'IDATx'#218#189#147#217'.Ca'#20#133'{'#231'8'#239
+  +'bn'#213#24'SB'#170#134'T'''#234#232')E)'#141#27#170#167#173'V'#171'CJ'#12
+  +#199#165#24'j'#142#196#20#148' '#18#151'Z'#213#134'g'#16'/'#161#186#252#149
+  +'h'#194#133#24#18#23#255#221#191#214#222#251#219'k'#11#0#8#254#242#4#255'n'
+  +#160'^k'#226'['#150#234#157#191'2P'#173'6'#242#166'c='#250#15'XH'#248'*'#238
+  +'G'#6#202'`'#3'?x'#212#133#217'{7'#188'7V'#232#182#212#168#240#20#217#190'%V'
+  +#172'Hy'#227#161#14#211'q'#23#166#226'Ntn'#183#162#210'['#140#18#135#144'J'
+  +#127'2^'#178'5'#134'3'#166#231#179'X'#190','#229'S-O'#198#156#8#196#28'o'#149
+  +#203#221#226'D'#241'X'#1#149#30#193'x'#193#150#245#158'2O'#220#181#9#236#174
+  +'r'#232']L`'#241'}'#251'Z'#4#238#198#224#191#179#131#221'T'#161#204'U'#152'('
+  +#178#231'Si'#136#253#231#218#218#222'P'#251#163'/'#204'a:6'#14#205#150',A`'
+  +#13#201#22'%S'#134'='#6#190#168#29#222'['#14#29#27#10#148#142#139#18'b['#30
+  +#245'a'#141'='''#154'L'#253'a'#27#204'W'#3#152'{'#240#192#27#182#194'x'#164
+  +#131#233'D'#143#137#176#5#238'['#11#152'u9J'#156#194#151'B'#235'Gqz'#4'fGN'
+  +#147#202'0'#133#244'os'#250#163'6'#184'"f'#184#194'fh'#214'ZR'#176#146'".'
+  +#151#250'2H'#4#22'-['#144#160'{'#183#29#238#200'('#28'7'#195'h'#11#202'@`%E'
+  +#150#28#234'[I'#148#204'W'#211'u3'#149#164'e'#5#212'+'#205' '#176#146#194#209
+  +'l'#234'GQ&'#251#165#203''''#196' '#176#158#11#204#217#25#191#186#5#2#139#206
+  +#31#201#202#248#151'k|'#5#190#162#169'<OD'#29#129#0#0#0#0'IEND'#174'B`'#130#7
+  +'Visible'#8#0#0#6'TImage'#15'iDatabaseFilled'#4'Left'#2#8#6'Height'#2#21#3'T'
+  +'op'#2' '#5'Width'#2#23#12'Picture.Data'#10#0#2#0#0#23'TPortableNetworkGraph'
+  +'ic'#228#1#0#0#137'PNG'#13#10#26#10#0#0#0#13'IHDR'#0#0#0#16#0#0#0#16#8#6#0#0
+  +#0#31#243#255'a'#0#0#1#171'IDATx'#218#189#147#217'.Ca'#20#133'{'#231'8'#239
+  +'bn'#213#24'SB'#170#134'T'''#234#232')E)'#141#27#170#167#173'V'#171'CJ'#12
+  +#199#165#24'j'#142#196#20#148' '#18#151'Z'#213#134'g'#16'/'#161#186#252#149
+  +'h'#194#133#24#18#23#255#221#191#214#222#251#219'k'#11#0#8#254#242#4#255'n'
+  +#160'^k'#226'['#150#234#157#191'2P'#173'6'#242#166'c='#250#15'XH'#248'*'#238
+  +'G'#6#202'`'#3'?x'#212#133#217'{7'#188'7V'#232#182#212#168#240#20#217#190'%V'
+  +#172'Hy'#227#161#14#211'q'#23#166#226'Ntn'#183#162#210'['#140#18#135#144'J'
+  +#127'2^'#178'5'#134'3'#166#231#179'X'#190','#229'S-O'#198#156#8#196#28'o'#149
+  +#203#221#226'D'#241'X'#1#149#30#193'x'#193#150#245#158'2O'#220#181#9#236#174
+  +'r'#232']L`'#241'}'#251'Z'#4#238#198#224#191#179#131#221'T'#161#204'U'#152'('
+  +#178#231'Si'#136#253#231#218#218#222'P'#251#163'/'#204'a:6'#14#205#150',A`'
+  +#13#201#22'%S'#134'='#6#190#168#29#222'['#14#29#27#10#148#142#139#18'b['#30
+  +#245'a'#141'='''#154'L'#253'a'#27#204'W'#3#152'{'#240#192#27#182#194'x'#164
+  +#131#233'D'#143#137#176#5#238'['#11#152'u9J'#156#194#151'B'#235'Gqz'#4'fGN'
+  +#147#202'0'#133#244'os'#250#163'6'#184'"f'#184#194'fh'#214'ZR'#176#146'".'
+  +#151#250'2H'#4#22'-['#144#160'{'#183#29#238#200'('#28'7'#195'h'#11#202'@`%E'
+  +#150#28#234'[I'#148#204'W'#211'u3'#149#164'e'#5#212'+'#205' '#176#146#194#209
+  +'l'#234'GQ&'#251#165#203''''#196' '#176#158#11#204#217#25#191#186#5#2#139#206
+  +#31#201#202#248#151'k|'#5#190#162#169'<OD'#29#129#0#0#0#0'IEND'#174'B`'#130#7
+  +'Visible'#8#0#0#6'TImage'#16'iDatabaseUpdated'#4'Left'#2#8#6'Height'#2#21#3
+  +'Top'#2'8'#5'Width'#2#23#12'Picture.Data'#10#0#2#0#0#23'TPortableNetworkGrap'
+  +'hic'#228#1#0#0#137'PNG'#13#10#26#10#0#0#0#13'IHDR'#0#0#0#16#0#0#0#16#8#6#0#0
+  +#0#31#243#255'a'#0#0#1#171'IDATx'#218#189#147#217'.Ca'#20#133'{'#231'8'#239
+  +'bn'#213#24'SB'#170#134'T'''#234#232')E)'#141#27#170#167#173'V'#171'CJ'#12
+  +#199#165#24'j'#142#196#20#148' '#18#151'Z'#213#134'g'#16'/'#161#186#252#149
+  ,'h'#194#133#24#18#23#255#221#191#214#222#251#219'k'#11#0#8#254#242#4#255'n'
+  +#160'^k'#226'['#150#234#157#191'2P'#173'6'#242#166'c='#250#15'XH'#248'*'#238
+  +'G'#6#202'`'#3'?x'#212#133#217'{7'#188'7V'#232#182#212#168#240#20#217#190'%V'
+  +#172'Hy'#227#161#14#211'q'#23#166#226'Ntn'#183#162#210'['#140#18#135#144'J'
+  +#127'2^'#178'5'#134'3'#166#231#179'X'#190','#229'S-O'#198#156#8#196#28'o'#149
+  +#203#221#226'D'#241'X'#1#149#30#193'x'#193#150#245#158'2O'#220#181#9#236#174
+  +'r'#232']L`'#241'}'#251'Z'#4#238#198#224#191#179#131#221'T'#161#204'U'#152'('
+  +#178#231'Si'#136#253#231#218#218#222'P'#251#163'/'#204'a:6'#14#205#150',A`'
+  +#13#201#22'%S'#134'='#6#190#168#29#222'['#14#29#27#10#148#142#139#18'b['#30
+  +#245'a'#141'='''#154'L'#253'a'#27#204'W'#3#152'{'#240#192#27#182#194'x'#164
+  +#131#233'D'#143#137#176#5#238'['#11#152'u9J'#156#194#151'B'#235'Gqz'#4'fGN'
+  +#147#202'0'#133#244'os'#250#163'6'#184'"f'#184#194'fh'#214'ZR'#176#146'".'
+  +#151#250'2H'#4#22'-['#144#160'{'#183#29#238#200'('#28'7'#195'h'#11#202'@`%E'
+  +#150#28#234'[I'#148#204'W'#211'u3'#149#164'e'#5#212'+'#205' '#176#146#194#209
+  +'l'#234'GQ&'#251#165#203''''#196' '#176#158#11#204#217#25#191#186#5#2#139#206
+  +#31#201#202#248#151'k|'#5#190#162#169'<OD'#29#129#0#0#0#0'IEND'#174'B`'#130#7
+  +'Visible'#8#0#0#6'TBevel'#7'bvleft1'#4'Left'#2#0#6'Height'#2'2'#3'Top'#3'&'#1
+  +#5'Width'#3#166#1#5'Align'#7#8'alBottom'#5'Shape'#7#9'bsTopLine'#0#0#6'TPane'
+  +'l'#8'pDetails'#4'Left'#2#12#6'Height'#3#200#0#3'Top'#2'X'#5'Width'#3#140#1
+  +#10'BevelOuter'#7#6'bvNone'#12'ClientHeight'#3#200#0#11'ClientWidth'#3#140#1
+  +#8'TabOrder'#2#0#7'Visible'#8#0#7'TButton'#7'Button1'#4'Left'#3#180#0#6'Heig'
+  +'ht'#2#25#3'Top'#3#168#0#5'Width'#3#149#0#8'AutoSize'#9#7'Caption'#6#22'Mand'
+  +'anteneinstellungen'#7'OnClick'#7#12'Button1Click'#8'TabOrder'#2#0#0#0#6'TLa'
+  +'bel'#6'Label2'#4'Left'#2#0#6'Height'#3#141#0#3'Top'#2#0#5'Width'#3#140#1#5
+  +'Align'#7#5'alTop'#7'Caption'#12'W'#1#0#0'Das erstellen der Datenbank wurde '
+  +'beendet, Sie k'#195#182'nnen '#10'nun wenn gew'#195#188'nscht noch Details '
+  +'zum Mandanten '#10'eingeben (Name,Adresse,Telefonnummern u.'#195#164'.). '
+  +#10'Die dann auf allen Druckbelegen mitverwendet werden.'#10#10'Auch andere '
+  +'Gelobale Einstellungen sind direkt von '#10'hier m'#195#182'glich.'#10'Sie '
+  +'k'#195#182'nnen die Einstellungen auch jederzeit in den '#10'Optionen nachh'
+  +'olen'#11'ParentColor'#8#0#0#0#7'TButton'#7'bAbort5'#4'Left'#3#16#1#6'Height'
+  +#2#25#3'Top'#3'0'#1#5'Width'#3#146#0#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRi'
+  +'ght'#0#25'BorderSpacing.InnerBorder'#2#4#7'Caption'#6#10'Schliessen'#7'OnCl'
+  +'ick'#7#12'bAbort0Click'#8'TabOrder'#2#1#0#0#6'TLabel'#13'lDefaultValue'#22
+  +'AnchorSideLeft.Control'#7#21'lFillingDefaultValues'#19'AnchorSideLeft.Side'
+  +#7#9'asrBottom'#4'Left'#3#184#0#6'Height'#2#1#3'Top'#2' '#5'Width'#2#1#18'Bo'
+  +'rderSpacing.Left'#2#7#11'ParentColor'#8#0#0#0#6'TPanel'#6'pCont0'#4'Left'#3
+  +#128#0#6'Height'#3'X'#1#3'Top'#2#0#5'Width'#3#166#1#5'Align'#7#8'alClient'#10
+  +'BevelOuter'#7#6'bvNone'#12'ClientHeight'#3'X'#1#11'ClientWidth'#3#166#1#11
+  +'FullRepaint'#8#8'TabOrder'#2#6#0#6'TLabel'#13'lDescription0'#4'Left'#2#4#6
+  +'Height'#2'M'#3'Top'#2#4#5'Width'#3#158#1#5'Align'#7#5'alTop'#9'Alignment'#7
+  +#8'taCenter'#20'BorderSpacing.Around'#2#4#7'Caption'#12#27#1#0#0'Mit diesem '
+  +'Assistenten k'#195#182'nnen Sie einen neuen Mandanten erstellen, w'#195#164
+  +'hlen Sie dazu im ersten Schritt eine Sprache f'#195#188'r den mandanten aus'
+  +', und geben Sie darunter einen Namen an. Weiterhin m'#195#188'ssen Sie hier'
+  +' ausw'#195#164'hlen ob die Datenbank mit Vorgabedaten gef'#195#188'llt werd'
+  +'en soll oder nicht.'#10'Font.Style'#11#6'fsBold'#0#11'ParentColor'#8#10'Par'
+  +'entFont'#8#8'WordWrap'#9#0#0#6'TLabel'#12'lMandantname'#21'AnchorSideTop.Co'
+  +'ntrol'#7#10'cbLanguage'#18'AnchorSideTop.Side'#7#9'asrBottom'#4'Left'#2#8#6
+  +'Height'#2#13#3'Top'#3#131#0#5'Width'#2'^'#17'BorderSpacing.Top'#2#10#7'Capt'
+  +'ion'#6#13'Mandantenname'#11'ParentColor'#8#0#0#6'TLabel'#9'lLanguage'#21'An'
+  +'chorSideTop.Control'#7#13'lDescription0'#18'AnchorSideTop.Side'#7#9'asrBott'
+  +'om'#4'Left'#2#8#6'Height'#2#13#3'Top'#2'^'#5'Width'#2'.'#17'BorderSpacing.T'
+  +'op'#2#13#7'Caption'#6#7'Sprache'#11'ParentColor'#8#0#0#6'TPanel'#9'pButtons'
+  +'0'#4'Left'#2#0#6'Height'#2'2'#3'Top'#3'&'#1#5'Width'#3#166#1#5'Align'#7#8'a'
+  +'lBottom'#10'BevelOuter'#7#6'bvNone'#12'ClientHeight'#2'2'#11'ClientWidth'#3
+  +#166#1#8'TabOrder'#2#5#0#6'TBevel'#8'bvRight0'#4'Left'#2#0#6'Height'#2#2#3'T'
   +'op'#2#0#5'Width'#3#166#1#5'Align'#7#5'alTop'#5'Shape'#7#9'bsTopLine'#0#0#7
-  +'TButton'#6'bNext3'#4'Left'#2'x'#6'Height'#2#25#3'Top'#2#14#5'Width'#2'd'#25
+  +'TButton'#6'bNext0'#4'Left'#2'x'#6'Height'#2#30#3'Top'#2#10#5'Width'#2'd'#25
   +'BorderSpacing.InnerBorder'#2#4#7'Caption'#6#6'bNext0'#7'OnClick'#7#11'bNext'
-  +'0Click'#8'TabOrder'#2#0#0#0#7'TButton'#6'bPrev3'#4'Left'#2#21#6'Height'#2#25
-  +#3'Top'#2#14#5'Width'#2'c'#25'BorderSpacing.InnerBorder'#2#4#7'Caption'#6#6
+  +'0Click'#8'TabOrder'#2#0#0#0#7'TButton'#6'bPrev0'#4'Left'#2#21#6'Height'#2#30
+  +#3'Top'#2#10#5'Width'#2'c'#25'BorderSpacing.InnerBorder'#2#4#7'Caption'#6#6
   +'bPrev0'#7'OnClick'#7#11'bPrev0Click'#8'TabOrder'#2#1#0#0#7'TButton'#7'bAbor'
-  +'t3'#4'Left'#3#8#1#6'Height'#2#25#3'Top'#2#14#5'Width'#3#156#0#7'Anchors'#11
-  +#5'akTop'#6'akLeft'#7'akRight'#0#25'BorderSpacing.InnerBorder'#2#4#7'Caption'
-  +#6#7'bAbort0'#7'OnClick'#7#12'bAbort0Click'#8'TabOrder'#2#2#0#0#0#14'TDirect'
-  +'oryEdit'#18'eDatabasedirectory'#4'Left'#2#4#6'Height'#2#23#3'Top'#3#136#0#5
-  +'Width'#3#132#1#10'ShowHidden'#8#11'ButtonWidth'#2#23#9'NumGlyphs'#2#1#7'Anc'
-  +'hors'#11#5'akTop'#6'akLeft'#7'akRight'#0#9'MaxLength'#2#0#8'TabOrder'#2#1#0
-  +#0#0#6'TPanel'#6'pCont4'#4'Left'#3#128#0#6'Height'#3'X'#1#3'Top'#2#0#5'Width'
-  +#3#166#1#5'Align'#7#8'alClient'#10'BevelOuter'#7#6'bvNone'#12'ClientHeight'#3
-  +'X'#1#11'ClientWidth'#3#166#1#11'FullRepaint'#8#8'TabOrder'#2#3#0#6'TLabel'
-  +#13'lDescription4'#4'Left'#2#0#6'Height'#2'-'#3'Top'#2#0#5'Width'#3#166#1#5
-  +'Align'#7#5'alTop'#7'Caption'#6#137'Setzen sie hier die Datenbankeinstellung'
-  +'en, damit sich das Programm erfolgreich mit dem Datenbankserver und der Dat'
-  +'enbank verbinden kann.'#10'Font.Style'#11#6'fsBold'#0#11'ParentColor'#8#10
-  +'ParentFont'#8#8'WordWrap'#9#0#0#6'TLabel'#7'lDBType'#4'Left'#2#24#6'Height'
-  +#2#13#3'Top'#2'X'#5'Width'#2'N'#7'Caption'#6#12'Datenbanktyp'#11'ParentColor'
-  +#8#0#0#6'TLabel'#9'lDBServer'#4'Left'#2#24#6'Height'#2#13#3'Top'#2'x'#5'Widt'
-  +'h'#2'&'#7'Caption'#6#6'Server'#11'ParentColor'#8#0#0#6'TLabel'#9'lDatabase'
-  +#4'Left'#2#24#6'Height'#2#13#3'Top'#3#176#0#5'Width'#2'<'#7'Caption'#6#9'Dat'
-  +'enbank'#11'ParentColor'#8#0#0#6'TLabel'#9'lUsername'#4'Left'#2#24#6'Height'
-  +#2#13#3'Top'#3#208#0#5'Width'#2'S'#7'Caption'#6#12'Benutzername'#11'ParentCo'
-  +'lor'#8#0#0#6'TLabel'#9'lPassword'#4'Left'#2#24#6'Height'#2#13#3'Top'#3#237#0
-  +#5'Width'#2'3'#7'Caption'#6#8'Passwort'#11'ParentColor'#8#0#0#6'TPanel'#9'pB'
-  +'uttons4'#4'Left'#2#0#6'Height'#2'2'#3'Top'#3'&'#1#5'Width'#3#166#1#5'Align'
-  +#7#8'alBottom'#10'BevelOuter'#7#6'bvNone'#12'ClientHeight'#2'2'#11'ClientWid'
-  +'th'#3#166#1#8'TabOrder'#2#5#0#6'TBevel'#8'bvRight4'#4'Left'#2#0#6'Height'#2
-  +#2#3'Top'#2#0#5'Width'#3#166#1#5'Align'#7#5'alTop'#5'Shape'#7#9'bsTopLine'#0
-  +#0#7'TButton'#6'bNext4'#4'Left'#2'x'#6'Height'#2#25#3'Top'#2#14#5'Width'#2'd'
-  +#25'BorderSpacing.InnerBorder'#2#4#7'Caption'#6#6'bNext0'#7'OnClick'#7#11'bN'
-  +'ext0Click'#8'TabOrder'#2#0#0#0#7'TButton'#6'bPrev4'#4'Left'#2#21#6'Height'#2
-  +#25#3'Top'#2#14#5'Width'#2'c'#25'BorderSpacing.InnerBorder'#2#4#7'Caption'#6
-  +#6'bPrev0'#7'OnClick'#7#11'bPrev0Click'#8'TabOrder'#2#1#0#0#7'TButton'#7'bAb'
-  +'ort4'#4'Left'#3#8#1#6'Height'#2#25#3'Top'#2#14#5'Width'#3#152#0#7'Anchors'
-  +#11#5'akTop'#6'akLeft'#7'akRight'#0#25'BorderSpacing.InnerBorder'#2#4#7'Capt'
-  +'ion'#6#7'bAbort0'#7'OnClick'#7#12'bAbort0Click'#8'TabOrder'#2#2#0#0#0#9'TCo'
-  +'mboBox'#9'cbSQLType'#4'Left'#3#128#0#6'Height'#2#27#3'Top'#2'X'#5'Width'#3
-  +#150#0#10'ItemHeight'#2#0#9'ItemIndex'#2#0#13'Items.Strings'#1#6#8'sqlite-3'
-  +#6#12'firebird-2.5'#6#12'firebird-2.1'#6#12'firebird-2.0'#6#12'firebird-1.5'
-  +#6#12'firebird-1.0'#6#13'firebirdd-2.5'#6#13'firebirdd-2.1'#6#13'firebirdd-2'
-  +'.0'#6#13'firebirdd-1.5'#6#11'interbase-6'#6#5'mssql'#6#12'postgresql-8'#6#12
-  +'postgresql-7'#0#9'MaxLength'#4#255#255#0#0#8'TabOrder'#2#0#4'Text'#6#8'sqli'
-  +'te-3'#0#0#5'TEdit'#10'eSQLServer'#4'Left'#3#128#0#6'Height'#2#23#3'Top'#2'x'
-  +#5'Width'#3#192#0#8'TabOrder'#2#1#4'Text'#6#9'localhost'#0#0#5'TEdit'#8'eSQL'
-  +'User'#4'Left'#3#128#0#6'Height'#2#23#3'Top'#3#208#0#5'Width'#3#200#0#8'TabO'
-  +'rder'#2#3#0#0#5'TEdit'#12'eSQLPassword'#4'Left'#3#128#0#6'Height'#2#23#3'To'
-  +'p'#3#237#0#5'Width'#3#200#0#8'EchoMode'#7#10'emPassword'#12'PasswordChar'#6
-  +#1'*'#8'TabOrder'#2#4#0#0#13'TFileNameEdit'#12'eSQLdatabase'#4'Left'#3#128#0
-  +#6'Height'#2#23#3'Top'#3#176#0#5'Width'#3#240#0#13'DialogOptions'#11#0#11'Fi'
-  +'lterIndex'#2#0#15'HideDirectories'#8#11'ButtonWidth'#2#23#9'NumGlyphs'#2#1#9
-  +'MaxLength'#2#0#8'TabOrder'#2#2#0#0#12'TSpeedButton'#21'bCopyConnectionStrin'
-  +'g'#4'Left'#3' '#1#6'Height'#2#28#3'Top'#2'X'#5'Width'#2' '#10'Glyph.Data'#10
-  +':'#4#0#0'6'#4#0#0'BM6'#4#0#0#0#0#0#0'6'#0#0#0'('#0#0#0#16#0#0#0#16#0#0#0#1#0
-  +' '#0#0#0#0#0#0#4#0#0'd'#0#0#0'd'#0#0#0#0#0#0#0#0#0#0#0#255#255#255#0#255#255
-  +#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#197'sB'#193
-  ,#198'uE'#230#200'uE'#254#199'uE'#243#200'uE'#243#199'uE'#243#199'uE'#243#200
-  +'uF'#244#197'tD'#232#202#127'S'#241#255#255#255#0#255#255#255#0#255#255#255#0
-  +#255#255#255#0#255#255#255#0#255#255#255#0#199'yI'#237#252#243#236#255#250
-  +#241#232#255#250#240#231#255#251#241#233#255#251#242#234#255#251#242#234#255
-  +#251#242#235#255#253#244#238#255#202#128'T'#249#255#255#255#0#255#255#255#0
-  +#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#207#130'S'#255#239
-  +#241#231#255#255#233#217#255#255#234#219#255#255#233#217#255#255#231#215#255
-  +#255#229#210#255#255#226#203#255#239#242#232#255#206#129'V'#255#255#255#255#0
-  +#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#204
-  +#131'R'#251#251#245#238#255#255#233#217#255#255#234#219#255#255#233#217#255
-  +#255#231#215#255#255#229#210#255#255#226#203#255#251#246#239#255#204#131'U'
-  +#254#199'yJ'#185#200'yK'#206#200'uE'#221#199'uE'#212#200'uE'#212#199'uE'#212
-  +#202#132'R'#255#255#247#241#255#255#233#217#255#255#234#219#255#255#233#217
-  +#255#255#231#215#255#255#229#210#255#255#226#203#255#255#247#241#255#203#133
-  +'U'#254#200'|N'#211#252#243#236#222#250#241#232#222#250#240#231#222#251#241
-  +#233#222#251#242#234#222#228#186#145#255#255#247#240#255#255#231#213#255#253
-  +#231#214#255#253#230#212#255#252#228#208#255#251#227#203#255#250#220#194#255
-  +#254#243#232#255#204#134'V'#254#207#130'S'#222#239#241#231#222#255#233#217
-  +#222#255#234#219#222#255#233#217#222#255#231#215#222#228#187#145#255#255#247
-  +#242#255#254#231#213#255#254#231#213#255#253#229#209#255#250#224#202#255#249
-  +#222#196#255#247#217#188#255#253#242#231#255#204#135'W'#254#204#131'R'#219
-  +#251#245#238#222#255#233#217#222#255#234#219#222#255#233#217#222#255#231#215
-  +#222#228#187#146#255#254#247#241#255#252#229#210#255#252#228#209#255#251#226
-  +#204#255#249#221#196#255#246#215#187#255#243#209#175#255#250#239#228#255#204
-  +#135'X'#254#202#132'R'#219#255#247#241#222#255#233#217#222#255#234#219#222
-  +#255#233#217#222#255#231#215#222#228#187#146#255#254#246#240#255#252#226#205
-  +#255#252#227#205#255#250#223#200#255#247#217#188#255#245#233#221#255#250#243
-  +#235#255#251#248#243#255#202#131'S'#254#203#133'S'#219#255#247#240#222#255
-  +#231#213#222#253#231#214#222#253#230#212#222#252#228#208#222#228#187#147#255
-  +#254#245#237#255#252#222#197#255#251#224#199#255#249#220#194#255#245#211#180
-  +#255#254#249#243#255#250#226#196#255#236#193#147#255#195'}H'#147#203#134'T'
-  +#219#255#247#242#222#254#231#213#222#254#231#213#222#253#229#209#222#250#224
-  +#202#222#229#190#150#255#255#255#254#255#253#243#233#255#253#243#234#255#252
-  +#242#232#255#250#239#227#255#250#242#231#255#234#187#136#255#207#133'U'#179
-  +#180'i='#12#203#134'U'#219#254#247#241#222#252#229#210#222#252#228#209#222
-  +#251#226#204#222#249#221#196#222#234#195#157#255#230#191#150#255#228#187#146
-  +#255#228#187#146#255#209#160'l'#245#208#158'm'#246#204#150'_'#218#196'yB~'
-  +#178'g<'#9#255#255#255#0#203#134'U'#219#254#246#240#222#252#226#205#222#252
-  +#227#205#222#250#223#200#222#247#217#188#222#245#233#221#222#250#243#235#222
-  +#251#248#243#222#205#149'e'#220#255#255#255#0#255#255#255#0#255#255#255#0#255
-  +#255#255#0#255#255#255#0#255#255#255#0#203#134'V'#218#254#245#237#222#252#222
-  +#197#222#251#224#199#222#249#220#194#222#245#211#180#222#254#249#243#222#250
-  +#226#196#222#236#193#147#222#195'}H'#128#255#255#255#0#255#255#255#0#255#255
-  +#255#0#255#255#255#0#255#255#255#0#255#255#255#0#202#133'T'#208#255#255#255
-  +#219#253#243#233#222#253#243#234#222#252#242#232#222#250#239#227#222#250#242
-  +#231#222#234#187#136#222#207#133'U'#156#180'i='#10#255#255#255#0#255#255#255
-  +#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#199'yG'#170#204
-  +#134'U'#206#204#136'W'#222#203#136'V'#219#204#136'V'#219#203#135'W'#219#202
-  +#131'P'#208#196'yBn'#178'g<'#8#255#255#255#0#255#255#255#0#255#255#255#0#255
-  +#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#7'OnClick'#7#26'bCopyCo'
-  +'nnectionStringClick'#0#0#6'TLabel'#6'Label1'#4'Left'#3'\'#1#6'Height'#2#13#3
-  +'Top'#2'e'#5'Width'#2'*'#7'Anchors'#11#5'akTop'#7'akRight'#0#7'Caption'#6#7
-  +'Sync ID'#11'ParentColor'#8#0#0#9'TSpinEdit'#8'seSyncID'#4'Left'#3'V'#1#6'He'
-  +'ight'#2#23#3'Top'#2'x'#5'Width'#2'2'#7'Anchors'#11#5'akTop'#7'akRight'#0#8
-  +'MaxValue'#3#187#0#8'TabOrder'#2#6#0#0#0#6'TPanel'#7'pResult'#4'Left'#3#128#0
-  +#6'Height'#3'X'#1#3'Top'#2#0#5'Width'#3#166#1#5'Align'#7#8'alClient'#10'Beve'
-  +'lOuter'#7#6'bvNone'#12'ClientHeight'#3'X'#1#11'ClientWidth'#3#166#1#11'Full'
-  +'Repaint'#8#8'TabOrder'#2#4#7'Visible'#8#0#6'TLabel'#17'lCreatingDatabase'#4
-  +'Left'#2'('#6'Height'#2#13#3'Top'#2#9#5'Width'#3#166#0#7'Caption'#6#31'erste'
-  +'lle Tabellen (wenn n'#195#182'tig)'#11'ParentColor'#8#0#0#6'TLabel'#21'lFil'
-  +'lingDefaultValues'#4'Left'#2'('#6'Height'#2#13#3'Top'#2' '#5'Width'#3#137#0
-  +#7'Caption'#6#22'Vorgabewerte einsetzen'#11'ParentColor'#8#0#0#6'TLabel'#17
-  +'lUpdatingDatabase'#4'Left'#2'('#6'Height'#2#13#3'Top'#2'8'#5'Width'#2'S'#7
-  +'Caption'#6#15'Hilfe einsetzen'#11'ParentColor'#8#0#0#6'TImage'#16'iDatabase'
-  ,'Created'#4'Left'#2#8#6'Height'#2#21#3'Top'#2#9#5'Width'#2#23#12'Picture.Dat'
-  +'a'#10#0#2#0#0#23'TPortableNetworkGraphic'#228#1#0#0#137'PNG'#13#10#26#10#0#0
-  +#0#13'IHDR'#0#0#0#16#0#0#0#16#8#6#0#0#0#31#243#255'a'#0#0#1#171'IDATx'#218
-  +#189#147#217'.Ca'#20#133'{'#231'8'#239'bn'#213#24'SB'#170#134'T'''#234#232')'
-  +'E)'#141#27#170#167#173'V'#171'CJ'#12#199#165#24'j'#142#196#20#148' '#18#151
-  +'Z'#213#134'g'#16'/'#161#186#252#149'h'#194#133#24#18#23#255#221#191#214#222
-  +#251#219'k'#11#0#8#254#242#4#255'n'#160'^k'#226'['#150#234#157#191'2P'#173'6'
-  +#242#166'c='#250#15'XH'#248'*'#238'G'#6#202'`'#3'?x'#212#133#217'{7'#188'7V'
-  +#232#182#212#168#240#20#217#190'%V'#172'Hy'#227#161#14#211'q'#23#166#226'Ntn'
-  +#183#162#210'['#140#18#135#144'J'#127'2^'#178'5'#134'3'#166#231#179'X'#190','
-  +#229'S-O'#198#156#8#196#28'o'#149#203#221#226'D'#241'X'#1#149#30#193'x'#193
-  +#150#245#158'2O'#220#181#9#236#174'r'#232']L`'#241'}'#251'Z'#4#238#198#224
-  +#191#179#131#221'T'#161#204'U'#152'('#178#231'Si'#136#253#231#218#218#222'P'
-  +#251#163'/'#204'a:6'#14#205#150',A`'#13#201#22'%S'#134'='#6#190#168#29#222'['
-  +#14#29#27#10#148#142#139#18'b['#30#245'a'#141'='''#154'L'#253'a'#27#204'W'#3
-  +#152'{'#240#192#27#182#194'x'#164#131#233'D'#143#137#176#5#238'['#11#152'u9J'
-  +#156#194#151'B'#235'Gqz'#4'fGN'#147#202'0'#133#244'os'#250#163'6'#184'"f'#184
-  +#194'fh'#214'ZR'#176#146'".'#151#250'2H'#4#22'-['#144#160'{'#183#29#238#200
-  +'('#28'7'#195'h'#11#202'@`%E'#150#28#234'[I'#148#204'W'#211'u3'#149#164'e'#5
-  +#212'+'#205' '#176#146#194#209'l'#234'GQ&'#251#165#203''''#196' '#176#158#11
-  +#204#217#25#191#186#5#2#139#206#31#201#202#248#151'k|'#5#190#162#169'<OD'#29
-  +#129#0#0#0#0'IEND'#174'B`'#130#7'Visible'#8#0#0#6'TImage'#15'iDatabaseFilled'
-  +#4'Left'#2#8#6'Height'#2#21#3'Top'#2' '#5'Width'#2#23#12'Picture.Data'#10#0#2
-  +#0#0#23'TPortableNetworkGraphic'#228#1#0#0#137'PNG'#13#10#26#10#0#0#0#13'IHD'
-  +'R'#0#0#0#16#0#0#0#16#8#6#0#0#0#31#243#255'a'#0#0#1#171'IDATx'#218#189#147
-  +#217'.Ca'#20#133'{'#231'8'#239'bn'#213#24'SB'#170#134'T'''#234#232')E)'#141
-  +#27#170#167#173'V'#171'CJ'#12#199#165#24'j'#142#196#20#148' '#18#151'Z'#213
-  +#134'g'#16'/'#161#186#252#149'h'#194#133#24#18#23#255#221#191#214#222#251#219
-  +'k'#11#0#8#254#242#4#255'n'#160'^k'#226'['#150#234#157#191'2P'#173'6'#242#166
-  +'c='#250#15'XH'#248'*'#238'G'#6#202'`'#3'?x'#212#133#217'{7'#188'7V'#232#182
-  +#212#168#240#20#217#190'%V'#172'Hy'#227#161#14#211'q'#23#166#226'Ntn'#183#162
-  +#210'['#140#18#135#144'J'#127'2^'#178'5'#134'3'#166#231#179'X'#190','#229'S-'
-  +'O'#198#156#8#196#28'o'#149#203#221#226'D'#241'X'#1#149#30#193'x'#193#150#245
-  +#158'2O'#220#181#9#236#174'r'#232']L`'#241'}'#251'Z'#4#238#198#224#191#179
-  +#131#221'T'#161#204'U'#152'('#178#231'Si'#136#253#231#218#218#222'P'#251#163
-  +'/'#204'a:6'#14#205#150',A`'#13#201#22'%S'#134'='#6#190#168#29#222'['#14#29
-  +#27#10#148#142#139#18'b['#30#245'a'#141'='''#154'L'#253'a'#27#204'W'#3#152'{'
-  +#240#192#27#182#194'x'#164#131#233'D'#143#137#176#5#238'['#11#152'u9J'#156
-  +#194#151'B'#235'Gqz'#4'fGN'#147#202'0'#133#244'os'#250#163'6'#184'"f'#184#194
-  +'fh'#214'ZR'#176#146'".'#151#250'2H'#4#22'-['#144#160'{'#183#29#238#200'('#28
-  +'7'#195'h'#11#202'@`%E'#150#28#234'[I'#148#204'W'#211'u3'#149#164'e'#5#212'+'
-  +#205' '#176#146#194#209'l'#234'GQ&'#251#165#203''''#196' '#176#158#11#204#217
-  +#25#191#186#5#2#139#206#31#201#202#248#151'k|'#5#190#162#169'<OD'#29#129#0#0
-  +#0#0'IEND'#174'B`'#130#7'Visible'#8#0#0#6'TImage'#16'iDatabaseUpdated'#4'Lef'
-  +'t'#2#8#6'Height'#2#21#3'Top'#2'8'#5'Width'#2#23#12'Picture.Data'#10#0#2#0#0
-  +#23'TPortableNetworkGraphic'#228#1#0#0#137'PNG'#13#10#26#10#0#0#0#13'IHDR'#0
-  +#0#0#16#0#0#0#16#8#6#0#0#0#31#243#255'a'#0#0#1#171'IDATx'#218#189#147#217'.C'
-  +'a'#20#133'{'#231'8'#239'bn'#213#24'SB'#170#134'T'''#234#232')E)'#141#27#170
-  +#167#173'V'#171'CJ'#12#199#165#24'j'#142#196#20#148' '#18#151'Z'#213#134'g'
-  +#16'/'#161#186#252#149'h'#194#133#24#18#23#255#221#191#214#222#251#219'k'#11
-  +#0#8#254#242#4#255'n'#160'^k'#226'['#150#234#157#191'2P'#173'6'#242#166'c='
-  +#250#15'XH'#248'*'#238'G'#6#202'`'#3'?x'#212#133#217'{7'#188'7V'#232#182#212
-  +#168#240#20#217#190'%V'#172'Hy'#227#161#14#211'q'#23#166#226'Ntn'#183#162#210
-  +'['#140#18#135#144'J'#127'2^'#178'5'#134'3'#166#231#179'X'#190','#229'S-O'
-  +#198#156#8#196#28'o'#149#203#221#226'D'#241'X'#1#149#30#193'x'#193#150#245
-  +#158'2O'#220#181#9#236#174'r'#232']L`'#241'}'#251'Z'#4#238#198#224#191#179
-  +#131#221'T'#161#204'U'#152'('#178#231'Si'#136#253#231#218#218#222'P'#251#163
-  +'/'#204'a:6'#14#205#150',A`'#13#201#22'%S'#134'='#6#190#168#29#222'['#14#29
-  +#27#10#148#142#139#18'b['#30#245'a'#141'='''#154'L'#253'a'#27#204'W'#3#152'{'
-  +#240#192#27#182#194'x'#164#131#233'D'#143#137#176#5#238'['#11#152'u9J'#156
-  +#194#151'B'#235'Gqz'#4'fGN'#147#202'0'#133#244'os'#250#163'6'#184'"f'#184#194
-  +'fh'#214'ZR'#176#146'".'#151#250'2H'#4#22'-['#144#160'{'#183#29#238#200'('#28
-  +'7'#195'h'#11#202'@`%E'#150#28#234'[I'#148#204'W'#211'u3'#149#164'e'#5#212'+'
-  +#205' '#176#146#194#209'l'#234'GQ&'#251#165#203''''#196' '#176#158#11#204#217
-  ,#25#191#186#5#2#139#206#31#201#202#248#151'k|'#5#190#162#169'<OD'#29#129#0#0
-  +#0#0'IEND'#174'B`'#130#7'Visible'#8#0#0#6'TBevel'#7'bvleft1'#4'Left'#2#0#6'H'
-  +'eight'#2'2'#3'Top'#3'&'#1#5'Width'#3#166#1#5'Align'#7#8'alBottom'#5'Shape'#7
-  +#9'bsTopLine'#0#0#6'TPanel'#8'pDetails'#4'Left'#2#12#6'Height'#3#200#0#3'Top'
-  +#2'X'#5'Width'#3#140#1#10'BevelOuter'#7#6'bvNone'#12'ClientHeight'#3#200#0#11
-  +'ClientWidth'#3#140#1#8'TabOrder'#2#0#7'Visible'#8#0#7'TButton'#7'Button1'#4
-  +'Left'#3#180#0#6'Height'#2#25#3'Top'#3#168#0#5'Width'#3#149#0#8'AutoSize'#9#7
-  +'Caption'#6#22'Mandanteneinstellungen'#7'OnClick'#7#12'Button1Click'#8'TabOr'
-  +'der'#2#0#0#0#6'TLabel'#6'Label2'#4'Left'#2#0#6'Height'#3#141#0#3'Top'#2#0#5
-  +'Width'#3#140#1#5'Align'#7#5'alTop'#7'Caption'#12'W'#1#0#0'Das erstellen der'
-  +' Datenbank wurde beendet, Sie k'#195#182'nnen '#10'nun wenn gew'#195#188'ns'
-  +'cht noch Details zum Mandanten '#10'eingeben (Name,Adresse,Telefonnummern u'
-  +'.'#195#164'.). '#10'Die dann auf allen Druckbelegen mitverwendet werden.'#10
-  +#10'Auch andere Gelobale Einstellungen sind direkt von '#10'hier m'#195#182
-  +'glich.'#10'Sie k'#195#182'nnen die Einstellungen auch jederzeit in den '#10
-  +'Optionen nachholen'#11'ParentColor'#8#0#0#0#7'TButton'#7'bAbort5'#4'Left'#3
-  +#16#1#6'Height'#2#25#3'Top'#3'0'#1#5'Width'#3#146#0#7'Anchors'#11#5'akTop'#6
-  +'akLeft'#7'akRight'#0#25'BorderSpacing.InnerBorder'#2#4#7'Caption'#6#10'Schl'
-  +'iessen'#7'OnClick'#7#12'bAbort0Click'#8'TabOrder'#2#1#0#0#6'TLabel'#13'lDef'
-  +'aultValue'#22'AnchorSideLeft.Control'#7#21'lFillingDefaultValues'#19'Anchor'
-  +'SideLeft.Side'#7#9'asrBottom'#4'Left'#3#184#0#6'Height'#2#1#3'Top'#2' '#5'W'
-  +'idth'#2#1#18'BorderSpacing.Left'#2#7#11'ParentColor'#8#0#0#0#6'TPanel'#5'pL'
-  +'eft'#4'Left'#2#0#6'Height'#3'X'#1#3'Top'#2#0#5'Width'#3#128#0#5'Align'#7#6
-  +'alLeft'#10'BevelOuter'#7#6'bvNone'#12'ClientHeight'#3'X'#1#11'ClientWidth'#3
-  +#128#0#11'ParentColor'#8#8'TabOrder'#2#0#0#6'TPanel'#7'bvImage'#4'Left'#2#9#6
-  +'Height'#3#15#1#3'Top'#2#9#5'Width'#2'l'#10'BevelOuter'#7#9'bvLowered'#12'Cl'
-  +'ientHeight'#3#15#1#11'ClientWidth'#2'l'#5'Color'#7#7'clWhite'#11'ParentColo'
-  +'r'#8#8'TabOrder'#2#0#0#6'TImage'#8'imDialog'#4'Left'#2#1#6'Height'#3#13#1#3
-  +'Top'#2#1#5'Width'#2'j'#5'Align'#7#8'alClient'#12'Picture.Data'#10#237#19#0#0
-  +#23'TPortableNetworkGraphic'#209#19#0#0#137'PNG'#13#10#26#10#0#0#0#13'IHDR'#0
-  +#0#0'h'#0#0#0#230#8#2#0#0#0#182#196'W^'#0#0#19#152'IDATx'#218#237#157'-t'#187
-  +'<'#20#198'_'#249#151#147#179#147#147#147#179#149#147#149#181'H$'#18#139'D"'
-  +#177#200'H$'#22#137'Db'#145'Hd'#223'''y e]'#183#2#229'sKNNO'#215#143'5'#249
-  +'qo'#238#205#205'M'#248#239'l'#202#168#242#159'A`'#192#25'p'#6#156#1'g'#138#1
-  +'g'#192#25'p'#6#156#1'g'#138#1'g'#192#157#207'UU'#5'A'#224#186'N'#146'$'#6'\'
+  +'t0'#4'Left'#3#8#1#6'Height'#2#29#3'Top'#2#10#5'Width'#3#156#0#7'Anchors'#11
+  ,#5'akTop'#6'akLeft'#7'akRight'#0#25'BorderSpacing.InnerBorder'#2#4#7'Caption'
+  +#6#7'bAbort0'#7'OnClick'#7#12'bAbort0Click'#8'TabOrder'#2#2#0#0#0#9'TComboBo'
+  +'x'#10'cbLanguage'#21'AnchorSideTop.Control'#7#13'lDescription0'#18'AnchorSi'
+  +'deTop.Side'#7#9'asrBottom'#4'Left'#3#144#0#6'Height'#2#27#3'Top'#2'^'#5'Wid'
+  +'th'#3#7#1#17'BorderSpacing.Top'#2#13#10'ItemHeight'#2#0#9'ItemIndex'#2#0#13
+  +'Items.Strings'#1#6#7'Deutsch'#0#8'OnSelect'#7#16'cbLanguageSelect'#8'TabOrd'
+  +'er'#2#4#7'TabStop'#8#4'Text'#6#7'Deutsch'#0#0#12'TRadioButton'#13'cbNewdata'
+  +'base'#21'AnchorSideTop.Control'#7#10'cbLanguage'#24'AnchorSideBottom.Contro'
+  +'l'#7#18'cbExistingdatabase'#4'Left'#2#4#6'Height'#2#24#4'Hint'#6#175'Benutz'
+  +'en Sie diese Einstellung, wenn sie eine neue Datenbank anlegen m'#195#182'c'
+  +'hten'#10'Im folgenden Dialog k'#195#182'nnen Sie ein Profil mit Standardein'
+  +'stellungen f'#195#188'r diese'#10'Datenbank w'#195#164'hlen'#3'Top'#3#160#0
+  +#5'Width'#3#7#1#17'BorderSpacing.Top'#2'B'#7'Caption'#6'*Neue Datenbank (mit'
+  +' Einstellungen f'#195#188'llen)'#7'Checked'#9#8'TabOrder'#2#1#7'TabStop'#9#0
+  +#0#12'TRadioButton'#18'cbExistingdatabase'#21'AnchorSideTop.Control'#7#13'cb'
+  +'Newdatabase'#18'AnchorSideTop.Side'#7#9'asrBottom'#4'Left'#2#4#6'Height'#2
+  +#24#4'Hint'#6#183'w'#195#164'hlen Sie diese Einstellung, wenn Sie eine Daten'
+  +'bankverkn'#195#188'pfung'#10'zu einer schon existierenden Datenbank anlegen'
+  +' m'#195#182'chten,'#10'z.b. wenn Sie einen weiteren Client-PC einrichten m'
+  +#195#182'chten.'#3'Top'#3#191#0#5'Width'#3'H'#1#17'BorderSpacing.Top'#2#7#7
+  +'Caption'#6'5exitierende Datenbank (keine Einstellungen einf'#195#188'gen)'#8
+  +'TabOrder'#2#2#0#0#9'TComboBox'#12'eMandantname'#21'AnchorSideTop.Control'#7
+  +#10'cbLanguage'#18'AnchorSideTop.Side'#7#9'asrBottom'#4'Left'#3#144#0#6'Heig'
+  +'ht'#2#27#3'Top'#3#129#0#5'Width'#3#8#1#7'Anchors'#11#5'akTop'#6'akLeft'#7'a'
+  +'kRight'#0#17'BorderSpacing.Top'#2#8#10'ItemHeight'#2#0#8'OnSelect'#7#18'eMa'
+  +'ndantnameSelect'#8'TabOrder'#2#0#0#0#12'TRadioButton'#8'rbDelete'#21'Anchor'
+  +'SideTop.Control'#7#13'cbNewdatabase'#18'AnchorSideTop.Side'#7#9'asrBottom'#4
+  +'Left'#2#4#6'Height'#2#24#4'Hint'#6'gMit deiser Einstellung k'#195#182'nnen '
+  +'Sie eine Datenbankverkn'#195#188'pfung l'#195#182'schen'#10'(l'#195#182'sch'
+  +'t nicht die Datenbank !!)'#3'Top'#3#0#1#5'Width'#3#204#0#17'BorderSpacing.T'
+  +'op'#2'H'#7'Caption'#6#30'Datenbankverkn'#195#188'pfung l'#195#182'schen'#7
+  +'Enabled'#8#8'TabOrder'#2#3#0#0#12'TRadioButton'#10'rbFromFile'#21'AnchorSid'
+  +'eTop.Control'#7#18'cbExistingdatabase'#4'Left'#2#4#6'Height'#2#24#4'Hint'#12
+  +')'#1#0#0'Mit dieser Einstellung k'#195#182'nnen Sie die Datenbankeinstellun'
+  +'gen aus einer Datei (.perml) laden.'#10'Sie finden diese Dateien nach einer'
+  +' Einrichrung mit diesem Assistenten'#10'unter Windows in'#10'Benuterprofil\'
+  +'Lokale Einstellungen\Anwendungsdaten\prometerp\*.perml'#10'Unter Unix in'#10
+  +'Benuterprofil\.prometerp\*.perml'#3'Top'#3#225#0#5'Width'#3#132#0#17'Border'
+  +'Spacing.Top'#2'"'#7'Caption'#6#19'aus Datei erstellen'#8'TabOrder'#2#6#0#0
+  +#13'TFileNameEdit'#14'DirectoryEdit1'#21'AnchorSideTop.Control'#7#10'rbFromF'
+  +'ile'#4'Left'#3#168#0#6'Height'#2#23#3'Top'#3#225#0#5'Width'#3#216#0#16'OnAc'
+  +'ceptFileName'#7#28'DirectoryEdit1AcceptFileName'#6'Filter'#6#31'Promet-ERP '
+  +'Mandant File|*.perml'#11'FilterIndex'#2#0#10'DefaultExt'#6#5'perml'#15'Hide'
+  +'Directories'#8#11'ButtonWidth'#2#23#11'DirectInput'#8#9'NumGlyphs'#2#1#9'Ma'
+  +'xLength'#2#0#8'TabOrder'#2#7#0#0#0#6'TPanel'#6'pCont1'#4'Left'#3#128#0#6'He'
+  +'ight'#3'X'#1#3'Top'#2#0#5'Width'#3#166#1#5'Align'#7#8'alClient'#10'BevelOut'
+  +'er'#7#6'bvNone'#12'ClientHeight'#3'X'#1#11'ClientWidth'#3#166#1#11'FullRepa'
+  +'int'#8#8'TabOrder'#2#5#0#6'TLabel'#13'lDescription1'#4'Left'#2#0#6'Height'#2
+  +#13#3'Top'#2#0#5'Width'#3#166#1#5'Align'#7#5'alTop'#7'Caption'#6'1W'#195#164
+  +'hlen Sie hier ein Profil mit Vorgabewerten aus'#10'Font.Style'#11#6'fsBold'
+  +#0#11'ParentColor'#8#10'ParentFont'#8#8'WordWrap'#9#0#0#6'TLabel'#8'lProfile'
+  +#4'Left'#2#12#6'Height'#2#13#3'Top'#2#24#5'Width'#2#29#7'Caption'#6#6'Profil'
+  +#11'ParentColor'#8#0#0#6'TPanel'#9'pButtons1'#4'Left'#2#0#6'Height'#2'2'#3'T'
+  +'op'#3'&'#1#5'Width'#3#166#1#5'Align'#7#8'alBottom'#10'BevelOuter'#7#6'bvNon'
+  +'e'#12'ClientHeight'#2'2'#11'ClientWidth'#3#166#1#8'TabOrder'#2#0#0#6'TBevel'
+  +#8'bvRight1'#4'Left'#2#0#6'Height'#2#2#3'Top'#2#0#5'Width'#3#166#1#5'Align'#7
+  +#5'alTop'#5'Shape'#7#9'bsTopLine'#0#0#7'TButton'#6'bNext1'#4'Left'#2'x'#6'He'
+  +'ight'#2#25#3'Top'#2#14#5'Width'#2'd'#25'BorderSpacing.InnerBorder'#2#4#7'Ca'
+  +'ption'#6#6'bNext0'#7'OnClick'#7#11'bNext0Click'#8'TabOrder'#2#0#0#0#7'TButt'
+  +'on'#6'bPrev1'#4'Left'#2#21#6'Height'#2#25#3'Top'#2#14#5'Width'#2'c'#25'Bord'
+  +'erSpacing.InnerBorder'#2#4#7'Caption'#6#6'bPrev0'#7'OnClick'#7#11'bPrev0Cli'
+  +'ck'#8'TabOrder'#2#1#0#0#7'TButton'#7'bAbort1'#4'Left'#3#8#1#6'Height'#2#25#3
+  +'Top'#2#14#5'Width'#3#152#0#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#0#25
+  +'BorderSpacing.InnerBorder'#2#4#7'Caption'#6#7'bAbort0'#7'OnClick'#7#12'bAbo'
+  ,'rt0Click'#8'TabOrder'#2#2#0#0#0#9'TTreeView'#9'tvProfile'#4'Left'#2#12#6'He'
+  +'ight'#3#187#0#3'Top'#2'0'#5'Width'#3#140#1#7'Anchors'#11#5'akTop'#6'akLeft'
+  +#7'akRight'#8'akBottom'#0#17'DefaultItemHeight'#2#16#8'ReadOnly'#9#8'TabOrde'
+  +'r'#2#1#7'Options'#11#17'tvoAutoItemHeight'#16'tvoHideSelection'#21'tvoKeepC'
+  +'ollapsedNodes'#11'tvoReadOnly'#14'tvoShowButtons'#12'tvoShowLines'#11'tvoSh'
+  +'owRoot'#11'tvoToolTips'#0#0#0#9'TCheckBox'#10'cbSyncHelp'#4'Left'#2#12#6'He'
+  +'ight'#2#24#4'Hint'#6#213'Wenn Diese Option gesetzt ist, '#10'wird auf der D'
+  +'atenbank ein Synchronisationseintrag'#10'f'#195#188'r eine mitgelieferte Hi'
+  +'lfe Datenbank erstellt'#10'Bei Updates der Hilfedatenbank werden die '#195
+  +#132'nderungen'#10'automatisch synchronisiert.'#3'Top'#3#248#0#5'Width'#3#223
+  +#0#7'Caption'#6'"Hilfe in Datenbank synchronisieren'#7'Checked'#9#5'State'#7
+  +#9'cbChecked'#8'TabOrder'#2#2#0#0#0#6'TPanel'#6'pCont2'#4'Left'#3#128#0#6'He'
+  +'ight'#3'X'#1#3'Top'#2#0#5'Width'#3#166#1#5'Align'#7#8'alClient'#10'BevelOut'
+  +'er'#7#6'bvNone'#12'ClientHeight'#3'X'#1#11'ClientWidth'#3#166#1#11'FullRepa'
+  +'int'#8#8'TabOrder'#2#1#0#6'TLabel'#13'lDescription2'#4'Left'#2#0#6'Height'#2
+  +#13#3'Top'#2#0#5'Width'#3#166#1#5'Align'#7#5'alTop'#7'Caption'#6'"Geben Sie '
+  +'hier den Datenbanktyp an'#10'Font.Style'#11#6'fsBold'#0#11'ParentColor'#8#10
+  +'ParentFont'#8#8'WordWrap'#9#0#0#6'TLabel'#12'Datenbanktyp'#4'Left'#2#12#6'H'
+  +'eight'#2#13#3'Top'#3#140#0#5'Width'#2'N'#7'Caption'#6#12'Datenbanktyp'#11'P'
+  +'arentColor'#8#0#0#6'TPanel'#9'pButtons2'#4'Left'#2#0#6'Height'#2'2'#3'Top'#3
+  +'&'#1#5'Width'#3#166#1#5'Align'#7#8'alBottom'#10'BevelOuter'#7#6'bvNone'#12
+  +'ClientHeight'#2'2'#11'ClientWidth'#3#166#1#8'TabOrder'#2#0#0#6'TBevel'#8'bv'
+  +'Right2'#4'Left'#2#0#6'Height'#2#2#3'Top'#2#0#5'Width'#3#166#1#5'Align'#7#5
+  +'alTop'#5'Shape'#7#9'bsTopLine'#0#0#7'TButton'#6'bNext2'#4'Left'#2'x'#6'Heig'
+  +'ht'#2#25#3'Top'#2#14#5'Width'#2'd'#25'BorderSpacing.InnerBorder'#2#4#7'Capt'
+  +'ion'#6#6'bNext0'#7'OnClick'#7#11'bNext0Click'#8'TabOrder'#2#0#0#0#7'TButton'
+  +#6'bPrev2'#4'Left'#2#21#6'Height'#2#25#3'Top'#2#14#5'Width'#2'c'#25'BorderSp'
+  +'acing.InnerBorder'#2#4#7'Caption'#6#6'bPrev0'#7'OnClick'#7#11'bPrev0Click'#8
+  +'TabOrder'#2#1#0#0#7'TButton'#7'bAbort2'#4'Left'#3#8#1#6'Height'#2#25#3'Top'
+  +#2#14#5'Width'#3#156#0#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#0#25'Bord'
+  +'erSpacing.InnerBorder'#2#4#7'Caption'#6#7'bAbort0'#7'OnClick'#7#12'bAbort0C'
+  +'lick'#8'TabOrder'#2#2#0#0#0#9'TComboBox'#14'cbDatabaseType'#4'Left'#3#152#0
+  +#6'Height'#2#27#3'Top'#3#136#0#5'Width'#3#204#0#10'ItemHeight'#2#0#8'TabOrde'
+  +'r'#2#1#0#0#0#6'TPanel'#6'pCont3'#4'Left'#3#128#0#6'Height'#3'X'#1#3'Top'#2#0
+  +#5'Width'#3#166#1#5'Align'#7#8'alClient'#10'BevelOuter'#7#6'bvNone'#12'Clien'
+  +'tHeight'#3'X'#1#11'ClientWidth'#3#166#1#11'FullRepaint'#8#8'TabOrder'#2#2#0
+  +#6'TLabel'#13'lDescription3'#4'Left'#2#0#6'Height'#2#13#3'Top'#2#0#5'Width'#3
+  +#166#1#5'Align'#7#5'alTop'#7'Caption'#6'*Geben Sie hier das Datenbankverzeic'
+  +'hnis an'#10'Font.Style'#11#6'fsBold'#0#11'ParentColor'#8#10'ParentFont'#8#8
+  +'WordWrap'#9#0#0#6'TLabel'#18'lDatabaseDirectory'#4'Left'#2#4#6'Height'#2#13
+  +#3'Top'#2't'#5'Width'#2'|'#7'Caption'#6#20'Datenbankverzeichnis'#11'ParentCo'
+  +'lor'#8#0#0#6'TPanel'#9'pButtons3'#4'Left'#2#0#6'Height'#2'2'#3'Top'#3'&'#1#5
+  +'Width'#3#166#1#5'Align'#7#8'alBottom'#10'BevelOuter'#7#6'bvNone'#12'ClientH'
+  +'eight'#2'2'#11'ClientWidth'#3#166#1#8'TabOrder'#2#0#0#6'TBevel'#8'bvRight3'
+  +#4'Left'#2#0#6'Height'#2#2#3'Top'#2#0#5'Width'#3#166#1#5'Align'#7#5'alTop'#5
+  +'Shape'#7#9'bsTopLine'#0#0#7'TButton'#6'bNext3'#4'Left'#2'x'#6'Height'#2#25#3
+  +'Top'#2#14#5'Width'#2'd'#25'BorderSpacing.InnerBorder'#2#4#7'Caption'#6#6'bN'
+  +'ext0'#7'OnClick'#7#11'bNext0Click'#8'TabOrder'#2#0#0#0#7'TButton'#6'bPrev3'
+  +#4'Left'#2#21#6'Height'#2#25#3'Top'#2#14#5'Width'#2'c'#25'BorderSpacing.Inne'
+  +'rBorder'#2#4#7'Caption'#6#6'bPrev0'#7'OnClick'#7#11'bPrev0Click'#8'TabOrder'
+  +#2#1#0#0#7'TButton'#7'bAbort3'#4'Left'#3#8#1#6'Height'#2#25#3'Top'#2#14#5'Wi'
+  +'dth'#3#156#0#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#0#25'BorderSpacing'
+  +'.InnerBorder'#2#4#7'Caption'#6#7'bAbort0'#7'OnClick'#7#12'bAbort0Click'#8'T'
+  +'abOrder'#2#2#0#0#0#14'TDirectoryEdit'#18'eDatabasedirectory'#4'Left'#2#4#6
+  +'Height'#2#23#3'Top'#3#136#0#5'Width'#3#132#1#10'ShowHidden'#8#11'ButtonWidt'
+  +'h'#2#23#9'NumGlyphs'#2#1#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#0#9'Ma'
+  +'xLength'#2#0#8'TabOrder'#2#1#0#0#0#6'TPanel'#6'pCont4'#4'Left'#3#128#0#6'He'
+  +'ight'#3'X'#1#3'Top'#2#0#5'Width'#3#166#1#5'Align'#7#8'alClient'#10'BevelOut'
+  +'er'#7#6'bvNone'#12'ClientHeight'#3'X'#1#11'ClientWidth'#3#166#1#11'FullRepa'
+  +'int'#8#8'TabOrder'#2#3#0#6'TLabel'#13'lDescription4'#4'Left'#2#0#6'Height'#2
+  +'-'#3'Top'#2#0#5'Width'#3#166#1#5'Align'#7#5'alTop'#7'Caption'#6#137'Setzen '
+  +'sie hier die Datenbankeinstellungen, damit sich das Programm erfolgreich mi'
+  +'t dem Datenbankserver und der Datenbank verbinden kann.'#10'Font.Style'#11#6
+  +'fsBold'#0#11'ParentColor'#8#10'ParentFont'#8#8'WordWrap'#9#0#0#6'TLabel'#7
+  ,'lDBType'#4'Left'#2#24#6'Height'#2#13#3'Top'#2'X'#5'Width'#2'N'#7'Caption'#6
+  +#12'Datenbanktyp'#11'ParentColor'#8#0#0#6'TLabel'#9'lDBServer'#4'Left'#2#24#6
+  +'Height'#2#13#3'Top'#2'x'#5'Width'#2'&'#7'Caption'#6#6'Server'#11'ParentColo'
+  +'r'#8#0#0#6'TLabel'#9'lDatabase'#4'Left'#2#24#6'Height'#2#13#3'Top'#3#176#0#5
+  +'Width'#2'<'#7'Caption'#6#9'Datenbank'#11'ParentColor'#8#0#0#6'TLabel'#9'lUs'
+  +'ername'#4'Left'#2#24#6'Height'#2#13#3'Top'#3#208#0#5'Width'#2'S'#7'Caption'
+  +#6#12'Benutzername'#11'ParentColor'#8#0#0#6'TLabel'#9'lPassword'#4'Left'#2#24
+  +#6'Height'#2#13#3'Top'#3#237#0#5'Width'#2'3'#7'Caption'#6#8'Passwort'#11'Par'
+  +'entColor'#8#0#0#6'TPanel'#9'pButtons4'#4'Left'#2#0#6'Height'#2'2'#3'Top'#3
+  +'&'#1#5'Width'#3#166#1#5'Align'#7#8'alBottom'#10'BevelOuter'#7#6'bvNone'#12
+  +'ClientHeight'#2'2'#11'ClientWidth'#3#166#1#8'TabOrder'#2#5#0#6'TBevel'#8'bv'
+  +'Right4'#4'Left'#2#0#6'Height'#2#2#3'Top'#2#0#5'Width'#3#166#1#5'Align'#7#5
+  +'alTop'#5'Shape'#7#9'bsTopLine'#0#0#7'TButton'#6'bNext4'#4'Left'#2'x'#6'Heig'
+  +'ht'#2#25#3'Top'#2#14#5'Width'#2'd'#25'BorderSpacing.InnerBorder'#2#4#7'Capt'
+  +'ion'#6#6'bNext0'#7'OnClick'#7#11'bNext0Click'#8'TabOrder'#2#0#0#0#7'TButton'
+  +#6'bPrev4'#4'Left'#2#21#6'Height'#2#25#3'Top'#2#14#5'Width'#2'c'#25'BorderSp'
+  +'acing.InnerBorder'#2#4#7'Caption'#6#6'bPrev0'#7'OnClick'#7#11'bPrev0Click'#8
+  +'TabOrder'#2#1#0#0#7'TButton'#7'bAbort4'#4'Left'#3#8#1#6'Height'#2#25#3'Top'
+  +#2#14#5'Width'#3#152#0#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#0#25'Bord'
+  +'erSpacing.InnerBorder'#2#4#7'Caption'#6#7'bAbort0'#7'OnClick'#7#12'bAbort0C'
+  +'lick'#8'TabOrder'#2#2#0#0#0#9'TComboBox'#9'cbSQLType'#4'Left'#3#128#0#6'Hei'
+  +'ght'#2#27#3'Top'#2'X'#5'Width'#3#150#0#10'ItemHeight'#2#0#9'ItemIndex'#2#0
+  +#13'Items.Strings'#1#6#8'sqlite-3'#6#12'firebird-2.5'#6#12'firebird-2.1'#6#12
+  +'firebird-2.0'#6#12'firebird-1.5'#6#12'firebird-1.0'#6#13'firebirdd-2.5'#6#13
+  +'firebirdd-2.1'#6#13'firebirdd-2.0'#6#13'firebirdd-1.5'#6#11'interbase-6'#6#5
+  +'mssql'#6#12'postgresql-8'#6#12'postgresql-7'#0#9'MaxLength'#4#255#255#0#0#8
+  +'OnChange'#7#15'cbSQLTypeChange'#8'TabOrder'#2#0#4'Text'#6#8'sqlite-3'#0#0#5
+  +'TEdit'#10'eSQLServer'#4'Left'#3#128#0#6'Height'#2#23#3'Top'#2'x'#5'Width'#3
+  +#192#0#8'TabOrder'#2#1#4'Text'#6#9'localhost'#0#0#5'TEdit'#8'eSQLUser'#4'Lef'
+  +'t'#3#128#0#6'Height'#2#23#3'Top'#3#208#0#5'Width'#3#200#0#8'TabOrder'#2#3#0
+  +#0#5'TEdit'#12'eSQLPassword'#4'Left'#3#128#0#6'Height'#2#23#3'Top'#3#237#0#5
+  +'Width'#3#200#0#8'EchoMode'#7#10'emPassword'#12'PasswordChar'#6#1'*'#8'TabOr'
+  +'der'#2#4#0#0#13'TFileNameEdit'#12'eSQLdatabase'#4'Left'#3#128#0#6'Height'#2
+  +#23#3'Top'#3#176#0#5'Width'#3#240#0#13'DialogOptions'#11#0#11'FilterIndex'#2
+  +#0#15'HideDirectories'#8#11'ButtonWidth'#2#23#9'NumGlyphs'#2#1#9'MaxLength'#2
+  +#0#8'TabOrder'#2#2#0#0#12'TSpeedButton'#21'bCopyConnectionString'#4'Left'#3
+  +' '#1#6'Height'#2#28#4'Hint'#6#158'Mit diesem Knopf k'#195#182'nnen Sie den '
+  +'Datenbankverbindungsstring'#10'in die Zwischenablage kopieren um ihn z.b. f'
+  +#195#188'r die Synchronisationseinstellungen '#10'parat zu haben.'#3'Top'#2
+  +'X'#5'Width'#2' '#10'Glyph.Data'#10':'#4#0#0'6'#4#0#0'BM6'#4#0#0#0#0#0#0'6'#0
+  +#0#0'('#0#0#0#16#0#0#0#16#0#0#0#1#0' '#0#0#0#0#0#0#4#0#0'd'#0#0#0'd'#0#0#0#0
+  +#0#0#0#0#0#0#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255
+  +#255#255#0#255#255#255#0#197'sB'#193#198'uE'#230#200'uE'#254#199'uE'#243#200
+  +'uE'#243#199'uE'#243#199'uE'#243#200'uF'#244#197'tD'#232#202#127'S'#241#255
+  +#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255
+  +#255#0#199'yI'#237#252#243#236#255#250#241#232#255#250#240#231#255#251#241
+  +#233#255#251#242#234#255#251#242#234#255#251#242#235#255#253#244#238#255#202
+  +#128'T'#249#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255
+  +#255#0#255#255#255#0#207#130'S'#255#239#241#231#255#255#233#217#255#255#234
+  +#219#255#255#233#217#255#255#231#215#255#255#229#210#255#255#226#203#255#239
+  +#242#232#255#206#129'V'#255#255#255#255#0#255#255#255#0#255#255#255#0#255#255
+  +#255#0#255#255#255#0#255#255#255#0#204#131'R'#251#251#245#238#255#255#233#217
+  +#255#255#234#219#255#255#233#217#255#255#231#215#255#255#229#210#255#255#226
+  +#203#255#251#246#239#255#204#131'U'#254#199'yJ'#185#200'yK'#206#200'uE'#221
+  +#199'uE'#212#200'uE'#212#199'uE'#212#202#132'R'#255#255#247#241#255#255#233
+  +#217#255#255#234#219#255#255#233#217#255#255#231#215#255#255#229#210#255#255
+  +#226#203#255#255#247#241#255#203#133'U'#254#200'|N'#211#252#243#236#222#250
+  +#241#232#222#250#240#231#222#251#241#233#222#251#242#234#222#228#186#145#255
+  +#255#247#240#255#255#231#213#255#253#231#214#255#253#230#212#255#252#228#208
+  +#255#251#227#203#255#250#220#194#255#254#243#232#255#204#134'V'#254#207#130
+  +'S'#222#239#241#231#222#255#233#217#222#255#234#219#222#255#233#217#222#255
+  +#231#215#222#228#187#145#255#255#247#242#255#254#231#213#255#254#231#213#255
+  +#253#229#209#255#250#224#202#255#249#222#196#255#247#217#188#255#253#242#231
+  +#255#204#135'W'#254#204#131'R'#219#251#245#238#222#255#233#217#222#255#234
+  ,#219#222#255#233#217#222#255#231#215#222#228#187#146#255#254#247#241#255#252
+  +#229#210#255#252#228#209#255#251#226#204#255#249#221#196#255#246#215#187#255
+  +#243#209#175#255#250#239#228#255#204#135'X'#254#202#132'R'#219#255#247#241
+  +#222#255#233#217#222#255#234#219#222#255#233#217#222#255#231#215#222#228#187
+  +#146#255#254#246#240#255#252#226#205#255#252#227#205#255#250#223#200#255#247
+  +#217#188#255#245#233#221#255#250#243#235#255#251#248#243#255#202#131'S'#254
+  +#203#133'S'#219#255#247#240#222#255#231#213#222#253#231#214#222#253#230#212
+  +#222#252#228#208#222#228#187#147#255#254#245#237#255#252#222#197#255#251#224
+  +#199#255#249#220#194#255#245#211#180#255#254#249#243#255#250#226#196#255#236
+  +#193#147#255#195'}H'#147#203#134'T'#219#255#247#242#222#254#231#213#222#254
+  +#231#213#222#253#229#209#222#250#224#202#222#229#190#150#255#255#255#254#255
+  +#253#243#233#255#253#243#234#255#252#242#232#255#250#239#227#255#250#242#231
+  +#255#234#187#136#255#207#133'U'#179#180'i='#12#203#134'U'#219#254#247#241#222
+  +#252#229#210#222#252#228#209#222#251#226#204#222#249#221#196#222#234#195#157
+  +#255#230#191#150#255#228#187#146#255#228#187#146#255#209#160'l'#245#208#158
+  +'m'#246#204#150'_'#218#196'yB~'#178'g<'#9#255#255#255#0#203#134'U'#219#254
+  +#246#240#222#252#226#205#222#252#227#205#222#250#223#200#222#247#217#188#222
+  +#245#233#221#222#250#243#235#222#251#248#243#222#205#149'e'#220#255#255#255#0
+  +#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#203
+  +#134'V'#218#254#245#237#222#252#222#197#222#251#224#199#222#249#220#194#222
+  +#245#211#180#222#254#249#243#222#250#226#196#222#236#193#147#222#195'}H'#128
+  +#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255
+  +#255#255#0#202#133'T'#208#255#255#255#219#253#243#233#222#253#243#234#222#252
+  +#242#232#222#250#239#227#222#250#242#231#222#234#187#136#222#207#133'U'#156
+  +#180'i='#10#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255
+  +#255#0#255#255#255#0#199'yG'#170#204#134'U'#206#204#136'W'#222#203#136'V'#219
+  +#204#136'V'#219#203#135'W'#219#202#131'P'#208#196'yBn'#178'g<'#8#255#255#255
+  +#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255
+  +#255#255#0#7'OnClick'#7#26'bCopyConnectionStringClick'#0#0#6'TLabel'#6'Label'
+  +'1'#4'Left'#3'\'#1#6'Height'#2#13#3'Top'#2'e'#5'Width'#2'*'#7'Anchors'#11#5
+  +'akTop'#7'akRight'#0#7'Caption'#6#7'Sync ID'#11'ParentColor'#8#0#0#9'TSpinEd'
+  +'it'#8'seSyncID'#4'Left'#3'V'#1#6'Height'#2#23#4'Hint'#6#230'Die SyncID soll'
+  +'te bei Synchronisierten Datenbanken'#10'zwischen den Datenbanken unterschie'
+  +'dlich sein'#10'damit werden dann unterschiedliche Nummernkreise '#10'f'#195
+  +#188'r die Datensatznummern (SQL_ID) verwendet '#10'damit es keine '#195#156
+  +'berschneidungen gibt'#3'Top'#2'x'#5'Width'#2'2'#7'Anchors'#11#5'akTop'#7'ak'
+  +'Right'#0#8'MaxValue'#3#187#0#8'TabOrder'#2#6#0#0#0#6'TPanel'#5'pLeft'#4'Lef'
+  +'t'#2#0#6'Height'#3'X'#1#3'Top'#2#0#5'Width'#3#128#0#5'Align'#7#6'alLeft'#10
+  +'BevelOuter'#7#6'bvNone'#12'ClientHeight'#3'X'#1#11'ClientWidth'#3#128#0#11
+  +'ParentColor'#8#8'TabOrder'#2#0#0#6'TPanel'#7'bvImage'#4'Left'#2#9#6'Height'
+  +#3#15#1#3'Top'#2#9#5'Width'#2'l'#10'BevelOuter'#7#9'bvLowered'#12'ClientHeig'
+  +'ht'#3#15#1#11'ClientWidth'#2'l'#5'Color'#7#7'clWhite'#11'ParentColor'#8#8'T'
+  +'abOrder'#2#0#0#6'TImage'#8'imDialog'#4'Left'#2#1#6'Height'#3#13#1#3'Top'#2#1
+  +#5'Width'#2'j'#5'Align'#7#8'alClient'#12'Picture.Data'#10#237#19#0#0#23'TPor'
+  +'tableNetworkGraphic'#209#19#0#0#137'PNG'#13#10#26#10#0#0#0#13'IHDR'#0#0#0'h'
+  +#0#0#0#230#8#2#0#0#0#182#196'W^'#0#0#19#152'IDATx'#218#237#157'-t'#187'<'#20
+  +#198'_'#249#151#147#179#147#147#147#179#149#147#149#181'H$'#18#139'D"'#177
+  +#200'H$'#22#137'Db'#145'Hd'#223'''y e]'#183#2#229'sKNNO'#215#143'5'#249'qo'
+  +#238#205#205'M'#248#239'l'#202#168#242#159'A`'#192#25'p'#6#156#1'g'#138#1'g'
+  +#192#25'p'#6#156#1'g'#138#1'g'#192#157#207'UU'#5'A'#224#186'N'#146'$'#6'\'
   +#175'R'#215'u'#24#134#182'm'#137'('#200#179#216#247'\'#199#177#215#197#183#3
   +'pB'#8' '#11'C'#191','#210#170#204#248#152#167'1'#232#129'_'#150'e'#6#220'u'
   +#129'L9'#182#29#248'n'#145'''D'#214#169#25'^I'#19#225':'#182#231#186'y^'#24
@@ -306,7 +385,7 @@ LazarusResources.Add('TfWizardNewMandant','FORMDATA',[
   +'>+5'#205#14#131#128'2'#187'v'#16#132'UU'#239#9#28#166'M0'#154'h'#186#16'hz>'
   +#183#160#221#196#135#199'('#146'f'#23'-'#169#235'='#128'k'#140'f'#232#235#14
   +#172'U'#241#235'e'#153#163'%'#202'k'#137#183#11'.I'#164#209#12'|O'#250#10#245
-  +#154#200'>'#225#171#11#180#7#173'B'#219#198#5#11'f'#4#151#209'hz'#152'H'#166
+  ,#154#200'>'#225#171#11#180#7#173'B'#219#198#5#11'f'#4#151#209'hz'#152'H'#166
   +'u]V'#213'V'#168'5'#21#3'_]'#194#7#130#211#231#186#131#131#5#255#205'c'#1'j'
   +#6#206'0'#11'?'#215#165#210#205#141'V'#180#13'-'#204#164#211#231#162#205'k'
   +#130#19'B'#208#2#212#26'Y'#181#225#170#154#199#166#250#158#189#14'8'#204#16
@@ -321,7 +400,7 @@ LazarusResources.Add('TfWizardNewMandant','FORMDATA',[
   +'p/'#200#224'g'#200#225','#212#212#150#6'g'#157#142#210'5S'#204#246'R1'#156
   +'A7%'#181'4'#236#178'['#20#156#227'Xy'#18#170#153#192#14#144#161#157'phAM'
   +#130#147'uUp'#234#183#193#174#144#163#221'f'#145')'#221#204'S'#161#234'6'#192
-  ,#229#205#207'S'#238#182#197'N'#182'G:'#180#169#20#180'L4uC'#224'd'#149#163
+  +#229#205#207'S'#238#182#197'N'#182'G:'#180#169#20#180'L4uC'#224'd'#149#163
   +#134#26#239#234#173' '#147#204'2'#8#26#168')p'#241'F'#193'q'#196'-'#165#235
   +'['#171'Z'#173'Qk"'#195#208#129#150'Hjy'#188#3'p'#24'A'#240#4#173#196#197#134
   +#232#181#4#23#173#21'uS"k'#235'.'#192#169#150#201'*'#135'<'#229' /'#193#235
@@ -370,7 +449,7 @@ LazarusResources.Add('TfWizardNewMandant','FORMDATA',[
   +#187#7#174#204#147'$'#142#4#166'VE'#230#167#209'QxN'#224'VF'#226'z'#130#11
   +#226#8'o'#4#153#176#19#8#157#205'yB'#143#152#218#159'WU'#23#3'\'#26#185'I'
   +#168#192'9'#3#192'5;'#136'&'#175#187'0'#14'E'#138#185#212')t'#143#177'w'#136
-  +#28#168'j'#255'(n'#174#195#241'3'#212'}'#184'#`g'#249#182'-'#197'-6'#224#6':'
+  ,#28#168'j'#255'(n'#174#195#241'3'#212'}'#184'#`g'#249#182'-'#197'-6'#224#6':'
   +#192#173#27'\'#244#140'}'#207#12'.'#223#5#184#17#213#128'3'#224#198#131#27'S'
   +#213#148'#'#156#189#254'>p'#133#1'7'#30'\'#18'.R'#183#0'.'#155#16'\'#178#20
   +#184'p}p'#177#240#185#209#215#128#27#6'.M'#194'('#244#240#216'D'#250#247#1
@@ -385,7 +464,7 @@ LazarusResources.Add('TfWizardNewMandant','FORMDATA',[
   +'Y'#7#223'w'#21#31#248'|'#24#222#140#149#18#23#250#182'e'#29#195'0'#172#170
   +#234#252'p'#25#233#199#241',#0Bm'#183#20'6'#162'D|'#13#214'V'#127#219#229#187
   +#165#193#17#25#164#204#150#217#241#254'h'#197#156#202#143#163#15#172'E'#143
-  ,#27'm'#132'~'#177#144#231#4'J'#141#150'oQ'#133#219'wuU'#136#231'D'#166#168
+  +#27'm'#132'~'#177#144#231#4'J'#141#150'oQ'#133#219'wuU'#136#231'D'#166#168
   +#169';'''#29#31'W'#204#233#252'8'#185'/'#132#253#151#143#137#8#192'('#233#224
   +'k'#158#168'}s"'#244#219']L'#11#129#3#178'8B'#219#143#14#218#159#173'q'#207
   +#154#155#147#252#162'%'#149'uD'#15'o'#1'MD@i'#23'_'#243'n'#150'D'#11#128#203
@@ -434,7 +513,7 @@ LazarusResources.Add('TfWizardNewMandant','FORMDATA',[
   +#185#130'S'#130#159'f0fg'#224'0'#251'A'#187#209#189'I'#166'A'#240'6d'#254#176
   +'m'#227'?3'#14#138#161#0#127'B'#174'aI'#241'+'#188'H'#248'-<g'#8#30'RO'#148
   +#248#10'^'#217'BvS_ph+'#216#169't#'#127't'#238#159'J'#245#183#222'T'#1#14#252
-  +'7'#252'['#29'V'#250#193#173'c'#248#4'_GKt'#216#25#4'W'#140'}'#14#0'Gv'#16#22
+  ,'7'#252'['#29'V'#250#193#173'c'#248#4'_GKt'#216#25#4'W'#140'}'#14#0'Gv'#16#22
   +#24'Y'#244'y'#16'>|W'#7#141#227'8'#238#6#129#135'F'#238#228'}'#224#139#2#30
   +#210#186#161#227'a'#224#200#142#139#6#192#199#215#239#6#242#0'k'#194#160'q7'
   +#246#9#25'$>:L;'#0'W'#168#2#217#193'0D'#1'D'#31#24#140#188#18'4'#232#20'F'
@@ -449,7 +528,7 @@ LazarusResources.Add('TfWizardNewMandant','FORMDATA',[
   +#12#14#237#128#157#226'<'#255'.8z'#188'x}]p'#12#231#173#191' '#13#27#143#225
   +#22#151'1'#239#148#239#192#129'2'#193#173'X'#182#2#142'C>u'#240'.8xp'#156#192
   +#174'E'#13'?'#13#23#18#215'o'#19#224'h^9'#216#21#242'6'#160'?'#129#155')\'
-  ,#252']'#220#184#155#199#200'w1'#253#130#138'l'#5#28'-,'#26#196#152#18#202'wc'
+  +#252']'#220#184#155#199#200'w1'#253#130#138'l'#5#28'-,'#26#196#152#18#202'wc'
   +#28#172#240#228'k'#20#221'8('#195'3p8'#24'1>'#168#194'0'#31#174'.'#158#227
   +#226'a'#194#7#175#136'!'#172#245#193#209#210#163'Yh'#31'&'#246#221#152'Z'#23
   +#28#131#183#147#196#217'52\$'#252#219#227#241#200#192':'#179#167#186'1'#133
@@ -498,85 +577,14 @@ LazarusResources.Add('TfWizardNewMandant','FORMDATA',[
   +#1'''?H'#238#213#6#17#128'[y'#131#200#242#202#203#252'5'#244#31#16'yc'#3'F'
   +#131#241#186#14#16'0'#234#203'@'#241#213#205#18'x*'#197'T'#237#217#223#29'D'
   +#180#210#1#141#190#215#6'O'#7#228'q'#223'|'#5'"'#198#229#133#173'l'#130'3'
-  +#197#128'3'#224#12'8'#3#206#128'3'#197#128'3'#224#12'8'#3#206#128'3'#197#128
+  ,#197#128'3'#224#12'8'#3#206#128'3'#197#128'3'#224#12'8'#3#206#128'3'#197#128
   +'3'#224#12'8'#3#206#20#3'nt'#249#31#215'7'#174#213#254'|'#142'U'#0#0#0#0'IEN'
   +'D'#174'B`'#130#0#0#0#6'TBevel'#6'bvleft'#4'Left'#2#0#6'Height'#2'2'#3'Top'#3
   +'&'#1#5'Width'#3#128#0#5'Align'#7#8'alBottom'#5'Shape'#7#9'bsTopLine'#0#0#7
   +'TBitBtn'#7'BitBtn1'#4'Left'#2#9#6'Height'#2'"'#3'Top'#3'*'#1#5'Width'#2'?'#7
   +'Anchors'#11#6'akLeft'#8'akBottom'#0#8'AutoSize'#9#14'DefaultCaption'#9#4'Ki'
-  +'nd'#7#6'bkHelp'#7'OnClick'#7#12'BitBtn1Click'#8'TabOrder'#2#1#0#0#0#6'TPane'
-  +'l'#6'pCont0'#4'Left'#3#128#0#6'Height'#3'X'#1#3'Top'#2#0#5'Width'#3#166#1#5
-  +'Align'#7#8'alClient'#10'BevelOuter'#7#6'bvNone'#12'ClientHeight'#3'X'#1#11
-  +'ClientWidth'#3#166#1#11'FullRepaint'#8#8'TabOrder'#2#6#0#6'TLabel'#13'lDesc'
-  +'ription0'#4'Left'#2#4#6'Height'#2'M'#3'Top'#2#4#5'Width'#3#158#1#5'Align'#7
-  +#5'alTop'#9'Alignment'#7#8'taCenter'#20'BorderSpacing.Around'#2#4#7'Caption'
-  +#12#27#1#0#0'Mit diesem Assistenten k'#195#182'nnen Sie einen neuen Mandante'
-  +'n erstellen, w'#195#164'hlen Sie dazu im ersten Schritt eine Sprache f'#195
-  +#188'r den mandanten aus, und geben Sie darunter einen Namen an. Weiterhin m'
-  ,#195#188'ssen Sie hier ausw'#195#164'hlen ob die Datenbank mit Vorgabedaten '
-  +'gef'#195#188'llt werden soll oder nicht.'#10'Font.Style'#11#6'fsBold'#0#11
-  +'ParentColor'#8#10'ParentFont'#8#8'WordWrap'#9#0#0#6'TLabel'#12'lMandantname'
-  +#21'AnchorSideTop.Control'#7#10'cbLanguage'#18'AnchorSideTop.Side'#7#9'asrBo'
-  +'ttom'#4'Left'#2#8#6'Height'#2#13#3'Top'#3#131#0#5'Width'#2'^'#17'BorderSpac'
-  +'ing.Top'#2#10#7'Caption'#6#13'Mandantenname'#11'ParentColor'#8#0#0#6'TLabel'
-  +#9'lLanguage'#21'AnchorSideTop.Control'#7#13'lDescription0'#18'AnchorSideTop'
-  +'.Side'#7#9'asrBottom'#4'Left'#2#8#6'Height'#2#13#3'Top'#2'^'#5'Width'#2'.'
-  +#17'BorderSpacing.Top'#2#13#7'Caption'#6#7'Sprache'#11'ParentColor'#8#0#0#6
-  +'TPanel'#9'pButtons0'#4'Left'#2#0#6'Height'#2'2'#3'Top'#3'&'#1#5'Width'#3#166
-  +#1#5'Align'#7#8'alBottom'#10'BevelOuter'#7#6'bvNone'#12'ClientHeight'#2'2'#11
-  +'ClientWidth'#3#166#1#8'TabOrder'#2#5#0#6'TBevel'#8'bvRight0'#4'Left'#2#0#6
-  +'Height'#2#2#3'Top'#2#0#5'Width'#3#166#1#5'Align'#7#5'alTop'#5'Shape'#7#9'bs'
-  +'TopLine'#0#0#7'TButton'#6'bNext0'#4'Left'#2'x'#6'Height'#2#30#3'Top'#2#10#5
-  +'Width'#2'd'#25'BorderSpacing.InnerBorder'#2#4#7'Caption'#6#6'bNext0'#7'OnCl'
-  +'ick'#7#11'bNext0Click'#8'TabOrder'#2#0#0#0#7'TButton'#6'bPrev0'#4'Left'#2#21
-  +#6'Height'#2#30#3'Top'#2#10#5'Width'#2'c'#25'BorderSpacing.InnerBorder'#2#4#7
-  +'Caption'#6#6'bPrev0'#7'OnClick'#7#11'bPrev0Click'#8'TabOrder'#2#1#0#0#7'TBu'
-  +'tton'#7'bAbort0'#4'Left'#3#8#1#6'Height'#2#29#3'Top'#2#10#5'Width'#3#156#0#7
-  +'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#0#25'BorderSpacing.InnerBorder'#2
-  +#4#7'Caption'#6#7'bAbort0'#7'OnClick'#7#12'bAbort0Click'#8'TabOrder'#2#2#0#0
-  +#0#9'TComboBox'#10'cbLanguage'#21'AnchorSideTop.Control'#7#13'lDescription0'
-  +#18'AnchorSideTop.Side'#7#9'asrBottom'#4'Left'#3#144#0#6'Height'#2#27#3'Top'
-  +#2'^'#5'Width'#3#7#1#17'BorderSpacing.Top'#2#13#10'ItemHeight'#2#0#9'ItemInd'
-  +'ex'#2#0#13'Items.Strings'#1#6#7'Deutsch'#0#8'OnSelect'#7#16'cbLanguageSelec'
-  +'t'#8'TabOrder'#2#4#7'TabStop'#8#4'Text'#6#7'Deutsch'#0#0#12'TRadioButton'#13
-  +'cbNewdatabase'#21'AnchorSideTop.Control'#7#10'cbLanguage'#24'AnchorSideBott'
-  +'om.Control'#7#18'cbExistingdatabase'#4'Left'#2#4#6'Height'#2#24#4'Hint'#6
-  +#175'Benutzen Sie diese Einstellung, wenn sie eine neue Datenbank anlegen m'
-  +#195#182'chten'#10'Im folgenden Dialog k'#195#182'nnen Sie ein Profil mit St'
-  +'andardeinstellungen f'#195#188'r diese'#10'Datenbank w'#195#164'hlen'#3'Top'
-  +#3#160#0#5'Width'#3#7#1#17'BorderSpacing.Top'#2'B'#7'Caption'#6'*Neue Datenb'
-  +'ank (mit Einstellungen f'#195#188'llen)'#7'Checked'#9#8'TabOrder'#2#1#7'Tab'
-  +'Stop'#9#0#0#12'TRadioButton'#18'cbExistingdatabase'#21'AnchorSideTop.Contro'
-  +'l'#7#13'cbNewdatabase'#18'AnchorSideTop.Side'#7#9'asrBottom'#4'Left'#2#4#6
-  +'Height'#2#24#4'Hint'#6#183'w'#195#164'hlen Sie diese Einstellung, wenn Sie '
-  +'eine Datenbankverkn'#195#188'pfung'#10'zu einer schon existierenden Datenba'
-  +'nk anlegen m'#195#182'chten,'#10'z.b. wenn Sie einen weiteren Client-PC ein'
-  +'richten m'#195#182'chten.'#3'Top'#3#191#0#5'Width'#3'H'#1#17'BorderSpacing.'
-  +'Top'#2#7#7'Caption'#6'5exitierende Datenbank (keine Einstellungen einf'#195
-  +#188'gen)'#8'TabOrder'#2#2#0#0#9'TComboBox'#12'eMandantname'#21'AnchorSideTo'
-  +'p.Control'#7#10'cbLanguage'#18'AnchorSideTop.Side'#7#9'asrBottom'#4'Left'#3
-  +#144#0#6'Height'#2#27#3'Top'#3#129#0#5'Width'#3#8#1#7'Anchors'#11#5'akTop'#6
-  +'akLeft'#7'akRight'#0#17'BorderSpacing.Top'#2#8#10'ItemHeight'#2#0#8'OnSelec'
-  +'t'#7#18'eMandantnameSelect'#8'TabOrder'#2#0#0#0#12'TRadioButton'#8'rbDelete'
-  +#21'AnchorSideTop.Control'#7#13'cbNewdatabase'#18'AnchorSideTop.Side'#7#9'as'
-  +'rBottom'#4'Left'#2#4#6'Height'#2#24#4'Hint'#6'gMit deiser Einstellung k'#195
-  +#182'nnen Sie eine Datenbankverkn'#195#188'pfung l'#195#182'schen'#10'(l'#195
-  +#182'scht nicht die Datenbank !!)'#3'Top'#3#0#1#5'Width'#3#204#0#17'BorderSp'
-  +'acing.Top'#2'H'#7'Caption'#6#30'Datenbankverkn'#195#188'pfung l'#195#182'sc'
-  +'hen'#7'Enabled'#8#8'TabOrder'#2#3#0#0#12'TRadioButton'#10'rbFromFile'#21'An'
-  +'chorSideTop.Control'#7#18'cbExistingdatabase'#4'Left'#2#4#6'Height'#2#24#4
-  +'Hint'#12')'#1#0#0'Mit dieser Einstellung k'#195#182'nnen Sie die Datenbanke'
-  +'instellungen aus einer Datei (.perml) laden.'#10'Sie finden diese Dateien n'
-  +'ach einer Einrichrung mit diesem Assistenten'#10'unter Windows in'#10'Benut'
-  +'erprofil\Lokale Einstellungen\Anwendungsdaten\prometerp\*.perml'#10'Unter U'
-  +'nix in'#10'Benuterprofil\.prometerp\*.perml'#3'Top'#3#225#0#5'Width'#3#132#0
-  +#17'BorderSpacing.Top'#2'"'#7'Caption'#6#19'aus Datei erstellen'#8'TabOrder'
-  +#2#6#0#0#13'TFileNameEdit'#14'DirectoryEdit1'#21'AnchorSideTop.Control'#7#10
-  +'rbFromFile'#4'Left'#3#168#0#6'Height'#2#23#3'Top'#3#225#0#5'Width'#3#216#0
-  +#16'OnAcceptFileName'#7#28'DirectoryEdit1AcceptFileName'#6'Filter'#6#31'Prom'
-  +'et-ERP Mandant File|*.perml'#11'FilterIndex'#2#0#10'DefaultExt'#6#5'perml'
-  +#15'HideDirectories'#8#11'ButtonWidth'#2#23#11'DirectInput'#8#9'NumGlyphs'#2
-  +#1#9'MaxLength'#2#0#8'TabOrder'#2#7#0#0#0#11'TDatasource'#2'md'#4'left'#2'$'
-  ,#3'top'#2'<'#0#0#6'TTimer'#11'SilentTimer'#7'Enabled'#8#8'Interval'#2'd'#7'O'
-  +'nTimer'#7#16'SilentTimerTimer'#4'left'#2'f'#3'top'#3')'#1#0#0#0
+  +'nd'#7#6'bkHelp'#7'OnClick'#7#12'BitBtn1Click'#8'TabOrder'#2#1#0#0#0#11'TDat'
+  +'asource'#2'md'#4'left'#2'$'#3'top'#2'<'#0#0#6'TTimer'#11'SilentTimer'#7'Ena'
+  +'bled'#8#8'Interval'#2'd'#7'OnTimer'#7#16'SilentTimerTimer'#4'left'#2'f'#3't'
+  +'op'#3')'#1#0#0#0
 ]);

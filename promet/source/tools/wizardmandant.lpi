@@ -81,10 +81,11 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="571"/>
-        <CursorPos X="24" Y="588"/>
+        <TopLine Value="248"/>
+        <CursorPos X="29" Y="251"/>
         <UsageCount Value="141"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="../base/uimpcsv.pas"/>
@@ -1092,7 +1093,7 @@
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit123>
     </Units>
-    <JumpHistory Count="28" HistoryIndex="27">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
         <Filename Value="../base/dbintfs/uimpcsv.pas"/>
         <Caret Line="135" Column="1" TopLine="107"/>
@@ -1205,6 +1206,10 @@
         <Filename Value="../base/uwizardnewmandant.pas"/>
         <Caret Line="656" Column="74" TopLine="630"/>
       </Position28>
+      <Position29>
+        <Filename Value="../base/uwizardnewmandant.pas"/>
+        <Caret Line="588" Column="24" TopLine="571"/>
+      </Position29>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

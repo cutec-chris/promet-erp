@@ -772,14 +772,14 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
+        <TopLine Value="136"/>
+        <CursorPos X="31" Y="154"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit45>
     </Units>
-    <JumpHistory Count="2" HistoryIndex="1">
+    <JumpHistory Count="4" HistoryIndex="3">
       <Position1>
         <Filename Value="../../../../../lazarus/ide/lazarus.pp"/>
         <Caret Line="1" Column="1" TopLine="1"/>
@@ -788,6 +788,14 @@
         <Filename Value="../base/base_options/umandantoptions.pas"/>
         <Caret Line="146" Column="21" TopLine="121"/>
       </Position2>
+      <Position3>
+        <Filename Value="../base/uwizardnewmandant.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position3>
+      <Position4>
+        <Filename Value="../base/uwizardnewmandant.pas"/>
+        <Caret Line="251" Column="6" TopLine="249"/>
+      </Position4>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

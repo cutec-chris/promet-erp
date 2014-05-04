@@ -126,6 +126,7 @@ type
     procedure bPrev0Click(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure cbLanguageSelect(Sender: TObject);
+    procedure cbSQLTypeChange(Sender: TObject);
     procedure DirectoryEdit1AcceptFileName(Sender: TObject; var Value: String);
     procedure eMandantnameSelect(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
@@ -243,6 +244,11 @@ procedure TfWizardNewMandant.cbLanguageSelect(Sender: TObject);
 begin
   with Application as IBaseApplication do
     Language := cbLanguage.Text;
+end;
+
+procedure TfWizardNewMandant.cbSQLTypeChange(Sender: TObject);
+begin
+  eSQLdatabase.Text:='promet';
 end;
 
 procedure TfWizardNewMandant.DirectoryEdit1AcceptFileName(Sender: TObject;
