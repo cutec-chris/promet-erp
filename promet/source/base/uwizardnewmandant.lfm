@@ -3,7 +3,6 @@ object fWizardNewMandant: TfWizardNewMandant
   Height = 344
   Top = 151
   Width = 550
-  ActiveControl = eMandantname
   Caption = 'Neuen Mandanten erstellen'
   ClientHeight = 344
   ClientWidth = 550
@@ -23,10 +22,10 @@ object fWizardNewMandant: TfWizardNewMandant
     ClientHeight = 344
     ClientWidth = 422
     FullRepaint = False
-    TabOrder = 6
+    TabOrder = 5
     object lDescription1: TLabel
       Left = 0
-      Height = 14
+      Height = 13
       Top = 0
       Width = 422
       Align = alTop
@@ -38,7 +37,7 @@ object fWizardNewMandant: TfWizardNewMandant
     end
     object lProfile: TLabel
       Left = 12
-      Height = 14
+      Height = 13
       Top = 24
       Width = 29
       Caption = 'Profil'
@@ -110,7 +109,7 @@ object fWizardNewMandant: TfWizardNewMandant
       Height = 24
       Hint = 'Wenn Diese Option gesetzt ist, '#10'wird auf der Datenbank ein Synchronisationseintrag'#10'für eine mitgelieferte Hilfe Datenbank erstellt'#10'Bei Updates der Hilfedatenbank werden die Änderungen'#10'automatisch synchronisiert.'
       Top = 248
-      Width = 226
+      Width = 223
       Caption = 'Hilfe in Datenbank synchronisieren'
       Checked = True
       State = cbChecked
@@ -127,10 +126,10 @@ object fWizardNewMandant: TfWizardNewMandant
     ClientHeight = 344
     ClientWidth = 422
     FullRepaint = False
-    TabOrder = 2
+    TabOrder = 1
     object lDescription2: TLabel
       Left = 0
-      Height = 14
+      Height = 13
       Top = 0
       Width = 422
       Align = alTop
@@ -142,9 +141,9 @@ object fWizardNewMandant: TfWizardNewMandant
     end
     object Datenbanktyp: TLabel
       Left = 12
-      Height = 14
+      Height = 13
       Top = 140
-      Width = 80
+      Width = 78
       Caption = 'Datenbanktyp'
       ParentColor = False
     end
@@ -217,10 +216,10 @@ object fWizardNewMandant: TfWizardNewMandant
     ClientHeight = 344
     ClientWidth = 422
     FullRepaint = False
-    TabOrder = 3
+    TabOrder = 2
     object lDescription3: TLabel
       Left = 0
-      Height = 14
+      Height = 13
       Top = 0
       Width = 422
       Align = alTop
@@ -232,9 +231,9 @@ object fWizardNewMandant: TfWizardNewMandant
     end
     object lDatabaseDirectory: TLabel
       Left = 4
-      Height = 14
+      Height = 13
       Top = 116
-      Width = 126
+      Width = 124
       Caption = 'Datenbankverzeichnis'
       ParentColor = False
     end
@@ -290,7 +289,7 @@ object fWizardNewMandant: TfWizardNewMandant
     end
     object eDatabasedirectory: TDirectoryEdit
       Left = 4
-      Height = 24
+      Height = 23
       Top = 136
       Width = 388
       ShowHidden = False
@@ -311,10 +310,10 @@ object fWizardNewMandant: TfWizardNewMandant
     ClientHeight = 344
     ClientWidth = 422
     FullRepaint = False
-    TabOrder = 4
+    TabOrder = 3
     object lDescription4: TLabel
       Left = 0
-      Height = 48
+      Height = 45
       Top = 0
       Width = 422
       Align = alTop
@@ -326,15 +325,15 @@ object fWizardNewMandant: TfWizardNewMandant
     end
     object lDBType: TLabel
       Left = 24
-      Height = 14
+      Height = 13
       Top = 88
-      Width = 80
+      Width = 78
       Caption = 'Datenbanktyp'
       ParentColor = False
     end
     object lDBServer: TLabel
       Left = 24
-      Height = 14
+      Height = 13
       Top = 120
       Width = 38
       Caption = 'Server'
@@ -342,15 +341,15 @@ object fWizardNewMandant: TfWizardNewMandant
     end
     object lDatabase: TLabel
       Left = 24
-      Height = 14
+      Height = 13
       Top = 176
-      Width = 62
+      Width = 60
       Caption = 'Datenbank'
       ParentColor = False
     end
     object lUsername: TLabel
       Left = 24
-      Height = 14
+      Height = 13
       Top = 208
       Width = 83
       Caption = 'Benutzername'
@@ -358,7 +357,7 @@ object fWizardNewMandant: TfWizardNewMandant
     end
     object lPassword: TLabel
       Left = 24
-      Height = 14
+      Height = 13
       Top = 237
       Width = 51
       Caption = 'Passwort'
@@ -443,7 +442,7 @@ object fWizardNewMandant: TfWizardNewMandant
     end
     object eSQLServer: TEdit
       Left = 128
-      Height = 24
+      Height = 23
       Top = 120
       Width = 192
       TabOrder = 1
@@ -451,14 +450,14 @@ object fWizardNewMandant: TfWizardNewMandant
     end
     object eSQLUser: TEdit
       Left = 128
-      Height = 24
+      Height = 23
       Top = 208
       Width = 200
       TabOrder = 3
     end
     object eSQLPassword: TEdit
       Left = 128
-      Height = 24
+      Height = 23
       Top = 237
       Width = 200
       EchoMode = emPassword
@@ -467,7 +466,7 @@ object fWizardNewMandant: TfWizardNewMandant
     end
     object eSQLdatabase: TFileNameEdit
       Left = 128
-      Height = 24
+      Height = 23
       Top = 176
       Width = 240
       DialogOptions = []
@@ -522,17 +521,17 @@ object fWizardNewMandant: TfWizardNewMandant
       OnClick = bCopyConnectionStringClick
     end
     object Label1: TLabel
-      Left = 347
-      Height = 14
+      Left = 348
+      Height = 13
       Top = 101
-      Width = 43
+      Width = 42
       Anchors = [akTop, akRight]
       Caption = 'Sync ID'
       ParentColor = False
     end
     object seSyncID: TSpinEdit
       Left = 342
-      Height = 24
+      Height = 23
       Top = 120
       Width = 50
       Anchors = [akTop, akRight]
@@ -550,19 +549,19 @@ object fWizardNewMandant: TfWizardNewMandant
     ClientHeight = 344
     ClientWidth = 422
     FullRepaint = False
-    TabOrder = 5
+    TabOrder = 4
     Visible = False
     object lCreatingDatabase: TLabel
       Left = 40
-      Height = 14
+      Height = 13
       Top = 9
-      Width = 167
+      Width = 166
       Caption = 'erstelle Tabellen (wenn nötig)'
       ParentColor = False
     end
     object lFillingDefaultValues: TLabel
       Left = 40
-      Height = 14
+      Height = 13
       Top = 32
       Width = 137
       Caption = 'Vorgabewerte einsetzen'
@@ -570,9 +569,9 @@ object fWizardNewMandant: TfWizardNewMandant
     end
     object lUpdatingDatabase: TLabel
       Left = 40
-      Height = 14
+      Height = 13
       Top = 56
-      Width = 84
+      Width = 83
       Caption = 'Hilfe einsetzen'
       ParentColor = False
     end
@@ -671,9 +670,9 @@ object fWizardNewMandant: TfWizardNewMandant
       Visible = False
       object Button1: TButton
         Left = 180
-        Height = 26
+        Height = 25
         Top = 168
-        Width = 150
+        Width = 149
         AutoSize = True
         Caption = 'Mandanteneinstellungen'
         OnClick = Button1Click
@@ -681,7 +680,7 @@ object fWizardNewMandant: TfWizardNewMandant
       end
       object Label2: TLabel
         Left = 0
-        Height = 150
+        Height = 141
         Top = 0
         Width = 396
         Align = alTop
@@ -709,197 +708,6 @@ object fWizardNewMandant: TfWizardNewMandant
       Width = 1
       BorderSpacing.Left = 7
       ParentColor = False
-    end
-  end
-  object pCont0: TPanel
-    Left = 128
-    Height = 344
-    Top = 0
-    Width = 422
-    Align = alClient
-    BevelOuter = bvNone
-    ClientHeight = 344
-    ClientWidth = 422
-    FullRepaint = False
-    TabOrder = 1
-    object lDescription0: TLabel
-      Left = 4
-      Height = 82
-      Top = 4
-      Width = 414
-      Align = alTop
-      Alignment = taCenter
-      BorderSpacing.Around = 4
-      Caption = 'Mit diesem Assistenten können Sie einen neuen Mandanten erstellen, wählen Sie dazu im ersten Schritt eine Sprache für den mandanten aus, und geben Sie darunter einen Namen an. Weiterhin müssen Sie hier auswählen ob die Datenbank mit Vorgabedaten gefüllt werden soll oder nicht.'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      WordWrap = True
-    end
-    object lMandantname: TLabel
-      AnchorSideTop.Control = cbLanguage
-      AnchorSideTop.Side = asrBottom
-      Left = 8
-      Height = 14
-      Top = 136
-      Width = 95
-      BorderSpacing.Top = 10
-      Caption = 'Mandantenname'
-      ParentColor = False
-    end
-    object lLanguage: TLabel
-      AnchorSideTop.Control = lDescription0
-      AnchorSideTop.Side = asrBottom
-      Left = 8
-      Height = 14
-      Top = 99
-      Width = 46
-      BorderSpacing.Top = 13
-      Caption = 'Sprache'
-      ParentColor = False
-    end
-    object pButtons0: TPanel
-      Left = 0
-      Height = 50
-      Top = 294
-      Width = 422
-      Align = alBottom
-      BevelOuter = bvNone
-      ClientHeight = 50
-      ClientWidth = 422
-      TabOrder = 5
-      object bvRight0: TBevel
-        Left = 0
-        Height = 2
-        Top = 0
-        Width = 422
-        Align = alTop
-        Shape = bsTopLine
-      end
-      object bNext0: TButton
-        Left = 120
-        Height = 30
-        Top = 10
-        Width = 100
-        BorderSpacing.InnerBorder = 4
-        Caption = 'bNext0'
-        OnClick = bNext0Click
-        TabOrder = 0
-      end
-      object bPrev0: TButton
-        Left = 21
-        Height = 30
-        Top = 10
-        Width = 99
-        BorderSpacing.InnerBorder = 4
-        Caption = 'bPrev0'
-        OnClick = bPrev0Click
-        TabOrder = 1
-      end
-      object bAbort0: TButton
-        Left = 264
-        Height = 29
-        Top = 10
-        Width = 156
-        Anchors = [akTop, akLeft, akRight]
-        BorderSpacing.InnerBorder = 4
-        Caption = 'bAbort0'
-        OnClick = bAbort0Click
-        TabOrder = 2
-      end
-    end
-    object cbLanguage: TComboBox
-      AnchorSideTop.Control = lDescription0
-      AnchorSideTop.Side = asrBottom
-      Left = 144
-      Height = 27
-      Top = 99
-      Width = 263
-      BorderSpacing.Top = 13
-      ItemHeight = 0
-      ItemIndex = 0
-      Items.Strings = (
-        'Deutsch'
-      )
-      OnSelect = cbLanguageSelect
-      TabOrder = 4
-      TabStop = False
-      Text = 'Deutsch'
-    end
-    object cbNewdatabase: TRadioButton
-      AnchorSideTop.Control = cbLanguage
-      AnchorSideBottom.Control = cbExistingdatabase
-      Left = 4
-      Height = 24
-      Top = 165
-      Width = 277
-      BorderSpacing.Top = 66
-      Caption = 'Neue Datenbank (mit Vorgabewerten füllen)'
-      Checked = True
-      TabOrder = 1
-      TabStop = True
-    end
-    object cbExistingdatabase: TRadioButton
-      AnchorSideTop.Control = cbNewdatabase
-      AnchorSideTop.Side = asrBottom
-      Left = 4
-      Height = 24
-      Top = 189
-      Width = 334
-      Caption = 'exitierende Datenbank (keine Vorgabewerte einfügen)'
-      TabOrder = 2
-    end
-    object eMandantname: TComboBox
-      AnchorSideTop.Control = cbLanguage
-      AnchorSideTop.Side = asrBottom
-      Left = 144
-      Height = 27
-      Top = 134
-      Width = 264
-      Anchors = [akTop, akLeft, akRight]
-      BorderSpacing.Top = 8
-      ItemHeight = 0
-      OnSelect = eMandantnameSelect
-      TabOrder = 0
-    end
-    object rbDelete: TRadioButton
-      AnchorSideTop.Control = cbNewdatabase
-      AnchorSideTop.Side = asrBottom
-      Left = 4
-      Height = 24
-      Top = 235
-      Width = 207
-      BorderSpacing.Top = 46
-      Caption = 'Datenbankverknüpfung löschen'
-      Enabled = False
-      TabOrder = 3
-    end
-    object rbFromFile: TRadioButton
-      AnchorSideTop.Control = cbExistingdatabase
-      Left = 4
-      Height = 24
-      Top = 212
-      Width = 133
-      BorderSpacing.Top = 23
-      Caption = 'aus Datei erstellen'
-      TabOrder = 6
-    end
-    object DirectoryEdit1: TFileNameEdit
-      AnchorSideTop.Control = rbFromFile
-      Left = 168
-      Height = 24
-      Top = 212
-      Width = 216
-      OnAcceptFileName = DirectoryEdit1AcceptFileName
-      Filter = 'Promet-ERP Mandant File|*.perml'
-      FilterIndex = 0
-      DefaultExt = 'perml'
-      HideDirectories = False
-      ButtonWidth = 23
-      DirectInput = False
-      NumGlyphs = 1
-      MaxLength = 0
-      TabOrder = 7
     end
   end
   object pLeft: TPanel
@@ -1106,13 +914,209 @@ object fWizardNewMandant: TfWizardNewMandant
       Left = 9
       Height = 34
       Top = 298
-      Width = 64
+      Width = 63
       Anchors = [akLeft, akBottom]
       AutoSize = True
       DefaultCaption = True
       Kind = bkHelp
       OnClick = BitBtn1Click
       TabOrder = 1
+    end
+  end
+  object pCont0: TPanel
+    Left = 128
+    Height = 344
+    Top = 0
+    Width = 422
+    Align = alClient
+    BevelOuter = bvNone
+    ClientHeight = 344
+    ClientWidth = 422
+    FullRepaint = False
+    TabOrder = 6
+    object lDescription0: TLabel
+      Left = 4
+      Height = 77
+      Top = 4
+      Width = 414
+      Align = alTop
+      Alignment = taCenter
+      BorderSpacing.Around = 4
+      Caption = 'Mit diesem Assistenten können Sie einen neuen Mandanten erstellen, wählen Sie dazu im ersten Schritt eine Sprache für den mandanten aus, und geben Sie darunter einen Namen an. Weiterhin müssen Sie hier auswählen ob die Datenbank mit Vorgabedaten gefüllt werden soll oder nicht.'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      WordWrap = True
+    end
+    object lMandantname: TLabel
+      AnchorSideTop.Control = cbLanguage
+      AnchorSideTop.Side = asrBottom
+      Left = 8
+      Height = 13
+      Top = 131
+      Width = 94
+      BorderSpacing.Top = 10
+      Caption = 'Mandantenname'
+      ParentColor = False
+    end
+    object lLanguage: TLabel
+      AnchorSideTop.Control = lDescription0
+      AnchorSideTop.Side = asrBottom
+      Left = 8
+      Height = 13
+      Top = 94
+      Width = 46
+      BorderSpacing.Top = 13
+      Caption = 'Sprache'
+      ParentColor = False
+    end
+    object pButtons0: TPanel
+      Left = 0
+      Height = 50
+      Top = 294
+      Width = 422
+      Align = alBottom
+      BevelOuter = bvNone
+      ClientHeight = 50
+      ClientWidth = 422
+      TabOrder = 5
+      object bvRight0: TBevel
+        Left = 0
+        Height = 2
+        Top = 0
+        Width = 422
+        Align = alTop
+        Shape = bsTopLine
+      end
+      object bNext0: TButton
+        Left = 120
+        Height = 30
+        Top = 10
+        Width = 100
+        BorderSpacing.InnerBorder = 4
+        Caption = 'bNext0'
+        OnClick = bNext0Click
+        TabOrder = 0
+      end
+      object bPrev0: TButton
+        Left = 21
+        Height = 30
+        Top = 10
+        Width = 99
+        BorderSpacing.InnerBorder = 4
+        Caption = 'bPrev0'
+        OnClick = bPrev0Click
+        TabOrder = 1
+      end
+      object bAbort0: TButton
+        Left = 264
+        Height = 29
+        Top = 10
+        Width = 156
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.InnerBorder = 4
+        Caption = 'bAbort0'
+        OnClick = bAbort0Click
+        TabOrder = 2
+      end
+    end
+    object cbLanguage: TComboBox
+      AnchorSideTop.Control = lDescription0
+      AnchorSideTop.Side = asrBottom
+      Left = 144
+      Height = 27
+      Top = 94
+      Width = 263
+      BorderSpacing.Top = 13
+      ItemHeight = 0
+      ItemIndex = 0
+      Items.Strings = (
+        'Deutsch'
+      )
+      OnSelect = cbLanguageSelect
+      TabOrder = 4
+      TabStop = False
+      Text = 'Deutsch'
+    end
+    object cbNewdatabase: TRadioButton
+      AnchorSideTop.Control = cbLanguage
+      AnchorSideBottom.Control = cbExistingdatabase
+      Left = 4
+      Height = 24
+      Hint = 'Benutzen Sie diese Einstellung, wenn sie eine neue Datenbank anlegen möchten'#10'Im folgenden Dialog können Sie ein Profil mit Standardeinstellungen für diese'#10'Datenbank wählen'
+      Top = 160
+      Width = 263
+      BorderSpacing.Top = 66
+      Caption = 'Neue Datenbank (mit Einstellungen füllen)'
+      Checked = True
+      TabOrder = 1
+      TabStop = True
+    end
+    object cbExistingdatabase: TRadioButton
+      AnchorSideTop.Control = cbNewdatabase
+      AnchorSideTop.Side = asrBottom
+      Left = 4
+      Height = 24
+      Hint = 'wählen Sie diese Einstellung, wenn Sie eine Datenbankverknüpfung'#10'zu einer schon existierenden Datenbank anlegen möchten,'#10'z.b. wenn Sie einen weiteren Client-PC einrichten möchten.'
+      Top = 191
+      Width = 328
+      BorderSpacing.Top = 7
+      Caption = 'exitierende Datenbank (keine Einstellungen einfügen)'
+      TabOrder = 2
+    end
+    object eMandantname: TComboBox
+      AnchorSideTop.Control = cbLanguage
+      AnchorSideTop.Side = asrBottom
+      Left = 144
+      Height = 27
+      Top = 129
+      Width = 264
+      Anchors = [akTop, akLeft, akRight]
+      BorderSpacing.Top = 8
+      ItemHeight = 0
+      OnSelect = eMandantnameSelect
+      TabOrder = 0
+    end
+    object rbDelete: TRadioButton
+      AnchorSideTop.Control = cbNewdatabase
+      AnchorSideTop.Side = asrBottom
+      Left = 4
+      Height = 24
+      Hint = 'Mit deiser Einstellung können Sie eine Datenbankverknüpfung löschen'#10'(löscht nicht die Datenbank !!)'
+      Top = 256
+      Width = 204
+      BorderSpacing.Top = 72
+      Caption = 'Datenbankverknüpfung löschen'
+      Enabled = False
+      TabOrder = 3
+    end
+    object rbFromFile: TRadioButton
+      AnchorSideTop.Control = cbExistingdatabase
+      Left = 4
+      Height = 24
+      Hint = 'Mit dieser Einstellung können Sie die Datenbankeinstellungen aus einer Datei (.perml) laden.'#10'Sie finden diese Dateien nach einer Einrichrung mit diesem Assistenten'#10'unter Windows in'#10'Benuterprofil\Lokale Einstellungen\Anwendungsdaten\prometerp\*.perml'#10'Unter Unix in'#10'Benuterprofil\.prometerp\*.perml'
+      Top = 225
+      Width = 132
+      BorderSpacing.Top = 34
+      Caption = 'aus Datei erstellen'
+      TabOrder = 6
+    end
+    object DirectoryEdit1: TFileNameEdit
+      AnchorSideTop.Control = rbFromFile
+      Left = 168
+      Height = 23
+      Top = 225
+      Width = 216
+      OnAcceptFileName = DirectoryEdit1AcceptFileName
+      Filter = 'Promet-ERP Mandant File|*.perml'
+      FilterIndex = 0
+      DefaultExt = 'perml'
+      HideDirectories = False
+      ButtonWidth = 23
+      DirectInput = False
+      NumGlyphs = 1
+      MaxLength = 0
+      TabOrder = 7
     end
   end
   object md: TDatasource

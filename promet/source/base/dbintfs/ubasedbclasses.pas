@@ -1859,8 +1859,6 @@ begin
             Add('SORTCODE',ftString,20,False);
             Add('ACCOUNT',ftString,200,False);
             Add('INSTITUTE',ftString,60,false);
-            Add('SWIFT',ftString,11,false);
-            Add('IBAN',ftString,34,false);
             Add('TEL1',ftString,30,false);
             Add('TEL2',ftString,30,false);
             Add('TEL3',ftString,30,false);
