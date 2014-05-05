@@ -85,7 +85,6 @@ begin
           DBLogout;
         end;
     end;
-  FDest.Free;
 end;
 
 procedure TfSyncOptions.smInChange(Sender: TObject);
