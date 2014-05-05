@@ -8,7 +8,7 @@
         <LRSInOutputDirectory Value="False"/>
       </Flags>
       <MainUnit Value="0"/>
-      <Title Value="sync_outlook_calendar"/>
+      <Title Value="sync_outlook_contacts"/>
       <ResourceType Value="res"/>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
@@ -33,7 +33,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=&quot;TCS-Times2&quot; --user=&quot;Christian Ulrich&quot;"/>
+        <CommandLineParams Value="--mandant=&quot;TCS-Times2&quot; --user=&quot;Testuser&quot;"/>
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
         <WorkingDirectory Value="C:\"/>
       </local>
@@ -50,20 +50,20 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="122">
+    <Units Count="121">
       <Unit0>
-        <Filename Value="sync_outlook_calendar.lpr"/>
+        <Filename Value="sync_outlook_contacts.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="sync_outlook_calendar"/>
+        <UnitName Value="sync_outlook_contacts"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="43"/>
-        <CursorPos X="1" Y="61"/>
-        <FoldState Value=" T3i803113 T6iH0O T0jA6O+"/>
+        <TopLine Value="1"/>
+        <CursorPos X="33" Y="1042"/>
+        <FoldState Value=" T0sY6}*0T1?"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="1">
-          <Item0 X="1" Y="125" ID="0"/>
+          <Item0 X="1" Y="785" ID="0"/>
         </Bookmarks>
         <Loaded Value="True"/>
       </Unit0>
@@ -325,10 +325,12 @@
       <Unit35>
         <Filename Value="mapi\MapiServices.pas"/>
         <UnitName Value="MapiServices"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1875"/>
         <CursorPos X="1" Y="1896"/>
         <UsageCount Value="68"/>
+        <Loaded Value="True"/>
       </Unit35>
       <Unit36>
         <Filename Value="mapi\mapidefs.pas"/>
@@ -355,11 +357,11 @@
         <UsageCount Value="3"/>
       </Unit38>
       <Unit39>
-        <Filename Value="mapi\mapiguid.pas"/>
+        <Filename Value="mapi\MapiGuid.pas"/>
         <UnitName Value="MapiGuid"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="7"/>
-        <CursorPos X="22" Y="26"/>
+        <TopLine Value="327"/>
+        <CursorPos X="28" Y="342"/>
         <UsageCount Value="57"/>
       </Unit39>
       <Unit40>
@@ -573,31 +575,31 @@
       <Unit66>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1555"/>
         <CursorPos X="1" Y="1587"/>
-        <UsageCount Value="41"/>
+        <UsageCount Value="40"/>
         <Loaded Value="True"/>
       </Unit66>
       <Unit67>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2153"/>
         <CursorPos X="1" Y="2175"/>
-        <UsageCount Value="37"/>
+        <UsageCount Value="36"/>
         <Loaded Value="True"/>
       </Unit67>
       <Unit68>
         <Filename Value="..\base\dbintfs\usync.pas"/>
         <UnitName Value="usync"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="516"/>
-        <CursorPos X="82" Y="526"/>
-        <UsageCount Value="35"/>
+        <TopLine Value="455"/>
+        <CursorPos X="3" Y="480"/>
+        <UsageCount Value="34"/>
         <Loaded Value="True"/>
       </Unit68>
       <Unit69>
@@ -611,11 +613,11 @@
       <Unit70>
         <Filename Value="..\base\dbintfs\ubaseerpdbclasses.pas"/>
         <UnitName Value="uBaseERPDBClasses"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="27"/>
         <CursorPos X="27" Y="34"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit70>
       <Unit71>
@@ -677,11 +679,11 @@
       <Unit78>
         <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="757"/>
         <CursorPos X="1" Y="782"/>
-        <UsageCount Value="27"/>
+        <UsageCount Value="26"/>
         <Loaded Value="True"/>
       </Unit78>
       <Unit79>
@@ -756,11 +758,11 @@
       <Unit88>
         <Filename Value="..\base\dbintfs\utask.pas"/>
         <UnitName Value="utask"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="807"/>
-        <CursorPos X="1" Y="828"/>
-        <UsageCount Value="40"/>
+        <TopLine Value="930"/>
+        <CursorPos X="1" Y="951"/>
+        <UsageCount Value="39"/>
         <Loaded Value="True"/>
       </Unit88>
       <Unit89>
@@ -961,8 +963,8 @@
         <Filename Value="..\components\zeos\src\plain\ZPlainDbLibDriver.pas"/>
         <UnitName Value="ZPlainDbLibDriver"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="583"/>
-        <CursorPos X="25" Y="598"/>
+        <TopLine Value="571"/>
+        <CursorPos X="45" Y="597"/>
         <UsageCount Value="11"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit113>
@@ -993,12 +995,10 @@
       <Unit117>
         <Filename Value="C:\Programme\lazarus\fpc\2.6.2\source\packages\fcl-json\src\fpjson.pp"/>
         <UnitName Value="fpjson"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="47"/>
-        <CursorPos X="3" Y="49"/>
+        <TopLine Value="374"/>
+        <CursorPos X="25" Y="396"/>
         <UsageCount Value="16"/>
-        <Loaded Value="True"/>
       </Unit117>
       <Unit118>
         <Filename Value="C:\cal.json"/>
@@ -1011,11 +1011,11 @@
       <Unit119>
         <Filename Value="..\components\synapse\synautil.pas"/>
         <UnitName Value="synautil"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="398"/>
         <CursorPos X="1" Y="422"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit119>
       <Unit120>
@@ -1027,149 +1027,42 @@
         <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit120>
-      <Unit121>
-        <Filename Value="sync_mso.lpr"/>
-        <UnitName Value="sync_mso"/>
-        <EditorIndex Value="1"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="872"/>
-        <CursorPos X="1" Y="865"/>
-        <FoldState Value=" T1nA2{M T0sY6}* T6pT237"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-      </Unit121>
     </Units>
     <Build>
       <CleanOutputFileMask Value="*.ppu;*.ppl;*.o;*.or;*.rc"/>
     </Build>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="6" HistoryIndex="5">
       <Position1>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="557" Column="1" TopLine="531"/>
+        <Caret Line="414" Column="1" TopLine="384"/>
       </Position1>
       <Position2>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="558" Column="1" TopLine="531"/>
+        <Caret Line="384" Column="1" TopLine="365"/>
       </Position2>
       <Position3>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="559" Column="1" TopLine="531"/>
+        <Caret Line="386" Column="1" TopLine="365"/>
       </Position3>
       <Position4>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="561" Column="1" TopLine="531"/>
+        <Caret Line="384" Column="1" TopLine="365"/>
       </Position4>
       <Position5>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="562" Column="1" TopLine="531"/>
+        <Caret Line="553" Column="235" TopLine="534"/>
       </Position5>
       <Position6>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="569" Column="1" TopLine="550"/>
+        <Caret Line="480" Column="3" TopLine="455"/>
       </Position6>
-      <Position7>
-        <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="570" Column="1" TopLine="550"/>
-      </Position7>
-      <Position8>
-        <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="571" Column="1" TopLine="550"/>
-      </Position8>
-      <Position9>
-        <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="572" Column="1" TopLine="550"/>
-      </Position9>
-      <Position10>
-        <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="573" Column="1" TopLine="550"/>
-      </Position10>
-      <Position11>
-        <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="575" Column="1" TopLine="550"/>
-      </Position11>
-      <Position12>
-        <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="577" Column="1" TopLine="550"/>
-      </Position12>
-      <Position13>
-        <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="579" Column="1" TopLine="550"/>
-      </Position13>
-      <Position14>
-        <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="581" Column="1" TopLine="550"/>
-      </Position14>
-      <Position15>
-        <Filename Value="..\base\dbintfs\utask.pas"/>
-        <Caret Line="826" Column="1" TopLine="807"/>
-      </Position15>
-      <Position16>
-        <Filename Value="..\base\dbintfs\utask.pas"/>
-        <Caret Line="827" Column="1" TopLine="807"/>
-      </Position16>
-      <Position17>
-        <Filename Value="..\base\dbintfs\utask.pas"/>
-        <Caret Line="828" Column="1" TopLine="807"/>
-      </Position17>
-      <Position18>
-        <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="582" Column="1" TopLine="551"/>
-      </Position18>
-      <Position19>
-        <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="535" Column="1" TopLine="516"/>
-      </Position19>
-      <Position20>
-        <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="535" Column="1" TopLine="516"/>
-      </Position20>
-      <Position21>
-        <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="526" Column="82" TopLine="516"/>
-      </Position21>
-      <Position22>
-        <Filename Value="sync_outlook_calendar.lpr"/>
-        <Caret Line="249" Column="26" TopLine="226"/>
-      </Position22>
-      <Position23>
-        <Filename Value="sync_outlook_calendar.lpr"/>
-        <Caret Line="318" Column="26" TopLine="317"/>
-      </Position23>
-      <Position24>
-        <Filename Value="sync_outlook_calendar.lpr"/>
-        <Caret Line="249" Column="20" TopLine="230"/>
-      </Position24>
-      <Position25>
-        <Filename Value="sync_outlook_calendar.lpr"/>
-        <Caret Line="256" Column="38" TopLine="235"/>
-      </Position25>
-      <Position26>
-        <Filename Value="sync_outlook_calendar.lpr"/>
-        <Caret Line="68" Column="1" TopLine="48"/>
-      </Position26>
-      <Position27>
-        <Filename Value="sync_outlook_calendar.lpr"/>
-        <Caret Line="315" Column="25" TopLine="48"/>
-      </Position27>
-      <Position28>
-        <Filename Value="sync_outlook_calendar.lpr"/>
-        <Caret Line="101" Column="1" TopLine="84"/>
-      </Position28>
-      <Position29>
-        <Filename Value="sync_outlook_calendar.lpr"/>
-        <Caret Line="62" Column="1" TopLine="43"/>
-      </Position29>
-      <Position30>
-        <Filename Value="sync_outlook_calendar.lpr"/>
-        <Caret Line="69" Column="1" TopLine="44"/>
-      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\tools\sync_outlook_calendar"/>
+      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\tools\sync_outlook_contacts"/>
     </Target>
     <SearchPaths>
       <OtherUnitFiles Value="mapi"/>
@@ -1226,8 +1119,8 @@
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
-        <Source Value="sync_outlook_calendar.lpr"/>
-        <Line Value="318"/>
+        <Source Value="sync_mso.lpr"/>
+        <Line Value="1101"/>
       </Item5>
     </BreakPoints>
     <Watches Count="2">

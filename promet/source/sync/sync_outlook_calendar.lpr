@@ -70,7 +70,6 @@ var
   StreamIntf: IStream;
   OLEStream: TOleStream;
   SStream : TStringStream;
-var
   StreamInfo: TStatStg;
   MapiMessage: MapiDefs.IMessage;
   bItem: TMapiMailItem;
