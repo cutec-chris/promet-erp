@@ -39,7 +39,11 @@ If errorlevel 1 goto end
 
 lazbuild -q ..\..\source\sync\sync_db.lpi
 If errorlevel 1 goto end
-lazbuild -q ..\..\source\sync\sync_mso.lpi
+lazbuild -q ..\..\source\sync\sync_outlook_contacts.lpi
+If errorlevel 1 goto end
+lazbuild -q ..\..\source\sync\sync_outlook_calendar.lpi
+If errorlevel 1 goto end
+lazbuild -q ..\..\source\sync\sync_outlook_tasks.lpi
 If errorlevel 1 goto end
 
 lazbuild -q ..\..\source\tools\cdmenue.lpi
