@@ -1,4 +1,4 @@
-program sync_outlook_tasks;
+program sync_outlook_calendar;
 {$mode objfpc}{$H+}
 uses
   {$IFDEF UNIX}{$IFDEF UseCThreads}
@@ -149,29 +149,43 @@ begin
     if UserSelected then
       begin
         {
-        // In PSETID_Task
-        #define dispidTaskStatus					0x8101	//PT_LONG
-        #define dispidTaskPercentComplete			0x8102	//PT_DOUBLE
-        #define dispidTaskTeamTask					0x8103	//PT_BOOLEAN
-        #define dispidTaskStartDate					0x8104	//PT_SYSTIME
-        #define dispidTaskDueDate					0x8105	//PT_SYSTIME
-        #define dispidTaskDateCompleted				0x810f	//PT_SYSTIME
-        #define dispidTaskActualEffort				0x8110	//PT_LONG
-        #define dispidTaskEstimatedEffort			0x8111	//PT_LONG
-        #define dispidTaskState						0x8113	//PT_LONG
-        #define dispidTaskRecurrenceState			0x8116	//PT_BINARY
-        #define dispidTaskComplete					0x811c	//PT_BOOLEAN
-        #define dispidTaskOwner						0x811f	//PT_STRING8
-        #define dispidTaskDelegator					0x8121	//PT_STRING8
-        #define dispidTaskOrdinal					0x8123	//PT_LONG
-        #define dispidTaskIsRecurring				0x8126	//PT_BOOLEAN
-        #define dispidTaskRole						0x8127	//PT_STRING8
-        #define dispidTaskOwnership					0x8129	//PT_LONG
-        #define dispidTaskDelegationState			0x812A	//PT_LONG}
-
-        WritelnMessage('Syncing Tasks');
+        // In PSETID_Appointment
+        #define dispidSendAsICAL					0x8200	//PT_BOOLEAN
+        #define dispidBusyStatus					0x8205	//PT_LONG
+        #define dispidLocation						0x8208	//PT_STRING8
+        #define dispidApptStartWhole				0x820D	//PT_SYSTIME
+        #define dispidApptEndWhole					0x820E	//PT_SYSTIME
+        #define dispidApptDuration					0x8213	//PT_LONG
+        #define dispidLabel							0x8214	//PT_LONG
+        #define dispidAllDayEvent					0x8215	//PT_BOOLEAN
+        #define dispidRecurrenceState				0x8216	//PT_BINARY
+        #define dispidMeetingStatus					0x8217	//PT_LONG
+        #define dispidResponseStatus				0x8218	//PT_LONG
+        #define dispidRecurring						0x8223	//PT_BOOLEAN
+        #define dispidRecurringBase					0x8228	//PT_SYSTIME
+        #define dispidRequestSent					0x8229	//PT_BOOLEAN
+        #define dispidRecurrenceType				0x8231	//PT_LONG
+        #define dispidRecurrencePattern				0x8232	//PT_STRING8
+        #define dispidTimeZoneData					0x8233	//PT_BINARY - official name dispidTimeZoneStruct
+        #define dispidTimeZone						0x8234	//PT_STRING8
+        #define dispidRecurrenceStart				0x8235	//PT_SYSTIME
+        #define dispidRecurrenceEnd					0x8236	//PT_SYSTIME
+        #define dispidAllAttendeesString			0x8238	//PT_STRING8
+        #define dispidToAttendeesString				0x823B	//PT_STRING8
+        #define dispidCCAttendeesString				0x823C	//PT_STRING8
+        #define dispidNetMeetingType				0x8241	//PT_LONG
+        #define dispidNetMeetingServer				0x8242	//PT_STRING8
+        #define dispidNetMeetingOrganizerAlias		0x8243	//PT_STRING8
+        #define dispidNetMeetingAutoStart			0x8244	//PT_BOOLEAN
+        #define dispidConferenceServerAllowExternal 0x8246	//PT_BOOLEAN
+        #define dispidNetMeetingDocPathName			0x8247	//PT_STRING8
+        #define dispidNetShowURL					0x8248	//PT_STRING8
+        #define dispidConferenceServerPassword		0x8249	//PT_STRING8
+        // A counter proposal is when the recipient of the request has proposed a new time for the meeting
+        #define dispidApptCounterProposal			0x8257	//PT_BOOLEAN}
+        WritelnMessage('Syncing Calendar...');
         //Aufgaben syncronisieren
-        aFolder := TGenericFolder.Create(aConnection,PR_IPM_TASK_ENTRYID);
+        aFolder := TGenericFolder.Create(aConnection,PR_IPM_APPOINTMENT_ENTRYID);
         //Create Item List
         aJsonList := TJSONArray.Create;
         try
@@ -194,40 +208,47 @@ begin
                       OLEStream.Free;
                     end;
                     if SStream.DataString <> '' then
-                      aObj.Add('DESC',EncodingIn(SStream.DataString));
+                      aObj.Add('DESCR',SStream.DataString);
                   end;
               finally
                 StreamIntf := nil;
               end;
-              if not Assigned(aObj.Find('DESC')) then
-                aObj.Add('DESC',EncodingIn(aItem.PropertiesDirect[PR_BODY,ptString]));
-              aObj.Add('COMPLETED',Boolean(aItem.PropertiesDirect[aItem.GetPropertyDispId($811c, PT_BOOLEAN, False, @PSETID_Task),ptBoolean]));
-              aStart := aItem.PropertiesDirect[aItem.GetPropertyDispId($8105, PT_SYSTIME, False, @PSETID_Task),ptTime];
-              aEnd := aItem.PropertiesDirect[aItem.GetPropertyDispId($8104, PT_SYSTIME, False, @PSETID_Task),ptTime];
-              if aStart <> -1 then
+              if not Assigned(aObj.Find('DESCR')) then
+                aObj.Add('DESCR',EncodingIn(aItem.PropertiesDirect[PR_BODY,ptString]));
+              aObj.Add('LOCATION',EncodingIn(aItem.PropertiesDirect[PR_LOCATION,ptString]));
+              aStart := aItem.PropertiesDirect[aItem.GetPropertyDispId($820D, PT_SYSTIME, False, @PSETID_Appointment),ptTime];
+              aEnd := aItem.PropertiesDirect[aItem.GetPropertyDispId($820E, PT_SYSTIME, False, @PSETID_Appointment),ptTime];
+              aAllday := Boolean(aItem.PropertiesDirect[aItem.GetPropertyDispId($8215, PT_BOOLEAN, False, @PSETID_Appointment),ptBoolean]);
+              if not aAllday then
                 begin
                   aStart := IncHour(aStart,TimeOffset);
-                  aObj.Add('STARTDATE',Rfc822DateTime(aStart));
-                end;
-              if aEnd <> -1 then
-                begin
                   aEnd := IncHour(aEnd,TimeOffset);
-                  aObj.Add('DUEDATE',Rfc822DateTime(aEnd));
+                end;
+              aObj.Add('ALLDAY',aAllday);
+              aObj.Add('STARTDATE',Rfc822DateTime(aStart));
+              aObj.Add('ENDDATE',Rfc822DateTime(aEnd));
+              if aItem.PropertiesDirect[aItem.GetPropertyDispId($8223, PT_BOOLEAN, False, @PSETID_Appointment),ptBoolean] then  //PR_ISRECURRING
+                begin
+                  aPattern := aItem.PropertiesDirect[aItem.GetPropertyDispId($8232, PT_STRING8, False, @PSETID_Appointment),ptString];
+                  case aItem.PropertiesDirect[aItem.GetPropertyDispId($8231, PT_LONG, False, @PSETID_Appointment),ptInteger] of //RecurenceType    (1=Täglich=1,2=Wöchentlich=2,3=Monatlich=4,4=Jährlich=6)
+                  1:aObj.Add('ROTATION',1);
+                  2:aObj.Add('ROTATION',2);
+                  3:aObj.Add('ROTATION',4);
+                  4:aObj.Add('ROTATION',6);
+                  end;
+                  aObj.Add('ROTTO',Rfc822DateTime(aItem.PropertiesDirect[aItem.GetPropertyDispId($8236, PT_SYSTIME, False, @PSETID_Appointment),ptTime]));
                 end;
               aItem.Free;
               aJsonList.Add(aObj);
               aItem := aFolder.GetNext;
              end;
 
-          aTasks := TTaskList.Create(nil,Data);
-          aLastSync := SyncItems.LastSync(SyncType,aTasks.TableName);
-          if aLastSync>0 then
-            aTasks.SelectByUserChangedSince(Data.Users.Accountno.AsString,aLastSync)
-          else
-            aTasks.SelectActiveByUser(Data.Users.Accountno.AsString);
-          aTasks.Open;
+          aCalendar := TCalendar.Create(nil,Data);
+          aLastSync := SyncItems.LastSync(SyncType,aCalendar.TableName);
+          aCalendar.SelectByUser(Data.Users.Accountno.AsString);
+          aCalendar.Open;
           //Sync Item List
-          aJsonOutList := SyncItems.SyncDataSet(aTasks,aJsonList,SyncType);
+          aJsonOutList := SyncItems.SyncDataSet(aCalendar,aJsonList,SyncType);
           aJsonList.Free;
           aItem := aFolder.GetFirst;
           bItem := nil;
@@ -242,29 +263,20 @@ begin
                   if Assigned(aField) and (aField.AsString = EntryIdToString(aItem.EntryID)) then
                     begin
                       aField := SyncItems.GetField(aJsonOutList[i],'SUMMARY');
-                      debugln('Updated:'+aItem.Subject);
                       if Assigned(aField) then
                         aItem.PropertiesDirect[PR_SUBJECT,ptString] := EncodingOut(aField.AsString);
-                      aField := SyncItems.GetField(aJsonOutList[i],'DESC');
+                      aField := SyncItems.GetField(aJsonOutList[i],'DESCR');
                       if Assigned(aField) then
                         if aItem.PropertiesDirect[PR_BODY,ptString] = '' then
                           aItem.PropertiesDirect[PR_BODY,ptString] := EncodingOut(aField.AsString);
-                      aField := SyncItems.GetField(aJsonOutList[i],'COMPLETED');
+                      aField := SyncItems.GetField(aJsonOutList[i],'LOCATION');
                       if Assigned(aField) then
-                        begin
-                          aItem.PropertiesDirect[aItem.GetPropertyDispId($811c, PT_BOOLEAN, False, @PSETID_Task),ptBoolean] := aField.AsString = 'Y';
-                          DoDelete := aField.AsString = 'Y';
-                        end;
-                      aField := SyncItems.GetField(aJsonOutList[i],'DUEDATE');
-                      if Assigned(aField) and (aField.AsString<>'') then
-                        aItem.PropertiesDirect[aItem.GetPropertyDispId($8105, PT_SYSTIME, False, @PSETID_Task),ptTime] := DecodeRfcDateTime(aField.AsString)
-                      else aItem.PropertiesDirect[aItem.GetPropertyDispId($8105, PT_SYSTIME, False, @PSETID_Task),ptTime] := -1;
-                      aField := SyncItems.GetField(aJsonOutList[i],'STARTDATE');
-                      if Assigned(aField) and (aField.AsString<>'') then
-                        aItem.PropertiesDirect[aItem.GetPropertyDispId($8104, PT_SYSTIME, False, @PSETID_Task),ptTime] := DecodeRfcDateTime(aField.AsString)
-                      else aItem.PropertiesDirect[aItem.GetPropertyDispId($8104, PT_SYSTIME, False, @PSETID_Task),ptTime] := -1;
+                        aItem.PropertiesDirect[PR_LOCATION,ptString] := EncodingOut(aField.AsString);
+                      aField := SyncItems.GetField(aJsonOutList[i],'ALLDAY');
+                      if Assigned(aField) then
+                        aItem.PropertiesDirect[aItem.GetPropertyDispId($8215, PT_BOOLEAN, False, @PSETID_Appointment),ptBoolean] := aField.AsString = 'Y';
+                      aItem.LastModificationTime := Now;
                       try
-                        if DoDelete then aItem.Delete; //Delete Done Tasks couse we cant set them correctly done at time
                         aItem.CoMessage.SaveChanges(0);
                       except
                       end;
@@ -278,32 +290,21 @@ begin
               aItem := aFolder.GetNext;
             end;
           //Create new Items
+          {
           for i := 0 to aJsonOutList.Count-1 do
             begin
               if Assigned(aJsonOutList[i])
               and (not Assigned(SyncItems.GetField(aJsonOutList[i],'item_is_synched')))
-              and ((not Assigned(SyncItems.GetField(aJsonOutList[i],'HASCHILDS'))) or (SyncItems.GetField(aJsonOutList[i],'HASCHILDS').AsString<>'Y')) then
+              then
                 begin
                   if aFolder.Folder.CreateMessage(IMapiMessage, 0, MapiMessage) = S_OK then
                     begin
                       aItem := TMapiMailItem.Create(aFolder, MapiMessage, False);
-                      aItem.MessageClass:='IPM.Task';
+                      aItem.MessageClass:='IPM.Appointment';
                       aField := SyncItems.GetField(aJsonOutList[i],'SUMMARY');
                       if Assigned(aField) then
                         aItem.PropertiesDirect[PR_SUBJECT,ptString] := EncodingOut(aField.AsString);
-                      aField := SyncItems.GetField(aJsonOutList[i],'DESC');
-                      if Assigned(aField) then
-                        if aItem.PropertiesDirect[PR_BODY,ptString] = '' then
-                          aItem.PropertiesDirect[PR_BODY,ptString] := EncodingOut(aField.AsString);
-                      aField := SyncItems.GetField(aJsonOutList[i],'COMPLETED');
-                      if Assigned(aField) then
-                        aItem.PropertiesDirect[aItem.GetPropertyDispId($811c, PT_BOOLEAN, False, @PSETID_Task),ptBoolean] := aField.AsString = 'Y';
-                      aField := SyncItems.GetField(aJsonOutList[i],'DUEDATE');
-                      if Assigned(aField) and (aField.AsString<>'') then
-                        aItem.PropertiesDirect[aItem.GetPropertyDispId($8105, PT_SYSTIME, False, @PSETID_Task),ptTime] := DecodeRfcDateTime(aField.AsString);
-                      aField := SyncItems.GetField(aJsonOutList[i],'STARTDATE');
-                      if Assigned(aField) and (aField.AsString<>'') then
-                        aItem.PropertiesDirect[aItem.GetPropertyDispId($8104, PT_SYSTIME, False, @PSETID_Task),ptTime] := DecodeRfcDateTime(aField.AsString);
+
                       try
                         aItem.CoMessage.SaveChanges(0);
                         bFolder := TGenericFolder.Create(aConnection,aFolder.FEntryTyp);
@@ -320,12 +321,13 @@ begin
 
                 end;
             end;
+          }
           //tell System the new external_id´s and changed rows
           if aJsonOutList.Count>0 then
             SyncItems.SyncDataSet(aTasks,aJsonOutList,SyncType,True);
           aJsonOutList.Free;
         finally
-          aTasks.Free;
+          aCalendar.Free;
           aFolder.Free;
         end;
       end;
