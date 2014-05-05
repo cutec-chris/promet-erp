@@ -70,6 +70,7 @@ begin
       Application.CreateForm(TfLogWaitForm,fLogWaitform);
       Self := fLogWaitForm;
     end;
+  bAbort.Kind:=bkAbort;
 end;
 
 procedure TfLogWaitForm.FormShow(Sender: TObject);

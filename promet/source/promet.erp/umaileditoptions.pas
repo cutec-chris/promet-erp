@@ -58,9 +58,11 @@ type
     procedure aProcessLineWritten(Line: string);
     procedure bCheckConnectionClick(Sender: TObject);
     procedure eServertypeSelect(Sender: TObject);
+    procedure fLogWaitFormbAbortClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { private declarations }
+    aProcess: TExtendedProcess;
   public
     { public declarations }
     function Execute : Boolean;
@@ -102,11 +104,15 @@ begin
     end;
 end;
 
+procedure TfMailOptions.fLogWaitFormbAbortClick(Sender: TObject);
+begin
+  aProcess.Terminate(1);
+end;
+
 procedure TfMailOptions.bCheckConnectionClick(Sender: TObject);
 var
   aPath: String;
   aFile: String;
-  aProcess: TExtendedProcess;
 begin
   aPath := AppendPathDelim(AppendPathDelim(Application.Location)+'tools');
   if FileExists(aPath+lowerCase(eServertype.Text)+'receiver') then
@@ -122,12 +128,16 @@ begin
   fLogWaitForm.Show;
   fLogWaitForm.ShowInfo('Test wird gestartet:');
   fLogWaitForm.ShowInfo(aFile+' "--mandant='+ProcessMandant+'"'+' "--user='+ProcessUser+'" --onerun');
+  fLogWaitForm.bAbort.OnClick:=@fLogWaitFormbAbortClick;
   aProcess := TExtendedProcess.Create(aFile+' "--mandant='+ProcessMandant+'"'+' "--user='+ProcessUser+'" --onerun',True);
   aProcess.OnLineWritten:=@aProcessLineWritten;
-  while aProcess.Active do
+  while aProcess.Active and fLogWaitForm.Visible do
     Application.ProcessMessages;
+  if not fLogWaitForm.Visible then
+    aProcess.Terminate(1);
   fLogWaitForm.ShowInfo('Test abgeschlossen:'+IntToStr(aProcess.ExitStatus));
   fLogWaitForm.bAbort.Kind:=bkClose;
+  fLogWaitForm.bAbort.OnClick:=nil;
   aProcess.Free;
 end;
 

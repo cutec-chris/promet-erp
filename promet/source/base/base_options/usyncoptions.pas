@@ -9,7 +9,8 @@ type
   { TfSyncOptions }
 
   TfSyncOptions = class(TOptionsFrame)
-    DBMemo1: TDBMemo;
+    bCheckConnection: TButton;
+    eConnString: TDBMemo;
     DBNavigator1: TDBNavigator;
     dsTables: TDatasource;
     dsDatabases: TDatasource;
@@ -25,6 +26,7 @@ type
     SpeedButton1: TSpeedButton;
     SynSQLSyn1: TSynSQLSyn;
     procedure aSyncDbTablesDataSetAfterScroll(DataSet: TDataSet);
+    procedure bCheckConnectionClick(Sender: TObject);
     procedure smInChange(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
   private
@@ -41,12 +43,51 @@ type
   end;
 implementation
 {$R *.lfm}
-uses uData;
+uses uData,uBaseDBInterface,uBaseApplication,Dialogs;
+resourcestring
+  strSetPropertysFailed                    = 'Der Datenbankverbindungsstring beinhaltet Fehler';
+  strFailedtoLoadMandants                  = 'Laden der Mandanten fehlgeschlagen';
+  strConnectionSuccesful                   = 'Verbindungstest erfolgreich !';
+  strSyncIddontMatch                       = 'Die SyncID der entfernten Datenbank stimmt nicht mit der eingestellten überein, soll die SyncID übernommen werden ?';
 procedure TfSyncOptions.aSyncDbTablesDataSetAfterScroll(DataSet: TDataSet);
 begin
   smIn.Lines.Text := dsTables.DataSet.FieldByName('FILTERIN').AsString;
   smOut.Lines.Text := dsTables.DataSet.FieldByName('FILTEROUT').AsString;
 end;
+
+procedure TfSyncOptions.bCheckConnectionClick(Sender: TObject);
+var
+  FDest: TBaseDBInterface;
+  LoggedIn: Boolean;
+  aOffs: Integer;
+begin
+  FDest := TBaseDBInterface.Create;
+  FDest.SetOwner(BaseApplication);
+  if not FDest.LoadMandants then
+    raise Exception.Create(strFailedtoLoadMandants);
+  with FDest as IBaseDBInterface do
+    begin
+      LoggedIn := OpenMandant(copy(eConnString.Text,0,pos(':',eConnString.Text)-1),
+                         copy(eConnString.Text,pos(':',eConnString.Text)+1,length(eConnString.Text)));
+      if LoggedIn then
+        begin
+          Showmessage(strConnectionSuccesful);
+          aOffs := FDest.GetDB.SyncOffset;
+          if dsDatabases.DataSet.FieldByName('SYNCOFFS').AsInteger<>aOffs then
+            if MessageDlg('SyncID',strSyncIddontMatch,mtWarning,[mbYes,mbNo],0)=mrYes then
+              begin
+                if dsDatabases.DataSet.State=dsBrowse then
+                  dsDatabases.DataSet.Edit;
+                dsDatabases.DataSet.FieldByName('SYNCOFFS').AsInteger:=aOffs;
+                if dsDatabases.DataSet.State<>dsBrowse then
+                  dsDatabases.DataSet.Post;
+              end;
+          DBLogout;
+        end;
+    end;
+  FDest.Free;
+end;
+
 procedure TfSyncOptions.smInChange(Sender: TObject);
 begin
   if not aSyncDB.Tables.CanEdit then

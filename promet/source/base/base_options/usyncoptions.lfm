@@ -16,6 +16,7 @@ inherited fSyncOptions: TfSyncOptions
       item
         ButtonStyle = cbsCheckboxColumn
         Title.Caption = 'Aktiv'
+        Title.MultiLine = False
         Width = 30
         ValueChecked = 'Y'
         ValueUnchecked = 'N'
@@ -23,16 +24,19 @@ inherited fSyncOptions: TfSyncOptions
       end    
       item
         Title.Caption = 'Name'
+        Title.MultiLine = False
         Width = 130
         FieldName = 'NAME'
       end    
       item
-        Title.Caption = 'Offset'
+        Title.Caption = 'SyncID'
+        Title.MultiLine = False
         Width = 40
         FieldName = 'SYNCOFFS'
       end    
       item
         Title.Caption = 'In Arbeit'
+        Title.MultiLine = False
         Width = 40
         FieldName = 'INPROGRESS'
       end>
@@ -42,9 +46,9 @@ inherited fSyncOptions: TfSyncOptions
   end
   object lD: TLabel[1]
     Left = 8
-    Height = 15
+    Height = 13
     Top = 15
-    Width = 92
+    Width = 81
     Caption = 'Datenbanken'
     Font.Style = [fsBold]
     ParentColor = False
@@ -52,9 +56,9 @@ inherited fSyncOptions: TfSyncOptions
   end
   object Label1: TLabel[2]
     Left = 24
-    Height = 15
+    Height = 13
     Top = 144
-    Width = 56
+    Width = 52
     Caption = 'Tabellen'
     Font.Style = [fsBold]
     ParentColor = False
@@ -71,6 +75,7 @@ inherited fSyncOptions: TfSyncOptions
       item
         ButtonStyle = cbsCheckboxColumn
         Title.Caption = 'ACTIVEOUT'
+        Title.MultiLine = False
         Width = 30
         ValueChecked = 'Y'
         ValueUnchecked = 'N'
@@ -79,6 +84,7 @@ inherited fSyncOptions: TfSyncOptions
       item
         ButtonStyle = cbsCheckboxColumn
         Title.Caption = 'ACTIVE'
+        Title.MultiLine = False
         Width = 30
         ValueChecked = 'Y'
         ValueUnchecked = 'N'
@@ -86,11 +92,13 @@ inherited fSyncOptions: TfSyncOptions
       end    
       item
         Title.Caption = 'NAME'
+        Title.MultiLine = False
         Width = 200
         FieldName = 'NAME'
       end    
       item
         Title.Caption = 'LTIMESTAMP'
+        Title.MultiLine = False
         Width = 200
         FieldName = 'LTIMESTAMP'
       end>
@@ -617,12 +625,14 @@ inherited fSyncOptions: TfSyncOptions
     Lines.Strings = (
       'smIn'
     )
+    SelectedColor.FrameEdges = sfeAround
     SelectedColor.BackPriority = 50
     SelectedColor.ForePriority = 50
     SelectedColor.FramePriority = 50
     SelectedColor.BoldPriority = 50
     SelectedColor.ItalicPriority = 50
     SelectedColor.UnderlinePriority = 50
+    SelectedColor.StrikeOutPriority = 50
     OnChange = smInChange
     inline SynLeftGutterPartList1: TSynGutterPartList
       object SynGutterMarks1: TSynGutterMarks
@@ -634,6 +644,7 @@ inherited fSyncOptions: TfSyncOptions
         MouseActions = <>
         MarkupInfo.Background = clBtnFace
         MarkupInfo.Foreground = clNone
+        MarkupInfo.FrameEdges = sfeAround
         DigitCount = 2
         ShowOnlyLineNumbersMultiplesOf = 1
         ZeroStart = False
@@ -650,6 +661,7 @@ inherited fSyncOptions: TfSyncOptions
         MouseActions = <>
         MarkupInfo.Background = clWhite
         MarkupInfo.Foreground = clGray
+        MarkupInfo.FrameEdges = sfeAround
       end
       object SynGutterCodeFolding1: TSynGutterCodeFolding
         MouseActions = <        
@@ -680,6 +692,7 @@ inherited fSyncOptions: TfSyncOptions
           end>
         MarkupInfo.Background = clNone
         MarkupInfo.Foreground = clGray
+        MarkupInfo.FrameEdges = sfeAround
         MouseActionsExpanded = <        
           item
             ClickCount = ccAny
@@ -1223,12 +1236,14 @@ inherited fSyncOptions: TfSyncOptions
     Lines.Strings = (
       'smOut'
     )
+    SelectedColor.FrameEdges = sfeAround
     SelectedColor.BackPriority = 50
     SelectedColor.ForePriority = 50
     SelectedColor.FramePriority = 50
     SelectedColor.BoldPriority = 50
     SelectedColor.ItalicPriority = 50
     SelectedColor.UnderlinePriority = 50
+    SelectedColor.StrikeOutPriority = 50
     OnChange = smInChange
     inline SynLeftGutterPartList1: TSynGutterPartList
       object SynGutterMarks1: TSynGutterMarks
@@ -1240,6 +1255,7 @@ inherited fSyncOptions: TfSyncOptions
         MouseActions = <>
         MarkupInfo.Background = clBtnFace
         MarkupInfo.Foreground = clNone
+        MarkupInfo.FrameEdges = sfeAround
         DigitCount = 2
         ShowOnlyLineNumbersMultiplesOf = 1
         ZeroStart = False
@@ -1256,6 +1272,7 @@ inherited fSyncOptions: TfSyncOptions
         MouseActions = <>
         MarkupInfo.Background = clWhite
         MarkupInfo.Foreground = clGray
+        MarkupInfo.FrameEdges = sfeAround
       end
       object SynGutterCodeFolding1: TSynGutterCodeFolding
         MouseActions = <        
@@ -1286,6 +1303,7 @@ inherited fSyncOptions: TfSyncOptions
           end>
         MarkupInfo.Background = clNone
         MarkupInfo.Foreground = clGray
+        MarkupInfo.FrameEdges = sfeAround
         MouseActionsExpanded = <        
           item
             ClickCount = ccAny
@@ -1312,9 +1330,9 @@ inherited fSyncOptions: TfSyncOptions
   end
   object Label2: TLabel[6]
     Left = 8
-    Height = 15
-    Top = 322
-    Width = 13
+    Height = 13
+    Top = 324
+    Width = 12
     Anchors = [akLeft, akBottom]
     Caption = 'In'
     Font.Style = [fsBold]
@@ -1323,16 +1341,16 @@ inherited fSyncOptions: TfSyncOptions
   end
   object Label3: TLabel[7]
     Left = 8
-    Height = 15
-    Top = 394
-    Width = 25
+    Height = 13
+    Top = 396
+    Width = 22
     Anchors = [akLeft, akBottom]
     Caption = 'Out'
     Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
-  object DBMemo1: TDBMemo[8]
+  object eConnString: TDBMemo[8]
     Left = 280
     Height = 84
     Top = 40
@@ -1344,9 +1362,9 @@ inherited fSyncOptions: TfSyncOptions
   end
   object Label4: TLabel[9]
     Left = 280
-    Height = 15
+    Height = 13
     Top = 24
-    Width = 111
+    Width = 102
     Caption = 'Verbindungsstring'
     ParentColor = False
   end
@@ -1395,10 +1413,10 @@ inherited fSyncOptions: TfSyncOptions
     OnClick = SpeedButton1Click
   end
   object DBNavigator1: TDBNavigator[11]
-    Left = 136
+    Left = 112
     Height = 25
     Top = 5
-    Width = 136
+    Width = 160
     BevelOuter = bvNone
     ChildSizing.EnlargeHorizontal = crsScaleChilds
     ChildSizing.EnlargeVertical = crsScaleChilds
@@ -1407,21 +1425,33 @@ inherited fSyncOptions: TfSyncOptions
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 100
     ClientHeight = 25
-    ClientWidth = 136
+    ClientWidth = 160
     DataSource = dsDatabases
     Options = []
     TabOrder = 5
-    VisibleButtons = [nbInsert, nbDelete, nbEdit, nbCancel, nbRefresh]
+    VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel, nbRefresh]
   end
-  object dsDatabases: TDatasource[12]
+  object bCheckConnection: TButton[12]
+    Left = 422
+    Height = 25
+    Top = 5
+    Width = 116
+    Anchors = [akTop, akRight]
+    AutoSize = True
+    BorderSpacing.Around = 8
+    Caption = 'Verbindung Testen'
+    OnClick = bCheckConnectionClick
+    TabOrder = 6
+  end
+  object dsDatabases: TDatasource[13]
     left = 112
     top = 48
   end
-  object dsTables: TDatasource[13]
+  object dsTables: TDatasource[14]
     left = 112
     top = 208
   end
-  object SynSQLSyn1: TSynSQLSyn[14]
+  object SynSQLSyn1: TSynSQLSyn[15]
     DefaultFilter = 'SQL-Dateien (*.sql)|*.sql'
     Enabled = False
     CommentAttri.FrameEdges = sfeAround
