@@ -566,6 +566,8 @@ begin
                     Insert;
                 end
               else Edit;
+              if State=dsInsert then
+                RemoteID.AsVariant:=aID.AsString;
               aInternal.Select(LocalID.AsVariant);
               aInternal.Open;
               if aInternal.Count>0 then

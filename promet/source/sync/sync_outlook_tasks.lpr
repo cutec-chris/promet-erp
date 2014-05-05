@@ -269,7 +269,7 @@ begin
                         aItem.CoMessage.SaveChanges(0);
                       except
                       end;
-                      aJsonOutList.Delete(i);
+                      TJSONObject(aJsonOutList.Items[i]).Add('item_is_synched',True);
                       break;
                     end
                   else inc(i);
@@ -280,7 +280,9 @@ begin
           //Create new Items
           for i := 0 to aJsonOutList.Count-1 do
             begin
-              if Assigned(aJsonOutList[i]) and ((not Assigned(SyncItems.GetField(aJsonOutList[i],'HASCHILDS'))) or (SyncItems.GetField(aJsonOutList[i],'HASCHILDS').AsString<>'Y')) then
+              if Assigned(aJsonOutList[i])
+              and (not Assigned(SyncItems.GetField(aJsonOutList[i],'item_is_synched')))
+              and ((not Assigned(SyncItems.GetField(aJsonOutList[i],'HASCHILDS'))) or (SyncItems.GetField(aJsonOutList[i],'HASCHILDS').AsString<>'Y')) then
                 begin
                   if aFolder.Folder.CreateMessage(IMapiMessage, 0, MapiMessage) = S_OK then
                     begin
