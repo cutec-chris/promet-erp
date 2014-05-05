@@ -1,4 +1,6 @@
-﻿Build 336
+﻿Build 337
+      - Outlook Synchronisation: in 3 executables fütr Aufgaben,Kalendar und Kontakte aufgetrennt
+Build 336
       - e-Mails werden mit korrekter Referenz gesendet und empfangen, zudem werden in der Narichtenzentrale richtige Threads aus e-Mails angelegt
 Build 335
       - Positionen:Artikel Suchen korrigiert
