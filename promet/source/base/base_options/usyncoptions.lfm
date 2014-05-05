@@ -3,6 +3,8 @@ inherited fSyncOptions: TfSyncOptions
   Width = 544
   ClientHeight = 468
   ClientWidth = 544
+  ParentShowHint = False
+  ShowHint = True
   TabOrder = 0
   DesignLeft = 596
   DesignTop = 280
@@ -1353,6 +1355,7 @@ inherited fSyncOptions: TfSyncOptions
   object eConnString: TDBMemo[8]
     Left = 280
     Height = 84
+    Hint = 'Sie können den Verbindungstring im Mandantenassistenten'#10'auf der Datenbankeinstellungsseite mit dem kopieren Knopf oben rechts in die Zwischenablage kopieren'
     Top = 40
     Width = 256
     Anchors = [akTop, akLeft, akRight]

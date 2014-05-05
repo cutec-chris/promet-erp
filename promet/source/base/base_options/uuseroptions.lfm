@@ -3,6 +3,8 @@ inherited fUserOptions: TfUserOptions
   Width = 517
   ClientHeight = 427
   ClientWidth = 517
+  ParentShowHint = False
+  ShowHint = True
   TabOrder = 0
   DesignLeft = 518
   DesignTop = 337
