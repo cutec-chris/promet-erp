@@ -36,7 +36,7 @@ inherited fUserOptions: TfUserOptions
     object bResetPassword: TBitBtn
       Left = 103
       Height = 30
-      Hint = 'Passwort zurücksetzen'
+      Hint = 'Passwort des Benutzers zurücksetzen'#10'Der Benutzer bekommt bei der nächsten Anmeldung die Aufforderung'#10'sich ein neues Passwort zu vergeben.'
       Top = 8
       Width = 32
       Glyph.Data = {
@@ -81,6 +81,7 @@ inherited fUserOptions: TfUserOptions
     object cbPosition: TDBComboBox
       Left = 126
       Height = 27
+      Hint = 'wenn hier LEADER angegeben wird hat der Benutzer an einigen Stellen im Programm '#10'erweiterte Rechte, z.b. darf er für alle untergeordneten Benutzer und Gruppen '#10'Aufgabenpläne und Kalender einsehen und bearbeiten'
       Top = 103
       Width = 161
       DataField = 'POSITION'
@@ -94,7 +95,7 @@ inherited fUserOptions: TfUserOptions
     end
     object eDepartment: TDBEdit
       Left = 8
-      Height = 24
+      Height = 23
       Top = 103
       Width = 115
       DataField = 'DEPARTMENT'
@@ -105,7 +106,8 @@ inherited fUserOptions: TfUserOptions
     end
     object eCustomerNumber: TDBEdit
       Left = 80
-      Height = 24
+      Height = 23
+      Hint = 'Die Kundennummer im System für diesen Benutzer'
       Top = 152
       Width = 81
       DataSource = UsersDS
@@ -115,7 +117,7 @@ inherited fUserOptions: TfUserOptions
     end
     object eLeaveDate: TDBEdit
       Left = 8
-      Height = 24
+      Height = 23
       Top = 288
       Width = 120
       DataField = 'LEAVED'
@@ -126,7 +128,7 @@ inherited fUserOptions: TfUserOptions
     end
     object eEmploymentDate: TDBEdit
       Left = 8
-      Height = 24
+      Height = 23
       Top = 248
       Width = 120
       DataField = 'EMPLOYMENT'
@@ -137,7 +139,8 @@ inherited fUserOptions: TfUserOptions
     end
     object eIDCode: TDBEdit
       Left = 9
-      Height = 24
+      Height = 23
+      Hint = 'Ein Kürzel für den Benutzer '#10'z.b. oft 1. Buchstabe von Vor und Nachnamen'#10'oder 1. Buchstabe vom Vornamen und 1. und letzter vom Nachnamen'
       Top = 152
       Width = 55
       DataField = 'IDCODE'
@@ -148,7 +151,8 @@ inherited fUserOptions: TfUserOptions
     end
     object eUsername: TDBEdit
       Left = 8
-      Height = 24
+      Height = 23
+      Hint = 'Der Benutzername'
       Top = 57
       Width = 279
       DataField = 'NAME'
@@ -160,7 +164,7 @@ inherited fUserOptions: TfUserOptions
     end
     object lPosition: TLabel
       Left = 126
-      Height = 14
+      Height = 13
       Top = 87
       Width = 44
       Caption = 'Position'
@@ -177,7 +181,7 @@ inherited fUserOptions: TfUserOptions
     end
     object lDepartment: TLabel
       Left = 8
-      Height = 14
+      Height = 13
       Top = 87
       Width = 53
       Caption = 'Abteilung'
@@ -185,15 +189,15 @@ inherited fUserOptions: TfUserOptions
     end
     object lIDCode: TLabel
       Left = 10
-      Height = 14
+      Height = 13
       Top = 136
-      Width = 45
+      Width = 44
       Caption = 'ID Code'
       ParentColor = False
     end
     object lUsername: TLabel
       Left = 8
-      Height = 14
+      Height = 13
       Top = 40
       Width = 83
       Caption = 'Benutzername'
@@ -201,15 +205,15 @@ inherited fUserOptions: TfUserOptions
     end
     object lCustomerNumber: TLabel
       Left = 79
-      Height = 14
+      Height = 13
       Top = 136
-      Width = 90
+      Width = 89
       Caption = 'Kundennummer'
       ParentColor = False
     end
     object lEmploymentDate: TLabel
       Left = 9
-      Height = 14
+      Height = 13
       Top = 232
       Width = 103
       Caption = 'Einstellungsdatum'
@@ -266,7 +270,7 @@ inherited fUserOptions: TfUserOptions
     end
     object lRights: TLabel
       Left = 10
-      Height = 14
+      Height = 13
       Top = 312
       Width = 39
       Caption = 'Rechte'
@@ -275,6 +279,7 @@ inherited fUserOptions: TfUserOptions
     object bNewGroup: TSpeedButton
       Left = 8
       Height = 30
+      Hint = 'neue Gruppe einfügen'
       Top = 8
       Width = 32
       Glyph.Data = {
@@ -319,6 +324,7 @@ inherited fUserOptions: TfUserOptions
     object bNewUser: TSpeedButton
       Left = 39
       Height = 30
+      Hint = 'neuen Benutzer einfügen'
       Top = 8
       Width = 32
       Glyph.Data = {
@@ -363,6 +369,7 @@ inherited fUserOptions: TfUserOptions
     object bSaveUser: TSpeedButton
       Left = 70
       Height = 30
+      Hint = 'Speichern'
       Top = 8
       Width = 32
       Glyph.Data = {
@@ -406,7 +413,8 @@ inherited fUserOptions: TfUserOptions
     end
     object eCustomerNumber1: TDBEdit
       Left = 167
-      Height = 24
+      Height = 23
+      Hint = 'Login für Webanwendungen, bei einigen Webanwendungen '#10'wie z.b. imap Server kann nicht der Volle Name des Benutzers'#10'als Login benutzt werden, in diesem Fall ist hier ein benutzer oder '#10'Spitzname hinterlegbar'
       Top = 152
       Width = 120
       DataField = 'LOGINNAME'
@@ -418,7 +426,7 @@ inherited fUserOptions: TfUserOptions
     end
     object lCustomerNumber1: TLabel
       Left = 257
-      Height = 14
+      Height = 13
       Top = 137
       Width = 30
       Anchors = [akTop, akRight]
@@ -427,7 +435,7 @@ inherited fUserOptions: TfUserOptions
     end
     object lCustomerNumber2: TLabel
       Left = 220
-      Height = 14
+      Height = 13
       Top = 232
       Width = 67
       Anchors = [akTop, akRight]
@@ -450,17 +458,17 @@ inherited fUserOptions: TfUserOptions
       TabOrder = 10
     end
     object lCustomerNumber3: TLabel
-      Left = 249
-      Height = 14
+      Left = 250
+      Height = 13
       Top = 273
-      Width = 38
+      Width = 37
       Anchors = [akTop, akRight]
       Caption = 'e-MAIL'
       ParentColor = False
     end
     object eCustomerNumber2: TDBEdit
       Left = 139
-      Height = 24
+      Height = 23
       Top = 288
       Width = 148
       DataField = 'EMAIL'
@@ -473,6 +481,7 @@ inherited fUserOptions: TfUserOptions
     object DBCheckBox1: TDBCheckBox
       Left = 8
       Height = 24
+      Hint = 'Wenn der Haken entfernt wird kann der'#10'Benutzer sich am System nicht anmelden wohl '#10'aber z.b. Aufgaben zugewiesen bekommen'#10'oder in Besprechungsprotokollen benannt werden'
       Top = 184
       Width = 131
       AutoSize = True
@@ -486,8 +495,9 @@ inherited fUserOptions: TfUserOptions
     object DBCheckBox2: TDBCheckBox
       Left = 156
       Height = 24
+      Hint = 'Soll ein Zugriff über Webanwendungen für diesen Benutzer'#10'zulässig sein ?'
       Top = 184
-      Width = 87
+      Width = 86
       AutoSize = True
       Caption = 'Fernzugriff'
       DataField = 'REMOTEACCESS'

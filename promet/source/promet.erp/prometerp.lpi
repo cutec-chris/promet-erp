@@ -313,7 +313,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="945"/>
@@ -749,7 +748,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uProcessOptions"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
@@ -779,7 +778,7 @@
       <Unit46>
         <Filename Value="../import/udataimport.pas"/>
         <UnitName Value="uDataImport"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="32"/>
         <CursorPos X="24" Y="67"/>
@@ -787,15 +786,19 @@
         <Loaded Value="True"/>
       </Unit46>
       <Unit47>
-        <Filename Value="../components/zeos/src/component/ZAbstractRODataset.pas"/>
-        <UnitName Value="ZAbstractRODataset"/>
-        <EditorIndex Value="2"/>
+        <Filename Value="../base/base_options/uuseroptions.pas"/>
+        <ComponentName Value="fUserOptions"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uuseroptions"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1956"/>
-        <CursorPos X="1" Y="1974"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
+        <LoadedDesigner Value="True"/>
       </Unit47>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
