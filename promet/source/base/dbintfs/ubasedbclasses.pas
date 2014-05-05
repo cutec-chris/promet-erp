@@ -1270,9 +1270,11 @@ begin
             Add('COMMISSION',ftString,60,False);
             Add('SOURCE',ftString,60,False);
             Add('READ',ftString,1,False);
+            Add('TAGS',ftString,200,False);
             Add('CHANGEDBY',ftString,4,False);
             Add('PARENT',ftLargeInt,0,False);
             Add('ROOT',ftLargeInt,0,False);
+            Add('DATE',ftDateTime,0,False);
           end;
       if Assigned(ManagedIndexdefs) then
         with ManagedIndexDefs do
@@ -1285,8 +1287,10 @@ begin
             Add('LINK','LINK',[]);
             Add('READ','READ',[]);
             Add('SOURCE','SOURCE',[]);
+            Add('TAGS','TAGS',[]);
             Add('CHANGEDBY','CHANGEDBY',[]);
             Add('TIMESTAMPD','TIMESTAMPD',[]);
+            Add('DATE','DATE',[]);
           end;
     end;
 end;
@@ -1360,6 +1364,7 @@ begin
   with BaseApplication as IBaseDbInterface do
     FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
   DataSet.FieldByName('COMMISSION').AsString := aComission;
+  DataSet.FieldByName('DATE').AsDateTime:=Now();
   if DoPost then
     Post;
   result := True;
@@ -2705,4 +2710,4 @@ begin
 end;
 initialization
 end.
-
+
