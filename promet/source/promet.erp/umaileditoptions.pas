@@ -26,7 +26,8 @@ interface
 
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ExtCtrls, Buttons, uIntfStrConsts,LCLType, ButtonPanel;
+  ExtCtrls, Buttons, uIntfStrConsts,LCLType, ButtonPanel,FileUtil,
+  ProcessUtils,uProcessManager,uLogWait;
 
 type
 
@@ -54,6 +55,7 @@ type
     pFeedOptions: TPanel;
     pPOPOptions: TPanel;
     pSMTPOptions: TPanel;
+    procedure aProcessLineWritten(Line: string);
     procedure bCheckConnectionClick(Sender: TObject);
     procedure eServertypeSelect(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -72,6 +74,7 @@ implementation
 
 resourcestring
   strFeed                       = 'Feed';
+  strServiceNotInstalled        = 'Der Dienst %s ist derzeit nicht installiert !';
 
 
 { TfMailOptions }
@@ -100,8 +103,36 @@ begin
 end;
 
 procedure TfMailOptions.bCheckConnectionClick(Sender: TObject);
+var
+  aPath: String;
+  aFile: String;
+  aProcess: TExtendedProcess;
 begin
+  aPath := AppendPathDelim(AppendPathDelim(Application.Location)+'tools');
+  if FileExists(aPath+lowerCase(eServertype.Text)+'receiver') then
+    aFile := aPath+lowerCase(eServertype.Text)+'receiver'
+  else if FileExists(aPath+lowerCase(eServertype.Text)+'sender') then
+    aFile := aPath+lowerCase(eServertype.Text)+'sender';
+  if not FileExists(aFile) then
+    begin
+      Showmessage(Format(strServiceNotInstalled,[ExtractFileName(aFile)]));
+      exit;
+    end;
+  fLogWaitForm.SetLanguage;
+  fLogWaitForm.Show;
+  fLogWaitForm.ShowInfo('Test wird gestartet:');
+  fLogWaitForm.ShowInfo(aFile+' "--mandant='+ProcessMandant+'"'+' "--user='+ProcessUser+'"');
+  aProcess := TExtendedProcess.Create(aFile+' "--mandant='+ProcessMandant+'"'+' "--user='+ProcessUser+'"',True);
+  aProcess.OnLineWritten:=@aProcessLineWritten;
+  while aProcess.Active do
+    Application.ProcessMessages;
+  fLogWaitForm.bAbort.Kind:=bkClose;
+  aProcess.Free;
+end;
 
+procedure TfMailOptions.aProcessLineWritten(Line: string);
+begin
+  fLogWaitForm.ShowInfo(Line);
 end;
 
 procedure TfMailOptions.FormKeyDown(Sender: TObject; var Key: Word;

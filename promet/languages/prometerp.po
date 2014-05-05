@@ -6973,6 +6973,10 @@ msgctxt "umaileditoptions.strfeed"
 msgid "Feed"
 msgstr ""
 
+#: umaileditoptions.strservicenotinstalled
+msgid "Der Dienst %s ist derzeit nicht installiert !"
+msgstr ""
+
 #: umailoptions.strfeed
 msgctxt "umailoptions.strfeed"
 msgid "Feed"

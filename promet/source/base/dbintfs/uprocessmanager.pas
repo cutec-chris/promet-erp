@@ -33,6 +33,9 @@ uses
 function StartMessageManager(Mandant : string;User : string = '') : TExtendedProcess;
 function StartProcessManager(Mandant : string;User : string = '';aProcess : string = 'processmanager') : TExtendedProcess;
 function ProcessExists(cmd,cmdln: string): Boolean;
+var
+  ProcessMandant : string;
+  ProcessUser : string;
 
 implementation
 
@@ -98,6 +101,8 @@ var
   aDir: String;
   cmdln: String;
 begin
+  ProcessMandant := Mandant;
+  ProcessUser := User;
   Result := nil;
   cmd := aProcess+ExtractFileExt(BaseApplication.ExeName);
   cmdln := ' "--mandant='+Mandant+'"';

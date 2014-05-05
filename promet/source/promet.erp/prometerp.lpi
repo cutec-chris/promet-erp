@@ -296,7 +296,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="48">
+    <Units Count="51">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -315,8 +315,8 @@
         <UnitName Value="uMain"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="945"/>
-        <CursorPos X="51" Y="966"/>
+        <TopLine Value="885"/>
+        <CursorPos X="1" Y="901"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -607,10 +607,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMailOptions"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="64"/>
-        <CursorPos X="37" Y="202"/>
+        <TopLine Value="137"/>
+        <CursorPos X="66" Y="153"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit30>
       <Unit31>
         <Filename Value="umaileditoptions.pas"/>
@@ -619,7 +622,14 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMailEditoptions"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="101"/>
+        <CursorPos X="1" Y="123"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit31>
       <Unit32>
         <Filename Value="uarticletext.pas"/>
@@ -728,18 +738,18 @@
         <WindowIndex Value="0"/>
         <TopLine Value="456"/>
         <CursorPos X="77" Y="470"/>
-        <UsageCount Value="22"/>
+        <UsageCount Value="23"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit41>
       <Unit42>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="167"/>
         <CursorPos X="58" Y="186"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit42>
       <Unit43>
@@ -748,41 +758,41 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uProcessOptions"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit43>
       <Unit44>
         <Filename Value="../base/changes.txt"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="53" Y="2"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit44>
       <Unit45>
         <Filename Value="../base/revision.inc"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit45>
       <Unit46>
         <Filename Value="../import/udataimport.pas"/>
         <UnitName Value="uDataImport"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="32"/>
         <CursorPos X="24" Y="67"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit46>
       <Unit47>
@@ -791,136 +801,169 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uuseroptions"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit47>
+      <Unit48>
+        <Filename Value="../base_messaging/umessageframe.pas"/>
+        <ComponentName Value="fMessageFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uMessageFrame"/>
+        <EditorIndex Value="6"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="110"/>
+        <CursorPos X="10" Y="119"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit48>
+      <Unit49>
+        <Filename Value="../../../general/src/processutils.pas"/>
+        <UnitName Value="ProcessUtils"/>
+        <EditorIndex Value="5"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="19" Y="20"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit49>
+      <Unit50>
+        <Filename Value="../base/dbintfs/uprocessmanager.pas"/>
+        <UnitName Value="uProcessManager"/>
+        <EditorIndex Value="4"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="17"/>
+        <CursorPos X="10" Y="38"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit50>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="umain.pas"/>
-        <Caret Line="906" Column="1" TopLine="885"/>
+        <Caret Line="957" Column="1" TopLine="945"/>
       </Position1>
       <Position2>
         <Filename Value="umain.pas"/>
-        <Caret Line="907" Column="1" TopLine="885"/>
+        <Caret Line="959" Column="1" TopLine="945"/>
       </Position2>
       <Position3>
         <Filename Value="umain.pas"/>
-        <Caret Line="912" Column="1" TopLine="885"/>
+        <Caret Line="960" Column="1" TopLine="945"/>
       </Position3>
       <Position4>
         <Filename Value="umain.pas"/>
-        <Caret Line="914" Column="1" TopLine="900"/>
+        <Caret Line="961" Column="1" TopLine="945"/>
       </Position4>
       <Position5>
         <Filename Value="umain.pas"/>
-        <Caret Line="915" Column="1" TopLine="900"/>
+        <Caret Line="966" Column="1" TopLine="945"/>
       </Position5>
       <Position6>
         <Filename Value="umain.pas"/>
-        <Caret Line="916" Column="1" TopLine="900"/>
+        <Caret Line="970" Column="1" TopLine="945"/>
       </Position6>
       <Position7>
         <Filename Value="umain.pas"/>
-        <Caret Line="917" Column="1" TopLine="900"/>
+        <Caret Line="973" Column="1" TopLine="945"/>
       </Position7>
       <Position8>
         <Filename Value="umain.pas"/>
-        <Caret Line="918" Column="1" TopLine="900"/>
+        <Caret Line="974" Column="1" TopLine="945"/>
       </Position8>
       <Position9>
         <Filename Value="umain.pas"/>
-        <Caret Line="923" Column="1" TopLine="900"/>
+        <Caret Line="4" Column="78" TopLine="1"/>
       </Position9>
       <Position10>
         <Filename Value="umain.pas"/>
-        <Caret Line="925" Column="1" TopLine="915"/>
+        <Caret Line="128" Column="34" TopLine="116"/>
       </Position10>
       <Position11>
         <Filename Value="umain.pas"/>
-        <Caret Line="926" Column="1" TopLine="915"/>
+        <Caret Line="652" Column="40" TopLine="645"/>
       </Position11>
       <Position12>
         <Filename Value="umain.pas"/>
-        <Caret Line="927" Column="1" TopLine="915"/>
+        <Caret Line="3420" Column="44" TopLine="3409"/>
       </Position12>
       <Position13>
-        <Filename Value="umain.pas"/>
-        <Caret Line="928" Column="1" TopLine="915"/>
+        <Filename Value="umailoptions.pas"/>
+        <Caret Line="30" Column="3" TopLine="13"/>
       </Position13>
       <Position14>
-        <Filename Value="umain.pas"/>
-        <Caret Line="929" Column="1" TopLine="915"/>
+        <Filename Value="umailoptions.pas"/>
+        <Caret Line="145" Column="10" TopLine="131"/>
       </Position14>
       <Position15>
-        <Filename Value="umain.pas"/>
-        <Caret Line="930" Column="1" TopLine="915"/>
+        <Filename Value="umaileditoptions.pas"/>
+        <Caret Line="70" Column="3" TopLine="52"/>
       </Position15>
       <Position16>
-        <Filename Value="umain.pas"/>
-        <Caret Line="935" Column="1" TopLine="915"/>
+        <Filename Value="umaileditoptions.pas"/>
+        <Caret Line="69" Column="3" TopLine="69"/>
       </Position16>
       <Position17>
-        <Filename Value="umain.pas"/>
-        <Caret Line="945" Column="1" TopLine="930"/>
+        <Filename Value="umaileditoptions.pas"/>
+        <Caret Line="104" Column="3" TopLine="102"/>
       </Position17>
       <Position18>
-        <Filename Value="umain.pas"/>
-        <Caret Line="947" Column="1" TopLine="930"/>
+        <Filename Value="umaileditoptions.pas"/>
+        <Caret Line="30" Column="10" TopLine="23"/>
       </Position18>
       <Position19>
-        <Filename Value="umain.pas"/>
-        <Caret Line="948" Column="1" TopLine="930"/>
+        <Filename Value="../base/dbintfs/uprocessmanager.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position19>
       <Position20>
-        <Filename Value="umain.pas"/>
-        <Caret Line="949" Column="1" TopLine="930"/>
+        <Filename Value="umaileditoptions.pas"/>
+        <Caret Line="118" Column="3" TopLine="95"/>
       </Position20>
       <Position21>
-        <Filename Value="umain.pas"/>
-        <Caret Line="954" Column="1" TopLine="930"/>
+        <Filename Value="umaileditoptions.pas"/>
+        <Caret Line="122" Column="31" TopLine="98"/>
       </Position21>
       <Position22>
-        <Filename Value="umain.pas"/>
-        <Caret Line="955" Column="1" TopLine="930"/>
+        <Filename Value="umaileditoptions.pas"/>
+        <Caret Line="129" Column="29" TopLine="126"/>
       </Position22>
       <Position23>
-        <Filename Value="umain.pas"/>
-        <Caret Line="957" Column="1" TopLine="945"/>
+        <Filename Value="umaileditoptions.pas"/>
+        <Caret Line="30" Column="40" TopLine="13"/>
       </Position23>
       <Position24>
-        <Filename Value="umain.pas"/>
-        <Caret Line="959" Column="1" TopLine="945"/>
+        <Filename Value="umaileditoptions.pas"/>
+        <Caret Line="118" Column="11" TopLine="101"/>
       </Position24>
       <Position25>
-        <Filename Value="umain.pas"/>
-        <Caret Line="960" Column="1" TopLine="945"/>
+        <Filename Value="umaileditoptions.pas"/>
+        <Caret Line="122" Column="41" TopLine="101"/>
       </Position25>
       <Position26>
-        <Filename Value="umain.pas"/>
-        <Caret Line="961" Column="1" TopLine="945"/>
+        <Filename Value="umaileditoptions.pas"/>
+        <Caret Line="121" Column="1" TopLine="101"/>
       </Position26>
       <Position27>
-        <Filename Value="umain.pas"/>
-        <Caret Line="966" Column="1" TopLine="945"/>
+        <Filename Value="umaileditoptions.pas"/>
+        <Caret Line="122" Column="1" TopLine="101"/>
       </Position27>
       <Position28>
-        <Filename Value="umain.pas"/>
-        <Caret Line="970" Column="1" TopLine="945"/>
+        <Filename Value="umaileditoptions.pas"/>
+        <Caret Line="123" Column="1" TopLine="101"/>
       </Position28>
       <Position29>
-        <Filename Value="umain.pas"/>
-        <Caret Line="973" Column="1" TopLine="945"/>
+        <Filename Value="umaileditoptions.pas"/>
+        <Caret Line="124" Column="1" TopLine="101"/>
       </Position29>
       <Position30>
-        <Filename Value="umain.pas"/>
-        <Caret Line="974" Column="1" TopLine="945"/>
+        <Filename Value="umaileditoptions.pas"/>
+        <Caret Line="125" Column="1" TopLine="101"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -961,7 +1004,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="3">
+    <BreakPoints Count="2">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
@@ -976,13 +1019,6 @@
         <Source Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
         <Line Value="6282"/>
       </Item2>
-      <Item3>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="umain.pas"/>
-        <Line Value="901"/>
-      </Item3>
     </BreakPoints>
     <Watches Count="1">
       <Item1>
