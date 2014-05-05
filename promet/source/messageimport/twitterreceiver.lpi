@@ -54,8 +54,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="175"/>
-        <CursorPos X="1" Y="291"/>
+        <TopLine Value="37"/>
+        <CursorPos X="19" Y="39"/>
         <UsageCount Value="75"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -437,7 +437,7 @@
       <Unit51>
         <Filename Value="pop3receiver.lpr"/>
         <UnitName Value="pop3receiver"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="406"/>
         <CursorPos X="1" Y="405"/>
@@ -447,7 +447,7 @@
       <Unit52>
         <Filename Value="feedreceiver.lpr"/>
         <UnitName Value="feedreceiver"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="148"/>
         <CursorPos X="1" Y="146"/>
@@ -525,7 +525,7 @@
       <Unit61>
         <Filename Value="..\adds\forumimport2.lpr"/>
         <UnitName Value="forumimport2"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="110"/>
         <CursorPos X="47" Y="127"/>
@@ -552,7 +552,7 @@
       <Unit64>
         <Filename Value="smtpsender.lpr"/>
         <UnitName Value="smtpsender"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="108"/>
         <CursorPos X="1" Y="125"/>
@@ -562,12 +562,10 @@
       <Unit65>
         <Filename Value="..\base_wiki\wikitohtml.pas"/>
         <UnitName Value="wikitohtml"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="19"/>
         <CursorPos X="1" Y="38"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit65>
       <Unit66>
         <Filename Value="..\base_wiki\htmltowiki.pas"/>

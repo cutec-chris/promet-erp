@@ -64,6 +64,7 @@ var
   StartTime: TDateTime;
   aTime: Extended;
 begin
+  WriteLn('pop3receiver started...');
   with BaseApplication as IBaseApplication do
     begin
       AppVersion:={$I ../base/version.inc};

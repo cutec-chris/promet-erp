@@ -38,6 +38,7 @@ var
   StartTime: TDateTime;
   aTime: Extended;
 begin
+  WriteLn('feedreceiver started...');
   with BaseApplication as IBaseApplication do
     begin
       AppVersion:={$I ../base/version.inc};

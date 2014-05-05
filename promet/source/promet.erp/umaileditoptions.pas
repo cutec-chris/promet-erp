@@ -121,11 +121,12 @@ begin
   fLogWaitForm.SetLanguage;
   fLogWaitForm.Show;
   fLogWaitForm.ShowInfo('Test wird gestartet:');
-  fLogWaitForm.ShowInfo(aFile+' "--mandant='+ProcessMandant+'"'+' "--user='+ProcessUser+'"');
-  aProcess := TExtendedProcess.Create(aFile+' "--mandant='+ProcessMandant+'"'+' "--user='+ProcessUser+'"',True);
+  fLogWaitForm.ShowInfo(aFile+' "--mandant='+ProcessMandant+'"'+' "--user='+ProcessUser+'" --onerun');
+  aProcess := TExtendedProcess.Create(aFile+' "--mandant='+ProcessMandant+'"'+' "--user='+ProcessUser+'" --onerun',True);
   aProcess.OnLineWritten:=@aProcessLineWritten;
   while aProcess.Active do
     Application.ProcessMessages;
+  fLogWaitForm.ShowInfo('Test abgeschlossen:'+IntToStr(aProcess.ExitStatus));
   fLogWaitForm.bAbort.Kind:=bkClose;
   aProcess.Free;
 end;

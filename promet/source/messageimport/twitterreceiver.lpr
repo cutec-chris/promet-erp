@@ -36,6 +36,7 @@ type
 
 procedure PrometCmdApp.DoRun;
 begin
+  WriteLn('twitterreceiver started...');
   with BaseApplication as IBaseApplication do
     begin
       AppVersion:={$I ../base/version.inc};

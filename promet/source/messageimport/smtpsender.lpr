@@ -28,6 +28,7 @@ var
   i: Integer;
   StartTime: TDateTime;
 begin
+  WriteLn('smtpsender started...');
   with BaseApplication as IBaseApplication do
     begin
       AppVersion:={$I ../base/version.inc};
@@ -38,6 +39,7 @@ begin
       Terminate;
       exit;
     end;
+  WriteLn('Login OK');
   RegisterMessageHandler;
   MessageHandler.RegisterCommandHandler(@Commandreceived);
   StartTime := Now();
