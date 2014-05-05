@@ -59,46 +59,22 @@ begin
 end;
 procedure TSyncMSOApp.DoRun;
 var
-  InBox: TInbox;
-  Folder : TGenericFolder;
   aFolder: TGenericFolder;
   aItem: TMapiMailItem;
-  aID: Variant;
-  tmp: String;
-  SyncOut: Boolean;
-  Collect: Boolean;
-  DoSync: Boolean;
-  MAPISynced : array of Cardinal;
-  SQLSynced : array of LargeInt;
-  aFound: Boolean;
   i: Integer;
-  aPicture : TPicture;
-  fe: String;
-  ms: TMemoryStream;
   UserSelected: Boolean;
-  tmp1: String;
   SyncItems : TSyncItems;
-  aContact: TPerson;
   aCalendar: TCalendar;
-  aTasks: TTaskList;
   aPattern : string;
   RTFIsUpdated : Bool;
   StreamIntf: IStream;
   OLEStream: TOleStream;
   SStream : TStringStream;
 var
-  ErrorInfo: PMAPIERROR;
-  Errorresult : HRESULT;
   StreamInfo: TStatStg;
   MapiMessage: MapiDefs.IMessage;
-  SentItemsProps: TSPropTagArray;
-  SentItemsValues: PSPropValue;
-  lpcValues: Cardinal;
-  aEntryID: TSBinary;
   bItem: TMapiMailItem;
-  OldSeen: String;
   DoDelete: Boolean;
-  SyncOutF: Boolean;
   aJsonList: TJSONArray;
   aObj: TJSONObject;
   aStart,aEnd : TDateTime;
@@ -106,7 +82,6 @@ var
   sl: TStringList;
   aJsonOutList: TJSONArray;
   aField: TJSONData;
-  aPrivate: Boolean;
   bFolder: TGenericFolder;
   aLastSync: TDateTime;
 begin
@@ -324,7 +299,7 @@ begin
           }
           //tell System the new external_id´s and changed rows
           if aJsonOutList.Count>0 then
-            SyncItems.SyncDataSet(aTasks,aJsonOutList,SyncType,True);
+            SyncItems.SyncDataSet(aCalendar,aJsonOutList,SyncType,True);
           aJsonOutList.Free;
         finally
           aCalendar.Free;
