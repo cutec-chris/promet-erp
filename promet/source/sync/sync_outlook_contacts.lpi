@@ -58,12 +58,12 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="33" Y="1042"/>
-        <FoldState Value=" T0sY6}*0T1?"/>
+        <TopLine Value="727"/>
+        <CursorPos X="1" Y="743"/>
+        <FoldState Value=" T3n1231 pjMjR2{Fh"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="1">
-          <Item0 X="1" Y="785" ID="0"/>
+          <Item0 X="1" Y="743" ID="0"/>
         </Bookmarks>
         <Loaded Value="True"/>
       </Unit0>
@@ -1120,7 +1120,7 @@
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
         <Source Value="sync_mso.lpr"/>
-        <Line Value="1101"/>
+        <Line Value="746"/>
       </Item5>
     </BreakPoints>
     <Watches Count="2">
