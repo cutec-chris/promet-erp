@@ -64,7 +64,7 @@ type
     { private declarations }
   public
     { public declarations }
-    property Target : TbasedbDataSource read FTraget write SetTarget;
+    property Target : TDataSource read FTraget write SetTarget;
     property BaseDir : string read FFilter write SetFilter;
     property ConfigDir : string read FConfigDir write SetConfigDir;
     property AppendonExport : Boolean read FAppend write SetAppend;

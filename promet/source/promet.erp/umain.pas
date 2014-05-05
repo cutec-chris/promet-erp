@@ -262,6 +262,7 @@ type
     FCalendarNode : TTreeNode;
     FTaskNode : TTreeNode;
     FTimeReg : TfEnterTime;
+    FSearchNode: TTreeNode;
     aTime : Int64;
     procedure AddCustomerList(Sender: TObject);
     procedure AddMasterdataList(Sender: TObject);
@@ -309,6 +310,7 @@ type
     procedure Expand;
     procedure RefreshWiki;
     procedure DoGetRight;
+    procedure AddSearch;
     function GetRight(aRight : string) : Integer;
   public
     constructor Create(aSuspended : Boolean = False);
@@ -760,6 +762,12 @@ begin
   aRightOut := Data.Users.Rights.Right(aRightIN)
 end;
 
+procedure TStarterThread.AddSearch;
+begin
+  if Assigned(fMain.FSearchNode) then
+    fMain.FSearchNode.Visible:=True;
+end;
+
 function TStarterThread.GetRight(aRight: string): Integer;
 begin
   aRightIn := aRight;
@@ -963,6 +971,7 @@ begin
   {$ENDIF}
   {$ENDIF}
   aConn.Free;
+  Synchronize(@AddSearch);
 end;
 
 procedure TfMain.acLoginExecute(Sender: TObject);
@@ -1057,6 +1066,8 @@ begin
                     Node.Height := 34;
                     TTreeEntry(Node.Data).Typ := etSearch;
                     SomethingFound:=True;
+                    Node.Visible:=False;
+                    FSearchNode := Node;
                   end;
                 if aItems[0] = GetEntryText(etFavourites) then
                   begin
