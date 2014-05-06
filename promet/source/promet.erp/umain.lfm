@@ -1254,7 +1254,7 @@ object fMain: TfMain
       OnExecute = acStartPageExecute
     end
     object acProjectOverview: TAction
-      Caption = 'acProjectOverview'
+      Caption = 'Projektübersicht'
       ImageIndex = 104
       OnExecute = acProjectOverviewExecute
     end

@@ -216,7 +216,7 @@ var
   begin
     Result := (X >= R.Left) and (X <= R.Right); //and (Y >= R.Top) and (Y <= R.Bottom);
   end;
-begin
+begin  exit;
   if HintInfo^.HintStr='' then
     begin
       List := TList.Create;
@@ -298,8 +298,124 @@ begin
 end;
 
 procedure TfProjectOVFrame.StartFilling;
-begin
+  function FindInterval(aParent : TInterval;aId : Variant) : TInterval;
+  var
+    i: Integer;
+  begin
+    Result := nil;
+    for i := 0 to aParent.IntervalCount-1 do
+      begin
+        if aParent.Interval[i].Id = aId then
+          begin
+            Result := aParent.Interval[i];
+            break;
+          end
+        else if aParent.Interval[i].IntervalCount>0 then
+          begin
+            Result := FindInterval(aParent.Interval[i],aId);
+            if Assigned(Result) then break;
+          end;
+      end;
+  end;
+  function IntervalById(Id : Variant;Root : TInterval = nil) : TInterval;
+  var
+    i: Integer;
+    ares: TInterval;
+  begin
+    Result := nil;
+    for i := 0 to FRough.IntervalCount-1 do
+      begin
+        if FRough.Interval[i].Id = id then
+          begin
+            Result := FRough.Interval[i];
+            break;
+          end
+        else if FRough.Interval[i].IntervalCount>0 then
+          begin
+            Result := FindInterval(FRough.Interval[i],Id);
+            if Assigned(Result) then break;
+          end;
+      end;
+    if Assigned(Result) and Assigned(Root) then
+      begin
+        ares := result;
+        while Assigned(aRes.Parent) do
+          ares := ares.Parent;
+        if aRes<>Root then
+          Result := nil;
+      end;
+  end;
+  function AddFromDB(aProjects : TProjectList) : TProjectInterval;
+  var
+    aInt: TProjectInterval;
+    aParent: TInterval;
+    aParents: TProjectList;
+  begin
+    aInt := TProjectInterval.Create(FRough);
+    aInt.Id:=aProjects.Id.AsVariant;
+    aInt.Task:=aProjects.Text.AsString;
+    aInt.StartDate:=aProjects.FieldByName('START').AsDateTime;
+    aInt.FinishDate:=aProjects.FieldByName('END').AsDateTime;
+    if aInt.FinishDate=0 then
+      aInt.FinishDate:=aProjects.FieldByName('TARGET').AsDateTime;
+    if aInt.StartDate=0 then
+      aInt.StartDate:=aProjects.FieldByName('CREATEDAT').AsDateTime;
+    if aInt.FinishDate<=aInt.StartDate then
+      aInt.FinishDate:=aInt.StartDate+1;
+    aInt.Visible:=True;
+    aParent := IntervalById(aProjects.FieldByName('PARENT').AsVariant);
+    if Assigned(aParent) then
+      aParent.AddInterval(aInt)
+    else
+      begin
+        aParents := TProjectList.Create(nil,Data);
+        aParents.Select(aProjects.FieldByName('PARENT').AsVariant);
+        aParents.Open;
+        if aParents.Count>0 then
+          begin
+            aParent := AddFromDB(aParents);
+            aParent.AddInterval(aInt);
+          end
+        else
+          FRough.AddInterval(aInt);
+        aParents.Free;
+      end;
+    Result := aInt;
+  end;
 
+var
+  aProjects: TProjectList;
+  aInt: TInterval;
+  aState: TStates;
+  aParent: TInterval;
+begin
+  aProjects :=  TProjectList.Create(nil,Data);
+  with aProjects.DataSet as IBaseDbFilter do
+    Data.SetFilter(aProjects,Data.ProcessTerm(Data.QuoteField('STATUS')+'<>'+Data.QuoteValue('I')),0,'GPRIORITY','ASC');
+  aState := TStates.Create(nil,Data);
+  aState.Open;
+  FRough.BeginUpdate;
+  while (not aProjects.EOF)  do
+    begin
+      if not aProjects.FieldByName('GPRIORITY').IsNull then
+        if aState.DataSet.Locate('STATUS;TYPE',VarArrayOf([trim(aProjects.FieldByName('STATUS').AsString),'P']),[]) then
+          if aState.DataSet.FieldByName('ACTIVE').AsString<>'N' then
+            if not Assigned(IntervalById(aProjects.Id.AsVariant)) then
+              aInt := AddFromDB(aProjects);
+      aProjects.Next;
+    end;
+  while (not aProjects.EOF)  do
+    begin
+      if aProjects.FieldByName('GPRIORITY').IsNull then
+        if aState.DataSet.Locate('STATUS;TYPE',VarArrayOf([trim(aProjects.FieldByName('STATUS').AsString),'P']),[]) then
+          if aState.DataSet.FieldByName('ACTIVE').AsString<>'N' then
+            if not Assigned(IntervalById(aProjects.Id.AsVariant)) then
+              aInt := AddFromDB(aProjects);
+      aProjects.Next;
+    end;
+  aState.Free;
+  aProjects.Free;
+  FRough.EndUpdate;
 end;
 
 end.
