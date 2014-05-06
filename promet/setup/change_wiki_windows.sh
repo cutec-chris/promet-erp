@@ -57,7 +57,7 @@ cat downloads.txt | \
       -e "s/TOOLSD32_SIZE/$ToolsDeb32Size Mb/g" \
       -e "s/CREATEDDATE/$Date/g" \
   > act_downloads.txt
-../output/x86_64-linux/changewikipage --mandant=Stora Promet-ERP/downloads act_downloads.txt
+../output/x86_64-linux/changewikipage --mandant=Stora Promet-ERP/downloadplattforms/windows i386-win32/downloads_windows.txt
 ../output/x86_64-linux/changewikipage --mandant=Stora Promet-ERP/changes ../source/base/changes.txt
 ../output/x86_64-linux/tools/sync_db --mandant=Stora
 Year=`date +%y`
