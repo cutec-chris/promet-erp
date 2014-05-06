@@ -18,7 +18,6 @@ inherited fSyncOptions: TfSyncOptions
       item
         ButtonStyle = cbsCheckboxColumn
         Title.Caption = 'Aktiv'
-        Title.MultiLine = False
         Width = 30
         ValueChecked = 'Y'
         ValueUnchecked = 'N'
@@ -26,19 +25,16 @@ inherited fSyncOptions: TfSyncOptions
       end    
       item
         Title.Caption = 'Name'
-        Title.MultiLine = False
         Width = 130
         FieldName = 'NAME'
       end    
       item
         Title.Caption = 'SyncID'
-        Title.MultiLine = False
         Width = 40
         FieldName = 'SYNCOFFS'
       end    
       item
         Title.Caption = 'In Arbeit'
-        Title.MultiLine = False
         Width = 40
         FieldName = 'INPROGRESS'
       end>
@@ -50,7 +46,7 @@ inherited fSyncOptions: TfSyncOptions
     Left = 8
     Height = 13
     Top = 15
-    Width = 81
+    Width = 76
     Caption = 'Datenbanken'
     Font.Style = [fsBold]
     ParentColor = False
@@ -60,7 +56,7 @@ inherited fSyncOptions: TfSyncOptions
     Left = 24
     Height = 13
     Top = 144
-    Width = 52
+    Width = 48
     Caption = 'Tabellen'
     Font.Style = [fsBold]
     ParentColor = False
@@ -77,7 +73,6 @@ inherited fSyncOptions: TfSyncOptions
       item
         ButtonStyle = cbsCheckboxColumn
         Title.Caption = 'ACTIVEOUT'
-        Title.MultiLine = False
         Width = 30
         ValueChecked = 'Y'
         ValueUnchecked = 'N'
@@ -86,7 +81,6 @@ inherited fSyncOptions: TfSyncOptions
       item
         ButtonStyle = cbsCheckboxColumn
         Title.Caption = 'ACTIVE'
-        Title.MultiLine = False
         Width = 30
         ValueChecked = 'Y'
         ValueUnchecked = 'N'
@@ -94,13 +88,11 @@ inherited fSyncOptions: TfSyncOptions
       end    
       item
         Title.Caption = 'NAME'
-        Title.MultiLine = False
         Width = 200
         FieldName = 'NAME'
       end    
       item
         Title.Caption = 'LTIMESTAMP'
-        Title.MultiLine = False
         Width = 200
         FieldName = 'LTIMESTAMP'
       end>
@@ -1345,7 +1337,7 @@ inherited fSyncOptions: TfSyncOptions
     Left = 8
     Height = 13
     Top = 396
-    Width = 22
+    Width = 20
     Anchors = [akLeft, akBottom]
     Caption = 'Out'
     Font.Style = [fsBold]
@@ -1367,7 +1359,7 @@ inherited fSyncOptions: TfSyncOptions
     Left = 280
     Height = 13
     Top = 24
-    Width = 102
+    Width = 86
     Caption = 'Verbindungsstring'
     ParentColor = False
   end
@@ -1375,7 +1367,7 @@ inherited fSyncOptions: TfSyncOptions
     Left = 8
     Height = 22
     Hint = 'Standardtabellen einfügen'
-    Top = 184
+    Top = 160
     Width = 24
     Glyph.Data = {
       36040000424D3604000000000000360000002800000010000000100000000100
@@ -1436,7 +1428,7 @@ inherited fSyncOptions: TfSyncOptions
   end
   object bCheckConnection: TButton[12]
     Left = 422
-    Height = 25
+    Height = 23
     Top = 5
     Width = 116
     Anchors = [akTop, akRight]
@@ -1476,4 +1468,4 @@ inherited fSyncOptions: TfSyncOptions
     left = 433
     top = 345
   end
-end
+end

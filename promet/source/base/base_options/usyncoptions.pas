@@ -25,6 +25,7 @@ type
     smOut: TSynMemo;
     SpeedButton1: TSpeedButton;
     SynSQLSyn1: TSynSQLSyn;
+    procedure aSyncDbDataSetBeforePost(DataSet: TDataSet);
     procedure aSyncDbTablesDataSetAfterScroll(DataSet: TDataSet);
     procedure bCheckConnectionClick(Sender: TObject);
     procedure smInChange(Sender: TObject);
@@ -49,10 +50,20 @@ resourcestring
   strFailedtoLoadMandants                  = 'Laden der Mandanten fehlgeschlagen';
   strConnectionSuccesful                   = 'Verbindungstest erfolgreich !';
   strSyncIddontMatch                       = 'Die SyncID der entfernten Datenbank stimmt nicht mit der eingestellten überein, soll die SyncID übernommen werden ?';
+  strInsertTables                          = 'Sollen zum Synchronisieren die Standardtabellen als Vorgabe eingefügt werden ?'+LineEnding+'(Sie müssen alle zu synchronisierenden Tabellen angeben und könenn dann pro tabelle einsetllen in welche Richtungen und unter welchen Umständen synchronisiert werden soll)';
 procedure TfSyncOptions.aSyncDbTablesDataSetAfterScroll(DataSet: TDataSet);
 begin
   smIn.Lines.Text := dsTables.DataSet.FieldByName('FILTERIN').AsString;
   smOut.Lines.Text := dsTables.DataSet.FieldByName('FILTEROUT').AsString;
+end;
+
+procedure TfSyncOptions.aSyncDbDataSetBeforePost(DataSet: TDataSet);
+begin
+  if dsTables.DataSet.RecordCount=0 then
+    if MessageDlg('Tabellen',strInsertTables,mtConfirmation,[mbYes,mbNo],0)=mrYes then
+      begin
+
+      end;
 end;
 
 procedure TfSyncOptions.bCheckConnectionClick(Sender: TObject);
@@ -198,6 +209,7 @@ begin
   inherited Create(TheOwner);
   aConnection := Data.GetNewConnection;
   aSyncDb := TSyncDB.Create(Self,Data,aConnection);
+  aSyncDb.DataSet.BeforePost:=@aSyncDbDataSetBeforePost;
   dsDatabases.DataSet := aSyncDB.DataSet;
   dsTables.DataSet := aSyncDB.Tables.DataSet;
   aSyncDB.Tables.DataSet.AfterScroll:=@aSyncDbTablesDataSetAfterScroll;
@@ -230,4 +242,4 @@ begin
   inherited RollbackTransaction;
 end;
 end.
-
+
