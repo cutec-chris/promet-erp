@@ -1,0 +1,19 @@
+==Installationen==
+Alle untenstehenden Installationen sind Version VERSION erstellt CREATEDATE.<br>
+Änderungen finden Sie in der [[Promet-ERP/changes|Änderungsliste]].
+
+{|
+|Installation||===Linux Debian===||===Linux RPM===
+|-
+| || [[Bild:deb.png]] || [[Bild:rpm.png]]
+|-
+|Hauptprogramm||[http://downloads.free-erp.de/promet-erp_VERSION_amd64-gtk2.deb Promet-ERP Debian Package für Ubuntu,Debian Linux (64 bit) 46 Mb]||[http://downloads.free-erp.de/promet-erp-VERSION-2.x86_64.rpm Promet-ERP RPM Package für Suse,Redhat Linux (64 bit) 46 Mb]
+|-
+|Statistics||[http://downloads.free-erp.de/promet-erp-statistics_VERSION_amd64-gtk2.deb Statistics Debian Package für Ubuntu,Debian Linux (64 bit) 6 Mb]||[http://downloads.free-erp.de/promet-erp-statistics-VERSION-2.x86_64.rpm Statistics RPM Package für Suse,Redhat Linux (64 bit) 6 Mb]
+|-
+|Zeiterfassung||[http://downloads.free-erp.de/promet-erp-timeregistering_VERSION_amd64-gtk2.deb Zeiterfassung Debian Package für Ubuntu,Debian Linux (64 bit) 1 Mb]||[http://downloads.free-erp.de/promet-erp-timeregistering-VERSION-2.x86_64.rpm Zeiterfassung RPM Package für Suse,Redhat Linux (64 bit) 1 Mb]
+|-
+|Webservices||[http://downloads.free-erp.de/promet-erp-webservices_VERSION_amd64-gtk2.deb Webservices Debian Package für Ubuntu,Debian Linux (64 bit)]||[http://downloads.free-erp.de/promet-erp-webservices-VERSION-2.x86_64.rpm Webservices RPM Package für Suse,Redhat Linux (64 bit)]
+|-
+|Werkzeuge||[http://downloads.free-erp.de/promet-erp-tools_VERSION_amd64-gtk2.deb Admin Tools Debian Package für Ubuntu,Debian Linux (64 bit) 12 Mb]||[http://downloads.free-erp.de/promet-erp-tools-VERSION-2.x86_64.rpm Admin Tools RPM Package für Suse,Redhat Linux (64 bit) 12 Mb]
+|}
