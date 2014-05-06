@@ -1253,6 +1253,11 @@ object fMain: TfMain
       ImageIndex = 12
       OnExecute = acStartPageExecute
     end
+    object acProjectOverview: TAction
+      Caption = 'acProjectOverview'
+      ImageIndex = 104
+      OnExecute = acProjectOverviewExecute
+    end
   end
   object ApplicationProperties1: TApplicationProperties
     ShowMenuGlyphs = sbgSystem

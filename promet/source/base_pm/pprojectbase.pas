@@ -10,7 +10,7 @@ uses
   gsGanttCalendar, uattendanceplan, uAttStatistic, uGanttView, umaintasks, 
   uMeetingFrame, umeetingusers, uProjectFlow, uprojectimport, 
   uprojectpositions, uroughpklanningframe, uTaskEdit, uTaskPlanOptions, 
-  utasks, uTaskPlan, LazarusPackageIntf;
+  utasks, uTaskPlan, uprojectoverviewframe, LazarusPackageIntf;
 
 implementation
 

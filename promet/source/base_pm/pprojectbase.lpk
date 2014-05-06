@@ -14,7 +14,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="24">
+    <Files Count="26">
       <Item1>
         <Filename Value="gsGantt.res"/>
         <Type Value="Binary"/>
@@ -111,6 +111,14 @@
         <Filename Value="utaskplan.pas"/>
         <UnitName Value="uTaskPlan"/>
       </Item24>
+      <Item25>
+        <Filename Value="uprojectoverviewframe.lfm"/>
+        <Type Value="LFM"/>
+      </Item25>
+      <Item26>
+        <Filename Value="uprojectoverviewframe.pas"/>
+        <UnitName Value="uprojectoverviewframe"/>
+      </Item26>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="5">

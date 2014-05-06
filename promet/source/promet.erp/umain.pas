@@ -78,6 +78,7 @@ type
     acNewAccount: TAction;
     acRoughPlanning: TAction;
     acStartPage: TAction;
+    acProjectOverview: TAction;
     acWindowize: TAction;
     acWiki: TAction;
     ActionList1: TActionList;
@@ -181,6 +182,7 @@ type
     procedure acOpenExecute(Sender: TObject);
     procedure acOrdersExecute(Sender: TObject);
     procedure acPauseTimeExecute(Sender: TObject);
+    procedure acProjectOverviewExecute(Sender: TObject);
     procedure acProjectsExecute(Sender: TObject);
     procedure acRefreshOrderListExecute(Sender: TObject);
     procedure acRenameDirectoryExecute(Sender: TObject);
@@ -334,7 +336,7 @@ uses uBaseDBInterface,uIntfStrConsts,uSearch,uFilterFrame,uPerson,uData,
   usplash,ufavorites,uBaseVisualControls,uStatisticFrame,uwait,uprometipc,uMeetingFrame,
   umeeting,uEditableTab,umanagedocframe,uBaseDocPages,uTaskPlan,uattendanceplan,
   uTimeFrame,uTimeOptions,uWizardnewaccount,uCalendar,uRoughpklanningframe,uStatistic,
-  uOptionsFrame
+  uOptionsFrame,uprojectoverviewframe
   {$ifdef WINDOWS}
   {$ifdef CPU32}
   ,uTAPIPhone
@@ -1812,6 +1814,15 @@ begin
     end;
 end;
 
+procedure TfMain.acProjectOverviewExecute(Sender: TObject);
+var
+  RoughFrame: TfProjectOverviewFrame;
+begin
+  RoughFrame := TfProjectOverviewFrame.Create(Self);
+  pcPages.AddTab(RoughFrame);
+  RoughFrame.StartFilling;
+end;
+
 procedure TfMain.acProjectsExecute(Sender: TObject);
 var
   i: Integer;
@@ -3205,6 +3216,7 @@ begin
         end;
       etProjects:
         begin
+          uprojectoverviewframe.AddToMainTree(fMain.acProjectOverview,Node);
           uProjectFrame.AddToMainTree(fMain.acNewProject,Node);
           uRoughpklanningframe.AddToMainTree(fMain.acRoughPlanning,Node);
         end;
