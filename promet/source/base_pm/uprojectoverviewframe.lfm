@@ -353,6 +353,7 @@ inherited fProjectOVFrame: TfProjectOVFrame
       ClientHeight = 42
       ClientWidth = 88
       TabOrder = 2
+      Visible = False
       object Label3: TLabel
         Left = 4
         Height = 15

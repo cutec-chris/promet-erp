@@ -184,12 +184,8 @@ var
 begin
   Screen.Cursor:=crHourGlass;
   FRough.BeginUpdate;
-  CurrInterval := TInterval(FRough.Tree.Objects[0, FRough.Tree.Row]);
-  if Assigned(CurrInterval) then
-    begin
-      CurrInterval := TInterval(FRough.Tree.Objects[0, FRough.Tree.Row]);
-      CurrInterval.Free;
-    end;
+  while FRough.IntervalCount>0 do
+    FRough.DeleteInterval(0);
   StartFilling;
   FRough.EndUpdate;
   Screen.Cursor:=crDefault;

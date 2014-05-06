@@ -1101,11 +1101,11 @@ var
         if aParent.Interval[i].Changed then
           begin
             ChangeTask(FProject.Tasks,aParent.Interval[i],aChangeMilestones);
-            if Fproject.Tasks.FieldByName('STARTDATE').AsDateTime<aStart then
-              aStart:=Fproject.Tasks.FieldByName('STARTDATE').AsDateTime;
-            if Fproject.Tasks.FieldByName('DUEDATE').AsDateTime>aEnd then
-              aEnd:=Fproject.Tasks.FieldByName('DUEDATE').AsDateTime;
           end;
+        if aParent.Interval[i].StartDate<aStart then
+          aStart:=aParent.Interval[i].StartDate;
+        if aParent.Interval[i].FinishDate>aEnd then
+          aEnd:=aParent.Interval[i].FinishDate;
         RecoursiveChange(aParent.Interval[i]);
       end;
     if aParent.Changed then
