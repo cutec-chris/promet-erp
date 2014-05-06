@@ -455,11 +455,11 @@ inherited fprojectFrame: TfprojectFrame
       object DBCheckBox3: TDBCheckBox
         Left = 601
         Height = 17
-        Hint = 'schickt eine Nachricht an den Vorgesetzten '#13#10'wenn Aufgaben erledigt oder wiedereröffnet werden'
+        Hint = 'Wenn abgehakt wird das Projekt aus der Projektübersicht und Grobplanung ausgeschlossen'#13#10'Wenn angehakt wird es in beiden angezeigt'#13#10'Standardmäßig wird es in der Projektübersicht angezeigt, in der Grobplanung nicht'
         Top = 47
-        Width = 151
+        Width = 179
         AutoSize = True
-        Caption = 'in Grobplanung einschließen'
+        Caption = 'anzeige in Grobplanung/Übersicht'
         DataField = 'GROSSPLANNING'
         DataSource = Projects
         TabOrder = 10

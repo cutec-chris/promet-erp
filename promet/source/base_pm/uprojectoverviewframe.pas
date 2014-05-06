@@ -106,6 +106,7 @@ type
       Y: Integer);
     procedure FRoughCalendarShowHint(Sender: TObject; HintInfo: PHintInfo);
     procedure FRoughTreeAfterUpdateCommonSettings(Sender: TObject);
+    procedure FRoughTreeResize(Sender: TObject);
   private
     { private declarations }
     FEditable : Boolean;
@@ -182,6 +183,15 @@ var
   aUsers: TUser;
 begin
   Screen.Cursor:=crHourGlass;
+  FRough.BeginUpdate;
+  CurrInterval := TInterval(FRough.Tree.Objects[0, FRough.Tree.Row]);
+  if Assigned(CurrInterval) then
+    begin
+      CurrInterval := TInterval(FRough.Tree.Objects[0, FRough.Tree.Row]);
+      CurrInterval.Free;
+    end;
+  StartFilling;
+  FRough.EndUpdate;
   Screen.Cursor:=crDefault;
 end;
 procedure TfProjectOVFrame.bTodayClick(Sender: TObject);
@@ -259,6 +269,16 @@ begin
   FRough.Tree.Width:=310;
   FRough.Tree.PopupMenu := pmTree;
 end;
+
+procedure TfProjectOVFrame.FRoughTreeResize(Sender: TObject);
+begin
+  FRough.Tree.ColWidths[0]:=0;
+  FRough.Tree.ColWidths[1]:=0;
+  FRough.Tree.ColWidths[2]:=FRough.Tree.Width-FRough.Tree.ColWidths[3]-FRough.Tree.ColWidths[4]-FRough.Tree.ColWidths[5]-20; //20=scrollbarwidth maybe other values on other widgetsets
+  FRough.Tree.ColWidths[6]:=0;
+  FRough.Tree.ColWidths[7]:=0;
+end;
+
 function TfProjectOVFrame.SetRights: Boolean;
 begin
 
@@ -275,10 +295,12 @@ begin
   FRough.Align:=alClient;
   FRough.Tree.AfterUpdateCommonSettings:=@FRoughTreeAfterUpdateCommonSettings;
   FRough.Tree.Options:=FRough.Tree.Options-[goEditing];
+  FRough.Tree.OnResize:=@FRoughTreeResize;
   FRough.Calendar.OnShowHint:=@FRoughCalendarShowHint;
   FRough.Calendar.ShowHint:=True;
   FRough.Calendar.OnMouseMove:=@FRoughCalendarMouseMove;
   //FRough.Visible:=False;
+  bMonthView.Click;
 end;
 
 destructor TfProjectOVFrame.Destroy;
@@ -345,7 +367,7 @@ procedure TfProjectOVFrame.StartFilling;
           Result := nil;
       end;
   end;
-  function AddFromDB(aProjects : TProjectList) : TProjectInterval;
+  function AddFromDB(aProjects : TProjectList;lvl : Integer = 0) : TProjectInterval;
   var
     aInt: TProjectInterval;
     aParent: TInterval;
@@ -371,9 +393,9 @@ procedure TfProjectOVFrame.StartFilling;
         aParents := TProjectList.Create(nil,Data);
         aParents.Select(aProjects.FieldByName('PARENT').AsVariant);
         aParents.Open;
-        if aParents.Count>0 then
+        if (aParents.Count>0) and (aProjects.FieldByName('PARENT').AsVariant<>aProjects.Id.AsVariant) and (lvl<20) then
           begin
-            aParent := AddFromDB(aParents);
+            aParent := AddFromDB(aParents,lvl+1);
             aParent.AddInterval(aInt);
           end
         else
@@ -391,10 +413,11 @@ var
 begin
   aProjects :=  TProjectList.Create(nil,Data);
   with aProjects.DataSet as IBaseDbFilter do
-    Data.SetFilter(aProjects,Data.ProcessTerm(Data.QuoteField('STATUS')+'<>'+Data.QuoteValue('I')),0,'GPRIORITY','ASC');
+    Data.SetFilter(aProjects,Data.ProcessTerm(Data.QuoteField('STATUS')+'<>'+Data.QuoteValue('I'))+' AND ('+Data.ProcessTerm(Data.QuoteField('GROSSPLANNING')+'<>'+Data.QuoteValue('N'))+' OR '+Data.ProcessTerm(Data.QuoteField('GROSSPLANNING')+'='+Data.QuoteValue(''))+')',0,'GPRIORITY','ASC');
   aState := TStates.Create(nil,Data);
   aState.Open;
   FRough.BeginUpdate;
+  aProjects.First;
   while (not aProjects.EOF)  do
     begin
       if not aProjects.FieldByName('GPRIORITY').IsNull then
@@ -404,6 +427,7 @@ begin
               aInt := AddFromDB(aProjects);
       aProjects.Next;
     end;
+  aProjects.First;
   while (not aProjects.EOF)  do
     begin
       if aProjects.FieldByName('GPRIORITY').IsNull then
