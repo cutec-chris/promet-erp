@@ -1363,7 +1363,7 @@ inherited fSyncOptions: TfSyncOptions
     Caption = 'Verbindungsstring'
     ParentColor = False
   end
-  object SpeedButton1: TSpeedButton[10]
+  object sbStandardTables: TSpeedButton[10]
     Left = 8
     Height = 22
     Hint = 'Standardtabellen einfügen'
@@ -1405,7 +1405,7 @@ inherited fSyncOptions: TfSyncOptions
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
     }
-    OnClick = SpeedButton1Click
+    OnClick = sbStandardTablesClick
   end
   object DBNavigator1: TDBNavigator[11]
     Left = 112

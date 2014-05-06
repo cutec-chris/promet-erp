@@ -23,13 +23,13 @@ type
     lD: TLabel;
     smIn: TSynMemo;
     smOut: TSynMemo;
-    SpeedButton1: TSpeedButton;
+    sbStandardTables: TSpeedButton;
     SynSQLSyn1: TSynSQLSyn;
     procedure aSyncDbDataSetBeforePost(DataSet: TDataSet);
     procedure aSyncDbTablesDataSetAfterScroll(DataSet: TDataSet);
     procedure bCheckConnectionClick(Sender: TObject);
     procedure smInChange(Sender: TObject);
-    procedure SpeedButton1Click(Sender: TObject);
+    procedure sbStandardTablesClick(Sender: TObject);
   private
     { private declarations }
     aConnection: TComponent;
@@ -62,7 +62,7 @@ begin
   if dsTables.DataSet.RecordCount=0 then
     if MessageDlg('Tabellen',strInsertTables,mtConfirmation,[mbYes,mbNo],0)=mrYes then
       begin
-
+        sbStandardTables.Click;
       end;
 end;
 
@@ -106,7 +106,7 @@ begin
   dsTables.DataSet.FieldByName('FILTEROUT').AsString := smOut.Lines.Text;
 end;
 
-procedure TfSyncOptions.SpeedButton1Click(Sender: TObject);
+procedure TfSyncOptions.sbStandardTablesClick(Sender: TObject);
   procedure AddTable(aName : string;Active : Boolean = True;ActiveOut : Boolean = True);
   begin
     with dsTables.DataSet do

@@ -443,6 +443,7 @@ begin
       FieldByName('STATUS').AsString := 'A';
       FieldByName('TYPE').AsString := 'P';
       FieldByName('START').AsDateTime := Now();
+      FieldByName('CREATEDAT').AsDateTime := Now();
       if Data.Numbers.HasNumberSet('PROJECTS') then
         if FieldByName('ID').IsNull then
           FieldByName('ID').AsString := Data.Numbers.GetNewNumber('PROJECTS');
@@ -556,6 +557,7 @@ begin
             Add('TREEENTRY',ftLargeInt,0,false);
             Add('START',ftDate,0,false);
             Add('END',ftDate,0,false);
+            Add('CRITPATH',ftFloat,0,false);//length of Critical Path in days
             Add('TARGET',ftDate,0,false);
             Add('PLANTARGET',ftDate,0,false);
             Add('TARGETCOSTS',ftFloat,0,false);
@@ -570,6 +572,7 @@ begin
             Add('CATEGORY',ftString,60,False);
             Add('CHANGEDBY',ftString,4,false);
             Add('CREATEDBY',ftString,4,false);
+            Add('CREATEDAT',ftDate,0,false);
           end;
       if Assigned(ManagedIndexdefs) then
         with ManagedIndexDefs do

@@ -125,6 +125,7 @@ type
     aClickPoint: TPoint;
     aSelInterval : Integer;
     FSnapshots : TInterval;
+    FCriticalPathLength : float;
   public
     { public declarations }
     constructor Create(TheOwner: TComponent); override;
@@ -1088,6 +1089,9 @@ begin
   FindCriticalPath;
 end;
 procedure TfGanttView.DoSave(aChangeMilestones: Boolean);
+var
+  aStart: TDateTime;
+  aEnd: Extended;
   procedure RecoursiveChange(aParent : TInterval);
   var
     i: Integer;
@@ -1097,6 +1101,10 @@ procedure TfGanttView.DoSave(aChangeMilestones: Boolean);
         if aParent.Interval[i].Changed then
           begin
             ChangeTask(FProject.Tasks,aParent.Interval[i],aChangeMilestones);
+            if Fproject.Tasks.FieldByName('STARTDATE').AsDateTime<aStart then
+              aStart:=Fproject.Tasks.FieldByName('STARTDATE').AsDateTime;
+            if Fproject.Tasks.FieldByName('DUEDATE').AsDateTime>aEnd then
+              aEnd:=Fproject.Tasks.FieldByName('DUEDATE').AsDateTime;
           end;
         RecoursiveChange(aParent.Interval[i]);
       end;
@@ -1106,10 +1114,19 @@ procedure TfGanttView.DoSave(aChangeMilestones: Boolean);
 var
   i: Integer;
 begin
+  aStart := trunc(Now())+10000;
+  aEnd := trunc(Now())-10000;
   Application.ProcessMessages;
   Screen.Cursor:=crHourGlass;
+  FindCriticalPath;
   for i := 0 to FGantt.IntervalCount-1 do
     RecoursiveChange(FGantt.Interval[i]);
+  FProject.Edit;
+  Fproject.FieldByName('CRITPATH').AsFloat:=FCriticalPathLength;
+  if aStart<>trunc(Now())+10000 then
+    Fproject.FieldByName('START').AsDateTime:=aStart;
+  if aEnd<>trunc(Now())-10000 then
+    Fproject.FieldByName('END').AsDateTime:=aEnd;
   Screen.Cursor:=crDefault;
 end;
 procedure TfGanttView.CleanIntervals;
@@ -1132,6 +1149,7 @@ var
   bTmp: TInterval;
   y: Integer;
   aIntervals : TList;
+  aLen: Extended;
 
   function FindLastConn(aInterval : TInterval) : TInterval;
   var
@@ -1177,11 +1195,13 @@ var
     if Assigned(aLatestConn) then
       begin
         aLatestConn.InCriticalPath:=True;
+        FCriticalPathLength+=aLatestConn.NetTime+aLatestConn.Buffer;
         DoPath(aLatestConn);
       end;
   end;
 
 begin
+  FCriticalPathLength := 0.0;
   aLastInterval := nil;
   aIntervals := TList.Create;
   for y := 0 to fGantt.IntervalCount-1 do
