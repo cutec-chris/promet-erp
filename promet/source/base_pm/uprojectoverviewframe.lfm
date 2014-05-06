@@ -1,4 +1,4 @@
-inherited fProjectOverviewFrame: TfProjectOverviewFrame
+inherited fProjectOVFrame: TfProjectOVFrame
   Height = 698
   Width = 876
   ClientHeight = 698

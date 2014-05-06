@@ -34,7 +34,7 @@ type
     constructor Create(AGantt: TgsGantt);override;
     destructor Destroy;override;
   end;
-  TfProjectOverviewFrame = class(TPrometMainFrame)
+  TfProjectOVFrame = class(TPrometMainFrame)
     acCancel: TAction;
     acClose: TAction;
     acDelete: TAction;
@@ -150,32 +150,32 @@ destructor TProjectInterval.Destroy;
 begin
   inherited Destroy;
 end;
-procedure TfProjectOverviewFrame.bDayViewClick(Sender: TObject);
+procedure TfProjectOVFrame.bDayViewClick(Sender: TObject);
 begin
   FRough.MinorScale:=tsDay;
   FRough.MajorScale:=tsWeekNum;
   FRough.Calendar.StartDate:=FRough.Calendar.StartDate;
 end;
-procedure TfProjectOverviewFrame.bDelegated2Click(Sender: TObject);
+procedure TfProjectOVFrame.bDelegated2Click(Sender: TObject);
 begin
   if Assigned(FRough.Tree.Objects[0,FRough.Tree.Row]) then
     Data.GotoLink('PROJECTS@'+IntToStr(TInterval(FRough.Tree.Objects[0,FRough.Tree.Row]).Id));
 end;
-procedure TfProjectOverviewFrame.acUseExecute(Sender: TObject);
+procedure TfProjectOVFrame.acUseExecute(Sender: TObject);
 begin
 
 end;
-procedure TfProjectOverviewFrame.acCancelExecute(Sender: TObject);
+procedure TfProjectOVFrame.acCancelExecute(Sender: TObject);
 begin
 end;
-procedure TfProjectOverviewFrame.bMonthViewClick(Sender: TObject);
+procedure TfProjectOVFrame.bMonthViewClick(Sender: TObject);
 begin
   FRough.MinorScale:=tsDay;
   FRough.MajorScale:=tsQuarter;
   FRough.MinorScale:=tsMonth;
   FRough.Calendar.StartDate:=FRough.Calendar.StartDate;
 end;
-procedure TfProjectOverviewFrame.bRefreshClick(Sender: TObject);
+procedure TfProjectOVFrame.bRefreshClick(Sender: TObject);
 var
   CurrInterval: TInterval;
   aProjects: TProjectList;
@@ -184,23 +184,23 @@ begin
   Screen.Cursor:=crHourGlass;
   Screen.Cursor:=crDefault;
 end;
-procedure TfProjectOverviewFrame.bTodayClick(Sender: TObject);
+procedure TfProjectOVFrame.bTodayClick(Sender: TObject);
 begin
   FRough.StartDate:=Now();
 end;
-procedure TfProjectOverviewFrame.bWeekViewClick(Sender: TObject);
+procedure TfProjectOVFrame.bWeekViewClick(Sender: TObject);
 begin
   FRough.MinorScale:=tsDay;
   FRough.MajorScale:=tsMonth;
   FRough.MinorScale:=tsWeekNumPlain;
   FRough.Calendar.StartDate:=FRough.Calendar.StartDate;
 end;
-procedure TfProjectOverviewFrame.FRoughCalendarMouseMove(Sender: TObject;
+procedure TfProjectOVFrame.FRoughCalendarMouseMove(Sender: TObject;
   Shift: TShiftState; X, Y: Integer);
 begin
   lDate.Caption := DateToStr(FRough.Calendar.VisibleStart+trunc((X/FRough.Calendar.GetIntervalWidth)));
 end;
-procedure TfProjectOverviewFrame.FRoughCalendarShowHint(Sender: TObject;
+procedure TfProjectOVFrame.FRoughCalendarShowHint(Sender: TObject;
   HintInfo: PHintInfo);
 var
   List: TList;
@@ -244,7 +244,7 @@ begin
 
     end;
 end;
-procedure TfProjectOverviewFrame.FRoughTreeAfterUpdateCommonSettings(
+procedure TfProjectOVFrame.FRoughTreeAfterUpdateCommonSettings(
   Sender: TObject);
 begin
   FRough.Tree.ColWidths[0]:=0;
@@ -259,12 +259,12 @@ begin
   FRough.Tree.Width:=310;
   FRough.Tree.PopupMenu := pmTree;
 end;
-function TfProjectOverviewFrame.SetRights: Boolean;
+function TfProjectOVFrame.SetRights: Boolean;
 begin
 
 end;
 
-constructor TfProjectOverviewFrame.Create(AOwner: TComponent);
+constructor TfProjectOVFrame.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   FUpdateCount:=0;
@@ -281,23 +281,23 @@ begin
   //FRough.Visible:=False;
 end;
 
-destructor TfProjectOverviewFrame.Destroy;
+destructor TfProjectOVFrame.Destroy;
 begin
   FRough.Free;
   fRefreshList.Free;
   inherited Destroy;
 end;
 
-procedure TfProjectOverviewFrame.SetLanguage;
+procedure TfProjectOVFrame.SetLanguage;
 begin
 end;
 
-procedure TfProjectOverviewFrame.ShowFrame;
+procedure TfProjectOVFrame.ShowFrame;
 begin
   inherited ShowFrame;
 end;
 
-procedure TfProjectOverviewFrame.StartFilling;
+procedure TfProjectOVFrame.StartFilling;
 begin
 
 end;

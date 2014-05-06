@@ -1816,9 +1816,9 @@ end;
 
 procedure TfMain.acProjectOverviewExecute(Sender: TObject);
 var
-  RoughFrame: TfProjectOverviewFrame;
+  RoughFrame: TfProjectOVFrame;
 begin
-  RoughFrame := TfProjectOverviewFrame.Create(Self);
+  RoughFrame := TfProjectOVFrame.Create(Self);
   pcPages.AddTab(RoughFrame);
   RoughFrame.StartFilling;
 end;
