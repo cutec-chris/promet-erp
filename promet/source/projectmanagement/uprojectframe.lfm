@@ -277,9 +277,7 @@ inherited fprojectFrame: TfprojectFrame
         Height = 21
         Top = 65
         Width = 97
-        Increment = 10
         MaxValue = 999999
-        MinValue = 1
         OnChange = sePriorityChange
         TabOrder = 5
         Value = 1
@@ -324,7 +322,7 @@ inherited fprojectFrame: TfprojectFrame
       object eManager: TEditButton
         Left = 402
         Height = 21
-        Hint = 'der Vohrfahr des Projektes/Prozesses'
+        Hint = 'Der Projektleiter des Projetes/Prozesses'
         Top = 17
         Width = 152
         ButtonWidth = 23

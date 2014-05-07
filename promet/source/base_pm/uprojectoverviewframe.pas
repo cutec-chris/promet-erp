@@ -49,14 +49,20 @@ type
     acExecute: TAction;
     acShowInProjectGantt: TAction;
     acShowProject: TAction;
+    acHigherPrio: TAction;
+    acLowerPrio: TAction;
     ActionList1: TActionList;
     acUse: TAction;
     bDayView: TSpeedButton;
     bDelegated2: TSpeedButton;
+    bDelegated3: TSpeedButton;
+    bDelegated4: TSpeedButton;
     Bevel10: TBevel;
+    Bevel11: TBevel;
     Bevel5: TBevel;
     Bevel7: TBevel;
     bMonthView: TSpeedButton;
+    bParentProjects: TSpeedButton;
     bRefresh: TSpeedButton;
     bToday: TSpeedButton;
     bWeekView: TSpeedButton;
@@ -64,6 +70,7 @@ type
     Label5: TLabel;
     Label6: TLabel;
     Label7: TLabel;
+    Label8: TLabel;
     lDate: TLabel;
     MenuItem1: TMenuItem;
     miCopy: TMenuItem;
@@ -86,6 +93,7 @@ type
     N751: TMenuItem;
     miDelete: TMenuItem;
     Panel1: TPanel;
+    Panel10: TPanel;
     Panel4: TPanel;
     Panel7: TPanel;
     Panel8: TPanel;
@@ -95,9 +103,14 @@ type
     ToolButton1: TSpeedButton;
     ToolButton2: TSpeedButton;
     procedure acCancelExecute(Sender: TObject);
+    procedure acHigherPrioExecute(Sender: TObject);
+    procedure acLowerPrioExecute(Sender: TObject);
     procedure acUseExecute(Sender: TObject);
+    procedure aIntDrawBackground(Sender: TObject; aCanvas: TCanvas;
+      aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
     procedure bDayViewClick(Sender: TObject);
     procedure bDelegated2Click(Sender: TObject);
+    procedure bParentProjectsClick(Sender: TObject);
     procedure bMonthViewClick(Sender: TObject);
     procedure bRefreshClick(Sender: TObject);
     procedure bTodayClick(Sender: TObject);
@@ -128,7 +141,8 @@ procedure AddToMainTree(aAction : TAction;Node : TTreeNode);
 var
   MainNode : TTreeNode;
 implementation
-uses uData,uBaseDBInterface,uBaseERPDBClasses,uCalendar,uMainTreeFrame;
+uses uData,uBaseDBInterface,uBaseERPDBClasses,uCalendar,uMainTreeFrame,uTaskPlan,
+  LCLProc;
 resourcestring
   strProjectOverview                                    = 'Projektübersicht';
 {$R *.lfm}
@@ -162,13 +176,127 @@ begin
   if Assigned(FRough.Tree.Objects[0,FRough.Tree.Row]) then
     Data.GotoLink('PROJECTS@'+IntToStr(TInterval(FRough.Tree.Objects[0,FRough.Tree.Row]).Id));
 end;
+
+procedure TfProjectOVFrame.bParentProjectsClick(Sender: TObject);
+begin
+  Application.ProcessMessages;
+  bRefresh.Click;
+end;
+
 procedure TfProjectOVFrame.acUseExecute(Sender: TObject);
 begin
 
 end;
+
+procedure TfProjectOVFrame.aIntDrawBackground(Sender: TObject; aCanvas: TCanvas;
+  aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
+var
+  TaskPlan : TfTaskPlan;
+begin
+  Taskplan.aIDrawBackgroundWeekends(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth);
+  Taskplan.aIDrawBackground(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth,clBlue,clLime,clRed);
+end;
+
 procedure TfProjectOVFrame.acCancelExecute(Sender: TObject);
 begin
 end;
+
+procedure TfProjectOVFrame.acHigherPrioExecute(Sender: TObject);
+var
+  aProjects: TProjectList;
+  aPrio: Integer;
+  bPrio: Integer;
+  aRow: Integer;
+  aState: TStates;
+begin
+  debugln('*increment Prioritys');
+  if not Assigned(FRough.Tree.Objects[0,FRough.Tree.Row]) then exit;
+  aState := TStates.Create(nil,Data);
+  aState.Open;
+  aProjects := TProjectList.Create(nil,Data);
+  with aProjects.DataSet as IBaseDbFilter do
+    Data.SetFilter(aProjects,Data.ProcessTerm(Data.QuoteField('STATUS')+'<>'+Data.QuoteValue('I'))+' AND ('+Data.ProcessTerm(Data.QuoteField('GROSSPLANNING')+'<>'+Data.QuoteValue('N'))+' OR '+Data.ProcessTerm(Data.QuoteField('GROSSPLANNING')+'='+Data.QuoteValue(''))+')',0,'GPRIORITY','ASC');
+  if aProjects.Locate('SQL_ID',TInterval(FRough.Tree.Objects[0,FRough.Tree.Row]).Id,[]) then
+    begin
+      aProjects.Prior;
+      while (not aProjects.FieldByName('GPRIORITY').IsNull)
+        and (not aProjects.EOF)
+        and (aState.DataSet.Locate('STATUS;TYPE',VarArrayOf([trim(aProjects.FieldByName('STATUS').AsString),'P']),[]))
+        and (not (aState.DataSet.FieldByName('ACTIVE').AsString<>'N'))
+        do
+          aProjects.Prior;
+      aPrio := aProjects.FieldByName('GPRIORITY').AsInteger;
+      bPrio := aPrio+10;
+      while (not aProjects.FieldByName('GPRIORITY').IsNull) and (not aProjects.EOF) do
+        begin
+          if aState.DataSet.Locate('STATUS;TYPE',VarArrayOf([trim(aProjects.FieldByName('STATUS').AsString),'P']),[]) then
+            if aState.DataSet.FieldByName('ACTIVE').AsString<>'N' then
+              begin
+                debugln('set '+aProjects.Text.AsString+' to '+IntToStr(bPrio));
+                aProjects.Edit;
+                aProjects.FieldByName('GPRIORITY').AsInteger:=bPrio;
+                inc(bPrio,10);
+                aProjects.Post;
+              end;
+          aProjects.Next;
+        end;
+      if aProjects.Locate('SQL_ID',TInterval(FRough.Tree.Objects[0,FRough.Tree.Row]).Id,[]) then
+        begin
+          aProjects.Edit;
+          debugln('set '+aProjects.Text.AsString+' to '+IntToStr(aPrio));
+          aProjects.FieldByName('GPRIORITY').AsInteger:=aPrio;
+          aProjects.Post;
+        end;
+    end;
+  aProjects.Free;
+  aState.Free;
+  bRefresh.Click;
+end;
+
+procedure TfProjectOVFrame.acLowerPrioExecute(Sender: TObject);
+var
+  aProjects: TProjectList;
+  aPrio: Integer;
+  bPrio: Integer;
+  aState: TStates;
+begin
+  debugln('*decrement Prioritys');
+  if not Assigned(FRough.Tree.Objects[0,FRough.Tree.Row]) then exit;
+  aState := TStates.Create(nil,Data);
+  aState.Open;
+  aProjects := TProjectList.Create(nil,Data);
+  with aProjects.DataSet as IBaseDbFilter do
+    Data.SetFilter(aProjects,Data.ProcessTerm(Data.QuoteField('STATUS')+'<>'+Data.QuoteValue('I'))+' AND ('+Data.ProcessTerm(Data.QuoteField('GROSSPLANNING')+'<>'+Data.QuoteValue('N'))+' OR '+Data.ProcessTerm(Data.QuoteField('GROSSPLANNING')+'='+Data.QuoteValue(''))+')',0,'GPRIORITY','ASC');
+  if aProjects.Locate('SQL_ID',TInterval(FRough.Tree.Objects[0,FRough.Tree.Row]).Id,[]) then
+    begin
+      aPrio := aProjects.FieldByName('GPRIORITY').AsInteger;
+      bPrio := aPrio+10;
+      if aProjects.FieldByName('GPRIORITY').IsNull then
+        begin
+          aProjects.Edit;
+          aProjects.FieldByName('GPRIORITY').AsInteger:=bPrio;
+          inc(bPrio,10);
+          aProjects.Post;
+        end;
+      while (not aProjects.FieldByName('GPRIORITY').IsNull) and (not aProjects.EOF) do
+        begin
+          if aState.DataSet.Locate('STATUS;TYPE',VarArrayOf([trim(aProjects.FieldByName('STATUS').AsString),'P']),[]) then
+            if aState.DataSet.FieldByName('ACTIVE').AsString<>'N' then
+              begin
+                debugln('set '+aProjects.Text.AsString+' to '+IntToStr(bPrio));
+                aProjects.Edit;
+                aProjects.FieldByName('GPRIORITY').AsInteger:=bPrio;
+                inc(bPrio,10);
+                aProjects.Post;
+              end;
+          aProjects.Next;
+        end;
+    end;
+  aProjects.Free;
+  aState.Free;
+  bRefresh.Click;
+end;
+
 procedure TfProjectOVFrame.bMonthViewClick(Sender: TObject);
 begin
   FRough.MinorScale:=tsDay;
@@ -181,13 +309,23 @@ var
   CurrInterval: TInterval;
   aProjects: TProjectList;
   aUsers: TUser;
+  arec : Variant;
+  i: Integer;
 begin
   Screen.Cursor:=crHourGlass;
   FRough.BeginUpdate;
+  if Assigned(FRough.Tree.Objects[0,FRough.Tree.Row]) then
+    aRec := TInterval(FRough.Tree.Objects[0,FRough.Tree.Row]).Id;
   while FRough.IntervalCount>0 do
     FRough.DeleteInterval(0);
   StartFilling;
   FRough.EndUpdate;
+  for i := 0 to FRough.Tree.RowCount-1 do
+    if Assigned(FRough.Tree.Objects[0,i]) and (TInterval(FRough.Tree.Objects[0,i]).Id=aRec) then
+      begin
+        FRough.Tree.Row:=i;
+        break;
+      end;
   Screen.Cursor:=crDefault;
 end;
 procedure TfProjectOVFrame.bTodayClick(Sender: TObject);
@@ -389,7 +527,7 @@ procedure TfProjectOVFrame.StartFilling;
         aParents := TProjectList.Create(nil,Data);
         aParents.Select(aProjects.FieldByName('PARENT').AsVariant);
         aParents.Open;
-        if (aParents.Count>0) and (aProjects.FieldByName('PARENT').AsVariant<>aProjects.Id.AsVariant) and (lvl<20) then
+        if (bParentProjects.Down) and (aParents.Count>0) and (aProjects.FieldByName('PARENT').AsVariant<>aProjects.Id.AsVariant) and (lvl<20) then
           begin
             aParent := AddFromDB(aParents,lvl+1);
             aParent.AddInterval(aInt);
@@ -398,6 +536,7 @@ procedure TfProjectOVFrame.StartFilling;
           FRough.AddInterval(aInt);
         aParents.Free;
       end;
+    aInt.OnDrawBackground:=@aIntDrawBackground;
     Result := aInt;
   end;
 

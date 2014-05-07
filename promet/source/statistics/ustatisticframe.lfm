@@ -1,12 +1,9 @@
-object fStatisticFrame: TfStatisticFrame
-  Left = 331
+inherited fStatisticFrame: TfStatisticFrame
   Height = 698
-  Top = 121
   Width = 864
   ClientHeight = 698
   ClientWidth = 864
-  LCLVersion = '1.3'
-  object Splitter2: TSplitter
+  object Splitter2: TSplitter[0]
     Cursor = crVSplit
     Left = 0
     Height = 5
@@ -17,7 +14,7 @@ object fStatisticFrame: TfStatisticFrame
     ResizeStyle = rsLine
     Visible = False
   end
-  object Panel3: TPanel
+  object Panel3: TPanel[1]
     Left = 0
     Height = 354
     Top = 344
@@ -376,11 +373,11 @@ object fStatisticFrame: TfStatisticFrame
       end
       object tsDescription: TTabSheet
         Caption = 'Beschreibung'
-        ClientHeight = 302
+        ClientHeight = 312
         ClientWidth = 840
         object DBMemo1: TDBMemo
           Left = 0
-          Height = 302
+          Height = 312
           Top = 0
           Width = 840
           Align = alClient
@@ -393,7 +390,7 @@ object fStatisticFrame: TfStatisticFrame
       end
     end
   end
-  object Panel5: TPanel
+  object Panel5: TPanel[2]
     Left = 0
     Height = 339
     Top = 0
@@ -425,12 +422,12 @@ object fStatisticFrame: TfStatisticFrame
         TabOrder = 0
         object tsMaster: TTabSheet
           Caption = 'Master'
-          ClientHeight = 259
+          ClientHeight = 269
           ClientWidth = 856
           inline smQuerry: TSynMemo
             Cursor = crIBeam
             Left = 0
-            Height = 207
+            Height = 217
             Top = 0
             Width = 856
             Align = alClient
@@ -1037,13 +1034,12 @@ object fStatisticFrame: TfStatisticFrame
           object lbErrors: TListBox
             Left = 0
             Height = 52
-            Top = 207
+            Top = 217
             Width = 856
             Align = alBottom
             ItemHeight = 0
             ScrollWidth = 854
             TabOrder = 1
-            TopIndex = -1
             Visible = False
           end
         end
@@ -2787,7 +2783,7 @@ object fStatisticFrame: TfStatisticFrame
         end
         object eName: TDBEdit
           Left = 8
-          Height = 24
+          Height = 21
           Top = 16
           Width = 354
           DataField = 'NAME'
@@ -2915,7 +2911,7 @@ object fStatisticFrame: TfStatisticFrame
       end
     end
   end
-  object ActionList1: TActionList
+  object ActionList1: TActionList[3]
     Images = fVisualControls.Images
     left = 196
     top = 64
@@ -2981,7 +2977,7 @@ object fStatisticFrame: TfStatisticFrame
       ImageIndex = 24
     end
   end
-  object pmAction: TPopupMenu
+  object pmAction: TPopupMenu[4]
     left = 232
     top = 64
     object MenuItem4: TMenuItem
@@ -2997,7 +2993,7 @@ object fStatisticFrame: TfStatisticFrame
       Action = acRights
     end
   end
-  object SynSQLSyn1: TSynSQLSyn
+  object SynSQLSyn1: TSynSQLSyn[5]
     DefaultFilter = 'SQL-Dateien (*.sql)|*.sql'
     Enabled = False
     CommentAttri.FrameEdges = sfeAround
@@ -3019,14 +3015,14 @@ object fStatisticFrame: TfStatisticFrame
     left = 272
     top = 296
   end
-  object IdleSQLTimer: TIdleTimer
+  object IdleSQLTimer: TIdleTimer[6]
     Enabled = False
     Interval = 500
     OnTimer = IdleSQLTimerTimer
     left = 423
     top = 296
   end
-  object frReport: TfrReport
+  object frReport: TfrReport[7]
     DefaultCopies = 0
     InitialZoom = pzDefault
     Options = []
@@ -3037,7 +3033,7 @@ object fStatisticFrame: TfStatisticFrame
     left = 272
     top = 240
   end
-  object GutterImages: TImageList
+  object GutterImages: TImageList[8]
     left = 423
     top = 240
     Bitmap = {
@@ -3300,41 +3296,41 @@ object fStatisticFrame: TfStatisticFrame
       FF00FFFFFF00FFFFFF00FFFFFF00
     }
   end
-  object StatisticDS: TDataSource
+  object StatisticDS: TDatasource[9]
     left = 280
     top = 184
   end
-  object StatisticResults: TDataSource
+  object StatisticResults: TDatasource[10]
     AutoEdit = False
     left = 280
     top = 116
   end
-  object PStatisticresults: TfrDBDataSet
+  object PStatisticresults: TfrDBDataSet[11]
     DataSource = StatisticResults
     left = 280
     top = 64
   end
-  object PDetail: TfrDBDataSet
+  object PDetail: TfrDBDataSet[12]
     DataSource = Detail
     left = 360
     top = 64
   end
-  object PSubDetail: TfrDBDataSet
+  object PSubDetail: TfrDBDataSet[13]
     DataSource = SubDetail
     left = 440
     top = 64
   end
-  object SubDetail: TDataSource
+  object SubDetail: TDatasource[14]
     AutoEdit = False
     left = 440
     top = 116
   end
-  object Detail: TDataSource
+  object Detail: TDatasource[15]
     AutoEdit = False
     left = 360
     top = 116
   end
-  object ProcMenu: TPopupMenu
+  object ProcMenu: TPopupMenu[16]
     left = 80
     top = 304
     object N2001: TMenuItem
@@ -3435,19 +3431,19 @@ object fStatisticFrame: TfStatisticFrame
       GroupIndex = 1
     end
   end
-  object SaveDialog: TSaveDialog
+  object SaveDialog: TSaveDialog[17]
     Filter = 'Excel 2.0 Datei (*.xls)|*.xls|Excel 3.0 Datei (*.xls)|*.xls|Excel 4.0 Datei (*.xls)|*.xls|Excel 5.0 Datei (*.xls)|*.xls|Excel 2007-2009 (*.xls)|*.xls|Open Office XML (*.xlsx)|*.xlsx|Open Document Format (*.ods)|*.ods|Kommagetrennte Datei (*.csv)|*.csv'
     FilterIndex = 4
     Options = [ofOverwritePrompt, ofEnableSizing, ofViewDetail]
     left = 176
     top = 184
   end
-  object Datasource: TDataSource
+  object Datasource: TDatasource[18]
     OnStateChange = ProjectsStateChange
     left = 203
     top = 121
   end
-  object pmGrid: TPopupMenu
+  object pmGrid: TPopupMenu[19]
     OnPopup = pmGridPopup
     left = 120
     top = 304
@@ -3457,7 +3453,7 @@ object fStatisticFrame: TfStatisticFrame
       OnClick = miCopyClick
     end
   end
-  object ImageList1: TImageList
+  object ImageList1: TImageList[20]
     left = 120
     top = 176
     Bitmap = {
@@ -3528,7 +3524,7 @@ object fStatisticFrame: TfStatisticFrame
       FF00FFFFFF00FFFFFF00FFFFFF00
     }
   end
-  object ExecuteTimer: TTimer
+  object ExecuteTimer: TTimer[21]
     Enabled = False
     Interval = 200
     OnTimer = ExecuteTimerTimer

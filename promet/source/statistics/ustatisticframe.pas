@@ -825,6 +825,7 @@ end;
 procedure TfStatisticFrame.bEditFilterClick(Sender: TObject);
 var
   Animate: TAnimationController;
+  nH: LongInt;
 begin
   bEditFilter.Enabled:=False;
   Animate := TAnimationController.Create(Panel5);
@@ -835,7 +836,11 @@ begin
     begin
       pTop.Visible:=True;
       with Application as IBaseDbInterface do
-        Animate.AnimateControlHeight(DBConfig.ReadInteger('STATISTICEDITHEIGHT',244));
+        begin
+          nH := DBConfig.ReadInteger('STATISTICEDITHEIGHT',244);
+          if nH<100 then nH := 244;
+          Animate.AnimateControlHeight(nH);
+        end;
     end
   else
     begin
