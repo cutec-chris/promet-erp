@@ -37,7 +37,6 @@ cd i386-linux
 ./build_all.sh
 cd ..
 ./upload_lin.sh amd64 x86_64
-./change_wiki.sh
 ssh chris@minimac 'sh promet/promet/setup/build_all.mac' &
 #cd $FULL_NAME/zip-files
 #./build_stick.sh
