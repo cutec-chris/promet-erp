@@ -299,7 +299,7 @@ inherited fProjectOVFrame: TfProjectOVFrame
         Left = 104
         Height = 25
         Hint = 'alle übergeordneten Projekte anzeigen'
-        Top = 15
+        Top = 14
         Width = 25
         AllowAllUp = True
         BorderSpacing.InnerBorder = 2

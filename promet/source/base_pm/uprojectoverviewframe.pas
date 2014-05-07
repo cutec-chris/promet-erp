@@ -309,13 +309,23 @@ var
   CurrInterval: TInterval;
   aProjects: TProjectList;
   aUsers: TUser;
+  arec : Variant;
+  i: Integer;
 begin
   Screen.Cursor:=crHourGlass;
   FRough.BeginUpdate;
+  if Assigned(FRough.Tree.Objects[0,FRough.Tree.Row]) then
+    aRec := TInterval(FRough.Tree.Objects[0,FRough.Tree.Row]).Id;
   while FRough.IntervalCount>0 do
     FRough.DeleteInterval(0);
   StartFilling;
   FRough.EndUpdate;
+  for i := 0 to FRough.Tree.RowCount-1 do
+    if Assigned(FRough.Tree.Objects[0,i]) and (TInterval(FRough.Tree.Objects[0,i]).Id=aRec) then
+      begin
+        FRough.Tree.Row:=i;
+        break;
+      end;
   Screen.Cursor:=crDefault;
 end;
 procedure TfProjectOVFrame.bTodayClick(Sender: TObject);
