@@ -1,37 +1,37 @@
 #!/bin/bash
-lazbuild ../source/tools/changewikipage.lpi
-Version=$(sed 's/\r//g' ../source/base/version.inc).$(sed 's/\r//g' ../source/base/revision.inc)
+lazbuild ../../source/tools/changewikipage.lpi
+Version=$(sed 's/\r//g' ../../source/base/version.inc).$(sed 's/\r//g' ../../source/base/revision.inc)
 Version=$(echo $Version | sed 's/\n//g');
 Arch=`dpkg --print-architecture`
 Archfpc=$(fpc -h | grep 'Compiler version' | sed 's/.*for \([^ ]\+\)$/\1/')
 Date=`date`
-WinSize=$(ls -s --block-size=1048576 "output/promet-erp_$(echo $Version)_i386-win32.exe" | cut -d' ' -f1)
-WinToolsSize=$(ls -s --block-size=1048576 "output/promet-erp-tools_$(echo $Version)_i386-win32.exe" | cut -d' ' -f1)
-WinTRSize=$(ls -s --block-size=1048576 "output/promet-erp-timeregistering_$(echo $Version)_i386-win32.exe" | cut -d' ' -f1)
-WinPDBSize=$(ls -s --block-size=1048576 "output/db_setup_postgres.exe" | cut -d' ' -f1)
-WinSizeK=$(ls -s --block-size=1024 "output/promet-erp_$(echo $Version)_i386-win32.exe" | cut -d' ' -f1)
-WinSizeB=$(ls -s --block-size=1 "output/promet-erp_$(echo $Version)_i386-win32.exe" | cut -d' ' -f1)
-Rpm64Size=$(ls -s --block-size=1048576 "output/promet-erp-$(echo $Version)-2.x86_64.rpm" | cut -d' ' -f1)
-Rpm32Size=$(ls -s --block-size=1048576 "output/promet-erp-$(echo $Version)-2.i386.rpm" | cut -d' ' -f1)
-Deb64Size=$(ls -s --block-size=1048576 "output/promet-erp_$(echo $Version)_amd64-gtk2.deb" | cut -d' ' -f1)
-Deb32Size=$(ls -s --block-size=1048576 "output/promet-erp_$(echo $Version)_i386-gtk2.deb" | cut -d' ' -f1)
+WinSize=$(ls -s --block-size=1048576 "../output/promet-erp_$(echo $Version)_i386-win32.exe" | cut -d' ' -f1)
+WinToolsSize=$(ls -s --block-size=1048576 "../output/promet-erp-tools_$(echo $Version)_i386-win32.exe" | cut -d' ' -f1)
+WinTRSize=$(ls -s --block-size=1048576 "../output/promet-erp-timeregistering_$(echo $Version)_i386-win32.exe" | cut -d' ' -f1)
+WinPDBSize=$(ls -s --block-size=1048576 "../output/db_setup_postgres.exe" | cut -d' ' -f1)
+WinSizeK=$(ls -s --block-size=1024 "../output/promet-erp_$(echo $Version)_i386-win32.exe" | cut -d' ' -f1)
+WinSizeB=$(ls -s --block-size=1 "../output/promet-erp_$(echo $Version)_i386-win32.exe" | cut -d' ' -f1)
+Rpm64Size=$(ls -s --block-size=1048576 "../output/promet-erp-$(echo $Version)-2.x86_64.rpm" | cut -d' ' -f1)
+Rpm32Size=$(ls -s --block-size=1048576 "../output/promet-erp-$(echo $Version)-2.i386.rpm" | cut -d' ' -f1)
+Deb64Size=$(ls -s --block-size=1048576 "../output/promet-erp_$(echo $Version)_amd64-gtk2.deb" | cut -d' ' -f1)
+Deb32Size=$(ls -s --block-size=1048576 "../output/promet-erp_$(echo $Version)_i386-gtk2.deb" | cut -d' ' -f1)
 
-TimeRpm64Size=$(ls -s --block-size=1048576 "output/promet-erp-timeregistering-$(echo $Version)-2.x86_64.rpm" | cut -d' ' -f1)
-TimeRpm32Size=$(ls -s --block-size=1048576 "output/promet-erp-timeregistering-$(echo $Version)-2.i386.rpm" | cut -d' ' -f1)
-TimeDeb64Size=$(ls -s --block-size=1048576 "output/promet-erp-timeregistering_$(echo $Version)_amd64-gtk2.deb" | cut -d' ' -f1)
-TimeDeb32Size=$(ls -s --block-size=1048576 "output/promet-erp-timeregistering_$(echo $Version)_i386-gtk2.deb" | cut -d' ' -f1)
+TimeRpm64Size=$(ls -s --block-size=1048576 "../output/promet-erp-timeregistering-$(echo $Version)-2.x86_64.rpm" | cut -d' ' -f1)
+TimeRpm32Size=$(ls -s --block-size=1048576 "../output/promet-erp-timeregistering-$(echo $Version)-2.i386.rpm" | cut -d' ' -f1)
+TimeDeb64Size=$(ls -s --block-size=1048576 "../output/promet-erp-timeregistering_$(echo $Version)_amd64-gtk2.deb" | cut -d' ' -f1)
+TimeDeb32Size=$(ls -s --block-size=1048576 "../output/promet-erp-timeregistering_$(echo $Version)_i386-gtk2.deb" | cut -d' ' -f1)
 
-StatisticsRpm64Size=$(ls -s --block-size=1048576 "output/promet-erp-statistics-$(echo $Version)-2.x86_64.rpm" | cut -d' ' -f1)
-StatisticsRpm32Size=$(ls -s --block-size=1048576 "output/promet-erp-statistics-$(echo $Version)-2.i386.rpm" | cut -d' ' -f1)
-StatisticsDeb64Size=$(ls -s --block-size=1048576 "output/promet-erp-statistics_$(echo $Version)_amd64-gtk2.deb" | cut -d' ' -f1)
-StatisticsDeb32Size=$(ls -s --block-size=1048576 "output/promet-erp-statistics_$(echo $Version)_i386-gtk2.deb" | cut -d' ' -f1)
+StatisticsRpm64Size=$(ls -s --block-size=1048576 "../output/promet-erp-statistics-$(echo $Version)-2.x86_64.rpm" | cut -d' ' -f1)
+StatisticsRpm32Size=$(ls -s --block-size=1048576 "../output/promet-erp-statistics-$(echo $Version)-2.i386.rpm" | cut -d' ' -f1)
+StatisticsDeb64Size=$(ls -s --block-size=1048576 "../output/promet-erp-statistics_$(echo $Version)_amd64-gtk2.deb" | cut -d' ' -f1)
+StatisticsDeb32Size=$(ls -s --block-size=1048576 "../output/promet-erp-statistics_$(echo $Version)_i386-gtk2.deb" | cut -d' ' -f1)
 
-ToolsRpm64Size=$(ls -s --block-size=1048576 "output/promet-erp-tools-$(echo $Version)-2.x86_64.rpm" | cut -d' ' -f1)
-ToolsRpm32Size=$(ls -s --block-size=1048576 "output/promet-erp-tools-$(echo $Version)-2.i386.rpm" | cut -d' ' -f1)
-ToolsDeb64Size=$(ls -s --block-size=1048576 "output/promet-erp-tools_$(echo $Version)_amd64-gtk2.deb" | cut -d' ' -f1)
-ToolsDeb32Size=$(ls -s --block-size=1048576 "output/promet-erp-tools_$(echo $Version)_i386-gtk2.deb" | cut -d' ' -f1)
+ToolsRpm64Size=$(ls -s --block-size=1048576 "../output/promet-erp-tools-$(echo $Version)-2.x86_64.rpm" | cut -d' ' -f1)
+ToolsRpm32Size=$(ls -s --block-size=1048576 "../output/promet-erp-tools-$(echo $Version)-2.i386.rpm" | cut -d' ' -f1)
+ToolsDeb64Size=$(ls -s --block-size=1048576 "../output/promet-erp-tools_$(echo $Version)_amd64-gtk2.deb" | cut -d' ' -f1)
+ToolsDeb32Size=$(ls -s --block-size=1048576 "../output/promet-erp-tools_$(echo $Version)_i386-gtk2.deb" | cut -d' ' -f1)
 
-cat downloads.txt | \
+cat downloads_windows.txt | \
   sed -e "s/VERSION/$Version/g" \
       -e "s/ARCH/$Arch/g" \
       -e "s/ARCHFPC/$Archfpc/g" \
@@ -57,14 +57,14 @@ cat downloads.txt | \
       -e "s/TOOLSD32_SIZE/$ToolsDeb32Size Mb/g" \
       -e "s/CREATEDDATE/$Date/g" \
   > act_downloads.txt
-../output/x86_64-linux/changewikipage --mandant=Stora Promet-ERP/downloadplattforms/windows i386-win32/downloads_windows.txt
-../output/x86_64-linux/changewikipage --mandant=Stora Promet-ERP/changes ../source/base/changes.txt
-../output/x86_64-linux/tools/sync_db --mandant=Stora
+../../output/x86_64-linux/changewikipage --mandant=Stora Promet-ERP/dowloadplattforms/windows act_downloads.txt
+../../output/x86_64-linux/changewikipage --mandant=Stora Promet-ERP/changes ../../source/base/changes.txt
+../../output/x86_64-linux/tools/sync_db --mandant=Stora
 Year=`date +%y`
 Month=`date +%m`
 Day=`date +%d`
 File="Promet-ERP_$(echo $Version)_i386-win32.exe"
-cat promet_erp_clean.xml | \
+cat ../promet_erp_clean.xml | \
   sed -e "s/PROGVERSION/$Version/g" \
       -e "s/WIN_SIZEB/$WinSizeB/g" \
       -e "s/WIN_SIZEK/$WinSizeK/g" \

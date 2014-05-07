@@ -1,6 +1,6 @@
 SET FULLTARGET=%1
-echo j|del ..\..\output\%FULLTARGET%\*.*
-echo j|del ..\..\output\%FULLTARGET%\tools\*receiver.*
-echo j|del ..\..\output\%FULLTARGET%\tools\*sender.*
-echo j|del ..\..\output\%FULLTARGET%\tools\processmanager.*
-echo j|del ..\..\output\%FULLTARGET%\tools\*messagemenager.*
+echo Ja|del ..\..\output\%FULLTARGET%\*.*
+echo Ja|del ..\..\output\%FULLTARGET%\tools\*receiver.*
+echo Ja|del ..\..\output\%FULLTARGET%\tools\*sender.*
+echo Ja|del ..\..\output\%FULLTARGET%\tools\processmanager.*
+echo Ja|del ..\..\output\%FULLTARGET%\tools\*messagemenager.*
