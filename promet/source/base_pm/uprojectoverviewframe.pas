@@ -96,6 +96,8 @@ type
     ToolButton2: TSpeedButton;
     procedure acCancelExecute(Sender: TObject);
     procedure acUseExecute(Sender: TObject);
+    procedure aIntDrawBackground(Sender: TObject; aCanvas: TCanvas;
+      aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
     procedure bDayViewClick(Sender: TObject);
     procedure bDelegated2Click(Sender: TObject);
     procedure bMonthViewClick(Sender: TObject);
@@ -128,7 +130,7 @@ procedure AddToMainTree(aAction : TAction;Node : TTreeNode);
 var
   MainNode : TTreeNode;
 implementation
-uses uData,uBaseDBInterface,uBaseERPDBClasses,uCalendar,uMainTreeFrame;
+uses uData,uBaseDBInterface,uBaseERPDBClasses,uCalendar,uMainTreeFrame,uTaskPlan;
 resourcestring
   strProjectOverview                                    = 'Projektübersicht';
 {$R *.lfm}
@@ -166,6 +168,16 @@ procedure TfProjectOVFrame.acUseExecute(Sender: TObject);
 begin
 
 end;
+
+procedure TfProjectOVFrame.aIntDrawBackground(Sender: TObject; aCanvas: TCanvas;
+  aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
+var
+  TaskPlan : TfTaskPlan;
+begin
+  Taskplan.aIDrawBackgroundWeekends(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth);
+  Taskplan.aIDrawBackground(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth,clBlue,clLime,clRed);
+end;
+
 procedure TfProjectOVFrame.acCancelExecute(Sender: TObject);
 begin
 end;
@@ -398,6 +410,7 @@ procedure TfProjectOVFrame.StartFilling;
           FRough.AddInterval(aInt);
         aParents.Free;
       end;
+    aInt.OnDrawBackground:=@aIntDrawBackground;
     Result := aInt;
   end;
 
