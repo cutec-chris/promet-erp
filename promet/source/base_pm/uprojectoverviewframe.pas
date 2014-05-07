@@ -207,23 +207,37 @@ var
   aPrio: Integer;
   bPrio: Integer;
   aRow: Integer;
+  aState: TStates;
 begin
+  debugln('*increment Prioritys');
   if not Assigned(FRough.Tree.Objects[0,FRough.Tree.Row]) then exit;
+  aState := TStates.Create(nil,Data);
+  aState.Open;
   aProjects := TProjectList.Create(nil,Data);
   with aProjects.DataSet as IBaseDbFilter do
     Data.SetFilter(aProjects,Data.ProcessTerm(Data.QuoteField('STATUS')+'<>'+Data.QuoteValue('I'))+' AND ('+Data.ProcessTerm(Data.QuoteField('GROSSPLANNING')+'<>'+Data.QuoteValue('N'))+' OR '+Data.ProcessTerm(Data.QuoteField('GROSSPLANNING')+'='+Data.QuoteValue(''))+')',0,'GPRIORITY','ASC');
   if aProjects.Locate('SQL_ID',TInterval(FRough.Tree.Objects[0,FRough.Tree.Row]).Id,[]) then
     begin
       aProjects.Prior;
+      while (not aProjects.FieldByName('GPRIORITY').IsNull)
+        and (not aProjects.EOF)
+        and (aState.DataSet.Locate('STATUS;TYPE',VarArrayOf([trim(aProjects.FieldByName('STATUS').AsString),'P']),[]))
+        and (not (aState.DataSet.FieldByName('ACTIVE').AsString<>'N'))
+        do
+          aProjects.Prior;
       aPrio := aProjects.FieldByName('GPRIORITY').AsInteger;
       bPrio := aPrio+10;
       while (not aProjects.FieldByName('GPRIORITY').IsNull) and (not aProjects.EOF) do
         begin
-          debugln('set '+aProjects.Text.AsString+' to '+IntToStr(bPrio));
-          aProjects.Edit;
-          aProjects.FieldByName('GPRIORITY').AsInteger:=bPrio;
-          inc(bPrio,10);
-          aProjects.Post;
+          if aState.DataSet.Locate('STATUS;TYPE',VarArrayOf([trim(aProjects.FieldByName('STATUS').AsString),'P']),[]) then
+            if aState.DataSet.FieldByName('ACTIVE').AsString<>'N' then
+              begin
+                debugln('set '+aProjects.Text.AsString+' to '+IntToStr(bPrio));
+                aProjects.Edit;
+                aProjects.FieldByName('GPRIORITY').AsInteger:=bPrio;
+                inc(bPrio,10);
+                aProjects.Post;
+              end;
           aProjects.Next;
         end;
       if aProjects.Locate('SQL_ID',TInterval(FRough.Tree.Objects[0,FRough.Tree.Row]).Id,[]) then
@@ -235,6 +249,7 @@ begin
         end;
     end;
   aProjects.Free;
+  aState.Free;
   bRefresh.Click;
 end;
 
@@ -243,8 +258,12 @@ var
   aProjects: TProjectList;
   aPrio: Integer;
   bPrio: Integer;
+  aState: TStates;
 begin
+  debugln('*decrement Prioritys');
   if not Assigned(FRough.Tree.Objects[0,FRough.Tree.Row]) then exit;
+  aState := TStates.Create(nil,Data);
+  aState.Open;
   aProjects := TProjectList.Create(nil,Data);
   with aProjects.DataSet as IBaseDbFilter do
     Data.SetFilter(aProjects,Data.ProcessTerm(Data.QuoteField('STATUS')+'<>'+Data.QuoteValue('I'))+' AND ('+Data.ProcessTerm(Data.QuoteField('GROSSPLANNING')+'<>'+Data.QuoteValue('N'))+' OR '+Data.ProcessTerm(Data.QuoteField('GROSSPLANNING')+'='+Data.QuoteValue(''))+')',0,'GPRIORITY','ASC');
@@ -261,15 +280,20 @@ begin
         end;
       while (not aProjects.FieldByName('GPRIORITY').IsNull) and (not aProjects.EOF) do
         begin
-          debugln('set '+aProjects.Text.AsString+' to '+IntToStr(bPrio));
-          aProjects.Edit;
-          aProjects.FieldByName('GPRIORITY').AsInteger:=bPrio;
-          inc(bPrio,10);
-          aProjects.Post;
+          if aState.DataSet.Locate('STATUS;TYPE',VarArrayOf([trim(aProjects.FieldByName('STATUS').AsString),'P']),[]) then
+            if aState.DataSet.FieldByName('ACTIVE').AsString<>'N' then
+              begin
+                debugln('set '+aProjects.Text.AsString+' to '+IntToStr(bPrio));
+                aProjects.Edit;
+                aProjects.FieldByName('GPRIORITY').AsInteger:=bPrio;
+                inc(bPrio,10);
+                aProjects.Post;
+              end;
           aProjects.Next;
         end;
     end;
   aProjects.Free;
+  aState.Free;
   bRefresh.Click;
 end;
 
