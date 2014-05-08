@@ -548,6 +548,7 @@ inherited fProjectOVFrame: TfProjectOVFrame
         Height = 24
         Top = 14
         Width = 24
+        Action = acShowProject
         AllowAllUp = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
