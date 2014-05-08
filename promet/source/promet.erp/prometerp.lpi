@@ -561,7 +561,14 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOrderTypeOptions"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="6"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit24>
       <Unit25>
         <Filename Value="ustoragetypeoptions.pas"/>
@@ -747,7 +754,7 @@
       <Unit42>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="19"/>
+        <EditorIndex Value="20"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1853"/>
         <CursorPos X="35" Y="1862"/>
@@ -760,7 +767,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uProcessOptions"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
@@ -770,7 +777,7 @@
       </Unit43>
       <Unit44>
         <Filename Value="../base/changes.txt"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="22" Y="16"/>
@@ -781,7 +788,7 @@
       <Unit45>
         <Filename Value="../import/udataimport.pas"/>
         <UnitName Value="uDataImport"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="32"/>
         <CursorPos X="24" Y="67"/>
@@ -794,7 +801,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uuseroptions"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
@@ -805,7 +812,7 @@
       <Unit47>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1355"/>
         <CursorPos X="1" Y="1376"/>
@@ -818,7 +825,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uGanttView"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1093"/>
         <CursorPos X="163" Y="1108"/>
@@ -832,7 +839,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uprojectoverviewframe"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="309"/>
         <CursorPos X="17" Y="328"/>
@@ -843,7 +850,7 @@
       <Unit50>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="22"/>
+        <EditorIndex Value="23"/>
         <WindowIndex Value="0"/>
         <TopLine Value="757"/>
         <CursorPos X="1" Y="782"/>
@@ -856,7 +863,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uTaskPlan"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="914"/>
         <CursorPos X="1" Y="937"/>
@@ -870,7 +877,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ustatisticframe"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="825"/>
         <CursorPos X="14" Y="851"/>
@@ -884,7 +891,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uExtControls"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="177"/>
         <CursorPos X="15" Y="193"/>
@@ -894,7 +901,7 @@
       <Unit54>
         <Filename Value="../components/zeos/src/dbc/ZDbcLogging.pas"/>
         <UnitName Value="ZDbcLogging"/>
-        <EditorIndex Value="20"/>
+        <EditorIndex Value="21"/>
         <WindowIndex Value="0"/>
         <TopLine Value="99"/>
         <CursorPos X="1" Y="117"/>
@@ -905,7 +912,7 @@
       <Unit55>
         <Filename Value="../base_messaging/umessageframe.pas"/>
         <UnitName Value="uMessageFrame"/>
-        <EditorIndex Value="21"/>
+        <EditorIndex Value="22"/>
         <WindowIndex Value="0"/>
         <TopLine Value="391"/>
         <CursorPos X="1" Y="409"/>
@@ -918,7 +925,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uSearch"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="18"/>
         <WindowIndex Value="0"/>
         <TopLine Value="341"/>
         <CursorPos X="12" Y="359"/>
@@ -929,7 +936,7 @@
       <Unit57>
         <Filename Value="../../../general/src_vis/uerror.pas"/>
         <UnitName Value="uError"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="19"/>
         <WindowIndex Value="0"/>
         <TopLine Value="14"/>
         <CursorPos X="15" Y="31"/>
@@ -939,7 +946,7 @@
       <Unit58>
         <Filename Value="../base/dbintfs/uperson.pas"/>
         <UnitName Value="uPerson"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="551"/>
         <CursorPos X="1" Y="568"/>
@@ -949,11 +956,10 @@
       <Unit59>
         <Filename Value="uimpclipboardcontact.pas"/>
         <UnitName Value="uImpClipboardContact"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="79"/>
-        <CursorPos X="97" Y="111"/>
+        <CursorPos X="82" Y="90"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit59>

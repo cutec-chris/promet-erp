@@ -1,8 +1,10 @@
 inherited forderTypeOptions: TforderTypeOptions
   Height = 437
-  Width = 522
+  Width = 535
   ClientHeight = 437
-  ClientWidth = 522
+  ClientWidth = 535
+  ParentShowHint = False
+  ShowHint = True
   TabOrder = 0
   DesignLeft = 473
   DesignTop = 225
@@ -10,7 +12,7 @@ inherited forderTypeOptions: TforderTypeOptions
     Left = 176
     Height = 13
     Top = 8
-    Width = 18
+    Width = 19
     Caption = 'Typ'
     ParentColor = False
   end
@@ -18,26 +20,26 @@ inherited forderTypeOptions: TforderTypeOptions
     Left = 176
     Height = 13
     Top = 52
-    Width = 54
+    Width = 65
     Caption = 'Ableitbar in'
     ParentColor = False
   end
   object lNumberset: TLabel[2]
-    Left = 312
+    Left = 324
     Height = 13
     Top = 52
-    Width = 67
+    Width = 83
     Anchors = [akTop, akRight]
     Caption = 'Nummernkreis'
     ParentColor = False
   end
   object lDefaultPosTyp: TLabel[3]
-    Left = 359
+    Left = 436
     Height = 13
-    Top = 32
-    Width = 105
+    Top = 52
+    Width = 68
     Anchors = [akTop, akRight]
-    Caption = 'Standard Positionstyp'
+    Caption = 'Positionstyp'
     ParentColor = False
   end
   object gOrderStatus: TDBGrid[4]
@@ -51,16 +53,19 @@ inherited forderTypeOptions: TforderTypeOptions
     Columns = <    
       item
         Title.Caption = 'STATUS'
+        Title.MultiLine = False
         Width = 30
         FieldName = 'STATUS'
       end    
       item
         Title.Caption = 'STATUSNAME'
+        Title.MultiLine = False
         Width = 80
         FieldName = 'STATUSNAME'
       end    
       item
         Title.Caption = 'ICON'
+        Title.MultiLine = False
         FieldName = 'ICON'
       end>
     DataSource = OrderTypeDS
@@ -70,13 +75,14 @@ inherited forderTypeOptions: TforderTypeOptions
   end
   object eOrderType: TDBComboBox[5]
     Left = 176
-    Height = 21
+    Height = 27
+    Hint = 'Der Typ des Auftrages hiermit wird entschieden ob Spezialeigenschaften gebucht werden'
     Top = 24
-    Width = 175
+    Width = 221
     Anchors = [akTop, akLeft, akRight]
     DataField = 'TYPE'
     DataSource = OrderTypeDS
-    ItemHeight = 13
+    ItemHeight = 0
     Items.Strings = (
       '0 Offer'
       '1 Order'
@@ -93,9 +99,10 @@ inherited forderTypeOptions: TforderTypeOptions
   end
   object eDerivates: TDBEdit[6]
     Left = 176
-    Height = 21
+    Height = 23
+    Hint = 'In welche Vorgangstypen ist der Vorgang wandelbar ?'
     Top = 68
-    Width = 129
+    Width = 142
     DataField = 'DERIVATIVE'
     DataSource = OrderTypeDS
     Anchors = [akTop, akLeft, akRight]
@@ -105,9 +112,10 @@ inherited forderTypeOptions: TforderTypeOptions
   end
   object gbVisibility: TGroupBox[7]
     Left = 176
-    Height = 104
-    Top = 104
-    Width = 284
+    Height = 88
+    Hint = 'Wo soll der Vorgang sichtbar sein ?'
+    Top = 120
+    Width = 297
     Anchors = [akTop, akLeft, akRight]
     Caption = 'Sichtbarkeit'
     ChildSizing.HorizontalSpacing = 3
@@ -115,14 +123,14 @@ inherited forderTypeOptions: TforderTypeOptions
     ChildSizing.EnlargeVertical = crsHomogenousChildResize
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 2
-    ClientHeight = 86
-    ClientWidth = 280
+    ClientHeight = 73
+    ClientWidth = 293
     TabOrder = 3
     object cbSIOrder: TDBCheckBox
       Left = 0
-      Height = 29
+      Height = 25
       Top = 0
-      Width = 137
+      Width = 144
       Caption = 'Vorgang'
       DataField = 'SI_ORDER'
       DataSource = OrderTypeDS
@@ -131,10 +139,10 @@ inherited forderTypeOptions: TforderTypeOptions
       ValueUnchecked = 'N'
     end
     object cbSIPos: TDBCheckBox
-      Left = 140
-      Height = 29
+      Left = 147
+      Height = 25
       Top = 0
-      Width = 140
+      Width = 146
       AutoSize = True
       Caption = 'Kasse'
       DataField = 'SI_POS'
@@ -145,9 +153,9 @@ inherited forderTypeOptions: TforderTypeOptions
     end
     object cbSIProd: TDBCheckBox
       Left = 0
-      Height = 29
-      Top = 29
-      Width = 137
+      Height = 24
+      Top = 25
+      Width = 144
       AutoSize = True
       Caption = 'Produktion'
       DataField = 'SI_PROD'
@@ -157,10 +165,10 @@ inherited forderTypeOptions: TforderTypeOptions
       ValueUnchecked = 'N'
     end
     object cbSIAcc: TDBCheckBox
-      Left = 140
-      Height = 29
-      Top = 29
-      Width = 140
+      Left = 147
+      Height = 24
+      Top = 25
+      Width = 146
       AutoSize = True
       Caption = 'Buchhaltung'
       DataField = 'SI_ACC'
@@ -171,9 +179,9 @@ inherited forderTypeOptions: TforderTypeOptions
     end
     object cbSIINVR: TDBCheckBox
       Left = 0
-      Height = 28
-      Top = 58
-      Width = 137
+      Height = 24
+      Top = 49
+      Width = 144
       AutoSize = True
       Caption = 'Rechnungseingang'
       DataField = 'SI_INVR'
@@ -183,10 +191,10 @@ inherited forderTypeOptions: TforderTypeOptions
       ValueUnchecked = 'N'
     end
     object cbSIINVO: TDBCheckBox
-      Left = 140
-      Height = 28
-      Top = 58
-      Width = 140
+      Left = 147
+      Height = 24
+      Top = 49
+      Width = 146
       AutoSize = True
       Caption = 'Rechnungsausgang'
       DataField = 'SI_INVO'
@@ -344,10 +352,11 @@ inherited forderTypeOptions: TforderTypeOptions
     )
   end
   object eNumberset: TDBEdit[15]
-    Left = 312
-    Height = 21
+    Left = 325
+    Height = 23
+    Hint = 'In welchen Nummernkreis werden die Nummern gebucht ?'
     Top = 68
-    Width = 67
+    Width = 99
     DataField = 'NUMBERSET'
     DataSource = OrderTypeDS
     Anchors = [akTop, akRight]
@@ -356,10 +365,11 @@ inherited forderTypeOptions: TforderTypeOptions
     TabOrder = 11
   end
   object eDefaultPosTyp: TDBEdit[16]
-    Left = 480
-    Height = 21
-    Top = 30
-    Width = 38
+    Left = 436
+    Height = 23
+    Hint = 'Welcher Positionstyp soll Standardmäßig verwendet werden ?'
+    Top = 68
+    Width = 95
     DataField = 'DEFPOSTYP'
     DataSource = OrderTypeDS
     Anchors = [akTop, akRight]
@@ -368,9 +378,10 @@ inherited forderTypeOptions: TforderTypeOptions
     TabOrder = 12
   end
   object cbIsDerivate: TDBCheckBox[17]
-    Left = 360
+    Left = 176
     Height = 19
-    Top = 8
+    Hint = 'Ist der Vorgang ein Untervorgang ?'
+    Top = 96
     Width = 145
     Caption = 'ist Untervorgang'
     DataField = 'ISDERIVATE'
@@ -441,16 +452,18 @@ inherited forderTypeOptions: TforderTypeOptions
     VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel]
   end
   object cbTextTyp: TComboBox[21]
-    Left = 392
-    Height = 21
-    Top = 68
+    Left = 404
+    Height = 27
+    Hint = 'Der Text der aus dem Artikel Standardmäßig in den Vorgang übernommen wird'
+    Top = 24
     Width = 126
-    ItemHeight = 13
+    Anchors = [akTop, akRight]
+    ItemHeight = 0
     OnChange = cbTextTypChange
     TabOrder = 17
   end
   object lvImages: TListView[22]
-    Left = 471
+    Left = 484
     Height = 88
     Top = 120
     Width = 47
@@ -466,7 +479,7 @@ inherited forderTypeOptions: TforderTypeOptions
     OnSelectItem = lvImagesSelectItem
   end
   object Label1: TLabel[23]
-    Left = 471
+    Left = 484
     Height = 13
     Top = 104
     Width = 47
@@ -476,10 +489,11 @@ inherited forderTypeOptions: TforderTypeOptions
     ParentColor = False
   end
   object Label2: TLabel[24]
-    Left = 392
+    Left = 404
     Height = 13
-    Top = 52
-    Width = 85
+    Top = 8
+    Width = 96
+    Anchors = [akTop, akRight]
     Caption = 'Standard Texttyp'
     ParentColor = False
   end
