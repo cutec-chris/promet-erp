@@ -64,7 +64,6 @@ var
   StartTime: TDateTime;
   aTime: Extended;
 begin
-  WriteLn('pop3receiver started...');
   with BaseApplication as IBaseApplication do
     begin
       AppVersion:={$I ../base/version.inc};
@@ -78,7 +77,7 @@ begin
   ArchiveMsg.Free;
   StartTime := Now();
   if SSLImplementation = nil then
-    WriteMessage('warning no SSL Library loaded !');
+    Warning('warning no SSL Library loaded !');
   with Data.Users.DataSet do
     begin
       First;
@@ -346,9 +345,9 @@ begin
              else
                begin
                  if pop.ResultString = '' then
-                   writemessage(strMailLoginFailed)
+                   Error(strMailLoginFailed)
                  else
-                   writemessage(pop.ResultString);
+                   Error(pop.ResultString);
                end;
              pop.Free;
              omailaccounts := omailaccounts+'|';
@@ -403,4 +402,4 @@ begin
   Application.Run;
   Application.Free;
 end.
-
+

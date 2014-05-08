@@ -272,7 +272,10 @@ begin
   if Assigned(FLogger) then
     begin
       if aType = 'INFO' then
-        FLogger.Info(aMsg)
+        begin
+          if FLogger.LogType<>ltSystem then
+            FLogger.Info(aMsg);
+        end
       else if aType = 'WARNING' then
         FLogger.Warning(aMsg)
       else if aType = 'ERROR' then
