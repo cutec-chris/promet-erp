@@ -562,6 +562,7 @@ begin
                         aMessage.Content.DataSet.FieldByName('DATA').AsString:=FLog.Text;
                         aMessage.Content.DataSet.Post;
                         aMessage.Free;
+                        FLog.Clear;
                       end;
                   end;
                 if not SyncDB.CanEdit then SyncDB.DataSet.Edit;
