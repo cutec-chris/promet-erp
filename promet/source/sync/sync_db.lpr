@@ -413,6 +413,7 @@ begin
       AppVersion:={$I ../base/version.inc};
       AppRevision:={$I ../base/revision.inc};
     end;
+  Info('sync_db starting...');
   with BaseApplication,BaseApplication as IBaseDbInterface do
     begin
       if not LoadMandants then
@@ -423,10 +424,9 @@ begin
         raise Exception.Create(strLoginFailed);
       uData.Data := Data;
     end;
+  Info('login ok.');
   DecodeDate(Now(),y,m,d);
   DecodeTime(Now(),h,mm,s,ss);
-  (BaseApplication as IBaseApplication).EventLog.FileName := Format('sync_log_%.4d-%.2d-%.2d %.2d_%.2d_%.2d_%.4d.log',[y,m,d,h,mm,s,ss]);
-  (BaseApplication as IBaseApplication).EventLog.Active:=True;
   SyncDB := TSyncDB.Create(Self,Data);
   SyncDB.CreateTable;
   SyncDB.Open;
@@ -567,8 +567,11 @@ begin
                 if not SyncDB.CanEdit then SyncDB.DataSet.Edit;
                 SyncDB.DataSet.FieldByName('INPROGRESS').AsString := 'N';
                 SyncDB.DataSet.Post;
-              end;
-        end;
+              end
+          else  Info('ignoring:'+SyncDB.FieldByName('NAME').AsString+' (already started)');
+        end
+      else Info('ignoring:'+SyncDB.FieldByName('NAME').AsString);
+
       SyncDB.DataSet.Next;
     end;
   FreeAndNil(FTempDataSet);
