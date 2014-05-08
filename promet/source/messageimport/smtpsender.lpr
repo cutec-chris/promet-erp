@@ -7,7 +7,8 @@ uses
   Classes, SysUtils, CustApp, uBaseCustomApplication, pcmdprometapp,
   pmimemessages, synautil, smtpsend, mimemess, mimepart, uMessages,
   uData, uBaseDBInterface, uPerson, ssl_openssl, laz_synapse,
-  uDocuments,uMimeMessages,uBaseApplication,LConvEncoding,uBaseDbClasses;
+  uDocuments,uMimeMessages,uBaseApplication,LConvEncoding,uBaseDbClasses,
+  blcksock;
 resourcestring
   strActionMessageSend             = '%s - gesendet';
   strActionMessageSend2            = 'Nachricht gesendet';
@@ -28,20 +29,22 @@ var
   i: Integer;
   StartTime: TDateTime;
 begin
-  WriteLn('smtpsender started...');
   with BaseApplication as IBaseApplication do
     begin
       AppVersion:={$I ../base/version.inc};
       AppRevision:={$I ../base/revision.inc};
     end;
+  Info('smtpsender started...');
   if not Login then
     begin
       Terminate;
       exit;
     end;
-  WriteLn('Login OK');
+  Info('login ok');
   RegisterMessageHandler;
   MessageHandler.RegisterCommandHandler(@Commandreceived);
+  if SSLImplementation = nil then
+    Warning('warning no SSL Library loaded !');
   StartTime := Now();
   while not Terminated do
     begin
@@ -129,10 +132,10 @@ begin
           Data.SetFilter(MessageIndex,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(IntToStr(TREE_ID_SEND_MESSAGES))+' AND ('+Data.ProcessTerm(Data.QuoteField('SENDER')+'='+Data.QuoteValue('*'+smtp.UserName+'*'))+') and '+Data.QuoteField('READ')+'='+Data.QuoteValue('N'));
           if (MessageIndex.Count > 0) and (copy(mailaccounts,0,pos(';',mailaccounts)-1)= 'YES') then
             begin
-              WriteLn('Login to Server:'+SMTP.TargetHost+' user:'+smtp.UserName);
+              Info('Login to Server:'+SMTP.TargetHost+' user:'+smtp.UserName);
               if SMTP.Login then
                 begin
-                  WriteLn('Login OK');
+                  Info('Login OK');
                   while not MessageIndex.DataSet.EOF do
                     begin
                       aMessage.SelectFromLink(Data.BuildLink(MessageIndex.DataSet));
@@ -140,7 +143,7 @@ begin
                       if aMessage.Count>0 then
                       with aMessage.DataSet do
                         begin
-                          WriteLn('Mail from:'+GetemailAddr(FieldByName('SENDER').AsString));
+                          Info('Mail from:'+GetemailAddr(FieldByName('SENDER').AsString));
                           if SMTP.MailFrom(GetemailAddr(FieldByName('SENDER').AsString),0) then
                             begin
                               Mime := TMimeMess.Create;
@@ -152,7 +155,7 @@ begin
                               ReceiversOK := True;
                               for i := 0 to Mime.Header.ToList.Count-1 do
                                 begin
-                                  WriteLn('Mail To:'+getemailaddr(Mime.Header.ToList[i]));
+                                  Info('Mail To:'+getemailaddr(Mime.Header.ToList[i]));
                                   if  (getemailaddr(Mime.Header.ToList[i]) <> '')
                                   and (pos('@',getemailaddr(Mime.Header.ToList[i])) > 0) then
                                     begin
@@ -160,7 +163,7 @@ begin
                                         begin
                                           ReceiversOk := False;
                                           res := SMTP.FullResult.Text;
-                                          WriteLn('failed:'+res);
+                                          Error('failed:'+res);
                                         end;
                                     end;
                                 end;
@@ -252,7 +255,7 @@ begin
                           else
                             begin
                               res := SMTP.FullResult.Text;
-                              WriteLn('failed:'+res);
+                              Error('failed:'+res);
                               aMessage.History.Open;
                               aMessage.History.AddItem(aMessage.DataSet,Format(strActionMessageSendFailed,[res]),
                                                         Data.BuildLink(MessageIndex.DataSet),

@@ -37,7 +37,6 @@ type
     pop: TPOP3Send;
   protected
     procedure DoRun; override;
-    procedure WriteMessage(s : string);
     function AskForBigMail: Boolean;
     function CommandReceived(Sender: TObject; aCommand: string): Boolean;
     procedure ReceiveMails(aUser : string);
@@ -70,6 +69,7 @@ begin
       AppRevision:={$I ../base/revision.inc};
     end;
   if not Login then Terminate;
+  Info('login ok');
   RegisterMessageHandler;
   MessageHandler.RegisterCommandHandler(@Commandreceived);
   ArchiveMsg := TArchivedMessage.Create(nil,Data);
@@ -90,11 +90,6 @@ begin
   // stop program loop
   if not Terminated then
     Terminate;
-end;
-
-procedure TPOP3Receiver.WriteMessage(s: string);
-begin
-  writeln(s);
 end;
 
 function TPOP3Receiver.AskForBigMail: Boolean;
@@ -172,7 +167,7 @@ begin
               pop.TargetPort := copy(pop.TargetHost,pos(':',pop.TargetHost)+1,length(pop.TargetHost));
               pop.TargetHost := copy(pop.TargetHost,0,pos(':',pop.TargetHost)-1);
             end;
-          writemessage(Format(strReceivingMailsFrom,[copy(mailaccounts,0,pos(';',mailaccounts)-1)]));
+          Info(Format(strReceivingMailsFrom,[copy(mailaccounts,0,pos(';',mailaccounts)-1)]));
           mailaccounts := copy(mailaccounts,pos(';',mailaccounts)+1,length(mailaccounts));
           pop.UserName := copy(mailaccounts,0,pos(';',mailaccounts)-1);
           mailaccounts := copy(mailaccounts,pos(';',mailaccounts)+1,length(mailaccounts));
@@ -217,7 +212,7 @@ begin
           if copy(mailaccounts,0,pos(';',mailaccounts)-1) = 'YES' then
             if pop.Login then
               begin
-                writemessage(strLoginComplete);
+                Info(strLoginComplete);
                 pop.Uidl(0);
                 MList := TStringList.Create;
                 MList.Assign(pop.FullResult);
@@ -281,7 +276,7 @@ begin
                         end;
                       if DoDownload then
                         begin
-                          writemessage(Format(strRecivingMessageXofX,[i,MList.Count]));
+                          Info(Format(strRecivingMessageXofX,[i,MList.Count]));
                           pop.Top(MID,0); //Header holen
                           msg := TMimeMess.Create;
                           msg.Lines.Text:=pop.FullResult.Text;
@@ -311,6 +306,7 @@ begin
                                 end
                               else
                                 begin
+                                  Error('error getting Message, retry at next time');
                                   ReplaceOMailAccounts := False;
                                   break;
                                 end;

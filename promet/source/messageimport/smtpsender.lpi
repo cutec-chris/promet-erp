@@ -62,8 +62,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="39"/>
-        <CursorPos X="20" Y="42"/>
+        <TopLine Value="1"/>
+        <CursorPos X="5" Y="11"/>
         <UsageCount Value="60"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -443,123 +443,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="../base_messaging/umimemessages.pas"/>
-        <Caret Line="206" Column="1" TopLine="187"/>
+        <Caret Line="209" Column="28" TopLine="186"/>
       </Position1>
       <Position2>
-        <Filename Value="../base_messaging/umimemessages.pas"/>
-        <Caret Line="208" Column="1" TopLine="187"/>
+        <Filename Value="smtpsender.lpr"/>
+        <Caret Line="145" Column="1" TopLine="129"/>
       </Position2>
       <Position3>
         <Filename Value="../base_messaging/umimemessages.pas"/>
-        <Caret Line="209" Column="1" TopLine="187"/>
+        <Caret Line="193" Column="1" TopLine="186"/>
       </Position3>
       <Position4>
         <Filename Value="../base_messaging/umimemessages.pas"/>
-        <Caret Line="210" Column="1" TopLine="187"/>
+        <Caret Line="194" Column="1" TopLine="186"/>
       </Position4>
       <Position5>
         <Filename Value="../base_messaging/umimemessages.pas"/>
-        <Caret Line="211" Column="1" TopLine="187"/>
+        <Caret Line="195" Column="1" TopLine="186"/>
       </Position5>
       <Position6>
         <Filename Value="../base_messaging/umimemessages.pas"/>
-        <Caret Line="213" Column="1" TopLine="187"/>
+        <Caret Line="196" Column="1" TopLine="186"/>
       </Position6>
       <Position7>
         <Filename Value="../base_messaging/umimemessages.pas"/>
-        <Caret Line="215" Column="1" TopLine="188"/>
+        <Caret Line="197" Column="1" TopLine="186"/>
       </Position7>
       <Position8>
         <Filename Value="../base_messaging/umimemessages.pas"/>
-        <Caret Line="209" Column="28" TopLine="186"/>
+        <Caret Line="198" Column="1" TopLine="186"/>
       </Position8>
       <Position9>
-        <Filename Value="smtpsender.lpr"/>
-        <Caret Line="145" Column="1" TopLine="129"/>
+        <Filename Value="../base_messaging/umimemessages.pas"/>
+        <Caret Line="199" Column="1" TopLine="186"/>
       </Position9>
       <Position10>
         <Filename Value="../base_messaging/umimemessages.pas"/>
-        <Caret Line="193" Column="1" TopLine="186"/>
+        <Caret Line="200" Column="1" TopLine="186"/>
       </Position10>
       <Position11>
         <Filename Value="../base_messaging/umimemessages.pas"/>
-        <Caret Line="194" Column="1" TopLine="186"/>
+        <Caret Line="201" Column="1" TopLine="186"/>
       </Position11>
       <Position12>
         <Filename Value="../base_messaging/umimemessages.pas"/>
-        <Caret Line="195" Column="1" TopLine="186"/>
+        <Caret Line="202" Column="1" TopLine="186"/>
       </Position12>
       <Position13>
         <Filename Value="../base_messaging/umimemessages.pas"/>
-        <Caret Line="196" Column="1" TopLine="186"/>
+        <Caret Line="203" Column="1" TopLine="186"/>
       </Position13>
       <Position14>
         <Filename Value="../base_messaging/umimemessages.pas"/>
-        <Caret Line="197" Column="1" TopLine="186"/>
+        <Caret Line="204" Column="1" TopLine="186"/>
       </Position14>
       <Position15>
         <Filename Value="../base_messaging/umimemessages.pas"/>
-        <Caret Line="198" Column="1" TopLine="186"/>
+        <Caret Line="206" Column="1" TopLine="186"/>
       </Position15>
       <Position16>
         <Filename Value="../base_messaging/umimemessages.pas"/>
-        <Caret Line="199" Column="1" TopLine="186"/>
+        <Caret Line="208" Column="1" TopLine="186"/>
       </Position16>
       <Position17>
         <Filename Value="../base_messaging/umimemessages.pas"/>
-        <Caret Line="200" Column="1" TopLine="186"/>
+        <Caret Line="209" Column="1" TopLine="186"/>
       </Position17>
       <Position18>
         <Filename Value="../base_messaging/umimemessages.pas"/>
-        <Caret Line="201" Column="1" TopLine="186"/>
+        <Caret Line="210" Column="1" TopLine="186"/>
       </Position18>
       <Position19>
         <Filename Value="../base_messaging/umimemessages.pas"/>
-        <Caret Line="202" Column="1" TopLine="186"/>
+        <Caret Line="211" Column="1" TopLine="186"/>
       </Position19>
       <Position20>
         <Filename Value="../base_messaging/umimemessages.pas"/>
-        <Caret Line="203" Column="1" TopLine="186"/>
+        <Caret Line="213" Column="1" TopLine="186"/>
       </Position20>
       <Position21>
         <Filename Value="../base_messaging/umimemessages.pas"/>
-        <Caret Line="204" Column="1" TopLine="186"/>
+        <Caret Line="215" Column="1" TopLine="188"/>
       </Position21>
       <Position22>
         <Filename Value="../base_messaging/umimemessages.pas"/>
-        <Caret Line="206" Column="1" TopLine="186"/>
+        <Caret Line="217" Column="1" TopLine="190"/>
       </Position22>
       <Position23>
         <Filename Value="../base_messaging/umimemessages.pas"/>
-        <Caret Line="208" Column="1" TopLine="186"/>
+        <Caret Line="218" Column="1" TopLine="191"/>
       </Position23>
       <Position24>
-        <Filename Value="../base_messaging/umimemessages.pas"/>
-        <Caret Line="209" Column="1" TopLine="186"/>
+        <Filename Value="smtpsender.lpr"/>
+        <Caret Line="21" Column="15" TopLine="1"/>
       </Position24>
       <Position25>
-        <Filename Value="../base_messaging/umimemessages.pas"/>
-        <Caret Line="210" Column="1" TopLine="186"/>
+        <Filename Value="smtpsender.lpr"/>
+        <Caret Line="134" Column="19" TopLine="103"/>
       </Position25>
       <Position26>
-        <Filename Value="../base_messaging/umimemessages.pas"/>
-        <Caret Line="211" Column="1" TopLine="186"/>
+        <Filename Value="smtpsender.lpr"/>
+        <Caret Line="137" Column="23" TopLine="106"/>
       </Position26>
       <Position27>
-        <Filename Value="../base_messaging/umimemessages.pas"/>
-        <Caret Line="213" Column="1" TopLine="186"/>
+        <Filename Value="smtpsender.lpr"/>
+        <Caret Line="145" Column="31" TopLine="114"/>
       </Position27>
       <Position28>
-        <Filename Value="../base_messaging/umimemessages.pas"/>
-        <Caret Line="215" Column="1" TopLine="188"/>
+        <Filename Value="smtpsender.lpr"/>
+        <Caret Line="157" Column="39" TopLine="126"/>
       </Position28>
       <Position29>
-        <Filename Value="../base_messaging/umimemessages.pas"/>
-        <Caret Line="217" Column="1" TopLine="190"/>
+        <Filename Value="smtpsender.lpr"/>
+        <Caret Line="165" Column="48" TopLine="134"/>
       </Position29>
       <Position30>
-        <Filename Value="../base_messaging/umimemessages.pas"/>
-        <Caret Line="218" Column="1" TopLine="191"/>
+        <Filename Value="smtpsender.lpr"/>
+        <Caret Line="11" Column="12" TopLine="1"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
