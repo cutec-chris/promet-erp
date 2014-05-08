@@ -51,6 +51,6 @@ cat downloads.txt | \
       -e "s/TOOLSD32_SIZE/$ToolsDeb32Size Mb/g" \
       -e "s/CREATEDDATE/$Date/g" \
   > act_downloads.txt
-../output/x86_64-linux/changewikipage --mandant=Stora Promet-ERP/dowloadplattforms/linux i386-win32/downloads_linux32.txt
-../output/x86_64-linux/changewikipage --mandant=Stora Promet-ERP/changes ../source/base/changes.txt
-../output/x86_64-linux/tools/sync_db --mandant=Stora
+../../output/x86_64-linux/changewikipage --mandant=Stora Promet-ERP/dowloadplattforms/linux i386-win32/downloads_linux32.txt
+../../output/x86_64-linux/changewikipage --mandant=Stora Promet-ERP/changes ../source/base/changes.txt
+../../output/x86_64-linux/tools/sync_db --mandant=Stora

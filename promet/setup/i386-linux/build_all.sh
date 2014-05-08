@@ -61,3 +61,10 @@ sh build_rpm.sh $Widgetset $Program $Version $Arch $Archfpc $Date $BuildDir $Tmp
 cp /tmp/*.rpm ../output
 sudo -S rm /tmp/*.rpm
 sudo -S rm /tmp/*.deb
+sh upload_lin.sh $Arch $Archfpc
+if [ $Arch = amd64 ]; then
+  sh change_wiki_linux64.sh
+fi
+if [ $Arch = i386 ]; then
+  sh change_wiki_linux.sh
+fi

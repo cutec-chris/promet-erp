@@ -5,12 +5,6 @@ Version=$(echo $Version | sed 's/\n//g');
 Arch=`dpkg --print-architecture`
 Archfpc=$(fpc -h | grep 'Compiler version' | sed 's/.*for \([^ ]\+\)$/\1/')
 Date=`date`
-WinSize=$(ls -s --block-size=1048576 "output/promet-erp_$(echo $Version)_i386-win32.exe" | cut -d' ' -f1)
-WinToolsSize=$(ls -s --block-size=1048576 "output/promet-erp-tools_$(echo $Version)_i386-win32.exe" | cut -d' ' -f1)
-WinTRSize=$(ls -s --block-size=1048576 "output/promet-erp-timeregistering_$(echo $Version)_i386-win32.exe" | cut -d' ' -f1)
-WinPDBSize=$(ls -s --block-size=1048576 "output/db_setup_postgres.exe" | cut -d' ' -f1)
-WinSizeK=$(ls -s --block-size=1024 "output/promet-erp_$(echo $Version)_i386-win32.exe" | cut -d' ' -f1)
-WinSizeB=$(ls -s --block-size=1 "output/promet-erp_$(echo $Version)_i386-win32.exe" | cut -d' ' -f1)
 Rpm64Size=$(ls -s --block-size=1048576 "output/promet-erp-$(echo $Version)-2.x86_64.rpm" | cut -d' ' -f1)
 Rpm32Size=$(ls -s --block-size=1048576 "output/promet-erp-$(echo $Version)-2.i386.rpm" | cut -d' ' -f1)
 Deb64Size=$(ls -s --block-size=1048576 "output/promet-erp_$(echo $Version)_amd64-gtk2.deb" | cut -d' ' -f1)
@@ -57,6 +51,6 @@ cat downloads.txt | \
       -e "s/TOOLSD32_SIZE/$ToolsDeb32Size Mb/g" \
       -e "s/CREATEDDATE/$Date/g" \
   > act_downloads.txt
-../output/x86_64-linux/changewikipage --mandant=Stora Promet-ERP/downloadplattforms/linux64 i386-win32/downloads_linux64.txt
-../output/x86_64-linux/changewikipage --mandant=Stora Promet-ERP/changes ../source/base/changes.txt
-../output/x86_64-linux/tools/sync_db --mandant=Stora
+../../output/x86_64-linux/changewikipage --mandant=Stora Promet-ERP/dowloadplattforms/linux64 i386-win32/downloads_linux64.txt
+../../output/x86_64-linux/changewikipage --mandant=Stora Promet-ERP/changes ../source/base/changes.txt
+../../output/x86_64-linux/tools/sync_db --mandant=Stora
