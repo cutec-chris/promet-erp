@@ -325,6 +325,7 @@ begin
         end;
       aProject.Free;
     end;
+  bRefresh.Click;
 end;
 
 procedure TfProjectOVFrame.bMonthViewClick(Sender: TObject);

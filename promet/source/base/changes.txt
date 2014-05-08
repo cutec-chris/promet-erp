@@ -1,6 +1,7 @@
 ﻿Build 337
       - Outlook Synchronisation: in 3 executables für Aufgaben,Kalendar und Kontakte aufgetrennt
       - Optionen:Verbindungstests funktionieren nun
+      - Projeke:Projektübersicht eingeführt diese zeigt in einer Kalenderansicht Projekte nach Priorität geordnet
 Build 336
       - e-Mails werden mit korrekter Referenz gesendet und empfangen, zudem werden in der Narichtenzentrale richtige Threads aus e-Mails angelegt
 Build 335
