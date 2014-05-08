@@ -38,7 +38,6 @@ type
     acCancel: TAction;
     acClose: TAction;
     acDelete: TAction;
-    acOpen: TAction;
     acSave: TAction;
     acExport: TAction;
     acImport: TAction;
@@ -47,7 +46,7 @@ type
     acRestart: TAction;
     acGotoParent: TAction;
     acExecute: TAction;
-    acShowInProjectGantt: TAction;
+    acShowProjectGantt: TAction;
     acShowProject: TAction;
     acHigherPrio: TAction;
     acLowerPrio: TAction;
@@ -57,6 +56,7 @@ type
     bDelegated2: TSpeedButton;
     bDelegated3: TSpeedButton;
     bDelegated4: TSpeedButton;
+    bDelegated5: TSpeedButton;
     Bevel10: TBevel;
     Bevel11: TBevel;
     Bevel5: TBevel;
@@ -73,6 +73,7 @@ type
     Label8: TLabel;
     lDate: TLabel;
     MenuItem1: TMenuItem;
+    MenuItem2: TMenuItem;
     miCopy: TMenuItem;
     MenuItem6: TMenuItem;
     MenuItem3: TMenuItem;
@@ -105,6 +106,8 @@ type
     procedure acCancelExecute(Sender: TObject);
     procedure acHigherPrioExecute(Sender: TObject);
     procedure acLowerPrioExecute(Sender: TObject);
+    procedure acShowProjectExecute(Sender: TObject);
+    procedure acShowProjectGanttExecute(Sender: TObject);
     procedure acUseExecute(Sender: TObject);
     procedure aIntDrawBackground(Sender: TObject; aCanvas: TCanvas;
       aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
@@ -142,7 +145,7 @@ var
   MainNode : TTreeNode;
 implementation
 uses uData,uBaseDBInterface,uBaseERPDBClasses,uCalendar,uMainTreeFrame,uTaskPlan,
-  LCLProc;
+  LCLProc,uGanttView;
 resourcestring
   strProjectOverview                                    = 'Projektübersicht';
 {$R *.lfm}
@@ -171,10 +174,10 @@ begin
   FRough.MajorScale:=tsWeekNum;
   FRough.Calendar.StartDate:=FRough.Calendar.StartDate;
 end;
+
 procedure TfProjectOVFrame.bDelegated2Click(Sender: TObject);
 begin
-  if Assigned(FRough.Tree.Objects[0,FRough.Tree.Row]) then
-    Data.GotoLink('PROJECTS@'+IntToStr(TInterval(FRough.Tree.Objects[0,FRough.Tree.Row]).Id));
+
 end;
 
 procedure TfProjectOVFrame.bParentProjectsClick(Sender: TObject);
@@ -295,6 +298,33 @@ begin
   aProjects.Free;
   aState.Free;
   bRefresh.Click;
+end;
+
+procedure TfProjectOVFrame.acShowProjectExecute(Sender: TObject);
+begin
+  if Assigned(FRough.Tree.Objects[0,FRough.Tree.Row]) then
+    Data.GotoLink('PROJECTS@'+IntToStr(TInterval(FRough.Tree.Objects[0,FRough.Tree.Row]).Id));
+end;
+
+procedure TfProjectOVFrame.acShowProjectGanttExecute(Sender: TObject);
+var
+  aProject: TProject;
+  aLink: String;
+begin
+  if Assigned(FRough.Tree.Objects[0,FRough.Tree.Row]) then
+    begin
+      aProject := TProject.Create(nil,Data);
+      aLink := 'PROJECTS@'+IntToStr(TInterval(FRough.Tree.Objects[0,FRough.Tree.Row]).Id);
+      aProject.SelectFromLink(aLink);
+      aProject.Open;
+      if aProject.Count>0 then
+        begin
+          aProject.Tasks.SelectActive;
+          aProject.Tasks.Open;
+          fGanttView.Execute(aProject);
+        end;
+      aProject.Free;
+    end;
 end;
 
 procedure TfProjectOVFrame.bMonthViewClick(Sender: TObject);
