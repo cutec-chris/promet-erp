@@ -36,13 +36,14 @@ type
 
 procedure PrometCmdApp.DoRun;
 begin
-  WriteLn('twitterreceiver started...');
   with BaseApplication as IBaseApplication do
     begin
       AppVersion:={$I ../base/version.inc};
       AppRevision:={$I ../base/revision.inc};
     end;
+  Info('twitterreceiver started...');
   if not Login then Terminate;
+  Info('login ok...');
   //Your logged in here on promet DB
   with Data.Users.DataSet do
     begin
@@ -77,10 +78,9 @@ begin
   http := THTTPSend.Create;
   try
   http.UserAgent:='Mozilla/5.0 (Windows NT 5.1; rv:6.0.2)';
-  Write('getting '+OutFile+' ...');
+  Info('getting '+OutFile+' ...');
   http.Timeout:=1000;
   http.HTTPMethod('GET',OutFile);
-  WriteLn('->OK');
   if http.ResultCode=200 then
     begin
       Document := TDocument.Create(Self,Data);
@@ -151,7 +151,7 @@ begin
           //https://friends.ullihome.de/api/statuses/home_timeline.xml?count=5
           //https://friends.ullihome.de/api/statuses/home_timeline.xml?since_id=123455
           http.UserAgent:='Mozilla/5.0 (Windows NT 5.1; rv:6.0.2)';
-          writeln('Importing Twitter Feed '+copy(mailaccounts,0,pos(';',mailaccounts)-1));
+          Info('Importing Twitter Feed '+copy(mailaccounts,0,pos(';',mailaccounts)-1));
           purl := copy(mailaccounts,0,pos(';',mailaccounts)-1);
           mailaccounts := copy(mailaccounts,pos(';',mailaccounts)+1,length(mailaccounts));
           http.UserName := copy(mailaccounts,0,pos(';',mailaccounts)-1);
@@ -255,7 +255,7 @@ begin
                                     begin
                                       inc(Retry,2);
                                       Somethingimported:=True;
-                                      Writeln('new Entry from '+author);
+                                      Info('new Entry from '+author);
                                       Customers.History.AddItem(Customers.DataSet,text,'',author,nil,ACICON_EXTERNALCHANGED,'',False,False);
                                       Customers.History.TimeStamp.AsDateTime:=aTime;
                                       Customers.History.FieldByName('REFOBJECT').AsString:=aCat;
@@ -277,7 +277,7 @@ begin
                                             //ReplaceOmailaccounts:=False;
                                             aId := TJSONObject(jData.Items[i]).Elements['id'].AsString;
                                             jData.Items[i] := nil;
-                                            WriteLn(e.Message);
+                                            Error(e.Message);
                                           end;
                                       end;
                                     end
@@ -293,7 +293,7 @@ begin
                                           aHist.Edit;
                                           aHist.FieldByName('READ').AsString:='N';
                                           aHist.Post;
-                                          WriteLn('new Subentry from '+author);
+                                          Info('new Subentry from '+author);
                                           Customers.History.AddParentedItem(Customers.DataSet,text,aHist.Id.AsVariant,'',author,nil,ACICON_EXTERNALCHANGED,'',False,False);
                                           Customers.History.TimeStamp.AsDateTime:=aTime;
                                           Customers.History.FieldByName('REFOBJECT').AsString:=aCat;
@@ -315,7 +315,7 @@ begin
                                                 //ReplaceOmailaccounts:=False;
                                                 aId := TJSONObject(jData.Items[i]).Elements['id'].AsString;
                                                 jData.Items[i] := nil;
-                                                WriteLn(e.Message);
+                                                Error(e.Message);
                                               end;
                                           end;
                                         end
@@ -336,7 +336,6 @@ begin
                   for i := 0 to jData.Count-1 do
                     if Assigned(jData.Items[i]) then
                       inc(Retry);
-                  writeln('retrying '+IntToStr(Retry));
                 end;
               if aId <> '' then
                 begin
