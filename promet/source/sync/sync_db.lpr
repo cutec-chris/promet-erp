@@ -558,7 +558,7 @@ begin
                         aMessage.DataSet.FieldByName('READ').AsString := 'N';
                         aMessage.DataSet.Post;
                         aMessage.Content.Insert;
-                        aMessage.Content.DataSet.FieldByName('DATATYP').AsString:='TEXT';
+                        aMessage.Content.DataSet.FieldByName('DATATYP').AsString:='PLAIN';
                         aMessage.Content.DataSet.FieldByName('DATA').AsString:=FLog.Text;
                         aMessage.Content.DataSet.Post;
                         aMessage.Free;
