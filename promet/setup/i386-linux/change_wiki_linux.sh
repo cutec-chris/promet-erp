@@ -1,6 +1,6 @@
 #!/bin/bash
-lazbuild ../source/tools/changewikipage.lpi
-Version=$(sed 's/\r//g' ../source/base/version.inc).$(sed 's/\r//g' ../source/base/revision.inc)
+lazbuild ../../source/tools/changewikipage.lpi
+Version=$(sed 's/\r//g' ../../source/base/version.inc).$(sed 's/\r//g' ../../source/base/revision.inc)
 Version=$(echo $Version | sed 's/\n//g');
 Arch=`dpkg --print-architecture`
 Archfpc=$(fpc -h | grep 'Compiler version' | sed 's/.*for \([^ ]\+\)$/\1/')
@@ -51,6 +51,6 @@ cat downloads.txt | \
       -e "s/TOOLSD32_SIZE/$ToolsDeb32Size Mb/g" \
       -e "s/CREATEDDATE/$Date/g" \
   > act_downloads.txt
-../../output/x86_64-linux/changewikipage --mandant=Stora Promet-ERP/dowloadplattforms/linux i386-win32/downloads_linux32.txt
+../../output/x86_64-linux/changewikipage --mandant=Stora Promet-ERP/dowloadplattforms/linux i386-linux/downloads_linux32.txt
 ../../output/x86_64-linux/changewikipage --mandant=Stora Promet-ERP/changes ../source/base/changes.txt
 ../../output/x86_64-linux/tools/sync_db --mandant=Stora

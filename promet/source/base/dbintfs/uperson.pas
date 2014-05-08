@@ -515,7 +515,9 @@ var
        (lowercase(copy(Addr[0],0,length(aTitle)+1)) = aTitle+#10)
     or (lowercase(copy(Addr[0],0,length(aTitle)+1)) = aTitle+#13)
     or (lowercase(copy(Addr[0],0,length(aTitle)+1)) = aTitle+' ')
-    or (lowercase(copy(Addr[0],0,length(aTitle)+1)) = aTitle+'.');
+    or (lowercase(copy(Addr[0],0,length(aTitle)+1)) = aTitle+'.')
+    or (lowercase(Addr[0]) = aTitle)
+    ;
   end;
 begin
   Addr := TStringList.Create;

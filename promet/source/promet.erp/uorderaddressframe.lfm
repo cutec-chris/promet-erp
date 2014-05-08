@@ -11,7 +11,7 @@ object fOrderAddress: TfOrderAddress
   DesignTop = 335
   object cbType: TComboBox
     Left = 28
-    Height = 28
+    Height = 27
     Top = 4
     Width = 198
     Align = alTop
@@ -25,8 +25,8 @@ object fOrderAddress: TfOrderAddress
   end
   object mAddress: TMemo
     Left = 28
-    Height = 58
-    Top = 36
+    Height = 59
+    Top = 35
     Width = 198
     Align = alClient
     BorderSpacing.Left = 24
@@ -95,6 +95,7 @@ object fOrderAddress: TfOrderAddress
   object bAdressNew2: TSpeedButton
     Left = 2
     Height = 23
+    Hint = 'zu Kontakt gehen'
     Top = 49
     Width = 24
     Action = acGotoAddress
@@ -227,7 +228,7 @@ object fOrderAddress: TfOrderAddress
     Layout = blGlyphTop
     ShowCaption = False
   end
-  object Datasource: TDataSource
+  object Datasource: TDatasource
     OnStateChange = DatasourceStateChange
     left = 40
     top = 56

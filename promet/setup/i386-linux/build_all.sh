@@ -53,11 +53,11 @@ if [ ! -f ../../output/$Archfpc-linux/cdmenue ];
 then
     exit
 fi
-sh build_deb_2.sh $Widgetset $Program $Version $Arch $Archfpc $Date $BuildDir $TmpDir #statistics
-sh build_deb_3.sh $Widgetset $Program $Version $Arch $Archfpc $Date $BuildDir $TmpDir #tools
-sh build_deb_4.sh $Widgetset $Program $Version $Arch $Archfpc $Date $BuildDir $TmpDir #timeregistering
-sh build_deb_5.sh $Widgetset $Program $Version $Arch $Archfpc $Date $BuildDir $TmpDir #web
-sh build_rpm.sh $Widgetset $Program $Version $Arch $Archfpc $Date $BuildDir $TmpDir
+#sh build_deb_2.sh $Widgetset $Program $Version $Arch $Archfpc $Date $BuildDir $TmpDir #statistics
+#sh build_deb_3.sh $Widgetset $Program $Version $Arch $Archfpc $Date $BuildDir $TmpDir #tools
+#sh build_deb_4.sh $Widgetset $Program $Version $Arch $Archfpc $Date $BuildDir $TmpDir #timeregistering
+#sh build_deb_5.sh $Widgetset $Program $Version $Arch $Archfpc $Date $BuildDir $TmpDir #web
+#sh build_rpm.sh $Widgetset $Program $Version $Arch $Archfpc $Date $BuildDir $TmpDir
 cp /tmp/*.rpm ../output
 sudo -S rm /tmp/*.rpm
 sudo -S rm /tmp/*.deb

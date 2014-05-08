@@ -1859,7 +1859,7 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
-            Add('NAME',ftString,30,False);
+            Add('NAME',ftString,160,False);
             Add('ADRESS',ftMemo,0,False);
             Add('SORTCODE',ftString,20,False);
             Add('ACCOUNT',ftString,200,False);
@@ -2710,4 +2710,4 @@ begin
 end;
 initialization
 end.
-
+

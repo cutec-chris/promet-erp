@@ -168,6 +168,7 @@ type
     FOpenLink : string;
     procedure DoOpenLink(Data : PtrInt);
     procedure AddAdditional(Sender : TObject);
+    procedure AddDates(Sender: TObject);
     procedure AddOverview(Sender : TObject);
     procedure AddHistory(Sender : TObject);
     procedure AddDocuments(Sender : TObject);
@@ -472,12 +473,22 @@ begin
 end;
 procedure TfOrderFrame.ActiveSearchEndItemSearch(Sender: TObject);
 begin
-  if not ActiveSearch.Active then
+  //if not ActiveSearch.Active then
     begin
       if ActiveSearch.Count=0 then
         pSearch.Visible:=False;
     end;
 end;
+
+procedure TfOrderFrame.AddDates(Sender: TObject);
+begin
+  with Sender as TfOrderDateFrame do
+    begin
+      IsNeeded(FDataSet.DataSet);
+      SetRights(FEditable);
+    end;
+end;
+
 procedure TfOrderFrame.cbPaymentTargetSelect(Sender: TObject);
 begin
   if Data.PaymentTargets.DataSet.Locate('TEXT',cbPaymentTarget.Text,[]) then
@@ -752,7 +763,7 @@ begin
   pcHeader.AddTabClass(TfOrderOverviewFrame,strOverview,@AddOverview);
   if FDataSet.Count > 1 then
     pcHeader.AddTab(TfOrderOverviewFrame.Create(Self),False);
-  pcHeader.AddTabClass(TfOrderDateFrame,strDates);
+  pcHeader.AddTabClass(TfOrderDateFrame,strDates,@AddDates);
   aFrame := TfOrderDateFrame.Create(Self);
   if TfOrderDateFrame(aFrame).IsNeeded(FDataSet.DataSet) then
     begin

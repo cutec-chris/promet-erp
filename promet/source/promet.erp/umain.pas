@@ -3572,10 +3572,13 @@ procedure TfMain.DoRefreshActiveTab(Sender: TObject);
 begin
   if WindowState = wsMinimized then exit;
   if not Visible then exit;
+  try
   if Assigned(pcPages.ActivePage) then
     if pcPages.ActivePage.ControlCount > 0 then
       if pcPages.ActivePage.Controls[0] is TExtControlFrame then
         TExtControlFrame(pcPages.ActivePage.Controls[0]).DoRefresh;
+  except
+  end;
 end;
 procedure TfMain.SearchTimerTimer(Sender: TObject);
 begin
