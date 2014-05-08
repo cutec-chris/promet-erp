@@ -23,8 +23,6 @@ type
     Message : TMessage;
     aConnection: TComponent;
     procedure DoRun; override;
-    procedure WriteMessage(s : string);
-    procedure WriteWarning(s : string);
     function CommandReceived(Sender: TObject; aCommand: string): Boolean;
     procedure ReceiveMails(aUser : string);
     function GetSingleInstance : Boolean; override;
@@ -38,55 +36,32 @@ var
   StartTime: TDateTime;
   aTime: Extended;
 begin
-  WriteLn('feedreceiver started...');
   with BaseApplication as IBaseApplication do
     begin
       AppVersion:={$I ../base/version.inc};
       AppRevision:={$I ../base/revision.inc};
     end;
+  Info('feedreceiver started...');
   if not Login then Terminate;
+  Info('login ok');
   RegisterMessageHandler;
   MessageHandler.RegisterCommandHandler(@Commandreceived);
   StartTime := Now();
-{  while not Terminated do
+  with Data.Users.DataSet do
     begin
-      aTime := (Now()-StartTime);
-      if aTime > ((1/HoursPerDay)*2) then break;
-}
-      with Data.Users.DataSet do
+      First;
+      while not EOF do
         begin
-          First;
-          while not EOF do
-            begin
-              try
-                ReceiveMails(FieldByName('NAME').AsString);
-              except
-              end;
-              Next;
-            end;
-        end;
-{
-      if HasOption('o','onerun') then break;
-      for i := 0 to 1000 do
-        begin
-          sleep(60*6);
-          if Terminated then break;
+          try
+            ReceiveMails(FieldByName('NAME').AsString);
+          except
+          end;
+          Next;
         end;
     end;
-}
-  // stop program loop
   Terminate;
 end;
 
-procedure TRSSReceiver.WriteMessage(s: string);
-begin
-  writeln(s);
-end;
-
-procedure TRSSReceiver.WriteWarning(s: string);
-begin
-  writeln('Warning:'+s);
-end;
 function TRSSReceiver.CommandReceived(Sender: TObject; aCommand: string
   ): Boolean;
 var
@@ -132,7 +107,7 @@ begin
   MessageIndex := TMessageList.Create(Self,Data,aConnection);
   Message := TMessage.Create(Self,Data,aConnection);
   Data.DeletedItems.DataSet.Open;
-  writeln('Importing for User '+Data.Users.DataSet.FieldByName('NAME').AsString);
+  Info('Importing for User '+Data.Users.DataSet.FieldByName('NAME').AsString);
   with Self as IBaseDbInterface do
     mailaccounts := DBConfig.ReadString('MAILACCOUNTS','');
   while pos('|',mailaccounts) > 0 do
@@ -142,7 +117,7 @@ begin
           mailaccounts := copy(mailaccounts,pos(';',mailaccounts)+1,length(mailaccounts));
           http := THTTPSend.Create;
           http.UserAgent:='Mozilla/5.0 (Windows NT 5.1; rv:6.0.2)';
-          writeln('Importing Feed '+copy(mailaccounts,0,pos(';',mailaccounts)-1));
+          Info('Importing Feed '+copy(mailaccounts,0,pos(';',mailaccounts)-1));
           http.HTTPMethod('GET',copy(mailaccounts,0,pos(';',mailaccounts)-1));
           if HasOption('debug') then
             http.Document.SaveToFile('/tmp/rss.xml');
@@ -242,7 +217,7 @@ begin
                         if (not MessageIndex.DataSet.Locate('ID',MID,[]))
                         and (not Data.DeletedItems.DataSet.Locate('LINK','MESSAGEIDX@'+MID,[loPartialKey])) then
                           begin
-                            writeln('New Entry '+MID);
+                            Info('New Entry '+MID);
                             aTreeEntry := TREE_ID_UNKNOWN_MESSAGES;
                             Data.SetFilter(Data.Tree,Data.QuoteField('TYPE')+'='+Data.QuoteValue('N'));
                             aDir := trim(copy(mailaccounts,0,pos(';',mailaccounts)-1));
@@ -317,7 +292,7 @@ begin
                         else if (aSendDate-0.001 > MessageIndex.DataSet.FieldByName('SENDDATE').AsDateTime)
                              and (not Data.DeletedItems.DataSet.Locate('LINK','MESSAGEIDX@'+MID,[loPartialKey])) then
                           begin
-                            writeln(DateTimeToStr(aSendDate)+' > '+DateTimeToStr(MessageIndex.DataSet.FieldByName('SENDDATE').AsDateTime)) ;
+                            Info(DateTimeToStr(aSendDate)+' > '+DateTimeToStr(MessageIndex.DataSet.FieldByName('SENDDATE').AsDateTime)) ;
                             aTreeEntry := TREE_ID_MESSAGES;
                             with MessageIndex.DataSet do
                               begin //Message not there
@@ -336,7 +311,7 @@ begin
               except
                 on e : Exception do
                   begin
-                    WriteWarning(e.Message);
+                    Warning(e.Message);
                     aNode := aNode.NextSibling;
                   end;
               end;
@@ -374,4 +349,4 @@ begin
   Application.Run;
   Application.Free;
 end.
-
+

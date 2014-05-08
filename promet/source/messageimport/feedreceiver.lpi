@@ -54,8 +54,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="35"/>
-        <CursorPos X="16" Y="41"/>
+        <TopLine Value="264"/>
+        <CursorPos X="33" Y="295"/>
         <UsageCount Value="64"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -527,7 +527,32 @@
         <Loaded Value="True"/>
       </Unit60>
     </Units>
-    <JumpHistory Count="0" HistoryIndex="-1"/>
+    <JumpHistory Count="6" HistoryIndex="5">
+      <Position1>
+        <Filename Value="feedreceiver.lpr"/>
+        <Caret Line="67" Column="1" TopLine="38"/>
+      </Position1>
+      <Position2>
+        <Filename Value="feedreceiver.lpr"/>
+        <Caret Line="26" Column="1" TopLine="7"/>
+      </Position2>
+      <Position3>
+        <Filename Value="feedreceiver.lpr"/>
+        <Caret Line="43" Column="52" TopLine="27"/>
+      </Position3>
+      <Position4>
+        <Filename Value="feedreceiver.lpr"/>
+        <Caret Line="110" Column="7" TopLine="78"/>
+      </Position4>
+      <Position5>
+        <Filename Value="feedreceiver.lpr"/>
+        <Caret Line="120" Column="15" TopLine="89"/>
+      </Position5>
+      <Position6>
+        <Filename Value="feedreceiver.lpr"/>
+        <Caret Line="220" Column="33" TopLine="189"/>
+      </Position6>
+    </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
