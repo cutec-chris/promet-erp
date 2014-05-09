@@ -18,15 +18,18 @@ inherited fProcessOptions: TfProcessOptions
     Columns = <    
       item
         Title.Caption = 'Client'
+        Title.MultiLine = False
         Width = 200
         FieldName = 'NAME'
       end    
       item
         Title.Caption = 'Status'
+        Title.MultiLine = False
         FieldName = 'STATUS'
       end    
       item
         Title.Caption = 'Notizen'
+        Title.MultiLine = False
         Width = 200
         FieldName = 'NOTES'
       end>
@@ -101,17 +104,21 @@ inherited fProcessOptions: TfProcessOptions
           'sync_outlook_contacts'
           'sync_owncloud'
           'sync_redmine'
+          'import_document'
         )
         Title.Caption = 'Prozess'
+        Title.MultiLine = False
         Width = 300
         FieldName = 'NAME'
       end    
       item
         Title.Caption = 'Interval'
+        Title.MultiLine = False
         FieldName = 'INTERVAL'
       end    
       item
         Title.Caption = 'Status'
+        Title.MultiLine = False
         FieldName = 'STATUS'
       end>
     DataSource = Processes
@@ -180,11 +187,13 @@ inherited fProcessOptions: TfProcessOptions
       Columns = <      
         item
           Title.Caption = 'Parameter'
+          Title.MultiLine = False
           Width = 100
           FieldName = 'NAME'
         end      
         item
           Title.Caption = 'Value'
+          Title.MultiLine = False
           Width = 150
           FieldName = 'VALUE'
         end>
@@ -226,4 +235,4 @@ inherited fProcessOptions: TfProcessOptions
     left = 32
     top = 48
   end
-end
+end
