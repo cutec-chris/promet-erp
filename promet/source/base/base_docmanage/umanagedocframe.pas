@@ -619,7 +619,7 @@ begin
   if not bShowDetail.Down then
     begin
       bShowDetail.Down:=True;
-      bExecute1Click(nil);
+      bShowDetailClick(nil);
     end;
 end;
 procedure TfManageDocFrame.DoOnDropFiles(Sender: TObject;
@@ -1311,7 +1311,7 @@ begin
   SelectedItem:=nil;
   Datasource1.DataSet := DataSet.DataSet;
   bShowDetail.Down:=False;
-  bExecute1Click(nil);
+  bShowDetailClick(nil);
   Application.QueueAsyncCall(@DoAOpen,0);
 end;
 procedure TfManageDocFrame.DoRefresh;
