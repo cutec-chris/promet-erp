@@ -925,6 +925,8 @@ begin
       bShowDetailClick(nil);
     end;
   pSave.Enabled:=DataSet.Count>0;
+  ThumbControl1.Arrange;
+  ThumbControl1.Invalidate;
 end;
 
 procedure TfManageDocFrame.acRenameExecute(Sender: TObject);

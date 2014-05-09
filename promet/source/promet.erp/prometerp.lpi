@@ -793,8 +793,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="748"/>
-        <CursorPos X="48" Y="762"/>
+        <TopLine Value="905"/>
+        <CursorPos X="1" Y="930"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -803,123 +803,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="634" Column="15" TopLine="624"/>
+        <Caret Line="643" Column="13" TopLine="723"/>
       </Position1>
       <Position2>
         <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="643" Column="13" TopLine="723"/>
+        <Caret Line="889" Column="3" TopLine="885"/>
       </Position2>
       <Position3>
         <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="889" Column="3" TopLine="885"/>
+        <Caret Line="622" Column="23" TopLine="603"/>
       </Position3>
       <Position4>
         <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="622" Column="23" TopLine="603"/>
+        <Caret Line="1313" Column="14" TopLine="1283"/>
       </Position4>
       <Position5>
         <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="1313" Column="14" TopLine="1283"/>
+        <Caret Line="1314" Column="11" TopLine="1302"/>
       </Position5>
       <Position6>
         <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="1314" Column="11" TopLine="1302"/>
+        <Caret Line="218" Column="21" TopLine="214"/>
       </Position6>
       <Position7>
         <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="218" Column="21" TopLine="214"/>
+        <Caret Line="549" Column="44" TopLine="517"/>
       </Position7>
       <Position8>
         <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="549" Column="44" TopLine="517"/>
+        <Caret Line="600" Column="21" TopLine="568"/>
       </Position8>
       <Position9>
         <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="600" Column="21" TopLine="568"/>
+        <Caret Line="750" Column="37" TopLine="718"/>
       </Position9>
       <Position10>
         <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="750" Column="37" TopLine="718"/>
+        <Caret Line="861" Column="17" TopLine="841"/>
       </Position10>
       <Position11>
         <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="861" Column="17" TopLine="841"/>
+        <Caret Line="900" Column="24" TopLine="868"/>
       </Position11>
       <Position12>
         <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="900" Column="24" TopLine="868"/>
+        <Caret Line="1312" Column="44" TopLine="1263"/>
       </Position12>
       <Position13>
         <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="1312" Column="44" TopLine="1263"/>
+        <Caret Line="901" Column="1" TopLine="882"/>
       </Position13>
       <Position14>
         <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="901" Column="1" TopLine="882"/>
+        <Caret Line="902" Column="1" TopLine="883"/>
       </Position14>
       <Position15>
         <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="902" Column="1" TopLine="883"/>
+        <Caret Line="1317" Column="1" TopLine="1283"/>
       </Position15>
       <Position16>
         <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="1317" Column="1" TopLine="1283"/>
+        <Caret Line="1318" Column="1" TopLine="1284"/>
       </Position16>
       <Position17>
         <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="1318" Column="1" TopLine="1284"/>
+        <Caret Line="1325" Column="1" TopLine="1291"/>
       </Position17>
       <Position18>
         <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="1325" Column="1" TopLine="1291"/>
+        <Caret Line="797" Column="3" TopLine="774"/>
       </Position18>
       <Position19>
         <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="797" Column="3" TopLine="774"/>
+        <Caret Line="39" Column="46" TopLine="37"/>
       </Position19>
       <Position20>
         <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="39" Column="46" TopLine="37"/>
+        <Caret Line="157" Column="1" TopLine="138"/>
       </Position20>
       <Position21>
         <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="157" Column="1" TopLine="138"/>
+        <Caret Line="797" Column="6" TopLine="794"/>
       </Position21>
       <Position22>
         <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="797" Column="6" TopLine="794"/>
+        <Caret Line="803" Column="16" TopLine="795"/>
       </Position22>
       <Position23>
         <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="803" Column="16" TopLine="795"/>
+        <Caret Line="807" Column="30" TopLine="784"/>
       </Position23>
       <Position24>
         <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="807" Column="30" TopLine="784"/>
+        <Caret Line="803" Column="11" TopLine="783"/>
       </Position24>
       <Position25>
         <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="803" Column="11" TopLine="783"/>
+        <Caret Line="806" Column="63" TopLine="787"/>
       </Position25>
       <Position26>
         <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="806" Column="63" TopLine="787"/>
+        <Caret Line="787" Column="20" TopLine="781"/>
       </Position26>
       <Position27>
         <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="787" Column="20" TopLine="781"/>
+        <Caret Line="802" Column="10" TopLine="780"/>
       </Position27>
       <Position28>
         <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="802" Column="10" TopLine="780"/>
+        <Caret Line="1373" Column="1" TopLine="1338"/>
       </Position28>
       <Position29>
         <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="1373" Column="1" TopLine="1338"/>
+        <Caret Line="924" Column="27" TopLine="905"/>
       </Position29>
       <Position30>
         <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
-        <Caret Line="924" Column="27" TopLine="905"/>
+        <Caret Line="738" Column="1" TopLine="725"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
