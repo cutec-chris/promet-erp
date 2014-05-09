@@ -27,6 +27,8 @@ install -m 644 general/statistics.desktop $BuildDir/usr/share/applications/prome
 echo "copy to builddir..."
 ./copy_to_builddir_statistics.sh $Archfpc $BuildDir/usr/lib/$Program
 cp general/statistics.starter $BuildDir/usr/lib/$Program/
+cp ../warnings.txt $BuildDir/usr/lib/$Program
+cp ../errors.txt $BuildDir/usr/lib/$Program
 ln -s /usr/lib/$Program/statistics.starter $BuildDir/usr/bin/promet-erp-statistics
 chmod 666 $BuildDir/usr/bin/promet-erp-statistics
 DebSize=$(du -s $BuildDir | cut -f1)

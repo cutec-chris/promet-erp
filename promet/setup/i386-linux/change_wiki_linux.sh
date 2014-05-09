@@ -25,7 +25,7 @@ ToolsRpm32Size=$(ls -s --block-size=1048576 "../output/promet-erp-tools-$(echo $
 ToolsDeb64Size=$(ls -s --block-size=1048576 "../output/promet-erp-tools_$(echo $Version)_amd64-gtk2.deb" | cut -d' ' -f1)
 ToolsDeb32Size=$(ls -s --block-size=1048576 "../output/promet-erp-tools_$(echo $Version)_i386-gtk2.deb" | cut -d' ' -f1)
 
-cat downloads.txt | \
+cat downloads_linux.txt | \
   sed -e "s/VERSION/$Version/g" \
       -e "s/ARCH/$Arch/g" \
       -e "s/ARCHFPC/$Archfpc/g" \
@@ -50,7 +50,7 @@ cat downloads.txt | \
       -e "s/TOOLSD64_SIZE/$ToolsDeb64Size Mb/g" \
       -e "s/TOOLSD32_SIZE/$ToolsDeb32Size Mb/g" \
       -e "s/CREATEDDATE/$Date/g" \
-  > act_downloads.txt
-../../output/x86_64-linux/changewikipage --mandant=Stora Promet-ERP/dowloadplattforms/linux i386-linux/downloads_linux32.txt
+  > act_downloads_linux32.txt
+../../output/x86_64-linux/changewikipage --mandant=Stora Promet-ERP/dowloadplattforms/linux act_downloads_linux32.txt
 ../../output/x86_64-linux/changewikipage --mandant=Stora Promet-ERP/changes ../source/base/changes.txt
 ../../output/x86_64-linux/tools/sync_db --mandant=Stora
