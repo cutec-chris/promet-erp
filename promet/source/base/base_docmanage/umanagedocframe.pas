@@ -27,8 +27,8 @@ uses
   Classes, SysUtils, db, FileUtil, Forms, Controls, ExtCtrls, StdCtrls, DbCtrls,
   Buttons, ComCtrls, ActnList, thumbcontrol, uPrometFrames, uBaseDocPages,
   uBaseDBInterface, threadedimageLoader, uDocumentFrame, DBZVDateTimePicker,
-  PReport, Dialogs, PairSplitter, Menus, uIntfStrConsts, uBaseDbClasses,
-  variants, types, uTimeLine, uPreviewFrame, uOCR, uExtControls;
+  PReport, Dialogs, PairSplitter, Menus, ExtDlgs, uIntfStrConsts,
+  uBaseDbClasses, variants, types, uTimeLine, uPreviewFrame, uOCR, uExtControls;
 
 type
   TImageItem = class(TObject)
@@ -55,6 +55,7 @@ type
     acSaveasPDF: TAction;
     acRename: TAction;
     acSetLink: TAction;
+    acFileImport: TAction;
     ActionList1: TActionList;
     bEditFilter: TSpeedButton;
     Bevel1: TBevel;
@@ -65,6 +66,7 @@ type
     Bevel7: TBevel;
     Bevel8: TBevel;
     Bevel9: TBevel;
+    bImport1: TSpeedButton;
     bShowDetail: TSpeedButton;
     bRefresh2: TSpeedButton;
     bRefresh3: TSpeedButton;
@@ -98,6 +100,7 @@ type
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
+    OpenPictureDialog1: TOpenPictureDialog;
     Panel2: TPanel;
     pcPages: TPageControl;
     PairSplitter1: TPairSplitter;
@@ -112,7 +115,7 @@ type
     pNav1: TPanel;
     pmPopup: TPopupMenu;
     pNav2: TPanel;
-    pNav3: TPanel;
+    pSave: TPanel;
     pNav4: TPanel;
     pRight: TPanel;
     pThumb: TPanel;
@@ -131,6 +134,7 @@ type
     tsFiles: TTabSheet;
     procedure acDeleteExecute(Sender: TObject);
     procedure acEditExecute(Sender: TObject);
+    procedure acFileImportExecute(Sender: TObject);
     procedure acFindDateExecute(Sender: TObject);
     procedure acFindSubjectExecute(Sender: TObject);
     procedure acImportExecute(Sender: TObject);
@@ -616,7 +620,7 @@ var
   i: Integer;
   aStream: TFileStream;
 begin
-  if not bShowDetail.Down then
+  if (not bShowDetail.Down) and (bShowDetail.Enabled) then
     begin
       bShowDetail.Down:=True;
       bShowDetailClick(nil);
@@ -789,6 +793,22 @@ begin
     end;
 end;
 
+procedure TfManageDocFrame.acFileImportExecute(Sender: TObject);
+var
+  aFiles : array of string;
+  i: Integer;
+begin
+  if OpenPictureDialog1.Execute then
+    begin
+      for i := 0 to OpenPictureDialog1.Files.Count-1 do
+        begin
+          Setlength(aFiles,length(aFiles)+1);
+          aFiles[length(aFiles)-1] := OpenPictureDialog1.Files[i];
+        end;
+      DoOnDropFiles(nil,aFiles);
+    end;
+end;
+
 procedure TfManageDocFrame.acFindDateExecute(Sender: TObject);
 var
   bDate: TDateTime;
@@ -898,6 +918,7 @@ begin
   ThumbControl1.ImageLoaderManager.ActiveIndex:=OldIdx;
   ThumbControl1.ScrollIntoView;
   bShowDetail.Enabled:=DataSet.Count>0;
+  pSave.Enabled:=DataSet.Count>0;
 end;
 
 procedure TfManageDocFrame.acRenameExecute(Sender: TObject);
@@ -1305,13 +1326,14 @@ begin
   TDocPages(DataSet).PrepareDataSet;
   DataSet.Open;
   DataSet.First;
-  bShowDetail.Enabled:=DataSet.Count>0;
   FTimeLine.StartDate:=DataSet.FieldByName('ORIGDATE').AsDateTime;
   ThumbControl1.URLList:='';
   SelectedItem:=nil;
   Datasource1.DataSet := DataSet.DataSet;
   bShowDetail.Down:=False;
   bShowDetailClick(nil);
+  bShowDetail.Enabled:=DataSet.Count>0;
+  pSave.Enabled:=DataSet.Count>0;
   Application.QueueAsyncCall(@DoAOpen,0);
 end;
 procedure TfManageDocFrame.DoRefresh;
