@@ -293,7 +293,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="43">
+    <Units Count="46">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -337,7 +337,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uAddressFrame"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="100"/>
         <CursorPos X="12" Y="102"/>
@@ -561,10 +561,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOrderTypeOptions"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
+        <CursorPos X="19" Y="11"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -673,7 +673,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uorderaddressframe"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="93"/>
         <CursorPos X="1" Y="100"/>
@@ -753,15 +753,54 @@
       <Unit42>
         <Filename Value="uimpclipboardcontact.pas"/>
         <UnitName Value="uImpClipboardContact"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="79"/>
         <CursorPos X="82" Y="90"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit42>
+      <Unit43>
+        <Filename Value="../base_pm/umeetingframe.pas"/>
+        <ComponentName Value="fMeetingFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uMeetingFrame"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="296"/>
+        <CursorPos X="31" Y="328"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit43>
+      <Unit44>
+        <Filename Value="../base/dbintfs/umeeting.pas"/>
+        <UnitName Value="umeeting"/>
+        <EditorIndex Value="4"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="315"/>
+        <CursorPos X="32" Y="322"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit44>
+      <Unit45>
+        <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
+        <ComponentName Value="fManageDocFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="umanagedocframe"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="5"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="885"/>
+        <CursorPos X="3" Y="889"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit45>
     </Units>
-    <JumpHistory Count="14" HistoryIndex="13">
+    <JumpHistory Count="23" HistoryIndex="22">
       <Position1>
         <Filename Value="uorderaddressframe.pas"/>
         <Caret Line="233" Column="15" TopLine="210"/>
@@ -818,6 +857,42 @@
         <Filename Value="uimpclipboardcontact.pas"/>
         <Caret Line="108" Column="1" TopLine="53"/>
       </Position14>
+      <Position15>
+        <Filename Value="../base_pm/umeetingframe.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position15>
+      <Position16>
+        <Filename Value="../base_pm/umeetingframe.pas"/>
+        <Caret Line="819" Column="3" TopLine="813"/>
+      </Position16>
+      <Position17>
+        <Filename Value="../base_pm/umeetingframe.pas"/>
+        <Caret Line="128" Column="15" TopLine="110"/>
+      </Position17>
+      <Position18>
+        <Filename Value="../base_pm/umeetingframe.pas"/>
+        <Caret Line="203" Column="41" TopLine="171"/>
+      </Position18>
+      <Position19>
+        <Filename Value="../base_pm/umeetingframe.pas"/>
+        <Caret Line="328" Column="31" TopLine="296"/>
+      </Position19>
+      <Position20>
+        <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="1307" Column="1" TopLine="1286"/>
+      </Position20>
+      <Position21>
+        <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="7" Column="97" TopLine="1"/>
+      </Position21>
+      <Position22>
+        <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="634" Column="15" TopLine="624"/>
+      </Position22>
+      <Position23>
+        <Filename Value="../base/base_docmanage/umanagedocframe.pas"/>
+        <Caret Line="643" Column="13" TopLine="723"/>
+      </Position23>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

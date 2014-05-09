@@ -315,7 +315,7 @@ inherited fManageDocFrame: TfManageDocFrame
         OnClick = bZoomOutClick
       end
     end
-    object bExecute1: TSpeedButton
+    object bShowDetail: TSpeedButton
       Left = 4
       Height = 34
       Hint = 'zwischen Detail und '#10'Kachelansicht umschalten'
@@ -362,7 +362,7 @@ inherited fManageDocFrame: TfManageDocFrame
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
       }
       GroupIndex = 111
-      OnClick = bExecute1Click
+      OnClick = bShowDetailClick
       ShowCaption = False
     end
     object pNav2: TPanel
@@ -768,8 +768,8 @@ inherited fManageDocFrame: TfManageDocFrame
     TabOrder = 2
     object tsDocument: TTabSheet
       Caption = 'Dokument'
-      ClientHeight = 1072
-      ClientWidth = 1264
+      ClientHeight = 541
+      ClientWidth = 632
       object pThumb: TPanel
         Left = 0
         Height = 50
@@ -1059,7 +1059,8 @@ inherited fManageDocFrame: TfManageDocFrame
             Caption = 'Text'
             Font.Color = clMedGray
             Font.Height = 11
-            Font.Orientation = -900
+            Font.Orientation = 900
+            Layout = tlBottom
             ParentColor = False
             ParentFont = False
           end

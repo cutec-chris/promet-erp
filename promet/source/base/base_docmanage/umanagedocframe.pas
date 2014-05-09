@@ -65,7 +65,7 @@ type
     Bevel7: TBevel;
     Bevel8: TBevel;
     Bevel9: TBevel;
-    bExecute1: TSpeedButton;
+    bShowDetail: TSpeedButton;
     bRefresh2: TSpeedButton;
     bRefresh3: TSpeedButton;
     bRefresh4: TSpeedButton;
@@ -145,7 +145,7 @@ type
     procedure acSaveExecute(Sender: TObject);
     procedure acSetLinkExecute(Sender: TObject);
     procedure acSetTagExecute(Sender: TObject);
-    procedure bExecute1Click(Sender: TObject);
+    procedure bShowDetailClick(Sender: TObject);
     procedure bTag1Click(Sender: TObject);
     procedure bZoomInClick(Sender: TObject);
     procedure bZoomOutClick(Sender: TObject);
@@ -341,7 +341,7 @@ begin
         DataSet.DataSet.Edit;
       DataSet.FieldByName('ORIGDATE').AsString := aDate;
     end;
-  if bExecute1.Down then
+  if bShowDetail.Down then
     ShowDocument;
 end;
 procedure TfManageDocFrame.ThumbControl1ImageLoaderManagerBeforeStartQueue(
@@ -616,9 +616,9 @@ var
   i: Integer;
   aStream: TFileStream;
 begin
-  if not bExecute1.Down then
+  if not bShowDetail.Down then
     begin
-      bExecute1.Down:=True;
+      bShowDetail.Down:=True;
       bExecute1Click(nil);
     end;
 end;
@@ -897,6 +897,7 @@ begin
     FetchNext;
   ThumbControl1.ImageLoaderManager.ActiveIndex:=OldIdx;
   ThumbControl1.ScrollIntoView;
+  bShowDetail.Enabled:=DataSet.Count>0;
 end;
 
 procedure TfManageDocFrame.acRenameExecute(Sender: TObject);
@@ -1090,9 +1091,9 @@ begin
         aTag := ''
     end;
 end;
-procedure TfManageDocFrame.bExecute1Click(Sender: TObject);
+procedure TfManageDocFrame.bShowDetailClick(Sender: TObject);
 begin
-  if bExecute1.Down then
+  if bShowDetail.Down then
     begin
       Panel1.Align:=alLeft;
       Panel1.Width:=230;
@@ -1304,11 +1305,12 @@ begin
   TDocPages(DataSet).PrepareDataSet;
   DataSet.Open;
   DataSet.First;
+  bShowDetail.Enabled:=DataSet.Count>0;
   FTimeLine.StartDate:=DataSet.FieldByName('ORIGDATE').AsDateTime;
   ThumbControl1.URLList:='';
   SelectedItem:=nil;
   Datasource1.DataSet := DataSet.DataSet;
-  bExecute1.Down:=False;
+  bShowDetail.Down:=False;
   bExecute1Click(nil);
   Application.QueueAsyncCall(@DoAOpen,0);
 end;
