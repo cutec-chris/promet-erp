@@ -1,4 +1,4 @@
-echo j|del  ..\source/base/lib
+echo j|del  ..\source\base\lib
 echo j|del  ..\source\base\dbintfs\lib
 echo j|del  ..\source\promet.erp\lib
 echo j|del  ..\source\tools\lib

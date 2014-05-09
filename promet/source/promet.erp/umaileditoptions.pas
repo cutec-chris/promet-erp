@@ -115,10 +115,10 @@ var
   aFile: String;
 begin
   aPath := AppendPathDelim(AppendPathDelim(Application.Location)+'tools');
-  if FileExists(aPath+lowerCase(eServertype.Text)+'receiver') then
-    aFile := aPath+lowerCase(eServertype.Text)+'receiver'
-  else if FileExists(aPath+lowerCase(eServertype.Text)+'sender') then
-    aFile := aPath+lowerCase(eServertype.Text)+'sender';
+  if FileExists(aPath+lowerCase(eServertype.Text)+'receiver'+ExtractFileExt(Application.ExeName)) then
+    aFile := aPath+lowerCase(eServertype.Text)+'receiver'+ExtractFileExt(Application.ExeName)
+  else if FileExists(aPath+lowerCase(eServertype.Text)+'sender'+ExtractFileExt(Application.ExeName)) then
+    aFile := aPath+lowerCase(eServertype.Text)+'sender'+ExtractFileExt(Application.ExeName);
   if not FileExists(aFile) then
     begin
       Showmessage(Format(strServiceNotInstalled,[ExtractFileName(aFile)]));

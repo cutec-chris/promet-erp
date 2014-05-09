@@ -6,57 +6,57 @@ LazarusResources.Add('TfMailOptions','FORMDATA',[
   +#22'Narichteneinstellungen'#12'ClientHeight'#3'o'#1#11'ClientWidth'#3'z'#1#10
   +'KeyPreview'#9#9'OnKeyDown'#7#11'FormKeyDown'#8'Position'#7#16'poMainFormCen'
   +'ter'#10'LCLVersion'#6#3'1.3'#0#6'TLabel'#7'lServer'#4'Left'#2#12#6'Height'#2
-  +#13#3'Top'#2'D'#5'Width'#2''''#7'Caption'#6#6'Server'#10'Font.Style'#11#6'fs'
-  +'Bold'#0#11'ParentColor'#8#10'ParentFont'#8#0#0#6'TLabel'#9'lUsername'#4'Lef'
-  +'t'#2#12#6'Height'#2#13#3'Top'#2'p'#5'Width'#2'W'#7'Caption'#6#12'Benutzerna'
-  +'me'#10'Font.Style'#11#6'fsBold'#0#11'ParentColor'#8#10'ParentFont'#8#0#0#6
-  +'TLabel'#9'lPassword'#4'Left'#2#12#6'Height'#2#13#3'Top'#3#156#0#5'Width'#2
-  +'9'#7'Caption'#6#8'Passwort'#10'Font.Style'#11#6'fsBold'#0#11'ParentColor'#8
-  +#10'ParentFont'#8#0#0#6'TLabel'#11'lServertype'#4'Left'#2#12#6'Height'#2#13#3
-  +'Top'#2#8#5'Width'#2';'#7'Caption'#6#9'Servertyp'#10'Font.Style'#11#6'fsBold'
-  +#0#11'ParentColor'#8#10'ParentFont'#8#0#0#5'TEdit'#7'eServer'#4'Left'#2#12#6
-  +'Height'#2#23#3'Top'#2'V'#5'Width'#3'a'#1#7'Anchors'#11#5'akTop'#6'akLeft'#7
+  +#13#3'Top'#2'D'#5'Width'#2'&'#7'Caption'#6#6'Server'#10'Font.Style'#11#6'fsB'
+  +'old'#0#11'ParentColor'#8#10'ParentFont'#8#0#0#6'TLabel'#9'lUsername'#4'Left'
+  +#2#12#6'Height'#2#13#3'Top'#2'p'#5'Width'#2'S'#7'Caption'#6#12'Benutzername'
+  +#10'Font.Style'#11#6'fsBold'#0#11'ParentColor'#8#10'ParentFont'#8#0#0#6'TLab'
+  +'el'#9'lPassword'#4'Left'#2#12#6'Height'#2#13#3'Top'#3#156#0#5'Width'#2'4'#7
+  +'Caption'#6#8'Passwort'#10'Font.Style'#11#6'fsBold'#0#11'ParentColor'#8#10'P'
+  +'arentFont'#8#0#0#6'TLabel'#11'lServertype'#4'Left'#2#12#6'Height'#2#13#3'To'
+  +'p'#2#8#5'Width'#2'9'#7'Caption'#6#9'Servertyp'#10'Font.Style'#11#6'fsBold'#0
+  +#11'ParentColor'#8#10'ParentFont'#8#0#0#5'TEdit'#7'eServer'#4'Left'#2#12#6'H'
+  +'eight'#2#21#3'Top'#2'V'#5'Width'#3'a'#1#7'Anchors'#11#5'akTop'#6'akLeft'#7
   +'akRight'#0#8'TabOrder'#2#0#0#0#5'TEdit'#9'eUsername'#4'Left'#2#12#6'Height'
-  +#2#23#3'Top'#3#128#0#5'Width'#3'a'#1#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRi'
-  +'ght'#0#8'TabOrder'#2#1#0#0#5'TEdit'#9'ePassword'#4'Left'#2#12#6'Height'#2#23
+  +#2#21#3'Top'#3#128#0#5'Width'#3'a'#1#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRi'
+  +'ght'#0#8'TabOrder'#2#1#0#0#5'TEdit'#9'ePassword'#4'Left'#2#12#6'Height'#2#21
   +#3'Top'#3#172#0#5'Width'#3'a'#1#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#0
   +#8'EchoMode'#7#10'emPassword'#12'PasswordChar'#6#1'*'#8'TabOrder'#2#2#0#0#9
-  +'TComboBox'#11'eServertype'#4'Left'#2#12#6'Height'#2#27#3'Top'#2#24#5'Width'
-  +#3#144#0#10'ItemHeight'#2#0#9'ItemIndex'#2#0#13'Items.Strings'#1#6#4'POP3'#6
+  +'TComboBox'#11'eServertype'#4'Left'#2#12#6'Height'#2#21#3'Top'#2#24#5'Width'
+  +#3#144#0#10'ItemHeight'#2#13#9'ItemIndex'#2#0#13'Items.Strings'#1#6#4'POP3'#6
   +#4'SMTP'#6#4'FEED'#6#7'Twitter'#0#8'OnSelect'#7#17'eServertypeSelect'#8'TabO'
   +'rder'#2#3#4'Text'#6#4'POP3'#0#0#6'TPanel'#12'pSMTPOptions'#4'Left'#2#12#6'H'
   +'eight'#2'^'#3'Top'#3#200#0#5'Width'#3'a'#1#7'Anchors'#11#5'akTop'#6'akLeft'
   +#7'akRight'#0#10'BevelOuter'#7#6'bvNone'#12'ClientHeight'#2'^'#11'ClientWidt'
   +'h'#3'a'#1#8'TabOrder'#2#4#7'Visible'#8#0#6'TLabel'#5'lName'#4'Left'#2#0#6'H'
-  +'eight'#2#13#3'Top'#2#0#5'Width'#2'"'#7'Caption'#6#4'Name'#10'Font.Style'#11
+  +'eight'#2#13#3'Top'#2#0#5'Width'#2' '#7'Caption'#6#4'Name'#10'Font.Style'#11
   +#6'fsBold'#0#11'ParentColor'#8#10'ParentFont'#8#0#0#6'TLabel'#9'lMailAddr'#4
-  +'Left'#2#0#6'Height'#2#13#3'Top'#2','#5'Width'#2'd'#7'Caption'#6#15'e-Mail A'
+  +'Left'#2#0#6'Height'#2#13#3'Top'#2','#5'Width'#2'['#7'Caption'#6#15'e-Mail A'
   +'ddresse'#10'Font.Style'#11#6'fsBold'#0#11'ParentColor'#8#10'ParentFont'#8#0
-  +#0#5'TEdit'#5'eName'#4'Left'#2#0#6'Height'#2#23#3'Top'#2#16#5'Width'#3'a'#1#7
+  +#0#5'TEdit'#5'eName'#4'Left'#2#0#6'Height'#2#21#3'Top'#2#16#5'Width'#3'a'#1#7
   +'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#0#8'TabOrder'#2#0#0#0#5'TEdit'#9
-  +'eMailAddr'#4'Left'#2#0#6'Height'#2#23#3'Top'#2'<'#5'Width'#3'a'#1#7'Anchors'
+  +'eMailAddr'#4'Left'#2#0#6'Height'#2#21#3'Top'#2'<'#5'Width'#3'a'#1#7'Anchors'
   +#11#5'akTop'#6'akLeft'#7'akRight'#0#8'TabOrder'#2#1#0#0#0#12'TButtonPanel'#9
-  +'bpButtons'#4'Left'#2#6#6'Height'#2'*'#3'Top'#3'?'#1#5'Width'#3'n'#1#13'OKBu'
+  +'bpButtons'#4'Left'#2#6#6'Height'#2'"'#3'Top'#3'G'#1#5'Width'#3'n'#1#13'OKBu'
   +'tton.Name'#6#8'OKButton'#23'OKButton.DefaultCaption'#9#15'HelpButton.Name'#6
   +#10'HelpButton'#25'HelpButton.DefaultCaption'#9#16'CloseButton.Name'#6#11'Cl'
   +'oseButton'#26'CloseButton.DefaultCaption'#9#17'CancelButton.Name'#6#12'Canc'
   +'elButton'#27'CancelButton.DefaultCaption'#9#8'TabOrder'#2#5#11'ShowButtons'
   +#11#4'pbOK'#8'pbCancel'#0#0#7'TButton'#16'bCheckConnection'#4'Left'#2#8#6'He'
-  +'ight'#2#25#3'Top'#2#8#5'Width'#2't'#8'AutoSize'#9#20'BorderSpacing.Around'#2
+  +'ight'#2#23#3'Top'#2#8#5'Width'#2't'#8'AutoSize'#9#20'BorderSpacing.Around'#2
   +#8#7'Caption'#6#17'Verbindung Testen'#7'OnClick'#7#21'bCheckConnectionClick'
   +#8'TabOrder'#2#4#0#0#0#6'TPanel'#11'pPOPOptions'#4'Left'#2#12#6'Height'#2'`'
   +#3'Top'#3#200#0#5'Width'#3'b'#1#10'BevelOuter'#7#6'bvNone'#12'ClientHeight'#2
   +'`'#11'ClientWidth'#3'b'#1#8'TabOrder'#2#6#7'Visible'#8#0#9'TCheckBox'#8'cbD'
-  +'elete'#4'Left'#2#12#6'Height'#2#24#4'Hint'#6'1l'#195#182'scht Mails nach er'
-  +'folgrechem Abruf '#10'vom Server'#3'Top'#2' '#5'Width'#3#135#0#7'Caption'#6
-  +#19'nach Abruf l'#195#182'schen'#8'TabOrder'#2#0#0#0#9'TCheckBox'#9'cbArchiv'
-  +'e'#4'Left'#2#12#6'Height'#2#24#4'Hint'#6'DArchiviert Mails nach erfolgreche'
-  +'m Abruf '#10'vom Server revisionssicher'#3'Top'#2#8#5'Width'#3#157#0#7'Capt'
-  +'ion'#6#22'nach Abruf Archivieren'#8'TabOrder'#2#1#0#0#0#6'TPanel'#12'pFeedO'
-  +'ptions'#4'Left'#2#12#6'Height'#2'`'#3'Top'#3#200#0#5'Width'#3'a'#1#10'Bevel'
-  +'Outer'#7#6'bvNone'#12'ClientHeight'#2'`'#11'ClientWidth'#3'a'#1#8'TabOrder'
-  +#2#7#7'Visible'#8#0#6'TLabel'#6'Label1'#4'Left'#2#4#6'Height'#2#13#3'Top'#2#8
-  +#5'Width'#2';'#7'Caption'#6#10'Zielordner'#11'ParentColor'#8#0#0#5'TEdit'#13
-  +'eTargetFolder'#4'Left'#2#12#6'Height'#2#23#3'Top'#2#24#5'Width'#3'S'#1#7'An'
-  +'chors'#11#5'akTop'#6'akLeft'#7'akRight'#0#8'TabOrder'#2#0#0#0#0#0
+  +'elete'#4'Left'#2#12#6'Height'#2#17#4'Hint'#6'1l'#195#182'scht Mails nach er'
+  +'folgrechem Abruf '#10'vom Server'#3'Top'#2' '#5'Width'#2'p'#7'Caption'#6#19
+  +'nach Abruf l'#195#182'schen'#8'TabOrder'#2#0#0#0#9'TCheckBox'#9'cbArchive'#4
+  +'Left'#2#12#6'Height'#2#17#4'Hint'#6'DArchiviert Mails nach erfolgrechem Abr'
+  +'uf '#10'vom Server revisionssicher'#3'Top'#2#8#5'Width'#3#130#0#7'Caption'#6
+  +#22'nach Abruf Archivieren'#8'TabOrder'#2#1#0#0#0#6'TPanel'#12'pFeedOptions'
+  +#4'Left'#2#12#6'Height'#2'`'#3'Top'#3#200#0#5'Width'#3'a'#1#10'BevelOuter'#7
+  +#6'bvNone'#12'ClientHeight'#2'`'#11'ClientWidth'#3'a'#1#8'TabOrder'#2#7#7'Vi'
+  +'sible'#8#0#6'TLabel'#6'Label1'#4'Left'#2#4#6'Height'#2#13#3'Top'#2#8#5'Widt'
+  +'h'#2'0'#7'Caption'#6#10'Zielordner'#11'ParentColor'#8#0#0#5'TEdit'#13'eTarg'
+  +'etFolder'#4'Left'#2#12#6'Height'#2#21#3'Top'#2#24#5'Width'#3'S'#1#7'Anchors'
+  +#11#5'akTop'#6'akLeft'#7'akRight'#0#8'TabOrder'#2#0#0#0#0#0
 ]);

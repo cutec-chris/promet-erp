@@ -15,7 +15,7 @@ object fMailOptions: TfMailOptions
     Left = 12
     Height = 13
     Top = 68
-    Width = 39
+    Width = 38
     Caption = 'Server'
     Font.Style = [fsBold]
     ParentColor = False
@@ -25,7 +25,7 @@ object fMailOptions: TfMailOptions
     Left = 12
     Height = 13
     Top = 112
-    Width = 87
+    Width = 83
     Caption = 'Benutzername'
     Font.Style = [fsBold]
     ParentColor = False
@@ -35,7 +35,7 @@ object fMailOptions: TfMailOptions
     Left = 12
     Height = 13
     Top = 156
-    Width = 57
+    Width = 52
     Caption = 'Passwort'
     Font.Style = [fsBold]
     ParentColor = False
@@ -45,7 +45,7 @@ object fMailOptions: TfMailOptions
     Left = 12
     Height = 13
     Top = 8
-    Width = 59
+    Width = 57
     Caption = 'Servertyp'
     Font.Style = [fsBold]
     ParentColor = False
@@ -53,7 +53,7 @@ object fMailOptions: TfMailOptions
   end
   object eServer: TEdit
     Left = 12
-    Height = 23
+    Height = 21
     Top = 86
     Width = 353
     Anchors = [akTop, akLeft, akRight]
@@ -61,7 +61,7 @@ object fMailOptions: TfMailOptions
   end
   object eUsername: TEdit
     Left = 12
-    Height = 23
+    Height = 21
     Top = 128
     Width = 353
     Anchors = [akTop, akLeft, akRight]
@@ -69,7 +69,7 @@ object fMailOptions: TfMailOptions
   end
   object ePassword: TEdit
     Left = 12
-    Height = 23
+    Height = 21
     Top = 172
     Width = 353
     Anchors = [akTop, akLeft, akRight]
@@ -79,10 +79,10 @@ object fMailOptions: TfMailOptions
   end
   object eServertype: TComboBox
     Left = 12
-    Height = 27
+    Height = 21
     Top = 24
     Width = 144
-    ItemHeight = 0
+    ItemHeight = 13
     ItemIndex = 0
     Items.Strings = (
       'POP3'
@@ -109,7 +109,7 @@ object fMailOptions: TfMailOptions
       Left = 0
       Height = 13
       Top = 0
-      Width = 34
+      Width = 32
       Caption = 'Name'
       Font.Style = [fsBold]
       ParentColor = False
@@ -119,7 +119,7 @@ object fMailOptions: TfMailOptions
       Left = 0
       Height = 13
       Top = 44
-      Width = 100
+      Width = 91
       Caption = 'e-Mail Addresse'
       Font.Style = [fsBold]
       ParentColor = False
@@ -127,7 +127,7 @@ object fMailOptions: TfMailOptions
     end
     object eName: TEdit
       Left = 0
-      Height = 23
+      Height = 21
       Top = 16
       Width = 353
       Anchors = [akTop, akLeft, akRight]
@@ -135,7 +135,7 @@ object fMailOptions: TfMailOptions
     end
     object eMailAddr: TEdit
       Left = 0
-      Height = 23
+      Height = 21
       Top = 60
       Width = 353
       Anchors = [akTop, akLeft, akRight]
@@ -144,8 +144,8 @@ object fMailOptions: TfMailOptions
   end
   object bpButtons: TButtonPanel
     Left = 6
-    Height = 42
-    Top = 319
+    Height = 34
+    Top = 327
     Width = 366
     OKButton.Name = 'OKButton'
     OKButton.DefaultCaption = True
@@ -159,7 +159,7 @@ object fMailOptions: TfMailOptions
     ShowButtons = [pbOK, pbCancel]
     object bCheckConnection: TButton
       Left = 8
-      Height = 25
+      Height = 23
       Top = 8
       Width = 116
       AutoSize = True
@@ -181,19 +181,19 @@ object fMailOptions: TfMailOptions
     Visible = False
     object cbDelete: TCheckBox
       Left = 12
-      Height = 24
+      Height = 17
       Hint = 'löscht Mails nach erfolgrechem Abruf '#10'vom Server'
       Top = 32
-      Width = 135
+      Width = 112
       Caption = 'nach Abruf löschen'
       TabOrder = 0
     end
     object cbArchive: TCheckBox
       Left = 12
-      Height = 24
+      Height = 17
       Hint = 'Archiviert Mails nach erfolgrechem Abruf '#10'vom Server revisionssicher'
       Top = 8
-      Width = 157
+      Width = 130
       Caption = 'nach Abruf Archivieren'
       TabOrder = 1
     end
@@ -212,17 +212,17 @@ object fMailOptions: TfMailOptions
       Left = 4
       Height = 13
       Top = 8
-      Width = 59
+      Width = 48
       Caption = 'Zielordner'
       ParentColor = False
     end
     object eTargetFolder: TEdit
       Left = 12
-      Height = 23
+      Height = 21
       Top = 24
       Width = 339
       Anchors = [akTop, akLeft, akRight]
       TabOrder = 0
     end
   end
-end
+end

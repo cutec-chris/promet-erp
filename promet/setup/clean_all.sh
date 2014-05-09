@@ -36,3 +36,7 @@ rm -f -r ../source/tools/lib
 rm -f -r ../../general/lib
 find ../ -type f -iname "*.compiled" -exec rm -f {} \;
 find ../ -type f -iname "*.bak" -exec rm -f {} \;
+find ../ -type f -iname "*.ppu" -exec rm -f {} \;
+find ../ -type f -iname "*.o" -exec rm -f {} \;
+find ../ -type f -iname "*.or" -exec rm -f {} \;
+find ../ -type f -iname "*.rst" -exec rm -f {} \;
