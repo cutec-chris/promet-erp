@@ -375,7 +375,7 @@ begin
                         Added := True;
                       end;
                   end;
-                if (not Added) and (FieldByName('OWNER').AsString <> '') then
+                if (not Added) and ((FieldByName('OWNER').AsString <> '') or (FieldByName('USER').AsString <> '')) then
                   begin //Task
                     aTasks := TTask.Create(nil,Data);
                     aTasks.Append;
@@ -392,6 +392,8 @@ begin
                     aTasks.FieldByName('USER').AsVariant:=FieldByName('USER').AsVariant;
                     if FieldByName('USER').IsNull then
                       aTasks.FieldByName('USER').AsVariant:=FieldByName('OWNER').AsVariant;
+                    if FieldByName('OWNER').IsNull then
+                      aTasks.FieldByName('OWNER').AsVariant:=FieldByName('USER').AsVariant;
                     if not FieldByName('DUEDATE').IsNull then
                       aTasks.FieldByName('DUEDATE').AsVariant:=FieldByName('DUEDATE').AsVariant;
                     aTasks.DataSet.Post;
