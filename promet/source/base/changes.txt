@@ -1,4 +1,8 @@
-﻿Build 338
+﻿Build 339
+      - Dokumente:Fehler besser abgefangen, Möglichkeit über Öffnen Dialog zu importieren
+      - Nachrichten:Verbindungstest hat unter Windows nich nicht funktioniert -> behoben
+      - Setup:Autobuild Umgebung umgebaut
+Build 338
       - xreceiver,xsender:Mehr Logs um Fehlersuche zu vereinfachen, Logs vereinheitlicht
       - Projekte:Projektübersicht kann auch direkt in Gantt springen
 Build 337

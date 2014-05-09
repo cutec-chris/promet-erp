@@ -293,7 +293,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="45">
+    <Units Count="47">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -337,7 +337,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uAddressFrame"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="64"/>
         <CursorPos X="30" Y="113"/>
@@ -561,7 +561,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOrderTypeOptions"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="19" Y="11"/>
@@ -634,10 +634,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMailEditoptions"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="115"/>
+        <TopLine Value="102"/>
         <CursorPos X="92" Y="121"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -680,7 +679,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uorderaddressframe"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="93"/>
         <CursorPos X="26" Y="98"/>
@@ -760,7 +759,7 @@
       <Unit42>
         <Filename Value="uimpclipboardcontact.pas"/>
         <UnitName Value="uImpClipboardContact"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="79"/>
         <CursorPos X="82" Y="90"/>
@@ -773,7 +772,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMeetingFrame"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="296"/>
         <CursorPos X="31" Y="328"/>
@@ -784,13 +783,33 @@
       <Unit44>
         <Filename Value="../base/dbintfs/umeeting.pas"/>
         <UnitName Value="umeeting"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="315"/>
         <CursorPos X="32" Y="322"/>
         <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit44>
+      <Unit45>
+        <Filename Value="../base/changes.txt"/>
+        <EditorIndex Value="5"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="42" Y="4"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit45>
+      <Unit46>
+        <Filename Value="../base/revision.inc"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="6"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="4" Y="1"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit46>
     </Units>
     <JumpHistory Count="8" HistoryIndex="7">
       <Position1>
