@@ -197,9 +197,9 @@ type
     { public declarations }
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    procedure Open(aType : string);
     procedure DoRefresh; override;
     function GotoCurrentItem: Boolean;
+    procedure Open(aType : string);
     procedure OpenDir(aDir : Variant);
     property Typ : string read FTyp write FTyp;
   end;
@@ -759,6 +759,7 @@ begin
 //      aItem.Free;
       ThumbControl1.Arrange;
       ThumbControl1.Invalidate;
+      if DataSet.Count=0 then acRefresh.Execute;
     end;
 end;
 procedure TfManageDocFrame.acEditExecute(Sender: TObject);
@@ -918,6 +919,11 @@ begin
   ThumbControl1.ImageLoaderManager.ActiveIndex:=OldIdx;
   ThumbControl1.ScrollIntoView;
   bShowDetail.Enabled:=DataSet.Count>0;
+  if not bShowDetail.Enabled then
+    begin
+      bShowDetail.Down:=false;
+      bShowDetailClick(nil);
+    end;
   pSave.Enabled:=DataSet.Count>0;
 end;
 
@@ -1370,6 +1376,8 @@ begin
   if Assigned(IdleTimer1) then
     IdleTimer1.Tag:=0;
   ThumbControl1.Invalidate;
+  bShowDetail.Enabled:=DataSet.Count>0;
+  pSave.Enabled:=DataSet.Count>0;
 end;
 
 end.
