@@ -1330,6 +1330,10 @@ begin
           FConnection.Properties.Add('CreateNewDatabase=CREATE DATABASE '''+FConnection.HostName+':'+aDatabase+''' USER '''+aUser+''' PASSWORD '''+aPassword+''' PAGE_SIZE = 4096 DEFAULT CHARACTER SET UTF8')
         else
           FConnection.Properties.Add('CreateNewDatabase=CREATE DATABASE '''+aDatabase+''' USER '''+aUser+''' PASSWORD '''+aPassword+''' PAGE_SIZE = 4096 DEFAULT CHARACTER SET UTF8');
+      end
+    else if (copy(FConnection.Protocol,0,6) = 'sqlite') then
+      begin
+        ForceDirectories(ExtractFileDir(FConnection.Database));
       end;
   try
     FConnection.Connected:=True;
