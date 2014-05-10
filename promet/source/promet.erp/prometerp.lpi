@@ -23,8 +23,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="7"/>
-      <RevisionNr Value="323"/>
-      <BuildNr Value="324"/>
+      <BuildNr Value="325"/>
       <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP" ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="5" Active="Default">
@@ -293,7 +292,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="48">
+    <Units Count="47">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -337,7 +336,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uAddressFrame"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="64"/>
         <CursorPos X="30" Y="113"/>
@@ -561,7 +560,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOrderTypeOptions"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="19" Y="11"/>
@@ -619,13 +618,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMailOptions"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="137"/>
         <CursorPos X="13" Y="146"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit30>
       <Unit31>
         <Filename Value="umaileditoptions.pas"/>
@@ -634,13 +630,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMailEditoptions"/>
-        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="102"/>
         <CursorPos X="92" Y="121"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit31>
       <Unit32>
         <Filename Value="uarticletext.pas"/>
@@ -679,7 +672,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uorderaddressframe"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="93"/>
         <CursorPos X="26" Y="98"/>
@@ -759,7 +752,7 @@
       <Unit42>
         <Filename Value="uimpclipboardcontact.pas"/>
         <UnitName Value="uImpClipboardContact"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="79"/>
         <CursorPos X="82" Y="90"/>
@@ -772,7 +765,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMeetingFrame"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="296"/>
         <CursorPos X="31" Y="328"/>
@@ -783,7 +776,7 @@
       <Unit44>
         <Filename Value="../base/dbintfs/umeeting.pas"/>
         <UnitName Value="umeeting"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="315"/>
         <CursorPos X="32" Y="322"/>
@@ -792,7 +785,8 @@
       </Unit44>
       <Unit45>
         <Filename Value="../base/changes.txt"/>
-        <EditorIndex Value="5"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="42" Y="4"/>
@@ -802,63 +796,15 @@
       </Unit45>
       <Unit46>
         <Filename Value="../base/revision.inc"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit46>
-      <Unit47>
-        <Filename Value="../base/base_options/uprocessoptions.pas"/>
-        <ComponentName Value="fProcessOptions"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uProcessOptions"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="7"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
-      </Unit47>
     </Units>
-    <JumpHistory Count="8" HistoryIndex="7">
-      <Position1>
-        <Filename Value="umailoptions.pas"/>
-        <Caret Line="146" Column="13" TopLine="137"/>
-      </Position1>
-      <Position2>
-        <Filename Value="umaileditoptions.pas"/>
-        <Caret Line="73" Column="3" TopLine="57"/>
-      </Position2>
-      <Position3>
-        <Filename Value="umaileditoptions.pas"/>
-        <Caret Line="118" Column="3" TopLine="112"/>
-      </Position3>
-      <Position4>
-        <Filename Value="umaileditoptions.pas"/>
-        <Caret Line="119" Column="16" TopLine="111"/>
-      </Position4>
-      <Position5>
-        <Filename Value="umaileditoptions.pas"/>
-        <Caret Line="118" Column="1" TopLine="111"/>
-      </Position5>
-      <Position6>
-        <Filename Value="umaileditoptions.pas"/>
-        <Caret Line="120" Column="1" TopLine="111"/>
-      </Position6>
-      <Position7>
-        <Filename Value="umaileditoptions.pas"/>
-        <Caret Line="122" Column="1" TopLine="111"/>
-      </Position7>
-      <Position8>
-        <Filename Value="umaileditoptions.pas"/>
-        <Caret Line="124" Column="49" TopLine="108"/>
-      </Position8>
-    </JumpHistory>
+    <JumpHistory Count="0" HistoryIndex="-1"/>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
