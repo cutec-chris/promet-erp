@@ -1,4 +1,6 @@
-﻿Build 339
+﻿Build 340
+      -
+Build 339
       - Dokumente:Fehler besser abgefangen, Möglichkeit über Öffnen Dialog zu importieren
       - Nachrichten:Verbindungstest hat unter Windows nich nicht funktioniert -> behoben
       - Setup:Autobuild Umgebung umgebaut

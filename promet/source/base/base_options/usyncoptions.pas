@@ -34,6 +34,7 @@ type
     { private declarations }
     aConnection: TComponent;
     aSyncDb: TSyncDB;
+    FInTableAdd : Boolean;
   public
     { public declarations }
     constructor Create(TheOwner: TComponent); override;
@@ -59,11 +60,14 @@ end;
 
 procedure TfSyncOptions.aSyncDbDataSetBeforePost(DataSet: TDataSet);
 begin
+  if FInTableAdd then exit;
+  FInTableAdd := True;
   if dsTables.DataSet.RecordCount=0 then
     if MessageDlg('Tabellen',strInsertTables,mtConfirmation,[mbYes,mbNo],0)=mrYes then
       begin
         sbStandardTables.Click;
       end;
+  FInTableAdd := False;
 end;
 
 procedure TfSyncOptions.bCheckConnectionClick(Sender: TObject);
@@ -94,7 +98,8 @@ begin
                   dsDatabases.DataSet.Post;
               end;
           DBLogout;
-        end;
+        end
+      else Showmessage(strSetPropertysFailed);
     end;
 end;
 
@@ -207,6 +212,7 @@ end;
 constructor TfSyncOptions.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
+  FInTableAdd := False;
   aConnection := Data.GetNewConnection;
   aSyncDb := TSyncDB.Create(Self,Data,aConnection);
   aSyncDb.DataSet.BeforePost:=@aSyncDbDataSetBeforePost;
@@ -242,4 +248,4 @@ begin
   inherited RollbackTransaction;
 end;
 end.
-
+

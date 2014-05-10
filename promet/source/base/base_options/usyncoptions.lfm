@@ -18,6 +18,7 @@ inherited fSyncOptions: TfSyncOptions
       item
         ButtonStyle = cbsCheckboxColumn
         Title.Caption = 'Aktiv'
+        Title.MultiLine = False
         Width = 30
         ValueChecked = 'Y'
         ValueUnchecked = 'N'
@@ -25,16 +26,19 @@ inherited fSyncOptions: TfSyncOptions
       end    
       item
         Title.Caption = 'Name'
+        Title.MultiLine = False
         Width = 130
         FieldName = 'NAME'
       end    
       item
         Title.Caption = 'SyncID'
+        Title.MultiLine = False
         Width = 40
         FieldName = 'SYNCOFFS'
       end    
       item
         Title.Caption = 'In Arbeit'
+        Title.MultiLine = False
         Width = 40
         FieldName = 'INPROGRESS'
       end>
@@ -46,7 +50,7 @@ inherited fSyncOptions: TfSyncOptions
     Left = 8
     Height = 13
     Top = 15
-    Width = 76
+    Width = 81
     Caption = 'Datenbanken'
     Font.Style = [fsBold]
     ParentColor = False
@@ -56,7 +60,7 @@ inherited fSyncOptions: TfSyncOptions
     Left = 24
     Height = 13
     Top = 144
-    Width = 48
+    Width = 52
     Caption = 'Tabellen'
     Font.Style = [fsBold]
     ParentColor = False
@@ -65,6 +69,7 @@ inherited fSyncOptions: TfSyncOptions
   object dgTables: TDBGrid[3]
     Left = 40
     Height = 148
+    Hint = 'zu synchronisierende Tabellen'#10'Ausgehend,Eingehend bestimmen in welche Richtungen synchronisiert werden soll'#10'Um die gesamte Tabelle komplett neu zu synchronisieren löschen Sie einfach "zuletzt synchronisiert" für die Tabelle'
     Top = 160
     Width = 498
     Anchors = [akTop, akLeft, akRight, akBottom]
@@ -72,7 +77,8 @@ inherited fSyncOptions: TfSyncOptions
     Columns = <    
       item
         ButtonStyle = cbsCheckboxColumn
-        Title.Caption = 'ACTIVEOUT'
+        Title.Caption = 'Ausgehend'
+        Title.MultiLine = False
         Width = 30
         ValueChecked = 'Y'
         ValueUnchecked = 'N'
@@ -80,19 +86,22 @@ inherited fSyncOptions: TfSyncOptions
       end    
       item
         ButtonStyle = cbsCheckboxColumn
-        Title.Caption = 'ACTIVE'
+        Title.Caption = 'Eingehend'
+        Title.MultiLine = False
         Width = 30
         ValueChecked = 'Y'
         ValueUnchecked = 'N'
         FieldName = 'ACTIVE'
       end    
       item
-        Title.Caption = 'NAME'
+        Title.Caption = 'Tabellenname'
+        Title.MultiLine = False
         Width = 200
         FieldName = 'NAME'
       end    
       item
-        Title.Caption = 'LTIMESTAMP'
+        Title.Caption = 'zuletzt synchronisiert'
+        Title.MultiLine = False
         Width = 200
         FieldName = 'LTIMESTAMP'
       end>
@@ -104,6 +113,7 @@ inherited fSyncOptions: TfSyncOptions
     Cursor = crIBeam
     Left = 80
     Height = 70
+    Hint = 'hier können Sie pro Tablle einen Filter hinterlegen'#10'Dies ist nützlich um nur einen Teil der Tabelle zu synchronisieren'#10'Er entspricht im wesentlichen der where Bedingung im SQL.'
     Top = 320
     Width = 456
     Anchors = [akLeft, akRight, akBottom]
@@ -715,6 +725,7 @@ inherited fSyncOptions: TfSyncOptions
     Cursor = crIBeam
     Left = 80
     Height = 64
+    Hint = 'hier können Sie pro Tablle einen Filter hinterlegen'#10'Dies ist nützlich um nur einen Teil der Tabelle zu synchronisieren'#10'Er entspricht im wesentlichen der where Bedingung im SQL.'
     Top = 392
     Width = 456
     Anchors = [akLeft, akRight, akBottom]
@@ -1337,7 +1348,7 @@ inherited fSyncOptions: TfSyncOptions
     Left = 8
     Height = 13
     Top = 396
-    Width = 20
+    Width = 22
     Anchors = [akLeft, akBottom]
     Caption = 'Out'
     Font.Style = [fsBold]
@@ -1359,7 +1370,7 @@ inherited fSyncOptions: TfSyncOptions
     Left = 280
     Height = 13
     Top = 24
-    Width = 86
+    Width = 102
     Caption = 'Verbindungsstring'
     ParentColor = False
   end
@@ -1428,7 +1439,8 @@ inherited fSyncOptions: TfSyncOptions
   end
   object bCheckConnection: TButton[12]
     Left = 422
-    Height = 23
+    Height = 25
+    Hint = 'Stellt eine Verbindung mit diesem Verbindungsstring her und prüft die SyncID'
     Top = 5
     Width = 116
     Anchors = [akTop, akRight]
@@ -1468,4 +1480,4 @@ inherited fSyncOptions: TfSyncOptions
     left = 433
     top = 345
   end
-end
+end
