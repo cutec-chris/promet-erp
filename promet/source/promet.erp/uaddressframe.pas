@@ -61,8 +61,10 @@ type
     Panel2: TPanel;
     Panel3: TPanel;
     Splitter1: TSplitter;
+    procedure AddressStateChange(Sender: TObject);
     procedure bCopyToClipboardClick(Sender: TObject);
     procedure bPasteFromClipboardClick(Sender: TObject);
+    procedure cbLandChange(Sender: TObject);
     procedure cbTitleEnter(Sender: TObject);
     procedure mAddressExit(Sender: TObject);
   private
@@ -97,10 +99,39 @@ begin
       Clipboard.AsText := tmp;
     end;
 end;
+
+procedure TfAddressFrame.AddressStateChange(Sender: TObject);
+begin
+  cbLandChange(nil);
+end;
+
 procedure TfAddressFrame.bPasteFromClipboardClick(Sender: TObject);
 begin
   ContClipBoardImport(FPerson,False);
 end;
+
+procedure TfAddressFrame.cbLandChange(Sender: TObject);
+var
+  found: Boolean=false;
+begin
+  Data.Countries.Open;
+  if Data.Countries.Locate('ID',trim(copy(cbLand.Text,0,3)),[loCaseInsensitive]) then
+    begin
+      Data.Languages.Open;
+      if Data.Languages.Locate('ISO6391',Data.Countries.FieldByName('LANGUAGE').AsString,[loCaseInsensitive]) then
+        begin
+          cbTitle.Items.Text:=Data.Languages.FieldByName('TITLES').AsString;
+          found := True;
+        end;
+    end;
+  if not Found then
+    begin
+      Data.Languages.Open;
+      if Data.Languages.Locate('ISO6391',copy(cbLand.Text,0,2),[loCaseInsensitive]) then
+        cbTitle.Items.Text:=Data.Languages.FieldByName('TITLES').AsString;
+    end;
+end;
+
 procedure TfAddressFrame.cbTitleEnter(Sender: TObject);
 begin
   if (not DataSet.CanEdit) and (DataSet.Count = 0) then

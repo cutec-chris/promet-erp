@@ -559,6 +559,7 @@ begin
           begin
             Add('ID',ftString,3,True);
             Add('NAME',ftString,30,True);
+            Add('LANGUAGE',ftString,2,False);
           end;
     end;
 end;
