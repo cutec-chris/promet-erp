@@ -59,8 +59,8 @@
         <UnitName Value="pop3receiver"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="61"/>
-        <CursorPos X="19" Y="79"/>
+        <TopLine Value="283"/>
+        <CursorPos X="45" Y="293"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <WindowIndex Value="0"/>
@@ -498,10 +498,9 @@
       <Unit56>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
         <UnitName Value="uBaseCustomApplication"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="266"/>
+        <TopLine Value="260"/>
         <CursorPos X="59" Y="276"/>
         <UsageCount Value="34"/>
         <Loaded Value="True"/>
@@ -1023,10 +1022,11 @@
       <Unit118>
         <Filename Value="..\base_messaging\ureceivemessage.pas"/>
         <UnitName Value="ureceivemessage"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="232"/>
-        <CursorPos X="1" Y="252"/>
+        <TopLine Value="238"/>
+        <CursorPos X="32" Y="245"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit118>
@@ -1058,123 +1058,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="..\base_messaging\ureceivemessage.pas"/>
-        <Caret Line="244" Column="1" TopLine="232"/>
+        <Caret Line="245" Column="1" TopLine="232"/>
       </Position1>
       <Position2>
         <Filename Value="..\base_messaging\ureceivemessage.pas"/>
-        <Caret Line="245" Column="1" TopLine="232"/>
+        <Caret Line="246" Column="1" TopLine="232"/>
       </Position2>
       <Position3>
         <Filename Value="..\base_messaging\ureceivemessage.pas"/>
-        <Caret Line="246" Column="1" TopLine="232"/>
+        <Caret Line="247" Column="1" TopLine="232"/>
       </Position3>
       <Position4>
         <Filename Value="..\base_messaging\ureceivemessage.pas"/>
-        <Caret Line="247" Column="1" TopLine="232"/>
+        <Caret Line="249" Column="1" TopLine="232"/>
       </Position4>
       <Position5>
         <Filename Value="..\base_messaging\ureceivemessage.pas"/>
-        <Caret Line="249" Column="1" TopLine="232"/>
+        <Caret Line="250" Column="1" TopLine="232"/>
       </Position5>
       <Position6>
         <Filename Value="..\base_messaging\ureceivemessage.pas"/>
-        <Caret Line="250" Column="1" TopLine="232"/>
+        <Caret Line="251" Column="1" TopLine="232"/>
       </Position6>
       <Position7>
         <Filename Value="..\base_messaging\ureceivemessage.pas"/>
-        <Caret Line="251" Column="1" TopLine="232"/>
+        <Caret Line="252" Column="1" TopLine="232"/>
       </Position7>
       <Position8>
-        <Filename Value="..\base_messaging\ureceivemessage.pas"/>
-        <Caret Line="252" Column="1" TopLine="232"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="2194" Column="1" TopLine="2177"/>
       </Position8>
       <Position9>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2194" Column="1" TopLine="2177"/>
+        <Caret Line="2195" Column="1" TopLine="2177"/>
       </Position9>
       <Position10>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2195" Column="1" TopLine="2177"/>
+        <Caret Line="2196" Column="1" TopLine="2177"/>
       </Position10>
       <Position11>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2196" Column="1" TopLine="2177"/>
+        <Caret Line="2197" Column="1" TopLine="2177"/>
       </Position11>
       <Position12>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2197" Column="1" TopLine="2177"/>
+        <Filename Value="..\base\dbintfs\umessages.pas"/>
+        <Caret Line="330" Column="1" TopLine="313"/>
       </Position12>
       <Position13>
         <Filename Value="..\base\dbintfs\umessages.pas"/>
-        <Caret Line="330" Column="1" TopLine="313"/>
+        <Caret Line="331" Column="1" TopLine="313"/>
       </Position13>
       <Position14>
         <Filename Value="..\base\dbintfs\umessages.pas"/>
-        <Caret Line="331" Column="1" TopLine="313"/>
+        <Caret Line="320" Column="1" TopLine="313"/>
       </Position14>
       <Position15>
         <Filename Value="..\base\dbintfs\umessages.pas"/>
-        <Caret Line="320" Column="1" TopLine="313"/>
+        <Caret Line="321" Column="1" TopLine="313"/>
       </Position15>
       <Position16>
-        <Filename Value="..\base\dbintfs\umessages.pas"/>
-        <Caret Line="321" Column="1" TopLine="313"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1454" Column="1" TopLine="1437"/>
       </Position16>
       <Position17>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1454" Column="1" TopLine="1437"/>
+        <Caret Line="1455" Column="1" TopLine="1437"/>
       </Position17>
       <Position18>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1455" Column="1" TopLine="1437"/>
+        <Caret Line="1458" Column="1" TopLine="1437"/>
       </Position18>
       <Position19>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1458" Column="1" TopLine="1437"/>
+        <Caret Line="1395" Column="1" TopLine="1379"/>
       </Position19>
       <Position20>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1395" Column="1" TopLine="1379"/>
+        <Caret Line="1396" Column="1" TopLine="1379"/>
       </Position20>
       <Position21>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1396" Column="1" TopLine="1379"/>
+        <Caret Line="1398" Column="1" TopLine="1379"/>
       </Position21>
       <Position22>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1398" Column="1" TopLine="1379"/>
+        <Caret Line="1399" Column="1" TopLine="1379"/>
       </Position22>
       <Position23>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1399" Column="1" TopLine="1379"/>
+        <Filename Value="pop3receiver.lpr"/>
+        <Caret Line="86" Column="18" TopLine="59"/>
       </Position23>
       <Position24>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="86" Column="18" TopLine="59"/>
+        <Caret Line="220" Column="20" TopLine="215"/>
       </Position24>
       <Position25>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="220" Column="20" TopLine="215"/>
+        <Caret Line="40" Column="1" TopLine="23"/>
       </Position25>
       <Position26>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="40" Column="1" TopLine="23"/>
+        <Caret Line="94" Column="1" TopLine="75"/>
       </Position26>
       <Position27>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="94" Column="1" TopLine="75"/>
+        <Caret Line="169" Column="15" TopLine="150"/>
       </Position27>
       <Position28>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="169" Column="15" TopLine="150"/>
+        <Caret Line="278" Column="31" TopLine="259"/>
       </Position28>
       <Position29>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="278" Column="31" TopLine="259"/>
+        <Caret Line="79" Column="19" TopLine="61"/>
       </Position29>
       <Position30>
         <Filename Value="pop3receiver.lpr"/>
-        <Caret Line="79" Column="19" TopLine="61"/>
+        <Caret Line="293" Column="45" TopLine="283"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -1205,7 +1205,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="4">
+    <BreakPoints Count="3">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsGlobal"/>
@@ -1227,13 +1227,6 @@
         <Source Value="umessages.pas"/>
         <Line Value="921"/>
       </Item3>
-      <Item4>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="..\base_messaging\ureceivemessage.pas"/>
-        <Line Value="242"/>
-      </Item4>
     </BreakPoints>
     <Exceptions Count="1">
       <Item1>

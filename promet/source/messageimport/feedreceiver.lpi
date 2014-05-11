@@ -46,15 +46,14 @@
         <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="61">
+    <Units Count="62">
       <Unit0>
         <Filename Value="feedreceiver.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="feedreceiver"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="264"/>
+        <TopLine Value="114"/>
         <CursorPos X="33" Y="295"/>
         <UsageCount Value="64"/>
         <Loaded Value="True"/>
@@ -501,6 +500,7 @@
       <Unit58>
         <Filename Value="..\base\dbintfs\usystemmessage.pas"/>
         <UnitName Value="uSystemMessage"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="117"/>
@@ -526,6 +526,14 @@
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit60>
+      <Unit61>
+        <Filename Value="..\base_messaging\pmessaging.pas"/>
+        <UnitName Value="pmessaging"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit61>
     </Units>
     <JumpHistory Count="6" HistoryIndex="5">
       <Position1>
