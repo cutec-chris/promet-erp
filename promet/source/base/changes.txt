@@ -1,5 +1,8 @@
-﻿Build 340
+﻿Build 341
       -
+Build 340
+      - Banking:AqBanking metapackage für Debian basierte Systeme
+      - Setup:Linux Paketabhängigkeiten korrigiert
 Build 339
       - Dokumente:Fehler besser abgefangen, Möglichkeit über Öffnen Dialog zu importieren
       - Nachrichten:Verbindungstest hat unter Windows nich nicht funktioniert -> behoben

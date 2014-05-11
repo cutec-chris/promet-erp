@@ -293,7 +293,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="48">
+    <Units Count="49">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -312,7 +312,7 @@
         <UnitName Value="uMain"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="474"/>
+        <TopLine Value="342"/>
         <CursorPos X="114" Y="483"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -339,8 +339,8 @@
         <UnitName Value="uAddressFrame"/>
         <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="64"/>
-        <CursorPos X="30" Y="113"/>
+        <TopLine Value="62"/>
+        <CursorPos X="27" Y="76"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -561,7 +561,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOrderTypeOptions"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="19" Y="11"/>
@@ -753,7 +753,7 @@
       <Unit42>
         <Filename Value="uimpclipboardcontact.pas"/>
         <UnitName Value="uImpClipboardContact"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="79"/>
         <CursorPos X="82" Y="90"/>
@@ -786,7 +786,6 @@
       </Unit44>
       <Unit45>
         <Filename Value="../base/changes.txt"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -818,8 +817,19 @@
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit47>
+      <Unit48>
+        <Filename Value="../base/dbintfs/uperson.pas"/>
+        <UnitName Value="uPerson"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="10"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="714"/>
+        <CursorPos X="91" Y="729"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit48>
     </Units>
-    <JumpHistory Count="4" HistoryIndex="3">
+    <JumpHistory Count="7" HistoryIndex="6">
       <Position1>
         <Filename Value="../base/base_options/usyncoptions.pas"/>
         <Caret Line="1" Column="1" TopLine="1"/>
@@ -836,6 +846,18 @@
         <Filename Value="../base/base_options/usyncoptions.pas"/>
         <Caret Line="53" Column="13" TopLine="26"/>
       </Position4>
+      <Position5>
+        <Filename Value="uaddressframe.pas"/>
+        <Caret Line="86" Column="7" TopLine="78"/>
+      </Position5>
+      <Position6>
+        <Filename Value="uaddressframe.pas"/>
+        <Caret Line="76" Column="27" TopLine="62"/>
+      </Position6>
+      <Position7>
+        <Filename Value="../base/dbintfs/uperson.pas"/>
+        <Caret Line="139" Column="29" TopLine="125"/>
+      </Position7>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
