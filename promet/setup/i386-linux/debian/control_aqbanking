@@ -6,7 +6,7 @@ Priority: optional
 Maintainer: Christian Ulrich <info@free-erp.de>
 Architecture: ARCH
 Installed-Size: DEBSIZE
-Depends: libc6,libchipcard-libgwenhywfar60-plugins,libaqbanking-plugins-libgwenhywfar60,aqbanking-tools,pcscd
+Depends: libc6,libchipcard-libgwenhywfar60-plugins,aqbanking-tools,pcscd
 Description: Banking Support for Promet-ERP
  .
 
