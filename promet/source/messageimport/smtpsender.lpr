@@ -70,7 +70,7 @@ end;
 
 function TSMTPSender.GetSingleInstance: Boolean;
 begin
-  Result := True;
+  Result := False;
 end;
 
 function TSMTPSender.CommandReceived(Sender: TObject; aCommand: string

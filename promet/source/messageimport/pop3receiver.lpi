@@ -57,10 +57,11 @@
         <Filename Value="pop3receiver.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="pop3receiver"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="283"/>
-        <CursorPos X="45" Y="293"/>
+        <TopLine Value="357"/>
+        <CursorPos X="16" Y="368"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <WindowIndex Value="0"/>
@@ -1022,10 +1023,9 @@
       <Unit118>
         <Filename Value="..\base_messaging\ureceivemessage.pas"/>
         <UnitName Value="ureceivemessage"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="238"/>
+        <TopLine Value="158"/>
         <CursorPos X="32" Y="245"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>

@@ -326,7 +326,7 @@ end;
 
 function TRSSReceiver.GetSingleInstance: Boolean;
 begin
-  Result := True;
+  Result := False;
 end;
 
 constructor TRSSReceiver.Create(TheOwner: TComponent);
@@ -349,4 +349,4 @@ begin
   Application.Run;
   Application.Free;
 end.
-
+

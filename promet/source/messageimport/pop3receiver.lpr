@@ -365,7 +365,7 @@ end;
 
 function TPOP3Receiver.GetSingleInstance: Boolean;
 begin
-  Result:=True;
+  Result:=False;
 end;
 
 constructor TPOP3Receiver.Create(TheOwner: TComponent);
@@ -398,4 +398,4 @@ begin
   Application.Run;
   Application.Free;
 end.
-
+
