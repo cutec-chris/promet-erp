@@ -3292,6 +3292,7 @@ end;
 
 procedure TfMain.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
+  debugln('fMain:FormClose enter');
   fMain.Hide;
   IPCTimer.Enabled:=False;
   RefreshTimer.Enabled:=False;
@@ -3325,6 +3326,7 @@ begin
       SaveConfig;
       DoExit;
     end;
+  debugln('fMain:FormClose exit');
 end;
 procedure TfMain.FormCloseQuery(Sender: TObject; var CanClose: boolean);
 begin

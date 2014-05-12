@@ -310,10 +310,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="342"/>
-        <CursorPos X="114" Y="483"/>
+        <TopLine Value="3301"/>
+        <CursorPos X="33" Y="3295"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -337,7 +338,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uAddressFrame"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="103"/>
@@ -684,7 +684,6 @@
         <TopLine Value="93"/>
         <CursorPos X="26" Y="102"/>
         <UsageCount Value="200"/>
-        <LoadedDesigner Value="True"/>
       </Unit35>
       <Unit36>
         <Filename Value="uarticlesupplierframe.pas"/>
@@ -853,7 +852,7 @@
         <Loaded Value="True"/>
       </Unit50>
     </Units>
-    <JumpHistory Count="19" HistoryIndex="18">
+    <JumpHistory Count="20" HistoryIndex="19">
       <Position1>
         <Filename Value="../base/base_options/usyncoptions.pas"/>
         <Caret Line="1" Column="1" TopLine="1"/>
@@ -930,6 +929,10 @@
         <Filename Value="uaddressframe.pas"/>
         <Caret Line="119" Column="1" TopLine="103"/>
       </Position19>
+      <Position20>
+        <Filename Value="umain.pas"/>
+        <Caret Line="483" Column="114" TopLine="448"/>
+      </Position20>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
