@@ -320,6 +320,7 @@ begin
                   DoLog(aprocess+':'+strStartingNextTimeout+' '+DateTimeToStr(ProcessData[i].Timeout),aLog);
                   Processes.Edit;
                   Processes.DataSet.FieldByName('STARTED').AsDateTime := Now();
+                  Processes.DataSet.FieldByName('STOPPED').Clear;
                   Processes.Post;
                 end;
             end
