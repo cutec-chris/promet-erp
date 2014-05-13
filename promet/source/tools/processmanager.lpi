@@ -51,8 +51,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="163"/>
-        <CursorPos X="13" Y="182"/>
+        <TopLine Value="118"/>
+        <CursorPos X="43" Y="178"/>
         <UsageCount Value="45"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -660,7 +660,7 @@
         <UnitName Value="processdaemon"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="159"/>
+        <TopLine Value="166"/>
         <CursorPos X="41" Y="178"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>

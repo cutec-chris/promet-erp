@@ -22,7 +22,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="umain"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="634"/>
@@ -117,10 +116,11 @@
       <Unit10>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1400"/>
-        <CursorPos X="17" Y="1418"/>
+        <CursorPos X="131" Y="1422"/>
         <UsageCount Value="55"/>
         <Loaded Value="True"/>
       </Unit10>
@@ -836,12 +836,10 @@
       <Unit96>
         <Filename Value="../components/zeos/src/component/ZAbstractRODataset.pas"/>
         <UnitName Value="ZAbstractRODataset"/>
-        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1967"/>
-        <CursorPos X="1" Y="1977"/>
+        <TopLine Value="1365"/>
+        <CursorPos X="76" Y="1382"/>
         <UsageCount Value="12"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit96>
       <Unit97>
@@ -1810,7 +1808,7 @@
       </Position29>
       <Position30>
         <Filename Value="umain.pas"/>
-        <Caret Line="135" Column="1" TopLine="195"/>
+        <Caret Line="666" Column="1" TopLine="634"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>
