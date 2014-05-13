@@ -113,16 +113,17 @@ inherited fProcessOptions: TfProcessOptions
       end    
       item
         Title.Caption = 'Status'
+        Width = 40
         FieldName = 'STATUS'
       end    
       item
         Title.Caption = 'gestartet'
-        Width = 75
+        Width = 100
         FieldName = 'STARTED'
       end    
       item
         Title.Caption = 'beended'
-        Width = 75
+        Width = 100
         FieldName = 'STOPPED'
       end>
     DataSource = Processes
