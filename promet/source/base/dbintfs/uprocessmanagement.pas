@@ -233,7 +233,7 @@ var
         {$IFDEF WINDOWS}
         cmd := cmd+' --mandant="'+BaseApplication.GetOptionValue('m','mandant')+'"';
         {$ELSE}
-        cmd := cmd+' --mandant='+Application.GetOptionValue('m','mandant')+'';
+        cmd := cmd+' --mandant='+BaseApplication.GetOptionValue('m','mandant')+'';
         {$ENDIF}
       end;
     if Data.Users.DataSet.Active then
