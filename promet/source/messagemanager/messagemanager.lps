@@ -8,7 +8,7 @@
         <Filename Value="messagemanager.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="messagemanager"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="22"/>
@@ -116,8 +116,7 @@
       <Unit10>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1400"/>
         <CursorPos X="131" Y="1422"/>
@@ -220,7 +219,7 @@
       <Unit22>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="88"/>
         <CursorPos X="28" Y="107"/>
@@ -314,7 +313,7 @@
       <Unit33>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2304"/>
         <CursorPos X="49" Y="2314"/>
@@ -608,7 +607,7 @@
       <Unit68>
         <Filename Value="../base/dbintfs/utask.pas"/>
         <UnitName Value="utask"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="834"/>
         <CursorPos X="27" Y="853"/>
@@ -767,6 +766,7 @@
       <Unit88>
         <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
         <UnitName Value="uProcessManagement"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="226"/>
@@ -1320,12 +1320,10 @@
       <Unit157>
         <Filename Value="../base/dbintfs/fpreadjpegintfd.pas"/>
         <UnitName Value="FPReadJPEGintfd"/>
-        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="96"/>
         <CursorPos X="1" Y="113"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit157>
       <Unit158>
         <Filename Value="../../../../../lazarus/lcl/include/graphic.inc"/>
@@ -1649,7 +1647,7 @@
       <Unit196>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
         <UnitName Value="uroughpklanningframe"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="451"/>
         <CursorPos X="93" Y="470"/>
@@ -1659,7 +1657,7 @@
       <Unit197>
         <Filename Value="../base/base_forms/ugridview.pas"/>
         <UnitName Value="ugridview"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2947"/>
         <CursorPos X="1" Y="2963"/>
@@ -1678,7 +1676,7 @@
       <Unit199>
         <Filename Value="../base/base_frames/uhistoryframe.pas"/>
         <UnitName Value="uHistoryFrame"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="128"/>
         <CursorPos X="1" Y="149"/>

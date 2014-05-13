@@ -442,9 +442,10 @@ begin
           SyncDB.DataSet.Refresh;
           SyncDB.GotoBookmark(aRec);
           if (SyncDB.DataSet.FieldByName('ACTIVE').AsString <> 'N') or (GetOptionValue('db')=SyncDB.DataSet.FieldByName('NAME').AsString) then
-            if (SyncDB.DataSet.FieldByName('INPROGRESS').AsString <> 'Y') or (SyncDB.TimeStamp.AsDateTime+1/4<Now()) then
+            if (SyncDB.DataSet.FieldByName('INPROGRESS').AsString <> 'Y') or ((SyncDB.TimeStamp.AsDateTime+(1/8))<Now()) then
               begin
                 Info('starting:'+SyncDB.DataSet.FieldByName('NAME').AsString);
+                try
                 if not SyncDB.CanEdit then SyncDB.DataSet.Edit;
                 SyncDB.DataSet.FieldByName('INPROGRESS').AsString := 'Y';
                 SyncDB.DataSet.Post;
@@ -565,9 +566,12 @@ begin
                         FLog.Clear;
                       end;
                   end;
-                if not SyncDB.CanEdit then SyncDB.DataSet.Edit;
-                SyncDB.DataSet.FieldByName('INPROGRESS').AsString := 'N';
-                SyncDB.DataSet.Post;
+                finally
+                  SyncDB.Edit;
+                  SyncDB.DataSet.FieldByName('INPROGRESS').AsString := 'N';
+                  SyncDB.DataSet.Post;
+                end;
+                Info(SyncDB.FieldByName('NAME').AsString+' sync done.');
               end
           else  Info('ignoring:'+SyncDB.FieldByName('NAME').AsString+' (already started)');
         end
