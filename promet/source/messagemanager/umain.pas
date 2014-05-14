@@ -439,20 +439,21 @@ begin
       if not Data.ProcessClient.DataSet.Locate('NAME',GetSystemName,[]) then
         begin
           Data.ProcessClient.Insert;
-          Data.ProcessClient.FieldByName('NAME').AsString:=GetSystemName;
-          Data.ProcessClient.FieldByName('STATUS').AsString:='R';
+          Data.ProcessClient.DataSet.FieldByName('NAME').AsString:=GetSystemName;
+          Data.ProcessClient.DataSet.FieldByName('STATUS').AsString:='R';
           Data.ProcessClient.DataSet.Post;
           Info(getSystemName+' added and running');
         end
       else
         begin
           Data.ProcessClient.DataSet.Edit;
-          Data.ProcessClient.FieldByName('STATUS').AsString:='R';
+          Data.ProcessClient.DataSet.FieldByName('STATUS').AsString:='R';
           Data.ProcessClient.DataSet.Post;
           Info(getSystemName+' running');
         end;
       Data.ProcessClient.Processes.Open;
       Data.ProcessClient.Processes.Parameters.Open;
+
       //Messages
       Data.RegisterLinkHandler('HISTORY',@OpenLink,TBaseHistory);
       //Messages
