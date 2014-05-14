@@ -42,6 +42,7 @@ begin
   FPosFrame.Parent := Self;
   FPosFrame.Align:=alClient;
   FPosFrame.Show;
+  FPosFrame.GridView.DefaultRows:='GLOBALWIDTH:%;POSNO:32;TEXT:301;SELLPRICE:68;REALPRICE:68;QUANTITY:40;QUANTITYU:62;POSPRICE:68;REALPOSPRICE:68;';
   FPosFrame.BaseName:='PROJECTS';
 end;
 destructor TfProjectPositions.Destroy;
