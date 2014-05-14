@@ -554,27 +554,37 @@ begin
           tmp1 := DateTimeToStr(aLastSyncedItemTime);
           if Assigned(aID) and Assigned(aTime) then
             begin
+              aSQLID := GetField(aObj,'sql_id');
+              if Assigned(aSQLID) then
+                begin
+                  SelectByReference(aSQLID.Value);
+                  Open;
+                end;
               //Get our Sync Item or insert one
-              SelectByRemoteReference(aID.AsString);
-              Open;
               if Count = 0 then
                 begin
-                  aSQLID := GetField(aObj,'sql_id');
-                  if Assigned(aSQLID) then
+                  SelectByRemoteReference(aID.AsString);
+                  Open;
+                  if Count = 0 then
                     begin
-                      SelectByReference(aSQLID.Value);
-                      Open;
-                      if Count = 0 then Insert
-                      else Edit;
-                      LocalID.AsVariant:=aSQLID.Value;
-                      if State = dsEdit then
-                        Post;
+                      aSQLID := GetField(aObj,'sql_id');
+                      if Assigned(aSQLID) then
+                        begin
+                          SelectByReference(aSQLID.Value);
+                          Open;
+                          if Count = 0 then Insert
+                          else Edit;
+                          LocalID.AsVariant:=aSQLID.Value;
+                          if State = dsEdit then
+                            Post;
+                        end
+                      else
+                        Insert;
                     end
-                  else
-                    Insert;
+                  else Edit;
                 end
               else Edit;
-              if State=dsInsert then
+              if (State=dsInsert) or (RemoteID.AsString<>aID.AsString) then
                 RemoteID.AsVariant:=aID.AsString;
               aInternal.Select(LocalID.AsVariant);
               aInternal.Open;
@@ -586,16 +596,16 @@ begin
                         begin
                           if State=dsInsert then
                             begin
-                              Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,[strSyncNewRecord]));
-                              debugln(aInternal.Id.AsString+':'+Format(strSynchedIn,[strSyncNewRecord]));
+                              Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,[strSyncNewRecord]));
+                              debugln(aInternal.Id.AsString+':'+Format(strSynchedOut,[strSyncNewRecord]));
                             end
                           else if (aInternal.TimeStamp.AsDateTime>SyncTime.AsDateTime) then
                             begin
-                              Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,['Internal '+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
-                              debugln(aInternal.Id.AsString+':'+Format(strSynchedIn,['Internal '+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                              Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,['Internal '+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                              debugln(aInternal.Id.AsString+':'+Format(strSynchedOut,['Internal '+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
                             end
                           else
-                            Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                            Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
                         end;
                       LocalID.AsVariant:=aInternal.Id.AsVariant;
                       Typ.AsString:=SyncType;
