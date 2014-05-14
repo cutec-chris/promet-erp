@@ -1,12 +1,23 @@
 #!/bin/bash
 Program=promet-erp
-Widgetset=$1
+Widgetset=$2
 if [ "x$Widgetset" = "x" ]; then
   Widgetset=gtk2
 fi
-Arch=`dpkg --print-architecture`
+Archfpc=$1
+if [ "x$Archfpc" = "x" ]; then
+  Arch=`dpkg --print-architecture`
+  Archfpc=$(fpc -h | grep 'Compiler version' | sed 's/.*for \([^ ]\+\)$/\1/')
+fi
+if [ "x$Arch" = "x" ]; then
+  if [ "x$Archfpc" = "xx86_64" ]; then
+    Arch=amd64
+  fi
+  if [ "x$Arch" = "x" ]; then
+    Arch=$Archfpc
+  fi
+fi
 sudo -S echo "Arch is $Arch"
-Archfpc=$(fpc -h | grep 'Compiler version' | sed 's/.*for \([^ ]\+\)$/\1/')
 echo "Archfpc is $Archfpc"
 Year=`date +%y`
 Month=`date +%m`
