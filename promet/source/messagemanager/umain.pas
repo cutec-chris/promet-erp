@@ -124,12 +124,14 @@ begin
       if aNow > 0 then
         begin
           if Data.ProcessClient.DataSet.Locate('NAME',GetSystemName,[]) then
-            if Data.ProcessClient.FieldByName('STATUS').AsString <> 'R' then
-              begin
-                Application.Terminate;
-                exit;
-              end;
-          Data.ProcessClient.Process;
+            begin
+              if Data.ProcessClient.FieldByName('STATUS').AsString <> 'R' then
+                begin
+                  Application.Terminate;
+                  exit;
+                end;
+              Data.ProcessClient.Process;
+            end;
         end;
     end;
   if acHistory.Enabled then

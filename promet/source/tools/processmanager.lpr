@@ -177,12 +177,14 @@ begin
   while not Terminated do
     begin
       if Data.ProcessClient.DataSet.Locate('NAME',GetSystemName,[]) then
-        if Data.ProcessClient.FieldByName('STATUS').AsString <> 'R' then
-          begin
-            Terminate;
-            exit;
-          end;
-      Data.ProcessClient.Process;
+        begin
+          if Data.ProcessClient.FieldByName('STATUS').AsString <> 'R' then
+            begin
+              Terminate;
+              exit;
+            end;
+          Data.ProcessClient.Process;
+        end;
       sleep(10000);
     end;
   try

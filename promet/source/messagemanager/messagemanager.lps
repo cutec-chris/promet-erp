@@ -22,10 +22,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="umain"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="634"/>
-        <CursorPos X="1" Y="666"/>
+        <TopLine Value="116"/>
+        <CursorPos X="28" Y="132"/>
         <UsageCount Value="195"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -766,10 +767,9 @@
       <Unit88>
         <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
         <UnitName Value="uProcessManagement"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="226"/>
+        <TopLine Value="201"/>
         <CursorPos X="44" Y="312"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
@@ -1806,7 +1806,7 @@
       </Position29>
       <Position30>
         <Filename Value="umain.pas"/>
-        <Caret Line="666" Column="1" TopLine="634"/>
+        <Caret Line="666" Column="1" TopLine="394"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>
