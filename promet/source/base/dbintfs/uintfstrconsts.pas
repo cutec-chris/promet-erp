@@ -34,6 +34,7 @@ resourcestring
   strCantAccessFile             = 'Auf die Datei "%s" kann nicht zugegriffen werden,'+lineending+'kopieren Sie diese Datei ggf erst auf Ihren Computer oder mounten Sie die Quelle';
   strTimetools                  = 'Zeiterfassung';
   strCosts                      = 'Kosten';
+  strTargetCosts                = 'Zielkosten';
   strFullPercent                = 'Auslastung:%d%%';
   strGanttView                  = 'Gantt Ansicht';
   strTaskPlan                   = 'Aufgabenplan';

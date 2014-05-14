@@ -1,4 +1,6 @@
-﻿Build 341
+﻿Build 342
+      - Projekte:Standard Spaltenkonfiguration für Sachkosten erstellt
+Build 341
       - Kontakte:Auswahl der Titel funktioniert nun (wieder) Dazu muss unter Optionen->Sprachen->Länder dem Land die Sprache zugewiesen sein und Titel eingetragen sein anhand des Adresslandes werden dann die Titel ausgewählt
       - Processmanager/Nachrichtenzentrale:einheitliche Codebasis zum staretn von Anwendungen,mehr Informationen in Processoptionen zu laufenden Prozessen
 Build 340

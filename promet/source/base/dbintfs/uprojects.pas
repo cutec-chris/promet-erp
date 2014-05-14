@@ -35,6 +35,7 @@ type
       aMasterdata: TDataSet=nil); override;
     function GetTyp: string; override;
     procedure DefineFields(aDataSet : TDataSet);override;
+    procedure SetDisplayLabels(aDataSet : TDataSet);override;
     function SelectFromLink(aLink: string) : Boolean; override;
     procedure SelectFromParent(aParent : Variant);virtual;
   end;
@@ -120,6 +121,7 @@ resourcestring
   strManagerChanged             = 'Projektleiter geändert zu %s';
   strPlanedPrice                = 'Planpreis';
   strRealPrice                  = 'Echtpreis';
+  strWholeRealPrice             = 'Echtpreis gesamt';
   strInvoiceDate                = 'Rechnungsdatum';
 function TProjectPositions.GetCurrency: string;
 begin
@@ -230,6 +232,7 @@ begin
   inherited SetDisplayLabels(aDataSet);
   SetDisplayLabelName(aDataSet,'SELLPRICE',strPlanedPrice);
   SetDisplayLabelName(aDataSet,'REALPRICE',strRealPrice);
+  SetDisplayLabelName(aDataSet,'REALPOSPRICE',strWholeRealPrice);
   SetDisplayLabelName(aDataSet,'ORIGDATE',strInvoiceDate);
 end;
 
@@ -539,6 +542,7 @@ begin
           UsePermissions:=True;
         end;
     end;
+  UpdateFloatFields:=True;
 end;
 procedure TProjectList.DefineFields(aDataSet: TDataSet);
 begin
@@ -583,6 +587,14 @@ begin
           end;
     end;
 end;
+
+procedure TProjectList.SetDisplayLabels(aDataSet: TDataSet);
+begin
+  inherited SetDisplayLabels(aDataSet);
+  SetDisplayLabelName(DataSet,'COSTS',strCosts);
+  SetDisplayLabelName(DataSet,'TARGETCOSTS',strTargetCosts);
+end;
+
 function TProjectList.SelectFromLink(aLink: string): Boolean;
 begin
   Result := False;
