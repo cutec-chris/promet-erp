@@ -465,7 +465,11 @@ begin
                     Insert;
                 end
               else Edit;
-              DoSync := (aSyncTime>aLastSyncedItemTime) or (State=dsInsert); //sync only when Chnged ot New
+              //sync only when Chnged ot New
+              if SyncTime.IsNull then
+                DoSync := (aSyncTime>aLastSyncedItemTime) or (State=dsInsert)
+              else
+                DoSync := (aSyncTime>SyncTime.AsDateTime) or (State=dsInsert);
               if DoSync then
                 begin
                   aInternal.Select(LocalID.AsVariant);
