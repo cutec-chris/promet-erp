@@ -501,6 +501,7 @@ var
   tmp: String;
   i: Integer;
   tmp1: String;
+  AktTitle : string;
   function CountPos(const subtext: string; Text: string): Integer;
   begin
     if (Length(subtext) = 0) or (Length(Text) = 0) or (Pos(subtext, Text) = 0) then
@@ -511,13 +512,37 @@ var
   end;
   function HasTitle(aTitle : string) : Boolean;
   begin
-    Result :=
-       (lowercase(copy(Addr[0],0,length(aTitle)+1)) = aTitle+#10)
-    or (lowercase(copy(Addr[0],0,length(aTitle)+1)) = aTitle+#13)
-    or (lowercase(copy(Addr[0],0,length(aTitle)+1)) = aTitle+' ')
-    or (lowercase(copy(Addr[0],0,length(aTitle)+1)) = aTitle+'.')
-    or (lowercase(Addr[0]) = aTitle)
-    ;
+    Result := False;
+    if (lowercase(copy(Addr[0],0,length(aTitle)+1)) = aTitle+#10) then
+      begin
+        AktTitle:=copy(Addr[0],0,Length(aTitle));
+        Addr[0]:=copy(Addr[0],pos(#10,Addr[0])+1,length(Addr[0]));
+        Result := True;
+      end;
+    if (lowercase(copy(Addr[0],0,length(aTitle)+1)) = aTitle+#13) then
+      begin
+        AktTitle:=copy(Addr[0],0,Length(aTitle));
+        Addr[0]:=copy(Addr[0],pos(#13,Addr[0])+1,length(Addr[0]));
+        Result := True;
+      end;
+    if (lowercase(copy(Addr[0],0,length(aTitle)+1)) = aTitle+' ') then
+      begin
+        AktTitle:=copy(Addr[0],0,Length(aTitle));
+        Addr[0]:=copy(Addr[0],pos(' ',Addr[0])+1,length(Addr[0]));
+        Result := True;
+      end;
+    if (lowercase(copy(Addr[0],0,length(aTitle)+1)) = aTitle+'.') then
+      begin
+        AktTitle:=copy(Addr[0],0,Length(aTitle));
+        Addr[0]:=copy(Addr[0],pos('.',Addr[0])+1,length(Addr[0]));
+        Result := True;
+      end;
+    if (lowercase(Addr[0]) = aTitle) then
+      begin
+        AktTitle:=copy(Addr[0],0,Length(aTitle));
+        Addr[0]:='';
+        Result := True;
+      end;
   end;
 begin
   Addr := TStringList.Create;
@@ -575,15 +600,17 @@ begin
     or HasTitle('prof')
     then
       begin
-        DataSet.FieldByName('TITLE').AsString := trim(Addr[0]);
-        Addr.Delete(0);
+        DataSet.FieldByName('TITLE').AsString := AktTitle;
+        if trim(Addr[0])='' then
+          Addr.Delete(0);
       end;
   if Addr.Count > 0 then
     if HasTitle('dr')
     or HasTitle('prof')
     then
       begin
-        Addr.Delete(0);
+        if trim(Addr[0])='' then
+          Addr.Delete(0);
       end;
   if Addr.Count > 0 then
     begin
@@ -952,4 +979,4 @@ begin
 end;
 
 initialization
-end.
+end.
