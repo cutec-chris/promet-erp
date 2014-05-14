@@ -123,6 +123,7 @@ begin
       aNow := Now();
       if aNow > 0 then
         begin
+          Data.ProcessClient.RefreshList;
           if Data.ProcessClient.DataSet.Locate('NAME',GetSystemName,[]) then
             begin
               if Data.ProcessClient.FieldByName('STATUS').AsString <> 'R' then

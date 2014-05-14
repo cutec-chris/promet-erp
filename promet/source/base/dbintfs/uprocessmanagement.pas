@@ -54,6 +54,9 @@ type
     procedure DefineFields(aDataSet: TDataSet); override;
     property Parameters : TProcessParameters read FProcessParameters;
   end;
+
+  { TProcessClient }
+
   TProcessClient = class(TBaseDBDataset)
   private
     FLastRefresh: TDateTime;
@@ -67,6 +70,7 @@ type
     procedure DefineFields(aDataSet: TDataSet); override;
     property Processes : TProcesses read FProcesses;
     property LastRefresh : TDateTime read FLastRefresh;
+    procedure RefreshList;
     function Process : Boolean;
   end;
 
@@ -199,6 +203,23 @@ begin
     end;
 end;
 
+procedure TProcessClient.RefreshList;
+var
+  aNow: TDateTime;
+begin
+  aNow := Now();
+  if aNow>0 then
+    begin
+      //Refresh all Minute
+      if aNow>(LastRefresh+((1/SecsPerDay)*60)) then
+        begin
+          DataSet.Refresh;
+          Processes.DataSet.Refresh;
+          FLastRefresh:=Now();
+        end;
+    end;
+end;
+
 function TProcessClient.Process: Boolean;
 var
   aLog: TStringList;
@@ -243,13 +264,6 @@ begin
   aNow := Now();
   if aNow>0 then
     begin
-      //Refresh all Minute
-      if aNow>(LastRefresh+((1/SecsPerDay)*60)) then
-        begin
-          DataSet.Refresh;
-          Processes.DataSet.Refresh;
-          FLastRefresh:=Now();
-        end;
       aLog := TStringList.Create;
       Processes.DataSet.First;
       while not Processes.DataSet.EOF do

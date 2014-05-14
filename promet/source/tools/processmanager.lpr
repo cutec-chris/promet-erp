@@ -176,6 +176,7 @@ begin
   Data.ProcessClient.Processes.Parameters.Open;
   while not Terminated do
     begin
+      Data.ProcessClient.RefreshList;
       if Data.ProcessClient.DataSet.Locate('NAME',GetSystemName,[]) then
         begin
           if Data.ProcessClient.FieldByName('STATUS').AsString <> 'R' then
