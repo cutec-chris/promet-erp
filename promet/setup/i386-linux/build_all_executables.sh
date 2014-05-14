@@ -1,5 +1,5 @@
 #!/bin/bash
-Params='--cpu=$2 --build-mode=Default'
+Params='--cpu='$2' --build-mode=Default'
 echo "compiling for $1..."
 cd ../../
 lazbuild --add-package $(pwd)/source/base/base_help/phelp.lpk

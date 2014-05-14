@@ -12,6 +12,7 @@ if [ "$?" -ne "0" ]; then
   exit 1
 fi
 sudo -S ./clean_all.sh
+sh build_win_wine_i386.sh &
 cd i386-linux
 ./build_all.sh
 ./build_all.sh i386
