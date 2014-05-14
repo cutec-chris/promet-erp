@@ -109,6 +109,7 @@ var
   aPrivate: Boolean;
   bFolder: TGenericFolder;
   aLastSync: TDateTime;
+  aExt: TJSONData;
 begin
   try
     if not Login then raise Exception.Create('Login failed !');
@@ -308,9 +309,16 @@ begin
                         aItem.CoMessage.SaveChanges(0);
                         bFolder := TGenericFolder.Create(aConnection,aFolder.FEntryTyp);
                         bItem := bFolder.GetFirst;
-                        debugln('Created:'+bItem.Subject);
                         if Assigned(bItem) then
-                          TJSONObject(aJsonOutList[i]).Add('EXTERNAL_ID',EntryIdToString(bItem.EntryID));
+                          begin
+                            aExt := SyncItems.GetField(TJSONObject(aJsonOutList[i]),'EXTERNAL_ID');
+                            if Assigned(aExt) then
+                              begin
+                                 TJSONObject(aJsonOutList[i]).Delete(TJSONObject(aJsonOutList[i]).IndexOf(aExt));
+                              end;
+                            debugln('Created:'+bItem.Subject+' '+EntryIdToString(bItem.EntryID));
+                            TJSONObject(aJsonOutList[i]).Add('EXTERNAL_ID',EntryIdToString(bItem.EntryID));
+                          end;
                         bItem.Free;
                         bFolder.Free;
                       except
