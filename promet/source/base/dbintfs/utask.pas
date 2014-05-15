@@ -946,7 +946,7 @@ begin
   SelectChangedSince(aDate);
   with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
     begin
-      Filter := Filter+' AND (('+QuoteField('USER')+'='+QuoteValue(AccountNo)+') or ('+QuoteField('OWNER')+'='+QuoteValue(AccountNo)+'))';
+      Filter := Filter+' AND (('+QuoteField('USER')+'='+QuoteValue(AccountNo)+'))';
     end;
 end;
 
