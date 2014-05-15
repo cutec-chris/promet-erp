@@ -596,6 +596,23 @@ begin
               else
                 WritelnMessage(' >');
               SyncProperty(aItem,PR_BODY,ptString,aContact.DataSet.FieldByName('INFO'),SyncOut,Collect);
+              SStream := TStringStream.Create('');
+              try
+                if aItem.CoMessage.OpenProperty(PR_BODY, IStream, STGM_READ, 0, IInterface(StreamIntf)) = S_OK then
+                  begin
+                    StreamIntf.Stat(StreamInfo, STATFLAG_NONAME);
+                    OLEStream := TOleStream.Create(StreamIntf);
+                    try
+                      SSTream.CopyFrom(OLEStream,StreamInfo.cbSize);
+                    finally
+                      OLEStream.Free;
+                    end;
+                    if (SStream.DataString <> '') and (aContact.DataSet.FieldByName('INFO').IsNull) then
+                      aContact.DataSet.FieldByName('INFO').AsString:=SStream.DataString;
+                  end;
+              finally
+                StreamIntf := nil;
+              end;
               if SyncOut or Collect then
                 SyncProperty(aItem,PR_CUSTOMER_ID,ptString,aContact.DataSet.FieldByName('ACCOUNTNO'),True,False);
               //Addresses
