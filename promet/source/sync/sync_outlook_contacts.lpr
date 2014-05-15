@@ -545,27 +545,8 @@ begin
               if tmp1 = '' then
                 tmp1 := aItem.Subject;
               Data.SetFilter(aContact,Data.ProcessTerm('NAME='+Data.QuoteValue(tmp))+' OR '+Data.ProcessTerm('NAME='+Data.QuoteValue(tmp1)));
+              Collect:=False;
               aContact.DataSet.First;
-              if tmp <> '' then
-                while not aContact.DataSet.EOF do
-                  begin
-                    if MessageDlg(strCollect,Format(strCollectItems,[aItem.Subject,aContact.DataSet.FieldByName('NAME').AsString]),mtConfirmation,[mbYes,mbNo],0) = mrYes then
-                      begin
-                        Collect := True;
-                        aID := aContact.Id.AsVariant;
-                        with SyncItems.DataSet do
-                          begin
-                            Insert;
-                            FieldByName('SYNCTYPE').AsString:=SyncType;
-                            FieldByName('REMOTE_ID').AsString:=EntryIdToString(aItem.EntryID);
-                            FieldByName('LOCAL_ID').AsVariant:=aContact.Id.AsVariant;
-                            FieldByName('TIMESTAMPD').AsDateTime:=Now();
-                            Post;
-                          end;
-                        break;
-                      end;
-                    aContact.DataSet.Next;
-                  end;
               if (not Collect) and (aContact.Count > 0) then
                 begin
                   with SyncItems.DataSet do
