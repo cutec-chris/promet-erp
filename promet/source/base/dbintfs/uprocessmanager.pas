@@ -30,8 +30,8 @@ uses
   {$ENDIF}
   ;
 
-function StartMessageManager(Mandant : string;User : string = '') : TExtendedProcess;
-function StartProcessManager(Mandant : string;User : string = '';aProcess : string = 'processmanager') : TExtendedProcess;
+function StartMessageManager(Mandant : string;User : string = '') : TProcessUTF8;
+function StartProcessManager(Mandant : string;User : string = '';aProcess : string = 'processmanager') : TProcessUTF8;
 function ProcessExists(cmd,cmdln: string): Boolean;
 var
   ProcessMandant : string;
@@ -90,11 +90,11 @@ begin
   end;
 end;
 {$ENDIF}
-function StartMessageManager(Mandant : string;User : string = '') : TExtendedProcess;
+function StartMessageManager(Mandant : string;User : string = '') : TProcessUTF8;
 begin
   Result := StartProcessManager(Mandant,User,'messagemanager');
 end;
-function StartProcessManager(Mandant : string;User : string = '';aProcess : string = 'processmanager') : TExtendedProcess;
+function StartProcessManager(Mandant : string;User : string = '';aProcess : string = 'processmanager') : TProcessUTF8;
 var
   cmd: String;
   tmp: String;
@@ -116,8 +116,10 @@ begin
       if not FileExistsUTF8(aDir+cmd) then exit;
     end;
   cmd += cmdln;
-  Result := TExtendedProcess.Create(aDir+cmd,True,aDir);
+  Result := TProcessUTF8.Create(nil);
+  Result.CommandLine:=aDir+cmd;
+  Result.Execute;
 end;
 
 end.
-
+

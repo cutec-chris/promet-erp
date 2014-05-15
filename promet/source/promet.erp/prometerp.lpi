@@ -290,7 +290,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="58">
+    <Units Count="51">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -334,13 +334,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uAddressFrame"/>
-        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="103"/>
         <CursorPos X="23" Y="115"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="upersonfinance.pas"/>
@@ -446,7 +443,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOrderFrame"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="444"/>
         <CursorPos X="26" Y="470"/>
@@ -558,12 +555,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOrderTypeOptions"/>
-        <EditorIndex Value="22"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="19" Y="11"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit24>
       <Unit25>
@@ -589,13 +584,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uLanguageOptions"/>
-        <EditorIndex Value="18"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit27>
       <Unit28>
         <Filename Value="urepairoptions.pas"/>
@@ -676,7 +668,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uorderaddressframe"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="328"/>
         <CursorPos X="40" Y="339"/>
@@ -754,128 +746,25 @@
         <LoadedDesigner Value="True"/>
       </Unit41>
       <Unit42>
-        <Filename Value="uimpclipboardcontact.pas"/>
-        <UnitName Value="uImpClipboardContact"/>
-        <EditorIndex Value="21"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="79"/>
-        <CursorPos X="82" Y="90"/>
-        <UsageCount Value="15"/>
-        <Loaded Value="True"/>
-      </Unit42>
-      <Unit43>
-        <Filename Value="../base_pm/umeetingframe.pas"/>
-        <ComponentName Value="fMeetingFrame"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uMeetingFrame"/>
-        <EditorIndex Value="12"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="296"/>
-        <CursorPos X="31" Y="328"/>
-        <UsageCount Value="14"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
-      </Unit43>
-      <Unit44>
-        <Filename Value="../base/dbintfs/umeeting.pas"/>
-        <UnitName Value="umeeting"/>
-        <EditorIndex Value="15"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="315"/>
-        <CursorPos X="32" Y="322"/>
-        <UsageCount Value="14"/>
-        <Loaded Value="True"/>
-      </Unit44>
-      <Unit45>
         <Filename Value="../base/changes.txt"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="71" Y="2"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit45>
-      <Unit46>
+      </Unit42>
+      <Unit43>
         <Filename Value="../base/revision.inc"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
-      </Unit46>
-      <Unit47>
-        <Filename Value="../base/base_options/usyncoptions.pas"/>
-        <ComponentName Value="fSyncOptions"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uSyncOptions"/>
-        <EditorIndex Value="7"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="47"/>
-        <CursorPos X="24" Y="70"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
-      </Unit47>
-      <Unit48>
-        <Filename Value="../base/dbintfs/uperson.pas"/>
-        <UnitName Value="uPerson"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="20"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="588"/>
-        <CursorPos X="3" Y="605"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-      </Unit48>
-      <Unit49>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="17"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="74"/>
-        <CursorPos X="21" Y="92"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-      </Unit49>
-      <Unit50>
-        <Filename Value="../base/dbintfs/ubaseerpdbclasses.pas"/>
-        <UnitName Value="uBaseERPDBClasses"/>
-        <EditorIndex Value="19"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="552"/>
-        <CursorPos X="26" Y="562"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-      </Unit50>
-      <Unit51>
-        <Filename Value="../base/base_options/uprocessoptions.pas"/>
-        <ComponentName Value="fProcessOptions"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uProcessOptions"/>
-        <EditorIndex Value="13"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
-      </Unit51>
-      <Unit52>
-        <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
-        <UnitName Value="uProcessManagement"/>
-        <EditorIndex Value="14"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="219"/>
-        <CursorPos X="64" Y="235"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-      </Unit52>
-      <Unit53>
+      </Unit43>
+      <Unit44>
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
         <UnitName Value="uProjectFrame"/>
         <EditorIndex Value="2"/>
@@ -884,8 +773,8 @@
         <CursorPos X="9" Y="356"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
-      </Unit53>
-      <Unit54>
+      </Unit44>
+      <Unit45>
         <Filename Value="../base_pm/uprojectpositions.pas"/>
         <ComponentName Value="fProjectPositions"/>
         <HasResources Value="True"/>
@@ -898,8 +787,8 @@
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
-      </Unit54>
-      <Unit55>
+      </Unit45>
+      <Unit46>
         <Filename Value="../base/dbintfs/uprojects.pas"/>
         <UnitName Value="uProjects"/>
         <EditorIndex Value="4"/>
@@ -908,8 +797,8 @@
         <CursorPos X="54" Y="124"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
-      </Unit55>
-      <Unit56>
+      </Unit46>
+      <Unit47>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
         <EditorIndex Value="6"/>
@@ -918,8 +807,8 @@
         <CursorPos X="1" Y="77"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
-      </Unit56>
-      <Unit57>
+      </Unit47>
+      <Unit48>
         <Filename Value="../base/dbintfs/uintfstrconsts.pas"/>
         <UnitName Value="uIntfStrConsts"/>
         <EditorIndex Value="5"/>
@@ -928,129 +817,110 @@
         <CursorPos X="48" Y="37"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
-      </Unit57>
+      </Unit48>
+      <Unit49>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <UnitName Value="uBaseVisualApplication"/>
+        <EditorIndex Value="7"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="709"/>
+        <CursorPos X="58" Y="738"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit49>
+      <Unit50>
+        <Filename Value="../base/dbintfs/uprocessmanager.pas"/>
+        <UnitName Value="uProcessManager"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="8"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="87"/>
+        <CursorPos X="36" Y="119"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit50>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="20" HistoryIndex="19">
       <Position1>
-        <Filename Value="uaddressframe.pas"/>
-        <Caret Line="77" Column="27" TopLine="62"/>
-      </Position1>
-      <Position2>
-        <Filename Value="uaddressframe.pas"/>
-        <Caret Line="109" Column="16" TopLine="96"/>
-      </Position2>
-      <Position3>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="93" Column="24" TopLine="76"/>
-      </Position3>
-      <Position4>
-        <Filename Value="uaddressframe.pas"/>
-        <Caret Line="110" Column="70" TopLine="96"/>
-      </Position4>
-      <Position5>
-        <Filename Value="uaddressframe.pas"/>
-        <Caret Line="117" Column="1" TopLine="97"/>
-      </Position5>
-      <Position6>
-        <Filename Value="uaddressframe.pas"/>
-        <Caret Line="115" Column="15" TopLine="103"/>
-      </Position6>
-      <Position7>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="92" Column="21" TopLine="74"/>
-      </Position7>
-      <Position8>
-        <Filename Value="uaddressframe.pas"/>
-        <Caret Line="119" Column="89" TopLine="103"/>
-      </Position8>
-      <Position9>
-        <Filename Value="uaddressframe.pas"/>
-        <Caret Line="115" Column="1" TopLine="103"/>
-      </Position9>
-      <Position10>
-        <Filename Value="uaddressframe.pas"/>
-        <Caret Line="116" Column="1" TopLine="103"/>
-      </Position10>
-      <Position11>
-        <Filename Value="uaddressframe.pas"/>
-        <Caret Line="118" Column="1" TopLine="103"/>
-      </Position11>
-      <Position12>
-        <Filename Value="uaddressframe.pas"/>
-        <Caret Line="119" Column="1" TopLine="103"/>
-      </Position12>
-      <Position13>
         <Filename Value="umain.pas"/>
         <Caret Line="483" Column="114" TopLine="448"/>
-      </Position13>
-      <Position14>
-        <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
-      </Position14>
-      <Position15>
+      </Position1>
+      <Position2>
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
         <Caret Line="356" Column="9" TopLine="352"/>
-      </Position15>
-      <Position16>
+      </Position2>
+      <Position3>
         <Filename Value="../base_pm/uprojectpositions.pas"/>
         <Caret Line="46" Column="12" TopLine="34"/>
-      </Position16>
-      <Position17>
+      </Position3>
+      <Position4>
         <Filename Value="../base_pm/uprojectpositions.pas"/>
         <Caret Line="45" Column="18" TopLine="28"/>
-      </Position17>
-      <Position18>
+      </Position4>
+      <Position5>
         <Filename Value="../base_pm/uprojectpositions.pas"/>
         <Caret Line="45" Column="19" TopLine="28"/>
-      </Position18>
-      <Position19>
+      </Position5>
+      <Position6>
         <Filename Value="../base_pm/uprojectpositions.pas"/>
         <Caret Line="60" Column="36" TopLine="44"/>
-      </Position19>
-      <Position20>
+      </Position6>
+      <Position7>
         <Filename Value="../base/dbintfs/uprojects.pas"/>
         <Caret Line="85" Column="25" TopLine="84"/>
-      </Position20>
-      <Position21>
+      </Position7>
+      <Position8>
         <Filename Value="../base/dbintfs/uprojects.pas"/>
         <Caret Line="37" Column="24" TopLine="9"/>
-      </Position21>
-      <Position22>
+      </Position8>
+      <Position9>
         <Filename Value="../base/dbintfs/uprojects.pas"/>
         <Caret Line="38" Column="62" TopLine="9"/>
-      </Position22>
-      <Position23>
+      </Position9>
+      <Position10>
         <Filename Value="../base/dbintfs/uprojects.pas"/>
         <Caret Line="592" Column="45" TopLine="588"/>
-      </Position23>
-      <Position24>
+      </Position10>
+      <Position11>
         <Filename Value="../base/dbintfs/uprojects.pas"/>
         <Caret Line="591" Column="40" TopLine="574"/>
-      </Position24>
-      <Position25>
+      </Position11>
+      <Position12>
         <Filename Value="../base/dbintfs/uprojects.pas"/>
         <Caret Line="543" Column="26" TopLine="530"/>
-      </Position25>
-      <Position26>
+      </Position12>
+      <Position13>
         <Filename Value="../base/dbintfs/uprojects.pas"/>
         <Caret Line="82" Column="62" TopLine="56"/>
-      </Position26>
-      <Position27>
+      </Position13>
+      <Position14>
         <Filename Value="../base/dbintfs/uprojects.pas"/>
         <Caret Line="233" Column="53" TopLine="228"/>
-      </Position27>
-      <Position28>
+      </Position14>
+      <Position15>
         <Filename Value="uorderaddressframe.pas"/>
         <Caret Line="339" Column="40" TopLine="328"/>
-      </Position28>
-      <Position29>
-        <Filename Value="../base/dbintfs/uperson.pas"/>
-        <Caret Line="526" Column="13" TopLine="498"/>
-      </Position29>
-      <Position30>
-        <Filename Value="../base/dbintfs/uperson.pas"/>
-        <Caret Line="543" Column="20" TopLine="510"/>
-      </Position30>
+      </Position15>
+      <Position16>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position16>
+      <Position17>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <Caret Line="738" Column="58" TopLine="709"/>
+      </Position17>
+      <Position18>
+        <Filename Value="../base/dbintfs/uprocessmanager.pas"/>
+        <Caret Line="119" Column="23" TopLine="85"/>
+      </Position18>
+      <Position19>
+        <Filename Value="../base/dbintfs/uprocessmanager.pas"/>
+        <Caret Line="93" Column="82" TopLine="85"/>
+      </Position19>
+      <Position20>
+        <Filename Value="../base/dbintfs/uprocessmanager.pas"/>
+        <Caret Line="34" Column="118" TopLine="31"/>
+      </Position20>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

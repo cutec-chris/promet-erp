@@ -3,12 +3,12 @@
   <ProjectSession>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="201">
+    <Units Count="204">
       <Unit0>
         <Filename Value="messagemanager.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="messagemanager"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="22"/>
@@ -25,8 +25,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="110"/>
-        <CursorPos X="1" Y="126"/>
+        <TopLine Value="38"/>
+        <CursorPos X="24" Y="46"/>
         <UsageCount Value="199"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -38,9 +38,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="umtimeline"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="306"/>
+        <TopLine Value="305"/>
         <CursorPos X="1" Y="426"/>
         <UsageCount Value="199"/>
         <Loaded Value="True"/>
@@ -117,7 +117,7 @@
       <Unit10>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1400"/>
         <CursorPos X="131" Y="1422"/>
@@ -220,7 +220,7 @@
       <Unit22>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="88"/>
         <CursorPos X="28" Y="107"/>
@@ -314,7 +314,7 @@
       <Unit33>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2304"/>
         <CursorPos X="49" Y="2314"/>
@@ -608,7 +608,7 @@
       <Unit68>
         <Filename Value="../base/dbintfs/utask.pas"/>
         <UnitName Value="utask"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="834"/>
         <CursorPos X="27" Y="853"/>
@@ -769,8 +769,8 @@
         <UnitName Value="uProcessManagement"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="206"/>
-        <CursorPos X="1" Y="215"/>
+        <TopLine Value="18"/>
+        <CursorPos X="19" Y="38"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit88>
@@ -1302,7 +1302,7 @@
       <Unit155>
         <Filename Value="../base/dbintfs/uthumbnails.pas"/>
         <UnitName Value="uthumbnails"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="80"/>
         <CursorPos X="26" Y="104"/>
@@ -1647,7 +1647,7 @@
       <Unit196>
         <Filename Value="../base_pm/uroughpklanningframe.pas"/>
         <UnitName Value="uroughpklanningframe"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="451"/>
         <CursorPos X="93" Y="470"/>
@@ -1657,7 +1657,7 @@
       <Unit197>
         <Filename Value="../base/base_forms/ugridview.pas"/>
         <UnitName Value="ugridview"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2947"/>
         <CursorPos X="1" Y="2963"/>
@@ -1676,7 +1676,7 @@
       <Unit199>
         <Filename Value="../base/base_frames/uhistoryframe.pas"/>
         <UnitName Value="uHistoryFrame"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="128"/>
         <CursorPos X="1" Y="149"/>
@@ -1686,13 +1686,40 @@
       <Unit200>
         <Filename Value="../../../../../lazarus/components/lazcontrols/treefilteredit.pas"/>
         <UnitName Value="TreeFilterEdit"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="41"/>
         <CursorPos X="29" Y="64"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit200>
+      <Unit201>
+        <Filename Value="../../../../../../Programme/lazarus/components/lazutils/utf8process.pp"/>
+        <UnitName Value="UTF8Process"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="30"/>
+        <CursorPos X="18" Y="52"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit201>
+      <Unit202>
+        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-process/src/process.pp"/>
+        <UnitName Value="process"/>
+        <EditorIndex Value="4"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="100"/>
+        <CursorPos X="15" Y="115"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit202>
+      <Unit203>
+        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-process/src/win/process.inc"/>
+        <EditorIndex Value="5"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="257"/>
+        <CursorPos X="40" Y="269"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit203>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
@@ -1700,123 +1727,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
-        <Caret Line="263" Column="52" TopLine="244"/>
+        <Caret Line="309" Column="35" TopLine="274"/>
       </Position1>
       <Position2>
         <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
-        <Caret Line="74" Column="69" TopLine="60"/>
+        <Caret Line="300" Column="19" TopLine="280"/>
       </Position2>
       <Position3>
         <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
-        <Caret Line="237" Column="1" TopLine="208"/>
+        <Caret Line="303" Column="59" TopLine="284"/>
       </Position3>
       <Position4>
         <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
-        <Caret Line="74" Column="74" TopLine="64"/>
+        <Caret Line="306" Column="63" TopLine="287"/>
       </Position4>
       <Position5>
         <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
-        <Caret Line="296" Column="107" TopLine="283"/>
+        <Caret Line="75" Column="10" TopLine="64"/>
       </Position5>
       <Position6>
         <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
-        <Caret Line="299" Column="33" TopLine="280"/>
+        <Caret Line="311" Column="90" TopLine="288"/>
       </Position6>
       <Position7>
-        <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
-        <Caret Line="25" Column="3" TopLine="5"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="82" Column="41" TopLine="69"/>
       </Position7>
       <Position8>
         <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
-        <Caret Line="299" Column="21" TopLine="280"/>
+        <Caret Line="172" Column="16" TopLine="169"/>
       </Position8>
       <Position9>
-        <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
-        <Caret Line="309" Column="35" TopLine="274"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="664" Column="1" TopLine="636"/>
       </Position9>
       <Position10>
-        <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
-        <Caret Line="300" Column="19" TopLine="280"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="56" Column="15" TopLine="38"/>
       </Position10>
       <Position11>
         <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
-        <Caret Line="303" Column="59" TopLine="284"/>
+        <Caret Line="68" Column="34" TopLine="51"/>
       </Position11>
       <Position12>
-        <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
-        <Caret Line="306" Column="63" TopLine="287"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="666" Column="1" TopLine="394"/>
       </Position12>
       <Position13>
-        <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
-        <Caret Line="75" Column="10" TopLine="64"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="132" Column="28" TopLine="110"/>
       </Position13>
       <Position14>
-        <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
-        <Caret Line="311" Column="90" TopLine="288"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="124" Column="53" TopLine="110"/>
       </Position14>
       <Position15>
         <Filename Value="umain.pas"/>
-        <Caret Line="82" Column="41" TopLine="69"/>
+        <Caret Line="128" Column="1" TopLine="110"/>
       </Position15>
       <Position16>
-        <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
-        <Caret Line="172" Column="16" TopLine="169"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="133" Column="1" TopLine="110"/>
       </Position16>
       <Position17>
-        <Filename Value="umain.pas"/>
-        <Caret Line="664" Column="1" TopLine="636"/>
+        <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
+        <Caret Line="242" Column="1" TopLine="225"/>
       </Position17>
       <Position18>
-        <Filename Value="umain.pas"/>
-        <Caret Line="56" Column="15" TopLine="38"/>
+        <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
+        <Caret Line="243" Column="1" TopLine="225"/>
       </Position18>
       <Position19>
         <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
-        <Caret Line="68" Column="34" TopLine="51"/>
+        <Caret Line="244" Column="1" TopLine="225"/>
       </Position19>
       <Position20>
-        <Filename Value="umain.pas"/>
-        <Caret Line="666" Column="1" TopLine="394"/>
+        <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
+        <Caret Line="247" Column="1" TopLine="225"/>
       </Position20>
       <Position21>
-        <Filename Value="../../../../../lazarus/components/lazcontrols/treefilteredit.pas"/>
-        <Caret Line="59" Column="60" TopLine="1"/>
+        <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
+        <Caret Line="73" Column="27" TopLine="52"/>
       </Position21>
       <Position22>
         <Filename Value="umain.pas"/>
-        <Caret Line="132" Column="28" TopLine="110"/>
+        <Caret Line="134" Column="35" TopLine="110"/>
       </Position22>
       <Position23>
-        <Filename Value="umain.pas"/>
-        <Caret Line="124" Column="53" TopLine="110"/>
+        <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
+        <Caret Line="324" Column="40" TopLine="309"/>
       </Position23>
       <Position24>
-        <Filename Value="umain.pas"/>
-        <Caret Line="128" Column="1" TopLine="110"/>
+        <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
+        <Caret Line="106" Column="37" TopLine="85"/>
       </Position24>
       <Position25>
         <Filename Value="umain.pas"/>
-        <Caret Line="133" Column="1" TopLine="110"/>
+        <Caret Line="134" Column="38" TopLine="110"/>
       </Position25>
       <Position26>
         <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
-        <Caret Line="242" Column="1" TopLine="225"/>
+        <Caret Line="332" Column="33" TopLine="312"/>
       </Position26>
       <Position27>
         <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
-        <Caret Line="243" Column="1" TopLine="225"/>
+        <Caret Line="38" Column="19" TopLine="18"/>
       </Position27>
       <Position28>
-        <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
-        <Caret Line="244" Column="1" TopLine="225"/>
+        <Filename Value="../../../../../../Programme/lazarus/components/lazutils/utf8process.pp"/>
+        <Caret Line="52" Column="18" TopLine="30"/>
       </Position28>
       <Position29>
-        <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
-        <Caret Line="247" Column="1" TopLine="225"/>
+        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-process/src/win/process.inc"/>
+        <Caret Line="269" Column="40" TopLine="257"/>
       </Position29>
       <Position30>
-        <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
-        <Caret Line="73" Column="27" TopLine="52"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="667" Column="1" TopLine="631"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>

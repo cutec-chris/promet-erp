@@ -53,7 +53,6 @@ type
     procedure aItemClick(Sender: TObject);
     procedure ApplicationEndSession(Sender: TObject);
     procedure DataModuleCreate(Sender: TObject);
-    procedure DataModuleDestroy(Sender: TObject);
     procedure IPCTimerTimer(Sender: TObject);
     function OpenLink(aLink: string; Sender: TObject): Boolean;
     procedure ProgTimerTimer(Sender: TObject);
@@ -655,13 +654,6 @@ end;
 
 procedure TfMain.ApplicationEndSession(Sender: TObject);
 begin
-  DoExit;
-end;
-
-procedure TfMain.DataModuleDestroy(Sender: TObject);
-var
-  i: Integer;
-begin
   try
     if Data.ProcessClient.DataSet.Locate('NAME',GetSystemName,[]) then
       begin
@@ -671,6 +663,7 @@ begin
       end;
   except
   end;
+  DoExit;
 end;
 
 procedure TfMain.IPCTimerTimer(Sender: TObject);
