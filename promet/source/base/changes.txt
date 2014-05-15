@@ -1,4 +1,7 @@
-﻿Build 342
+﻿Build 343
+      - Sync_Outlook_Contacts:besseres Fehlerhandling, versuch RTF Info Felder zu synchronisieren
+      - Processmanager:mehr kleine Fehler behoben
+Build 342
       - Projekte:Standard Spaltenkonfiguration für Sachkosten erstellt
       - Setup:i386 Build Umgebung (wieder) fertiggestellt
 Build 341
