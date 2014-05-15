@@ -19,8 +19,6 @@ type
   protected
     procedure DoRun; override;
     function GetSingleInstance : Boolean; override;
-    procedure WritelnMessage(s : string);
-    procedure WriteMessage(s : string);
   public
     constructor Create(TheOwner: TComponent); override;
   end;
@@ -113,13 +111,12 @@ var
 begin
   try
     if not Login then raise Exception.Create('Login failed !');
-    WritelnMessage('Datamodule open...');
-    WritelnMessage('Connecting to MAPI...');
+    Info('Datamodule open...');
+    Info('Connecting to MAPI...');
     SyncItems := TSyncItems.Create(nil,Data);
     SyncItems.CreateTable;
     SyncItems.Open;
     aConnection := TMapiConnection.Create('',True);
-    WritelnMessage('->OK');
     if UserSelected then
       begin
         //get Timeoffset
@@ -127,24 +124,23 @@ begin
           TimeOffset := DBConfig.ReadInteger('MSO_TIMEOFFSET',-1);
         if TimeOffset = -1 then
           begin
-            WritelnMessage('hole Timeoffset...');
             aFolder := TGenericFolder.Create(aConnection,PR_IPM_APPOINTMENT_ENTRYID);
             if aFolder.Folder.CreateMessage(IMapiMessage, 0, MapiMessage) = S_OK then
               begin
                 aItem := TMapiMailItem.Create(aFolder, MapiMessage, False);
                 aItem.LastModificationTime:=Now();
                 TimeOffset :=  round((Now()-aItem.LastModificationTime)*24);
-                WritelnMessage('TimeOffset erstellt:'+IntToStr(TimeOffset));
+                Info('TimeOffset created:'+IntToStr(TimeOffset));
                 aItem.CoMessage.SaveChanges(0);
                 TimeOffset :=  round((Now()-aItem.LastModificationTime)*24);
-                WritelnMessage('TimeOffset geändert:'+IntToStr(TimeOffset));
+                Info('TimeOffset changed:'+IntToStr(TimeOffset));
                 aItem.Delete;
                 with Application as IBaseDBInterface do
                   DBConfig.WriteInteger('MSO_TIMEOFFSET',TimeOffset);
               end;
             aFolder.Free;
           end;
-        WritelnMessage('TimeOffset:'+IntToStr(TimeOffset));
+        Info('TimeOffset:'+IntToStr(TimeOffset));
       end
     else TimeOffset:=0;
     if UserSelected then
@@ -170,7 +166,7 @@ begin
         #define dispidTaskOwnership					0x8129	//PT_LONG
         #define dispidTaskDelegationState			0x812A	//PT_LONG}
 
-        WritelnMessage('Syncing Tasks');
+        Info('Syncing Tasks');
         //Aufgaben syncronisieren
         aFolder := TGenericFolder.Create(aConnection,PR_IPM_TASK_ENTRYID);
         //Create Item List
@@ -339,12 +335,12 @@ begin
       end;
     SyncItems.Free;
     aConnection.Free;
-    WritelnMessage('->all done.');
+    Info('->all done.');
   except
     on e : Exception do
       begin
         aConnection.Free;
-        WritelnMessage('->Failed ('+e.Message);
+        Error('->Failed ('+e.Message);
       end;
   end;
   Application.Terminate
@@ -410,14 +406,6 @@ end;
 function TSyncMSOApp.GetSingleInstance: Boolean;
 begin
   Result:=False;
-end;
-procedure TSyncMSOApp.WritelnMessage(s: string);
-begin
-  debugln(s);
-end;
-procedure TSyncMSOApp.WriteMessage(s: string);
-begin
-  debugln(s);
 end;
 constructor TSyncMSOApp.Create(TheOwner: TComponent);
 begin

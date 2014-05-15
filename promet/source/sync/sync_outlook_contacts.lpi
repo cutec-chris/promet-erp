@@ -58,12 +58,12 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="548"/>
-        <CursorPos X="29" Y="548"/>
-        <FoldState Value=" T3n1231 pjMjR2{Fh"/>
+        <TopLine Value="710"/>
+        <CursorPos X="20" Y="721"/>
+        <FoldState Value=" T3mg231 pjMjR2{Fd"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="1">
-          <Item0 X="1" Y="707" ID="0"/>
+          <Item0 X="1" Y="705" ID="0"/>
         </Bookmarks>
         <Loaded Value="True"/>
       </Unit0>
@@ -1031,7 +1031,7 @@
     <Build>
       <CleanOutputFileMask Value="*.ppu;*.ppl;*.o;*.or;*.rc"/>
     </Build>
-    <JumpHistory Count="6" HistoryIndex="5">
+    <JumpHistory Count="8" HistoryIndex="7">
       <Position1>
         <Filename Value="..\base\dbintfs\usync.pas"/>
         <Caret Line="414" Column="1" TopLine="384"/>
@@ -1056,6 +1056,14 @@
         <Filename Value="..\base\dbintfs\usync.pas"/>
         <Caret Line="480" Column="3" TopLine="455"/>
       </Position6>
+      <Position7>
+        <Filename Value="sync_outlook_contacts.lpr"/>
+        <Caret Line="24" Column="1" TopLine="2"/>
+      </Position7>
+      <Position8>
+        <Filename Value="sync_outlook_contacts.lpr"/>
+        <Caret Line="469" Column="30" TopLine="257"/>
+      </Position8>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

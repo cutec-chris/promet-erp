@@ -21,8 +21,6 @@ type
   protected
     procedure DoRun; override;
     function GetSingleInstance : Boolean; override;
-    procedure WritelnMessage(s : string);
-    procedure WriteMessage(s : string);
   public
     constructor Create(TheOwner: TComponent); override;
   end;
@@ -470,13 +468,13 @@ var
 begin
   try
     if not Login then raise Exception.Create('Login failed !');
-    WritelnMessage('Datamodule open...');
-    WritelnMessage('Connecting to MAPI...');
+    Info('Datamodule open...');
+    Info('Connecting to MAPI...');
     SyncItems := TSyncItems.Create(nil,Data);
     SyncItems.CreateTable;
     SyncItems.Open;
     aConnection := TMapiConnection.Create('',True);
-    WritelnMessage('->OK');
+    Info('->OK');
     if UserSelected then
       begin
         //get Timeoffset
@@ -484,27 +482,27 @@ begin
           TimeOffset := DBConfig.ReadInteger('MSO_TIMEOFFSET',-1);
         if TimeOffset = -1 then
           begin
-            WritelnMessage('hole Timeoffset...');
+            Info('hole Timeoffset...');
             aFolder := TGenericFolder.Create(aConnection,PR_IPM_APPOINTMENT_ENTRYID);
             if aFolder.Folder.CreateMessage(IMapiMessage, 0, MapiMessage) = S_OK then
               begin
                 aItem := TMapiMailItem.Create(aFolder, MapiMessage, False);
                 aItem.LastModificationTime:=Now();
                 TimeOffset :=  round((Now()-aItem.LastModificationTime)*24);
-                WritelnMessage('TimeOffset erstellt:'+IntToStr(TimeOffset));
+                Info('TimeOffset erstellt:'+IntToStr(TimeOffset));
                 aItem.CoMessage.SaveChanges(0);
                 TimeOffset :=  round((Now()-aItem.LastModificationTime)*24);
-                WritelnMessage('TimeOffset geändert:'+IntToStr(TimeOffset));
+                Info('TimeOffset geändert:'+IntToStr(TimeOffset));
                 aItem.Delete;
                 with Application as IBaseDBInterface do
                   DBConfig.WriteInteger('MSO_TIMEOFFSET',TimeOffset);
               end;
             aFolder.Free;
           end;
-        WritelnMessage('TimeOffset:'+IntToStr(TimeOffset));
+        Info('TimeOffset:'+IntToStr(TimeOffset));
       end
     else TimeOffset:=0;
-    WritelnMessage('Syncing Contacts...');
+    Info('Syncing Contacts...');
     //Kontakte syncronisieren
     aFolder := TGenericFolder.Create(aConnection,PR_IPM_CONTACT_ENTRYID);
     try
@@ -588,13 +586,13 @@ begin
             begin
               aContact.CustomerCont.Open;
               SyncProperty(aItem,PR_SUBJECT,ptString,aContact.DataSet.FieldByName('NAME'),SyncOut,Collect);
-              WritelnMessage('Syncing '+aContact.DataSet.FieldByName('NAME').AsString+' ... ');
+              Info('Syncing '+aContact.DataSet.FieldByName('NAME').AsString+' ... ');
               if Syncout and (not Collect) then
-                WritelnMessage('< ')
+                Info('< ')
               else if Collect then
-                WritelnMessage('<>')
+                Info('<>')
               else
-                WritelnMessage(' >');
+                Info(' >');
               SyncProperty(aItem,PR_BODY,ptString,aContact.DataSet.FieldByName('INFO'),SyncOut,Collect);
               SStream := TStringStream.Create('');
               try
@@ -720,7 +718,7 @@ begin
           on e : Exception do
             begin
               aConnection.Free;
-              WritelnMessage('->Failed ('+e.Message);
+              Error('->Failed ('+e.Message);
             end;
         end;
         aItem := aFolder.GetNext;
@@ -732,12 +730,12 @@ begin
 
     SyncItems.Free;
     aConnection.Free;
-    WritelnMessage('->all done.');
+    Info('->all done.');
   except
     on e : Exception do
       begin
         aConnection.Free;
-        WritelnMessage('->Failed ('+e.Message);
+        Error('->Failed ('+e.Message);
       end;
   end;
   Application.Terminate
@@ -745,14 +743,6 @@ end;
 function TSyncMSOApp.GetSingleInstance: Boolean;
 begin
   Result:=False;
-end;
-procedure TSyncMSOApp.WritelnMessage(s: string);
-begin
-  debugln(s);
-end;
-procedure TSyncMSOApp.WriteMessage(s: string);
-begin
-  debugln(s);
 end;
 constructor TSyncMSOApp.Create(TheOwner: TComponent);
 begin
