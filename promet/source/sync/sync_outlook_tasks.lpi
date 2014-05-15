@@ -55,11 +55,10 @@
         <Filename Value="sync_outlook_tasks.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="sync_outlook_tasks"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="324"/>
-        <CursorPos X="14" Y="343"/>
+        <TopLine Value="224"/>
+        <CursorPos X="30" Y="242"/>
         <FoldState Value=" T3i603113m"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="1">
@@ -593,10 +592,11 @@
       <Unit68>
         <Filename Value="..\base\dbintfs\usync.pas"/>
         <UnitName Value="usync"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="534"/>
-        <CursorPos X="35" Y="552"/>
+        <TopLine Value="420"/>
+        <CursorPos X="1" Y="451"/>
         <UsageCount Value="38"/>
         <Loaded Value="True"/>
       </Unit68>
@@ -1034,123 +1034,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="608" Column="65" TopLine="575"/>
+        <Caret Line="554" Column="1" TopLine="534"/>
       </Position1>
       <Position2>
-        <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="598" Column="1" TopLine="575"/>
+        <Filename Value="sync_outlook_tasks.lpr"/>
+        <Caret Line="348" Column="23" TopLine="339"/>
       </Position2>
       <Position3>
-        <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="599" Column="1" TopLine="575"/>
+        <Filename Value="sync_outlook_tasks.lpr"/>
+        <Caret Line="349" Column="23" TopLine="339"/>
       </Position3>
       <Position4>
-        <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="601" Column="1" TopLine="575"/>
+        <Filename Value="sync_outlook_tasks.lpr"/>
+        <Caret Line="350" Column="1" TopLine="339"/>
       </Position4>
       <Position5>
-        <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="603" Column="1" TopLine="575"/>
+        <Filename Value="sync_outlook_tasks.lpr"/>
+        <Caret Line="316" Column="65" TopLine="296"/>
       </Position5>
       <Position6>
-        <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="605" Column="1" TopLine="575"/>
+        <Filename Value="sync_outlook_tasks.lpr"/>
+        <Caret Line="226" Column="32" TopLine="217"/>
       </Position6>
       <Position7>
-        <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="610" Column="1" TopLine="579"/>
+        <Filename Value="sync_outlook_tasks.lpr"/>
+        <Caret Line="228" Column="32" TopLine="211"/>
       </Position7>
       <Position8>
-        <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="612" Column="1" TopLine="581"/>
+        <Filename Value="sync_outlook_tasks.lpr"/>
+        <Caret Line="177" Column="34" TopLine="160"/>
       </Position8>
       <Position9>
-        <Filename Value="..\base\dbintfs\utask.pas"/>
-        <Caret Line="826" Column="1" TopLine="807"/>
+        <Filename Value="sync_outlook_tasks.lpr"/>
+        <Caret Line="246" Column="30" TopLine="215"/>
       </Position9>
       <Position10>
-        <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="596" Column="1" TopLine="343"/>
+        <Filename Value="sync_outlook_tasks.lpr"/>
+        <Caret Line="319" Column="36" TopLine="288"/>
       </Position10>
       <Position11>
         <Filename Value="sync_outlook_tasks.lpr"/>
-        <Caret Line="411" Column="17" TopLine="330"/>
+        <Caret Line="414" Column="1" TopLine="329"/>
       </Position11>
       <Position12>
         <Filename Value="sync_outlook_tasks.lpr"/>
-        <Caret Line="350" Column="77" TopLine="331"/>
+        <Caret Line="22" Column="1" TopLine="3"/>
       </Position12>
       <Position13>
-        <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="554" Column="1" TopLine="534"/>
+        <Filename Value="sync_outlook_tasks.lpr"/>
+        <Caret Line="115" Column="9" TopLine="95"/>
       </Position13>
       <Position14>
         <Filename Value="sync_outlook_tasks.lpr"/>
-        <Caret Line="348" Column="23" TopLine="339"/>
+        <Caret Line="120" Column="1" TopLine="101"/>
       </Position14>
       <Position15>
         <Filename Value="sync_outlook_tasks.lpr"/>
-        <Caret Line="349" Column="23" TopLine="339"/>
+        <Caret Line="136" Column="41" TopLine="108"/>
       </Position15>
       <Position16>
         <Filename Value="sync_outlook_tasks.lpr"/>
-        <Caret Line="350" Column="1" TopLine="339"/>
+        <Caret Line="143" Column="13" TopLine="124"/>
       </Position16>
       <Position17>
         <Filename Value="sync_outlook_tasks.lpr"/>
-        <Caret Line="316" Column="65" TopLine="296"/>
+        <Caret Line="169" Column="13" TopLine="150"/>
       </Position17>
       <Position18>
         <Filename Value="sync_outlook_tasks.lpr"/>
-        <Caret Line="226" Column="32" TopLine="217"/>
+        <Caret Line="338" Column="9" TopLine="319"/>
       </Position18>
       <Position19>
         <Filename Value="sync_outlook_tasks.lpr"/>
-        <Caret Line="228" Column="32" TopLine="211"/>
+        <Caret Line="269" Column="44" TopLine="261"/>
       </Position19>
       <Position20>
         <Filename Value="sync_outlook_tasks.lpr"/>
-        <Caret Line="177" Column="34" TopLine="160"/>
+        <Caret Line="315" Column="36" TopLine="284"/>
       </Position20>
       <Position21>
         <Filename Value="sync_outlook_tasks.lpr"/>
-        <Caret Line="246" Column="30" TopLine="215"/>
+        <Caret Line="242" Column="30" TopLine="224"/>
       </Position21>
       <Position22>
         <Filename Value="sync_outlook_tasks.lpr"/>
-        <Caret Line="319" Column="36" TopLine="288"/>
+        <Caret Line="315" Column="36" TopLine="284"/>
       </Position22>
       <Position23>
-        <Filename Value="sync_outlook_tasks.lpr"/>
-        <Caret Line="414" Column="1" TopLine="329"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="539" Column="31" TopLine="534"/>
       </Position23>
       <Position24>
-        <Filename Value="sync_outlook_tasks.lpr"/>
-        <Caret Line="22" Column="1" TopLine="3"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="548" Column="14" TopLine="534"/>
       </Position24>
       <Position25>
-        <Filename Value="sync_outlook_tasks.lpr"/>
-        <Caret Line="115" Column="9" TopLine="95"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="553" Column="20" TopLine="534"/>
       </Position25>
       <Position26>
-        <Filename Value="sync_outlook_tasks.lpr"/>
-        <Caret Line="120" Column="1" TopLine="101"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="607" Column="38" TopLine="576"/>
       </Position26>
       <Position27>
-        <Filename Value="sync_outlook_tasks.lpr"/>
-        <Caret Line="136" Column="41" TopLine="108"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="612" Column="38" TopLine="581"/>
       </Position27>
       <Position28>
-        <Filename Value="sync_outlook_tasks.lpr"/>
-        <Caret Line="143" Column="13" TopLine="124"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="617" Column="38" TopLine="586"/>
       </Position28>
       <Position29>
-        <Filename Value="sync_outlook_tasks.lpr"/>
-        <Caret Line="169" Column="13" TopLine="150"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="388" Column="14" TopLine="370"/>
       </Position29>
       <Position30>
-        <Filename Value="sync_outlook_tasks.lpr"/>
-        <Caret Line="338" Column="9" TopLine="319"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="429" Column="28" TopLine="398"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>

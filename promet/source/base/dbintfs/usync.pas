@@ -448,7 +448,6 @@ begin
           if Assigned(aID) and Assigned(aTime) then
             begin
               //Get our Sync Item or insert one
-              debugln(aID.AsString);
               SelectByRemoteReference(aID.AsString);
               Open;
               if Count = 0 then
