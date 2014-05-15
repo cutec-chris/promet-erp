@@ -53,7 +53,7 @@ type
     procedure SelectActiveByUser(AccountNo : string);
     procedure SelectActive;
     procedure SelectByUser(AccountNo : string);
-    procedure SelectByUserChangedSince(AccountNo : string;aDate : TdateTime);
+    procedure SelectActiveByUserChangedSince(AccountNo: string; aDate: TdateTime);
     procedure SelectByDept(aDept : Variant);
     procedure SelectByParent(aParent : Variant);
     procedure SelectUncompletedByParent(aParent : Variant);
@@ -926,7 +926,7 @@ procedure TTaskList.SelectActive;
 begin
   with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
     begin
-      Filter := '('+QuoteField('COMPLETED')+'='+QuoteValue('N')+') and ('+QuoteField('ACTIVE')+'='+QuoteValue('Y')+')';
+      Filter := '('+QuoteField('COMPLETED')+'='+QuoteValue('N')+') and ('+QuoteField('ACTIVE')+'='+QuoteValue('Y')+') and ('+QuoteField('DEPDONE')+'='+QuoteValue('Y')+')';
       SortFields:='SQL_ID';
       SortDirection:=sdAscending;
     end;
@@ -940,13 +940,13 @@ begin
     end;
 end;
 
-procedure TTaskList.SelectByUserChangedSince(AccountNo: string; aDate: TdateTime
+procedure TTaskList.SelectActiveByUserChangedSince(AccountNo: string; aDate: TdateTime
   );
 begin
   SelectChangedSince(aDate);
   with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
     begin
-      Filter := Filter+' AND (('+QuoteField('USER')+'='+QuoteValue(AccountNo)+'))';
+      Filter := Filter+' AND (('+QuoteField('USER')+'='+QuoteValue(AccountNo)+')) AND ('+QuoteField('COMPLETED')+'='+QuoteValue('N')+') and ('+QuoteField('ACTIVE')+'='+QuoteValue('Y')+') and ('+QuoteField('DEPDONE')+'='+QuoteValue('Y')+')';
     end;
 end;
 

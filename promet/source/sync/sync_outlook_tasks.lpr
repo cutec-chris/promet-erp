@@ -219,7 +219,7 @@ begin
           aTasks := TTaskList.Create(nil,Data);
           aLastSync := SyncItems.LastSync(SyncType,aTasks.TableName);
           if aLastSync>0 then
-            aTasks.SelectByUserChangedSince(Data.Users.Accountno.AsString,aLastSync)
+            aTasks.SelectActiveByUserChangedSince(Data.Users.Accountno.AsString,aLastSync)
           else
             aTasks.SelectActiveByUser(Data.Users.Accountno.AsString);
           aTasks.Open;
