@@ -26,6 +26,7 @@ lazbuild -q ..\..\source\tools\linksender.lpi
 If errorlevel 1 lazbuild -q -B ..\..\source\tools\linksender.lpi
 If errorlevel 1 goto end
 lazbuild -q ..\..\source\tools\checkout.lpi
+If errorlevel 1 lazbuild -B -q ..\..\source\tools\checkout.lpi
 If errorlevel 1 goto end
 lazbuild -q ..\..\source\tools\checkin.lpi
 If errorlevel 1 goto end
@@ -46,6 +47,7 @@ If errorlevel 1 goto end
 lazbuild -q ..\..\source\sync\sync_outlook_tasks.lpi
 If errorlevel 1 goto end
 
+lazbuild -q ..\..\source\tools\portableapps.lpi
 lazbuild -q ..\..\source\tools\cdmenue.lpi
 If errorlevel 1 lazbuild -q -B ..\..\source\tools\cdmenue.lpi
 If errorlevel 1 goto end
