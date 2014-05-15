@@ -511,229 +511,220 @@ begin
       aItem := aFolder.GetFirst;
       while Assigned(aItem) do
       begin
-        SyncOut := False;
-        Collect := False;
-        DoSync := True;
-        aID := 0;
-        Data.SetFilter(SyncItems,Data.QuoteField('SYNCTYPE')+'='+Data.QuoteValue(Synctype)+' AND '+Data.QuoteField('REMOTE_ID')+'='+Data.QuoteValue(EntryIdToString(aItem.EntryID)));
-        aContact := TPerson.Create(nil,Data);
-        while SyncItems.Count > 0 do
-          begin
-            DoSync := (not SyncItems.DataSet.FieldByName('LOCAL_ID').IsNull) and (not SyncItems.DataSet.FieldByName('LOCAL_ID').AsInteger = 0);
-            if DoSync then
-              begin
-                aContact.Select(SyncItems.DataSet.FieldByName('LOCAL_ID').AsVariant);
-                aContact.Open;
-                if aContact.Count > 0 then
-                  begin
-                    DoSync := DoSync and (not (RoundToSecond(IncHour(aItem.LastModificationTime,TimeOffset)) = RoundToSecond(aContact.Timestamp.AsDateTime)));
-                    aID := aContact.Id.AsVariant;
-                    break;
-                  end
-                else
-                  begin
-                    SyncItems.Delete;
-                  end;
-              end
-            else break;
-          end;
-        if (aID = 0) and DoSync then
-          begin
-            tmp := StringReplace(EncodingIn(aItem.Subject),' ','*',[rfreplaceAll]);
-            tmp1 := StringReplace(EncodingIn(aItem.PropertiesDirect[(PT_TSTRING) or ($802B shl 16),ptString]),' ','*',[rfreplaceAll]);
-            if tmp1 = '' then
-              tmp1 := aItem.Subject;
-            Data.SetFilter(aContact,Data.ProcessTerm('NAME='+Data.QuoteValue(tmp))+' OR '+Data.ProcessTerm('NAME='+Data.QuoteValue(tmp1)));
-            aContact.DataSet.First;
-            if tmp <> '' then
-              while not aContact.DataSet.EOF do
+        try
+          SyncOut := False;
+          Collect := False;
+          DoSync := True;
+          aID := 0;
+          Data.SetFilter(SyncItems,Data.QuoteField('SYNCTYPE')+'='+Data.QuoteValue(Synctype)+' AND '+Data.QuoteField('REMOTE_ID')+'='+Data.QuoteValue(EntryIdToString(aItem.EntryID)));
+          aContact := TPerson.Create(nil,Data);
+          while SyncItems.Count > 0 do
+            begin
+              DoSync := (not SyncItems.DataSet.FieldByName('LOCAL_ID').IsNull) and (not SyncItems.DataSet.FieldByName('LOCAL_ID').AsInteger = 0);
+              if DoSync then
                 begin
-                  if MessageDlg(strCollect,Format(strCollectItems,[aItem.Subject,aContact.DataSet.FieldByName('NAME').AsString]),mtConfirmation,[mbYes,mbNo],0) = mrYes then
+                  aContact.Select(SyncItems.DataSet.FieldByName('LOCAL_ID').AsVariant);
+                  aContact.Open;
+                  if aContact.Count > 0 then
                     begin
-                      Collect := True;
+                      DoSync := DoSync and (not (RoundToSecond(IncHour(aItem.LastModificationTime,TimeOffset)) = RoundToSecond(aContact.Timestamp.AsDateTime)));
                       aID := aContact.Id.AsVariant;
-                      with SyncItems.DataSet do
-                        begin
-                          Insert;
-                          FieldByName('SYNCTYPE').AsString:=SyncType;
-                          FieldByName('REMOTE_ID').AsString:=EntryIdToString(aItem.EntryID);
-                          FieldByName('LOCAL_ID').AsVariant:=aContact.Id.AsVariant;
-                          FieldByName('TIMESTAMPD').AsDateTime:=Now();
-                          Post;
-                        end;
                       break;
+                    end
+                  else
+                    begin
+                      SyncItems.Delete;
                     end;
-                  aContact.DataSet.Next;
+                end
+              else break;
+            end;
+          if (aID = 0) and DoSync then
+            begin
+              tmp := StringReplace(EncodingIn(aItem.Subject),' ','*',[rfreplaceAll]);
+              tmp1 := StringReplace(EncodingIn(aItem.PropertiesDirect[(PT_TSTRING) or ($802B shl 16),ptString]),' ','*',[rfreplaceAll]);
+              if tmp1 = '' then
+                tmp1 := aItem.Subject;
+              Data.SetFilter(aContact,Data.ProcessTerm('NAME='+Data.QuoteValue(tmp))+' OR '+Data.ProcessTerm('NAME='+Data.QuoteValue(tmp1)));
+              aContact.DataSet.First;
+              if tmp <> '' then
+                while not aContact.DataSet.EOF do
+                  begin
+                    if MessageDlg(strCollect,Format(strCollectItems,[aItem.Subject,aContact.DataSet.FieldByName('NAME').AsString]),mtConfirmation,[mbYes,mbNo],0) = mrYes then
+                      begin
+                        Collect := True;
+                        aID := aContact.Id.AsVariant;
+                        with SyncItems.DataSet do
+                          begin
+                            Insert;
+                            FieldByName('SYNCTYPE').AsString:=SyncType;
+                            FieldByName('REMOTE_ID').AsString:=EntryIdToString(aItem.EntryID);
+                            FieldByName('LOCAL_ID').AsVariant:=aContact.Id.AsVariant;
+                            FieldByName('TIMESTAMPD').AsDateTime:=Now();
+                            Post;
+                          end;
+                        break;
+                      end;
+                    aContact.DataSet.Next;
+                  end;
+              if (not Collect) and (aContact.Count > 0) then
+                begin
+                  with SyncItems.DataSet do
+                    begin
+                      Insert;
+                      FieldByName('SYNCTYPE').AsString:=SyncType;
+                      FieldByName('REMOTE_ID').AsString:=EntryIdToString(aItem.EntryID);
+                      FieldByName('LOCAL_ID').AsString := '0';
+                      FieldByName('TIMESTAMPD').AsDateTime:=Now();
+                      Post;
+                    end;
                 end;
-            if (not Collect) and (aContact.Count > 0) then
-              begin
-                with SyncItems.DataSet do
-                  begin
-                    Insert;
-                    FieldByName('SYNCTYPE').AsString:=SyncType;
-                    FieldByName('REMOTE_ID').AsString:=EntryIdToString(aItem.EntryID);
-                    FieldByName('LOCAL_ID').AsString := '0';
-                    FieldByName('TIMESTAMPD').AsDateTime:=Now();
-                    Post;
-                  end;
-              end;
-          end;
-        if aID <> 0 then
-          begin
-            aContact.Select(aID);
-            aContact.Open;
-            if RoundToSecond(IncHour(aItem.LastModificationTime,TimeOffset)) < RoundToSecond(aContact.TimeStamp.AsDateTime) then
-              SyncOut := True;
-          end;
-        if (aID = 0) and DoSync then
-          begin
-//            if MessageDlg(strCollect,Format(strSyncItems,[EncodingIn(aItem.Subject)]),mtConfirmation,[mbYes,mbNo],0) = mrYes then
-              begin
-                aContact.Append;
-                aContact.Text.AsString := '';
-                aContact.DataSet.Post;
-                aID := aContact.Id.AsVariant;
-                SyncOut := False;
-                with SyncItems.DataSet do
-                  begin
-                    Insert;
-                    FieldByName('SYNCTYPE').AsString:=SyncType;
-                    FieldByName('REMOTE_ID').AsString:=EntryIdToString(aItem.EntryID);
-                    FieldByName('LOCAL_ID').AsVariant:=aContact.DataSet.FieldByName('SQL_ID').AsVariant;
-                    FieldByName('TIMESTAMPD').AsDateTime:=Now();
-                    Post;
-                  end;
-              end
-{
-            else
-              begin
-                with SyncItems.DataSet do
-                  begin
-                    Insert;
-                    FieldByName('SYNCTYPE').AsString:=SyncType;
-                    FieldByName('REMOTE_ID').AsString:=EntryIdToString(aItem.EntryID);
-                    FieldByName('LOCAL_ID').AsString := '0';
-                    FieldByName('TIMESTAMPD').AsDateTime:=Now();
-                    Post;
-                  end;
-              end;
-}
-          end;
-        if (aID <> 0) and DoSync then
-          begin
-            aContact.CustomerCont.Open;
-            SyncProperty(aItem,PR_SUBJECT,ptString,aContact.DataSet.FieldByName('NAME'),SyncOut,Collect);
-            WritelnMessage('Syncing '+aContact.DataSet.FieldByName('NAME').AsString+' ... ');
-            if Syncout and (not Collect) then
-              WritelnMessage('< ')
-            else if Collect then
-              WritelnMessage('<>')
-            else
-              WritelnMessage(' >');
-            SyncProperty(aItem,PR_BODY,ptString,aContact.DataSet.FieldByName('INFO'),SyncOut,Collect);
-            if SyncOut or Collect then
-              SyncProperty(aItem,PR_CUSTOMER_ID,ptString,aContact.DataSet.FieldByName('ACCOUNTNO'),True,False);
-            //Addresses
-            aContact.Address.Open;
-            SyncAddressItem(aContact.Address,
-                            PR_BUSINESS_ADDRESS_COUNTRY,
-                            PR_BUSINESS_ADDRESS_CITY,
-                            PR_BUSINESS_ADDRESS_STREET,
-                            PR_BUSINESS_ADDRESS_POSTAL_CODE,'IAD','DAD','BAD');
-            SyncAddressItem(aContact.Address,
-                            PR_OTHER_ADDRESS_COUNTRY,
-                            PR_OTHER_ADDRESS_CITY,
-                            PR_OTHER_ADDRESS_STREET,
-                            PR_OTHER_ADDRESS_POSTAL_CODE,'IAD','DAD','BAD');
-            SyncAddressItem(aContact.Address,
-                            PR_HOME_ADDRESS_COUNTRY,
-                            PR_HOME_ADDRESS_CITY,
-                            PR_HOME_ADDRESS_STREET,
-                            PR_HOME_ADDRESS_POSTAL_CODE,'PAD','');
-            //Contact Items
-            SetLength(MAPISynced,0);
-            SyncContactItem(aContact.CustomerCont,(PT_TSTRING) or ($8029 shl 16),ptString,'MAIL','MLB');
-            SyncContactItem(aContact.CustomerCont,(PT_TSTRING) or ($8028 shl 16),ptString,'MAIL','MLB');
-            SyncContactItem(aContact.CustomerCont,(PT_TSTRING) or ($8027 shl 16),ptString,'MAIL','MLB');
-            SyncContactItem(aContact.CustomerCont,PR_HOME_TELEPHONE_NUMBER,ptString,'TELP','TEL');
-            SyncContactItem(aContact.CustomerCont,PR_HOME2_TELEPHONE_NUMBER,ptString,'TELP','TEL');
-            SyncContactItem(aContact.CustomerCont,PR_BUSINESS_TELEPHONE_NUMBER,ptString,'TELB');
-            SyncContactItem(aContact.CustomerCont,PR_BUSINESS2_TELEPHONE_NUMBER,ptString,'TELB');
-            SyncContactItem(aContact.CustomerCont,PR_MOBILE_TELEPHONE_NUMBER,ptString,'CEL');
-            SyncContactItem(aContact.CustomerCont,PR_OTHER_TELEPHONE_NUMBER,ptString,'TEL');
-            SyncContactItem(aContact.CustomerCont,PR_NICKNAME,ptString,'NICK');
-            SyncContactItem(aContact.CustomerCont,PR_BIRTHDAY,ptTime,'BIR');
-            SyncContactItem(aContact.CustomerCont,PR_BUSINESS_HOME_PAGE,ptString,'INT');
-            SyncContactItem(aContact.CustomerCont,PR_PERSONAL_HOME_PAGE,ptString,'INT');
+            end;
+          if aID <> 0 then
+            begin
+              aContact.Select(aID);
+              aContact.Open;
+              if RoundToSecond(IncHour(aItem.LastModificationTime,TimeOffset)) < RoundToSecond(aContact.TimeStamp.AsDateTime) then
+                SyncOut := True;
+            end;
+          if (aID = 0) and DoSync then
+            begin
+              aContact.Append;
+              aContact.Text.AsString := '';
+              aContact.DataSet.Post;
+              aID := aContact.Id.AsVariant;
+              SyncOut := False;
+              with SyncItems.DataSet do
+                begin
+                  Insert;
+                  FieldByName('SYNCTYPE').AsString:=SyncType;
+                  FieldByName('REMOTE_ID').AsString:=EntryIdToString(aItem.EntryID);
+                  FieldByName('LOCAL_ID').AsVariant:=aContact.DataSet.FieldByName('SQL_ID').AsVariant;
+                  FieldByName('TIMESTAMPD').AsDateTime:=Now();
+                  Post;
+                end;
+            end;
+          if (aID <> 0) and DoSync then
+            begin
+              aContact.CustomerCont.Open;
+              SyncProperty(aItem,PR_SUBJECT,ptString,aContact.DataSet.FieldByName('NAME'),SyncOut,Collect);
+              WritelnMessage('Syncing '+aContact.DataSet.FieldByName('NAME').AsString+' ... ');
+              if Syncout and (not Collect) then
+                WritelnMessage('< ')
+              else if Collect then
+                WritelnMessage('<>')
+              else
+                WritelnMessage(' >');
+              SyncProperty(aItem,PR_BODY,ptString,aContact.DataSet.FieldByName('INFO'),SyncOut,Collect);
+              if SyncOut or Collect then
+                SyncProperty(aItem,PR_CUSTOMER_ID,ptString,aContact.DataSet.FieldByName('ACCOUNTNO'),True,False);
+              //Addresses
+              aContact.Address.Open;
+              SyncAddressItem(aContact.Address,
+                              PR_BUSINESS_ADDRESS_COUNTRY,
+                              PR_BUSINESS_ADDRESS_CITY,
+                              PR_BUSINESS_ADDRESS_STREET,
+                              PR_BUSINESS_ADDRESS_POSTAL_CODE,'IAD','DAD','BAD');
+              SyncAddressItem(aContact.Address,
+                              PR_OTHER_ADDRESS_COUNTRY,
+                              PR_OTHER_ADDRESS_CITY,
+                              PR_OTHER_ADDRESS_STREET,
+                              PR_OTHER_ADDRESS_POSTAL_CODE,'IAD','DAD','BAD');
+              SyncAddressItem(aContact.Address,
+                              PR_HOME_ADDRESS_COUNTRY,
+                              PR_HOME_ADDRESS_CITY,
+                              PR_HOME_ADDRESS_STREET,
+                              PR_HOME_ADDRESS_POSTAL_CODE,'PAD','');
+              //Contact Items
+              SetLength(MAPISynced,0);
+              SyncContactItem(aContact.CustomerCont,(PT_TSTRING) or ($8029 shl 16),ptString,'MAIL','MLB');
+              SyncContactItem(aContact.CustomerCont,(PT_TSTRING) or ($8028 shl 16),ptString,'MAIL','MLB');
+              SyncContactItem(aContact.CustomerCont,(PT_TSTRING) or ($8027 shl 16),ptString,'MAIL','MLB');
+              SyncContactItem(aContact.CustomerCont,PR_HOME_TELEPHONE_NUMBER,ptString,'TELP','TEL');
+              SyncContactItem(aContact.CustomerCont,PR_HOME2_TELEPHONE_NUMBER,ptString,'TELP','TEL');
+              SyncContactItem(aContact.CustomerCont,PR_BUSINESS_TELEPHONE_NUMBER,ptString,'TELB');
+              SyncContactItem(aContact.CustomerCont,PR_BUSINESS2_TELEPHONE_NUMBER,ptString,'TELB');
+              SyncContactItem(aContact.CustomerCont,PR_MOBILE_TELEPHONE_NUMBER,ptString,'CEL');
+              SyncContactItem(aContact.CustomerCont,PR_OTHER_TELEPHONE_NUMBER,ptString,'TEL');
+              SyncContactItem(aContact.CustomerCont,PR_NICKNAME,ptString,'NICK');
+              SyncContactItem(aContact.CustomerCont,PR_BIRTHDAY,ptTime,'BIR');
+              SyncContactItem(aContact.CustomerCont,PR_BUSINESS_HOME_PAGE,ptString,'INT');
+              SyncContactItem(aContact.CustomerCont,PR_PERSONAL_HOME_PAGE,ptString,'INT');
 
-            if SyncOut or Collect then
-              begin
-                aContact.Images.Open;
-                aContact.Images.DataSet.First;
-                if aContact.Images.Count > 0 then
-                  begin
-                    aFound := False;
-                    for i := 0 to aItem.Attachments.Count-1 do
-                      begin
-                        if aItem.Attachments[i].FileName = 'ContactPicture.jpg' then
-                          aFound := True;
-                      end;
-                    if not aFound then
-                      begin
-                        ms := TMemoryStream.Create;
-                        Data.BlobFieldToStream(aContact.Images.DataSet,'IMAGE',ms);
-                        ms.Position:=0;
-                        tmp := ms.ReadAnsiString;
-                        aPicture := TPicture.Create;
-                        aPicture.LoadFromStreamWithFileExt(ms,tmp);
-                        ms.Free;
-                        ms := TmemoryStream.Create;
-                        aPicture.SaveToStreamWithFileExt(ms,'jpg');
-                        ms.Position:=0;
-                        aItem.Attachments.Add('ContactPicture.jpg',ms,True);
-                        aItem.PropertiesDirect[(PT_BOOLEAN) or ($80BF shl 16),ptBoolean] := True; //HasPicture
-                        ms.Free;
-                      end;
-                  end;
-              end
-            else if (not SyncOut) and (aItem.Attachments.Count > 0) then
-              begin
-                aContact.Images.Open;
-                aContact.Images.DataSet.First;
-                for i := 0 to aItem.Attachments.Count-1 do
-                  begin
-                    if aItem.Attachments[i].FileName = 'ContactPicture.jpg' then
-                      begin
-                        if aContact.Images.DataSet.RecordCount = 0 then
-                          aContact.Images.DataSet.Insert
-                        else aContact.Images.DataSet.Edit;
-                        aPicture := TPicture.Create;
-                        ms := TMemoryStream.Create;
-                        aItem.Attachments[i].Copy(ms);
-                        ms.Position:=0;
-                        aPicture.LoadFromStreamWithFileExt(ms,'.jpg');
-                        ms.Free;
-                        ms := TMemoryStream.Create;
-                        try
-                          ms.WriteAnsiString('.jpg');
-                          aPicture.Graphic.SaveToStream(ms);
-                          Data.StreamToBlobField(ms,aContact.Images.DataSet,'IMAGE');
-                        finally
-                          aPicture.Free;
+              if SyncOut or Collect then
+                begin
+                  aContact.Images.Open;
+                  aContact.Images.DataSet.First;
+                  if aContact.Images.Count > 0 then
+                    begin
+                      aFound := False;
+                      for i := 0 to aItem.Attachments.Count-1 do
+                        begin
+                          if aItem.Attachments[i].FileName = 'ContactPicture.jpg' then
+                            aFound := True;
+                        end;
+                      if not aFound then
+                        begin
+                          ms := TMemoryStream.Create;
+                          Data.BlobFieldToStream(aContact.Images.DataSet,'IMAGE',ms);
+                          ms.Position:=0;
+                          tmp := ms.ReadAnsiString;
+                          aPicture := TPicture.Create;
+                          aPicture.LoadFromStreamWithFileExt(ms,tmp);
+                          ms.Free;
+                          ms := TmemoryStream.Create;
+                          aPicture.SaveToStreamWithFileExt(ms,'jpg');
+                          ms.Position:=0;
+                          aItem.Attachments.Add('ContactPicture.jpg',ms,True);
+                          aItem.PropertiesDirect[(PT_BOOLEAN) or ($80BF shl 16),ptBoolean] := True; //HasPicture
                           ms.Free;
                         end;
-                        aContact.Images.DataSet.Post;
-                      end;
-                  end;
-                aContact.Images.DataSet.Close;
-              end;
+                    end;
+                end
+              else if (not SyncOut) and (aItem.Attachments.Count > 0) then
+                begin
+                  aContact.Images.Open;
+                  aContact.Images.DataSet.First;
+                  for i := 0 to aItem.Attachments.Count-1 do
+                    begin
+                      if aItem.Attachments[i].FileName = 'ContactPicture.jpg' then
+                        begin
+                          if aContact.Images.DataSet.RecordCount = 0 then
+                            aContact.Images.DataSet.Insert
+                          else aContact.Images.DataSet.Edit;
+                          aPicture := TPicture.Create;
+                          ms := TMemoryStream.Create;
+                          aItem.Attachments[i].Copy(ms);
+                          ms.Position:=0;
+                          aPicture.LoadFromStreamWithFileExt(ms,'.jpg');
+                          ms.Free;
+                          ms := TMemoryStream.Create;
+                          try
+                            ms.WriteAnsiString('.jpg');
+                            aPicture.Graphic.SaveToStream(ms);
+                            Data.StreamToBlobField(ms,aContact.Images.DataSet,'IMAGE');
+                          finally
+                            aPicture.Free;
+                            ms.Free;
+                          end;
+                          aContact.Images.DataSet.Post;
+                        end;
+                    end;
+                  aContact.Images.DataSet.Close;
+                end;
 
-            if (aContact.DataSet.State <> dsEdit) then
-              aContact.DataSet.Edit;
-            aContact.DataSet.Post;
-            aItem.CoMessage.SaveChanges(0);
-          end;
-        aItem.Free;
+              if (aContact.DataSet.State <> dsEdit) then
+                aContact.DataSet.Edit;
+              aContact.DataSet.Post;
+              aItem.CoMessage.SaveChanges(0);
+            end;
+          aItem.Free;
+        except
+          on e : Exception do
+            begin
+              aConnection.Free;
+              WritelnMessage('->Failed ('+e.Message);
+            end;
+        end;
         aItem := aFolder.GetNext;
       end;
     finally
