@@ -357,53 +357,53 @@ procedure TfGanttView.bCalculatePlanClick(Sender: TObject);
     c: Integer;
     oD2: TDateTime;
     aBuffer: TDateTime;
+    aNewStartDate: TDateTime;
   begin
     with TInterval(Sender) do
       begin
-        TInterval(Sender).BeginUpdate;
+        BeginUpdate;
+        aNewStartDate := 0;
+        for i := 0 to DependencyCount-1 do
+          if Dependencies[i].FinishDate>aNewStartDate then
+            aNewStartDate:=Dependencies[i].FinishDate;
+        if aNewStartDate>0 then StartDate := aNewStartDate;
         //Move Forward
         aDur := NetDuration;
         if ResourceTimePerDay=0 then ResourceTimePerDay:=1;
         aDur:=(NetTime*(1/ResourceTimePerDay));
         if aDur<0.5 then aDur:=0.5;
         NetDuration:=aDur;
-        if TInterval(Sender).Earliest>0 then
-          TInterval(Sender).StartDate:=TInterval(Sender).Earliest;
+        if Earliest>0 then
+          if Earliest>StartDate then
+            StartDate:=Earliest;
         //Move out of Weekends
-        if DayOfWeek(trunc(TInterval(Sender).StartDate))=7 then
-          TInterval(Sender).StartDate := trunc(TInterval(Sender).StartDate)+1;
-        if DayOfWeek(trunc(TInterval(Sender).StartDate))=1 then
-          TInterval(Sender).StartDate := trunc(TInterval(Sender).StartDate)+2;
+        if DayOfWeek(trunc(StartDate))=7 then
+          StartDate := trunc(StartDate)+1;
+        if DayOfWeek(trunc(StartDate))=1 then
+          StartDate := trunc(StartDate)+2;
         //Add Weekends
-        i := trunc(TInterval(Sender).StartDate);
-        while i < TInterval(Sender).StartDate+aDur do
+        i := trunc(StartDate);
+        while i < StartDate+aDur do
           begin
             if ((DayOfWeek(i)=1) or (DayOfWeek(i)=7)) then
               aDur := aDur+1;
             inc(i,1);
           end;
         //TODO: Urlaub
-        TInterval(Sender).FinishDate := (TInterval(Sender).StartDate+aDur);
+        FinishDate := (StartDate+aDur);
         aBuffer := Buffer;
         if aBuffer < (aDur*(seBuffer.Value/100)) then
           aBuffer := (aDur*(seBuffer.Value/100));
         //Add Weekends to Buffer
-        i := trunc(TInterval(Sender).FinishDate);
-        while i < TInterval(Sender).FinishDate+aBuffer do
+        i := trunc(FinishDate);
+        while i < FinishDate+aBuffer do
           begin
             if ((DayOfWeek(i)=1) or (DayOfWeek(i)=7)) then
               aBuffer := aBuffer+1;
             inc(i,1);
           end;
         for i := 0 to ConnectionCount-1 do
-          begin
-            Connection[i].BeginUpdate;
-            Connection[i].StartDate:=FinishDate+aBuffer;
-            MoveForward(Connection[i]);
-            Connection[i].IntervalDone:=Connection[i].StartDate;
-            Connection[i].EndUpdate;
-          end;
-        TInterval(Sender).EndUpdate;
+        EndUpdate;
         for i := 0 to IntervalCount-1 do
           MoveForward(Interval[i]);
       end;
@@ -411,9 +411,12 @@ procedure TfGanttView.bCalculatePlanClick(Sender: TObject);
 var
   i : Integer;
 begin
+  Screen.Cursor := crHourGlass;
   for i := 0 to FGantt.IntervalCount-1 do
     MoveForward(FGantt.Interval[i]);
   FGantt.Invalidate;
+  bMoveFwdClick(nil);
+  Screen.Cursor := crDefault;
 end;
 
 procedure TfGanttView.bMoveBack1Click(Sender: TObject);
@@ -428,10 +431,10 @@ procedure TfGanttView.bMoveBack1Click(Sender: TObject);
   begin
     with TInterval(Sender) do
       begin
-        TInterval(Sender).BeginUpdate;
-        if Assigned(TInterval(Sender).Parent) then
-          TInterval(Sender).StartDate := aDate;
-        TInterval(Sender).EndUpdate;
+        BeginUpdate;
+        if Assigned(Parent) then
+          StartDate := aDate;
+        EndUpdate;
         for i := 0 to IntervalCount-1 do
           MoveForward(Interval[i],aDate);
       end;
@@ -439,9 +442,11 @@ procedure TfGanttView.bMoveBack1Click(Sender: TObject);
 var
   i : Integer;
 begin
+  Screen.Cursor := crHourGlass;
   for i := 0 to FGantt.IntervalCount-1 do
     MoveForward(FGantt.Interval[i],FGantt.Interval[i].StartDate);
   bMoveFwd.Click;
+  Screen.Cursor := crDefault;
 end;
 procedure TfGanttView.bMoveBackClick(Sender: TObject);
   function DoMoveBack(aInterval : TInterval) : TDateTime;
@@ -511,7 +516,7 @@ procedure TfGanttView.bMoveFwdClick(Sender: TObject);
   begin
     with TInterval(Sender) do
       begin
-        TInterval(Sender).BeginUpdate;
+        BeginUpdate;
         //Move Forward
         aDur := NetDuration;
         if ResourceTimePerDay=0 then ResourceTimePerDay:=1;
@@ -519,27 +524,27 @@ procedure TfGanttView.bMoveFwdClick(Sender: TObject);
           aDur:=(NetTime*(1/ResourceTimePerDay));
         if aDur<0.5 then aDur:=0.5;
         if NetDuration<aDur then NetDuration:=aDur;
-        if TInterval(Sender).StartDate<TInterval(Sender).Earliest then
-          TInterval(Sender).StartDate:=TInterval(Sender).Earliest;
+        if StartDate<Earliest then
+          StartDate:=Earliest;
         //Move out of Weekends
-        if DayOfWeek(trunc(TInterval(Sender).StartDate))=7 then
-          TInterval(Sender).StartDate := trunc(TInterval(Sender).StartDate)+1;
-        if DayOfWeek(trunc(TInterval(Sender).StartDate))=1 then
-          TInterval(Sender).StartDate := trunc(TInterval(Sender).StartDate)+2;
+        if DayOfWeek(trunc(StartDate))=7 then
+          StartDate := trunc(StartDate)+1;
+        if DayOfWeek(trunc(StartDate))=1 then
+          StartDate := trunc(StartDate)+2;
         //Add Weekends
-        i := trunc(TInterval(Sender).StartDate);
-        while i < TInterval(Sender).StartDate+aDur do
+        i := trunc(StartDate);
+        while i < StartDate+aDur do
           begin
             if ((DayOfWeek(i)=1) or (DayOfWeek(i)=7)) then
               aDur := aDur+1;
             inc(i,1);
           end;
         //TODO: Urlaub
-        TInterval(Sender).FinishDate := (TInterval(Sender).StartDate+aDur);
+        FinishDate := (StartDate+aDur);
         aBuffer := Buffer;
         //Add Weekends to Buffer
-        i := trunc(TInterval(Sender).FinishDate);
-        while i < TInterval(Sender).FinishDate+aBuffer do
+        i := trunc(FinishDate);
+        while i < FinishDate+aBuffer do
           begin
             if ((DayOfWeek(i)=1) or (DayOfWeek(i)=7)) then
               aBuffer := aBuffer+1;
@@ -568,7 +573,7 @@ procedure TfGanttView.bMoveFwdClick(Sender: TObject);
             Connection[i].IntervalDone:=Connection[i].StartDate;
             Connection[i].EndUpdate;
           end;
-        TInterval(Sender).EndUpdate;
+        EndUpdate;
         for i := 0 to IntervalCount-1 do
           MoveForward(Interval[i]);
       end;
@@ -576,9 +581,11 @@ procedure TfGanttView.bMoveFwdClick(Sender: TObject);
 var
   i : Integer;
 begin
+  Screen.Cursor := crHourGlass;
   for i := 0 to FGantt.IntervalCount-1 do
     MoveForward(FGantt.Interval[i]);
   FGantt.Invalidate;
+  Screen.Cursor := crDefault;
 end;
 procedure TfGanttView.acCenterTaskExecute(Sender: TObject);
 var

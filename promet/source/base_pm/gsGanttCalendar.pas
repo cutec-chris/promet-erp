@@ -121,11 +121,14 @@ type
     FIntervals: TList;
 
     FConnections: TList;
+    FDependencies: TList;
     FCanUpdate: Boolean;
     FUpdating : Integer;
     FUpdateCount : Integer;
 
     // property procedures and functions
+    function GetDep(Index: Integer): TInterval;
+    function GetDepCount: Integer;
     function GetEarliestDate: TDateTime;
     function GetLatest: TDateTime;
     function GetStartDate: TDateTime;
@@ -241,6 +244,8 @@ type
     property Interval[Index: Integer]: TInterval read GetInterval;
     property ConnectionCount: Integer read GetConnectionCount;
     property Connection[Index: Integer]: TInterval read GetConnection;
+    property DependencyCount: Integer read GetDepCount;
+    property Dependencies[Index: Integer]: TInterval read GetDep;
 
     property IsCollection: Boolean read GetIsCollection;
     property IntervalDone: TDateTime read GetIntervalDone write SetIntervalDone;
@@ -1235,6 +1240,7 @@ begin
 
   FIntervals := TList.Create;
   FConnections := Tlist.Create;
+  FDependencies := Tlist.Create;
   FCanUpdate := True;
   ResetMovement;
 end;
@@ -1242,6 +1248,7 @@ end;
 destructor TInterval.Destroy;
 begin
   FConnections.Free;
+  FDependencies.Free;
   FIntervals.Free;
   if Assigned(FParent) then FParent.RemoveInterval(Self);
 
@@ -1259,6 +1266,7 @@ begin
     if (AConnection.StartDate < FinishDate) and DoUpdateIntervalStart then
       AConnection.UpdateIntervalStart((FinishDate + Buffer) - AConnection.StartDate);
     FConnections.Add(AConnection);
+    AConnection.FDependencies.Add(Self);
     FGantt.UpdateInterval;
     if DoChange then
       Change;
@@ -1267,12 +1275,16 @@ end;
 
 procedure TInterval.DeleteConnection(AnIndex: Integer);
 begin
+  if TInterval(FConnections[AnIndex]).FDependencies.IndexOf(Self)>-1 then
+    TInterval(FConnections[AnIndex]).FDependencies.Delete(TInterval(FConnections[AnIndex]).FDependencies.IndexOf(Self));
   FConnections.Delete(AnIndex);
   FGantt.UpdateInterval;
 end;
 
 procedure TInterval.RemoveConnection(AConnection: TInterval);
 begin
+  if AConnection.FDependencies.IndexOf(Self)>-1 then
+    AConnection.FDependencies.Delete(AConnection.FDependencies.IndexOf(Self));
   FConnections.Remove(AConnection);
   FGantt.UpdateInterval;
 end;
@@ -1475,6 +1487,16 @@ end;
 function TInterval.GetEarliestDate: TDateTime;
 begin
   Result := FEarliestDate;
+end;
+
+function TInterval.GetDep(Index: Integer): TInterval;
+begin
+  Result := TInterval(FDependencies[Index]);
+end;
+
+function TInterval.GetDepCount: Integer;
+begin
+  Result := FDependencies.Count;
 end;
 
 function TInterval.GetLatest: TDateTime;
