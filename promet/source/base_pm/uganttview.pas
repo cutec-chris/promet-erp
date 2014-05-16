@@ -26,7 +26,7 @@ interface
 uses
   Classes, SysUtils, db, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   StdCtrls, Buttons, Menus, ActnList, Spin, ExtDlgs, gsGanttCalendar, uTask,
-  Math, uProjects;
+  Math, uProjects,uQuickHelpFrame;
 
 type
 
@@ -132,10 +132,12 @@ type
     aSelInterval : Integer;
     FSnapshots : TInterval;
     FCriticalPathLength : float;
+    FQuickHelpFrame: TfQuickHelpFrame;
   public
     { public declarations }
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
+    procedure AddHelp;
     procedure Populate(aTasks: TTaskList; DoClean: Boolean=True;AddInactive : Boolean = False);
     procedure DoSave(aChangeMilestones : Boolean);
     procedure CleanIntervals;
@@ -154,7 +156,8 @@ var
 
 implementation
 uses uData,LCLIntf,uBaseDbClasses,uTaskEdit,variants,LCLProc,uTaskPlan,
-  uIntfStrConsts,uColors,uBaseDBInterface,Grids,uLogWait;
+  uIntfStrConsts,uColors,uBaseDBInterface,Grids,uLogWait,uWiki,
+  uBaseApplication;
 {$R *.lfm}
 resourcestring
   strSnapshot                             = 'Snapshot';
@@ -165,7 +168,27 @@ resourcestring
   strCollectingDependencies               = 'Abhängigkeiten werden ermittelt...';
   strCollectingresourceTimes              = '... Urlaubszeiten ermitteln';
   strChangeMilestones                     = 'Meilensteine ändern';
-
+procedure TfGanttView.AddHelp;
+var
+  aWiki: TWikiList;
+begin
+  if Assigned(FQuickHelpFrame) then exit;
+  aWiki := TWikiList.Create(nil,Data);
+  with BaseApplication as IBaseApplication do
+  if aWiki.FindWikiPage('Promet-ERP-Help/workflows/tfganttview') then
+    begin
+      FQuickHelpFrame := TfQuickHelpFrame.Create(nil);
+      if not FQuickHelpFrame.OpenWikiPage(aWiki) then
+        FreeAndNil(FQuickHelpFrame)
+      else
+        begin
+          FQuickHelpFrame.Parent:=Self;
+          FQuickHelpFrame.Align:=alTop;
+          FQuickHelpFrame.BorderSpacing.Around:=8;
+        end;
+    end;
+  aWiki.Free;
+end;
 procedure TfGanttView.FGanttTreeAfterUpdateCommonSettings(Sender: TObject);
 begin
   fgantt.Tree.ColWidths[0]:=0;
@@ -1411,6 +1434,7 @@ begin
       Application.ProcessMessages;
       sleep(100);
     end;
+  Addhelp;
   Result := ModalResult = mrOK;
   CleanIntervals;
 end;
