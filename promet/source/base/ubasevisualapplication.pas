@@ -734,8 +734,6 @@ begin
       if Data.Users.DataSet.Active then
         begin
           ProcessManager := uProcessManager.StartMessageManager(MandantName,Data.Users.DataSet.FieldByName('NAME').AsString);
-          if not Assigned(Processmanager) then
-            ProcessManager := uProcessManager.StartProcessManager(MandantName,Data.Users.DataSet.FieldByName('NAME').AsString)
         end;
     end;
 end;
@@ -1048,4 +1046,4 @@ initialization
   RegisterClass(TDBComboBox);
   RegisterClass(TPanel);
 end.
-
+
