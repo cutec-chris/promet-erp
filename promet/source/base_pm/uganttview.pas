@@ -41,7 +41,7 @@ type
     acExportToImage: TAction;
     ActionList1: TActionList;
     bMakePossible: TSpeedButton;
-    bCalculate4: TSpeedButton;
+    bCalculate2: TSpeedButton;
     Bevel10: TBevel;
     Bevel9: TBevel;
     bMoveBack: TSpeedButton;
@@ -79,7 +79,7 @@ type
     Panel7: TPanel;
     PopupMenu1: TPopupMenu;
     SavePictureDialog1: TSavePictureDialog;
-    seBuffer1: TSpinEdit;
+    seBuffer: TSpinEdit;
     tbTop: TPanel;
     RecalcTimer: TTimer;
     bSave: TSpeedButton;
@@ -144,6 +144,7 @@ type
     procedure GotoTask(aLink : string);
     function Execute(aProject : TProject;aLink : string = ''; DoClean: Boolean=True;AddInactive : Boolean = False) : Boolean;
     function Calculate(aProject : TProject;DoClean: Boolean=True;AddInactive : Boolean = False) : Boolean;
+    function MoveFwd(aProject : TProject;DoClean: Boolean=True;AddInactive : Boolean = False) : Boolean;
     function MoveAndCalculate(aProject : TProject;DoClean: Boolean=True;AddInactive : Boolean = False) : Boolean;
     procedure SetRights;
   end;
@@ -363,11 +364,10 @@ procedure TfGanttView.bCalculatePlanClick(Sender: TObject);
         //Move Forward
         aDur := NetDuration;
         if ResourceTimePerDay=0 then ResourceTimePerDay:=1;
-        if NetDuration<(NetTime*(1/ResourceTimePerDay)) then
-          aDur:=(NetTime*(1/ResourceTimePerDay));
+        aDur:=(NetTime*(1/ResourceTimePerDay));
         if aDur<0.5 then aDur:=0.5;
-        if NetDuration<aDur then NetDuration:=aDur;
-        if TInterval(Sender).StartDate<TInterval(Sender).Earliest then
+        NetDuration:=aDur;
+        if TInterval(Sender).Earliest>0 then
           TInterval(Sender).StartDate:=TInterval(Sender).Earliest;
         //Move out of Weekends
         if DayOfWeek(trunc(TInterval(Sender).StartDate))=7 then
@@ -395,26 +395,11 @@ procedure TfGanttView.bCalculatePlanClick(Sender: TObject);
               aBuffer := aBuffer+1;
             inc(i,1);
           end;
-
         for i := 0 to ConnectionCount-1 do
           begin
             Connection[i].BeginUpdate;
-            oD := Connection[i].Duration;
-            if Connection[i].StartDate<FinishDate+aBuffer then
-              begin
-                for c := 0 to Connection[i].IntervalCount-1 do
-                  if Connection[i].Interval[c].StartDate<FinishDate+aBuffer then
-                    begin
-                      oD2 := Connection[i].Interval[c].Duration;
-                      Connection[i].Interval[c].BeginUpdate;
-                      Connection[i].Interval[c].StartDate:=FinishDate+aBuffer;
-                      Connection[i].Interval[c].FinishDate:=FinishDate+aBuffer+oD2;
-                      Connection[i].Interval[c].EndUpdate;
-                    end;
-                Connection[i].StartDate:=FinishDate+aBuffer;
-              end;
-            if Connection[i].FinishDate<Connection[i].StartDate+oD then
-              Connection[i].FinishDate:=Connection[i].StartDate+oD;
+            Connection[i].StartDate:=FinishDate+aBuffer;
+            MoveForward(Connection[i]);
             Connection[i].IntervalDone:=Connection[i].StartDate;
             Connection[i].EndUpdate;
           end;
@@ -552,8 +537,6 @@ procedure TfGanttView.bMoveFwdClick(Sender: TObject);
         //TODO: Urlaub
         TInterval(Sender).FinishDate := (TInterval(Sender).StartDate+aDur);
         aBuffer := Buffer;
-        if aBuffer < (aDur*(seBuffer.Value/100)) then
-          aBuffer := (aDur*(seBuffer.Value/100));
         //Add Weekends to Buffer
         i := trunc(TInterval(Sender).FinishDate);
         while i < TInterval(Sender).FinishDate+aBuffer do
@@ -1426,6 +1409,22 @@ begin
 end;
 
 function TfGanttView.Calculate(aProject: TProject; DoClean: Boolean;
+  AddInactive: Boolean): Boolean;
+begin
+  if not Assigned(Self) then
+    begin
+      Application.CreateForm(TfGanttView,fGanttView);
+      Self := fGanttView;
+    end;
+  FProject := aproject;
+  FTasks := aProject.Tasks;
+  Populate(FTasks,DoClean,AddInactive);
+  SetRights;
+  bCalculatePlanClick(nil);
+  bSave.Click;
+end;
+
+function TfGanttView.MoveFwd(aProject: TProject; DoClean: Boolean;
   AddInactive: Boolean): Boolean;
 begin
   if not Assigned(Self) then

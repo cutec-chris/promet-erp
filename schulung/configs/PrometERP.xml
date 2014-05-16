@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CONFIG>
-  <Config LANGUAGE="Deutsch" LOGINUSER="Administrator" LOGINMANDANT="Auftragsverwaltung" AUTOMATICLOGIN="18672" MainFormPosTop="30" MainFormPosLeft="154" MainFormPosRight="1527" ReportPreviewTop="51" MainFormPosBottom="870" ReportPreviewLeft="-26" SEARCHWHILETYPING="YES" ReportPreviewRight="1654" ReportPreviewBottom="1041"/>
+  <Config LANGUAGE="Deutsch" LOGINUSER="Administrator" LOGINMANDANT="Auftragsverwaltung" MainFormState="0" AUTOMATICLOGIN="18672" MainFormPosTop="64" MainFormPosLeft="193" MainFormPosRight="1566" ReportPreviewTop="51" MainFormPosBottom="904" ReportPreviewLeft="-26" SEARCHWHILETYPING="YES" ReportPreviewRight="1654" ReportPreviewBottom="1041"/>
 </CONFIG>

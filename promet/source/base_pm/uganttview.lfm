@@ -302,7 +302,7 @@ object fGanttView: TfGanttView
         OnClick = bShowTasksClick
         ShowCaption = False
       end
-      object bCalculate4: TSpeedButton
+      object bCalculate2: TSpeedButton
         Left = 128
         Height = 24
         Top = 14
@@ -1079,7 +1079,7 @@ object fGanttView: TfGanttView
         OnClick = bCalculatePlanClick
         ShowCaption = False
       end
-      object seBuffer1: TSpinEdit
+      object seBuffer: TSpinEdit
         Left = 32
         Height = 21
         Hint = 'Buffer in Prozent'
