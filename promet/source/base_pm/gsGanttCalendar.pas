@@ -206,7 +206,6 @@ type
 
     procedure UpdateIntervalStart(Delta: TDateTime);
     procedure PrepareToUpdate;
-
     property StartDate: TDateTime read GetStartDate write SetStartDate;
     property FinishDate: TDateTime read GetFinishDate write SetFinishDate;
     property Latest : TDateTime read GetLatest;
@@ -1242,6 +1241,7 @@ begin
   FConnections := Tlist.Create;
   FDependencies := Tlist.Create;
   FCanUpdate := True;
+  FInCriticalPath:=False;
   ResetMovement;
 end;
 
@@ -2492,6 +2492,8 @@ begin
   begin
     Brush.Style := bsSolid;
     Brush.Color := clBlack;
+    if Assigned(FromInterval) and Assigned(ToInterval) and FromInterval.InCriticalPath and ToInterval.InCriticalPath then
+      Brush.Color := clRed;
     Pen.Color := clWhite;
     Pen.Style := psDot;
     if FromInterval.Buffer>0 then
