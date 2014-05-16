@@ -2572,12 +2572,29 @@ begin
         ]
       );
     end else begin
-
-      LineTo
-      (
-        ToRect.Left + Plus,
-        FromRect.Top + (FromRect.Bottom - FromRect.Top) div 2
-      );
+      if FromInterval.Buffer>0 then
+        begin
+          LineTo
+          (
+            FromRect.Right + Plus + round((UnitsBetweenDates(VisibleStart,VisibleStart+1,MinorScale)*PixelsPerMinorScale)*FromInterval.Buffer),
+            FromRect.Top + (FromRect.Bottom - FromRect.Top) div 2
+          );
+          Pen.Style := psDot;
+          Pen.Color := clWhite;
+          LineTo
+          (
+            ToRect.Left + Plus,
+            FromRect.Top + (FromRect.Bottom - FromRect.Top) div 2
+          );
+        end
+      else
+        begin
+          LineTo
+          (
+            ToRect.Left + Plus,
+            FromRect.Top + (FromRect.Bottom - FromRect.Top) div 2
+          );
+        end;
 
       if FromRect.Top > ToRect.Top then
       begin
