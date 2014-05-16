@@ -3463,18 +3463,19 @@ begin
       if (AltColorStartNormal and Odd(ARow-FixedRows)) {(1)} or
          (not AltColorStartNormal and Odd(ARow)) {(2)} then
         AColor := AlternateColor;
-      if (gdSelected in AState) then
-        begin
-          aColor := SelectedColor;
-          Canvas.Font.Color:=clHighlightText;
-        end;
-      Brush.Color := aColor;
       CurrInterval := TInterval(Objects[0, ARow]);
 
       if (CurrInterval <> nil) and CurrInterval.IsCollection then
         Canvas.Font := FBranchFont
       else
         Canvas.Font := Self.Font;
+
+      if (gdSelected in AState) then
+        begin
+          aColor := SelectedColor;
+          Canvas.Font.Color:=clHighlightText;
+        end;
+      Brush.Color := aColor;
 
       if GetColumnType(ACol) = gctTask then
       begin
@@ -3483,9 +3484,7 @@ begin
         begin
           DeltaX := (CurrInterval.Level - 1) * FIndent + 14;
           if CurrInterval.Color<>clBlue then
-            Canvas.Font.Color:=CurrInterval.Color
-          else
-            Canvas.Font.Color:=clWindowText;
+            Canvas.Font.Color:=CurrInterval.Color;
           Canvas.Font.Style:=CurrInterval.Styles;
           WriteText
           (
