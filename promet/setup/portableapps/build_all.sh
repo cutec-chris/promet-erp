@@ -1,5 +1,5 @@
 #!/bin/bash
-Program=promet-erp
+Program=Promet-ERP
 Widgetset=$2
 if [ "x$Widgetset" = "x" ]; then
   Widgetset=gtk2
@@ -34,22 +34,39 @@ if [ x$BuildDir = x/ ]; then
 fi
 sudo -S rm -rf $BuildDir
 echo "copy to builddir..."
-cp -r Promet-ERP $BuildDir/Promet-ERP
-mkdir -p $BuildDir/Promet-ERP/App/promet-erp/tools
-cp -r ../../importdata $BuildDir/Promet-ERP/App/promet-erp
-cp ../help/help.db $BuildDir/Promet-ERP/App/promet-erp
-cp ../warnings.txt $BuildDir/Promet-ERP/App/promet-erp
-cp ../errors.txt $BuildDir/Promet-ERP/App/promet-erp
-cp ../executables/$Version/$Archfpc/prometerp.exe $BuildDir/Promet-ERP/App/promet-erp
-cp ../executables/$Version/$Archfpc/pstarter.exe $BuildDir/Promet-ERP/App/promet-erp
-cp ../executables/$Version/$Archfpc/messagemanager.exe $BuildDir/Promet-ERP/App/promet-erp/tools
-cp ../executables/$Version/$Archfpc/wizardmandant.exe $BuildDir/Promet-ERP/App/promet-erp
-cp ../executables/$Version/$Archfpc/*sender.exe $BuildDir/Promet-ERP/App/promet-erp/tools
-cp ../executables/$Version/$Archfpc/*receiver.exe $BuildDir/Promet-ERP/App/promet-erp/tools
-cp ../executables/$Version/$Archfpc/helpviewer.exe $BuildDir/Promet-ERP/App/promet-erp
-#cp ../executables/$Version/$Archfpc/sync_*.exe $BuildDir/Promet-ERP/App/promet-erp/tools
-cp ../i386-win32/sqlite3.dll $BuildDir/Promet-ERP/App/promet-erp
-cp ../i386-win32/sqlite3.dll $BuildDir/Promet-ERP/App/promet-erp/tools
+mkdir -p $BuildDir/Promet-ERP
+cp -r ./Promet-ERP $BuildDir
+mkdir -p $BuildDir/Promet-ERP/App/promet/tools
+cp -r ../../importdata $BuildDir/Promet-ERP/App/promet
+cp ../help/help.db $BuildDir/Promet-ERP/App/promet
+cp ../warnings.txt $BuildDir/Promet-ERP/App/promet
+cp ../errors.txt $BuildDir/Promet-ERP/App/promet
+cp ../executables/$Version/$Archfpc/prometerp.exe $BuildDir/Promet-ERP/App/promet
+cp ../executables/$Version/$Archfpc/pstarter.exe $BuildDir/Promet-ERP/App/promet
+cp ../executables/$Version/$Archfpc/messagemanager.exe $BuildDir/Promet-ERP/App/promet/tools
+#cp ../executables/$Version/$Archfpc/wizardmandant.exe $BuildDir/Promet-ERP/App/promet
+#cp ../executables/$Version/$Archfpc/*sender.exe $BuildDir/Promet-ERP/App/promet/tools
+#cp ../executables/$Version/$Archfpc/*receiver.exe $BuildDir/Promet-ERP/App/promet/tools
+cp ../executables/$Version/$Archfpc/helpviewer.exe $BuildDir/Promet-ERP/App/promet
+#cp ../executables/$Version/$Archfpc/sync_*.exe $BuildDir/Promet-ERP/App/promet/tools
+cp ../i386-win32/sqlite3.dll $BuildDir/Promet-ERP/App/promet
+cp ../i386-win32/sqlite3.dll $BuildDir/Promet-ERP/App/promet/tools
+cp ../../output/$Archfpc-win32/tools/portablestarter.exe $BuildDir/Promet-ERP/$Program.exe
+
+cp erp.db $BuildDir/Promet-ERP/Data/Database/promet-erp.db
+echo "compressing..."
+FULL_NAME=$(cd `dirname $0` && pwd)
+WIN_DIR=$(echo $FULL_NAME | sed 's/\//\\/g')
+WIN_DIR='Z:\'$WIN_DIR
+WINEPREFIX=$FULL_NAME/../../../lazarus_wine/ wineconsole "$WIN_DIR\compress.bat" 'Z:'$(echo $BuildDir | sed 's/\//\\/g') $WIN_DIR
 echo "building package..."
+cat Appinfo.ini | \
+  sed -e "s/VERSION/$Version/g" \
+      -e "s/ARCH/$Arch/g" \
+      -e "s/ARCHFPC/$Archfpc/g" \
+      -e "s/CREATEDDATE/$Date/g" \
+  > $BuildDir/Promet-ERP/App/AppInfo/Appinfo.ini
+WINEPREFIX=$FULL_NAME/../../../lazarus_wine/ wine "PortableApps.comInstaller\PortableApps.comInstaller.exe" 'Z:'$(echo $BuildDir | sed 's/\//\\/g')'\Promet-ERP'
+cp $BuildDir/PrometERP_$Version_German.paf.exe ../output
 echo "cleaning up..."
 #sudo -S rm -r $BuildDir
