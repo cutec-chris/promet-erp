@@ -7,8 +7,8 @@ object fOrderAddress: TfOrderAddress
   ClientWidth = 230
   OnEnter = FrameEnter
   TabOrder = 0
-  DesignLeft = 420
-  DesignTop = 335
+  DesignLeft = 477
+  DesignTop = 333
   object cbType: TComboBox
     Left = 28
     Height = 27

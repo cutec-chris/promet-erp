@@ -82,9 +82,7 @@ msgid "Exportieren"
 msgstr "export"
 
 #: tfaccounts.acfindtransaction.hint
-msgid ""
-"sucht in der Zahlungsliste nach einer passenden Rechnung und bucht diese ggf "
-"als bezahlt"
+msgid "sucht in der Zahlungsliste nach einer passenden Rechnung und bucht diese ggf als bezahlt"
 msgstr "searchs the payment list for an fitting invoice"
 
 #: tfaccounts.acgotovoucher.caption
@@ -146,7 +144,7 @@ msgstr ""
 #: tfaccounts.lname.caption
 msgctxt "TFACCOUNTS.LNAME.CAPTION"
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: tfaccounts.lpurpose.caption
 msgctxt "TFACCOUNTS.LPURPOSE.CAPTION"
@@ -199,7 +197,7 @@ msgstr ""
 #: tfacquire.babort.caption
 msgctxt "TFACQUIRE.BABORT.CAPTION"
 msgid "&Schließen"
-msgstr ""
+msgstr "&Close"
 
 #: tfacquire.bcloseanduse.caption
 msgid "Übernehmen und Schliessen"
@@ -506,7 +504,7 @@ msgstr ""
 #: tfcustomer.acdelete.caption
 msgctxt "TFCUSTOMER.ACDELETE.CAPTION"
 msgid "Löschen"
-msgstr ""
+msgstr "Delete"
 
 #: tfcustomer.acdeleteemployee.caption
 msgid "Mitarbeiter löschen"
@@ -596,7 +594,7 @@ msgstr ""
 #: tfcustomer.acprint.hint
 msgctxt "TFCUSTOMER.ACPRINT.HINT"
 msgid "drucken"
-msgstr ""
+msgstr "print"
 
 #: tfcustomer.acsave.caption
 msgctxt "TFCUSTOMER.ACSAVE.CAPTION"
@@ -675,9 +673,7 @@ msgid "Aktiv"
 msgstr ""
 
 #: tfcustomer.cbcurrency.hint
-msgid ""
-"setzt eine Standartwährung für den Kontakt mit der jeder Vorgang für den "
-"Kontakt vorbelegt wird"
+msgid "setzt eine Standartwährung für den Kontakt mit der jeder Vorgang für den Kontakt vorbelegt wird"
 msgstr ""
 
 #: tfcustomer.cbdiscontgroup.hint
@@ -689,9 +685,7 @@ msgid "wählen Sie hier die Sprache des Kontaktes"
 msgstr ""
 
 #: tfcustomer.cbpaymenttarget.hint
-msgid ""
-"setzt ein Zahlungsziel mit dem die Vorgänge für diesen Kontakt vorbelegt "
-"werden"
+msgid "setzt ein Zahlungsziel mit dem die Vorgänge für diesen Kontakt vorbelegt werden"
 msgstr ""
 
 #: tfcustomer.cbstate.hint
@@ -711,8 +705,7 @@ msgid "geben Sie hier den namen des Kontaktes an"
 msgstr ""
 
 #: tfcustomer.ediscont.hint
-msgid ""
-"setzt eine Rabatt mit dem die Vorgänge für diesen Kontakt vorbelegt werden"
+msgid "setzt eine Rabatt mit dem die Vorgänge für diesen Kontakt vorbelegt werden"
 msgstr ""
 
 #: tfcustomer.ematchcode.hint
@@ -921,12 +914,12 @@ msgstr ""
 #: tfcustomer.miexport.caption
 msgctxt "TFCUSTOMER.MIEXPORT.CAPTION"
 msgid "Exportieren"
-msgstr ""
+msgstr "export"
 
 #: tfcustomer.miimport.caption
 msgctxt "TFCUSTOMER.MIIMPORT.CAPTION"
 msgid "Importieren"
-msgstr ""
+msgstr "import"
 
 #: tfcustomer.minfo.hint
 msgid "Notizen zum Kontakt"
@@ -1220,7 +1213,7 @@ msgstr ""
 #: tfdocumentaddoptions.lname.caption
 msgctxt "TFDOCUMENTADDOPTIONS.LNAME.CAPTION"
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: tfdocumentaddoptions.loptions.caption
 msgctxt "TFDOCUMENTADDOPTIONS.LOPTIONS.CAPTION"
@@ -1235,7 +1228,7 @@ msgstr ""
 #: tfeditmail.bsend.caption
 msgctxt "TFEDITMAIL.BSEND.CAPTION"
 msgid "Senden"
-msgstr ""
+msgstr "Send"
 
 #: tfeditmail.cbto.text
 msgid "cbTo"
@@ -1642,7 +1635,7 @@ msgstr ""
 #: tffilter.acopen.caption
 msgctxt "TFFILTER.ACOPEN.CAPTION"
 msgid "Öffnen"
-msgstr ""
+msgstr "open"
 
 #: tffilter.acsavefilter.caption
 msgid "acSaveFilter"
@@ -1885,7 +1878,7 @@ msgstr ""
 #: tfmailoptions.lname.caption
 msgctxt "TFMAILOPTIONS.LNAME.CAPTION"
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: tfmailoptions.lpassword.caption
 msgctxt "TFMAILOPTIONS.LPASSWORD.CAPTION"
@@ -2215,7 +2208,7 @@ msgstr ""
 #: tfmasterdata.acexport.caption
 msgctxt "TFMASTERDATA.ACEXPORT.CAPTION"
 msgid "Exportieren"
-msgstr ""
+msgstr "export"
 
 #: tfmasterdata.acimagetoclipboard.caption
 msgctxt "TFMASTERDATA.ACIMAGETOCLIPBOARD.CAPTION"
@@ -2225,7 +2218,7 @@ msgstr ""
 #: tfmasterdata.acimport.caption
 msgctxt "TFMASTERDATA.ACIMPORT.CAPTION"
 msgid "Importieren"
-msgstr ""
+msgstr "import"
 
 #: tfmasterdata.acmenue.caption
 msgctxt "TFMASTERDATA.ACMENUE.CAPTION"
@@ -2249,7 +2242,7 @@ msgstr ""
 #: tfmasterdata.acprint.hint
 msgctxt "TFMASTERDATA.ACPRINT.HINT"
 msgid "drucken"
-msgstr ""
+msgstr "print"
 
 #: tfmasterdata.acsave.hint
 msgid "speichert den Artikel"
@@ -2538,7 +2531,7 @@ msgstr ""
 #: tfmasterdata.ltype.caption
 msgctxt "TFMASTERDATA.LTYPE.CAPTION"
 msgid "Typ"
-msgstr ""
+msgstr "Typ"
 
 #: tfmasterdata.lunit.caption
 msgid "Verpackungseinheit"
@@ -2695,9 +2688,7 @@ msgid "Texte"
 msgstr ""
 
 #: tfmessages.acanswer.hint
-msgid ""
-"erstellt eine Antwort zur gewählten Nachricht und öffnet den "
-"nachrichteneditor"
+msgid "erstellt eine Antwort zur gewählten Nachricht und öffnet den nachrichteneditor"
 msgstr ""
 
 #: tfmessages.acarchivemail.hint
@@ -2722,9 +2713,7 @@ msgid "acForward"
 msgstr ""
 
 #: tfmessages.acforward.hint
-msgid ""
-"erstellt eine weiterleitung der gewählten Nachricht und öffnet den "
-"Nachrichteneditor"
+msgid "erstellt eine weiterleitung der gewählten Nachricht und öffnet den Nachrichteneditor"
 msgstr ""
 
 #: tfmessages.acmarkread.hint
@@ -2738,7 +2727,7 @@ msgstr ""
 #: tfmessages.acopen.caption
 msgctxt "TFMESSAGES.ACOPEN.CAPTION"
 msgid "Öffnen"
-msgstr ""
+msgstr "open"
 
 #: tfmessages.acprintmail.hint
 msgid "druckt die gewählte Nachricht"
@@ -2795,7 +2784,7 @@ msgstr ""
 #: tfofficeoptions.closebutton.caption
 msgctxt "TFOFFICEOPTIONS.CLOSEBUTTON.CAPTION"
 msgid "&Schließen"
-msgstr ""
+msgstr "&Close"
 
 #: tfofficeoptions.fofficeoptions.caption
 msgid "Office Datei Einstellungen"
@@ -2971,7 +2960,7 @@ msgstr ""
 #: tfoptions.closebutton.caption
 msgctxt "TFOPTIONS.CLOSEBUTTON.CAPTION"
 msgid "&Schließen"
-msgstr ""
+msgstr "&Close"
 
 #: tfoptions.dgcountrys.columns[0].tcolumntitle.caption
 msgctxt "TFOPTIONS.DGCOUNTRYS.COLUMNS[0].TCOLUMNTITLE.CAPTION"
@@ -3200,7 +3189,7 @@ msgstr ""
 #: tfoptions.laccount.caption
 msgctxt "TFOPTIONS.LACCOUNT.CAPTION"
 msgid "Kontonummer"
-msgstr ""
+msgstr "Accountno"
 
 #: tfoptions.ladministrativedata.caption
 msgid "Administrative data"
@@ -3294,9 +3283,7 @@ msgid "e-Mail"
 msgstr ""
 
 #: tfoptions.lmandantdetails.caption
-msgid ""
-"Hier können Sie globale Variablen hinterlegtn die z.b. in den Reports "
-"verwendet werden können. "
+msgid "Hier können Sie globale Variablen hinterlegtn die z.b. in den Reports verwendet werden können. "
 msgstr ""
 
 #: tfoptions.lmasterdata.caption
@@ -3310,7 +3297,7 @@ msgstr ""
 #: tfoptions.lname.caption
 msgctxt "TFOPTIONS.LNAME.CAPTION"
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: tfoptions.lnumbers.caption
 msgid "Nummernkreise"
@@ -3321,9 +3308,7 @@ msgid "Nummernkreis"
 msgstr ""
 
 #: tfoptions.lonlyonnextstart.caption
-msgid ""
-"Sie müssen die Anwendu neu starten und ein Datenbankupdate durchführen um "
-"die Änderungen zu übernehmen"
+msgid "Sie müssen die Anwendu neu starten und ein Datenbankupdate durchführen um die Änderungen zu übernehmen"
 msgstr ""
 
 #: tfoptions.lorder.caption
@@ -3405,7 +3390,7 @@ msgstr ""
 #: tfoptions.ltype.caption
 msgctxt "TFOPTIONS.LTYPE.CAPTION"
 msgid "Typ"
-msgstr ""
+msgstr "Typ"
 
 #: tfoptions.lunits.caption
 msgid "Mengeneinheiten"
@@ -3428,7 +3413,7 @@ msgstr ""
 #: tfoptions.menuitem2.caption
 msgctxt "TFOPTIONS.MENUITEM2.CAPTION"
 msgid "Löschen"
-msgstr ""
+msgstr "Delete"
 
 #: tfoptions.menuitem3.caption
 msgid "Ändern"
@@ -3583,12 +3568,12 @@ msgstr ""
 #: tforders.acdelete.caption
 msgctxt "TFORDERS.ACDELETE.CAPTION"
 msgid "Löschen"
-msgstr ""
+msgstr "Delete"
 
 #: tforders.acdelpos.caption
 msgctxt "TFORDERS.ACDELPOS.CAPTION"
 msgid "Löschen"
-msgstr ""
+msgstr "Delete"
 
 #: tforders.acdelpos.hint
 msgid "löscht eine oder mehrer Position(en)"
@@ -3611,7 +3596,7 @@ msgstr ""
 #: tforders.acexport.caption
 msgctxt "TFORDERS.ACEXPORT.CAPTION"
 msgid "Exportieren"
-msgstr ""
+msgstr "export"
 
 #: tforders.acgoto.caption
 msgctxt "TFORDERS.ACGOTO.CAPTION"
@@ -3646,7 +3631,7 @@ msgstr ""
 #: tforders.acimport.caption
 msgctxt "TFORDERS.ACIMPORT.CAPTION"
 msgid "Importieren"
-msgstr ""
+msgstr "import"
 
 #: tforders.acinsertpos.caption
 msgid "acInsertPos"
@@ -3693,7 +3678,7 @@ msgstr ""
 #: tforders.acprint.hint
 msgctxt "TFORDERS.ACPRINT.HINT"
 msgid "drucken"
-msgstr ""
+msgstr "print"
 
 #: tforders.acsave.caption
 msgctxt "TFORDERS.ACSAVE.CAPTION"
@@ -3764,9 +3749,7 @@ msgid "hiermit können Sie den Tabdesigner aufrufen,"
 msgstr ""
 
 #: tforders.cbstatus.hint
-msgid ""
-"hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu "
-"überführen"
+msgid "hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu überführen"
 msgstr ""
 
 #: tforders.cbstorage.hint
@@ -4357,9 +4340,7 @@ msgid "Anmeldung"
 msgstr ""
 
 #: tfpassword.lfirstlogin.caption
-msgid ""
-"Dies ist Ihre erste Anmeldung, das Passwort welches Sie eingeben wird ab nun "
-"Ihr Passwort sein."
+msgid "Dies ist Ihre erste Anmeldung, das Passwort welches Sie eingeben wird ab nun Ihr Passwort sein."
 msgstr ""
 
 #: tfpassword.lmandant.caption
@@ -4403,7 +4384,7 @@ msgstr ""
 #: tfpersonaloptions.closebutton.caption
 msgctxt "TFPERSONALOPTIONS.CLOSEBUTTON.CAPTION"
 msgid "&Schließen"
-msgstr ""
+msgstr "&Close"
 
 #: tfpersonaloptions.elink.hint
 msgctxt "TFPERSONALOPTIONS.ELINK.HINT"
@@ -4504,7 +4485,7 @@ msgstr ""
 #: tfprocesslist.bclose.caption
 msgctxt "TFPROCESSLIST.BCLOSE.CAPTION"
 msgid "&Schließen"
-msgstr ""
+msgstr "&Close"
 
 #: tfprocesslist.bkill.caption
 msgid "Prozess beenden"
@@ -4515,15 +4496,13 @@ msgid "aktive Prozesse"
 msgstr ""
 
 #: tfprocesslist.lprocessesleft.caption
-msgid ""
-"es sind noch Prozesse aktiv (gestartete Prozesse aus der "
-"Dokumentenverwaltung) beenden Sie diese bevor Sie Promet beenden können."
+msgid "es sind noch Prozesse aktiv (gestartete Prozesse aus der Dokumentenverwaltung) beenden Sie diese bevor Sie Promet beenden können."
 msgstr ""
 
 #: tfproject.acdelete.caption
 msgctxt "TFPROJECT.ACDELETE.CAPTION"
 msgid "Löschen"
-msgstr ""
+msgstr "Delete"
 
 #: tfproject.acentertime.caption
 msgid "zeiterfassung beginnen"
@@ -4532,7 +4511,7 @@ msgstr ""
 #: tfproject.acimport.caption
 msgctxt "TFPROJECT.ACIMPORT.CAPTION"
 msgid "Importieren"
-msgstr ""
+msgstr "import"
 
 #: tfproject.acmenue.caption
 msgctxt "TFPROJECT.ACMENUE.CAPTION"
@@ -4565,7 +4544,7 @@ msgstr ""
 #: tfproject.lname.caption
 msgctxt "TFPROJECT.LNAME.CAPTION"
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: tfproject.lnumber.caption
 msgctxt "TFPROJECT.LNUMBER.CAPTION"
@@ -4954,7 +4933,7 @@ msgstr ""
 #: tfrdocumentmanagement.lvdocuments.columns[1].caption
 msgctxt "TFRDOCUMENTMANAGEMENT.LVDOCUMENTS.COLUMNS[1].CAPTION"
 msgid "Typ"
-msgstr ""
+msgstr "Typ"
 
 #: tfrdocumentmanagement.lvdocuments.columns[2].caption
 msgctxt "TFRDOCUMENTMANAGEMENT.LVDOCUMENTS.COLUMNS[2].CAPTION"
@@ -5049,9 +5028,7 @@ msgid "Sandkastenmodus"
 msgstr ""
 
 #: tfsandbox.lmessage.caption
-msgid ""
-"Der Sandkastenmodus ist aktiv, Sie haben diesen entweder gerade beendet oder "
-"eine Aktion erfordert dessen Beendigung. "
+msgid "Der Sandkastenmodus ist aktiv, Sie haben diesen entweder gerade beendet oder eine Aktion erfordert dessen Beendigung. "
 msgstr ""
 
 #: tfsearch.acopen.caption
@@ -5140,7 +5117,7 @@ msgstr ""
 #: tfselectreport.bclose.caption
 msgctxt "TFSELECTREPORT.BCLOSE.CAPTION"
 msgid "&Schließen"
-msgstr ""
+msgstr "&Close"
 
 #: tfselectreport.bclose.hint
 msgid "schließt das Fenster"
@@ -5159,9 +5136,7 @@ msgid "Text bearbeiten"
 msgstr ""
 
 #: tfselectreport.bedittext.hint
-msgid ""
-"hiermit können Sie den Text der zusätzlichen Ausgabe (e-Mail, SMS) "
-"bearbeiten."
+msgid "hiermit können Sie den Text der zusätzlichen Ausgabe (e-Mail, SMS) bearbeiten."
 msgstr ""
 
 #: tfselectreport.bpreview.caption
@@ -5198,8 +5173,7 @@ msgid "wählen Sie hier den Drucker auf dem der Report gedruckt werden soll"
 msgstr ""
 
 #: tfselectreport.ecopies.hint
-msgid ""
-"Stellen Sie hier ein, wie viele Kopien des Reports gedruckt werden sollen"
+msgid "Stellen Sie hier ein, wie viele Kopien des Reports gedruckt werden sollen"
 msgstr ""
 
 #: tfselectreport.epages.hint
@@ -5296,7 +5270,7 @@ msgstr ""
 #: tftasks.acdelete.caption
 msgctxt "TFTASKS.ACDELETE.CAPTION"
 msgid "Löschen"
-msgstr ""
+msgstr "Delete"
 
 #: tftasks.acentertime.caption
 msgctxt "TFTASKS.ACENTERTIME.CAPTION"
@@ -5306,12 +5280,12 @@ msgstr ""
 #: tftasks.acexport.caption
 msgctxt "TFTASKS.ACEXPORT.CAPTION"
 msgid "Exportieren"
-msgstr ""
+msgstr "export"
 
 #: tftasks.acimport.caption
 msgctxt "TFTASKS.ACIMPORT.CAPTION"
 msgid "Importieren"
-msgstr ""
+msgstr "import"
 
 #: tftasks.acnew.caption
 msgctxt "TFTASKS.ACNEW.CAPTION"
@@ -5321,7 +5295,7 @@ msgstr ""
 #: tftasks.acopen.caption
 msgctxt "TFTASKS.ACOPEN.CAPTION"
 msgid "Öffnen"
-msgstr ""
+msgstr "open"
 
 #: tftasks.acprint.caption
 msgctxt "TFTASKS.ACPRINT.CAPTION"
@@ -5415,7 +5389,7 @@ msgstr ""
 #: tftasks.lvtasks.columns[0].caption
 msgctxt "TFTASKS.LVTASKS.COLUMNS[0].CAPTION"
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: tftasks.lvtasks.columns[1].caption
 msgid "Time"
@@ -5467,7 +5441,7 @@ msgstr ""
 #: tftimelist.acexport.caption
 msgctxt "TFTIMELIST.ACEXPORT.CAPTION"
 msgid "Exportieren"
-msgstr ""
+msgstr "export"
 
 #: tftimelist.acfilter.caption
 msgctxt "TFTIMELIST.ACFILTER.CAPTION"
@@ -5477,7 +5451,7 @@ msgstr ""
 #: tftimelist.acimport.caption
 msgctxt "TFTIMELIST.ACIMPORT.CAPTION"
 msgid "Importieren"
-msgstr ""
+msgstr "import"
 
 #: tftimelist.acprint.caption
 msgctxt "TFTIMELIST.ACPRINT.CAPTION"
@@ -5535,7 +5509,7 @@ msgstr ""
 #: tftransfer.lname.caption
 msgctxt "TFTRANSFER.LNAME.CAPTION"
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: tftransfer.lpurpose.caption
 msgctxt "TFTRANSFER.LPURPOSE.CAPTION"
@@ -5545,7 +5519,7 @@ msgstr ""
 #: tftransfer.lraccount.caption
 msgctxt "TFTRANSFER.LRACCOUNT.CAPTION"
 msgid "Kontonummer"
-msgstr ""
+msgstr "Accountno"
 
 #: tftransfer.lrsortcode.caption
 msgctxt "TFTRANSFER.LRSORTCODE.CAPTION"
@@ -5744,13 +5718,10 @@ msgstr ""
 #: tfwizardnewaccount.laccountno.caption
 msgctxt "TFWIZARDNEWACCOUNT.LACCOUNTNO.CAPTION"
 msgid "Kontonummer"
-msgstr ""
+msgstr "Accountno"
 
 #: tfwizardnewaccount.ldescription0.caption
-msgid ""
-"Wählen Sie einen Kontotypen aus, wenn Sie noch keine Konten mit den "
-"jewailigen Backends eingerichtet haben, können Sie dies mit den Knöpfen "
-"darunter tun."
+msgid "Wählen Sie einen Kontotypen aus, wenn Sie noch keine Konten mit den jewailigen Backends eingerichtet haben, können Sie dies mit den Knöpfen darunter tun."
 msgstr ""
 
 #: tfwizardnewaccount.ldescription1.caption
@@ -5772,7 +5743,7 @@ msgstr ""
 #: tfwizardnewaccount.lname.caption
 msgctxt "TFWIZARDNEWACCOUNT.LNAME.CAPTION"
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: tfwizardnewaccount.lsortcode.caption
 msgctxt "TFWIZARDNEWACCOUNT.LSORTCODE.CAPTION"
@@ -5923,11 +5894,7 @@ msgid "Datenbanktyp"
 msgstr ""
 
 #: tfwizardnewmandant.ldescription0.caption
-msgid ""
-"Mit diesem Assistenten können Sie einen neuen Mandanten erstellen, wählen "
-"Sie dazu im ersten Schritt eine Sprache für den mandanten aus, und geben Sie "
-"darunter einen Namen an. Weiterhin müssen Sie hier auswählen ob die "
-"Datenbank mit Vorgabedaten gefüllt werden soll oder nicht."
+msgid "Mit diesem Assistenten können Sie einen neuen Mandanten erstellen, wählen Sie dazu im ersten Schritt eine Sprache für den mandanten aus, und geben Sie darunter einen Namen an. Weiterhin müssen Sie hier auswählen ob die Datenbank mit Vorgabedaten gefüllt werden soll oder nicht."
 msgstr ""
 
 #: tfwizardnewmandant.ldescription1.caption
@@ -5943,9 +5910,7 @@ msgid "Geben Sie hier das Datenbankverzeichnis an"
 msgstr ""
 
 #: tfwizardnewmandant.ldescription4.caption
-msgid ""
-"Setzen sie hier die Datenbankeinstellungen, damit sich das Programm "
-"erfolgreich mit dem Datenbankserver und der Datenbank verbinden kann."
+msgid "Setzen sie hier die Datenbankeinstellungen, damit sich das Programm erfolgreich mit dem Datenbankserver und der Datenbank verbinden kann."
 msgstr ""
 
 #: tfwizardnewmandant.lfillingdefaultvalues.caption
@@ -6171,7 +6136,7 @@ msgstr ""
 #: ubasedatamodule.straccountno
 msgctxt "ubasedatamodule.straccountno"
 msgid "Kontonummer"
-msgstr ""
+msgstr "Accountno"
 
 #: ubasedatamodule.straction
 msgid "Aktion"
@@ -6207,7 +6172,7 @@ msgstr ""
 #: ubasedatamodule.strcategory
 msgctxt "ubasedatamodule.strcategory"
 msgid "Kategorie"
-msgstr ""
+msgstr "Category"
 
 #: ubasedatamodule.strchangedby
 msgid "geändert von"
@@ -6736,22 +6701,15 @@ msgid "Kontakt"
 msgstr ""
 
 #: ucustomer.strcustomerwithnoaddressmode
-msgid ""
-"Dieser Kontakt wurde vom Vorgang aus angezeigt weil die Adresse fehlt, fügen "
-"Sie eine Adresse hinzu. Sobald Sie den Kontakt speichern wird er im Vorgang "
-"samt Adresse eingefügt."
+msgid "Dieser Kontakt wurde vom Vorgang aus angezeigt weil die Adresse fehlt, fügen Sie eine Adresse hinzu. Sobald Sie den Kontakt speichern wird er im Vorgang samt Adresse eingefügt."
 msgstr ""
 
 #: ucustomer.stremployeecreatemode
-msgid ""
-"Dieser Kontakt wurde als Mitarbeiter erstellt, Sie können alle Eigenschaften "
-"wie bei jedem anderen Kontakt bearbeiten. Sobald Sie ihn Speichern wird er "
-"dem vorherigen Kontakt als Mitarbeiter angefügt und zurückgesprungen."
+msgid "Dieser Kontakt wurde als Mitarbeiter erstellt, Sie können alle Eigenschaften wie bei jedem anderen Kontakt bearbeiten. Sobald Sie ihn Speichern wird er dem vorherigen Kontakt als Mitarbeiter angefügt und zurückgesprungen."
 msgstr ""
 
 #: ucustomer.strinserteventforbirthday
-msgid ""
-"Möchten Sie für diesen Geburstag einen Eintrag in Ihren Kalendar erzeugen ?"
+msgid "Möchten Sie für diesen Geburstag einen Eintrag in Ihren Kalendar erzeugen ?"
 msgstr ""
 
 #: udata.straccountexchange
@@ -6771,8 +6729,7 @@ msgid "Hauptvorgang nicht gefunden !"
 msgstr ""
 
 #: udata.strnumbersetnotfound
-msgid ""
-"Nummernkreis nicht gefunden, bitte wenden Sie sich an Ihren Administrator"
+msgid "Nummernkreis nicht gefunden, bitte wenden Sie sich an Ihren Administrator"
 msgstr ""
 
 #: udata.strorderactionpost
@@ -6802,8 +6759,7 @@ msgid "Wikiseite"
 msgstr ""
 
 #: udataimport.strconfiguredatasource
-msgid ""
-"Setzen Sie die Quelle / Einstellungen der Datenquelle und klicken Sie OK"
+msgid "Setzen Sie die Quelle / Einstellungen der Datenquelle und klicken Sie OK"
 msgstr ""
 
 #: udataimport.strcreateanformat
@@ -6906,14 +6862,11 @@ msgid "konnte Differenzdatei von Datei %s nicht erstellen"
 msgstr ""
 
 #: udocumentmanagement.strfailedexecuteprocess
-msgid ""
-"Möglicherweise ist das auführen von \"%s\" fehlgeschlagen, Rückgabewert: %d"
+msgid "Möglicherweise ist das auführen von \"%s\" fehlgeschlagen, Rückgabewert: %d"
 msgstr ""
 
 #: udocumentmanagement.strnovalidcommand
-msgid ""
-"Sie haben einen ungültigen befehl in den Dokumentenaktionen angegeben. "
-"Gültige Befehle müssen mit exec: oder mkdir: beginnen."
+msgid "Sie haben einen ungültigen befehl in den Dokumentenaktionen angegeben. Gültige Befehle müssen mit exec: oder mkdir: beginnen."
 msgstr ""
 
 #: ueditmail.stractionmessagesend
@@ -6933,14 +6886,11 @@ msgid "Encoding Message..."
 msgstr ""
 
 #: ueditmail.strfailedtoaddreceiveradress
-msgid ""
-"Konnte Empfängeradresse nicht hinzufügen (möglicherweise ist diese "
-"ungültig) !"
+msgid "Konnte Empfängeradresse nicht hinzufügen (möglicherweise ist diese ungültig) !"
 msgstr ""
 
 #: ueditmail.strfailedtoaddsenderaddress
-msgid ""
-"Konnte Absenderadresse nicht hinzufügen (möglicherweise ist diese ungültig) !"
+msgid "Konnte Absenderadresse nicht hinzufügen (möglicherweise ist diese ungültig) !"
 msgstr ""
 
 #: ueditmail.strfailedtosendmail
@@ -6957,9 +6907,7 @@ msgid "Logging out..."
 msgstr ""
 
 #: ueditmail.strmailsubjectclear
-msgid ""
-"Das Betreff Feld in Ihrer e-Mail sollte nicht leer sein, das wird von vielen "
-"Spam Filtern als Spam gewertet."
+msgid "Das Betreff Feld in Ihrer e-Mail sollte nicht leer sein, das wird von vielen Spam Filtern als Spam gewertet."
 msgstr ""
 
 #: ueditmail.strrealleavemail
@@ -7054,7 +7002,7 @@ msgstr ""
 #: umain.strcategory
 msgctxt "umain.strcategory"
 msgid "Kategorie"
-msgstr ""
+msgstr "Category"
 
 #: umain.strcurrencies
 msgctxt "umain.strcurrencies"
@@ -7199,9 +7147,7 @@ msgid "kein Kunde gefunden !"
 msgstr ""
 
 #: uorderframe.strnoordertypeselected
-msgid ""
-"Zu dieser Belegart ist kein Auftragstyp ausgewählt, er kann nicht gewandelt "
-"werden !"
+msgid "Zu dieser Belegart ist kein Auftragstyp ausgewählt, er kann nicht gewandelt werden !"
 msgstr ""
 
 #: uorderframe.strordertochange
@@ -7210,9 +7156,7 @@ msgid "Auftrag %s %s wird"
 msgstr ""
 
 #: uorderframe.strsearchfromorderaddress
-msgid ""
-"Die Suche waurde aus der Auftragsverwaltung gestartet wenn Sie eine Addresse "
-"auswählen, wird diese in dne aktuellen Auftrag übernommen"
+msgid "Die Suche waurde aus der Auftragsverwaltung gestartet wenn Sie eine Addresse auswählen, wird diese in dne aktuellen Auftrag übernommen"
 msgstr ""
 
 #: uorders.strassemblyexchanged
@@ -7259,9 +7203,7 @@ msgid "kein Kunde gefunden !"
 msgstr ""
 
 #: uorders.strnoordertypeselected
-msgid ""
-"Zu dieser Belegart ist kein Auftragstyp ausgewählt, er kann nicht gebucht "
-"werden !"
+msgid "Zu dieser Belegart ist kein Auftragstyp ausgewählt, er kann nicht gebucht werden !"
 msgstr ""
 
 #: uorders.strordertochange
@@ -7379,8 +7321,7 @@ msgid "Info"
 msgstr ""
 
 #: upersonframe.strinserteventforbirthday
-msgid ""
-"Möchten Sie für diesen Geburtstag einen Eintrag in Ihren Kalender erzeugen ?"
+msgid "Möchten Sie für diesen Geburtstag einen Eintrag in Ihren Kalender erzeugen ?"
 msgstr ""
 
 #: upersonframe.strnewperson
@@ -7438,15 +7379,11 @@ msgid "Postleitzahl"
 msgstr ""
 
 #: usearch.strsearchfromordermode
-msgid ""
-"Diese Suche wurde aus der Vorgangsverwaltung gestartet, wenn Sie einen "
-"Eintrag öffnen, wird dieser automatisch in den aktuellen Vorgang übernommen."
+msgid "Diese Suche wurde aus der Vorgangsverwaltung gestartet, wenn Sie einen Eintrag öffnen, wird dieser automatisch in den aktuellen Vorgang übernommen."
 msgstr ""
 
 #: usearch.strsearchfromtimeregisteringmode
-msgid ""
-"Diese Suche wurde aus der Zeiterfassung gestartet, wenn Sie einen Eintrag "
-"öffnen, wird dieser automatisch in die Zeiterfassung übernommen."
+msgid "Diese Suche wurde aus der Zeiterfassung gestartet, wenn Sie einen Eintrag öffnen, wird dieser automatisch in die Zeiterfassung übernommen."
 msgstr ""
 
 #: usearch.strshortnames
@@ -7561,9 +7498,7 @@ msgid "Der Zahlungsgrund besteht aus zu vielen Zeilen"
 msgstr ""
 
 #: uviewmessage.strmessagenotdownloaded
-msgid ""
-"@#183#206#9@#0#0#0@#0#0#0#17#0\\#1T#199\"#0#0#0#0#0 N#209#9#17#0l#1|#1#216#9,"
-"#1#216#9#0#0#0#0#17#0|#1#140#1#216#9l#1#216#9#0#0#0#0#17#0#140#1"
+msgid "@#183#206#9@#0#0#0@#0#0#0#17#0\\#1T#199\"#0#0#0#0#0 N#209#9#17#0l#1|#1#216#9,#1#216#9#0#0#0#0#17#0|#1#140#1#216#9l#1#216#9#0#0#0#0#17#0#140#1"
 msgstr ""
 
 #: uviewmessage.stropentoviewitem
@@ -7571,9 +7506,7 @@ msgid "Bitte klicken Sie doppelt auf diesen Eintrag um ihn anzuzeigen"
 msgstr ""
 
 #: uwizardnewaccount.straqbankingisnotinstalled
-msgid ""
-"aqBanking ist nicht installiert ! aqBanking muss installiert sein um Online "
-"Banking zu bretreiben"
+msgid "aqBanking ist nicht installiert ! aqBanking muss installiert sein um Online Banking zu bretreiben"
 msgstr ""
 
 #: uwizardnewmandant.strcheckandcorrectdbfailed
@@ -7611,3 +7544,4 @@ msgstr ""
 #: uzeosdm.strunknowndbtype
 msgid "Unbekannter Datenbanktyp"
 msgstr ""
+

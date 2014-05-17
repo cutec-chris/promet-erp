@@ -5,8 +5,8 @@ inherited fFilter: TfFilter
   ClientWidth = 670
   Color = clBtnFace
   ParentColor = False
-  DesignLeft = 447
-  DesignTop = 270
+  DesignLeft = 433
+  DesignTop = 253
   object pTop: TPanel[0]
     Left = 0
     Height = 183
@@ -126,7 +126,7 @@ inherited fFilter: TfFilter
         TabOrder = 0
         object ExtRotatedLabel1: TLabel
           Left = 6
-          Height = 14
+          Height = 13
           Top = 0
           Width = 60
           Caption = 'Navigation'
@@ -187,9 +187,9 @@ inherited fFilter: TfFilter
         end
         object ExtRotatedLabel2: TLabel
           Left = 6
-          Height = 14
+          Height = 13
           Top = 0
-          Width = 73
+          Width = 72
           Caption = 'Ansicht/Filter'
           Font.Color = clMedGray
           Font.Height = 11
@@ -200,7 +200,7 @@ inherited fFilter: TfFilter
         object cbFilter: TComboBox
           AnchorSideLeft.Side = asrBottom
           Left = 6
-          Height = 28
+          Height = 27
           Hint = 'hier können Sie eine vordefinierte Ansicht wählen'#10'Wenn Sie eine spezielle Ansicht/Sortierung benötigen wenden Sie sich an Ihren Administrator'
           Top = 12
           Width = 439
@@ -599,9 +599,9 @@ inherited fFilter: TfFilter
       end
       object lFilterEdit: TLabel
         Left = 9
-        Height = 14
+        Height = 13
         Top = 33
-        Width = 88
+        Width = 86
         Caption = 'Filterbedingung'
         ParentColor = False
       end
@@ -617,7 +617,7 @@ inherited fFilter: TfFilter
       end
       object eFilterIn: TEdit
         Left = 421
-        Height = 24
+        Height = 23
         Hint = 'Wenn Sie über mehrere Tabellen Filtern '#13#10'möchten füllen Sie dieses Feld'#13#10'z.b.'#13#10'Orders,OrderPos'
         Top = 79
         Width = 127
@@ -636,7 +636,7 @@ inherited fFilter: TfFilter
         AnchorSideLeft.Control = cbMaxResults
         AnchorSideLeft.Side = asrBottom
         Left = 191
-        Height = 24
+        Height = 23
         Hint = 'hier können Sie die Zahl der maximalen Filterergebnisse angeben'
         Top = 5
         Width = 52
@@ -1481,7 +1481,7 @@ inherited fFilter: TfFilter
       TabOrder = 4
     end
   end
-  object List: TDataSource[4]
+  object List: TDatasource[4]
     left = 32
     top = 96
   end
@@ -1779,17 +1779,17 @@ inherited fFilter: TfFilter
     left = 128
     top = 96
   end
-  object MandantDetails: TDataSource[12]
+  object MandantDetails: TDatasource[12]
     AutoEdit = False
     left = 184
     top = 96
   end
-  object Users: TDataSource[13]
+  object Users: TDatasource[13]
     AutoEdit = False
     left = 256
     top = 96
   end
-  object History: TDataSource[14]
+  object History: TDatasource[14]
     left = 184
     top = 152
   end

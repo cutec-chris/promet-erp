@@ -1,7 +1,6 @@
-object fTimeFrame: TfTimeFrame
-  Left = 470
+inherited fTimeFrame: TfTimeFrame
   Height = 240
-  Top = 326
   Width = 320
-  LCLVersion = '1.1'
+  DesignLeft = 551
+  DesignTop = 283
 end

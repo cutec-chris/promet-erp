@@ -1,13 +1,13 @@
 { This is an automatically generated lazarus resource file }
 
 LazarusResources.Add('TfNRights','FORMDATA',[
-  'TPF0'#9'TfNRights'#8'fNRights'#4'Left'#3#6#2#6'Height'#3#246#0#3'Top'#3':'#1
-  +#5'Width'#3'j'#1#7'Caption'#6#6'Rechte'#12'ClientHeight'#3#246#0#11'ClientWi'
-  +'dth'#3'j'#1#8'OnCreate'#7#10'FormCreate'#9'OnDestroy'#7#11'FormDestroy'#8'P'
-  +'osition'#7#16'poMainFormCenter'#10'LCLVersion'#6#3'1.3'#0#6'TLabel'#6'Label'
-  +'1'#4'Left'#2#8#6'Height'#2#14#3'Top'#2#24#5'Width'#2'3'#7'Caption'#6#8'Benu'
-  +'tzer'#11'ParentColor'#8#0#0#12'TButtonPanel'#12'ButtonPanel1'#4'Left'#2#6#6
-  +'Height'#2'$'#3'Top'#3#204#0#5'Width'#3'^'#1#13'OKButton.Name'#6#8'OKButton'
+  'TPF0'#9'TfNRights'#8'fNRights'#4'Left'#3#195#1#6'Height'#3#246#0#3'Top'#3'('
+  +#1#5'Width'#3'j'#1#7'Caption'#6#6'Rechte'#12'ClientHeight'#3#246#0#11'Client'
+  +'Width'#3'j'#1#8'OnCreate'#7#10'FormCreate'#9'OnDestroy'#7#11'FormDestroy'#8
+  +'Position'#7#16'poMainFormCenter'#10'LCLVersion'#6#3'1.3'#0#6'TLabel'#6'Labe'
+  +'l1'#4'Left'#2#8#6'Height'#2#13#3'Top'#2#24#5'Width'#2'3'#7'Caption'#6#8'Ben'
+  +'utzer'#11'ParentColor'#8#0#0#12'TButtonPanel'#12'ButtonPanel1'#4'Left'#2#6#6
+  +'Height'#2'*'#3'Top'#3#198#0#5'Width'#3'^'#1#13'OKButton.Name'#6#8'OKButton'
   +#23'OKButton.DefaultCaption'#9#15'HelpButton.Name'#6#10'HelpButton'#25'HelpB'
   +'utton.DefaultCaption'#9#18'HelpButton.Enabled'#8#16'CloseButton.Name'#6#11
   +'CloseButton'#26'CloseButton.DefaultCaption'#9#19'CloseButton.Enabled'#8#17
@@ -38,6 +38,6 @@ LazarusResources.Add('TfNRights','FORMDATA',[
   +'RowLines'#6'dgTabs'#15'dgConfirmDelete'#14'dgCancelOnExit'#0#8'TabOrder'#2#4
   +#10'TitleStyle'#7#8'tsNative'#16'OnDrawColumnCell'#7#22'dgRightsDrawColumnCe'
   +'ll'#14'OnSelectEditor'#7#20'dgRightsSelectEditor'#11'WantReturns'#8#13'Cach'
-  +'edEditing'#9#0#0#11'TDataSource'#11'Permissions'#4'left'#2'('#3'top'#2'p'#0
+  +'edEditing'#9#0#0#11'TDatasource'#11'Permissions'#4'left'#2'('#3'top'#2'p'#0
   +#0#0
 ]);

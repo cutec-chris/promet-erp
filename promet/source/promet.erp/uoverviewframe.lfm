@@ -6,8 +6,8 @@ inherited fOrderOverviewFrame: TfOrderOverviewFrame
   ClientHeight = 240
   ClientWidth = 320
   OnEnter = FrameEnter
-  DesignLeft = 326
-  DesignTop = 319
+  DesignLeft = 350
+  DesignTop = 312
   object tvOrderView: TTreeView[0]
     Left = 0
     Height = 240

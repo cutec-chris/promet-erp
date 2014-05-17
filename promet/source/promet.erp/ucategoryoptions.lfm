@@ -4,8 +4,8 @@ inherited fCategoryOptions: TfCategoryOptions
   ClientHeight = 492
   ClientWidth = 550
   TabOrder = 0
-  DesignLeft = 418
-  DesignTop = 178
+  DesignLeft = 433
+  DesignTop = 177
   object gCategory: TDBGrid[0]
     Left = 8
     Height = 476

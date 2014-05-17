@@ -7,6 +7,8 @@ inherited fImageFrame: TfImageFrame
   ClientWidth = 552
   OnEnter = FrameEnter
   OnExit = FrameExit
+  DesignLeft = 399
+  DesignTop = 226
   object pImage: TPanel[0]
     Left = 48
     Height = 307

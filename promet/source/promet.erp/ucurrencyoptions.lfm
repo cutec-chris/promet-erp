@@ -1,14 +1,12 @@
-object fCurrencyOptions: TfCurrencyOptions
-  Left = 0
+inherited fCurrencyOptions: TfCurrencyOptions
   Height = 528
-  Top = 0
   Width = 576
   ClientHeight = 528
   ClientWidth = 576
   TabOrder = 0
-  DesignLeft = 428
-  DesignTop = 180
-  object dgCurrency: TDBGrid
+  DesignLeft = 421
+  DesignTop = 203
+  object dgCurrency: TDBGrid[0]
     Left = 8
     Height = 512
     Top = 8
@@ -49,7 +47,7 @@ object fCurrencyOptions: TfCurrencyOptions
     TabOrder = 0
     TitleStyle = tsNative
   end
-  object CurrencyDS: TDatasource
+  object CurrencyDS: TDatasource[1]
     left = 260
     top = 332
   end

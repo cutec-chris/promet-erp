@@ -1,14 +1,13 @@
-object fTextFrame: TfTextFrame
+inherited fTextFrame: TfTextFrame
   Left = 0
   Height = 240
   Top = 0
   Width = 320
   ClientHeight = 240
   ClientWidth = 320
-  TabOrder = 0
-  DesignLeft = 319
-  DesignTop = 228
-  object mText: TDBMemo
+  DesignLeft = 384
+  DesignTop = 238
+  object mText: TDBMemo[0]
     Left = 0
     Height = 240
     Top = 0
@@ -17,7 +16,7 @@ object fTextFrame: TfTextFrame
     DataSource = Datasource
     TabOrder = 0
   end
-  object Datasource: TDatasource
+  object Datasource: TDatasource[1]
     left = 40
     top = 24
   end

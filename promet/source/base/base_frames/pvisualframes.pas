@@ -8,7 +8,7 @@ interface
 
 uses
   uHistoryFrame, uFilterFrame, uhistoryadditem, uListFrame, uclipp, 
-  uFilterTabs, uLinkFrame, uImageFrame, uMainTreeFrame, uPrometFrames, 
+  uLinkFrame, uImageFrame, uMainTreeFrame, uPrometFrames, uFilterTabs, 
   LazarusPackageIntf;
 
 implementation

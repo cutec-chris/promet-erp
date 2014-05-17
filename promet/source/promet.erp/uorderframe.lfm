@@ -3,8 +3,8 @@ inherited fOrderFrame: TfOrderFrame
   Width = 898
   ClientHeight = 491
   ClientWidth = 898
-  DesignLeft = 370
-  DesignTop = 158
+  DesignLeft = 371
+  DesignTop = 175
   object pPreviewT: TPanel[0]
     Left = 673
     Height = 447

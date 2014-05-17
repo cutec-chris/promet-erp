@@ -1,7 +1,7 @@
 object fOptions: TfOptions
-  Left = 408
+  Left = 380
   Height = 526
-  Top = 189
+  Top = 175
   Width = 781
   Caption = 'Optionen'
   ClientHeight = 526

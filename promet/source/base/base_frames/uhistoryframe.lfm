@@ -5,8 +5,8 @@ inherited fHistoryFrame: TfHistoryFrame
   Width = 597
   ClientHeight = 580
   ClientWidth = 597
-  DesignLeft = 584
-  DesignTop = 183
+  DesignLeft = 501
+  DesignTop = 197
   object pCont: TPanel[0]
     Left = 44
     Height = 580
@@ -57,8 +57,7 @@ inherited fHistoryFrame: TfHistoryFrame
         Caption = 'Neu'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
@@ -182,8 +181,7 @@ inherited fHistoryFrame: TfHistoryFrame
         Caption = 'löschen'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
@@ -264,8 +262,7 @@ inherited fHistoryFrame: TfHistoryFrame
         Caption = 'Ansicht'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end

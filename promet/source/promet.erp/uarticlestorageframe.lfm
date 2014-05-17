@@ -1,10 +1,12 @@
-inherited fArticleStorageFrame: TfArticleStorageFrame
+inherited Lager: TLager
   Left = 0
   Height = 422
   Top = 0
   Width = 596
   ClientHeight = 422
   ClientWidth = 596
+  DesignLeft = 437
+  DesignTop = 275
   object Panel1: TPanel[0]
     Left = 0
     Height = 422

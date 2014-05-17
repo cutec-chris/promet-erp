@@ -1,12 +1,13 @@
-object FArticlerepairFrame: TFArticlerepairFrame
-  Left = 471
+inherited FArticlerepairFrame: TFArticlerepairFrame
+  Left = 0
   Height = 287
-  Top = 234
+  Top = 0
   Width = 617
   ClientHeight = 287
   ClientWidth = 617
-  LCLVersion = '0.9.31'
-  object gAssemblys: TExtDBGrid
+  DesignLeft = 419
+  DesignTop = 305
+  object gAssemblys: TExtDBGrid[0]
     Left = 35
     Height = 266
     Top = 8
@@ -26,8 +27,9 @@ object FArticlerepairFrame: TFArticlerepairFrame
     TabOrder = 0
     TitleStyle = tsNative
     WantReturns = False
+    CachedEditing = True
   end
-  object dnAssembly: TDBNavigator
+  object dnAssembly: TDBNavigator[1]
     Left = 3
     Height = 120
     Top = 8
@@ -47,7 +49,7 @@ object FArticlerepairFrame: TFArticlerepairFrame
     TabOrder = 1
     VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel]
   end
-  object gParts: TExtDBGrid
+  object gParts: TExtDBGrid[2]
     Left = 272
     Height = 266
     Top = 8
@@ -67,8 +69,9 @@ object FArticlerepairFrame: TFArticlerepairFrame
     TabOrder = 2
     TitleStyle = tsNative
     WantReturns = False
+    CachedEditing = True
   end
-  object dnPart: TDBNavigator
+  object dnPart: TDBNavigator[3]
     Left = 240
     Height = 120
     Top = 8
@@ -88,11 +91,11 @@ object FArticlerepairFrame: TFArticlerepairFrame
     TabOrder = 3
     VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel]
   end
-  object Assembly: TDatasource
+  object Assembly: TDatasource[4]
     left = 37
     top = 120
   end
-  object Part: TDatasource
+  object Part: TDatasource[5]
     left = 277
     top = 106
   end

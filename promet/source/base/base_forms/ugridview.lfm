@@ -11,8 +11,8 @@ object fGridView: TfGridView
   ParentShowHint = False
   ShowHint = True
   TabOrder = 0
-  DesignLeft = 487
-  DesignTop = 272
+  DesignLeft = 448
+  DesignTop = 274
   object sbGrids: TPanel
     Left = 0
     Height = 198
@@ -417,7 +417,7 @@ object fGridView: TfGridView
       OnExecute = acCopyToClipboardExecute
     end
   end
-  object FDataSource: TDataSource
+  object FDataSource: TDatasource
     OnStateChange = FDataSourceStateChange
     OnDataChange = FDataSourceDataChange
     left = 108

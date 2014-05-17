@@ -4,8 +4,8 @@ inherited fMessageOptions: TfMessageOptions
   ClientHeight = 409
   ClientWidth = 467
   TabOrder = 0
-  DesignLeft = 481
-  DesignTop = 204
+  DesignLeft = 427
+  DesignTop = 239
   object clbMailAccounts: TCheckListBox[0]
     Left = 8
     Height = 394
@@ -15,6 +15,7 @@ inherited fMessageOptions: TfMessageOptions
     ItemHeight = 0
     OnDblClick = clbMailAccountsDblClick
     TabOrder = 0
+    TopIndex = -1
   end
   object bAdd: TBitBtn[1]
     Left = 353

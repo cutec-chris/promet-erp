@@ -16,7 +16,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="23">
+    <Files Count="20">
       <Item1>
         <Filename Value="uhistoryframe.lfm"/>
         <Type Value="LFM"/>
@@ -58,57 +58,45 @@
         <UnitName Value="uclipp"/>
       </Item10>
       <Item11>
-        <Filename Value="ufiltertabs.lfm"/>
+        <Filename Value="ulinkframe.lfm"/>
         <Type Value="LFM"/>
       </Item11>
       <Item12>
-        <Filename Value="ufiltertabs.lrs"/>
-        <Type Value="LRS"/>
-      </Item12>
-      <Item13>
-        <Filename Value="ufiltertabs.pas"/>
-        <UnitName Value="uFilterTabs"/>
-      </Item13>
-      <Item14>
-        <Filename Value="ulinkframe.lfm"/>
-        <Type Value="LFM"/>
-      </Item14>
-      <Item15>
         <Filename Value="ulinkframe.pas"/>
         <UnitName Value="uLinkFrame"/>
-      </Item15>
-      <Item16>
+      </Item12>
+      <Item13>
         <Filename Value="uimageframe.lfm"/>
         <Type Value="LFM"/>
-      </Item16>
-      <Item17>
+      </Item13>
+      <Item14>
         <Filename Value="uimageframe.pas"/>
         <UnitName Value="uImageFrame"/>
+      </Item14>
+      <Item15>
+        <Filename Value="umaintreeframe.lfm"/>
+        <Type Value="LFM"/>
+      </Item15>
+      <Item16>
+        <Filename Value="umaintreeframe.lrs"/>
+        <Type Value="LRS"/>
+      </Item16>
+      <Item17>
+        <Filename Value="umaintreeframe.pas"/>
+        <UnitName Value="uMainTreeFrame"/>
       </Item17>
       <Item18>
-        <Filename Value="umaintreeframe.lfm"/>
+        <Filename Value="uprometframes.lfm"/>
         <Type Value="LFM"/>
       </Item18>
       <Item19>
-        <Filename Value="umaintreeframe.lrs"/>
+        <Filename Value="uprometframes.lrs"/>
         <Type Value="LRS"/>
       </Item19>
       <Item20>
-        <Filename Value="umaintreeframe.pas"/>
-        <UnitName Value="uMainTreeFrame"/>
-      </Item20>
-      <Item21>
-        <Filename Value="uprometframes.lfm"/>
-        <Type Value="LFM"/>
-      </Item21>
-      <Item22>
-        <Filename Value="uprometframes.lrs"/>
-        <Type Value="LRS"/>
-      </Item22>
-      <Item23>
         <Filename Value="uprometframes.pas"/>
         <UnitName Value="uPrometFrames"/>
-      </Item23>
+      </Item20>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="3">

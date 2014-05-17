@@ -7,8 +7,8 @@ inherited fOrderDateFrame: TfOrderDateFrame
   ClientWidth = 914
   ParentShowHint = False
   ShowHint = True
-  DesignLeft = 383
-  DesignTop = 212
+  DesignLeft = 371
+  DesignTop = 243
   object lWishDate: TLabel[0]
     Left = 16
     Height = 13

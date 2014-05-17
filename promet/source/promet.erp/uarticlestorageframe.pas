@@ -23,7 +23,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, DbCtrls, db,
   uFilterFrame,uPrometFramesInplace, uExtControls;
 type
-  TfArticleStorageFrame = class(TPrometInplaceFrame)
+  TLager = class(TPrometInplaceFrame)
     Bevel1: TBevel;
     Datasource: TDatasource;
     dnNavigator: TDBNavigator;
@@ -43,7 +43,7 @@ type
 
 implementation
 {$R *.lfm}
-procedure TfArticleStorageFrame.FListFListFilterChanged(Sender: TObject);
+procedure TLager.FListFListFilterChanged(Sender: TObject);
 var
   i: Integer;
 begin
@@ -51,7 +51,7 @@ begin
     if FList.gList.Columns[i].FieldName = 'PLACE' then
       FList.gList.Columns[i].ReadOnly:=False;
 end;
-constructor TfArticleStorageFrame.Create(AOwner: TComponent);
+constructor TLager.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   FList := TfFilter.Create(Self);
@@ -64,14 +64,14 @@ begin
       Show;
     end;
 end;
-destructor TfArticleStorageFrame.Destroy;
+destructor TLager.Destroy;
 begin
   FList.DataSet := nil;
   FList.Free;
   inherited Destroy;
 end;
 
-procedure TfArticleStorageFrame.SetRights(Editable: Boolean);
+procedure TLager.SetRights(Editable: Boolean);
 begin
   dnNavigator.Enabled := Editable
 end;

@@ -1,7 +1,7 @@
 object fWizardNewAccount: TfWizardNewAccount
-  Left = 398
+  Left = 422
   Height = 355
-  Top = 226
+  Top = 235
   Width = 451
   ActiveControl = bNext0
   Caption = 'Neues Konto'
@@ -21,7 +21,7 @@ object fWizardNewAccount: TfWizardNewAccount
     TabOrder = 2
     object lDescription1: TLabel
       Left = 0
-      Height = 14
+      Height = 13
       Top = 0
       Width = 323
       Align = alTop
@@ -31,7 +31,7 @@ object fWizardNewAccount: TfWizardNewAccount
     end
     object lAccount: TLabel
       Left = 0
-      Height = 14
+      Height = 13
       Top = 88
       Width = 48
       Caption = 'lAccount'
@@ -39,9 +39,9 @@ object fWizardNewAccount: TfWizardNewAccount
     end
     object lName: TLabel
       Left = 0
-      Height = 14
+      Height = 13
       Top = 120
-      Width = 37
+      Width = 36
       Caption = 'lName'
       ParentColor = False
     end
@@ -105,7 +105,7 @@ object fWizardNewAccount: TfWizardNewAccount
     end
     object eName: TEdit
       Left = 96
-      Height = 24
+      Height = 23
       Top = 120
       Width = 216
       TabOrder = 2
@@ -123,7 +123,7 @@ object fWizardNewAccount: TfWizardNewAccount
     TabOrder = 3
     object lDescription2: TLabel
       Left = 0
-      Height = 31
+      Height = 26
       Top = 0
       Width = 323
       Align = alTop
@@ -133,31 +133,31 @@ object fWizardNewAccount: TfWizardNewAccount
     end
     object lAccountName: TLabel
       Left = 1
-      Height = 14
+      Height = 13
       Top = 104
-      Width = 148
+      Width = 147
       Caption = 'Ihr Name (Benutzername)'
       ParentColor = False
     end
     object lAccountNo: TLabel
       Left = 1
-      Height = 14
+      Height = 13
       Top = 152
-      Width = 192
+      Width = 190
       Caption = 'Kontonummer (Benutzerkennung)'
       ParentColor = False
     end
     object lSortcode: TLabel
       Left = 243
-      Height = 14
+      Height = 13
       Top = 152
-      Width = 69
+      Width = 68
       Caption = 'Bankleitzahl'
       ParentColor = False
     end
     object lFinTsName: TLabel
       Left = 2
-      Height = 14
+      Height = 13
       Top = 258
       Width = 141
       Caption = 'Serveradresse (http://...)'
@@ -215,43 +215,43 @@ object fWizardNewAccount: TfWizardNewAccount
     end
     object eUsername: TEdit
       Left = 0
-      Height = 24
+      Height = 23
       Top = 116
       Width = 312
       TabOrder = 1
     end
     object eAccountNo: TEdit
       Left = 1
-      Height = 24
+      Height = 23
       Top = 168
       Width = 153
       TabOrder = 2
     end
     object eSortcode: TEdit
       Left = 160
-      Height = 24
+      Height = 23
       Top = 168
       Width = 152
       TabOrder = 3
     end
     object eWebAddress: TEdit
       Left = 2
-      Height = 24
+      Height = 23
       Top = 272
       Width = 311
       TabOrder = 4
     end
     object lAccountNo1: TLabel
       Left = 2
-      Height = 14
+      Height = 13
       Top = 216
-      Width = 134
+      Width = 132
       Caption = 'Kunden-ID (oft optional)'
       ParentColor = False
     end
     object eCustomerID: TEdit
       Left = 2
-      Height = 24
+      Height = 23
       Top = 232
       Width = 311
       TabOrder = 5
@@ -289,7 +289,7 @@ object fWizardNewAccount: TfWizardNewAccount
     TabOrder = 1
     object lDescription0: TLabel
       Left = 0
-      Height = 65
+      Height = 52
       Top = 0
       Width = 323
       Align = alTop
@@ -362,7 +362,7 @@ object fWizardNewAccount: TfWizardNewAccount
       Left = 1
       Height = 24
       Top = 104
-      Width = 300
+      Width = 299
       Caption = 'Konto von bestehendem Online Banking Zugang'
       OnClick = rbExistingUserChange
       TabOrder = 3
@@ -379,7 +379,7 @@ object fWizardNewAccount: TfWizardNewAccount
       Left = 2
       Height = 24
       Top = 192
-      Width = 139
+      Width = 136
       Caption = 'PIN/TAN HBCI Konto'
       TabOrder = 0
     end
@@ -387,7 +387,7 @@ object fWizardNewAccount: TfWizardNewAccount
       Left = 2
       Height = 24
       Top = 224
-      Width = 153
+      Width = 151
       Caption = 'Mobile Tan HBCI Konto'
       Enabled = False
       TabOrder = 5
@@ -396,13 +396,13 @@ object fWizardNewAccount: TfWizardNewAccount
       Left = 2
       Height = 24
       Top = 256
-      Width = 150
+      Width = 148
       Caption = 'Chipkaten HBCI Konto'
       TabOrder = 6
     end
     object DividerBevel1: TDividerBevel
       Left = 0
-      Height = 14
+      Height = 13
       Top = 168
       Width = 312
       Caption = 'neuer Zugang'

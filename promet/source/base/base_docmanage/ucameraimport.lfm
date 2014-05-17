@@ -1,7 +1,7 @@
 object fCameraimport: TfCameraimport
-  Left = 402
+  Left = 384
   Height = 319
-  Top = 193
+  Top = 215
   Width = 536
   Caption = 'Import von Kamera'
   ClientHeight = 319
@@ -10,7 +10,7 @@ object fCameraimport: TfCameraimport
   LCLVersion = '1.3'
   object cbCamera: TComboBox
     Left = 8
-    Height = 28
+    Height = 27
     Top = 24
     Width = 520
     Anchors = [akTop, akLeft, akRight]
@@ -21,7 +21,7 @@ object fCameraimport: TfCameraimport
   end
   object Label1: TLabel
     Left = 8
-    Height = 14
+    Height = 13
     Top = 7
     Width = 44
     Caption = 'Kamera'
@@ -39,8 +39,8 @@ object fCameraimport: TfCameraimport
   end
   object ButtonPanel1: TButtonPanel
     Left = 6
-    Height = 34
-    Top = 279
+    Height = 42
+    Top = 271
     Width = 524
     OKButton.Name = 'OKButton'
     OKButton.DefaultCaption = True
@@ -54,7 +54,7 @@ object fCameraimport: TfCameraimport
     ShowButtons = [pbClose]
     object Button1: TButton
       Left = 63
-      Height = 26
+      Height = 34
       Hint = 'ausgewählte Dateien importieren'
       Top = 8
       Width = 33
@@ -67,7 +67,7 @@ object fCameraimport: TfCameraimport
     end
     object cbDelete: TCheckBox
       Left = 102
-      Height = 20
+      Height = 28
       Top = 8
       Width = 141
       Align = alLeft
@@ -78,7 +78,7 @@ object fCameraimport: TfCameraimport
     end
     object bImport: TButton
       Left = 0
-      Height = 26
+      Height = 34
       Hint = 'Aktuelle Datei importieren'
       Top = 8
       Width = 63
@@ -91,7 +91,7 @@ object fCameraimport: TfCameraimport
     end
     object Button2: TButton
       Left = 249
-      Height = 26
+      Height = 34
       Hint = 'bereits importierte Dateien finden und abwählen'
       Top = 8
       Width = 75

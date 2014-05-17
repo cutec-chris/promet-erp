@@ -6,8 +6,8 @@ inherited forderTypeOptions: TforderTypeOptions
   ParentShowHint = False
   ShowHint = True
   TabOrder = 0
-  DesignLeft = 473
-  DesignTop = 225
+  DesignLeft = 481
+  DesignTop = 248
   object lType: TLabel[0]
     Left = 176
     Height = 13
@@ -53,19 +53,16 @@ inherited forderTypeOptions: TforderTypeOptions
     Columns = <    
       item
         Title.Caption = 'STATUS'
-        Title.MultiLine = False
         Width = 30
         FieldName = 'STATUS'
       end    
       item
         Title.Caption = 'STATUSNAME'
-        Title.MultiLine = False
         Width = 80
         FieldName = 'STATUSNAME'
       end    
       item
         Title.Caption = 'ICON'
-        Title.MultiLine = False
         FieldName = 'ICON'
       end>
     DataSource = OrderTypeDS

@@ -1,7 +1,7 @@
 object fSearch: TfSearch
-  Left = 452
+  Left = 373
   Height = 445
-  Top = 187
+  Top = 185
   Width = 566
   BorderIcons = [biSystemMenu, biMaximize]
   Caption = 'Suche'
@@ -29,7 +29,7 @@ object fSearch: TfSearch
     TabOrder = 0
     object eContains: TEdit
       Left = 72
-      Height = 21
+      Height = 23
       Top = 9
       Width = 333
       Anchors = [akTop, akLeft, akRight]
@@ -171,9 +171,9 @@ object fSearch: TfSearch
     end
     object cbContains: TRadioButton
       Left = 72
-      Height = 17
+      Height = 24
       Top = 55
-      Width = 52
+      Width = 65
       Caption = 'enthält'
       Checked = True
       TabOrder = 4
@@ -181,18 +181,18 @@ object fSearch: TfSearch
     end
     object cbWildgards: TRadioButton
       Left = 160
-      Height = 17
+      Height = 24
       Top = 55
-      Width = 137
+      Width = 164
       Caption = 'Jokerzeichen verwenden'
       OnChange = cbWildgardsChange
       TabOrder = 1
     end
     object cbAutomaticsearch: TCheckBox
-      Left = 412
-      Height = 17
+      Left = 380
+      Height = 24
       Top = 55
-      Width = 146
+      Width = 178
       Anchors = [akTop, akRight]
       Caption = 'Suche wärend des Tippens'
       Checked = True
@@ -250,7 +250,7 @@ object fSearch: TfSearch
     end
     object seMaxresults: TSpinEdit
       Left = 500
-      Height = 21
+      Height = 23
       Top = 83
       Width = 58
       Anchors = [akTop, akRight]
@@ -263,10 +263,10 @@ object fSearch: TfSearch
       Value = 10
     end
     object cbMaxResults: TCheckBox
-      Left = 328
-      Height = 17
+      Left = 292
+      Height = 24
       Top = 83
-      Width = 166
+      Width = 202
       Anchors = [akTop, akRight]
       Caption = 'Anzahl Ergebnisse pro Suchtyp'
       Checked = True
@@ -374,6 +374,7 @@ object fSearch: TfSearch
         OnClickCheck = cbSearchInClickCheck
         TabOrder = 0
         TabStop = False
+        TopIndex = -1
       end
     end
     object Panel5: TPanel
@@ -398,6 +399,7 @@ object fSearch: TfSearch
         OnClickCheck = cbSearchTypeClickCheck
         TabOrder = 0
         TabStop = False
+        TopIndex = -1
       end
       object lSearchtype: TLabel
         Left = 4
@@ -434,7 +436,7 @@ object fSearch: TfSearch
       Left = 8
       Height = 13
       Top = 0
-      Width = 89
+      Width = 99
       Caption = 'Suchergebnisse'
       Font.Style = [fsBold]
       ParentColor = False
@@ -524,10 +526,10 @@ object fSearch: TfSearch
     ClientWidth = 566
     TabOrder = 4
     object bClose: TBitBtn
-      Left = 445
-      Height = 34
-      Top = 14
-      Width = 99
+      Left = 444
+      Height = 42
+      Top = 6
+      Width = 100
       HelpType = htKeyword
       Anchors = [akRight, akBottom]
       AutoSize = True
@@ -547,10 +549,10 @@ object fSearch: TfSearch
     end
     object bOpen: TBitBtn
       AnchorSideRight.Control = bClose
-      Left = 349
-      Height = 34
-      Top = 14
-      Width = 91
+      Left = 358
+      Height = 36
+      Top = 12
+      Width = 81
       Action = acOpen
       Anchors = [akRight, akBottom]
       AutoSize = True

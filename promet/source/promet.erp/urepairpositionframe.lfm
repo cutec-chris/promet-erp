@@ -8,8 +8,8 @@ inherited fRepairPositionFrame: TfRepairPositionFrame
   Color = clWindow
   OnEnter = FrameEnter
   ParentColor = False
-  DesignLeft = 504
-  DesignTop = 336
+  DesignLeft = 426
+  DesignTop = 315
   object Panel1: TPanel[0]
     Left = 0
     Height = 229
@@ -42,7 +42,7 @@ inherited fRepairPositionFrame: TfRepairPositionFrame
       Left = 4
       Height = 13
       Top = 165
-      Width = 94
+      Width = 110
       Anchors = [akLeft, akBottom]
       Caption = 'Fehlerbeschreibung'
       ParentColor = False
@@ -51,7 +51,7 @@ inherited fRepairPositionFrame: TfRepairPositionFrame
       Left = 150
       Height = 13
       Top = 163
-      Width = 86
+      Width = 100
       Anchors = [akLeft, akBottom]
       Caption = 'Notizen für Kunde'
       ParentColor = False
@@ -80,13 +80,13 @@ inherited fRepairPositionFrame: TfRepairPositionFrame
       Left = 80
       Height = 13
       Top = 2
-      Width = 99
+      Width = 118
       Caption = 'gefundene Probleme'
       ParentColor = False
     end
     object eSerial1: TDBEdit
       Left = 3
-      Height = 21
+      Height = 23
       Top = 19
       Width = 68
       DataField = 'SERIAL'
@@ -98,24 +98,24 @@ inherited fRepairPositionFrame: TfRepairPositionFrame
     end
     object cbVersion1: TDBComboBox
       Left = 3
-      Height = 21
+      Height = 27
       Top = 58
       Width = 69
       DataField = 'VERSION'
       DataSource = Position
-      ItemHeight = 13
+      ItemHeight = 0
       MaxLength = 0
       TabOrder = 1
     end
     object cbOperation: TDBComboBox
       Left = 593
-      Height = 21
+      Height = 27
       Top = 19
       Width = 124
       Anchors = [akTop, akRight]
       DataField = 'OPERATION'
       DataSource = Repair
-      ItemHeight = 13
+      ItemHeight = 0
       MaxLength = 0
       TabOrder = 3
     end

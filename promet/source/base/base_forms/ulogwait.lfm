@@ -1,7 +1,7 @@
 object fLogWaitForm: TfLogWaitForm
-  Left = 470
+  Left = 423
   Height = 316
-  Top = 254
+  Top = 264
   Width = 499
   ActiveControl = lbLog
   Caption = 'Bitte warten...'
@@ -10,7 +10,7 @@ object fLogWaitForm: TfLogWaitForm
   OnShow = FormShow
   Position = poMainFormCenter
   ShowInTaskBar = stAlways
-  LCLVersion = '0.9.31'
+  LCLVersion = '1.3'
   object lbLog: TListBox
     Left = 8
     Height = 259

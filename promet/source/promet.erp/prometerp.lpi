@@ -291,7 +291,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="42">
+    <Units Count="41">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -308,10 +308,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="3205"/>
-        <CursorPos X="54" Y="3229"/>
+        <TopLine Value="3349"/>
+        <CursorPos X="13" Y="3377"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -323,13 +324,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPersonFrame"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="796"/>
         <CursorPos X="10" Y="799"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="uaddressframe.pas"/>
@@ -383,8 +381,12 @@
         <Filename Value="ubankingdialog.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fbankingDialog"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uBankingDialog"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
         <UsageCount Value="200"/>
       </Unit7>
       <Unit8>
@@ -402,18 +404,25 @@
       <Unit9>
         <Filename Value="uarticlestorageframe.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="fArticleStorageFrame"/>
+        <ComponentName Value="Lager"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uArticleStorageFrame"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
         <UsageCount Value="200"/>
       </Unit9>
       <Unit10>
         <Filename Value="utextframe.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fTextFrame"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uTextFrame"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
         <UsageCount Value="200"/>
       </Unit10>
       <Unit11>
@@ -448,7 +457,7 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOrderFrame"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="414"/>
+        <TopLine Value="435"/>
         <CursorPos X="26" Y="470"/>
         <UsageCount Value="200"/>
       </Unit13>
@@ -459,6 +468,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOrderAdditionalFrame"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
         <UsageCount Value="200"/>
       </Unit14>
       <Unit15>
@@ -468,6 +480,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOverviewFrame"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
         <UsageCount Value="200"/>
       </Unit15>
       <Unit16>
@@ -478,7 +493,7 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uOrderDateFrame"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="35"/>
+        <TopLine Value="33"/>
         <CursorPos X="32" Y="62"/>
         <UsageCount Value="200"/>
       </Unit16>
@@ -489,6 +504,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uChangeStatus"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
         <UsageCount Value="200"/>
       </Unit17>
       <Unit18>
@@ -498,6 +516,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uNewStorage"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
         <UsageCount Value="200"/>
       </Unit18>
       <Unit19>
@@ -519,22 +540,33 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uRepairPositionFrame"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
         <UsageCount Value="200"/>
       </Unit20>
       <Unit21>
         <Filename Value="uarticlerepairframe.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FArticlerepairFrame"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uarticlerepairframe"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
         <UsageCount Value="200"/>
       </Unit21>
       <Unit22>
         <Filename Value="usystemoptions.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fSystemOptions"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uSystemOptions"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
         <UsageCount Value="200"/>
       </Unit22>
       <Unit23>
@@ -565,16 +597,24 @@
         <Filename Value="ustoragetypeoptions.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fStorageTypeOptions"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uStorageTypeOptions"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
         <UsageCount Value="200"/>
       </Unit25>
       <Unit26>
         <Filename Value="ucurrencyoptions.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fCurrencyOptions"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uCurrencyOptions"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
         <UsageCount Value="200"/>
       </Unit26>
       <Unit27>
@@ -596,6 +636,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uRepairOptions"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
         <UsageCount Value="200"/>
       </Unit28>
       <Unit29>
@@ -605,6 +648,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPhoneOptions"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
         <UsageCount Value="200"/>
       </Unit29>
       <Unit30>
@@ -650,6 +696,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uCopyArticleData"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
         <UsageCount Value="200"/>
       </Unit33>
       <Unit34>
@@ -659,6 +708,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uFindTransaction"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
         <UsageCount Value="200"/>
       </Unit34>
       <Unit35>
@@ -692,6 +744,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uTimeFrame"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
         <UsageCount Value="200"/>
       </Unit37>
       <Unit38>
@@ -713,6 +768,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uBookSerial"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
         <UsageCount Value="200"/>
       </Unit39>
       <Unit40>
@@ -729,19 +787,6 @@
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit40>
-      <Unit41>
-        <Filename Value="../base/base_frames/ufilterframe.pas"/>
-        <ComponentName Value="fFilter"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uFilterFrame"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="456"/>
-        <CursorPos X="77" Y="470"/>
-        <UsageCount Value="47"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
-      </Unit41>
     </Units>
     <JumpHistory Count="0" HistoryIndex="-1"/>
   </ProjectOptions>
@@ -782,7 +827,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="2">
+    <BreakPoints Count="5">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
@@ -797,6 +842,27 @@
         <Source Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
         <Line Value="6282"/>
       </Item2>
+      <Item3>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="../../../general/src/Utils.pas"/>
+        <Line Value="184"/>
+      </Item3>
+      <Item4>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="../../../general/src/Utils.pas"/>
+        <Line Value="192"/>
+      </Item4>
+      <Item5>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="../../../general/src/Utils.pas"/>
+        <Line Value="210"/>
+      </Item5>
     </BreakPoints>
     <Watches Count="1">
       <Item1>
