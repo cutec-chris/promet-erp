@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prometheus\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-05-17 18:06+0100\n"
+"PO-Revision-Date: 2014-05-17 19:36+0100\n"
 "Last-Translator: Christian Ulrich <info@cu-tec.de>\n"
 "Language-Team: C.Ulrich <christian@ullihome.de>\n"
 "MIME-Version: 1.0\n"
@@ -995,22 +995,22 @@ msgstr "no Image"
 #: tfcustomer.sbaddimage.hint
 msgctxt "TFCUSTOMER.SBADDIMAGE.HINT"
 msgid "öffnet einen Dialog zum auswählen "
-msgstr ""
+msgstr "opend an dialog to select an image"
 
 #: tfcustomer.sbclipboardtoimage.hint
 msgctxt "TFCUSTOMER.SBCLIPBOARDTOIMAGE.HINT"
 msgid "fügt ein Bild aus der Zwischenablage ein"
-msgstr ""
+msgstr "adds an image from clipboard"
 
 #: tfcustomer.sbimagetoclipboard.hint
 msgctxt "TFCUSTOMER.SBIMAGETOCLIPBOARD.HINT"
 msgid "kopiert das Bild in die Zwischenablage"
-msgstr ""
+msgstr "copys the image to clipboard"
 
 #: tfcustomer.speedbutton2.caption
 msgctxt "TFCUSTOMER.SPEEDBUTTON2.CAPTION"
 msgid "?"
-msgstr ""
+msgstr "?"
 
 # uintfstrconsts:stradress
 #: tfcustomer.tsadress.caption
@@ -1021,7 +1021,7 @@ msgstr "Adress"
 #: tfcustomer.tscontact.caption
 msgctxt "TFCUSTOMER.TSCONTACT.CAPTION"
 msgid "Kontaktdaten"
-msgstr ""
+msgstr "Contactdata"
 
 # uintfstrconsts:strdocuments
 #: tfcustomer.tsdocuments.caption
@@ -1032,12 +1032,12 @@ msgstr "Documents"
 #: tfcustomer.tsemployees.caption
 msgctxt "TFCUSTOMER.TSEMPLOYEES.CAPTION"
 msgid "Mitarbeiter"
-msgstr ""
+msgstr "Members"
 
 #: tfcustomer.tsfinancial.caption
 msgctxt "TFCUSTOMER.TSFINANCIAL.CAPTION"
 msgid "Finanzen"
-msgstr ""
+msgstr "Financial"
 
 # uintfstrconsts:strhistory
 #: tfcustomer.tshistory.caption
@@ -1048,7 +1048,7 @@ msgstr "History"
 #: tfcustomer.tsimages.caption
 msgctxt "TFCUSTOMER.TSIMAGES.CAPTION"
 msgid "Bilder"
-msgstr ""
+msgstr "Images"
 
 # uintfstrconsts:strnotice
 #: tfcustomer.tsinfo.caption
@@ -1059,12 +1059,12 @@ msgstr "Notice"
 #: tfcustomer.tslinks.caption
 msgctxt "TFCUSTOMER.TSLINKS.CAPTION"
 msgid "Verweise"
-msgstr ""
+msgstr "Links"
 
 #: tfdataimport.bchangeformat.caption
 msgctxt "TFDATAIMPORT.BCHANGEFORMAT.CAPTION"
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #: tfdataimport.bsourceoptions.caption
 msgctxt "TFDATAIMPORT.BSOURCEOPTIONS.CAPTION"
@@ -1073,7 +1073,7 @@ msgstr ""
 
 #: tfdataimport.cbdatasource.text
 msgid "Textdatei Trennzeichen getrennt"
-msgstr ""
+msgstr "Textfile char delemited"
 
 # uintfstrconsts:strdateformat
 #: tfdataimport.fdataimport.caption
@@ -1084,7 +1084,7 @@ msgstr "Dataimport"
 #: tfdataimport.label1.caption
 msgctxt "TFDATAIMPORT.LABEL1.CAPTION"
 msgid "Datenquelle"
-msgstr ""
+msgstr "Datasource"
 
 # uintfstrconsts:strdateformat
 #: tfdataimport.label2.caption
@@ -1094,11 +1094,11 @@ msgstr "Dataformat"
 #: tfdataimport.linfo.caption
 msgctxt "TFDATAIMPORT.LINFO.CAPTION"
 msgid "Bitte wählen Sie ein Datenformat"
-msgstr ""
+msgstr "please select an data format"
 
 #: tfdatainput.badd.caption
 msgid "hinzufügen"
-msgstr ""
+msgstr "add"
 
 # uintfstrconsts:strcontact
 #: tfdatainput.bdelete.caption
@@ -1107,7 +1107,7 @@ msgstr "remove"
 
 #: tfdatainput.binsertcommand.caption
 msgid "Befehl einfügen"
-msgstr ""
+msgstr "add command"
 
 #: tfdatainput.fdatainput.caption
 msgid "Importformat Konfiguration"
@@ -1115,11 +1115,11 @@ msgstr "Import Configuration"
 
 #: tfdatainput.label1.caption
 msgid "Zielspalten"
-msgstr ""
+msgstr "Targetrows"
 
 #: tfdatainput.label2.caption
 msgid "Quellspalten"
-msgstr ""
+msgstr "Sourcerows"
 
 # uintfstrconsts:strregistered
 #: tfdatainput.label3.caption
@@ -1142,7 +1142,7 @@ msgstr ""
 
 #: tfdisposition.bcheck.caption
 msgid "Prüfen"
-msgstr ""
+msgstr "Check"
 
 # uintfstrconsts:strposition
 #: tfdisposition.fdisposition.caption
@@ -1163,7 +1163,7 @@ msgstr ""
 #: tfdocproperties.ldate.caption
 msgctxt "TFDOCPROPERTIES.LDATE.CAPTION"
 msgid "Datum"
-msgstr ""
+msgstr "Date"
 
 # uintfstrconsts:strvalue
 #: tfdocproperties.ldatevalue.caption
@@ -1183,7 +1183,7 @@ msgstr ""
 
 #: tfdocproperties.llastchanged.caption
 msgid "Zuletzt geändert"
-msgstr ""
+msgstr "last changes"
 
 # uintfstrconsts:strchange
 #: tfdocproperties.llastchangedvalue.caption
@@ -1197,127 +1197,118 @@ msgstr "Mime Type"
 
 # uintfstrconsts:strmaximize
 #: tfdocproperties.lmimetypevalue.caption
-#, fuzzy
 msgid "lMimeTypeValue"
-msgstr "Mime Type"
+msgstr ""
 
 #: tfdocproperties.micheckouttothisrevision.caption
 msgid "zu dieser Revision auschecken"
-msgstr ""
+msgstr "checkout to this revision"
 
 #: tfdocproperties.sglog.columns.title.caption
 msgctxt "TFDOCPROPERTIES.SGLOG.COLUMNS.TITLE.CAPTION"
 msgid "Änderung"
-msgstr ""
+msgstr "Achange"
 
 #: tfdocproperties.tscommon.caption
 msgctxt "TFDOCPROPERTIES.TSCOMMON.CAPTION"
 msgid "Allgemein"
-msgstr ""
+msgstr "Common"
 
 #: tfdocproperties.tslog.caption
 msgid "Geschichte"
-msgstr ""
+msgstr "History"
 
 # uintfstrconsts:stradddocumentoptions
 #: tfdocumentaction.caption
-#, fuzzy
 msgid "Dokumentenaktionen"
 msgstr "Document Actions"
 
 #: tfdocumentaction.cbcheckinalsonewfiles.caption
 msgid "auch neue Dateien einchekcen"
-msgstr ""
+msgstr "checkin also new files"
 
 #: tfdocumentaction.cbcheckoutcompletedir.caption
 msgid "komplettes Verzeichnis auschecken"
-msgstr ""
+msgstr "checkout complete dir"
 
 #: tfdocumentaction.cbdontusestarter.caption
 msgid "Startprogramm nicht benutzen"
-msgstr ""
+msgstr "Dont use starter"
 
 #: tfdocumentaction.lactioncommand.caption
 msgid "Befehl"
-msgstr ""
+msgstr "Command"
 
 # uintfstrconsts:strposcalc
 #: tfdocumentaction.lstandartactions.caption
-#, fuzzy
 msgid "Standart Aktionen"
 msgstr "Standart actions"
 
 #: tfdocumentaction.rbusespecialaction.caption
 msgid "Spezialaktion verwenden"
-msgstr ""
+msgstr "apply special action"
 
 # uintfstrconsts:strposcalc
 #: tfdocumentaction.rbusestandardaction.caption
-#, fuzzy
 msgid "Standartaktion verwenden"
-msgstr "Standart actions"
+msgstr "use Standart actions"
 
 #: tfdocumentaddoptions.caption
 msgctxt "TFDOCUMENTADDOPTIONS.CAPTION"
 msgid "Dokument hinzufügen"
-msgstr ""
+msgstr "add document"
 
 #: tfdocumentaddoptions.cbaddtomessages.caption
 msgid "zu Narichten hinzufügen"
-msgstr ""
+msgstr "add to messages"
 
 #: tfdocumentaddoptions.cbdeletefromfilesystem.caption
 msgid "im Dateisystem löschen"
-msgstr ""
+msgstr "delete in filesystem"
 
 #: tfdocumentaddoptions.cccalendar.cancelcaption
 msgctxt "TFDOCUMENTADDOPTIONS.CCCALENDAR.CANCELCAPTION"
 msgid "Cancel"
-msgstr ""
+msgstr "Cancel"
 
 # uintfstrconsts:strok
 #: tfdocumentaddoptions.cccalendar.okcaption
-#, fuzzy
 msgctxt "TFDOCUMENTADDOPTIONS.CCCALENDAR.OKCAPTION"
 msgid "OK"
-msgstr "OK"
+msgstr "Ok"
 
 # uintfstrconsts:strname
 #: tfdocumentaddoptions.ename.text
-#, fuzzy
 msgid "eName"
 msgstr "Name"
 
 #: tfdocumentaddoptions.lcheckindate.caption
 msgctxt "TFDOCUMENTADDOPTIONS.LCHECKINDATE.CAPTION"
 msgid "Datum"
-msgstr ""
+msgstr "Date"
 
 # uintfstrconsts:strname
 #: tfdocumentaddoptions.lname.caption
-#, fuzzy
 msgctxt "TFDOCUMENTADDOPTIONS.LNAME.CAPTION"
 msgid "Name"
 msgstr "Name"
 
 # uintfstrconsts:stroptions
 #: tfdocumentaddoptions.loptions.caption
-#, fuzzy
 msgctxt "TFDOCUMENTADDOPTIONS.LOPTIONS.CAPTION"
 msgid "Optionen"
-msgstr "Option"
+msgstr "Options"
 
 #: tfeditmail.acclose.caption
 msgctxt "TFEDITMAIL.ACCLOSE.CAPTION"
 msgid "Schliessen"
-msgstr ""
+msgstr "Close"
 
 # uintfstrconsts:strtendertext
 #: tfeditmail.bsend.caption
-#, fuzzy
 msgctxt "TFEDITMAIL.BSEND.CAPTION"
 msgid "Senden"
-msgstr "Sender"
+msgstr "Send"
 
 #: tfeditmail.cbto.text
 msgid "cbTo"
@@ -1329,19 +1320,17 @@ msgid "TEXT"
 msgstr ""
 
 #: tfeditmail.ecc.text
-#, fuzzy
 msgid "eCC"
 msgstr "CC"
 
 # uintfstrconsts:strsubmit
 #: tfeditmail.esubject.text
-#, fuzzy
 msgid "eSubject"
 msgstr "Subject"
 
 #: tfeditmail.feditmail.caption
 msgid "Nachrichteneditor"
-msgstr ""
+msgstr "Messageeditor"
 
 #: tfeditmail.lcc.caption
 msgid "CC"
@@ -1349,7 +1338,6 @@ msgstr "CC"
 
 # uintfstrconsts:strpages
 #: tfeditmail.lmessage.caption
-#, fuzzy
 msgctxt "TFEDITMAIL.LMESSAGE.CAPTION"
 msgid "lMessage"
 msgstr "Message"
@@ -1357,21 +1345,20 @@ msgstr "Message"
 #: tfeditmail.lsubject.caption
 msgctxt "TFEDITMAIL.LSUBJECT.CAPTION"
 msgid "Betreff"
-msgstr ""
+msgstr "Subject"
 
 #: tfeditmail.lto.caption
 msgid "An"
-msgstr ""
+msgstr "To"
 
 # uintfstrconsts:strdetails
 #: tfeditmail.ltype.caption
-#, fuzzy
 msgid "als"
-msgstr "Details"
+msgstr "as"
 
 #: tfeditmail.lwith.caption
 msgid "über"
-msgstr ""
+msgstr "over"
 
 #: tfeditmail.pmain.caption
 msgid "pMain"
@@ -1379,30 +1366,29 @@ msgstr ""
 
 #: tfeditmail.tsattatchments.caption
 msgid "Anhänge"
-msgstr ""
+msgstr "Attatchements"
 
 #: tfeditmail.tscontent.caption
 msgid "Inhalt"
-msgstr ""
+msgstr "Content"
 
 #: tfedittext.caption
 msgid "Text editieren"
-msgstr ""
+msgstr "Edit text"
 
 # uintfstrconsts:strfilter
 #: tfentertime.acfilter.caption
-#, fuzzy
 msgctxt "TFENTERTIME.ACFILTER.CAPTION"
 msgid "acFilter"
 msgstr "Filter"
 
 #: tfentertime.acgotoid.caption
 msgid "zu Eintrag gehen"
-msgstr ""
+msgstr "goto entry"
 
 #: tfentertime.acinsert.caption
 msgid "neuen Eintrag einfügen"
-msgstr ""
+msgstr "add new entry"
 
 #: tfentertime.acminimizetotray.caption
 msgid "acMinimizeToTray"
@@ -1410,20 +1396,20 @@ msgstr ""
 
 #: tfentertime.acminimizetotray.hint
 msgid "In die Startleistenablage minimieren"
-msgstr ""
+msgstr "minimize to Tray"
 
 #: tfentertime.acprint.caption
 msgctxt "TFENTERTIME.ACPRINT.CAPTION"
 msgid "Drucken"
-msgstr ""
+msgstr "Print"
 
 #: tfentertime.acuseasnewentry.caption
 msgid "Als neuen Eintrag benutzen"
-msgstr ""
+msgstr "use as new entry"
 
 #: tfentertime.acuseasnewentry.hint
 msgid "Übernimmt die Eintragungen in den aktuellen Eintrag"
-msgstr ""
+msgstr "uses the settings in actual entry"
 
 #: tfentertime.baddjob.hint
 msgid "Fügt den aktuellen Text zur persönlichen "
@@ -1431,11 +1417,11 @@ msgstr ""
 
 #: tfentertime.bchange.caption
 msgid "übernehmen"
-msgstr ""
+msgstr "apply"
 
 #: tfentertime.bchange.hint
 msgid "übernimmt Änderungen "
-msgstr ""
+msgstr "apply changes"
 
 #: tfentertime.bdeletejob.hint
 msgid "Löscht den ausgewählten Eintrag aus der "
@@ -1443,49 +1429,48 @@ msgstr ""
 
 #: tfentertime.bpause.caption
 msgid "pausieren"
-msgstr ""
+msgstr "pause"
 
 #: tfentertime.bpause.hint
 msgid "pausiert die aktuelle Tätigkeit"
-msgstr ""
+msgstr "pauses the actual activity"
 
 #: tfentertime.bprint.hint
 msgctxt "TFENTERTIME.BPRINT.HINT"
 msgid "Drucken"
-msgstr ""
+msgstr "print"
 
 #: tfentertime.bstart.caption
 msgctxt "TFENTERTIME.BSTART.CAPTION"
 msgid "beginnen"
-msgstr ""
+msgstr "start"
 
 #: tfentertime.bstart.hint
 msgid "beginnt die Zeiterfassung, mit den links "
-msgstr ""
+msgstr "starts the timeregistering with links"
 
 # uintfstrconsts:strtendertext
 #: tfentertime.bstop.caption
-#, fuzzy
 msgid "beenden"
-msgstr "Sender"
+msgstr "close"
 
 #: tfentertime.bstop.hint
 msgid "Beendet die aktuelle Tätigkeit"
-msgstr ""
+msgstr "stops the actual activity"
 
 #: tfentertime.cbmaxresults.caption
 msgctxt "TFENTERTIME.CBMAXRESULTS.CAPTION"
 msgid "Filterergebnisse begrenzen auf"
-msgstr ""
+msgstr "limit filterresults to"
 
 #: tfentertime.cbshowdialog.caption
 msgid "Dialog alle"
-msgstr ""
+msgstr "Show dialog every"
 
 #: tfentertime.elink.hint
 msgctxt "TFENTERTIME.ELINK.HINT"
 msgid "Suchen Sie mithilfe des Buttons einen passenden Eintrag"
-msgstr ""
+msgstr "Search with this button an fitting entry"
 
 #: tfentertime.elink1.hint
 msgctxt "TFENTERTIME.ELINK1.HINT"
@@ -1495,7 +1480,7 @@ msgstr ""
 #: tfentertime.fentertime.caption
 msgctxt "TFENTERTIME.FENTERTIME.CAPTION"
 msgid "Zeiterfassung"
-msgstr ""
+msgstr "Timeregistering"
 
 #: tfentertime.glist.columns[0].tcolumntitle.caption
 msgid "START"
@@ -1520,28 +1505,26 @@ msgstr ""
 #: tfentertime.ilink.hint
 msgctxt "TFENTERTIME.ILINK.HINT"
 msgid "Zeigt an ob eine gültige verknüpfung "
-msgstr ""
+msgstr "Show if an Link is valid"
 
 #: tfentertime.lentry.caption
 msgctxt "TFENTERTIME.LENTRY.CAPTION"
 msgid "Eintrag"
-msgstr ""
+msgstr "Entry"
 
 #: tfentertime.ljob1.caption
 msgctxt "TFENTERTIME.LJOB1.CAPTION"
 msgid "Aufgabe"
-msgstr ""
+msgstr "Task"
 
 # uintfstrconsts:strnotice
 #: tfentertime.lnotes.caption
-#, fuzzy
 msgctxt "TFENTERTIME.LNOTES.CAPTION"
 msgid "Notizen"
 msgstr "Notice"
 
 # uintfstrconsts:strpause
 #: tfentertime.lpauses.caption
-#, fuzzy
 msgid "Pausen"
 msgstr "Pause"
 
@@ -1551,13 +1534,12 @@ msgstr ""
 
 # uintfstrconsts:strproject
 #: tfentertime.lproject.caption
-#, fuzzy
 msgid "Projekt"
 msgstr "Project"
 
 #: tfentertime.lshowmin.caption
 msgid "min zeigen"
-msgstr ""
+msgstr "show min"
 
 #: tfentertime.ltimemonthvalue.caption
 msgctxt "TFENTERTIME.LTIMEMONTHVALUE.CAPTION"
@@ -1566,15 +1548,15 @@ msgstr ""
 
 #: tfentertime.ltimes.caption
 msgid "Erfasste Zeiten"
-msgstr ""
+msgstr "collected times"
 
 #: tfentertime.ltimes1.caption
 msgid "Aktueller Zeiteintrag"
-msgstr ""
+msgstr "actial activity"
 
 #: tfentertime.ltimetoday.caption
 msgid "Zeit heute"
-msgstr ""
+msgstr "Times today"
 
 #: tfentertime.ltimetodayvalue.caption
 msgid "7:00"
@@ -1582,11 +1564,11 @@ msgstr ""
 
 #: tfentertime.ltimeweek.caption
 msgid "aktuelle"
-msgstr ""
+msgstr "actual"
 
 #: tfentertime.ltimeweek1.caption
 msgid "aktueller"
-msgstr ""
+msgstr "actual"
 
 #: tfentertime.ltimeweekvalue.caption
 msgid "40:00"
@@ -1594,7 +1576,7 @@ msgstr ""
 
 #: tfentertime.menuitem1.caption
 msgid "Eintrag benutzen"
-msgstr ""
+msgstr "use entry"
 
 #: tfentertime.menuitem3.caption
 msgctxt "TFENTERTIME.MENUITEM3.CAPTION"
@@ -1603,20 +1585,18 @@ msgstr ""
 
 # uintfstrconsts:strindustrialtime
 #: tfentertime.rbindustrialtime.caption
-#, fuzzy
 msgid "Industriezeit"
 msgstr "Industrialtime"
 
 # uintfstrconsts:strnormaltime
 #: tfentertime.rbnormaltime.caption
-#, fuzzy
 msgid "Normalzeit"
-msgstr "Normal"
+msgstr "Normaltime"
 
 #: tfentertime.semaxresults.hint
 msgctxt "TFENTERTIME.SEMAXRESULTS.HINT"
 msgid "hier können Sie die Zahl der maximalen Filterergebnisse angeben"
-msgstr ""
+msgstr "here you can set an limit for the filter results"
 
 #: tfentertime.speedbutton2.caption
 msgctxt "TFENTERTIME.SPEEDBUTTON2.CAPTION"
@@ -1629,63 +1609,59 @@ msgstr ""
 
 #: tfeventedit.alarmset.caption
 msgid "Erinnerung"
-msgstr ""
+msgstr "reminder"
 
 #: tfeventedit.cancelbtn.caption
 msgctxt "TFEVENTEDIT.CANCELBTN.CAPTION"
 msgid "Abbrechen"
-msgstr ""
+msgstr "Cancel"
 
 #: tfeventedit.cballday.caption
 msgid "Ganztägig"
-msgstr ""
+msgstr "Whole day"
 
 # uintfstrconsts:strdescription
 #: tfeventedit.descriptionedit.text
-#, fuzzy
 msgid "DescriptionEdit"
-msgstr "Description"
+msgstr ""
 
 #: tfeventedit.descriptionlbl.caption
 msgctxt "TFEVENTEDIT.DESCRIPTIONLBL.CAPTION"
 msgid "Beschreibung"
-msgstr ""
+msgstr "Description"
 
 # uintfstrconsts:strproduction
 #: tfeventedit.elocation.text
-#, fuzzy
 msgid "eLocation"
 msgstr "Location"
 
 #: tfeventedit.enddate.cancelcaption
 msgctxt "TFEVENTEDIT.ENDDATE.CANCELCAPTION"
 msgid "Cancel"
-msgstr ""
+msgstr "Cancel"
 
 # uintfstrconsts:strok
 #: tfeventedit.enddate.okcaption
-#, fuzzy
 msgctxt "TFEVENTEDIT.ENDDATE.OKCAPTION"
 msgid "OK"
-msgstr "OK"
+msgstr "Ok"
 
 #: tfeventedit.endtimelbl.caption
 msgid "Endzeit"
-msgstr ""
+msgstr "Endtime"
 
 #: tfeventedit.feventedit.caption
 msgctxt "TFEVENTEDIT.FEVENTEDIT.CAPTION"
 msgid "Ereignis bearbeiten"
-msgstr ""
+msgstr "Edit appointment"
 
 #: tfeventedit.llocation.caption
 msgctxt "TFEVENTEDIT.LLOCATION.CAPTION"
 msgid "Ort"
-msgstr ""
+msgstr "Location"
 
 # uintfstrconsts:strpages
 #: tfeventedit.lmessage.caption
-#, fuzzy
 msgctxt "TFEVENTEDIT.LMESSAGE.CAPTION"
 msgid "lMessage"
 msgstr "Message"
@@ -1693,87 +1669,81 @@ msgstr "Message"
 #: tfeventedit.okbtn.caption
 msgctxt "TFEVENTEDIT.OKBTN.CAPTION"
 msgid "&Ok"
-msgstr ""
+msgstr "&Ok"
 
 #: tfeventedit.recurrenceendslbl.caption
 msgctxt "TFEVENTEDIT.RECURRENCEENDSLBL.CAPTION"
 msgid "Bis"
-msgstr ""
+msgstr "To"
 
 #: tfeventedit.recurringlbl.caption
 msgid "Auftreten"
-msgstr ""
+msgstr "appearance"
 
 #: tfeventedit.repeatuntil.cancelcaption
 msgctxt "TFEVENTEDIT.REPEATUNTIL.CANCELCAPTION"
 msgid "Cancel"
-msgstr ""
+msgstr "Cancel"
 
 # uintfstrconsts:strok
 #: tfeventedit.repeatuntil.okcaption
-#, fuzzy
 msgctxt "TFEVENTEDIT.REPEATUNTIL.OKCAPTION"
 msgid "OK"
-msgstr "OK"
+msgstr "Ok"
 
 #: tfeventedit.startdate.cancelcaption
 msgctxt "TFEVENTEDIT.STARTDATE.CANCELCAPTION"
 msgid "Cancel"
-msgstr ""
+msgstr "Cancel"
 
 # uintfstrconsts:strok
 #: tfeventedit.startdate.okcaption
-#, fuzzy
 msgctxt "TFEVENTEDIT.STARTDATE.OKCAPTION"
 msgid "OK"
-msgstr "OK"
+msgstr "Ok"
 
 # uintfstrconsts:strstart
 #: tfeventedit.starttimelbl.caption
-#, fuzzy
 msgid "Startzeit"
-msgstr "Start"
+msgstr "Starttime"
 
 #: tffilter.accopylink.caption
 msgctxt "TFFILTER.ACCOPYLINK.CAPTION"
 msgid "als Verknüpfung kopieren"
-msgstr ""
+msgstr "copy as link"
 
 # uintfstrconsts:strdefaultprinter
 #: tffilter.acdeletefilter.caption
-#, fuzzy
 msgctxt "TFFILTER.ACDELETEFILTER.CAPTION"
 msgid "acDeleteFilter"
 msgstr "Delete filter"
 
 #: tffilter.acdeletefilter.hint
 msgid "löscht den Filter"
-msgstr ""
+msgstr "deletes the filter"
 
 # uintfstrconsts:strfilter
 #: tffilter.acfilter.caption
-#, fuzzy
 msgid "Filtern"
 msgstr "Filter"
 
 #: tffilter.acfilter.hint
 msgid "aktiviert den gewählten Filter, "
-msgstr ""
+msgstr "activates the actual filter"
 
 #: tffilter.acopen.caption
 msgctxt "TFFILTER.ACOPEN.CAPTION"
 msgid "Öffnen"
-msgstr ""
+msgstr "Open"
 
 # uintfstrconsts:strfilter
 #: tffilter.acsavefilter.caption
-#, fuzzy
 msgid "acSaveFilter"
-msgstr "Filter"
+msgstr "save Filter"
 
 #: tffilter.acsavefilter.hint
 msgid "speichert den Filter privat"
-msgstr ""
+msgstr "saves the filter private"
 
 #: tffilter.acsavefilterpublic.caption
 msgid "acSaveFilterPublic"
@@ -1781,20 +1751,20 @@ msgstr ""
 
 #: tffilter.acsavefilterpublic.hint
 msgid "speichert den Filter öffentlich"
-msgstr ""
+msgstr "saves the filter public"
 
 #: tffilter.beditfilter.hint
 msgid "zeigt/verbirgt den Filtereditor"
-msgstr ""
+msgstr "shows/hides the filter editor"
 
 #: tffilter.cbfilter.hint
 msgid "hier können Sie einen Filter wählen um die Liste einzuschränken"
-msgstr ""
+msgstr "here you can select an filter"
 
 #: tffilter.cbmaxresults.caption
 msgctxt "TFFILTER.CBMAXRESULTS.CAPTION"
 msgid "Filterergebnisse begrenzen auf"
-msgstr ""
+msgstr "limit filterresults to"
 
 #: tffilter.gheader.hint
 msgid "hier können Sie die Liste einschränken, "
@@ -1802,7 +1772,6 @@ msgstr ""
 
 # uintfstrconsts:strfilter
 #: tffilter.lfilter.caption
-#, fuzzy
 msgctxt "TFFILTER.LFILTER.CAPTION"
 msgid "Filter"
 msgstr "Filter"
@@ -1837,7 +1806,6 @@ msgstr ""
 
 # uintfstrconsts:strfilter
 #: tfhistoryframe.acfilter.caption
-#, fuzzy
 msgctxt "TFHISTORYFRAME.ACFILTER.CAPTION"
 msgid "acFilter"
 msgstr "Filter"
@@ -1876,7 +1844,6 @@ msgid "?"
 msgstr ""
 
 #: tfinventory.finventory.caption
-#, fuzzy
 msgctxt "TFINVENTORY.FINVENTORY.CAPTION"
 msgid "Inventur"
 msgstr "Inventory"
@@ -1943,7 +1910,6 @@ msgstr ""
 
 # uintfstrconsts:strfilter
 #: tflinks.acfilter.caption
-#, fuzzy
 msgctxt "TFLINKS.ACFILTER.CAPTION"
 msgid "acFilter"
 msgstr "Filter"
@@ -2010,40 +1976,34 @@ msgstr ""
 
 # uintfstrconsts:straddresses
 #: tfmailoptions.lmailaddr.caption
-#, fuzzy
 msgid "e-Mail Addresse"
 msgstr "e-Mail Address"
 
 # uintfstrconsts:strname
 #: tfmailoptions.lname.caption
-#, fuzzy
 msgctxt "TFMAILOPTIONS.LNAME.CAPTION"
 msgid "Name"
 msgstr "Name"
 
 # uintfstrconsts:strpassword
 #: tfmailoptions.lpassword.caption
-#, fuzzy
 msgctxt "TFMAILOPTIONS.LPASSWORD.CAPTION"
 msgid "Passwort"
 msgstr "Password"
 
 # uintfstrconsts:strseverity
 #: tfmailoptions.lserver.caption
-#, fuzzy
 msgctxt "TFMAILOPTIONS.LSERVER.CAPTION"
 msgid "Server"
 msgstr "Server"
 
 # uintfstrconsts:strseverity
 #: tfmailoptions.lservertype.caption
-#, fuzzy
 msgid "Servertyp"
 msgstr "Servertype"
 
 # uintfstrconsts:struser
 #: tfmailoptions.lusername.caption
-#, fuzzy
 msgctxt "TFMAILOPTIONS.LUSERNAME.CAPTION"
 msgid "Benutzername"
 msgstr "Username"
@@ -2066,17 +2026,15 @@ msgid "Fehler berichten/verfolgen"
 msgstr ""
 
 #: tfmain.accalendar.caption
-#, fuzzy
 msgctxt "TFMAIN.ACCALENDAR.CAPTION"
 msgid "Kalendar"
 msgstr "Calendar"
 
 # uintfstrconsts:strcontact
 #: tfmain.accontact.caption
-#, fuzzy
 msgctxt "TFMAIN.ACCONTACT.CAPTION"
 msgid "Kontakte"
-msgstr "Contact"
+msgstr "Contacts"
 
 #: tfmain.acdeletedirectory.caption
 msgid "Verzeichnis löschen"
@@ -2101,7 +2059,6 @@ msgstr ""
 
 # uintfstrconsts:strinfo
 #: tfmain.acinfo.caption
-#, fuzzy
 msgctxt "tfmain.acinfo.caption"
 msgid "Info"
 msgstr "Info"
@@ -2134,9 +2091,8 @@ msgstr ""
 
 # uintfstrconsts:stremail
 #: tfmain.acnewmail.caption
-#, fuzzy
 msgid "Neue e-Mail"
-msgstr "e-Mail"
+msgstr "new e-Mail"
 
 #: tfmain.acnewmandant.caption
 msgid "Neuen Mandanten anlegen"
@@ -2152,7 +2108,6 @@ msgstr ""
 
 # uintfstrconsts:strproject
 #: tfmain.acnewproject.caption
-#, fuzzy
 msgctxt "TFMAIN.ACNEWPROJECT.CAPTION"
 msgid "Neues Projekt"
 msgstr "New Project"
@@ -2163,7 +2118,6 @@ msgstr ""
 
 # uintfstrconsts:strnewtransfer
 #: tfmain.acnewtermin.caption
-#, fuzzy
 msgctxt "tfmain.acnewtermin.caption"
 msgid "Neuer Termin"
 msgstr "New Termin"
@@ -2180,10 +2134,9 @@ msgstr ""
 
 # uintfstrconsts:strproject
 #: tfmain.acprojects.caption
-#, fuzzy
 msgctxt "TFMAIN.ACPROJECTS.CAPTION"
 msgid "Projekte"
-msgstr "Project"
+msgstr "Projects"
 
 #: tfmain.acproperties.caption
 msgid "Einstellungen"
@@ -2191,9 +2144,8 @@ msgstr ""
 
 # uintfstrconsts:strtendertext
 #: tfmain.acquit.caption
-#, fuzzy
 msgid "Beenden"
-msgstr "Sender"
+msgstr "close"
 
 #: tfmain.acrename.caption
 msgctxt "TFMAIN.ACRENAME.CAPTION"
@@ -2246,17 +2198,15 @@ msgstr ""
 
 # uintfstrconsts:strpages
 #: tfmain.lmessage.caption
-#, fuzzy
 msgctxt "TFMAIN.LMESSAGE.CAPTION"
 msgid "lMessage"
 msgstr "Message"
 
 # uintfstrconsts:strarticlelist
 #: tfmain.menuitem1.caption
-#, fuzzy
 msgctxt "TFMAIN.MENUITEM1.CAPTION"
 msgid "New Item1"
-msgstr "Sale Item"
+msgstr ""
 
 #: tfmain.menuitem5.caption
 msgctxt "TFMAIN.MENUITEM5.CAPTION"
@@ -2284,44 +2234,38 @@ msgstr ""
 
 # uintfstrconsts:strmandant
 #: tfmain.mimandant.caption
-#, fuzzy
 msgctxt "TFMAIN.MIMANDANT.CAPTION"
 msgid "Mandant"
 msgstr "Mandant"
 
 # uintfstrconsts:strarticlelist
 #: tfmain.minew1.caption
-#, fuzzy
 msgctxt "TFMAIN.MINEW1.CAPTION"
 msgid "New Item1"
 msgstr "Sale Item"
 
 # uintfstrconsts:stroptions
 #: tfmain.mioptions.caption
-#, fuzzy
 msgctxt "TFMAIN.MIOPTIONS.CAPTION"
 msgid "Optionen"
-msgstr "Option"
+msgstr "Options"
 
 # uintfstrconsts:strarticlelist
 #: tfmain.mistartpause.caption
-#, fuzzy
 msgctxt "TFMAIN.MISTARTPAUSE.CAPTION"
 msgid "New Item3"
-msgstr "Sale Item"
+msgstr ""
 
 # uintfstrconsts:strarticlelist
 #: tfmain.mitimeregistering.caption
-#, fuzzy
 msgid "New Item2"
-msgstr "Sale Item"
+msgstr ""
 
 # uintfstrconsts:strnet
 #: tfmain.mitraynew.caption
-#, fuzzy
 msgctxt "TFMAIN.MITRAYNEW.CAPTION"
 msgid "Neu"
-msgstr "Net"
+msgstr "New"
 
 #: tfmain.miview.caption
 msgid "Ansicht"
@@ -2379,9 +2323,8 @@ msgstr ""
 
 # uintfstrconsts:strdelete
 #: tfmasterdata.acdeletepos.caption
-#, fuzzy
 msgid "acDeletePos"
-msgstr "Delete"
+msgstr ""
 
 #: tfmasterdata.acentertime.caption
 msgid "Zeiterfassung mit Eintrag beginnen"
@@ -2389,7 +2332,6 @@ msgstr ""
 
 # uintfstrconsts:strexport
 #: tfmasterdata.acexport.caption
-#, fuzzy
 msgctxt "TFMASTERDATA.ACEXPORT.CAPTION"
 msgid "Exportieren"
 msgstr "Export"
@@ -2401,7 +2343,6 @@ msgstr ""
 
 # uintfstrconsts:strimport
 #: tfmasterdata.acimport.caption
-#, fuzzy
 msgctxt "TFMASTERDATA.ACIMPORT.CAPTION"
 msgid "Importieren"
 msgstr "Import"
@@ -2487,7 +2428,6 @@ msgstr ""
 
 # uintfstrconsts:strownproduction
 #: tfmasterdata.cbownproduction.caption
-#, fuzzy
 msgid "Eigenproduktion"
 msgstr "Own production"
 
@@ -2668,7 +2608,6 @@ msgstr ""
 
 # uintfstrconsts:strbarcode
 #: tfmasterdata.lbarcode.caption
-#, fuzzy
 msgid "Barcode / EAN"
 msgstr "Barcode"
 
@@ -2711,20 +2650,17 @@ msgstr ""
 
 # uintfstrconsts:strstatus
 #: tfmasterdata.lstate.caption
-#, fuzzy
 msgctxt "TFMASTERDATA.LSTATE.CAPTION"
 msgid "Status"
 msgstr "Status"
 
 # uintfstrconsts:strversion
 #: tfmasterdata.ltransportsupplier.caption
-#, fuzzy
 msgid "Versandkosten"
-msgstr "Version"
+msgstr "Shipping costs"
 
 # uintfstrconsts:strtype
 #: tfmasterdata.ltype.caption
-#, fuzzy
 msgctxt "TFMASTERDATA.LTYPE.CAPTION"
 msgid "Typ"
 msgstr "Typ"
@@ -2740,7 +2676,6 @@ msgstr ""
 
 # uintfstrconsts:strversion
 #: tfmasterdata.lversion.caption
-#, fuzzy
 msgctxt "TFMASTERDATA.LVERSION.CAPTION"
 msgid "Version"
 msgstr "Version"
@@ -2828,21 +2763,18 @@ msgstr ""
 
 # uintfstrconsts:strposition
 #: tfmasterdata.tsdisposition.caption
-#, fuzzy
 msgctxt "TFMASTERDATA.TSDISPOSITION.CAPTION"
 msgid "Disposition"
 msgstr "Disposition"
 
 # uintfstrconsts:strdocuments
 #: tfmasterdata.tsdocuments.caption
-#, fuzzy
 msgctxt "TFMASTERDATA.TSDOCUMENTS.CAPTION"
 msgid "Dokumente"
-msgstr "Document"
+msgstr "Documents"
 
 # uintfstrconsts:strhistory
 #: tfmasterdata.tshistory.caption
-#, fuzzy
 msgctxt "TFMASTERDATA.TSHISTORY.CAPTION"
 msgid "Historie"
 msgstr "History"
@@ -2873,7 +2805,6 @@ msgstr ""
 
 # uintfstrconsts:strrepair
 #: tfmasterdata.tsrepair.caption
-#, fuzzy
 msgctxt "tfmasterdata.tsrepair.caption"
 msgid "Reparatur"
 msgstr "Repair"
@@ -2884,17 +2815,15 @@ msgid "Lager"
 msgstr ""
 
 #: tfmasterdata.tssupplier.caption
-#, fuzzy
 msgctxt "TFMASTERDATA.TSSUPPLIER.CAPTION"
 msgid "Lieferanten"
-msgstr "Reference"
+msgstr "Supplier"
 
 # uintfstrconsts:strtext
 #: tfmasterdata.tstext.caption
-#, fuzzy
 msgctxt "TFMASTERDATA.TSTEXT.CAPTION"
 msgid "Texte"
-msgstr "Text"
+msgstr "Texts"
 
 #: tfmessages.acanswer.hint
 msgid ""
@@ -2920,7 +2849,6 @@ msgid "löscht die gewählt(en) Nachricht(en)"
 msgstr ""
 
 #: tfmessages.acforward.caption
-#, fuzzy
 msgid "acForward"
 msgstr "Forward"
 
@@ -2949,7 +2877,6 @@ msgstr ""
 
 # uintfstrconsts:strpages
 #: tfmessages.fmessages.caption
-#, fuzzy
 msgctxt "TFMESSAGES.FMESSAGES.CAPTION"
 msgid "fMessages"
 msgstr "Messages"
@@ -2968,9 +2895,8 @@ msgstr ""
 
 # uintfstrconsts:strmaximize
 #: tfmimetypeedit.lmimetypes.caption
-#, fuzzy
 msgid "Mime Typen"
-msgstr "Mime Type"
+msgstr "Mime Types"
 
 #: tfmimetypeedit.lopenwith.caption
 msgid "Öffnen mit (%s wird dabei durch den Dateinamen ersetzt)"
@@ -2988,9 +2914,8 @@ msgstr ""
 
 # uintfstrconsts:strstreet
 #: tfnewstorage.caption
-#, fuzzy
 msgid "fNewStorage"
-msgstr "Storage"
+msgstr ""
 
 #: tfnewstorage.larticlewithoutstorage.caption
 msgid "lArticlewithoutStorage"
@@ -3017,10 +2942,9 @@ msgstr ""
 
 # uintfstrconsts:struser
 #: tfofficeoptions.lfile.caption
-#, fuzzy
 msgctxt "TFOFFICEOPTIONS.LFILE.CAPTION"
 msgid "Dateiname"
-msgstr "Rename"
+msgstr "Filename"
 
 #: tfofficeoptions.okbutton.caption
 msgctxt "TFOFFICEOPTIONS.OKBUTTON.CAPTION"
@@ -3043,10 +2967,9 @@ msgstr ""
 
 # uintfstrconsts:strnet
 #: tfoptions.bnew.caption
-#, fuzzy
 msgctxt "TFOPTIONS.BNEW.CAPTION"
 msgid "Neu"
-msgstr "Net"
+msgstr "New"
 
 #: tfoptions.bresetpassword.caption
 msgid "Passwort zurücksetzen"
@@ -3059,33 +2982,28 @@ msgstr ""
 
 # uintfstrconsts:stractive
 #: tfoptions.cbarchivements.caption
-#, fuzzy
 msgid "Archivements"
-msgstr "Archive"
+msgstr "achievements"
 
 # uintfstrconsts:strarticlelist
 #: tfoptions.cbarticle.caption
-#, fuzzy
 msgid "Article"
-msgstr "Article List"
+msgstr "Article"
 
 # uintfstrconsts:strordernumber
 #: tfoptions.cbbankcodenumbers.caption
-#, fuzzy
 msgid "Bank code numbers"
-msgstr "Order number"
+msgstr "Bank code numbers"
 
 # uintfstrconsts:strbanking
 #: tfoptions.cbbankingaccounts.caption
-#, fuzzy
 msgid "Banking accounts"
-msgstr "Bank accounts"
+msgstr "Banking accounts"
 
 # uintfstrconsts:strnewtransfer
 #: tfoptions.cbbankingtransfers.caption
-#, fuzzy
 msgid "Transfers"
-msgstr "Transfer"
+msgstr "Transfers"
 
 #: tfoptions.cbcalendar.caption
 msgid "Calendar"
@@ -3093,9 +3011,8 @@ msgstr "Calendar"
 
 # uintfstrconsts:strcostcentre
 #: tfoptions.cbcostcentre.caption
-#, fuzzy
 msgid "cost centres"
-msgstr "Cost centre"
+msgstr "cost centres"
 
 # uintfstrconsts:strcurrency
 #: tfoptions.cbcurrency.caption
@@ -3109,15 +3026,13 @@ msgstr "Customers"
 
 # uintfstrconsts:strdoupdate
 #: tfoptions.cbdoupdate.caption
-#, fuzzy
 msgid "Onlineupdate aktiv"
 msgstr "Automatic online update active"
 
 # uintfstrconsts:strfinancial
 #: tfoptions.cbfinancialaccount.caption
-#, fuzzy
 msgid "financial account"
-msgstr "Financial Accounts"
+msgstr "financial account"
 
 #: tfoptions.cbisderivate.caption
 msgid "ist Untervorgang"
@@ -3134,9 +3049,8 @@ msgstr "Messages"
 
 # uintfstrconsts:strcustomernumber
 #: tfoptions.cbnumberset.caption
-#, fuzzy
 msgid "set of numbers"
-msgstr "Customer number"
+msgstr "set of numbers"
 
 # uintfstrconsts:strorders
 #: tfoptions.cborders.caption
@@ -3145,30 +3059,26 @@ msgstr "Orders"
 
 # uintfstrconsts:strpartslist
 #: tfoptions.cbpartlists.caption
-#, fuzzy
 msgid "Partlists"
-msgstr "Partslist"
+msgstr "Partlists"
 
 # uintfstrconsts:strpaymenttarget
 #: tfoptions.cbpaymenttypes.caption
-#, fuzzy
 msgid "Paymenttypes"
-msgstr "Paymenttargets"
+msgstr "Paymenttypes"
 
 # uintfstrconsts:strpostalcode
 #: tfoptions.cbpostalcodes.caption
-#, fuzzy
 msgid "Postalcodes"
-msgstr "Postal code"
+msgstr "Postalcodes"
 
 #: tfoptions.cbprotocol.text
 msgid "file://"
 msgstr ""
 
 #: tfoptions.cbshippingtypes.caption
-#, fuzzy
 msgid "Shippingtypes"
-msgstr "Shipping Date"
+msgstr "Shippingtypes"
 
 #: tfoptions.cbsiacc.caption
 msgid "Buchhaltung"
@@ -3195,13 +3105,11 @@ msgstr ""
 
 # uintfstrconsts:strproduction
 #: tfoptions.cbsiprod.caption
-#, fuzzy
 msgid "Produktion"
-msgstr "Production"
+msgstr "Produktion"
 
 # uintfstrconsts:strstop
 #: tfoptions.cbstock.caption
-#, fuzzy
 msgctxt "TFOPTIONS.CBSTOCK.CAPTION"
 msgid "Stock"
 msgstr "Stock"
@@ -3222,7 +3130,6 @@ msgstr ""
 
 # uintfstrconsts:strid
 #: tfoptions.dgcountrys.columns[0].tcolumntitle.caption
-#, fuzzy
 msgctxt "TFOPTIONS.DGCOUNTRYS.COLUMNS[0].TCOLUMNTITLE.CAPTION"
 msgid "ID"
 msgstr "ID"
@@ -3259,7 +3166,6 @@ msgstr ""
 
 # uintfstrconsts:strid
 #: tfoptions.dgdispatchtypes.columns[0].tcolumntitle.caption
-#, fuzzy
 msgctxt "TFOPTIONS.DGDISPATCHTYPES.COLUMNS[0].TCOLUMNTITLE.CAPTION"
 msgid "ID"
 msgstr "ID"
@@ -3279,7 +3185,6 @@ msgstr ""
 
 # uintfstrconsts:stroptions
 #: tfoptions.foptions.caption
-#, fuzzy
 msgctxt "TFOPTIONS.FOPTIONS.CAPTION"
 msgid "Optionen"
 msgstr "Option"
@@ -3338,7 +3243,6 @@ msgstr ""
 
 # uintfstrconsts:strid
 #: tfoptions.gpaymenttargets.columns[0].tcolumntitle.caption
-#, fuzzy
 msgctxt "TFOPTIONS.GPAYMENTTARGETS.COLUMNS[0].TCOLUMNTITLE.CAPTION"
 msgid "ID"
 msgstr "ID"
@@ -3390,7 +3294,6 @@ msgstr ""
 
 # uintfstrconsts:strid
 #: tfoptions.gstorage.columns[0].tcolumntitle.caption
-#, fuzzy
 msgctxt "TFOPTIONS.GSTORAGE.COLUMNS[0].TCOLUMNTITLE.CAPTION"
 msgid "ID"
 msgstr "ID"
@@ -3428,7 +3331,6 @@ msgstr ""
 
 # uintfstrconsts:strid
 #: tfoptions.gvat.columns[0].tcolumntitle.caption
-#, fuzzy
 msgctxt "TFOPTIONS.GVAT.COLUMNS[0].TCOLUMNTITLE.CAPTION"
 msgid "ID"
 msgstr "ID"
@@ -3468,7 +3370,6 @@ msgstr "Administrative data"
 
 # uintfstrconsts:stradress
 #: tfoptions.ladress.caption
-#, fuzzy
 msgctxt "TFOPTIONS.LADRESS.CAPTION"
 msgid "Adresse"
 msgstr "Adress"
@@ -3484,10 +3385,9 @@ msgstr ""
 
 # uintfstrconsts:strtendertext
 #: tfoptions.lcountries.caption
-#, fuzzy
 msgctxt "TFOPTIONS.LCOUNTRIES.CAPTION"
 msgid "Länder"
-msgstr "Sender"
+msgstr "Countrys"
 
 #: tfoptions.lcrm.caption
 msgid "lCRM"
@@ -3505,15 +3405,13 @@ msgstr ""
 
 # uintfstrconsts:strdateformat
 #: tfoptions.ldateformat.caption
-#, fuzzy
 msgid "Datumsformat"
 msgstr "Dateformat"
 
 # uintfstrconsts:strposcalc
 #: tfoptions.ldefaultpostyp.caption
-#, fuzzy
 msgid "Standart Positionstyp"
-msgstr "Standart actions"
+msgstr "Standard positiontyp"
 
 #: tfoptions.ldepartment.caption
 msgctxt "TFOPTIONS.LDEPARTMENT.CAPTION"
@@ -3530,16 +3428,14 @@ msgstr ""
 
 # uintfstrconsts:strfax
 #: tfoptions.lfax.caption
-#, fuzzy
 msgctxt "TFOPTIONS.LFAX.CAPTION"
 msgid "Fax"
 msgstr "Fax"
 
 # uintfstrconsts:strfinancial
 #: tfoptions.lfinancialaccounts.caption
-#, fuzzy
 msgid "Financial accounting"
-msgstr "Financial Accounts"
+msgstr "Financial accounting"
 
 # uintfstrconsts:stridcode
 #: tfoptions.lidcode.caption
@@ -3548,7 +3444,6 @@ msgstr "ID Code"
 
 # uintfstrconsts:strindustrialtime
 #: tfoptions.linstitute.caption
-#, fuzzy
 msgid "Kreditinstitut"
 msgstr "Institute"
 
@@ -3584,13 +3479,11 @@ msgstr "Master data"
 
 # uintfstrconsts:strmasterdata
 #: tfoptions.lmasterdatabase.caption
-#, fuzzy
 msgid "Master Database"
 msgstr "Masterdatabase"
 
 # uintfstrconsts:strname
 #: tfoptions.lname.caption
-#, fuzzy
 msgctxt "TFOPTIONS.LNAME.CAPTION"
 msgid "Name"
 msgstr "Name"
@@ -3629,22 +3522,19 @@ msgstr "PIM"
 
 # uintfstrconsts:strposition
 #: tfoptions.lposition.caption
-#, fuzzy
 msgctxt "TFOPTIONS.LPOSITION.CAPTION"
 msgid "Position"
 msgstr "Position"
 
 # uintfstrconsts:strprotocol
 #: tfoptions.lprotocol.caption
-#, fuzzy
 msgid "Protokoll"
 msgstr "Protocol"
 
 # uintfstrconsts:strsearchtext
 #: tfoptions.lrights.caption
-#, fuzzy
 msgid "Rechte"
-msgstr "Searchtext"
+msgstr "Rights"
 
 #: tfoptions.lsatutation.caption
 msgid "Einleitung"
@@ -3652,9 +3542,8 @@ msgstr ""
 
 # uintfstrconsts:strstart
 #: tfoptions.lshipping.caption
-#, fuzzy
 msgid "Versandarten"
-msgstr "Standart"
+msgstr "Shipping costs"
 
 #: tfoptions.lsortcode.caption
 msgctxt "TFOPTIONS.LSORTCODE.CAPTION"
@@ -3663,7 +3552,6 @@ msgstr ""
 
 # uintfstrconsts:strstop
 #: tfoptions.lstock.caption
-#, fuzzy
 msgctxt "TFOPTIONS.LSTOCK.CAPTION"
 msgid "Stock"
 msgstr "Stock"
@@ -3675,43 +3563,36 @@ msgstr ""
 
 # uintfstrconsts:sctelephone
 #: tfoptions.ltel1.caption
-#, fuzzy
 msgid "Telefon 1"
-msgstr "Telephone"
+msgstr "Telephone 1"
 
 # uintfstrconsts:sctelephone
 #: tfoptions.ltel2.caption
-#, fuzzy
 msgid "Telefon 2"
-msgstr "Telephone"
+msgstr "Telephone 2"
 
 # uintfstrconsts:sctelephone
 #: tfoptions.ltel3.caption
-#, fuzzy
 msgid "Telefon 3"
-msgstr "Telephone"
+msgstr "Telephone 3"
 
 # uintfstrconsts:sctelephone
 #: tfoptions.ltel4.caption
-#, fuzzy
 msgid "Telefon 4"
-msgstr "Telephone"
+msgstr "Telephone 4"
 
 # uintfstrconsts:strdateformat
 #: tfoptions.ltimeformat.caption
-#, fuzzy
 msgid "Zeitformat"
-msgstr "Dateformat"
+msgstr "Timeformat"
 
 # uintfstrconsts:strtitle
 #: tfoptions.ltitles.caption
-#, fuzzy
 msgid "lTitles"
 msgstr "Titles"
 
 # uintfstrconsts:strtype
 #: tfoptions.ltype.caption
-#, fuzzy
 msgctxt "TFOPTIONS.LTYPE.CAPTION"
 msgid "Typ"
 msgstr "Typ"
@@ -3722,7 +3603,6 @@ msgstr ""
 
 # uintfstrconsts:struser
 #: tfoptions.lusername.caption
-#, fuzzy
 msgctxt "TFOPTIONS.LUSERNAME.CAPTION"
 msgid "Benutzername"
 msgstr "Username"
@@ -3743,9 +3623,8 @@ msgstr ""
 
 # uintfstrconsts:strtendertext
 #: tfoptions.menuitem3.caption
-#, fuzzy
 msgid "Ändern"
-msgstr "Sender"
+msgstr "change"
 
 #: tfoptions.mideleteright.caption
 msgid "Recht entfernen / übergeordnetes Recht benutzen"
@@ -3817,7 +3696,6 @@ msgstr ""
 
 # uintfstrconsts:strdatabasetype
 #: tfoptions.tsdatabase.caption
-#, fuzzy
 msgid "tsDatabase"
 msgstr "Database"
 
@@ -3828,7 +3706,6 @@ msgstr ""
 
 # uintfstrconsts:strmandant
 #: tfoptions.tsmandant.caption
-#, fuzzy
 msgctxt "TFOPTIONS.TSMANDANT.CAPTION"
 msgid "Mandant"
 msgstr "Mandant"
@@ -3839,7 +3716,6 @@ msgstr ""
 
 # uintfstrconsts:strstart
 #: tfoptions.tsstates.caption
-#, fuzzy
 msgctxt "tfoptions.tsstates.caption"
 msgid "Stati"
 msgstr "State"
@@ -3851,7 +3727,6 @@ msgstr ""
 
 # uintfstrconsts:strsystem
 #: tfoptions.tssystem.caption
-#, fuzzy
 msgctxt "tfoptions.tssystem.caption"
 msgid "System"
 msgstr "System"
@@ -3932,7 +3807,6 @@ msgstr ""
 
 # uintfstrconsts:strexport
 #: tforders.acexport.caption
-#, fuzzy
 msgctxt "TFORDERS.ACEXPORT.CAPTION"
 msgid "Exportieren"
 msgstr "Export"
@@ -3969,7 +3843,6 @@ msgstr ""
 
 # uintfstrconsts:strimport
 #: tforders.acimport.caption
-#, fuzzy
 msgctxt "TFORDERS.ACIMPORT.CAPTION"
 msgid "Importieren"
 msgstr "Import"
@@ -3990,10 +3863,9 @@ msgstr ""
 
 # uintfstrconsts:strnet
 #: tforders.acnew.caption
-#, fuzzy
 msgctxt "TFORDERS.ACNEW.CAPTION"
 msgid "Neu"
-msgstr "Net"
+msgstr "New"
 
 #: tforders.acnew.hint
 msgid "legt einen neuen Vorgang an"
@@ -4113,7 +3985,6 @@ msgstr ""
 
 # uintfstrconsts:strok
 #: tforders.deapproved.okcaption
-#, fuzzy
 msgctxt "TFORDERS.DEAPPROVED.OKCAPTION"
 msgid "OK"
 msgstr "OK"
@@ -4133,7 +4004,6 @@ msgstr ""
 
 # uintfstrconsts:strok
 #: tforders.deorigdate.okcaption
-#, fuzzy
 msgctxt "TFORDERS.DEORIGDATE.OKCAPTION"
 msgid "OK"
 msgstr "OK"
@@ -4145,7 +4015,6 @@ msgstr ""
 
 # uintfstrconsts:strok
 #: tforders.derequest.okcaption
-#, fuzzy
 msgctxt "TFORDERS.DEREQUEST.OKCAPTION"
 msgid "OK"
 msgstr "OK"
@@ -4157,7 +4026,6 @@ msgstr ""
 
 # uintfstrconsts:strok
 #: tforders.dewishdate.okcaption
-#, fuzzy
 msgctxt "TFORDERS.DEWISHDATE.OKCAPTION"
 msgid "OK"
 msgstr "OK"
@@ -4312,9 +4180,8 @@ msgstr ""
 
 # uintfstrconsts:stradress
 #: tforders.laddresses.caption
-#, fuzzy
 msgid "Adressen"
-msgstr "Adress"
+msgstr "Adresses"
 
 #: tforders.laddvat.caption
 msgctxt "TFORDERS.LADDVAT.CAPTION"
@@ -4332,7 +4199,6 @@ msgstr ""
 
 # uintfstrconsts:strcommon
 #: tforders.lcommission.caption
-#, fuzzy
 msgid "Komission"
 msgstr "Commission"
 
@@ -4373,35 +4239,30 @@ msgstr ""
 
 # uintfstrconsts:strfoundproblems
 #: tforders.lfoundproblems.caption
-#, fuzzy
 msgctxt "TFORDERS.LFOUNDPROBLEMS.CAPTION"
 msgid "gefundene Probleme"
 msgstr "Found problems"
 
 # uintfstrconsts:strcontact
 #: tforders.linternalnotes.caption
-#, fuzzy
 msgctxt "TFORDERS.LINTERNALNOTES.CAPTION"
 msgid "Interne Notizen"
-msgstr "Internet"
+msgstr "internal Notice"
 
 # uintfstrconsts:strlongtext
 #: tforders.llongtext.caption
-#, fuzzy
 msgctxt "TFORDERS.LLONGTEXT.CAPTION"
 msgid "Langtext"
 msgstr "Longtext"
 
 # uintfstrconsts:strlongtext
 #: tforders.llongtext1.caption
-#, fuzzy
 msgctxt "TFORDERS.LLONGTEXT1.CAPTION"
 msgid "Langtext"
 msgstr "Longtext"
 
 # uintfstrconsts:strnotice
 #: tforders.lnote.caption
-#, fuzzy
 msgid "lNote"
 msgstr "Notes"
 
@@ -4417,7 +4278,6 @@ msgstr ""
 
 # uintfstrconsts:stroperation
 #: tforders.loperation.caption
-#, fuzzy
 msgctxt "TFORDERS.LOPERATION.CAPTION"
 msgid "Operation"
 msgstr "Operation"
@@ -4448,7 +4308,6 @@ msgstr ""
 
 # uintfstrconsts:strpositionprice
 #: tforders.lposprice.caption
-#, fuzzy
 msgctxt "TFORDERS.LPOSPRICE.CAPTION"
 msgid "Postitionspreis"
 msgstr "Positionprice"
@@ -4499,9 +4358,8 @@ msgstr ""
 
 # uintfstrconsts:strstart
 #: tforders.lshipping.caption
-#, fuzzy
 msgid "Versandart"
-msgstr "Standart"
+msgstr "Shipping type"
 
 #: tforders.lshorttext.caption
 msgctxt "TFORDERS.LSHORTTEXT.CAPTION"
@@ -4520,7 +4378,6 @@ msgstr ""
 
 # uintfstrconsts:strstatus
 #: tforders.lstate.caption
-#, fuzzy
 msgctxt "TFORDERS.LSTATE.CAPTION"
 msgid "Status"
 msgstr "Status"
@@ -4537,21 +4394,18 @@ msgstr ""
 
 # uintfstrconsts:strtexttyp
 #: tforders.ltexttype.caption
-#, fuzzy
 msgctxt "TFORDERS.LTEXTTYPE.CAPTION"
 msgid "Texttyp"
 msgstr "Texttyp"
 
 # uintfstrconsts:strversion
 #: tforders.lversion.caption
-#, fuzzy
 msgctxt "TFORDERS.LVERSION.CAPTION"
 msgid "Version"
 msgstr "Version"
 
 # uintfstrconsts:strversion
 #: tforders.lversion1.caption
-#, fuzzy
 msgctxt "TFORDERS.LVERSION1.CAPTION"
 msgid "Version"
 msgstr "Version"
@@ -4563,7 +4417,6 @@ msgstr ""
 
 # uintfstrconsts:strwishdate
 #: tforders.lwishdate.caption
-#, fuzzy
 msgid "Wunschdatum"
 msgstr "Wishdate"
 
@@ -4593,14 +4446,12 @@ msgstr ""
 
 # uintfstrconsts:strdetails
 #: tforders.pdetailview.caption
-#, fuzzy
 msgctxt "TFORDERS.PDETAILVIEW.CAPTION"
 msgid "pDetailView"
 msgstr "Details"
 
 # uintfstrconsts:strnewimage
 #: tforders.pimage.caption
-#, fuzzy
 msgctxt "TFORDERS.PIMAGE.CAPTION"
 msgid "no Image"
 msgstr "No Image"
@@ -4627,9 +4478,8 @@ msgstr ""
 
 # uintfstrconsts:strsearchtext
 #: tforders.tabsheet2.caption
-#, fuzzy
 msgid "Nachtext"
-msgstr "Searchtext"
+msgstr "Additional text"
 
 #: tforders.tsadditional.caption
 msgctxt "TFORDERS.TSADDITIONAL.CAPTION"
@@ -4648,27 +4498,23 @@ msgstr ""
 
 # uintfstrconsts:strdetails
 #: tforders.tsdetails.caption
-#, fuzzy
 msgctxt "TFORDERS.TSDETAILS.CAPTION"
 msgid "Detailansicht"
-msgstr "Details"
+msgstr "Detailview"
 
 # uintfstrconsts:strdocuments
 #: tforders.tsdocuments.caption
-#, fuzzy
 msgctxt "TFORDERS.TSDOCUMENTS.CAPTION"
 msgid "Dokumente"
-msgstr "Document"
+msgstr "Documents"
 
 # uintfstrconsts:strcopytexts
 #: tforders.tsheader.caption
-#, fuzzy
 msgid "Kopftext"
-msgstr "Copy texts"
+msgstr "Pretext"
 
 # uintfstrconsts:strhistory
 #: tforders.tshistory.caption
-#, fuzzy
 msgctxt "TFORDERS.TSHISTORY.CAPTION"
 msgid "Historie"
 msgstr "History"
@@ -4685,7 +4531,6 @@ msgstr ""
 
 # uintfstrconsts:strnotice
 #: tforders.tsnote.caption
-#, fuzzy
 msgctxt "TFORDERS.TSNOTE.CAPTION"
 msgid "Notizen"
 msgstr "Notice"
@@ -4696,17 +4541,15 @@ msgstr ""
 
 # uintfstrconsts:strpositions
 #: tforders.tsposcalc.caption
-#, fuzzy
 msgctxt "TFORDERS.TSPOSCALC.CAPTION"
 msgid "Positionskalkulation"
-msgstr "Positions"
+msgstr "Positioncalculation"
 
 # uintfstrconsts:strdocuments
 #: tforders.tsposdocuments.caption
-#, fuzzy
 msgctxt "TFORDERS.TSPOSDOCUMENTS.CAPTION"
 msgid "Dokumente"
-msgstr "Document"
+msgstr "Documents"
 
 #: tforders.tvorderview.hint
 msgid "Eine Übersicht über die Auftragsstruktur"
@@ -4727,19 +4570,16 @@ msgstr ""
 
 # uintfstrconsts:strmandant
 #: tfpassword.cbmandant.text
-#, fuzzy
 msgid "cbMandant"
 msgstr "Mandant"
 
 # uintfstrconsts:struser
 #: tfpassword.cbuser.text
-#, fuzzy
 msgid "cbUser"
 msgstr "User"
 
 # uintfstrconsts:strpassword
 #: tfpassword.epasswort.text
-#, fuzzy
 msgid "ePasswort"
 msgstr "Password"
 
@@ -4756,14 +4596,12 @@ msgstr ""
 
 # uintfstrconsts:strmandant
 #: tfpassword.lmandant.caption
-#, fuzzy
 msgctxt "TFPASSWORD.LMANDANT.CAPTION"
 msgid "Mandant"
 msgstr "Mandant"
 
 # uintfstrconsts:strpassword
 #: tfpassword.lpassword.caption
-#, fuzzy
 msgctxt "TFPASSWORD.LPASSWORD.CAPTION"
 msgid "Passwort"
 msgstr "Password"
@@ -4775,10 +4613,9 @@ msgstr ""
 
 # uintfstrconsts:strnet
 #: tfpersonaloptions.badd.caption
-#, fuzzy
 msgctxt "TFPERSONALOPTIONS.BADD.CAPTION"
 msgid "Neu"
-msgstr "Net"
+msgstr "New"
 
 #: tfpersonaloptions.bdelete.caption
 msgctxt "TFPERSONALOPTIONS.BDELETE.CAPTION"
@@ -4815,9 +4652,8 @@ msgstr ""
 
 # uintfstrconsts:strstart
 #: tfpersonaloptions.groupbox1.caption
-#, fuzzy
 msgid "Standarteintrag"
-msgstr "Standart"
+msgstr "Standartentry"
 
 #: tfpersonaloptions.helpbutton.caption
 msgctxt "TFPERSONALOPTIONS.HELPBUTTON.CAPTION"
@@ -4881,7 +4717,6 @@ msgid "Allgemein"
 msgstr ""
 
 #: tfpersonaloptions.tsdocumentmanagement.caption
-#, fuzzy
 msgid "Dokumentenmanagement"
 msgstr "Documentmanagement"
 
@@ -4891,13 +4726,11 @@ msgstr ""
 
 # uintfstrconsts:strsearchtext
 #: tfpersonaloptions.tsmail.caption
-#, fuzzy
 msgid "Narichten"
-msgstr "Searchtext"
+msgstr "messages"
 
 # uintfstrconsts:sctelephone
 #: tfpersonaloptions.tstelephonie.caption
-#, fuzzy
 msgid "Telefon"
 msgstr "Telephone"
 
@@ -4936,7 +4769,6 @@ msgstr ""
 
 # uintfstrconsts:strimport
 #: tfproject.acimport.caption
-#, fuzzy
 msgctxt "TFPROJECT.ACIMPORT.CAPTION"
 msgid "Importieren"
 msgstr "Import"
@@ -4948,26 +4780,22 @@ msgstr ""
 
 # uintfstrconsts:strdetails
 #: tfproject.acviewdetails.caption
-#, fuzzy
 msgid "acViewDetails"
-msgstr "Details"
+msgstr "View details"
 
 # uintfstrconsts:strtimelist
 #: tfproject.acviewlist.caption
-#, fuzzy
 msgid "acViewList"
-msgstr "Time List"
+msgstr "View List"
 
 # uintfstrconsts:strproject
 #: tfproject.fproject.caption
-#, fuzzy
 msgctxt "TFPROJECT.FPROJECT.CAPTION"
 msgid "Projekte"
-msgstr "Project"
+msgstr "Projects"
 
 # uintfstrconsts:strstatus
 #: tfproject.label2.caption
-#, fuzzy
 msgctxt "TFPROJECT.LABEL2.CAPTION"
 msgid "Status"
 msgstr "Status"
@@ -4979,7 +4807,6 @@ msgstr ""
 
 # uintfstrconsts:strname
 #: tfproject.lname.caption
-#, fuzzy
 msgctxt "TFPROJECT.LNAME.CAPTION"
 msgid "Name"
 msgstr "Name"
@@ -4991,7 +4818,6 @@ msgstr ""
 
 # uintfstrconsts:strstart
 #: tfproject.lstart.caption
-#, fuzzy
 msgctxt "TFPROJECT.LSTART.CAPTION"
 msgid "Start"
 msgstr "Start"
@@ -5003,16 +4829,14 @@ msgstr ""
 
 # uintfstrconsts:strdetails
 #: tfproject.pdetails.caption
-#, fuzzy
 msgid "pDetails"
 msgstr "Details"
 
 # uintfstrconsts:strdocuments
 #: tfproject.tsdocuments.caption
-#, fuzzy
 msgctxt "TFPROJECT.TSDOCUMENTS.CAPTION"
 msgid "Dokumente"
-msgstr "Document"
+msgstr "Documents"
 
 #: tfproject.tslinks.caption
 msgctxt "TFPROJECT.TSLINKS.CAPTION"
@@ -5091,28 +4915,24 @@ msgstr ""
 
 # uintfstrconsts:strfoundproblems
 #: tframe1.lfoundproblems.caption
-#, fuzzy
 msgctxt "TFRAME1.LFOUNDPROBLEMS.CAPTION"
 msgid "gefundene Probleme"
 msgstr "Found problems"
 
 # uintfstrconsts:strcontact
 #: tframe1.linternalnotes.caption
-#, fuzzy
 msgctxt "TFRAME1.LINTERNALNOTES.CAPTION"
 msgid "Interne Notizen"
-msgstr "Internet"
+msgstr "Internal Notice"
 
 # uintfstrconsts:strlongtext
 #: tframe1.llongtext.caption
-#, fuzzy
 msgctxt "TFRAME1.LLONGTEXT.CAPTION"
 msgid "Langtext"
 msgstr "Longtext"
 
 # uintfstrconsts:strlongtext
 #: tframe1.llongtext1.caption
-#, fuzzy
 msgctxt "TFRAME1.LLONGTEXT1.CAPTION"
 msgid "Langtext"
 msgstr "Longtext"
@@ -5124,14 +4944,12 @@ msgstr ""
 
 # uintfstrconsts:stroperation
 #: tframe1.loperation.caption
-#, fuzzy
 msgctxt "TFRAME1.LOPERATION.CAPTION"
 msgid "Operation"
 msgstr "Operation"
 
 # uintfstrconsts:strpositionprice
 #: tframe1.lposprice.caption
-#, fuzzy
 msgctxt "TFRAME1.LPOSPRICE.CAPTION"
 msgid "Postitionspreis"
 msgstr "Positionprice"
@@ -5178,21 +4996,18 @@ msgstr ""
 
 # uintfstrconsts:strtexttyp
 #: tframe1.ltexttype.caption
-#, fuzzy
 msgctxt "TFRAME1.LTEXTTYPE.CAPTION"
 msgid "Texttyp"
 msgstr "Texttyp"
 
 # uintfstrconsts:strversion
 #: tframe1.lversion.caption
-#, fuzzy
 msgctxt "TFRAME1.LVERSION.CAPTION"
 msgid "Version"
 msgstr "Version"
 
 # uintfstrconsts:strversion
 #: tframe1.lversion1.caption
-#, fuzzy
 msgctxt "TFRAME1.LVERSION1.CAPTION"
 msgid "Version"
 msgstr "Version"
@@ -5209,14 +5024,12 @@ msgstr ""
 
 # uintfstrconsts:strdetails
 #: tframe1.pdetailview.caption
-#, fuzzy
 msgctxt "TFRAME1.PDETAILVIEW.CAPTION"
 msgid "pDetailView"
 msgstr "Details"
 
 # uintfstrconsts:strnewimage
 #: tframe1.pimage.caption
-#, fuzzy
 msgctxt "TFRAME1.PIMAGE.CAPTION"
 msgid "no Image"
 msgstr "No Image"
@@ -5243,10 +5056,9 @@ msgstr ""
 
 # uintfstrconsts:strdetails
 #: tframe1.tsdetails.caption
-#, fuzzy
 msgctxt "TFRAME1.TSDETAILS.CAPTION"
 msgid "Detailansicht"
-msgstr "Details"
+msgstr "Detailview"
 
 #: tframe1.tsimages.caption
 msgctxt "TFRAME1.TSIMAGES.CAPTION"
@@ -5255,17 +5067,15 @@ msgstr ""
 
 # uintfstrconsts:strpositions
 #: tframe1.tsposcalc.caption
-#, fuzzy
 msgctxt "TFRAME1.TSPOSCALC.CAPTION"
 msgid "Positionskalkulation"
-msgstr "Positions"
+msgstr "Positioncalculation"
 
 # uintfstrconsts:strdocuments
 #: tframe1.tsposdocuments.caption
-#, fuzzy
 msgctxt "TFRAME1.TSPOSDOCUMENTS.CAPTION"
 msgid "Dokumente"
-msgstr "Document"
+msgstr "Documents"
 
 #: tfrdocumentmanagement.acacquire.caption
 msgctxt "TFRDOCUMENTMANAGEMENT.ACACQUIRE.CAPTION"
@@ -5287,7 +5097,6 @@ msgid "Verzeichnis hinzufügen"
 msgstr ""
 
 #: tfrdocumentmanagement.acbigicons.caption
-#, fuzzy
 msgid "grosse Icons"
 msgstr "Big Icons"
 
@@ -5319,9 +5128,8 @@ msgstr "Details"
 
 # uintfstrconsts:stradddocumentoptions
 #: tfrdocumentmanagement.acdocumentactions.caption
-#, fuzzy
 msgid "Dokumentenaktion"
-msgstr "Document Actions"
+msgstr "Documentaction"
 
 #: tfrdocumentmanagement.acdocumentproperties.caption
 msgctxt "TFRDOCUMENTMANAGEMENT.ACDOCUMENTPROPERTIES.CAPTION"
@@ -5342,7 +5150,6 @@ msgstr ""
 
 # uintfstrconsts:strlast
 #: tfrdocumentmanagement.aclist.caption
-#, fuzzy
 msgid "Liste"
 msgstr "List"
 
@@ -5360,9 +5167,8 @@ msgstr ""
 
 # uintfstrconsts:strdefaultprinter
 #: tfrdocumentmanagement.acremovedocument.caption
-#, fuzzy
 msgid "Dokument entfernen"
-msgstr "Document default Printer"
+msgstr "remove Document"
 
 #: tfrdocumentmanagement.acrename.caption
 msgctxt "TFRDOCUMENTMANAGEMENT.ACRENAME.CAPTION"
@@ -5374,9 +5180,8 @@ msgid "Speichern als"
 msgstr ""
 
 #: tfrdocumentmanagement.acsmallicons.caption
-#, fuzzy
 msgid "kleine Icons"
-msgstr "Big Icons"
+msgstr "small Icons"
 
 #: tfrdocumentmanagement.acviewfile.caption
 msgid "Datei ansehen"
@@ -5408,14 +5213,12 @@ msgstr ""
 
 # uintfstrconsts:struser
 #: tfrdocumentmanagement.lvdocuments.columns[0].caption
-#, fuzzy
 msgctxt "TFRDOCUMENTMANAGEMENT.LVDOCUMENTS.COLUMNS[0].CAPTION"
 msgid "Dateiname"
-msgstr "Rename"
+msgstr "Filename"
 
 # uintfstrconsts:strtype
 #: tfrdocumentmanagement.lvdocuments.columns[1].caption
-#, fuzzy
 msgctxt "TFRDOCUMENTMANAGEMENT.LVDOCUMENTS.COLUMNS[1].CAPTION"
 msgid "Typ"
 msgstr "Typ"
@@ -5427,9 +5230,8 @@ msgstr ""
 
 # uintfstrconsts:strregister
 #: tfrdocumentmanagement.lvdocuments.columns[3].caption
-#, fuzzy
 msgid "Rec"
-msgstr "Reciver"
+msgstr "Rec"
 
 #: tfrdocumentmanagement.menuitem1.caption
 msgctxt "TFRDOCUMENTMANAGEMENT.MENUITEM1.CAPTION"
@@ -5481,9 +5283,8 @@ msgstr ""
 
 # uintfstrconsts:strupdatingfile
 #: tfroweditor.ltablerows.caption
-#, fuzzy
 msgid "Spalten in Tabelle"
-msgstr "Opening Table %s"
+msgstr "Cols in Table"
 
 #: tfroweditor.lviewrows.caption
 msgid "Sichtbare Spalten"
@@ -5495,9 +5296,8 @@ msgstr ""
 
 # uintfstrconsts:strarticlelist
 #: tfsaleslist.acprint.hint
-#, fuzzy
 msgid "druckt die Liste"
-msgstr "Article List"
+msgstr "prints the list"
 
 #: tfsaleslist.fsaleslist.caption
 msgctxt "TFSALESLIST.FSALESLIST.CAPTION"
@@ -5526,7 +5326,6 @@ msgstr ""
 
 # uintfstrconsts:stroperation
 #: tfsearch.acopen.caption
-#, fuzzy
 msgctxt "TFSEARCH.ACOPEN.CAPTION"
 msgid "acOpen"
 msgstr "Open"
@@ -5580,13 +5379,11 @@ msgstr ""
 
 # uintfstrconsts:strtexttyp
 #: tfsearch.sgresults.columns[0].tgridcolumntitle.caption
-#, fuzzy
 msgid "Type"
-msgstr "Text Type"
+msgstr "Type"
 
 # uintfstrconsts:strid
 #: tfsearch.sgresults.columns[1].tgridcolumntitle.caption
-#, fuzzy
 msgctxt "TFSEARCH.SGRESULTS.COLUMNS[1].TGRIDCOLUMNTITLE.CAPTION"
 msgid "ID"
 msgstr "ID"
@@ -5598,14 +5395,12 @@ msgstr "Shortname"
 
 # uintfstrconsts:strstatus
 #: tfsearch.sgresults.columns[3].tgridcolumntitle.caption
-#, fuzzy
 msgctxt "TFSEARCH.SGRESULTS.COLUMNS[3].TGRIDCOLUMNTITLE.CAPTION"
 msgid "Status"
 msgstr "Status"
 
 # uintfstrconsts:strlogin
 #: tfsearch.sgresults.columns[4].tgridcolumntitle.caption
-#, fuzzy
 msgctxt "TFSEARCH.SGRESULTS.COLUMNS[4].TGRIDCOLUMNTITLE.CAPTION"
 msgid "Link"
 msgstr "Link"
@@ -5708,7 +5503,6 @@ msgstr ""
 
 # uintfstrconsts:strcopyprices
 #: tfselectreport.lcopies.caption
-#, fuzzy
 msgid "Kopien"
 msgstr "Copies"
 
@@ -5736,10 +5530,9 @@ msgstr ""
 
 # uintfstrconsts:strnet
 #: tfselecttemplate.bnew.caption
-#, fuzzy
 msgctxt "TFSELECTTEMPLATE.BNEW.CAPTION"
 msgid "Neu"
-msgstr "Net"
+msgstr "New"
 
 #: tfselecttemplate.bselect.caption
 msgid "Auswählen"
@@ -5755,22 +5548,19 @@ msgstr ""
 
 # uintfstrconsts:strfilter
 #: tfstoragejournal.bfilter.caption
-#, fuzzy
 msgctxt "TFSTORAGEJOURNAL.BFILTER.CAPTION"
 msgid "Filter"
 msgstr "Filter"
 
 # uintfstrconsts:straddtojournal
 #: tfstoragejournal.caption
-#, fuzzy
 msgid "Lagerjournal"
 msgstr "Storage Journal"
 
 # uintfstrconsts:strsystem
 #: tfsysmonitor.fsysmonitor.caption
-#, fuzzy
 msgid "System Monitor"
-msgstr "System"
+msgstr "System Monitor"
 
 #: tfsysmonitor.tbtop.caption
 msgid "tbTop"
@@ -5796,14 +5586,12 @@ msgstr ""
 
 # uintfstrconsts:strexport
 #: tftasks.acexport.caption
-#, fuzzy
 msgctxt "TFTASKS.ACEXPORT.CAPTION"
 msgid "Exportieren"
 msgstr "Export"
 
 # uintfstrconsts:strimport
 #: tftasks.acimport.caption
-#, fuzzy
 msgctxt "TFTASKS.ACIMPORT.CAPTION"
 msgid "Importieren"
 msgstr "Import"
@@ -5855,20 +5643,17 @@ msgstr ""
 
 # uintfstrconsts:strallclosed
 #: tftasks.cbshowcompletedentrys.caption
-#, fuzzy
 msgid "cbShowCompletedEntrys"
 msgstr "Show completed entrys"
 
 # uintfstrconsts:strtasks
 #: tftasks.ftasks.caption
-#, fuzzy
 msgctxt "TFTASKS.FTASKS.CAPTION"
 msgid "fTasks"
 msgstr "Tasks"
 
 # uintfstrconsts:strposcalc
 #: tftasks.lcalcdate.caption
-#, fuzzy
 msgid "lCalcDate"
 msgstr "Calculated Date"
 
@@ -5884,26 +5669,22 @@ msgstr ""
 
 # uintfstrconsts:strprinter
 #: tftasks.lpriority.caption
-#, fuzzy
 msgid "Priorität"
 msgstr "Priority"
 
 # uintfstrconsts:strproject
 #: tftasks.lproject.caption
-#, fuzzy
 msgid "projekt"
 msgstr "Project"
 
 # uintfstrconsts:strversion
 #: tftasks.lstartdate.caption
-#, fuzzy
 msgctxt "TFTASKS.LSTARTDATE.CAPTION"
 msgid "Von"
-msgstr "Version"
+msgstr "From"
 
 # uintfstrconsts:strstatus
 #: tftasks.lstatus.caption
-#, fuzzy
 msgctxt "TFTASKS.LSTATUS.CAPTION"
 msgid "Status"
 msgstr "Status"
@@ -5919,13 +5700,11 @@ msgstr ""
 
 # uintfstrconsts:strtime
 #: tftasks.lusedtimevalue.caption
-#, fuzzy
 msgid "lUsedTimeValue"
 msgstr "Used Time"
 
 # uintfstrconsts:strname
 #: tftasks.lvtasks.columns[0].caption
-#, fuzzy
 msgctxt "TFTASKS.LVTASKS.COLUMNS[0].CAPTION"
 msgid "Name"
 msgstr "Name"
@@ -5942,7 +5721,6 @@ msgstr "Percent"
 
 # uintfstrconsts:strproject
 #: tftasks.lvtasks.columns[3].caption
-#, fuzzy
 msgctxt "TFTASKS.LVTASKS.COLUMNS[3].CAPTION"
 msgid "Project"
 msgstr "Project"
@@ -5959,10 +5737,9 @@ msgstr ""
 
 # uintfstrconsts:strdocuments
 #: tftasks.tsdocuments.caption
-#, fuzzy
 msgctxt "TFTASKS.TSDOCUMENTS.CAPTION"
 msgid "Dokumente"
-msgstr "Document"
+msgstr "Documents"
 
 #: tftasks.tslinks.caption
 msgctxt "TFTASKS.TSLINKS.CAPTION"
@@ -5971,55 +5748,47 @@ msgstr ""
 
 # uintfstrconsts:strnotice
 #: tftasks.tsnotes.caption
-#, fuzzy
 msgctxt "TFTASKS.TSNOTES.CAPTION"
 msgid "Notizen"
 msgstr "Notice"
 
 # uintfstrconsts:strtexttyp
 #: tftexttype.caption
-#, fuzzy
 msgctxt "TFTEXTTYPE.CAPTION"
 msgid "Text Typ"
 msgstr "Text Type"
 
 # uintfstrconsts:strtext
 #: tftexttype.cbtext.text
-#, fuzzy
 msgid "cbText"
 msgstr "Text"
 
 # uintfstrconsts:strexport
 #: tftimelist.acexport.caption
-#, fuzzy
 msgctxt "TFTIMELIST.ACEXPORT.CAPTION"
 msgid "Exportieren"
 msgstr "Export"
 
 # uintfstrconsts:strfilter
 #: tftimelist.acfilter.caption
-#, fuzzy
 msgctxt "TFTIMELIST.ACFILTER.CAPTION"
 msgid "acFilter"
 msgstr "Filter"
 
 # uintfstrconsts:strimport
 #: tftimelist.acimport.caption
-#, fuzzy
 msgctxt "TFTIMELIST.ACIMPORT.CAPTION"
 msgid "Importieren"
 msgstr "Import"
 
 # uintfstrconsts:strprint
 #: tftimelist.acprint.caption
-#, fuzzy
 msgctxt "TFTIMELIST.ACPRINT.CAPTION"
 msgid "acPrint"
 msgstr "Print"
 
 # uintfstrconsts:strtimelist
 #: tftimelist.caption
-#, fuzzy
 msgid "fTimelist"
 msgstr "Time List"
 
@@ -6065,13 +5834,11 @@ msgstr ""
 
 # uintfstrconsts:strindustrialtime
 #: tftransfer.linstitute.caption
-#, fuzzy
 msgid "lInstitute"
 msgstr "Institute"
 
 # uintfstrconsts:strname
 #: tftransfer.lname.caption
-#, fuzzy
 msgctxt "TFTRANSFER.LNAME.CAPTION"
 msgid "Name"
 msgstr "Name"
@@ -6133,9 +5900,8 @@ msgstr ""
 
 # uintfstrconsts:strpassword
 #: tfwebshop.lftppassword.caption
-#, fuzzy
 msgid "FTP Passwort"
-msgstr "Password"
+msgstr "FTP Password"
 
 #: tfwebshop.lftppath.caption
 msgid "FTP Pfad"
