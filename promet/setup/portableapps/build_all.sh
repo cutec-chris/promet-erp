@@ -67,6 +67,11 @@ cat Appinfo.ini | \
       -e "s/CREATEDDATE/$Date/g" \
   > $BuildDir/Promet-ERP/App/AppInfo/Appinfo.ini
 WINEPREFIX=$FULL_NAME/../../../lazarus_wine/ wine "PortableApps.comInstaller\PortableApps.comInstaller.exe" 'Z:'$(echo $BuildDir | sed 's/\//\\/g')'\Promet-ERP'
-cp $BuildDir/PrometERP_$Version_German.paf.exe ../output
+Version=$(sed 's/\r//g' ../../source/base/version.inc).$(sed 's/\r//g' ../../source/base/revision.inc)
+Version=$(echo $Version | sed 's/\n//g');
+cp $BuildDir/*.paf.exe ../output
+cd $BuildDir
+rm $FULL_NAME/../output/promet-erp-$(echo $Version).i386-win32-portable.zip
+zip -9 -r $FULL_NAME/../output/promet-erp-$(echo $Version).i386-win32-portable.zip Promet-ERP
 echo "cleaning up..."
-#sudo -S rm -r $BuildDir
+sudo -S rm -r $BuildDir
