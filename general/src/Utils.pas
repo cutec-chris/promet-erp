@@ -201,9 +201,12 @@ Begin
                 id := copy(TPoFileItem(po.Items[i]).IdentifierLow,pos('.',TPoFileItem(po.Items[i]).IdentifierLow)+1,length(TPoFileItem(po.Items[i]).IdentifierLow));
                 if Assigned(Screen.Forms[a].FindComponent(copy(id,0,pos('.',id)-1))) then
                   begin
-                    Comp := Screen.Forms[a].FindComponent(copy(id,0,pos('.',id)-1));
-                    id := copy(id,pos('.',id)+1,length(id));
-                    SetStrProp(Comp,id,TPoFileItem(po.Items[i]).Translation);
+                    try
+                      Comp := Screen.Forms[a].FindComponent(copy(id,0,pos('.',id)-1));
+                      id := copy(id,pos('.',id)+1,length(id));
+                      SetStrProp(Comp,id,TPoFileItem(po.Items[i]).Translation);
+                    except
+                    end;
                   end;
               end;
         end;

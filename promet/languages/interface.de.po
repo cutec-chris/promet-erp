@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prometheus\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-05-17 17:21+0100\n"
+"PO-Revision-Date: 2014-05-17 20:15+0100\n"
 "Last-Translator: Christian Ulrich <info@cu-tec.de>\n"
 "Language-Team: Christian Ulrich <christian@ullihome.de>\n"
 "Language: de\n"
@@ -2614,7 +2614,6 @@ msgstr "Mehrwertsteuer"
 
 # uintfstrconsts:strversion
 #: tfmasterdata.lversion.caption
-#, fuzzy
 msgctxt "TFMASTERDATA.LVERSION.CAPTION"
 msgid "Version"
 msgstr "Version"
@@ -2816,7 +2815,6 @@ msgid "druckt die gewählte Nachricht"
 msgstr "druckt die gewählte Nachricht"
 
 #: tfmessages.fmessages.caption
-#, fuzzy
 msgctxt "TFMESSAGES.FMESSAGES.CAPTION"
 msgid "fMessages"
 msgstr "Nachrichten"
@@ -2876,7 +2874,6 @@ msgid "Office Datei Einstellungen"
 msgstr "Office Datei Einstellungen"
 
 #: tfofficeoptions.helpbutton.caption
-#, fuzzy
 msgctxt "TFOFFICEOPTIONS.HELPBUTTON.CAPTION"
 msgid "&Hilfe"
 msgstr "&Hilfe"
@@ -2888,16 +2885,14 @@ msgid "Dateiname"
 msgstr "Dateiname"
 
 #: tfofficeoptions.okbutton.caption
-#, fuzzy
 msgctxt "TFOFFICEOPTIONS.OKBUTTON.CAPTION"
 msgid "&Ok"
 msgstr "&Ok"
 
 #: tfoptions.auftragstypen.caption
-#, fuzzy
 msgctxt "tfoptions.auftragstypen.caption"
 msgid "Auftragstypen"
-msgstr "Auftragsliste"
+msgstr "Auftragstypen"
 
 #: tfoptions.bdelete.caption
 msgctxt "TFOPTIONS.BDELETE.CAPTION"
@@ -2938,9 +2933,8 @@ msgid "Bank code numbers"
 msgstr "Bank Code"
 
 #: tfoptions.cbbankingaccounts.caption
-#, fuzzy
 msgid "Banking accounts"
-msgstr "Banking"
+msgstr "Bankverbindungen"
 
 #: tfoptions.cbbankingtransfers.caption
 msgid "Transfers"
@@ -2968,9 +2962,8 @@ msgid "Onlineupdate aktiv"
 msgstr "Onlineupdate aktiv"
 
 #: tfoptions.cbfinancialaccount.caption
-#, fuzzy
 msgid "financial account"
-msgstr "Localer Account"
+msgstr "Kontoverbindung"
 
 #: tfoptions.cbisderivate.caption
 msgid "ist Untervorgang"
@@ -3001,9 +2994,8 @@ msgid "Paymenttypes"
 msgstr ""
 
 #: tfoptions.cbpostalcodes.caption
-#, fuzzy
 msgid "Postalcodes"
-msgstr "Postfach"
+msgstr "Postfächer"
 
 #: tfoptions.cbprotocol.text
 msgid "file://"
@@ -3060,7 +3052,6 @@ msgstr "Schliessen"
 
 # uintfstrconsts:strid
 #: tfoptions.dgcountrys.columns[0].tcolumntitle.caption
-#, fuzzy
 msgctxt "TFOPTIONS.DGCOUNTRYS.COLUMNS[0].TCOLUMNTITLE.CAPTION"
 msgid "ID"
 msgstr "ID"
@@ -3121,9 +3112,8 @@ msgid "Optionen"
 msgstr "Optionen"
 
 #: tfoptions.gbvisibility.caption
-#, fuzzy
 msgid "Sichtbarkeit"
-msgstr "Sichtbare Spalten"
+msgstr "Sichtbarkeit"
 
 #: tfoptions.glanguages.columns[0].tcolumntitle.caption
 msgctxt "TFOPTIONS.GLANGUAGES.COLUMNS[0].TCOLUMNTITLE.CAPTION"
@@ -3296,9 +3286,8 @@ msgid "Kontonummer"
 msgstr "Kontonummer"
 
 #: tfoptions.ladministrativedata.caption
-#, fuzzy
 msgid "Administrative data"
-msgstr "FinTS Administrator starten"
+msgstr "Administrative data"
 
 #: tfoptions.ladress.caption
 msgctxt "TFOPTIONS.LADRESS.CAPTION"
@@ -7986,50 +7975,3 @@ msgstr "SQLite basierte Datenank"
 #: uzeosdm.strunknowndbtype
 msgid "Unbekannter Datenbanktyp"
 msgstr "Unbekannter Datenbanktyp"
-
-#~ msgid ""
-#~ "Sie müssen ein Verzeichnis auswählen,\n"
-#~ "bevor Sie den Eintrag zu einem diesem zuordnen können."
-#~ msgstr ""
-#~ "Sie müssen ein Verzeichnis auswählen,\n"
-#~ "bevor Sie den Eintrag zu einem diesem zuordnen können."
-
-#~ msgid "vollen Artikel anzeigen"
-#~ msgstr "vollen Artikel anzeigen"
-
-#~ msgid "Nachricht empfangen"
-#~ msgstr "Nachricht empfangen"
-
-#~ msgid ""
-#~ "Das eingegebene Passwort stimmt nicht mit dem von Ihnen erstellten überein"
-#~ msgstr ""
-#~ "Das eingegebene Passwort stimmt nicht mit dem von Ihnen erstellten überein"
-
-#~ msgid "erstelle Formulare ..."
-#~ msgstr "erstelle Formulare ..."
-
-#~ msgid "Bitte warten"
-#~ msgstr "Bitte warten"
-
-#~ msgid "Das Objekt ist nicht gespeichert, jetzt speichern ?"
-#~ msgstr "Das Objekt ist nicht gespeichert, jetzt speichern ?"
-
-#~ msgid ""
-#~ "Dieses Konto scheint auf diesem Computer nicht eingerichtet zu sein, "
-#~ "richten Sie es zuerst ein !"
-#~ msgstr ""
-#~ "Dieses Konto scheint auf diesem Computer nicht eingerichtet zu sein, "
-#~ "richten Sie es zuerst ein !"
-
-#~ msgid "Unbekannt"
-#~ msgstr "Unbekannt"
-
-#~ msgid ""
-#~ "Sie können lediglich in neue Einträge Daten aus der Zwischenablage "
-#~ "einfügen, bitte legen Sie zuvor einen neuen Eintrag an."
-#~ msgstr ""
-#~ "Sie können lediglich in neue Einträge Daten aus der Zwischenablage "
-#~ "einfügen, bitte legen Sie zuvor einen neuen Eintrag an."
-
-#~ msgid "Konnte keine Zwischenablagedaten holen."
-#~ msgstr "Konnte keine Zwischenablagedaten holen."

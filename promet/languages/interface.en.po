@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prometheus\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-05-17 19:36+0100\n"
+"PO-Revision-Date: 2014-05-17 20:31+0100\n"
 "Last-Translator: Christian Ulrich <info@cu-tec.de>\n"
 "Language-Team: C.Ulrich <christian@ullihome.de>\n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
-"Language: en\n"
 
 #: tfaccountingque.bclose.caption
 msgctxt "TFACCOUNTINGQUE.BCLOSE.CAPTION"
@@ -1916,11 +1916,11 @@ msgstr "Filter"
 
 #: tflinks.acpastelinks.caption
 msgid "Verweis(e) einfügen"
-msgstr ""
+msgstr "Insert link(s)"
 
 #: tflinks.acshowinorder.caption
 msgid "Im Auftrag anzeigen"
-msgstr ""
+msgstr "Show in Order"
 
 #: tflinks.glist.columns[0].tcolumntitle.caption
 msgid "ICON"
@@ -1949,7 +1949,7 @@ msgstr ""
 #: tflinks.glist.hint
 msgctxt "TFLINKS.GLIST.HINT"
 msgid "Die Historie des Eintrags"
-msgstr ""
+msgstr "The history of this entry"
 
 #: tflinks.speedbutton2.caption
 msgctxt "TFLINKS.SPEEDBUTTON2.CAPTION"
@@ -1959,20 +1959,20 @@ msgstr ""
 #: tflogwaitform.babort.caption
 msgctxt "TFLOGWAITFORM.BABORT.CAPTION"
 msgid "Abbrechen"
-msgstr ""
+msgstr "Cancel"
 
 #: tflogwaitform.flogwaitform.caption
 msgctxt "TFLOGWAITFORM.FLOGWAITFORM.CAPTION"
 msgid "Bitte warten..."
-msgstr ""
+msgstr "Please wait..."
 
 #: tfmailoptions.caption
 msgid "Narichteneinstellungen"
-msgstr ""
+msgstr "Messageoptions"
 
 #: tfmailoptions.eservertype.text
 msgid "POP3"
-msgstr ""
+msgstr "POP§"
 
 # uintfstrconsts:straddresses
 #: tfmailoptions.lmailaddr.caption
@@ -2011,15 +2011,15 @@ msgstr "Username"
 #: tfmain.acadddirectory.caption
 msgctxt "TFMAIN.ACADDDIRECTORY.CAPTION"
 msgid "Verzeichnis hinzufügen"
-msgstr ""
+msgstr "Add directory"
 
 #: tfmain.acback.caption
 msgid "Zurück"
-msgstr ""
+msgstr "Back"
 
 #: tfmain.acback.hint
 msgid "zum vorherigen Eintrag gehen"
-msgstr ""
+msgstr "goto prior entry"
 
 #: tfmain.acbugtracker.caption
 msgid "Fehler berichten/verfolgen"
@@ -2038,24 +2038,24 @@ msgstr "Contacts"
 
 #: tfmain.acdeletedirectory.caption
 msgid "Verzeichnis löschen"
-msgstr ""
+msgstr "delete Directory"
 
 #: tfmain.acdeletemandant.caption
 msgid "Mandanten löschen"
-msgstr ""
+msgstr "delete mandant"
 
 #: tfmain.acdeletewholemessagedir.caption
 msgid "Alle Narichten löschen"
-msgstr ""
+msgstr "delete all Messages"
 
 #: tfmain.acforward.caption
 msgctxt "TFMAIN.ACFORWARD.CAPTION"
 msgid "Weiter"
-msgstr ""
+msgstr "Next"
 
 #: tfmain.acforward.hint
 msgid "zum nächsten Eintrag gehen"
-msgstr ""
+msgstr "gito next entry"
 
 # uintfstrconsts:strinfo
 #: tfmain.acinfo.caption
@@ -2065,29 +2065,29 @@ msgstr "Info"
 
 #: tfmain.aclogin.caption
 msgid "Anmelden"
-msgstr ""
+msgstr "Login"
 
 #: tfmain.aclogout.caption
 msgid "Abmelden"
-msgstr ""
+msgstr "Logout"
 
 #: tfmain.acmasterdata.caption
 msgctxt "TFMAIN.ACMASTERDATA.CAPTION"
 msgid "Stammdaten"
-msgstr ""
+msgstr "Masterdata"
 
 #: tfmain.acmessages.caption
 msgid "Nachrichten"
-msgstr ""
+msgstr "Messages"
 
 #: tfmain.acnewarticle.caption
 msgid "Neuer Artikel"
-msgstr ""
+msgstr "new Article"
 
 #: tfmain.acnewcustomer.caption
 msgctxt "TFMAIN.ACNEWCUSTOMER.CAPTION"
 msgid "Neuer Kontakt"
-msgstr ""
+msgstr "new Contact"
 
 # uintfstrconsts:stremail
 #: tfmain.acnewmail.caption
@@ -2096,15 +2096,15 @@ msgstr "new e-Mail"
 
 #: tfmain.acnewmandant.caption
 msgid "Neuen Mandanten anlegen"
-msgstr ""
+msgstr "create new Mandant/database"
 
 #: tfmain.acneworder.caption
 msgid "Neuer Auftrag"
-msgstr ""
+msgstr "new Order"
 
 #: tfmain.acnewpiecelist.caption
 msgid "Neue Stückliste"
-msgstr ""
+msgstr "new Piecelist"
 
 # uintfstrconsts:strproject
 #: tfmain.acnewproject.caption
@@ -2114,7 +2114,7 @@ msgstr "New Project"
 
 #: tfmain.acnewtask.caption
 msgid "Neue Aufgabe"
-msgstr ""
+msgstr "new Task"
 
 # uintfstrconsts:strnewtransfer
 #: tfmain.acnewtermin.caption
@@ -2125,12 +2125,12 @@ msgstr "New Termin"
 #: tfmain.acorders.caption
 msgctxt "TFMAIN.ACORDERS.CAPTION"
 msgid "Aufträge"
-msgstr ""
+msgstr "Orders"
 
 #: tfmain.acpersonaloptions.caption
 msgctxt "TFMAIN.ACPERSONALOPTIONS.CAPTION"
 msgid "Persönliche Einstellungen"
-msgstr ""
+msgstr "Personal Options"
 
 # uintfstrconsts:strproject
 #: tfmain.acprojects.caption
@@ -2140,7 +2140,7 @@ msgstr "Projects"
 
 #: tfmain.acproperties.caption
 msgid "Einstellungen"
-msgstr ""
+msgstr "Options"
 
 # uintfstrconsts:strtendertext
 #: tfmain.acquit.caption
@@ -2150,21 +2150,21 @@ msgstr "close"
 #: tfmain.acrename.caption
 msgctxt "TFMAIN.ACRENAME.CAPTION"
 msgid "Umbenennen"
-msgstr ""
+msgstr "Rename"
 
 #: tfmain.acsandboxmode.caption
 msgctxt "TFMAIN.ACSANDBOXMODE.CAPTION"
 msgid "testmode"
-msgstr ""
+msgstr "testmode"
 
 #: tfmain.acsearch.caption
 msgctxt "TFMAIN.ACSEARCH.CAPTION"
 msgid "Suche"
-msgstr ""
+msgstr "Search"
 
 #: tfmain.acshortcutoptions.caption
 msgid "Tastenkürzel"
-msgstr ""
+msgstr "Shortcuts"
 
 #: tfmain.acshowcurrentcontrol.caption
 msgid "acShowCurrentControl"
@@ -2172,29 +2172,29 @@ msgstr ""
 
 #: tfmain.acshowhide.caption
 msgid "Programm zeigen/verstecken"
-msgstr ""
+msgstr "Show/hide porgram"
 
 #: tfmain.acshowhidehelp.caption
 msgid "Hilfe zeigen/verstecken"
-msgstr ""
+msgstr "show/hode Help"
 
 #: tfmain.actasks.caption
 msgid "Aufgaben"
-msgstr ""
+msgstr "Tasks"
 
 #: tfmain.actimeregistering.caption
 msgctxt "TFMAIN.ACTIMEREGISTERING.CAPTION"
 msgid "Zeiterfassung"
-msgstr ""
+msgstr "Timeregistering"
 
 #: tfmain.bhistory.hint
 msgid "Zuletzt aufgerufene Einträge anzeigen"
-msgstr ""
+msgstr "Show last accessed entrys"
 
 #: tfmain.fmain.caption
 msgctxt "TFMAIN.FMAIN.CAPTION"
 msgid "Promet-ERP"
-msgstr ""
+msgstr "Promet-ERP"
 
 # uintfstrconsts:strpages
 #: tfmain.lmessage.caption
@@ -2225,12 +2225,12 @@ msgstr ""
 
 #: tfmain.mihelp.caption
 msgid "Hilfe"
-msgstr ""
+msgstr "Help"
 
 #: tfmain.milanguage.caption
 msgctxt "TFMAIN.MILANGUAGE.CAPTION"
 msgid "Sprache"
-msgstr ""
+msgstr "Language"
 
 # uintfstrconsts:strmandant
 #: tfmain.mimandant.caption
@@ -2269,7 +2269,7 @@ msgstr "New"
 
 #: tfmain.miview.caption
 msgid "Ansicht"
-msgstr ""
+msgstr "View"
 
 #: tfmain.sbsandbox.caption
 msgctxt "TFMAIN.SBSANDBOX.CAPTION"
@@ -2287,7 +2287,7 @@ msgstr ""
 #: tfmasterdata.acassigntotree.hint
 msgctxt "TFMASTERDATA.ACASSIGNTOTREE.HINT"
 msgid "weist den Eintrag einem Verzeichnis im Baum zu"
-msgstr ""
+msgstr "adds the entry to the selected dir in tree"
 
 #: tfmasterdata.acchangearticlenumber.caption
 msgctxt "TFMASTERDATA.ACCHANGEARTICLENUMBER.CAPTION"
@@ -2296,30 +2296,30 @@ msgstr ""
 
 #: tfmasterdata.acchangearticlenumber.hint
 msgid "klicken Sie hier um die Artikelnummer zu ändern"
-msgstr ""
+msgstr "klick here to change the articlenumber"
 
 #: tfmasterdata.acclipboardtoimage.caption
 msgctxt "TFMASTERDATA.ACCLIPBOARDTOIMAGE.CAPTION"
 msgid "in Zwischenablage kopieren"
-msgstr ""
+msgstr "copy tio clipboard"
 
 #: tfmasterdata.acconverttoarticle.caption
 msgid "In Artikel konvertieren"
-msgstr ""
+msgstr "convert to article"
 
 #: tfmasterdata.acconverttopiecelist.caption
 msgid "In Stückliste konvertieren"
-msgstr ""
+msgstr "convert to piecelist"
 
 #: tfmasterdata.accopy.caption
 msgctxt "TFMASTERDATA.ACCOPY.CAPTION"
 msgid "Kopieren"
-msgstr ""
+msgstr "Copy"
 
 #: tfmasterdata.acdelete.caption
 msgctxt "TFMASTERDATA.ACDELETE.CAPTION"
 msgid "löschen"
-msgstr ""
+msgstr "delete"
 
 # uintfstrconsts:strdelete
 #: tfmasterdata.acdeletepos.caption
@@ -2328,7 +2328,7 @@ msgstr ""
 
 #: tfmasterdata.acentertime.caption
 msgid "Zeiterfassung mit Eintrag beginnen"
-msgstr ""
+msgstr "start timeregistering with entry"
 
 # uintfstrconsts:strexport
 #: tfmasterdata.acexport.caption
@@ -2339,7 +2339,7 @@ msgstr "Export"
 #: tfmasterdata.acimagetoclipboard.caption
 msgctxt "TFMASTERDATA.ACIMAGETOCLIPBOARD.CAPTION"
 msgid "aus Zwischenablage einfügen"
-msgstr ""
+msgstr "paste from clipboard"
 
 # uintfstrconsts:strimport
 #: tfmasterdata.acimport.caption
@@ -5921,31 +5921,27 @@ msgstr ""
 
 # uintfstrconsts:struser
 #: tfwebshop.lusername.caption
-#, fuzzy
 msgctxt "TFWEBSHOP.LUSERNAME.CAPTION"
 msgid "Benutzername"
 msgstr "Username"
 
 # uintfstrconsts:strpassword
 #: tfwebshop.password.caption
-#, fuzzy
 msgctxt "TFWEBSHOP.PASSWORD.CAPTION"
 msgid "Passwort"
 msgstr "Password"
 
 # uintfstrconsts:stroptions
 #: tfwebshop.tsoptions.caption
-#, fuzzy
 msgctxt "TFWEBSHOP.TSOPTIONS.CAPTION"
 msgid "Optionen"
-msgstr "Option"
+msgstr "Options"
 
 #: tfwebshop.tsshop.caption
 msgid "Shop"
 msgstr ""
 
 #: tfwiki.fwiki.caption
-#, fuzzy
 msgctxt "TFWIKI.FWIKI.CAPTION"
 msgid "Wiki"
 msgstr "Wiki"
@@ -5956,10 +5952,9 @@ msgstr ""
 
 # uintfstrconsts:strdocuments
 #: tfwiki.tsdocuments.caption
-#, fuzzy
 msgctxt "TFWIKI.TSDOCUMENTS.CAPTION"
 msgid "Dokumente"
-msgstr "Document"
+msgstr "Documents"
 
 #: tfwiki.tsedit.caption
 msgid "bearbeiten"
@@ -5971,31 +5966,27 @@ msgstr ""
 
 # uintfstrconsts:strabort
 #: tfwizardnewaccount.babort0.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWACCOUNT.BABORT0.CAPTION"
 msgid "bAbort0"
-msgstr "Abort"
+msgstr ""
 
 # uintfstrconsts:strabort
 #: tfwizardnewaccount.babort1.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWACCOUNT.BABORT1.CAPTION"
 msgid "bAbort0"
-msgstr "Abort"
+msgstr ""
 
 # uintfstrconsts:strabort
 #: tfwizardnewaccount.babort2.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWACCOUNT.BABORT2.CAPTION"
 msgid "bAbort0"
-msgstr "Abort"
+msgstr ""
 
 # uintfstrconsts:strabort
 #: tfwizardnewaccount.babort3.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWACCOUNT.BABORT3.CAPTION"
 msgid "bAbort0"
-msgstr "Abort"
+msgstr ""
 
 #: tfwizardnewaccount.bcreateaq4account.caption
 msgid "AQBanking 4 Konto erstellen"
@@ -6003,65 +5994,56 @@ msgstr ""
 
 # uintfstrconsts:stradministrativedata
 #: tfwizardnewaccount.bcreateftsaccount.caption
-#, fuzzy
 msgid "FinTS Administrator starten"
-msgstr "Administrative data"
+msgstr "start FinTS Administrator"
 
 # uintfstrconsts:strnet
 #: tfwizardnewaccount.bnext0.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWACCOUNT.BNEXT0.CAPTION"
 msgid "bNext0"
-msgstr "Next"
+msgstr ""
 
 # uintfstrconsts:strnet
 #: tfwizardnewaccount.bnext1.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWACCOUNT.BNEXT1.CAPTION"
 msgid "bNext0"
-msgstr "Next"
+msgstr ""
 
 # uintfstrconsts:strnet
 #: tfwizardnewaccount.bnext2.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWACCOUNT.BNEXT2.CAPTION"
 msgid "bNext0"
-msgstr "Next"
+msgstr ""
 
 # uintfstrconsts:strnet
 #: tfwizardnewaccount.bnext3.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWACCOUNT.BNEXT3.CAPTION"
 msgid "bNext0"
-msgstr "Next"
+msgstr ""
 
 # uintfstrconsts:strpreview
 #: tfwizardnewaccount.bprev0.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWACCOUNT.BPREV0.CAPTION"
 msgid "bPrev0"
-msgstr "Prev"
+msgstr ""
 
 # uintfstrconsts:strpreview
 #: tfwizardnewaccount.bprev1.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWACCOUNT.BPREV1.CAPTION"
 msgid "bPrev0"
-msgstr "Prev"
+msgstr ""
 
 # uintfstrconsts:strpreview
 #: tfwizardnewaccount.bprev2.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWACCOUNT.BPREV2.CAPTION"
 msgid "bPrev0"
-msgstr "Prev"
+msgstr ""
 
 # uintfstrconsts:strpreview
 #: tfwizardnewaccount.bprev3.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWACCOUNT.BPREV3.CAPTION"
 msgid "bPrev0"
-msgstr "Prev"
+msgstr ""
 
 #: tfwizardnewaccount.fwizardnewaccount.caption
 msgctxt "TFWIZARDNEWACCOUNT.FWIZARDNEWACCOUNT.CAPTION"
@@ -6075,17 +6057,15 @@ msgstr ""
 
 # uintfstrconsts:strshorttext
 #: tfwizardnewaccount.laccountname.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWACCOUNT.LACCOUNTNAME.CAPTION"
 msgid "Kontoname"
-msgstr "Shortname"
+msgstr "Accountname"
 
 # uintfstrconsts:strshorttext
 #: tfwizardnewaccount.laccountname1.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWACCOUNT.LACCOUNTNAME1.CAPTION"
 msgid "Kontoname"
-msgstr "Shortname"
+msgstr "Accountname"
 
 #: tfwizardnewaccount.laccountno.caption
 msgctxt "TFWIZARDNEWACCOUNT.LACCOUNTNO.CAPTION"
@@ -6117,7 +6097,6 @@ msgstr ""
 
 # uintfstrconsts:strname
 #: tfwizardnewaccount.lname.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWACCOUNT.LNAME.CAPTION"
 msgid "Name"
 msgstr "Name"
@@ -6145,108 +6124,93 @@ msgstr ""
 
 # uintfstrconsts:strabort
 #: tfwizardnewmandant.babort0.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWMANDANT.BABORT0.CAPTION"
 msgid "bAbort0"
-msgstr "Abort"
+msgstr ""
 
 # uintfstrconsts:strabort
 #: tfwizardnewmandant.babort1.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWMANDANT.BABORT1.CAPTION"
 msgid "bAbort0"
-msgstr "Abort"
+msgstr ""
 
 # uintfstrconsts:strabort
 #: tfwizardnewmandant.babort2.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWMANDANT.BABORT2.CAPTION"
 msgid "bAbort0"
-msgstr "Abort"
+msgstr ""
 
 # uintfstrconsts:strabort
 #: tfwizardnewmandant.babort3.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWMANDANT.BABORT3.CAPTION"
 msgid "bAbort0"
-msgstr "Abort"
+msgstr ""
 
 # uintfstrconsts:strabort
 #: tfwizardnewmandant.babort4.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWMANDANT.BABORT4.CAPTION"
 msgid "bAbort0"
-msgstr "Abort"
+msgstr ""
 
 # uintfstrconsts:strnet
 #: tfwizardnewmandant.bnext0.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWMANDANT.BNEXT0.CAPTION"
 msgid "bNext0"
-msgstr "Next"
+msgstr ""
 
 # uintfstrconsts:strnet
 #: tfwizardnewmandant.bnext1.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWMANDANT.BNEXT1.CAPTION"
 msgid "bNext0"
-msgstr "Next"
+msgstr ""
 
 # uintfstrconsts:strnet
 #: tfwizardnewmandant.bnext2.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWMANDANT.BNEXT2.CAPTION"
 msgid "bNext0"
-msgstr "Next"
+msgstr ""
 
 # uintfstrconsts:strnet
 #: tfwizardnewmandant.bnext3.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWMANDANT.BNEXT3.CAPTION"
 msgid "bNext0"
-msgstr "Next"
+msgstr ""
 
 # uintfstrconsts:strnet
 #: tfwizardnewmandant.bnext4.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWMANDANT.BNEXT4.CAPTION"
 msgid "bNext0"
-msgstr "Next"
+msgstr ""
 
 # uintfstrconsts:strpreview
 #: tfwizardnewmandant.bprev0.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWMANDANT.BPREV0.CAPTION"
 msgid "bPrev0"
-msgstr "Prev"
+msgstr ""
 
 # uintfstrconsts:strpreview
 #: tfwizardnewmandant.bprev1.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWMANDANT.BPREV1.CAPTION"
 msgid "bPrev0"
-msgstr "Prev"
+msgstr ""
 
 # uintfstrconsts:strpreview
 #: tfwizardnewmandant.bprev2.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWMANDANT.BPREV2.CAPTION"
 msgid "bPrev0"
-msgstr "Prev"
+msgstr ""
 
 # uintfstrconsts:strpreview
 #: tfwizardnewmandant.bprev3.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWMANDANT.BPREV3.CAPTION"
 msgid "bPrev0"
-msgstr "Prev"
+msgstr ""
 
 # uintfstrconsts:strpreview
 #: tfwizardnewmandant.bprev4.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWMANDANT.BPREV4.CAPTION"
 msgid "bPrev0"
-msgstr "Prev"
+msgstr ""
 
 #: tfwizardnewmandant.cbexistingdatabase.caption
 msgid "exitierende Datenbank (keine Vorgabewerte einfügen)"
@@ -6254,7 +6218,6 @@ msgstr ""
 
 # uintfstrconsts:strlanguage
 #: tfwizardnewmandant.cblanguage.text
-#, fuzzy
 msgid "cbLanguage"
 msgstr "Languages"
 
@@ -6286,9 +6249,8 @@ msgstr ""
 
 # uintfstrconsts:strdate
 #: tfwizardnewmandant.ldatabase.caption
-#, fuzzy
 msgid "Datenbank"
-msgstr "Date"
+msgstr "Database"
 
 #: tfwizardnewmandant.ldatabasedirectory.caption
 msgid "Datenbankverzeichnis"
@@ -6296,7 +6258,6 @@ msgstr ""
 
 # uintfstrconsts:strseverity
 #: tfwizardnewmandant.ldbserver.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWMANDANT.LDBSERVER.CAPTION"
 msgid "Server"
 msgstr "Server"
@@ -6343,20 +6304,17 @@ msgstr ""
 
 # uintfstrconsts:strmandant
 #: tfwizardnewmandant.lmandantname.caption
-#, fuzzy
 msgid "Mandantenname"
-msgstr "Mandant"
+msgstr "Mandantname"
 
 # uintfstrconsts:strpassword
 #: tfwizardnewmandant.lpassword.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWMANDANT.LPASSWORD.CAPTION"
 msgid "Passwort"
 msgstr "Password"
 
 # uintfstrconsts:strproperties
 #: tfwizardnewmandant.lprofile.caption
-#, fuzzy
 msgid "Profil"
 msgstr "Profile"
 
@@ -6366,7 +6324,6 @@ msgstr ""
 
 # uintfstrconsts:struser
 #: tfwizardnewmandant.lusername.caption
-#, fuzzy
 msgctxt "TFWIZARDNEWMANDANT.LUSERNAME.CAPTION"
 msgid "Benutzername"
 msgstr "Username"
@@ -6419,9 +6376,8 @@ msgstr ""
 
 # uintfstrconsts:strstreet
 #: uaccountingque.strrequest
-#, fuzzy
 msgid "Kontoabfrage"
-msgstr "No Storage"
+msgstr "Account querry"
 
 #: uaccountingque.strtransfer
 msgctxt "uaccountingque.strtransfer"
@@ -6468,10 +6424,9 @@ msgstr ""
 
 # uintfstrconsts:strscannext
 #: uacquire.strscan
-#, fuzzy
 msgctxt "uacquire.strscan"
 msgid "Scannen"
-msgstr "Scan next"
+msgstr "Scan"
 
 #: uacquire.strscannext
 msgid "Nächstes Bild scannen"
@@ -6529,7 +6484,6 @@ msgstr ""
 
 # uintfstrconsts:strrepair
 #: uarticleframe.strrepair
-#, fuzzy
 msgctxt "uarticleframe.strrepair"
 msgid "Reparatur"
 msgstr "Repair"
@@ -6545,10 +6499,9 @@ msgstr ""
 
 # uintfstrconsts:strtext
 #: uarticleframe.strtexts
-#, fuzzy
 msgctxt "uarticleframe.strtexts"
 msgid "Texte"
-msgstr "Text"
+msgstr "Texts"
 
 #: uarticlepositionframe.strpiecelisttypelist
 msgctxt "uarticlepositionframe.strpiecelisttypelist"
@@ -6576,7 +6529,6 @@ msgstr ""
 
 # uintfstrconsts:stractive
 #: ubasedatamodule.straction
-#, fuzzy
 msgid "Aktion"
 msgstr "Action"
 
@@ -6592,14 +6544,12 @@ msgstr ""
 
 # uintfstrconsts:stradress
 #: ubasedatamodule.stradress
-#, fuzzy
 msgctxt "ubasedatamodule.stradress"
 msgid "Adresse"
 msgstr "Adress"
 
 # uintfstrconsts:stractive
 #: ubasedatamodule.strarchive
-#, fuzzy
 msgid "Archiv"
 msgstr "Archive"
 
@@ -6612,7 +6562,6 @@ msgid "Kontostand"
 msgstr ""
 
 #: ubasedatamodule.strcategory
-#, fuzzy
 msgctxt "ubasedatamodule.strcategory"
 msgid "Kategorie"
 msgstr "Category"
@@ -6665,7 +6614,6 @@ msgstr ""
 
 # uintfstrconsts:strdate
 #: ubasedatamodule.strdata
-#, fuzzy
 msgid "Daten"
 msgstr "Date"
 
@@ -6730,20 +6678,17 @@ msgstr ""
 
 # uintfstrconsts:strident
 #: ubasedatamodule.strident
-#, fuzzy
 msgctxt "ubasedatamodule.strident"
 msgid "Ident"
 msgstr "Ident"
 
 # uintfstrconsts:strindustrialtime
 #: ubasedatamodule.strinstitute
-#, fuzzy
 msgid "Institut"
 msgstr "Institute"
 
 # uintfstrconsts:strland
 #: ubasedatamodule.strland
-#, fuzzy
 msgctxt "ubasedatamodule.strland"
 msgid "Land"
 msgstr "Land"
@@ -6776,7 +6721,6 @@ msgstr ""
 
 # uintfstrconsts:strnotice
 #: ubasedatamodule.strnotes
-#, fuzzy
 msgctxt "ubasedatamodule.strnotes"
 msgid "Notizen"
 msgstr "Notice"
@@ -6812,7 +6756,6 @@ msgstr ""
 
 # uintfstrconsts:strpassword
 #: ubasedatamodule.strpassword
-#, fuzzy
 msgctxt "ubasedatamodule.strpassword"
 msgid "Passwort"
 msgstr "Password"
@@ -6838,14 +6781,12 @@ msgstr ""
 
 # uintfstrconsts:strposition
 #: ubasedatamodule.strposition
-#, fuzzy
 msgctxt "ubasedatamodule.strposition"
 msgid "Position"
 msgstr "Position"
 
 # uintfstrconsts:strposno
 #: ubasedatamodule.strposno
-#, fuzzy
 msgctxt "ubasedatamodule.strposno"
 msgid "Pos.Nr."
 msgstr "Pos.No."
@@ -6857,7 +6798,6 @@ msgstr ""
 
 # uintfstrconsts:strpostalcode
 #: ubasedatamodule.strpostbox
-#, fuzzy
 msgid "Postfach"
 msgstr "Postal code"
 
@@ -6906,13 +6846,11 @@ msgid "gelesen"
 msgstr ""
 
 #: ubasedatamodule.strreference
-#, fuzzy
 msgid "Referenz"
 msgstr "Reference"
 
 # uintfstrconsts:strregistered
 #: ubasedatamodule.strreserved
-#, fuzzy
 msgid "Reserviert"
 msgstr "Reserved"
 
@@ -6923,7 +6861,6 @@ msgstr ""
 
 # uintfstrconsts:strtendertext
 #: ubasedatamodule.strsender
-#, fuzzy
 msgid "Absender"
 msgstr "Sender"
 
@@ -6942,7 +6879,6 @@ msgstr "Spam"
 
 # uintfstrconsts:strstart
 #: ubasedatamodule.strstart
-#, fuzzy
 msgctxt "ubasedatamodule.strstart"
 msgid "Start"
 msgstr "Start"
@@ -6953,7 +6889,6 @@ msgstr ""
 
 # uintfstrconsts:strstatus
 #: ubasedatamodule.strstatus
-#, fuzzy
 msgctxt "ubasedatamodule.strstatus"
 msgid "Status"
 msgstr "Status"
@@ -6970,9 +6905,8 @@ msgstr ""
 
 # uintfstrconsts:strcallingname
 #: ubasedatamodule.strtablename
-#, fuzzy
 msgid "Tabellenname"
-msgstr "Calling name"
+msgstr "Tablename"
 
 #: ubasedatamodule.strtask
 msgctxt "ubasedatamodule.strtask"

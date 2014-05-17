@@ -1,4 +1,4 @@
-inherited Lager: TLager
+inherited fArticleStorageFrame: TfArticleStorageFrame
   Left = 0
   Height = 422
   Top = 0
