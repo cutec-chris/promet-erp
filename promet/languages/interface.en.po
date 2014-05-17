@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prometheus\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-05-17 17:46+0100\n"
+"PO-Revision-Date: 2014-05-17 18:06+0100\n"
 "Last-Translator: Christian Ulrich <info@cu-tec.de>\n"
 "Language-Team: C.Ulrich <christian@ullihome.de>\n"
 "MIME-Version: 1.0\n"
@@ -477,17 +477,15 @@ msgid "Eigenschaften"
 msgstr "Propertys"
 
 #: tfcopyarticledata.cbcopysupplier.caption
-#, fuzzy
 msgctxt "TFCOPYARTICLEDATA.CBCOPYSUPPLIER.CAPTION"
 msgid "Lieferanten"
-msgstr "Reference"
+msgstr "Supplier"
 
 # uintfstrconsts:strtext
 #: tfcopyarticledata.cbcopytexts.caption
-#, fuzzy
 msgctxt "TFCOPYARTICLEDATA.CBCOPYTEXTS.CAPTION"
 msgid "Texte"
-msgstr "Text"
+msgstr "Texts"
 
 #: tfcopyarticledata.lfeaturesfornewarticleversion.caption
 msgid "Daten die in den neuen Artikel / Artikelversion übernommen werden"
@@ -495,9 +493,8 @@ msgstr "Use data for new Article/Version"
 
 # uintfstrconsts:stractive
 #: tfcustomer.acactionmenue.caption
-#, fuzzy
 msgid "acActionMenue"
-msgstr "Action"
+msgstr ""
 
 #: tfcustomer.acactionmenue.hint
 msgid "öffnet eine Liste mit Aktionen"
@@ -599,10 +596,9 @@ msgstr "opens an menu with more actions"
 
 # uintfstrconsts:strnet
 #: tfcustomer.acnew.caption
-#, fuzzy
 msgctxt "TFCUSTOMER.ACNEW.CAPTION"
 msgid "Neu"
-msgstr "Net"
+msgstr "New"
 
 #: tfcustomer.acnew.hint
 msgid "erstellt einen neuen Kontakt"
@@ -664,43 +660,43 @@ msgstr "create bank transfer"
 
 #: tfcustomer.actransfer.hint
 msgid "erstellt eine Überweisung an die gewählte bankverbindung / den Kontakt"
-msgstr ""
+msgstr "cerates an bank transfer to the selected account of this contact"
 
 #: tfcustomer.acviewdetails.caption
 msgid "Kunde anzeigen"
-msgstr ""
+msgstr "show contact"
 
 #: tfcustomer.acviewdetails.hint
 msgid "zeigt den gewählten Kontakt an"
-msgstr ""
+msgstr "shows the selected contact"
 
 #: tfcustomer.acviewlist.caption
 msgid "Kundenliste anzeigen"
-msgstr ""
+msgstr "show contact list"
 
 #: tfcustomer.acviewlist.hint
 msgid "zeigt die Kontaktübersicht an"
-msgstr ""
+msgstr "shows the contact list"
 
 #: tfcustomer.baddform.hint
 msgctxt "TFCUSTOMER.BADDFORM.HINT"
 msgid "erstellt ein neues Tab"
-msgstr ""
+msgstr "create new tab"
 
 #: tfcustomer.bassigntree.hint
 msgctxt "TFCUSTOMER.BASSIGNTREE.HINT"
 msgid "weist den Eintrag einem Verzeichnis im Baum zu"
-msgstr ""
+msgstr "adds the entry to the directory thats selected in tree"
 
 #: tfcustomer.bdelform.hint
 msgctxt "TFCUSTOMER.BDELFORM.HINT"
 msgid "löscht das aktuelle Tab"
-msgstr ""
+msgstr "deletes the actual tab"
 
 #: tfcustomer.beditform.hint
 msgctxt "TFCUSTOMER.BEDITFORM.HINT"
 msgid "hiermit können Sie den Tabdesigner aufrufen,"
-msgstr ""
+msgstr "enter the Tab designer"
 
 #: tfcustomer.btransfer.hint
 msgid "erstellt eine Überweisung an die gewählte Bankverbindung / den Kontakt"
@@ -709,21 +705,23 @@ msgstr ""
 #: tfcustomer.cbactive.caption
 msgctxt "TFCUSTOMER.CBACTIVE.CAPTION"
 msgid "Aktiv"
-msgstr ""
+msgstr "active"
 
 #: tfcustomer.cbcurrency.hint
 msgid ""
 "setzt eine Standartwährung für den Kontakt mit der jeder Vorgang für den "
 "Kontakt vorbelegt wird"
 msgstr ""
+"sets an standard currency for the contact all orders are created with that "
+"currency"
 
 #: tfcustomer.cbdiscontgroup.hint
 msgid "setzt eine Rabattgruppe für den Kontakt"
-msgstr ""
+msgstr "sets an discount for the contact"
 
 #: tfcustomer.cblanguage.hint
 msgid "wählen Sie hier die Sprache des Kontaktes"
-msgstr ""
+msgstr "select the language of the contact"
 
 #: tfcustomer.cbpaymenttarget.hint
 msgid ""
@@ -733,19 +731,19 @@ msgstr ""
 
 #: tfcustomer.cbstate.hint
 msgid "hier können Sie den Status des Kontaktes setzen/ändern"
-msgstr ""
+msgstr "here you can change the Status of the contact"
 
 #: tfcustomer.cbsupplier.caption
 msgid "ist Lieferant"
-msgstr ""
+msgstr "is distributor"
 
 #: tfcustomer.cbsupplier.hint
 msgid "setzen Sie dieses Feld wenn der Kontakt ein Lieferant ist"
-msgstr ""
+msgstr "check these field if the contact is an distributor"
 
 #: tfcustomer.ecustomername.hint
 msgid "geben Sie hier den namen des Kontaktes an"
-msgstr ""
+msgstr "add the name of the contact here"
 
 #: tfcustomer.ediscont.hint
 msgid ""
@@ -755,14 +753,13 @@ msgstr ""
 #: tfcustomer.ematchcode.hint
 msgctxt "TFCUSTOMER.EMATCHCODE.HINT"
 msgid "Hier können Sie einen Suchbegriff angeben, "
-msgstr ""
+msgstr "here you can add an search term"
 
 # uintfstrconsts:strcontact
 #: tfcustomer.fcustomer.caption
-#, fuzzy
 msgctxt "TFCUSTOMER.FCUSTOMER.CAPTION"
 msgid "Kontakte"
-msgstr "Contact"
+msgstr "Contacts"
 
 #: tfcustomer.gadresses.columns[0].tcolumntitle.caption
 msgctxt "TFCUSTOMER.GADRESSES.COLUMNS[0].TCOLUMNTITLE.CAPTION"
@@ -782,7 +779,7 @@ msgstr ""
 #: tfcustomer.gadresses.hint
 msgctxt "TFCUSTOMER.GADRESSES.HINT"
 msgid "wählen Sie hier eine Adresse"
-msgstr ""
+msgstr "select an address here"
 
 #: tfcustomer.gbanking.columns[0].tcolumntitle.caption
 msgid "SORTCODE"
@@ -798,22 +795,20 @@ msgstr ""
 
 #: tfcustomer.gbanking.hint
 msgid "hier können Sie Bankverbindungen des Kontaktes verwalten"
-msgstr ""
+msgstr "here you can manage the bank accounts of the contact"
 
 #: tfcustomer.gbtree.caption
 msgctxt "TFCUSTOMER.GBTREE.CAPTION"
 msgid "Baum"
-msgstr ""
+msgstr "Tree"
 
 # uintfstrconsts:strcontacttype
 #: tfcustomer.gcontact.columns[0].tcolumntitle.caption
-#, fuzzy
 msgid "Contacttype"
 msgstr "Contact type"
 
 # uintfstrconsts:strentry
 #: tfcustomer.gcontact.columns[1].tcolumntitle.caption
-#, fuzzy
 msgctxt "TFCUSTOMER.GCONTACT.COLUMNS[1].TCOLUMNTITLE.CAPTION"
 msgid "Entry"
 msgstr "Entry"
@@ -851,60 +846,56 @@ msgstr ""
 #: tfcustomer.ladditional.caption
 msgctxt "TFCUSTOMER.LADDITIONAL.CAPTION"
 msgid "Zusätzlich"
-msgstr ""
+msgstr "Additional"
 
 # uintfstrconsts:strbanking
 #: tfcustomer.lbanking.caption
-#, fuzzy
 msgctxt "TFCUSTOMER.LBANKING.CAPTION"
 msgid "Bankverbindungen"
-msgstr "Banking"
+msgstr "Bank accounts"
 
 # uintfstrconsts:strshorttext
 #: tfcustomer.lcallingname.caption
-#, fuzzy
 msgid "Vorname"
-msgstr "Shortname"
+msgstr "First name"
 
 #: tfcustomer.lcity.caption
 msgctxt "TFCUSTOMER.LCITY.CAPTION"
 msgid "Ort"
-msgstr ""
+msgstr "Location"
 
 #: tfcustomer.lcurrency.caption
 msgctxt "TFCUSTOMER.LCURRENCY.CAPTION"
 msgid "Währung"
-msgstr ""
+msgstr "Currency"
 
 # uintfstrconsts:strshorttext
 #: tfcustomer.lcustomername.caption
-#, fuzzy
 msgid "Kontaktname"
-msgstr "Shortname"
+msgstr "Contactname"
 
 #: tfcustomer.lcustomernumber.caption
 msgctxt "TFCUSTOMER.LCUSTOMERNUMBER.CAPTION"
 msgid "Kundennummer"
-msgstr ""
+msgstr "Accountno"
 
 #: tfcustomer.lcustomerof.caption
 msgid "Mitarbeiter von"
-msgstr ""
+msgstr "member of"
 
 #: tfcustomer.ldiscont.caption
 msgctxt "TFCUSTOMER.LDISCONT.CAPTION"
 msgid "Rabatt"
-msgstr ""
+msgstr "discount"
 
 #: tfcustomer.ldiscontgroup.caption
 msgid "Rabattgruppe"
-msgstr ""
+msgstr "discount group"
 
 # uintfstrconsts:strname
 #: tfcustomer.lfirmname.caption
-#, fuzzy
 msgid "lFirmName"
-msgstr "Name"
+msgstr ""
 
 #: tfcustomer.lhint.caption
 msgctxt "TFCUSTOMER.LHINT.CAPTION"
@@ -913,52 +904,49 @@ msgstr ""
 
 # uintfstrconsts:strland
 #: tfcustomer.lland.caption
-#, fuzzy
 msgctxt "TFCUSTOMER.LLAND.CAPTION"
 msgid "Land"
-msgstr "Land"
+msgstr "Country"
 
 #: tfcustomer.llanguage.caption
 msgctxt "TFCUSTOMER.LLANGUAGE.CAPTION"
 msgid "Sprache"
-msgstr ""
+msgstr "Language"
 
 #: tfcustomer.lmatchcode.caption
 msgctxt "TFCUSTOMER.LMATCHCODE.CAPTION"
 msgid "Suchbegriff"
-msgstr ""
+msgstr "Matchcode"
 
 # uintfstrconsts:strnameorfirm
 #: tfcustomer.lname.caption
-#, fuzzy
 msgid "Name / Firma"
 msgstr "Name/Firm"
 
 #: tfcustomer.lpaymenttarget.caption
 msgctxt "TFCUSTOMER.LPAYMENTTARGET.CAPTION"
 msgid "Zahlungsziel"
-msgstr ""
+msgstr "payment target"
 
 #: tfcustomer.lpostalcode.caption
 msgctxt "TFCUSTOMER.LPOSTALCODE.CAPTION"
 msgid "Postleitzahl"
-msgstr ""
+msgstr "Zip"
 
 # uintfstrconsts:strstatus
 #: tfcustomer.lstate.caption
-#, fuzzy
 msgctxt "TFCUSTOMER.LSTATE.CAPTION"
 msgid "Status"
 msgstr "Status"
 
 #: tfcustomer.lstreet.caption
 msgid "Straße"
-msgstr ""
+msgstr "Street"
 
 #: tfcustomer.ltitle.caption
 msgctxt "TFCUSTOMER.LTITLE.CAPTION"
 msgid "Anrede"
-msgstr ""
+msgstr "Title"
 
 #: tfcustomer.menuitem1.caption
 msgctxt "TFCUSTOMER.MENUITEM1.CAPTION"
@@ -977,21 +965,19 @@ msgstr ""
 
 # uintfstrconsts:strexport
 #: tfcustomer.miexport.caption
-#, fuzzy
 msgctxt "TFCUSTOMER.MIEXPORT.CAPTION"
 msgid "Exportieren"
 msgstr "Export"
 
 # uintfstrconsts:strimport
 #: tfcustomer.miimport.caption
-#, fuzzy
 msgctxt "TFCUSTOMER.MIIMPORT.CAPTION"
 msgid "Importieren"
 msgstr "Import"
 
 #: tfcustomer.minfo.hint
 msgid "Notizen zum Kontakt"
-msgstr ""
+msgstr "Notice to contact"
 
 #: tfcustomer.panel3.caption
 msgid "Panel3"
@@ -999,12 +985,12 @@ msgstr ""
 
 #: tfcustomer.pimage.caption
 msgid "kein Bild verfügbar"
-msgstr ""
+msgstr "no Image avalible"
 
 #: tfcustomer.ppreviewimage.caption
 msgctxt "TFCUSTOMER.PPREVIEWIMAGE.CAPTION"
 msgid "kein Bild"
-msgstr ""
+msgstr "no Image"
 
 #: tfcustomer.sbaddimage.hint
 msgctxt "TFCUSTOMER.SBADDIMAGE.HINT"
@@ -1028,7 +1014,6 @@ msgstr ""
 
 # uintfstrconsts:stradress
 #: tfcustomer.tsadress.caption
-#, fuzzy
 msgctxt "TFCUSTOMER.TSADRESS.CAPTION"
 msgid "Adresse"
 msgstr "Adress"
@@ -1040,10 +1025,9 @@ msgstr ""
 
 # uintfstrconsts:strdocuments
 #: tfcustomer.tsdocuments.caption
-#, fuzzy
 msgctxt "TFCUSTOMER.TSDOCUMENTS.CAPTION"
 msgid "Dokumente"
-msgstr "Document"
+msgstr "Documents"
 
 #: tfcustomer.tsemployees.caption
 msgctxt "TFCUSTOMER.TSEMPLOYEES.CAPTION"
@@ -1057,7 +1041,6 @@ msgstr ""
 
 # uintfstrconsts:strhistory
 #: tfcustomer.tshistory.caption
-#, fuzzy
 msgctxt "TFCUSTOMER.TSHISTORY.CAPTION"
 msgid "Historie"
 msgstr "History"
@@ -1069,7 +1052,6 @@ msgstr ""
 
 # uintfstrconsts:strnotice
 #: tfcustomer.tsinfo.caption
-#, fuzzy
 msgctxt "TFCUSTOMER.TSINFO.CAPTION"
 msgid "Notizen"
 msgstr "Notice"
@@ -1095,10 +1077,9 @@ msgstr ""
 
 # uintfstrconsts:strdateformat
 #: tfdataimport.fdataimport.caption
-#, fuzzy
 msgctxt "TFDATAIMPORT.FDATAIMPORT.CAPTION"
 msgid "Datenimport"
-msgstr "Dateformat"
+msgstr "Dataimport"
 
 #: tfdataimport.label1.caption
 msgctxt "TFDATAIMPORT.LABEL1.CAPTION"
@@ -1107,9 +1088,8 @@ msgstr ""
 
 # uintfstrconsts:strdateformat
 #: tfdataimport.label2.caption
-#, fuzzy
 msgid "Datenformat"
-msgstr "Dateformat"
+msgstr "Dataformat"
 
 #: tfdataimport.linfo.caption
 msgctxt "TFDATAIMPORT.LINFO.CAPTION"
@@ -1122,16 +1102,14 @@ msgstr ""
 
 # uintfstrconsts:strcontact
 #: tfdatainput.bdelete.caption
-#, fuzzy
 msgid "entfernen"
-msgstr "Internet"
+msgstr "remove"
 
 #: tfdatainput.binsertcommand.caption
 msgid "Befehl einfügen"
 msgstr ""
 
 #: tfdatainput.fdatainput.caption
-#, fuzzy
 msgid "Importformat Konfiguration"
 msgstr "Import Configuration"
 
@@ -1145,15 +1123,13 @@ msgstr ""
 
 # uintfstrconsts:strregistered
 #: tfdatainput.label3.caption
-#, fuzzy
 msgid "Fester Wert"
-msgstr "Register key"
+msgstr "Fixed value"
 
 # uintfstrconsts:strdesign
 #: tfdesigner.fdesigner.caption
-#, fuzzy
 msgid "fDesigner"
-msgstr "Design"
+msgstr ""
 
 #: tfdesigner.gbcomponents.caption
 msgid "gbComponents"
@@ -1161,9 +1137,8 @@ msgstr ""
 
 # uintfstrconsts:strproperties
 #: tfdesigner.gbproperties.caption
-#, fuzzy
 msgid "gbProperties"
-msgstr "Properties"
+msgstr ""
 
 #: tfdisposition.bcheck.caption
 msgid "Prüfen"
@@ -1171,7 +1146,6 @@ msgstr ""
 
 # uintfstrconsts:strposition
 #: tfdisposition.fdisposition.caption
-#, fuzzy
 msgctxt "TFDISPOSITION.FDISPOSITION.CAPTION"
 msgid "Disposition"
 msgstr "Disposition"
@@ -1183,9 +1157,8 @@ msgstr ""
 
 # uintfstrconsts:strproperties
 #: tfdocproperties.caption
-#, fuzzy
 msgid "fDocProperties"
-msgstr "Properties"
+msgstr ""
 
 #: tfdocproperties.ldate.caption
 msgctxt "TFDOCPROPERTIES.LDATE.CAPTION"
@@ -1194,22 +1167,19 @@ msgstr ""
 
 # uintfstrconsts:strvalue
 #: tfdocproperties.ldatevalue.caption
-#, fuzzy
 msgid "lDateValue"
-msgstr "Value"
+msgstr ""
 
 # uintfstrconsts:struser
 #: tfdocproperties.lfilename.caption
-#, fuzzy
 msgctxt "TFDOCPROPERTIES.LFILENAME.CAPTION"
 msgid "Dateiname"
-msgstr "Rename"
+msgstr "Filename"
 
 # uintfstrconsts:struser
 #: tfdocproperties.lfilenamevalue.caption
-#, fuzzy
 msgid "lFilenameValue"
-msgstr "Filename"
+msgstr ""
 
 #: tfdocproperties.llastchanged.caption
 msgid "Zuletzt geändert"
@@ -1217,13 +1187,11 @@ msgstr ""
 
 # uintfstrconsts:strchange
 #: tfdocproperties.llastchangedvalue.caption
-#, fuzzy
 msgid "lLastChangedValue"
-msgstr "Last changed"
+msgstr ""
 
 # uintfstrconsts:strmaximize
 #: tfdocproperties.lmimetype.caption
-#, fuzzy
 msgid "Mime Typ"
 msgstr "Mime Type"
 
