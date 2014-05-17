@@ -54,6 +54,7 @@
         <Filename Value="wizardmandant.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="wizardmandant"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -175,7 +176,6 @@
       <Unit13>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1319"/>

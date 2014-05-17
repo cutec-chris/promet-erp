@@ -16,7 +16,7 @@
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
     <i18n>
-      <EnableI18N Value="True" LFM="False"/>
+      <EnableI18N Value="True"/>
       <OutDir Value="../../languages"/>
     </i18n>
     <VersionInfo>
@@ -308,6 +308,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="3205"/>
         <CursorPos X="54" Y="3229"/>
@@ -322,10 +323,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPersonFrame"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="796"/>
         <CursorPos X="10" Y="799"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="uaddressframe.pas"/>
@@ -717,7 +721,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="uBaseVisualControls"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>

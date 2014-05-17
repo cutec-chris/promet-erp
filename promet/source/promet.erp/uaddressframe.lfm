@@ -5,8 +5,8 @@ inherited fAddressFrame: TfAddressFrame
   Width = 699
   ClientHeight = 385
   ClientWidth = 699
-  DesignLeft = 398
-  DesignTop = 275
+  DesignLeft = 389
+  DesignTop = 260
   object pAddress: TGroupBox[0]
     Left = 44
     Height = 260
