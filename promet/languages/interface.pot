@@ -1,0 +1,764 @@
+#: uintfstrconsts:strsearchfromorder
+msgid "Mit \303\226ffnen wird der gew\303\244hlte Eintrag in den Auftrag \303\274bernommen"
+msgstr ""
+
+#: uintfstrconsts:strcombiteitems
+msgid "Sollen die Elemente \"%s\" und \"%s\" wirklich verschmolzen werden ?"
+msgstr ""
+
+#: uintfstrconsts:strclipboard
+msgid "Zwischenablage"
+msgstr ""
+
+#: uintfstrconsts:strcategorychanged
+msgid "Kategorie ge\303\244ndetr auf %s"
+msgstr ""
+
+#: uintfstrconsts:strduedatechanged
+msgid "Zieldatum ge\303\244ndert zu %s"
+msgstr ""
+
+#: uintfstrconsts:strcantaccessfile
+msgid ""
+"Auf die Datei \"%s\" kann nicht zugegriffen werden,\n"
+"kopieren Sie diese Datei ggf erst auf Ihren Computer oder mounten Sie die Quelle"
+msgstr ""
+
+#: uintfstrconsts:strtimetools
+msgid "Zeiterfassung"
+msgstr ""
+
+#: uintfstrconsts:strcosts
+msgid "Kosten"
+msgstr ""
+
+#: uintfstrconsts:strtargetcosts
+msgid "Zielkosten"
+msgstr ""
+
+#: uintfstrconsts:strfullpercent
+msgid "Auslastung:%d%%"
+msgstr ""
+
+#: uintfstrconsts:strganttview
+msgid "Gantt Ansicht"
+msgstr ""
+
+#: uintfstrconsts:strtaskplan
+msgid "Aufgabenplan"
+msgstr ""
+
+#: uintfstrconsts:strattplan
+msgid "Anwesenheitsplan"
+msgstr ""
+
+#: uintfstrconsts:strdate
+msgid "Datum"
+msgstr ""
+
+#: uintfstrconsts:strworker
+msgid "Bearbeiter"
+msgstr ""
+
+#: uintfstrconsts:strresponsable
+msgid "Verantwortlicher"
+msgstr ""
+
+#: uintfstrconsts:strmeetinglist
+msgid "Besprechungsliste"
+msgstr ""
+
+#: uintfstrconsts:strmeetings
+msgid "Besprechungen"
+msgstr ""
+
+#: uintfstrconsts:strkeywords
+msgid "Suchbegriffe"
+msgstr ""
+
+#: uintfstrconsts:strproperties
+msgid "Eigenschaften"
+msgstr ""
+
+#: uintfstrconsts:strtexts
+msgid "Texte"
+msgstr ""
+
+#: uintfstrconsts:strrepairparts
+msgid "Reparaturteile"
+msgstr ""
+
+#: uintfstrconsts:strrepairassembly
+msgid "Baugruppen"
+msgstr ""
+
+#: uintfstrconsts:strprices
+msgid "Preise"
+msgstr ""
+
+#: uintfstrconsts:strsupplier
+msgid "Lieferanten"
+msgstr ""
+
+#: uintfstrconsts:strstorage
+msgid "Lager"
+msgstr ""
+
+#: uintfstrconsts:strpaygroups
+msgid "Zahlungsgruppen"
+msgstr ""
+
+#: uintfstrconsts:strmandantdetails
+msgid "Mandantendetails"
+msgstr ""
+
+#: uintfstrconsts:strpermissions
+msgid "Zugriffsrechte"
+msgstr ""
+
+#: uintfstrconsts:struserrights
+msgid "Benutzerrechte"
+msgstr ""
+
+#: uintfstrconsts:strtree
+msgid "Baum"
+msgstr ""
+
+#: uintfstrconsts:strreports
+msgid "Belege"
+msgstr ""
+
+#: uintfstrconsts:strnumbersets
+msgid "Nummernkreise"
+msgstr ""
+
+#: uintfstrconsts:strinventory
+msgid "Inventuren"
+msgstr ""
+
+#: uintfstrconsts:strinventorypos
+msgid "Inventurpositionen"
+msgstr ""
+
+#: uintfstrconsts:strtexttypes
+msgid "Texttypen"
+msgstr ""
+
+#: uintfstrconsts:strrepairproblems
+msgid "Reparaturprobleme"
+msgstr ""
+
+#: uintfstrconsts:strdispatchtyoes
+msgid "Versandarten"
+msgstr ""
+
+#: uintfstrconsts:strpositioncalc
+msgid "Positionskalkulation"
+msgstr ""
+
+#: uintfstrconsts:strpricetypes
+msgid "Preistypen"
+msgstr ""
+
+#: uintfstrconsts:strpositiontype
+msgid "Positionstypen"
+msgstr ""
+
+#: uintfstrconsts:strpaymenttargets
+msgid "Zahlungsziele"
+msgstr ""
+
+#: uintfstrconsts:strcurrency
+msgid "W\303\244hrung"
+msgstr ""
+
+#: uintfstrconsts:strlanguages
+msgid "Sprachen"
+msgstr ""
+
+#: uintfstrconsts:strstandard
+msgid "Standard"
+msgstr ""
+
+#: uintfstrconsts:strobject
+msgid "Objekt"
+msgstr ""
+
+#: uintfstrconsts:strrefobject
+msgid "Referenzobjekt"
+msgstr ""
+
+#: uintfstrconsts:strstatistics
+msgid "Statistiken"
+msgstr ""
+
+#: uintfstrconsts:stroverview
+msgid "\303\234bersicht"
+msgstr ""
+
+#: uintfstrconsts:strstartingnexttimeout
+msgid "Der process wird demn\303\244chst wieder gestartet"
+msgstr ""
+
+#: uintfstrconsts:strstartingprocesstimeout
+msgid "Timeout \303\274berschritten"
+msgstr ""
+
+#: uintfstrconsts:strstartingprocess
+msgid "Der process wird (neu) gestartet"
+msgstr ""
+
+#: uintfstrconsts:strexitted
+msgid "quitted"
+msgstr ""
+
+#: uintfstrconsts:strrevision
+msgid "Revision"
+msgstr ""
+
+#: uintfstrconsts:strfavourites
+msgid "Favoriten"
+msgstr ""
+
+#: uintfstrconsts:strpositions
+msgid "Positionen"
+msgstr ""
+
+#: uintfstrconsts:strattatchments
+msgid "Anh\303\244nge"
+msgstr ""
+
+#: uintfstrconsts:strsync
+msgid "Synchronisation"
+msgstr ""
+
+#: uintfstrconsts:strprocesses
+msgid "Prozesse"
+msgstr ""
+
+#: uintfstrconsts:strmandant
+msgid "Mandant"
+msgstr ""
+
+#: uintfstrconsts:strenteranfiltername
+msgid "geben Sie einen Namen f\303\274r den neuen Filter an"
+msgstr ""
+
+#: uintfstrconsts:strnorightstosavecomplexfilers
+msgid "Sie haben nicht die erforderliche Berechtigungstufe um komplexe Filter zu speichern !"
+msgstr ""
+
+#: uintfstrconsts:strfilternotfound
+msgid "Der Filter \"%s\" wurde nicht gefunden !"
+msgstr ""
+
+#: uintfstrconsts:strnoselectfilter
+msgid "<kein Filter>"
+msgstr ""
+
+#: uintfstrconsts:strnewlist
+msgid "Neue Liste"
+msgstr ""
+
+#: uintfstrconsts:strlists
+msgid "Listen"
+msgstr ""
+
+#: uintfstrconsts:strcreatedby
+msgid "erstellt von"
+msgstr ""
+
+#: uintfstrconsts:strdue
+msgid "Bis"
+msgstr ""
+
+#: uintfstrconsts:strstart
+msgid "Start"
+msgstr ""
+
+#: uintfstrconsts:strsummary
+msgid "Zusammenfassung"
+msgstr ""
+
+#: uintfstrconsts:strstatuschanged
+msgid "Status ge\303\244ndert von %s zu %s"
+msgstr ""
+
+#: uintfstrconsts:strnumberchanged
+msgid "Nummer ge\303\244ndert zu %s"
+msgstr ""
+
+#: uintfstrconsts:strfiles
+msgid "Dateien"
+msgstr ""
+
+#: uintfstrconsts:strdocuments
+msgid "Dokumente/Bilder"
+msgstr ""
+
+#: uintfstrconsts:strdocumentsonly
+msgid "Dokumente"
+msgstr ""
+
+#: uintfstrconsts:strfailedtoloadmandants
+msgid "Mandanten konnten nicht gelanden werden !"
+msgstr ""
+
+#: uintfstrconsts:strmandantnotselected
+msgid "kein Mandant gew\303\244hlt (--mandant) !"
+msgstr ""
+
+#: uintfstrconsts:strdestinationnotselected
+msgid "kein Zielmandant gew\303\244hlt (--destination) !"
+msgstr ""
+
+#: uintfstrconsts:strloginfailed
+msgid "Login fehlgeschlagen"
+msgstr ""
+
+#: uintfstrconsts:strprojectlist
+msgid "Projektliste"
+msgstr ""
+
+#: uintfstrconsts:strsaleslist
+msgid "Zahlungsliste"
+msgstr ""
+
+#: uintfstrconsts:strvoucher
+msgid "neuer Beleg"
+msgstr ""
+
+#: uintfstrconsts:strneworder
+msgid "als "
+msgstr ""
+
+#: uintfstrconsts:strwiki
+msgid "Wiki"
+msgstr ""
+
+#: uintfstrconsts:strusers
+msgid "Benutzer"
+msgstr ""
+
+#: uintfstrconsts:strlinks
+msgid "Verweise"
+msgstr ""
+
+#: uintfstrconsts:stritem
+msgid "Eintrag"
+msgstr ""
+
+#: uintfstrconsts:strdescription
+msgid "Beschreibung"
+msgstr ""
+
+#: uintfstrconsts:strnewdir
+msgid "Neues Verzeichnis"
+msgstr ""
+
+#: uintfstrconsts:strnodirectoryselected
+msgid ""
+"Sie m\303\274ssen ein Verzeichnis ausw\303\244hlen,\n"
+"bevor Sie den Eintrag zu einem diesem zuordnen k\303\266nnen."
+msgstr ""
+
+#: uintfstrconsts:strgotofeed
+msgid "vollen Artikel anzeigen"
+msgstr ""
+
+#: uintfstrconsts:stractionmessagereceived
+msgid "%s - empfangen"
+msgstr ""
+
+#: uintfstrconsts:strmessagespampoints
+msgid "Spampunkte: "
+msgstr ""
+
+#: uintfstrconsts:strwrongpassword
+msgid "Das eingegebene Passwort stimmt nicht mit dem von Ihnen erstellten \303\274berein"
+msgstr ""
+
+#: uintfstrconsts:strcustomers
+msgid "Kontakte"
+msgstr ""
+
+#: uintfstrconsts:stradresses
+msgid "Adressen"
+msgstr ""
+
+#: uintfstrconsts:strmasterdata
+msgid "Artikel"
+msgstr ""
+
+#: uintfstrconsts:strcustomercont
+msgid "Kontaktdaten"
+msgstr ""
+
+#: uintfstrconsts:strtimelist
+msgid "Time List"
+msgstr ""
+
+#: uintfstrconsts:strorders
+msgid "Auftr\303\244ge"
+msgstr ""
+
+#: uintfstrconsts:strtasks
+msgid "Aufgaben"
+msgstr ""
+
+#: uintfstrconsts:strrecord
+msgid "Datensatz"
+msgstr ""
+
+#: uintfstrconsts:strsnew
+msgid "Neu"
+msgstr ""
+
+#: uintfstrconsts:strsave
+msgid "Speichern"
+msgstr ""
+
+#: uintfstrconsts:strrefresh
+msgid "Aktualisieren"
+msgstr ""
+
+#: uintfstrconsts:strrealdelete
+msgid "m\303\266chten Sie diesen Eintrag wirklich l\303\266schen ?"
+msgstr ""
+
+#: uintfstrconsts:strrename
+msgid "Umbenennen"
+msgstr ""
+
+#: uintfstrconsts:strnewname
+msgid "neuer Name"
+msgstr ""
+
+#: uintfstrconsts:strcreatingforms
+msgid "erstelle Formulare ..."
+msgstr ""
+
+#: uintfstrconsts:strclose
+msgid "Schliessen"
+msgstr ""
+
+#: uintfstrconsts:strserver
+msgid "Server"
+msgstr ""
+
+#: uintfstrconsts:strpleasewait
+msgid "Bitte warten"
+msgstr ""
+
+#: uintfstrconsts:strname
+msgid "Name"
+msgstr ""
+
+#: uintfstrconsts:stritemnotsaved
+msgid "Das Objekt ist nicht gespeichert, jetzt speichern ?"
+msgstr ""
+
+#: uintfstrconsts:strabort
+msgid "Abbrechen"
+msgstr ""
+
+#: uintfstrconsts:strthisaccountdontexists
+msgid "Dieses Konto scheint auf diesem Computer nicht eingerichtet zu sein, richten Sie es zuerst ein !"
+msgstr ""
+
+#: uintfstrconsts:straccount
+msgid "Konto"
+msgstr ""
+
+#: uintfstrconsts:strsortcode
+msgid "Bankleitzahl"
+msgstr ""
+
+#: uintfstrconsts:strtype
+msgid "Typ"
+msgstr ""
+
+#: uintfstrconsts:strcalendar
+msgid "Kalender"
+msgstr ""
+
+#: uintfstrconsts:strunknown
+msgid "Unbekannt"
+msgstr ""
+
+#: uintfstrconsts:strnewnumber
+msgid "neue Nummer"
+msgstr ""
+
+#: uintfstrconsts:strdatasetmustbeininsertmode
+msgid "Sie k\303\266nnen lediglich in neue Eintr\303\244ge Daten aus der Zwischenablage einf\303\274gen, bitte legen Sie zuvor einen neuen Eintrag an."
+msgstr ""
+
+#: uintfstrconsts:strcantgetclipboardcontents
+msgid "Konnte keine Zwischenablagedaten holen."
+msgstr ""
+
+#: uintfstrconsts:stredited
+msgid "bearbeitet"
+msgstr ""
+
+#: uintfstrconsts:strcustomerlist
+msgid "Kontaktliste"
+msgstr ""
+
+#: uintfstrconsts:strnodatafound
+msgid "kein Eintrag gefunden !"
+msgstr ""
+
+#: uintfstrconsts:strarticlelist
+msgid "Artikelliste"
+msgstr ""
+
+#: uintfstrconsts:strsearch
+msgid "Suche"
+msgstr ""
+
+#: uintfstrconsts:strserial
+msgid "Serienummer"
+msgstr ""
+
+#: uintfstrconsts:strbarcode
+msgid "Barcode"
+msgstr ""
+
+#: uintfstrconsts:strcommission
+msgid "Komission"
+msgstr ""
+
+#: uintfstrconsts:strid
+msgid "ID"
+msgstr ""
+
+#: uintfstrconsts:strshortname
+msgid "Kurztext"
+msgstr ""
+
+#: uintfstrconsts:strmessages
+msgid "Nachrichten"
+msgstr ""
+
+#: uintfstrconsts:strarchive
+msgid "Archiv"
+msgstr ""
+
+#: uintfstrconsts:strclosingpleasewait
+msgid "wird beendet..."
+msgstr ""
+
+#: uintfstrconsts:stremail
+msgid "e-Mail"
+msgstr ""
+
+#: uintfstrconsts:strexternemail
+msgid "externes e-Mail Programm"
+msgstr ""
+
+#: uintfstrconsts:strorderlist
+msgid "Auftragsliste"
+msgstr ""
+
+#: uintfstrconsts:strquantity
+msgid "Menge"
+msgstr ""
+
+#: uintfstrconsts:strorder
+msgid "Auftrag"
+msgstr ""
+
+#: uintfstrconsts:stralternativerowcolor
+msgid "Alternative Zeilenfarbe"
+msgstr ""
+
+#: uintfstrconsts:strinfocolor
+msgid "Farbe f\303\274r aktives Feld"
+msgstr ""
+
+#: uintfstrconsts:strnofilter
+msgid "*"
+msgstr ""
+
+#: uintfstrconsts:straccounts
+msgid "Konten"
+msgstr ""
+
+#: uintfstrconsts:strversion
+msgid "Version"
+msgstr ""
+
+#: uintfstrconsts:strfinish
+msgid "Fertigstellen"
+msgstr ""
+
+#: uintfstrconsts:strprev
+msgid "Zur\303\274ck"
+msgstr ""
+
+#: uintfstrconsts:strnext
+msgid "Weiter"
+msgstr ""
+
+#: uintfstrconsts:strunknowndbtype
+msgid "Unbekannter Datenbanktyp"
+msgstr ""
+
+#: uintfstrconsts:strproject
+msgid "Projekt"
+msgstr ""
+
+#: uintfstrconsts:strusernotfound
+msgid "benutzer nicht gefunden !"
+msgstr ""
+
+#: uintfstrconsts:strerrordatabasestructurenotactual
+msgid "Die Struktur Ihrer Datenbank ist nicht aktuell, bitte wenden Sie sich an Ihren Administrator order updaten Sie diese mit dem Updatedatabase Tool."
+msgstr ""
+
+#: uintfstrconsts:strnotsupported
+msgid "nicht unterst\303\274tzt ! (Interner Fehler)"
+msgstr ""
+
+#: uintfstrconsts:strdelete
+msgid "l\303\266schen"
+msgstr ""
+
+#: uintfstrconsts:strfinished
+msgid "beendet"
+msgstr ""
+
+#: uintfstrconsts:strcontact
+msgid "Kontakt"
+msgstr ""
+
+#: uintfstrconsts:strfile
+msgid "Datei"
+msgstr ""
+
+#: uintfstrconsts:strcall
+msgid "Anruf"
+msgstr ""
+
+#: uintfstrconsts:strmessage
+msgid "Nachricht"
+msgstr ""
+
+#: uintfstrconsts:strcheckingforupdate
+msgid "pr\303\274fe auf Update..."
+msgstr ""
+
+#: uintfstrconsts:strreadingoptions
+msgid "lese Optionen ..."
+msgstr ""
+
+#: uintfstrconsts:strprojects
+msgid "Projekte"
+msgstr ""
+
+#: uintfstrconsts:stredit
+msgid "bearbeiten"
+msgstr ""
+
+#: uintfstrconsts:strcanceledit
+msgid "\303\204nderungen verwerfen"
+msgstr ""
+
+#: uintfstrconsts:strwikimainpagetext
+msgid ""
+"==Willkommen zur Prometheus Wiki==<br>\n"
+"<br>\n"
+"Sie k\303\266nnen dieses Wiki als zentralen Wissenspool verstehen. Sie k\303\266nnen hier Informationen jeglicher Art strukturiert ablegen.<br>\n"
+"<br>\n"
+"Dazu stehen Ihnen interne Links [[Ihre erste Seite]] durch die Sie auch ganz einfach neue Sieten anlegen k\303\266nenn einfach indem Sie, sie anlegen und draufklicken. Externe Links, zu beliebigen Websites [http://www.ullihome.de www.ullihome.de], Aufz\303\244hlungen\n"
+"*1\n"
+"*2\n"
+"*3\n"
+"===\303\234berschriften===\n"
+"====In verschiedenen Gr\303\266\303\237en====\n"
+"und \303\244hnliche Elemente zur Verf\303\274gung."
+msgstr ""
+
+#: uintfstrconsts:strwikipage
+msgid "Wiki Seite"
+msgstr ""
+
+#: uintfstrconsts:straccountexchange
+msgid "Bankbuchungen"
+msgstr ""
+
+#: uintfstrconsts:strhistory
+msgid "Verlauf"
+msgstr ""
+
+#: uintfstrconsts:strimages
+msgid "Bilder"
+msgstr ""
+
+#: uintfstrconsts:strimage
+msgid "Bild"
+msgstr ""
+
+#: uintfstrconsts:strfinance
+msgid "Finanzen"
+msgstr ""
+
+#: uintfstrconsts:strsearchfromtimeregisteringmode
+msgid "Diese Suche wurde aus der Zeiterfassung gestartet, wenn Sie einen Eintrag \303\266ffnen, wird dieser automatisch in die Zeiterfassung \303\274bernommen."
+msgstr ""
+
+#: uintfstrconsts:strsearchfromdocumentsmode
+msgid "Diese Suche wurde aus der Dokumentenverwaltung gestartet, wenn Sie einen Eintrag \303\266ffnen, wird dieser automatisch mit dem Dokument verkn\303\274pft."
+msgstr ""
+
+#: uintfstrconsts:strsearchfromhistorymode
+msgid "Diese Suche wurde aus einem Verlauf gestartet, wenn Sie einen Eintrag \303\266ffnen, wird dieser automatisch mit dem Verlaufseintrag verkn\303\274pft."
+msgstr ""
+
+#: uintfstrconsts:strerror
+msgid "Error"
+msgstr ""
+
+#: uintfstrconsts:striadaddress
+msgid "IAD Rechnungsadresse"
+msgstr ""
+
+#: uintfstrconsts:strdadaddress
+msgid "DAD Lieferadresse"
+msgstr ""
+
+#: uintfstrconsts:strbadaddress
+msgid "BAD Gesch\303\244ftsadresse"
+msgstr ""
+
+#: uintfstrconsts:strpadaddress
+msgid "PAD Privatadresse"
+msgstr ""
+
+#: uintfstrconsts:vinfo
+msgid ""
+"www:  http://www.cu-tec.de\n"
+"mail: info@cu-tec.de\n"
+"\n"
+"Lizenz:\n"
+"Die Software und ihre Dokumentation wird wie sie ist zur\n"
+"Verfuegung gestellt. Da Fehlfunktionen auch bei ausfuehrlich\n"
+"getesteter Software durch die Vielzahl an verschiedenen\n"
+"Rechnerkonfigurationen niemals ausgeschlossen werden koennen,\n"
+"uebernimmt der Autor keinerlei Haftung fuer jedwede Folgeschaeden,\n"
+"die sich durch direkten oder indirekten Einsatz der Software\n"
+"oder der Dokumentation ergeben. Uneingeschraenkt ausgeschlossen\n"
+"ist vor allem die Haftung fuer Schaeden aus entgangenem Gewinn,\n"
+"Betriebsunterbrechung, Verlust von Informationen und Daten und\n"
+"Schaeden an anderer Software, auch wenn diese dem Autor bekannt\n"
+"sein sollten. Ausschliesslich der Benutzer haftet fuer Folgen der\n"
+"Benutzung dieser Software.\n"
+"\n"
+"erstellt mit Freepascal + Lazarus\n"
+"http://www.freepascal.org, http://lazarus.freepascal.org\n"
+"Iconset von:\n"
+"http://www.famfamfam.com/lab/icons/silk/\n"
+msgstr ""
+
