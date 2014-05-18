@@ -749,7 +749,10 @@ begin
   ade := tvProfile.Items.FindNodeWithText('Warenwirtschaft (alles)');
   if Assigned(ade) and Assigned(aDe.Items[0]) then
     tvProfile.Selected := aDe.FindNode('Deutschland');
-  eSQLDatabase.Text:=GetUserDir+'promet-erp.db';
+  if Application.HasOption('database') then
+    eSQLDatabase.Text:=Application.GetOptionValue('database')
+  else
+    eSQLDatabase.Text:=GetUserDir+'promet-erp.db';
   with Application as IBaseDBInterface do
     LoadMandants;
   //Wizard finished, use the made settings

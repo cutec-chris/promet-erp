@@ -48,6 +48,7 @@ cp ../executables/$Version/$Archfpc/messagemanager.exe $BuildDir/Promet-ERP/App/
 #cp ../executables/$Version/$Archfpc/*sender.exe $BuildDir/Promet-ERP/App/promet/tools
 #cp ../executables/$Version/$Archfpc/*receiver.exe $BuildDir/Promet-ERP/App/promet/tools
 cp ../executables/$Version/$Archfpc/helpviewer.exe $BuildDir/Promet-ERP/App/promet
+cp ../executables/$Version/$Archfpc/wizardmandant.exe $BuildDir/Promet-ERP/App/promet
 #cp ../executables/$Version/$Archfpc/sync_*.exe $BuildDir/Promet-ERP/App/promet/tools
 cp ../i386-win32/sqlite3.dll $BuildDir/Promet-ERP/App/promet
 cp ../i386-win32/sqlite3.dll $BuildDir/Promet-ERP/App/promet/tools
@@ -77,4 +78,4 @@ cd $BuildDir
 rm $FULL_NAME/../output/promet-erp-$(echo $Version).i386-win32-portable.zip
 zip -9 -r $FULL_NAME/../output/promet-erp-$(echo $Version).i386-win32-portable.zip Promet-ERP
 echo "cleaning up..."
-sudo -S rm -r $BuildDir
+#sudo -S rm -r $BuildDir

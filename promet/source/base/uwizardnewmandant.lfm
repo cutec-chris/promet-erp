@@ -153,7 +153,7 @@ object fWizardNewMandant: TfWizardNewMandant
       end
       object Label2: TLabel
         Left = 0
-        Height = 141
+        Height = 117
         Top = 0
         Width = 396
         Align = alTop
@@ -196,7 +196,7 @@ object fWizardNewMandant: TfWizardNewMandant
     TabOrder = 6
     object lDescription0: TLabel
       Left = 4
-      Height = 77
+      Height = 65
       Top = 4
       Width = 414
       Align = alTop
@@ -213,7 +213,7 @@ object fWizardNewMandant: TfWizardNewMandant
       AnchorSideTop.Side = asrBottom
       Left = 8
       Height = 13
-      Top = 131
+      Top = 119
       Width = 94
       BorderSpacing.Top = 10
       Caption = 'Mandantenname'
@@ -224,7 +224,7 @@ object fWizardNewMandant: TfWizardNewMandant
       AnchorSideTop.Side = asrBottom
       Left = 8
       Height = 13
-      Top = 94
+      Top = 82
       Width = 46
       BorderSpacing.Top = 13
       Caption = 'Sprache'
@@ -285,7 +285,7 @@ object fWizardNewMandant: TfWizardNewMandant
       AnchorSideTop.Side = asrBottom
       Left = 144
       Height = 27
-      Top = 94
+      Top = 82
       Width = 263
       BorderSpacing.Top = 13
       ItemHeight = 0
@@ -304,7 +304,7 @@ object fWizardNewMandant: TfWizardNewMandant
       Left = 4
       Height = 24
       Hint = 'Benutzen Sie diese Einstellung, wenn sie eine neue Datenbank anlegen möchten'#10'Im folgenden Dialog können Sie ein Profil mit Standardeinstellungen für diese'#10'Datenbank wählen'
-      Top = 160
+      Top = 148
       Width = 263
       BorderSpacing.Top = 66
       Caption = 'Neue Datenbank (mit Einstellungen füllen)'
@@ -318,7 +318,7 @@ object fWizardNewMandant: TfWizardNewMandant
       Left = 4
       Height = 24
       Hint = 'wählen Sie diese Einstellung, wenn Sie eine Datenbankverknüpfung'#10'zu einer schon existierenden Datenbank anlegen möchten,'#10'z.b. wenn Sie einen weiteren Client-PC einrichten möchten.'
-      Top = 191
+      Top = 179
       Width = 328
       BorderSpacing.Top = 7
       Caption = 'exitierende Datenbank (keine Einstellungen einfügen)'
@@ -329,7 +329,7 @@ object fWizardNewMandant: TfWizardNewMandant
       AnchorSideTop.Side = asrBottom
       Left = 144
       Height = 27
-      Top = 129
+      Top = 117
       Width = 264
       Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Top = 8
@@ -343,7 +343,7 @@ object fWizardNewMandant: TfWizardNewMandant
       Left = 4
       Height = 24
       Hint = 'Mit deiser Einstellung können Sie eine Datenbankverknüpfung löschen'#10'(löscht nicht die Datenbank !!)'
-      Top = 256
+      Top = 244
       Width = 204
       BorderSpacing.Top = 72
       Caption = 'Datenbankverknüpfung löschen'
@@ -355,7 +355,7 @@ object fWizardNewMandant: TfWizardNewMandant
       Left = 4
       Height = 24
       Hint = 'Mit dieser Einstellung können Sie die Datenbankeinstellungen aus einer Datei (.perml) laden.'#10'Sie finden diese Dateien nach einer Einrichrung mit diesem Assistenten'#10'unter Windows in'#10'Benuterprofil\Lokale Einstellungen\Anwendungsdaten\prometerp\*.perml'#10'Unter Unix in'#10'Benuterprofil\.prometerp\*.perml'
-      Top = 225
+      Top = 213
       Width = 132
       BorderSpacing.Top = 34
       Caption = 'aus Datei erstellen'
@@ -365,7 +365,7 @@ object fWizardNewMandant: TfWizardNewMandant
       AnchorSideTop.Control = rbFromFile
       Left = 168
       Height = 23
-      Top = 225
+      Top = 213
       Width = 216
       OnAcceptFileName = DirectoryEdit1AcceptFileName
       Filter = 'Promet-ERP Mandant File|*.perml'
@@ -680,7 +680,7 @@ object fWizardNewMandant: TfWizardNewMandant
     TabOrder = 3
     object lDescription4: TLabel
       Left = 0
-      Height = 45
+      Height = 39
       Top = 0
       Width = 422
       Align = alTop

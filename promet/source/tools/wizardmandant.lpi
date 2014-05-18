@@ -54,7 +54,6 @@
         <Filename Value="wizardmandant.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="wizardmandant"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -79,10 +78,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uWizardNewMandant"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="462"/>
-        <CursorPos X="16" Y="473"/>
+        <TopLine Value="723"/>
+        <CursorPos X="3" Y="755"/>
         <UsageCount Value="141"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -1097,124 +1097,124 @@
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
-        <Caret Line="100" Column="1" TopLine="83"/>
+        <Filename Value="../base/uwizardnewmandant.pas"/>
+        <Caret Line="160" Column="24" TopLine="132"/>
       </Position1>
       <Position2>
-        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
-        <Caret Line="102" Column="1" TopLine="83"/>
+        <Filename Value="../base/uwizardnewmandant.pas"/>
+        <Caret Line="472" Column="27" TopLine="444"/>
       </Position2>
       <Position3>
-        <Filename Value="../base/dbintfs/uimpcsv.pas"/>
-        <Caret Line="157" Column="31" TopLine="131"/>
+        <Filename Value="../base/uwizardnewmandant.pas"/>
+        <Caret Line="672" Column="74" TopLine="646"/>
       </Position3>
       <Position4>
         <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="5" Column="75" TopLine="1"/>
+        <Caret Line="671" Column="74" TopLine="645"/>
       </Position4>
       <Position5>
         <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="26" Column="58" TopLine="1"/>
+        <Caret Line="670" Column="74" TopLine="644"/>
       </Position5>
       <Position6>
         <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="55" Column="1" TopLine="27"/>
+        <Caret Line="669" Column="74" TopLine="643"/>
       </Position6>
       <Position7>
         <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="160" Column="24" TopLine="132"/>
+        <Caret Line="668" Column="74" TopLine="642"/>
       </Position7>
       <Position8>
         <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="472" Column="27" TopLine="444"/>
+        <Caret Line="667" Column="74" TopLine="641"/>
       </Position8>
       <Position9>
         <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="672" Column="74" TopLine="646"/>
+        <Caret Line="666" Column="74" TopLine="640"/>
       </Position9>
       <Position10>
         <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="671" Column="74" TopLine="645"/>
+        <Caret Line="665" Column="74" TopLine="639"/>
       </Position10>
       <Position11>
         <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="670" Column="74" TopLine="644"/>
+        <Caret Line="664" Column="74" TopLine="638"/>
       </Position11>
       <Position12>
         <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="669" Column="74" TopLine="643"/>
+        <Caret Line="663" Column="74" TopLine="637"/>
       </Position12>
       <Position13>
         <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="668" Column="74" TopLine="642"/>
+        <Caret Line="662" Column="74" TopLine="636"/>
       </Position13>
       <Position14>
         <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="667" Column="74" TopLine="641"/>
+        <Caret Line="661" Column="74" TopLine="635"/>
       </Position14>
       <Position15>
         <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="666" Column="74" TopLine="640"/>
+        <Caret Line="660" Column="74" TopLine="634"/>
       </Position15>
       <Position16>
         <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="665" Column="74" TopLine="639"/>
+        <Caret Line="659" Column="74" TopLine="633"/>
       </Position16>
       <Position17>
         <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="664" Column="74" TopLine="638"/>
+        <Caret Line="658" Column="74" TopLine="632"/>
       </Position17>
       <Position18>
         <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="663" Column="74" TopLine="637"/>
+        <Caret Line="657" Column="74" TopLine="631"/>
       </Position18>
       <Position19>
         <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="662" Column="74" TopLine="636"/>
+        <Caret Line="656" Column="74" TopLine="630"/>
       </Position19>
       <Position20>
         <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="661" Column="74" TopLine="635"/>
+        <Caret Line="588" Column="24" TopLine="571"/>
       </Position20>
       <Position21>
         <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="660" Column="74" TopLine="634"/>
+        <Caret Line="473" Column="16" TopLine="462"/>
       </Position21>
       <Position22>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="659" Column="74" TopLine="633"/>
+        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
+        <Caret Line="117" Column="15" TopLine="100"/>
       </Position22>
       <Position23>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="658" Column="74" TopLine="632"/>
+        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
+        <Caret Line="1336" Column="61" TopLine="1317"/>
       </Position23>
       <Position24>
-        <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="657" Column="74" TopLine="631"/>
+        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
+        <Caret Line="1334" Column="61" TopLine="1318"/>
       </Position24>
       <Position25>
         <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="656" Column="74" TopLine="630"/>
+        <Caret Line="9" Column="80" TopLine="1"/>
       </Position25>
       <Position26>
         <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="588" Column="24" TopLine="571"/>
+        <Caret Line="60" Column="11" TopLine="31"/>
       </Position26>
       <Position27>
         <Filename Value="../base/uwizardnewmandant.pas"/>
-        <Caret Line="473" Column="16" TopLine="462"/>
+        <Caret Line="204" Column="88" TopLine="175"/>
       </Position27>
       <Position28>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="117" Column="15" TopLine="100"/>
+        <Filename Value="../base/uwizardnewmandant.pas"/>
+        <Caret Line="251" Column="9" TopLine="222"/>
       </Position28>
       <Position29>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="1336" Column="61" TopLine="1317"/>
+        <Filename Value="../base/uwizardnewmandant.pas"/>
+        <Caret Line="284" Column="21" TopLine="255"/>
       </Position29>
       <Position30>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="1334" Column="61" TopLine="1318"/>
+        <Filename Value="../base/uwizardnewmandant.pas"/>
+        <Caret Line="460" Column="79" TopLine="432"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
