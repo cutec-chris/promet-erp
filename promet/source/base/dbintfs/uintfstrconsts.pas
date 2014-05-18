@@ -90,7 +90,6 @@ resourcestring
   strNoRightsToSaveComplexFilers= 'Sie haben nicht die erforderliche Berechtigungstufe um komplexe Filter zu speichern !';
   strFilterNotFound             = 'Der Filter "%s" wurde nicht gefunden !';
   strNoSelectFilter             = '<kein Filter>';
-  strInventorys                 = 'Inventuren';
   strNewList                    = 'Neue Liste';
   strLists                      = 'Listen';
   strCreatedby                  = 'erstellt von';

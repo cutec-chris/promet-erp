@@ -2070,7 +2070,7 @@ begin
     etFavourites:Celltext := strFavourites;
 //    etStorage:CellText := strStorage;
 //    etStorageJournal: CellText := fStorageJournal.Caption;
-    etInventory:CellText := strInventorys;
+    etInventory:CellText := strInventory;
 //    etWebshop:Celltext := fWebshop.Caption;
 //    etDisposition:Celltext := fDisposition.Caption;
     etAction:CellText := 'ACTION';

@@ -518,7 +518,7 @@ procedure TfMain.AddInventoryList(Sender: TObject);
 begin
   with Sender as TfFilter do
     begin
-      TabCaption := strInventorys;
+      TabCaption := strInventory;
       FilterType:='INV';
       DefaultRows:='GLOBALWIDTH:%;INVNO:40;DESC:100;DATE:70;CREATEDBY:30;';
       Dataset := TInventorys.Create(nil,Data);

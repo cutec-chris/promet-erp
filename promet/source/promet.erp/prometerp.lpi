@@ -291,7 +291,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="43">
+    <Units Count="45">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -310,8 +310,8 @@
         <UnitName Value="uMain"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="3349"/>
-        <CursorPos X="20" Y="3377"/>
+        <TopLine Value="503"/>
+        <CursorPos X="33" Y="521"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -407,7 +407,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uArticleStorageFrame"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="16"/>
         <CursorPos X="1" Y="1"/>
@@ -434,7 +434,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uArticleFrame"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="670"/>
         <CursorPos X="8" Y="688"/>
@@ -794,26 +794,46 @@
       <Unit41>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="2"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="239"/>
-        <CursorPos X="1" Y="250"/>
+        <TopLine Value="686"/>
+        <CursorPos X="17" Y="703"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit41>
       <Unit42>
         <Filename Value="../../../general/src/Utils.pas"/>
         <UnitName Value="Utils"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="181"/>
         <CursorPos X="40" Y="190"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit42>
+      <Unit43>
+        <Filename Value="../base/dbintfs/uintfstrconsts.pas"/>
+        <UnitName Value="uIntfStrConsts"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="46"/>
+        <CursorPos X="1" Y="93"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit43>
+      <Unit44>
+        <Filename Value="../base/base_frames/umaintreeframe.pas"/>
+        <UnitName Value="uMainTreeFrame"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2048"/>
+        <CursorPos X="41" Y="2073"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit44>
     </Units>
-    <JumpHistory Count="9" HistoryIndex="8">
+    <JumpHistory Count="17" HistoryIndex="16">
       <Position1>
         <Filename Value="umain.pas"/>
         <Caret Line="3377" Column="20" TopLine="3349"/>
@@ -835,21 +855,53 @@
         <Caret Line="688" Column="22" TopLine="671"/>
       </Position5>
       <Position6>
-        <Filename Value="uarticlestorageframe.pas"/>
-        <Caret Line="1" Column="1" TopLine="16"/>
+        <Filename Value="../../../general/src/Utils.pas"/>
+        <Caret Line="184" Column="1" TopLine="166"/>
       </Position6>
       <Position7>
         <Filename Value="../../../general/src/Utils.pas"/>
-        <Caret Line="184" Column="1" TopLine="166"/>
+        <Caret Line="210" Column="1" TopLine="193"/>
       </Position7>
       <Position8>
-        <Filename Value="../../../general/src/Utils.pas"/>
-        <Caret Line="210" Column="1" TopLine="193"/>
-      </Position8>
-      <Position9>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <Caret Line="250" Column="1" TopLine="239"/>
+      </Position8>
+      <Position9>
+        <Filename Value="umain.pas"/>
+        <Caret Line="3365" Column="22" TopLine="3349"/>
       </Position9>
+      <Position10>
+        <Filename Value="umain.pas"/>
+        <Caret Line="326" Column="33" TopLine="308"/>
+      </Position10>
+      <Position11>
+        <Filename Value="../base/dbintfs/uintfstrconsts.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position11>
+      <Position12>
+        <Filename Value="../base/dbintfs/uintfstrconsts.pas"/>
+        <Caret Line="9" Column="64" TopLine="1"/>
+      </Position12>
+      <Position13>
+        <Filename Value="../base/dbintfs/uintfstrconsts.pas"/>
+        <Caret Line="62" Column="46" TopLine="33"/>
+      </Position13>
+      <Position14>
+        <Filename Value="../base/base_frames/umaintreeframe.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position14>
+      <Position15>
+        <Filename Value="umain.pas"/>
+        <Caret Line="326" Column="33" TopLine="308"/>
+      </Position15>
+      <Position16>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <Caret Line="31" Column="54" TopLine="19"/>
+      </Position16>
+      <Position17>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <Caret Line="711" Column="1" TopLine="696"/>
+      </Position17>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -889,7 +941,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="3">
+    <BreakPoints Count="2">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
@@ -904,13 +956,6 @@
         <Source Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
         <Line Value="6282"/>
       </Item2>
-      <Item3>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="../base/ubasevisualapplication.pas"/>
-        <Line Value="250"/>
-      </Item3>
     </BreakPoints>
     <Watches Count="1">
       <Item1>

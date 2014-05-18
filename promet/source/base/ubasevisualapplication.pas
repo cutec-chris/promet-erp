@@ -694,16 +694,31 @@ procedure TBaseVisualApplication.SetAppVersion(AValue: real);
 begin
   FAppVersion:=AValue;
 end;
-
 procedure TBaseVisualApplication.LoadLanguageMenu(amiLanguage: TMenuItem);
 var
   aNewItem: TMenuItem;
   sl: TStringList;
   i: Integer;
+  Lang : string;
 begin
   miLanguage := amiLanguage;
+
   if GetLanguage = '' then
-    SetLanguage('Deutsch');
+    begin
+      for i := 1 to Paramcount - 1 do
+        if (ParamStrUTF8(i) = '--LANG') or (ParamStrUTF8(i) = '-l') or
+          (ParamStrUTF8(i) = '--lang') then
+          Lang := ParamStrUTF8(i + 1);
+
+      //Win32 user may decide to override locale with LANG variable.
+      if Lang = '' then
+        Lang := GetEnvironmentVariableUTF8('LANG');
+
+      if lowercase(copy(Lang,0,2)) = 'de' then
+        SetLanguage('Deutsch')
+      else
+        SetLanguage('English');
+    end;
   LoadLanguage(GetLanguage);
   miLanguage.Clear;
   sl := TStringList.Create;
@@ -1046,4 +1061,4 @@ initialization
   RegisterClass(TDBComboBox);
   RegisterClass(TPanel);
 end.
-
+
