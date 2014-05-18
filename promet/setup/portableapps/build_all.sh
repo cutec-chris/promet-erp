@@ -75,6 +75,6 @@ Version=$(echo $Version | sed 's/\n//g');
 cp $BuildDir/*.paf.exe ../output
 cd $BuildDir
 rm $FULL_NAME/../output/promet-erp-$(echo $Version).i386-win32-portable.zip
-#zip -9 -r $FULL_NAME/../output/promet-erp-$(echo $Version).i386-win32-portable.zip Promet-ERP
+zip -9 -r $FULL_NAME/../output/promet-erp-$(echo $Version).i386-win32-portable.zip Promet-ERP
 echo "cleaning up..."
-#sudo -S rm -r $BuildDir
+sudo -S rm -r $BuildDir
