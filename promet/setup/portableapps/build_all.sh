@@ -61,7 +61,7 @@ echo "compressing..."
 FULL_NAME=$(cd `dirname $0` && pwd)
 WIN_DIR=$(echo $FULL_NAME | sed 's/\//\\/g')
 WIN_DIR='Z:\'$WIN_DIR
-WINEPREFIX=$FULL_NAME/../../../lazarus_wine/ wineconsole "$WIN_DIR\compress.bat" 'Z:'$(echo $BuildDir | sed 's/\//\\/g') $WIN_DIR
+#WINEPREFIX=$FULL_NAME/../../../lazarus_wine/ wineconsole "$WIN_DIR\compress.bat" 'Z:'$(echo $BuildDir | sed 's/\//\\/g') $WIN_DIR
 echo "building package..."
 cat Appinfo.ini | \
   sed -e "s/VERSION/$Version/g" \
