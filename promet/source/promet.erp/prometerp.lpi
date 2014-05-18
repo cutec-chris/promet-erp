@@ -291,7 +291,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="45">
+    <Units Count="46">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -407,7 +407,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uArticleStorageFrame"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="16"/>
         <CursorPos X="1" Y="1"/>
@@ -434,7 +434,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uArticleFrame"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="670"/>
         <CursorPos X="8" Y="688"/>
@@ -794,10 +794,9 @@
       <Unit41>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="686"/>
+        <TopLine Value="692"/>
         <CursorPos X="17" Y="703"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
@@ -805,7 +804,7 @@
       <Unit42>
         <Filename Value="../../../general/src/Utils.pas"/>
         <UnitName Value="Utils"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="181"/>
         <CursorPos X="40" Y="190"/>
@@ -832,8 +831,19 @@
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit44>
+      <Unit45>
+        <Filename Value="../base/upassword.pas"/>
+        <UnitName Value="uPassword"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="5"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="207"/>
+        <CursorPos X="1" Y="229"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit45>
     </Units>
-    <JumpHistory Count="17" HistoryIndex="16">
+    <JumpHistory Count="18" HistoryIndex="17">
       <Position1>
         <Filename Value="umain.pas"/>
         <Caret Line="3377" Column="20" TopLine="3349"/>
@@ -902,6 +912,10 @@
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <Caret Line="711" Column="1" TopLine="696"/>
       </Position17>
+      <Position18>
+        <Filename Value="../base/upassword.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position18>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

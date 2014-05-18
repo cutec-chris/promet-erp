@@ -1,4 +1,4 @@
-msgid "incl Unteraufträge"
+msgid "incl Unteraufträgewieder starten"
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Project-Id-Version: \n"
@@ -9,9 +9,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
-
-msgid "wieder starten"
-msgstr ""
 
 #: tfaccountingframe.accombineitems.caption
 msgid "Einträge kombinieren"
@@ -2718,6 +2715,7 @@ msgid "Neuen Termin erfassen"
 msgstr ""
 
 #: tfmain.acnewtermin.hint
+msgctxt "tfmain.acnewtermin.hint"
 msgid "Neuen Termin erfassen"
 msgstr ""
 
@@ -3494,6 +3492,7 @@ msgid "löscht die gewählt(en) Nachricht(en)"
 msgstr ""
 
 #: tfmessages.acforward.caption
+msgctxt "tfmessages.acforward.caption"
 msgid "acForward"
 msgstr ""
 

@@ -225,6 +225,11 @@ begin
   aProcess.CommandLine:=AppendPathDelim(Application.Location)+'wizardmandant'+ExtractFileExt(Application.ExeName);
   if Application.HasOption('c','config-path') then
     aProcess.CommandLine:=aProcess.CommandLine+' "--config-path='+Application.GetOptionValue('c','config-path')+'"';
+  if Application.HasOption('database') then
+    begin
+      aProcess.CommandLine:=aProcess.CommandLine+' "--database='+Application.GetOptionValue('database')+'"';
+      aProcess.CommandLine:=aProcess.CommandLine+' --silent';
+    end;
   aProcess.CommandLine:=aProcess.CommandLine+' "--execute='+Application.ExeName+'"';
   aProcess.Options := [poNoConsole];
   try

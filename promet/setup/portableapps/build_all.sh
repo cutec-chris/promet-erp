@@ -44,12 +44,11 @@ cp ../errors.txt $BuildDir/Promet-ERP/App/promet
 cp ../executables/$Version/$Archfpc/prometerp.exe $BuildDir/Promet-ERP/App/promet
 cp ../executables/$Version/$Archfpc/pstarter.exe $BuildDir/Promet-ERP/App/promet
 cp ../executables/$Version/$Archfpc/messagemanager.exe $BuildDir/Promet-ERP/App/promet/tools
-#cp ../executables/$Version/$Archfpc/wizardmandant.exe $BuildDir/Promet-ERP/App/promet
-#cp ../executables/$Version/$Archfpc/*sender.exe $BuildDir/Promet-ERP/App/promet/tools
-#cp ../executables/$Version/$Archfpc/*receiver.exe $BuildDir/Promet-ERP/App/promet/tools
-cp ../executables/$Version/$Archfpc/helpviewer.exe $BuildDir/Promet-ERP/App/promet
 cp ../executables/$Version/$Archfpc/wizardmandant.exe $BuildDir/Promet-ERP/App/promet
-#cp ../executables/$Version/$Archfpc/sync_*.exe $BuildDir/Promet-ERP/App/promet/tools
+cp ../executables/$Version/$Archfpc/*sender.exe $BuildDir/Promet-ERP/App/promet/tools
+cp ../executables/$Version/$Archfpc/*receiver.exe $BuildDir/Promet-ERP/App/promet/tools
+cp ../executables/$Version/$Archfpc/helpviewer.exe $BuildDir/Promet-ERP/App/promet
+cp ../executables/$Version/$Archfpc/sync_db.exe $BuildDir/Promet-ERP/App/promet/tools
 cp ../i386-win32/sqlite3.dll $BuildDir/Promet-ERP/App/promet
 cp ../i386-win32/sqlite3.dll $BuildDir/Promet-ERP/App/promet/tools
 mkdir -p $BuildDir/Promet-ERP/App/promet/languages
