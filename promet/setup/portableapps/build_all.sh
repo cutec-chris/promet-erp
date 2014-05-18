@@ -51,7 +51,10 @@ cp ../executables/$Version/$Archfpc/helpviewer.exe $BuildDir/Promet-ERP/App/prom
 #cp ../executables/$Version/$Archfpc/sync_*.exe $BuildDir/Promet-ERP/App/promet/tools
 cp ../i386-win32/sqlite3.dll $BuildDir/Promet-ERP/App/promet
 cp ../i386-win32/sqlite3.dll $BuildDir/Promet-ERP/App/promet/tools
-cp ../../output/$Archfpc-win32/tools/portablestarter.exe $BuildDir/Promet-ERP/$Program.exe
+mkdir -p $BuildDir/Promet-ERP/App/promet/languages
+cp -r ../../languages/*.en.po $BuildDir/Promet-ERP/App/promet/languages
+cp -r ../../languages/*.de.po $BuildDir/Promet-ERP/App/promet/languages
+cp -r ../../languages/languages.txt $BuildDir/Promet-ERP/App/promet/languages
 
 cp erp.db $BuildDir/Promet-ERP/Data/Database/promet-erp.db
 echo "compressing..."
@@ -72,6 +75,6 @@ Version=$(echo $Version | sed 's/\n//g');
 cp $BuildDir/*.paf.exe ../output
 cd $BuildDir
 rm $FULL_NAME/../output/promet-erp-$(echo $Version).i386-win32-portable.zip
-zip -9 -r $FULL_NAME/../output/promet-erp-$(echo $Version).i386-win32-portable.zip Promet-ERP
+#zip -9 -r $FULL_NAME/../output/promet-erp-$(echo $Version).i386-win32-portable.zip Promet-ERP
 echo "cleaning up..."
-sudo -S rm -r $BuildDir
+#sudo -S rm -r $BuildDir
