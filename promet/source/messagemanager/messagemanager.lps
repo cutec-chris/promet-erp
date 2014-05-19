@@ -22,11 +22,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="umain"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="94"/>
-        <CursorPos X="26" Y="74"/>
+        <TopLine Value="138"/>
+        <CursorPos X="15" Y="58"/>
         <UsageCount Value="199"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -767,10 +766,11 @@
       <Unit88>
         <Filename Value="../base/dbintfs/uprocessmanagement.pas"/>
         <UnitName Value="uProcessManagement"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="18"/>
-        <CursorPos X="19" Y="38"/>
+        <TopLine Value="240"/>
+        <CursorPos X="1" Y="248"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit88>

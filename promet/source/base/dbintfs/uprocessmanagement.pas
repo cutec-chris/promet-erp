@@ -245,20 +245,16 @@ var
         First;
         while not EOF do
           begin
-            cmd := cmd+' '+{$IFNDEF WINDOWS}'"'+{$ENDIF}'--'+FieldByName('NAME').AsString+'='+{$IFDEF WINDOWS}'"'+{$ENDIF}FieldByName('VALUE').AsString;
+            cmd := cmd+' "--'+FieldByName('NAME').AsString+'='+FieldByName('VALUE').AsString+'"';
             Next;
           end;
       end;
     if pos('--mandant',lowercase(cmd)) = 0 then
-      begin
-        {$IFDEF WINDOWS}
-        cmd := cmd+' --mandant="'+BaseApplication.GetOptionValue('m','mandant')+'"';
-        {$ELSE}
-        cmd := cmd+' --mandant='+BaseApplication.GetOptionValue('m','mandant')+'';
-        {$ENDIF}
-      end;
+      cmd := cmd+' "--mandant='+BaseApplication.GetOptionValue('m','mandant')+'"';
     if Data.Users.DataSet.Active then
-      cmd := cmd+' '+{$IFNDEF WINDOWS}'"'+{$ENDIF}'--user='+{$IFDEF WINDOWS}'"'+{$ENDIF}Data.Users.FieldByName('NAME').AsString+'"';
+      cmd := cmd+' "--user='+Data.Users.FieldByName('NAME').AsString+'"';
+    if BaseApplication.HasOption('c','config-path') then
+      cmd := cmd+' "--config-path='+BaseApplication.GetOptionValue('c','config-path')+'"';
   end;
 begin
   aNow := Now();
