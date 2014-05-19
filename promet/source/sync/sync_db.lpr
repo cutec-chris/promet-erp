@@ -414,6 +414,7 @@ begin
       AppRevision:={$I ../base/revision.inc};
     end;
   Info('sync_db starting...');
+  Info('Currentdir:'+GetCurrentDir);
   with BaseApplication,BaseApplication as IBaseDbInterface do
     begin
       if not LoadMandants then
