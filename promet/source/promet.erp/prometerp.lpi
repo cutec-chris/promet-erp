@@ -291,7 +291,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="46">
+    <Units Count="43">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -407,9 +407,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uArticleStorageFrame"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="16"/>
+        <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -434,7 +434,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uArticleFrame"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="670"/>
         <CursorPos X="8" Y="688"/>
@@ -791,80 +791,65 @@
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit40>
+      <Unit41>
+        <Filename Value="../components/thumbs/thumbcontrol.pas"/>
+        <UnitName Value="thumbcontrol"/>
+        <EditorIndex Value="4"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="608"/>
+        <CursorPos X="89" Y="626"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit41>
+      <Unit42>
+        <Filename Value="../base_pm/gsGanttCalendar.pas"/>
+        <UnitName Value="gsGanttCalendar"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="5"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="173"/>
+        <CursorPos X="109" Y="190"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit42>
     </Units>
-    <JumpHistory Count="18" HistoryIndex="17">
+    <JumpHistory Count="9" HistoryIndex="8">
       <Position1>
         <Filename Value="umain.pas"/>
         <Caret Line="3377" Column="20" TopLine="3349"/>
       </Position1>
       <Position2>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="717" Column="32" TopLine="696"/>
+        <Filename Value="uarticleframe.pas"/>
+        <Caret Line="538" Column="27" TopLine="511"/>
       </Position2>
       <Position3>
         <Filename Value="uarticleframe.pas"/>
-        <Caret Line="538" Column="27" TopLine="511"/>
+        <Caret Line="529" Column="23" TopLine="512"/>
       </Position3>
       <Position4>
         <Filename Value="uarticleframe.pas"/>
-        <Caret Line="529" Column="23" TopLine="512"/>
+        <Caret Line="688" Column="22" TopLine="671"/>
       </Position4>
       <Position5>
-        <Filename Value="uarticleframe.pas"/>
-        <Caret Line="688" Column="22" TopLine="671"/>
-      </Position5>
-      <Position6>
-        <Filename Value="../../../general/src/Utils.pas"/>
-        <Caret Line="184" Column="1" TopLine="166"/>
-      </Position6>
-      <Position7>
-        <Filename Value="../../../general/src/Utils.pas"/>
-        <Caret Line="210" Column="1" TopLine="193"/>
-      </Position7>
-      <Position8>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="250" Column="1" TopLine="239"/>
-      </Position8>
-      <Position9>
         <Filename Value="umain.pas"/>
         <Caret Line="3365" Column="22" TopLine="3349"/>
+      </Position5>
+      <Position6>
+        <Filename Value="umain.pas"/>
+        <Caret Line="326" Column="33" TopLine="308"/>
+      </Position6>
+      <Position7>
+        <Filename Value="umain.pas"/>
+        <Caret Line="326" Column="33" TopLine="308"/>
+      </Position7>
+      <Position8>
+        <Filename Value="../components/thumbs/thumbcontrol.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position8>
+      <Position9>
+        <Filename Value="../base_pm/gsGanttCalendar.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position9>
-      <Position10>
-        <Filename Value="umain.pas"/>
-        <Caret Line="326" Column="33" TopLine="308"/>
-      </Position10>
-      <Position11>
-        <Filename Value="../base/dbintfs/uintfstrconsts.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
-      </Position11>
-      <Position12>
-        <Filename Value="../base/dbintfs/uintfstrconsts.pas"/>
-        <Caret Line="9" Column="64" TopLine="1"/>
-      </Position12>
-      <Position13>
-        <Filename Value="../base/dbintfs/uintfstrconsts.pas"/>
-        <Caret Line="62" Column="46" TopLine="33"/>
-      </Position13>
-      <Position14>
-        <Filename Value="../base/base_frames/umaintreeframe.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
-      </Position14>
-      <Position15>
-        <Filename Value="umain.pas"/>
-        <Caret Line="326" Column="33" TopLine="308"/>
-      </Position15>
-      <Position16>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="31" Column="54" TopLine="19"/>
-      </Position16>
-      <Position17>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="711" Column="1" TopLine="696"/>
-      </Position17>
-      <Position18>
-        <Filename Value="../base/upassword.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
-      </Position18>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

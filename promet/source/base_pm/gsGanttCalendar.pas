@@ -187,7 +187,7 @@ type
     constructor Create(AGantt: TgsGantt);virtual;
     destructor Destroy; override;
 
-    procedure AddConnection(AConnection: TInterval;DoUpdateIntervalStart : Boolean;DoChange : Boolean);
+    procedure AddConnection(AConnection: TInterval;DoUpdateIntervalStart : Boolean;DoChange : Boolean = True);
     procedure DeleteConnection(AnIndex: Integer);
     procedure RemoveConnection(AConnection: TInterval);
 
@@ -1256,7 +1256,7 @@ begin
 end;
 
 procedure TInterval.AddConnection(AConnection: TInterval;
-  DoUpdateIntervalStart: Boolean; DoChange: Boolean = True);
+  DoUpdateIntervalStart: Boolean; DoChange: Boolean);
 begin
   if FConnections.IndexOf(AConnection) = -1 then
   begin
@@ -4362,4 +4362,4 @@ finalization
   DrawBitmap.Free;
 
 end.
-
+

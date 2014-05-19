@@ -39,22 +39,22 @@ sh build_all_executables.sh $Widgetset $Archfpc
 
 if [ ! -f ../../output/$Archfpc-linux/prometerp ];
 then
-  echo "ERROR: prometerp fehlt"
+  echo "ERROR: prometerp fehlt $Archfpc"
   exit
 fi
 if [ ! -f ../../output/$Archfpc-linux/tools/messagemanager ];
 then
-  echo "ERROR: messagemanager fehlt"
+  echo "ERROR: messagemanager fehlt $Archfpc"
   exit
 fi
 if [ ! -f ../../output/$Archfpc-linux/pstarter ];
 then
-  echo "ERROR: pstarter fehlt"
+  echo "ERROR: pstarter fehlt $Archfpc"
   exit
 fi
 if [ ! -f ../../output/$Archfpc-linux/tools/processmanager ];
 then
-  echo "ERROR: processmanager fehlt"
+  echo "ERROR: processmanager fehlt $Archfpc"
   exit
 fi
 

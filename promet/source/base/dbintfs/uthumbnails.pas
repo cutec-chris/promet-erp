@@ -203,7 +203,7 @@ begin
       h := TFPReaderJPEG
     else
       for i := 0 to ImageHandlers.Count-1 do
-        if pos(s,ImageHandlers.Extentions[ImageHandlers.TypeNames[i]]+';')>0 then
+        if pos(s,ImageHandlers.{$IF FPC_FULLVERSION>20604}Extensions{$ELSE}Extentions{$ENDIF}[ImageHandlers.TypeNames[i]]+';')>0 then
           begin
             h := ImageHandlers.ImageReader[ImageHandlers.TypeNames[i]];
             break;

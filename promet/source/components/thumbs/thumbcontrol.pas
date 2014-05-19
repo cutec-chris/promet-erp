@@ -29,7 +29,7 @@ type
     FIls: TInternalLayoutStyle;
     fContentWidth: integer;
     fContentHeight: integer;
-    FDirectory: string;
+    FDirectory: UTF8String;
     fMngr: TImageLoaderManager;
     FOnLoadFile: TLoadFileEvent;
     FOnScrolled: TNotifyEvent;
@@ -623,7 +623,7 @@ begin
   sl.Delimiter := ';';
   for i := 0 to ImageHandlers.Count - 1 do
   begin
-    sl.DelimitedText := ImageHandlers.Extentions[ImageHandlers.TypeNames[i]];
+    sl.DelimitedText := ImageHandlers.{$IF FPC_FULLVERSION>20604}Extensions{$ELSE}Extentions{$ENDIF}[ImageHandlers.TypeNames[i]];
     for j := 0 to sl.Count - 1 do Result := Result + '*.' + sl[j] + ';';
   end;
   sl.free;
