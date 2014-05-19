@@ -554,6 +554,9 @@ begin
           with Data.ProcessClient.Processes.DataSet do
             begin
               Insert;
+              FieldByName('NAME').AsString:='sync_db';
+              FieldByName('INTERVAL').AsInteger:=1000;
+              Insert;
               FieldByName('NAME').AsString:='pop3receiver';
               FieldByName('INTERVAL').AsInteger:=10;
               Insert;
