@@ -514,7 +514,7 @@ begin
               aSyncDB.CreateTable;
               aSyncDB.Insert;
               aSyncDB.FieldByName('NAME').AsString:='Help';
-              aSyncDB.FieldByName('PROPERTIES').AsString:='SQL:sqlite-3;localhost;'+AppendPathDelim(Application.Location)+'help.db;;x';
+              aSyncDB.FieldByName('PROPERTIES').AsString:='SQL:sqlite-3;localhost;help.db;;x';
               aSyncDB.FieldByName('ACTIVE').AsString:='Y';
               aSyncDB.DataSet.Post;
               aSyncDB.Tables.Insert;
@@ -769,4 +769,4 @@ end;
 initialization
   {$I uwizardnewmandant.lrs}
 end.
-
+

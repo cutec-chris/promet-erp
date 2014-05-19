@@ -54,7 +54,6 @@
         <Filename Value="wizardmandant.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="wizardmandant"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -79,10 +78,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uWizardNewMandant"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="462"/>
-        <CursorPos X="16" Y="473"/>
+        <TopLine Value="489"/>
+        <CursorPos X="83" Y="517"/>
         <UsageCount Value="141"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
