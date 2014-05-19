@@ -326,7 +326,7 @@ begin
                   Setlength(ProcessData,length(ProcessData)+1);
                   ProcessData[length(ProcessData)-1] := NewProcess;
                   NewProcess.CommandLine:=cmd;
-                  NewProcess.CurrentDirectory:=BaseApplication.Location;
+                  NewProcess.CurrentDirectory:= CleanAndExpandDirectory(BaseApplication.Location+DirectorySeparator+'..'+DirectorySeparator);
                   NewProcess.Options := [poNoConsole,poUsePipes];
                   NewProcess.Execute;
                   NewProcess.Timeout := aNow+(max(Processes.FieldByName('INTERVAL').AsInteger,2)/MinsPerDay);
