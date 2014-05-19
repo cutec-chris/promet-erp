@@ -318,6 +318,9 @@ begin
                   cmd := cmd+BuildCmdLine;
                   DoLog(aProcess+':'+strStartingProcess+' ('+cmd+')',aLog);
                   NewProcess := TProcProcess.Create(Self);
+                  {$if FPC_FULLVERSION<20400}
+                  NewProcess.InheritHandles := false;
+                  {$endif}
                   NewProcess.Id := Processes.Id.AsVariant;
                   NewProcess.Informed:=False;
                   Setlength(ProcessData,length(ProcessData)+1);
@@ -331,10 +334,15 @@ begin
                   Processes.Edit;
                   Processes.DataSet.FieldByName('STARTED').AsDateTime := Now();
                   Processes.DataSet.FieldByName('STOPPED').Clear;
+                  Processes.DataSet.FieldByName('LOG').AsString := aLog.Text;
                   Processes.Post;
                 end;
             end
-          else DoLog(ExpandFileNameUTF8(aProcess+ExtractFileExt(BaseApplication.ExeName))+':'+'File dosend exists',aLog);
+          else
+            begin
+              aLog.Clear;
+              DoLog(ExpandFileNameUTF8(aProcess+ExtractFileExt(BaseApplication.ExeName))+':'+'File dosend exists',aLog);
+            end;
           if Processes.DataSet.FieldByName('LOG').AsString<>aLog.Text then
             begin
               Processes.Edit;
