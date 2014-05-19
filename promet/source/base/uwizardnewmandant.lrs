@@ -10,11 +10,11 @@ LazarusResources.Add('TfWizardNewMandant','FORMDATA',[
   +'Width'#3#166#1#5'Align'#7#8'alClient'#10'BevelOuter'#7#6'bvNone'#12'ClientH'
   +'eight'#3'X'#1#11'ClientWidth'#3#166#1#11'FullRepaint'#8#8'TabOrder'#2#4#7'V'
   +'isible'#8#0#6'TLabel'#17'lCreatingDatabase'#4'Left'#2'('#6'Height'#2#13#3'T'
-  +'op'#2#9#5'Width'#3#166#0#7'Caption'#6#31'erstelle Tabellen (wenn n'#195#182
+  +'op'#2#9#5'Width'#3#142#0#7'Caption'#6#31'erstelle Tabellen (wenn n'#195#182
   +'tig)'#11'ParentColor'#8#0#0#6'TLabel'#21'lFillingDefaultValues'#4'Left'#2'('
-  +#6'Height'#2#13#3'Top'#2' '#5'Width'#3#137#0#7'Caption'#6#22'Vorgabewerte ei'
-  +'nsetzen'#11'ParentColor'#8#0#0#6'TLabel'#17'lUpdatingDatabase'#4'Left'#2'('
-  +#6'Height'#2#13#3'Top'#2'8'#5'Width'#2'S'#7'Caption'#6#15'Hilfe einsetzen'#11
+  +#6'Height'#2#13#3'Top'#2' '#5'Width'#2'u'#7'Caption'#6#22'Vorgabewerte einse'
+  +'tzen'#11'ParentColor'#8#0#0#6'TLabel'#17'lUpdatingDatabase'#4'Left'#2'('#6
+  +'Height'#2#13#3'Top'#2'8'#5'Width'#2'F'#7'Caption'#6#15'Hilfe einsetzen'#11
   +'ParentColor'#8#0#0#6'TImage'#16'iDatabaseCreated'#4'Left'#2#8#6'Height'#2#21
   +#3'Top'#2#9#5'Width'#2#23#12'Picture.Data'#10#0#2#0#0#23'TPortableNetworkGra'
   +'phic'#228#1#0#0#137'PNG'#13#10#26#10#0#0#0#13'IHDR'#0#0#0#16#0#0#0#16#8#6#0
@@ -86,7 +86,7 @@ LazarusResources.Add('TfWizardNewMandant','FORMDATA',[
   +'l'#8'pDetails'#4'Left'#2#12#6'Height'#3#200#0#3'Top'#2'X'#5'Width'#3#140#1
   +#10'BevelOuter'#7#6'bvNone'#12'ClientHeight'#3#200#0#11'ClientWidth'#3#140#1
   +#8'TabOrder'#2#0#7'Visible'#8#0#7'TButton'#7'Button1'#4'Left'#3#180#0#6'Heig'
-  +'ht'#2#25#3'Top'#3#168#0#5'Width'#3#149#0#8'AutoSize'#9#7'Caption'#6#22'Mand'
+  +'ht'#2#23#3'Top'#3#168#0#5'Width'#3#143#0#8'AutoSize'#9#7'Caption'#6#22'Mand'
   +'anteneinstellungen'#7'OnClick'#7#12'Button1Click'#8'TabOrder'#2#0#0#0#6'TLa'
   +'bel'#6'Label2'#4'Left'#2#0#6'Height'#2'u'#3'Top'#2#0#5'Width'#3#140#1#5'Ali'
   +'gn'#7#5'alTop'#7'Caption'#12'W'#1#0#0'Das erstellen der Datenbank wurde bee'
@@ -581,10 +581,10 @@ LazarusResources.Add('TfWizardNewMandant','FORMDATA',[
   +'3'#224#12'8'#3#206#20#3'nt'#249#31#215'7'#174#213#254'|'#142'U'#0#0#0#0'IEN'
   +'D'#174'B`'#130#0#0#0#6'TBevel'#6'bvleft'#4'Left'#2#0#6'Height'#2'2'#3'Top'#3
   +'&'#1#5'Width'#3#128#0#5'Align'#7#8'alBottom'#5'Shape'#7#9'bsTopLine'#0#0#7
-  +'TBitBtn'#7'BitBtn1'#4'Left'#2#9#6'Height'#2'"'#3'Top'#3'*'#1#5'Width'#2'?'#7
+  +'TBitBtn'#7'BitBtn1'#4'Left'#2#9#6'Height'#2#26#3'Top'#3'2'#1#5'Width'#2'C'#7
   +'Anchors'#11#6'akLeft'#8'akBottom'#0#8'AutoSize'#9#14'DefaultCaption'#9#4'Ki'
   +'nd'#7#6'bkHelp'#7'OnClick'#7#12'BitBtn1Click'#8'TabOrder'#2#1#0#0#0#11'TDat'
   +'asource'#2'md'#4'left'#2'$'#3'top'#2'<'#0#0#6'TTimer'#11'SilentTimer'#7'Ena'
   +'bled'#8#8'Interval'#2'd'#7'OnTimer'#7#16'SilentTimerTimer'#4'left'#2'f'#3't'
   +'op'#3')'#1#0#0#0
-]);
+]);

@@ -330,6 +330,93 @@ msgstr ""
 msgid "hier können Sie die Auflösung in Punkten pro Inch (dpi) einstellen"
 msgstr ""
 
+#: tfaddressframe.bpastefromclipboard.hint
+msgid "Addresse aus Zwischenablage einfügen"
+msgstr ""
+
+#: tfaddressframe.cbactive.caption
+msgctxt "TFADDRESSFRAME.CBACTIVE.CAPTION"
+msgid "Aktiv"
+msgstr ""
+
+#: tfaddressframe.extrotatedlabel1.caption
+msgctxt "TFADDRESSFRAME.EXTROTATEDLABEL1.CAPTION"
+msgid "Navigation"
+msgstr ""
+
+#: tfaddressframe.extrotatedlabel2.caption
+msgid "Zwischenablage"
+msgstr ""
+
+#: tfaddressframe.gadresses.columns[0].title.caption
+msgctxt "TFADDRESSFRAME.GADRESSES.COLUMNS[0].TITLE.CAPTION"
+msgid "Nummer"
+msgstr ""
+
+#: tfaddressframe.gadresses.columns[1].title.caption
+msgctxt "TFADDRESSFRAME.GADRESSES.COLUMNS[1].TITLE.CAPTION"
+msgid "Beschreibung"
+msgstr ""
+
+#: tfaddressframe.gadresses.columns[2].title.caption
+msgctxt "TFADDRESSFRAME.GADRESSES.COLUMNS[2].TITLE.CAPTION"
+msgid "Typ"
+msgstr "Typ"
+
+#: tfaddressframe.gadresses.hint
+msgctxt "TFADDRESSFRAME.GADRESSES.HINT"
+msgid "wählen Sie hier eine Adresse"
+msgstr ""
+
+#: tfaddressframe.label1.caption
+msgctxt "TFADDRESSFRAME.LABEL1.CAPTION"
+msgid "Adressen"
+msgstr ""
+
+#: tfaddressframe.ladditional.caption
+msgctxt "TFADDRESSFRAME.LADDITIONAL.CAPTION"
+msgid "Zusätzlich"
+msgstr ""
+
+#: tfaddressframe.lcallingname.caption
+msgctxt "TFADDRESSFRAME.LCALLINGNAME.CAPTION"
+msgid "Vorname"
+msgstr ""
+
+#: tfaddressframe.lcity.caption
+msgctxt "TFADDRESSFRAME.LCITY.CAPTION"
+msgid "Ort"
+msgstr ""
+
+#: tfaddressframe.lland.caption
+msgctxt "TFADDRESSFRAME.LLAND.CAPTION"
+msgid "Land"
+msgstr ""
+
+#: tfaddressframe.lname.caption
+msgctxt "TFADDRESSFRAME.LNAME.CAPTION"
+msgid "Name / Firma"
+msgstr ""
+
+#: tfaddressframe.lpostalcode.caption
+msgctxt "TFADDRESSFRAME.LPOSTALCODE.CAPTION"
+msgid "Postleitzahl"
+msgstr ""
+
+#: tfaddressframe.lstreet.caption
+msgctxt "TFADDRESSFRAME.LSTREET.CAPTION"
+msgid "Straße"
+msgstr ""
+
+#: tfaddressframe.ltitle.caption
+msgctxt "TFADDRESSFRAME.LTITLE.CAPTION"
+msgid "Anrede"
+msgstr ""
+
+#: tfaddressframe.paddress.caption
+msgid "gewählte Adresse"
+msgstr ""
+
 #: tfaddserial.caption
 msgid "Serienummer hinzufügen"
 msgstr ""
@@ -393,14 +480,17 @@ msgid "Speichert alle Änderungen in die Datenbank"
 msgstr ""
 
 #: tfarticleframe.acsettreedir.caption
+msgctxt "tfarticleframe.acsettreedir.caption"
 msgid "acSetTreeDir"
 msgstr ""
 
 #: tfarticleframe.acshowtreedir.caption
+msgctxt "tfarticleframe.acshowtreedir.caption"
 msgid "acShowTreeDir"
 msgstr ""
 
 #: tfarticleframe.acstarttimeregistering.caption
+msgctxt "tfarticleframe.acstarttimeregistering.caption"
 msgid "Zeiterfassung starten"
 msgstr ""
 
@@ -1167,6 +1257,7 @@ msgid "setzt eine Rabattgruppe für den Kontakt"
 msgstr ""
 
 #: tfcustomer.cblanguage.hint
+msgctxt "tfcustomer.cblanguage.hint"
 msgid "wählen Sie hier die Sprache des Kontaktes"
 msgstr ""
 
@@ -1184,10 +1275,12 @@ msgid "ist Lieferant"
 msgstr ""
 
 #: tfcustomer.cbsupplier.hint
+msgctxt "tfcustomer.cbsupplier.hint"
 msgid "setzen Sie dieses Feld wenn der Kontakt ein Lieferant ist"
 msgstr ""
 
 #: tfcustomer.ecustomername.hint
+msgctxt "tfcustomer.ecustomername.hint"
 msgid "geben Sie hier den namen des Kontaktes an"
 msgstr ""
 
@@ -1301,6 +1394,7 @@ msgid "Bankverbindungen"
 msgstr ""
 
 #: tfcustomer.lcallingname.caption
+msgctxt "tfcustomer.lcallingname.caption"
 msgid "Vorname"
 msgstr ""
 
@@ -1315,6 +1409,7 @@ msgid "Währung"
 msgstr ""
 
 #: tfcustomer.lcustomername.caption
+msgctxt "tfcustomer.lcustomername.caption"
 msgid "Kontaktname"
 msgstr ""
 
@@ -1338,6 +1433,7 @@ msgid "Rabattgruppe"
 msgstr ""
 
 #: tfcustomer.lfirmname.caption
+msgctxt "tfcustomer.lfirmname.caption"
 msgid "lFirmName"
 msgstr ""
 
@@ -1362,6 +1458,7 @@ msgid "Suchbegriff"
 msgstr ""
 
 #: tfcustomer.lname.caption
+msgctxt "tfcustomer.lname.caption"
 msgid "Name / Firma"
 msgstr ""
 
@@ -1381,6 +1478,7 @@ msgid "Status"
 msgstr ""
 
 #: tfcustomer.lstreet.caption
+msgctxt "tfcustomer.lstreet.caption"
 msgid "Straße"
 msgstr ""
 
@@ -2956,6 +3054,7 @@ msgid "acDeletePos"
 msgstr ""
 
 #: tfmasterdata.acentertime.caption
+msgctxt "tfmasterdata.acentertime.caption"
 msgid "Zeiterfassung mit Eintrag beginnen"
 msgstr ""
 
@@ -5126,6 +5225,7 @@ msgid "*"
 msgstr ""
 
 #: tforders.laddresses.caption
+msgctxt "tforders.laddresses.caption"
 msgid "Adressen"
 msgstr ""
 
@@ -5899,6 +5999,229 @@ msgstr ""
 #: tfpersonfinance.lpaymenttarget.caption
 msgctxt "TFPERSONFINANCE.LPAYMENTTARGET.CAPTION"
 msgid "Zahlungsziel"
+msgstr ""
+
+#: tfpersonframe.acaddasorder.caption
+msgid "acAddAsOrder"
+msgstr ""
+
+#: tfpersonframe.accancel.caption
+msgctxt "TFPERSONFRAME.ACCANCEL.CAPTION"
+msgid "Abbrechen"
+msgstr ""
+
+#: tfpersonframe.accancel.hint
+msgctxt "TFPERSONFRAME.ACCANCEL.HINT"
+msgid "verwirft alle Änderungen"
+msgstr ""
+
+#: tfpersonframe.acclose.caption
+msgctxt "TFPERSONFRAME.ACCLOSE.CAPTION"
+msgid "acClose"
+msgstr ""
+
+#: tfpersonframe.accombineitems.caption
+msgid "Personen verschmelzen"
+msgstr ""
+
+#: tfpersonframe.accopy.caption
+msgctxt "TFPERSONFRAME.ACCOPY.CAPTION"
+msgid "Kopieren"
+msgstr ""
+
+#: tfpersonframe.acdelete.caption
+msgctxt "TFPERSONFRAME.ACDELETE.CAPTION"
+msgid "Löschen"
+msgstr "Delete"
+
+#: tfpersonframe.acexport.caption
+msgctxt "TFPERSONFRAME.ACEXPORT.CAPTION"
+msgid "Exportieren"
+msgstr "export"
+
+#: tfpersonframe.acimport.caption
+msgctxt "TFPERSONFRAME.ACIMPORT.CAPTION"
+msgid "Importieren"
+msgstr "import"
+
+#: tfpersonframe.acneworder.caption
+msgid "Neuen Auftrag erstellen"
+msgstr ""
+
+#: tfpersonframe.acneworder.hint
+msgid "erstellt einen neuen Auftrag für diese Person"
+msgstr ""
+
+#: tfpersonframe.acpaste.caption
+msgctxt "TFPERSONFRAME.ACPASTE.CAPTION"
+msgid "Einfügen"
+msgstr ""
+
+#: tfpersonframe.acprint.caption
+msgctxt "TFPERSONFRAME.ACPRINT.CAPTION"
+msgid "Drucken"
+msgstr ""
+
+#: tfpersonframe.acrights.caption
+msgctxt "TFPERSONFRAME.ACRIGHTS.CAPTION"
+msgid "Rechte"
+msgstr ""
+
+#: tfpersonframe.acsave.caption
+msgctxt "TFPERSONFRAME.ACSAVE.CAPTION"
+msgid "Speichern"
+msgstr ""
+
+#: tfpersonframe.acsave.hint
+msgctxt "TFPERSONFRAME.ACSAVE.HINT"
+msgid "Speichert alle Änderungen in die Datenbank"
+msgstr ""
+
+#: tfpersonframe.acsettreedir.caption
+msgctxt "TFPERSONFRAME.ACSETTREEDIR.CAPTION"
+msgid "acSetTreeDir"
+msgstr ""
+
+#: tfpersonframe.acsettreedir.hint
+msgid "setzt das Verzeichnis aus dem Baum"
+msgstr ""
+
+#: tfpersonframe.acshowtreedir.caption
+msgctxt "TFPERSONFRAME.ACSHOWTREEDIR.CAPTION"
+msgid "acShowTreeDir"
+msgstr ""
+
+#: tfpersonframe.acshowtreedir.hint
+msgid "zeigt den Eintrag im Baum"
+msgstr ""
+
+#: tfpersonframe.acstarttimeregistering.caption
+msgctxt "TFPERSONFRAME.ACSTARTTIMEREGISTERING.CAPTION"
+msgid "Zeiterfassung starten"
+msgstr ""
+
+#: tfpersonframe.acstarttimeregistering.hint
+msgctxt "TFPERSONFRAME.ACSTARTTIMEREGISTERING.HINT"
+msgid "Zeiterfassung mit Eintrag beginnen"
+msgstr ""
+
+#: tfpersonframe.bchangenumber.caption
+msgctxt "TFPERSONFRAME.BCHANGENUMBER.CAPTION"
+msgid "..."
+msgstr ""
+
+#: tfpersonframe.cblanguage.hint
+msgctxt "TFPERSONFRAME.CBLANGUAGE.HINT"
+msgid "wählen Sie hier die Sprache des Kontaktes"
+msgstr ""
+
+#: tfpersonframe.cbstatus.hint
+msgctxt "TFPERSONFRAME.CBSTATUS.HINT"
+msgid "hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu überführen"
+msgstr ""
+
+#: tfpersonframe.cbsupplier.caption
+msgctxt "TFPERSONFRAME.CBSUPPLIER.CAPTION"
+msgid "Lieferant"
+msgstr ""
+
+#: tfpersonframe.cbsupplier.hint
+msgctxt "TFPERSONFRAME.CBSUPPLIER.HINT"
+msgid "setzen Sie dieses Feld wenn der Kontakt ein Lieferant ist"
+msgstr ""
+
+#: tfpersonframe.ematchcode.hint
+msgctxt "TFPERSONFRAME.EMATCHCODE.HINT"
+msgid "Hier können Sie einen Suchbegriff angeben, "
+msgstr ""
+
+#: tfpersonframe.ename.hint
+msgctxt "TFPERSONFRAME.ENAME.HINT"
+msgid "geben Sie hier den namen des Kontaktes an"
+msgstr ""
+
+#: tfpersonframe.extrotatedlabel1.caption
+msgctxt "TFPERSONFRAME.EXTROTATEDLABEL1.CAPTION"
+msgid "Navigation"
+msgstr ""
+
+#: tfpersonframe.gbtree.caption
+msgctxt "TFPERSONFRAME.GBTREE.CAPTION"
+msgid "Baum"
+msgstr ""
+
+#: tfpersonframe.label2.caption
+msgctxt "TFPERSONFRAME.LABEL2.CAPTION"
+msgid "Eintrag"
+msgstr ""
+
+#: tfpersonframe.label3.caption
+msgctxt "TFPERSONFRAME.LABEL3.CAPTION"
+msgid "Erweitert"
+msgstr ""
+
+#: tfpersonframe.label4.caption
+msgctxt "TFPERSONFRAME.LABEL4.CAPTION"
+msgid "Vorgang"
+msgstr ""
+
+#: tfpersonframe.label5.caption
+msgctxt "TFPERSONFRAME.LABEL5.CAPTION"
+msgid "Nummer"
+msgstr ""
+
+#: tfpersonframe.label6.caption
+msgctxt "TFPERSONFRAME.LABEL6.CAPTION"
+msgid "Status"
+msgstr ""
+
+#: tfpersonframe.lcustomername.caption
+msgctxt "TFPERSONFRAME.LCUSTOMERNAME.CAPTION"
+msgid "Kontaktname"
+msgstr ""
+
+#: tfpersonframe.lcustomerof.caption
+msgid "Mitglied/Mitarbeiter von"
+msgstr ""
+
+#: tfpersonframe.lfirmname.caption
+msgctxt "TFPERSONFRAME.LFIRMNAME.CAPTION"
+msgid "lFirmName"
+msgstr ""
+
+#: tfpersonframe.lmatchcode.caption
+msgctxt "TFPERSONFRAME.LMATCHCODE.CAPTION"
+msgid "Suchbegriff"
+msgstr ""
+
+#: tfpersonframe.menuitem1.caption
+msgctxt "TFPERSONFRAME.MENUITEM1.CAPTION"
+msgid "-"
+msgstr ""
+
+#: tfpersonframe.menuitem2.caption
+msgctxt "TFPERSONFRAME.MENUITEM2.CAPTION"
+msgid "-"
+msgstr ""
+
+#: tfpersonframe.menuitem5.caption
+msgctxt "TFPERSONFRAME.MENUITEM5.CAPTION"
+msgid "-"
+msgstr ""
+
+#: tfpersonframe.ppreviewimage.caption
+msgctxt "TFPERSONFRAME.PPREVIEWIMAGE.CAPTION"
+msgid "kein Bild"
+msgstr ""
+
+#: tfpersonframe.sbmenue.hint
+msgctxt "TFPERSONFRAME.SBMENUE.HINT"
+msgid "zusätzliche Optionen"
+msgstr ""
+
+#: tfpersonframe.tscustomercont.caption
+msgctxt "TFPERSONFRAME.TSCUSTOMERCONT.CAPTION"
+msgid "Kontaktdaten"
 msgstr ""
 
 #: tfphoneoptions.lallowedphonelines.caption
@@ -7715,6 +8038,7 @@ msgid "Lager"
 msgstr ""
 
 #: uarticleframe.strsupplier
+msgctxt "uarticleframe.strsupplier"
 msgid "Lieferant"
 msgstr ""
 

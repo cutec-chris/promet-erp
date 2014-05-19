@@ -47,10 +47,11 @@
         <Filename Value="sync_db.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="sync_db"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="543"/>
-        <CursorPos X="76" Y="571"/>
+        <TopLine Value="411"/>
+        <CursorPos X="19" Y="427"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -514,7 +515,6 @@
       <Unit56>
         <Filename Value="..\base\pcmdprometapp.pas"/>
         <UnitName Value="pcmdprometapp"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>

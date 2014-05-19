@@ -514,7 +514,7 @@ begin
               aSyncDB.CreateTable;
               aSyncDB.Insert;
               aSyncDB.FieldByName('NAME').AsString:='Help';
-              aSyncDB.FieldByName('PROPERTIES').AsString:='SQL:sqlite-3;localhost;'+AppendPathDelim(Application.Location)+'help.db;;x';
+              aSyncDB.FieldByName('PROPERTIES').AsString:='SQL:sqlite-3;localhost;help.db;;x';
               aSyncDB.FieldByName('ACTIVE').AsString:='Y';
               aSyncDB.DataSet.Post;
               aSyncDB.Tables.Insert;
@@ -553,6 +553,9 @@ begin
           Data.ProcessClient.Processes.Open;
           with Data.ProcessClient.Processes.DataSet do
             begin
+              Insert;
+              FieldByName('NAME').AsString:='sync_db';
+              FieldByName('INTERVAL').AsInteger:=1000;
               Insert;
               FieldByName('NAME').AsString:='pop3receiver';
               FieldByName('INTERVAL').AsInteger:=10;
@@ -772,4 +775,4 @@ end;
 initialization
   {$I uwizardnewmandant.lrs}
 end.
-
+

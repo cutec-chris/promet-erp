@@ -24,7 +24,8 @@ unit uProcessManager;
 interface
 
 uses
-  Classes, SysUtils, Process, UTF8Process, FileUtil, uBaseApplication, ProcessUtils
+  Classes, SysUtils, Process, UTF8Process, FileUtil, uBaseApplication, ProcessUtils,
+  LCLProc
   {$IFDEF WINDOWS}
   ,Windows,jwatlhelp32
   {$ENDIF}
@@ -108,7 +109,12 @@ begin
   cmdln := ' "--mandant='+Mandant+'"';
   if User <> '' then
     cmdln := cmdln+' "--user='+User+'"';
+  if BaseApplication.HasOption('debug-log') then
+    cmdln := cmdln+' "--debug-log=msg.'+BaseApplication.GetOptionValue('debug-log')+'"';
+  if BaseApplication.HasOption('config-path') then
+    cmdln := cmdln+' "--config-path='+BaseApplication.GetOptionValue('config-path')+'"';
   if ProcessExists(cmd,cmdln) then exit;
+  debugln('Starting Messagemanager:'+cmdln);
   aDir := AppendPathDelim(AppendPathDelim(AppendPathDelim(BaseApplication.Location)+'tools'));
   if (not FileExistsUTF8(cmd)) and (not FileExistsUTF8(aDir+cmd)) then
     begin

@@ -245,20 +245,16 @@ var
         First;
         while not EOF do
           begin
-            cmd := cmd+' '+{$IFNDEF WINDOWS}'"'+{$ENDIF}'--'+FieldByName('NAME').AsString+'='+{$IFDEF WINDOWS}'"'+{$ENDIF}FieldByName('VALUE').AsString;
+            cmd := cmd+' "--'+FieldByName('NAME').AsString+'='+FieldByName('VALUE').AsString+'"';
             Next;
           end;
       end;
     if pos('--mandant',lowercase(cmd)) = 0 then
-      begin
-        {$IFDEF WINDOWS}
-        cmd := cmd+' --mandant="'+BaseApplication.GetOptionValue('m','mandant')+'"';
-        {$ELSE}
-        cmd := cmd+' --mandant='+BaseApplication.GetOptionValue('m','mandant')+'';
-        {$ENDIF}
-      end;
+      cmd := cmd+' "--mandant='+BaseApplication.GetOptionValue('m','mandant')+'"';
     if Data.Users.DataSet.Active then
-      cmd := cmd+' '+{$IFNDEF WINDOWS}'"'+{$ENDIF}'--user='+{$IFDEF WINDOWS}'"'+{$ENDIF}Data.Users.FieldByName('NAME').AsString+'"';
+      cmd := cmd+' "--user='+Data.Users.FieldByName('NAME').AsString+'"';
+    if BaseApplication.HasOption('c','config-path') then
+      cmd := cmd+' "--config-path='+BaseApplication.GetOptionValue('c','config-path')+'"';
   end;
 begin
   aNow := Now();
@@ -322,12 +318,15 @@ begin
                   cmd := cmd+BuildCmdLine;
                   DoLog(aProcess+':'+strStartingProcess+' ('+cmd+')',aLog);
                   NewProcess := TProcProcess.Create(Self);
+                  {$if FPC_FULLVERSION<20400}
+                  NewProcess.InheritHandles := false;
+                  {$endif}
                   NewProcess.Id := Processes.Id.AsVariant;
                   NewProcess.Informed:=False;
                   Setlength(ProcessData,length(ProcessData)+1);
                   ProcessData[length(ProcessData)-1] := NewProcess;
                   NewProcess.CommandLine:=cmd;
-                  NewProcess.CurrentDirectory:=BaseApplication.Location;
+                  NewProcess.CurrentDirectory:= CleanAndExpandDirectory(BaseApplication.Location+DirectorySeparator+'..'+DirectorySeparator);
                   NewProcess.Options := [poNoConsole,poUsePipes];
                   NewProcess.Execute;
                   NewProcess.Timeout := aNow+(max(Processes.FieldByName('INTERVAL').AsInteger,2)/MinsPerDay);
@@ -335,10 +334,15 @@ begin
                   Processes.Edit;
                   Processes.DataSet.FieldByName('STARTED').AsDateTime := Now();
                   Processes.DataSet.FieldByName('STOPPED').Clear;
+                  Processes.DataSet.FieldByName('LOG').AsString := aLog.Text;
                   Processes.Post;
                 end;
             end
-          else DoLog(ExpandFileNameUTF8(aProcess+ExtractFileExt(BaseApplication.ExeName))+':'+'File dosend exists',aLog);
+          else
+            begin
+              aLog.Clear;
+              DoLog(ExpandFileNameUTF8(aProcess+ExtractFileExt(BaseApplication.ExeName))+':'+'File dosend exists',aLog);
+            end;
           if Processes.DataSet.FieldByName('LOG').AsString<>aLog.Text then
             begin
               Processes.Edit;

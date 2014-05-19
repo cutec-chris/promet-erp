@@ -713,7 +713,7 @@ begin
       //Win32 user may decide to override locale with LANG variable.
       if Lang = '' then
         Lang := GetEnvironmentVariableUTF8('LANG');
-
+      debugln('Detected Language:'+Lang);
       if lowercase(copy(Lang,0,2)) = 'de' then
         SetLanguage('Deutsch')
       else
@@ -1061,4 +1061,4 @@ initialization
   RegisterClass(TDBComboBox);
   RegisterClass(TPanel);
 end.
-
+
