@@ -1,4 +1,6 @@
-﻿Build 344
+﻿Build 345
+      - Setup:Portable Version sollte nun komplett sein
+Build 344
       - Gantt:Berechnungsfunktionen wurden in Plan und Aktuelle Funktionen aufgeteilt. In der Planberechnung werden auch Aufgaben eingekürzt. Im laufenden projekt werden sie nur verschoben.
       - Gantt:Wartezeit wird nun korrekt dargestellt (durchgezogene Linie für Wartezeit, gedottete Linie für Bufferzeit)
       - Gantt:Baum Selektierte Schrift wird in Highlight Farbe ausgegeben

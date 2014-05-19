@@ -81,13 +81,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-<<<<<<< HEAD
         <TopLine Value="723"/>
         <CursorPos X="3" Y="755"/>
-=======
-        <TopLine Value="489"/>
-        <CursorPos X="83" Y="517"/>
->>>>>>> 5e492214557d792406305fa1cbbc2aefac01b377
         <UsageCount Value="141"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
