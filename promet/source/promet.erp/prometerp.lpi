@@ -291,7 +291,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="45">
+    <Units Count="46">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -310,8 +310,8 @@
         <UnitName Value="uMain"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="503"/>
-        <CursorPos X="33" Y="521"/>
+        <TopLine Value="3290"/>
+        <CursorPos X="24" Y="3330"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -407,7 +407,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uArticleStorageFrame"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="16"/>
         <CursorPos X="1" Y="1"/>
@@ -434,7 +434,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uArticleFrame"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="670"/>
         <CursorPos X="8" Y="688"/>
@@ -794,18 +794,17 @@
       <Unit41>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="686"/>
-        <CursorPos X="17" Y="703"/>
+        <TopLine Value="742"/>
+        <CursorPos X="59" Y="751"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit41>
       <Unit42>
         <Filename Value="../../../general/src/Utils.pas"/>
         <UnitName Value="Utils"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="181"/>
         <CursorPos X="40" Y="190"/>
@@ -827,13 +826,24 @@
         <UnitName Value="uMainTreeFrame"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="2048"/>
+        <TopLine Value="2046"/>
         <CursorPos X="41" Y="2073"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit44>
+      <Unit45>
+        <Filename Value="../base/dbintfs/uprocessmanager.pas"/>
+        <UnitName Value="uProcessManager"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="5"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="89"/>
+        <CursorPos X="82" Y="115"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit45>
     </Units>
-    <JumpHistory Count="17" HistoryIndex="16">
+    <JumpHistory Count="24" HistoryIndex="23">
       <Position1>
         <Filename Value="umain.pas"/>
         <Caret Line="3377" Column="20" TopLine="3349"/>
@@ -902,6 +912,34 @@
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <Caret Line="711" Column="1" TopLine="696"/>
       </Position17>
+      <Position18>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <Caret Line="716" Column="42" TopLine="694"/>
+      </Position18>
+      <Position19>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <Caret Line="751" Column="59" TopLine="742"/>
+      </Position19>
+      <Position20>
+        <Filename Value="umain.pas"/>
+        <Caret Line="525" Column="34" TopLine="503"/>
+      </Position20>
+      <Position21>
+        <Filename Value="../base/dbintfs/uprocessmanager.pas"/>
+        <Caret Line="110" Column="45" TopLine="87"/>
+      </Position21>
+      <Position22>
+        <Filename Value="umain.pas"/>
+        <Caret Line="3331" Column="11" TopLine="3304"/>
+      </Position22>
+      <Position23>
+        <Filename Value="../base/dbintfs/uprocessmanager.pas"/>
+        <Caret Line="112" Column="24" TopLine="89"/>
+      </Position23>
+      <Position24>
+        <Filename Value="umain.pas"/>
+        <Caret Line="3295" Column="24" TopLine="3276"/>
+      </Position24>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
