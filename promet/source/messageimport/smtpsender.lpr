@@ -46,23 +46,13 @@ begin
   if SSLImplementation = nil then
     Warning('warning no SSL Library loaded !');
   StartTime := Now();
-  while not Terminated do
+  with Data.Users.DataSet do
     begin
-      if Now()-StartTime > ((1/HoursPerDay)*2) then break;
-      with Data.Users.DataSet do
+      First;
+      while not EOF do
         begin
-          First;
-          while not EOF do
-            begin
-              SendMessages(FieldByName('NAME').AsString);
-              Next;
-            end;
-        end;
-      if HasOption('o','onerun') then break;
-      for i := 0 to 1000 do
-        begin
-          sleep(60*6);
-          if Terminated then break;
+          SendMessages(FieldByName('NAME').AsString);
+          Next;
         end;
     end;
   Terminate;
