@@ -8010,7 +8010,7 @@ msgid "Sie können kein Lager mit Inhalt löschen"
 msgstr ""
 
 #: uarticleframe.strchangenumer
-msgid "Nummer ändern"
+msgid "Nummer Ã¤ndern"
 msgstr ""
 
 #: uarticleframe.strnewarticle
@@ -8054,12 +8054,12 @@ msgstr ""
 
 #: uarticlepositionframe.strpiecelisttypeorder
 msgctxt "uarticlepositionframe.strpiecelisttypeorder"
-msgid "O In Auftrag auflösen"
+msgid "O In Auftrag auflÃ¶sen"
 msgstr ""
 
 #: uarticlepositionframe.strpiecelisttypeproduction
 msgctxt "uarticlepositionframe.strpiecelisttypeproduction"
-msgid "P In produktion auflösen"
+msgid "P In produktion auflÃ¶sen"
 msgstr ""
 
 #: ubasedatamodule.str2ndtransactionstarted
@@ -8501,7 +8501,7 @@ msgid "MwSt"
 msgstr ""
 
 #: ubookserial.strbookserial
-msgid "Scannen Sie die Seriennummer für Position %s, Artikel %s"
+msgid "Scannen Sie die Seriennummer fÃ¼r Position %s, Artikel %s"
 msgstr ""
 
 #: ucalendar.streventsthisweek
@@ -8944,11 +8944,11 @@ msgstr "Category"
 
 #: umain.strcurrencies
 msgctxt "umain.strcurrencies"
-msgid "Währungen"
+msgid "WÃ¤hrungen"
 msgstr ""
 
 #: umain.strdeletingmessages
-msgid "lösche Nachrichten, noch %d Nachichten"
+msgid "lÃ¶sche Nachrichten, noch %d Nachichten"
 msgstr ""
 
 #: umain.strinventory
@@ -8993,7 +8993,7 @@ msgid "Telefonie"
 msgstr ""
 
 #: umain.strprocessesopen
-msgid "Es sind noch Dateien offen (Dateiverwaltung), wirklich schließen ?"
+msgid "Es sind noch Dateien offen (Dateiverwaltung), wirklich schlieÃen ?"
 msgstr ""
 
 #: umain.strrepair
@@ -9053,12 +9053,12 @@ msgstr ""
 
 #: uorderframe.stradditional
 msgctxt "uorderframe.stradditional"
-msgid "Zusätzlich"
+msgid "ZusÃ¤tzlich"
 msgstr ""
 
 #: uorderframe.strchangein
 msgctxt "uorderframe.strchangein"
-msgid "geändert in"
+msgid "geÃ¤ndert in"
 msgstr ""
 
 #: uorderframe.strchangeorderin
@@ -9068,7 +9068,7 @@ msgstr ""
 
 #: uorderframe.strcustomerhasnoaddress
 msgctxt "uorderframe.strcustomerhasnoaddress"
-msgid "Der Kontakt hat keine Adresse, möchten Sie eine hinzufügen ?"
+msgid "Der Kontakt hat keine Adresse, mÃ¶chten Sie eine hinzufÃ¼gen ?"
 msgstr ""
 
 #: uorderframe.strdates
@@ -9087,7 +9087,7 @@ msgid "kein Kunde gefunden !"
 msgstr ""
 
 #: uorderframe.strnoordertypeselected
-msgid "Zu dieser Belegart ist kein Auftragstyp ausgewählt, er kann nicht gewandelt werden !"
+msgid "Zu dieser Belegart ist kein Auftragstyp ausgewÃ¤hlt, er kann nicht gewandelt werden !"
 msgstr ""
 
 #: uorderframe.strordertochange
@@ -9096,7 +9096,7 @@ msgid "Auftrag %s %s wird"
 msgstr ""
 
 #: uorderframe.strsearchfromorderaddress
-msgid "Die Suche waurde aus der Auftragsverwaltung gestartet wenn Sie eine Addresse auswählen, wird diese in dne aktuellen Auftrag übernommen"
+msgid "Die Suche waurde aus der Auftragsverwaltung gestartet wenn Sie eine Addresse auswÃ¤hlen, wird diese in dne aktuellen Auftrag Ã¼bernommen"
 msgstr ""
 
 #: uorders.strassemblyexchanged
@@ -9166,11 +9166,11 @@ msgid "wartet auf Kunden"
 msgstr ""
 
 #: upersonfinance.stribannotvalid
-msgid "Die IBAN Nummer ist UNGÜLTIG !"
+msgid "Die IBAN Nummer ist UNGÃLTIG !"
 msgstr ""
 
 #: upersonfinance.stribanvalid
-msgid "Die IBAN Nummer scheint GÜLTIG zu sein oder keine IBAN Nummer !"
+msgid "Die IBAN Nummer scheint GÃLTIG zu sein oder keine IBAN Nummer !"
 msgstr ""
 
 #: upersonframe.scbirthday
@@ -9179,17 +9179,17 @@ msgstr ""
 
 #: upersonframe.scbusinessmail
 msgctxt "upersonframe.scbusinessmail"
-msgid "MLB  e-Mail Geschäftlich"
+msgid "MLB  e-Mail GeschÃ¤ftlich"
 msgstr ""
 
 #: upersonframe.scbusinessmobilephone
 msgctxt "upersonframe.scbusinessmobilephone"
-msgid "CELB Mobiltelefon Geschäftlich"
+msgid "CELB Mobiltelefon GeschÃ¤ftlich"
 msgstr ""
 
 #: upersonframe.scbusinessphone
 msgctxt "upersonframe.scbusinessphone"
-msgid "TELB Telefon Geschäftlich"
+msgid "TELB Telefon GeschÃ¤ftlich"
 msgstr ""
 
 #: upersonframe.scfax
@@ -9248,7 +9248,7 @@ msgstr ""
 
 #: upersonframe.strchangecustomernumer
 msgctxt "upersonframe.strchangecustomernumer"
-msgid "Kundennumer ändern"
+msgid "Kundennumer Ã¤ndern"
 msgstr ""
 
 #: upersonframe.stremployees
@@ -9261,7 +9261,7 @@ msgid "Info"
 msgstr ""
 
 #: upersonframe.strinserteventforbirthday
-msgid "Möchten Sie für diesen Geburtstag einen Eintrag in Ihren Kalender erzeugen ?"
+msgid "MÃ¶chten Sie fÃ¼r diesen Geburtstag einen Eintrag in Ihren Kalender erzeugen ?"
 msgstr ""
 
 #: upersonframe.strnewperson

@@ -751,7 +751,7 @@ begin
       if Data.Users.DataSet.Active then
         begin
           ProcessManager := uProcessManager.StartMessageManager(MandantName,Data.Users.DataSet.FieldByName('NAME').AsString);
-          if DoCloseIt then
+          if DoCloseIt and Assigned(Processmanager) then
             Processmanager.Tag:=100;
         end;
     end;
@@ -924,7 +924,6 @@ begin
           rMandant := Config.ReadString('LOGINMANDANT','Standard');
           rUser := Config.ReadString('LOGINUSER','Administrator');
           rAutoLogin := Config.ReadString('AUTOMATICLOGIN','');
-          Showmessage(rMandant+' '+rUser+' '+rAutoLogin);
           if ((Config.ReadInteger('AUTOMATICLOGIN',0)=aID) and (aID <> 0))
           or (IsAutoLogin) then
             with Self as IBaseDBInterface do
@@ -1074,4 +1073,4 @@ initialization
   RegisterClass(TDBComboBox);
   RegisterClass(TPanel);
 end.
-
+
