@@ -53,9 +53,9 @@ object fCameraimport: TfCameraimport
     TabOrder = 2
     ShowButtons = [pbClose]
     object Button1: TButton
-      Left = 63
+      Left = 47
       Height = 34
-      Hint = 'ausgewählte Dateien importieren'
+      Hint = 'alle Dateien ab der markierten importieren'
       Top = 8
       Width = 33
       Align = alLeft
@@ -66,7 +66,7 @@ object fCameraimport: TfCameraimport
       TabOrder = 4
     end
     object cbDelete: TCheckBox
-      Left = 102
+      Left = 86
       Height = 28
       Top = 8
       Width = 141
@@ -79,18 +79,18 @@ object fCameraimport: TfCameraimport
     object bImport: TButton
       Left = 0
       Height = 34
-      Hint = 'Aktuelle Datei importieren'
+      Hint = 'Aktuell gewählte Datei importieren'
       Top = 8
-      Width = 63
+      Width = 47
       Align = alLeft
       AutoSize = True
       BorderSpacing.Top = 6
-      Caption = 'gewählte'
+      Caption = '1 Foto'
       OnClick = bImportClick
       TabOrder = 6
     end
     object Button2: TButton
-      Left = 249
+      Left = 233
       Height = 34
       Hint = 'bereits importierte Dateien finden und abwählen'
       Top = 8

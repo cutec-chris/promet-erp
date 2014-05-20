@@ -291,7 +291,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="43">
+    <Units Count="44">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -804,16 +804,30 @@
       <Unit42>
         <Filename Value="../base_pm/gsGanttCalendar.pas"/>
         <UnitName Value="gsGanttCalendar"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="173"/>
-        <CursorPos X="109" Y="190"/>
+        <CursorPos X="48" Y="196"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit42>
+      <Unit43>
+        <Filename Value="../base/base_docmanage/ucameraimport.pas"/>
+        <ComponentName Value="fCameraimport"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ucameraimport"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="6"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="250"/>
+        <CursorPos X="3" Y="255"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit43>
     </Units>
-    <JumpHistory Count="9" HistoryIndex="8">
+    <JumpHistory Count="11" HistoryIndex="10">
       <Position1>
         <Filename Value="umain.pas"/>
         <Caret Line="3377" Column="20" TopLine="3349"/>
@@ -850,6 +864,14 @@
         <Filename Value="../base_pm/gsGanttCalendar.pas"/>
         <Caret Line="1" Column="1" TopLine="1"/>
       </Position9>
+      <Position10>
+        <Filename Value="../base/base_docmanage/ucameraimport.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position10>
+      <Position11>
+        <Filename Value="../base/base_docmanage/ucameraimport.pas"/>
+        <Caret Line="114" Column="3" TopLine="115"/>
+      </Position11>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
