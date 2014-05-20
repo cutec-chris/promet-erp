@@ -902,6 +902,11 @@ var
   rMandant: String;
   rUser: String;
   rAutoLogin: String;
+  function IsAutoLogin : Boolean;
+  begin
+    result := (rMandant='Standard') and (rUser='Administrator') and (rAutoLogin='');
+  end;
+
 begin
   Result := True;
   if not Assigned(fPassword) then
@@ -915,18 +920,26 @@ begin
     try
       with Self as IBaseApplication do
         begin
+          Showmessage('1.');
           aID := CreateUserID;
-          rMandant := Config.ReadString('LOGINMANDANT','');
-          rUser := Config.ReadString('LOGINUSER','');
+          rMandant := Config.ReadString('LOGINMANDANT','Standard');
+          rUser := Config.ReadString('LOGINUSER','Administrator');
           rAutoLogin := Config.ReadString('AUTOMATICLOGIN','');
           if ((Config.ReadInteger('AUTOMATICLOGIN',0)=aID) and (aID <> 0))
-          or ((rMandant='Standart') and (rUser='Administrator') and (rAutoLogin='')) then
+          or (IsAutoLogin) then
             with Self as IBaseDBInterface do
-              if DBLogin(Config.ReadString('LOGINMANDANT',''),Config.ReadString('LOGINUSER',''),True) then
+              if DBLogin(rMandant,rUser,True) then
                 begin
+                  if IsAutoLogin and (not Data.Users.Passwort.IsNull) then
+                    begin
+                      Config.WriteInteger('AUTOMATICLOGIN',0);
+                      raise Exception.Create('');
+                      Result := False;
+                      exit;
+                    end;
                   Data.DeleteExpiredSessions;
                   uData.Data := Data;
-                  StartProcessManager(((rMandant='Standart') and (rUser='Administrator') and (rAutoLogin='')));
+                  StartProcessManager(IsAutoLogin);
                   udata.Data.OnConnectionLost:=@DataDataConnectionLost;
                   udata.Data.OnDisconnectKeepAlive:=@DataDataDisconnectKeepAlive;
                   udata.Data.OnConnect:=@DataDataConnect;

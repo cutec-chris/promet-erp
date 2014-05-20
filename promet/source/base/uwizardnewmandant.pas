@@ -165,7 +165,6 @@ resourcestring
   strSyncIDChanged              = 'SyncID wurde geändert!';
   strSuccess                    = 'erfolgreich durchgeführt!';
   strImporting                  = 'Importiere ';
-  strPersonal                   = 'Standard';
 { TfWizardNewMandant }
 
 procedure TfWizardNewMandant.bAbort0Click(Sender: TObject);
@@ -328,7 +327,7 @@ procedure TfWizardNewMandant.SilentTimerTimer(Sender: TObject);
 begin
   SilentTimer.Enabled:=False;
   Application.ProcessMessages;
-  eMandantname.Text:=strPersonal;
+  eMandantname.Text:='Standard';
   bNext0Click(bNext0);
 end;
 
