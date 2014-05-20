@@ -121,7 +121,6 @@ var
 begin
   Process := TProcessUTF8.Create(nil);
   Process.Options:= [poUsePipes, poWaitOnExit, poNoConsole, poStdErrToOutPut, poNewProcessGroup];
-//  Process.ShowWindow := swoHide;
   Process.CommandLine := CommandLine;
   if CurDir <> '' then
     Process.CurrentDirectory := CurDir;

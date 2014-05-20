@@ -86,6 +86,7 @@ var
   intextseparator : Boolean;
   lc: Char;
 begin
+  DataSet.DisableControls;
   header := TStringList.Create;
   AssignFile(f,Filename);
   Reset(f);
@@ -158,10 +159,11 @@ begin
         debugln(e.Message);
       end;
   end;
+  DataSet.EnableControls;
   CloseFile(f);
   if DataSet.State = dsInsert then
     DataSet.Cancel;
   header.Destroy;
 end;
 end.
-
+

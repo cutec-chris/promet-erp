@@ -100,7 +100,7 @@ LazarusResources.Add('TfWizardNewMandant','FORMDATA',[
   +'t'#0#25'BorderSpacing.InnerBorder'#2#4#7'Caption'#6#10'Schliessen'#7'OnClic'
   +'k'#7#12'bAbort0Click'#8'TabOrder'#2#1#0#0#6'TLabel'#13'lDefaultValue'#22'An'
   +'chorSideLeft.Control'#7#21'lFillingDefaultValues'#19'AnchorSideLeft.Side'#7
-  +#9'asrBottom'#4'Left'#3#184#0#6'Height'#2#1#3'Top'#2' '#5'Width'#2#1#18'Bord'
+  +#9'asrBottom'#4'Left'#3#164#0#6'Height'#2#1#3'Top'#2' '#5'Width'#2#1#18'Bord'
   +'erSpacing.Left'#2#7#11'ParentColor'#8#0#0#0#6'TPanel'#6'pCont0'#4'Left'#3
   +#128#0#6'Height'#3'X'#1#3'Top'#2#0#5'Width'#3#166#1#5'Align'#7#8'alClient'#10
   +'BevelOuter'#7#6'bvNone'#12'ClientHeight'#3'X'#1#11'ClientWidth'#3#166#1#11
@@ -114,10 +114,10 @@ LazarusResources.Add('TfWizardNewMandant','FORMDATA',[
   +'en soll oder nicht.'#10'Font.Style'#11#6'fsBold'#0#11'ParentColor'#8#10'Par'
   +'entFont'#8#8'WordWrap'#9#0#0#6'TLabel'#12'lMandantname'#21'AnchorSideTop.Co'
   +'ntrol'#7#10'cbLanguage'#18'AnchorSideTop.Side'#7#9'asrBottom'#4'Left'#2#8#6
-  +'Height'#2#13#3'Top'#2'w'#5'Width'#2'^'#17'BorderSpacing.Top'#2#10#7'Caption'
+  +'Height'#2#13#3'Top'#2'q'#5'Width'#2'P'#17'BorderSpacing.Top'#2#10#7'Caption'
   +#6#13'Mandantenname'#11'ParentColor'#8#0#0#6'TLabel'#9'lLanguage'#21'AnchorS'
   +'ideTop.Control'#7#13'lDescription0'#18'AnchorSideTop.Side'#7#9'asrBottom'#4
-  +'Left'#2#8#6'Height'#2#13#3'Top'#2'R'#5'Width'#2'.'#17'BorderSpacing.Top'#2
+  +'Left'#2#8#6'Height'#2#13#3'Top'#2'R'#5'Width'#2''''#17'BorderSpacing.Top'#2
   +#13#7'Caption'#6#7'Sprache'#11'ParentColor'#8#0#0#6'TPanel'#9'pButtons0'#4'L'
   +'eft'#2#0#6'Height'#2'2'#3'Top'#3'&'#1#5'Width'#3#166#1#5'Align'#7#8'alBotto'
   +'m'#10'BevelOuter'#7#6'bvNone'#12'ClientHeight'#2'2'#11'ClientWidth'#3#166#1
@@ -132,141 +132,141 @@ LazarusResources.Add('TfWizardNewMandant','FORMDATA',[
   ,'akLeft'#7'akRight'#0#25'BorderSpacing.InnerBorder'#2#4#7'Caption'#6#7'bAbor'
   +'t0'#7'OnClick'#7#12'bAbort0Click'#8'TabOrder'#2#2#0#0#0#9'TComboBox'#10'cbL'
   +'anguage'#21'AnchorSideTop.Control'#7#13'lDescription0'#18'AnchorSideTop.Sid'
-  +'e'#7#9'asrBottom'#4'Left'#3#144#0#6'Height'#2#27#3'Top'#2'R'#5'Width'#3#7#1
-  +#17'BorderSpacing.Top'#2#13#10'ItemHeight'#2#0#9'ItemIndex'#2#0#13'Items.Str'
-  +'ings'#1#6#7'Deutsch'#0#8'OnSelect'#7#16'cbLanguageSelect'#8'TabOrder'#2#4#7
+  +'e'#7#9'asrBottom'#4'Left'#3#144#0#6'Height'#2#21#3'Top'#2'R'#5'Width'#3#7#1
+  +#17'BorderSpacing.Top'#2#13#10'ItemHeight'#2#13#9'ItemIndex'#2#0#13'Items.St'
+  +'rings'#1#6#7'Deutsch'#0#8'OnSelect'#7#16'cbLanguageSelect'#8'TabOrder'#2#4#7
   +'TabStop'#8#4'Text'#6#7'Deutsch'#0#0#12'TRadioButton'#13'cbNewdatabase'#21'A'
   +'nchorSideTop.Control'#7#10'cbLanguage'#24'AnchorSideBottom.Control'#7#18'cb'
-  +'Existingdatabase'#4'Left'#2#4#6'Height'#2#24#4'Hint'#6#175'Benutzen Sie die'
+  +'Existingdatabase'#4'Left'#2#4#6'Height'#2#17#4'Hint'#6#175'Benutzen Sie die'
   +'se Einstellung, wenn sie eine neue Datenbank anlegen m'#195#182'chten'#10'I'
   +'m folgenden Dialog k'#195#182'nnen Sie ein Profil mit Standardeinstellungen'
   +' f'#195#188'r diese'#10'Datenbank w'#195#164'hlen'#3'Top'#3#148#0#5'Width'#3
-  +#7#1#17'BorderSpacing.Top'#2'B'#7'Caption'#6'*Neue Datenbank (mit Einstellun'
-  +'gen f'#195#188'llen)'#7'Checked'#9#8'TabOrder'#2#1#7'TabStop'#9#0#0#12'TRad'
-  +'ioButton'#18'cbExistingdatabase'#21'AnchorSideTop.Control'#7#13'cbNewdataba'
-  +'se'#18'AnchorSideTop.Side'#7#9'asrBottom'#4'Left'#2#4#6'Height'#2#24#4'Hint'
-  +#6#183'w'#195#164'hlen Sie diese Einstellung, wenn Sie eine Datenbankverkn'
-  +#195#188'pfung'#10'zu einer schon existierenden Datenbank anlegen m'#195#182
-  +'chten,'#10'z.b. wenn Sie einen weiteren Client-PC einrichten m'#195#182'cht'
-  +'en.'#3'Top'#3#179#0#5'Width'#3'H'#1#17'BorderSpacing.Top'#2#7#7'Caption'#6
-  +'5exitierende Datenbank (keine Einstellungen einf'#195#188'gen)'#8'TabOrder'
-  +#2#2#0#0#9'TComboBox'#12'eMandantname'#21'AnchorSideTop.Control'#7#10'cbLang'
-  +'uage'#18'AnchorSideTop.Side'#7#9'asrBottom'#4'Left'#3#144#0#6'Height'#2#27#3
-  +'Top'#2'u'#5'Width'#3#8#1#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#0#17'B'
-  +'orderSpacing.Top'#2#8#10'ItemHeight'#2#0#8'OnSelect'#7#18'eMandantnameSelec'
-  +'t'#8'TabOrder'#2#0#0#0#12'TRadioButton'#8'rbDelete'#21'AnchorSideTop.Contro'
-  +'l'#7#13'cbNewdatabase'#18'AnchorSideTop.Side'#7#9'asrBottom'#4'Left'#2#4#6
-  +'Height'#2#24#4'Hint'#6'gMit deiser Einstellung k'#195#182'nnen Sie eine Dat'
-  +'enbankverkn'#195#188'pfung l'#195#182'schen'#10'(l'#195#182'scht nicht die '
-  +'Datenbank !!)'#3'Top'#3#244#0#5'Width'#3#204#0#17'BorderSpacing.Top'#2'H'#7
-  +'Caption'#6#30'Datenbankverkn'#195#188'pfung l'#195#182'schen'#7'Enabled'#8#8
-  +'TabOrder'#2#3#0#0#12'TRadioButton'#10'rbFromFile'#21'AnchorSideTop.Control'
-  +#7#18'cbExistingdatabase'#4'Left'#2#4#6'Height'#2#24#4'Hint'#12')'#1#0#0'Mit'
-  +' dieser Einstellung k'#195#182'nnen Sie die Datenbankeinstellungen aus eine'
-  +'r Datei (.perml) laden.'#10'Sie finden diese Dateien nach einer Einrichrung'
-  +' mit diesem Assistenten'#10'unter Windows in'#10'Benuterprofil\Lokale Einst'
-  +'ellungen\Anwendungsdaten\prometerp\*.perml'#10'Unter Unix in'#10'Benuterpro'
-  +'fil\.prometerp\*.perml'#3'Top'#3#213#0#5'Width'#3#132#0#17'BorderSpacing.To'
-  +'p'#2'"'#7'Caption'#6#19'aus Datei erstellen'#8'TabOrder'#2#6#0#0#13'TFileNa'
-  +'meEdit'#14'DirectoryEdit1'#21'AnchorSideTop.Control'#7#10'rbFromFile'#4'Lef'
-  +'t'#3#168#0#6'Height'#2#23#3'Top'#3#213#0#5'Width'#3#216#0#16'OnAcceptFileNa'
-  +'me'#7#28'DirectoryEdit1AcceptFileName'#6'Filter'#6#31'Promet-ERP Mandant Fi'
-  +'le|*.perml'#11'FilterIndex'#2#0#10'DefaultExt'#6#5'perml'#15'HideDirectorie'
-  +'s'#8#11'ButtonWidth'#2#23#11'DirectInput'#8#9'NumGlyphs'#2#1#9'MaxLength'#2
-  +#0#8'TabOrder'#2#7#0#0#0#6'TPanel'#6'pCont1'#4'Left'#3#128#0#6'Height'#3'X'#1
-  +#3'Top'#2#0#5'Width'#3#166#1#5'Align'#7#8'alClient'#10'BevelOuter'#7#6'bvNon'
-  +'e'#12'ClientHeight'#3'X'#1#11'ClientWidth'#3#166#1#11'FullRepaint'#8#8'TabO'
-  +'rder'#2#5#0#6'TLabel'#13'lDescription1'#4'Left'#2#0#6'Height'#2#13#3'Top'#2
-  +#0#5'Width'#3#166#1#5'Align'#7#5'alTop'#7'Caption'#6'1W'#195#164'hlen Sie hi'
-  +'er ein Profil mit Vorgabewerten aus'#10'Font.Style'#11#6'fsBold'#0#11'Paren'
-  +'tColor'#8#10'ParentFont'#8#8'WordWrap'#9#0#0#6'TLabel'#8'lProfile'#4'Left'#2
-  +#12#6'Height'#2#13#3'Top'#2#24#5'Width'#2#29#7'Caption'#6#6'Profil'#11'Paren'
-  +'tColor'#8#0#0#6'TPanel'#9'pButtons1'#4'Left'#2#0#6'Height'#2'2'#3'Top'#3'&'
-  +#1#5'Width'#3#166#1#5'Align'#7#8'alBottom'#10'BevelOuter'#7#6'bvNone'#12'Cli'
-  +'entHeight'#2'2'#11'ClientWidth'#3#166#1#8'TabOrder'#2#0#0#6'TBevel'#8'bvRig'
-  +'ht1'#4'Left'#2#0#6'Height'#2#2#3'Top'#2#0#5'Width'#3#166#1#5'Align'#7#5'alT'
-  +'op'#5'Shape'#7#9'bsTopLine'#0#0#7'TButton'#6'bNext1'#4'Left'#2'x'#6'Height'
-  +#2#25#3'Top'#2#14#5'Width'#2'd'#25'BorderSpacing.InnerBorder'#2#4#7'Caption'
-  +#6#6'bNext0'#7'OnClick'#7#11'bNext0Click'#8'TabOrder'#2#0#0#0#7'TButton'#6'b'
-  +'Prev1'#4'Left'#2#21#6'Height'#2#25#3'Top'#2#14#5'Width'#2'c'#25'BorderSpaci'
-  +'ng.InnerBorder'#2#4#7'Caption'#6#6'bPrev0'#7'OnClick'#7#11'bPrev0Click'#8'T'
-  +'abOrder'#2#1#0#0#7'TButton'#7'bAbort1'#4'Left'#3#8#1#6'Height'#2#25#3'Top'#2
-  +#14#5'Width'#3#152#0#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#0#25'Border'
-  +'Spacing.InnerBorder'#2#4#7'Caption'#6#7'bAbort0'#7'OnClick'#7#12'bAbort0Cli'
-  ,'ck'#8'TabOrder'#2#2#0#0#0#9'TTreeView'#9'tvProfile'#4'Left'#2#12#6'Height'#3
-  +#187#0#3'Top'#2'0'#5'Width'#3#140#1#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRig'
-  +'ht'#8'akBottom'#0#17'DefaultItemHeight'#2#16#8'ReadOnly'#9#8'TabOrder'#2#1#7
-  +'Options'#11#17'tvoAutoItemHeight'#16'tvoHideSelection'#21'tvoKeepCollapsedN'
-  +'odes'#11'tvoReadOnly'#14'tvoShowButtons'#12'tvoShowLines'#11'tvoShowRoot'#11
-  +'tvoToolTips'#0#0#0#9'TCheckBox'#10'cbSyncHelp'#4'Left'#2#12#6'Height'#2#24#4
-  +'Hint'#6#213'Wenn Diese Option gesetzt ist, '#10'wird auf der Datenbank ein '
-  +'Synchronisationseintrag'#10'f'#195#188'r eine mitgelieferte Hilfe Datenbank'
-  +' erstellt'#10'Bei Updates der Hilfedatenbank werden die '#195#132'nderungen'
-  +#10'automatisch synchronisiert.'#3'Top'#3#248#0#5'Width'#3#223#0#7'Caption'#6
-  +'"Hilfe in Datenbank synchronisieren'#7'Checked'#9#5'State'#7#9'cbChecked'#8
-  +'TabOrder'#2#2#0#0#0#6'TPanel'#6'pCont2'#4'Left'#3#128#0#6'Height'#3'X'#1#3
-  +'Top'#2#0#5'Width'#3#166#1#5'Align'#7#8'alClient'#10'BevelOuter'#7#6'bvNone'
-  +#12'ClientHeight'#3'X'#1#11'ClientWidth'#3#166#1#11'FullRepaint'#8#8'TabOrde'
-  +'r'#2#1#0#6'TLabel'#13'lDescription2'#4'Left'#2#0#6'Height'#2#13#3'Top'#2#0#5
-  +'Width'#3#166#1#5'Align'#7#5'alTop'#7'Caption'#6'"Geben Sie hier den Datenba'
-  +'nktyp an'#10'Font.Style'#11#6'fsBold'#0#11'ParentColor'#8#10'ParentFont'#8#8
-  +'WordWrap'#9#0#0#6'TLabel'#12'Datenbanktyp'#4'Left'#2#12#6'Height'#2#13#3'To'
-  +'p'#3#140#0#5'Width'#2'N'#7'Caption'#6#12'Datenbanktyp'#11'ParentColor'#8#0#0
-  +#6'TPanel'#9'pButtons2'#4'Left'#2#0#6'Height'#2'2'#3'Top'#3'&'#1#5'Width'#3
+  +#218#0#17'BorderSpacing.Top'#2'B'#7'Caption'#6'*Neue Datenbank (mit Einstell'
+  +'ungen f'#195#188'llen)'#7'Checked'#9#8'TabOrder'#2#1#7'TabStop'#9#0#0#12'TR'
+  +'adioButton'#18'cbExistingdatabase'#21'AnchorSideTop.Control'#7#13'cbNewdata'
+  +'base'#18'AnchorSideTop.Side'#7#9'asrBottom'#4'Left'#2#4#6'Height'#2#17#4'Hi'
+  +'nt'#6#183'w'#195#164'hlen Sie diese Einstellung, wenn Sie eine Datenbankver'
+  +'kn'#195#188'pfung'#10'zu einer schon existierenden Datenbank anlegen m'#195
+  +#182'chten,'#10'z.b. wenn Sie einen weiteren Client-PC einrichten m'#195#182
+  +'chten.'#3'Top'#3#172#0#5'Width'#3#18#1#17'BorderSpacing.Top'#2#7#7'Caption'
+  +#6'5exitierende Datenbank (keine Einstellungen einf'#195#188'gen)'#8'TabOrde'
+  +'r'#2#2#0#0#9'TComboBox'#12'eMandantname'#21'AnchorSideTop.Control'#7#10'cbL'
+  +'anguage'#18'AnchorSideTop.Side'#7#9'asrBottom'#4'Left'#3#144#0#6'Height'#2
+  +#21#3'Top'#2'o'#5'Width'#3#8#1#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#0
+  +#17'BorderSpacing.Top'#2#8#10'ItemHeight'#2#13#8'OnSelect'#7#18'eMandantname'
+  +'Select'#8'TabOrder'#2#0#0#0#12'TRadioButton'#8'rbDelete'#21'AnchorSideTop.C'
+  +'ontrol'#7#13'cbNewdatabase'#18'AnchorSideTop.Side'#7#9'asrBottom'#4'Left'#2
+  +#4#6'Height'#2#17#4'Hint'#6'gMit deiser Einstellung k'#195#182'nnen Sie eine'
+  +' Datenbankverkn'#195#188'pfung l'#195#182'schen'#10'(l'#195#182'scht nicht '
+  +'die Datenbank !!)'#3'Top'#3#237#0#5'Width'#3#170#0#17'BorderSpacing.Top'#2
+  +'H'#7'Caption'#6#30'Datenbankverkn'#195#188'pfung l'#195#182'schen'#7'Enable'
+  +'d'#8#8'TabOrder'#2#3#0#0#12'TRadioButton'#10'rbFromFile'#21'AnchorSideTop.C'
+  +'ontrol'#7#18'cbExistingdatabase'#4'Left'#2#4#6'Height'#2#17#4'Hint'#12')'#1
+  +#0#0'Mit dieser Einstellung k'#195#182'nnen Sie die Datenbankeinstellungen a'
+  +'us einer Datei (.perml) laden.'#10'Sie finden diese Dateien nach einer Einr'
+  +'ichrung mit diesem Assistenten'#10'unter Windows in'#10'Benuterprofil\Lokal'
+  +'e Einstellungen\Anwendungsdaten\prometerp\*.perml'#10'Unter Unix in'#10'Ben'
+  +'uterprofil\.prometerp\*.perml'#3'Top'#3#206#0#5'Width'#2'k'#17'BorderSpacin'
+  +'g.Top'#2'"'#7'Caption'#6#19'aus Datei erstellen'#8'TabOrder'#2#6#0#0#13'TFi'
+  +'leNameEdit'#14'DirectoryEdit1'#21'AnchorSideTop.Control'#7#10'rbFromFile'#4
+  +'Left'#3#168#0#6'Height'#2#21#3'Top'#3#206#0#5'Width'#3#216#0#16'OnAcceptFil'
+  +'eName'#7#28'DirectoryEdit1AcceptFileName'#6'Filter'#6#31'Promet-ERP Mandant'
+  +' File|*.perml'#11'FilterIndex'#2#0#10'DefaultExt'#6#5'perml'#15'HideDirecto'
+  +'ries'#8#11'ButtonWidth'#2#23#11'DirectInput'#8#9'NumGlyphs'#2#1#9'MaxLength'
+  +#2#0#8'TabOrder'#2#7#0#0#0#6'TPanel'#6'pCont1'#4'Left'#3#128#0#6'Height'#3'X'
+  +#1#3'Top'#2#0#5'Width'#3#166#1#5'Align'#7#8'alClient'#10'BevelOuter'#7#6'bvN'
+  +'one'#12'ClientHeight'#3'X'#1#11'ClientWidth'#3#166#1#11'FullRepaint'#8#8'Ta'
+  +'bOrder'#2#5#0#6'TLabel'#13'lDescription1'#4'Left'#2#0#6'Height'#2#13#3'Top'
+  +#2#0#5'Width'#3#166#1#5'Align'#7#5'alTop'#7'Caption'#6'1W'#195#164'hlen Sie '
+  +'hier ein Profil mit Vorgabewerten aus'#10'Font.Style'#11#6'fsBold'#0#11'Par'
+  +'entColor'#8#10'ParentFont'#8#8'WordWrap'#9#0#0#6'TLabel'#8'lProfile'#4'Left'
+  +#2#12#6'Height'#2#13#3'Top'#2#24#5'Width'#2#24#7'Caption'#6#6'Profil'#11'Par'
+  +'entColor'#8#0#0#6'TPanel'#9'pButtons1'#4'Left'#2#0#6'Height'#2'2'#3'Top'#3
+  +'&'#1#5'Width'#3#166#1#5'Align'#7#8'alBottom'#10'BevelOuter'#7#6'bvNone'#12
+  +'ClientHeight'#2'2'#11'ClientWidth'#3#166#1#8'TabOrder'#2#0#0#6'TBevel'#8'bv'
+  +'Right1'#4'Left'#2#0#6'Height'#2#2#3'Top'#2#0#5'Width'#3#166#1#5'Align'#7#5
+  +'alTop'#5'Shape'#7#9'bsTopLine'#0#0#7'TButton'#6'bNext1'#4'Left'#2'x'#6'Heig'
+  +'ht'#2#25#3'Top'#2#14#5'Width'#2'd'#25'BorderSpacing.InnerBorder'#2#4#7'Capt'
+  +'ion'#6#6'bNext0'#7'OnClick'#7#11'bNext0Click'#8'TabOrder'#2#0#0#0#7'TButton'
+  +#6'bPrev1'#4'Left'#2#21#6'Height'#2#25#3'Top'#2#14#5'Width'#2'c'#25'BorderSp'
+  +'acing.InnerBorder'#2#4#7'Caption'#6#6'bPrev0'#7'OnClick'#7#11'bPrev0Click'#8
+  +'TabOrder'#2#1#0#0#7'TButton'#7'bAbort1'#4'Left'#3#8#1#6'Height'#2#25#3'Top'
+  +#2#14#5'Width'#3#152#0#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#0#25'Bord'
+  +'erSpacing.InnerBorder'#2#4#7'Caption'#6#7'bAbort0'#7'OnClick'#7#12'bAbort0C'
+  ,'lick'#8'TabOrder'#2#2#0#0#0#9'TTreeView'#9'tvProfile'#4'Left'#2#12#6'Height'
+  +#3#187#0#3'Top'#2'0'#5'Width'#3#140#1#7'Anchors'#11#5'akTop'#6'akLeft'#7'akR'
+  +'ight'#8'akBottom'#0#17'DefaultItemHeight'#2#16#8'ReadOnly'#9#8'TabOrder'#2#1
+  +#7'Options'#11#17'tvoAutoItemHeight'#16'tvoHideSelection'#21'tvoKeepCollapse'
+  +'dNodes'#11'tvoReadOnly'#14'tvoShowButtons'#12'tvoShowLines'#11'tvoShowRoot'
+  +#11'tvoToolTips'#0#0#0#9'TCheckBox'#10'cbSyncHelp'#4'Left'#2#12#6'Height'#2
+  +#17#4'Hint'#6#213'Wenn Diese Option gesetzt ist, '#10'wird auf der Datenbank'
+  +' ein Synchronisationseintrag'#10'f'#195#188'r eine mitgelieferte Hilfe Date'
+  +'nbank erstellt'#10'Bei Updates der Hilfedatenbank werden die '#195#132'nder'
+  +'ungen'#10'automatisch synchronisiert.'#3'Top'#3#248#0#5'Width'#3#183#0#7'Ca'
+  +'ption'#6'"Hilfe in Datenbank synchronisieren'#7'Checked'#9#5'State'#7#9'cbC'
+  +'hecked'#8'TabOrder'#2#2#0#0#0#6'TPanel'#6'pCont2'#4'Left'#3#128#0#6'Height'
+  +#3'X'#1#3'Top'#2#0#5'Width'#3#166#1#5'Align'#7#8'alClient'#10'BevelOuter'#7#6
+  +'bvNone'#12'ClientHeight'#3'X'#1#11'ClientWidth'#3#166#1#11'FullRepaint'#8#8
+  +'TabOrder'#2#1#0#6'TLabel'#13'lDescription2'#4'Left'#2#0#6'Height'#2#13#3'To'
+  +'p'#2#0#5'Width'#3#166#1#5'Align'#7#5'alTop'#7'Caption'#6'"Geben Sie hier de'
+  +'n Datenbanktyp an'#10'Font.Style'#11#6'fsBold'#0#11'ParentColor'#8#10'Paren'
+  +'tFont'#8#8'WordWrap'#9#0#0#6'TLabel'#12'Datenbanktyp'#4'Left'#2#12#6'Height'
+  +#2#13#3'Top'#3#140#0#5'Width'#2'D'#7'Caption'#6#12'Datenbanktyp'#11'ParentCo'
+  +'lor'#8#0#0#6'TPanel'#9'pButtons2'#4'Left'#2#0#6'Height'#2'2'#3'Top'#3'&'#1#5
+  +'Width'#3#166#1#5'Align'#7#8'alBottom'#10'BevelOuter'#7#6'bvNone'#12'ClientH'
+  +'eight'#2'2'#11'ClientWidth'#3#166#1#8'TabOrder'#2#0#0#6'TBevel'#8'bvRight2'
+  +#4'Left'#2#0#6'Height'#2#2#3'Top'#2#0#5'Width'#3#166#1#5'Align'#7#5'alTop'#5
+  +'Shape'#7#9'bsTopLine'#0#0#7'TButton'#6'bNext2'#4'Left'#2'x'#6'Height'#2#25#3
+  +'Top'#2#14#5'Width'#2'd'#25'BorderSpacing.InnerBorder'#2#4#7'Caption'#6#6'bN'
+  +'ext0'#7'OnClick'#7#11'bNext0Click'#8'TabOrder'#2#0#0#0#7'TButton'#6'bPrev2'
+  +#4'Left'#2#21#6'Height'#2#25#3'Top'#2#14#5'Width'#2'c'#25'BorderSpacing.Inne'
+  +'rBorder'#2#4#7'Caption'#6#6'bPrev0'#7'OnClick'#7#11'bPrev0Click'#8'TabOrder'
+  +#2#1#0#0#7'TButton'#7'bAbort2'#4'Left'#3#8#1#6'Height'#2#25#3'Top'#2#14#5'Wi'
+  +'dth'#3#156#0#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#0#25'BorderSpacing'
+  +'.InnerBorder'#2#4#7'Caption'#6#7'bAbort0'#7'OnClick'#7#12'bAbort0Click'#8'T'
+  +'abOrder'#2#2#0#0#0#9'TComboBox'#14'cbDatabaseType'#4'Left'#3#152#0#6'Height'
+  +#2#21#3'Top'#3#136#0#5'Width'#3#204#0#10'ItemHeight'#2#13#8'TabOrder'#2#1#0#0
+  +#0#6'TPanel'#6'pCont3'#4'Left'#3#128#0#6'Height'#3'X'#1#3'Top'#2#0#5'Width'#3
+  +#166#1#5'Align'#7#8'alClient'#10'BevelOuter'#7#6'bvNone'#12'ClientHeight'#3
+  +'X'#1#11'ClientWidth'#3#166#1#11'FullRepaint'#8#8'TabOrder'#2#2#0#6'TLabel'
+  +#13'lDescription3'#4'Left'#2#0#6'Height'#2#13#3'Top'#2#0#5'Width'#3#166#1#5
+  +'Align'#7#5'alTop'#7'Caption'#6'*Geben Sie hier das Datenbankverzeichnis an'
+  +#10'Font.Style'#11#6'fsBold'#0#11'ParentColor'#8#10'ParentFont'#8#8'WordWrap'
+  +#9#0#0#6'TLabel'#18'lDatabaseDirectory'#4'Left'#2#4#6'Height'#2#13#3'Top'#2
+  +'t'#5'Width'#2'i'#7'Caption'#6#20'Datenbankverzeichnis'#11'ParentColor'#8#0#0
+  +#6'TPanel'#9'pButtons3'#4'Left'#2#0#6'Height'#2'2'#3'Top'#3'&'#1#5'Width'#3
   +#166#1#5'Align'#7#8'alBottom'#10'BevelOuter'#7#6'bvNone'#12'ClientHeight'#2
-  +'2'#11'ClientWidth'#3#166#1#8'TabOrder'#2#0#0#6'TBevel'#8'bvRight2'#4'Left'#2
+  +'2'#11'ClientWidth'#3#166#1#8'TabOrder'#2#0#0#6'TBevel'#8'bvRight3'#4'Left'#2
   +#0#6'Height'#2#2#3'Top'#2#0#5'Width'#3#166#1#5'Align'#7#5'alTop'#5'Shape'#7#9
-  +'bsTopLine'#0#0#7'TButton'#6'bNext2'#4'Left'#2'x'#6'Height'#2#25#3'Top'#2#14
+  +'bsTopLine'#0#0#7'TButton'#6'bNext3'#4'Left'#2'x'#6'Height'#2#25#3'Top'#2#14
   +#5'Width'#2'd'#25'BorderSpacing.InnerBorder'#2#4#7'Caption'#6#6'bNext0'#7'On'
-  +'Click'#7#11'bNext0Click'#8'TabOrder'#2#0#0#0#7'TButton'#6'bPrev2'#4'Left'#2
+  +'Click'#7#11'bNext0Click'#8'TabOrder'#2#0#0#0#7'TButton'#6'bPrev3'#4'Left'#2
   +#21#6'Height'#2#25#3'Top'#2#14#5'Width'#2'c'#25'BorderSpacing.InnerBorder'#2
   +#4#7'Caption'#6#6'bPrev0'#7'OnClick'#7#11'bPrev0Click'#8'TabOrder'#2#1#0#0#7
-  +'TButton'#7'bAbort2'#4'Left'#3#8#1#6'Height'#2#25#3'Top'#2#14#5'Width'#3#156
+  +'TButton'#7'bAbort3'#4'Left'#3#8#1#6'Height'#2#25#3'Top'#2#14#5'Width'#3#156
   +#0#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#0#25'BorderSpacing.InnerBorde'
   +'r'#2#4#7'Caption'#6#7'bAbort0'#7'OnClick'#7#12'bAbort0Click'#8'TabOrder'#2#2
-  +#0#0#0#9'TComboBox'#14'cbDatabaseType'#4'Left'#3#152#0#6'Height'#2#27#3'Top'
-  +#3#136#0#5'Width'#3#204#0#10'ItemHeight'#2#0#8'TabOrder'#2#1#0#0#0#6'TPanel'
-  +#6'pCont3'#4'Left'#3#128#0#6'Height'#3'X'#1#3'Top'#2#0#5'Width'#3#166#1#5'Al'
-  +'ign'#7#8'alClient'#10'BevelOuter'#7#6'bvNone'#12'ClientHeight'#3'X'#1#11'Cl'
-  +'ientWidth'#3#166#1#11'FullRepaint'#8#8'TabOrder'#2#2#0#6'TLabel'#13'lDescri'
-  +'ption3'#4'Left'#2#0#6'Height'#2#13#3'Top'#2#0#5'Width'#3#166#1#5'Align'#7#5
-  +'alTop'#7'Caption'#6'*Geben Sie hier das Datenbankverzeichnis an'#10'Font.St'
-  +'yle'#11#6'fsBold'#0#11'ParentColor'#8#10'ParentFont'#8#8'WordWrap'#9#0#0#6
-  +'TLabel'#18'lDatabaseDirectory'#4'Left'#2#4#6'Height'#2#13#3'Top'#2't'#5'Wid'
-  +'th'#2'|'#7'Caption'#6#20'Datenbankverzeichnis'#11'ParentColor'#8#0#0#6'TPan'
-  +'el'#9'pButtons3'#4'Left'#2#0#6'Height'#2'2'#3'Top'#3'&'#1#5'Width'#3#166#1#5
-  +'Align'#7#8'alBottom'#10'BevelOuter'#7#6'bvNone'#12'ClientHeight'#2'2'#11'Cl'
-  +'ientWidth'#3#166#1#8'TabOrder'#2#0#0#6'TBevel'#8'bvRight3'#4'Left'#2#0#6'He'
-  +'ight'#2#2#3'Top'#2#0#5'Width'#3#166#1#5'Align'#7#5'alTop'#5'Shape'#7#9'bsTo'
-  +'pLine'#0#0#7'TButton'#6'bNext3'#4'Left'#2'x'#6'Height'#2#25#3'Top'#2#14#5'W'
-  +'idth'#2'd'#25'BorderSpacing.InnerBorder'#2#4#7'Caption'#6#6'bNext0'#7'OnCli'
-  +'ck'#7#11'bNext0Click'#8'TabOrder'#2#0#0#0#7'TButton'#6'bPrev3'#4'Left'#2#21
-  +#6'Height'#2#25#3'Top'#2#14#5'Width'#2'c'#25'BorderSpacing.InnerBorder'#2#4#7
-  +'Caption'#6#6'bPrev0'#7'OnClick'#7#11'bPrev0Click'#8'TabOrder'#2#1#0#0#7'TBu'
-  +'tton'#7'bAbort3'#4'Left'#3#8#1#6'Height'#2#25#3'Top'#2#14#5'Width'#3#156#0#7
-  +'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#0#25'BorderSpacing.InnerBorder'#2
-  +#4#7'Caption'#6#7'bAbort0'#7'OnClick'#7#12'bAbort0Click'#8'TabOrder'#2#2#0#0
-  +#0#14'TDirectoryEdit'#18'eDatabasedirectory'#4'Left'#2#4#6'Height'#2#23#3'To'
-  +'p'#3#136#0#5'Width'#3#132#1#10'ShowHidden'#8#11'ButtonWidth'#2#23#9'NumGlyp'
-  +'hs'#2#1#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#0#9'MaxLength'#2#0#8'Ta'
-  +'bOrder'#2#1#0#0#0#6'TPanel'#6'pCont4'#4'Left'#3#128#0#6'Height'#3'X'#1#3'To'
-  +'p'#2#0#5'Width'#3#166#1#5'Align'#7#8'alClient'#10'BevelOuter'#7#6'bvNone'#12
-  +'ClientHeight'#3'X'#1#11'ClientWidth'#3#166#1#11'FullRepaint'#8#8'TabOrder'#2
-  +#3#0#6'TLabel'#13'lDescription4'#4'Left'#2#0#6'Height'#2''''#3'Top'#2#0#5'Wi'
-  +'dth'#3#166#1#5'Align'#7#5'alTop'#7'Caption'#6#137'Setzen sie hier die Daten'
-  +'bankeinstellungen, damit sich das Programm erfolgreich mit dem Datenbankser'
-  +'ver und der Datenbank verbinden kann.'#10'Font.Style'#11#6'fsBold'#0#11'Par'
-  +'entColor'#8#10'ParentFont'#8#8'WordWrap'#9#0#0#6'TLabel'#7'lDBType'#4'Left'
-  ,#2#24#6'Height'#2#13#3'Top'#2'X'#5'Width'#2'N'#7'Caption'#6#12'Datenbanktyp'
-  +#11'ParentColor'#8#0#0#6'TLabel'#9'lDBServer'#4'Left'#2#24#6'Height'#2#13#3
-  +'Top'#2'x'#5'Width'#2'&'#7'Caption'#6#6'Server'#11'ParentColor'#8#0#0#6'TLab'
-  +'el'#9'lDatabase'#4'Left'#2#24#6'Height'#2#13#3'Top'#3#176#0#5'Width'#2'<'#7
-  +'Caption'#6#9'Datenbank'#11'ParentColor'#8#0#0#6'TLabel'#9'lUsername'#4'Left'
-  +#2#24#6'Height'#2#13#3'Top'#3#208#0#5'Width'#2'S'#7'Caption'#6#12'Benutzerna'
-  +'me'#11'ParentColor'#8#0#0#6'TLabel'#9'lPassword'#4'Left'#2#24#6'Height'#2#13
-  +#3'Top'#3#237#0#5'Width'#2'3'#7'Caption'#6#8'Passwort'#11'ParentColor'#8#0#0
-  +#6'TPanel'#9'pButtons4'#4'Left'#2#0#6'Height'#2'2'#3'Top'#3'&'#1#5'Width'#3
-  +#166#1#5'Align'#7#8'alBottom'#10'BevelOuter'#7#6'bvNone'#12'ClientHeight'#2
+  +#0#0#0#14'TDirectoryEdit'#18'eDatabasedirectory'#4'Left'#2#4#6'Height'#2#21#3
+  +'Top'#3#136#0#5'Width'#3#132#1#10'ShowHidden'#8#11'ButtonWidth'#2#23#9'NumGl'
+  +'yphs'#2#1#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#0#9'MaxLength'#2#0#8
+  +'TabOrder'#2#1#0#0#0#6'TPanel'#6'pCont4'#4'Left'#3#128#0#6'Height'#3'X'#1#3
+  +'Top'#2#0#5'Width'#3#166#1#5'Align'#7#8'alClient'#10'BevelOuter'#7#6'bvNone'
+  +#12'ClientHeight'#3'X'#1#11'ClientWidth'#3#166#1#11'FullRepaint'#8#8'TabOrde'
+  +'r'#2#3#0#6'TLabel'#13'lDescription4'#4'Left'#2#0#6'Height'#2#26#3'Top'#2#0#5
+  +'Width'#3#166#1#5'Align'#7#5'alTop'#7'Caption'#6#137'Setzen sie hier die Dat'
+  +'enbankeinstellungen, damit sich das Programm erfolgreich mit dem Datenbanks'
+  +'erver und der Datenbank verbinden kann.'#10'Font.Style'#11#6'fsBold'#0#11'P'
+  +'arentColor'#8#10'ParentFont'#8#8'WordWrap'#9#0#0#6'TLabel'#7'lDBType'#4'Lef'
+  ,'t'#2#24#6'Height'#2#13#3'Top'#2'X'#5'Width'#2'D'#7'Caption'#6#12'Datenbankt'
+  +'yp'#11'ParentColor'#8#0#0#6'TLabel'#9'lDBServer'#4'Left'#2#24#6'Height'#2#13
+  +#3'Top'#2'x'#5'Width'#2' '#7'Caption'#6#6'Server'#11'ParentColor'#8#0#0#6'TL'
+  +'abel'#9'lDatabase'#4'Left'#2#24#6'Height'#2#13#3'Top'#3#176#0#5'Width'#2'4'
+  +#7'Caption'#6#9'Datenbank'#11'ParentColor'#8#0#0#6'TLabel'#9'lUsername'#4'Le'
+  +'ft'#2#24#6'Height'#2#13#3'Top'#3#208#0#5'Width'#2'E'#7'Caption'#6#12'Benutz'
+  +'ername'#11'ParentColor'#8#0#0#6'TLabel'#9'lPassword'#4'Left'#2#24#6'Height'
+  +#2#13#3'Top'#3#237#0#5'Width'#2','#7'Caption'#6#8'Passwort'#11'ParentColor'#8
+  +#0#0#6'TPanel'#9'pButtons4'#4'Left'#2#0#6'Height'#2'2'#3'Top'#3'&'#1#5'Width'
+  +#3#166#1#5'Align'#7#8'alBottom'#10'BevelOuter'#7#6'bvNone'#12'ClientHeight'#2
   +'2'#11'ClientWidth'#3#166#1#8'TabOrder'#2#5#0#6'TBevel'#8'bvRight4'#4'Left'#2
   +#0#6'Height'#2#2#3'Top'#2#0#5'Width'#3#166#1#5'Align'#7#5'alTop'#5'Shape'#7#9
   +'bsTopLine'#0#0#7'TButton'#6'bNext4'#4'Left'#2'x'#6'Height'#2#25#3'Top'#2#14
@@ -277,19 +277,19 @@ LazarusResources.Add('TfWizardNewMandant','FORMDATA',[
   +'TButton'#7'bAbort4'#4'Left'#3#8#1#6'Height'#2#25#3'Top'#2#14#5'Width'#3#152
   +#0#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#0#25'BorderSpacing.InnerBorde'
   +'r'#2#4#7'Caption'#6#7'bAbort0'#7'OnClick'#7#12'bAbort0Click'#8'TabOrder'#2#2
-  +#0#0#0#9'TComboBox'#9'cbSQLType'#4'Left'#3#128#0#6'Height'#2#27#3'Top'#2'X'#5
-  +'Width'#3#150#0#10'ItemHeight'#2#0#9'ItemIndex'#2#0#13'Items.Strings'#1#6#8
+  +#0#0#0#9'TComboBox'#9'cbSQLType'#4'Left'#3#128#0#6'Height'#2#21#3'Top'#2'X'#5
+  +'Width'#3#150#0#10'ItemHeight'#2#13#9'ItemIndex'#2#0#13'Items.Strings'#1#6#8
   +'sqlite-3'#6#12'firebird-2.5'#6#12'firebird-2.1'#6#12'firebird-2.0'#6#12'fir'
   +'ebird-1.5'#6#12'firebird-1.0'#6#13'firebirdd-2.5'#6#13'firebirdd-2.1'#6#13
   +'firebirdd-2.0'#6#13'firebirdd-1.5'#6#11'interbase-6'#6#5'mssql'#6#12'postgr'
   +'esql-8'#6#12'postgresql-7'#0#9'MaxLength'#4#255#255#0#0#8'OnChange'#7#15'cb'
   +'SQLTypeChange'#8'TabOrder'#2#0#4'Text'#6#8'sqlite-3'#0#0#5'TEdit'#10'eSQLSe'
-  +'rver'#4'Left'#3#128#0#6'Height'#2#23#3'Top'#2'x'#5'Width'#3#192#0#8'TabOrde'
+  +'rver'#4'Left'#3#128#0#6'Height'#2#21#3'Top'#2'x'#5'Width'#3#192#0#8'TabOrde'
   +'r'#2#1#4'Text'#6#9'localhost'#0#0#5'TEdit'#8'eSQLUser'#4'Left'#3#128#0#6'He'
-  +'ight'#2#23#3'Top'#3#208#0#5'Width'#3#200#0#8'TabOrder'#2#3#0#0#5'TEdit'#12
-  +'eSQLPassword'#4'Left'#3#128#0#6'Height'#2#23#3'Top'#3#237#0#5'Width'#3#200#0
+  +'ight'#2#21#3'Top'#3#208#0#5'Width'#3#200#0#8'TabOrder'#2#3#0#0#5'TEdit'#12
+  +'eSQLPassword'#4'Left'#3#128#0#6'Height'#2#21#3'Top'#3#237#0#5'Width'#3#200#0
   +#8'EchoMode'#7#10'emPassword'#12'PasswordChar'#6#1'*'#8'TabOrder'#2#4#0#0#13
-  +'TFileNameEdit'#12'eSQLdatabase'#4'Left'#3#128#0#6'Height'#2#23#3'Top'#3#176
+  +'TFileNameEdit'#12'eSQLdatabase'#4'Left'#3#128#0#6'Height'#2#21#3'Top'#3#176
   +#0#5'Width'#3#240#0#13'DialogOptions'#11#0#11'FilterIndex'#2#0#15'HideDirect'
   +'ories'#8#11'ButtonWidth'#2#23#9'NumGlyphs'#2#1#9'MaxLength'#2#0#8'TabOrder'
   +#2#2#0#0#12'TSpeedButton'#21'bCopyConnectionString'#4'Left'#3' '#1#6'Height'
@@ -350,9 +350,9 @@ LazarusResources.Add('TfWizardNewMandant','FORMDATA',[
   +'V'#219#203#135'W'#219#202#131'P'#208#196'yBn'#178'g<'#8#255#255#255#0#255
   +#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255
   +#255#0#7'OnClick'#7#26'bCopyConnectionStringClick'#0#0#6'TLabel'#6'Label1'#4
-  +'Left'#3'\'#1#6'Height'#2#13#3'Top'#2'e'#5'Width'#2'*'#7'Anchors'#11#5'akTop'
+  +'Left'#3'a'#1#6'Height'#2#13#3'Top'#2'e'#5'Width'#2'%'#7'Anchors'#11#5'akTop'
   +#7'akRight'#0#7'Caption'#6#7'Sync ID'#11'ParentColor'#8#0#0#9'TSpinEdit'#8's'
-  +'eSyncID'#4'Left'#3'V'#1#6'Height'#2#23#4'Hint'#6#230'Die SyncID sollte bei '
+  +'eSyncID'#4'Left'#3'V'#1#6'Height'#2#21#4'Hint'#6#230'Die SyncID sollte bei '
   +'Synchronisierten Datenbanken'#10'zwischen den Datenbanken unterschiedlich s'
   +'ein'#10'damit werden dann unterschiedliche Nummernkreise '#10'f'#195#188'r '
   +'die Datensatznummern (SQL_ID) verwendet '#10'damit es keine '#195#156'bersc'
