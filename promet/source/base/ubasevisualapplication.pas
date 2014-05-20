@@ -904,7 +904,7 @@ var
   rAutoLogin: String;
   function IsAutoLogin : Boolean;
   begin
-    result := (rMandant='Standard') and (rUser='Administrator') and (rAutoLogin='');
+    result := (rMandant='Standard') and (rUser='Administrator') and ((rAutoLogin='0') or (rAutoLogin=''));
   end;
 
 begin
@@ -920,31 +920,27 @@ begin
     try
       with Self as IBaseApplication do
         begin
-          Showmessage('1.');
           aID := CreateUserID;
           rMandant := Config.ReadString('LOGINMANDANT','Standard');
           rUser := Config.ReadString('LOGINUSER','Administrator');
           rAutoLogin := Config.ReadString('AUTOMATICLOGIN','');
+          Showmessage(rMandant+' '+rUser+' '+rAutoLogin);
           if ((Config.ReadInteger('AUTOMATICLOGIN',0)=aID) and (aID <> 0))
           or (IsAutoLogin) then
             with Self as IBaseDBInterface do
               if DBLogin(rMandant,rUser,True) then
                 begin
-                  if IsAutoLogin and (not Data.Users.Passwort.IsNull) then
+                  if IsAutoLogin and (Data.Users.Passwort.IsNull) then
                     begin
-                      Config.WriteInteger('AUTOMATICLOGIN',0);
-                      raise Exception.Create('');
-                      Result := False;
+                      Data.DeleteExpiredSessions;
+                      uData.Data := Data;
+                      StartProcessManager(IsAutoLogin);
+                      udata.Data.OnConnectionLost:=@DataDataConnectionLost;
+                      udata.Data.OnDisconnectKeepAlive:=@DataDataDisconnectKeepAlive;
+                      udata.Data.OnConnect:=@DataDataConnect;
+                      Result := True;
                       exit;
                     end;
-                  Data.DeleteExpiredSessions;
-                  uData.Data := Data;
-                  StartProcessManager(IsAutoLogin);
-                  udata.Data.OnConnectionLost:=@DataDataConnectionLost;
-                  udata.Data.OnDisconnectKeepAlive:=@DataDataDisconnectKeepAlive;
-                  udata.Data.OnConnect:=@DataDataConnect;
-                  Result := True;
-                  exit;
                 end
               else
                 Config.WriteInteger('AUTOMATICLOGIN',0);

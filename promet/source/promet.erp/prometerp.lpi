@@ -801,7 +801,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="232"/>
         <CursorPos X="109" Y="262"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit41>
@@ -812,7 +812,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="269"/>
         <CursorPos X="47" Y="272"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit42>
       <Unit43>
@@ -821,9 +821,9 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="923"/>
-        <CursorPos X="1" Y="933"/>
-        <UsageCount Value="11"/>
+        <TopLine Value="920"/>
+        <CursorPos X="91" Y="936"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit43>
       <Unit44>
@@ -832,7 +832,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="68" Y="5"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit44>
@@ -843,7 +843,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="54"/>
         <CursorPos X="31" Y="54"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit45>
     </Units>
