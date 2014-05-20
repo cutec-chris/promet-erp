@@ -1208,6 +1208,7 @@ begin
 //        FConnection.ExecuteDirect('PRAGMA synchronous = NORMAL;');
 //        FConnection.ExecuteDirect('PRAGMA cache_size = 5120;');
 //        FConnection.ExecuteDirect('PRAGMA auto_vacuum = FULL;');
+        FConnection.ExecuteDirect('PRAGMA journal_mode = MEMORY;');
         FConnection.ExecuteDirect('PRAGMA recursive_triggers = ON;');
         FConnection.ExecuteDirect('PRAGMA foreign_keys = ON;');
         FConnection.ExecuteDirect('PRAGMA case_sensitive_like = ON;');
@@ -1872,4 +1873,4 @@ begin
 end;
 
 end.
-
+
