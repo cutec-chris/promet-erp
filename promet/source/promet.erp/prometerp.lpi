@@ -291,7 +291,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="44">
+    <Units Count="45">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -310,8 +310,8 @@
         <UnitName Value="uMain"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="3290"/>
-        <CursorPos X="24" Y="3330"/>
+        <TopLine Value="209"/>
+        <CursorPos X="15" Y="227"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -407,7 +407,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uArticleStorageFrame"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
@@ -434,7 +434,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uArticleFrame"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="670"/>
         <CursorPos X="8" Y="688"/>
@@ -792,40 +792,50 @@
         <LoadedDesigner Value="True"/>
       </Unit40>
       <Unit41>
-        <Filename Value="../components/thumbs/thumbcontrol.pas"/>
-        <UnitName Value="thumbcontrol"/>
-        <EditorIndex Value="4"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="608"/>
-        <CursorPos X="89" Y="626"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-      </Unit41>
-      <Unit42>
-        <Filename Value="../base_pm/gsGanttCalendar.pas"/>
-        <UnitName Value="gsGanttCalendar"/>
-        <EditorIndex Value="5"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="173"/>
-        <CursorPos X="48" Y="196"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-      </Unit42>
-      <Unit43>
         <Filename Value="../base/base_docmanage/ucameraimport.pas"/>
         <ComponentName Value="fCameraimport"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ucameraimport"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="250"/>
-        <CursorPos X="3" Y="255"/>
+        <TopLine Value="232"/>
+        <CursorPos X="109" Y="262"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
+      </Unit41>
+      <Unit42>
+        <Filename Value="../base/upassword.pas"/>
+        <UnitName Value="uPassword"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="271"/>
+        <CursorPos X="47" Y="45"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit42>
+      <Unit43>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <UnitName Value="uBaseVisualApplication"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="359"/>
+        <CursorPos X="33" Y="374"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit43>
+      <Unit44>
+        <Filename Value="../base/changes.txt"/>
+        <EditorIndex Value="4"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="68" Y="5"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit44>
     </Units>
     <JumpHistory Count="11" HistoryIndex="10">
       <Position1>
@@ -857,20 +867,20 @@
         <Caret Line="326" Column="33" TopLine="308"/>
       </Position7>
       <Position8>
-        <Filename Value="../components/thumbs/thumbcontrol.pas"/>
+        <Filename Value="../base/base_docmanage/ucameraimport.pas"/>
         <Caret Line="1" Column="1" TopLine="1"/>
       </Position8>
       <Position9>
-        <Filename Value="../base_pm/gsGanttCalendar.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <Caret Line="13" Column="55" TopLine="1"/>
       </Position9>
       <Position10>
-        <Filename Value="../base/base_docmanage/ucameraimport.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <Caret Line="925" Column="34" TopLine="901"/>
       </Position10>
       <Position11>
-        <Filename Value="../base/base_docmanage/ucameraimport.pas"/>
-        <Caret Line="114" Column="3" TopLine="115"/>
+        <Filename Value="../base/ubasevisualapplication.pas"/>
+        <Caret Line="751" Column="22" TopLine="738"/>
       </Position11>
     </JumpHistory>
   </ProjectOptions>

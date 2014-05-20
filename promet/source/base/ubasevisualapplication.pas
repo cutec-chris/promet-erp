@@ -71,7 +71,7 @@ type
     FAppRevision : Integer;
     aParent: TWinControl;
     FQuickHelp : Boolean;
-    procedure StartProcessManager;
+    procedure StartProcessManager(DoCloseIt : Boolean = False);
     procedure UserTabAdded(Sender : TObject);
     function HandleSystemCommand(Sender : TObject;aCommand : string) : Boolean;
     {$IFDEF LCLCARBON}
@@ -370,6 +370,8 @@ begin
       except
       end;
     end;
+  if Assigned(Processmanager) and (Processmanager.Tag=100) then
+    Processmanager.Terminate(0);
   inherited Terminate;
 end;
 function TBaseVisualApplication.GetOurConfigDir: string;
@@ -740,7 +742,7 @@ begin
   sl.Free;
 end;
 
-procedure TBaseVisualApplication.StartProcessManager;
+procedure TBaseVisualApplication.StartProcessManager(DoCloseIt: Boolean);
 begin
   FMessagehandler := TMessageHandler.Create(Data.Data);
   FMessageHandler.RegisterCommandHandler(@HandleSystemCommand);
@@ -749,6 +751,8 @@ begin
       if Data.Users.DataSet.Active then
         begin
           ProcessManager := uProcessManager.StartMessageManager(MandantName,Data.Users.DataSet.FieldByName('NAME').AsString);
+          if DoCloseIt then
+            Processmanager.Tag:=100;
         end;
     end;
 end;
@@ -914,7 +918,7 @@ begin
           aID := CreateUserID;
           rMandant := Config.ReadString('LOGINMANDANT','');
           rUser := Config.ReadString('LOGINUSER','');
-          rAutoLogin := Config.ReadString('AUTOMATICLOGIN','T');
+          rAutoLogin := Config.ReadString('AUTOMATICLOGIN','');
           if ((Config.ReadInteger('AUTOMATICLOGIN',0)=aID) and (aID <> 0))
           or ((rMandant='Standart') and (rUser='Administrator') and (rAutoLogin='')) then
             with Self as IBaseDBInterface do
@@ -922,7 +926,7 @@ begin
                 begin
                   Data.DeleteExpiredSessions;
                   uData.Data := Data;
-                  StartProcessManager;
+                  StartProcessManager(((rMandant='Standart') and (rUser='Administrator') and (rAutoLogin='')));
                   udata.Data.OnConnectionLost:=@DataDataConnectionLost;
                   udata.Data.OnDisconnectKeepAlive:=@DataDataDisconnectKeepAlive;
                   udata.Data.OnConnect:=@DataDataConnect;
