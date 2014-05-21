@@ -1068,7 +1068,7 @@ begin
       sleep(50);
       FMessageHandler := nil;
     end;
-  if Self.HasOption('t','terminateprocesses') or (Processmanager.Tag=100) then
+  if Assigned(Processmanager) and (Self.HasOption('t','terminateprocesses') or (Processmanager.Tag=100)) then
     if Processmanager.Active then Processmanager.Terminate(1);
   if Assigned(Processmanager) then
     FreeAndNil(ProcessManager);
