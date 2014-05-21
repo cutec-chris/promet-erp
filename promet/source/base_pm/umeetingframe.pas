@@ -783,6 +783,7 @@ begin
   Entrys.DataSet := TMeetings(DataSet).Entrys.DataSet;
   Users.DataSet := TMeetings(DataSet).Users.DataSet;
   MandantDetails.DataSet:=Data.MandantDetails.DataSet;
+  Data.MandantDetails.Open;
   with FDataSet.DataSet as IBaseManageDB do
     begin
       fSelectReport.ReportType := 'MEE';

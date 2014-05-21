@@ -529,6 +529,7 @@ begin
   Users.DataSet := Data.Users.DataSet;
   Tasks.DataSet := TProject(DataSet).Tasks.DataSet;
   MandantDetails.DataSet := Data.MandantDetails.DataSet;
+  Data.MandantDetails.Open;
   PList.DataSet := DataSet.DataSet;
   with FDataSet.DataSet as IBaseManageDB do
     begin

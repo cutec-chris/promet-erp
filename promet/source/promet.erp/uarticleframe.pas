@@ -397,6 +397,7 @@ begin
   if Supports(FDataSet, IBaseHistory, Hist) then
     History.DataSet := Hist.GetHistory.DataSet;
   MandantDetails.DataSet:=Data.MandantDetails.DataSet;
+  Data.MandantDetails.Open;
   PList.DataSet := DataSet.DataSet;
   with FDataSet.DataSet as IBaseManageDB do
     begin

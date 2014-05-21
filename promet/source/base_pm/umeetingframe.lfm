@@ -1054,8 +1054,8 @@ inherited fMeetingFrame: TfMeetingFrame
     end
   end
   object Datasource: TDatasource[3]
-    left = 56
-    top = 121
+    left = 232
+    top = 144
   end
   object ActionList: TActionList[4]
     Images = fVisualControls.Images
@@ -1186,6 +1186,6 @@ inherited fMeetingFrame: TfMeetingFrame
   end
   object MandantDetails: TDatasource[12]
     left = 200
-    top = 160
+    top = 144
   end
 end
