@@ -1,6 +1,7 @@
 ﻿Build 346
       - Wizardmandant:Hilfe wird nun auch in relativen Pfaden und Pfaden mit Leerzeichen richtig synchronisiert
       - Nachrichten: Mail Editor wird nicht geschlossen wenn element aus dem die Nachricht erzeugt wurde geschlossen wird
+      - Spracherkennung verbessert
 Build 345
       - Setup:Portable Version sollte nun komplett sein
       - Bilder:Kameraimport Dialog erklärt sich besser (intuitiver)

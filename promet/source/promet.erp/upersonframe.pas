@@ -79,6 +79,7 @@ type
     lCustomerof: TLabel;
     lFirmName: TLabel;
     lMatchCode: TLabel;
+    MandantDetails: TDatasource;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
@@ -684,6 +685,7 @@ begin
   fSelectReport.SetLanguage;
   if Supports(FDataSet, IBaseHistory, Hist) then
     History.DataSet := Hist.GetHistory.DataSet;
+  MandantDetails.DataSet:=Data.MandantDetails.DataSet;
   PList.DataSet := DataSet.DataSet;
   with FDataSet.DataSet as IBaseManageDB do
     begin
