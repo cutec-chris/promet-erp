@@ -933,7 +933,18 @@ begin
                     begin
                       Data.DeleteExpiredSessions;
                       uData.Data := Data;
-                      StartProcessManager(IsAutoLogin);
+                      StartProcessManager(True);
+                      udata.Data.OnConnectionLost:=@DataDataConnectionLost;
+                      udata.Data.OnDisconnectKeepAlive:=@DataDataDisconnectKeepAlive;
+                      udata.Data.OnConnect:=@DataDataConnect;
+                      Result := True;
+                      exit;
+                    end
+                  else if not Autologin then
+                    begin
+                      Data.DeleteExpiredSessions;
+                      uData.Data := Data;
+                      StartProcessManager(False);
                       udata.Data.OnConnectionLost:=@DataDataConnectionLost;
                       udata.Data.OnDisconnectKeepAlive:=@DataDataDisconnectKeepAlive;
                       udata.Data.OnConnect:=@DataDataConnect;
