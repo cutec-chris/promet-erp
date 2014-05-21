@@ -940,7 +940,7 @@ begin
                       Result := True;
                       exit;
                     end
-                  else if not Autologin then
+                  else if not IsAutologin then
                     begin
                       Data.DeleteExpiredSessions;
                       uData.Data := Data;
@@ -950,7 +950,8 @@ begin
                       udata.Data.OnConnect:=@DataDataConnect;
                       Result := True;
                       exit;
-                    end;
+                    end
+                  else Result := False;
                 end
               else
                 Config.WriteInteger('AUTOMATICLOGIN',0);
@@ -1084,4 +1085,4 @@ initialization
   RegisterClass(TDBComboBox);
   RegisterClass(TPanel);
 end.
-
+
