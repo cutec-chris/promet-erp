@@ -276,7 +276,7 @@ begin
                         end;
                       if DoDownload then
                         begin
-                          Info(Format(strRecivingMessageXofX,[i,MList.Count]));
+                          Info(Format(strRecivingMessageXofX,[i+1,MList.Count]));
                           pop.Top(MID,0); //Header holen
                           msg := TMimeMess.Create;
                           msg.Lines.Text:=pop.FullResult.Text;
@@ -299,7 +299,6 @@ begin
                                         begin
                                           pop.Dele(MID);
                                         end;
-                                      ArchiveMsg.Free;
                                     end
                                   else if DoDelete then
                                     pop.Dele(MID);
@@ -322,7 +321,6 @@ begin
                                         begin
                                           pop.Dele(MID);
                                         end;
-                                      ArchiveMsg.Free;
                                     end;
                                 end
                               else if DoDelete then
