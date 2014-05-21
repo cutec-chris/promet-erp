@@ -291,7 +291,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="46">
+    <Units Count="44">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -308,7 +308,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="193"/>
         <CursorPos X="15" Y="227"/>
@@ -323,10 +323,14 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPersonFrame"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="796"/>
-        <CursorPos X="10" Y="799"/>
+        <TopLine Value="253"/>
+        <CursorPos X="47" Y="271"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="uaddressframe.pas"/>
@@ -407,7 +411,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uArticleStorageFrame"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
@@ -434,7 +438,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uArticleFrame"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="670"/>
         <CursorPos X="8" Y="688"/>
@@ -797,7 +801,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ucameraimport"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="232"/>
         <CursorPos X="109" Y="262"/>
@@ -806,48 +810,27 @@
         <LoadedDesigner Value="True"/>
       </Unit41>
       <Unit42>
-        <Filename Value="../base/upassword.pas"/>
-        <UnitName Value="uPassword"/>
-        <EditorIndex Value="3"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="269"/>
-        <CursorPos X="47" Y="272"/>
-        <UsageCount Value="12"/>
-        <Loaded Value="True"/>
-      </Unit42>
-      <Unit43>
         <Filename Value="../base/changes.txt"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="68" Y="5"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
-      </Unit43>
-      <Unit44>
+      </Unit42>
+      <Unit43>
         <Filename Value="../base/dbintfs/uintfstrconsts.pas"/>
         <UnitName Value="uIntfStrConsts"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
+        <TopLine Value="19"/>
         <CursorPos X="31" Y="54"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
-      </Unit44>
-      <Unit45>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <UnitName Value="uBaseVisualApplication"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="920"/>
-        <CursorPos X="1" Y="927"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-      </Unit45>
+      </Unit43>
     </Units>
-    <JumpHistory Count="10" HistoryIndex="9">
+    <JumpHistory Count="11" HistoryIndex="10">
       <Position1>
         <Filename Value="umain.pas"/>
         <Caret Line="3377" Column="20" TopLine="3349"/>
@@ -881,13 +864,17 @@
         <Caret Line="1" Column="1" TopLine="1"/>
       </Position8>
       <Position9>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="720" Column="29" TopLine="701"/>
+        <Filename Value="upersonframe.pas"/>
+        <Caret Line="11" Column="83" TopLine="1"/>
       </Position9>
       <Position10>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="752" Column="33" TopLine="748"/>
+        <Filename Value="upersonframe.pas"/>
+        <Caret Line="9" Column="85" TopLine="1"/>
       </Position10>
+      <Position11>
+        <Filename Value="upersonframe.pas"/>
+        <Caret Line="136" Column="24" TopLine="108"/>
+      </Position11>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

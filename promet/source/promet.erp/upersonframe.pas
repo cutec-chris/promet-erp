@@ -268,7 +268,7 @@ begin
   else if (copy(TPerson(DataSet).CustomerCont.FieldByName('TYPE').AsString,0,4) = 'MAIL')
        or (copy(TPerson(DataSet).CustomerCont.FieldByName('TYPE').AsString,0,2) = 'ML') then
        begin
-         fEditMail := TfMessageEdit.Create(Self);
+         fEditMail := TfMessageEdit.Create(nil);
          fEditMail.SendMailTo('"'+TPerson(DataSet).FieldByName('NAME').AsString+'" <'+TPerson(DataSet).CustomerCont.FieldByName('DATA').AsString+'>');
        end;
 end;
@@ -885,8 +885,8 @@ begin
   else aFound := True;
   if aFound then
     begin
-  cbStatus.Items.Add(Data.States.FieldByName('STATUSNAME').AsString+' ('+Data.States.FieldByName('STATUS').AsString+')');
-  cbStatus.Text := Data.States.FieldByName('STATUSNAME').AsString+' ('+Data.States.FieldByName('STATUS').AsString+')';
+      cbStatus.Items.Add(Data.States.FieldByName('STATUSNAME').AsString+' ('+Data.States.FieldByName('STATUS').AsString+')');
+      cbStatus.Text := Data.States.FieldByName('STATUSNAME').AsString+' ('+Data.States.FieldByName('STATUS').AsString+')';
     end
   else cbStatus.Text:=FDataSet.FieldByName('STATUS').AsString;
   tmp := trim(Data.States.FieldByName('DERIVATIVE').AsString);
