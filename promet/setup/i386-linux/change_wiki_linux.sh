@@ -24,7 +24,7 @@ ToolsRpm32Size=$(ls -s --block-size=1048576 "../output/promet-erp-tools-$(echo $
 ToolsDeb64Size=$(ls -s --block-size=1048576 "../output/promet-erp-tools_$(echo $Version)_amd64-gtk2.deb" | cut -d' ' -f1)
 ToolsDeb32Size=$(ls -s --block-size=1048576 "../output/promet-erp-tools_$(echo $Version)_i386-gtk2.deb" | cut -d' ' -f1)
 
-cat downloads_linux.txt | \
+cat downloads_linux32.txt | \
   sed -e "s/VERSION/$Version/g" \
       -e "s/ARCH/$Arch/g" \
       -e "s/ARCHFPC/$Archfpc/g" \
