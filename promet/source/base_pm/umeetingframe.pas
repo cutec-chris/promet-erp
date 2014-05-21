@@ -82,6 +82,7 @@ type
     dtEnd: TDBZVDateTimePicker;
     eName: TDBEdit;
     Entrys: TDatasource;
+    MandantDetails: TDatasource;
     miDelete: TMenuItem;
     pmAction: TPopupMenu;
     pNav2: TPanel;
@@ -781,6 +782,7 @@ begin
   acRefresh.Execute;
   Entrys.DataSet := TMeetings(DataSet).Entrys.DataSet;
   Users.DataSet := TMeetings(DataSet).Users.DataSet;
+  MandantDetails.DataSet:=Data.MandantDetails.DataSet;
   with FDataSet.DataSet as IBaseManageDB do
     begin
       fSelectReport.ReportType := 'MEE';
