@@ -50,7 +50,6 @@ type
     procedure DoTerminate;
   public
     constructor Create(aData : TBaseDBModule);
-    destructor Destroy;override;
     procedure Execute; override;
     property OnExit : TNotifyEvent read FExit write FExit;
     procedure RegisterCommandHandler(CommandHandler : TSystemCommandEvent);
@@ -122,7 +121,6 @@ constructor TMessageHandler.Create(aData : TBaseDBModule);
 begin
   Data := aData;
   Connection := Data.GetNewConnection;
-  FreeOnTerminate := True;
   aSleepTime := 12000;
   SysCommands := TSystemCommands.Create(nil,Data,Connection);
   SysCommands.CreateTable;
@@ -131,18 +129,6 @@ begin
   SysMessages.CreateTable;
   Data.SetFilter(SysMessages,Data.QuoteField('PROCESS_ID')+'='+Data.QuoteValue(IntToStr(Data.SessionID)),5);
   inherited Create(False);
-end;
-
-destructor TMessageHandler.Destroy;
-begin
-  {
-  if not Terminated then
-    begin
-      Terminate;
-      WaitFor;
-    end;
-  }
-  inherited Destroy;
 end;
 
 procedure TMessageHandler.Execute;

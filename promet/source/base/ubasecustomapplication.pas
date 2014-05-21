@@ -162,6 +162,7 @@ begin
   GetConsoleTextEncoding;
   DoDestroy := False;
   BaseApplication := Self;
+  FMessageHandler := nil;
   {.$Warnings Off}
   FDBInterface := TBaseDBInterface.Create;
   FDBInterface.SetOwner(Self);

@@ -955,7 +955,6 @@ var
   aObj: TObject;
   aFactor: Extended;
 begin
-  aHeight := aHeight+5;
   aObj := fTimeline.gList.Objects[aCol.Index+1,aRow];
   if Assigned(aObj) then
     begin
