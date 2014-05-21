@@ -912,7 +912,10 @@ begin
                   if (fTimeline.dgFake.DataSource.DataSet.RecordCount>0) and (pos('nsfw',lowercase(NewText))=0) then
                     begin
                       TMGridObject(aObj).IsThreaded:=not fTimeline.dgFake.DataSource.DataSet.FieldByName('PARENT').IsNull;
-                      if (pos('[[Image',NewText)>0)
+                      if (pos('[[image',lowercase(NewText))>0)
+                      or (pos('[[bild',lowercase(NewText))>0)
+                      or (pos('[[file',lowercase(NewText))>0)
+                      or (pos('[[datei',lowercase(NewText))>0)
                       then
                         TImagingThread.Create(fTimeline.dgFake.DataSource.DataSet.FieldByName('SQL_ID').AsVariant,TMGridObject(aObj),aRow);
                     end;
