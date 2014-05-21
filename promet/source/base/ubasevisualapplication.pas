@@ -371,7 +371,10 @@ begin
       end;
     end;
   if Assigned(Processmanager) and (Processmanager.Tag=100) then
-    Processmanager.Terminate(0);
+    begin
+      Processmanager.Terminate(0);
+      Info('closing messagemanager');
+    end;
   inherited Terminate;
 end;
 function TBaseVisualApplication.GetOurConfigDir: string;
@@ -752,7 +755,10 @@ begin
         begin
           ProcessManager := uProcessManager.StartMessageManager(MandantName,Data.Users.DataSet.FieldByName('NAME').AsString);
           if DoCloseIt and Assigned(Processmanager) then
-            Processmanager.Tag:=100;
+            begin
+              Processmanager.Tag:=100;
+              Info('closing messagemanager on exit');
+            end;
         end;
     end;
 end;
