@@ -88,6 +88,7 @@ type
     lVAT1: TLabel;
     lWarrenty: TLabel;
     lWeight: TLabel;
+    MandantDetails: TDatasource;
     Masterdata: TDatasource;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
@@ -395,6 +396,7 @@ begin
   fSelectReport.SetLanguage;
   if Supports(FDataSet, IBaseHistory, Hist) then
     History.DataSet := Hist.GetHistory.DataSet;
+  MandantDetails.DataSet:=Data.MandantDetails.DataSet;
   PList.DataSet := DataSet.DataSet;
   with FDataSet.DataSet as IBaseManageDB do
     begin
