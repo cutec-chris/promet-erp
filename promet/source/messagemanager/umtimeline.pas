@@ -1170,7 +1170,7 @@ begin
     end
   else
     begin
-      fTimeline.DataSet.ActualFilter:=fMain.Filter+' '+fMain.Filter2;
+      fTimeline.DataSet.ActualFilter:=trim(fMain.Filter+' '+fMain.Filter2);
       fTimeline.ApplyAutoFilter:=FOldAutoFilterT;
       fTimeline.SortField := FOldSortT;
       fTimeline.SortDirection := FOldSortDT;
