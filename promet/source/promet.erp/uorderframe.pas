@@ -231,7 +231,7 @@ begin
         begin
           isPrepared := True;
           aReport.ExportTo(frFilters[i].ClassRef,GetTempDir+aSubject+'.pdf');
-          fMessageEdit := TfMessageEdit.Create(Self);
+          fMessageEdit := TfMessageEdit.Create(nil);
           fMessageEdit.SendMailToWithDoc(aMail,aSubject,aText,GetTempDir+aSubject+'.pdf',True);
         end;
 end;

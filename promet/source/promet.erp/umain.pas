@@ -1701,7 +1701,7 @@ var
   fMessageEdit: TfMessageEdit;
 begin
   if Data.Users.Rights.Right('MESSAGES') < RIGHT_WRITE then exit;
-  fMessageEdit := TfMessageEdit.Create(Self);
+  fMessageEdit := TfMessageEdit.Create(nil);
   fMessageEdit.SendMailTo('');
 end;
 procedure TfMain.acNewOrderExecute(Sender: TObject);
@@ -2703,7 +2703,7 @@ begin
     end
   else if copy(aLink,0,11) = 'MESSAGEIDX@' then
     begin
-      aMessageEdit := TfMessageEdit.Create(Self);
+      aMessageEdit := TfMessageEdit.Create(nil);
       aMessageEdit.OpenFromLink(aLink);
     end
   else if copy(aLink,0,10) = 'MASTERDATA' then

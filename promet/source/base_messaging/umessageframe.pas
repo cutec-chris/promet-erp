@@ -160,7 +160,7 @@ var
   Rec: LongInt;
 begin
   Rec := FList.DataSet.GetBookmark;
-  fMessageEdit := TfMessageEdit.Create(Self);
+  fMessageEdit := TfMessageEdit.Create(nil);
   fMessageEdit.ForwardMail(fViewMessages.Message);
   FList.DataSet.GotoBookmark(Rec);
 end;
@@ -187,7 +187,7 @@ begin
     end
   else
     begin
-      fMessageEdit := TfMessageEdit.Create(Self);
+      fMessageEdit := TfMessageEdit.Create(nil);
       fMessageEdit.SendMailTo('');
     end;
 end;
@@ -212,7 +212,7 @@ var
   Rec: LongInt;
 begin
   Rec := FList.DataSet.GetBookmark;
-  fMessageEdit := TfMessageEdit.Create(Self);
+  fMessageEdit := TfMessageEdit.Create(nil);
   fMessageEdit.AnswerMail(fViewMessages.Message);
   FList.DataSet.GotoBookmark(Rec);
 end;
