@@ -34,7 +34,6 @@ uses
   {$ENDIF}
   ;
 type
-
   { TBaseVisualApplication }
 
   TBaseVisualApplication = class(TApplication, IBaseApplication, IBaseDbInterface)
@@ -719,7 +718,7 @@ begin
       if Lang = '' then
         Lang := GetEnvironmentVariableUTF8('LANG');
       debugln('Detected Language:'+Lang);
-      if lowercase(copy(Lang,0,2)) = 'de' then
+      if (lowercase(copy(Lang,0,2)) = 'de') or (LongMonthNames[0]='Januar') then
         SetLanguage('Deutsch')
       else
         SetLanguage('English');
