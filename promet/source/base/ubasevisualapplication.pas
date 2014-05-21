@@ -369,11 +369,6 @@ begin
       except
       end;
     end;
-  if Assigned(Processmanager) and (Processmanager.Tag=100) then
-    begin
-      Processmanager.Terminate(0);
-      Info('closing messagemanager');
-    end;
   inherited Terminate;
 end;
 function TBaseVisualApplication.GetOurConfigDir: string;
@@ -1073,7 +1068,7 @@ begin
       sleep(50);
       FMessageHandler := nil;
     end;
-  if Self.HasOption('t','terminateprocesses') then
+  if Self.HasOption('t','terminateprocesses') or (Processmanager.Tag=100) then
     if Processmanager.Active then Processmanager.Terminate(1);
   if Assigned(Processmanager) then
     FreeAndNil(ProcessManager);
