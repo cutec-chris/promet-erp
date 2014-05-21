@@ -259,6 +259,7 @@ begin
       fTimeline.OnDrawColumnCell:=@FContListDrawColumnCell;
       fTimeline.OnGetCellText:=@fTimelineGetCellText;
       fTimeline.DataSet := TBaseHistory.Create(Self,Data);
+      fTimeline.DataSet.CreateTable;
       fTimeline.gList.OnKeyDown:=@fTimelinegListKeyDown;
       fTimeline.gList.OnDblClick:=@fTimelinegListDblClick;
       fTimeline.gList.Options:=fTimeline.gList.Options-[goVertLine];
@@ -267,7 +268,7 @@ begin
       fTimeline.OnGetCellText:=@fTimelineGetCellText;
       fTimeline.OngetRowHeight:=@fTimelinegetRowHeight;
       fTimeline.WordWrap:=True;
-      Data.SetFilter(fTimeline.DataSet,fMain.Filter+' '+fMain.Filter2,300);
+      Data.SetFilter(fTimeline.DataSet,trim(fMain.Filter+' '+fMain.Filter2),300);
       with Application as IBaseApplication do
         begin
           RestoreConfig;

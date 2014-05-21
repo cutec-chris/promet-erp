@@ -616,8 +616,8 @@ function TZSQLiteBaseDriver.Compile(db: Psqlite; const zSql: PAnsiChar;
 begin
   Result := SQLite_API.sqlite_compile(db, zSql, -1, ppVm, nil);
   pzErrmsg := nil;
-  //if Result = SQLITE_ERROR then
-  //  pzErrmsg:=SQLite_API.sqlite_errmsg(db);
+  if Result = SQLITE_ERROR then
+    pzErrmsg:=SQLite_API.sqlite_errmsg(db);
 end;
 
 function TZSQLiteBaseDriver.Complete(const sql: PAnsiChar): Integer;

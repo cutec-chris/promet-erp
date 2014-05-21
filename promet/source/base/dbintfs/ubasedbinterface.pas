@@ -432,20 +432,20 @@ procedure TDBConfig.DoWriteString(const Section, Ident, Value: string);
 begin
   with BaseApplication as IBaseDBInterface do
     begin
-      if not Data.Users.Options.DataSet.Locate('OPTION',Ident,[]) then
+      if not Data.Users.Options.Locate('OPTION',Ident,[]) then
         Data.SetFilter(Data.Users.Options,'',0);
-      if not Data.Users.Options.DataSet.Locate('OPTION',Ident,[]) then
+      if not Data.Users.Options.Locate('OPTION',Ident,[]) then
         begin
           if Value <> '' then
             begin
-              Data.Users.Options.DataSet.Insert;
+              Data.Users.Options.Insert;
               Data.Users.Options.FieldByName('OPTION').AsString:=Ident;
             end;
         end
       else if Value <> '' then
-        Data.Users.Options.DataSet.Edit
+        Data.Users.Options.Edit
       else if Value = '' then
-        Data.Users.Options.DataSet.Delete;
+        Data.Users.Options.Delete;
       if Value <> '' then
         begin
           Data.Users.Options.FieldByName('VALUE').AsString := Value;
@@ -1590,4 +1590,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+
