@@ -326,7 +326,6 @@ inherited fprojectFrame: TfprojectFrame
         Top = 17
         Width = 152
         ButtonWidth = 23
-        CharCase = ecNormal
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -367,6 +366,7 @@ inherited fprojectFrame: TfprojectFrame
         NumGlyphs = 1
         OnButtonClick = eManagerButtonClick
         OnExit = eManagerExit
+        PasswordChar = #0
         TabOrder = 7
       end
       object DBCheckBox1: TDBCheckBox
@@ -1028,7 +1028,6 @@ inherited fprojectFrame: TfprojectFrame
         Top = 14
         Width = 130
         ButtonWidth = 23
-        CharCase = ecNormal
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -1069,6 +1068,7 @@ inherited fprojectFrame: TfprojectFrame
         NumGlyphs = 1
         OnButtonClick = eParentButtonClick
         OnExit = eParentExit
+        PasswordChar = #0
         TabOrder = 0
       end
       object bDelegated2: TSpeedButton
@@ -1554,5 +1554,9 @@ inherited fprojectFrame: TfprojectFrame
         E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FFE1E1E1FF
       }
     end
+  end
+  object MandantDetails: TDatasource[18]
+    left = 272
+    top = 200
   end
 end

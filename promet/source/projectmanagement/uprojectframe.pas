@@ -82,6 +82,7 @@ type
     Label8: TLabel;
     Label9: TLabel;
     lVAT1: TLabel;
+    MandantDetails: TDatasource;
     MenuItem10: TMenuItem;
     MenuItem11: TMenuItem;
     MenuItem6: TMenuItem;
@@ -527,6 +528,7 @@ begin
     History.DataSet := Hist.GetHistory.DataSet;
   Users.DataSet := Data.Users.DataSet;
   Tasks.DataSet := TProject(DataSet).Tasks.DataSet;
+  MandantDetails.DataSet := Data.MandantDetails.DataSet;
   PList.DataSet := DataSet.DataSet;
   with FDataSet.DataSet as IBaseManageDB do
     begin
