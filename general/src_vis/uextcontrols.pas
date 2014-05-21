@@ -349,7 +349,14 @@ begin
   Name := '';
 end;
 procedure TExtControlFrame.ShowFrame;
+var
+  aPages: TComponent;
 begin
+  aPages := FindComponent('pcPages');
+  if Assigned(aPages) and (aPages is TExtMenuPageControl) then
+    if Assigned(TExtMenuPageControl(aPages).ActivePage) then
+      if (TExtMenuPageControl(aPages).ActivePage.ControlCount>0) and (TExtMenuPageControl(aPages).ActivePage.Controls[0] is TExtControlFrame) then
+        TExtControlFrame(TExtMenuPageControl(aPages).ActivePage.Controls[0]).ShowFrame;
 end;
 
 procedure TExtControlFrame.FrameAdded;
@@ -1145,4 +1152,4 @@ begin
   FCanvas.Free;
 end;
 end.
-
+

@@ -291,7 +291,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="47">
+    <Units Count="48">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -845,22 +845,35 @@
         <LoadedDesigner Value="True"/>
       </Unit45>
       <Unit46>
+        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
+        <ComponentName Value="ExtControlFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uExtControls"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="10"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="337"/>
+        <CursorPos X="58" Y="356"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit46>
+      <Unit47>
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
         <ComponentName Value="fprojectFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uProjectFrame"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="521"/>
-        <CursorPos X="27" Y="532"/>
+        <TopLine Value="1157"/>
+        <CursorPos X="17" Y="1168"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
-      </Unit46>
+      </Unit47>
     </Units>
-    <JumpHistory Count="28" HistoryIndex="27">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <Caret Line="126" Column="45" TopLine="96"/>
@@ -973,6 +986,14 @@
         <Filename Value="../projectmanagement/uprojectframe.pas"/>
         <Caret Line="1" Column="1" TopLine="1"/>
       </Position28>
+      <Position29>
+        <Filename Value="../projectmanagement/uprojectframe.pas"/>
+        <Caret Line="1168" Column="17" TopLine="1157"/>
+      </Position29>
+      <Position30>
+        <Filename Value="../../../general/src_vis/uextcontrols.pas"/>
+        <Caret Line="359" Column="64" TopLine="339"/>
+      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -1012,7 +1033,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="2">
+    <BreakPoints Count="3">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
@@ -1027,6 +1048,13 @@
         <Source Value="../../../../../lazarus/components/turbopower_ipro/iphtml.pas"/>
         <Line Value="6282"/>
       </Item2>
+      <Item3>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="../../../general/src_vis/uextcontrols.pas"/>
+        <Line Value="356"/>
+      </Item3>
     </BreakPoints>
     <Watches Count="1">
       <Item1>
