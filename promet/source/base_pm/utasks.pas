@@ -436,7 +436,7 @@ begin
       if not DataSet.CanEdit then
         DataSet.DataSet.Edit;
       DataSet.FieldByName('PROJECTID').AsString := aProject.Id.AsString;
-      DataSet.FieldByName('PROJECT').AsString := aProject.Text.AsString;
+      DataSet.FieldByName('PROJECT').AsString := Data.GetLinkDesc(aLink);
       FGridView.SyncActiveRow(DataSet.GetBookmark,False,True,True);
       FGridView.gList.EditorMode:=False;
       FGridView.EndUpdate;
