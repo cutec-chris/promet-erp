@@ -1424,6 +1424,7 @@ begin
   FTasks := aProject.Tasks;
   Populate(FTasks,DoClean,AddInactive);
   SetRights;
+  Addhelp;
   ModalResult := mrNone;
   if aLink <> '' then
     GotoTask(aLink);
@@ -1434,7 +1435,6 @@ begin
       Application.ProcessMessages;
       sleep(100);
     end;
-  Addhelp;
   Result := ModalResult = mrOK;
   CleanIntervals;
 end;
