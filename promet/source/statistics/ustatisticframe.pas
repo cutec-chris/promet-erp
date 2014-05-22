@@ -460,6 +460,7 @@ begin
               aControl.Parent:= aPanel;
               aLabel.Left := 0;
               aBevel.Left:=1000;
+              pcTabs.ActivePage:=tsResults;
             end;
         end;
     end;

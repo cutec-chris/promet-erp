@@ -36,7 +36,7 @@ inherited fStatisticFrame: TfStatisticFrame
       TabOrder = 0
       object tsReport: TTabSheet
         Caption = 'Report'
-        ClientHeight = 302
+        ClientHeight = 312
         ClientWidth = 840
         object Panel2: TPanel
           Left = 0
@@ -52,7 +52,7 @@ inherited fStatisticFrame: TfStatisticFrame
             Left = 0
             Height = 27
             Top = 0
-            Width = 28
+            Width = 46
             Align = alLeft
             AutoSize = True
             Glyph.Data = {
@@ -96,10 +96,10 @@ inherited fStatisticFrame: TfStatisticFrame
           end
           object ZoomBtn: TBitBtn
             Tag = 200
-            Left = 28
+            Left = 46
             Height = 27
             Top = 0
-            Width = 71
+            Width = 79
             Align = alLeft
             AutoSize = True
             BorderSpacing.InnerBorder = 2
@@ -146,10 +146,10 @@ inherited fStatisticFrame: TfStatisticFrame
             TabOrder = 1
           end
           object BtZoomIn: TBitBtn
-            Left = 99
+            Left = 125
             Height = 27
             Top = 0
-            Width = 28
+            Width = 46
             Align = alLeft
             AutoSize = True
             Glyph.Data = {
@@ -194,7 +194,7 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object frPreview: TfrPreview
           Left = 0
-          Height = 275
+          Height = 285
           Top = 27
           Width = 840
           Align = alClient
@@ -205,23 +205,23 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object tsResults: TTabSheet
         Caption = 'Ergebnisliste'
-        ClientHeight = 302
+        ClientHeight = 312
         ClientWidth = 840
         object Panel1: TPanel
           Left = 0
-          Height = 272
+          Height = 283
           Top = 0
           Width = 840
           Align = alClient
           BevelOuter = bvNone
           Caption = 'Panel1'
-          ClientHeight = 272
+          ClientHeight = 283
           ClientWidth = 840
           TabOrder = 0
           object gList: TDBGrid
             Left = 4
-            Height = 1
-            Top = 21
+            Height = 0
+            Top = 20
             Width = 832
             Align = alClient
             BorderSpacing.Around = 4
@@ -238,7 +238,7 @@ inherited fStatisticFrame: TfStatisticFrame
           end
           object Label1: TLabel
             Left = 4
-            Height = 14
+            Height = 13
             Top = 5
             Width = 832
             Align = alTop
@@ -251,7 +251,7 @@ inherited fStatisticFrame: TfStatisticFrame
           object pDetails: TPanel
             Left = 0
             Height = 274
-            Top = -2
+            Top = 9
             Width = 840
             Align = alBottom
             BevelOuter = bvNone
@@ -271,7 +271,7 @@ inherited fStatisticFrame: TfStatisticFrame
               TabOrder = 0
               object Label5: TLabel
                 Left = 4
-                Height = 14
+                Height = 13
                 Top = 4
                 Width = 832
                 Align = alTop
@@ -283,8 +283,8 @@ inherited fStatisticFrame: TfStatisticFrame
               end
               object gSubDetail: TDBGrid
                 Left = 4
-                Height = 144
-                Top = 22
+                Height = 145
+                Top = 21
                 Width = 832
                 Align = alClient
                 BorderSpacing.Around = 4
@@ -309,7 +309,7 @@ inherited fStatisticFrame: TfStatisticFrame
             end
             object Label2: TLabel
               Left = 4
-              Height = 14
+              Height = 13
               Top = 4
               Width = 832
               Align = alTop
@@ -321,8 +321,8 @@ inherited fStatisticFrame: TfStatisticFrame
             end
             object gDetail: TDBGrid
               Left = 4
-              Height = 73
-              Top = 22
+              Height = 74
+              Top = 21
               Width = 832
               Align = alClient
               BorderSpacing.Around = 4
@@ -339,7 +339,7 @@ inherited fStatisticFrame: TfStatisticFrame
             Cursor = crVSplit
             Left = 0
             Height = 5
-            Top = 18
+            Top = 17
             Width = 840
             Align = alBottom
             ResizeAnchor = akBottom
@@ -359,8 +359,8 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object lStatus: TLabel
           Left = 8
-          Height = 14
-          Top = 280
+          Height = 13
+          Top = 291
           Width = 824
           Align = alBottom
           BorderSpacing.Around = 8
@@ -1045,12 +1045,12 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object tsDetail: TTabSheet
           Caption = 'Detail'
-          ClientHeight = 259
+          ClientHeight = 269
           ClientWidth = 856
           inline smQuerry1: TSynMemo
             Cursor = crIBeam
             Left = 0
-            Height = 259
+            Height = 269
             Top = 0
             Width = 856
             Align = alClient
@@ -1657,12 +1657,12 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object tsSubDetail: TTabSheet
           Caption = 'Sub Detail'
-          ClientHeight = 259
+          ClientHeight = 269
           ClientWidth = 856
           inline smQuerry2: TSynMemo
             Cursor = crIBeam
             Left = 0
-            Height = 259
+            Height = 269
             Top = 0
             Width = 856
             Align = alClient
