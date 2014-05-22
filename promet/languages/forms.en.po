@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prometheus\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-05-22 09:39+0100\n"
+"PO-Revision-Date: 2014-05-22 15:44+0100\n"
 "Last-Translator: Christian U. <ulrich@tcs-germany.de>\n"
 "Language-Team: C.Ulrich <christian@ullihome.de>\n"
 "Language: en\n"
@@ -259,12 +259,12 @@ msgstr "Value"
 #: tfaccounts.menuitem1.caption
 msgctxt "TFACCOUNTS.MENUITEM1.CAPTION"
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: tfaccounts.menuitem6.caption
 msgctxt "TFACCOUNTS.MENUITEM6.CAPTION"
 msgid "-"
-msgstr ""
+msgstr "v"
 
 # uintfstrconsts:straddfolder
 #: tfaccounts.miaddfilter.caption
@@ -1392,7 +1392,7 @@ msgstr ""
 
 #: tfcustomer.gcontact.hint
 msgid "hier können Sie sämtliche Kontaktdaten "
-msgstr ""
+msgstr "here you can manage Contact data"
 
 #: tfcustomer.gemployees.columns[0].tcolumntitle.caption
 msgid "EMPLOYEE"
@@ -1983,7 +1983,7 @@ msgstr "uses the settings in actual entry"
 
 #: tfentertime.baddjob.hint
 msgid "Fügt den aktuellen Text zur persönlichen "
-msgstr ""
+msgstr "adds the actual text to your personal task list (dropdown)"
 
 #: tfentertime.bchange.caption
 msgid "übernehmen"
@@ -1995,7 +1995,7 @@ msgstr "apply changes"
 
 #: tfentertime.bdeletejob.hint
 msgid "Löscht den ausgewählten Eintrag aus der "
-msgstr ""
+msgstr "deletes the actual entry from your personal task list dropdown)"
 
 #: tfentertime.bpause.caption
 msgid "pausieren"
@@ -2045,7 +2045,7 @@ msgstr "Search with this button an fitting entry"
 #: tfentertime.elink1.hint
 msgctxt "TFENTERTIME.ELINK1.HINT"
 msgid "Suchen Sie mithilfe des Buttons einen passenden Eintrag"
-msgstr ""
+msgstr "search the corresponding entry"
 
 #: tfentertime.fentertime.caption
 msgctxt "TFENTERTIME.FENTERTIME.CAPTION"
@@ -2338,7 +2338,7 @@ msgstr "limit filterresults to"
 
 #: tffilter.gheader.hint
 msgid "hier können Sie die Liste einschränken, "
-msgstr ""
+msgstr "here you can filter the list"
 
 # uintfstrconsts:strfilter
 #: tffilter.lfilter.caption
@@ -2348,17 +2348,17 @@ msgstr "Filter"
 
 #: tffilter.pright.hint
 msgid "Mithilfe dieser Zeitleiste können"
-msgstr ""
+msgstr "with this timeline you can set an filter to tha clicked date"
 
 #: tffilter.semaxresults.hint
 msgctxt "TFFILTER.SEMAXRESULTS.HINT"
 msgid "hier können Sie die Zahl der maximalen Filterergebnisse angeben"
-msgstr ""
+msgstr "here you can set an limit to the actual filter"
 
 #: tffilter.speedbutton2.caption
 msgctxt "TFFILTER.SPEEDBUTTON2.CAPTION"
 msgid "?"
-msgstr ""
+msgstr "?"
 
 #: tffilter.toolbar.caption
 msgid "ToolBar"
@@ -2367,11 +2367,11 @@ msgstr ""
 #: tffiltertabs.miclose.caption
 msgctxt "TFFILTERTABS.MICLOSE.CAPTION"
 msgid "Schliessen"
-msgstr ""
+msgstr "Close"
 
 #: tffindtransaction.caption
 msgid "Buchung zuordnen"
-msgstr ""
+msgstr "assign booking"
 
 #: tffindtransaction.cbamount.caption
 #, fuzzy
@@ -2401,7 +2401,7 @@ msgstr "Filter"
 #: tfhistoryframe.accopylink.caption
 msgctxt "TFHISTORYFRAME.ACCOPYLINK.CAPTION"
 msgid "als Verknüpfung kopieren"
-msgstr ""
+msgstr "copy as link"
 
 # uintfstrconsts:strfilter
 #: tfhistoryframe.acfilter.caption
@@ -2435,12 +2435,12 @@ msgstr ""
 #: tfhistoryframe.glist.hint
 msgctxt "TFHISTORYFRAME.GLIST.HINT"
 msgid "Die Historie des Eintrags"
-msgstr ""
+msgstr "the history tf the object"
 
 #: tfhistoryframe.speedbutton2.caption
 msgctxt "TFHISTORYFRAME.SPEEDBUTTON2.CAPTION"
 msgid "?"
-msgstr ""
+msgstr "?"
 
 #: tfinventory.finventory.caption
 msgctxt "TFINVENTORY.FINVENTORY.CAPTION"
@@ -2680,7 +2680,7 @@ msgstr "The history of this entry"
 #: tflinks.speedbutton2.caption
 msgctxt "TFLINKS.SPEEDBUTTON2.CAPTION"
 msgid "?"
-msgstr ""
+msgstr "?"
 
 #: tflogwaitform.babort.caption
 msgctxt "TFLOGWAITFORM.BABORT.CAPTION"
@@ -2704,11 +2704,11 @@ msgstr "Messageoptions"
 
 #: tfmailoptions.cbarchive.caption
 msgid "nach Abruf Archivieren"
-msgstr ""
+msgstr "Archive after recheiving"
 
 #: tfmailoptions.cbarchive.hint
 msgid "Archiviert Mails nach erfolgrechem Abruf "
-msgstr ""
+msgstr "Archives the message after successful retriving"
 
 #: tfmailoptions.cbdelete.caption
 #, fuzzy
@@ -2717,7 +2717,7 @@ msgstr "delete menber"
 
 #: tfmailoptions.cbdelete.hint
 msgid "löscht Mails nach erfolgrechem Abruf "
-msgstr ""
+msgstr "deletes the message after successful retriving"
 
 #: tfmailoptions.eservertype.text
 msgid "POP3"
@@ -2725,7 +2725,7 @@ msgstr "POP§"
 
 #: tfmailoptions.label1.caption
 msgid "Zielordner"
-msgstr ""
+msgstr "Targetfolder"
 
 # uintfstrconsts:straddresses
 #: tfmailoptions.lmailaddr.caption
@@ -2763,7 +2763,7 @@ msgstr "Username"
 
 #: tfmain.acattplan.caption
 msgid "Anwesenheitsplan"
-msgstr ""
+msgstr "Attandance plan"
 
 #: tfmain.acback.caption
 msgctxt "tfmain.acback.caption"
@@ -2794,7 +2794,7 @@ msgstr "View List"
 
 #: tfmain.acclearlist.hint
 msgid "setzt alle Listenelemente zurück"
-msgstr ""
+msgstr "resets all list entrys"
 
 #: tfmain.acclosetab.caption
 #, fuzzy
@@ -2840,7 +2840,7 @@ msgstr "Forward"
 
 #: tfmain.achelpindex.caption
 msgid "Index"
-msgstr ""
+msgstr "Index"
 
 # uintfstrconsts:strdateformat
 #: tfmain.acinfo.caption
@@ -2915,7 +2915,7 @@ msgstr "creates an new contact"
 
 #: tfmain.acnewmeeting.caption
 msgid "neue Besprechung"
-msgstr ""
+msgstr "new Meeting"
 
 #: tfmain.acnewmessage.caption
 #, fuzzy
@@ -2974,7 +2974,7 @@ msgstr "open"
 #: tfmain.acorders.caption
 msgctxt "TFMAIN.ACORDERS.CAPTION"
 msgid "Vorgänge"
-msgstr ""
+msgstr "Orders"
 
 # uintfstrconsts:strpause
 #: tfmain.acpausetime.caption
@@ -3002,15 +3002,15 @@ msgstr "Projects"
 
 #: tfmain.acrefreshorderlist.caption
 msgid "Auftragsliste Neu aufbauen"
-msgstr ""
+msgstr "refresh orderlist"
 
 #: tfmain.acrefreshorderlist.hint
 msgid "Auftragsliste neu aufbauen"
-msgstr ""
+msgstr "refresh orderlist"
 
 #: tfmain.acroughplanning.caption
 msgid "Grobplanung"
-msgstr ""
+msgstr "grossplanning"
 
 #: tfmain.acsaleslist.caption
 #, fuzzy
@@ -3029,7 +3029,7 @@ msgstr "Tree"
 
 #: tfmain.acshowtree.hint
 msgid "Baum anzeigen/ausblenden"
-msgstr ""
+msgstr "Show/hide tree"
 
 # uintfstrconsts:strposcalc
 #: tfmain.acstandarttime.caption
@@ -3099,12 +3099,12 @@ msgstr "Promet-ERP"
 #: tfmain.econtains.text
 msgctxt "TFMAIN.ECONTAINS.TEXT"
 msgid "<hier tippen um zu suchen>"
-msgstr ""
+msgstr "<type here to search>"
 
 #: tfmain.label3.caption
 msgctxt "TFMAIN.LABEL3.CAPTION"
 msgid "Navigation"
-msgstr ""
+msgstr "Navigation"
 
 #: tfmain.label4.caption
 #, fuzzy
@@ -3204,7 +3204,7 @@ msgstr "adds the entry to the selected dir in tree"
 #: tfmasterdata.acchangearticlenumber.caption
 msgctxt "TFMASTERDATA.ACCHANGEARTICLENUMBER.CAPTION"
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #: tfmasterdata.acchangearticlenumber.hint
 msgid "klicken Sie hier um die Artikelnummer zu ändern"
@@ -3267,65 +3267,65 @@ msgstr ""
 #: tfmasterdata.acmenue.hint
 msgctxt "TFMASTERDATA.ACMENUE.HINT"
 msgid "öffnet ein Menü mit weiteren Möglichkeiten"
-msgstr ""
+msgstr "opens an menu with more options"
 
 #: tfmasterdata.acnew.hint
 msgid "legt einen neuen Artikel an"
-msgstr ""
+msgstr "creates an new article"
 
 #: tfmasterdata.acpaste.caption
 msgctxt "TFMASTERDATA.ACPASTE.CAPTION"
 msgid "Einfügen"
-msgstr ""
+msgstr "Paste"
 
 #: tfmasterdata.acprint.hint
 msgctxt "TFMASTERDATA.ACPRINT.HINT"
 msgid "drucken"
-msgstr ""
+msgstr "print"
 
 #: tfmasterdata.acsave.hint
 msgid "speichert den Artikel"
-msgstr ""
+msgstr "saves the article"
 
 #: tfmasterdata.acshowtreeentry.hint
 msgid "zeigt den Eintrag im Baum an "
-msgstr ""
+msgstr "shows the object in tree"
 
 #: tfmasterdata.acuploadtoshop.caption
 msgid "In Webshop hochladen"
-msgstr ""
+msgstr "upload to Webshop"
 
 #: tfmasterdata.acviewdetails.hint
 msgid "zeigt den gewählten Eintrag an"
-msgstr ""
+msgstr "shows teh corresponding entry "
 
 #: tfmasterdata.acviewlist.hint
 msgid "zeigt die Stammdatenübersicht an"
-msgstr ""
+msgstr "shows the Articlelist"
 
 #: tfmasterdata.baddform.hint
 msgctxt "TFMASTERDATA.BADDFORM.HINT"
 msgid "erstellt ein neues Tab"
-msgstr ""
+msgstr "creates an new Tab"
 
 #: tfmasterdata.bdelform.hint
 msgctxt "TFMASTERDATA.BDELFORM.HINT"
 msgid "löscht das aktuelle Tab"
-msgstr ""
+msgstr "deletes the actual Tab"
 
 #: tfmasterdata.beditform.hint
 msgctxt "TFMASTERDATA.BEDITFORM.HINT"
 msgid "hiermit können Sie den Tabdesigner aufrufen,"
-msgstr ""
+msgstr "here you can start the Tabdesigner"
 
 #: tfmasterdata.cbactive.caption
 msgid "ist Aktiv"
-msgstr ""
+msgstr "is active"
 
 #: tfmasterdata.cbactive.hint
 msgctxt "tfmasterdata.cbactive.hint"
 msgid "markiert diesen Artikel als aktiv"
-msgstr ""
+msgstr "marks the article as active"
 
 #: tfmasterdata.cblanguage.hint
 #, fuzzy
@@ -3336,12 +3336,12 @@ msgstr "select the language of the contact"
 #: tfmasterdata.cbnostorage.caption
 msgctxt "tfmasterdata.cbnostorage.caption"
 msgid "hat kein Lager"
-msgstr ""
+msgstr "has no storage"
 
 #: tfmasterdata.cbnostorage.hint
 msgctxt "tfmasterdata.cbnostorage.hint"
 msgid "Der Eintrag besitzt kein Lager "
-msgstr ""
+msgstr "the article has no storage"
 
 # uintfstrconsts:strownproduction
 #: tfmasterdata.cbownproduction.caption
@@ -3353,7 +3353,7 @@ msgstr "Own production"
 #: tfmasterdata.cbownproduction.hint
 msgctxt "tfmasterdata.cbownproduction.hint"
 msgid "wird dieser Eintrag selbst erzeugt ?"
-msgstr ""
+msgstr "is this article self build ?"
 
 #: tfmasterdata.cbsaleitem.caption
 msgctxt "tfmasterdata.cbsaleitem.caption"
@@ -3393,12 +3393,12 @@ msgstr ""
 #: tfmasterdata.ematchcode.hint
 msgctxt "TFMASTERDATA.EMATCHCODE.HINT"
 msgid "Hier können Sie einen Suchbegriff angeben, "
-msgstr ""
+msgstr "here you can enter an search term"
 
 #: tfmasterdata.fmasterdata.caption
 msgctxt "TFMASTERDATA.FMASTERDATA.CAPTION"
 msgid "Stammdaten"
-msgstr ""
+msgstr "Masterdata"
 
 #: tfmasterdata.gassemblys.columns[0].tcolumntitle.caption
 msgctxt "TFMASTERDATA.GASSEMBLYS.COLUMNS[0].TCOLUMNTITLE.CAPTION"
@@ -3522,16 +3522,16 @@ msgstr ""
 
 #: tfmasterdata.laccountingkonto.caption
 msgid "Kostenkonto"
-msgstr ""
+msgstr "Kostaccount"
 
 #: tfmasterdata.larticlenumber.caption
 msgctxt "TFMASTERDATA.LARTICLENUMBER.CAPTION"
 msgid "Nummer"
-msgstr ""
+msgstr "Number"
 
 #: tfmasterdata.larticlenumbersupplier.caption
 msgid "Artikelnummer Lieferant"
-msgstr ""
+msgstr "Articlenumber supplier"
 
 # uintfstrconsts:strbarcode
 #: tfmasterdata.lbarcode.caption
@@ -3542,7 +3542,7 @@ msgstr "Barcode"
 
 #: tfmasterdata.lcostcentre.caption
 msgid "Kostenstelle"
-msgstr ""
+msgstr "Kostaccount"
 
 #: tfmasterdata.ldelivertime.caption
 #, fuzzy
@@ -3553,7 +3553,7 @@ msgstr "Supplier"
 #: tfmasterdata.llanguage.caption
 msgctxt "TFMASTERDATA.LLANGUAGE.CAPTION"
 msgid "Sprache"
-msgstr ""
+msgstr "Language"
 
 #: tfmasterdata.lmanufacturernr.caption
 #, fuzzy
@@ -3564,22 +3564,22 @@ msgstr "create Appointment"
 #: tfmasterdata.lmatchcode.caption
 msgctxt "TFMASTERDATA.LMATCHCODE.CAPTION"
 msgid "Suchbegriff"
-msgstr ""
+msgstr "Matchcode"
 
 #: tfmasterdata.lprices.caption
 msgctxt "TFMASTERDATA.LPRICES.CAPTION"
 msgid "Preise"
-msgstr ""
+msgstr "Prices"
 
 #: tfmasterdata.lquantityunit.caption
 msgctxt "TFMASTERDATA.LQUANTITYUNIT.CAPTION"
 msgid "Mengeneinheit"
-msgstr ""
+msgstr "Quantityunit"
 
 #: tfmasterdata.lshorttext.caption
 msgctxt "TFMASTERDATA.LSHORTTEXT.CAPTION"
 msgid "Kurztext"
-msgstr ""
+msgstr "Shorttext"
 
 # uintfstrconsts:strstatus
 #: tfmasterdata.lstate.caption
@@ -3603,12 +3603,12 @@ msgstr "Typ"
 #: tfmasterdata.lunit.caption
 msgctxt "tfmasterdata.lunit.caption"
 msgid "Verpackungseinheit"
-msgstr ""
+msgstr "Packaging unit"
 
 #: tfmasterdata.lvat.caption
 msgctxt "TFMASTERDATA.LVAT.CAPTION"
 msgid "Mehrwertsteuer"
-msgstr ""
+msgstr "VAT"
 
 # uintfstrconsts:strversion
 #: tfmasterdata.lversion.caption
@@ -3619,7 +3619,7 @@ msgstr "Version"
 #: tfmasterdata.lwarrenty.caption
 msgctxt "tfmasterdata.lwarrenty.caption"
 msgid "Gewährleistung"
-msgstr ""
+msgstr "Warrenty"
 
 #: tfmasterdata.lweight.caption
 #, fuzzy
@@ -3630,27 +3630,27 @@ msgstr "History"
 #: tfmasterdata.menuitem3.caption
 msgctxt "TFMASTERDATA.MENUITEM3.CAPTION"
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: tfmasterdata.menuitem4.caption
 msgctxt "TFMASTERDATA.MENUITEM4.CAPTION"
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: tfmasterdata.menuitem5.caption
 msgctxt "TFMASTERDATA.MENUITEM5.CAPTION"
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: tfmasterdata.menuitem6.caption
 msgctxt "TFMASTERDATA.MENUITEM6.CAPTION"
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: tfmasterdata.midelemiter2.caption
 msgctxt "TFMASTERDATA.MIDELEMITER2.CAPTION"
 msgid "-"
-msgstr ""
+msgstr "c"
 
 #: tfmasterdata.mshorttext.hint
 #, fuzzy
@@ -3670,37 +3670,37 @@ msgstr ""
 #: tfmasterdata.pimage.caption
 msgctxt "TFMASTERDATA.PIMAGE.CAPTION"
 msgid "kein Bild"
-msgstr ""
+msgstr "no Picture"
 
 #: tfmasterdata.ppreviewimage.caption
 msgctxt "TFMASTERDATA.PPREVIEWIMAGE.CAPTION"
 msgid "kein Bild"
-msgstr ""
+msgstr "no Picture"
 
 #: tfmasterdata.sbaddimage.hint
 msgctxt "TFMASTERDATA.SBADDIMAGE.HINT"
 msgid "öffnet einen Dialog zum auswählen "
-msgstr ""
+msgstr "shows an Opendialog"
 
 #: tfmasterdata.sbclipboardtoimage.hint
 msgctxt "TFMASTERDATA.SBCLIPBOARDTOIMAGE.HINT"
 msgid "fügt ein Bild aus der Zwischenablage ein"
-msgstr ""
+msgstr "pasts an picture from clipboard"
 
 #: tfmasterdata.sbimagetoclipboard.hint
 msgctxt "TFMASTERDATA.SBIMAGETOCLIPBOARD.HINT"
 msgid "kopiert das Bild in die Zwischenablage"
-msgstr ""
+msgstr "copys the picture to clipboard"
 
 #: tfmasterdata.tsaccounting.caption
 msgctxt "TFMASTERDATA.TSACCOUNTING.CAPTION"
 msgid "Finanzen"
-msgstr ""
+msgstr "Financial"
 
 #: tfmasterdata.tscommon.caption
 msgctxt "TFMASTERDATA.TSCOMMON.CAPTION"
 msgid "Allgemein"
-msgstr ""
+msgstr "Common"
 
 # uintfstrconsts:strposition
 #: tfmasterdata.tsdisposition.caption
@@ -3723,26 +3723,26 @@ msgstr "History"
 #: tfmasterdata.tsimages.caption
 msgctxt "TFMASTERDATA.TSIMAGES.CAPTION"
 msgid "Bilder"
-msgstr ""
+msgstr "Images"
 
 #: tfmasterdata.tslinks.caption
 msgctxt "TFMASTERDATA.TSLINKS.CAPTION"
 msgid "Verweise"
-msgstr ""
+msgstr "Links"
 
 #: tfmasterdata.tspiecelist.caption
 msgid "Stückliste"
-msgstr ""
+msgstr "Picelist"
 
 #: tfmasterdata.tsprices.caption
 msgctxt "TFMASTERDATA.TSPRICES.CAPTION"
 msgid "Preise"
-msgstr ""
+msgstr "Prices"
 
 #: tfmasterdata.tsproperties.caption
 msgctxt "TFMASTERDATA.TSPROPERTIES.CAPTION"
 msgid "Eigenschaften"
-msgstr ""
+msgstr "Propertys"
 
 # uintfstrconsts:strrepair
 #: tfmasterdata.tsrepair.caption
@@ -3753,7 +3753,7 @@ msgstr "Repair"
 #: tfmasterdata.tsstorage.caption
 msgctxt "TFMASTERDATA.TSSTORAGE.CAPTION"
 msgid "Lager"
-msgstr ""
+msgstr "Storage"
 
 #: tfmasterdata.tssupplier.caption
 msgctxt "TFMASTERDATA.TSSUPPLIER.CAPTION"
