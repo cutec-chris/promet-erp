@@ -16,7 +16,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="15">
+    <Files Count="16">
       <Item1>
         <Filename Value="umandantoptions.lfm"/>
         <Type Value="LFM"/>
@@ -77,6 +77,10 @@
         <Filename Value="uuserfielddefoptions.pas"/>
         <UnitName Value="uUserfieldDefOptions"/>
       </Item15>
+      <Item16>
+        <Filename Value="uimportoptions.pas"/>
+        <UnitName Value="uimportoptions"/>
+      </Item16>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="2">
