@@ -279,7 +279,9 @@ begin
             begin
               if Assigned(aJsonOutList[i])
               and (not Assigned(SyncItems.GetField(aJsonOutList[i],'item_is_synched')))
-              and ((not Assigned(SyncItems.GetField(aJsonOutList[i],'HASCHILDS'))) or (SyncItems.GetField(aJsonOutList[i],'HASCHILDS').AsString<>'Y')) then
+              and ((not Assigned(SyncItems.GetField(aJsonOutList[i],'HASCHILDS'))) or (SyncItems.GetField(aJsonOutList[i],'HASCHILDS').AsString<>'Y'))
+              and ((not Assigned(SyncItems.GetField(aJsonOutList[i],'COMPLETED'))) or (SyncItems.GetField(aJsonOutList[i],'COMPLETED').AsString<>'Y'))
+              then
                 begin
                   if aFolder.Folder.CreateMessage(IMapiMessage, 0, MapiMessage) = S_OK then
                     begin

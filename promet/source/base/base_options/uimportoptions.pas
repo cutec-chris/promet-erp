@@ -24,12 +24,21 @@ unit uimportoptions;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls,uOptionsFrame;
+  Classes, SysUtils, FileUtil, SynMemo, SynHighlighterSQL, SynHighlighterXML,
+  Forms, Controls, StdCtrls, DbCtrls, uOptionsFrame;
 
 type
   TfImportOptions = class(TOptionsFrame)
     cbClass: TComboBox;
+    DBListBox1: TDBListBox;
     Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    SynMemo1: TSynMemo;
+    SynMemo2: TSynMemo;
+    SynSQLSyn1: TSynSQLSyn;
+    SynXMLSyn1: TSynXMLSyn;
   private
     { private declarations }
   public

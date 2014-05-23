@@ -907,8 +907,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="4"/>
-        <CursorPos X="26" Y="27"/>
+        <TopLine Value="6"/>
+        <CursorPos X="9" Y="26"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -928,7 +928,7 @@
         <LoadedDesigner Value="True"/>
       </Unit51>
     </Units>
-    <JumpHistory Count="22" HistoryIndex="21">
+    <JumpHistory Count="23" HistoryIndex="22">
       <Position1>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <Caret Line="755" Column="1" TopLine="733"/>
@@ -1017,6 +1017,10 @@
         <Filename Value="../base/base_options/uimportoptions.pas"/>
         <Caret Line="27" Column="26" TopLine="4"/>
       </Position22>
+      <Position23>
+        <Filename Value="../base/base_options/uimportoptions.pas"/>
+        <Caret Line="26" Column="9" TopLine="6"/>
+      </Position23>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

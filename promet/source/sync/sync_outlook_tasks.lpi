@@ -33,7 +33,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--config-path=C:\Dokumente und Einstellungen\ulrich\Desktop\Promet-ERP\Data\config&quot; --mandant=Standard --user=Administrator"/>
+        <CommandLineParams Value="--mandant=&quot;TCS-Times2&quot; --user=&quot;Christian Ulrich&quot;"/>
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
         <WorkingDirectory Value="C:\"/>
       </local>
@@ -58,8 +58,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="315"/>
-        <CursorPos X="46" Y="330"/>
+        <TopLine Value="329"/>
+        <CursorPos X="1" Y="348"/>
         <FoldState Value=" T3i603113m"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="1">
@@ -573,7 +573,7 @@
       <Unit66>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1555"/>
         <CursorPos X="1" Y="1587"/>
@@ -583,7 +583,7 @@
       <Unit67>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="56"/>
         <CursorPos X="15" Y="74"/>
@@ -611,7 +611,7 @@
       <Unit70>
         <Filename Value="..\base\dbintfs\ubaseerpdbclasses.pas"/>
         <UnitName Value="uBaseERPDBClasses"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="27"/>
         <CursorPos X="27" Y="34"/>
@@ -677,7 +677,7 @@
       <Unit78>
         <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="757"/>
         <CursorPos X="1" Y="782"/>
@@ -756,7 +756,7 @@
       <Unit88>
         <Filename Value="..\base\dbintfs\utask.pas"/>
         <UnitName Value="utask"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="112"/>
         <CursorPos X="46" Y="927"/>
@@ -1009,7 +1009,7 @@
       <Unit119>
         <Filename Value="..\components\synapse\synautil.pas"/>
         <UnitName Value="synautil"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="398"/>
         <CursorPos X="1" Y="422"/>
@@ -1028,12 +1028,10 @@
       <Unit121>
         <Filename Value="..\components\zeos\src\dbc\ZDbcSqLiteUtils.pas"/>
         <UnitName Value="ZDbcSqLiteUtils"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="250"/>
         <CursorPos X="1" Y="268"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit121>
     </Units>
@@ -1043,35 +1041,35 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="sync_outlook_tasks.lpr"/>
-        <Caret Line="400" Column="75" TopLine="325"/>
+        <Caret Line="338" Column="97" TopLine="327"/>
       </Position1>
       <Position2>
-        <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="471" Column="54" TopLine="454"/>
+        <Filename Value="sync_outlook_tasks.lpr"/>
+        <Caret Line="334" Column="91" TopLine="327"/>
       </Position2>
       <Position3>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="504" Column="95" TopLine="488"/>
+        <Caret Line="390" Column="179" TopLine="372"/>
       </Position3>
       <Position4>
-        <Filename Value="sync_outlook_tasks.lpr"/>
-        <Caret Line="340" Column="80" TopLine="327"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="392" Column="1" TopLine="371"/>
       </Position4>
       <Position5>
-        <Filename Value="sync_outlook_tasks.lpr"/>
-        <Caret Line="338" Column="97" TopLine="327"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="390" Column="1" TopLine="371"/>
       </Position5>
       <Position6>
-        <Filename Value="sync_outlook_tasks.lpr"/>
-        <Caret Line="334" Column="91" TopLine="327"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="391" Column="1" TopLine="371"/>
       </Position6>
       <Position7>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="390" Column="179" TopLine="372"/>
+        <Caret Line="392" Column="1" TopLine="371"/>
       </Position7>
       <Position8>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="392" Column="1" TopLine="371"/>
+        <Caret Line="391" Column="1" TopLine="371"/>
       </Position8>
       <Position9>
         <Filename Value="..\base\dbintfs\usync.pas"/>
@@ -1087,79 +1085,79 @@
       </Position11>
       <Position12>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="391" Column="1" TopLine="371"/>
+        <Caret Line="393" Column="1" TopLine="371"/>
       </Position12>
       <Position13>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="390" Column="1" TopLine="371"/>
+        <Caret Line="394" Column="1" TopLine="371"/>
       </Position13>
       <Position14>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="391" Column="1" TopLine="371"/>
+        <Caret Line="396" Column="1" TopLine="371"/>
       </Position14>
       <Position15>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="392" Column="1" TopLine="371"/>
+        <Caret Line="397" Column="1" TopLine="371"/>
       </Position15>
       <Position16>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="393" Column="1" TopLine="371"/>
+        <Caret Line="399" Column="1" TopLine="371"/>
       </Position16>
       <Position17>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="394" Column="1" TopLine="371"/>
+        <Caret Line="401" Column="1" TopLine="371"/>
       </Position17>
       <Position18>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="396" Column="1" TopLine="371"/>
+        <Caret Line="402" Column="1" TopLine="371"/>
       </Position18>
       <Position19>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="397" Column="1" TopLine="371"/>
+        <Caret Line="403" Column="1" TopLine="372"/>
       </Position19>
       <Position20>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="399" Column="1" TopLine="371"/>
+        <Caret Line="405" Column="1" TopLine="374"/>
       </Position20>
       <Position21>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="401" Column="1" TopLine="371"/>
+        <Caret Line="406" Column="1" TopLine="375"/>
       </Position21>
       <Position22>
-        <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="402" Column="1" TopLine="371"/>
+        <Filename Value="sync_outlook_tasks.lpr"/>
+        <Caret Line="346" Column="1" TopLine="327"/>
       </Position22>
       <Position23>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="403" Column="1" TopLine="372"/>
+        <Caret Line="390" Column="1" TopLine="375"/>
       </Position23>
       <Position24>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="405" Column="1" TopLine="374"/>
+        <Caret Line="391" Column="1" TopLine="375"/>
       </Position24>
       <Position25>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="406" Column="1" TopLine="375"/>
+        <Caret Line="392" Column="1" TopLine="375"/>
       </Position25>
       <Position26>
-        <Filename Value="sync_outlook_tasks.lpr"/>
-        <Caret Line="346" Column="1" TopLine="327"/>
-      </Position26>
-      <Position27>
-        <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="390" Column="1" TopLine="375"/>
-      </Position27>
-      <Position28>
-        <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="391" Column="1" TopLine="375"/>
-      </Position28>
-      <Position29>
-        <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="392" Column="1" TopLine="375"/>
-      </Position29>
-      <Position30>
         <Filename Value="..\base\dbintfs\usync.pas"/>
         <Caret Line="391" Column="1" TopLine="369"/>
+      </Position26>
+      <Position27>
+        <Filename Value="sync_outlook_tasks.lpr"/>
+        <Caret Line="338" Column="36" TopLine="324"/>
+      </Position27>
+      <Position28>
+        <Filename Value="sync_outlook_tasks.lpr"/>
+        <Caret Line="300" Column="55" TopLine="270"/>
+      </Position28>
+      <Position29>
+        <Filename Value="sync_outlook_tasks.lpr"/>
+        <Caret Line="284" Column="15" TopLine="264"/>
+      </Position29>
+      <Position30>
+        <Filename Value="sync_outlook_tasks.lpr"/>
+        <Caret Line="283" Column="152" TopLine="264"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -1191,7 +1189,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="4">
+    <BreakPoints Count="5">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsGlobal"/>
@@ -1220,6 +1218,13 @@
         <Source Value="E:\umessages.pas"/>
         <Line Value="922"/>
       </Item4>
+      <Item5>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="sync_outlook_tasks.lpr"/>
+        <Line Value="348"/>
+      </Item5>
     </BreakPoints>
     <Watches Count="2">
       <Item1>
