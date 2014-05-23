@@ -8,7 +8,7 @@ interface
 
 uses
   uMandantOptions, uOptions, uOptionsFrame, uProcessOptions, uuseroptions, 
-  uSyncOptions, uUserfieldDefOptions, LazarusPackageIntf;
+  uSyncOptions, uUserfieldDefOptions, uimportoptions, LazarusPackageIntf;
 
 implementation
 

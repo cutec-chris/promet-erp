@@ -370,6 +370,7 @@ var
   aSyncFilter: String;
   aLastSyncedItemTime: TDateTime;
   tmp1: String;
+  aIntFilter: String;
   function RoundToSecond(aDate : TDateTime) : TDateTime;
   begin
     Result := Round(aDate * SecsPerDay) / SecsPerDay;
@@ -384,6 +385,11 @@ begin
       aSyncFilter := TBaseDBModule(DataModule).QuoteField('SYNCTYPE')+'='+TBaseDBModule(DataModule).QuoteValue(SyncType)+' AND '+TBaseDBModule(DataModule).QuoteField('USER_ID')+'='+TBaseDBModule(DataModule).QuoteValue(TBaseDBModule(DataModule).Users.ID.AsString)+' AND '+TBaseDBModule(DataModule).QuoteField('SYNCTABLE')+'='+TBaseDBModule(DataModule).QuoteValue(aInternal.TableName);
       Filter(aSyncFilter,0,'SYNC_TIME');
       Last;
+      //add all items to aInternal that are synced ever
+      aIntFilter := aInternal.ActualFilter;
+      if TBaseDBModule(DataModule).IsSQLDB then
+        aInternal.ActualFilter:='('+aIntFilter+') OR ('+TBaseDBModule(DataModule).QuoteField('SQL_ID')+' IN (SELECT '+TBaseDBModule(DataModule).QuoteField('LOCAL_ID')+' FROM '+TBaseDBModule(DataModule).QuoteField(TableName)+' where '+TBaseDBModule(DataModule).QuoteField('SYNCTYPE')+'='+TBaseDBModule(DataModule).QuoteValue(SyncType)+' AND '+TBaseDBModule(DataModule).QuoteField('USER_ID')+'='+TBaseDBModule(DataModule).QuoteValue(TBaseDBModule(DataModule).Users.ID.AsString)+'))';
+      aInternal.Open;
       aLastSync := SyncTime.AsDateTime;
       debugln('********** Sync started, '+DateTimeToStr(aLastSync)+' last sync, Filter:'+aSyncFilter);
       //Sync internal items that are newer than last sync out
@@ -501,7 +507,7 @@ begin
                                   end
                                 else
                                   begin
-                                    Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,[strSyncNewRecord]));
+                                    Hist.History.AddItem(aInternal.DataSet,Format(strSynchedin,[strSyncNewRecord]));
                                     debugln(aID.AsString+':'+Format(strSynchedOut,[strSyncNewRecord]));
                                   end;
                               end
