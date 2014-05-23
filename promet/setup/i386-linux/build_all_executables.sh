@@ -1,6 +1,9 @@
 #!/bin/bash
 Params='--cpu='$2' --build-mode=Default'
-echo "compiling for $1..."
+if [ "x$2" = "xi386" ]; then
+  Params=$Params' --compiler=/usr/local/lib/fpc/2.7.1/ppc386'
+fi
+echo "compiling for $1... $Params"
 cd ../../
 lazbuild --add-package $(pwd)/source/base/base_help/phelp.lpk
 lazbuild --add-package $(pwd)/source/base/base_frames/pvisualframes.lpk

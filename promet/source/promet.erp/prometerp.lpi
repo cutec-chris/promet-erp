@@ -812,10 +812,11 @@
       </Unit42>
       <Unit43>
         <Filename Value="../base/revision.inc"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="148" Y="1"/>
+        <CursorPos X="4" Y="1"/>
         <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit43>
@@ -938,7 +939,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uGanttView"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1413"/>
