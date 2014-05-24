@@ -430,7 +430,7 @@
       <Unit45>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="64"/>
         <CursorPos X="3" Y="27"/>
@@ -513,7 +513,7 @@
       <Unit55>
         <Filename Value="..\base\dbintfs\uorder.pas"/>
         <UnitName Value="uOrder"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="583"/>
         <CursorPos X="1" Y="607"/>
@@ -1029,7 +1029,7 @@
       <Unit116>
         <Filename Value="..\base\dbintfs\ubaseerpdbclasses.pas"/>
         <UnitName Value="uBaseERPDBClasses"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="16"/>
         <CursorPos X="28" Y="33"/>
@@ -1142,7 +1142,7 @@
       <Unit129>
         <Filename Value="tdbtests.pas"/>
         <UnitName Value="tdbtests"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="37" Y="8"/>
@@ -1187,7 +1187,8 @@
         <Filename Value="uordertest.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uordertest"/>
-        <EditorIndex Value="4"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="58"/>
         <CursorPos X="18" Y="89"/>
@@ -1222,7 +1223,7 @@
         <Filename Value="utgridview.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="utgridview"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="186"/>
         <CursorPos X="1" Y="220"/>
@@ -1379,26 +1380,21 @@
       <Unit157>
         <Filename Value="..\..\..\..\..\lazarus\components\mouseandkeyinput\mouseandkeyinput.pas"/>
         <UnitName Value="MouseAndKeyInput"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="24"/>
         <CursorPos X="18" Y="41"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit157>
       <Unit158>
         <Filename Value="..\..\..\..\..\lazarus\components\mouseandkeyinput\keyinputintf.pas"/>
         <UnitName Value="KeyInputIntf"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="18"/>
         <CursorPos X="3" Y="29"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit158>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="28" HistoryIndex="27">
       <Position1>
         <Filename Value="..\base\dbintfs\uorder.pas"/>
         <Caret Line="932" Column="1" TopLine="908"/>
@@ -1511,14 +1507,6 @@
         <Filename Value="..\..\..\..\..\lazarus\components\mouseandkeyinput\lazmouseandkeyinput.pas"/>
         <Caret Line="10" Column="13" TopLine="1"/>
       </Position28>
-      <Position29>
-        <Filename Value="..\..\..\..\..\lazarus\components\mouseandkeyinput\mouseandkeyinput.pas"/>
-        <Caret Line="53" Column="8" TopLine="27"/>
-      </Position29>
-      <Position30>
-        <Filename Value="..\..\..\..\..\lazarus\components\mouseandkeyinput\mouseandkeyinput.pas"/>
-        <Caret Line="41" Column="18" TopLine="24"/>
-      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
