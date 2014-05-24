@@ -1,7 +1,7 @@
 #!/bin/bash
 Params='--cpu='$2' --build-mode=Default'
 if [ "x$2" = "xi386" ]; then
-  Params=$Params' --compiler=/usr/local/lib/fpc/2.7.1/ppc386'
+#  Params=$Params' --compiler=/usr/local/lib/fpc/2.7.1/ppc386'
 fi
 echo "compiling for $1... $Params"
 cd ../../
