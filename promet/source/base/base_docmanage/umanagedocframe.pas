@@ -458,6 +458,21 @@ begin
   ThumbControl1.ScrollIntoView;
 end;
 procedure TfManageDocFrame.IdleTimer1Timer(Sender: TObject);
+function EncodeField(Val : string) : string;
+begin
+  Result := 'UPPER('+Data.QuoteField(Val)+')';
+end;
+
+function EncodeValue(Val : string) : string;
+begin
+  Result := Data.QuoteValue('*'+Data.EscapeString(Val)+'*');
+  Result := 'UPPER('+Result+')';
+end;
+
+function CastText(Val : string) : string;
+begin
+  Result := 'UPPER(CAST('+Data.QuoteField(Val)+' as VARCHAR(8000)))';
+end;
 var
   aOldEntry: UTF8String;
   tmp: TCaption;
@@ -470,10 +485,10 @@ var
           aFilter := aFilter+' AND ';
         with DataSet.DataSet as IBaseDbFilter do
           aFilter := aFilter+
-                 '('+Data.ProcessTerm(Data.QuoteField('TAGS')+'='+Data.QuoteValue('*'+atmp+'*'))+' OR '+
-                     Data.ProcessTerm(Data.QuoteField('NAME')+'='+Data.QuoteValue('*'+atmp+'*'))+' OR '+
-                     Data.ProcessTerm(Data.QuoteField('LINK')+'='+Data.QuoteValue('*'+atmp+'*'))+' OR '+
-                     Data.ProcessTerm(Data.QuoteField('FULLTEXT')+'='+Data.QuoteValue('*'+atmp+'*'))+')';
+                 '('+Data.ProcessTerm(EncodeField('TAGS')+'='+EncodeValue(atmp))+' OR '+
+                     Data.ProcessTerm(EncodeField('NAME')+'='+EncodeValue(atmp))+' OR '+
+                     Data.ProcessTerm(EncodeField('LINK')+'='+EncodeValue(atmp))+' OR '+
+                     Data.ProcessTerm(CastText('FULLTEXT')+'='+EncodeValue(atmp))+')';
       end;
   end;
 

@@ -157,7 +157,7 @@ procedure TSearch.Start(SearchText : string;SearchUnsharp : Boolean = True);
 
   function CastText(Data : TBaseDBModule;Val : string) : string;
   begin
-    Result := 'UPPER(CAST('+Data.QuoteField(Val)+' as VARCHAR(1000)))';
+    Result := 'UPPER(CAST('+Data.QuoteField(Val)+' as VARCHAR(8000)))';
   end;
 var
   i: Integer;
@@ -277,4 +277,4 @@ end;
 finalization
   Setlength(SearchAble,0);
 end.
-
+
