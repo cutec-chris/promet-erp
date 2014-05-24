@@ -1,28 +1,28 @@
 inherited fMandantOptions: TfMandantOptions
-  Height = 408
+  Height = 430
   Width = 428
-  ClientHeight = 408
+  ClientHeight = 430
   ClientWidth = 428
   ParentShowHint = False
   ShowHint = True
   TabOrder = 0
   DesignLeft = 487
-  DesignTop = 252
+  DesignTop = 230
   object pMandantDetails: TPanel[0]
     Left = 0
-    Height = 408
+    Height = 430
     Top = 0
     Width = 428
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 408
+    ClientHeight = 430
     ClientWidth = 428
     TabOrder = 0
     object lName: TLabel
       Left = 12
       Height = 13
       Top = 96
-      Width = 27
+      Width = 33
       Caption = 'Name'
       ParentColor = False
     end
@@ -30,88 +30,16 @@ inherited fMandantOptions: TfMandantOptions
       Left = 12
       Height = 13
       Top = 144
-      Width = 39
+      Width = 46
       Caption = 'Adresse'
-      ParentColor = False
-    end
-    object lTel1: TLabel
-      Left = 12
-      Height = 13
-      Top = 208
-      Width = 45
-      Caption = 'Telefon 1'
-      ParentColor = False
-    end
-    object lTel2: TLabel
-      Left = 12
-      Height = 13
-      Top = 256
-      Width = 45
-      Caption = 'Telefon 2'
-      ParentColor = False
-    end
-    object lTel3: TLabel
-      Left = 12
-      Height = 13
-      Top = 304
-      Width = 45
-      Caption = 'Telefon 3'
-      ParentColor = False
-    end
-    object lTel4: TLabel
-      Left = 12
-      Height = 13
-      Top = 352
-      Width = 45
-      Caption = 'Telefon 4'
       ParentColor = False
     end
     object lFax: TLabel
       Left = 180
       Height = 13
       Top = 174
-      Width = 18
+      Width = 19
       Caption = 'Fax'
-      ParentColor = False
-    end
-    object lMail: TLabel
-      Left = 136
-      Height = 13
-      Top = 256
-      Width = 28
-      Caption = 'e-Mail'
-      ParentColor = False
-    end
-    object lInternet: TLabel
-      Left = 136
-      Height = 13
-      Top = 304
-      Width = 40
-      Caption = 'Internet'
-      ParentColor = False
-    end
-    object lInstitute: TLabel
-      Left = 264
-      Height = 13
-      Top = 208
-      Width = 61
-      Caption = 'Kreditinstitut'
-      ParentColor = False
-    end
-    object lSortCode: TLabel
-      Left = 264
-      Height = 13
-      Top = 256
-      Width = 77
-      Caption = 'BIC/Bankleitzahl'
-      ParentColor = False
-    end
-    object lAccount: TLabel
-      Left = 264
-      Height = 13
-      Top = 304
-      Width = 94
-      Caption = 'IBAN/Kontonummer'
       ParentColor = False
     end
     object lMandantDetails: TLabel
@@ -129,11 +57,10 @@ inherited fMandantOptions: TfMandantOptions
     end
     object eName: TDBEdit
       Left = 12
-      Height = 21
+      Height = 23
       Top = 112
       Width = 292
       DataField = 'NAME'
-      DataSource = MandantDetailDS
       Anchors = [akTop, akLeft, akRight]
       CharCase = ecNormal
       MaxLength = 0
@@ -146,134 +73,13 @@ inherited fMandantOptions: TfMandantOptions
       Width = 292
       Anchors = [akTop, akLeft, akRight]
       DataField = 'ADRESS'
-      DataSource = MandantDetailDS
       TabOrder = 1
     end
-    object eTel1: TDBEdit
-      Left = 12
-      Height = 21
-      Top = 224
-      Width = 116
-      DataField = 'TEL1'
-      DataSource = MandantDetailDS
-      CharCase = ecNormal
-      MaxLength = 0
-      TabOrder = 2
-    end
-    object eTel2: TDBEdit
-      Left = 12
-      Height = 21
-      Top = 272
-      Width = 116
-      DataField = 'TEL2'
-      DataSource = MandantDetailDS
-      CharCase = ecNormal
-      MaxLength = 0
-      TabOrder = 3
-    end
-    object eTel3: TDBEdit
-      Left = 12
-      Height = 21
-      Top = 320
-      Width = 116
-      DataField = 'TEL3'
-      DataSource = MandantDetailDS
-      CharCase = ecNormal
-      MaxLength = 0
-      TabOrder = 4
-    end
-    object eTel4: TDBEdit
-      Left = 12
-      Height = 21
-      Top = 368
-      Width = 116
-      DataField = 'TEL4'
-      DataSource = MandantDetailDS
-      CharCase = ecNormal
-      MaxLength = 0
-      TabOrder = 5
-    end
-    object eFax: TDBEdit
-      Left = 136
-      Height = 21
-      Top = 224
-      Width = 120
-      DataField = 'FAX'
-      DataSource = MandantDetailDS
-      CharCase = ecNormal
-      MaxLength = 0
-      TabOrder = 6
-    end
-    object eMail: TDBEdit
-      Left = 136
-      Height = 21
-      Top = 272
-      Width = 120
-      DataField = 'MAIL'
-      DataSource = MandantDetailDS
-      CharCase = ecNormal
-      MaxLength = 0
-      TabOrder = 7
-    end
-    object eInternet: TDBEdit
-      Left = 136
-      Height = 21
-      Top = 320
-      Width = 120
-      DataField = 'INTERNET'
-      DataSource = MandantDetailDS
-      CharCase = ecNormal
-      MaxLength = 0
-      TabOrder = 8
-    end
-    object eInstitute: TDBEdit
-      Left = 264
-      Height = 21
-      Top = 224
-      Width = 144
-      DataField = 'INSTITUTE'
-      DataSource = MandantDetailDS
-      CharCase = ecNormal
-      MaxLength = 0
-      TabOrder = 9
-    end
-    object eSortcode: TDBEdit
-      Left = 264
-      Height = 21
-      Top = 272
-      Width = 144
-      DataField = 'SORTCODE'
-      DataSource = MandantDetailDS
-      CharCase = ecNormal
-      MaxLength = 0
-      TabOrder = 10
-    end
-    object eAccount: TDBEdit
-      Left = 264
-      Height = 21
-      Top = 320
-      Width = 144
-      DataField = 'ACCOUNT'
-      DataSource = MandantDetailDS
-      CharCase = ecNormal
-      MaxLength = 0
-      TabOrder = 11
-    end
-    object bExportConfiguration: TButton
-      Left = 136
-      Height = 25
-      Hint = 'exportiert die Konfiguration in ein Verzeichnis'#10'als CSV Datei pro Tabelle '#10'Sie können diese auch unter importdata'#10'im Programmverzeichnis ablegen und '#10'der Wizardmandant kann daraus neue '#10'Datenbanken/Mandanten erzeugen'
-      Top = 368
-      Width = 200
-      Caption = 'Konfiguration exportieren'
-      OnClick = bExportConfigurationClick
-      TabOrder = 12
-    end
     object Label1: TLabel
-      Left = 335
+      Left = 326
       Height = 13
       Top = 96
-      Width = 43
+      Width = 52
       Anchors = [akTop, akRight]
       Caption = 'Bild/Logo'
       ParentColor = False
@@ -288,7 +94,7 @@ inherited fMandantOptions: TfMandantOptions
       Caption = 'Panel1'
       ClientHeight = 90
       ClientWidth = 96
-      TabOrder = 13
+      TabOrder = 2
       object iPreview: TDBImage
         Left = 1
         Height = 88
@@ -298,7 +104,6 @@ inherited fMandantOptions: TfMandantOptions
         Anchors = [akTop, akRight]
         AutoSize = True
         DataField = 'IMAGE'
-        DataSource = MandantDetailDS
       end
     end
     object sbAddImage: TSpeedButton
@@ -349,27 +154,400 @@ inherited fMandantOptions: TfMandantOptions
       ShowHint = True
       ParentShowHint = False
     end
-    object bTreeEntrys: TButton
-      Left = 336
-      Height = 25
-      Hint = 'erzeugt die Standard Baumeinträge neu'#10'z.b. die Standard e-Mail Ordner'#10'sollten sie diese versehentlich gelösht haben'#10'können Sie sie hier neu erstellen.'
-      Top = 368
-      Width = 72
-      Caption = 'Baum bef.'
-      OnClick = bTreeEntrysClick
-      TabOrder = 14
+    object PageControl1: TPageControl
+      Left = 0
+      Height = 223
+      Top = 207
+      Width = 428
+      ActivePage = TabSheet1
+      Align = alBottom
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      TabIndex = 0
+      TabOrder = 3
+      object TabSheet1: TTabSheet
+        Caption = 'Allgemein'
+        ClientHeight = 188
+        ClientWidth = 420
+        object lTel1: TLabel
+          Left = 4
+          Height = 13
+          Top = 3
+          Width = 51
+          Caption = 'Telefon 1'
+          ParentColor = False
+        end
+        object lTel2: TLabel
+          Left = 4
+          Height = 13
+          Top = 51
+          Width = 51
+          Caption = 'Telefon 2'
+          ParentColor = False
+        end
+        object lTel3: TLabel
+          Left = 4
+          Height = 13
+          Top = 99
+          Width = 51
+          Caption = 'Telefon 3'
+          ParentColor = False
+        end
+        object lTel4: TLabel
+          Left = 4
+          Height = 13
+          Top = 147
+          Width = 51
+          Caption = 'Telefon 4'
+          ParentColor = False
+        end
+        object lMail: TLabel
+          Left = 128
+          Height = 13
+          Top = 51
+          Width = 33
+          Caption = 'e-Mail'
+          ParentColor = False
+        end
+        object lInternet: TLabel
+          Left = 128
+          Height = 13
+          Top = 99
+          Width = 44
+          Caption = 'Internet'
+          ParentColor = False
+        end
+        object lInstitute: TLabel
+          Left = 256
+          Height = 13
+          Top = 3
+          Width = 71
+          Caption = 'Kreditinstitut'
+          ParentColor = False
+        end
+        object lSortCode: TLabel
+          Left = 256
+          Height = 13
+          Top = 51
+          Width = 91
+          Caption = 'BIC/Bankleitzahl'
+          ParentColor = False
+        end
+        object lAccount: TLabel
+          Left = 256
+          Height = 13
+          Top = 99
+          Width = 110
+          Caption = 'IBAN/Kontonummer'
+          ParentColor = False
+        end
+        object eTel1: TDBEdit
+          Left = 4
+          Height = 23
+          Top = 19
+          Width = 116
+          DataField = 'TEL1'
+          DataSource = MandantDetailDS
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 0
+        end
+        object eTel2: TDBEdit
+          Left = 4
+          Height = 23
+          Top = 67
+          Width = 116
+          DataField = 'TEL2'
+          DataSource = MandantDetailDS
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 1
+        end
+        object eTel3: TDBEdit
+          Left = 4
+          Height = 23
+          Top = 115
+          Width = 116
+          DataField = 'TEL3'
+          DataSource = MandantDetailDS
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 2
+        end
+        object eTel4: TDBEdit
+          Left = 4
+          Height = 23
+          Top = 163
+          Width = 116
+          DataField = 'TEL4'
+          DataSource = MandantDetailDS
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 3
+        end
+        object eFax: TDBEdit
+          Left = 128
+          Height = 23
+          Top = 19
+          Width = 120
+          DataField = 'FAX'
+          DataSource = MandantDetailDS
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 4
+        end
+        object eMail: TDBEdit
+          Left = 128
+          Height = 23
+          Top = 67
+          Width = 120
+          DataField = 'MAIL'
+          DataSource = MandantDetailDS
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 5
+        end
+        object eInternet: TDBEdit
+          Left = 128
+          Height = 23
+          Top = 115
+          Width = 120
+          DataField = 'INTERNET'
+          DataSource = MandantDetailDS
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 6
+        end
+        object eInstitute: TDBEdit
+          Left = 256
+          Height = 23
+          Top = 19
+          Width = 144
+          DataField = 'INSTITUTE'
+          DataSource = MandantDetailDS
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 7
+        end
+        object eSortcode: TDBEdit
+          Left = 256
+          Height = 23
+          Top = 67
+          Width = 144
+          DataField = 'SORTCODE'
+          DataSource = MandantDetailDS
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 8
+        end
+        object eAccount: TDBEdit
+          Left = 256
+          Height = 23
+          Top = 115
+          Width = 144
+          DataField = 'ACCOUNT'
+          DataSource = MandantDetailDS
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 9
+        end
+        object bExportConfiguration: TButton
+          Left = 128
+          Height = 25
+          Hint = 'exportiert die Konfiguration in ein Verzeichnis'#10'als CSV Datei pro Tabelle '#10'Sie können diese auch unter importdata'#10'im Programmverzeichnis ablegen und '#10'der Wizardmandant kann daraus neue '#10'Datenbanken/Mandanten erzeugen'
+          Top = 163
+          Width = 200
+          Caption = 'Konfiguration exportieren'
+          OnClick = bExportConfigurationClick
+          TabOrder = 10
+        end
+        object bTreeEntrys: TButton
+          Left = 328
+          Height = 25
+          Hint = 'erzeugt die Standard Baumeinträge neu'#10'z.b. die Standard e-Mail Ordner'#10'sollten sie diese versehentlich gelösht haben'#10'können Sie sie hier neu erstellen.'
+          Top = 163
+          Width = 72
+          Caption = 'Baum bef.'
+          OnClick = bTreeEntrysClick
+          TabOrder = 11
+        end
+        object lTel5: TLabel
+          Left = 128
+          Height = 13
+          Top = 3
+          Width = 19
+          Caption = 'Fax'
+          ParentColor = False
+        end
+      end
+      object TabSheet2: TTabSheet
+        Caption = 'Zusätzlich'
+        ClientHeight = 188
+        ClientWidth = 420
+        object lTel6: TLabel
+          Left = 4
+          Height = 13
+          Top = 3
+          Width = 68
+          Caption = 'Zusätzlich 1'
+          ParentColor = False
+        end
+        object eTel5: TDBEdit
+          Left = 4
+          Height = 23
+          Top = 19
+          Width = 116
+          DataField = 'ADDITION1'
+          DataSource = MandantDetailDS
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 0
+        end
+        object lTel7: TLabel
+          Left = 4
+          Height = 13
+          Top = 51
+          Width = 68
+          Caption = 'Zusätzlich 2'
+          ParentColor = False
+        end
+        object eTel6: TDBEdit
+          Left = 4
+          Height = 23
+          Top = 67
+          Width = 116
+          DataField = 'ADDITION2'
+          DataSource = MandantDetailDS
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 1
+        end
+        object lTel8: TLabel
+          Left = 4
+          Height = 13
+          Top = 99
+          Width = 68
+          Caption = 'Zusätzlich 3'
+          ParentColor = False
+        end
+        object eTel7: TDBEdit
+          Left = 4
+          Height = 23
+          Top = 115
+          Width = 116
+          DataField = 'ADDITION3'
+          DataSource = MandantDetailDS
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 2
+        end
+        object lTel9: TLabel
+          Left = 4
+          Height = 13
+          Top = 147
+          Width = 68
+          Caption = 'Zusätzlich 4'
+          ParentColor = False
+        end
+        object eTel8: TDBEdit
+          Left = 4
+          Height = 23
+          Top = 163
+          Width = 116
+          DataField = 'ADDITION4'
+          DataSource = MandantDetailDS
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 3
+        end
+        object lTel10: TLabel
+          Left = 144
+          Height = 13
+          Top = 3
+          Width = 68
+          Caption = 'Zusätzlich 5'
+          ParentColor = False
+        end
+        object eTel9: TDBEdit
+          Left = 144
+          Height = 23
+          Top = 19
+          Width = 116
+          DataField = 'ADDITION5'
+          DataSource = MandantDetailDS
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 4
+        end
+        object lTel11: TLabel
+          Left = 144
+          Height = 13
+          Top = 51
+          Width = 68
+          Caption = 'Zusätzlich 6'
+          ParentColor = False
+        end
+        object eTel10: TDBEdit
+          Left = 144
+          Height = 23
+          Top = 67
+          Width = 116
+          DataField = 'ADDITION6'
+          DataSource = MandantDetailDS
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 5
+        end
+        object lTel12: TLabel
+          Left = 144
+          Height = 13
+          Top = 99
+          Width = 68
+          Caption = 'Zusätzlich 7'
+          ParentColor = False
+        end
+        object eTel11: TDBEdit
+          Left = 144
+          Height = 23
+          Top = 115
+          Width = 116
+          DataField = 'ADDITION7'
+          DataSource = MandantDetailDS
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 6
+        end
+        object lTel13: TLabel
+          Left = 144
+          Height = 13
+          Top = 147
+          Width = 68
+          Caption = 'Zusätzlich 8'
+          ParentColor = False
+        end
+        object eTel12: TDBEdit
+          Left = 144
+          Height = 23
+          Top = 163
+          Width = 116
+          DataField = 'ADDITION8'
+          DataSource = MandantDetailDS
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 7
+        end
+      end
     end
   end
-  object MandantDetailDS: TDatasource[1]
-    left = 344
-    top = 360
-  end
-  object SelectDirectoryDialog: TSelectDirectoryDialog[2]
-    left = 344
-    top = 328
-  end
-  object OpenPictureDialog: TOpenPictureDialog[3]
+  object OpenPictureDialog: TOpenPictureDialog[1]
     left = 392
     top = 136
+  end
+  object MandantDetailDS: TDatasource[2]
+    left = 364
+    top = 183
+  end
+  object SelectDirectoryDialog: TSelectDirectoryDialog[3]
+    left = 364
+    top = 151
   end
 end

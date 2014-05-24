@@ -24,7 +24,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, StdCtrls, DbCtrls,
-  Dialogs, Buttons, ExtDlgs, db, uOptionsFrame, uBaseDBClasses,uBaseDBInterface;
+  Dialogs, Buttons, ExtDlgs, ComCtrls, db, uOptionsFrame, uBaseDBClasses,
+  uBaseDBInterface;
 
 type
 
@@ -33,18 +34,26 @@ type
   TfMandantOptions = class(TOptionsFrame)
     bExportConfiguration: TButton;
     bTreeEntrys: TButton;
-    iImage: TDBImage;
     eAccount: TDBEdit;
     eFax: TDBEdit;
     eInstitute: TDBEdit;
     eInternet: TDBEdit;
     eMail: TDBEdit;
-    eName: TDBEdit;
     eSortcode: TDBEdit;
     eTel1: TDBEdit;
+    eTel10: TDBEdit;
+    eTel11: TDBEdit;
+    eTel12: TDBEdit;
     eTel2: TDBEdit;
     eTel3: TDBEdit;
     eTel4: TDBEdit;
+    eTel5: TDBEdit;
+    eTel6: TDBEdit;
+    eTel7: TDBEdit;
+    eTel8: TDBEdit;
+    eTel9: TDBEdit;
+    iImage: TDBImage;
+    eName: TDBEdit;
     iPreview: TDBImage;
     Label1: TLabel;
     lAccount: TLabel;
@@ -57,16 +66,28 @@ type
     lName: TLabel;
     lSortCode: TLabel;
     lTel1: TLabel;
+    lTel10: TLabel;
+    lTel11: TLabel;
+    lTel12: TLabel;
+    lTel13: TLabel;
     lTel2: TLabel;
     lTel3: TLabel;
     lTel4: TLabel;
+    lTel5: TLabel;
+    lTel6: TLabel;
+    lTel7: TLabel;
+    lTel8: TLabel;
+    lTel9: TLabel;
     mAdress: TDBMemo;
     MandantDetailDS: TDatasource;
     OpenPictureDialog: TOpenPictureDialog;
+    PageControl1: TPageControl;
     Panel1: TPanel;
     pMandantDetails: TPanel;
     sbAddImage: TSpeedButton;
     SelectDirectoryDialog: TSelectDirectoryDialog;
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
     procedure bExportConfigurationClick(Sender: TObject);
     procedure bTreeEntrysClick(Sender: TObject);
     procedure sbAddImageClick(Sender: TObject);
