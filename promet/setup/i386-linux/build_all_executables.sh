@@ -11,6 +11,7 @@ lazbuild --add-package $(pwd)/source/base/base_docmanage/pdocmanage.lpk
 lazbuild --add-package $(pwd)/source/base/base_forms/pvisualforms.lpk
 lazbuild --add-package $(pwd)/source/base/base_wiki/rtfconvert_pkg_vis.lpk
 lazbuild --add-package $(pwd)/source/base/base_phone/pphones.lpk
+lazbuild --add-package $(pwd)/source/base/base_options/poptions.lpk
 cd setup/i386-linux
 echo "compiling apps..."
 echo "compiling messagemanager..." > scompile-$2-apps.log
