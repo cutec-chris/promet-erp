@@ -18,9 +18,10 @@ cd i386-linux
 ./build_all.sh
 cd ..
 sh build_portable.sh &
-cd i386-linux
-./build_all.sh i386
-cd ..
+#i386 must build in vm, its to difficult to setup an crosscompiler for now
+#cd i386-linux
+#./build_all.sh i386
+#cd ..
 ssh chris@minimac 'sh promet/promet/setup/build_all.mac' &
 #cd $FULL_NAME/zip-files
 #./build_stick.sh
