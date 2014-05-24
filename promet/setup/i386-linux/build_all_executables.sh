@@ -7,10 +7,10 @@ echo "compiling for $1... $Params"
 cd ../../
 lazbuild --add-package $(pwd)/source/base/base_help/phelp.lpk
 lazbuild --add-package $(pwd)/source/base/base_frames/pvisualframes.lpk
-lazbuild --add-package $(pwd)/source/base_docmanage/pdocmanage.lpk
+lazbuild --add-package $(pwd)/source/base/base_docmanage/pdocmanage.lpk
 lazbuild --add-package $(pwd)/source/base/base_forms/pvisualforms.lpk
-lazbuild --add-package $(pwd)/source/base_wiki/rtfconvert_pkg_vis.lpk
-lazbuild --add-package $(pwd)/source/base_phone/pphones.lpk
+lazbuild --add-package $(pwd)/source/base/base_wiki/rtfconvert_pkg_vis.lpk
+lazbuild --add-package $(pwd)/source/base/base_phone/pphones.lpk
 cd setup/i386-linux
 echo "compiling apps..."
 echo "compiling messagemanager..." > scompile-$2-apps.log
