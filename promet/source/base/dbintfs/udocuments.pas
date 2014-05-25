@@ -140,7 +140,7 @@ type
   end;
 implementation
 uses uBaseDBInterface,uBaseApplication, uBaseApplicationTools, FileUtil,md5,
-  processUtils,Variants,LCLProc;
+  processUtils,Variants,LCLProc,UTF8Process,process;
 resourcestring
   strFailedCreatingDiff         = 'konnte Differenzdatei von Datei %s nicht erstellen';
   strInvalidLink                = 'Dieser Link ist auf dieser Datenbank ungültig !';
@@ -1739,8 +1739,12 @@ function TDocument.GetText(aStream: TStream; aExt: string; aText: string
   ): Boolean;
 var
   i: Integer;
+  aFilename: String;
+  aFStream: TFileStream;
+  aProcess: TProcessUTF8;
+  aLines: TStringList;
 begin
-  Result := True;
+  Result := length(aText)>0;
   for i := 0 to 1500 do
     if (length(copy(aText,i,1))>0) and (ord(copy(aText,i,1)[1]) > 127) then
       begin
@@ -1751,9 +1755,43 @@ begin
     begin
       aText := copy(aText,0,1500);
     end
-  else if aExt = '.doc' then
+  else if Uppercase(aExt) = '.DOC' then
     begin
       Result := GetWordText(aStream,aExt,aText);
+    end
+  else if (Uppercase(aExt) = '.PDF') then
+    begin
+      try
+        aFilename := getTempDir+'rpv'+aExt;
+        aFStream := TFileStream.Create(getTempDir+'rpv'+aExt,fmCreate);
+        aStream.Position:=0;
+        aFStream.CopyFrom(aStream,aStream.Size);
+        aFStream.Free;
+        aProcess := TProcessUTF8.Create(Self);
+        {$IFDEF WINDOWS}
+        aProcess.Options:= [poNoConsole, poWaitonExit,poNewConsole, poStdErrToOutPut, poNewProcessGroup];
+        {$ELSE}
+        aProcess.Options:= [poWaitonExit,poStdErrToOutPut];
+        {$ENDIF}
+        aProcess.ShowWindow := swoHide;
+        aProcess.CommandLine := Format('pdftotext'+ExtractFileExt(BaseApplication.ExeName)+' %s %s',[aFileName,aFileName+'.txt']);
+        aProcess.CurrentDirectory := BaseApplication.Location+'tools';
+        aProcess.Execute;
+        aProcess.Free;
+        SysUtils.DeleteFile(aFileName);
+        if FileExists(aFileName+'.txt') then
+          begin
+            aLines := TStringList.Create;
+            aLines.LoadFromFile(aFileName+'.txt');
+            aText := aLines.Text;
+            Result := True;
+            aLines.Free;
+          end;
+        SysUtils.DeleteFile(aFileName+'.txt');
+      except
+        SysUtils.DeleteFile(aFileName);
+        SysUtils.DeleteFile(aFileName+'.txt');
+      end;
     end;
 end;
 
@@ -1794,6 +1832,7 @@ begin
     aFileName := GetTempDir+'wf.tmp';
     aFile := TFileStream.Create(aFileName,fmCreate);
     aFile.CopyFrom(aStream,aStream.Size);
+    aStream.Position:=0;
     aFile.Free;
     OLEStorage.ReadOLEFile(aFileName, OLEDocument,'WordDocument');
     if MemStream.Seek($800,soFromBeginning) = $800 then

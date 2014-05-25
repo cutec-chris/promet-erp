@@ -229,6 +229,7 @@ var
   aSecFile: String = '';
   aProc: TProcess;
   aSL: TStringList;
+  aText: string;
 begin
   if FileExists(aFile) then
     begin
@@ -307,7 +308,10 @@ begin
         FieldByName('ORIGDATE').AsDateTime:=aDocument.FieldByName('DATE').AsDateTime;
       if FieldByName('ORIGDATE').IsNull then
         FieldByName('ORIGDATE').AsDateTime:=Now();
+      aDocument.GetText(aFullStream,extn,aText);
       GenerateThumbNail(ExtractFileExt(aDocument.FileName),aFullStream,aStream);
+      if aText<>'' then
+        FieldByName('FULLTEXT').AsString:=aText;
       Post;
       if aStream.Size>0 then
         Data.StreamToBlobField(aStream,Self.DataSet,'THUMBNAIL');
