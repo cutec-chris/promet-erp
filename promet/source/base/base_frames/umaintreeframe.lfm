@@ -37,15 +37,15 @@ object fMainTree: TfMainTree
     Options = [tvoAutoItemHeight, tvoHideSelection, tvoKeepCollapsedNodes, tvoReadOnly, tvoRightClickSelect, tvoShowButtons, tvoShowLines, tvoShowRoot, tvoToolTips, tvoThemedDraw]
   end
   object pmTree: TPopupMenu
-    left = 88
-    top = 216
+    left = 24
+    top = 72
     object MenuItem1: TMenuItem
     end
   end
   object ActionList1: TActionList
     Images = fVisualControls.Images
-    left = 88
-    top = 168
+    left = 24
+    top = 32
     object acOpen: TAction
       Caption = 'Öffnen'
       OnExecute = acOpenExecute
@@ -107,7 +107,7 @@ object fMainTree: TfMainTree
     Enabled = False
     Interval = 100
     OnTimer = DblClickTimerTimer
-    left = 88
-    top = 264
+    left = 24
+    top = 112
   end
 end

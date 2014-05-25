@@ -201,6 +201,8 @@ type
     FFilter: String;
     loadedDocument: UTF8String;
     procedure FetchNext;
+    function GetTyp: string;
+    procedure SetTyp(AValue: string);
     procedure WaitForImage;
     procedure RebuidThumb;
     procedure ShowDocument;
@@ -212,7 +214,7 @@ type
     function GotoCurrentItem: Boolean;
     procedure Open(aType : string);
     procedure OpenDir(aDir : Variant);
-    property Typ : string read FTyp write FTyp;
+    property Typ : string read GetTyp write SetTyp;
   end;
 
   { TImportCheckTherad }
@@ -1240,6 +1242,17 @@ begin
     end;
   ThumbControl1.Arrange;
 end;
+
+function TfManageDocFrame.GetTyp: string;
+begin
+  Result := FTyp;
+end;
+
+procedure TfManageDocFrame.SetTyp(AValue: string);
+begin
+  FTyp := AValue;
+end;
+
 procedure TfManageDocFrame.WaitForImage;
 var
   URL: String;

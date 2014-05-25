@@ -61,6 +61,7 @@ inherited fMandantOptions: TfMandantOptions
       Top = 112
       Width = 292
       DataField = 'NAME'
+      DataSource = MandantDetailDS
       Anchors = [akTop, akLeft, akRight]
       CharCase = ecNormal
       MaxLength = 0
@@ -73,6 +74,7 @@ inherited fMandantOptions: TfMandantOptions
       Width = 292
       Anchors = [akTop, akLeft, akRight]
       DataField = 'ADRESS'
+      DataSource = MandantDetailDS
       TabOrder = 1
     end
     object Label1: TLabel
@@ -104,6 +106,7 @@ inherited fMandantOptions: TfMandantOptions
         Anchors = [akTop, akRight]
         AutoSize = True
         DataField = 'IMAGE'
+        DataSource = MandantDetailDS
       end
     end
     object sbAddImage: TSpeedButton

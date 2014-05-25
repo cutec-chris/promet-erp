@@ -56,8 +56,7 @@ type
                etFiles,
                etDocuments,
                etImages,
-               etDocumentsOnly,
-                 etDocumentDir,
+               etDocumentDir,
                etLists,
                etStorage,
                  etStoragejournal,
@@ -250,7 +249,7 @@ begin
       or (DataT.Typ = etMessageDir)
       or (DataT.Typ = etMessageBoard)
       or (DataT.Typ = etFavourites)
-      or (DataT.Typ = etDocumentsOnly)
+      or (DataT.Typ = etDocuments)
       or (DataT.Typ = etImages)
       or (DataT.Typ = etDocumentDir)
       or (DataT.Typ = etClipboard)
@@ -605,7 +604,7 @@ begin
       ParentID := '0';
       Typ := 'Z';
     end
-  else if (DataT.Typ = etDocumentsOnly)
+  else if (DataT.Typ = etDocuments)
        or (DataT.Typ = etImages)
        or (DataT.Typ = etDocumentDir)
        then
@@ -961,7 +960,17 @@ begin
     begin
       aImageIndex := IMAGE_FAVOURITES;
       aImageList := fVisualControls.ImageListBig;
-    end
+    end;
+  etDocuments:
+    begin
+      aImageIndex := 17;
+      aImageList := fVisualControls.ImageListBig;
+    end;
+  etImages:
+    begin
+      aImageIndex := 16;
+      aImageList := fVisualControls.ImageListBig;
+    end;
   end;
   if aImageIndex = -1 then
     case aData.Typ of
@@ -989,9 +998,6 @@ begin
     etProject:aImageIndex := 13;
     etProcess:aImageIndex := 103;
     etFiles:aImageIndex := 19;
-    etDocumentsOnly:aImageIndex := 19;
-    etDocuments:aImageIndex := 19;
-    etImages:aImageIndex:=79;
     etLists:aImageIndex := 24;
     etStatistic:aImageIndex := 58;
     etInventory:aImageIndex := 24;
@@ -1968,6 +1974,7 @@ begin
   Result := Result+GetEntryText(etProjects)+';';
   Result := Result+GetEntryText(etWiki)+';';
   Result := Result+GetEntryText(etDocuments)+';';
+  Result := Result+GetEntryText(etImages)+';';
   Result := Result+GetEntryText(etLists)+';';
   Result := Result+GetEntryText(etMeetings)+';';
   Result := Result+GetEntryText(etInventory)+';';
@@ -2063,8 +2070,7 @@ begin
     etMeetingList:CellText:=strMeetingList;
     etStatistics:Celltext := strStatistics;
     etFiles:Celltext := strFiles;
-    etDocuments:Celltext := strDocuments;
-    etDocumentsOnly:Celltext := strDocumentsOnly;
+    etDocuments:Celltext := strDocumentsOnly;
     etImages:Celltext := strImages;
     etLists:Celltext := strLists;
     etFavourites:Celltext := strFavourites;

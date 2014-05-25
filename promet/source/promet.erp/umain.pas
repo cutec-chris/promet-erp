@@ -507,7 +507,6 @@ procedure TfMain.AddDocPages(Sender: TObject);
 begin
   with Sender as TfManageDocFrame do
     begin
-      TabCaption := strDocuments;
       Open(TfManageDocFrame(Sender).Typ);
       if Assigned(TFrame(Sender).OnEnter) then
         TFrame(Sender).OnEnter(Sender);
@@ -1193,13 +1192,13 @@ begin
                     if (Data.Users.Rights.Right('DOCUMENTS') > RIGHT_NONE) then
                       begin
                         Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
+                        Node.Height := 34;
                         TTreeEntry(Node.Data).Typ := etDocuments;
                         Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
-                        TTreeEntry(Node1.Data).Typ := etDocumentsOnly;
-                        Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
-                        TTreeEntry(Node1.Data).Typ := etImages;
-                        Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
                         TTreeEntry(Node1.Data).Typ := etFiles;
+                        Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
+                        TTreeEntry(Node.Data).Typ := etImages;
+                        Node.Height := 34;
                       end;
                     SomethingFound:=True;
                   end;
@@ -2245,12 +2244,12 @@ begin
       if Assigned(aTNode) then
         begin
           aTreeEntry := TTreeEntry(aTNode.Data);
-          if (aTreeEntry.Typ = etDocumentsOnly)
+          if (aTreeEntry.Typ = etDocuments)
           or (aTreeEntry.Typ = etImages)
           then
             begin
               aPages := TDocPages.Create(nil,Data);
-              if (aTreeEntry.Typ = etDocumentsOnly) then
+              if (aTreeEntry.Typ = etDocuments) then
                 aPages.Typ:='D'
               else
                 aPages.Typ:='I';
@@ -2376,7 +2375,7 @@ begin
       if Assigned(aTNode) then
         begin
           aTreeEntry := TTreeEntry(aTNode.Data);
-          if (aTreeEntry.Typ = etDocumentsOnly)
+          if (aTreeEntry.Typ = etDocuments)
           or (aTreeEntry.Typ = etImages)
           then
             Accept := True;
@@ -2978,7 +2977,7 @@ begin
     begin
       acWiki.Execute;
     end;
-  etDocumentsOnly,etImages:
+  etDocuments,etImages:
     begin
       Application.ProcessMessages;
       if aEntry.Typ=etImages then
@@ -2986,7 +2985,10 @@ begin
       else tmp := 'D';
       aFrame := nil;
       for i := 0 to pcPages.PageCount-2 do
-        if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfManageDocFrame)  and (TfManageDocFrame(pcPages.ActivePage.Controls[0]).Typ=tmp) then
+        if (pcPages.Pages[i].ControlCount > 0)
+        and (pcPages.Pages[i].Controls[0] is TfManageDocFrame)
+        and (TfManageDocFrame(pcPages.Pages[i].Controls[0]).Typ=tmp)
+        then
           begin
             aFrame := TPrometmainFrame(pcPages.Pages[i].Controls[0]);
             pcPages.PageIndex:=i;
@@ -2996,14 +2998,20 @@ begin
         begin
           aFrame := TfManageDocFrame.Create(Self);
           if aEntry.Typ=etImages then
-            TfManageDocFrame(aFrame).Typ:='I'
+            begin
+              TfManageDocFrame(aFrame).Typ:='I';
+              TfManageDocFrame(aFrame).TabCaption:=strImages;
+            end
           else
-            TfManageDocFrame(aFrame).Typ:='D';
+            begin
+              TfManageDocFrame(aFrame).Typ:='D';
+              TfManageDocFrame(aFrame).TabCaption:=strDocumentsOnly;
+            end;
           pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('DOCPAGES@'),False);
           AddDocPages(aFrame);
+          if Assigned(aFrame) then
+            TfManageDocFrame(aFrame).OpenDir(Null);
         end;
-      if Assigned(aFrame) then
-        TfManageDocFrame(aFrame).OpenDir(Null);
     end;
   etLists:
     begin
@@ -3235,7 +3243,7 @@ begin
               Data.Tree.DataSet.Next;
             end;
         end;
-      etDocumentsOnly,etImages:
+      etDocuments,etImages:
         begin
           umanagedocframe.AddToMainTree(Node);
         end;
