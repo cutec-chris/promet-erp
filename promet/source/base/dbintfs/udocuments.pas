@@ -128,8 +128,8 @@ type
     function CollectCheckInFiles(Directory : string) : TStrings;
     function CheckCheckInFiles(aFiles : TStrings;Directory: string) : Boolean;
     function CheckinFiles(aFiles : TStrings;Directory: string;Desc : string = '') : Boolean;
-    function GetText(aStream : TStream;aExt : string;aText : string) : Boolean;
-    function GetWordText(aStream : TStream;aExt : string;aText : string) : Boolean;
+    function GetText(aStream : TStream;aExt : string;var aText : string) : Boolean;
+    function GetWordText(aStream : TStream;aExt : string;var aText : string) : Boolean;
     property BaseParent : TDocuments read FBaseParent write SetbaseParent;
     property OnCheckCheckinFiles : TCheckCheckinFilesEvent read FOnCheckCheckinFiles write FOnCheckCheckinFiles;
     property AftercheckInFiles : TNotifyEvent read FAfterCheckinFiles write FAfterCheckInFiles;
@@ -1735,7 +1735,7 @@ begin
       FAfterCheckinFiles(Self);
 end;
 
-function TDocument.GetText(aStream: TStream; aExt: string; aText: string
+function TDocument.GetText(aStream: TStream; aExt: string;var aText: string
   ): Boolean;
 var
   i: Integer;
@@ -1795,7 +1795,7 @@ begin
     end;
 end;
 
-function TDocument.GetWordText(aStream: TStream; aExt: string; aText: string
+function TDocument.GetWordText(aStream: TStream; aExt: string; var aText: string
   ): Boolean;
 var
   MemStream: TMemoryStream;

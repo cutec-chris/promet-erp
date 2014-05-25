@@ -55,6 +55,8 @@ type
     acSaveasPDF: TAction;
     acRename: TAction;
     acSetLink: TAction;
+    acImageImport: TAction;
+    acShowDetails: TAction;
     acFileImport: TAction;
     ActionList1: TActionList;
     bEditFilter: TSpeedButton;
@@ -67,6 +69,7 @@ type
     Bevel8: TBevel;
     Bevel9: TBevel;
     bImport1: TSpeedButton;
+    bImport2: TSpeedButton;
     bShowDetail: TSpeedButton;
     bRefresh2: TSpeedButton;
     bRefresh3: TSpeedButton;
@@ -79,9 +82,13 @@ type
     cbFilter: TComboBox;
     Datasource1: TDatasource;
     DBEdit1: TDBEdit;
+    MenuItem10: TMenuItem;
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
+    MenuItem7: TMenuItem;
+    MenuItem8: TMenuItem;
+    MenuItem9: TMenuItem;
     mText: TDBMemo;
     DBZVDateTimePicker1: TDBZVDateTimePicker;
     eSearch: TEdit;
@@ -100,6 +107,7 @@ type
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
+    OpenDialog1: TOpenDialog;
     OpenPictureDialog1: TOpenPictureDialog;
     Panel2: TPanel;
     pcPages: TPageControl;
@@ -135,11 +143,13 @@ type
     procedure acDeleteExecute(Sender: TObject);
     procedure acEditExecute(Sender: TObject);
     procedure acFileImportExecute(Sender: TObject);
+    procedure acImageImportExecute(Sender: TObject);
     procedure acFindDateExecute(Sender: TObject);
     procedure acFindSubjectExecute(Sender: TObject);
     procedure acImportExecute(Sender: TObject);
     procedure acMarkAsDoneExecute(Sender: TObject);
     procedure acOCRExecute(Sender: TObject);
+    procedure acOpenExecute(Sender: TObject);
     procedure acRebuildThumbExecute(Sender: TObject);
     procedure acRefreshExecute(Sender: TObject);
     procedure acRenameExecute(Sender: TObject);
@@ -149,6 +159,7 @@ type
     procedure acSaveExecute(Sender: TObject);
     procedure acSetLinkExecute(Sender: TObject);
     procedure acSetTagExecute(Sender: TObject);
+    procedure acShowDetailsExecute(Sender: TObject);
     procedure bShowDetailClick(Sender: TObject);
     procedure bTag1Click(Sender: TObject);
     procedure bZoomInClick(Sender: TObject);
@@ -631,15 +642,8 @@ begin
 end;
 
 procedure TfManageDocFrame.ThumbControl1DblClick(Sender: TObject);
-var
-  i: Integer;
-  aStream: TFileStream;
 begin
-  if (not bShowDetail.Down) and (bShowDetail.Enabled) then
-    begin
-      bShowDetail.Down:=True;
-      bShowDetailClick(nil);
-    end;
+  acEdit.Execute;
 end;
 procedure TfManageDocFrame.DoOnDropFiles(Sender: TObject;
   const FileNames: array of String);
@@ -783,6 +787,7 @@ var
   a: Integer;
   Found: Boolean = False;
 begin
+  ShowDocument;
   for i := 0 to FDocFrame.lvDocuments.Items.Count-1 do
     if (lowercase(copy(FDocFrame.lvDocuments.Items[i].SubItems[0],0,4)) = 'jpg ')
     or (lowercase(copy(FDocFrame.lvDocuments.Items[i].SubItems[0],0,5)) = 'jpeg ')
@@ -810,6 +815,22 @@ begin
 end;
 
 procedure TfManageDocFrame.acFileImportExecute(Sender: TObject);
+var
+  aFiles : array of string;
+  i: Integer;
+begin
+  if OpenDialog1.Execute then
+    begin
+      for i := 0 to OpenDialog1.Files.Count-1 do
+        begin
+          Setlength(aFiles,length(aFiles)+1);
+          aFiles[length(aFiles)-1] := OpenDialog1.Files[i];
+        end;
+      DoOnDropFiles(nil,aFiles);
+    end;
+end;
+
+procedure TfManageDocFrame.acImageImportExecute(Sender: TObject);
 var
   aFiles : array of string;
   i: Integer;
@@ -912,6 +933,11 @@ begin
       Texts.Free;
     end;
   aDoc.Free;
+end;
+
+procedure TfManageDocFrame.acOpenExecute(Sender: TObject);
+begin
+
 end;
 
 procedure TfManageDocFrame.acRebuildThumbExecute(Sender: TObject);
@@ -1133,6 +1159,14 @@ begin
     begin
       if not InputQuery(strTag,strSetTag,aTag) then
         aTag := ''
+    end;
+end;
+procedure TfManageDocFrame.acShowDetailsExecute(Sender: TObject);
+begin
+  if (not bShowDetail.Down) and (bShowDetail.Enabled) then
+    begin
+      bShowDetail.Down:=True;
+      bShowDetailClick(nil);
     end;
 end;
 procedure TfManageDocFrame.bShowDetailClick(Sender: TObject);

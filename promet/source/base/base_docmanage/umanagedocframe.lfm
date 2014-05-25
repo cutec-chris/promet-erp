@@ -18,7 +18,7 @@ inherited fManageDocFrame: TfManageDocFrame
     ClientWidth = 874
     TabOrder = 0
     object pNav: TPanel
-      Left = 288
+      Left = 312
       Height = 42
       Top = 0
       Width = 160
@@ -58,14 +58,14 @@ inherited fManageDocFrame: TfManageDocFrame
       end
     end
     object Panel5: TPanel
-      Left = 520
+      Left = 544
       Height = 42
       Top = 0
-      Width = 354
+      Width = 330
       Align = alClient
       BevelOuter = bvNone
       ClientHeight = 42
-      ClientWidth = 354
+      ClientWidth = 330
       Constraints.MaxWidth = 700
       TabOrder = 1
       Visible = False
@@ -96,7 +96,7 @@ inherited fManageDocFrame: TfManageDocFrame
         Height = 27
         Hint = 'hier können Sie eine vordefinierte Ansicht wählen'#10'Wenn Sie eine spezielle Ansicht/Sortierung benötigen wenden Sie sich an Ihren Administrator'
         Top = 12
-        Width = 302
+        Width = 278
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Left = 8
         ItemHeight = 0
@@ -104,7 +104,7 @@ inherited fManageDocFrame: TfManageDocFrame
         TabOrder = 0
       end
       object bEditFilter: TSpeedButton
-        Left = 312
+        Left = 288
         Height = 21
         Hint = 'zeigt/verbirgt weitere Einstellungen'#10'zu den Ansichten'
         Top = 12
@@ -366,7 +366,7 @@ inherited fManageDocFrame: TfManageDocFrame
       ShowCaption = False
     end
     object pNav2: TPanel
-      Left = 188
+      Left = 212
       Height = 42
       Top = 0
       Width = 100
@@ -554,7 +554,7 @@ inherited fManageDocFrame: TfManageDocFrame
       end
     end
     object pSave: TPanel
-      Left = 452
+      Left = 476
       Height = 42
       Top = 0
       Width = 68
@@ -682,12 +682,12 @@ inherited fManageDocFrame: TfManageDocFrame
       Left = 132
       Height = 42
       Top = 0
-      Width = 52
+      Width = 76
       Align = alLeft
       BorderSpacing.Left = 4
       BevelOuter = bvNone
       ClientHeight = 42
-      ClientWidth = 52
+      ClientWidth = 76
       TabOrder = 5
       object ExtRotatedLabel7: TLabel
         Left = 6
@@ -711,7 +711,7 @@ inherited fManageDocFrame: TfManageDocFrame
         Shape = bsLeftLine
       end
       object bImport: TSpeedButton
-        Left = 24
+        Left = 50
         Height = 24
         Top = 15
         Width = 24
@@ -756,11 +756,11 @@ inherited fManageDocFrame: TfManageDocFrame
         ShowCaption = False
       end
       object bImport1: TSpeedButton
-        Left = 0
+        Left = 26
         Height = 24
         Top = 15
         Width = 24
-        Action = acFileImport
+        Action = acImageImport
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           20000000000000040000640000006400000000000000000000002C86D8702D88
@@ -796,6 +796,51 @@ inherited fManageDocFrame: TfManageDocFrame
           F3FFF7F4F2FFF8F2EDFFF8F2EBFFF7F2EBFFF1EEE8FFAE7F63FFFFFFFF00FFFF
           FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00AF816552AE8165E7AE8165FFAF81
           64FFAF8064FFAE8064FFAE8064FFAE8064FFAE8064FFAE806496
+        }
+        OnClick = bZoomOutClick
+        ShowCaption = False
+      end
+      object bImport2: TSpeedButton
+        Left = 3
+        Height = 24
+        Top = 15
+        Width = 24
+        Action = acFileImport
+        Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000064000000640000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          00002D8CDEFF2D87DEFF2D8CDEFF2D8CDEFF2D8CDEFF2D8CDEFF2D8CDEFF2D8C
+          DEFF2D8CDEFF2D8CDEFF2D87DEFF2D8CDEFF2D86DEFF0000000000000000338E
+          DFFFDEF7FFFFA7DFF7FF9EDFF7FF96DEF7FF8EDEF7FF86D7F7FF7FD6F7FF7BD7
+          F7FF73D6F7FF6FD6F7FF6BCFF7FFC6EFFFFF338EDFFF00000000000000003594
+          DEFFEFFFFFFFA5EFFFFF95E7FFFF85E7F7FF73DEF7FF63DEF7FF56D7F7FF47D7
+          F7FF39D6F7FF2FCFF7FF27CFF7FFCEF7FFFF3594DEFF0000000000000000379E
+          DEFFF7FFFFFFB7EFFFFFA5EFFFFF95E7FFFF85E7F7FF77DEF7FF67DFF7FF57D7
+          F7FF4BD6F7FF3BD7F7FF31CEF7FFCEF7FFFF359CDEFF000000000000000037A5
+          DEFFF7FFFFFFCEF7FFFFBDEFFFFFADEFFFFF9CEFFFFF8FE7F7FF7FE7F7FF6FDE
+          F7FF5FDFF7FF4FD6F7FF46D7F7FFD6F7FFFF359FDEFF000000000000000037A7
+          DEFFFFFFFFFFFFFFFFFFF7FFFFFFF7FFFFFFF7FFFFFFDEF7FFFF94E7FFFF85E7
+          F7FF77DFF7FF6BDFF7FF5EDEF7FFD7F7FFFF35A5DEFF000000000000000035AF
+          DEFFEFF7FFFF94D6EFFF8CCEEFFF73C7EFFFCFEFF7FFF7FFFFFFF7FFFFFFF7FF
+          FFFFF7FFFFFFEFFFFFFFEFFFFFFFFFFFFFFF37AFDEFF000000000000000037AF
+          DEFFF7FFFFFF94DEF7FF97DEF7FF85D7F7FF6BCEEFFF6FCFEFFF85D7EFFF84D6
+          EFFF7BD6EFFF77CFEFFF73CFEFFFEFF7FFFF35AFDEFF000000000000000035AF
+          DEFFF7FFFFFF8EE7FFFF95DEF7FF9FE7F7FFADE7F7FFEFFFFFFFF7FFFFFFF7FF
+          FFFFF7FFFFFFEFFFFFFFEFFFFFFFFFFFFFFF37AFDEFF000000000000000037B7
+          DEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFF7FFFF6BC7E7FF6BC7
+          E7FF6BC7E7FF6BC7E7FF7BCFE7FF77CEE7FF00000000000000000000000035B5
+          DFFF5EC6E7FF63C7E7FF63C7E7FF63C7E7FF5FC7E7FF3DB7DFFF000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000
         }
         OnClick = bZoomOutClick
         ShowCaption = False
@@ -882,12 +927,12 @@ inherited fManageDocFrame: TfManageDocFrame
       ClientWidth = 632
       object pDocFrame: TPanel
         Left = 0
-        Height = 531
+        Height = 532
         Top = 0
         Width = 632
         Align = alClient
         BevelOuter = bvNone
-        ClientHeight = 531
+        ClientHeight = 532
         ClientWidth = 632
         TabOrder = 0
         object iNoThumbnail: TImage
@@ -1053,7 +1098,7 @@ inherited fManageDocFrame: TfManageDocFrame
       ClientWidth = 632
       object mText: TDBMemo
         Left = 44
-        Height = 531
+        Height = 532
         Top = 0
         Width = 588
         Align = alClient
@@ -1064,12 +1109,12 @@ inherited fManageDocFrame: TfManageDocFrame
       end
       object pLeft: TPanel
         Left = 0
-        Height = 531
+        Height = 532
         Top = 0
         Width = 44
         Align = alLeft
         BevelOuter = bvNone
-        ClientHeight = 531
+        ClientHeight = 532
         ClientWidth = 44
         ParentShowHint = False
         ShowHint = True
@@ -1332,7 +1377,7 @@ inherited fManageDocFrame: TfManageDocFrame
       OnExecute = acRebuildThumbExecute
     end
     object acEdit: TAction
-      Caption = 'acEdit'
+      Caption = 'bearbeiten'
       ImageIndex = 67
       OnExecute = acEditExecute
     end
@@ -1394,10 +1439,21 @@ inherited fManageDocFrame: TfManageDocFrame
       ImageIndex = 70
       OnExecute = acSetLinkExecute
     end
-    object acFileImport: TAction
-      Caption = 'acFileImport'
-      Hint = 'aus Datei(en) importieren'
+    object acImageImport: TAction
+      Caption = 'aus Bild importieren'
+      Hint = 'aus Bild(ern) importieren'
       ImageIndex = 79
+      OnExecute = acImageImportExecute
+    end
+    object acShowDetails: TAction
+      Caption = 'Details anzeigen'
+      ImageIndex = 92
+      OnExecute = acShowDetailsExecute
+    end
+    object acFileImport: TAction
+      Caption = 'aus Datei importieren'
+      Hint = 'aus Datei(en) importieren'
+      ImageIndex = 19
       OnExecute = acFileImportExecute
     end
   end
@@ -1406,6 +1462,15 @@ inherited fManageDocFrame: TfManageDocFrame
     OnPopup = pmPopupPopup
     left = 16
     top = 96
+    object MenuItem7: TMenuItem
+      Action = acEdit
+    end
+    object MenuItem8: TMenuItem
+      Action = acShowDetails
+    end
+    object MenuItem9: TMenuItem
+      Caption = '-'
+    end
     object MenuItem6: TMenuItem
       Action = acSetLink
       Bitmap.Data = {
@@ -1486,6 +1551,9 @@ inherited fManageDocFrame: TfManageDocFrame
     end
     object MenuItem5: TMenuItem
       Action = acRename
+    end
+    object MenuItem10: TMenuItem
+      Caption = '-'
     end
     object MenuItem4: TMenuItem
       Action = acSaveasPDF
@@ -1588,5 +1656,9 @@ inherited fManageDocFrame: TfManageDocFrame
   object OpenPictureDialog1: TOpenPictureDialog[10]
     left = 131
     top = 48
+  end
+  object OpenDialog1: TOpenDialog[11]
+    left = 131
+    top = 80
   end
 end
