@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prometheus\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-05-23 15:01+0100\n"
+"PO-Revision-Date: 2014-05-26 12:41+0100\n"
 "Last-Translator: Christian U. <ulrich@tcs-germany.de>\n"
 "Language-Team: C.Ulrich <christian@ullihome.de>\n"
 "Language: en\n"
@@ -5212,7 +5212,7 @@ msgstr ""
 
 #: tforders.acgoto.hint
 msgid "zeigt eine Liste mit Möglichkeiten zu anderen Einträgen zu wechseln"
-msgstr ""
+msgstr "shows a list with options to goto other entrys"
 
 #: tforders.acgotocustomer.caption
 #, fuzzy
@@ -5222,15 +5222,15 @@ msgstr "goto entry"
 
 #: tforders.acgotomasterdata.caption
 msgid "zu Stammdaten gehen"
-msgstr ""
+msgstr "goto masterdata"
 
 #: tforders.acgotosaleslist.caption
 msgid "zu Zahlungsverlauf gehen"
-msgstr ""
+msgstr "goto paymenthistory"
 
 #: tforders.achidepreview.caption
 msgid "Vorschau verstecken"
-msgstr ""
+msgstr "hide preview"
 
 #: tforders.acimagetoclipboard.caption
 msgctxt "TFORDERS.ACIMAGETOCLIPBOARD.CAPTION"
@@ -5255,7 +5255,7 @@ msgstr ""
 #: tforders.acmenue.hint
 msgctxt "TFORDERS.ACMENUE.HINT"
 msgid "öffnet ein Menü mit weiteren Möglichkeiten"
-msgstr ""
+msgstr "shows a menu with more options"
 
 # uintfstrconsts:strnet
 #: tforders.acnew.caption
@@ -5265,99 +5265,99 @@ msgstr "New"
 
 #: tforders.acnew.hint
 msgid "legt einen neuen Vorgang an"
-msgstr ""
+msgstr "creates an new ordr"
 
 #: tforders.acnewaddress.hint
 msgid "legt einen neuen Kontakt an und öffnet den Kontakteditor"
-msgstr ""
+msgstr "creates an new contact and opens the contact editor"
 
 #: tforders.acpaste.caption
 msgctxt "TFORDERS.ACPASTE.CAPTION"
 msgid "Einfügen"
-msgstr ""
+msgstr "paste"
 
 #: tforders.acpastepositions.caption
 msgctxt "TFORDERS.ACPASTEPOSITIONS.CAPTION"
 msgid "Einfügen"
-msgstr ""
+msgstr "paste"
 
 #: tforders.acprint.caption
 msgctxt "TFORDERS.ACPRINT.CAPTION"
 msgid "Drucken"
-msgstr ""
+msgstr "print"
 
 #: tforders.acprint.hint
 msgctxt "TFORDERS.ACPRINT.HINT"
 msgid "drucken"
-msgstr ""
+msgstr "print"
 
 #: tforders.acsave.caption
 msgctxt "TFORDERS.ACSAVE.CAPTION"
 msgid "Speichern"
-msgstr ""
+msgstr "save"
 
 #: tforders.acsave.hint
 msgid "speichert den Vorgang"
-msgstr ""
+msgstr "saves the order"
 
 #: tforders.acsetresolved.caption
 msgid "Als fertig markieren"
-msgstr ""
+msgstr "mark as done"
 
 #: tforders.acshowaddressintree.hint
 msgid "zeigt die gewählte Adresse im Baum an "
-msgstr ""
+msgstr "shows the selected adress in tree"
 
 #: tforders.acviewdetails.caption
 msgid "Auftrag anzeigen"
-msgstr ""
+msgstr "show order"
 
 #: tforders.acviewdetails.hint
 msgid "öffnet den gewählten Vorgang"
-msgstr ""
+msgstr "opens the selected order"
 
 #: tforders.acviewlist.caption
 msgid "Auftragsliste anzeigen"
-msgstr ""
+msgstr "show orderlist"
 
 #: tforders.acviewlist.hint
 msgid "zeigt die Vorgangsübersicht an"
-msgstr ""
+msgstr "shows the orderlist"
 
 #: tforders.baddform.hint
 msgctxt "TFORDERS.BADDFORM.HINT"
 msgid "erstellt ein neues Tab"
-msgstr ""
+msgstr "creates an new tab"
 
 #: tforders.baddform1.hint
 msgctxt "TFORDERS.BADDFORM1.HINT"
 msgid "erstellt ein neues Tab"
-msgstr ""
+msgstr "creates an new tab"
 
 #: tforders.bdelform.hint
 msgctxt "TFORDERS.BDELFORM.HINT"
 msgid "löscht das aktuelle Tab"
-msgstr ""
+msgstr "deletes the actual tab"
 
 #: tforders.bdelform1.hint
 msgctxt "TFORDERS.BDELFORM1.HINT"
 msgid "löscht das aktuelle Tab"
-msgstr ""
+msgstr "deletes the actual tab"
 
 #: tforders.bdetailsvisible.hint
 msgctxt "TFORDERS.BDETAILSVISIBLE.HINT"
 msgid "zeigt/versteckt die Positionsdetails"
-msgstr ""
+msgstr "shows/hides the positiondetails"
 
 #: tforders.beditform.hint
 msgctxt "TFORDERS.BEDITFORM.HINT"
 msgid "hiermit können Sie den Tabdesigner aufrufen,"
-msgstr ""
+msgstr "here you can start the tab designer"
 
 #: tforders.beditform1.hint
 msgctxt "TFORDERS.BEDITFORM1.HINT"
 msgid "hiermit können Sie den Tabdesigner aufrufen,"
-msgstr ""
+msgstr "here you can start the tab designer"
 
 #: tforders.cbstatus.hint
 #, fuzzy
@@ -5374,12 +5374,12 @@ msgstr "enter the Tab designer"
 #: tforders.cbwarrenty.caption
 msgctxt "TFORDERS.CBWARRENTY.CAPTION"
 msgid "Garantie"
-msgstr ""
+msgstr "warrentry"
 
 #: tforders.deapproved.cancelcaption
 msgctxt "TFORDERS.DEAPPROVED.CANCELCAPTION"
 msgid "Cancel"
-msgstr ""
+msgstr "cancel"
 
 # uintfstrconsts:strok
 #: tforders.deapproved.okcaption
@@ -5390,17 +5390,17 @@ msgstr "OK"
 #: tforders.dedate.hint
 msgctxt "tforders.dedate.hint"
 msgid "das Buchungsdatum"
-msgstr ""
+msgstr "the bookingdate"
 
 #: tforders.denumber.hint
 msgctxt "tforders.denumber.hint"
 msgid "Die Buchungsnummer"
-msgstr ""
+msgstr "the bookingnumber"
 
 #: tforders.deorigdate.cancelcaption
 msgctxt "TFORDERS.DEORIGDATE.CANCELCAPTION"
 msgid "Cancel"
-msgstr ""
+msgstr "cancel"
 
 # uintfstrconsts:strok
 #: tforders.deorigdate.okcaption
@@ -5411,7 +5411,7 @@ msgstr "OK"
 #: tforders.derequest.cancelcaption
 msgctxt "TFORDERS.DEREQUEST.CANCELCAPTION"
 msgid "Cancel"
-msgstr ""
+msgstr "cancel"
 
 # uintfstrconsts:strok
 #: tforders.derequest.okcaption
@@ -5422,7 +5422,7 @@ msgstr "OK"
 #: tforders.dewishdate.cancelcaption
 msgctxt "TFORDERS.DEWISHDATE.CANCELCAPTION"
 msgid "Cancel"
-msgstr ""
+msgstr "Cancel"
 
 # uintfstrconsts:strok
 #: tforders.dewishdate.okcaption
@@ -5433,16 +5433,16 @@ msgstr "OK"
 #: tforders.dlordernumber.hint
 msgctxt "tforders.dlordernumber.hint"
 msgid "Die automatisch vergebene eindeutige Vorgangsnummer"
-msgstr ""
+msgstr "the automatically created ordernumber"
 
 #: tforders.ecommission.hint
 msgid "hier können Sie eine Auftragskommision hinterlegen"
-msgstr ""
+msgstr "here you can set an commission for the order"
 
 #: tforders.forders.caption
 msgctxt "TFORDERS.FORDERS.CAPTION"
 msgid "Vorgänge"
-msgstr ""
+msgstr "orders"
 
 #: tforders.gadresses.columns[0].tcolumntitle.caption
 msgctxt "TFORDERS.GADRESSES.COLUMNS[0].TCOLUMNTITLE.CAPTION"
@@ -5472,7 +5472,7 @@ msgstr ""
 
 #: tforders.gadresses.hint
 msgid "hier können Sie Liefer/Rechnungsadressen hinterlegen"
-msgstr ""
+msgstr "here you can add delivery/invoice adresses"
 
 #: tforders.gpositions.columns[0].tcolumntitle.caption
 msgctxt "TFORDERS.GPOSITIONS.COLUMNS[0].TCOLUMNTITLE.CAPTION"
@@ -5567,17 +5567,17 @@ msgstr ""
 #: tforders.label3.caption
 msgctxt "TFORDERS.LABEL3.CAPTION"
 msgid "+"
-msgstr ""
+msgstr "+"
 
 #: tforders.label4.caption
 msgctxt "TFORDERS.LABEL4.CAPTION"
 msgid "="
-msgstr ""
+msgstr "="
 
 #: tforders.label6.caption
 msgctxt "TFORDERS.LABEL6.CAPTION"
 msgid "*"
-msgstr ""
+msgstr "*"
 
 # uintfstrconsts:stradress
 #: tforders.laddresses.caption
@@ -5587,17 +5587,17 @@ msgstr "Adresses"
 #: tforders.laddvat.caption
 msgctxt "TFORDERS.LADDVAT.CAPTION"
 msgid "+MwSt"
-msgstr ""
+msgstr "+VAT"
 
 #: tforders.lapproved.caption
 msgctxt "tforders.lapproved.caption"
 msgid "bestätigt"
-msgstr ""
+msgstr "confirmed"
 
 #: tforders.lbp.caption
 msgctxt "TFORDERS.LBP.CAPTION"
 msgid "Einkaufspreis"
-msgstr ""
+msgstr "buyprice"
 
 # uintfstrconsts:strcommon
 #: tforders.lcommission.caption
@@ -5607,37 +5607,37 @@ msgstr "Commission"
 #: tforders.lcommonprice.caption
 msgctxt "TFORDERS.LCOMMONPRICE.CAPTION"
 msgid "Allgemeinpreis"
-msgstr ""
+msgstr "common price"
 
 #: tforders.lcurrency.caption
 msgctxt "TFORDERS.LCURRENCY.CAPTION"
 msgid "Währung"
-msgstr ""
+msgstr "Currency"
 
 #: tforders.ldate.caption
 msgctxt "TFORDERS.LDATE.CAPTION"
 msgid "Datum"
-msgstr ""
+msgstr "Date"
 
 #: tforders.ldelivered.caption
 msgctxt "TFORDERS.LDELIVERED.CAPTION"
 msgid "geliefert"
-msgstr ""
+msgstr "delivered"
 
 #: tforders.ldiscont.caption
 msgctxt "TFORDERS.LDISCONT.CAPTION"
 msgid "Rabatt"
-msgstr ""
+msgstr "discount"
 
 #: tforders.ldquantity.caption
 msgctxt "TFORDERS.LDQUANTITY.CAPTION"
 msgid "geliefert"
-msgstr ""
+msgstr "delivered"
 
 #: tforders.lerrordescription.caption
 msgctxt "TFORDERS.LERRORDESCRIPTION.CAPTION"
 msgid "Fehlerbeschreibung"
-msgstr ""
+msgstr "Errordescription"
 
 # uintfstrconsts:strfoundproblems
 #: tforders.lfoundproblems.caption
@@ -5671,12 +5671,12 @@ msgstr "Notes"
 #: tforders.lnotesforcustomer.caption
 msgctxt "TFORDERS.LNOTESFORCUSTOMER.CAPTION"
 msgid "Notizen für Kunde"
-msgstr ""
+msgstr "Notice for customer"
 
 #: tforders.lnumber.caption
 msgctxt "TFORDERS.LNUMBER.CAPTION"
 msgid "Nummer"
-msgstr ""
+msgstr "Number"
 
 # uintfstrconsts:stroperation
 #: tforders.loperation.caption
@@ -5687,27 +5687,27 @@ msgstr "Operation"
 #: tforders.lordernumber.caption
 msgctxt "TFORDERS.LORDERNUMBER.CAPTION"
 msgid "Vorgangsnummer"
-msgstr ""
+msgstr "Ordernumber"
 
 #: tforders.lorigdate.caption
 msgctxt "tforders.lorigdate.caption"
 msgid "orig. Belegdatum"
-msgstr ""
+msgstr "orig. Date"
 
 #: tforders.lpayed.caption
 msgctxt "TFORDERS.LPAYED.CAPTION"
 msgid "bezahlt"
-msgstr ""
+msgstr "payed on"
 
 #: tforders.lpaymenttarget.caption
 msgctxt "TFORDERS.LPAYMENTTARGET.CAPTION"
 msgid "Zahlungsziel"
-msgstr ""
+msgstr "Paymenttarget"
 
 #: tforders.lpdiscont.caption
 msgctxt "TFORDERS.LPDISCONT.CAPTION"
 msgid "Rabatt"
-msgstr ""
+msgstr "Discount"
 
 # uintfstrconsts:strpositionprice
 #: tforders.lposprice.caption
@@ -5718,27 +5718,27 @@ msgstr "Positionprice"
 #: tforders.lpquantity.caption
 msgctxt "TFORDERS.LPQUANTITY.CAPTION"
 msgid "Menge"
-msgstr ""
+msgstr "Quantity"
 
 #: tforders.lpsellprice.caption
 msgctxt "TFORDERS.LPSELLPRICE.CAPTION"
 msgid "Verkaufspreis"
-msgstr ""
+msgstr "Sellprice"
 
 #: tforders.lpwholeprice.caption
 msgctxt "TFORDERS.LPWHOLEPRICE.CAPTION"
 msgid "Gesamtpreis"
-msgstr ""
+msgstr "Wholeprice"
 
 #: tforders.lquantity.caption
 msgctxt "TFORDERS.LQUANTITY.CAPTION"
 msgid "Menge"
-msgstr ""
+msgstr "Quantity"
 
 #: tforders.lquantityunit.caption
 msgctxt "TFORDERS.LQUANTITYUNIT.CAPTION"
 msgid "Einheit"
-msgstr ""
+msgstr "Unit"
 
 #: tforders.lrequest.caption
 msgctxt "tforders.lrequest.caption"

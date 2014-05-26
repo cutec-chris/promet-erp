@@ -1,18 +1,16 @@
-object fImportOptions: TfImportOptions
-  Left = 0
+inherited fImportOptions: TfImportOptions
   Height = 499
-  Top = 0
   Width = 562
   ClientHeight = 499
   ClientWidth = 562
   TabOrder = 0
   DesignLeft = 500
   DesignTop = 255
-  object cbClass: TComboBox
+  object cbClass: TComboBox[0]
     Left = 8
     Height = 21
     Top = 24
-    Width = 544
+    Width = 240
     Anchors = [akTop, akLeft, akRight]
     ItemHeight = 13
     Items.Strings = (
@@ -24,7 +22,7 @@ object fImportOptions: TfImportOptions
     TabOrder = 0
     Text = 'cbClass'
   end
-  object Label1: TLabel
+  object Label1: TLabel[1]
     Left = 8
     Height = 13
     Top = 8
@@ -32,11 +30,11 @@ object fImportOptions: TfImportOptions
     Caption = 'Import/exportklasse'
     ParentColor = False
   end
-  inline SynMemo1: TSynMemo
+  inline SynMemo1: TSynMemo[2]
     Cursor = crIBeam
     Left = 8
     Height = 120
-    Top = 136
+    Top = 128
     Width = 544
     Anchors = [akTop, akLeft, akRight]
     Font.Height = -13
@@ -523,15 +521,15 @@ object fImportOptions: TfImportOptions
       end
     end
   end
-  object Label2: TLabel
+  object Label2: TLabel[3]
     Left = 8
     Height = 13
-    Top = 120
+    Top = 112
     Width = 47
     Caption = 'Filter/SQL'
     ParentColor = False
   end
-  object Label3: TLabel
+  object Label3: TLabel[4]
     Left = 8
     Height = 13
     Top = 264
@@ -539,23 +537,17 @@ object fImportOptions: TfImportOptions
     Caption = 'Import/export vorlage'
     ParentColor = False
   end
-  object DBListBox1: TDBListBox
-    Left = 8
-    Height = 51
-    Top = 64
-    Width = 544
-    ItemHeight = 0
-    TabOrder = 2
-  end
-  object Label4: TLabel
-    Left = 8
+  object Label4: TLabel[5]
+    Left = 256
     Height = 13
-    Top = 50
-    Width = 87
+    Top = 56
+    Width = 296
+    Anchors = [akTop, akRight]
+    AutoSize = False
     Caption = 'Import/export typ'
     ParentColor = False
   end
-  inline SynMemo2: TSynMemo
+  inline SynMemo2: TSynMemo[6]
     Cursor = crIBeam
     Left = 8
     Height = 208
@@ -568,7 +560,7 @@ object fImportOptions: TfImportOptions
     Font.Quality = fqNonAntialiased
     ParentColor = False
     ParentFont = False
-    TabOrder = 3
+    TabOrder = 2
     Gutter.Visible = False
     Gutter.Width = 57
     Gutter.MouseActions = <>
@@ -1046,7 +1038,41 @@ object fImportOptions: TfImportOptions
       end
     end
   end
-  object SynSQLSyn1: TSynSQLSyn
+  object cbClass1: TComboBox[7]
+    Left = 256
+    Height = 21
+    Top = 72
+    Width = 296
+    Anchors = [akTop, akRight]
+    ItemHeight = 13
+    Items.Strings = (
+      'SQL'
+      'Customer'
+      'Masterdata'
+      'Order'
+    )
+    TabOrder = 3
+    Text = 'cbClass1'
+  end
+  object DBNavigator1: TDBNavigator[8]
+    Left = 256
+    Height = 25
+    Top = 24
+    Width = 241
+    Anchors = [akTop, akRight]
+    BevelOuter = bvNone
+    ChildSizing.EnlargeHorizontal = crsScaleChilds
+    ChildSizing.EnlargeVertical = crsScaleChilds
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 100
+    ClientHeight = 25
+    ClientWidth = 241
+    Options = []
+    TabOrder = 4
+  end
+  object SynSQLSyn1: TSynSQLSyn[9]
     DefaultFilter = 'SQL-Dateien (*.sql)|*.sql'
     Enabled = False
     CommentAttri.FrameEdges = sfeAround
@@ -1065,10 +1091,10 @@ object fImportOptions: TfImportOptions
     TableNameAttri.FrameEdges = sfeAround
     VariableAttri.FrameEdges = sfeAround
     SQLDialect = sqlSybase
-    left = 130
-    top = 64
+    left = 264
+    top = 144
   end
-  object SynXMLSyn1: TSynXMLSyn
+  object SynXMLSyn1: TSynXMLSyn[10]
     DefaultFilter = 'XML-Dokumente (*.xml,*.xsd,*.xsl,*.xslt,*.dtd)|*.xml;*.xsd;*.xsl;*.xslt;*.dtd'
     Enabled = False
     ElementAttri.FrameEdges = sfeAround
@@ -1085,7 +1111,7 @@ object fImportOptions: TfImportOptions
     SpaceAttri.FrameEdges = sfeAround
     SymbolAttri.FrameEdges = sfeAround
     WantBracesParsed = False
-    left = 184
-    top = 264
+    left = 264
+    top = 368
   end
 end

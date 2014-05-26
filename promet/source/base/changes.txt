@@ -1,5 +1,5 @@
 ﻿Build 350
-      -
+      - Dokumente:und Bilder sind nun Haupteinträge
 Build 349
       - Dokumente:suche ignoriert nun Gross/kleinschreibung
       - Übersetzungen:mehr english übersetzt

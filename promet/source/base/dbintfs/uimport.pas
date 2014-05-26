@@ -15,46 +15,39 @@
   at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
-  Created 23.05.2014
+Created 26.05.2014
 *******************************************************************************}
-unit uimportoptions;
+unit uimport;
 
 {$mode objfpc}{$H+}
 
 interface
 
 uses
-  Classes, SysUtils, FileUtil, SynMemo, SynHighlighterSQL, SynHighlighterXML,
-  Forms, Controls, StdCtrls, DbCtrls, uOptionsFrame,uimport;
+  Classes, SysUtils,uBaseDbClasses,db,uBaseDBInterface;
 
 type
-  TfImportOptions = class(TOptionsFrame)
-    cbClass: TComboBox;
-    cbClass1: TComboBox;
-    DBNavigator1: TDBNavigator;
-    Label1: TLabel;
-    Label2: TLabel;
-    Label3: TLabel;
-    Label4: TLabel;
-    SynMemo1: TSynMemo;
-    SynMemo2: TSynMemo;
-    SynSQLSyn1: TSynSQLSyn;
-    SynXMLSyn1: TSynXMLSyn;
-  private
-    { private declarations }
+  TImportTypes = class(TBaseDBDataset)
   public
-    { public declarations }
-    procedure StartTransaction;override;
+    procedure DefineFields(aDataSet: TDataSet); override;
   end;
 
 implementation
 
-{$R *.lfm}
-
-procedure TfImportOptions.StartTransaction;
+procedure TImportTypes.DefineFields(aDataSet: TDataSet);
 begin
-  inherited StartTransaction;
-
+  with aDataSet as IBaseManageDB do
+    begin
+      TableName := 'IMPORTTYPES';
+      if Assigned(ManagedFieldDefs) then
+        with ManagedFieldDefs do
+          begin
+            Add('CLASS',ftString,200,True);
+            Add('TYPE',ftString,200,True);
+            Add('FILTER',ftMemo,0,False);
+            Add('TEMPLATE',ftMemo,0,False);
+          end;
+    end;
 end;
 
 end.
