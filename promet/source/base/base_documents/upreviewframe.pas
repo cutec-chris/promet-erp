@@ -477,10 +477,10 @@ begin
   iHourglass.Visible:=True;
   FScaled := False;
   ScaleTimer.Enabled:=True;
-  amax := round(FImage.Width-1-PaintBox1.Width*FScale);
+  amax := abs(round(FImage.Width-1-PaintBox1.Width*FScale));
   if aMax >0 then
     ScrollBar1.Max:=aMax;
-  amax := round(FImage.Height-1-PaintBox1.Height*FScale);
+  amax := abs(round(FImage.Height-1-PaintBox1.Height*FScale));
   if aMax > 0 then
     ScrollBar2.Max:=aMax;
   PaintBox1.Invalidate;
@@ -778,4 +778,4 @@ begin
 end;
 
 end.
-
+
