@@ -21,7 +21,7 @@ unit uBaseVisualControls;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, Controls;
+Classes, Controls;
 type
 
   { TfVisualControls }
@@ -44,4 +44,4 @@ implementation
 {$R *.lfm}
 
 end.
-
+

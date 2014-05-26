@@ -10,7 +10,7 @@ inherited fImportOptions: TfImportOptions
     Left = 8
     Height = 21
     Top = 24
-    Width = 240
+    Width = 296
     Anchors = [akTop, akLeft, akRight]
     ItemHeight = 13
     Items.Strings = (
@@ -18,9 +18,11 @@ inherited fImportOptions: TfImportOptions
       'Customer'
       'Masterdata'
       'Order'
+      'Project'
+      'Task'
     )
+    OnSelect = cbClassSelect
     TabOrder = 0
-    Text = 'cbClass'
   end
   object Label1: TLabel[1]
     Left = 8
@@ -30,11 +32,11 @@ inherited fImportOptions: TfImportOptions
     Caption = 'Import/exportklasse'
     ParentColor = False
   end
-  inline SynMemo1: TSynMemo[2]
+  inline mFilter: TSynMemo[2]
     Cursor = crIBeam
     Left = 8
-    Height = 120
-    Top = 128
+    Height = 72
+    Top = 192
     Width = 544
     Anchors = [akTop, akLeft, akRight]
     Font.Height = -13
@@ -472,7 +474,7 @@ inherited fImportOptions: TfImportOptions
     MouseActions = <>
     MouseSelActions = <>
     Lines.Strings = (
-      'SynMemo1'
+      'mFilter'
     )
     SelectedColor.FrameEdges = sfeAround
     SelectedColor.BackPriority = 50
@@ -482,6 +484,7 @@ inherited fImportOptions: TfImportOptions
     SelectedColor.ItalicPriority = 50
     SelectedColor.UnderlinePriority = 50
     SelectedColor.StrikeOutPriority = 50
+    OnChange = mFilterChange
     inline SynLeftGutterPartList1: TSynGutterPartList
       object SynGutterMarks1: TSynGutterMarks
         Width = 24
@@ -524,7 +527,7 @@ inherited fImportOptions: TfImportOptions
   object Label2: TLabel[3]
     Left = 8
     Height = 13
-    Top = 112
+    Top = 176
     Width = 47
     Caption = 'Filter/SQL'
     ParentColor = False
@@ -538,16 +541,15 @@ inherited fImportOptions: TfImportOptions
     ParentColor = False
   end
   object Label4: TLabel[5]
-    Left = 256
+    Left = 8
     Height = 13
     Top = 56
     Width = 296
-    Anchors = [akTop, akRight]
     AutoSize = False
     Caption = 'Import/export typ'
     ParentColor = False
   end
-  inline SynMemo2: TSynMemo[6]
+  inline mTemplate: TSynMemo[6]
     Cursor = crIBeam
     Left = 8
     Height = 208
@@ -999,6 +1001,7 @@ inherited fImportOptions: TfImportOptions
     SelectedColor.ItalicPriority = 50
     SelectedColor.UnderlinePriority = 50
     SelectedColor.StrikeOutPriority = 50
+    OnChange = mTemplateChange
     inline SynLeftGutterPartList1: TSynGutterPartList
       object SynGutterMarks1: TSynGutterMarks
         Width = 24
@@ -1038,24 +1041,8 @@ inherited fImportOptions: TfImportOptions
       end
     end
   end
-  object cbClass1: TComboBox[7]
-    Left = 256
-    Height = 21
-    Top = 72
-    Width = 296
-    Anchors = [akTop, akRight]
-    ItemHeight = 13
-    Items.Strings = (
-      'SQL'
-      'Customer'
-      'Masterdata'
-      'Order'
-    )
-    TabOrder = 3
-    Text = 'cbClass1'
-  end
-  object DBNavigator1: TDBNavigator[8]
-    Left = 256
+  object DBNavigator1: TDBNavigator[7]
+    Left = 311
     Height = 25
     Top = 24
     Width = 241
@@ -1069,8 +1056,25 @@ inherited fImportOptions: TfImportOptions
     ChildSizing.ControlsPerLine = 100
     ClientHeight = 25
     ClientWidth = 241
+    DataSource = Datasource
     Options = []
+    TabOrder = 3
+  end
+  object DBGrid1: TDBGrid[8]
+    Left = 8
+    Height = 96
+    Top = 72
+    Width = 544
+    Color = clWindow
+    Columns = <    
+      item
+        Title.Caption = 'Typ'
+        Width = 500
+        FieldName = 'TYPE'
+      end>
+    DataSource = Datasource
     TabOrder = 4
+    TitleStyle = tsNative
   end
   object SynSQLSyn1: TSynSQLSyn[9]
     DefaultFilter = 'SQL-Dateien (*.sql)|*.sql'
@@ -1092,7 +1096,7 @@ inherited fImportOptions: TfImportOptions
     VariableAttri.FrameEdges = sfeAround
     SQLDialect = sqlSybase
     left = 264
-    top = 144
+    top = 208
   end
   object SynXMLSyn1: TSynXMLSyn[10]
     DefaultFilter = 'XML-Dokumente (*.xml,*.xsd,*.xsl,*.xslt,*.dtd)|*.xml;*.xsd;*.xsl;*.xslt;*.dtd'
@@ -1113,5 +1117,9 @@ inherited fImportOptions: TfImportOptions
     WantBracesParsed = False
     left = 264
     top = 368
+  end
+  object Datasource: TDatasource[11]
+    left = 214
+    top = 92
   end
 end

@@ -336,7 +336,7 @@ uses uBaseDBInterface,uIntfStrConsts,uSearch,uFilterFrame,uPerson,uData,
   usplash,ufavorites,uBaseVisualControls,uStatisticFrame,uwait,uprometipc,uMeetingFrame,
   umeeting,uEditableTab,umanagedocframe,uBaseDocPages,uTaskPlan,uattendanceplan,
   uTimeFrame,uTimeOptions,uWizardnewaccount,uCalendar,uRoughpklanningframe,uStatistic,
-  uOptionsFrame,uprojectoverviewframe
+  uOptionsFrame,uprojectoverviewframe,uimportoptions
   {$ifdef WINDOWS}
   {$ifdef CPU32}
   ,uTAPIPhone
@@ -3458,6 +3458,7 @@ begin
           fOptions.RegisterOptionsFrame(TfStorageTypeOptions.Create(fOptions),strStorageTypes,strGeneralOptions);
           fOptions.RegisterOptionsFrame(TfCurrencyOptions.Create(fOptions),strCurrencies,strGeneralOptions);
           fOptions.RegisterOptionsFrame(TfLanguageOptions.Create(fOptions),strLanguages,strGeneralOptions);
+          fOptions.RegisterOptionsFrame(TfImportOptions.Create(fOptions),strimportexport,strGeneralOptions);
           fOptions.RegisterOptionsFrame(TfRepairOptions.Create(fOptions),strRepair,strGeneralOptions);
         end;
       miOptions.Tag:=1;

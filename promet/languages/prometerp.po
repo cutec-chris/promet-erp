@@ -1,4 +1,4 @@
-msgid "incl Unteraufträgewieder starten(Menü)(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten"
+msgid "incl Unteraufträgewieder starten(Menü)(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten"
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Project-Id-Version: \n"

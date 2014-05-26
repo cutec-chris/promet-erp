@@ -24,37 +24,78 @@ unit uimportoptions;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, SynMemo, SynHighlighterSQL, SynHighlighterXML,
-  Forms, Controls, StdCtrls, DbCtrls, uOptionsFrame,uimport;
+  Classes, SysUtils, db, FileUtil, SynMemo, SynHighlighterSQL,
+  SynHighlighterXML, Forms, Controls, StdCtrls, DbCtrls, DBGrids, uOptionsFrame,
+  uimport;
 
 type
   TfImportOptions = class(TOptionsFrame)
     cbClass: TComboBox;
-    cbClass1: TComboBox;
+    Datasource: TDatasource;
+    DBGrid1: TDBGrid;
     DBNavigator1: TDBNavigator;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
-    SynMemo1: TSynMemo;
-    SynMemo2: TSynMemo;
+    mFilter: TSynMemo;
+    mTemplate: TSynMemo;
     SynSQLSyn1: TSynSQLSyn;
     SynXMLSyn1: TSynXMLSyn;
+    procedure cbClassSelect(Sender: TObject);
+    procedure FImportDataSetAfterInsert(DataSet: TDataSet);
+    procedure FImportDataSetAfterScroll(DataSet: TDataSet);
+    procedure mFilterChange(Sender: TObject);
+    procedure mTemplateChange(Sender: TObject);
   private
     { private declarations }
+    FImport: TImportTypes;
   public
     { public declarations }
     procedure StartTransaction;override;
   end;
 
 implementation
-
+  uses uData;
 {$R *.lfm}
+
+procedure TfImportOptions.cbClassSelect(Sender: TObject);
+begin
+  FImport.Filter(Data.QuoteField('CLASS')+'='+Data.QuoteValue(cbClass.Text));
+  FImport.Open;
+end;
+
+procedure TfImportOptions.FImportDataSetAfterInsert(DataSet: TDataSet);
+begin
+  FImport.FieldByName('CLASS').AsString:=cbClass.Text;
+end;
+
+procedure TfImportOptions.FImportDataSetAfterScroll(DataSet: TDataSet);
+begin
+  mFilter.Text:=FImport.DataSet.FieldByName('FILTER').AsString;
+  mTemplate.Text:=FImport.DataSet.FieldByName('TEMPLATE').AsString;
+end;
+
+procedure TfImportOptions.mFilterChange(Sender: TObject);
+begin
+  FImport.Edit;
+  FImport.DataSet.FieldByName('FILTER').AsString := mFilter.Text;
+end;
+
+procedure TfImportOptions.mTemplateChange(Sender: TObject);
+begin
+  FImport.Edit;
+  FImport.DataSet.FieldByName('TEMPLATE').AsString := mTemplate.Text;
+end;
 
 procedure TfImportOptions.StartTransaction;
 begin
   inherited StartTransaction;
-
+  FImport := TImportTypes.Create(nil,Data);
+  FImport.CreateTable;
+  FImport.DataSet.AfterScroll:=@FImportDataSetAfterScroll;
+  FImport.DataSet.AfterInsert:=@FImportDataSetAfterInsert;
+  Datasource.DataSet := FImport.DataSet;
 end;
 
 end.
