@@ -20,6 +20,7 @@ inherited fImportOptions: TfImportOptions
       'Order'
       'Project'
       'Task'
+      'Calendar'
     )
     OnSelect = cbClassSelect
     TabOrder = 0
