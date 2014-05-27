@@ -30,7 +30,7 @@ type
   TImportTypes = class(TBaseDBDataset)
   public
     procedure DefineFields(aDataSet: TDataSet); override;
-    function DoExport(aFilename : string) : Boolean;
+    function Export(aFilename : string) : Boolean;
   end;
 
 implementation

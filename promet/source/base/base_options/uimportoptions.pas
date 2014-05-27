@@ -25,8 +25,8 @@ interface
 
 uses
   Classes, SysUtils, db, FileUtil, SynMemo, SynHighlighterSQL,
-  SynHighlighterXML, Forms, Controls, StdCtrls, DbCtrls, DBGrids, uOptionsFrame,
-  uimport;
+  SynHighlighterXML, Forms, Controls, StdCtrls, DbCtrls, DBGrids, Dialogs,
+  uOptionsFrame, uimport;
 
 type
   TfImportOptions = class(TOptionsFrame)
@@ -41,8 +41,10 @@ type
     Label4: TLabel;
     mFilter: TSynMemo;
     mTemplate: TSynMemo;
+    SaveDialog1: TSaveDialog;
     SynSQLSyn1: TSynSQLSyn;
     SynXMLSyn1: TSynXMLSyn;
+    procedure Button1Click(Sender: TObject);
     procedure cbClassSelect(Sender: TObject);
     procedure FImportDataSetAfterInsert(DataSet: TDataSet);
     procedure FImportDataSetAfterScroll(DataSet: TDataSet);
@@ -59,11 +61,20 @@ type
 implementation
   uses uData;
 {$R *.lfm}
+resourcestring
+  strImportFailed                       = 'Import fehlgeschlagen !';
+  strExportFailed                       = 'Export fehlgeschlagen !';
 
 procedure TfImportOptions.cbClassSelect(Sender: TObject);
 begin
   FImport.Filter(Data.QuoteField('CLASS')+'='+Data.QuoteValue(cbClass.Text));
   FImport.Open;
+end;
+
+procedure TfImportOptions.Button1Click(Sender: TObject);
+begin
+  if SaveDialog1.Execute then
+    if not FImport.Export(SaveDialog1.FileName) then Showmessage(strExportFailed);
 end;
 
 procedure TfImportOptions.FImportDataSetAfterInsert(DataSet: TDataSet);

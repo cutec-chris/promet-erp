@@ -1085,6 +1085,7 @@ inherited fImportOptions: TfImportOptions
     Width = 75
     Anchors = [akTop, akRight]
     Caption = 'exportieren'
+    OnClick = Button1Click
     TabOrder = 5
   end
   object SynSQLSyn1: TSynSQLSyn[10]
@@ -1132,5 +1133,9 @@ inherited fImportOptions: TfImportOptions
   object Datasource: TDatasource[12]
     left = 214
     top = 92
+  end
+  object SaveDialog1: TSaveDialog[13]
+    left = 400
+    top = 40
   end
 end
