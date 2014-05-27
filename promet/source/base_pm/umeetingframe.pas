@@ -56,6 +56,7 @@ type
     acAppendPos: TAction;
     acRenumber: TAction;
     acRestart: TAction;
+    acRights: TAction;
     Action2: TAction;
     ActionList: TActionList;
     acUnmakeSubTask: TAction;
@@ -83,6 +84,7 @@ type
     eName: TDBEdit;
     Entrys: TDatasource;
     MandantDetails: TDatasource;
+    MenuItem1: TMenuItem;
     miDelete: TMenuItem;
     pmAction: TPopupMenu;
     pNav2: TPanel;

@@ -1142,6 +1142,10 @@ inherited fMeetingFrame: TfMeetingFrame
       ImageIndex = 99
       OnExecute = acRestartExecute
     end
+    object acRights: TAction
+      Caption = 'acRights'
+      ImageIndex = 100
+    end
   end
   object Report: TfrReport[5]
     Dataset = PList
@@ -1180,6 +1184,9 @@ inherited fMeetingFrame: TfMeetingFrame
   object pmAction: TPopupMenu[11]
     left = 120
     top = 120
+    object MenuItem1: TMenuItem
+      Caption = 'New Item2'
+    end
     object miDelete: TMenuItem
       Action = acDelete
     end
