@@ -1,8 +1,8 @@
 inherited fImportOptions: TfImportOptions
   Height = 499
-  Width = 562
+  Width = 563
   ClientHeight = 499
-  ClientWidth = 562
+  ClientWidth = 563
   TabOrder = 0
   DesignLeft = 500
   DesignTop = 255
@@ -10,7 +10,7 @@ inherited fImportOptions: TfImportOptions
     Left = 8
     Height = 21
     Top = 24
-    Width = 296
+    Width = 193
     Anchors = [akTop, akLeft, akRight]
     ItemHeight = 13
     Items.Strings = (
@@ -38,7 +38,7 @@ inherited fImportOptions: TfImportOptions
     Left = 8
     Height = 72
     Top = 192
-    Width = 544
+    Width = 545
     Anchors = [akTop, akLeft, akRight]
     Font.Height = -13
     Font.Name = 'Courier New'
@@ -555,7 +555,7 @@ inherited fImportOptions: TfImportOptions
     Left = 8
     Height = 208
     Top = 280
-    Width = 544
+    Width = 545
     Anchors = [akTop, akLeft, akRight, akBottom]
     Font.Height = -13
     Font.Name = 'Courier New'
@@ -1043,10 +1043,10 @@ inherited fImportOptions: TfImportOptions
     end
   end
   object DBNavigator1: TDBNavigator[7]
-    Left = 311
+    Left = 209
     Height = 25
     Top = 24
-    Width = 241
+    Width = 169
     Anchors = [akTop, akRight]
     BevelOuter = bvNone
     ChildSizing.EnlargeHorizontal = crsScaleChilds
@@ -1056,10 +1056,11 @@ inherited fImportOptions: TfImportOptions
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 100
     ClientHeight = 25
-    ClientWidth = 241
+    ClientWidth = 169
     DataSource = Datasource
     Options = []
     TabOrder = 3
+    VisibleButtons = [nbPrior, nbNext, nbInsert, nbDelete, nbEdit, nbPost, nbCancel, nbRefresh]
   end
   object DBGrid1: TDBGrid[8]
     Left = 8
@@ -1077,7 +1078,16 @@ inherited fImportOptions: TfImportOptions
     TabOrder = 4
     TitleStyle = tsNative
   end
-  object SynSQLSyn1: TSynSQLSyn[9]
+  object Button1: TButton[9]
+    Left = 380
+    Height = 25
+    Top = 24
+    Width = 75
+    Anchors = [akTop, akRight]
+    Caption = 'exportieren'
+    TabOrder = 5
+  end
+  object SynSQLSyn1: TSynSQLSyn[10]
     DefaultFilter = 'SQL-Dateien (*.sql)|*.sql'
     Enabled = False
     CommentAttri.FrameEdges = sfeAround
@@ -1099,7 +1109,7 @@ inherited fImportOptions: TfImportOptions
     left = 264
     top = 208
   end
-  object SynXMLSyn1: TSynXMLSyn[10]
+  object SynXMLSyn1: TSynXMLSyn[11]
     DefaultFilter = 'XML-Dokumente (*.xml,*.xsd,*.xsl,*.xslt,*.dtd)|*.xml;*.xsd;*.xsl;*.xslt;*.dtd'
     Enabled = False
     ElementAttri.FrameEdges = sfeAround
@@ -1119,7 +1129,7 @@ inherited fImportOptions: TfImportOptions
     left = 264
     top = 368
   end
-  object Datasource: TDatasource[11]
+  object Datasource: TDatasource[12]
     left = 214
     top = 92
   end

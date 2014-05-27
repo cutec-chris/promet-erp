@@ -30,6 +30,7 @@ uses
 
 type
   TfImportOptions = class(TOptionsFrame)
+    Button1: TButton;
     cbClass: TComboBox;
     Datasource: TDatasource;
     DBGrid1: TDBGrid;

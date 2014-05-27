@@ -98,10 +98,13 @@ type
     cbMaxResults: TCheckBox;
     Datasource: TDatasource;
     ExtRotatedLabel5: TExtRotatedLabel;
+    MenuItem10: TMenuItem;
+    MenuItem11: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem7: TMenuItem;
     MenuItem8: TMenuItem;
+    MenuItem9: TMenuItem;
     miCopyLink: TMenuItem;
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;

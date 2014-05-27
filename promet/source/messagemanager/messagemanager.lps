@@ -24,8 +24,8 @@
         <UnitName Value="umain"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="561"/>
-        <CursorPos X="107" Y="597"/>
+        <TopLine Value="317"/>
+        <CursorPos X="70" Y="319"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -55,7 +55,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="97"/>
         <CursorPos X="37" Y="104"/>
-        <UsageCount Value="130"/>
+        <UsageCount Value="131"/>
       </Unit3>
       <Unit4>
         <Filename Value="udetailview.pas"/>
@@ -67,7 +67,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="53"/>
         <CursorPos X="1" Y="85"/>
-        <UsageCount Value="112"/>
+        <UsageCount Value="113"/>
       </Unit4>
       <Unit5>
         <Filename Value="unit1.pas"/>
@@ -116,9 +116,9 @@
       <Unit10>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="320"/>
+        <TopLine Value="275"/>
         <CursorPos X="1" Y="341"/>
         <UsageCount Value="58"/>
         <Loaded Value="True"/>
@@ -221,8 +221,7 @@
       <Unit22>
         <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="604"/>
         <CursorPos X="57" Y="608"/>
@@ -316,12 +315,10 @@
       <Unit33>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1217"/>
-        <CursorPos X="1" Y="1236"/>
+        <TopLine Value="1082"/>
+        <CursorPos X="20" Y="1226"/>
         <UsageCount Value="59"/>
-        <Loaded Value="True"/>
       </Unit33>
       <Unit34>
         <Filename Value="../../../lkomponenten/brooks/brokers/brookfclcgibroker.pas"/>
@@ -610,12 +607,10 @@
       <Unit68>
         <Filename Value="../base/dbintfs/utask.pas"/>
         <UnitName Value="utask"/>
-        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="902"/>
+        <TopLine Value="901"/>
         <CursorPos X="27" Y="853"/>
         <UsageCount Value="22"/>
-        <Loaded Value="True"/>
       </Unit68>
       <Unit69>
         <Filename Value="../../../../lazarus/lcl/interfaces/gtk2/gtk2widgetset.inc"/>
@@ -838,7 +833,7 @@
       <Unit96>
         <Filename Value="../components/zeos/src/component/ZAbstractRODataset.pas"/>
         <UnitName Value="ZAbstractRODataset"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="609"/>
         <CursorPos X="1" Y="629"/>
@@ -889,10 +884,11 @@
       </Unit101>
       <Unit102>
         <Filename Value="../base/changes.txt"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="52" Y="2"/>
+        <CursorPos X="9" Y="2"/>
         <UsageCount Value="64"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>

@@ -30,6 +30,7 @@ type
   TImportTypes = class(TBaseDBDataset)
   public
     procedure DefineFields(aDataSet: TDataSet); override;
+    function DoExport(aFilename : string) : Boolean;
   end;
 
 implementation
@@ -48,6 +49,11 @@ begin
             Add('TEMPLATE',ftMemo,0,False);
           end;
     end;
+end;
+
+function TImportTypes.DoExport(aFilename: string): Boolean;
+begin
+
 end;
 
 end.
