@@ -276,7 +276,14 @@ begin
                   begin
                     bProcess := ProcessData[i];
                     if bProcess.Active then
-                      Found := True
+                      begin
+                        Found := True;
+                        sl := TStringList.Create;
+                        sl.LoadFromStream(bProcess.Output);
+                        for a := 0 to sl.Count-1 do
+                          DoLog(aprocess+':'+sl[a],aLog);
+                        sl.Free;
+                      end
                     else
                       begin
                         sl := TStringList.Create;

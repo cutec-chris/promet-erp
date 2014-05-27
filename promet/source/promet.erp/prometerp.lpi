@@ -329,7 +329,6 @@
         <TopLine Value="680"/>
         <CursorPos X="1" Y="690"/>
         <UsageCount Value="200"/>
-        <LoadedDesigner Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="uaddressframe.pas"/>
@@ -814,7 +813,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uimportoptions"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="61"/>
@@ -847,7 +845,6 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1197"/>
         <CursorPos X="142" Y="1203"/>
-        <FoldState Value=" T0wgG;/"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -899,9 +896,10 @@
       <Unit50>
         <Filename Value="../base/dbintfs/uimport.pas"/>
         <UnitName Value="uimport"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="14"/>
+        <TopLine Value="1"/>
         <CursorPos X="1" Y="33"/>
         <UsageCount Value="14"/>
         <Loaded Value="True"/>
