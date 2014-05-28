@@ -10,6 +10,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
 
+msgid "(Menü)"
+msgstr ""
+
 #: tfaccountingframe.accombineitems.caption
 msgid "Einträge kombinieren"
 msgstr ""
@@ -6065,6 +6068,10 @@ msgstr ""
 #: tfpersonframe.acrights.caption
 msgctxt "TFPERSONFRAME.ACRIGHTS.CAPTION"
 msgid "Rechte"
+msgstr ""
+
+#: tfpersonframe.acrights.hint
+msgid "Ansicht auf bestimmte Nutzer begrenzen"
 msgstr ""
 
 #: tfpersonframe.acsave.caption

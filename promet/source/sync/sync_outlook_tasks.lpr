@@ -307,6 +307,8 @@ begin
                         aItem.CoMessage.SaveChanges(0);
                         bFolder := TGenericFolder.Create(aConnection,aFolder.FEntryTyp);
                         bItem := bFolder.GetFirst;
+                        while Assigned(bItem) and (bItem.Subject<>aItem.Subject) do
+                          bItem := bFolder.GetNext;
                         if Assigned(bItem) then
                           begin
                             aExt := SyncItems.GetField(TJSONObject(aJsonOutList[i]),'EXTERNAL_ID');

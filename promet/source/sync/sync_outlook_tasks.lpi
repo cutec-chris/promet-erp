@@ -55,10 +55,11 @@
         <Filename Value="sync_outlook_tasks.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="sync_outlook_tasks"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="206"/>
-        <CursorPos X="37" Y="222"/>
+        <TopLine Value="296"/>
+        <CursorPos X="1" Y="312"/>
         <FoldState Value=" T3i603113m"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="1">
@@ -582,10 +583,9 @@
       <Unit67>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="2283"/>
+        <TopLine Value="2229"/>
         <CursorPos X="22" Y="2307"/>
         <UsageCount Value="42"/>
         <Loaded Value="True"/>
@@ -1223,7 +1223,7 @@
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
         <Source Value="sync_outlook_tasks.lpr"/>
-        <Line Value="348"/>
+        <Line Value="350"/>
       </Item5>
       <Item6>
         <Kind Value="bpkSource"/>
