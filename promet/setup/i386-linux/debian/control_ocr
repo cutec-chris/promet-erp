@@ -1,0 +1,12 @@
+Source: promet-erp-ocr
+Package: promet-erp-ocr
+Version: VERSION
+Section: office
+Priority: optional
+Maintainer: Christian Ulrich <info@free-erp.de>
+Architecture: ARCH
+Installed-Size: DEBSIZE
+Depends: tesseract-ocr-deu,tesseract-ocr-eng
+Description: OCR Support for Promet-ERP
+ .
+
