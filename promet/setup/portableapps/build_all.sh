@@ -38,6 +38,7 @@ mkdir -p $BuildDir/Promet-ERP
 cp -r ./Promet-ERP $BuildDir
 mkdir -p $BuildDir/Promet-ERP/App/promet/tools
 cp -r ../../importdata $BuildDir/Promet-ERP/App/promet
+mv "$BuildDir/Promet-ERP/App/promet/importdata/Warenwirtschaft (alles)/Österreich" "$BuildDir/Promet-ERP/App/promet/importdata/Warenwirtschaft (alles)/Osterreich"
 cp ../help/help.db $BuildDir/Promet-ERP/App/promet
 cp ../warnings.txt $BuildDir/Promet-ERP/App/promet
 cp ../errors.txt $BuildDir/Promet-ERP/App/promet
@@ -63,6 +64,14 @@ WIN_DIR=$(echo $FULL_NAME | sed 's/\//\\/g')
 WIN_DIR='Z:\'$WIN_DIR
 #WINEPREFIX=$FULL_NAME/../../../lazarus_wine/ wineconsole "$WIN_DIR\compress.bat" 'Z:'$(echo $BuildDir | sed 's/\//\\/g') $WIN_DIR
 echo "building package..."
+cat Appinfo_devel.ini | \
+  sed -e "s/VERSION/$Version/g" \
+      -e "s/ARCH/$Arch/g" \
+      -e "s/ARCHFPC/$Archfpc/g" \
+      -e "s/CREATEDDATE/$Date/g" \
+  > $BuildDir/Promet-ERP/App/AppInfo/Appinfo.ini
+WINEPREFIX=$FULL_NAME/../../../lazarus_wine/ wine "PortableApps.comInstaller\PortableApps.comInstaller.exe" 'Z:'$(echo $BuildDir | sed 's/\//\\/g')'\Promet-ERP'
+rm $BuildDir/Promet-ERP/App/AppInfo/Launcher/Splash.jpg
 cat Appinfo.ini | \
   sed -e "s/VERSION/$Version/g" \
       -e "s/ARCH/$Arch/g" \

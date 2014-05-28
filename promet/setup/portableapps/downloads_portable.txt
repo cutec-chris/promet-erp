@@ -4,7 +4,7 @@ Alle untenstehenden Installationen sind Version VERSION erstellt CREATEDDATE.<br
 
 ===Portable-Apps Installation===
 Eine Installation für portableapps.com.
-[http://downloads.free-erp.de/PrometERPPortable_VERSION_Development_Test_1_German.paf.exe Portable App Installer 12 Mb]
+[http://downloads.free-erp.de/PrometERPPortable_VERSION_German.paf.exe Portable App Installer 12 Mb]
 
 ===Zip===
 Ein einfaches Zip Archiv, Sie können es einfach entpackagen,und die Promet-ERP.exe im Hauptverzeichnis starten. Die Datenbank befindet sich im Ordner Data und ist fertig eingerichtet. Funktioniert auch auf USB Sticks o.ä.

@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <XML_DIZ_INFO>
-	<MASTER_PAD_VERSION_INFO>
-		<MASTER_PAD_EDITOR>DeuPAD 3.1.0.55 (http://www.deupad.org)</MASTER_PAD_EDITOR>
-		<MASTER_PAD_INFO>Portable Application Description, or PAD for short, is a data set that is used by shareware authors to dissemminate information to anyone interested in their software products.  To find out more go to http://www.asp-shareware.org/pad</MASTER_PAD_INFO>
-		<MASTER_PAD_VERSION>3.10</MASTER_PAD_VERSION>
-	</MASTER_PAD_VERSION_INFO>
 	<Company_Info>
 		<Company_Name>CUTEC Christian Ulrich</Company_Name>
 		<Address_1>Wiesenweg 26</Address_1>
@@ -33,7 +28,7 @@
 		</Support_Info>
 	</Company_Info>
 	<Program_Info>
-		<Program_Name>Promet-ERP</Program_Name>
+		<Program_Name>Promet-ERP Portable</Program_Name>
 		<Program_Version>PROGVERSION</Program_Version>
 		<Program_Release_Month>MONTH</Program_Release_Month>
 		<Program_Release_Day>DAY</Program_Release_Day>
@@ -44,7 +39,7 @@
 		<Program_Type>Freeware</Program_Type>
 		<Program_Release_Status>Beta</Program_Release_Status>
 		<Program_Install_Support>Install and Uninstall</Program_Install_Support>
-		<Program_OS_Support>Android,iPhone,iPod,Linux,Linux Console,Linux Gnome,Mac OS X,Win2000,Win7 x32,Win7 x64,Win98,WinOther,WinServer,WinVista,WinVista x64,WinXP</Program_OS_Support>
+		<Program_OS_Support>Win2000,Win7 x32,Win7 x64,Win98,WinOther,WinServer,WinVista,WinVista x64,WinXP</Program_OS_Support>
 		<Program_Language>German,English</Program_Language>
 		<Program_Change_Info />
 		<Program_Specific_Category>Business</Program_Specific_Category>
@@ -67,7 +62,7 @@
 	</Program_Info>
 	<Program_Descriptions>
 		<English>
-			<Keywords>ERP,Taskmanagement,Projectmanagement,E-Mail,Documentmanagement,Database</Keywords>
+			<Keywords>ERP,Portable,Taskmanagement,Projectmanagement,E-Mail,Documentmanagement,Database</Keywords>
 			<Char_Desc_45>ERP Software, Businesssoftware</Char_Desc_45>
 			<Char_Desc_80>ERP System, Messagemanagement, Projectmanagement, Dokumentmanagement</Char_Desc_80>
 			<Char_Desc_250>Promet ERP ERP is a system that in addition to the ERP functionality also provides message management, task / project management, document management. Any functionality can also be used individually.</Char_Desc_250>
@@ -116,7 +111,7 @@ Alle Daten werden zentral in einer Datenbank gespeichert. MSSQL,PostgereSQL,Fire
 			<Application_XML_File_URL>http://downloads.free-erp.de/promet_erp.xml</Application_XML_File_URL>
 		</Application_URLs>
 		<Download_URLs>
-			<Primary_Download_URL>http://downloads.free-erp.de/promet-erp_PROGVERSION_i386-win32.exe</Primary_Download_URL>
+			<Primary_Download_URL>http://downloads.free-erp.de/PrometERPPortable_PROGVERSION_German.paf.exe</Primary_Download_URL>
 			<Secondary_Download_URL />
 			<Additional_Download_URL_1 />
 			<Additional_Download_URL_2 />
@@ -126,125 +121,9 @@ Alle Daten werden zentral in einer Datenbank gespeichert. MSSQL,PostgereSQL,Fire
 		<Distribution_Permissions />
 		<EULA />
 	</Permissions>
-	<Affiliates>
-		<Affiliates_FORM>Y</Affiliates_FORM>
-		<Affiliates_VERSION>1.2</Affiliates_VERSION>
-		<Affiliates_URL>http://www.asp-shareware.org/pad/extensions/Affiliates.htm</Affiliates_URL>
-		<Affiliates_Information_Page />
-		<Affiliates_Avangate_Order_Page />
-		<Affiliates_Avangate_Vendor_ID />
-		<Affiliates_Avangate_Product_ID />
-		<Affiliates_Avangate_Maximum_Commission_Rate />
-		<Affiliates_BMTMicro_Order_Page />
-		<Affiliates_BMTMicro_Vendor_ID />
-		<Affiliates_BMTMicro_Product_ID />
-		<Affiliates_BMTMicro_Maximum_Commission_Rate />
-		<Affiliates_clixGalore_Order_Page />
-		<Affiliates_clixGalore_Vendor_ID />
-		<Affiliates_clixGalore_Product_ID />
-		<Affiliates_clixGalore_Maximum_Commission_Rate />
-		<Affiliates_CommissionJunction_Order_Page />
-		<Affiliates_CommissionJunction_Vendor_ID />
-		<Affiliates_CommissionJunction_Product_ID />
-		<Affiliates_CommissionJunction_Maximum_Commission_Rate />
-		<Affiliates_DigiBuy_Order_Page />
-		<Affiliates_DigiBuy_Vendor_ID />
-		<Affiliates_DigiBuy_Product_ID />
-		<Affiliates_DigiBuy_Maximum_Commission_Rate />
-		<Affiliates_DigitalCandle_Order_Page />
-		<Affiliates_DigitalCandle_Vendor_ID />
-		<Affiliates_DigitalCandle_Product_ID />
-		<Affiliates_DigitalCandle_Maximum_Commission_Rate />
-		<Affiliates_Emetrix_Order_Page />
-		<Affiliates_Emetrix_Vendor_ID />
-		<Affiliates_Emetrix_Product_ID />
-		<Affiliates_Emetrix_Maximum_Commission_Rate />
-		<Affiliates_eSellerate_Order_Page />
-		<Affiliates_eSellerate_Vendor_ID />
-		<Affiliates_eSellerate_Product_ID />
-		<Affiliates_eSellerate_Maximum_Commission_Rate />
-		<Affiliates_Kagi_Order_Page />
-		<Affiliates_Kagi_Vendor_ID />
-		<Affiliates_Kagi_Product_ID />
-		<Affiliates_Kagi_Maximum_Commission_Rate />
-		<Affiliates_LinkShare_Order_Page />
-		<Affiliates_LinkShare_Vendor_ID />
-		<Affiliates_LinkShare_Product_ID />
-		<Affiliates_LinkShare_Maximum_Commission_Rate />
-		<Affiliates_NorthStarSol_Order_Page />
-		<Affiliates_NorthStarSol_Vendor_ID />
-		<Affiliates_NorthStarSol_Product_ID />
-		<Affiliates_NorthStarSol_Maximum_Commission_Rate />
-		<Affiliates_Order1_Order_Page />
-		<Affiliates_Order1_Vendor_ID />
-		<Affiliates_Order1_Product_ID />
-		<Affiliates_Order1_Maximum_Commission_Rate />
-		<Affiliates_Osolis_Order_Page />
-		<Affiliates_Osolis_Vendor_ID />
-		<Affiliates_Osolis_Product_ID />
-		<Affiliates_Osolis_Maximum_Commission_Rate />
-		<Affiliates_Plimus_Order_Page />
-		<Affiliates_Plimus_Vendor_ID />
-		<Affiliates_Plimus_Product_ID />
-		<Affiliates_Plimus_Maximum_Commission_Rate />
-		<Affiliates_Regnet_Order_Page />
-		<Affiliates_Regnet_Vendor_ID />
-		<Affiliates_Regnet_Product_ID />
-		<Affiliates_Regnet_Maximum_Commission_Rate />
-		<Affiliates_Regnow_Order_Page />
-		<Affiliates_Regnow_Vendor_ID />
-		<Affiliates_Regnow_Product_ID />
-		<Affiliates_Regnow_Maximum_Commission_Rate />
-		<Affiliates_Regsoft_Order_Page />
-		<Affiliates_Regsoft_Vendor_ID />
-		<Affiliates_Regsoft_Product_ID />
-		<Affiliates_Regsoft_Maximum_Commission_Rate />
-		<Affiliates_ShareIt_Order_Page />
-		<Affiliates_ShareIt_Vendor_ID />
-		<Affiliates_ShareIt_Product_ID />
-		<Affiliates_ShareIt_Maximum_Commission_Rate />
-		<Affiliates_Shareasale_Order_Page />
-		<Affiliates_Shareasale_Vendor_ID />
-		<Affiliates_Shareasale_Product_ID />
-		<Affiliates_Shareasale_Maximum_Commission_Rate />
-		<Affiliates_SWReg_Order_Page />
-		<Affiliates_SWReg_Vendor_ID />
-		<Affiliates_SWReg_Product_ID />
-		<Affiliates_SWReg_Maximum_Commission_Rate />
-		<Affiliates_V-Share_Order_Page />
-		<Affiliates_V-Share_Vendor_ID />
-		<Affiliates_V-Share_Product_ID />
-		<Affiliates_V-Share_Maximum_Commission_Rate />
-		<Affiliates_VFree_Order_Page />
-		<Affiliates_VFree_Vendor_ID />
-		<Affiliates_VFree_Product_ID />
-		<Affiliates_VFree_Maximum_Commission_Rate />
-		<Affiliates_Yaskifo_Order_Page />
-		<Affiliates_Yaskifo_Vendor_ID />
-		<Affiliates_Yaskifo_Product_ID />
-		<Affiliates_Yaskifo_Maximum_Commission_Rate />
-		<Affiliates_Cleverbridge_Order_Page />
-		<Affiliates_Cleverbridge_Vendor_ID />
-		<Affiliates_Cleverbridge_Product_ID />
-		<Affiliates_Cleverbridge_Maximum_Commission_Rate />
-		<Affiliates_OneNetworkDirect_Order_Page />
-		<Affiliates_OneNetworkDirect_Vendor_ID />
-		<Affiliates_OneNetworkDirect_Product_ID />
-		<Affiliates_OneNetworkDirect_Maximum_Commission_Rate />
-	</Affiliates>
 	<ASP>
 		<ASP_FORM>Y</ASP_FORM>
 		<ASP_Member>N</ASP_Member>
 		<ASP_Member_Number />
 	</ASP>
-	<DeuPAD>
-		<DeuPAD_Extension_Version>2.00</DeuPAD_Extension_Version>
-		<DeuPAD_Extension_Info>For information on the DeuPAD Extensions please go to http://www.deupad.org</DeuPAD_Extension_Info>
-		<SAVE_Member>N</SAVE_Member>
-		<SAVE_Member_Number />
-		<Company_Unique_ID>{983BC2C8-0D5D-4F6A-AB98-36C010910344}</Company_Unique_ID>
-		<Save_Prog_Num>CUT</Save_Prog_Num>
-		<Program_Unique_ID>{5060781D-9800-4CDA-9E2A-0394AEC59830}</Program_Unique_ID>
-		<Program_Cost_EUR>0.00</Program_Cost_EUR>
-	</DeuPAD>
 </XML_DIZ_INFO>

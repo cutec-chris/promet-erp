@@ -27,6 +27,9 @@ uses
   Classes, SysUtils,uBaseDbClasses,db,uBaseDBInterface;
 
 type
+
+  { TImportTypes }
+
   TImportTypes = class(TBaseDBDataset)
   public
     procedure DefineFields(aDataSet: TDataSet); override;
@@ -51,7 +54,7 @@ begin
     end;
 end;
 
-function TImportTypes.DoExport(aFilename: string): Boolean;
+function TImportTypes.Export(aFilename: string): Boolean;
 begin
 
 end;

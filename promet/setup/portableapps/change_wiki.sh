@@ -19,3 +19,14 @@ cat downloads_portable.txt | \
 ../../output/x86_64-linux/changewikipage --mandant=Stora Promet-ERP/dowloadplattforms/portable act_downloads_portable.txt
 ../../output/x86_64-linux/changewikipage --mandant=Stora Promet-ERP/changes ../source/base/changes.txt
 ../../output/x86_64-linux/tools/sync_db --mandant=Stora
+cat ../promet_erp_portable_clean.xml | \
+  sed -e "s/PROGVERSION/$Version/g" \
+      -e "s/WIN_SIZEB/$WinSizeB/g" \
+      -e "s/WIN_SIZEK/$WinSizeK/g" \
+      -e "s/WIN_SIZE/$WinSize/g" \
+      -e "s/CREATEDDATE/$Date/g" \
+      -e "s/YEAR/20$Year/g" \
+      -e "s/MONTH/$Month/g" \
+      -e "s/DAY/$Day/g" \
+  > promet_erp_portable.xml
+scp promet_erp_portable.xml autoupload@ullihome.de:promet_upload_target
