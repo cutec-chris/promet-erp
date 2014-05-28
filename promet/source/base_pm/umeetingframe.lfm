@@ -405,7 +405,7 @@ inherited fMeetingFrame: TfMeetingFrame
       end
     end
     object Label1: TLabel
-      Left = 352
+      Left = 376
       Height = 13
       Top = 24
       Width = 46
@@ -413,10 +413,10 @@ inherited fMeetingFrame: TfMeetingFrame
       ParentColor = False
     end
     object Label2: TLabel
-      Left = 552
+      Left = 580
       Height = 14
       Top = 24
-      Width = 149
+      Width = 121
       Anchors = [akTop, akRight]
       AutoSize = False
       Caption = 'Termin'
@@ -506,7 +506,7 @@ inherited fMeetingFrame: TfMeetingFrame
       ParentColor = False
     end
     object Memo1: TDBMemo
-      Left = 352
+      Left = 376
       Height = 48
       Top = 0
       Width = 192
@@ -521,7 +521,7 @@ inherited fMeetingFrame: TfMeetingFrame
       Left = 9
       Height = 21
       Top = 16
-      Width = 335
+      Width = 359
       DataField = 'NAME'
       DataSource = Datasource
       CharCase = ecNormal
