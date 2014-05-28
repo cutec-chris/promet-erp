@@ -1054,6 +1054,7 @@ inherited fPersonFrame: TfPersonFrame
     end
     object acRights: TAction
       Caption = 'Rechte'
+      Hint = 'Ansicht auf bestimmte Nutzer begrenzen'
       ImageIndex = 100
       OnExecute = acRightsExecute
     end

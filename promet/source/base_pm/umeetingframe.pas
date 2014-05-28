@@ -56,7 +56,6 @@ type
     acAppendPos: TAction;
     acRenumber: TAction;
     acRestart: TAction;
-    acRights: TAction;
     Action2: TAction;
     ActionList: TActionList;
     acUnmakeSubTask: TAction;
@@ -88,6 +87,7 @@ type
     miDelete: TMenuItem;
     pmAction: TPopupMenu;
     pNav2: TPanel;
+    sbMenue1: TSpeedButton;
     Users: TDatasource;
     ExtRotatedLabel1: TExtRotatedLabel;
     ExtRotatedLabel3: TExtRotatedLabel;
@@ -132,6 +132,7 @@ type
     procedure acRefreshExecute(Sender: TObject);
     procedure acRenumberExecute(Sender: TObject);
     procedure acRestartExecute(Sender: TObject);
+    procedure acRightsExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
     procedure ActiveSearchEndSearch(Sender: TObject);
     procedure ActiveSearchItemFound(aIdent: string; aName: string;
@@ -187,7 +188,7 @@ var
 implementation
 uses uMainTreeFrame,Utils,uData,umeeting,uBaseDBInterface,uSearch,
   LCLType,uSelectReport,uDocuments,uDocumentFrame,uLinkFrame,umeetingusers,
-  uBaseVisualApplication,uProjects,LCLProc;
+  uBaseVisualApplication,uProjects,LCLProc,uNRights;
 resourcestring
   strSearchFromUsers                       = 'Mit Öffnen wird der gewählte Nutzer in die Liste übernommen';
   strSearchFromMeetings                    = 'Mit Öffnen wird das gewählte Projekt in die Liste übernommen';
@@ -831,6 +832,11 @@ begin
   aLink := Data.BuildLink(bMeeting.DataSet);
   Data.GotoLink(aLink);
   bMeeting.Free;
+end;
+
+procedure TfMeetingFrame.acRightsExecute(Sender: TObject);
+begin
+  fNRights.Execute(DataSet.Id.AsVariant);
 end;
 
 procedure TfMeetingFrame.DoOpen;
