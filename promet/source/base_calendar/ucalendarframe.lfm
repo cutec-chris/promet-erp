@@ -3,8 +3,8 @@ inherited FCalendarFrame: TFCalendarFrame
   Width = 663
   ClientHeight = 474
   ClientWidth = 663
-  DesignLeft = 440
-  DesignTop = 178
+  DesignLeft = 376
+  DesignTop = 190
   object Panel1: TPanel[0]
     Left = 0
     Height = 474
@@ -15,38 +15,6 @@ inherited FCalendarFrame: TFCalendarFrame
     ClientHeight = 474
     ClientWidth = 663
     TabOrder = 0
-    object WeekView: TVpWeekView
-      Left = 0
-      Height = 430
-      Top = 44
-      Width = 663
-      Color = clWindow
-      Font.Height = -12
-      ParentFont = False
-      OnMouseWheel = WeekViewMouseWheel
-      AllDayEventAttributes.BackgroundColor = clWindow
-      AllDayEventAttributes.EventBorderColor = clActiveBorder
-      AllDayEventAttributes.EventBackgroundColor = cl3DLight
-      AllDayEventAttributes.Font.Height = -12
-      Align = alClient
-      TabStop = True
-      TabOrder = 0
-      DateLabelFormat = 'dddd, dd.mm.yyyy'
-      DayHeadAttributes.Color = clBtnFace
-      DayHeadAttributes.DateFormat = 'dddd mmmm, dd'
-      DayHeadAttributes.Font.Height = -14
-      DayHeadAttributes.Font.Name = 'Default'
-      DayHeadAttributes.Bordered = False
-      DrawingStyle = dsNone
-      EventFont.Height = -12
-      HeadAttributes.Font.Height = -14
-      HeadAttributes.Color = clWindow
-      LineColor = clActiveBorder
-      TimeFormat = tf24Hour
-      ShowEventTime = True
-      WeekStartsOn = dtMonday
-      OnOwnerEditEvent = DayViewOwnerEditEvent
-    end
     object ToolBar1: TPanel
       Left = 0
       Height = 44
@@ -115,7 +83,7 @@ inherited FCalendarFrame: TFCalendarFrame
         end
       end
       object Panel6: TPanel
-        Left = 220
+        Left = 240
         Height = 44
         Top = 0
         Width = 56
@@ -237,17 +205,17 @@ inherited FCalendarFrame: TFCalendarFrame
         Left = 48
         Height = 44
         Top = 0
-        Width = 116
+        Width = 136
         Align = alLeft
         BevelOuter = bvNone
         ClientHeight = 44
-        ClientWidth = 116
+        ClientWidth = 136
         TabOrder = 2
         object Label5: TLabel
           Left = 4
           Height = 15
           Top = 0
-          Width = 108
+          Width = 128
           Alignment = taCenter
           Anchors = [akLeft, akRight, akBottom]
           AutoSize = False
@@ -365,15 +333,13 @@ inherited FCalendarFrame: TFCalendarFrame
           ShowCaption = False
         end
         object bWeekView: TSpeedButton
-          Left = 60
+          Left = 85
           Height = 25
-          Hint = 'zeigt die Wochenansicht'
           Top = 15
           Width = 25
+          Action = acWeekViewDays
           AllowAllUp = True
           BorderSpacing.InnerBorder = 2
-          Caption = 'acWeekView'
-          Down = True
           Glyph.Data = {
             36040000424D3604000000000000360000002800000010000000100000000100
             2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -416,7 +382,7 @@ inherited FCalendarFrame: TFCalendarFrame
           ShowCaption = False
         end
         object bMonthView: TSpeedButton
-          Left = 84
+          Left = 109
           Height = 25
           Hint = 'zeigt die Monatsansicht'
           Top = 15
@@ -465,9 +431,60 @@ inherited FCalendarFrame: TFCalendarFrame
           OnClick = acMonthViewExecute
           ShowCaption = False
         end
+        object bWeekView1: TSpeedButton
+          Left = 60
+          Height = 25
+          Hint = 'zeigt die Wochenansicht als Raster'
+          Top = 15
+          Width = 25
+          AllowAllUp = True
+          BorderSpacing.InnerBorder = 2
+          Caption = 'acWeekView'
+          Down = True
+          Glyph.Data = {
+            36040000424D3604000000000000360000002800000010000000100000000100
+            2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00D69E
+            72C4D3996EF4D19668FFCE9263FFCB8E5EFFC98A5BFFC78756FFC38452FFC384
+            52FFC38452FFC38452FFC38452FFC38452FFBB7742B0FFFFFF00FFFFFF00D7A1
+            75FFF8F2EDFFF7F0EAFFF6EDE6FFF4EAE2FFF3E7DEFFF1E4DBFFF0E2D8FFF0E2
+            D8FFF0E2D8FFF0E2D8FFF0E2D8FFF0E2D8FFC58A5DFDFFFFFF00FFFFFF00D9A4
+            7AFFF9F3EEFFE7BFA1FFE7C1A4FFE7BFA1FFE6BE9FFFE6BB9AFFE3B895FFE1B5
+            8FFFDEB089FFDCAB83FFD9AE89FFF0E2D8FFC68C5FFFFFFFFF00FFFFFF00DDA8
+            7EFFF9F3EFFFFFFFFFFFE7BFA1FFFFFFFFFFE7BFA1FFFFFFFFFFE7BFA1FFFFFF
+            FFFFE7BFA1FFFFFFFFFFDBB08CFFF0E2D8FFC68A5CFFFFFFFF00FFFFFF00DFAA
+            82FFF9F3EFFFFFFFFFFFE7BFA1FFFFFFFFFFE7BFA1FFFFFFFFFFE7BFA1FFFFFF
+            FFFFE7BFA1FFFFFFFFFFDDB491FFF0E2D8FFC88D5FFFFFFFFF00FFFFFF00E1AE
+            87FFFAF4F0FFFFFFFFFFE7BFA1FFFFFFFFFFE7BFA1FFFFFFFFFFE7BFA1FFFFFF
+            FFFFE7BFA1FFFFFFFFFFDFB896FFF0E2D8FFC48654FFFFFFFF00FFFFFF00E3B1
+            8CFFFAF6F1FFFFFFFFFFE7BFA1FFFFFFFFFFE7BFA1FFFFFFFFFFE7BFA1FFFFFF
+            FFFFE7BFA1FFFFFFFFFFE1BD9DFFF0E2D8FFC68655FFFFFFFF00FFFFFF00E5B4
+            8FFFFAF6F2FFFFFFFFFFE7BFA1FFFFFFFFFFE7BFA1FFFFFFFFFFE7BFA1FFFFFF
+            FFFFE7BFA1FFFFFFFFFFE4C1A4FFF2E7DEFFC88A59FFFFFFFF00FFFFFF00E7B7
+            94FFFBF7F4FFFFFFFFFFE7BFA1FFFFFFFFFFE7BFA1FFFFFFFFFFE7BFA1FFFFFF
+            FFFFE7BFA1FFFFFFFFFFE5C6ABFFF7F1EBFFCB8F5FFFFFFFFF00FFFFFF00E9BA
+            98FFFBF7F4FF65A4FFFF64A3FFFF62A2FFFF61A1FFFF5F9FFFFF5C9DFFFF5A9A
+            FFFF5798FFFF5495FFFF5294FFFFFBF7F4FFCE9364FFFFFFFF00FFFFFF00EBBD
+            9BFFFBF7F4FF64A4FFFF79BDFFFF75BBFFFF71B9FFFF6DB8FFFF68B3FFFF61B0
+            FFFF5AABFFFF54A7FFFF3B7DFFFFFBF7F4FFD1976AFFFFFFFF00FFFFFF00ECBF
+            9EFFFBF7F4FF65A4FFFF64A3FFFF60A0FFFF5D9EFFFF5899FFFF5496FFFF4D90
+            FFFF478BFFFF4284FFFF3D7FFFFFFBF7F4FFD49B6FFFFFFFFF00FFFFFF00EEC1
+            A1EBFBF7F4FFFBF7F4FFFBF7F4FFFBF7F4FFFBF7F4FFFBF7F4FFFBF7F4FFFBF7
+            F4FFFBF7F4FFFBF7F4FFFBF7F4FFFBF7F4FFD7A074F8FFFFFF00FFFFFF00EFC2
+            A37EEFC1A2E3EDC09FFFEBBE9DFFEBBC9AFFE9BA96FFE7B793FFE6B590FFE4B2
+            8CFFE2AF88FFE0AC84FFDDA980FFDCA57DFFDAA37ACAFFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+          }
+          GroupIndex = 22
+          Layout = blGlyphTop
+          OnClick = acWeekViewExecute
+          ShowCaption = False
+        end
       end
       object Panel8: TPanel
-        Left = 164
+        Left = 184
         Height = 44
         Top = 0
         Width = 56
@@ -549,12 +566,44 @@ inherited FCalendarFrame: TFCalendarFrame
         end
       end
     end
+    object WeekView: TVpWeekView
+      Left = 0
+      Height = 430
+      Top = 44
+      Width = 663
+      Color = 14548991
+      Font.Height = -12
+      ParentFont = False
+      OnMouseWheel = WeekViewMouseWheel
+      AllDayEventAttributes.BackgroundColor = clWindow
+      AllDayEventAttributes.EventBorderColor = clActiveBorder
+      AllDayEventAttributes.EventBackgroundColor = cl3DLight
+      AllDayEventAttributes.Font.Height = -12
+      Align = alClient
+      TabStop = True
+      TabOrder = 0
+      DateLabelFormat = 'dddd, dd.mm.yyyy'
+      DayHeadAttributes.Color = clInactiveBorder
+      DayHeadAttributes.DateFormat = 'dddd mmmm, dd'
+      DayHeadAttributes.Font.Height = -14
+      DayHeadAttributes.Font.Name = 'Default'
+      DayHeadAttributes.Bordered = False
+      DrawingStyle = dsFlat
+      EventFont.Height = -12
+      HeadAttributes.Font.Height = -14
+      HeadAttributes.Color = clWindow
+      LineColor = clActiveBorder
+      TimeFormat = tf24Hour
+      ShowEventTime = True
+      WeekStartsOn = dtMonday
+      OnOwnerEditEvent = DayViewOwnerEditEvent
+    end
     object MonthView: TVpMonthView
       Left = 0
       Height = 430
       Top = 44
       Width = 663
-      Color = clWindow
+      Color = 14548991
       OnMouseWheel = WeekViewMouseWheel
       Align = alClient
       TabStop = True
@@ -586,6 +635,8 @@ inherited FCalendarFrame: TFCalendarFrame
       Caption = 'pDayView'
       ClientHeight = 430
       ClientWidth = 663
+      Color = 14548991
+      ParentColor = False
       TabOrder = 2
       object DayView: TVpDayView
         Left = 1
@@ -605,12 +656,12 @@ inherited FCalendarFrame: TFCalendarFrame
         ShowEventTimes = False
         DrawingStyle = dsNone
         TimeSlotColors.Active = clWhite
-        TimeSlotColors.Inactive = 8454143
+        TimeSlotColors.Inactive = clWhite
         TimeSlotColors.Holiday = 16744703
-        TimeSlotColors.Weekday = clWhite
-        TimeSlotColors.Weekend = 16777088
-        TimeSlotColors.ActiveRange.RangeBegin = h_00
-        TimeSlotColors.ActiveRange.RangeEnd = h_00
+        TimeSlotColors.Weekday = 14548991
+        TimeSlotColors.Weekend = 11206655
+        TimeSlotColors.ActiveRange.RangeBegin = h_07
+        TimeSlotColors.ActiveRange.RangeEnd = h_16
         HeadAttributes.Font.Height = -13
         HeadAttributes.Font.Name = 'Tahoma'
         HeadAttributes.Color = clBtnFace
@@ -630,6 +681,61 @@ inherited FCalendarFrame: TFCalendarFrame
         OnOwnerEditEvent = DayViewOwnerEditEvent
       end
     end
+    object pWeekDayView: TPanel
+      Left = 0
+      Height = 430
+      Top = 44
+      Width = 663
+      Align = alClient
+      Caption = 'pWeekViewDays'
+      ClientHeight = 430
+      ClientWidth = 663
+      Color = 14548991
+      ParentColor = False
+      TabOrder = 4
+      object DayView1: TVpDayView
+        Left = 1
+        Height = 428
+        Top = 1
+        Width = 661
+        ShowHint = True
+        Color = clWindow
+        ParentShowHint = False
+        Align = alClient
+        ReadOnly = False
+        TabStop = True
+        TabOrder = 0
+        AllDayEventAttributes.BackgroundColor = clBtnShadow
+        AllDayEventAttributes.EventBorderColor = cl3DDkShadow
+        AllDayEventAttributes.EventBackgroundColor = clBtnFace
+        ShowEventTimes = False
+        DrawingStyle = dsNone
+        TimeSlotColors.Active = clWhite
+        TimeSlotColors.Inactive = clWhite
+        TimeSlotColors.Holiday = 16744703
+        TimeSlotColors.Weekday = 14548991
+        TimeSlotColors.Weekend = 12320767
+        TimeSlotColors.ActiveRange.RangeBegin = h_00
+        TimeSlotColors.ActiveRange.RangeEnd = h_00
+        HeadAttributes.Font.Height = -13
+        HeadAttributes.Font.Name = 'Tahoma'
+        HeadAttributes.Color = clBtnFace
+        RowHeadAttributes.HourFont.Height = -24
+        RowHeadAttributes.HourFont.Name = 'Tahoma'
+        RowHeadAttributes.MinuteFont.Height = -12
+        RowHeadAttributes.MinuteFont.Name = 'Tahoma'
+        RowHeadAttributes.Color = clBtnFace
+        ShowResourceName = False
+        LineColor = cl3DLight
+        GutterWidth = 3
+        DateLabelFormat = 'dddd, dd.mm.yyyy'
+        Granularity = gr30Min
+        DefaultTopHour = h_07
+        TimeFormat = tf24Hour
+        NumDays = 6
+        OnOwnerEditEvent = DayViewOwnerEditEvent
+      end
+    end
   end
   object ActionList1: TActionList[1]
     Images = fVisualControls.Images
@@ -642,8 +748,13 @@ inherited FCalendarFrame: TFCalendarFrame
     end
     object acWeekView: TAction
       Caption = 'acWeekView'
-      Hint = 'zeigt die Wochenansicht'
+      Hint = 'zeigt die Wochenansicht als Raster'
       OnExecute = acWeekViewExecute
+    end
+    object acWeekViewDays: TAction
+      Caption = 'acWeekViewDays'
+      Hint = 'zeigt die Wochenansicht in Tagen'
+      OnExecute = acWeekViewDaysExecute
     end
     object acMonthView: TAction
       Caption = 'acMonthView'

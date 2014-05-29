@@ -49,6 +49,7 @@ type
     acMonthView: TAction;
     acNew: TAction;
     acPrint: TAction;
+    acWeekViewDays: TAction;
     ActionList1: TActionList;
     acWeekView: TAction;
     bDayView: TSpeedButton;
@@ -60,7 +61,9 @@ type
     bPrint: TSpeedButton;
     bToday: TSpeedButton;
     bWeekView: TSpeedButton;
+    bWeekView1: TSpeedButton;
     DayView: TVpDayView;
+    DayView1: TVpDayView;
     Label4: TLabel;
     Label5: TLabel;
     Label6: TLabel;
@@ -71,6 +74,7 @@ type
     Panel7: TPanel;
     Panel8: TPanel;
     pDayView: TPanel;
+    pWeekDayView: TPanel;
     sbMenue: TSpeedButton;
     ToolBar1: TPanel;
     WeekView: TVpWeekView;
@@ -78,6 +82,7 @@ type
     procedure acGotoTodayExecute(Sender: TObject);
     procedure acMonthViewExecute(Sender: TObject);
     procedure acNewExecute(Sender: TObject);
+    procedure acWeekViewDaysExecute(Sender: TObject);
     procedure acWeekViewExecute(Sender: TObject);
     procedure DataStoreDateChanged(Sender: TObject; Date: TDateTime);
     procedure DayViewOwnerEditEvent(Sender: TObject; Event: TVpEvent;
@@ -355,6 +360,7 @@ begin
   MonthView.Visible := False;
   WeekView.Visible := False;
   DayView.Date:=DataStore.Date;
+  pWeekDayView.Visible := False;
   if Sender <> nil then
     DataStoreDateChanged(DataStore,DataStore.Date);
 end;
@@ -371,6 +377,7 @@ begin
   MonthView.Visible := True;
   WeekView.Visible := False;
   MonthView.Date:=DataStore.Date;
+  pWeekDayView.Visible := False;
   if Sender <> nil then
     DataStoreDateChanged(DataStore,DataStore.Date);
 end;
@@ -389,12 +396,25 @@ begin
   aEventEdit.Free;
   DataStoreDateChanged(DataStore,DataStore.Date);
 end;
+
+procedure TfCalendarFrame.acWeekViewDaysExecute(Sender: TObject);
+begin
+  pDayView.Visible := False;
+  MonthView.Visible := False;
+  WeekView.Visible := False;
+  pWeekDayView.Visible := True;
+  WeekView.Date:=DataStore.Date;
+  if Sender <> nil then
+    DataStoreDateChanged(DataStore,DataStore.Date);
+end;
+
 procedure TfCalendarFrame.acWeekViewExecute(Sender: TObject);
 begin
   pDayView.Visible := False;
   MonthView.Visible := False;
   WeekView.Visible := True;
   WeekView.Date:=DataStore.Date;
+  pWeekDayView.Visible := False;
   if Sender <> nil then
     DataStoreDateChanged(DataStore,DataStore.Date);
 end;

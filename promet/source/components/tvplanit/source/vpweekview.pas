@@ -819,7 +819,7 @@ var
         TextRect.Left - TextMargin);
       end;
       SL := RenderCanvas.TextWidth(DayStr);
-      TextRect.Left := TextRect.Right - SL - TextMargin;
+      TextRect.Left := TextRect.Left + TextMargin;
       TPSTextOut (RenderCanvas, Angle, RenderIn,
                   TextRect.Left, TextRect.Top + TextMargin - 1, DayStr);
 
@@ -2003,4 +2003,4 @@ begin
 end;
 {=====}
 
-end.
+end.
