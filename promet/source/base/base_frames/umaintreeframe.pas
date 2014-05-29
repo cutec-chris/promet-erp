@@ -40,6 +40,7 @@ type
                  etMyCalendar,
                  etCalendarDepartment,
                  etCalendarUser,
+                 etCalendarDir,
                  etAttPlan,
                etMessages,etMessageDir,etMessageBoard,
                etTimeRegistering,
@@ -241,6 +242,8 @@ begin
         end;
       if ((DataT.Typ = etDir)
       or (DataT.Typ = etCustomers)
+      or (DataT.Typ = etCalendar)
+      or (DataT.Typ = etCalendarDir)
       or (DataT.Typ = etMasterdata)
       or (DataT.Typ = etProjects)
       or (DataT.Typ = etStatistics)
@@ -275,6 +278,7 @@ begin
       or (DataT.Typ = etMessageDir)
       or (DataT.Typ = etMessageBoard)
       or (DataT.Typ = etDocumentDir)
+      or (DataT.Typ = etCalendarDir)
       then
         begin
           New := TMenuItem.Create(pmTree);
@@ -291,6 +295,7 @@ begin
       or (DataT.Typ = etMessageBoard)
       or (DataT.Typ = etStatistic)
       or (DataT.Typ = etDocumentDir)
+      or (DataT.Typ = etCalendarDir)
       then
         begin
           New := TMenuItem.Create(pmTree);
@@ -475,20 +480,9 @@ var
 begin
   DataT := TTreeEntry(tvMain.Selected.Data);
   if not Assigned(DataT) then exit;
-  if  (DataT.Typ <> etDir)
-  and (DataT.Typ <> etCustomers)
-  and (DataT.Typ <> etMessageDir)
-  and (DataT.Typ <> etMessageBoard)
-  and (DataT.Typ <> etDocumentDir)
-  then exit;
   Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
-  if (DataT.Typ = etDir)
-  or (DataT.Typ = etMessageDir)
-  or (DataT.Typ = etMessageBoard)
-  or (DataT.Typ = etDocumentDir)
-  then
+  if Data.GotoBookmark(Data.Tree,DataT.Rec) then
     begin
-      Data.GotoBookmark(Data.Tree,DataT.Rec);
       s := InputBox(strRename,strNewName,Data.Tree.FieldByName('NAME').AsString);
       aTree := TTree.Create(Self,Data);
       Data.SetFilter(aTree,'');
@@ -593,6 +587,14 @@ begin
     begin
       ParentID := '0';
       Typ := 'S';
+    end
+  else if (DataT.Typ = etCalendarDir)
+       or (DataT.Typ = etCalendar)
+       then
+    begin
+      ParentID := '0';
+      Typ := 'A';
+      NewTyp := etCalendarDir;
     end
   else if (DataT.Typ = etFavourites) then
     begin
@@ -760,11 +762,6 @@ begin
   aNode := tvMain.Selected;
   DataT := TTreeEntry(tvMain.Selected.Data);
   if not Assigned(DataT) then exit;
-  if (DataT.Typ <> etDir)
-  and (DataT.Typ <> etMessageDir)
-  and (DataT.Typ <> etMessageBoard)
-  and (DataT.Typ <> etDocumentDir)
-  then exit;
   if MessageDlg(strRealdelete,mtInformation,[mbYes,mbNo],0) = mrYes then
     begin
       aTree := TTree.Create(Self,Data);
@@ -977,7 +974,7 @@ begin
     etDir,etDocumentDir:aImageIndex := IMAGE_FOLDER;
     etCustomers:aImageIndex := IMAGE_PERSON;
     etCustomer,etEmployee:aImageIndex := IMAGE_PERSON;
-    etCalendarUser,etMyCalendar:aImageIndex:=105;
+    etCalendarUser,etMyCalendar,etCalendarDir:aImageIndex:=105;
     etTaskUser:aImageIndex:=IMAGE_TASK;
     etArticle:aImageIndex := IMAGE_MASTERDATA;
     etSupplier:aImageIndex := IMAGE_SUPPLIER;
@@ -1735,6 +1732,7 @@ begin
   or (DataT.Typ = etDocumentDir)
   or (DataT.Typ = etMessageDir)
   or (DataT.Typ = etMessageBoard)
+  or (DataT.Typ = etCalendarDir)
   then
     begin
       Data.SetFilter(Data.Tree,'',0,'','DESC',False,True,True);

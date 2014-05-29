@@ -260,6 +260,18 @@ begin
         begin
           CollectUsers(Data.Users.FieldByName('PARENT').AsVariant);
         end;
+      Data.SetFilter(Data.Tree,'(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('A')+'))',0,'','ASC',False,True,True);
+      Data.Tree.DataSet.First;
+      while not Data.Tree.dataSet.EOF do
+        begin
+          Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
+          TTreeEntry(Node1.Data).Rec := Data.GetBookmark(Data.Tree);
+          TTreeEntry(Node1.Data).DataSource := Data.Tree;
+          TTreeEntry(Node1.Data).Text[0] := Data.Tree.FieldByName('NAME').AsString;
+          TTreeEntry(Node1.Data).Typ := etCalendarDir;
+          fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'',TTreeEntry.Create);
+          Data.Tree.DataSet.Next;
+        end;
     end;
 end;
 
