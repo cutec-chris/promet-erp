@@ -1059,6 +1059,7 @@ var
       HeadRect.Top := RealTop + 1;
       HeadRect.Right := RealRight - 1;
       HeadRect.Bottom := HeadRect.Top + wvHeaderHeight;
+      TPSFillRect (RenderCanvas, Angle, RenderIn, HeadRect);
     end;
 
     { build header caption }

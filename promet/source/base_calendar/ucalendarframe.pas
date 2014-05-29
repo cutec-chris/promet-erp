@@ -409,14 +409,20 @@ begin
 end;
 
 procedure TfCalendarFrame.acWeekViewExecute(Sender: TObject);
+var
+  Year: Word;
+  Month: Word;
+  Week: Word;
+  Day: Word;
 begin
   pDayView.Visible := False;
   MonthView.Visible := False;
   WeekView.Visible := True;
   WeekView.Date:=DataStore.Date;
   pWeekDayView.Visible := False;
+  DecodeDateMonthWeek(DataStore.Date,Year,Month,Week,Day);
   if Sender <> nil then
-    DataStoreDateChanged(DataStore,DataStore.Date);
+    DataStoreDateChanged(DataStore,EncodeDateMonthWeek(Year,Month,Week,2));
 end;
 constructor TfCalendarFrame.Create(AOwner: TComponent);
 begin
@@ -428,11 +434,12 @@ begin
   DataStore.OnDateChanged:=@DataStoreDateChanged;
   DayView.DrawingStyle:=dsFlat;
   DayView.TimeFormat := tf24Hour;
-  WeekView.DrawingStyle:=dsNone;
+  //WeekView.DrawingStyle:=dsNone;
   WeekView.TimeFormat := tf24Hour;
-  MonthView.DrawingStyle:=dsNone;
+  //MonthView.DrawingStyle:=dsNone;
   MonthView.TimeFormat := tf24Hour;
   DayView.DataStore := DataStore;
+  DayView1.DataStore := DataStore;
   WeekView.DataStore := DataStore;
   MonthView.DataStore := DataStore;
   DataStore.Resource := TVpResource.Create(DataStore.Resources);

@@ -335,11 +335,12 @@ inherited FCalendarFrame: TFCalendarFrame
         object bWeekView: TSpeedButton
           Left = 85
           Height = 25
+          Hint = 'zeigt die Wochenansicht in Tagen'
           Top = 15
           Width = 25
-          Action = acWeekViewDays
           AllowAllUp = True
           BorderSpacing.InnerBorder = 2
+          Caption = 'acWeekViewDays'
           Glyph.Data = {
             36040000424D3604000000000000360000002800000010000000100000000100
             2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -378,7 +379,7 @@ inherited FCalendarFrame: TFCalendarFrame
           }
           GroupIndex = 22
           Layout = blGlyphTop
-          OnClick = acWeekViewExecute
+          OnClick = acWeekViewDaysExecute
           ShowCaption = False
         end
         object bMonthView: TSpeedButton
@@ -566,38 +567,6 @@ inherited FCalendarFrame: TFCalendarFrame
         end
       end
     end
-    object WeekView: TVpWeekView
-      Left = 0
-      Height = 430
-      Top = 44
-      Width = 663
-      Color = 14548991
-      Font.Height = -12
-      ParentFont = False
-      OnMouseWheel = WeekViewMouseWheel
-      AllDayEventAttributes.BackgroundColor = clWindow
-      AllDayEventAttributes.EventBorderColor = clActiveBorder
-      AllDayEventAttributes.EventBackgroundColor = cl3DLight
-      AllDayEventAttributes.Font.Height = -12
-      Align = alClient
-      TabStop = True
-      TabOrder = 0
-      DateLabelFormat = 'dddd, dd.mm.yyyy'
-      DayHeadAttributes.Color = clInactiveBorder
-      DayHeadAttributes.DateFormat = 'dddd mmmm, dd'
-      DayHeadAttributes.Font.Height = -14
-      DayHeadAttributes.Font.Name = 'Default'
-      DayHeadAttributes.Bordered = False
-      DrawingStyle = dsFlat
-      EventFont.Height = -12
-      HeadAttributes.Font.Height = -14
-      HeadAttributes.Color = clWindow
-      LineColor = clActiveBorder
-      TimeFormat = tf24Hour
-      ShowEventTime = True
-      WeekStartsOn = dtMonday
-      OnOwnerEditEvent = DayViewOwnerEditEvent
-    end
     object MonthView: TVpMonthView
       Left = 0
       Height = 430
@@ -693,6 +662,7 @@ inherited FCalendarFrame: TFCalendarFrame
       Color = 14548991
       ParentColor = False
       TabOrder = 4
+      Visible = False
       object DayView1: TVpDayView
         Left = 1
         Height = 428
@@ -735,6 +705,38 @@ inherited FCalendarFrame: TFCalendarFrame
         NumDays = 6
         OnOwnerEditEvent = DayViewOwnerEditEvent
       end
+    end
+    object WeekView: TVpWeekView
+      Left = 0
+      Height = 430
+      Top = 44
+      Width = 663
+      Color = 14548991
+      Font.Height = -12
+      ParentFont = False
+      OnMouseWheel = WeekViewMouseWheel
+      AllDayEventAttributes.BackgroundColor = clWindow
+      AllDayEventAttributes.EventBorderColor = clActiveBorder
+      AllDayEventAttributes.EventBackgroundColor = cl3DLight
+      AllDayEventAttributes.Font.Height = -12
+      Align = alClient
+      TabStop = True
+      TabOrder = 0
+      DateLabelFormat = 'dddd, dd.mm.yyyy'
+      DayHeadAttributes.Color = clInactiveBorder
+      DayHeadAttributes.DateFormat = 'dddd mmmm, dd'
+      DayHeadAttributes.Font.Height = -14
+      DayHeadAttributes.Font.Name = 'Default'
+      DayHeadAttributes.Bordered = False
+      DrawingStyle = dsNone
+      EventFont.Height = -12
+      HeadAttributes.Font.Height = -14
+      HeadAttributes.Color = clWindow
+      LineColor = clActiveBorder
+      TimeFormat = tf24Hour
+      ShowEventTime = True
+      WeekStartsOn = dtMonday
+      OnOwnerEditEvent = DayViewOwnerEditEvent
     end
   end
   object ActionList1: TActionList[1]
