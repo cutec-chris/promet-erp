@@ -300,7 +300,7 @@ begin
         begin
           New := TMenuItem.Create(pmTree);
           New.Action := acRights;
-          acRights.Enabled:= (((DataT.Typ = etMessageDir) or (DataT.Typ = etMessageBoard) or (DataT.Typ = etStatistic)) and (Data.Users.Rights.Right('TREE') >= RIGHT_PERMIT))
+          acRights.Enabled:= ((Data.Users.Rights.Right('TREE') >= RIGHT_PERMIT))
              or (DataT.Typ = etFavourites) or (Typ='F')
              or ((DataT.Typ = etStatistic)  and (Data.Users.Rights.Right('STATISTICS') >= RIGHT_PERMIT))
              ;
@@ -511,6 +511,7 @@ begin
   if (DataT.Typ = etDir)
   or (DataT.Typ = etMessageDir)
   or (DataT.Typ = etMessageBoard)
+  or (DataT.Typ = etCalendarDir)
   or (DataT.Typ = etDocumentDir)
   then
     begin
