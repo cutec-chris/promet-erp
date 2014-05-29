@@ -2866,6 +2866,10 @@ var
     Skip               : Boolean;
     ADTextHeight       : Integer;
     EventStr           : string;
+    I2: Integer;
+    DI: Integer;
+    AllDayWidth: Integer;
+    OldTop: LongInt;
 
   begin
     if (DataStore = nil) or (DataStore.Resource = nil) then
@@ -2874,6 +2878,10 @@ var
     { Collect all of the events for this range and determine the maximum     }
     { number of all day events for the range of days covered by the control. }
     MaxADEvents := 0;
+
+    AllDayWidth := RealWidth - RealRowHeadWidth - 1 - ScrollBarOffset;
+
+    DayWidth := AllDayWidth div FNumDays;
 
     ADEventsList := TList.Create;
     try
@@ -2914,12 +2922,17 @@ var
       end;
 
       if MaxADEvents > 0 then begin
-        { Set attributes }
-        RenderCanvas.Brush.Color := RealADEventBkgColor;                 
+
+        RenderCanvas.Brush.Color := RealADEventBkgColor;
         RenderCanvas.Font.Assign (AllDayEventAttributes.Font);
 
         { Measure the AllDayEvent TextHeight }
         ADTextHeight := RenderCanvas.TextHeight(VpProductName) + TextMargin;
+
+        { set the top of the event's rect }
+        OldTop := ADEventsRect.Top;
+        AdEventRect.Top := OldTop + TextMargin
+                    + (I  * ADTextHeight);
 
         { Build the AllDayEvent rect based on the value of MaxADEvents }
         ADEventsRect.Bottom := AdEventsRect.Top
@@ -2928,50 +2941,62 @@ var
         { Clear the AllDayEvents area }
         TpsFillRect(RenderCanvas, Angle, RenderIn, ADEventsRect);
 
-        StartsBeforeRange  := false;
-        { Cycle through the all day events and draw them appropriately }
-        for I := 0 to pred(ADEventsList.Count) do begin
+        for I := 0 to pred(RealNumDays) do begin
+          { Set attributes }
 
-          Event := ADEventsList[I];
+          StartsBeforeRange  := false;
+          DI := 0;
+          { Cycle through the all day events and draw them appropriately }
+          for I2 := 0 to pred(ADEventsList.Count) do begin
 
-          { set the top of the event's rect }
-          AdEventRect.Top := ADEventsRect.Top + TextMargin
-            + (I  * ADTextHeight);
+            Event := ADEventsList[I2];
 
-          { see if the event began before the start of the range }
-          if (Event.StartTime < trunc(RenderDate)) then
-            StartsBeforeRange := true;
+            if (trunc(Event.StartTime)<=(trunc(RenderDate)+I))
+            and (trunc(Event.EndTime)>=(trunc(RenderDate)+I)) then
+              begin
 
-          AdEventRect.Bottom := ADEventRect.Top + ADTextHeight;
-          AdEventRect.Left := AdEventsRect.Left + (TextMargin div 2);
-          AdEventRect.Right := RealRight;                                
+                { set the top of the event's rect }
+                AdEventRect.Top := OldTop + TextMargin
+                  + (DI  * ADTextHeight);
 
-          if (StartsBeforeRange) then
-            EventStr := '>> '
-          else
-            EventStr := '';
+                inc(DI);
 
-          EventStr := EventStr + Event.Description;
+                { see if the event began before the start of the range }
+                if (Event.StartTime < trunc(RenderDate)) then
+                  StartsBeforeRange := true;
 
-          RenderCanvas.Brush.Color := ADEventAttrBkgColor;               
-          RenderCanvas.Pen.Color := ADEventBorderColor;                  
-          TPSRectangle (RenderCanvas, Angle, RenderIn,
-                        ADEventRect.Left + TextMargin,
-                        ADEventRect.Top + TextMargin div 2,
-                        ADEventRect.Right - TextMargin,
-                        ADEventRect.Top + ADTextHeight + TextMargin div 2);
-          TPSTextOut (RenderCanvas,Angle, RenderIn,
-                      AdEventRect.Left + TextMargin * 2 + TextMargin div 2,
-                      AdEventRect.Top + TextMargin div 2,
-                      EventStr);
+                AdEventRect.Bottom := ADEventRect.Top + ADTextHeight;
+                AdEventRect.Left := AdEventsRect.Left + (DayWidth*I) + (TextMargin div 2);
+                AdEventRect.Right := AdEventRect.Left+DayWidth;
 
-          dvEventArray[EventCount].Rec := Rect (ADEventRect.Left,
-                                                ADEventRect.Top - 2,
-                                                ADEventRect.Right - TextMargin,
-                                                ADEventRect.Bottom);
-          dvEventArray[EventCount].Event := Event;
-          Inc (EventCount);
-        end; { for I := 0 to pred(ADEventsList.Count) do ... }
+                if (StartsBeforeRange) then
+                  EventStr := '>> '
+                else
+                  EventStr := '';
+
+                EventStr := EventStr + Event.Description;
+
+                RenderCanvas.Brush.Color := ADEventAttrBkgColor;
+                RenderCanvas.Pen.Color := ADEventBorderColor;
+                TPSRectangle (RenderCanvas, Angle, RenderIn,
+                              ADEventRect.Left + TextMargin,
+                              ADEventRect.Top + TextMargin div 2,
+                              ADEventRect.Right - TextMargin,
+                              ADEventRect.Top + ADTextHeight + TextMargin div 2);
+                TPSTextOut (RenderCanvas,Angle, RenderIn,
+                            AdEventRect.Left + TextMargin * 2 + TextMargin div 2,
+                            AdEventRect.Top + TextMargin div 2,
+                            EventStr);
+
+                dvEventArray[EventCount].Rec := Rect (ADEventRect.Left,
+                                                      ADEventRect.Top - 2,
+                                                      ADEventRect.Right - TextMargin,
+                                                      ADEventRect.Bottom);
+                dvEventArray[EventCount].Event := Event;
+                Inc (EventCount);
+              end;
+          end; { for I2 := 0 to pred(ADEventsList.Count) do ... }
+        end;
 
       end;   { if MaxADEvents > 0 }
 
@@ -4406,7 +4431,7 @@ begin
       dvDrawRowHeader (RowHeadRect);
 
     { Draw the regular events }
-    DrawAllDays; 
+    DrawAllDays;
 
     { Draw Borders }
     if FDrawingStyle = dsFlat then begin
@@ -4589,4 +4614,4 @@ begin
 end;
 {=====}
 
-end.
+end.

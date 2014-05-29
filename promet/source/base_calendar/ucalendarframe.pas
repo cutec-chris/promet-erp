@@ -110,7 +110,7 @@ type
 procedure RefreshCalendar(FNode :TTreeNode);
 procedure AddToMainTree(aAction : TAction;var FCalendarNode : TTreeNode);
 implementation
-uses uData, uMainTreeFrame, Math, uEventEdit, VpConst,uBaseDbClasses;
+uses uData, uMainTreeFrame, Math, uEventEdit, VpConst,uBaseDbClasses,Graphics;
 resourcestring
   strEventsThisWeek             = 'diese Woche: %d';
 procedure RefreshCalendar(FNode: TTreeNode);
@@ -501,6 +501,7 @@ var
   Event: TVpEvent;
 begin
   if not DataSet.DataSet.Active then exit;
+  Data.SetFilter(Data.Categories,Data.QuoteField('TYPE')+'='+Data.QuoteValue('C'));
   with Dataset.DataSet do
     begin
       First;
@@ -536,6 +537,9 @@ begin
               Event.CustInterval := FieldByName('ROTCUS').AsInteger;
               Event.Location:= FieldByName('LOCATION').AsString;
               Event.StrCategory:= FieldByName('CATEGORY').AsString;
+              if Data.Categories.Locate('NAME',Event.StrCategory,[]) and (Data.Categories.FieldByName('COLOR').AsString<>'') then
+                Event.Color:=StringToColor(Data.Categories.FieldByName('COLOR').AsString)
+              else Event.Color:=clNone;
               Event.Changed:=False;
               Event.Loading := false;
             end;
@@ -614,6 +618,9 @@ begin
                     FieldByName('ROTCUS').AsInteger := Event.CustInterval;
                     FieldByName('LOCATION').AsString := Event.Location;
                     FieldByName('CATEGORY').AsString:=Event.StrCategory;
+                    if Data.Categories.Locate('NAME',Event.StrCategory,[]) and (Data.Categories.FieldByName('COLOR').AsString<>'') then
+                      Event.Color:=StringToColor(Data.Categories.FieldByName('COLOR').AsString)
+                    else Event.Color:=clNone;
                     Post;
                   except
                     Cancel;

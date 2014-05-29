@@ -39,7 +39,7 @@ uses
   {$ELSE}
   Windows,
   {$ENDIF}
-  SysUtils, Classes,
+  SysUtils, Classes,Graphics,
   {$IFDEF VERSION6} Types, {$ENDIF}
   VpBase, VpSR, VpConst, Dialogs;
 
@@ -189,6 +189,7 @@ type
 
   TVpEvent = class
   private
+    FColor: TColor;
     FLocation: string;
     FStrCategory: String;
     procedure SetCategory(AValue: String);
@@ -275,6 +276,7 @@ type
     property CustInterval : Integer read FCustInterval write SetCustInterval;
     property Owner: TVpSchedule read FOwner;
     property Location: string read FLocation write FLocation;
+    property Color : TColor read FColor write FColor;
     { Reserved for your use }
     property UserField0: string read FUserField0 write FUserField0;
     property UserField1: string read FUserField1 write FUserField1;
@@ -2305,4 +2307,4 @@ begin
 end;
 {=====}
 
-end.
+end.
