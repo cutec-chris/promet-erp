@@ -1772,6 +1772,13 @@ begin
               if bTree.Count>0 then
                 tvMain.Items.AddChild(Node1,'');
             end
+          else if Typ = 'A' then
+            begin
+              TTreeEntry(Node1.Data).Typ := etCalendarDir;
+              bTree.Filter(Data.QuoteField('PARENT')+'='+Data.QuoteValue(Data.Tree.Id.AsVariant));
+              if bTree.Count>0 then
+                tvMain.Items.AddChild(Node1,'');
+            end
           else
             begin
               TTreeEntry(Node1.Data).Typ := etDir;
