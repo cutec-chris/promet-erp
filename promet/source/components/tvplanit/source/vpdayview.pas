@@ -3740,30 +3740,35 @@ begin
       { Draw the event rectangle }
       { paint Event text area clWindow                        }
       if Assigned (DataStore) then                                       
-        case Event.Category of                                           
-          0 : RenderCanvas.Brush.Color :=                                
-                  DataStore.CategoryColorMap.Category0.BackgroundColor;  
-          1 : RenderCanvas.Brush.Color :=                                
-                  DataStore.CategoryColorMap.Category1.BackgroundColor;  
-          2 : RenderCanvas.Brush.Color :=                                
-                  DataStore.CategoryColorMap.Category2.BackgroundColor;  
-          3 : RenderCanvas.Brush.Color :=                                
-                  DataStore.CategoryColorMap.Category3.BackgroundColor;  
-          4 : RenderCanvas.Brush.Color :=                                
-                  DataStore.CategoryColorMap.Category4.BackgroundColor;  
-          5 : RenderCanvas.Brush.Color :=                                
-                  DataStore.CategoryColorMap.Category5.BackgroundColor;  
-          6 : RenderCanvas.Brush.Color :=                                
-                  DataStore.CategoryColorMap.Category6.BackgroundColor;  
-          7 : RenderCanvas.Brush.Color :=                                
-                  DataStore.CategoryColorMap.Category7.BackgroundColor;  
-          8 : RenderCanvas.Brush.Color :=                                
-                  DataStore.CategoryColorMap.Category8.BackgroundColor;  
-          9 : RenderCanvas.Brush.Color :=                                
-                  DataStore.CategoryColorMap.Category9.BackgroundColor;  
-          else                                                           
-            RenderCanvas.Brush.Color := WindowColor;                     
-        end                                                              
+        if Event.Color<>clNone then
+          RenderCanvas.Brush.Color := Event.Color
+        else
+          begin
+            case Event.Category of
+              0 : RenderCanvas.Brush.Color :=
+                      DataStore.CategoryColorMap.Category0.BackgroundColor;
+              1 : RenderCanvas.Brush.Color :=
+                      DataStore.CategoryColorMap.Category1.BackgroundColor;
+              2 : RenderCanvas.Brush.Color :=
+                      DataStore.CategoryColorMap.Category2.BackgroundColor;
+              3 : RenderCanvas.Brush.Color :=
+                      DataStore.CategoryColorMap.Category3.BackgroundColor;
+              4 : RenderCanvas.Brush.Color :=
+                      DataStore.CategoryColorMap.Category4.BackgroundColor;
+              5 : RenderCanvas.Brush.Color :=
+                      DataStore.CategoryColorMap.Category5.BackgroundColor;
+              6 : RenderCanvas.Brush.Color :=
+                      DataStore.CategoryColorMap.Category6.BackgroundColor;
+              7 : RenderCanvas.Brush.Color :=
+                      DataStore.CategoryColorMap.Category7.BackgroundColor;
+              8 : RenderCanvas.Brush.Color :=
+                      DataStore.CategoryColorMap.Category8.BackgroundColor;
+              9 : RenderCanvas.Brush.Color :=
+                      DataStore.CategoryColorMap.Category9.BackgroundColor;
+              else
+                RenderCanvas.Brush.Color := WindowColor;
+          end;
+        end
       else                                                               
         RenderCanvas.Brush.Color := WindowColor;
       TPSFillRect (RenderCanvas, Angle, RenderIn, EventRect);

@@ -884,7 +884,7 @@
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="60" Y="25"/>
+        <CursorPos X="106" Y="10"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -910,7 +910,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="25"/>
         <CursorPos X="30" Y="42"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="16"/>
         <Loaded Value="True"/>
       </Unit51>
       <Unit52>
@@ -939,9 +939,9 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="4421"/>
-        <CursorPos X="3" Y="4434"/>
-        <FoldState Value=" T3iyX291 pj8jL2{Y033]CPrY462 plbm74b2]I0w32{! T0i$1Z{co"/>
+        <TopLine Value="3742"/>
+        <CursorPos X="35" Y="3765"/>
+        <FoldState Value=" T3iyX291 pj8jL2{Y033]CPrY462 plbm74b2]I0w82{! T0i$1Z{cS"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit54>
@@ -949,123 +949,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
-        <Caret Line="2958" Column="1" TopLine="2930"/>
+        <Caret Line="2965" Column="1" TopLine="2955"/>
       </Position1>
       <Position2>
         <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
-        <Caret Line="2961" Column="1" TopLine="2933"/>
+        <Caret Line="2968" Column="1" TopLine="2955"/>
       </Position2>
       <Position3>
         <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
-        <Caret Line="2962" Column="1" TopLine="2934"/>
+        <Caret Line="2970" Column="1" TopLine="2955"/>
       </Position3>
       <Position4>
         <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
-        <Caret Line="2963" Column="1" TopLine="2935"/>
+        <Caret Line="2972" Column="1" TopLine="2955"/>
       </Position4>
       <Position5>
         <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
-        <Caret Line="2965" Column="1" TopLine="2955"/>
+        <Caret Line="2973" Column="1" TopLine="2955"/>
       </Position5>
       <Position6>
         <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
-        <Caret Line="2968" Column="1" TopLine="2955"/>
+        <Caret Line="2977" Column="1" TopLine="2955"/>
       </Position6>
       <Position7>
         <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
-        <Caret Line="2970" Column="1" TopLine="2955"/>
+        <Caret Line="2974" Column="1" TopLine="2955"/>
       </Position7>
       <Position8>
         <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
-        <Caret Line="2972" Column="1" TopLine="2955"/>
+        <Caret Line="2947" Column="1" TopLine="2930"/>
       </Position8>
       <Position9>
         <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
-        <Caret Line="2973" Column="1" TopLine="2955"/>
+        <Caret Line="2948" Column="1" TopLine="2930"/>
       </Position9>
       <Position10>
         <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
-        <Caret Line="2977" Column="1" TopLine="2955"/>
+        <Caret Line="2953" Column="1" TopLine="2930"/>
       </Position10>
       <Position11>
         <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
-        <Caret Line="2974" Column="1" TopLine="2955"/>
+        <Caret Line="2952" Column="1" TopLine="2930"/>
       </Position11>
       <Position12>
         <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
-        <Caret Line="2947" Column="1" TopLine="2930"/>
+        <Caret Line="2953" Column="1" TopLine="2930"/>
       </Position12>
       <Position13>
         <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
-        <Caret Line="2948" Column="1" TopLine="2930"/>
+        <Caret Line="2952" Column="1" TopLine="2930"/>
       </Position13>
       <Position14>
         <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
-        <Caret Line="2953" Column="1" TopLine="2930"/>
+        <Caret Line="2955" Column="1" TopLine="2930"/>
       </Position14>
       <Position15>
         <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
-        <Caret Line="2952" Column="1" TopLine="2930"/>
+        <Caret Line="2958" Column="1" TopLine="2930"/>
       </Position15>
       <Position16>
         <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
-        <Caret Line="2953" Column="1" TopLine="2930"/>
+        <Caret Line="2961" Column="1" TopLine="2933"/>
       </Position16>
       <Position17>
         <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
-        <Caret Line="2952" Column="1" TopLine="2930"/>
+        <Caret Line="2962" Column="1" TopLine="2934"/>
       </Position17>
       <Position18>
         <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
-        <Caret Line="2955" Column="1" TopLine="2930"/>
+        <Caret Line="2963" Column="1" TopLine="2959"/>
       </Position18>
       <Position19>
         <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
-        <Caret Line="2958" Column="1" TopLine="2930"/>
+        <Caret Line="2974" Column="1" TopLine="2938"/>
       </Position19>
       <Position20>
         <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
-        <Caret Line="2961" Column="1" TopLine="2933"/>
+        <Caret Line="2955" Column="1" TopLine="2935"/>
       </Position20>
       <Position21>
         <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
-        <Caret Line="2962" Column="1" TopLine="2934"/>
+        <Caret Line="2958" Column="1" TopLine="2935"/>
       </Position21>
       <Position22>
         <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
-        <Caret Line="2963" Column="1" TopLine="2959"/>
+        <Caret Line="2961" Column="1" TopLine="2941"/>
       </Position22>
       <Position23>
         <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
-        <Caret Line="2974" Column="1" TopLine="2938"/>
+        <Caret Line="2928" Column="1" TopLine="2915"/>
       </Position23>
       <Position24>
         <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
-        <Caret Line="2955" Column="1" TopLine="2935"/>
+        <Caret Line="2934" Column="1" TopLine="2915"/>
       </Position24>
       <Position25>
         <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
-        <Caret Line="2958" Column="1" TopLine="2935"/>
+        <Caret Line="2935" Column="1" TopLine="2915"/>
       </Position25>
       <Position26>
         <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
-        <Caret Line="2961" Column="1" TopLine="2941"/>
+        <Caret Line="2934" Column="1" TopLine="2915"/>
       </Position26>
       <Position27>
         <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
-        <Caret Line="2928" Column="1" TopLine="2915"/>
+        <Caret Line="3769" Column="3" TopLine="3736"/>
       </Position27>
       <Position28>
         <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
-        <Caret Line="2934" Column="1" TopLine="2915"/>
+        <Caret Line="3744" Column="25" TopLine="3736"/>
       </Position28>
       <Position29>
         <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
-        <Caret Line="2935" Column="1" TopLine="2915"/>
+        <Caret Line="3761" Column="1" TopLine="3736"/>
       </Position29>
       <Position30>
         <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
-        <Caret Line="2934" Column="1" TopLine="2915"/>
+        <Caret Line="3760" Column="1" TopLine="3736"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
