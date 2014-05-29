@@ -60,8 +60,8 @@ type
     bNew: TSpeedButton;
     bPrint: TSpeedButton;
     bToday: TSpeedButton;
+    bWeekViewDay: TSpeedButton;
     bWeekView: TSpeedButton;
-    bWeekView1: TSpeedButton;
     DayView: TVpDayView;
     DayView1: TVpDayView;
     Label4: TLabel;
@@ -297,6 +297,8 @@ begin
   else if MonthView.Visible then
     aFilter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+' AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheMonth(Date)+7)+') AND (("ENDDATE" > '+Data.DateToFilter(StartOfTheMonth(Date)-7)+') OR ("ROTATION" > 0))'
   else if WeekView.Visible then
+    aFilter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+' AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheWeek(Date)+1)+') AND ("ENDDATE" > '+Data.DateToFilter(StartOfTheWeek(Date)-1)+' OR "ROTATION" > 0)'
+  else if pWeekDayView.Visible then
     aFilter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+' AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheWeek(Date)+1)+') AND ("ENDDATE" > '+Data.DateToFilter(StartOfTheWeek(Date)-1)+' OR "ROTATION" > 0)';
   with DataSet.DataSet as IBaseDbFilter do
     bFilter := Filter;
@@ -320,8 +322,8 @@ end;
 
 procedure TfCalendarFrame.MonthViewDblClick(Sender: TObject);
 begin
-  bWeekView.Down:=True;
-  bWeekView.Click;
+  bWeekViewDay.Down:=True;
+  bWeekViewDay.Click;
 end;
 
 procedure TfCalendarFrame.MonthViewEventDblClick(Sender: TObject;
@@ -368,7 +370,7 @@ procedure TfCalendarFrame.acGotoTodayExecute(Sender: TObject);
 begin
   DataStore.Date:=Now();
   if bDayView.Down then bDayView.OnClick(Self);
-  if bWeekView.Down then bWeekView.OnClick(Self);
+  if bWeekViewDay.Down then bWeekViewDay.OnClick(Self);
   if bMonthView.Down then bMonthView.OnClick(Self);
 end;
 procedure TfCalendarFrame.acMonthViewExecute(Sender: TObject);
@@ -398,17 +400,6 @@ begin
 end;
 
 procedure TfCalendarFrame.acWeekViewDaysExecute(Sender: TObject);
-begin
-  pDayView.Visible := False;
-  MonthView.Visible := False;
-  WeekView.Visible := False;
-  pWeekDayView.Visible := True;
-  WeekView.Date:=DataStore.Date;
-  if Sender <> nil then
-    DataStoreDateChanged(DataStore,DataStore.Date);
-end;
-
-procedure TfCalendarFrame.acWeekViewExecute(Sender: TObject);
 var
   Year: Word;
   Month: Word;
@@ -417,12 +408,24 @@ var
 begin
   pDayView.Visible := False;
   MonthView.Visible := False;
+  WeekView.Visible := False;
+  pWeekDayView.Visible := True;
+  WeekView.Date:=DataStore.Date;
+  DecodeDateMonthWeek(DataStore.Date,Year,Month,Week,Day);
+  if Sender <> nil then
+    DataStoreDateChanged(DataStore,EncodeDateMonthWeek(Year,Month,Week,1));
+  DayView1.Date:=EncodeDateMonthWeek(Year,Month,Week,1);
+end;
+
+procedure TfCalendarFrame.acWeekViewExecute(Sender: TObject);
+begin
+  pDayView.Visible := False;
+  MonthView.Visible := False;
   WeekView.Visible := True;
   WeekView.Date:=DataStore.Date;
   pWeekDayView.Visible := False;
-  DecodeDateMonthWeek(DataStore.Date,Year,Month,Week,Day);
   if Sender <> nil then
-    DataStoreDateChanged(DataStore,EncodeDateMonthWeek(Year,Month,Week,2));
+    DataStoreDateChanged(DataStore,DataStore.Date);
 end;
 constructor TfCalendarFrame.Create(AOwner: TComponent);
 begin
