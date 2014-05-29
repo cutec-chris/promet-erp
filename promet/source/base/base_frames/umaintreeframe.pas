@@ -553,6 +553,7 @@ begin
   if (DataT.Typ = etDir)
   or (DataT.Typ = etMessageDir)
   or (DataT.Typ = etMessageBoard)
+  or (DataT.Typ = etCalendarDir)
   then
     begin
       Data.GotoBookmark(Data.Tree,DataT.Rec);
@@ -589,8 +590,7 @@ begin
       ParentID := '0';
       Typ := 'S';
     end
-  else if (DataT.Typ = etCalendarDir)
-       or (DataT.Typ = etCalendar)
+  else if (DataT.Typ = etCalendar)
        then
     begin
       ParentID := '0';

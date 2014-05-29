@@ -894,9 +894,9 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="503"/>
-        <CursorPos X="32" Y="514"/>
-        <UsageCount Value="11"/>
+        <TopLine Value="551"/>
+        <CursorPos X="32" Y="562"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit50>
@@ -904,123 +904,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="../base/base_frames/umaintreeframe.pas"/>
-        <Caret Line="776" Column="1" TopLine="766"/>
+        <Caret Line="938" Column="18" TopLine="910"/>
       </Position1>
       <Position2>
-        <Filename Value="umain.pas"/>
-        <Caret Line="3214" Column="7" TopLine="3199"/>
+        <Filename Value="../base/base_frames/umaintreeframe.pas"/>
+        <Caret Line="943" Column="18" TopLine="915"/>
       </Position2>
       <Position3>
-        <Filename Value="umain.pas"/>
-        <Caret Line="3382" Column="50" TopLine="3354"/>
+        <Filename Value="../base/base_frames/umaintreeframe.pas"/>
+        <Caret Line="948" Column="18" TopLine="920"/>
       </Position3>
       <Position4>
         <Filename Value="../base/base_frames/umaintreeframe.pas"/>
-        <Caret Line="414" Column="35" TopLine="397"/>
+        <Caret Line="953" Column="18" TopLine="925"/>
       </Position4>
       <Position5>
         <Filename Value="../base/base_frames/umaintreeframe.pas"/>
-        <Caret Line="838" Column="14" TopLine="808"/>
+        <Caret Line="958" Column="18" TopLine="930"/>
       </Position5>
       <Position6>
         <Filename Value="../base/base_frames/umaintreeframe.pas"/>
-        <Caret Line="892" Column="14" TopLine="864"/>
+        <Caret Line="963" Column="18" TopLine="935"/>
       </Position6>
       <Position7>
         <Filename Value="../base/base_frames/umaintreeframe.pas"/>
-        <Caret Line="898" Column="18" TopLine="870"/>
+        <Caret Line="968" Column="18" TopLine="940"/>
       </Position7>
       <Position8>
         <Filename Value="../base/base_frames/umaintreeframe.pas"/>
-        <Caret Line="903" Column="18" TopLine="875"/>
+        <Caret Line="972" Column="17" TopLine="944"/>
       </Position8>
       <Position9>
-        <Filename Value="../base/base_frames/umaintreeframe.pas"/>
-        <Caret Line="908" Column="18" TopLine="880"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="2488" Column="34" TopLine="2449"/>
       </Position9>
       <Position10>
-        <Filename Value="../base/base_frames/umaintreeframe.pas"/>
-        <Caret Line="913" Column="18" TopLine="885"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="2448" Column="39" TopLine="2431"/>
       </Position10>
       <Position11>
         <Filename Value="../base/base_frames/umaintreeframe.pas"/>
-        <Caret Line="918" Column="18" TopLine="890"/>
+        <Caret Line="977" Column="46" TopLine="967"/>
       </Position11>
       <Position12>
         <Filename Value="../base/base_frames/umaintreeframe.pas"/>
-        <Caret Line="923" Column="18" TopLine="895"/>
+        <Caret Line="1735" Column="32" TopLine="1712"/>
       </Position12>
       <Position13>
         <Filename Value="../base/base_frames/umaintreeframe.pas"/>
-        <Caret Line="928" Column="18" TopLine="900"/>
+        <Caret Line="4" Column="82" TopLine="1"/>
       </Position13>
       <Position14>
         <Filename Value="../base/base_frames/umaintreeframe.pas"/>
-        <Caret Line="933" Column="18" TopLine="905"/>
+        <Caret Line="106" Column="13" TopLine="77"/>
       </Position14>
       <Position15>
         <Filename Value="../base/base_frames/umaintreeframe.pas"/>
-        <Caret Line="938" Column="18" TopLine="910"/>
+        <Caret Line="127" Column="23" TopLine="98"/>
       </Position15>
       <Position16>
         <Filename Value="../base/base_frames/umaintreeframe.pas"/>
-        <Caret Line="943" Column="18" TopLine="915"/>
+        <Caret Line="294" Column="42" TopLine="277"/>
       </Position16>
       <Position17>
         <Filename Value="../base/base_frames/umaintreeframe.pas"/>
-        <Caret Line="948" Column="18" TopLine="920"/>
+        <Caret Line="514" Column="32" TopLine="503"/>
       </Position17>
       <Position18>
         <Filename Value="../base/base_frames/umaintreeframe.pas"/>
-        <Caret Line="953" Column="18" TopLine="925"/>
+        <Caret Line="1756" Column="40" TopLine="1737"/>
       </Position18>
       <Position19>
         <Filename Value="../base/base_frames/umaintreeframe.pas"/>
-        <Caret Line="958" Column="18" TopLine="930"/>
+        <Caret Line="550" Column="1" TopLine="540"/>
       </Position19>
       <Position20>
         <Filename Value="../base/base_frames/umaintreeframe.pas"/>
-        <Caret Line="963" Column="18" TopLine="935"/>
+        <Caret Line="551" Column="1" TopLine="540"/>
       </Position20>
       <Position21>
         <Filename Value="../base/base_frames/umaintreeframe.pas"/>
-        <Caret Line="968" Column="18" TopLine="940"/>
+        <Caret Line="552" Column="1" TopLine="540"/>
       </Position21>
       <Position22>
         <Filename Value="../base/base_frames/umaintreeframe.pas"/>
-        <Caret Line="972" Column="17" TopLine="944"/>
+        <Caret Line="553" Column="1" TopLine="540"/>
       </Position22>
       <Position23>
-        <Filename Value="umain.pas"/>
-        <Caret Line="2488" Column="34" TopLine="2449"/>
+        <Filename Value="../base/base_frames/umaintreeframe.pas"/>
+        <Caret Line="554" Column="1" TopLine="540"/>
       </Position23>
       <Position24>
-        <Filename Value="umain.pas"/>
-        <Caret Line="2448" Column="39" TopLine="2431"/>
+        <Filename Value="../base/base_frames/umaintreeframe.pas"/>
+        <Caret Line="555" Column="1" TopLine="540"/>
       </Position24>
       <Position25>
         <Filename Value="../base/base_frames/umaintreeframe.pas"/>
-        <Caret Line="977" Column="46" TopLine="967"/>
+        <Caret Line="562" Column="1" TopLine="540"/>
       </Position25>
       <Position26>
         <Filename Value="../base/base_frames/umaintreeframe.pas"/>
-        <Caret Line="1735" Column="32" TopLine="1712"/>
+        <Caret Line="567" Column="1" TopLine="540"/>
       </Position26>
       <Position27>
         <Filename Value="../base/base_frames/umaintreeframe.pas"/>
-        <Caret Line="4" Column="82" TopLine="1"/>
+        <Caret Line="572" Column="1" TopLine="544"/>
       </Position27>
       <Position28>
         <Filename Value="../base/base_frames/umaintreeframe.pas"/>
-        <Caret Line="106" Column="13" TopLine="77"/>
+        <Caret Line="577" Column="1" TopLine="549"/>
       </Position28>
       <Position29>
         <Filename Value="../base/base_frames/umaintreeframe.pas"/>
-        <Caret Line="127" Column="23" TopLine="98"/>
+        <Caret Line="582" Column="1" TopLine="554"/>
       </Position29>
       <Position30>
         <Filename Value="../base/base_frames/umaintreeframe.pas"/>
-        <Caret Line="294" Column="42" TopLine="277"/>
+        <Caret Line="587" Column="1" TopLine="559"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -1061,6 +1061,15 @@
     </Other>
   </CompilerOptions>
   <Debugging>
+    <BreakPoints Count="1">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="../base/base_frames/umaintreeframe.pas"/>
+        <Line Value="550"/>
+      </Item1>
+    </BreakPoints>
     <Watches Count="1">
       <Item1>
         <Expression Value="FImage"/>
