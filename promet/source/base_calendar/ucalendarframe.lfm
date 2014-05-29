@@ -627,61 +627,6 @@ inherited FCalendarFrame: TFCalendarFrame
       WeekStartsOn = dtMonday
       OnEventDblClick = MonthViewEventDblClick
     end
-    object pDayView: TPanel
-      Left = 0
-      Height = 507
-      Top = 44
-      Width = 714
-      Align = alClient
-      Caption = 'pDayView'
-      ClientHeight = 507
-      ClientWidth = 714
-      Color = 14548991
-      ParentColor = False
-      TabOrder = 2
-      object DayView: TVpDayView
-        Left = 1
-        Height = 505
-        Top = 1
-        Width = 712
-        ShowHint = True
-        Color = clWindow
-        ParentShowHint = False
-        Align = alClient
-        ReadOnly = False
-        TabStop = True
-        TabOrder = 0
-        AllDayEventAttributes.BackgroundColor = clBtnShadow
-        AllDayEventAttributes.EventBorderColor = cl3DDkShadow
-        AllDayEventAttributes.EventBackgroundColor = clBtnFace
-        ShowEventTimes = False
-        DrawingStyle = dsNone
-        TimeSlotColors.Active = clWhite
-        TimeSlotColors.Inactive = clWhite
-        TimeSlotColors.Holiday = 16744703
-        TimeSlotColors.Weekday = 14548991
-        TimeSlotColors.Weekend = 11206655
-        TimeSlotColors.ActiveRange.RangeBegin = h_07
-        TimeSlotColors.ActiveRange.RangeEnd = h_16
-        HeadAttributes.Font.Height = -13
-        HeadAttributes.Font.Name = 'Tahoma'
-        HeadAttributes.Color = clBtnFace
-        RowHeadAttributes.HourFont.Height = -24
-        RowHeadAttributes.HourFont.Name = 'Tahoma'
-        RowHeadAttributes.MinuteFont.Height = -12
-        RowHeadAttributes.MinuteFont.Name = 'Tahoma'
-        RowHeadAttributes.Color = clBtnFace
-        ShowResourceName = False
-        LineColor = cl3DLight
-        GutterWidth = 7
-        DateLabelFormat = 'dddd, dd.mm.yyyy'
-        Granularity = gr30Min
-        DefaultTopHour = h_07
-        TimeFormat = tf24Hour
-        WrapStyle = wsNoFlow
-        OnOwnerEditEvent = DayViewOwnerEditEvent
-      end
-    end
     object pWeekDayView: TPanel
       Left = 0
       Height = 507
@@ -735,6 +680,60 @@ inherited FCalendarFrame: TFCalendarFrame
         DefaultTopHour = h_07
         TimeFormat = tf24Hour
         NumDays = 7
+        OnOwnerEditEvent = DayViewOwnerEditEvent
+      end
+    end
+    object pDayView: TPanel
+      Left = 0
+      Height = 507
+      Top = 44
+      Width = 714
+      Align = alClient
+      Caption = 'pDayView'
+      ClientHeight = 507
+      ClientWidth = 714
+      Color = 14548991
+      ParentColor = False
+      TabOrder = 2
+      object DayView: TVpDayView
+        Left = 1
+        Height = 505
+        Top = 1
+        Width = 712
+        ShowHint = True
+        Color = clWindow
+        ParentShowHint = False
+        Align = alClient
+        ReadOnly = False
+        TabStop = True
+        TabOrder = 0
+        AllDayEventAttributes.BackgroundColor = clBtnShadow
+        AllDayEventAttributes.EventBorderColor = cl3DDkShadow
+        AllDayEventAttributes.EventBackgroundColor = clBtnFace
+        ShowEventTimes = False
+        DrawingStyle = dsNone
+        TimeSlotColors.Active = clWhite
+        TimeSlotColors.Inactive = clWhite
+        TimeSlotColors.Holiday = 16744703
+        TimeSlotColors.Weekday = 14548991
+        TimeSlotColors.Weekend = 12320767
+        TimeSlotColors.ActiveRange.RangeBegin = h_00
+        TimeSlotColors.ActiveRange.RangeEnd = h_00
+        HeadAttributes.Font.Height = -13
+        HeadAttributes.Font.Name = 'Tahoma'
+        HeadAttributes.Color = clBtnFace
+        RowHeadAttributes.HourFont.Height = -24
+        RowHeadAttributes.HourFont.Name = 'Tahoma'
+        RowHeadAttributes.MinuteFont.Height = -12
+        RowHeadAttributes.MinuteFont.Name = 'Tahoma'
+        RowHeadAttributes.Color = clBtnFace
+        ShowResourceName = False
+        LineColor = cl3DLight
+        GutterWidth = 3
+        DateLabelFormat = 'dddd, dd.mm.yyyy'
+        Granularity = gr30Min
+        DefaultTopHour = h_07
+        TimeFormat = tf24Hour
         OnOwnerEditEvent = DayViewOwnerEditEvent
       end
     end

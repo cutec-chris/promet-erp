@@ -62,8 +62,8 @@ type
     bToday: TSpeedButton;
     bWeekViewDay: TSpeedButton;
     bWeekView: TSpeedButton;
-    DayView: TVpDayView;
     DayView1: TVpDayView;
+    DayView: TVpDayView;
     Label4: TLabel;
     Label5: TLabel;
     Label6: TLabel;
