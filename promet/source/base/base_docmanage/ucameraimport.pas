@@ -112,12 +112,12 @@ var
   aSecFile: String;
 begin
   if lvPhotos.Selected=nil then exit;
-  If FindFirstUTF8(AppendPathDelim(GetTempDir)+'raw_*',faAnyFile,AInfo)=0 then
+  If FindFirstUTF8(AppendPathDelim(GetInternalTempDir)+'raw_*',faAnyFile,AInfo)=0 then
     Repeat
       With aInfo do
         begin
           If (Attr and faDirectory) <> faDirectory then
-            DeleteFileUTF8(AppendPathDelim(GetTempDir)+AInfo.Name);
+            DeleteFileUTF8(AppendPathDelim(GetInternalTempDir)+AInfo.Name);
         end;
     Until FindNext(ainfo)<>0;
   FindClose(aInfo);
@@ -125,7 +125,7 @@ begin
   atmp := copy(atmp,2,pos(' ',atmp)-2);
   sl := TStringList.Create;
   aProcess := TProcessUTF8.Create(Self);
-  aProcess.CurrentDirectory:=GetTempDir;
+  aProcess.CurrentDirectory:=GetInternalTempDir;
   try
     aProcess.CommandLine:='gphoto2 --get-raw-data='+atmp;
     aProcess.Options:=[poUsePipes,poWaitOnExit];
@@ -134,20 +134,20 @@ begin
   finally
     aProcess.Free;
   end;
-  If FindFirstUTF8(AppendPathDelim(GetTempDir)+'raw_*',faAnyFile,AInfo)=0 then
+  If FindFirstUTF8(AppendPathDelim(GetInternalTempDir)+'raw_*',faAnyFile,AInfo)=0 then
     Repeat
       With aInfo do
         begin
           If (Attr and faDirectory) <> faDirectory then
             begin
-              aFile := AppendPathDelim(GetTempDir)+AInfo.Name;
+              aFile := AppendPathDelim(GetInternalTempDir)+AInfo.Name;
             end;
         end;
     Until FindNext(ainfo)<>0;
   sl.Free;
   if not FileExists(aFile) then
     begin
-      NewFileName := AppendPathDelim(GetTempDir)+ExtractFileName(aFile);
+      NewFileName := AppendPathDelim(GetInternalTempDir)+ExtractFileName(aFile);
       {$ifdef linux}
       ExecProcess('gvfs-copy "'+aFile+'" "'+NewFileName+'"');
       {$endif}
@@ -228,7 +228,7 @@ begin
         begin
           sl := TStringList.Create;
           aProcess := TProcessUTF8.Create(Self);
-          aProcess.CurrentDirectory:=GetTempDir;
+          aProcess.CurrentDirectory:=GetInternalTempDir;
           try
             aProcess.CommandLine:='gphoto2 --delete-file='+atmp;
             aProcess.Options:=[poUsePipes,poWaitOnExit];

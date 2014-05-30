@@ -96,7 +96,7 @@ resourcestring
   strTransfer                   = 'Überweisung';
 
 implementation
-uses uLogWait,uData,uError,uBankingDialog,SecureUtils,uBaseApplication;
+uses uLogWait,uData,uError,uBankingDialog,SecureUtils,uBaseApplication,uBaseDbClasses;
 
 procedure TAccountingAQBankingCLICmdInterface.ImportCTXData(Accounts : TAccounts;iData: TStringList;
   Ballance: real);
@@ -233,7 +233,7 @@ begin
           CmdLn := 'aqbanking-cli request --transactions --balance';
           CmdLn := CmdLn+' --bank='+trim(Accounts.FieldByName('SORTCODE').AsString);
           CmdLn := CmdLn+' --account='+trim(Accounts.FieldByName('ACCOUNTNO').AsString);
-          CmdLn := CmdLn+' --ctxfile='+AppendPathDelim(GetTempDir)+'output.ctx';
+          CmdLn := CmdLn+' --ctxfile='+AppendPathDelim(GetInternalTempDir)+'output.ctx';
           if Accounts.Exchange.Count>0 then
             CmdLn := CmdLn+' --fromdate='+FormatDateTime('YYYYMMDD',Accounts.Exchange.FieldByName('VALUEDATE').AsDateTime-1);
           if FileExists(AppendPathDelim(AppendPathDelim(AppendPathDelim(AppendPathDelim(ExtractFilePath(Application.Exename))+'tools')+'aqbanking')+'bin')+'aqbanking-cli'+ExtractFileExt(Application.Exename)) then
@@ -285,7 +285,7 @@ begin
           if not DontHide then
             begin
               IData := TStringList.Create;
-              CmdLn := 'aqbanking-cli listbal --ctxfile='+AppendPathDelim(GetTempDir)+'output.ctx';
+              CmdLn := 'aqbanking-cli listbal --ctxfile='+AppendPathDelim(GetInternalTempDir)+'output.ctx';
               if FileExists(AppendPathDelim(AppendPathDelim(AppendPathDelim(AppendPathDelim(ExtractFilePath(Application.Exename))+'tools')+'aqbanking')+'bin')+'aqbanking-cli'+ExtractFileExt(Application.Exename)) then
                 CmdLn := AppendPathDelim(AppendPathDelim(AppendPathDelim(AppendPathDelim(ExtractFilePath(Application.Exename))+'tools')+'aqbanking')+'bin')+CmdLn;
               IData.Text := ExecProcessEx(CmdLn);
@@ -298,11 +298,11 @@ begin
                       tmp := copy(tmp,pos(#9,tmp)+1,length(tmp));
                       tmp1 := copy(tmp,pos(#9,tmp)+1,length(tmp));
                     end;
-                  CmdLn := 'aqbanking-cli listtrans --ctxfile='+AppendPathDelim(GetTempDir)+'output.ctx --outfile='+AppendPathDelim(GetTempDir)+'output.csv';
+                  CmdLn := 'aqbanking-cli listtrans --ctxfile='+AppendPathDelim(GetInternalTempDir)+'output.ctx --outfile='+AppendPathDelim(GetInternalTempDir)+'output.csv';
                   if FileExists(AppendPathDelim(AppendPathDelim(AppendPathDelim(AppendPathDelim(ExtractFilePath(Application.Exename))+'tools')+'aqbanking')+'bin')+'aqbanking-cli'+ExtractFileExt(Application.Exename)) then
                     CmdLn := AppendPathDelim(AppendPathDelim(AppendPathDelim(AppendPathDelim(ExtractFilePath(Application.Exename))+'tools')+'aqbanking')+'bin')+CmdLn;
                   ExecProcessEx(CmdLn);
-                  IData.LoadFromFile(AppendPathDelim(GetTempDir)+'output.csv');
+                  IData.LoadFromFile(AppendPathDelim(GetInternalTempDir)+'output.csv');
                   if TryStrToFloat(StringReplace(trim(copy(tmp,0,pos(#9,tmp)-1)),'.',DecimalSeparator,[rfReplaceAll]),AValue) then
                     ImportCTXData(Accounts,IData,AValue)
                   else
@@ -316,10 +316,10 @@ begin
               with BaseApplication as IBaseApplication do
                 begin
                   case Config.ReadInteger('DELETEMETHOD',0) of
-                  0:DelOK := DeleteFileUTF8(AppendPathDelim(GetTempDir)+'output.ctx');
-                  1:DelOK := DeleteSecure(AppendPathDelim(GetTempDir)+'output.ctx');
-                  2:DelOK := DeleteSecure(AppendPathDelim(GetTempDir)+'output.ctx',dmDoD522022);
-                  3:DelOK := DeleteSecure(AppendPathDelim(GetTempDir)+'output.ctx',dmOverride);
+                  0:DelOK := DeleteFileUTF8(AppendPathDelim(GetInternalTempDir)+'output.ctx');
+                  1:DelOK := DeleteSecure(AppendPathDelim(GetInternalTempDir)+'output.ctx');
+                  2:DelOK := DeleteSecure(AppendPathDelim(GetInternalTempDir)+'output.ctx',dmDoD522022);
+                  3:DelOK := DeleteSecure(AppendPathDelim(GetInternalTempDir)+'output.ctx',dmOverride);
                   end;
                 end;
             end;

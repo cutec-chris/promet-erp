@@ -26,7 +26,7 @@ interface
 uses
   Classes, SysUtils, uDocuments,Utils,Graphics,FileUtil,variants,
   FPImage,fpreadgif,FPReadPSD,FPReadPCX,FPReadTGA,FPReadJPEGintfd,fpthumbresize,
-  FPWriteJPEG,UTF8Process,FPReadBMP,process,LCLProc;
+  FPWriteJPEG,UTF8Process,FPReadBMP,process,LCLProc,uBaseDbClasses;
 
 function GetThumbnailPath(aDocument : TDocuments;aWidth : Integer=310;aHeight : Integer=428) : string;
 function GetThumbnailBitmap(aDocument : TDocuments;aWidth : Integer=310;aHeight : Integer=428) : TBitmap;
@@ -110,7 +110,7 @@ end;
 
 function GetThumbTempDir: string;
 begin
-  Result := GetTempDir+'promet_thumbs';
+  Result := GetInternalTempDir+'promet_thumbs';
   ForceDirectoriesUTF8(Result);
 end;
 
@@ -134,8 +134,8 @@ begin
   if (e <> '') and (e[1] = '.') then
     System.delete (e,1,1);
   s := e + ';';
-  aFilename := getTempDir+'rpv.'+e;
-  aFStream := TFileStream.Create(getTempDir+'rpv.'+e,fmCreate);
+  aFilename := GetInternalTempDir+'rpv.'+e;
+  aFStream := TFileStream.Create(GetInternalTempDir+'rpv.'+e,fmCreate);
   aFullStream.Position:=0;
   aFStream.CopyFrom(aFullStream,aFullStream.Size);
   aFStream.Free;

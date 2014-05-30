@@ -647,6 +647,8 @@ begin
     end;
 end;
 procedure TZeosDBDataSet.DoBeforePost;
+var
+  UserCode: String;
 begin
   inherited DoBeforePost;
   if (FieldDefs.IndexOf('AUTO_ID') = -1) and (FieldDefs.IndexOf('SQL_ID') > -1) and  FieldByName('SQL_ID').IsNull then

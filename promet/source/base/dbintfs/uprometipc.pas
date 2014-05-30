@@ -5,7 +5,7 @@ unit uprometipc;
 interface
 
 uses
-  Classes, SysUtils,Utils;
+  Classes, SysUtils,Utils,uBaseDbClasses;
 type
   TMessageFunction = function(aMessage : string) : Boolean;
 
@@ -25,10 +25,10 @@ begin
   sl := TStringList.Create;
   try
     try
-      if FileExists(GetTempDir+'PMSMessagemenager') then
-        sl.LoadFromFile(GetTempDir+'PMSMessagemenager');
+      if FileExists(GetInternalTempDir+'PMSMessagemenager') then
+        sl.LoadFromFile(GetInternalTempDir+'PMSMessagemenager');
       sl.Add(aMessage);
-      sl.SaveToFile(GetTempDir+'PMSMessagemenager');
+      sl.SaveToFile(GetInternalTempDir+'PMSMessagemenager');
       Result := True;
     except
     end;
@@ -48,9 +48,9 @@ begin
   sl := TStringList.Create;
   try
     try
-      if FileExists(GetTempDir+'PMSMessagemenager') then
+      if FileExists(GetInternalTempDir+'PMSMessagemenager') then
         begin
-          fs := TFileStream.Create(GetTempDir+'PMSMessagemenager',fmShareCompat);
+          fs := TFileStream.Create(GetInternalTempDir+'PMSMessagemenager',fmShareCompat);
           sl.LoadFromStream(fs);
           fs.Free;
         end;
@@ -66,7 +66,7 @@ begin
           else inc(i);
         end;
       if aChanged then
-        sl.SaveToFile(GetTempDir+'PMSMessagemenager');
+        sl.SaveToFile(GetInternalTempDir+'PMSMessagemenager');
     except
     end;
   finally

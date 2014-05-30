@@ -29,7 +29,7 @@ uses
   ,sanescanner,sanetool
   {$ENDIF}
   ,ExtCtrls, Buttons, ComCtrls, StdCtrls,uIntfStrConsts,uOCR,LCLType,
-  uBaseApplication;
+  uBaseApplication,uBaseDbClasses;
 type
 
   { TfAcquire }
@@ -366,13 +366,13 @@ begin
   bScan.Enabled := True;
   bScan.Caption := strScan;
   bPreviewScan.Enabled := True;
-  Bitmap.SaveToFile(GetTempdir+DirectorySeparator+'test.bmp');
-  Image.Picture.LoadFromFile(GetTempdir+DirectorySeparator+'test.bmp');
+  Bitmap.SaveToFile(GetInternalTempDir+DirectorySeparator+'test.bmp');
+  Image.Picture.LoadFromFile(GetInternalTempDir+DirectorySeparator+'test.bmp');
   if not Preview then
     begin
       Setlength(Images,length(Images)+1);
       Images[length(Images)-1] := TPicture.Create;
-      Images[length(Images)-1].LoadFromFile(GetTempdir+DirectorySeparator+'test.bmp');
+      Images[length(Images)-1].LoadFromFile(GetInternalTempDir+DirectorySeparator+'test.bmp');
       try
         Unpaper := TUnPaperProcess.Create(Images[length(Images)-1]);
         while Unpaper.Running do Application.ProcessMessages;
@@ -386,7 +386,7 @@ begin
       else
         bCloseAndUse.Enabled := True;
     end;
-  DeleteFile(GetTempdir+DirectorySeparator+'test.bmp');
+  DeleteFile(GetInternalTempDir+DirectorySeparator+'test.bmp');
   EndScan;
   Scanner.Close;
 end;
