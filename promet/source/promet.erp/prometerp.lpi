@@ -794,13 +794,14 @@
         <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="9" Y="2"/>
+        <CursorPos X="92" Y="2"/>
         <UsageCount Value="38"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit41>
       <Unit42>
         <Filename Value="../base/revision.inc"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -906,14 +907,17 @@
       </Unit50>
       <Unit51>
         <Filename Value="../base_pm/uattendanceplan.pas"/>
+        <ComponentName Value="fAttPlan"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uattendanceplan"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="548"/>
         <CursorPos X="12" Y="560"/>
         <UsageCount Value="18"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit51>
     </Units>
     <JumpHistory Count="2" HistoryIndex="1">

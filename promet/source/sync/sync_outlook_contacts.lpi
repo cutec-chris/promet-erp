@@ -55,11 +55,10 @@
         <Filename Value="sync_outlook_contacts.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="sync_outlook_contacts"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="434"/>
-        <CursorPos X="30" Y="450"/>
+        <TopLine Value="499"/>
+        <CursorPos X="10" Y="479"/>
         <FoldState Value=" T3mg231F"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="1">
@@ -679,10 +678,11 @@
       <Unit78>
         <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="757"/>
-        <CursorPos X="1" Y="782"/>
+        <TopLine Value="643"/>
+        <CursorPos X="34" Y="664"/>
         <UsageCount Value="26"/>
         <Loaded Value="True"/>
       </Unit78>
@@ -1039,7 +1039,7 @@
     <Build>
       <CleanOutputFileMask Value="*.ppu;*.ppl;*.o;*.or;*.rc"/>
     </Build>
-    <JumpHistory Count="13" HistoryIndex="12">
+    <JumpHistory Count="14" HistoryIndex="13">
       <Position1>
         <Filename Value="..\base\dbintfs\usync.pas"/>
         <Caret Line="414" Column="1" TopLine="384"/>
@@ -1092,6 +1092,10 @@
         <Filename Value="sync_outlook_contacts.lpr"/>
         <Caret Line="589" Column="65" TopLine="561"/>
       </Position13>
+      <Position14>
+        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
+        <Caret Line="9" Column="91" TopLine="1"/>
+      </Position14>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
