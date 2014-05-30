@@ -50,7 +50,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="121">
+    <Units Count="122">
       <Unit0>
         <Filename Value="sync_outlook_contacts.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -58,9 +58,9 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="710"/>
-        <CursorPos X="20" Y="721"/>
-        <FoldState Value=" T3mg231 pjMjR2{Fd"/>
+        <TopLine Value="434"/>
+        <CursorPos X="30" Y="450"/>
+        <FoldState Value=" T3mg231F"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="1">
           <Item0 X="1" Y="705" ID="0"/>
@@ -1027,11 +1027,19 @@
         <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit120>
+      <Unit121>
+        <Filename Value="..\..\..\..\..\fpc\trunk\rtl\wince\windows.pp"/>
+        <UnitName Value="windows"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="25"/>
+        <CursorPos X="5" Y="42"/>
+        <UsageCount Value="10"/>
+      </Unit121>
     </Units>
     <Build>
       <CleanOutputFileMask Value="*.ppu;*.ppl;*.o;*.or;*.rc"/>
     </Build>
-    <JumpHistory Count="8" HistoryIndex="7">
+    <JumpHistory Count="13" HistoryIndex="12">
       <Position1>
         <Filename Value="..\base\dbintfs\usync.pas"/>
         <Caret Line="414" Column="1" TopLine="384"/>
@@ -1064,6 +1072,26 @@
         <Filename Value="sync_outlook_contacts.lpr"/>
         <Caret Line="469" Column="30" TopLine="257"/>
       </Position8>
+      <Position9>
+        <Filename Value="sync_outlook_contacts.lpr"/>
+        <Caret Line="545" Column="87" TopLine="521"/>
+      </Position9>
+      <Position10>
+        <Filename Value="sync_outlook_contacts.lpr"/>
+        <Caret Line="544" Column="70" TopLine="530"/>
+      </Position10>
+      <Position11>
+        <Filename Value="sync_outlook_contacts.lpr"/>
+        <Caret Line="545" Column="151" TopLine="530"/>
+      </Position11>
+      <Position12>
+        <Filename Value="sync_outlook_contacts.lpr"/>
+        <Caret Line="588" Column="88" TopLine="560"/>
+      </Position12>
+      <Position13>
+        <Filename Value="sync_outlook_contacts.lpr"/>
+        <Caret Line="589" Column="65" TopLine="561"/>
+      </Position13>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

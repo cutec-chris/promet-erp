@@ -1,9 +1,12 @@
-﻿Build 351
+﻿Build 352
+      -
+Build 351
       - Aufgaben:Kontextmenü neu geordnet, löschen eingefügt
       - Besprechungen:Möglichkeit Besprechungen mit Rechten zu belegen
       - Kalendar:es können nun beliebig viele Kalendar erstellt werden und mit Rechten benutzern oder Gruppen zugänglich gemacht werden
       - Kalendar:Wochentage werden in Wochenansicht rechts gezeichnet
       - Kalendar:Hintergrundfarben angepasst
+      - Kalendar:Kategoriefarben werden in allen Ansichten gezeichnet
 Build 350
       - Dokumente:und Bilder sind nun Haupteinträge
 Build 349

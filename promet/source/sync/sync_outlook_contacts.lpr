@@ -542,7 +542,7 @@ begin
               tmp1 := StringReplace(EncodingIn(aItem.PropertiesDirect[(PT_TSTRING) or ($802B shl 16),ptString]),' ','*',[rfreplaceAll]);
               if tmp1 = '' then
                 tmp1 := aItem.Subject;
-              Data.SetFilter(aContact,Data.ProcessTerm('NAME='+Data.QuoteValue(tmp))+' OR '+Data.ProcessTerm('NAME='+Data.QuoteValue(tmp1)));
+              Data.SetFilter(aContact,Data.ProcessTerm(Data.QuoteField('NAME')+'='+Data.QuoteValue(tmp))+' OR '+Data.ProcessTerm(Data.QuoteField('NAME')+'='+Data.QuoteValue(tmp1)));
               Collect:=False;
               aContact.DataSet.First;
               if (not Collect) and (aContact.Count > 0) then
