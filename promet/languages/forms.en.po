@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prometheus\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-05-30 11:04+0100\n"
+"PO-Revision-Date: 2014-05-30 21:14+0100\n"
 "Last-Translator: Christian Ulrich <info@cu-tec.de>\n"
 "Language-Team: C.Ulrich <christian@ullihome.de>\n"
 "Language: en\n"
@@ -4518,7 +4518,7 @@ msgstr ""
 #: tfoptions.helpbutton.caption
 msgctxt "TFOPTIONS.HELPBUTTON.CAPTION"
 msgid "&Hilfe"
-msgstr ""
+msgstr "&Help"
 
 #: tfoptions.label6.caption
 msgid "Data whitch is used from Master :"
@@ -5907,22 +5907,22 @@ msgstr "Unit"
 #: tforders.lrequest.caption
 msgctxt "tforders.lrequest.caption"
 msgid "Anfragedatum"
-msgstr ""
+msgstr "Date of RFQ"
 
 #: tforders.lsep.caption
 msgctxt "TFORDERS.LSEP.CAPTION"
 msgid "Verkaufspreise"
-msgstr ""
+msgstr "Sellprices"
 
 #: tforders.lserial.caption
 msgctxt "TFORDERS.LSERIAL.CAPTION"
 msgid "Serienn."
-msgstr ""
+msgstr "Serial"
 
 #: tforders.lserial1.caption
 msgctxt "TFORDERS.LSERIAL1.CAPTION"
 msgid "Serienn."
-msgstr ""
+msgstr "Serial"
 
 # uintfstrconsts:strstart
 #: tforders.lshipping.caption
@@ -5934,17 +5934,17 @@ msgstr "Shipping type"
 #: tforders.lshorttext.caption
 msgctxt "TFORDERS.LSHORTTEXT.CAPTION"
 msgid "Kurztext"
-msgstr ""
+msgstr "Shorttext"
 
 #: tforders.lshorttext2.caption
 msgctxt "TFORDERS.LSHORTTEXT2.CAPTION"
 msgid "Kurztext"
-msgstr ""
+msgstr "Shorttext"
 
 #: tforders.lsp.caption
 msgctxt "TFORDERS.LSP.CAPTION"
 msgid "Verkaufspreis"
-msgstr ""
+msgstr "Sellprice"
 
 # uintfstrconsts:strstatus
 #: tforders.lstate.caption
@@ -5955,12 +5955,12 @@ msgstr "Status"
 #: tforders.lstorage.caption
 msgctxt "TFORDERS.LSTORAGE.CAPTION"
 msgid "Lager"
-msgstr ""
+msgstr "Storage"
 
 #: tforders.ltenderpos.caption
 msgctxt "TFORDERS.LTENDERPOS.CAPTION"
 msgid "Aus.Pos."
-msgstr ""
+msgstr "Aus.Pos."
 
 # uintfstrconsts:strtexttyp
 #: tforders.ltexttype.caption
@@ -5983,7 +5983,7 @@ msgstr "Version"
 #: tforders.lwholeprice.caption
 msgctxt "TFORDERS.LWHOLEPRICE.CAPTION"
 msgid "Gesamtpreis"
-msgstr ""
+msgstr "Wholeprice"
 
 # uintfstrconsts:strwishdate
 #: tforders.lwishdate.caption
@@ -5995,17 +5995,17 @@ msgstr "Wishdate"
 #: tforders.menuitem1.caption
 msgctxt "TFORDERS.MENUITEM1.CAPTION"
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: tforders.menuitem12.caption
 msgctxt "TFORDERS.MENUITEM12.CAPTION"
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: tforders.menuitem2.caption
 msgctxt "TFORDERS.MENUITEM2.CAPTION"
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: tforders.panel1.caption
 msgctxt "TFORDERS.PANEL1.CAPTION"
@@ -6031,7 +6031,7 @@ msgstr "No Image"
 #: tforders.sbaddimage.caption
 msgctxt "TFORDERS.SBADDIMAGE.CAPTION"
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #: tforders.sbaddimage.hint
 msgctxt "TFORDERS.SBADDIMAGE.HINT"
@@ -6177,7 +6177,7 @@ msgstr "Produktion"
 #: tfordertypeoptions.cbtexttyp.hint
 msgid ""
 "Der Text der aus dem Artikel Standardmäßig in den Vorgang übernommen wird"
-msgstr ""
+msgstr "The text from Article that is used in order (initially)"
 
 #: tfordertypeoptions.dividerbevel1.caption
 #, fuzzy
@@ -6629,7 +6629,7 @@ msgstr ""
 
 #: tfpersonframe.accombineitems.caption
 msgid "Personen verschmelzen"
-msgstr ""
+msgstr "merge Contacts"
 
 #: tfpersonframe.accopy.caption
 #, fuzzy
@@ -6688,7 +6688,7 @@ msgstr "Rights"
 
 #: tfpersonframe.acrights.hint
 msgid "Ansicht auf bestimmte Nutzer begrenzen"
-msgstr ""
+msgstr "limit visibility to some users or groups"
 
 #: tfpersonframe.acsave.caption
 #, fuzzy
@@ -7359,7 +7359,7 @@ msgstr "selects an view"
 
 #: tfrdocumentmanagement.frpreview.caption
 msgid "keine Vorschau"
-msgstr ""
+msgstr "no Preview"
 
 # uintfstrconsts:struser
 #: tfrdocumentmanagement.lvdocuments.columns[0].caption
@@ -7376,7 +7376,7 @@ msgstr "Typ"
 #: tfrdocumentmanagement.lvdocuments.columns[2].caption
 msgctxt "TFRDOCUMENTMANAGEMENT.LVDOCUMENTS.COLUMNS[2].CAPTION"
 msgid "Datum"
-msgstr ""
+msgstr "Date"
 
 # uintfstrconsts:strregister
 #: tfrdocumentmanagement.lvdocuments.columns[3].caption
@@ -7386,26 +7386,26 @@ msgstr "Rec"
 #: tfrdocumentmanagement.menuitem1.caption
 msgctxt "TFRDOCUMENTMANAGEMENT.MENUITEM1.CAPTION"
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: tfrdocumentmanagement.menuitem3.caption
 msgctxt "TFRDOCUMENTMANAGEMENT.MENUITEM3.CAPTION"
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: tfrdocumentmanagement.menuitem4.caption
 msgctxt "TFRDOCUMENTMANAGEMENT.MENUITEM4.CAPTION"
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: tfrdocumentmanagement.menuitem8.caption
 msgctxt "TFRDOCUMENTMANAGEMENT.MENUITEM8.CAPTION"
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: tfrdocumentmanagement.mivoucher.caption
 msgid "Beleg"
-msgstr ""
+msgstr "proof"
 
 #: tfrdocumentmanagement.toolbar1.caption
 msgctxt "tfrdocumentmanagement.toolbar1.caption"
@@ -7420,7 +7420,7 @@ msgstr ""
 #: tfrepairpositionframe.cbwarrenty.caption
 msgctxt "TFREPAIRPOSITIONFRAME.CBWARRENTY.CAPTION"
 msgid "Garantie"
-msgstr ""
+msgstr "Warrenty"
 
 #: tfrepairpositionframe.gproblems.columns[0].title.caption
 #, fuzzy
@@ -7431,11 +7431,11 @@ msgstr "discount group"
 #: tfrepairpositionframe.gproblems.columns[1].title.caption
 msgctxt "TFREPAIRPOSITIONFRAME.GPROBLEMS.COLUMNS[1].TITLE.CAPTION"
 msgid "Bauteil"
-msgstr ""
+msgstr "Element"
 
 #: tfrepairpositionframe.gproblems.columns[2].title.caption
 msgid "Fehler"
-msgstr ""
+msgstr "Error"
 
 #: tfrepairpositionframe.lerrordescription.caption
 #, fuzzy
@@ -7466,7 +7466,7 @@ msgstr "internal Notice"
 #: tfrepairpositionframe.lnotesforcustomer.caption
 msgctxt "TFREPAIRPOSITIONFRAME.LNOTESFORCUSTOMER.CAPTION"
 msgid "Notizen für Kunde"
-msgstr ""
+msgstr "Notice for Customer"
 
 # uintfstrconsts:stroperation
 #: tfrepairpositionframe.loperation.caption
@@ -7478,7 +7478,7 @@ msgstr "Operation"
 #: tfrepairpositionframe.lserial1.caption
 msgctxt "TFREPAIRPOSITIONFRAME.LSERIAL1.CAPTION"
 msgid "Serienn."
-msgstr ""
+msgstr "Serial"
 
 # uintfstrconsts:strversion
 #: tfrepairpositionframe.lversion1.caption
@@ -7505,7 +7505,7 @@ msgstr ""
 
 #: tfroweditor.caption
 msgid "Spalten konfigurieren"
-msgstr ""
+msgstr "configure Rows"
 
 # uintfstrconsts:strupdatingfile
 #: tfroweditor.ltablerows.caption
@@ -7514,11 +7514,11 @@ msgstr "Cols in Table"
 
 #: tfroweditor.lviewrows.caption
 msgid "Sichtbare Spalten"
-msgstr ""
+msgstr "visible Rows"
 
 #: tfsaleslist.acpayed.hint
 msgid "bucht den gewählten Vorgang als bezahlt"
-msgstr ""
+msgstr "books the selected order as payed"
 
 # uintfstrconsts:strarticlelist
 #: tfsaleslist.acprint.hint
@@ -7528,16 +7528,16 @@ msgstr "prints the list"
 #: tfsaleslist.fsaleslist.caption
 msgctxt "TFSALESLIST.FSALESLIST.CAPTION"
 msgid "Zahlungsverlauf"
-msgstr ""
+msgstr "Paymenthistory"
 
 #: tfsandbox.bcommit.caption
 msgctxt "TFSANDBOX.BCOMMIT.CAPTION"
 msgid "Speichern"
-msgstr ""
+msgstr "Save"
 
 #: tfsandbox.brollback.caption
 msgid "verwerfen"
-msgstr ""
+msgstr "dismiss"
 
 #: tfsandbox.fsandbox.caption
 msgctxt "TFSANDBOX.FSANDBOX.CAPTION"
@@ -7559,32 +7559,32 @@ msgstr "Open"
 #: tfsearch.bclose.caption
 msgctxt "TFSEARCH.BCLOSE.CAPTION"
 msgid "Schliessen"
-msgstr ""
+msgstr "Close"
 
 #: tfsearch.bsearch.caption
 msgid "Suchen"
-msgstr ""
+msgstr "Search"
 
 #: tfsearch.cbautomaticsearch.caption
 msgid "Suche wärend des Tippens"
-msgstr ""
+msgstr "Search while typing"
 
 #: tfsearch.cbcontains.caption
 msgid "enthält"
-msgstr ""
+msgstr "contains"
 
 #: tfsearch.cbmaxresults.caption
 msgid "Anzahl Ergebnisse pro Suchtyp"
-msgstr ""
+msgstr "Limit results per searchtype to"
 
 #: tfsearch.cbwildgards.caption
 msgid "Jokerzeichen verwenden"
-msgstr ""
+msgstr "use wildcards"
 
 #: tfsearch.fsearch.caption
 msgctxt "TFSEARCH.FSEARCH.CAPTION"
 msgid "Suche"
-msgstr ""
+msgstr "Search"
 
 #: tfsearch.lhint.caption
 msgctxt "TFSEARCH.LHINT.CAPTION"
@@ -7593,15 +7593,15 @@ msgstr ""
 
 #: tfsearch.lresults.caption
 msgid "Suchergebnisse"
-msgstr ""
+msgstr "Searchresults"
 
 #: tfsearch.lsearchin.caption
 msgid "Suche in"
-msgstr ""
+msgstr "Search in"
 
 #: tfsearch.lsearchtype.caption
 msgid "Suchtypen"
-msgstr ""
+msgstr "Searchtypes"
 
 # uintfstrconsts:strtexttyp
 #: tfsearch.sgresults.columns[0].tgridcolumntitle.caption
@@ -7633,85 +7633,85 @@ msgstr "Link"
 
 #: tfselectreport.bbook.caption
 msgid "direkt Buchen"
-msgstr ""
+msgstr "book direct"
 
 #: tfselectreport.bbook.hint
 msgid "bucht den Report"
-msgstr ""
+msgstr "books the report"
 
 #: tfselectreport.bclose.caption
 msgctxt "TFSELECTREPORT.BCLOSE.CAPTION"
 msgid "&Schließen"
-msgstr ""
+msgstr "&Close"
 
 #: tfselectreport.bclose.hint
 msgid "schließt das Fenster"
-msgstr ""
+msgstr "closes the window"
 
 #: tfselectreport.bdesign.caption
 msgid "Bearbeiten"
-msgstr ""
+msgstr "edit"
 
 #: tfselectreport.bdesign.hint
 msgid "hiermit können Sie den Report bearbeiten"
-msgstr ""
+msgstr "you can edit the report here"
 
 #: tfselectreport.bedittext.caption
 msgid "Text bearbeiten"
-msgstr ""
+msgstr "edit text"
 
 #: tfselectreport.bedittext.hint
 msgid ""
 "hiermit können Sie den Text der zusätzlichen Ausgabe (e-Mail, SMS) "
 "bearbeiten."
-msgstr ""
+msgstr "her you can edit the text of Message of additional output"
 
 #: tfselectreport.bpreview.caption
 msgid "Vorschau"
-msgstr ""
+msgstr "review"
 
 #: tfselectreport.bpreview.hint
 msgid "zeigt den Report in einer Vorschau an"
-msgstr ""
+msgstr "shows the report in an preview"
 
 #: tfselectreport.bprint.caption
 msgctxt "TFSELECTREPORT.BPRINT.CAPTION"
 msgid "Drucken/Buchen"
-msgstr ""
+msgstr "Print/book"
 
 #: tfselectreport.bprint.hint
 msgid "Bucht und Druckt den Report"
-msgstr ""
+msgstr "books and print the report"
 
 #: tfselectreport.bshippingoutput.caption
 msgid "Versandausgabe"
-msgstr ""
+msgstr "shipping output"
 
 #: tfselectreport.bshippingoutput.hint
 msgid "startet die Versandausgabe für die gewählte Versandart"
-msgstr ""
+msgstr "starts the shipping output for the selected shipping"
 
 #: tfselectreport.cbinfo.hint
 msgid "Wählen Sie hier eine zusätzliche Ausgabe aus, "
-msgstr ""
+msgstr "Select an additional output here"
 
 #: tfselectreport.cbprinter.hint
 msgid "wählen Sie hier den Drucker auf dem der Report gedruckt werden soll"
-msgstr ""
+msgstr "select the printer on that the report is printed here"
 
 #: tfselectreport.ecopies.hint
 msgid ""
 "Stellen Sie hier ein, wie viele Kopien des Reports gedruckt werden sollen"
-msgstr ""
+msgstr "Here you can set how many copys of the report will be printed"
 
 #: tfselectreport.epages.hint
 msgid "hier können Sie festlegen, welche Seiten gedruckt werden sollen,"
-msgstr ""
+msgstr "here you can set wich pages of the report are printed"
 
 #: tfselectreport.fselectreport.caption
 msgctxt "TFSELECTREPORT.FSELECTREPORT.CAPTION"
 msgid "Druckbeleg"
-msgstr ""
+msgstr "Report"
 
 #: tfselectreport.greports.columns[0].tcolumntitle.caption
 msgctxt "TFSELECTREPORT.GREPORTS.COLUMNS[0].TCOLUMNTITLE.CAPTION"

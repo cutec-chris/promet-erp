@@ -11,24 +11,6 @@ object fViewMessage: TfViewMessage
   TabOrder = 0
   DesignLeft = 429
   DesignTop = 260
-  object mContent: TMemo
-    Left = 0
-    Height = 310
-    Top = 0
-    Width = 569
-    Align = alClient
-    Font.Height = -12
-    Font.Name = 'Courier New'
-    Font.Pitch = fpFixed
-    Lines.Strings = (
-      'Memo1'
-    )
-    ParentFont = False
-    ReadOnly = True
-    ScrollBars = ssAutoBoth
-    TabOrder = 0
-    Visible = False
-  end
   object ipHTMLContent: TIpHtmlPanel
     Left = 0
     Height = 310
@@ -68,6 +50,24 @@ object fViewMessage: TfViewMessage
       Width = 567
       Align = alTop
     end
+  end
+  object mContent: TMemo
+    Left = 0
+    Height = 310
+    Top = 0
+    Width = 569
+    Align = alClient
+    Font.Height = -12
+    Font.Name = 'Courier New'
+    Font.Pitch = fpFixed
+    Lines.Strings = (
+      'Memo1'
+    )
+    ParentFont = False
+    ReadOnly = True
+    ScrollBars = ssAutoBoth
+    TabOrder = 0
+    Visible = False
   end
   object pmCopy: TPopupMenu
     left = 24
