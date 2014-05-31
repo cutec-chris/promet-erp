@@ -5,7 +5,7 @@ Section: office
 Priority: optional
 Maintainer: Christian Ulrich <info@free-erp.de>
 Architecture: ARCH
-Depends:  libc6,bsdiff,ffmpeg
+Depends:  libc6,bsdiff
 Installed-Size: DEBSIZE
 Recommends: promet-erp-statistics, promet-erp-tools
 Suggests: promet-erp-sync

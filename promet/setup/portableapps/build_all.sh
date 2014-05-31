@@ -17,6 +17,7 @@ if [ "x$Arch" = "x" ]; then
     Arch=$Archfpc
   fi
 fi
+sudo -S sh clean_all.sh
 sudo -S echo "Arch is $Arch"
 echo "Archfpc is $Archfpc"
 Year=`date +%y`

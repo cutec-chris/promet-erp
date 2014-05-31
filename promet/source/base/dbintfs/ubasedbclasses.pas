@@ -383,7 +383,7 @@ type
 var ImportAble : TClassList;
 implementation
 uses uBaseDBInterface, uBaseApplication, uBaseSearch,XMLRead,XMLWrite,Utils,
-  md5,sha1,uData;
+  md5,sha1,uData,FileUtil;
 resourcestring
   strNumbersetDontExists        = 'Nummernkreis "%s" existiert nicht !';
   strDeletedmessages            = 'gelöschte Narichten';
@@ -492,7 +492,7 @@ begin
       TempPath := Config.ReadString('TEMPPATH','');
   if TempPath = '' then
     TempPath := GetTempDir;
-  Result := TempPath;
+  Result := AppendPathDelim(TempPath);
 end;
 
 function TFollowers.GetLink: TField;
