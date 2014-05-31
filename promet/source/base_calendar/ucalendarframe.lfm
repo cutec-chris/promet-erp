@@ -680,6 +680,7 @@ inherited FCalendarFrame: TFCalendarFrame
         DefaultTopHour = h_07
         TimeFormat = tf24Hour
         NumDays = 7
+        WrapStyle = wsNone
         OnOwnerEditEvent = DayViewOwnerEditEvent
       end
     end
@@ -734,6 +735,7 @@ inherited FCalendarFrame: TFCalendarFrame
         Granularity = gr30Min
         DefaultTopHour = h_07
         TimeFormat = tf24Hour
+        WrapStyle = wsNone
         OnOwnerEditEvent = DayViewOwnerEditEvent
       end
     end

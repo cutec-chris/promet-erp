@@ -299,7 +299,7 @@ begin
   else if WeekView.Visible then
     aFilter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+' AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheWeek(Date)+1)+') AND ("ENDDATE" > '+Data.DateToFilter(StartOfTheWeek(Date)-1)+' OR "ROTATION" > 0)'
   else if pWeekDayView.Visible then
-    aFilter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+' AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheWeek(Date)+1)+') AND ("ENDDATE" > '+Data.DateToFilter(StartOfTheWeek(Date)-1)+' OR "ROTATION" > 0)';
+    aFilter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+' AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheWeek(Date)+8)+') AND ("ENDDATE" > '+Data.DateToFilter(StartOfTheWeek(Date)-8)+' OR "ROTATION" > 0)';
   with DataSet.DataSet as IBaseDbFilter do
     bFilter := Filter;
   if aFilter <> bFilter then
