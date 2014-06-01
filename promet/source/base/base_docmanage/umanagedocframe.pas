@@ -82,6 +82,7 @@ type
     cbFilter: TComboBox;
     Datasource1: TDatasource;
     DBEdit1: TDBEdit;
+    mFulltext: TMemo;
     MenuItem10: TMenuItem;
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
@@ -89,7 +90,6 @@ type
     MenuItem7: TMenuItem;
     MenuItem8: TMenuItem;
     MenuItem9: TMenuItem;
-    mText: TDBMemo;
     DBZVDateTimePicker1: TDBZVDateTimePicker;
     eSearch: TEdit;
     ExtRotatedLabel1: TLabel;
@@ -184,8 +184,10 @@ type
       Stream: TStream);
     procedure ThumbControl1Scrolled(Sender: TObject);
     procedure ThumbControl1SelectItem(Sender: TObject; Item: TThreadedImage);
+    procedure tstextShow(Sender: TObject);
   private
     { private declarations }
+    FDoc : TDocPages;
     FLast : string;
     FFetchDS : TDataSet;
     FFetchSQL : string;
@@ -361,6 +363,17 @@ begin
   if bShowDetail.Down then
     ShowDocument;
 end;
+
+procedure TfManageDocFrame.tstextShow(Sender: TObject);
+var
+  ss: TStringStream;
+begin
+  ss := TStringStream.Create('');
+  Data.BlobFieldToStream(DataSet.DataSet,'FULLTEXT',ss);
+  mFulltext.Text:=ss.DataString;
+  ss.Free;
+end;
+
 procedure TfManageDocFrame.ThumbControl1ImageLoaderManagerBeforeStartQueue(
   Sender: TObject);
 var
@@ -621,20 +634,18 @@ end;
 
 procedure TfManageDocFrame.ThumbControl1AfterDraw(Sender: TObject;
   Item: TThreadedImage;aRect : Trect);
-var
-  aDoc: TDocPages;
 begin
+  if not Assigned(FDoc) then
+    FDoc := TDocPages.Create(nil,Data);
   if not Assigned(Item.Pointer) then
     begin
-      aDoc := TDocPages.Create(nil,Data);
-      aDoc.Select(copy(Item.URL,0,pos('.',Item.URL)-1));
-      aDoc.Open;
-      if aDoc.Count>0 then
+      FDoc.Select(copy(Item.URL,0,pos('.',Item.URL)-1));
+      FDoc.Open;
+      if FDoc.Count>0 then
         begin
           Item.Pointer := TImageItem.Create;
-          TImageItem(Item.Pointer).Done:=aDoc.FieldByName('DONE').AsString='Y';
+          TImageItem(Item.Pointer).Done:=FDoc.FieldByName('DONE').AsString='Y';
         end;
-      aDoc.Free;
     end;
   if Assigned(Item.Pointer) then
     begin
@@ -854,11 +865,11 @@ var
   aStart: Integer;
   aLen: Integer;
 begin
-  bDate := uOCR.GetDateEx(mText.Lines,aStart,aLen);
+  bDate := uOCR.GetDateEx(mFulltext.Lines,aStart,aLen);
   if bDate > 0 then
     begin
-      mtext.SelStart:=aStart;
-      mText.SelLength:=aLen;
+      mFulltext.SelStart:=aStart;
+      mFulltext.SelLength:=aLen;
       if MessageDlg(Format(strSetDate,[DateToStr(bDate)]),mtInformation,[mbYes,mbNo],0) = mrYes then
         begin
           TDocPages(DataSet).Edit;
@@ -874,11 +885,11 @@ var
   aLen: Integer;
   aText: String;
 begin
-  aText := uOCR.GetTitleEx(mText.Lines,0,aStart,aLen);
+  aText := uOCR.GetTitleEx(mFulltext.Lines,0,aStart,aLen);
   if aText <> '' then
     begin
-      mtext.SelStart:=aStart;
-      mText.SelLength:=aLen;
+      mFulltext.SelStart:=aStart;
+      mFulltext.SelLength:=aLen;
     end;
 end;
 
@@ -927,7 +938,7 @@ begin
           atext.AddStrings(TStringList(Texts[i]));
         end;
       TDocPages(DataSet).Edit;
-      TDocPages(DataSet).FieldByName('FULLTEXT').AsString:=aText.Text;
+//      TDocPages(DataSet).FieldByName('FULLTEXT').AsString:=aText.Text;
       TDocPages(DataSet).Post;
       aText.Free;
       for i := 0 to Texts.Count-1 do
@@ -1369,6 +1380,7 @@ begin
 end;
 destructor TfManageDocFrame.Destroy;
 begin
+  FDoc.Free;
   FTimeLine.Free;
   FreeAndNil(FDataSet);
   FDocFrame.Free;
@@ -1425,8 +1437,10 @@ begin
     FFilter := '('+Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(aDir)+') AND ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue(FTyp)+')';
   with DataSet.DataSet as IBaseDbFilter do
     begin
+      Fields:=Data.QuoteField('SQL_ID')+','+Data.QuoteField('ORIGDATE')+','+Data.QuoteField('TAGS')+','+Data.QuoteField('NAME')+','+Data.QuoteField('LINK');
       SortFields := 'ORIGDATE';
       SortDirection:=sdDescending;
+      FetchRows:=100;
       Limit := 0;
       Filter :=  FFilter;
     end;

@@ -1096,17 +1096,7 @@ inherited fManageDocFrame: TfManageDocFrame
       Caption = 'Text'
       ClientHeight = 532
       ClientWidth = 632
-      object mText: TDBMemo
-        Left = 44
-        Height = 532
-        Top = 0
-        Width = 588
-        Align = alClient
-        DataField = 'FULLTEXT'
-        DataSource = Datasource1
-        ScrollBars = ssAutoBoth
-        TabOrder = 0
-      end
+      OnShow = tstextShow
       object pLeft: TPanel
         Left = 0
         Height = 532
@@ -1118,7 +1108,7 @@ inherited fManageDocFrame: TfManageDocFrame
         ClientWidth = 44
         ParentShowHint = False
         ShowHint = True
-        TabOrder = 1
+        TabOrder = 0
         object Panel2: TPanel
           Left = 0
           Height = 78
@@ -1286,6 +1276,17 @@ inherited fManageDocFrame: TfManageDocFrame
             ShowCaption = False
           end
         end
+      end
+      object mFulltext: TMemo
+        Left = 44
+        Height = 532
+        Top = 0
+        Width = 588
+        Align = alClient
+        Lines.Strings = (
+          'mFulltext'
+        )
+        TabOrder = 1
       end
     end
   end
