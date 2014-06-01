@@ -4,7 +4,8 @@ INTERFACE
 uses Classes,SysUtils
      {$IFDEF LCL}
      {$IFNDEF LCLnogui}
-     ,Forms,Dialogs,Clipbrd,Translations,TypInfo,LCLProc,Graphics
+     ,Forms,Dialogs,Clipbrd,Translations,TypInfo,LCLProc,Graphics,LResources,
+     PoTranslator
      {$ENDIF}
      ,FileUtil,UTF8Process
      {$ENDIF}
@@ -178,6 +179,7 @@ var
   i: Integer;
   a: Integer;
   Comp: TComponent;
+  aFilename: String;
 Begin
   If FindFirstUTF8(ProgramDirectory+'languages'+Directoryseparator+'*.'+lowercase(copy(lang,0,2))+'.po',faAnyFile,Info)=0 then
     repeat
@@ -213,6 +215,9 @@ Begin
       po.Free;
     until FindNextUTF8(info)<>0;
   FindCloseUTF8(Info);
+  aFilename := ProgramDirectory+'languages'+Directoryseparator+'forms.'+lowercase(copy(lang,0,2))+'.po';
+  if FileExists(aFilename) then
+    LRSTranslator:=TPoTranslator.Create(aFilename);
 end;
 function GetProcessforExtension(InfoTyp : TProcessinfoTyp;Extension : string) : string;
 var
@@ -1028,4 +1033,4 @@ begin
 end;
 END.
 
- 
+ 

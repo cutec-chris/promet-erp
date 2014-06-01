@@ -3361,6 +3361,10 @@ begin
     end;
   with Application as TBaseVisualApplication do
     OnUserTabAdded:=@ApplicationTBaseVisualApplicationUserTabAdded;
+  with BaseApplication as TBaseVisualApplication do
+    begin
+      LoadLanguageMenu(miLanguage);
+    end;
   with Application as IBaseDbInterface do
     if not LoadMandants then
       begin
@@ -3383,10 +3387,6 @@ begin
   fMainTreeFrame.OnSelectionChanged:=@fMainTreeFrameSelectionChanged;
   fMainTreeFrame.OnDragOver:=@fMainTreeFrameDragOver;
   fMainTreeFrame.OnDragDrop:=@fMainTreeFrameDragDrop;
-  with BaseApplication as TBaseVisualApplication do
-    begin
-      LoadLanguageMenu(miLanguage);
-    end;
   uprometipc.OnMessageReceived:=@OnMessageReceived;
 end;
 procedure TfMain.FormDestroy(Sender: TObject);
