@@ -1,22 +1,83 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Prometheus\n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-05-22 09:34+0100\n"
-"Last-Translator: Christian U. <ulrich@tcs-germany.de>\n"
-"Language-Team: Christian Ulrich <christian@ullihome.de>\n"
-"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: POEditor.com\n"
+"Project-Id-Version: Promet-ERP\n"
+"Language: de\n"
+
+#: tfaccountingframe.accombineitems.caption
+msgid "Einträge kombinieren"
+msgstr "Einträge kombinieren"
+
+#: tfaccountingframe.acfindtransaction.caption
+msgid "acFindTransaction"
+msgstr ""
+
+#: tfaccountingframe.acgotovoucher.caption
+msgctxt "TFACCOUNTINGFRAME.ACGOTOVOUCHER.CAPTION"
+msgid "zu Beleg gehen"
+msgstr "zu Beleg gehen"
+
+#: tfaccountingframe.aconlineupdate.caption
+msgid "Online Update"
+msgstr "Online Update"
+
+#: tfaccountingframe.acpastelinkasvoucher.caption
+msgctxt "TFACCOUNTINGFRAME.ACPASTELINKASVOUCHER.CAPTION"
+msgid "Verweis als Beleg einfügen"
+msgstr "Verweis als Beleg einfügen"
+
+#: tfaccountingframe.acsaleslistpay.caption
+msgid "Bezahlen"
+msgstr "Bezahlen"
+
+#: tfaccountingframe.acsaleslistpay.hint
+msgid "Zahlung buchen"
+msgstr "Zahlung buchen"
+
+#: tfaccountingframe.acsetcategory.caption
+msgid "Kategorie nach Bechreibung zuweisen"
+msgstr "Kategorie nach Bechreibung zuweisen"
+
+#: tfaccountingframe.acsetcategory.hint
+msgid "weist allen Buchungen mit dieser Beschreibung diese Kategorie zu"
+msgstr "weist allen Buchungen mit dieser Beschreibung diese Kategorie zu"
+
+#: tfaccountingframe.acsinglelineview.caption
+msgid "acSingleLineView"
+msgstr ""
+
+#: tfaccountingframe.acsinglelineview.hint
+msgid "Ein/mehrzeilige Ansicht umschalten"
+msgstr "Ein/mehrzeilige Ansicht umschalten"
+
+#: tfaccountingframe.extrotatedlabel1.caption
+msgctxt "TFACCOUNTINGFRAME.EXTROTATEDLABEL1.CAPTION"
+msgid "Konto"
+msgstr "Konto"
+
+#: tfaccountingframe.extrotatedlabel2.caption
+msgctxt "TFACCOUNTINGFRAME.EXTROTATEDLABEL2.CAPTION"
+msgid "Notizen"
+msgstr "Notizen"
+
+#: tfaccountingframe.label1.caption
+msgctxt "TFACCOUNTINGFRAME.LABEL1.CAPTION"
+msgid "Kontonummer"
+msgstr ""
+
+#: tfaccountingframe.label2.caption
+msgctxt "tfaccountingframe.label2.caption"
+msgid "Bank"
+msgstr ""
 
 #: tfaccountingque.bclose.caption
 msgctxt "TFACCOUNTINGQUE.BCLOSE.CAPTION"
 msgid "&Schließen"
 msgstr "&Schließen"
 
-# uintfstrconsts:strseverity
 #: tfaccountingque.bsend.caption
 msgctxt "TFACCOUNTINGQUE.BSEND.CAPTION"
 msgid "Senden"
@@ -26,12 +87,11 @@ msgstr "Senden"
 msgid "sendet alle Abfragen"
 msgstr "Neues Verzeichnis"
 
-#: tfaccountingque.faccountingque.caption
-msgctxt "TFACCOUNTINGQUE.FACCOUNTINGQUE.CAPTION"
+#: tfaccountingque.caption
+msgctxt "TFACCOUNTINGQUE.CAPTION"
 msgid "Warteschlange"
-msgstr "Warteschlange"
+msgstr ""
 
-# uintfstrconsts:strtype
 #: tfaccountingque.lvque.columns[0].caption
 msgctxt "TFACCOUNTINGQUE.LVQUE.COLUMNS[0].CAPTION"
 msgid "Typ"
@@ -53,7 +113,6 @@ msgstr "Localer Account"
 msgid "Local Bank Code"
 msgstr "Localer Bank Code"
 
-# uintfstrconsts:strname
 #: tfaccountingque.lvque.columns[5].caption
 msgctxt "TFACCOUNTINGQUE.LVQUE.COLUMNS[5].CAPTION"
 msgid "Name"
@@ -90,8 +149,9 @@ msgid "sucht in der Zahlungsliste nach einer passenden Rechnung und bucht diese 
 msgstr "sucht in der Zahlungsliste nach einer passenden Rechnung und bucht diese ggf als bezahlt"
 
 #: tfaccounts.acgotovoucher.caption
+msgctxt "tfaccounts.acgotovoucher.caption"
 msgid "zu Beleg gehen"
-msgstr "zu Beleg gehen"
+msgstr ""
 
 #: tfaccounts.acimport.caption
 msgctxt "TFACCOUNTS.ACIMPORT.CAPTION"
@@ -104,8 +164,9 @@ msgid "Öffnen"
 msgstr "Öffnen"
 
 #: tfaccounts.acpastelinkasvoucher.caption
+msgctxt "tfaccounts.acpastelinkasvoucher.caption"
 msgid "Verweis als Beleg einfügen"
-msgstr "Verweis als Beleg einfügen"
+msgstr ""
 
 #: tfaccounts.acprint.caption
 msgctxt "TFACCOUNTS.ACPRINT.CAPTION"
@@ -125,7 +186,6 @@ msgstr "zeigt die Buchungsdetails an"
 msgid "zeigt die Buchungsübersicht an"
 msgstr "zeigt die Buchungsübersicht an"
 
-# uintfstrconsts:strcontact
 #: tfaccounts.faccounts.caption
 msgctxt "TFACCOUNTS.FACCOUNTS.CAPTION"
 msgid "Konten"
@@ -146,7 +206,6 @@ msgctxt "TFACCOUNTS.LCURRENCY.CAPTION"
 msgid "Währung"
 msgstr "Währung"
 
-# uintfstrconsts:strname
 #: tfaccounts.lname.caption
 msgctxt "TFACCOUNTS.LNAME.CAPTION"
 msgid "Name"
@@ -268,7 +327,93 @@ msgstr "Auflösung"
 msgid "hier können Sie die Auflösung in Punkten pro Inch (dpi) einstellen"
 msgstr "hier können Sie die Auflösung in Punkten pro Inch (dpi) einstellen"
 
-# uintfstrconsts:strarticlenumber
+#: tfaddressframe.bpastefromclipboard.hint
+msgid "Addresse aus Zwischenablage einfügen"
+msgstr ""
+
+#: tfaddressframe.cbactive.caption
+msgctxt "TFADDRESSFRAME.CBACTIVE.CAPTION"
+msgid "Aktiv"
+msgstr ""
+
+#: tfaddressframe.extrotatedlabel1.caption
+msgctxt "TFADDRESSFRAME.EXTROTATEDLABEL1.CAPTION"
+msgid "Navigation"
+msgstr ""
+
+#: tfaddressframe.extrotatedlabel2.caption
+msgid "Zwischenablage"
+msgstr ""
+
+#: tfaddressframe.gadresses.columns[0].title.caption
+msgctxt "TFADDRESSFRAME.GADRESSES.COLUMNS[0].TITLE.CAPTION"
+msgid "Nummer"
+msgstr ""
+
+#: tfaddressframe.gadresses.columns[1].title.caption
+msgctxt "TFADDRESSFRAME.GADRESSES.COLUMNS[1].TITLE.CAPTION"
+msgid "Beschreibung"
+msgstr ""
+
+#: tfaddressframe.gadresses.columns[2].title.caption
+msgctxt "TFADDRESSFRAME.GADRESSES.COLUMNS[2].TITLE.CAPTION"
+msgid "Typ"
+msgstr ""
+
+#: tfaddressframe.gadresses.hint
+msgctxt "TFADDRESSFRAME.GADRESSES.HINT"
+msgid "wählen Sie hier eine Adresse"
+msgstr ""
+
+#: tfaddressframe.label1.caption
+msgctxt "TFADDRESSFRAME.LABEL1.CAPTION"
+msgid "Adressen"
+msgstr ""
+
+#: tfaddressframe.ladditional.caption
+msgctxt "TFADDRESSFRAME.LADDITIONAL.CAPTION"
+msgid "Zusätzlich"
+msgstr ""
+
+#: tfaddressframe.lcallingname.caption
+msgctxt "TFADDRESSFRAME.LCALLINGNAME.CAPTION"
+msgid "Vorname"
+msgstr ""
+
+#: tfaddressframe.lcity.caption
+msgctxt "TFADDRESSFRAME.LCITY.CAPTION"
+msgid "Ort"
+msgstr ""
+
+#: tfaddressframe.lland.caption
+msgctxt "TFADDRESSFRAME.LLAND.CAPTION"
+msgid "Land"
+msgstr ""
+
+#: tfaddressframe.lname.caption
+msgctxt "TFADDRESSFRAME.LNAME.CAPTION"
+msgid "Name / Firma"
+msgstr ""
+
+#: tfaddressframe.lpostalcode.caption
+msgctxt "TFADDRESSFRAME.LPOSTALCODE.CAPTION"
+msgid "Postleitzahl"
+msgstr ""
+
+#: tfaddressframe.lstreet.caption
+msgctxt "TFADDRESSFRAME.LSTREET.CAPTION"
+msgid "Straße"
+msgstr ""
+
+#: tfaddressframe.ltitle.caption
+msgctxt "TFADDRESSFRAME.LTITLE.CAPTION"
+msgid "Anrede"
+msgstr ""
+
+#: tfaddressframe.paddress.caption
+msgid "gewählte Adresse"
+msgstr ""
+
 #: tfaddserial.caption
 msgid "Serienummer hinzufügen"
 msgstr "Serienummer hinzufügen"
@@ -281,24 +426,381 @@ msgstr ""
 msgid "lArticle"
 msgstr "Artikel"
 
-#: tfbookaccounting.depayed.cancelcaption
-msgctxt "TFBOOKACCOUNTING.DEPAYED.CANCELCAPTION"
-msgid "Cancel"
-msgstr "Abbrechen"
+#: tfarticleframe.accancel.caption
+msgctxt "TFARTICLEFRAME.ACCANCEL.CAPTION"
+msgid "Abbrechen"
+msgstr ""
 
-#: tfbookaccounting.depayed.okcaption
-msgctxt "TFBOOKACCOUNTING.DEPAYED.OKCAPTION"
-msgid "OK"
-msgstr "OK"
+#: tfarticleframe.accancel.hint
+msgctxt "tfarticleframe.accancel.hint"
+msgid "verwirft alle Änderungen"
+msgstr ""
+
+#: tfarticleframe.acclose.caption
+msgctxt "tfarticleframe.acclose.caption"
+msgid "acClose"
+msgstr ""
+
+#: tfarticleframe.accopy.caption
+msgctxt "TFARTICLEFRAME.ACCOPY.CAPTION"
+msgid "Kopieren"
+msgstr ""
+
+#: tfarticleframe.acdelete.caption
+msgctxt "TFARTICLEFRAME.ACDELETE.CAPTION"
+msgid "Löschen"
+msgstr ""
+
+#: tfarticleframe.acpaste.caption
+msgctxt "TFARTICLEFRAME.ACPASTE.CAPTION"
+msgid "Einfügen"
+msgstr ""
+
+#: tfarticleframe.acprint.caption
+msgctxt "TFARTICLEFRAME.ACPRINT.CAPTION"
+msgid "acPrint"
+msgstr ""
+
+#: tfarticleframe.acrights.caption
+msgctxt "TFARTICLEFRAME.ACRIGHTS.CAPTION"
+msgid "Rechte"
+msgstr ""
+
+#: tfarticleframe.acsave.caption
+msgctxt "TFARTICLEFRAME.ACSAVE.CAPTION"
+msgid "Speichern"
+msgstr ""
+
+#: tfarticleframe.acsave.hint
+msgctxt "tfarticleframe.acsave.hint"
+msgid "Speichert alle Änderungen in die Datenbank"
+msgstr ""
+
+#: tfarticleframe.acsettreedir.caption
+msgctxt "tfarticleframe.acsettreedir.caption"
+msgid "acSetTreeDir"
+msgstr ""
+
+#: tfarticleframe.acshowtreedir.caption
+msgctxt "tfarticleframe.acshowtreedir.caption"
+msgid "acShowTreeDir"
+msgstr ""
+
+#: tfarticleframe.acstarttimeregistering.caption
+msgctxt "tfarticleframe.acstarttimeregistering.caption"
+msgid "Zeiterfassung starten"
+msgstr ""
+
+#: tfarticleframe.bchangenumber.caption
+msgctxt "TFARTICLEFRAME.BCHANGENUMBER.CAPTION"
+msgid "..."
+msgstr ""
+
+#: tfarticleframe.cbactive.caption
+msgctxt "TFARTICLEFRAME.CBACTIVE.CAPTION"
+msgid "Aktiv"
+msgstr ""
+
+#: tfarticleframe.cbactive.hint
+msgctxt "TFARTICLEFRAME.CBACTIVE.HINT"
+msgid "markiert diesen Artikel als aktiv"
+msgstr ""
+
+#: tfarticleframe.cblanguage.hint
+msgctxt "TFARTICLEFRAME.CBLANGUAGE.HINT"
+msgid "wählt den Eintrag in einer anderen Sprache aus"
+msgstr ""
+
+#: tfarticleframe.cbnostorage.caption
+msgctxt "TFARTICLEFRAME.CBNOSTORAGE.CAPTION"
+msgid "hat kein Lager"
+msgstr ""
+
+#: tfarticleframe.cbnostorage.hint
+msgctxt "TFARTICLEFRAME.CBNOSTORAGE.HINT"
+msgid "Der Eintrag besitzt kein Lager "
+msgstr ""
+
+#: tfarticleframe.cbnostorage1.caption
+msgid "Chargenpflicht"
+msgstr ""
+
+#: tfarticleframe.cbnostorage1.hint
+msgid "Der Eintrag erzeugt Chargen oder entnimmt aus Chargen"
+msgstr ""
+
+#: tfarticleframe.cbownproduction.caption
+msgctxt "TFARTICLEFRAME.CBOWNPRODUCTION.CAPTION"
+msgid "Eigenproduktion"
+msgstr ""
+
+#: tfarticleframe.cbownproduction.hint
+msgctxt "TFARTICLEFRAME.CBOWNPRODUCTION.HINT"
+msgid "wird dieser Eintrag selbst erzeugt ?"
+msgstr ""
+
+#: tfarticleframe.cbsaleitem.caption
+msgctxt "TFARTICLEFRAME.CBSALEITEM.CAPTION"
+msgid "Verkaufsartikel"
+msgstr ""
+
+#: tfarticleframe.cbsaleitem.hint
+msgctxt "TFARTICLEFRAME.CBSALEITEM.HINT"
+msgid "Ist dieser Eintrag ein Verkaufsartikel "
+msgstr ""
+
+#: tfarticleframe.cbstatus.hint
+msgctxt "TFARTICLEFRAME.CBSTATUS.HINT"
+msgid "hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu überführen"
+msgstr ""
+
+#: tfarticleframe.cbuseserial.caption
+msgctxt "TFARTICLEFRAME.CBUSESERIAL.CAPTION"
+msgid "Serienummernpflicht"
+msgstr ""
+
+#: tfarticleframe.cbuseserial.hint
+msgctxt "TFARTICLEFRAME.CBUSESERIAL.HINT"
+msgid "Bei allen Buchungen werden "
+msgstr ""
+
+#: tfarticleframe.cbversion.hint
+msgctxt "TFARTICLEFRAME.CBVERSION.HINT"
+msgid "hier können Sie die zu bearbeitende Artikelversion auswählen."
+msgstr ""
+
+#: tfarticleframe.ematchcode.hint
+msgctxt "TFARTICLEFRAME.EMATCHCODE.HINT"
+msgid "Hier können Sie einen Suchbegriff angeben, "
+msgstr ""
+
+#: tfarticleframe.gbtree.caption
+msgctxt "TFARTICLEFRAME.GBTREE.CAPTION"
+msgid "Baum"
+msgstr ""
+
+#: tfarticleframe.label2.caption
+msgctxt "TFARTICLEFRAME.LABEL2.CAPTION"
+msgid "Eintrag"
+msgstr ""
+
+#: tfarticleframe.label3.caption
+msgctxt "tfarticleframe.label3.caption"
+msgid "Erweitert"
+msgstr ""
+
+#: tfarticleframe.label4.caption
+msgctxt "TFARTICLEFRAME.LABEL4.CAPTION"
+msgid "Nummer"
+msgstr ""
+
+#: tfarticleframe.label5.caption
+msgctxt "TFARTICLEFRAME.LABEL5.CAPTION"
+msgid "Status"
+msgstr ""
+
+#: tfarticleframe.label6.caption
+msgctxt "TFARTICLEFRAME.LABEL6.CAPTION"
+msgid "Version"
+msgstr ""
+
+#: tfarticleframe.lbarcode.caption
+msgctxt "TFARTICLEFRAME.LBARCODE.CAPTION"
+msgid "Barcode / EAN"
+msgstr ""
+
+#: tfarticleframe.llanguage.caption
+msgctxt "TFARTICLEFRAME.LLANGUAGE.CAPTION"
+msgid "Sprache"
+msgstr ""
+
+#: tfarticleframe.lmanufacturernr.caption
+msgctxt "TFARTICLEFRAME.LMANUFACTURERNR.CAPTION"
+msgid "Artikelnummer Hersteller"
+msgstr ""
+
+#: tfarticleframe.lmatchcode.caption
+msgctxt "TFARTICLEFRAME.LMATCHCODE.CAPTION"
+msgid "Suchbegriff"
+msgstr ""
+
+#: tfarticleframe.lquantityunit.caption
+msgctxt "TFARTICLEFRAME.LQUANTITYUNIT.CAPTION"
+msgid "Mengeneinheit"
+msgstr ""
+
+#: tfarticleframe.lshorttext.caption
+msgctxt "TFARTICLEFRAME.LSHORTTEXT.CAPTION"
+msgid "Kurztext"
+msgstr ""
+
+#: tfarticleframe.lunit.caption
+msgctxt "TFARTICLEFRAME.LUNIT.CAPTION"
+msgid "Verpackungseinheit"
+msgstr ""
+
+#: tfarticleframe.lvat.caption
+msgctxt "TFARTICLEFRAME.LVAT.CAPTION"
+msgid "Mehrwertsteuer"
+msgstr ""
+
+#: tfarticleframe.lvat1.caption
+msgctxt "TFARTICLEFRAME.LVAT1.CAPTION"
+msgid "Kategorie"
+msgstr ""
+
+#: tfarticleframe.lwarrenty.caption
+msgctxt "TFARTICLEFRAME.LWARRENTY.CAPTION"
+msgid "Gewährleistung"
+msgstr ""
+
+#: tfarticleframe.lweight.caption
+msgctxt "TFARTICLEFRAME.LWEIGHT.CAPTION"
+msgid "Gewicht"
+msgstr ""
+
+#: tfarticleframe.menuitem1.caption
+msgctxt "TFARTICLEFRAME.MENUITEM1.CAPTION"
+msgid "-"
+msgstr ""
+
+#: tfarticleframe.menuitem2.caption
+msgctxt "TFARTICLEFRAME.MENUITEM2.CAPTION"
+msgid "-"
+msgstr ""
+
+#: tfarticleframe.mshorttext.hint
+msgctxt "TFARTICLEFRAME.MSHORTTEXT.HINT"
+msgid "Der Kurztext des Eintrags"
+msgstr ""
+
+#: tfarticleframe.ppreviewimage.caption
+msgctxt "TFARTICLEFRAME.PPREVIEWIMAGE.CAPTION"
+msgid "kein Bild"
+msgstr ""
+
+#: tfarticleframe.sbmenue.hint
+msgctxt "tfarticleframe.sbmenue.hint"
+msgid "zusätzliche Optionen"
+msgstr ""
+
+#: tfarticleframe.tscommon.caption
+msgctxt "TFARTICLEFRAME.TSCOMMON.CAPTION"
+msgid "Allgemein"
+msgstr ""
+
+#: tfarticlepositionframe.ltype.caption
+msgctxt "TFARTICLEPOSITIONFRAME.LTYPE.CAPTION"
+msgid "Typ"
+msgstr ""
+
+#: tfarticlepositionframe.panel1.caption
+msgctxt "TFARTICLEPOSITIONFRAME.PANEL1.CAPTION"
+msgid "Panel1"
+msgstr ""
+
+#: tfarticlerepairframe.gassemblys.columns[0].title.caption
+msgctxt "TFARTICLEREPAIRFRAME.GASSEMBLYS.COLUMNS[0].TITLE.CAPTION"
+msgid "ASSEMBLY"
+msgstr ""
+
+#: tfarticlerepairframe.gparts.columns[0].title.caption
+msgctxt "TFARTICLEREPAIRFRAME.GPARTS.COLUMNS[0].TITLE.CAPTION"
+msgid "PART"
+msgstr ""
+
+#: tfarticlestorageframe.extrotatedlabel1.caption
+msgctxt "tfarticlestorageframe.extrotatedlabel1.caption"
+msgid "Navigation"
+msgstr ""
+
+#: tfarticlesupplierframe.extrotatedlabel1.caption
+msgctxt "TFARTICLESUPPLIERFRAME.EXTROTATEDLABEL1.CAPTION"
+msgid "Navigation"
+msgstr ""
+
+#: tfarticlesupplierframe.gsupplier.columns[0].title.caption
+msgctxt "TFARTICLESUPPLIERFRAME.GSUPPLIER.COLUMNS[0].TITLE.CAPTION"
+msgid "Name"
+msgstr ""
+
+#: tfarticlesupplierframe.gsupplierprices.columns[0].title.caption
+msgid "von"
+msgstr ""
+
+#: tfarticlesupplierframe.gsupplierprices.columns[1].title.caption
+msgctxt "TFARTICLESUPPLIERFRAME.GSUPPLIERPRICES.COLUMNS[1].TITLE.CAPTION"
+msgid "Mengeneinheit"
+msgstr ""
+
+#: tfarticlesupplierframe.gsupplierprices.columns[2].title.caption
+msgctxt "TFARTICLESUPPLIERFRAME.GSUPPLIERPRICES.COLUMNS[2].TITLE.CAPTION"
+msgid "Rabatt"
+msgstr ""
+
+#: tfarticlesupplierframe.gsupplierprices.columns[3].title.caption
+msgctxt "TFARTICLESUPPLIERFRAME.GSUPPLIERPRICES.COLUMNS[3].TITLE.CAPTION"
+msgid "Preis"
+msgstr ""
+
+#: tfarticlesupplierframe.gsupplierprices.columns[4].title.caption
+msgctxt "TFARTICLESUPPLIERFRAME.GSUPPLIERPRICES.COLUMNS[4].TITLE.CAPTION"
+msgid "Währung"
+msgstr ""
+
+#: tfarticlesupplierframe.larticlenumbersupplier.caption
+msgid "Artikelnummer"
+msgstr ""
+
+#: tfarticlesupplierframe.ldelivertime.caption
+msgctxt "TFARTICLESUPPLIERFRAME.LDELIVERTIME.CAPTION"
+msgid "Lieferzeit"
+msgstr ""
+
+#: tfarticlesupplierframe.ldelivertime1.caption
+msgid "fügen Sie weitere Lieferanten per Drag&Drop aus der Suche ein"
+msgstr ""
+
+#: tfarticlesupplierframe.lprices.caption
+msgctxt "TFARTICLESUPPLIERFRAME.LPRICES.CAPTION"
+msgid "Preise"
+msgstr ""
+
+#: tfarticlesupplierframe.ltransportsupplier.caption
+msgctxt "TFARTICLESUPPLIERFRAME.LTRANSPORTSUPPLIER.CAPTION"
+msgid "Versandkosten"
+msgstr ""
+
+#: tfarticletextframe.cbtexttyp.text
+msgid "cbTextTyp"
+msgstr ""
+
+#: tfarticletextframe.extrotatedlabel1.caption
+msgctxt "TFARTICLETEXTFRAME.EXTROTATEDLABEL1.CAPTION"
+msgid "Navigation"
+msgstr ""
+
+#: tfarticletextframe.ltexttyp.caption
+msgid "Textart"
+msgstr ""
+
+#: tfbankingdialog.caption
+msgid "fbankingDialog"
+msgstr ""
+
+#: tfbankingdialog.label1.caption
+msgid "Label1"
+msgstr ""
+
+#: tfbookaccounting.caption
+msgctxt "TFBOOKACCOUNTING.CAPTION"
+msgid "Zahlungseingang buchen"
+msgstr ""
 
 #: tfbookaccounting.edifference.text
 msgctxt "TFBOOKACCOUNTING.EDIFFERENCE.TEXT"
 msgid "0,00"
 msgstr "0,00"
-
-#: tfbookaccounting.fbookaccounting.caption
-msgid "Zahlungseingang buchen"
-msgstr "Zahlungseingang buchen"
 
 #: tfbookaccounting.lamount.caption
 msgid "Zahlungsbetrag"
@@ -317,6 +819,18 @@ msgctxt "TFBOOKACCOUNTING.MEAMOUNT.TEXT"
 msgid "0,00"
 msgstr "0,00"
 
+#: tfbookserial.caption
+msgid "Serienummer ein/ausbuchen"
+msgstr ""
+
+#: tfbookserial.label1.caption
+msgid "Serienummer"
+msgstr ""
+
+#: tfbookserial.label2.caption
+msgid "Label2"
+msgstr ""
+
 #: tfcalendar.acgototoday.caption
 msgid "acGotoToday"
 msgstr ""
@@ -330,7 +844,6 @@ msgctxt "TFCALENDAR.ACPRINT.CAPTION"
 msgid "acPrint"
 msgstr ""
 
-# uintfstrconsts:strcalendar
 #: tfcalendar.fcalendar.caption
 msgctxt "TFCALENDAR.FCALENDAR.CAPTION"
 msgid "Kalendar"
@@ -344,7 +857,6 @@ msgstr ""
 msgid "pDayView"
 msgstr ""
 
-# uintfstrconsts:strcontact
 #: tfcall.acaddcustomer.caption
 msgid "Kontakt erstellen"
 msgstr "Kontakt erstellen"
@@ -384,7 +896,6 @@ msgctxt "TFCALL.LDURATION.CAPTION"
 msgid "Zeit"
 msgstr "Zeit"
 
-# uintfstrconsts:strversion
 #: tfcall.lfrom.caption
 msgctxt "TFCALL.LFROM.CAPTION"
 msgid "Von"
@@ -400,7 +911,25 @@ msgctxt "TFCALL.LSTATUS.CAPTION"
 msgid "Status"
 msgstr "Status"
 
-# uintfstrconsts:stractive
+#: tfcategoryoptions.gcategory.columns[0].title.caption
+msgctxt "TFCATEGORYOPTIONS.GCATEGORY.COLUMNS[0].TITLE.CAPTION"
+msgid "Typ"
+msgstr ""
+
+#: tfcategoryoptions.gcategory.columns[1].title.caption
+msgctxt "TFCATEGORYOPTIONS.GCATEGORY.COLUMNS[1].TITLE.CAPTION"
+msgid "Name"
+msgstr ""
+
+#: tfcategoryoptions.gcategory.columns[2].title.caption
+msgctxt "TFCATEGORYOPTIONS.GCATEGORY.COLUMNS[2].TITLE.CAPTION"
+msgid "Aktiv"
+msgstr ""
+
+#: tfcategoryoptions.gcategory.columns[3].title.caption
+msgid "Farbe"
+msgstr ""
+
 #: tfchangestatus.babort.caption
 msgctxt "TFCHANGESTATUS.BABORT.CAPTION"
 msgid "Abbrechen"
@@ -468,6 +997,36 @@ msgstr "Texte"
 #: tfcopyarticledata.lfeaturesfornewarticleversion.caption
 msgid "Daten die in den neuen Artikel / Artikelversion übernommen werden"
 msgstr "Daten die in den neuen Artikel / Artikelversion übernommen werden"
+
+#: tfcurrencyoptions.dgcurrency.columns[0].title.caption
+msgctxt "TFCURRENCYOPTIONS.DGCURRENCY.COLUMNS[0].TITLE.CAPTION"
+msgid "SYMBOL"
+msgstr ""
+
+#: tfcurrencyoptions.dgcurrency.columns[1].title.caption
+msgctxt "TFCURRENCYOPTIONS.DGCURRENCY.COLUMNS[1].TITLE.CAPTION"
+msgid "NAME"
+msgstr ""
+
+#: tfcurrencyoptions.dgcurrency.columns[2].title.caption
+msgctxt "TFCURRENCYOPTIONS.DGCURRENCY.COLUMNS[2].TITLE.CAPTION"
+msgid "MASK"
+msgstr ""
+
+#: tfcurrencyoptions.dgcurrency.columns[3].title.caption
+msgctxt "TFCURRENCYOPTIONS.DGCURRENCY.COLUMNS[3].TITLE.CAPTION"
+msgid "DECIMALPL"
+msgstr ""
+
+#: tfcurrencyoptions.dgcurrency.columns[4].title.caption
+msgctxt "TFCURRENCYOPTIONS.DGCURRENCY.COLUMNS[4].TITLE.CAPTION"
+msgid "FACTOR"
+msgstr ""
+
+#: tfcurrencyoptions.dgcurrency.columns[5].title.caption
+msgctxt "TFCURRENCYOPTIONS.DGCURRENCY.COLUMNS[5].TITLE.CAPTION"
+msgid "DEFAULTCUR"
+msgstr ""
 
 #: tfcustomer.acactionmenue.caption
 msgid "acActionMenue"
@@ -571,15 +1130,15 @@ msgctxt "TFCUSTOMER.ACMENUE.HINT"
 msgid "öffnet ein Menü mit weiteren Möglichkeiten"
 msgstr "öffnet ein Menü mit weiteren Möglichkeiten"
 
-# uintfstrconsts:strnet
 #: tfcustomer.acnew.caption
 msgctxt "TFCUSTOMER.ACNEW.CAPTION"
 msgid "Neu"
 msgstr "Neu"
 
 #: tfcustomer.acnew.hint
+msgctxt "tfcustomer.acnew.hint"
 msgid "erstellt einen neuen Kontakt"
-msgstr "erstellt einen neuen Kontakt"
+msgstr ""
 
 #: tfcustomer.acnewcall.caption
 msgid "neuer Anruf"
@@ -676,8 +1235,9 @@ msgid "hiermit können Sie den Tabdesigner aufrufen,"
 msgstr "hiermit können Sie den Tabdesigner aufrufen,"
 
 #: tfcustomer.btransfer.hint
+msgctxt "tfcustomer.btransfer.hint"
 msgid "erstellt eine Überweisung an die gewählte Bankverbindung / den Kontakt"
-msgstr "erstellt eine Überweisung an die gewählte Bankverbindung / den Kontakt"
+msgstr ""
 
 #: tfcustomer.cbactive.caption
 msgctxt "TFCUSTOMER.CBACTIVE.CAPTION"
@@ -689,16 +1249,19 @@ msgid "setzt eine Standartwährung für den Kontakt mit der jeder Vorgang für d
 msgstr "setzt eine Standartwährung für den Kontakt mit der jeder Vorgang für den Kontakt vorbelegt wird"
 
 #: tfcustomer.cbdiscontgroup.hint
+msgctxt "tfcustomer.cbdiscontgroup.hint"
 msgid "setzt eine Rabattgruppe für den Kontakt"
-msgstr "setzt eine Rabattgruppe für den Kontakt"
+msgstr ""
 
 #: tfcustomer.cblanguage.hint
+msgctxt "tfcustomer.cblanguage.hint"
 msgid "wählen Sie hier die Sprache des Kontaktes"
-msgstr "wählen Sie hier die Sprache des Kontaktes"
+msgstr ""
 
 #: tfcustomer.cbpaymenttarget.hint
+msgctxt "tfcustomer.cbpaymenttarget.hint"
 msgid "setzt ein Zahlungsziel mit dem die Vorgänge für diesen Kontakt vorbelegt werden"
-msgstr "setzt ein Zahlungsziel mit dem die Vorgänge für diesen Kontakt vorbelegt werden"
+msgstr ""
 
 #: tfcustomer.cbstate.hint
 msgid "hier können Sie den Status des Kontaktes setzen/ändern"
@@ -709,23 +1272,25 @@ msgid "ist Lieferant"
 msgstr "ist Lieferant"
 
 #: tfcustomer.cbsupplier.hint
+msgctxt "tfcustomer.cbsupplier.hint"
 msgid "setzen Sie dieses Feld wenn der Kontakt ein Lieferant ist"
-msgstr "setzen Sie dieses Feld wenn der Kontakt ein Lieferant ist"
+msgstr ""
 
 #: tfcustomer.ecustomername.hint
+msgctxt "tfcustomer.ecustomername.hint"
 msgid "geben Sie hier den namen des Kontaktes an"
-msgstr "geben Sie hier den namen des Kontaktes an"
+msgstr ""
 
 #: tfcustomer.ediscont.hint
+msgctxt "tfcustomer.ediscont.hint"
 msgid "setzt eine Rabatt mit dem die Vorgänge für diesen Kontakt vorbelegt werden"
-msgstr "setzt eine Rabatt mit dem die Vorgänge für diesen Kontakt vorbelegt werden"
+msgstr ""
 
 #: tfcustomer.ematchcode.hint
 msgctxt "TFCUSTOMER.EMATCHCODE.HINT"
 msgid "Hier können Sie einen Suchbegriff angeben, "
 msgstr "Hier können Sie einen Suchbegriff angeben, "
 
-# uintfstrconsts:strcontact
 #: tfcustomer.fcustomer.caption
 msgctxt "TFCUSTOMER.FCUSTOMER.CAPTION"
 msgid "Kontakte"
@@ -752,27 +1317,30 @@ msgid "wählen Sie hier eine Adresse"
 msgstr "wählen Sie hier eine Adresse"
 
 #: tfcustomer.gbanking.columns[0].tcolumntitle.caption
+msgctxt "tfcustomer.gbanking.columns[0].tcolumntitle.caption"
 msgid "SORTCODE"
 msgstr ""
 
 #: tfcustomer.gbanking.columns[1].tcolumntitle.caption
+msgctxt "tfcustomer.gbanking.columns[1].tcolumntitle.caption"
 msgid "ACCOUNT"
 msgstr ""
 
 #: tfcustomer.gbanking.columns[2].tcolumntitle.caption
+msgctxt "tfcustomer.gbanking.columns[2].tcolumntitle.caption"
 msgid "INSTITUTE"
 msgstr ""
 
 #: tfcustomer.gbanking.hint
+msgctxt "tfcustomer.gbanking.hint"
 msgid "hier können Sie Bankverbindungen des Kontaktes verwalten"
-msgstr "hier können Sie Bankverbindungen des Kontaktes verwalten"
+msgstr ""
 
 #: tfcustomer.gbtree.caption
 msgctxt "TFCUSTOMER.GBTREE.CAPTION"
 msgid "Baum"
 msgstr "Baum"
 
-# uintfstrconsts:strcontact
 #: tfcustomer.gcontact.columns[0].tcolumntitle.caption
 msgid "Contacttype"
 msgstr "Kontakttyp"
@@ -823,8 +1391,9 @@ msgid "Bankverbindungen"
 msgstr "Bankverbindungen"
 
 #: tfcustomer.lcallingname.caption
+msgctxt "tfcustomer.lcallingname.caption"
 msgid "Vorname"
-msgstr "Vorname"
+msgstr ""
 
 #: tfcustomer.lcity.caption
 msgctxt "TFCUSTOMER.LCITY.CAPTION"
@@ -836,12 +1405,11 @@ msgctxt "TFCUSTOMER.LCURRENCY.CAPTION"
 msgid "Währung"
 msgstr "Währung"
 
-# uintfstrconsts:strcontact
 #: tfcustomer.lcustomername.caption
+msgctxt "tfcustomer.lcustomername.caption"
 msgid "Kontaktname"
-msgstr "Kontaktname"
+msgstr ""
 
-# uintfstrconsts:strarticlenumber
 #: tfcustomer.lcustomernumber.caption
 msgctxt "TFCUSTOMER.LCUSTOMERNUMBER.CAPTION"
 msgid "Kundennummer"
@@ -857,13 +1425,14 @@ msgid "Rabatt"
 msgstr "Rabatt"
 
 #: tfcustomer.ldiscontgroup.caption
+msgctxt "tfcustomer.ldiscontgroup.caption"
 msgid "Rabattgruppe"
-msgstr "Rabattgruppe"
+msgstr ""
 
-# uintfstrconsts:strname
 #: tfcustomer.lfirmname.caption
+msgctxt "tfcustomer.lfirmname.caption"
 msgid "lFirmName"
-msgstr "Firmenname"
+msgstr ""
 
 #: tfcustomer.lhint.caption
 msgctxt "TFCUSTOMER.LHINT.CAPTION"
@@ -886,8 +1455,9 @@ msgid "Suchbegriff"
 msgstr "Suchbegriff"
 
 #: tfcustomer.lname.caption
+msgctxt "tfcustomer.lname.caption"
 msgid "Name / Firma"
-msgstr "Name / Firma"
+msgstr ""
 
 #: tfcustomer.lpaymenttarget.caption
 msgctxt "TFCUSTOMER.LPAYMENTTARGET.CAPTION"
@@ -905,8 +1475,9 @@ msgid "Status"
 msgstr "Status"
 
 #: tfcustomer.lstreet.caption
+msgctxt "tfcustomer.lstreet.caption"
 msgid "Straße"
-msgstr "Straße"
+msgstr ""
 
 #: tfcustomer.ltitle.caption
 msgctxt "TFCUSTOMER.LTITLE.CAPTION"
@@ -980,19 +1551,16 @@ msgctxt "TFCUSTOMER.TSADRESS.CAPTION"
 msgid "Adresse"
 msgstr "Adresse"
 
-# uintfstrconsts:strcontact
 #: tfcustomer.tscontact.caption
 msgctxt "TFCUSTOMER.TSCONTACT.CAPTION"
 msgid "Kontaktdaten"
 msgstr "Kontaktdaten"
 
-# uintfstrconsts:strdocuments
 #: tfcustomer.tsdocuments.caption
 msgctxt "TFCUSTOMER.TSDOCUMENTS.CAPTION"
 msgid "Dokumente"
 msgstr "Dokumente"
 
-# uintfstrconsts:strdepartment
 #: tfcustomer.tsemployees.caption
 msgctxt "TFCUSTOMER.TSEMPLOYEES.CAPTION"
 msgid "Mitarbeiter"
@@ -1037,7 +1605,6 @@ msgstr "..."
 msgid "Textdatei Trennzeichen getrennt"
 msgstr "Textdatei Trennzeichen getrennt"
 
-# uintfstrconsts:strdates
 #: tfdataimport.fdataimport.caption
 msgctxt "TFDATAIMPORT.FDATAIMPORT.CAPTION"
 msgid "Datenimport"
@@ -1048,7 +1615,6 @@ msgctxt "TFDATAIMPORT.LABEL1.CAPTION"
 msgid "Datenquelle"
 msgstr "Datenquelle"
 
-# uintfstrconsts:strdates
 #: tfdataimport.label2.caption
 msgid "Datenformat"
 msgstr "Datenformat"
@@ -1121,12 +1687,10 @@ msgctxt "TFDOCPROPERTIES.LDATE.CAPTION"
 msgid "Datum"
 msgstr "Datum"
 
-# uintfstrconsts:strdates
 #: tfdocproperties.ldatevalue.caption
 msgid "lDateValue"
 msgstr ""
 
-# uintfstrconsts:strdates
 #: tfdocproperties.lfilename.caption
 msgctxt "TFDOCPROPERTIES.LFILENAME.CAPTION"
 msgid "Dateiname"
@@ -1170,7 +1734,6 @@ msgstr "Allgemein"
 msgid "Geschichte"
 msgstr "Geschichte"
 
-# uintfstrconsts:strdocuments
 #: tfdocumentaction.caption
 msgid "Dokumentenaktionen"
 msgstr "Dokumentenaktionen"
@@ -1226,7 +1789,6 @@ msgctxt "TFDOCUMENTADDOPTIONS.CCCALENDAR.OKCAPTION"
 msgid "OK"
 msgstr "OK"
 
-# uintfstrconsts:strname
 #: tfdocumentaddoptions.ename.text
 msgid "eName"
 msgstr ""
@@ -1236,13 +1798,11 @@ msgctxt "TFDOCUMENTADDOPTIONS.LCHECKINDATE.CAPTION"
 msgid "Datum"
 msgstr "Datum"
 
-# uintfstrconsts:strname
 #: tfdocumentaddoptions.lname.caption
 msgctxt "TFDOCUMENTADDOPTIONS.LNAME.CAPTION"
 msgid "Name"
 msgstr "Name"
 
-# uintfstrconsts:strreadingoptions
 #: tfdocumentaddoptions.loptions.caption
 msgctxt "TFDOCUMENTADDOPTIONS.LOPTIONS.CAPTION"
 msgid "Optionen"
@@ -1253,7 +1813,6 @@ msgctxt "TFEDITMAIL.ACCLOSE.CAPTION"
 msgid "Schliessen"
 msgstr "Schliessen"
 
-# uintfstrconsts:strseverity
 #: tfeditmail.bsend.caption
 msgctxt "TFEDITMAIL.BSEND.CAPTION"
 msgid "Senden"
@@ -1394,7 +1953,6 @@ msgstr "beginnen"
 msgid "beginnt die Zeiterfassung, mit den links "
 msgstr "beginnt die Zeiterfassung, mit den links "
 
-# uintfstrconsts:strseverity
 #: tfentertime.bstop.caption
 msgid "beenden"
 msgstr "beenden"
@@ -1475,7 +2033,6 @@ msgstr "Pausen"
 msgid "01:00"
 msgstr ""
 
-# uintfstrconsts:strproject
 #: tfentertime.lproject.caption
 msgid "Projekt"
 msgstr "Projekt"
@@ -1553,7 +2110,6 @@ msgstr "AlarmAdvance"
 msgid "Erinnerung"
 msgstr "Erinnerung"
 
-# uintfstrconsts:stractive
 #: tfeventedit.cancelbtn.caption
 msgctxt "TFEVENTEDIT.CANCELBTN.CAPTION"
 msgid "Abbrechen"
@@ -1590,7 +2146,6 @@ msgstr "OK"
 msgid "Endzeit"
 msgstr "Endzeit"
 
-# uintfstrconsts:strdepartment
 #: tfeventedit.feventedit.caption
 msgctxt "TFEVENTEDIT.FEVENTEDIT.CAPTION"
 msgid "Ereignis bearbeiten"
@@ -1732,6 +2287,29 @@ msgctxt "TFFILTERTABS.MICLOSE.CAPTION"
 msgid "Schliessen"
 msgstr "Schliessen"
 
+#: tffindtransaction.caption
+msgid "Buchung zuordnen"
+msgstr ""
+
+#: tffindtransaction.cbamount.caption
+msgctxt "TFFINDTRANSACTION.CBAMOUNT.CAPTION"
+msgid "Betrag"
+msgstr ""
+
+#: tffindtransaction.cbdate.caption
+msgctxt "TFFINDTRANSACTION.CBDATE.CAPTION"
+msgid "Datum"
+msgstr ""
+
+#: tffindtransaction.cbname.caption
+msgctxt "TFFINDTRANSACTION.CBNAME.CAPTION"
+msgid "Name"
+msgstr ""
+
+#: tffindtransaction.label1.caption
+msgid "Filtern nach"
+msgstr ""
+
 #: tfhistoryframe.accopylink.caption
 msgctxt "TFHISTORYFRAME.ACCOPYLINK.CAPTION"
 msgid "als Verknüpfung kopieren"
@@ -1840,6 +2418,114 @@ msgstr "Menge"
 msgid "QUANTITYC"
 msgstr "Menge berechnet"
 
+#: tflanguageoptions.dgcountrys.columns[0].title.caption
+msgctxt "TFLANGUAGEOPTIONS.DGCOUNTRYS.COLUMNS[0].TITLE.CAPTION"
+msgid "ID"
+msgstr ""
+
+#: tflanguageoptions.dgcountrys.columns[1].title.caption
+msgctxt "TFLANGUAGEOPTIONS.DGCOUNTRYS.COLUMNS[1].TITLE.CAPTION"
+msgid "NAME"
+msgstr ""
+
+#: tflanguageoptions.dgcountrys.columns[2].title.caption
+msgctxt "TFLANGUAGEOPTIONS.DGCOUNTRYS.COLUMNS[2].TITLE.CAPTION"
+msgid "Sprache"
+msgstr ""
+
+#: tflanguageoptions.dgdispatchtypes.columns[0].title.caption
+msgctxt "TFLANGUAGEOPTIONS.DGDISPATCHTYPES.COLUMNS[0].TITLE.CAPTION"
+msgid "ID"
+msgstr ""
+
+#: tflanguageoptions.dgdispatchtypes.columns[1].title.caption
+msgctxt "TFLANGUAGEOPTIONS.DGDISPATCHTYPES.COLUMNS[1].TITLE.CAPTION"
+msgid "COUNTRY"
+msgstr ""
+
+#: tflanguageoptions.dgdispatchtypes.columns[2].title.caption
+msgctxt "TFLANGUAGEOPTIONS.DGDISPATCHTYPES.COLUMNS[2].TITLE.CAPTION"
+msgid "NAME"
+msgstr ""
+
+#: tflanguageoptions.dgdispatchtypes.columns[3].title.caption
+msgctxt "TFLANGUAGEOPTIONS.DGDISPATCHTYPES.COLUMNS[3].TITLE.CAPTION"
+msgid "OUTPUTDRV"
+msgstr ""
+
+#: tflanguageoptions.dgdispatchtypes.columns[4].title.caption
+msgid "WEIGHT"
+msgstr ""
+
+#: tflanguageoptions.dgdispatchtypes.columns[5].title.caption
+msgid "ARTICLE"
+msgstr ""
+
+#: tflanguageoptions.glanguages.columns[0].title.caption
+msgctxt "TFLANGUAGEOPTIONS.GLANGUAGES.COLUMNS[0].TITLE.CAPTION"
+msgid "LANGUAGE"
+msgstr ""
+
+#: tflanguageoptions.glanguages.columns[1].title.caption
+msgctxt "TFLANGUAGEOPTIONS.GLANGUAGES.COLUMNS[1].TITLE.CAPTION"
+msgid "ISO6391"
+msgstr ""
+
+#: tflanguageoptions.glanguages.columns[2].title.caption
+msgctxt "TFLANGUAGEOPTIONS.GLANGUAGES.COLUMNS[2].TITLE.CAPTION"
+msgid "ISO6392"
+msgstr ""
+
+#: tflanguageoptions.glanguages.columns[3].title.caption
+msgctxt "TFLANGUAGEOPTIONS.GLANGUAGES.COLUMNS[3].TITLE.CAPTION"
+msgid "DEFAULTLNG"
+msgstr ""
+
+#: tflanguageoptions.lcompclose.caption
+msgctxt "TFLANGUAGEOPTIONS.LCOMPCLOSE.CAPTION"
+msgid "Schlussformel"
+msgstr ""
+
+#: tflanguageoptions.lcountries.caption
+msgctxt "TFLANGUAGEOPTIONS.LCOUNTRIES.CAPTION"
+msgid "Länder"
+msgstr ""
+
+#: tflanguageoptions.lcurrency.caption
+msgctxt "TFLANGUAGEOPTIONS.LCURRENCY.CAPTION"
+msgid "Währung"
+msgstr ""
+
+#: tflanguageoptions.ldateformat.caption
+msgctxt "TFLANGUAGEOPTIONS.LDATEFORMAT.CAPTION"
+msgid "Datumsformat"
+msgstr ""
+
+#: tflanguageoptions.llanguages.caption
+msgctxt "TFLANGUAGEOPTIONS.LLANGUAGES.CAPTION"
+msgid "Sprachen"
+msgstr ""
+
+#: tflanguageoptions.lsatutation.caption
+msgctxt "TFLANGUAGEOPTIONS.LSATUTATION.CAPTION"
+msgid "Einleitung"
+msgstr ""
+
+#: tflanguageoptions.lshipping.caption
+msgctxt "TFLANGUAGEOPTIONS.LSHIPPING.CAPTION"
+msgid "Versandarten"
+msgstr ""
+
+#: tflanguageoptions.ltimeformat.caption
+msgctxt "TFLANGUAGEOPTIONS.LTIMEFORMAT.CAPTION"
+msgid "Zeitformat"
+msgstr ""
+
+#: tflanguageoptions.ltitles.caption
+msgctxt "TFLANGUAGEOPTIONS.LTITLES.CAPTION"
+msgid "lTitles"
+msgstr ""
+
 #: tflinks.acfilter.caption
 msgctxt "TFLINKS.ACFILTER.CAPTION"
 msgid "acFilter"
@@ -1854,8 +2540,9 @@ msgid "Im Auftrag anzeigen"
 msgstr "Im Auftrag anzeigen"
 
 #: tflinks.glist.columns[0].tcolumntitle.caption
+msgctxt "tflinks.glist.columns[0].tcolumntitle.caption"
 msgid "ICON"
-msgstr "Icon"
+msgstr ""
 
 #: tflinks.glist.columns[1].tcolumntitle.caption
 msgctxt "TFLINKS.GLIST.COLUMNS[1].TCOLUMNTITLE.CAPTION"
@@ -1887,7 +2574,6 @@ msgctxt "TFLINKS.SPEEDBUTTON2.CAPTION"
 msgid "?"
 msgstr "?"
 
-# uintfstrconsts:stractive
 #: tflogwaitform.babort.caption
 msgctxt "TFLOGWAITFORM.BABORT.CAPTION"
 msgid "Abbrechen"
@@ -1898,19 +2584,42 @@ msgctxt "TFLOGWAITFORM.FLOGWAITFORM.CAPTION"
 msgid "Bitte warten..."
 msgstr "Bitte warten..."
 
+#: tfmailoptions.bcheckconnection.caption
+msgid "Verbindung Testen"
+msgstr ""
+
 #: tfmailoptions.caption
 msgid "Narichteneinstellungen"
 msgstr "Narichteneinstellungen"
+
+#: tfmailoptions.cbarchive.caption
+msgid "nach Abruf Archivieren"
+msgstr ""
+
+#: tfmailoptions.cbarchive.hint
+msgid "Archiviert Mails nach erfolgrechem Abruf "
+msgstr ""
+
+#: tfmailoptions.cbdelete.caption
+msgid "nach Abruf löschen"
+msgstr ""
+
+#: tfmailoptions.cbdelete.hint
+msgid "löscht Mails nach erfolgrechem Abruf "
+msgstr ""
 
 #: tfmailoptions.eservertype.text
 msgid "POP3"
 msgstr "POP3"
 
+#: tfmailoptions.label1.caption
+msgid "Zielordner"
+msgstr ""
+
 #: tfmailoptions.lmailaddr.caption
 msgid "e-Mail Addresse"
 msgstr "e-Mail Addresse"
 
-# uintfstrconsts:strname
 #: tfmailoptions.lname.caption
 msgctxt "TFMAILOPTIONS.LNAME.CAPTION"
 msgid "Name"
@@ -1921,13 +2630,11 @@ msgctxt "TFMAILOPTIONS.LPASSWORD.CAPTION"
 msgid "Passwort"
 msgstr "Passwort"
 
-# uintfstrconsts:strseverity
 #: tfmailoptions.lserver.caption
 msgctxt "TFMAILOPTIONS.LSERVER.CAPTION"
 msgid "Server"
 msgstr "Server"
 
-# uintfstrconsts:strseverity
 #: tfmailoptions.lservertype.caption
 msgid "Servertyp"
 msgstr "Servertyp"
@@ -1937,61 +2644,79 @@ msgctxt "TFMAILOPTIONS.LUSERNAME.CAPTION"
 msgid "Benutzername"
 msgstr "Benutzername"
 
-#: tfmain.acadddirectory.caption
-msgctxt "TFMAIN.ACADDDIRECTORY.CAPTION"
-msgid "Verzeichnis hinzufügen"
-msgstr "Verzeichnis hinzufügen"
+#: tfmain.acattplan.caption
+msgid "Anwesenheitsplan"
+msgstr ""
 
 #: tfmain.acback.caption
-msgid "Zurück"
-msgstr "Zurück"
+msgctxt "tfmain.acback.caption"
+msgid "acBack"
+msgstr ""
 
-#: tfmain.acback.hint
-msgid "zum vorherigen Eintrag gehen"
-msgstr "zum vorherigen Eintrag gehen"
+#: tfmain.acbookinventory.caption
+msgid "acBookInventory"
+msgstr ""
 
-#: tfmain.acbugtracker.caption
-msgid "Fehler berichten/verfolgen"
-msgstr "Fehler berichten/verfolgen"
-
-# uintfstrconsts:strcalendar
 #: tfmain.accalendar.caption
 msgctxt "TFMAIN.ACCALENDAR.CAPTION"
 msgid "Kalendar"
 msgstr "Kalender"
 
-# uintfstrconsts:strcontact
+#: tfmain.acchangepasswort.caption
+msgid "Passwort ändern"
+msgstr ""
+
+#: tfmain.acclearlist.caption
+msgid "acClearList"
+msgstr ""
+
+#: tfmain.acclearlist.hint
+msgid "setzt alle Listenelemente zurück"
+msgstr ""
+
+#: tfmain.acclosetab.caption
+msgid "Tab Schliessen"
+msgstr ""
+
+#: tfmain.accollectinventory.caption
+msgid "acCollectInventory"
+msgstr ""
+
+#: tfmain.accombinesaleitems.caption
+msgid "acCombineSaleItems"
+msgstr ""
+
 #: tfmain.accontact.caption
 msgctxt "TFMAIN.ACCONTACT.CAPTION"
-msgid "Kontakte"
-msgstr "Kontakte"
+msgid "Kontaktliste"
+msgstr ""
 
-#: tfmain.acdeletedirectory.caption
-msgid "Verzeichnis löschen"
-msgstr "Verzeichnis löschen"
+#: tfmain.acdeletelisteentry.caption
+msgctxt "TFMAIN.ACDELETELISTEENTRY.CAPTION"
+msgid "löschen"
+msgstr ""
 
-#: tfmain.acdeletemandant.caption
-msgid "Mandanten löschen"
-msgstr "Mandanten löschen"
+#: tfmain.acdeletelisteentry.hint
+msgid "Eintrag löschen"
+msgstr ""
 
 #: tfmain.acdeletewholemessagedir.caption
-msgid "Alle Narichten löschen"
-msgstr "Alle Narichten löschen"
+msgid "Alle Nachrichten löschen"
+msgstr ""
 
-# uintfstrconsts:strregister
 #: tfmain.acforward.caption
 msgctxt "TFMAIN.ACFORWARD.CAPTION"
-msgid "Weiter"
-msgstr "Weiter"
+msgid "acForward"
+msgstr ""
 
-#: tfmain.acforward.hint
-msgid "zum nächsten Eintrag gehen"
-msgstr "zum nächsten Eintrag gehen"
+#: tfmain.achelpindex.caption
+msgid "Index"
+msgstr ""
 
 #: tfmain.acinfo.caption
 msgctxt "tfmain.acinfo.caption"
-msgid "Info"
-msgstr "Info"
+msgid "Information"
+msgstr ""
 
 #: tfmain.aclogin.caption
 msgid "Anmelden"
@@ -2001,113 +2726,168 @@ msgstr "Anmelden"
 msgid "Abmelden"
 msgstr "Abmelden"
 
-# uintfstrconsts:strstart
 #: tfmain.acmasterdata.caption
 msgctxt "TFMAIN.ACMASTERDATA.CAPTION"
-msgid "Stammdaten"
-msgstr "Artikel"
+msgid "Artikel"
+msgstr ""
+
+#: tfmain.acmeetings.caption
+msgid "acMeetings"
+msgstr ""
 
 #: tfmain.acmessages.caption
 msgid "Nachrichten"
 msgstr "Nachrichten"
 
-#: tfmain.acnewarticle.caption
-msgid "Neuer Artikel"
-msgstr "Neuer Artikel"
+#: tfmain.acnewaccount.caption
+msgctxt "TFMAIN.ACNEWACCOUNT.CAPTION"
+msgid "Neues Konto"
+msgstr ""
 
-# uintfstrconsts:strcontact
-#: tfmain.acnewcustomer.caption
-msgctxt "TFMAIN.ACNEWCUSTOMER.CAPTION"
+#: tfmain.acnewcontact.caption
+msgctxt "TFMAIN.ACNEWCONTACT.CAPTION"
 msgid "Neuer Kontakt"
-msgstr "Neuer Kontakt"
+msgstr ""
 
-# uintfstrconsts:stremail
-#: tfmain.acnewmail.caption
-msgid "Neue e-Mail"
-msgstr "Neue e-Mail"
+#: tfmain.acnewcontact.hint
+msgctxt "TFMAIN.ACNEWCONTACT.HINT"
+msgid "erstellt einen neuen Kontakt"
+msgstr ""
 
-#: tfmain.acnewmandant.caption
-msgid "Neuen Mandanten anlegen"
-msgstr "Neuen Mandanten anlegen"
+#: tfmain.acnewinventory.caption
+msgctxt "TFMAIN.ACNEWINVENTORY.CAPTION"
+msgid "Neue Inventur"
+msgstr ""
+
+#: tfmain.acnewlist.caption
+msgid "neue Liste"
+msgstr ""
+
+#: tfmain.acnewmasterdata.caption
+msgctxt "TFMAIN.ACNEWMASTERDATA.CAPTION"
+msgid "Neuer Artikel"
+msgstr ""
+
+#: tfmain.acnewmasterdata.hint
+msgid "erstellt einen neuen Artikel"
+msgstr ""
+
+#: tfmain.acnewmeeting.caption
+msgid "neue Besprechung"
+msgstr ""
+
+#: tfmain.acnewmessage.caption
+msgid "Neue Nachricht"
+msgstr ""
+
+#: tfmain.acnewmessage.hint
+msgid "Neue Nachricht schreiben"
+msgstr ""
 
 #: tfmain.acneworder.caption
 msgid "Neuer Auftrag"
 msgstr "Neuer Auftrag"
 
-#: tfmain.acnewpiecelist.caption
-msgid "Neue Stückliste"
-msgstr "Neue Stückliste"
+#: tfmain.acneworder.hint
+msgid "erstellt einen neuen Auftrag"
+msgstr ""
 
-# uintfstrconsts:strproject
 #: tfmain.acnewproject.caption
 msgctxt "TFMAIN.ACNEWPROJECT.CAPTION"
 msgid "Neues Projekt"
 msgstr "Neues Projekt"
 
+#: tfmain.acnewstatistics.caption
+msgid "neue Statistik"
+msgstr ""
+
 #: tfmain.acnewtask.caption
-msgid "Neue Aufgabe"
-msgstr "Neue Aufgabe"
+msgid "neue Aufgabe"
+msgstr ""
 
 #: tfmain.acnewtermin.caption
 msgctxt "tfmain.acnewtermin.caption"
-msgid "Neuer Termin"
-msgstr "Neuer Termin"
+msgid "Neuen Termin erfassen"
+msgstr ""
+
+#: tfmain.acnewtermin.hint
+msgctxt "tfmain.acnewtermin.hint"
+msgid "Neuen Termin erfassen"
+msgstr ""
+
+#: tfmain.acopen.caption
+msgctxt "TFMAIN.ACOPEN.CAPTION"
+msgid "Öffnen"
+msgstr ""
 
 #: tfmain.acorders.caption
 msgctxt "TFMAIN.ACORDERS.CAPTION"
-msgid "Aufträge"
-msgstr "Aufträge"
+msgid "Vorgänge"
+msgstr ""
 
-#: tfmain.acpersonaloptions.caption
-msgctxt "TFMAIN.ACPERSONALOPTIONS.CAPTION"
-msgid "Persönliche Einstellungen"
-msgstr "Persönliche Einstellungen"
+#: tfmain.acpausetime.caption
+msgctxt "TFMAIN.ACPAUSETIME.CAPTION"
+msgid "acPauseTime"
+msgstr ""
 
-# uintfstrconsts:strproject
+#: tfmain.acpausetime.hint
+msgid "Zeiterfassung pausieren /"
+msgstr ""
+
+#: tfmain.acprojectoverview.caption
+msgid "Projektübersicht"
+msgstr ""
+
 #: tfmain.acprojects.caption
 msgctxt "TFMAIN.ACPROJECTS.CAPTION"
 msgid "Projekte"
 msgstr "Projekte"
 
-#: tfmain.acproperties.caption
-msgid "Einstellungen"
-msgstr "Einstellungen"
-
-# uintfstrconsts:strseverity
-#: tfmain.acquit.caption
-msgid "Beenden"
-msgstr "Beenden"
-
-#: tfmain.acrename.caption
-msgctxt "TFMAIN.ACRENAME.CAPTION"
-msgid "Umbenennen"
-msgstr "Umbenennen"
-
-#: tfmain.acsandboxmode.caption
-msgctxt "TFMAIN.ACSANDBOXMODE.CAPTION"
-msgid "testmode"
-msgstr "Testmodus"
-
-#: tfmain.acsearch.caption
-msgctxt "TFMAIN.ACSEARCH.CAPTION"
-msgid "Suche"
-msgstr "Suche"
-
-#: tfmain.acshortcutoptions.caption
-msgid "Tastenkürzel"
-msgstr "Tastenkürzel"
-
-#: tfmain.acshowcurrentcontrol.caption
-msgid "acShowCurrentControl"
+#: tfmain.acrefreshorderlist.caption
+msgid "Auftragsliste Neu aufbauen"
 msgstr ""
 
-#: tfmain.acshowhide.caption
-msgid "Programm zeigen/verstecken"
-msgstr "Programm zeigen/verstecken"
+#: tfmain.acrefreshorderlist.hint
+msgid "Auftragsliste neu aufbauen"
+msgstr ""
 
-#: tfmain.acshowhidehelp.caption
-msgid "Hilfe zeigen/verstecken"
-msgstr "Hilfe zeigen/verstecken"
+#: tfmain.acroughplanning.caption
+msgid "Grobplanung"
+msgstr ""
+
+#: tfmain.acsaleslist.caption
+msgid "Zahlungsliste"
+msgstr ""
+
+#: tfmain.acsaleslistpay.caption
+msgid "acSalesListPay"
+msgstr ""
+
+#: tfmain.acshowtree.caption
+msgctxt "TFMAIN.ACSHOWTREE.CAPTION"
+msgid "Baum"
+msgstr ""
+
+#: tfmain.acshowtree.hint
+msgid "Baum anzeigen/ausblenden"
+msgstr ""
+
+#: tfmain.acstandarttime.caption
+msgid "acStandartTime"
+msgstr ""
+
+#: tfmain.acstandarttime.hint
+msgid "Standardeintrag starten"
+msgstr ""
+
+#: tfmain.acstartpage.caption
+msgctxt "TFMAIN.ACSTARTPAGE.CAPTION"
+msgid "Startseite"
+msgstr ""
+
+#: tfmain.actaskplan.caption
+msgid "Aufgabenplan"
+msgstr ""
 
 #: tfmain.actasks.caption
 msgid "Aufgaben"
@@ -2118,39 +2898,70 @@ msgctxt "TFMAIN.ACTIMEREGISTERING.CAPTION"
 msgid "Zeiterfassung"
 msgstr "Zeiterfassung"
 
-#: tfmain.bhistory.hint
-msgid "Zuletzt aufgerufene Einträge anzeigen"
-msgstr "Zuletzt aufgerufene Einträge anzeigen"
+#: tfmain.acwiki.caption
+msgid "acWiki"
+msgstr ""
 
-#: tfmain.fmain.caption
-msgctxt "TFMAIN.FMAIN.CAPTION"
+#: tfmain.acwindowize.caption
+msgid "acWindowize"
+msgstr ""
+
+#: tfmain.bffwd.hint
+msgid "Vor (zum nächsten Eintrag) gehen"
+msgstr ""
+
+#: tfmain.bpausetime.caption
+msgctxt "tfmain.bpausetime.caption"
+msgid "acPauseTime"
+msgstr ""
+
+#: tfmain.bpausetime.hint
+msgid "Zeiterfassung pausieren/"
+msgstr ""
+
+#: tfmain.caption
+msgctxt "TFMAIN.CAPTION"
 msgid "Promet-ERP"
-msgstr "Promet-ERP"
+msgstr ""
 
-#: tfmain.lmessage.caption
-msgctxt "TFMAIN.LMESSAGE.CAPTION"
-msgid "lMessage"
-msgstr "Nachricht"
+#: tfmain.econtains.text
+msgctxt "TFMAIN.ECONTAINS.TEXT"
+msgid "<hier tippen um zu suchen>"
+msgstr ""
+
+#: tfmain.label3.caption
+msgctxt "TFMAIN.LABEL3.CAPTION"
+msgid "Navigation"
+msgstr ""
+
+#: tfmain.label4.caption
+msgctxt "TFMAIN.LABEL4.CAPTION"
+msgid "Ansicht"
+msgstr ""
+
+#: tfmain.label5.caption
+msgctxt "TFMAIN.LABEL5.CAPTION"
+msgid "Suche"
+msgstr ""
+
+#: tfmain.label6.caption
+msgctxt "TFMAIN.LABEL6.CAPTION"
+msgid "Zeit"
+msgstr ""
+
+#: tfmain.label7.caption
+msgid "erfassung"
+msgstr ""
+
+#: tfmain.label8.caption
+msgctxt "TFMAIN.LABEL8.CAPTION"
+msgid "Start"
+msgstr ""
 
 #: tfmain.menuitem1.caption
 msgctxt "TFMAIN.MENUITEM1.CAPTION"
 msgid "New Item1"
 msgstr ""
-
-#: tfmain.menuitem5.caption
-msgctxt "TFMAIN.MENUITEM5.CAPTION"
-msgid "-"
-msgstr "-"
-
-#: tfmain.menuitem6.caption
-msgctxt "TFMAIN.MENUITEM6.CAPTION"
-msgid "-"
-msgstr "-"
-
-#: tfmain.menuitem7.caption
-msgctxt "TFMAIN.MENUITEM7.CAPTION"
-msgid "-"
-msgstr "-"
 
 #: tfmain.mihelp.caption
 msgid "Hilfe"
@@ -2166,47 +2977,37 @@ msgctxt "TFMAIN.MIMANDANT.CAPTION"
 msgid "Mandant"
 msgstr "Mandant"
 
-#: tfmain.minew1.caption
-msgctxt "TFMAIN.MINEW1.CAPTION"
-msgid "New Item1"
-msgstr ""
-
-# uintfstrconsts:strreadingoptions
 #: tfmain.mioptions.caption
 msgctxt "TFMAIN.MIOPTIONS.CAPTION"
 msgid "Optionen"
 msgstr "Optionen"
 
-#: tfmain.mistartpause.caption
-msgctxt "TFMAIN.MISTARTPAUSE.CAPTION"
-msgid "New Item3"
+#: tfmain.misettings.caption
+msgctxt "TFMAIN.MISETTINGS.CAPTION"
+msgid "Einstellungen"
 msgstr ""
-
-#: tfmain.mitimeregistering.caption
-msgid "New Item2"
-msgstr ""
-
-# uintfstrconsts:strnet
-#: tfmain.mitraynew.caption
-msgctxt "TFMAIN.MITRAYNEW.CAPTION"
-msgid "Neu"
-msgstr "Neu"
 
 #: tfmain.miview.caption
+msgctxt "tfmain.miview.caption"
 msgid "Ansicht"
-msgstr "Ansicht"
-
-#: tfmain.sbsandbox.caption
-msgctxt "TFMAIN.SBSANDBOX.CAPTION"
-msgid "testmode"
 msgstr ""
 
-#: tfmain.sbsandbox.hint
-msgid "Der Sandkastenmodus erlaubt es Ihnen änderungen zu"
-msgstr "Der Sandkastenmodus erlaubt es Ihnen änderungen zu"
+#: tfmain.psearch.caption
+msgid "pSearch"
+msgstr ""
 
-#: tfmain.toolbutton2.caption
-msgid "ToolButton2"
+#: tfmain.tbmenue.hint
+msgid "Zurück (zum letzten Eintrag) gehen"
+msgstr ""
+
+#: tfmain.toolbar1.caption
+msgctxt "TFMAIN.TOOLBAR1.CAPTION"
+msgid "ToolBar1"
+msgstr ""
+
+#: tfmain.tsstartpage.caption
+msgctxt "tfmain.tsstartpage.caption"
+msgid "Startseite"
 msgstr ""
 
 #: tfmasterdata.acassigntotree.hint
@@ -2251,8 +3052,9 @@ msgid "acDeletePos"
 msgstr ""
 
 #: tfmasterdata.acentertime.caption
+msgctxt "tfmasterdata.acentertime.caption"
 msgid "Zeiterfassung mit Eintrag beginnen"
-msgstr "Zeiterfassung mit Eintrag beginnen"
+msgstr ""
 
 #: tfmasterdata.acexport.caption
 msgctxt "TFMASTERDATA.ACEXPORT.CAPTION"
@@ -2333,53 +3135,63 @@ msgid "ist Aktiv"
 msgstr "ist Aktiv"
 
 #: tfmasterdata.cbactive.hint
+msgctxt "tfmasterdata.cbactive.hint"
 msgid "markiert diesen Artikel als aktiv"
-msgstr "markiert diesen Artikel als aktiv"
+msgstr ""
 
 #: tfmasterdata.cblanguage.hint
+msgctxt "tfmasterdata.cblanguage.hint"
 msgid "wählt den Eintrag in einer anderen Sprache aus"
-msgstr "wählt den Eintrag in einer anderen Sprache aus"
+msgstr ""
 
 #: tfmasterdata.cbnostorage.caption
+msgctxt "tfmasterdata.cbnostorage.caption"
 msgid "hat kein Lager"
-msgstr "hat kein Lager"
+msgstr ""
 
 #: tfmasterdata.cbnostorage.hint
+msgctxt "tfmasterdata.cbnostorage.hint"
 msgid "Der Eintrag besitzt kein Lager "
-msgstr "Der Eintrag besitzt kein Lager "
+msgstr ""
 
 #: tfmasterdata.cbownproduction.caption
+msgctxt "tfmasterdata.cbownproduction.caption"
 msgid "Eigenproduktion"
-msgstr "Eigenproduktion"
+msgstr ""
 
 #: tfmasterdata.cbownproduction.hint
+msgctxt "tfmasterdata.cbownproduction.hint"
 msgid "wird dieser Eintrag selbst erzeugt ?"
-msgstr "wird dieser Eintrag selbst erzeugt ?"
+msgstr ""
 
 #: tfmasterdata.cbsaleitem.caption
+msgctxt "tfmasterdata.cbsaleitem.caption"
 msgid "Verkaufsartikel"
-msgstr "Verkaufsartikel"
+msgstr ""
 
 #: tfmasterdata.cbsaleitem.hint
+msgctxt "tfmasterdata.cbsaleitem.hint"
 msgid "Ist dieser Eintrag ein Verkaufsartikel "
-msgstr "Ist dieser Eintrag ein Verkaufsartikel "
+msgstr ""
 
 #: tfmasterdata.cbstate.hint
 msgid "hier können Sie den Status des Eintrags setzen/ändern"
 msgstr "hier können Sie den Status des Eintrags setzen/ändern"
 
-# uintfstrconsts:strarticlenumber
 #: tfmasterdata.cbuseserial.caption
+msgctxt "tfmasterdata.cbuseserial.caption"
 msgid "Serienummernpflicht"
-msgstr "Serienummernpflicht"
+msgstr ""
 
 #: tfmasterdata.cbuseserial.hint
+msgctxt "tfmasterdata.cbuseserial.hint"
 msgid "Bei allen Buchungen werden "
-msgstr "Bei allen Buchungen werden "
+msgstr ""
 
 #: tfmasterdata.cbversion.hint
+msgctxt "tfmasterdata.cbversion.hint"
 msgid "hier können Sie die zu bearbeitende Artikelversion auswählen."
-msgstr "hier können Sie die zu bearbeitende Artikelversion auswählen."
+msgstr ""
 
 #: tfmasterdata.dgtexts.columns[0].tcolumntitle.caption
 msgid "TEXTTYPE"
@@ -2390,7 +3202,6 @@ msgctxt "TFMASTERDATA.EMATCHCODE.HINT"
 msgid "Hier können Sie einen Suchbegriff angeben, "
 msgstr "Hier können Sie einen Suchbegriff angeben, "
 
-# uintfstrconsts:strstart
 #: tfmasterdata.fmasterdata.caption
 msgctxt "TFMASTERDATA.FMASTERDATA.CAPTION"
 msgid "Stammdaten"
@@ -2520,7 +3331,6 @@ msgstr ""
 msgid "Kostenkonto"
 msgstr "Kostenkonto"
 
-# uintfstrconsts:strnewimage
 #: tfmasterdata.larticlenumber.caption
 msgctxt "TFMASTERDATA.LARTICLENUMBER.CAPTION"
 msgid "Nummer"
@@ -2530,19 +3340,19 @@ msgstr "Nummer"
 msgid "Artikelnummer Lieferant"
 msgstr "Artikelnummer Lieferant"
 
-# uintfstrconsts:strbarcode
 #: tfmasterdata.lbarcode.caption
+msgctxt "tfmasterdata.lbarcode.caption"
 msgid "Barcode / EAN"
-msgstr "Barcode / EAN"
+msgstr ""
 
-# uintfstrconsts:strcontact
 #: tfmasterdata.lcostcentre.caption
 msgid "Kostenstelle"
 msgstr "Kostenstelle"
 
 #: tfmasterdata.ldelivertime.caption
+msgctxt "tfmasterdata.ldelivertime.caption"
 msgid "Lieferzeit"
-msgstr "Lieferzeit"
+msgstr ""
 
 #: tfmasterdata.llanguage.caption
 msgctxt "TFMASTERDATA.LLANGUAGE.CAPTION"
@@ -2550,8 +3360,9 @@ msgid "Sprache"
 msgstr "Sprache"
 
 #: tfmasterdata.lmanufacturernr.caption
+msgctxt "tfmasterdata.lmanufacturernr.caption"
 msgid "Artikelnummer Hersteller"
-msgstr "Artikelnummer Hersteller"
+msgstr ""
 
 #: tfmasterdata.lmatchcode.caption
 msgctxt "TFMASTERDATA.LMATCHCODE.CAPTION"
@@ -2578,39 +3389,40 @@ msgctxt "TFMASTERDATA.LSTATE.CAPTION"
 msgid "Status"
 msgstr "Status"
 
-# uintfstrconsts:strversion
 #: tfmasterdata.ltransportsupplier.caption
+msgctxt "tfmasterdata.ltransportsupplier.caption"
 msgid "Versandkosten"
-msgstr "Versandkosten"
+msgstr ""
 
-# uintfstrconsts:strtype
 #: tfmasterdata.ltype.caption
 msgctxt "TFMASTERDATA.LTYPE.CAPTION"
 msgid "Typ"
 msgstr "Typ"
 
 #: tfmasterdata.lunit.caption
+msgctxt "tfmasterdata.lunit.caption"
 msgid "Verpackungseinheit"
-msgstr "Verpackungseinheit"
+msgstr ""
 
 #: tfmasterdata.lvat.caption
 msgctxt "TFMASTERDATA.LVAT.CAPTION"
 msgid "Mehrwertsteuer"
 msgstr "Mehrwertsteuer"
 
-# uintfstrconsts:strversion
 #: tfmasterdata.lversion.caption
 msgctxt "TFMASTERDATA.LVERSION.CAPTION"
 msgid "Version"
 msgstr "Version"
 
 #: tfmasterdata.lwarrenty.caption
+msgctxt "tfmasterdata.lwarrenty.caption"
 msgid "Gewährleistung"
-msgstr "Gewährleistung"
+msgstr ""
 
 #: tfmasterdata.lweight.caption
+msgctxt "tfmasterdata.lweight.caption"
 msgid "Gewicht"
-msgstr "Gewicht"
+msgstr ""
 
 #: tfmasterdata.menuitem3.caption
 msgctxt "TFMASTERDATA.MENUITEM3.CAPTION"
@@ -2638,8 +3450,9 @@ msgid "-"
 msgstr "-"
 
 #: tfmasterdata.mshorttext.hint
+msgctxt "tfmasterdata.mshorttext.hint"
 msgid "Der Kurztext des Eintrags"
-msgstr "Der Kurztext des Eintrags"
+msgstr ""
 
 #: tfmasterdata.panel4.caption
 msgctxt "TFMASTERDATA.PANEL4.CAPTION"
@@ -2690,7 +3503,6 @@ msgctxt "TFMASTERDATA.TSDISPOSITION.CAPTION"
 msgid "Disposition"
 msgstr "Disposition"
 
-# uintfstrconsts:strdocuments
 #: tfmasterdata.tsdocuments.caption
 msgctxt "TFMASTERDATA.TSDOCUMENTS.CAPTION"
 msgid "Dokumente"
@@ -2711,7 +3523,6 @@ msgctxt "TFMASTERDATA.TSLINKS.CAPTION"
 msgid "Verweise"
 msgstr "Verweise"
 
-# uintfstrconsts:strcontact
 #: tfmasterdata.tspiecelist.caption
 msgid "Stückliste"
 msgstr "Stückliste"
@@ -2746,6 +3557,16 @@ msgctxt "TFMASTERDATA.TSTEXT.CAPTION"
 msgid "Texte"
 msgstr "Texte"
 
+#: tfmessageoptions.badd.caption
+msgctxt "TFMESSAGEOPTIONS.BADD.CAPTION"
+msgid "Neu"
+msgstr ""
+
+#: tfmessageoptions.bdelete.caption
+msgctxt "TFMESSAGEOPTIONS.BDELETE.CAPTION"
+msgid "löschen"
+msgstr ""
+
 #: tfmessages.acanswer.hint
 msgid "erstellt eine Antwort zur gewählten Nachricht und öffnet den nachrichteneditor"
 msgstr "erstellt eine Antwort zur gewählten Nachricht und öffnet den nachrichteneditor"
@@ -2768,6 +3589,7 @@ msgid "löscht die gewählt(en) Nachricht(en)"
 msgstr "löscht die gewählt(en) Nachricht(en)"
 
 #: tfmessages.acforward.caption
+msgctxt "tfmessages.acforward.caption"
 msgid "acForward"
 msgstr ""
 
@@ -2817,26 +3639,56 @@ msgstr "Mime Typen"
 msgid "Öffnen mit (%s wird dabei durch den Dateinamen ersetzt)"
 msgstr "Öffnen mit (%s wird dabei durch den Dateinamen ersetzt)"
 
-# uintfstrconsts:stractive
-#: tfnewstorage.bitbtn1.caption
-msgctxt "TFNEWSTORAGE.BITBTN1.CAPTION"
-msgid "Abbrechen"
-msgstr "Abbrechen"
-
-#: tfnewstorage.bok.caption
-msgctxt "TFNEWSTORAGE.BOK.CAPTION"
-msgid "&Ok"
-msgstr "&Ok"
-
 #: tfnewstorage.caption
-msgid "fNewStorage"
+msgid "Lager auswählen"
+msgstr ""
+
+#: tfnewstorage.gstorage.columns[0].title.caption
+msgctxt "TFNEWSTORAGE.GSTORAGE.COLUMNS[0].TITLE.CAPTION"
+msgid "ID"
+msgstr ""
+
+#: tfnewstorage.gstorage.columns[1].title.caption
+msgctxt "TFNEWSTORAGE.GSTORAGE.COLUMNS[1].TITLE.CAPTION"
+msgid "Name"
+msgstr ""
+
+#: tfnewstorage.gstorage1.columns[0].title.caption
+msgctxt "TFNEWSTORAGE.GSTORAGE1.COLUMNS[0].TITLE.CAPTION"
+msgid "ID"
+msgstr ""
+
+#: tfnewstorage.gstorage1.columns[1].title.caption
+msgctxt "TFNEWSTORAGE.GSTORAGE1.COLUMNS[1].TITLE.CAPTION"
+msgid "Name"
+msgstr ""
+
+#: tfnewstorage.gstorage1.columns[2].title.caption
+msgctxt "TFNEWSTORAGE.GSTORAGE1.COLUMNS[2].TITLE.CAPTION"
+msgid "Ort"
+msgstr ""
+
+#: tfnewstorage.gstorage1.columns[3].title.caption
+msgid "Charge"
+msgstr ""
+
+#: tfnewstorage.gstorage1.columns[4].title.caption
+msgctxt "TFNEWSTORAGE.GSTORAGE1.COLUMNS[4].TITLE.CAPTION"
+msgid "Menge"
+msgstr ""
+
+#: tfnewstorage.gstorage1.columns[5].title.caption
+msgid "reserviert"
+msgstr ""
+
+#: tfnewstorage.label1.caption
+msgid "Bestand/Charge"
 msgstr ""
 
 #: tfnewstorage.larticlewithoutstorage.caption
 msgid "lArticlewithoutStorage"
 msgstr ""
 
-# uintfstrconsts:stractive
 #: tfofficeoptions.cancelbutton.caption
 msgctxt "TFOFFICEOPTIONS.CANCELBUTTON.CAPTION"
 msgid "Abbrechen"
@@ -2856,7 +3708,6 @@ msgctxt "TFOFFICEOPTIONS.HELPBUTTON.CAPTION"
 msgid "&Hilfe"
 msgstr "&Hilfe"
 
-# uintfstrconsts:strdates
 #: tfofficeoptions.lfile.caption
 msgctxt "TFOFFICEOPTIONS.LFILE.CAPTION"
 msgid "Dateiname"
@@ -2881,7 +3732,6 @@ msgstr "löschen"
 msgid "Konfiguration exportieren"
 msgstr "Konfiguration exportieren"
 
-# uintfstrconsts:strnet
 #: tfoptions.bnew.caption
 msgctxt "TFOPTIONS.BNEW.CAPTION"
 msgid "Neu"
@@ -2891,7 +3741,6 @@ msgstr "Neu"
 msgid "Passwort zurücksetzen"
 msgstr "Passwort zurücksetzen"
 
-# uintfstrconsts:stractive
 #: tfoptions.cancelbutton.caption
 msgctxt "TFOPTIONS.CANCELBUTTON.CAPTION"
 msgid "Abbrechen"
@@ -2917,7 +3766,6 @@ msgstr "Bankverbindungen"
 msgid "Transfers"
 msgstr ""
 
-# uintfstrconsts:strcalendar
 #: tfoptions.cbcalendar.caption
 msgid "Calendar"
 msgstr "Calendar"
@@ -2943,8 +3791,9 @@ msgid "financial account"
 msgstr "Kontoverbindung"
 
 #: tfoptions.cbisderivate.caption
+msgctxt "tfoptions.cbisderivate.caption"
 msgid "ist Untervorgang"
-msgstr "ist Untervorgang"
+msgstr ""
 
 #: tfoptions.cbmaster.text
 msgid "<none>"
@@ -2983,8 +3832,9 @@ msgid "Shippingtypes"
 msgstr ""
 
 #: tfoptions.cbsiacc.caption
+msgctxt "tfoptions.cbsiacc.caption"
 msgid "Buchhaltung"
-msgstr "Buchhaltung"
+msgstr ""
 
 #: tfoptions.cbsiinvo.caption
 msgctxt "TFOPTIONS.CBSIINVO.CAPTION"
@@ -3002,12 +3852,14 @@ msgid "Vorgang"
 msgstr "Vorgang"
 
 #: tfoptions.cbsipos.caption
+msgctxt "tfoptions.cbsipos.caption"
 msgid "Kasse"
-msgstr "Kasse"
+msgstr ""
 
 #: tfoptions.cbsiprod.caption
+msgctxt "tfoptions.cbsiprod.caption"
 msgid "Produktion"
-msgstr "Produktion"
+msgstr ""
 
 #: tfoptions.cbstock.caption
 msgctxt "TFOPTIONS.CBSTOCK.CAPTION"
@@ -3027,7 +3879,6 @@ msgctxt "TFOPTIONS.CLOSEBUTTON.CAPTION"
 msgid "&Schließen"
 msgstr "Schliessen"
 
-# uintfstrconsts:strid
 #: tfoptions.dgcountrys.columns[0].tcolumntitle.caption
 msgctxt "TFOPTIONS.DGCOUNTRYS.COLUMNS[0].TCOLUMNTITLE.CAPTION"
 msgid "ID"
@@ -3039,6 +3890,7 @@ msgid "NAME"
 msgstr ""
 
 #: tfoptions.dgcurrency.columns[0].tcolumntitle.caption
+msgctxt "tfoptions.dgcurrency.columns[0].tcolumntitle.caption"
 msgid "SYMBOL"
 msgstr ""
 
@@ -3048,28 +3900,32 @@ msgid "NAME"
 msgstr ""
 
 #: tfoptions.dgcurrency.columns[2].tcolumntitle.caption
+msgctxt "tfoptions.dgcurrency.columns[2].tcolumntitle.caption"
 msgid "MASK"
 msgstr ""
 
 #: tfoptions.dgcurrency.columns[3].tcolumntitle.caption
+msgctxt "tfoptions.dgcurrency.columns[3].tcolumntitle.caption"
 msgid "DECIMALPL"
 msgstr ""
 
 #: tfoptions.dgcurrency.columns[4].tcolumntitle.caption
+msgctxt "tfoptions.dgcurrency.columns[4].tcolumntitle.caption"
 msgid "FACTOR"
 msgstr ""
 
 #: tfoptions.dgcurrency.columns[5].tcolumntitle.caption
+msgctxt "tfoptions.dgcurrency.columns[5].tcolumntitle.caption"
 msgid "DEFAULTCUR"
 msgstr ""
 
-# uintfstrconsts:strid
 #: tfoptions.dgdispatchtypes.columns[0].tcolumntitle.caption
 msgctxt "TFOPTIONS.DGDISPATCHTYPES.COLUMNS[0].TCOLUMNTITLE.CAPTION"
 msgid "ID"
 msgstr "ID"
 
 #: tfoptions.dgdispatchtypes.columns[1].tcolumntitle.caption
+msgctxt "tfoptions.dgdispatchtypes.columns[1].tcolumntitle.caption"
 msgid "COUNTRY"
 msgstr ""
 
@@ -3079,18 +3935,19 @@ msgid "NAME"
 msgstr ""
 
 #: tfoptions.dgdispatchtypes.columns[3].tcolumntitle.caption
+msgctxt "tfoptions.dgdispatchtypes.columns[3].tcolumntitle.caption"
 msgid "OUTPUTDRV"
 msgstr ""
 
-# uintfstrconsts:strreadingoptions
 #: tfoptions.foptions.caption
 msgctxt "TFOPTIONS.FOPTIONS.CAPTION"
 msgid "Optionen"
 msgstr "Optionen"
 
 #: tfoptions.gbvisibility.caption
+msgctxt "tfoptions.gbvisibility.caption"
 msgid "Sichtbarkeit"
-msgstr "Sichtbarkeit"
+msgstr ""
 
 #: tfoptions.glanguages.columns[0].tcolumntitle.caption
 msgctxt "TFOPTIONS.GLANGUAGES.COLUMNS[0].TCOLUMNTITLE.CAPTION"
@@ -3098,18 +3955,22 @@ msgid "LANGUAGE"
 msgstr ""
 
 #: tfoptions.glanguages.columns[1].tcolumntitle.caption
+msgctxt "tfoptions.glanguages.columns[1].tcolumntitle.caption"
 msgid "ISO6391"
-msgstr "ISO6391"
+msgstr ""
 
 #: tfoptions.glanguages.columns[2].tcolumntitle.caption
+msgctxt "tfoptions.glanguages.columns[2].tcolumntitle.caption"
 msgid "ISO6392"
-msgstr "ISO6392"
+msgstr ""
 
 #: tfoptions.glanguages.columns[3].tcolumntitle.caption
+msgctxt "tfoptions.glanguages.columns[3].tcolumntitle.caption"
 msgid "DEFAULTLNG"
 msgstr ""
 
 #: tfoptions.gnumbers.columns[0].tcolumntitle.caption
+msgctxt "tfoptions.gnumbers.columns[0].tcolumntitle.caption"
 msgid "TABLENAME"
 msgstr ""
 
@@ -3119,14 +3980,17 @@ msgid "TYPE"
 msgstr ""
 
 #: tfoptions.gnumbers.columns[2].tcolumntitle.caption
+msgctxt "tfoptions.gnumbers.columns[2].tcolumntitle.caption"
 msgid "INCR"
 msgstr ""
 
 #: tfoptions.gnumbers.columns[3].tcolumntitle.caption
+msgctxt "tfoptions.gnumbers.columns[3].tcolumntitle.caption"
 msgid "ACTUAL"
 msgstr ""
 
 #: tfoptions.gnumbers.columns[4].tcolumntitle.caption
+msgctxt "tfoptions.gnumbers.columns[4].tcolumntitle.caption"
 msgid "STOP"
 msgstr ""
 
@@ -3140,7 +4004,6 @@ msgctxt "TFOPTIONS.GORDERSTATUS.COLUMNS[1].TCOLUMNTITLE.CAPTION"
 msgid "STATUSNAME"
 msgstr ""
 
-# uintfstrconsts:strid
 #: tfoptions.gpaymenttargets.columns[0].tcolumntitle.caption
 msgctxt "TFOPTIONS.GPAYMENTTARGETS.COLUMNS[0].TCOLUMNTITLE.CAPTION"
 msgid "ID"
@@ -3157,22 +4020,27 @@ msgid "TEXT"
 msgstr ""
 
 #: tfoptions.gpaymenttargets.columns[3].tcolumntitle.caption
+msgctxt "tfoptions.gpaymenttargets.columns[3].tcolumntitle.caption"
 msgid "CASHDISC"
 msgstr ""
 
 #: tfoptions.gpaymenttargets.columns[4].tcolumntitle.caption
+msgctxt "tfoptions.gpaymenttargets.columns[4].tcolumntitle.caption"
 msgid "CASHDISCD"
 msgstr ""
 
 #: tfoptions.gpaymenttargets.columns[5].tcolumntitle.caption
+msgctxt "tfoptions.gpaymenttargets.columns[5].tcolumntitle.caption"
 msgid "DAYS"
 msgstr ""
 
 #: tfoptions.gpaymenttargets.columns[6].tcolumntitle.caption
+msgctxt "tfoptions.gpaymenttargets.columns[6].tcolumntitle.caption"
 msgid "DEFAULTPT"
 msgstr ""
 
 #: tfoptions.grepairproblem.columns[0].tcolumntitle.caption
+msgctxt "tfoptions.grepairproblem.columns[0].tcolumntitle.caption"
 msgid "PROBLEM"
 msgstr ""
 
@@ -3191,7 +4059,6 @@ msgctxt "TFOPTIONS.GSTATES.COLUMNS[2].TCOLUMNTITLE.CAPTION"
 msgid "STATUSNAME"
 msgstr ""
 
-# uintfstrconsts:strid
 #: tfoptions.gstorage.columns[0].tcolumntitle.caption
 msgctxt "TFOPTIONS.GSTORAGE.COLUMNS[0].TCOLUMNTITLE.CAPTION"
 msgid "ID"
@@ -3203,6 +4070,7 @@ msgid "NAME"
 msgstr ""
 
 #: tfoptions.gstorage.columns[2].tcolumntitle.caption
+msgctxt "tfoptions.gstorage.columns[2].tcolumntitle.caption"
 msgid "DEFAULTST"
 msgstr ""
 
@@ -3228,7 +4096,6 @@ msgstr ""
 msgid "SIZE"
 msgstr ""
 
-# uintfstrconsts:strid
 #: tfoptions.gvat.columns[0].tcolumntitle.caption
 msgctxt "TFOPTIONS.GVAT.COLUMNS[0].TCOLUMNTITLE.CAPTION"
 msgid "ID"
@@ -3245,6 +4112,7 @@ msgid "NAME"
 msgstr ""
 
 #: tfoptions.gvat.columns[3].tcolumntitle.caption
+msgctxt "tfoptions.gvat.columns[3].tcolumntitle.caption"
 msgid "FKEY"
 msgstr ""
 
@@ -3276,8 +4144,9 @@ msgid "Banking"
 msgstr "Banking"
 
 #: tfoptions.lcompclose.caption
+msgctxt "tfoptions.lcompclose.caption"
 msgid "Schlussformel"
-msgstr "Schlussformel"
+msgstr ""
 
 #: tfoptions.lcountries.caption
 msgctxt "TFOPTIONS.LCOUNTRIES.CAPTION"
@@ -3293,15 +4162,15 @@ msgctxt "TFOPTIONS.LCURRENCY.CAPTION"
 msgid "Währung"
 msgstr "Währung"
 
-# uintfstrconsts:strarticlenumber
 #: tfoptions.lcustomernumber.caption
 msgctxt "TFOPTIONS.LCUSTOMERNUMBER.CAPTION"
 msgid "Kundennummer"
 msgstr "Kundennummer"
 
 #: tfoptions.ldateformat.caption
+msgctxt "tfoptions.ldateformat.caption"
 msgid "Datumsformat"
-msgstr "Datumsformat"
+msgstr ""
 
 #: tfoptions.ldefaultpostyp.caption
 msgid "Standart Positionstyp"
@@ -3313,8 +4182,9 @@ msgid "Abteilung"
 msgstr "Abteilung"
 
 #: tfoptions.lderivates.caption
+msgctxt "tfoptions.lderivates.caption"
 msgid "Ableitbar in"
-msgstr "Ableitbar in"
+msgstr ""
 
 #: tfoptions.lemploymentdate.caption
 msgid "Einstellungsdatum"
@@ -3350,7 +4220,6 @@ msgstr "Sprachen"
 msgid "Entlassungsdatum"
 msgstr "Entlassungsdatum"
 
-# uintfstrconsts:stremail
 #: tfoptions.lmail.caption
 msgid "e-Mail"
 msgstr "e-Mail"
@@ -3367,19 +4236,20 @@ msgstr ""
 msgid "Master Database"
 msgstr "Master Database"
 
-# uintfstrconsts:strname
 #: tfoptions.lname.caption
 msgctxt "TFOPTIONS.LNAME.CAPTION"
 msgid "Name"
 msgstr "Name"
 
 #: tfoptions.lnumbers.caption
+msgctxt "tfoptions.lnumbers.caption"
 msgid "Nummernkreise"
-msgstr "Nummernkreise"
+msgstr ""
 
 #: tfoptions.lnumberset.caption
+msgctxt "tfoptions.lnumberset.caption"
 msgid "Nummernkreis"
-msgstr "Nummernkreis"
+msgstr ""
 
 #: tfoptions.lonlyonnextstart.caption
 msgid "Sie müssen die Anwendu neu starten und ein Datenbankupdate durchführen um die Änderungen zu übernehmen"
@@ -3394,8 +4264,9 @@ msgid "Pfad"
 msgstr "Pfad"
 
 #: tfoptions.lpaymenttargets.caption
+msgctxt "tfoptions.lpaymenttargets.caption"
 msgid "Zahlungsziele"
-msgstr "Zahlungsziele"
+msgstr ""
 
 #: tfoptions.lpim.caption
 msgid "PIM"
@@ -3411,16 +4282,19 @@ msgid "Protokoll"
 msgstr "Protokoll"
 
 #: tfoptions.lrights.caption
+msgctxt "tfoptions.lrights.caption"
 msgid "Rechte"
-msgstr "Rechte"
+msgstr ""
 
 #: tfoptions.lsatutation.caption
+msgctxt "tfoptions.lsatutation.caption"
 msgid "Einleitung"
-msgstr "Einleitung"
+msgstr ""
 
 #: tfoptions.lshipping.caption
+msgctxt "tfoptions.lshipping.caption"
 msgid "Versandarten"
-msgstr "Versandarten"
+msgstr ""
 
 #: tfoptions.lsortcode.caption
 msgctxt "TFOPTIONS.LSORTCODE.CAPTION"
@@ -3454,22 +4328,24 @@ msgid "Telefon 4"
 msgstr "Telefon 4"
 
 #: tfoptions.ltimeformat.caption
+msgctxt "tfoptions.ltimeformat.caption"
 msgid "Zeitformat"
-msgstr "Zeitformat"
+msgstr ""
 
 #: tfoptions.ltitles.caption
+msgctxt "tfoptions.ltitles.caption"
 msgid "lTitles"
 msgstr ""
 
-# uintfstrconsts:strtype
 #: tfoptions.ltype.caption
 msgctxt "TFOPTIONS.LTYPE.CAPTION"
 msgid "Typ"
 msgstr "Typ"
 
 #: tfoptions.lunits.caption
+msgctxt "tfoptions.lunits.caption"
 msgid "Mengeneinheiten"
-msgstr "Mengeneinheiten"
+msgstr ""
 
 #: tfoptions.lusername.caption
 msgctxt "TFOPTIONS.LUSERNAME.CAPTION"
@@ -3542,7 +4418,6 @@ msgctxt "TFOPTIONS.RGADDRESERVED.CAPTION"
 msgid "als reserviert buchen"
 msgstr "als reserviert buchen"
 
-# uintfstrconsts:strarticlenumber
 #: tfoptions.rgaddserials.caption
 msgctxt "TFOPTIONS.RGADDSERIALS.CAPTION"
 msgid "Serienummern buchen"
@@ -3608,6 +4483,314 @@ msgstr "Benutzerdefinierte Felder"
 msgctxt "TFOPTIONS.TSUSERS.CAPTION"
 msgid "Benutzer"
 msgstr "Benutzer"
+
+#: tforderadditionalframe.cbstorage.hint
+msgctxt "TFORDERADDITIONALFRAME.CBSTORAGE.HINT"
+msgid "hier können Sie ein Vorgabelager auswählen"
+msgstr ""
+
+#: tforderadditionalframe.lcommission.caption
+msgid "Kommission"
+msgstr ""
+
+#: tforderadditionalframe.lshipping.caption
+msgctxt "TFORDERADDITIONALFRAME.LSHIPPING.CAPTION"
+msgid "Versandart"
+msgstr ""
+
+#: tforderadditionalframe.lstorage.caption
+msgctxt "TFORDERADDITIONALFRAME.LSTORAGE.CAPTION"
+msgid "Lager"
+msgstr ""
+
+#: tforderaddress.acdeleteaddress.caption
+msgid "acDeleteAddress"
+msgstr ""
+
+#: tforderaddress.acdeleteaddress.hint
+msgid "Adresse löschen"
+msgstr ""
+
+#: tforderaddress.acgotoaddress.caption
+msgid "acGotoAddress"
+msgstr ""
+
+#: tforderaddress.acinsertaddress.caption
+msgid "acInsertAddress"
+msgstr ""
+
+#: tforderaddress.acinsertaddress.hint
+msgid "Neunen Kontakt anlegen"
+msgstr ""
+
+#: tforderaddress.acsearchaddress.caption
+msgid "acSerachAddress"
+msgstr ""
+
+#: tforderaddress.acsearchaddress.hint
+msgid "Adresse/Kontakt suchen und einfügen"
+msgstr ""
+
+#: tforderaddress.badressnew2.hint
+msgctxt "TFORDERADDRESS.BADRESSNEW2.HINT"
+msgid "zu Kontakt gehen"
+msgstr ""
+
+#: tforderdateframe.lapproved.caption
+msgctxt "TFORDERDATEFRAME.LAPPROVED.CAPTION"
+msgid "bestätigt"
+msgstr ""
+
+#: tforderdateframe.ldelivered.caption
+msgctxt "TFORDERDATEFRAME.LDELIVERED.CAPTION"
+msgid "geliefert"
+msgstr ""
+
+#: tforderdateframe.lorigdate.caption
+msgctxt "TFORDERDATEFRAME.LORIGDATE.CAPTION"
+msgid "orig. Belegdatum"
+msgstr ""
+
+#: tforderdateframe.lpayed.caption
+msgctxt "TFORDERDATEFRAME.LPAYED.CAPTION"
+msgid "bezahlt"
+msgstr ""
+
+#: tforderdateframe.lrequest.caption
+msgctxt "TFORDERDATEFRAME.LREQUEST.CAPTION"
+msgid "Anfragedatum"
+msgstr ""
+
+#: tforderdateframe.lwishdate.caption
+msgctxt "TFORDERDATEFRAME.LWISHDATE.CAPTION"
+msgid "Wunschdatum"
+msgstr ""
+
+#: tforderframe.acaddaddress.caption
+msgid "acAddAddress"
+msgstr ""
+
+#: tforderframe.acaddaddress.hint
+msgid "neue Adresse einfügen"
+msgstr ""
+
+#: tforderframe.accancel.caption
+msgctxt "TFORDERFRAME.ACCANCEL.CAPTION"
+msgid "Abbrechen"
+msgstr ""
+
+#: tforderframe.accancel.hint
+msgctxt "TFORDERFRAME.ACCANCEL.HINT"
+msgid "verwirft alle Änderungen"
+msgstr ""
+
+#: tforderframe.acclose.caption
+msgctxt "TFORDERFRAME.ACCLOSE.CAPTION"
+msgid "acClose"
+msgstr ""
+
+#: tforderframe.accopy.caption
+msgctxt "TFORDERFRAME.ACCOPY.CAPTION"
+msgid "Kopieren"
+msgstr ""
+
+#: tforderframe.accopy.hint
+msgid "In die Zwischenablage kopieren"
+msgstr ""
+
+#: tforderframe.accreatetransfer.caption
+msgctxt "TFORDERFRAME.ACCREATETRANSFER.CAPTION"
+msgid "Überweisung erstellen"
+msgstr ""
+
+#: tforderframe.acdelete.caption
+msgctxt "TFORDERFRAME.ACDELETE.CAPTION"
+msgid "Löschen"
+msgstr ""
+
+#: tforderframe.acdelete.hint
+msgid "löscht den Vorgang"
+msgstr ""
+
+#: tforderframe.acmarkasdone.caption
+msgid "als Fertig markieren"
+msgstr ""
+
+#: tforderframe.acmarkasdone.hint
+msgid "markiert den Vorgang als fertig"
+msgstr ""
+
+#: tforderframe.acpaste.caption
+msgctxt "TFORDERFRAME.ACPASTE.CAPTION"
+msgid "Einfügen"
+msgstr ""
+
+#: tforderframe.acpaste.hint
+msgid "Aus der zwischenablage Einfügen"
+msgstr ""
+
+#: tforderframe.acprint.caption
+msgctxt "TFORDERFRAME.ACPRINT.CAPTION"
+msgid "acPrint"
+msgstr ""
+
+#: tforderframe.acprint.hint
+msgid "Zeigt die Druckbelegliste"
+msgstr ""
+
+#: tforderframe.acrights.caption
+msgctxt "TFORDERFRAME.ACRIGHTS.CAPTION"
+msgid "Rechte"
+msgstr ""
+
+#: tforderframe.acsave.caption
+msgctxt "TFORDERFRAME.ACSAVE.CAPTION"
+msgid "Speichern"
+msgstr ""
+
+#: tforderframe.acsave.hint
+msgctxt "TFORDERFRAME.ACSAVE.HINT"
+msgid "Speichert alle Änderungen in die Datenbank"
+msgstr ""
+
+#: tforderframe.acstarttimeregistering.caption
+msgctxt "TFORDERFRAME.ACSTARTTIMEREGISTERING.CAPTION"
+msgid "Zeiterfassung beginnen"
+msgstr ""
+
+#: tforderframe.acstarttimeregistering.hint
+msgid "Zeiterfassung auf disen Eintrag beginnen"
+msgstr ""
+
+#: tforderframe.cbstatus.hint
+msgctxt "TFORDERFRAME.CBSTATUS.HINT"
+msgid "hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu überführen"
+msgstr ""
+
+#: tforderframe.dedate1.hint
+msgctxt "TFORDERFRAME.DEDATE1.HINT"
+msgid "das Buchungsdatum"
+msgstr ""
+
+#: tforderframe.denumber1.hint
+msgctxt "TFORDERFRAME.DENUMBER1.HINT"
+msgid "Die Buchungsnummer"
+msgstr ""
+
+#: tforderframe.dlordernumber1.hint
+msgctxt "TFORDERFRAME.DLORDERNUMBER1.HINT"
+msgid "Die automatisch vergebene eindeutige Vorgangsnummer"
+msgstr ""
+
+#: tforderframe.extrotatedlabel1.caption
+msgctxt "TFORDERFRAME.EXTROTATEDLABEL1.CAPTION"
+msgid "Adresse"
+msgstr ""
+
+#: tforderframe.label2.caption
+msgctxt "TFORDERFRAME.LABEL2.CAPTION"
+msgid "Eintrag"
+msgstr ""
+
+#: tforderframe.label3.caption
+msgctxt "TFORDERFRAME.LABEL3.CAPTION"
+msgid "Erweitert"
+msgstr ""
+
+#: tforderframe.label4.caption
+msgctxt "TFORDERFRAME.LABEL4.CAPTION"
+msgid "Status"
+msgstr ""
+
+#: tforderframe.label5.caption
+msgctxt "TFORDERFRAME.LABEL5.CAPTION"
+msgid "Daten"
+msgstr ""
+
+#: tforderframe.lcurrency.caption
+msgctxt "TFORDERFRAME.LCURRENCY.CAPTION"
+msgid "Währung"
+msgstr ""
+
+#: tforderframe.lcurrency1.caption
+msgid "Netto"
+msgstr ""
+
+#: tforderframe.lcurrency2.caption
+msgid "MwSt 1"
+msgstr ""
+
+#: tforderframe.lcurrency3.caption
+msgid "Brutto"
+msgstr ""
+
+#: tforderframe.lcurrency4.caption
+msgid "MwSt 2"
+msgstr ""
+
+#: tforderframe.ldate1.caption
+msgctxt "TFORDERFRAME.LDATE1.CAPTION"
+msgid "Datum"
+msgstr ""
+
+#: tforderframe.lnumber1.caption
+msgctxt "TFORDERFRAME.LNUMBER1.CAPTION"
+msgid "Nummer"
+msgstr ""
+
+#: tforderframe.lordernumber1.caption
+msgctxt "TFORDERFRAME.LORDERNUMBER1.CAPTION"
+msgid "Vorgangsnummer"
+msgstr ""
+
+#: tforderframe.lpaymenttarget.caption
+msgctxt "TFORDERFRAME.LPAYMENTTARGET.CAPTION"
+msgid "Zahlungsziel"
+msgstr ""
+
+#: tforderframe.menuitem1.caption
+msgctxt "TFORDERFRAME.MENUITEM1.CAPTION"
+msgid "-"
+msgstr ""
+
+#: tforderframe.menuitem2.caption
+msgctxt "TFORDERFRAME.MENUITEM2.CAPTION"
+msgid "-"
+msgstr ""
+
+#: tforderframe.menuitem6.caption
+msgctxt "TFORDERFRAME.MENUITEM6.CAPTION"
+msgid "-"
+msgstr ""
+
+#: tforderframe.sbmenue.hint
+msgctxt "TFORDERFRAME.SBMENUE.HINT"
+msgid "zusätzliche Optionen"
+msgstr ""
+
+#: tforderframe.tabsheet3.caption
+msgctxt "TFORDERFRAME.TABSHEET3.CAPTION"
+msgid "Nachtext"
+msgstr ""
+
+#: tforderframe.tscommon.caption
+msgid "Adressen/Texte"
+msgstr ""
+
+#: tforderframe.tsheader1.caption
+msgctxt "TFORDERFRAME.TSHEADER1.CAPTION"
+msgid "Kopftext"
+msgstr ""
+
+#: tforderframe.tsnote1.caption
+msgctxt "TFORDERFRAME.TSNOTE1.CAPTION"
+msgid "Notizen"
+msgstr ""
+
+#: tforderoverviewframe.tvorderview.hint
+msgctxt "TFORDEROVERVIEWFRAME.TVORDERVIEW.HINT"
+msgid "Eine Übersicht über die Auftragsstruktur"
+msgstr ""
 
 #: tforders.acaddressfromtree.hint
 msgid "fügt den im Baum markierten Kontakt ein"
@@ -3683,12 +4866,11 @@ msgstr "acMenue1"
 msgid "zeigt eine Liste mit Möglichkeiten zu anderen Einträgen zu wechseln"
 msgstr "zeigt eine Liste mit Möglichkeiten zu anderen Einträgen zu wechseln"
 
-# uintfstrconsts:strcontact
 #: tforders.acgotocustomer.caption
+msgctxt "tforders.acgotocustomer.caption"
 msgid "zu Kontakt gehen"
-msgstr "zu Kontakt gehen"
+msgstr ""
 
-# uintfstrconsts:strstart
 #: tforders.acgotomasterdata.caption
 msgid "zu Stammdaten gehen"
 msgstr "zu Artikel gehen"
@@ -3726,7 +4908,6 @@ msgctxt "TFORDERS.ACMENUE.HINT"
 msgid "öffnet ein Menü mit weiteren Möglichkeiten"
 msgstr "öffnet ein Menü mit weiteren Möglichkeiten"
 
-# uintfstrconsts:strnet
 #: tforders.acnew.caption
 msgctxt "TFORDERS.ACNEW.CAPTION"
 msgid "Neu"
@@ -3829,12 +5010,14 @@ msgid "hiermit können Sie den Tabdesigner aufrufen,"
 msgstr "hiermit können Sie den Tabdesigner aufrufen,"
 
 #: tforders.cbstatus.hint
+msgctxt "tforders.cbstatus.hint"
 msgid "hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu überführen"
-msgstr "hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu überführen"
+msgstr ""
 
 #: tforders.cbstorage.hint
+msgctxt "tforders.cbstorage.hint"
 msgid "hier können Sie ein Vorgabelager auswählen"
-msgstr "hier können Sie ein Vorgabelager auswählen"
+msgstr ""
 
 #: tforders.cbwarrenty.caption
 msgctxt "TFORDERS.CBWARRENTY.CAPTION"
@@ -3852,12 +5035,14 @@ msgid "OK"
 msgstr "OK"
 
 #: tforders.dedate.hint
+msgctxt "tforders.dedate.hint"
 msgid "das Buchungsdatum"
-msgstr "das Buchungsdatum"
+msgstr ""
 
 #: tforders.denumber.hint
+msgctxt "tforders.denumber.hint"
 msgid "Die Buchungsnummer"
-msgstr "Die Buchungsnummer"
+msgstr ""
 
 #: tforders.deorigdate.cancelcaption
 msgctxt "TFORDERS.DEORIGDATE.CANCELCAPTION"
@@ -3890,8 +5075,9 @@ msgid "OK"
 msgstr "OK"
 
 #: tforders.dlordernumber.hint
+msgctxt "tforders.dlordernumber.hint"
 msgid "Die automatisch vergebene eindeutige Vorgangsnummer"
-msgstr "Die automatisch vergebene eindeutige Vorgangsnummer"
+msgstr ""
 
 #: tforders.ecommission.hint
 msgid "hier können Sie eine Auftragskommision hinterlegen"
@@ -4038,8 +5224,9 @@ msgid "*"
 msgstr "*"
 
 #: tforders.laddresses.caption
+msgctxt "tforders.laddresses.caption"
 msgid "Adressen"
-msgstr "Adressen"
+msgstr ""
 
 #: tforders.laddvat.caption
 msgctxt "TFORDERS.LADDVAT.CAPTION"
@@ -4047,15 +5234,15 @@ msgid "+MwSt"
 msgstr "+MwSt"
 
 #: tforders.lapproved.caption
+msgctxt "tforders.lapproved.caption"
 msgid "bestätigt"
-msgstr "bestätigt"
+msgstr ""
 
 #: tforders.lbp.caption
 msgctxt "TFORDERS.LBP.CAPTION"
 msgid "Einkaufspreis"
 msgstr "Einkaufspreis"
 
-# uintfstrconsts:strcommon
 #: tforders.lcommission.caption
 msgid "Komission"
 msgstr "Komission"
@@ -4124,7 +5311,6 @@ msgctxt "TFORDERS.LNOTESFORCUSTOMER.CAPTION"
 msgid "Notizen für Kunde"
 msgstr "Notizen für Kunde"
 
-# uintfstrconsts:strnewimage
 #: tforders.lnumber.caption
 msgctxt "TFORDERS.LNUMBER.CAPTION"
 msgid "Nummer"
@@ -4141,8 +5327,9 @@ msgid "Vorgangsnummer"
 msgstr "Vorgangsnummer"
 
 #: tforders.lorigdate.caption
+msgctxt "tforders.lorigdate.caption"
 msgid "orig. Belegdatum"
-msgstr "orig. Belegdatum"
+msgstr ""
 
 #: tforders.lpayed.caption
 msgctxt "TFORDERS.LPAYED.CAPTION"
@@ -4164,7 +5351,6 @@ msgctxt "TFORDERS.LPOSPRICE.CAPTION"
 msgid "Postitionspreis"
 msgstr "Postitionspreis"
 
-# uintfstrconsts:strpages
 #: tforders.lpquantity.caption
 msgctxt "TFORDERS.LPQUANTITY.CAPTION"
 msgid "Menge"
@@ -4180,7 +5366,6 @@ msgctxt "TFORDERS.LPWHOLEPRICE.CAPTION"
 msgid "Gesamtpreis"
 msgstr "Gesamtpreis"
 
-# uintfstrconsts:strpages
 #: tforders.lquantity.caption
 msgctxt "TFORDERS.LQUANTITY.CAPTION"
 msgid "Menge"
@@ -4192,29 +5377,29 @@ msgid "Einheit"
 msgstr "Einheit"
 
 #: tforders.lrequest.caption
+msgctxt "tforders.lrequest.caption"
 msgid "Anfragedatum"
-msgstr "Anfragedatum"
+msgstr ""
 
 #: tforders.lsep.caption
 msgctxt "TFORDERS.LSEP.CAPTION"
 msgid "Verkaufspreise"
 msgstr "Verkaufspreise"
 
-# uintfstrconsts:strarticlenumber
 #: tforders.lserial.caption
 msgctxt "TFORDERS.LSERIAL.CAPTION"
 msgid "Serienn."
 msgstr "Serienn."
 
-# uintfstrconsts:strarticlenumber
 #: tforders.lserial1.caption
 msgctxt "TFORDERS.LSERIAL1.CAPTION"
 msgid "Serienn."
 msgstr "Serienn."
 
 #: tforders.lshipping.caption
+msgctxt "tforders.lshipping.caption"
 msgid "Versandart"
-msgstr "Versandart"
+msgstr ""
 
 #: tforders.lshorttext.caption
 msgctxt "TFORDERS.LSHORTTEXT.CAPTION"
@@ -4251,13 +5436,11 @@ msgctxt "TFORDERS.LTEXTTYPE.CAPTION"
 msgid "Texttyp"
 msgstr "Texttyp"
 
-# uintfstrconsts:strversion
 #: tforders.lversion.caption
 msgctxt "TFORDERS.LVERSION.CAPTION"
 msgid "Version"
 msgstr "Version"
 
-# uintfstrconsts:strversion
 #: tforders.lversion1.caption
 msgctxt "TFORDERS.LVERSION1.CAPTION"
 msgid "Version"
@@ -4269,8 +5452,9 @@ msgid "Gesamtpreis"
 msgstr "Gesamtpreis"
 
 #: tforders.lwishdate.caption
+msgctxt "tforders.lwishdate.caption"
 msgid "Wunschdatum"
-msgstr "Wunschdatum"
+msgstr ""
 
 #: tforders.menuitem1.caption
 msgctxt "TFORDERS.MENUITEM1.CAPTION"
@@ -4327,8 +5511,9 @@ msgid "kopiert das Bild in die Zwischenablage"
 msgstr "kopiert das Bild in die Zwischenablage"
 
 #: tforders.tabsheet2.caption
+msgctxt "tforders.tabsheet2.caption"
 msgid "Nachtext"
-msgstr "Nachtext"
+msgstr ""
 
 #: tforders.tsadditional.caption
 msgctxt "TFORDERS.TSADDITIONAL.CAPTION"
@@ -4350,15 +5535,15 @@ msgctxt "TFORDERS.TSDETAILS.CAPTION"
 msgid "Detailansicht"
 msgstr "Detailansicht"
 
-# uintfstrconsts:strdocuments
 #: tforders.tsdocuments.caption
 msgctxt "TFORDERS.TSDOCUMENTS.CAPTION"
 msgid "Dokumente"
 msgstr "Dokumente"
 
 #: tforders.tsheader.caption
+msgctxt "tforders.tsheader.caption"
 msgid "Kopftext"
-msgstr "Kopftext"
+msgstr ""
 
 #: tforders.tshistory.caption
 msgctxt "TFORDERS.TSHISTORY.CAPTION"
@@ -4389,15 +5574,174 @@ msgctxt "TFORDERS.TSPOSCALC.CAPTION"
 msgid "Positionskalkulation"
 msgstr "Positionskalkulation"
 
-# uintfstrconsts:strdocuments
 #: tforders.tsposdocuments.caption
 msgctxt "TFORDERS.TSPOSDOCUMENTS.CAPTION"
 msgid "Dokumente"
 msgstr "Dokumente"
 
 #: tforders.tvorderview.hint
+msgctxt "tforders.tvorderview.hint"
 msgid "Eine Übersicht über die Auftragsstruktur"
-msgstr "Eine Übersicht über die Auftragsstruktur"
+msgstr ""
+
+#: tfordertypeoptions.cbisderivate.caption
+msgctxt "TFORDERTYPEOPTIONS.CBISDERIVATE.CAPTION"
+msgid "ist Untervorgang"
+msgstr ""
+
+#: tfordertypeoptions.cbisderivate.hint
+msgid "Ist der Vorgang ein Untervorgang ?"
+msgstr ""
+
+#: tfordertypeoptions.cbsiacc.caption
+msgctxt "TFORDERTYPEOPTIONS.CBSIACC.CAPTION"
+msgid "Buchhaltung"
+msgstr ""
+
+#: tfordertypeoptions.cbsiinvo.caption
+msgctxt "TFORDERTYPEOPTIONS.CBSIINVO.CAPTION"
+msgid "Rechnungsausgang"
+msgstr ""
+
+#: tfordertypeoptions.cbsiinvr.caption
+msgctxt "TFORDERTYPEOPTIONS.CBSIINVR.CAPTION"
+msgid "Rechnungseingang"
+msgstr ""
+
+#: tfordertypeoptions.cbsiorder.caption
+msgctxt "TFORDERTYPEOPTIONS.CBSIORDER.CAPTION"
+msgid "Vorgang"
+msgstr ""
+
+#: tfordertypeoptions.cbsipos.caption
+msgctxt "TFORDERTYPEOPTIONS.CBSIPOS.CAPTION"
+msgid "Kasse"
+msgstr ""
+
+#: tfordertypeoptions.cbsiprod.caption
+msgctxt "TFORDERTYPEOPTIONS.CBSIPROD.CAPTION"
+msgid "Produktion"
+msgstr ""
+
+#: tfordertypeoptions.cbtexttyp.hint
+msgid "Der Text der aus dem Artikel Standardmäßig in den Vorgang übernommen wird"
+msgstr ""
+
+#: tfordertypeoptions.dividerbevel1.caption
+msgid "Buchen"
+msgstr ""
+
+#: tfordertypeoptions.edefaultpostyp.hint
+msgid "Welcher Positionstyp soll Standardmäßig verwendet werden ?"
+msgstr ""
+
+#: tfordertypeoptions.ederivates.hint
+msgid "In welche Vorgangstypen ist der Vorgang wandelbar ?"
+msgstr ""
+
+#: tfordertypeoptions.enumberset.hint
+msgid "In welchen Nummernkreis werden die Nummern gebucht ?"
+msgstr ""
+
+#: tfordertypeoptions.eordertype.hint
+msgid "Der Typ des Auftrages hiermit wird entschieden ob Spezialeigenschaften gebucht werden"
+msgstr ""
+
+#: tfordertypeoptions.gbvisibility.caption
+msgctxt "TFORDERTYPEOPTIONS.GBVISIBILITY.CAPTION"
+msgid "Sichtbarkeit"
+msgstr ""
+
+#: tfordertypeoptions.gbvisibility.hint
+msgid "Wo soll der Vorgang sichtbar sein ?"
+msgstr ""
+
+#: tfordertypeoptions.gorderstatus.columns[0].title.caption
+msgctxt "TFORDERTYPEOPTIONS.GORDERSTATUS.COLUMNS[0].TITLE.CAPTION"
+msgid "STATUS"
+msgstr ""
+
+#: tfordertypeoptions.gorderstatus.columns[1].title.caption
+msgctxt "TFORDERTYPEOPTIONS.GORDERSTATUS.COLUMNS[1].TITLE.CAPTION"
+msgid "STATUSNAME"
+msgstr ""
+
+#: tfordertypeoptions.gorderstatus.columns[2].title.caption
+msgctxt "TFORDERTYPEOPTIONS.GORDERSTATUS.COLUMNS[2].TITLE.CAPTION"
+msgid "ICON"
+msgstr ""
+
+#: tfordertypeoptions.label1.caption
+msgid "Bild"
+msgstr ""
+
+#: tfordertypeoptions.label2.caption
+msgid "Standard Texttyp"
+msgstr ""
+
+#: tfordertypeoptions.ldefaultpostyp.caption
+msgid "Positionstyp"
+msgstr ""
+
+#: tfordertypeoptions.lderivates.caption
+msgctxt "TFORDERTYPEOPTIONS.LDERIVATES.CAPTION"
+msgid "Ableitbar in"
+msgstr ""
+
+#: tfordertypeoptions.lnumberset.caption
+msgctxt "TFORDERTYPEOPTIONS.LNUMBERSET.CAPTION"
+msgid "Nummernkreis"
+msgstr ""
+
+#: tfordertypeoptions.ltype.caption
+msgctxt "TFORDERTYPEOPTIONS.LTYPE.CAPTION"
+msgid "Typ"
+msgstr ""
+
+#: tfordertypeoptions.rgaddchist.caption
+msgctxt "TFORDERTYPEOPTIONS.RGADDCHIST.CAPTION"
+msgid "Kundenhistorie"
+msgstr ""
+
+#: tfordertypeoptions.rgadddunning.caption
+msgctxt "TFORDERTYPEOPTIONS.RGADDDUNNING.CAPTION"
+msgid "Mahnwesen"
+msgstr ""
+
+#: tfordertypeoptions.rgaddinvo.caption
+msgctxt "TFORDERTYPEOPTIONS.RGADDINVO.CAPTION"
+msgid "Rechnungsausgang"
+msgstr ""
+
+#: tfordertypeoptions.rgaddinvr.caption
+msgctxt "TFORDERTYPEOPTIONS.RGADDINVR.CAPTION"
+msgid "Rechnungseingang"
+msgstr ""
+
+#: tfordertypeoptions.rgaddjournal.caption
+msgctxt "TFORDERTYPEOPTIONS.RGADDJOURNAL.CAPTION"
+msgid "Belegjournal"
+msgstr ""
+
+#: tfordertypeoptions.rgaddreserved.caption
+msgctxt "TFORDERTYPEOPTIONS.RGADDRESERVED.CAPTION"
+msgid "als reserviert buchen"
+msgstr ""
+
+#: tfordertypeoptions.rgaddserials.caption
+msgctxt "TFORDERTYPEOPTIONS.RGADDSERIALS.CAPTION"
+msgid "Serienummern buchen"
+msgstr ""
+
+#: tfordertypeoptions.rgaddstorage.caption
+msgctxt "TFORDERTYPEOPTIONS.RGADDSTORAGE.CAPTION"
+msgid "im Lager buchen"
+msgstr ""
+
+#: tfordertypeoptions.rgaddtomainorder.caption
+msgctxt "TFORDERTYPEOPTIONS.RGADDTOMAINORDER.CAPTION"
+msgid "Lagereintrag im Vorgang"
+msgstr ""
 
 #: tfpassword.bok.caption
 msgctxt "TFPASSWORD.BOK.CAPTION"
@@ -4448,7 +5792,6 @@ msgctxt "TFPASSWORD.LUSER.CAPTION"
 msgid "Benutzer"
 msgstr "Benutzer"
 
-# uintfstrconsts:strnet
 #: tfpersonaloptions.badd.caption
 msgctxt "TFPERSONALOPTIONS.BADD.CAPTION"
 msgid "Neu"
@@ -4459,7 +5802,6 @@ msgctxt "TFPERSONALOPTIONS.BDELETE.CAPTION"
 msgid "löschen"
 msgstr "löschen"
 
-# uintfstrconsts:stractive
 #: tfpersonaloptions.cancelbutton.caption
 msgctxt "TFPERSONALOPTIONS.CANCELBUTTON.CAPTION"
 msgid "Abbrechen"
@@ -4503,14 +5845,14 @@ msgid "Zeigt an ob eine gültige verknüpfung "
 msgstr "Zeigt an ob eine gültige verknüpfung "
 
 #: tfpersonaloptions.lallowedphonelines.caption
+msgctxt "tfpersonaloptions.lallowedphonelines.caption"
 msgid "erlaubte Telefonleitungen"
-msgstr "erlaubte Telefonleitungen"
+msgstr ""
 
 #: tfpersonaloptions.lcheckformailevery.caption
 msgid "alle x Minuten nach Narichten prüfen"
 msgstr "alle x Minuten nach Narichten prüfen"
 
-# uintfstrconsts:strproject
 #: tfpersonaloptions.lentry.caption
 msgctxt "TFPERSONALOPTIONS.LENTRY.CAPTION"
 msgid "Eintrag/Projekt"
@@ -4575,6 +5917,321 @@ msgctxt "TFPERSONALOPTIONS.TSTIMEREGISTERING.CAPTION"
 msgid "Zeiterfassung"
 msgstr "Zeiterfassung"
 
+#: tfpersonfinance.btransfer.hint
+msgctxt "TFPERSONFINANCE.BTRANSFER.HINT"
+msgid "erstellt eine Überweisung an die gewählte Bankverbindung / den Kontakt"
+msgstr ""
+
+#: tfpersonfinance.btransfer1.hint
+msgid "prüft die Bankverbindung auf Gültigkeit"
+msgstr ""
+
+#: tfpersonfinance.cbcurrency.hint
+msgid "setzt eine Standardwährung für den Kontakt mit der jeder Vorgang für den Kontakt vorbelegt wird"
+msgstr ""
+
+#: tfpersonfinance.cbdiscontgroup.hint
+msgctxt "TFPERSONFINANCE.CBDISCONTGROUP.HINT"
+msgid "setzt eine Rabattgruppe für den Kontakt"
+msgstr ""
+
+#: tfpersonfinance.cbpaymenttarget.hint
+msgctxt "TFPERSONFINANCE.CBPAYMENTTARGET.HINT"
+msgid "setzt ein Zahlungsziel mit dem die Vorgänge für diesen Kontakt vorbelegt werden"
+msgstr ""
+
+#: tfpersonfinance.ediscont.hint
+msgctxt "TFPERSONFINANCE.EDISCONT.HINT"
+msgid "setzt eine Rabatt mit dem die Vorgänge für diesen Kontakt vorbelegt werden"
+msgstr ""
+
+#: tfpersonfinance.extrotatedlabel1.caption
+msgctxt "TFPERSONFINANCE.EXTROTATEDLABEL1.CAPTION"
+msgid "Navigation"
+msgstr ""
+
+#: tfpersonfinance.extrotatedlabel2.caption
+msgctxt "TFPERSONFINANCE.EXTROTATEDLABEL2.CAPTION"
+msgid "Bank"
+msgstr ""
+
+#: tfpersonfinance.gbanking.columns[0].title.caption
+msgctxt "TFPERSONFINANCE.GBANKING.COLUMNS[0].TITLE.CAPTION"
+msgid "SORTCODE"
+msgstr ""
+
+#: tfpersonfinance.gbanking.columns[1].title.caption
+msgctxt "TFPERSONFINANCE.GBANKING.COLUMNS[1].TITLE.CAPTION"
+msgid "ACCOUNT"
+msgstr ""
+
+#: tfpersonfinance.gbanking.columns[2].title.caption
+msgctxt "TFPERSONFINANCE.GBANKING.COLUMNS[2].TITLE.CAPTION"
+msgid "INSTITUTE"
+msgstr ""
+
+#: tfpersonfinance.gbanking.hint
+msgctxt "TFPERSONFINANCE.GBANKING.HINT"
+msgid "hier können Sie Bankverbindungen des Kontaktes verwalten"
+msgstr ""
+
+#: tfpersonfinance.lbanking.caption
+msgctxt "TFPERSONFINANCE.LBANKING.CAPTION"
+msgid "Bankverbindungen"
+msgstr ""
+
+#: tfpersonfinance.lcurrency.caption
+msgctxt "TFPERSONFINANCE.LCURRENCY.CAPTION"
+msgid "Währung"
+msgstr ""
+
+#: tfpersonfinance.ldiscont.caption
+msgctxt "TFPERSONFINANCE.LDISCONT.CAPTION"
+msgid "Rabatt"
+msgstr ""
+
+#: tfpersonfinance.ldiscontgroup.caption
+msgctxt "TFPERSONFINANCE.LDISCONTGROUP.CAPTION"
+msgid "Rabattgruppe"
+msgstr ""
+
+#: tfpersonfinance.lpaymenttarget.caption
+msgctxt "TFPERSONFINANCE.LPAYMENTTARGET.CAPTION"
+msgid "Zahlungsziel"
+msgstr ""
+
+#: tfpersonframe.acaddasorder.caption
+msgid "acAddAsOrder"
+msgstr ""
+
+#: tfpersonframe.accancel.caption
+msgctxt "TFPERSONFRAME.ACCANCEL.CAPTION"
+msgid "Abbrechen"
+msgstr ""
+
+#: tfpersonframe.accancel.hint
+msgctxt "TFPERSONFRAME.ACCANCEL.HINT"
+msgid "verwirft alle Änderungen"
+msgstr ""
+
+#: tfpersonframe.acclose.caption
+msgctxt "TFPERSONFRAME.ACCLOSE.CAPTION"
+msgid "acClose"
+msgstr ""
+
+#: tfpersonframe.accombineitems.caption
+msgid "Personen verschmelzen"
+msgstr ""
+
+#: tfpersonframe.accopy.caption
+msgctxt "TFPERSONFRAME.ACCOPY.CAPTION"
+msgid "Kopieren"
+msgstr ""
+
+#: tfpersonframe.acdelete.caption
+msgctxt "TFPERSONFRAME.ACDELETE.CAPTION"
+msgid "Löschen"
+msgstr ""
+
+#: tfpersonframe.acexport.caption
+msgctxt "TFPERSONFRAME.ACEXPORT.CAPTION"
+msgid "Exportieren"
+msgstr ""
+
+#: tfpersonframe.acimport.caption
+msgctxt "TFPERSONFRAME.ACIMPORT.CAPTION"
+msgid "Importieren"
+msgstr ""
+
+#: tfpersonframe.acneworder.caption
+msgid "Neuen Auftrag erstellen"
+msgstr ""
+
+#: tfpersonframe.acneworder.hint
+msgid "erstellt einen neuen Auftrag für diese Person"
+msgstr ""
+
+#: tfpersonframe.acpaste.caption
+msgctxt "TFPERSONFRAME.ACPASTE.CAPTION"
+msgid "Einfügen"
+msgstr ""
+
+#: tfpersonframe.acprint.caption
+msgctxt "TFPERSONFRAME.ACPRINT.CAPTION"
+msgid "Drucken"
+msgstr ""
+
+#: tfpersonframe.acrights.caption
+msgctxt "TFPERSONFRAME.ACRIGHTS.CAPTION"
+msgid "Rechte"
+msgstr ""
+
+#: tfpersonframe.acrights.hint
+msgid "Ansicht auf bestimmte Nutzer begrenzen"
+msgstr ""
+
+#: tfpersonframe.acsave.caption
+msgctxt "TFPERSONFRAME.ACSAVE.CAPTION"
+msgid "Speichern"
+msgstr ""
+
+#: tfpersonframe.acsave.hint
+msgctxt "TFPERSONFRAME.ACSAVE.HINT"
+msgid "Speichert alle Änderungen in die Datenbank"
+msgstr ""
+
+#: tfpersonframe.acsettreedir.caption
+msgctxt "TFPERSONFRAME.ACSETTREEDIR.CAPTION"
+msgid "acSetTreeDir"
+msgstr ""
+
+#: tfpersonframe.acsettreedir.hint
+msgid "setzt das Verzeichnis aus dem Baum"
+msgstr ""
+
+#: tfpersonframe.acshowtreedir.caption
+msgctxt "TFPERSONFRAME.ACSHOWTREEDIR.CAPTION"
+msgid "acShowTreeDir"
+msgstr ""
+
+#: tfpersonframe.acshowtreedir.hint
+msgid "zeigt den Eintrag im Baum"
+msgstr ""
+
+#: tfpersonframe.acstarttimeregistering.caption
+msgctxt "TFPERSONFRAME.ACSTARTTIMEREGISTERING.CAPTION"
+msgid "Zeiterfassung starten"
+msgstr ""
+
+#: tfpersonframe.acstarttimeregistering.hint
+msgctxt "TFPERSONFRAME.ACSTARTTIMEREGISTERING.HINT"
+msgid "Zeiterfassung mit Eintrag beginnen"
+msgstr ""
+
+#: tfpersonframe.bchangenumber.caption
+msgctxt "TFPERSONFRAME.BCHANGENUMBER.CAPTION"
+msgid "..."
+msgstr ""
+
+#: tfpersonframe.cblanguage.hint
+msgctxt "TFPERSONFRAME.CBLANGUAGE.HINT"
+msgid "wählen Sie hier die Sprache des Kontaktes"
+msgstr ""
+
+#: tfpersonframe.cbstatus.hint
+msgctxt "TFPERSONFRAME.CBSTATUS.HINT"
+msgid "hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu überführen"
+msgstr ""
+
+#: tfpersonframe.cbsupplier.caption
+msgctxt "TFPERSONFRAME.CBSUPPLIER.CAPTION"
+msgid "Lieferant"
+msgstr ""
+
+#: tfpersonframe.cbsupplier.hint
+msgctxt "TFPERSONFRAME.CBSUPPLIER.HINT"
+msgid "setzen Sie dieses Feld wenn der Kontakt ein Lieferant ist"
+msgstr ""
+
+#: tfpersonframe.ematchcode.hint
+msgctxt "TFPERSONFRAME.EMATCHCODE.HINT"
+msgid "Hier können Sie einen Suchbegriff angeben, "
+msgstr ""
+
+#: tfpersonframe.ename.hint
+msgctxt "TFPERSONFRAME.ENAME.HINT"
+msgid "geben Sie hier den namen des Kontaktes an"
+msgstr ""
+
+#: tfpersonframe.extrotatedlabel1.caption
+msgctxt "TFPERSONFRAME.EXTROTATEDLABEL1.CAPTION"
+msgid "Navigation"
+msgstr ""
+
+#: tfpersonframe.gbtree.caption
+msgctxt "TFPERSONFRAME.GBTREE.CAPTION"
+msgid "Baum"
+msgstr ""
+
+#: tfpersonframe.label2.caption
+msgctxt "TFPERSONFRAME.LABEL2.CAPTION"
+msgid "Eintrag"
+msgstr ""
+
+#: tfpersonframe.label3.caption
+msgctxt "TFPERSONFRAME.LABEL3.CAPTION"
+msgid "Erweitert"
+msgstr ""
+
+#: tfpersonframe.label4.caption
+msgctxt "TFPERSONFRAME.LABEL4.CAPTION"
+msgid "Vorgang"
+msgstr ""
+
+#: tfpersonframe.label5.caption
+msgctxt "TFPERSONFRAME.LABEL5.CAPTION"
+msgid "Nummer"
+msgstr ""
+
+#: tfpersonframe.label6.caption
+msgctxt "TFPERSONFRAME.LABEL6.CAPTION"
+msgid "Status"
+msgstr ""
+
+#: tfpersonframe.lcustomername.caption
+msgctxt "TFPERSONFRAME.LCUSTOMERNAME.CAPTION"
+msgid "Kontaktname"
+msgstr ""
+
+#: tfpersonframe.lcustomerof.caption
+msgid "Mitglied/Mitarbeiter von"
+msgstr ""
+
+#: tfpersonframe.lfirmname.caption
+msgctxt "TFPERSONFRAME.LFIRMNAME.CAPTION"
+msgid "lFirmName"
+msgstr ""
+
+#: tfpersonframe.lmatchcode.caption
+msgctxt "TFPERSONFRAME.LMATCHCODE.CAPTION"
+msgid "Suchbegriff"
+msgstr ""
+
+#: tfpersonframe.menuitem1.caption
+msgctxt "TFPERSONFRAME.MENUITEM1.CAPTION"
+msgid "-"
+msgstr ""
+
+#: tfpersonframe.menuitem2.caption
+msgctxt "TFPERSONFRAME.MENUITEM2.CAPTION"
+msgid "-"
+msgstr ""
+
+#: tfpersonframe.menuitem5.caption
+msgctxt "TFPERSONFRAME.MENUITEM5.CAPTION"
+msgid "-"
+msgstr ""
+
+#: tfpersonframe.ppreviewimage.caption
+msgctxt "TFPERSONFRAME.PPREVIEWIMAGE.CAPTION"
+msgid "kein Bild"
+msgstr ""
+
+#: tfpersonframe.sbmenue.hint
+msgctxt "TFPERSONFRAME.SBMENUE.HINT"
+msgid "zusätzliche Optionen"
+msgstr ""
+
+#: tfpersonframe.tscustomercont.caption
+msgctxt "TFPERSONFRAME.TSCUSTOMERCONT.CAPTION"
+msgid "Kontaktdaten"
+msgstr ""
+
+#: tfphoneoptions.lallowedphonelines.caption
+msgctxt "TFPHONEOPTIONS.LALLOWEDPHONELINES.CAPTION"
+msgid "erlaubte Telefonleitungen"
+msgstr ""
+
 #: tfprocesslist.bclose.caption
 msgctxt "TFPROCESSLIST.BCLOSE.CAPTION"
 msgid "&Schließen"
@@ -4617,12 +6274,10 @@ msgstr "acMenue"
 msgid "acViewDetails"
 msgstr "Details"
 
-# uintfstrconsts:strtimelist
 #: tfproject.acviewlist.caption
 msgid "acViewList"
 msgstr "Zeitliste"
 
-# uintfstrconsts:strproject
 #: tfproject.fproject.caption
 msgctxt "TFPROJECT.FPROJECT.CAPTION"
 msgid "Projekte"
@@ -4638,13 +6293,11 @@ msgctxt "TFPROJECT.LEND.CAPTION"
 msgid "Ende"
 msgstr "Ende"
 
-# uintfstrconsts:strname
 #: tfproject.lname.caption
 msgctxt "TFPROJECT.LNAME.CAPTION"
 msgid "Name"
 msgstr "Name"
 
-# uintfstrconsts:strnewimage
 #: tfproject.lnumber.caption
 msgctxt "TFPROJECT.LNUMBER.CAPTION"
 msgid "Nummer"
@@ -4664,7 +6317,6 @@ msgstr "-"
 msgid "pDetails"
 msgstr "Details"
 
-# uintfstrconsts:strdocuments
 #: tfproject.tsdocuments.caption
 msgctxt "TFPROJECT.TSDOCUMENTS.CAPTION"
 msgid "Dokumente"
@@ -4780,7 +6432,6 @@ msgctxt "TFRAME1.LPOSPRICE.CAPTION"
 msgid "Postitionspreis"
 msgstr "Postitionspreis"
 
-# uintfstrconsts:strpages
 #: tframe1.lquantity.caption
 msgctxt "TFRAME1.LQUANTITY.CAPTION"
 msgid "Menge"
@@ -4791,13 +6442,11 @@ msgctxt "TFRAME1.LSEP.CAPTION"
 msgid "Verkaufspreise"
 msgstr "Verkaufspreise"
 
-# uintfstrconsts:strarticlenumber
 #: tframe1.lserial.caption
 msgctxt "TFRAME1.LSERIAL.CAPTION"
 msgid "Serienn."
 msgstr "Serienn."
 
-# uintfstrconsts:strarticlenumber
 #: tframe1.lserial1.caption
 msgctxt "TFRAME1.LSERIAL1.CAPTION"
 msgid "Serienn."
@@ -4828,13 +6477,11 @@ msgctxt "TFRAME1.LTEXTTYPE.CAPTION"
 msgid "Texttyp"
 msgstr "Texttyp"
 
-# uintfstrconsts:strversion
 #: tframe1.lversion.caption
 msgctxt "TFRAME1.LVERSION.CAPTION"
 msgid "Version"
 msgstr "Version"
 
-# uintfstrconsts:strversion
 #: tframe1.lversion1.caption
 msgctxt "TFRAME1.LVERSION1.CAPTION"
 msgid "Version"
@@ -4895,7 +6542,6 @@ msgctxt "TFRAME1.TSPOSCALC.CAPTION"
 msgid "Positionskalkulation"
 msgstr "Positionskalkulation"
 
-# uintfstrconsts:strdocuments
 #: tframe1.tsposdocuments.caption
 msgctxt "TFRAME1.TSPOSDOCUMENTS.CAPTION"
 msgid "Dokumente"
@@ -4949,7 +6595,6 @@ msgstr "aus vorlage erstellen"
 msgid "Details"
 msgstr "Details"
 
-# uintfstrconsts:strdocuments
 #: tfrdocumentmanagement.acdocumentactions.caption
 msgid "Dokumentenaktion"
 msgstr "Dokumentenaktion"
@@ -4959,7 +6604,6 @@ msgctxt "TFRDOCUMENTMANAGEMENT.ACDOCUMENTPROPERTIES.CAPTION"
 msgid "Eigenschaften"
 msgstr "Eigenschaften"
 
-# uintfstrconsts:strdepartment
 #: tfrdocumentmanagement.aceditfile.caption
 msgid "Datei bearbeiten"
 msgstr "Datei bearbeiten"
@@ -4988,7 +6632,6 @@ msgstr "als Verknüftes Dokument einfügen"
 msgid "Datei drucken"
 msgstr "Datei drucken"
 
-# uintfstrconsts:strdocuments
 #: tfrdocumentmanagement.acremovedocument.caption
 msgid "Dokument entfernen"
 msgstr "Dokument entfernen"
@@ -5034,13 +6677,11 @@ msgstr "wählt eine Ansicht"
 msgid "keine Vorschau"
 msgstr "keine Vorschau"
 
-# uintfstrconsts:strdates
 #: tfrdocumentmanagement.lvdocuments.columns[0].caption
 msgctxt "TFRDOCUMENTMANAGEMENT.LVDOCUMENTS.COLUMNS[0].CAPTION"
 msgid "Dateiname"
 msgstr "Dateiname"
 
-# uintfstrconsts:strtype
 #: tfrdocumentmanagement.lvdocuments.columns[1].caption
 msgctxt "TFRDOCUMENTMANAGEMENT.LVDOCUMENTS.COLUMNS[1].CAPTION"
 msgid "Typ"
@@ -5080,7 +6721,71 @@ msgid "Beleg"
 msgstr "Beleg"
 
 #: tfrdocumentmanagement.toolbar1.caption
+msgctxt "tfrdocumentmanagement.toolbar1.caption"
 msgid "ToolBar1"
+msgstr ""
+
+#: tfrepairoptions.grepairproblem.columns[0].title.caption
+msgctxt "TFREPAIROPTIONS.GREPAIRPROBLEM.COLUMNS[0].TITLE.CAPTION"
+msgid "PROBLEM"
+msgstr ""
+
+#: tfrepairpositionframe.cbwarrenty.caption
+msgctxt "TFREPAIRPOSITIONFRAME.CBWARRENTY.CAPTION"
+msgid "Garantie"
+msgstr ""
+
+#: tfrepairpositionframe.gproblems.columns[0].title.caption
+msgctxt "TFREPAIRPOSITIONFRAME.GPROBLEMS.COLUMNS[0].TITLE.CAPTION"
+msgid "Baugruppe"
+msgstr ""
+
+#: tfrepairpositionframe.gproblems.columns[1].title.caption
+msgctxt "TFREPAIRPOSITIONFRAME.GPROBLEMS.COLUMNS[1].TITLE.CAPTION"
+msgid "Bauteil"
+msgstr ""
+
+#: tfrepairpositionframe.gproblems.columns[2].title.caption
+msgid "Fehler"
+msgstr ""
+
+#: tfrepairpositionframe.lerrordescription.caption
+msgctxt "TFREPAIRPOSITIONFRAME.LERRORDESCRIPTION.CAPTION"
+msgid "Fehlerbeschreibung"
+msgstr ""
+
+#: tfrepairpositionframe.lfoundproblems.caption
+msgctxt "TFREPAIRPOSITIONFRAME.LFOUNDPROBLEMS.CAPTION"
+msgid "gefundene Probleme"
+msgstr ""
+
+#: tfrepairpositionframe.linfo.caption
+msgid "lInfo"
+msgstr ""
+
+#: tfrepairpositionframe.linternalnotes.caption
+msgctxt "TFREPAIRPOSITIONFRAME.LINTERNALNOTES.CAPTION"
+msgid "Interne Notizen"
+msgstr ""
+
+#: tfrepairpositionframe.lnotesforcustomer.caption
+msgctxt "TFREPAIRPOSITIONFRAME.LNOTESFORCUSTOMER.CAPTION"
+msgid "Notizen für Kunde"
+msgstr ""
+
+#: tfrepairpositionframe.loperation.caption
+msgctxt "TFREPAIRPOSITIONFRAME.LOPERATION.CAPTION"
+msgid "Operation"
+msgstr ""
+
+#: tfrepairpositionframe.lserial1.caption
+msgctxt "TFREPAIRPOSITIONFRAME.LSERIAL1.CAPTION"
+msgid "Serienn."
+msgstr ""
+
+#: tfrepairpositionframe.lversion1.caption
+msgctxt "TFREPAIRPOSITIONFRAME.LVERSION1.CAPTION"
+msgid "Version"
 msgstr ""
 
 #: tfrichframe.acbold.caption
@@ -5198,7 +6903,6 @@ msgstr "Suchtypen"
 msgid "Type"
 msgstr "Type"
 
-# uintfstrconsts:strid
 #: tfsearch.sgresults.columns[1].tgridcolumntitle.caption
 msgctxt "TFSEARCH.SGRESULTS.COLUMNS[1].TGRIDCOLUMNTITLE.CAPTION"
 msgid "ID"
@@ -5235,7 +6939,6 @@ msgstr "Schliessen"
 msgid "schließt das Fenster"
 msgstr "schließt das Fenster"
 
-# uintfstrconsts:strdepartment
 #: tfselectreport.bdesign.caption
 msgid "Bearbeiten"
 msgstr "Bearbeiten"
@@ -5244,7 +6947,6 @@ msgstr "Bearbeiten"
 msgid "hiermit können Sie den Report bearbeiten"
 msgstr "hiermit können Sie den Report bearbeiten"
 
-# uintfstrconsts:strdepartment
 #: tfselectreport.bedittext.caption
 msgid "Text bearbeiten"
 msgstr "Text bearbeiten"
@@ -5321,7 +7023,6 @@ msgstr "Kopien"
 msgid "Zusätzliche Ausgabe"
 msgstr "Zusätzliche Ausgabe"
 
-# uintfstrconsts:strregister
 #: tfselectreport.lpages.caption
 msgid "Seiten"
 msgstr "Seiten"
@@ -5330,7 +7031,6 @@ msgstr "Seiten"
 msgid "Drucker"
 msgstr "Drucker"
 
-# uintfstrconsts:stractive
 #: tfselecttemplate.babort.caption
 msgctxt "TFSELECTTEMPLATE.BABORT.CAPTION"
 msgid "Abbrechen"
@@ -5341,7 +7041,6 @@ msgctxt "TFSELECTTEMPLATE.BDELETE.CAPTION"
 msgid "löschen"
 msgstr "löschen"
 
-# uintfstrconsts:strnet
 #: tfselecttemplate.bnew.caption
 msgctxt "TFSELECTTEMPLATE.BNEW.CAPTION"
 msgid "Neu"
@@ -5368,12 +7067,137 @@ msgstr "Filter"
 msgid "Lagerjournal"
 msgstr "Lagerjournal"
 
+#: tfstoragetypeoptions.gstorage.columns[0].title.caption
+msgctxt "TFSTORAGETYPEOPTIONS.GSTORAGE.COLUMNS[0].TITLE.CAPTION"
+msgid "ID"
+msgstr ""
+
+#: tfstoragetypeoptions.gstorage.columns[1].title.caption
+msgctxt "TFSTORAGETYPEOPTIONS.GSTORAGE.COLUMNS[1].TITLE.CAPTION"
+msgid "NAME"
+msgstr ""
+
+#: tfstoragetypeoptions.gstorage.columns[2].title.caption
+msgctxt "TFSTORAGETYPEOPTIONS.GSTORAGE.COLUMNS[2].TITLE.CAPTION"
+msgid "DEFAULTST"
+msgstr ""
+
+#: tfstoragetypeoptions.lstorage.caption
+msgctxt "TFSTORAGETYPEOPTIONS.LSTORAGE.CAPTION"
+msgid "Lager"
+msgstr ""
+
 #: tfsysmonitor.fsysmonitor.caption
 msgid "System Monitor"
 msgstr "System Monitor"
 
 #: tfsysmonitor.tbtop.caption
 msgid "tbTop"
+msgstr ""
+
+#: tfsystemoptions.gnumbers.columns[0].title.caption
+msgctxt "TFSYSTEMOPTIONS.GNUMBERS.COLUMNS[0].TITLE.CAPTION"
+msgid "TABLENAME"
+msgstr ""
+
+#: tfsystemoptions.gnumbers.columns[1].title.caption
+msgctxt "TFSYSTEMOPTIONS.GNUMBERS.COLUMNS[1].TITLE.CAPTION"
+msgid "TYPE"
+msgstr ""
+
+#: tfsystemoptions.gnumbers.columns[2].title.caption
+msgctxt "TFSYSTEMOPTIONS.GNUMBERS.COLUMNS[2].TITLE.CAPTION"
+msgid "INCR"
+msgstr ""
+
+#: tfsystemoptions.gnumbers.columns[3].title.caption
+msgctxt "TFSYSTEMOPTIONS.GNUMBERS.COLUMNS[3].TITLE.CAPTION"
+msgid "ACTUAL"
+msgstr ""
+
+#: tfsystemoptions.gnumbers.columns[4].title.caption
+msgctxt "TFSYSTEMOPTIONS.GNUMBERS.COLUMNS[4].TITLE.CAPTION"
+msgid "STOP"
+msgstr ""
+
+#: tfsystemoptions.gpaymenttargets.columns[0].title.caption
+msgctxt "TFSYSTEMOPTIONS.GPAYMENTTARGETS.COLUMNS[0].TITLE.CAPTION"
+msgid "ID"
+msgstr ""
+
+#: tfsystemoptions.gpaymenttargets.columns[1].title.caption
+msgctxt "TFSYSTEMOPTIONS.GPAYMENTTARGETS.COLUMNS[1].TITLE.CAPTION"
+msgid "NAME"
+msgstr ""
+
+#: tfsystemoptions.gpaymenttargets.columns[2].title.caption
+msgctxt "TFSYSTEMOPTIONS.GPAYMENTTARGETS.COLUMNS[2].TITLE.CAPTION"
+msgid "TEXT"
+msgstr ""
+
+#: tfsystemoptions.gpaymenttargets.columns[3].title.caption
+msgctxt "TFSYSTEMOPTIONS.GPAYMENTTARGETS.COLUMNS[3].TITLE.CAPTION"
+msgid "CASHDISC"
+msgstr ""
+
+#: tfsystemoptions.gpaymenttargets.columns[4].title.caption
+msgctxt "TFSYSTEMOPTIONS.GPAYMENTTARGETS.COLUMNS[4].TITLE.CAPTION"
+msgid "CASHDISCD"
+msgstr ""
+
+#: tfsystemoptions.gpaymenttargets.columns[5].title.caption
+msgctxt "TFSYSTEMOPTIONS.GPAYMENTTARGETS.COLUMNS[5].TITLE.CAPTION"
+msgid "DAYS"
+msgstr ""
+
+#: tfsystemoptions.gpaymenttargets.columns[6].title.caption
+msgctxt "TFSYSTEMOPTIONS.GPAYMENTTARGETS.COLUMNS[6].TITLE.CAPTION"
+msgid "DEFAULTPT"
+msgstr ""
+
+#: tfsystemoptions.gunits.columns[0].title.caption
+msgctxt "TFSYSTEMOPTIONS.GUNITS.COLUMNS[0].TITLE.CAPTION"
+msgid "NAME"
+msgstr ""
+
+#: tfsystemoptions.gvat.columns[0].title.caption
+msgctxt "TFSYSTEMOPTIONS.GVAT.COLUMNS[0].TITLE.CAPTION"
+msgid "ID"
+msgstr ""
+
+#: tfsystemoptions.gvat.columns[1].title.caption
+msgctxt "TFSYSTEMOPTIONS.GVAT.COLUMNS[1].TITLE.CAPTION"
+msgid "VALUE"
+msgstr ""
+
+#: tfsystemoptions.gvat.columns[2].title.caption
+msgctxt "TFSYSTEMOPTIONS.GVAT.COLUMNS[2].TITLE.CAPTION"
+msgid "NAME"
+msgstr ""
+
+#: tfsystemoptions.gvat.columns[3].title.caption
+msgctxt "TFSYSTEMOPTIONS.GVAT.COLUMNS[3].TITLE.CAPTION"
+msgid "FKEY"
+msgstr ""
+
+#: tfsystemoptions.lnumbers.caption
+msgctxt "TFSYSTEMOPTIONS.LNUMBERS.CAPTION"
+msgid "Nummernkreise"
+msgstr ""
+
+#: tfsystemoptions.lpaymenttargets.caption
+msgctxt "TFSYSTEMOPTIONS.LPAYMENTTARGETS.CAPTION"
+msgid "Zahlungsziele"
+msgstr ""
+
+#: tfsystemoptions.lunits.caption
+msgctxt "TFSYSTEMOPTIONS.LUNITS.CAPTION"
+msgid "Mengeneinheiten"
+msgstr ""
+
+#: tfsystemoptions.lvat.caption
+msgctxt "TFSYSTEMOPTIONS.LVAT.CAPTION"
+msgid "Mehrwertsteuer"
 msgstr ""
 
 #: tftasks.acaddsubtask.caption
@@ -5476,12 +7300,10 @@ msgstr "Bis"
 msgid "Priorität"
 msgstr "Priorität"
 
-# uintfstrconsts:strproject
 #: tftasks.lproject.caption
 msgid "projekt"
 msgstr "projekt"
 
-# uintfstrconsts:strversion
 #: tftasks.lstartdate.caption
 msgctxt "TFTASKS.LSTARTDATE.CAPTION"
 msgid "Von"
@@ -5505,13 +7327,11 @@ msgstr "verbrauchte Zeit"
 msgid "lUsedTimeValue"
 msgstr ""
 
-# uintfstrconsts:strname
 #: tftasks.lvtasks.columns[0].caption
 msgctxt "TFTASKS.LVTASKS.COLUMNS[0].CAPTION"
 msgid "Name"
 msgstr "Name"
 
-# uintfstrconsts:strtimelist
 #: tftasks.lvtasks.columns[1].caption
 msgid "Time"
 msgstr "Zeit"
@@ -5520,7 +7340,6 @@ msgstr "Zeit"
 msgid "Percent"
 msgstr ""
 
-# uintfstrconsts:strproject
 #: tftasks.lvtasks.columns[3].caption
 msgctxt "TFTASKS.LVTASKS.COLUMNS[3].CAPTION"
 msgid "Project"
@@ -5536,7 +7355,6 @@ msgctxt "TFTASKS.MIDELEMITER2.CAPTION"
 msgid "-"
 msgstr "-"
 
-# uintfstrconsts:strdocuments
 #: tftasks.tsdocuments.caption
 msgctxt "TFTASKS.TSDOCUMENTS.CAPTION"
 msgid "Dokumente"
@@ -5581,12 +7399,10 @@ msgctxt "TFTIMELIST.ACPRINT.CAPTION"
 msgid "acPrint"
 msgstr ""
 
-# uintfstrconsts:strtimelist
 #: tftimelist.caption
 msgid "fTimelist"
 msgstr "fTimelist"
 
-# uintfstrconsts:stractive
 #: tftransfer.babort.caption
 msgctxt "TFTRANSFER.BABORT.CAPTION"
 msgid "Abbrechen"
@@ -5596,6 +7412,11 @@ msgstr "Abbrechen"
 msgctxt "TFTRANSFER.BOK.CAPTION"
 msgid "Vormerken"
 msgstr "Vormerken"
+
+#: tftransfer.caption
+msgctxt "TFTRANSFER.CAPTION"
+msgid "Überweisung"
+msgstr ""
 
 #: tftransfer.cbcurrency.text
 msgid "EUR"
@@ -5609,11 +7430,6 @@ msgstr "51 Gutschrift"
 msgid "0,0"
 msgstr "0,0"
 
-#: tftransfer.ftransfer.caption
-msgctxt "TFTRANSFER.FTRANSFER.CAPTION"
-msgid "Überweisung"
-msgstr "Überweisung"
-
 #: tftransfer.gbreciver.caption
 msgid "Enpfänger"
 msgstr "Enpfänger"
@@ -5624,14 +7440,15 @@ msgid "Konto"
 msgstr "Konto"
 
 #: tftransfer.lamount.caption
+msgctxt "tftransfer.lamount.caption"
 msgid "Betrag"
-msgstr "Betrag"
+msgstr ""
 
 #: tftransfer.linstitute.caption
-msgid "lInstitute"
-msgstr "Institut"
+msgctxt "tftransfer.linstitute.caption"
+msgid "Institut"
+msgstr ""
 
-# uintfstrconsts:strname
 #: tftransfer.lname.caption
 msgctxt "TFTRANSFER.LNAME.CAPTION"
 msgid "Name"
@@ -5644,13 +7461,13 @@ msgstr "Zahlungsgrund"
 
 #: tftransfer.lraccount.caption
 msgctxt "TFTRANSFER.LRACCOUNT.CAPTION"
-msgid "Kontonummer"
-msgstr "Kontonummer"
+msgid "Kontonummer/IBAN"
+msgstr ""
 
 #: tftransfer.lrsortcode.caption
 msgctxt "TFTRANSFER.LRSORTCODE.CAPTION"
-msgid "Bankleitzahl"
-msgstr "Bankleitzahl"
+msgid "Bankleitzahl/BIC"
+msgstr ""
 
 #: tftransfer.ltextkey.caption
 msgid "textschlüssel"
@@ -5722,7 +7539,6 @@ msgctxt "TFWEBSHOP.PASSWORD.CAPTION"
 msgid "Passwort"
 msgstr "Passwort"
 
-# uintfstrconsts:strreadingoptions
 #: tfwebshop.tsoptions.caption
 msgctxt "TFWEBSHOP.TSOPTIONS.CAPTION"
 msgid "Optionen"
@@ -5741,13 +7557,11 @@ msgstr "Wiki"
 msgid "Seitentitel"
 msgstr "Seitentitel"
 
-# uintfstrconsts:strdocuments
 #: tfwiki.tsdocuments.caption
 msgctxt "TFWIKI.TSDOCUMENTS.CAPTION"
 msgid "Dokumente"
 msgstr "Dokumente"
 
-# uintfstrconsts:strdepartment
 #: tfwiki.tsedit.caption
 msgid "bearbeiten"
 msgstr "bearbeiten"
@@ -5763,26 +7577,13 @@ msgstr ""
 
 #: tfwizardnewaccount.babort1.caption
 msgctxt "TFWIZARDNEWACCOUNT.BABORT1.CAPTION"
-msgid "bAbort0"
-msgstr ""
-
-#: tfwizardnewaccount.babort2.caption
-msgctxt "TFWIZARDNEWACCOUNT.BABORT2.CAPTION"
-msgid "bAbort0"
+msgid "Abbrechen"
 msgstr ""
 
 #: tfwizardnewaccount.babort3.caption
 msgctxt "TFWIZARDNEWACCOUNT.BABORT3.CAPTION"
 msgid "bAbort0"
 msgstr ""
-
-#: tfwizardnewaccount.bcreateaq4account.caption
-msgid "AQBanking 4 Konto erstellen"
-msgstr "AQBanking 4 Konto erstellen"
-
-#: tfwizardnewaccount.bcreateftsaccount.caption
-msgid "FinTS Administrator starten"
-msgstr "FinTS Administrator starten"
 
 #: tfwizardnewaccount.bnext0.caption
 msgctxt "TFWIZARDNEWACCOUNT.BNEXT0.CAPTION"
@@ -5791,12 +7592,7 @@ msgstr ""
 
 #: tfwizardnewaccount.bnext1.caption
 msgctxt "TFWIZARDNEWACCOUNT.BNEXT1.CAPTION"
-msgid "bNext0"
-msgstr ""
-
-#: tfwizardnewaccount.bnext2.caption
-msgctxt "TFWIZARDNEWACCOUNT.BNEXT2.CAPTION"
-msgid "bNext0"
+msgid "Weiter"
 msgstr ""
 
 #: tfwizardnewaccount.bnext3.caption
@@ -5811,12 +7607,7 @@ msgstr ""
 
 #: tfwizardnewaccount.bprev1.caption
 msgctxt "TFWIZARDNEWACCOUNT.BPREV1.CAPTION"
-msgid "bPrev0"
-msgstr ""
-
-#: tfwizardnewaccount.bprev2.caption
-msgctxt "TFWIZARDNEWACCOUNT.BPREV2.CAPTION"
-msgid "bPrev0"
+msgid "Zurück"
 msgstr ""
 
 #: tfwizardnewaccount.bprev3.caption
@@ -5824,77 +7615,87 @@ msgctxt "TFWIZARDNEWACCOUNT.BPREV3.CAPTION"
 msgid "bPrev0"
 msgstr ""
 
-#: tfwizardnewaccount.fwizardnewaccount.caption
-msgctxt "TFWIZARDNEWACCOUNT.FWIZARDNEWACCOUNT.CAPTION"
-msgid "neues Konto erstellen"
-msgstr "neues Konto erstellen"
+#: tfwizardnewaccount.caption
+msgctxt "tfwizardnewaccount.caption"
+msgid "Neues Konto"
+msgstr ""
+
+#: tfwizardnewaccount.cbexisting.text
+msgid "cbExisting"
+msgstr ""
+
+#: tfwizardnewaccount.checkbox1.caption
+msgid "Zugang für bereits vorhandenes Konto"
+msgstr ""
+
+#: tfwizardnewaccount.dividerbevel1.caption
+msgid "neuer Zugang"
+msgstr ""
 
 #: tfwizardnewaccount.laccount.caption
 msgctxt "TFWIZARDNEWACCOUNT.LACCOUNT.CAPTION"
-msgid "Konto"
-msgstr "Konto"
+msgid "lAccount"
+msgstr ""
 
 #: tfwizardnewaccount.laccountname.caption
 msgctxt "TFWIZARDNEWACCOUNT.LACCOUNTNAME.CAPTION"
-msgid "Kontoname"
-msgstr "Kontoname"
-
-#: tfwizardnewaccount.laccountname1.caption
-msgctxt "TFWIZARDNEWACCOUNT.LACCOUNTNAME1.CAPTION"
-msgid "Kontoname"
-msgstr "Kontoname"
+msgid "Ihr Name (Benutzername)"
+msgstr ""
 
 #: tfwizardnewaccount.laccountno.caption
 msgctxt "TFWIZARDNEWACCOUNT.LACCOUNTNO.CAPTION"
-msgid "Kontonummer"
-msgstr "Kontonummer"
+msgid "Kontonummer (Benutzerkennung)"
+msgstr ""
+
+#: tfwizardnewaccount.laccountno1.caption
+msgid "Kunden-ID (oft optional)"
+msgstr ""
 
 #: tfwizardnewaccount.ldescription0.caption
-msgid "Wählen Sie einen Kontotypen aus, wenn Sie noch keine Konten mit den jewailigen Backends eingerichtet haben, können Sie dies mit den Knöpfen darunter tun."
-msgstr "Wählen Sie einen Kontotypen aus, wenn Sie noch keine Konten mit den jewailigen Backends eingerichtet haben, können Sie dies mit den Knöpfen darunter tun."
+msgid "wählen Sie hier den Typ des Zugangs zu ihrem Konto Sie benötigen für jede Bank und teilweise jeden Kontotypen einen separaten Zugang können aber pro Zugang mehrere Konten haben"
+msgstr ""
 
 #: tfwizardnewaccount.ldescription1.caption
-msgid "Wählen Sie ein Konto zum importieren aus"
-msgstr "Wählen Sie ein Konto zum importieren aus"
+msgid "lDescription0"
+msgstr ""
 
 #: tfwizardnewaccount.ldescription2.caption
-msgid "Füllen Sie alle Kontoparameter ausum das Konto zu importieren"
-msgstr "Füllen Sie alle Kontoparameter ausum das Konto zu importieren"
-
-#: tfwizardnewaccount.ldescription3.caption
-msgid "geben Sie einen Kontonamen für das manuell geführte Konto an"
-msgstr "geben Sie einen Kontonamen für das manuell geführte Konto an"
+msgid "geben Sie hier die Zugangsdaten die Sie von Ihrer Bank erhalten an"
+msgstr ""
 
 #: tfwizardnewaccount.lfintsname.caption
-msgid "FinTS Kontoname (aus dem FinTS Administrator)"
-msgstr "FinTS Kontoname (aus dem FinTS Administrator)"
+msgid "Serveradresse (http://...)"
+msgstr ""
 
-# uintfstrconsts:strname
 #: tfwizardnewaccount.lname.caption
 msgctxt "TFWIZARDNEWACCOUNT.LNAME.CAPTION"
-msgid "Name"
-msgstr "Name"
+msgid "lName"
+msgstr ""
 
 #: tfwizardnewaccount.lsortcode.caption
 msgctxt "TFWIZARDNEWACCOUNT.LSORTCODE.CAPTION"
 msgid "Bankleitzahl"
 msgstr "Bankleitzahl"
 
-#: tfwizardnewaccount.rbimportaqbanking4account.caption
-msgid "AQBanking 4 Konto importieren"
-msgstr "AQBanking 4 Konto importieren"
+#: tfwizardnewaccount.radiobutton1.caption
+msgid "manuell geführtes Konto"
+msgstr ""
 
-#: tfwizardnewaccount.rbimportfintstoolsaccount.caption
-msgid "FinTS Konto importieren"
-msgstr "FinTS Konto importieren"
+#: tfwizardnewaccount.rbexistinguser.caption
+msgid "Konto von bestehendem Online Banking Zugang"
+msgstr ""
 
-#: tfwizardnewaccount.rbimportmanualaccounts.caption
-msgid "AQBanking 2 Konto importieren"
-msgstr "AQBanking 2 Konto importieren"
+#: tfwizardnewaccount.rbhbci.caption
+msgid "Chipkaten HBCI Konto"
+msgstr ""
 
-#: tfwizardnewaccount.rbmanualaccount.caption
-msgid "Manuell geführtes Konto erstellen"
-msgstr "Manuell geführtes Konto erstellen"
+#: tfwizardnewaccount.rbmobiletan.caption
+msgid "Mobile Tan HBCI Konto"
+msgstr ""
+
+#: tfwizardnewaccount.rbpintan.caption
+msgid "PIN/TAN HBCI Konto"
+msgstr ""
 
 #: tfwizardnewmandant.babort0.caption
 msgctxt "TFWIZARDNEWMANDANT.BABORT0.CAPTION"
@@ -6005,7 +7806,6 @@ msgstr "Neuen Mandanten erstellen"
 msgid "erstelle Tabellen (wenn nötig)"
 msgstr "erstelle Tabellen (wenn nötig)"
 
-# uintfstrconsts:strdates
 #: tfwizardnewmandant.ldatabase.caption
 msgid "Datenbank"
 msgstr "Datenbank"
@@ -6014,7 +7814,6 @@ msgstr "Datenbank"
 msgid "Datenbankverzeichnis"
 msgstr "Datenbankverzeichnis"
 
-# uintfstrconsts:strseverity
 #: tfwizardnewmandant.ldbserver.caption
 msgctxt "TFWIZARDNEWMANDANT.LDBSERVER.CAPTION"
 msgid "Server"
@@ -6078,8 +7877,7 @@ msgstr "Benutzername"
 
 #: uaccountingframe.strtransactionequaltoorder
 msgctxt "uaccountingframe.strtransactionequaltoorder"
-msgid ""
-"Ist die Buchung:\n"
+msgid "Ist die Buchung:\n"
 "%s\n"
 "%s\n"
 "\n"
@@ -6088,8 +7886,8 @@ msgid ""
 "%s\n"
 "%s\n"
 " ?\n"
-msgstr ""
-"Ist die Buchung:\n"
+""
+msgstr "Ist die Buchung:\n"
 "%s\n"
 "%s\n"
 "\n"
@@ -6098,6 +7896,7 @@ msgstr ""
 "%s\n"
 "%s\n"
 " ?\n"
+""
 
 #: uaccountingque.straddingjobs
 msgid "füge Aufträge ein..."
@@ -6131,7 +7930,6 @@ msgstr "Geben Sie die TAN Nummer an"
 msgid "Alles ausgeführt."
 msgstr "Alles ausgeführt."
 
-# uintfstrconsts:strcontact
 #: uaccountingque.strrequest
 msgid "Kontoabfrage"
 msgstr "Kontoabfrage"
@@ -6162,8 +7960,7 @@ msgstr "Der Zahlungsgrund besteht aus zu vielen Zeilen"
 
 #: uaccounts.strtransactionequaltoorder
 msgctxt "uaccounts.strtransactionequaltoorder"
-msgid ""
-"Ist die Buchung:\n"
+msgid "Ist die Buchung:\n"
 "%s\n"
 "%s\n"
 "\n"
@@ -6172,8 +7969,8 @@ msgid ""
 "%s\n"
 "%s\n"
 " ?\n"
-msgstr ""
-"Ist die Buchung:\n"
+""
+msgstr "Ist die Buchung:\n"
 "%s\n"
 "%s\n"
 "\n"
@@ -6182,6 +7979,7 @@ msgstr ""
 "%s\n"
 "%s\n"
 " ?\n"
+""
 
 #: uacquire.strresolution
 msgctxt "uacquire.strresolution"
@@ -6257,8 +8055,9 @@ msgid "Lager"
 msgstr "Lager"
 
 #: uarticleframe.strsupplier
+msgctxt "uarticleframe.strsupplier"
 msgid "Lieferant"
-msgstr "Lieferant"
+msgstr ""
 
 #: uarticleframe.strtexts
 msgctxt "uarticleframe.strtexts"
@@ -6313,8 +8112,9 @@ msgid "Archiv"
 msgstr "Archiv"
 
 #: ubasedatamodule.strassembly
+msgctxt "ubasedatamodule.strassembly"
 msgid "Baugruppe"
-msgstr "Baugruppe"
+msgstr ""
 
 #: ubasedatamodule.strballance
 msgid "Kontostand"
@@ -6339,12 +8139,12 @@ msgid "geprüft"
 msgstr "geprüft"
 
 #: ubasedatamodule.strcheckingtable
-msgid ""
-"Prüfe Tabelle \n"
+msgid "Prüfe Tabelle \n"
 "%s\n"
-msgstr ""
-"Prüfe Tabelle \n"
+""
+msgstr "Prüfe Tabelle \n"
 "%s\n"
+""
 
 #: ubasedatamodule.strcity
 msgid "Stadt"
@@ -6368,16 +8168,15 @@ msgctxt "ubasedatamodule.strcurrency"
 msgid "Währung"
 msgstr "Währung"
 
-# uintfstrconsts:strarticlenumber
 #: ubasedatamodule.strcustomernumber
 msgctxt "ubasedatamodule.strcustomernumber"
 msgid "Kundennummer"
 msgstr "Kundennummer"
 
-# uintfstrconsts:strdates
 #: ubasedatamodule.strdata
+msgctxt "ubasedatamodule.strdata"
 msgid "Daten"
-msgstr "Daten"
+msgstr ""
 
 #: ubasedatamodule.strdate
 msgctxt "ubasedatamodule.strdate"
@@ -6412,7 +8211,6 @@ msgstr "Rabatt"
 msgid "erledigt"
 msgstr "erledigt"
 
-# uintfstrconsts:strdepartment
 #: ubasedatamodule.stremployee
 msgctxt "ubasedatamodule.stremployee"
 msgid "Mitarbeiter"
@@ -6445,8 +8243,9 @@ msgid "Ident"
 msgstr "Ident"
 
 #: ubasedatamodule.strinstitute
+msgctxt "ubasedatamodule.strinstitute"
 msgid "Institut"
-msgstr "Institut"
+msgstr ""
 
 #: ubasedatamodule.strland
 msgctxt "ubasedatamodule.strland"
@@ -6484,19 +8283,18 @@ msgctxt "ubasedatamodule.strnotes"
 msgid "Notizen"
 msgstr "Notizen"
 
-# uintfstrconsts:strnewimage
 #: ubasedatamodule.strnumber
 msgctxt "ubasedatamodule.strnumber"
 msgid "Nummer"
 msgstr "Nummer"
 
 #: ubasedatamodule.stropeningtable
-msgid ""
-"öffne Tabelle \n"
+msgid "öffne Tabelle \n"
 "%s\n"
-msgstr ""
-"öffne Tabelle \n"
+""
+msgstr "öffne Tabelle \n"
 "%s\n"
+""
 
 #: ubasedatamodule.strorderno
 msgctxt "ubasedatamodule.strorderno"
@@ -6513,8 +8311,9 @@ msgid "bezahlt"
 msgstr "bezahlt"
 
 #: ubasedatamodule.strpart
+msgctxt "ubasedatamodule.strpart"
 msgid "Bauteil"
-msgstr "Bauteil"
+msgstr ""
 
 #: ubasedatamodule.strpassword
 msgctxt "ubasedatamodule.strpassword"
@@ -6559,8 +8358,9 @@ msgid "Postfach"
 msgstr "Postfach"
 
 #: ubasedatamodule.strprice
+msgctxt "ubasedatamodule.strprice"
 msgid "Preis"
-msgstr "Preis"
+msgstr ""
 
 #: ubasedatamodule.strpricetype
 msgid "Preistyp"
@@ -6614,7 +8414,6 @@ msgctxt "ubasedatamodule.strsellprice"
 msgid "Verkaufspreis"
 msgstr "Verkaufspreis"
 
-# uintfstrconsts:strseverity
 #: ubasedatamodule.strsender
 msgid "Absender"
 msgstr "Absender"
@@ -6742,7 +8541,6 @@ msgstr "besetzt"
 msgid "Anruf"
 msgstr "Anruf"
 
-# uintfstrconsts:strregister
 #: ucall.strcontinue
 msgctxt "ucall.strcontinue"
 msgid "Weiter"
@@ -6760,7 +8558,6 @@ msgstr "Auflegen"
 msgid "Halten"
 msgstr "Halten"
 
-# uintfstrconsts:stractive
 #: ucall.strinprogress
 msgid "sprechen"
 msgstr "sprechen"
@@ -6773,7 +8570,6 @@ msgstr "abgelehnt"
 msgid "klingelt"
 msgstr "klingelt"
 
-# uintfstrconsts:strreadingoptions
 #: ucall.strrouting
 msgid "leite weiter ..."
 msgstr "leite weiter ..."
@@ -6815,7 +8611,6 @@ msgctxt "ucustomer.scinternet"
 msgid "INT  Homepage"
 msgstr "INT  Homepage"
 
-# uintfstrconsts:stremail
 #: ucustomer.scmail
 msgctxt "ucustomer.scmail"
 msgid "MAIL e-Mail"
@@ -6860,7 +8655,6 @@ msgctxt "ucustomer.strchangecustomernumer"
 msgid "Kundennumer ändern"
 msgstr "Kundennumer ändern"
 
-# uintfstrconsts:strcontact
 #: ucustomer.strcontact
 msgid "Kontakt"
 msgstr "Kontakt"
@@ -6914,14 +8708,13 @@ msgid "Statustyp nicht gefunden, bitte wenden Sie sich an Ihren Administrator"
 msgstr "Statustyp nicht gefunden, bitte wenden Sie sich an Ihren Administrator"
 
 #: udata.strstoringfailed
-msgid ""
-"Fehler beim Speichern:\n"
+msgid "Fehler beim Speichern:\n"
 "%s\n"
-msgstr ""
-"Fehler beim Speichern:\n"
+""
+msgstr "Fehler beim Speichern:\n"
 "%s\n"
+""
 
-# uintfstrconsts:strregister
 #: udata.strwikipage
 msgid "Wikiseite"
 msgstr "Wikiseite"
@@ -6934,17 +8727,14 @@ msgstr "Setzen Sie die Quelle / Einstellungen der Datenquelle und klicken Sie OK
 msgid "Bitte erstellen Sei ein Datenformat"
 msgstr "Bitte erstellen Sei ein Datenformat"
 
-# uintfstrconsts:strdates
 #: udataimport.strdatadestination
 msgid "Datenausgabe"
 msgstr "Datenausgabe"
 
-# uintfstrconsts:strdates
 #: udataimport.strdataexport
 msgid "Datenexport"
 msgstr "Datenexport"
 
-# uintfstrconsts:strdates
 #: udataimport.strdataimport
 msgctxt "udataimport.strdataimport"
 msgid "Datenimport"
@@ -7094,20 +8884,20 @@ msgid "austauschen"
 msgstr "austauschen"
 
 #: uentertime.strcontinueprevioustimeentry
-msgid ""
-"Zeiterfassung \n"
+msgid "Zeiterfassung \n"
 "\n"
 "%s\n"
 "%s\n"
 "\n"
 "wurde heute beendet, haben Sie in der Zwischenzeit daran weitergearbeitet?\n"
-msgstr ""
-"Zeiterfassung \n"
+""
+msgstr "Zeiterfassung \n"
 "\n"
 "%s\n"
 "%s\n"
 "\n"
 "wurde heute beendet, haben Sie in der Zwischenzeit daran weitergearbeitet?\n"
+""
 
 #: uentertime.strinvalidtimeformat
 msgid "Ungültiges Zeitformat !"
@@ -7135,7 +8925,6 @@ msgstr "Das Ereignis liegt in der Vergangenheit"
 msgid "geben Sie einen Namen für den neuen Filter an"
 msgstr "geben Sie einen Namen für den neuen Filter an"
 
-# uintfstrconsts:strname
 #: ufiltertabs.strnewtab
 msgid "neues Tab"
 msgstr "neues Tab"
@@ -7150,12 +8939,12 @@ msgid "neuen Kontakt einfügen ?"
 msgstr "neuen Kontakt einfügen ?"
 
 #: ulinkframe.strdoappendtoaccount
-msgid ""
-"Der eingefuegte Verweis ist eine Kontobuchung,\n"
+msgid "Der eingefuegte Verweis ist eine Kontobuchung,\n"
 "moechten Sie diesen Vorgang als Beleg einfuegen ?\n"
-msgstr ""
-"Der eingefuegte Verweis ist eine Kontobuchung,\n"
+""
+msgstr "Der eingefuegte Verweis ist eine Kontobuchung,\n"
 "moechten Sie diesen Vorgang als Beleg einfuegen ?\n"
+""
 
 #: umaileditoptions.strfeed
 msgctxt "umaileditoptions.strfeed"
@@ -7212,8 +9001,9 @@ msgid "Nachrichtenkonten"
 msgstr "Nachrichtenkonten"
 
 #: umain.strnewinventory
+msgctxt "umain.strnewinventory"
 msgid "Neue Inventur"
-msgstr "Neue Inventur"
+msgstr ""
 
 #: umain.strneworder
 msgid "%s erstellen"
@@ -7243,8 +9033,9 @@ msgid "Reparatur"
 msgstr "Reparatur"
 
 #: umain.strsearchtext
+msgctxt "umain.strsearchtext"
 msgid "<hier tippen um zu suchen>"
-msgstr "<hier tippen um zu suchen>"
+msgstr ""
 
 #: umain.strstates
 msgctxt "umain.strstates"
@@ -7270,12 +9061,12 @@ msgid "Wiki"
 msgstr "Wiki"
 
 #: umessages.strnewmessagecount
-msgid ""
-"%d neue Nachrichten\n"
+msgid "%d neue Nachrichten\n"
 "%d unbekannte neue Nachrichten empfangen\n"
-msgstr ""
-"%d neue Nachrichten\n"
+""
+msgstr "%d neue Nachrichten\n"
 "%d unbekannte neue Nachrichten empfangen\n"
+""
 
 #: umessages.strnewmessagecview
 msgid "%d Neue Nachrichten"
@@ -7444,7 +9235,6 @@ msgctxt "upersonframe.scinternet"
 msgid "INT  Homepage"
 msgstr "INT  Homepage"
 
-# uintfstrconsts:stremail
 #: upersonframe.scmail
 msgctxt "upersonframe.scmail"
 msgid "MAIL e-Mail"
@@ -7494,7 +9284,6 @@ msgctxt "upersonframe.strchangecustomernumer"
 msgid "Kundennumer ändern"
 msgstr "Kundennumer ändern"
 
-# uintfstrconsts:strdepartment
 #: upersonframe.stremployees
 msgid "Mitarbeiter/Mitglieder"
 msgstr "Mitarbeiter/Mitglieder"
@@ -7508,7 +9297,6 @@ msgstr "Info"
 msgid "Möchten Sie für diesen Geburtstag einen Eintrag in Ihren Kalender erzeugen ?"
 msgstr "Möchten Sie für diesen Geburtstag einen Eintrag in Ihren Kalender erzeugen ?"
 
-# uintfstrconsts:strnewimage
 #: upersonframe.strnewperson
 msgid "neue Person"
 msgstr "neue Person"
@@ -7545,7 +9333,6 @@ msgctxt "urepairpositionframe.strwaitingforcustomer"
 msgid "wartet auf Kunden"
 msgstr "wartet auf Kunden"
 
-# uintfstrconsts:strcontact
 #: usearch.strcontactelement
 msgctxt "usearch.strcontactelement"
 msgid "Kontaktdaten"
@@ -7601,7 +9388,6 @@ msgctxt "uselectreport.strfax"
 msgid "Fax"
 msgstr "Fax"
 
-# uintfstrconsts:strdates
 #: uselectreport.strfileexport
 msgid "Dateiausgabe"
 msgstr "Dateiausgabe"
@@ -7731,4 +9517,797 @@ msgstr "SQLite basierte Datenank"
 #: uzeosdm.strunknowndbtype
 msgid "Unbekannter Datenbanktyp"
 msgstr "Unbekannter Datenbanktyp"
+
+#: tfaccountingque.faccountingque.caption
+msgctxt "TFACCOUNTINGQUE.FACCOUNTINGQUE.CAPTION"
+msgid "Warteschlange"
+msgstr "Warteschlange"
+
+#: tfaccounts.acgotovoucher.caption
+msgid "zu Beleg gehen"
+msgstr "zu Beleg gehen"
+
+#: tfaccounts.acpastelinkasvoucher.caption
+msgid "Verweis als Beleg einfügen"
+msgstr "Verweis als Beleg einfügen"
+
+#: tfbookaccounting.depayed.cancelcaption
+msgctxt "TFBOOKACCOUNTING.DEPAYED.CANCELCAPTION"
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: tfbookaccounting.depayed.okcaption
+msgctxt "TFBOOKACCOUNTING.DEPAYED.OKCAPTION"
+msgid "OK"
+msgstr "OK"
+
+#: tfbookaccounting.fbookaccounting.caption
+msgid "Zahlungseingang buchen"
+msgstr "Zahlungseingang buchen"
+
+#: tfcustomer.acnew.hint
+msgid "erstellt einen neuen Kontakt"
+msgstr "erstellt einen neuen Kontakt"
+
+#: tfcustomer.btransfer.hint
+msgid "erstellt eine Überweisung an die gewählte Bankverbindung / den Kontakt"
+msgstr "erstellt eine Überweisung an die gewählte Bankverbindung / den Kontakt"
+
+#: tfcustomer.cbdiscontgroup.hint
+msgid "setzt eine Rabattgruppe für den Kontakt"
+msgstr "setzt eine Rabattgruppe für den Kontakt"
+
+#: tfcustomer.cblanguage.hint
+msgid "wählen Sie hier die Sprache des Kontaktes"
+msgstr "wählen Sie hier die Sprache des Kontaktes"
+
+#: tfcustomer.cbpaymenttarget.hint
+msgid "setzt ein Zahlungsziel mit dem die Vorgänge für diesen Kontakt vorbelegt werden"
+msgstr "setzt ein Zahlungsziel mit dem die Vorgänge für diesen Kontakt vorbelegt werden"
+
+#: tfcustomer.cbsupplier.hint
+msgid "setzen Sie dieses Feld wenn der Kontakt ein Lieferant ist"
+msgstr "setzen Sie dieses Feld wenn der Kontakt ein Lieferant ist"
+
+#: tfcustomer.ecustomername.hint
+msgid "geben Sie hier den namen des Kontaktes an"
+msgstr "geben Sie hier den namen des Kontaktes an"
+
+#: tfcustomer.ediscont.hint
+msgid "setzt eine Rabatt mit dem die Vorgänge für diesen Kontakt vorbelegt werden"
+msgstr "setzt eine Rabatt mit dem die Vorgänge für diesen Kontakt vorbelegt werden"
+
+#: tfcustomer.gbanking.columns[0].tcolumntitle.caption
+msgid "SORTCODE"
+msgstr ""
+
+#: tfcustomer.gbanking.columns[1].tcolumntitle.caption
+msgid "ACCOUNT"
+msgstr ""
+
+#: tfcustomer.gbanking.columns[2].tcolumntitle.caption
+msgid "INSTITUTE"
+msgstr ""
+
+#: tfcustomer.gbanking.hint
+msgid "hier können Sie Bankverbindungen des Kontaktes verwalten"
+msgstr "hier können Sie Bankverbindungen des Kontaktes verwalten"
+
+#: tfcustomer.lcallingname.caption
+msgid "Vorname"
+msgstr "Vorname"
+
+#. uintfstrconsts:strcontact
+#: tfcustomer.lcustomername.caption
+msgid "Kontaktname"
+msgstr "Kontaktname"
+
+#: tfcustomer.ldiscontgroup.caption
+msgid "Rabattgruppe"
+msgstr "Rabattgruppe"
+
+#. uintfstrconsts:strname
+#: tfcustomer.lfirmname.caption
+msgid "lFirmName"
+msgstr "Firmenname"
+
+#: tfcustomer.lname.caption
+msgid "Name / Firma"
+msgstr "Name / Firma"
+
+#: tfcustomer.lstreet.caption
+msgid "Straße"
+msgstr "Straße"
+
+#: tflinks.glist.columns[0].tcolumntitle.caption
+msgid "ICON"
+msgstr "Icon"
+
+#: tfmain.acadddirectory.caption
+msgctxt "TFMAIN.ACADDDIRECTORY.CAPTION"
+msgid "Verzeichnis hinzufügen"
+msgstr "Verzeichnis hinzufügen"
+
+#: tfmain.acback.caption
+msgid "Zurück"
+msgstr "Zurück"
+
+#: tfmain.acback.hint
+msgid "zum vorherigen Eintrag gehen"
+msgstr "zum vorherigen Eintrag gehen"
+
+#: tfmain.acbugtracker.caption
+msgid "Fehler berichten/verfolgen"
+msgstr "Fehler berichten/verfolgen"
+
+#. uintfstrconsts:strcontact
+#: tfmain.accontact.caption
+msgctxt "TFMAIN.ACCONTACT.CAPTION"
+msgid "Kontakte"
+msgstr "Kontakte"
+
+#: tfmain.acdeletedirectory.caption
+msgid "Verzeichnis löschen"
+msgstr "Verzeichnis löschen"
+
+#: tfmain.acdeletemandant.caption
+msgid "Mandanten löschen"
+msgstr "Mandanten löschen"
+
+#: tfmain.acdeletewholemessagedir.caption
+msgid "Alle Narichten löschen"
+msgstr "Alle Narichten löschen"
+
+#. uintfstrconsts:strregister
+#: tfmain.acforward.caption
+msgctxt "TFMAIN.ACFORWARD.CAPTION"
+msgid "Weiter"
+msgstr "Weiter"
+
+#: tfmain.acforward.hint
+msgid "zum nächsten Eintrag gehen"
+msgstr "zum nächsten Eintrag gehen"
+
+#: tfmain.acinfo.caption
+msgctxt "tfmain.acinfo.caption"
+msgid "Info"
+msgstr "Info"
+
+#. uintfstrconsts:strstart
+#: tfmain.acmasterdata.caption
+msgctxt "TFMAIN.ACMASTERDATA.CAPTION"
+msgid "Stammdaten"
+msgstr "Artikel"
+
+#: tfmain.acnewarticle.caption
+msgid "Neuer Artikel"
+msgstr "Neuer Artikel"
+
+#. uintfstrconsts:strcontact
+#: tfmain.acnewcustomer.caption
+msgctxt "TFMAIN.ACNEWCUSTOMER.CAPTION"
+msgid "Neuer Kontakt"
+msgstr "Neuer Kontakt"
+
+#. uintfstrconsts:stremail
+#: tfmain.acnewmail.caption
+msgid "Neue e-Mail"
+msgstr "Neue e-Mail"
+
+#: tfmain.acnewmandant.caption
+msgid "Neuen Mandanten anlegen"
+msgstr "Neuen Mandanten anlegen"
+
+#: tfmain.acnewpiecelist.caption
+msgid "Neue Stückliste"
+msgstr "Neue Stückliste"
+
+#: tfmain.acnewtask.caption
+msgid "Neue Aufgabe"
+msgstr "Neue Aufgabe"
+
+#: tfmain.acnewtermin.caption
+msgctxt "tfmain.acnewtermin.caption"
+msgid "Neuer Termin"
+msgstr "Neuer Termin"
+
+#: tfmain.acorders.caption
+msgctxt "TFMAIN.ACORDERS.CAPTION"
+msgid "Aufträge"
+msgstr "Aufträge"
+
+#: tfmain.acpersonaloptions.caption
+msgctxt "TFMAIN.ACPERSONALOPTIONS.CAPTION"
+msgid "Persönliche Einstellungen"
+msgstr "Persönliche Einstellungen"
+
+#: tfmain.acproperties.caption
+msgid "Einstellungen"
+msgstr "Einstellungen"
+
+#. uintfstrconsts:strseverity
+#: tfmain.acquit.caption
+msgid "Beenden"
+msgstr "Beenden"
+
+#: tfmain.acrename.caption
+msgctxt "TFMAIN.ACRENAME.CAPTION"
+msgid "Umbenennen"
+msgstr "Umbenennen"
+
+#: tfmain.acsandboxmode.caption
+msgctxt "TFMAIN.ACSANDBOXMODE.CAPTION"
+msgid "testmode"
+msgstr "Testmodus"
+
+#: tfmain.acsearch.caption
+msgctxt "TFMAIN.ACSEARCH.CAPTION"
+msgid "Suche"
+msgstr "Suche"
+
+#: tfmain.acshortcutoptions.caption
+msgid "Tastenkürzel"
+msgstr "Tastenkürzel"
+
+#: tfmain.acshowcurrentcontrol.caption
+msgid "acShowCurrentControl"
+msgstr ""
+
+#: tfmain.acshowhide.caption
+msgid "Programm zeigen/verstecken"
+msgstr "Programm zeigen/verstecken"
+
+#: tfmain.acshowhidehelp.caption
+msgid "Hilfe zeigen/verstecken"
+msgstr "Hilfe zeigen/verstecken"
+
+#: tfmain.bhistory.hint
+msgid "Zuletzt aufgerufene Einträge anzeigen"
+msgstr "Zuletzt aufgerufene Einträge anzeigen"
+
+#: tfmain.fmain.caption
+msgctxt "TFMAIN.FMAIN.CAPTION"
+msgid "Promet-ERP"
+msgstr "Promet-ERP"
+
+#: tfmain.lmessage.caption
+msgctxt "TFMAIN.LMESSAGE.CAPTION"
+msgid "lMessage"
+msgstr "Nachricht"
+
+#: tfmain.menuitem5.caption
+msgctxt "TFMAIN.MENUITEM5.CAPTION"
+msgid "-"
+msgstr "-"
+
+#: tfmain.menuitem6.caption
+msgctxt "TFMAIN.MENUITEM6.CAPTION"
+msgid "-"
+msgstr "-"
+
+#: tfmain.menuitem7.caption
+msgctxt "TFMAIN.MENUITEM7.CAPTION"
+msgid "-"
+msgstr "-"
+
+#: tfmain.minew1.caption
+msgctxt "TFMAIN.MINEW1.CAPTION"
+msgid "New Item1"
+msgstr ""
+
+#: tfmain.mistartpause.caption
+msgctxt "TFMAIN.MISTARTPAUSE.CAPTION"
+msgid "New Item3"
+msgstr ""
+
+#: tfmain.mitimeregistering.caption
+msgid "New Item2"
+msgstr ""
+
+#. uintfstrconsts:strnet
+#: tfmain.mitraynew.caption
+msgctxt "TFMAIN.MITRAYNEW.CAPTION"
+msgid "Neu"
+msgstr "Neu"
+
+#: tfmain.miview.caption
+msgid "Ansicht"
+msgstr "Ansicht"
+
+#: tfmain.sbsandbox.caption
+msgctxt "TFMAIN.SBSANDBOX.CAPTION"
+msgid "testmode"
+msgstr ""
+
+#: tfmain.sbsandbox.hint
+msgid "Der Sandkastenmodus erlaubt es Ihnen änderungen zu"
+msgstr "Der Sandkastenmodus erlaubt es Ihnen änderungen zu"
+
+#: tfmain.toolbutton2.caption
+msgid "ToolButton2"
+msgstr ""
+
+#: tfmasterdata.acentertime.caption
+msgid "Zeiterfassung mit Eintrag beginnen"
+msgstr "Zeiterfassung mit Eintrag beginnen"
+
+#: tfmasterdata.cbactive.hint
+msgid "markiert diesen Artikel als aktiv"
+msgstr "markiert diesen Artikel als aktiv"
+
+#: tfmasterdata.cblanguage.hint
+msgid "wählt den Eintrag in einer anderen Sprache aus"
+msgstr "wählt den Eintrag in einer anderen Sprache aus"
+
+#: tfmasterdata.cbnostorage.caption
+msgid "hat kein Lager"
+msgstr "hat kein Lager"
+
+#: tfmasterdata.cbnostorage.hint
+msgid "Der Eintrag besitzt kein Lager "
+msgstr "Der Eintrag besitzt kein Lager "
+
+#: tfmasterdata.cbownproduction.caption
+msgid "Eigenproduktion"
+msgstr "Eigenproduktion"
+
+#: tfmasterdata.cbownproduction.hint
+msgid "wird dieser Eintrag selbst erzeugt ?"
+msgstr "wird dieser Eintrag selbst erzeugt ?"
+
+#: tfmasterdata.cbsaleitem.caption
+msgid "Verkaufsartikel"
+msgstr "Verkaufsartikel"
+
+#: tfmasterdata.cbsaleitem.hint
+msgid "Ist dieser Eintrag ein Verkaufsartikel "
+msgstr "Ist dieser Eintrag ein Verkaufsartikel "
+
+#. uintfstrconsts:strarticlenumber
+#: tfmasterdata.cbuseserial.caption
+msgid "Serienummernpflicht"
+msgstr "Serienummernpflicht"
+
+#: tfmasterdata.cbuseserial.hint
+msgid "Bei allen Buchungen werden "
+msgstr "Bei allen Buchungen werden "
+
+#: tfmasterdata.cbversion.hint
+msgid "hier können Sie die zu bearbeitende Artikelversion auswählen."
+msgstr "hier können Sie die zu bearbeitende Artikelversion auswählen."
+
+#. uintfstrconsts:strbarcode
+#: tfmasterdata.lbarcode.caption
+msgid "Barcode / EAN"
+msgstr "Barcode / EAN"
+
+#: tfmasterdata.ldelivertime.caption
+msgid "Lieferzeit"
+msgstr "Lieferzeit"
+
+#: tfmasterdata.lmanufacturernr.caption
+msgid "Artikelnummer Hersteller"
+msgstr "Artikelnummer Hersteller"
+
+#. uintfstrconsts:strversion
+#: tfmasterdata.ltransportsupplier.caption
+msgid "Versandkosten"
+msgstr "Versandkosten"
+
+#: tfmasterdata.lunit.caption
+msgid "Verpackungseinheit"
+msgstr "Verpackungseinheit"
+
+#: tfmasterdata.lwarrenty.caption
+msgid "Gewährleistung"
+msgstr "Gewährleistung"
+
+#: tfmasterdata.lweight.caption
+msgid "Gewicht"
+msgstr "Gewicht"
+
+#: tfmasterdata.mshorttext.hint
+msgid "Der Kurztext des Eintrags"
+msgstr "Der Kurztext des Eintrags"
+
+#: tfmessages.acforward.caption
+msgid "acForward"
+msgstr ""
+
+#. uintfstrconsts:stractive
+#: tfnewstorage.bitbtn1.caption
+msgctxt "TFNEWSTORAGE.BITBTN1.CAPTION"
+msgid "Abbrechen"
+msgstr "Abbrechen"
+
+#: tfnewstorage.bok.caption
+msgctxt "TFNEWSTORAGE.BOK.CAPTION"
+msgid "&Ok"
+msgstr "&Ok"
+
+#: tfnewstorage.caption
+msgid "fNewStorage"
+msgstr ""
+
+#: tfoptions.cbisderivate.caption
+msgid "ist Untervorgang"
+msgstr "ist Untervorgang"
+
+#: tfoptions.cbsiacc.caption
+msgid "Buchhaltung"
+msgstr "Buchhaltung"
+
+#: tfoptions.cbsipos.caption
+msgid "Kasse"
+msgstr "Kasse"
+
+#: tfoptions.cbsiprod.caption
+msgid "Produktion"
+msgstr "Produktion"
+
+#: tfoptions.dgcurrency.columns[0].tcolumntitle.caption
+msgid "SYMBOL"
+msgstr ""
+
+#: tfoptions.dgcurrency.columns[2].tcolumntitle.caption
+msgid "MASK"
+msgstr ""
+
+#: tfoptions.dgcurrency.columns[3].tcolumntitle.caption
+msgid "DECIMALPL"
+msgstr ""
+
+#: tfoptions.dgcurrency.columns[4].tcolumntitle.caption
+msgid "FACTOR"
+msgstr ""
+
+#: tfoptions.dgcurrency.columns[5].tcolumntitle.caption
+msgid "DEFAULTCUR"
+msgstr ""
+
+#: tfoptions.dgdispatchtypes.columns[1].tcolumntitle.caption
+msgid "COUNTRY"
+msgstr ""
+
+#: tfoptions.dgdispatchtypes.columns[3].tcolumntitle.caption
+msgid "OUTPUTDRV"
+msgstr ""
+
+#: tfoptions.gbvisibility.caption
+msgid "Sichtbarkeit"
+msgstr "Sichtbarkeit"
+
+#: tfoptions.glanguages.columns[1].tcolumntitle.caption
+msgid "ISO6391"
+msgstr "ISO6391"
+
+#: tfoptions.glanguages.columns[2].tcolumntitle.caption
+msgid "ISO6392"
+msgstr "ISO6392"
+
+#: tfoptions.glanguages.columns[3].tcolumntitle.caption
+msgid "DEFAULTLNG"
+msgstr ""
+
+#: tfoptions.gnumbers.columns[0].tcolumntitle.caption
+msgid "TABLENAME"
+msgstr ""
+
+#: tfoptions.gnumbers.columns[2].tcolumntitle.caption
+msgid "INCR"
+msgstr ""
+
+#: tfoptions.gnumbers.columns[3].tcolumntitle.caption
+msgid "ACTUAL"
+msgstr ""
+
+#: tfoptions.gnumbers.columns[4].tcolumntitle.caption
+msgid "STOP"
+msgstr ""
+
+#: tfoptions.gpaymenttargets.columns[3].tcolumntitle.caption
+msgid "CASHDISC"
+msgstr ""
+
+#: tfoptions.gpaymenttargets.columns[4].tcolumntitle.caption
+msgid "CASHDISCD"
+msgstr ""
+
+#: tfoptions.gpaymenttargets.columns[5].tcolumntitle.caption
+msgid "DAYS"
+msgstr ""
+
+#: tfoptions.gpaymenttargets.columns[6].tcolumntitle.caption
+msgid "DEFAULTPT"
+msgstr ""
+
+#: tfoptions.grepairproblem.columns[0].tcolumntitle.caption
+msgid "PROBLEM"
+msgstr ""
+
+#: tfoptions.gstorage.columns[2].tcolumntitle.caption
+msgid "DEFAULTST"
+msgstr ""
+
+#: tfoptions.gvat.columns[3].tcolumntitle.caption
+msgid "FKEY"
+msgstr ""
+
+#: tfoptions.lcompclose.caption
+msgid "Schlussformel"
+msgstr "Schlussformel"
+
+#: tfoptions.ldateformat.caption
+msgid "Datumsformat"
+msgstr "Datumsformat"
+
+#: tfoptions.lderivates.caption
+msgid "Ableitbar in"
+msgstr "Ableitbar in"
+
+#: tfoptions.lnumbers.caption
+msgid "Nummernkreise"
+msgstr "Nummernkreise"
+
+#: tfoptions.lnumberset.caption
+msgid "Nummernkreis"
+msgstr "Nummernkreis"
+
+#: tfoptions.lpaymenttargets.caption
+msgid "Zahlungsziele"
+msgstr "Zahlungsziele"
+
+#: tfoptions.lrights.caption
+msgid "Rechte"
+msgstr "Rechte"
+
+#: tfoptions.lsatutation.caption
+msgid "Einleitung"
+msgstr "Einleitung"
+
+#: tfoptions.lshipping.caption
+msgid "Versandarten"
+msgstr "Versandarten"
+
+#: tfoptions.ltimeformat.caption
+msgid "Zeitformat"
+msgstr "Zeitformat"
+
+#: tfoptions.ltitles.caption
+msgid "lTitles"
+msgstr ""
+
+#: tfoptions.lunits.caption
+msgid "Mengeneinheiten"
+msgstr "Mengeneinheiten"
+
+#. uintfstrconsts:strcontact
+#: tforders.acgotocustomer.caption
+msgid "zu Kontakt gehen"
+msgstr "zu Kontakt gehen"
+
+#: tforders.cbstatus.hint
+msgid "hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu überführen"
+msgstr "hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu überführen"
+
+#: tforders.cbstorage.hint
+msgid "hier können Sie ein Vorgabelager auswählen"
+msgstr "hier können Sie ein Vorgabelager auswählen"
+
+#: tforders.dedate.hint
+msgid "das Buchungsdatum"
+msgstr "das Buchungsdatum"
+
+#: tforders.denumber.hint
+msgid "Die Buchungsnummer"
+msgstr "Die Buchungsnummer"
+
+#: tforders.dlordernumber.hint
+msgid "Die automatisch vergebene eindeutige Vorgangsnummer"
+msgstr "Die automatisch vergebene eindeutige Vorgangsnummer"
+
+#: tforders.laddresses.caption
+msgid "Adressen"
+msgstr "Adressen"
+
+#: tforders.lapproved.caption
+msgid "bestätigt"
+msgstr "bestätigt"
+
+#: tforders.lorigdate.caption
+msgid "orig. Belegdatum"
+msgstr "orig. Belegdatum"
+
+#: tforders.lrequest.caption
+msgid "Anfragedatum"
+msgstr "Anfragedatum"
+
+#: tforders.lshipping.caption
+msgid "Versandart"
+msgstr "Versandart"
+
+#: tforders.lwishdate.caption
+msgid "Wunschdatum"
+msgstr "Wunschdatum"
+
+#: tforders.tabsheet2.caption
+msgid "Nachtext"
+msgstr "Nachtext"
+
+#: tforders.tsheader.caption
+msgid "Kopftext"
+msgstr "Kopftext"
+
+#: tforders.tvorderview.hint
+msgid "Eine Übersicht über die Auftragsstruktur"
+msgstr "Eine Übersicht über die Auftragsstruktur"
+
+#: tfpersonaloptions.lallowedphonelines.caption
+msgid "erlaubte Telefonleitungen"
+msgstr "erlaubte Telefonleitungen"
+
+#: tfrdocumentmanagement.toolbar1.caption
+msgid "ToolBar1"
+msgstr ""
+
+#: tftransfer.ftransfer.caption
+msgctxt "TFTRANSFER.FTRANSFER.CAPTION"
+msgid "Überweisung"
+msgstr "Überweisung"
+
+#: tftransfer.lamount.caption
+msgid "Betrag"
+msgstr "Betrag"
+
+#: tftransfer.linstitute.caption
+msgid "lInstitute"
+msgstr "Institut"
+
+#: tftransfer.lraccount.caption
+msgctxt "TFTRANSFER.LRACCOUNT.CAPTION"
+msgid "Kontonummer"
+msgstr "Kontonummer"
+
+#: tftransfer.lrsortcode.caption
+msgctxt "TFTRANSFER.LRSORTCODE.CAPTION"
+msgid "Bankleitzahl"
+msgstr "Bankleitzahl"
+
+#: tfwizardnewaccount.babort1.caption
+msgctxt "TFWIZARDNEWACCOUNT.BABORT1.CAPTION"
+msgid "bAbort0"
+msgstr ""
+
+#: tfwizardnewaccount.babort2.caption
+msgctxt "TFWIZARDNEWACCOUNT.BABORT2.CAPTION"
+msgid "bAbort0"
+msgstr ""
+
+#: tfwizardnewaccount.bcreateaq4account.caption
+msgid "AQBanking 4 Konto erstellen"
+msgstr "AQBanking 4 Konto erstellen"
+
+#: tfwizardnewaccount.bcreateftsaccount.caption
+msgid "FinTS Administrator starten"
+msgstr "FinTS Administrator starten"
+
+#: tfwizardnewaccount.bnext1.caption
+msgctxt "TFWIZARDNEWACCOUNT.BNEXT1.CAPTION"
+msgid "bNext0"
+msgstr ""
+
+#: tfwizardnewaccount.bnext2.caption
+msgctxt "TFWIZARDNEWACCOUNT.BNEXT2.CAPTION"
+msgid "bNext0"
+msgstr ""
+
+#: tfwizardnewaccount.bprev1.caption
+msgctxt "TFWIZARDNEWACCOUNT.BPREV1.CAPTION"
+msgid "bPrev0"
+msgstr ""
+
+#: tfwizardnewaccount.bprev2.caption
+msgctxt "TFWIZARDNEWACCOUNT.BPREV2.CAPTION"
+msgid "bPrev0"
+msgstr ""
+
+#: tfwizardnewaccount.fwizardnewaccount.caption
+msgctxt "TFWIZARDNEWACCOUNT.FWIZARDNEWACCOUNT.CAPTION"
+msgid "neues Konto erstellen"
+msgstr "neues Konto erstellen"
+
+#: tfwizardnewaccount.laccount.caption
+msgctxt "TFWIZARDNEWACCOUNT.LACCOUNT.CAPTION"
+msgid "Konto"
+msgstr "Konto"
+
+#: tfwizardnewaccount.laccountname.caption
+msgctxt "TFWIZARDNEWACCOUNT.LACCOUNTNAME.CAPTION"
+msgid "Kontoname"
+msgstr "Kontoname"
+
+#: tfwizardnewaccount.laccountname1.caption
+msgctxt "TFWIZARDNEWACCOUNT.LACCOUNTNAME1.CAPTION"
+msgid "Kontoname"
+msgstr "Kontoname"
+
+#: tfwizardnewaccount.laccountno.caption
+msgctxt "TFWIZARDNEWACCOUNT.LACCOUNTNO.CAPTION"
+msgid "Kontonummer"
+msgstr "Kontonummer"
+
+#: tfwizardnewaccount.ldescription0.caption
+msgid "Wählen Sie einen Kontotypen aus, wenn Sie noch keine Konten mit den jewailigen Backends eingerichtet haben, können Sie dies mit den Knöpfen darunter tun."
+msgstr "Wählen Sie einen Kontotypen aus, wenn Sie noch keine Konten mit den jewailigen Backends eingerichtet haben, können Sie dies mit den Knöpfen darunter tun."
+
+#: tfwizardnewaccount.ldescription1.caption
+msgid "Wählen Sie ein Konto zum importieren aus"
+msgstr "Wählen Sie ein Konto zum importieren aus"
+
+#: tfwizardnewaccount.ldescription2.caption
+msgid "Füllen Sie alle Kontoparameter ausum das Konto zu importieren"
+msgstr "Füllen Sie alle Kontoparameter ausum das Konto zu importieren"
+
+#: tfwizardnewaccount.ldescription3.caption
+msgid "geben Sie einen Kontonamen für das manuell geführte Konto an"
+msgstr "geben Sie einen Kontonamen für das manuell geführte Konto an"
+
+#: tfwizardnewaccount.lfintsname.caption
+msgid "FinTS Kontoname (aus dem FinTS Administrator)"
+msgstr "FinTS Kontoname (aus dem FinTS Administrator)"
+
+#. uintfstrconsts:strname
+#: tfwizardnewaccount.lname.caption
+msgctxt "TFWIZARDNEWACCOUNT.LNAME.CAPTION"
+msgid "Name"
+msgstr "Name"
+
+#: tfwizardnewaccount.rbimportaqbanking4account.caption
+msgid "AQBanking 4 Konto importieren"
+msgstr "AQBanking 4 Konto importieren"
+
+#: tfwizardnewaccount.rbimportfintstoolsaccount.caption
+msgid "FinTS Konto importieren"
+msgstr "FinTS Konto importieren"
+
+#: tfwizardnewaccount.rbimportmanualaccounts.caption
+msgid "AQBanking 2 Konto importieren"
+msgstr "AQBanking 2 Konto importieren"
+
+#: tfwizardnewaccount.rbmanualaccount.caption
+msgid "Manuell geführtes Konto erstellen"
+msgstr "Manuell geführtes Konto erstellen"
+
+#: uarticleframe.strsupplier
+msgid "Lieferant"
+msgstr "Lieferant"
+
+#: ubasedatamodule.strassembly
+msgid "Baugruppe"
+msgstr "Baugruppe"
+
+#. uintfstrconsts:strdates
+#: ubasedatamodule.strdata
+msgid "Daten"
+msgstr "Daten"
+
+#: ubasedatamodule.strinstitute
+msgid "Institut"
+msgstr "Institut"
+
+#: ubasedatamodule.strpart
+msgid "Bauteil"
+msgstr "Bauteil"
+
+#: ubasedatamodule.strprice
+msgid "Preis"
+msgstr "Preis"
+
+#: umain.strnewinventory
+msgid "Neue Inventur"
+msgstr "Neue Inventur"
+
+#: umain.strsearchtext
+msgid "<hier tippen um zu suchen>"
+msgstr "<hier tippen um zu suchen>"
 
