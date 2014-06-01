@@ -3693,12 +3693,16 @@ begin
       { remove the date portion from the start and end times }
       EventSTime := Event.StartTime;
       EventETime := Event.EndTime;
-      if trunc(EventSTime) < trunc(RenderDate) then //First Event
-        EventSTime := 0+trunc(RenderDate);
-      if trunc(EventETime) > trunc(RenderDate) then //First Event
-        EventETime := 0.999+trunc(RenderDate);
-      EventSTime := EventSTime - RenderDate;
-      EventETime := EventETime - RenderDate;
+      if (EventSTime < trunc(RenderDate)) and (Event.RepeatCode=rtNone) then //First Event
+        EventSTime := trunc(RenderDate)
+      else if (Event.RepeatCode<>rtNone) then
+        EventSTime := frac(EventSTime)+trunc(RenderDate);
+      if (trunc(EventETime) > trunc(RenderDate)) and (Event.RepeatCode=rtNone) then //First Event
+        EventETime := 0.999+trunc(RenderDate)
+      else if (Event.RepeatCode<>rtNone) then
+        EventETime := frac(EventETime)+trunc(RenderDate);
+      EventSTime := EventSTime - trunc(RenderDate);
+      EventETime := EventETime - trunc(RenderDate);
       { Find the line on which this event starts }
       EventSLine := GetStartLine(EventSTime, Granularity);
       { Handle End Times of Midnight }
