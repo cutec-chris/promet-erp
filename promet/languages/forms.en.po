@@ -8055,32 +8055,32 @@ msgstr "Database type"
 
 #: tfwizardnewmandant.ldescription0.caption
 msgid "Mit diesem Assistenten können Sie einen neuen Mandanten erstellen, wählen Sie dazu im ersten Schritt eine Sprache für den mandanten aus, und geben Sie darunter einen Namen an. Weiterhin müssen Sie hier auswählen ob die Datenbank mit Vorgabedaten gefüllt werden soll oder nicht."
-msgstr ""
+msgstr "With this wizard, you can create a new client, select this in the first step, a language for the client, and enter among them a name. You must also select here whether the database should be filled with default data or not."
 
 #: tfwizardnewmandant.ldescription1.caption
 msgid "Wählen Sie hier ein Profil mit Vorgabewerten aus"
-msgstr ""
+msgstr "Here you can select an profile with importdata"
 
 #: tfwizardnewmandant.ldescription2.caption
 msgid "Geben Sie hier den Datenbanktyp an"
-msgstr ""
+msgstr "Select the databasetype"
 
 #: tfwizardnewmandant.ldescription3.caption
 msgid "Geben Sie hier das Datenbankverzeichnis an"
-msgstr ""
+msgstr "Enter the database directory to"
 
 #: tfwizardnewmandant.ldescription4.caption
 msgid "Setzen sie hier die Datenbankeinstellungen, damit sich das Programm erfolgreich mit dem Datenbankserver und der Datenbank verbinden kann."
-msgstr ""
+msgstr "Set here the database settings so that the program can successfully connect to the database server and the database."
 
 #: tfwizardnewmandant.lfillingdefaultvalues.caption
 msgid "Vorgabewerte einsetzen"
-msgstr ""
+msgstr "inserting Importdata"
 
 #: tfwizardnewmandant.llanguage.caption
 msgctxt "TFWIZARDNEWMANDANT.LLANGUAGE.CAPTION"
 msgid "Sprache"
-msgstr ""
+msgstr "Language"
 
 #: tfwizardnewmandant.lmandantname.caption
 msgid "Mandantenname"
@@ -8097,7 +8097,7 @@ msgstr "Profile"
 
 #: tfwizardnewmandant.lupdatingdatabase.caption
 msgid "Datenbankstruktur updaten"
-msgstr ""
+msgstr "updating Database structure"
 
 #: tfwizardnewmandant.lusername.caption
 msgctxt "TFWIZARDNEWMANDANT.LUSERNAME.CAPTION"
@@ -8116,39 +8116,48 @@ msgid "Ist die Buchung:\n"
 "%s\n"
 " ?\n"
 ""
-msgstr ""
+msgstr "If the booking:\n"
+"% S\n"
+"% S\n"
+"\n"
+" congruent with\n"
+"\n"
+"% S\n"
+"% S\n"
+" ?\n"
+""
 
 #: uaccountingque.straddingjobs
 msgid "füge Aufträge ein..."
-msgstr ""
+msgstr "add orders a ..."
 
 #: uaccountingque.strenterpassword
 msgid "Geben Sie die Pin/Passwort an"
-msgstr ""
+msgstr "Enter the PIN / password"
 
 #: uaccountingque.strerrorperformingque
 msgid "Einer oder mehrere Fehler traten beim bearbeiten der Warteschlange auf"
-msgstr ""
+msgstr "One or more errors were encountered while editing the queue"
 
 #: uaccountingque.strgettingstartballance
 msgid "hole Startwert..."
-msgstr ""
+msgstr "getting Startvalue"
 
 #: uaccountingque.strimportcomplete
 msgid "Import fertiggestellt"
-msgstr ""
+msgstr "Import done"
 
 #: uaccountingque.strimportingdata
 msgid "importiere Daten..."
-msgstr ""
+msgstr "importing data..."
 
 #: uaccountingque.strinputtannumber
 msgid "Geben Sie die TAN Nummer an"
-msgstr ""
+msgstr "Enter the TAN number"
 
 #: uaccountingque.strjobsdone
 msgid "Alles ausgeführt."
-msgstr ""
+msgstr "All done."
 
 #: uaccountingque.strrequest
 msgid "Kontoabfrage"
@@ -8157,26 +8166,26 @@ msgstr "Account querry"
 #: uaccountingque.strtransfer
 msgctxt "uaccountingque.strtransfer"
 msgid "Überweisung"
-msgstr ""
+msgstr "Transfer"
 
 #: uaccountingque.strwaitingforcard
 msgid "Warte auf Chipkarte..."
-msgstr ""
+msgstr "Waiting for Chipcard"
 
 #: uaccountingtransfer.stramountcannotbe0
 msgctxt "uaccountingtransfer.stramountcannotbe0"
 msgid "Bitte geben Sie einen Wert > 0 an"
-msgstr ""
+msgstr "Please enter a value> 0"
 
 #: uaccountingtransfer.strpurposelinetolong
 msgctxt "uaccountingtransfer.strpurposelinetolong"
 msgid "Eine Zahlungsgrundzeile ist zu lang"
-msgstr ""
+msgstr "One reason for the payment line is too long"
 
 #: uaccountingtransfer.strpurposelinetomuchlines
 msgctxt "uaccountingtransfer.strpurposelinetomuchlines"
 msgid "Der Zahlungsgrund besteht aus zu vielen Zeilen"
-msgstr ""
+msgstr "The reason for the payment consists of too many lines"
 
 #: uaccounts.strtransactionequaltoorder
 msgctxt "uaccounts.strtransactionequaltoorder"
@@ -8190,12 +8199,21 @@ msgid "Ist die Buchung:\n"
 "%s\n"
 " ?\n"
 ""
-msgstr ""
+msgstr "If the booking:\n"
+"% S\n"
+"% S\n"
+"\n"
+" congruent with\n"
+"\n"
+"% S\n"
+"% S\n"
+" ?\n"
+""
 
 #: uacquire.strresolution
 msgctxt "uacquire.strresolution"
 msgid "Auflösung"
-msgstr ""
+msgstr "Resolution"
 
 #: uacquire.strscan
 msgctxt "uacquire.strscan"
@@ -8204,7 +8222,7 @@ msgstr "Scan"
 
 #: uacquire.strscannext
 msgid "Nächstes Bild scannen"
-msgstr ""
+msgstr "Scan Next image"
 
 #: uaddserial.straddserialtoarticle
 msgid "Please select Serial for %s Version %s Name %s"
@@ -8212,48 +8230,48 @@ msgstr "Please select Serial for %s Version %s Name %s"
 
 #: uarticle.strchangearticlenumer
 msgid "Eintragsnummer ändern"
-msgstr ""
+msgstr "Change entry number"
 
 #: uarticle.strnosupplierselected
 msgid "wählen Sie zuerst einen Lieferanten !"
-msgstr ""
+msgstr "first select a supplier!"
 
 #: uarticle.strpiecelisttypelist
 msgctxt "uarticle.strpiecelisttypelist"
 msgid "L Im lager direkt buchen"
-msgstr ""
+msgstr "L book direct in storage"
 
 #: uarticle.strpiecelisttypeorder
 msgctxt "uarticle.strpiecelisttypeorder"
 msgid "O In Auftrag auflösen"
-msgstr ""
+msgstr "O add positions to order"
 
 #: uarticle.strpiecelisttypeproduction
 msgctxt "uarticle.strpiecelisttypeproduction"
 msgid "P In produktion auflösen"
-msgstr ""
+msgstr "P add positions to production order"
 
 #: uarticle.strstoragehascontents
 msgid "Sie können kein Lager mit Inhalt löschen"
-msgstr ""
+msgstr "You can not delete bearing with content"
 
 #: uarticleframe.strchangenumer
 msgid "Nummer ändern"
-msgstr ""
+msgstr "change Number"
 
 #: uarticleframe.strnewarticle
 msgid "neuer Artikel"
-msgstr ""
+msgstr "new Aticle"
 
 #: uarticleframe.strprices
 msgctxt "uarticleframe.strprices"
 msgid "Preise"
-msgstr ""
+msgstr "Prices"
 
 #: uarticleframe.strproperties
 msgctxt "uarticleframe.strproperties"
 msgid "Eigenschaften"
-msgstr ""
+msgstr "Propertys"
 
 #: uarticleframe.strrepair
 msgctxt "uarticleframe.strrepair"
@@ -8263,7 +8281,7 @@ msgstr "Repair"
 #: uarticleframe.strstorage
 msgctxt "uarticleframe.strstorage"
 msgid "Lager"
-msgstr ""
+msgstr "Storage"
 
 #: uarticleframe.strsupplier
 #, fuzzy
@@ -8279,26 +8297,26 @@ msgstr "Texts"
 #: uarticlepositionframe.strpiecelisttypelist
 msgctxt "uarticlepositionframe.strpiecelisttypelist"
 msgid "L Im lager direkt buchen"
-msgstr ""
+msgstr "L book direct to storage"
 
 #: uarticlepositionframe.strpiecelisttypeorder
 msgctxt "uarticlepositionframe.strpiecelisttypeorder"
 msgid "O In Auftrag auflösen"
-msgstr ""
+msgstr "O add positions to order"
 
 #: uarticlepositionframe.strpiecelisttypeproduction
 msgctxt "uarticlepositionframe.strpiecelisttypeproduction"
 msgid "P In produktion auflösen"
-msgstr ""
+msgstr "P add positions in production order"
 
 #: ubasedatamodule.str2ndtransactionstarted
 msgid "Eine 2. Transaktion wurde unerwartet versucht zu starten !"
-msgstr ""
+msgstr "A second transaction was unexpectedly tries to start!"
 
 #: ubasedatamodule.straccountno
 msgctxt "ubasedatamodule.straccountno"
 msgid "Kontonummer"
-msgstr ""
+msgstr "Accountnumber"
 
 #: ubasedatamodule.straction
 msgid "Aktion"
@@ -8307,12 +8325,12 @@ msgstr "Action"
 #: ubasedatamodule.stractive
 msgctxt "ubasedatamodule.stractive"
 msgid "Aktiv"
-msgstr ""
+msgstr "Active"
 
 #: ubasedatamodule.stradditional
 msgctxt "ubasedatamodule.stradditional"
 msgid "Zusätzlich"
-msgstr ""
+msgstr "Additional"
 
 #: ubasedatamodule.stradress
 msgctxt "ubasedatamodule.stradress"
@@ -8331,7 +8349,7 @@ msgstr "discount group"
 
 #: ubasedatamodule.strballance
 msgid "Kontostand"
-msgstr ""
+msgstr "Bank balance"
 
 #: ubasedatamodule.strcategory
 msgctxt "ubasedatamodule.strcategory"
@@ -8340,49 +8358,49 @@ msgstr "Category"
 
 #: ubasedatamodule.strchangedby
 msgid "geändert von"
-msgstr ""
+msgstr "edited by"
 
 #: ubasedatamodule.strchangeddate
 msgid "geändert am"
-msgstr ""
+msgstr "changed on"
 
 #: ubasedatamodule.strchecked
 msgctxt "ubasedatamodule.strchecked"
 msgid "geprüft"
-msgstr ""
+msgstr "checked"
 
 #: ubasedatamodule.strcheckingtable
 msgid "Prüfe Tabelle \n"
 "%s\n"
 ""
-msgstr ""
+msgstr "testing table %s"
 
 #: ubasedatamodule.strcity
 msgid "Stadt"
-msgstr ""
+msgstr "Town"
 
 #: ubasedatamodule.strcommonprice
 msgctxt "ubasedatamodule.strcommonprice"
 msgid "Allgemeinpreis"
-msgstr ""
+msgstr "Commonprice"
 
 #: ubasedatamodule.strcreatedby
 msgid "erstellt von"
-msgstr ""
+msgstr "created by"
 
 #: ubasedatamodule.strcreateddate
 msgid "erstellt am"
-msgstr ""
+msgstr "created at"
 
 #: ubasedatamodule.strcurrency
 msgctxt "ubasedatamodule.strcurrency"
 msgid "Währung"
-msgstr ""
+msgstr "Currency"
 
 #: ubasedatamodule.strcustomernumber
 msgctxt "ubasedatamodule.strcustomernumber"
 msgid "Kundennummer"
-msgstr ""
+msgstr "Customernumber"
 
 #: ubasedatamodule.strdata
 #, fuzzy
@@ -8393,61 +8411,61 @@ msgstr "Date"
 #: ubasedatamodule.strdate
 msgctxt "ubasedatamodule.strdate"
 msgid "Datum"
-msgstr ""
+msgstr "Date"
 
 #: ubasedatamodule.strdeletedmessages
 msgid "gelöschte Narichten"
-msgstr ""
+msgstr "deleted Messages"
 
 #: ubasedatamodule.strdelivered
 msgctxt "ubasedatamodule.strdelivered"
 msgid "geliefert"
-msgstr ""
+msgstr "delivered"
 
 #: ubasedatamodule.strdepartment
 msgctxt "ubasedatamodule.strdepartment"
 msgid "Abteilung"
-msgstr ""
+msgstr "Department"
 
 #: ubasedatamodule.strdescription
 msgctxt "ubasedatamodule.strdescription"
 msgid "Beschreibung"
-msgstr ""
+msgstr "Description"
 
 #: ubasedatamodule.strdiscount
 msgctxt "ubasedatamodule.strdiscount"
 msgid "Rabatt"
-msgstr ""
+msgstr "Discount"
 
 #: ubasedatamodule.strdone
 msgid "erledigt"
-msgstr ""
+msgstr "done"
 
 #: ubasedatamodule.stremployee
 msgctxt "ubasedatamodule.stremployee"
 msgid "Mitarbeiter"
-msgstr ""
+msgstr "Employee"
 
 #: ubasedatamodule.strend
 msgctxt "ubasedatamodule.strend"
 msgid "Ende"
-msgstr ""
+msgstr "End"
 
 #: ubasedatamodule.strfailedshowingdatafrom
 msgid "konnten Daten von %s nicht anzeigen"
-msgstr ""
+msgstr "fail to display data from% s"
 
 #: ubasedatamodule.strfullvat
 msgid "Volle MwSt"
-msgstr ""
+msgstr "Full VAT"
 
 #: ubasedatamodule.strgrossprice
 msgid "Bruttopreis"
-msgstr ""
+msgstr "Gross Price"
 
 #: ubasedatamodule.strhalfvat
 msgid "Halbe MwSt"
-msgstr ""
+msgstr "Half VAT"
 
 #: ubasedatamodule.strident
 msgctxt "ubasedatamodule.strident"
@@ -8468,28 +8486,28 @@ msgstr "Land"
 #: ubasedatamodule.strlanguage
 msgctxt "ubasedatamodule.strlanguage"
 msgid "Sprache"
-msgstr ""
+msgstr "Language"
 
 #: ubasedatamodule.strlink
 msgid "Verknüpfung"
-msgstr ""
+msgstr "Link"
 
 #: ubasedatamodule.strmatchcode
 msgctxt "ubasedatamodule.strmatchcode"
 msgid "Suchbegriff"
-msgstr ""
+msgstr "Keyword"
 
 #: ubasedatamodule.strmaxcount
 msgid "Max.Anzahl"
-msgstr ""
+msgstr "Max.Anzahl"
 
 #: ubasedatamodule.strmincount
 msgid "Min.Anzahl"
-msgstr ""
+msgstr "Min.Anzahl"
 
 #: ubasedatamodule.strnetprice
 msgid "Nettopreis"
-msgstr ""
+msgstr "Price"
 
 #: ubasedatamodule.strnotes
 msgctxt "ubasedatamodule.strnotes"
@@ -8499,32 +8517,34 @@ msgstr "Notice"
 #: ubasedatamodule.strnumber
 msgctxt "ubasedatamodule.strnumber"
 msgid "Nummer"
-msgstr ""
+msgstr "Number"
 
 #: ubasedatamodule.stropeningtable
 msgid "öffne Tabelle \n"
 "%s\n"
 ""
-msgstr ""
+msgstr "open table\n"
+"% S\n"
+""
 
 #: ubasedatamodule.strorderno
 msgctxt "ubasedatamodule.strorderno"
 msgid "Vorgangsnummer"
-msgstr ""
+msgstr "Transaction number"
 
 #: ubasedatamodule.stroriginaldate
 msgid "Originaldatum"
-msgstr ""
+msgstr "Original date"
 
 #: ubasedatamodule.strpaid
 msgctxt "ubasedatamodule.strpaid"
 msgid "bezahlt"
-msgstr ""
+msgstr "paid"
 
 #: ubasedatamodule.strpart
 msgctxt "ubasedatamodule.strpart"
 msgid "Bauteil"
-msgstr ""
+msgstr "Component"
 
 #: ubasedatamodule.strpassword
 msgctxt "ubasedatamodule.strpassword"
@@ -8533,7 +8553,7 @@ msgstr "Password"
 
 #: ubasedatamodule.strpastetoanwrongdataset
 msgid "Diese Daten können nicht in diese Art Eintrag eingefügt werden"
-msgstr ""
+msgstr "This data can not be inserted into this type entry"
 
 #: ubasedatamodule.strpause
 msgid "Pause"
@@ -8542,12 +8562,12 @@ msgstr "Pause"
 #: ubasedatamodule.strpaymenttarget
 msgctxt "ubasedatamodule.strpaymenttarget"
 msgid "Zahlungsziel"
-msgstr ""
+msgstr "Payment"
 
 #: ubasedatamodule.strplace
 msgctxt "ubasedatamodule.strplace"
 msgid "Ort"
-msgstr ""
+msgstr "Place"
 
 #: ubasedatamodule.strposition
 msgctxt "ubasedatamodule.strposition"
@@ -8562,7 +8582,7 @@ msgstr "Pos.No."
 #: ubasedatamodule.strpostalcode
 msgctxt "ubasedatamodule.strpostalcode"
 msgid "Postleitzahl"
-msgstr ""
+msgstr "Postal code"
 
 #: ubasedatamodule.strpostbox
 msgid "Postfach"
@@ -8576,7 +8596,7 @@ msgstr "Prices"
 
 #: ubasedatamodule.strpricetype
 msgid "Preistyp"
-msgstr ""
+msgstr "Price Type"
 
 #: ubasedatamodule.strproblem
 msgid "Problem"
@@ -8584,34 +8604,34 @@ msgstr "Problem"
 
 #: ubasedatamodule.strproperty
 msgid "Eigenschaft"
-msgstr ""
+msgstr "Property"
 
 #: ubasedatamodule.strpurchaseprice
 msgctxt "ubasedatamodule.strpurchaseprice"
 msgid "Einkaufspreis"
-msgstr ""
+msgstr "Purchase price"
 
 #: ubasedatamodule.strpurpose
 msgctxt "ubasedatamodule.strpurpose"
 msgid "Zahlungsgrund"
-msgstr ""
+msgstr "Reason for payment"
 
 #: ubasedatamodule.strquantitycalculated
 msgid "Menge berechnet"
-msgstr ""
+msgstr "Calculated amount"
 
 #: ubasedatamodule.strquantitydelivered
 msgid "Menge geliefert"
-msgstr ""
+msgstr "Delivered quantity"
 
 #: ubasedatamodule.strquantityunit
 msgctxt "ubasedatamodule.strquantityunit"
 msgid "Mengeneinheit"
-msgstr ""
+msgstr "Unit"
 
 #: ubasedatamodule.strread
 msgid "gelesen"
-msgstr ""
+msgstr "read"
 
 #: ubasedatamodule.strreference
 msgid "Referenz"
@@ -8624,7 +8644,7 @@ msgstr "Reserved"
 #: ubasedatamodule.strsellprice
 msgctxt "ubasedatamodule.strsellprice"
 msgid "Verkaufspreis"
-msgstr ""
+msgstr "Retail price"
 
 #: ubasedatamodule.strsender
 msgid "Absender"
@@ -8632,12 +8652,12 @@ msgstr "Sender"
 
 #: ubasedatamodule.strsendmessages
 msgid "gesendete Narichten"
-msgstr ""
+msgstr "Narichten sent"
 
 #: ubasedatamodule.strshorttext
 msgctxt "ubasedatamodule.strshorttext"
 msgid "Kurztext"
-msgstr ""
+msgstr "Short text"
 
 #: ubasedatamodule.strspam
 msgid "Spam"
@@ -8650,7 +8670,7 @@ msgstr "Start"
 
 #: ubasedatamodule.strstate
 msgid "Bundesland"
-msgstr ""
+msgstr "State"
 
 #: ubasedatamodule.strstatus
 msgctxt "ubasedatamodule.strstatus"
@@ -8660,12 +8680,12 @@ msgstr "Status"
 #: ubasedatamodule.strstorage
 msgctxt "ubasedatamodule.strstorage"
 msgid "Lager"
-msgstr ""
+msgstr "Stock"
 
 #: ubasedatamodule.strsubject
 msgctxt "ubasedatamodule.strsubject"
 msgid "Betreff"
-msgstr ""
+msgstr "Subject"
 
 #: ubasedatamodule.strtablename
 msgid "Tabellenname"
@@ -8674,11 +8694,11 @@ msgstr "Tablename"
 #: ubasedatamodule.strtask
 msgctxt "ubasedatamodule.strtask"
 msgid "Aufgabe"
-msgstr ""
+msgstr "Task"
 
 #: ubasedatamodule.strtenderposno
 msgid "Aus.Nr."
-msgstr ""
+msgstr "Aus.Nr."
 
 #: ubasedatamodule.strtext
 msgid "Text"
@@ -8693,21 +8713,21 @@ msgstr "Text Type"
 #: ubasedatamodule.strtime
 msgctxt "ubasedatamodule.strtime"
 msgid "Zeit"
-msgstr ""
+msgstr "Time"
 
 #: ubasedatamodule.strtitle
 msgctxt "ubasedatamodule.strtitle"
 msgid "Titel"
-msgstr ""
+msgstr "Title"
 
 #: ubasedatamodule.strunit
 msgctxt "ubasedatamodule.strunit"
 msgid "Einheit"
-msgstr ""
+msgstr "Unit"
 
 #: ubasedatamodule.strunknownmessages
 msgid "Unbekannte Narichten"
-msgstr ""
+msgstr "Unknown Narichten"
 
 #: ubasedatamodule.strunsorted
 #, fuzzy
@@ -8716,73 +8736,73 @@ msgstr "unsorted"
 
 #: ubasedatamodule.struser
 msgid "benutzer"
-msgstr ""
+msgstr "user"
 
 #: ubasedatamodule.strvalidfrom
 msgid "gültig ab"
-msgstr ""
+msgstr "Valid from"
 
 #: ubasedatamodule.strvalidto
 msgid "gültig bis"
-msgstr ""
+msgstr "valid until"
 
 #: ubasedatamodule.strvalue
 msgctxt "ubasedatamodule.strvalue"
 msgid "Wert"
-msgstr ""
+msgstr "Value"
 
 #: ubasedatamodule.strvat
 msgid "MwSt"
-msgstr ""
+msgstr "VAT"
 
 #: ubookserial.strbookserial
 msgid "Scannen Sie die Seriennummer für Position %s, Artikel %s"
-msgstr ""
+msgstr "Scan the serial number for position% s,% s items"
 
 #: ucalendar.streventsthisweek
 msgid "Termine diese Woche: %d"
-msgstr ""
+msgstr "Events this week:% d"
 
 #: ucall.stranswer
 msgid "Annehmen"
-msgstr ""
+msgstr "Accept"
 
 #: ucall.strbusy
 msgid "besetzt"
-msgstr ""
+msgstr "occupied"
 
 #: ucall.strcall
 msgid "Anruf"
-msgstr ""
+msgstr "Call"
 
 #: ucall.strcontinue
 msgctxt "ucall.strcontinue"
 msgid "Weiter"
-msgstr ""
+msgstr "More"
 
 #: ucall.strfailed
 msgid "fehlgeschlagen"
-msgstr ""
+msgstr "Failed"
 
 #: ucall.strhangup
 msgid "Auflegen"
-msgstr ""
+msgstr "Hang up"
 
 #: ucall.strhold
 msgid "Halten"
-msgstr ""
+msgstr "Hold"
 
 #: ucall.strinprogress
 msgid "sprechen"
-msgstr ""
+msgstr "speak"
 
 #: ucall.strrefused
 msgid "abgelehnt"
-msgstr ""
+msgstr "rejected"
 
 #: ucall.strringing
 msgid "klingelt"
-msgstr ""
+msgstr "rings"
 
 #: ucall.strrouting
 #, fuzzy
@@ -8791,7 +8811,7 @@ msgstr "Open with ..."
 
 #: ucolorframe.strselectcolor
 msgid "Farbauswahl"
-msgstr ""
+msgstr "Color Selection"
 
 #: ucolorframe.strsystemcolors
 #, fuzzy
@@ -8800,22 +8820,22 @@ msgstr "System"
 
 #: ucustomer.scbirthday
 msgid "BIR  Geburstag"
-msgstr ""
+msgstr "BIR birthday"
 
 #: ucustomer.scbusinessmail
 msgctxt "ucustomer.scbusinessmail"
 msgid "MLB  e-Mail Geschäftlich"
-msgstr ""
+msgstr "MLB e-mail Business"
 
 #: ucustomer.scbusinessmobilephone
 msgctxt "ucustomer.scbusinessmobilephone"
 msgid "CELB Mobiltelefon Geschäftlich"
-msgstr ""
+msgstr "CELB Mobile Phone Business"
 
 #: ucustomer.scbusinessphone
 msgctxt "ucustomer.scbusinessphone"
 msgid "TELB Telefon Geschäftlich"
-msgstr ""
+msgstr "TELB Business Phone"
 
 #: ucustomer.scfax
 #, fuzzy
@@ -8873,12 +8893,12 @@ msgstr "TEL  Telephone"
 
 #: ucustomer.strbirthdayfrom
 msgid "Geburztag von %s"
-msgstr ""
+msgstr "Geburztag% s"
 
 #: ucustomer.strchangecustomernumer
 msgctxt "ucustomer.strchangecustomernumer"
 msgid "Kundennumer ändern"
-msgstr ""
+msgstr "Change customer number"
 
 #: ucustomer.strcontact
 #, fuzzy
@@ -8887,57 +8907,59 @@ msgstr "Contact"
 
 #: ucustomer.strcustomerwithnoaddressmode
 msgid "Dieser Kontakt wurde vom Vorgang aus angezeigt weil die Adresse fehlt, fügen Sie eine Adresse hinzu. Sobald Sie den Kontakt speichern wird er im Vorgang samt Adresse eingefügt."
-msgstr ""
+msgstr "This contact was displayed by the operation of because the address is missing, add an address. Once it is inserted in the process, including address save the contact."
 
 #: ucustomer.stremployeecreatemode
 msgid "Dieser Kontakt wurde als Mitarbeiter erstellt, Sie können alle Eigenschaften wie bei jedem anderen Kontakt bearbeiten. Sobald Sie ihn Speichern wird er dem vorherigen Kontakt als Mitarbeiter angefügt und zurückgesprungen."
-msgstr ""
+msgstr "This contact has been created as an employee, you can edit all the properties as with any other contact. Once it is added, and jump back to the previous contact him as an employee saving."
 
 #: ucustomer.strinserteventforbirthday
 msgid "Möchten Sie für diesen Geburstag einen Eintrag in Ihren Kalendar erzeugen ?"
-msgstr ""
+msgstr "Want to create an entry in your calendar for this birthday?"
 
 #: udata.straccountexchange
 msgid "Kontobuchung von "
-msgstr ""
+msgstr "Account Book of"
 
 #: udata.strbookingaborted
 msgid "Buchung abgebrochen"
-msgstr ""
+msgstr "Canceled booking"
 
 #: udata.strinvalidlinkid
 msgid "Ungültige verknüpfung"
-msgstr ""
+msgstr "Invalid shortcut"
 
 #: udata.strmainordernotfound
 msgid "Hauptvorgang nicht gefunden !"
-msgstr ""
+msgstr "Main procedure not found!"
 
 #: udata.strnumbersetnotfound
 msgid "Nummernkreis nicht gefunden, bitte wenden Sie sich an Ihren Administrator"
-msgstr ""
+msgstr "Number Range not found, please contact your administrator"
 
 #: udata.strorderactionpost
 msgid "Vorgang als %s gebucht"
-msgstr ""
+msgstr "Booked process than% s"
 
 #: udata.strordercreated
 msgid "neuer Auftrag erstellt."
-msgstr ""
+msgstr "created a new order."
 
 #: udata.strorderposted
 msgid "Vorgang gebucht"
-msgstr ""
+msgstr "Booked process"
 
 #: udata.strstatusnotfound
 msgid "Statustyp nicht gefunden, bitte wenden Sie sich an Ihren Administrator"
-msgstr ""
+msgstr "Status type is not found, please contact your administrator"
 
 #: udata.strstoringfailed
 msgid "Fehler beim Speichern:\n"
 "%s\n"
 ""
-msgstr ""
+msgstr "Failed to save:\n"
+"% S\n"
+""
 
 #: udata.strwikipage
 #, fuzzy
@@ -8946,15 +8968,15 @@ msgstr "Wiki"
 
 #: udataimport.strconfiguredatasource
 msgid "Setzen Sie die Quelle / Einstellungen der Datenquelle und klicken Sie OK"
-msgstr ""
+msgstr "Insert the source / data source settings and click OK"
 
 #: udataimport.strcreateanformat
 msgid "Bitte erstellen Sei ein Datenformat"
-msgstr ""
+msgstr "Please create Be a data format"
 
 #: udataimport.strdatadestination
 msgid "Datenausgabe"
-msgstr ""
+msgstr "Data output"
 
 #: udataimport.strdataexport
 #, fuzzy
@@ -8970,36 +8992,36 @@ msgstr "Dateformat"
 #: udataimport.strdatasource
 msgctxt "udataimport.strdatasource"
 msgid "Datenquelle"
-msgstr ""
+msgstr "Data Source"
 
 #: udataimport.strimporterclassnotfound
 msgid "Datenquellenklasse wurde nicht gefunden !"
-msgstr ""
+msgstr "Data source class was not found!"
 
 #: udataimport.strpleaseenteranformatname
 msgid "Bitte geben Sie einen Namen für das Format an !"
-msgstr ""
+msgstr "Please enter a name for the format!"
 
 #: udataimport.strpleasselectanimportfilebeforeedit
 msgid "Bitte wählen Sie eine Datenquellenklasse !"
-msgstr ""
+msgstr "Please select a data source class!"
 
 #: udataimport.strrealdelete
 msgid "Möchten Sie das Profil wirklich löschen ?"
-msgstr ""
+msgstr "You sure you want to delete the profile?"
 
 #: udataimport.strselectandatasource
 msgid "Bitte wählen Sie eine Datenquelle"
-msgstr ""
+msgstr "Please select a data source"
 
 #: udataimport.strselectanformat
 msgctxt "udataimport.strselectanformat"
 msgid "Bitte wählen Sie ein Datenformat"
-msgstr ""
+msgstr "Please select a data format"
 
 #: udataimportcsv.strcsvname
 msgid "Textdatei, mit Trennzeichen getrennt"
-msgstr ""
+msgstr "Text file separated with delimiter"
 
 #: udataimportdbf.strdbfname
 #, fuzzy
@@ -9008,11 +9030,11 @@ msgstr "DBase Database"
 
 #: udataimportfixedlength.strflname
 msgid "Textdatei, feste Spaltenlänge"
-msgstr ""
+msgstr "Text file, fixed column length"
 
 #: udataimportoffice.strofficename
 msgid "Office Datei"
-msgstr ""
+msgstr "Office File"
 
 #: udocumentaction.strcommand
 msgid "Command"
@@ -9024,7 +9046,7 @@ msgstr "File"
 
 #: udocumentframe.strdocumentadded
 msgid "Dokument hinzugefügt"
-msgstr ""
+msgstr "Added document"
 
 #: udocumentframe.strfileextdesc
 #, fuzzy
@@ -9033,35 +9055,35 @@ msgstr "Date"
 
 #: udocumentframe.strnewimage
 msgid "Neues Bild"
-msgstr ""
+msgstr "Add a Photo"
 
 #: udocumentframe.strnoervoucher
 msgid "kein Eingangsrechnungsbeleg gefunden !"
-msgstr ""
+msgstr "no input invoice document found!"
 
 #: udocumentmanagement.strcantdeletetempdirectory
 msgid "Das temporäre Verzeichnis konnte nicht gelöscht werden !"
-msgstr ""
+msgstr "The temporary directory could not be deleted!"
 
 #: udocumentmanagement.strcheckingoutfile
 msgid "Hole %s"
-msgstr ""
+msgstr "Hole% s"
 
 #: udocumentmanagement.strfailedcreatingdiff
 msgid "konnte Differenzdatei von Datei %s nicht erstellen"
-msgstr ""
+msgstr "difference could not create file by file% s"
 
 #: udocumentmanagement.strfailedexecuteprocess
 msgid "Möglicherweise ist das auführen von \"%s\" fehlgeschlagen, Rückgabewert: %d"
-msgstr ""
+msgstr "The execute Page Possibly from \"% s\" failed, return value:% d"
 
 #: udocumentmanagement.strnovalidcommand
 msgid "Sie haben einen ungültigen befehl in den Dokumentenaktionen angegeben. Gültige Befehle müssen mit exec: oder mkdir: beginnen."
-msgstr ""
+msgstr "You have specified an invalid command in the document actions. Valid commands must with exec: or mkdir: start."
 
 #: ueditmail.stractionmessagesend
 msgid "Nachricht gesendet"
-msgstr ""
+msgstr "Sent message"
 
 #: ueditmail.straddingparts
 #, fuzzy
@@ -9080,15 +9102,15 @@ msgstr "Downloading message..."
 
 #: ueditmail.strfailedtoaddreceiveradress
 msgid "Konnte Empfängeradresse nicht hinzufügen (möglicherweise ist diese ungültig) !"
-msgstr ""
+msgstr "Could not add recipient address (possibly this is invalid)!"
 
 #: ueditmail.strfailedtoaddsenderaddress
 msgid "Konnte Absenderadresse nicht hinzufügen (möglicherweise ist diese ungültig) !"
-msgstr ""
+msgstr "Could not add sender address (possibly this is invalid)!"
 
 #: ueditmail.strfailedtosendmail
 msgid "Mailversand fehlgeschlagen !"
-msgstr ""
+msgstr "Failed to send mail!"
 
 #: ueditmail.strloggingin
 #, fuzzy
@@ -9103,11 +9125,11 @@ msgstr "Logging In..."
 
 #: ueditmail.strmailsubjectclear
 msgid "Das Betreff Feld in Ihrer e-Mail sollte nicht leer sein, das wird von vielen Spam Filtern als Spam gewertet."
-msgstr ""
+msgstr "The Subject field in your e-mail should not be empty, which is regarded by many spam filters as spam."
 
 #: ueditmail.strrealleavemail
 msgid "Möchten Sie die Nachricht wirklich verwerfen ?"
-msgstr ""
+msgstr "Do you really want to discard the message?"
 
 #: ueditmail.strsendingmessage
 #, fuzzy
@@ -9116,7 +9138,7 @@ msgstr "Downloading message..."
 
 #: uentertime.strchange
 msgid "austauschen"
-msgstr ""
+msgstr "exchange"
 
 #: uentertime.strcontinueprevioustimeentry
 msgid "Zeiterfassung \n"
@@ -9126,11 +9148,17 @@ msgid "Zeiterfassung \n"
 "\n"
 "wurde heute beendet, haben Sie in der Zwischenzeit daran weitergearbeitet?\n"
 ""
-msgstr ""
+msgstr "Time and Attendance\n"
+"\n"
+"% S\n"
+"% S\n"
+"\n"
+"was terminated today, you have continued to work in the meantime it?\n"
+""
 
 #: uentertime.strinvalidtimeformat
 msgid "Ungültiges Zeitformat !"
-msgstr ""
+msgstr "Invalid time format!"
 
 #: uentertime.strpause
 #, fuzzy
@@ -9140,39 +9168,41 @@ msgstr "Pause"
 #: uentertime.strstart
 msgctxt "uentertime.strstart"
 msgid "beginnen"
-msgstr ""
+msgstr "start"
 
 #: uentertime.strtimeregistration
 msgctxt "uentertime.strtimeregistration"
 msgid "Zeiterfassung"
-msgstr ""
+msgstr "Time and Attendance"
 
 #: ueventedit.streventinpast
 msgid "Das Ereignis liegt in der Vergangenheit"
-msgstr ""
+msgstr "The event is in the past"
 
 #: ufilterframe.strenteranfiltername
 msgid "geben Sie einen Namen für den neuen Filter an"
-msgstr ""
+msgstr "enter a name for the new filter"
 
 #: ufiltertabs.strnewtab
 msgid "neues Tab"
-msgstr ""
+msgstr "new tab"
 
 #: uhistoryframe.strnofilter
 msgctxt "uhistoryframe.strnofilter"
 msgid "*"
-msgstr ""
+msgstr "*"
 
 #: uimpclipboardcontact.strinsertnewcontact
 msgid "neuen Kontakt einfügen ?"
-msgstr ""
+msgstr "Insert a new contact?"
 
 #: ulinkframe.strdoappendtoaccount
 msgid "Der eingefuegte Verweis ist eine Kontobuchung,\n"
 "moechten Sie diesen Vorgang als Beleg einfuegen ?\n"
 ""
-msgstr ""
+msgstr "The eingefuegte reference is an account book,\n"
+"To insert this process as evidence?\n"
+""
 
 #: umaileditoptions.strfeed
 #, fuzzy
@@ -9182,7 +9212,7 @@ msgstr "Feed"
 
 #: umaileditoptions.strservicenotinstalled
 msgid "Der Dienst %s ist derzeit nicht installiert !"
-msgstr ""
+msgstr "The% s service is currently not installed!"
 
 #: umailoptions.strfeed
 #, fuzzy
@@ -9197,7 +9227,7 @@ msgstr "Initialising Ordermanagement..."
 
 #: umain.strbrowserfavourites
 msgid "Browser-Lesezeichen"
-msgstr ""
+msgstr "Browser Bookmarks"
 
 #: umain.strcategory
 #, fuzzy
@@ -9208,11 +9238,11 @@ msgstr "Category"
 #: umain.strcurrencies
 msgctxt "umain.strcurrencies"
 msgid "Währungen"
-msgstr ""
+msgstr "Currencies"
 
 #: umain.strdeletingmessages
 msgid "lösche Nachrichten, noch %d Nachichten"
-msgstr ""
+msgstr "delete messages,% d Nachichten"
 
 #: umain.strinventory
 #, fuzzy
@@ -9223,7 +9253,7 @@ msgstr "Inventory"
 #: umain.strlanguages
 msgctxt "umain.strlanguages"
 msgid "Sprachen"
-msgstr ""
+msgstr "Languages"
 
 #: umain.strlogin
 #, fuzzy
@@ -9232,7 +9262,7 @@ msgstr "Login"
 
 #: umain.strmessageaccounts
 msgid "Nachrichtenkonten"
-msgstr ""
+msgstr "News accounts"
 
 #: umain.strnewinventory
 #, fuzzy
@@ -9242,7 +9272,7 @@ msgstr "Inventory"
 
 #: umain.strneworder
 msgid "%s erstellen"
-msgstr ""
+msgstr "Create% s"
 
 #: umain.strnewtermin
 #, fuzzy
@@ -9253,7 +9283,7 @@ msgstr "New Termin"
 #: umain.strordertype
 msgctxt "umain.strordertype"
 msgid "Auftragstypen"
-msgstr ""
+msgstr "Job Types"
 
 #: umain.strphones
 #, fuzzy
@@ -9262,7 +9292,7 @@ msgstr "Telephone"
 
 #: umain.strprocessesopen
 msgid "Es sind noch Dateien offen (Dateiverwaltung), wirklich schließen ?"
-msgstr ""
+msgstr "There are open files (file management), really close?"
 
 #: umain.strrepair
 #, fuzzy
@@ -9273,7 +9303,7 @@ msgstr "Repair"
 #: umain.strsearchtext
 msgctxt "umain.strsearchtext"
 msgid "<hier tippen um zu suchen>"
-msgstr ""
+msgstr "<insert tap to search>"
 
 #: umain.strstates
 #, fuzzy
@@ -9294,7 +9324,7 @@ msgstr "System"
 
 #: umain.struserfielddefs
 msgid "Benutzerfelder"
-msgstr ""
+msgstr "User Fields"
 
 #: umain.strwiki
 #, fuzzy
@@ -9306,19 +9336,21 @@ msgstr "Wiki"
 msgid "%d neue Nachrichten\n"
 "%d unbekannte neue Nachrichten empfangen\n"
 ""
-msgstr ""
+msgstr "% D new messages\n"
+"% D unknown receive new messages\n"
+""
 
 #: umessages.strnewmessagecview
 msgid "%d Neue Nachrichten"
-msgstr ""
+msgstr "% D new messages"
 
 #: umessages.strnewmessages
 msgid "Neue Nachrichten"
-msgstr ""
+msgstr "New messages"
 
 #: umessages.strnewunknownmessagecview
 msgid "%d Neue unbekannte Nachrichten"
-msgstr ""
+msgstr "% D new unknown messages"
 
 #: unewstorage.strselectanstorage
 #, fuzzy
@@ -9328,12 +9360,12 @@ msgstr "Please select an Storage for the Article %s Version %s Name %s"
 #: uorderframe.stradditional
 msgctxt "uorderframe.stradditional"
 msgid "Zusätzlich"
-msgstr ""
+msgstr "Additional"
 
 #: uorderframe.strchangein
 msgctxt "uorderframe.strchangein"
 msgid "geändert in"
-msgstr ""
+msgstr "changed to"
 
 #: uorderframe.strchangeorderin
 #, fuzzy
@@ -9344,45 +9376,45 @@ msgstr "%s %s is this correct ?."
 #: uorderframe.strcustomerhasnoaddress
 msgctxt "uorderframe.strcustomerhasnoaddress"
 msgid "Der Kontakt hat keine Adresse, möchten Sie eine hinzufügen ?"
-msgstr ""
+msgstr "The contact has no address, you want to add one?"
 
 #: uorderframe.strdates
 msgctxt "uorderframe.strdates"
 msgid "Datum"
-msgstr ""
+msgstr "Date"
 
 #: uorderframe.strderivate
 msgctxt "uorderframe.strderivate"
 msgid "angeleitet to"
-msgstr ""
+msgstr "instructed to"
 
 #: uorderframe.strnocustomerfound
 msgctxt "uorderframe.strnocustomerfound"
 msgid "kein Kunde gefunden !"
-msgstr ""
+msgstr "Not a customer found!"
 
 #: uorderframe.strnoordertypeselected
 msgid "Zu dieser Belegart ist kein Auftragstyp ausgewählt, er kann nicht gewandelt werden !"
-msgstr ""
+msgstr "No contract type selected for this document type, it can not be changed!"
 
 #: uorderframe.strordertochange
 msgctxt "uorderframe.strordertochange"
 msgid "Auftrag %s %s wird"
-msgstr ""
+msgstr "Order% s% s"
 
 #: uorderframe.strsearchfromorderaddress
 msgid "Die Suche waurde aus der Auftragsverwaltung gestartet wenn Sie eine Addresse auswählen, wird diese in dne aktuellen Auftrag übernommen"
-msgstr ""
+msgstr "Search waurde from the job management started when you select an address, is adopted in this dne current job"
 
 #: uorders.strassemblyexchanged
 msgctxt "uorders.strassemblyexchanged"
 msgid "Baugruppentausch"
-msgstr ""
+msgstr "Module replacement"
 
 #: uorders.strchangein
 msgctxt "uorders.strchangein"
 msgid "geändert in"
-msgstr ""
+msgstr "changed to"
 
 #: uorders.strchangeorderin
 #, fuzzy
@@ -9392,40 +9424,40 @@ msgstr "%s %s is this correct ?."
 
 #: uorders.strcopyfailed
 msgid "Kopiervorgang fehlgeschlagen !"
-msgstr ""
+msgstr "Copy operation failed!"
 
 #: uorders.strcustomerhasnoaddress
 msgctxt "uorders.strcustomerhasnoaddress"
 msgid "Der Kontakt hat keine Adresse, möchten Sie eine hinzufügen ?"
-msgstr ""
+msgstr "The contact has no address, you want to add one?"
 
 #: uorders.strderivate
 msgctxt "uorders.strderivate"
 msgid "angeleitet to"
-msgstr ""
+msgstr "instructed to"
 
 #: uorders.strdiscarded
 msgctxt "uorders.strdiscarded"
 msgid "entsorgt"
-msgstr ""
+msgstr "disposed of"
 
 #: uorders.strnewsuborder
 msgid "Vorgang abgeleitet"
-msgstr ""
+msgstr "Derived process"
 
 #: uorders.strnocustomerfound
 msgctxt "uorders.strnocustomerfound"
 msgid "kein Kunde gefunden !"
-msgstr ""
+msgstr "Not a customer found!"
 
 #: uorders.strnoordertypeselected
 msgid "Zu dieser Belegart ist kein Auftragstyp ausgewählt, er kann nicht gebucht werden !"
-msgstr ""
+msgstr "No contract type selected for this document type, it can not be booked!"
 
 #: uorders.strordertochange
 msgctxt "uorders.strordertochange"
 msgid "Auftrag %s %s wird"
-msgstr ""
+msgstr "Order% s% s"
 
 #: uorders.strrepaired
 #, fuzzy
@@ -9441,34 +9473,34 @@ msgstr "Status changed to %s"
 #: uorders.strwaitingforcustomer
 msgctxt "uorders.strwaitingforcustomer"
 msgid "wartet auf Kunden"
-msgstr ""
+msgstr "waiting for customers"
 
 #: upersonfinance.stribannotvalid
 msgid "Die IBAN Nummer ist UNGÜLTIG !"
-msgstr ""
+msgstr "The IBAN number is INVALID!"
 
 #: upersonfinance.stribanvalid
 msgid "Die IBAN Nummer scheint GÜLTIG zu sein oder keine IBAN Nummer !"
-msgstr ""
+msgstr "The IBAN number seems to be VALID or no IBAN number!"
 
 #: upersonframe.scbirthday
 msgid "BIR  Geburtstag"
-msgstr ""
+msgstr "BIR birthday"
 
 #: upersonframe.scbusinessmail
 msgctxt "upersonframe.scbusinessmail"
 msgid "MLB  e-Mail Geschäftlich"
-msgstr ""
+msgstr "MLB e-mail Business"
 
 #: upersonframe.scbusinessmobilephone
 msgctxt "upersonframe.scbusinessmobilephone"
 msgid "CELB Mobiltelefon Geschäftlich"
-msgstr ""
+msgstr "CELB Mobile Phone Business"
 
 #: upersonframe.scbusinessphone
 msgctxt "upersonframe.scbusinessphone"
 msgid "TELB Telefon Geschäftlich"
-msgstr ""
+msgstr "TELB Business Phone"
 
 #: upersonframe.scfax
 msgctxt "upersonframe.scfax"
@@ -9522,16 +9554,16 @@ msgstr "Adress"
 
 #: upersonframe.strbirthdayfrom
 msgid "Geburtstag von %s"
-msgstr ""
+msgstr "Birthday of% s"
 
 #: upersonframe.strchangecustomernumer
 msgctxt "upersonframe.strchangecustomernumer"
 msgid "Kundennumer ändern"
-msgstr ""
+msgstr "Change customer number"
 
 #: upersonframe.stremployees
 msgid "Mitarbeiter/Mitglieder"
-msgstr ""
+msgstr "Employees / members"
 
 #: upersonframe.strinfo
 msgctxt "upersonframe.strinfo"
@@ -9540,15 +9572,15 @@ msgstr "Info"
 
 #: upersonframe.strinserteventforbirthday
 msgid "Möchten Sie für diesen Geburtstag einen Eintrag in Ihren Kalender erzeugen ?"
-msgstr ""
+msgstr "Want to create an entry in your calendar for this birthday?"
 
 #: upersonframe.strnewperson
 msgid "neue Person"
-msgstr ""
+msgstr "new person"
 
 #: uprojecteditor.strprojectstatusactive
 msgid "A Aktiv"
-msgstr ""
+msgstr "A Active"
 
 #: uprojecteditor.strprojectstatusinactive
 msgid "I Inaktiv"
@@ -9557,16 +9589,16 @@ msgstr "I Inactive"
 #: urepairpositionframe.strassemblyexchanged
 msgctxt "urepairpositionframe.strassemblyexchanged"
 msgid "Baugruppentausch"
-msgstr ""
+msgstr "Module replacement"
 
 #: urepairpositionframe.strdiscarded
 msgctxt "urepairpositionframe.strdiscarded"
 msgid "entsorgt"
-msgstr ""
+msgstr "disposed of"
 
 #: urepairpositionframe.strisnew
 msgid "neuwertig"
-msgstr ""
+msgstr "as new"
 
 #: urepairpositionframe.strrepaired
 msgctxt "urepairpositionframe.strrepaired"
@@ -9576,12 +9608,12 @@ msgstr "repaired"
 #: urepairpositionframe.strwaitingforcustomer
 msgctxt "urepairpositionframe.strwaitingforcustomer"
 msgid "wartet auf Kunden"
-msgstr ""
+msgstr "waiting for customers"
 
 #: usearch.strcontactelement
 msgctxt "usearch.strcontactelement"
 msgid "Kontaktdaten"
-msgstr ""
+msgstr "Contact"
 
 #: usearch.strfulltext
 msgid "Volltext"
@@ -9594,27 +9626,27 @@ msgstr "Idents"
 #: usearch.strpostalcode
 msgctxt "usearch.strpostalcode"
 msgid "Postleitzahl"
-msgstr ""
+msgstr "Postal code"
 
 #: usearch.strsearchfromordermode
 msgid "Diese Suche wurde aus der Vorgangsverwaltung gestartet, wenn Sie einen Eintrag öffnen, wird dieser automatisch in den aktuellen Vorgang übernommen."
-msgstr ""
+msgstr "This search has been launched from the task management when you open an item, it will automatically be saved to the current operation."
 
 #: usearch.strsearchfromtimeregisteringmode
 msgid "Diese Suche wurde aus der Zeiterfassung gestartet, wenn Sie einen Eintrag öffnen, wird dieser automatisch in die Zeiterfassung übernommen."
-msgstr ""
+msgstr "This search was started from the time of capture, when you open an item, it is automatically transferred to the time recording."
 
 #: usearch.strshortnames
 msgid "Kurztexte"
-msgstr ""
+msgstr "Short texts"
 
 #: uselectreport.strbooking
 msgid "Vorgang wird gebucht..."
-msgstr ""
+msgstr "Case is recorded ..."
 
 #: uselectreport.strcantpreparereport
 msgid "Das aufbereiten des Reports ist fehlgeschlagen !"
-msgstr ""
+msgstr "The recycling of the report failed!"
 
 #: uselectreport.strdefaultprinter
 msgid "Standartdrucker"
@@ -9622,11 +9654,11 @@ msgstr "Standartprinter"
 
 #: uselectreport.strdispatchtypenotfound
 msgid "Versandart nicht gefunden !"
-msgstr ""
+msgstr "Shipping method not found!"
 
 #: uselectreport.strdocumentdefaultprinter
 msgid "Drucker aus Report"
-msgstr ""
+msgstr "Printer from Report"
 
 #: uselectreport.strfax
 msgctxt "uselectreport.strfax"
@@ -9635,11 +9667,11 @@ msgstr "Fax"
 
 #: uselectreport.strfileexport
 msgid "Dateiausgabe"
-msgstr ""
+msgstr "File output"
 
 #: uselectreport.strgeneratingmail
 msgid "e-Mail wird generiert..."
-msgstr ""
+msgstr "e-mail will be generated ..."
 
 #: uselectreport.strnomailaddress
 msgid "Der Kontakt hat keine e-Mail Adresse"
@@ -9647,42 +9679,42 @@ msgstr "The Contact has no e-Mail Address"
 
 #: uselectreport.strnooutput
 msgid "keine Ausgabe"
-msgstr ""
+msgstr "no output"
 
 #: uselectreport.strpreparingreport
 msgid "Ausdruck wird vorbereitet..."
-msgstr ""
+msgstr "Expression is being prepared ..."
 
 #: uselectreport.strprint
 msgctxt "uselectreport.strprint"
 msgid "Drucken"
-msgstr ""
+msgstr "Printing"
 
 #: uselectreport.strprintbook
 msgctxt "uselectreport.strprintbook"
 msgid "Drucken/Buchen"
-msgstr ""
+msgstr "Print / Book"
 
 #: uselectreport.strprintingreport
 msgid "Ausdruck wird gedruckt..."
-msgstr ""
+msgstr "Expression is printed ..."
 
 #: utasks.stractivestartedisnull
 msgid "keine Startzeit ist für die aktive Aufgabe verfügbar !"
-msgstr ""
+msgstr "no start time is available for the active task!"
 
 #: utasks.strpriority0
 msgctxt "utasks.strpriority0"
 msgid "keine"
-msgstr ""
+msgstr "no"
 
 #: utasks.strpriority1
 msgid "Niedriger"
-msgstr ""
+msgstr "Lower"
 
 #: utasks.strpriority2
 msgid "Niedrig"
-msgstr ""
+msgstr "Low"
 
 #: utasks.strpriority3
 msgid "Normal"
@@ -9690,46 +9722,46 @@ msgstr "Normal"
 
 #: utasks.strpriority4
 msgid "Hoch"
-msgstr ""
+msgstr "High"
 
 #: utasks.strpriority5
 msgid "Höher"
-msgstr ""
+msgstr "Higher"
 
 #: utasks.strpriority6
 msgid "Sofort"
-msgstr ""
+msgstr "Immediately"
 
 #: utransfer.stramountcannotbe0
 msgctxt "utransfer.stramountcannotbe0"
 msgid "Bitte geben Sie einen Wert > 0 an"
-msgstr ""
+msgstr "Please enter a value> 0"
 
 #: utransfer.strpurposelinetolong
 msgctxt "utransfer.strpurposelinetolong"
 msgid "Eine Zahlungsgrundzeile ist zu lang"
-msgstr ""
+msgstr "One reason for the payment line is too long"
 
 #: utransfer.strpurposelinetomuchlines
 msgctxt "utransfer.strpurposelinetomuchlines"
 msgid "Der Zahlungsgrund besteht aus zu vielen Zeilen"
-msgstr ""
+msgstr "The reason for the payment consists of too many lines"
 
 #: uviewmessage.strmessagenotdownloaded
 msgid "@#183#206#9@#0#0#0@#0#0#0#17#0\\#1T#199\"#0#0#0#0#0 N#209#9#17#0l#1|#1#216#9,#1#216#9#0#0#0#0#17#0|#1#140#1#216#9l#1#216#9#0#0#0#0#17#0#140#1"
-msgstr ""
+msgstr "@ # 183 # 206 # @ 9 # 0 # 0 # 0 # 0 # 0 @ # 0 # 17 # 0 \ \ # 1d # 199 \"# 0 # 0 # 0 # 0 # 0 # N 209 # 9 # 17 # 0l # 1 | # 1 # 216 # 9, # 1 # 9 # 216 # 0 # 0 # 0 # 0 # 17 # 0 | # 1 # 1 # 140 # 216 # 9l # 1 # 216 # 9 # 0 # 0 # 0 # 0 # 17 # 0 # 140 # 1"
 
 #: uviewmessage.stropentoviewitem
 msgid "Bitte klicken Sie doppelt auf diesen Eintrag um ihn anzuzeigen"
-msgstr ""
+msgstr "Please double-click this entry to display it"
 
 #: uwizardnewaccount.straqbankingisnotinstalled
 msgid "aqBanking ist nicht installiert ! aqBanking muss installiert sein um Online Banking zu bretreiben"
-msgstr ""
+msgstr "aqbanking is not installed! be aqbanking must be installed to bretreiben to Online Banking"
 
 #: uwizardnewmandant.strcheckandcorrectdbfailed
 msgid "Das prüfen der Datenbank für Mandant %s ist fehlgeschlagen"
-msgstr ""
+msgstr "The check of the database for client% s failed"
 
 #: uwizardnewmandant.strdbase
 msgid "DBase Datenbank"
@@ -9737,19 +9769,19 @@ msgstr "DBase Database"
 
 #: uwizardnewmandant.strenteranmandantname
 msgid "geben Sie einen Mandantennamen an"
-msgstr ""
+msgstr "enter a client name"
 
 #: uwizardnewmandant.strerrorimportingcsvfile
 msgid "Vorgabedaten konnten nicht importiert werden"
-msgstr ""
+msgstr "Default data could not be imported"
 
 #: uwizardnewmandant.strfailedcreatingdatabase
 msgid "Das erstellen der Datenbank ist fehlgeschlagen"
-msgstr ""
+msgstr "The create the database failed"
 
 #: uwizardnewmandant.strselectprofile
 msgid "Wählen Sie ein Profil"
-msgstr ""
+msgstr "Select a profile"
 
 #: uwizardnewmandant.strsqldatabase
 msgid "SQL basierte Datenbank"
@@ -9766,61 +9798,61 @@ msgstr "unknown Databasetype"
 #: tfaccountingque.faccountingque.caption
 msgctxt "TFACCOUNTINGQUE.FACCOUNTINGQUE.CAPTION"
 msgid "Warteschlange"
-msgstr ""
+msgstr "Queue"
 
 #: tfaccounts.acgotovoucher.caption
 msgid "zu Beleg gehen"
-msgstr ""
+msgstr "go to document"
 
 #: tfaccounts.acpastelinkasvoucher.caption
 msgid "Verweis als Beleg einfügen"
-msgstr ""
+msgstr "Insert reference as evidence"
 
 #: tfbookaccounting.depayed.cancelcaption
 msgctxt "TFBOOKACCOUNTING.DEPAYED.CANCELCAPTION"
 msgid "Cancel"
-msgstr ""
+msgstr "Cancel"
 
 #: tfbookaccounting.depayed.okcaption
 msgctxt "TFBOOKACCOUNTING.DEPAYED.OKCAPTION"
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: tfbookaccounting.fbookaccounting.caption
 msgid "Zahlungseingang buchen"
-msgstr ""
+msgstr "Book receipt of payment"
 
 #: tfcustomer.acnew.hint
 msgid "erstellt einen neuen Kontakt"
-msgstr ""
+msgstr "creates a new contact"
 
 #: tfcustomer.btransfer.hint
 msgid "erstellt eine Überweisung an die gewählte Bankverbindung / den Kontakt"
-msgstr ""
+msgstr "created a referral to the selected database connection / contact"
 
 #: tfcustomer.cbdiscontgroup.hint
 msgid "setzt eine Rabattgruppe für den Kontakt"
-msgstr ""
+msgstr "sets a discount group for the contact"
 
 #: tfcustomer.cblanguage.hint
 msgid "wählen Sie hier die Sprache des Kontaktes"
-msgstr ""
+msgstr "select the language of the contact"
 
 #: tfcustomer.cbpaymenttarget.hint
 msgid "setzt ein Zahlungsziel mit dem die Vorgänge für diesen Kontakt vorbelegt werden"
-msgstr ""
+msgstr "sets a payment term with the activities for that contact are pre-"
 
 #: tfcustomer.cbsupplier.hint
 msgid "setzen Sie dieses Feld wenn der Kontakt ein Lieferant ist"
-msgstr ""
+msgstr "Set this field if the contact is a supplier"
 
 #: tfcustomer.ecustomername.hint
 msgid "geben Sie hier den namen des Kontaktes an"
-msgstr ""
+msgstr "enter here the name of the contact"
 
 #: tfcustomer.ediscont.hint
 msgid "setzt eine Rabatt mit dem die Vorgänge für diesen Kontakt vorbelegt werden"
-msgstr ""
+msgstr "sets a discount with the operations for this contact are pre-"
 
 #: tfcustomer.gbanking.columns[0].tcolumntitle.caption
 msgid "SORTCODE"
@@ -9836,163 +9868,163 @@ msgstr "-"
 
 #: tfcustomer.gbanking.hint
 msgid "hier können Sie Bankverbindungen des Kontaktes verwalten"
-msgstr ""
+msgstr "Here, you can manage bank accounts of contact"
 
 #: tfcustomer.lcallingname.caption
 msgid "Vorname"
-msgstr ""
+msgstr "First name"
 
 #. uintfstrconsts:strcontact
 #: tfcustomer.lcustomername.caption
 msgid "Kontaktname"
-msgstr ""
+msgstr "Contact Name"
 
 #: tfcustomer.ldiscontgroup.caption
 msgid "Rabattgruppe"
-msgstr ""
+msgstr "Discount Group"
 
 #. uintfstrconsts:strname
 #: tfcustomer.lfirmname.caption
 msgid "lFirmName"
-msgstr ""
+msgstr "lFirmName"
 
 #: tfcustomer.lname.caption
 msgid "Name / Firma"
-msgstr ""
+msgstr "Name / Company"
 
 #: tfcustomer.lstreet.caption
 msgid "Straße"
-msgstr ""
+msgstr "Road"
 
 #: tflinks.glist.columns[0].tcolumntitle.caption
 msgid "ICON"
-msgstr ""
+msgstr "ICON"
 
 #: tfmain.acadddirectory.caption
 msgctxt "TFMAIN.ACADDDIRECTORY.CAPTION"
 msgid "Verzeichnis hinzufügen"
-msgstr ""
+msgstr "Add directory"
 
 #: tfmain.acback.caption
 msgid "Zurück"
-msgstr ""
+msgstr "Back"
 
 #: tfmain.acback.hint
 msgid "zum vorherigen Eintrag gehen"
-msgstr ""
+msgstr "Go to the previous entry"
 
 #: tfmain.acbugtracker.caption
 msgid "Fehler berichten/verfolgen"
-msgstr ""
+msgstr "Report errors / track"
 
 #. uintfstrconsts:strcontact
 #: tfmain.accontact.caption
 msgctxt "TFMAIN.ACCONTACT.CAPTION"
 msgid "Kontakte"
-msgstr ""
+msgstr "Contacts"
 
 #: tfmain.acdeletedirectory.caption
 msgid "Verzeichnis löschen"
-msgstr ""
+msgstr "Delete directory"
 
 #: tfmain.acdeletemandant.caption
 msgid "Mandanten löschen"
-msgstr ""
+msgstr "Delete clients"
 
 #: tfmain.acdeletewholemessagedir.caption
 msgid "Alle Narichten löschen"
-msgstr ""
+msgstr "Clear all Narichten"
 
 #. uintfstrconsts:strregister
 #: tfmain.acforward.caption
 msgctxt "TFMAIN.ACFORWARD.CAPTION"
 msgid "Weiter"
-msgstr ""
+msgstr "More"
 
 #: tfmain.acforward.hint
 msgid "zum nächsten Eintrag gehen"
-msgstr ""
+msgstr "Go to the next entry"
 
 #: tfmain.acinfo.caption
 msgctxt "tfmain.acinfo.caption"
 msgid "Info"
-msgstr ""
+msgstr "Info"
 
 #. uintfstrconsts:strstart
 #: tfmain.acmasterdata.caption
 msgctxt "TFMAIN.ACMASTERDATA.CAPTION"
 msgid "Stammdaten"
-msgstr ""
+msgstr "Master Data"
 
 #: tfmain.acnewarticle.caption
 msgid "Neuer Artikel"
-msgstr ""
+msgstr "New Article"
 
 #. uintfstrconsts:strcontact
 #: tfmain.acnewcustomer.caption
 msgctxt "TFMAIN.ACNEWCUSTOMER.CAPTION"
 msgid "Neuer Kontakt"
-msgstr ""
+msgstr "New Contact"
 
 #. uintfstrconsts:stremail
 #: tfmain.acnewmail.caption
 msgid "Neue e-Mail"
-msgstr ""
+msgstr "New e-mail"
 
 #: tfmain.acnewmandant.caption
 msgid "Neuen Mandanten anlegen"
-msgstr ""
+msgstr "Create new clients"
 
 #: tfmain.acnewpiecelist.caption
 msgid "Neue Stückliste"
-msgstr ""
+msgstr "New BOM"
 
 #: tfmain.acnewtask.caption
 msgid "Neue Aufgabe"
-msgstr ""
+msgstr "New Task"
 
 #: tfmain.acnewtermin.caption
 msgctxt "tfmain.acnewtermin.caption"
 msgid "Neuer Termin"
-msgstr ""
+msgstr "New Appointment"
 
 #: tfmain.acorders.caption
 msgctxt "TFMAIN.ACORDERS.CAPTION"
 msgid "Aufträge"
-msgstr ""
+msgstr "Orders"
 
 #: tfmain.acpersonaloptions.caption
 msgctxt "TFMAIN.ACPERSONALOPTIONS.CAPTION"
 msgid "Persönliche Einstellungen"
-msgstr ""
+msgstr "Personal settings"
 
 #: tfmain.acproperties.caption
 msgid "Einstellungen"
-msgstr ""
+msgstr "Settings"
 
 #. uintfstrconsts:strseverity
 #: tfmain.acquit.caption
 msgid "Beenden"
-msgstr ""
+msgstr "End"
 
 #: tfmain.acrename.caption
 msgctxt "TFMAIN.ACRENAME.CAPTION"
 msgid "Umbenennen"
-msgstr ""
+msgstr "Rename"
 
 #: tfmain.acsandboxmode.caption
 msgctxt "TFMAIN.ACSANDBOXMODE.CAPTION"
 msgid "testmode"
-msgstr ""
+msgstr "testMode"
 
 #: tfmain.acsearch.caption
 msgctxt "TFMAIN.ACSEARCH.CAPTION"
 msgid "Suche"
-msgstr ""
+msgstr "Search"
 
 #: tfmain.acshortcutoptions.caption
 msgid "Tastenkürzel"
-msgstr ""
+msgstr "Keyboard shortcuts"
 
 #: tfmain.acshowcurrentcontrol.caption
 msgid "acShowCurrentControl"
@@ -10000,20 +10032,20 @@ msgstr "-"
 
 #: tfmain.acshowhide.caption
 msgid "Programm zeigen/verstecken"
-msgstr ""
+msgstr "Show / hide program"
 
 #: tfmain.acshowhidehelp.caption
 msgid "Hilfe zeigen/verstecken"
-msgstr ""
+msgstr "Help show / hide"
 
 #: tfmain.bhistory.hint
 msgid "Zuletzt aufgerufene Einträge anzeigen"
-msgstr ""
+msgstr "View Last viewed items"
 
 #: tfmain.fmain.caption
 msgctxt "TFMAIN.FMAIN.CAPTION"
 msgid "Promet-ERP"
-msgstr ""
+msgstr "Promet ERP"
 
 #: tfmain.lmessage.caption
 msgctxt "TFMAIN.LMESSAGE.CAPTION"
@@ -10053,107 +10085,107 @@ msgstr "-"
 #: tfmain.mitraynew.caption
 msgctxt "TFMAIN.MITRAYNEW.CAPTION"
 msgid "Neu"
-msgstr ""
+msgstr "New"
 
 #: tfmain.miview.caption
 msgid "Ansicht"
-msgstr ""
+msgstr "View"
 
 #: tfmain.sbsandbox.caption
 msgctxt "TFMAIN.SBSANDBOX.CAPTION"
 msgid "testmode"
-msgstr ""
+msgstr "testMode"
 
 #: tfmain.sbsandbox.hint
 msgid "Der Sandkastenmodus erlaubt es Ihnen änderungen zu"
-msgstr ""
+msgstr "The sandbox mode allows you to changes"
 
 #: tfmain.toolbutton2.caption
 msgid "ToolButton2"
-msgstr ""
+msgstr "ToolButton2"
 
 #: tfmasterdata.acentertime.caption
 msgid "Zeiterfassung mit Eintrag beginnen"
-msgstr ""
+msgstr "Time recording start with entry"
 
 #: tfmasterdata.cbactive.hint
 msgid "markiert diesen Artikel als aktiv"
-msgstr ""
+msgstr "marked this product as active"
 
 #: tfmasterdata.cblanguage.hint
 msgid "wählt den Eintrag in einer anderen Sprache aus"
-msgstr ""
+msgstr "selects the entry in another language"
 
 #: tfmasterdata.cbnostorage.caption
 msgid "hat kein Lager"
-msgstr ""
+msgstr "has no bearing"
 
 #: tfmasterdata.cbnostorage.hint
 msgid "Der Eintrag besitzt kein Lager "
-msgstr ""
+msgstr "The record has no bearing"
 
 #: tfmasterdata.cbownproduction.caption
 msgid "Eigenproduktion"
-msgstr ""
+msgstr "Own production"
 
 #: tfmasterdata.cbownproduction.hint
 msgid "wird dieser Eintrag selbst erzeugt ?"
-msgstr ""
+msgstr "This entry is self generated?"
 
 #: tfmasterdata.cbsaleitem.caption
 msgid "Verkaufsartikel"
-msgstr ""
+msgstr "Sale Items"
 
 #: tfmasterdata.cbsaleitem.hint
 msgid "Ist dieser Eintrag ein Verkaufsartikel "
-msgstr ""
+msgstr "If this entry is a sale item"
 
 #. uintfstrconsts:strarticlenumber
 #: tfmasterdata.cbuseserial.caption
 msgid "Serienummernpflicht"
-msgstr ""
+msgstr "Serial number requirement"
 
 #: tfmasterdata.cbuseserial.hint
 msgid "Bei allen Buchungen werden "
-msgstr ""
+msgstr "Are all bookings"
 
 #: tfmasterdata.cbversion.hint
 msgid "hier können Sie die zu bearbeitende Artikelversion auswählen."
-msgstr ""
+msgstr "here you can select the item version to edit."
 
 #. uintfstrconsts:strbarcode
 #: tfmasterdata.lbarcode.caption
 msgid "Barcode / EAN"
-msgstr ""
+msgstr "Barcode / EAN"
 
 #: tfmasterdata.ldelivertime.caption
 msgid "Lieferzeit"
-msgstr ""
+msgstr "Delivery time"
 
 #: tfmasterdata.lmanufacturernr.caption
 msgid "Artikelnummer Hersteller"
-msgstr ""
+msgstr "Model Manufacturer"
 
 #. uintfstrconsts:strversion
 #: tfmasterdata.ltransportsupplier.caption
 msgid "Versandkosten"
-msgstr ""
+msgstr "Returns"
 
 #: tfmasterdata.lunit.caption
 msgid "Verpackungseinheit"
-msgstr ""
+msgstr "Package"
 
 #: tfmasterdata.lwarrenty.caption
 msgid "Gewährleistung"
-msgstr ""
+msgstr "Warranty"
 
 #: tfmasterdata.lweight.caption
 msgid "Gewicht"
-msgstr ""
+msgstr "Weight"
 
 #: tfmasterdata.mshorttext.hint
 msgid "Der Kurztext des Eintrags"
-msgstr ""
+msgstr "The short text of the entry"
 
 #: tfmessages.acforward.caption
 msgid "acForward"
@@ -10163,32 +10195,32 @@ msgstr "-"
 #: tfnewstorage.bitbtn1.caption
 msgctxt "TFNEWSTORAGE.BITBTN1.CAPTION"
 msgid "Abbrechen"
-msgstr ""
+msgstr "Abort"
 
 #: tfnewstorage.bok.caption
 msgctxt "TFNEWSTORAGE.BOK.CAPTION"
 msgid "&Ok"
-msgstr ""
+msgstr "& Ok"
 
 #: tfnewstorage.caption
 msgid "fNewStorage"
-msgstr ""
+msgstr "fNewStorage"
 
 #: tfoptions.cbisderivate.caption
 msgid "ist Untervorgang"
-msgstr ""
+msgstr "is sub-operation"
 
 #: tfoptions.cbsiacc.caption
 msgid "Buchhaltung"
-msgstr ""
+msgstr "Accounting"
 
 #: tfoptions.cbsipos.caption
 msgid "Kasse"
-msgstr ""
+msgstr "Checkout"
 
 #: tfoptions.cbsiprod.caption
 msgid "Produktion"
-msgstr ""
+msgstr "Production"
 
 #: tfoptions.dgcurrency.columns[0].tcolumntitle.caption
 msgid "SYMBOL"
@@ -10220,15 +10252,15 @@ msgstr "-"
 
 #: tfoptions.gbvisibility.caption
 msgid "Sichtbarkeit"
-msgstr ""
+msgstr "Visibility"
 
 #: tfoptions.glanguages.columns[1].tcolumntitle.caption
 msgid "ISO6391"
-msgstr ""
+msgstr "ISO6391"
 
 #: tfoptions.glanguages.columns[2].tcolumntitle.caption
 msgid "ISO6392"
-msgstr ""
+msgstr "ISO6392"
 
 #: tfoptions.glanguages.columns[3].tcolumntitle.caption
 msgid "DEFAULTLNG"
@@ -10280,43 +10312,43 @@ msgstr "-"
 
 #: tfoptions.lcompclose.caption
 msgid "Schlussformel"
-msgstr ""
+msgstr "Closing formula"
 
 #: tfoptions.ldateformat.caption
 msgid "Datumsformat"
-msgstr ""
+msgstr "Date Format"
 
 #: tfoptions.lderivates.caption
 msgid "Ableitbar in"
-msgstr ""
+msgstr "Derivable in"
 
 #: tfoptions.lnumbers.caption
 msgid "Nummernkreise"
-msgstr ""
+msgstr "Number Ranges"
 
 #: tfoptions.lnumberset.caption
 msgid "Nummernkreis"
-msgstr ""
+msgstr "Number range"
 
 #: tfoptions.lpaymenttargets.caption
 msgid "Zahlungsziele"
-msgstr ""
+msgstr "Terms of payment"
 
 #: tfoptions.lrights.caption
 msgid "Rechte"
-msgstr ""
+msgstr "Rights"
 
 #: tfoptions.lsatutation.caption
 msgid "Einleitung"
-msgstr ""
+msgstr "Introduction"
 
 #: tfoptions.lshipping.caption
 msgid "Versandarten"
-msgstr ""
+msgstr "Shipping options"
 
 #: tfoptions.ltimeformat.caption
 msgid "Zeitformat"
-msgstr ""
+msgstr "Time format"
 
 #: tfoptions.ltitles.caption
 msgid "lTitles"
@@ -10324,117 +10356,117 @@ msgstr "-"
 
 #: tfoptions.lunits.caption
 msgid "Mengeneinheiten"
-msgstr ""
+msgstr "Units"
 
 #. uintfstrconsts:strcontact
 #: tforders.acgotocustomer.caption
 msgid "zu Kontakt gehen"
-msgstr ""
+msgstr "go to contact"
 
 #: tforders.cbstatus.hint
 msgid "hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu überführen"
-msgstr ""
+msgstr "here you can change the status of the operation in order to convert him into new states"
 
 #: tforders.cbstorage.hint
 msgid "hier können Sie ein Vorgabelager auswählen"
-msgstr ""
+msgstr "Here you can select a default storage"
 
 #: tforders.dedate.hint
 msgid "das Buchungsdatum"
-msgstr ""
+msgstr "the posting date"
 
 #: tforders.denumber.hint
 msgid "Die Buchungsnummer"
-msgstr ""
+msgstr "The booking number"
 
 #: tforders.dlordernumber.hint
 msgid "Die automatisch vergebene eindeutige Vorgangsnummer"
-msgstr ""
+msgstr "The automatically assigned unique transaction number"
 
 #: tforders.laddresses.caption
 msgid "Adressen"
-msgstr ""
+msgstr "Addresses"
 
 #: tforders.lapproved.caption
 msgid "bestätigt"
-msgstr ""
+msgstr "confirmed"
 
 #: tforders.lorigdate.caption
 msgid "orig. Belegdatum"
-msgstr ""
+msgstr "orig. Document date"
 
 #: tforders.lrequest.caption
 msgid "Anfragedatum"
-msgstr ""
+msgstr "Request date"
 
 #: tforders.lshipping.caption
 msgid "Versandart"
-msgstr ""
+msgstr "Shipping"
 
 #: tforders.lwishdate.caption
 msgid "Wunschdatum"
-msgstr ""
+msgstr "Desired date"
 
 #: tforders.tabsheet2.caption
 msgid "Nachtext"
-msgstr ""
+msgstr "Post-text"
 
 #: tforders.tsheader.caption
 msgid "Kopftext"
-msgstr ""
+msgstr "Header"
 
 #: tforders.tvorderview.hint
 msgid "Eine Übersicht über die Auftragsstruktur"
-msgstr ""
+msgstr "An overview of the application structure"
 
 #: tfpersonaloptions.lallowedphonelines.caption
 msgid "erlaubte Telefonleitungen"
-msgstr ""
+msgstr "allowed telephone lines"
 
 #: tfrdocumentmanagement.toolbar1.caption
 msgid "ToolBar1"
-msgstr ""
+msgstr "ToolBar1"
 
 #: tftransfer.ftransfer.caption
 msgctxt "TFTRANSFER.FTRANSFER.CAPTION"
 msgid "Überweisung"
-msgstr ""
+msgstr "Transfer"
 
 #: tftransfer.lamount.caption
 msgid "Betrag"
-msgstr ""
+msgstr "Amount"
 
 #: tftransfer.linstitute.caption
 msgid "lInstitute"
-msgstr ""
+msgstr "lInstitute"
 
 #: tftransfer.lraccount.caption
 msgctxt "TFTRANSFER.LRACCOUNT.CAPTION"
 msgid "Kontonummer"
-msgstr ""
+msgstr "Account number"
 
 #: tftransfer.lrsortcode.caption
 msgctxt "TFTRANSFER.LRSORTCODE.CAPTION"
 msgid "Bankleitzahl"
-msgstr ""
+msgstr "Bank code number"
 
 #: tfwizardnewaccount.babort1.caption
 msgctxt "TFWIZARDNEWACCOUNT.BABORT1.CAPTION"
 msgid "bAbort0"
-msgstr ""
+msgstr "bAbort0"
 
 #: tfwizardnewaccount.babort2.caption
 msgctxt "TFWIZARDNEWACCOUNT.BABORT2.CAPTION"
 msgid "bAbort0"
-msgstr ""
+msgstr "bAbort0"
 
 #: tfwizardnewaccount.bcreateaq4account.caption
 msgid "AQBanking 4 Konto erstellen"
-msgstr ""
+msgstr "Create Account aqbanking 4"
 
 #: tfwizardnewaccount.bcreateftsaccount.caption
 msgid "FinTS Administrator starten"
-msgstr ""
+msgstr "Start FinTS Administrator"
 
 #: tfwizardnewaccount.bnext1.caption
 msgctxt "TFWIZARDNEWACCOUNT.BNEXT1.CAPTION"
@@ -10464,17 +10496,17 @@ msgstr "-"
 #: tfwizardnewaccount.laccount.caption
 msgctxt "TFWIZARDNEWACCOUNT.LACCOUNT.CAPTION"
 msgid "Konto"
-msgstr ""
+msgstr "Account"
 
 #: tfwizardnewaccount.laccountname.caption
 msgctxt "TFWIZARDNEWACCOUNT.LACCOUNTNAME.CAPTION"
 msgid "Kontoname"
-msgstr ""
+msgstr "Account Name"
 
 #: tfwizardnewaccount.laccountname1.caption
 msgctxt "TFWIZARDNEWACCOUNT.LACCOUNTNAME1.CAPTION"
 msgid "Kontoname"
-msgstr ""
+msgstr "Account Name"
 
 #: tfwizardnewaccount.laccountno.caption
 msgctxt "TFWIZARDNEWACCOUNT.LACCOUNTNO.CAPTION"
@@ -10483,76 +10515,76 @@ msgstr "Accountno"
 
 #: tfwizardnewaccount.ldescription0.caption
 msgid "Wählen Sie einen Kontotypen aus, wenn Sie noch keine Konten mit den jewailigen Backends eingerichtet haben, können Sie dies mit den Knöpfen darunter tun."
-msgstr ""
+msgstr "Select an account type, if you have not yet set up accounts with the jewailigen backend, you can do this with the buttons below."
 
 #: tfwizardnewaccount.ldescription1.caption
 msgid "Wählen Sie ein Konto zum importieren aus"
-msgstr ""
+msgstr "Select an account to import from"
 
 #: tfwizardnewaccount.ldescription2.caption
 msgid "Füllen Sie alle Kontoparameter ausum das Konto zu importieren"
-msgstr ""
+msgstr "Fill in all account parameters ausum the account to import"
 
 #: tfwizardnewaccount.ldescription3.caption
 msgid "geben Sie einen Kontonamen für das manuell geführte Konto an"
-msgstr ""
+msgstr "Enter an account name for the manually guided Account"
 
 #: tfwizardnewaccount.lfintsname.caption
 msgid "FinTS Kontoname (aus dem FinTS Administrator)"
-msgstr ""
+msgstr "FinTS account name (from the FinTS Administrator)"
 
 #. uintfstrconsts:strname
 #: tfwizardnewaccount.lname.caption
 msgctxt "TFWIZARDNEWACCOUNT.LNAME.CAPTION"
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: tfwizardnewaccount.rbimportaqbanking4account.caption
 msgid "AQBanking 4 Konto importieren"
-msgstr ""
+msgstr "Import aqbanking 4 account"
 
 #: tfwizardnewaccount.rbimportfintstoolsaccount.caption
 msgid "FinTS Konto importieren"
-msgstr ""
+msgstr "Import FinTS account"
 
 #: tfwizardnewaccount.rbimportmanualaccounts.caption
 msgid "AQBanking 2 Konto importieren"
-msgstr ""
+msgstr "Aqbanking 2 account to import"
 
 #: tfwizardnewaccount.rbmanualaccount.caption
 msgid "Manuell geführtes Konto erstellen"
-msgstr ""
+msgstr "Create Account Manually run"
 
 #: uarticleframe.strsupplier
 msgid "Lieferant"
-msgstr ""
+msgstr "Supplier"
 
 #: ubasedatamodule.strassembly
 msgid "Baugruppe"
-msgstr ""
+msgstr "Module"
 
 #. uintfstrconsts:strdates
 #: ubasedatamodule.strdata
 msgid "Daten"
-msgstr ""
+msgstr "Data"
 
 #: ubasedatamodule.strinstitute
 msgid "Institut"
-msgstr ""
+msgstr "Institute"
 
 #: ubasedatamodule.strpart
 msgid "Bauteil"
-msgstr ""
+msgstr "Component"
 
 #: ubasedatamodule.strprice
 msgid "Preis"
-msgstr ""
+msgstr "Price"
 
 #: umain.strnewinventory
 msgid "Neue Inventur"
-msgstr ""
+msgstr "New Inventory"
 
 #: umain.strsearchtext
 msgid "<hier tippen um zu suchen>"
-msgstr ""
+msgstr "<insert tap to search>"
 
