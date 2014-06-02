@@ -49,6 +49,7 @@ type
     acMonthView: TAction;
     acNew: TAction;
     acPrint: TAction;
+    acWeekViewDays: TAction;
     ActionList1: TActionList;
     acWeekView: TAction;
     bDayView: TSpeedButton;
@@ -59,7 +60,9 @@ type
     bNew: TSpeedButton;
     bPrint: TSpeedButton;
     bToday: TSpeedButton;
+    bWeekViewDay: TSpeedButton;
     bWeekView: TSpeedButton;
+    DayView1: TVpDayView;
     DayView: TVpDayView;
     Label4: TLabel;
     Label5: TLabel;
@@ -71,6 +74,7 @@ type
     Panel7: TPanel;
     Panel8: TPanel;
     pDayView: TPanel;
+    pWeekDayView: TPanel;
     sbMenue: TSpeedButton;
     ToolBar1: TPanel;
     WeekView: TVpWeekView;
@@ -78,6 +82,7 @@ type
     procedure acGotoTodayExecute(Sender: TObject);
     procedure acMonthViewExecute(Sender: TObject);
     procedure acNewExecute(Sender: TObject);
+    procedure acWeekViewDaysExecute(Sender: TObject);
     procedure acWeekViewExecute(Sender: TObject);
     procedure DataStoreDateChanged(Sender: TObject; Date: TDateTime);
     procedure DayViewOwnerEditEvent(Sender: TObject; Event: TVpEvent;
@@ -105,7 +110,7 @@ type
 procedure RefreshCalendar(FNode :TTreeNode);
 procedure AddToMainTree(aAction : TAction;var FCalendarNode : TTreeNode);
 implementation
-uses uData, uMainTreeFrame, Math, uEventEdit, VpConst,uBaseDbClasses;
+uses uData, uMainTreeFrame, Math, uEventEdit, VpConst,uBaseDbClasses,Graphics;
 resourcestring
   strEventsThisWeek             = 'diese Woche: %d';
 procedure RefreshCalendar(FNode: TTreeNode);
@@ -260,6 +265,18 @@ begin
         begin
           CollectUsers(Data.Users.FieldByName('PARENT').AsVariant);
         end;
+      Data.SetFilter(Data.Tree,'(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('A')+'))',0,'','ASC',False,True,True);
+      Data.Tree.DataSet.First;
+      while not Data.Tree.dataSet.EOF do
+        begin
+          Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
+          TTreeEntry(Node1.Data).Rec := Data.GetBookmark(Data.Tree);
+          TTreeEntry(Node1.Data).DataSource := Data.Tree;
+          TTreeEntry(Node1.Data).Text[0] := Data.Tree.FieldByName('NAME').AsString;
+          TTreeEntry(Node1.Data).Typ := etCalendarDir;
+          fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'',TTreeEntry.Create);
+          Data.Tree.DataSet.Next;
+        end;
     end;
 end;
 
@@ -280,7 +297,9 @@ begin
   else if MonthView.Visible then
     aFilter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+' AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheMonth(Date)+7)+') AND (("ENDDATE" > '+Data.DateToFilter(StartOfTheMonth(Date)-7)+') OR ("ROTATION" > 0))'
   else if WeekView.Visible then
-    aFilter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+' AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheWeek(Date)+1)+') AND ("ENDDATE" > '+Data.DateToFilter(StartOfTheWeek(Date)-1)+' OR "ROTATION" > 0)';
+    aFilter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+' AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheWeek(Date)+1)+') AND ("ENDDATE" > '+Data.DateToFilter(StartOfTheWeek(Date)-1)+' OR "ROTATION" > 0)'
+  else if pWeekDayView.Visible then
+    aFilter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+' AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheWeek(Date)+8)+') AND (("ENDDATE" > '+Data.DateToFilter(StartOfTheWeek(Date)-8)+') OR ("ROTATION" > 0))';
   with DataSet.DataSet as IBaseDbFilter do
     bFilter := Filter;
   if aFilter <> bFilter then
@@ -303,8 +322,8 @@ end;
 
 procedure TfCalendarFrame.MonthViewDblClick(Sender: TObject);
 begin
-  bWeekView.Down:=True;
-  bWeekView.Click;
+  bWeekViewDay.Down:=True;
+  bWeekViewDay.Click;
 end;
 
 procedure TfCalendarFrame.MonthViewEventDblClick(Sender: TObject;
@@ -343,6 +362,7 @@ begin
   MonthView.Visible := False;
   WeekView.Visible := False;
   DayView.Date:=DataStore.Date;
+  pWeekDayView.Visible := False;
   if Sender <> nil then
     DataStoreDateChanged(DataStore,DataStore.Date);
 end;
@@ -350,7 +370,7 @@ procedure TfCalendarFrame.acGotoTodayExecute(Sender: TObject);
 begin
   DataStore.Date:=Now();
   if bDayView.Down then bDayView.OnClick(Self);
-  if bWeekView.Down then bWeekView.OnClick(Self);
+  if bWeekViewDay.Down then bWeekViewDay.OnClick(Self);
   if bMonthView.Down then bMonthView.OnClick(Self);
 end;
 procedure TfCalendarFrame.acMonthViewExecute(Sender: TObject);
@@ -359,6 +379,7 @@ begin
   MonthView.Visible := True;
   WeekView.Visible := False;
   MonthView.Date:=DataStore.Date;
+  pWeekDayView.Visible := False;
   if Sender <> nil then
     DataStoreDateChanged(DataStore,DataStore.Date);
 end;
@@ -377,12 +398,32 @@ begin
   aEventEdit.Free;
   DataStoreDateChanged(DataStore,DataStore.Date);
 end;
+
+procedure TfCalendarFrame.acWeekViewDaysExecute(Sender: TObject);
+var
+  Year: Word;
+  Month: Word;
+  Week: Word;
+  Day: Word;
+begin
+  pDayView.Visible := False;
+  MonthView.Visible := False;
+  WeekView.Visible := False;
+  pWeekDayView.Visible := True;
+  WeekView.Date:=DataStore.Date;
+  DecodeDateMonthWeek(DataStore.Date,Year,Month,Week,Day);
+  if Sender <> nil then
+    DataStoreDateChanged(DataStore,EncodeDateMonthWeek(Year,Month,Week,1));
+  DayView1.Date:=EncodeDateMonthWeek(Year,Month,Week,1);
+end;
+
 procedure TfCalendarFrame.acWeekViewExecute(Sender: TObject);
 begin
   pDayView.Visible := False;
   MonthView.Visible := False;
   WeekView.Visible := True;
   WeekView.Date:=DataStore.Date;
+  pWeekDayView.Visible := False;
   if Sender <> nil then
     DataStoreDateChanged(DataStore,DataStore.Date);
 end;
@@ -396,11 +437,12 @@ begin
   DataStore.OnDateChanged:=@DataStoreDateChanged;
   DayView.DrawingStyle:=dsFlat;
   DayView.TimeFormat := tf24Hour;
-  WeekView.DrawingStyle:=dsNone;
+  //WeekView.DrawingStyle:=dsNone;
   WeekView.TimeFormat := tf24Hour;
-  MonthView.DrawingStyle:=dsNone;
+  //MonthView.DrawingStyle:=dsNone;
   MonthView.TimeFormat := tf24Hour;
   DayView.DataStore := DataStore;
+  DayView1.DataStore := DataStore;
   WeekView.DataStore := DataStore;
   MonthView.DataStore := DataStore;
   DataStore.Resource := TVpResource.Create(DataStore.Resources);
@@ -459,6 +501,7 @@ var
   Event: TVpEvent;
 begin
   if not DataSet.DataSet.Active then exit;
+  Data.SetFilter(Data.Categories,Data.QuoteField('TYPE')+'='+Data.QuoteValue('C'));
   with Dataset.DataSet do
     begin
       First;
@@ -494,6 +537,9 @@ begin
               Event.CustInterval := FieldByName('ROTCUS').AsInteger;
               Event.Location:= FieldByName('LOCATION').AsString;
               Event.StrCategory:= FieldByName('CATEGORY').AsString;
+              if Data.Categories.Locate('NAME',Event.StrCategory,[]) and (Data.Categories.FieldByName('COLOR').AsString<>'') then
+                Event.Color:=StringToColor(Data.Categories.FieldByName('COLOR').AsString)
+              else Event.Color:=clNone;
               Event.Changed:=False;
               Event.Loading := false;
             end;
@@ -572,6 +618,9 @@ begin
                     FieldByName('ROTCUS').AsInteger := Event.CustInterval;
                     FieldByName('LOCATION').AsString := Event.Location;
                     FieldByName('CATEGORY').AsString:=Event.StrCategory;
+                    if Data.Categories.Locate('NAME',Event.StrCategory,[]) and (Data.Categories.FieldByName('COLOR').AsString<>'') then
+                      Event.Color:=StringToColor(Data.Categories.FieldByName('COLOR').AsString)
+                    else Event.Color:=clNone;
                     Post;
                   except
                     Cancel;

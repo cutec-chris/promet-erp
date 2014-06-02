@@ -2451,7 +2451,7 @@ begin
       aEntry.Action.Execute;
     end;
   etCustomerList,etCustomers,etArticleList,etOrderList,
-  etTasks,etMyTasks,etProjects,etCalendar,etMyCalendar,
+  etTasks,etMyTasks,etProjects,
   etLink:
     begin
       fMainTreeFrame.OpenLink(aEntry.Link,Self);
@@ -2485,7 +2485,8 @@ begin
           AddTaskList(aFrame1);
         end;
     end;
-  etCalendarUser:
+  etMyCalendar:acCalendar.Execute;
+  etCalendarUser,etCalendarDir:
     begin
       for i := 0 to pcPages.PageCount-2 do
         if (pcPages.Pages[i].ControlCount > 0)
@@ -2965,7 +2966,7 @@ begin
     begin
       acProjects.Execute;
     end;
-  etCalendar,etMyCalendar:
+  etCalendar:
     begin
       acCalendar.Execute;
     end;
@@ -3360,6 +3361,10 @@ begin
     end;
   with Application as TBaseVisualApplication do
     OnUserTabAdded:=@ApplicationTBaseVisualApplicationUserTabAdded;
+  with BaseApplication as TBaseVisualApplication do
+    begin
+      LoadLanguageMenu(miLanguage);
+    end;
   with Application as IBaseDbInterface do
     if not LoadMandants then
       begin
@@ -3382,10 +3387,6 @@ begin
   fMainTreeFrame.OnSelectionChanged:=@fMainTreeFrameSelectionChanged;
   fMainTreeFrame.OnDragOver:=@fMainTreeFrameDragOver;
   fMainTreeFrame.OnDragDrop:=@fMainTreeFrameDragDrop;
-  with BaseApplication as TBaseVisualApplication do
-    begin
-      LoadLanguageMenu(miLanguage);
-    end;
   uprometipc.OnMessageReceived:=@OnMessageReceived;
 end;
 procedure TfMain.FormDestroy(Sender: TObject);

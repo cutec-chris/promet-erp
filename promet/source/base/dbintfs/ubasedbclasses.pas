@@ -379,10 +379,11 @@ type
   public
     procedure DefineFields(aDataSet : TDataSet);override;
   end;
+  function GetInternalTempDir : string;
 var ImportAble : TClassList;
 implementation
 uses uBaseDBInterface, uBaseApplication, uBaseSearch,XMLRead,XMLWrite,Utils,
-  md5,sha1,uData;
+  md5,sha1,uData,FileUtil;
 resourcestring
   strNumbersetDontExists        = 'Nummernkreis "%s" existiert nicht !';
   strDeletedmessages            = 'gelöschte Narichten';
@@ -481,6 +482,18 @@ resourcestring
   strNotes                      = 'Notizen';
   strOwner                      = 'Eigentümer';
   strAvalible                   = 'Verfügbar';
+
+function GetInternalTempDir: string;
+var
+  TempPath: String;
+begin
+  with BaseApplication as IBaseApplication do
+    if Assigned(Config) then
+      TempPath := Config.ReadString('TEMPPATH','');
+  if TempPath = '' then
+    TempPath := GetTempDir;
+  Result := AppendPathDelim(TempPath);
+end;
 
 function TFollowers.GetLink: TField;
 begin

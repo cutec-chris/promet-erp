@@ -647,6 +647,8 @@ begin
     end;
 end;
 procedure TZeosDBDataSet.DoBeforePost;
+var
+  UserCode: String;
 begin
   inherited DoBeforePost;
   if (FieldDefs.IndexOf('AUTO_ID') = -1) and (FieldDefs.IndexOf('SQL_ID') > -1) and  FieldByName('SQL_ID').IsNull then
@@ -658,13 +660,15 @@ begin
       if (FieldDefs.IndexOf('TIMESTAMPD') > -1) then
         FieldByName('TIMESTAMPD').AsDateTime:=Now();
       with BaseApplication as IBaseDBInterface do
-        if Data.Users.DataSet.Active then
-          begin
-            if (FieldDefs.IndexOf('CREATEDBY') > -1) and (FieldByName('CREATEDBY').IsNull) then
-              FieldByName('CREATEDBY').AsString:=Data.Users.IDCode.AsString;
-            if FUpChangedBy and (FieldDefs.IndexOf('CHANGEDBY') > -1) then
-              FieldByName('CHANGEDBY').AsString:=Data.Users.IDCode.AsString;
-          end;
+        begin
+          if Data.Users.DataSet.Active then
+            UserCode := Data.Users.IDCode.AsString
+          else UserCode := 'SYS';
+          if (FieldDefs.IndexOf('CREATEDBY') > -1) and (FieldByName('CREATEDBY').IsNull) then
+            FieldByName('CREATEDBY').AsString:=UserCode;
+          if FUpChangedBy and (FieldDefs.IndexOf('CHANGEDBY') > -1) then
+            FieldByName('CHANGEDBY').AsString:=UserCode;
+        end;
     end;
   if Assigned(DataSource) and (FieldDefs.IndexOf('REF_ID')>-1) and  Assigned(FieldByName('REF_ID')) and FieldbyName('REF_ID').IsNull then
     begin
@@ -1873,4 +1877,4 @@ begin
 end;
 
 end.
-
+

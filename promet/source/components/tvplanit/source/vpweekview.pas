@@ -819,9 +819,14 @@ var
         TextRect.Left - TextMargin);
       end;
       SL := RenderCanvas.TextWidth(DayStr);
-      TextRect.Left := TextRect.Right - SL - TextMargin;
+      TextRect.Left := TextRect.Left + TextMargin;
       TPSTextOut (RenderCanvas, Angle, RenderIn,
                   TextRect.Left, TextRect.Top + TextMargin - 1, DayStr);
+
+      DayRect.Top:=DayRect.Top+2;
+      DayRect.Left:=DayRect.left+2;
+      DayRect.Right:=DayRect.Right-2;
+      DayRect.Bottom:=DayRect.Bottom-2;
 
       if (DataStore <> nil) and (DataStore.Resource <> nil)
       and (DataStore.Resource.Schedule.EventCountByDay(StartDate + I) > 0)
@@ -901,6 +906,12 @@ var
             RenderCanvas.Font.Assign(FEventFont);
             RenderCanvas.Brush.Color := RealColor;
 
+            if TVpEvent(EventList.List^[j]).Color<>clNone then
+              begin
+                RenderCanvas.Brush.Color := TVpEvent(EventList.List^[j]).Color;
+                TPSFillRect(RenderCanvas,Angle,RenderIn,TextRect);
+              end;
+
             StrLn := RenderCanvas.TextWidth(DayStr);
             if (StrLn > TextRect.Right - TextRect.Left - TextMargin) then
             begin
@@ -932,10 +943,10 @@ var
          (StartDate + I = Trunc (FActiveDate)) and                       
          (Focused) then                                                  
         TPSDrawFocusRect (RenderCanvas, Angle, RenderIn,
-                          Rect (DayRect.Left + 2,
-                                DayRect.Top + wvDayHeadHeight + 2,
-                                DayRect.Right - 2,
-                                DayRect.Bottom - 2));
+                          Rect (DayRect.Left,
+                                DayRect.Top + wvDayHeadHeight,
+                                DayRect.Right ,
+                                DayRect.Bottom));
 
       { update WeekdayArray }
       wvWeekdayArray[I].Rec := DayRect;
@@ -1059,6 +1070,7 @@ var
       HeadRect.Top := RealTop + 1;
       HeadRect.Right := RealRight - 1;
       HeadRect.Bottom := HeadRect.Top + wvHeaderHeight;
+      TPSFillRect (RenderCanvas, Angle, RenderIn, HeadRect);
     end;
 
     { build header caption }
@@ -2003,4 +2015,4 @@ begin
 end;
 {=====}
 
-end.
+end.

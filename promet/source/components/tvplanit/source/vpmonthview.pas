@@ -1055,6 +1055,19 @@ var
                 Break;
               end;
 
+              RenderCanvas.Brush.Color := RealColor;
+
+              if TVpEvent(EventList.List^[j]).Color<>clNone then
+                begin
+                  RenderCanvas.Brush.Color := TVpEvent(EventList.List^[j]).Color;
+                  TPSFillRect(RenderCanvas,Angle,RenderIn,TextRect);
+                end
+              else if TVpEvent(EventList.List^[j]).AllDayEvent then
+                begin
+                  RenderCanvas.Brush.Color := clBtnFace;
+                  TPSFillRect(RenderCanvas,Angle,RenderIn,TextRect);
+                end;
+
               { shorten events that are next to the day number, in order }
               { to give the day number enough room }
               if (TextRect.Top < mvMonthDayArray[I].Rec.Top
@@ -1708,4 +1721,4 @@ begin
 end;
 {=====}
 
-end.
+end.

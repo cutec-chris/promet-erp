@@ -17,6 +17,7 @@ if [ "x$Arch" = "x" ]; then
     Arch=$Archfpc
   fi
 fi
+sudo -S sh clean_all.sh
 sudo -S echo "Arch is $Arch"
 echo "Archfpc is $Archfpc"
 Year=`date +%y`
@@ -37,7 +38,8 @@ echo "copy to builddir..."
 mkdir -p $BuildDir/Promet-ERP
 cp -r ./Promet-ERP $BuildDir
 mkdir -p $BuildDir/Promet-ERP/App/promet/tools
-cp -r ../../importdata $BuildDir/Promet-ERP/App/promet
+cp -r ../i386-win32/tools $BuildDir/Promet-ERP/App/promet
+cp -r ../../importdata $BuildDir/Promet-ERP/App/promet/
 mv "$BuildDir/Promet-ERP/App/promet/importdata/Warenwirtschaft (alles)/Österreich" "$BuildDir/Promet-ERP/App/promet/importdata/Warenwirtschaft (alles)/Osterreich"
 cp ../help/help.db $BuildDir/Promet-ERP/App/promet
 cp ../warnings.txt $BuildDir/Promet-ERP/App/promet

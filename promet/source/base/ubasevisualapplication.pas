@@ -702,13 +702,12 @@ var
 begin
   miLanguage := amiLanguage;
 
+  lang := Application.GetOptionValue('l','lang');
+  if lang <> '' then
+    SetLanguage(Lang);
+
   if GetLanguage = '' then
     begin
-      for i := 1 to Paramcount - 1 do
-        if (ParamStrUTF8(i) = '--LANG') or (ParamStrUTF8(i) = '-l') or
-          (ParamStrUTF8(i) = '--lang') then
-          Lang := ParamStrUTF8(i + 1);
-
       //Win32 user may decide to override locale with LANG variable.
       if Lang = '' then
         Lang := GetEnvironmentVariableUTF8('LANG');
@@ -1085,4 +1084,4 @@ initialization
   RegisterClass(TDBComboBox);
   RegisterClass(TPanel);
 end.
-
+

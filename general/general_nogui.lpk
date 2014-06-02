@@ -22,7 +22,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="11">
+    <Files Count="12">
       <Item1>
         <Filename Value="src\Utils.pas"/>
         <UnitName Value="Utils"/>
@@ -67,6 +67,10 @@
         <Filename Value="src\aspell.pas"/>
         <UnitName Value="Aspell"/>
       </Item11>
+      <Item12>
+        <Filename Value="src\potranslator.pas"/>
+        <UnitName Value="potranslator"/>
+      </Item12>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="2">

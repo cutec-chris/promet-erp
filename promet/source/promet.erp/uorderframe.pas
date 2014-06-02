@@ -230,9 +230,9 @@ begin
       if aReport.PrepareReport then
         begin
           isPrepared := True;
-          aReport.ExportTo(frFilters[i].ClassRef,GetTempDir+aSubject+'.pdf');
+          aReport.ExportTo(frFilters[i].ClassRef,GetInternalTempDir+aSubject+'.pdf');
           fMessageEdit := TfMessageEdit.Create(nil);
-          fMessageEdit.SendMailToWithDoc(aMail,aSubject,aText,GetTempDir+aSubject+'.pdf',True);
+          fMessageEdit.SendMailToWithDoc(aMail,aSubject,aText,GetInternalTempDir+aSubject+'.pdf',True);
         end;
 end;
 procedure TfOrderFrame.OnSearchKey(Sender: TObject; X, Y: Integer; var Key: Word;

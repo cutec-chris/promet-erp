@@ -23,7 +23,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, ComCtrls, Buttons,
   ActnList, StdCtrls, LR_View, LR_Class, uPrometFrames, uDocuments, db, uEditor,
-  uExtControls, Graphics, types;
+  uExtControls, Graphics, types,uBaseDbClasses;
 type
 
   { TfPreview }
@@ -615,8 +615,8 @@ begin
   else if (Uppercase(aExtension) = 'PDF') then
     begin
       try
-        aFilename := getTempDir+'rpv.'+aExtension;
-        aFStream := TFileStream.Create(getTempDir+'rpv.'+aExtension,fmCreate);
+        aFilename := GetInternalTempDir+'rpv.'+aExtension;
+        aFStream := TFileStream.Create(GetInternalTempDir+'rpv.'+aExtension,fmCreate);
         aStream.Position:=0;
         aFStream.CopyFrom(aStream,aStream.Size);
         aFStream.Free;
@@ -674,8 +674,8 @@ begin
   else //Try to Use Imagemagick to determinate the file typ and render it
     begin
       try
-        aFilename := getTempDir+'rpv.'+aExtension;
-        aFStream := TFileStream.Create(getTempDir+'rpv.'+aExtension,fmCreate);
+        aFilename := GetInternalTempDir+'rpv.'+aExtension;
+        aFStream := TFileStream.Create(GetInternalTempDir+'rpv.'+aExtension,fmCreate);
         aStream.Position:=0;
         aFStream.CopyFrom(aStream,aStream.Size);
         aFStream.Free;
@@ -733,8 +733,8 @@ begin
   if (Uppercase(aExtension) = 'PDF') then
     begin
       try
-        aFilename := getTempDir+'rpv.'+aExtension;
-        aFStream := TFileStream.Create(getTempDir+'rpv.'+aExtension,fmCreate);
+        aFilename := GetInternalTempDir+'rpv.'+aExtension;
+        aFStream := TFileStream.Create(GetInternalTempDir+'rpv.'+aExtension,fmCreate);
         aStream.Position:=0;
         aFStream.CopyFrom(aStream,aStream.Size);
         aFStream.Free;
@@ -778,4 +778,4 @@ begin
 end;
 
 end.
-
+

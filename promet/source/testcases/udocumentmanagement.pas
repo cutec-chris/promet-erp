@@ -42,7 +42,7 @@ procedure DocumentManagmement.CreateFile;
 var
   sl: TStringList;
 begin
-  TempPath := AppendPathDelim(GetTempDir)+'ptc';
+  TempPath := AppendPathDelim(GetInternalTempDir)+'ptc';
   ForceDirectories(TempPath);
   sl := TStringList.Create;
   sl.Text:='1';

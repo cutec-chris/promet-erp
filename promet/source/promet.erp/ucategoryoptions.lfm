@@ -21,6 +21,7 @@ inherited fCategoryOptions: TfCategoryOptions
           'T   Task'
           'M  Article'
           'B  Banking'
+          'C  Calendar'
         )
         Title.Caption = 'Typ'
         Width = 40

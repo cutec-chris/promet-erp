@@ -424,7 +424,7 @@ begin
   aName := InputBox(strScreenshotName, strEnterAnName, aName);
   Application.ProcessMessages;
   Application.CreateForm(TfScreenshot,fScreenshot);
-  fScreenshot.SaveTo:=AppendPathDelim(GetTempDir)+aName;
+  fScreenshot.SaveTo:=AppendPathDelim(GetInternalTempDir)+aName;
   fScreenshot.Show;
   while fScreenshot.Visible do Application.ProcessMessages;
   fScreenshot.Destroy;
@@ -436,7 +436,7 @@ begin
     end;
   aDocument := TDocument.Create(Self,Data);
   aDocument.Select(DataSet.Id.AsVariant ,'W',DataSet.FieldByName('NAME').AsString,Null,Null);
-  aDocument.AddFromFile(AppendPathDelim(GetTempDir)+aName);
+  aDocument.AddFromFile(AppendPathDelim(GetInternalTempDir)+aName);
   aDocument.Free;
   aDocuments := TDocuments.Create(Self,Data);
   aDocuments.CreateTable;

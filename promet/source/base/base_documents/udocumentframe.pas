@@ -425,7 +425,7 @@ begin
     if Assigned(Config) then
       TempPath := Config.ReadString('TEMPPATH','');
   if TempPath = '' then
-    TempPath := GetTempDir;
+    TempPath := GetInternalTempDir;
   if (ssLeft in Shift) and ((Abs(X - FDragStartPos.x) >= Threshold) or (Abs(Y - FDragStartPos.y) >= Threshold)) then
     begin
       Perform(WM_LBUTTONUP, 0, MakeLong(X, Y));
@@ -996,8 +996,8 @@ begin
 {      if fSelectTemplate.cbReplacePlaceholders.Checked then
       if (copy(Uppercase(Data.Templates.FieldByName('EXTENSION').AsString),0,2) = 'OD') then
         begin
-          Stream.SaveToFile(GetTempDir+Data.Templates.FieldByName('NAME').AsString+'.'+Data.Templates.FieldByName('EXTENSION').AsString);
-          Doc := TODFDocument.Create(GetTempDir+Data.Templates.FieldByName('NAME').AsString+'.'+Data.Templates.FieldByName('EXTENSION').AsString);
+          Stream.SaveToFile(GetInternalTempDir+Data.Templates.FieldByName('NAME').AsString+'.'+Data.Templates.FieldByName('EXTENSION').AsString);
+          Doc := TODFDocument.Create(GetInternalTempDir+Data.Templates.FieldByName('NAME').AsString+'.'+Data.Templates.FieldByName('EXTENSION').AsString);
           for i := 0 to Doc.Count-1 do
             begin
               tmp := copy(Doc.Values[i],2,length(Doc.Values[i])-2);
@@ -1010,8 +1010,8 @@ begin
             end;
           Doc.Save;
           Doc.Free;
-          Stream.LoadFromFile(GetTempDir+Data.Templates.FieldByName('NAME').AsString+'.'+Data.Templates.FieldByName('EXTENSION').AsString);
-          SysUtils.DeleteFile(GetTempDir+Data.Templates.FieldByName('NAME').AsString+'.'+Data.Templates.FieldByName('EXTENSION').AsString);
+          Stream.LoadFromFile(GetInternalTempDir+Data.Templates.FieldByName('NAME').AsString+'.'+Data.Templates.FieldByName('EXTENSION').AsString);
+          SysUtils.DeleteFile(GetInternalTempDir+Data.Templates.FieldByName('NAME').AsString+'.'+Data.Templates.FieldByName('EXTENSION').AsString);
         end;
 }
       aDocument := TDocument.Create(Self,Data);
