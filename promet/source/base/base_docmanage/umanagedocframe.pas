@@ -187,7 +187,7 @@ type
     procedure tstextShow(Sender: TObject);
   private
     { private declarations }
-    FDoc : TDocPages;
+    FDoc,FFullDataSet : TDocPages;
     FLast : string;
     FFetchDS : TDataSet;
     FFetchSQL : string;
@@ -690,11 +690,11 @@ begin
           if FileExists(NewFileName) then
             begin
               fWaitForm.ShowInfo(ExtractFileName(NewFileName));
-              TDocPages(DataSet).AddFromFile(NewFileName);
-              if not TDocPages(DataSet).CanEdit then TDocPages(DataSet).DataSet.Edit;
-              TDocPages(DataSet).FieldByName('TAGS').AsString:=fPicImport.eTags.Text;
-              TDocPages(DataSet).FieldByName('TYPE').AsString:=FTyp;
-              TDocPages(DataSet).Post;
+              TDocPages(FFullDataSet).AddFromFile(NewFileName);
+              if not TDocPages(FFullDataSet).CanEdit then TDocPages(DataSet).DataSet.Edit;
+              TDocPages(FFullDataSet).FieldByName('TAGS').AsString:=fPicImport.eTags.Text;
+              TDocPages(FFullDataSet).FieldByName('TYPE').AsString:=FTyp;
+              TDocPages(FFullDataSet).Post;
               if fPicImport.cbDelete.Checked then
                 begin
                   aFile := NewFileName;
@@ -1347,6 +1347,7 @@ begin
               break;
             end;
     end;
+  if tstext.Visible then tstext.OnShow(tsText);
 end;
 
 constructor TfManageDocFrame.Create(AOwner: TComponent);
@@ -1380,6 +1381,7 @@ begin
 end;
 destructor TfManageDocFrame.Destroy;
 begin
+  FFullDataSet.Free;
   FDoc.Free;
   FTimeLine.Free;
   FreeAndNil(FDataSet);
@@ -1435,6 +1437,14 @@ begin
     FFilter := Data.QuoteField('TYPE')+'='+Data.QuoteValue(FTyp)
   else
     FFilter := '('+Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(aDir)+') AND ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue(FTyp)+')';
+  with FFullDataSet.DataSet as IBaseDbFilter do
+    begin
+      SortFields := 'ORIGDATE';
+      SortDirection:=sdDescending;
+      Limit := 1;
+      Filter :=  FFilter;
+    end;
+  FFullDataSet.Open;
   with DataSet.DataSet as IBaseDbFilter do
     begin
       Fields:=Data.QuoteField('SQL_ID')+','+Data.QuoteField('ORIGDATE')+','+Data.QuoteField('TAGS')+','+Data.QuoteField('NAME')+','+Data.QuoteField('LINK');

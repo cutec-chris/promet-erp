@@ -258,6 +258,13 @@ begin
   FUsers := TMeetingUsers.Create(aOwner,DM,aConnection,DataSet);
   FUsers.FMeeting := Self;
   FLinks := TMeetingLinks.Create(Self,DM,aConnection);
+  with BaseApplication as IBaseDbInterface do
+    begin
+      with DataSet as IBaseDBFilter do
+        begin
+          UsePermissions:=True;
+        end;
+    end;
 end;
 
 function TMeetings.CreateTable: Boolean;

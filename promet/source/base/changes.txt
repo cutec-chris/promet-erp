@@ -1,4 +1,6 @@
-﻿Build 352
+﻿Build 353
+      - Besprechungen:rechte werden korrekt beachtet
+Build 352
       - Sync:CREATEDBY und CHANGEDBY werden immer befüllt auch wenn kein Nutzer gewählt ist
       - Sync Outlook:Kontaktsync sollte nun auch mit Postgres richtig funktionieren
 Build 351
