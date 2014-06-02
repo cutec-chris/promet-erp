@@ -964,11 +964,17 @@ begin
       end;
     end;
   {$IFDEF CPU32}
-  uSkypePhone.RegisterPhoneLines;
+  try
+    uSkypePhone.RegisterPhoneLines;
+  except
+  end;
   {$ENDIF}
   {$IFDEF WINDOWS}
   {$IFDEF CPU32}
+  try
   uTAPIPhone.RegisterPhoneLines;
+  except
+  end;
   {$ENDIF}
   {$ENDIF}
   aConn.Free;

@@ -53,6 +53,7 @@ type
     acSetOwner: TAction;
     acSetUser: TAction;
     acAppendLinkToDependencies: TAction;
+    acTerminate: TAction;
     acUnmakeSubTask: TAction;
     ActionList: TActionList;
     ActionList1: TActionList;
@@ -60,6 +61,7 @@ type
     bAddPos1: TSpeedButton;
     bDelegated2: TSpeedButton;
     bDeletePos8: TSpeedButton;
+    bDeletePos9: TSpeedButton;
     bEnterTime2: TSpeedButton;
     Bevel11: TBevel;
     bFuture: TSpeedButton;
@@ -180,6 +182,7 @@ type
     procedure acSetUserExecute(Sender: TObject);
     procedure acStartTimeExecute(Sender: TObject);
     procedure acStopTimeExecute(Sender: TObject);
+    procedure acTerminateExecute(Sender: TObject);
     procedure ActiveSearchEndSearch(Sender: TObject);
     procedure ActiveSearchItemFound(aIdent: string; aName: string;
       aStatus: string;aActive : Boolean; aLink: string; aItem: TBaseDBList=nil);
@@ -275,6 +278,7 @@ resourcestring
   strSearchFromTasks                       = 'Mit Öffnen wird das gewählte Projekt in die Aufgabe übernommen';
   strAssignedTasks                         = 'Aufgaben: %s';
   strMyTasks                               = 'von mir erstellte Aufgaben: %s';
+  strUnterminatedDependencies              = 'Es gibt unterminierte Abhängigkeiten für deise Aufgabe:'+lineending+'%s';
 implementation
 uses uRowEditor,uTask,ubasevisualapplicationtools,uData,uMainTreeFrame,
   uSearch,uProjects,uTaskEdit,uBaseApplication,LCLType,uBaseERPDBClasses,
@@ -975,6 +979,22 @@ begin
   DataSet.FieldByName('COMPLETED').AsString:='Y';
   DataSet.DataSet.Post;
 end;
+
+procedure TfTaskFrame.acTerminateExecute(Sender: TObject);
+var
+  aDeps: TStrings;
+begin
+  if not FGridView.GotoActiveRow then exit;
+  aDeps := TTaskList(DataSet).GetUnterminatedDependencies;
+  if aDeps.Count>0 then
+    Showmessage(Format(strUnterminatedDependencies,[aDeps.Text]))
+  else
+    begin
+
+    end;
+  aDeps.Free;
+end;
+
 procedure TfTaskFrame.ActiveSearchEndSearch(Sender: TObject);
 begin
   if not ActiveSearch.Active then

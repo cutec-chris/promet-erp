@@ -70,6 +70,7 @@ type
     procedure MoveDependTasks;
     procedure Open; override;
     function CalcDates(var aStart, aDue: TDateTime): Boolean;
+    function GetUnterminatedDependencies: TStrings;
     procedure MakeSnapshot(aName : string);
     procedure DisableDS;
     property OwnerName : string read GetownerName;
@@ -450,6 +451,28 @@ begin
       aDue := aStart+MinimalTaskLength;
       result := True;
     end;
+end;
+
+function TTaskList.GetUnterminatedDependencies: TStrings;
+var
+  aTask: TTask;
+begin
+  Result := TStringList.Create;
+  Dependencies.Open;
+  Dependencies.First;
+  aTask := TTask.Create(nil,DataModule,Connection);
+  while not Dependencies.EOF do
+    begin
+      aTask.SelectFromLink(Dependencies.FieldByName('LINK').AsString);
+      aTask.Open;
+      if aTask.Count>0 then
+        begin
+          if aTask.FieldByName('DUEDATE').IsNull then
+            Result.Add(Dependencies.FieldByName('LINK').AsString);
+        end;
+      Dependencies.Next;
+    end;
+  aTask.Free;
 end;
 
 procedure TTaskList.DisableDS;
