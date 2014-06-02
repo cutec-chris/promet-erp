@@ -28,7 +28,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, DBGrids, ExtCtrls,
   Buttons, ComCtrls, uExtControls, db, Grids, ActnList, Menus, uBaseDBClasses,
-  uBaseDbInterface, StdCtrls, Graphics, types, Clipbrd,
+  uBaseDbInterface, StdCtrls, Graphics, types, Clipbrd,LMessages,
   ubasevisualapplicationtools, Dialogs, EditBtn, DbCtrls, Calendar;
 type
   TUnprotectedGrid = class(TCustomGrid);
@@ -51,6 +51,7 @@ type
     procedure msg_SetValue(var Msg: TGridMessage); message GM_SETVALUE;
     procedure msg_SetPos(var Msg: TGridMessage); message GM_SETPOS;
     procedure msg_SelectAll(var Msg: TGridMessage); message GM_SELECTALL;
+    procedure WMPaste(var Message: TLMPaste); message LM_PASTE;
   public
     constructor Create(AOwner: TComponent); override;
     procedure EditingDone; override;
@@ -713,8 +714,8 @@ end;
 
 procedure TfGridView.mInplaceEditingDone(Sender: TObject);
 begin
-  gList.Cells[gList.Col,gList.Row]:=mInplace.Lines.Text;
   TRowObject(gList.Objects[0,gList.Row]).RefreshHeight:=True;
+  mInplaceResize(Sender);
 end;
 procedure TfGridView.mInplaceKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
@@ -2697,7 +2698,7 @@ begin
   FDefaultRowHeight := False;
   mInplace := TInplaceMemo.Create(Self);
   mInplace.ScrollBars:=ssAutoVertical;
-  //mInplace.OnEditingDone:=@mInplaceEditingDone;
+  mInplace.OnEditingDone:=@mInplaceEditingDone;
   mInplace.OnKeyDown:=@mInplaceKeyDown;
   mInplace.BorderStyle:=bsNone;
   mInplace.OnResize:=@mInplaceResize;
@@ -3524,6 +3525,29 @@ end;
 procedure TInplaceMemo.msg_SelectAll(var Msg: TGridMessage);
 begin
   SelectAll;
+end;
+
+procedure TInplaceMemo.WMPaste(var Message: TLMPaste);
+var
+  SaveClipboard: string;
+  tabPos: SizeInt;
+  OldText: String;
+begin
+  SaveClipboard := Clipboard.AsText;
+  OldText := SaveClipboard;
+  SaveClipboard:=trim(SaveClipboard);
+  while (copy(SaveClipboard,length(SaveClipboard)-1,1) = #10)
+     or (copy(SaveClipboard,length(SaveClipboard)-1,1) = #13)
+     or (copy(SaveClipboard,length(SaveClipboard)-1,1) = ' ') do
+   SaveClipboard:=copy(SaveClipboard,0,length(SaveClipboard)-2);
+  tabPos := pos(#9,Saveclipboard);
+  if tabPos <= 4 then
+    SaveClipboard:=copy(SaveClipboard,pos(#9,Saveclipboard)+1,length(SaveClipboard));
+  SaveClipboard:=trim(SaveClipboard);
+  Clipboard.AsText := SaveClipboard;
+  Text := StringReplace(Text,OldText,SaveClipboard,[]);
+  inherited;
+  EditingDone;
 end;
 
 constructor TInplaceMemo.Create(AOwner: TComponent);
