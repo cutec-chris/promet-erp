@@ -1271,7 +1271,6 @@ msgid "wählen Sie hier die Sprache des Kontaktes"
 msgstr "select the language of the contact"
 
 #: tfcustomer.cbpaymenttarget.hint
-#, fuzzy
 msgctxt "tfcustomer.cbpaymenttarget.hint"
 msgid ""
 "setzt ein Zahlungsziel mit dem die Vorgänge für diesen Kontakt vorbelegt "
@@ -1289,19 +1288,16 @@ msgid "ist Lieferant"
 msgstr "is distributor"
 
 #: tfcustomer.cbsupplier.hint
-#, fuzzy
 msgctxt "tfcustomer.cbsupplier.hint"
 msgid "setzen Sie dieses Feld wenn der Kontakt ein Lieferant ist"
 msgstr "check these field if the contact is an distributor"
 
 #: tfcustomer.ecustomername.hint
-#, fuzzy
 msgctxt "tfcustomer.ecustomername.hint"
 msgid "geben Sie hier den namen des Kontaktes an"
 msgstr "add the name of the contact here"
 
 #: tfcustomer.ediscont.hint
-#, fuzzy
 msgctxt "tfcustomer.ediscont.hint"
 msgid ""
 "setzt eine Rabatt mit dem die Vorgänge für diesen Kontakt vorbelegt werden"
@@ -1355,7 +1351,6 @@ msgid "INSTITUTE"
 msgstr "-"
 
 #: tfcustomer.gbanking.hint
-#, fuzzy
 msgctxt "tfcustomer.gbanking.hint"
 msgid "hier können Sie Bankverbindungen des Kontaktes verwalten"
 msgstr "here you can manage the bank accounts of the contact"
@@ -1415,7 +1410,6 @@ msgid "Bankverbindungen"
 msgstr "Bank accounts"
 
 #: tfcustomer.lcallingname.caption
-#, fuzzy
 msgctxt "tfcustomer.lcallingname.caption"
 msgid "Vorname"
 msgstr "First name"
@@ -1431,7 +1425,6 @@ msgid "Währung"
 msgstr "Currency"
 
 #: tfcustomer.lcustomername.caption
-#, fuzzy
 msgctxt "tfcustomer.lcustomername.caption"
 msgid "Kontaktname"
 msgstr "Contactname"
@@ -1451,16 +1444,14 @@ msgid "Rabatt"
 msgstr "discount"
 
 #: tfcustomer.ldiscontgroup.caption
-#, fuzzy
 msgctxt "tfcustomer.ldiscontgroup.caption"
 msgid "Rabattgruppe"
 msgstr "discount group"
 
 #: tfcustomer.lfirmname.caption
-#, fuzzy
 msgctxt "tfcustomer.lfirmname.caption"
 msgid "lFirmName"
-msgstr "Name"
+msgstr "Firm/Name"
 
 #: tfcustomer.lhint.caption
 msgctxt "TFCUSTOMER.LHINT.CAPTION"
@@ -1483,7 +1474,6 @@ msgid "Suchbegriff"
 msgstr "Matchcode"
 
 #: tfcustomer.lname.caption
-#, fuzzy
 msgctxt "tfcustomer.lname.caption"
 msgid "Name / Firma"
 msgstr "Name/Firm"
@@ -1504,7 +1494,6 @@ msgid "Status"
 msgstr "Status"
 
 #: tfcustomer.lstreet.caption
-#, fuzzy
 msgctxt "tfcustomer.lstreet.caption"
 msgid "Straße"
 msgstr "Street"
@@ -2321,13 +2310,11 @@ msgid "Buchung zuordnen"
 msgstr "assign booking"
 
 #: tffindtransaction.cbamount.caption
-#, fuzzy
 msgctxt "TFFINDTRANSACTION.CBAMOUNT.CAPTION"
 msgid "Betrag"
-msgstr "remainder"
+msgstr "Value"
 
 #: tffindtransaction.cbdate.caption
-#, fuzzy
 msgctxt "TFFINDTRANSACTION.CBDATE.CAPTION"
 msgid "Datum"
 msgstr "Date"
@@ -2543,7 +2530,6 @@ msgid "Einleitung"
 msgstr "Satutation"
 
 #: tflanguageoptions.lshipping.caption
-#, fuzzy
 msgctxt "TFLANGUAGEOPTIONS.LSHIPPING.CAPTION"
 msgid "Versandarten"
 msgstr "Shipping types"
@@ -2695,7 +2681,6 @@ msgid "Kalendar"
 msgstr "Calendar"
 
 #: tfmain.acchangepasswort.caption
-#, fuzzy
 msgid "Passwort ändern"
 msgstr "change password"
 
@@ -2725,23 +2710,19 @@ msgid "Kontaktliste"
 msgstr "Contactlist"
 
 #: tfmain.acdeletelisteentry.caption
-#, fuzzy
 msgctxt "TFMAIN.ACDELETELISTEENTRY.CAPTION"
 msgid "löschen"
 msgstr "delete"
 
 #: tfmain.acdeletelisteentry.hint
-#, fuzzy
 msgid "Eintrag löschen"
-msgstr "goto entry"
+msgstr "delte entry"
 
 #: tfmain.acdeletewholemessagedir.caption
-#, fuzzy
 msgid "Alle Nachrichten löschen"
 msgstr "delete all Messages"
 
 #: tfmain.acforward.caption
-#, fuzzy
 msgctxt "TFMAIN.ACFORWARD.CAPTION"
 msgid "acForward"
 msgstr "Forward"
@@ -2751,10 +2732,9 @@ msgid "Index"
 msgstr "Index"
 
 #: tfmain.acinfo.caption
-#, fuzzy
 msgctxt "tfmain.acinfo.caption"
 msgid "Information"
-msgstr "Dataformat"
+msgstr "Information"
 
 #: tfmain.aclogin.caption
 msgid "Anmelden"
@@ -2765,7 +2745,6 @@ msgid "Abmelden"
 msgstr "Logout"
 
 #: tfmain.acmasterdata.caption
-#, fuzzy
 msgctxt "TFMAIN.ACMASTERDATA.CAPTION"
 msgid "Artikel"
 msgstr "Article"
@@ -2779,67 +2758,57 @@ msgid "Nachrichten"
 msgstr "Messages"
 
 #: tfmain.acnewaccount.caption
-#, fuzzy
 msgctxt "TFMAIN.ACNEWACCOUNT.CAPTION"
 msgid "Neues Konto"
-msgstr "new Contact"
+msgstr "new Account"
 
 #: tfmain.acnewcontact.caption
-#, fuzzy
 msgctxt "TFMAIN.ACNEWCONTACT.CAPTION"
 msgid "Neuer Kontakt"
 msgstr "new Contact"
 
 #: tfmain.acnewcontact.hint
-#, fuzzy
 msgctxt "TFMAIN.ACNEWCONTACT.HINT"
 msgid "erstellt einen neuen Kontakt"
 msgstr "creates an new contact"
 
 #: tfmain.acnewinventory.caption
-#, fuzzy
 msgctxt "TFMAIN.ACNEWINVENTORY.CAPTION"
 msgid "Neue Inventur"
-msgstr "Inventory"
+msgstr "new Inventory"
 
 #: tfmain.acnewlist.caption
-#, fuzzy
 msgid "neue Liste"
-msgstr "List"
+msgstr "new List"
 
 #: tfmain.acnewmasterdata.caption
-#, fuzzy
 msgctxt "TFMAIN.ACNEWMASTERDATA.CAPTION"
 msgid "Neuer Artikel"
 msgstr "new Article"
 
 #: tfmain.acnewmasterdata.hint
-#, fuzzy
 msgid "erstellt einen neuen Artikel"
-msgstr "creates an new contact"
+msgstr "creates an new article"
 
 #: tfmain.acnewmeeting.caption
 msgid "neue Besprechung"
 msgstr "new Meeting"
 
 #: tfmain.acnewmessage.caption
-#, fuzzy
 msgid "Neue Nachricht"
-msgstr "Messages"
+msgstr "new Message"
 
 #: tfmain.acnewmessage.hint
-#, fuzzy
 msgid "Neue Nachricht schreiben"
-msgstr "delete all Messages"
+msgstr "write an new message"
 
 #: tfmain.acneworder.caption
 msgid "Neuer Auftrag"
 msgstr "new Order"
 
 #: tfmain.acneworder.hint
-#, fuzzy
 msgid "erstellt einen neuen Auftrag"
-msgstr "creates an new contact"
+msgstr "creates an new order"
 
 #: tfmain.acnewproject.caption
 msgctxt "TFMAIN.ACNEWPROJECT.CAPTION"
@@ -2847,29 +2816,24 @@ msgid "Neues Projekt"
 msgstr "New Project"
 
 #: tfmain.acnewstatistics.caption
-#, fuzzy
 msgid "neue Statistik"
-msgstr "new Piecelist"
+msgstr "new Statistic"
 
 #: tfmain.acnewtask.caption
-#, fuzzy
 msgid "neue Aufgabe"
 msgstr "new Task"
 
 #: tfmain.acnewtermin.caption
-#, fuzzy
 msgctxt "tfmain.acnewtermin.caption"
 msgid "Neuen Termin erfassen"
-msgstr "New Termin"
+msgstr "New Appointment"
 
 #: tfmain.acnewtermin.hint
-#, fuzzy
 msgctxt "tfmain.acnewtermin.hint"
 msgid "Neuen Termin erfassen"
-msgstr "New Termin"
+msgstr "create an new appointment"
 
 #: tfmain.acopen.caption
-#, fuzzy
 msgctxt "TFMAIN.ACOPEN.CAPTION"
 msgid "Öffnen"
 msgstr "open"
@@ -2880,20 +2844,17 @@ msgid "Vorgänge"
 msgstr "Orders"
 
 #: tfmain.acpausetime.caption
-#, fuzzy
 msgctxt "TFMAIN.ACPAUSETIME.CAPTION"
 msgid "acPauseTime"
 msgstr "Pause"
 
 #: tfmain.acpausetime.hint
-#, fuzzy
 msgid "Zeiterfassung pausieren /"
-msgstr "start timeregistering"
+msgstr "pause timeregistering"
 
 #: tfmain.acprojectoverview.caption
-#, fuzzy
 msgid "Projektübersicht"
-msgstr "Projects"
+msgstr "Projectoverview"
 
 #: tfmain.acprojects.caption
 msgctxt "TFMAIN.ACPROJECTS.CAPTION"
@@ -2913,16 +2874,14 @@ msgid "Grobplanung"
 msgstr "grossplanning"
 
 #: tfmain.acsaleslist.caption
-#, fuzzy
 msgid "Zahlungsliste"
-msgstr "payment target"
+msgstr "payment list"
 
 #: tfmain.acsaleslistpay.caption
 msgid "acSalesListPay"
 msgstr "Sales List Pay"
 
 #: tfmain.acshowtree.caption
-#, fuzzy
 msgctxt "TFMAIN.ACSHOWTREE.CAPTION"
 msgid "Baum"
 msgstr "Tree"
@@ -2932,25 +2891,21 @@ msgid "Baum anzeigen/ausblenden"
 msgstr "Show/hide tree"
 
 #: tfmain.acstandarttime.caption
-#, fuzzy
 msgid "acStandartTime"
-msgstr "Standart actions"
+msgstr "Standart time"
 
 #: tfmain.acstandarttime.hint
-#, fuzzy
 msgid "Standardeintrag starten"
-msgstr "Standartentry"
+msgstr "start Standardentry"
 
 #: tfmain.acstartpage.caption
-#, fuzzy
 msgctxt "TFMAIN.ACSTARTPAGE.CAPTION"
 msgid "Startseite"
-msgstr "Starttime"
+msgstr "Startpage"
 
 #: tfmain.actaskplan.caption
-#, fuzzy
 msgid "Aufgabenplan"
-msgstr "Tasks"
+msgstr "Taskplan"
 
 #: tfmain.actasks.caption
 msgid "Aufgaben"
@@ -2962,7 +2917,6 @@ msgid "Zeiterfassung"
 msgstr "Timeregistering"
 
 #: tfmain.acwiki.caption
-#, fuzzy
 msgid "acWiki"
 msgstr "Wiki"
 
@@ -2971,23 +2925,19 @@ msgid "acWindowize"
 msgstr "Windowize"
 
 #: tfmain.bffwd.hint
-#, fuzzy
 msgid "Vor (zum nächsten Eintrag) gehen"
-msgstr "gito next entry"
+msgstr "goto next entry"
 
 #: tfmain.bpausetime.caption
-#, fuzzy
 msgctxt "tfmain.bpausetime.caption"
 msgid "acPauseTime"
 msgstr "Pause"
 
 #: tfmain.bpausetime.hint
-#, fuzzy
 msgid "Zeiterfassung pausieren/"
-msgstr "start timeregistering"
+msgstr "pause timeregistering"
 
 #: tfmain.caption
-#, fuzzy
 msgctxt "TFMAIN.CAPTION"
 msgid "Promet-ERP"
 msgstr "Promet-ERP"
@@ -3003,19 +2953,16 @@ msgid "Navigation"
 msgstr "Navigation"
 
 #: tfmain.label4.caption
-#, fuzzy
 msgctxt "TFMAIN.LABEL4.CAPTION"
 msgid "Ansicht"
 msgstr "View"
 
 #: tfmain.label5.caption
-#, fuzzy
 msgctxt "TFMAIN.LABEL5.CAPTION"
 msgid "Suche"
 msgstr "Search"
 
 #: tfmain.label6.caption
-#, fuzzy
 msgctxt "TFMAIN.LABEL6.CAPTION"
 msgid "Zeit"
 msgstr "Time"
@@ -3026,7 +2973,6 @@ msgid "erfassung"
 msgstr "Timeregistering"
 
 #: tfmain.label8.caption
-#, fuzzy
 msgctxt "TFMAIN.LABEL8.CAPTION"
 msgid "Start"
 msgstr "Start"
@@ -3056,13 +3002,11 @@ msgid "Optionen"
 msgstr "Options"
 
 #: tfmain.misettings.caption
-#, fuzzy
 msgctxt "TFMAIN.MISETTINGS.CAPTION"
 msgid "Einstellungen"
 msgstr "Options"
 
 #: tfmain.miview.caption
-#, fuzzy
 msgctxt "tfmain.miview.caption"
 msgid "Ansicht"
 msgstr "View"
@@ -3072,9 +3016,8 @@ msgid "pSearch"
 msgstr "-"
 
 #: tfmain.tbmenue.hint
-#, fuzzy
 msgid "Zurück (zum letzten Eintrag) gehen"
-msgstr "gito next entry"
+msgstr "goto prior entry"
 
 #: tfmain.toolbar1.caption
 msgctxt "TFMAIN.TOOLBAR1.CAPTION"

@@ -1437,6 +1437,8 @@ begin
     FFilter := Data.QuoteField('TYPE')+'='+Data.QuoteValue(FTyp)
   else
     FFilter := '('+Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(aDir)+') AND ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue(FTyp)+')';
+  if not Assigned(FFullDataSet) then
+    FFullDataSet := TDocPages.Create(nil,Data);
   with FFullDataSet.DataSet as IBaseDbFilter do
     begin
       SortFields := 'ORIGDATE';

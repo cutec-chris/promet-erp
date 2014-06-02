@@ -5,7 +5,7 @@ uses Classes,SysUtils
      {$IFDEF LCL}
      {$IFNDEF LCLnogui}
      ,Forms,Dialogs,Clipbrd,Translations,TypInfo,LCLProc,Graphics,LResources
-     //,PoTranslator
+     ,PoTranslator
      {$ENDIF}
      ,FileUtil,UTF8Process
      {$ENDIF}
@@ -216,8 +216,8 @@ Begin
     until FindNextUTF8(info)<>0;
   FindCloseUTF8(Info);
   aFilename := ProgramDirectory+'languages'+Directoryseparator+'forms.'+lowercase(copy(lang,0,2))+'.po';
-  //if FileExists(aFilename) then
-  //  LRSTranslator:=TPoTranslator.Create(aFilename);
+  if FileExists(aFilename) then
+    LRSTranslator:=TPoTranslator.Create(aFilename);
 end;
 function GetProcessforExtension(InfoTyp : TProcessinfoTyp;Extension : string) : string;
 var
@@ -1033,4 +1033,4 @@ begin
 end;
 END.
 
- 
+ 
