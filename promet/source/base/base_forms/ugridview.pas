@@ -3095,6 +3095,7 @@ begin
     end;
   if gList.CanFocus then
     gList.SetFocus;
+  gList.EditorMode:=True;
 end;
 
 procedure TfGridView.BeginUpdate;
@@ -3492,7 +3493,7 @@ end;
 procedure TInplaceMemo.msg_GetGrid(var Msg: TGridMessage);
 begin
   Msg.Grid:=FGrid;
-  //Msg.Options:=EO_AUTOSIZE or EO_SELECTALL or EO_IMPLEMENTED;
+  Msg.Options:=EO_AUTOSIZE or EO_IMPLEMENTED;
 end;
 
 procedure TInplaceMemo.msg_SetBounds(var Msg: TGridMessage);
@@ -3507,6 +3508,7 @@ var
 begin
   if FSetValue then
     begin
+      WordWrap:=True;
       aText := Text;
       aClear := length(trim(aText))<2;
       Text:=Msg.Value;

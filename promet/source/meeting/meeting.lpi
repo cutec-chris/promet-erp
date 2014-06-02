@@ -97,12 +97,12 @@
         <DefaultFilename Value="..\base\pvisualprometapp.lpk"/>
       </Item12>
     </RequiredPackages>
-    <Units Count="252">
+    <Units Count="255">
       <Unit0>
         <Filename Value="meeting.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="meeting"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="24"/>
@@ -119,8 +119,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="97"/>
-        <CursorPos X="73" Y="114"/>
+        <TopLine Value="98"/>
+        <CursorPos X="35" Y="120"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -1929,8 +1929,8 @@
         <UnitName Value="uMeetingFrame"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="693"/>
-        <CursorPos X="1" Y="704"/>
+        <TopLine Value="178"/>
+        <CursorPos X="52" Y="191"/>
         <UsageCount Value="24"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -1963,10 +1963,12 @@
       <Unit228>
         <Filename Value="C:\Programme\lazarus\lcl\grids.pas"/>
         <UnitName Value="Grids"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="8847"/>
-        <CursorPos X="42" Y="8864"/>
+        <TopLine Value="50"/>
+        <CursorPos X="3" Y="63"/>
         <UsageCount Value="16"/>
+        <Loaded Value="True"/>
       </Unit228>
       <Unit229>
         <Filename Value="..\..\..\..\lazarus\lcl\forms.pp"/>
@@ -2155,11 +2157,44 @@
         <CursorPos X="52" Y="2828"/>
         <UsageCount Value="11"/>
       </Unit251>
+      <Unit252>
+        <Filename Value="..\base\base_forms\ugridview.pas"/>
+        <ComponentName Value="fGridView"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="ugridview"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="3065"/>
+        <CursorPos X="28" Y="3095"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit252>
+      <Unit253>
+        <Filename Value="C:\Programme\lazarus\lcl\stdctrls.pp"/>
+        <UnitName Value="StdCtrls"/>
+        <EditorIndex Value="4"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="803"/>
+        <CursorPos X="15" Y="821"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit253>
+      <Unit254>
+        <Filename Value="C:\Programme\lazarus\lcl\include\custommemo.inc"/>
+        <EditorIndex Value="5"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="276"/>
+        <CursorPos X="18" Y="288"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit254>
     </Units>
     <Build>
       <CleanOutputFileMask Value="*.ppu;*.ppl;*.o;*.or"/>
     </Build>
-    <JumpHistory Count="2" HistoryIndex="1">
+    <JumpHistory Count="24" HistoryIndex="23">
       <Position1>
         <Filename Value="..\base_pm\umeetingframe.pas"/>
         <Caret Line="477" Column="32" TopLine="458"/>
@@ -2168,6 +2203,94 @@
         <Filename Value="umain.pas"/>
         <Caret Line="109" Column="61" TopLine="90"/>
       </Position2>
+      <Position3>
+        <Filename Value="..\base_pm\umeetingframe.pas"/>
+        <Caret Line="714" Column="9" TopLine="693"/>
+      </Position3>
+      <Position4>
+        <Filename Value="..\base_pm\umeetingframe.pas"/>
+        <Caret Line="166" Column="20" TopLine="148"/>
+      </Position4>
+      <Position5>
+        <Filename Value="..\base\base_forms\ugridview.pas"/>
+        <Caret Line="3529" Column="1" TopLine="3506"/>
+      </Position5>
+      <Position6>
+        <Filename Value="..\base\base_forms\ugridview.pas"/>
+        <Caret Line="3530" Column="1" TopLine="3506"/>
+      </Position6>
+      <Position7>
+        <Filename Value="..\base\base_forms\ugridview.pas"/>
+        <Caret Line="3531" Column="1" TopLine="3506"/>
+      </Position7>
+      <Position8>
+        <Filename Value="..\base\base_forms\ugridview.pas"/>
+        <Caret Line="3527" Column="23" TopLine="3505"/>
+      </Position8>
+      <Position9>
+        <Filename Value="..\base\base_forms\ugridview.pas"/>
+        <Caret Line="3495" Column="42" TopLine="3492"/>
+      </Position9>
+      <Position10>
+        <Filename Value="C:\Programme\lazarus\lcl\grids.pas"/>
+        <Caret Line="63" Column="3" TopLine="50"/>
+      </Position10>
+      <Position11>
+        <Filename Value="..\base\base_forms\ugridview.pas"/>
+        <Caret Line="3467" Column="9" TopLine="3465"/>
+      </Position11>
+      <Position12>
+        <Filename Value="C:\Programme\lazarus\lcl\stdctrls.pp"/>
+        <Caret Line="966" Column="18" TopLine="949"/>
+      </Position12>
+      <Position13>
+        <Filename Value="C:\Programme\lazarus\lcl\stdctrls.pp"/>
+        <Caret Line="841" Column="59" TopLine="811"/>
+      </Position13>
+      <Position14>
+        <Filename Value="..\base\base_forms\ugridview.pas"/>
+        <Caret Line="317" Column="15" TopLine="298"/>
+      </Position14>
+      <Position15>
+        <Filename Value="..\base\base_forms\ugridview.pas"/>
+        <Caret Line="474" Column="25" TopLine="457"/>
+      </Position15>
+      <Position16>
+        <Filename Value="..\base\base_forms\ugridview.pas"/>
+        <Caret Line="477" Column="25" TopLine="457"/>
+      </Position16>
+      <Position17>
+        <Filename Value="..\base\base_forms\ugridview.pas"/>
+        <Caret Line="655" Column="20" TopLine="644"/>
+      </Position17>
+      <Position18>
+        <Filename Value="..\base\base_forms\ugridview.pas"/>
+        <Caret Line="736" Column="14" TopLine="719"/>
+      </Position18>
+      <Position19>
+        <Filename Value="..\base\base_forms\ugridview.pas"/>
+        <Caret Line="749" Column="20" TopLine="719"/>
+      </Position19>
+      <Position20>
+        <Filename Value="..\base\base_forms\ugridview.pas"/>
+        <Caret Line="771" Column="25" TopLine="740"/>
+      </Position20>
+      <Position21>
+        <Filename Value="..\base\base_forms\ugridview.pas"/>
+        <Caret Line="780" Column="28" TopLine="755"/>
+      </Position21>
+      <Position22>
+        <Filename Value="..\base\base_forms\ugridview.pas"/>
+        <Caret Line="1382" Column="14" TopLine="1369"/>
+      </Position22>
+      <Position23>
+        <Filename Value="..\base\base_forms\ugridview.pas"/>
+        <Caret Line="1455" Column="16" TopLine="1431"/>
+      </Position23>
+      <Position24>
+        <Filename Value="..\base_pm\umeetingframe.pas"/>
+        <Caret Line="166" Column="20" TopLine="157"/>
+      </Position24>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -2198,7 +2321,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="7">
+    <Exceptions Count="8">
       <Item1>
         <Name Value="EConvertError"/>
         <Enabled Value="False"/>
@@ -2221,6 +2344,9 @@
       <Item7>
         <Name Value="EZDatabaseError"/>
       </Item7>
+      <Item8>
+        <Name Value="EVariantError"/>
+      </Item8>
     </Exceptions>
   </Debugging>
   <EditorMacros Count="0"/>

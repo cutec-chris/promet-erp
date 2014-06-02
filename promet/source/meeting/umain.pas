@@ -68,7 +68,7 @@ var
   fMain: TfMain;
 implementation
 uses uBaseApplication, uData, uBaseDbInterface,uWikiFrame,
-  uDocuments,uFilterFrame,uIntfStrConsts,
+  uDocuments,uFilterFrame,uIntfStrConsts,uMasterdata,
   uProjects,uPrometFrames,uBaseDbClasses,umeetingframe,umeeting,uBaseSearch;
 procedure TfMain.DoCreate;
 begin
@@ -117,6 +117,7 @@ begin
   aDS.Free;
   AddSearchAbleDataSet(TUser);
   AddSearchAbleDataSet(TProject);
+  AddSearchAbleDataSet(TMasterdata);
 end;
 
 procedure TfMain.acCloseTabExecute(Sender: TObject);
