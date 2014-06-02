@@ -8,7 +8,7 @@ interface
 
 uses
   Utils, uGeneralStrConsts, SecureUtils, ProcessUtils, umashineid, 
-  uModifiedDS, uColors, uRTFtoTXT, MathParser, uImaging, Aspell, PoTranslator, 
+  uModifiedDS, uColors, uRTFtoTXT, MathParser, uImaging, Aspell, 
   LazarusPackageIntf;
 
 implementation
