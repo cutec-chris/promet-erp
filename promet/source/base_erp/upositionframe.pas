@@ -46,8 +46,8 @@ type
     bAddPos: TSpeedButton;
     bAddPos1: TSpeedButton;
     bDeletePos: TSpeedButton;
-    bDeletePos2: TSpeedButton;
-    bDeletePos5: TSpeedButton;
+    bLvlDown: TSpeedButton;
+    bLvlUp: TSpeedButton;
     bDeletePos6: TSpeedButton;
     bDetailsVisible: TSpeedButton;
     bEnterTime: TSpeedButton;
@@ -776,6 +776,9 @@ begin
   FEditAble := Editable;
   acDelPos.Enabled := Editable;
   acAddPos.Enabled := Editable;
+  acMakeSubPos.Enabled:=Editable;
+  acUnMakeSebPos.Enabled:=Editable;
+  acRenumber.Enabled:=Editable;
   acGotoArticle.Enabled := (Data.Users.Rights.Right('MASTERDATA') > RIGHT_NONE) or (Data.Users.Rights.Right('ARTICLES') > RIGHT_NONE) or (Data.Users.Rights.Right('BENEFITS') > RIGHT_NONE) or (Data.Users.Rights.Right('PARTSLIST') > RIGHT_NONE);
   FGridView.SetRights(Editable);
   for i := low(InplaceFrames) to High(InplaceFrames) do
@@ -862,4 +865,4 @@ begin
 end;
 
 end.
-
+
