@@ -56,12 +56,14 @@ type
     acAppendPos: TAction;
     acRenumber: TAction;
     acRestart: TAction;
+    acSetTopic: TAction;
     Action2: TAction;
     ActionList: TActionList;
     acUnmakeSubTask: TAction;
     bAddPos: TSpeedButton;
     bAddPos1: TSpeedButton;
     bAddPos2: TSpeedButton;
+    bAddPos3: TSpeedButton;
     bDeletePos: TSpeedButton;
     bDeletePos2: TSpeedButton;
     bDeletePos5: TSpeedButton;
@@ -134,6 +136,7 @@ type
     procedure acRestartExecute(Sender: TObject);
     procedure acRightsExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
+    procedure acSetTopicExecute(Sender: TObject);
     procedure ActiveSearchEndSearch(Sender: TObject);
     procedure ActiveSearchItemFound(aIdent: string; aName: string;
       aStatus: string; aActive: Boolean; aLink: string; aItem: TBaseDBList=nil);
@@ -196,6 +199,7 @@ resourcestring
   strNewMeeting                            = 'neue Besprechung';
   strEnterMeetingName                      = 'geben Sie einen neuen Namen für die Besprechung an';
   strMeetingName                           = 'Besprechungsname';
+  strUnassigned                            = 'kein Bezug';
 procedure AddToMainTree(aAction: TAction; Node: TTreeNode);
 var
   Node1: TTreeNode;
@@ -225,6 +229,18 @@ begin
       FDataSet.CascadicPost;
       //Data.Commit(FConnection);
       //Data.StartTransaction(FConnection);
+    end;
+end;
+
+procedure TfMeetingFrame.acSetTopicExecute(Sender: TObject);
+begin
+  if FGridView.GotoActiveRow then
+    begin
+      if FGridView.DataSet.CanEdit then FGridView.Post;
+      FGridView.DataSet.Edit;
+      FGridView.DataSet.FieldByName('DESC').AsString:=trim(FGridView.DataSet.FieldByName('DESC').AsString)+' ('+strUnassigned+')';
+      FGridView.DataSet.FieldByName('LINK').AsString:='NONE@NONE';
+      FGridView.Post;
     end;
 end;
 
@@ -408,6 +424,7 @@ begin
         begin
           if (pos('('+strProjectProcess,NewText)>0)
           or (pos('('+strMasterdata,NewText)>0)
+          or (pos('('+strUnassigned,NewText)>0)
           then
             aFont.Style := [fsBold]
           else
