@@ -1352,7 +1352,7 @@ begin
                 begin
                   bInterval := nil;
                   if  (not bTasks.FieldByName('DUEDATE').IsNull)
-                  and (not bTasks.FieldByName('PLANTIME').IsNull)
+                  and (not (bTasks.FieldByName('PLANTIME').IsNull) or (bTasks.FieldByName('STARTDATE').IsNull))
                   and (not (bTasks.FieldByName('PLANTASK').AsString='N'))
                   then
                     begin

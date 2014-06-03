@@ -655,6 +655,7 @@ begin
         end;
       FieldByName('STARTDATE').AsDateTime:=aActStartDate;
       FieldByName('DUEDATE').AsDateTime:=aActStartDate+Duration;
+      FieldByName('PLANTIME').AsFloat:=aNetTime;
       Result := True;
     end;
   aIntervals.Clear;
