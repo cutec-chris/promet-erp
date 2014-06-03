@@ -691,7 +691,7 @@ begin
             begin
               fWaitForm.ShowInfo(ExtractFileName(NewFileName));
               TDocPages(FFullDataSet).AddFromFile(NewFileName);
-              if not TDocPages(FFullDataSet).CanEdit then TDocPages(DataSet).DataSet.Edit;
+              TDocPages(FFullDataSet).Edit;
               TDocPages(FFullDataSet).FieldByName('TAGS').AsString:=fPicImport.eTags.Text;
               TDocPages(FFullDataSet).FieldByName('TYPE').AsString:=FTyp;
               TDocPages(FFullDataSet).Post;
@@ -1290,6 +1290,7 @@ var
   i: Integer;
   aStream: TMemoryStream;
   aNumber: String;
+  aSStream: TStringStream;
 begin
   Screen.Cursor:=crHourGlass;
   for i := 0 to FDocFrame.lvDocuments.Items.Count-1 do
@@ -1305,11 +1306,14 @@ begin
           aFullStream := TMemoryStream.Create;
           aStream := TMemoryStream.Create;
           aDocument.CheckoutToStream(aFullStream);
-          if GenerateThumbNail(ExtractFileExt(aDocument.FileName),aFullStream,aStream) then
+          aSStream := TStringStream.Create('');
+          Data.BlobFieldToStream(aDocument.DataSet,'FULLTEXT',aSStream);
+          if GenerateThumbNail(ExtractFileExt(aDocument.FileName),aFullStream,aStream,aSStream.DataString) then
             begin
               if aStream.Size>0 then
                 Data.StreamToBlobField(aStream,DataSet.DataSet,'THUMBNAIL');
             end;
+          aSStream.Free;
           aDocument.Free;
           DeleteFileUTF8(FtempPath+DataSet.FieldByName('SQL_ID').AsString+'.jpg');
           aFullStream.Free;

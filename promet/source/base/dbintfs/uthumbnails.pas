@@ -32,8 +32,8 @@ function GetThumbnailPath(aDocument : TDocuments;aWidth : Integer=310;aHeight : 
 function GetThumbnailBitmap(aDocument : TDocuments;aWidth : Integer=310;aHeight : Integer=428) : TBitmap;
 function GetThumbTempDir : string;
 function ClearThumbDir : Boolean;
-function GenerateThumbNail(aName : string;aFullStream,aStream : TStream;aWidth : Integer=310;aHeight : Integer=428) : Boolean;
-function GenerateThumbNail(aName : string;aFileName : string;aStream : TStream;aWidth : Integer=310;aHeight : Integer=428) : Boolean;
+function GenerateThumbNail(aName : string;aFullStream,aStream : TStream;aText : string;aWidth : Integer=310;aHeight : Integer=428) : Boolean;
+function GenerateThumbNail(aName : string;aFileName : string;aStream : TStream;aText : string;aWidth : Integer=310;aHeight : Integer=428) : Boolean;
 
 implementation
 
@@ -61,7 +61,7 @@ begin
       bDocument.Free;
       try
         aStream := TFileStream.Create(aFilename,fmCreate);
-        GenerateThumbNail(aFilename,aFullStream,aStream,aWidth,aHeight);
+        GenerateThumbNail(aFilename,aFullStream,aStream,'',aWidth,aHeight);
         DelStream := aStream.Size=0;
         aStream.Free;
       except
@@ -120,7 +120,7 @@ begin
 end;
 
 function GenerateThumbNail(aName: string; aFullStream, aStream: TStream;
-  aWidth: Integer; aHeight: Integer): Boolean;
+  aText: string; aWidth: Integer; aHeight: Integer): Boolean;
 var
   e: String;
   r: Integer;
@@ -139,12 +139,12 @@ begin
   aFullStream.Position:=0;
   aFStream.CopyFrom(aFullStream,aFullStream.Size);
   aFStream.Free;
-  Result := GenerateThumbNail(aName,aFilename,aStream,aWidth,aHeight);
+  Result := GenerateThumbNail(aName,aFilename,aStream,'',aWidth,aHeight);
   SysUtils.DeleteFile(aFileName);
 end;
 
 function GenerateThumbNail(aName: string; aFileName: string; aStream: TStream;
-  aWidth: Integer; aHeight: Integer): Boolean;
+  aText: string; aWidth: Integer; aHeight: Integer): Boolean;
 var
   Img: TFPMemoryImage = nil;
   e: String;

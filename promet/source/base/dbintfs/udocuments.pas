@@ -140,7 +140,7 @@ type
   end;
 implementation
 uses uBaseDBInterface,uBaseApplication, uBaseApplicationTools, FileUtil,md5,
-  processUtils,Variants,LCLProc,UTF8Process,process;
+  processUtils,Variants,LCLProc,UTF8Process,process,uRTFtoTXT;
 resourcestring
   strFailedCreatingDiff         = 'konnte Differenzdatei von Datei %s nicht erstellen';
   strInvalidLink                = 'Dieser Link ist auf dieser Datenbank ungültig !';
@@ -379,6 +379,7 @@ procedure TDocument.AddFromStream(eName, Extension: string; Stream: TStream;
 var
   DocID: LargeInt;
   ss: TStringStream;
+  OldPos: Int64;
 begin
   with BaseApplication as IBaseDbInterface do
     begin
@@ -395,9 +396,13 @@ begin
           FieldByName('EXTENSION').AsString := Extension;
           FieldByName('SIZE').AsInteger := Stream.Size;
           FieldByName('FULL').AsString:='Y';
+          OldPos := Stream.Position;
           Data.StreamToBlobField(Stream,DataSet,'DOCUMENT');
           if (aText = '') then
-            GetText(Stream,Extension,aText);
+            begin
+              Stream.Position:=OldPos;
+              GetText(Stream,'.'+Extension,aText);
+            end;
           if aText <> '' then
             begin
               ss := TStringStream.Create(aText);
@@ -1742,22 +1747,20 @@ var
   aFilename: String;
   aFStream: TFileStream;
   aProcess: TProcessUTF8;
+  aStringStream : TStringStream;
   aLines: TStringList;
 begin
-  Result := length(aText)>0;
-  for i := 0 to 1500 do
-    if (length(copy(aText,i,1))>0) and (ord(copy(aText,i,1)[1]) > 127) then
-      begin
-        Result := False;
-        break;
-      end;
-  if Result then
-    begin
-      aText := copy(aText,0,1500);
-    end
-  else if Uppercase(aExt) = '.DOC' then
+  if Uppercase(aExt) = '.DOC' then
     begin
       Result := GetWordText(aStream,aExt,aText);
+    end
+  else if Uppercase(aExt) = '.RTF' then
+    begin
+      aStringStream:=TStringStream.Create('');
+      aStringStream.CopyFrom(aStream,aStream.Size);
+      aText := RTF2Plain(aStringStream.DataString);
+      aStringStream.Free;
+      result := True;
     end
   else if (Uppercase(aExt) = '.PDF') then
     begin
@@ -1792,7 +1795,22 @@ begin
         SysUtils.DeleteFile(aFileName);
         SysUtils.DeleteFile(aFileName+'.txt');
       end;
+    end
+  else
+    begin
+      Result := length(aText)>0;
+      for i := 0 to 1500 do
+        if (length(copy(aText,i,1))>0) and (ord(copy(aText,i,1)[1]) > 127) then
+          begin
+            Result := False;
+            break;
+          end;
+      if Result then
+        begin
+          aText := copy(aText,0,1500);
+        end
     end;
+  aText := ConvertEncoding(aText,GuessEncoding(aText),EncodingUTF8);
 end;
 
 function TDocument.GetWordText(aStream: TStream; aExt: string; var aText: string

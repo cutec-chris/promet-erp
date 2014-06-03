@@ -184,6 +184,7 @@ var
   extn: String;
   aTime: TDateTime;
   bDocument: TDocument;
+  aSStream: TStringStream;
 begin
   aDocument := TDocument.Create(nil,Data);
   aDocument.SelectByID(aDocuments.Id.AsVariant);
@@ -200,7 +201,10 @@ begin
       extn :=  AnsiString(AnsiLowerCase(ExtractFileExt(aDocuments.filename)));
       aFullStream.Position:=0;
       SetParamsFromExif(extn,aFullStream);
-      GenerateThumbNail(ExtractFileExt(aDocument.FileName),aFullStream,aStream);
+      aSStream := TStringStream.Create('');
+      Data.BlobFieldToStream(aDocument.DataSet,'FULLTEXT',aSStream);
+      GenerateThumbNail(ExtractFileExt(aDocument.FileName),aFullStream,aStream,aSStream.DataString);
+      aSStream.Free;
       if FieldByName('ORIGDATE').IsNull then
         FieldByName('ORIGDATE').AsDateTime:=aDocument.FieldByName('DATE').AsDateTime;
       if FieldByName('ORIGDATE').IsNull then
@@ -230,6 +234,7 @@ var
   aProc: TProcess;
   aSL: TStringList;
   aText: string;
+  ss: TStringStream;
 begin
   if FileExists(aFile) then
     begin
@@ -309,10 +314,14 @@ begin
       if FieldByName('ORIGDATE').IsNull then
         FieldByName('ORIGDATE').AsDateTime:=Now();
       aDocument.GetText(aFullStream,extn,aText);
-      GenerateThumbNail(ExtractFileExt(aDocument.FileName),aFullStream,aStream);
+      GenerateThumbNail(ExtractFileExt(aDocument.FileName),aFullStream,aStream,aText);
+      Self.Post;
       if aText<>'' then
-        FieldByName('FULLTEXT').AsString:=aText;
-      Post;
+        begin
+          ss := TStringStream.Create(aText);
+          Data.StreamToBlobField(ss,Self.DataSet,'FULLTEXT');
+          ss.Free;
+        end;
       if aStream.Size>0 then
         Data.StreamToBlobField(aStream,Self.DataSet,'THUMBNAIL');
       aStream.Free;
