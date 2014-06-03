@@ -213,7 +213,7 @@ type
     property Duration: TDateTime read GetDuration write SetDuration;
     property NetDuration: TDateTime read FNetDuration write FNetDuration;
     property NetTime: TDateTime read FNetTime write SetNetTime;
-    property Buffer: TDateTime read FBuffer write SetBuffer;
+    property WaitTime: TDateTime read FBuffer write SetBuffer;
     property StampDuration: TTimeStamp read GetStampDuration;
     property Task: String read FTask write SetTask;
     property Project: String read FProject write Fproject;
@@ -1264,7 +1264,7 @@ begin
     if ConnectionExists(AConnection) then Exit;
 
     if (AConnection.StartDate < FinishDate) and DoUpdateIntervalStart then
-      AConnection.UpdateIntervalStart((FinishDate + Buffer) - AConnection.StartDate);
+      AConnection.UpdateIntervalStart((FinishDate + WaitTime) - AConnection.StartDate);
     FConnections.Add(AConnection);
     AConnection.FDependencies.Add(Self);
     FGantt.UpdateInterval;
@@ -1502,7 +1502,7 @@ end;
 function TInterval.GetLatest: TDateTime;
 begin
   if Assigned(Self) and (not IsCollection) then
-    Result := FinishDate+Buffer
+    Result := FinishDate+WaitTime
   else Result := 0;
 end;
 
@@ -2496,7 +2496,7 @@ begin
       Brush.Color := clRed;
     Pen.Color := clWhite;
     Pen.Style := psDot;
-    if FromInterval.Buffer>0 then
+    if FromInterval.WaitTime>0 then
       begin
         Pen.Color := clBlack;
         Pen.Style := psSolid;
@@ -2574,11 +2574,11 @@ begin
         ]
       );
     end else begin
-      if FromInterval.Buffer>0 then
+      if FromInterval.WaitTime>0 then
         begin
           LineTo
           (
-            FromRect.Right + Plus + round((UnitsBetweenDates(VisibleStart,VisibleStart+1,MinorScale)*PixelsPerMinorScale)*FromInterval.Buffer),
+            FromRect.Right + Plus + round((UnitsBetweenDates(VisibleStart,VisibleStart+1,MinorScale)*PixelsPerMinorScale)*FromInterval.WaitTime),
             FromRect.Top + (FromRect.Bottom - FromRect.Top) div 2
           );
           Pen.Style := psDot;
@@ -4362,4 +4362,4 @@ finalization
   DrawBitmap.Free;
 
 end.
-
+

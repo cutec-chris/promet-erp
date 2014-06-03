@@ -983,11 +983,16 @@ end;
 procedure TfTaskFrame.acTerminateExecute(Sender: TObject);
 var
   aDeps: TStrings;
+  i: Integer;
 begin
   if not FGridView.GotoActiveRow then exit;
   aDeps := TTaskList(DataSet).GetUnterminatedDependencies;
   if aDeps.Count>0 then
-    Showmessage(Format(strUnterminatedDependencies,[aDeps.Text]))
+    begin
+      for i := 0 to aDeps.Count-1 do
+        aDeps[i] := Data.GetLinkDesc(aDeps[i]);
+      Showmessage(Format(strUnterminatedDependencies,[aDeps.Text]));
+    end
   else
     begin
 

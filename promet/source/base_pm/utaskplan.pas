@@ -533,8 +533,8 @@ begin
       for i := 0 to ConnectionCount-1 do
         begin
           oD := Connection[i].Duration;
-          if Connection[i].StartDate<FinishDate+Buffer then
-            Connection[i].StartDate:=FinishDate+Buffer;
+          if Connection[i].StartDate<FinishDate+WaitTime then
+            Connection[i].StartDate:=FinishDate+WaitTime;
           if Connection[i].FinishDate<Connection[i].StartDate+oD then
             Connection[i].FinishDate:=Connection[i].StartDate+oD;
           Connection[i].IntervalDone:=Connection[i].StartDate;

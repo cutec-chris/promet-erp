@@ -71,6 +71,8 @@ type
     procedure Open; override;
     function CalcDates(var aStart, aDue: TDateTime): Boolean;
     function GetUnterminatedDependencies: TStrings;
+    function Terminate : Boolean;
+    function WaitTimeDone : TDateTime;
     procedure MakeSnapshot(aName : string);
     procedure DisableDS;
     property OwnerName : string read GetownerName;
@@ -473,6 +475,38 @@ begin
       Dependencies.Next;
     end;
   aTask.Free;
+end;
+function TTaskList.Terminate: Boolean;
+var
+  aStartDate : TDateTime;
+  aTask: TTask;
+begin
+  Dependencies.Open;
+  aTask := TTask.Create(nil,DataModule,Connection);
+  aStartDate:=Now();
+  while not Dependencies.EOF do
+    begin
+      aTask.SelectFromLink(Dependencies.FieldByName('LINK').AsString);
+      aTask.Open;
+      if aTask.Count>0 then
+        begin
+          if aTask.FieldByName('DUEDATE').AsDateTime>aStartDate then
+            begin
+              aStartDate:=aTask.WaitTimeDone;
+            end;
+        end;
+      Dependencies.Next;
+    end;
+  aTask.Free;
+end;
+
+function TTaskList.WaitTimeDone: TDateTime;
+begin
+  Result := Now();
+  if FieldByName('DUEDATE').AsDateTime>0 then
+    begin
+
+    end;
 end;
 
 procedure TTaskList.DisableDS;

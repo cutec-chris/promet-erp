@@ -308,18 +308,18 @@ begin
             begin
               Connection[i].BeginUpdate;
               oD := Connection[i].Duration;
-              if Connection[i].StartDate<FinishDate+Buffer then
+              if Connection[i].StartDate<FinishDate+WaitTime then
                 begin
                   for c := 0 to Connection[i].IntervalCount-1 do
-                    if Connection[i].Interval[c].StartDate<FinishDate+Buffer then
+                    if Connection[i].Interval[c].StartDate<FinishDate+WaitTime then
                       begin
                         oD2 := Connection[i].Interval[c].Duration;
                         Connection[i].Interval[c].BeginUpdate;
-                        Connection[i].Interval[c].StartDate:=FinishDate+Buffer;
-                        Connection[i].Interval[c].FinishDate:=FinishDate+Buffer+oD2;
+                        Connection[i].Interval[c].StartDate:=FinishDate+WaitTime;
+                        Connection[i].Interval[c].FinishDate:=FinishDate+WaitTime+oD2;
                         Connection[i].Interval[c].EndUpdate;
                       end;
-                  Connection[i].StartDate:=FinishDate+Buffer;
+                  Connection[i].StartDate:=FinishDate+WaitTime;
                 end;
               if Connection[i].FinishDate<Connection[i].StartDate+oD then
                 Connection[i].FinishDate:=Connection[i].StartDate+oD;
@@ -414,7 +414,8 @@ procedure TfGanttView.bCalculatePlanClick(Sender: TObject);
           end;
         //TODO: Urlaub
         FinishDate := (StartDate+aDur);
-        aBuffer := Buffer;
+        //Buffer
+        aBuffer := WaitTime;
         if aBuffer < (aDur*(seBuffer.Value/100)) then
           aBuffer := (aDur*(seBuffer.Value/100));
         //Add Weekends to Buffer
@@ -512,7 +513,7 @@ procedure TfGanttView.bMoveBackClick(Sender: TObject);
           end;
         //TODO: Urlaub
         StartDate := (FinishDate-aDur);
-        aBuffer := Buffer;
+        aBuffer := WaitTime;
         if aBuffer < (aDur*(seBuffer.Value/100)) then
           aBuffer := (aDur*(seBuffer.Value/100));
         EndUpdate;
@@ -564,7 +565,7 @@ procedure TfGanttView.bMoveFwdClick(Sender: TObject);
           end;
         //TODO: Urlaub
         FinishDate := (StartDate+aDur);
-        aBuffer := Buffer;
+        aBuffer := WaitTime;
         //Add Weekends to Buffer
         i := trunc(FinishDate);
         while i < FinishDate+aBuffer do
@@ -1299,7 +1300,7 @@ var
     if Assigned(aLatestConn) then
       begin
         aLatestConn.InCriticalPath:=True;
-        FCriticalPathLength+=aLatestConn.NetTime+aLatestConn.Buffer;
+        FCriticalPathLength+=aLatestConn.NetTime+aLatestConn.WaitTime;
         DoPath(aLatestConn);
       end;
   end;
@@ -1369,7 +1370,7 @@ begin
   if not aTasks.FieldByName('EARLIEST').IsNull then
     aInterval.Earliest := aTasks.FieldByName('EARLIEST').AsDateTime;
   if not (aTasks.FieldByName('BUFFERTIME').AsString = '') then
-    aInterval.Buffer:=aTasks.FieldByName('BUFFERTIME').AsFloat;
+    aInterval.WaitTime:=aTasks.FieldByName('BUFFERTIME').AsFloat;
   aInterval.NetDuration:=aInterval.Duration;
   for i := trunc(aInterval.StartDate) to Trunc(aInterval.FinishDate) do
     if ((DayOfWeek(i)=1) or (DayOfWeek(i)=7)) then
