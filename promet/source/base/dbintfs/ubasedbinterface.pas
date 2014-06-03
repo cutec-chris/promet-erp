@@ -1089,6 +1089,8 @@ begin
         Result := Result+'{'+aDataSet.FieldByName('SUMMARY').AsString+'}'
       ;
     end;
+  if (length(Result)>200) and (pos('{',Result)>0) then
+    Result := copy(Result,0,190)+'}';
   Result := StringReplace(Result,'{}','',[]);
   if copy(Result,length(Result),1)='@' then
     Result := '';

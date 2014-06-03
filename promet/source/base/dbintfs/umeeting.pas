@@ -376,7 +376,7 @@ begin
                         aProject.Tasks.GotoBookmark(arec);
                         if not Entrys.CanEdit then
                           Entrys.DataSet.Edit;
-                        Entrys.FieldByName('LINK').AsString:=Data.BuildLink(aProject.Tasks.DataSet);
+                        Entrys.FieldByName('LINK').AsString:=copy(Data.BuildLink(aProject.Tasks.DataSet),0,190);
                         if Entrys.CanEdit then
                           Entrys.DataSet.Post;
                         Added := True;
