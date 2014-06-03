@@ -1,4 +1,5 @@
 ﻿Build 353
+      - Aufgaben:Man kann nun per Knopfdruck einen freien "Slot" für eine Aufgabe in den Aufgaben/Kalendereinträgen des Benutzers finden
       - Besprechungen,Positionen:Wordwrap wird auch im Editor verwendet
       - Besprechungen:Rechte werden korrekt beachtet
 Build 352

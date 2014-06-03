@@ -151,7 +151,17 @@ resourcestring
   strWorkstatus             = 'Bearbeitungsstatus';
   strRenamed                = 'umbenannt in "%s"';
 implementation
-uses uBaseApplication,uIntfStrConsts,uProjects,uData,LCLProc;
+uses uBaseApplication,uIntfStrConsts,uProjects,uData,LCLProc,uCalendar;
+
+function CompareStarts(Item1, Item2: Pointer): Integer;
+begin
+  Result:= 0;
+  if (TTaskInterval(Item1)).StartDate > (TTaskInterval(Item2)).StartDate then
+    Result:= 1
+  else
+    if (TTaskInterval(Item1)).StartDate < (TTaskInterval(Item2)).StartDate then
+      Result:= -1
+end;
 
 procedure TTaskSnapshots.DefineFields(aDataSet: TDataSet);
 begin
@@ -504,6 +514,10 @@ var
   i: Integer;
   Int1: TTaskInterval;
   Int2: TTaskInterval;
+  aCalendar: TCalendar;
+  aInterval: TTaskInterval;
+  aTime: Extended;
+  a: Int64;
 begin
   Result := False;
   //Get Latest Dependency
@@ -573,13 +587,46 @@ begin
       if bTasks.EOF then
         aFound := True;
     end;
+  //Collect Calendar entrys
+  aCalendar := TCalendar.Create(nil,DataModule,Connection);
+  aCalendar.SelectPlanedByUserAndTime(FieldByName('USER').AsString,Now(),Now()+(1*365));
+  aCalendar.Open;
+  with aCalendar.DataSet do
+    begin
+      First;
+      while not EOF do
+        begin
+          aInterval := TTaskInterval.Create;
+          aInterval.StartDate:=aCalendar.FieldByName('STARTDATE').AsDateTime;
+          aInterval.DueDate:=aCalendar.FieldByName('ENDDATE').AsDateTime;
+          if aCalendar.FieldByName('ALLDAY').AsString = 'Y' then
+            begin
+              aInterval.StartDate := trunc(aInterval.StartDate);
+              aInterval.DueDate := trunc(aInterval.DueDate+1);
+            end;
+          aIntervals.Add(aInterval);
+          Next;
+        end;
+    end;
+  aCalendar.Free;
+  //Sort by Start Date
+  aIntervals.Sort(@CompareStarts);
   //Find Slot
   aFound := False;
   for i := 1 to aIntervals.Count-1 do
     begin
       Int1 := TTaskInterval(aIntervals[i-1]);
       Int2 := TTaskInterval(aIntervals[i]);
-      if Int2.StartDate-Int1.DueDate>Duration then
+      aTime:= Int2.StartDate-Int1.DueDate;
+      //Add Weekends
+      a := trunc(Int1.DueDate);
+      while a < Int1.DueDate+Duration do
+        begin
+          if ((DayOfWeek(a)=1) or (DayOfWeek(a)=7)) then
+            aTime := aTime-1;
+          inc(a,1);
+        end;
+      if aTime>Duration then
         begin
           aFound := True;
           aActStartDate:=Int1.DueDate;
@@ -591,17 +638,27 @@ begin
       aActStartDate:=TTaskInterval(aIntervals[aIntervals.Count-1]).DueDate;
       aFound:=True;
     end;
-  aIntervals.Clear;
-  aIntervals.Free;
   bTasks.Free;
   //Set it
   if aFound then
     begin
       Edit;
+      //Move out of Weekends
+      while ((DayOfWeek(trunc(aActStartDate))=1) or (DayOfWeek(trunc(aActStartDate))=7)) do
+        aActStartDate := trunc(aActStartDate)+1;
+      //Move out of Entrys
+      for i := 0 to aIntervals.Count-1 do
+        begin
+          if (aActStartDate>TTaskInterval(aIntervals[i]).StartDate)
+          and (aActStartDate<TTaskInterval(aIntervals[i]).DueDate) then
+            aActStartDate := TTaskInterval(aIntervals[i]).DueDate;
+        end;
       FieldByName('STARTDATE').AsDateTime:=aActStartDate;
       FieldByName('DUEDATE').AsDateTime:=aActStartDate+Duration;
       Result := True;
     end;
+  aIntervals.Clear;
+  aIntervals.Free;
 end;
 
 function TTaskList.WaitTimeDone: TDateTime;
@@ -609,7 +666,7 @@ begin
   Result := Now();
   if FieldByName('DUEDATE').AsDateTime>0 then
     begin
-      Result := FieldByName('DUEDATE').AsDateTime+FieldByName('BUFFERTIME').AsDateTime;
+      Result := FieldByName('DUEDATE').AsDateTime+FieldByName('BUFFERTIME').AsFloat;
     end;
 end;
 function TTaskList.GetInterval: TTaskInterval;
