@@ -22,7 +22,8 @@ interface
 uses
   Classes, SysUtils, types, FileUtil, LR_DBSet, Forms, Controls, uPrometFrames,
   uAccounting, db, uFilterFrame, Dialogs, uBaseDBInterface, DBGrids, Grids,
-  Graphics, ActnList, ExtCtrls, ComCtrls, StdCtrls, Buttons, DbCtrls,Variants;
+  Graphics, ActnList, ExtCtrls, ComCtrls, StdCtrls, Buttons, DbCtrls,Variants,
+  uBaseDbClasses;
 type
 
   { TfAccountingFrame }
@@ -341,7 +342,7 @@ begin
     begin
       TabCaption := TAccounts(DataSet).FieldByName('NAME').AsString;
       FList.SortField:='VALUEDATE';
-      FList.SortDirection:=uBaseDBInterface.sdDescending;
+      FList.SortDirection:=uBaseDBClasses.sdDescending;
       FList.acFilter.Execute;
       FAccount := aID;
       dsAccount.DataSet := DataSet.DataSet;

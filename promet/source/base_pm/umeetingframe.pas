@@ -928,7 +928,7 @@ begin
       SortField:='POSNO';
       NumberField:='POSNO';
       HasChildsField:='HASCHILDS';
-      SortDirection:=uBaseDBInterface.TSortDirection.sdAscending;
+      SortDirection:=uBaseDbClasses.TSortDirection.sdAscending;
       ReadOnly:=False;
       OnDblClick:=@FGridViewDblClick;
     end;

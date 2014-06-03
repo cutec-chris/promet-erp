@@ -230,7 +230,6 @@ type
     function QuoteField(aField : string) : string;
     function QuoteValue(aValue : string) : string;
   end;
-  TSortDirection = (sdAscending, sdDescending, sdIgnored);
 
   { IBaseDbFilter }
 

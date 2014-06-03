@@ -279,6 +279,7 @@ resourcestring
   strAssignedTasks                         = 'Aufgaben: %s';
   strMyTasks                               = 'von mir erstellte Aufgaben: %s';
   strUnterminatedDependencies              = 'Es gibt unterminierte Abhängigkeiten für deise Aufgabe:'+lineending+'%s';
+  strFailed                                = 'Fehlgeschlagen';
 implementation
 uses uRowEditor,uTask,ubasevisualapplicationtools,uData,uMainTreeFrame,
   uSearch,uProjects,uTaskEdit,uBaseApplication,LCLType,uBaseERPDBClasses,
@@ -995,7 +996,8 @@ begin
     end
   else
     begin
-
+      if not TTaskList(DataSet).Terminate then
+        Showmessage(strFailed);
     end;
   aDeps.Free;
 end;

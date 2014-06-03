@@ -222,7 +222,7 @@ var
       begin
         SortFields := 'NAME';
         Limit:=0;
-        SortDirection:=uBaseDbInterface.TSortDirection.sdAscending;
+        SortDirection:=uBaseDbClasses.TSortDirection.sdAscending;
       end;
     Data.SetFilter(aUsers,Data.QuoteField('PARENT')+'='+Data.QuoteValue(aParent));
     aUsers.DataSet.First;

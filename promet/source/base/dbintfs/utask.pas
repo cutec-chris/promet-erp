@@ -29,6 +29,15 @@ type
   TTaskSnapshots = class(TBaseDbDataSet)
     procedure DefineFields(aDataSet : TDataSet);override;
   end;
+  //In memory class to hold an task during calculations
+  TTaskInterval = class
+  private
+    FDueDate: TDateTime;
+    FStartDate: TDateTime;
+  public
+    property StartDate : TDateTime read FStartDate write FStartDate;
+    property DueDate : TDateTime read FDueDate write FDueDate;
+  end;
   TTaskList = class(TBaseERPList,IBaseHistory)
     procedure DataSetAfterPost(aDataSet: TDataSet);
     procedure DataSetBeforeDelete(aDataSet: TDataSet);
@@ -73,6 +82,7 @@ type
     function GetUnterminatedDependencies: TStrings;
     function Terminate : Boolean;
     function WaitTimeDone : TDateTime;
+    function GetInterval : TTaskInterval;
     procedure MakeSnapshot(aName : string);
     procedure DisableDS;
     property OwnerName : string read GetownerName;
@@ -480,7 +490,21 @@ function TTaskList.Terminate: Boolean;
 var
   aStartDate : TDateTime;
   aTask: TTask;
+  aUser: TUser;
+  ResourceTimePerDay:Double;
+  Usage: Extended;
+  WorkTime: Extended;
+  Duration: Extended;
+  bTasks: TTaskList;
+  aActStartDate: TDateTime=0;
+  aNextStartDate:TDateTime=0;
+  aFound: Boolean=false;
+  aNetTime: Double;
+  aIntervals: TList;
+  i: Integer;
 begin
+  Result := False;
+  //Get Latest Dependency
   Dependencies.Open;
   aTask := TTask.Create(nil,DataModule,Connection);
   aStartDate:=Now();
@@ -490,14 +514,88 @@ begin
       aTask.Open;
       if aTask.Count>0 then
         begin
-          if aTask.FieldByName('DUEDATE').AsDateTime>aStartDate then
-            begin
-              aStartDate:=aTask.WaitTimeDone;
-            end;
+          if aTask.WaitTimeDone>aStartDate then
+            aStartDate:=aTask.WaitTimeDone;
         end;
       Dependencies.Next;
     end;
   aTask.Free;
+  //Get Earlyiest
+  if not FieldByName('EARLIEST').IsNull then
+    if FieldByName('EARLIEST').AsDateTime>aStartDate then
+      aStartDate:=FieldByName('EARLIEST').AsDateTime;
+  //Calculate duration
+  aUser := TUser.Create(nil,Data);
+  aUser.SelectByAccountno(FieldByName('USER').AsString);
+  aUser.Open;
+  if aUser.Count>0 then
+    begin
+      Usage := aUser.FieldByName('USEWORKTIME').AsInteger/100;
+      if Usage = 0 then Usage := 1;
+      WorkTime:=aUser.WorkTime*Usage;
+      Usage := WorkTime/8;
+      ResourceTimePerDay:=Usage;
+    end
+  else
+    ResourceTimePerDay := 1;
+  aUser.Free;
+  if not FieldByName('PLANTIME').IsNull then
+    aNetTime := FieldByName('PLANTIME').AsFloat
+  else aNetTime := 1;
+  Duration:=(aNetTime*(1/ResourceTimePerDay));
+  if Duration<0.5 then Duration:=0.5;
+  //Find first free Slot
+  bTasks := TTaskList.Create(nil,DataModule,Connection);
+  bTasks.SelectActiveByUser(FieldByName('USER').AsString);
+  bTasks.SortFields:='STARTDATE';
+  bTasks.SortDirection:=sdAscending;
+  bTasks.Open;
+
+  //Collect Tasks
+  aIntervals := TList.Create;
+  aIntervals.Add(TTaskInterval.Create);
+  TTaskInterval(aIntervals[0]).DueDate:=aStartDate;
+  with bTasks.DataSet do
+    begin
+      while not EOF do
+        begin
+          if  (not bTasks.FieldByName('STARTDATE').IsNull)
+          and (not bTasks.FieldByName('DUEDATE').IsNull)
+          and (not (bTasks.FieldByName('PLANTASK').AsString='N'))
+          then
+            begin
+              aIntervals.Add(bTasks.GetInterval);
+            end;
+          Next;
+        end;
+      if bTasks.EOF then
+        aFound := True;
+    end;
+  //Find Slot
+  aFound := False;
+  for i := 1 to aIntervals.Count-1 do
+    if TTaskInterval(aIntervals[i-1]).DueDate-TTaskInterval(aIntervals[i]).StartDate>Duration then
+      begin
+        aFound := True;
+        aActStartDate:=TTaskInterval(aIntervals[i-1]).DueDate;
+        break;
+      end;
+  if not aFound then
+    begin
+      aActStartDate:=TTaskInterval(aIntervals[aIntervals.Count-1]).DueDate;
+      aFound:=True;
+    end;
+  aIntervals.Clear;
+  aIntervals.Free;
+  bTasks.Free;
+  //Set it
+  if aFound then
+    begin
+      Edit;
+      FieldByName('STARTDATE').AsDateTime:=aActStartDate;
+      FieldByName('DUEDATE').AsDateTime:=aActStartDate+Duration;
+      Result := True;
+    end;
 end;
 
 function TTaskList.WaitTimeDone: TDateTime;
@@ -505,10 +603,15 @@ begin
   Result := Now();
   if FieldByName('DUEDATE').AsDateTime>0 then
     begin
-
+      Result := FieldByName('DUEDATE').AsDateTime+FieldByName('BUFFERTIME').AsDateTime;
     end;
 end;
-
+function TTaskList.GetInterval: TTaskInterval;
+begin
+  Result := TTaskInterval.Create;
+  Result.StartDate:=FieldByName('STARTDATE').AsDateTime;
+  Result.DueDate:=FieldByName('DUEDATE').AsDateTime;
+end;
 procedure TTaskList.DisableDS;
 begin
   FDS.Enabled:=False;

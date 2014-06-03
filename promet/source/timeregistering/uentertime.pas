@@ -204,7 +204,7 @@ function GetFreeDayTime(User : string;Day : TDateTime) : Integer;
 implementation
 uses
   uRowEditor, uSearch, uBaseSearch, uSelectreport, uBaseApplication,
-  uBaseDBInterface,uProjects,uMasterdata,uPerson,uMainTreeFrame,uData
+  uBaseDBInterface,uProjects,uMasterdata,uPerson,uMainTreeFrame,uData,uBaseDbClasses
   {$IFDEF WINDOWS}
   ,Windows
   {$ENDIF}

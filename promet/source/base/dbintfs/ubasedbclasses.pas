@@ -24,6 +24,7 @@ uses
   Classes, SysUtils, db, uBaseDbDataSet, Variants, uIntfStrConsts, DOM,
   Contnrs,LCLProc,Graphics;
 type
+  TSortDirection = (sdAscending, sdDescending, sdIgnored);
 
   { TBaseDBDataset }
 
@@ -50,6 +51,8 @@ type
     function GetFullCount: Integer;
     function GetID: TField;
     function GetLimit: Integer;
+    function GetSortDirection: TSortDirection;
+    function GetSortFields: string;
     function GetState: TDataSetState;
     function GetTableName: string;
     function GetTimestamp: TField;
@@ -57,6 +60,8 @@ type
     procedure SetFilter(AValue: string);
     procedure SetFRows(AValue: Integer);
     procedure SetLimit(AValue: Integer);
+    procedure SetSortDirection(AValue: TSortDirection);
+    procedure SetSortFields(AValue: string);
   public
     constructor Create(aOwner : TComponent;DM : TComponent;aUseIntegrity : Boolean;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);virtual;
     constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);virtual;
@@ -111,6 +116,8 @@ type
     procedure Filter(aFilter : string;aLimit : Integer = 0;aOrderBy : string = '';aSortDirection : string = 'ASC';aLocalSorting : Boolean = False;aGlobalFilter : Boolean = True;aUsePermissions : Boolean = False;aFilterIn : string = '');virtual;
     property ActualFilter : string read GetFilter write SetFilter;
     property ActualLimit : Integer read GetLimit write SetLimit;
+    property SortFields : string read GetSortFields write SetSortFields;
+    property SortDirection : TSortDirection read GetSortDirection write SetSortDirection;
     property FetchRows : Integer read GetFRows write SetFRows;
     property Parent : TBaseDbDataSet read FParent;
     property UpdateFloatFields : Boolean read FUpdateFloatFields write FUpdateFloatFields;
@@ -2220,6 +2227,20 @@ begin
     Result := Limit;
 end;
 
+function TBaseDBDataset.GetSortDirection: TSortDirection;
+begin
+  if not Assigned(DataSet) then exit;
+  with DataSet as IBaseDbFilter do
+    Result := GetSortDirection;
+end;
+
+function TBaseDBDataset.GetSortFields: string;
+begin
+  if not Assigned(DataSet) then exit;
+  with DataSet as IBaseDbFilter do
+    Result := GetSortFields;
+end;
+
 function TBaseDBDataset.GetState: TDataSetState;
 begin
   if Assigned(FDataSet) then
@@ -2326,6 +2347,21 @@ begin
   with DataSet as IBaseDbFilter do
     Limit := aValue;
 end;
+
+procedure TBaseDBDataset.SetSortDirection(AValue: TSortDirection);
+begin
+  if not Assigned(DataSet) then exit;
+  with DataSet as IBaseDbFilter do
+    SetSortDirection(AValue);
+end;
+
+procedure TBaseDBDataset.SetSortFields(AValue: string);
+begin
+  if not Assigned(DataSet) then exit;
+  with DataSet as IBaseDbFilter do
+    SetSortFields(AValue);
+end;
+
 constructor TBaseDBDataset.Create(aOwner: TComponent; DM: TComponent; aUseIntegrity: Boolean;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
