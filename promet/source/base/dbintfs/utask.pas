@@ -502,6 +502,8 @@ var
   aNetTime: Double;
   aIntervals: TList;
   i: Integer;
+  Int1: TTaskInterval;
+  Int2: TTaskInterval;
 begin
   Result := False;
   //Get Latest Dependency
@@ -574,12 +576,16 @@ begin
   //Find Slot
   aFound := False;
   for i := 1 to aIntervals.Count-1 do
-    if TTaskInterval(aIntervals[i-1]).DueDate-TTaskInterval(aIntervals[i]).StartDate>Duration then
-      begin
-        aFound := True;
-        aActStartDate:=TTaskInterval(aIntervals[i-1]).DueDate;
-        break;
-      end;
+    begin
+      Int1 := TTaskInterval(aIntervals[i-1]);
+      Int2 := TTaskInterval(aIntervals[i]);
+      if Int2.StartDate-Int1.DueDate>Duration then
+        begin
+          aFound := True;
+          aActStartDate:=Int1.DueDate;
+          break;
+        end;
+    end;
   if not aFound then
     begin
       aActStartDate:=TTaskInterval(aIntervals[aIntervals.Count-1]).DueDate;
