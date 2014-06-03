@@ -983,6 +983,7 @@ begin
   cbStatus.Enabled:=DataSet.FieldByName('DATE').IsNull;
   acDelete.Enabled:=DataSet.FieldByName('DATE').IsNull;
   bRenumber.Enabled:=DataSet.FieldByName('DATE').IsNull;
+  acSetTopic.Enabled:=DataSet.FieldByName('DATE').IsNull;
 end;
 
 procedure TfMeetingFrame.AddDocuments(Sender: TObject);
