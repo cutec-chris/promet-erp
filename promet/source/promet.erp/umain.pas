@@ -2358,6 +2358,28 @@ begin
                   TfManageDocFrame(TComponent(Source).Owner).DataSet.Post;
                   TfManageDocFrame(TComponent(Source).Owner).acRefresh.Execute;
                 end;
+            end
+          else if (aTreeEntry.Typ = etDocuments) then
+            begin
+              if TfManageDocFrame(TComponent(Source).Owner).GotoCurrentItem then
+                begin
+                  if not TfManageDocFrame(TComponent(Source).Owner).DataSet.CanEdit then
+                    TfManageDocFrame(TComponent(Source).Owner).DataSet.DataSet.Edit;
+                  TfManageDocFrame(TComponent(Source).Owner).DataSet.FieldByName('TYPE').AsString:='D';
+                  TfManageDocFrame(TComponent(Source).Owner).DataSet.Post;
+                  TfManageDocFrame(TComponent(Source).Owner).acRefresh.Execute;
+                end;
+            end
+          else if (aTreeEntry.Typ = etImages) then
+            begin
+              if TfManageDocFrame(TComponent(Source).Owner).GotoCurrentItem then
+                begin
+                  if not TfManageDocFrame(TComponent(Source).Owner).DataSet.CanEdit then
+                    TfManageDocFrame(TComponent(Source).Owner).DataSet.DataSet.Edit;
+                  TfManageDocFrame(TComponent(Source).Owner).DataSet.FieldByName('TYPE').AsString:='I';
+                  TfManageDocFrame(TComponent(Source).Owner).DataSet.Post;
+                  TfManageDocFrame(TComponent(Source).Owner).acRefresh.Execute;
+                end;
             end;
         end;
     end;
@@ -2412,6 +2434,12 @@ begin
         begin
           aTreeEntry := TTreeEntry(aTNode.Data);
           if (aTreeEntry.Typ = etDocumentDir)
+          then
+            Accept := True;
+          if (aTreeEntry.Typ = etDocuments)
+          then
+            Accept := True;
+          if (aTreeEntry.Typ = etImages)
           then
             Accept := True;
         end;

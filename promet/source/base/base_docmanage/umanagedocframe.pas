@@ -1453,7 +1453,7 @@ begin
   FFullDataSet.Open;
   with DataSet.DataSet as IBaseDbFilter do
     begin
-      Fields:=Data.QuoteField('SQL_ID')+','+Data.QuoteField('ORIGDATE')+','+Data.QuoteField('TAGS')+','+Data.QuoteField('NAME')+','+Data.QuoteField('LINK');
+      Fields:=Data.QuoteField('SQL_ID')+','+Data.QuoteField('ORIGDATE')+','+Data.QuoteField('TAGS')+','+Data.QuoteField('NAME')+','+Data.QuoteField('LINK')+','+Data.QuoteField('TYPE');
       SortFields := 'ORIGDATE';
       SortDirection:=sdDescending;
       FetchRows:=100;
