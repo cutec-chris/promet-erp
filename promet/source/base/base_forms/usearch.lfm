@@ -276,7 +276,7 @@ object fSearch: TfSearch
       TabStop = False
     end
     object bSearch: TBitBtn
-      Left = 417
+      Left = 416
       Height = 37
       Top = 3
       Width = 112

@@ -141,9 +141,18 @@ begin
   inherited Destroy;
 end;
 procedure TSearch.Start(SearchText : string;SearchUnsharp : Boolean = True);
+var
+  i: Integer;
+  aFilter: String;
+  tmp: String;
+  aType: TFullTextSearchType;
+  aActive: Boolean;
+  aPos: TOrderPos;
+  aOrder: TOrder;
   function EncodeField(Data : TBaseDBModule;Val : string) : string;
   begin
-    Result := 'UPPER('+Data.QuoteField(Val)+')';
+    with Lists[i].DataSet as IBaseManageDB do
+      Result := 'UPPER('+Data.QuoteField(TableName)+'.'+Data.QuoteField(Val)+')';
   end;
 
   function EncodeValue(Data : TBaseDBModule;Val : string) : string;
@@ -157,16 +166,9 @@ procedure TSearch.Start(SearchText : string;SearchUnsharp : Boolean = True);
 
   function CastText(Data : TBaseDBModule;Val : string) : string;
   begin
-    Result := 'UPPER(CAST('+Data.QuoteField(Val)+' as VARCHAR(8000)))';
+    with Lists[i].DataSet as IBaseManageDB do
+      Result := 'UPPER(CAST('+Data.QuoteField(TableName)+'.'+Data.QuoteField(Val)+' as VARCHAR(8000)))';
   end;
-var
-  i: Integer;
-  aFilter: String;
-  tmp: String;
-  aType: TFullTextSearchType;
-  aActive: Boolean;
-  aPos: TOrderPos;
-  aOrder: TOrder;
 begin
   if not Assigned(FItemFound) then exit;
   FActive := True;
@@ -193,9 +195,9 @@ begin
                     aFilter += ' OR ('+Data.ProcessTerm(EncodeField(Data,Lists[i].GetMatchcodeFieldName)+' = '+EncodeValue(Data,SearchText))+')';
                   if (aType = fsIdents) and (fsIdents in FSearchTypes) then
                     begin
-                      aFilter += ' OR ('+Data.ProcessTerm(CastText(Data,Lists[i].GetNumberFieldName)+' = '+EncodeValue(Data,SearchText))+')';
+                      aFilter += ' OR ('+Data.ProcessTerm(EncodeField(Data,Lists[i].GetNumberFieldName)+' = '+EncodeValue(Data,SearchText))+')';
                       if Lists[i].GetBookNumberFieldName <> '' then
-                        aFilter += ' OR ('+Data.ProcessTerm(CastText(Data,Lists[i].GetBookNumberFieldName)+' = '+EncodeValue(Data,SearchText))+')';
+                        aFilter += ' OR ('+Data.ProcessTerm(EncodeField(Data,Lists[i].GetBookNumberFieldName)+' = '+EncodeValue(Data,SearchText))+')';
                     end;
                   if (aType = fsBarcode) and (fsBarcode in FSearchTypes) and (Lists[i].GetBarcodeFieldName <> '') then
                     aFilter += ' OR ('+Data.ProcessTerm(CastText(Data,Lists[i].GetBarcodeFieldName)+' = '+EncodeValue(Data,SearchText))+')';

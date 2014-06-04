@@ -248,7 +248,7 @@ LazarusResources.Add('TfSearch','FORMDATA',[
   +'Height'#2#24#3'Top'#2'S'#5'Width'#3#202#0#7'Anchors'#11#5'akTop'#7'akRight'
   +#0#7'Caption'#6#29'Anzahl Ergebnisse pro Suchtyp'#7'Checked'#9#8'OnChange'#7
   +#18'seMaxresultsChange'#5'State'#7#9'cbChecked'#8'TabOrder'#2#2#7'TabStop'#8
-  +#0#0#7'TBitBtn'#7'bSearch'#4'Left'#3#161#1#6'Height'#2'%'#3'Top'#2#3#5'Width'
+  +#0#0#7'TBitBtn'#7'bSearch'#4'Left'#3#160#1#6'Height'#2'%'#3'Top'#2#3#5'Width'
   +#2'p'#7'Anchors'#11#5'akTop'#7'akRight'#0#25'BorderSpacing.InnerBorder'#2#4#7
   +'Caption'#6#6'Suchen'#7'Default'#9#10'Glyph.Data'#10':'#4#0#0'6'#4#0#0'BM6'#4
   +#0#0#0#0#0#0'6'#0#0#0'('#0#0#0#16#0#0#0#16#0#0#0#1#0' '#0#0#0#0#0#0#4#0#0'd'

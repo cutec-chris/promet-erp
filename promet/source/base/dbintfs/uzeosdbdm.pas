@@ -294,7 +294,7 @@ begin
       if TZeosDBDM(Owner).LimitAfterSelect and ((FLimit > 0)) then
         Result += Format(TZeosDBDM(Owner).LimitSTMT,[FLimit])+' ';
       if FFields = '' then
-        Result += '* '
+        Result += TZeosDBDM(Owner).QuoteField(FDefaultTableName)+'.'+'* '
       else
         Result += FFields+' ';
       aFilter := FFilter;
@@ -1041,7 +1041,7 @@ begin
       begin
         if Event.Error<>'' then
           Error(Event.AsString+'('+LastStatement+')')
-        else
+        else if BaseApplication.HasOption('debug-sql') then
           Debug(Event.AsString);
       end;
 end;
