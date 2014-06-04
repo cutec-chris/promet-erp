@@ -25,12 +25,18 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ComCtrls, StdCtrls, ExtCtrls,
-  DbCtrls, DBGrids, Buttons, db, uOptionsFrame, uBaseDBClasses, uBaseERPDBClasses;
+  DbCtrls, DBGrids, Buttons, Dialogs, db, uOptionsFrame, uBaseDBClasses,
+  uBaseERPDBClasses,Graphics;
 
 type
+
+  { TfCategoryOptions }
+
   TfCategoryOptions = class(TOptionsFrame)
+    ColorDialog1: TColorDialog;
     gCategory: TDBGrid;
     CategoryDS: TDatasource;
+    procedure gCategoryCellClick(Column: TColumn);
   private
     { private declarations }
     aConnection: TComponent;
@@ -48,6 +54,15 @@ implementation
 
 {$R *.lfm}
 uses uData;
+
+procedure TfCategoryOptions.gCategoryCellClick(Column: TColumn);
+begin
+  aCategory.Edit;
+  if ColorDialog1.Execute then
+    CategoryDS.DataSet.FieldByName('COLOR').AsString:=ColorToString(ColorDialog1.Color);
+  aCategory.Post;
+end;
+
 constructor TfCategoryOptions.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
