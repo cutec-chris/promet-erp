@@ -139,7 +139,7 @@ begin
   aFullStream.Position:=0;
   aFStream.CopyFrom(aFullStream,aFullStream.Size);
   aFStream.Free;
-  Result := GenerateThumbNail(aName,aFilename,aStream,'',aWidth,aHeight);
+  Result := GenerateThumbNail(aName,aFilename,aStream,aText,aWidth,aHeight);
   SysUtils.DeleteFile(aFileName);
 end;
 
@@ -157,7 +157,14 @@ var
   area: TRect;
   aProcess: TProcessUTF8;
   i: Integer;
-
+  sl: TStringList;
+  Printer: TBitmap;
+  randlinks: Int64;
+  randoben: Int64;
+  zeile: Integer;
+  x: Int64;
+  y: Integer;
+  LineHeight: Extended;
   function ConvertExec(aCmd,aExt : string) : Boolean;
   begin
     aProcess := TProcessUTF8.Create(nil);
@@ -192,7 +199,6 @@ var
         end;
       end;
   end;
-
 begin
   try
     e := lowercase (ExtractFileExt(aName));
@@ -252,6 +258,60 @@ begin
   except
     Result := False;
   end;
+  if not result and (trim(aText)<>'') then
+    begin
+      sl := TStringList.Create;
+      sl.Text:=aText;
+      while sl.Count>80 do sl.Delete(79);
+      Printer := TBitmap.Create;
+      Printer.Height:=aHeight;
+      Printer.Width:=aWidth;
+      Printer.Canvas.Brush.Color:=clWhite;
+      Printer.Canvas.Rectangle(0,0,aWidth,aHeight);
+      randlinks:=round(aWidth/100);
+      randoben:=round(aHeight/100);
+      //Schrift-Einstellungen:
+      Printer.Canvas.Font.Name:='Courier New';
+      Printer.Canvas.Font.Size:=1;
+      Printer.Canvas.Font.Color:=clBlack;
+      LineHeight := ((aHeight-(randoben*2))/80);
+      while Printer.Canvas.TextHeight('Äg')< LineHeight do
+        Printer.Canvas.Font.Size:=Printer.Canvas.Font.Size+1;
+      x:=randlinks;
+      y:=randoben+1;
+      for zeile:=0 to sl.Count-1 do
+        begin
+          {
+          if -y>(hoehe-2*randoben) then
+             begin
+             y:=randoben*-1;
+             //Printer.NewPage;
+             end;
+          if y=-randoben then
+             begin
+             Printer.Canvas.Font.Style:=[fsbold];
+             Printer.Canvas.TextOut(x, y, 'Seite '+
+             IntToStr(Printer.PageNumber));
+             Printer.Canvas.Font.Style:=[];
+             y:=y-Printer.Canvas.TextHeight(sl[zeile]);
+             end;
+          }
+        Printer.Canvas.TextOut(x, y, sl[zeile]);
+        y:=round(randoben+(LineHeight*Zeile));
+        end;
+      sl.Free;
+      Printer.SaveToFile(GetInternalTempDir+'thumbtemp.bmp');
+      Img := TFPMemoryImage.Create(0, 0);
+      Img.UsePalette := false;
+      Img.LoadFromFile(GetInternalTempDir+'thumbtemp.bmp');
+      DeleteFileUTF8(GetInternalTempDir+'thumbtemp.bmp');
+      wr := TFPWriterJPEG.Create;
+      wr.ProgressiveEncoding:=True;
+      Img.SaveToStream(aStream,wr);
+      wr.Free;
+      Img.Free;
+      Printer.Free;
+    end;
 end;
 
 end.
