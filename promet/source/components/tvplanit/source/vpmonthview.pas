@@ -1061,8 +1061,8 @@ var
                 begin
                   RenderCanvas.Brush.Color := TVpEvent(EventList.List^[j]).Color;
                   TPSFillRect(RenderCanvas,Angle,RenderIn,TextRect);
-                end
-              else if TVpEvent(EventList.List^[j]).AllDayEvent then
+                end;
+              if TVpEvent(EventList.List^[j]).AllDayEvent then
                 begin
                   RenderCanvas.Brush.Color := clBtnFace;
                   TPSFillRect(RenderCanvas,Angle,RenderIn,TextRect);

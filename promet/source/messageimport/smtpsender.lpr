@@ -258,6 +258,11 @@ begin
                       MessageIndex.DataSet.Next;
                     end;
                   SMTP.Logout;
+                end
+              else
+                begin
+                  res := SMTP.FullResult.Text;
+                  Error('failed:'+res);
                 end;
               SMTP.Free;
             end;
