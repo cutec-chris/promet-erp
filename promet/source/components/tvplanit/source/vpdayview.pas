@@ -3083,14 +3083,14 @@ var
         end;
         { if the Tmp event's StartTime or EndTime falls within the range of }
         { Event... }
-        if (TimeInRange(Tmp.StartTime, Event.StartTime, Event.EndTime, false)
-          or TimeInRange(Tmp.EndTime, Event.StartTime, Event.EndTime, false))
+        if (TimeInRange(frac(Tmp.StartTime), frac(Event.StartTime), frac(Event.EndTime), false)
+          or TimeInRange(frac(Tmp.EndTime), frac(Event.StartTime), frac(Event.EndTime), false))
         { or the Tmp event's StartTime is before or equal to the Event's  }
         { start time AND its end time is after or equal to the Event's    }
         { end time, then the events overlap and we will need to increment }
         { the value of K.          }
-        or ((Tmp.StartTime <= Event.StartTime)
-          and (Tmp.EndTime >= Event.EndTime))
+        or ((frac(Tmp.StartTime) <= frac(Event.StartTime))
+          and (frac(Tmp.EndTime) >= frac(Event.EndTime)))
         then begin
           { Count this event at this level }
           Inc(Levels[EArray[K].Level]);
@@ -3122,15 +3122,15 @@ var
       while Tmp <> nil do begin
         { if the Tmp event's StartTime or EndTime falls within the range of }
         { Event... }
-        if (TimeInRange(Tmp.StartTime, Event.StartTime, Event.EndTime, false)
-          or TimeInRange(Tmp.EndTime, Event.StartTime, Event.EndTime, false))
+        if (TimeInRange(frac(Tmp.StartTime), frac(Event.StartTime), frac(Event.EndTime), false)
+          or TimeInRange(frac(Tmp.EndTime), frac(Event.StartTime), frac(Event.EndTime), false))
         { or the Tmp event's StartTime is before or equal to the Event's  }
         { start time AND its end time is after or equal to the Event's    }
         { end time, then the events overlap and we will need to check the }
         { value of OLLevels. If it is bigger than result, then modify     }
         { Result accordingly. }
-        or ((Tmp.StartTime <= Event.StartTime)
-          and (Tmp.EndTime >= Event.EndTime))
+        or ((frac(Tmp.StartTime) <= frac(Event.StartTime))
+          and (frac(Tmp.EndTime) >= frac(Event.EndTime)))
         then begin
           if EArray[K].OLLevels > result then
             Result := EArray[K].OLLevels;
@@ -3169,13 +3169,13 @@ var
           Event2 := EventArray[K].Event;
 
           { if the Tmp event overlaps with Event, then check it's Width divisor }
-          if (TimeInRange(Event2.StartTime, Event1.StartTime, Event1.EndTime, false)
-            or TimeInRange(Event2.EndTime, Event1.StartTime, Event1.EndTime, false))
-          or ((Event2.StartTime <= Event1.StartTime)
-            and (Event2.EndTime >= Event1.EndTime))
+          if ((TimeInRange(frac(Event2.StartTime), frac(Event1.StartTime), frac(Event1.EndTime), false)
+            or TimeInRange(frac(Event2.EndTime), frac(Event1.StartTime), frac(Event1.EndTime), false))
+          or ((frac(Event2.StartTime) <= frac(Event1.StartTime))
+            and (frac(Event2.EndTime) >= frac(Event1.EndTime))))
           then begin
-            if EventArray[I].WidthDivisor < EventArray[K].WidthDivisor
-              Then EventArray[I].WidthDivisor := EventArray[K].WidthDivisor;
+            if EventArray[I].WidthDivisor < EventArray[K].WidthDivisor then
+               EventArray[I].WidthDivisor := EventArray[K].WidthDivisor;
           end;
         end;
       end;

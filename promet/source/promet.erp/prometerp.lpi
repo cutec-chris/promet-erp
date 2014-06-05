@@ -290,7 +290,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="57">
+    <Units Count="59">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -311,7 +311,6 @@
         <WindowIndex Value="0"/>
         <TopLine Value="2248"/>
         <CursorPos X="1" Y="2376"/>
-        <FoldState Value=" T0iqB4a041N"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit1>
@@ -791,7 +790,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="95" Y="2"/>
-        <UsageCount Value="62"/>
+        <UsageCount Value="76"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit41>
@@ -801,7 +800,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
-        <UsageCount Value="60"/>
+        <UsageCount Value="74"/>
         <Loaded Value="True"/>
       </Unit42>
       <Unit43>
@@ -810,22 +809,22 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="utasks"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="918"/>
         <CursorPos X="18" Y="934"/>
-        <UsageCount Value="24"/>
+        <UsageCount Value="38"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit43>
       <Unit44>
         <Filename Value="../base/dbintfs/utask.pas"/>
         <UnitName Value="utask"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="638"/>
         <CursorPos X="48" Y="658"/>
-        <UsageCount Value="24"/>
+        <UsageCount Value="38"/>
         <Loaded Value="True"/>
       </Unit44>
       <Unit45>
@@ -834,11 +833,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="umanagedocframe"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="151"/>
         <CursorPos X="15" Y="168"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="37"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit45>
@@ -848,11 +847,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uGanttView"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="270"/>
         <CursorPos X="1" Y="304"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="33"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit46>
@@ -862,11 +861,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uTaskPlan"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1338"/>
         <CursorPos X="68" Y="1355"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="33"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit47>
@@ -876,42 +875,42 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMainTreeFrame"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="602"/>
         <CursorPos X="19" Y="619"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="27"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit48>
       <Unit49>
         <Filename Value="../base/dbintfs/ubasedocpages.pas"/>
         <UnitName Value="uBaseDocPages"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="119"/>
         <CursorPos X="60" Y="153"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="26"/>
         <Loaded Value="True"/>
       </Unit49>
       <Unit50>
         <Filename Value="../base/ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="19"/>
         <WindowIndex Value="0"/>
         <TopLine Value="331"/>
         <CursorPos X="1" Y="349"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="26"/>
         <Loaded Value="True"/>
       </Unit50>
       <Unit51>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="18"/>
         <WindowIndex Value="0"/>
         <TopLine Value="94"/>
         <CursorPos X="1" Y="1214"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="26"/>
         <Loaded Value="True"/>
       </Unit51>
       <Unit52>
@@ -920,32 +919,32 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uSearch"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="306"/>
         <CursorPos X="25" Y="327"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit52>
       <Unit53>
         <Filename Value="../base/dbintfs/ubasesearch.pas"/>
         <UnitName Value="uBaseSearch"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="137"/>
         <CursorPos X="26" Y="155"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit53>
       <Unit54>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1015"/>
         <CursorPos X="1" Y="1043"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit54>
       <Unit55>
@@ -954,142 +953,163 @@
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="10"/>
-        <CursorPos X="41" Y="25"/>
-        <UsageCount Value="10"/>
+        <CursorPos X="64" Y="25"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit55>
       <Unit56>
-        <Filename Value="../components/tvplanit/source/vpmonthview.pas"/>
-        <UnitName Value="VpMonthView"/>
+        <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
+        <UnitName Value="VpDayView"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1053"/>
-        <CursorPos X="42" Y="1068"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="3674"/>
+        <CursorPos X="1" Y="3690"/>
+        <FoldState Value=" T6i*C221 T3i?2462 plbm74b2Q"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit56>
+      <Unit57>
+        <Filename Value="../components/tvplanit/source/vpdata.pas"/>
+        <UnitName Value="VpData"/>
+        <EditorIndex Value="7"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1297"/>
+        <CursorPos X="1" Y="1319"/>
+        <UsageCount Value="24"/>
+        <Loaded Value="True"/>
+      </Unit57>
+      <Unit58>
+        <Filename Value="../components/tvplanit/source/vpmisc.pas"/>
+        <UnitName Value="VpMisc"/>
+        <EditorIndex Value="6"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="529"/>
+        <CursorPos X="1" Y="536"/>
+        <UsageCount Value="15"/>
+        <Loaded Value="True"/>
+      </Unit58>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="96" Column="78" TopLine="90"/>
+        <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
+        <Caret Line="3700" Column="1" TopLine="3678"/>
       </Position1>
       <Position2>
-        <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
-        <Caret Line="1044" Column="53" TopLine="1015"/>
+        <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
+        <Caret Line="3702" Column="1" TopLine="3678"/>
       </Position2>
       <Position3>
-        <Filename Value="../base/base_forms/usearch.pas"/>
-        <Caret Line="327" Column="25" TopLine="303"/>
+        <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
+        <Caret Line="3704" Column="1" TopLine="3678"/>
       </Position3>
       <Position4>
-        <Filename Value="../base/dbintfs/ubasesearch.pas"/>
-        <Caret Line="159" Column="25" TopLine="139"/>
+        <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
+        <Caret Line="3705" Column="1" TopLine="3678"/>
       </Position4>
       <Position5>
-        <Filename Value="../base/base_forms/usearch.pas"/>
-        <Caret Line="327" Column="25" TopLine="306"/>
+        <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
+        <Caret Line="3707" Column="1" TopLine="3680"/>
       </Position5>
       <Position6>
-        <Filename Value="../base/dbintfs/ubasesearch.pas"/>
-        <Caret Line="160" Column="1" TopLine="131"/>
+        <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
+        <Caret Line="3709" Column="1" TopLine="3682"/>
       </Position6>
       <Position7>
-        <Filename Value="../base/dbintfs/ubasesearch.pas"/>
-        <Caret Line="152" Column="1" TopLine="131"/>
+        <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
+        <Caret Line="3713" Column="1" TopLine="3686"/>
       </Position7>
       <Position8>
-        <Filename Value="../base/dbintfs/ubasesearch.pas"/>
-        <Caret Line="170" Column="1" TopLine="142"/>
+        <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
+        <Caret Line="3714" Column="1" TopLine="3687"/>
       </Position8>
       <Position9>
-        <Filename Value="../base_calendar/ucalendarframe.pas"/>
-        <Caret Line="25" Column="41" TopLine="10"/>
+        <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
+        <Caret Line="3715" Column="1" TopLine="3688"/>
       </Position9>
       <Position10>
-        <Filename Value="../components/tvplanit/source/vpmonthview.pas"/>
-        <Caret Line="71" Column="49" TopLine="49"/>
+        <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
+        <Caret Line="3719" Column="1" TopLine="3692"/>
       </Position10>
       <Position11>
-        <Filename Value="../components/tvplanit/source/vpmonthview.pas"/>
-        <Caret Line="352" Column="27" TopLine="324"/>
+        <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
+        <Caret Line="3720" Column="1" TopLine="3693"/>
       </Position11>
       <Position12>
-        <Filename Value="../components/tvplanit/source/vpmonthview.pas"/>
-        <Caret Line="513" Column="29" TopLine="485"/>
+        <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
+        <Caret Line="3724" Column="1" TopLine="3697"/>
       </Position12>
       <Position13>
-        <Filename Value="../components/tvplanit/source/vpmonthview.pas"/>
-        <Caret Line="552" Column="29" TopLine="524"/>
+        <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
+        <Caret Line="3725" Column="1" TopLine="3698"/>
       </Position13>
       <Position14>
-        <Filename Value="../components/tvplanit/source/vpmonthview.pas"/>
-        <Caret Line="632" Column="29" TopLine="604"/>
+        <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
+        <Caret Line="3727" Column="1" TopLine="3700"/>
       </Position14>
       <Position15>
-        <Filename Value="../components/tvplanit/source/vpmonthview.pas"/>
-        <Caret Line="753" Column="27" TopLine="725"/>
+        <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
+        <Caret Line="3729" Column="1" TopLine="3702"/>
       </Position15>
       <Position16>
-        <Filename Value="../components/tvplanit/source/vpmonthview.pas"/>
-        <Caret Line="754" Column="29" TopLine="727"/>
+        <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
+        <Caret Line="3730" Column="1" TopLine="3703"/>
       </Position16>
       <Position17>
-        <Filename Value="../components/tvplanit/source/vpmonthview.pas"/>
-        <Caret Line="805" Column="43" TopLine="777"/>
+        <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
+        <Caret Line="3732" Column="1" TopLine="3705"/>
       </Position17>
       <Position18>
-        <Filename Value="../components/tvplanit/source/vpmonthview.pas"/>
-        <Caret Line="815" Column="43" TopLine="787"/>
+        <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
+        <Caret Line="3733" Column="1" TopLine="3706"/>
       </Position18>
       <Position19>
-        <Filename Value="../components/tvplanit/source/vpmonthview.pas"/>
-        <Caret Line="839" Column="42" TopLine="811"/>
+        <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
+        <Caret Line="3732" Column="1" TopLine="3706"/>
       </Position19>
       <Position20>
-        <Filename Value="../components/tvplanit/source/vpmonthview.pas"/>
-        <Caret Line="854" Column="44" TopLine="826"/>
+        <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
+        <Caret Line="3736" Column="1" TopLine="3712"/>
       </Position20>
       <Position21>
-        <Filename Value="../components/tvplanit/source/vpmonthview.pas"/>
-        <Caret Line="910" Column="43" TopLine="882"/>
+        <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
+        <Caret Line="3737" Column="1" TopLine="3712"/>
       </Position21>
       <Position22>
-        <Filename Value="../components/tvplanit/source/vpmonthview.pas"/>
-        <Caret Line="913" Column="43" TopLine="885"/>
+        <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
+        <Caret Line="3742" Column="1" TopLine="3715"/>
       </Position22>
       <Position23>
-        <Filename Value="../components/tvplanit/source/vpmonthview.pas"/>
-        <Caret Line="946" Column="42" TopLine="918"/>
+        <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
+        <Caret Line="3746" Column="1" TopLine="3734"/>
       </Position23>
       <Position24>
-        <Filename Value="../components/tvplanit/source/vpmonthview.pas"/>
-        <Caret Line="961" Column="44" TopLine="933"/>
+        <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
+        <Caret Line="3747" Column="1" TopLine="3734"/>
       </Position24>
       <Position25>
-        <Filename Value="../components/tvplanit/source/vpmonthview.pas"/>
-        <Caret Line="1003" Column="27" TopLine="975"/>
+        <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
+        <Caret Line="3748" Column="1" TopLine="3734"/>
       </Position25>
       <Position26>
-        <Filename Value="../components/tvplanit/source/vpmonthview.pas"/>
-        <Caret Line="1005" Column="29" TopLine="977"/>
+        <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
+        <Caret Line="3749" Column="1" TopLine="3734"/>
       </Position26>
       <Position27>
-        <Filename Value="../components/tvplanit/source/vpmonthview.pas"/>
-        <Caret Line="1026" Column="42" TopLine="998"/>
+        <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
+        <Caret Line="3748" Column="1" TopLine="3734"/>
       </Position27>
       <Position28>
-        <Filename Value="../components/tvplanit/source/vpmonthview.pas"/>
-        <Caret Line="1027" Column="42" TopLine="999"/>
+        <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
+        <Caret Line="3778" Column="1" TopLine="3762"/>
       </Position28>
       <Position29>
-        <Filename Value="../components/tvplanit/source/vpmonthview.pas"/>
-        <Caret Line="1038" Column="41" TopLine="1010"/>
+        <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
+        <Caret Line="3639" Column="18" TopLine="3615"/>
       </Position29>
       <Position30>
-        <Filename Value="../components/tvplanit/source/vpmonthview.pas"/>
-        <Caret Line="1058" Column="39" TopLine="1030"/>
+        <Filename Value="../components/tvplanit/source/vpdayview.pas"/>
+        <Caret Line="3173" Column="48" TopLine="3139"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -1130,10 +1150,13 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Watches Count="1">
+    <Watches Count="2">
       <Item1>
-        <Expression Value="FImage"/>
+        <Expression Value="EventArray[1].WidthDivisor"/>
       </Item1>
+      <Item2>
+        <Expression Value="EventArray[0].WidthDivisor"/>
+      </Item2>
     </Watches>
     <Exceptions Count="25">
       <Item1>
