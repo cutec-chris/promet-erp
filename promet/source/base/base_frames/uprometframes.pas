@@ -131,8 +131,8 @@ begin
     end;
   if Assigned(FDataSet) then
     begin
-      debugln('DataSet Assigned !'+Self.ClassName);
-      FreeAndNil(FDataSet);
+      with BaseApplication as IBaseApplication do
+        Debug('DataSet Assigned !'+Self.ClassName);
     end;
   inherited Destroy;
 end;

@@ -24,7 +24,7 @@ uses
   Classes, SysUtils, FileUtil, SynMemo, Forms, Controls, Buttons, ExtCtrls,
   StdCtrls, ActnList, db, uPrometFrames, VpMonthView, VpWeekView, VpDayView,
   VpBaseDS, VpData, VpBase, uBaseDbInterface, uCalendar, DateUtils, ComCtrls,
-  DbCtrls, Spin;
+  DbCtrls, Spin,uFilterFrame;
 type
   TCustomPrometheusDataStore = class(TVpCustomDataStore)
   private
@@ -63,6 +63,7 @@ type
     Bevel9: TBevel;
     bFilter: TSpeedButton;
     bMonthView: TSpeedButton;
+    bListView: TSpeedButton;
     bNew: TSpeedButton;
     bPrint: TSpeedButton;
     bToday: TSpeedButton;
@@ -82,6 +83,7 @@ type
     lFilterIn: TLabel;
     MonthView: TVpMonthView;
     Panel1: TPanel;
+    pListView: TPanel;
     Panel4: TPanel;
     Panel5: TPanel;
     Panel6: TPanel;
@@ -106,6 +108,7 @@ type
     procedure acWeekViewDaysExecute(Sender: TObject);
     procedure acWeekViewExecute(Sender: TObject);
     procedure bEditFilterClick(Sender: TObject);
+    procedure bListViewClick(Sender: TObject);
     procedure DataStoreDateChanged(Sender: TObject; Date: TDateTime);
     procedure DayViewOwnerEditEvent(Sender: TObject; Event: TVpEvent;
       Resource: TVpResource; var AllowIt: Boolean);
@@ -116,6 +119,7 @@ type
       XPos, YPos: Word);
   private
     { private declarations }
+    FList : TfFilter;
     procedure DoOpen;override;
     procedure ParseForms(Filter : string);
   public
@@ -396,6 +400,7 @@ begin
   MonthView.Visible := False;
   WeekView.Visible := False;
   DayView.Date:=DataStore.Date;
+  pListView.Visible := False;
   pWeekDayView.Visible := False;
   if Sender <> nil then
     DataStoreDateChanged(DataStore,DataStore.Date);
@@ -414,6 +419,7 @@ begin
   WeekView.Visible := False;
   MonthView.Date:=DataStore.Date;
   pWeekDayView.Visible := False;
+  pListView.Visible := False;
   if Sender <> nil then
     DataStoreDateChanged(DataStore,DataStore.Date);
 end;
@@ -444,6 +450,7 @@ begin
   MonthView.Visible := False;
   WeekView.Visible := False;
   pWeekDayView.Visible := True;
+  pListView.Visible := False;
   WeekView.Date:=DataStore.Date;
   DecodeDateMonthWeek(DataStore.Date,Year,Month,Week,Day);
   if Sender <> nil then
@@ -457,6 +464,7 @@ begin
   MonthView.Visible := False;
   WeekView.Visible := True;
   WeekView.Date:=DataStore.Date;
+  pListView.Visible := False;
   pWeekDayView.Visible := False;
   if Sender <> nil then
     DataStoreDateChanged(DataStore,DataStore.Date);
@@ -480,6 +488,15 @@ begin
     Animate.AnimateControlHeight(0);
   bEditFilter.Enabled:=True;
   Animate.Free;
+end;
+
+procedure TfCalendarFrame.bListViewClick(Sender: TObject);
+begin
+  pDayView.Visible := False;
+  MonthView.Visible := False;
+  WeekView.Visible := False;
+  pWeekDayView.Visible := False;
+  pListView.Visible := True;
 end;
 
 constructor TfCalendarFrame.Create(AOwner: TComponent);
@@ -507,14 +524,27 @@ begin
   WeekView.Visible := True;
   MonthView.OnDblClick:=@MonthViewDblClick;
   pFilterOptions.Height:=0;
+
+  FList := TfFilter.Create(Self);
+  with FList do
+    begin
+      FilterType:='A';
+      DefaultRows:='GLOBALWIDTH:%;SUMMARY:400;PROJECT:200;CATEGORY:200;LOCATION:100;STARTDATE:60;ENDDATE:60;ALLDAY:30;CREATEDBY:40;TIMESTAMPD:100;';
+      Parent := pListView;
+      Align := alClient;
+      Show;
+    end;
+  FList.Dataset := DataSet;
 end;
 destructor TfCalendarFrame.Destroy;
 begin
+  FList.
   DataSet.Free;
   DataSet := nil;
   if Assigned(DataStore.Resource) then
     DataStore.Resource.Free;
   DataStore.Free;
+  FList.Free;
   inherited Destroy;
 end;
 function TfCalendarFrame.OpenFromLink(aLink: string) : Boolean;

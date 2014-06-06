@@ -187,6 +187,16 @@ inherited FCalendarFrame: TFCalendarFrame
         OnOwnerEditEvent = DayViewOwnerEditEvent
       end
     end
+    object pListView: TPanel
+      Left = 0
+      Height = 364
+      Top = 0
+      Width = 714
+      Align = alClient
+      Caption = 'pListView'
+      TabOrder = 4
+      Visible = False
+    end
   end
   object ToolBar1: TPanel[1]
     Left = 0
@@ -256,7 +266,7 @@ inherited FCalendarFrame: TFCalendarFrame
       end
     end
     object Panel6: TPanel
-      Left = 240
+      Left = 264
       Height = 44
       Top = 0
       Width = 56
@@ -378,17 +388,17 @@ inherited FCalendarFrame: TFCalendarFrame
       Left = 48
       Height = 44
       Top = 0
-      Width = 136
+      Width = 160
       Align = alLeft
       BevelOuter = bvNone
       ClientHeight = 44
-      ClientWidth = 136
+      ClientWidth = 160
       TabOrder = 2
       object Label5: TLabel
         Left = 4
         Height = 15
         Top = 0
-        Width = 128
+        Width = 152
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
         AutoSize = False
@@ -656,9 +666,59 @@ inherited FCalendarFrame: TFCalendarFrame
         OnClick = acWeekViewExecute
         ShowCaption = False
       end
+      object bListView: TSpeedButton
+        Left = 133
+        Height = 25
+        Hint = 'zeigt die Monatsansicht'
+        Top = 15
+        Width = 25
+        AllowAllUp = True
+        BorderSpacing.InnerBorder = 2
+        Caption = 'acMonthView'
+        Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00D69E
+          72C4D3996EF4D19668FFCE9263FFCB8E5EFFC98A5BFFC78756FFC38452FFC384
+          52FFC38452FFC38452FFC38452FFC38452FFBB7742B0FFFFFF00FFFFFF00D7A1
+          75FFF8F2EDFFF7F0EAFFF6EDE6FFF4EAE2FFF3E7DEFFF1E4DBFFF0E2D8FFF0E2
+          D8FFF0E2D8FFF0E2D8FFF0E2D8FFF0E2D8FFC58A5DFDFFFFFF00FFFFFF00D9A4
+          7AFFF9F3EEFFEBD2BEFFFFFFFFFFEBD3BFFFFFFFFFFFFFFFFFFFFFFFFFFFEAC7
+          ADFFFFFFFFFFFFFFFFFFFFFFFFFFF0E2D8FFC68C5FFFFFFFFF00FFFFFF00DDA8
+          7EFFF9F3EFFFEBD0BAFFEBD0BBFFEBD0BBFFEBD0BBFFEBD0BBFFEBD1BDFFEACD
+          B5FFEACDB5FFEACDB5FFEACDB5FFF0E2D8FFC68A5CFFFFFFFF00FFFFFF00DFAA
+          82FFF9F3EFFFEACEB7FFFFFFFFFFEBD0BBFFFFFFFFFFFFFFFFFFFFFFFFFFEACF
+          BAFFFBF6F2FFFFFFFFFFFFFFFFFFF0E2D8FFC88D5FFFFFFFFF00FFFFFF00E1AE
+          87FFFAF4F0FFEACBB2FFEACCB3FFEACCB3FFEACCB3FFEACCB3FFEACEB7FFE8C7
+          ACFFE8C7ACFFE8C8B0FFE8C8AEFFF0E2D8FFC48654FFFFFFFF00FFFFFF00E3B1
+          8CFFFAF6F1FFEAC9AEFFFFFFFFFFEAC9B0FFFFFFFFFFFFFFFFFFFFFFFFFFE8C7
+          ACFFFFFFFFFFFFFFFFFFFFFFFFFFF1E5DBFFC68655FFFFFFFF00FFFFFF00E5B4
+          8FFFFAF6F2FFE9C6AAFFE9C6ACFFEAC7ACFFE9C7ADFFE9C9AEFFE9C9B0FFE8C7
+          ACFFE9C9B0FFE8C8B0FFE8CCB5FFF2E7DEFFC88A59FFFFFFFF00FFFFFF00E7B7
+          94FFFBF7F4FFE9C3A6FFFFFFFFFFE8C4A9FFFFFFFFFFFFFFFFFFFFFFFFFFE8C7
+          ACFFFFFFFFFFFFFFFFFFFFFFFFFFF7F1EBFFCB8F5FFFFFFFFF00FFFFFF00E9BA
+          98FFFBF7F4FFE9C3A6FFE9C3A6FFE9C3A6FFE9C3A6FFE9C3A6FFE9C3A6FFE9C3
+          A6FFE9C3A6FFE9C3A6FFE9C3A6FFFBF7F4FFCE9364FFFFFFFF00FFFFFF00EBBD
+          9BFFFBF7F4FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFBF7F4FFD1976AFFFFFFFF00FFFFFF00ECBF
+          9EFFFBF7F4FF9CD5A5FF98D3A1FF94D09DFF90CE98FF8BCB93FF87C98EFF82C6
+          89FF7EC384FF7AC180FF76BE7CFFFBF7F4FFD49B6FFFFFFFFF00FFFFFF00EEC1
+          A1EBFBF7F4FFFBF7F4FFFBF7F4FFFBF7F4FFFBF7F4FFFBF7F4FFFBF7F4FFFBF7
+          F4FFFBF7F4FFFBF7F4FFFBF7F4FFFBF7F4FFD7A074F8FFFFFF00FFFFFF00EFC2
+          A37EEFC1A2E3EDC09FFFEBBE9DFFEBBC9AFFE9BA96FFE7B793FFE6B590FFE4B2
+          8CFFE2AF88FFE0AC84FFDDA980FFDCA57DFFDAA37ACAFFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+        }
+        GroupIndex = 22
+        Layout = blGlyphTop
+        OnClick = bListViewClick
+        ShowCaption = False
+      end
     end
     object Panel8: TPanel
-      Left = 184
+      Left = 208
       Height = 44
       Top = 0
       Width = 56
@@ -740,14 +800,14 @@ inherited FCalendarFrame: TFCalendarFrame
       end
     end
     object Panel5: TPanel
-      Left = 296
+      Left = 320
       Height = 44
       Top = 0
-      Width = 418
+      Width = 394
       Align = alClient
       BevelOuter = bvNone
       ClientHeight = 44
-      ClientWidth = 418
+      ClientWidth = 394
       Constraints.MaxWidth = 700
       TabOrder = 4
       object Bevel7: TBevel
@@ -777,14 +837,14 @@ inherited FCalendarFrame: TFCalendarFrame
         Height = 27
         Hint = 'hier können Sie einen Filter wählen um die Liste einzuschränken'
         Top = 12
-        Width = 367
+        Width = 343
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Left = 8
         ItemHeight = 0
         TabOrder = 0
       end
       object bEditFilter: TSpeedButton
-        Left = 376
+        Left = 352
         Height = 21
         Hint = 'zeigt/verbirgt den Filtereditor'
         Top = 12

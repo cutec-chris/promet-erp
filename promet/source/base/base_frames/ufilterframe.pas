@@ -1234,15 +1234,6 @@ begin
     FOnScrolled := nil;
   if Assigned(PRight) then
     PRight.Visible:=False;
-  try
-    if Assigned(FDataSet) and FDestroyDataSet then
-      begin
-        FDataSet.Free;
-        DataSet := nil;
-        FDataSet := nil;
-      end;
-  except
-  end;
   inherited Destroy;
 end;
 procedure TfFilter.SetFilter(const AValue: string);
