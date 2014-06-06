@@ -49,6 +49,7 @@ begin
    if csDesigning in (Instance as TComponent).ComponentState then exit;
 {End DO :)}
   if (AnsiUpperCase(PropInfo^.PropType^.Name)<>'TTRANSLATESTRING') then exit;
+  if (AnsiUpperCase(PropInfo^.Name)='TCOLUMN') then exit;
   s:=FPOFile.Translate(Content, Content);
   if s<>'' then Content:=s;
 end;

@@ -44,6 +44,7 @@ type
     procedure SelectPlanedByUser(AccountNo : string);
     procedure SelectPlanedByUserAndTime(AccountNo : string;aStart,aEnd : TDateTime);
     procedure SelectPlanedByUseridAndTime(User : Variant;aStart,aEnd : TDateTime);
+    function SelectFromLink(aLink: string): Boolean; override;
     property History : TBaseHistory read GetHistory;
     constructor Create(aOwner: TComponent; DM: TComponent;
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
@@ -73,7 +74,7 @@ type
   end;
   function TimeRangeOverlap(Range1Start, Range1Finish, Range2Start, Range2Finish : TDateTime) : TDateTime;
 implementation
-uses uBaseApplication,uData,math,uBaseERPDBClasses;
+uses uBaseApplication,uData,math,uBaseERPDBClasses,Utils;
 
 function TEvent.GetEnd: TDateTime;
 begin
@@ -279,6 +280,24 @@ begin
     begin
       Filter := '('+QuoteField('REF_ID_ID')+'='+QuoteValue(User)+') and ('+QuoteField('ICATEGORY')+'='+QuoteValue('8')+')';
       Filter := Filter+' AND ('+Data.QuoteField('STARTDATE')+' >= '+Data.DateToFilter(aStart)+') AND (('+Data.QuoteField('ENDDATE')+' <= '+Data.DateToFilter(aEnd)+') OR ('+Data.QuoteField('ROTATION')+' > 0))';
+    end;
+end;
+
+function TCalendar.SelectFromLink(aLink: string): Boolean;
+begin
+  Result := False;
+  Select(0);
+  if rpos('{',aLink) > 0 then
+    aLink := copy(aLink,0,rpos('{',aLink)-1)
+  else if rpos('(',aLink) > 0 then
+    aLink := copy(aLink,0,rpos('(',aLink)-1);
+  with BaseApplication as IBaseDbInterface do
+    begin
+      with DataSet as IBaseDBFilter do
+        begin
+          Filter := Data.ProcessTerm(Data.QuoteField('ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink))));
+          Result := True;
+        end;
     end;
 end;
 

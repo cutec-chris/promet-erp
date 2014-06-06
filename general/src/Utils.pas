@@ -216,8 +216,8 @@ Begin
     until FindNextUTF8(info)<>0;
   FindCloseUTF8(Info);
   aFilename := ProgramDirectory+'languages'+Directoryseparator+'forms.'+lowercase(copy(lang,0,2))+'.po';
-  //if FileExists(aFilename) then
-  //  LRSTranslator:=TPoTranslator.Create(aFilename);
+  if FileExists(aFilename) then
+    LRSTranslator:=TPoTranslator.Create(aFilename);
 end;
 function GetProcessforExtension(InfoTyp : TProcessinfoTyp;Extension : string) : string;
 var

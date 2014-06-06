@@ -336,7 +336,7 @@ uses uBaseDBInterface,uIntfStrConsts,uSearch,uFilterFrame,uPerson,uData,
   usplash,ufavorites,uBaseVisualControls,uStatisticFrame,uwait,uprometipc,uMeetingFrame,
   umeeting,uEditableTab,umanagedocframe,uBaseDocPages,uTaskPlan,uattendanceplan,
   uTimeFrame,uTimeOptions,uWizardnewaccount,uCalendar,uRoughpklanningframe,uStatistic,
-  uOptionsFrame,uprojectoverviewframe,uimportoptions
+  uOptionsFrame,uprojectoverviewframe,uimportoptions,uEventEdit
   {$ifdef WINDOWS}
   {$ifdef CPU32}
   ,uTAPIPhone
@@ -2708,6 +2708,8 @@ var
   aDocs: TTabSheet;
   FTaskEdit: TfTaskEdit;
   aBaseHist: TBaseHistory;
+  aCalFrame: TfCalendarFrame;
+  aEventEdit: TfEventEdit;
 begin
   Result := False;
   Screen.Cursor:=crHourGlass;
@@ -2804,6 +2806,20 @@ begin
       FTaskEdit := TfTaskEdit.Create(Self);
       FTaskEdit.Execute(aLink);
       FTaskEdit.Free;
+      Result := True;
+    end
+  else if (copy(aLink,0,9) = 'CALENDAR@') then
+    begin
+      Screen.Cursor:=crDefault;
+      aCalFrame := TfCalendarFrame.Create(nil);
+      TCalendar(aCalFrame.DataSet).SelectFromLink(aLink);
+      aCalFrame.DataSet.Open;
+      aCalFrame.DataStore.LoadEvents;
+      aEventEdit := TfEventEdit.Create(Self);
+      if aCalFrame.DataStore.Resource.Schedule.EventCount>0 then
+        aEventEdit.Execute(aCalFrame.DataStore.Resource.Schedule.GetEvent(0),aCalFrame.DataStore.Resource,aCalFrame.DataStore.Directory,aCalFrame.DataStore);
+      aEventEdit.Free;
+      aCalFrame.Free;
       Result := True;
     end
   else if (copy(aLink,0,16) = 'ACCOUNTEXCHANGE@') then

@@ -491,12 +491,23 @@ begin
 end;
 
 procedure TfCalendarFrame.bListViewClick(Sender: TObject);
+var
+  aFilter: String;
+  cFilter: String;
 begin
   pDayView.Visible := False;
   MonthView.Visible := False;
   WeekView.Visible := False;
   pWeekDayView.Visible := False;
   pListView.Visible := True;
+  aFilter := Data.QuoteField('REF_ID_ID');
+  with DataSet.DataSet as IBaseDbFilter do
+    cFilter := Filter;
+  if aFilter <> cFilter then
+    begin
+      Data.SetFilter(DataSet,aFilter,seMaxresults.Value);
+    end;
+  FList.ShowFrame;
 end;
 
 constructor TfCalendarFrame.Create(AOwner: TComponent);
@@ -528,10 +539,11 @@ begin
   FList := TfFilter.Create(Self);
   with FList do
     begin
-      FilterType:='A';
-      DefaultRows:='GLOBALWIDTH:%;SUMMARY:400;PROJECT:200;CATEGORY:200;LOCATION:100;STARTDATE:60;ENDDATE:60;ALLDAY:30;CREATEDBY:40;TIMESTAMPD:100;';
+      FilterType:='AP';
+      DefaultRows:='GLOBALWIDTH:%;STARTDATE:120;SUMMARY:400;PROJECT:200;CATEGORY:200;LOCATION:100;ENDDATE:120;ALLDAY:30;CREATEDBY:40;TIMESTAMPD:100;';
       Parent := pListView;
       Align := alClient;
+      pTop.Visible:=False;
       Show;
     end;
   FList.Dataset := DataSet;
@@ -550,6 +562,7 @@ end;
 function TfCalendarFrame.OpenFromLink(aLink: string) : Boolean;
 begin
   Result := False;
+
 end;
 procedure TfCalendarFrame.New;
 begin

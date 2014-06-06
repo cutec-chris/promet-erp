@@ -193,6 +193,7 @@ inherited FCalendarFrame: TFCalendarFrame
       Top = 0
       Width = 714
       Align = alClient
+      BevelOuter = bvNone
       Caption = 'pListView'
       TabOrder = 4
       Visible = False
