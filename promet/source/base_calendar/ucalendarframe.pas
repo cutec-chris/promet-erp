@@ -21,9 +21,10 @@ unit uCalendarFrame;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Buttons, ExtCtrls, StdCtrls,
-  ActnList, db, uPrometFrames, VpMonthView, VpWeekView, VpDayView, VpBaseDS,
-  VpData, VpBase, uBaseDbInterface, uCalendar, DateUtils, ComCtrls, DbCtrls;
+  Classes, SysUtils, FileUtil, SynMemo, Forms, Controls, Buttons, ExtCtrls,
+  StdCtrls, ActnList, db, uPrometFrames, VpMonthView, VpWeekView, VpDayView,
+  VpBaseDS, VpData, VpBase, uBaseDbInterface, uCalendar, DateUtils, ComCtrls,
+  DbCtrls, Spin;
 type
   TCustomPrometheusDataStore = class(TVpCustomDataStore)
   private
@@ -53,29 +54,49 @@ type
     ActionList1: TActionList;
     acWeekView: TAction;
     bDayView: TSpeedButton;
+    bEditFilter: TSpeedButton;
     Bevel3: TBevel;
     Bevel4: TBevel;
     Bevel5: TBevel;
+    Bevel7: TBevel;
+    Bevel8: TBevel;
+    Bevel9: TBevel;
+    bFilter: TSpeedButton;
     bMonthView: TSpeedButton;
     bNew: TSpeedButton;
     bPrint: TSpeedButton;
     bToday: TSpeedButton;
     bWeekViewDay: TSpeedButton;
     bWeekView: TSpeedButton;
+    cbFilter: TComboBox;
+    cbMaxResults: TCheckBox;
     DayView1: TVpDayView;
     DayView: TVpDayView;
+    eFilterEdit: TSynMemo;
+    eFilterIn: TEdit;
+    ExtRotatedLabel4: TLabel;
     Label4: TLabel;
     Label5: TLabel;
     Label6: TLabel;
+    lFilterEdit: TLabel;
+    lFilterIn: TLabel;
     MonthView: TVpMonthView;
     Panel1: TPanel;
     Panel4: TPanel;
+    Panel5: TPanel;
     Panel6: TPanel;
     Panel7: TPanel;
     Panel8: TPanel;
     pDayView: TPanel;
+    pFilterOpt: TPanel;
+    pFilterOptions: TPanel;
     pWeekDayView: TPanel;
+    sbDelete: TSpeedButton;
     sbMenue: TSpeedButton;
+    sbSave: TSpeedButton;
+    sbSave1: TSpeedButton;
+    sbSavePublic: TSpeedButton;
+    seMaxresults: TSpinEdit;
     ToolBar1: TPanel;
     WeekView: TVpWeekView;
     procedure acDayViewExecute(Sender: TObject);
@@ -84,9 +105,11 @@ type
     procedure acNewExecute(Sender: TObject);
     procedure acWeekViewDaysExecute(Sender: TObject);
     procedure acWeekViewExecute(Sender: TObject);
+    procedure bEditFilterClick(Sender: TObject);
     procedure DataStoreDateChanged(Sender: TObject; Date: TDateTime);
     procedure DayViewOwnerEditEvent(Sender: TObject; Event: TVpEvent;
       Resource: TVpResource; var AllowIt: Boolean);
+    procedure eFilterEditChange(Sender: TObject);
     procedure MonthViewDblClick(Sender: TObject);
     procedure MonthViewEventDblClick(Sender: TObject; Event: TVpEvent);
     procedure WeekViewMouseWheel(Sender: TObject; Shift: TShiftState; Delta,
@@ -94,6 +117,7 @@ type
   private
     { private declarations }
     procedure DoOpen;override;
+    procedure ParseForms(Filter : string);
   public
     { public declarations }
     FCalendarNode : TTreeNode;
@@ -110,7 +134,8 @@ type
 procedure RefreshCalendar(FNode :TTreeNode);
 procedure AddToMainTree(aAction : TAction;var FCalendarNode : TTreeNode);
 implementation
-uses uData, uMainTreeFrame, Math, uEventEdit, VpConst,uBaseDbClasses,Graphics;
+uses uData, uMainTreeFrame, Math, uEventEdit, VpConst,uBaseDbClasses,Graphics,
+  uFormAnimate;
 resourcestring
   strEventsThisWeek             = 'diese Woche: %d';
 procedure RefreshCalendar(FNode: TTreeNode);
@@ -290,7 +315,7 @@ const
   NumDays = 1;
 var
   aFilter: String;
-  bFilter: String;
+  cFilter: String;
 begin
   if pDayView.Visible then
     aFilter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+' AND ("STARTDATE" < '+Data.DateToFilter(Date+NumDays)+') AND (("ENDDATE" > '+Data.DateToFilter(Date-NumDays)+') OR ("ROTATION" > 0))'
@@ -301,8 +326,8 @@ begin
   else if pWeekDayView.Visible then
     aFilter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+' AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheWeek(Date)+8)+') AND (("ENDDATE" > '+Data.DateToFilter(StartOfTheWeek(Date)-8)+') OR ("ROTATION" > 0))';
   with DataSet.DataSet as IBaseDbFilter do
-    bFilter := Filter;
-  if aFilter <> bFilter then
+    cFilter := Filter;
+  if aFilter <> cFilter then
     begin
       Data.SetFilter(DataSet,aFilter);
       DataStore.Resource.Schedule.ClearEvents;
@@ -318,6 +343,11 @@ begin
   AllowIt := aEventEdit.Execute(Event,Resource,DataStore.FDirectory,DataStore);
   aEventEdit.Free;
   RefreshCalendar(FCalendarNode);
+end;
+
+procedure TfCalendarFrame.eFilterEditChange(Sender: TObject);
+begin
+  ParseForms(eFilterEdit.Lines.Text);
 end;
 
 procedure TfCalendarFrame.MonthViewDblClick(Sender: TObject);
@@ -354,6 +384,10 @@ end;
 procedure TfCalendarFrame.DoOpen;
 begin
   inherited DoOpen;
+end;
+
+procedure TfCalendarFrame.ParseForms(Filter: string);
+begin
 end;
 
 procedure TfCalendarFrame.acDayViewExecute(Sender: TObject);
@@ -427,6 +461,27 @@ begin
   if Sender <> nil then
     DataStoreDateChanged(DataStore,DataStore.Date);
 end;
+
+procedure TfCalendarFrame.bEditFilterClick(Sender: TObject);
+var
+  Animate: TAnimationController;
+begin
+  Animate := TAnimationController.Create(pFilterOptions);
+  bEditFilter.Enabled:=False;
+  Application.ProcessMessages;
+  if bEditFilter.Down then
+    begin
+      if Data.Users.Rights.Right('EDITFILTER') > RIGHT_READ then
+        Animate.AnimateControlHeight(143)
+      else
+        Animate.AnimateControlHeight(37);
+    end
+  else
+    Animate.AnimateControlHeight(0);
+  bEditFilter.Enabled:=True;
+  Animate.Free;
+end;
+
 constructor TfCalendarFrame.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
@@ -451,6 +506,7 @@ begin
   MonthView.Visible := False;
   WeekView.Visible := True;
   MonthView.OnDblClick:=@MonthViewDblClick;
+  pFilterOptions.Height:=0;
 end;
 destructor TfCalendarFrame.Destroy;
 begin

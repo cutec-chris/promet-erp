@@ -195,9 +195,9 @@ begin
                     aFilter += ' OR ('+Data.ProcessTerm(EncodeField(Data,Lists[i].GetMatchcodeFieldName)+' = '+EncodeValue(Data,SearchText))+')';
                   if (aType = fsIdents) and (fsIdents in FSearchTypes) then
                     begin
-                      aFilter += ' OR ('+Data.ProcessTerm(EncodeField(Data,Lists[i].GetNumberFieldName)+' = '+EncodeValue(Data,SearchText))+')';
+                      aFilter += ' OR ('+Data.ProcessTerm(CastText(Data,Lists[i].GetNumberFieldName)+' = '+EncodeValue(Data,SearchText))+')';
                       if Lists[i].GetBookNumberFieldName <> '' then
-                        aFilter += ' OR ('+Data.ProcessTerm(EncodeField(Data,Lists[i].GetBookNumberFieldName)+' = '+EncodeValue(Data,SearchText))+')';
+                        aFilter += ' OR ('+Data.ProcessTerm(CastText(Data,Lists[i].GetBookNumberFieldName)+' = '+EncodeValue(Data,SearchText))+')';
                     end;
                   if (aType = fsBarcode) and (fsBarcode in FSearchTypes) and (Lists[i].GetBarcodeFieldName <> '') then
                     aFilter += ' OR ('+Data.ProcessTerm(CastText(Data,Lists[i].GetBarcodeFieldName)+' = '+EncodeValue(Data,SearchText))+')';
