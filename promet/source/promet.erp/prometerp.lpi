@@ -290,7 +290,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="55">
+    <Units Count="51">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -310,7 +310,7 @@
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2801"/>
-        <CursorPos X="1" Y="2815"/>
+        <CursorPos X="26" Y="2816"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit1>
@@ -357,7 +357,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uAccountingFrame"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="258"/>
         <CursorPos X="35" Y="262"/>
@@ -575,10 +575,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ucategoryoptions"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="37"/>
-        <CursorPos X="18" Y="63"/>
+        <TopLine Value="52"/>
+        <CursorPos X="13" Y="62"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit23>
       <Unit24>
         <Filename Value="uordertypeoptions.pas"/>
@@ -788,10 +791,11 @@
       </Unit40>
       <Unit41>
         <Filename Value="../base/changes.txt"/>
-        <EditorIndex Value="2"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="95" Y="2"/>
+        <CursorPos X="48" Y="4"/>
         <UsageCount Value="79"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
@@ -811,7 +815,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="utasks"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1511"/>
         <CursorPos X="59" Y="1526"/>
@@ -825,7 +829,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uGanttView"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="271"/>
         <CursorPos X="1" Y="304"/>
@@ -850,7 +854,7 @@
       <Unit46>
         <Filename Value="../base/dbintfs/ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1101"/>
         <CursorPos X="36" Y="1103"/>
@@ -863,10 +867,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uCalendarFrame"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="632"/>
-        <CursorPos X="1" Y="648"/>
+        <TopLine Value="577"/>
+        <CursorPos X="108" Y="642"/>
         <UsageCount Value="27"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -877,7 +881,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uPrometFrames"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="117"/>
         <CursorPos X="20" Y="127"/>
@@ -891,7 +895,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="uMessageFrame"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="338"/>
         <CursorPos X="1" Y="362"/>
@@ -900,62 +904,17 @@
         <LoadedDesigner Value="True"/>
       </Unit49>
       <Unit50>
-        <Filename Value="../../../general/src/potranslator.pas"/>
-        <UnitName Value="PoTranslator"/>
-        <EditorIndex Value="1"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="22"/>
-        <CursorPos X="45" Y="52"/>
-        <UsageCount Value="11"/>
-        <Loaded Value="True"/>
-      </Unit50>
-      <Unit51>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="6"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1082"/>
-        <CursorPos X="1" Y="1106"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-      </Unit51>
-      <Unit52>
-        <Filename Value="../base/dbintfs/ucalendar.pas"/>
-        <UnitName Value="uCalendar"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="9"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="63"/>
-        <CursorPos X="57" Y="77"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-      </Unit52>
-      <Unit53>
-        <Filename Value="../base_calendar/ueventedit.pas"/>
-        <ComponentName Value="fEventEdit"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uEventEdit"/>
-        <EditorIndex Value="8"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="121"/>
-        <CursorPos X="15" Y="136"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
-      </Unit53>
-      <Unit54>
         <Filename Value="../base/dbintfs/uprojects.pas"/>
         <UnitName Value="uProjects"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="598"/>
         <CursorPos X="1" Y="619"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
-      </Unit54>
+      </Unit50>
     </Units>
-    <JumpHistory Count="13" HistoryIndex="12">
+    <JumpHistory Count="17" HistoryIndex="16">
       <Position1>
         <Filename Value="umain.pas"/>
         <Caret Line="2817" Column="1" TopLine="2801"/>
@@ -997,17 +956,33 @@
         <Caret Line="2815" Column="1" TopLine="2801"/>
       </Position10>
       <Position11>
-        <Filename Value="../base/dbintfs/ucalendar.pas"/>
-        <Caret Line="47" Column="21" TopLine="30"/>
-      </Position11>
-      <Position12>
         <Filename Value="../base/dbintfs/uprojects.pas"/>
         <Caret Line="1" Column="1" TopLine="1"/>
+      </Position11>
+      <Position12>
+        <Filename Value="umain.pas"/>
+        <Caret Line="2815" Column="1" TopLine="2801"/>
       </Position12>
       <Position13>
-        <Filename Value="../base/dbintfs/ucalendar.pas"/>
-        <Caret Line="288" Column="3" TopLine="286"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="2816" Column="1" TopLine="2801"/>
       </Position13>
+      <Position14>
+        <Filename Value="umain.pas"/>
+        <Caret Line="2817" Column="1" TopLine="2801"/>
+      </Position14>
+      <Position15>
+        <Filename Value="umain.pas"/>
+        <Caret Line="2818" Column="1" TopLine="2801"/>
+      </Position15>
+      <Position16>
+        <Filename Value="umain.pas"/>
+        <Caret Line="2819" Column="1" TopLine="2801"/>
+      </Position16>
+      <Position17>
+        <Filename Value="ucategoryoptions.pas"/>
+        <Caret Line="63" Column="18" TopLine="37"/>
+      </Position17>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -1047,15 +1022,6 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="1">
-      <Item1>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="umain.pas"/>
-        <Line Value="2815"/>
-      </Item1>
-    </BreakPoints>
     <Watches Count="1">
       <Item1>
         <Expression Value="Instance"/>

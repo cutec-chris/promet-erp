@@ -670,7 +670,7 @@ inherited FCalendarFrame: TFCalendarFrame
       object bListView: TSpeedButton
         Left = 133
         Height = 25
-        Hint = 'zeigt die Monatsansicht'
+        Hint = 'zeigt die Listenansicht'
         Top = 15
         Width = 25
         AllowAllUp = True
@@ -810,6 +810,7 @@ inherited FCalendarFrame: TFCalendarFrame
       ClientHeight = 44
       ClientWidth = 394
       Constraints.MaxWidth = 700
+      Enabled = False
       TabOrder = 4
       object Bevel7: TBevel
         Left = 0

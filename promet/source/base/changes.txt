@@ -1,5 +1,7 @@
 ﻿Build 353
       - Dokumente:Für Text und Office dokumente können nun auch Vorschaubilder erstellt werden
+      - Kalender:Listenansicht für Termine
+      - Kategorieoptionen:Farbeditor für Farben
       - Aufgaben:Man kann nun per Knopfdruck einen freien "Slot" für eine Aufgabe in den Aufgaben/Kalendereinträgen des Benutzers finden
       - Besprechungen,Positionen:Wordwrap wird auch im Editor verwendet
       - Besprechungen:Rechte werden korrekt beachtet

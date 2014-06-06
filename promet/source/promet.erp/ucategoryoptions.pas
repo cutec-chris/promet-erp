@@ -57,10 +57,13 @@ uses uData;
 
 procedure TfCategoryOptions.gCategoryCellClick(Column: TColumn);
 begin
-  aCategory.Edit;
-  if ColorDialog1.Execute then
-    CategoryDS.DataSet.FieldByName('COLOR').AsString:=ColorToString(ColorDialog1.Color);
-  aCategory.Post;
+  if Column.FieldName='COLOR' then
+    begin
+      aCategory.Edit;
+      if ColorDialog1.Execute then
+        CategoryDS.DataSet.FieldByName('COLOR').AsString:=ColorToString(ColorDialog1.Color);
+      aCategory.Post;
+    end;
 end;
 
 constructor TfCategoryOptions.Create(TheOwner: TComponent);
