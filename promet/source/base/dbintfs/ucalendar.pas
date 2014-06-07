@@ -203,6 +203,7 @@ end;
 procedure TCalendar.SetDisplayLabels(aDataSet: TDataSet);
 begin
   inherited SetDisplayLabels(aDataSet);
+  SetDisplayLabelName(aDataSet,'ENDDATE',strDue);
 end;
 
 procedure TCalendar.SelectByUser(AccountNo: string);

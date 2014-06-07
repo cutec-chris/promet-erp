@@ -1085,7 +1085,7 @@ begin
     end;
   FDocumentFrame := TfDocumentFrame(Sender);
   aItem := TMenuItem.Create(TfDocumentFrame(Sender).pmDocumentAction);
-  aItem.Caption:=strVoucher;
+  aItem.Caption:=strNewVoucher;
   TfDocumentFrame(Sender).pmDocumentAction.Items.Add(aItem);
   aOrderType := TOrderTyp.Create(Self,Data);
   aOrderType.Open;

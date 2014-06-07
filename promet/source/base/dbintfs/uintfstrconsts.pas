@@ -26,6 +26,7 @@ uses
     {$ENDIF}
     LCLStrConsts;
 resourcestring
+  strLocation                   = 'Ort';
   strImportExport               = 'Import/Export';
   strSearchFromOrder            = 'Mit Öffnen wird der gewählte Eintrag in den Auftrag übernommen';
   strCombiteItems               = 'Sollen die Elemente "%s" und "%s" wirklich verschmolzen werden ?';
@@ -108,7 +109,8 @@ resourcestring
   strLoginFailed                = 'Login fehlgeschlagen';
   strProjectList                = 'Projektliste';
   strSalesList                  = 'Zahlungsliste';
-  strVoucher                    = 'neuer Beleg';
+  strVoucher                    = 'Beleg';
+  strNewVoucher                 = 'neuer Beleg';
   strNewOrder                   = 'als ';
   strWiki                       = 'Wiki';
   strUsers                      = 'Benutzer';
@@ -253,4 +255,4 @@ begin
   nav.Hints.Add(strRefresh);
 end;
 {$ENDIF}
-end.
+end.

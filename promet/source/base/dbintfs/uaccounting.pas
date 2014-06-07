@@ -20,11 +20,15 @@ unit uAccounting;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, db, uBaseDBClasses, uBaseApplication;
+  Classes, SysUtils, db, uBaseDBClasses, uBaseApplication,uIntfStrConsts;
 type
+
+  { TAccountExchange }
+
   TAccountExchange = class(TBaseDBDataSet)
   public
     procedure DefineFields(aDataSet : TDataSet);override;
+    procedure SetDisplayLabels(aDataSet: TDataSet); override;
     procedure Open;override;
   end;
   TAccounts = class(TBaseDBDataSet)
@@ -48,7 +52,8 @@ type
   end;
 implementation
 uses uBaseDBInterface;
-
+resourcestring
+  strSender                 = 'Absender';
 constructor TAccountingJournal.Create(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
@@ -125,6 +130,14 @@ begin
             Add('CHECKSUM',ftString,35,False);
           end;
     end;
+end;
+
+procedure TAccountExchange.SetDisplayLabels(aDataSet: TDataSet);
+begin
+  inherited SetDisplayLabels(aDataSet);
+  SetDisplayLabelName(aDataSet,'RSORTCODE',strSender+' '+strSortCode);
+  SetDisplayLabelName(aDataSet,'RACCOUNTNO',strSender+' '+strAccount);
+  SetDisplayLabelName(aDataSet,'VOUCHER',strVoucher);
 end;
 
 procedure TAccountExchange.Open;
