@@ -107,28 +107,31 @@
         <CommandLineParams Value="--mandant=&quot;Stora&quot;"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="6">
+    <RequiredPackages Count="7">
       <Item1>
-        <PackageName Value="laz_synapse"/>
+        <PackageName Value="lnetvisual"/>
       </Item1>
       <Item2>
-        <PackageName Value="LazUtils"/>
+        <PackageName Value="laz_synapse"/>
       </Item2>
       <Item3>
-        <PackageName Value="lazreport"/>
+        <PackageName Value="LazUtils"/>
       </Item3>
       <Item4>
-        <PackageName Value="pfcgiprometapp"/>
-        <DefaultFilename Value="../base/pfcgiprometapp.lpk"/>
+        <PackageName Value="lazreport"/>
       </Item4>
       <Item5>
-        <PackageName Value="WebLaz"/>
+        <PackageName Value="pfcgiprometapp"/>
+        <DefaultFilename Value="../base/pfcgiprometapp.lpk"/>
       </Item5>
       <Item6>
-        <PackageName Value="FCL"/>
+        <PackageName Value="WebLaz"/>
       </Item6>
+      <Item7>
+        <PackageName Value="FCL"/>
+      </Item7>
     </RequiredPackages>
-    <Units Count="3">
+    <Units Count="4">
       <Unit0>
         <Filename Value="local_appbase.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -146,6 +149,13 @@
         <Filename Value="../../../apps/promet/library.js"/>
         <IsPartOfProject Value="True"/>
       </Unit2>
+      <Unit3>
+        <Filename Value="uwebserver.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fWebServer"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="uwebserver"/>
+      </Unit3>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -173,7 +183,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="6">
+    <Exceptions Count="7">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -192,6 +202,9 @@
       <Item6>
         <Name Value="RunError(216)"/>
       </Item6>
+      <Item7>
+        <Name Value="EWriteError"/>
+      </Item7>
     </Exceptions>
   </Debugging>
 </CONFIG>

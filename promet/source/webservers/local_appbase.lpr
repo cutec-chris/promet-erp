@@ -6,7 +6,7 @@ uses
   {$IFDEF UNIX}cwstring,cthreads,{$ENDIF}
   pfcgiprometapp,
   ubasehttpapplication,
-  Interfaces,uBaseApplication,umain, laz_synapse;
+  Interfaces,uBaseApplication,umain, laz_synapse, lnetvisual, uwebserver;
 begin
   Application.DefaultModule:='main';
   with BaseApplication as IBaseApplication do
@@ -21,6 +21,7 @@ begin
       Login;
     end;
   Application.Initialize;
+  Application.CreateForm(TfWebServer,fWebServer);
   Application.Port:=8086;
   Application.DefaultModule:='appbase';
   Application.Run;

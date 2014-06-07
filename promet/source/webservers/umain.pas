@@ -27,10 +27,10 @@ interface
 uses
   SysUtils, Classes, LR_Class, httpdefs, fpHTTP, fpWeb, fpdatasetform, db,fpjson,
   LCLproc,uBaseDBInterface,FileUtil,LConvEncoding,uBaseDbClasses,fpsqlparser,
-  fpsqlscanner, fpsqltree,httpsend,OpenSSL,jsonparser;
+  fpsqlscanner, fpsqltree,httpsend,OpenSSL, lNetComponents,jsonparser, lhttp,
+  lwebserver,lEvents,lHTTPUtil, lNet;
 
 type
-
   { Tappbase }
 
   Tappbase = class(TFPWebModule)
@@ -42,6 +42,7 @@ type
     procedure DataModuleBeforeRequest(Sender: TObject; ARequest: TRequest);
     procedure getstatisticRequest(Sender: TObject; ARequest: TRequest;
       AResponse: TResponse; var Handled: Boolean);
+    procedure ServerAccess(AMessage: string);
     procedure listRequest(Sender: TObject; ARequest: TRequest;
       AResponse: TResponse; var Handled: Boolean);
     procedure loginRequest(Sender: TObject; ARequest: TRequest;
@@ -51,6 +52,7 @@ type
     procedure objectRequest(Sender: TObject; ARequest: TRequest;
       AResponse: TResponse; var Handled: Boolean);
     function OpenLink(aLink: string; Sender: TObject): Boolean;
+    procedure ServerError(const msg: string; aSocket: TLSocket);
     procedure setobjectRequest(Sender: TObject; ARequest: TRequest;
       AResponse: TResponse; var Handled: Boolean);
     procedure syncRequest(Sender: TObject; ARequest: TRequest;
@@ -73,6 +75,7 @@ uses uStatistic,uData,uBaseWebSession,uPerson,uOrder,uMasterdata,utask,uProjects
   uBaseDbDataSet,usync,uMessages,uBaseSearch,uWiki,uDocuments,umeeting,uBaseERPDBClasses,
   uBaseApplication;
 {$R *.lfm}
+
 procedure Tappbase.checkloginRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 begin
@@ -123,6 +126,7 @@ procedure Tappbase.DataModuleBeforeRequest(Sender: TObject; ARequest: TRequest);
 begin
   debugln('Request:'+ARequest.URL);
 end;
+
 procedure Tappbase.getstatisticRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 var
@@ -172,6 +176,12 @@ begin
   debugln('GetStatisticRequest:ended');
   {$endif}
 end;
+
+procedure Tappbase.ServerAccess(AMessage: string);
+begin
+  debugln(AMessage);
+end;
+
 procedure Tappbase.listRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 var
@@ -369,6 +379,12 @@ function Tappbase.OpenLink(aLink: string; Sender: TObject): Boolean;
 begin
 
 end;
+
+procedure Tappbase.ServerError(const msg: string; aSocket: TLSocket);
+begin
+  debugln(msg);
+end;
+
 procedure Tappbase.setobjectRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 var

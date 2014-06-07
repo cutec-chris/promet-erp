@@ -20,7 +20,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="41">
+    <Files Count="42">
       <Item1>
         <Filename Value="ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
@@ -185,6 +185,10 @@
         <Filename Value="uimport.pas"/>
         <UnitName Value="uimport"/>
       </Item41>
+      <Item42>
+        <Filename Value="upasswordsave.pas"/>
+        <UnitName Value="upasswordsave"/>
+      </Item42>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="8">

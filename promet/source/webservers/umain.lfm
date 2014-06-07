@@ -61,7 +61,7 @@ object appbase: Tappbase
   CreateSession = True
   AfterInitModule = DataModuleAfterInitModule
   Height = 328
-  HorizontalOffset = 357
-  VerticalOffset = 292
+  HorizontalOffset = 345
+  VerticalOffset = 259
   Width = 393
 end

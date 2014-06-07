@@ -1,0 +1,22 @@
+object fWebServer: TfWebServer
+  OnCreate = DataModuleCreate
+  OldCreateOrder = False
+  Height = 150
+  HorizontalOffset = 252
+  VerticalOffset = 132
+  Width = 150
+  object Server: TLHTTPServerComponent
+    Port = 8080
+    ServerSoftware = 'phhtp/0.1'
+    OnAccess = ServerAccess
+    OnError = ServerError
+    Timeout = 0
+    left = 16
+    top = 16
+  end
+  object LSSLSessionComponent1: TLSSLSessionComponent
+    Method = msSSLv2or3
+    left = 56
+    top = 16
+  end
+end

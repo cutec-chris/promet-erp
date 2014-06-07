@@ -57,17 +57,16 @@
         <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
       </Item5>
     </RequiredPackages>
-    <Units Count="116">
+    <Units Count="118">
       <Unit0>
         <Filename Value="httpserver.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="httpserver"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="20"/>
-        <CursorPos X="110" Y="41"/>
-        <UsageCount Value="103"/>
+        <TopLine Value="67"/>
+        <CursorPos X="21" Y="90"/>
+        <UsageCount Value="104"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -602,9 +601,10 @@
       <Unit67>
         <Filename Value="..\base\dbintfs\usessiondbclasses.pas"/>
         <UnitName Value="uSessionDBClasses"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
+        <TopLine Value="66"/>
         <CursorPos X="25" Y="118"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
@@ -930,7 +930,7 @@
       <Unit107>
         <Filename Value="..\webwiki\ulogin.pas"/>
         <UnitName Value="ulogin"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="22" Y="23"/>
@@ -964,7 +964,7 @@
       <Unit111>
         <Filename Value="..\webwiki\udownloads.pas"/>
         <UnitName Value="udownloads"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="30" Y="7"/>
@@ -990,7 +990,7 @@
       <Unit114>
         <Filename Value="..\base\ubasefcgiapplication.pas"/>
         <UnitName Value="ubasefcgiapplication"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="32" Y="9"/>
@@ -1005,8 +1005,26 @@
         <CursorPos X="3" Y="373"/>
         <UsageCount Value="10"/>
       </Unit115>
+      <Unit116>
+        <Filename Value="..\components\lnet\lib\lhttp.pp"/>
+        <UnitName Value="lhttp"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="374"/>
+        <CursorPos X="3" Y="391"/>
+        <UsageCount Value="10"/>
+      </Unit116>
+      <Unit117>
+        <Filename Value="..\components\lnet\lib\lwebserver.pp"/>
+        <UnitName Value="lwebserver"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit117>
     </Units>
-    <JumpHistory Count="12" HistoryIndex="11">
+    <JumpHistory Count="18" HistoryIndex="17">
       <Position1>
         <Filename Value="httpserver.lpr"/>
         <Caret Line="44" Column="3" TopLine="40"/>
@@ -1055,6 +1073,30 @@
         <Filename Value="..\base\ubasefcgiapplication.pas"/>
         <Caret Line="9" Column="32" TopLine="1"/>
       </Position12>
+      <Position13>
+        <Filename Value="httpserver.lpr"/>
+        <Caret Line="99" Column="19" TopLine="76"/>
+      </Position13>
+      <Position14>
+        <Filename Value="httpserver.lpr"/>
+        <Caret Line="107" Column="23" TopLine="85"/>
+      </Position14>
+      <Position15>
+        <Filename Value="httpserver.lpr"/>
+        <Caret Line="9" Column="54" TopLine="3"/>
+      </Position15>
+      <Position16>
+        <Filename Value="httpserver.lpr"/>
+        <Caret Line="117" Column="32" TopLine="88"/>
+      </Position16>
+      <Position17>
+        <Filename Value="httpserver.lpr"/>
+        <Caret Line="28" Column="21" TopLine="11"/>
+      </Position17>
+      <Position18>
+        <Filename Value="httpserver.lpr"/>
+        <Caret Line="35" Column="12" TopLine="28"/>
+      </Position18>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
