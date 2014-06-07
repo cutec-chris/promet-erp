@@ -14,7 +14,7 @@ uses
   ubaseapplicationtools, uWiki, uEncrypt, usync, uSessionDBClasses, utask, 
   uvtools, uimpvcal, uDocumentProcess, uProcessManager, uProcessManagement, 
   uprometipc, umeeting, uBaseDocPages, FPReadJPEGintfd, uthumbnails, 
-  fpthumbresize, ucalc, uimport, LazarusPackageIntf;
+  fpthumbresize, ucalc, uimport, uPasswordSave, LazarusPackageIntf;
 
 implementation
 

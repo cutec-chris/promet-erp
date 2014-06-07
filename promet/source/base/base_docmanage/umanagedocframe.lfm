@@ -1727,10 +1727,12 @@ inherited fManageDocFrame: TfManageDocFrame
     top = 208
   end
   object OpenPictureDialog1: TOpenPictureDialog[10]
+    Options = [ofAllowMultiSelect, ofEnableSizing, ofViewDetail]
     left = 131
     top = 48
   end
   object OpenDialog1: TOpenDialog[11]
+    Options = [ofAllowMultiSelect, ofEnableSizing, ofViewDetail]
     left = 131
     top = 80
   end

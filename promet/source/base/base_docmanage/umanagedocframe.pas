@@ -669,11 +669,14 @@ var
 begin
   if fPicImport.Execute then
     begin
-      fWaitForm.ShowInfo(ExtractFileName(Filenames[0]));
-      fWaitform.ProgressBar1.Max:=length(FileNames);
-      fWaitform.ProgressBar1.Position:=0;
-      fWaitform.ProgressBar1.Style:=pbstNormal;
-      fWaitForm.Show;
+      if Assigned(fWaitform) then
+        begin
+          fWaitForm.ShowInfo(ExtractFileName(Filenames[0]));
+          fWaitform.ProgressBar1.Max:=length(FileNames);
+          fWaitform.ProgressBar1.Position:=0;
+          fWaitform.ProgressBar1.Style:=pbstNormal;
+          fWaitForm.Show;
+        end;
       Application.ProcessMessages;
       for i := 0 to length(FileNames)-1 do
         begin
@@ -689,7 +692,8 @@ begin
           else NewFileName:=Filenames[i];
           if FileExists(NewFileName) then
             begin
-              fWaitForm.ShowInfo(ExtractFileName(NewFileName));
+              if Assigned(fWaitform) then
+                fWaitForm.ShowInfo(ExtractFileName(NewFileName));
               TDocPages(FFullDataSet).AddFromFile(NewFileName);
               TDocPages(FFullDataSet).Edit;
               TDocPages(FFullDataSet).FieldByName('TAGS').AsString:=fPicImport.eTags.Text;
@@ -762,10 +766,14 @@ begin
                     end;
                 end;
             end;
-          fWaitform.ProgressBar1.Position:=fWaitform.ProgressBar1.Position+1;
+          if Assigned(fWaitform) then
+            fWaitform.ProgressBar1.Position:=fWaitform.ProgressBar1.Position+1;
         end;
-      fWaitform.ProgressBar1.Style:=pbstMarquee;
-      fWaitform.Hide;
+      if Assigned(fWaitform) then
+        begin
+          fWaitform.ProgressBar1.Style:=pbstMarquee;
+          fWaitform.Hide;
+        end;
       acRefresh.Execute;
     end;
 end;

@@ -24,7 +24,7 @@ unit uPasswordSave;
 interface
 
 uses
-  Classes, SysUtils,uBaseDbClasses;
+  Classes, SysUtils,uBaseDbClasses,db,uBaseDBInterface;
 
 type
 

@@ -1,4 +1,6 @@
-﻿Build 353
+﻿Build 354
+      - Kalender:Druckfunktion
+Build 353
       - Dokumente:Für Text und Office dokumente können nun auch Vorschaubilder erstellt werden
       - Kalender:Listenansicht für Termine
       - Kategorieoptionen:Farbeditor für Farben
