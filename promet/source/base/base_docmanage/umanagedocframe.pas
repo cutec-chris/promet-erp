@@ -1428,9 +1428,6 @@ begin
       Filter :=  FFilter;
     end;
   TDocPages(DataSet).PrepareDataSet;
-  DataSet.Open;
-  DataSet.First;
-  FTimeLine.StartDate:=DataSet.FieldByName('ORIGDATE').AsDateTime;
   ThumbControl1.URLList:='';
   SelectedItem:=nil;
   Datasource1.DataSet := DataSet.DataSet;
@@ -1477,6 +1474,7 @@ begin
       Filter :=  FFilter;
     end;
   DataSet.Open;
+  FTimeLine.StartDate:=DataSet.FieldByName('ORIGDATE').AsDateTime;
   FLast:='';
   ThumbControl1.URLList:='';
   SelectedItem:=nil;
