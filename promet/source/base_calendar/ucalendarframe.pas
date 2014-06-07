@@ -61,11 +61,11 @@ type
     Bevel7: TBevel;
     Bevel8: TBevel;
     Bevel9: TBevel;
+    bExecute: TSpeedButton;
     bFilter: TSpeedButton;
     bMonthView: TSpeedButton;
     bListView: TSpeedButton;
     bNew: TSpeedButton;
-    bPrint: TSpeedButton;
     bToday: TSpeedButton;
     bWeekViewDay: TSpeedButton;
     bWeekView: TSpeedButton;
@@ -78,7 +78,6 @@ type
     ExtRotatedLabel4: TLabel;
     Label4: TLabel;
     Label5: TLabel;
-    Label6: TLabel;
     lFilterEdit: TLabel;
     lFilterIn: TLabel;
     MonthView: TVpMonthView;
@@ -105,6 +104,7 @@ type
     procedure acGotoTodayExecute(Sender: TObject);
     procedure acMonthViewExecute(Sender: TObject);
     procedure acNewExecute(Sender: TObject);
+    procedure acPrintExecute(Sender: TObject);
     procedure acWeekViewDaysExecute(Sender: TObject);
     procedure acWeekViewExecute(Sender: TObject);
     procedure bEditFilterClick(Sender: TObject);
@@ -437,6 +437,11 @@ begin
   aEventEdit.Execute(Event,DataStore.Resource,DataStore.FDirectory,DataStore);
   aEventEdit.Free;
   DataStoreDateChanged(DataStore,DataStore.Date);
+end;
+
+procedure TfCalendarFrame.acPrintExecute(Sender: TObject);
+begin
+  FList.acPrint.Execute;
 end;
 
 procedure TfCalendarFrame.acWeekViewDaysExecute(Sender: TObject);
