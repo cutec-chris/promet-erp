@@ -200,6 +200,7 @@ var
       end;
   end;
 begin
+  Result := False;
   try
     e := lowercase (ExtractFileExt(aName));
     if (e <> '') and (e[1] = '.') then
@@ -254,6 +255,7 @@ begin
         wr.Free;
         iOut.Free;
         Img.Free;
+        Result := True;
       end;
   except
     Result := False;

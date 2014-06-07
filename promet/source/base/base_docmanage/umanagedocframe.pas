@@ -1019,8 +1019,8 @@ var
   a: Integer;
 begin
   for i := 0 to FDocFrame.lvDocuments.Items.Count-1 do
-    if (lowercase(copy(FDocFrame.lvDocuments.Items[i].SubItems[0],0,4)) = 'jpg ')
-    or (lowercase(copy(FDocFrame.lvDocuments.Items[i].SubItems[0],0,5)) = 'jpeg ')
+    if (lowercase(copy(FDocFrame.lvDocuments.Items[i].SubItems[0],0,4)) = '.jpg')
+    or (lowercase(copy(FDocFrame.lvDocuments.Items[i].SubItems[0],0,5)) = '.jpeg')
     then
       begin
         FDocFrame.lvDocuments.ItemIndex:=i;
@@ -1359,6 +1359,14 @@ begin
               break;
             end;
     end;
+  acRotate.Enabled:=False;
+  for i := 0 to FDocFrame.lvDocuments.Items.Count-1 do
+    if (lowercase(copy(FDocFrame.lvDocuments.Items[i].SubItems[0],0,4)) = '.jpg')
+    or (lowercase(copy(FDocFrame.lvDocuments.Items[i].SubItems[0],0,5)) = '.jpeg')
+    then
+      begin
+        acRotate.Enabled:=True;
+      end;
   if tstext.Visible then tstext.OnShow(tsText);
 end;
 
