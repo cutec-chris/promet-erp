@@ -150,7 +150,7 @@ type
     FOldBaseFilterT: String;
     FOldRecT: LargeInt;
     FOldSortT: String;
-    FOldSortDT: uBasedbinterface.TSortDirection;
+    FOldSortDT: TSortDirection;
     FoldAutoFilterU : Boolean;
     FOldAutoFilterT : Boolean;
     FOldLimitT: Integer;

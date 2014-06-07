@@ -2557,6 +2557,7 @@ end;
 procedure TBaseDBDataset.SetDisplayLabels(aDataSet: TDataSet);
 begin
   FDisplayLabelsWasSet := True;
+  SetDisplayLabelName(aDataSet,'STARTDATE',strStart);
   SetDisplayLabelName(aDataSet,'DUEDATE',strDue);
   SetDisplayLabelName(aDataSet,'ACCOUNTNO',strAccountNo);
   SetDisplayLabelName(aDataSet,'NAME',strName);
@@ -2759,4 +2760,4 @@ begin
 end;
 initialization
 end.
-
+

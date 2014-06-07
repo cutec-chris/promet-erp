@@ -37,10 +37,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="umtimeline"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1139"/>
-        <CursorPos X="1" Y="1159"/>
+        <TopLine Value="136"/>
+        <CursorPos X="17" Y="153"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -884,7 +885,6 @@
       </Unit101>
       <Unit102>
         <Filename Value="../base/changes.txt"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -1741,7 +1741,7 @@
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="29" HistoryIndex="28">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="../base/dbintfs/uzeosdbdm.pas"/>
         <Caret Line="325" Column="1" TopLine="294"/>
@@ -1858,6 +1858,10 @@
         <Filename Value="umtimeline.pas"/>
         <Caret Line="1185" Column="1" TopLine="1166"/>
       </Position29>
+      <Position30>
+        <Filename Value="umtimeline.pas"/>
+        <Caret Line="1159" Column="1" TopLine="1139"/>
+      </Position30>
     </JumpHistory>
   </ProjectSession>
   <EditorMacros Count="0"/>

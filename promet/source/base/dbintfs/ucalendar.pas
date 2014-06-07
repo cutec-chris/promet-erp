@@ -40,6 +40,7 @@ type
   public
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure FillDefaults(aDataSet: TDataSet); override;
+    procedure SetDisplayLabels(aDataSet : TDataSet);override;
     procedure SelectByUser(AccountNo : string);
     procedure SelectPlanedByUser(AccountNo : string);
     procedure SelectPlanedByUserAndTime(AccountNo : string;aStart,aEnd : TDateTime);
@@ -197,6 +198,11 @@ begin
   inherited FillDefaults(aDataSet);
   FieldByName('REF_ID_ID').AsVariant:=RefId;
   FieldByName('ID').AsVariant:=Data.GetUniID;
+end;
+
+procedure TCalendar.SetDisplayLabels(aDataSet: TDataSet);
+begin
+  inherited SetDisplayLabels(aDataSet);
 end;
 
 procedure TCalendar.SelectByUser(AccountNo: string);

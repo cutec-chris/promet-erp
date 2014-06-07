@@ -500,7 +500,7 @@ begin
   WeekView.Visible := False;
   pWeekDayView.Visible := False;
   pListView.Visible := True;
-  aFilter := Data.QuoteField('REF_ID_ID');
+  aFilter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory);
   with DataSet.DataSet as IBaseDbFilter do
     cFilter := Filter;
   if aFilter <> cFilter then
