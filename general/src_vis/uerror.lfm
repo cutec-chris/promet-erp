@@ -1,20 +1,20 @@
 object fError: TfError
   Left = 396
-  Height = 151
+  Height = 154
   Top = 350
-  Width = 525
+  Width = 528
   Caption = 'fError'
-  ClientHeight = 151
-  ClientWidth = 525
+  ClientHeight = 154
+  ClientWidth = 528
   KeyPreview = True
   OnKeyDown = FormKeyDown
   Position = poScreenCenter
   LCLVersion = '1.3'
   object mError: TMemo
     Left = 8
-    Height = 134
+    Height = 137
     Top = 8
-    Width = 320
+    Width = 323
     Anchors = [akTop, akLeft, akRight, akBottom]
     Font.Color = clRed
     Lines.Strings = (
@@ -25,7 +25,7 @@ object fError: TfError
     TabOrder = 0
   end
   object bOK: TBitBtn
-    Left = 338
+    Left = 341
     Height = 40
     Top = 8
     Width = 180
@@ -39,9 +39,9 @@ object fError: TfError
     TabOrder = 1
   end
   object bBacktrace: TBitBtn
-    Left = 338
+    Left = 341
     Height = 30
-    Top = 80
+    Top = 83
     Width = 180
     Anchors = [akRight, akBottom]
     Caption = 'bBacktrace'
@@ -49,9 +49,9 @@ object fError: TfError
     TabOrder = 2
   end
   object bSendToAdmin: TBitBtn
-    Left = 338
+    Left = 341
     Height = 29
-    Top = 112
+    Top = 115
     Width = 180
     Anchors = [akRight, akBottom]
     Caption = 'an Administrator melden'

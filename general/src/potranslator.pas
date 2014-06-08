@@ -5,7 +5,7 @@ unit PoTranslator;
 interface
 
 uses
-  Classes, SysUtils, LResources, typinfo, Translations;
+  Classes, SysUtils, LResources, typinfo, Translations,Dialogs,LCLProc;
 
 type
 
@@ -48,9 +48,11 @@ begin
   if Instance is TComponent then
    if csDesigning in (Instance as TComponent).ComponentState then exit;
 {End DO :)}
-  if (AnsiUpperCase(PropInfo^.PropType^.Name)<>'TTRANSLATESTRING') then exit;
+  //if (AnsiUpperCase(PropInfo^.PropType^.Name)<>'TTRANSLATESTRING') then exit;
+  //  debugln('IGNORING:'+PropInfo^.Name+':'+PropInfo^.PropType^.Name+'='+Content+':'+s);
   if (AnsiUpperCase(PropInfo^.Name)='TCOLUMN') then exit;
   s:=FPOFile.Translate(Content, Content);
+  debugln(PropInfo^.Name+':'+PropInfo^.PropType^.Name+'='+Content+':'+s);
   if s<>'' then Content:=s;
 end;
 

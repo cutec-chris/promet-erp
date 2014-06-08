@@ -1,20 +1,20 @@
 { This is an automatically generated lazarus resource file }
 
 LazarusResources.Add('TfError','FORMDATA',[
-  'TPF0'#7'TfError'#6'fError'#4'Left'#3#140#1#6'Height'#3#151#0#3'Top'#3'^'#1#5
-  +'Width'#3#13#2#7'Caption'#6#6'fError'#12'ClientHeight'#3#151#0#11'ClientWidt'
-  +'h'#3#13#2#10'KeyPreview'#9#9'OnKeyDown'#7#11'FormKeyDown'#8'Position'#7#14
+  'TPF0'#7'TfError'#6'fError'#4'Left'#3#140#1#6'Height'#3#154#0#3'Top'#3'^'#1#5
+  +'Width'#3#16#2#7'Caption'#6#6'fError'#12'ClientHeight'#3#154#0#11'ClientWidt'
+  +'h'#3#16#2#10'KeyPreview'#9#9'OnKeyDown'#7#11'FormKeyDown'#8'Position'#7#14
   +'poScreenCenter'#10'LCLVersion'#6#3'1.3'#0#5'TMemo'#6'mError'#4'Left'#2#8#6
-  +'Height'#3#134#0#3'Top'#2#8#5'Width'#3'@'#1#7'Anchors'#11#5'akTop'#6'akLeft'
+  +'Height'#3#137#0#3'Top'#2#8#5'Width'#3'C'#1#7'Anchors'#11#5'akTop'#6'akLeft'
   +#7'akRight'#8'akBottom'#0#10'Font.Color'#7#5'clRed'#13'Lines.Strings'#1#6#5
   +'Memo1'#0#10'ParentFont'#8#8'ReadOnly'#9#8'TabOrder'#2#0#0#0#7'TBitBtn'#3'bO'
-  +'K'#4'Left'#3'R'#1#6'Height'#2'('#3'Top'#2#8#5'Width'#3#180#0#7'Anchors'#11#5
+  +'K'#4'Left'#3'U'#1#6'Height'#2'('#3'Top'#2#8#5'Width'#3#180#0#7'Anchors'#11#5
   +'akTop'#7'akRight'#0#25'BorderSpacing.InnerBorder'#2#4#7'Caption'#6#3'&Ok'#7
   +'Default'#9#4'Kind'#7#4'bkOK'#11'ModalResult'#2#1#7'OnClick'#7#8'bOKClick'#8
-  +'TabOrder'#2#1#0#0#7'TBitBtn'#10'bBacktrace'#4'Left'#3'R'#1#6'Height'#2#30#3
-  +'Top'#2'P'#5'Width'#3#180#0#7'Anchors'#11#7'akRight'#8'akBottom'#0#7'Caption'
+  +'TabOrder'#2#1#0#0#7'TBitBtn'#10'bBacktrace'#4'Left'#3'U'#1#6'Height'#2#30#3
+  +'Top'#2'S'#5'Width'#3#180#0#7'Anchors'#11#7'akRight'#8'akBottom'#0#7'Caption'
   +#6#10'bBacktrace'#7'OnClick'#7#15'bBacktraceClick'#8'TabOrder'#2#2#0#0#7'TBi'
-  +'tBtn'#12'bSendToAdmin'#4'Left'#3'R'#1#6'Height'#2#29#3'Top'#2'p'#5'Width'#3
+  +'tBtn'#12'bSendToAdmin'#4'Left'#3'U'#1#6'Height'#2#29#3'Top'#2's'#5'Width'#3
   +#180#0#7'Anchors'#11#7'akRight'#8'akBottom'#0#7'Caption'#6#23'an Administrat'
   +'or melden'#7'Enabled'#8#7'OnClick'#7#15'bBacktraceClick'#8'TabOrder'#2#3#0#0
   +#0

@@ -68,6 +68,11 @@
         <UnitName Value="uInfo"/>
       </Item11>
     </Files>
+    <i18n>
+      <EnableI18N Value="True"/>
+      <OutDir Value="..\promet\languages"/>
+      <EnableI18NForLFM Value="True"/>
+    </i18n>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="3">
       <Item1>
