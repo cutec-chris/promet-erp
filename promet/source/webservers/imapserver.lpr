@@ -153,7 +153,7 @@ begin
           msg.DecodeMessage;
           aUID := msg.Header.MessageID;
           ureceivemessage.Init;
-          if ureceivemessage.CheckHeader(aUID,msg) then
+          if ureceivemessage.CheckHeader(aUID,msg,aUser.Accountno.AsString) then
             begin
               ureceivemessage.aTreeEntry:=TREE_ID_MESSAGES;
               ureceivemessage.ReceiveMessage(aUID,aMail,aMessage);
@@ -210,7 +210,7 @@ begin
       IMAPServer.CallAction;
       SMTPServer.CallAction;
       sleep(100);
-      if aTime > (60*60*1000) then break;
+      if (GetTickCount-aTime) > (60*60*1000) then break;
     end;
   // stop program loop
   Terminate;

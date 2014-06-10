@@ -69,8 +69,8 @@
         <UnitName Value="imapserver"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="187"/>
-        <CursorPos X="3" Y="207"/>
+        <TopLine Value="25"/>
+        <CursorPos X="1" Y="208"/>
         <UsageCount Value="201"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -197,9 +197,10 @@
       <Unit15>
         <Filename Value="..\base\dbintfs\umessages.pas"/>
         <UnitName Value="uMessages"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="355"/>
+        <TopLine Value="85"/>
         <CursorPos X="1" Y="355"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
@@ -310,7 +311,6 @@
       <Unit28>
         <Filename Value="..\base_messaging\umimemessages.pas"/>
         <UnitName Value="uMimeMessages"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="223"/>
@@ -379,7 +379,7 @@
       </Unit35>
       <Unit36>
         <Filename Value="rfc2060.txt"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1917"/>
         <CursorPos X="100" Y="1937"/>
@@ -413,7 +413,7 @@
       </Unit39>
       <Unit40>
         <Filename Value="..\base\changes.txt"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="99" Y="12"/>
@@ -786,7 +786,7 @@
         <Filename Value="ulsmtpsrv.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ulsmtpsrv"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="68"/>
         <CursorPos X="61" Y="184"/>
@@ -829,10 +829,10 @@
       <Unit92>
         <Filename Value="..\base_messaging\ureceivemessage.pas"/>
         <UnitName Value="ureceivemessage"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="188"/>
-        <CursorPos X="1" Y="229"/>
+        <TopLine Value="22"/>
+        <CursorPos X="10" Y="39"/>
         <UsageCount Value="52"/>
         <Loaded Value="True"/>
       </Unit92>
@@ -958,135 +958,121 @@
       <Unit108>
         <Filename Value="..\..\..\general\src\aspell.pas"/>
         <UnitName Value="Aspell"/>
-        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="52"/>
         <CursorPos X="108" Y="72"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit108>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="27" HistoryIndex="26">
       <Position1>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="1014" Column="1" TopLine="997"/>
+        <Caret Line="1022" Column="1" TopLine="997"/>
       </Position1>
       <Position2>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="1025" Column="1" TopLine="997"/>
+        <Caret Line="1023" Column="1" TopLine="997"/>
       </Position2>
       <Position3>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="1014" Column="1" TopLine="997"/>
+        <Caret Line="1024" Column="1" TopLine="997"/>
       </Position3>
       <Position4>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="1015" Column="1" TopLine="997"/>
+        <Caret Line="1025" Column="1" TopLine="997"/>
       </Position4>
       <Position5>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="1016" Column="1" TopLine="997"/>
+        <Caret Line="125" Column="1" TopLine="109"/>
       </Position5>
       <Position6>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="1017" Column="1" TopLine="997"/>
+        <Filename Value="ulimap.pas"/>
+        <Caret Line="270" Column="1" TopLine="247"/>
       </Position6>
       <Position7>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="1018" Column="1" TopLine="997"/>
+        <Filename Value="ulimap.pas"/>
+        <Caret Line="595" Column="1" TopLine="580"/>
       </Position7>
       <Position8>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="1019" Column="1" TopLine="997"/>
+        <Filename Value="ulimap.pas"/>
+        <Caret Line="599" Column="1" TopLine="581"/>
       </Position8>
       <Position9>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="1022" Column="1" TopLine="997"/>
+        <Caret Line="7" Column="90" TopLine="1"/>
       </Position9>
       <Position10>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="1023" Column="1" TopLine="997"/>
+        <Filename Value="ulimap.pas"/>
+        <Caret Line="768" Column="58" TopLine="756"/>
       </Position10>
       <Position11>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="1024" Column="1" TopLine="997"/>
+        <Filename Value="ulimap.pas"/>
+        <Caret Line="769" Column="22" TopLine="756"/>
       </Position11>
       <Position12>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="1025" Column="1" TopLine="997"/>
+        <Filename Value="ulimap.pas"/>
+        <Caret Line="771" Column="32" TopLine="756"/>
       </Position12>
       <Position13>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="125" Column="1" TopLine="109"/>
+        <Filename Value="ulimap.pas"/>
+        <Caret Line="440" Column="33" TopLine="427"/>
       </Position13>
       <Position14>
-        <Filename Value="ulimap.pas"/>
-        <Caret Line="270" Column="1" TopLine="247"/>
+        <Filename Value="uprometimap.pas"/>
+        <Caret Line="65" Column="71" TopLine="60"/>
       </Position14>
       <Position15>
-        <Filename Value="ulimap.pas"/>
-        <Caret Line="595" Column="1" TopLine="580"/>
+        <Filename Value="uprometimap.pas"/>
+        <Caret Line="454" Column="19" TopLine="426"/>
       </Position15>
       <Position16>
-        <Filename Value="ulimap.pas"/>
-        <Caret Line="599" Column="1" TopLine="581"/>
+        <Filename Value="uprometimap.pas"/>
+        <Caret Line="463" Column="35" TopLine="451"/>
       </Position16>
       <Position17>
         <Filename Value="uprometimap.pas"/>
-        <Caret Line="7" Column="90" TopLine="1"/>
+        <Caret Line="568" Column="32" TopLine="552"/>
       </Position17>
       <Position18>
-        <Filename Value="ulimap.pas"/>
-        <Caret Line="768" Column="58" TopLine="756"/>
-      </Position18>
-      <Position19>
-        <Filename Value="ulimap.pas"/>
-        <Caret Line="769" Column="22" TopLine="756"/>
-      </Position19>
-      <Position20>
-        <Filename Value="ulimap.pas"/>
-        <Caret Line="771" Column="32" TopLine="756"/>
-      </Position20>
-      <Position21>
-        <Filename Value="ulimap.pas"/>
-        <Caret Line="440" Column="33" TopLine="427"/>
-      </Position21>
-      <Position22>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="65" Column="71" TopLine="60"/>
-      </Position22>
-      <Position23>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="454" Column="19" TopLine="426"/>
-      </Position23>
-      <Position24>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="463" Column="35" TopLine="451"/>
-      </Position24>
-      <Position25>
-        <Filename Value="uprometimap.pas"/>
-        <Caret Line="568" Column="32" TopLine="552"/>
-      </Position25>
-      <Position26>
         <Filename Value="uprometimap.pas"/>
         <Caret Line="589" Column="34" TopLine="570"/>
+      </Position18>
+      <Position19>
+        <Filename Value="imapserver.lpr"/>
+        <Caret Line="206" Column="16" TopLine="181"/>
+      </Position19>
+      <Position20>
+        <Filename Value="imapserver.lpr"/>
+        <Caret Line="31" Column="19" TopLine="17"/>
+      </Position20>
+      <Position21>
+        <Filename Value="imapserver.lpr"/>
+        <Caret Line="207" Column="3" TopLine="187"/>
+      </Position21>
+      <Position22>
+        <Filename Value="imapserver.lpr"/>
+        <Caret Line="156" Column="35" TopLine="139"/>
+      </Position22>
+      <Position23>
+        <Filename Value="imapserver.lpr"/>
+        <Caret Line="208" Column="1" TopLine="183"/>
+      </Position23>
+      <Position24>
+        <Filename Value="imapserver.lpr"/>
+        <Caret Line="210" Column="1" TopLine="183"/>
+      </Position24>
+      <Position25>
+        <Filename Value="imapserver.lpr"/>
+        <Caret Line="211" Column="1" TopLine="183"/>
+      </Position25>
+      <Position26>
+        <Filename Value="imapserver.lpr"/>
+        <Caret Line="212" Column="1" TopLine="184"/>
       </Position26>
       <Position27>
         <Filename Value="imapserver.lpr"/>
-        <Caret Line="206" Column="16" TopLine="181"/>
+        <Caret Line="213" Column="11" TopLine="188"/>
       </Position27>
-      <Position28>
-        <Filename Value="imapserver.lpr"/>
-        <Caret Line="31" Column="19" TopLine="17"/>
-      </Position28>
-      <Position29>
-        <Filename Value="..\..\..\general\src\aspell.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
-      </Position29>
-      <Position30>
-        <Filename Value="..\..\..\general\src\aspell.pas"/>
-        <Caret Line="76" Column="27" TopLine="65"/>
-      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -1144,4 +1130,4 @@
     </Exceptions>
   </Debugging>
   <EditorMacros Count="0"/>
-</CONFIG>
+</CONFIG>
