@@ -123,6 +123,7 @@ begin
     end;
   cmd += cmdln;
   Result := TProcessUTF8.Create(nil);
+  Result.Options:=[poUsePipes,poStderrToOutPut,poNoConsole];
   Result.CommandLine:=aDir+cmd;
   Result.Execute;
 end;

@@ -33,7 +33,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=&quot;TCS-Times2&quot; --user=&quot;Christian Ulrich&quot;"/>
+        <CommandLineParams Value="--mandant=&quot;TCS-Times2&quot; --user=&quot;Testnutzer&quot;"/>
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
         <WorkingDirectory Value="C:\"/>
       </local>
@@ -58,8 +58,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="296"/>
-        <CursorPos X="1" Y="312"/>
+        <TopLine Value="144"/>
+        <CursorPos X="43" Y="251"/>
         <FoldState Value=" T3i603113m"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="1">
@@ -595,8 +595,8 @@
         <UnitName Value="usync"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="369"/>
-        <CursorPos X="75" Y="380"/>
+        <TopLine Value="51"/>
+        <CursorPos X="11" Y="71"/>
         <UsageCount Value="40"/>
         <Loaded Value="True"/>
       </Unit68>
@@ -1040,124 +1040,124 @@
     </Build>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="623" Column="1" TopLine="603"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="2219" Column="1" TopLine="2197"/>
       </Position1>
       <Position2>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="624" Column="1" TopLine="603"/>
+        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
+        <Caret Line="921" Column="1" TopLine="902"/>
       </Position2>
       <Position3>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2217" Column="1" TopLine="2197"/>
+        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
+        <Caret Line="922" Column="1" TopLine="902"/>
       </Position3>
       <Position4>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2218" Column="1" TopLine="2197"/>
+        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
+        <Caret Line="923" Column="1" TopLine="902"/>
       </Position4>
       <Position5>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2219" Column="1" TopLine="2197"/>
+        <Caret Line="2220" Column="1" TopLine="2197"/>
       </Position5>
       <Position6>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="921" Column="1" TopLine="902"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="622" Column="1" TopLine="603"/>
       </Position6>
       <Position7>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="922" Column="1" TopLine="902"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="623" Column="1" TopLine="603"/>
       </Position7>
       <Position8>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="923" Column="1" TopLine="902"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="624" Column="1" TopLine="603"/>
       </Position8>
       <Position9>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2220" Column="1" TopLine="2197"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="622" Column="1" TopLine="603"/>
       </Position9>
       <Position10>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="622" Column="1" TopLine="603"/>
+        <Caret Line="623" Column="1" TopLine="603"/>
       </Position10>
       <Position11>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="623" Column="1" TopLine="603"/>
+        <Caret Line="624" Column="1" TopLine="603"/>
       </Position11>
       <Position12>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="624" Column="1" TopLine="603"/>
+        <Caret Line="626" Column="1" TopLine="603"/>
       </Position12>
       <Position13>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="622" Column="1" TopLine="603"/>
+        <Caret Line="627" Column="1" TopLine="603"/>
       </Position13>
       <Position14>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="623" Column="1" TopLine="603"/>
+        <Caret Line="628" Column="1" TopLine="603"/>
       </Position14>
       <Position15>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="624" Column="1" TopLine="603"/>
+        <Caret Line="622" Column="1" TopLine="603"/>
       </Position15>
       <Position16>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="626" Column="1" TopLine="603"/>
+        <Caret Line="623" Column="1" TopLine="603"/>
       </Position16>
       <Position17>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="627" Column="1" TopLine="603"/>
+        <Caret Line="624" Column="1" TopLine="603"/>
       </Position17>
       <Position18>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="628" Column="1" TopLine="603"/>
-      </Position18>
-      <Position19>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="622" Column="1" TopLine="603"/>
-      </Position19>
-      <Position20>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="623" Column="1" TopLine="603"/>
-      </Position20>
-      <Position21>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="624" Column="1" TopLine="603"/>
-      </Position21>
-      <Position22>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <Caret Line="2197" Column="1" TopLine="2178"/>
-      </Position22>
-      <Position23>
+      </Position18>
+      <Position19>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <Caret Line="2198" Column="1" TopLine="2178"/>
-      </Position23>
-      <Position24>
+      </Position19>
+      <Position20>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <Caret Line="2199" Column="1" TopLine="2178"/>
+      </Position20>
+      <Position21>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="2200" Column="1" TopLine="2178"/>
+      </Position21>
+      <Position22>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="626" Column="1" TopLine="603"/>
+      </Position22>
+      <Position23>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="627" Column="1" TopLine="603"/>
+      </Position23>
+      <Position24>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="628" Column="1" TopLine="603"/>
       </Position24>
       <Position25>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2200" Column="1" TopLine="2178"/>
+        <Caret Line="2302" Column="1" TopLine="2283"/>
       </Position25>
       <Position26>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="626" Column="1" TopLine="603"/>
-      </Position26>
-      <Position27>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="627" Column="1" TopLine="603"/>
-      </Position27>
-      <Position28>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="628" Column="1" TopLine="603"/>
-      </Position28>
-      <Position29>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2302" Column="1" TopLine="2283"/>
-      </Position29>
-      <Position30>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <Caret Line="2303" Column="1" TopLine="2283"/>
+      </Position26>
+      <Position27>
+        <Filename Value="sync_outlook_tasks.lpr"/>
+        <Caret Line="318" Column="54" TopLine="293"/>
+      </Position27>
+      <Position28>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="391" Column="1" TopLine="369"/>
+      </Position28>
+      <Position29>
+        <Filename Value="sync_outlook_tasks.lpr"/>
+        <Caret Line="341" Column="67" TopLine="331"/>
+      </Position29>
+      <Position30>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="490" Column="31" TopLine="462"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -1189,7 +1189,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="6">
+    <BreakPoints Count="4">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsGlobal"/>
@@ -1218,20 +1218,6 @@
         <Source Value="E:\umessages.pas"/>
         <Line Value="922"/>
       </Item4>
-      <Item5>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="sync_outlook_tasks.lpr"/>
-        <Line Value="350"/>
-      </Item5>
-      <Item6>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="..\base\dbintfs\usync.pas"/>
-        <Line Value="391"/>
-      </Item6>
     </BreakPoints>
     <Watches Count="2">
       <Item1>
