@@ -852,9 +852,9 @@ inherited fManageDocFrame: TfManageDocFrame
     Height = 567
     Top = 42
     Width = 640
-    ActivePage = tsDocument
+    ActivePage = tstext
     Align = alClient
-    TabIndex = 0
+    TabIndex = 2
     TabOrder = 2
     object tsDocument: TTabSheet
       Caption = 'Dokument'
@@ -1099,12 +1099,12 @@ inherited fManageDocFrame: TfManageDocFrame
       OnShow = tstextShow
       object pLeft: TPanel
         Left = 0
-        Height = 541
+        Height = 532
         Top = 0
         Width = 44
         Align = alLeft
         BevelOuter = bvNone
-        ClientHeight = 541
+        ClientHeight = 532
         ClientWidth = 44
         ParentShowHint = False
         ShowHint = True
@@ -1279,7 +1279,7 @@ inherited fManageDocFrame: TfManageDocFrame
       end
       object mFulltext: TMemo
         Left = 44
-        Height = 541
+        Height = 532
         Top = 0
         Width = 588
         Align = alClient
