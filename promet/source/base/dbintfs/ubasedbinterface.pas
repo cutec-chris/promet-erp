@@ -23,21 +23,30 @@ interface
 uses
   Classes, SysUtils, DB, Typinfo, CustApp, Utils , memds,
   {uAppconsts, }FileUtil, uBaseDbClasses, uIntfStrConsts,
-  uBaseSearch,uBaseERPDbClasses,uDocuments,uOrder,Variants,uProcessManagement
+  uBaseSearch,uBaseERPDbClasses,uDocuments,uOrder,Variants,uProcessManagement,
+  rttiutils
   {$IFDEF LCL}
-  ,PropertyStorage,LCLIntf
+  ,LCLIntf
   {$ENDIF}
   ;
 const
   MandantExtension = '.perml';
 type
-  {$IFDEF LCL}
-  TDBConfig = class(TCustomPropertyStorage)
-  protected
-    function  DoReadString(const Section, Ident, DefaultValue: string): string; override;
-    procedure DoWriteString(const Section, Ident, Value: string); override;
+
+  { TDBConfig }
+
+  TDBConfig = class(TPropsStorage)
+  public
+    function  ReadString(const ASection, Ident, DefaultValue: string): string; override;
+    procedure WriteString(const ASection, Ident, Value: string); override;
+    function  ReadString(Ident, DefaultValue: string): string;overload;
+    procedure WriteString(Ident, Value: string);overload;
+    procedure ReadRect(const Ident: string; out ARect: TRect;
+                       const Default: TRect);
+    procedure WriteRect(const Ident: string; const Value: TRect);
+    function  ReadInteger(const Ident: string; DefaultValue: Longint): Longint;
+    procedure WriteInteger(const Ident: string; Value: Longint);
   end;
-  {$ENDIF}
   TInternalDBDataSet = class
   private
     FDataSet: TDataSet;
@@ -176,9 +185,7 @@ type
     property OnDisconnectKeepAlive : TNotifyEvent read FKeepAlive write FKeepAlive;
   end;
   IBaseDBInterface = interface['{A2AB4BAB-38DF-4D4E-BCE5-B7D57E115ED5}']
-    {$IFDEF LCL}
     function GetConfig: TDBConfig;
-    {$ENDIF}
     function GetDB: TBaseDBModule;
     function GetLastError: string;
     function GetMandantName: string;
@@ -197,9 +204,7 @@ type
     property MandantPath : string read GetMandantPath write SetMandantPath;
     property DBTyp : string write SetDBTyp;
     property Data : TBaseDBModule read GetDB write SetDB;
-    {$IFDEF LCL}
     property DBConfig : TDBConfig read GetConfig;
-    {$ENDIF}
     property LastError : string read GetLastError write SetLastError;
     property MandantName : string read GetMandantName;
   end;
@@ -212,18 +217,14 @@ type
     FConfigPath : string;
     FMandantFile : string;
     FOwner: TObject;
-    {$IFDEF LCL}
     FConfig : TDBConfig;
-    {$ENDIF}
     FDbTyp : string;
     FLastError : string;
   protected
     function GetMandantPath: string;
     procedure SetMandantPath(AValue: string);
     procedure SetDBTyp(const AValue: string);
-    {$IFDEF LCL}
     function GetConfig : TDBConfig;
-    {$ENDIF}
     function GetLastError: string;
     procedure SetLastError(const AValue: string);
   public
@@ -408,14 +409,16 @@ resourcestring
   strProjectProcess              = 'Projekt/Prozess';
 implementation
 uses uZeosDBDM, uBaseApplication, uWiki, uMessages, uprocessmanager,uRTFtoTXT;
+
+{ TDBConfig }
+
 destructor TInternalDBDataSet.Destroy;
 begin
   if Assigned(FDataSet) then
     FDataSet.Free;
   inherited Destroy;
 end;
-{$IFDEF LCL}
-function TDBConfig.DoReadString(const Section, Ident, DefaultValue: string
+function TDBConfig.ReadString(const ASection, Ident, DefaultValue: string
   ): string;
 begin
   Result := DefaultValue;
@@ -438,7 +441,7 @@ begin
         Result := Data.Users.Options.FieldByName('VALUE').AsString;
     end;
 end;
-procedure TDBConfig.DoWriteString(const Section, Ident, Value: string);
+procedure TDBConfig.WriteString(const ASection, Ident, Value: string);
 begin
   with BaseApplication as IBaseDBInterface do
     begin
@@ -463,7 +466,45 @@ begin
         end;
     end;
 end;
-{$endif}
+
+function TDBConfig.ReadString(Ident, DefaultValue: string): string;
+begin
+  Result := ReadString('',Ident,DefaultValue);
+end;
+
+procedure TDBConfig.WriteString(Ident, Value: string);
+begin
+  WriteString('',Ident,Value);
+end;
+
+procedure TDBConfig.ReadRect(const Ident: string; out ARect: TRect;
+  const Default: TRect);
+begin
+  ARect.Left:=ReadInteger(Ident+'Left',Default.Left);
+  ARect.Top:=ReadInteger(Ident+'Top',Default.Top);
+  ARect.Right:=ReadInteger(Ident+'Right',Default.Right);
+  ARect.Bottom:=ReadInteger(Ident+'Bottom',Default.Bottom);
+end;
+
+procedure TDBConfig.WriteRect(const Ident: string; const Value: TRect);
+begin
+  WriteInteger(Ident+'Left',Value.Left);
+  WriteInteger(Ident+'Top',Value.Top);
+  WriteInteger(Ident+'Right',Value.Right);
+  WriteInteger(Ident+'Bottom',Value.Bottom);
+end;
+
+function TDBConfig.ReadInteger(const Ident: string; DefaultValue: Longint
+  ): Longint;
+begin
+  Result:=StrToIntDef(ReadString(Section,Ident,IntToStr(DefaultValue)),DefaultValue);
+end;
+
+procedure TDBConfig.WriteInteger(const Ident: string; Value: Longint);
+begin
+  WriteString(Section,Ident,IntToStr(Value))
+end;
+
 procedure TBaseDBModule.DeleteExpiredSessions;
 begin
 end;
@@ -1395,12 +1436,10 @@ procedure TBaseDBInterface.SetDB(const AValue: TBaseDBModule);
 begin
   FDB := AValue;
 end;
-{$IFDEF LCL}
 function TBaseDBInterface.GetConfig: TDBConfig;
 begin
   Result := FConfig;
 end;
-{$ENDIF}
 function TBaseDBInterface.GetLastError: string;
 begin
   Result := FLastError;
@@ -1615,4 +1654,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+

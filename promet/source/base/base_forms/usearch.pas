@@ -336,13 +336,13 @@ end;
 procedure TfSearch.cbAutomaticsearchChange(Sender: TObject);
 begin
 //  bSearch.Visible:=not cbAutomaticsearch.Checked;
-  with Application as IBaseApplication do
+  with Application as IBaseDBInterface do
     begin
       if cbAutomaticsearch.Checked then
-        Config.WriteString('SEARCHWHILETYPING','YES')
+        DBConfig.WriteString('SEARCHWHILETYPING','YES')
       else
         begin
-          Config.WriteString('SEARCHWHILETYPING','NO');
+          DBConfig.WriteString('SEARCHWHILETYPING','NO');
           bSearch.Default:=True;
           bOpen.Default:=True;
         end;
@@ -350,12 +350,12 @@ begin
 end;
 procedure TfSearch.cbWildgardsChange(Sender: TObject);
 begin
-  with Application as IBaseApplication do
+  with Application as IBaseDBInterface do
     begin
       if cbWildgards.Checked then
-        Config.WriteString('WILDGARDSEARCH','YES')
+        DBConfig.WriteString('WILDGARDSEARCH','YES')
       else
-        Config.WriteString('WILDGARDSEARCH','NO');
+        DBConfig.WriteString('WILDGARDSEARCH','NO');
       if cbWildgards.Checked then
         cbAutomaticSearch.Checked:=False;
     end;
@@ -474,18 +474,18 @@ begin
 end;
 procedure TfSearch.FormShow(Sender: TObject);
 begin
-  with Application as IBaseApplication do
+  with Application as IBaseDBInterface do
     begin
-      cbAutomaticSearch.Checked:=Config.ReadString('SEARCHWHILETYPING','YES') <> 'NO';
+      cbAutomaticSearch.Checked:=DBConfig.ReadString('SEARCHWHILETYPING','YES') <> 'NO';
       cbAutomaticSearch.OnChange(Self);
-      if Config.ReadString('SEARCHMAXRESULTS','ON') = 'OFF' then
+      if DBConfig.ReadString('SEARCHMAXRESULTS','ON') = 'OFF' then
         cbMaxresults.Checked := False
       else
         begin
           cbMaxresults.Checked := true;
-          seMaxResults.Value:=Config.ReadInteger('SEARCHMAXRESULTS',10);
+          seMaxResults.Value:=DBConfig.ReadInteger('SEARCHMAXRESULTS',10);
         end;
-      cbWildgards.Checked:=Config.ReadString('WILDGARDSEARCH','NO') = 'YES';
+      cbWildgards.Checked:=DBConfig.ReadString('WILDGARDSEARCH','NO') = 'YES';
       eContains.SetFocus;
       eContains.SelectAll;
     end;
@@ -520,12 +520,12 @@ end;
 
 procedure TfSearch.seMaxresultsChange(Sender: TObject);
 begin
-  with Application as IBaseApplication do
+  with Application as IBaseDBInterface do
     begin
       if cbMaxresults.Checked then
-        Config.WriteInteger('SEARCHMAXRESULTS',seMaxResults.Value)
+        DBConfig.WriteInteger('SEARCHMAXRESULTS',seMaxResults.Value)
       else
-        Config.WriteString('SEARCHMAXRESULTS','10');
+        DBConfig.WriteString('SEARCHMAXRESULTS','10');
     end;
   DoSearch(nil);
 end;

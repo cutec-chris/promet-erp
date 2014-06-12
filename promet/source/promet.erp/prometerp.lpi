@@ -290,7 +290,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="53">
+    <Units Count="56">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -794,7 +794,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="31" Y="2"/>
-        <UsageCount Value="87"/>
+        <UsageCount Value="88"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit41>
@@ -804,7 +804,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="1"/>
-        <UsageCount Value="85"/>
+        <UsageCount Value="86"/>
         <Loaded Value="True"/>
       </Unit42>
       <Unit43>
@@ -817,7 +817,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="41"/>
         <CursorPos X="1" Y="59"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="36"/>
       </Unit43>
       <Unit44>
         <Filename Value="../base/upassword.pas"/>
@@ -826,7 +826,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="238"/>
         <CursorPos X="66" Y="258"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit44>
       <Unit45>
@@ -836,17 +836,17 @@
         <WindowIndex Value="0"/>
         <TopLine Value="34"/>
         <CursorPos X="3" Y="33"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit45>
       <Unit46>
         <Filename Value="../base/ubaseconfig.pas"/>
         <UnitName Value="ubaseconfig"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="4"/>
-        <CursorPos X="1" Y="20"/>
-        <UsageCount Value="10"/>
+        <CursorPos X="3" Y="30"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit46>
       <Unit47>
@@ -856,181 +856,211 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1038"/>
         <CursorPos X="27" Y="1053"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit47>
       <Unit48>
-        <Filename Value="../../../general/src/Utils.pas"/>
-        <UnitName Value="Utils"/>
-        <EditorIndex Value="11"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="69" Y="7"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-      </Unit48>
-      <Unit49>
         <Filename Value="../../../general/src_vis/ulanguageutils.pas"/>
         <UnitName Value="uLanguageUtils"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="4"/>
         <CursorPos X="21" Y="28"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit48>
+      <Unit49>
+        <Filename Value="../base/base_forms/uselectreport.pas"/>
+        <UnitName Value="uSelectReport"/>
+        <EditorIndex Value="8"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="423"/>
+        <CursorPos X="9" Y="441"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit49>
       <Unit50>
-        <Filename Value="../base/base_phone/uskypephone.pas"/>
-        <UnitName Value="uSkypePhone"/>
-        <EditorIndex Value="8"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <UnitName Value="uBaseDBInterface"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="11"/>
-        <CursorPos X="34" Y="34"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="470"/>
+        <CursorPos X="29" Y="477"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit50>
       <Unit51>
-        <Filename Value="../base/base_forms/uselectreport.pas"/>
-        <UnitName Value="uSelectReport"/>
+        <Filename Value="../base/base_forms/usearch.pas"/>
+        <UnitName Value="uSearch"/>
         <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="269"/>
-        <CursorPos X="31" Y="286"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="509"/>
+        <CursorPos X="39" Y="523"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit51>
       <Unit52>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <UnitName Value="uBaseDBInterface"/>
-        <IsVisibleTab Value="True"/>
+        <Filename Value="../base/base_options/umandantoptions.pas"/>
+        <UnitName Value="uMandantOptions"/>
         <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="17"/>
-        <CursorPos X="19" Y="28"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="91"/>
+        <CursorPos X="17" Y="108"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit52>
+      <Unit53>
+        <Filename Value="../base/base_documents/udocumentacquire.pas"/>
+        <UnitName Value="uDocumentAcquire"/>
+        <EditorIndex Value="11"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="390"/>
+        <CursorPos X="34" Y="406"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit53>
+      <Unit54>
+        <Filename Value="../base/base_documents/udocumentframe.pas"/>
+        <UnitName Value="uDocumentFrame"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="12"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="575"/>
+        <CursorPos X="50" Y="589"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit54>
+      <Unit55>
+        <Filename Value="../base/dbintfs/udocumentprocess.pas"/>
+        <UnitName Value="uDocumentProcess"/>
+        <EditorIndex Value="13"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="10"/>
+        <CursorPos X="45" Y="28"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit55>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../base/upassword.pas"/>
-        <Caret Line="202" Column="25" TopLine="183"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="471" Column="3" TopLine="468"/>
       </Position1>
       <Position2>
-        <Filename Value="../base/upassword.pas"/>
-        <Caret Line="202" Column="25" TopLine="183"/>
+        <Filename Value="../base/base_forms/uselectreport.pas"/>
+        <Caret Line="359" Column="36" TopLine="343"/>
       </Position2>
       <Position3>
-        <Filename Value="../base/upassword.pas"/>
-        <Caret Line="207" Column="25" TopLine="16"/>
+        <Filename Value="../base/base_forms/uselectreport.pas"/>
+        <Caret Line="137" Column="14" TopLine="127"/>
       </Position3>
       <Position4>
-        <Filename Value="../base/upassword.pas"/>
-        <Caret Line="207" Column="18" TopLine="190"/>
+        <Filename Value="../base/base_forms/uselectreport.pas"/>
+        <Caret Line="358" Column="37" TopLine="342"/>
       </Position4>
       <Position5>
-        <Filename Value="../base/upassword.pas"/>
-        <Caret Line="202" Column="27" TopLine="185"/>
+        <Filename Value="../base/base_forms/uselectreport.pas"/>
+        <Caret Line="359" Column="13" TopLine="342"/>
       </Position5>
       <Position6>
-        <Filename Value="../base/dbintfs/ubaseapplication.pas"/>
-        <Caret Line="26" Column="14" TopLine="17"/>
+        <Filename Value="../base/base_forms/uselectreport.pas"/>
+        <Caret Line="379" Column="7" TopLine="362"/>
       </Position6>
       <Position7>
-        <Filename Value="../base/upassword.pas"/>
-        <Caret Line="202" Column="27" TopLine="185"/>
+        <Filename Value="../base/base_forms/uselectreport.pas"/>
+        <Caret Line="380" Column="3" TopLine="356"/>
       </Position7>
       <Position8>
-        <Filename Value="../base/upassword.pas"/>
-        <Caret Line="207" Column="21" TopLine="190"/>
+        <Filename Value="../base/base_forms/uselectreport.pas"/>
+        <Caret Line="414" Column="9" TopLine="396"/>
       </Position8>
       <Position9>
-        <Filename Value="../base/upassword.pas"/>
-        <Caret Line="202" Column="26" TopLine="185"/>
+        <Filename Value="../base/base_forms/usearch.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position9>
       <Position10>
-        <Filename Value="../base/upassword.pas"/>
-        <Caret Line="69" Column="51" TopLine="54"/>
+        <Filename Value="../base/base_forms/usearch.pas"/>
+        <Caret Line="349" Column="3" TopLine="324"/>
       </Position10>
       <Position11>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="39" Column="94" TopLine="43"/>
+        <Filename Value="../base/base_forms/usearch.pas"/>
+        <Caret Line="146" Column="69" TopLine="130"/>
       </Position11>
       <Position12>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="242" Column="35" TopLine="232"/>
+        <Filename Value="../base/base_forms/usearch.pas"/>
+        <Caret Line="345" Column="59" TopLine="326"/>
       </Position12>
       <Position13>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="249" Column="19" TopLine="242"/>
+        <Filename Value="../base/base_forms/usearch.pas"/>
+        <Caret Line="353" Column="39" TopLine="339"/>
       </Position13>
       <Position14>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="392" Column="27" TopLine="381"/>
+        <Filename Value="../base/base_forms/usearch.pas"/>
+        <Caret Line="356" Column="26" TopLine="340"/>
       </Position14>
       <Position15>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="249" Column="19" TopLine="226"/>
+        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
+        <Caret Line="43" Column="58" TopLine="24"/>
       </Position15>
       <Position16>
-        <Filename Value="upersonframe.pas"/>
-        <Caret Line="27" Column="46" TopLine="4"/>
+        <Filename Value="../base/base_forms/usearch.pas"/>
+        <Caret Line="356" Column="26" TopLine="340"/>
       </Position16>
       <Position17>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="249" Column="19" TopLine="232"/>
+        <Filename Value="../base/base_forms/usearch.pas"/>
+        <Caret Line="345" Column="56" TopLine="324"/>
       </Position17>
       <Position18>
-        <Filename Value="../../../general/src_vis/ulanguageutils.pas"/>
-        <Caret Line="18" Column="19" TopLine="1"/>
+        <Filename Value="../base/base_forms/usearch.pas"/>
+        <Caret Line="477" Column="39" TopLine="462"/>
       </Position18>
       <Position19>
-        <Filename Value="../../../general/src_vis/ulanguageutils.pas"/>
-        <Caret Line="27" Column="29" TopLine="12"/>
+        <Filename Value="../base/base_forms/usearch.pas"/>
+        <Caret Line="486" Column="12" TopLine="464"/>
       </Position19>
       <Position20>
-        <Filename Value="../../../general/src_vis/ulanguageutils.pas"/>
-        <Caret Line="27" Column="78" TopLine="1"/>
+        <Filename Value="../base/base_options/umandantoptions.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position20>
       <Position21>
-        <Filename Value="../../../general/src_vis/ulanguageutils.pas"/>
-        <Caret Line="28" Column="10" TopLine="1"/>
+        <Filename Value="../base/base_options/umandantoptions.pas"/>
+        <Caret Line="108" Column="17" TopLine="91"/>
       </Position21>
       <Position22>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="133" Column="63" TopLine="116"/>
+        <Filename Value="../base/base_documents/udocumentacquire.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position22>
       <Position23>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="409" Column="27" TopLine="396"/>
+        <Filename Value="../base/base_documents/udocumentacquire.pas"/>
+        <Caret Line="180" Column="32" TopLine="175"/>
       </Position23>
       <Position24>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="426" Column="27" TopLine="410"/>
+        <Filename Value="../base/base_documents/udocumentacquire.pas"/>
+        <Caret Line="211" Column="34" TopLine="197"/>
       </Position24>
       <Position25>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="431" Column="27" TopLine="415"/>
+        <Filename Value="../base/base_documents/udocumentacquire.pas"/>
+        <Caret Line="232" Column="34" TopLine="216"/>
       </Position25>
       <Position26>
-        <Filename Value="../base/ubasevisualapplication.pas"/>
-        <Caret Line="919" Column="56" TopLine="915"/>
+        <Filename Value="../base/base_documents/udocumentacquire.pas"/>
+        <Caret Line="291" Column="34" TopLine="275"/>
       </Position26>
       <Position27>
-        <Filename Value="../base/base_phone/uskypephone.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Filename Value="../base/base_documents/udocumentacquire.pas"/>
+        <Caret Line="302" Column="40" TopLine="288"/>
       </Position27>
       <Position28>
-        <Filename Value="../base/base_forms/uselectreport.pas"/>
+        <Filename Value="../base/base_documents/udocumentframe.pas"/>
         <Caret Line="1" Column="1" TopLine="1"/>
       </Position28>
       <Position29>
-        <Filename Value="../base/base_forms/uselectreport.pas"/>
-        <Caret Line="286" Column="31" TopLine="269"/>
+        <Filename Value="../base/base_documents/udocumentframe.pas"/>
+        <Caret Line="246" Column="36" TopLine="228"/>
       </Position29>
       <Position30>
-        <Filename Value="../base/dbintfs/ubasedbinterface.pas"/>
-        <Caret Line="28" Column="14" TopLine="17"/>
+        <Filename Value="../base/base_documents/udocumentframe.pas"/>
+        <Caret Line="248" Column="38" TopLine="228"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>

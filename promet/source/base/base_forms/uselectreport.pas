@@ -133,8 +133,8 @@ implementation
 
 uses
   uIntfStrConsts,uError,uData,
-  uLogWait,uBaseDbInterface,uDocuments,uPerson,uSendMail,uEditText,umeeting
-  ;
+  uLogWait,uBaseDbInterface,uDocuments,uPerson,uSendMail,uEditText,umeeting,
+  ubaseconfig;
 
 resourcestring
   strDispatchTypenotfound       = 'Versandart nicht gefunden !';
@@ -284,7 +284,7 @@ begin
   tmp := tmp+cbInfo.Text+';';
   tmp := tmp+IntToStr(eCopies.Value)+';';
   with Application as IBaseDBInterface do
-    tmp := DBConfig.ReadString('REPORTD:'+Data.Reports.Id.AsString,tmp);
+    tmp := DBConfig.ReadString('REPORTD:'+Data.Reports.Id.AsString,tmp,'');
   cbPrinter.ItemIndex := cbPrinter.Items.IndexOf(copy(tmp,0,pos(';',tmp)-1));
   tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
   tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
@@ -303,7 +303,7 @@ begin
   tmp := tmp+IntToStr(eCopies.Value)+';';
   try
     with Application as IBaseDBInterface do
-      DBConfig.WriteString('REPORTD:'+Data.Reports.Id.AsString,tmp);
+      DBConfig.WriteString('REPORTD:'+Data.Reports.Id.AsString,tmp,'');
   except
   end;
 end;
@@ -355,8 +355,8 @@ begin
       if Assigned(LR_Class.frDesigner) then
         begin
           TfrDesignerForm(LR_Class.frDesigner).HelpMenu.Visible := False; //Hide default Help
-          with Application as IBaseDbInterface do
-            BaseApplication.Config.ReadRect('ReportEditor',NewRect,TfrDesignerForm(LR_Class.frDesigner).BoundsRect);
+          with Application as IBaseConfig do
+            Config.ReadRect('ReportEditor',NewRect,TfrDesignerForm(LR_Class.frDesigner).BoundsRect);
           if (NewRect.Right-NewRect.Left < 200) or (NewRect.Right-NewRect.Left > Screen.Width) then
             begin
               NewRect.Left := 100;
@@ -376,7 +376,8 @@ begin
 //          TfrDesignerHackForm(LR_Class.frDesigner).EditorForm.M2.Beautifier := TSynBeautifier.Create(Application);
         end;
       Report.DesignReport;
-      BaseApplication.Config.WriteRect('ReportEditor',TfrDesignerForm(LR_Class.frDesigner).BoundsRect);
+      with Application as IBaseConfig do
+        Config.WriteRect('ReportEditor',TfrDesignerForm(LR_Class.frDesigner).BoundsRect);
       Report.SaveToFile(GetInternalTempDir+'preport.lrf');
       Data.Reports.DataSet.Edit;
       Data.FileToBlobField(GetInternalTempDir+'preport.lrf',Data.Reports.DataSet,'REPORT');
@@ -409,7 +410,8 @@ begin
       LoadReport;
       pv := TfrPreviewForm.Create(Self);
       pv.WindowState:=wsNormal;
-      BaseApplication.Config.ReadRect('ReportPreview',NewRect,pv.BoundsRect);
+      with Application as IBaseConfig do
+        Config.ReadRect('ReportPreview',NewRect,pv.BoundsRect);
 
       if (NewRect.Right-NewRect.Left < 200) or (NewRect.Right-NewRect.Left > Screen.Width) then
         begin
@@ -435,7 +437,8 @@ begin
             Screen.Cursor:=crDefault;
           end;
       end;
-      BaseApplication.Config.WriteRect('ReportPreview',pv.BoundsRect);
+      with Application as IBaseConfig do
+        Config.WriteRect('ReportPreview',pv.BoundsRect);
       pv.Free;
       bPrint.Setfocus;
       Screen.Cursor:=crDefault;

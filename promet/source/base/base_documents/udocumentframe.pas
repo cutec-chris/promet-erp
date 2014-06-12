@@ -245,7 +245,7 @@ uses uDocuments, uData, uDocumentAddOptions, uBaseApplication, SecureUtils,
   uDocumentAcquire,PdfDoc,PdfImages,uOCR,uMessages,
   uPerson, uMimeTypeEdit, uDocumentProcess, uDocumentAction,uDocumentCheckin,
   uOrder,uBaseDBInterface,ClipBrd,uBaseVisualApplication,uSelectTemplate,
-  uNRights,uDocProperties;
+  uNRights,uDocProperties,ubaseconfig;
 resourcestring
   strFileExtDesc                             = '%s Datei';
   strCheckingOutFile                         = 'Hole %s';
@@ -586,7 +586,7 @@ begin
           aDocument.AddFromFile(DocumentDialog.Files[i],'',fDocumentAddOptions.ccCalendar.Date);
           if fDocumentAddOptions.cbDeletefromFilesystem.Checked then
             begin
-              with BaseApplication as IBaseApplication do
+              with BaseApplication as IBaseConfig do
                 begin
                   DelRetry:
                     case Config.ReadInteger('DELETEMETHOD',0) of

@@ -99,6 +99,7 @@ type
 var
   fAcquire: TfAcquire;
 implementation
+uses ubaseconfig;
 resourcestring
   strScanNext                   = 'Nächstes Bild scannen';
   strScan                       = 'Scannen';
@@ -176,7 +177,7 @@ begin
 end;
 procedure TfAcquire.cbSourceChange(Sender: TObject);
 begin
-with Application as IBaseApplication do
+with Application as IBaseConfig do
   begin
     Config.WriteString('SCANNERSOURCE',cbSource.Text);
   end;
@@ -207,7 +208,7 @@ begin
   if lbDevices.ItemIndex = -1 then
     if lbDevices.Items.Count = 1 then
       lbDevices.ItemIndex := 0;
-  with Application as IBaseApplication do
+  with Application as IBaseConfig do
     begin
       if Config.ReadString('SCANNER','') <> '' then
         lbDevices.ItemIndex := lbDevices.Items.IndexOf(Config.ReadString('SCANNER',''));
@@ -228,7 +229,7 @@ end;
 procedure TfAcquire.FormCreate(Sender: TObject);
 begin
   Texts := TOCRPages.Create;
-  with Application as IBaseApplication do
+  with Application as IBaseConfig do
     tbResolution.Position := Config.ReadInteger('SCANNERRES',200);
 {$IFDEF WINDOWS}
   Scanner := TDelphiTwain.Create(Self);
@@ -287,7 +288,7 @@ var
   opt: TSaneOption;
 {$ENDIF}
 begin
-  with Application as IBaseApplication do
+  with Application as IBaseConfig do
     Config.WriteString('SCANNER',lbDevices.Items[lbDevices.ItemIndex]);
   {$IFDEF LINUX}
   Scanner.Open(Scanner.DeviceList[lbDevices.ItemIndex]);
@@ -298,7 +299,7 @@ begin
         cbSource.Items.Assign(opt.StringItems);
         cbSource.Hint := opt.Description;
         cbSource.Text:=opt.ReadString;
-        with Application as IBaseApplication do
+        with Application as IBaseConfig do
           begin
             if Config.ReadString('SCANNERSOURCE','') <> '' then
               cbSource.Text := Config.ReadString('SCANNERSOURCE',cbSource.Text);
@@ -402,7 +403,7 @@ end;
 procedure TfAcquire.tbResolutionChange(Sender: TObject);
 begin
   lresolution.Caption := strResolution+' '+IntToStr(tbResolution.Position)+' dpi';
-  with Application as IBaseApplication do
+  with Application as IBaseConfig do
     Config.WriteInteger('SCANNERRES',tbResolution.Position);
 end;
 procedure TfAcquire.udPageChanging(Sender: TObject; var AllowChange: Boolean);

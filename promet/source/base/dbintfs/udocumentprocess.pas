@@ -25,7 +25,7 @@ type
 var
   ProcessList : TList;
 implementation
-uses FileUtil, uBaseApplication, SecureUtils, Dialogs, uIntfStrConsts;
+uses FileUtil, uBaseApplication, SecureUtils, uIntfStrConsts;
 resourcestring
   strFailedExecuteProcess       = 'Möglicherweise ist das auführen von "%s" fehlgeschlagen, Rückgabewert: %d';
   strNoValidCommand             = 'Sie haben einen ungültigen befehl in den Dateiaktionen angegeben. Gültige Befehle müssen mit exec: oder mkdir: beginnen.';
@@ -165,4 +165,4 @@ initialization
 finalization
   ProcessList.Destroy;
 end.
-
+
