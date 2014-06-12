@@ -24,7 +24,7 @@ interface
 
 uses
   Classes, SysUtils, uBaseDbClasses, db, uBaseDbInterface,uIntfStrConsts,
-  uBaseERPDBClasses,utask,LCLProc;
+  uBaseERPDBClasses,utask;
 type
   TMeetings = class;
   TMeetingEntrys = class(TBaseDBDataSet)
@@ -228,7 +228,7 @@ begin
   if FieldByName('OWNER').AsString='' then exit;
   if not FTempUsers.DataSet.Active then
     Data.SetFilter(FTempUsers,'',0);
-  debugln(FieldByName('OWNER').AsString);
+  //debugln(FieldByName('OWNER').AsString);
   if FTempUsers.DataSet.Locate('ACCOUNTNO',FieldByName('OWNER').AsString,[loCaseInsensitive]) then
     Result := FTempUsers.FieldByName('NAME').AsString;
 end;
@@ -244,7 +244,7 @@ begin
   if FieldByName('USER').AsString='' then exit;
   if not FTempUsers.DataSet.Active then
     Data.SetFilter(FTempUsers,'',0);
-  debugln(FieldByName('USER').AsString);
+  //debugln(FieldByName('USER').AsString);
   if FTempUsers.DataSet.Locate('ACCOUNTNO',FieldByName('USER').AsString,[loCaseInsensitive]) then
     Result := FTempUsers.FieldByName('NAME').AsString;
 end;
@@ -443,7 +443,7 @@ begin
           FFailMessage:=e.Message;
           Result := prFailed;
           Data.RollbackTransaction(Connection);
-          debugln(e.Message);
+          //debugln(e.Message);
         end;
     end;
 end;

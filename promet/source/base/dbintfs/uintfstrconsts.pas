@@ -20,11 +20,11 @@ Created 01.06.2006
 unit uIntfStrConsts;
 {$mode objfpc}{$H+}
 interface
-uses
-    {$IFNDEF LCLnogui}
-    DbCtrls,
-    {$ENDIF}
-    LCLStrConsts;
+  {$IFDEF LCL}
+  uses
+  DbCtrls,
+  LCLStrConsts;
+  {$ENDIF}
 resourcestring
   strLocation                   = 'Ort';
   strImportExport               = 'Import/Export';
@@ -235,11 +235,11 @@ resourcestring
                                 +'http://www.famfamfam.com/lab/icons/silk/'+lineending
                                 ;
 
-{$IFNDEF LCLnogui}
+{$IFDEF LCL}
 procedure TranslateNavigator(nav : TDBCustomNavigator);
 {$ENDIF}
 implementation
-{$IFNDEF LCLnogui}
+{$IFDEF LCL}
 procedure TranslateNavigator(nav : TDBCustomNavigator);
 begin
   nav.Hints.Clear;
@@ -255,4 +255,4 @@ begin
   nav.Hints.Add(strRefresh);
 end;
 {$ENDIF}
-end.
+end.

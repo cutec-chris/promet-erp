@@ -21,7 +21,11 @@ unit uBaseApplication;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, CustApp, PropertyStorage, eventLog;
+  Classes, SysUtils, CustApp, eventLog
+  {$IFDEF LCL}
+  ,PropertyStorage
+  {$ENDIF}
+  ;
 type
   TBaseApplicationClass = class of TCustomApplication;
 
@@ -32,7 +36,9 @@ type
     function GetApprevision: Integer;
     function GetAppVersion: real;
     function GetOurConfigDir : string;
+    {$IFDEF LCL}
     function GetConfig: TCustomPropertyStorage;
+    {$ENDIF}
     function GetLog: TEventLog;
     function GetSingleInstance : Boolean;
     function GetLanguage: string;
@@ -56,7 +62,9 @@ type
     procedure Debug(aMsg : string);
     procedure DoExit;
     property Language : string read GetLanguage write SetLanguage;
+    {$IFDEF LCL}
     property Config : TCustomPropertyStorage read GetConfig;
+    {$ENDIF}
     property SingleInstance : Boolean read GetSingleInstance;
     property Appname : string read GetAppName write SetAppname;
     property AppVersion : real read GetAppVersion write SetAppVersion;
@@ -71,4 +79,4 @@ implementation
 initialization
   BaseApplication := nil;
 end.
-
+

@@ -2,13 +2,13 @@
   This source is only used to compile and install the package.
  }
 
-unit general_nogui;
+unit zcomponent_nogui;
 
 interface
 
 uses
-  Utils, uGeneralStrConsts, SecureUtils, umashineid, uModifiedDS, uRTFtoTXT, 
-  MathParser, Aspell, LazarusPackageIntf;
+  ZConnection, ZDatasetUtils, ZSqlMetadata, ZDataset, ZSqlMonitor, 
+  LazarusPackageIntf;
 
 implementation
 
@@ -17,5 +17,5 @@ begin
 end;
 
 initialization
-  RegisterPackage('general_nogui', @Register);
+  RegisterPackage('zcomponent_nogui', @Register);
 end.

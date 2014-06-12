@@ -151,7 +151,7 @@ resourcestring
   strWorkstatus             = 'Bearbeitungsstatus';
   strRenamed                = 'umbenannt in "%s"';
 implementation
-uses uBaseApplication,uIntfStrConsts,uProjects,uData,LCLProc,uCalendar;
+uses uBaseApplication,uIntfStrConsts,uProjects,uData,uCalendar;
 
 function CompareStarts(Item1, Item2: Pointer): Integer;
 begin

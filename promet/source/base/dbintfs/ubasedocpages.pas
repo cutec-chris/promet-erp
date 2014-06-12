@@ -47,7 +47,7 @@ type
   end;
 
 implementation
-uses uData,uBaseApplication,dEXIF,UTF8Process,process,LCLProc,ProcessUtils,
+uses uData,uBaseApplication,dEXIF,UTF8Process,process,
   uthumbnails;
 
 procedure TDocPages.SetParamsFromExif(extn: string; aFullStream: TStream);
@@ -222,7 +222,31 @@ begin
     end;
   aDocument.Free;
 end;
-
+function ExecProcessEx(CommandLine : string;CurDir : string = '') : string;
+var
+  process : TProcessUTF8;
+  tmps: tstringlist;
+  err : string = '';
+begin
+  Process := TProcessUTF8.Create(nil);
+  Process.Options:= [poUsePipes, poWaitOnExit, poNoConsole, poStdErrToOutPut, poNewProcessGroup];
+  Process.CommandLine := CommandLine;
+  if CurDir <> '' then
+    Process.CurrentDirectory := CurDir;
+  try
+    Process.Execute;
+  except
+    on e : exception do
+      err := err+#13+e.Message;
+  end;
+  tmps := TStringList.Create;
+  tmps.LoadFromStream(Process.Output);
+  Process.Free;
+  Result := tmps.Text;
+  tmps.Free;
+  if err <> '' then
+    Result := 'errors:'+err+#13+Result;
+end;
 procedure TDocPages.AddFromFile(aFile: UTF8String);
 var
   aDocument: TDocument;

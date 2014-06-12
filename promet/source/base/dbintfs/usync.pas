@@ -23,7 +23,7 @@ unit usync;
 interface
 uses
   Classes, SysUtils, uBaseDbClasses, db, uBaseDbInterface,uBaseApplication,
-  fpjson,fpsqltree,LConvEncoding,synautil,lclproc;
+  fpjson,fpsqltree,LConvEncoding,synautil;
 type
   TSyncTable = class(TBaseDBDataSet)
   public
@@ -391,7 +391,7 @@ begin
         aInternal.ActualFilter:='('+aIntFilter+') OR ('+TBaseDBModule(DataModule).QuoteField('SQL_ID')+' IN (SELECT '+TBaseDBModule(DataModule).QuoteField('LOCAL_ID')+' FROM '+TBaseDBModule(DataModule).QuoteField(TableName)+' where '+TBaseDBModule(DataModule).QuoteField('SYNCTYPE')+'='+TBaseDBModule(DataModule).QuoteValue(SyncType)+' AND '+TBaseDBModule(DataModule).QuoteField('USER_ID')+'='+TBaseDBModule(DataModule).QuoteValue(TBaseDBModule(DataModule).Users.ID.AsString)+'))';
       aInternal.Open;
       aLastSync := SyncTime.AsDateTime;
-      debugln('********** Sync started, '+DateTimeToStr(aLastSync)+' last sync, Filter:'+aSyncFilter);
+      //debugln('********** Sync started, '+DateTimeToStr(aLastSync)+' last sync, Filter:'+aSyncFilter);
       //Sync internal items that are newer than last sync out
       aInternal.First;
       while not aInternal.EOF do
@@ -431,8 +431,8 @@ begin
                   else if State=dsInsert then
                     Cancel;  //wir warten bis der 2. sync aufruf kommt und erstellen dann unseren syncitem
                   Result.Add(VJSON);
-                  if BaseApplication.HasOption('debug') then
-                    debugln('Changed Object:'+VJSON.AsJSON);
+                  //if BaseApplication.HasOption('debug') then
+                  //  debugln('Changed Object:'+VJSON.AsJSON);
                 end
               else Cancel;
             end;
@@ -480,8 +480,8 @@ begin
                 DoSync := (aSyncTime>SyncTime.AsDateTime) or (State=dsInsert);
               if DoSync then
                 begin
-                  if BaseApplication.HasOption('debug') then
-                    debugln('Ext Changed Object:'+aObj.AsJSON);
+                  //if BaseApplication.HasOption('debug') then
+                  //  debugln('Ext Changed Object:'+aObj.AsJSON);
                   aInternal.Select(LocalID.AsVariant);
                   aInternal.Open;
                   if aInternal.Count=0 then
@@ -496,25 +496,25 @@ begin
                             if aInternal.State=dsInsert then
                               begin //neuer externer Datensatz
                                 Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,[strSyncNewRecord]));
-                                debugln(aID.AsString+':'+Format(strSynchedIn,[strSyncNewRecord]));
+                                //debugln(aID.AsString+':'+Format(strSynchedIn,[strSyncNewRecord]));
                               end
                             else if (aSyncTime>SyncTime.AsDateTime) then
                               begin
                                 if SyncTime.AsDateTime>0 then //geänderter Datensatz
                                   begin
                                     Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,['Remote '+DateTimeToStr(RoundToSecond(aSyncTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
-                                    debugln(aID.AsString+':'+Format(strSynchedIn,['Remote '+DateTimeToStr(RoundToSecond(aSyncTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                                    //debugln(aID.AsString+':'+Format(strSynchedIn,['Remote '+DateTimeToStr(RoundToSecond(aSyncTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
                                   end
                                 else
                                   begin
                                     Hist.History.AddItem(aInternal.DataSet,Format(strSynchedin,[strSyncNewRecord]));
-                                    debugln(aID.AsString+':'+Format(strSynchedOut,[strSyncNewRecord]));
+                                    //debugln(aID.AsString+':'+Format(strSynchedOut,[strSyncNewRecord]));
                                   end;
                               end
                             else
                               begin
                                 Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
-                                debugln(aID.AsString+':'+Format(strSynchedIn,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                                //debugln(aID.AsString+':'+Format(strSynchedIn,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
                               end;
                           end;
                       except
@@ -550,12 +550,12 @@ begin
   else
   //Second Step, of sync Notify about new ID´s and successful sync
     begin
-      debugln('********** Sync 2nd Step');
+      //debugln('********** Sync 2nd Step');
       for i := 0 to aExternal.Count-1 do
         begin
           aObj := aExternal.Items[i] as TJSONObject;
-          if BaseApplication.HasOption('debug') then
-            debugln('Ext Notified Object:'+aObj.AsJSON);
+          //if BaseApplication.HasOption('debug') then
+          //  debugln('Ext Notified Object:'+aObj.AsJSON);
           aID := GetField(aObj,'external_id');
           aTime := GetField(aObj,'timestampd');
           if not Assigned(aTime) then
@@ -609,17 +609,17 @@ begin
                           if State=dsInsert then
                             begin
                               Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,[strSyncNewRecord]));
-                              debugln(aInternal.Id.AsString+':'+Format(strSynchedOut,[strSyncNewRecord]));
+                              //debugln(aInternal.Id.AsString+':'+Format(strSynchedOut,[strSyncNewRecord]));
                             end
                           else if (aInternal.TimeStamp.AsDateTime>SyncTime.AsDateTime) then
                             begin
                               Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,['Internal '+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
-                              debugln(aInternal.Id.AsString+':'+Format(strSynchedOut,['Internal '+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                              //debugln(aInternal.Id.AsString+':'+Format(strSynchedOut,['Internal '+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
                             end
                           else
                             begin
                               Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
-                              debugln(aInternal.Id.AsString+':'+Format(strSynchedOut,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                              //debugln(aInternal.Id.AsString+':'+Format(strSynchedOut,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
                             end;
                         end;
                       LocalID.AsVariant:=aInternal.Id.AsVariant;

@@ -44,13 +44,11 @@
               <OverflowChecks Value="True"/>
               <StackChecks Value="True"/>
             </Checks>
-            <VerifyObjMethodCallValidity Value="True"/>
           </CodeGeneration>
           <Linking>
             <Debugging>
               <DebugInfoType Value="dsDwarf2"/>
               <UseHeaptrc Value="True"/>
-              <TrashVariables Value="True"/>
               <UseExternalDbgSyms Value="True"/>
             </Debugging>
           </Linking>
@@ -104,34 +102,19 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=&quot;Stora&quot;"/>
+        <CommandLineParams Value="--mandant=&quot;TCS-Times2&quot;"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="7">
+    <RequiredPackages Count="2">
       <Item1>
-        <PackageName Value="lnetvisual"/>
-      </Item1>
-      <Item2>
-        <PackageName Value="laz_synapse"/>
-      </Item2>
-      <Item3>
-        <PackageName Value="LazUtils"/>
-      </Item3>
-      <Item4>
-        <PackageName Value="lazreport"/>
-      </Item4>
-      <Item5>
         <PackageName Value="pfcgiprometapp"/>
         <DefaultFilename Value="../base/pfcgiprometapp.lpk"/>
-      </Item5>
-      <Item6>
-        <PackageName Value="WebLaz"/>
-      </Item6>
-      <Item7>
+      </Item1>
+      <Item2>
         <PackageName Value="FCL"/>
-      </Item7>
+      </Item2>
     </RequiredPackages>
-    <Units Count="4">
+    <Units Count="3">
       <Unit0>
         <Filename Value="local_appbase.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -146,16 +129,13 @@
         <UnitName Value="umain"/>
       </Unit1>
       <Unit2>
-        <Filename Value="../../../apps/promet/library.js"/>
-        <IsPartOfProject Value="True"/>
-      </Unit2>
-      <Unit3>
         <Filename Value="uwebserver.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fWebServer"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="uwebserver"/>
-      </Unit3>
+      </Unit2>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -183,7 +163,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="7">
+    <Exceptions Count="8">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -205,6 +185,9 @@
       <Item7>
         <Name Value="EWriteError"/>
       </Item7>
+      <Item8>
+        <Name Value="EFPHTTPError"/>
+      </Item8>
     </Exceptions>
   </Debugging>
-</CONFIG>
+</CONFIG>

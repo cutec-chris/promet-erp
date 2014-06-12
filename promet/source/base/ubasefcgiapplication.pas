@@ -22,7 +22,7 @@ unit ubasefcgiapplication;
 interface
 uses
   Classes, SysUtils, CustFCGI, uBaseApplication, uBaseDBInterface,
-  PropertyStorage, uData, uSystemMessage, XMLPropStorage,HTTPDefs,fpHTTP,
+  uData, uSystemMessage, HTTPDefs,fpHTTP,
   uBaseDbClasses,db,md5,fastcgi,eventlog;
 type
   TBaseFCGIApplication = class(TCustomFCGIApplication, IBaseApplication, IBaseDbInterface)
@@ -35,7 +35,6 @@ type
     FDBInterface: IBaseDbInterface;
     FDefaultModule: string;
     FMessageHandler: TMessageHandler;
-    Properties: TXMLPropStorage;
     FLogger : TEventLog;
     FAppName : string;
     FAppRevsion : Integer;
@@ -51,7 +50,6 @@ type
     procedure SetConfigName(aName : string);
     procedure RestoreConfig;
     procedure SaveConfig;
-    function GetConfig: TCustomPropertyStorage;
     function GetLanguage: string;
     procedure SetLanguage(const AValue: string);
     procedure SetAppname(AValue: string);virtual;
@@ -80,7 +78,7 @@ type
 Var
   Application : TBaseFCGIApplication;
 implementation
-uses FileUtil,Utils, uUserAgents, LCLProc,uBaseWebSession;
+uses FileUtil,Utils, uUserAgents, uBaseWebSession;
 resourcestring
   strFailedtoLoadMandants    = 'Mandanten konnten nicht gelanden werden !';
   strLoginFailed             = 'Anmeldung fehlgeschlagen !';
@@ -140,9 +138,6 @@ begin
   FDBInterface := TBaseDBInterface.Create;
   FDBInterface.SetOwner(Self);
   {.$Warnings On}
-  Properties := TXMLPropStorage.Create(AOwner);
-  Properties.FileName := GetOurConfigDir+'config.xml';
-  Properties.RootNodePath := 'Config';
   AllowDefaultModule := True;
   Self.OnGetModule:=@BaseFCGIApplicationGetModule;
   Self.OnException:=@BaseFCGIApplicationException;
@@ -150,7 +145,6 @@ begin
 end;
 destructor TBaseFCGIApplication.Destroy;
 begin
-  Properties.Free;
   DoExit;
   if Assigned(FmessageHandler) then
     begin
@@ -191,21 +185,12 @@ begin
       if not DirectoryExistsUTF8(aDir) then
         ForceDirectoriesUTF8(aDir);
     end;
-  Properties.FileName := aDir+aName+'.xml';
-  Properties.RootNodePath := 'Config';
 end;
 procedure TBaseFCGIApplication.RestoreConfig;
 begin
-  Properties.Restore;
-  DefaultModule := Properties.ReadString('DEFAULTMODULE',DefaultModule);
 end;
 procedure TBaseFCGIApplication.SaveConfig;
 begin
-  Properties.Save;
-end;
-function TBaseFCGIApplication.GetConfig: TCustomPropertyStorage;
-begin
-  Result := Properties;
 end;
 function TBaseFCGIApplication.GetLanguage: string;
 begin
@@ -264,7 +249,8 @@ end;
 procedure TBaseFCGIApplication.Debug(aMsg: string);
 begin
   if HasOption('debug') then
-    debugln('DEBUG:'+aMsg);
+    //debugln('DEBUG:'+aMsg)
+    ;
 end;
 function TBaseFCGIApplication.ChangePasswort: Boolean;
 begin
@@ -285,8 +271,6 @@ begin
       if not LoadMandants('') then
         raise Exception.Create(strFailedtoLoadMandants);
       aMandant := GetOptionValue('m','mandant');
-      if aMandant = '' then
-        aMandant := Properties.ReadString('MANDANT','');
       if not DBLogin(aMandant,'') then
         begin
           raise Exception.Create(strLoginFailed+':'+LastError);
@@ -294,8 +278,7 @@ begin
       uData.Data := Data;
     end;
   SessionFactory.CleanupSessions;
-  if Properties.ReadInteger('PORT',-1) <> -1 then
-    Port:=Properties.ReadInteger('PORT',9998);
+  Port:=9998;
   Result := True;
 end;
 procedure TBaseFCGIApplication.Logout;

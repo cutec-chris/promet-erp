@@ -22,7 +22,7 @@ unit ubasehttpapplication;
 interface
 uses
   Classes, SysUtils, CustFCGI, uBaseApplication, uBaseDBInterface,
-  PropertyStorage, uData, uSystemMessage, XMLPropStorage,HTTPDefs,fpHTTP,custhttpapp,
+  uData, uSystemMessage, HTTPDefs,fpHTTP,custhttpapp,
   uBaseDbClasses,db,md5,uSessionDBClasses,eventlog;
 type
   TBaseHTTPApplication = class(TCustomHTTPApplication, IBaseApplication, IBaseDbInterface)
@@ -33,7 +33,6 @@ type
     FDBInterface: IBaseDbInterface;
     FDefaultModule: string;
     FMessageHandler: TMessageHandler;
-    Properties: TXMLPropStorage;
     FLogger : TEventLog;
     FAppName : string;
     FAppRevsion : Integer;
@@ -50,7 +49,6 @@ type
     procedure SetConfigName(aName : string);
     procedure RestoreConfig;
     procedure SaveConfig;
-    function GetConfig: TCustomPropertyStorage;
     function GetLanguage: string;
     procedure SetLanguage(const AValue: string);
     procedure SetAppname(AValue: string);virtual;
@@ -79,7 +77,7 @@ type
 Var
   Application : TBaseHTTPApplication;
 implementation
-uses FileUtil,Utils,BlckSock, uUserAgents, LCLProc,ubasewebsession;
+uses FileUtil,Utils,BlckSock, uUserAgents, ubasewebsession;
 resourcestring
   strFailedtoLoadMandants    = 'Mandanten konnten nicht gelanden werden !';
   strLoginFailed             = 'Anmeldung fehlgeschlagen !';
@@ -135,20 +133,14 @@ begin
   FDBInterface := TBaseDBInterface.Create;
   FDBInterface.SetOwner(Self);
   {.$Warnings On}
-  Properties := TXMLPropStorage.Create(AOwner);
-  Properties.FileName := GetOurConfigDir+'config.xml';
-  Properties.RootNodePath := 'Config';
   AllowDefaultModule := True;
   Self.OnGetModule:=@BaseHTTPApplicationGetModule;
   Self.OnException:=@BaseHTTPApplicationException;
   Port := 8080;
-  if Properties.ReadInteger('PORT',-1) <> -1 then
-    Port:=Properties.ReadInteger('PORT',8080);
   Threaded:=False;
 end;
 destructor TBaseHTTPApplication.Destroy;
 begin
-  Properties.Free;
   DoExit;
   if Assigned(FmessageHandler) then
     begin
@@ -192,21 +184,12 @@ begin
       if not DirectoryExistsUTF8(aDir) then
         ForceDirectoriesUTF8(aDir);
     end;
-  Properties.FileName := aDir+aName+'.xml';
-  Properties.RootNodePath := 'Config';
 end;
 procedure TBaseHTTPApplication.RestoreConfig;
 begin
-  Properties.Restore;
-  DefaultModule := Properties.ReadString('DEFAULTMODULE',DefaultModule);
 end;
 procedure TBaseHTTPApplication.SaveConfig;
 begin
-  Properties.Save;
-end;
-function TBaseHTTPApplication.GetConfig: TCustomPropertyStorage;
-begin
-  Result := Properties;
 end;
 function TBaseHTTPApplication.GetLanguage: string;
 begin
@@ -265,7 +248,8 @@ end;
 procedure TBaseHTTPApplication.Debug(aMsg: string);
 begin
   if HasOption('debug') then
-    debugln('DEBUG:'+aMsg);
+    //debugln('DEBUG:'+aMsg)
+    ;
 end;
 function TBaseHTTPApplication.ChangePasswort: Boolean;
 begin
@@ -285,8 +269,6 @@ begin
       if not LoadMandants('') then
         raise Exception.Create(strFailedtoLoadMandants);
       aMandant := GetOptionValue('m','mandant');
-      if aMandant = '' then
-        aMandant := Properties.ReadString('MANDANT','');
       if not DBLogin(aMandant,'') then
         begin
           FLogger.Error(strLoginFailed+':'+LastError);

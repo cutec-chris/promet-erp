@@ -25,9 +25,9 @@ unit umain;
 interface
 
 uses
-  SysUtils, Classes, LR_Class, httpdefs, fpHTTP, fpWeb, fpdatasetform, db,fpjson,
-  LCLproc,uBaseDBInterface,FileUtil,LConvEncoding,uBaseDbClasses,fpsqlparser,
-  fpsqlscanner, fpsqltree,httpsend,OpenSSL, lNetComponents,jsonparser, lhttp,
+  SysUtils, Classes, httpdefs, fpHTTP, fpWeb, fpdatasetform, db,fpjson,
+  uBaseDBInterface,FileUtil,LConvEncoding,uBaseDbClasses,fpsqlparser,
+  fpsqlscanner, fpsqltree,httpsend,OpenSSL, jsonparser, lhttp,
   lwebserver,lEvents,lHTTPUtil, lNet;
 
 type
@@ -79,9 +79,6 @@ uses uStatistic,uData,uBaseWebSession,uPerson,uOrder,uMasterdata,utask,uProjects
 procedure Tappbase.checkloginRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 begin
-  {$ifdef DEBUG}
-  debugln('CheckLoginRequest:started');
-  {$endif}
   Handled:=True;
   if TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True,False) then
     begin
@@ -100,22 +97,13 @@ begin
   AResponse.ContentType:='text/javascript;charset=utf-8';
   AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
   AResponse.SendContent;
-  {$ifdef DEBUG}
-  debugln('CheckLoginRequest:ended');
-  {$endif}
 end;
 procedure Tappbase.connectionavalibeRequest(Sender: TObject;
   ARequest: TRequest; AResponse: TResponse; var Handled: Boolean);
 begin
-  {$ifdef DEBUG}
-  debugln('ConnectionAvalibleRequest:started');
-  {$endif}
   TBaseWebSession(Session).ConnectionAvalible(ARequest,AResponse);
   AResponse.SendContent;
   Handled:=True;
-  {$ifdef DEBUG}
-  debugln('ConnectionAvalibleRequest:ended');
-  {$endif}
 end;
 procedure Tappbase.DataModuleAfterInitModule(Sender: TObject; ARequest: TRequest
   );
@@ -124,7 +112,6 @@ begin
 end;
 procedure Tappbase.DataModuleBeforeRequest(Sender: TObject; ARequest: TRequest);
 begin
-  debugln('Request:'+ARequest.URL);
 end;
 
 procedure Tappbase.getstatisticRequest(Sender: TObject; ARequest: TRequest;
@@ -140,9 +127,6 @@ var
   aName: String;
   aType: String;
 begin
-  {$ifdef DEBUG}
-  debugln('GetStatisticRequest:started');
-  {$endif}
   Handled:=True;
   AResponse.Code:=403;
   if TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True) then
@@ -172,14 +156,10 @@ begin
       aStatistic.Free;
     end;
   AResponse.SendContent;
-  {$ifdef DEBUG}
-  debugln('GetStatisticRequest:ended');
-  {$endif}
 end;
 
 procedure Tappbase.ServerAccess(AMessage: string);
 begin
-  debugln(AMessage);
 end;
 
 procedure Tappbase.listRequest(Sender: TObject; ARequest: TRequest;
@@ -199,9 +179,6 @@ var
   http: THTTPSend;
   aClass: TBaseDBDatasetClass;
 begin
-  {$ifdef DEBUG}
-  debugln('ListRequest:started');
-  {$endif}
   Handled:=True;
   AResponse.Code:=403;
   if TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True,False) then
@@ -288,16 +265,10 @@ begin
       Json.Free;
     end;
   AResponse.SendContent;
-  {$ifdef DEBUG}
-  debugln('ListRequest:ended');
-  {$endif}
 end;
 procedure Tappbase.loginRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 begin
-  {$ifdef DEBUG}
-  debugln('LoginRequest:started');
-  {$endif}
   TBaseWebSession(Session).DoLogin(Arequest,AResponse);
   if AResponse.Code=200 then
     begin
@@ -305,24 +276,15 @@ begin
     end;
   AResponse.SendContent;
   Handled:=True;
-  {$ifdef DEBUG}
-  debugln('LoginRequest:ended');
-  {$endif}
 end;
 procedure Tappbase.logoutRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 begin
-  {$ifdef DEBUG}
-  debugln('LogoutRequest:started');
-  {$endif}
   Handled:=True;
   TBaseWebSession(Session).DoLogout(ARequest,AResponse);
   AResponse.SendContent;
   {$ifdef DEBUG}
   BaseApplication.Terminate;
-  {$endif}
-  {$ifdef DEBUG}
-  debugln('LogoutRequest:ended');
   {$endif}
 end;
 procedure Tappbase.objectRequest(Sender: TObject; ARequest: TRequest;
@@ -335,9 +297,6 @@ var
   aSeq: String;
   aClass: TBaseDBDatasetClass;
 begin
-  {$ifdef DEBUG}
-  debugln('ObjectRequest:started');
-  {$endif}
   Handled:=True;
   AResponse.Code:=403;
   if not TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True,False) then
@@ -371,9 +330,6 @@ begin
         AResponse.Code:=403;
     end;
   AResponse.SendContent;
-  {$ifdef DEBUG}
-  debugln('ObjectRequest:ended');
-  {$endif}
 end;
 function Tappbase.OpenLink(aLink: string; Sender: TObject): Boolean;
 begin
@@ -382,7 +338,6 @@ end;
 
 procedure Tappbase.ServerError(const msg: string; aSocket: TLSocket);
 begin
-  debugln(msg);
 end;
 
 procedure Tappbase.setobjectRequest(Sender: TObject; ARequest: TRequest;
@@ -393,9 +348,6 @@ var
   aRight: String;
   aClass: TBaseDBDatasetClass;
 begin
-  {$ifdef DEBUG}
-  debugln('setObjectRequest:started');
-  {$endif}
   Handled:=True;
   AResponse.Code:=403;
   if TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True,False) then
@@ -418,9 +370,6 @@ begin
         AResponse.Code:=403;
     end;
   AResponse.SendContent;
-  {$ifdef DEBUG}
-  debugln('setObjectRequest:ended')
-  {$endif}
 end;
 procedure Tappbase.syncRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
@@ -443,9 +392,6 @@ var
   aParser: TJSONParser;
   aInpData: String;
 begin
-  {$ifdef DEBUG}
-  debugln('SyncRequest:started');
-  {$endif}
   Handled:=True;
   AResponse.Code:=403;
   if TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True,False) then
@@ -534,9 +480,6 @@ begin
       Json.Free;
     end;
   AResponse.SendContent;
-  {$ifdef DEBUG}
-  debugln('SyncRequest:ended')
-  {$endif}
 end;
 procedure Tappbase.DataSetToJSON(ADataSet: TDataSet; AJSON: TJSONArray;
   const ADateAsString: Boolean; Fields: TSQLElementList);

@@ -1,10 +1,11 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
-  <Package Version="3">
+  <Package Version="4">
     <PathDelim Value="\"/>
     <Name Value="zdbc"/>
+    <AddToProjectUsesSection Value="True"/>
     <CompilerOptions>
-      <Version Value="10"/>
+      <Version Value="11"/>
       <PathDelim Value="\"/>
       <SearchPaths>
         <OtherUnitFiles Value="..\..\src\dbc;build"/>
@@ -67,7 +68,7 @@
         <UnitName Value="ZDbcPooled"/>
       </Item10>
     </Files>
-    <RequiredPkgs Count="5">
+    <RequiredPkgs Count="4">
       <Item1>
         <PackageName Value="zplain"/>
       </Item1>
@@ -78,12 +79,9 @@
         <PackageName Value="zcore"/>
       </Item3>
       <Item4>
-        <PackageName Value="LCL"/>
-      </Item4>
-      <Item5>
         <PackageName Value="FCL"/>
         <MinVersion Major="1" Valid="True"/>
-      </Item5>
+      </Item4>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>
@@ -92,8 +90,8 @@
       <Version Value="2"/>
       <IgnoreBinaries Value="False"/>
     </PublishOptions>
-    <CustomOptions Childs="ExternHelp">
-      <_ExternHelp Childs="Count"/>
+    <CustomOptions Items="ExternHelp" Version="2">
+      <_ExternHelp Items="Count"/>
     </CustomOptions>
   </Package>
 </CONFIG>

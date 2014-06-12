@@ -168,7 +168,7 @@ type
     function CalcDispatchType : Boolean;
   end;
 implementation
-uses uBaseDBInterface, uBaseSearch, uData, LCLProc, Process, UTF8Process,uRTFtoTXT;
+uses uBaseDBInterface, uBaseSearch, uData, Process, UTF8Process,uRTFtoTXT;
 resourcestring
   strStatusnotfound             = 'Statustyp nicht gefunden, bitte wenden Sie sich an Ihren Administrator';
   strMainOrdernotfound          = 'Hauptvorgang nicht gefunden !';
@@ -904,7 +904,7 @@ begin
             Result := prFailed;
             Data.RollbackTransaction(Connection);
             FFailMessage := e.Message;
-            debugln(e.Message);
+            //debugln(e.Message);
             DataSet.Refresh;
           end;
       end;
@@ -1181,7 +1181,7 @@ begin
       except
         on e : Exception do
           begin
-            debugln('Postarticle:'+e.Message);
+            //debugln('Postarticle:'+e.Message);
             Result := False;
           end;
       end;
@@ -1552,4 +1552,4 @@ begin
 end;
 initialization
 end.
-
+

@@ -21,7 +21,10 @@ unit uDocuments;
 {$H+}
 interface
 uses
-  Classes, SysUtils, db, uBaseDBClasses, Utils, Graphics, fpolebasic,LConvEncoding;
+  Classes, SysUtils, db, uBaseDBClasses, Utils, fpolebasic,LConvEncoding
+  {$IFDEF LCL}
+  ,Graphics
+  {$ENDIF};
 type
 
   { TDocuments }
@@ -140,7 +143,7 @@ type
   end;
 implementation
 uses uBaseDBInterface,uBaseApplication, uBaseApplicationTools, FileUtil,md5,
-  processUtils,Variants,LCLProc,UTF8Process,process,uRTFtoTXT;
+  Variants,UTF8Process,process,uRTFtoTXT;
 resourcestring
   strFailedCreatingDiff         = 'konnte Differenzdatei von Datei %s nicht erstellen';
   strInvalidLink                = 'Dieser Link ist auf dieser Datenbank ungültig !';
@@ -1040,8 +1043,10 @@ var
   TempPath: String;
 begin
   with BaseApplication as IBaseApplication do
+    {$IFDEF LCL}
     if Assigned(Config) then
       TempPath := Config.ReadString('TEMPPATH','');
+  {$ENDIF}
   if TempPath = '' then
     TempPath := GetTempDir;
   TempPath := AppendPathDelim(TempPath)+TempID+DirectorySeparator;
@@ -1140,6 +1145,31 @@ begin
             end;
         end;
     end;
+end;
+function ExecProcessEx(CommandLine : string;CurDir : string = '') : string;
+var
+  process : TProcessUTF8;
+  tmps: tstringlist;
+  err : string = '';
+begin
+  Process := TProcessUTF8.Create(nil);
+  Process.Options:= [poUsePipes, poWaitOnExit, poNoConsole, poStdErrToOutPut, poNewProcessGroup];
+  Process.CommandLine := CommandLine;
+  if CurDir <> '' then
+    Process.CurrentDirectory := CurDir;
+  try
+    Process.Execute;
+  except
+    on e : exception do
+      err := err+#13+e.Message;
+  end;
+  tmps := TStringList.Create;
+  tmps.LoadFromStream(Process.Output);
+  Process.Free;
+  Result := tmps.Text;
+  tmps.Free;
+  if err <> '' then
+    Result := 'errors:'+err+#13+Result;
 end;
 procedure TDocument.CheckoutToStream(aStream: TStream;aRevision : Integer = -1);
 var

@@ -187,37 +187,37 @@
       </Item41>
       <Item42>
         <Filename Value="upasswordsave.pas"/>
-        <UnitName Value="upasswordsave"/>
+        <UnitName Value="uPasswordSave"/>
       </Item42>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="8">
       <Item1>
-        <PackageName Value="wiki2html_pkg"/>
-        <DefaultFilename Value="..\base_wiki\wiki2html_pkg.lpk"/>
+        <PackageName Value="zcomponent_nogui"/>
+        <DefaultFilename Value="..\..\components\zeos\packages\lazarus\zcomponent_nogui.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="general_nogui"/>
-        <DefaultFilename Value="..\..\..\..\general\general_nogui.lpk"/>
+        <PackageName Value="wiki2html_pkg"/>
+        <DefaultFilename Value="..\base_wiki\wiki2html_pkg.lpk"/>
       </Item2>
       <Item3>
-        <PackageName Value="laz_fpspreadsheet"/>
+        <PackageName Value="general_nogui"/>
+        <DefaultFilename Value="..\..\..\..\general\general_nogui.lpk"/>
       </Item3>
       <Item4>
-        <PackageName Value="sql_parser"/>
-        <DefaultFilename Value="..\..\components\sqlparser\sql_parser.lpk"/>
+        <PackageName Value="laz_fpspreadsheet"/>
       </Item4>
       <Item5>
-        <PackageName Value="dexif_package"/>
-        <DefaultFilename Value="..\..\components\dexif\dexif_package.lpk"/>
+        <PackageName Value="sql_parser"/>
+        <DefaultFilename Value="..\..\components\sqlparser\sql_parser.lpk"/>
       </Item5>
       <Item6>
-        <PackageName Value="laz_synapse"/>
-        <DefaultFilename Value="..\..\components\synapse\laz_synapse.lpk"/>
+        <PackageName Value="dexif_package"/>
+        <DefaultFilename Value="..\..\components\dexif\dexif_package.lpk"/>
       </Item6>
       <Item7>
-        <PackageName Value="zcomponent"/>
-        <DefaultFilename Value="..\..\components\zeos\packages\lazarus\zcomponent.lpk"/>
+        <PackageName Value="laz_synapse"/>
+        <DefaultFilename Value="..\..\components\synapse\laz_synapse.lpk"/>
       </Item7>
       <Item8>
         <PackageName Value="lnetbase"/>

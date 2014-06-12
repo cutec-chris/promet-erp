@@ -23,8 +23,7 @@ unit uBaseWebSession;
 interface
 
 uses
-  Classes, SysUtils, fpWeb,uSessionDBClasses,HTTPDefs,fpHTTP,BlckSock,
-  LCLProc;
+  Classes, SysUtils, fpWeb,uSessionDBClasses,HTTPDefs,fpHTTP,BlckSock;
 type
 
   { TBaseWebSession }
@@ -441,7 +440,8 @@ begin
   or (Data.Users.DataSet.Locate('LOGINNAME',aLogin,[loCaseInsensitive])))) then
     aResult:=False;
   if not aResult then
-    debugln('Login:failed!');
+    //debugln('Login:failed!')
+    ;
   Result := aResult;
 end;
 

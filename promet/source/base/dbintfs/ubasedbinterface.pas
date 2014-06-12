@@ -22,20 +22,22 @@ unit uBaseDBInterface;
 interface
 uses
   Classes, SysUtils, DB, Typinfo, CustApp, Utils , memds,
-  {uAppconsts, }FileUtil, uBaseDbClasses, PropertyStorage,uIntfStrConsts,
+  {uAppconsts, }FileUtil, uBaseDbClasses, uIntfStrConsts,
   uBaseSearch,uBaseERPDbClasses,uDocuments,uOrder,Variants,uProcessManagement
   {$IFDEF LCL}
-  ,LCLIntf
+  ,PropertyStorage,LCLIntf
   {$ENDIF}
   ;
 const
   MandantExtension = '.perml';
 type
+  {$IFDEF LCL}
   TDBConfig = class(TCustomPropertyStorage)
   protected
     function  DoReadString(const Section, Ident, DefaultValue: string): string; override;
     procedure DoWriteString(const Section, Ident, Value: string); override;
   end;
+  {$ENDIF}
   TInternalDBDataSet = class
   private
     FDataSet: TDataSet;
@@ -174,7 +176,9 @@ type
     property OnDisconnectKeepAlive : TNotifyEvent read FKeepAlive write FKeepAlive;
   end;
   IBaseDBInterface = interface['{A2AB4BAB-38DF-4D4E-BCE5-B7D57E115ED5}']
+    {$IFDEF LCL}
     function GetConfig: TDBConfig;
+    {$ENDIF}
     function GetDB: TBaseDBModule;
     function GetLastError: string;
     function GetMandantName: string;
@@ -193,7 +197,9 @@ type
     property MandantPath : string read GetMandantPath write SetMandantPath;
     property DBTyp : string write SetDBTyp;
     property Data : TBaseDBModule read GetDB write SetDB;
+    {$IFDEF LCL}
     property DBConfig : TDBConfig read GetConfig;
+    {$ENDIF}
     property LastError : string read GetLastError write SetLastError;
     property MandantName : string read GetMandantName;
   end;
@@ -206,14 +212,18 @@ type
     FConfigPath : string;
     FMandantFile : string;
     FOwner: TObject;
+    {$IFDEF LCL}
     FConfig : TDBConfig;
+    {$ENDIF}
     FDbTyp : string;
     FLastError : string;
   protected
     function GetMandantPath: string;
     procedure SetMandantPath(AValue: string);
     procedure SetDBTyp(const AValue: string);
+    {$IFDEF LCL}
     function GetConfig : TDBConfig;
+    {$ENDIF}
     function GetLastError: string;
     procedure SetLastError(const AValue: string);
   public
@@ -404,6 +414,7 @@ begin
     FDataSet.Free;
   inherited Destroy;
 end;
+{$IFDEF LCL}
 function TDBConfig.DoReadString(const Section, Ident, DefaultValue: string
   ): string;
 begin
@@ -452,6 +463,7 @@ begin
         end;
     end;
 end;
+{$endif}
 procedure TBaseDBModule.DeleteExpiredSessions;
 begin
 end;
@@ -1110,11 +1122,15 @@ begin
     begin
       if Uppercase(copy(aLink,0,pos('://',aLink)-1)) = 'HTTP' then
         begin
+          {$IFDEF LCL}
           Result := OpenURL(aLink);
+          {$ENDIF}
         end
       else if pos('://',aLink) > 0 then
         begin
+          {$IFDEF LCL}
           Result := OpenDocument(aLink);
+          {$ENDIF}
         end;
     end;
 end;
@@ -1379,10 +1395,12 @@ procedure TBaseDBInterface.SetDB(const AValue: TBaseDBModule);
 begin
   FDB := AValue;
 end;
+{$IFDEF LCL}
 function TBaseDBInterface.GetConfig: TDBConfig;
 begin
   Result := FConfig;
 end;
+{$ENDIF}
 function TBaseDBInterface.GetLastError: string;
 begin
   Result := FLastError;
@@ -1396,8 +1414,10 @@ begin
 end;
 destructor TBaseDBInterface.Destroy;
 begin
+  {$IFDEF LCL}
   if Assigned(FConfig) then
     FConfig.Free;
+  {$ENDIF}
   inherited Destroy;
 end;
 procedure TBaseDBInterface.DBLogout;
@@ -1555,7 +1575,9 @@ function TBaseDBInterface.OpenMandant(aDBTyp : string;aDBProp : string): Boolean
 begin
   with Self as IBaseDbInterface do
     begin
+      {$IFDEF LCL}
       FreeAndNil(FConfig);
+      {$ENDIF}
       DBTyp := aDBTyp;
       Result := Assigned(FDB);
       if not Result then
@@ -1570,7 +1592,9 @@ begin
           FreeAndNil(FDB);
           exit;
         end;
+      {$IFDEF LCL}
       FConfig := TDBConfig.Create(nil);
+      {$ENDIF}
       Result := True;
     end;
 end;

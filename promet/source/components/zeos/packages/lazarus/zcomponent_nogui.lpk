@@ -2,7 +2,7 @@
 <CONFIG>
   <Package Version="4">
     <PathDelim Value="\"/>
-    <Name Value="zcomponent"/>
+    <Name Value="zcomponent_nogui"/>
     <AddToProjectUsesSection Value="True"/>
     <CompilerOptions>
       <Version Value="11"/>
@@ -29,58 +29,50 @@
     <Description Value="Zeos Database Components
 "/>
     <Version Major="7"/>
-    <Files Count="6">
+    <Files Count="5">
       <Item1>
-        <Filename Value="..\..\src\component\ZComponentReg.pas"/>
-        <HasRegisterProc Value="True"/>
-        <UnitName Value="ZComponentReg"/>
-      </Item1>
-      <Item2>
         <Filename Value="..\..\src\component\ZConnection.pas"/>
         <UnitName Value="ZConnection"/>
-      </Item2>
-      <Item3>
-        <Filename Value="..\..\src\component\ZDatasetUtils.pas"/>
-        <UnitName Value="ZDatasetUtils"/>
-      </Item3>
-      <Item4>
-        <Filename Value="..\..\src\component\ZUpdateSqlEditor.pas"/>
-        <UnitName Value="ZUpdateSqlEditor"/>
-      </Item4>
-      <Item5>
-        <Filename Value="..\..\src\component\ZConnectionGroup.pas"/>
-        <UnitName Value="ZConnectionGroup"/>
-      </Item5>
-      <Item6>
-        <Filename Value="..\..\src\component\ZGroupedConnection.pas"/>
-        <UnitName Value="ZGroupedConnection"/>
-      </Item6>
-    </Files>
-    <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="6">
-      <Item1>
-        <PackageName Value="IDEIntf"/>
       </Item1>
       <Item2>
+        <Filename Value="..\..\src\component\ZDatasetUtils.pas"/>
+        <UnitName Value="ZDatasetUtils"/>
+      </Item2>
+      <Item3>
+        <Filename Value="..\..\src\component\ZSqlMetadata.pas"/>
+        <UnitName Value="ZSqlMetadata"/>
+      </Item3>
+      <Item4>
+        <Filename Value="..\..\src\component\ZDataset.pas"/>
+        <UnitName Value="ZDataset"/>
+      </Item4>
+      <Item5>
+        <Filename Value="..\..\src\component\ZSqlMonitor.pas"/>
+        <UnitName Value="ZSqlMonitor"/>
+      </Item5>
+    </Files>
+    <Type Value="RunAndDesignTime"/>
+    <RequiredPkgs Count="5">
+      <Item1>
         <PackageName Value="zplain"/>
+        <MinVersion Major="7" Valid="True"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="zparsesql"/>
         <MinVersion Major="7" Valid="True"/>
       </Item2>
       <Item3>
-        <PackageName Value="zparsesql"/>
+        <PackageName Value="zdbc"/>
         <MinVersion Major="7" Valid="True"/>
       </Item3>
       <Item4>
-        <PackageName Value="zdbc"/>
+        <PackageName Value="zcore"/>
         <MinVersion Major="7" Valid="True"/>
       </Item4>
       <Item5>
-        <PackageName Value="zcore"/>
-        <MinVersion Major="7" Valid="True"/>
-      </Item5>
-      <Item6>
         <PackageName Value="FCL"/>
         <MinVersion Major="1" Valid="True"/>
-      </Item6>
+      </Item5>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

@@ -24,12 +24,18 @@ unit uthumbnails;
 interface
 
 uses
-  Classes, SysUtils, uDocuments,Utils,Graphics,FileUtil,variants,
+  Classes, SysUtils, uDocuments,Utils,FileUtil,variants,
   FPImage,fpreadgif,FPReadPSD,FPReadPCX,FPReadTGA,FPReadJPEGintfd,fpthumbresize,
-  FPWriteJPEG,UTF8Process,FPReadBMP,process,LCLProc,uBaseDbClasses;
+  FPWriteJPEG,UTF8Process,FPReadBMP,process,uBaseDbClasses
+  {$IFDEF LCL}
+  ,Graphics
+  {$ENDIF}
+  ;
 
 function GetThumbnailPath(aDocument : TDocuments;aWidth : Integer=310;aHeight : Integer=428) : string;
+{$IFDEF LCL}
 function GetThumbnailBitmap(aDocument : TDocuments;aWidth : Integer=310;aHeight : Integer=428) : TBitmap;
+{$ENDIF}
 function GetThumbTempDir : string;
 function ClearThumbDir : Boolean;
 function GenerateThumbNail(aName : string;aFullStream,aStream : TStream;aText : string;aWidth : Integer=310;aHeight : Integer=428) : Boolean;
@@ -78,6 +84,7 @@ begin
     Result := aFilename;
 end;
 
+{$IFDEF LCL}
 function GetThumbnailBitmap(aDocument: TDocuments;aWidth : Integer=310;aHeight : Integer=428): TBitmap;
 var
   aJpg: TJPEGImage;
@@ -107,7 +114,7 @@ begin
     aJpg.Free;
   end;
 end;
-
+{$ENDIF}
 function GetThumbTempDir: string;
 begin
   Result := GetInternalTempDir+'promet_thumbs';
@@ -158,7 +165,9 @@ var
   aProcess: TProcessUTF8;
   i: Integer;
   sl: TStringList;
+  {$IFDEF LCL}
   Printer: TBitmap;
+  {$ENDIF}
   randlinks: Int64;
   randoben: Int64;
   zeile: Integer;
@@ -181,7 +190,7 @@ var
     except
       on e : Exception do
         begin
-          debugln(e.Message);
+          //debugln(e.Message);
           result := False;
         end;
     end;
@@ -262,6 +271,7 @@ begin
   end;
   if not result and (trim(aText)<>'') then
     begin
+      {$IFDEF LCL}
       sl := TStringList.Create;
       sl.Text:=aText;
       while sl.Count>80 do sl.Delete(79);
@@ -313,6 +323,7 @@ begin
       wr.Free;
       Img.Free;
       Printer.Free;
+      {$ENDIF}
     end;
 end;
 

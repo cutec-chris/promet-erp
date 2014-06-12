@@ -20,7 +20,7 @@ unit uimpvcal;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, uVTools, uCalendar,lHTTPUtil,LCLProc;
+  Classes, SysUtils, uVTools, uCalendar,lHTTPUtil;
 function VCalImport(Calendar : TCalendar;vIn : TStrings) : Boolean;
 function VCalExport(Calendar : TCalendar;vOut : TStrings) : Boolean;
 implementation
@@ -197,7 +197,8 @@ begin
                   end;
                   FieldByName('STATUS').Asstring := tmp;
                 end
-              else debugln('Field Unknown:'+tmp);
+              else //debugln('Field Unknown:'+tmp)
+              ;
             end;
         end;
     end;

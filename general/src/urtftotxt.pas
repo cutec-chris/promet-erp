@@ -1,7 +1,7 @@
 unit uRTFtoTXT;
 {$mode DELPHI}
 interface
-uses sysutils,math,LCLProc,LCLIntf,FileUtil;
+uses sysutils,math,FileUtil;
 function RTF2Plain (const aSource: string): string;
 implementation
 function HexToInt(HexNum: string): LongInt;

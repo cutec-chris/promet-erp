@@ -25,7 +25,7 @@ type
 var
   ProcessList : TList;
 implementation
-uses FileUtil, uBaseApplication, SecureUtils, Dialogs, uIntfStrConsts, Controls;
+uses FileUtil, uBaseApplication, SecureUtils, Dialogs, uIntfStrConsts;
 resourcestring
   strFailedExecuteProcess       = 'Möglicherweise ist das auführen von "%s" fehlgeschlagen, Rückgabewert: %d';
   strNoValidCommand             = 'Sie haben einen ungültigen befehl in den Dateiaktionen angegeben. Gültige Befehle müssen mit exec: oder mkdir: beginnen.';
@@ -119,6 +119,7 @@ begin
       begin
         if DirectoryExistsUTF8(filename) then
           begin
+          {$IFDEF LCL}
           DelRetry:
             case Config.ReadInteger('DELETEMETHOD',0) of
             0:DelOK := DeleteDirectory(filename,False);
@@ -129,11 +130,17 @@ begin
             if not DelOK then
               if MessageDlg(strDelete,strCantDeleteTempDirectory,mtWarning,[mbRetry,mbAbort],0) = mrRetry then
                 goto DelRetry;
+          {$ELSE}
+          DelOK := DeleteDirectory(filename,False);
+          {$ENDIF}
           end;
       end;
     end
   else if aDoDelete then
-    ShowMessage(strCheckinFailed);
+    {$IFDEF LCL}
+    ShowMessage(strCheckinFailed)
+    {$ENDIF}
+    ;
 end;
 constructor TDocExecuteThread.Create(Document: TDocument; Cmd: string;
   DoDelete: Boolean; UseStarter: Boolean; TempID: string);

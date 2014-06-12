@@ -10,7 +10,7 @@ uses
   {$ELSE}
   BaseUnix,
   {$ENDIF}
-  Classes, SysUtils, LCLProc, ProcessUtils;
+  Classes, SysUtils;
 
 function CreateUserID : LongInt;
 function CreateMachineID : LongInt;

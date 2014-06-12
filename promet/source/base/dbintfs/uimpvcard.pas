@@ -21,8 +21,12 @@ unit uImpVCard;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, FileUtil, uPerson, synacode, Graphics,db,lConvEncoding,
-  uVTools,LCLProc;
+  Classes, SysUtils, FileUtil, uPerson, synacode,db,lConvEncoding,
+  uVTools
+  {$IFDEF LCL}
+  , Graphics
+  {$ENDIF}
+  ;
 function VCardImport(Customers : TPerson;vIn : TStrings;DoChange : Boolean = False) : Boolean;
 function VCardExport(Customers : TPerson;vOut : TStrings) : Boolean;
 implementation
@@ -208,7 +212,8 @@ begin
                   Customers.CustomerCont.FieldByName('DATA').AsString := GetValue(tmp);
                   Customers.CustomerCont.Post;
                 end
-              else debugln('Field not found:'+tmp);
+              else //debugln('Field not found:'+tmp)
+              ;
             end;
         end;
     end;
@@ -218,10 +223,12 @@ end;
 function VCardExport(Customers : TPerson;vOut : TStrings): Boolean;
 var
   s: TStream;
+  {$IFDEF LCL}
   iPerson: TPicture;
+  aBitmap: TBitmap;
+  {$ENDIF}
   ss: TStringStream;
   GraphExt: String;
-  aBitmap: TBitmap;
   Aspect: Double;
 
   procedure WriteField(Name : string;Value : string;Encoding : string = '8bit';Charset : string = 'utf8');
@@ -292,6 +299,7 @@ begin
           Open;
           if Count > 0 then
             begin
+              {$IFDEF LCL}
               iPerson := TPicture.Create;
               s := Customers.Images.DataSet.CreateBlobStream(Customers.Images.FieldByName('IMAGE'),bmRead);
               if (S=Nil) or (s.Size = 0) then
@@ -318,6 +326,7 @@ begin
               aBitmap.Free;
               ss.Position:=0;
               WriteField('PHOTO;ENCODING=b;TYPE=image/jpeg',EncodeBase64(ss.DataString),'','');
+              {$ENDIF}
               ss.Free;
             end;
         end;
@@ -327,4 +336,4 @@ begin
 end;
 
 end.
-
+

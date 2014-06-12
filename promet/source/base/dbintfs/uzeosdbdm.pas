@@ -21,9 +21,9 @@ unit uZeosDBDM;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, db, uBaseDBInterface,ZConnection, ZSqlMonitor, ZSqlMetadata,
-  ZAbstractRODataset, ZDataset, uBaseDbClasses, LClProc, ZSequence, ZAbstractConnection,
-  uModifiedDS;
+  Classes, SysUtils, db, uBaseDBInterface,ZConnection, ZSqlMetadata,
+  ZAbstractRODataset, ZDataset, uBaseDbClasses, ZSequence,ZAbstractConnection,
+  uModifiedDS,ZSqlMonitor;
 type
 
   { TZeosDBDM }
@@ -1348,7 +1348,7 @@ begin
       with BaseApplication as IBaseDBInterface do
         begin
           LastError := e.Message;
-          debugln(LastError);
+          //debugln(LastError);
         end;
   end;
   if (copy(FConnection.Protocol,0,8) = 'postgres')
@@ -1729,7 +1729,7 @@ begin
       +'END;'+LineEnding
       +'$BASE$ LANGUAGE plpgsql;'+LineEnding
       +'CREATE TRIGGER '+QuoteField(aTableName+'_'+aTriggerName)+' AFTER '+aUpdateOn+' ON '+QuoteField(aTableName)+' FOR EACH ROW EXECUTE PROCEDURE '+aTableName+'_'+aTriggerName+'_TRIGGER();'+LineEnding;
-      DebugLn(GeneralQuery.SQL.Text);
+      //DebugLn(GeneralQuery.SQL.Text);
       GeneralQuery.ExecSQL;
     end
   else if (FMainConnection.Protocol = 'mssql') then
@@ -1744,7 +1744,7 @@ begin
      +'BEGIN'+LineEnding
      +StringReplace(StringReplace(StringReplace(aSQL,'$NEW$','INSERTED',[rfReplaceAll]),'$OLD$','DELETED',[rfReplaceAll]),'$UPDATED$','new',[rfReplaceAll])+LineEnding
      +'END;';
-      DebugLn(GeneralQuery.SQL.Text);
+      //DebugLn(GeneralQuery.SQL.Text);
       GeneralQuery.ExecSQL;
     end
 {  else if (copy(FMainConnection.Protocol,0,6) = 'sqlite') then
@@ -1877,4 +1877,4 @@ begin
 end;
 
 end.
-
+

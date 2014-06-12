@@ -22,7 +22,11 @@ unit uBaseDbClasses;
 interface
 uses
   Classes, SysUtils, db, uBaseDbDataSet, Variants, uIntfStrConsts, DOM,
-  Contnrs,LCLProc,Graphics;
+  Contnrs
+  {$IFDEF LCL}
+  ,Graphics
+  {$ENDIF}
+  ;
 type
   TSortDirection = (sdAscending, sdDescending, sdIgnored);
 
@@ -380,7 +384,9 @@ type
   TImages = class(TBaseDBDataSet)
   public
     procedure DefineFields(aDataSet : TDataSet);override;
+    {$IFDEF LCL}
     function AddFromFile(aFile : string) : Boolean;
+    {$ENDIF}
   end;
   TDeletedItems = class(TBaseDBDataSet)
   public
@@ -494,9 +500,11 @@ function GetInternalTempDir: string;
 var
   TempPath: String;
 begin
+  {$IFDEF LCL}
   with BaseApplication as IBaseApplication do
     if Assigned(Config) then
       TempPath := Config.ReadString('TEMPPATH','');
+  {$ENDIF}
   if TempPath = '' then
     TempPath := GetTempDir;
   Result := AppendPathDelim(TempPath);
@@ -629,6 +637,7 @@ begin
     end;
 end;
 
+{$IFDEF LCL}
 function TImages.AddFromFile(aFile: string): Boolean;
 var
   aPicture: TPicture;
@@ -654,7 +663,7 @@ begin
   end;
   Post;
 end;
-
+{$endif}
 constructor TLinks.Create(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
@@ -2427,7 +2436,7 @@ begin
     on e : Exception do
       begin
         aErr := e.Message;
-        debugln(e.Message);
+        //debugln(e.Message);
         Retry := True;
       end;
   end;
@@ -2478,7 +2487,8 @@ begin
               FDataSet.Open;
               if CheckTable then
                 if not AlterTable then
-                  debugln('Altering Table "'+TableName+'" failed !');
+                  //debugln('Altering Table "'+TableName+'" failed !')
+                  ;
               with DataSet as IBaseDbFilter do
                 begin
                   Limit := aOldLimit;
@@ -2761,4 +2771,4 @@ begin
 end;
 initialization
 end.
-
+
