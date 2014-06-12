@@ -37,10 +37,14 @@
       </Item5>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="1">
+    <RequiredPkgs Count="2">
       <Item1>
-        <PackageName Value="pPrometDBIntfs"/>
+        <PackageName Value="LCL"/>
       </Item1>
+      <Item2>
+        <PackageName Value="pPrometDBIntfs"/>
+        <DefaultFilename Value="../../base/dbintfs/pprometdbintfs.lpk"/>
+      </Item2>
     </RequiredPkgs>
     <UsageOptions>
       <CustomOptions Value="-dUseCThreads"/>

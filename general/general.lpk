@@ -21,7 +21,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="11">
+    <Files Count="13">
       <Item1>
         <Filename Value="src_vis\ubenchmark.pas"/>
         <UnitName Value="ubenchmark"/>
@@ -67,6 +67,14 @@
         <Filename Value="src_vis\uinfo.pas"/>
         <UnitName Value="uInfo"/>
       </Item11>
+      <Item12>
+        <Filename Value="src_vis\processutils.pas"/>
+        <UnitName Value="ProcessUtils"/>
+      </Item12>
+      <Item13>
+        <Filename Value="src_vis\uimaging.pas"/>
+        <UnitName Value="uImaging"/>
+      </Item13>
     </Files>
     <i18n>
       <EnableI18N Value="True"/>

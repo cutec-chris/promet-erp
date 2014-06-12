@@ -21,14 +21,15 @@
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="4">
       <Item1>
-        <PackageName Value="pPrometDBIntfs"/>
-        <DefaultFilename Value="../base/dbintfs/pprometdbintfs.lpk"/>
+        <PackageName Value="general"/>
+        <DefaultFilename Value="../../../../general/general.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="laz_synapse"/>
+        <PackageName Value="pPrometDBIntfs"/>
+        <DefaultFilename Value="../base/dbintfs/pprometdbintfs.lpk"/>
       </Item2>
       <Item3>
-        <PackageName Value="general_nogui"/>
+        <PackageName Value="laz_synapse"/>
       </Item3>
       <Item4>
         <PackageName Value="FCL"/>

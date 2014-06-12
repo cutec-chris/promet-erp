@@ -27,8 +27,7 @@ interface
 uses
   SysUtils, Classes, httpdefs, fpHTTP, fpWeb, fpdatasetform, db,fpjson,
   uBaseDBInterface,FileUtil,LConvEncoding,uBaseDbClasses,fpsqlparser,
-  fpsqlscanner, fpsqltree,httpsend,OpenSSL, jsonparser, lhttp,
-  lwebserver,lEvents,lHTTPUtil, lNet;
+  fpsqlscanner, fpsqltree,httpsend,OpenSSL, jsonparser;
 
 type
   { Tappbase }
@@ -52,7 +51,6 @@ type
     procedure objectRequest(Sender: TObject; ARequest: TRequest;
       AResponse: TResponse; var Handled: Boolean);
     function OpenLink(aLink: string; Sender: TObject): Boolean;
-    procedure ServerError(const msg: string; aSocket: TLSocket);
     procedure setobjectRequest(Sender: TObject; ARequest: TRequest;
       AResponse: TResponse; var Handled: Boolean);
     procedure syncRequest(Sender: TObject; ARequest: TRequest;
@@ -334,10 +332,6 @@ end;
 function Tappbase.OpenLink(aLink: string; Sender: TObject): Boolean;
 begin
 
-end;
-
-procedure Tappbase.ServerError(const msg: string; aSocket: TLSocket);
-begin
 end;
 
 procedure Tappbase.setobjectRequest(Sender: TObject; ARequest: TRequest;
