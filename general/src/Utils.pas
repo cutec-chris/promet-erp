@@ -4,8 +4,7 @@ INTERFACE
 uses Classes,SysUtils
      {$IFDEF LCL}
      {$IFNDEF LCLnogui}
-     ,Forms,Dialogs,Clipbrd,Translations,TypInfo,LCLProc,Graphics,LResources
-     ,PoTranslator
+     ,Forms,Dialogs,Clipbrd,Translations,LCLProc,Graphics,LResources
      {$ENDIF}
      ,FileUtil,UTF8Process
      {$ENDIF}
@@ -33,7 +32,6 @@ FUNCTION IsNumeric(s: STRING): boolean;
 FUNCTION StrTimeToValue(val : string) : LongInt;
 {$IFDEF LCL}
  {$IFNDEF LCLnogui}
- procedure LoadLanguage(lang : string);
  function GetProcessforExtension(InfoTyp : TProcessinfoTyp;Extension : string) : string;
  function TextCut(aCanvas: TCanvas; Len: Integer; Text: String): String;
  {$ELSE}
@@ -169,55 +167,6 @@ begin
             end;
         end;
     end;
-end;
-procedure LoadLanguage(lang: string);
-var
-  Info : TSearchRec;
-  po: TPOFile;
-  units: TStringList;
-  id: String;
-  i: Integer;
-  a: Integer;
-  Comp: TComponent;
-  aFilename: String;
-Begin
-  If FindFirstUTF8(ProgramDirectory+'languages'+Directoryseparator+'*.'+lowercase(copy(lang,0,2))+'.po',faAnyFile,Info)=0 then
-    repeat
-      po := TPOFile.Create(ProgramDirectory+'languages'+Directoryseparator+Info.Name);
-      units := TStringList.Create;
-      for i := 0 to po.Items.Count-1 do
-        begin
-          id := copy(TPoFileItem(po.Items[i]).IdentifierLow,0,pos('.',TPoFileItem(po.Items[i]).IdentifierLow)-1);
-          if units.IndexOf(id) = -1 then
-            units.Add(id);
-        end;
-      for i := 0 to units.Count-1 do
-        Translations.TranslateUnitResourceStrings(units[i],ProgramDirectory+'languages'+Directoryseparator+Info.Name);
-      units.Free;
-      for i := 0 to po.Items.Count-1 do
-        begin
-          id := copy(TPoFileItem(po.Items[i]).IdentifierLow,0,pos('.',TPoFileItem(po.Items[i]).IdentifierLow)-1);
-          for a := 0 to Screen.FormCount-1 do
-            if UTF8UpperCase(Screen.Forms[a].ClassName) = UTF8UpperCase(id) then
-              begin
-                id := copy(TPoFileItem(po.Items[i]).IdentifierLow,pos('.',TPoFileItem(po.Items[i]).IdentifierLow)+1,length(TPoFileItem(po.Items[i]).IdentifierLow));
-                if Assigned(Screen.Forms[a].FindComponent(copy(id,0,pos('.',id)-1))) then
-                  begin
-                    try
-                      Comp := Screen.Forms[a].FindComponent(copy(id,0,pos('.',id)-1));
-                      id := copy(id,pos('.',id)+1,length(id));
-                      SetStrProp(Comp,id,TPoFileItem(po.Items[i]).Translation);
-                    except
-                    end;
-                  end;
-              end;
-        end;
-      po.Free;
-    until FindNextUTF8(info)<>0;
-  FindCloseUTF8(Info);
-  aFilename := ProgramDirectory+'languages'+Directoryseparator+'forms.'+lowercase(copy(lang,0,2))+'.po';
-  if FileExists(aFilename) then
-    LRSTranslator:=TPoTranslator.Create(aFilename);
 end;
 function GetProcessforExtension(InfoTyp : TProcessinfoTyp;Extension : string) : string;
 var

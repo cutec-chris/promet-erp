@@ -24,7 +24,7 @@ unit uProcessManager;
 interface
 
 uses
-  Classes, SysUtils, Process, UTF8Process, FileUtil, uBaseApplication
+  Classes, SysUtils, Process, UTF8Process, FileUtil, uBaseApplication,usimpleprocess
   {$IFDEF WINDOWS}
   ,Windows,jwatlhelp32
   {$ENDIF}
@@ -127,4 +127,4 @@ begin
 end;
 
 end.
-
+

@@ -8,7 +8,7 @@ interface
 
 uses
   uBaseVisualApplication, ubasevisualapplicationtools, uBaseVisualControls, 
-  uFormAnimate, uPassword, LazarusPackageIntf;
+  uFormAnimate, uPassword, ubaseconfig, LazarusPackageIntf;
 
 implementation
 

@@ -66,7 +66,7 @@ var
 
 implementation
 uses
-  uMashineID,uData,UTF8Process,Process;
+  uMashineID,uData,UTF8Process,Process,ubaseconfig;
 { TfPassword }
 
 procedure TfPassword.cbMandantSelect(Sender: TObject);
@@ -199,9 +199,9 @@ end;
 
 procedure TfPassword.OKButtonClick(Sender: TObject);
 var
-  BaseApplication : IBaseApplication;
+  BaseApplication : IBaseConfig;
 begin
-  if Supports(Application, IBaseApplication, BaseApplication) then
+  if Supports(Application, IBaseConfig, BaseApplication) then
     begin
       if cbAutomaticLogin.Checked then
         BaseApplication.Config.WriteInteger('AUTOMATICLOGIN',CreateUserID)
@@ -255,7 +255,7 @@ begin
   lFirstLogin.Visible:=False;
   lFirstLogin.Height:=0;
   lFirstLoginResize(nil);
-  with Application as IBaseApplication do
+  with Application as IBaseApplication,Application as IBaseConfig do
     begin
       if cbMandant.Items.Count = 0 then
         begin

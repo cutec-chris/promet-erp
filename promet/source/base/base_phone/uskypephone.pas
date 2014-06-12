@@ -31,7 +31,7 @@ procedure RegisterPhoneLines;
 
 implementation
 
-uses uBaseApplication;
+uses uBaseApplication,ubaseconfig;
 
 procedure RegisterPhoneLines;
 var
@@ -40,7 +40,7 @@ var
 begin
   aLine := TSkypePhoneLine.Create;
   Phones.Add(aLine);
-  with Application as IBaseApplication do
+  with Application as IBaseConfig do
     aLines := Config.ReadString('PHONELINES','');
   if (pos(aLine.Name,aLines)>0) or (not aLine.Connect) then
     begin
@@ -148,4 +148,4 @@ begin
 end;
 
 end.
-
+

@@ -21,7 +21,8 @@ unit uDocuments;
 {$H+}
 interface
 uses
-  Classes, SysUtils, db, uBaseDBClasses, Utils, fpolebasic,LConvEncoding
+  Classes, SysUtils, db, uBaseDBClasses, Utils, fpolebasic,LConvEncoding,
+  usimpleprocess
   {$IFDEF LCL}
   ,Graphics
   {$ENDIF};
@@ -1145,31 +1146,6 @@ begin
             end;
         end;
     end;
-end;
-function ExecProcessEx(CommandLine : string;CurDir : string = '') : string;
-var
-  process : TProcessUTF8;
-  tmps: tstringlist;
-  err : string = '';
-begin
-  Process := TProcessUTF8.Create(nil);
-  Process.Options:= [poUsePipes, poWaitOnExit, poNoConsole, poStdErrToOutPut, poNewProcessGroup];
-  Process.CommandLine := CommandLine;
-  if CurDir <> '' then
-    Process.CurrentDirectory := CurDir;
-  try
-    Process.Execute;
-  except
-    on e : exception do
-      err := err+#13+e.Message;
-  end;
-  tmps := TStringList.Create;
-  tmps.LoadFromStream(Process.Output);
-  Process.Free;
-  Result := tmps.Text;
-  tmps.Free;
-  if err <> '' then
-    Result := 'errors:'+err+#13+Result;
 end;
 procedure TDocument.CheckoutToStream(aStream: TStream;aRevision : Integer = -1);
 var

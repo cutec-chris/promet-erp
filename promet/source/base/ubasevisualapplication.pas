@@ -28,7 +28,7 @@ uses
   {uAppconsts, }uBaseDBInterface, PropertyStorage, ClipBrd, LCLType,
   uBaseVisualControls, uData, UTF8Process, Controls, Process, ProcessUtils,
   uSystemMessage, uProcessManager, uExtControls, db, typinfo, eventlog,menus,
-  Dialogs,uIntfStrConsts,DBZVDateTimePicker
+  Dialogs,uIntfStrConsts,DBZVDateTimePicker,ubaseconfig
   {$IFDEF LCLCARBON}
   ,MacOSAll,CarbonProc
   {$ENDIF}
@@ -36,7 +36,7 @@ uses
 type
   { TBaseVisualApplication }
 
-  TBaseVisualApplication = class(TApplication, IBaseApplication, IBaseDbInterface)
+  TBaseVisualApplication = class(TApplication, IBaseApplication, IBaseDbInterface,IBaseConfig)
     procedure BaseVisualApplicationDebugLn(Sender: TObject; S: string;
       var Handled: Boolean);
     procedure BaseVisualApplicationException(Sender: TObject; E: Exception);
@@ -130,8 +130,7 @@ var
   LinkClipboardFormat : TClipboardFormat;
 implementation
 uses uPassword,uMashineID,uError,ComCtrls,StdCtrls,ExtCtrls,
-  DBCtrls, LMessages, LCLIntf,
-  LazLogger,Buttons;
+  DBCtrls, LMessages, LCLIntf,LazLogger,Buttons,uLanguageUtils;
 resourcestring
   strWrongPasswort            = 'Falsches Passwort !';
   strUsernotFound             = 'Benutzer nicht gefunden !';
@@ -389,7 +388,7 @@ var
   NewRect : TRect;
   aWS: TWindowState;
 begin
-  with Self as IBaseApplication do
+  with Self as IBaseConfig do
     begin
       try
       Properties.Restore;
@@ -407,7 +406,7 @@ begin
 end;
 procedure TBaseVisualApplication.SaveConfig;
 begin
-  with Self as IBaseApplication do
+  with Self as IBaseConfig do
     begin
       if Assigned(MainForm) then
         begin
@@ -424,12 +423,12 @@ begin
 end;
 function TBaseVisualApplication.GetLanguage: string;
 begin
-  with Self as IBaseApplication do
+  with Self as IBaseConfig do
     Result := Config.ReadString('LANGUAGE','');
 end;
 procedure TBaseVisualApplication.SetLanguage(const AValue: string);
 begin
-  with Self as IBaseApplication do
+  with Self as IBaseConfig do
     Config.WriteString('LANGUAGE',AValue);
   //TODO:change Language
 end;
@@ -917,7 +916,7 @@ begin
   fPassword.ePasswort.Text := '';
   try
     try
-      with Self as IBaseApplication do
+      with Self as IBaseApplication,Self as IBaseConfig do
         begin
           aID := CreateUserID;
           rMandant := Config.ReadString('LOGINMANDANT','Standard');
@@ -1051,7 +1050,7 @@ begin
   LazLogger.GetDebugLogger.OnDebugLn:=nil;
   uData.Data := nil;
   DoExit;
-  with Self as IBaseApplication do
+  with Self as IBaseConfig do
     begin
       Config.WriteString('AUTOMATICLOGIN','NO');
       Terminate;
