@@ -243,6 +243,7 @@ resourcestring
   strSetTag                = 'durch Klick setzen';
   strSetDate               = 'Soll das Datum %s als Belegdatum gesetzt werden ?';
   strMakeLinkToDocuments   = 'Soll ein Verweis in dne Dateien des Eintrags angelegt werden ?'+LineEnding+'So können Sie auch vom Eintrag aus das Dokument schnell finden';
+  strNoText                = 'kein Text gefunden, oder keine OCR Anwendung installiert !';
 
 procedure AddToMainTree(Node: TTReeNode;aType : string = 'D');
 var
@@ -880,9 +881,9 @@ begin
       mFulltext.SelLength:=aLen;
       if MessageDlg(Format(strSetDate,[DateToStr(bDate)]),mtInformation,[mbYes,mbNo],0) = mrYes then
         begin
-          TDocPages(DataSet).Edit;
-          TDocPages(DataSet).FieldByName('ORIGDATE').AsDateTime:=bDate;
-          TDocPages(DataSet).Post;
+          TDocPages(FFullDataSet).Edit;
+          TDocPages(FFullDataSet).FieldByName('ORIGDATE').AsDateTime:=bDate;
+          TDocPages(FFullDataSet).Post;
         end;
     end;
 end;
@@ -938,20 +939,29 @@ begin
   aDoc.Open;
   if aDoc.Count>0 then
     begin
-      Texts := DoOCR(aDoc);
-      aText := TStringList.Create;
-      for i := 0 to Texts.Count-1 do
-        begin
-          FixText(TStringList(Texts[i]));
-          atext.AddStrings(TStringList(Texts[i]));
-        end;
-      TDocPages(DataSet).Edit;
-//      TDocPages(DataSet).FieldByName('FULLTEXT').AsString:=aText.Text;
-      TDocPages(DataSet).Post;
-      aText.Free;
-      for i := 0 to Texts.Count-1 do
-        TStringList(Texts[i]).Free;
-      Texts.Free;
+      try
+        Texts := DoOCR(aDoc);
+        aText := TStringList.Create;
+        for i := 0 to Texts.Count-1 do
+          begin
+            FixText(TStringList(Texts[i]));
+            atext.AddStrings(TStringList(Texts[i]));
+          end;
+        if trim(aText.Text) <> '' then
+          begin
+            TDocPages(FFullDataSet).Edit;
+            TDocPages(FFullDataSet).FieldByName('FULLTEXT').AsString:=aText.Text;
+            mFulltext.Text:=aText.Text;
+          end
+        else Showmessage(strNoText);
+        TDocPages(FFullDataSet).Post;
+        aText.Free;
+        for i := 0 to Texts.Count-1 do
+          TStringList(Texts[i]).Free;
+        Texts.Free;
+      except
+        raise;
+      end;
     end;
   aDoc.Free;
 end;
