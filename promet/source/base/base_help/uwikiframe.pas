@@ -53,6 +53,7 @@ type
     acScreenshot: TAction;
     acImage: TAction;
     acSpellCheck: TAction;
+    acExport: TAction;
     ActionList: TActionList;
     Bevel1: TBevel;
     bItalic: TSpeedButton;
@@ -65,12 +66,15 @@ type
     eWikiPage: TDBMemo;
     Label1: TLabel;
     Label3: TLabel;
+    Label4: TLabel;
     lTitle: TLabel;
     MenuItem1: TMenuItem;
     Panel1: TPanel;
     pLeft: TPanel;
     Panel3: TPanel;
     pmHistory: TPopupMenu;
+    pToolbar1: TPanel;
+    SaveDialog1: TSaveDialog;
     SpeedButton2: TSpeedButton;
     SpeedButton3: TSpeedButton;
     SpeedButton4: TSpeedButton;
@@ -83,6 +87,7 @@ type
     tbToolBar1: TToolBar;
     ToolButton3: TToolButton;
     ToolButton4: TToolButton;
+    ToolButton5: TSpeedButton;
     Wiki: TDatasource;
     ipHTML: TIpHtmlPanel;
     pTop: TPanel;
@@ -95,6 +100,7 @@ type
     tsEdit: TTabSheet;
     tsView: TTabSheet;
     procedure acBackExecute(Sender: TObject);
+    procedure acExportExecute(Sender: TObject);
     procedure acForwardExecute(Sender: TObject);
     procedure acImageExecute(Sender: TObject);
     procedure acIndexExecute(Sender: TObject);
@@ -393,6 +399,20 @@ procedure TfWikiFrame.acBackExecute(Sender: TObject);
 begin
   FHistory.GoBack;
 end;
+
+procedure TfWikiFrame.acExportExecute(Sender: TObject);
+var
+  aFN: String;
+begin
+  if SaveDialog1.Execute then
+    begin
+      aFN := SaveDialog1.FileName;
+      if lowercase(ExtractFileExt(aFN))<>'.html' then
+        aFN := aFN+'.html';
+      TWikiList(DataSet).ExportToHTML(aFN,OnWikiInclude);
+    end;
+end;
+
 procedure TfWikiFrame.acForwardExecute(Sender: TObject);
 begin
   FHistory.GoFwd;

@@ -21,7 +21,7 @@ unit uWiki;
 interface
 uses
   Classes, SysUtils, uBaseDbClasses, db, uBaseDBInterface, uDocuments,
-  uBaseApplication, uBaseSearch, uIntfStrConsts;
+  uBaseApplication, uBaseSearch, uIntfStrConsts,WikiToHtml;
 type
   TKeywords = class(TBaseDbDataSet)
   public
@@ -30,10 +30,14 @@ type
   end;
   TWikiList = class(TBaseDBList)
     procedure FKeywordsDataSetAfterInsert(aDataSet: TDataSet);
+    procedure WikiListWikiLink(Inp: string; var Outp: string; aLevel: Integer=0
+      );
   private
     FActiveTreeID: Variant;
     FKeywords: TKeywords;
     FKeywordDS : TDataSource;
+    FOutDir,FOutSub,FOutExt : string;
+    FOutTodo: TStringList;
   protected
   public
     function GetTyp: string;override;
@@ -51,9 +55,10 @@ type
     destructor Destroy; override;
     function CreateTable: Boolean; override;
     property Keywords : TKeywords read FKeywords;
+    function ExportToHTML(aFile: string; aInclude: TWikiIncludeFunc): Boolean;
   end;
 implementation
-uses Variants,WikiToHtml,htmltowiki;
+uses Variants,htmltowiki,Utils,FileUtil;
 
 procedure TKeywords.DefineFields(aDataSet: TDataSet);
 begin
@@ -102,6 +107,7 @@ procedure TWikiList.FKeywordsDataSetAfterInsert(aDataSet: TDataSet);
 begin
   aDataSet.FieldByName('REF_ID_ID').AsVariant:=Self.Id.AsVariant;
 end;
+
 function TWikiList.GetTyp: string;
 begin
   Result := 'W';
@@ -278,6 +284,60 @@ function TWikiList.CreateTable: Boolean;
 begin
   Result:=inherited CreateTable;
   FKeywords.CreateTable;
+end;
+
+procedure TWikiList.WikiListWikiLink(Inp: string; var Outp: string;
+  aLevel: Integer=0);
+var
+  tmp: String;
+  sl: TStringList;
+  aFN: String;
+begin
+  Outp := FOutSub+'/'+Inp+FOutExt;
+  tmp := FOutDir+'/'+FOutSub+'/'+Inp;
+  tmp := copy(tmp,0,rpos('/',tmp)-1);
+  tmp := StringReplace(tmp,'/',DirectorySeparator,[rfReplaceAll]);
+  tmp := StringReplace(tmp,DirectorySeparator+DirectorySeparator,DirectorySeparator,[rfReplaceAll]);
+  ForceDirectories(tmp);
+  sl := TStringList.Create;
+  aFN := StringReplace(StringReplace(FOutDir+'/'+Outp,'/',DirectorySeparator,[rfReplaceAll]),'//','/',[rfReplaceAll]);
+  if FOutTodo.IndexOf(Inp)=-1 then
+    FOutTodo.Add(Inp)
+end;
+
+function TWikiList.ExportToHTML(aFile: string; aInclude: TWikiIncludeFunc
+  ): Boolean;
+var
+  sl: TStringList;
+  aPage: TWikiList;
+  Outp: String;
+  aFN: String;
+begin
+  WikiToHtml.OnWikiLink:=@WikiListWikiLink;
+  WikiToHtml.OnWikiInclude:=aInclude;
+  FOutDir := AppendPathDelim(ExtractFileDir(aFile));
+  FOutSub := copy(ExtractFileName(aFile),0,rpos('.',ExtractFileName(aFile))-1);
+  FOutExt := ExtractFileExt(aFile);
+  FOutTodo := TStringList.Create;
+  sl := TStringList.Create;
+  sl.Text := WikiText2HTML(DataSet.FieldByName('DATA').AsString,'','');
+  sl.SaveToFile(aFile);
+  sl.Free;
+  while FOutTodo.Count>0 do
+    begin
+      aPage := TWikiList.Create(nil,DataModule,Connection);
+      Outp := FOutSub+'/'+FOutTodo[0]+FOutExt;
+      aFN := StringReplace(StringReplace(FOutDir+'/'+Outp,'/',DirectorySeparator,[rfReplaceAll]),'//','/',[rfReplaceAll]);
+      if (not FileExists(aFN)) and aPage.FindWikiPage(FOutTodo[0]) then
+        begin
+          sl.Text := WikiText2HTML(aPage.DataSet.FieldByName('DATA').AsString,'','');
+          sl.SaveToFile(aFN);
+          sl.Free;
+        end;
+      FOutTodo.Delete(0);
+      aPage.Free;
+    end;
+  FOutTodo.Free;
 end;
 
 initialization

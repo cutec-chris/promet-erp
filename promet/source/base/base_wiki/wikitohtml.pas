@@ -35,6 +35,8 @@ type
 var
   OnConvertImage : TImageConvertFunc;
   OnWikiInclude : TWikiIncludeFunc;
+  OnWikiLink : TWikiIncludeFunc;
+  OnWikiRefresh : TWikiIncludeFunc;
 
 implementation
 
@@ -52,6 +54,8 @@ var
   linkcontent: String;
   aLink: String;
   otstr: String;
+  tmp: String;
+  bLink: String;
   procedure DoReplace(var InStr,OutStr : string;ReplaceTag,NewTag : string;MustbeInOneLine : Boolean = False);
   var
     NewLine: String;
@@ -246,7 +250,7 @@ begin
   if copy(trim(istr),0,1)='*' then
     istr := #13+istr;
   istr := StringReplace(istr,#10,#13,[rfReplaceAll]);
-  //Remove NOTOC
+  //Remove NOTOC                           if Assigned(OnWikiInclude) then
   istr := StringReplace(istr,'__NOTOC__','',[rfReplaceAll]);
   //Remove TOC
   istr := StringReplace(istr,'__TOC__','',[rfReplaceAll]);
@@ -447,6 +451,12 @@ begin
               aLink := linkoffset+UTF8ToSys(HTMLDecode(linkcontent));
               if copy(aLink,0,length(RemoveLinkOffset)) = RemoveLinkOffset then
                 aLink := copy(aLink,length(RemoveLinkOffset),length(aLink));
+              if Assigned(OnWikiLink) then
+                begin
+                  tmp := '';
+                  OnWikiLink(aLink,tmp,aLevel+1);
+                  aLink := tmp;
+                end;
               ostr := ostr+'<a href="'+aLink+'"';
               istr := copy(istr,pos('|',istr)+1,length(istr));
               ostr := ostr+' title="'+copy(istr,0,pos(']]',istr)-1)+'">'+copy(istr,0,pos(']]',istr)-1)+'</a>';
@@ -455,14 +465,20 @@ begin
       else
         begin
           linkcontent := copy(istr,0,pos(']]',istr)-1);
-              aLink := linkoffset+linkcontent;
-              if copy(aLink,0,length(RemoveLinkOffset)) = RemoveLinkOffset then
-                aLink := copy(aLink,length(RemoveLinkOffset),length(aLink));
-              if pos('::',linkcontent) > 0 then
-                ostr := ostr+'<a href="'+aLink+'">'
-              else
-                ostr := ostr+'<a href="'+aLink+'" title="'+copy(istr,0,pos(']]',istr)-1)+'">'+copy(istr,0,pos(']]',istr)-1)+'</a>';
-              istr := copy(istr,pos(']]',istr)+2,length(istr));
+          aLink := linkoffset+linkcontent;
+          if copy(aLink,0,length(RemoveLinkOffset)) = RemoveLinkOffset then
+            aLink := copy(aLink,length(RemoveLinkOffset),length(aLink));
+          if Assigned(OnWikiLink) then
+            begin
+              tmp := '';
+              OnWikiLink(aLink,tmp,aLevel+1);
+              aLink := tmp;
+            end;
+          if pos('::',linkcontent) > 0 then
+            ostr:=ostr+'<a href="'+aLink+'">'
+          else
+            ostr := ostr+'<a href="'+aLink+'" title="'+copy(istr,0,pos(']]',istr)-1)+'">'+copy(istr,0,pos(']]',istr)-1)+'</a>';
+          istr := copy(istr,pos(']]',istr)+2,length(istr));
         end;
     end;
   ostr := ostr+istr;
