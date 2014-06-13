@@ -471,7 +471,9 @@ end;
 
 function TDBConfig.ReadString(Ident, DefaultValue: string): string;
 begin
-  Result := ReadString('',Ident,DefaultValue);
+  if Assigned(Self) then
+    Result := ReadString('',Ident,DefaultValue)
+  else Result := DefaultValue;
 end;
 
 procedure TDBConfig.WriteString(Ident, Value: string);
@@ -1466,10 +1468,8 @@ begin
 end;
 destructor TBaseDBInterface.Destroy;
 begin
-  {$IFDEF LCL}
   if Assigned(FConfig) then
     FConfig.Free;
-  {$ENDIF}
   inherited Destroy;
 end;
 procedure TBaseDBInterface.DBLogout;
@@ -1627,9 +1627,7 @@ function TBaseDBInterface.OpenMandant(aDBTyp : string;aDBProp : string): Boolean
 begin
   with Self as IBaseDbInterface do
     begin
-      {$IFDEF LCL}
       FreeAndNil(FConfig);
-      {$ENDIF}
       DBTyp := aDBTyp;
       Result := Assigned(FDB);
       if not Result then
@@ -1644,9 +1642,7 @@ begin
           FreeAndNil(FDB);
           exit;
         end;
-      {$IFDEF LCL}
-      FConfig := TDBConfig.Create(nil);
-      {$ENDIF}
+      FConfig := TDBConfig.Create;
       Result := True;
     end;
 end;

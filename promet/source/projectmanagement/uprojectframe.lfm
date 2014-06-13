@@ -591,7 +591,7 @@ inherited fprojectFrame: TfprojectFrame
       end
     end
     object Panel6: TPanel
-      Left = 68
+      Left = 206
       Height = 44
       Top = 0
       Width = 56
@@ -712,7 +712,7 @@ inherited fprojectFrame: TfprojectFrame
       end
     end
     object Panel8: TPanel
-      Left = 264
+      Left = 262
       Height = 44
       Top = 0
       Width = 118
@@ -760,7 +760,7 @@ inherited fprojectFrame: TfprojectFrame
       end
     end
     object Panel9: TPanel
-      Left = 382
+      Left = 380
       Height = 44
       Top = 0
       Width = 146
@@ -806,14 +806,14 @@ inherited fprojectFrame: TfprojectFrame
       end
     end
     object pNav1: TPanel
-      Left = 167
+      Left = 165
       Height = 44
       Top = 0
-      Width = 43
+      Width = 41
       Align = alLeft
       BevelOuter = bvNone
       ClientHeight = 44
-      ClientWidth = 43
+      ClientWidth = 41
       TabOrder = 4
       object Bevel7: TBevel
         Left = 0
@@ -870,7 +870,7 @@ inherited fprojectFrame: TfprojectFrame
       end
     end
     object Panel10: TPanel
-      Left = 528
+      Left = 526
       Height = 44
       Top = 0
       Width = 77
@@ -922,7 +922,7 @@ inherited fprojectFrame: TfprojectFrame
       end
     end
     object pNav2: TPanel
-      Left = 124
+      Left = 68
       Height = 44
       Top = 0
       Width = 43
@@ -988,7 +988,7 @@ inherited fprojectFrame: TfprojectFrame
       end
     end
     object Panel11: TPanel
-      Left = 605
+      Left = 603
       Height = 44
       Top = 0
       Width = 194
@@ -1072,7 +1072,7 @@ inherited fprojectFrame: TfprojectFrame
         TabOrder = 0
       end
       object bDelegated2: TSpeedButton
-        Left = 162
+        Left = 139
         Height = 28
         Top = 7
         Width = 28
@@ -1119,7 +1119,7 @@ inherited fprojectFrame: TfprojectFrame
       end
     end
     object pNav3: TPanel
-      Left = 210
+      Left = 111
       Height = 44
       Top = 0
       Width = 54
@@ -1138,7 +1138,7 @@ inherited fprojectFrame: TfprojectFrame
         Shape = bsLeftLine
       end
       object ToolBar2: TToolBar
-        Left = 0
+        Left = 2
         Height = 43
         Top = 4
         Width = 54
@@ -1162,14 +1162,6 @@ inherited fprojectFrame: TfprojectFrame
           OnClick = acGanttExecute
           ShowCaption = False
           Style = tbsDropDown
-        end
-        object GroupBox1: TGroupBox
-          Left = 1
-          Height = 35
-          Top = 35
-          Width = 185
-          Caption = 'GroupBox1'
-          TabOrder = 0
         end
       end
     end

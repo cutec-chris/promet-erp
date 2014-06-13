@@ -73,7 +73,6 @@ type
     DBZVDateTimePicker4: TDBZVDateTimePicker;
     eParent: TEditButton;
     eManager: TEditButton;
-    GroupBox1: TGroupBox;
     iProject: TImage;
     Label10: TLabel;
     Label11: TLabel;

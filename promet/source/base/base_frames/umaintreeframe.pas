@@ -184,6 +184,7 @@ var
 
 
 implementation
+{$R *.lfm}
 uses uData,uPrometFrames,LCLType,Dialogs,uIntfStrConsts, FPCanvas,
   uBaseVisualControls, Graphics, Utils,UtilsVis, LCLProc, uPerson,uMasterdata,uProjects,
   uWiki,uSearch,Themes,uFilterFrame,uNRights,uStatistic,uClipp,Clipbrd,
@@ -2091,5 +2092,4 @@ begin
 end;
 
 initialization
-  {$I umaintreeframe.lrs}
 end.
