@@ -23,7 +23,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, Buttons, ComCtrls,
   ActnList, Menus, Dialogs, uPrometFramesInplaceDB, Graphics, StdCtrls,
-  uBaseDBClasses, db, uIntfStrConsts, Utils, uExtControls, uWait, Variants,
+  uBaseDBClasses, db, uIntfStrConsts, Utils,UtilsVis, uExtControls, uWait, Variants,
   uPreviewFrame
   {$IFDEF WINDOWS}
   ,ActiveX,Windows,OleDropFiles
@@ -1624,7 +1624,7 @@ begin
           aDocument.AddFromFile(FileNames[i],'',fDocumentAddOptions.ccCalendar.Date);
           if fDocumentAddOptions.cbDeletefromFilesystem.Checked then
             begin
-              with BaseApplication as IBaseApplication do
+              with BaseApplication as IBaseConfig do
                 begin
                   DelRetry:
                     case Config.ReadInteger('DELETEMETHOD',0) of

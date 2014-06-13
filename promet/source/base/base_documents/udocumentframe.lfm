@@ -3728,4 +3728,4 @@ inherited fDocumentFrame: TfDocumentFrame
     left = 168
     top = 128
   end
-end
+end
