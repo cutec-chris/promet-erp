@@ -5,7 +5,7 @@ unit UtilsVis;
 interface
 
 uses
-  Classes, SysUtils,UTF8Process
+  Classes, SysUtils,UTF8Process,Graphics
   {$IFDEF MSWINDOWS}
   ,Registry,Windows
   {$ENDIF}
@@ -16,6 +16,7 @@ type
 
 function GetProcessforExtension(InfoTyp : TProcessinfoTyp;Extension : string) : string;
 function GetMimeTypeforExtension(Extension : string) : string;
+function TextCut(aCanvas: TCanvas; Len: Integer; Text: String): String;
 
 implementation
 
@@ -202,6 +203,29 @@ begin
   if Result='' then
     Result:=FindFilenameOfCmd('gnome-open')+' "%s"'; // GNOME command
 {$endif}
+end;
+
+function TextCut(aCanvas: TCanvas; Len: Integer; Text: String): String;
+var
+  k: Integer;
+begin
+  Result := '';
+  if Len < 0 then exit;
+  if Len <= aCanvas.TextWidth(Copy(Text, 1, 1) + '...') then exit;
+  Result := Text;
+  with aCanvas do
+    begin
+      if TextWidth(Text) > Len then
+        begin
+          for k := Length(Text) downto 1 do
+            if TextWidth(Copy(Text, 1, k) + '...') > Len then Continue
+              else
+            begin
+              Result := Copy(Text, 1, k) + '...';
+              Exit;
+            end;
+        end;
+    end;
 end;
 
 end.

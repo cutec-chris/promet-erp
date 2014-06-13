@@ -23,7 +23,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, Buttons, ComCtrls,
   ActnList, Menus, Dialogs, uPrometFramesInplaceDB, Graphics, StdCtrls,
-  uBaseDBClasses, db, uIntfStrConsts, Utils,UtilsVis, uExtControls, uWait, Variants,
+  uBaseDBClasses, db, uIntfStrConsts,uGeneralStrConsts, Utils,UtilsVis, uExtControls, uWait, Variants,
   uPreviewFrame
   {$IFDEF WINDOWS}
   ,ActiveX,Windows,OleDropFiles
@@ -421,7 +421,7 @@ var
   {$ENDIF}
 begin
   {$IFDEF WINDOWS}
-  with BaseApplication as IBaseApplication do
+  with BaseApplication as IBaseConfig do
     if Assigned(Config) then
       TempPath := Config.ReadString('TEMPPATH','');
   if TempPath = '' then
@@ -1731,4 +1731,4 @@ begin
 end;
 
 end.
-
+

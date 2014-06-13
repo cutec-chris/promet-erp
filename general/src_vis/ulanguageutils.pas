@@ -25,9 +25,10 @@ interface
 
 uses
   Classes, SysUtils, PoTranslator,Translations,FileUtil,Forms,LCLProc,TypInfo,
-  LCLIntf,LResources;
+  LCLIntf,LResources, DbCtrls, LCLStrConsts,uGeneralStrConsts;
 
 procedure LoadLanguage(lang : string);
+procedure TranslateNavigator(nav : TDBCustomNavigator);
 
 implementation
 
@@ -79,6 +80,20 @@ Begin
   aFilename := ProgramDirectory+'languages'+Directoryseparator+'forms.'+lowercase(copy(lang,0,2))+'.po';
   if FileExists(aFilename) then
     LRSTranslator:=TPoTranslator.Create(aFilename);
+end;
+procedure TranslateNavigator(nav : TDBCustomNavigator);
+begin
+  nav.Hints.Clear;
+  nav.Hints.Add(rsFirstRecordHint+' '+strRecord);
+  nav.Hints.Add(rsPriorRecordHint+' '+strRecord);
+  nav.Hints.Add(rsNextRecordHint+' '+strRecord);
+  nav.Hints.Add(rsLastRecordHint+' '+strRecord);
+  nav.Hints.Add(strSNew);
+  nav.Hints.Add(strDelete);
+  nav.Hints.Add(strEdit);
+  nav.Hints.Add(strSave);
+  nav.Hints.Add(strCancelEdit);
+  nav.Hints.Add(strRefresh);
 end;
 
 

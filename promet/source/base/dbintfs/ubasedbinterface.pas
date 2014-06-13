@@ -46,6 +46,8 @@ type
     procedure WriteRect(const Ident: string; const Value: TRect);
     function  ReadInteger(const Ident: string; DefaultValue: Longint): Longint;
     procedure WriteInteger(const Ident: string; Value: Longint);
+    function  ReadBoolean(const Ident: string; DefaultValue: Boolean): Boolean;
+    procedure WriteBoolean(const Ident: string; Value: Boolean);
   end;
   TInternalDBDataSet = class
   private
@@ -503,6 +505,17 @@ end;
 procedure TDBConfig.WriteInteger(const Ident: string; Value: Longint);
 begin
   WriteString(Section,Ident,IntToStr(Value))
+end;
+
+function TDBConfig.ReadBoolean(const Ident: string; DefaultValue: Boolean
+  ): Boolean;
+begin
+  Result := ReadInteger(Ident, Ord(DefaultValue)) <> Ord(False);
+end;
+
+procedure TDBConfig.WriteBoolean(const Ident: string; Value: Boolean);
+begin
+  WriteInteger(Ident, Ord(Value));
 end;
 
 procedure TBaseDBModule.DeleteExpiredSessions;
@@ -1654,4 +1667,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+

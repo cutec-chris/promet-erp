@@ -180,7 +180,8 @@ uses uData, uPerson, uBaseVisualControls, uBaseDBInterface, uAddressFrame,
   uHistoryFrame, uImageFrame, uPersonFinance, uLinkFrame, uMessageEdit,
   LCLIntf,uDocuments,uListFrame,uTextFrame,uMainTreeFrame,uSearch,
   uOrderFrame,uOrder,VpData,uCalendarFrame, uImpVCard,uPrometFramesInplace,
-  uNRights,uSelectReport,uBaseVisualApplication,uWiki,uWikiFrame;
+  uNRights,uSelectReport,uBaseVisualApplication,uWiki,uWikiFrame,
+  uLanguageUtils;
 {$R *.lfm}
 resourcestring
   strAddress                    = 'Adresse';

@@ -381,8 +381,8 @@ inherited fPersonFrame: TfPersonFrame
     NewTabImageIndex = 59
     object tsCustomerCont: TTabSheet
       Caption = 'Kontaktdaten'
-      ClientHeight = 326
-      ClientWidth = 619
+      ClientHeight = 652
+      ClientWidth = 1238
       ImageIndex = 51
       object pCont: TPanel
         Left = 44
@@ -434,7 +434,8 @@ inherited fPersonFrame: TfPersonFrame
             Caption = 'Navigation'
             Font.Color = clMedGray
             Font.Height = 11
-            Font.Orientation = -900
+            Font.Orientation = 900
+            Layout = tlBottom
             ParentColor = False
             ParentFont = False
           end
@@ -964,8 +965,8 @@ inherited fPersonFrame: TfPersonFrame
     BevelOuter = bvNone
     BorderStyle = bsSingle
     Caption = 'kein Bild'
-    ClientHeight = 120
-    ClientWidth = 96
+    ClientHeight = 122
+    ClientWidth = 98
     TabOrder = 0
     object iPerson: TImage
       Left = 0

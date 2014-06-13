@@ -96,7 +96,8 @@ resourcestring
   strTransfer                   = 'Überweisung';
 
 implementation
-uses uLogWait,uData,uError,uBankingDialog,SecureUtils,uBaseApplication,uBaseDbClasses;
+uses uLogWait,uData,uError,uBankingDialog,SecureUtils,uBaseApplication,uBaseDbClasses,
+  usimpleprocess,ubaseconfig;
 
 procedure TAccountingAQBankingCLICmdInterface.ImportCTXData(Accounts : TAccounts;iData: TStringList;
   Ballance: real);
@@ -313,7 +314,7 @@ begin
                   fLogWaitForm.lbLog.Items.Add('Error:'+IData.Text);
                   DontHide := True;
                 end;
-              with BaseApplication as IBaseApplication do
+              with BaseApplication as IBaseConfig do
                 begin
                   case Config.ReadInteger('DELETEMETHOD',0) of
                   0:DelOK := DeleteFileUTF8(AppendPathDelim(GetInternalTempDir)+'output.ctx');

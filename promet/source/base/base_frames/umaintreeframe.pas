@@ -185,7 +185,7 @@ var
 
 implementation
 uses uData,uPrometFrames,LCLType,Dialogs,uIntfStrConsts, FPCanvas,
-  uBaseVisualControls, Graphics, Utils, LCLProc, uPerson,uMasterdata,uProjects,
+  uBaseVisualControls, Graphics, Utils,UtilsVis, LCLProc, uPerson,uMasterdata,uProjects,
   uWiki,uSearch,Themes,uFilterFrame,uNRights,uStatistic,uClipp,Clipbrd,
   uBaseVisualApplication,uError;
 resourcestring

@@ -336,7 +336,7 @@ uses uBaseDBInterface,uIntfStrConsts,uSearch,uFilterFrame,uPerson,uData,
   usplash,ufavorites,uBaseVisualControls,uStatisticFrame,uwait,uprometipc,uMeetingFrame,
   umeeting,uEditableTab,umanagedocframe,uBaseDocPages,uTaskPlan,uattendanceplan,
   uTimeFrame,uTimeOptions,uWizardnewaccount,uCalendar,uRoughpklanningframe,uStatistic,
-  uOptionsFrame,uprojectoverviewframe,uimportoptions,uEventEdit
+  uOptionsFrame,uprojectoverviewframe,uimportoptions,uEventEdit,uGeneralStrConsts
   {$ifdef WINDOWS}
   {$ifdef CPU32}
   ,uTAPIPhone

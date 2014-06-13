@@ -27,7 +27,7 @@ uses
   Classes, SysUtils, db, FileUtil, Forms, Controls, ExtCtrls, StdCtrls, DbCtrls,
   Buttons, ComCtrls, ActnList, thumbcontrol, uPrometFrames, uBaseDocPages,
   uBaseDBInterface, threadedimageLoader, uDocumentFrame, DBZVDateTimePicker,
-  PReport, Dialogs, PairSplitter, Menus, ExtDlgs, uIntfStrConsts,
+  PReport, Dialogs, PairSplitter, Menus, ExtDlgs, uIntfStrConsts,uGeneralStrConsts,
   uBaseDbClasses, variants, types, uTimeLine, uPreviewFrame, uOCR, uExtControls;
 
 type

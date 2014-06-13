@@ -5,6 +5,13 @@ unit uGeneralStrConsts;
 interface
 
 resourcestring
+  strRefresh                    = 'Aktualisieren';
+  strCancelEdit                 = 'Änderungen verwerfen';
+  strSave                       = 'Speichern';
+  strEdit                       = 'bearbeiten';
+  strDelete                     = 'löschen';
+  strSNew                       = 'Neu';
+  strRecord                     = 'Datensatz';
   strBacktrace                  = 'Fehlerherkunft';
   strAddBugToTracker            = 'Fehler berichten';
   strStackTrace                 = 'Stackverfolgung:';
@@ -118,4 +125,4 @@ resourcestring
 
 implementation
 end.
-
+

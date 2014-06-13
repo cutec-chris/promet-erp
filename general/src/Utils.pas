@@ -30,11 +30,7 @@ function RPos(const Substr: string; const S: string): Integer;
 FUNCTION IsNumeric(s: STRING): boolean;
 FUNCTION StrTimeToValue(val : string) : LongInt;
 {$IFDEF LCL}
- {$IFNDEF LCLnogui}
- function TextCut(aCanvas: TCanvas; Len: Integer; Text: String): String;
- {$ELSE}
- function TextCut(Len: Integer; Text: String): String;
- {$ENDIF}
+function TextCut(Len: Integer; Text: String): String;
 {$ENDIF}
 function InstallExt(Extension, ExtDescription, FileDescription,OpenWith, ParamString: string; IconIndex: Integer = 0): Boolean;
 function SystemUserName : string;
@@ -129,7 +125,6 @@ BEGIN
     Result := Result + (buf[index] shl ((bytes-index)*8));
 END;
 {$IFDEF LCL}
-{$IFNDEF LCLnogui}
 {$ifndef ver2_0}
 function Translate (Name,Value : AnsiString; Hash : Longint; arg:pointer) : AnsiString;
 var
@@ -142,30 +137,7 @@ begin
   if result<>'' then
     result:=UTF8ToSystemCharSet(result);
 end;
-{$endif ver2_0}
-function TextCut(aCanvas: TCanvas; Len: Integer; Text: String): String;
-var
-  k: Integer;
-begin
-  Result := '';
-  if Len < 0 then exit;
-  if Len <= aCanvas.TextWidth(Copy(Text, 1, 1) + '...') then exit;
-  Result := Text;
-  with aCanvas do
-    begin
-      if TextWidth(Text) > Len then
-        begin
-          for k := Length(Text) downto 1 do
-            if TextWidth(Copy(Text, 1, k) + '...') > Len then Continue
-              else
-            begin
-              Result := Copy(Text, 1, k) + '...';
-              Exit;
-            end;
-        end;
-    end;
-end;
-{$ELSE}
+{$ENDIF}
 function TextCut(Len: Integer; Text: String): String;
 begin
   if Len < length(Text) then
@@ -173,7 +145,6 @@ begin
   else
     Result := Text;
 end;
-{$ENDIF}
 {$ENDIF}
 function GetSystemLang: string;
 {$IFDEF WINDOWS}
@@ -795,4 +766,4 @@ begin
 end;
 END.
 
- 
+ 

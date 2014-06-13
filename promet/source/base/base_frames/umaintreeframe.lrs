@@ -1,43 +1,43 @@
 { This is an automatically generated lazarus resource file }
 
-LazarusResources.Add('TfMainTree','FORMDATA',[
+LazarusResources.Add('T','FORMDATA',[
   'TPF0'#10'TfMainTree'#9'fMainTree'#4'Left'#2#0#6'Height'#3'1'#2#3'Top'#2#0#5
-  +'Width'#3'@'#1#12'ClientHeight'#3'1'#2#11'ClientWidth'#3'@'#1#8'TabOrder'#2#0
-  +#10'DesignLeft'#3#212#1#9'DesignTop'#3#177#0#0#9'TTreeView'#6'tvMain'#4'Left'
-  +#2#0#6'Height'#3'1'#2#3'Top'#2#0#5'Width'#3'@'#1#5'Align'#7#8'alClient'#11'B'
-  +'orderStyle'#7#6'bsNone'#17'DefaultItemHeight'#2#16#8'DragMode'#7#11'dmAutom'
-  +'atic'#9'PopupMenu'#7#6'pmTree'#8'ReadOnly'#9#16'RightClickSelect'#9#10'Scro'
-  +'llBars'#7#10'ssAutoBoth'#8'TabOrder'#2#0#24'OnAdvancedCustomDrawItem'#7#28
-  +'tvMainAdvancedCustomDrawItem'#7'OnClick'#7#22'tvMainSelectionChanged'#10'On'
-  +'DblClick'#7#14'tvMainDblClick'#10'OnDeletion'#7#14'tvMainDeletion'#10'OnDra'
-  +'gDrop'#7#14'tvMainDragDrop'#10'OnDragOver'#7#14'tvMainDragOver'#8'OnEdited'
-  +#7#12'tvMainEdited'#9'OnEditing'#7#13'tvMainEditing'#10'OnExpanded'#7#14'tvM'
-  +'ainExpanded'#11'OnExpanding'#7#15'tvMainExpanding'#9'OnKeyDown'#7#13'tvMain'
-  +'KeyDown'#18'OnSelectionChanged'#7#22'tvMainSelectionChanged'#7'Options'#11
-  +#17'tvoAutoItemHeight'#16'tvoHideSelection'#21'tvoKeepCollapsedNodes'#11'tvo'
-  +'ReadOnly'#19'tvoRightClickSelect'#14'tvoShowButtons'#12'tvoShowLines'#11'tv'
-  +'oShowRoot'#11'tvoToolTips'#13'tvoThemedDraw'#0#0#0#10'TPopupMenu'#6'pmTree'
-  +#4'left'#2#24#3'top'#2'H'#0#9'TMenuItem'#9'MenuItem1'#0#0#0#11'TActionList'
-  +#11'ActionList1'#6'Images'#7#22'fVisualControls.Images'#4'left'#2#24#3'top'#2
-  +' '#0#7'TAction'#6'acOpen'#7'Caption'#6#7#195#150'ffnen'#9'OnExecute'#7#13'a'
-  +'cOpenExecute'#0#0#7'TAction'#14'acAddDirectory'#7'Caption'#6#16'Ordner erst'
-  +'ellen'#9'OnExecute'#7#21'acAddDirectoryExecute'#0#0#7'TAction'#17'acRenameD'
-  +'irectory'#7'Caption'#6#10'umbenennen'#9'OnExecute'#7#24'acRenameDirectoryEx'
-  +'ecute'#0#0#7'TAction'#17'acDeleteDirectory'#7'Caption'#6#8'l'#195#182'schen'
-  +#9'OnExecute'#7#24'acDeleteDirectoryExecute'#0#0#7'TAction'#8'acSearch'#7'Ca'
-  +'ption'#6#5'Suche'#10'ImageIndex'#2#8#9'OnExecute'#7#15'acSearchExecute'#8'S'
-  +'hortCut'#4'F'#192#0#0#0#0#7'TAction'#10'acAddBoard'#7'Caption'#6#22'Forumso'
-  +'rdner erstellen'#9'OnExecute'#7#17'acAddBoardExecute'#0#0#7'TAction'#8'acRi'
-  +'ghts'#7'Caption'#6#6'Rechte'#10'ImageIndex'#2'd'#9'OnExecute'#7#15'acRights'
-  +'Execute'#0#0#7'TAction'#12'acDeleteLink'#7'Caption'#6#8'L'#195#182'schen'#10
-  +'ImageIndex'#2'<'#9'OnExecute'#7#19'acDeleteLinkExecute'#0#0#7'TAction'#11'a'
-  +'cHideEntry'#7'Caption'#6#18'Eintrag ausblenden'#10'ImageIndex'#2'<'#9'OnExe'
-  +'cute'#7#18'acHideEntryExecute'#0#0#7'TAction'#17'acRestoreStandard'#7'Capti'
-  +'on'#6' Standardansicht wiederherstellen'#10'ImageIndex'#2'8'#9'OnExecute'#7
-  +#24'acRestoreStandardExecute'#0#0#7'TAction'#12'acCopyAsLink'#7'Caption'#6#20
-  +'Als Verweis kopieren'#10'ImageIndex'#2#23#9'OnExecute'#7#19'acCopyAsLinkExe'
-  +'cute'#0#0#7'TAction'#11'acPasteLink'#7'Caption'#6#17'Verweis einf'#195#188
-  +'gen'#10'ImageIndex'#2'o'#9'OnExecute'#7#18'acPasteLinkExecute'#0#0#0#10'TId'
-  +'leTimer'#13'DblClickTimer'#7'Enabled'#8#8'Interval'#2'd'#7'OnTimer'#7#18'Db'
-  +'lClickTimerTimer'#4'left'#2#24#3'top'#2'p'#0#0#0
+  +'Width'#3'@'#1#12'ClientHeight'#3'1'#2#11'ClientWidth'#3'@'#1#10'LCLVersion'
+  +#6#3'1.3'#8'TabOrder'#2#0#10'DesignLeft'#3#212#1#9'DesignTop'#3#177#0#0#9'TT'
+  +'reeView'#6'tvMain'#4'Left'#2#0#6'Height'#3'1'#2#3'Top'#2#0#5'Width'#3'@'#1#5
+  +'Align'#7#8'alClient'#11'BorderStyle'#7#6'bsNone'#17'DefaultItemHeight'#2#16
+  +#8'DragMode'#7#11'dmAutomatic'#9'PopupMenu'#7#6'pmTree'#8'ReadOnly'#9#16'Rig'
+  +'htClickSelect'#9#10'ScrollBars'#7#10'ssAutoBoth'#8'TabOrder'#2#0#24'OnAdvan'
+  +'cedCustomDrawItem'#7#28'tvMainAdvancedCustomDrawItem'#7'OnClick'#7#22'tvMai'
+  +'nSelectionChanged'#10'OnDblClick'#7#14'tvMainDblClick'#10'OnDeletion'#7#14
+  +'tvMainDeletion'#10'OnDragDrop'#7#14'tvMainDragDrop'#10'OnDragOver'#7#14'tvM'
+  +'ainDragOver'#8'OnEdited'#7#12'tvMainEdited'#9'OnEditing'#7#13'tvMainEditing'
+  +#10'OnExpanded'#7#14'tvMainExpanded'#11'OnExpanding'#7#15'tvMainExpanding'#9
+  +'OnKeyDown'#7#13'tvMainKeyDown'#18'OnSelectionChanged'#7#22'tvMainSelectionC'
+  +'hanged'#7'Options'#11#17'tvoAutoItemHeight'#16'tvoHideSelection'#21'tvoKeep'
+  +'CollapsedNodes'#11'tvoReadOnly'#19'tvoRightClickSelect'#14'tvoShowButtons'
+  +#12'tvoShowLines'#11'tvoShowRoot'#11'tvoToolTips'#13'tvoThemedDraw'#0#0#0#10
+  +'TPopupMenu'#6'pmTree'#4'left'#2#24#3'top'#2'H'#0#9'TMenuItem'#9'MenuItem1'#0
+  +#0#0#11'TActionList'#11'ActionList1'#6'Images'#7#22'fVisualControls.Images'#4
+  +'left'#2#24#3'top'#2' '#0#7'TAction'#6'acOpen'#7'Caption'#6#7#195#150'ffnen'
+  +#9'OnExecute'#7#13'acOpenExecute'#0#0#7'TAction'#14'acAddDirectory'#7'Captio'
+  +'n'#6#16'Ordner erstellen'#9'OnExecute'#7#21'acAddDirectoryExecute'#0#0#7'TA'
+  +'ction'#17'acRenameDirectory'#7'Caption'#6#10'umbenennen'#9'OnExecute'#7#24
+  +'acRenameDirectoryExecute'#0#0#7'TAction'#17'acDeleteDirectory'#7'Caption'#6
+  +#8'l'#195#182'schen'#9'OnExecute'#7#24'acDeleteDirectoryExecute'#0#0#7'TActi'
+  +'on'#8'acSearch'#7'Caption'#6#5'Suche'#10'ImageIndex'#2#8#9'OnExecute'#7#15
+  +'acSearchExecute'#8'ShortCut'#4'F'#192#0#0#0#0#7'TAction'#10'acAddBoard'#7'C'
+  +'aption'#6#22'Forumsordner erstellen'#9'OnExecute'#7#17'acAddBoardExecute'#0
+  +#0#7'TAction'#8'acRights'#7'Caption'#6#6'Rechte'#10'ImageIndex'#2'd'#9'OnExe'
+  +'cute'#7#15'acRightsExecute'#0#0#7'TAction'#12'acDeleteLink'#7'Caption'#6#8
+  +'L'#195#182'schen'#10'ImageIndex'#2'<'#9'OnExecute'#7#19'acDeleteLinkExecute'
+  +#0#0#7'TAction'#11'acHideEntry'#7'Caption'#6#18'Eintrag ausblenden'#10'Image'
+  +'Index'#2'<'#9'OnExecute'#7#18'acHideEntryExecute'#0#0#7'TAction'#17'acResto'
+  +'reStandard'#7'Caption'#6' Standardansicht wiederherstellen'#10'ImageIndex'#2
+  +'8'#9'OnExecute'#7#24'acRestoreStandardExecute'#0#0#7'TAction'#12'acCopyAsLi'
+  +'nk'#7'Caption'#6#20'Als Verweis kopieren'#10'ImageIndex'#2#23#9'OnExecute'#7
+  +#19'acCopyAsLinkExecute'#0#0#7'TAction'#11'acPasteLink'#7'Caption'#6#17'Verw'
+  +'eis einf'#195#188'gen'#10'ImageIndex'#2'o'#9'OnExecute'#7#18'acPasteLinkExe'
+  +'cute'#0#0#0#10'TIdleTimer'#13'DblClickTimer'#7'Enabled'#8#8'Interval'#2'd'#7
+  +'OnTimer'#7#18'DblClickTimerTimer'#4'left'#2#24#3'top'#2'p'#0#0#0
 ]);

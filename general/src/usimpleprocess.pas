@@ -5,7 +5,11 @@ unit usimpleprocess;
 interface
 
 uses
-  Classes, SysUtils,UTF8Process,process,FileUtil;
+  Classes, SysUtils,UTF8Process,process,FileUtil
+  {$IFDEF MSWINDOWS}
+  ,Windows
+  {$ENDIF}
+  ;
 
 function ExecProcessEx(CommandLine : string;CurDir : string = '') : string;
 procedure ExecProcess(CommandLine : string;CurDir : string = '';Waitfor : Boolean = True);

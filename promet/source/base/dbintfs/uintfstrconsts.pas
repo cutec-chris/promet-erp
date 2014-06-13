@@ -20,11 +20,6 @@ Created 01.06.2006
 unit uIntfStrConsts;
 {$mode objfpc}{$H+}
 interface
-  {$IFDEF LCL}
-  uses
-  DbCtrls,
-  LCLStrConsts;
-  {$ENDIF}
 resourcestring
   strLocation                   = 'Ort';
   strImportExport               = 'Import/Export';
@@ -130,10 +125,6 @@ resourcestring
   strTimeList                   = 'Time List';
   strOrders                     = 'Aufträge';
   strTasks                      = 'Aufgaben';
-  strRecord                     = 'Datensatz';
-  strSNew                       = 'Neu';
-  strSave                       = 'Speichern';
-  strRefresh                    = 'Aktualisieren';
   strRealDelete                 = 'möchten Sie diesen Eintrag wirklich löschen ?';
   strRename                     = 'Umbenennen';
   strNewName                    = 'neuer Name';
@@ -184,7 +175,6 @@ resourcestring
   strUserNotFound               = 'benutzer nicht gefunden !';
   strErrorDatabaseStructurenotActual = 'Die Struktur Ihrer Datenbank ist nicht aktuell, bitte wenden Sie sich an Ihren Administrator order updaten Sie diese mit dem Updatedatabase Tool.';
   strNotSupported               = 'nicht unterstützt ! (Interner Fehler)';
-  strDelete                     = 'löschen';
   strFinished                   = 'beendet';
   strContact                    = 'Kontakt';
   strFile                       = 'Datei';
@@ -194,7 +184,6 @@ resourcestring
   strreadingOptions             = 'lese Optionen ...';
   strProjects                   = 'Projekte';
   strEdit                       = 'bearbeiten';
-  strCancelEdit                 = 'Änderungen verwerfen';
   strWikiMainPageText           = '==Willkommen zur Prometheus Wiki==<br>'+lineending+'<br>'+lineending+'Sie können dieses Wiki als zentralen Wissenspool verstehen. Sie können hier Informationen jeglicher Art strukturiert ablegen.<br>'+lineending+'<br>'+lineending+'Dazu stehen Ihnen interne Links [[Ihre erste Seite]] durch die Sie auch ganz einfach neue Sieten anlegen könenn einfach indem Sie, sie anlegen und draufklicken. Externe Links, zu beliebigen Websites [http://www.ullihome.de www.ullihome.de], Aufzählungen'+lineending+'*1'+lineending+'*2'+lineending+'*3'+lineending+'===Überschriften==='+lineending+'====In verschiedenen Größen===='+lineending+'und ähnliche Elemente zur Verfügung.';
   strWikiPage                   = 'Wiki Seite';
   strAccountexchange            = 'Bankbuchungen';
@@ -235,24 +224,5 @@ resourcestring
                                 +'http://www.famfamfam.com/lab/icons/silk/'+lineending
                                 ;
 
-{$IFDEF LCL}
-procedure TranslateNavigator(nav : TDBCustomNavigator);
-{$ENDIF}
 implementation
-{$IFDEF LCL}
-procedure TranslateNavigator(nav : TDBCustomNavigator);
-begin
-  nav.Hints.Clear;
-  nav.Hints.Add(rsFirstRecordHint+' '+strRecord);
-  nav.Hints.Add(rsPriorRecordHint+' '+strRecord);
-  nav.Hints.Add(rsNextRecordHint+' '+strRecord);
-  nav.Hints.Add(rsLastRecordHint+' '+strRecord);
-  nav.Hints.Add(strSNew);
-  nav.Hints.Add(strDelete);
-  nav.Hints.Add(strEdit);
-  nav.Hints.Add(strSave);
-  nav.Hints.Add(strCancelEdit);
-  nav.Hints.Add(strRefresh);
-end;
-{$ENDIF}
 end.
