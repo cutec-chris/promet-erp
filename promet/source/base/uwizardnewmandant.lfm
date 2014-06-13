@@ -28,7 +28,7 @@ object fWizardNewMandant: TfWizardNewMandant
       Left = 40
       Height = 13
       Top = 9
-      Width = 166
+      Width = 142
       Caption = 'erstelle Tabellen (wenn nötig)'
       ParentColor = False
     end
@@ -36,7 +36,7 @@ object fWizardNewMandant: TfWizardNewMandant
       Left = 40
       Height = 13
       Top = 32
-      Width = 137
+      Width = 117
       Caption = 'Vorgabewerte einsetzen'
       ParentColor = False
     end
@@ -44,7 +44,7 @@ object fWizardNewMandant: TfWizardNewMandant
       Left = 40
       Height = 13
       Top = 56
-      Width = 83
+      Width = 70
       Caption = 'Hilfe einsetzen'
       ParentColor = False
     end
@@ -143,9 +143,9 @@ object fWizardNewMandant: TfWizardNewMandant
       Visible = False
       object Button1: TButton
         Left = 180
-        Height = 25
+        Height = 23
         Top = 168
-        Width = 149
+        Width = 143
         AutoSize = True
         Caption = 'Mandanteneinstellungen'
         OnClick = Button1Click
@@ -175,7 +175,7 @@ object fWizardNewMandant: TfWizardNewMandant
     object lDefaultValue: TLabel
       AnchorSideLeft.Control = lFillingDefaultValues
       AnchorSideLeft.Side = asrBottom
-      Left = 184
+      Left = 164
       Height = 1
       Top = 32
       Width = 1
@@ -213,8 +213,8 @@ object fWizardNewMandant: TfWizardNewMandant
       AnchorSideTop.Side = asrBottom
       Left = 8
       Height = 13
-      Top = 119
-      Width = 94
+      Top = 113
+      Width = 80
       BorderSpacing.Top = 10
       Caption = 'Mandantenname'
       ParentColor = False
@@ -225,7 +225,7 @@ object fWizardNewMandant: TfWizardNewMandant
       Left = 8
       Height = 13
       Top = 82
-      Width = 46
+      Width = 39
       BorderSpacing.Top = 13
       Caption = 'Sprache'
       ParentColor = False
@@ -284,11 +284,11 @@ object fWizardNewMandant: TfWizardNewMandant
       AnchorSideTop.Control = lDescription0
       AnchorSideTop.Side = asrBottom
       Left = 144
-      Height = 27
+      Height = 21
       Top = 82
       Width = 263
       BorderSpacing.Top = 13
-      ItemHeight = 0
+      ItemHeight = 13
       ItemIndex = 0
       Items.Strings = (
         'Deutsch'
@@ -302,10 +302,10 @@ object fWizardNewMandant: TfWizardNewMandant
       AnchorSideTop.Control = cbLanguage
       AnchorSideBottom.Control = cbExistingdatabase
       Left = 4
-      Height = 24
+      Height = 17
       Hint = 'Benutzen Sie diese Einstellung, wenn sie eine neue Datenbank anlegen möchten'#10'Im folgenden Dialog können Sie ein Profil mit Standardeinstellungen für diese'#10'Datenbank wählen'
       Top = 148
-      Width = 263
+      Width = 218
       BorderSpacing.Top = 66
       Caption = 'Neue Datenbank (mit Einstellungen füllen)'
       Checked = True
@@ -316,10 +316,10 @@ object fWizardNewMandant: TfWizardNewMandant
       AnchorSideTop.Control = cbNewdatabase
       AnchorSideTop.Side = asrBottom
       Left = 4
-      Height = 24
+      Height = 17
       Hint = 'wählen Sie diese Einstellung, wenn Sie eine Datenbankverknüpfung'#10'zu einer schon existierenden Datenbank anlegen möchten,'#10'z.b. wenn Sie einen weiteren Client-PC einrichten möchten.'
-      Top = 179
-      Width = 328
+      Top = 172
+      Width = 274
       BorderSpacing.Top = 7
       Caption = 'exitierende Datenbank (keine Einstellungen einfügen)'
       TabOrder = 2
@@ -328,12 +328,12 @@ object fWizardNewMandant: TfWizardNewMandant
       AnchorSideTop.Control = cbLanguage
       AnchorSideTop.Side = asrBottom
       Left = 144
-      Height = 27
-      Top = 117
+      Height = 21
+      Top = 111
       Width = 264
       Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Top = 8
-      ItemHeight = 0
+      ItemHeight = 13
       OnSelect = eMandantnameSelect
       TabOrder = 0
     end
@@ -341,10 +341,10 @@ object fWizardNewMandant: TfWizardNewMandant
       AnchorSideTop.Control = cbNewdatabase
       AnchorSideTop.Side = asrBottom
       Left = 4
-      Height = 24
+      Height = 17
       Hint = 'Mit deiser Einstellung können Sie eine Datenbankverknüpfung löschen'#10'(löscht nicht die Datenbank !!)'
-      Top = 244
-      Width = 204
+      Top = 237
+      Width = 170
       BorderSpacing.Top = 72
       Caption = 'Datenbankverknüpfung löschen'
       Enabled = False
@@ -353,10 +353,10 @@ object fWizardNewMandant: TfWizardNewMandant
     object rbFromFile: TRadioButton
       AnchorSideTop.Control = cbExistingdatabase
       Left = 4
-      Height = 24
+      Height = 17
       Hint = 'Mit dieser Einstellung können Sie die Datenbankeinstellungen aus einer Datei (.perml) laden.'#10'Sie finden diese Dateien nach einer Einrichrung mit diesem Assistenten'#10'unter Windows in'#10'Benuterprofil\Lokale Einstellungen\Anwendungsdaten\prometerp\*.perml'#10'Unter Unix in'#10'Benuterprofil\.prometerp\*.perml'
-      Top = 213
-      Width = 132
+      Top = 206
+      Width = 107
       BorderSpacing.Top = 34
       Caption = 'aus Datei erstellen'
       TabOrder = 6
@@ -364,8 +364,8 @@ object fWizardNewMandant: TfWizardNewMandant
     object DirectoryEdit1: TFileNameEdit
       AnchorSideTop.Control = rbFromFile
       Left = 168
-      Height = 23
-      Top = 213
+      Height = 21
+      Top = 206
       Width = 216
       OnAcceptFileName = DirectoryEdit1AcceptFileName
       Filter = 'Promet-ERP Mandant File|*.perml'
@@ -406,7 +406,7 @@ object fWizardNewMandant: TfWizardNewMandant
       Left = 12
       Height = 13
       Top = 24
-      Width = 29
+      Width = 24
       Caption = 'Profil'
       ParentColor = False
     end
@@ -473,10 +473,10 @@ object fWizardNewMandant: TfWizardNewMandant
     end
     object cbSyncHelp: TCheckBox
       Left = 12
-      Height = 24
+      Height = 17
       Hint = 'Wenn Diese Option gesetzt ist, '#10'wird auf der Datenbank ein Synchronisationseintrag'#10'für eine mitgelieferte Hilfe Datenbank erstellt'#10'Bei Updates der Hilfedatenbank werden die Änderungen'#10'automatisch synchronisiert.'
       Top = 248
-      Width = 223
+      Width = 183
       Caption = 'Hilfe in Datenbank synchronisieren'
       Checked = True
       State = cbChecked
@@ -510,7 +510,7 @@ object fWizardNewMandant: TfWizardNewMandant
       Left = 12
       Height = 13
       Top = 140
-      Width = 78
+      Width = 68
       Caption = 'Datenbanktyp'
       ParentColor = False
     end
@@ -566,10 +566,10 @@ object fWizardNewMandant: TfWizardNewMandant
     end
     object cbDatabaseType: TComboBox
       Left = 152
-      Height = 27
+      Height = 21
       Top = 136
       Width = 204
-      ItemHeight = 0
+      ItemHeight = 13
       TabOrder = 1
     end
   end
@@ -600,7 +600,7 @@ object fWizardNewMandant: TfWizardNewMandant
       Left = 4
       Height = 13
       Top = 116
-      Width = 124
+      Width = 105
       Caption = 'Datenbankverzeichnis'
       ParentColor = False
     end
@@ -656,7 +656,7 @@ object fWizardNewMandant: TfWizardNewMandant
     end
     object eDatabasedirectory: TDirectoryEdit
       Left = 4
-      Height = 23
+      Height = 21
       Top = 136
       Width = 388
       ShowHidden = False
@@ -680,7 +680,7 @@ object fWizardNewMandant: TfWizardNewMandant
     TabOrder = 3
     object lDescription4: TLabel
       Left = 0
-      Height = 39
+      Height = 26
       Top = 0
       Width = 422
       Align = alTop
@@ -694,7 +694,7 @@ object fWizardNewMandant: TfWizardNewMandant
       Left = 24
       Height = 13
       Top = 88
-      Width = 78
+      Width = 68
       Caption = 'Datenbanktyp'
       ParentColor = False
     end
@@ -702,7 +702,7 @@ object fWizardNewMandant: TfWizardNewMandant
       Left = 24
       Height = 13
       Top = 120
-      Width = 38
+      Width = 32
       Caption = 'Server'
       ParentColor = False
     end
@@ -710,7 +710,7 @@ object fWizardNewMandant: TfWizardNewMandant
       Left = 24
       Height = 13
       Top = 176
-      Width = 60
+      Width = 52
       Caption = 'Datenbank'
       ParentColor = False
     end
@@ -718,7 +718,7 @@ object fWizardNewMandant: TfWizardNewMandant
       Left = 24
       Height = 13
       Top = 208
-      Width = 83
+      Width = 69
       Caption = 'Benutzername'
       ParentColor = False
     end
@@ -726,7 +726,7 @@ object fWizardNewMandant: TfWizardNewMandant
       Left = 24
       Height = 13
       Top = 237
-      Width = 51
+      Width = 44
       Caption = 'Passwort'
       ParentColor = False
     end
@@ -782,10 +782,10 @@ object fWizardNewMandant: TfWizardNewMandant
     end
     object cbSQLType: TComboBox
       Left = 128
-      Height = 27
+      Height = 21
       Top = 88
       Width = 150
-      ItemHeight = 0
+      ItemHeight = 13
       ItemIndex = 0
       Items.Strings = (
         'sqlite-3'
@@ -810,7 +810,7 @@ object fWizardNewMandant: TfWizardNewMandant
     end
     object eSQLServer: TEdit
       Left = 128
-      Height = 23
+      Height = 21
       Top = 120
       Width = 192
       TabOrder = 1
@@ -818,14 +818,14 @@ object fWizardNewMandant: TfWizardNewMandant
     end
     object eSQLUser: TEdit
       Left = 128
-      Height = 23
+      Height = 21
       Top = 208
       Width = 200
       TabOrder = 3
     end
     object eSQLPassword: TEdit
       Left = 128
-      Height = 23
+      Height = 21
       Top = 237
       Width = 200
       EchoMode = emPassword
@@ -834,7 +834,7 @@ object fWizardNewMandant: TfWizardNewMandant
     end
     object eSQLdatabase: TFileNameEdit
       Left = 128
-      Height = 23
+      Height = 21
       Top = 176
       Width = 240
       DialogOptions = []
@@ -890,17 +890,17 @@ object fWizardNewMandant: TfWizardNewMandant
       OnClick = bCopyConnectionStringClick
     end
     object Label1: TLabel
-      Left = 348
+      Left = 353
       Height = 13
       Top = 101
-      Width = 42
+      Width = 37
       Anchors = [akTop, akRight]
       Caption = 'Sync ID'
       ParentColor = False
     end
     object seSyncID: TSpinEdit
       Left = 342
-      Height = 23
+      Height = 21
       Hint = 'Die SyncID sollte bei Synchronisierten Datenbanken'#10'zwischen den Datenbanken unterschiedlich sein'#10'damit werden dann unterschiedliche Nummernkreise '#10'für die Datensatznummern (SQL_ID) verwendet '#10'damit es keine Überschneidungen gibt'
       Top = 120
       Width = 50
@@ -1111,9 +1111,9 @@ object fWizardNewMandant: TfWizardNewMandant
     end
     object BitBtn1: TBitBtn
       Left = 9
-      Height = 34
-      Top = 298
-      Width = 63
+      Height = 26
+      Top = 306
+      Width = 67
       Anchors = [akLeft, akBottom]
       AutoSize = True
       DefaultCaption = True
@@ -1133,4 +1133,4 @@ object fWizardNewMandant: TfWizardNewMandant
     left = 102
     top = 297
   end
-end
+end

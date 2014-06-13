@@ -152,7 +152,7 @@ implementation
 uses uError,uImpCSV, uBaseApplication, uBaseDbInterface, uBaseDbClasses,
   uBaseERPDBClasses, uOrder, uSync, uOptions, uMandantOptions, uuseroptions,
   uProcessOptions,uSyncOptions,uDocuments,uWiki,Utils,uProjects,uMasterdata,
-  uPerson,utask;
+  uPerson,utask,usimpleprocess;
 resourcestring
   strdBase                      = 'DBase Datenbank';
   strSQLDatabase                = 'SQL basierte Datenbank';
@@ -615,9 +615,9 @@ begin
               DoCreateTable(TDocument);
               DoCreateTable(TWikiList);
               if Application.HasOption('c','config-path') then
-                sres := ProcessUtils.ExecProcessEx(AppendPathDelim(Application.Location)+'tools'+DirectorySeparator+'sync_db'+ExtractFileExt(Application.ExeName)+' "--config-path='+Application.GetOptionValue('c','config-path')+'" "--mandant='+eMandantname.Text,AppendPathDelim(Application.Location))+'"'
+                sres := ExecProcessEx(AppendPathDelim(Application.Location)+'tools'+DirectorySeparator+'sync_db'+ExtractFileExt(Application.ExeName)+' "--config-path='+Application.GetOptionValue('c','config-path')+'" "--mandant='+eMandantname.Text,AppendPathDelim(Application.Location))+'"'
               else
-                sres := ProcessUtils.ExecProcessEx(AppendPathDelim(Application.Location)+'tools'+DirectorySeparator+'sync_db'+ExtractFileExt(Application.ExeName)+' "--mandant='+eMandantname.Text,AppendPathDelim(Application.Location))+'"';
+                sres := ExecProcessEx(AppendPathDelim(Application.Location)+'tools'+DirectorySeparator+'sync_db'+ExtractFileExt(Application.ExeName)+' "--mandant='+eMandantname.Text,AppendPathDelim(Application.Location))+'"';
               debugln(sres);
             end;
           iDatabaseUpdated.Visible:=True;
