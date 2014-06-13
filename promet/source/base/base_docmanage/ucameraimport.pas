@@ -58,7 +58,7 @@ var
   fCameraimport: TfCameraimport;
 
 implementation
-uses uBaseDocPages,Utils,uData,uBaseDbClasses;
+uses uBaseDocPages,Utils,uData,uBaseDbClasses,usimpleprocess;
 {$R *.lfm}
 
 { TfCameraimport }
