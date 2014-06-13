@@ -47,6 +47,7 @@ type
     function GetDescriptionFieldName: string;override;
     function FindWikiPage(PageName : string;Docreate : Boolean = False) : Boolean;
     function FindWikiFolder(PageName : string) : Boolean;
+    function GetFullPath : string;
     function isDynamic : Boolean;
     function PageAsText : string;
     property ActiveTreeID : Variant read FActiveTreeID;
@@ -254,6 +255,21 @@ begin
   aTree.Free;
 end;
 
+function TWikiList.GetFullPath: string;
+var
+  aTree: TTree;
+begin
+  aTree := TTree.Create(Self,DataModule);
+  Result := FieldByName('NAME').AsString;
+  aTree.Filter(TBaseDBModule(DataModule).QuoteField('SQL_ID')+'='+TBaseDBModule(DataModule).QuoteValue(DataSet.FieldByName('TREEENTRY').AsString));
+  while aTree.Count>0 do
+    begin
+      Result := aTree.FieldByName('NAME').AsString+'/'+Result;
+      aTree.Filter(TBaseDBModule(DataModule).QuoteField('SQL_ID')+'='+TBaseDBModule(DataModule).QuoteValue(aTree.FieldByName('PARENT').AsString));
+    end;
+  aTree.Free;
+end;
+
 function TWikiList.isDynamic: Boolean;
 begin
   Result := False;
@@ -302,7 +318,7 @@ begin
   sl := TStringList.Create;
   aFN := StringReplace(StringReplace(FOutDir+'/'+Outp,'/',DirectorySeparator,[rfReplaceAll]),'//','/',[rfReplaceAll]);
   if FOutTodo.IndexOf(Inp)=-1 then
-    FOutTodo.Add(Inp)
+    FOutTodo.Values[Inp] := GetFullPath;
 end;
 
 function TWikiList.ExportToHTML(aFile: string; aInclude: TWikiIncludeFunc
@@ -312,6 +328,10 @@ var
   aPage: TWikiList;
   Outp: String;
   aFN: String;
+  aRelPath: String;
+  aLinkOffs: String;
+  aRemPath: String;
+  tmp: String;
 begin
   WikiToHtml.OnWikiLink:=@WikiListWikiLink;
   WikiToHtml.OnWikiInclude:=aInclude;
@@ -326,11 +346,23 @@ begin
   while FOutTodo.Count>0 do
     begin
       aPage := TWikiList.Create(nil,DataModule,Connection);
-      Outp := FOutSub+'/'+FOutTodo[0]+FOutExt;
+      Outp := FOutSub+'/'+FOutTodo.Names[0]+FOutExt;
       aFN := StringReplace(StringReplace(FOutDir+'/'+Outp,'/',DirectorySeparator,[rfReplaceAll]),'//','/',[rfReplaceAll]);
-      if (not FileExists(aFN)) and aPage.FindWikiPage(FOutTodo[0]) then
+      if (not FileExists(aFN)) and aPage.FindWikiPage(FOutTodo.Names[0]) then
         begin
-          sl.Text := WikiText2HTML(aPage.DataSet.FieldByName('DATA').AsString,'','');
+          aRelPath := StringReplace(FileUtil.CreateRelativePath(FOutTodo.Names[0],FOutTodo.ValueFromIndex[0]),DirectorySeparator,'/',[rfReplaceAll]);
+          tmp := Outp;
+          tmp := copy(tmp,pos('/',tmp)+1,length(tmp));
+          aLinkOffs := '';
+          aRemPath := '';
+          while copy(aRelPath,0,3)='../' do
+            begin
+              aRemPath := aRemPath+copy(tmp,0,pos('/',tmp)-1);
+              tmp := copy(tmp,pos('/',tmp)+1,length(tmp));
+              aLinkOffs := aLinkOffs+'../';
+              aRelPath:=copy(aRelPath,4,length(aRelPath));
+            end;
+          sl.Text := WikiText2HTML(aPage.DataSet.FieldByName('DATA').AsString,aLinkOffs,aRemPath);
           sl.SaveToFile(aFN);
           sl.Free;
         end;
