@@ -1,3 +1,22 @@
+{*******************************************************************************
+  Copyright (C) Christian Ulrich info@cu-tec.de
+
+  This source is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 2 of the License, or commercial alternative
+  contact us for more information
+
+  This code is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+  details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+  MA 02111-1307, USA.
+Created 13.06.2014
+*******************************************************************************}
  program twitterreceiver;
 
 {$mode objfpc}{$H+}
@@ -169,131 +188,99 @@ begin
               if tmp <> '' then url := url+'&since_id='+tmp;
               //url := purl+'statuses/home_timeline.json';
               http.HTTPMethod('GET',url);
-              Parser := TJSONParser.Create(http.Document);
-              jData := Parser.Parse;
-              Retry := 4;
-              if jData.Count>0 then
-                aId := TJSONObject(jData.Items[0]).Elements['id'].AsString;
-              while Retry>0 do
+              if http.ResultCode=200 then
                 begin
-                  i := 0;
-                  Somethingimported := false;
-                  while i < jData.Count do
+                  Parser := TJSONParser.Create(http.Document);
+                  jData := Parser.Parse;
+                  Retry := 4;
+                  if jData.Count>0 then
+                    aId := TJSONObject(jData.Items[0]).Elements['id'].AsString;
+                  while Retry>0 do
                     begin
-                      aData := jData.Items[i];
-                      if Assigned(aData) and Assigned(TJSONObject(aData).Elements['text']) then
+                      i := 0;
+                      Somethingimported := false;
+                      while i < jData.Count do
                         begin
-                          atext := TJSONObject(aData).Elements['text'];
-                          if Assigned(TJSONObject(aData).Elements['source']) then
-                            asource := TJSONObject(aData).Elements['source'].AsString
-                          else asource := '';
-                          if Assigned(aText) and (not aText.IsNull) then
-                            text := atext.AsString
-                          else text := '';
-                          text := ConvertEncoding(text,GuessEncoding(text),encodingUTF8);
-                          html := TJSONObject(aData).Find('statusnet_html');
-                          if trim(text) <> '' then
+                          aData := jData.Items[i];
+                          if Assigned(aData) then
                             begin
-                              if Assigned(TJSONObject(aData).Elements['id']) then
-                                aCat := TJSONObject(aData).Elements['id'].AsString
-                              else aCat := '';
-                              if Assigned(TJSONObject(aData).Elements['in_reply_to_status_id']) and (not TJSONObject(aData).Elements['in_reply_to_status_id'].IsNull) then
-                                aref := TJSONObject(aData).Elements['in_reply_to_status_id'].AsString
-                              else aref := '';
-                              Data.SetFilter(aHist,Data.QuoteField('REFOBJECT')+'='+Data.QuoteValue(aCat));
-                              if aHist.Count=0 then
+                              atext := TJSONObject(aData).Elements['text'];
+                              if Assigned(TJSONObject(aData).Elements['source']) then
+                                asource := TJSONObject(aData).Elements['source'].AsString
+                              else asource := '';
+                              if Assigned(aText) and (not aText.IsNull) then
+                                text := atext.AsString
+                              else text := '';
+                              text := ConvertEncoding(text,GuessEncoding(text),encodingUTF8);
+                              html := TJSONObject(aData).Find('statusnet_html');
+                              if Assigned(TJSONObject(TJSONObject(aData).Elements['user'])) and Assigned(TJSONObject(TJSONObject(aData).Elements['user']).Elements['name']) then
+                                author := TJSONObject(TJSONObject(aData).Elements['user']).Elements['name'].AsString
+                              else author := '';
+                              author := ConvertEncoding(author,GuessEncoding(author),encodingUTF8);
+                              if pos('fefe',lowercase(author))>0 then
+                                writeln('FEFE!!!');
+                              if trim(text) <> '' then
                                 begin
+                                  if Assigned(TJSONObject(aData).Elements['id']) then
+                                    aCat := TJSONObject(aData).Elements['id'].AsString
+                                  else aCat := '';
+                                  if Assigned(TJSONObject(aData).Elements['in_reply_to_status_id']) and (not TJSONObject(aData).Elements['in_reply_to_status_id'].IsNull) then
+                                    aref := TJSONObject(aData).Elements['in_reply_to_status_id'].AsString
+                                  else aref := '';
                                   if aRef = '0' then aRef := '';
                                   if Assigned(TJSONObject(aData).Elements['created_at']) then
                                     aTime := DecodeRfcDateTime(TJSONObject(aData).Elements['created_at'].AsString)
                                   else aTime := now();
-                                  if Assigned(TJSONObject(TJSONObject(aData).Elements['user'])) and Assigned(TJSONObject(TJSONObject(aData).Elements['user']).Elements['name']) then
-                                    author := TJSONObject(TJSONObject(aData).Elements['user']).Elements['name'].AsString
-                                  else author := '';
-                                  author := ConvertEncoding(author,GuessEncoding(author),encodingUTF8);
                                   if Assigned(TJSONObject(TJSONObject(aData).Elements['user'])) and Assigned(TJSONObject(TJSONObject(aData).Elements['user']).Elements['screen_name']) then
                                     uid := TJSONObject(TJSONObject(aData).Elements['user']).Elements['screen_name'].AsString
                                   else uid := '';
                                   uid := StringReplace(uid,'''','',[rfReplaceAll]);
 
-                                  try
-                                    CustomerCont := TPersonContactData.Create(Self,Data);
-                                    if Data.IsSQLDb then
-                                      Data.SetFilter(CustomerCont,'"TYPE"=''SON'' AND UPPER("DATA")=UPPER('''+uid+''')')
-                                    else
-                                      Data.SetFilter(CustomerCont,'"TYPE"=''SON'' AND "DATA"='''+uid+'''');
-                                  except
-                                  end;
-                                  Customers := TPerson.Create(Self,Data);
-                                  Data.SetFilter(Customers,'"ACCOUNTNO"='+Data.QuoteValue(CustomerCont.DataSet.FieldByName('ACCOUNTNO').AsString));
-                                  CustomerCont.Free;
-                                  if Customers.Count = 0 then
+                                  Data.SetFilter(aHist,Data.QuoteField('REFOBJECT')+'='+Data.QuoteValue(aCat));
+                                  if aHist.Count=0 then
                                     begin
-                                      //Add Customer
-                                      Customers.Insert;
-                                      Customers.Text.AsString:=author;
-                                      Customers.DataSet.Post;
-                                      Customers.CustomerCont.Insert;
-                                      Customers.CustomerCont.Typ.AsString:='SON';
-                                      Customers.CustomerCont.Data.AsString:=uid;
-                                      Customers.CustomerCont.Description.AsString:=asource;
-                                      Customers.CustomerCont.Post;
-                                      //Follow Customer
-                                      if aRef = '' then
-                                        begin
-                                          Data.Users.Follows.Insert;
-                                          Data.Users.Follows.Link.AsString:=Data.BuildLink(Customers.DataSet);
-                                          Data.Users.Follows.Post;
-                                        end;
-                                    end;
-                                  Customers.History.Open;
-                                  with Customers.History.DataSet as IBaseManageDB do
-                                    UpdateStdFields := False;
-
-                                  if aRef='' then
-                                    begin
-                                      inc(Retry,2);
-                                      Somethingimported:=True;
-                                      Info('new Entry from '+author);
-                                      Customers.History.AddItem(Customers.DataSet,text,'',author,nil,ACICON_EXTERNALCHANGED,'',False,False);
-                                      Customers.History.TimeStamp.AsDateTime:=aTime;
-                                      Customers.History.FieldByName('REFOBJECT').AsString:=aCat;
-                                      Customers.History.FieldByName('SOURCE').AsString:=asource;
-                                      Customers.History.FieldByName('CHANGEDBY').Clear;
-                                      if Assigned(html) and (not html.IsNull) then
-                                        begin
-                                          Customers.History.Post;
-                                          Customers.History.DataSet.Edit;
-                                          text := TJSONObject(aData).Elements['statusnet_html'].AsString;
-                                          text := HTML2WikiText(text);
-                                        end;
-                                      Customers.History.FieldByName('ACTION').AsString:=text;
                                       try
-                                        Customers.History.Post;
+                                        CustomerCont := TPersonContactData.Create(Self,Data);
+                                        if Data.IsSQLDb then
+                                          Data.SetFilter(CustomerCont,'"TYPE"=''SON'' AND UPPER("DATA")=UPPER('''+uid+''')')
+                                        else
+                                          Data.SetFilter(CustomerCont,'"TYPE"=''SON'' AND "DATA"='''+uid+'''');
                                       except
-                                        on e : Exception do
-                                          begin
-                                            //ReplaceOmailaccounts:=False;
-                                            aId := TJSONObject(jData.Items[i]).Elements['id'].AsString;
-                                            jData.Items[i] := nil;
-                                            Error(e.Message);
-                                          end;
                                       end;
-                                    end
-                                  else
-                                    begin
-                                      Data.SetFilter(aHist,Data.QuoteField('REFOBJECT')+'='+Data.QuoteValue(aRef));
-                                      if aHist.Count>0 then
+                                      Customers := TPerson.Create(Self,Data);
+                                      Data.SetFilter(Customers,'"ACCOUNTNO"='+Data.QuoteValue(CustomerCont.DataSet.FieldByName('ACCOUNTNO').AsString));
+                                      CustomerCont.Free;
+                                      if Customers.Count = 0 then
                                         begin
-                                          inc(Retry,2);
+                                          //Add Customer
+                                          Customers.Insert;
+                                          Customers.Text.AsString:=author;
+                                          Customers.DataSet.Post;
+                                          Customers.CustomerCont.Insert;
+                                          Customers.CustomerCont.Typ.AsString:='SON';
+                                          Customers.CustomerCont.Data.AsString:=uid;
+                                          Customers.CustomerCont.Description.AsString:=asource;
+                                          Customers.CustomerCont.Post;
+                                          //Follow Customer
+                                          if aRef = '' then
+                                            begin
+                                              Data.Users.Follows.Insert;
+                                              Data.Users.Follows.Link.AsString:=Data.BuildLink(Customers.DataSet);
+                                              Data.Users.Follows.Post;
+                                            end;
+                                        end;
+                                      Customers.History.Open;
+                                      with Customers.History.DataSet as IBaseManageDB do
+                                        UpdateStdFields := False;
+
+                                      if aRef<>'' then
+                                        Data.SetFilter(aHist,Data.QuoteField('REFOBJECT')+'='+Data.QuoteValue(aRef));
+                                      if (aRef='') or ((aHist.Count=0) and (nothingimported>5)) then
+                                        begin
+                                          inc(Retry,6);
                                           Somethingimported:=True;
-                                          with aHist.DataSet as IBaseManageDB do
-                                            UpdateStdFields := False;
-                                          aHist.Edit;
-                                          aHist.FieldByName('READ').AsString:='N';
-                                          aHist.Post;
-                                          Info('new Subentry from '+author);
-                                          Customers.History.AddParentedItem(Customers.DataSet,text,aHist.Id.AsVariant,'',author,nil,ACICON_EXTERNALCHANGED,'',False,False);
+                                          Info('new Entry from '+author);
+                                          Customers.History.AddItem(Customers.DataSet,text,'',author,nil,ACICON_EXTERNALCHANGED,'',False,False);
                                           Customers.History.TimeStamp.AsDateTime:=aTime;
                                           Customers.History.FieldByName('REFOBJECT').AsString:=aCat;
                                           Customers.History.FieldByName('SOURCE').AsString:=asource;
@@ -318,30 +305,70 @@ begin
                                               end;
                                           end;
                                         end
-                                    end;
-                                  Customers.Free;
-                                  inc(i);
+                                      else
+                                        begin
+                                          if aHist.Count>0 then
+                                            begin
+                                              inc(Retry,6);
+                                              Somethingimported:=True;
+                                              with aHist.DataSet as IBaseManageDB do
+                                                UpdateStdFields := False;
+                                              aHist.Edit;
+                                              aHist.FieldByName('READ').AsString:='N';
+                                              aHist.Post;
+                                              Info('new Subentry from '+author);
+                                              Customers.History.AddParentedItem(Customers.DataSet,text,aHist.Id.AsVariant,'',author,nil,ACICON_EXTERNALCHANGED,'',False,False);
+                                              Customers.History.TimeStamp.AsDateTime:=aTime;
+                                              Customers.History.FieldByName('REFOBJECT').AsString:=aCat;
+                                              Customers.History.FieldByName('SOURCE').AsString:=asource;
+                                              Customers.History.FieldByName('CHANGEDBY').Clear;
+                                              if Assigned(html) and (not html.IsNull) then
+                                                begin
+                                                  Customers.History.Post;
+                                                  Customers.History.DataSet.Edit;
+                                                  text := TJSONObject(aData).Elements['statusnet_html'].AsString;
+                                                  text := HTML2WikiText(text);
+                                                end;
+                                              Customers.History.FieldByName('ACTION').AsString:=text;
+                                              try
+                                                Customers.History.Post;
+                                              except
+                                                on e : Exception do
+                                                  begin
+                                                    //ReplaceOmailaccounts:=False;
+                                                    aId := TJSONObject(jData.Items[i]).Elements['id'].AsString;
+                                                    jData.Items[i] := nil;
+                                                    Error(e.Message);
+                                                  end;
+                                              end;
+                                            end
+                                        end;
+                                      Customers.Free;
+                                      inc(i);
+                                    end
+                                  else jData.Items[i] := nil;
                                 end
                               else jData.Items[i] := nil;
-                            end
-                          else jData.Items[i] := nil;
-                       end
-                     else inc(i);
+                           end
+                         else inc(i);
+                        end;
+                      dec(Retry);
+                      if not Somethingimported then
+                        inc(nothingimported);
+                      if nothingimported>10 then break;
+                      for i := 0 to jData.Count-1 do
+                        if Assigned(jData.Items[i]) then
+                          inc(Retry);
                     end;
-                  dec(Retry);
-                  if not Somethingimported then
-                    inc(nothingimported);
-                  if nothingimported>10 then break;
-                  for i := 0 to jData.Count-1 do
-                    if Assigned(jData.Items[i]) then
-                      inc(Retry);
-                end;
-              if aId <> '' then
-                begin
-                  ReplaceOmailaccounts:=True;
-                  omailaccounts := copy(omailaccounts,0,length(omailaccounts)-1)+aId+';';
-                end;
-              Parser.Free;
+                  if aId <> '' then
+                    begin
+                      ReplaceOmailaccounts:=True;
+                      omailaccounts := copy(omailaccounts,0,length(omailaccounts)-1)+aId+';';
+                    end;
+                  Parser.Free;
+                end
+              else
+                Error('failed to get Data '+http.ResultString+' Code:'+IntToStr(http.ResultCode));
               http.Free;
             end;
           omailaccounts := omailaccounts+'|';

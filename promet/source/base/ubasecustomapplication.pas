@@ -264,7 +264,7 @@ end;
 
 procedure TBaseCustomApplication.Log(aType: string; aMsg: string);
 begin
-  //debugln(aType+':'+aMsg);
+  writeln(aType+':'+aMsg);
   if Assigned(FLogger) then
     begin
       if aType = 'INFO' then
