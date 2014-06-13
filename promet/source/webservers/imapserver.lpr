@@ -27,8 +27,8 @@ uses
   Classes, SysUtils, types, pcmdprometapp, CustApp, uBaseCustomApplication,
   lnetbase, lNet, laz_synapse, ulimap, uBaseDBInterface, md5, uData, eventlog,
   uprometimap, ulsmtpsrv, pmimemessages, fileutil, lconvencoding,
-  uBaseApplication, LCLProc, uBaseDbClasses, synautil, ureceivemessage,
-  uMimeMessages, mimemess, LCLIntf;
+  uBaseApplication, uBaseDbClasses, synautil, ureceivemessage,
+  uMimeMessages, mimemess;
 type
 
   { TPIMAPServer }
@@ -192,7 +192,7 @@ procedure TPIMAPServer.DoRun;
 var
   y,m,d,h,mm,s,ss: word;
   aGroup: TIMAPFolder;
-  aTime: types.DWORD;
+  aTime: TDateTime;
 begin
   with Self as IBaseDBInterface do
     begin
@@ -204,13 +204,13 @@ begin
   if HasOption('server-log') then
     IMAPServer.OnDebug:=@ServerLog;
   IMAPServer.SocketClass:=TPIMAPSocket;
-  aTime := GetTickCount;
+  aTime := Now();
   while not Terminated do
     begin
       IMAPServer.CallAction;
       SMTPServer.CallAction;
       sleep(100);
-      if (GetTickCount-aTime) > (60*60*1000) then break;
+      if (Now()-aTime) > (1/HoursPerDay) then break;
     end;
   // stop program loop
   Terminate;
@@ -231,12 +231,12 @@ begin
     begin
       //IMAPServer.ListenInterface := GetOptionValue('i','interface');
       SMTPServer.ListenInterface := GetOptionValue('i','interface');
-      debugln('using interface:'+GetOptionValue('i','interface'));
+      Info('using interface:'+GetOptionValue('i','interface'));
     end;
   SMTPServer.ListenPort := StrToIntDef(GetOptionValue('smtpport'),587);
   if GetOptionValue('smtpport')<>'' then
     begin
-      debugln('using port for smtp:'+GetOptionValue('smtpport'));
+      Info('using port for smtp:'+GetOptionValue('smtpport'));
     end;
   SMTPServer.OnLogin :=@ServerLogin;
   if HasOption('server-log') then
@@ -246,13 +246,13 @@ begin
   try
     IMAPServer.Start;
   except
-    debugln('failed to open IMAP Port '+IntToStr(IMAPServer.Port));
+    Error('failed to open IMAP Port '+IntToStr(IMAPServer.Port));
     raise;
   end;
   try
     SMTPServer.Start;
   except
-    debugln('failed to open SMTP Port '+IntToStr(SMTPServer.ListenPort));
+    Error('failed to open SMTP Port '+IntToStr(SMTPServer.ListenPort));
     raise;
   end;
 end;

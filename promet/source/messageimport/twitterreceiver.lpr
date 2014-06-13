@@ -6,9 +6,8 @@ uses
   {$IFDEF UNIX}{$IFDEF UseCThreads}
   cthreads,
   {$ENDIF}{$ENDIF}
-  Classes, SysUtils, CustApp,
-  Interfaces
-  { you can add units after this },db, Utils, FileUtil, Forms, uData,
+  Classes, SysUtils, CustApp
+  { you can add units after this },db, Utils, FileUtil, uData,
   uIntfStrConsts, pcmdprometapp, uBaseCustomApplication, wiki2html_pkg,
   uBaseApplication, httpsend, jsonparser, jsonscanner, fpjson, uBaseDBInterface,
   ssl_openssl, synautil, uBaseDbClasses, LConvEncoding,htmltowiki,uDocuments,

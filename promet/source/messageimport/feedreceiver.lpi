@@ -9,7 +9,6 @@
       </Flags>
       <MainUnit Value="0"/>
       <Title Value="feedreceiver"/>
-      <Icon Value="0"/>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
     <VersionInfo>
@@ -54,8 +53,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="317"/>
-        <CursorPos X="18" Y="329"/>
+        <TopLine Value="1"/>
+        <CursorPos X="29" Y="9"/>
         <UsageCount Value="64"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -535,7 +534,7 @@
         <UsageCount Value="10"/>
       </Unit61>
     </Units>
-    <JumpHistory Count="6" HistoryIndex="5">
+    <JumpHistory Count="7" HistoryIndex="6">
       <Position1>
         <Filename Value="feedreceiver.lpr"/>
         <Caret Line="67" Column="1" TopLine="38"/>
@@ -560,6 +559,10 @@
         <Filename Value="feedreceiver.lpr"/>
         <Caret Line="220" Column="33" TopLine="189"/>
       </Position6>
+      <Position7>
+        <Filename Value="feedreceiver.lpr"/>
+        <Caret Line="329" Column="18" TopLine="314"/>
+      </Position7>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

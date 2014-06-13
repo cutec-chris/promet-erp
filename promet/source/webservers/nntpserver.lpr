@@ -26,7 +26,7 @@ uses
   Classes, SysUtils, types, pcmdprometapp, CustApp, uBaseCustomApplication,
   lnetbase, lNet, uLNNTP, uBaseDBInterface, md5, uData, eventlog, pmimemessages,
   uprometnntp, fileutil, lconvencoding, uBaseApplication, ulsmtpsrv,
-  laz_synapse, LCLIntf;
+  laz_synapse;
 type
   TPNNTPServer = class(TBaseCustomApplication)
     procedure ServerLog(aSocket: TLNNTPSocket; DirectionIn: Boolean;
@@ -84,7 +84,7 @@ procedure TPNNTPServer.DoRun;
 var
   aGroup: TPNNTPGroup;
   y,m,d,h,mm,s,ss: word;
-  aTime: types.DWORD;
+  aTime: TDateTime;
 begin
   writeln('starting...');
   with Self as IBaseDBInterface do
@@ -120,12 +120,12 @@ begin
   Server.OnLogin :=@ServerLogin;
   Server.OnLog:=@ServerLog;
   writeln('server running...');
-  aTime := GetTickCount64();
+  aTime := Now();
   while not Terminated do
     begin
       Server.CallAction;
       sleep(10);
-      if (GetTickCount64()-aTime)>(MSecsPerDay) then break;//stop once a day
+      if (Now()-aTime)>(1) then break;//stop once a day
     end;
   // stop program loop
   Terminate;

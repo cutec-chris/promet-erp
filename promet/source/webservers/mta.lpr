@@ -8,7 +8,7 @@ uses
   lNet, uBaseDBInterface, md5,uData,eventlog,
   pmimemessages, fileutil,lconvencoding,uBaseApplication, ulsmtpsrv,
   dnssend,smtpsend,synamisc,uBaseDbClasses,uMimeMessages,mimemess,laz_synapse,
-  synautil,uPerson,db,Utils,variants, types,uMessages,LCLProc,LCLIntf;
+  synautil,uPerson,db,Utils,variants, types,uMessages;
 resourcestring
   strActionMessageReceived                   = '%s';
 type
@@ -524,19 +524,19 @@ var
   smtp: TSMTPSend;
   DNSServers: TStringList;
   i: Integer;
-  aTime: types.DWORD;
+  aTime: TDateTime;
 begin
-  debugln('starting...');
+  Info('starting...');
   with Self as IBaseDBInterface do
     begin
       DBLogout;
       if not Login then
         begin
-          debugln('login failed');
+          Info('login failed');
           exit;
         end;
     end;
-  debugln('login ok');
+  Info('login ok');
   with Self as IBaseApplication do
     begin
       DecodeDate(Now(),y,m,d);
@@ -554,12 +554,12 @@ begin
   Server.OnLog:=@ServerLog;
   Server.OnMailreceived:=@ServerMailreceived;
   Server.OnAcceptMail:=@ServerAcceptMail;
-  debugln('server running...');
+  Info('server running...');
   NextCollectTime := Now();
   NextSendTime := Now();
   Server.Start;
   i := 0;
-  aTime := GetTickCount64();
+  aTime := Now();
   while not Terminated do
     begin
       inc(i);
@@ -572,7 +572,7 @@ begin
           sleep(100);
           i := 0;
         end;
-      if (GetTickCount64()-aTime)>(60*60*MSecsPerSec) then break;
+      if (Now()-aTime)>(1/HoursPerDay) then break;
     end;
   // stop program loop
   Subscribers.Free;
@@ -587,12 +587,12 @@ begin
   if GetOptionValue('i','interface')<>'' then
     begin
       Server.ListenInterface := GetOptionValue('i','interface');
-      debugln('using interface:'+GetOptionValue('i','interface'));
+      Info('using interface:'+GetOptionValue('i','interface'));
     end;
   if GetOptionValue('p','port')<>'' then
     begin
       Server.ListenPort := StrToIntDef(GetOptionValue('p','port'),25);
-      debugln('using port:'+GetOptionValue('p','port'));
+      Info('using port:'+GetOptionValue('p','port'));
     end;
 end;
 

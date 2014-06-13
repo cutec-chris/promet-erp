@@ -22,7 +22,7 @@ unit uprometimap;
 interface
 uses
   Classes, SysUtils, uLIMAP, uMessages, MimeMess, uMimeMessages, db, {$IFDEF UNIX}cwstring,{$ENDIF}
-  types, LCLProc, uBaseDbClasses, lNet, mimepart;
+  types, uBaseDbClasses, lNet, mimepart;
 
 {.$DEFINE DEBUG}
 type
@@ -84,7 +84,7 @@ type
 
 implementation
 uses uData,Variants,SynaUtil,uSessionDBClasses,uBaseDBInterface,Utils,
-  uPerson,LConvEncoding,uIntfStrConsts,LCLIntf;
+  uPerson,LConvEncoding,uIntfStrConsts;
 
 { TPIMAPSocket }
 
@@ -142,9 +142,9 @@ var
   Arg1: String;
   Arg2: String;
   Max: Integer;
-  aTime: DWORD;
+  aTime: tDateTime;
 begin
-  aTime := GetTickCount;
+  aTime := Now();
   Max := 1;
   Result := True;
   if pos(',',FSelector)>0 then
@@ -211,7 +211,7 @@ begin
     end;
   FSelectCount:=Max;
   {$IFDEF DEBUG}
-  debugln('SelectNext:'+aFilter+' in '+IntToStr(GetTickCount-aTime)+' ms');
+  debugln('SelectNext:'+aFilter+' in '+IntToStr(round((Now()-aTime)*MSecsPerDay))+' ms');
   {$ENDIF}
 end;
 
@@ -228,22 +228,22 @@ begin
 end;
 procedure TPIMAPFolder.RefreshFirstID;
 var
-  aTime: types.DWORD;
+  aTime: TDateTime;
 begin
-  aTime := GetTickCount;
+  aTime := Now();
   FMessages.Filter(Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(TPIMAPSocket(Socket).FAccountno),300,'SENDDATE','DESC');
   FMessages.Last;
   if FMessages.Count > 0 then
     FFirstID := FMessages.Id.AsVariant;
   {$IFDEF DEBUG}
-  debugln('RefreshFirstID:'+FMessages.Id.AsString+' in '+IntToStr(GetTickCount-aTime)+' ms');
+  debugln('RefreshFirstID:'+FMessages.Id.AsString+' in '+IntToStr(round((Now()-aTime)*MSecsPerDay))+' ms');
   {$ENDIF}
 end;
 procedure TPIMAPFolder.RefreshCount;
 var
-  aTime: DWORD;
+  aTime: TDateTime;
 begin
-  aTime := GetTickCount;
+  aTime := Now();
   FFIrstID := 0;
   FlastID := 0;
   Data.SetFilter(FMessages,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' and '+Data.QuoteField('READ')+'='+Data.QuoteValue('N')+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(TPIMAPSocket(Socket).FAccountno),300,'SENDDATE','DESC');
@@ -258,7 +258,7 @@ begin
     end;
   FCount := FMessages.Count;
   {$IFDEF DEBUG}
-  debugln('RefreshCount:'+FMessages.Id.AsString+' in '+IntToStr(GetTickCount-aTime)+' ms');
+  debugln('RefreshCount:'+FMessages.Id.AsString+' in '+IntToStr(round((Now()-aTime)*MSecsPerDay))+' ms');
   {$ENDIF}
 end;
 function TPIMAPFolder.GetLastID: LargeInt;
@@ -449,7 +449,7 @@ var
   aSize: String;
   tmpRecNo: String;
   FAdded: Boolean;
-  aTime: DWORD;
+  aTime: TDateTime;
 
   function GetBodyStructure(aPart : TMimePart) : string;
   var
@@ -494,7 +494,7 @@ begin
   aFetch := aFetch+' ';
   if not FMessages.DataSet.BOF then
     begin
-      aTime := GetTickCount;
+      aTime := Now();
       if FSequenceNumbers.IndexOf(FMessages.Id.AsString)=-1 then
         begin
           tmpRecNo := IntToStr(FSequenceNumbers.Add(FMessages.Id.AsString)+1);
@@ -697,7 +697,7 @@ begin
       Result.Add(copy(tmp,0,length(tmp)-1)+')');
       //debugln(copy(tmp,0,5000));
       {$IFDEF DEBUG}
-      debugln('FetchOneEntry:'+FMessages.Id.AsString+' '+FMessages.Subject.AsString+' '+tmpRecNo+' '+FMessages.FieldByName('SENDDATE').AsString+' in '+IntToStr(GetTickCount-aTime)+' ms');
+      debugln('FetchOneEntry:'+FMessages.Id.AsString+' '+FMessages.Subject.AsString+' '+tmpRecNo+' '+FMessages.FieldByName('SENDDATE').AsString+' in '+IntToStr(round((Now()-aTime)*MSecsPerDay))+' ms');
       {$ENDIF}
       FetchSequence:=FetchSequence+1;
       FreeAndNil(aMessage);

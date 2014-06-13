@@ -21,8 +21,7 @@ unit ulimap;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, lNet, lEvents, mimemess, db, dateutils, types,base64,
-  LCLProc;
+  Classes, SysUtils, lNet, lEvents, mimemess, db, dateutils, types,base64;
 type
   TIMAPFolders = class;
 
@@ -147,7 +146,7 @@ type
    procedure CallAction; override;
   end;
 implementation
-  uses lHTTPUtil,LCLIntf;
+  uses lHTTPUtil;
 const
   CRLF=#13#10;
 function TIMAPFolders.Get(Idx : Integer): TIMAPFolder;
@@ -339,7 +338,7 @@ var
     aFCount: Integer;
     tmp : String;
     bRange: String;
-    aTime: types.DWORD;
+    aTime: TDateTime;
   begin
     FStopFetching := False;
     aCmd := Uppercase(copy(bParams,0,pos(' ',bParams)-1));
@@ -358,7 +357,7 @@ var
         if aUseUID and (pos('UID',bParams)=0) then
           bParams:='UID '+bParams;
         aFCount := 0;
-        aTime:=GetTickCount;
+        aTime:=Now();
         if FGroup.SelectMessages(aRange,aUseUID) then
           begin
             aRes := FGroup.FetchOneEntry(bParams);
@@ -383,7 +382,7 @@ var
             DontLog:=False;
             if length(FSendBuffer)>0 then
             Creator.CallAction;
-            Answer('OK Success '+IntToStr(aFCount)+' results in '+IntToStr(GettickCount-aTime)+' ms.');
+            Answer('OK Success '+IntToStr(aFCount)+' results in '+IntToStr(round((Now()-aTime)*MSecsPerDay))+' ms.');
           end
         else
           begin
@@ -943,4 +942,4 @@ end;
 
 end.
 
-
+

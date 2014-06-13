@@ -38,23 +38,20 @@
         <CommandLineParams Value="--mandant=&quot;Stora&quot;"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="4">
+    <RequiredPackages Count="3">
       <Item1>
-        <PackageName Value="LCL"/>
-      </Item1>
-      <Item2>
         <PackageName Value="pmimemessages"/>
         <DefaultFilename Value="..\base_messaging\pmimemessages.lpk"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="lnetbase"/>
       </Item2>
       <Item3>
-        <PackageName Value="lnetbase"/>
-      </Item3>
-      <Item4>
         <PackageName Value="pcmdprometapp"/>
         <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
-      </Item4>
+      </Item3>
     </RequiredPackages>
-    <Units Count="130">
+    <Units Count="127">
       <Unit0>
         <Filename Value="svnserver.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -62,8 +59,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="140"/>
-        <CursorPos X="1" Y="173"/>
+        <TopLine Value="204"/>
+        <CursorPos X="56" Y="223"/>
         <UsageCount Value="168"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -660,8 +657,8 @@
         <UnitName Value="ulwebdavserver"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="458"/>
-        <CursorPos X="1" Y="488"/>
+        <TopLine Value="1"/>
+        <CursorPos X="66" Y="5"/>
         <UsageCount Value="99"/>
         <Loaded Value="True"/>
       </Unit74>
@@ -1075,45 +1072,21 @@
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit124>
       <Unit125>
-        <Filename Value="..\..\..\lkomponenten\lnet\lib\lhttputil.pp"/>
-        <UnitName Value="lHTTPUtil"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="134"/>
-        <CursorPos X="52" Y="154"/>
-        <UsageCount Value="11"/>
-      </Unit125>
-      <Unit126>
-        <Filename Value="..\..\..\lkomponenten\synapse\synautil.pas"/>
-        <UnitName Value="synautil"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="48"/>
-        <CursorPos X="40" Y="410"/>
-        <UsageCount Value="11"/>
-      </Unit126>
-      <Unit127>
         <Filename Value="..\..\..\..\fpc\2.6_fixes\rtl\objpas\sysutils\sysstrh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="106"/>
         <CursorPos X="10" Y="124"/>
         <UsageCount Value="10"/>
-      </Unit127>
-      <Unit128>
-        <Filename Value="..\..\..\lkomponenten\lnet\lib\lnet.pp"/>
-        <UnitName Value="lNet"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1532"/>
-        <CursorPos X="1" Y="1557"/>
-        <UsageCount Value="10"/>
-      </Unit128>
-      <Unit129>
+      </Unit125>
+      <Unit126>
         <Filename Value="..\..\..\lkomponenten\lnet\lib\sys\lepolleventer.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="166"/>
         <CursorPos X="16" Y="186"/>
         <UsageCount Value="10"/>
-      </Unit129>
+      </Unit126>
     </Units>
-    <JumpHistory Count="25" HistoryIndex="24">
+    <JumpHistory Count="27" HistoryIndex="26">
       <Position1>
         <Filename Value="ulwebdavserver.pas"/>
         <Caret Line="444" Column="1" TopLine="421"/>
@@ -1214,6 +1187,14 @@
         <Filename Value="lexthttp.pp"/>
         <Caret Line="1928" Column="1" TopLine="1908"/>
       </Position25>
+      <Position26>
+        <Filename Value="ulwebdavserver.pas"/>
+        <Caret Line="488" Column="1" TopLine="458"/>
+      </Position26>
+      <Position27>
+        <Filename Value="svnserver.lpr"/>
+        <Caret Line="173" Column="1" TopLine="140"/>
+      </Position27>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

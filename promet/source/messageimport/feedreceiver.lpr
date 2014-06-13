@@ -6,8 +6,7 @@ uses
   {$IFDEF UNIX}
   cthreads,
   {$ENDIF}
-  Classes, SysUtils, CustApp,
-  Interfaces
+  Classes, SysUtils, CustApp
   { you can add units after this },db,Utils,
   FileUtil,uData, uBaseCustomApplication,uBaseDbClasses,
   synautil,httpsend, laz_synapse,uMessages,uDocuments,uBaseDbInterface,
@@ -342,11 +341,9 @@ end;
 var
   Application: TRSSReceiver;
 
-{$R *.res}
-
 begin
   Application:=TRSSReceiver.Create(nil);
   Application.Run;
   Application.Free;
 end.
-
+

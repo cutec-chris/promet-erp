@@ -390,7 +390,6 @@ begin
 end;
 var
   Application: TPOP3Receiver;
-{$R *.res}
 begin
   Application:=TPOP3Receiver.Create(nil);
   Application.Run;

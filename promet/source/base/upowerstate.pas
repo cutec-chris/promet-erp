@@ -37,7 +37,6 @@ type
   end;
 
 implementation
-uses LCLProc;
 var
   aPowerStateMonitor : TPowerStateMonitor;
 {$IFDEF DBUS}
@@ -67,7 +66,7 @@ end;
 {$ENDIF}
 procedure TPowerStateMonitor.Messagereceived(aMessage: string);
 begin
-  debugln(aMessage);
+  //debugln(aMessage);
 end;
 constructor TPowerStateMonitor.Create;
 begin

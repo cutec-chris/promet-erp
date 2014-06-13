@@ -22,7 +22,7 @@ unit uBaseCustomApplication;
 interface
 uses
   {$ifdef UNIX}cwstring,{$endif}Classes, SysUtils, CustApp, uBaseApplication, uBaseDBInterface,
-  PropertyStorage, uData, uSystemMessage, lConvEncoding, eventlog,Utils,FileUtil;
+  uData, uSystemMessage, lConvEncoding, eventlog,Utils,FileUtil;
 resourcestring
   strFailedtoLoadMandants    = 'Mandanten konnten nicht gelanden werden !';
   strMandantnotSelected      = 'kein Mandant gewählt (--mandant) !';
@@ -64,7 +64,6 @@ type
     procedure SetConfigName(aName : string);
     procedure RestoreConfig;
     procedure SaveConfig;
-    function GetConfig: TCustomPropertyStorage;
     function GetLanguage: string;
     procedure SetLanguage(const AValue: string);
     function GetSingleInstance : Boolean; virtual;
@@ -97,7 +96,6 @@ type
   end;
 
 implementation
-uses LCLProc;
 procedure TBaseCustomApplication.BaseCustomApplicationException(
   Sender: TObject; E: Exception);
 var
@@ -207,10 +205,6 @@ begin
 //      Properties.Save;
     end;
 end;
-function TBaseCustomApplication.GetConfig: TCustomPropertyStorage;
-begin
-//  Result := Properties;
-end;
 function TBaseCustomApplication.GetLanguage: string;
 begin
 
@@ -226,7 +220,8 @@ end;
 procedure TBaseCustomApplication.Debug(aMsg: string);
 begin
   if HasOption('debug') then
-    debugln('DEBUG:'+aMsg);
+    //debugln('DEBUG:'+aMsg)
+    ;
 end;
 function TBaseCustomApplication.GetLog: TEventLog;
 begin
@@ -269,7 +264,7 @@ end;
 
 procedure TBaseCustomApplication.Log(aType: string; aMsg: string);
 begin
-  debugln(aType+':'+aMsg);
+  //debugln(aType+':'+aMsg);
   if Assigned(FLogger) then
     begin
       if aType = 'INFO' then
