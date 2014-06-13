@@ -18,21 +18,21 @@
 
 info@cu-tec.de
 *******************************************************************************}
-unit umain;
+unit udataserver;
 
 {$mode objfpc}{$H+}
 
 interface
 
 uses
-  SysUtils, Classes, httpdefs, fpHTTP, fpWeb, fpdatasetform, db,fpjson,
+  SysUtils, Classes, httpdefs, fpHTTP, fpWeb, fpdatasetform, fphtml, db,fpjson,
   uBaseDBInterface,FileUtil,LConvEncoding,uBaseDbClasses,fpsqlparser,
   fpsqlscanner, fpsqltree,httpsend,OpenSSL, jsonparser;
 
 type
-  { Tappbase }
+  { TAppDataServer }
 
-  Tappbase = class(TFPWebModule)
+  TAppDataServer = class(TFPWebModule)
     procedure checkloginRequest(Sender: TObject; ARequest: TRequest;
       AResponse: TResponse; var Handled: Boolean);
     procedure connectionavalibeRequest(Sender: TObject; ARequest: TRequest;
@@ -66,15 +66,15 @@ type
   end;
 
 var
-  appbase: Tappbase;
+  AppDataServer: TAppDataServer;
 
 implementation
+{$R *.lfm}
 uses uStatistic,uData,uBaseWebSession,uPerson,uOrder,uMasterdata,utask,uProjects,
   uBaseDbDataSet,usync,uMessages,uBaseSearch,uWiki,uDocuments,umeeting,uBaseERPDBClasses,
   uBaseApplication;
-{$R *.lfm}
 
-procedure Tappbase.checkloginRequest(Sender: TObject; ARequest: TRequest;
+procedure TAppDataServer.checkloginRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 begin
   Handled:=True;
@@ -96,23 +96,23 @@ begin
   AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
   AResponse.SendContent;
 end;
-procedure Tappbase.connectionavalibeRequest(Sender: TObject;
+procedure TAppDataServer.connectionavalibeRequest(Sender: TObject;
   ARequest: TRequest; AResponse: TResponse; var Handled: Boolean);
 begin
   TBaseWebSession(Session).ConnectionAvalible(ARequest,AResponse);
   AResponse.SendContent;
   Handled:=True;
 end;
-procedure Tappbase.DataModuleAfterInitModule(Sender: TObject; ARequest: TRequest
+procedure TAppDataServer.DataModuleAfterInitModule(Sender: TObject; ARequest: TRequest
   );
 begin
   FirstUse := True;
 end;
-procedure Tappbase.DataModuleBeforeRequest(Sender: TObject; ARequest: TRequest);
+procedure TAppDataServer.DataModuleBeforeRequest(Sender: TObject; ARequest: TRequest);
 begin
 end;
 
-procedure Tappbase.getstatisticRequest(Sender: TObject; ARequest: TRequest;
+procedure TAppDataServer.getstatisticRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 var
   aStatistic: TStatistic;
@@ -156,11 +156,11 @@ begin
   AResponse.SendContent;
 end;
 
-procedure Tappbase.ServerAccess(AMessage: string);
+procedure TAppDataServer.ServerAccess(AMessage: string);
 begin
 end;
 
-procedure Tappbase.listRequest(Sender: TObject; ARequest: TRequest;
+procedure TAppDataServer.listRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 var
   aList: String;
@@ -264,7 +264,7 @@ begin
     end;
   AResponse.SendContent;
 end;
-procedure Tappbase.loginRequest(Sender: TObject; ARequest: TRequest;
+procedure TAppDataServer.loginRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 begin
   TBaseWebSession(Session).DoLogin(Arequest,AResponse);
@@ -275,7 +275,7 @@ begin
   AResponse.SendContent;
   Handled:=True;
 end;
-procedure Tappbase.logoutRequest(Sender: TObject; ARequest: TRequest;
+procedure TAppDataServer.logoutRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 begin
   Handled:=True;
@@ -285,7 +285,7 @@ begin
   BaseApplication.Terminate;
   {$endif}
 end;
-procedure Tappbase.objectRequest(Sender: TObject; ARequest: TRequest;
+procedure TAppDataServer.objectRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 var
   Json: TJSONObject;
@@ -329,12 +329,12 @@ begin
     end;
   AResponse.SendContent;
 end;
-function Tappbase.OpenLink(aLink: string; Sender: TObject): Boolean;
+function TAppDataServer.OpenLink(aLink: string; Sender: TObject): Boolean;
 begin
 
 end;
 
-procedure Tappbase.setobjectRequest(Sender: TObject; ARequest: TRequest;
+procedure TAppDataServer.setobjectRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 var
   aList: String;
@@ -365,7 +365,7 @@ begin
     end;
   AResponse.SendContent;
 end;
-procedure Tappbase.syncRequest(Sender: TObject; ARequest: TRequest;
+procedure TAppDataServer.syncRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 var
   aList: String;
@@ -475,7 +475,7 @@ begin
     end;
   AResponse.SendContent;
 end;
-procedure Tappbase.DataSetToJSON(ADataSet: TDataSet; AJSON: TJSONArray;
+procedure TAppDataServer.DataSetToJSON(ADataSet: TDataSet; AJSON: TJSONArray;
   const ADateAsString: Boolean; Fields: TSQLElementList);
 var
   VJSON: TJSONObject;
@@ -489,7 +489,7 @@ begin
     ADataSet.Next;
   end;
 end;
-procedure Tappbase.ObjectToJSON(AObject: TBaseDBDataSet; AJSON: TJSONObject;
+procedure TAppDataServer.ObjectToJSON(AObject: TBaseDBDataSet; AJSON: TJSONObject;
   const ADateAsString: Boolean);
 var
   aArray: TJSONArray;
@@ -508,7 +508,7 @@ begin
       end;
 end;
 
-procedure Tappbase.RegisterContent;
+procedure TAppDataServer.RegisterContent;
 begin
   //Messages
   Data.RegisterLinkHandler('HISTORY',@OpenLink,TBaseHistory);
@@ -642,6 +642,6 @@ begin
 end;
 
 initialization
-  RegisterHTTPModule('main', Tappbase);
+  RegisterHTTPModule('data', TAppDataServer);
 end.
 

@@ -105,14 +105,17 @@
         <CommandLineParams Value="--mandant=&quot;TCS-Times2&quot;"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="2">
+    <RequiredPackages Count="3">
       <Item1>
-        <PackageName Value="pfcgiprometapp"/>
-        <DefaultFilename Value="../base/pfcgiprometapp.lpk"/>
+        <PackageName Value="weblaz"/>
       </Item1>
       <Item2>
-        <PackageName Value="FCL"/>
+        <PackageName Value="pfcgiprometapp"/>
+        <DefaultFilename Value="../base/pfcgiprometapp.lpk"/>
       </Item2>
+      <Item3>
+        <PackageName Value="FCL"/>
+      </Item3>
     </RequiredPackages>
     <Units Count="3">
       <Unit0>
@@ -121,18 +124,17 @@
         <UnitName Value="local_appbase"/>
       </Unit0>
       <Unit1>
-        <Filename Value="umain.pas"/>
+        <Filename Value="udataserver.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="appbase"/>
+        <ComponentName Value="AppDataServer"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="umain"/>
+        <UnitName Value="udataserver"/>
       </Unit1>
       <Unit2>
         <Filename Value="uwebserver.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="fWebServer"/>
-        <HasResources Value="True"/>
+        <ComponentName Value="TWebServer"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="uwebserver"/>
       </Unit2>

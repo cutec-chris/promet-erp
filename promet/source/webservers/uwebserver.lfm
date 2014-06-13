@@ -1,7 +1,11 @@
-object fWebServer: TfWebServer
+object TWebServer: TTWebServer
   OldCreateOrder = False
+  Actions = <>
+  OnRequest = DataModuleRequest
+  DefActionWhenUnknown = False
+  CreateSession = False
   Height = 150
-  HorizontalOffset = 299
-  VerticalOffset = 262
+  HorizontalOffset = 625
+  VerticalOffset = 263
   Width = 150
 end

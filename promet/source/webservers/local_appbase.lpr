@@ -24,10 +24,10 @@ program local_appbase;
 
 uses
   {$IFDEF UNIX}cwstring,cthreads,{$ENDIF}
-  ubasehttpapplication, pfcgiprometapp,
-  uBaseApplication,umain, uwebserver;
+  Interfaces, ubasehttpapplication, pfcgiprometapp,
+  uBaseApplication, udataserver, uwebserver, weblaz;
 begin
-  Application.DefaultModule:='main';
+  Application.DefaultModule:='data';
   with BaseApplication as IBaseApplication do
     begin
       with Application as IBaseApplication do
@@ -40,7 +40,6 @@ begin
       Login;
     end;
   Application.Initialize;
-  Application.CreateForm(TfWebServer,fWebServer);
   Application.Port:=8086;
   Application.DefaultModule:='appbase';
   Application.Run;

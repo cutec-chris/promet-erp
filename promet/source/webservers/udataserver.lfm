@@ -1,4 +1,4 @@
-object appbase: Tappbase
+object AppDataServer: TAppDataServer
   OldCreateOrder = False
   Actions = <  
     item
