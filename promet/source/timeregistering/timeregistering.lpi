@@ -81,9 +81,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="umain"/>
-        <TopLine Value="194"/>
-        <CursorPos X="18" Y="211"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="88"/>
+        <CursorPos X="23" Y="114"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="upassword.pas"/>
@@ -709,7 +713,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uEnterTime"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="389"/>
         <CursorPos X="19" Y="408"/>
@@ -2397,23 +2401,20 @@
       <Unit288>
         <Filename Value="..\base_frames\ufilterframe.pas"/>
         <UnitName Value="uFilterFrame"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1630"/>
         <CursorPos X="74" Y="1654"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit288>
     </Units>
     <JumpHistory Count="2" HistoryIndex="1">
       <Position1>
-        <Filename Value="..\base_frames\ufilterframe.pas"/>
-        <Caret Line="1647" Column="27" TopLine="1630"/>
-      </Position1>
-      <Position2>
         <Filename Value="uentertime.pas"/>
         <Caret Line="408" Column="19" TopLine="389"/>
+      </Position1>
+      <Position2>
+        <Filename Value="umain.pas"/>
+        <Caret Line="211" Column="18" TopLine="194"/>
       </Position2>
     </JumpHistory>
   </ProjectOptions>

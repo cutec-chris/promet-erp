@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -49,8 +49,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="14"/>
-        <CursorPos X="1" Y="35"/>
+        <TopLine Value="4"/>
+        <CursorPos X="65" Y="16"/>
         <UsageCount Value="21"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -62,7 +62,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uProgramEnded"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="34"/>
         <CursorPos X="23" Y="9"/>
@@ -107,15 +107,13 @@
       <Unit7>
         <Filename Value="..\..\..\..\fpc\2.6_fixes\rtl\linux\system.pp"/>
         <UnitName Value="System"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="163"/>
         <CursorPos X="10" Y="37"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit7>
     </Units>
-    <JumpHistory Count="29" HistoryIndex="28">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="pstarter.lpr"/>
         <Caret Line="35" Column="37" TopLine="1"/>
@@ -232,6 +230,10 @@
         <Filename Value="pstarter.lpr"/>
         <Caret Line="33" Column="29" TopLine="15"/>
       </Position29>
+      <Position30>
+        <Filename Value="pstarter.lpr"/>
+        <Caret Line="35" Column="1" TopLine="13"/>
+      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

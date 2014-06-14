@@ -111,7 +111,7 @@ uses
   uPassword,uError,uMashineID,uEnterTime,uprometipc,
   uBaseDBInterface, uBaseApplication, uSearch, uOptions, uTimeOptions,
   uHelpContainer,uData,uBaseSearch,uProjects,uMasterdata,uPerson,uBaseVisualApplication,
-  uInfo;
+  uInfo,uLanguageUtils;
 resourcestring
   strNotLoggedin                        = 'Sie sind nicht angemeldet, melden Sie sich an um Zeiten erfassen zu können !';
 
@@ -385,4 +385,4 @@ end;
 initialization
   {$I umain.lrs}
 
-end.
+end.
