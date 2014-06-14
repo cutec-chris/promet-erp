@@ -33,9 +33,6 @@ uses
   ;
 
 function GetThumbnailPath(aDocument : TDocuments;aWidth : Integer=310;aHeight : Integer=428) : string;
-{$IFDEF LCL}
-function GetThumbnailBitmap(aDocument : TDocuments;aWidth : Integer=310;aHeight : Integer=428) : TBitmap;
-{$ENDIF}
 function GetThumbTempDir : string;
 function ClearThumbDir : Boolean;
 function GenerateThumbNail(aName : string;aFullStream,aStream : TStream;aText : string;aWidth : Integer=310;aHeight : Integer=428) : Boolean;
@@ -84,37 +81,6 @@ begin
     Result := aFilename;
 end;
 
-{$IFDEF LCL}
-function GetThumbnailBitmap(aDocument: TDocuments;aWidth : Integer=310;aHeight : Integer=428): TBitmap;
-var
-  aJpg: TJPEGImage;
-  aFilename: String;
-begin
-  Result := TBitmap.Create;
-  try
-    try
-      aFilename := GetThumbNailPath(aDocument,aWidth,aHeight);
-      if aFilename='' then exit;
-      aJpg := TJPEGImage.Create;
-      try
-        aJpg.LoadFromFile(aFilename);
-      except
-        begin
-          aJpg.Free;
-          exit;
-        end;
-      end;
-      Result.Width:=aJpg.Width;
-      Result.Height:=aJpg.Height;
-      Result.Canvas.Draw(0,0,aJpg);
-    except
-      FreeAndNil(Result);
-    end;
-  finally
-    aJpg.Free;
-  end;
-end;
-{$ENDIF}
 function GetThumbTempDir: string;
 begin
   Result := GetInternalTempDir+'promet_thumbs';
@@ -249,7 +215,7 @@ begin
       begin
         Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(ParamStrUTF8(0)))+'tools')+'gswin32'+{$ELSE}'gs'+{$ENDIF}' -q -dBATCH -dMaxBitmap=300000000 -dNOPAUSE -dSAFER -sDEVICE=bmp16m -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -dFirstPage=1 -dLastPage=1 -sOutputFile=%s %s -c quit',[aFileName+'.bmp',aFileName]),'.bmp');
         if not Result then
-          Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(ParamStrUTF8(0)))+'tools')+{$ENDIF}'pdftopng -l 1 %s %s',[aFileName,ExtractFileDir(aFilename)]),'.png');
+          Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(ParamStrUTF8(0)))+'tools')+{$ENDIF}'pdftopng -l 1 %s %s',[aFileName,aFilename]),'-000001.png');
       end
     else
       begin

@@ -189,12 +189,42 @@ implementation
 uses uBaseApplication, uData, uOrder,uMessages,uBaseERPDBClasses,
   uMain,LCLType,utask,uProcessManager,uprometipc,ProcessUtils,ufollow,udetailview,
   LCLIntf,wikitohtml,uDocuments,uthumbnails,uscreenshotmain,uWiki,uSearch,
-  LCLProc,uProjects;
+  LCLProc,uProjects,ubaseconfig,usimpleprocess;
 resourcestring
   strTo                                  = 'an ';
   strTag                                 = 'Tag';
 {$R *.lfm}
 { TImagingThread }
+
+function GetThumbnailBitmap(aDocument: TDocuments;aWidth : Integer=310;aHeight : Integer=428): TBitmap;
+var
+  aJpg: TJPEGImage;
+  aFilename: String;
+begin
+  Result := TBitmap.Create;
+  try
+    try
+      aFilename := GetThumbNailPath(aDocument,aWidth,aHeight);
+      if aFilename='' then exit;
+      aJpg := TJPEGImage.Create;
+      try
+        aJpg.LoadFromFile(aFilename);
+      except
+        begin
+          aJpg.Free;
+          exit;
+        end;
+      end;
+      Result.Width:=aJpg.Width;
+      Result.Height:=aJpg.Height;
+      Result.Canvas.Draw(0,0,aJpg);
+    except
+      FreeAndNil(Result);
+    end;
+  finally
+    aJpg.Free;
+  end;
+end;
 
 procedure TImagingThread.AddThumb;
 var
@@ -269,7 +299,7 @@ begin
       fTimeline.OngetRowHeight:=@fTimelinegetRowHeight;
       fTimeline.WordWrap:=True;
       Data.SetFilter(fTimeline.DataSet,trim(fMain.Filter+' '+fMain.Filter2),300);
-      with Application as IBaseApplication do
+      with Application as IBaseConfig,Application as IBaseApplication do
         begin
           RestoreConfig;
           Config.ReadRect('TIMELINERECT',aBoundsRect,BoundsRect);
@@ -825,7 +855,7 @@ end;
 procedure TfmTimeline.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   IdleTimer1.Enabled:=False;
-  with Application as IBaseApplication do
+  with Application as IBaseConfig do
     Config.WriteRect('TIMELINERECT',BoundsRect);
   CloseAction:=caHide;
 end;

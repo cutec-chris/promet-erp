@@ -953,9 +953,9 @@ begin
             TDocPages(FFullDataSet).Edit;
             TDocPages(FFullDataSet).FieldByName('FULLTEXT').AsString:=aText.Text;
             mFulltext.Text:=aText.Text;
+            TDocPages(FFullDataSet).Post;
           end
         else Showmessage(strNoText);
-        TDocPages(FFullDataSet).Post;
         aText.Free;
         for i := 0 to Texts.Count-1 do
           TStringList(Texts[i]).Free;

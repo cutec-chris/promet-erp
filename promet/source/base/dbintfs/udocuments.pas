@@ -1784,7 +1784,10 @@ begin
         {$ENDIF}
         aProcess.ShowWindow := swoHide;
         aProcess.CommandLine := Format('pdftotext'+ExtractFileExt(BaseApplication.ExeName)+' %s %s',[aFileName,aFileName+'.txt']);
-        aProcess.CurrentDirectory := BaseApplication.Location+'tools';
+        aProcess.CurrentDirectory := AppendPathDelim(AppendPathDelim(BaseApplication.Location)+'tools');
+        {$IFDEF WINDOWS}
+        aProcess.CommandLine := aProcess.CurrentDirectory+aProcess.CommandLine;
+        {$ENDIF}
         aProcess.Execute;
         aProcess.Free;
         SysUtils.DeleteFile(aFileName);

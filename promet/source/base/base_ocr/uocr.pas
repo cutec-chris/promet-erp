@@ -131,14 +131,23 @@ begin
     aP := TTesseractProcess.Create(Pages,Image);
     FreeAndNil(aP);
   except
-    try
-      aP := TCuneIFormProcess.Create(Pages,Image);
-      FreeAndNil(aP);
-    except
-      aP := TGOCRProcess.Create(Pages,Image);
-      FreeAndNil(aP);
-    end;
   end;
+  if Pages.Count=0 then
+    begin
+      try
+        aP := TCuneIFormProcess.Create(Pages,Image);
+        FreeAndNil(aP);
+      except
+      end;
+    end;
+  if Pages.Count=0 then
+    begin
+      try
+        aP := TGOCRProcess.Create(Pages,Image);
+        FreeAndNil(aP);
+      except
+      end;
+    end;
 end;
 function FixText(aText: TStrings): Integer;
 var
@@ -494,12 +503,12 @@ var
 begin
   SysUtils.DeleteFile(GetInternalTempDir+IntToStr(FNumber)+'export.jpg');
   aSList := TStringList.Create;
-  FPages.Add(aSList);
   if FileExists(GetInternalTempDir+IntToStr(FNumber)+'export.txt') then
     begin
       aSList.LoadFromFile(GetInternalTempDir+IntToStr(FNumber)+'export.txt');
       aSList.Text := ConvertEncoding(aSList.Text,GuessEncoding(aSList.Text),EncodingUTF8);
       //SysUtils.DeleteFile(GetInternalTempDir+IntToStr(FNumber)+'export.txt');
+      FPages.Add(aSList);
     end;
   if Processes.IndexOf(Self) > -1 then
     Processes.Remove(Self);
@@ -591,12 +600,12 @@ var
 begin
   SysUtils.DeleteFile(GetInternalTempDir+IntToStr(FNumber)+'export.jpg');
   aSList := TStringList.Create;
-  FPages.Add(aSList);
   if FileExists(GetInternalTempDir+IntToStr(FNumber)+'export.txt') then
     begin
       aSList.LoadFromFile(GetInternalTempDir+IntToStr(FNumber)+'export.txt');
       aSList.Text := ConvertEncoding(aSList.Text,GuessEncoding(aSList.Text),EncodingUTF8);
       SysUtils.DeleteFile(GetInternalTempDir+IntToStr(FNumber)+'export.txt');
+      FPages.Add(aSList);
     end;
   if Processes.IndexOf(Self) > -1 then
     Processes.Remove(Self);
@@ -639,12 +648,12 @@ var
 begin
   SysUtils.DeleteFile(GetInternalTempDir+IntToStr(FNumber)+'export.pnm');
   aSList := TStringList.Create;
-  FPages.Add(aSList);
   if FileExists(GetInternalTempDir+IntToStr(FNumber)+'export.txt') then
     begin
       aSList.LoadFromFile(GetInternalTempDir+IntToStr(FNumber)+'export.txt');
       aSList.Text := ConvertEncoding(aSList.Text,GuessEncoding(aSList.Text),EncodingUTF8);
       SysUtils.DeleteFile(GetInternalTempDir+IntToStr(FNumber)+'export.txt');
+      FPages.Add(aSList);
     end;
   if Processes.IndexOf(Self) > -1 then
     Processes.Remove(Self);

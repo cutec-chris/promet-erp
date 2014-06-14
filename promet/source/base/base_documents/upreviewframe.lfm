@@ -275,8 +275,8 @@ inherited fPreview: TfPreview
     end
     object tsText: TTabSheet
       Caption = 'Text'
-      ClientHeight = 489
-      ClientWidth = 750
+      ClientHeight = 978
+      ClientWidth = 1500
       object mText: TMemo
         Left = 44
         Height = 488

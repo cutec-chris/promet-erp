@@ -1,5 +1,7 @@
 ﻿Build 354
       - Kalender:Druckfunktion
+      - Setup:Ghostscript in Windows Setup entfernt und durch xPdf ersetzt (viel kleiner, pdf Text extraktor)
+      - OCR:OCR Engines werden nacheinander ausgeführt (Tesseract,CuneIForm,GOCR)
 Build 353
       - Dokumente:Für Text und Office dokumente können nun auch Vorschaubilder erstellt werden
       - Kalender:Listenansicht für Termine

@@ -627,8 +627,8 @@ begin
         aProcess.Options:= [poWaitonExit,poStdErrToOutPut];
         {$ENDIF}
         aProcess.ShowWindow := swoHide;
-        aProcess.CommandLine := Format({$IFDEF WINDOWS}'gswin32'+{$ELSE}'gs'+{$ENDIF}' -q -dBATCH -dMaxBitmap=300000000 -r100 -sPAPERSIZE=a4 -dNOPAUSE -dSAFER -sDEVICE=bmp16m -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -dFirstPage=1 -dLastPage=1 -sOutputFile=%s %s -c quit',[aFileName+'.bmp',aFileName]);
-        aProcess.CurrentDirectory := Application.Location+'tools';
+        aProcess.CommandLine := Format('pdftopng'+ExtractFileExt(Application.ExeName)+' -l 1 %s %s',[aFileName,aFilename]);
+        aProcess.CurrentDirectory := AppendPathDelim(AppendPathDelim(Application.Location)+'tools');
         {$IFDEF WINDOWS}
         aProcess.CommandLine := aProcess.CurrentDirectory+aProcess.CommandLine;
         {$ENDIF}
@@ -636,7 +636,7 @@ begin
         aProcess.Free;
         SysUtils.DeleteFile(aFileName);
         aPic := TPicture.Create;
-        aPic.LoadFromFile(aFileName+'.bmp');
+        aPic.LoadFromFile(aFileName+'-000001.png');
         if FResetZoom then
           begin
             if (APic.Width > aPic.Height) or FZoomW then
@@ -647,14 +647,18 @@ begin
         FImage.Assign(aPic.Bitmap);
         aPic.Free;
         pImageControls.Visible:=True;
-        SysUtils.DeleteFile(aFileName+'.bmp');
+        SysUtils.DeleteFile(aFileName+'-000001.png');
         Result := True;
         sbImage.Visible:=True;
         FEditor.Hide;
         pfrPreview.Visible:=False;
       except
-        SysUtils.DeleteFile(aFileName);
-        SysUtils.DeleteFile(aFileName+'.bmp');
+        on e : Exception do
+          begin
+            SysUtils.DeleteFile(aFileName);
+            SysUtils.DeleteFile(aFileName+'-000001.png');
+            Showmessage(e.Message);
+          end;
       end;
       if not Result then
         begin
@@ -671,7 +675,7 @@ begin
             aProcess.Options:= [poWaitonExit,poStdErrToOutPut];
             {$ENDIF}
             aProcess.ShowWindow := swoHide;
-            aProcess.CommandLine := Format('pdftopng'+ExtractFileExt(Application.ExeName)+' -l 1 %s %s',[aFileName,ExtractFileDir(aFilename)]);
+            aProcess.CommandLine := Format({$IFDEF WINDOWS}'gswin32'+{$ELSE}'gs'+{$ENDIF}' -q -dBATCH -dMaxBitmap=300000000 -r100 -sPAPERSIZE=a4 -dNOPAUSE -dSAFER -sDEVICE=bmp16m -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -dFirstPage=1 -dLastPage=1 -sOutputFile=%s %s -c quit',[aFileName+'.bmp',aFileName]);
             aProcess.CurrentDirectory := AppendPathDelim(AppendPathDelim(Application.Location)+'tools');
             {$IFDEF WINDOWS}
             aProcess.CommandLine := aProcess.CurrentDirectory+aProcess.CommandLine;
@@ -680,7 +684,7 @@ begin
             aProcess.Free;
             SysUtils.DeleteFile(aFileName);
             aPic := TPicture.Create;
-            aPic.LoadFromFile(copy(aFileName,0,rpos('.',aFilename)-1)+'.png');
+            aPic.LoadFromFile(copy(aFileName,0,rpos('.',aFilename)-1)+'.bmp');
             if FResetZoom then
               begin
                 if (APic.Width > aPic.Height) or FZoomW then
@@ -691,7 +695,7 @@ begin
             FImage.Assign(aPic.Bitmap);
             aPic.Free;
             pImageControls.Visible:=True;
-            SysUtils.DeleteFile(aFileName+'.png');
+            SysUtils.DeleteFile(aFileName+'.bmp');
             Result := True;
             sbImage.Visible:=True;
             FEditor.Hide;
@@ -700,8 +704,7 @@ begin
             on e : Exception do
               begin
                 SysUtils.DeleteFile(aFileName);
-                SysUtils.DeleteFile(aFileName+'.png');
-                Showmessage(e.Message);
+                SysUtils.DeleteFile(aFileName+'.bmp');
               end;
           end;
         end;
