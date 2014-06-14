@@ -137,7 +137,7 @@ type
     property DoAbort : Boolean read FAbort write SetAbort;
   end;
 implementation
-uses uData, UTF8Process, Process,uOCR;
+uses uData, UTF8Process, Process,uOCR,Utils,Dialogs;
 procedure TLoadThread.StartLoading;
 begin
   FFrame.iHourglass.Visible:=True;
@@ -627,8 +627,11 @@ begin
         aProcess.Options:= [poWaitonExit,poStdErrToOutPut];
         {$ENDIF}
         aProcess.ShowWindow := swoHide;
-        aProcess.CommandLine := Format({$IFDEF WINDOWS}AppendPathDelim(Application.Location+'tools')+'gswin32'+{$ELSE}'gs'+{$ENDIF}' -q -dBATCH -dMaxBitmap=300000000 -r100 -sPAPERSIZE=a4 -dNOPAUSE -dSAFER -sDEVICE=bmp16m -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -dFirstPage=1 -dLastPage=1 -sOutputFile=%s %s -c quit',[aFileName+'.bmp',aFileName]);
+        aProcess.CommandLine := Format({$IFDEF WINDOWS}'gswin32'+{$ELSE}'gs'+{$ENDIF}' -q -dBATCH -dMaxBitmap=300000000 -r100 -sPAPERSIZE=a4 -dNOPAUSE -dSAFER -sDEVICE=bmp16m -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -dFirstPage=1 -dLastPage=1 -sOutputFile=%s %s -c quit',[aFileName+'.bmp',aFileName]);
         aProcess.CurrentDirectory := Application.Location+'tools';
+        {$IFDEF WINDOWS}
+        aProcess.CommandLine := aProcess.CurrentDirectory+aProcess.CommandLine;
+        {$ENDIF}
         aProcess.Execute;
         aProcess.Free;
         SysUtils.DeleteFile(aFileName);
@@ -653,6 +656,55 @@ begin
         SysUtils.DeleteFile(aFileName);
         SysUtils.DeleteFile(aFileName+'.bmp');
       end;
+      if not Result then
+        begin
+          try
+            aFilename := GetInternalTempDir+'rpv.'+aExtension;
+            aFStream := TFileStream.Create(GetInternalTempDir+'rpv.'+aExtension,fmCreate);
+            aStream.Position:=0;
+            aFStream.CopyFrom(aStream,aStream.Size);
+            aFStream.Free;
+            aProcess := TProcessUTF8.Create(Self);
+            {$IFDEF WINDOWS}
+            aProcess.Options:= [poNoConsole, poWaitonExit,poNewConsole, poStdErrToOutPut, poNewProcessGroup];
+            {$ELSE}
+            aProcess.Options:= [poWaitonExit,poStdErrToOutPut];
+            {$ENDIF}
+            aProcess.ShowWindow := swoHide;
+            aProcess.CommandLine := Format('pdftopng'+ExtractFileExt(Application.ExeName)+' -l 1 %s %s',[aFileName,ExtractFileDir(aFilename)]);
+            aProcess.CurrentDirectory := AppendPathDelim(AppendPathDelim(Application.Location)+'tools');
+            {$IFDEF WINDOWS}
+            aProcess.CommandLine := aProcess.CurrentDirectory+aProcess.CommandLine;
+            {$ENDIF}
+            aProcess.Execute;
+            aProcess.Free;
+            SysUtils.DeleteFile(aFileName);
+            aPic := TPicture.Create;
+            aPic.LoadFromFile(copy(aFileName,0,rpos('.',aFilename)-1)+'.png');
+            if FResetZoom then
+              begin
+                if (APic.Width > aPic.Height) or FZoomW then
+                  FScale := Width/aPic.Width
+                else
+                  FScale := Height/aPic.Height;
+              end;
+            FImage.Assign(aPic.Bitmap);
+            aPic.Free;
+            pImageControls.Visible:=True;
+            SysUtils.DeleteFile(aFileName+'.png');
+            Result := True;
+            sbImage.Visible:=True;
+            FEditor.Hide;
+            pfrPreview.Visible:=False;
+          except
+            on e : Exception do
+              begin
+                SysUtils.DeleteFile(aFileName);
+                SysUtils.DeleteFile(aFileName+'.png');
+                Showmessage(e.Message);
+              end;
+          end;
+        end;
     end
   else if FEditor.CanHandleFile('.'+aExtension) then
     begin
@@ -686,8 +738,11 @@ begin
         aProcess.Options:= [poWaitonExit,poStdErrToOutPut];
         {$ENDIF}
         aProcess.ShowWindow := swoHide;
-        aProcess.CommandLine := Format({$IFDEF WINDOWS}AppendPathDelim(Application.Location+'tools')+{$ENDIF}'convert %s[1] -resize %d -alpha off +antialias "%s"',[aFileName,500,afileName+'.bmp']);
+        aProcess.CommandLine := Format('convert'+ExtractFileExt(Application.ExeName)+' %s[1] -resize %d -alpha off +antialias "%s"',[aFileName,500,afileName+'.bmp']);
         aProcess.CurrentDirectory := Application.Location+'tools';
+        {$IFDEF WINDOWS}
+        aProcess.CommandLine := aProcess.CurrentDirectory+aProcess.CommandLine;
+        {$ENDIF}
         aProcess.Execute;
         aProcess.Free;
         SysUtils.DeleteFile(aFileName);
@@ -778,4 +833,4 @@ begin
 end;
 
 end.
-
+

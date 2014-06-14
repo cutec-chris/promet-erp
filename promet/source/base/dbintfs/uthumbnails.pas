@@ -26,7 +26,7 @@ interface
 uses
   Classes, SysUtils, uDocuments,Utils,FileUtil,variants,
   FPImage,fpreadgif,FPReadPSD,FPReadPCX,FPReadTGA,FPReadJPEGintfd,fpthumbresize,
-  FPWriteJPEG,UTF8Process,FPReadBMP,process,uBaseDbClasses
+  FPWriteJPEG,UTF8Process,FPReadBMP,process,uBaseDbClasses,FPCanvas,FPImgCanv
   {$IFDEF LCL}
   ,Graphics
   {$ENDIF}
@@ -174,6 +174,7 @@ var
   x: Int64;
   y: Integer;
   LineHeight: Extended;
+  Printer: TFPImageCanvas;
   function ConvertExec(aCmd,aExt : string) : Boolean;
   begin
     aProcess := TProcessUTF8.Create(nil);
@@ -247,6 +248,8 @@ begin
     else if (s = 'pdf;') then
       begin
         Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(ParamStrUTF8(0)))+'tools')+'gswin32'+{$ELSE}'gs'+{$ENDIF}' -q -dBATCH -dMaxBitmap=300000000 -dNOPAUSE -dSAFER -sDEVICE=bmp16m -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -dFirstPage=1 -dLastPage=1 -sOutputFile=%s %s -c quit',[aFileName+'.bmp',aFileName]),'.bmp');
+        if not Result then
+          Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(ParamStrUTF8(0)))+'tools')+{$ENDIF}'pdftopng -l 1 %s %s',[aFileName,ExtractFileDir(aFilename)]),'.png');
       end
     else
       begin
@@ -271,59 +274,37 @@ begin
   end;
   if not result and (trim(aText)<>'') then
     begin
-      {$IFDEF LCL}
+      Img := TFPMemoryImage.Create(aWidth, aHeight);
+      Img.UsePalette := false;
+      Printer := TFPImageCanvas.create(Img);
       sl := TStringList.Create;
       sl.Text:=aText;
       while sl.Count>80 do sl.Delete(79);
-      Printer := TBitmap.Create;
-      Printer.Height:=aHeight;
-      Printer.Width:=aWidth;
-      Printer.Canvas.Brush.Color:=clWhite;
-      Printer.Canvas.Rectangle(0,0,aWidth,aHeight);
+      Printer.Brush.FPColor:=FPColor(65535,65535,65535);//white
+      Printer.Rectangle(0,0,aWidth,aHeight);
       randlinks:=round(aWidth/100);
       randoben:=round(aHeight/100);
       //Schrift-Einstellungen:
-      Printer.Canvas.Font.Name:='Courier New';
-      Printer.Canvas.Font.Size:=1;
-      Printer.Canvas.Font.Color:=clBlack;
+      Printer.Font.Name:='Courier New';
+      Printer.Font.Size:=1;
+      Printer.Font.FPColor:=FPColor(0,0,0);
       LineHeight := ((aHeight-(randoben*2))/80);
-      while Printer.Canvas.TextHeight('Äg')< LineHeight do
-        Printer.Canvas.Font.Size:=Printer.Canvas.Font.Size+1;
+      while Printer.TextHeight('Äg')< LineHeight do
+        Printer.Font.Size:=Printer.Font.Size+1;
       x:=randlinks;
       y:=randoben+1;
       for zeile:=0 to sl.Count-1 do
         begin
-          {
-          if -y>(hoehe-2*randoben) then
-             begin
-             y:=randoben*-1;
-             //Printer.NewPage;
-             end;
-          if y=-randoben then
-             begin
-             Printer.Canvas.Font.Style:=[fsbold];
-             Printer.Canvas.TextOut(x, y, 'Seite '+
-             IntToStr(Printer.PageNumber));
-             Printer.Canvas.Font.Style:=[];
-             y:=y-Printer.Canvas.TextHeight(sl[zeile]);
-             end;
-          }
-        Printer.Canvas.TextOut(x, y, sl[zeile]);
+        Printer.TextOut(x, y, sl[zeile]);
         y:=round(randoben+(LineHeight*Zeile));
         end;
       sl.Free;
-      Printer.SaveToFile(GetInternalTempDir+'thumbtemp.bmp');
-      Img := TFPMemoryImage.Create(0, 0);
-      Img.UsePalette := false;
-      Img.LoadFromFile(GetInternalTempDir+'thumbtemp.bmp');
-      DeleteFileUTF8(GetInternalTempDir+'thumbtemp.bmp');
       wr := TFPWriterJPEG.Create;
       wr.ProgressiveEncoding:=True;
       Img.SaveToStream(aStream,wr);
       wr.Free;
       Img.Free;
       Printer.Free;
-      {$ENDIF}
     end;
 end;
 
