@@ -655,18 +655,12 @@ begin
       except
         on e : Exception do
           begin
-            SysUtils.DeleteFile(aFileName);
             SysUtils.DeleteFile(aFileName+'-000001.png');
           end;
       end;
       if not Result then
         begin
           try
-            aFilename := GetInternalTempDir+'rpv.'+aExtension;
-            aFStream := TFileStream.Create(GetInternalTempDir+'rpv.'+aExtension,fmCreate);
-            aStream.Position:=0;
-            aFStream.CopyFrom(aStream,aStream.Size);
-            aFStream.Free;
             aProcess := TProcessUTF8.Create(Self);
             {$IFDEF WINDOWS}
             aProcess.Options:= [poNoConsole, poWaitonExit,poNewConsole, poStdErrToOutPut, poNewProcessGroup];
@@ -683,7 +677,7 @@ begin
             aProcess.Free;
             SysUtils.DeleteFile(aFileName);
             aPic := TPicture.Create;
-            aPic.LoadFromFile(copy(aFileName,0,rpos('.',aFilename)-1)+'.bmp');
+            aPic.LoadFromFile(aFilename+'.bmp');
             if FResetZoom then
               begin
                 if (APic.Width > aPic.Height) or FZoomW then

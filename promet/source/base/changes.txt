@@ -1,5 +1,5 @@
 ﻿Build 355
-      -
+      - Dokumente:temporäre Thumbnails werden nach beendigung des Programms gelöscht
 Build 354
       - Kalender:Druckfunktion
       - Setup:Ghostscript in Windows Setup entfernt und durch xPdf ersetzt (viel kleiner, pdf Text extraktor)
