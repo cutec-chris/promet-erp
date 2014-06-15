@@ -274,5 +274,7 @@ begin
     end;
 end;
 
+finalization
+  DeleteDirectory(GetThumbTempDir,False);
 end.
 

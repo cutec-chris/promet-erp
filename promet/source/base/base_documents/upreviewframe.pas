@@ -657,7 +657,6 @@ begin
           begin
             SysUtils.DeleteFile(aFileName);
             SysUtils.DeleteFile(aFileName+'-000001.png');
-            Showmessage(e.Message);
           end;
       end;
       if not Result then
@@ -836,4 +835,4 @@ begin
 end;
 
 end.
-
+
