@@ -47,7 +47,7 @@ interface
 
 uses
   Classes, SysUtils, LCLProc, Controls, LCLType, Graphics, Math, StdCtrls,
-  Buttons, ExtCtrls, Forms, Calendar,types;
+  Buttons, ExtCtrls, Forms, Calendar;
 
 const
   NullDate = TDateTime(Math.NaN); // We will deal with this value the special
@@ -356,7 +356,7 @@ type
     procedure CalendarFormDestroy(Sender: TObject);
 
   protected
-    class function GetControlClassDefaultSize: TSize; override;
+    class function GetControlClassDefaultSize: TPoint; override;
     procedure ConfirmChanges; virtual;
     procedure SetEnabled(Value: Boolean); override;
     procedure CreateWnd; override;
@@ -1625,7 +1625,7 @@ end;
 
 procedure TCustomDatePicker.SetTheDate(const AValue: TDateTime);
 begin
-  if FDateEditor.TheDate <> AValue then
+  if not Equals(FDateEditor.TheDate, AValue) then
     FDateEditor.TheDate := AValue;
 end;
 
@@ -1859,10 +1859,10 @@ begin
 
 end;
 
-class function TCustomDatePicker.GetControlClassDefaultSize: TSize;
+class function TCustomDatePicker.GetControlClassDefaultSize: TPoint;
 begin
-  Result.cx := 102;
-  Result.cy := 23;
+  Result.x := 102;
+  Result.y := 23;
 end;
 
 procedure TCustomDatePicker.ConfirmChanges;
@@ -2425,8 +2425,8 @@ begin
   inherited Create(AOwner);
 
   with GetControlClassDefaultSize do begin
-    Self.Width := cx;
-    Self.Height := cy;
+    Self.Width := x;
+    Self.Height := y;
   end;
   FArrowShape := asModernSmaller;
   FCallFromDateEditorEnter := False;
@@ -2506,4 +2506,4 @@ begin
   Result := FDateEditor.IsNullDate;
 end;
 
-end.
+end.

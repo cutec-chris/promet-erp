@@ -1,8 +1,8 @@
-{ This file was automatically created by Lazarus. Do not edit!
+{ This file was automatically created by Lazarus. do not edit ! 
   This source is only used to compile and install the package.
  }
 
-unit DateControls;
+unit datecontrols; 
 
 interface
 
@@ -11,11 +11,11 @@ uses
 
 implementation
 
-procedure Register;
+procedure Register; 
 begin
-  RegisterUnit('DateControlsReg', @DateControlsReg.Register);
-end;
+  RegisterUnit('DateControlsReg', @DateControlsReg.Register); 
+end; 
 
 initialization
-  RegisterPackage('DateControls', @Register);
+  RegisterPackage('DateControls', @Register); 
 end.
