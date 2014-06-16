@@ -1,4 +1,5 @@
 ﻿Build 355
+      - Besprechungen:Druckvorschau auch druck und speicherbar ohne das sie schon gebucht ist
       - Dokumente:temporäre Thumbnails werden nach beendigung des Programms gelöscht
 Build 354
       - Kalender:Druckfunktion

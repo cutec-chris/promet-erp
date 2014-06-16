@@ -73,6 +73,7 @@ var
   aDataSetClass: TBaseDBDatasetClass;
   aData: TDataSet = nil;
   aDataSet: TBaseDBDataset = nil;
+  aStream: TFileStream;
 begin
   case FieldByName('CLASS').AsString of
   'SQL':
@@ -92,6 +93,9 @@ begin
     begin
       with BaseApplication as IBaseApplication do
         Info(Format('%d records to export',[aData.RecordCount]));
+      aStream := TFileStream.Create(aFilename,fmCreate);
+
+      aStream.Free;
     end;
   if Assigned(aDataSet) then
     aDataSet.Free
