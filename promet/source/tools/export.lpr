@@ -28,6 +28,9 @@ type
 { PrometCmdApp }
 
 procedure PrometCmdApp.DoRun;
+var
+  aProfile: String;
+  aImportProfile: TImportTypes;
 begin
   with BaseApplication as IBaseApplication do
     begin
@@ -36,8 +39,18 @@ begin
     end;
   if not Login then Terminate;
   //Your logged in here on promet DB
-
-
+  aProfile := BaseApplication.GetOptionValue('p','profile');
+  aImportProfile := TImportTypes.Create(nil,Data);
+  aImportProfile.SelectByName(aProfile);
+  aImportProfile.Open;
+  if aImportProfile.Count>0 then
+    begin
+      if BaseApplication.GetOptionValue('f','file')<>'' then
+        aImportProfile.Export(BaseApplication.GetOptionValue('f','file'))
+      else  Error('You must enter an filename to export (--file or -f) !');
+    end
+  else Error('Profile "'+aProfile+'" not found (--profile or -p) !');
+  aImportProfile.Free;
   // stop program loop
   Terminate;
 end;

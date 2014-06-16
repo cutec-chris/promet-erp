@@ -289,7 +289,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="48">
+    <Units Count="50">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -306,7 +306,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uMain"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1031"/>
         <CursorPos X="45" Y="1044"/>
@@ -798,7 +798,7 @@
       <Unit42>
         <Filename Value="../base/dbintfs/uthumbnails.pas"/>
         <UnitName Value="uthumbnails"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="219"/>
         <CursorPos X="48" Y="229"/>
@@ -822,7 +822,7 @@
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="68" Y="2"/>
+        <CursorPos X="23" Y="4"/>
         <UsageCount Value="16"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
@@ -853,7 +853,6 @@
       <Unit47>
         <Filename Value="../base/dbintfs/uimport.pas"/>
         <UnitName Value="uimport"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="25"/>
@@ -861,16 +860,49 @@
         <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit47>
+      <Unit48>
+        <Filename Value="../base_pm/umeetingframe.pas"/>
+        <ComponentName Value="fMeetingFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uMeetingFrame"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="6"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="795"/>
+        <CursorPos X="35" Y="812"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit48>
+      <Unit49>
+        <Filename Value="../base/base_forms/uselectreport.pas"/>
+        <UnitName Value="uSelectReport"/>
+        <EditorIndex Value="7"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="882"/>
+        <CursorPos X="46" Y="895"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit49>
     </Units>
-    <JumpHistory Count="2" HistoryIndex="1">
+    <JumpHistory Count="4" HistoryIndex="3">
       <Position1>
         <Filename Value="../base/base_options/uimportoptions.pas"/>
-        <Caret Line="1" Column="1" TopLine="52"/>
+        <Caret Line="77" Column="23" TopLine="74"/>
       </Position1>
       <Position2>
-        <Filename Value="../base/base_options/uimportoptions.pas"/>
-        <Caret Line="77" Column="23" TopLine="74"/>
+        <Filename Value="../base_pm/umeetingframe.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position2>
+      <Position3>
+        <Filename Value="../base_pm/umeetingframe.pas"/>
+        <Caret Line="812" Column="20" TopLine="795"/>
+      </Position3>
+      <Position4>
+        <Filename Value="../base/base_forms/uselectreport.pas"/>
+        <Caret Line="115" Column="56" TopLine="105"/>
+      </Position4>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

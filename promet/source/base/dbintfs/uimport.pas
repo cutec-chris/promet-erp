@@ -33,10 +33,12 @@ type
   TImportTypes = class(TBaseDBDataset)
   public
     procedure DefineFields(aDataSet: TDataSet); override;
+    procedure SelectByName(aName : string);
     function Export(aFilename : string) : Boolean;
   end;
 
 implementation
+uses uBaseApplication,uMasterdata,uPerson,uData;
 
 procedure TImportTypes.DefineFields(aDataSet: TDataSet);
 begin
@@ -54,9 +56,47 @@ begin
     end;
 end;
 
-function TImportTypes.Export(aFilename: string): Boolean;
+procedure TImportTypes.SelectByName(aName: string);
+var
+  aFilter: String;
 begin
+  with BaseApplication as IBaseDBInterface do
+    with DataSet as IBaseDBFilter do
+      begin
+        aFilter := TBaseDBModule(DataModule).QuoteField('TYPE')+'='+TBaseDBModule(DataModule).QuoteValue(aName);
+        Filter := aFilter;
+      end;
+end;
 
+function TImportTypes.Export(aFilename: string): Boolean;
+var
+  aDataSetClass: TBaseDBDatasetClass;
+  aData: TDataSet = nil;
+  aDataSet: TBaseDBDataset = nil;
+begin
+  case FieldByName('CLASS').AsString of
+  'SQL':
+    begin
+      aData := Data.GetNewDataSet(FieldByName('FILTER').AsString);
+      aData.Open;
+    end
+  else if Data.DataSetFromLink(lowercase(FieldByName('CLASS').AsString)+'@',aDataSetClass) then
+    begin
+      aDataSet := aDataSetClass.Create(nil,Data);
+      aDataSet.Filter(FieldByName('FILTER').AsString,0);
+      aData := aDataSet.DataSet;
+    end
+  else raise Exception.Create('Class of Import Type not found !');
+  end;
+  if Assigned(aData) then
+    begin
+      with BaseApplication as IBaseApplication do
+        Info(Format('%d records to export',[aData.RecordCount]));
+    end;
+  if Assigned(aDataSet) then
+    aDataSet.Free
+  else if Assigned(aData) then
+    aData.Free;
 end;
 
 end.

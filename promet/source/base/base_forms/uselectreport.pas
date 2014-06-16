@@ -102,6 +102,7 @@ type
     FDS: TBaseDBDataset;
     FOnSendMessage: TSendMessage;
     FReport: TfrReport;
+    FSavePossible: Boolean;
     fType: string;
     FUpdated : Boolean;
     FOldShow : TNotifyEvent;
@@ -119,6 +120,7 @@ type
     procedure SetupDB;
     procedure DoSetup;
     property Booked : Boolean read FBooked;
+    property SavePossible : Boolean read FSavePossible write FSavePossible;
     function LoadReport : Boolean;
     function Execute : Boolean;
     property OnSendMessage : TSendMessage read FOnSendMessage write FOnSendMessage;
@@ -890,7 +892,7 @@ begin
   FUpdated := False;
   FBooked := False;
   ActControl := Screen.ActiveControl;
-  if bBook.Visible and Assigned(Report) then
+  if bBook.Visible and Assigned(Report) and (not SavePossible) then
     Report.PreviewButtons:=[pbZoom, pbFind, pbExit]
   else if Assigned(Report) then
     Report.PreviewButtons:=[pbZoom, pbSave, pbPrint, pbFind, pbExit];
@@ -916,6 +918,7 @@ constructor TfSelectReport.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   FOldShow:=nil;
+  FSavePossible:=False;
 end;
 
 initialization
