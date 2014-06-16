@@ -30,16 +30,10 @@
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="3">
+    <RequiredPackages Count="1">
       <Item1>
         <PackageName Value="pcmdprometapp"/>
       </Item1>
-      <Item2>
-        <PackageName Value="general"/>
-      </Item2>
-      <Item3>
-        <PackageName Value="LCL"/>
-      </Item3>
     </RequiredPackages>
     <Units Count="52">
       <Unit0>
@@ -49,8 +43,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="27"/>
-        <CursorPos X="1" Y="54"/>
+        <TopLine Value="1"/>
+        <CursorPos X="12" Y="11"/>
         <UsageCount Value="56"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -434,13 +428,13 @@
         <UnitName Value="pop3receiver"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="548"/>
-        <CursorPos X="1" Y="565"/>
+        <TopLine Value="399"/>
+        <CursorPos X="1" Y="398"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit51>
     </Units>
-    <JumpHistory Count="7" HistoryIndex="6">
+    <JumpHistory Count="9" HistoryIndex="8">
       <Position1>
         <Filename Value="..\messageimport\pop3receiver.lpr"/>
         <Caret Line="64" Column="19" TopLine="46"/>
@@ -469,6 +463,14 @@
         <Filename Value="cmdln_sample.lpr"/>
         <Caret Line="15" Column="22" TopLine="1"/>
       </Position7>
+      <Position8>
+        <Filename Value="cmdln_sample.lpr"/>
+        <Caret Line="54" Column="1" TopLine="27"/>
+      </Position8>
+      <Position9>
+        <Filename Value="cmdln_sample.lpr"/>
+        <Caret Line="9" Column="29" TopLine="1"/>
+      </Position9>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -476,7 +478,7 @@
     <PathDelim Value="\"/>
     <SearchPaths>
       <OtherUnitFiles Value="..\base"/>
-      <UnitOutputDirectory Value="..\..\output\$(TargetCPU)-$(TargetOS)"/>
+      <UnitOutputDirectory Value="..\..\output\$(TargetCPU)-$(TargetOS)\tools"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>
