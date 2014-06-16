@@ -221,7 +221,7 @@ begin
       begin
         Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(ParamStrUTF8(0)))+'tools')+{$ENDIF}'convert %s[1] -resize %d -alpha off +antialias "%s"',[aFileName,500,afileName+'.bmp']),'.bmp');
         if not Result then
-          Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(ParamStrUTF8(0)))+'tools')+{$ENDIF}'ffmpeg -i "%s" -sameq -vframes 1 "%s"',[aFileName,aFileName+'.bmp']),'.bmp');
+          Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(ParamStrUTF8(0)))+'tools')+{$ENDIF}'ffmpeg -i "%s" -qscale 0 -vframes 1 "%s"',[aFileName,aFileName+'.bmp']),'.bmp');
       end;
     SysUtils.DeleteFile(aFileName);
     if Assigned(Img) then
