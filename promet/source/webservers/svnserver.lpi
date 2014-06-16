@@ -59,8 +59,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="204"/>
-        <CursorPos X="56" Y="223"/>
+        <TopLine Value="135"/>
+        <CursorPos X="1" Y="150"/>
         <UsageCount Value="168"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -1233,15 +1233,6 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="1">
-      <Item1>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="svnserver.lpr"/>
-        <Line Value="117"/>
-      </Item1>
-    </BreakPoints>
     <Exceptions Count="4">
       <Item1>
         <Name Value="EAbort"/>
