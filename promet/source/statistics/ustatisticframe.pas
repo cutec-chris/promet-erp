@@ -1226,8 +1226,7 @@ begin
   FTreeNode := AddEntry('','S',etStatistic,TStatistic(DataSet));
   DataSet.Change;
   bEditFilter.Down:=True;
-  pTop.Visible:=True;
-  pTop.Height:=244;
+  bEditFilterClick(nil);
   smQuerry.SetFocus;
 end;
 procedure TfStatisticFrame.SetLanguage;

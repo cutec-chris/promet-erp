@@ -425,10 +425,13 @@ begin
   Self.TabIndex:=Self.TabIndex-1;
   if (aPage.ControlCount > 0) and (aPage.Controls[0] is TFrame) then
     begin
-      aCont := aPage.Controls[0];
-      aCont.Hide;
-      aCont.Parent := nil;
-      FreeAndNil(aCont);
+      try
+        aCont := aPage.Controls[0];
+        aCont.Hide;
+        aCont.Parent := nil;
+        FreeAndNil(aCont);
+      except
+      end;
     end;
   FreeAndNil(aPage);
   if not Assigned(ActivePage) then exit;
@@ -1152,4 +1155,4 @@ begin
   FCanvas.Free;
 end;
 end.
-
+
