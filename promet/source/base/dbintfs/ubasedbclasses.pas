@@ -209,6 +209,14 @@ type
     function GetHistory: TBaseHistory;
     property History : TBaseHistory read GetHistory;
   end;
+
+  { TAccessHistory }
+
+  TAccessHistory = class(TBaseHistory)
+  public
+    procedure DefineFields(aDataSet : TDataSet);override;
+  end;
+
   TOptions = class;
   TFollowers = class;
   TRights = class;
@@ -508,6 +516,17 @@ begin
   if TempPath = '' then
     TempPath := GetTempDir;
   Result := AppendPathDelim(TempPath);
+end;
+
+{ TAccessHistory }
+
+procedure TAccessHistory.DefineFields(aDataSet: TDataSet);
+begin
+  inherited DefineFields(aDataSet);
+  with aDataSet as IBaseManageDB do
+    begin
+      TableName := 'ACCHISTORY';
+    end;
 end;
 
 function TFollowers.GetLink: TField;
@@ -2771,4 +2790,4 @@ begin
 end;
 initialization
 end.
-
+

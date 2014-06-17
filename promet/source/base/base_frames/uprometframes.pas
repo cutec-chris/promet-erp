@@ -63,7 +63,8 @@ type
   end;
 implementation
 uses ComCtrls, uIntfStrConsts,LCLType,LCLIntf,uWiki,uData,uBaseApplication;
-
+resourcestring
+  strItemOpened                       = 'Eintrag "%s" geöffnet';
 procedure TPrometMainFrame.FwindowClose(Sender: TObject;
   var CloseAction: TCloseAction);
 begin
@@ -111,8 +112,26 @@ begin
 end;
 
 procedure TPrometMainFrame.DoOpen;
+var
+  aHistory: TAccessHistory;
 begin
   if HasHelp then AddHelp(Self);
+  if Assigned(DataSet) then
+    begin
+      try
+        try
+          aHistory := TAccessHistory.Create(nil,Data);
+          if not Data.TableExists(aHistory.TableName) then
+            aHistory.CreateTable;
+          aHistory.Free;
+          aHistory := TAccessHistory.Create(nil,Data,nil,DataSet.DataSet);
+          aHistory.AddItem(DataSet.DataSet,Format(strItemOpened,[Data.GetLinkDesc(Data.BuildLink(DataSet.DataSet))]),Data.BuildLink(DataSet.DataSet));
+        finally
+          aHistory.Free;
+        end;
+      except
+      end;
+    end;
 end;
 
 constructor TPrometMainFrame.Create(AOwner: TComponent);

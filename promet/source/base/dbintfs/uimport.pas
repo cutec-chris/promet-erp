@@ -80,6 +80,7 @@ var
   ActRow: String;
   aOut: String;
   aModifier: String;
+  i: Integer;
 begin
   case FieldByName('CLASS').AsString of
   'SQL':
