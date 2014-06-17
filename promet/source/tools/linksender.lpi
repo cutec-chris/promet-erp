@@ -4,9 +4,10 @@
     <Version Value="9"/>
     <General>
       <Flags>
+        <SaveClosedFiles Value="False"/>
         <MainUnitHasCreateFormStatements Value="False"/>
       </Flags>
-      <SessionStorage Value="InProjectDir"/>
+      <SessionStorage Value="InIDEConfig"/>
       <MainUnit Value="0"/>
       <Title Value="LinkSender"/>
       <UseAppBundle Value="False"/>
@@ -39,6 +40,7 @@
       </Item1>
       <Item2>
         <PackageName Value="pPrometDBIntfs"/>
+        <DefaultFilename Value="../base/dbintfs/pprometdbintfs.lpk"/>
       </Item2>
     </RequiredPackages>
     <Units Count="1">

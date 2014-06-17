@@ -16,8 +16,8 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, uerror, umain, upassword, uaddserial, udata, DBFLaz, virtualtreeslcl,
-  lazreport, zcomponent, general, tponguard;
+  Forms, uerror, umain, upassword, uaddserial, udata, DBFLaz,
+  lazreport, zcomponent, general;
 
 {$R *.res}
 

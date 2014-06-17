@@ -995,7 +995,7 @@ begin
   while copy(aPath,0,1) = aPathDelim do
     aPath := copy(aPath,2,length(aPath));
   Result := False;
-  if pos(aPathDelim,aPath) > 0 then
+  if Result and (pos(aPathDelim,aPath) > 0) then
     Result := RecourseDirs(tmpDocs,aPath);
   aPath := copy(aPath,rpos(aPathDelim,aPath)+1,length(aPath));
   if Result then
@@ -1006,8 +1006,7 @@ begin
     end
   else
     begin
-      if not DataSet.Active then Open;
-      Result := DataSet.Locate('NAME',aPath,[]);
+      Result := DataSet.Active and DataSet.Locate('NAME',aPath,[]);
     end;
   tmpDocs.Free;
 end;

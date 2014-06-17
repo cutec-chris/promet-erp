@@ -3,7 +3,10 @@
   <ProjectOptions>
     <Version Value="9"/>
     <General>
-      <SessionStorage Value="InProjectDir"/>
+      <Flags>
+        <SaveClosedFiles Value="False"/>
+      </Flags>
+      <SessionStorage Value="InIDEConfig"/>
       <MainUnit Value="0"/>
       <Title Value="messagemanager"/>
       <ResourceType Value="res"/>

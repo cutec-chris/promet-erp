@@ -4,9 +4,10 @@
     <Version Value="9"/>
     <General>
       <Flags>
+        <SaveClosedFiles Value="False"/>
         <MainUnitHasCreateFormStatements Value="False"/>
       </Flags>
-      <SessionStorage Value="InProjectDir"/>
+      <SessionStorage Value="InIDEConfig"/>
       <MainUnit Value="0"/>
       <Title Value="local_appbase"/>
       <UseAppBundle Value="False"/>
@@ -102,7 +103,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=&quot;TCS-Times2&quot;"/>
+        <CommandLineParams Value="--mandant=&quot;Stora&quot; --debug"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">
@@ -135,6 +136,7 @@
         <Filename Value="uwebserver.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="TWebServer"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="uwebserver"/>
       </Unit2>
@@ -192,4 +194,4 @@
       </Item8>
     </Exceptions>
   </Debugging>
-</CONFIG>
+</CONFIG>

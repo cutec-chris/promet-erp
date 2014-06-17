@@ -185,7 +185,7 @@ begin
               if copy(tmp,0,2)='L:' then
                 tmp := copy(tmp,3,length(tmp));
               url := purl+'statuses/home_timeline.json?count=500';
-              if tmp <> '' then url := url+'&since_id='+tmp;
+              if tmp <> '' then url := purl+'statuses/home_timeline.json?since_id='+tmp;
               //url := purl+'statuses/home_timeline.json';
               http.HTTPMethod('GET',url);
               if http.ResultCode=200 then
