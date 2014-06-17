@@ -4,9 +4,10 @@
     <Version Value="9"/>
     <General>
       <Flags>
+        <SaveClosedFiles Value="False"/>
         <MainUnitHasCreateFormStatements Value="False"/>
       </Flags>
-      <SessionStorage Value="InProjectDir"/>
+      <SessionStorage Value="InIDEConfig"/>
       <MainUnit Value="0"/>
       <Title Value="local_appbase"/>
       <UseAppBundle Value="False"/>

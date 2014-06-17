@@ -1,9 +1,0 @@
-object Frame1: TFrame1
-  Left = 0
-  Height = 636
-  Top = 0
-  Width = 759
-  TabOrder = 0
-  DesignLeft = 396
-  DesignTop = 143
-end
