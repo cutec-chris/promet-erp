@@ -1,6 +1,7 @@
 ﻿Build 355
       - Besprechungen:Druckvorschau auch druck und speicherbar ohne das sie schon gebucht ist
       - Dokumente:temporäre Thumbnails werden nach beendigung des Programms gelöscht
+      - Statistiken:Editor wird nun (wieder) korrekt angezeigt beim erstellen einer neuen Statistik
 Build 354
       - Kalender:Druckfunktion
       - Setup:Ghostscript in Windows Setup entfernt und durch xPdf ersetzt (viel kleiner, pdf Text extraktor)
