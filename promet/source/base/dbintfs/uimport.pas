@@ -74,6 +74,12 @@ var
   aData: TDataSet = nil;
   aDataSet: TBaseDBDataset = nil;
   aStream: TFileStream;
+  aHeader: String;
+  aRow: String;
+  aFooter: String;
+  ActRow: String;
+  aOut: String;
+  aModifier: String;
 begin
   case FieldByName('CLASS').AsString of
   'SQL':
@@ -89,12 +95,37 @@ begin
     end
   else raise Exception.Create('Class of Import Type not found !');
   end;
+  aHeader := copy(FieldByName('TEMPLATE').AsString,pos('[head]',lowercase(FieldByName('TEMPLATE').AsString))+6,length(FieldByName('TEMPLATE').AsString));
+  aHeader := copy(aHeader,0,pos('[/head]',lowercase(FieldByName('TEMPLATE').AsString))-1);
+  aRow := copy(FieldByName('TEMPLATE').AsString,pos('[row]',lowercase(FieldByName('TEMPLATE').AsString))+5,length(FieldByName('TEMPLATE').AsString));
+  aRow := copy(aHeader,0,pos('[/row]',lowercase(FieldByName('TEMPLATE').AsString))-1);
+  aFooter := copy(FieldByName('TEMPLATE').AsString,pos('[footer]',lowercase(FieldByName('TEMPLATE').AsString))+8,length(FieldByName('TEMPLATE').AsString));
+  aFooter := copy(aHeader,0,pos('[/footer]',lowercase(FieldByName('TEMPLATE').AsString))-1);
   if Assigned(aData) then
     begin
       with BaseApplication as IBaseApplication do
         Info(Format('%d records to export',[aData.RecordCount]));
       aStream := TFileStream.Create(aFilename,fmCreate);
-
+      aStream.WriteAnsiString(aHeader);
+      while not aData.EOF do
+        begin
+          ActRow := aRow;
+          aOut := '';
+          while pos('[[',lowercase(ActRow))>0 do
+            begin
+              aOut := aOut+copy(ActRow,0,pos('[[',lowercase(ActRow))-1);
+              ActRow:=copy(ActRow,pos('[[',lowercase(ActRow))+2,length(ActRow));
+              aModifier := copy(ActRow,0,pos(']]',ActRow)-1);
+              ActRow:=copy(ActRow,pos(']]',lowercase(ActRow))+2,length(ActRow));
+              //Replace Fields aModifier and add to aOut
+              for i := 0 to aData.FieldCount-1 do
+                aModifier:=StringReplace(aModifier,'field:'+lowercase(aData.Fields[i].FieldName),aData.Fields[i].AsString,[rfIgnoreCase,rfReplaceAll]);
+              aOut := aOut+aModifier;
+            end;
+          aOut := aOut+ActRow;
+          aStream.WriteAnsiString(aOut);
+        end;
+      aStream.WriteAnsiString(aFooter);
       aStream.Free;
     end;
   if Assigned(aDataSet) then
