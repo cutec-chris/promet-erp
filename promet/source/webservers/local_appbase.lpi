@@ -118,7 +118,7 @@
         <PackageName Value="FCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="3">
+    <Units Count="4">
       <Unit0>
         <Filename Value="local_appbase.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -140,6 +140,13 @@
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="uwebserver"/>
       </Unit2>
+      <Unit3>
+        <Filename Value="uloggedout.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="loggedout"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="uloggedout"/>
+      </Unit3>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

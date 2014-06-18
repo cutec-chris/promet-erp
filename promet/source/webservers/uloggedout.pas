@@ -18,31 +18,31 @@
 
 info@cu-tec.de
 *******************************************************************************}
-program local_appbase;
+unit uloggedout;
 
 {$mode objfpc}{$H+}
 
+interface
+
 uses
-  {$IFDEF UNIX}cwstring,cthreads,{$ENDIF}
-  Interfaces, ubasehttpapplication, pfcgiprometapp,
-  uBaseApplication, udataserver, uwebserver, weblaz, uloggedout;
-begin
-  Application.DefaultModule:='loggedout';
-  with BaseApplication as IBaseApplication do
-    begin
-      with Application as IBaseApplication do
-        begin
-          AppVersion:={$I ../base/version.inc};
-          AppRevision:={$I ../base/revision.inc};
-        end;
-      SetConfigName('appconfig');
-      RestoreConfig;
-      if Login then
-        Application.DefaultModule:='apps';
-    end;
-  Application.Initialize;
-  Application.Port:=8086;
-  Application.Run;
-  Application.DoExit;
+  SysUtils, Classes, httpdefs, fpHTTP, fpWeb;
+
+type
+  Tloggedout = class(TFPWebModule)
+  private
+    { private declarations }
+  public
+    { public declarations }
+  end;
+
+var
+  loggedout: Tloggedout;
+
+implementation
+
+{$R *.lfm}
+
+initialization
+  RegisterHTTPModule('loggedout', Tloggedout);
 end.
 
