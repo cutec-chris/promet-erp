@@ -958,45 +958,48 @@ var
     tmp: String;
     tmp1: String;
   begin
-    with aDataSet as IBaseManageDB do
+    if Assigned(aDataSet) then
       begin
-        if pos('HISTORY',uppercase(TableName)) > 0 then exit;
-        if Uppercase(TableName) = 'STORAGE' then exit;
-      end;
-    aData := Doc.CreateElement('TABLE');
-    aNode.AppendChild(aData);
-    with aDataSet as IBaseManageDB do
-      aData.SetAttribute('NAME',TableName);
-    DataNode := Doc.CreateElement('DATA');
-    aData.AppendChild(DataNode);
-    aDataSet.Open;
-    aDataSet.Refresh;
-    aDataSet.First;
-    a := 0;
-    while not aDataSet.EOF do
-      begin
-        inc(a);
-        Row := Doc.CreateElement('ROW.'+IntToStr(a));
-        DataNode.AppendChild(Row);
-        for i := 1 to aDataSet.Fields.Count-1 do
+        with aDataSet as IBaseManageDB do
           begin
-            tmp := aDataSet.Fields[i].FieldName;
-            if (tmp <> '')
-            and (tmp <> 'SQL_ID')
-            and (tmp <> 'REF_ID')
-            then
+            if pos('HISTORY',uppercase(TableName)) > 0 then exit;
+            if Uppercase(TableName) = 'STORAGE' then exit;
+          end;
+        aData := Doc.CreateElement('TABLE');
+        aNode.AppendChild(aData);
+        with aDataSet as IBaseManageDB do
+          aData.SetAttribute('NAME',TableName);
+        DataNode := Doc.CreateElement('DATA');
+        aData.AppendChild(DataNode);
+        aDataSet.Open;
+        aDataSet.Refresh;
+        aDataSet.First;
+        a := 0;
+        while not aDataSet.EOF do
+          begin
+            inc(a);
+            Row := Doc.CreateElement('ROW.'+IntToStr(a));
+            DataNode.AppendChild(Row);
+            for i := 1 to aDataSet.Fields.Count-1 do
               begin
-                tmp1 := aDataSet.Fields[i].AsString;
-                if (not aDataSet.Fields[i].IsNull) then
-                  Row.SetAttribute(tmp,tmp1);
+                tmp := aDataSet.Fields[i].FieldName;
+                if (tmp <> '')
+                and (tmp <> 'SQL_ID')
+                and (tmp <> 'REF_ID')
+                then
+                  begin
+                    tmp1 := aDataSet.Fields[i].AsString;
+                    if (not aDataSet.Fields[i].IsNull) then
+                      Row.SetAttribute(tmp,tmp1);
+                  end;
               end;
+            with aDataSet as IBaseSubDataSets do
+              begin
+                for i := 0 to GetCount-1 do
+                  RecourseTables(Row,SubDataSet[i].DataSet);
+              end;
+            aDataSet.Next;
           end;
-        with aDataSet as IBaseSubDataSets do
-          begin
-            for i := 0 to GetCount-1 do
-              RecourseTables(Row,SubDataSet[i].DataSet);
-          end;
-        aDataSet.Next;
       end;
   end;
 begin
