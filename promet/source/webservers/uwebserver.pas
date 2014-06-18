@@ -56,7 +56,8 @@ begin
   FDocuments := TDocuments.Create(nil,Data);
   FDocuments.Select(1,'D',0);
   FDocuments.OpenPath('apps/','/');
-  FTempPath:=AppendPathDelim(AppendPathDelim(GetInternalTempDir)+'httpdocs');
+  with BaseApplication as IBaseApplication do
+    FTempPath:=AppendPathDelim(AppendPathDelim(GetInternalTempDir)+'httpdocs');
 end;
 
 procedure TTWebServer.DataModuleDestroy(Sender: TObject);
@@ -74,9 +75,20 @@ begin
     begin
 
     end;
-  AResponse.Content:='Juhuu';
-  AResponse.ContentType:='text/html';
-  AResponse.Code:=200;
+  if FileExistsUTF8(FTempPath+aPath) then
+    begin
+      AResponse.ContentStream:=TFileStream.Create(FTempPath+aPath,fmOpenRead);
+      AResponse.ContentType:='text/'+copy(ExtractFileExt(aPath),2,length(aPath));
+      if AResponse.ContentType='text/htm' then
+        AResponse.ContentType:='text/html';
+      AResponse.Code:=200;
+    end
+  else
+    begin
+      AResponse.Content:='not found';
+      AResponse.ContentType:='text/html';
+      AResponse.Code:=404;
+    end;
   Handled:=True;
 end;
 

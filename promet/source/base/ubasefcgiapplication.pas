@@ -57,6 +57,7 @@ type
     procedure SetAppVersion(AValue: real);virtual;
     function GetQuickHelp: Boolean;
     procedure SetQuickhelp(AValue: Boolean);
+    function GetInternalTempDir: string;
 
     function GetLog: TEventLog;
     procedure Log(aType : string;aMsg : string);virtual;
@@ -220,6 +221,11 @@ end;
 procedure TBaseFCGIApplication.SetQuickhelp(AValue: Boolean);
 begin
 
+end;
+
+function TBaseFCGIApplication.GetInternalTempDir: string;
+begin
+  Result := AppendPathDelim(GetTempPath);
 end;
 
 function TBaseFCGIApplication.GetLog: TEventLog;
