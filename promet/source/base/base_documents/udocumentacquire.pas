@@ -367,27 +367,30 @@ begin
   bScan.Enabled := True;
   bScan.Caption := strScan;
   bPreviewScan.Enabled := True;
-  Bitmap.SaveToFile(GetInternalTempDir+DirectorySeparator+'test.bmp');
-  Image.Picture.LoadFromFile(GetInternalTempDir+DirectorySeparator+'test.bmp');
-  if not Preview then
+  with BaseApplication as IBaseApplication do
     begin
-      Setlength(Images,length(Images)+1);
-      Images[length(Images)-1] := TPicture.Create;
-      Images[length(Images)-1].LoadFromFile(GetInternalTempDir+DirectorySeparator+'test.bmp');
-      try
-        Unpaper := TUnPaperProcess.Create(Images[length(Images)-1]);
-        while Unpaper.Running do Application.ProcessMessages;
-      except
-      end;
-      if cbOCR.Checked then
+      Bitmap.SaveToFile(GetInternalTempDir+DirectorySeparator+'test.bmp');
+      Image.Picture.LoadFromFile(GetInternalTempDir+DirectorySeparator+'test.bmp');
+      if not Preview then
         begin
-          uOCR.OnallprocessDone := @OCRDone;
-          StartOCR(Texts,Images[length(Images)-1]);
-        end
-      else
-        bCloseAndUse.Enabled := True;
+          Setlength(Images,length(Images)+1);
+          Images[length(Images)-1] := TPicture.Create;
+          Images[length(Images)-1].LoadFromFile(GetInternalTempDir+DirectorySeparator+'test.bmp');
+          try
+            Unpaper := TUnPaperProcess.Create(Images[length(Images)-1]);
+            while Unpaper.Running do Application.ProcessMessages;
+          except
+          end;
+          if cbOCR.Checked then
+            begin
+              uOCR.OnallprocessDone := @OCRDone;
+              StartOCR(Texts,Images[length(Images)-1]);
+            end
+          else
+            bCloseAndUse.Enabled := True;
+        end;
+      DeleteFile(GetInternalTempDir+DirectorySeparator+'test.bmp');
     end;
-  DeleteFile(GetInternalTempDir+DirectorySeparator+'test.bmp');
   EndScan;
   Scanner.Close;
 end;
