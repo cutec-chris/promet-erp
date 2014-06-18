@@ -67,6 +67,7 @@ type
     function GetLanguage: string;
     procedure SetLanguage(const AValue: string);
     function GetSingleInstance : Boolean; virtual;
+    function GetInternalTempDir: string;
 
     function GetAppName: string;virtual;
     function GetApprevision: Integer;virtual;
@@ -217,10 +218,16 @@ function TBaseCustomApplication.GetSingleInstance: Boolean;
 begin
   Result := False;
 end;
+
+function TBaseCustomApplication.GetInternalTempDir: string;
+begin
+  Result := AppendPathDelim(GetTempPath);
+end;
+
 procedure TBaseCustomApplication.Debug(aMsg: string);
 begin
   if HasOption('debug') then
-    //debugln('DEBUG:'+aMsg)
+    writeln('DEBUG:'+aMsg)
     ;
 end;
 function TBaseCustomApplication.GetLog: TEventLog;

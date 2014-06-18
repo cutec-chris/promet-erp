@@ -81,6 +81,7 @@ var
   aOut: String;
   aModifier: String;
   i: Integer;
+  aTemplate: String;
 begin
   case FieldByName('CLASS').AsString of
   'SQL':
@@ -96,12 +97,13 @@ begin
     end
   else raise Exception.Create('Class of Import Type not found !');
   end;
-  aHeader := copy(FieldByName('TEMPLATE').AsString,pos('[head]',lowercase(FieldByName('TEMPLATE').AsString))+6,length(FieldByName('TEMPLATE').AsString));
-  aHeader := copy(aHeader,0,pos('[/head]',lowercase(FieldByName('TEMPLATE').AsString))-1);
-  aRow := copy(FieldByName('TEMPLATE').AsString,pos('[row]',lowercase(FieldByName('TEMPLATE').AsString))+5,length(FieldByName('TEMPLATE').AsString));
-  aRow := copy(aHeader,0,pos('[/row]',lowercase(FieldByName('TEMPLATE').AsString))-1);
-  aFooter := copy(FieldByName('TEMPLATE').AsString,pos('[footer]',lowercase(FieldByName('TEMPLATE').AsString))+8,length(FieldByName('TEMPLATE').AsString));
-  aFooter := copy(aHeader,0,pos('[/footer]',lowercase(FieldByName('TEMPLATE').AsString))-1);
+  aTemplate := FieldByName('TEMPLATE').AsString;
+  aHeader := copy(aTemplate,pos('[head]',lowercase(aTemplate))+6,length(aTemplate));
+  aHeader := copy(aHeader,0,pos('[/head]',lowercase(aHeader))-1);
+  aRow := copy(aTemplate,pos('[row]',lowercase(aTemplate))+5,length(aTemplate));
+  aRow := copy(aRow,0,pos('[/row]',lowercase(aRow))-1);
+  aFooter := copy(aTemplate,pos('[footer]',lowercase(aTemplate))+8,length(aTemplate));
+  aFooter := copy(aFooter,0,pos('[/footer]',lowercase(aFooter))-1);
   if Assigned(aData) then
     begin
       with BaseApplication as IBaseApplication do
@@ -125,6 +127,7 @@ begin
             end;
           aOut := aOut+ActRow;
           aStream.WriteAnsiString(aOut);
+          aData.Next;
         end;
       aStream.WriteAnsiString(aFooter);
       aStream.Free;
