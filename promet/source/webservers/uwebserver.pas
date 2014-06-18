@@ -53,11 +53,11 @@ uses uData,uBaseApplication,uBaseDbClasses,FileUtil;
 
 procedure TTWebServer.DataModuleCreate(Sender: TObject);
 begin
-  FDocuments := TDocuments.Create(nil,Data);
+  FDocuments := TDocument.Create(nil,Data);
   FDocuments.Select(1,'D',0);
   FDocuments.OpenPath('apps/','/');
   with BaseApplication as IBaseApplication do
-    FTempPath:=AppendPathDelim(AppendPathDelim(GetInternalTempDir)+'httpdocs');
+    FTempPath:=AppendPathDelim(GetInternalTempDir)+'httpdocs';
 end;
 
 procedure TTWebServer.DataModuleDestroy(Sender: TObject);
@@ -69,11 +69,19 @@ procedure TTWebServer.DataModuleRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 var
   aPath: String;
+  aStream: TFileStream;
 begin
-  aPath := ARequest.URL;
+  aPath := StringReplace(ARequest.URL,'/',DirectorySeparator,[rfReplaceAll]);
+  if copy(aPath,length(aPath),1)=DirectorySeparator then
+    aPath := aPath+'index.html';
   if not FileExists(FTempPath+aPath) then
     begin
-
+      if FDocuments.OpenPath(aPath,DirectorySeparator) then
+        begin
+          aStream := TFileStream.Create(FTempPath+aPath,fmCreate);
+          TDocument(FDocuments).CheckoutToStream(aStream);
+          aStream.Free;
+        end;
     end;
   if FileExistsUTF8(FTempPath+aPath) then
     begin
@@ -89,6 +97,7 @@ begin
       AResponse.ContentType:='text/html';
       AResponse.Code:=404;
     end;
+  AResponse.SendContent;
   Handled:=True;
 end;
 

@@ -995,7 +995,7 @@ begin
   while copy(aPath,0,1) = aPathDelim do
     aPath := copy(aPath,2,length(aPath));
   Result := False;
-  if Result and (pos(aPathDelim,aPath) > 0) then
+  if (pos(aPathDelim,aPath) > 0) then
     Result := RecourseDirs(tmpDocs,aPath);
   aPath := copy(aPath,rpos(aPathDelim,aPath)+1,length(aPath));
   if Result then
