@@ -37,8 +37,13 @@ begin
         end;
       SetConfigName('appconfig');
       RestoreConfig;
-      if Login then
-        Application.DefaultModule:='apps';
+      try
+        if Login then
+          begin
+            Application.DefaultModule:='apps';
+          end;
+      except
+      end;
     end;
   Application.Initialize;
   Application.Port:=8086;

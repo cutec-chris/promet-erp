@@ -1,6 +1,12 @@
 object loggedout: Tloggedout
   OldCreateOrder = False
-  Actions = <>
+  Actions = <  
+    item
+      Name = 'wizard1'
+      Default = True
+      OnRequest = wizard1Request
+      Template.AllowTagParams = False
+    end>
   CreateSession = False
   Height = 150
   HorizontalOffset = 376

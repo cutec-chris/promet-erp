@@ -29,6 +29,8 @@ uses
 
 type
   Tloggedout = class(TFPWebModule)
+    procedure wizard1Request(Sender: TObject; ARequest: TRequest;
+      AResponse: TResponse; var Handled: Boolean);
   private
     { private declarations }
   public
@@ -41,6 +43,15 @@ var
 implementation
 
 {$R *.lfm}
+
+procedure Tloggedout.wizard1Request(Sender: TObject; ARequest: TRequest;
+  AResponse: TResponse; var Handled: Boolean);
+begin
+  AResponse.ContentType:='text/html';
+  AResponse.Content:='wizard page 1';
+  AResponse.SendContent;
+  Handled:=True;
+end;
 
 initialization
   RegisterHTTPModule('loggedout', Tloggedout);
