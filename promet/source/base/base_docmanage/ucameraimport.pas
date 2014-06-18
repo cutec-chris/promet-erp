@@ -58,7 +58,7 @@ var
   fCameraimport: TfCameraimport;
 
 implementation
-uses uBaseDocPages,Utils,uData,uBaseDbClasses,usimpleprocess;
+uses uBaseDocPages,Utils,uData,uBaseDbClasses,usimpleprocess,uBaseApplication;
 {$R *.lfm}
 
 { TfCameraimport }
@@ -112,20 +112,24 @@ var
   aSecFile: String;
 begin
   if lvPhotos.Selected=nil then exit;
-  If FindFirstUTF8(AppendPathDelim(GetInternalTempDir)+'raw_*',faAnyFile,AInfo)=0 then
-    Repeat
-      With aInfo do
-        begin
-          If (Attr and faDirectory) <> faDirectory then
-            DeleteFileUTF8(AppendPathDelim(GetInternalTempDir)+AInfo.Name);
-        end;
-    Until FindNext(ainfo)<>0;
-  FindClose(aInfo);
+  with BaseApplication as IBaseApplication do
+    begin
+      If FindFirstUTF8(AppendPathDelim(GetInternalTempDir)+'raw_*',faAnyFile,AInfo)=0 then
+        Repeat
+          With aInfo do
+            begin
+              If (Attr and faDirectory) <> faDirectory then
+                DeleteFileUTF8(AppendPathDelim(GetInternalTempDir)+AInfo.Name);
+            end;
+        Until FindNext(ainfo)<>0;
+      FindClose(aInfo);
+    end;
   atmp := lvPhotos.Selected.Caption;
   atmp := copy(atmp,2,pos(' ',atmp)-2);
   sl := TStringList.Create;
   aProcess := TProcessUTF8.Create(Self);
-  aProcess.CurrentDirectory:=GetInternalTempDir;
+  with BaseApplication as IBaseApplication do
+    aProcess.CurrentDirectory:=GetInternalTempDir;
   try
     aProcess.CommandLine:='gphoto2 --get-raw-data='+atmp;
     aProcess.Options:=[poUsePipes,poWaitOnExit];
@@ -134,20 +138,25 @@ begin
   finally
     aProcess.Free;
   end;
-  If FindFirstUTF8(AppendPathDelim(GetInternalTempDir)+'raw_*',faAnyFile,AInfo)=0 then
-    Repeat
-      With aInfo do
-        begin
-          If (Attr and faDirectory) <> faDirectory then
+  with BaseApplication as IBaseApplication do
+    begin
+      If FindFirstUTF8(AppendPathDelim(GetInternalTempDir)+'raw_*',faAnyFile,AInfo)=0 then
+        Repeat
+          With aInfo do
             begin
-              aFile := AppendPathDelim(GetInternalTempDir)+AInfo.Name;
+              If (Attr and faDirectory) <> faDirectory then
+                begin
+                  aFile := AppendPathDelim(GetInternalTempDir)+AInfo.Name;
+                end;
             end;
-        end;
-    Until FindNext(ainfo)<>0;
+        Until FindNext(ainfo)<>0;
+      FindCloseUTF8(AInfo);
+    end;
   sl.Free;
   if not FileExists(aFile) then
     begin
-      NewFileName := AppendPathDelim(GetInternalTempDir)+ExtractFileName(aFile);
+      with BaseApplication as IBaseApplication do
+        NewFileName := AppendPathDelim(GetInternalTempDir)+ExtractFileName(aFile);
       {$ifdef linux}
       ExecProcess('gvfs-copy "'+aFile+'" "'+NewFileName+'"');
       {$endif}
@@ -228,7 +237,8 @@ begin
         begin
           sl := TStringList.Create;
           aProcess := TProcessUTF8.Create(Self);
-          aProcess.CurrentDirectory:=GetInternalTempDir;
+          with BaseApplication as IBaseApplication do
+            aProcess.CurrentDirectory:=GetInternalTempDir;
           try
             aProcess.CommandLine:='gphoto2 --delete-file='+atmp;
             aProcess.Options:=[poUsePipes,poWaitOnExit];

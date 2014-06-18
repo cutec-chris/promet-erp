@@ -40,6 +40,8 @@ function GenerateThumbNail(aName : string;aFileName : string;aStream : TStream;a
 
 implementation
 
+uses uBaseApplication;
+
 function GetThumbnailPath(aDocument: TDocuments;aWidth : Integer=310;aHeight : Integer=428): string;
 var
   bDocument: TDocument;
@@ -83,7 +85,8 @@ end;
 
 function GetThumbTempDir: string;
 begin
-  Result := GetInternalTempDir+'promet_thumbs';
+  with BaseApplication as IBaseApplication do
+    Result := GetInternalTempDir+'promet_thumbs';
   ForceDirectoriesUTF8(Result);
 end;
 
@@ -107,8 +110,11 @@ begin
   if (e <> '') and (e[1] = '.') then
     System.delete (e,1,1);
   s := e + ';';
-  aFilename := GetInternalTempDir+'rpv.'+e;
-  aFStream := TFileStream.Create(GetInternalTempDir+'rpv.'+e,fmCreate);
+  with BaseApplication as IBaseApplication do
+    begin
+      aFilename := GetInternalTempDir+'rpv.'+e;
+      aFStream := TFileStream.Create(GetInternalTempDir+'rpv.'+e,fmCreate);
+    end;
   aFullStream.Position:=0;
   aFStream.CopyFrom(aFullStream,aFullStream.Size);
   aFStream.Free;

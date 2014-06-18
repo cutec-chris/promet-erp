@@ -16,7 +16,7 @@ var
   OnMessageReceived : TMessageFunction = nil;
 
 implementation
-
+uses uBaseApplication;
 function SendIPCMessage(aMessage: string): Boolean;
 var
   sl: TStringList;
@@ -25,11 +25,14 @@ begin
   sl := TStringList.Create;
   try
     try
-      if FileExists(GetInternalTempDir+'PMSMessagemenager') then
-        sl.LoadFromFile(GetInternalTempDir+'PMSMessagemenager');
-      sl.Add(aMessage);
-      sl.SaveToFile(GetInternalTempDir+'PMSMessagemenager');
-      Result := True;
+      with BaseApplication as IBaseApplication do
+        begin
+          if FileExists(GetInternalTempDir+'PMSMessagemenager') then
+            sl.LoadFromFile(GetInternalTempDir+'PMSMessagemenager');
+          sl.Add(aMessage);
+          sl.SaveToFile(GetInternalTempDir+'PMSMessagemenager');
+          Result := True;
+        end;
     except
     end;
   finally
@@ -48,25 +51,28 @@ begin
   sl := TStringList.Create;
   try
     try
-      if FileExists(GetInternalTempDir+'PMSMessagemenager') then
+      with BaseApplication as IBaseApplication do
         begin
-          fs := TFileStream.Create(GetInternalTempDir+'PMSMessagemenager',fmShareCompat);
-          sl.LoadFromStream(fs);
-          fs.Free;
-        end;
-      i := 0;
-      achanged := False;
-      while i < sl.Count do
-        begin
-          if Assigned(OnMessageReceived) and OnMessageReceived(sl[i]) then
+          if FileExists(GetInternalTempDir+'PMSMessagemenager') then
             begin
-              sl.Delete(i);
-              achanged := True;
-            end
-          else inc(i);
+              fs := TFileStream.Create(GetInternalTempDir+'PMSMessagemenager',fmShareCompat);
+              sl.LoadFromStream(fs);
+              fs.Free;
+            end;
+          i := 0;
+          achanged := False;
+          while i < sl.Count do
+            begin
+              if Assigned(OnMessageReceived) and OnMessageReceived(sl[i]) then
+                begin
+                  sl.Delete(i);
+                  achanged := True;
+                end
+              else inc(i);
+            end;
+          if aChanged then
+            sl.SaveToFile(GetInternalTempDir+'PMSMessagemenager');
         end;
-      if aChanged then
-        sl.SaveToFile(GetInternalTempDir+'PMSMessagemenager');
     except
     end;
   finally

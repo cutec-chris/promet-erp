@@ -206,7 +206,7 @@ uses uData,uBaseVisualControls,uOrderAdditionalFrame,uOverviewFrame,
   uSelectReport,uNewStorage,uMainTreeFrame,uRepairPositionFrame,uQSPositionFrame,
   uDetailPositionFrame,uBaseVisualApplication,uPersonFrame,uPersonFinance,
   uAccountingTransfer,uPrometFramesInplace,Utils,uorderaddressframe,uMessageEdit,
-  uNRights,uBookSerial;
+  uNRights,uBookSerial,uBaseApplication;
 resourcestring
   strAdditional                       = 'Zusätzlich';
   strDates                            = 'Datum';
@@ -230,9 +230,12 @@ begin
       if aReport.PrepareReport then
         begin
           isPrepared := True;
-          aReport.ExportTo(frFilters[i].ClassRef,GetInternalTempDir+aSubject+'.pdf');
-          fMessageEdit := TfMessageEdit.Create(nil);
-          fMessageEdit.SendMailToWithDoc(aMail,aSubject,aText,GetInternalTempDir+aSubject+'.pdf',True);
+          with BaseApplication as IBaseApplication do
+            begin
+              aReport.ExportTo(frFilters[i].ClassRef,GetInternalTempDir+aSubject+'.pdf');
+              fMessageEdit := TfMessageEdit.Create(nil);
+              fMessageEdit.SendMailToWithDoc(aMail,aSubject,aText,GetInternalTempDir+aSubject+'.pdf',True);
+            end;
         end;
 end;
 procedure TfOrderFrame.OnSearchKey(Sender: TObject; X, Y: Integer; var Key: Word;

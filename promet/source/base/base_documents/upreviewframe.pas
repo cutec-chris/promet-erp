@@ -137,7 +137,7 @@ type
     property DoAbort : Boolean read FAbort write SetAbort;
   end;
 implementation
-uses uData, UTF8Process, Process,uOCR,Utils,Dialogs;
+uses uData, UTF8Process, Process,uOCR,Utils,Dialogs,uBaseApplication;
 procedure TLoadThread.StartLoading;
 begin
   FFrame.iHourglass.Visible:=True;
@@ -615,8 +615,11 @@ begin
   else if (Uppercase(aExtension) = 'PDF') then
     begin
       try
-        aFilename := GetInternalTempDir+'rpv.'+aExtension;
-        aFStream := TFileStream.Create(GetInternalTempDir+'rpv.'+aExtension,fmCreate);
+        with BaseApplication as IBaseApplication do
+          begin
+            aFilename := GetInternalTempDir+'rpv.'+aExtension;
+            aFStream := TFileStream.Create(GetInternalTempDir+'rpv.'+aExtension,fmCreate);
+          end;
         aStream.Position:=0;
         aFStream.CopyFrom(aStream,aStream.Size);
         aFStream.Free;
@@ -722,8 +725,11 @@ begin
   else //Try to Use Imagemagick to determinate the file typ and render it
     begin
       try
-        aFilename := GetInternalTempDir+'rpv.'+aExtension;
-        aFStream := TFileStream.Create(GetInternalTempDir+'rpv.'+aExtension,fmCreate);
+        with BaseApplication as IBaseApplication do
+          begin
+            aFilename := GetInternalTempDir+'rpv.'+aExtension;
+            aFStream := TFileStream.Create(GetInternalTempDir+'rpv.'+aExtension,fmCreate);
+          end;
         aStream.Position:=0;
         aFStream.CopyFrom(aStream,aStream.Size);
         aFStream.Free;
@@ -784,8 +790,11 @@ begin
   if (Uppercase(aExtension) = 'PDF') then
     begin
       try
-        aFilename := GetInternalTempDir+'rpv.'+aExtension;
-        aFStream := TFileStream.Create(GetInternalTempDir+'rpv.'+aExtension,fmCreate);
+        with BaseApplication as IBaseApplication do
+          begin
+            aFilename := GetInternalTempDir+'rpv.'+aExtension;
+            aFStream := TFileStream.Create(GetInternalTempDir+'rpv.'+aExtension,fmCreate);
+          end;
         aStream.Position:=0;
         aFStream.CopyFrom(aStream,aStream.Size);
         aFStream.Free;
@@ -829,4 +838,4 @@ begin
 end;
 
 end.
-
+

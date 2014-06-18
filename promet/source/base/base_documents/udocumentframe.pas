@@ -425,7 +425,8 @@ begin
     if Assigned(Config) then
       TempPath := Config.ReadString('TEMPPATH','');
   if TempPath = '' then
-    TempPath := GetInternalTempDir;
+    with BaseApplication as IBaseApplication do
+      TempPath := GetInternalTempDir;
   if (ssLeft in Shift) and ((Abs(X - FDragStartPos.x) >= Threshold) or (Abs(Y - FDragStartPos.y) >= Threshold)) then
     begin
       Perform(WM_LBUTTONUP, 0, MakeLong(X, Y));

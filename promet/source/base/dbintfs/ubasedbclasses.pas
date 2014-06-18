@@ -400,7 +400,6 @@ type
   public
     procedure DefineFields(aDataSet : TDataSet);override;
   end;
-  function GetInternalTempDir : string;
 var ImportAble : TClassList;
 implementation
 uses uBaseDBInterface, uBaseApplication, uBaseSearch,XMLRead,XMLWrite,Utils,
@@ -503,20 +502,6 @@ resourcestring
   strNotes                      = 'Notizen';
   strOwner                      = 'Eigentümer';
   strAvalible                   = 'Verfügbar';
-
-function GetInternalTempDir: string;
-var
-  TempPath: String;
-begin
-  {$IFDEF LCL}
-  with BaseApplication as IBaseApplication do
-    if Assigned(Config) then
-      TempPath := Config.ReadString('TEMPPATH','');
-  {$ENDIF}
-  if TempPath = '' then
-    TempPath := GetTempDir;
-  Result := AppendPathDelim(TempPath);
-end;
 
 { TAccessHistory }
 
@@ -2790,4 +2775,4 @@ begin
 end;
 initialization
 end.
-
+

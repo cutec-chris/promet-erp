@@ -14,7 +14,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="12">
+    <Files Count="11">
       <Item1>
         <Filename Value="ubasevisualapplication.pas"/>
         <UnitName Value="uBaseVisualApplication"/>
@@ -59,10 +59,6 @@
         <Filename Value="changes.txt"/>
         <Type Value="Text"/>
       </Item11>
-      <Item12>
-        <Filename Value="ubaseconfig.pas"/>
-        <UnitName Value="ubaseconfig"/>
-      </Item12>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="9">

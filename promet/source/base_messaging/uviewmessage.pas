@@ -66,7 +66,7 @@ type
     property Done : Boolean read FDone;
   end;
 implementation
-uses uDocuments,LCLProc,wikitohtml,uBaseDbClasses;
+uses uDocuments,LCLProc,wikitohtml,uBaseDbClasses,uBaseApplication;
 resourcestring
   strMessagenotDownloaded       = 'Die Naricht wurde aus Sicherheitsgründen nicht heruntergeladen !';
   strOpenToViewItem             = 'Bitte klicken Sie doppelt auf diesen Eintrag um ihn anzuzeigen';
@@ -98,15 +98,18 @@ begin
                   tmp := StringReplace(StringReplace(ss.DataString,'<','',[]),'>','',[]);
                   if ValidateFileName(tmp) = copy(ValidateFileName(URL),5,length(ValidateFileName(URL))) then
                     begin
-                      Data.BlobFieldToFile(aDocument.DataSet,'DOCUMENT',GetInternalTempDir+copy(url,5,length(url))+'.'+aDocument.FieldByName('EXTENSION').AsString);
-                      try
-                        Picture.LoadFromFile(GetInternalTempDir+copy(url,5,length(url))+'.'+aDocument.FieldByName('EXTENSION').AsString);
-                      except
-                        FreeAndnil(Picture);
-                      end;
-                      DeleteFileUTF8(GetInternalTempDir+copy(url,5,length(url))+'.'+aDocument.FieldByName('EXTENSION').AsString);
-                      if Assigned(Picture) and (Picture.Width = 0) then
-                        FreeAndNil(Picture);
+                      with BaseApplication as IBaseApplication do
+                        begin
+                          Data.BlobFieldToFile(aDocument.DataSet,'DOCUMENT',GetInternalTempDir+copy(url,5,length(url))+'.'+aDocument.FieldByName('EXTENSION').AsString);
+                          try
+                            Picture.LoadFromFile(GetInternalTempDir+copy(url,5,length(url))+'.'+aDocument.FieldByName('EXTENSION').AsString);
+                          except
+                            FreeAndnil(Picture);
+                          end;
+                          DeleteFileUTF8(GetInternalTempDir+copy(url,5,length(url))+'.'+aDocument.FieldByName('EXTENSION').AsString);
+                          if Assigned(Picture) and (Picture.Width = 0) then
+                            FreeAndNil(Picture);
+                        end;
                     end;
                   ss.Free;
                   aDocument.DataSet.Next;
@@ -132,13 +135,16 @@ begin
                   if aDocument.FileName = url then
                     begin
                       ss := TStringStream.Create('');
-                      Data.BlobFieldToFile(aDocument.DataSet,'DOCUMENT',GetInternalTempDir+copy(url,5,length(url))+'.'+aDocument.FieldByName('EXTENSION').AsString);
-                      try
-                        Picture.LoadFromFile(GetInternalTempDir+copy(url,5,length(url))+'.'+aDocument.FieldByName('EXTENSION').AsString);
-                      except
-                        FreeAndnil(Picture);
-                      end;
-                      DeleteFileUTF8(GetInternalTempDir+copy(url,5,length(url))+'.'+aDocument.FieldByName('EXTENSION').AsString);
+                      with BaseApplication as IBaseApplication do
+                        begin
+                          Data.BlobFieldToFile(aDocument.DataSet,'DOCUMENT',GetInternalTempDir+copy(url,5,length(url))+'.'+aDocument.FieldByName('EXTENSION').AsString);
+                          try
+                            Picture.LoadFromFile(GetInternalTempDir+copy(url,5,length(url))+'.'+aDocument.FieldByName('EXTENSION').AsString);
+                          except
+                            FreeAndnil(Picture);
+                          end;
+                          DeleteFileUTF8(GetInternalTempDir+copy(url,5,length(url))+'.'+aDocument.FieldByName('EXTENSION').AsString);
+                        end;
                       if Assigned(Picture) and (Picture.Width = 0) then
                         FreeAndNil(Picture);
                     end;
@@ -245,7 +251,8 @@ begin
                    Proc.Terminate;
                    sl := TStringList.Create;
                    sl.Text:=tmp;
-                   sl.SaveToFile(GetInternalTempDir+'aerror.html');
+                   with BaseApplication as IBaseApplication do
+                     sl.SaveToFile(GetInternalTempDir+'aerror.html');
                    sl.Free;
                    FreeAndNil(NewHTML);
                    break;
@@ -272,14 +279,16 @@ begin
              except
                sl := TStringList.Create;
                sl.Text:=tmp;
-               sl.SaveToFile(GetInternalTempDir+'aerror.html');
+               with BaseApplication as IBaseApplication do
+                 sl.SaveToFile(GetInternalTempDir+'aerror.html');
                sl.Free;
              end;
            end;
          except
            sl := TStringList.Create;
            sl.Text:=tmp;
-           sl.SaveToFile(GetInternalTempDir+'aerror.html');
+           with BaseApplication as IBaseApplication do
+             sl.SaveToFile(GetInternalTempDir+'aerror.html');
            sl.Free;
            ss.Free;
          end;
@@ -403,4 +412,4 @@ initialization
   {$I uviewmessage.lrs}
 
 end.
-
+

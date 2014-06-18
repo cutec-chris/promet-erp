@@ -64,6 +64,7 @@ type
     property AppRevision : Integer read GetApprevision write SetAppRevision;
     property EventLog : TEventLog read GetLog;
     property QuickHelp : Boolean read GetQuickHelp write SetQuickhelp;
+    function GetInternalTempDir : string;
   end;
 var
   TBaseApplicationType : TBaseApplicationClass;
@@ -72,4 +73,4 @@ implementation
 initialization
   BaseApplication := nil;
 end.
-
+

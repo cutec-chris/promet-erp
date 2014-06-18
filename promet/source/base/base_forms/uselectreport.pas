@@ -220,8 +220,11 @@ begin
           begin
             NotPrintable := False;
             try
-              Data.BlobFieldToFile(Data.Reports.DataSet,'REPORT',GetInternalTempDir+'preport.lrf');
-              Report.LoadFromFile(GetInternalTempDir+'preport.lrf');
+              with BaseApplication as IBaseApplication do
+                begin
+                  Data.BlobFieldToFile(Data.Reports.DataSet,'REPORT',GetInternalTempDir+'preport.lrf');
+                  Report.LoadFromFile(GetInternalTempDir+'preport.lrf');
+                end;
             except
               NotPrintable := True;
             end;
@@ -344,8 +347,11 @@ begin
       try
         if not Data.Reports.FieldByName('REPORT').IsNull then
           begin
-            Data.BlobFieldToFile(Data.Reports.DataSet,'REPORT',GetInternalTempDir+'preport.lrf');
-            Report.LoadFromFile(GetInternalTempDir+'preport.lrf');
+            with BaseApplication as IBaseApplication do
+              begin
+                Data.BlobFieldToFile(Data.Reports.DataSet,'REPORT',GetInternalTempDir+'preport.lrf');
+                Report.LoadFromFile(GetInternalTempDir+'preport.lrf');
+              end;
           end
         else
           Report.Clear; //better so ? or should the last report stay open ?
@@ -380,9 +386,11 @@ begin
       Report.DesignReport;
       with Application as IBaseConfig do
         Config.WriteRect('ReportEditor',TfrDesignerForm(LR_Class.frDesigner).BoundsRect);
-      Report.SaveToFile(GetInternalTempDir+'preport.lrf');
+      with BaseApplication as IBaseApplication do
+        Report.SaveToFile(GetInternalTempDir+'preport.lrf');
       Data.Reports.DataSet.Edit;
-      Data.FileToBlobField(GetInternalTempDir+'preport.lrf',Data.Reports.DataSet,'REPORT');
+      with BaseApplication as IBaseApplication do
+        Data.FileToBlobField(GetInternalTempDir+'preport.lrf',Data.Reports.DataSet,'REPORT');
       if Data.Reports.DataSet.FieldByName('NAME').IsNull then
         begin
           Data.Reports.DataSet.FieldByName('NAME').AsString:=strStandard;
@@ -624,7 +632,8 @@ begin
               if isPrepared or Report.PrepareReport then
                 begin
                   isPrepared := True;
-                  aFile := GetInternalTempDir+ValidateFileName(Report.Title)+'.pdf';
+                  with BaseApplication as IBaseApplication do
+                    aFile := GetInternalTempDir+ValidateFileName(Report.Title)+'.pdf';
                   Report.ExportTo(frFilters[i].ClassRef,aFile);
                   DoSendMail(Report.Title,Data.Reports.FieldByName('TEXT').AsString, aFile,'','','',eMail);
                   res := True;
@@ -864,8 +873,11 @@ begin
         with Data.Reports.FieldByName('REPORT') as TBlobField do
           if not Data.Reports.FieldByName('REPORT').IsNull then
             begin
-              Data.BlobFieldToFile(Data.Reports.DataSet,'REPORT',GetInternalTempDir+'preport.lrf');
-              Report.LoadFromFile(GetInternalTempDir+'preport.lrf');
+              with BaseApplication as IBaseApplication do
+                begin
+                  Data.BlobFieldToFile(Data.Reports.DataSet,'REPORT',GetInternalTempDir+'preport.lrf');
+                  Report.LoadFromFile(GetInternalTempDir+'preport.lrf');
+                end;
             end
           else
             begin

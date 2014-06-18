@@ -1184,7 +1184,7 @@ begin
               while (DataSet.FieldByName('FULL').AsString <> 'Y') and (not DataSet.BOF) do
                 DataSet.Prior;
               //patch revision by revision till the target rev
-              with BaseApplication as IBaseDbInterface do
+              with BaseApplication as IBaseDbInterface,BaseApplication as IBaseApplication do
                 Data.BlobFieldToFile(DataSet,'DOCUMENT',GetInternalTempDir+'prometheusfile.tmp');//full file
               aRev := DataSet.FieldByName('REVISION').AsInteger;
               while (aRev<aRevision) and (not DataSet.EOF)  do
@@ -1192,19 +1192,25 @@ begin
                   DataSet.Next;
                   aRev := DataSet.FieldByName('REVISION').AsInteger;
                   //diff it
-                  with BaseApplication as IBaseDbInterface do
-                    Data.BlobFieldToFile(DataSet,'DOCUMENT',GetInternalTempDir+'prometheusfile1.tmp');//full file
-                  {$IFDEF WINDOWS}
-                  ExecProcessEx('"'+AppendPathDelim(AppendPathDelim(ExtractFilePath(Paramstr(0)))+'tools')+'bspatch'+ExtractFileExt(ParamStr(0))+'" "'+GetInternalTempDir+'prometheusfile.tmp" "prometheusfile.tmp" "'+GetInternalTempDir+'prometheusfile1.tmp"');
-                  {$ELSE}
-                  ExecProcess('"'+'bspatch'+ExtractFileExt(ParamStr(0))+'" "'+GetInternalTempDir+'prometheusfile.tmp" "'+GetInternalTempDir+'prometheusfile.tmp" "'+GetInternalTempDir+'prometheusfile1.tmp"','',True);
-                  {$ENDIF}
+                  with BaseApplication as IBaseDbInterface,BaseApplication as IBaseApplication do
+                    begin
+                      Data.BlobFieldToFile(DataSet,'DOCUMENT',GetInternalTempDir+'prometheusfile1.tmp');//full file
+                      {$IFDEF WINDOWS}
+                      ExecProcessEx('"'+AppendPathDelim(AppendPathDelim(ExtractFilePath(Paramstr(0)))+'tools')+'bspatch'+ExtractFileExt(ParamStr(0))+'" "'+GetInternalTempDir+'prometheusfile.tmp" "prometheusfile.tmp" "'+GetInternalTempDir+'prometheusfile1.tmp"');
+                      {$ELSE}
+                      ExecProcess('"'+'bspatch'+ExtractFileExt(ParamStr(0))+'" "'+GetInternalTempDir+'prometheusfile.tmp" "'+GetInternalTempDir+'prometheusfile.tmp" "'+GetInternalTempDir+'prometheusfile1.tmp"','',True);
+                      {$ENDIF}
+                    end;
                 end;
-              aFS := TFileStream.Create(GetInternalTempDir+'prometheusfile.tmp',fmOpenRead);
+              with BaseApplication as IBaseDbInterface,BaseApplication as IBaseApplication do
+                aFS := TFileStream.Create(GetInternalTempDir+'prometheusfile.tmp',fmOpenRead);
               aStream.CopyFrom(aFS,0);
               aFS.Free;
-              DeleteFile(GetInternalTempDir+'prometheusfile.tmp');
-              DeleteFile(GetInternalTempDir+'prometheusfile1.tmp');
+              with BaseApplication as IBaseDbInterface,BaseApplication as IBaseApplication do
+                begin
+                  DeleteFile(GetInternalTempDir+'prometheusfile.tmp');
+                  DeleteFile(GetInternalTempDir+'prometheusfile1.tmp');
+                end;
             end
           else
             with BaseApplication as IBaseDbInterface do
@@ -1394,7 +1400,7 @@ function TDocument.CollectCheckInFiles(Directory: string): TStrings;
             //generate original Checksum if not there
             if aDoc.FieldByName('CHECKSUM').AsString = '' then
               begin
-                with BaseApplication as IBaseDbInterface do
+                with BaseApplication as IBaseDbInterface,BaseApplication as IBaseApplication do
                   begin
                     Data.BlobFieldToFile(aDoc.DataSet,'DOCUMENT',GetInternalTempDir+'prometheusfile.tmp');
                     aDoc.DataSet.Edit;
@@ -1514,7 +1520,7 @@ var
                 OldRec := aDoc.GetBookmark;
                 aDoc.DataSet.Last;
                 //Save old File
-                with BaseApplication as IBaseDbInterface do
+                with BaseApplication as IBaseDbInterface,BaseApplication as IBaseApplication do
                   Data.BlobFieldToFile(aDoc.DataSet,'DOCUMENT',GetInternalTempDir+'prometheusfile.tmp');
                 aDoc.GotoBookmark(OldRec);
                 //Store all needed values
@@ -1537,24 +1543,30 @@ var
                       Edit;
                     FieldByName('SIZE').AsInteger:=FileSize(aDir);
                     Post;
-                    //diff it
-                    {$IFDEF WINDOWS}
-                    ExecProcessEx('"'+AppendPathDelim(AppendPathDelim(ExtractFilePath(Paramstr(0)))+'tools')+'bsdiff'+ExtractFileExt(ParamStr(0))+'" "'+GetInternalTempDir+'prometheusfile.tmp" "'+aDir+'" "'+GetInternalTempDir+'prometheusfile1.tmp"');
-                    {$ELSE}
-                    ExecProcess('"'+'bsdiff'+ExtractFileExt(ParamStr(0))+'" "'+GetInternalTempDir+'prometheusfile.tmp" "'+aDir+'" "'+GetInternalTempDir+'prometheusfile1.tmp"','',True);
-                    {$ENDIF}
+                    with BaseApplication as IBaseDbInterface,BaseApplication as IBaseApplication do
+                      begin
+                        //diff it
+                        {$IFDEF WINDOWS}
+                        ExecProcessEx('"'+AppendPathDelim(AppendPathDelim(ExtractFilePath(Paramstr(0)))+'tools')+'bsdiff'+ExtractFileExt(ParamStr(0))+'" "'+GetInternalTempDir+'prometheusfile.tmp" "'+aDir+'" "'+GetInternalTempDir+'prometheusfile1.tmp"');
+                        {$ELSE}
+                        ExecProcess('"'+'bsdiff'+ExtractFileExt(ParamStr(0))+'" "'+GetInternalTempDir+'prometheusfile.tmp" "'+aDir+'" "'+GetInternalTempDir+'prometheusfile1.tmp"','',True);
+                        {$ENDIF}
+                      end;
                     //TODO: use a better logic to not always use full files but for now its the save way
                     UseFullFile := True;
-                    if (not FileExistsUTF8(GetInternalTempDir+'prometheusfile1.tmp')) or UseFullfile then
+                    with BaseApplication as IBaseDbInterface,BaseApplication as IBaseApplication do
                       begin
-                        UseFullfile := True;
-                        DeleteFileUTF8(GetInternalTempDir+'prometheusfile1.tmp');
-                        //Use Full File if no diff is possible
-                        if not CopyFile(aDir,GetInternalTempDir+'prometheusfile1.tmp') then
+                        if (not FileExistsUTF8(GetInternalTempDir+'prometheusfile1.tmp')) or UseFullfile then
                           begin
-                            Result := False;
-                            raise Exception.Create(Format(strFailedCreatingDiff,[aDir]));
-                            exit;
+                            UseFullfile := True;
+                            DeleteFileUTF8(GetInternalTempDir+'prometheusfile1.tmp');
+                            //Use Full File if no diff is possible
+                            if not CopyFile(aDir,GetInternalTempDir+'prometheusfile1.tmp') then
+                              begin
+                                Result := False;
+                                raise Exception.Create(Format(strFailedCreatingDiff,[aDir]));
+                                exit;
+                              end;
                           end;
                       end;
                     //delete this revision when its not revision 0
@@ -1596,7 +1608,7 @@ var
                       FieldByName('FULL').AsString := 'Y';
                     FieldByName('NAME').AsString := aEName;
                     FieldByName('EXTENSION').AsString := aExtension;
-                    with BaseApplication as IBaseDbInterface do
+                    with BaseApplication as IBaseDbInterface,BaseApplication as IBaseApplication do
                       Data.FileToBlobField(GetInternalTempDir+'prometheusfile1.tmp',aDoc.DataSet,'DOCUMENT');
                     FieldByName('DATE').AsFloat := Now();
                     FieldByName('TIMESTAMPD').AsdateTime := Now();
@@ -1604,8 +1616,11 @@ var
                       FieldByName('TIMESTAMPT').AsFloat := Frac(Now());
                     Post;
                     //delete diff
-                    DeleteFileUTF8(GetInternalTempDir+'prometheusfile.tmp');
-                    DeleteFileUTF8(GetInternalTempDir+'prometheusfile1.tmp');
+                    with BaseApplication as IBaseDbInterface,BaseApplication as IBaseApplication do
+                      begin
+                        DeleteFileUTF8(GetInternalTempDir+'prometheusfile.tmp');
+                        DeleteFileUTF8(GetInternalTempDir+'prometheusfile1.tmp');
+                      end;
                     //add the complete file
                     Append;
                     FieldByName('TYPE').AsString := aTyp;
@@ -1770,8 +1785,11 @@ begin
   else if (Uppercase(aExt) = '.PDF') then
     begin
       try
-        aFilename := GetInternalTempDir+'rpv'+aExt;
-        aFStream := TFileStream.Create(GetInternalTempDir+'rpv'+aExt,fmCreate);
+        with BaseApplication as IBaseDbInterface,BaseApplication as IBaseApplication do
+          begin
+            aFilename := GetInternalTempDir+'rpv'+aExt;
+            aFStream := TFileStream.Create(GetInternalTempDir+'rpv'+aExt,fmCreate);
+          end;
         aStream.Position:=0;
         aFStream.CopyFrom(aStream,aStream.Size);
         aFStream.Free;
@@ -1855,7 +1873,8 @@ begin
   try
     // Only one stream is necessary for any number of worksheets
     OLEDocument.Stream := MemStream;
-    aFileName := GetInternalTempDir+'wf.tmp';
+    with BaseApplication as IBaseDbInterface,BaseApplication as IBaseApplication do
+      aFileName := GetInternalTempDir+'wf.tmp';
     aFile := TFileStream.Create(aFileName,fmCreate);
     aFile.CopyFrom(aStream,aStream.Size);
     aStream.Position:=0;
