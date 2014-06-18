@@ -1043,12 +1043,7 @@ var
   TempPath: String;
 begin
   with BaseApplication as IBaseApplication do
-    {$IFDEF LCL}
-    if Assigned(Config) then
-      TempPath := Config.ReadString('TEMPPATH','');
-  {$ENDIF}
-  if TempPath = '' then
-    TempPath := GetTempDir;
+    TempPath:=GetInternalTempDir;
   TempPath := AppendPathDelim(TempPath)+TempID+DirectorySeparator;
   if Directory <> '' then
     TempPath := TempPath+Directory+DirectorySeparator;
