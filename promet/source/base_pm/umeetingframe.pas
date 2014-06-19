@@ -985,7 +985,7 @@ begin
     AddTabClasses('MEE',pcPages);
   Entrys.DataSet := TMeetings(DataSet).Entrys.DataSet;
   with Application as IBaseDBInterface do
-    acPermanentEditormode.Checked:=DBConfig.ReadString('EVIS','Y') = 'Y';
+    acPermanentEditormode.Checked:=DBConfig.ReadString('EVIS','N') = 'Y';
   bpermanenetEditor.Down:=acPermanentEditormode.Checked;
   acPermanentEditormodeExecute(nil);
   inherited DoOpen;

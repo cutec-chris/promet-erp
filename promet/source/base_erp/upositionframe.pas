@@ -698,7 +698,7 @@ begin
     end
   else Datasource1.DataSet := nil;
   with Application as IBaseDBInterface do
-    acPermanentEditormode.Checked:= DBConfig.ReadString('EVIS','Y') = 'Y';
+    acPermanentEditormode.Checked:= DBConfig.ReadString('EVIS','N') = 'Y';
   bPermanentEditor.Down:=acPermanentEditormode.Checked;
 end;
 procedure TfPosition.SetBaseName(AValue: string);
@@ -888,4 +888,4 @@ begin
 end;
 
 end.
-
+
