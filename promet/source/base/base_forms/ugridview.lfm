@@ -417,7 +417,7 @@ object fGridView: TfGridView
       OnExecute = acCopyToClipboardExecute
     end
   end
-  object FDataSource: TDatasource
+  object FDataSource: TDataSource
     OnStateChange = FDataSourceStateChange
     OnDataChange = FDataSourceDataChange
     left = 108

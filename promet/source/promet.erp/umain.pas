@@ -313,6 +313,7 @@ type
     procedure RefreshWiki;
     procedure DoGetRight;
     procedure AddSearch;
+    procedure RegisterPhoneLines;
     function GetRight(aRight : string) : Integer;
   public
     constructor Create(aSuspended : Boolean = False);
@@ -769,6 +770,24 @@ begin
     fMain.FSearchNode.Visible:=True;
 end;
 
+procedure TStarterThread.RegisterPhoneLines;
+begin
+  {$IFDEF CPU32}
+  try
+    uSkypePhone.RegisterPhoneLines;
+  except
+  end;
+  {$ENDIF}
+  {$IFDEF WINDOWS}
+  {$IFDEF CPU32}
+  try
+  uTAPIPhone.RegisterPhoneLines;
+  except
+  end;
+  {$ENDIF}
+  {$ENDIF}
+end;
+
 function TStarterThread.GetRight(aRight: string): Integer;
 begin
   aRightIn := aRight;
@@ -963,20 +982,7 @@ begin
       except
       end;
     end;
-  {$IFDEF CPU32}
-  try
-    uSkypePhone.RegisterPhoneLines;
-  except
-  end;
-  {$ENDIF}
-  {$IFDEF WINDOWS}
-  {$IFDEF CPU32}
-  try
-  uTAPIPhone.RegisterPhoneLines;
-  except
-  end;
-  {$ENDIF}
-  {$ENDIF}
+  Synchronize(@RegisterPhoneLines);
   aConn.Free;
   Synchronize(@AddSearch);
 end;

@@ -888,7 +888,7 @@ end;
 procedure TfOrderFrame.ShowFrame;
 begin
   inherited ShowFrame;
-  FPosFrame.SetFocus;
+  FPosFrame.GridView.SetupHeader;
 end;
 procedure TfOrderFrame.GotoPosition;
 begin

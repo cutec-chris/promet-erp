@@ -267,6 +267,7 @@ type
     FSearchKeyRect: TRect;
     SearchKeyTimer : TTimer;
     deInplace : TInplaceDateEdit;
+    FDisableEdit : Boolean;
     procedure ClearFilters;
     function GetFilterRow: Boolean;
     procedure SetExpField(AValue: string);
@@ -678,7 +679,8 @@ begin
   if gList.Editor is TCustomComboBox then
     begin
       Application.ProcessMessages;
-      TCustomComboBox(gList.Editor).DroppedDown:=True;
+      if not (goAlwaysShowEditor in gList.Options) then
+        TCustomComboBox(gList.Editor).DroppedDown:=True;
     end;
 end;
 
@@ -689,7 +691,9 @@ begin
   if DataSet.CanEdit and gList.EditorMode then
     begin
       if DataSet.Changed then
-        Post
+        begin
+          Post
+        end
       else if (FDataSource.DataSet.State = dsInsert) and (not FDataSet.Changed) then
         begin
           CleanRow(gList.RowCount-1,-2);
@@ -821,7 +825,8 @@ begin
           aCur := mInplace.SelStart;
           mInplace.ScrollBars:=ssAutoVertical;
           mInplace.SelStart:=aCur;
-          mInplace.SetFocus;
+          if mInplace.Visible then
+            mInplace.SetFocus;
         end;
     end
   else
@@ -880,13 +885,8 @@ procedure TfGridView.gListColRowMoved(Sender: TObject; IsColumn: Boolean;
   sIndex, tIndex: Integer);
 var
   i: Integer;
-  aParent,aAheadParent : Variant;
-  OneRowBelowID: Int64 = 0;
-  aCol: Integer;
-  aLevel: Integer;
-  aLevelOld: Integer;
-  aPosno: Integer;
   aIndex: Integer;
+  aCol: Integer;
 begin
   if FDataSource.DataSet.ControlsDisabled then exit;
   if not FEditable then exit;
@@ -1731,6 +1731,7 @@ var
   aKey : Word = 0;
   oDate: TDateTime;
 begin
+  if FDisableEdit then exit;
   if FIgnoreSettext then
     begin
       FIgnoreSettext := False;
@@ -2687,6 +2688,7 @@ var
 begin
   inherited Create(AOwner);
   InEdit := False;
+  FDisableEdit:=False;
   FApplyAutoFilter := True;
   FreadOnly:=False;
   FWordwrap:=False;
@@ -2963,6 +2965,18 @@ begin
       try
         CleanList(0);
         AllDone := True;
+        if DataSet.CanEdit then
+          begin
+            if not ReadOnly then
+              begin
+                try
+                  DataSet.Post;
+                except
+                  DataSet.Cancel;
+                end;
+              end
+            else DataSet.Cancel;
+          end;
         First;
         while not EOF do
           begin
@@ -3378,9 +3392,13 @@ var
   aRec: LargeInt;
   aTopRow: Integer;
   aCol: Integer;
+  OldIgnore: Boolean;
 begin
   if not Assigned(FDataSet) then exit;
   if not FDataSet.DataSet.Active then exit;
+  gList.BeginUpdate;
+  OldIgnore := FDisableEdit;
+  FDisableEdit:=True;
   if gList.EditorMode then gList.EditorMode:=False;
   if DataSet.State = dsInsert then exit;
   aTopRow := gList.TopRow;
@@ -3393,6 +3411,8 @@ begin
   FDataSet.GotoBookmark(aRec);
   GotoDataSetRow;
   gList.TopRow := aTopRow;
+  gList.EndUpdate;
+  FDisableEdit:=OldIgnore;
   try
     gList.Col:=aCol;
   except
@@ -3488,7 +3508,7 @@ end;
 procedure TInplaceMemo.msg_SetGrid(var Msg: TGridMessage);
 begin
   FGrid:=Msg.Grid;
-  Msg.Options:=EO_AUTOSIZE or EO_SELECTALL or EO_IMPLEMENTED;
+  Msg.Options:=EO_AUTOSIZE or EO_IMPLEMENTED;
 end;
 
 procedure TInplaceMemo.msg_GetGrid(var Msg: TGridMessage);

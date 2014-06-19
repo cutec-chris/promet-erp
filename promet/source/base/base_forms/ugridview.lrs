@@ -279,7 +279,7 @@ LazarusResources.Add('TfGridView','FORMDATA',[
   +'n'#8'acSearch'#7'Caption'#6#8'acSearch'#10'ImageIndex'#2#8#9'OnExecute'#7#15
   +'acSearchExecute'#8'ShortCut'#3'F@'#0#0#7'TAction'#17'acCopyToClipboard'#7'C'
   +'aption'#6#26'in Zwischenablage kopieren'#10'ImageIndex'#2#23#9'OnExecute'#7
-  +#24'acCopyToClipboardExecute'#0#0#0#11'TDatasource'#11'FDataSource'#13'OnSta'
+  +#24'acCopyToClipboardExecute'#0#0#0#11'TDataSource'#11'FDataSource'#13'OnSta'
   +'teChange'#7#22'FDataSourceStateChange'#12'OnDataChange'#7#21'FDataSourceDat'
   +'aChange'#4'left'#2'l'#3'top'#2'$'#0#0#0
 ]);

@@ -38,13 +38,13 @@ inherited fTaskFrame: TfTaskFrame
     TabOrder = 1
     object Panel1: TPanel
       Left = 0
-      Height = 127
+      Height = 147
       Top = 20
       Width = 47
       Align = alTop
       BorderSpacing.Top = 20
       BevelOuter = bvNone
-      ClientHeight = 127
+      ClientHeight = 147
       ClientWidth = 47
       TabOrder = 0
       object bAddPos: TSpeedButton
@@ -95,7 +95,7 @@ inherited fTaskFrame: TfTaskFrame
       object bDeletePos: TSpeedButton
         Left = 15
         Height = 24
-        Top = 100
+        Top = 122
         Width = 24
         Action = acDelPos
         Glyph.Data = {
@@ -149,7 +149,7 @@ inherited fTaskFrame: TfTaskFrame
       end
       object ExtRotatedLabel1: TExtRotatedLabel
         Left = 0
-        Height = 123
+        Height = 143
         Top = 4
         Width = 14
         Align = alLeft
@@ -157,14 +157,15 @@ inherited fTaskFrame: TfTaskFrame
         Caption = 'Aufgabe'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = -900
+        Font.Orientation = 900
+        Layout = tlBottom
         ParentColor = False
         ParentFont = False
       end
       object bDeletePos2: TSpeedButton
         Left = 15
         Height = 24
-        Top = 28
+        Top = 50
         Width = 24
         Action = acMAkeSubTask
         Glyph.Data = {
@@ -209,7 +210,7 @@ inherited fTaskFrame: TfTaskFrame
       object bDeletePos5: TSpeedButton
         Left = 15
         Height = 24
-        Top = 52
+        Top = 74
         Width = 24
         Action = acUnmakeSubTask
         Glyph.Data = {
@@ -254,7 +255,7 @@ inherited fTaskFrame: TfTaskFrame
       object bDeletePos6: TSpeedButton
         Left = 15
         Height = 24
-        Top = 76
+        Top = 98
         Width = 24
         Action = acLink
         Glyph.Data = {
@@ -296,11 +297,56 @@ inherited fTaskFrame: TfTaskFrame
         Layout = blGlyphTop
         ShowCaption = False
       end
+      object bDeletePos10: TSpeedButton
+        Left = 15
+        Height = 24
+        Top = 27
+        Width = 24
+        Action = acTerminate
+        Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00D69E
+          72C4D3996EF4D19668FFCE9263FFCB8E5EFFC98A5BFFC78756FFC38452FFC384
+          52FFC38452FFC38452FFC38452FFC38452FFBB7742B0FFFFFF00FFFFFF00D7A1
+          75FFF8F2EDFFF7F0EAFFF6EDE6FFF4EAE2FFF3E7DEFFF1E4DBFFF0E2D8FFEAD6
+          C8FFF2E5DCFFFAF4F1FFF9F3F0FFFAF5F2FFC58A5DFDFFFFFF00FFFFFF00D9A4
+          7AFFF9F3EEFFEBD2BEFFFFFFFFFFEBD3BFFFFFFFFFFFEBD3C0FFFFFFFFFFEAC7
+          ADFFECD9CDFFF1E4DBFFF9F3F0FFF9F2EFFFC68C5FFFFFFFFF00FFFFFF00DDA8
+          7EFFF9F3EFFFEBD0BAFFEBD0BBFF75B57AFF75B57AFF75B57AFFEBD1BDFFEACD
+          B5FFFAF4F0FFEBD9CCFFF1E4DBFFFAF4F1FFC68A5CFFFFFFFF00FFFFFF00DFAA
+          82FFF9F3EFFFEACEB7FFFFFFFFFF75B57AFF94D49BFF74B579FFFFFFFFFFEACF
+          BAFFFBF6F2FFFAF3F0FFEBD8CBFFF2E6DDFFC88D5FFFFFFFFF00FFFFFF00E1AE
+          87FFFAF4F0FFEACBB2FFEACCB3FF75B57AFF74B579FF73B478FFEACEB7FF70B3
+          75FF6FB274FF6EB172FFE8C8AEFFEAD7C9FFC48654FFFFFFFF00FFFFFF00E3B1
+          8CFFFAF6F1FFEAC9AEFFFFFFFFFFEAC9B0FFFFFFFFFFE9CBB3FFFFFFFFFF6FB1
+          73FF8ED295FF6BAF6FFFFFFFFFFFF1E5DBFFC68655FFFFFFFF00FFFFFF00E5B4
+          8FFFFAF6F2FFE9C6AAFFE9C6ACFFEAC7ACFFE9C7ADFFE9C9AEFFE9C9B0FF6CB0
+          71FF6AAF6EFF68AD6DFFE8CCB5FFF2E7DEFFC88A59FFFFFFFF00FFFFFF00E7B7
+          94FFFBF7F4FFE9C3A6FFFFFFFFFFE8C4A9FFFFFFFFFFE9C6AAFFFFFFFFFFE8C7
+          ACFFFFFFFFFFE8C8B0FFFFFFFFFFF7F1EBFFCB8F5FFFFFFFFF00FFFFFF00E9BA
+          98FFFBF7F4FF65A4FFFF64A3FFFF62A2FFFF61A1FFFF5F9FFFFF5C9DFFFF5A9A
+          FFFF5798FFFF5495FFFF5294FFFFFBF7F4FFCE9364FFFFFFFF00FFFFFF00EBBD
+          9BFFFBF7F4FF64A4FFFF79BDFFFF75BBFFFF71B9FFFF6DB8FFFF68B3FFFF61B0
+          FFFF5AABFFFF54A7FFFF3B7DFFFFFBF7F4FFD1976AFFFFFFFF00FFFFFF00ECBF
+          9EFFFBF7F4FF65A4FFFF64A3FFFF60A0FFFF5D9EFFFF5899FFFF5496FFFF4D90
+          FFFF478BFFFF4284FFFF3D7FFFFFFBF7F4FFD49B6FFFFFFFFF00FFFFFF00EEC1
+          A1EBFBF7F4FFFBF7F4FFFBF7F4FFFBF7F4FFFBF7F4FFFBF7F4FFFBF7F4FFFBF7
+          F4FFFBF7F4FFFBF7F4FFFBF7F4FFFBF7F4FFD7A074F8FFFFFF00FFFFFF00EFC2
+          A37EEFC1A2E3EDC09FFFEBBE9DFFEBBC9AFFE9BA96FFE7B793FFE6B590FFE4B2
+          8CFFE2AF88FFE0AC84FFDDA980FFDCA57DFFDAA37ACAFFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+        }
+        Layout = blGlyphTop
+        ShowCaption = False
+      end
     end
     object Panel2: TPanel
       Left = 0
       Height = 35
-      Top = 147
+      Top = 167
       Width = 47
       Align = alTop
       BevelOuter = bvNone
@@ -372,7 +418,8 @@ inherited fTaskFrame: TfTaskFrame
         Caption = 'Zeit'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = -900
+        Font.Orientation = 900
+        Layout = tlBottom
         ParentColor = False
         ParentFont = False
       end
@@ -380,7 +427,7 @@ inherited fTaskFrame: TfTaskFrame
     object Panel3: TPanel
       Left = 0
       Height = 125
-      Top = 182
+      Top = 202
       Width = 47
       Align = alTop
       BevelOuter = bvNone
@@ -407,7 +454,8 @@ inherited fTaskFrame: TfTaskFrame
         Caption = 'Ansicht'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = -900
+        Font.Orientation = 900
+        Layout = tlBottom
         ParentColor = False
         ParentFont = False
       end
@@ -623,7 +671,7 @@ inherited fTaskFrame: TfTaskFrame
     object Panel9: TPanel
       Left = 0
       Height = 54
-      Top = 307
+      Top = 327
       Width = 47
       Align = alTop
       BevelOuter = bvNone
@@ -696,7 +744,8 @@ inherited fTaskFrame: TfTaskFrame
         Caption = 'zusätzlich'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = -900
+        Font.Orientation = 900
+        Layout = tlBottom
         ParentColor = False
         ParentFont = False
       end
@@ -1465,9 +1514,9 @@ inherited fTaskFrame: TfTaskFrame
       end
       object ExtRotatedLabel4: TLabel
         Left = 6
-        Height = 13
+        Height = 11
         Top = 0
-        Width = 27
+        Width = 21
         Caption = 'Filter'
         Font.Color = clMedGray
         Font.Height = 11
@@ -1478,13 +1527,13 @@ inherited fTaskFrame: TfTaskFrame
       object cbFilter: TComboBox
         AnchorSideLeft.Side = asrBottom
         Left = 6
-        Height = 27
+        Height = 21
         Hint = 'hier können Sie einen Filter wählen um die Liste einzuschränken'
         Top = 12
         Width = 194
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Left = 8
-        ItemHeight = 0
+        ItemHeight = 13
         OnSelect = cbFilterSelect
         TabOrder = 0
       end
@@ -1642,7 +1691,6 @@ inherited fTaskFrame: TfTaskFrame
       ScrollWidth = 450
       TabOrder = 0
       TabStop = False
-      TopIndex = -1
     end
   end
   object pFilterOptions: TPanel[4]
@@ -1669,9 +1717,9 @@ inherited fTaskFrame: TfTaskFrame
       TabOrder = 0
       object cbMaxResults: TCheckBox
         Left = 9
-        Height = 24
+        Height = 17
         Top = 5
-        Width = 209
+        Width = 173
         Caption = 'Filterergebnisse begrenzen auf  '
         Checked = True
         OnChange = seMaxresultsChange
@@ -1826,7 +1874,7 @@ inherited fTaskFrame: TfTaskFrame
         Left = 9
         Height = 13
         Top = 33
-        Width = 86
+        Width = 74
         Caption = 'Filterbedingung'
         ParentColor = False
       end
@@ -1842,7 +1890,7 @@ inherited fTaskFrame: TfTaskFrame
       end
       object eFilterIn: TEdit
         Left = 417
-        Height = 23
+        Height = 21
         Hint = 'Wenn Sie über mehrere Tabellen Filtern '#13#10'möchten füllen Sie dieses Feld'#13#10'z.b.'#13#10'Orders,OrderPos'
         Top = 80
         Width = 152
@@ -1860,8 +1908,8 @@ inherited fTaskFrame: TfTaskFrame
       object seMaxresults: TSpinEdit
         AnchorSideLeft.Control = cbMaxResults
         AnchorSideLeft.Side = asrBottom
-        Left = 218
-        Height = 23
+        Left = 182
+        Height = 21
         Hint = 'hier können Sie die Zahl der maximalen Filterergebnisse angeben'
         Top = 5
         Width = 52
@@ -2625,13 +2673,13 @@ inherited fTaskFrame: TfTaskFrame
       OnExecute = acAppendLinkToDependenciesExecute
     end
     object acTerminate: TAction
-      Caption = 'Termin zuweisen'
-      Hint = 'findet den nächstmöglichen termin für die Aufgabe'
+      Caption = 'nächstmöglichen Termin finden'
+      Hint = 'findet den nächstmöglichen Termin für die Aufgabe'
       ImageIndex = 4
       OnExecute = acTerminateExecute
     end
   end
-  object Datasource: TDatasource[7]
+  object Datasource: TDataSource[7]
     OnStateChange = DatasourceStateChange
     OnDataChange = DatasourceDataChange
     left = 208
@@ -2647,7 +2695,7 @@ inherited fTaskFrame: TfTaskFrame
     left = 156
     top = 180
   end
-  object History: TDatasource[10]
+  object History: TDataSource[10]
     left = 212
     top = 180
   end
@@ -2667,7 +2715,7 @@ inherited fTaskFrame: TfTaskFrame
     left = 156
     top = 136
   end
-  object MandantDetails: TDatasource[13]
+  object MandantDetails: TDataSource[13]
     AutoEdit = False
     left = 12344
   end
@@ -2693,7 +2741,7 @@ inherited fTaskFrame: TfTaskFrame
     left = 368
     top = 128
   end
-  object Users: TDatasource[15]
+  object Users: TDataSource[15]
     left = 212
     top = 216
   end
@@ -2982,6 +3030,9 @@ inherited fTaskFrame: TfTaskFrame
         98FF206398FF206398FF206398FF206297FF1F6195FF1E6093FF1E5E91FF1D5D
         8FFF1C5B8DFF1B598AFF1B5888FF1A5685FF195482FF185280FF
       }
+    end
+    object MenuItem12: TMenuItem
+      Action = acTerminate
     end
     object MenuItem2: TMenuItem
       Action = acStartTime

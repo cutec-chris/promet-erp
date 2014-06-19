@@ -26,7 +26,7 @@ interface
 uses
   Classes, SysUtils, db, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   StdCtrls, Buttons, Menus, ActnList, Spin, ExtDlgs, gsGanttCalendar, uTask,
-  Math, uProjects,uQuickHelpFrame;
+  Math, types, uProjects,uQuickHelpFrame;
 
 type
 
@@ -39,6 +39,7 @@ type
     acAddSubProjects: TAction;
     acAddSnapshot: TAction;
     acExportToImage: TAction;
+    acFindTimeSlot: TAction;
     ActionList1: TActionList;
     bMakePossible: TSpeedButton;
     bCalculate2: TSpeedButton;
@@ -69,6 +70,7 @@ type
     Label6: TLabel;
     Label7: TLabel;
     MenuItem1: TMenuItem;
+    MenuItem2: TMenuItem;
     Panel10: TPanel;
     Panel4: TPanel;
     Panel5: TPanel;
@@ -78,6 +80,7 @@ type
     pgantt: TPanel;
     Panel7: TPanel;
     PopupMenu1: TPopupMenu;
+    PopupMenu2: TPopupMenu;
     SavePictureDialog1: TSavePictureDialog;
     seBuffer: TSpinEdit;
     tbTop: TPanel;
@@ -89,6 +92,7 @@ type
     procedure acAddSubProjectsExecute(Sender: TObject);
     procedure acCenterTaskExecute(Sender: TObject);
     procedure acExportToImageExecute(Sender: TObject);
+    procedure acFindTimeSlotExecute(Sender: TObject);
     procedure acMakePossibleExecute(Sender: TObject);
     procedure acOpenExecute(Sender: TObject);
     procedure aIntervalChanged(Sender: TObject);
@@ -115,6 +119,7 @@ type
     procedure FGanttCalendarShowHint(Sender: TObject; HintInfo: PHintInfo);
     procedure FGanttTreeAfterUpdateCommonSettings(Sender: TObject);
     procedure FGanttTreeResize(Sender: TObject);
+    procedure PopupMenu2Popup(Sender: TObject);
     procedure RecalcTimerTimer(Sender: TObject);
     procedure bSaveClick(Sender: TObject);
     procedure bCancelClick(Sender: TObject);
@@ -133,6 +138,7 @@ type
     FSnapshots : TInterval;
     FCriticalPathLength : float;
     FQuickHelpFrame: TfQuickHelpFrame;
+    FSelectedInterval: TInterval;
   public
     { public declarations }
     constructor Create(TheOwner: TComponent); override;
@@ -214,6 +220,17 @@ begin
   fgantt.Tree.ColWidths[2]:=FGantt.Tree.Width-FGantt.Tree.ColWidths[3]-FGantt.Tree.ColWidths[4]-FGantt.Tree.ColWidths[5]-20; //20=scrollbarwidth maybe other values on other widgetsets
   fgantt.Tree.ColWidths[6]:=0;
   fgantt.Tree.ColWidths[7]:=0;
+end;
+
+procedure TfGanttView.PopupMenu2Popup(Sender: TObject);
+var
+  TP : TfTaskPlan;
+  aPoint: types.TPoint;
+begin
+  aPoint := Mouse.CursorPos;
+  aPoint := FGantt.Calendar.ScreenToControl(aPoint);
+  FSelectedInterval := TP.GetTaskIntervalFromCoordinates(FGantt,aPoint.x,aPoint.y,0);
+  acFindTimeSlot.Enabled:=Assigned(FSelectedInterval);
 end;
 
 procedure TfGanttView.RecalcTimerTimer(Sender: TObject);
@@ -682,6 +699,26 @@ begin
     end;
 end;
 
+procedure TfGanttView.acFindTimeSlotExecute(Sender: TObject);
+var
+  aTask: TTask;
+  aStart,aEnd,aDuration : TDateTime;
+begin
+  if not Assigned(FSelectedInterval) then exit;
+  aTask := TTask.Create(nil,Data);
+  aTask.Select(FSelectedInterval.Id);
+  aTask.Open;
+  if aTask.Count>0 then
+    begin
+      if aTask.Terminate(aStart,aEnd,aDuration) then
+        begin
+          FSelectedInterval.StartDate:=aStart;
+          FSelectedInterval.FinishDate:=aEnd;
+        end;
+    end;
+  aTask.Free;
+end;
+
 procedure TfGanttView.acAddSubProjectsExecute(Sender: TObject);
 var
   aProjects: TProjectList;
@@ -987,6 +1024,7 @@ begin
   FGantt.Calendar.OnDblClick:=@FGanttCalendarDblClick;
   FGantt.Calendar.OnClick:=@FGanttCalendarClick;
   FGantt.Tree.PopupMenu:=PopupMenu1;
+  FGantt.Calendar.PopupMenu:=PopupMenu2;
   bDayViewClick(nil);
   FGantt.Calendar.ShowHint:=True;
   FSnapshots := nil;

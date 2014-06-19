@@ -80,6 +80,7 @@ type
     procedure Open; override;
     function CalcDates(var aStart, aDue: TDateTime): Boolean;
     function GetUnterminatedDependencies: TStrings;
+    function Terminate(var aStart,aEnd,aDuration : TDateTime) : Boolean;
     function Terminate : Boolean;
     function WaitTimeDone : TDateTime;
     function GetInterval : TTaskInterval;
@@ -496,7 +497,8 @@ begin
     end;
   aTask.Free;
 end;
-function TTaskList.Terminate: Boolean;
+
+function TTaskList.Terminate(var aStart, aEnd, aDuration: TDateTime): Boolean;
 var
   aStartDate : TDateTime;
   aTask: TTask;
@@ -642,7 +644,6 @@ begin
   //Set it
   if aFound then
     begin
-      Edit;
       //Move out of Weekends
       while ((DayOfWeek(trunc(aActStartDate))=1) or (DayOfWeek(trunc(aActStartDate))=7)) do
         aActStartDate := trunc(aActStartDate)+1;
@@ -653,13 +654,26 @@ begin
           and (aActStartDate<TTaskInterval(aIntervals[i]).DueDate) then
             aActStartDate := TTaskInterval(aIntervals[i]).DueDate;
         end;
-      FieldByName('STARTDATE').AsDateTime:=aActStartDate;
-      FieldByName('DUEDATE').AsDateTime:=aActStartDate+Duration;
-      FieldByName('PLANTIME').AsFloat:=aNetTime;
+      aStart:=aActStartDate;
+      aEnd:=aActStartDate+Duration;
+      aDuration:=aNetTime;
       Result := True;
     end;
   aIntervals.Clear;
   aIntervals.Free;
+end;
+
+function TTaskList.Terminate: Boolean;
+var
+  aStart,aEnd,aDuration : TDateTime;
+begin
+  if Terminate(aStart,aEnd,aDuration) then
+    begin
+      Edit;
+      FieldByName('STARTDATE').AsDateTime:=aStart;
+      FieldByName('DUEDATE').AsDateTime:=aEnd;
+      FieldByName('PLANTIME').AsFloat:=aDuration;
+    end;
 end;
 
 function TTaskList.WaitTimeDone: TDateTime;

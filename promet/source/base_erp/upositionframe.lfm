@@ -1,40 +1,40 @@
 object fPosition: TfPosition
   Left = 0
-  Height = 488
+  Height = 469
   Top = 0
   Width = 706
-  ClientHeight = 488
+  ClientHeight = 469
   ClientWidth = 706
   ParentShowHint = False
   ShowHint = True
   TabOrder = 0
-  DesignLeft = 340
-  DesignTop = 185
+  DesignLeft = 393
+  DesignTop = 217
   object pPosControls: TPanel
     Left = 0
-    Height = 264
+    Height = 230
     Top = 0
-    Width = 44
+    Width = 64
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 264
-    ClientWidth = 44
+    ClientHeight = 230
+    ClientWidth = 64
     TabOrder = 0
     object Panel2: TPanel
       Left = 0
-      Height = 124
+      Height = 76
       Top = 20
-      Width = 44
+      Width = 64
       Align = alTop
       BorderSpacing.Top = 20
       BevelOuter = bvNone
-      ClientHeight = 124
-      ClientWidth = 44
+      ClientHeight = 76
+      ClientWidth = 64
       TabOrder = 0
       object bAddPos: TSpeedButton
-        Left = 15
+        Left = 39
         Height = 24
-        Top = 26
+        Top = 2
         Width = 24
         Action = acAddPos
         Glyph.Data = {
@@ -79,7 +79,7 @@ object fPosition: TfPosition
       object bDeletePos: TSpeedButton
         Left = 15
         Height = 24
-        Top = 50
+        Top = 25
         Width = 24
         Action = acDelPos
         Glyph.Data = {
@@ -125,7 +125,7 @@ object fPosition: TfPosition
         Left = 4
         Height = 4
         Top = 0
-        Width = 36
+        Width = 56
         Align = alTop
         BorderSpacing.Left = 4
         BorderSpacing.Right = 4
@@ -133,7 +133,7 @@ object fPosition: TfPosition
       end
       object ExtRotatedLabel1: TExtRotatedLabel
         Left = 0
-        Height = 120
+        Height = 72
         Top = 4
         Width = 14
         Align = alLeft
@@ -149,7 +149,7 @@ object fPosition: TfPosition
       object bLvlDown: TSpeedButton
         Left = 15
         Height = 24
-        Top = 74
+        Top = 48
         Width = 24
         Action = acMakeSubPos
         Glyph.Data = {
@@ -192,9 +192,9 @@ object fPosition: TfPosition
         ShowCaption = False
       end
       object bLvlUp: TSpeedButton
-        Left = 15
+        Left = 39
         Height = 24
-        Top = 98
+        Top = 48
         Width = 24
         Action = acUnMakeSebPos
         Glyph.Data = {
@@ -285,25 +285,25 @@ object fPosition: TfPosition
     object Panel3: TPanel
       Left = 0
       Height = 78
-      Top = 221
-      Width = 44
+      Top = 150
+      Width = 64
       Align = alTop
       BevelOuter = bvNone
       ClientHeight = 78
-      ClientWidth = 44
+      ClientWidth = 64
       TabOrder = 1
       object Bevel2: TBevel
         Left = 4
         Height = 4
         Top = 0
-        Width = 36
+        Width = 56
         Align = alTop
         BorderSpacing.Left = 4
         BorderSpacing.Right = 4
         Shape = bsTopLine
       end
       object bGotoArticle: TSpeedButton
-        Left = 15
+        Left = 39
         Height = 24
         Top = 4
         Width = 24
@@ -350,7 +350,7 @@ object fPosition: TfPosition
       object bEnterTime: TSpeedButton
         Left = 15
         Height = 24
-        Top = 27
+        Top = 4
         Width = 24
         Action = acStartTimeregistering
         Glyph.Data = {
@@ -410,7 +410,7 @@ object fPosition: TfPosition
       object bDeletePos6: TSpeedButton
         Left = 15
         Height = 24
-        Top = 50
+        Top = 28
         Width = 24
         Action = acRenumber
         Glyph.Data = {
@@ -455,19 +455,19 @@ object fPosition: TfPosition
     end
     object Panel4: TPanel
       Left = 0
-      Height = 77
-      Top = 144
-      Width = 44
+      Height = 54
+      Top = 96
+      Width = 64
       Align = alTop
       BevelOuter = bvNone
-      ClientHeight = 77
-      ClientWidth = 44
+      ClientHeight = 54
+      ClientWidth = 64
       TabOrder = 2
       object Bevel4: TBevel
         Left = 4
         Height = 4
         Top = 0
-        Width = 36
+        Width = 56
         Align = alTop
         BorderSpacing.Left = 4
         BorderSpacing.Right = 4
@@ -475,7 +475,7 @@ object fPosition: TfPosition
       end
       object ExtRotatedLabel3: TExtRotatedLabel
         Left = 0
-        Height = 73
+        Height = 50
         Top = 4
         Width = 14
         Align = alLeft
@@ -538,7 +538,7 @@ object fPosition: TfPosition
         Left = 15
         Height = 24
         Hint = 'zeigt/versteckt die Positionsdetails'
-        Top = 52
+        Top = 27
         Width = 24
         AllowAllUp = True
         Glyph.Data = {
@@ -581,10 +581,10 @@ object fPosition: TfPosition
         OnClick = bDetailsVisibleClick
       end
       object bRowDetails: TSpeedButton
-        Left = 15
+        Left = 39
         Height = 24
         Hint = 'zeigt/versteckt den Langtext'
-        Top = 28
+        Top = 4
         Width = 24
         AllowAllUp = True
         Down = True
@@ -627,23 +627,70 @@ object fPosition: TfPosition
         GroupIndex = 254
         OnClick = bRowDetailsClick
       end
+      object bPermanentEditor: TSpeedButton
+        Left = 39
+        Height = 24
+        Top = 27
+        Width = 24
+        Action = acPermanentEditorMode
+        AllowAllUp = True
+        Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF001340
+          58FF15425EFF25699CFF2C76B4FF3B8BBAADFFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF001242
+          59FF5D9CD4FFA6CFF5FFA9CFECFF488BC1FF2C76B4FFFFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF001E6D
+          93FFCBE3F9FF61AAECFF4098E8FF1567C2FF1660AAFF2C76B4FFFFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF001E6D
+          93FFC8E1F2FFD1E7FAFF347DB5FF3199C3FF6DC4DCFF4A9CCFFF3483C7FFFFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF002063
+          98202689B9FFB0CBE1FF67A9C8FF60DCF5FF44D6F4FF8EEEFAFF5DB4E6FF3B8F
+          D9FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF002689B9FFBEE6F2FFB3F4FCFF60DCF5FF44D6F4FF8EEEFAFF5DB4
+          E6FF3B8FD9FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF002790BFFFC3EDF8FFB3F4FCFF60DCF5FF44D6F4FF8EEE
+          FAFF5DB4E6FF3B8FD9FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF002FBAE4FFC3EDF8FFB3F4FCFF60DCF5FF44D6
+          F4FF8EEEFAFF5DB4E6FF3B8FD9FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF002FBAE4FFC3EDF8FFB3F4FCFF60DC
+          F5FF44D6F4FF8EEEFAFF5DB4E6FF3B8FD9FFFFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF002FBAE4FFC3EDF8FFB3F4
+          FCFF68D9F5FF6FCFF3FF599DD0FF73ABDDFF4F91C9FFFFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF002FBAE4FFC3ED
+          F8FFA8E2F8FF6CAEDDFFA5CFF4FFA5CFF4FFBDDBF7FF5393CBF7FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF002FBA
+          E4FFA7D4F4FFC5E1F8FFCCE3F9FFCCE3F9FFBDDBF7FF4F90C9FDFFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF0050A8D9FF6AA5D8FFC9E1F7FFCBE3F8FF4295CAFF3182C2AEFFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF002FBAE4094FAADBEA5093CAFD4E90C8FF2F9DD2DF35A4DE19FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+        }
+        GroupIndex = 12456
+        Layout = blGlyphTop
+        ShowCaption = False
+      end
     end
   end
   object pDetail: TPanel
     Left = 0
-    Height = 219
-    Top = 269
+    Height = 234
+    Top = 235
     Width = 706
     Align = alBottom
     Anchors = [akTop, akLeft, akRight, akBottom]
     BevelOuter = bvNone
-    ClientHeight = 219
+    ClientHeight = 234
     ClientWidth = 706
     TabOrder = 1
     Visible = False
     object pcTabs: TExtMenuPageControl
       Left = 0
-      Height = 219
+      Height = 234
       Top = 0
       Width = 706
       ActivePage = tsDetails
@@ -654,13 +701,13 @@ object fPosition: TfPosition
       NewTabImageIndex = 59
       object tsDetails: TTabSheet
         Caption = 'Details'
-        ClientHeight = 192
+        ClientHeight = 207
         ClientWidth = 698
         ImageIndex = 40
         ParentFont = False
         object Panel1: TPanel
           Left = 0
-          Height = 192
+          Height = 207
           Top = 0
           Width = 698
           Align = alClient
@@ -675,7 +722,7 @@ object fPosition: TfPosition
     Cursor = crVSplit
     Left = 0
     Height = 5
-    Top = 264
+    Top = 230
     Width = 706
     Align = alBottom
     OnMoved = spDetailsMoved
@@ -684,22 +731,22 @@ object fPosition: TfPosition
     Visible = False
   end
   object pSearch: TPanel
-    Left = 60
+    Left = 88
     Height = 72
     Top = 118
-    Width = 452
+    Width = 424
     Anchors = [akTop, akRight]
     BevelOuter = bvNone
     Caption = 'pSearch'
     ClientHeight = 72
-    ClientWidth = 452
+    ClientWidth = 424
     TabOrder = 3
     Visible = False
     object lbResults: TListBox
       Left = 0
       Height = 72
       Top = 0
-      Width = 452
+      Width = 424
       Align = alClient
       ItemHeight = 0
       OnDblClick = lbResultsDblClick
@@ -765,6 +812,13 @@ object fPosition: TfPosition
       Hint = 'Artikel suchen und einfügen'
       ImageIndex = 0
       OnExecute = acAddfromArticleExecute
+    end
+    object acPermanentEditorMode: TAction
+      AutoCheck = True
+      Caption = 'acPermanentEditMode'
+      GroupIndex = 545015
+      ImageIndex = 67
+      OnExecute = acPermanentEditorModeExecute
     end
   end
   object TabTimer: TIdleTimer
@@ -1049,7 +1103,7 @@ object fPosition: TfPosition
       }
     end
   end
-  object Datasource1: TDatasource
+  object Datasource1: TDataSource
     OnStateChange = Datasource1StateChange
     OnDataChange = Datasource1DataChange
     left = 260

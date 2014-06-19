@@ -1,19 +1,19 @@
 inherited fMeetingFrame: TfMeetingFrame
   Height = 536
-  Width = 705
+  Width = 706
   ClientHeight = 536
-  ClientWidth = 705
+  ClientWidth = 706
   DesignLeft = 378
   DesignTop = 257
   object ToolBar1: TPanel[0]
     Left = 0
     Height = 44
     Top = 0
-    Width = 705
+    Width = 706
     Align = alTop
     BevelOuter = bvNone
     ClientHeight = 44
-    ClientWidth = 705
+    ClientWidth = 706
     TabOrder = 0
     object Panel4: TPanel
       Left = 0
@@ -413,7 +413,7 @@ inherited fMeetingFrame: TfMeetingFrame
       ParentColor = False
     end
     object Label2: TLabel
-      Left = 580
+      Left = 581
       Height = 14
       Top = 24
       Width = 121
@@ -491,11 +491,11 @@ inherited fMeetingFrame: TfMeetingFrame
     Left = 0
     Height = 52
     Top = 44
-    Width = 705
+    Width = 706
     Align = alTop
     BevelOuter = bvNone
     ClientHeight = 52
-    ClientWidth = 705
+    ClientWidth = 706
     TabOrder = 1
     object lname: TLabel
       Left = 9
@@ -509,7 +509,7 @@ inherited fMeetingFrame: TfMeetingFrame
       Left = 376
       Height = 48
       Top = 0
-      Width = 192
+      Width = 193
       Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Top = 8
       BorderSpacing.Around = 8
@@ -530,7 +530,7 @@ inherited fMeetingFrame: TfMeetingFrame
       OnChange = eNameChange
     end
     object dtStart: TDBZVDateTimePicker
-      Left = 580
+      Left = 581
       Height = 21
       Top = 0
       Width = 121
@@ -552,7 +552,7 @@ inherited fMeetingFrame: TfMeetingFrame
       UseDefaultSeparators = True
     end
     object dtEnd: TDBZVDateTimePicker
-      Left = 650
+      Left = 651
       Height = 21
       Top = 26
       Width = 51
@@ -578,7 +578,7 @@ inherited fMeetingFrame: TfMeetingFrame
     Left = 0
     Height = 440
     Top = 96
-    Width = 705
+    Width = 706
     ActivePage = tsMeeting
     Align = alClient
     Images = fVisualControls.Images
@@ -588,7 +588,7 @@ inherited fMeetingFrame: TfMeetingFrame
     object tsMeeting: TTabSheet
       Caption = 'Besprechung'
       ClientHeight = 413
-      ClientWidth = 697
+      ClientWidth = 698
       object tbLeft: TPanel
         Left = 0
         Height = 413
@@ -907,12 +907,12 @@ inherited fMeetingFrame: TfMeetingFrame
         end
         object Panel3: TPanel
           Left = 0
-          Height = 49
+          Height = 71
           Top = 217
           Width = 47
           Align = alTop
           BevelOuter = bvNone
-          ClientHeight = 49
+          ClientHeight = 71
           ClientWidth = 47
           TabOrder = 1
           object Bevel4: TBevel
@@ -927,7 +927,7 @@ inherited fMeetingFrame: TfMeetingFrame
           end
           object ExtRotatedLabel3: TExtRotatedLabel
             Left = 0
-            Height = 45
+            Height = 67
             Top = 4
             Width = 14
             Align = alLeft
@@ -983,6 +983,53 @@ inherited fMeetingFrame: TfMeetingFrame
               FF00FFFFFF00A465341DA7693A9FA76A3ADEA56736F6A76939E5A76A3ABCA465
               3453A4653405FFFFFF00FFFFFF00FFFFFF00A4653479A4653410
             }
+            Layout = blGlyphTop
+            ShowCaption = False
+          end
+          object bpermanenetEditor: TSpeedButton
+            Left = 15
+            Height = 24
+            Top = 28
+            Width = 24
+            Action = acPermanentEditormode
+            AllowAllUp = True
+            Glyph.Data = {
+              36040000424D3604000000000000360000002800000010000000100000000100
+              2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF001340
+              58FF15425EFF25699CFF2C76B4FF3B8BBAADFFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF001242
+              59FF5D9CD4FFA6CFF5FFA9CFECFF488BC1FF2C76B4FFFFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF001E6D
+              93FFCBE3F9FF61AAECFF4098E8FF1567C2FF1660AAFF2C76B4FFFFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF001E6D
+              93FFC8E1F2FFD1E7FAFF347DB5FF3199C3FF6DC4DCFF4A9CCFFF3483C7FFFFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF002063
+              98202689B9FFB0CBE1FF67A9C8FF60DCF5FF44D6F4FF8EEEFAFF5DB4E6FF3B8F
+              D9FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF002689B9FFBEE6F2FFB3F4FCFF60DCF5FF44D6F4FF8EEEFAFF5DB4
+              E6FF3B8FD9FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF002790BFFFC3EDF8FFB3F4FCFF60DCF5FF44D6F4FF8EEE
+              FAFF5DB4E6FF3B8FD9FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF002FBAE4FFC3EDF8FFB3F4FCFF60DCF5FF44D6
+              F4FF8EEEFAFF5DB4E6FF3B8FD9FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF002FBAE4FFC3EDF8FFB3F4FCFF60DC
+              F5FF44D6F4FF8EEEFAFF5DB4E6FF3B8FD9FFFFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF002FBAE4FFC3EDF8FFB3F4
+              FCFF68D9F5FF6FCFF3FF599DD0FF73ABDDFF4F91C9FFFFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF002FBAE4FFC3ED
+              F8FFA8E2F8FF6CAEDDFFA5CFF4FFA5CFF4FFBDDBF7FF5393CBF7FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF002FBA
+              E4FFA7D4F4FFC5E1F8FFCCE3F9FFCCE3F9FFBDDBF7FF4F90C9FDFFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF0050A8D9FF6AA5D8FFC9E1F7FFCBE3F8FF4295CAFF3182C2AEFFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF002FBAE4094FAADBEA5093CAFD4E90C8FF2F9DD2DF35A4DE19FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+            }
+            GroupIndex = 1254
             Layout = blGlyphTop
             ShowCaption = False
           end
@@ -1116,7 +1163,7 @@ inherited fMeetingFrame: TfMeetingFrame
         end
       end
       object pSearch: TPanel
-        Left = -3334
+        Left = -3333
         Height = 72
         Top = 216
         Width = 452
@@ -1142,7 +1189,7 @@ inherited fMeetingFrame: TfMeetingFrame
       end
     end
   end
-  object Datasource: TDatasource[3]
+  object Datasource: TDataSource[3]
     left = 232
     top = 144
   end
@@ -1243,6 +1290,13 @@ inherited fMeetingFrame: TfMeetingFrame
       ImageIndex = 39
       OnExecute = acSetTopicExecute
     end
+    object acPermanentEditormode: TAction
+      AutoCheck = True
+      Caption = 'acPermanentEditormode'
+      GroupIndex = 1254
+      ImageIndex = 67
+      OnExecute = acPermanentEditormodeExecute
+    end
   end
   object Report: TfrReport[5]
     Dataset = PList
@@ -1264,12 +1318,12 @@ inherited fMeetingFrame: TfMeetingFrame
     left = 200
     top = 232
   end
-  object Entrys: TDatasource[8]
+  object Entrys: TDataSource[8]
     OnStateChange = DatasourceStateChange
     left = 232
     top = 232
   end
-  object Users: TDatasource[9]
+  object Users: TDataSource[9]
     left = 232
     top = 288
   end
@@ -1361,7 +1415,7 @@ inherited fMeetingFrame: TfMeetingFrame
       }
     end
   end
-  object MandantDetails: TDatasource[12]
+  object MandantDetails: TDataSource[12]
     left = 200
     top = 144
   end

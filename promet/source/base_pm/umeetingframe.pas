@@ -57,6 +57,7 @@ type
     acRenumber: TAction;
     acRestart: TAction;
     acSetTopic: TAction;
+    acPermanentEditormode: TAction;
     Action2: TAction;
     ActionList: TActionList;
     acUnmakeSubTask: TAction;
@@ -78,6 +79,7 @@ type
     bExecute: TSpeedButton;
     bExecute1: TSpeedButton;
     bRefresh1: TSpeedButton;
+    bpermanenetEditor: TSpeedButton;
     cbStatus: TComboBox;
     Datasource: TDatasource;
     dtStart: TDBZVDateTimePicker;
@@ -130,6 +132,7 @@ type
     procedure acDeleteExecute(Sender: TObject);
     procedure acDelPosExecute(Sender: TObject);
     procedure acMAkeSubTaskExecute(Sender: TObject);
+    procedure acPermanentEditormodeExecute(Sender: TObject);
     procedure acPrintExecute(Sender: TObject);
     procedure acRefreshExecute(Sender: TObject);
     procedure acRenumberExecute(Sender: TObject);
@@ -229,6 +232,7 @@ begin
       FDataSet.CascadicPost;
       //Data.Commit(FConnection);
       //Data.StartTransaction(FConnection);
+      acRefresh.Execute;
     end;
 end;
 
@@ -792,6 +796,22 @@ begin
   FGridView.SetChild;
 end;
 
+procedure TfMeetingFrame.acPermanentEditormodeExecute(Sender: TObject);
+begin
+  Application.ProcessMessages;
+  if acPermanentEditormode.Checked then
+    FGridView.gList.Options:=FGridView.gList.Options+[goAlwaysShowEditor]
+  else
+  FGridView.gList.Options:=FGridView.gList.Options-[goAlwaysShowEditor];
+  with Application as IBaseDbInterface do
+    begin
+      if acPermanentEditorMode.Checked then
+        DBConfig.WriteString('EVIS','Y')
+      else
+        DBConfig.WriteString('EVIS','');
+    end;
+end;
+
 procedure TfMeetingFrame.acPrintExecute(Sender: TObject);
 var
   Hist : IBaseHistory;
@@ -964,6 +984,10 @@ begin
   with Application as TBaseVisualApplication do
     AddTabClasses('MEE',pcPages);
   Entrys.DataSet := TMeetings(DataSet).Entrys.DataSet;
+  with Application as IBaseDBInterface do
+    acPermanentEditormode.Checked:=DBConfig.ReadString('EVIS','Y') = 'Y';
+  bpermanenetEditor.Down:=acPermanentEditormode.Checked;
+  acPermanentEditormodeExecute(nil);
   inherited DoOpen;
 end;
 

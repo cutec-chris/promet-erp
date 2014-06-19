@@ -60,6 +60,7 @@ type
     bAddPos: TSpeedButton;
     bAddPos1: TSpeedButton;
     bDelegated2: TSpeedButton;
+    bDeletePos10: TSpeedButton;
     bDeletePos8: TSpeedButton;
     bDeletePos9: TSpeedButton;
     bEnterTime2: TSpeedButton;
@@ -102,6 +103,7 @@ type
     ExtRotatedLabel5: TExtRotatedLabel;
     MenuItem10: TMenuItem;
     MenuItem11: TMenuItem;
+    MenuItem12: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem7: TMenuItem;

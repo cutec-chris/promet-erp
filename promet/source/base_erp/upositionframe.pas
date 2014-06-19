@@ -41,6 +41,7 @@ type
     acRefresh: TAction;
     acRenumber: TAction;
     acAddfromArticle: TAction;
+    acPermanentEditorMode: TAction;
     acUnMakeSebPos: TAction;
     ActionList1: TActionList;
     bAddPos: TSpeedButton;
@@ -56,6 +57,7 @@ type
     Bevel2: TBevel;
     Bevel4: TBevel;
     bRefresh1: TSpeedButton;
+    bPermanentEditor: TSpeedButton;
     bRowDetails: TSpeedButton;
     Datasource1: TDatasource;
     ExtRotatedLabel1: TExtRotatedLabel;
@@ -89,6 +91,7 @@ type
     procedure acDelPosExecute(Sender: TObject);
     procedure acGotoArticleExecute(Sender: TObject);
     procedure acMakeSubPosExecute(Sender: TObject);
+    procedure acPermanentEditorModeExecute(Sender: TObject);
     procedure acRefreshExecute(Sender: TObject);
     procedure acRenumberExecute(Sender: TObject);
     procedure acSearchArticleExecute(Sender: TObject);
@@ -463,6 +466,22 @@ begin
   FGridView.SetChild;
 end;
 
+procedure TfPosition.acPermanentEditorModeExecute(Sender: TObject);
+begin
+  Application.ProcessMessages;
+  if acPermanentEditormode.Checked then
+    FGridView.gList.Options:=FGridView.gList.Options+[goAlwaysShowEditor]
+  else
+  FGridView.gList.Options:=FGridView.gList.Options-[goAlwaysShowEditor];
+  with Application as IBaseDbInterface do
+    begin
+      if acPermanentEditorMode.Checked then
+        DBConfig.WriteString('EVIS','Y')
+      else
+        DBConfig.WriteString('EVIS','');
+    end;
+end;
+
 procedure TfPosition.acRefreshExecute(Sender: TObject);
 begin
   FGridView.Refresh;
@@ -678,6 +697,9 @@ begin
         DataSet.SetDisplayLabels(DataSet.DataSet);
     end
   else Datasource1.DataSet := nil;
+  with Application as IBaseDBInterface do
+    acPermanentEditormode.Checked:= DBConfig.ReadString('EVIS','Y') = 'Y';
+  bPermanentEditor.Down:=acPermanentEditormode.Checked;
 end;
 procedure TfPosition.SetBaseName(AValue: string);
 begin
@@ -794,6 +816,7 @@ begin
   if CanFocus and Visible then
     inherited;
   FGridView.SetFocus;
+  acPermanentEditormodeExecute(nil);
 end;
 procedure TfPosition.SetLanguage;
 begin
