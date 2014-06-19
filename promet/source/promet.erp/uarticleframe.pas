@@ -611,7 +611,6 @@ begin
   acRights.Enabled:=Data.Users.Rights.Right('MASTERDATA') >= RIGHT_PERMIT;
 
   pComponents.Enabled := FEditable;
-  pCommon.Enabled:=FEditable;
 end;
 procedure TfArticleFrame.AddPositions(Sender: TObject);
 begin
