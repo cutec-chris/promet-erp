@@ -631,7 +631,6 @@
     <Exceptions Count="24">
       <Item1>
         <Name Value="EVariantError"/>
-        <Enabled Value="False"/>
       </Item1>
       <Item2>
         <Name Value="EAccessViolation"/>
@@ -639,7 +638,6 @@
       </Item2>
       <Item3>
         <Name Value="EZSQLException"/>
-        <Enabled Value="False"/>
       </Item3>
       <Item4>
         <Name Value="EConvertError"/>
@@ -659,7 +657,6 @@
       </Item7>
       <Item8>
         <Name Value="EZDatabaseError"/>
-        <Enabled Value="False"/>
       </Item8>
       <Item9>
         <Name Value="EInvalidOperation"/>
@@ -667,7 +664,6 @@
       </Item9>
       <Item10>
         <Name Value="Exception"/>
-        <Enabled Value="False"/>
       </Item10>
       <Item11>
         <Name Value="EListError"/>

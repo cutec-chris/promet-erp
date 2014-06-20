@@ -1198,11 +1198,16 @@ procedure TfTaskFrame.FGridViewCellChanged(Sender: TObject; NewCell,
   OldCell: TPoint);
 var
   aCell: TColumn;
+  aCol: Integer;
+  aColCount: Integer;
 begin
   acSetOwner.Visible:=False;
   acSetUser.Visible:=False;
+  aCol := FGridView.gList.Col-1;
+  aColCount := FGridView.dgFake.Columns.Count;
+  if (aCol>=aColCount) or (aCol<0) then exit;
   try
-    aCell := FGridView.dgFake.Columns[FGridView.gList.Col-1];
+    aCell := FGridView.dgFake.Columns[aCol];
     if Assigned(aCell) then
       begin
         acSetOwner.Visible := aCell.FieldName = 'OWNER';

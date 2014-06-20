@@ -103,6 +103,7 @@ type
     procedure bRowDetailsClick(Sender: TObject);
     procedure Datasource1DataChange(Sender: TObject; Field: TField);
     procedure Datasource1StateChange(Sender: TObject);
+    procedure DoAsyncFocus(Data: PtrInt);
     procedure FDataSourceStateChange(Sender: TObject);
     procedure FGridViewCellButtonClick(Sender: TObject; Cell: TPoint;
       Field: TColumn);
@@ -130,6 +131,7 @@ type
     FRefID : Int64;
     FEditAble : Boolean;
     ActiveSearch : TSearch;
+    FFirstShow : Boolean;
     procedure SetBaseName(AValue: string);
     procedure SetDataSet(const AValue: TBaseDBDataset);
     function  GetPosTyp : Integer;
@@ -152,6 +154,7 @@ type
     procedure SetRights(Editable : Boolean);
     procedure AutoInsert;
     procedure SetFocus;override;
+    procedure AsyncSetFocus;
     procedure SetLanguage;
     property GridView : TfGridView read FGridView;
   end;
@@ -590,6 +593,12 @@ begin
     TabTimer.Enabled:=True;
 end;
 
+procedure TfPosition.DoAsyncFocus(Data: PtrInt);
+begin
+  FGridView.fGridViewEnter(FGridView);
+  SetFocus;
+end;
+
 procedure TfPosition.sgPositionsDragDrop(Sender, Source: TObject; X, Y: Integer
   );
 var
@@ -816,8 +825,18 @@ begin
   if CanFocus and Visible then
     inherited;
   FGridView.SetFocus;
-  acPermanentEditormodeExecute(nil);
+  if FFirstShow then
+    begin
+      acPermanentEditormodeExecute(nil);
+      FFirstshow := False;
+    end;
 end;
+
+procedure TfPosition.AsyncSetFocus;
+begin
+  Application.QueueAsyncCall(@DoAsyncFocus,0);
+end;
+
 procedure TfPosition.SetLanguage;
 begin
   if Assigned(DataSet) then
@@ -831,6 +850,7 @@ begin
   for i := 0 to high(InplaceFrames) do
     InplaceFrames[i] := nil;
   FPosTyp:=-1;
+  FFirstShow:=True;
   pcTabs.AddTabClass(TfDocumentFrame,strFiles,@AddDocumentsTab);
   FGridView := TfGridView.Create(Self);
   FGridView.OnCellChanging:=@FGridViewCellChanging;
@@ -888,4 +908,4 @@ begin
 end;
 
 end.
-
+

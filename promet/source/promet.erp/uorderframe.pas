@@ -827,6 +827,7 @@ begin
         TfOrderAddress(pAddresses.Controls[0]).SetFocus;
       exit;
     end;
+  FPosFrame.AsyncSetFocus;
   //All what not depends on new order
   if TOrder(DataSet).Address.Count > 0 then
     TOrder(DataSet).Address.DataSet.Locate('TYPE','DAD',[loPartialKey]);
