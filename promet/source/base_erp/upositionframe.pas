@@ -154,7 +154,6 @@ type
     procedure SetRights(Editable : Boolean);
     procedure AutoInsert;
     procedure SetFocus;override;
-    procedure AsyncSetFocus;
     procedure SetLanguage;
     property GridView : TfGridView read FGridView;
   end;
@@ -596,6 +595,7 @@ end;
 procedure TfPosition.DoAsyncInit(Data: PtrInt);
 begin
   FGridView.fGridViewEnter(FGridView);
+  acPermanentEditorModeExecute(acPermanentEditorMode);
 end;
 
 procedure TfPosition.sgPositionsDragDrop(Sender, Source: TObject; X, Y: Integer
@@ -826,14 +826,9 @@ begin
   FGridView.SetFocus;
   if FFirstShow then
     begin
-      acPermanentEditormodeExecute(nil);
+      Application.QueueAsyncCall(@DoAsyncInit,0);
       FFirstshow := False;
     end;
-end;
-
-procedure TfPosition.AsyncSetFocus;
-begin
-  Application.QueueAsyncCall(@DoAsyncInit,0);
 end;
 
 procedure TfPosition.SetLanguage;

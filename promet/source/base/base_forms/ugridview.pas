@@ -165,6 +165,7 @@ type
     procedure gListExit(Sender: TObject);
     procedure gListResize(Sender: TObject);
     procedure gListSelection(Sender: TObject; aCol, aRow: Integer);
+    procedure gListStartDrag(Sender: TObject; var DragObject: TDragObject);
     procedure mInplaceEditingDone(Sender: TObject);
     procedure mInplaceKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState
       );
@@ -500,6 +501,7 @@ begin
   or (Column.Field.DataType = ftWideMemo)
   or (Column.Field.DataType = ftBlob)
   then exit;
+  FDisableEdit:=True;
   Post;
   if SortField = Column.FieldName then
     begin
@@ -520,6 +522,7 @@ begin
     end;
   UpdateTitle;
   acFilter.Execute;
+  FDisableEdit:=False;
 end;
 
 procedure TfGridView.DoAsyncRefresh(Data: PtrInt);
@@ -890,6 +893,7 @@ var
 begin
   if FDataSource.DataSet.ControlsDisabled then exit;
   if not FEditable then exit;
+  FDisableEdit:=True;
   if IsColumn then
     begin
       dgFake.Columns[sIndex-1].Index:=tIndex-1;
@@ -922,6 +926,7 @@ begin
           RenumberRows(aIndex);
         end;
     end;
+  FDisableEdit:=False;
 end;
 procedure TfGridView.gListDblClick(Sender: TObject);
 begin

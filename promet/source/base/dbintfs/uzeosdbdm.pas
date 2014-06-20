@@ -658,7 +658,7 @@ begin
     FieldByName('SQL_ID').AsVariant:=TBaseDBModule(Self.Owner).GetUniID(Connection)
   else if (FieldDefs.IndexOf('SQL_ID') = -1) and (FieldDefs.IndexOf('AUTO_ID') > -1) and FieldByName('AUTO_ID').IsNull then
     FieldByName('AUTO_ID').AsVariant:=TBaseDBModule(Self.Owner).GetUniID(Connection,'GEN_AUTO_ID');
-  if FUpStdFields and Assigned(FOrigTable) and (FOrigTable.Changed) then
+  if FUpStdFields and Assigned(FOrigTable) {and (FOrigTable.Changed)} then
     begin
       if (FieldDefs.IndexOf('TIMESTAMPD') > -1) then
         FieldByName('TIMESTAMPD').AsDateTime:=Now();

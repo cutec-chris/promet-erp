@@ -59,6 +59,7 @@ object fGridView: TfGridView
       OnSelection = gListSelection
       OnSelectCell = gListSelectCell
       OnSetEditText = gListSetEditText
+      OnStartDrag = gListStartDrag
       CachedEditing = True
       OnEnterEdit = gListEnterEdit
     end

@@ -5,7 +5,6 @@ object fPosition: TfPosition
   Width = 706
   ClientHeight = 469
   ClientWidth = 706
-  LCLVersion = '1.3'
   ParentShowHint = False
   ShowHint = True
   TabOrder = 0
@@ -702,8 +701,8 @@ object fPosition: TfPosition
       NewTabImageIndex = 59
       object tsDetails: TTabSheet
         Caption = 'Details'
-        ClientHeight = 414
-        ClientWidth = 1396
+        ClientHeight = 207
+        ClientWidth = 698
         ImageIndex = 40
         ParentFont = False
         object Panel1: TPanel
