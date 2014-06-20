@@ -103,7 +103,7 @@ type
     procedure bRowDetailsClick(Sender: TObject);
     procedure Datasource1DataChange(Sender: TObject; Field: TField);
     procedure Datasource1StateChange(Sender: TObject);
-    procedure DoAsyncFocus(Data: PtrInt);
+    procedure DoAsyncInit(Data: PtrInt);
     procedure FDataSourceStateChange(Sender: TObject);
     procedure FGridViewCellButtonClick(Sender: TObject; Cell: TPoint;
       Field: TColumn);
@@ -593,10 +593,9 @@ begin
     TabTimer.Enabled:=True;
 end;
 
-procedure TfPosition.DoAsyncFocus(Data: PtrInt);
+procedure TfPosition.DoAsyncInit(Data: PtrInt);
 begin
   FGridView.fGridViewEnter(FGridView);
-  SetFocus;
 end;
 
 procedure TfPosition.sgPositionsDragDrop(Sender, Source: TObject; X, Y: Integer
@@ -834,7 +833,7 @@ end;
 
 procedure TfPosition.AsyncSetFocus;
 begin
-  Application.QueueAsyncCall(@DoAsyncFocus,0);
+  Application.QueueAsyncCall(@DoAsyncInit,0);
 end;
 
 procedure TfPosition.SetLanguage;

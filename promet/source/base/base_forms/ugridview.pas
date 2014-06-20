@@ -1823,7 +1823,8 @@ begin
               begin
                 if (FDataSource.State <> dsEdit) and (FDataSource.State <> dsInsert) then
                   FDataSource.DataSet.Edit;
-                dgFake.Columns[aCol-1].Field.Clear;
+                if not (dgFake.Columns[aCol-1].Field.AsString='') then
+                  dgFake.Columns[aCol-1].Field.Clear;
               end;
             if Assigned(FSearchKey) then
               begin

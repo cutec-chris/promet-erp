@@ -835,6 +835,8 @@ begin
                     Reader.ReadRootComponent(TFrame(Sender).Parent);
                     for i := 0 to Reader.Root.ComponentCount-1 do
                       begin
+                        Randomize;
+                        Reader.Root.Components[i].Name:=Reader.Root.Components[i].Name+IntToStr(random(5000));
                         if (Reader.Root.Components[i] is TDBEdit) and (FProps.Count > 0) and (FFields.Count > 0) then
                           begin
                             aDS := TDataSource(aParent.FindComponent(FProps[0]));

@@ -651,6 +651,9 @@ var
   UserCode: String;
 begin
   inherited DoBeforePost;
+  if Assigned(Self.FOrigTable) then
+    Self.FOrigTable.DisableChanges;
+  try
   if (FieldDefs.IndexOf('AUTO_ID') = -1) and (FieldDefs.IndexOf('SQL_ID') > -1) and  FieldByName('SQL_ID').IsNull then
     FieldByName('SQL_ID').AsVariant:=TBaseDBModule(Self.Owner).GetUniID(Connection)
   else if (FieldDefs.IndexOf('SQL_ID') = -1) and (FieldDefs.IndexOf('AUTO_ID') > -1) and FieldByName('AUTO_ID').IsNull then
@@ -677,6 +680,10 @@ begin
       else
         FieldbyName('REF_ID').AsVariant:=DataSource.DataSet.FieldByName('SQL_ID').AsVariant;
     end;
+  finally
+    if Assigned(Self.FOrigTable) then
+      Self.FOrigTable.EnableChanges;
+  end;
 end;
 procedure TZeosDBDataSet.DoBeforeInsert;
 begin
