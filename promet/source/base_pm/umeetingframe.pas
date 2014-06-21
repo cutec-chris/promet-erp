@@ -806,9 +806,9 @@ begin
   with Application as IBaseDbInterface do
     begin
       if acPermanentEditorMode.Checked then
-        DBConfig.WriteString('EVIS','Y')
+        DBConfig.WriteString('EMEEVIS','Y')
       else
-        DBConfig.WriteString('EVIS','');
+        DBConfig.WriteString('EMEEVIS','');
     end;
 end;
 
@@ -985,7 +985,7 @@ begin
     AddTabClasses('MEE',pcPages);
   Entrys.DataSet := TMeetings(DataSet).Entrys.DataSet;
   with Application as IBaseDBInterface do
-    acPermanentEditormode.Checked:=DBConfig.ReadString('EVIS','N') = 'Y';
+    acPermanentEditormode.Checked:=DBConfig.ReadString('EMEEVIS','N') = 'Y';
   bpermanenetEditor.Down:=acPermanentEditormode.Checked;
   acPermanentEditormodeExecute(nil);
   inherited DoOpen;

@@ -165,7 +165,6 @@ type
     procedure gListExit(Sender: TObject);
     procedure gListResize(Sender: TObject);
     procedure gListSelection(Sender: TObject; aCol, aRow: Integer);
-    procedure gListStartDrag(Sender: TObject; var DragObject: TDragObject);
     procedure mInplaceEditingDone(Sender: TObject);
     procedure mInplaceKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState
       );

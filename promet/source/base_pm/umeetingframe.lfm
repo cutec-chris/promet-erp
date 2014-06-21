@@ -394,11 +394,11 @@ inherited fMeetingFrame: TfMeetingFrame
       end
       object cbStatus: TComboBox
         Left = 1
-        Height = 21
+        Height = 27
         Hint = 'hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu überführen'
         Top = 12
         Width = 137
-        ItemHeight = 13
+        ItemHeight = 0
         OnSelect = cbStatusSelect
         Style = csDropDownList
         TabOrder = 0
@@ -408,7 +408,7 @@ inherited fMeetingFrame: TfMeetingFrame
       Left = 376
       Height = 13
       Top = 24
-      Width = 46
+      Width = 55
       Caption = 'Einleitung'
       ParentColor = False
     end
@@ -501,7 +501,7 @@ inherited fMeetingFrame: TfMeetingFrame
       Left = 9
       Height = 13
       Top = 0
-      Width = 27
+      Width = 33
       Caption = 'Name'
       ParentColor = False
     end
@@ -519,7 +519,7 @@ inherited fMeetingFrame: TfMeetingFrame
     end
     object eName: TDBEdit
       Left = 9
-      Height = 21
+      Height = 23
       Top = 16
       Width = 359
       DataField = 'NAME'
@@ -530,10 +530,10 @@ inherited fMeetingFrame: TfMeetingFrame
       OnChange = eNameChange
     end
     object dtStart: TDBZVDateTimePicker
-      Left = 581
+      Left = 567
       Height = 21
       Top = 0
-      Width = 121
+      Width = 135
       DataField = 'STARTTIME'
       DataSource = Datasource
       ReadOnly = False
@@ -552,10 +552,10 @@ inherited fMeetingFrame: TfMeetingFrame
       UseDefaultSeparators = True
     end
     object dtEnd: TDBZVDateTimePicker
-      Left = 651
+      Left = 647
       Height = 21
       Top = 26
-      Width = 51
+      Width = 55
       DataField = 'ENDTIME'
       DataSource = Datasource
       ReadOnly = False
@@ -581,22 +581,21 @@ inherited fMeetingFrame: TfMeetingFrame
     Width = 706
     ActivePage = tsMeeting
     Align = alClient
-    Images = fVisualControls.Images
     TabIndex = 0
     TabOrder = 2
     NewTabImageIndex = 0
     object tsMeeting: TTabSheet
       Caption = 'Besprechung'
-      ClientHeight = 413
+      ClientHeight = 405
       ClientWidth = 698
       object tbLeft: TPanel
         Left = 0
-        Height = 413
+        Height = 405
         Top = 0
         Width = 47
         Align = alLeft
         BevelOuter = bvNone
-        ClientHeight = 413
+        ClientHeight = 405
         ClientWidth = 47
         TabOrder = 1
         object Panel1: TPanel
@@ -719,8 +718,7 @@ inherited fMeetingFrame: TfMeetingFrame
             Caption = 'Aufgabe/Eintrag'
             Font.Color = clMedGray
             Font.Height = 11
-            Font.Orientation = 900
-            Layout = tlBottom
+            Font.Orientation = -900
             ParentColor = False
             ParentFont = False
           end
@@ -935,8 +933,7 @@ inherited fMeetingFrame: TfMeetingFrame
             Caption = 'Ansicht'
             Font.Color = clMedGray
             Font.Height = 11
-            Font.Orientation = 900
-            Layout = tlBottom
+            Font.Orientation = -900
             ParentColor = False
             ParentFont = False
           end
@@ -1065,8 +1062,7 @@ inherited fMeetingFrame: TfMeetingFrame
             Caption = 'Thema'
             Font.Color = clMedGray
             Font.Height = 11
-            Font.Orientation = 900
-            Layout = tlBottom
+            Font.Orientation = -900
             ParentColor = False
             ParentFont = False
           end
@@ -1185,16 +1181,16 @@ inherited fMeetingFrame: TfMeetingFrame
           ScrollWidth = 450
           TabOrder = 0
           TabStop = False
+          TopIndex = -1
         end
       end
     end
   end
-  object Datasource: TDataSource[3]
+  object Datasource: TDatasource[3]
     left = 232
     top = 144
   end
   object ActionList: TActionList[4]
-    Images = fVisualControls.Images
     left = 88
     top = 120
     object acImport: TAction
@@ -1293,6 +1289,7 @@ inherited fMeetingFrame: TfMeetingFrame
     object acPermanentEditormode: TAction
       AutoCheck = True
       Caption = 'acPermanentEditormode'
+      Enabled = False
       GroupIndex = 1254
       ImageIndex = 67
       OnExecute = acPermanentEditormodeExecute
@@ -1318,12 +1315,12 @@ inherited fMeetingFrame: TfMeetingFrame
     left = 200
     top = 232
   end
-  object Entrys: TDataSource[8]
+  object Entrys: TDatasource[8]
     OnStateChange = DatasourceStateChange
     left = 232
     top = 232
   end
-  object Users: TDataSource[9]
+  object Users: TDatasource[9]
     left = 232
     top = 288
   end
@@ -1333,7 +1330,6 @@ inherited fMeetingFrame: TfMeetingFrame
     top = 288
   end
   object pmAction: TPopupMenu[11]
-    Images = fVisualControls.Images
     left = 120
     top = 120
     object MenuItem1: TMenuItem
@@ -1415,7 +1411,7 @@ inherited fMeetingFrame: TfMeetingFrame
       }
     end
   end
-  object MandantDetails: TDataSource[12]
+  object MandantDetails: TDatasource[12]
     left = 200
     top = 144
   end

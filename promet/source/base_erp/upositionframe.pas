@@ -478,9 +478,9 @@ begin
   with Application as IBaseDbInterface do
     begin
       if acPermanentEditorMode.Checked then
-        DBConfig.WriteString('EVIS','Y')
+        DBConfig.WriteString('EPOSVIS','Y')
       else
-        DBConfig.WriteString('EVIS','');
+        DBConfig.WriteString('EPOSVIS','');
     end;
 end;
 
@@ -706,7 +706,7 @@ begin
     end
   else Datasource1.DataSet := nil;
   with Application as IBaseDBInterface do
-    acPermanentEditormode.Checked:= DBConfig.ReadString('EVIS','N') = 'Y';
+    acPermanentEditormode.Checked:= DBConfig.ReadString('EPOSVIS','N') = 'Y';
   bPermanentEditor.Down:=acPermanentEditormode.Checked;
 end;
 procedure TfPosition.SetBaseName(AValue: string);
@@ -902,4 +902,4 @@ begin
 end;
 
 end.
-
+

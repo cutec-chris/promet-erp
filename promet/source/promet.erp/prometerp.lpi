@@ -375,7 +375,7 @@
         <ComponentName Value="fOrderFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uOrderFrame"/>
+        <UnitName Value=""/>
       </Unit13>
       <Unit14>
         <Filename Value="uorderadditionalframe.pas"/>
@@ -694,7 +694,6 @@
       </Item17>
       <Item18>
         <Name Value="EProcess"/>
-        <Enabled Value="False"/>
       </Item18>
       <Item19>
         <Name Value="EGridException"/>

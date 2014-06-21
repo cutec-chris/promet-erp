@@ -1,4 +1,8 @@
-﻿Build 355
+﻿Build 356
+      - Gantt:Man kann nun auch aus dem Gantt den nächstmöglichen freien "Slot" für die Aufgabe finden
+      - Projekte:auch hier kann man nun die Aufgaben Terminieren (Slot finden)
+      - Artikel:Versionen auswählen erzeugte in den letzten versionen einen Fehler - behoben
+Build 355
       - Besprechungen:Druckvorschau auch druck und speicherbar ohne das sie schon gebucht ist
       - Dokumente:temporäre Thumbnails werden nach beendigung des Programms gelöscht
       - Statistiken:Editor wird nun (wieder) korrekt angezeigt beim erstellen einer neuen Statistik
