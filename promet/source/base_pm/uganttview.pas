@@ -299,6 +299,7 @@ var
   aDur: TDateTime;
   c: Integer;
   oD2: TDateTime;
+  Found: Boolean;
 begin
   bSave.Enabled:=True;
   bCSave.Enabled:=True;
@@ -357,6 +358,17 @@ begin
       TInterval(Sender).Endupdate(True);
       RecalcTimer.Enabled := True;
     end;
+  Found := False;
+  for i := 0 to FRessources.Count-1 do
+    for a := 0 to TRessource(FRessources[i]).IntervalCount-1 do
+      if TRessource(FRessources[i]).Interval[a].Id=TInterval(Sender).Id then
+        begin
+          TRessource(FRessources[i]).Interval[a].StartDate:=TInterval(Sender).StartDate;
+          TRessource(FRessources[i]).Interval[a].FinishDate:=TInterval(Sender).FinishDate;
+          Found := True;
+        end;
+  if Found then
+    FGantt.Invalidate;
 end;
 procedure TfGanttView.aIntervalDrawBackground(Sender: TObject; aCanvas: TCanvas;
   aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);

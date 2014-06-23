@@ -453,8 +453,11 @@ begin
 end;
 destructor TfTaskEdit.Destroy;
 begin
-  FreeAndNil(FDataSet);
-  if OwnConnection then FreeAndNil(aConnection);
+  try
+    FreeAndNil(FDataSet);
+    if OwnConnection then FreeAndNil(aConnection);
+  except
+  end;
   inherited Destroy;
 end;
 function TfTaskEdit.Execute(aLink: string): Boolean;

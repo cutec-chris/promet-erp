@@ -692,7 +692,7 @@ begin
                           end;
                       end;
                   end;
-              if WholeUsage>1 then
+              if WholeUsage>1.01 then
                 aCanvas.Brush.Color:=ProbemColor
               else
                 aCanvas.Brush.Color:=FillColor;
@@ -1361,7 +1361,7 @@ begin
       if CollectTasks then
         begin
           bTasks := TTaskList.Create(nil,Data,aConnection);
-          bTasks.SelectActiveByUser(asUser);
+          bTasks.SelectUncompletedByUser(asUser);
           bTasks.Open;
           with bTasks.DataSet do
             begin

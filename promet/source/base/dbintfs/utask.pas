@@ -64,6 +64,7 @@ type
     procedure SelectActiveByUser(AccountNo : string);
     procedure SelectActive;
     procedure SelectByUser(AccountNo : string);
+    procedure SelectUncompletedByUser(AccountNo : string);
     procedure SelectActiveByUserChangedSince(AccountNo: string; aDate: TdateTime);
     procedure SelectByDept(aDept : Variant);
     procedure SelectByParent(aParent : Variant);
@@ -568,7 +569,7 @@ begin
   if Duration<0.5 then Duration:=0.5;
   //Find first free Slot
   bTasks := TTaskList.Create(nil,DataModule,Connection);
-  bTasks.SelectActiveByUser(FieldByName('USER').AsString);
+  bTasks.SelectUncompletedByUser(FieldByName('USER').AsString);
   bTasks.SortFields:='STARTDATE';
   bTasks.SortDirection:=sdAscending;
   bTasks.Open;
@@ -1214,6 +1215,14 @@ begin
   with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
     begin
       Filter := '('+QuoteField('USER')+'='+QuoteValue(AccountNo)+') or ('+QuoteField('OWNER')+'='+QuoteValue(AccountNo)+')';
+    end;
+end;
+
+procedure TTaskList.SelectUncompletedByUser(AccountNo: string);
+begin
+  with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
+    begin
+      Filter := '('+QuoteField('USER')+'='+QuoteValue(AccountNo)+') and ('+QuoteField('COMPLETED')+'='+QuoteValue('N')+') and ('+QuoteField('ACTIVE')+'='+QuoteValue('Y')+')';
     end;
 end;
 
