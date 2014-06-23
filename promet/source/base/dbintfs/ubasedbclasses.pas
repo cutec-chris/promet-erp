@@ -914,12 +914,12 @@ begin
         or (aID = Null)  then
           begin
             with DataSet as IBaseManageDb do
-              Filter := TBaseDBModule(DataModule).QuoteField(TableName)+'.'+Data.QuoteField(aField)+'='+Data.QuoteValue('0');
+              Filter := TBaseDBModule(DataModule).QuoteField(TableName)+'.'+TBaseDBModule(DataModule).QuoteField(aField)+'='+TBaseDBModule(DataModule).QuoteValue('0');
           end
         else
           begin
             with DataSet as IBaseManageDb do
-              Filter := TBaseDBModule(DataModule).QuoteField(TableName)+'.'+Data.QuoteField(aField)+'='+Data.QuoteValue(Format('%d',[Int64(aID)]));
+              Filter := TBaseDBModule(DataModule).QuoteField(TableName)+'.'+TBaseDBModule(DataModule).QuoteField(aField)+'='+TBaseDBModule(DataModule).QuoteValue(Format('%d',[Int64(aID)]));
           end;
       end;
 end;
@@ -2475,6 +2475,7 @@ var
   aOldFilter: String;
   aOldLimit: Integer;
   aTableName: String;
+  aField: String;
 begin
   with FDataSet as IBaseManageDB do
     begin
@@ -2487,7 +2488,11 @@ begin
               with DataSet as IBaseDbFilter do
                 begin
                   aOldFilter := Filter;
-                  Filter := '';
+                  with DataSet as IBaseManageDb do
+                    if ManagedFieldDefs.IndexOf('AUTO_ID') > -1 then
+                      aField := 'AUTO_ID';
+                  if aField = '' then aField := 'SQL_ID';
+                  Filter := TBaseDBModule(DataModule).QuoteField(TableName)+'.'+TBaseDBModule(DataModule).QuoteField(aField)+'='+TBaseDBModule(DataModule).QuoteValue('0');
                   aOldLimit := Limit;
                   Limit := 1;
                 end;
@@ -2778,4 +2783,4 @@ begin
 end;
 initialization
 end.
-
+

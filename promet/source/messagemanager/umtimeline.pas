@@ -626,14 +626,16 @@ begin
   Application.ProcessMessages;
   acSend.Enabled:=False;
   Application.CreateForm(TfScreenshot,fScreenshot);
-  fScreenshot.SaveTo:=AppendPathDelim(GetInternalTempDir)+aName;
+  with BaseApplication as IBaseApplication do
+    fScreenshot.SaveTo:=AppendPathDelim(GetInternalTempDir)+aName;
   fScreenshot.Show;
   while fScreenshot.Visible do Application.ProcessMessages;
   fScreenshot.Destroy;
   fScreenshot := nil;
   aDocument := TDocument.Create(Self,Data);
   aDocument.Select(aId,'H',0);
-  aDocument.AddFromFile(AppendPathDelim(GetInternalTempDir)+aName);
+  with BaseApplication as IBaseApplication do
+    aDocument.AddFromFile(AppendPathDelim(GetInternalTempDir)+aName);
   aDocument.Free;
   Self.Show;
   acSend.Enabled:=True;
