@@ -577,7 +577,6 @@ begin
   aIntervals := TList.Create;
   aIntervals.Add(TTaskInterval.Create);
   TTaskInterval(aIntervals[0]).DueDate:=aStartDate;
-  writeln('Collect tasks:');
   with bTasks.DataSet do
     begin
       while not EOF do
@@ -587,11 +586,7 @@ begin
           //and (not (bTasks.FieldByName('PLANTASK').AsString='N'))
           and (not (bTasks.Id.AsVariant=Self.Id.AsVariant))
           then
-            begin
-              aIntervals.Add(bTasks.GetInterval);
-              writeln('Task:'+bTasks.FieldByName('SUMMARY').AsString);
-            end
-          else writeln('Task not used:'+bTasks.FieldByName('SUMMARY').AsString);
+            aIntervals.Add(bTasks.GetInterval);
           Next;
         end;
       if bTasks.EOF then
