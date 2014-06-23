@@ -723,20 +723,28 @@ procedure TfGanttView.acFindTimeSlotExecute(Sender: TObject);
 var
   aTask: TTask;
   aStart,aEnd,aDuration : TDateTime;
+  aEarliest: TDateTime;
+  i: Integer;
 begin
   if not Assigned(FSelectedInterval) then exit;
+  Screen.Cursor:=crHourGlass;
   aTask := TTask.Create(nil,Data);
   aTask.Select(FSelectedInterval.Id);
   aTask.Open;
   if aTask.Count>0 then
     begin
-      if aTask.Terminate(aStart,aEnd,aDuration) then
+      aEarliest := Now();
+      for i := 0 to FSelectedInterval.DependencyCount-1 do
+        if FSelectedInterval.Dependencies[i].FinishDate>aEarliest then
+          aEarliest:=FSelectedInterval.Dependencies[i].FinishDate;
+      if aTask.Terminate(aEarliest,aStart,aEnd,aDuration) then
         begin
           FSelectedInterval.StartDate:=aStart;
           FSelectedInterval.FinishDate:=aEnd;
         end;
     end;
   aTask.Free;
+  Screen.Cursor:=crDefault;
 end;
 
 procedure TfGanttView.acAddSubProjectsExecute(Sender: TObject);

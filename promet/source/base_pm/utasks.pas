@@ -989,6 +989,7 @@ var
   i: Integer;
 begin
   if not FGridView.GotoActiveRow then exit;
+  Screen.Cursor:=crHourGlass;
   aDeps := TTaskList(DataSet).GetUnterminatedDependencies;
   if aDeps.Count>0 then
     begin
@@ -998,10 +999,11 @@ begin
     end
   else
     begin
-      if not TTaskList(DataSet).Terminate then
+      if not TTaskList(DataSet).Terminate(Now()) then
         Showmessage(strFailed);
     end;
   aDeps.Free;
+  Screen.Cursor:=crDefault;
 end;
 
 procedure TfTaskFrame.ActiveSearchEndSearch(Sender: TObject);

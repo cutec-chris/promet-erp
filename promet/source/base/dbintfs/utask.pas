@@ -83,8 +83,12 @@ type
     procedure Open; override;
     function CalcDates(var aStart, aDue: TDateTime): Boolean;
     function GetUnterminatedDependencies: TStrings;
-    function Terminate(var aStart,aEnd,aDuration : TDateTime) : Boolean;
-    function Terminate : Boolean;
+    //This function calculates the earliest possible Start and Enddate for the Task
+    function Terminate(aEarliest : TDateTime;var aStart,aEnd,aDuration : TDateTime) : Boolean;
+    //This function retuirns True if one of the Dependencies of aTask or its Dependencies (recoursive) points to This Task
+    function DependsOnMe(aTask : TTaskList) : Boolean;
+    //This function calculates the earliest possible Start and Enddate for the Task and sets it as Start and Enddate
+    function Terminate(aEarliest : TDateTime) : Boolean;
     function WaitTimeDone : TDateTime;
     function GetInterval : TTaskInterval;
     procedure MakeSnapshot(aName : string);
@@ -501,7 +505,8 @@ begin
   aTask.Free;
 end;
 
-function TTaskList.Terminate(var aStart, aEnd, aDuration: TDateTime): Boolean;
+function TTaskList.Terminate(aEarliest: TDateTime; var aStart, aEnd,
+  aDuration: TDateTime): Boolean;
 var
   aStartDate : TDateTime;
   aTask: TTask;
@@ -587,7 +592,8 @@ begin
           //and (not (bTasks.FieldByName('PLANTASK').AsString='N'))
           and (not (bTasks.Id.AsVariant=Self.Id.AsVariant))
           then
-            aIntervals.Add(bTasks.GetInterval);
+            if not DependsOnMe(bTasks) then
+              aIntervals.Add(bTasks.GetInterval);
           Next;
         end;
       if bTasks.EOF then
@@ -619,7 +625,7 @@ begin
   aIntervals.Sort(@CompareStarts);
   //Find Slot
   aFound := False;
-  aNow := trunc(Now);
+  aNow := trunc(aEarliest);
   while (not ((aFound) and (aActStartDate+Duration<aNow))) do
     begin
       if (not ((DayOfWeek(aNow)=1) or (DayOfWeek(aNow)=7))) then
@@ -701,12 +707,37 @@ begin
   aIntervals.Clear;
   aIntervals.Free;
 end;
+function TTaskList.DependsOnMe(aTask: TTaskList): Boolean;
+  function RecourseDepends(bTask : TTaskList) : Boolean;
+  var
+    cTask: TTaskList;
+  begin
+    bTask.Dependencies.Open;
+    bTask.Dependencies.First;
+    cTask := TTaskList.Create(nil,DataModule,Connection);
+    while not bTask.Dependencies.EOF do
+      begin
+        cTask.SelectFromLink(bTask.Dependencies.FieldByName('LINK').AsString);
+        cTask.Open;
+        if cTask.Count>0 then
+          begin
+            Result := RecourseDepends(cTask);
+            if Result then break;
+          end;
+        bTask.Dependencies.Next;
+      end;
+    Result := bTask.Id.AsVariant=Id.AsVariant;
+    cTask.Free;
+  end;
 
-function TTaskList.Terminate: Boolean;
+begin
+  Result := RecourseDepends(aTask);
+end;
+function TTaskList.Terminate(aEarliest: TDateTime): Boolean;
 var
   aStart,aEnd,aDuration : TDateTime;
 begin
-  if Terminate(aStart,aEnd,aDuration) then
+  if Terminate(aEarliest,aStart,aEnd,aDuration) then
     begin
       Edit;
       FieldByName('STARTDATE').AsDateTime:=aStart;
