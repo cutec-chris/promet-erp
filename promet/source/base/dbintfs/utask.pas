@@ -33,10 +33,12 @@ type
   TTaskInterval = class
   private
     FDueDate: TDateTime;
+    FPlan: Double;
     FStartDate: TDateTime;
   public
     property StartDate : TDateTime read FStartDate write FStartDate;
     property DueDate : TDateTime read FDueDate write FDueDate;
+    property PlanTime : Double read FPlan write FPlan;
   end;
   TTaskList = class(TBaseERPList,IBaseHistory)
     procedure DataSetAfterPost(aDataSet: TDataSet);
@@ -520,6 +522,8 @@ var
   aInterval: TTaskInterval;
   aTime: Extended;
   a: Int64;
+  aNow: Int64;
+  aPercent: Integer;
 begin
   Result := False;
   //Get Latest Dependency
@@ -573,18 +577,21 @@ begin
   aIntervals := TList.Create;
   aIntervals.Add(TTaskInterval.Create);
   TTaskInterval(aIntervals[0]).DueDate:=aStartDate;
+  writeln('Collect tasks:');
   with bTasks.DataSet do
     begin
       while not EOF do
         begin
           if  (not bTasks.FieldByName('STARTDATE').IsNull)
           and (not bTasks.FieldByName('DUEDATE').IsNull)
-          and (not (bTasks.FieldByName('PLANTASK').AsString='N'))
-          and (not bTasks.Id.AsVariant=Self.Id.AsVariant)
+          //and (not (bTasks.FieldByName('PLANTASK').AsString='N'))
+          and (not (bTasks.Id.AsVariant=Self.Id.AsVariant))
           then
             begin
               aIntervals.Add(bTasks.GetInterval);
-            end;
+              writeln('Task:'+bTasks.FieldByName('SUMMARY').AsString);
+            end
+          else writeln('Task not used:'+bTasks.FieldByName('SUMMARY').AsString);
           Next;
         end;
       if bTasks.EOF then
@@ -616,6 +623,40 @@ begin
   aIntervals.Sort(@CompareStarts);
   //Find Slot
   aFound := False;
+  aNow := trunc(Now);
+  while (not ((aFound) and (aActStartDate+Duration<aNow))) do
+    begin
+      if (not ((DayOfWeek(aNow)=1) or (DayOfWeek(aNow)=7))) then
+        begin
+          aPercent := 0;
+          for i := 1 to aIntervals.Count-1 do
+            begin
+              Int2 := TTaskInterval(aIntervals[i]);
+              if ((trunc(Int2.StartDate)<=aNow)
+              and (trunc(Int2.DueDate)>=aNow)) then
+                inc(aPercent);
+            end;
+          if aPercent = 0 then
+            begin
+              if not aFound then
+                begin
+                  aFound := True;
+                  aActStartDate:=aNow;
+                end
+              else
+                begin
+                  if aActStartDate+Duration<aNow then
+                    break;
+                end;
+            end
+          else if aFound then
+            begin
+              aFound := False;
+            end;
+        end;
+      inc(aNow);
+    end;
+  {
   for i := 1 to aIntervals.Count-1 do
     begin
       Int1 := TTaskInterval(aIntervals[i-1]);
@@ -636,6 +677,7 @@ begin
           break;
         end;
     end;
+  }
   if not aFound then
     begin
       aActStartDate:=TTaskInterval(aIntervals[aIntervals.Count-1]).DueDate;
@@ -690,6 +732,7 @@ begin
   Result := TTaskInterval.Create;
   Result.StartDate:=FieldByName('STARTDATE').AsDateTime;
   Result.DueDate:=FieldByName('DUEDATE').AsDateTime;
+  Result.PlanTime := FieldByName('PLANTIME').AsFloat;
 end;
 procedure TTaskList.DisableDS;
 begin
