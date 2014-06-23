@@ -124,12 +124,14 @@ type
     procedure bSaveClick(Sender: TObject);
     procedure bCancelClick(Sender: TObject);
     procedure bCSaveClick(Sender: TObject);
+    procedure TCollectThreadTerminate(Sender: TObject);
   private
     { private declarations }
     FResourcesRead : Boolean;
     FGantt: TgsGantt;
     Fproject : TProject;
     FTasks : TTaskList;
+    FThreads : TList;
     FRessources : TList;
     FHintRect : TRect;
     FRow : Integer;
@@ -275,6 +277,12 @@ begin
   Close;
 end;
 
+procedure TfGanttView.TCollectThreadTerminate(Sender: TObject);
+begin
+  if FThreads.IndexOf(Sender) > -1 then
+    FThreads.Remove(Sender);
+end;
+
 procedure TfGanttView.bDayViewClick(Sender: TObject);
 begin
   FGantt.MinorScale:=tsDay;
@@ -361,8 +369,7 @@ var
   aDrawRect: TRect;
 begin
   Taskplan.aIDrawBackgroundWeekends(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth);
-  if bShowTasks.Down then
-    Taskplan.aIDrawBackground(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth,Ligthen(clBlue,1),Ligthen(clLime,0.9),Ligthen(clRed,0.9));
+  Taskplan.aIDrawBackground(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth,Ligthen(clBlue,1),Ligthen(clLime,0.9),Ligthen(clRed,0.9));
   if Assigned(FSnapshots) then
     begin
       for i := 0 to FSnapshots.IntervalCount-1 do
@@ -857,14 +864,7 @@ begin
 end;
 procedure TfGanttView.bShowTasksClick(Sender: TObject);
 begin
-  if (bShowTasks.Down) and (not FResourcesRead) then
-    begin
-      if (MessageDlg(strCancelChanges,mtInformation,[mbYes,mbNo],0) = mrYes) then
-        begin
-          bRefreshClick(nil);
-          FResourcesRead:=True;
-        end;
-    end;
+  Application.ProcessMessages;
   FGantt.Calendar.Invalidate;
 end;
 procedure TfGanttView.bTodayClick(Sender: TObject);
@@ -1014,6 +1014,7 @@ begin
   inherited Create(TheOwner);
   aSelInterval:=0;
   FGantt := TgsGantt.Create(Self);
+  FThreads := TList.Create;
   FGantt.Parent := pgantt;
   FGantt.Align:=alClient;
   FGantt.Tree.AfterUpdateCommonSettings:=@FGanttTreeAfterUpdateCommonSettings;
@@ -1032,6 +1033,7 @@ end;
 destructor TfGanttView.Destroy;
 begin
   CleanIntervals;
+  FThreads.Free;
   FRessources.Free;
   inherited Destroy;
 end;
@@ -1147,9 +1149,10 @@ var
           begin
             i := FRessources.Add(TRessource.Create(nil));
             aInterval.Pointer := TRessource(FRessources[i]);
-            //fLogWaitForm.ShowInfo(strCollectingresourceTimes);
-            //TCollectThread.Create(FGantt.Calendar,TRessource(FRessources[i]),aTasks.FieldByName('USER').AsString,aInterval);
-            TaskPlan.CollectResources(TRessource(FRessources[i]),aTasks.FieldByName('USER').AsString,nil,bShowTasks.Down);
+            TRessource(FRessources[i]).Accountno:=aTasks.FieldByName('USER').AsString;
+            FThreads.Add(TCollectThread.Create(FGantt.Calendar,TRessource(FRessources[i]),aTasks.FieldByName('USER').AsString,aInterval));
+            TCollectThread(FThreads[FThreads.Count-1]).OnTerminate:=@TCollectThreadTerminate;
+            //TaskPlan.CollectResources(TRessource(FRessources[i]),aTasks.FieldByName('USER').AsString,nil,bShowTasks.Down);
           end;
       end;
     aInterval.Changed:=False;
@@ -1279,6 +1282,10 @@ begin
   FGantt.BeginUpdate;
   while FGantt.IntervalCount>0 do
     begin
+      if Assigned(FGantt.Interval[0].Pointer) then
+        begin
+          TRessource(FGantt.Interval[0].Pointer).Free;
+        end;
       FGantt.Interval[0].Free;
       FGantt.DeleteInterval(0);
     end;
@@ -1452,6 +1459,8 @@ begin
 end;
 function TfGanttView.Execute(aProject: TProject; aLink: string;
   DoClean: Boolean; AddInactive: Boolean): Boolean;
+var
+  i: Integer;
 begin
   if not Assigned(Self) then
     begin
@@ -1471,10 +1480,23 @@ begin
   Show;
   while Visible do
     begin
+      if bShowTasks.Down then
+        begin
+          if FThreads.Count>0 then
+            TCollectThread(FThreads[0]).Resume
+          else
+            FGantt.Invalidate;
+        end;
       Application.ProcessMessages;
       sleep(100);
     end;
   Result := ModalResult = mrOK;
+  for i := 0 to FThreads.Count-1 do
+    begin
+      TCollectThread(FThreads[i]).Terminate;
+      TCollectThread(FThreads[i]).Resume;
+    end;
+  FThreads.Clear;
   CleanIntervals;
 end;
 

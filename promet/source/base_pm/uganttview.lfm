@@ -1108,7 +1108,6 @@ object fGanttView: TfGanttView
     end
   end
   object ActionList1: TActionList
-    Images = fVisualControls.Images
     left = 56
     top = 56
     object acCenterTask: TAction
@@ -1159,7 +1158,6 @@ object fGanttView: TfGanttView
     top = 56
   end
   object PopupMenu2: TPopupMenu
-    Images = fVisualControls.Images
     OnPopup = PopupMenu2Popup
     left = 20
     top = 112

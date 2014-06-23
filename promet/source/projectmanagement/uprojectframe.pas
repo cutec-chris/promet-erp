@@ -98,9 +98,9 @@ type
     PTasks: TfrDBDataSet;
     dExport: TSaveDialog;
     sePriority: TSpinEdit;
-    Shape1: TShape;
-    Shape2: TShape;
-    Shape3: TShape;
+    sARed: TShape;
+    sAYellow: TShape;
+    sAGreen: TShape;
     Shape4: TShape;
     Tasks: TDatasource;
     DBZVDateTimePicker1: TDBZVDateTimePicker;

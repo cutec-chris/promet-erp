@@ -1246,9 +1246,17 @@ begin
 end;
 
 destructor TInterval.Destroy;
+var
+  i: Integer;
 begin
+  FConnections.Clear;
   FConnections.Free;
+  FDependencies.Clear;
   FDependencies.Free;
+  for i := 0 to FIntervals.Count-1 do
+    if (i<FIntervals.Count) and Assigned(FIntervals[i]) then
+      TInterval(FIntervals[i]).Free;
+  FIntervals.Clear;
   FIntervals.Free;
   if Assigned(FParent) then FParent.RemoveInterval(Self);
 

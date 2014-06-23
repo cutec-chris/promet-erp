@@ -397,8 +397,8 @@ inherited fprojectFrame: TfprojectFrame
         ValueChecked = 'Y'
         ValueUnchecked = 'N'
       end
-      object Shape1: TShape
-        Left = 601
+      object sARed: TShape
+        Left = 644
         Height = 19
         Hint = 'Ampel auf rot stellen'#13#10'und Vermerk hinzufügen'
         Top = 17
@@ -408,7 +408,7 @@ inherited fprojectFrame: TfprojectFrame
         Shape = stEllipse
         Visible = False
       end
-      object Shape2: TShape
+      object sAYellow: TShape
         Left = 623
         Height = 19
         Hint = 'Ampel auf gelb stellen'#13#10'und Vermerk hinzufügen'
@@ -419,8 +419,8 @@ inherited fprojectFrame: TfprojectFrame
         Shape = stEllipse
         Visible = False
       end
-      object Shape3: TShape
-        Left = 645
+      object sAGreen: TShape
+        Left = 603
         Height = 19
         Hint = 'Ampel auf grün stellen'#13#10'und Vermerk hinzufügen'
         Top = 17
@@ -1295,7 +1295,7 @@ inherited fprojectFrame: TfprojectFrame
       OnExecute = acMoveOldTasksExecute
     end
   end
-  object Projects: TDatasource[6]
+  object Projects: TDataSource[6]
     OnStateChange = ProjectsStateChange
     left = 144
     top = 64
@@ -1345,7 +1345,7 @@ inherited fprojectFrame: TfprojectFrame
     left = 144
     top = 224
   end
-  object History: TDatasource[10]
+  object History: TDataSource[10]
     left = 176
     top = 224
   end
@@ -1360,7 +1360,7 @@ inherited fprojectFrame: TfprojectFrame
     left = 144
     top = 141
   end
-  object Users: TDatasource[12]
+  object Users: TDataSource[12]
     AutoEdit = False
     left = 272
     top = 141
@@ -1370,7 +1370,7 @@ inherited fprojectFrame: TfprojectFrame
     left = 192
     top = 141
   end
-  object Tasks: TDatasource[14]
+  object Tasks: TDataSource[14]
     left = 176
     top = 256
   end
@@ -1548,7 +1548,7 @@ inherited fprojectFrame: TfprojectFrame
       }
     end
   end
-  object MandantDetails: TDatasource[18]
+  object MandantDetails: TDataSource[18]
     left = 272
     top = 200
   end

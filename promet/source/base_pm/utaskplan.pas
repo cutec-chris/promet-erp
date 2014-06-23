@@ -142,6 +142,7 @@ type
     procedure FGanttTreeResize(Sender: TObject);
     procedure miUserOptionsClick(Sender: TObject);
     procedure pmActionPopup(Sender: TObject);
+    procedure TCollectThreadTerminate(Sender: TObject);
     procedure TIntervalChanged(Sender: TObject);
   private
     { private declarations }
@@ -149,6 +150,7 @@ type
     FTasks : TTaskList;
     FHintRect : TRect;
     FRow : Integer;
+    FThreads : TList;
     FUsers : TStringList;
     FOwners : TStringList;
     aClickPoint: types.TPoint;
@@ -195,9 +197,9 @@ uses uData,LCLIntf,uBaseDbClasses,uProjects,uTaskEdit,LCLProc,uGanttView,uColors
 procedure TCollectThread.Attatch;
 begin
   FAttatchTo.Pointer:=FResource;
-  if Assigned(FPlan) and FPlan.Visible then
-    FPlan.Invalidate;
-  Application.ProcessMessages;
+  //if Assigned(FPlan) and FPlan.Visible then
+  //  FPlan.Invalidate;
+  //Application.ProcessMessages;
 end;
 
 procedure TCollectThread.Plan;
@@ -212,8 +214,10 @@ end;
 
 procedure TCollectThread.Execute;
 begin
-  Synchronize(@Plan);
-  Synchronize(@Attatch);
+  if not Terminated then
+    Synchronize(@Plan);
+  if not Terminated then
+    Synchronize(@Attatch);
 end;
 
 constructor TCollectThread.Create(aPlan: TWinControl; aResource: TRessource;
@@ -223,9 +227,9 @@ begin
   FResource := aResource;
   FUser := asUser;
   FAttatchTo := AttatchTo;
+  Priority:=tpLowest;
   FreeOnTerminate:=True;
-  //Execute;
-  inherited Create(False);
+  inherited Create(True);
 end;
 
 { TRessource }
@@ -487,6 +491,12 @@ begin
           pmAction.Items.Add(bItem);
         end;
     end;
+end;
+
+procedure TfTaskPlan.TCollectThreadTerminate(Sender: TObject);
+begin
+  if FThreads.IndexOf(Sender) > -1 then
+    FThreads.Remove(Sender);
 end;
 
 procedure TfTaskPlan.TIntervalChanged(Sender: TObject);
@@ -1172,6 +1182,7 @@ end;
 constructor TfTaskPlan.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
+  FThreads := TList.Create;
   FOwners := TStringList.Create;
   FUsers := TStringList.Create;
   FGantt := TgsGantt.Create(Self);
@@ -1217,6 +1228,7 @@ begin
     begin
       FreeAndNil(FDataSet);
     end;
+  FThreads.Free;
   FOwners.Free;
   FUsers.Free;
   FTaskView.Free;
@@ -1270,7 +1282,9 @@ var
             aIParent.AddInterval(aINew);
             tmpRes := TRessource.Create(nil);
             tmpRes.User:=aINew;
-            TCollectThread.Create(Self,tmpRes,aUsers.FieldByName('ACCOUNTNO').AsString,aINew);
+            FThreads.Add(TCollectThread.Create(Self,tmpRes,aUsers.FieldByName('ACCOUNTNO').AsString,aINew));
+            TCollectThread(FThreads[FThreads.Count-1]).OnTerminate:=@TCollectThreadTerminate;
+            TCollectThread(FThreads[FThreads.Count-1]).Resume;
             aINew.OnDrawBackground:=@aINewDrawBackground;
           end;
         aUsers.Next;
@@ -1371,7 +1385,7 @@ begin
           bTasks.Free;
         end;
       aCalendar := TCalendar.Create(nil,Data,aConnection);
-      aCalendar.SelectPlanedByUserAndTime(asUser,Now()-60,Now()+(3*365));//2 Monate zurück 3 Jahre vorraus
+      aCalendar.SelectPlanedByUserAndTime(asUser,Now()-30,Now()+(1*365));//1 Monat zurück 1 Jahr vorraus
       aCalendar.Open;
       with aCalendar.DataSet do
         begin

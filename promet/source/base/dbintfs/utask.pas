@@ -580,6 +580,7 @@ begin
           if  (not bTasks.FieldByName('STARTDATE').IsNull)
           and (not bTasks.FieldByName('DUEDATE').IsNull)
           and (not (bTasks.FieldByName('PLANTASK').AsString='N'))
+          and (not bTasks.Id.AsVariant=Self.Id.AsVariant)
           then
             begin
               aIntervals.Add(bTasks.GetInterval);
