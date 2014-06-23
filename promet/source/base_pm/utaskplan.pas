@@ -497,6 +497,7 @@ procedure TfTaskPlan.TCollectThreadTerminate(Sender: TObject);
 begin
   if FThreads.IndexOf(Sender) > -1 then
     FThreads.Remove(Sender);
+  FGantt.Invalidate;
 end;
 
 procedure TfTaskPlan.TIntervalChanged(Sender: TObject);
@@ -996,7 +997,9 @@ procedure TfTaskPlan.bRefreshClick(Sender: TObject);
         aInt.Pointer := nil;
         tmpRes := TRessource.Create(nil);
         tmpRes.User:=TPInterval(aInt);
-        TCollectThread.Create(Self,tmpRes,aUser,aInt);
+        FThreads.Add(TCollectThread.Create(Self,tmpRes,aUser,aInt));
+        TCollectThread(FThreads[FThreads.Count-1]).OnTerminate:=@TCollectThreadTerminate;
+        TCollectThread(FThreads[FThreads.Count-1]).Resume;
       end;
   end;
 var

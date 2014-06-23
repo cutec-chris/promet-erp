@@ -281,6 +281,7 @@ procedure TfGanttView.TCollectThreadTerminate(Sender: TObject);
 begin
   if FThreads.IndexOf(Sender) > -1 then
     FThreads.Remove(Sender);
+  FGantt.Invalidate;
 end;
 
 procedure TfGanttView.bDayViewClick(Sender: TObject);
