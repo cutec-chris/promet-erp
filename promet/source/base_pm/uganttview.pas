@@ -1119,8 +1119,9 @@ var
     bTasks: TTaskList;
     bInterval: TInterval;
     aUser: TUser;
-    aProject: TProject;
     TaskPlan : TfTaskPlan = nil;
+    aColFinish: TDateTime;
+    aTh: TCollectThread;
   begin
     Result := nil;
     if (aTasks.FieldByName('PARENT').AsString <> '') then
@@ -1163,7 +1164,13 @@ var
             i := FRessources.Add(TRessource.Create(nil));
             aInterval.Pointer := TRessource(FRessources[i]);
             TRessource(FRessources[i]).Accountno:=aTasks.FieldByName('USER').AsString;
-            FThreads.Add(TCollectThread.Create(FGantt.Calendar,TRessource(FRessources[i]),aTasks.FieldByName('USER').AsString,aInterval));
+            if (not Assigned(FProject)) or (Fproject.FieldByName('END').AsDateTime<Now()) then
+              aColFinish := Now()+365
+            else
+              aColFinish := FProject.FieldByName('END').AsDateTime+30;
+            aTh := TCollectThread.Create(FGantt.Calendar,Now()-30,aColFinish,TRessource(FRessources[i]),aTasks.FieldByName('USER').AsString,False,True,aInterval);
+            aTh.Resume;
+            FThreads.Add(TCollectThread.Create(FGantt.Calendar,Now()-30,aColFinish,TRessource(FRessources[i]),aTasks.FieldByName('USER').AsString,True,False,aInterval));
             TCollectThread(FThreads[FThreads.Count-1]).OnTerminate:=@TCollectThreadTerminate;
             //TaskPlan.CollectResources(TRessource(FRessources[i]),aTasks.FieldByName('USER').AsString,nil,bShowTasks.Down);
           end;
@@ -1487,6 +1494,7 @@ begin
   SetRights;
   Addhelp;
   ModalResult := mrNone;
+  bShowTasks.Down:=False;
   if aLink <> '' then
     GotoTask(aLink);
   Caption := strGanttView+' - '+FTasks.Parent.FieldByName('NAME').AsString;

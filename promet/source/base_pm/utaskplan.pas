@@ -162,8 +162,9 @@ type
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
     procedure Populate(aParent : Variant;aUser : Variant);
-    procedure CollectResources(aResource: TRessource; asUser: string;
-      aConnection: TComponent=nil; CollectTasks: Boolean=True);
+    procedure CollectResources(aResource: TRessource; aFrom, aTo: TDateTime;
+      asUser: string; aConnection: TComponent; CollectTasks,
+  CollectCalendar: Boolean);
     function GetIntervalFromCoordinates(Gantt: TgsGantt; X, Y, Index: Integer): TInterval;
     function GetTaskIntervalFromCoordinates(Gantt: TgsGantt; X, Y, Index: Integer): TInterval;
     function GetTaskFromCoordinates(Gantt : TgsGantt;X,Y,Index : Integer) : string;
@@ -176,12 +177,16 @@ type
     FResource: uTaskPlan.TRessource;
     FUser: String;
     FPlan: TWinControl;
+    FFrom: TDateTime;
+    FTo: TDateTime;
     FAttatchTo: TInterval;
+    FTasks: Boolean;
+    FCalendar: Boolean;
     procedure Attatch;
     procedure Plan;
   public
     procedure Execute; override;
-    constructor Create(aPlan : TWinControl;aResource : TRessource;asUser : string;AttatchTo : TInterval = nil);
+    constructor Create(aPlan : TWinControl;aFrom,aTo : TDateTime;aResource : TRessource;asUser : string;aTasks,aCalendar : Boolean;AttatchTo : TInterval = nil);
   end;
 procedure ChangeTask(aTasks: TTaskList;aTask : TInterval;DoChangeMilestones : Boolean = False);
 resourcestring
@@ -208,7 +213,7 @@ var
   TaskPlan : TfTaskPlan;
 begin
   aConnection := Data.GetNewConnection;
-  TaskPlan.CollectResources(FResource,FUser,aConnection);
+  TaskPlan.CollectResources(FResource,FFrom,FTo,FUser,aConnection,FTasks,FCalendar);
   aConnection.Free;
 end;
 
@@ -220,10 +225,15 @@ begin
     Synchronize(@Attatch);
 end;
 
-constructor TCollectThread.Create(aPlan: TWinControl; aResource: TRessource;
-  asUser: string; AttatchTo: TInterval);
+constructor TCollectThread.Create(aPlan: TWinControl; aFrom, aTo: TDateTime;
+  aResource: TRessource; asUser: string; aTasks, aCalendar: Boolean;
+  AttatchTo: TInterval);
 begin
   FPlan := aPlan;
+  FFrom := aFrom;
+  FTasks := aTasks;
+  FCalendar := aCalendar;
+  FTo := aTo;
   FResource := aResource;
   FUser := asUser;
   FAttatchTo := AttatchTo;
@@ -997,7 +1007,7 @@ procedure TfTaskPlan.bRefreshClick(Sender: TObject);
         aInt.Pointer := nil;
         tmpRes := TRessource.Create(nil);
         tmpRes.User:=TPInterval(aInt);
-        FThreads.Add(TCollectThread.Create(Self,tmpRes,aUser,aInt));
+        FThreads.Add(TCollectThread.Create(Self,Now()-30,Now()+90,tmpRes,aUser,True,True,aInt));
         TCollectThread(FThreads[FThreads.Count-1]).OnTerminate:=@TCollectThreadTerminate;
         TCollectThread(FThreads[FThreads.Count-1]).Resume;
       end;
@@ -1285,7 +1295,7 @@ var
             aIParent.AddInterval(aINew);
             tmpRes := TRessource.Create(nil);
             tmpRes.User:=aINew;
-            FThreads.Add(TCollectThread.Create(Self,tmpRes,aUsers.FieldByName('ACCOUNTNO').AsString,aINew));
+            FThreads.Add(TCollectThread.Create(Self,Now()-30,Now()+60,tmpRes,aUsers.FieldByName('ACCOUNTNO').AsString,True,True,aINew));
             TCollectThread(FThreads[FThreads.Count-1]).OnTerminate:=@TCollectThreadTerminate;
             TCollectThread(FThreads[FThreads.Count-1]).Resume;
             aINew.OnDrawBackground:=@aINewDrawBackground;
@@ -1341,7 +1351,9 @@ begin
   acCancel.Enabled:=False;
 end;
 
-procedure TfTaskPlan.CollectResources(aResource: TRessource; asUser: string;aConnection : TComponent = nil;CollectTasks : Boolean = True);
+procedure TfTaskPlan.CollectResources(aResource: TRessource; aFrom,
+  aTo: TDateTime; asUser: string; aConnection: TComponent; CollectTasks,CollectCalendar: Boolean
+  );
 var
   aUser: TUser;
   bTasks: TTaskList;
@@ -1375,6 +1387,8 @@ begin
                     begin
                       bInterval := TPInterval.Create(nil);
                       gView.FillInterval(bInterval,bTasks);
+                      if bInterval.FinishDate>aTo then
+                        FreeAndNil(bInterval);
                     end;
                   if Assigned(bInterval) then
                     begin
@@ -1387,29 +1401,32 @@ begin
             end;
           bTasks.Free;
         end;
-      aCalendar := TCalendar.Create(nil,Data,aConnection);
-      aCalendar.SelectPlanedByUserAndTime(asUser,Now()-30,Now()+(1*365));//1 Monat zurück 1 Jahr vorraus
-      aCalendar.Open;
-      with aCalendar.DataSet do
+      if CollectCalendar then
         begin
-          First;
-          while not EOF do
+          aCalendar := TCalendar.Create(nil,Data,aConnection);
+          aCalendar.SelectPlanedByUserAndTime(asUser,aFrom,aTo);//1 Monat zurück 1 Jahr vorraus
+          aCalendar.Open;
+          with aCalendar.DataSet do
             begin
-              bInterval := TBackInterval.Create(nil);
-              bInterval.StartDate:=aCalendar.FieldByName('STARTDATE').AsDateTime;
-              bInterval.FinishDate:=aCalendar.FieldByName('ENDDATE').AsDateTime;
-              if aCalendar.FieldByName('ALLDAY').AsString = 'Y' then
+              First;
+              while not EOF do
                 begin
-                  bInterval.StartDate := trunc(bInterval.StartDate);
-                  bInterval.FinishDate := trunc(bInterval.FinishDate+1);
+                  bInterval := TBackInterval.Create(nil);
+                  bInterval.StartDate:=aCalendar.FieldByName('STARTDATE').AsDateTime;
+                  bInterval.FinishDate:=aCalendar.FieldByName('ENDDATE').AsDateTime;
+                  if aCalendar.FieldByName('ALLDAY').AsString = 'Y' then
+                    begin
+                      bInterval.StartDate := trunc(bInterval.StartDate);
+                      bInterval.FinishDate := trunc(bInterval.FinishDate+1);
+                    end;
+                  bInterval.Task:=aCalendar.FieldByName('SUMMARY').AsString;
+                  aResource.AddInterval(bInterval);
+                  bInterval.Changed:=False;
+                  Next;
                 end;
-              bInterval.Task:=aCalendar.FieldByName('SUMMARY').AsString;
-              aResource.AddInterval(bInterval);
-              bInterval.Changed:=False;
-              Next;
             end;
+          aCalendar.Free;
         end;
-      aCalendar.Free;
       aResource.Sort;
     end;
   aUser.Free;
