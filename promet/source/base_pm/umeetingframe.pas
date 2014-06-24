@@ -1101,8 +1101,6 @@ begin
       FreeAndNil(FConnection);
     end;
   FOwners.Free;
-  if Assigned(FGridView) then
-    FGridView.Destroy;
   inherited Destroy;
 end;
 

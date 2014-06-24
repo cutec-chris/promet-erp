@@ -604,7 +604,7 @@ begin
         end;
       //Collect Calendar entrys
       aCalendar := TCalendar.Create(nil,DataModule,Connection);
-      aCalendar.SelectPlanedByUserAndTime(FieldByName('USER').AsString,Now(),Now()+(1*365));
+      aCalendar.SelectPlanedByUserAndTime(FieldByName('USER').AsString,Now()-30,Now()+(1*365));
       aCalendar.Open;
       with aCalendar.DataSet do
         begin

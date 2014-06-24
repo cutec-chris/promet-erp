@@ -141,6 +141,7 @@ type
     FCriticalPathLength : float;
     FQuickHelpFrame: TfQuickHelpFrame;
     FSelectedInterval: TInterval;
+    FIntervals : TList;
   public
     { public declarations }
     constructor Create(TheOwner: TComponent); override;
@@ -1035,6 +1036,7 @@ constructor TfGanttView.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   aSelInterval:=0;
+  FIntervals := TList.Create;
   FGantt := TgsGantt.Create(Self);
   FThreads := TList.Create;
   FGantt.Parent := pgantt;
@@ -1055,6 +1057,7 @@ end;
 destructor TfGanttView.Destroy;
 begin
   CleanIntervals;
+  FIntervals.Free;
   FThreads.Free;
   FRessources.Free;
   inherited Destroy;
@@ -1147,6 +1150,7 @@ var
           end;
       end;
     aInterval := TPInterval.Create(FGantt);
+    FIntervals.Add(aInterval);
     FillInterval(aInterval,aTasks);
     aInterval.Visible:=True;
     aInterval.Id := aTasks.Id.AsVariant;
@@ -1307,18 +1311,27 @@ end;
 procedure TfGanttView.CleanIntervals;
 var
   i: Integer;
+  aInt: TInterval;
 begin
   FGantt.BeginUpdate;
-  while FGantt.IntervalCount>0 do
+  while FIntervals.Count>0 do
     begin
-      if Assigned(FGantt.Interval[0].Pointer) then
-        begin
-          TRessource(FGantt.Interval[0].Pointer).Free;
-        end;
-      FGantt.Interval[0].Free;
-      FGantt.DeleteInterval(0);
+       aInt := TInterval(FIntervals[FIntervals.Count-1]);
+       FIntervals.Remove(aInt);
+       aInt.Free;
     end;
-  for i := 0 to FRessources.Count-1 do TRessource(FRessources[i]).Free;
+  FIntervals.Clear;
+  for i := 0 to FRessources.Count-1 do
+    begin
+      while TRessource(FRessources[i]).IntervalCount>0 do
+        begin
+          aInt := TInterval(TRessource(FRessources[i]).Interval[TRessource(FRessources[i]).IntervalCount-1]);
+          TRessource(FRessources[i]).RemoveInterval(aInt);
+          aInt.Free;
+        end;
+      TRessource(FRessources[i]).Free;
+
+    end;
   FRessources.Clear;
   FGantt.EndUpdate;
 end;

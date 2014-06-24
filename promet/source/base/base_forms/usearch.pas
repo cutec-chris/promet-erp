@@ -92,6 +92,7 @@ type
       Shift: TShiftState);
     procedure FastSearchEnd(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
+    procedure FormDestroy(Sender: TObject);
     procedure FormHide(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormShow(Sender: TObject);
@@ -458,6 +459,12 @@ begin
     DBConfig.WriteString('SEARCHIN:'+FOptionSet,Options);
   CloseAction:=caHide;
 end;
+
+procedure TfSearch.FormDestroy(Sender: TObject);
+begin
+  if Assigned(ActiveSearch) then ActiveSearch.Free;
+end;
+
 procedure TfSearch.FormHide(Sender: TObject);
 begin
   IdleTimer.Enabled:=False;
