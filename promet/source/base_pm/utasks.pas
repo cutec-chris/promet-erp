@@ -990,6 +990,7 @@ var
 begin
   if not FGridView.GotoActiveRow then exit;
   Screen.Cursor:=crHourGlass;
+  Application.ProcessMessages;
   aDeps := TTaskList(DataSet).GetUnterminatedDependencies;
   if aDeps.Count>0 then
     begin

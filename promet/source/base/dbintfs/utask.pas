@@ -86,7 +86,7 @@ type
     //This function calculates the earliest possible Start and Enddate for the Task
     function Terminate(aEarliest : TDateTime;var aStart,aEnd,aDuration : TDateTime) : Boolean;
     //This function retuirns True if one of the Dependencies of aTask or its Dependencies (recoursive) points to This Task
-    function DependsOnMe(aTask : TTaskList) : Boolean;
+    function DependsOnMe(aTask: TTaskList; aDeep: Integer=30): Boolean;
     //This function calculates the earliest possible Start and Enddate for the Task and sets it as Start and Enddate
     function Terminate(aEarliest : TDateTime) : Boolean;
     function WaitTimeDone : TDateTime;
@@ -592,7 +592,7 @@ begin
           //and (not (bTasks.FieldByName('PLANTASK').AsString='N'))
           and (not (bTasks.Id.AsVariant=Self.Id.AsVariant))
           then
-            if not DependsOnMe(bTasks) then
+            if not DependsOnMe(bTasks,2) then
               aIntervals.Add(bTasks.GetInterval);
           Next;
         end;
@@ -658,28 +658,6 @@ begin
         end;
       inc(aNow);
     end;
-  {
-  for i := 1 to aIntervals.Count-1 do
-    begin
-      Int1 := TTaskInterval(aIntervals[i-1]);
-      Int2 := TTaskInterval(aIntervals[i]);
-      aTime:= Int2.StartDate-Int1.DueDate;
-      //Add Weekends
-      a := trunc(Int1.DueDate);
-      while a < Int1.DueDate+Duration do
-        begin
-          if ((DayOfWeek(a)=1) or (DayOfWeek(a)=7)) then
-            aTime := aTime-1;
-          inc(a,1);
-        end;
-      if aTime>Duration then
-        begin
-          aFound := True;
-          aActStartDate:=Int1.DueDate;
-          break;
-        end;
-    end;
-  }
   if not aFound then
     begin
       aActStartDate:=TTaskInterval(aIntervals[aIntervals.Count-1]).DueDate;
@@ -707,31 +685,36 @@ begin
   aIntervals.Clear;
   aIntervals.Free;
 end;
-function TTaskList.DependsOnMe(aTask: TTaskList): Boolean;
-  function RecourseDepends(bTask : TTaskList) : Boolean;
+function TTaskList.DependsOnMe(aTask: TTaskList;aDeep : Integer = 30): Boolean;
+  function RecourseDepends(bTask : TTaskList;aDeep : Integer = 0) : Boolean;
   var
     cTask: TTaskList;
   begin
-    bTask.Dependencies.Open;
-    bTask.Dependencies.First;
-    cTask := TTaskList.Create(nil,DataModule,Connection);
-    while not bTask.Dependencies.EOF do
-      begin
-        cTask.SelectFromLink(bTask.Dependencies.FieldByName('LINK').AsString);
-        cTask.Open;
-        if cTask.Count>0 then
-          begin
-            Result := RecourseDepends(cTask);
-            if Result then break;
-          end;
-        bTask.Dependencies.Next;
-      end;
+    Result := False;
+    if aDeep>1 then exit;
     Result := bTask.Id.AsVariant=Id.AsVariant;
-    cTask.Free;
+    if not Result then
+      begin
+        bTask.Dependencies.Open;
+        bTask.Dependencies.First;
+        cTask := TTaskList.Create(nil,DataModule,Connection);
+        while not bTask.Dependencies.EOF do
+          begin
+            cTask.SelectFromLink(bTask.Dependencies.FieldByName('LINK').AsString);
+            cTask.Open;
+            if cTask.Count>0 then
+              begin
+                Result := RecourseDepends(cTask,aDeep+1);
+                if Result then break;
+              end;
+            bTask.Dependencies.Next;
+          end;
+        cTask.Free;
+      end;
   end;
 
 begin
-  Result := RecourseDepends(aTask);
+  Result := RecourseDepends(aTask,aDeep);
 end;
 function TTaskList.Terminate(aEarliest: TDateTime): Boolean;
 var

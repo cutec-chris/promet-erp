@@ -728,6 +728,7 @@ var
 begin
   if not Assigned(FSelectedInterval) then exit;
   Screen.Cursor:=crHourGlass;
+  Application.ProcessMessages;
   aTask := TTask.Create(nil,Data);
   aTask.Select(FSelectedInterval.Id);
   aTask.Open;
