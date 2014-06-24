@@ -1249,8 +1249,7 @@ destructor TInterval.Destroy;
 var
   i: Integer;
 begin
-  while FConnections.Count>0 do
-    DeleteConnection(0);
+  FConnections.Clear;
   FConnections.Free;
   FIntervals.Free;
   FDependencies.Clear;
