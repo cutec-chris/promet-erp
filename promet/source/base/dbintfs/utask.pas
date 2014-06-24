@@ -530,6 +530,8 @@ var
   a: Int64;
   aNow: Int64;
   aPercent: Integer;
+  FUsage: Extended;
+  FWorkTime: Extended;
 begin
   Result := False;
   //Get Latest Dependency
@@ -566,7 +568,6 @@ begin
     end
   else
     ResourceTimePerDay := 1;
-  aUser.Free;
   if not FieldByName('PLANTIME').IsNull then
     aNetTime := FieldByName('PLANTIME').AsFloat
   else aNetTime := 1;
@@ -574,53 +575,57 @@ begin
   if Duration<0.5 then Duration:=0.5;
   //Find first free Slot
   bTasks := TTaskList.Create(nil,DataModule,Connection);
-  bTasks.SelectUncompletedByUser(FieldByName('USER').AsString);
-  bTasks.SortFields:='STARTDATE';
-  bTasks.SortDirection:=sdAscending;
-  bTasks.Open;
+  if aUser.FieldByName('TYPE').AsString<>'G' then
+    begin
+      bTasks.SelectUncompletedByUser(FieldByName('USER').AsString);
+      bTasks.SortFields:='STARTDATE';
+      bTasks.SortDirection:=sdAscending;
+      bTasks.Open;
 
-  //Collect Tasks
-  aIntervals := TList.Create;
-  aIntervals.Add(TTaskInterval.Create);
-  TTaskInterval(aIntervals[0]).DueDate:=aStartDate;
-  with bTasks.DataSet do
-    begin
-      while not EOF do
+      //Collect Tasks
+      aIntervals := TList.Create;
+      aIntervals.Add(TTaskInterval.Create);
+      TTaskInterval(aIntervals[0]).DueDate:=aStartDate;
+      with bTasks.DataSet do
         begin
-          if  (not bTasks.FieldByName('STARTDATE').IsNull)
-          and (not bTasks.FieldByName('DUEDATE').IsNull)
-          //and (not (bTasks.FieldByName('PLANTASK').AsString='N'))
-          and (not (bTasks.Id.AsVariant=Self.Id.AsVariant))
-          then
-            if not DependsOnMe(bTasks,2) then
-              aIntervals.Add(bTasks.GetInterval);
-          Next;
-        end;
-      if bTasks.EOF then
-        aFound := True;
-    end;
-  //Collect Calendar entrys
-  aCalendar := TCalendar.Create(nil,DataModule,Connection);
-  aCalendar.SelectPlanedByUserAndTime(FieldByName('USER').AsString,Now(),Now()+(1*365));
-  aCalendar.Open;
-  with aCalendar.DataSet do
-    begin
-      First;
-      while not EOF do
-        begin
-          aInterval := TTaskInterval.Create;
-          aInterval.StartDate:=aCalendar.FieldByName('STARTDATE').AsDateTime;
-          aInterval.DueDate:=aCalendar.FieldByName('ENDDATE').AsDateTime;
-          if aCalendar.FieldByName('ALLDAY').AsString = 'Y' then
+          while not EOF do
             begin
-              aInterval.StartDate := trunc(aInterval.StartDate);
-              aInterval.DueDate := trunc(aInterval.DueDate+1);
+              if  (not bTasks.FieldByName('STARTDATE').IsNull)
+              and (not bTasks.FieldByName('DUEDATE').IsNull)
+              //and (not (bTasks.FieldByName('PLANTASK').AsString='N'))
+              and (not (bTasks.Id.AsVariant=Self.Id.AsVariant))
+              then
+                if not DependsOnMe(bTasks,2) then
+                  aIntervals.Add(bTasks.GetInterval);
+              Next;
             end;
-          aIntervals.Add(aInterval);
-          Next;
+          if bTasks.EOF then
+            aFound := True;
         end;
+      //Collect Calendar entrys
+      aCalendar := TCalendar.Create(nil,DataModule,Connection);
+      aCalendar.SelectPlanedByUserAndTime(FieldByName('USER').AsString,Now(),Now()+(1*365));
+      aCalendar.Open;
+      with aCalendar.DataSet do
+        begin
+          First;
+          while not EOF do
+            begin
+              aInterval := TTaskInterval.Create;
+              aInterval.StartDate:=aCalendar.FieldByName('STARTDATE').AsDateTime;
+              aInterval.DueDate:=aCalendar.FieldByName('ENDDATE').AsDateTime;
+              if aCalendar.FieldByName('ALLDAY').AsString = 'Y' then
+                begin
+                  aInterval.StartDate := trunc(aInterval.StartDate);
+                  aInterval.DueDate := trunc(aInterval.DueDate+1);
+                end;
+              aIntervals.Add(aInterval);
+              Next;
+            end;
+        end;
+      aCalendar.Free;
     end;
-  aCalendar.Free;
+  aUser.Free;
   //Sort by Start Date
   aIntervals.Sort(@CompareStarts);
   //Find Slot
