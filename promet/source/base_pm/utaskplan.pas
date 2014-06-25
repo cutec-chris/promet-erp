@@ -370,6 +370,7 @@ var
 begin
   if aTasks.DataSet.Locate('SQL_ID',aTask.Id,[]) then
     begin
+      //Add new Dependencies
       for i := 0 to aTask.ConnectionCount-1 do
         begin
           aTaskI2 := TTask.Create(nil,Data);
@@ -386,6 +387,7 @@ begin
             end;
           aTaskI2.Free;
         end;
+      //Change Task
       if ((aTasks.FieldByName('CLASS').AsString<>'M') or DoChangeMilestones) and (aTasks.FieldByName('COMPLETED').AsString<>'Y') then
         begin
           if not aTasks.CanEdit then
@@ -402,6 +404,8 @@ begin
           if aTasks.CanEdit then
             aTasks.DataSet.Post;
         end;
+      if Assigned(aTask.Parent) then
+        ChangeTask(aTasks,aTask.Parent,DoChangeMilestones);
     end;
   aTask.Changed:=False;
 end;
