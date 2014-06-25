@@ -452,7 +452,7 @@ var
             aINew.Style:=isNone;
             aIParent.AddInterval(aINew);
             aINew.Opened:=False;
-            aINew.OnOpen:=@aINewOpen;
+            aINew.OnExpand:=@aINewOpen;
             if (aUsers.Id.AsVariant=ColorUser) or Colorized then
               begin
                 aINew.Color:=clred;

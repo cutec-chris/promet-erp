@@ -53,9 +53,9 @@ inherited fTaskPlan: TfTaskPlan
       object bRefresh: TSpeedButton
         Left = 104
         Height = 24
-        Hint = 'aktualisieren'
         Top = 15
         Width = 24
+        Action = acRefresh
         AllowAllUp = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
@@ -94,7 +94,6 @@ inherited fTaskPlan: TfTaskPlan
           3453A4653405FFFFFF00FFFFFF00FFFFFF00A4653479A4653410
         }
         Layout = blGlyphTop
-        OnClick = bRefreshClick
         ShowCaption = False
       end
       object bMonthView: TSpeedButton
@@ -539,6 +538,13 @@ inherited fTaskPlan: TfTaskPlan
       Hint = 'Ändrungen verwerfen'
       ImageIndex = 75
       OnExecute = acCancelExecute
+    end
+    object acRefresh: TAction
+      Caption = 'acRefresh'
+      Hint = 'aktualisieren'
+      ImageIndex = 69
+      OnExecute = bRefreshClick
+      ShortCut = 116
     end
   end
   object pmUSer: TPopupMenu[4]

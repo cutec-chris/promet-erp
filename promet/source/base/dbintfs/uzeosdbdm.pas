@@ -1434,6 +1434,8 @@ begin
         TZeosDBDataSet(DataSet).DataSource := nil;
       end;
   except
+    with BaseApplication as IBaseApplication do
+     Debug(Self.ClassName+' has Masterdata that is destroyed before itself !!');
   end;
 end;
 

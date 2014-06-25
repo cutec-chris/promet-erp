@@ -98,7 +98,7 @@ type
     FNetDuration: TDateTime;
     FNetTime: TDateTime;
     FOnChanged: TNotifyEvent;
-    FOnOpen: TNotifyEvent;
+    FOnExpand: TNotifyEvent;
     FPB: TPaitBackgroundEvent;
     FPointer: Pointer;
     FPointer2: Pointer;
@@ -267,7 +267,7 @@ type
     property Color : TColor read FColor write SetColor;
     property Styles : TFontStyles read FStyle write FStyle;
     property Gantt : TgsGantt read FGantt;
-    property OnOpen : TNotifyEvent read FOnOpen write FOnOpen;
+    property OnExpand : TNotifyEvent read FOnExpand write FOnExpand;
     property Fixed : Boolean read FFixed write FFixed;
   end;
   TMouseOverInterval = procedure(Sender : TObject;aInterval : TInterval;X,Y : Integer) of object;
@@ -277,6 +277,7 @@ type
   TGanttCalendar = class(TCustomControl)
   private
     FOverInterval: TMouseOverInterval;
+    FStartDateChanged: TNotifyEvent;
     FVertScrollBar: TScrollBar;
     FHorzScrollBar: TScrollBar;
 
@@ -309,6 +310,7 @@ type
     FConnectToPoint: TPoint;
 
     // Property Procedures and functions
+    function GetEndDate: TDateTime;
     procedure SetMajorScale(const Value: TTimeScale);
     procedure SetMinorScale(const Value: TTimeScale);
 
@@ -421,6 +423,7 @@ type
     property PixelsPerLine: Integer read FPixelsPerLine write SetPixelsPerLine default 24;
 
     property StartDate: TDateTime read FStartDate write SetStartDate;
+    property EndDate : TDateTime read GetEndDate;
 
     property OnMouseMove;
     property OnMouseDown;
@@ -428,6 +431,7 @@ type
     property OnDblClick;
     property OnClick;
     property OnMoveOverInterval : TMouseOverInterval read FOverInterval write FOverInterval;
+    property OnStartDateChanged : TNotifyEvent read FStartDateChanged write FStartDateChanged;
   end;
   TGanttTree = class(TStringGrid)
   private
@@ -499,6 +503,7 @@ type
     FIntervals: TList;
 
     FCalendar: TGanttCalendar;
+    FStartDateChanged: TNotifyEvent;
     FTree: TGanttTree;
     FSplitter: TSplitter;
     FUpdateCount : Integer;
@@ -570,6 +575,8 @@ type
     property TreeIndent: Integer read GetTreeIndent write SetTreeIndent;
     property TreeFont: TFont read GetTreeFont write SetTreeFont;
     property TreeBranchFont: TFont read GetTreeBranchFont write SetTreeBranchFont;
+
+    property OnStartDateChangd : TNotifyEvent read FStartDateChanged write FStartDateChanged;
   end;
 //procedure Register;
 function UnitsBetweenDates(Start, Finish: TdateTime; TimeScale: TTimeScale): Double;
@@ -1448,6 +1455,7 @@ end;
 
 procedure TInterval.PrepareDrawRect;
 begin
+  if not Assigned(FGantt) then exit;
   FDrawRect.Left :=
     Round
     (
@@ -1689,7 +1697,7 @@ begin
     Result := DrawRect;
     Exit;
   end;
-
+  if not Assigned(FGantt) then exit;
   Result.Top := FDrawRect.Top + (FDrawRect.Bottom - FDrawRect.Top) div 3;
   Result.Bottom := FDrawRect.Bottom - (FDrawRect.Bottom - FDrawRect.Top) div 3;
 
@@ -1799,10 +1807,10 @@ procedure TInterval.SetOpened(const Value: Boolean);
 var
   I: Integer;
 begin
+  if Assigned(FOnExpand) and Value then
+    FOnExpand(Self);
   for I := 0 to IntervalCount - 1 do
     Interval[I].Visible := Value;
-  if Assigned(FOnOpen) then
-    FOnOpen(Self);
 end;
 
 function TInterval.CountStartDate: TDateTime;
@@ -2267,6 +2275,11 @@ begin
   end;
 end;
 
+function TGanttCalendar.GetEndDate: TDateTime;
+begin
+  Result := StartDate+FPixelsPerMinorScale;
+end;
+
 procedure TGanttCalendar.SetMinorScale(const Value: TTimeScale);
 begin
   if csReading in ComponentState then
@@ -2306,6 +2319,8 @@ begin
   FStartDate := Value;
   FVisibleStart := ClearToPeriodStart(MinorScale, FStartDate);
   Invalidate;
+  if Assigned(FStartDateChanged) then
+    FStartDateChanged(Self);
 end;
 
 function TGanttCalendar.GetVisibleFinish: TDateTime;
@@ -2797,6 +2812,8 @@ begin
             Height - FHorzScrollBar.Height * Integer(FHorzScrollBar.Visible)
           );
           InvalidateRect(Handle, @R, True);
+          if Assigned(FStartDateChanged) then
+            FStartDateChanged(Self);
         end;
     end
   else
@@ -2811,11 +2828,15 @@ begin
             FBeforeStartDateCount := Abs(ScrollPos);
             ScrollPos := 0;
           end;
+          if Assigned(FStartDateChanged) then
+            FStartDateChanged(Self);
         end
       else
         begin
           FVisibleStart := ClearToPeriodStart(MinorScale, IncTime(FStartDate, MinorScale, ScrollPos));
           FBeforeStartDateCount := 0;
+          if Assigned(FStartDateChanged) then
+            FStartDateChanged(Self);
         end;
       if (ScrollCode <> scEndScroll) then
         begin
@@ -3178,6 +3199,8 @@ begin
           FVisibleStart := IncTime(FVisibleStart, MinorScale, aDiff);
           FGantt.Tree.TopRow:=FGantt.Tree.TopRow+round((FConnectFromPoint.Y-Message.YPos)/FGantt.Tree.DefaultRowHeight);
           FConnectFromPoint := Point(Message.XPos, Message.YPos);
+          if Assigned(FStartDateChanged) then
+            FStartDateChanged(Self);
         end;
       Invalidate;
     end;
