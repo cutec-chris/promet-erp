@@ -1,4 +1,7 @@
-﻿Build 356
+﻿Build 357
+      - Aufgabenplan:Benutzer "aufklappbar" um eine bessere Übersicht über die Aufgaben pro Benutzer zu bekommen
+      - Gantt:Resourcenauslastung wird in Hintergrudnprozess zusammengesammelt Ansicht bleibt wärend dessen bedienbar
+Build 356
       - Gantt:Man kann nun auch aus dem Gantt den nächstmöglichen freien "Slot" für die Aufgabe finden
       - Projekte:auch hier kann man nun die Aufgaben Terminieren (Slot finden)
       - Artikel:Versionen auswählen erzeugte in den letzten versionen einen Fehler - behoben

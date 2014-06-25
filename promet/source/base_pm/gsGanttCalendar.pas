@@ -2946,6 +2946,7 @@ var
   Found: Boolean;
   aTop: Integer;
   aIdx : Integer = 0;
+  aCount : Integer = 0;
   R: TRect;
   NewDate: TDateTime;
   aDiff: Int64;
@@ -2953,6 +2954,7 @@ begin
   List := TList.Create;
   try
     FGantt.MakeIntervalList(List);
+    aCount := List.Count;
 
     if not FDragStarted then
     begin
@@ -3197,7 +3199,10 @@ begin
       if (aDiff<>0) or (round((FConnectFromPoint.Y-Message.YPos)/FGantt.Tree.DefaultRowHeight) <> 0) then
         begin
           FVisibleStart := IncTime(FVisibleStart, MinorScale, aDiff);
-          FGantt.Tree.TopRow:=FGantt.Tree.TopRow+round((FConnectFromPoint.Y-Message.YPos)/FGantt.Tree.DefaultRowHeight);
+
+          if aCount > (Height div FGantt.Tree.DefaultRowHeight) then
+            FGantt.Tree.TopRow:=FGantt.Tree.TopRow+round((FConnectFromPoint.Y-Message.YPos)/FGantt.Tree.DefaultRowHeight)
+          else FGantt.Tree.TopRow:=0;
           FConnectFromPoint := Point(Message.XPos, Message.YPos);
           if Assigned(FStartDateChanged) then
             FStartDateChanged(Self);
@@ -4389,4 +4394,4 @@ finalization
   DrawBitmap.Free;
 
 end.
-
+
