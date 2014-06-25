@@ -1428,7 +1428,11 @@ begin
   aInterval.Task:=aTasks.FieldByName('SUMMARY').AsString;
   aInterval.Project:=aTasks.FieldByName('PROJECT').AsString;
   aInterval.Started:=not aTasks.FieldByName('STARTEDAT').IsNull;
-  if aTasks.FieldByName('COMPLETED').AsString='Y' then
+  if (aTasks.FieldByName('DEPDONE').AsString='N') then
+    begin
+      aInterval.Color:=clLtGray;
+    end;
+  if (aTasks.FieldByName('COMPLETED').AsString='Y') then
     begin
       aInterval.Color:=clGray;
       aInterval.Fixed:=True;
