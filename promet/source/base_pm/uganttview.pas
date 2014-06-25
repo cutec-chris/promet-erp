@@ -151,7 +151,8 @@ type
     procedure DoSave(aChangeMilestones : Boolean);
     procedure CleanIntervals;
     function FindCriticalPath: TInterval;
-    procedure FillInterval(aInterval : TInterval;aTasks : TTaskList);
+    procedure FillInterval(aInterval: TInterval; aTasks: TTaskList;
+      MarkDependencies: Boolean=False);
     procedure GotoTask(aLink : string);
     function Execute(aProject : TProject;aLink : string = ''; DoClean: Boolean=True;AddInactive : Boolean = False) : Boolean;
     function Calculate(aProject : TProject;DoClean: Boolean=True;AddInactive : Boolean = False) : Boolean;
@@ -1414,7 +1415,7 @@ begin
   Result := aLastInterval;
   FGantt.Calendar.Invalidate;
 end;
-procedure TfGanttView.FillInterval(aInterval : TInterval; aTasks: TTaskList);
+procedure TfGanttView.FillInterval(aInterval : TInterval; aTasks: TTaskList;MarkDependencies : Boolean = False);
 var
   aUser: TUser;
   aStart: TDateTime;
@@ -1428,10 +1429,11 @@ begin
   aInterval.Task:=aTasks.FieldByName('SUMMARY').AsString;
   aInterval.Project:=aTasks.FieldByName('PROJECT').AsString;
   aInterval.Started:=not aTasks.FieldByName('STARTEDAT').IsNull;
-  if (aTasks.FieldByName('DEPDONE').AsString='N') then
-    begin
-      aInterval.Color:=clLtGray;
-    end;
+  if MarkDependencies then
+    if (aTasks.FieldByName('DEPDONE').AsString='N') then
+      begin
+        aInterval.Color:=clLtGray;
+      end;
   if (aTasks.FieldByName('COMPLETED').AsString='Y') then
     begin
       aInterval.Color:=clGray;

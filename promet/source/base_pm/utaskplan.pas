@@ -1498,7 +1498,7 @@ begin
                   then
                     begin
                       bInterval := TPInterval.Create(nil);
-                      gView.FillInterval(bInterval,bTasks);
+                      gView.FillInterval(bInterval,bTasks,True);
                       if bInterval.FinishDate>aTo then
                         FreeAndNil(bInterval);
                     end;
