@@ -1181,9 +1181,9 @@ var
               aColFinish := Now()+365
             else
               aColFinish := FProject.FieldByName('END').AsDateTime+30;
-            aTh := TCollectThread.Create(FGantt.Calendar,Now()-30,aColFinish,TRessource(FRessources[i]),aTasks.FieldByName('USER').AsString,False,True,aInterval);
+            aTh := TCollectThread.Create(FGantt.Calendar,Now()-30,aColFinish,TRessource(FRessources[i]),aTasks.FieldByName('USER').AsString,False,True,True,aInterval);
             aTh.Resume;
-            FThreads.Add(TCollectThread.Create(FGantt.Calendar,Now()-30,aColFinish,TRessource(FRessources[i]),aTasks.FieldByName('USER').AsString,True,False,aInterval));
+            FThreads.Add(TCollectThread.Create(FGantt.Calendar,Now()-30,aColFinish,TRessource(FRessources[i]),aTasks.FieldByName('USER').AsString,True,False,True,aInterval));
             TCollectThread(FThreads[FThreads.Count-1]).OnTerminate:=@TCollectThreadTerminate;
             //TaskPlan.CollectResources(TRessource(FRessources[i]),aTasks.FieldByName('USER').AsString,nil,bShowTasks.Down);
           end;
