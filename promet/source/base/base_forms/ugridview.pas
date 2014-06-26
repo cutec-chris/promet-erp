@@ -3021,7 +3021,15 @@ end;
 procedure TfGridView.SetupHeader;
 var
   i: Integer;
+  sl : TStringList;
 begin
+  sl := TStringList.Create;
+  for i := 0 to dgFake.Columns.Count-1 do
+    begin
+      if gHeader.Columns.Count>i then
+        if gHeader.Cells[i,1] <> '' then
+          sl.Values[dgFake.Columns[i].FieldName]:=gHeader.Cells[i,1];
+    end;
   fRowEditor.GetGridSizes(FBaseName,dgFake.DataSource,dgFake,FDefaultRows,False,FBaseName);
   if Assigned(FSetupPosition) then FSetupPosition(Self,gList.Columns);
   gList.Columns.Assign(dgFake.Columns);
@@ -3035,6 +3043,12 @@ begin
       ;
     end;
   gHeader.Columns.Assign(gList.Columns);
+  for i := 0 to dgFake.Columns.Count-1 do
+    begin
+      if gHeader.Columns.Count>i then
+        gHeader.Cells[i,1]:=sl.Values[dgFake.Columns[i].FieldName];
+    end;
+  sl.Free;
   UpdateTitle;
 end;
 procedure TfGridView.SetEdited;
