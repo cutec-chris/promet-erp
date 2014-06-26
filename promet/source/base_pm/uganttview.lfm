@@ -21,18 +21,18 @@ object fGanttView: TfGanttView
     TabOrder = 0
     object Panel7: TPanel
       Left = 144
-      Height = 38
+      Height = 42
       Top = 0
       Width = 156
       Align = alLeft
       BevelOuter = bvNone
-      ClientHeight = 38
+      ClientHeight = 42
       ClientWidth = 156
       TabOrder = 0
       object Label5: TLabel
         Left = 4
         Height = 15
-        Top = -10
+        Top = 0
         Width = 144
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
@@ -46,7 +46,7 @@ object fGanttView: TfGanttView
       end
       object Bevel5: TBevel
         Left = 0
-        Height = 26
+        Height = 34
         Top = 4
         Width = 8
         Align = alLeft
@@ -351,19 +351,19 @@ object fGanttView: TfGanttView
     end
     object Panel4: TPanel
       Left = 0
-      Height = 38
+      Height = 42
       Top = 0
       Width = 96
       Align = alLeft
       BevelOuter = bvNone
-      ClientHeight = 38
+      ClientHeight = 42
       ClientWidth = 96
       TabOrder = 1
       object Label3: TLabel
         Left = 4
         Height = 15
-        Top = -10
-        Width = 84
+        Top = 0
+        Width = 80
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
         AutoSize = False
@@ -513,18 +513,18 @@ object fGanttView: TfGanttView
     end
     object pCalc: TPanel
       Left = 392
-      Height = 38
+      Height = 42
       Top = 0
       Width = 108
       Align = alLeft
       BevelOuter = bvNone
-      ClientHeight = 38
+      ClientHeight = 42
       ClientWidth = 108
       TabOrder = 2
       object Label6: TLabel
         Left = 4
         Height = 15
-        Top = -10
+        Top = 0
         Width = 68
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
@@ -538,7 +538,7 @@ object fGanttView: TfGanttView
       end
       object Bevel6: TBevel
         Left = 0
-        Height = 26
+        Height = 34
         Top = 4
         Width = 8
         Align = alLeft
@@ -748,7 +748,7 @@ object fGanttView: TfGanttView
         Left = 5
         Height = 9
         Top = 0
-        Width = 103
+        Width = 107
         Align = alTop
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
@@ -762,8 +762,8 @@ object fGanttView: TfGanttView
       end
       object Bevel7: TBevel
         Left = 0
-        Height = 20
-        Top = 14
+        Height = 25
+        Top = 13
         Width = 8
         Align = alLeft
         BorderSpacing.Top = 4
@@ -772,13 +772,12 @@ object fGanttView: TfGanttView
       end
       object lDate: TLabel
         Left = 0
-        Height = 1
-        Top = 9
-        Width = 108
-        Align = alTop
+        Height = 21
+        Top = 14
+        Width = 112
         Alignment = taCenter
-        Font.Color = clSkyBlue
-        Font.Height = 20
+        AutoSize = False
+        Font.Color = clWindowText
         Font.Style = [fsBold]
         ParentColor = False
         ParentFont = False
@@ -796,7 +795,7 @@ object fGanttView: TfGanttView
       object Label8: TLabel
         Left = 4
         Height = 15
-        Top = -6
+        Top = 0
         Width = 164
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
@@ -810,7 +809,7 @@ object fGanttView: TfGanttView
       end
       object Bevel8: TBevel
         Left = 0
-        Height = 30
+        Height = 34
         Top = 4
         Width = 8
         Align = alLeft
@@ -879,18 +878,18 @@ object fGanttView: TfGanttView
     end
     object Panel5: TPanel
       Left = 96
-      Height = 38
+      Height = 42
       Top = 0
       Width = 48
       Align = alLeft
       BevelOuter = bvNone
-      ClientHeight = 38
+      ClientHeight = 42
       ClientWidth = 48
       TabOrder = 5
       object Label4: TLabel
         Left = 4
         Height = 15
-        Top = -10
+        Top = 0
         Width = 36
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
@@ -989,7 +988,7 @@ object fGanttView: TfGanttView
       end
       object Bevel10: TBevel
         Left = 0
-        Height = 26
+        Height = 34
         Top = 4
         Width = 8
         Align = alLeft
@@ -1000,18 +999,18 @@ object fGanttView: TfGanttView
     end
     object pCalc1: TPanel
       Left = 300
-      Height = 38
+      Height = 42
       Top = 0
       Width = 92
       Align = alLeft
       BevelOuter = bvNone
-      ClientHeight = 38
+      ClientHeight = 42
       ClientWidth = 92
       TabOrder = 6
       object Label9: TLabel
         Left = 4
         Height = 15
-        Top = -10
+        Top = 0
         Width = 80
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
@@ -1025,7 +1024,7 @@ object fGanttView: TfGanttView
       end
       object Bevel9: TBevel
         Left = 0
-        Height = 26
+        Height = 34
         Top = 4
         Width = 8
         Align = alLeft

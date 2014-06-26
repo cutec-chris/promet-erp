@@ -93,9 +93,9 @@ type
     iHourglass: TImage;
     Label1: TLabel;
     Label3: TLabel;
-    lDate: TLabel;
     Label5: TLabel;
     Label7: TLabel;
+    lDate: TLabel;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
     miUserOptions: TMenuItem;

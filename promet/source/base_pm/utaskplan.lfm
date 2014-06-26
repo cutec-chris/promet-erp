@@ -28,7 +28,7 @@ inherited fTaskPlan: TfTaskPlan
       object Label5: TLabel
         Left = 4
         Height = 15
-        Top = -2
+        Top = 0
         Width = 160
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
@@ -322,8 +322,8 @@ inherited fTaskPlan: TfTaskPlan
       end
       object Bevel7: TBevel
         Left = 0
-        Height = 20
-        Top = 18
+        Height = 21
+        Top = 17
         Width = 8
         Align = alLeft
         BorderSpacing.Top = 4
@@ -332,13 +332,12 @@ inherited fTaskPlan: TfTaskPlan
       end
       object lDate: TLabel
         Left = 0
-        Height = 1
-        Top = 13
+        Height = 21
+        Top = 14
         Width = 112
-        Align = alTop
         Alignment = taCenter
-        Font.Color = clSkyBlue
-        Font.Height = 20
+        AutoSize = False
+        Font.Color = clWindowText
         Font.Style = [fsBold]
         ParentColor = False
         ParentFont = False
@@ -357,7 +356,7 @@ inherited fTaskPlan: TfTaskPlan
       object Label3: TLabel
         Left = 4
         Height = 15
-        Top = -2
+        Top = 0
         Width = 64
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]

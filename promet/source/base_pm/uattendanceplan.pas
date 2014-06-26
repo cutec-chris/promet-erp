@@ -43,9 +43,9 @@ type
     bToday: TSpeedButton;
     bWeekView: TSpeedButton;
     iHourglass: TImage;
-    lDate: TLabel;
     Label5: TLabel;
     Label7: TLabel;
+    lDate: TLabel;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
     miUserOptions: TMenuItem;
