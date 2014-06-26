@@ -77,6 +77,8 @@ type
     procedure TIntervalChanged(Sender: TObject);
   private
     { private declarations }
+    FSelectedCol: TDateTime;
+    FSelectedRow: Int64;
     FGantt: TgsGantt;
     FThreads : TList;
     FTasks : TTaskList;
@@ -229,8 +231,8 @@ procedure TfAttPlan.aINewDrawBackground(Sender: TObject; aCanvas: TCanvas;
 var
   TaskPlan : TfTaskPlan;
 begin
-  Taskplan.aIDrawBackgroundWeekends(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth);
-  Taskplan.aIDrawBackground(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth,clBlue,clLime,clRed);
+  Taskplan.aIDrawBackgroundWeekends(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth,$e0e0e0,FSelectedCol);
+  Taskplan.aIDrawBackground(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth,clBlue,clLime,clRed,FSelectedCol);
 end;
 
 procedure TfAttPlan.aINewOpen(Sender: TObject);
@@ -313,8 +315,19 @@ procedure TfAttPlan.FGanttCalendarMouseMove(Sender: TObject;
   Shift: TShiftState; X, Y: Integer);
 var
   ay: Integer;
+  FtSelectedRow: Int64;
+  FtSelectedCol: TDateTime;
 begin
   lDate.Caption := DateToStr(FGantt.Calendar.VisibleStart+trunc((X/FGantt.Calendar.GetIntervalWidth)));
+  FtSelectedRow := trunc((Y/FGantt.Calendar.GetIntervalHeight));
+  FtSelectedCol := FGantt.Calendar.VisibleStart+trunc((X/FGantt.Calendar.GetIntervalWidth));
+  if (FtSelectedCol<>FSelectedCol)
+  or (FtSelectedRow<>FSelectedRow) then
+    begin
+      FSelectedCol := FtSelectedCol;
+      FSelectedRow := FtSelectedRow;
+      FGantt.Calendar.Invalidate;
+    end;
 
   if fHintRect.Left>-1 then
     begin

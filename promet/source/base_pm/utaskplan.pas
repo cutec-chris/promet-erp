@@ -120,10 +120,12 @@ type
       aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
     procedure aINewDrawBackground(Sender: TObject; aCanvas: TCanvas;
       aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
-    procedure aIDrawBackground(Sender: TObject; aCanvas: TCanvas;
-      aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double;RectColor,FillColor,ProbemColor : TColor);
+    procedure aIDrawBackground(Sender: TObject; aCanvas: TCanvas; aRect: TRect;
+      aStart, aEnd: TDateTime; aDayWidth: Double; RectColor, FillColor,
+  ProbemColor: TColor; HighlightDay: TDateTime);
     procedure aIDrawBackgroundWeekends(Sender: TObject; aCanvas: TCanvas;
-      aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
+      aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double; aColor: TColor;
+  HighlightDay: TDateTime);
     procedure aIntervalChanged(Sender: TObject);
     procedure aItemClick(Sender: TObject);
     procedure aSubItemClick(Sender: TObject);
@@ -150,6 +152,8 @@ type
     procedure TIntervalChanged(Sender: TObject);
   private
     { private declarations }
+    FSelectedCol: TDateTime;
+    FSelectedRow: Int64;
     FGantt: TgsGantt;
     FTasks : TTaskList;
     FCollectedTo : TDateTime;
@@ -638,12 +642,13 @@ end;
 procedure TfTaskPlan.aINewDrawBackground(Sender: TObject; aCanvas: TCanvas;
   aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
 begin
-  aIDrawBackgroundWeekends(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth);
-  aIDrawBackground(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth,clBlue,clLime,clRed);
+  aIDrawBackgroundWeekends(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth,$e0e0e0,FSelectedCol);
+  aIDrawBackground(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth,clBlue,clLime,clRed,FSelectedCol);
 end;
 
 procedure TfTaskPlan.aIDrawBackground(Sender: TObject; aCanvas: TCanvas;
-  aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double;RectColor,FillColor,ProbemColor : TColor);
+  aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double; RectColor,
+  FillColor, ProbemColor: TColor; HighlightDay : TDateTime);
 var
   i: Integer;
   aDay: TDateTime;
@@ -677,6 +682,8 @@ var
           Brush.Color:=ProbemColor
         else
           Brush.Color:=FillColor;
+        if trunc(aDay)=trunc(HighlightDay) then
+          aCanvas.Brush.Color:=Ligthen(aCanvas.Brush.Color,0.9);
         if Assigned(aInterval.Parent) and (aInterval.Parent is TRessource) and Assigned(TRessource(aInterval.Parent).User) then
           aUsage := aUsage*(1/TRessource(aInterval.Parent).User.FUsage);
         cRect.Top := cRect.Bottom-round((cRect.Bottom-cRect.Top-1)*aUsage);
@@ -741,6 +748,8 @@ begin
                 aCanvas.Brush.Color:=ProbemColor
               else
                 aCanvas.Brush.Color:=FillColor;
+              if trunc(aDay)=trunc(HighlightDay) then
+                aCanvas.Brush.Color:=Ligthen(aCanvas.Brush.Color,0.9);
               cRect := rect(round(i*aDayWidth),aRect.Top+1,round((i*aDayWidth)+aDayWidth),aRect.Bottom);
               cHeight := cRect.Bottom-cRect.Top;
               if WholeUsage<1 then
@@ -753,7 +762,7 @@ begin
 end;
 
 procedure TfTaskPlan.aIDrawBackgroundWeekends(Sender: TObject;
-  aCanvas: TCanvas; aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
+  aCanvas: TCanvas; aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double;aColor : TColor;HighlightDay : TDateTime);
 var
   i: Integer;
   aDay: Extended;
@@ -775,9 +784,17 @@ begin
   for i := 0 to round(aEnd-aStart) do
     begin
       aDay := aStart+i;
-      aCanvas.Brush.Color:=$e0e0e0;
+      if trunc(aDay)=trunc(HighlightDay) then
+        aCanvas.Brush.Color:=Ligthen(aColor,0.8)
+      else
+        aCanvas.Brush.Color:=aColor;
       if (DayOfWeek(aDay) = 1) or (DayOfWeek(aDay) = 7) then
-        aCanvas.FillRect(round(i*aDayWidth),aRect.Top+1,round((i*aDayWidth)+aDayWidth),aRect.Bottom);
+        aCanvas.FillRect(round(i*aDayWidth),aRect.Top+1,round((i*aDayWidth)+aDayWidth),aRect.Bottom)
+      else if trunc(aDay)=trunc(HighlightDay) then
+        begin
+          aCanvas.Brush.Color:=Ligthen(clSkyBlue,0.97);
+          aCanvas.FillRect(round(i*aDayWidth),aRect.Top+1,round((i*aDayWidth)+aDayWidth),aRect.Bottom)
+        end;
       aCanvas.Brush.Color:=clSkyBlue;
       if (trunc(aDay) = trunc(Now())) then
         aCanvas.FillRect(round(i*aDayWidth),aRect.Top+1,round((i*aDayWidth)+aDayWidth),aRect.Bottom);
@@ -804,7 +821,7 @@ begin
                 if aResource.Interval[i].Color<>clBlue then
                   aCanvas.Brush.Color:=aResource.Interval[i].Color
                 else
-                  aCanvas.Brush.Color:=$e0e0e0;
+                  aCanvas.Brush.Color:=aColor;
                 aCanvas.FillRect(aResource.Interval[i].DrawRect);
               end;
           end;
@@ -1145,9 +1162,19 @@ procedure TfTaskPlan.FGanttCalendarMouseMove(Sender: TObject;
   Shift: TShiftState; X, Y: Integer);
 var
   ay: Integer;
+  FtSelectedRow: Int64;
+  FtSelectedCol: TDateTime;
 begin
   lDate.Caption := DateToStr(FGantt.Calendar.VisibleStart+trunc((X/FGantt.Calendar.GetIntervalWidth)));
-
+  FtSelectedRow := trunc((Y/FGantt.Calendar.GetIntervalHeight));
+  FtSelectedCol := FGantt.Calendar.VisibleStart+trunc((X/FGantt.Calendar.GetIntervalWidth));
+  if (FtSelectedCol<>FSelectedCol)
+  or (FtSelectedRow<>FSelectedRow) then
+    begin
+      FSelectedCol := FtSelectedCol;
+      FSelectedRow := FtSelectedRow;
+      FGantt.Calendar.Invalidate;
+    end;
   if fHintRect.Left>-1 then
     begin
       if (X<FHintRect.Left)

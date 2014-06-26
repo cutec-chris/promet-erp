@@ -196,8 +196,8 @@ procedure TfProjectOVFrame.aIntDrawBackground(Sender: TObject; aCanvas: TCanvas;
 var
   TaskPlan : TfTaskPlan;
 begin
-  Taskplan.aIDrawBackgroundWeekends(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth);
-  Taskplan.aIDrawBackground(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth,clBlue,clLime,clRed);
+  Taskplan.aIDrawBackgroundWeekends(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth,$e0e0e0,Now());
+  Taskplan.aIDrawBackground(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth,clBlue,clLime,clRed,Now());
 end;
 
 procedure TfProjectOVFrame.acCancelExecute(Sender: TObject);
