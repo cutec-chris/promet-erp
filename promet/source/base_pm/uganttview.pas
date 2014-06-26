@@ -1186,6 +1186,7 @@ var
             aTh.Resume;
             FThreads.Add(TCollectThread.Create(FGantt.Calendar,Now()-30,aColFinish,TRessource(FRessources[i]),aTasks.FieldByName('USER').AsString,True,False,True,aInterval));
             TCollectThread(FThreads[FThreads.Count-1]).OnTerminate:=@TCollectThreadTerminate;
+
             //TaskPlan.CollectResources(TRessource(FRessources[i]),aTasks.FieldByName('USER').AsString,nil,bShowTasks.Down);
           end;
       end;
@@ -1208,6 +1209,7 @@ begin
     bCancel.Enabled:=False;
     aTasks.First;
     aRoot := TInterval.Create(FGantt);
+    FIntervals.Add(aRoot);
     FGantt.AddInterval(aRoot);
     aRoot.Task:=TProjectList(aTasks.Parent).Text.AsString;
     cbSnapshot.Items.Clear;
@@ -1319,6 +1321,7 @@ begin
     begin
        aInt := TInterval(FIntervals[FIntervals.Count-1]);
        FIntervals.Remove(aInt);
+       FGantt.RemoveInterval(aInt);
        aInt.Free;
     end;
   FIntervals.Clear;

@@ -2031,6 +2031,7 @@ var
                              SystemFont:False;
                              RightToLeft:False);
 begin
+  debugln('Gantt Paint Start');
   aTop := FGantt.Tree.TopRow-1;
   if DoClip then
     begin
@@ -2101,7 +2102,6 @@ begin
 
             Brush.Color := CurrInterval.Color;
             if CurrInterval.InCriticalPath then Brush.Color := clRed;
-
             with CurrInterval.DrawRect do
               Polygon
               (
@@ -2133,7 +2133,6 @@ begin
                   Point(Left + (Right - Left) div 2, Top)
                 ]
               );
-
             Brush.Style := bsSolid;
             Brush.Color := clBlue;
           end else if (CurrInterval.IsCollection) and (CurrInterval.Style = isDefault) then
@@ -2252,6 +2251,7 @@ begin
         DeleteObject(ClipRgn);
       end;
   end;
+  debugln('Gantt Paint End');
 end;
 
 {

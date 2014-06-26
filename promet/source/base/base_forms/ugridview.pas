@@ -2679,7 +2679,10 @@ begin
     gList.Objects[0,aRow].Free;
   for i := 1 to gList.ColCount-1 do
     if Assigned(gList.Objects[i,aRow]) then
-      gList.Objects[i,aRow].Free;
+      begin
+        gList.Objects[i,aRow].Free;
+        gList.Objects[i,aRow] := nil;
+      end;
 end;
 
 procedure TfGridView.Asyncrefresh;
