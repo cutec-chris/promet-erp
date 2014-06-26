@@ -257,10 +257,10 @@ constructor TCollectThread.Create(aPlan: TWinControl; aFrom, aTo: TDateTime;
 begin
   FPlan := aPlan;
   FFrom := aFrom;
+  FTo := aTo;
   FTasks := aTasks;
   FProcessmessages := aProcessmessages;
   FCalendar := aCalendar;
-  FTo := aTo;
   FResource := aResource;
   FUser := asUser;
   FAttatchTo := AttatchTo;
