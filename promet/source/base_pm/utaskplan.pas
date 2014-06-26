@@ -90,6 +90,7 @@ type
     bRefresh: TSpeedButton;
     bToday: TSpeedButton;
     bWeekView: TSpeedButton;
+    iHourglass: TImage;
     Label1: TLabel;
     Label3: TLabel;
     lDate: TLabel;
@@ -152,6 +153,7 @@ type
     FGantt: TgsGantt;
     FTasks : TTaskList;
     FCollectedTo : TDateTime;
+    FCollectedFrom : TDateTime;
     FHintRect : TRect;
     FRow : Integer;
     FThreads : TList;
@@ -178,7 +180,7 @@ type
 
   TCollectThread = class(TThread)
   private
-    FResource: uTaskPlan.TRessource;
+    FResource: TRessource;
     FUser: String;
     FPlan: TWinControl;
     FFrom: TDateTime;
@@ -186,6 +188,7 @@ type
     FAttatchTo: TInterval;
     FTasks: Boolean;
     FCalendar: Boolean;
+    FTmpResource : TRessource;
     FProcessmessages: Boolean;
     procedure Attatch;
     procedure Plan;
@@ -205,11 +208,27 @@ uses uData,LCLIntf,uBaseDbClasses,uProjects,uTaskEdit,LCLProc,uGanttView,uColors
 { TCollectThread }
 
 procedure TCollectThread.Attatch;
+var
+  aRes: TInterval;
+  found: Boolean;
+  i: Integer;
 begin
+  while FTmpResource.IntervalCount>0 do
+    begin
+      aRes := FTmpResource.Interval[FTmpResource.IntervalCount-1];
+      found := False;
+      for i := 0 to FResource.IntervalCount-1 do
+        if FResource.Interval[i].Id=aRes.Id then
+          begin
+            Found := True;
+            break;
+          end;
+      FTmpResource.RemoveInterval(aRes);
+      if not Found then
+        FResource.AddInterval(aRes)
+      else aRes.Free;
+    end;
   FAttatchTo.Pointer:=FResource;
-  //if Assigned(FPlan) and FPlan.Visible then
-  //  FPlan.Invalidate;
-  //Application.ProcessMessages;
 end;
 
 procedure TCollectThread.Plan;
@@ -218,16 +237,18 @@ var
   TaskPlan : TfTaskPlan;
 begin
   aConnection := Data.GetNewConnection;
-  TaskPlan.CollectResources(FResource,FFrom,FTo,FUser,aConnection,FTasks,FCalendar,FProcessmessages);
+  TaskPlan.CollectResources(FTmpResource,FFrom,FTo,FUser,aConnection,FTasks,FCalendar,FProcessmessages);
   aConnection.Free;
 end;
 
 procedure TCollectThread.Execute;
 begin
+  FTmpResource:=TRessource.Create(FResource.Gantt);
   if not Terminated then
     Synchronize(@Plan);
   if not Terminated then
     Synchronize(@Attatch);
+  FTmpResource.Free;
 end;
 
 constructor TCollectThread.Create(aPlan: TWinControl; aFrom, aTo: TDateTime;
@@ -519,6 +540,7 @@ begin
   if FThreads.IndexOf(Sender) > -1 then
     FThreads.Remove(Sender);
   FGantt.Invalidate;
+  iHourglass.Visible:=FThreads.Count>0;
 end;
 
 procedure TfTaskPlan.TIntervalChanged(Sender: TObject);
@@ -1020,7 +1042,7 @@ procedure TfTaskPlan.bRefreshClick(Sender: TObject);
         aInt.Pointer := nil;
         tmpRes := TRessource.Create(nil);
         tmpRes.User:=TPInterval(aInt);
-        FThreads.Add(TCollectThread.Create(Self,FGantt.Calendar.VisibleStart-30,FGantt.Calendar.VisibleFinish,tmpRes,aUser,True,True,True,aInt));
+        FThreads.Add(TCollectThread.Create(Self,FGantt.Calendar.VisibleStart,FGantt.Calendar.VisibleFinish,tmpRes,aUser,True,True,True,aInt));
         TCollectThread(FThreads[FThreads.Count-1]).OnTerminate:=@TCollectThreadTerminate;
         TCollectThread(FThreads[FThreads.Count-1]).Resume;
       end;
@@ -1028,9 +1050,11 @@ procedure TfTaskPlan.bRefreshClick(Sender: TObject);
 var
   i: Integer;
 begin
+  FCollectedFrom:=Now();
   FCollectedTo:=FGantt.Calendar.VisibleFinish;
   for i := 0 to FGantt.IntervalCount-1 do
     RefreshRes(FGantt.Interval[i]);
+  iHourglass.Visible:=True;
 end;
 
 procedure TfTaskPlan.bShowTasksClick(Sender: TObject);
@@ -1230,6 +1254,8 @@ procedure TfTaskPlan.AddUserIntervals(Sender: TObject);
           and (TRessource(aInt.Pointer).Interval[i].StartDate<FGantt.Calendar.VisibleFinish))
           or ((TRessource(aInt.Pointer).Interval[i].FinishDate>FGantt.Calendar.VisibleStart)
           and (TRessource(aInt.Pointer).Interval[i].FinishDate<FGantt.Calendar.VisibleFinish))
+          or ((TRessource(aInt.Pointer).Interval[i].StartDate<FGantt.Calendar.VisibleStart)
+          and (TRessource(aInt.Pointer).Interval[i].FinishDate>FGantt.Calendar.VisibleFinish))
           then
             begin
               aNew := TInterval.Create(FGantt);
@@ -1272,11 +1298,11 @@ var
     if Assigned(aInt.Pointer) then
       begin
         aUser := TPInterval(aInt).User;
-        TInterval(aInt.Pointer).Free;
-        aInt.Pointer := nil;
-        tmpRes := TRessource.Create(nil);
-        tmpRes.User:=TPInterval(aInt);
-        FThreads.Add(TCollectThread.Create(Self,FCollectedTo,FCollectedTo+aDiff,tmpRes,aUser,True,True,True,aInt));
+        if aDiff>0 then
+          FThreads.Add(TCollectThread.Create(Self,FCollectedTo,FCollectedTo+aDiff,TRessource(aInt.Pointer),aUser,True,True,True,aInt))
+        else
+          FThreads.Add(TCollectThread.Create(Self,FCollectedFrom+aDiff,FCollectedFrom,TRessource(aInt.Pointer),aUser,True,True,True,aInt));
+        iHourglass.Visible:=True;
         TCollectThread(FThreads[FThreads.Count-1]).OnTerminate:=@TCollectThreadTerminate;
         TCollectThread(FThreads[FThreads.Count-1]).Resume;
       end;
@@ -1291,6 +1317,14 @@ begin
       for i := 0 to FGantt.IntervalCount-1 do
         RefreshRes(FGantt.Interval[i]);
       FCollectedTo:=FCollectedTo+aDiff;
+    end;
+  if FGantt.Calendar.VisibleStart<FCollectedFrom then
+    begin
+      aDiff := FGantt.Calendar.VisibleStart-FCollectedFrom;
+      if aDiff>-30 then aDiff := -30;
+      for i := 0 to FGantt.IntervalCount-1 do
+        RefreshRes(FGantt.Interval[i]);
+      FCollectedFrom:=FCollectedFrom+aDiff;
     end;
 end;
 
@@ -1313,6 +1347,8 @@ begin
   FGantt.Calendar.OnStartDateChanged:=@FGanttCalendarStartDateChanged;
   FGantt.Calendar.PopupMenu := pmAction;
   FGantt.Tree.PopupMenu := pmUSer;
+  FCollectedTo:=Fgantt.Calendar.VisibleFinish;
+  FCollectedFrom:=Now();
   bDayViewClick(nil);
   FGantt.Calendar.ShowHint:=True;
   FTaskView := TfTaskFrame.Create(Self);
@@ -1344,6 +1380,8 @@ begin
     begin
       FreeAndNil(FDataSet);
     end;
+  while FThreads.Count>0 do
+    Application.ProcessMessages;
   FThreads.Free;
   FOwners.Free;
   FUsers.Free;
@@ -1400,8 +1438,10 @@ var
             aIParent.AddInterval(aINew);
             tmpRes := TRessource.Create(nil);
             tmpRes.User:=aINew;
-            FThreads.Add(TCollectThread.Create(Self,Now()-30,Now()+30,tmpRes,aUsers.FieldByName('ACCOUNTNO').AsString,True,True,False,aINew));
-            FCollectedTo:=Now()+30;
+            FThreads.Add(TCollectThread.Create(Self,Now(),Fgantt.Calendar.VisibleFinish,tmpRes,aUsers.FieldByName('ACCOUNTNO').AsString,True,True,False,aINew));
+            iHourglass.Visible:=True;
+            FCollectedTo:=Fgantt.Calendar.VisibleFinish;
+            FCollectedFrom:=Now();
             TCollectThread(FThreads[FThreads.Count-1]).OnTerminate:=@TCollectThreadTerminate;
             TCollectThread(FThreads[FThreads.Count-1]).Resume;
             aINew.OnDrawBackground:=@aINewDrawBackground;
@@ -1518,7 +1558,7 @@ begin
           if Processmessages then
             Application.ProcessMessages;
           aCalendar := TCalendar.Create(nil,Data,aConnection);
-          aCalendar.SelectPlanedByUserAndTime(asUser,aFrom,aTo);//1 Monat zurück 1 Jahr vorraus
+          aCalendar.SelectPlanedByUserAndTime(asUser,aFrom,aTo);
           aCalendar.Open;
           with aCalendar.DataSet do
             begin
@@ -1534,6 +1574,7 @@ begin
                       bInterval.FinishDate := trunc(bInterval.FinishDate+1);
                     end;
                   bInterval.Task:=aCalendar.FieldByName('SUMMARY').AsString;
+                  bInterval.Id:=aCalendar.Id.AsVariant;
                   aResource.AddInterval(bInterval);
                   bInterval.Changed:=False;
                   Next;
