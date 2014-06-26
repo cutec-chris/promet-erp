@@ -182,7 +182,6 @@ begin
   FGantt.Tree.ShowHint:=True;
   FGantt.Tree.Options:=FGantt.Tree.Options+[goCellHints];
   FGantt.Tree.Options:=FGantt.Tree.Options-[goHorzLine];
-  FGantt.Tree.Options:=FGantt.Tree.Options-[goEditing];
   FGantt.Tree.AlternateColor:=$00FFE6E6;
 end;
 
@@ -457,6 +456,7 @@ begin
   FGantt := TgsGantt.Create(Self);
   FSelectedUser := nil;
   FGantt.Parent := pgantt;
+  FGantt.Tree.TaskEditable:=False;
   FGantt.Align:=alClient;
   FGantt.Tree.AfterUpdateCommonSettings:=@FGanttTreeAfterUpdateCommonSettings;
   FGantt.Calendar.OnMoveOverInterval:=@FGanttCalendarMoveOverInterval;

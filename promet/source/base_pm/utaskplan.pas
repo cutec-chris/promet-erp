@@ -1367,6 +1367,7 @@ begin
   FGantt.Parent := pgantt;
   FGantt.Align:=alClient;
   FGantt.Tree.AfterUpdateCommonSettings:=@FGanttTreeAfterUpdateCommonSettings;
+  FGantt.Tree.TaskEditable:=False;
   FGantt.Calendar.OnMoveOverInterval:=@FGanttCalendarMoveOverInterval;
   FGantt.Calendar.OnShowHint:=@FGanttCalendarShowHint;
   FGantt.Calendar.OnMouseMove:=@FGanttCalendarMouseMove;

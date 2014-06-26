@@ -433,6 +433,9 @@ type
     property OnMoveOverInterval : TMouseOverInterval read FOverInterval write FOverInterval;
     property OnStartDateChanged : TNotifyEvent read FStartDateChanged write FStartDateChanged;
   end;
+
+  { TGanttTree }
+
   TGanttTree = class(TStringGrid)
   private
     FAfterUpdateCommonSettings: TNotifyEvent;
@@ -440,6 +443,7 @@ type
     FGantt: TgsGantt;
     FIndent: Integer;
     FBranchFont: TFont;
+    FTaskEditable: Boolean;
 
     FTextEdit: TEdit;
     FDurationEdit: TSpinEdit;
@@ -496,6 +500,7 @@ type
     property Indent: Integer read FIndent write SetIndent;
     property Font;
     property BranchFont: TFont read GetBrachFont write SetBranchFont;
+    property TaskEditable : Boolean read FTaskEditable write FTaskEditable;
     property AfterUpdateCommonSettings : TNotifyEvent read FAfterUpdateCommonSettings write SetAfterUpdateCommonSettings;
   end;
   TgsGantt = class(TCustomControl)
@@ -3369,6 +3374,7 @@ begin
 
   FGantt := AnOwner;
   FIntervals := FGantt.FIntervals;
+  FTaskEditable := True;
 
   //ParentCtl3d := False;
   //Ctl3d := False;
@@ -3385,7 +3391,7 @@ begin
   Options :=
   [
     goFixedVertLine, goFixedHorzLine, goVertLine,
-    goHorzLine, {goEditing,} goColSizing
+    goHorzLine, goColSizing
   ];
 
   FBranchFont := TFont.Create;
@@ -3399,7 +3405,6 @@ begin
   begin
     FTextEdit := TEdit.Create(Owner);
     (Owner as TWinControl).InsertControl(FTextEdit);
-    //FTextEdit.Ctl3D := False;
     FTextEdit.BorderStyle := bsNone;
     FTextEdit.Visible := False;
     FTextEdit.OnKeyPress := @OnEditKeyPress;
@@ -3651,7 +3656,7 @@ begin
       FGantt.UpdateInterval;
     end else begin
 
-      if (ACol = Col) and (ARow = Row) then
+      if (ACol = Col) and (ARow = Row) and FTaskEditable then
       begin
         ShowTaskEditor;
       end else
@@ -4080,7 +4085,7 @@ begin
     begin
       FTextEdit.Visible := False;
       SetFocus;
-    end else if not FTextEdit.Visible then
+    end else if (not FTextEdit.Visible) and FTaskEditable then
     begin
       ShowTaskEditor;
     end;
@@ -4122,8 +4127,6 @@ begin
   InsertControl(FSplitter);
   FSplitter.Left := FTree.Left + FTree.Width + 1;
   FSplitter.Align := alLeft;
-  FSplitter.Width := 6;
-  FSplitter.Beveled := True;
 
   FCalendar := TGanttCalendar.Create(Self);
   InsertControl(FCalendar);
