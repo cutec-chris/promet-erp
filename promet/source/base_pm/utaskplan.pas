@@ -1300,6 +1300,7 @@ procedure TfTaskPlan.AddUserIntervals(Sender: TObject);
           begin
             aNew := TInterval.Create(FGantt);
             aNew.Task:=strNoDataFound;
+            aNew.Style:=isNone;
             aInt.AddInterval(aNew);
           end;
         FGantt.EndUpdate;

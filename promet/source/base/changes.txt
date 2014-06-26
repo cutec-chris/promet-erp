@@ -1,6 +1,8 @@
 ﻿Build 357
       - Aufgabenplan:Benutzer "aufklappbar" um eine bessere Übersicht über die Aufgaben pro Benutzer zu bekommen
       - Gantt:Resourcenauslastung wird in Hintergrudnprozess zusammengesammelt Ansicht bleibt wärend dessen bedienbar
+      - Aufgabenplan:Daten werden nur für aktuell sichtbaren Bereich gesammelt und das asynchron
+      - Anwesenheitsplan:Daten werden nur für aktuell sichtbaren Bereich gesammelt und das asynchron
 Build 356
       - Gantt:Man kann nun auch aus dem Gantt den nächstmöglichen freien "Slot" für die Aufgabe finden
       - Projekte:auch hier kann man nun die Aufgaben Terminieren (Slot finden)
