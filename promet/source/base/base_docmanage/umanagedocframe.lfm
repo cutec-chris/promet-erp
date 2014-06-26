@@ -852,9 +852,9 @@ inherited fManageDocFrame: TfManageDocFrame
     Height = 567
     Top = 42
     Width = 640
-    ActivePage = tstext
+    ActivePage = tsDocument
     Align = alClient
-    TabIndex = 2
+    TabIndex = 0
     TabOrder = 2
     object tsDocument: TTabSheet
       Caption = 'Dokument'
@@ -1456,6 +1456,12 @@ inherited fManageDocFrame: TfManageDocFrame
       Hint = 'aus Datei(en) importieren'
       ImageIndex = 19
       OnExecute = acFileImportExecute
+    end
+    object acOptimizeDocument: TAction
+      Caption = 'acOptimizeDocument'
+      Hint = 'Dokument optimieren'
+      ImageIndex = 40
+      OnExecute = acOptimizeDocumentExecute
     end
   end
   object pmPopup: TPopupMenu[6]

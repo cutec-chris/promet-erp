@@ -58,6 +58,7 @@ type
     acImageImport: TAction;
     acShowDetails: TAction;
     acFileImport: TAction;
+    acOptimizeDocument: TAction;
     ActionList1: TActionList;
     bEditFilter: TSpeedButton;
     Bevel1: TBevel;
@@ -150,6 +151,7 @@ type
     procedure acMarkAsDoneExecute(Sender: TObject);
     procedure acOCRExecute(Sender: TObject);
     procedure acOpenExecute(Sender: TObject);
+    procedure acOptimizeDocumentExecute(Sender: TObject);
     procedure acRebuildThumbExecute(Sender: TObject);
     procedure acRefreshExecute(Sender: TObject);
     procedure acRenameExecute(Sender: TObject);
@@ -238,7 +240,7 @@ implementation
 uses uData,udocuments,uWait,LCLIntf,Utils,uFormAnimate,uImportImages,
   ProcessUtils,uMainTreeFrame,ucameraimport,FPimage,FPReadJPEG,FPCanvas,
   FPWriteJPEG,LCLProc,uthumbnails,uBaseVisualControls,updfexport,uSearch,
-  usimpleprocess;
+  usimpleprocess,uImaging;
 resourcestring
   strTag                   = 'Tag';
   strSetTag                = 'durch Klick setzen';
@@ -972,6 +974,71 @@ begin
 
 end;
 
+procedure TfManageDocFrame.acOptimizeDocumentExecute(Sender: TObject);
+var
+  i: Integer;
+  Img: TFPMemoryImage;
+  reader: TFPReaderJPEG;
+  aDoc: TDocument;
+  aFullStream: TMemoryStream;
+  Img2: TFPMemoryImage;
+  wr: TFPWriterJPEG;
+  x: Integer;
+  y: Integer;
+  a: Integer;
+begin
+  for i := 0 to FDocFrame.lvDocuments.Items.Count-1 do
+    if (lowercase(copy(FDocFrame.lvDocuments.Items[i].SubItems[0],0,4)) = '.jpg')
+    or (lowercase(copy(FDocFrame.lvDocuments.Items[i].SubItems[0],0,5)) = '.jpeg')
+    then
+      begin
+        FDocFrame.lvDocuments.ItemIndex:=i;
+        if FDocFrame.GotoEntry(FDocFrame.lvDocuments.Items[i]) then
+          begin
+            Img := TFPMemoryImage.Create(0, 0);
+            Img.UsePalette := false;
+            reader := TFPReaderJPEG.Create;
+            try
+              aFullStream := TMemoryStream.Create;
+              aDoc := TDocument.Create(nil,Data);
+              aDoc.SelectByID(TDocuments(FDocFrame.DataSet).Id.AsVariant);
+              aDoc.Open;
+              aDoc.CheckoutToStream(aFullStream);
+              aFullStream.Position:=0;
+              Img.LoadFromStream(aFullStream, reader);
+              reader.Free;
+              if Assigned(Img) then
+                begin
+                  uImaging.Delight(Img);
+                  wr := TFPWriterJPEG.Create;
+                  wr.ProgressiveEncoding:=True;
+                  aFullStream.Size:=0;
+                  aFullStream.Position:=0;
+                  Img.SaveToStream(aFullStream,wr);
+                  wr.Free;
+                  aDoc.CheckInFromStream(aFullStream);
+                  aDoc.Free;
+                  aFullStream.Free;
+                end;
+            finally
+              Img.Free;
+            end;
+
+            for a := 0 to FDocFrame.lvDocuments.Items.Count-1 do
+              begin
+                if FDocFrame.GotoEntry(FDocFrame.lvDocuments.Items[a]) then
+                  if PreviewFrame.CanHandleType(Uppercase(FDocFrame.DataSet.FieldByName('EXTENSION').AsString)) then
+                    begin
+                      PreviewFrame.LoadFromDocuments(TDocuments(FDocFrame.DataSet).Id.AsVariant);
+                      break;
+                    end;
+              end;
+            acRebuildThumb.Execute;
+          end;
+        break;
+      end;
+end;
+
 procedure TfManageDocFrame.acRebuildThumbExecute(Sender: TObject);
 begin
   RebuidThumb;
@@ -1409,6 +1476,7 @@ begin
   PreviewFrame.Show;
   PreviewFrame.AddToolbarAction(acEdit);
   PreviewFrame.AddToolbarAction(acRotate);
+  PreviewFrame.AddToolbarAction(acOptimizeDocument);
 end;
 destructor TfManageDocFrame.Destroy;
 begin
@@ -1446,6 +1514,7 @@ begin
   bShowDetailClick(nil);
   bShowDetail.Enabled:=DataSet.Count>0;
   pSave.Enabled:=DataSet.Count>0;
+  acOptimizeDocument.Visible:=aType='D';
   Application.QueueAsyncCall(@DoAOpen,0);
 end;
 procedure TfManageDocFrame.DoRefresh;
