@@ -28,8 +28,9 @@ interface
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, DBGrids, ExtCtrls,
   Buttons, ComCtrls, uExtControls, db, Grids, ActnList, Menus, uBaseDBClasses,
-  uBaseDbInterface, StdCtrls, Graphics, types, Clipbrd,LMessages,
-  ubasevisualapplicationtools, Dialogs, EditBtn, DbCtrls, Calendar;
+  uBaseDbInterface, StdCtrls, Graphics, types, Clipbrd, LMessages,
+  ubasevisualapplicationtools, ZVDateTimePicker, Dialogs, EditBtn, DbCtrls,
+  Calendar;
 type
   TUnprotectedGrid = class(TCustomGrid);
 
@@ -56,23 +57,6 @@ type
     constructor Create(AOwner: TComponent); override;
     procedure EditingDone; override;
     property SetValue : Boolean read FSetValue write FSetValue;
-  end;
-  TInplaceDateEdit = class(TDateEdit)
-  private
-    FGrid: TCustomGrid;
-    FCol,FRow: Integer;
-  protected
-    {.$IF (FPC_FULLVERSION>20604)}
-    procedure EditChange;override;
-    {.$ELSE}
-    //procedure Change;override;
-    {.$ENDIF}
-    procedure msg_SetGrid(var Msg: TGridMessage); message GM_SETGRID;
-    procedure msg_SetBounds(var Msg: TGridMessage); message GM_SETBOUNDS;
-    procedure msg_SetValue(var Msg: TGridMessage); message GM_SETVALUE;
-    procedure msg_SetPos(var Msg: TGridMessage); message GM_SETPOS;
-  public
-    procedure EditingDone; override;
   end;
   TRowObject = class
   private
@@ -139,9 +123,6 @@ type
     procedure acOpenExecute(Sender: TObject);
     procedure acSearchExecute(Sender: TObject);
     procedure bEditRowsClick(Sender: TObject);
-    procedure deInplaceEditingDone(Sender: TObject);
-    procedure deInplaceKeyDown(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
     procedure dgFakeTitleClick(Column: TColumn);
     procedure DoAsyncRefresh(Data: PtrInt);
     procedure FDataSourceDataChange(Sender: TObject; Field: TField);
@@ -266,7 +247,6 @@ type
     FSearchKeyVal: String;
     FSearchKeyRect: TRect;
     SearchKeyTimer : TTimer;
-    deInplace : TInplaceDateEdit;
     FDisableEdit : Boolean;
     procedure ClearFilters;
     function GetFilterRow: Boolean;
@@ -407,93 +387,11 @@ begin
   Dependencies:=False;
 end;
 
-{.$IF (FPC_FULLVERSION>20604)}
-procedure TInplaceDateEdit.EditChange;
-{.$ELSE}
-//procedure TInplaceDateEdit.Change;
-{.$ENDIF}
-begin
-  inherited;
-  if (FGrid<>nil) and Visible then
-    begin
-      TUnprotectedGrid(FGrid).SetEditText(FCol, FRow, Text);
-    end;
-end;
-
-procedure TInplaceDateEdit.msg_SetGrid(var Msg: TGridMessage);
-begin
-  FGrid:=Msg.Grid;
-  Msg.Options:=EO_AUTOSIZE or EO_SELECTALL or EO_IMPLEMENTED;
-end;
-
-procedure TInplaceDateEdit.msg_SetBounds(var Msg: TGridMessage);
-begin
-  with Msg.CellRect do
-    SetBounds(Left, Top, (Right-Left)-1, Bottom-Top);
-end;
-
-procedure TInplaceDateEdit.msg_SetValue(var Msg: TGridMessage);
-begin
-  Text:=Msg.Value;
-  SelStart := UTF8Length(Msg.Value)+1;
-end;
-
-procedure TInplaceDateEdit.msg_SetPos(var Msg: TGridMessage);
-begin
-  FCol := Msg.Col;
-  FRow := Msg.Row;
-end;
-
-procedure TInplaceDateEdit.EditingDone;
-begin
-  inherited EditingDone;
-  if FGrid<>nil then
-    FGrid.EditingDone;
-end;
-
 procedure TfGridView.bEditRowsClick(Sender: TObject);
 begin
   fRowEditor.Execute(FBaseName,FDataSource,dgFake,FBaseName);
   Asyncrefresh;
 end;
-procedure TfGridView.deInplaceEditingDone(Sender: TObject);
-begin
-  gList.Cells[gList.Col,gList.Row]:=deInplace.Text;
-  gListSetEditText(gList,gList.Col,gList.Row,deInplace.Text);
-end;
-procedure TfGridView.deInplaceKeyDown(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
-var
-  aLeave: Boolean = False;
-  aLength: PtrInt;
-begin
-  if (Key = VK_TAB) then
-    aLeave := True
-  else if (Key = VK_LEFT) and (deInplace.SelStart = 0) then
-    aLeave := True
-  else if (Key = VK_UP) and (deInplace.SelStart <= length(deInplace.Text)) then
-    aLeave := True
-  else if (Key = VK_DOWN) or (Key = VK_RIGHT) then
-    begin
-      aLength := UTF8Length(deInplace.Text);
-      if ((Key = VK_DOWN) and (deInplace.SelStart >= aLength))
-      or ((Key = VK_RIGHT) and (deInplace.SelStart >= aLength))
-      then
-        aLeave := True;
-    end
-  else if (Key = VK_ESCAPE) then
-    begin
-      TUnprotectedGrid(gList).KeyDown(Key,Shift);
-    end;
-  if aLeave then
-    begin
-      deInplace.Visible:=False;
-      gList.EditorMode:=False;
-      TUnprotectedGrid(gList).KeyDown(Key,Shift);
-      gList.SetFocus;
-    end;
-end;
-
 procedure TfGridView.dgFakeTitleClick(Column: TColumn);
 begin
   if (Column.Field.DataType = ftMemo)
@@ -1568,11 +1466,14 @@ begin
             Application.QueueAsyncCall(@DoSetEdit,0);
         end;
     end
-  else if Key in [VK_DELETE] then
+  else if (Key in [VK_DELETE]) and (ssCtrl in Shift) then
     begin
       if not gList.EditorMode then
-        if Assigned(OnDelete) then
-          OnDelete(Self);
+        begin
+          if Assigned(OnDelete) then
+            OnDelete(Self);
+          Key := 0;
+        end;
     end
   {$IFDEF WINDOWS}
   else if Key in [VK_A..VK_Z,VK_0..VK_9] then
@@ -1718,13 +1619,6 @@ begin
         Editor:=mInplace;
         exit;
       end;
-  if Assigned(dgFake.Columns[aCol-1].Field) and (dgFake.Columns[aCol-1].Field is TDateTimeField) then
-    begin
-      Editor := deInplace;
-      deInplace.BoundsRect := gList.CellRect(aCol,aRow);
-      deInplace.Width:=deInplace.Width-deInplace.Button.Width;
-      deInplace.Text:=dgFake.Columns[aCol-1].Field.AsString;
-    end;
 end;
 procedure TfGridView.gListSetEditText(Sender: TObject; ACol,
   ARow: Integer; const Value: string);
@@ -2715,9 +2609,6 @@ begin
   mInplace.WordWrap:=False;
   FIgnoreSettext := False;
   Self.OnEnter:=@fGridViewEnter;
-  deInplace:=TInplaceDateEdit.Create(Self);
-  deInplace.OnKeyDown:=@deInplaceKeyDown;
-  deInplace.CalendarDisplaySettings:=[dsShowHeadings,dsShowDayNames,dsShowWeekNumbers];
   {$ifdef gridvisible}
   dgFake.Visible := True;
   {$endif}
