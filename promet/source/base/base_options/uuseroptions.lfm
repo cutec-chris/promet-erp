@@ -500,7 +500,7 @@ inherited fUserOptions: TfUserOptions
       Hint = 'Eine Personalnummer (z.b. aus Buchhaltungssystem)'
       Top = 140
       Width = 104
-      DataField = 'PERSONELNO'
+      DataField = 'PERSONNELNO'
       DataSource = UsersDS
       CharCase = ecNormal
       MaxLength = 0
