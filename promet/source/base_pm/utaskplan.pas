@@ -1473,7 +1473,6 @@ var
             FCollectedTo:=Fgantt.Calendar.VisibleFinish;
             FCollectedFrom:=Now();
             TCollectThread(FThreads[FThreads.Count-1]).OnTerminate:=@TCollectThreadTerminate;
-            TCollectThread(FThreads[FThreads.Count-1]).Resume;
             aINew.OnDrawBackground:=@aINewDrawBackground;
             aINew.OnExpand:=@AddUserIntervals;
             aIsub := TInterval.Create(FGantt);
@@ -1529,6 +1528,9 @@ begin
   FGantt.StartDate:=Now();
   acUse.Enabled:=False;
   acCancel.Enabled:=False;
+  Application.ProcessMessages;
+  for i := 0 to FThreads.Count-1 do
+    TCollectThread(FThreads[i]).Resume
 end;
 
 procedure TfTaskPlan.CollectResources(aResource: TRessource; aFrom,
@@ -1642,7 +1644,12 @@ begin
     begin
       if IsInRect(X,Y,TInterval(List[ay]).DrawRect) then
         aId := TInterval(List[ay]).Id;
-      if Assigned(TInterval(List[ay]).Pointer) then
+      if not TInterval(List[ay]).IsDrawRectClear then
+        if IsInRect(X,Y,TInterval(List[ay]).DrawRect) and (Index=0) then
+          begin
+            Result := TInterval(List[ay]);
+          end;
+      if (not Assigned(Result)) and Assigned(TInterval(List[ay]).Pointer) then
         begin
           for i := 0 to TRessource(TInterval(List[ay]).Pointer).IntervalCount-1 do
             if not TRessource(TInterval(List[ay]).Pointer).Interval[i].IsDrawRectClear then

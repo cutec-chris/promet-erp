@@ -466,9 +466,6 @@ begin
   FGantt.Tree.PopupMenu := pmAction;
   bDayViewClick(nil);
   FGantt.Calendar.ShowHint:=True;
-  FGantt.MinorScale:=tsDay;
-  FGantt.MajorScale:=tsMonth;
-  FGantt.MinorScale:=tsWeekNumPlain;
 end;
 
 destructor TfAttPlan.Destroy;
@@ -586,6 +583,7 @@ begin
   aRoot := TUser.Create(nil,Data);
   aRoot.SelectByParent(Null);
   aRoot.Open;
+  Application.ProcessMessages;
   FGantt.BeginUpdate;
   while not aRoot.EOF do
     begin
