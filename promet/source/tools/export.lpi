@@ -436,8 +436,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="105"/>
-        <CursorPos X="18" Y="134"/>
+        <TopLine Value="77"/>
+        <CursorPos X="34" Y="128"/>
         <UsageCount Value="16"/>
         <Loaded Value="True"/>
       </Unit52>
@@ -635,14 +635,11 @@
       </Debugging>
     </Linking>
     <Other>
-      <CompilerMessages>
-        <UseMsgFile Value="True"/>
-      </CompilerMessages>
       <CompilerPath Value="$(CompPath)"/>
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="5">
+    <BreakPoints Count="4">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsGlobal"/>
@@ -671,13 +668,6 @@
         <Source Value="E:\umessages.pas"/>
         <Line Value="922"/>
       </Item4>
-      <Item5>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="..\base\dbintfs\uimport.pas"/>
-        <Line Value="132"/>
-      </Item5>
     </BreakPoints>
     <Watches Count="2">
       <Item1>

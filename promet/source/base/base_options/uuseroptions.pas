@@ -3,7 +3,8 @@ unit uuseroptions;
 interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Buttons, DbCtrls, StdCtrls,
-  ComCtrls, ExtCtrls, Menus, uOptionsFrame, db, uBaseDbClasses, uBaseVisualControls;
+  ComCtrls, ExtCtrls, Menus, uOptionsFrame, db, uBaseDbClasses,
+  uBaseVisualControls, DBZVDateTimePicker;
 type
   TUserTreeEntry = class
     Rec : Int64;
@@ -21,15 +22,17 @@ type
     DBCheckBox1: TDBCheckBox;
     DBCheckBox2: TDBCheckBox;
     eCustomerNumber2: TDBEdit;
+    eCustomerNumber3: TDBEdit;
+    eEmploymentDate: TDBZVDateTimePicker;
+    eLeaveDate: TDBZVDateTimePicker;
     lCustomerNumber3: TLabel;
+    lCustomerNumber4: TLabel;
     Paygroups: TDatasource;
     DBLookupComboBox1: TDBLookupComboBox;
     eCustomerNumber: TDBEdit;
     eCustomerNumber1: TDBEdit;
     eDepartment: TDBEdit;
-    eEmploymentDate: TDBEdit;
     eIDCode: TDBEdit;
-    eLeaveDate: TDBEdit;
     eUsername: TDBEdit;
     ilState: TImageList;
     lCustomerNumber: TLabel;

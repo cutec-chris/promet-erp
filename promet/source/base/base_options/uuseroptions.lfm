@@ -1,8 +1,8 @@
 inherited fUserOptions: TfUserOptions
   Height = 427
-  Width = 517
+  Width = 531
   ClientHeight = 427
-  ClientWidth = 517
+  ClientWidth = 531
   ParentShowHint = False
   ShowHint = True
   TabOrder = 0
@@ -12,7 +12,7 @@ inherited fUserOptions: TfUserOptions
     Left = 4
     Height = 411
     Top = 8
-    Width = 203
+    Width = 217
     Anchors = [akTop, akLeft, akRight, akBottom]
     DefaultItemHeight = 16
     DragMode = dmAutomatic
@@ -26,7 +26,7 @@ inherited fUserOptions: TfUserOptions
     Options = [tvoAutoItemHeight, tvoHideSelection, tvoKeepCollapsedNodes, tvoReadOnly, tvoShowButtons, tvoShowLines, tvoShowRoot, tvoToolTips]
   end
   object pUser: TPanel[1]
-    Left = 217
+    Left = 231
     Height = 427
     Top = 0
     Width = 300
@@ -82,13 +82,13 @@ inherited fUserOptions: TfUserOptions
     end
     object cbPosition: TDBComboBox
       Left = 126
-      Height = 27
+      Height = 21
       Hint = 'wenn hier LEADER angegeben wird hat der Benutzer an einigen Stellen im Programm '#10'erweiterte Rechte, z.b. darf er für alle untergeordneten Benutzer und Gruppen '#10'Aufgabenpläne und Kalender einsehen und bearbeiten'
-      Top = 103
+      Top = 96
       Width = 161
       DataField = 'POSITION'
       DataSource = UsersDS
-      ItemHeight = 0
+      ItemHeight = 13
       Items.Strings = (
         'LEADER'
       )
@@ -97,8 +97,8 @@ inherited fUserOptions: TfUserOptions
     end
     object eDepartment: TDBEdit
       Left = 8
-      Height = 23
-      Top = 103
+      Height = 21
+      Top = 96
       Width = 115
       DataField = 'DEPARTMENT'
       DataSource = UsersDS
@@ -108,52 +108,31 @@ inherited fUserOptions: TfUserOptions
     end
     object eCustomerNumber: TDBEdit
       Left = 80
-      Height = 23
+      Height = 21
       Hint = 'Die Kundennummer im System für diesen Benutzer'
-      Top = 152
-      Width = 81
+      Top = 140
+      Width = 94
+      DataField = 'CUSTOMERNO'
       DataSource = UsersDS
       CharCase = ecNormal
       MaxLength = 0
       TabOrder = 3
     end
-    object eLeaveDate: TDBEdit
-      Left = 8
-      Height = 23
-      Top = 288
-      Width = 120
-      DataField = 'LEAVED'
-      DataSource = UsersDS
-      CharCase = ecNormal
-      MaxLength = 0
-      TabOrder = 4
-    end
-    object eEmploymentDate: TDBEdit
-      Left = 8
-      Height = 23
-      Top = 248
-      Width = 120
-      DataField = 'EMPLOYMENT'
-      DataSource = UsersDS
-      CharCase = ecNormal
-      MaxLength = 0
-      TabOrder = 5
-    end
     object eIDCode: TDBEdit
       Left = 9
-      Height = 23
-      Hint = 'Ein Kürzel für den Benutzer '#10'z.b. oft 1. Buchstabe von Vor und Nachnamen'#10'oder 1. Buchstabe vom Vornamen und 1. und letzter vom Nachnamen'
-      Top = 152
+      Height = 21
+      Hint = 'Ein Kürzel für den Benutzer '#13#10'z.b. oft 1. Buchstabe von Vor und Nachnamen'#13#10'oder 1. Buchstabe vom Vornamen und 1. und letzter vom Nachnamen'
+      Top = 140
       Width = 55
       DataField = 'IDCODE'
       DataSource = UsersDS
       CharCase = ecNormal
       MaxLength = 0
-      TabOrder = 6
+      TabOrder = 4
     end
     object eUsername: TDBEdit
       Left = 8
-      Height = 23
+      Height = 21
       Hint = 'Der Benutzername'
       Top = 57
       Width = 279
@@ -161,14 +140,14 @@ inherited fUserOptions: TfUserOptions
       DataSource = UsersDS
       CharCase = ecNormal
       MaxLength = 0
-      TabOrder = 7
+      TabOrder = 5
       OnChange = eUsernameChange
     end
     object lPosition: TLabel
       Left = 126
       Height = 13
-      Top = 87
-      Width = 44
+      Top = 80
+      Width = 37
       Caption = 'Position'
       ParentColor = False
     end
@@ -184,16 +163,16 @@ inherited fUserOptions: TfUserOptions
     object lDepartment: TLabel
       Left = 8
       Height = 13
-      Top = 87
-      Width = 53
+      Top = 80
+      Width = 45
       Caption = 'Abteilung'
       ParentColor = False
     end
     object lIDCode: TLabel
       Left = 10
       Height = 13
-      Top = 136
-      Width = 44
+      Top = 125
+      Width = 39
       Caption = 'ID Code'
       ParentColor = False
     end
@@ -201,15 +180,15 @@ inherited fUserOptions: TfUserOptions
       Left = 8
       Height = 13
       Top = 40
-      Width = 83
+      Width = 69
       Caption = 'Benutzername'
       ParentColor = False
     end
     object lCustomerNumber: TLabel
-      Left = 79
+      Left = 80
       Height = 13
-      Top = 136
-      Width = 89
+      Top = 125
+      Width = 74
       Caption = 'Kundennummer'
       ParentColor = False
     end
@@ -217,7 +196,7 @@ inherited fUserOptions: TfUserOptions
       Left = 9
       Height = 13
       Top = 232
-      Width = 103
+      Width = 86
       Caption = 'Einstellungsdatum'
       ParentColor = False
     end
@@ -233,7 +212,7 @@ inherited fUserOptions: TfUserOptions
       ReadOnly = True
       RowSelect = True
       StateImages = ilState
-      TabOrder = 8
+      TabOrder = 6
       Options = [tvoAllowMultiselect, tvoAutoItemHeight, tvoHideSelection, tvoKeepCollapsedNodes, tvoReadOnly, tvoRowSelect, tvoShowButtons, tvoShowLines, tvoShowRoot, tvoToolTips]
       Items.Data = {
         F9FFFFFF020010000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF050000000000
@@ -274,7 +253,7 @@ inherited fUserOptions: TfUserOptions
       Left = 10
       Height = 13
       Top = 312
-      Width = 39
+      Width = 34
       Caption = 'Rechte'
       ParentColor = False
     end
@@ -414,39 +393,39 @@ inherited fUserOptions: TfUserOptions
       OnClick = bSaveUserClick
     end
     object eCustomerNumber1: TDBEdit
-      Left = 167
-      Height = 23
+      Left = 10
+      Height = 21
       Hint = 'Login für Webanwendungen, bei einigen Webanwendungen '#10'wie z.b. imap Server kann nicht der Volle Name des Benutzers'#10'als Login benutzt werden, in diesem Fall ist hier ein benutzer oder '#10'Spitzname hinterlegbar'
-      Top = 152
+      Top = 181
       Width = 120
       DataField = 'LOGINNAME'
       DataSource = UsersDS
       Anchors = [akTop, akLeft, akRight]
       CharCase = ecNormal
       MaxLength = 0
-      TabOrder = 9
+      TabOrder = 7
     end
     object lCustomerNumber1: TLabel
-      Left = 257
+      Left = 10
       Height = 13
-      Top = 137
-      Width = 30
+      Top = 166
+      Width = 25
       Anchors = [akTop, akRight]
       Caption = 'Login'
       ParentColor = False
     end
     object lCustomerNumber2: TLabel
-      Left = 220
+      Left = 139
       Height = 13
       Top = 232
-      Width = 67
+      Width = 57
       Anchors = [akTop, akRight]
       Caption = 'Lohngruppe'
       ParentColor = False
     end
     object DBLookupComboBox1: TDBLookupComboBox
       Left = 139
-      Height = 27
+      Height = 21
       Top = 248
       Width = 148
       Anchors = [akTop, akLeft, akRight]
@@ -457,59 +436,120 @@ inherited fUserOptions: TfUserOptions
       ListFieldIndex = 0
       ListSource = Paygroups
       LookupCache = False
-      TabOrder = 10
+      TabOrder = 8
     end
     object lCustomerNumber3: TLabel
-      Left = 250
+      Left = 139
       Height = 13
-      Top = 273
-      Width = 37
-      Anchors = [akTop, akRight]
+      Top = 166
+      Width = 34
       Caption = 'e-MAIL'
       ParentColor = False
     end
     object eCustomerNumber2: TDBEdit
       Left = 139
-      Height = 23
-      Top = 288
+      Height = 21
+      Top = 181
       Width = 148
       DataField = 'EMAIL'
       DataSource = UsersDS
       Anchors = [akTop, akLeft, akRight]
       CharCase = ecNormal
       MaxLength = 0
-      TabOrder = 11
+      TabOrder = 9
     end
     object DBCheckBox1: TDBCheckBox
       Left = 8
-      Height = 24
+      Height = 17
       Hint = 'Wenn der Haken entfernt wird kann der'#10'Benutzer sich am System nicht anmelden wohl '#10'aber z.b. Aufgaben zugewiesen bekommen'#10'oder in Besprechungsprotokollen benannt werden'
-      Top = 184
-      Width = 131
+      Top = 208
+      Width = 103
       AutoSize = True
       Caption = 'Anmelden möglich'
       DataField = 'LOGINACTIVE'
       DataSource = UsersDS
-      TabOrder = 12
+      TabOrder = 10
       ValueChecked = 'Y'
       ValueUnchecked = 'N'
     end
     object DBCheckBox2: TDBCheckBox
       Left = 156
-      Height = 24
+      Height = 17
       Hint = 'Soll ein Zugriff über Webanwendungen für diesen Benutzer'#10'zulässig sein ?'
-      Top = 184
-      Width = 86
+      Top = 208
+      Width = 71
       AutoSize = True
       Caption = 'Fernzugriff'
       DataField = 'REMOTEACCESS'
       DataSource = UsersDS
-      TabOrder = 13
+      TabOrder = 11
       ValueChecked = 'Y'
       ValueUnchecked = 'N'
     end
+    object lCustomerNumber4: TLabel
+      Left = 183
+      Height = 13
+      Top = 125
+      Width = 79
+      Caption = 'Personalnummer'
+      ParentColor = False
+    end
+    object eCustomerNumber3: TDBEdit
+      Left = 183
+      Height = 21
+      Hint = 'Eine Personalnummer (z.b. aus Buchhaltungssystem)'
+      Top = 140
+      Width = 104
+      DataField = 'PERSONELNO'
+      DataSource = UsersDS
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 12
+    end
+    object eEmploymentDate: TDBZVDateTimePicker
+      Left = 8
+      Height = 21
+      Top = 248
+      Width = 81
+      DataField = 'EMPLOYMENT'
+      DataSource = UsersDS
+      ReadOnly = False
+      CenturyFrom = 1941
+      MaxDate = 2958465
+      MinDate = -53780
+      TabOrder = 13
+      TrailingSeparator = False
+      TextForNullDate = 'NULL'
+      LeadingZeros = True
+      Kind = dtkDate
+      TimeFormat = tf24
+      TimeDisplay = tdHMS
+      DateMode = dmComboBox
+      UseDefaultSeparators = True
+    end
+    object eLeaveDate: TDBZVDateTimePicker
+      Left = 8
+      Height = 21
+      Top = 288
+      Width = 81
+      DataField = 'LEAVED'
+      DataSource = UsersDS
+      ReadOnly = False
+      CenturyFrom = 1941
+      MaxDate = 2958465
+      MinDate = -53780
+      TabOrder = 14
+      TrailingSeparator = False
+      TextForNullDate = 'NULL'
+      LeadingZeros = True
+      Kind = dtkDate
+      TimeFormat = tf24
+      TimeDisplay = tdHMS
+      DateMode = dmComboBox
+      UseDefaultSeparators = True
+    end
   end
-  object UsersDS: TDatasource[2]
+  object UsersDS: TDataSource[2]
     left = 464
     top = 8
   end
@@ -893,8 +933,8 @@ inherited fUserOptions: TfUserOptions
       37FF196B37F2196B3788FFFFFF00
     }
   end
-  object Paygroups: TDatasource[5]
+  object Paygroups: TDataSource[5]
     left = 388
     top = 298
   end
-end
+end

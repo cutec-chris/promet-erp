@@ -2097,6 +2097,7 @@ begin
             Add('EMPLOYMENT',ftDate,0,False);
             Add('LEAVED',ftDate,0,false);
             Add('CUSTOMERNO',ftString,20,false);
+            Add('PERSONNELNO',ftString,20,false);
             Add('DEPARTMENT',ftString,30,false);
             Add('POSITION',ftString,30,false);
             Add('LOGINNAME',ftString,30,false);
