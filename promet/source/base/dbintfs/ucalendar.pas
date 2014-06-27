@@ -189,6 +189,13 @@ begin
         with ManagedIndexDefs do
           begin
             Add('REF_ID_ID','REF_ID_ID',[]);
+            Add('STARTDATE','STARTDATE',[]);
+            Add('ENDDATE','ENDDATE',[]);
+            Add('ROTTO','ROTTO',[]);
+            Add('ROTATION','ROTATION',[]);
+            Add('ICATEGORY','ICATEGORY',[]);
+            Add('CATEGORY','CATEGORY',[]);
+            Add('ALLDAY','ALLDAY',[]);
           end;
     end;
 end;

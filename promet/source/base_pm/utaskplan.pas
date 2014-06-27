@@ -1274,28 +1274,29 @@ procedure TfTaskPlan.AddUserIntervals(Sender: TObject);
             if (bInt is TInterval) then
               bInt.Free;
           end;
-        for i := 0 to TRessource(aInt.Pointer).IntervalCount-1 do
-          if ((TRessource(aInt.Pointer).Interval[i].StartDate>FGantt.Calendar.VisibleStart)
-          and (TRessource(aInt.Pointer).Interval[i].FinishDate<FGantt.Calendar.VisibleFinish))
-          or ((TRessource(aInt.Pointer).Interval[i].StartDate>FGantt.Calendar.VisibleStart)
-          and (TRessource(aInt.Pointer).Interval[i].StartDate<FGantt.Calendar.VisibleFinish))
-          or ((TRessource(aInt.Pointer).Interval[i].FinishDate>FGantt.Calendar.VisibleStart)
-          and (TRessource(aInt.Pointer).Interval[i].FinishDate<FGantt.Calendar.VisibleFinish))
-          or ((TRessource(aInt.Pointer).Interval[i].StartDate<FGantt.Calendar.VisibleStart)
-          and (TRessource(aInt.Pointer).Interval[i].FinishDate>FGantt.Calendar.VisibleFinish))
-          then
-            begin
-              aNew := TInterval.Create(FGantt);
-              aNew.StartDate:=TRessource(aInt.Pointer).Interval[i].StartDate;
-              aNew.FinishDate:=TRessource(aInt.Pointer).Interval[i].FinishDate;
-              aNew.Task:=TRessource(aInt.Pointer).Interval[i].Task+' - '+TRessource(aInt.Pointer).Interval[i].Project;
-              aNew.Id := TRessource(aInt.Pointer).Interval[i].Id;
-              aNew.Color:=TRessource(aInt.Pointer).Interval[i].Color;
-              aNew.Fixed := TRessource(aInt.Pointer).Interval[i].Fixed;
-              aNew.Pointer2:=TRessource(aInt.Pointer).Interval[i];
-              aNew.OnChanged:=@TIntervalChanged;
-              aInt.AddInterval(aNew);
-            end;
+        for i := TRessource(aInt.Pointer).IntervalCount-1 downto 0 do
+          if TRessource(aInt.Pointer).Interval[i].Project<>'CAL' then
+            if ((TRessource(aInt.Pointer).Interval[i].StartDate>FGantt.Calendar.VisibleStart)
+            and (TRessource(aInt.Pointer).Interval[i].FinishDate<FGantt.Calendar.VisibleFinish))
+            or ((TRessource(aInt.Pointer).Interval[i].StartDate>FGantt.Calendar.VisibleStart)
+            and (TRessource(aInt.Pointer).Interval[i].StartDate<FGantt.Calendar.VisibleFinish))
+            or ((TRessource(aInt.Pointer).Interval[i].FinishDate>FGantt.Calendar.VisibleStart)
+            and (TRessource(aInt.Pointer).Interval[i].FinishDate<FGantt.Calendar.VisibleFinish))
+            or ((TRessource(aInt.Pointer).Interval[i].StartDate<FGantt.Calendar.VisibleStart)
+            and (TRessource(aInt.Pointer).Interval[i].FinishDate>FGantt.Calendar.VisibleFinish))
+            then
+              begin
+                aNew := TInterval.Create(FGantt);
+                aNew.StartDate:=TRessource(aInt.Pointer).Interval[i].StartDate;
+                aNew.FinishDate:=TRessource(aInt.Pointer).Interval[i].FinishDate;
+                aNew.Task:=TRessource(aInt.Pointer).Interval[i].Task+' - '+TRessource(aInt.Pointer).Interval[i].Project;
+                aNew.Id := TRessource(aInt.Pointer).Interval[i].Id;
+                aNew.Color:=TRessource(aInt.Pointer).Interval[i].Color;
+                aNew.Fixed := TRessource(aInt.Pointer).Interval[i].Fixed;
+                aNew.Pointer2:=TRessource(aInt.Pointer).Interval[i];
+                aNew.OnChanged:=@TIntervalChanged;
+                aInt.AddInterval(aNew);
+              end;
         if aInt.IntervalCount=0 then
           begin
             aNew := TInterval.Create(FGantt);
@@ -1562,7 +1563,7 @@ begin
                 begin
                   bInterval := nil;
                   if  (not bTasks.FieldByName('DUEDATE').IsNull)
-                  and (not (bTasks.FieldByName('PLANTIME').IsNull) or (bTasks.FieldByName('STARTDATE').IsNull))
+                  //and (not (bTasks.FieldByName('PLANTIME').IsNull) or (bTasks.FieldByName('STARTDATE').IsNull))
                   and (not (bTasks.FieldByName('PLANTASK').AsString='N'))
                   then
                     begin
@@ -1601,6 +1602,8 @@ begin
                     begin
                       bInterval.StartDate := trunc(bInterval.StartDate);
                       bInterval.FinishDate := trunc(bInterval.FinishDate+1);
+                      bInterval.Fixed:=True;
+                      bInterval.Project:='CAL';
                     end;
                   bInterval.Task:=aCalendar.FieldByName('SUMMARY').AsString;
                   bInterval.Id:=aCalendar.Id.AsVariant;

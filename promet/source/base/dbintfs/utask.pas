@@ -1176,9 +1176,12 @@ begin
             Add('OWNER','OWNER',[]);
             Add('USER','USER',[]);
             Add('PARENT','PARENT',[]);
+            Add('LPARENT','LPARENT',[]);
             Add('PROJECTID','PROJECTID',[]);
             Add('CLASS','CLASS',[]);
             Add('WORKSTATUS','WORKSTATUS',[]);
+            Add('STARTDATE','STARTDATE',[]);
+            Add('DUEDATE','DUEDATE',[]);
           end;
       UpdateChangedBy:=False;
     end;
