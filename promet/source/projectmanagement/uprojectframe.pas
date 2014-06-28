@@ -876,6 +876,7 @@ var
   aWikiPage: TfWikiFrame;
   aWikiIdx: Integer;
   aID: String;
+  Inserted: Boolean;
 begin
   SetRights;
   pcPages.ClearTabClasses;
@@ -1013,7 +1014,9 @@ begin
   TProject(DataSet).Positions.Open;
   if TProject(DataSet).Positions.Count > 0 then
     pcPages.AddTab(TfProjectPositions.Create(Self),False);
+  sePriority.OnChange:=nil;
   sePriority.Value:=DataSet.FieldByName('GPRIORITY').AsInteger;
+  sePriority.OnChange:=@sePriorityChange;
   eName.SetFocus;
   if Data.Users.Rights.Right('OPTIONS') > RIGHT_READ then
     begin
@@ -1026,14 +1029,15 @@ begin
   SetRights;
   RefreshFlow;
   pcPages.AddTabClass(TfTaskFrame,strTasks,@AddTasks);
+  Inserted := DataSet.State=dsInsert;
   TProject(DataSet).Tasks.Open;
-  if TProject(DataSet).Tasks.Count > 0 then
+  if (TProject(DataSet).Tasks.Count > 0) or Inserted then
     begin
       aTasks := TfTaskFrame.Create(Self);
       pcPages.AddTab(aTasks,True);
       aTasks.GridView.GotoRowNumber(aTasks.GridView.gList.FixedRows);
-    end
-  else
+    end;
+  if Inserted or (TProject(DataSet).Tasks.Count = 0) then
     pcPages.PageIndex:=0;
   if DataSet.State<> dsInsert then
     begin
@@ -1154,10 +1158,6 @@ begin
   DataSet.Open;
   DataSet.DataSet.Insert;
   DoOpen;
-  TProject(DataSet).Tasks.Open;
-  pcPages.AddTab(TfTaskFrame.Create(Self),True);
-  acSave.Enabled := False;
-  acCancel.Enabled:= False;
 end;
 procedure TfProjectFrame.SetLanguage;
 begin
