@@ -496,20 +496,24 @@ begin
         end;
     end;
 
+  pcPages.AddTabClass(TfListFrame,strPrices,@AddList);
+  TMasterdata(DataSet).Prices.Open;
+  if (FDataSet.State = dsInsert) or (TMasterdata(DataSet).Prices.Count > 0) then
+    pcPages.AddTab(TfListFrame.Create(nil),False,strPrices);
   pcPages.AddTabClass(TfArticlePositionFrame,strPositions,@AddPositions);
   TMasterdata(DataSet).Positions.Open;
   if TMasterdata(DataSet).Positions.Count > 0 then
     pcPages.AddTab(TfArticlePositionFrame.Create(Self),False);
   pcPages.AddTabClass(TfArticleTextFrame,strTexts,@AddTexts);
   TMasterdata(DataSet).Texts.Open;
-  if TMasterdata(DataSet).Texts.Count > 0 then
+  if (FDataSet.State = dsInsert) or (TMasterdata(DataSet).Texts.Count > 0) then
     pcPages.AddTab(TfArticleTextFrame.Create(Self),False);
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
     begin
       aDocuments := TDocuments.Create(Self,Data);
       aDocuments.CreateTable;
-      aDocuments.Select(DataSet.Id.AsInteger,'M',DataSet.FieldByName('ID').AsString,DataSet.FieldByName('VERSION').AsVariant,DataSet.FieldByName('LANGUAGE').AsVariant);
+      aDocuments.Select(DataSet.Id.AsLargeInt,'M',DataSet.FieldByName('ID').AsString,DataSet.FieldByName('VERSION').AsVariant,DataSet.FieldByName('LANGUAGE').AsVariant);
       aDocuments.Open;
       if aDocuments.Count = 0 then
         aDocuments.Free
@@ -521,13 +525,9 @@ begin
           aDocFrame.BaseElement := FDataSet;
         end;
     end;
-  pcPages.AddTabClass(TfListFrame,strPrices,@AddList);
-  TMasterdata(DataSet).Prices.Open;
-  if TMasterdata(DataSet).Prices.Count > 0 then
-    pcPages.AddTab(TfListFrame.Create(nil),False,strPrices);
   pcPages.AddTabClass(TfListFrame,strProperties,@AddList);
   TMasterdata(DataSet).Properties.Open;
-  if TMasterdata(DataSet).Properties.Count > 0 then
+  if (FDataSet.State = dsInsert) or (TMasterdata(DataSet).Properties.Count > 0) then
     pcPages.AddTab(TfListFrame.Create(nil),False,strProperties);
   pcPages.AddTabClass(TfArticleStorageFrame,strStorage,@AddStorage);
   TMasterdata(DataSet).Storage.Open;
@@ -535,7 +535,7 @@ begin
     pcPages.AddTab(TfArticleStorageFrame.Create(nil),False);
   pcPages.AddTabClass(TfArticleSupplierFrame,strSupplier,@AddSupplier);
   TMasterdata(DataSet).Supplier.Open;
-  if TMasterdata(DataSet).Supplier.Count > 0 then
+  if (FDataSet.State = dsInsert) or (TMasterdata(DataSet).Supplier.Count > 0) then
     pcPages.AddTab(TfArticleSupplierFrame.Create(nil),False);
   pcPages.AddTabClass(TfHistoryFrame,strHistory,@AddHistory);
   TMasterdata(DataSet).History.Open;
@@ -555,7 +555,7 @@ begin
     end;
   s.Free;
   pcPages.AddTabClass(TfImageFrame,strImages,@AddImages);
-  if TMasterdata(DataSet).Images.Count > 0 then
+  if (FDataSet.State = dsInsert) or (TMasterdata(DataSet).Images.Count > 0) then
     pcPages.AddTab(TfImageFrame.Create(Self),False);
   TMasterdata(DataSet).Images.DataSet.Close;
   pcPages.AddTabClass(TfLinkFrame,strLinks,@AddLinks);

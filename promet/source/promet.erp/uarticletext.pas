@@ -125,7 +125,7 @@ begin
   FEditable := Editable;
   mText.ReadOnly:=not Editable;
   DBNavigator1.Enabled:=Editable;
-  cbTextTypSelect(nil);
+  //cbTextTypSelect(nil);
 end;
 
 end.
