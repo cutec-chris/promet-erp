@@ -3465,6 +3465,8 @@ begin
 end;
 
 procedure TfMain.lbResultsDblClick(Sender: TObject);
+var
+  aSearchHist: TSearchHistory;
 begin
   if lbResults.ItemIndex < 0 then exit;
   eContains.SelectNext(eContains,True,True);
