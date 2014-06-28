@@ -22,7 +22,7 @@ unit uPrometFrames;
 interface
 uses
   Classes, SysUtils, Forms, uBaseDbInterface, uBaseDbClasses, uExtControls,
-  Dialogs, Controls, ExtCtrls,uQuickHelpFrame,LCLProc;
+  Dialogs, Controls, ExtCtrls,uQuickHelpFrame,LCLProc,db;
 type
 
   { TPrometMainFrame }
@@ -121,11 +121,14 @@ begin
       try
         try
           aHistory := TAccessHistory.Create(nil,Data);
-          if not Data.TableExists(aHistory.TableName) then
-            aHistory.CreateTable;
-          aHistory.Free;
-          aHistory := TAccessHistory.Create(nil,Data,nil,DataSet.DataSet);
-          aHistory.AddItem(DataSet.DataSet,Format(strItemOpened,[Data.GetLinkDesc(Data.BuildLink(DataSet.DataSet))]),Data.BuildLink(DataSet.DataSet));
+          if DataSet.State<>dsInsert then
+            begin
+              if not Data.TableExists(aHistory.TableName) then
+                aHistory.CreateTable;
+              aHistory.Free;
+              aHistory := TAccessHistory.Create(nil,Data,nil,DataSet.DataSet);
+              aHistory.AddItem(DataSet.DataSet,Format(strItemOpened,[Data.GetLinkDesc(Data.BuildLink(DataSet.DataSet))]),Data.BuildLink(DataSet.DataSet));
+            end;
         finally
           aHistory.Free;
         end;
