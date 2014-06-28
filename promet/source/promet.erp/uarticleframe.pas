@@ -496,18 +496,10 @@ begin
         end;
     end;
 
-  pcPages.AddTabClass(TfListFrame,strPrices,@AddList);
-  TMasterdata(DataSet).Prices.Open;
-  if (FDataSet.State = dsInsert) or (TMasterdata(DataSet).Prices.Count > 0) then
-    pcPages.AddTab(TfListFrame.Create(nil),False,strPrices);
   pcPages.AddTabClass(TfArticlePositionFrame,strPositions,@AddPositions);
   TMasterdata(DataSet).Positions.Open;
   if TMasterdata(DataSet).Positions.Count > 0 then
     pcPages.AddTab(TfArticlePositionFrame.Create(Self),False);
-  pcPages.AddTabClass(TfArticleTextFrame,strTexts,@AddTexts);
-  TMasterdata(DataSet).Texts.Open;
-  if (FDataSet.State = dsInsert) or (TMasterdata(DataSet).Texts.Count > 0) then
-    pcPages.AddTab(TfArticleTextFrame.Create(Self),False);
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
     begin
@@ -558,6 +550,14 @@ begin
   if (FDataSet.State = dsInsert) or (TMasterdata(DataSet).Images.Count > 0) then
     pcPages.AddTab(TfImageFrame.Create(Self),False);
   TMasterdata(DataSet).Images.DataSet.Close;
+  pcPages.AddTabClass(TfArticleTextFrame,strTexts,@AddTexts);
+  TMasterdata(DataSet).Texts.Open;
+  if (FDataSet.State = dsInsert) or (TMasterdata(DataSet).Texts.Count > 0) then
+    pcPages.AddTab(TfArticleTextFrame.Create(Self),False);
+  pcPages.AddTabClass(TfListFrame,strPrices,@AddList);
+  TMasterdata(DataSet).Prices.Open;
+  if (FDataSet.State = dsInsert) or (TMasterdata(DataSet).Prices.Count > 0) then
+    pcPages.AddTab(TfListFrame.Create(nil),False,strPrices);
   pcPages.AddTabClass(TfLinkFrame,strLinks,@AddLinks);
   TMasterdata(DataSet).Links.Open;
   if TMasterdata(DataSet).Links.Count > 0 then
