@@ -3469,6 +3469,9 @@ begin
   if lbResults.ItemIndex < 0 then exit;
   eContains.SelectNext(eContains,True,True);
   pSearch.Visible:=False;
+  aSearchHist := TSearchHistory.Create(nil,Data);
+  aSearchHist.Add(eContains.Text,SearchLinks[lbresults.ItemIndex]);
+  aSearchHist.Free;
   Data.GotoLink(SearchLinks[lbresults.ItemIndex]);
 end;
 procedure TfMain.lbResultsDrawItem(Control: TWinControl; Index: Integer;
