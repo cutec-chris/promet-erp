@@ -35,6 +35,14 @@ type
   TFullTextSearchType = (fsMatchcode=0,fsIdents=1,fsShortnames=2,fsSerial=3,fsCommission=4,fsBarcode=5,fsDescription=6,fsFulltext=7);
   TFullTextSearchTypes = set of TFullTextSearchType;
   TSearchResultItem= procedure(aIdent : string;aName : string;aStatus : string;aActive : Boolean;aLink : string;aItem : TBaseDBList = nil) of object;
+
+  { TSearchHistory }
+
+  TSearchHistory = class(TBaseDBDataset)
+  public
+    procedure DefineFields(aDataSet: TDataSet); override;
+    procedure Add(aText,aLink : string);
+  end;
   TSearch = class(TComponent)
   private
     FActive: Boolean;
@@ -48,6 +56,7 @@ type
     FSender: TComponent;
     FUseContains: Boolean;
     FMaxResults: LongInt;
+    FSearchHist: TSearchHistory;
     Lists : array of TBaseDBList;
   public
     constructor Create(aSearchTypes : TFullTextSearchTypes;aSearchLocations : TSearchLocations;aUseContains : Boolean = False;aMaxresults : Integer = 0);
@@ -72,7 +81,7 @@ type
   procedure AddSearchAbleDataSet(aClass : TBaseDBListClass);
   function GetSearchAbleItems : TSearchLocations;
 implementation
-uses uBaseApplication, uBaseDbInterface,uOrder;
+uses uBaseApplication, uBaseDbInterface,uOrder,uData;
 var SearchAble : array of TBaseDBListClass;
 procedure AddSearchAbleDataSet(aClass: TBaseDBListClass);
 begin
@@ -93,6 +102,37 @@ begin
       aSearchAble.Free;
     end;
 end;
+procedure TSearchHistory.DefineFields(aDataSet: TDataSet);
+begin
+  with aDataSet as IBaseManageDB do
+    begin
+      TableName := 'SEARCHHISTORY';
+      if Assigned(ManagedFieldDefs) then
+        with ManagedFieldDefs do
+          begin
+            Add('TEXT',ftString,200,False);
+            Add('LINK',ftString,200,False);
+            Add('CHANGEDBY',ftString,4,False);
+          end;
+      if Assigned(ManagedIndexdefs) then
+        with ManagedIndexDefs do
+          begin
+            Add('LINK','LINK',[]);
+            Add('TEXT','TEXT',[]);
+            Add('CHANGEDBY','CHANGEDBY',[]);
+            Add('TIMESTAMPD','TIMESTAMPD',[]);
+          end;
+    end;
+end;
+
+procedure TSearchHistory.Add(aText, aLink: string);
+begin
+  Insert;
+  FieldByName('TEXT').AsString:=aText;
+  FieldByName('LINK').AsString:=aLink;
+  Post;
+end;
+
 constructor TLinkObject.Create(aLink: string);
 begin
   FLink := aLink;
@@ -106,6 +146,8 @@ var
   Found: Boolean;
 begin
   SetLength(Lists,0);
+  FSearchHist := TSearchHistory.Create(nil,Data);
+  FSearchHist.CreateTable;
   FSearchTypes := aSearchTypes;
   FSearchLocations := aSearchLocations;
   FUseContains := aUseContains;
@@ -136,6 +178,7 @@ destructor TSearch.Destroy;
 var
   i: Integer;
 begin
+  FSearchHist.Free;
   for i := 0 to length(Lists)-1 do
     Lists[i].Free;
   inherited Destroy;

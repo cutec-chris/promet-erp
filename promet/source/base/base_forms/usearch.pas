@@ -178,6 +178,8 @@ begin
 end;
 
 procedure TfSearch.acOpenExecute(Sender: TObject);
+var
+  aSearchHist: TSearchHistory;
 begin
   SearchText := '';
   if Assigned(ActiveSearch) and ActiveSearch.Active then
@@ -185,6 +187,9 @@ begin
       ActiveSearch.Abort;
       while ActiveSearch.Active do Application.ProcessMessages;
     end;
+  aSearchHist := TSearchHistory.Create(nil,Data);
+  aSearchHist.Add(eContains.Text,GetLink);
+  aSearchHist.Free;
  if Assigned(FOpenItem) then
    begin
      if FModal then
