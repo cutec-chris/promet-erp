@@ -3,7 +3,7 @@ unit uforum;
 interface
 uses
   SysUtils, Classes, httpdefs, fpHTTP, fpWeb, fpTemplate, FileUtil,
-  uMessages;
+  uMessages,ubaseconfig;
 type
   TfmForum = class(TFPWebModule)
     procedure DataModuleCreate(Sender: TObject);
@@ -367,10 +367,10 @@ begin
   aTemplate.EndDelimiter := '+}';
 //  if FTemplate.Count = 0 then
     begin
-      with BaseApplication as IBaseApplication do
+      with BaseApplication as IBaseConfig do
         FTemplate.LoadFromFile(AppendPathDelim(AppendPathDelim(Config.ReadString('DOCROOTPATH',''))+'templates')+'mainforumtemplate.html');
       sl := TStringList.Create;
-      with BaseApplication as IBaseApplication do
+      with BaseApplication as IBaseConfig do
         sl.LoadFromFile(AppendPathDelim(AppendPathDelim(Config.ReadString('DOCROOTPATH',''))+'templates')+'ajaxforumtemplate.html');
       FTemplate.Text:=StringReplace(FTemplate.text,'~MainTemplateContent',sl.Text,[]);
       sl.Free;

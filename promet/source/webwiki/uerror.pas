@@ -21,7 +21,7 @@ unit uerror;
 {$mode objfpc}{$H+}
 interface
 uses
-  SysUtils, Classes, httpdefs, fpHTTP, fpWeb, GeoIP, BlckSock;
+  SysUtils, Classes, httpdefs, fpHTTP, fpWeb, GeoIP, BlckSock,ubaseconfig;
 type
 
   { TfmError }
@@ -93,7 +93,7 @@ procedure TfmError.DataModuleRequest(Sender: TObject; ARequest: TRequest;
           DoSites(StringReplace(aReg.Substitute('$1'),'|','',[rfReplaceAll]),aWiki.Description.AsString,aLevel+1);
       end;
     begin
-      with BaseApplication as IBaseApplication do
+      with BaseApplication as IBaseConfig do
         LinkBase := Config.ReadString('WebsiteCompleteURL','');
       LinkBase := LinkBase+'/wiki/';
       LinkValue := Data.BuildLink(aWiki.DataSet);
@@ -122,7 +122,7 @@ procedure TfmError.DataModuleRequest(Sender: TObject; ARequest: TRequest;
     WasHere := TStringList.Create;
     aWiki := TWikiList.Create(nil,Data);
     aWiki.Open;
-    with BaseApplication as IBaseApplication do
+    with BaseApplication as IBaseConfig do
       begin
         if aWiki.FindWikiPage(Config.ReadString('INDEX','INDEX')) then
           DoSites(Config.ReadString('INDEX','INDEX'),aWiki.Description.AsString);
@@ -139,7 +139,7 @@ var
   aFile: TFileStream;
   Sock: TBlockSocket;
 begin
-  with BaseApplication as IBaseApplication do
+  with BaseApplication as IBaseConfig do
     begin
       aPath := ARequest.PathInfo;
       if copy(aPath,0,1) = '/' then
@@ -255,7 +255,7 @@ begin
   try
     if (aSession.Variables['City'] = '') then
       begin
-        with BaseApplication as IBaseApplication do
+        with BaseApplication as IBaseConfig do
           begin
             if not FileExists(Config.ReadString('DOCROOTPATH','')+'GeoLiteCity.dat') then exit;
             aGeoIP := TGeoIP.Create(Config.ReadString('DOCROOTPATH','')+'GeoLiteCity.dat');

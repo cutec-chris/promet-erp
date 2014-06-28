@@ -3,7 +3,7 @@ unit ushop;
 interface
 uses
   SysUtils, Classes, httpdefs, fpHTTP, fpWeb, uMasterdata,
-  fpTemplate, uOrder,uerror,uBaseSearch,uBaseDbClasses;
+  fpTemplate, uOrder,uerror,uBaseSearch,uBaseDbClasses,ubaseconfig;
 type
 
   { TfmShop }
@@ -209,7 +209,7 @@ begin
   aOrder := TOrder.Create(Self,Data);
   Menue := TStringlist.Create;
   aParent := 0;
-  with BaseApplication as IBaseApplication do
+  with BaseApplication as IBaseConfig do
     PageName := Config.ReadString('SHOPTREEOFFSET','');
   Data.SetFilter(Data.Tree,Data.QuoteField('TYPE')+'='+Data.QuoteValue('M'),0,'','ASC',False,True,True);
   while pos('/',PageName) > 0 do
@@ -280,7 +280,7 @@ begin
       Path := trim(Path);
     end;
   PageName := Path;
-  with BaseApplication as IBaseApplication do
+  with BaseApplication as IBaseConfig do
     PageName := Config.ReadString('SHOPTREEOFFSET','')+PageName+'/';
   PathFound := True;
   aOldParent := aParent;
@@ -466,7 +466,7 @@ begin
               aTmpRow := StringReplace(aTmpRow,'~ProductId',FieldByName('ID').AsString,[rfReplaceAll]);
               aTmpRow := StringReplace(aTmpRow,'~ProductName',FieldByName('SHORTTEXT').AsString,[rfReplaceAll]);
               ImgExt := '';
-              with BaseApplication as IBaseApplication do
+              with BaseApplication as IBaseConfig do
                 ImageBasePath := AppendPathDelim(AppendPathDelim(Config.ReadString('DOCROOTPATH','')));
               aSmallImageTmp := '';
               aMasterdata.Images.Open;
@@ -672,7 +672,7 @@ begin
                 begin
                   aRow := TagParams.Values['ONEROW'];
                   aRow := StringReplace(aRow,'~Quantity',FieldByName('QUANTITY').AsString,[]);
-                  aRow := StringReplace(aRow,'~ProductName',Utils.TextCut(30,FieldByName('SHORTTEXT').AsString),[]);
+                  aRow := StringReplace(aRow,'~ProductName',{Utils.TextCut(30,FieldByName('SHORTTEXT').AsString)}FieldByName('SHORTTEXT').AsString,[]);
                   aRow := StringReplace(aRow,'~ProductId',FieldByName('IDENT').AsString,[]);
                   ReplaceText := ReplaceText+aRow;
                   next;
@@ -733,7 +733,7 @@ begin
               aMasterdata := TMasterdata.Create(Self,Data);
               aMasterdata.Select(FieldByName('SQL_ID').AsInteger);
               aMasterdata.Open;
-              with BaseApplication as IBaseApplication do
+              with BaseApplication as IBaseConfig do
                 ImageBasePath := AppendPathDelim(AppendPathDelim(Config.ReadString('DOCROOTPATH','')));
               ImageFile := 'images/'+ValidateFileName(FieldByName('ID').AsString);
               if (not FileExists(ImageBasePath+ImageFile+'.jpg'))
@@ -850,7 +850,7 @@ begin
                   LinkValue := copy(LinkValue,0,rpos('(',LinkValue)-1);
                 LinkDesc := HTMLEncode(Data.GetLinkDesc(FSearchResult[i]));
                 LinkLocation := LinkDesc;
-                with BaseApplication as IBaseApplication do
+                with BaseApplication as IBaseConfig do
                   ImageBasePath := AppendPathDelim(AppendPathDelim(Config.ReadString('DOCROOTPATH','')));
                 if rpos('(',Linkdesc) > 0 then
                   begin

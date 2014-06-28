@@ -21,7 +21,7 @@ unit udownloads;
 {$mode objfpc}{$H+}
 interface
 uses
-  SysUtils, Classes, httpdefs, fpHTTP, fpWeb, FileUtil,LCLProc;
+  SysUtils, Classes, httpdefs, fpHTTP, fpWeb, FileUtil,LCLProc,ubaseconfig;
 type
   TfmDownloads = class(TFPWebModule)
     procedure DataModuleRequest(Sender: TObject; ARequest: TRequest;
@@ -45,7 +45,7 @@ var
   aExt: String;
 begin
   TBaseWebSession(Session).AddHistoryUrl(ARequest.PathInfo);
-  with BaseApplication as IBaseApplication do
+  with BaseApplication as IBaseConfig do
     begin
       aPath := ARequest.PathInfo;
       if copy(aPath,0,1) = '/' then
