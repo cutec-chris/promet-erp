@@ -527,12 +527,11 @@ object fSearch: TfSearch
     TabOrder = 4
     object bClose: TBitBtn
       Left = 444
-      Height = 42
-      Top = 6
+      Height = 36
+      Top = 12
       Width = 100
       HelpType = htKeyword
       Anchors = [akRight, akBottom]
-      AutoSize = True
       BorderSpacing.InnerBorder = 4
       Caption = '&Schließen'
       Kind = bkClose
@@ -555,7 +554,6 @@ object fSearch: TfSearch
       Width = 81
       Action = acOpen
       Anchors = [akRight, akBottom]
-      AutoSize = True
       BorderSpacing.Right = 5
       BorderSpacing.InnerBorder = 4
       Font.Style = [fsBold]
