@@ -45,6 +45,8 @@ type
     acDefaultFilter: TAction;
     acSaveLink: TAction;
     acCopyFilterLink: TAction;
+    acInformwithexternMail: TAction;
+    acInformwithinternMail: TAction;
     ActionList: TActionList;
     bEditFilter: TSpeedButton;
     bEditFilter1: TSpeedButton;
@@ -59,6 +61,7 @@ type
     cbFilter: TComboBox;
     cbMaxResults: TCheckBox;
     MenuItem2: TMenuItem;
+    MenuItem3: TMenuItem;
     pBottom: TPanel;
     PHistory: TfrDBDataSet;
     History: TDatasource;
@@ -117,6 +120,7 @@ type
     procedure acExportExecute(Sender: TObject);
     procedure acFilterExecute(Sender: TObject);
     procedure acImportExecute(Sender: TObject);
+    procedure acInformwithexternMailExecute(Sender: TObject);
     procedure acOpenExecute(Sender: TObject);
     procedure acPrintExecute(Sender: TObject);
     procedure acSaveFilterExecute(Sender: TObject);
@@ -129,6 +133,7 @@ type
     procedure DoAsyncRefresh(Data: PtrInt);
     procedure DoAsyncResize(Data: PtrInt);
     procedure eFilterEditChange(Sender: TObject);
+    function fSearchOpenUserItem(aLink: string): Boolean;
     procedure gHeaderColRowMoved(Sender: TObject; IsColumn: Boolean; sIndex,
       tIndex: Integer);
     procedure gHeaderDrawCell(Sender: TObject; aCol, aRow: Integer;
@@ -167,6 +172,7 @@ type
     procedure TimeLineSetMarker(Sender: TObject);
     procedure TWinControlKeyPress(Sender: TObject; var Key: char);
   private
+    FSearcheMail : string;
     aOldSize : Integer;
     FbaseFilter: string;
     fDefaultRows: string;
@@ -255,10 +261,13 @@ type
 implementation
 uses uRowEditor,uSearch, uBaseVisualApplicationTools, uBaseVisualApplication ,
   uFilterTabs,uFormAnimate,uData, uBaseVisualControls,uDataImport,
-  uDataImportCSV,uSelectReport,uOrder,uBaseERPDBClasses,uNRights,LCLProc;
+  uDataImportCSV,uSelectReport,uOrder,uBaseERPDBClasses,uNRights,LCLProc,
+  uPerson,uSendMail,Utils;
 resourcestring
   strRecordCount                            = '%d Einträge';
   strFullRecordCount                        = 'von %d werden %d Einträge angezeigt';
+  strSearchFromMailSelect                   = 'Hier könenn Sie einen Benutzer oder Kontakt zum informieren suchen, wenn Sie die Suche abbrechen müssen Sie den zu Informierenden im e-Mail Programm suchen';
+
 function AddTab(aPage : TTabSheet;DataSet : TBaseDBDataset): TfFilter;
 begin
   Result := TfFilter.Create(aPage);
@@ -545,6 +554,40 @@ procedure TfFilter.eFilterEditChange(Sender: TObject);
 begin
   ParseForms(eFilterEdit.lines.Text);
 end;
+
+function TfFilter.fSearchOpenUserItem(aLink: string): Boolean;
+var
+  aUser: TUser;
+  aCont: TPerson;
+  aFile: String;
+  sl: TStringList;
+begin
+  if pos('USERS',aLink)>0 then
+    begin
+      aUser := TUser.Create(nil,Data);
+      aUser.SelectFromLink(aLink);
+      aUser.Open;
+      if aUser.Count>0 then
+        begin
+          FSearcheMail := trim(aUser.FieldByName('EMAIL').AsString);
+        end;
+      aUser.Free;
+    end
+  else
+    begin
+      aCont := TPerson.Create(nil,Data);
+      aCont.SelectFromLink(aLink);
+      aCont.Open;
+      if aCont.Count>0 then
+        begin
+          aCont.CustomerCont.Open;
+          if aCont.CustomerCont.Locate('TYPE;ACTIVE',VarArrayOf(['EM','Y']),[loPartialKey]) then
+            FSearcheMail := aCont.CustomerCont.FieldByName('DATA').AsString;
+        end;
+      aCont.Free;
+    end;
+end;
+
 procedure TfFilter.gHeaderColRowMoved(Sender: TObject; IsColumn: Boolean;
   sIndex, tIndex: Integer);
 begin
@@ -892,6 +935,43 @@ begin
   fDataImport.Execute(icImport);
   List.DataSet.Refresh;
 end;
+
+procedure TfFilter.acInformwithexternMailExecute(Sender: TObject);
+var
+  i: Integer;
+  aLink: String;
+  aFile: String;
+  sl: TStringList;
+begin
+  fSearch.SetLanguage;
+  i := 0;
+  while i < fSearch.cbSearchType.Count do
+    begin
+      if  (fSearch.cbSearchType.Items[i] <> strUsers)
+      and (fSearch.cbSearchType.Items[i] <> strCustomers) then
+        fSearch.cbSearchType.Items.Delete(i)
+      else
+        inc(i);
+    end;
+  fSearch.eContains.Clear;
+  fSearch.sgResults.RowCount:=1;
+  fSearch.OnOpenItem:=@fSearchOpenUserItem;
+  FSearcheMail:='';
+  fSearch.Execute(True,'LISTU',strSearchFromMailSelect);
+  fSearch.SetLanguage;
+  aLink := GetLink;
+  if (aLink<>'') then
+    begin
+      with BaseApplication as IBaseApplication do
+        aFile := GetInternalTempDir+ValidateFileName(Data.GetLinkDesc(aLink))+'.plink';
+      sl := TStringList.Create;
+      sl.Add(aLink);
+      sl.SaveToFile(aFile);
+      sl.Free;
+      DoSendMail(Data.GetLinkDesc(aLink),Data.GetLinkLongDesc(aLink), aFile,'','','',FSearcheMail);
+    end;
+end;
+
 procedure TfFilter.acOpenExecute(Sender: TObject);
 begin
   if Assigned(FOnViewDetails) then

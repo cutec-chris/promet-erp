@@ -1193,6 +1193,7 @@ inherited fMeetingFrame: TfMeetingFrame
     top = 144
   end
   object ActionList: TActionList[4]
+    Images = fVisualControls.Images
     left = 88
     top = 120
     object acImport: TAction
@@ -1332,6 +1333,7 @@ inherited fMeetingFrame: TfMeetingFrame
     top = 288
   end
   object pmAction: TPopupMenu[11]
+    Images = fVisualControls.Images
     left = 120
     top = 120
     object MenuItem1: TMenuItem
