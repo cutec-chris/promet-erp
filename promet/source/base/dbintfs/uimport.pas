@@ -74,9 +74,9 @@ var
   aData: TDataSet = nil;
   aDataSet: TBaseDBDataset = nil;
   aStream: TFileStream;
-  aHeader: String;
-  aRow: String;
-  aFooter: String;
+  aHeader: String = '';
+  aRow: String = '';
+  aFooter: String = '';
   ActRow: String;
   aOut: String;
   aModifier: String;
@@ -109,7 +109,7 @@ begin
       with BaseApplication as IBaseApplication do
         Info(Format('%d records to export',[aData.RecordCount]));
       aStream := TFileStream.Create(aFilename,fmCreate);
-      aStream.WriteAnsiString(aHeader);
+      aStream.WriteBuffer(aHeader[1],length(aHeader));
       while not aData.EOF do
         begin
           ActRow := aRow;
@@ -126,10 +126,10 @@ begin
               aOut := aOut+aModifier;
             end;
           aOut := aOut+ActRow;
-          aStream.WriteAnsiString(aOut);
+          aStream.WriteBuffer(aOut[1],length(aOut));
           aData.Next;
         end;
-      aStream.WriteAnsiString(aFooter);
+      aStream.WriteBuffer(aFooter[1],length(aFooter));
       aStream.Free;
     end;
   if Assigned(aDataSet) then
