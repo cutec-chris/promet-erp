@@ -250,9 +250,21 @@ begin
   Result := True;
 end;
 function TfEnterTime.SetListLinkfromSearch(aLink: string): Boolean;
+var
+  aProject: TProject;
 begin
   FList.gList.EditorMode:=False;
   FList.gList.SelectedColumn.Field.Text:=aLink;
+  if FList.gList.SelectedColumn.FieldName='PROEJCT' then
+    begin
+      aProject := TProject.Create(nil,Data);
+      aProject.SelectFromLink(aLink);
+      aProject.Open;
+      if aProject.Count>0 then
+        FList.gList.DataSource.DataSet.FieldByName('PROJECTID').AsVariant:=aProject.Id.AsVariant;
+      aProject.Free;
+    end;
+    n;
   FList.gList.EditorMode:=True;
   Result := True;
 end;
@@ -423,7 +435,6 @@ begin
             FreeAndNil(FTimes);
             FIntTimes.Destroy;
           end;
-        //if Assigned(FList.DataSet) then FList.DataSet.Destroy;
       except
       end;
       FList.DataSet := nil;
@@ -807,8 +818,6 @@ begin
     begin
       FTimes.DataSet.BeforeScroll:=@DataSourceBeforeScroll;
       FTimes.DataSet.AfterPost:=@FTimesAfterPost;
-//      FTimes.DataSet.BeforeEdit:=@FTimesBeforeEdit;
-//      FTimes.DataSet.BeforeInsert:=@FTimesBeforeEdit;
       FList.DefaultRows:='GLOBALWIDTH:%;START:100;END:60;LINK:100;PROJECT:100;JOB:150;ISPAUSE:30;';
       FList.FilterType:='T';
       FList.Editable:=True;
@@ -823,7 +832,6 @@ begin
       FList.OnFilterChanged:=@FListFilterChanged;
       FList.AddToolbarAction(acDelete);
       FList.AddToolbarAction(acInsert);
-//      FList.AddToolbarAction(acPrint);
       acUseAsNewEntry.Execute;
     end;
   FTimes.FieldByName('START').OnSetText:=@StartSetText;

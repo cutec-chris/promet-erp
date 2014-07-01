@@ -19,9 +19,9 @@ object fEnterTime: TfEnterTime
   LCLVersion = '1.3'
   object rbNormaltime: TRadioButton
     Left = 8
-    Height = 24
-    Top = 386
-    Width = 87
+    Height = 17
+    Top = 393
+    Width = 68
     Anchors = [akLeft, akBottom]
     Caption = 'Normalzeit'
     Checked = True
@@ -31,9 +31,9 @@ object fEnterTime: TfEnterTime
   end
   object rbIndustrialTime: TRadioButton
     Left = 8
-    Height = 24
-    Top = 406
-    Width = 95
+    Height = 17
+    Top = 413
+    Width = 78
     Anchors = [akLeft, akBottom]
     Caption = 'Industriezeit'
     OnChange = RadioButton2Change
@@ -41,9 +41,9 @@ object fEnterTime: TfEnterTime
   end
   object cbShowDialog: TCheckBox
     Left = 136
-    Height = 24
-    Top = 401
-    Width = 85
+    Height = 17
+    Top = 408
+    Width = 66
     Anchors = [akLeft, akBottom]
     BorderSpacing.Right = 10
     Caption = 'Dialog alle'
@@ -54,9 +54,9 @@ object fEnterTime: TfEnterTime
   object seShowDialog: TSpinEdit
     AnchorSideLeft.Control = cbShowDialog
     AnchorSideLeft.Side = asrBottom
-    Left = 231
-    Height = 23
-    Top = 402
+    Left = 212
+    Height = 21
+    Top = 404
     Width = 50
     Anchors = [akLeft, akBottom]
     MaxValue = 380
@@ -69,20 +69,20 @@ object fEnterTime: TfEnterTime
   object lShowMin: TLabel
     AnchorSideLeft.Control = seShowDialog
     AnchorSideLeft.Side = asrBottom
-    Left = 286
+    Left = 267
     Height = 13
     Top = 408
-    Width = 62
+    Width = 50
     Anchors = [akLeft, akBottom]
     BorderSpacing.Left = 5
     Caption = 'min zeigen'
     ParentColor = False
   end
   object lTimeToday: TLabel
-    Left = 470
+    Left = 479
     Height = 13
     Top = 8
-    Width = 58
+    Width = 49
     Alignment = taRightJustify
     Anchors = [akTop, akRight]
     Caption = 'Zeit heute'
@@ -91,10 +91,10 @@ object fEnterTime: TfEnterTime
   object lTimeTodayValue: TLabel
     AnchorSideTop.Control = lTimeToday
     AnchorSideTop.Side = asrBottom
-    Left = 485
-    Height = 20
+    Left = 489
+    Height = 21
     Top = 21
-    Width = 43
+    Width = 39
     Anchors = [akTop, akRight]
     Caption = '7:00'
     Font.Height = -17
@@ -105,10 +105,10 @@ object fEnterTime: TfEnterTime
   object lTimeWeek: TLabel
     AnchorSideTop.Control = lPausesValue
     AnchorSideTop.Side = asrBottom
-    Left = 484
+    Left = 491
     Height = 26
-    Top = 76
-    Width = 44
+    Top = 77
+    Width = 37
     Alignment = taRightJustify
     Anchors = [akTop, akRight]
     BorderSpacing.Top = 2
@@ -118,10 +118,10 @@ object fEnterTime: TfEnterTime
   object lTimeWeekValue: TLabel
     AnchorSideTop.Control = lTimeWeek
     AnchorSideTop.Side = asrBottom
-    Left = 483
+    Left = 491
     Height = 18
-    Top = 102
-    Width = 45
+    Top = 103
+    Width = 37
     Anchors = [akTop, akRight]
     Caption = '40:00'
     Font.Height = -15
@@ -131,10 +131,10 @@ object fEnterTime: TfEnterTime
   object lTimeMonthValue: TLabel
     AnchorSideTop.Control = lTimeWeek1
     AnchorSideTop.Side = asrBottom
-    Left = 483
+    Left = 491
     Height = 18
-    Top = 148
-    Width = 45
+    Top = 149
+    Width = 37
     Anchors = [akTop, akRight]
     Caption = '85:00'
     Font.Height = -15
@@ -144,10 +144,10 @@ object fEnterTime: TfEnterTime
   object lTimeWeek1: TLabel
     AnchorSideTop.Control = lTimeWeekValue
     AnchorSideTop.Side = asrBottom
-    Left = 479
+    Left = 487
     Height = 26
-    Top = 122
-    Width = 49
+    Top = 123
+    Width = 41
     Alignment = taRightJustify
     Anchors = [akTop, akRight]
     BorderSpacing.Top = 2
@@ -157,10 +157,10 @@ object fEnterTime: TfEnterTime
   object lPauses: TLabel
     AnchorSideTop.Control = lTimeTodayValue
     AnchorSideTop.Side = asrBottom
-    Left = 487
+    Left = 493
     Height = 13
-    Top = 43
-    Width = 41
+    Top = 44
+    Width = 35
     Anchors = [akTop, akRight]
     BorderSpacing.Top = 2
     Caption = 'Pausen'
@@ -169,10 +169,10 @@ object fEnterTime: TfEnterTime
   object lPausesValue: TLabel
     AnchorSideTop.Control = lPauses
     AnchorSideTop.Side = asrBottom
-    Left = 482
+    Left = 483
     Height = 18
-    Top = 56
-    Width = 46
+    Top = 57
+    Width = 45
     Anchors = [akTop, akRight]
     Caption = '01:00'
     Font.Height = -15
@@ -187,7 +187,7 @@ object fEnterTime: TfEnterTime
     Width = 453
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.InnerBorder = 2
-    ClientHeight = 153
+    ClientHeight = 139
     ClientWidth = 449
     TabOrder = 1
     object bChange: TBitBtn
@@ -383,38 +383,38 @@ object fEnterTime: TfEnterTime
     end
     object Panel6: TPanel
       Left = 0
-      Height = 153
+      Height = 139
       Top = 0
       Width = 315
       Align = alLeft
       Anchors = [akTop, akLeft, akRight, akBottom]
       BevelOuter = bvNone
       Caption = 'Panel6'
-      ClientHeight = 153
+      ClientHeight = 139
       ClientWidth = 315
       TabOrder = 4
       object Panel5: TPanel
         Left = 0
-        Height = 43
+        Height = 29
         Top = 110
         Width = 315
         Align = alClient
         Anchors = [akTop, akLeft, akBottom]
         BevelOuter = bvNone
-        ClientHeight = 43
+        ClientHeight = 29
         ClientWidth = 315
         TabOrder = 0
         object lNotes: TLabel
           Left = 4
           Height = 13
           Top = 3
-          Width = 42
+          Width = 36
           Caption = 'Notizen'
           ParentColor = False
         end
         object mNotes: TMemo
           Left = 80
-          Height = 39
+          Height = 25
           Top = 2
           Width = 233
           Align = alRight
@@ -437,18 +437,18 @@ object fEnterTime: TfEnterTime
           Left = 4
           Height = 13
           Top = 3
-          Width = 54
+          Width = 46
           Caption = 'Kategorie'
           ParentColor = False
           ParentFont = False
         end
         object cbCategory: TComboBox
           Left = 80
-          Height = 27
+          Height = 21
           Top = 0
           Width = 169
           Anchors = [akTop, akLeft, akRight]
-          ItemHeight = 0
+          ItemHeight = 13
           ParentFont = False
           Sorted = True
           TabOrder = 0
@@ -556,7 +556,7 @@ object fEnterTime: TfEnterTime
         TabOrder = 2
         object eLink: TEditButton
           Left = 80
-          Height = 23
+          Height = 21
           Hint = 'Suchen Sie mithilfe des Buttons einen passenden Eintrag'#13#10'oder geben Sie einen freien Text ein'
           Top = 0
           Width = 207
@@ -618,7 +618,7 @@ object fEnterTime: TfEnterTime
           Left = 4
           Height = 13
           Top = 6
-          Width = 40
+          Width = 34
           Caption = 'Eintrag'
           ParentColor = False
         end
@@ -637,13 +637,13 @@ object fEnterTime: TfEnterTime
           Left = 4
           Height = 13
           Top = 3
-          Width = 39
+          Width = 34
           Caption = 'Projekt'
           ParentColor = False
         end
         object eProject: TEditButton
           Left = 80
-          Height = 23
+          Height = 21
           Hint = 'Suchen Sie mithilfe des Buttons einen passenden Eintrag'#13#10'oder geben Sie einen freien Text ein'
           Top = 0
           Width = 207
@@ -715,7 +715,7 @@ object fEnterTime: TfEnterTime
           Left = 4
           Height = 13
           Top = 3
-          Width = 47
+          Width = 41
           Caption = 'Aufgabe'
           ParentColor = False
           ParentFont = False
@@ -731,7 +731,7 @@ object fEnterTime: TfEnterTime
         end
         object eJob: TEdit
           Left = 80
-          Height = 23
+          Height = 21
           Top = 0
           Width = 230
           Anchors = [akTop, akLeft, akRight]
@@ -747,12 +747,12 @@ object fEnterTime: TfEnterTime
     Top = 200
     Width = 523
     Anchors = [akTop, akLeft, akRight, akBottom]
-    ClientHeight = 185
+    ClientHeight = 171
     ClientWidth = 519
     TabOrder = 2
     object pTimeList: TPanel
       Left = 0
-      Height = 185
+      Height = 171
       Top = 0
       Width = 519
       Align = alClient
@@ -813,7 +813,7 @@ object fEnterTime: TfEnterTime
     Left = 8
     Height = 13
     Top = 8
-    Width = 105
+    Width = 95
     Caption = 'Aktueller Eintrag'
     Font.Style = [fsBold]
     ParentColor = False
@@ -823,7 +823,7 @@ object fEnterTime: TfEnterTime
     Left = 8
     Height = 13
     Top = 184
-    Width = 51
+    Width = 46
     Caption = 'Zeitliste'
     Font.Style = [fsBold]
     ParentColor = False
@@ -924,7 +924,7 @@ object fEnterTime: TfEnterTime
       Action = acGotoID
     end
   end
-  object TimeList: TDatasource
+  object TimeList: TDataSource
     OnDataChange = TimeListDataChange
     left = 256
     top = 288
@@ -944,4 +944,4 @@ object fEnterTime: TfEnterTime
     left = 256
     top = 240
   end
-end
+end
