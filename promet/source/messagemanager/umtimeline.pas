@@ -113,7 +113,7 @@ type
     procedure acStartTimeRegisteringExecute(Sender: TObject);
     procedure ActiveSearchEndItemSearch(Sender: TObject);
     procedure ActiveSearchItemFound(aIdent: string; aName: string;
-      aStatus: string; aActive: Boolean; aLink: string; aItem: TBaseDBList=nil);
+      aStatus: string; aActive: Boolean; aLink: string;aPrio : Integer; aItem: TBaseDBList=nil);
     function FContListDrawColumnCell(Sender: TObject; const aRect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState): Boolean;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -844,7 +844,8 @@ begin
     end;
 end;
 procedure TfmTimeline.ActiveSearchItemFound(aIdent: string; aName: string;
-  aStatus: string; aActive: Boolean; aLink: string; aItem: TBaseDBList=nil);
+  aStatus: string; aActive: Boolean; aLink: string; aPrio: Integer;
+  aItem: TBaseDBList);
 begin
   with pSearch do
     begin
