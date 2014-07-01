@@ -344,24 +344,26 @@ begin
         begin
           if Data.DataSetFromLink(aDs.FieldByName('LINK').AsString,aDSClass) then
             begin
-              for i := 0 to length(Lists)-1 do
-                if Lists[i].ClassType = aDSClass then
-                  begin
-                    aLinkDs := TBaseDBList(aDSClass.Create(nil,Data));
-                    if aLinkDs is TBaseDbList then
-                      begin
-                        aLinkDs.SelectFromLink(aDs.FieldByName('LINK').AsString);
-                        aLinkDs.Open;
-                        if aLinkDs.Count>0 then
-                          begin
-                            if Assigned(aLinkDs.Status) then
-                              FItemFound(aLinkDs.Number.AsString,aLinkDs.Text.AsString,aLinkDs.Status.AsString,True,aDs.FieldByName('LINK').AsString,3000)
-                            else
-                              FItemFound(aLinkDs.Number.AsString,aLinkDs.Text.AsString,'',True,aDs.FieldByName('LINK').AsString,3000);
-                          end;
-                      end;
-                    aLinkDs.Free;
-                  end;
+              for i := 0 to length(FSearchLocations)-1 do
+                begin
+                  aLinkDs := TBaseDBList(aDSClass.Create(nil,Data));
+                  if FSearchLocations[i] = aLinkDs.Caption then
+                    begin
+                      if aLinkDs is TBaseDbList then
+                        begin
+                          aLinkDs.SelectFromLink(aDs.FieldByName('LINK').AsString);
+                          aLinkDs.Open;
+                          if aLinkDs.Count>0 then
+                            begin
+                              if Assigned(aLinkDs.Status) then
+                                FItemFound(aLinkDs.Number.AsString,aLinkDs.Text.AsString,aLinkDs.Status.AsString,True,aDs.FieldByName('LINK').AsString,3000)
+                              else
+                                FItemFound(aLinkDs.Number.AsString,aLinkDs.Text.AsString,'',True,aDs.FieldByName('LINK').AsString,3000);
+                            end;
+                        end;
+                    end;
+                  aLinkDs.Free;
+                end;
             end;
           aDs.Next;
         end;
@@ -378,4 +380,4 @@ end;
 finalization
   Setlength(SearchAble,0);
 end.
-
+
