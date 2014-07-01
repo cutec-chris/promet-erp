@@ -209,7 +209,7 @@ type
     procedure ApplicationTBaseVisualApplicationUserTabAdded(Sender: TObject);
     procedure bSearchClick(Sender: TObject);
     procedure DataSearchresultItem(aIdent: string; aName: string;
-      aStatus: string;aActive : Boolean; aLink: string; aItem: TBaseDBList=nil);
+      aStatus: string;aActive : Boolean; aLink: string;aPrio :Integer; aItem: TBaseDBList=nil);
     procedure eContainsEnter(Sender: TObject);
     procedure eContainsExit(Sender: TObject);
     procedure eContainsKeyDown(Sender: TObject; var Key: Word;
@@ -973,6 +973,7 @@ begin
   //Timeregistering
   Synchronize(@AddTimeReg2);
   AddSearchAbleDataSet(TUser);
+  Data.RegisterLinkHandler('USERS',@fMainTreeFrame.OpenLink,TUser);
   //History
   if GetRight('DOCUMENTS') > RIGHT_NONE then
     begin
@@ -2176,7 +2177,8 @@ begin
   bSearch.Caption:=strSearch;
 end;
 procedure TfMain.DataSearchresultItem(aIdent: string; aName: string;
-  aStatus: string;aActive : Boolean; aLink: string; aItem: TBaseDBList=nil);
+  aStatus: string; aActive: Boolean; aLink: string; aPrio: Integer;
+  aItem: TBaseDBList);
 begin
   if aActive then
     begin
@@ -2986,7 +2988,8 @@ begin
       aFrame.SetLanguage;
       Result := True;
     end
-  else Data.GotoLink(aLink)
+  //else
+  //  Result := Data.GotoLink(aLink)
   ;
   if Result then
     FHistory.Add(aLink);

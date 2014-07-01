@@ -142,7 +142,7 @@ type
     procedure acSetTopicExecute(Sender: TObject);
     procedure ActiveSearchEndSearch(Sender: TObject);
     procedure ActiveSearchItemFound(aIdent: string; aName: string;
-      aStatus: string; aActive: Boolean; aLink: string; aItem: TBaseDBList=nil);
+      aStatus: string; aActive: Boolean; aLink: string;aPrio :Integer; aItem: TBaseDBList=nil);
     procedure acUnmakeSubTaskExecute(Sender: TObject);
     procedure cbStatusSelect(Sender: TObject);
     procedure DataSetChange(Sender: TObject);
@@ -258,7 +258,8 @@ begin
 end;
 
 procedure TfMeetingFrame.ActiveSearchItemFound(aIdent: string; aName: string;
-  aStatus: string; aActive: Boolean; aLink: string; aItem: TBaseDBList=nil);
+  aStatus: string; aActive: Boolean; aLink: string; aPrio: Integer;
+  aItem: TBaseDBList);
 begin
   with pSearch do
     begin

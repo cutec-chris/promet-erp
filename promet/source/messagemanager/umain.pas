@@ -574,6 +574,7 @@ begin
         end;
       //Timeregistering
       AddSearchAbleDataSet(TUser);
+      Data.RegisterLinkHandler('USERS',@OpenLink,TUser);
       //History
       if Data.Users.Rights.Right('DOCUMENTS') > RIGHT_NONE then
         begin

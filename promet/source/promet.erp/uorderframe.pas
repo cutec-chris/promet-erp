@@ -154,7 +154,7 @@ type
     procedure OrdersStateChange(Sender: TObject);
     procedure sbMenueClick(Sender: TObject);
     procedure SenderTComboBoxActiveSearchItemFound(aIdent: string;
-      aName: string; aStatus: string;aActive : Boolean; aLink: string; aItem: TBaseDBList=nil);
+      aName: string; aStatus: string;aActive : Boolean; aLink: string;aPrio :Integer; aItem: TBaseDBList=nil);
     procedure spPreviewMoved(Sender: TObject);
     function TOrderGetSerial(Sender: TOrder; aMasterdata: TMasterdata;
       aQuantity: Integer): Boolean;
@@ -590,7 +590,8 @@ begin
   TSpeedButton(Sender).PopupMenu.PopUp(TSpeedButton(Sender).ClientOrigin.x,TSpeedButton(Sender).ClientOrigin.y+TSpeedButton(Sender).Height);
 end;
 procedure TfOrderFrame.SenderTComboBoxActiveSearchItemFound(aIdent: string;
-  aName: string; aStatus: string;aActive : Boolean; aLink: string; aItem: TBaseDBList=nil);
+  aName: string; aStatus: string; aActive: Boolean; aLink: string;
+  aPrio: Integer; aItem: TBaseDBList);
 begin
   with pSearch do
     begin

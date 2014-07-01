@@ -93,7 +93,7 @@ type
     procedure lbResultsDblClick(Sender: TObject);
     procedure MessageEditChange(Sender: TObject);
     procedure SenderTComboBoxActiveSearchItemFound(aIdent: string;
-      aName: string; aStatus: string;aActive : Boolean; aLink: string; aItem: TBaseDBList=nil);
+      aName: string; aStatus: string;aActive : Boolean; aLink: string;aPrio : Integer; aItem: TBaseDBList=nil);
   private
     FConnection: TComponent;
     FDataSet: TMessage;
@@ -686,7 +686,8 @@ begin
   IsModified := True;
 end;
 procedure TfMessageEdit.SenderTComboBoxActiveSearchItemFound(aIdent: string;
-  aName: string; aStatus: string;aActive : Boolean; aLink: string; aItem: TBaseDBList=nil);
+  aName: string; aStatus: string; aActive: Boolean; aLink: string;
+  aPrio: Integer; aItem: TBaseDBList);
 begin
   with pSearch do
     begin

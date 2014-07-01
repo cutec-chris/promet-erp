@@ -187,7 +187,7 @@ type
     procedure acTerminateExecute(Sender: TObject);
     procedure ActiveSearchEndSearch(Sender: TObject);
     procedure ActiveSearchItemFound(aIdent: string; aName: string;
-      aStatus: string;aActive : Boolean; aLink: string; aItem: TBaseDBList=nil);
+      aStatus: string;aActive : Boolean; aLink: string;aPrio :Integer; aItem: TBaseDBList=nil);
     procedure acUnmakeSubTaskExecute(Sender: TObject);
     procedure bEditFilterClick(Sender: TObject);
     procedure cbFilterSelect(Sender: TObject);
@@ -1020,7 +1020,8 @@ begin
     end;
 end;
 procedure TfTaskFrame.ActiveSearchItemFound(aIdent: string; aName: string;
-  aStatus: string;aActive : Boolean; aLink: string; aItem: TBaseDBList=nil);
+  aStatus: string; aActive: Boolean; aLink: string; aPrio: Integer;
+  aItem: TBaseDBList);
 begin
   with pSearch do
     begin

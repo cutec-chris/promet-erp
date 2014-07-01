@@ -264,7 +264,6 @@ begin
         FList.gList.DataSource.DataSet.FieldByName('PROJECTID').AsVariant:=aProject.Id.AsVariant;
       aProject.Free;
     end;
-    n;
   FList.gList.EditorMode:=True;
   Result := True;
 end;

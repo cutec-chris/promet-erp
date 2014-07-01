@@ -71,11 +71,13 @@ type
     sgResults: TStringGrid;
     Splitter1: TSplitter;
     Splitter2: TSplitter;
+    HistorySearchTimer: TTimer;
     procedure acCopyLinkExecute(Sender: TObject);
     procedure acOpenExecute(Sender: TObject);
     procedure acSaveToLinkExecute(Sender: TObject);
     procedure acSearchContainedExecute(Sender: TObject);
     procedure ActiveSearchBeginItemSearch(Sender: TObject);
+    procedure ActiveSearchEndHistorySearch(Sender: TObject);
     procedure ActiveSearchEndItemSearch(Sender: TObject);
     procedure ActiveSearchEndSearch(Sender: TObject);
     procedure bCloseClick(Sender: TObject);
@@ -86,7 +88,7 @@ type
     procedure cbAutomaticsearchChange(Sender: TObject);
     procedure cbWildgardsChange(Sender: TObject);
     procedure DataSearchresultItem(aIdent: string; aName: string;
-      aStatus: string;aActive : Boolean; aLink: string;aItem : TBaseDBList = nil);
+      aStatus: string;aActive : Boolean; aLink: string;aPrio : Integer;aItem : TBaseDBList = nil);
     procedure eContainsChange(Sender: TObject);
     procedure eContainsKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -95,6 +97,7 @@ type
     procedure FormHide(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormShow(Sender: TObject);
+    procedure HistorySearchTimerTimer(Sender: TObject);
     procedure IdleTimer1Timer(Sender: TObject);
     procedure IdleTimerTimer(Sender: TObject);
     procedure PopupMenu1Popup(Sender: TObject);
@@ -254,7 +257,7 @@ begin
                   aActive := Data.States.DataSet.Locate('STATUS',aMS.Status.AsString,[loCaseInsensitive]);
                   if aActive then
                     aActive := aActive and (Data.States.FieldByName('ACTIVE').AsString='Y');
-                  DataSearchresultItem(aMS.FieldByName('ID').AsString,aMS.FieldByName('SHORTTEXT').AsString,aMs.Status.AsString,aActive,Data.BuildLink(aMS.DataSet),aMS);
+                  DataSearchresultItem(aMS.FieldByName('ID').AsString,aMS.FieldByName('SHORTTEXT').AsString,aMs.Status.AsString,aActive,Data.BuildLink(aMS.DataSet),0,aMS);
                 end;
               Next;
             end;
@@ -267,6 +270,11 @@ end;
 procedure TfSearch.ActiveSearchBeginItemSearch(Sender: TObject);
 begin
   sgResults.BeginUpdate;
+end;
+
+procedure TfSearch.ActiveSearchEndHistorySearch(Sender: TObject);
+begin
+  HistorySearchTimer.Enabled:=True;
 end;
 
 procedure TfSearch.ActiveSearchEndItemSearch(Sender: TObject);
@@ -336,7 +344,8 @@ begin
   ActiveSearch.OnBeginItemSearch:=@ActiveSearchBeginItemSearch;
   ActiveSearch.OnEndItemSearch:=@ActiveSearchEndItemSearch;
   ActiveSearch.OnEndSearch:=@FastSearchEnd;
-  ActiveSearch.Start(eContains.Text,False);
+  ActiveSearch.OnEndHistorySearch:=@ActiveSearchEndHistorySearch;
+  ActiveSearch.StartHistorySearch(eContains.Text);
 end;
 procedure TfSearch.cbAutomaticsearchChange(Sender: TObject);
 begin
@@ -366,7 +375,8 @@ begin
     end;
 end;
 procedure TfSearch.DataSearchresultItem(aIdent: string; aName: string;
-  aStatus: string;aActive : Boolean; aLink: string;aItem : TBaseDBList = nil);
+  aStatus: string; aActive: Boolean; aLink: string; aPrio: Integer;
+  aItem: TBaseDBList);
 var
   i: Integer;
   aRec: String;
@@ -400,13 +410,14 @@ begin
 end;
 procedure TfSearch.eContainsChange(Sender: TObject);
 begin
+  HistorySearchTimer.Enabled:=False;
+  IdleTimer.Enabled:=False;
   if Assigned(ActiveSearch) then
     begin
       ActiveSearch.Abort;
       if bSearch.Caption=strAbort then
         bSearch.Click;
     end;
-  IdleTimer.Enabled:=False;
   IdleTimer.Enabled:=True;
 end;
 procedure TfSearch.eContainsKeyDown(Sender: TObject; var Key: Word;
@@ -495,6 +506,12 @@ begin
       eContains.SetFocus;
       eContains.SelectAll;
     end;
+end;
+
+procedure TfSearch.HistorySearchTimerTimer(Sender: TObject);
+begin
+  HistorySearchTimer.Enabled:=False;
+  ActiveSearch.Start(eContains.Text,False);
 end;
 
 procedure TfSearch.IdleTimer1Timer(Sender: TObject);

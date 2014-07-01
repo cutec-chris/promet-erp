@@ -97,7 +97,7 @@ type
     procedure acSearchArticleExecute(Sender: TObject);
     procedure ActiveSearchEndItemSearch(Sender: TObject);
     procedure ActiveSearchItemFound(aIdent: string; aName: string;
-      aStatus: string;aActive : Boolean; aLink: string; aItem: TBaseDBList=nil);
+      aStatus: string;aActive : Boolean; aLink: string;aPrio : Integer; aItem: TBaseDBList=nil);
     procedure acUnMakeSebPosExecute(Sender: TObject);
     procedure bDetailsVisibleClick(Sender: TObject);
     procedure bRowDetailsClick(Sender: TObject);
@@ -524,7 +524,8 @@ begin
     end;
 end;
 procedure TfPosition.ActiveSearchItemFound(aIdent: string; aName: string;
-  aStatus: string;aActive : Boolean; aLink: string; aItem: TBaseDBList=nil);
+  aStatus: string; aActive: Boolean; aLink: string; aPrio: Integer;
+  aItem: TBaseDBList);
 begin
   with pSearch do
     begin
@@ -902,4 +903,4 @@ begin
 end;
 
 end.
-
+
