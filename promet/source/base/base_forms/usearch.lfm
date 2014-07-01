@@ -446,7 +446,7 @@ object fSearch: TfSearch
       Top = 20
       Width = 399
       Anchors = [akTop, akLeft, akRight, akBottom]
-      ColCount = 6
+      ColCount = 7
       ColumnClickSorts = True
       Columns = <      
         item
@@ -473,6 +473,10 @@ object fSearch: TfSearch
         item
           Title.Caption = 'Active'
           Width = 0
+        end      
+        item
+          Title.Caption = 'Prio'
+          Width = 0
         end>
       DragMode = dmAutomatic
       FixedCols = 0
@@ -492,6 +496,7 @@ object fSearch: TfSearch
         100
         130
         40
+        0
         0
         0
       )

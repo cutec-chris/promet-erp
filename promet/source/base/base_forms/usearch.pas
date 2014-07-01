@@ -395,6 +395,7 @@ begin
     end
   else
     i := sgResults.RowCount;
+  i := i+1;
   if i<1 then i := 1;
   if i>sgResults.RowCount then
     i := sgResults.RowCount;
@@ -407,6 +408,7 @@ begin
     sgResults.Cells[5,i] := 'Y'
   else
     sgResults.Cells[5,i] := 'N';
+  sgResults.Cells[6,i] := IntToStr(aPrio);
 end;
 procedure TfSearch.eContainsChange(Sender: TObject);
 begin
