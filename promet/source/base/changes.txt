@@ -1,4 +1,11 @@
-﻿Build 357
+﻿Build 358
+      - Suche:Suche berücksichtigt nun welche Einträge unter welchem Suchbegroff geöffnet wurden
+              Suche wird nun in 3 Schritten ausgeführt 1. Suche nach bereits unter dem Suchbegriff gefundenen Daten
+              2. Suche nach exakt dem Suchbegriff oder Nummer
+              3. Unscharfe Suche die Suchbegriff enthält
+      - Listen:aus Listen kann nun mit e-Mail aus externem Mailprogramm informiert werden.
+               Die Mail enthält als Anhang eine Linkdatei die mit Doppelklick darauf das Element in der selben oder synchronisierten Datenbank öffnet
+Build 357
       - Aufgabenplan:Benutzer "aufklappbar" um eine bessere Übersicht über die Aufgaben pro Benutzer zu bekommen
       - Gantt:Resourcenauslastung wird in Hintergrudnprozess zusammengesammelt Ansicht bleibt wärend dessen bedienbar
       - Aufgabenplan:Daten werden nur für aktuell sichtbaren Bereich gesammelt und das asynchron
