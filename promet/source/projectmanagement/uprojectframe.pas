@@ -71,6 +71,7 @@ type
     DBCheckBox2: TDBCheckBox;
     DBCheckBox3: TDBCheckBox;
     DBZVDateTimePicker4: TDBZVDateTimePicker;
+    DBZVDateTimePicker5: TDBZVDateTimePicker;
     eParent: TEditButton;
     eManager: TEditButton;
     iProject: TImage;
@@ -78,6 +79,7 @@ type
     Label11: TLabel;
     Label12: TLabel;
     Label13: TLabel;
+    Label14: TLabel;
     Label8: TLabel;
     Label9: TLabel;
     lVAT1: TLabel;
