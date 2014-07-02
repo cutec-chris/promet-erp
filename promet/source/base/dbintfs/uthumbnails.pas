@@ -85,8 +85,10 @@ end;
 
 function GetThumbTempDir: string;
 begin
-  with BaseApplication as IBaseApplication do
-    Result := GetInternalTempDir+'promet_thumbs';
+  Result := GetTempDir+'promet_thumbs';
+  if Supports(BaseApplication,IBaseApplication) then
+    with BaseApplication as IBaseApplication do
+      Result := GetInternalTempDir+'promet_thumbs';
   ForceDirectoriesUTF8(Result);
 end;
 

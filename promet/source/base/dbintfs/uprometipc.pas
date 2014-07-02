@@ -27,10 +27,10 @@ begin
     try
       with BaseApplication as IBaseApplication do
         begin
-          if FileExists(GetInternalTempDir+'PMSMessagemenager') then
-            sl.LoadFromFile(GetInternalTempDir+'PMSMessagemenager');
+          if FileExists(GetTempDir+'PMSMessagemenager') then
+            sl.LoadFromFile(GetTempDir+'PMSMessagemenager');
           sl.Add(aMessage);
-          sl.SaveToFile(GetInternalTempDir+'PMSMessagemenager');
+          sl.SaveToFile(GetTempDir+'PMSMessagemenager');
           Result := True;
         end;
     except
@@ -53,9 +53,9 @@ begin
     try
       with BaseApplication as IBaseApplication do
         begin
-          if FileExists(GetInternalTempDir+'PMSMessagemenager') then
+          if FileExists(GetTempDir+'PMSMessagemenager') then
             begin
-              fs := TFileStream.Create(GetInternalTempDir+'PMSMessagemenager',fmShareCompat);
+              fs := TFileStream.Create(GetTempDir+'PMSMessagemenager',fmShareCompat);
               sl.LoadFromStream(fs);
               fs.Free;
             end;
@@ -71,7 +71,7 @@ begin
               else inc(i);
             end;
           if aChanged then
-            sl.SaveToFile(GetInternalTempDir+'PMSMessagemenager');
+            sl.SaveToFile(GetTempDir+'PMSMessagemenager');
         end;
     except
     end;
