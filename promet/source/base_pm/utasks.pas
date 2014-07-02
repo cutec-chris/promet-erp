@@ -815,7 +815,17 @@ begin
   fSearch.sgResults.RowCount:=1;
   fSearch.OnOpenItem:=@fSearchOpenUserMailItem;
   FSearcheMail:='';
-  fSearch.Execute(True,'LISTU',strSearchFromMailSelect);
+  if FGridView.DataSet.FieldByName('USER').AsString<>'' then
+    begin
+      aUser := TUser.Create(nil,Data);
+      aUser.SelectByAccountno(FGridView.DataSet.FieldByName('USER').AsString);
+      aUser.Open;
+      if aUser.Count>0 then;
+        FSearcheMail := trim(aUser.FieldByName('EMAIL').AsString);
+      aUser.Free;
+    end;
+  if FSearcheMail='' then;
+    fSearch.Execute(True,'LISTU',strSearchFromMailSelect);
   fSearch.SetLanguage;
   if FGridView.GotoActiveRow then
     aLink := FGridView.DataSet.GetLink;
