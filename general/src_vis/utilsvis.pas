@@ -5,7 +5,7 @@ unit UtilsVis;
 interface
 
 uses
-  Classes, SysUtils,UTF8Process,Graphics
+  Classes, SysUtils,UTF8Process,Graphics,Utils
   {$IFDEF MSWINDOWS}
   ,Registry,Windows
   {$ENDIF}

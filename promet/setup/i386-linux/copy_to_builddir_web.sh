@@ -12,7 +12,7 @@ cp ../../output/$1-linux/web/local_appbase $2/tools
 cp ../../output/$1-linux/web/imapserver $2/tools
 cp ../../output/$1-linux/web/mta $2/tools
 cp ../../output/$1-linux/web/nntpserver $2/tools
-cp ../../output/$1-linux/web/svnserver $2/tools
+cp ../../output/$1-linux/web/webdavserver $2/tools
 cp ../../output/$1-linux/web/httpserver $2/tools
 install ../../output/$1-linux/tools/*receiver $2/tools
 install ../../output/$1-linux/tools/*sender $2/tools
@@ -22,7 +22,7 @@ cp $2/tools/local_appbase ../executables/$Version/$1
 cp $2/tools/imapserver ../executables/$Version/$1
 cp $2/tools/mta ../executables/$Version/$1
 cp $2/tools/nntpserver ../executables/$Version/$1
-cp $2/tools/svnserver ../executables/$Version/$1
+cp $2/tools/webdavserver ../executables/$Version/$1
 cp $2/tools/processmanager ../executables/$Version/$1
 cp $2/tools/promet-process ../executables/$Version/$1
 cp $2/tools/cmdwizardmandant ../executables/$Version/$1

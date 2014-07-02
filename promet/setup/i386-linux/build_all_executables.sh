@@ -68,7 +68,5 @@ echo "compiling mta..."  >> scompile-$2-web.log
 lazbuild $Params -q ../../source/webservers/mta.lpi  >> scompile-$2-web.log
 echo "compiling nntpserver..."  >> scompile-$2-web.log
 lazbuild $Params -q ../../source/webservers/nntpserver.lpi  >> scompile-$2-web.log
-echo "compiling svnserver..."  >> scompile-$2-web.log
-lazbuild $Params -q ../../source/webservers/svnserver.lpi  >> scompile-$2-web.log
 echo "compiling httpserver..."  >> scompile-$2-web.log
 lazbuild $Params -q ../../source/webservers/httpserver.lpi  >> scompile-$2-web.log

@@ -102,6 +102,10 @@ inherited fProcessOptions: TfProcessOptions
           'sync_owncloud'
           'sync_redmine'
           'import_document'
+          'local_appbase'
+          'webdavserver'
+          'nntpserver'
+          'imapserver'
         )
         Title.Caption = 'Prozess'
         Width = 180
@@ -238,4 +242,4 @@ inherited fProcessOptions: TfProcessOptions
     left = 32
     top = 48
   end
-end
+end
