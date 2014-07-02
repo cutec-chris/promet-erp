@@ -15,49 +15,10 @@ type
   TProcessinfoTyp = (piOpen,piPrint);
 
 function GetProcessforExtension(InfoTyp : TProcessinfoTyp;Extension : string) : string;
-function GetMimeTypeforExtension(Extension : string) : string;
 function TextCut(aCanvas: TCanvas; Len: Integer; Text: String): String;
 
 implementation
 
-function GetMimeTypeforExtension(Extension : string) : string;
-var
-{$ifdef MSWINDOWS}
-  reg : TRegistry;
-{$else}
-  f : TextFile;
-  tmp : string;
-{$endif}
-begin
-{$ifdef WINDOWS}
-  Result := '';
-  Reg := TRegistry.Create(KEY_READ);
-  Reg.RootKey := HKEY_CLASSES_ROOT;
-  if Reg.OpenKeyReadOnly(ExtractFileExt('.'+Extension)) then
-  begin
-    Result := Reg.ReadString('Content Type');
-    Reg.CloseKey;
-  end;
-  Reg.Free;
-{$ELSE}
-  if FileExists('~/.local/share/mime/globs') then
-    AssignFile(f,'~/.local/share/mime/globs')
-  else if FileExists('/usr/local/share/mime/globs') then
-    AssignFile(f,'/usr/local/share/mime/globs')
-  else if FileExists('/usr/share/mime/globs') then
-    AssignFile(f,'/usr/share/mime/globs')
-  else
-    exit;
-  Reset(f);
-  while not eof(f) do
-    begin
-      readln(f,tmp);
-      if copy(tmp,pos(':*.',tmp)+3,length(tmp)) = Extension then
-        result := copy(tmp,0,pos(':*.',tmp)-1);
-    end;
-  CloseFile(f);
-{$endif}
-end;
 function GetProcessforExtension(InfoTyp : TProcessinfoTyp;Extension : string) : string;
 var
 {$ifdef MSWINDOWS}
