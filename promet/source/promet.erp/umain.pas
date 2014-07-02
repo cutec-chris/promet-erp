@@ -375,6 +375,9 @@ begin
   Result := False;
   if copy(aMessage,0,9) = 'OpenLink(' then
     begin
+      if fMain.WindowState=wsMinimized then
+        fMain.WindowState:=wsNormal;
+      fMain.BringToFront;
       tmp := copy(aMessage,10,length(aMessage));
       tmp := copy(tmp,0,length(tmp)-1);
       Data.GotoLink(tmp);
@@ -828,7 +831,7 @@ begin
         DataSetType:=TMessageList;
         Synchronize(@DoCreate);
         fMain.pcPages.AddTabClass(TfMessageFrame,strMessages,nil,Data.GetLinkIcon('MESSAGEIDX@'),True);
-        Data.RegisterLinkHandler('MESSAGEIDX',@fMainTreeFrame.OpenLink,TMessage);
+        Data.RegisterLinkHandler('MESSAGEIDX',@fMainTreeFrame.OpenLink,uMessages.TMessage);
         AddSearchAbleDataSet(TMessageList);
       except
       end;
@@ -1472,7 +1475,7 @@ var
   ID: String;
   nData : TTreeEntry;
   aMessages: TMessageList;
-  aMessage: TMessage;
+  aMessage: uMessages.TMessage;
   aFrame: TTabSheet;
   aConn: TComponent;
   a: Integer;
@@ -1507,7 +1510,7 @@ begin
                   fWaitForm.ShowInfo(Format(strDeletingMessages,[a]));
                   aTime := GetTickCount;
                 end;
-              aMessage := TMessage.Create(Self,Data,aConn);
+              aMessage := uMessages.TMessage.Create(Self,Data,aConn);
               aMessage.Select(aMessages.Id.AsInteger);
               aMessage.Open;
               aMessage.Delete;
@@ -2243,7 +2246,7 @@ var
   aLink: String;
   aFilter: TfFilter;
   aTNode: TTreeNode;
-  aMessage: TMessage;
+  aMessage: uMessages.TMessage;
   aTreeEntry: TTreeEntry;
   aTask: TTask;
   ls: TListItem;
@@ -2307,7 +2310,7 @@ begin
                 begin
                   Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
                   Data.Tree.GotoBookmark(aTreeEntry.Rec);
-                  aMessage := TMessage.Create(Self,Data);
+                  aMessage := uMessages.TMessage.Create(Self,Data);
                   while pos(';',aLinks)>0 do
                     begin
                       aLink := copy(aLinks,0,pos(';',aLinks)-1);
@@ -2326,7 +2329,7 @@ begin
                 end
               else if (aTreeEntry.Typ = etTasks) then
                 begin
-                  aMessage := TMessage.Create(Self,Data);
+                  aMessage := uMessages.TMessage.Create(Self,Data);
                   aMessage.SelectFromLink(aLink);
                   aMessage.Open;
                   if aMessage.Count > 0 then
@@ -3480,7 +3483,7 @@ begin
   Data.GotoLink(SearchLinks[lbresults.ItemIndex]);
 end;
 procedure TfMain.lbResultsDrawItem(Control: TWinControl; Index: Integer;
-  ARect: TRect; State: TOwnerDrawState);
+  ARect: TRect; State: StdCtrls.TOwnerDrawState);
 begin
   with Control as TListBox do
     begin
