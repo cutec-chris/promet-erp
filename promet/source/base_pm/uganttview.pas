@@ -389,7 +389,8 @@ var
   aDrawRect: TRect;
 begin
   Taskplan.aIDrawBackgroundWeekends(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth,$e0e0e0,FSelectedCol);
-  Taskplan.aIDrawBackground(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth,Ligthen(clBlue,1),Ligthen(clLime,0.9),Ligthen(clRed,0.9),FSelectedCol);
+  if bShowTasks.Down then
+    Taskplan.aIDrawBackground(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth,Ligthen(clBlue,1),Ligthen(clLime,0.9),Ligthen(clRed,0.9),FSelectedCol);
   if Assigned(FSnapshots) then
     begin
       for i := 0 to FSnapshots.IntervalCount-1 do
