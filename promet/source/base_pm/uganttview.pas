@@ -1196,10 +1196,9 @@ var
             aInterval.Pointer := TRessource(FRessources[i]);
             TRessource(FRessources[i]).Accountno:=aTasks.FieldByName('USER').AsString;
             if (not Assigned(FProject)) or (Fproject.FieldByName('END').AsDateTime<Now()) then
-              aColFinish := Now()+365
+              aColFinish := Now()+100
             else
               aColFinish := FProject.FieldByName('END').AsDateTime+30;
-            iHourglass.Visible:=True;
             aTh := TCollectThread.Create(FGantt.Calendar,Now()-30,aColFinish,TRessource(FRessources[i]),aTasks.FieldByName('USER').AsString,False,True,True,aInterval);
             aTh.Resume;
             FThreads.Add(TCollectThread.Create(FGantt.Calendar,Now()-30,aColFinish,TRessource(FRessources[i]),aTasks.FieldByName('USER').AsString,True,False,True,aInterval));
