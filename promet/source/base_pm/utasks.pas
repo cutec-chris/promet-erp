@@ -798,6 +798,8 @@ var
   aLink: String = '';
   aFile: String;
   sl: TStringList;
+  aUser: TUser;
+  aDesc: String = '';
 begin
   fSearch.SetLanguage;
   i := 0;
@@ -825,7 +827,34 @@ begin
       sl.Add(aLink);
       sl.SaveToFile(aFile);
       sl.Free;
-      DoSendMail(Data.GetLinkDesc(aLink),Data.GetLinkLongDesc(aLink), aFile,'','','',FSearcheMail);
+      if Data.GetLinkLongDesc(aLink)<>'' then
+        aDesc := strDescription+':'+LineEnding+Data.GetLinkLongDesc(aLink);
+      if FGridView.DataSet.FieldByName('OWNER').AsString<>'' then
+        begin
+          aUser := TUser.Create(nil,Data);
+          aUser.SelectByAccountno(FGridView.DataSet.FieldByName('OWNER').AsString);
+          aUser.Open;
+          if aUser.Count>0 then;
+            aDesc := strResponsable+':'+aUser.FieldByName('NAME').AsString;
+          aUser.Free;
+        end;
+      if FGridView.DataSet.FieldByName('USER').AsString<>'' then
+        begin
+          aUser := TUser.Create(nil,Data);
+          aUser.SelectByAccountno(FGridView.DataSet.FieldByName('USER').AsString);
+          aUser.Open;
+          if aUser.Count>0 then;
+            aDesc := strWorker+':'+aUser.FieldByName('NAME').AsString;
+          aUser.Free;
+        end;
+      if FGridView.DataSet.FieldByName('PROJECT').AsString<>'' then
+        aDesc := strProject+':'+FGridView.DataSet.FieldByName('PROJECT').AsString;
+      if FGridView.DataSet.FieldByName('STARTDATE').AsString<>'' then
+        aDesc := strStart+':'+FGridView.DataSet.FieldByName('STARTDATE').AsString;
+      if FGridView.DataSet.FieldByName('DUEDATE').AsString<>'' then
+        aDesc := strDue+':'+FGridView.DataSet.FieldByName('DUEDATE').AsString;
+      aDesc := strTask+':'+FGridView.DataSet.FieldByName('SUMMARY').AsString;
+      DoSendMail(strTask+':'+Data.GetLinkDesc(aLink),aDesc, aFile,'','','',FSearcheMail);
     end;
 end;
 

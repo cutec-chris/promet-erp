@@ -92,6 +92,7 @@ resourcestring
   strLists                      = 'Listen';
   strCreatedby                  = 'erstellt von';
   strDue                        = 'Bis';
+  strTask                       = 'Aufgabe';
   strStart                      = 'Start';
   strSummary                    = 'Zusammenfassung';
   strStatusChanged              = 'Status geändert von %s zu %s';
