@@ -2678,6 +2678,15 @@ inherited fTaskFrame: TfTaskFrame
       ImageIndex = 4
       OnExecute = acTerminateExecute
     end
+    object acInformwithexternMail: TAction
+      Caption = 'Mit externem e-Mail Programm informieren'
+      ImageIndex = 53
+      OnExecute = acInformwithexternMailExecute
+    end
+    object acInformwithinternMail: TAction
+      Caption = 'Mit e-Mail informieren'
+      ImageIndex = 53
+    end
   end
   object Datasource: TDataSource[7]
     OnStateChange = DatasourceStateChange
@@ -3153,6 +3162,9 @@ inherited fTaskFrame: TfTaskFrame
     end
     object miCopyLink: TMenuItem
       Action = fGridView.acCopyLink
+    end
+    object MenuItem13: TMenuItem
+      Action = acInformwithexternMail
     end
   end
 end

@@ -54,6 +54,8 @@ type
     acSetUser: TAction;
     acAppendLinkToDependencies: TAction;
     acTerminate: TAction;
+    acInformwithexternMail: TAction;
+    acInformwithinternMail: TAction;
     acUnmakeSubTask: TAction;
     ActionList: TActionList;
     ActionList1: TActionList;
@@ -104,6 +106,7 @@ type
     MenuItem10: TMenuItem;
     MenuItem11: TMenuItem;
     MenuItem12: TMenuItem;
+    MenuItem13: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem7: TMenuItem;
@@ -171,6 +174,7 @@ type
     procedure acDelPosExecute(Sender: TObject);
     procedure acFilterExecute(Sender: TObject);
     procedure acGotoProjectExecute(Sender: TObject);
+    procedure acInformwithexternMailExecute(Sender: TObject);
     procedure acLinkExecute(Sender: TObject);
     procedure acMAkeSubTaskExecute(Sender: TObject);
     procedure acMarkSeenExecute(Sender: TObject);
@@ -218,12 +222,14 @@ type
     function fSearchOpenItem(aLink: string): Boolean;
     function fSearchOpenOwnerItem(aLink: string): Boolean;
     function fSearchOpenUserItem(aLink: string): Boolean;
+    function fSearchOpenUserMailItem(aLink: string): Boolean;
     procedure lbResultsDblClick(Sender: TObject);
     procedure DoInsertInplaceSearch(Data : PtrInt);
     procedure pmGridPopup(Sender: TObject);
     procedure ReportGetValue(const ParName: String; var ParValue: Variant);
     procedure seMaxresultsChange(Sender: TObject);
   private
+    FSearcheMail : string;
     FFilter: string;
     FFilterType : string;
     FBaseFilter: string;
@@ -280,13 +286,13 @@ resourcestring
   strSearchFromTasks                       = 'Mit Öffnen wird das gewählte Projekt in die Aufgabe übernommen';
   strAssignedTasks                         = 'Aufgaben: %s';
   strMyTasks                               = 'von mir erstellte Aufgaben: %s';
-  strUnterminatedDependencies              = 'Es gibt unterminierte Abhängigkeiten für deise Aufgabe:'+lineending+'%s';
+  strUnterminatedDependencies              = 'Es gibt unterminierte Abhängigkeiten für diese Aufgabe:'+lineending+'%s';
   strFailed                                = 'Fehlgeschlagen';
 implementation
 uses uRowEditor,uTask,ubasevisualapplicationtools,uData,uMainTreeFrame,
   uSearch,uProjects,uTaskEdit,uBaseApplication,LCLType,uBaseERPDBClasses,
   uSelectReport,uFormAnimate,md5,uNRights,uBaseVisualControls,
-  uBaseVisualApplication,uError;
+  uBaseVisualApplication,uError,uSendMail,uPerson,Utils;
 procedure TfTaskFrame.SetDataSet(const AValue: TBaseDBDataSet);
 var
   aFilter: String = '';
@@ -524,6 +530,40 @@ begin
   pSearch.Visible:=False;
   aUSer.Free;
 end;
+
+function TfTaskFrame.fSearchOpenUserMailItem(aLink: string): Boolean;
+var
+  aUser: TUser;
+  aCont: TPerson;
+  aFile: String;
+  sl: TStringList;
+begin
+  if pos('USERS',aLink)>0 then
+    begin
+      aUser := TUser.Create(nil,Data);
+      aUser.SelectFromLink(aLink);
+      aUser.Open;
+      if aUser.Count>0 then
+        begin
+          FSearcheMail := trim(aUser.FieldByName('EMAIL').AsString);
+        end;
+      aUser.Free;
+    end
+  else
+    begin
+      aCont := TPerson.Create(nil,Data);
+      aCont.SelectFromLink(aLink);
+      aCont.Open;
+      if aCont.Count>0 then
+        begin
+          aCont.CustomerCont.Open;
+          if aCont.CustomerCont.Locate('TYPE;ACTIVE',VarArrayOf(['EM','Y']),[loPartialKey]) then
+            FSearcheMail := aCont.CustomerCont.FieldByName('DATA').AsString;
+        end;
+      aCont.Free;
+    end;
+end;
+
 procedure TfTaskFrame.lbResultsDblClick(Sender: TObject);
 begin
   if lbResults.ItemIndex < 0 then exit;
@@ -751,6 +791,44 @@ begin
     Data.GotoLink(Data.BuildLink(aProject.DataSet));
   aProject.Free;
 end;
+
+procedure TfTaskFrame.acInformwithexternMailExecute(Sender: TObject);
+var
+  i: Integer;
+  aLink: String = '';
+  aFile: String;
+  sl: TStringList;
+begin
+  fSearch.SetLanguage;
+  i := 0;
+  while i < fSearch.cbSearchType.Count do
+    begin
+      if  (fSearch.cbSearchType.Items[i] <> strUsers)
+      and (fSearch.cbSearchType.Items[i] <> strCustomers) then
+        fSearch.cbSearchType.Items.Delete(i)
+      else
+        inc(i);
+    end;
+  fSearch.eContains.Clear;
+  fSearch.sgResults.RowCount:=1;
+  fSearch.OnOpenItem:=@fSearchOpenUserMailItem;
+  FSearcheMail:='';
+  fSearch.Execute(True,'LISTU',strSearchFromMailSelect);
+  fSearch.SetLanguage;
+  if FGridView.GotoActiveRow then
+    aLink := FGridView.DataSet.GetLink;
+  if (aLink<>'') then
+    begin
+      with BaseApplication as IBaseApplication do
+        aFile := GetInternalTempDir+ValidateFileName(Data.GetLinkDesc(aLink))+'.plink';
+      sl := TStringList.Create;
+      sl.Add(aLink);
+      sl.SaveToFile(aFile);
+      sl.Free;
+      DoSendMail(Data.GetLinkDesc(aLink),Data.GetLinkLongDesc(aLink), aFile,'','','',FSearcheMail);
+    end;
+end;
+
 procedure TfTaskFrame.acLinkExecute(Sender: TObject);
 var
   aRow: LongInt;

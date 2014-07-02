@@ -89,6 +89,7 @@ type
     property FullCount : Integer read GetFullCount;
     function GetBookmark: LargeInt;
     function GotoBookmark(aRec : Variant) : Boolean;
+    function GetLink : string;
     procedure FreeBookmark(aRec : Variant);
     procedure DuplicateRecord(DoPost : Boolean = False);
     property Connection : TComponent read GetConnection;
@@ -2719,6 +2720,12 @@ begin
         Result := DataSet.Locate('SQL_ID',aRec,[]);
     end;
 end;
+
+function TBaseDBDataset.GetLink: string;
+begin
+  Result := TBaseDBModule(DataModule).BuildLink(FDataSet);
+end;
+
 procedure TBaseDBDataset.FreeBookmark(aRec: Variant);
 begin
 end;
