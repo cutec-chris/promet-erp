@@ -815,6 +815,8 @@ begin
   fSearch.sgResults.RowCount:=1;
   fSearch.OnOpenItem:=@fSearchOpenUserMailItem;
   FSearcheMail:='';
+  if FGridView.GotoActiveRow then
+    aLink := FGridView.DataSet.GetLink;
   if FGridView.DataSet.FieldByName('USER').AsString<>'' then
     begin
       aUser := TUser.Create(nil,Data);
@@ -824,11 +826,9 @@ begin
         FSearcheMail := trim(aUser.FieldByName('EMAIL').AsString);
       aUser.Free;
     end;
-  if FSearcheMail='' then;
+  if FSearcheMail='' then
     fSearch.Execute(True,'LISTU',strSearchFromMailSelect);
   fSearch.SetLanguage;
-  if FGridView.GotoActiveRow then
-    aLink := FGridView.DataSet.GetLink;
   if (aLink<>'') then
     begin
       with BaseApplication as IBaseApplication do
