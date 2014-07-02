@@ -61,6 +61,7 @@ type
     bToday: TSpeedButton;
     bWeekView: TSpeedButton;
     cbSnapshot: TComboBox;
+    iHourglass: TImage;
     Label4: TLabel;
     Label8: TLabel;
     Label9: TLabel;
@@ -285,6 +286,8 @@ procedure TfGanttView.TCollectThreadTerminate(Sender: TObject);
 begin
   if FThreads.IndexOf(Sender) > -1 then
     FThreads.Remove(Sender);
+  if FThreads.Count=0 then
+    iHourglass.Visible:=False;
   FGantt.Invalidate;
 end;
 
@@ -1195,6 +1198,7 @@ var
               aColFinish := Now()+365
             else
               aColFinish := FProject.FieldByName('END').AsDateTime+30;
+            iHourglass.Visible:=True;
             aTh := TCollectThread.Create(FGantt.Calendar,Now()-30,aColFinish,TRessource(FRessources[i]),aTasks.FieldByName('USER').AsString,False,True,True,aInterval);
             aTh.Resume;
             FThreads.Add(TCollectThread.Create(FGantt.Calendar,Now()-30,aColFinish,TRessource(FRessources[i]),aTasks.FieldByName('USER').AsString,True,False,True,aInterval));
@@ -1548,7 +1552,10 @@ begin
       if bShowTasks.Down then
         begin
           if FThreads.Count>0 then
-            TCollectThread(FThreads[0]).Resume
+            begin
+              TCollectThread(FThreads[0]).Resume;
+              iHourglass.Visible:=True;
+            end
           else
             FGantt.Invalidate;
         end;
