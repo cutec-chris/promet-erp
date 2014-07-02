@@ -266,7 +266,6 @@ uses uRowEditor,uSearch, uBaseVisualApplicationTools, uBaseVisualApplication ,
 resourcestring
   strRecordCount                            = '%d Einträge';
   strFullRecordCount                        = 'von %d werden %d Einträge angezeigt';
-  strSearchFromMailSelect                   = 'Hier könenn Sie einen Benutzer oder Kontakt zum informieren suchen, wenn Sie die Suche abbrechen müssen Sie den zu Informierenden im e-Mail Programm suchen';
 
 function AddTab(aPage : TTabSheet;DataSet : TBaseDBDataset): TfFilter;
 begin

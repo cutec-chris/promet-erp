@@ -33,6 +33,8 @@ type
     acCopyLink: TAction;
     acSaveToLink: TAction;
     acSearchContained: TAction;
+    acInformwithexternMail: TAction;
+    acInformwithinternMail: TAction;
     ActionList1: TActionList;
     bClose: TBitBtn;
     bEditFilter: TSpeedButton;
@@ -58,6 +60,7 @@ type
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
+    MenuItem7: TMenuItem;
     Panel1: TPanel;
     Panel5: TPanel;
     pTop: TPanel;
@@ -73,6 +76,7 @@ type
     Splitter2: TSplitter;
     HistorySearchTimer: TTimer;
     procedure acCopyLinkExecute(Sender: TObject);
+    procedure acInformwithexternMailExecute(Sender: TObject);
     procedure acOpenExecute(Sender: TObject);
     procedure acSaveToLinkExecute(Sender: TObject);
     procedure acSearchContainedExecute(Sender: TObject);
@@ -97,6 +101,7 @@ type
     procedure FormHide(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormShow(Sender: TObject);
+    function fSearchOpenUserItem(aLink: string): Boolean;
     procedure HistorySearchTimerTimer(Sender: TObject);
     procedure IdleTimer1Timer(Sender: TObject);
     procedure IdleTimerTimer(Sender: TObject);
@@ -112,6 +117,7 @@ type
       Y: Integer);
     procedure sgResultsResize(Sender: TObject);
   private
+    FSearcheMail : string;
     FOpenItem: TOpenItemEvent;
     FValidItem: TOpenItemEvent;
     { private declarations }
@@ -146,10 +152,11 @@ var
   fSearch: TfSearch;
 implementation
 uses uBaseDBInterface,uBaseApplication,uBaseVisualControls,uFormAnimate,
-  uBaseVisualApplication,uData,uBaseERPDBClasses,uMasterdata,LCLProc
+  uBaseVisualApplication,uData,uBaseERPDBClasses,uMasterdata,LCLProc,uSendMail,
+  uPerson,variants
   ;
 resourcestring
-  strSearchfromOrderMode        = 'Diese Suche wurde aus der Vorgangsverwaltung gestartet, wenn Sie einen Eintrag öffnen, wird dieser automatisch in den aktuellen Vorgang übernommen.';
+  strSearchfromOrderMode        = 'Diese Suche wurde aus der Vorgangsverwaltung gestartet, wenn Sie einen Eintrag öffnen wird dieser automatisch in den aktuellen Vorgang übernommen.';
   strDoSearch                   = 'suchen';
 procedure TfSearch.bCloseClick(Sender: TObject);
 begin
@@ -300,6 +307,43 @@ begin
   Clipboard.AddFormat(LinkClipboardFormat,Stream);
   Stream.Free;
 end;
+
+procedure TfSearch.acInformwithexternMailExecute(Sender: TObject);
+var
+  i: Integer;
+  aLink: String;
+  aFile: String;
+  sl: TStringList;
+begin
+  fSearch.SetLanguage;
+  i := 0;
+  while i < fSearch.cbSearchType.Count do
+    begin
+      if  (fSearch.cbSearchType.Items[i] <> strUsers)
+      and (fSearch.cbSearchType.Items[i] <> strCustomers) then
+        fSearch.cbSearchType.Items.Delete(i)
+      else
+        inc(i);
+    end;
+  fSearch.eContains.Clear;
+  fSearch.sgResults.RowCount:=1;
+  fSearch.OnOpenItem:=@fSearchOpenUserItem;
+  FSearcheMail:='';
+  fSearch.Execute(True,'LISTU',strSearchFromMailSelect);
+  fSearch.SetLanguage;
+  aLink := GetLink;
+  if (aLink<>'') then
+    begin
+      with BaseApplication as IBaseApplication do
+        aFile := GetInternalTempDir+ValidateFileName(Data.GetLinkDesc(aLink))+'.plink';
+      sl := TStringList.Create;
+      sl.Add(aLink);
+      sl.SaveToFile(aFile);
+      sl.Free;
+      DoSendMail(Data.GetLinkDesc(aLink),Data.GetLinkLongDesc(aLink), aFile,'','','',FSearcheMail);
+    end;
+end;
+
 procedure TfSearch.DoSearch(Sender: TObject);
 var
   SearchTypes : TFullTextSearchTypes = [];
@@ -507,6 +551,39 @@ begin
       cbWildgards.Checked:=DBConfig.ReadString('WILDGARDSEARCH','NO') = 'YES';
       eContains.SetFocus;
       eContains.SelectAll;
+    end;
+end;
+
+function TfSearch.fSearchOpenUserItem(aLink: string): Boolean;
+var
+  aUser: TUser;
+  aCont: TPerson;
+  aFile: String;
+  sl: TStringList;
+begin
+  if pos('USERS',aLink)>0 then
+    begin
+      aUser := TUser.Create(nil,Data);
+      aUser.SelectFromLink(aLink);
+      aUser.Open;
+      if aUser.Count>0 then
+        begin
+          FSearcheMail := trim(aUser.FieldByName('EMAIL').AsString);
+        end;
+      aUser.Free;
+    end
+  else
+    begin
+      aCont := TPerson.Create(nil,Data);
+      aCont.SelectFromLink(aLink);
+      aCont.Open;
+      if aCont.Count>0 then
+        begin
+          aCont.CustomerCont.Open;
+          if aCont.CustomerCont.Locate('TYPE;ACTIVE',VarArrayOf(['EM','Y']),[loPartialKey]) then
+            FSearcheMail := aCont.CustomerCont.FieldByName('DATA').AsString;
+        end;
+      aCont.Free;
     end;
 end;
 

@@ -1049,61 +1049,113 @@ LazarusResources.Add('TfFilter','FORMDATA',[
   +#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255
   +#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0
   +#255#255#255#0#255#255#255#0#0#0#9'TMenuItem'#9'MenuItem3'#6'Action'#7#22'ac'
-  +'InformwithexternMail'#0#0#0#242#2#7#11'TActionList'#10'ActionList'#6'Images'
-  +#7#22'fVisualControls.Images'#4'left'#2' '#3'top'#2'7'#0#7'TAction'#12'acSav'
-  +'eFilter'#7'Caption'#6#12'acSaveFilter'#4'Hint'#6#20'speichert den Filter'#9
-  +'OnExecute'#7#19'acSaveFilterExecute'#0#0#7'TAction'#14'acFilterRights'#7'Ca'
-  +'ption'#6#14'acFilterRights'#4'Hint'#6'!setzte die Rechte f'#195#188'r den F'
-  +'ilter'#10'ImageIndex'#2'd'#9'OnExecute'#7#21'acFilterRightsExecute'#0#0#7'T'
-  +'Action'#14'acDeleteFilter'#7'Caption'#6#14'acDeleteFilter'#4'Hint'#6#18'l'
-  +#195#182'scht den Filter'#9'OnExecute'#7#21'acDeleteFilterExecute'#0#0#7'TAc'
-  +'tion'#8'acFilter'#7'Caption'#6#7'Filtern'#4'Hint'#6'zaktiviert den gew'#195
-  +#164'hlten Filter, '#13#10'w'#195#164'hlen Sie den ersten Eintrag (leereintr'
-  +'ag) '#13#10'und klicken Sie hier um nicht zu filtern'#9'OnExecute'#7#15'acF'
-  +'ilterExecute'#8'ShortCut'#3'F@'#0#0#7'TAction'#6'acOpen'#7'Caption'#6#7#195
-  +#150'ffnen'#10'ImageIndex'#2#19#9'OnExecute'#7#13'acOpenExecute'#8'ShortCut'
-  +#3'O@'#0#0#7'TAction'#10'acCopyLink'#7'Caption'#6#20'als Verweis kopieren'#10
-  +'ImageIndex'#2#23#9'OnExecute'#7#17'acCopyLinkExecute'#0#0#7'TAction'#8'acIm'
-  +'port'#7'Caption'#6#11'Importieren'#9'OnExecute'#7#15'acImportExecute'#0#0#7
-  +'TAction'#8'acExport'#7'Caption'#6#11'Exportieren'#9'OnExecute'#7#15'acExpor'
-  +'tExecute'#0#0#7'TAction'#7'acPrint'#7'Caption'#6#7'Drucken'#4'Hint'#6#25'Ze'
-  +'igt die Druckbelegliste'#10'ImageIndex'#2'L'#9'OnExecute'#7#14'acPrintExecu'
-  +'te'#8'ShortCut'#3'P@'#0#0#7'TAction'#15'acDefaultFilter'#7'Caption'#6#14'St'
-  +'andardfilter'#4'Hint'#6'dsetzt den Filter f'#195#188'r diese Ansicht als St'
-  +'andard'#10'die Ansicht wird ab nun mit diesem Filter ge'#195#182'ffnet'#10
-  +'ImageIndex'#2'W'#9'OnExecute'#7#22'acDefaultFilterExecute'#0#0#7'TAction'#10
-  +'acSaveLink'#7'Caption'#6'#als Verweisdatei (.plink) speichern'#10'ImageInde'
-  +'x'#2'F'#9'OnExecute'#7#17'acSaveLinkExecute'#0#0#7'TAction'#16'acCopyFilter'
-  +'Link'#7'Caption'#6#16'acCopyFilterLink'#4'Hint'#6#27'Filter als Verweis kop'
-  +'ieren'#10'ImageIndex'#2#23#9'OnExecute'#7#23'acCopyFilterLinkExecute'#0#0#7
-  +'TAction'#22'acInformwithexternMail'#7'Caption'#6'%Mit externem Mailprogramm'
-  +' informieren'#10'ImageIndex'#2'5'#9'OnExecute'#7#29'acInformwithexternMailE'
-  +'xecute'#0#0#7'TAction'#22'acInformwithinternMail'#7'Caption'#6#22'Mit e-Mai'
-  +'l informieren'#10'ImageIndex'#2'5'#0#0#0#242#2#8#10'TIdleTimer'#13'DblClick'
-  +'Timer'#7'Enabled'#8#8'Interval'#2'd'#7'OnTimer'#7#18'DblClickTimerTimer'#4
-  +'left'#2'-'#3'top'#3#214#0#0#0#242#2#9#10'TPopupMenu'#8'pmAction'#4'left'#2
-  +' '#3'top'#3#144#0#0#9'TMenuItem'#8'miExport'#6'Action'#7#8'acExport'#0#0#9
-  +'TMenuItem'#8'miImport'#6'Action'#7#8'acImport'#0#0#0#242#2#10#12'TfrDBDataS'
-  +'et'#5'PList'#10'DataSource'#7#4'List'#4'left'#3#128#0#3'top'#2'7'#0#0#242#2
-  +#11#9'TfrReport'#6'Report'#7'Dataset'#7#5'PList'#13'DefaultCopies'#2#0#11'In'
-  +'itialZoom'#7#9'pzDefault'#7'Options'#11#0#14'PreviewButtons'#11#6'pbZoom'#6
-  +'pbSave'#7'pbPrint'#6'pbFind'#6'pbExit'#0#8'DataType'#7#12'dtDataSource'#4'l'
-  +'eft'#3#128#0#3'top'#2'`'#0#0#242#2#12#11'TDataSource'#14'MandantDetails'#8
-  ,'AutoEdit'#8#4'left'#3#184#0#3'top'#2'`'#0#0#242#2#13#11'TDataSource'#5'User'
-  +'s'#8'AutoEdit'#8#4'left'#3#0#1#3'top'#2'`'#0#0#242#2#14#11'TDataSource'#7'H'
-  +'istory'#4'left'#3#184#0#3'top'#3#152#0#0#0#242#2#15#12'TfrDBDataSet'#8'PHis'
-  +'tory'#10'DataSource'#7#7'History'#4'left'#3#128#0#3'top'#3#152#0#0#0#242#2
-  +#16#10'TSynSQLSyn'#10'SynSQLSyn1'#13'DefaultFilter'#6#25'SQL-Dateien (*.sql)'
-  +'|*.sql'#7'Enabled'#8#23'CommentAttri.FrameEdges'#7#9'sfeAround'#24'DataType'
-  +'Attri.FrameEdges'#7#9'sfeAround'#30'DefaultPackageAttri.FrameEdges'#7#9'sfe'
-  +'Around'#25'ExceptionAttri.FrameEdges'#7#9'sfeAround'#24'FunctionAttri.Frame'
-  +'Edges'#7#9'sfeAround'#26'IdentifierAttri.FrameEdges'#7#9'sfeAround'#19'KeyA'
-  +'ttri.FrameEdges'#7#9'sfeAround'#22'NumberAttri.FrameEdges'#7#9'sfeAround'#21
-  +'PLSQLAttri.FrameEdges'#7#9'sfeAround'#21'SpaceAttri.FrameEdges'#7#9'sfeArou'
-  +'nd'#23'SQLPlusAttri.FrameEdges'#7#9'sfeAround'#22'StringAttri.FrameEdges'#7
-  +#9'sfeAround'#22'SymbolAttri.FrameEdges'#7#9'sfeAround'#25'TableNameAttri.Fr'
-  +'ameEdges'#7#9'sfeAround'#24'VariableAttri.FrameEdges'#7#9'sfeAround'#10'SQL'
-  +'Dialect'#7#9'sqlSybase'#4'left'#3#0#1#3'top'#3#152#0#0#0#242#2#17#11'TSaveD'
-  +'ialog'#14'LinkSaveDialog'#6'Filter'#6#19'Verweisdatei|.plink'#4'left'#2'S'#3
-  +'top'#3#144#0#0#0#0
+  +'InformwithexternMail'#11'Bitmap.Data'#10':'#4#0#0'6'#4#0#0'BM6'#4#0#0#0#0#0
+  +#0'6'#0#0#0'('#0#0#0#16#0#0#0#16#0#0#0#1#0' '#0#0#0#0#0#0#4#0#0'd'#0#0#0'd'#0
+  +#0#0#0#0#0#0#0#0#0#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0
+  +#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255
+  +#255#255#0#25'k7'#136#25'k7'#242#25'k7'#255#25'k7'#242#25'k7'#136#255#255#255
+  +#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255
+  +#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#25'k7'#132'('#140'S'#255
+  +'d'#186#141#255#149#210#178#255'd'#186#141#255'('#140'S'#255#25'k7'#140#255
+  +#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255
+  +#255#0#255#255#255#0#255#255#255#0#255#255#255#0#27'l9'#247'b'#186#139#255'`'
+  +#186#135#255#255#255#255#0'`'#185#135#255'g'#188#143#255#25'k7'#247#142'Q+'
+  +#191#176'c1'#239#187'p8'#250#190'w<'#251#193'{@'#251#194'~B'#251#194#128'E'
+  +#251#195#130'G'#251#195#134'I'#251'1{L'#255#156#212#182#255#255#255#255#0#255
+  +#255#255#0#255#255#255#0#149#210#178#255#25'k7'#255#163']1'#222#248#243#238
+  +#253#245#236#228#254#251#245#240#255#251#247#241#255#251#247#243#255#251#248
+  +#244#255#252#249#245#255#252#249#245#255'J'#139'b'#255#144#211#177#255#146
+  +#214#177#255#255#255#255#0'e'#188#140#255'g'#188#143#255#29'k7'#254#190'o<'
+  +#254#252#249#245#255#236#208#188#255#249#228#214#255#254#236#223#255#254#235
+  +#223#255#254#235#222#255#254#235#219#255#254#235#220#255#167#188#162#255'a'
+  +#171#129#255#149#212#180#255#186#230#208#255'j'#187#143#255'-'#143'W'#255'gy'
+  +'B'#255#194'vF'#255#253#251#248#255#249#227#210#255#236#207#185#255#248#225
+  +#208#255#253#231#214#255#244#213#189#255#233#191#160#255#233#191#162#255#244
+  +#211#189#255#173#190#163#255'`'#152's'#255'O'#142'f'#255'I'#136'^'#255#150
+  +#183#157#255#201#140'P'#255#197'}P'#255#253#251#249#255#253#233#216#255#249
+  +#225#208#255#235#202#179#255#236#197#167#255#227#182#152#255#247#231#221#255
+  +#247#232#222#255#227#182#151#255#236#195#164#255#234#197#169#255#248#218#194
+  +#255#252#223#198#255#248#243#237#255#200#141'P'#255#201#134'['#255#253#251
+  +#249#255#253#232#215#255#253#230#212#255#237#198#171#255#220#170#137#255#249
+  +#236#227#255#255#251#249#255#255#252#250#255#249#238#230#255#220#168#135#255
+  +#237#191#156#255#252#219#192#255#252#219#192#255#248#243#237#255#200#140'P'
+  +#255#204#142'f'#255#253#251#249#255#253#229#211#255#241#204#178#255#227#181
+  +#150#255#249#234#224#255#255#249#245#255#254#243#234#255#254#244#237#255#255
+  +#251#249#255#249#237#229#255#227#176#141#255#240#193#158#255#252#215#183#255
+  +#248#243#237#255#200#140'P'#255#208#150'p'#255#253#251#249#255#241#205#177
+  +#255#227#181#150#255#249#233#222#255#254#247#241#255#253#237#225#255#254#239
+  +#228#255#254#241#231#255#254#243#234#255#255#250#247#255#249#236#227#255#226
+  +#174#138#255#240#188#149#255#248#244#236#255#200#140'P'#255#211#157'{'#254
+  +#251#246#242#255#227#180#150#255#249#232#220#255#254#245#238#255#253#233#218
+  +#255#253#234#220#255#253#236#222#255#253#237#225#255#254#239#228#255#254#241
+  +#231#255#255#250#246#255#249#234#224#255#226#170#133#255#241#228#217#255#200
+  ,#140'P'#254#215#171#145#220#253#250#248#254#252#245#241#255#255#252#249#255
+  +#255#252#249#255#255#252#249#255#255#252#249#255#255#252#250#255#255#252#250
+  +#255#255#252#250#255#255#252#251#255#255#253#251#255#255#253#252#255#251#246
+  +#243#255#248#239#234#253#171'wC'#219#200#154'|'#191#213#164#132#240#208#151
+  +'p'#251#204#143'd'#253#204#142'b'#253#203#142'`'#253#202#140']'#253#201#139
+  +'['#253#200#138'X'#253#199#136'V'#253#198#134'S'#253#197#132'P'#253#196#130
+  +'M'#252#193#131'M'#247#178'yH'#227#142'Q+'#191#255#255#255#0#255#255#255#0
+  +#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255
+  +#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255
+  +#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0
+  +#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255
+  +#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255
+  +#255#0#255#255#255#0#255#255#255#0#255#255#255#0#0#0#0#242#2#7#11'TActionLis'
+  +'t'#10'ActionList'#6'Images'#7#22'fVisualControls.Images'#4'left'#2' '#3'top'
+  +#2'7'#0#7'TAction'#12'acSaveFilter'#7'Caption'#6#12'acSaveFilter'#4'Hint'#6
+  +#20'speichert den Filter'#9'OnExecute'#7#19'acSaveFilterExecute'#0#0#7'TActi'
+  +'on'#14'acFilterRights'#7'Caption'#6#14'acFilterRights'#4'Hint'#6'!setzte di'
+  +'e Rechte f'#195#188'r den Filter'#10'ImageIndex'#2'd'#9'OnExecute'#7#21'acF'
+  +'ilterRightsExecute'#0#0#7'TAction'#14'acDeleteFilter'#7'Caption'#6#14'acDel'
+  +'eteFilter'#4'Hint'#6#18'l'#195#182'scht den Filter'#9'OnExecute'#7#21'acDel'
+  +'eteFilterExecute'#0#0#7'TAction'#8'acFilter'#7'Caption'#6#7'Filtern'#4'Hint'
+  +#6'zaktiviert den gew'#195#164'hlten Filter, '#13#10'w'#195#164'hlen Sie den'
+  +' ersten Eintrag (leereintrag) '#13#10'und klicken Sie hier um nicht zu filt'
+  +'ern'#9'OnExecute'#7#15'acFilterExecute'#8'ShortCut'#3'F@'#0#0#7'TAction'#6
+  +'acOpen'#7'Caption'#6#7#195#150'ffnen'#10'ImageIndex'#2#19#9'OnExecute'#7#13
+  +'acOpenExecute'#8'ShortCut'#3'O@'#0#0#7'TAction'#10'acCopyLink'#7'Caption'#6
+  +#20'als Verweis kopieren'#10'ImageIndex'#2#23#9'OnExecute'#7#17'acCopyLinkEx'
+  +'ecute'#0#0#7'TAction'#8'acImport'#7'Caption'#6#11'Importieren'#9'OnExecute'
+  +#7#15'acImportExecute'#0#0#7'TAction'#8'acExport'#7'Caption'#6#11'Exportiere'
+  +'n'#9'OnExecute'#7#15'acExportExecute'#0#0#7'TAction'#7'acPrint'#7'Caption'#6
+  +#7'Drucken'#4'Hint'#6#25'Zeigt die Druckbelegliste'#10'ImageIndex'#2'L'#9'On'
+  +'Execute'#7#14'acPrintExecute'#8'ShortCut'#3'P@'#0#0#7'TAction'#15'acDefault'
+  +'Filter'#7'Caption'#6#14'Standardfilter'#4'Hint'#6'dsetzt den Filter f'#195
+  +#188'r diese Ansicht als Standard'#10'die Ansicht wird ab nun mit diesem Fil'
+  +'ter ge'#195#182'ffnet'#10'ImageIndex'#2'W'#9'OnExecute'#7#22'acDefaultFilte'
+  +'rExecute'#0#0#7'TAction'#10'acSaveLink'#7'Caption'#6'#als Verweisdatei (.pl'
+  +'ink) speichern'#10'ImageIndex'#2'F'#9'OnExecute'#7#17'acSaveLinkExecute'#0#0
+  +#7'TAction'#16'acCopyFilterLink'#7'Caption'#6#16'acCopyFilterLink'#4'Hint'#6
+  +#27'Filter als Verweis kopieren'#10'ImageIndex'#2#23#9'OnExecute'#7#23'acCop'
+  +'yFilterLinkExecute'#0#0#7'TAction'#22'acInformwithexternMail'#7'Caption'#6
+  +'(Mit externem e-Mail Programm informieren'#10'ImageIndex'#2'5'#9'OnExecute'
+  +#7#29'acInformwithexternMailExecute'#0#0#7'TAction'#22'acInformwithinternMai'
+  +'l'#7'Caption'#6#22'Mit e-Mail informieren'#10'ImageIndex'#2'5'#0#0#0#242#2#8
+  +#10'TIdleTimer'#13'DblClickTimer'#7'Enabled'#8#8'Interval'#2'd'#7'OnTimer'#7
+  +#18'DblClickTimerTimer'#4'left'#2'-'#3'top'#3#214#0#0#0#242#2#9#10'TPopupMen'
+  +'u'#8'pmAction'#4'left'#2' '#3'top'#3#144#0#0#9'TMenuItem'#8'miExport'#6'Act'
+  +'ion'#7#8'acExport'#0#0#9'TMenuItem'#8'miImport'#6'Action'#7#8'acImport'#0#0
+  +#0#242#2#10#12'TfrDBDataSet'#5'PList'#10'DataSource'#7#4'List'#4'left'#3#128
+  +#0#3'top'#2'7'#0#0#242#2#11#9'TfrReport'#6'Report'#7'Dataset'#7#5'PList'#13
+  +'DefaultCopies'#2#0#11'InitialZoom'#7#9'pzDefault'#7'Options'#11#0#14'Previe'
+  +'wButtons'#11#6'pbZoom'#6'pbSave'#7'pbPrint'#6'pbFind'#6'pbExit'#0#8'DataTyp'
+  +'e'#7#12'dtDataSource'#4'left'#3#128#0#3'top'#2'`'#0#0#242#2#12#11'TDataSour'
+  +'ce'#14'MandantDetails'#8'AutoEdit'#8#4'left'#3#184#0#3'top'#2'`'#0#0#242#2
+  +#13#11'TDataSource'#5'Users'#8'AutoEdit'#8#4'left'#3#0#1#3'top'#2'`'#0#0#242
+  +#2#14#11'TDataSource'#7'History'#4'left'#3#184#0#3'top'#3#152#0#0#0#242#2#15
+  +#12'TfrDBDataSet'#8'PHistory'#10'DataSource'#7#7'History'#4'left'#3#128#0#3
+  +'top'#3#152#0#0#0#242#2#16#10'TSynSQLSyn'#10'SynSQLSyn1'#13'DefaultFilter'#6
+  +#25'SQL-Dateien (*.sql)|*.sql'#7'Enabled'#8#23'CommentAttri.FrameEdges'#7#9
+  +'sfeAround'#24'DataTypeAttri.FrameEdges'#7#9'sfeAround'#30'DefaultPackageAtt'
+  +'ri.FrameEdges'#7#9'sfeAround'#25'ExceptionAttri.FrameEdges'#7#9'sfeAround'
+  +#24'FunctionAttri.FrameEdges'#7#9'sfeAround'#26'IdentifierAttri.FrameEdges'#7
+  +#9'sfeAround'#19'KeyAttri.FrameEdges'#7#9'sfeAround'#22'NumberAttri.FrameEdg'
+  +'es'#7#9'sfeAround'#21'PLSQLAttri.FrameEdges'#7#9'sfeAround'#21'SpaceAttri.F'
+  +'rameEdges'#7#9'sfeAround'#23'SQLPlusAttri.FrameEdges'#7#9'sfeAround'#22'Str'
+  ,'ingAttri.FrameEdges'#7#9'sfeAround'#22'SymbolAttri.FrameEdges'#7#9'sfeAroun'
+  +'d'#25'TableNameAttri.FrameEdges'#7#9'sfeAround'#24'VariableAttri.FrameEdges'
+  +#7#9'sfeAround'#10'SQLDialect'#7#9'sqlSybase'#4'left'#3#0#1#3'top'#3#152#0#0
+  +#0#242#2#17#11'TSaveDialog'#14'LinkSaveDialog'#6'Filter'#6#19'Verweisdatei|.'
+  +'plink'#4'left'#2'S'#3'top'#3#144#0#0#0#0
 ]);

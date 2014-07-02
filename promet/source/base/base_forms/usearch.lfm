@@ -601,6 +601,7 @@ object fSearch: TfSearch
     end
   end
   object ActionList1: TActionList
+    Images = fVisualControls.Images
     left = 32
     top = 304
     object acOpen: TAction
@@ -624,8 +625,18 @@ object fSearch: TfSearch
       ImageIndex = 8
       OnExecute = acSearchContainedExecute
     end
+    object acInformwithexternMail: TAction
+      Caption = 'Mit externem e-Mail Programm informieren'
+      ImageIndex = 53
+      OnExecute = acInformwithexternMailExecute
+    end
+    object acInformwithinternMail: TAction
+      Caption = 'Mit e-Mail informieren'
+      ImageIndex = 53
+    end
   end
   object PopupMenu1: TPopupMenu
+    Images = fVisualControls.Images
     OnPopup = PopupMenu1Popup
     left = 184
     top = 304
@@ -791,6 +802,9 @@ object fSearch: TfSearch
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
       }
+    end
+    object MenuItem7: TMenuItem
+      Action = acInformwithexternMail
     end
   end
   object IdleTimer: TTimer
