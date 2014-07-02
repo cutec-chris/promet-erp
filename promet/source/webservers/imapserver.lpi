@@ -105,7 +105,6 @@
     <Other>
       <CompilerMessages>
         <IgnoredMessages idx5024="True"/>
-        <UseMsgFile Value="True"/>
       </CompilerMessages>
       <CustomOptions Value="-dHASREPORTS
 -dSTATISTICS"/>
