@@ -884,9 +884,14 @@ begin
       mFulltext.SelLength:=aLen;
       if MessageDlg(Format(strSetDate,[DateToStr(bDate)]),mtInformation,[mbYes,mbNo],0) = mrYes then
         begin
-          TDocPages(FFullDataSet).Edit;
-          TDocPages(FFullDataSet).FieldByName('ORIGDATE').AsDateTime:=bDate;
-          TDocPages(FFullDataSet).Post;
+          TDocPages(FFullDataSet).Select(DataSet.Id.AsVariant);
+          TDocPages(FFullDataSet).Open;
+          if TDocPages(FFullDataSet).Count>0 then
+            begin
+              TDocPages(FFullDataSet).Edit;
+              TDocPages(FFullDataSet).FieldByName('ORIGDATE').AsDateTime:=bDate;
+              TDocPages(FFullDataSet).Post;
+            end;
         end;
     end;
 end;
@@ -915,12 +920,17 @@ procedure TfManageDocFrame.acMarkAsDoneExecute(Sender: TObject);
 begin
   if GotoCurrentItem then
     begin
-      TDocPages(DataSet).Edit;
-      if TDocPages(DataSet).FieldByName('DONE').AsString='Y' then
-        TDocPages(DataSet).FieldByName('DONE').Clear
-      else
-        TDocPages(DataSet).FieldByName('DONE').AsString:='Y';
-      TDocPages(DataSet).Post;
+      TDocPages(FFullDataSet).Select(DataSet.Id.AsVariant);
+      TDocPages(FFullDataSet).Open;
+      if TDocPages(FFullDataSet).Count>0 then
+        begin
+          TDocPages(FFullDataSet).Edit;
+          if TDocPages(FFullDataSet).FieldByName('DONE').AsString='Y' then
+            TDocPages(FFullDataSet).FieldByName('DONE').Clear
+          else
+            TDocPages(FFullDataSet).FieldByName('DONE').AsString:='Y';
+          TDocPages(FFullDataSet).Post;
+        end;
       if Assigned(ThumbControl1.ImageLoaderManager.ActiveItem.Pointer) then
         begin
           TImageItem(ThumbControl1.ImageLoaderManager.ActiveItem.Pointer).Free;
@@ -952,10 +962,15 @@ begin
           end;
         if trim(aText.Text) <> '' then
           begin
-            TDocPages(FFullDataSet).Edit;
-            TDocPages(FFullDataSet).FieldByName('FULLTEXT').AsString:=aText.Text;
-            mFulltext.Text:=aText.Text;
-            TDocPages(FFullDataSet).Post;
+            TDocPages(FFullDataSet).Select(DataSet.Id.AsVariant);
+            TDocPages(FFullDataSet).Open;
+            if TDocPages(FFullDataSet).Count>0 then
+              begin
+                TDocPages(FFullDataSet).Edit;
+                TDocPages(FFullDataSet).FieldByName('FULLTEXT').AsString:=aText.Text;
+                mFulltext.Text:=aText.Text;
+                TDocPages(FFullDataSet).Post;
+              end;
           end
         else Showmessage(strNoText);
         aText.Free;
