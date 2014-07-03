@@ -55,7 +55,7 @@ begin
     end;
     if (Body<>'') then
     begin
-      lpszNoteText := PChar(Body)
+      lpszNoteText := PChar(UTF8ToSys(Body))
     end;
     if (SenderEMail<>'') then
     begin

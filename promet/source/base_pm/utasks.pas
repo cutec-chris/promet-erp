@@ -845,7 +845,7 @@ begin
           aUser.SelectByAccountno(FGridView.DataSet.FieldByName('OWNER').AsString);
           aUser.Open;
           if aUser.Count>0 then;
-            aDesc := strResponsable+':'+aUser.FieldByName('NAME').AsString;
+            aDesc := strResponsable+':'+aUser.FieldByName('NAME').AsString+LineEnding+aDesc;
           aUser.Free;
         end;
       if FGridView.DataSet.FieldByName('USER').AsString<>'' then
@@ -854,16 +854,16 @@ begin
           aUser.SelectByAccountno(FGridView.DataSet.FieldByName('USER').AsString);
           aUser.Open;
           if aUser.Count>0 then;
-            aDesc := strWorker+':'+aUser.FieldByName('NAME').AsString;
+            aDesc := strWorker+':'+aUser.FieldByName('NAME').AsString+LineEnding+aDesc;
           aUser.Free;
         end;
       if FGridView.DataSet.FieldByName('PROJECT').AsString<>'' then
-        aDesc := strProject+':'+FGridView.DataSet.FieldByName('PROJECT').AsString;
+        aDesc := strProject+':'+FGridView.DataSet.FieldByName('PROJECT').AsString+LineEnding+aDesc;
       if FGridView.DataSet.FieldByName('STARTDATE').AsString<>'' then
-        aDesc := strStart+':'+FGridView.DataSet.FieldByName('STARTDATE').AsString;
+        aDesc := strStart+':'+FGridView.DataSet.FieldByName('STARTDATE').AsString+LineEnding+aDesc;
       if FGridView.DataSet.FieldByName('DUEDATE').AsString<>'' then
-        aDesc := strDue+':'+FGridView.DataSet.FieldByName('DUEDATE').AsString;
-      aDesc := strTask+':'+FGridView.DataSet.FieldByName('SUMMARY').AsString;
+        aDesc := strDue+':'+FGridView.DataSet.FieldByName('DUEDATE').AsString+LineEnding+aDesc;
+      aDesc := strTask+':'+FGridView.DataSet.FieldByName('SUMMARY').AsString+LineEnding+aDesc;
       DoSendMail(strTask+':'+Data.GetLinkDesc(aLink),aDesc, aFile,'','','',FSearcheMail);
     end;
 end;
