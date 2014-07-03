@@ -1244,7 +1244,7 @@ begin
       pRight.Visible := NewVisible;
       fRowEditor.GetGridSizes('FILTER'+FFilterType,List,gList,FDefaultRows,not FEditable,cbFilter.Text);
       aFilter := TStringList.Create;
-      for i := 1 to gHeader.Columns.Count-1 do
+      for i := 1 to gHeader.Columns.Count do
         aFilter.Add(gHeader.Cells[i,1]);
       gHeader.Columns.Assign(gList.Columns);
       for a := 0 to gList.Columns.Count-1 do
@@ -1255,7 +1255,7 @@ begin
         end;
       if Assigned(gList.DataSource.DataSet) and (gList.DataSource.DataSet.Active) then
         begin
-          for i := 1 to aFilter.Count-1 do
+          for i := 1 to aFilter.Count do
             gHeader.Cells[i,1] := aFilter[i-1];
         end;
       FAutoFilter := BuildAutoFilter(gList,gHeader);
@@ -1327,7 +1327,7 @@ begin
   ParseForms(FFilter);
   fRowEditor.GetGridSizes('FILTER'+FFilterType,List,gList,FDefaultRows,not FEditable,cbFilter.Text);
   aFilter := TStringList.Create;
-  for i := 1 to gHeader.Columns.Count-1 do
+  for i := 1 to gHeader.Columns.Count do
     aFilter.Add(gHeader.Cells[i,1]);
   gHeader.Columns.Assign(gList.Columns);
   if not aChanged then
@@ -1600,10 +1600,10 @@ begin
     begin
       fRowEditor.GetGridSizes('FILTER'+FFilterType,List,gList,FDefaultRows,not FEditable,cbFilter.Text);
       aFilter := TStringList.Create;
-      for i := 1 to gHeader.Columns.Count-1 do
+      for i := 1 to gHeader.Columns.Count do
         aFilter.Add(gHeader.Cells[i,1]);
       gHeader.Columns.Assign(gList.Columns);
-      for i := 1 to gHeader.Columns.Count-1 do
+      for i := 1 to gHeader.Columns.Count do
         begin
           if aFilter.Count >= i then
             gHeader.Cells[i,1] := aFilter[i-1]

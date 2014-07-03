@@ -652,7 +652,6 @@
       </Item13>
       <Item14>
         <Name Value="EFOpenError"/>
-        <Enabled Value="False"/>
       </Item14>
       <Item15>
         <Name Value="ESQLParser"/>
