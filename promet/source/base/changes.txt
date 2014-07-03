@@ -1,4 +1,8 @@
-﻿Build 359
+﻿Build 360
+      - Aufgben:Informieren per e-Mail
+      - Positionen:Zeichenfehler behoben (nach Framewechsel wurden Positionen nicht mehr angezeigt)
+Build 359
+      - Suche:Informieren per e-Mail
       - Imapserver:unterordner werden auch dargestellt
       - SVNServer in Webdavserver umbenannt (SVN Features werden derzeit nciht hinzugefügt, WebDAV ist komplett)
 Build 358

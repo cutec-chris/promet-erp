@@ -18,7 +18,7 @@ type
     procedure DataModuleGetAction(Sender: TObject; ARequest: TRequest;
       var ActionName: String);
     procedure FSearchItemFound(aIdent: string; aName: string; aStatus: string;aActive : Boolean;
-      aLink: string; aItem: TBaseDBList=nil);
+      aLink: string;aPrio : Integer; aItem: TBaseDBList=nil);
     procedure ReplaceBasketDetailTags(Sender: TObject; const TagString: String;
       TagParams: TStringList; out ReplaceText: String);
     procedure ReplaceDetailTags(Sender: TObject; const TagString: String;
@@ -337,7 +337,8 @@ begin
   ActionName := Result;
 end;
 procedure TfmShop.FSearchItemFound(aIdent: string; aName: string;
-  aStatus: string;aActive : Boolean; aLink: string; aItem: TBaseDBList=nil);
+  aStatus: string; aActive: Boolean; aLink: string; aPrio: Integer;
+  aItem: TBaseDBList);
 var
   LinkValue: String;
   aOffset: String;

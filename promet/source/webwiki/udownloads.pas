@@ -71,6 +71,7 @@ begin
     end;
   if FileExistsUTF8(aPath) and not DirectoryExistsUTF8(aPath) then
     begin
+      writeln('udownloads:started:'+aPath);
       aFile := TFileStream.Create(UTF8ToSys(aPath),fmOpenRead,fmShareDenyNone);
       AResponse.ContentType := 'application/'+copy(aExt,2,length(aExt));
       AResponse.Code := 200;
@@ -82,7 +83,7 @@ begin
     end
   else
     begin
-      //writeln('udownloads:File not found:'+aPath);
+      writeln('udownloads:File not found:'+aPath);
       AResponse.Code := 404;
       AResponse.CodeText := 'Not found';
       AResponse.SendContent;

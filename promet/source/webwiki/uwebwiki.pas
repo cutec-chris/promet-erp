@@ -37,7 +37,7 @@ type
       AResponse: TResponse; var Handled: Boolean);
     procedure fmWikiPageWikiInclude(Inp: string; var Outp: string;aLevel : Integer = 0);
     procedure FSearchItemFound(aIdent: string; aName: string; aStatus: string;aActive : Boolean;
-      aLink: string; aItem: TBaseDBList=nil);
+      aLink: string;aPrio : Integer; aItem: TBaseDBList=nil);
     procedure lastchangesrssRequest(Sender: TObject; ARequest: TRequest;
       AResponse: TResponse; var Handled: Boolean);
     procedure ReplaceMainTags(Sender: TObject; const TagString: String;
@@ -116,6 +116,8 @@ begin
   SearchItems.Free;
   MainMenue.Free;
   FTemplate.Free;
+  Documents.Free;
+  Wiki.Free;
 end;
 procedure TfmWikiPage.DataModuleGetAction(Sender: TObject; ARequest: TRequest;
   var ActionName: String);
@@ -292,7 +294,8 @@ begin
     end;
 end;
 procedure TfmWikiPage.FSearchItemFound(aIdent: string; aName: string;
-  aStatus: string;aActive : Boolean; aLink: string; aItem: TBaseDBList=nil);
+  aStatus: string; aActive: Boolean; aLink: string; aPrio: Integer;
+  aItem: TBaseDBList);
 var
   LinkValue: String;
   aOffset: String;
@@ -802,6 +805,7 @@ begin
           aWiki.DataSet.Next;
         end;
       ReplaceText := ReplaceText+TagParams.Values['CHANGFOOTER'];
+      aWiki.Free;
     end
   else
     ReplaceStdTags(Sender,TagString,TagParams,ReplaceText);

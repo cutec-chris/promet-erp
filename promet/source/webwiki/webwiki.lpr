@@ -23,6 +23,7 @@ begin
           AppVersion:={$I ../base/version.inc};
           AppRevision:={$I ../base/revision.inc};
         end;
+      writeln('setting config');
       SetConfigName('webconfig');
       RestoreConfig;
       writeln('login...');
