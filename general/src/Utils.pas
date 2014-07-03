@@ -44,6 +44,7 @@ function GetConfigDir(app : string) : string;
 function GetProgramDir : string;
 function GetGlobalConfigDir(app : string;Global : Boolean = True) : string;
 function SizeToText(size : Longint) : string;
+function GetMimeTypeforExtension(Extension : string) : string;
 function GetMainIconHandle(Resourcename : string) : Cardinal;
 function CanWriteToProgramDir : Boolean;
 function HexToBin(h: STRING): dword;
@@ -56,6 +57,44 @@ function ConvertUnknownStringdate(input : string) : TDateTime;
 function HTMLEncode(s : string)  : string;
 function HTMLDecode(s : string)  : string;
 IMPLEMENTATION
+function GetMimeTypeforExtension(Extension : string) : string;
+var
+{$ifdef MSWINDOWS}
+  reg : TRegistry;
+{$else}
+  f : TextFile;
+  tmp : string;
+{$endif}
+begin
+{$ifdef WINDOWS}
+  Result := '';
+  Reg := TRegistry.Create(KEY_READ);
+  Reg.RootKey := HKEY_CLASSES_ROOT;
+  if Reg.OpenKeyReadOnly(ExtractFileExt('.'+Extension)) then
+  begin
+    Result := Reg.ReadString('Content Type');
+    Reg.CloseKey;
+  end;
+  Reg.Free;
+{$ELSE}
+  if FileExists('~/.local/share/mime/globs') then
+    AssignFile(f,'~/.local/share/mime/globs')
+  else if FileExists('/usr/local/share/mime/globs') then
+    AssignFile(f,'/usr/local/share/mime/globs')
+  else if FileExists('/usr/share/mime/globs') then
+    AssignFile(f,'/usr/share/mime/globs')
+  else
+    exit;
+  Reset(f);
+  while not eof(f) do
+    begin
+      readln(f,tmp);
+      if copy(tmp,pos(':*.',tmp)+3,length(tmp)) = Extension then
+        result := copy(tmp,0,pos(':*.',tmp)-1);
+    end;
+  CloseFile(f);
+{$endif}
+end;
 function TimeTotext(Seconds : Integer) : string;
 var
   tmp : Integer;
@@ -766,4 +805,4 @@ begin
 end;
 END.
 
- 
+ 

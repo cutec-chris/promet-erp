@@ -29,10 +29,12 @@ echo "copy to builddir..."
 cp debian/promet-process.sh $BuildDir/etc/init.d/promet-process
 chmod 666 $BuildDir/etc/init.d/promet-process
 ln -s /usr/lib/$Program/web/imapserver $BuildDir/usr/bin/promet-erp-imap
+ln -s /usr/lib/$Program/web/webdavserver $BuildDir/usr/bin/promet-erp-webdav
 ln -s /usr/lib/$Program/web/local_appbase $BuildDir/usr/bin/promet-erp-appbase
 ln -s /usr/lib/$Program/web/mta $BuildDir/usr/bin/promet-erp-mta
 ln -s /usr/lib/$Program/web/nntpserver $BuildDir/usr/bin/promet-erp-nntp
 chmod 666 $BuildDir/usr/bin/promet-erp-imap
+chmod 666 $BuildDir/usr/bin/promet-erp-webdav
 chmod 666 $BuildDir/usr/bin/promet-erp-appbase
 chmod 666 $BuildDir/usr/bin/promet-erp-mta
 chmod 666 $BuildDir/usr/bin/promet-erp-nntp

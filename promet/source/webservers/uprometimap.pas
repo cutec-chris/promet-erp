@@ -108,7 +108,7 @@ begin
   Data.Users.GotoBookmark(FUser.GetBookmark);
   Data.Users.Rights.ResetCache;
   Data.RefreshUsersFilter;
-  Data.SetFilter(Data.Tree,Data.QuoteField('PARENT')+'=0 and '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('N')+' OR '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('B'),0,'','ASC',False,True,True);
+  Data.SetFilter(Data.Tree,Data.QuoteField('TYPE')+'='+Data.QuoteValue('N')+' OR '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('B'),0,'','ASC',False,True,True);
   with Data.Tree.DataSet do
     begin
       First;

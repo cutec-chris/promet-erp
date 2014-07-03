@@ -1,4 +1,7 @@
-﻿Build 358
+﻿Build 359
+      - Imapserver:unterordner werden auch dargestellt
+      - SVNServer in Webdavserver umbenannt (SVN Features werden derzeit nciht hinzugefügt, WebDAV ist komplett)
+Build 358
       - Suche:Suche berücksichtigt nun welche Einträge unter welchem Suchbegroff geöffnet wurden
               Suche wird nun in 3 Schritten ausgeführt 1. Suche nach bereits unter dem Suchbegriff gefundenen Daten
               2. Suche nach exakt dem Suchbegriff oder Nummer
