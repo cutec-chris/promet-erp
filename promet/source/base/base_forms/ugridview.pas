@@ -29,8 +29,7 @@ uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, DBGrids, ExtCtrls,
   Buttons, ComCtrls, uExtControls, db, Grids, ActnList, Menus, uBaseDBClasses,
   uBaseDbInterface, StdCtrls, Graphics, types, Clipbrd, LMessages,
-  ubasevisualapplicationtools, ZVDateTimePicker, Dialogs, EditBtn, DbCtrls,
-  Calendar;
+  ubasevisualapplicationtools, Dialogs, DbCtrls;
 type
   TUnprotectedGrid = class(TCustomGrid);
 
@@ -229,7 +228,6 @@ type
     FInpStringList : TStringList;
     FDataSet : TBaseDBDataSet;
     FSTextField: string;
-    aFirstFilter: String;
     FTextField: string;
     FTreeField: string;
     OldRow : Integer;
@@ -239,7 +237,6 @@ type
     InEdit: Boolean;
     FDontUpdate : Integer;
     FEditable : Boolean;
-    FEditText : string;
     FirstFocused : Boolean;
     aOldSize : Integer;
     FSearchKeyCol: TColumn;
@@ -369,8 +366,6 @@ type
 implementation
 uses uRowEditor,LCLType,LCLProc,LCLIntf,Themes,uIntfStrConsts,
   uData,uBaseVisualApplication,Math;
-const
-  INVALID_ROW_HEIGHT = 9;
 { TRowObject }
 
 function TRowObject.GetStringRec: string;
@@ -539,7 +534,7 @@ begin
   ColumnWidthHelper.Index := aCol-1;
   if ColumnWidthHelper.Index < 0 then Exit;
   ColumnWidthHelper.MaxWidth := -1;
-  TDBGrid(gList).Repaint;
+  gList.Repaint;
   aNewWidth := 8 + ColumnWidthHelper.MaxWidth;
 end;
 
@@ -679,8 +674,8 @@ begin
       for i := 0 to mInplace.Lines.Count-1 do
         inc(aLength,UTF8length(mInplace.Lines[i])+UTF8length(lineending));
       dec(aLength,UTF8length(lineending));
-      if ((Key = VK_DOWN) and (mInplace.SelStart >= aLength-length(mInplace.Lines[mInplace.Lines.Count-1])))
-      or ((Key = VK_RIGHT) and (mInplace.SelStart >= aLength))
+      if ((Key = VK_DOWN) and (mInplace.SelStart >= aLength-(length(mInplace.Lines[mInplace.Lines.Count-1])-1)))
+      or ((Key = VK_RIGHT) and (mInplace.SelStart >= aLength-1))
       then
         aLeave := True;
     end

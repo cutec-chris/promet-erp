@@ -196,6 +196,7 @@ type
     procedure DoSelect;
     procedure ShowPreview(DocID : Int64);
     procedure ShowFrame; override;
+    procedure SetFocus; override;
     procedure RefreshAddress;
   end;
 implementation
@@ -890,8 +891,15 @@ end;
 procedure TfOrderFrame.ShowFrame;
 begin
   inherited ShowFrame;
-  FPosFrame.GridView.SetupHeader;
+  //FPosFrame.GridView.SetupHeader;
 end;
+
+procedure TfOrderFrame.SetFocus;
+begin
+  inherited SetFocus;
+  FPosFrame.SetFocus;
+end;
+
 procedure TfOrderFrame.GotoPosition;
 begin
   FPosFrame.SetFocus;

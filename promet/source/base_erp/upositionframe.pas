@@ -207,7 +207,6 @@ begin
                 begin
                   if lbResults.ItemIndex = -1 then
                     begin
-                      lbResults.ItemIndex:=0;
                       pSearch.Visible := False;
                     end
                   else
@@ -825,7 +824,7 @@ begin
   if CanFocus and Visible then
     inherited;
   FGridView.SetFocus;
-  if FFirstShow then
+  if FGridView.IsVisible and FFirstShow then
     begin
       Application.QueueAsyncCall(@DoAsyncInit,0);
       FFirstshow := False;
