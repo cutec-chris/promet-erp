@@ -91,7 +91,7 @@ implementation
 uses uMessages,uData,uBaseDbInterface,uPerson,uIntfStrConsts,uMessageEdit,
   uMainTreeFrame,Utils,uWikiMessage;
 resourcestring
-  strCustomerNotFound                         = 'Person nicht gefunden !';
+  strCustomerNotFound                         = 'Kontakt nicht gefunden !';
   strNewMessageCView                          = '%s Neue Nachrichten';
   strNewUnknownMessageCView                   = '%s Neue unbekannte Nachrichten';
   strNewSendMessageCView                      = '%s ungesendete Nachrichten';

@@ -6085,7 +6085,7 @@ msgstr "-"
 
 #: tfpersonframe.accombineitems.caption
 msgid "Personen verschmelzen"
-msgstr "Personen verschmelzen"
+msgstr "Kontakte verschmelzen"
 
 #: tfpersonframe.accopy.caption
 msgctxt "TFPERSONFRAME.ACCOPY.CAPTION"
@@ -6113,7 +6113,7 @@ msgstr "Neuen Auftrag erstellen"
 
 #: tfpersonframe.acneworder.hint
 msgid "erstellt einen neuen Auftrag für diese Person"
-msgstr "erstellt einen neuen Auftrag für diese Person"
+msgstr "erstellt einen neuen Auftrag für diesen Kontakt"
 
 #: tfpersonframe.acpaste.caption
 msgctxt "TFPERSONFRAME.ACPASTE.CAPTION"
@@ -9445,7 +9445,7 @@ msgstr ""
 
 #: upersonframe.strnewperson
 msgid "neue Person"
-msgstr "neue Person"
+msgstr "neuer Kontakt"
 
 #: uprojecteditor.strprojectstatusactive
 msgid "A Aktiv"

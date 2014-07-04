@@ -190,7 +190,7 @@ resourcestring
   strInfo                       = 'Info';
   strInsertEventForBirthday     = 'Möchten Sie für diesen Geburtstag einen Eintrag in Ihren Kalender erzeugen ?';
   strBirthdayFrom               = 'Geburtstag von %s';
-  strNewPerson                  = 'neue Person';
+  strNewPerson                  = 'neuer Kontakt';
 
   scTelephone                   = 'TEL  Telefon';
   scBusinessPhone               = 'TELB Telefon Geschäftlich';
