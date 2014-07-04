@@ -166,6 +166,7 @@ type
     procedure acRightsExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
     procedure acSetTreeDirExecute(Sender: TObject);
+    procedure bProjectColorColorChanged(Sender: TObject);
     procedure cbStatusSelect(Sender: TObject);
     procedure eNameChange(Sender: TObject);
     procedure eManagerButtonClick(Sender: TObject);
@@ -694,6 +695,12 @@ begin
     end;
 end;
 
+procedure TfProjectFrame.bProjectColorColorChanged(Sender: TObject);
+begin
+  DataSet.Edit;
+  DataSet.FieldByName('COLOR').AsString:=ColorToString(bProjectColor.ButtonColor);
+end;
+
 procedure TfProjectFrame.cbStatusSelect(Sender: TObject);
 var
   tmp: String;
@@ -926,6 +933,9 @@ begin
 
   cbStatus.Items.Clear;
   cbStatus.Text := '';
+  if DataSet.FieldByName('COLOR').IsNull then
+    bProjectColor.ButtonColor:=clBlue
+  else bProjectColor.ButtonColor:=StringToColor(DataSet.FieldByName('COLOR').AsString);
   aType := 'P';
   if not Data.States.DataSet.Locate('TYPE;STATUS',VarArrayOf([aType,FDataSet.FieldByName('STATUS').AsString]),[loCaseInsensitive]) then
     begin

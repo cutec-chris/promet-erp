@@ -551,6 +551,8 @@ procedure TfProjectOVFrame.StartFilling;
       aInt.FinishDate:=aInt.StartDate+1;
     aInt.Visible:=True;
     aParent := IntervalById(aProjects.FieldByName('PARENT').AsVariant);
+    if not aProjects.FieldByName('COLOR').IsNull then
+      aInt.Color:=StringToColor(aProjects.FieldByName('COLOR').AsString);
     if Assigned(aParent) then
       aParent.AddInterval(aInt)
     else

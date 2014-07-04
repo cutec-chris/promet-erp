@@ -501,7 +501,8 @@ inherited fprojectFrame: TfprojectFrame
         Width = 24
         BorderWidth = 2
         ButtonColorSize = 16
-        ButtonColor = clBlack
+        ButtonColor = clBlue
+        OnColorChanged = bProjectColorColorChanged
       end
     end
   end
