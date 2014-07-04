@@ -23,9 +23,13 @@ interface
 uses
   Classes, SysUtils, CustFCGI, uBaseApplication, uBaseDBInterface,
   uData, uSystemMessage, HTTPDefs,fpHTTP,custhttpapp,
-  uBaseDbClasses,db,md5,uSessionDBClasses,eventlog;
+  uBaseDbClasses,db,md5,uSessionDBClasses,eventlog,ubaseconfig,XMLPropStorage,
+  PropertyStorage;
 type
-  TBaseHTTPApplication = class(TCustomHTTPApplication, IBaseApplication, IBaseDbInterface)
+
+  { TBaseHTTPApplication }
+
+  TBaseHTTPApplication = class(TCustomHTTPApplication, IBaseApplication, IBaseDbInterface,IBaseConfig)
     procedure BaseHTTPApplicationException(Sender: TObject; E: Exception);
     procedure BaseHTTPApplicationGetModule(Sender: TObject; ARequest: TRequest;
       var ModuleClass: TCustomHTTPModuleClass);
@@ -37,6 +41,7 @@ type
     FAppName : string;
     FAppRevsion : Integer;
     FAppVersion : Real;
+    FConfig: TXMLPropStorage;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -48,6 +53,7 @@ type
     function GetAppVersion: real;
     procedure SetConfigName(aName : string);
     procedure RestoreConfig;
+    function GetConfig: TCustomPropertyStorage;
     procedure SaveConfig;
     function GetLanguage: string;
     procedure SetLanguage(const AValue: string);
@@ -130,6 +136,9 @@ begin
       FLogger.FileName := GetOptionValue('l','logfile');
       FLogger.Active:=True;
     end;
+  FConfig:=TXMLPropStorage.Create(Self);
+  FConfig.FileName := GetOurConfigDir+'config.xml';
+  FConfig.RootNodePath := 'Config';
   {.$Warnings Off}
   FDBInterface := TBaseDBInterface.Create;
   FDBInterface.SetOwner(Self);
@@ -149,6 +158,7 @@ begin
       sleep(20);
     end;
   FDBInterface.Data.Free;
+  FreeAndNil(FConfig);
   FLogger.Free;
   inherited Destroy;
 end;
@@ -180,17 +190,30 @@ var
   aDir: String;
 begin
   aDir := GetOurConfigDir;
+  aDir := Application.Location;
   if aDir <> '' then
     begin
       if not DirectoryExistsUTF8(aDir) then
         ForceDirectoriesUTF8(aDir);
     end;
+  FConfig.FileName := aDir+aName+'.xml';
+  FConfig.RootNodePath := 'Config';
+  writeln('Config:'+FConfig.FileName);
 end;
 procedure TBaseHTTPApplication.RestoreConfig;
 begin
+  FConfig.Restore;
+  DefaultModule := FConfig.ReadString('DEFAULTMODULE',DefaultModule);
 end;
+
+function TBaseHTTPApplication.GetConfig: TCustomPropertyStorage;
+begin
+  Result := FConfig;
+end;
+
 procedure TBaseHTTPApplication.SaveConfig;
 begin
+  FConfig.Save;
 end;
 function TBaseHTTPApplication.GetLanguage: string;
 begin
@@ -275,6 +298,8 @@ begin
       if not LoadMandants('') then
         raise Exception.Create(strFailedtoLoadMandants);
       aMandant := GetOptionValue('m','mandant');
+      if aMandant = '' then
+        aMandant := FConfig.ReadString('MANDANT','');
       if not DBLogin(aMandant,'') then
         begin
           FLogger.Error(strLoginFailed+':'+LastError);
