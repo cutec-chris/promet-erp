@@ -32,7 +32,7 @@ uses
   classes, sysutils, lnet, lnetssl, levents, lhttputil, lstrbuffer;
 
 type
-  TLHTTPMethod = (hmHead, hmGet, hmPost, hmPut, hmDelete, hmTrace, hmConnect, hmOptions, hmPropfind, hmPropPatch, hmMkCol, hmCopy, hmMove, hmLock, hmUnlock, hmUnknown);
+  TLHTTPMethod = (hmHead, hmGet, hmPost, hmPut, hmDelete, hmTrace, hmConnect, hmOptions, hmPropfind, hmPropPatch, hmMkCol, hmCopy, hmMove, hmLock, hmUnlock, hmReport, hmMkCalendar, hmAcl, hmUnknown);
   TLHTTPMethods = set of TLHTTPMethod;
   TLHTTPParameter = (hpConnection, hpContentLength, hpContentType,
     hpAccept, hpAcceptCharset, hpAcceptEncoding, hpAcceptLanguage, hpHost,
@@ -49,7 +49,7 @@ const
   HTTPDisconnectStatuses = [hsBadRequest, hsRequestTooLong, hsForbidden, 
     hsInternalError, hsNotAllowed];
   HTTPMethodStrings: array[TLHTTPMethod] of string =
-    ('HEAD', 'GET', 'POST', 'PUT', 'DELETE', 'TRACE', 'CONNECT', 'OPTIONS', 'PROPFIND', 'PROPPATCH', 'MKCOL', 'COPY', 'MOVE', 'LOCK', 'UNLOCK', '');
+    ('HEAD', 'GET', 'POST', 'PUT', 'DELETE', 'TRACE', 'CONNECT', 'OPTIONS', 'PROPFIND', 'PROPPATCH', 'MKCOL', 'COPY', 'MOVE', 'LOCK', 'UNLOCK', 'REPORT', 'MKCALENDAR', 'ACL', '');
   HTTPParameterStrings: array[TLHTTPParameter] of string =
     ('CONNECTION', 'CONTENT-LENGTH', 'CONTENT-TYPE', 'ACCEPT', 
      'ACCEPT-CHARSET', 'ACCEPT-ENCODING', 'ACCEPT-LANGUAGE', 'HOST',
@@ -2339,4 +2339,4 @@ begin
 end;
 
 end.
-
+
