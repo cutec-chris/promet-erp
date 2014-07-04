@@ -3274,8 +3274,8 @@ begin
     gList.Clean(gList.Selection,[]);
   except
   end;
-  SyncDataSource;
   gList.Row:=aOldRow;
+  Refresh;
   GotoActiveRow;
 end;
 procedure TfGridView.First;
