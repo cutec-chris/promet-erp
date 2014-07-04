@@ -819,6 +819,7 @@ begin
         end;
     end;
   FDisableEdit:=False;
+  Refresh;
 end;
 procedure TfGridView.gListDblClick(Sender: TObject);
 begin
