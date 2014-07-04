@@ -366,6 +366,7 @@ resourcestring
   strMessageAccounts            = 'Nachrichtenkonten';
   strSearchText                 = '<hier tippen um zu suchen>';
   strProcessesOpen              = 'Es sind noch Dateien offen (Dateiverwaltung), wirklich schließen ?';
+  strMessageOpen                = 'Es sind noch Nachrichten offen (e-Mail), wirklich schließen ?';
   strNewInventory               = 'Neue Inventur';
   strInventory                  = 'Inventur';
   strDeletingMessages           = 'lösche Nachrichten, noch %d Nachichten';
@@ -3450,11 +3451,20 @@ begin
     Debug('fMain:FormClose exit');
 end;
 procedure TfMain.FormCloseQuery(Sender: TObject; var CanClose: boolean);
+var
+  i: Integer;
 begin
   CanClose := True;
   if (uDocumentProcess.ProcessList.Count > 0)
   and (MessageDlg(strProcessesOpen,mtInformation,[mbNo,mbYes],0) = mrNo) then
     CanClose := False;
+  for i := 0 to Screen.FormCount-1 do
+    if Screen.Forms[i] is TfMessageEdit then
+      begin
+        if (MessageDlg(strMessageOpen,mtInformation,[mbNo,mbYes],0) = mrNo) then
+          CanClose := False;
+        break;
+      end;
 end;
 procedure TfMain.FormCreate(Sender: TObject);
 var
