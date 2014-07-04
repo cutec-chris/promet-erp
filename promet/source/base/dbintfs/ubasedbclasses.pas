@@ -574,6 +574,13 @@ begin
   inherited Create(aOwner, DM, aConnection, aMasterdata);
   FEntrys := TListEntrys.Create(Owner,DM,aConnection,DataSet);
   FEntrys.List := Self;
+  with BaseApplication as IBaseDbInterface do
+    begin
+      with DataSet as IBaseDBFilter do
+        begin
+          UsePermissions:=True;
+        end;
+    end;
 end;
 
 destructor TLists.Destroy;

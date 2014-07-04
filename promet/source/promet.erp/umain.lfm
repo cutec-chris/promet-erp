@@ -1258,6 +1258,11 @@ object fMain: TfMain
       ImageIndex = 104
       OnExecute = acProjectOverviewExecute
     end
+    object acStatistics: TAction
+      Caption = 'Statistiken'
+      ImageIndex = 58
+      OnExecute = acStatisticsExecute
+    end
   end
   object ApplicationProperties1: TApplicationProperties
     ShowMenuGlyphs = sbgSystem

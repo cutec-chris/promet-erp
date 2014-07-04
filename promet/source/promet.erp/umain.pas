@@ -79,6 +79,7 @@ type
     acRoughPlanning: TAction;
     acStartPage: TAction;
     acProjectOverview: TAction;
+    acStatistics: TAction;
     acWindowize: TAction;
     acWiki: TAction;
     ActionList1: TActionList;
@@ -192,6 +193,7 @@ type
     procedure acShowTreeExecute(Sender: TObject);
     procedure acStandartTimeExecute(Sender: TObject);
     procedure acStartPageExecute(Sender: TObject);
+    procedure acStatisticsExecute(Sender: TObject);
     procedure acTaskPlanExecute(Sender: TObject);
     procedure acTasksExecute(Sender: TObject);
     procedure acTimeRegisteringExecute(Sender: TObject);
@@ -269,6 +271,7 @@ type
     procedure AddCustomerList(Sender: TObject);
     procedure AddMasterdataList(Sender: TObject);
     procedure AddOrderList(Sender: TObject);
+    procedure AddStatisticList(Sender: TObject);
     procedure AddListsList(Sender: TObject);
     procedure AddDocPages(Sender: TObject);
     procedure AddInventoryList(Sender: TObject);
@@ -493,6 +496,20 @@ begin
         AddContextAction(acRefreshOrderList);
     end;
 end;
+
+procedure TfMain.AddStatisticList(Sender: TObject);
+begin
+  with Sender as TfFilter do
+    begin
+      TabCaption := strStatisticList;
+      FilterType:='U';
+      DefaultRows:='GLOBALWIDTH:%;NAME:100;CHANGEDBY:30;TIMESTAMPD:50;';
+      Dataset := TStatistic.Create(nil,Data);
+      if Data.Users.Rights.Right('STATISTICS') > RIGHT_READ then
+        AddToolbarAction(acNewStatistics);
+    end;
+end;
+
 procedure TfMain.AddListsList(Sender: TObject);
 begin
   with Sender as TfFilter do
@@ -566,6 +583,8 @@ begin
       FilterType:='P';
       DefaultRows:='GLOBALWIDTH:%;TYPE:30;ID:70;NAME:100;STATUS:60;';
       Dataset := TProjectList.Create(nil,Data);
+      with DataSet.DataSet as IBaseDbFilter do
+        UsePermissions := True;
       OnDrawColumnCell:=@SenderTfFiltergListDrawColumnCell;
       if Data.Users.Rights.Right('PROJECTS') > RIGHT_READ then
         AddToolbarAction(acNewProject);
@@ -969,6 +988,7 @@ begin
     begin
       try
       Data.RegisterLinkHandler('STATISTICS',@fMainTreeFrame.OpenLink,TStatistic);
+      fMain.pcPages.AddTabClass(TfFilter,strStatisticList,@fMain.AddStatisticList,Data.GetLinkIcon('STATISTICS@'),True);
       AddSearchAbleDataSet(TStatistic);
       except
       end;
@@ -1265,6 +1285,8 @@ begin
                     //Statistics
                     if (Data.Users.Rights.Right('STATISTICS') > RIGHT_NONE) then
                       begin
+                        NewMenu;
+                        miNew.Action := fMain.acStatistics;
                         NewNode;
                         Node.Height := 34;
                         TTreeEntry(Node.Data).Typ := etStatistics;
@@ -1942,6 +1964,28 @@ end;
 procedure TfMain.acStartPageExecute(Sender: TObject);
 begin
   pcPages.TabIndex:=0;
+end;
+
+procedure TfMain.acStatisticsExecute(Sender: TObject);
+var
+  i: Integer;
+  Found: Boolean = false;
+  aFrame: TfFilter;
+begin
+  Application.ProcessMessages;
+  for i := 0 to pcPages.PageCount-2 do
+    if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfFilter) and (TfFilter(pcPages.Pages[i].Controls[0]).Dataset is TStatistic) then
+      begin
+        pcPages.PageIndex:=i;
+        Found := True;
+      end;
+  if not Found then
+    begin
+      aFrame := TfFilter.Create(Self);
+      pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('STATISTICS@'),False);
+      AddStatisticList(aFrame);
+      aFrame.Open;
+    end;
 end;
 
 procedure TfMain.acTaskPlanExecute(Sender: TObject);
@@ -3020,6 +3064,10 @@ begin
     begin
       acOrders.Execute;
     end;
+  etStatistics:
+    begin
+      acStatistics.Execute;
+    end;
   etTasks,etMyTasks:
     begin
       acTasks.Execute;
@@ -3483,7 +3531,7 @@ begin
   Data.GotoLink(SearchLinks[lbresults.ItemIndex]);
 end;
 procedure TfMain.lbResultsDrawItem(Control: TWinControl; Index: Integer;
-  ARect: TRect; State: StdCtrls.TOwnerDrawState);
+  ARect: TRect; State: TOwnerDrawState);
 begin
   with Control as TListBox do
     begin
@@ -3604,6 +3652,14 @@ begin
               aFrame := TfFilter.Create(Self);
               pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('PROJECTS@'),False);
               AddProjectList(aFrame);
+              aFrame.cbFilter.Text:=aName;
+              aFrame.cbFilterSelect(nil);
+            end;
+          'U':
+            begin
+              aFrame := TfFilter.Create(Self);
+              pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('STATISTICS@'),False);
+              AddStatisticList(aFrame);
               aFrame.cbFilter.Text:=aName;
               aFrame.cbFilterSelect(nil);
             end;

@@ -1145,11 +1145,14 @@ begin
   Detail.DataSet:=nil;
   SubDetail.DataSet.Free;
   SubDetail.DataSet:=nil;
-  if Assigned(FConnection) then
-    begin
-      CloseConnection(acSave.Enabled);
-      FreeAndNil(FConnection);
-    end;
+  try
+    if Assigned(FConnection) then
+      begin
+        CloseConnection(acSave.Enabled);
+        FreeAndNil(FConnection);
+      end;
+  except
+  end;
   FTables.Free;
   FVariables.Free;
   FSynCompletion.Free;

@@ -535,6 +535,7 @@ begin
             Add('STATNFIELD',ftString,20,False);
             Add('CHARTTYPE',ftString,1,False);
             Add('TREEENTRY',ftLargeint,0,false);
+            Add('CHANGEDBY',ftString,4,false);
           end;
     end;
 end;
@@ -550,6 +551,7 @@ begin
           BaseSortFields := 'SQL_ID';
           SortFields := 'SQL_ID';
           SortDirection := sdAscending;
+          UsePermissions:=True;
           Limit := 0;
         end;
     end;

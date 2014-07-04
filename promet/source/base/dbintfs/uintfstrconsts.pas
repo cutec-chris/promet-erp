@@ -105,6 +105,7 @@ resourcestring
   strDestinationnotSelected     = 'kein Zielmandant gewählt (--destination) !';
   strLoginFailed                = 'Login fehlgeschlagen';
   strProjectList                = 'Projektliste';
+  strStatisticList              = 'Statistikliste';
   strSalesList                  = 'Zahlungsliste';
   strVoucher                    = 'Beleg';
   strNewVoucher                 = 'neuer Beleg';
