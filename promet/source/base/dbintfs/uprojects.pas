@@ -447,6 +447,7 @@ begin
       FieldByName('TYPE').AsString := 'P';
       FieldByName('START').AsDateTime := Now();
       FieldByName('CREATEDAT').AsDateTime := Now();
+      FieldByName('GPRIORITY').AsInteger := 10000;
       if Data.Numbers.HasNumberSet('PROJECTS') then
         if FieldByName('ID').IsNull then
           FieldByName('ID').AsString := Data.Numbers.GetNewNumber('PROJECTS');
