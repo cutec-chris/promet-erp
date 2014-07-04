@@ -67,6 +67,7 @@ type
     cbStatus: TComboBox;
     cbType: TExtDBCombobox;
     cbCategory: TExtDBCombobox;
+    bProjectColor: TColorButton;
     DBCheckBox1: TDBCheckBox;
     DBCheckBox2: TDBCheckBox;
     DBCheckBox3: TDBCheckBox;
