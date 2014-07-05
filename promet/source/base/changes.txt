@@ -1,5 +1,6 @@
 ﻿Build 361
-      -
+      - Statistik:Übersicht hinzugefügt
+      - Nachrichten:beim beenden wird geprüft ob e-Mail Editoren offen sind und eine Warnung ausgegeben
 Build 360
       - Aufgben:Informieren per e-Mail
       - Positionen:Zeichenfehler behoben (nach Framewechsel wurden Positionen nicht mehr angezeigt)

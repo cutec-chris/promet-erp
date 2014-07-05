@@ -69,7 +69,8 @@ inherited fMandantOptions: TfMandantOptions
     end
     object mAdress: TDBMemo
       Left = 12
-      Height = 42
+      Height = 36
+      Hint = 'Die Adresse des Mandanten, wird für Reports verwendet.'#10'Trennen Sie die Adresse am besten durch Kommas und nicht durch'#10'Zeilenumbrüche damit die Standardreports sie überall'#10'richtig darstellen.'
       Top = 160
       Width = 292
       Anchors = [akTop, akLeft, akRight]

@@ -7,7 +7,7 @@
     <KeyWords Value=""/>
     <Comments Value=""/>
     <ReportCreateDate Value="2012-08-27 22:35:46"/>
-    <ReportLastChange Value="2014-04-29 20:55:05"/>
+    <ReportLastChange Value="2014-07-05 14:15:21"/>
     <ReportVersionBuild Value=""/>
     <ReportVersionMajor Value=""/>
     <ReportVersionMinor Value=""/>
@@ -17,14 +17,14 @@
     <Pages>
       <PrintToDefault Value="False"/>
       <DoublePass Value="True"/>
-      <SelectedPrinter Value="Lexmark-E350d"/>
+      <SelectedPrinter Value="Default printer"/>
       <PageCount Value="1"/>
       <Page1>
         <Name Value="Page1"/>
         <ClassName Value="TfrPageReport"/>
         <Visible Value="True"/>
-        <Width Value="595"/>
-        <Height Value="842"/>
+        <Width Value="2100"/>
+        <Height Value="2970"/>
         <Script Value=""/>
         <PgSize Value="9"/>
         <Margins>
@@ -116,7 +116,7 @@
             <Left Value="0"/>
             <Top Value="700"/>
             <Width Value="752"/>
-            <Height Value="40"/>
+            <Height Value="44"/>
           </Size>
           <Flags Value="48"/>
           <Data>
@@ -1921,7 +1921,7 @@
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value="Dieser Auftrag ist umsatzsteuerbefreit gemäß § 19 (1) UStG&#xA;Es gelten unsere AGB&#xA;"/>
+            <Memo Value="Es gelten unsere AGB&#xA;"/>
             <Script Value=""/>
           </Data>
           <Tag Value=""/>

@@ -167,6 +167,7 @@ type
     procedure acSaveExecute(Sender: TObject);
     procedure acSetTreeDirExecute(Sender: TObject);
     procedure bProjectColorColorChanged(Sender: TObject);
+    procedure cbCategorySelect(Sender: TObject);
     procedure cbStatusSelect(Sender: TObject);
     procedure eNameChange(Sender: TObject);
     procedure eManagerButtonClick(Sender: TObject);
@@ -699,6 +700,17 @@ procedure TfProjectFrame.bProjectColorColorChanged(Sender: TObject);
 begin
   DataSet.Edit;
   DataSet.FieldByName('COLOR').AsString:=ColorToString(bProjectColor.ButtonColor);
+end;
+
+procedure TfProjectFrame.cbCategorySelect(Sender: TObject);
+begin
+  Data.SetFilter(Data.Categories,Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType));
+  if Data.Categories.Locate('NAME',cbCategory.Text,[loCaseInsensitive]) then
+    if not Data.Categories.FieldByName('COLOR').IsNull then
+      begin
+        DataSet.Edit;
+        if DataSet.FieldByName('COLOR').AsString:=Data.Categories.FieldByName('COLOR').AsString;
+      end;
 end;
 
 procedure TfProjectFrame.cbStatusSelect(Sender: TObject);

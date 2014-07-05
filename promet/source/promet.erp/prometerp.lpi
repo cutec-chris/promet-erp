@@ -180,6 +180,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <CommandLineParams Value="--config-path=/home/chris/.promet-erp-devel --mandant=RepairPG"/>
       </local>
     </RunParams>
     <RequiredPackages Count="25">
@@ -677,7 +678,6 @@
       </Item19>
       <Item20>
         <Name Value="EFCreateError"/>
-        <Enabled Value="False"/>
       </Item20>
       <Item21>
         <Name Value="ESQLScannerError"/>
