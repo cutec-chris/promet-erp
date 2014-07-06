@@ -1583,7 +1583,7 @@ begin
       aSql := 'select * from '+QuoteField(TZeosDBDataSet(DataSet).DefaultTableName)+' where "SQL_ID"='+QuoteValue(DataSet.FieldByName('SQL_ID').AsString)+';';
       GeneralQuery.SQL.Text := aSql;
       GeneralQuery.Open;
-      Stream := DataSet.CreateBlobStream(GeneralQuery.FieldByName(Fieldname),bmRead);
+      Stream := GeneralQuery.CreateBlobStream(GeneralQuery.FieldByName(Fieldname),bmRead);
       try
         GetMem(pBuf, ChunkSize);
         try
