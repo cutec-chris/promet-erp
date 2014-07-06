@@ -60,7 +60,8 @@ type
     function DateTimeToFilter(aValue : TDateTime) : string;override;
     function GetUniID(aConnection : TComponent = nil;Generator : string = 'GEN_SQL_ID';AutoInc : Boolean = True) : Variant;override;
     procedure StreamToBlobField(Stream : TStream;DataSet : TDataSet;Fieldname : string);override;
-    procedure BlobFieldToStream(DataSet : TDataSet;Fieldname : string;Stream : TStream);override;
+    procedure BlobFieldToStream(DataSet: TDataSet; Fieldname: string;
+      dStream: TStream); override;
     function GetErrorNum(e: EDatabaseError): Integer; override;
     procedure DeleteExpiredSessions;override;
     function GetNewConnection: TComponent;override;
@@ -1511,12 +1512,19 @@ begin
         end;
     end;
 end;
+const
+  ChunkSize: Longint = 16384; { copy in 8K chunks }
 procedure TZeosDBDM.StreamToBlobField(Stream: TStream; DataSet: TDataSet;
   Fieldname: string);
 var
   Posted: Boolean;
   GeneralQuery: TZQuery;
+  pBuf    : Pointer;
+  cnt: LongInt;
+  dStream: TStream;
+  totCnt: LongInt;
 begin
+  totCnt := 0;
   if DataSet.Fielddefs.IndexOf(FieldName) = -1 then
     begin
       if DataSet.State = dsInsert then
@@ -1529,7 +1537,29 @@ begin
       GeneralQuery.SQL.Text := 'select * from '+QuoteField(TZeosDBDataSet(DataSet).DefaultTableName)+' where "SQL_ID"='+QuoteValue(DataSet.FieldByName('SQL_ID').AsString)+';';
       GeneralQuery.Open;
       GeneralQuery.Edit;
-      TBlobField(GeneralQuery.FieldByName(Fieldname)).LoadFromStream(Stream);
+      dStream := GeneralQuery.CreateBlobStream(GeneralQuery.FieldByName(Fieldname),bmWrite);
+      try
+        GetMem(pBuf, ChunkSize);
+        try
+          cnt := Stream.Read(pBuf^, ChunkSize);
+          cnt := dStream.Write(pBuf^, cnt);
+          totCnt := totCnt + cnt;
+          {Loop the process of reading and writing}
+          while (cnt > 0) do
+            begin
+              {Read bufSize bytes from source into the buffer}
+              cnt := Stream.Read(pBuf^, ChunkSize);
+              {Now write those bytes into destination}
+              cnt := dStream.Write(pBuf^, cnt);
+              {Increment totCnt for progress and do arithmetic to update the gauge}
+              totcnt := totcnt + cnt;
+            end;
+        finally
+          FreeMem(pBuf, ChunkSize);
+        end;
+      finally
+        dStream.Free;
+      end;
       GeneralQuery.Post;
       GeneralQuery.Free;
       if Posted then DataSet.Edit;
@@ -1537,10 +1567,14 @@ begin
   else inherited;
 end;
 procedure TZeosDBDM.BlobFieldToStream(DataSet: TDataSet; Fieldname: string;
-  Stream: TStream);
+  dStream: TStream);
 var
   GeneralQuery: TZQuery;
   aSQL : string;
+  pBuf    : Pointer;
+  cnt: LongInt;
+  totCnt: LongInt=0;
+  Stream: TStream;
 begin
   if DataSet.Fielddefs.IndexOf(FieldName) = -1 then
     begin
@@ -1549,7 +1583,29 @@ begin
       aSql := 'select * from '+QuoteField(TZeosDBDataSet(DataSet).DefaultTableName)+' where "SQL_ID"='+QuoteValue(DataSet.FieldByName('SQL_ID').AsString)+';';
       GeneralQuery.SQL.Text := aSql;
       GeneralQuery.Open;
-      TBlobField(GeneralQuery.FieldByName(Fieldname)).SaveToStream(Stream);
+      Stream := DataSet.CreateBlobStream(GeneralQuery.FieldByName(Fieldname),bmRead);
+      try
+        GetMem(pBuf, ChunkSize);
+        try
+          cnt := Stream.Read(pBuf^, ChunkSize);
+          cnt := dStream.Write(pBuf^, cnt);
+          totCnt := totCnt + cnt;
+          {Loop the process of reading and writing}
+          while (cnt > 0) do
+            begin
+              {Read bufSize bytes from source into the buffer}
+              cnt := Stream.Read(pBuf^, ChunkSize);
+              {Now write those bytes into destination}
+              cnt := dStream.Write(pBuf^, cnt);
+              {Increment totCnt for progress and do arithmetic to update the gauge}
+              totcnt := totcnt + cnt;
+            end;
+        finally
+          FreeMem(pBuf, ChunkSize);
+        end;
+      finally
+        Stream.Free;
+      end;
       GeneralQuery.Free;
     end
   else inherited;
@@ -1886,4 +1942,4 @@ begin
 end;
 
 end.
-
+

@@ -143,7 +143,8 @@ type
     procedure BlobFieldToFile(DataSet : TDataSet;Fieldname : string;Filename : string);virtual;
     procedure FileToBlobField(Filename : string;DataSet : TDataSet;Fieldname : string);virtual;
     procedure StreamToBlobField(Stream : TStream;DataSet : TDataSet;Fieldname : string);virtual;
-    procedure BlobFieldToStream(DataSet : TDataSet;Fieldname : string;Stream : TStream);virtual;
+    procedure BlobFieldToStream(DataSet: TDataSet; Fieldname: string;
+      dStream: TStream); virtual;
     function QuoteField(aField : string) : string;virtual;
     function QuoteValue(aValue : string) : string;virtual;
     function EscapeString(aValue : string) : string;virtual;
@@ -665,10 +666,16 @@ begin
   end;
   fstream.Free;
 end;
+const
+  ChunkSize: Longint = 16384; { copy in 8K chunks }
 procedure TBaseDBModule.StreamToBlobField(Stream: TStream; DataSet: TDataSet;
   Fieldname: string);
 var
   Edited: Boolean;
+  dStream: TStream;
+  pBuf    : Pointer;
+  cnt: LongInt;
+  totCnt: LongInt=0;
 begin
   Edited := False;
   if (DataSet.State <> dsEdit) and (DataSet.State <> dsInsert) then
@@ -676,14 +683,63 @@ begin
       DataSet.Edit;
       Edited := True;
     end;
-  TBlobField(DataSet.FieldByName(Fieldname)).LoadFromStream(Stream);
+  dStream := DataSet.CreateBlobStream(DataSet.FieldByName(Fieldname),bmWrite);
+  try
+    GetMem(pBuf, ChunkSize);
+    try
+      cnt := Stream.Read(pBuf^, ChunkSize);
+      cnt := dStream.Write(pBuf^, cnt);
+      totCnt := totCnt + cnt;
+      {Loop the process of reading and writing}
+      while (cnt > 0) do
+        begin
+          {Read bufSize bytes from source into the buffer}
+          cnt := Stream.Read(pBuf^, ChunkSize);
+          {Now write those bytes into destination}
+          cnt := dStream.Write(pBuf^, cnt);
+          {Increment totCnt for progress and do arithmetic to update the gauge}
+          totcnt := totcnt + cnt;
+        end;
+    finally
+      FreeMem(pBuf, ChunkSize);
+    end;
+  finally
+    dStream.Free;
+  end;
   if Edited then
     DataSet.Post;
 end;
 procedure TBaseDBModule.BlobFieldToStream(DataSet: TDataSet; Fieldname: string;
-  Stream: TStream);
+  dStream: TStream);
+var
+  pBuf    : Pointer;
+  cnt: LongInt;
+  totCnt: LongInt=0;
+  Stream: TStream;
 begin
-  TBlobField(DataSet.FieldByName(Fieldname)).SaveToStream(Stream);
+  Stream := DataSet.CreateBlobStream(DataSet.FieldByName(Fieldname),bmRead);
+  try
+    GetMem(pBuf, ChunkSize);
+    try
+      cnt := Stream.Read(pBuf^, ChunkSize);
+      cnt := dStream.Write(pBuf^, cnt);
+      totCnt := totCnt + cnt;
+      {Loop the process of reading and writing}
+      while (cnt > 0) do
+        begin
+          {Read bufSize bytes from source into the buffer}
+          cnt := Stream.Read(pBuf^, ChunkSize);
+          {Now write those bytes into destination}
+          cnt := dStream.Write(pBuf^, cnt);
+          {Increment totCnt for progress and do arithmetic to update the gauge}
+          totcnt := totcnt + cnt;
+        end;
+    finally
+      FreeMem(pBuf, ChunkSize);
+    end;
+  finally
+    Stream.Free;
+  end;
 end;
 function TBaseDBModule.QuoteField(aField: string): string;
 begin
@@ -1663,4 +1719,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+
