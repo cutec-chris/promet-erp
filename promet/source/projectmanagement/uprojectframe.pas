@@ -704,12 +704,12 @@ end;
 
 procedure TfProjectFrame.cbCategorySelect(Sender: TObject);
 begin
-  Data.SetFilter(Data.Categories,Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType));
+  Data.SetFilter(Data.Categories,Data.QuoteField('TYPE')+'='+Data.QuoteValue('P'));
   if Data.Categories.Locate('NAME',cbCategory.Text,[loCaseInsensitive]) then
     if not Data.Categories.FieldByName('COLOR').IsNull then
       begin
         DataSet.Edit;
-        if DataSet.FieldByName('COLOR').AsString:=Data.Categories.FieldByName('COLOR').AsString;
+        DataSet.FieldByName('COLOR').AsString:=Data.Categories.FieldByName('COLOR').AsString;
       end;
 end;
 
