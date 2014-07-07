@@ -40,6 +40,7 @@ type
     FWorkTime: Extended;
     FUsage : Extended;
     procedure CalcUsage(aConnection : TComponent);
+    function GetUsageCalced: Boolean;
     function GetWorkTime: Extended;
   protected
     procedure SetStartDate(const Value: TDateTime); override;
@@ -49,9 +50,13 @@ type
     function GetUsage: Extended; override;
     procedure PrepareDrawRect; override;
   public
+    constructor Create(AGantt: TgsGantt); override;
     procedure SetUser(AValue: string;aConnection : TComponent);
     property User : string read FUser;
-    property WorkTime : Extended read GetWorkTime;
+    property Usage : Extended read FUsage write FUsage;
+    property UserID : Variant read FUserID write FUserID;
+    property WorkTime : Extended read GetWorkTime write FWorkTime;
+    property UsageCalced : Boolean read GetUsageCalced;
   end;
 
   { TRessource }
@@ -117,12 +122,12 @@ type
     procedure acShowProjectExecute(Sender: TObject);
     procedure acUseExecute(Sender: TObject);
     procedure aIGroupDrawBackground(Sender: TObject; aCanvas: TCanvas;
-      aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
+      aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double;aUnfinishedList : TList = nil);
     procedure aINewDrawBackground(Sender: TObject; aCanvas: TCanvas;
-      aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
+      aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double;aUnfinishedList : TList = nil);
     procedure aIDrawBackground(Sender: TObject; aCanvas: TCanvas; aRect: TRect;
       aStart, aEnd: TDateTime; aDayWidth: Double; RectColor, FillColor,
-  ProbemColor: TColor; HighlightDay: TDateTime);
+  ProbemColor: TColor; HighlightDay: TDateTime;aUnfinishedList : TList = nil);
     procedure aIDrawBackgroundWeekends(Sender: TObject; aCanvas: TCanvas;
       aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double; aColor: TColor;
   HighlightDay: TDateTime);
@@ -240,9 +245,7 @@ var
   aConnection: Classes.TComponent;
   TaskPlan : TfTaskPlan;
 begin
-  aConnection := Data.GetNewConnection;
-  TaskPlan.CollectResources(FTmpResource,FFrom,FTo,FUser,aConnection,FTasks,FCalendar,FProcessmessages);
-  aConnection.Free;
+  TaskPlan.CollectResources(FTmpResource,FFrom,FTo,FUser,Data.MainConnection,FTasks,FCalendar,FProcessmessages);
 end;
 
 procedure TCollectThread.Execute;
@@ -269,7 +272,7 @@ begin
   FUser := asUser;
   FAttatchTo := AttatchTo;
   if FProcessmessages then
-    Priority:=tpLowest;
+    Priority:=tpLower;
   FreeOnTerminate:=True;
   inherited Create(True);
 end;
@@ -297,15 +300,18 @@ var
   aDay: Integer;
   aUser: TUser;
 begin
-  aUser := TUser.Create(nil,Data,aConnection);
-  aUser.SelectByAccountno(FUser);
-  aUser.Open;
-  FUsage := aUser.FieldByName('USEWORKTIME').AsInteger/100;
-  if FUsage = 0 then FUsage := 1;
-  FWorkTime:=aUser.WorkTime*FUsage;
-  FUsage := FWorkTime/8;
-  FUserID:=aUser.Id.AsVariant;
-  aUser.Free;
+  if FUsage = -1 then
+    begin
+      aUser := TUser.Create(nil,Data,aConnection);
+      aUser.SelectByAccountno(FUser);
+      aUser.Open;
+      FUsage := aUser.FieldByName('USEWORKTIME').AsInteger/100;
+      if FUsage = 0 then FUsage := 1;
+      FWorkTime:=aUser.WorkTime*FUsage;
+      FUsage := FWorkTime/8;
+      FUserID:=aUser.Id.AsVariant;
+      aUser.Free;
+    end;
   if FinishDate-StartDate > 0 then
     FCalcUsage := (FinishDate-StartDate)
   else FCalcUsage := 0;
@@ -340,6 +346,11 @@ begin
     FCalcUsage := 1
   else
     FCalcUsage := 10;
+end;
+
+function TPInterval.GetUsageCalced: Boolean;
+begin
+  Result := FCalcUsage<>-1;
 end;
 
 function TPInterval.GetWorkTime: Extended;
@@ -392,6 +403,12 @@ begin
   if ResourceTimePerDay > 0 then
     IntervalDone:=StartDate+(NetTime*(1/ResourceTimePerDay))
   else IntervalDone := StartDate;
+end;
+
+constructor TPInterval.Create(AGantt: TgsGantt);
+begin
+  inherited Create(AGantt);
+  FUsage:=-1;
 end;
 
 procedure ChangeTask(aTasks: TTaskList;aTask : TInterval;DoChangeMilestones : Boolean = False);
@@ -640,15 +657,17 @@ begin
 end;
 
 procedure TfTaskPlan.aINewDrawBackground(Sender: TObject; aCanvas: TCanvas;
-  aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
+  aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double;
+  aUnfinishedList: TList);
 begin
   aIDrawBackgroundWeekends(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth,$e0e0e0,FSelectedCol);
-  aIDrawBackground(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth,clBlue,clLime,clRed,FSelectedCol);
+  aIDrawBackground(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth,clBlue,clLime,clRed,FSelectedCol,aUnfinishedList);
 end;
 
 procedure TfTaskPlan.aIDrawBackground(Sender: TObject; aCanvas: TCanvas;
   aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double; RectColor,
-  FillColor, ProbemColor: TColor; HighlightDay : TDateTime);
+  FillColor, ProbemColor: TColor; HighlightDay: TDateTime;
+  aUnfinishedList: TList);
 var
   i: Integer;
   aDay: TDateTime;
@@ -730,7 +749,11 @@ begin
                     or ((aResource.Interval[a].StartDate<=aDay) and (aResource.Interval[a].FinishDate>=(aDay+1)))
                     then
                       begin
-                        WholeUsage += aResource.Interval[a].PercentUsage;
+                        if (aResource.Interval[a] is TPInterval) and TPInterval(aResource.Interval[a]).UsageCalced then
+                          WholeUsage += aResource.Interval[a].PercentUsage
+                        else if Assigned(aUnfinishedList) then
+                          aUnfinishedList.Add(aResource.Interval[a])
+                        else  WholeUsage += aResource.Interval[a].PercentUsage;
                         if aResource.Interval[a].IsDrawRectClear then
                           begin
                             aIStart := aResource.Interval[a].StartDate;
@@ -897,7 +920,8 @@ begin
 end;
 
 procedure TfTaskPlan.aIGroupDrawBackground(Sender: TObject; aCanvas: TCanvas;
-  aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
+  aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double;
+  aUnfinishedList: TList);
 var
   aDay: Integer;
   aInt: TInterval;
@@ -1570,7 +1594,7 @@ begin
                   then
                     begin
                       bInterval := TPInterval.Create(nil);
-                      gView.FillInterval(bInterval,bTasks,True);
+                      gView.FillInterval(bInterval,bTasks,True,aUser);
                       if bInterval.FinishDate>aTo then
                         FreeAndNil(bInterval);
                     end;

@@ -73,7 +73,7 @@ type
   );
 
 type
-  TPaitBackgroundEvent = procedure(Sender : TObject;Canvas : TCanvas;aRect : TRect;aStart,aEnd : TDateTime;aDayWidth : Double) of object;
+  TPaitBackgroundEvent = procedure(Sender : TObject;Canvas : TCanvas;aRect : TRect;aStart,aEnd : TDateTime;aDayWidth : Double;aUnfinishedList : TList = nil) of object;
   TGanttCalendar = class;
   TGanttTree = class;
   TgsGantt = class;
@@ -2036,7 +2036,6 @@ var
                              SystemFont:False;
                              RightToLeft:False);
 begin
-  debugln('Gantt Paint Start');
   aTop := FGantt.Tree.TopRow-1;
   if DoClip then
     begin
@@ -2256,7 +2255,6 @@ begin
         DeleteObject(ClipRgn);
       end;
   end;
-  debugln('Gantt Paint End');
 end;
 
 {
@@ -4397,4 +4395,4 @@ finalization
   DrawBitmap.Free;
 
 end.
-
+

@@ -1142,8 +1142,12 @@ object fGanttView: TfGanttView
       Action = acCenterTask
       Caption = 'Aufgabe zeigen'
     end
+    object MenuItem3: TMenuItem
+      Caption = 'New Item2'
+    end
   end
   object ActionList1: TActionList
+    Images = fVisualControls.Images
     left = 56
     top = 56
     object acCenterTask: TAction
@@ -1180,6 +1184,10 @@ object fGanttView: TfGanttView
       Caption = 'Nächstmöglichen Termin finden'
       ImageIndex = 4
       OnExecute = acFindTimeSlotExecute
+    end
+    object acCollectTimesforUser: TAction
+      Caption = 'für diesen Nutzer Auslastung einblenden'
+      ImageIndex = 6
     end
   end
   object RecalcTimer: TTimer

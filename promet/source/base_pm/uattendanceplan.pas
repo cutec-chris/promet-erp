@@ -56,7 +56,7 @@ type
     tbTop: TPanel;
     procedure acCancelExecute(Sender: TObject);
     procedure aINewDrawBackground(Sender: TObject; aCanvas: TCanvas;
-      aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
+      aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double;aUnfinishedList : TList = nil);
     procedure aINewOpen(Sender: TObject);
     procedure bDayViewClick(Sender: TObject);
     procedure bMonthViewClick(Sender: TObject);
@@ -226,7 +226,8 @@ begin
 end;
 
 procedure TfAttPlan.aINewDrawBackground(Sender: TObject; aCanvas: TCanvas;
-  aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
+  aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double;
+  aUnfinishedList: TList);
 var
   TaskPlan : TfTaskPlan;
 begin

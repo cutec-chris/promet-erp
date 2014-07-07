@@ -110,7 +110,7 @@ type
     procedure acShowProjectGanttExecute(Sender: TObject);
     procedure acUseExecute(Sender: TObject);
     procedure aIntDrawBackground(Sender: TObject; aCanvas: TCanvas;
-      aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
+      aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double;aUnfinishedList : TList = nil);
     procedure bDayViewClick(Sender: TObject);
     procedure bDelegated2Click(Sender: TObject);
     procedure bParentProjectsClick(Sender: TObject);
@@ -191,8 +191,9 @@ begin
 
 end;
 
-procedure TfProjectOVFrame.aIntDrawBackground(Sender: TObject; aCanvas: TCanvas;
-  aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
+procedure TfProjectOVFrame.aIntDrawBackground(Sender: TObject;
+  aCanvas: TCanvas; aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double;
+  aUnfinishedList: TList);
 var
   TaskPlan : TfTaskPlan;
 begin

@@ -125,7 +125,7 @@ type
     procedure FRoughCalendarShowHint(Sender: TObject; HintInfo: PHintInfo);
     procedure FRoughTreeAfterUpdateCommonSettings(Sender: TObject);
     procedure aIntDrawBackground(Sender: TObject; aCanvas: TCanvas;
-      aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
+      aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double;aUnfinishedList : TList = nil);
     procedure RefreshTimes(Data: PtrInt);
     procedure Timer1Timer(Sender: TObject);
   private
@@ -332,8 +332,9 @@ begin
   //Free;
   inherited Create(False)
 end;
-procedure TfRoughPlanningFrame.aIntDrawBackground(Sender: TObject; aCanvas: TCanvas;
-  aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
+procedure TfRoughPlanningFrame.aIntDrawBackground(Sender: TObject;
+  aCanvas: TCanvas; aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double;
+  aUnfinishedList: TList);
 var
   Style : TTextStyle;
   i: Integer;
