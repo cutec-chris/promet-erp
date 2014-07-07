@@ -1574,7 +1574,7 @@ begin
           else
             FGantt.Invalidate;
           Found := False;
-          for i := 0 to 30 do
+          for i := 0 to 50 do
             if FCollectUsageList.Count>0 then
               begin
                 a := TPInterval(FCollectUsageList.Items[0]).PercentUsage;
@@ -1582,7 +1582,12 @@ begin
                 Found := True;
               end;
           if Found then
-            FGantt.Invalidate;
+            begin
+              iHourglass.Visible:=True;
+              FGantt.Invalidate;
+            end
+          else if (FThreads.Count=0) then
+            iHourglass.Visible:=false;
         end;
       Application.ProcessMessages;
       sleep(100);
@@ -1594,6 +1599,7 @@ begin
       TCollectThread(FThreads[i]).Resume;
     end;
   FThreads.Clear;
+  FCollectUsageList.Clear;
   CleanIntervals;
 end;
 
