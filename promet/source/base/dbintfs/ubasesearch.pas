@@ -333,6 +333,7 @@ var
   aDSClass: TBaseDBDatasetClass;
   aLinkDs: TBaseDbList;
   i: Integer;
+  aActive: Boolean;
 begin
   if not Assigned(FItemFound) then exit;
   FActive:=True;
@@ -340,6 +341,7 @@ begin
     begin
       aDs := Data.GetNewDataSet('select count(*),'+Data.QuoteField('LINK')+' from '+Data.QuoteField('SEARCHHISTORY')+' where '+Data.QuoteField('TEXT')+' = '+Data.QuoteValue(SearchText)+' group by '+Data.QuoteField('LINK')+' order by count(*) desc');
       aDs.Open;
+      Data.SetFilter(Data.States,'',0);
       while not aDs.EOF do
         begin
           if Data.DataSetFromLink(aDs.FieldByName('LINK').AsString,aDSClass) then
@@ -356,7 +358,12 @@ begin
                           if aLinkDs.Count>0 then
                             begin
                               if Assigned(aLinkDs.Status) then
-                                FItemFound(aLinkDs.Number.AsString,aLinkDs.Text.AsString,aLinkDs.Status.AsString,True,aDs.FieldByName('LINK').AsString,3000)
+                                begin
+                                  aActive := Data.States.DataSet.Locate('STATUS;TYPE',VarArrayOf([aLinkDs.Status.AsString,aLinkDs.Typ]),[loCaseInsensitive]);
+                                  if aActive then
+                                    aActive := aActive and (Data.States.FieldByName('ACTIVE').AsString='Y');
+                                  FItemFound(aLinkDs.Number.AsString,aLinkDs.Text.AsString,aLinkDs.Status.AsString,aActive,aDs.FieldByName('LINK').AsString,3000)
+                                end
                               else
                                 FItemFound(aLinkDs.Number.AsString,aLinkDs.Text.AsString,'',True,aDs.FieldByName('LINK').AsString,3000);
                             end;
@@ -380,4 +387,4 @@ end;
 finalization
   Setlength(SearchAble,0);
 end.
-
+
