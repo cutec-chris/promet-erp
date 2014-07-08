@@ -292,11 +292,10 @@ begin
         end;
       exit;
     end;
-  if (Pos('=',aIn)>0)
-  and ((pos('select',lowercase(aIn))>Pos('=',aIn)) or (pos('select',lowercase(aIn))=0))
+  if (Pos('=',aIn)>0) and ((pos('select',lowercase(aIn))>Pos('=',aIn)) or (pos('select',lowercase(aIn))=0))
   then
     begin
-      aVar := copy(aIn,0,RPos('=',aIn)-1);
+      aVar := copy(aIn,0,Pos('=',aIn)-1);
       aVar := StringReplace(aVar,#10,'',[rfReplaceAll]);
       aVar := trim(StringReplace(aVar,#13,'',[rfReplaceAll]));
       aVar := StringReplace(aVar,'.','_',[rfReplaceAll]);
