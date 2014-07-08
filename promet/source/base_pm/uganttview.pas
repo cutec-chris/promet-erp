@@ -1098,6 +1098,7 @@ var
   i: Integer;
   aRoot: TInterval;
   deps : array of LargeInt;
+  Snapshotsfound: Integer;
   function FindInterval(aParent : TInterval;aId : Variant) : TInterval;
   var
     i: Integer;
@@ -1235,26 +1236,32 @@ begin
     aRoot.Task:=TProjectList(aTasks.Parent).Text.AsString;
     cbSnapshot.Items.Clear;
     cbSnapshot.Items.Add(strNoSnapshot);
+    Snapshotsfound := 0;
     while not aTasks.EOF do
       begin
         if (aTasks.FieldByName('ACTIVE').AsString<>'N') or AddInactive then
           if IntervalById(aTasks.Id.AsVariant)=nil then
             begin
               aInterval := AddTask(True,aRoot);
-              aTasks.Dependencies.Open;
-              if aTasks.Dependencies.Count>0 then
+              //aTasks.Dependencies.Open;
+              if {aTasks.Dependencies.Count>0} atasks.FieldByName('DEPDONE').AsString='N' then
                 begin
                   setlength(deps,length(deps)+1);
                   deps[length(deps)-1] := aTasks.GetBookmark;
                 end;
-              if not aTasks.Snapshots.DataSet.Active then aTasks.Snapshots.Open;
-              aTasks.Snapshots.First;
-              while not aTasks.Snapshots.EOF do
+              if Snapshotsfound<20 then
                 begin
-                  if cbSnapshot.Items.IndexOf(aTasks.Snapshots.FieldByName('NAME').AsString)=-1 then
-                    cbSnapshot.Items.Add(aTasks.Snapshots.FieldByName('NAME').AsString);
-                  aTasks.Snapshots.Next;
-                end;
+                  if not aTasks.Snapshots.DataSet.Active then aTasks.Snapshots.Open;
+                  aTasks.Snapshots.First;
+                  while not aTasks.Snapshots.EOF do
+                    begin
+                      if cbSnapshot.Items.IndexOf(aTasks.Snapshots.FieldByName('NAME').AsString)=-1 then
+                        cbSnapshot.Items.Add(aTasks.Snapshots.FieldByName('NAME').AsString);
+                      aTasks.Snapshots.Next;
+                      inc(Snapshotsfound);
+                    end;
+                end
+              else aTasks.Snapshots.Close;
             end;
         aTasks.Next;
       end;

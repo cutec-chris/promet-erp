@@ -607,7 +607,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="24">
+    <Exceptions Count="25">
       <Item1>
         <Name Value="EVariantError"/>
       </Item1>
@@ -691,6 +691,9 @@
       <Item24>
         <Name Value="RunError(216)"/>
       </Item24>
+      <Item25>
+        <Name Value="EheTextDrawerException"/>
+      </Item25>
     </Exceptions>
   </Debugging>
 </CONFIG>
