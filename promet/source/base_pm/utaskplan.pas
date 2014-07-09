@@ -511,12 +511,14 @@ var
   aSubItem: TMenuItem;
   i: Integer;
   bItem: TMenuItem;
+  aPos: TPoint;
 begin
   aClickPoint := FGantt.Calendar.ScreenToClient(Mouse.CursorPos);
+  aPos := aClickPoint;
   pmAction.Items.Clear;
   for i := 0 to 100 do
     begin
-      aInt := GetIntervalFromCoordinates(FGantt,FGantt.Calendar.ScreenToClient(Mouse.CursorPos).X,FGantt.Calendar.ScreenToClient(Mouse.CursorPos).Y,i);
+      aInt := GetIntervalFromCoordinates(FGantt,aPos.X,aPos.Y,i);
       if Assigned(aInt) then
         begin
           aItem := TMenuItem.Create(pmAction);
@@ -528,6 +530,7 @@ begin
           aSubItem.Tag:=i;
           aSubItem.OnClick:=@aSubItemClick;
           aItem.Add(aSubItem);
+          FSelectedInt:=aInt;
           if aInt.Project<>'' then
             begin
               aSubItem := TMenuItem.Create(pmAction);
@@ -578,7 +581,7 @@ var
   aInt: gsGanttCalendar.TInterval;
 begin
   aInt := GetTaskIntervalFromCoordinates(Gantt,X,Y,Index);
-  if aInt = nil then
+  if (aInt = nil) or (aInt.Id=Unassigned) then
     aInt := GetIntervalFromCoordinates(Gantt,X,Y,Index);
   if Assigned(aInt) then
     if aInt.Id <> Null then
@@ -653,7 +656,6 @@ end;
 procedure TfTaskPlan.aSubItemClick(Sender: TObject);
 begin
   TMenuItem(Sender).Action.Tag:=TMenuItem(Sender).Tag;
-  //TMenuItem(Sender).Action.Execute;
 end;
 
 procedure TfTaskPlan.aINewDrawBackground(Sender: TObject; aCanvas: TCanvas;
@@ -1319,6 +1321,7 @@ procedure TfTaskPlan.AddUserIntervals(Sender: TObject);
                 aNew.Fixed := TRessource(aInt.Pointer).Interval[i].Fixed;
                 aNew.Pointer2:=TRessource(aInt.Pointer).Interval[i];
                 aNew.OnChanged:=@TIntervalChanged;
+                aNew.Project:=TRessource(aInt.Pointer).Interval[i].Project;
                 aInt.AddInterval(aNew);
               end;
         if aInt.IntervalCount=0 then
@@ -1673,7 +1676,7 @@ begin
           begin
             Result := TInterval(List[ay]);
           end;
-      if (not Assigned(Result)) and Assigned(TInterval(List[ay]).Pointer) then
+      if Assigned(TInterval(List[ay]).Pointer) then
         begin
           for i := 0 to TRessource(TInterval(List[ay]).Pointer).IntervalCount-1 do
             if not TRessource(TInterval(List[ay]).Pointer).Interval[i].IsDrawRectClear then

@@ -592,6 +592,7 @@ inherited fTaskPlan: TfTaskPlan
     end
   end
   object pmTask: TPopupMenu[5]
+    OnPopup = FGanttCalendarClick
     left = 104
     top = 128
     object MenuItem2: TMenuItem
