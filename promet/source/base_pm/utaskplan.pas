@@ -1028,7 +1028,7 @@ begin
       aProject.Open;
       if aProject.Count>0 then
         begin
-          aProject.Tasks.SelectActive;
+          aProject.Tasks.SelectActivewithoutDeps;
           aProject.Tasks.Open;
           fGanttView.Execute(aProject,aLink);
         end;

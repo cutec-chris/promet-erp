@@ -63,6 +63,7 @@ type
     procedure FillDefaults(aDataSet : TDataSet);override;
     procedure SelectActiveByUser(AccountNo : string);
     procedure SelectActive;
+    procedure SelectActivewithoutDeps;
     procedure SelectByUser(AccountNo : string);
     procedure SelectUncompletedByUser(AccountNo : string);
     procedure SelectActiveByUserChangedSince(AccountNo: string; aDate: TdateTime);
@@ -1227,6 +1228,16 @@ begin
   with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
     begin
       Filter := '('+QuoteField('COMPLETED')+'='+QuoteValue('N')+') and ('+QuoteField('ACTIVE')+'='+QuoteValue('Y')+') and ('+QuoteField('DEPDONE')+'='+QuoteValue('Y')+')';
+      SortFields:='SQL_ID';
+      SortDirection:=sdAscending;
+    end;
+end;
+
+procedure TTaskList.SelectActivewithoutDeps;
+begin
+  with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
+    begin
+      Filter := '('+QuoteField('COMPLETED')+'='+QuoteValue('N')+') and ('+QuoteField('ACTIVE')+'='+QuoteValue('Y')+')';
       SortFields:='SQL_ID';
       SortDirection:=sdAscending;
     end;
