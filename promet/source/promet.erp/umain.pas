@@ -833,7 +833,8 @@ var
   aCal: TCalendar;
   aDS: TMeetings;
 begin
-  Synchronize(@NewConn);
+  //Synchronize(@NewConn);
+  aConn := nil;
   Synchronize(@NewMenu);
   Synchronize(@DoStartupType);
   miNew.Action := fMainTreeFrame.acSearch;
@@ -1008,7 +1009,7 @@ begin
       end;
     end;
   Synchronize(@RegisterPhoneLines);
-  aConn.Free;
+  //aConn.Free;
   Synchronize(@AddSearch);
 end;
 
