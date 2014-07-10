@@ -144,6 +144,8 @@ type
     procedure FGanttCalendarDblClick(Sender: TObject);
     procedure FGanttCalendarMouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
+    procedure FGanttCalendarMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure FGanttCalendarMoveOverInterval(Sender: TObject;
       aInterval: TInterval; X, Y: Integer);
     procedure FGanttCalendarShowHint(Sender: TObject; HintInfo: PHintInfo);
@@ -1075,6 +1077,7 @@ procedure TfTaskPlan.bRefreshClick(Sender: TObject);
     i: Integer;
     aUser: String;
     tmpRes: TRessource;
+    aIsub: TInterval;
   begin
     for i := 0 to aInt.IntervalCount-1 do
       RefreshRes(aInt.Interval[i]);
@@ -1088,6 +1091,11 @@ procedure TfTaskPlan.bRefreshClick(Sender: TObject);
         FThreads.Add(TCollectThread.Create(Self,FGantt.Calendar.VisibleStart,FGantt.Calendar.VisibleFinish,tmpRes,aUser,True,True,True,aInt));
         TCollectThread(FThreads[FThreads.Count-1]).OnTerminate:=@TCollectThreadTerminate;
         TCollectThread(FThreads[FThreads.Count-1]).Resume;
+        aInt.Opened:=False;
+        while aInt.IntervalCount>0 do
+          aInt.Interval[0].Free;
+        aIsub := TInterval.Create(FGantt);
+        aInt.AddInterval(aISub);
       end;
   end;
 var
@@ -1170,10 +1178,6 @@ begin
             FSelectedUser := TInterval(List[ay]);
             FGantt.Invalidate;
           end;
-    end
-  else
-    begin
-      pmTask.PopUp(Mouse.CursorPos.X,Mouse.CursorPos.Y);
     end;
   List.Free;
 end;
@@ -1211,6 +1215,13 @@ begin
           Application.CancelHint;
         end;
     end;
+end;
+
+procedure TfTaskPlan.FGanttCalendarMouseUp(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  if Button=mbRight then
+    FGanttCalendarClick(FGantt.Calendar);
 end;
 
 procedure TfTaskPlan.FGanttCalendarMoveOverInterval(Sender: TObject;
@@ -1404,6 +1415,7 @@ begin
   FGantt.Calendar.OnStartDateChanged:=@FGanttCalendarStartDateChanged;
   FGantt.Calendar.PopupMenu := pmAction;
   FGantt.Tree.PopupMenu := pmUSer;
+  FGantt.Calendar.OnMouseUp:=@FGanttCalendarMouseUp;
   FCollectedTo:=Fgantt.Calendar.VisibleFinish;
   FCollectedFrom:=Now();
   bDayViewClick(nil);
