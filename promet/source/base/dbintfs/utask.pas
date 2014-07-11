@@ -532,9 +532,12 @@ var
   aTime: Extended;
   a: Int64;
   aNow: Int64;
-  aPercent: Integer;
+  aPercent: Double;
   FUsage: Extended;
   FWorkTime: Extended;
+  TimeNeeded: Double;
+  aDayUseTime: Extended;
+  aActEndDate: Extended;
 begin
   Result := False;
   //Get Latest Dependency
@@ -576,6 +579,8 @@ begin
   else aNetTime := 1;
   Duration:=(aNetTime*(1/ResourceTimePerDay));
   if Duration<0.5 then Duration:=0.5;
+  //Collect Tasks
+  aIntervals := TList.Create;
   //Find first free Slot
   bTasks := TTaskList.Create(nil,DataModule,Connection);
   if aUser.FieldByName('TYPE').AsString<>'G' then
@@ -585,8 +590,6 @@ begin
       bTasks.SortDirection:=sdAscending;
       bTasks.Open;
 
-      //Collect Tasks
-      aIntervals := TList.Create;
       aIntervals.Add(TTaskInterval.Create);
       TTaskInterval(aIntervals[0]).DueDate:=aStartDate;
       with bTasks.DataSet do
@@ -617,10 +620,12 @@ begin
               aInterval := TTaskInterval.Create;
               aInterval.StartDate:=aCalendar.FieldByName('STARTDATE').AsDateTime;
               aInterval.DueDate:=aCalendar.FieldByName('ENDDATE').AsDateTime;
+              aInterval.PlanTime:=-1;
               if aCalendar.FieldByName('ALLDAY').AsString = 'Y' then
                 begin
                   aInterval.StartDate := trunc(aInterval.StartDate);
                   aInterval.DueDate := trunc(aInterval.DueDate+1);
+                  aInterval.PlanTime:=aInterval.DueDate-aInterval.StartDate;
                 end;
               aIntervals.Add(aInterval);
               Next;
@@ -634,7 +639,8 @@ begin
   //Find Slot
   aFound := False;
   aNow := trunc(aEarliest);
-  while (not ((aFound) and (aActStartDate+Duration<aNow))) do
+  TimeNeeded := Duration;
+  while (not ((aFound) and (TimeNeeded<=0))) do
     begin
       if (not ((DayOfWeek(aNow)=1) or (DayOfWeek(aNow)=7))) then
         begin
@@ -644,24 +650,29 @@ begin
               Int2 := TTaskInterval(aIntervals[i]);
               if ((trunc(Int2.StartDate)<=aNow)
               and (trunc(Int2.DueDate)>=aNow)) then
-                inc(aPercent);
+                aPercent := aPercent+((Int2.PlanTime/(Int2.DueDate-Int2.StartDate))*(1/ResourceTimePerDay));
             end;
-          if aPercent = 0 then
+          if not aFound then
+            if aPercent<0.3 then
+              begin
+                aFound := True;
+                aActStartDate:=aNow;
+              end;
+          if aFound then
             begin
-              if not aFound then
+              aDayUseTime := 1-aPercent;
+              if aDayUseTime<0 then aDayUseTime:=0;
+              TimeNeeded:=TimeNeeded-aDayUseTime;
+              if TimeNeeded<=0 then
                 begin
-                  aFound := True;
-                  aActStartDate:=aNow;
-                end
-              else
-                begin
-                  if aActStartDate+Duration<aNow then
-                    break;
+                  aActEndDate := aNow+0.999;
+                  break;
                 end;
-            end
-          else if aFound then
-            begin
-              aFound := False;
+              if aDayUseTime<0.2 then
+                begin
+                  TimeNeeded := Duration;
+                  aFound := False;
+                end;
             end;
         end;
       inc(aNow);
@@ -675,18 +686,8 @@ begin
   //Set it
   if aFound then
     begin
-      //Move out of Weekends
-      while ((DayOfWeek(trunc(aActStartDate))=1) or (DayOfWeek(trunc(aActStartDate))=7)) do
-        aActStartDate := trunc(aActStartDate)+1;
-      //Move out of Entrys
-      for i := 0 to aIntervals.Count-1 do
-        begin
-          if (aActStartDate>TTaskInterval(aIntervals[i]).StartDate)
-          and (aActStartDate<TTaskInterval(aIntervals[i]).DueDate) then
-            aActStartDate := TTaskInterval(aIntervals[i]).DueDate;
-        end;
       aStart:=aActStartDate;
-      aEnd:=aActStartDate+Duration;
+      aEnd:=aActEndDate;
       aDuration:=aNetTime;
       Result := True;
     end;
