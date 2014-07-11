@@ -56,6 +56,7 @@ type
     DoCheckTask : Boolean;
     FUserID: String;
     function GetownerName: string;
+    function GetProject: TField;
     function GetUserName: string;
     function GetHistory: TBaseHistory;
   public
@@ -96,6 +97,7 @@ type
     procedure DisableDS;
     property OwnerName : string read GetownerName;
     property UserName : string read GetUserName;
+    property Project : TField read GetProject;
     property History : TBaseHistory read FHistory;
     property UserID : String read FUserID write FUserID;
     property Snapshots : TTaskSnapshots read FSnapshots;
@@ -1113,6 +1115,12 @@ begin
   if FTempUsers.DataSet.Locate('ACCOUNTNO',DataSet.FieldByName('OWNER').AsString,[]) then
     Result := FTempUsers.FieldByName('NAME').AsString;
 end;
+
+function TTaskList.GetProject: TField;
+begin
+  result := FieldByName('PROJECT');
+end;
+
 function TTaskList.GetUserName: string;
 begin
   Result := '';

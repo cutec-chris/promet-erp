@@ -45,15 +45,17 @@ type
     acUse: TAction;
     ActionList1: TActionList;
     bAddJob: TSpeedButton;
+    bAddJob1: TSpeedButton;
     bChange: TBitBtn;
     bDeleteJob: TSpeedButton;
+    bTaskDone: TSpeedButton;
     bHide: TBitBtn;
     bStop: TBitBtn;
     bPause: TBitBtn;
     bStart: TBitBtn;
     cbShowDialog: TCheckBox;
     cbCategory: TComboBox;
-    eJob: TEdit;
+    eJob: TComboBox;
     eLink: TEditButton;
     eProject: TEditButton;
     iLink: TImage;
@@ -110,12 +112,16 @@ type
     procedure acUseasNewEntryExecute(Sender: TObject);
     procedure acUseExecute(Sender: TObject);
     procedure AskUserforContinue(aData: PtrInt);
+    procedure bAddJob1Click(Sender: TObject);
     procedure bCloseKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure bTaskDoneClick(Sender: TObject);
     procedure cbShowDialogChange(Sender: TObject);
     procedure DatasourceBeforeScroll(DataSet: TDataSet);
     procedure DatasourceGetText(Sender: TField; var aText: string;
       DisplayText: Boolean);
     procedure DatasourceSetText(Sender: TField; const aText: string);
+    procedure eJobGetItems(Sender: TObject);
+    procedure eJobSelect(Sender: TObject);
     procedure eLinkButtonClick(Sender: TObject);
     procedure eLinkChange(Sender: TObject);
     procedure eProjectButtonClick(Sender: TObject);
@@ -137,6 +143,7 @@ type
     procedure bAddJobClick(Sender: TObject);
     procedure bDeleteJobClick(Sender: TObject);
     procedure seMaxresultsChange(Sender: TObject);
+    procedure SetJobTextAsync(Data: PtrInt);
     function SetlinkfromSearch(aLink: string): Boolean;
     function SetProjectfromSearch(aLink: string): Boolean;
     function SetListLinkfromSearch(aLink: string): Boolean;
@@ -158,6 +165,7 @@ type
     FTimes: TTimes;
     FIntTimes: TTimes;
     InplaceMemo : TInplaceMemo;
+    FJobText: String;
     FNode : TTreeNode;
     FList : TfFilter;
     Startmodified: Boolean;
@@ -204,8 +212,9 @@ function GetFreeTime(User : string;Day : TDateTime;Hours : Integer) : Integer;
 function GetFreeDayTime(User : string;Day : TDateTime) : Integer;
 implementation
 uses
-  uRowEditor, uSearch, uBaseSearch, uSelectreport, uBaseApplication,
-  uBaseDBInterface,uProjects,uMasterdata,uPerson,uMainTreeFrame,uData,uBaseDbClasses
+  uRowEditor, uSearch, uBaseSearch, uSelectreport, uBaseApplication,variants,
+  uBaseDBInterface,uProjects,uMasterdata,uPerson,uMainTreeFrame,uData,uBaseDbClasses,
+  utask
   {$IFDEF WINDOWS}
   ,Windows
   {$ENDIF}
@@ -240,6 +249,12 @@ procedure TfEnterTime.seMaxresultsChange(Sender: TObject);
 begin
   acFilter.Execute;
 end;
+
+procedure TfEnterTime.SetJobTextAsync(Data: PtrInt);
+begin
+  eJob.Text:=FJobText;
+end;
+
 function TfEnterTime.SetlinkfromSearch(aLink: string): Boolean;
 begin
   Link := aLink;
@@ -372,13 +387,19 @@ procedure TfEnterTime.SetTask(AValue: string);
 begin
   if FTask=AValue then Exit;
   FTask:=AValue;
+  bTaskDone.Enabled:=False;
+  FJobText:=Ftask;
   with Application as IBaseDBInterface do
     begin
-      eJob.Text:=Data.GetLinkDesc(FTask);
+      FJobText:=Data.GetLinkDesc(FTask);
       if Data.GetLinkIcon(FTask) <> -1 then
-        fVisualControls.Images.GetBitmap(Data.GetLinkIcon(FTask),iLink3.Picture.Bitmap)
+        begin
+          fVisualControls.Images.GetBitmap(Data.GetLinkIcon(FTask),iLink3.Picture.Bitmap);
+          bTaskDone.Enabled:=True;
+        end
       else iLink3.Picture.Clear;
     end;
+  Application.QueueAsyncCall(@SetJobTextAsync,0);
 end;
 procedure TfEnterTime.UpdateEditors;
 var
@@ -630,6 +651,27 @@ begin
     end;
 end;
 
+procedure TfEnterTime.bAddJob1Click(Sender: TObject);
+var
+  aTask: TTask;
+  aProject: TProject;
+begin
+  aTask := TTask.Create(nil,Data);
+  aTask.Insert;
+  aTask.Text.AsString:=eJob.Text;
+  aProject := TProject.Create(nil,Data);
+  aProject.SelectFromLink(Project);
+  aProject.Open;
+  if aProject.Count>0 then
+    begin
+      aTask.Project.AsString:=aProject.Text.AsString;
+      aTask.FieldByName('PROJECTID').AsVariant:=aProject.Id.AsVariant;
+    end;
+  aProject.Free;
+  aTask.FieldByName('CATEGORY').AsString:=cbCategory.Text;
+  aTask.Post;
+end;
+
 procedure TfEnterTime.bCloseKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
@@ -639,6 +681,23 @@ begin
       Close;
     end;
 end;
+
+procedure TfEnterTime.bTaskDoneClick(Sender: TObject);
+var
+  aTask: TTask;
+begin
+  aTask := TTask.Create(nil,Data);
+  aTask.SelectFromLink(Task);
+  aTask.Open;
+  if aTask.Count>0 then
+    begin
+      aTask.Edit;
+      aTask.FieldByName('COMPLETED').AsString:='Y';
+      aTask.Post;
+    end;
+  aTask.Free;
+end;
+
 procedure TfEnterTime.cbShowDialogChange(Sender: TObject);
 begin
   if cbShowDialog.Checked then
@@ -682,6 +741,49 @@ begin
     NewTime := NewTime+trunc(Sender.DataSet.FieldByName('START').AsDateTime);
   Sender.AsDateTime:=NewTime;
 end;
+
+procedure TfEnterTime.eJobGetItems(Sender: TObject);
+var
+  aTasks: TTask;
+begin
+  aTasks := TTask.Create(nil,Data);
+  aTasks.SelectActiveByUser(Data.Users.Accountno.AsString);
+  aTasks.Open;
+  eJob.Items.Clear;
+  while not aTasks.EOF do
+    begin
+      eJob.Items.Add(aTasks.Text.AsString+' - '+aTasks.Project.AsString);
+      aTasks.Next;
+    end;
+  aTasks.Free;
+end;
+
+procedure TfEnterTime.eJobSelect(Sender: TObject);
+var
+  aTasks: TTask;
+  aProject: TProject;
+begin
+  aTasks := TTask.Create(nil,Data);
+  aTasks.SelectActiveByUser(Data.Users.Accountno.AsString);
+  aTasks.Open;
+  if aTasks.Locate('SUMMARY;PROJECT',VarArrayof([copy(eJob.Text,0,pos(' - ',eJob.Text)-1),copy(eJob.Text,pos(' - ',eJob.Text)+3,length(eJob.Text))]),[loCaseInsensitive]) then
+    begin
+      aProject := TProject.Create(nil,Data);
+      aProject.Select(aTasks.FieldByName('PROJECTID').AsVariant);
+      aProject.Open;
+      if aProject.Count>0 then
+        Project:=Data.BuildLink(aProject.DataSet);
+      aProject.Free;
+      Task:=Data.BuildLink(aTasks.DataSet);
+      cbCategory.Text:=aTasks.FieldByName('CATEGORY').AsString;
+    end
+  else if pos(' - ',eJob.Text)>0 then
+    begin
+      eJob.Text:=copy(eJob.Text,0,pos(' - ',eJob.Text)-1);
+    end;
+  aTasks.Free;
+end;
+
 procedure TfEnterTime.eLinkButtonClick(Sender: TObject);
 begin
   fSearch.SetLanguage;
