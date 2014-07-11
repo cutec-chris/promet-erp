@@ -140,9 +140,8 @@ procedure TCollectThread.Plan;
 var
   aConnection: Classes.TComponent;
 begin
-  aConnection := Data.GetNewConnection;
+  aConnection := nil;
   FPlan.CollectResources(FResource,FFrom,FTo,FUser,aConnection,FColorized);
-  aConnection.Free;
 end;
 
 procedure TCollectThread.Execute;
@@ -470,23 +469,45 @@ begin
 end;
 
 destructor TfAttPlan.Destroy;
-  procedure RefreshRes(aInt : TInterval);
+  procedure ClearResources(aInt : TInterval);
   var
     i: Integer;
+    aInt1: TInterval;
   begin
     for i := 0 to aInt.IntervalCount-1 do
-      RefreshRes(aInt.Interval[i]);
+      ClearResources(aInt.Interval[i]);
     if Assigned(aInt.Pointer) then
       begin
+        while TInterval(aInt.Pointer).IntervalCount>0 do
+          begin
+            aInt1 := TInterval(aInt.Pointer).Interval[0];
+            TInterval(aInt.Pointer).RemoveInterval(aInt1);
+            aInt1.Free;
+          end;
         TInterval(aInt.Pointer).Free;
         aInt.Pointer := nil;
+      end;
+  end;
+  procedure DeleteIntervals(aInt : TInterval);
+  var
+    i: Integer;
+    aInt1: TInterval;
+  begin
+    while aInt.IntervalCount>0 do
+      begin
+        aInt1 := aInt.Interval[0];
+        aInt.RemoveInterval(aInt1);
+        DeleteIntervals(aInt1);
+        aInt1.Free;
       end;
   end;
 var
   i: Integer;
 begin
   for i := 0 to FGantt.IntervalCount-1 do
-    RefreshRes(FGantt.Interval[i]);
+    ClearResources(FGantt.Interval[i]);
+  for i := 0 to FGantt.IntervalCount-1 do
+    DeleteIntervals(FGantt.Interval[i]);
   if Assigned(FDataSet) then
     begin
       FreeAndNil(FDataSet);
@@ -574,6 +595,7 @@ var
         aUsers.Next;
       end;
     aActive.Free;
+    aUsers.Free;
   end;
 begin
   if Data.Users.FieldByName('POSITION').AsString='LEADER' then

@@ -1519,6 +1519,7 @@ var
           end;
         aUsers.Next;
       end;
+    aUsers.Free;
   end;
 begin
   if Data.Users.FieldByName('PARENT').AsVariant = Null then exit;
