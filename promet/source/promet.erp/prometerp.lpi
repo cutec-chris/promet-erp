@@ -61,7 +61,6 @@
             <CompilerMessages>
               <IgnoredMessages idx5024="True"/>
             </CompilerMessages>
-            <CompilerPath Value="$(CompPath)"/>
           </Other>
         </CompilerOptions>
       </Item2>
@@ -92,9 +91,6 @@
               </Win32>
             </Options>
           </Linking>
-          <Other>
-            <CompilerPath Value="$(CompPath)"/>
-          </Other>
         </CompilerOptions>
       </Item3>
       <Item4 Name="Win64">
@@ -124,9 +120,6 @@
               </Win32>
             </Options>
           </Linking>
-          <Other>
-            <CompilerPath Value="$(CompPath)"/>
-          </Other>
         </CompilerOptions>
       </Item4>
       <Item5 Name="DebugOSX">
@@ -163,7 +156,6 @@
           </Linking>
           <Other>
             <CustomOptions Value="-dHASMESSAGING"/>
-            <CompilerPath Value="$(CompPath)"/>
           </Other>
         </CompilerOptions>
       </Item5>
@@ -180,7 +172,6 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--config-path=C:/Dokumente und Einstellungen/ulrich/Desktop/Promet-ERP/Data/config&quot; --mandant=Standard"/>
       </local>
     </RunParams>
     <RequiredPackages Count="25">
@@ -364,7 +355,6 @@
         <ComponentName Value="fArticleFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uArticleFrame"/>
       </Unit11>
       <Unit12>
         <Filename Value="uarticlepositionframe.pas"/>
@@ -372,7 +362,6 @@
         <ComponentName Value="fArticlePositionFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uArticlePositionFrame"/>
       </Unit12>
       <Unit13>
         <Filename Value="uorderframe.pas"/>
@@ -380,7 +369,6 @@
         <ComponentName Value="fOrderFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uOrderFrame"/>
       </Unit13>
       <Unit14>
         <Filename Value="uorderadditionalframe.pas"/>
@@ -514,7 +502,6 @@
         <ComponentName Value="fArticleTextFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uArticleText"/>
       </Unit32>
       <Unit33>
         <Filename Value="ucopyarticledata.pas"/>
@@ -604,7 +591,6 @@
     </Linking>
     <Other>
       <CustomOptions Value="-dHASMESSAGING"/>
-      <CompilerPath Value="$(CompPath)"/>
     </Other>
   </CompilerOptions>
   <Debugging>

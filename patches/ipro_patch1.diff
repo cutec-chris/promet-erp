@@ -1,0 +1,35 @@
+Index: components/fpdebug/fpdebug.pas
+===================================================================
+--- components/fpdebug/fpdebug.pas	(Revision 45832)
++++ components/fpdebug/fpdebug.pas	(Arbeitskopie)
+@@ -13,7 +13,7 @@
+   FpImgReaderMachoFile, FpImgReaderMacho, FpPascalBuilder, FpDbgInfo, 
+   FpdMemoryTools, FpErrorMessages, FPDbgController, FpDbgDwarfVerbosePrinter, 
+   FpDbgDwarfDataClasses, FpDbgDwarfFreePascal, fpDbgSymTableContext, 
+-  fpDbgSymTable, FpDbgLinuxClasses, FpDbgLinuxExtra, LazarusPackageIntf;
++  fpDbgSymTable, LazarusPackageIntf;
+ 
+ implementation
+ 
+Index: components/turbopower_ipro/iphtml.pas
+===================================================================
+--- components/turbopower_ipro/iphtml.pas	(Revision 45832)
++++ components/turbopower_ipro/iphtml.pas	(Arbeitskopie)
+@@ -10427,7 +10427,7 @@
+     FMaxDescent := MaxI2(FMaxDescent, FCurDescent);
+     FMaxHeight := MaxI3(FMaxHeight, FCurHeight, FMaxAscent + FMaxDescent);
+     // if word fits on line update width and height
+-    if CurElem.ElementType = etIndent then begin
++    if Assigned(CurElem) and (CurElem.ElementType = etIndent) then begin
+       i := StdIndent;
+       FxySize.cx := MinI2(WW, i - ((X0 - TargetRect.Left) mod i));
+     end;
+@@ -10522,7 +10522,7 @@
+               Break;
+           etHardLF :
+             if DoQueueElemHardLF then
+-              raise EIpHtmlException.Create('TIpHtmlNodeBlock.LayoutQueue: FIgnoreHardLF is True after all.')
++              //raise EIpHtmlException.Create('TIpHtmlNodeBlock.LayoutQueue: FIgnoreHardLF is True after all.')
+             else
+               Break;
+           etClearLeft, etClearRight, etClearBoth :
