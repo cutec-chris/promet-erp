@@ -109,6 +109,7 @@ type
     procedure acStopExecute(Sender: TObject);
     procedure acUseasNewEntryExecute(Sender: TObject);
     procedure acUseExecute(Sender: TObject);
+    procedure AskUserforContinue(aData: PtrInt);
     procedure bCloseKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure cbShowDialogChange(Sender: TObject);
     procedure DatasourceBeforeScroll(DataSet: TDataSet);
@@ -428,14 +429,6 @@ begin
   tmShowDialog.Enabled := False;
   if Assigned(FList) then
     begin
-      try
-        if Assigned(FTimes) then
-          begin
-            FreeAndNil(FTimes);
-            FIntTimes.Destroy;
-          end;
-      except
-      end;
       FList.DataSet := nil;
       FList.Destroy;
       FList := nil;
@@ -582,6 +575,61 @@ begin
   Times.FieldByName('NOTE').AsString := mNotes.Lines.Text;
   Times.DataSet.Post;
 end;
+
+procedure TfEnterTime.AskUserforContinue(aData: PtrInt);
+var
+  aRes: TModalResult;
+begin
+  with Application as IBaseDbInterface do
+    begin
+      Times.First;
+      if Trunc(Times.FieldByName('END').AsFloat) = Trunc(Now()) then
+        begin
+          if (Now()-Times.FieldByName('END').AsDateTime) > (MSecsPerSec*60*30) then
+            aRes := MessageDlg(strTimeRegistration,Format(strContinuePreviousTimeEntry,[Data.GetLinkDesc(Times.FieldByName('LINK').AsString),Data.GetLinkDesc(Times.FieldByName('PROJECT').AsString),Times.FieldByName('JOB').AsString,Times.FieldByName('END').AsString]),mtConfirmation,[mbNo,mbYes],0)
+          else
+            aRes := MessageDlg(strTimeRegistration,Format(strContinuePreviousTimeEntry,[Data.GetLinkDesc(Times.FieldByName('LINK').AsString),Data.GetLinkDesc(Times.FieldByName('PROJECT').AsString),Times.FieldByName('JOB').AsString,Times.FieldByName('END').AsString]),mtConfirmation,[mbYes,mbNo],0);
+          if aRes = mrYes then
+            begin
+              Times.DataSet.Edit;
+              Times.FieldByName('END').Clear;
+              Times.DataSet.Post;
+              exit;
+            end;
+        end;
+      if not (Times.FieldByName('END').IsNull) then
+        begin
+          if DBConfig.ReadString('TIMESTANDARTSTART','Y') = 'Y' then
+            begin
+              Times.DuplicateRecord;
+              Times.DataSet.Edit;
+              Times.FieldByName('LINK').AsString := DBConfig.ReadString('TIMELINK','');
+              Times.FieldByName('PROJECT').AsString := DBConfig.ReadString('TIMEPROJECT','');
+              Times.FieldByName('CATEGORY').AsString := DBConfig.ReadString('TIMECATEGORY','');
+              Times.FieldByName('JOB').AsString := DBConfig.ReadString('TIMEJOB','');
+              Times.FieldByName('NOTE').AsString := DBConfig.ReadString('TIMENOTES','');
+              Times.FieldByName('START').AsFloat := Now();
+              Times.FieldByName('END').Clear;
+              Times.DataSet.Post;
+            end
+          else
+            begin
+              Times.DuplicateRecord;
+              Times.DataSet.Edit;
+              Times.FieldByName('ISPAUSE').AsString := 'N';
+              Times.FieldByName('START').AsFloat := Now();
+              Times.FieldByName('END').Clear;
+              Times.DataSet.Post;
+            end;
+          Times.DataSet.Refresh;
+        end
+      else
+        begin
+          ShowMessage(strEndTimeNotSet);
+        end;
+    end;
+end;
+
 procedure TfEnterTime.bCloseKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
@@ -1001,50 +1049,7 @@ begin
   with Application as IBaseDbInterface do
     begin
       if DBConfig.ReadString('NOTIMEREG','N') = 'Y' then exit;
-      if Trunc(Times.FieldByName('END').AsFloat) = Trunc(Now()) then
-        begin
-          if (Now()-Times.FieldByName('END').AsDateTime) > (MSecsPerSec*60*30) then
-            aRes := MessageDlg(strTimeRegistration,Format(strContinuePreviousTimeEntry,[Data.GetLinkDesc(Times.FieldByName('LINK').AsString),Data.GetLinkDesc(Times.FieldByName('PROJECT').AsString),Times.FieldByName('JOB').AsString,Times.FieldByName('END').AsString]),mtConfirmation,[mbNo,mbYes],0)
-          else
-            aRes := MessageDlg(strTimeRegistration,Format(strContinuePreviousTimeEntry,[Data.GetLinkDesc(Times.FieldByName('LINK').AsString),Data.GetLinkDesc(Times.FieldByName('PROJECT').AsString),Times.FieldByName('JOB').AsString,Times.FieldByName('END').AsString]),mtConfirmation,[mbYes,mbNo],0);
-          if aRes = mrYes then
-            begin
-              Times.DataSet.Edit;
-              Times.FieldByName('END').Clear;
-              Times.DataSet.Post;
-              exit;
-            end;
-        end;
-      if not (Times.FieldByName('END').IsNull) then
-        begin
-          if DBConfig.ReadString('TIMESTANDARTSTART','Y') = 'Y' then
-            begin
-              Times.DuplicateRecord;
-              Times.DataSet.Edit;
-              Times.FieldByName('LINK').AsString := DBConfig.ReadString('TIMELINK','');
-              Times.FieldByName('PROJECT').AsString := DBConfig.ReadString('TIMEPROJECT','');
-              Times.FieldByName('CATEGORY').AsString := DBConfig.ReadString('TIMECATEGORY','');
-              Times.FieldByName('JOB').AsString := DBConfig.ReadString('TIMEJOB','');
-              Times.FieldByName('NOTE').AsString := DBConfig.ReadString('TIMENOTES','');
-              Times.FieldByName('START').AsFloat := Now();
-              Times.FieldByName('END').Clear;
-              Times.DataSet.Post;
-            end
-          else
-            begin
-              Times.DuplicateRecord;
-              Times.DataSet.Edit;
-              Times.FieldByName('ISPAUSE').AsString := 'N';
-              Times.FieldByName('START').AsFloat := Now();
-              Times.FieldByName('END').Clear;
-              Times.DataSet.Post;
-            end;
-          Times.DataSet.Refresh;
-        end
-      else
-        begin
-          ShowMessage(strEndTimeNotSet);
-        end;
+      Application.QueueAsyncCall(@AskUserforContinue,0);
     end;
 end;
 procedure TfEnterTime.SetLanguage;
