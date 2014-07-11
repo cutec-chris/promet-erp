@@ -1136,6 +1136,7 @@ object fGanttView: TfGanttView
     TabOrder = 1
   end
   object PopupMenu1: TPopupMenu
+    Images = fVisualControls.Images
     left = 20
     top = 56
     object MenuItem1: TMenuItem
@@ -1143,7 +1144,7 @@ object fGanttView: TfGanttView
       Caption = 'Aufgabe zeigen'
     end
     object MenuItem3: TMenuItem
-      Caption = 'New Item2'
+      Action = acFindTimeSlot
     end
   end
   object ActionList1: TActionList
@@ -1202,6 +1203,7 @@ object fGanttView: TfGanttView
     top = 56
   end
   object PopupMenu2: TPopupMenu
+    Images = fVisualControls.Images
     OnPopup = PopupMenu2Popup
     left = 20
     top = 112
