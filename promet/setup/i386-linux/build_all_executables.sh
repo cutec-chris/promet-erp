@@ -30,13 +30,13 @@ lazbuild $Params -q -B ../../source/sync/sync_owncloud.lpi  >> scompile-$2-tools
 lazbuild $Params -q -B ../../source/sync/sync_redmine.lpi  >> scompile-$2-tools.log
 lazbuild $Params -q -B ../../source/sync/import_document.lpi  >> scompile-$2-tools.log
 echo "compiling pop3receiver..." >> scompile-$2-tools.log
-lazbuild $Params -q ../../source/messageimport/pop3receiver.lpi  >> scompile-$2-tools.log
+lazbuild $Params -q ../../source/sync/pop3receiver.lpi  >> scompile-$2-tools.log
 echo "compiling feedreceiver..." >> scompile-$2-tools.log
-lazbuild $Params -q ../../source/messageimport/feedreceiver.lpi  >> scompile-$2-tools.log
+lazbuild $Params -q ../../source/sync/feedreceiver.lpi  >> scompile-$2-tools.log
 echo "compiling twitterreceiver..." >> scompile-$2-tools.log
-lazbuild $Params -q ../../source/messageimport/twitterreceiver.lpi  >> scompile-$2-tools.log
+lazbuild $Params -q ../../source/sync/twitterreceiver.lpi  >> scompile-$2-tools.log
 echo "compiling smtpsender..." >> scompile-$2-tools.log
-lazbuild $Params -q ../../source/messageimport/smtpsender.lpi  >> scompile-$2-tools.log
+lazbuild $Params -q ../../source/sync/smtpsender.lpi  >> scompile-$2-tools.log
 echo "compiling tools..."
 echo "compiling pstarter..." >> scompile-$2-tools.log
 lazbuild $Params -q ../../source/tools/pstarter.lpi  >> scompile-$2-tools.log

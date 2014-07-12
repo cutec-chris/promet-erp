@@ -46,6 +46,14 @@ lazbuild --build-mode=Default -q ..\..\source\sync\sync_outlook_calendar.lpi
 If errorlevel 1 goto end
 lazbuild --build-mode=Default -q ..\..\source\sync\sync_outlook_tasks.lpi
 If errorlevel 1 goto end
+lazbuild --build-mode=Default -q ..\..\source\sync\pop3receiver.lpi
+If errorlevel 1 goto end
+lazbuild --build-mode=Default -q ..\..\source\sync\smtpsender.lpi
+If errorlevel 1 goto end
+lazbuild --build-mode=Default -q ..\..\source\sync\feedreceiver.lpi
+If errorlevel 1 goto end
+lazbuild --build-mode=Default -q ..\..\source\sync\twitterreceiver.lpi
+If errorlevel 1 goto end
 
 lazbuild --build-mode=Default -q ..\..\source\tools\portableapps.lpi
 lazbuild --build-mode=Default -q ..\..\source\tools\cdmenue.lpi
@@ -59,14 +67,6 @@ If errorlevel 1 lazbuild --build-mode=Default -q -B ..\..\source\tools\archivest
 If errorlevel 1 goto end
 lazbuild --build-mode=Default -q ..\..\source\tools\clientmanagement.lpi
 If errorlevel 1 lazbuild --build-mode=Default -q -B ..\..\source\tools\clientmanagement.lpi
-If errorlevel 1 goto end
-lazbuild --build-mode=Default -q ..\..\source\messageimport\pop3receiver.lpi
-If errorlevel 1 goto end
-lazbuild --build-mode=Default -q ..\..\source\messageimport\smtpsender.lpi
-If errorlevel 1 goto end
-lazbuild --build-mode=Default -q ..\..\source\messageimport\feedreceiver.lpi
-If errorlevel 1 goto end
-lazbuild --build-mode=Default -q ..\..\source\messageimport\twitterreceiver.lpi
 If errorlevel 1 goto end
 goto realend
 :end
