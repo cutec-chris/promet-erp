@@ -835,6 +835,7 @@ begin
   FItemIndex := -1;
   FSnoozeTime := 0.0;
   FCategory:=8;
+  FColor:=clNone;
 end;
 {=====}
 

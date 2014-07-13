@@ -606,6 +606,7 @@ var
 begin
   if not DataSet.DataSet.Active then exit;
   Data.SetFilter(Data.Categories,Data.QuoteField('TYPE')+'='+Data.QuoteValue('C'));
+  DataSet.History.Close;
   with Dataset.DataSet do
     begin
       First;

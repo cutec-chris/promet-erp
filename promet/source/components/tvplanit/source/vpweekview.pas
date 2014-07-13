@@ -737,6 +737,8 @@ var
           EventStr := EventStr + Event.Description;
 
           RenderCanvas.Brush.Color := ADEventBackgroundColor;
+          if Event.Color<>clNone then
+            RenderCanvas.Brush.Color:=Event.Color;
           RenderCanvas.Pen.Color := ADEventBorderColor;
           TPSRectangle (RenderCanvas, Angle, RenderIn,
                         ADEventRect.Left + TextMargin,

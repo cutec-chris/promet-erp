@@ -28,11 +28,7 @@ uses
   { you can add units after this },db,Utils, general_nogui,
   FileUtil,uData, uIntfStrConsts, pcmdprometapp,uBaseCustomApplication,
   uBaseApplication,uBaseDbClasses,uBaseDBInterface,uSpeaker;
-
 type
-
-  { PrometCmdApp }
-
   PrometCmdApp = class(TBaseCustomApplication)
   private
     mailaccounts : string;
@@ -42,16 +38,10 @@ type
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
   end;
-
-  { TThaliaAnswers }
-
   TThaliaAnswers = class(TBaseDBDataset)
   public
     procedure DefineFields(aDataSet: TDataSet); override;
   end;
-
-  { TThaliaScentences }
-
   TThaliaScentences = class(TBaseDBDataset)
   private
     FAnswers: TThaliaAnswers;
@@ -63,16 +53,10 @@ type
     destructor Destroy; override;
     property Answers : TThaliaAnswers read FAnswers;
   end;
-
-  { TThaliaDict }
-
   TThaliaDict = class(TBaseDBDataset)
   public
     procedure DefineFields(aDataSet: TDataSet); override;
   end;
-
-  { TPrometSpeakerData }
-
   TPrometSpeakerData = class(TSpeakerData)
   private
     FSentences: TThaliaScentences;
@@ -85,41 +69,32 @@ type
     function GetWords(aFilter: string): TDataSet; override;
   end;
 
-{ TPrometSpeakerData }
-
 constructor TPrometSpeakerData.Create;
 begin
   FSentences := TThaliaScentences.Create(nil,Data);
   FWords := TThaliaDict.Create(nil,Data);
 end;
-
 destructor TPrometSpeakerData.Destroy;
 begin
   FSentences.Free;
   FWords.Free;
   inherited Destroy;
 end;
-
 function TPrometSpeakerData.GetAnswers(aFilter: string): TDataSet;
 begin
   FSentences.Answers.Open;
   Result := FSentences.Answers.DataSet;
 end;
-
 function TPrometSpeakerData.GetScentences(aFilter: string): TDataSet;
 begin
   FSentences.Filter(aFilter);
   Result := FSentences.DataSet;
 end;
-
 function TPrometSpeakerData.GetWords(aFilter: string): TDataSet;
 begin
   FWords.Filter(aFilter);
   Result := FSentences.DataSet;
 end;
-
-{ TThaliaAnswers }
-
 procedure TThaliaAnswers.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do
@@ -132,9 +107,6 @@ begin
           end;
     end;
 end;
-
-{ TThaliaScentences }
-
 procedure TThaliaScentences.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do
@@ -149,9 +121,6 @@ begin
           end;
     end;
 end;
-
-{ TThaliaDict }
-
 procedure TThaliaDict.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do
@@ -165,28 +134,22 @@ begin
           end;
     end;
 end;
-
 constructor TThaliaScentences.Create(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
   inherited Create(aOwner, DM, aConnection, aMasterdata);
   FAnswers := TThaliaAnswers.Create(aOwner,DM,aConnection,DataSet);
 end;
-
 function TThaliaScentences.CreateTable: Boolean;
 begin
   Result:=inherited CreateTable;
   FAnswers.CreateTable;
 end;
-
 destructor TThaliaScentences.Destroy;
 begin
   FAnswers.Free;
   inherited Destroy;
 end;
-
-{ PrometCmdApp }
-
 procedure PrometCmdApp.DoRun;
 begin
   with BaseApplication as IBaseApplication do
@@ -201,21 +164,17 @@ begin
   // stop program loop
   Terminate;
 end;
-
 constructor PrometCmdApp.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   StopOnException:=True;
 end;
-
 destructor PrometCmdApp.Destroy;
 begin
   inherited Destroy;
 end;
-
 var
   Application: PrometCmdApp;
-
 begin
   Application:=PrometCmdApp.Create(nil);
   Application.Run;
