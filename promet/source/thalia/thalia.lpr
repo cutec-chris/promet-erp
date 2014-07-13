@@ -27,7 +27,7 @@ uses
   Classes, SysUtils, CustApp
   { you can add units after this },db,Utils, general_nogui,
   FileUtil,uData, uIntfStrConsts, pcmdprometapp,uBaseCustomApplication,
-  uBaseApplication,uBaseDbClasses,uBaseDBInterface,uSpeaker;
+  uBaseApplication,uBaseDbClasses,uBaseDBInterface,uSpeaker,umath;
 type
   PrometCmdApp = class(TBaseCustomApplication)
     procedure FSpeakerDebugMessage(sentence: string);
@@ -70,9 +70,6 @@ type
     function GetScentences(aFilter: string): TDataSet; override;
     function GetWords(aFilter: string): TDataSet; override;
   end;
-
-  { TPrometSpeakerInterface }
-
   TPrometSpeakerInterface=class(TSpeakerInterface)
   public
     procedure Connect; override;
@@ -82,8 +79,6 @@ type
     function GetID: string; override;
     function IsUser(user: string): Boolean; override;
   end;
-
-{ TPrometSpeakerInterface }
 
 procedure TPrometSpeakerInterface.Connect;
 begin
@@ -118,7 +113,9 @@ end;
 constructor TPrometSpeakerData.Create;
 begin
   FSentences := TThaliaScentences.Create(nil,Data);
+  FSentences.CreateTable;
   FWords := TThaliaDict.Create(nil,Data);
+  FWords.CreateTable;
 end;
 destructor TPrometSpeakerData.Destroy;
 begin
@@ -161,9 +158,11 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
+            Add('ID',ftLargeint,0,true);
             Add('WORDS',ftString,500,true);
             Add('CATEGORY',ftString,60,false);
             Add('TYPE',ftSmallInt,0,true);
+            Add('PRIORITY',ftSmallInt,0,true);
           end;
     end;
 end;
@@ -220,10 +219,7 @@ begin
   if not Login then Terminate;
   //Your logged in here on promet DB
   FSpeaker := TSpeaker.Create('thalia','deutsch',TPrometSpeakerData.Create);
-  FSpeaker.FastAnswer := HasOption('a','fastanswer');
-  FSpeaker.BeQuiet := HasOption('q','quiet');
-  FSpeaker.Autofocus := HasOption('f','autofocus');
-  FSpeaker.IgnoreUnicode := HasOption('i','ignoreunicode');
+  FSpeaker.FastAnswer := True;
   if HasOption('c','cmdln') then
     FSpeaker.Intf := TCmdLnInterface.Create
   else
