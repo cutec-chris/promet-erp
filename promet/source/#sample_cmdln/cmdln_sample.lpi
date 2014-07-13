@@ -31,22 +31,18 @@
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="3">
+    <RequiredPackages Count="2">
       <Item1>
         <PackageName Value="pcmdprometapp"/>
       </Item1>
       <Item2>
         <PackageName Value="general"/>
       </Item2>
-      <Item3>
-        <PackageName Value="LCL"/>
-      </Item3>
     </RequiredPackages>
     <Units Count="1">
       <Unit0>
         <Filename Value="cmdln_sample.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="cmdln_sample"/>
       </Unit0>
     </Units>
   </ProjectOptions>
@@ -68,12 +64,6 @@
         <UseExternalDbgSyms Value="True"/>
       </Debugging>
     </Linking>
-    <Other>
-      <CompilerMessages>
-        <UseMsgFile Value="True"/>
-      </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="1">

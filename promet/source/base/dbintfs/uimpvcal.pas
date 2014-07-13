@@ -20,7 +20,7 @@ unit uimpvcal;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, uVTools, uCalendar,lHTTPUtil;
+  {$ifdef WINDOWS}Windows,{$else}UnixUtil,{$endif}Classes, SysUtils, uVTools, uCalendar;
 function VCalImport(Calendar : TCalendar;vIn : TStrings) : Boolean;
 function VCalExport(Calendar : TCalendar;vOut : TStrings) : Boolean;
 implementation
@@ -49,6 +49,31 @@ const
     LongDayNames:  ('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
     TwoDigitYearCenturyWindow: 50;
   );
+{$ifdef WINDOWS}
+function TZSeconds: integer; inline;
+var
+  lInfo: Windows.TIME_ZONE_INFORMATION;
+begin
+  { lInfo.Bias is in minutes }
+  if Windows.GetTimeZoneInformation(@lInfo) <> $FFFFFFFF then
+    Result := lInfo.Bias * 60
+  else
+    Result := 0;
+end;
+{$else}
+function TZSeconds: Integer; inline;
+begin
+  Result := unixutil.TZSeconds;
+end;
+{$endif}
+function GMTToLocalTime(ADateTime: TDateTime): TDateTime;
+begin
+  Result := ADateTime + (TZSeconds*1000/MSecsPerDay);
+end;
+function LocalTimeToGMT(ADateTime: TDateTime): TDateTime;
+begin
+  Result := ADateTime - (TZSeconds*1000/MSecsPerDay);
+end;
 function VCalImport(Calendar: TCalendar; vIn: TStrings): Boolean;
   function ConvertISODate(Str : string; ReturnUTC: Boolean = True) : TDateTime;
   var
