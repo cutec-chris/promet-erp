@@ -30,8 +30,10 @@ uses
   uBaseApplication,uBaseDbClasses,uBaseDBInterface,uSpeaker;
 type
   PrometCmdApp = class(TBaseCustomApplication)
+    procedure FSpeakerDebugMessage(sentence: string);
+    procedure FSpeakerSystemMessage(sentence: string);
   private
-    mailaccounts : string;
+    FSpeaker: TSpeaker;
   protected
     procedure DoRun; override;
   public
@@ -68,6 +70,50 @@ type
     function GetScentences(aFilter: string): TDataSet; override;
     function GetWords(aFilter: string): TDataSet; override;
   end;
+
+  { TPrometSpeakerInterface }
+
+  TPrometSpeakerInterface=class(TSpeakerInterface)
+  public
+    procedure Connect; override;
+    procedure Disconnect; override;
+    procedure Talk(user, sentence: string); override;
+    function Process(NeedNewMessage: Boolean=False): boolean; override;
+    function GetID: string; override;
+    function IsUser(user: string): Boolean; override;
+  end;
+
+{ TPrometSpeakerInterface }
+
+procedure TPrometSpeakerInterface.Connect;
+begin
+
+end;
+
+procedure TPrometSpeakerInterface.Disconnect;
+begin
+
+end;
+
+procedure TPrometSpeakerInterface.Talk(user, sentence: string);
+begin
+
+end;
+
+function TPrometSpeakerInterface.Process(NeedNewMessage: Boolean): boolean;
+begin
+
+end;
+
+function TPrometSpeakerInterface.GetID: string;
+begin
+
+end;
+
+function TPrometSpeakerInterface.IsUser(user: string): Boolean;
+begin
+
+end;
 
 constructor TPrometSpeakerData.Create;
 begin
@@ -150,6 +196,20 @@ begin
   FAnswers.Free;
   inherited Destroy;
 end;
+
+procedure PrometCmdApp.FSpeakerDebugMessage(sentence: string);
+begin
+  if not HasOption('q','quiet') then
+    if HasOption('d','debug') then
+      write(sentence);
+end;
+
+procedure PrometCmdApp.FSpeakerSystemMessage(sentence: string);
+begin
+  if not HasOption('q','quiet') then
+    write(sentence);
+end;
+
 procedure PrometCmdApp.DoRun;
 begin
   with BaseApplication as IBaseApplication do
@@ -159,8 +219,29 @@ begin
     end;
   if not Login then Terminate;
   //Your logged in here on promet DB
-
-
+  FSpeaker := TSpeaker.Create('thalia','deutsch',TPrometSpeakerData.Create);
+  FSpeaker.FastAnswer := HasOption('a','fastanswer');
+  FSpeaker.BeQuiet := HasOption('q','quiet');
+  FSpeaker.Autofocus := HasOption('f','autofocus');
+  FSpeaker.IgnoreUnicode := HasOption('i','ignoreunicode');
+  if HasOption('c','cmdln') then
+    FSpeaker.Intf := TCmdLnInterface.Create
+  else
+    FSpeaker.Intf := TPrometSpeakerInterface.Create;
+  FSpeaker.OnSystemMessage:=@FSpeakerSystemMessage;
+  FSpeaker.OnDebugMessage:=@FSpeakerDebugMessage;
+  if not HasOption('q','quiet') then
+    writeln('Connecting...');
+  FSpeaker.Intf.Connect;
+  if not HasOption('q','quiet') then
+    writeln('Started OK...');
+  while FSpeaker.Process(True) do sleep(100);
+  if not HasOption('q','quiet') then
+    writeln('Disconnecting...');
+  FSpeaker.Intf.Disconnect;
+  // stop program loop
+  readln;
+  Terminate;
   // stop program loop
   Terminate;
 end;
@@ -171,6 +252,7 @@ begin
 end;
 destructor PrometCmdApp.Destroy;
 begin
+  FSpeaker.Free;
   inherited Destroy;
 end;
 var

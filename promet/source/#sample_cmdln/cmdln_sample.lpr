@@ -17,7 +17,6 @@ type
 
   PrometCmdApp = class(TBaseCustomApplication)
   private
-    mailaccounts : string;
   protected
     procedure DoRun; override;
   public
