@@ -27,7 +27,8 @@ uses
   Classes, SysUtils, CustApp
   { you can add units after this },db,Utils, general_nogui,
   FileUtil,uData, uIntfStrConsts, pcmdprometapp,uBaseCustomApplication,
-  uBaseApplication,uBaseDbClasses,uBaseDBInterface,uSpeaker,umath;
+  uBaseApplication,uBaseDbClasses,uBaseDBInterface,uSpeaker,
+  umath,uwikipedia;
 type
   PrometCmdApp = class(TBaseCustomApplication)
     procedure FSpeakerDebugMessage(sentence: string);
