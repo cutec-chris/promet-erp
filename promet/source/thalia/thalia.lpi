@@ -72,11 +72,16 @@
         <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="1">
+    <Units Count="2">
       <Unit0>
         <Filename Value="thalia.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
+      <Unit1>
+        <Filename Value="uinformation.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uinformation"/>
+      </Unit1>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
