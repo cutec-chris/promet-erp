@@ -60,16 +60,34 @@ type
   public
     procedure DefineFields(aDataSet: TDataSet); override;
   end;
+  TThaliaVariables = class(TBaseDBDataset)
+  public
+    procedure DefineFields(aDataSet: TDataSet); override;
+  end;
+  TThaliaInterlocutors = class(TBaseDBDataset)
+  private
+    FVariables: TThaliaVariables;
+  public
+    constructor Create(aOwner: TComponent; DM: TComponent;
+      aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
+    destructor Destroy; override;
+    function CreateTable: Boolean; override;
+    procedure DefineFields(aDataSet: TDataSet); override;
+    property Variables : TThaliaVariables read FVariables;
+  end;
   TPrometSpeakerData = class(TSpeakerData)
   private
     FSentences: TThaliaScentences;
     FWords: TThaliaDict;
+    FInterlocutors : TThaliaInterlocutors;
   public
     constructor Create;
     destructor Destroy; override;
     function GetAnswers(aFilter: string): TDataSet; override;
     function GetScentences(aFilter: string): TDataSet; override;
     function GetWords(aFilter: string): TDataSet; override;
+    function SetVariable(aInterlocutor : string;aVarname : string;aValue : string) : Boolean;override;
+    function GetVariable(aInterlocutor : string;aVarname : string) : string;override;
   end;
   TPrometSpeakerInterface=class(TSpeakerInterface)
   public
@@ -80,6 +98,56 @@ type
     function GetID: string; override;
     function IsUser(user: string): Boolean; override;
   end;
+
+{ TThaliaVariables }
+
+procedure TThaliaVariables.DefineFields(aDataSet: TDataSet);
+begin
+  with aDataSet as IBaseManageDB do
+    begin
+      TableName := 'THALIA_VARIABLES';
+      if Assigned(ManagedFieldDefs) then
+        with ManagedFieldDefs do
+          begin
+            Add('NAME',ftString,100,true);
+            Add('VALUE',ftMemo,0,false);
+          end;
+    end;
+end;
+
+{ TThaliaInterlocutors }
+
+constructor TThaliaInterlocutors.Create(aOwner: TComponent; DM: TComponent;
+  aConnection: TComponent; aMasterdata: TDataSet);
+begin
+  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  FVariables := TThaliaVariables.Create(aOwner,DM,aConnection,DataSet);
+end;
+
+destructor TThaliaInterlocutors.Destroy;
+begin
+  FVariables.Free;
+  inherited Destroy;
+end;
+
+function TThaliaInterlocutors.CreateTable: Boolean;
+begin
+  Result:=inherited CreateTable;
+  FVariables.CreateTable;
+end;
+
+procedure TThaliaInterlocutors.DefineFields(aDataSet: TDataSet);
+begin
+  with aDataSet as IBaseManageDB do
+    begin
+      TableName := 'THALIA_INTERLOC';
+      if Assigned(ManagedFieldDefs) then
+        with ManagedFieldDefs do
+          begin
+            Add('NAME',ftString,100,true);
+          end;
+    end;
+end;
 
 procedure TPrometSpeakerInterface.Connect;
 begin
@@ -117,9 +185,12 @@ begin
   FSentences.CreateTable;
   FWords := TThaliaDict.Create(nil,Data);
   FWords.CreateTable;
+  FInterlocutors := TThaliaInterlocutors.Create(nil,Data);
+  FInterlocutors.CreateTable;
 end;
 destructor TPrometSpeakerData.Destroy;
 begin
+  FInterlocutors.Free;
   FSentences.Free;
   FWords.Free;
   inherited Destroy;
@@ -139,6 +210,42 @@ begin
   FWords.Filter(aFilter);
   Result := FSentences.DataSet;
 end;
+
+function TPrometSpeakerData.SetVariable(aInterlocutor: string;
+  aVarname: string; aValue: string): Boolean;
+begin
+  FInterlocutors.Open;
+  if not FInterlocutors.Locate('NAME',aInterlocutor,[]) then
+    begin
+      FInterlocutors.Insert;
+      FInterlocutors.FieldByName('NAME').AsString:=aInterlocutor;
+      FInterlocutors.Post;
+    end;
+  FInterlocutors.Variables.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(aVarname));
+  if FInterlocutors.Variables.Count=0 then
+    begin
+      FInterlocutors.Variables.Insert;
+      FInterlocutors.Variables.FieldByName('NAME').AsString:=aVarname;
+    end
+  else
+    FInterlocutors.Variables.Edit;
+  FInterlocutors.Variables.FieldByName('VALUE').AsString:=aValue;
+  FInterlocutors.Variables.Post;
+end;
+
+function TPrometSpeakerData.GetVariable(aInterlocutor: string; aVarname: string
+  ): string;
+begin
+  Result := '';
+  FInterlocutors.Open;
+  if FInterlocutors.Locate('NAME',aInterlocutor,[]) then
+    begin
+      FInterlocutors.Variables.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(aVarname));
+      if FInterlocutors.Variables.Count>0 then
+        Result := FInterlocutors.Variables.FieldByName('VALUE').AsString;
+    end;
+end;
+
 procedure TThaliaAnswers.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do
