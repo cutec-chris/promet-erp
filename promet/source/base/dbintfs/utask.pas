@@ -653,7 +653,7 @@ begin
                 aPercent := aPercent+((Int2.PlanTime/(Int2.DueDate-Int2.StartDate))*(1/ResourceTimePerDay));
             end;
           if not aFound then
-            if aPercent<0.3 then
+            if aPercent<0.7 then
               begin
                 aFound := True;
                 aActStartDate:=aNow;
@@ -668,7 +668,7 @@ begin
                   aActEndDate := aNow+0.999;
                   break;
                 end;
-              if aDayUseTime<0.2 then
+              if aDayUseTime<0 then
                 begin
                   TimeNeeded := Duration;
                   aFound := False;
