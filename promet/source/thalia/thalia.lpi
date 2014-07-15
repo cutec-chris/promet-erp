@@ -28,7 +28,6 @@
           <Parsing>
             <SyntaxOptions>
               <CStyleOperator Value="False"/>
-              <UseAnsiStrings Value="False"/>
             </SyntaxOptions>
           </Parsing>
           <CodeGeneration>
@@ -55,7 +54,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=&quot;Stora&quot; --cmdln --debug"/>
+        <CommandLineParams Value="--mandant=&quot;TCS-Times2&quot; --cmdln --debug"/>
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
@@ -72,7 +71,7 @@
         <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="2">
+    <Units Count="4">
       <Unit0>
         <Filename Value="thalia.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -82,6 +81,16 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="uinformation"/>
       </Unit1>
+      <Unit2>
+        <Filename Value="uprometmodules.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uprometmodules"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="uweather.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uweather"/>
+      </Unit3>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

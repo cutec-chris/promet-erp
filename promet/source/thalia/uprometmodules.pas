@@ -16,16 +16,29 @@
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
 *******************************************************************************}
-unit uinformation;
+unit uprometmodules;
 
 {
-Informiere mich wenn sich an www.google.de etwas ändert
-Informiere mich wenn neue Einträge in wether.de/feed.rss erscheinen
+Wann ist mein nächster Termin?
+Was steht Dienstag in meinem Kalender?
+Wo ist meine nächste Besprechung?
+Wann ist die Besprechung mit Franzi?
+Erstelle einen Termin für morgen um 14 Uhr.
+Plane eine Besprechung heute um 11 Uhr im Tagungsraum.
+Verschiebe meinen heutigen Termin von 9 Uhr auf 11 Uhr.
+Füge Marcell zu meinem Termin heute um 11 Uhr hinzu.
 
-Suche im Internet nach Akku-Tipps für iPhone.
-Suche auf Wikipedia nach Aluminium.
-Bing-Suche nach Berliner Musikgruppen.
-Rufe www.giga.de auf.
+Sende eine Mail an Peer wegen Urlaub.
+Schreibe eine Mail an Nik mit dem Inhalt: Kommst Du heute wieder zu spät?
+Zeige neue Mails von Nik.
+Zeige Mails von gestern zum Urlaub
+
+Wo ist Aileen?
+Wo ist mein Chef?
+Wer ist in der Nähe?
+Ist meine Oma zu Hause?
+Benachrichtige mich, wenn Oma zuhause ankommt.
+Benachrichtige Oma, wenn ich das Büro verlasse.
 }
 
 {$mode objfpc}{$H+}
@@ -33,27 +46,22 @@ Rufe www.giga.de auf.
 interface
 
 uses
-  Classes, SysUtils, uSpeaker;
+  Classes, SysUtils,uSpeaker;
 
 implementation
 
 function HandleTalk(Speaker : TSpeaker;language : string;var sentence : string;var canhandle : Boolean) : Boolean;
 begin
   Result:=False;
-  canhandle:=(pos('$checksite(',sentence)>0);
+  canhandle:=(pos('$weather(',sentence)>0);
   if pos('$getdescription(de)',sentence)>0 then
     begin
-      sentence:='Webseiten oder Feeds beobachten.';
+      sentence:='Nach Kalendereinträgen oder Mail fragen.';
       result := true;
       canhandle:=true;
       exit;
     end;
   if not canhandle then exit;
-
-end;
-
-procedure Chron(Speaker : TSpeaker);
-begin
 
 end;
 
@@ -63,7 +71,6 @@ end;
 
 initialization
   RegisterToSpeaker(@HandleTalk,@AddSentences);
-  RegisterChron(@Chron);
 
 end.
 

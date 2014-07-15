@@ -28,7 +28,7 @@ uses
   { you can add units after this },db,Utils, general_nogui,
   FileUtil,uData, uIntfStrConsts, pcmdprometapp,uBaseCustomApplication,
   uBaseApplication,uBaseDbClasses,uBaseDBInterface,uSpeaker,
-  umath,uwikipedia, uinformation;
+  umath,uwikipedia, uinformation,ureminder, uprometmodules, uweather;
 type
   PrometCmdApp = class(TBaseCustomApplication)
     procedure FSpeakerDebugMessage(sentence: string);

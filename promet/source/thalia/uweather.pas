@@ -16,16 +16,13 @@
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
 *******************************************************************************}
-unit uinformation;
+unit uweather;
 
 {
-Informiere mich wenn sich an www.google.de etwas ändert
-Informiere mich wenn neue Einträge in wether.de/feed.rss erscheinen
-
-Suche im Internet nach Akku-Tipps für iPhone.
-Suche auf Wikipedia nach Aluminium.
-Bing-Suche nach Berliner Musikgruppen.
-Rufe www.giga.de auf.
+Wie wir das Wetter am Samstag?
+Wird es in Lübeck diese Woche regnen?
+Was wird die Höchsttemperatur morgen in Köln?
+Ist es heute windig?
 }
 
 {$mode objfpc}{$H+}
@@ -33,27 +30,22 @@ Rufe www.giga.de auf.
 interface
 
 uses
-  Classes, SysUtils, uSpeaker;
+  Classes, SysUtils,uSpeaker;
 
 implementation
 
 function HandleTalk(Speaker : TSpeaker;language : string;var sentence : string;var canhandle : Boolean) : Boolean;
 begin
   Result:=False;
-  canhandle:=(pos('$checksite(',sentence)>0);
+  canhandle:=(pos('$weather(',sentence)>0);
   if pos('$getdescription(de)',sentence)>0 then
     begin
-      sentence:='Webseiten oder Feeds beobachten.';
+      sentence:='Das Wetter abfragen.';
       result := true;
       canhandle:=true;
       exit;
     end;
   if not canhandle then exit;
-
-end;
-
-procedure Chron(Speaker : TSpeaker);
-begin
 
 end;
 
@@ -63,7 +55,6 @@ end;
 
 initialization
   RegisterToSpeaker(@HandleTalk,@AddSentences);
-  RegisterChron(@Chron);
 
 end.
 
