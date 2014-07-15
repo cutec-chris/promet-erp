@@ -208,7 +208,7 @@ end;
 function TPrometSpeakerData.GetWords(aFilter: string): TDataSet;
 begin
   FWords.Filter(aFilter);
-  Result := FSentences.DataSet;
+  Result := FWords.DataSet;
 end;
 
 function TPrometSpeakerData.SetVariable(aInterlocutor: string;
