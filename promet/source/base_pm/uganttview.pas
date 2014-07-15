@@ -1249,7 +1249,7 @@ begin
                   setlength(deps,length(deps)+1);
                   deps[length(deps)-1] := aTasks.GetBookmark;
                 end;
-              if Snapshotsfound<20 then
+              if Snapshotsfound<200 then
                 begin
                   if not aTasks.Snapshots.DataSet.Active then aTasks.Snapshots.Open;
                   aTasks.Snapshots.First;
