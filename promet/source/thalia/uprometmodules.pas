@@ -19,6 +19,8 @@
 unit uprometmodules;
 
 {
+Erstell mir eine Aufgabe Fertigungsauftrag jetzt da wenn ein Fertigungsauftrag für Artikel 1000 angelegt wird
+
 Wann ist mein nächster Termin?
 Was steht Dienstag in meinem Kalender?
 Wo ist meine nächste Besprechung?
