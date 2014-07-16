@@ -130,13 +130,16 @@ var
   aItem: TLFile;
   aDocuments: TDocuments;
   aFile: String;
+  aCal: TCalendar;
+  sl: TStringList;
+  Stream: TMemoryStream;
 begin
   Result := false;
   if aDir = '/' then
     begin
       Result := True;
       aDirList := TLDirectoryList.Create;
-      aItem := TLFile.Create('calendar',True);
+      aItem := TLFile.Create('calendars',True);
       aDocuments := TDocuments.Create(nil,Data);
       aDocuments.Select(1,'D',0);
       aDocuments.Open;
@@ -144,7 +147,7 @@ begin
       aDocuments.Free;
       aDirList.Add(aItem);
     end
-  else if copy(aDir,0,9) = '/calendar' then
+  else if copy(aDir,0,10) = '/calendars' then
     begin
       if Data.Users.DataSet.Active then
         begin
@@ -153,9 +156,21 @@ begin
           aItem.Properties.Values['getcontenttype'] := 'text/calendar';
           aItem.Properties.Values['creationdate'] := BuildISODate(Now());
           aItem.Properties.Values['getlastmodified'] := FormatDateTime('ddd, dd mmm yyyy hh:nn:ss',LocalTimeToGMT(Now()),WebFormatSettings)+' GMT';
+          sl := TStringList.Create;
+          aCal := TCalendar.Create(nil,Data);
+          aCal.SelectByUser(Data.Users.Accountno.AsString);
+          aCal.Open;
+          VCalExport(aCal,sl);
+          aCal.Free;
+          Stream := TMemoryStream.Create;
+          sl.SaveToStream(Stream);
+          aItem.Properties.Values['getcontentlength'] := IntToStr(Stream.Size);
+          Stream.Free;
+          sl.Free;
           aDirList.Add(aItem);
-        end;
-      Result := True;
+          Result:=True;
+        end
+      else Result := False;
     end
   else
     begin
@@ -198,10 +213,11 @@ var
   sl: TStringList;
   aCal: TCalendar;
 begin
-  if aDir = 'calendar/standart.ics' then
+  if aDir = 'calendars/standart.ics' then
     begin
       sl := TStringList.Create;
       aCal := TCalendar.Create(nil,Data);
+      aCal.SelectByUser(Data.Users.Accountno.AsString);
       aCal.Open;
       VCalExport(aCal,sl);
       sl.SaveToStream(Stream);
@@ -340,15 +356,14 @@ begin
 end;
 function TSVNServer.ServerReadAllowed(aDir: string): Boolean;
 begin
-  //Result := not ((copy(aDir,0,9) = '/calendar') and not Data.Users.DataSet.Active);
-  Result := True;
+  Result := Data.Users.DataSet.Active;
 end;
 function TSVNServer.ServerUserLogin(aUser, aPassword: string): Boolean;
 begin
   Data.Users.Open;
-  Result := Data.Users.DataSet.Locate('NAME',aUser,[]) and (Data.Users.Leaved.IsNull);
+  Result := (Data.Users.DataSet.Locate('NAME',aUser,[]) or Data.Users.DataSet.Locate('LOGINNAME',aUser,[])) and (Data.Users.Leaved.IsNull);
   if Result then
-    Result := Data.Users.Passwort.AsString = md5print(MD5String(aPassword));
+    Result := Data.Users.CheckPasswort(aPassword);
   if not Result then Data.Users.DataSet.Close;
 end;
 procedure TSVNServer.AddDocumentsToFileList(aFileList: TLDirectoryList;
@@ -398,16 +413,6 @@ var
 begin
   with Self as IBaseDBInterface do
     DBLogout;
-{
-  with Self as IBaseApplication do
-    if not Log.Active then
-      begin
-        DecodeDate(Now(),y,m,d);
-        DecodeTime(Now(),h,mm,s,ss);
-        Log.FileName := Format('svn_server_log_%.4d-%.2d-%.2d %.2d_%.2d_%.2d_%.4d.log',[y,m,d,h,mm,s,ss]);
-        Log.Active:=True;
-      end;
-}
   while not Terminated do
     begin
       Server.CallAction;
@@ -446,4 +451,4 @@ begin
   Application.Run;
   Application.Free;
 end.
-
+

@@ -521,7 +521,7 @@ begin
 //      AppendString(ASocket.FHeaderOut.ExtraHeaders,'DAV: http://subversion.tigris.org/xmlns/dav/svn/depth'+#13#10);
 //      AppendString(ASocket.FHeaderOut.ExtraHeaders,'DAV: http://subversion.tigris.org/xmlns/dav/svn/log-revprops'+#13#10);
 //      AppendString(ASocket.FHeaderOut.ExtraHeaders,'DAV: http://subversion.tigris.org/xmlns/dav/svn/partial-replay'+#13#10);
-      AppendString(ASocket.FHeaderOut.ExtraHeaders,'allow: GET, HEAD, POST, OPTIONS, MKCOL, DELETE, PUT, LOCK, UNLOCK, COPY, MOVE, PROPFIND, SEARCH'+#13#10);
+      AppendString(ASocket.FHeaderOut.ExtraHeaders,'allow: GET, HEAD, POST, OPTIONS, MKCOL, DELETE, PUT, LOCK, UNLOCK, COPY, MOVE, PROPFIND, SEARCH, REPORT, MKCALENDAR, ACL'+#13#10);
       Result := TDAVOptionsOutput.Create(ASocket);
     end
   else if ASocket.FRequestInfo.RequestType = hmPropFind then
