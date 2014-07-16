@@ -1297,18 +1297,4 @@ object fMain: TfMain
     left = 32
     top = 176
   end
-  object IPC: TSimpleIPCClient
-    Active = False
-    ServerID = 'PMSTimeregistering'
-    left = 80
-    top = 40
-  end
-  object SimpleIPCServer1: TSimpleIPCServer
-    Active = False
-    ServerID = 'PMSTimeregistering'
-    Global = True
-    OnMessage = SimpleIPCServer1Message
-    left = 128
-    top = 40
-  end
 end

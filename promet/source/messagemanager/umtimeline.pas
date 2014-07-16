@@ -24,7 +24,7 @@ uses
   Classes, SysUtils, types, LResources, Forms, Controls, Graphics, Dialogs,
   DBGrids, Buttons, Menus, ActnList, XMLPropStorage, StdCtrls, Utils,
   ZVDateTimePicker, uIntfStrConsts, db, memds, FileUtil, Translations, md5,
-  simpleipc, ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage, ugridview,
+  ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage, ugridview,
   uExtControls, uBaseVisualControls, uBaseDbClasses, uFormAnimate, uBaseSearch,
   ImgList, uBaseDbInterface, uQuickHelpFrame, uHistoryFrame;
 type
@@ -53,7 +53,6 @@ type
     ActionList1: TActionList;
     bSend: TBitBtn;
     cbEnviroment: TComboBox;
-    IPC: TSimpleIPCClient;
     lbResults: TListBox;
     mEntry: TMemo;
     IdleTimer1: TIdleTimer;
@@ -811,9 +810,8 @@ var
   aLink: String;
 begin
   if fTimeline.GotoActiveRow then
-    if IPC.ServerRunning then
+    if FileExistsUTF8(GetTempDir+'PMSTimeregistering') then
       begin
-        IPC.Connect;
         aTask := TTask.Create(nil,Data);
         aTask.SelectFromLink(fTimeline.DataSet.FieldByName('LINK').AsString);
         aTask.Open;
@@ -825,13 +823,8 @@ begin
         aProject.Free;
         aTask.Free;
         tmp := 'Time.enter('+aLink+';'+fTimeline.DataSet.FieldByName('LINK').AsString+';)';
-        IPC.SendStringMessage(tmp);
-        sleep(100);
-        Application.ProcessMessages;
-        IPC.SendStringMessage('Time.start');
-        sleep(100);
-        Application.ProcessMessages;
-        IPC.Disconnect;
+        SendIPCMessage(tmp,GetTempDir+'PMSTimeregistering');
+        SendIPCMessage('Time.start',GetTempDir+'PMSTimeregistering');
       end;
 end;
 
@@ -1160,7 +1153,7 @@ procedure TfmTimeline.PopupMenu1Popup(Sender: TObject);
 begin
   acStartTimeRegistering.Visible := False;
   if fTimeline.GotoActiveRow then
-    acStartTimeRegistering.Visible := (Data.GetLinkIcon(fTimeline.DataSet.FieldByName('LINK').AsString) = IMAGE_TASK) and IPC.ServerRunning;
+    acStartTimeRegistering.Visible := (Data.GetLinkIcon(fTimeline.DataSet.FieldByName('LINK').AsString) = IMAGE_TASK) and FileExistsUTF8(GetTempDir+'PMSTimeregistering');
 end;
 
 function TfmTimeline.SetLinkfromSearch(aLink: string): Boolean;

@@ -24,7 +24,7 @@ unit umain;
 interface
 
 uses
-  Classes, SysUtils, simpleipc, FileUtil, ExtCtrls, Menus, Controls, ActnList,
+  Classes, SysUtils, FileUtil, ExtCtrls, Menus, Controls, ActnList,
   uProcessManagement,process, XMLConf,uSystemMessage,uBaseDbClasses,uBaseERPDBClasses,
   Graphics, LCLType, db,umashineid,uBaseVisualApplication;
 

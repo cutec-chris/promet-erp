@@ -71,7 +71,6 @@
       <Unit0>
         <Filename Value="messagemanager.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="messagemanager"/>
       </Unit0>
       <Unit1>
         <Filename Value="umain.pas"/>
@@ -95,7 +94,6 @@
         <ComponentName Value="fFollow"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="ufollow"/>
       </Unit3>
       <Unit4>
         <Filename Value="udetailview.pas"/>
@@ -103,7 +101,6 @@
         <ComponentName Value="fDetailView"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="udetailview"/>
       </Unit4>
     </Units>
   </ProjectOptions>
@@ -126,9 +123,6 @@
         </Win32>
       </Options>
     </Linking>
-    <Other>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="14">

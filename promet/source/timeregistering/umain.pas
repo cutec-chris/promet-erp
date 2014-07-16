@@ -23,7 +23,7 @@ interface
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, DBGrids,
   Buttons, Menus, ActnList, XMLPropStorage, StdCtrls, Utils,
-  uIntfStrConsts, db, memds, FileUtil, Translations, md5, simpleipc,
+  uIntfStrConsts, db, memds, FileUtil, Translations, md5,
   ComCtrls, ExtCtrls, DbCtrls, Grids, LMessages;
 type
 
@@ -74,7 +74,6 @@ type
     miProperties: TMenuItem;
     miRegister: TMenuItem;
     pmTray: TPopupMenu;
-    SimpleIPCServer1: TSimpleIPCServer;
     procedure acChangePasswortExecute(Sender: TObject);
     procedure acHelpExecute(Sender: TObject);
     procedure acInfoExecute(Sender: TObject);
@@ -85,10 +84,10 @@ type
       var CanShow: Boolean; var HintInfo: THintInfo);
     procedure fEnterTimeMinimize(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
+    procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure IdleTimer1Timer(Sender: TObject);
     procedure LanguageItemClick(Sender: TObject);
-    procedure SimpleIPCServer1Message(Sender: TObject);
     procedure TrayIcon1Click(Sender: TObject);
     procedure IntSetLanguage(aLang : string);
   private
@@ -162,9 +161,7 @@ var
   i: Integer;
   achanged: Boolean;
 begin
-  if SimpleIPCServer1.Active then
-    SimpleIPCServer1.PeekMessage(100,True);
-  PeekIPCMessages;
+  PeekIPCMessages(GetTempDir+'PMSTimeregistering');
   if not MenueRegistered then RegisterMenue;
 end;
 procedure TfMain.LanguageItemClick(Sender: TObject);
@@ -180,10 +177,6 @@ begin
       Language := TmenuItem(Sender).Caption;
       IntSetLanguage(Language);
     end;
-end;
-procedure TfMain.SimpleIPCServer1Message(Sender: TObject);
-begin
-  CommandReceived(nil,TSimpleIPCServer(Sender).StringMessage);
 end;
 function MessageReceived(aMessage: string): Boolean;
 begin
@@ -256,7 +249,6 @@ begin
       AddSearchAbleDataSet(TPersonAddress);
     end;
   SetRights;
-  SimpleIPCServer1.Active:=True;
   RegisterMenue;
 end;
 
@@ -293,7 +285,7 @@ begin
      fInfo.Revision:=AppRevision;
      fInfo.ProgramName:='Promet-ERP-Timeregistering';
      fInfo.InfoText:=vInfo;
-     fInfo.Copyright:='2006-2013 C. Ulrich';
+     fInfo.Copyright:='2006-2014 C. Ulrich';
     end;
   fInfo.SetLanguage;
   fInfo.Execute;
@@ -345,6 +337,12 @@ begin
      end;
 end;
 
+procedure TfMain.FormCreate(Sender: TObject);
+begin
+  uprometipc.IPCFile:=GetTempDir+'PMSTimeregistering';
+  uprometipc.SendIPCMessage('noop');
+end;
+
 procedure TfMain.DoCreate;
 begin
   if Assigned(TBaseVisualApplication(Application).MessageHandler) then
@@ -385,4 +383,4 @@ end;
 initialization
   {$I umain.lrs}
 
-end.
+end.

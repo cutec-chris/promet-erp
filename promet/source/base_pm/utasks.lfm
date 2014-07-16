@@ -2694,26 +2694,21 @@ inherited fTaskFrame: TfTaskFrame
     left = 208
     top = 56
   end
-  object IPC: TSimpleIPCClient[8]
-    Active = False
-    ServerID = 'PMSTimeregistering'
-    left = 37048
-  end
-  object PHistory: TfrDBDataSet[9]
+  object PHistory: TfrDBDataSet[8]
     DataSource = History
     left = 156
     top = 180
   end
-  object History: TDataSource[10]
+  object History: TDataSource[9]
     left = 212
     top = 180
   end
-  object PList: TfrDBDataSet[11]
+  object PList: TfrDBDataSet[10]
     DataSource = Datasource
     left = 156
     top = 83
   end
-  object Report: TfrReport[12]
+  object Report: TfrReport[11]
     Dataset = PList
     DefaultCopies = 0
     InitialZoom = pzDefault
@@ -2724,11 +2719,11 @@ inherited fTaskFrame: TfTaskFrame
     left = 156
     top = 136
   end
-  object MandantDetails: TDataSource[13]
+  object MandantDetails: TDataSource[12]
     AutoEdit = False
     left = 12344
   end
-  object SynSQLSyn2: TSynSQLSyn[14]
+  object SynSQLSyn2: TSynSQLSyn[13]
     DefaultFilter = 'SQL-Dateien (*.sql)|*.sql'
     Enabled = False
     CommentAttri.FrameEdges = sfeAround
@@ -2750,16 +2745,16 @@ inherited fTaskFrame: TfTaskFrame
     left = 368
     top = 128
   end
-  object Users: TDataSource[15]
+  object Users: TDataSource[14]
     left = 212
     top = 216
   end
-  object PUsers: TfrDBDataSet[16]
+  object PUsers: TfrDBDataSet[15]
     DataSource = Users
     left = 156
     top = 216
   end
-  object pmGrid: TPopupMenu[17]
+  object pmGrid: TPopupMenu[16]
     Images = fVisualControls.Images
     OnPopup = pmGridPopup
     left = 112

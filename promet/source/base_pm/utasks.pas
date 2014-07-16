@@ -24,10 +24,10 @@ uses
   Classes, SysUtils, FileUtil, SynMemo, SynHighlighterSQL, LR_DBSet, LR_Class,
   LResources, Forms, Controls, DBGrids, ValEdit, ExtCtrls, Buttons, ComCtrls,
   uPrometFramesInplaceDB, uExtControls, db, Grids, ActnList, Menus, StdCtrls,
-  simpleipc, uBaseDBClasses, uBaseDbInterface, uGridView, uIntfStrConsts,
+  uBaseDBClasses, uBaseDbInterface, uGridView, uIntfStrConsts,
   Variants, uBaseSearch, Graphics, Spin, EditBtn, Dialogs,Clipbrd;
 type
-  TOnStartTime = procedure(Sender : TObject;aProject,aTask : string) of object;
+  TOnStartTime = procedure(Sender : TObject;aProject,aTask,aCategory : string) of object;
 
   { TfTaskFrame }
 
@@ -148,7 +148,6 @@ type
     Panel5: TPanel;
     Panel6: TPanel;
     Panel7: TPanel;
-    IPC: TSimpleIPCClient;
     Panel8: TPanel;
     pFilterOpt: TPanel;
     pFilterOptions: TPanel;
@@ -292,7 +291,7 @@ implementation
 uses uRowEditor,uTask,ubasevisualapplicationtools,uData,uMainTreeFrame,
   uSearch,uProjects,uTaskEdit,uBaseApplication,LCLType,uBaseERPDBClasses,
   uSelectReport,uFormAnimate,md5,uNRights,uBaseVisualControls,
-  uBaseVisualApplication,uError,uSendMail,uPerson,Utils;
+  uBaseVisualApplication,uError,uSendMail,uPerson,Utils,uprometipc;
 procedure TfTaskFrame.SetDataSet(const AValue: TBaseDBDataSet);
 var
   aFilter: String = '';
@@ -1069,16 +1068,14 @@ begin
         aProject := TProject.Create(nil,Data);
         aProject.Select(DataSet.FieldByName('PROJECTID').AsVariant);
         aProject.Open;
-        if IPC.ServerRunning and (not Assigned(OnStartTime)) then
+        if FileExists(GetTempDir+'PMSTimeregistering') and (not Assigned(OnStartTime)) then
           begin
-            IPC.Connect;
             tmp := 'Time.enter('+Data.BuildLink(aProject.DataSet)+';'+Data.BuildLink(DataSet.DataSet)+';)';
-            IPC.SendStringMessage(tmp);
-            IPC.SendStringMessage('Time.start');
-            IPC.Disconnect;
+            SendIPCMessage(tmp,GetTempDir+'PMSTimeregistering');
+            SendIPCMessage('Time.start',GetTempDir+'PMSTimeregistering');
           end;
         if Assigned(OnStartTime) then
-          OnStartTime(Self,Data.BuildLink(aProject.DataSet),Data.BuildLink(DataSet.DataSet));
+          OnStartTime(Self,Data.BuildLink(aProject.DataSet),Data.BuildLink(DataSet.DataSet),DataSet.FieldByName('CATEGORY').AsString);
         aProject.Free;
       except
       end;

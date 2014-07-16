@@ -69,7 +69,6 @@
       <Unit0>
         <Filename Value="timeregistering.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="timeregistering"/>
       </Unit0>
       <Unit1>
         <Filename Value="umain.pas"/>
@@ -85,7 +84,6 @@
         <ComponentName Value="fTimeOptions"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uTimeOptions"/>
       </Unit2>
     </Units>
   </ProjectOptions>
@@ -123,7 +121,6 @@
       <CompilerMessages>
         <IgnoredMessages idx5024="True"/>
       </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
     </Other>
   </CompilerOptions>
   <Debugging>

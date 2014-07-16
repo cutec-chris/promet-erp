@@ -773,30 +773,27 @@ LazarusResources.Add('TfMain','FORMDATA',[
   +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
   +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
   +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
-  +#0#0#0#0#0#0#0#0#0#4'Menu'#7#8'MainMenu'#7'OnClose'#7#9'FormClose'#6'OnShow'
-  +#7#8'FormShow'#8'Position'#7#14'poScreenCenter'#10'LCLVersion'#6#3'1.3'#0#11
-  +'TActionList'#11'ActionList1'#4'left'#2#16#3'top'#2'x'#0#7'TAction'#7'acLogi'
-  +'n'#7'Caption'#6#8'Anmelden'#9'OnExecute'#7#14'acLoginExecute'#0#0#7'TAction'
-  +#8'acLogout'#7'Caption'#6#8'Abmelden'#9'OnExecute'#7#15'acLogoutExecute'#0#0
-  +#7'TAction'#9'acOptions'#7'Caption'#6#8'Optionen'#9'OnExecute'#7#16'acOption'
-  +'sExecute'#0#0#7'TAction'#6'acHelp'#7'Caption'#6#5'Index'#9'OnExecute'#7#13
-  +'acHelpExecute'#0#0#7'TAction'#16'acChangePasswort'#7'Caption'#6#16'Passwort'
-  +' '#195#164'ndern'#9'OnExecute'#7#23'acChangePasswortExecute'#0#0#7'TAction'
-  +#6'acInfo'#7'Caption'#6#11'Information'#9'OnExecute'#7#13'acInfoExecute'#0#0
-  +#0#9'TMainMenu'#8'MainMenu'#6'Images'#7#22'fVisualControls.Images'#4'left'#2
-  +'H'#3'top'#2'@'#0#9'TMenuItem'#9'miMandant'#7'Caption'#6#7'Mandant'#0#9'TMen'
-  +'uItem'#9'MenuItem4'#6'Action'#7#7'acLogin'#0#0#9'TMenuItem'#9'MenuItem3'#6
-  +'Action'#7#8'acLogout'#0#0#0#9'TMenuItem'#9'miOptions'#7'Caption'#6#8'Option'
-  +'en'#0#9'TMenuItem'#10'miLanguage'#7'Caption'#6#7'Sprache'#0#0#9'TMenuItem'#9
-  +'MenuItem1'#6'Action'#7#9'acOptions'#0#0#9'TMenuItem'#9'MenuItem5'#6'Action'
-  +#7#16'acChangePasswort'#0#0#0#9'TMenuItem'#6'miHelp'#7'Caption'#6#5'Hilfe'#0
-  +#9'TMenuItem'#11'miHelpIndex'#6'Action'#7#6'acHelp'#0#0#9'TMenuItem'#9'MenuI'
-  +'tem6'#6'Action'#7#6'acInfo'#0#0#0#0#10'TPopupMenu'#6'pmTray'#6'Images'#7#22
-  +'fVisualControls.Images'#4'left'#2'H'#3'top'#3#176#0#0#9'TMenuItem'#9'MenuIt'
-  +'em2'#0#0#0#22'TApplicationProperties'#22'ApplicationProperties1'#10'OnShowH'
-  +'int'#7#30'ApplicationProperties1ShowHint'#4'left'#3#184#0#3'top'#2'@'#0#0#16
-  +'TSimpleIPCServer'#16'SimpleIPCServer1'#6'Active'#8#8'ServerID'#6#18'PMSTime'
-  +'registering'#6'Global'#9#9'OnMessage'#7#23'SimpleIPCServer1Message'#4'left'
-  +#3#184#0#3'top'#2'x'#0#0#10'TIdleTimer'#10'IdleTimer1'#7'OnTimer'#7#15'IdleT'
-  +'imer1Timer'#4'left'#3#184#0#3'top'#3#152#0#0#0#0
+  +#0#0#0#0#0#0#0#0#0#4'Menu'#7#8'MainMenu'#7'OnClose'#7#9'FormClose'#8'OnCreat'
+  +'e'#7#10'FormCreate'#6'OnShow'#7#8'FormShow'#8'Position'#7#14'poScreenCenter'
+  +#10'LCLVersion'#6#3'1.3'#0#11'TActionList'#11'ActionList1'#4'left'#2#16#3'to'
+  +'p'#2'x'#0#7'TAction'#7'acLogin'#7'Caption'#6#8'Anmelden'#9'OnExecute'#7#14
+  +'acLoginExecute'#0#0#7'TAction'#8'acLogout'#7'Caption'#6#8'Abmelden'#9'OnExe'
+  +'cute'#7#15'acLogoutExecute'#0#0#7'TAction'#9'acOptions'#7'Caption'#6#8'Opti'
+  +'onen'#9'OnExecute'#7#16'acOptionsExecute'#0#0#7'TAction'#6'acHelp'#7'Captio'
+  +'n'#6#5'Index'#9'OnExecute'#7#13'acHelpExecute'#0#0#7'TAction'#16'acChangePa'
+  +'sswort'#7'Caption'#6#16'Passwort '#195#164'ndern'#9'OnExecute'#7#23'acChang'
+  +'ePasswortExecute'#0#0#7'TAction'#6'acInfo'#7'Caption'#6#11'Information'#9'O'
+  +'nExecute'#7#13'acInfoExecute'#0#0#0#9'TMainMenu'#8'MainMenu'#4'left'#2'H'#3
+  +'top'#2'@'#0#9'TMenuItem'#9'miMandant'#7'Caption'#6#7'Mandant'#0#9'TMenuItem'
+  +#9'MenuItem4'#6'Action'#7#7'acLogin'#0#0#9'TMenuItem'#9'MenuItem3'#6'Action'
+  +#7#8'acLogout'#0#0#0#9'TMenuItem'#9'miOptions'#7'Caption'#6#8'Optionen'#0#9
+  +'TMenuItem'#10'miLanguage'#7'Caption'#6#7'Sprache'#0#0#9'TMenuItem'#9'MenuIt'
+  +'em1'#6'Action'#7#9'acOptions'#0#0#9'TMenuItem'#9'MenuItem5'#6'Action'#7#16
+  +'acChangePasswort'#0#0#0#9'TMenuItem'#6'miHelp'#7'Caption'#6#5'Hilfe'#0#9'TM'
+  +'enuItem'#11'miHelpIndex'#6'Action'#7#6'acHelp'#0#0#9'TMenuItem'#9'MenuItem6'
+  +#6'Action'#7#6'acInfo'#0#0#0#0#10'TPopupMenu'#6'pmTray'#4'left'#2'H'#3'top'#3
+  +#176#0#0#9'TMenuItem'#9'MenuItem2'#0#0#0#22'TApplicationProperties'#22'Appli'
+  +'cationProperties1'#10'OnShowHint'#7#30'ApplicationProperties1ShowHint'#4'le'
+  +'ft'#3#184#0#3'top'#2'@'#0#0#10'TIdleTimer'#10'IdleTimer1'#7'OnTimer'#7#15'I'
+  +'dleTimer1Timer'#4'left'#3#184#0#3'top'#3#152#0#0#0#0
 ]);

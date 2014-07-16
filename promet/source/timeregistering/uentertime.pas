@@ -24,7 +24,7 @@ uses
   Classes, SysUtils, LResources, Forms, Controls, Dialogs, DBCtrls, StdCtrls,
   Buttons, uIntfStrConsts, db, ExtCtrls, Utils, LCLType, EditBtn,
   ActnList, Grids, Spin, DBGrids, Menus, ComCtrls, LR_Class, LR_DBSet,
-  DateUtils, Math, simpleipc, uTimes, uGridView, uFilterFrame,
+  DateUtils, Math, uTimes, uGridView, uFilterFrame,
   uBaseVisualControls;
 type
 
@@ -112,6 +112,7 @@ type
     procedure acUseasNewEntryExecute(Sender: TObject);
     procedure acUseExecute(Sender: TObject);
     procedure AskUserforContinue(aData: PtrInt);
+    procedure AsyncStartTimereg(Data: PtrInt);
     procedure bAddJob1Click(Sender: TObject);
     procedure bCloseKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure bTaskDoneClick(Sender: TObject);
@@ -203,6 +204,7 @@ type
     property Node : TTreeNode read FNode write FNode;
     procedure refreshNode;
     procedure SetActive;
+    procedure StartTimereg;
   end;
 var
   fEnterTime: TfEnterTime;
@@ -649,6 +651,11 @@ begin
           ShowMessage(strEndTimeNotSet);
         end;
     end;
+end;
+
+procedure TfEnterTime.AsyncStartTimereg(Data: PtrInt);
+begin
+  acStartExecute(nil);
 end;
 
 procedure TfEnterTime.bAddJob1Click(Sender: TObject);
@@ -1183,7 +1190,7 @@ begin
       Result := True;
     end
   else if aCommand = 'Time.start' then
-    acStart.Execute
+    StartTimereg
   else if aCommand = 'OnClick(/Zeiterfassung/Standardeintrag starten)' then
     begin
       acStartstandartEntry.Execute;
@@ -1212,6 +1219,11 @@ end;
 procedure TfEnterTime.SetActive;
 begin
   FList.SetActive;
+end;
+
+procedure TfEnterTime.StartTimereg;
+begin
+  Application.QueueAsyncCall(@AsyncStartTimereg,0);
 end;
 
 function GetWorkTime(User : string): Integer;

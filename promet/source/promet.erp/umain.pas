@@ -24,7 +24,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   ComCtrls, ExtCtrls, ActnList, Buttons, StdCtrls, uBaseApplication,
   uBaseDBClasses, uExtControls, uBaseVisualApplication,db,uBaseSearch,uMainTreeFrame,
-  uWikiFrame,DBGrids,Grids, types, simpleipc,uEnterTime;
+  uWikiFrame,DBGrids,Grids, types,uEnterTime;
 type
   THackListBox = class(TListBox);
 
@@ -101,7 +101,6 @@ type
     bPauseTime5: TSpeedButton;
     bSearch: TSpeedButton;
     eContains: TEdit;
-    IPC: TSimpleIPCClient;
     IPCTimer: TIdleTimer;
     Image1: TImage;
     Label3: TLabel;
@@ -138,7 +137,6 @@ type
     miLogout: TMenuItem;
     miLogin: TMenuItem;
     miMandant: TMenuItem;
-    SimpleIPCServer1: TSimpleIPCServer;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
     spTree: TSplitter;
@@ -252,8 +250,7 @@ type
     procedure SenderTfFilterViewDetails(Sender: TObject);
 
       procedure SenderTfMainTaskFrameControlsSenderTfMainTaskFrameTfTaskFrameStartTime
-      (Sender: TObject; aProject, aTask: string);
-      procedure SimpleIPCServer1Message(Sender: TObject);
+        (Sender: TObject; aProject, aTask, aCategory: string);
     procedure TfFilteracOpenExecute(Sender: TObject);
   private
     { private declarations }
@@ -386,7 +383,9 @@ begin
       tmp := copy(tmp,0,length(tmp)-1);
       Data.GotoLink(tmp);
       Result := True;
-    end;
+    end
+  else
+    fMain.CommandReceived(fMain,aMessage);
 end;
 
 procedure TfMain.RefreshMessages;
@@ -672,7 +671,7 @@ procedure TStarterThread.AddTimeReg;
 begin
   if (Data.Users.Rights.Right('TIMEREG') > RIGHT_NONE) then
     begin
-      if not fMain.IPC.ServerRunning then
+      if not FileExistsUTF8(GetTempDir+'PMSTimeregistering') then
         begin
           fOptions.RegisterOptionsFrame(TfTimeOptions.Create(fOptions),strTimetools,strPersonalOptions);
           Application.CreateForm(TfEnterTime,fMain.FTimeReg);
@@ -681,6 +680,7 @@ begin
           fMain.FTimeReg.DoSetup;
           fMain.FTimeReg.SetupDB;
           fMain.pTimes.Visible := True;
+          SendIPCMessage('noop',GetTempDir+'PMSTimeregistering');
         end;
     end;
 end;
@@ -689,14 +689,13 @@ procedure TStarterThread.AddTimeReg2;
 begin
   if (Data.Users.Rights.Right('TIMEREG') > RIGHT_NONE) then
     begin
-      if not fMain.IPC.ServerRunning then
+      if Assigned(fMain.FTimeReg) then
         begin
           MainNode := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
           MainNode.Height := 34;
           TTreeEntry(MainNode.Data).Typ := etTimeRegistering;
           fMain.FTimeReg.Node := MainNode;
           fMain.FTimeReg.RefreshNode;
-          fMain.SimpleIPCServer1.Active:=True;
         end;
     end;
 end;
@@ -3426,6 +3425,7 @@ begin
     begin
       FTimereg.StopActualTime;
       FTimeReg.Destroy;
+      DeleteFileUTF8(GetTempDir+'PMSTimeregistering');
     end;
   while FHistory.Count>15 do FHistory.Delete(0);
   with Application as IBaseDbInterface do
@@ -3526,6 +3526,8 @@ procedure TfMain.IPCTimerTimer(Sender: TObject);
 begin
   IPCTimer.Enabled:=False;
   PeekIPCMessages;
+  if Assigned(FTimeReg) then
+    PeekIPCMessages(GetTempDir+'PMSTimeregistering');
   IPCTimer.Enabled:=True;
 end;
 
@@ -3771,21 +3773,17 @@ begin
 end;
 
 procedure TfMain.SenderTfMainTaskFrameControlsSenderTfMainTaskFrameTfTaskFrameStartTime
-  (Sender: TObject; aProject, aTask: string);
+  (Sender: TObject; aProject, aTask,aCategory: string);
 begin
   if Assigned(FTimeReg) then
     begin
       FTimeReg.Project:=aProject;
       FTimeReg.Task:=aTask;
       FTimeReg.Link:='';
+      FTimeReg.cbCategory.Text:=aCategory;
       FTimereg.mNotes.Clear;
-      FTimereg.acStartExecute(nil);
+      FTimereg.StartTimereg;
     end;
-end;
-
-procedure TfMain.SimpleIPCServer1Message(Sender: TObject);
-begin
-  CommandReceived(nil,TSimpleIPCServer(Sender).StringMessage);
 end;
 
 procedure TfMain.TfFilteracOpenExecute(Sender: TObject);

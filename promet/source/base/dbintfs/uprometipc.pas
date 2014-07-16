@@ -5,32 +5,35 @@ unit uprometipc;
 interface
 
 uses
-  Classes, SysUtils,Utils,uBaseDbClasses;
+  Classes, SysUtils,Utils,uBaseDbClasses,FileUtil;
 type
   TMessageFunction = function(aMessage : string) : Boolean;
 
-function SendIPCMessage(aMessage : string) : Boolean;
-function PeekIPCMessages : Boolean;
+function SendIPCMessage(aMessage : string;aIPCFile : string = '') : Boolean;
+function PeekIPCMessages(aIPCFile : string = '') : Boolean;
 
 var
   OnMessageReceived : TMessageFunction = nil;
+  IPCFile : string;
 
 implementation
 uses uBaseApplication;
-function SendIPCMessage(aMessage: string): Boolean;
+function SendIPCMessage(aMessage: string; aIPCFile: string): Boolean;
 var
   sl: TStringList;
 begin
+  if aIPCFile='' then
+    aIPCFile:=IPCFile;
   Result := False;
   sl := TStringList.Create;
   try
     try
       with BaseApplication as IBaseApplication do
         begin
-          if FileExists(GetTempDir+'PMSMessagemenager') then
-            sl.LoadFromFile(GetTempDir+'PMSMessagemenager');
+          if FileExists(aIPCFile) then
+            sl.LoadFromFile(aIPCFile);
           sl.Add(aMessage);
-          sl.SaveToFile(GetTempDir+'PMSMessagemenager');
+          sl.SaveToFile(aIPCFile);
           Result := True;
         end;
     except
@@ -40,22 +43,24 @@ begin
   end;
 end;
 
-function PeekIPCMessages: Boolean;
+function PeekIPCMessages(aIPCFile : string = ''): Boolean;
 var
   sl: TStringList;
   achanged: Boolean;
   i: Integer;
   fs: TFileStream;
 begin
+  if aIPCFile='' then
+    aIPCFile:=IPCFile;
   Result := False;
   sl := TStringList.Create;
   try
     try
       with BaseApplication as IBaseApplication do
         begin
-          if FileExists(GetTempDir+'PMSMessagemenager') then
+          if FileExistsUTF8(aIPCFile) then
             begin
-              fs := TFileStream.Create(GetTempDir+'PMSMessagemenager',fmShareCompat);
+              fs := TFileStream.Create(aIPCFile,fmShareCompat);
               sl.LoadFromStream(fs);
               fs.Free;
             end;
@@ -71,7 +76,7 @@ begin
               else inc(i);
             end;
           if aChanged then
-            sl.SaveToFile(GetTempDir+'PMSMessagemenager');
+            sl.SaveToFile(aIPCFile);
         end;
     except
     end;
@@ -81,5 +86,10 @@ begin
   end;
 end;
 
+initialization
+  IPCFile := GetTempDir+'PMSMessagemenager';
+
+finalization
+  DeleteFileUTF8(IPCFile);
 end.
 
