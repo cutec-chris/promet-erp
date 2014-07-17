@@ -23,7 +23,6 @@ Informiere mich wenn sich an www.google.de etwas ändert
 Informiere mich wenn neue Einträge in wether.de/feed.rss erscheinen
 
 Suche im Internet nach Akku-Tipps für iPhone.
-Suche auf Wikipedia nach Aluminium.
 Bing-Suche nach Berliner Musikgruppen.
 Rufe www.giga.de auf.
 }

@@ -23,6 +23,9 @@ Wie wir das Wetter am Samstag?
 Wird es in Lübeck diese Woche regnen?
 Was wird die Höchsttemperatur morgen in Köln?
 Ist es heute windig?
+
+http://openweathermap.org/api_station
+http://openweathermap.org/current
 }
 
 {$mode objfpc}{$H+}
@@ -30,7 +33,7 @@ Ist es heute windig?
 interface
 
 uses
-  Classes, SysUtils,uSpeaker;
+  Classes, SysUtils,uSpeaker,uIPLocation;
 
 implementation
 

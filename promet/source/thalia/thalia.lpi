@@ -84,6 +84,7 @@
       <Unit2>
         <Filename Value="uprometmodules.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="uprometmodules"/>
       </Unit2>
       <Unit3>
         <Filename Value="uweather.pas"/>

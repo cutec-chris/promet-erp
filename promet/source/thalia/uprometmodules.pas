@@ -20,6 +20,9 @@ unit uprometmodules;
 
 {
 Erstell mir eine Aufgabe Fertigungsauftrag jetzt da wenn ein Fertigungsauftrag für Artikel 1000 angelegt wird
+Informiere mich [immer][einmal] wenn der Bestand von [Artikel] 1000 unter 50 sinkt
+[Wie ist der] Bestand von [Artikel] 1000 ?
+Benachrichtige Carsten wenn ich Aufgabe Prüfung fertigstelle
 
 Wann ist mein nächster Termin?
 Was steht Dienstag in meinem Kalender?
@@ -58,7 +61,7 @@ begin
   canhandle:=(pos('$weather(',sentence)>0);
   if pos('$getdescription(de)',sentence)>0 then
     begin
-      sentence:='Nach Kalendereinträgen oder Mail fragen.';
+      sentence:='Nach Elementen fragen.';
       result := true;
       canhandle:=true;
       exit;
