@@ -172,7 +172,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--debug --debug-sql"/>
+        <CommandLineParams Value="&quot;--config-path=C:/Dokumente und Einstellungen/ulrich/Desktop/Promet-ERP/Data/config&quot; --mandant=Standard --user=Administrator"/>
       </local>
     </RunParams>
     <RequiredPackages Count="25">

@@ -116,7 +116,9 @@ type
 
   TDependencies = class(TBaseDBDataset)
     procedure DataSetAfterDelete(aDataSet: TDataSet);
+    procedure DataSetBeforeDelete(aDataSet: TDataSet);
   private
+    Ref_Id : Variant;
     FTask: TTaskList;
   protected
     property Task : TTaskList read FTask write FTask;
@@ -190,19 +192,41 @@ begin
 end;
 
 procedure TDependencies.DataSetAfterDelete(aDataSet: TDataSet);
+var
+  aTask: TTask;
 begin
-  if DataSet.RecordCount = 0 then
+  if Assigned(fTask) then
     begin
-      if not FTask.CanEdit then
-        FTask.DataSet.Edit;
-      FTask.FieldByName('DEPDONE').AsString := 'Y';
+      if DataSet.RecordCount = 0 then
+        begin
+          if not FTask.CanEdit then
+            FTask.DataSet.Edit;
+          FTask.FieldByName('DEPDONE').AsString := 'Y';
+        end;
+    end
+  else
+    begin
+      aTask := TTask.Create(nil,DataModule);
+      aTask.Select(Ref_Id);
+      aTask.Open;
+      if aTask.Count>0 then
+        aTask.CheckDependencies;
+      aTask.Free;
     end;
 end;
+
+procedure TDependencies.DataSetBeforeDelete(aDataSet: TDataSet);
+begin
+  Ref_Id := aDataSet.FieldByName('REF_ID').AsVariant;
+end;
+
 constructor TDependencies.Create(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
   inherited Create(aOwner, DM, aConnection, aMasterdata);
   DataSet.AfterDelete:=@DataSetAfterDelete;
+  DataSet.BeforeDelete:=@DataSetBeforeDelete;
+  FTask:=nil;
 end;
 procedure TDependencies.DefineFields(aDataSet: TDataSet);
 begin
@@ -835,6 +859,7 @@ var
   Clean: Boolean;
   i: Integer;
   aProject: TProject;
+  aDeps: TDependencies;
 begin
   if trim(FDS.DataSet.FieldByName('SUMMARY').AsString)<>'' then
     begin
@@ -885,6 +910,12 @@ begin
       aTasks.Free;
     end;
   aParent.Free;
+  aDeps := TDependencies.Create(nil,DataModule);
+  aDeps.SelectByLink(Data.BuildLink(aDataSet));
+  aDeps.Open;
+  while aDeps.Count>0 do
+    aDeps.Delete;
+  aDeps.Free;
 end;
 
 procedure TTaskList.FDSDataChange(Sender: TObject; Field: TField);
