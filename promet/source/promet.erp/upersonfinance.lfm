@@ -11,19 +11,19 @@ inherited fPersonFinance: TfPersonFinance
     Left = 56
     Height = 13
     Top = 10
-    Width = 50
+    Width = 44
     Caption = 'Währung'
     ParentColor = False
   end
   object cbCurrency: TExtDBCombobox[1]
     Left = 163
-    Height = 27
+    Height = 21
     Hint = 'setzt eine Standardwährung für den Kontakt mit der jeder Vorgang für den Kontakt vorbelegt wird'
     Top = 10
     Width = 80
     DataField = 'CURRENCY'
     DataSource = Customer
-    ItemHeight = 0
+    ItemHeight = 13
     MaxLength = 0
     Sorted = True
     TabOrder = 0
@@ -32,13 +32,13 @@ inherited fPersonFinance: TfPersonFinance
     Left = 56
     Height = 13
     Top = 46
-    Width = 37
+    Width = 33
     Caption = 'Rabatt'
     ParentColor = False
   end
   object eDiscont: TDBEdit[3]
     Left = 163
-    Height = 23
+    Height = 21
     Hint = 'setzt eine Rabatt mit dem die Vorgänge für diesen Kontakt vorbelegt werden'
     Top = 46
     Width = 80
@@ -52,20 +52,20 @@ inherited fPersonFinance: TfPersonFinance
     Left = 56
     Height = 13
     Top = 82
-    Width = 77
+    Width = 67
     Caption = 'Rabattgruppe'
     ParentColor = False
   end
   object cbDiscontGroup: TExtDBCombobox[5]
     Left = 163
-    Height = 27
+    Height = 21
     Hint = 'setzt eine Rabattgruppe für den Kontakt'
     Top = 82
     Width = 249
     Anchors = [akTop, akLeft, akRight]
     DataField = 'DISCOUNTGR'
     DataSource = Customer
-    ItemHeight = 0
+    ItemHeight = 13
     MaxLength = 0
     Sorted = True
     TabOrder = 2
@@ -74,20 +74,20 @@ inherited fPersonFinance: TfPersonFinance
     Left = 56
     Height = 13
     Top = 118
-    Width = 71
+    Width = 58
     Caption = 'Zahlungsziel'
     ParentColor = False
   end
   object cbPaymenttarget: TExtDBCombobox[7]
     Left = 163
-    Height = 27
+    Height = 21
     Hint = 'setzt ein Zahlungsziel mit dem die Vorgänge für diesen Kontakt vorbelegt werden'
     Top = 118
     Width = 249
     Anchors = [akTop, akLeft, akRight]
     DataField = 'PAYMENTTAR'
     DataSource = Customer
-    ItemHeight = 0
+    ItemHeight = 13
     MaxLength = 0
     Sorted = True
     TabOrder = 3
@@ -96,7 +96,7 @@ inherited fPersonFinance: TfPersonFinance
     Left = 56
     Height = 13
     Top = 154
-    Width = 106
+    Width = 89
     Caption = 'Bankverbindungen'
     ParentColor = False
   end
@@ -170,7 +170,8 @@ inherited fPersonFinance: TfPersonFinance
         Caption = 'Navigation'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = -900
+        Font.Orientation = 900
+        Layout = tlBottom
         ParentColor = False
         ParentFont = False
       end
@@ -226,7 +227,8 @@ inherited fPersonFinance: TfPersonFinance
         Caption = 'Bank'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = -900
+        Font.Orientation = 900
+        Layout = tlBottom
         ParentColor = False
         ParentFont = False
       end
@@ -322,12 +324,12 @@ inherited fPersonFinance: TfPersonFinance
       end
     end
   end
-  object Customer: TDatasource[11]
-    left = 408
-    top = 33
+  object Customer: TDataSource[11]
+    left = 440
+    top = 32
   end
-  object Banking: TDatasource[12]
-    left = 408
-    top = 90
+  object Banking: TDataSource[12]
+    left = 440
+    top = 88
   end
 end

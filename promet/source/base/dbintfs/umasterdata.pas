@@ -909,7 +909,8 @@ begin
             Add('VALIDTO',ftDate,0,False);     //gültig bis Datum
             Add('VALIDTOME',ftInteger,0,False);//gültig bis Menge
             Add('COSTCENTRE',ftString,10,False);//Kostenstelle
-            Add('ACCOUNT',ftString,10,False);
+            Add('ACCOUNT',ftString,10,False); //Fibu Konto
+            Add('ACCOUNTINGINFO',ftMemo,0,False); //Fibu Info
             Add('CATEGORY',ftString,60,False);
             Add('CURRENCY',ftString,5,False);
             Add('CRDATE',ftDate,0,False);

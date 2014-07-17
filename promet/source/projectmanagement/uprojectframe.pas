@@ -195,6 +195,7 @@ type
     procedure AddDocuments(Sender: TObject);
     procedure AddTasks(Sender: TObject);
     procedure AddOverview(Sender: TObject);
+    procedure AddFinance(Sender: TObject);
     procedure RefreshFlow;
   protected
     procedure SetDataSet(const AValue: TBaseDBDataset);override;
@@ -220,7 +221,7 @@ uses uData,uProjects,uHistoryFrame,uLinkFrame,uImageFrame,uDocuments,
   uDocumentFrame,uIntfStrConsts,uMainTreeFrame,uBaseDBInterface,uEditableTab,
   uFilterFrame,uBaseSearch,Utils,uprojectimport,uBaseERPDBClasses,uSelectReport,
   uNRights,uprojectpositions,uSearch,LCLProc,utask,uprojectoverview,uBaseVisualApplication,
-  uGanttView,uWikiFrame,uWiki;
+  uGanttView,uWikiFrame,uWiki,ufinance;
 {$R *.lfm}
 resourcestring
   strNoParent                     = '<kein Vorfahr>';
@@ -729,6 +730,13 @@ procedure TfProjectFrame.AddOverview(Sender: TObject);
 begin
   TfProjectOverviewFrame(Sender).ParentProject:=TProject(fDataSet);
 end;
+
+procedure TfProjectFrame.AddFinance(Sender: TObject);
+begin
+  TfFinance(Sender).DataSet := FDataSet;
+  TPrometInplaceFrame(Sender).SetRights(FEditable);
+end;
+
 procedure TfProjectFrame.RefreshFlow;
 var
   aProj: TProject;
@@ -1047,6 +1055,11 @@ begin
     begin
       pcPages.CanHaveCustomTabs(@TBaseVisualApplication(Application).OnAddCustomTab);
     end;
+  pcPages.AddTabClass(TfFinance,strFinance,@AddFinance);
+  if (not DataSet.FieldByName('COSTCENTRE').IsNull)
+  or (not DataSet.FieldByName('ACCOUNT').IsNull)
+  or (not DataSet.FieldByName('ACCOUNTINGINFO').IsNull) then
+    pcPages.AddTab(TfFinance.Create(Self),False);
   with Application as TBaseVisualApplication do
     AddTabClasses('PRJ',pcPages);
   with Application as TBaseVisualApplication do

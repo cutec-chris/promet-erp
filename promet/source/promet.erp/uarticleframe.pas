@@ -148,6 +148,7 @@ type
     procedure AddSupplier(Sender: TObject);
     procedure AddRepair(Sender: TObject);
     procedure AddTexts(Sender: TObject);
+    procedure AddFinance(Sender: TObject);
   protected
     procedure DoOpen(RefreshVersions : Boolean = True);
     function SetRights : Boolean;
@@ -165,7 +166,7 @@ uses uMasterdata,uData,uArticlePositionFrame,uDocuments,uDocumentFrame,
   uHistoryFrame,uImageFrame,uLinkFrame,uBaseDbInterface,uListFrame,
   uArticleStorageFrame,uArticleRepairFrame,uArticleText,uCopyArticleData,
   uMainTreeFrame,uPrometFramesInplace,uBaseDBClasses,uarticlesupplierframe,
-  uNRights,uSelectReport,uBaseVisualApplication,uWikiFrame,uWiki;
+  uNRights,uSelectReport,uBaseVisualApplication,uWikiFrame,uWiki,ufinance;
 resourcestring
   strPrices                                  = 'Preise';
   strProperties                              = 'Eigenschaften';
@@ -566,6 +567,11 @@ begin
   TMasterdata(DataSet).Assembly.Open;
   if TMasterdata(DataSet).Assembly.Count > 0 then
     pcPages.AddTab(TfArticleRepairFrame.Create(Self),False);
+  pcPages.AddTabClass(TfFinance,strFinance,@AddFinance);
+  if (not DataSet.FieldByName('COSTCENTRE').IsNull)
+  or (not DataSet.FieldByName('ACCOUNT').IsNull)
+  or (not DataSet.FieldByName('ACCOUNTINGINFO').IsNull) then
+    pcPages.AddTab(TfFinance.Create(Self),False);
   mShorttext.SetFocus;
   with Application as TBaseVisualApplication do
     AddTabClasses('ART',pcPages);
@@ -723,6 +729,13 @@ begin
     end;
   TPrometInplaceFrame(Sender).SetRights(FEditable);
 end;
+
+procedure TfArticleFrame.AddFinance(Sender: TObject);
+begin
+  TfFinance(Sender).DataSet := FDataSet;
+  TPrometInplaceFrame(Sender).SetRights(FEditable);
+end;
+
 constructor TfArticleFrame.Create(AOwner: TComponent);
 var
   aType: Char;
