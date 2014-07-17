@@ -671,7 +671,7 @@ procedure TStarterThread.AddTimeReg;
 begin
   if (Data.Users.Rights.Right('TIMEREG') > RIGHT_NONE) then
     begin
-      if not FileExistsUTF8(GetTempDir+'PMSTimeregistering') then
+      if (not FileExistsUTF8(GetTempDir+'PMSTimeregistering')) or (FileDateToDateTime(FileAgeUTF8(GetTempDir+'PMSTimeregistering')) < trunc(Now())) then
         begin
           fOptions.RegisterOptionsFrame(TfTimeOptions.Create(fOptions),strTimetools,strPersonalOptions);
           Application.CreateForm(TfEnterTime,fMain.FTimeReg);
