@@ -925,6 +925,7 @@ var
   aUser: TUser;
   Informed1: String;
   Informed2: String;
+  aDeps: TDependencies;
 begin
   if not Assigned(Field) then exit;
   if DataSet.ControlsDisabled then
@@ -1000,7 +1001,7 @@ begin
           DataSet.FieldByName('COMPLETEDAT').Clear;
           DataSet.FieldByName('CHECKED').AsString:='N';
           DataSet.FieldByName('DUEDATE').Clear;
-          DataSet.FieldByName('PLANTIME').Clear;
+          DataSet.FieldByName('STARTDATE').Clear;
           DataSet.FieldByName('BUFFERTIME').Clear;
           if not History.DataSet.Active then History.Open;
           History.AddItem(Self.DataSet,strTaskReopened,Data.BuildLink(FDS.DataSet),'',nil,ACICON_STATUSCH);
@@ -1042,6 +1043,25 @@ begin
                 end;
             end;
           aProject.Free;
+          aDeps := TDependencies.Create(nil,DataModule);
+          aDeps.SelectByLink(Data.BuildLink(DataSet));
+          aDeps.Open;
+          aDeps.First;
+          while not aDeps.EOF do
+            begin
+              aParent := TTask.Create(nil,DataModule);
+              aParent.Select(aDeps.FieldByName('REF_ID').AsVariant);
+              aParent.Open;
+              if aParent.Count>0 then
+                begin
+                  aParent.Edit;
+                  aParent.FieldByName('COMPLETED').AsString:='N';
+                  aParent.Post;
+                end;
+              aParent.Free;
+              aDeps.Next;
+            end;
+          aDeps.Free;
         end;
       //Check Parent Task
       DataSet.EnableControls;
