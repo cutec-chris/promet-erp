@@ -1052,7 +1052,7 @@ begin
               aParent := TTask.Create(nil,DataModule);
               aParent.Select(aDeps.FieldByName('REF_ID').AsVariant);
               aParent.Open;
-              if aParent.Count>0 then
+              if (aParent.Count>0) and (aParent.FieldByName('COMPLETED').AsString = 'Y') then
                 begin
                   aParent.Edit;
                   aParent.FieldByName('COMPLETED').AsString:='N';

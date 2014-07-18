@@ -307,7 +307,6 @@
         <ComponentName Value="fPersonFinance"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uPersonFinance"/>
       </Unit4>
       <Unit5>
         <Filename Value="uaccountingframe.pas"/>
