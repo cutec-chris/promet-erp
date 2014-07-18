@@ -371,6 +371,7 @@ var
   aLastSyncedItemTime: TDateTime;
   tmp1: String;
   aIntFilter: String;
+  aOtherUserItems: TSyncItems;
   function RoundToSecond(aDate : TDateTime) : TDateTime;
   begin
     Result := Round(aDate * SecsPerDay) / SecsPerDay;
@@ -419,7 +420,9 @@ begin
               SelectByReference(aInternal.Id.AsVariant);
               Open;
               if Count = 0 then
-                Insert
+                begin
+                  Insert
+                end
               else Edit;
               DoSync := (aInternal.TimeStamp.AsDateTime>SyncTime.AsDateTime) or (State=dsInsert); //sync only when Chnged ot New
               if DoSync then
@@ -453,6 +456,7 @@ begin
           tmp1 := DateTimeToStr(aLastSyncedItemTime);
           if Assigned(aID) and Assigned(aTime) then
             begin
+              DoSync:=True;
               //Get our Sync Item or insert one
               SelectByRemoteReference(aID.AsString);
               Open;
@@ -463,9 +467,21 @@ begin
                     begin
                       SelectByReference(aSQLID.Value);
                       Open;
-                      if Count = 0 then Insert
+                      if Count = 0 then
+                        begin
+                          //check if same item has another user now ...
+                          aOtherUserItems := TSyncItems.Create(nil,DataModule,Connection);
+                          aOtherUserItems.SelectByRemoteReference(aID.AsString);
+                          aOtherUserItems.Open;
+                          //if not insert
+                          if aOtherUserItems.Count=0 then
+                            Insert
+                          else DoSync:=False;
+                          aOtherUserItems.Free;
+                        end
                       else Edit;
-                      LocalID.AsVariant:=aSQLID.Value;
+                      if CanEdit then
+                        LocalID.AsVariant:=aSQLID.Value;
                       if State = dsEdit then
                         Post;
                     end
@@ -475,9 +491,9 @@ begin
               else Edit;
               //sync only when Chnged ot New
               if SyncTime.IsNull then
-                DoSync := (aSyncTime>aLastSyncedItemTime) or (State=dsInsert)
+                DoSync := DoSync or ((aSyncTime>aLastSyncedItemTime) or (State=dsInsert))
               else
-                DoSync := (aSyncTime>SyncTime.AsDateTime) or (State=dsInsert);
+                DoSync := DoSync or ((aSyncTime>SyncTime.AsDateTime) or (State=dsInsert));
               if DoSync then
                 begin
                   //if BaseApplication.HasOption('debug') then
@@ -553,6 +569,7 @@ begin
       //debugln('********** Sync 2nd Step');
       for i := 0 to aExternal.Count-1 do
         begin
+          DoSync:=True;
           aObj := aExternal.Items[i] as TJSONObject;
           //if BaseApplication.HasOption('debug') then
           //  debugln('Ext Notified Object:'+aObj.AsJSON);
@@ -585,7 +602,18 @@ begin
                         begin
                           SelectByReference(aSQLID.Value);
                           Open;
-                          if Count = 0 then Insert
+                          if Count = 0 then
+                            begin
+                              //check if same item has another user now ...
+                              aOtherUserItems := TSyncItems.Create(nil,DataModule,Connection);
+                              aOtherUserItems.SelectByRemoteReference(aID.AsString);
+                              aOtherUserItems.Open;
+                              //if not insert
+                              if aOtherUserItems.Count=0 then
+                                Insert
+                              else DoSync:=False;
+                              aOtherUserItems.Free;
+                            end
                           else Edit;
                           LocalID.AsVariant:=aSQLID.Value;
                           if State = dsEdit then
@@ -597,41 +625,44 @@ begin
                   else Edit;
                 end
               else Edit;
-              RemoteID.AsVariant:=aID.AsString;
-              aInternal.Select(LocalID.AsVariant);
-              aInternal.Open;
-              if aInternal.Count>0 then
+              if DoSync then
                 begin
-                  if CanEdit then
+                  RemoteID.AsVariant:=aID.AsString;
+                  aInternal.Select(LocalID.AsVariant);
+                  aInternal.Open;
+                  if aInternal.Count>0 then
                     begin
-                      if Supports(aInternal, IBaseHistory, Hist) then
+                      if CanEdit then
                         begin
-                          if State=dsInsert then
+                          if Supports(aInternal, IBaseHistory, Hist) then
                             begin
-                              Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,[strSyncNewRecord]));
-                              //debugln(aInternal.Id.AsString+':'+Format(strSynchedOut,[strSyncNewRecord]));
-                            end
-                          else if (aInternal.TimeStamp.AsDateTime>SyncTime.AsDateTime) then
-                            begin
-                              Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,['Internal '+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
-                              //debugln(aInternal.Id.AsString+':'+Format(strSynchedOut,['Internal '+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
-                            end
-                          else
-                            begin
-                              Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
-                              //debugln(aInternal.Id.AsString+':'+Format(strSynchedOut,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                              if State=dsInsert then
+                                begin
+                                  Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,[strSyncNewRecord]));
+                                  //debugln(aInternal.Id.AsString+':'+Format(strSynchedOut,[strSyncNewRecord]));
+                                end
+                              else if (aInternal.TimeStamp.AsDateTime>SyncTime.AsDateTime) then
+                                begin
+                                  Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,['Internal '+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                                  //debugln(aInternal.Id.AsString+':'+Format(strSynchedOut,['Internal '+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                                end
+                              else
+                                begin
+                                  Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                                  //debugln(aInternal.Id.AsString+':'+Format(strSynchedOut,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                                end;
                             end;
+                          LocalID.AsVariant:=aInternal.Id.AsVariant;
+                          Typ.AsString:=SyncType;
+                          if FieldByName('SYNCTABLE').IsNull then
+                            FieldByName('SYNCTABLE').AsString:=aInternal.TableName;
+                          if FieldByName('USER_ID').IsNull then
+                            FieldByName('USER_ID').AsString:=TBaseDBModule(DataModule).Users.ID.AsString;
+                          SyncTime.AsDateTime:=Now();
+                          Post;
                         end;
-                      LocalID.AsVariant:=aInternal.Id.AsVariant;
-                      Typ.AsString:=SyncType;
-                      if FieldByName('SYNCTABLE').IsNull then
-                        FieldByName('SYNCTABLE').AsString:=aInternal.TableName;
-                      if FieldByName('USER_ID').IsNull then
-                        FieldByName('USER_ID').AsString:=TBaseDBModule(DataModule).Users.ID.AsString;
-                      SyncTime.AsDateTime:=Now();
-                      Post;
                     end;
-                end;
+                end; //else external item is changed to another user, should we delete it ????
             end;
         end;
     end;
