@@ -32,7 +32,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=&quot;TCS-Times2&quot; --user=&quot;Testnutzer&quot;"/>
+        <CommandLineParams Value="--mandant=&quot;TCS-Times2&quot; --user=&quot;Testnutzer&quot; --debug"/>
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
         <WorkingDirectory Value="C:\"/>
       </local>
@@ -53,8 +53,8 @@
       <Unit0>
         <Filename Value="sync_outlook_tasks.lpr"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="210"/>
-        <CursorPos X="40" Y="227"/>
+        <TopLine Value="209"/>
+        <CursorPos Y="228"/>
         <FoldState Value=" T3i603113m"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="1">
@@ -478,9 +478,9 @@
         <UnitName Value="usync"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="645"/>
-        <CursorPos X="95" Y="665"/>
-        <FoldState Value=" T0qB8iQ"/>
+        <TopLine Value="587"/>
+        <CursorPos X="23" Y="498"/>
+        <FoldState Value=" T0qDCiQ"/>
         <UsageCount Value="40"/>
         <Loaded Value="True"/>
       </Unit68>
@@ -606,8 +606,8 @@
         <Filename Value="..\base\dbintfs\utask.pas"/>
         <UnitName Value="utask"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="942"/>
-        <CursorPos X="3" Y="949"/>
+        <TopLine Value="1164"/>
+        <CursorPos Y="1186"/>
         <UsageCount Value="45"/>
         <Loaded Value="True"/>
       </Unit88>
@@ -657,8 +657,10 @@
       </Unit95>
       <Unit96>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
-        <TopLine Value="288"/>
-        <CursorPos Y="320"/>
+        <UnitName Value="uBaseCustomApplication"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="209"/>
+        <CursorPos X="39" Y="229"/>
         <UsageCount Value="27"/>
       </Unit96>
       <Unit97>
@@ -824,124 +826,124 @@
     </Build>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="921" TopLine="902"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="455" TopLine="384"/>
       </Position1>
       <Position2>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="922" TopLine="902"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="456" TopLine="384"/>
       </Position2>
       <Position3>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="923" TopLine="902"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="457" TopLine="384"/>
       </Position3>
       <Position4>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2220" TopLine="2197"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="458" TopLine="384"/>
       </Position4>
       <Position5>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="622" TopLine="603"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="459" TopLine="384"/>
       </Position5>
       <Position6>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="623" TopLine="603"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="461" TopLine="386"/>
       </Position6>
       <Position7>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="624" TopLine="603"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="463" TopLine="450"/>
       </Position7>
       <Position8>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="622" TopLine="603"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="464" TopLine="450"/>
       </Position8>
       <Position9>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="623" TopLine="603"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="465" TopLine="450"/>
       </Position9>
       <Position10>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="624" TopLine="603"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="493" TopLine="474"/>
       </Position10>
       <Position11>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="626" TopLine="603"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="495" TopLine="474"/>
       </Position11>
       <Position12>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="627" TopLine="603"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="498" TopLine="474"/>
       </Position12>
       <Position13>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="628" TopLine="603"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="499" TopLine="474"/>
       </Position13>
       <Position14>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="622" TopLine="603"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="449" TopLine="386"/>
       </Position14>
       <Position15>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="623" TopLine="603"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="450" TopLine="386"/>
       </Position15>
       <Position16>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="624" TopLine="603"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="451" TopLine="386"/>
       </Position16>
       <Position17>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2197" TopLine="2178"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="452" TopLine="386"/>
       </Position17>
       <Position18>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2198" TopLine="2178"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="454" TopLine="386"/>
       </Position18>
       <Position19>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2199" TopLine="2178"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="455" TopLine="386"/>
       </Position19>
       <Position20>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2200" TopLine="2178"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="456" TopLine="386"/>
       </Position20>
       <Position21>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="626" TopLine="603"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="457" TopLine="386"/>
       </Position21>
       <Position22>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="627" TopLine="603"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="458" TopLine="386"/>
       </Position22>
       <Position23>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="628" TopLine="603"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="459" TopLine="386"/>
       </Position23>
       <Position24>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2302" TopLine="2283"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="461" TopLine="386"/>
       </Position24>
       <Position25>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2303" TopLine="2283"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="463" TopLine="388"/>
       </Position25>
       <Position26>
-        <Filename Value="sync_outlook_tasks.lpr"/>
-        <Caret Line="318" Column="54" TopLine="293"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="464" TopLine="389"/>
       </Position26>
       <Position27>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="391" TopLine="369"/>
+        <Caret Line="465" TopLine="390"/>
       </Position27>
       <Position28>
-        <Filename Value="sync_outlook_tasks.lpr"/>
-        <Caret Line="341" Column="67" TopLine="331"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="493" TopLine="474"/>
       </Position28>
       <Position29>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="490" Column="31" TopLine="462"/>
+        <Caret Line="495" TopLine="474"/>
       </Position29>
       <Position30>
-        <Filename Value="sync_outlook_tasks.lpr"/>
-        <Caret Line="227" Column="40" TopLine="210"/>
+        <Filename Value="..\base\dbintfs\usync.pas"/>
+        <Caret Line="498" Column="23" TopLine="587"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -967,7 +969,7 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="4">
+    <BreakPoints Count="6">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsGlobal"/>
@@ -996,6 +998,20 @@
         <Source Value="E:\umessages.pas"/>
         <Line Value="922"/>
       </Item4>
+      <Item5>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="sync_outlook_tasks.lpr"/>
+        <Line Value="173"/>
+      </Item5>
+      <Item6>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="..\base\dbintfs\usync.pas"/>
+        <Line Value="574"/>
+      </Item6>
     </BreakPoints>
     <Watches Count="2">
       <Item1>

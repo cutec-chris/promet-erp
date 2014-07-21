@@ -180,7 +180,7 @@ begin
               aObj.Add('TIMESTAMPD',Rfc822DateTime(IncHour(aItem.LastModificationTime,TimeOffset)));
               aObj.Add('SUMMARY',EncodingIn(aItem.PropertiesDirect[PR_SUBJECT,ptString]));
               SStream := TStringStream.Create('');
-              try
+{              try
                 if aItem.CoMessage.OpenProperty(PR_BODY, IStream, STGM_READ, 0, IInterface(StreamIntf)) = S_OK then
                   begin
                     StreamIntf.Stat(StreamInfo, STATFLAG_NONAME);
@@ -195,7 +195,7 @@ begin
                   end;
               finally
                 StreamIntf := nil;
-              end;
+              end;}
               if not Assigned(aObj.Find('DESC')) then
                 aObj.Add('DESC',EncodingIn(aItem.PropertiesDirect[PR_BODY,ptString]));
               aObj.Add('COMPLETED',Boolean(aItem.PropertiesDirect[aItem.GetPropertyDispId($811c, PT_BOOLEAN, False, @PSETID_Task),ptBoolean]));
