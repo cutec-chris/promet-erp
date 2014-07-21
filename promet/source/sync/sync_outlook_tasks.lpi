@@ -32,7 +32,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=&quot;TCS-Times2&quot; --user=&quot;Testnutzer&quot; --debug"/>
+        <CommandLineParams Value="--mandant=&quot;TCS-Times2&quot; --user=&quot;Christian Ulrich&quot; --debug"/>
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
         <WorkingDirectory Value="C:\"/>
       </local>
@@ -55,7 +55,6 @@
         <IsPartOfProject Value="True"/>
         <TopLine Value="209"/>
         <CursorPos Y="228"/>
-        <FoldState Value=" T3i603113m"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="1">
           <Item0 Y="148"/>
@@ -478,8 +477,8 @@
         <UnitName Value="usync"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="587"/>
-        <CursorPos X="23" Y="498"/>
+        <TopLine Value="584"/>
+        <CursorPos X="23" Y="589"/>
         <FoldState Value=" T0qDCiQ"/>
         <UsageCount Value="40"/>
         <Loaded Value="True"/>
@@ -657,7 +656,6 @@
       </Unit95>
       <Unit96>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
-        <UnitName Value="uBaseCustomApplication"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="209"/>
         <CursorPos X="39" Y="229"/>
@@ -824,7 +822,7 @@
     <Build>
       <CleanOutputFileMask Value="*.ppu;*.ppl;*.o;*.or;*.rc"/>
     </Build>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
         <Filename Value="..\base\dbintfs\usync.pas"/>
         <Caret Line="455" TopLine="384"/>
@@ -941,10 +939,6 @@
         <Filename Value="..\base\dbintfs\usync.pas"/>
         <Caret Line="495" TopLine="474"/>
       </Position29>
-      <Position30>
-        <Filename Value="..\base\dbintfs\usync.pas"/>
-        <Caret Line="498" Column="23" TopLine="587"/>
-      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

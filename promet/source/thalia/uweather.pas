@@ -37,7 +37,7 @@ uses
 
 implementation
 
-function HandleTalk(Speaker : TSpeaker;language : string;var sentence : string;var canhandle : Boolean) : Boolean;
+function HandleTalk(Interlocutor : TInterlocutor;language : string;var sentence : string;var canhandle : Boolean) : Boolean;
 begin
   Result:=False;
   canhandle:=(pos('$weather(',sentence)>0);

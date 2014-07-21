@@ -36,7 +36,7 @@ uses
 
 implementation
 
-function HandleTalk(Speaker : TSpeaker;language : string;var sentence : string;var canhandle : Boolean) : Boolean;
+function HandleTalk(Interlocutor : TInterlocutor;language : string;var sentence : string;var canhandle : Boolean) : Boolean;
 begin
   Result:=False;
   canhandle:=(pos('$checksite(',sentence)>0);
@@ -61,8 +61,8 @@ begin
 end;
 
 initialization
-  RegisterToSpeaker(@HandleTalk,@AddSentences);
-  RegisterChron(@Chron);
+  //RegisterToSpeaker(@HandleTalk,@AddSentences);
+  //RegisterChron(@Chron);
 
 end.
 

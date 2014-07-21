@@ -28,7 +28,8 @@ uses
   { you can add units after this },db,Utils, general_nogui,
   FileUtil,uData, uIntfStrConsts, pcmdprometapp,uBaseCustomApplication,
   uBaseApplication,uBaseDbClasses,uBaseDBInterface,uSpeaker,
-  umath,uwikipedia, uinformation,ureminder, uprometmodules, uweather;
+  umath,uwikipedia, uinformation,ureminder, uprometmodules, uweather,
+  uscript;
 type
   PrometCmdApp = class(TBaseCustomApplication)
     procedure FSpeakerDebugMessage(sentence: string);
@@ -93,7 +94,7 @@ type
   public
     procedure Connect; override;
     procedure Disconnect; override;
-    procedure Talk(user, sentence: string); override;
+    procedure Talk(user, sentence: string;AnswerTo : Int64 = -1); override;
     function Process(NeedNewMessage: Boolean=False): boolean; override;
     function GetID: string; override;
     function IsUser(user: string): Boolean; override;
@@ -159,7 +160,7 @@ begin
 
 end;
 
-procedure TPrometSpeakerInterface.Talk(user, sentence: string);
+procedure TPrometSpeakerInterface.Talk(user, sentence: string; AnswerTo: Int64);
 begin
 
 end;
