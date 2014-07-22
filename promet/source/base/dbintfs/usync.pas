@@ -478,7 +478,15 @@ begin
                               //if not insert
                               if aOtherUserItems.Count=0 then
                                 Insert
-                              else DoSync:=False;
+                              else
+                                begin //external item is not found, should we delete it ????
+                                  DoSync:=False;
+                                  VJSON := TJSONObject.Create;
+                                  FieldsToJSON(aInternal.DataSet.Fields, VJSON, True);
+                                  VJSON.Add('external_id',aID.AsString);
+                                  VJSON.Add('item_not_found',True);
+                                  Result.Add(VJSON);
+                                end;
                               aOtherUserItems.Free;
                             end
                           else Edit;
@@ -493,9 +501,9 @@ begin
                   else Edit;
                   //sync only when Chnged or New
                   if SyncTime.IsNull then
-                    DoSync := DoSync and ((aSyncTime>aLastSyncedItemTime) or (State=dsInsert))
+                    DoSync := DoSync and ((aSyncTime>=aLastSyncedItemTime) or (State=dsInsert))
                   else
-                    DoSync := DoSync and ((aSyncTime>SyncTime.AsDateTime) or (State=dsInsert));
+                    DoSync := DoSync and ((aSyncTime>=SyncTime.AsDateTime) or (State=dsInsert));
                   if DoSync then
                     begin
                       //if BaseApplication.HasOption('debug') then

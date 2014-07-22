@@ -219,7 +219,7 @@ begin
           aTasks := TTaskList.Create(nil,Data);
           aLastSync := SyncItems.LastSync(SyncType,aTasks.TableName);
           if aLastSync>0 then
-            aTasks.SelectActiveByUserChangedSince(Data.Users.Accountno.AsString,aLastSync)
+            aTasks.SelectActiveByUserChangedSince(Data.Users.Accountno.AsString,aLastSync-1)
           else
             aTasks.SelectActiveByUser(Data.Users.Accountno.AsString);
           aTasks.Open;
@@ -236,7 +236,9 @@ begin
                 begin
                   DoDelete := False;
                   aField := SyncItems.GetField(aJsonOutList[i],'EXTERNAL_ID');
-                  if Assigned(aField) and (aField.AsString = EntryIdToString(aItem.EntryID)) then
+                  if Assigned(aField) and (aField.AsString = EntryIdToString(aItem.EntryID))
+                  and (not Assigned(SyncItems.GetField(aJsonOutList[i],'item_not_found')))
+                  then
                     begin
                       aField := SyncItems.GetField(aJsonOutList[i],'SUMMARY');
                       debugln('Updated:'+aItem.Subject);
@@ -278,6 +280,7 @@ begin
           for i := 0 to aJsonOutList.Count-1 do
             begin
               if Assigned(aJsonOutList[i])
+              and (not Assigned(SyncItems.GetField(aJsonOutList[i],'item_not_found')))
               and (not Assigned(SyncItems.GetField(aJsonOutList[i],'item_is_synched')))
               and ((not Assigned(SyncItems.GetField(aJsonOutList[i],'HASCHILDS'))) or (SyncItems.GetField(aJsonOutList[i],'HASCHILDS').AsString<>'Y'))
               and ((not Assigned(SyncItems.GetField(aJsonOutList[i],'COMPLETED'))) or (SyncItems.GetField(aJsonOutList[i],'COMPLETED').AsString<>'Y'))
@@ -325,12 +328,34 @@ begin
                       end;
                       aItem.Free;
                     end;
-
+                  TJSONObject(aJsonOutList.Items[i]).Add('item_is_synched',True);
                 end;
             end;
           //tell System the new external_id´s and changed rows
           if aJsonOutList.Count>0 then
             SyncItems.SyncDataSet(aTasks,aJsonOutList,SyncType,True);
+          //Delete Items in Outlook
+          aItem := aFolder.GetFirst;
+          bItem := nil;
+          //change existing Items
+          while Assigned(aItem) do
+            begin
+              i := 0;
+              while i < aJsonOutList.Count do
+                begin
+                  DoDelete := False;
+                  aField := SyncItems.GetField(aJsonOutList[i],'EXTERNAL_ID');
+                  if Assigned(aField) and (aField.AsString = EntryIdToString(aItem.EntryID))
+                  and (Assigned(SyncItems.GetField(aJsonOutList[i],'item_not_found')))
+                  then
+                    begin
+                      aField := SyncItems.GetField(aJsonOutList[i],'SUMMARY');
+                      debugln('Deleted:'+aItem.Subject);
+                    end;
+                end;
+              FreeAndNil(aItem);
+              aItem := aFolder.GetNext;
+            end;
           aJsonOutList.Free;
         finally
           aTasks.Free;
