@@ -8,7 +8,7 @@ inherited fPersonFrame: TfPersonFrame
   object pComponents: TPanel[0]
     Left = 0
     Height = 84
-    Top = 44
+    Top = 73
     Width = 627
     Align = alTop
     BevelOuter = bvNone
@@ -370,8 +370,8 @@ inherited fPersonFrame: TfPersonFrame
   end
   object pcPages: TExtMenuPageControl[1]
     Left = 0
-    Height = 364
-    Top = 128
+    Height = 335
+    Top = 157
     Width = 627
     ActivePage = tsCustomerCont
     Align = alClient
@@ -381,12 +381,12 @@ inherited fPersonFrame: TfPersonFrame
     NewTabImageIndex = 59
     object tsCustomerCont: TTabSheet
       Caption = 'Kontaktdaten'
-      ClientHeight = 652
-      ClientWidth = 1238
+      ClientHeight = 297
+      ClientWidth = 619
       ImageIndex = 51
       object pCont: TPanel
         Left = 44
-        Height = 326
+        Height = 297
         Top = 0
         Width = 575
         Align = alClient
@@ -395,12 +395,12 @@ inherited fPersonFrame: TfPersonFrame
       end
       object Panel1: TPanel
         Left = 0
-        Height = 326
+        Height = 297
         Top = 0
         Width = 44
         Align = alLeft
         BevelOuter = bvNone
-        ClientHeight = 326
+        ClientHeight = 297
         ClientWidth = 44
         TabOrder = 1
         object Panel2: TPanel
@@ -434,8 +434,7 @@ inherited fPersonFrame: TfPersonFrame
             Caption = 'Navigation'
             Font.Color = clMedGray
             Font.Height = 11
-            Font.Orientation = 900
-            Layout = tlBottom
+            Font.Orientation = -900
             ParentColor = False
             ParentFont = False
           end
@@ -465,7 +464,7 @@ inherited fPersonFrame: TfPersonFrame
   object ToolBar1: TPanel[2]
     Left = 0
     Height = 44
-    Top = 0
+    Top = 29
     Width = 627
     Align = alTop
     BevelOuter = bvNone
@@ -957,16 +956,18 @@ inherited fPersonFrame: TfPersonFrame
     end
   end
   object pPreviewImage: TPanel[3]
+    AnchorSideTop.Control = lHint
+    AnchorSideTop.Side = asrBottom
     Left = 518
     Height = 122
-    Top = 8
+    Top = 29
     Width = 98
     Anchors = [akTop, akRight]
     BevelOuter = bvNone
     BorderStyle = bsSingle
     Caption = 'kein Bild'
-    ClientHeight = 122
-    ClientWidth = 98
+    ClientHeight = 120
+    ClientWidth = 96
     TabOrder = 0
     object iPerson: TImage
       Left = 0
@@ -979,13 +980,29 @@ inherited fPersonFrame: TfPersonFrame
       Stretch = True
     end
   end
-  object Customers: TDatasource[4]
+  object lHint: TLabel[4]
+    Left = 8
+    Height = 13
+    Top = 8
+    Width = 611
+    Align = alTop
+    BorderSpacing.Around = 8
+    Caption = 'lHint'
+    Color = clInfoBk
+    Font.Color = clInfoText
+    ParentColor = False
+    ParentFont = False
+    Transparent = False
+    Visible = False
+    WordWrap = True
+  end
+  object Customers: TDatasource[5]
     OnStateChange = CustomersStateChange
     OnDataChange = CustomersDataChange
     left = 80
     top = 32
   end
-  object ActionList1: TActionList[5]
+  object ActionList1: TActionList[6]
     Images = fVisualControls.Images
     left = 168
     top = 32
@@ -1070,7 +1087,7 @@ inherited fPersonFrame: TfPersonFrame
       OnExecute = acCombineItemsExecute
     end
   end
-  object pmAction: TPopupMenu[6]
+  object pmAction: TPopupMenu[7]
     left = 204
     top = 32
     object miStartTimeregistering: TMenuItem
@@ -1107,27 +1124,27 @@ inherited fPersonFrame: TfPersonFrame
       Action = acRights
     end
   end
-  object ExportDialog: TSaveDialog[7]
+  object ExportDialog: TSaveDialog[8]
     Width = 940
     Height = 630
     Filter = 'VCard (*.vcf)|*.vcf'
     left = 168
     top = 72
   end
-  object ImportDialog: TOpenDialog[8]
+  object ImportDialog: TOpenDialog[9]
     left = 80
     top = 72
   end
-  object PHistory: TfrDBDataSet[9]
+  object PHistory: TfrDBDataSet[10]
     DataSource = History
     left = 172
     top = 252
   end
-  object History: TDatasource[10]
+  object History: TDatasource[11]
     left = 204
     top = 252
   end
-  object Report: TfrReport[11]
+  object Report: TfrReport[12]
     Dataset = PList
     DefaultCopies = 0
     InitialZoom = pzDefault
@@ -1137,11 +1154,11 @@ inherited fPersonFrame: TfPersonFrame
     left = 172
     top = 169
   end
-  object PList: TfrDBDataSet[12]
+  object PList: TfrDBDataSet[13]
     left = 220
     top = 169
   end
-  object MandantDetails: TDatasource[13]
+  object MandantDetails: TDatasource[14]
     left = 232
     top = 96
   end

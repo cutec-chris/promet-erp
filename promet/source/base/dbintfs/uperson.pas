@@ -160,10 +160,10 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
-            Add('EMPLOYEE',ftString,20,True);
             Add('NAME',ftString,40,True);
             Add('DEPARTMENT',ftString,30,False);
             Add('POSITION',ftString,30,False);
+            Add('EMPLOYEE',ftString,20,False);
           end;
     end;
 end;
@@ -979,4 +979,4 @@ begin
 end;
 
 initialization
-end.
+end.

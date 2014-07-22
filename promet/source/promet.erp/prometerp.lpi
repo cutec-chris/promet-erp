@@ -172,7 +172,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--config-path=C:/Dokumente und Einstellungen/ulrich/Desktop/Promet-ERP/Data/config&quot; --mandant=Standard --user=Administrator"/>
+        <CommandLineParams Value="--config-path=/home/chris/.promet-erp-devel --mandant=RepairPG"/>
       </local>
     </RunParams>
     <RequiredPackages Count="25">
@@ -356,7 +356,6 @@
         <ComponentName Value="fArticleFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uArticleFrame"/>
       </Unit11>
       <Unit12>
         <Filename Value="uarticlepositionframe.pas"/>
@@ -596,7 +595,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="26">
+    <Exceptions Count="27">
       <Item1>
         <Name Value="EVariantError"/>
       </Item1>
@@ -686,6 +685,9 @@
       <Item26>
         <Name Value="EAbstractError"/>
       </Item26>
+      <Item27>
+        <Name Value="EPropertyError"/>
+      </Item27>
     </Exceptions>
   </Debugging>
 </CONFIG>

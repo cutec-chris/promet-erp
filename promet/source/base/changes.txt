@@ -1,4 +1,14 @@
-﻿Build 361
+﻿Build 362
+      - Aufgaben:wiedereröffnen einer Aufgabe öffnet alle abhängigen Aufgaben
+      - Aufgaben:löschen einer Aufgabe löscht alle Abhängigkeiten auf die Aufgabe
+      - Generische Synchronisation: Einträge die bei anderen Benutzern synchronisiert werden werden von der Sync ausgenommen
+      - Buchhaltung:Finanz Tab für Artikel und Projekte
+      - Webdav Server:immer Benutzername/Passwort benutzen
+      - Aufgaben:Terminieren von Aufgaben startet nun bei <70% Auslastung und hört erst bei >100% auf
+      - Kalender: Auch ganztägige Termine werden farbig dargestellt
+      - Zeiterfassung: Aufgaben sind nun auch aus der Zeiterfassung direkt anwähl und abschließbar
+      - Kontakte: Hinweis bei neuem Mitarbeiter, Mitarbeiter können auch manuell gepflegt werden
+Build 361
       - Statistik:Übersicht hinzugefügt
       - Nachrichten:beim beenden wird geprüft ob e-Mail Editoren offen sind und eine Warnung ausgegeben
 Build 360

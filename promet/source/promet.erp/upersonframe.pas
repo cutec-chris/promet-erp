@@ -78,6 +78,7 @@ type
     lCustomerName: TLabel;
     lCustomerof: TLabel;
     lFirmName: TLabel;
+    lHint: TLabel;
     lMatchCode: TLabel;
     MandantDetails: TDatasource;
     MenuItem1: TMenuItem;
@@ -191,6 +192,7 @@ resourcestring
   strInsertEventForBirthday     = 'Möchten Sie für diesen Geburtstag einen Eintrag in Ihren Kalender erzeugen ?';
   strBirthdayFrom               = 'Geburtstag von %s';
   strNewPerson                  = 'neuer Kontakt';
+  strAddedFromEmployees         = 'Dies ist ein neuer Mitarbeiter/Mitglied das aus einem Kontakt erstellt wurde. Sobald Sie speichern, wird zum ursprünglichen Kontakt zurückgesprungen und ein Eintrag in dessen Mitarbeitern gemacht.';
 
   scTelephone                   = 'TEL  Telefon';
   scBusinessPhone               = 'TELB Telefon Geschäftlich';
@@ -544,6 +546,8 @@ begin
     end;
   aFrame.eName.SetFocus;
   aFrame.pcPages.PageIndex:=0;
+  aFrame.lHint.Caption:=strAddedFromEmployees;
+  aFrame.lHint.Visible:=True;
   aFrame.EmployeeOf := aCust;
 end;
 procedure TfPersonFrame.acCancelExecute(Sender: TObject);
