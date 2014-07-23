@@ -869,6 +869,7 @@ var
   i: Integer;
   aProject: TProject;
   aDeps: TDependencies;
+  aTask: TTask;
 begin
   if trim(FDS.DataSet.FieldByName('SUMMARY').AsString)<>'' then
     begin
@@ -919,12 +920,30 @@ begin
       aTasks.Free;
     end;
   aParent.Free;
+  //Delete dependencies that points on me
   aDeps := TDependencies.Create(nil,DataModule);
   aDeps.SelectByLink(Data.BuildLink(aDataSet));
   aDeps.Open;
+  Dependencies.Open;
   while aDeps.Count>0 do
-    aDeps.Delete;
+    begin
+      //connect next and previous Tasks dependencies
+      Dependencies.First;
+      while not Dependencies.EOF do
+        begin
+          aTask := TTask.Create(nil,DataModule,Connection);
+          aTask.Select(aDeps.FieldByName('REF_ID').AsVariant);
+          aTask.Open;
+          if aTask.Count>0 then
+            aTask.Dependencies.Add(Dependencies.FieldByName('LINK').AsString);
+          aTask.Free;
+          Dependencies.Next;
+        end;
+      aDeps.Delete;
+    end;
   aDeps.Free;
+  while Dependencies.Count>0 do
+    Dependencies.Delete;
 end;
 
 procedure TTaskList.FDSDataChange(Sender: TObject; Field: TField);
