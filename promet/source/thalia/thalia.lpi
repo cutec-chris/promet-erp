@@ -89,7 +89,6 @@
       <Unit3>
         <Filename Value="uweather.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uweather"/>
       </Unit3>
     </Units>
   </ProjectOptions>

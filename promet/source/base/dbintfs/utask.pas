@@ -352,6 +352,7 @@ var
   aCompCount : Double = 0;
   AllCompleted : String = 'Y';
   aPercentage: Extended;
+  Chngd: Boolean=False;
 begin
   //debugln('CheckChilds:'+DataSet.FieldByName('SUMMARY').AsString);
   if Id.IsNull then exit;
@@ -377,10 +378,18 @@ begin
               if not CanEdit then
                 DataSet.Edit;
               if (DataSet.FieldByName('PERCENT').AsInteger <> round(aPercentage)) then
-                DataSet.FieldByName('PERCENT').AsInteger := round(aPercentage);
+                begin
+                  DataSet.FieldByName('PERCENT').AsInteger := round(aPercentage);
+                  Chngd := True;
+                end;
               if (DataSet.FieldByName('COMPLETED').AsString <> AllCompleted) then
-                DataSet.FieldByName('COMPLETED').AsString := AllCompleted;
-              DataSet.Post;
+                begin
+                  DataSet.FieldByName('COMPLETED').AsString := AllCompleted;
+                  Chngd:=True;
+                end;
+              if Chngd then
+                DataSet.Post
+              else DataSet.Cancel;
             end;
         end;
     end;
@@ -1003,6 +1012,7 @@ begin
           DataSet.FieldByName('DUEDATE').Clear;
           DataSet.FieldByName('STARTDATE').Clear;
           DataSet.FieldByName('BUFFERTIME').Clear;
+          DataSet.FieldByName('PLANTIME').Clear;
           if not History.DataSet.Active then History.Open;
           History.AddItem(Self.DataSet,strTaskReopened,Data.BuildLink(FDS.DataSet),'',nil,ACICON_STATUSCH);
           aProject := TProject.Create(Self,Data,Connection);
