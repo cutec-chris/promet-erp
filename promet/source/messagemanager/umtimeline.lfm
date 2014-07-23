@@ -718,7 +718,7 @@ object fmTimeline: TfmTimeline
   end
   object IdleTimer1: TIdleTimer
     Enabled = False
-    Interval = 5000
+    Interval = 10000
     OnTimer = IdleTimer1Timer
     left = 392
     top = 128

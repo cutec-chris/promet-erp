@@ -121,6 +121,7 @@ type
     procedure ActiveSearchEndItemSearch(Sender: TObject);
     procedure ActiveSearchItemFound(aIdent: string; aName: string;
       aStatus: string; aActive: Boolean; aLink: string;aPrio : Integer; aItem: TBaseDBList=nil);
+    procedure AsyncScrollTop(Data: PtrInt);
     function FContListDrawColumnCell(Sender: TObject; const aRect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState): Boolean;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -197,7 +198,7 @@ implementation
 uses uBaseApplication, uData, uOrder,uMessages,uBaseERPDBClasses,
   uMain,LCLType,utask,uProcessManager,uprometipc,ProcessUtils,ufollow,udetailview,
   LCLIntf,wikitohtml,uDocuments,uthumbnails,uscreenshotmain,uWiki,uSearch,
-  LCLProc,uProjects,ubaseconfig,usimpleprocess;
+  LCLProc,uProjects,ubaseconfig,usimpleprocess,LMessages;
 resourcestring
   strTo                                  = 'an ';
   strTag                                 = 'Tag';
@@ -296,7 +297,7 @@ begin
       fTimeline.ReadOnly:=True;
       fTimeline.OnDrawColumnCell:=@FContListDrawColumnCell;
       fTimeline.OnGetCellText:=@fTimelineGetCellText;
-      fTimeline.DataSet := TBaseHistory.Create(Self,Data);
+      fTimeline.DataSet := TBaseHistory.Create(nil,Data);
       fTimeline.DataSet.CreateTable;
       fTimeline.gList.OnKeyDown:=@fTimelinegListKeyDown;
       fTimeline.gList.OnDblClick:=@fTimelinegListDblClick;
@@ -316,19 +317,17 @@ begin
       Show;
       BoundsRect := aBoundsRect;
       acDelete.Visible:=Data.Users.Rights.Right('HISTORY')>=RIGHT_DELETE;
+      minewestDownClick(nil);
+      Application.QueueAsyncCall(@AsyncScrollTop,0);
     end;
   if fmTimeline.WindowState=wsMinimized then
     fmTimeline.WindowState:=wsNormal;
   Show;
   AddHelp;
   fTimeline.acFilter.Execute;
-  //IdleTimer1.Enabled:=True;
+  IdleTimer1.Enabled:=True;
   fTimeline.SetActive;
-  minewestDownClick(nil);
-  if fTimeline.InvertedDrawing then
-    fTimeline.gList.TopRow:=fTimeline.gList.RowCount-fTimeline.gList.VisibleRowCount
-  else
-    fTimeline.gList.TopRow:=0;
+  Application.QueueAsyncCall(@AsyncScrollTop,0);
 end;
 constructor TfmTimeline.Create(TheOwner: TComponent);
 begin
@@ -566,11 +565,15 @@ begin
             tmp := fTimeline.DataSet.FieldByName('CHANGEDBY').AsString;
           mEntry.Lines.Text:='@'+tmp+' ';
           mEntry.SelStart:=length(mEntry.Lines.Text);
-          tbAdd.Down:=True;
-          tbAddClick(tbAdd);
+          if tbAdd.Visible then
+            begin
+              tbAdd.Down:=True;
+              tbAddClick(tbAdd);
+            end;
         end;
       FParentItem := fTimeline.DataSet.Id.AsVariant;
       MarkAsRead;
+      mEntry.SetFocus;
     end;
 end;
 
@@ -864,6 +867,22 @@ begin
   if aActive then
     lbResults.Items.AddObject(aName,TLinkObject.Create(aLink));
 end;
+
+procedure TfmTimeline.AsyncScrollTop(Data: PtrInt);
+var
+  aMsg : TLMVScroll;
+begin
+  if fTimeline.InvertedDrawing then
+    begin
+      fTimeline.gList.TopRow:=fTimeline.gList.RowCount-fTimeline.gList.VisibleRowCount;
+      aMsg.Msg:=LM_VSCROLL;
+      aMsg.ScrollCode:=SB_BOTTOM;
+      fTimeline.gList.Dispatch(aMsg);
+    end
+  else
+    fTimeline.gList.TopRow:=0;
+end;
+
 procedure TfmTimeline.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   IdleTimer1.Enabled:=False;
@@ -1040,6 +1059,7 @@ end;
 procedure TfmTimeline.IdleTimer1Timer(Sender: TObject);
 begin
   //debugln('Refresh Timeline idle');
+  if mEntry.Focused then exit;
   FTimeLine.Refresh(True);
 end;
 procedure TfmTimeline.lbResultsDblClick(Sender: TObject);
@@ -1114,8 +1134,12 @@ begin
         end
       else if Key = VK_ESCAPE then
         begin
-          tbAdd.Down:=false;
-          tbAddClick(tbAdd);
+          if tbAdd.Visible then
+            begin
+              tbAdd.Down:=false;
+              tbAddClick(tbAdd);
+            end;
+          mEntry.Text:='';
           Key := 0;
           if fTimeline.Visible then
             fTimeline.SetActive;
@@ -1174,17 +1198,11 @@ begin
   tbAdd.Down := False;
   pInput.Visible:=minewestDown.Checked;
   fTimeline.InvertedDrawing := minewestDown.Checked;
-  if fTimeline.InvertedDrawing then
-    begin
-      fTimeline.DataSet.Last;
-      fTimeline.GotoDataSetRow;
-    end
-  else
-    begin
-      fTimeline.DataSet.First;
-      fTimeline.GotoDataSetRow;
-    end;
   fTimeline.Refresh;
+  fTimeline.DataSet.First;
+  fTimeline.GotoDataSetRow;
+  //if fTimeline.InvertedDrawing then
+  //  fTimeline.gList.Selection:=rect(fTimeline.gList.Col,fTimeline.gList.RowCount-1,fTimeline.gList.Col,fTimeline.gList.RowCount);
 end;
 
 procedure TfmTimeline.PopupMenu1Popup(Sender: TObject);
