@@ -54,10 +54,18 @@ type
     bSend: TBitBtn;
     cbEnviroment: TComboBox;
     lbResults: TListBox;
+    MainMenu1: TMainMenu;
     mEntry: TMemo;
     IdleTimer1: TIdleTimer;
     MenuItem1: TMenuItem;
     MenuItem10: TMenuItem;
+    MenuItem11: TMenuItem;
+    MenuItem12: TMenuItem;
+    MenuItem13: TMenuItem;
+    MenuItem14: TMenuItem;
+    MenuItem15: TMenuItem;
+    MenuItem16: TMenuItem;
+    minewestDown: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
@@ -89,7 +97,7 @@ type
     Timer1: TTimer;
     ToolBar1: TToolBar;
     ToolButton1: TToolButton;
-    ToolButton2: TSpeedButton;
+    tbAdd: TSpeedButton;
     ToolButton3: TToolButton;
     ToolButton4: TToolButton;
     ToolButton5: TToolButton;
@@ -130,12 +138,13 @@ type
     procedure lbResultsDblClick(Sender: TObject);
     procedure mEntryKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure mEntryKeyPress(Sender: TObject; var Key: char);
+    procedure minewestDownClick(Sender: TObject);
     procedure PopupMenu1Popup(Sender: TObject);
     function SetLinkfromSearch(aLink: string): Boolean;
     procedure tbThreadClick(Sender: TObject);
     procedure tbUserClick(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
-    procedure ToolButton2Click(Sender: TObject);
+    procedure tbAddClick(Sender: TObject);
     procedure tbRootEntrysClick(Sender: TObject);
   private
     { private declarations }
@@ -315,7 +324,11 @@ begin
   fTimeline.acFilter.Execute;
   //IdleTimer1.Enabled:=True;
   fTimeline.SetActive;
-  fTimeline.gList.TopRow:=0;
+  minewestDownClick(nil);
+  if fTimeline.InvertedDrawing then
+    fTimeline.gList.TopRow:=fTimeline.gList.RowCount-fTimeline.gList.VisibleRowCount
+  else
+    fTimeline.gList.TopRow:=0;
 end;
 constructor TfmTimeline.Create(TheOwner: TComponent);
 begin
@@ -553,8 +566,8 @@ begin
             tmp := fTimeline.DataSet.FieldByName('CHANGEDBY').AsString;
           mEntry.Lines.Text:='@'+tmp+' ';
           mEntry.SelStart:=length(mEntry.Lines.Text);
-          ToolButton2.Down:=True;
-          ToolButton2Click(ToolButton2);
+          tbAdd.Down:=True;
+          tbAddClick(tbAdd);
         end;
       FParentItem := fTimeline.DataSet.Id.AsVariant;
       MarkAsRead;
@@ -786,8 +799,11 @@ begin
   if Found then
     begin
       mEntry.Lines.Clear;
-      ToolButton2.Down:=False;
-      ToolButton2Click(ToolButton2);
+      if tbAdd.Visible then
+        begin
+          tbAdd.Down:=False;
+          tbAddClick(tbAdd);
+        end;
       fTimeline.SetActive;
     end;
 end;
@@ -1008,8 +1024,8 @@ var
 begin
   if Key = VK_INSERT then
     begin
-      ToolButton2.Down:=True;
-      ToolButton2Click(ToolButton2);
+      tbAdd.Down:=True;
+      tbAddClick(tbAdd);
     end
   else fTimeline.gListKeyDown(Sender,Key,Shift);
   if Key = VK_G then
@@ -1098,8 +1114,8 @@ begin
         end
       else if Key = VK_ESCAPE then
         begin
-          ToolButton2.Down:=false;
-          ToolButton2Click(ToolButton2);
+          tbAdd.Down:=false;
+          tbAddClick(tbAdd);
           Key := 0;
           if fTimeline.Visible then
             fTimeline.SetActive;
@@ -1147,6 +1163,28 @@ begin
       ActiveSearch.Start(aText+Key);
       Application.ProcessMessages;
     end;
+end;
+
+procedure TfmTimeline.minewestDownClick(Sender: TObject);
+begin
+  if minewestDown.Checked then
+    pInput.Align:=alBottom
+  else pInput.Align:=alTop;
+  tbAdd.Visible:=not minewestDown.Checked;
+  tbAdd.Down := False;
+  pInput.Visible:=minewestDown.Checked;
+  fTimeline.InvertedDrawing := minewestDown.Checked;
+  if fTimeline.InvertedDrawing then
+    begin
+      fTimeline.DataSet.Last;
+      fTimeline.GotoDataSetRow;
+    end
+  else
+    begin
+      fTimeline.DataSet.First;
+      fTimeline.GotoDataSetRow;
+    end;
+  fTimeline.Refresh;
 end;
 
 procedure TfmTimeline.PopupMenu1Popup(Sender: TObject);
@@ -1264,14 +1302,14 @@ begin
   Timer1.Enabled:=False;
   acRefresh.Execute;
 end;
-procedure TfmTimeline.ToolButton2Click(Sender: TObject);
+procedure TfmTimeline.tbAddClick(Sender: TObject);
 var
   aController: TAnimationController;
 begin
   FParentItem:=Null;
   FreeAndNil(FUserHist);
   aController := TAnimationController.Create(pInput);
-  if ToolButton2.Down then
+  if tbAdd.Down then
     begin
       pInput.Height := 0;
       pInput.Visible:=True;

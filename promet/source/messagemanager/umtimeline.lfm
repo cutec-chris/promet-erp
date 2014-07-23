@@ -4,10 +4,11 @@ object fmTimeline: TfmTimeline
   Top = 257
   Width = 554
   Caption = 'Nachrichtenzentrale'
-  ClientHeight = 465
+  ClientHeight = 445
   ClientWidth = 554
   Color = clWindow
   KeyPreview = True
+  Menu = MainMenu1
   OnClose = FormClose
   OnKeyDown = FormKeyDown
   OnShow = FormShow
@@ -292,7 +293,7 @@ object fmTimeline: TfmTimeline
   end
   object pMessages: TPanel
     Left = 0
-    Height = 322
+    Height = 302
     Top = 143
     Width = 554
     Align = alClient
@@ -325,7 +326,7 @@ object fmTimeline: TfmTimeline
         Top = 0
         Action = acRefresh
       end
-      object ToolButton2: TSpeedButton
+      object tbAdd: TSpeedButton
         Left = 1
         Height = 32
         Hint = 'eine Nachricht,Screenshot oder Datei senden,'#10'oder eine Notiz erstellen'
@@ -371,7 +372,7 @@ object fmTimeline: TfmTimeline
           0000000000000000000000000000000000000000000000000000
         }
         GroupIndex = 11
-        OnClick = ToolButton2Click
+        OnClick = tbAddClick
       end
       object ToolButton3: TToolButton
         Left = 72
@@ -762,6 +763,34 @@ object fmTimeline: TfmTimeline
     end
     object MenuItem5: TMenuItem
       Action = acDelete
+    end
+  end
+  object MainMenu1: TMainMenu
+    left = 328
+    top = 136
+    object MenuItem12: TMenuItem
+      Caption = 'Eintrag'
+      object MenuItem13: TMenuItem
+        Action = acAnswer
+      end
+      object MenuItem14: TMenuItem
+        Action = acCopyToClipboard
+      end
+      object MenuItem15: TMenuItem
+        Action = acDetailView
+      end
+      object MenuItem16: TMenuItem
+        Action = acStartTimeRegistering
+      end
+    end
+    object MenuItem11: TMenuItem
+      Caption = 'Optionen'
+      object minewestDown: TMenuItem
+        AutoCheck = True
+        Caption = 'nuester Eintrag unten'
+        Checked = True
+        OnClick = minewestDownClick
+      end
     end
   end
 end

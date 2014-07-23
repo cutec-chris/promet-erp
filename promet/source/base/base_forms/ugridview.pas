@@ -192,6 +192,7 @@ type
     FDelete: TNotifyEvent;
     FFilterCell: TFilterCellTextEvent;
     FGetRowHeight: TGetRowHeightEvent;
+    FInvertedDrawing: Boolean;
     FNumberField: string;
     FOnGetFontCell: TCellFontEvent;
     FWordwrap: Boolean;
@@ -327,6 +328,7 @@ type
     property DefaultRows : string read fDefaultRows write SetDefaultRows;
     property SortDirection : TSortDirection read FSortDirection write SetSortDirecion;
     property WordWrap : Boolean read FWordwrap write FWordwrap;
+    property InvertedDrawing : Boolean read FInvertedDrawing write FInvertedDrawing;
 
     property SortField : string read FSortField write SetSortField;
     property NumberField : string read FNumberField write SetNumberField;
@@ -2593,6 +2595,7 @@ begin
   FEntered := False;
   FDataSet := nil;
   FDontUpdate := 0;
+  FInvertedDrawing:=False;
   FSortDirection:=sdIgnored;
   FInpStringList := TStringList.Create;
   FDefaultRowHeight := False;
@@ -2872,11 +2875,23 @@ begin
               end
             else DataSet.Cancel;
           end;
-        First;
-        while not EOF do
+        if not FInvertedDrawing then
           begin
-            AddTasks;
-            Next;
+            First;
+            while not EOF do
+              begin
+                AddTasks;
+                Next;
+              end;
+          end
+        else
+          begin
+            Last;
+            while not BOF do
+              begin
+                AddTasks;
+                Prior;
+              end;
           end;
         if gList.RowCount = gList.FixedRows then
           begin
@@ -3322,6 +3337,11 @@ begin
   gList.TopRow := aTopRow;
   gList.EndUpdate;
   FDisableEdit:=OldIgnore;
+  if InvertedDrawing then
+    begin
+      while (not glist.IsCellVisible(0,gList.RowCount-1)) and (glist.IsCellVisible(0,gList.Row)) do
+        gList.TopRow:=gList.TopRow+1;
+    end;
   try
     gList.Col:=aCol;
   except
