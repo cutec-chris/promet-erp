@@ -533,7 +533,7 @@ begin
       aTask.Open;
       if aTask.Count>0 then
         begin
-          if aTask.FieldByName('DUEDATE').IsNull then
+          if (aTask.FieldByName('DUEDATE').IsNull) and (aTask.FieldByName('COMPLETED').AsString<>'Y') then
             Result.Add(Dependencies.FieldByName('LINK').AsString);
         end;
       Dependencies.Next;
@@ -593,6 +593,8 @@ begin
   if not FieldByName('EARLIEST').IsNull then
     if FieldByName('EARLIEST').AsDateTime>aStartDate then
       aStartDate:=FieldByName('EARLIEST').AsDateTime;
+  if aStartDate<aEarliest then
+    aStartDate:=aEarliest;
   //Calculate duration
   aUser := TUser.Create(nil,Data);
   aUser.SelectByAccountno(FieldByName('USER').AsString);
@@ -671,7 +673,7 @@ begin
   aIntervals.Sort(@CompareStarts);
   //Find Slot
   aFound := False;
-  aNow := trunc(aEarliest);
+  aNow := round(aStartDate);
   TimeNeeded := Duration;
   while (not ((aFound) and (TimeNeeded<=0))) do
     begin
