@@ -65,6 +65,7 @@ type
     function GetErrorNum(e: EDatabaseError): Integer; override;
     procedure DeleteExpiredSessions;override;
     function GetNewConnection: TComponent;override;
+    function QuoteField(aField: string): string; override;
     procedure Disconnect(aConnection : TComponent);override;
     function StartTransaction(aConnection : TComponent;ForceTransaction : Boolean = False): Boolean;override;
     function CommitTransaction(aConnection : TComponent): Boolean;override;
@@ -382,6 +383,7 @@ begin
       MetaData.Connection := Connection;
       MetaData.MetadataType:=mdIndexInfo;
       Metadata.Catalog:=TZConnection(TBaseDBModule(Owner).MainConnection).Catalog;
+      Metadata.TableName:=copy(indexname,0,pos('_',indexname)-1);
       MetaData.Filter:='INDEX_NAME='+TZeosDBDM(Owner).QuoteValue(indexname);
       MetaData.Filtered:=True;
       MetaData.Active:=True;
@@ -1274,9 +1276,9 @@ begin
             else
               begin
                 if not TableExists('GEN_SQL_ID') then
-                  FConnection.ExecuteDirect('CREATE TABLE "GEN_SQL_ID"("SQL_ID" BIGINT NOT NULL PRIMARY KEY,"ID" BIGINT);');
+                  FConnection.ExecuteDirect('CREATE TABLE '+QuoteField('GEN_SQL_ID')+'('+QuoteField('SQL_ID')+' BIGINT NOT NULL PRIMARY KEY,'+QuoteField('ID')+' BIGINT);');
                 if not TableExists('GEN_AUTO_ID') then
-                  FConnection.ExecuteDirect('CREATE TABLE "GEN_AUTO_ID"("SQL_ID" BIGINT NOT NULL PRIMARY KEY,"ID" BIGINT);');
+                  FConnection.ExecuteDirect('CREATE TABLE '+QuoteField('GEN_AUTO_ID')+'('+QuoteField('SQL_ID')+' BIGINT NOT NULL PRIMARY KEY,'+QuoteField('ID')+' BIGINT);');
               end
           except on e : Exception do
             begin
@@ -1491,20 +1493,27 @@ begin
           Statement := TZConnection(MainConnection).DbcConnection.CreateStatement;
         if AutoInc then
           begin
-            if LimitAfterSelect then
-              Statement.Execute('update "'+Generator+'" set "ID"=(select '+Format(LimitSTMT,[1])+' "ID" from "'+Generator+'")+1;')
+            if (copy(FMainConnection.Protocol,0,5) = 'mysql') then
+              begin
+                Statement.Execute('update '+QuoteField(Generator)+' set '+QuoteField('ID')+'='+QuoteField('ID')+'+1;')
+              end
             else
-              Statement.Execute('update "'+Generator+'" set "ID"=(select "ID" from "'+Generator+'" '+Format(LimitSTMT,[1])+')+1;');
+              begin
+                if LimitAfterSelect then
+                  Statement.Execute('update '+QuoteField(Generator)+' set '+QuoteField('ID')+'=(select '+Format(LimitSTMT,[1])+' '+QuoteField('ID')+' from '+QuoteField(Generator)+')+1;')
+                else
+                  Statement.Execute('update '+QuoteField(Generator)+' set '+QuoteField('ID')+'=(select '+QuoteField('ID')+' from '+QuoteField(Generator)+' '+Format(LimitSTMT,[1])+')+1;');
+              end;
           end;
         except
         end;
         try
-          ResultSet := Statement.ExecuteQuery('SELECT "ID" FROM "'+Generator+'"');
+          ResultSet := Statement.ExecuteQuery('SELECT '+QuoteField('ID')+' FROM '+QuoteField(Generator));
           if ResultSet.Next then
             Result := ResultSet.GetLong(1)
           else
             begin
-              Statement.Execute('insert into "'+GENERATOR+'" ("SQL_ID","ID") VALUES (1,1000);');
+              Statement.Execute('insert into '+QuoteField(GENERATOR)+' ('+QuoteField('SQL_ID')+','+QuoteField('ID')+') VALUES (1,1000);');
               Result := 1000;
             end;
           ResultSet.Close;
@@ -1637,6 +1646,14 @@ begin
       Setproperties(FProperties,Result);
     end;
 end;
+
+function TZeosDBDM.QuoteField(aField: string): string;
+begin
+  Result:=inherited QuoteField(aField);
+  if (copy(TZConnection(MainConnection).Protocol,0,5) = 'mysql') then
+    Result := '`'+aField+'`';
+end;
+
 procedure TZeosDBDM.Disconnect(aConnection: TComponent);
 begin
   TZConnection(aConnection).Disconnect;
@@ -1943,4 +1960,5 @@ begin
 end;
 
 end.
+
 

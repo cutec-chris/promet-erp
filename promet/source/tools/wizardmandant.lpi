@@ -98,7 +98,7 @@ if TargetOS='darwin' then
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="6">
+    <Exceptions Count="7">
       <Item1>
         <Name Value="EZDatabaseError"/>
       </Item1>
@@ -117,6 +117,9 @@ if TargetOS='darwin' then
       <Item6>
         <Name Value="EFCreateError"/>
       </Item6>
+      <Item7>
+        <Name Value="Exception"/>
+      </Item7>
     </Exceptions>
   </Debugging>
 </CONFIG>
