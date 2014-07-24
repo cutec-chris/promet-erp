@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, fpcunit, testutils, testregistry, udocuments, utils,
-  fileutil;
+  fileutil,uBaseApplication;
 
 type
 
@@ -42,7 +42,8 @@ procedure DocumentManagmement.CreateFile;
 var
   sl: TStringList;
 begin
-  TempPath := AppendPathDelim(GetInternalTempDir)+'ptc';
+  with BaseApplication as IBaseApplication do
+    TempPath := AppendPathDelim(GetInternalTempDir)+'ptc';
   ForceDirectories(TempPath);
   sl := TStringList.Create;
   sl.Text:='1';

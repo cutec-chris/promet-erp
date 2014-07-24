@@ -1197,12 +1197,11 @@ begin
   tbAdd.Visible:=not minewestDown.Checked;
   tbAdd.Down := False;
   pInput.Visible:=minewestDown.Checked;
+  pInput.Height:=110;
   fTimeline.InvertedDrawing := minewestDown.Checked;
   fTimeline.Refresh;
   fTimeline.DataSet.First;
   fTimeline.GotoDataSetRow;
-  //if fTimeline.InvertedDrawing then
-  //  fTimeline.gList.Selection:=rect(fTimeline.gList.Col,fTimeline.gList.RowCount-1,fTimeline.gList.Col,fTimeline.gList.RowCount);
 end;
 
 procedure TfmTimeline.PopupMenu1Popup(Sender: TObject);
