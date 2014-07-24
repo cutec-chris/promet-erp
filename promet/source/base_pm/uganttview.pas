@@ -742,6 +742,7 @@ begin
   if not Assigned(FSelectedInterval) then exit;
   Screen.Cursor:=crHourGlass;
   Application.ProcessMessages;
+  aStart := now();
   aTask := TTask.Create(nil,Data);
   aTask.Select(FSelectedInterval.Id);
   aTask.Open;
@@ -749,8 +750,8 @@ begin
     begin
       aEarliest := Now();
       for i := 0 to FSelectedInterval.DependencyCount-1 do
-        if FSelectedInterval.Dependencies[i].FinishDate>aEarliest then
-          aEarliest:=FSelectedInterval.Dependencies[i].FinishDate;
+        if FSelectedInterval.Dependencies[i].FinishDate+FSelectedInterval.Dependencies[i].WaitTime>aEarliest then
+          aEarliest:=FSelectedInterval.Dependencies[i].FinishDate+FSelectedInterval.Dependencies[i].WaitTime;
       if aTask.Terminate(aEarliest,aStart,aEnd,aDuration) then
         begin
           FSelectedInterval.StartDate:=aStart;
