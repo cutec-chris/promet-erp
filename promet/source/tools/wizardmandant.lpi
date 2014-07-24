@@ -56,7 +56,6 @@
       <Unit0>
         <Filename Value="wizardmandant.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="wizardmandant"/>
       </Unit0>
       <Unit1>
         <Filename Value="../base/uwizardnewmandant.pas"/>
@@ -97,12 +96,6 @@ if TargetOS='darwin' then
         </Win32>
       </Options>
     </Linking>
-    <Other>
-      <CompilerMessages>
-        <UseMsgFile Value="True"/>
-      </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="6">

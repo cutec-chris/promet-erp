@@ -1207,6 +1207,7 @@ begin
       FConnection.TransactIsolationLevel:=tiReadUnCommitted
     else if (copy(FConnection.Protocol,0,8) = 'firebird')
     or (copy(FConnection.Protocol,0,9) = 'interbase')
+    or (copy(FConnection.Protocol,0,5) = 'mysql')
     then
       begin
         FConnection.TransactIsolationLevel:=tiReadCommitted;
