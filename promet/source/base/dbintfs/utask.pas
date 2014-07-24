@@ -533,7 +533,7 @@ begin
       aTask.Open;
       if aTask.Count>0 then
         begin
-          if aTask.FieldByName('DUEDATE').IsNull then
+          if (aTask.FieldByName('DUEDATE').IsNull) and (aTask.FieldByName('COMPLETED').AsString<>'Y') then
             Result.Add(Dependencies.FieldByName('LINK').AsString);
         end;
       Dependencies.Next;

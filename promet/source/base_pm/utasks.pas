@@ -894,6 +894,7 @@ begin
         end
       else break;
     end;
+  Refresh;
 end;
 procedure TfTaskFrame.acMAkeSubTaskExecute(Sender: TObject);
 begin
@@ -1119,6 +1120,7 @@ begin
     end;
   aDeps.Free;
   Screen.Cursor:=crDefault;
+  Refresh;
 end;
 
 procedure TfTaskFrame.ActiveSearchEndSearch(Sender: TObject);
