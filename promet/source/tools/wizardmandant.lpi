@@ -29,6 +29,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <CommandLineParams Value="--debug --debug-sql"/>
       </local>
     </RunParams>
     <RequiredPackages Count="5">
@@ -98,28 +99,25 @@ if TargetOS='darwin' then
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="7">
+    <Exceptions Count="6">
       <Item1>
-        <Name Value="EZDatabaseError"/>
+        <Name Value="EStringListError"/>
       </Item1>
       <Item2>
-        <Name Value="EZSQLException"/>
+        <Name Value="EDatabaseError"/>
       </Item2>
       <Item3>
-        <Name Value="EStringListError"/>
+        <Name Value="EConvertError"/>
       </Item3>
       <Item4>
-        <Name Value="EDatabaseError"/>
+        <Name Value="EFCreateError"/>
       </Item4>
       <Item5>
-        <Name Value="EConvertError"/>
+        <Name Value="Exception"/>
       </Item5>
       <Item6>
-        <Name Value="EFCreateError"/>
+        <Name Value="EZSQLException"/>
       </Item6>
-      <Item7>
-        <Name Value="Exception"/>
-      </Item7>
     </Exceptions>
   </Debugging>
 </CONFIG>
