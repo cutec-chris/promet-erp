@@ -497,8 +497,7 @@ begin
                         end
                       else
                         Insert;
-                    end
-                  else Edit;
+                    end;
                   //sync only when Chnged or New
                   if SyncTime.IsNull then
                     DoSync := DoSync and ((aSyncTime>=aLastSyncedItemTime) or (State=dsInsert))
@@ -506,6 +505,7 @@ begin
                     DoSync := DoSync and ((aSyncTime>=SyncTime.AsDateTime) or (State=dsInsert));
                   if DoSync then
                     begin
+                      if not CanEdit then Edit;
                       //if BaseApplication.HasOption('debug') then
                       //  debugln('Ext Changed Object:'+aObj.AsJSON);
                       aInternal.Select(LocalID.AsVariant);

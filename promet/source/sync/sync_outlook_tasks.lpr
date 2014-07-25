@@ -180,7 +180,7 @@ begin
               aObj.Add('TIMESTAMPD',Rfc822DateTime(IncHour(aItem.LastModificationTime,TimeOffset)));
               aObj.Add('SUMMARY',EncodingIn(aItem.PropertiesDirect[PR_SUBJECT,ptString]));
               SStream := TStringStream.Create('');
-{              try
+              try
                 if aItem.CoMessage.OpenProperty(PR_BODY, IStream, STGM_READ, 0, IInterface(StreamIntf)) = S_OK then
                   begin
                     StreamIntf.Stat(StreamInfo, STATFLAG_NONAME);
@@ -195,7 +195,7 @@ begin
                   end;
               finally
                 StreamIntf := nil;
-              end;}
+              end;
               if not Assigned(aObj.Find('DESC')) then
                 aObj.Add('DESC',EncodingIn(aItem.PropertiesDirect[PR_BODY,ptString]));
               aObj.Add('COMPLETED',Boolean(aItem.PropertiesDirect[aItem.GetPropertyDispId($811c, PT_BOOLEAN, False, @PSETID_Task),ptBoolean]));
@@ -255,13 +255,13 @@ begin
                           DoDelete := aField.AsString = 'Y';
                         end;
                       aField := SyncItems.GetField(aJsonOutList[i],'DUEDATE');
-                      if Assigned(aField) and (aField.AsString<>'') then
+                      {if Assigned(aField) and (aField.AsString<>'') then
                         aItem.PropertiesDirect[aItem.GetPropertyDispId($8105, PT_SYSTIME, False, @PSETID_Task),ptTime] := DecodeRfcDateTime(aField.AsString)
                       else aItem.PropertiesDirect[aItem.GetPropertyDispId($8105, PT_SYSTIME, False, @PSETID_Task),ptTime] := -1;
                       aField := SyncItems.GetField(aJsonOutList[i],'STARTDATE');
                       if Assigned(aField) and (aField.AsString<>'') then
                         aItem.PropertiesDirect[aItem.GetPropertyDispId($8104, PT_SYSTIME, False, @PSETID_Task),ptTime] := DecodeRfcDateTime(aField.AsString)
-                      else aItem.PropertiesDirect[aItem.GetPropertyDispId($8104, PT_SYSTIME, False, @PSETID_Task),ptTime] := -1;
+                      else aItem.PropertiesDirect[aItem.GetPropertyDispId($8104, PT_SYSTIME, False, @PSETID_Task),ptTime] := -1;}
                       try
                         if DoDelete then aItem.Delete; //Delete Done Tasks couse we cant set them correctly done at time
                         aItem.CoMessage.SaveChanges(0);
@@ -300,12 +300,12 @@ begin
                       aField := SyncItems.GetField(aJsonOutList[i],'COMPLETED');
                       if Assigned(aField) then
                         aItem.PropertiesDirect[aItem.GetPropertyDispId($811c, PT_BOOLEAN, False, @PSETID_Task),ptBoolean] := aField.AsString = 'Y';
-                      aField := SyncItems.GetField(aJsonOutList[i],'DUEDATE');
+                      {aField := SyncItems.GetField(aJsonOutList[i],'DUEDATE');
                       if Assigned(aField) and (aField.AsString<>'') then
                         aItem.PropertiesDirect[aItem.GetPropertyDispId($8105, PT_SYSTIME, False, @PSETID_Task),ptTime] := DecodeRfcDateTime(aField.AsString);
                       aField := SyncItems.GetField(aJsonOutList[i],'STARTDATE');
                       if Assigned(aField) and (aField.AsString<>'') then
-                        aItem.PropertiesDirect[aItem.GetPropertyDispId($8104, PT_SYSTIME, False, @PSETID_Task),ptTime] := DecodeRfcDateTime(aField.AsString);
+                        aItem.PropertiesDirect[aItem.GetPropertyDispId($8104, PT_SYSTIME, False, @PSETID_Task),ptTime] := DecodeRfcDateTime(aField.AsString);}
                       try
                         aItem.CoMessage.SaveChanges(0);
                         bFolder := TGenericFolder.Create(aConnection,aFolder.FEntryTyp);
@@ -352,6 +352,7 @@ begin
                       aField := SyncItems.GetField(aJsonOutList[i],'SUMMARY');
                       debugln('Deleted:'+aItem.Subject);
                     end;
+                  inc(i);
                 end;
               FreeAndNil(aItem);
               aItem := aFolder.GetNext;
