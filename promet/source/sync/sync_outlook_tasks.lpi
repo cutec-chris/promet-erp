@@ -55,7 +55,7 @@
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
         <TopLine Value="337"/>
-        <CursorPos Y="366"/>
+        <CursorPos X="84" Y="343"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="1">
           <Item0 Y="148"/>
@@ -977,7 +977,7 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="7">
+    <BreakPoints Count="6">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsGlobal"/>
@@ -1010,23 +1010,16 @@
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
-        <Source Value="sync_outlook_tasks.lpr"/>
-        <Line Value="352"/>
+        <Source Value="..\base\dbintfs\usync.pas"/>
+        <Line Value="483"/>
       </Item5>
       <Item6>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
         <Source Value="..\base\dbintfs\usync.pas"/>
-        <Line Value="483"/>
-      </Item6>
-      <Item7>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="..\base\dbintfs\usync.pas"/>
         <Line Value="519"/>
-      </Item7>
+      </Item6>
     </BreakPoints>
     <Watches Count="2">
       <Item1>

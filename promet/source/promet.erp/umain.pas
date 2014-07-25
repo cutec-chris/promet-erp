@@ -600,12 +600,13 @@ begin
         begin
           GridView.NumberField:='LPRIORITY';
           GridView.SortField:='LPRIORITY';
-          aDataset := TTaskList.Create(nil,Data);
+          TfMainTaskFrame(Sender).Connection := Data.GetNewConnection;
+          aDataset := TTaskList.Create(nil,Data,Connection);
           BaseFilter:=Data.QuoteField('ACTIVE')+'='+Data.QuoteValue('Y');
           aDataSet.Open;
           tbTop.Visible:=True;
           tbLeft.Visible:=False;
-          DataSet := aDataSet;
+          TfMainTaskFrame(Sender).DataSet := aDataSet;
           SetRights(True);
           FTaskNode := Self.FTaskNode;
           OnStartTime:=@SenderTfMainTaskFrameControlsSenderTfMainTaskFrameTfTaskFrameStartTime;

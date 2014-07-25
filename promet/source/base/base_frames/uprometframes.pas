@@ -39,6 +39,7 @@ type
     Fwindow : TForm;
     FQuickHelpFrame: TfQuickHelpFrame;
     procedure SetDataSet(const AValue: TBaseDBDataset);virtual;
+    procedure SetConnection(AValue: TComponent);virtual;
     procedure DoCloseFrame(Data : PtrInt);
     procedure DoWindowize(Data : PtrInt);
     procedure DoExit; override;
@@ -46,7 +47,7 @@ type
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy;override;
-    property Connection : TComponent read FConnection;
+    property Connection : TComponent read FConnection write SetConnection;
     property DataSet : TBaseDBDataSet read FDataSet write SetDataSet;
     procedure CloseConnection(Ask : Boolean = True);virtual;
     function OpenFromLink(aLink : string) : Boolean;virtual;
@@ -71,6 +72,12 @@ begin
   with Application as IBaseDbInterface do
     DBConfig.WriteRect('WNDPOS:'+ClassName,Fwindow.BoundsRect);
   CloseAction:=caFree;
+end;
+
+procedure TPrometMainFrame.SetConnection(AValue: TComponent);
+begin
+  if FConnection=AValue then Exit;
+  FConnection:=AValue;
 end;
 
 procedure TPrometMainFrame.SetDataSet(const AValue: TBaseDBDataset);

@@ -796,11 +796,14 @@ inherited fProjectOVFrame: TfProjectOVFrame
     object acUse: TAction
       Caption = 'acUse'
       Hint = 'Änderungen in Aufgaben übernehmen'
+      ImageIndex = 74
       OnExecute = acUseExecute
+      ShortCut = 16467
     end
     object acCancel: TAction
       Caption = 'acCancel'
       Hint = 'Ändrungen verwerfen'
+      ImageIndex = 75
       OnExecute = acCancelExecute
     end
     object acHigherPrio: TAction

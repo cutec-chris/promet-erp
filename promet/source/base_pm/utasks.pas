@@ -56,6 +56,8 @@ type
     acTerminate: TAction;
     acInformwithexternMail: TAction;
     acInformwithinternMail: TAction;
+    acSave: TAction;
+    acCancel: TAction;
     acUnmakeSubTask: TAction;
     ActionList: TActionList;
     ActionList1: TActionList;
@@ -103,6 +105,7 @@ type
     cbMaxResults: TCheckBox;
     Datasource: TDatasource;
     ExtRotatedLabel5: TExtRotatedLabel;
+    Label7: TLabel;
     MenuItem10: TMenuItem;
     MenuItem11: TMenuItem;
     MenuItem12: TMenuItem;
@@ -116,10 +119,13 @@ type
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
+    Panel10: TPanel;
     Panel9: TPanel;
     pBottom: TPanel;
     pmGrid: TPopupMenu;
     PUsers: TfrDBDataSet;
+    ToolButton1: TSpeedButton;
+    ToolButton2: TSpeedButton;
     Users: TDatasource;
     eFilterEdit: TSynMemo;
     eFilterIn: TEdit;
@@ -168,6 +174,7 @@ type
     tbTop: TPanel;
     procedure acAddPosExecute(Sender: TObject);
     procedure acAppendLinkToDependenciesExecute(Sender: TObject);
+    procedure acCancelExecute(Sender: TObject);
     procedure acDefaultFilterExecute(Sender: TObject);
     procedure acDeleteFilterExecute(Sender: TObject);
     procedure acDelPosExecute(Sender: TObject);
@@ -181,6 +188,7 @@ type
     procedure acPrintExecute(Sender: TObject);
     procedure acRefreshExecute(Sender: TObject);
     procedure acFilterRightsExecute(Sender: TObject);
+    procedure acSaveExecute(Sender: TObject);
     procedure acSaveFilterExecute(Sender: TObject);
     procedure acSearchExecute(Sender: TObject);
     procedure acSetOwnerExecute(Sender: TObject);
@@ -245,6 +253,7 @@ type
     ActiveSearch : TSearch;
     FAutoFilter : string;
     aUsers : TUser;
+    FUseTransactions: Boolean;
     function GetFilterIn: string;
     procedure ParseForms(Filter : string);
     procedure SetBaseFilter(AValue: string);
@@ -274,6 +283,7 @@ type
     procedure SetLanguage; override;
     procedure Post;
     property OnStartTime : TOnStartTime read FOnStartTime write FOnStartTime;
+    property UseTransactions : Boolean read FUseTransactions write FUseTransactions;
   end;
 procedure AddToMainTree(aAction : TAction;var aNode : TTreeNode);
 procedure RefreshTasks(FNode :TTreeNode);
@@ -334,6 +344,8 @@ begin
     TTaskList(FDataSet).UserId:=aUser.FieldByName('ACCOUNTNO').AsString;
   aUser.Free;
   acMarkSeen.Visible:=not (AValue is TProjectTasks);
+  if UseTransactions then
+    Data.StartTransaction(FConnection);
 end;
 procedure TfTaskFrame.SetFilter(AValue: string);
 var
@@ -978,6 +990,23 @@ begin
         fNRights.Execute(data.Filters.Id.AsVariant);
     end;
 end;
+
+procedure TfTaskFrame.acSaveExecute(Sender: TObject);
+begin
+  if Assigned(FConnection) then
+    begin
+      FDataSet.CascadicPost;
+      if UseTransactions then
+        begin
+          Data.CommitTransaction(FConnection);
+          Data.StartTransaction(FConnection);
+        end;
+      acSave.Enabled:=False;
+      acCancel.Enabled:=False;
+    end;
+  acRefresh.Execute;
+end;
+
 procedure TfTaskFrame.acSaveFilterExecute(Sender: TObject);
 begin
   if (cbFilter.Text = strNoSelectFilter) or (cbFilter.Text = '') then
@@ -1233,6 +1262,8 @@ end;
 procedure TfTaskFrame.DatasourceStateChange(Sender: TObject);
 begin
   acDelPos.Enabled := acAddPos.Enabled and (FGridView.Count > 0);
+  acSave.Enabled := DataSet.CanEdit or DataSet.Changed;
+  acCancel.Enabled:= DataSet.CanEdit or DataSet.Changed;
 end;
 procedure TfTaskFrame.eFilterEditChange(Sender: TObject);
 begin
@@ -1603,6 +1634,20 @@ begin
           aLinks := copy(aLinks,pos(';',aLinks)+1,length(aLinks));
         end;
     end;
+end;
+
+procedure TfTaskFrame.acCancelExecute(Sender: TObject);
+begin
+  if Assigned(FConnection) then
+    begin
+      FDataSet.CascadicCancel;
+      if UseTransactions then
+        begin
+          Data.RollbackTransaction(FConnection);
+          Data.StartTransaction(FConnection);
+        end;
+    end;
+  acRefresh.Execute;
 end;
 
 procedure TfTaskFrame.acDefaultFilterExecute(Sender: TObject);
