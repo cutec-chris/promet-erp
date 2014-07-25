@@ -158,6 +158,8 @@ object fGridView: TfGridView
     TitleStyle = tsNative
     OnColRowMoved = gHeaderColRowMoved
     OnDrawCell = gHeaderDrawCell
+    OnEditingDone = gHeaderEditingDone
+    OnExit = gHeaderEditingDone
     OnHeaderClick = gHeaderHeaderClick
     OnHeaderSized = gListHeaderSized
     OnKeyDown = gHeaderKeyDown

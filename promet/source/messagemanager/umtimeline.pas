@@ -809,6 +809,7 @@ begin
         end;
       fTimeline.SetActive;
     end;
+  FParentItem := Null;
 end;
 
 procedure TfmTimeline.acSetLinkExecute(Sender: TObject);

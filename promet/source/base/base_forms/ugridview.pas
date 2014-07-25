@@ -132,11 +132,13 @@ type
       tIndex: Integer);
     procedure gHeaderDrawCell(Sender: TObject; aCol, aRow: Integer;
       aRect: TRect; aState: TGridDrawState);
+    procedure gHeaderEditingDone(Sender: TObject);
     procedure gHeaderGetCellWidth(aCol: Integer; var aNewWidth: Integer);
     procedure gHeaderHeaderClick(Sender: TObject; IsColumn: Boolean;
       Index: Integer);
     procedure gHeaderKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState
       );
+    procedure gHeaderPickListSelect(Sender: TObject);
     procedure gHeaderSelectCell(Sender: TObject; aCol, aRow: Integer;
       var CanSelect: Boolean);
     procedure gHeaderSetEditText(Sender: TObject; ACol, ARow: Integer;
@@ -531,6 +533,12 @@ begin
     end;
 end;
 
+procedure TfGridView.gHeaderEditingDone(Sender: TObject);
+begin
+  FAutoFilter := BuildAutoFilter(dgFake,gHeader);
+  acFilter.Execute;
+end;
+
 procedure TfGridView.gHeaderGetCellWidth(aCol: Integer; var aNewWidth: Integer);
 begin
   ColumnWidthHelper.Index := aCol-1;
@@ -560,6 +568,13 @@ begin
       Key := 0;
     end;
 end;
+
+procedure TfGridView.gHeaderPickListSelect(Sender: TObject);
+begin
+  FAutoFilter := BuildAutoFilter(dgFake,gHeader,FFilterCell);
+  acFilter.Execute;
+end;
+
 procedure TfGridView.gHeaderSelectCell(Sender: TObject; aCol, aRow: Integer;
   var CanSelect: Boolean);
 begin
@@ -2012,6 +2027,11 @@ begin
           System.Delete(aFilter,pos(') AND ('+FActAutoFilter+')',aFilter),length(aFilter));
           System.Delete(aFilter,1,1);
           FActAutoFilter:='';
+        end
+      else if pos('('+FActAutoFilter+')',aFilter) > 0 then
+        begin
+          System.Delete(aFilter,pos('('+FActAutoFilter+')',aFilter),length(aFilter));
+          FActAutoFilter:='';
         end;
       if pos(') AND ('+FbaseFilter+')',aFilter) > 0 then
         begin
@@ -2036,6 +2056,7 @@ begin
       aFilter := '('+aFilter+') AND ('+FAutoFilter+')';
       FActAutoFilter:=FAutoFilter;
     end;
+  aFilter := StringReplace(aFilter,'() AND ','',[rfReplaceAll]);
   with FDataSet.DataSet as IBaseDBFilter do
     begin
       Filter := aFilter;
@@ -2948,7 +2969,11 @@ begin
   for i := 0 to dgFake.Columns.Count-1 do
     begin
       if gHeader.Columns.Count>i then
-        gHeader.Cells[i,1]:=sl.Values[dgFake.Columns[i].FieldName];
+        begin
+          gHeader.Cells[i,1]:=sl.Values[dgFake.Columns[i].FieldName];
+          if gHeader.Columns[i].PickList.Count>0 then
+            gHeader.OnPickListSelect:=@gHeaderPickListSelect;
+        end;
     end;
   sl.Free;
   UpdateTitle;
