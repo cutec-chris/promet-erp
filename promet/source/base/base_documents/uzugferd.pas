@@ -24,7 +24,7 @@ unit uzugferd;
 interface
 
 uses
-  Classes, SysUtils,uOrder,XMLRead,DOM;
+  Classes, SysUtils,uOrder,XMLRead,DOM,uBaseDbClasses;
 
 function ImportZugferdInvoice(aOrder : TOrder;aFile : string) : Boolean;
 
@@ -37,6 +37,7 @@ var
   aTmp: TDOMNode;
   aTmpS: DOMString;
   i: Integer;
+  a: Integer;
 
   procedure CombineFields(aData : TBaseDbDataSet;aNode : TDOMNode;aZField : string;aDBField : string);
   var

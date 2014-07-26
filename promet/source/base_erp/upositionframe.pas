@@ -98,6 +98,7 @@ type
     procedure acRefreshExecute(Sender: TObject);
     procedure acRenumberExecute(Sender: TObject);
     procedure acSearchArticleExecute(Sender: TObject);
+    procedure acSumExecute(Sender: TObject);
     procedure ActiveSearchEndItemSearch(Sender: TObject);
     procedure ActiveSearchItemFound(aIdent: string; aName: string;
       aStatus: string;aActive : Boolean; aLink: string;aPrio : Integer; aItem: TBaseDBList=nil);
@@ -288,7 +289,7 @@ begin
               First;
               while not Eof do
                 begin
-                  FGridView.Columns[i].PickList.Add(Format('%s',[FieldByName('NAME').AsString]));
+                  FGridView.Columns[i].PickList.Add(Format('%-2s%s',[FieldByName('NAME').AsString,FieldByName('TEXT').AsString]));
                   next;
                 end;
             end;
@@ -517,6 +518,22 @@ begin
   fSearch.Execute(True,'POSITION',strSearchFromOrder);
   fSearch.SetLanguage;
 end;
+
+procedure TfPosition.acSumExecute(Sender: TObject);
+var
+  aPos: TPositionTyp;
+begin
+  aPos := TPositionTyp.Create(nil,Data);
+  aPos.Open;
+  if aPos.DataSet.Locate('TYPE',4,[loCaseInsensitive]) then
+    begin
+      Dataset.Insert;
+      DataSet.FieldByName('POSTYP').AsString:=aPos.FieldByName('NAME').AsString;
+      Dataset.Post;
+    end;
+  aPos.Free;
+end;
+
 procedure TfPosition.ActiveSearchEndItemSearch(Sender: TObject);
 begin
   if not ActiveSearch.Active then
@@ -905,4 +922,4 @@ begin
 end;
 
 end.
-
+

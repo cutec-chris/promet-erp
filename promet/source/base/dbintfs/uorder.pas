@@ -635,18 +635,33 @@ begin
   Positions.First;
   while not Positions.EOF do
     begin
-      aPos += Positions.FieldByName('POSPRICE').AsFloat;
-      aGrossPos += Positions.FieldByName('GROSSPRICE').AsFloat;
-      with BaseApplication as IBaseDbInterface do
+      if  (Positions.PosTypDec<>4)  //Only Positions that should calculated
+      and (Positions.PosTypDec<>1)
+      and (Positions.PosTypDec<>2)
+      and (Positions.PosTypDec<>3)
+      and (Positions.PosTypDec<>5)
+      then
         begin
-          if not Data.Vat.DataSet.Active then
-            Data.Vat.Open;
-          Data.Vat.DataSet.Locate('ID',VarArrayof([Positions.FieldByName('VAT').AsString]),[]);
-          if Data.Vat.FieldByName('ID').AsInteger=1 then
-            aVatV += Positions.FieldByName('GROSSPRICE').AsFloat-Positions.FieldByName('POSPRICE').AsFloat
-          else
-            aVatH += Positions.FieldByName('GROSSPRICE').AsFloat-Positions.FieldByName('POSPRICE').AsFloat;
+          aPos += Positions.FieldByName('POSPRICE').AsFloat;
+          aGrossPos += Positions.FieldByName('GROSSPRICE').AsFloat;
+          with BaseApplication as IBaseDbInterface do
+            begin
+              if not Data.Vat.DataSet.Active then
+                Data.Vat.Open;
+              Data.Vat.DataSet.Locate('ID',VarArrayof([Positions.FieldByName('VAT').AsString]),[]);
+              if Data.Vat.FieldByName('ID').AsInteger=1 then
+                aVatV += Positions.FieldByName('GROSSPRICE').AsFloat-Positions.FieldByName('POSPRICE').AsFloat
+              else
+                aVatH += Positions.FieldByName('GROSSPRICE').AsFloat-Positions.FieldByName('POSPRICE').AsFloat;
+            end;
         end;
+          if Positions.PosTypDec=4 then //Subtotal
+            begin
+              Positions.Edit;
+              Positions.FieldByName('POSPRICE').AsFloat := aPos;
+              Positions.FieldByName('GROSSPRICE').AsFloat := aGrossPos;
+              Positions.Post;
+            end;
       Positions.Next;
     end;
   if not CanEdit then DataSet.Edit;

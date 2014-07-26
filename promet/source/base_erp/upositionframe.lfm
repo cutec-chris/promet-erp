@@ -785,13 +785,13 @@ object fPosition: TfPosition
     Visible = False
     object lbResults: TListBox
       Left = 0
-      Height = 72
+      Height = 68
       Top = 0
-      Width = 424
+      Width = 420
       Align = alClient
       ItemHeight = 0
       OnDblClick = lbResultsDblClick
-      ScrollWidth = 422
+      ScrollWidth = 418
       TabOrder = 0
       TabStop = False
       TopIndex = -1
@@ -867,6 +867,7 @@ object fPosition: TfPosition
       Caption = 'Zwischensumme'
       Hint = 'Zwischensummenposition einfügen'
       ImageIndex = 116
+      OnExecute = acSumExecute
     end
     object acDiscount: TAction
       Caption = 'Rabattposition'
