@@ -133,6 +133,9 @@ type
   end;
   TOnGetStorageEvent = function(Sender : TOrder;aStorage : TStorage) : Boolean of object;
   TOnGetSerialEvent = function(Sender : TOrder;aMasterdata : TMasterdata;aQuantity : Integer) : Boolean of object;
+
+  { TOrder }
+
   TOrder = class(TOrderList,IPostableDataSet,IShipableDataSet)
   private
     FFailMessage: string;
@@ -142,6 +145,7 @@ type
     FOrderAddress: TOrderAddress;
     FOrderPos: TOrderPos;
     fOrigId : string;
+    function GetCommission: TField;
   public
     constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
@@ -152,6 +156,7 @@ type
     procedure RefreshActive;
     procedure CascadicPost;override;
     procedure CascadicCancel;override;
+    property Commission : TField read GetCommission;
     property Address : TOrderAddress read FOrderAddress;
     property Positions : TOrderPos read FOrderPos;
     property Links : TOrderLinks read FLinks;
@@ -466,6 +471,12 @@ begin
           end;
     end;
 end;
+
+function TOrder.GetCommission: TField;
+begin
+  result := FieldByName('COMMISSION');
+end;
+
 constructor TOrder.Create(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
   aMasterdata: TDataSet);
 begin
@@ -1552,4 +1563,4 @@ begin
 end;
 initialization
 end.
-
+

@@ -52,12 +52,16 @@
         <PackageName Value="LCL"/>
       </Item5>
     </RequiredPackages>
-    <Units Count="1">
+    <Units Count="2">
       <Unit0>
         <Filename Value="consoletest.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="consoletest"/>
       </Unit0>
+      <Unit1>
+        <Filename Value="utzugferd.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="utzugferd"/>
+      </Unit1>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -83,11 +87,9 @@
     <Other>
       <CompilerMessages>
         <IgnoredMessages idx5024="True"/>
-        <UseMsgFile Value="True"/>
       </CompilerMessages>
       <CustomOptions Value="-dHASREPORTS
 -dSTATISTICS"/>
-      <CompilerPath Value="$(CompPath)"/>
     </Other>
   </CompilerOptions>
   <Debugging>

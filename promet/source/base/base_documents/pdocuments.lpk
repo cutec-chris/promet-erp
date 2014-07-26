@@ -7,14 +7,8 @@
       <SearchPaths>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
       </SearchPaths>
-      <Other>
-        <CompilerMessages>
-          <MsgFileName Value=""/>
-        </CompilerMessages>
-        <CompilerPath Value="$(CompPath)"/>
-      </Other>
     </CompilerOptions>
-    <Files Count="29">
+    <Files Count="30">
       <Item1>
         <Filename Value="udocproperties.lfm"/>
         <Type Value="LFM"/>
@@ -131,6 +125,10 @@
         <Filename Value="usyneditfiler.pas"/>
         <UnitName Value="uSynEditFiler"/>
       </Item29>
+      <Item30>
+        <Filename Value="uzugferd.pas"/>
+        <UnitName Value="uzugferd"/>
+      </Item30>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="5">

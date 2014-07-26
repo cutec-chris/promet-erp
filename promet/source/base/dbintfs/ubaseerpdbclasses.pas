@@ -611,6 +611,7 @@ begin
           begin
             Add('NAME',ftString,3,True);
             Add('TYPE',ftString,1,True);
+            Add('TEXT',ftString,60,False);
           end;
     end;
 end;
@@ -770,7 +771,9 @@ begin
     if not ((State = dsInsert) or (State = dsEdit)) then
       DataSet.Edit;
     if (GetPosTypDec = 1)
-    or (GetPosTypDec = 2) then
+    or (GetPosTypDec = 2)
+    or (GetPosTypDec = 4)
+    then
       DataSet.FieldByName('POSPRICE').AsFloat := 0
     else
       DataSet.FieldByName('POSPRICE').AsFloat := InternalRound(tmp);

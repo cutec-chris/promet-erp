@@ -42,11 +42,14 @@ type
     acRenumber: TAction;
     acAddfromArticle: TAction;
     acPermanentEditorMode: TAction;
+    acSum: TAction;
+    acDiscount: TAction;
     acUnMakeSebPos: TAction;
     ActionList1: TActionList;
     bAddPos: TSpeedButton;
     bAddPos1: TSpeedButton;
     bDeletePos: TSpeedButton;
+    bDeletePos7: TSpeedButton;
     bLvlDown: TSpeedButton;
     bLvlUp: TSpeedButton;
     bDeletePos6: TSpeedButton;

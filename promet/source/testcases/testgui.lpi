@@ -35,89 +35,80 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="7">
+    <RequiredPackages Count="8">
       <Item1>
-        <PackageName Value="lazmouseandkeyinput"/>
+        <PackageName Value="pdocuments"/>
       </Item1>
       <Item2>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="lazmouseandkeyinput"/>
       </Item2>
       <Item3>
-        <PackageName Value="pVisualPrometApp"/>
+        <PackageName Value="richmemopackage"/>
       </Item3>
       <Item4>
-        <PackageName Value="general"/>
+        <PackageName Value="pVisualPrometApp"/>
       </Item4>
       <Item5>
-        <PackageName Value="FPCUnitTestRunner"/>
+        <PackageName Value="general"/>
       </Item5>
       <Item6>
-        <PackageName Value="LCL"/>
+        <PackageName Value="FPCUnitTestRunner"/>
       </Item6>
       <Item7>
-        <PackageName Value="FCL"/>
+        <PackageName Value="LCL"/>
       </Item7>
+      <Item8>
+        <PackageName Value="FCL"/>
+      </Item8>
     </RequiredPackages>
-    <Units Count="14">
+    <Units Count="15">
       <Unit0>
         <Filename Value="testgui.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="testgui"/>
       </Unit0>
       <Unit1>
         <Filename Value="tlogin.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="tLogin"/>
       </Unit1>
       <Unit2>
         <Filename Value="tlogout.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="tlogout"/>
       </Unit2>
       <Unit3>
         <Filename Value="tmemoryleak.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="tmemoryleak"/>
       </Unit3>
       <Unit4>
         <Filename Value="utransaction.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="utransaction"/>
       </Unit4>
       <Unit5>
         <Filename Value="utfulllogout.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="utfulllogout"/>
       </Unit5>
       <Unit6>
         <Filename Value="ucreatetable.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ucreatetable"/>
       </Unit6>
       <Unit7>
         <Filename Value="udocumentmanagement.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="udocumentmanagement"/>
       </Unit7>
       <Unit8>
         <Filename Value="ulinkcheck.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ulinkcheck"/>
       </Unit8>
       <Unit9>
         <Filename Value="upersontest.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="upersontest"/>
       </Unit9>
       <Unit10>
         <Filename Value="umasterdatatest.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="umasterdatatest"/>
       </Unit10>
       <Unit11>
         <Filename Value="uprojecttest.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uprojecttest"/>
       </Unit11>
       <Unit12>
         <Filename Value="uordertest.pas"/>
@@ -129,6 +120,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="utgridview"/>
       </Unit13>
+      <Unit14>
+        <Filename Value="utzugferd.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="utzugferd"/>
+      </Unit14>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -149,11 +145,7 @@
       </Options>
     </Linking>
     <Other>
-      <CompilerMessages>
-        <UseMsgFile Value="True"/>
-      </CompilerMessages>
       <CustomOptions Value="-dUSEFORM"/>
-      <CompilerPath Value="$(CompPath)"/>
     </Other>
   </CompilerOptions>
   <Debugging>

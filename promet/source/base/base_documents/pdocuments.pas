@@ -9,7 +9,8 @@ interface
 uses
   uDocProperties, uDocumentAcquire, uDocumentAction, uDocumentAddOptions, 
   uDocumentCheckin, uDocumentFrame, uDocumentOptions, uMimeTypeEdit, 
-  uPreviewFrame, uSelectTemplate, ueditor, uSynEditFiler, LazarusPackageIntf;
+  uPreviewFrame, uSelectTemplate, ueditor, uSynEditFiler, uzugferd, 
+  LazarusPackageIntf;
 
 implementation
 

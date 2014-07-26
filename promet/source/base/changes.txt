@@ -1,4 +1,8 @@
-﻿Build 362
+﻿Build 363
+      - Aufgaben:Speichern/Abbrechen Knopf die Persönlichen Aufgben werden nun innerhalb einer Transaktion bearbeitet und alle Änderungen können zusamen bestätigt/abgebrochen werden
+      - erste Version einer MySQL Unterstützung (möglicherweise noch instabil)
+      - Nachrichtenzentrale:Modus in dem Das Eingabefeld unten ist (Ähnlich Instant Messangern)
+Build 362
       - Aufgaben:wiedereröffnen einer Aufgabe öffnet alle abhängigen Aufgaben
       - Aufgaben:löschen einer Aufgabe löscht alle Abhängigkeiten auf die Aufgabe
       - Generische Synchronisation: Einträge die bei anderen Benutzern synchronisiert werden werden von der Sync ausgenommen
