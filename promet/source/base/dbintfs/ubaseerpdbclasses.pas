@@ -73,6 +73,9 @@ type
     procedure DefineFields(aDataSet : TDataSet);override;
     property Position : TBaseDBPosition read FPosition;
   end;
+
+  { TBaseDBPosition }
+
   TBaseDBPosition = class(TBaseDbDataSet)
     procedure DataSetAfterCancel(aDataSet: TDataSet);
     procedure DataSetAfterDelete(aDataSet: TDataSet);
@@ -132,6 +135,7 @@ type
     procedure DisableCalculation;
     procedure EnableCalculation;
     function IsCalculationDisabled : Boolean;
+    procedure AppendSubTotal;
     //Fields
     property PosNo : TField read GetPosNo;
     property Shorttext : TField read GetShorttext;
@@ -196,6 +200,7 @@ resourcestring
   strEdited                        = 'bearbeitet';
   strCreated                       = 'erstellt';
   strStorageTypes                  = 'Lagertypen';
+  strSubTotal                      = 'Zwischensumme';
 function InternalRound(Value: Extended): Extended;
 var
   multi,nValue: Extended;
@@ -1272,6 +1277,23 @@ function TBaseDBPosition.IsCalculationDisabled: Boolean;
 begin
   Result := FCalculationDisabled > 0;
 end;
+
+procedure TBaseDBPosition.AppendSubTotal;
+var
+  aPos: TPositionTyp;
+begin
+  aPos := TPositionTyp.Create(nil,DataModule,Connection);
+  aPos.Open;
+  if aPos.DataSet.Locate('TYPE',4,[loCaseInsensitive]) then
+    begin
+      Dataset.Insert;
+      DataSet.FieldByName('POSTYP').AsString:=aPos.FieldByName('NAME').AsString;
+      DataSet.FieldByName('SHORTTEXT').AsString:=strSubTotal;
+      Dataset.Post;
+    end;
+  aPos.Free;
+end;
+
 procedure TPaymentTargets.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do

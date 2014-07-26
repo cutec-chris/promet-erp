@@ -523,15 +523,8 @@ procedure TfPosition.acSumExecute(Sender: TObject);
 var
   aPos: TPositionTyp;
 begin
-  aPos := TPositionTyp.Create(nil,Data);
-  aPos.Open;
-  if aPos.DataSet.Locate('TYPE',4,[loCaseInsensitive]) then
-    begin
-      Dataset.Insert;
-      DataSet.FieldByName('POSTYP').AsString:=aPos.FieldByName('NAME').AsString;
-      Dataset.Post;
-    end;
-  aPos.Free;
+  TBaseDBPosition(DataSet).AppendSubTotal;
+  FGridView.Refresh;
 end;
 
 procedure TfPosition.ActiveSearchEndItemSearch(Sender: TObject);
