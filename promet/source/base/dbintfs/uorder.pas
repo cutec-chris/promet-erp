@@ -85,7 +85,7 @@ type
   private
     FOrder: TOrder;
     FOrderRepair: TOrderRepair;
-    FQMTest: TorderQMTest;
+    FQMTest: TOrderQMTest;
   protected
     function GetAccountNo : string;override;
     procedure PosPriceChanged(aPosDiff,aGrossDiff :Extended);override;

@@ -904,7 +904,7 @@ begin
             Add('WEIGHT',ftFloat,0,False);
             Add('UNIT',ftInteger,0,False);     //Verpackungseinheit
             Add('WARRENTY',ftString,10,False);
-            Add('MANUFACNR',ftString,20,False);
+            Add('MANUFACNR',ftString,40,False);
             Add('VALIDFROM',ftDate,0,False);   //Ein/Auslaufsteuerung
             Add('VALIDTO',ftDate,0,False);     //gültig bis Datum
             Add('VALIDTOME',ftInteger,0,False);//gültig bis Menge
@@ -987,4 +987,4 @@ begin
 end;
 initialization
 end.
-
+

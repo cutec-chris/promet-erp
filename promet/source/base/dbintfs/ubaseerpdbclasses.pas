@@ -1111,6 +1111,7 @@ begin
             Add('TEXT',ftMemo,0,False);
             Add('STORAGE',ftString,3,False);                //Lagerentname
             Add('SERIAL',ftString,20,False);                //Serienummer
+            Add('MANUFACNR',ftString,40,False);
             Add('WEIGHT',ftFloat,0,False);
             Add('AVALIBLE',ftFloat,0,False);                //verfügbar
             Add('DELIVERY',ftDate,0,False);                 //wann verfügbar
@@ -1168,6 +1169,7 @@ var
     DataSet.FieldByName('VERSION').AsVariant := Masterdata.FieldByName('VERSION').AsVariant;
     DataSet.FieldByName('LANGUAGE').AsVariant := MasterData.FieldByName('LANGUAGE').AsVariant;
     DataSet.FieldByName('SHORTTEXT').AsString := MasterData.FieldByName('SHORTTEXT').AsString;
+    DataSet.FieldByName('MANUFACNR').AsString := MasterData.FieldByName('MANUFACNR').AsString;
     DataSet.FieldByName('QUANTITY').AsFloat := Quantity;
     DataSet.FieldByName('WEIGHT').AsFloat := MasterData.FieldByName('WEIGHT').AsFloat;
     DataSet.FieldByName('QUANTITYU').AsString := MasterData.FieldByName('QUANTITYU').AsString;
