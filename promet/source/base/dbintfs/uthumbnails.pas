@@ -121,7 +121,6 @@ begin
   aFStream.CopyFrom(aFullStream,aFullStream.Size);
   aFStream.Free;
   Result := GenerateThumbNail(aName,aFilename,aStream,aText,aWidth,aHeight);
-  SysUtils.DeleteFile(aFileName);
 end;
 
 function GenerateThumbNail(aName: string; aFileName: string; aStream: TStream;
@@ -149,6 +148,7 @@ var
   y: Integer;
   LineHeight: Extended;
   Printer: TFPImageCanvas;
+  aOldPos: Int64;
   function ConvertExec(aCmd,aExt : string) : Boolean;
   begin
     aProcess := TProcessUTF8.Create(nil);
@@ -237,7 +237,9 @@ begin
         iOut := ThumbResize(Img, aWidth, aHeight, area);
         wr := TFPWriterJPEG.Create;
         wr.ProgressiveEncoding:=True;
+        aOldPos:=aStream.Position;
         iOut.SaveToStream(aStream,wr);
+        aStream.Position:=aOldPos;
         wr.Free;
         iOut.Free;
         Img.Free;
@@ -275,7 +277,9 @@ begin
       sl.Free;
       wr := TFPWriterJPEG.Create;
       wr.ProgressiveEncoding:=True;
+      aOldPos := aStream.Position;
       Img.SaveToStream(aStream,wr);
+      aStream.Position:=aOldPos;
       wr.Free;
       Img.Free;
       Printer.Free;

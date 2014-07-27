@@ -307,6 +307,7 @@ begin
         end;
       if aFullStream.Size=0 then
         aDocument.CheckoutToStream(aFullStream);
+      aFullStream.Position:=0;
       SetParamsFromExif(extn,aFullStream);
       if FieldByName('ORIGDATE').IsNull then
         FieldByName('ORIGDATE').AsDateTime:=aDocument.FieldByName('DATE').AsDateTime;

@@ -1407,6 +1407,7 @@ begin
           aFullStream := TMemoryStream.Create;
           aStream := TMemoryStream.Create;
           aDocument.CheckoutToStream(aFullStream);
+          aFullStream.Position:=0;
           aSStream := TStringStream.Create('');
           Data.BlobFieldToStream(aDocument.DataSet,'FULLTEXT',aSStream);
           if GenerateThumbNail(ExtractFileExt(aDocument.FileName),aFullStream,aStream,aSStream.DataString) then
