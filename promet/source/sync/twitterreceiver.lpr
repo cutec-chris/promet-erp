@@ -150,6 +150,7 @@ var
   asource: string;
   CustomerCont: TPersonContactData;
   uid: string;
+  IsSubItem: Boolean;
 begin
   omailaccounts := '';
   mailaccounts := '';
@@ -217,8 +218,6 @@ begin
                                 author := TJSONObject(TJSONObject(aData).Elements['user']).Elements['name'].AsString
                               else author := '';
                               author := ConvertEncoding(author,GuessEncoding(author),encodingUTF8);
-                              if pos('fefe',lowercase(author))>0 then
-                                writeln('FEFE!!!');
                               if trim(text) <> '' then
                                 begin
                                   if Assigned(TJSONObject(aData).Elements['id']) then
@@ -250,7 +249,10 @@ begin
                                       Customers := TPerson.Create(Self,Data);
                                       Data.SetFilter(Customers,'"ACCOUNTNO"='+Data.QuoteValue(CustomerCont.DataSet.FieldByName('ACCOUNTNO').AsString));
                                       CustomerCont.Free;
-                                      if Customers.Count = 0 then
+                                      if aRef<>'' then
+                                        Data.SetFilter(aHist,Data.QuoteField('REFOBJECT')+'='+Data.QuoteValue(aRef));
+                                      IsSubItem := (aRef='') or ((aHist.Count=0) and (nothingimported>5));
+                                      if (Customers.Count = 0) and (not IsSubItem) then
                                         begin
                                           //Add Customer
                                           Customers.Insert;
@@ -269,13 +271,13 @@ begin
                                               Data.Users.Follows.Post;
                                             end;
                                         end;
-                                      Customers.History.Open;
-                                      with Customers.History.DataSet as IBaseManageDB do
-                                        UpdateStdFields := False;
-
-                                      if aRef<>'' then
-                                        Data.SetFilter(aHist,Data.QuoteField('REFOBJECT')+'='+Data.QuoteValue(aRef));
-                                      if (aRef='') or ((aHist.Count=0) and (nothingimported>5)) then
+                                      if Customers.Count>0 then
+                                        begin
+                                          Customers.History.Open;
+                                          with Customers.History.DataSet as IBaseManageDB do
+                                            UpdateStdFields := False;
+                                        end;
+                                      if IsSubItem then
                                         begin
                                           inc(Retry,6);
                                           Somethingimported:=True;

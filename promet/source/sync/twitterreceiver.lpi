@@ -51,7 +51,6 @@
       <Unit0>
         <Filename Value="twitterreceiver.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="twitterreceiver"/>
       </Unit0>
     </Units>
   </ProjectOptions>
@@ -76,12 +75,6 @@
         <UseExternalDbgSyms Value="True"/>
       </Debugging>
     </Linking>
-    <Other>
-      <CompilerMessages>
-        <UseMsgFile Value="True"/>
-      </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="3">
