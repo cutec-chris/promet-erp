@@ -55,7 +55,6 @@
       <Unit0>
         <Filename Value="import_document.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="import_document"/>
       </Unit0>
     </Units>
   </ProjectOptions>
@@ -80,9 +79,6 @@
         <UseExternalDbgSyms Value="True"/>
       </Debugging>
     </Linking>
-    <Other>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="2">

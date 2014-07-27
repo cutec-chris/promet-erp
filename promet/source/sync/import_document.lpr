@@ -156,7 +156,13 @@ begin
           DoOCRonActualDoc;
 
           aDocPage.Free;
-          DeleteFileUTF8(aFolder+AInfo.Name);
+          writeln('deleting File '+AInfo.Name);
+          if not DeleteFileUTF8(aFolder+AInfo.Name) then
+            begin
+              writeln('error deleting File '+AInfo.Name);
+              Terminate;
+              exit;
+            end;
           FindCloseUTF8(AInfo);
         end;
     end;

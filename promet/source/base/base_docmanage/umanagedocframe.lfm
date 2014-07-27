@@ -1375,6 +1375,7 @@ inherited fManageDocFrame: TfManageDocFrame
     end
     object acRebuildThumb: TAction
       Caption = 'Thumbnail erneuern'
+      ImageIndex = 79
       OnExecute = acRebuildThumbExecute
     end
     object acEdit: TAction

@@ -1031,6 +1031,7 @@ begin
                   aFullStream.Position:=0;
                   Img.SaveToStream(aFullStream,wr);
                   wr.Free;
+                  aFullStream.Position:=0;
                   aDoc.CheckInFromStream(aFullStream);
                   aDoc.Free;
                   aFullStream.Free;
@@ -1148,6 +1149,7 @@ begin
                   aFullStream.Position:=0;
                   Img2.SaveToStream(aFullStream,wr);
                   wr.Free;
+                  aFullStream.Position:=0;
                   aDoc.CheckInFromStream(aFullStream);
                   aDoc.Free;
                   aFullStream.Free;
