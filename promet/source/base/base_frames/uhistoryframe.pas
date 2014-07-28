@@ -287,6 +287,11 @@ begin
     end;
 end;
 procedure TfHistoryFrame.acAddExecute(Sender: TObject);
+var
+  i: Integer;
+  aClass: TBaseDBDatasetClass;
+  aObj: TBaseDBDataset;
+  aHist : IBaseHistory;
 begin
   if fHistoryAddItem.Execute then
     begin
@@ -294,9 +299,26 @@ begin
         TBaseHistory(DataSet).AddItem(Data.Users.DataSet,fHistoryAddItem.eAction.Text,'',fHistoryAddItem.eReference.Text,TBaseHistory(DataSet).Parent.DataSet,ACICON_USEREDITED,'',True,True)
       else
         TBaseHistory(DataSet).AddItem(Data.Users.DataSet,fHistoryAddItem.eAction.Text,'',fHistoryAddItem.eReference.Text,nil,ACICON_USEREDITED,'',True,True);
+      for i := 0 to fHistoryAddItem.lbAdditional.Count-1 do
+        if Data.DataSetFromLink(fHistoryAddItem.lbAdditional.Items[i],aClass) then
+          begin
+            aObj := aClass.Create(nil, Data);
+            if aObj is TBaseDbList then
+              begin
+                TBaseDBList(aObj).SelectFromLink(fHistoryAddItem.lbAdditional.Items[i]);
+                aObj.Open;
+                if aObj.Count>0 then
+                  begin
+                    if Supports(aObj,IBaseHistory,aHist) then
+                      aHist.History.AddItem(Data.Users.DataSet,fHistoryAddItem.eAction.Text,'',fHistoryAddItem.eReference.Text,nil,ACICON_USEREDITED,'',True,True);
+                  end;
+              end;
+            aObj.Free;
+          end;
       FTimeLine.Refresh;
       if Assigned(FOnAddUserMessage) then
         FOnAddUserMessage(fHistoryAddItem);
+      fHistoryAddItem.lbAdditional.Clear;
     end;
 end;
 procedure TfHistoryFrame.aButtonClick(Sender: TObject);
