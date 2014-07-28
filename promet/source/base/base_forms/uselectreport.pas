@@ -289,7 +289,7 @@ begin
   tmp := tmp+cbInfo.Text+';';
   tmp := tmp+IntToStr(eCopies.Value)+';';
   with Application as IBaseDBInterface do
-    tmp := DBConfig.ReadString('REPORTD:'+Data.Reports.Id.AsString,tmp,'');
+    tmp := DBConfig.ReadString('REPORTD:'+Data.Reports.Id.AsString,tmp);
   cbPrinter.ItemIndex := cbPrinter.Items.IndexOf(copy(tmp,0,pos(';',tmp)-1));
   tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
   tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
@@ -308,7 +308,7 @@ begin
   tmp := tmp+IntToStr(eCopies.Value)+';';
   try
     with Application as IBaseDBInterface do
-      DBConfig.WriteString('REPORTD:'+Data.Reports.Id.AsString,tmp,'');
+      DBConfig.WriteString('REPORTD:'+Data.Reports.Id.AsString,tmp);
   except
   end;
 end;
