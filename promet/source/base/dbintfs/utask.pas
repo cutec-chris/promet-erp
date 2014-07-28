@@ -41,12 +41,14 @@ type
     property PlanTime : Double read FPlan write FPlan;
   end;
   TTaskList = class(TBaseERPList,IBaseHistory)
+    procedure DataSetAfterCancel(aDataSet: TDataSet);
     procedure DataSetAfterPost(aDataSet: TDataSet);
     procedure DataSetBeforeDelete(aDataSet: TDataSet);
     procedure FDSDataChange(Sender: TObject; Field: TField);
   private
     FAddProjectOnPost : Boolean;
     FCompletedChanged : Boolean;
+    FCheckedChanged : Boolean;
     FAddSummaryOnPost : Boolean;
     FDueDateChanged: Boolean;
     FHistory: TBaseHistory;
@@ -794,6 +796,16 @@ begin
   FDS.Enabled:=False;
   FDS.DataSet := nil;
 end;
+
+procedure TTaskList.DataSetAfterCancel(aDataSet: TDataSet);
+begin
+  FCheckedChanged:=False;
+  FCompletedChanged:=False;
+  FAddProjectOnPost:=False;
+  FAddProjectOnPost:=false;
+  FDueDateChanged:=False;
+end;
+
 procedure TTaskList.DataSetAfterPost(aDataSet: TDataSet);
 var
   aParent: TTask;
@@ -940,6 +952,22 @@ begin
       //Check Parent Task
       DataSet.EnableControls;
     end;
+  if FCheckedChanged then
+    begin
+      DataSet.DisableControls;
+      if not History.DataSet.Active then History.Open;
+      History.AddItem(Self.DataSet,strTaskChecked,Data.BuildLink(FDS.DataSet),'',nil,ACICON_STATUSCH);
+      if DataSet.FieldByName('USER').AsString<>DataSet.FieldByName('OWNER').AsString then
+        begin
+          aUser := TUser.Create(Self,Data,Connection);
+          aUser.SelectByAccountno(DataSet.FieldByName('USER').AsString);
+          aUser.Open;
+          if aUser.Count>0 then
+            aUser.History.AddItem(Self.DataSet,Format(strTaskSChecked,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',nil,ACICON_TASKCLOSED);
+          aUser.Free;
+        end;
+      DataSet.EnableControls;
+    end;
   if DoCheckTask then
     begin
       if not DataSet.FieldByName('PARENT').IsNull then
@@ -1004,6 +1032,11 @@ begin
         end;
       FDueDateChanged:=False;
     end;
+  FCheckedChanged:=False;
+  FCompletedChanged:=False;
+  FAddProjectOnPost:=False;
+  FAddProjectOnPost:=false;
+  FDueDateChanged:=False;
 end;
 procedure TTaskList.DataSetBeforeDelete(aDataSet: TDataSet);
 var
@@ -1109,19 +1142,7 @@ begin
     end
   else if (Field.FieldName='CHECKED') and (Field.AsString='Y') then
     begin
-      DataSet.DisableControls;
-      if not History.DataSet.Active then History.Open;
-      History.AddItem(Self.DataSet,strTaskChecked,Data.BuildLink(FDS.DataSet),'',nil,ACICON_STATUSCH);
-      if DataSet.FieldByName('USER').AsString<>DataSet.FieldByName('OWNER').AsString then
-        begin
-          aUser := TUser.Create(Self,Data,Connection);
-          aUser.SelectByAccountno(DataSet.FieldByName('USER').AsString);
-          aUser.Open;
-          if aUser.Count>0 then
-            aUser.History.AddItem(Self.DataSet,Format(strTaskSChecked,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',nil,ACICON_TASKCLOSED);
-          aUser.Free;
-        end;
-      DataSet.EnableControls;
+      FCheckedChanged := True;
     end
   else if (Field.FieldName='SUMMARY') then
     begin
@@ -1435,11 +1456,14 @@ begin
   FAddSummaryOnPost:=false;
   FDueDateChanged:=False;
   DoCheckTask:=False;
+  FCheckedChanged:=False;
+  FCompletedChanged:=False;
   FDS := TDataSource.Create(Self);
   FDS.DataSet := DataSet;
   FDS.OnDataChange:=@FDSDataChange;
   DataSet.AfterPost:=@DataSetAfterPost;
   DataSet.BeforeDelete:=@DataSetBeforeDelete;
+  DataSet.AfterCancel:=@DataSetAfterCancel;
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do

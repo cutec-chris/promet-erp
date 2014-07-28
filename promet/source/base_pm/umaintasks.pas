@@ -61,7 +61,7 @@ constructor TfMainTaskFrame.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   FTasks := TfTaskFrame.Create(Self);
-  fTasks.UseTransactions := True;
+  //fTasks.UseTransactions := True;
   FTasks.GridView.TreeField := 'LPARENT';
   FTasks.Parent := Self;
   fTasks.Align:=alClient;
