@@ -817,6 +817,7 @@ var
   i: Integer;
 begin
   FEditAble := Editable;
+  acAddfromArticle.Enabled:=Editable;
   acDelPos.Enabled := Editable;
   acAddPos.Enabled := Editable;
   acMakeSubPos.Enabled:=Editable;
@@ -915,4 +916,4 @@ begin
 end;
 
 end.
-
+
