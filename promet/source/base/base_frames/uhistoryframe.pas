@@ -310,10 +310,13 @@ begin
                 if aObj.Count>0 then
                   begin
                     if Supports(aObj,IBaseHistory,aHist) then
-                      aHist.History.AddItem(Data.Users.DataSet,fHistoryAddItem.eAction.Text,'',fHistoryAddItem.eReference.Text,nil,ACICON_USEREDITED,'',True,True);
+                      begin
+                        aHist.History.AddItem(Data.Users.DataSet,fHistoryAddItem.eAction.Text,'',fHistoryAddItem.eReference.Text,nil,ACICON_USEREDITED,'',True,True);
+                        aHist := nil;
+                      end;
                   end;
               end;
-            aObj.Free;
+            aObj.Destroy;
           end;
       FTimeLine.Refresh;
       if Assigned(FOnAddUserMessage) then

@@ -201,9 +201,12 @@ begin
       ActiveSearch.Abort;
       while ActiveSearch.Active do Application.ProcessMessages;
     end;
-  aSearchHist := TSearchHistory.Create(nil,Data);
-  aSearchHist.Add(eContains.Text,GetLink);
-  aSearchHist.Free;
+  if (trim(eContains.Text)<>'') then
+    begin
+      aSearchHist := TSearchHistory.Create(nil,Data);
+      aSearchHist.Add(eContains.Text,GetLink);
+      aSearchHist.Free;
+    end;
  if Assigned(FOpenItem) then
    begin
      if FModal then
