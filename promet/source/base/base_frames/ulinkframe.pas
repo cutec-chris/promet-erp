@@ -174,7 +174,7 @@ begin
             begin
               aDS := nil;
               bLink := Data.BuildLink(DataSet.Parent.DataSet);
-              if Data.DataSetFromLink(bLink,aClass) then
+              if Data.ListDataSetFromLink(aLink,aClass) then
                 begin
                   aDS := TBaseDBList(aClass.Create(nil,Data));
                 end;
@@ -182,15 +182,18 @@ begin
                 begin
                   tBaseDbList(aDS).SelectFromLink(aLink);
                   aDS.Open;
-                  Insert;
-                  FieldByName('RREF_ID').AsVariant:=aDS.Id.AsVariant;
-                  aLinkDesc := Data.GetLinkDesc(bLink);
-                  aIcon := Data.GetLinkIcon(bLink);
-                  FieldByName('LINK').AsString := bLink;
-                  FieldByName('NAME').AsString := aLinkDesc;
-                  FieldByName('ICON').AsInteger := aIcon;
-                  FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
-                  Post;
+                  if aDS.Count>0 then
+                    begin
+                      Insert;
+                      FieldByName('RREF_ID').AsVariant:=aDS.Id.AsVariant;
+                      aLinkDesc := Data.GetLinkDesc(bLink);
+                      aIcon := Data.GetLinkIcon(bLink);
+                      FieldByName('LINK').AsString := bLink;
+                      FieldByName('NAME').AsString := aLinkDesc;
+                      FieldByName('ICON').AsInteger := aIcon;
+                      FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
+                      Post;
+                    end;
                   aDS.Free;
                   DataSet.DataSet.Refresh;
                 end;
@@ -292,7 +295,7 @@ begin
                 begin
                   aDS := nil;
                   bLink := Data.BuildLink(DataSet.Parent.DataSet);
-                  if Data.DataSetFromLink(bLink,aClass) then
+                  if Data.ListDataSetFromLink(aLink,aClass) then
                     begin
                       aDS := TBaseDbList(aClass.Create(nil,Data));
                     end;
@@ -300,15 +303,18 @@ begin
                     begin
                       tBaseDbList(aDS).SelectFromLink(aLink);
                       aDS.Open;
-                      Insert;
-                      FieldByName('RREF_ID').AsVariant:=aDS.Id.AsVariant;
-                      aLinkDesc := Data.GetLinkDesc(bLink);
-                      aIcon := Data.GetLinkIcon(bLink);
-                      FieldByName('LINK').AsString := bLink;
-                      FieldByName('NAME').AsString := aLinkDesc;
-                      FieldByName('ICON').AsInteger := aIcon;
-                      FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
-                      Post;
+                      if aDS.Count>0 then
+                        begin
+                          Insert;
+                          FieldByName('RREF_ID').AsVariant:=aDS.Id.AsVariant;
+                          aLinkDesc := Data.GetLinkDesc(bLink);
+                          aIcon := Data.GetLinkIcon(bLink);
+                          FieldByName('LINK').AsString := bLink;
+                          FieldByName('NAME').AsString := aLinkDesc;
+                          FieldByName('ICON').AsInteger := aIcon;
+                          FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
+                          Post;
+                        end;
                       aDS.Free;
                       DataSet.DataSet.Refresh;
                     end;
@@ -376,6 +382,7 @@ var
   aDS: TBaseDBDataset;
   bLink: String;
 begin
+  aLinks := fSearch.GetLink(True);
   addToLinked := MessageDlg(strAddEntryToLinkedItem,mtInformation,[mbYes,mbNo],0) = mrYes;
   while pos(';',aLinks) > 0 do
     begin
@@ -395,7 +402,7 @@ begin
             begin
               aDS := nil;
               bLink := Data.BuildLink(DataSet.Parent.DataSet);
-              if Data.DataSetFromLink(bLink,aClass) then
+              if Data.ListDataSetFromLink(aLink,aClass) then
                 begin
                   aDS := aClass.Create(nil,Data);
                 end;
@@ -403,15 +410,18 @@ begin
                 begin
                   tBaseDbList(aDS).SelectFromLink(aLink);
                   aDS.Open;
-                  Insert;
-                  FieldByName('RREF_ID').AsVariant:=aDS.Id.AsVariant;
-                  aLinkDesc := Data.GetLinkDesc(bLink);
-                  aIcon := Data.GetLinkIcon(bLink);
-                  FieldByName('LINK').AsString := bLink;
-                  FieldByName('NAME').AsString := aLinkDesc;
-                  FieldByName('ICON').AsInteger := aIcon;
-                  FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
-                  Post;
+                  if aDS.Count>0 then
+                    begin
+                      Insert;
+                      FieldByName('RREF_ID').AsVariant:=aDS.Id.AsVariant;
+                      aLinkDesc := Data.GetLinkDesc(bLink);
+                      aIcon := Data.GetLinkIcon(bLink);
+                      FieldByName('LINK').AsString := bLink;
+                      FieldByName('NAME').AsString := aLinkDesc;
+                      FieldByName('ICON').AsInteger := aIcon;
+                      FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
+                      Post;
+                    end;
                   aDS.Free;
                   DataSet.DataSet.Refresh;
                 end;

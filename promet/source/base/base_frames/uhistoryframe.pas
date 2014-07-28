@@ -300,7 +300,7 @@ begin
       else
         TBaseHistory(DataSet).AddItem(Data.Users.DataSet,fHistoryAddItem.eAction.Text,'',fHistoryAddItem.eReference.Text,nil,ACICON_USEREDITED,'',True,True);
       for i := 0 to fHistoryAddItem.lbAdditional.Count-1 do
-        if Data.DataSetFromLink(fHistoryAddItem.lbAdditional.Items[i],aClass) then
+        if Data.ListDataSetFromLink(fHistoryAddItem.lbAdditional.Items[i],aClass) then
           begin
             aObj := aClass.Create(nil, Data);
             if aObj is TBaseDbList then
