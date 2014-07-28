@@ -822,6 +822,7 @@ begin
   acAddPos.Enabled := Editable;
   acMakeSubPos.Enabled:=Editable;
   acUnMakeSebPos.Enabled:=Editable;
+  acSum.Enabled:=Editable;
   acRenumber.Enabled:=Editable;
   acGotoArticle.Enabled := (Data.Users.Rights.Right('MASTERDATA') > RIGHT_NONE) or (Data.Users.Rights.Right('ARTICLES') > RIGHT_NONE) or (Data.Users.Rights.Right('BENEFITS') > RIGHT_NONE) or (Data.Users.Rights.Right('PARTSLIST') > RIGHT_NONE);
   FGridView.SetRights(Editable);
@@ -916,4 +917,4 @@ begin
 end;
 
 end.
-
+
