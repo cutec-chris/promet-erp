@@ -44,6 +44,7 @@ type
     procedure DataSetAfterCancel(aDataSet: TDataSet);
     procedure DataSetAfterPost(aDataSet: TDataSet);
     procedure DataSetBeforeDelete(aDataSet: TDataSet);
+    procedure DataSetBeforePost(aDataSet: TDataSet);
     procedure FDSDataChange(Sender: TObject; Field: TField);
   private
     FAddProjectOnPost : Boolean;
@@ -810,6 +811,167 @@ procedure TTaskList.DataSetAfterPost(aDataSet: TDataSet);
 var
   aParent: TTask;
   aProject: TProject;
+  aUser: TUser;
+begin
+  if DoCheckTask then
+    begin
+      if not DataSet.FieldByName('PARENT').IsNull then
+        begin
+          aParent := TTask.Create(Self,DataModule,Connection);
+          aParent.Select(DataSet.FieldByName('PARENT').AsVariant);
+          aParent.Open;
+          if aParent.Count > 0 then
+            aParent.CheckChilds;
+          aParent.Free;
+        end;
+      CheckDependTasks;
+      DoCheckTask := False;
+    end;
+  if FAddProjectOnPost then
+    begin
+      if (trim(FDS.DataSet.FieldByName('SUMMARY').AsString)<>'') and (DataSet.Tag<>111) then
+        begin
+          aProject := TProject.Create(Self,Data,Connection);
+          aProject.Select(FDS.DataSet.FieldByName('PROJECTID').AsVariant);
+          aProject.Open;
+          if (aProject.Count>0) then
+            begin
+              History.AddItem(Self.DataSet,strProjectChanged,'',DataSet.FieldByName('PROJECT').AsString,DataSet,ACICON_EDITED);
+              aProject.History.Open;
+              aProject.History.AddItem(aProject.DataSet,Format(strTaskAdded,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',DataSet,ACICON_TASKADDED);
+            end;
+          aProject.Free;
+          FAddProjectOnPost:=False;
+        end;
+    end;
+  if FAddSummaryOnPost then
+    begin
+      DataSet.DisableControls;
+      if not History.DataSet.Active then History.Open;
+      History.AddItem(Self.DataSet,Format(strRenamed,[FDS.DataSet.FieldByName('SUMMARY').AsString]),'','',nil,ACICON_RENAMED);
+      DataSet.EnableControls;
+      FAddSummaryOnPost:=false;
+    end;
+  if FDueDateChanged then
+    begin
+      if (FieldByName('COMPLETED').AsString<>'Y') then
+        begin
+          DataSet.DisableControls;
+          if not History.DataSet.Active then History.Open;
+          History.AddItem(Self.DataSet,Format(strDueDateChanged,[FDS.DataSet.FieldByName('DUEDATE').AsString]),'','',nil,ACICON_DATECHANGED);
+          if (DataSet.FieldByName('CLASS').AsString = 'M') then
+            begin
+              aProject := TProject.Create(Self,Data,Connection);
+              aProject.Select(FDS.DataSet.FieldByName('PROJECTID').AsVariant);
+              aProject.Open;
+              if aProject.Count>0 then
+                begin
+                  aProject.History.Open;
+                  aProject.History.AddItem(aProject.DataSet,Format(strDueDateChanged,[FDS.DataSet.FieldByName('DUEDATE').AsString]),Data.BuildLink(aProject.DataSet),FDS.DataSet.FieldByName('SUMMARY').AsString,nil,ACICON_DATECHANGED);
+                end;
+              aProject.Free;
+            end;
+          if not FDS.DataSet.FieldByName('DUEDATE').IsNull then
+            MoveDependTasks;
+          DataSet.EnableControls;
+        end;
+      FDueDateChanged:=False;
+    end;
+  FCheckedChanged:=False;
+  FCompletedChanged:=False;
+  FAddProjectOnPost:=False;
+  FAddProjectOnPost:=false;
+  FDueDateChanged:=False;
+end;
+procedure TTaskList.DataSetBeforeDelete(aDataSet: TDataSet);
+var
+  aParent: TTask;
+  aTasks: TTaskList;
+  Clean: Boolean;
+  i: Integer;
+  aProject: TProject;
+  aDeps: TDependencies;
+  aTask: TTask;
+begin
+  if trim(FDS.DataSet.FieldByName('SUMMARY').AsString)<>'' then
+    begin
+      //debugln('TasksBeforeDelete:'+FDS.DataSet.FieldByName('SUMMARY').AsString);
+      aProject := TProject.Create(Self,Data,Connection);
+      aProject.Select(FDS.DataSet.FieldByName('PROJECTID').AsVariant);
+      aProject.Open;
+      if (aProject.Count>0) then
+        begin
+          aProject.History.Open;
+          aProject.History.AddItem(aProject.DataSet,Format(strTaskDeleted,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',DataSet,ACICON_TASKCLOSED);
+        end;
+      aProject.Free;
+    end;
+  if  (Data.TriggerExists('TASKS_DEL_CHILD')) then
+    begin
+      //debugln('TasksBeforeDelete:using Trigger');
+      exit;
+    end;
+  aParent := TTask.Create(Self,DataModule,Connection);
+  aParent.Select(DataSet.FieldByName('PARENT').AsVariant);
+  aParent.Open;
+  if aParent.Count > 0 then
+    begin
+      aTasks := TTaskList.Create(Self,DataModule,Connection);
+      aTasks.SelectByParent(aParent.Id.AsVariant);
+      aTasks.Open;
+      if (aTasks.Count = 1)
+      and (aTasks.Id.AsVariant = Self.Id.AsVariant) then
+        begin
+          aParent.DataSet.Edit;
+          aParent.FieldByName('HASCHILDS').AsString:='N';
+          aParent.DataSet.Post;
+        end;
+      Clean := True;
+      for i := 0 to aTasks.Count-1 do
+        begin
+          if (aTasks.FieldByName('CHECKED').AsString = 'N') and (aTasks.Id.AsVariant <> Self.Id.AsVariant) then
+            Clean := False;
+          aTasks.Next;
+        end;
+      if Clean then
+        begin
+          aParent.DataSet.Edit;
+          aParent.FieldByName('CHECKED').AsString:='Y';
+          aParent.DataSet.Post;
+        end;
+      aTasks.Free;
+    end;
+  aParent.Free;
+  //Delete dependencies that points on me
+  aDeps := TDependencies.Create(nil,DataModule);
+  aDeps.SelectByLink(Data.BuildLink(aDataSet));
+  aDeps.Open;
+  Dependencies.Open;
+  while aDeps.Count>0 do
+    begin
+      //connect next and previous Tasks dependencies
+      Dependencies.First;
+      while not Dependencies.EOF do
+        begin
+          aTask := TTask.Create(nil,DataModule,Connection);
+          aTask.Select(aDeps.FieldByName('REF_ID').AsVariant);
+          aTask.Open;
+          if aTask.Count>0 then
+            aTask.Dependencies.Add(Dependencies.FieldByName('LINK').AsString);
+          aTask.Free;
+          Dependencies.Next;
+        end;
+      aDeps.Delete;
+    end;
+  aDeps.Free;
+  while Dependencies.Count>0 do
+    Dependencies.Delete;
+end;
+
+procedure TTaskList.DataSetBeforePost(aDataSet: TDataSet);
+var
+  aParent: TTask;
+  aProject: TProject;
   Informed1: String;
   aUser: TUser;
   Informed2: String;
@@ -968,159 +1130,8 @@ begin
         end;
       DataSet.EnableControls;
     end;
-  if DoCheckTask then
-    begin
-      if not DataSet.FieldByName('PARENT').IsNull then
-        begin
-          aParent := TTask.Create(Self,DataModule,Connection);
-          aParent.Select(DataSet.FieldByName('PARENT').AsVariant);
-          aParent.Open;
-          if aParent.Count > 0 then
-            aParent.CheckChilds;
-          aParent.Free;
-        end;
-      CheckDependTasks;
-      DoCheckTask := False;
-    end;
-  if FAddProjectOnPost then
-    begin
-      if (trim(FDS.DataSet.FieldByName('SUMMARY').AsString)<>'') and (DataSet.Tag<>111) then
-        begin
-          aProject := TProject.Create(Self,Data,Connection);
-          aProject.Select(FDS.DataSet.FieldByName('PROJECTID').AsVariant);
-          aProject.Open;
-          if (aProject.Count>0) then
-            begin
-              History.AddItem(Self.DataSet,strProjectChanged,'',DataSet.FieldByName('PROJECT').AsString,DataSet,ACICON_EDITED);
-              aProject.History.Open;
-              aProject.History.AddItem(aProject.DataSet,Format(strTaskAdded,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',DataSet,ACICON_TASKADDED);
-            end;
-          aProject.Free;
-          FAddProjectOnPost:=False;
-        end;
-    end;
-  if FAddSummaryOnPost then
-    begin
-      DataSet.DisableControls;
-      if not History.DataSet.Active then History.Open;
-      History.AddItem(Self.DataSet,Format(strRenamed,[FDS.DataSet.FieldByName('SUMMARY').AsString]),'','',nil,ACICON_RENAMED);
-      DataSet.EnableControls;
-      FAddSummaryOnPost:=false;
-    end;
-  if FDueDateChanged then
-    begin
-      if (FieldByName('COMPLETED').AsString<>'Y') then
-        begin
-          DataSet.DisableControls;
-          if not History.DataSet.Active then History.Open;
-          History.AddItem(Self.DataSet,Format(strDueDateChanged,[FDS.DataSet.FieldByName('DUEDATE').AsString]),'','',nil,ACICON_DATECHANGED);
-          if (DataSet.FieldByName('CLASS').AsString = 'M') then
-            begin
-              aProject := TProject.Create(Self,Data,Connection);
-              aProject.Select(FDS.DataSet.FieldByName('PROJECTID').AsVariant);
-              aProject.Open;
-              if aProject.Count>0 then
-                begin
-                  aProject.History.Open;
-                  aProject.History.AddItem(aProject.DataSet,Format(strDueDateChanged,[FDS.DataSet.FieldByName('DUEDATE').AsString]),Data.BuildLink(aProject.DataSet),FDS.DataSet.FieldByName('SUMMARY').AsString,nil,ACICON_DATECHANGED);
-                end;
-              aProject.Free;
-            end;
-          if not FDS.DataSet.FieldByName('DUEDATE').IsNull then
-            MoveDependTasks;
-          DataSet.EnableControls;
-        end;
-      FDueDateChanged:=False;
-    end;
   FCheckedChanged:=False;
   FCompletedChanged:=False;
-  FAddProjectOnPost:=False;
-  FAddProjectOnPost:=false;
-  FDueDateChanged:=False;
-end;
-procedure TTaskList.DataSetBeforeDelete(aDataSet: TDataSet);
-var
-  aParent: TTask;
-  aTasks: TTaskList;
-  Clean: Boolean;
-  i: Integer;
-  aProject: TProject;
-  aDeps: TDependencies;
-  aTask: TTask;
-begin
-  if trim(FDS.DataSet.FieldByName('SUMMARY').AsString)<>'' then
-    begin
-      //debugln('TasksBeforeDelete:'+FDS.DataSet.FieldByName('SUMMARY').AsString);
-      aProject := TProject.Create(Self,Data,Connection);
-      aProject.Select(FDS.DataSet.FieldByName('PROJECTID').AsVariant);
-      aProject.Open;
-      if (aProject.Count>0) then
-        begin
-          aProject.History.Open;
-          aProject.History.AddItem(aProject.DataSet,Format(strTaskDeleted,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',DataSet,ACICON_TASKCLOSED);
-        end;
-      aProject.Free;
-    end;
-  if  (Data.TriggerExists('TASKS_DEL_CHILD')) then
-    begin
-      //debugln('TasksBeforeDelete:using Trigger');
-      exit;
-    end;
-  aParent := TTask.Create(Self,DataModule,Connection);
-  aParent.Select(DataSet.FieldByName('PARENT').AsVariant);
-  aParent.Open;
-  if aParent.Count > 0 then
-    begin
-      aTasks := TTaskList.Create(Self,DataModule,Connection);
-      aTasks.SelectByParent(aParent.Id.AsVariant);
-      aTasks.Open;
-      if (aTasks.Count = 1)
-      and (aTasks.Id.AsVariant = Self.Id.AsVariant) then
-        begin
-          aParent.DataSet.Edit;
-          aParent.FieldByName('HASCHILDS').AsString:='N';
-          aParent.DataSet.Post;
-        end;
-      Clean := True;
-      for i := 0 to aTasks.Count-1 do
-        begin
-          if (aTasks.FieldByName('CHECKED').AsString = 'N') and (aTasks.Id.AsVariant <> Self.Id.AsVariant) then
-            Clean := False;
-          aTasks.Next;
-        end;
-      if Clean then
-        begin
-          aParent.DataSet.Edit;
-          aParent.FieldByName('CHECKED').AsString:='Y';
-          aParent.DataSet.Post;
-        end;
-      aTasks.Free;
-    end;
-  aParent.Free;
-  //Delete dependencies that points on me
-  aDeps := TDependencies.Create(nil,DataModule);
-  aDeps.SelectByLink(Data.BuildLink(aDataSet));
-  aDeps.Open;
-  Dependencies.Open;
-  while aDeps.Count>0 do
-    begin
-      //connect next and previous Tasks dependencies
-      Dependencies.First;
-      while not Dependencies.EOF do
-        begin
-          aTask := TTask.Create(nil,DataModule,Connection);
-          aTask.Select(aDeps.FieldByName('REF_ID').AsVariant);
-          aTask.Open;
-          if aTask.Count>0 then
-            aTask.Dependencies.Add(Dependencies.FieldByName('LINK').AsString);
-          aTask.Free;
-          Dependencies.Next;
-        end;
-      aDeps.Delete;
-    end;
-  aDeps.Free;
-  while Dependencies.Count>0 do
-    Dependencies.Delete;
 end;
 
 procedure TTaskList.FDSDataChange(Sender: TObject; Field: TField);
@@ -1464,6 +1475,7 @@ begin
   DataSet.AfterPost:=@DataSetAfterPost;
   DataSet.BeforeDelete:=@DataSetBeforeDelete;
   DataSet.AfterCancel:=@DataSetAfterCancel;
+  DataSet.BeforePost:=@DataSetBeforePost;
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
