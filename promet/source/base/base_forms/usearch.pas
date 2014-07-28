@@ -784,7 +784,10 @@ begin
   for i := 0 to length(aLocations)-1 do
     begin
       cbSearchType.Items.Add(aLocations[i]);
-      cbSearchType.Checked[cbSearchType.Items.Count-1] := True;
+      if (cbSearchType.Items[cbSearchType.Items.Count-1]<>strHistory)
+      and (cbSearchType.Items[cbSearchType.Items.Count-1]<>strUsers)
+      then
+        cbSearchType.Checked[cbSearchType.Items.Count-1] := True;
     end;
   OnValidateItem:=nil;
 end;
